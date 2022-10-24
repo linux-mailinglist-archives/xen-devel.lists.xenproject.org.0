@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64FA60A828
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 15:02:17 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429107.679935 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2356260A8DF
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 15:12:17 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429113.679946 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omx5P-0003O5-49; Mon, 24 Oct 2022 13:01:47 +0000
+	id 1omxF7-0004xM-4h; Mon, 24 Oct 2022 13:11:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429107.679935; Mon, 24 Oct 2022 13:01:47 +0000
+Received: by outflank-mailman (output) from mailman id 429113.679946; Mon, 24 Oct 2022 13:11:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omx5P-0003LJ-01; Mon, 24 Oct 2022 13:01:47 +0000
-Received: by outflank-mailman (input) for mailman id 429107;
- Mon, 24 Oct 2022 13:01:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1omxF7-0004vR-0v; Mon, 24 Oct 2022 13:11:49 +0000
+Received: by outflank-mailman (input) for mailman id 429113;
+ Mon, 24 Oct 2022 13:11:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZViS=2Z=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1omx5N-0003LD-8G
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 13:01:45 +0000
+ id 1omxF5-0004vJ-Dc
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 13:11:47 +0000
 Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2046.outbound.protection.outlook.com [40.107.102.46])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 018512d4-539c-11ed-91b5-6bf2151ebd3b;
- Mon, 24 Oct 2022 15:01:43 +0200 (CEST)
+ (mail-dm6nam04on2040.outbound.protection.outlook.com [40.107.102.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 683bf440-539d-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 15:11:45 +0200 (CEST)
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DM6PR12MB4861.namprd12.prod.outlook.com (2603:10b6:5:1bd::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.25; Mon, 24 Oct
- 2022 13:01:39 +0000
+ by DS7PR12MB6023.namprd12.prod.outlook.com (2603:10b6:8:85::7) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5723.30; Mon, 24 Oct 2022 13:11:41 +0000
 Received: from SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
  ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.026; Mon, 24 Oct 2022
- 13:01:39 +0000
+ 13:11:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,264 +46,210 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 018512d4-539c-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 683bf440-539d-11ed-8fd0-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AhO2evAsDXrD1fO/sq3QQRjYmR7NfAe9bGuZsNY2FHtIADsVA51JN+vwYxygd9Ko8FRZUtzc+/+HoIijbkNsKZ5jbV2cF0uugLtiA4zuOcHFF6Em0Qm4nEHtRv02zAraeApXYJA8vcO/8jJZMCLfd0do3cQ0hdA2M4kDsFlmG7G5hBGoTQhmop6zs4zwHlnUR7nI6J7bBzovagcK2erujHHA0h+WMT+hTdhplq6JmycLgQlV7gbSuMupWnE7A/O/CDEyyo8E3myAYJncczE5l75dS9hb23njzM74ZVRVfv9S7wBOJmF30v9k1XHFADibdwrNx35lF8bsPiZthRWQNg==
+ b=J5d1VlAymniBN9mKVDJBbS5V+tCH+mMI/C3fJkVptyOm8dXFUj089I3HHXGF6yqVkkrXrvkc4epH68R//0SXxMkQvvKoFwYXMx8ZY9RTxGQjIoPuY4psNLXg4E2X/rwg2OfVG0Rj5NnNxMVbwkaWM+KuXySx0rDEzOqL9o86pyj60l1nu5FnYhRq2kADUUwVNXH7WkgKws5IOtBRzg7Epb80cSD/ixcu5lFTOK/7pJWCIZmgN3qoSVkUPf72xXq/OzvGLsqXk1OWh3pYtJckAkfY5unt7QO83aaI+rebv/KlS69wYEtCpaQneoFhlejHp97NZw+23YeWVI0WAXjyNA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5C0oVIfsrAO3fcfHdXqKiEqM1E5j+OU0Oi3+W3RM3Pg=;
- b=IFdYHqKm1UnJR7SRMekCwidNmMCZF6CHInUZdPI74GufGynr7/QvoPPjLfQI3dewiC+kASverC2QrlEhpuKp9lsRDsHGmWddNFm3UyeEgCSDEQeH2GM8qTDjmW9kWdL5w+0cvcoVan4WZjcwPQt3kveY01ohb3+Ms8Jm0XMTKfUpDr2y7y5mFg0A44uS4pajzHAlxTVAJb+g8SHkqwop8zsOD4fpmcOuJIJ58K7ZzCxXgVJdic25FM5Z7nPcEzncBViSVmTBLXOva7PC7UJjCP0mN/3JlXrgZlp/JlNL5WiX88thWkJ0SXmtoyyT53CDWLLdKd/l/syypogd6a1hUg==
+ bh=tBItgm1w+sMKoFUqkZV+1XlL9+Y668dBbVjjrOuktUc=;
+ b=ULfefAMP9L4RFAVuYy7WqSxzdqalJtJtoEiaZYawRF6WrTWHa14MqFOap4a96EYE4f5TdfbNEzT7xxN473Ov0/MpxiIeJKweJv9NcukBDMqAL+tquBdMeMnE0ak1Qr4gkF0DIBoA1ufxhmkulAUpdcMnyuRzJW6C/R6BAoORZmU/wl6sGM2feHfCjm8KV/swxxrJlJqmJPWoEsXzPLhy1KMGr+wOLrM7R4QV3mWmieO17H7tmK/fERKigk/IJTnl4xbc+6/WgeyYMgC0MfWNAZgeM8jyhqXBmkQeHIKzCTIP0wvsDPxniahD1UjB9AwnndTi9h94Fwz0cmKfbnlQRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5C0oVIfsrAO3fcfHdXqKiEqM1E5j+OU0Oi3+W3RM3Pg=;
- b=b0jdF6wJ0AD3FYv4rsTn59n/HwdNdLOb/pAA1KQVYAuAyMC8MLIkG+utKn8uiRCSwlvpgHxj/p0JozYRJdq7zXXi6ywHoOL7Ocbf+IWfqwJUmFe9Efy0LjWGOxV3/7JrUMKIpuNYTc4OprZC5nNR/qO32ztlcC3EI1cMm4QzGW8=
+ bh=tBItgm1w+sMKoFUqkZV+1XlL9+Y668dBbVjjrOuktUc=;
+ b=mqSLbKPOA7ucWAOzNkQQWx1UKuO6MWPE0RPEaFSZnp8OUhMIGcG523lysE6EnAc/MibE1HqB4vcdMSmnnXfFughy1aia7lrwNvE2LS3oMgMJtyTP3ODfVDFrO0EaEOAYxmiGuRTHZrZRCGzpO2Du60M6c2mpKIcFPN/dH9E/aw4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <76f1b4fc-90bd-f55f-5624-f5d011bdaa9f@amd.com>
-Date: Mon, 24 Oct 2022 14:01:33 +0100
+Message-ID: <ba43677f-903b-f30c-76e4-1668cdab2cc2@amd.com>
+Date: Mon, 24 Oct 2022 14:11:35 +0100
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: [RFC PATCH v1 02/12] Arm: GICv3: Move the macros to compute the
- affnity level to arm64/arm32
-To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221021153128.44226-1-ayankuma@amd.com>
- <20221021153128.44226-3-ayankuma@amd.com>
- <cb67c768-1a05-e5d5-efed-9a282c6a8c2a@gmail.com>
- <e0183387-8556-5fcc-2f18-003832d5cd70@amd.com>
- <78306c56-7cdd-a705-f8af-0cae4e359336@gmail.com>
+Subject: Re: [XEN v2] GICv3: Emulate GICD_IGRPMODR as RAZ / WI
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "stefanos@xilinx.com" <stefanos@xilinx.com>, "julien@xen.org"
+ <julien@xen.org>, "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+References: <20221020104146.29841-1-ayankuma@amd.com>
+ <AE2C68A9-4276-444C-B227-F079D330EB8A@arm.com>
 From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <78306c56-7cdd-a705-f8af-0cae4e359336@gmail.com>
+In-Reply-To: <AE2C68A9-4276-444C-B227-F079D330EB8A@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0437.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a9::10) To SN6PR12MB2621.namprd12.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0029.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::9) To SN6PR12MB2621.namprd12.prod.outlook.com
  (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM6PR12MB4861:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3d2e5bd3-31d4-4224-0b2d-08dab5bfe3de
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DS7PR12MB6023:EE_
+X-MS-Office365-Filtering-Correlation-Id: 779faba5-8a43-425d-316e-08dab5c14a9b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	cUTBDiE0800y5MtTtONZat2q0G3fuhoro5P1iqVMCWaw8hwkIaXEI7TuOH4KmN5I+aErPdzB8UGPy2ZkqIAcvAxQJKtvUzVzn3do4LB2eEY2NTerUULO5UVzhqqo9C/fcu1lLT+A/ymP7TEWBQ0TIpVmEH8YIjDO6EADGKZi+vV840ecn4Qdb+9LC3kQBdNxXaIkQ0+PYFYQkNHB6ZG8iC86j+9zAzYrrXJ4pKofTGgiuokDwV+b10GQftWOquH+hIDJqwQlZOsyG7hkhNsj6fd/p2JudTFYTH+u9TX8240BVPNJJdoRaW1VhOyfa+PZHvnFBpinlWDL+TRhb4z9TiX/hr+bHSWcAU09ZPmTurrCFGF1OjHOJTF9IY+/FqNZ/qeOiGwtCehUYNsl/oX3Zbs/EQLYiOxPDl4hqt/D95R9gb0Z7h31tmROL+O5I/M9gwBiA+odFgORWzZQLI7Znj2JX7vL0268tdJCCWtQ4Da/qugVsYXnkYDqujw017fa2wgowZAbZbX45oxe+/3yapTNlkV4nXWwC+sXqjK4k6xgZdaUBAUsVfcODg5SFeNLT7JUwbiw5X5XcdkwT6G2clcWPlTLpTcoCDBdpEYCV+vJaAZh6v/Snid78RZA/EBKkPpdTVLBKKLZ3nRnP4KyKMZikz40Kb8+UGFufAK6tpJeiarZlhvcfUAkdo2nGNe/vh/xbeTBIHK8ZBzXz7O0sTaWtQUS/6a7UdO1URk8E0lQvNyYhz1LK/47ynOC81ggPHb4Em1uT0LVznhZpsAfy7XX9sHN9bKjmiUKPA//LjBMfIkJgDeZkYBJpmpCuKn27Ez2or5dfFseVLlzglwcrKYWyrzODSlGHzic6vzSiuE=
+	plWqi1NiMF8Y9httFs89QqS8T17N7278FCMZhOM2h+/w0Pl8wfir3Khons6N6qcjpA0c0Ef6dAmJ1zg4vbQ2PuB0FnPxnPi+1urI2ft52jkNdnHWPpJF/xOF/Vpv1Lui+cs0zqP7Sun4vgh9tL7Y9hgwFK+IEkK9D5eDATyKhCFH59An+A245opmtY87pGfKpokfbmBbWF1mo0x/jeqPLhmGX9PiHQFth7++OpcQr9jwgHqGVmztPT203SEGTjJMclwP6VW2MtRYCvR76Ewd2RgTbZ66VyqozLtWC9m+dU8NJz1zf5ykCd+c0uGkUsHrHvhXpolGQ9tvYVObsfsseRf0mTViCb5SHMwBSlAHIhUell8h+2xxeeQf1BMVR/max7y/Ay3LadPdS5JPjJVhOfAk/JWwqvsI+ajiUKfRyDzFLTASgW8sxXmODkGlh2OlY7y2IjRpcdlfK/i6PtCMfLZjX7KIhnrYix39a0B/USKX6ddfg8evTpF14OADLu5Vx1AUJmcS7HM4KCO3qug/qQxZUbUPgd+IeG/Sy5nc9Vdl39VjmxORqujRcL1kUJtF+GHlnTPd/kZDBsI2z4hy5zjZmtsKbzqdV5LZOO6Kwc3sekIPtUDbrCIjdN+gK1epwdTTBgocpIvrnyCJgmsW3RntwU7iO5wiwwrinztZqPEq6IEYouKve7XHEjFHWprv8c8HbXO2DVWagRea3o4CBvxNHXhI3TXBLNYBiz9bX79di1sT17plKr+AddlD5bIWFPwfIe9HmTeVN9hRMTfypQadCcF9F/7wnXjPbYLZj/jb+MrPW0r+T4lZvQPXlrRx
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(451199015)(2616005)(2906002)(36756003)(316002)(41300700001)(6506007)(6666004)(8936002)(31696002)(66476007)(66556008)(966005)(31686004)(6486002)(5660300002)(8676002)(4326008)(53546011)(26005)(478600001)(38100700002)(186003)(6512007)(83380400001)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(396003)(376002)(136003)(346002)(39860400002)(451199015)(4326008)(31686004)(966005)(6486002)(478600001)(38100700002)(2616005)(6506007)(6916009)(36756003)(83380400001)(186003)(316002)(54906003)(66946007)(8676002)(6666004)(66556008)(66476007)(31696002)(26005)(41300700001)(6512007)(53546011)(2906002)(8936002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VU9wVVZKRS9rV3dQS29LR1F6YUhoVi8yWnZkOXhHWm1TZXV3dmpmNmhmZXdU?=
- =?utf-8?B?UmVYZGk2NXQvaW9LUzBudXFGMzd2VjBKTEViMS9ZcUwvTTBMdk50eW50Z0ZQ?=
- =?utf-8?B?L2x4RDdCY3VWMS84c1pML3ZpNVlDMHFTZk9QNmZaVFUvTWQ1K3hBM0piUktK?=
- =?utf-8?B?SWoveEJ0cEJ0TG1zek5LK2JVOVFPaThHL2pHSXdYaFQ1NVVGRjlMRkJtalhX?=
- =?utf-8?B?Zk9KOTRzMkloUlRrQ3BIYWYzalV6SWRKRnNpUmlGdmlhTU5XYWwrRytEb1Vz?=
- =?utf-8?B?VklhOFhSYTZ6RE1pREdXeHkvMFpwQzcwMVZwSHQyb2x0WTV0cUJWNkh0Q3lG?=
- =?utf-8?B?aDNsOWNkNjFMTTVRa0tMYkpyQ1I4ck9xdE9uaWhWWVgwT0hKQ04wbGwrMGUy?=
- =?utf-8?B?aGJWNXJ4MG9adlFidzYzWDBOVFM5aXVFVlFQdGgrVnA3cDRPb0FTNHVVMGtt?=
- =?utf-8?B?cFJ1YkErQTdGdjYyVkFoWlorcCt2c3V5TzAySDBwd2IySW1kZWY3VHVlM1No?=
- =?utf-8?B?TG1PcUdvNFN1SVBLdVp2VUtPc0NLb1ZxYVJCVmJqTnhFTXV1NG1MSjlaTHdu?=
- =?utf-8?B?aHk5TTBXajZrS043OUF4QnlOUUFtRzlyVm13NjVQL2hpdlA2bzBTQTdKTm5Y?=
- =?utf-8?B?KzN2MlFDeU43TDBWaXNIZ2xsejhkWW9LbSt0UzBEYUt1clJ5c2ozZ3E3L3Z3?=
- =?utf-8?B?MTJXS3VhelZHZ3ZTOG5VVUFRWTREai9hcWZFN1BrL0N5MkhoMFJLZGsvanc5?=
- =?utf-8?B?NlF5c2ZhdktiT0ZjUkVSalo5NFVYanlOVzdaRmxMUU9WODl2MWs5TXhyWGdw?=
- =?utf-8?B?TndTWVBkajAyWHNnZ2hySHg4RVlQdGdpMGZBZUtBR2kzS3Bmb0l3RHpncmFM?=
- =?utf-8?B?MXRsMm0wQWxqQ1lnbm1WUjg0NGYwanFlTkV3eXNGbFJFbTZNcklBSUJqS055?=
- =?utf-8?B?Z2ovWTQrM2lkd0R6SHhWNGVQc3o1UTFDOTJWN1ZUU2lyRkVvNjJZYWpYTFlM?=
- =?utf-8?B?YngyMVkzeVpqRmtCNnMwN21QR2JaMUUzTVd6ZFcycFZJNExRR2FtWTFzSm8v?=
- =?utf-8?B?RGpsdk9QTlRQbXlrSlJ2SWdwNnRZUzl2clVTeThWTGQxSVRTZDVzY0NpVXk1?=
- =?utf-8?B?eDl5TUNtbDMwVWZmVWZKU3FDc3FBNWczWDNOYnBVQ1Z0OUxtM2xpb08wRUwv?=
- =?utf-8?B?dElKbFJnYkxtVmcwQ3NNakxRVXJWZ3VLRlBrNjNSVTN4VlZlc2pPZ1RET2FN?=
- =?utf-8?B?bGNqMnljNHZYbnMyMmNpMEQ2OVZhTEZuTERMZUNDZ3ppaGVpS1RVbkxTenJn?=
- =?utf-8?B?WDlhanZjSjZQYmh2dTliQ0ZCWnBFNHBpaTNwYkY4SUlLRXE0Y1pjMWx4Uys1?=
- =?utf-8?B?c2VKNmlEZm5PSDRvZlN3N2FXWnhYWjR2Vkp6a0VlNE9DNHR6bEVSMHdNcHlP?=
- =?utf-8?B?R00vSmw5UHNKS0VMS1FWaHNCSjYxV2w3Qm1Zc2YvTi80RUtXTnpGbHRlcFV6?=
- =?utf-8?B?cG5tc3l3dE9RRzgrSHVMZnRaOWJxR3h1YWtLZm80SVcxR1V5VWwrUUZ1VXp2?=
- =?utf-8?B?RVZKZDlac3k2dE9KRzRWK0h2S3F6eHp4eTFrSUFZcE1zM0lybG9XT0x0TEpq?=
- =?utf-8?B?RHhZTzhxQm5hZnRFQnNHN0lEU1hEY0Y5TzdlM28zYzEwWjBkTDVMTVRlaThC?=
- =?utf-8?B?REpYWi9sYks5K1VjTUV6RkVPbHJaZmtzbHZLTGVHaXdDT0dnZDl5bnBJVFVU?=
- =?utf-8?B?R1RRcWVPWFJBM0lCK2hmc2VMbU0rR01xN0FWbzdpODlTSzZDU3ZlYUo0SkFD?=
- =?utf-8?B?WHA3ZFhiNktuK1BoeVlrWFdIdG41R1hSRHZIalF5QW5RWWJjZFhLK1RNN1Ax?=
- =?utf-8?B?S1RSR2hoekdnSEN2a0ZYVTAxK2k0a09VaGpwTTlrdkRKRVRsdnRqL2dDLzZz?=
- =?utf-8?B?RG1xYmxpR0p2RFBNS2N6ZzZRYkpwUUpqcjNKL0Z5bXkyVGRKSGMrY1lOUW5T?=
- =?utf-8?B?SHcvRDBqeFZwZmd6ZzR3RDFQRE9QSXB0MUlFd1JsSDRWU3BvMFdCcWhwbTNP?=
- =?utf-8?B?WTJyeGw1QVl0WlRGdk9ZckYwVzdzN3RIVUVNU0xVTTdlYnI4RG9FVnVNbU1S?=
- =?utf-8?Q?vkyU2R/Q+UdZE4HoHP75TpUYU?=
+	=?utf-8?B?QUN4YWd4bFFaek5ZVXpnMGtsQ2N0STc3cXJWY3FuNlhFVllXMVp3MFR5NEc2?=
+ =?utf-8?B?b0JubzBPUzdydVhvbGFDZ3UyU09mZms4bXdqaGZielVZeS9yVEVnK3FnYjJi?=
+ =?utf-8?B?bFI5cWxmL3RhcnZ1NWRoMU9MT2gvcXBjL1ZlUlVUR3FLRmdUd21uVmxMeXcx?=
+ =?utf-8?B?ZG9aeWJkeTBDcHkxUE1SeHZEdFk5ZS9CcCtURDhyVnVjcjhaVC9KUlRvVWFF?=
+ =?utf-8?B?N0JpYnlwSWJ2aUNFRGJTa2N3eFFKRWlTczdDZk90NVlTbVFQWnBpOTRUaU10?=
+ =?utf-8?B?VFBpekF6SnRac21DWHpMc1dUYVZibld0NDdDNXVzTnFnaU9GeEZoYlU0aEpt?=
+ =?utf-8?B?Ly9yeEEzYVRLaE95OXF5T2hDZm41QkdHZml2bXdZaE1yaUVGMVErck9LMzIw?=
+ =?utf-8?B?M0NzSVBhNytSSVA1WmU4bG5KS215amVNV1NjNVVpT21tcWtRMTlYM3pPVkFS?=
+ =?utf-8?B?Q29aUUZJc1laTHVhaE82VDgrenlwaFZIWWpMcU9UNStmMC82VWJOMFNMbDVX?=
+ =?utf-8?B?QUFJdGs4d1dHTkpkRm81QmhLUzluWnBDV1FHcG9ONFlLWWxZazFBZTRVdklD?=
+ =?utf-8?B?QjA2MVlMSjdURUZITFVuL2ZidTJaYU1qc0c3SWttQWplajdISUVQdGhXclV5?=
+ =?utf-8?B?V2crS0JwVW50R0ozdnZWWWxyaE9GVjlvNzlXTHhKenIyS25uYnZqcnlQb1Iv?=
+ =?utf-8?B?djNZeE4yRUFCSUx0UWZ4VTRyMEFHWXcwQ0FGYnJYODdJaysrbE9tOUN5a1d1?=
+ =?utf-8?B?YU9SYXhJcjZzbHhpVDRnd2RnVmFLcTZUQTdrWGJmN1RaZElDSzMwNkRSTzVC?=
+ =?utf-8?B?WGpkWTZvZWxNNEpEakNTQTZrRkVlTWU0dVRVR1dxVG10Nk1Nd3JMWkwvdEhw?=
+ =?utf-8?B?QnpoSUJ6T0xlenNtZWFxMDJXS0JSWHNmVGNZRWlQVEZrVEV0MVJLdW1OYzJh?=
+ =?utf-8?B?N2NqOG55TkFhSVVzbkFXTEZ3ZVdaUmtzNGlrc1hObThUQXhJR09kT3NYR1hB?=
+ =?utf-8?B?RFJRMU1sK05HM3BaK0MzQkNZU0dpOHA0VVVKUnFydGFVNlhCditjWW51UHpm?=
+ =?utf-8?B?NUlvMUpBdm83Z2pmSTUvcjMvOXFFeEFPTU55aGdwdllMWkhyQ0tmai9ZY2JU?=
+ =?utf-8?B?SkFBZ2Uvd2VEVkhneTl2QVhoWGh6ejR1NTZRMHdBaXFISnJrVjVBdFA0Y2d5?=
+ =?utf-8?B?cWJkRDUzOTNZTURMSjJEZk9qUzlhYkVicXo1TlVVeWRqOUdjcmM3ZUVpb0Jk?=
+ =?utf-8?B?VG9HWHU4ZkV1M2hyOEdvOExwM2J3QnJocnkyanNNU240NlBlRk9RY0doZ2d0?=
+ =?utf-8?B?M1ROdlZTVjdacjIzeWR1NStwbDFLZFVjRGZCcGNLQmp3djFwbVk0SnJRWXdN?=
+ =?utf-8?B?RStmTDExaDM2d2pJb3dpaFNBRldkNWF5Ymd5Q3hnb1E5ZE9XeEdnVDZRb1pi?=
+ =?utf-8?B?WWpxZlJ2ckwwN01rZVhpZGkwWXI4aU9IT00vc0prOWFRZEhJb0hBalBBWFhq?=
+ =?utf-8?B?ZGk3SE9GRGp4bElvUEZJMWZMc3Y1a3AwZ3JUWng1eVM2dWpFL0hTMitaZEhy?=
+ =?utf-8?B?UThiVEpqSERLQldVUkx0eTlpTWc2SWt0VWV4QzZDYmd1Z0prcHMyTlF2MTlR?=
+ =?utf-8?B?N0ZRQngxNjRMU0w0eUpMS2I1Y3ZpWks0WHlUMS9vRitqUGFIbmh0cWcvS0ZO?=
+ =?utf-8?B?UnpWKzQxUTc4Z09VdElaalh4YTJVYkF1VCswTWlvdFlIRXRmanh1YW42YVl3?=
+ =?utf-8?B?RUFMUzZ6Y3NDSllGTlh3T3NaYlFhR3kwaUJKVG5sd1g2RDRFRUFXUFMyc2Vw?=
+ =?utf-8?B?Z3pMZzY4MjhQeWU0Y3FYMkRLSFRzRS9tOW9kVGI0QkRWUXlMcEsrc3Y0U0FC?=
+ =?utf-8?B?MExaT0dIcXdyaWdkOHp0djJOb2Q5VXpLQVdyS3E2QlZ0Q2dFbHAzYjJ0aVhQ?=
+ =?utf-8?B?bHcyd1ZEZHBEUFFPdDZUQUkvNUlraFZ3Yk5IYk9oQ2ZMK01VWk1mNGxXNTVX?=
+ =?utf-8?B?ZjJHRm5QeXhkeUdEaHBrY1VsSmxHTVAwSndxQ0pLcE8xaXhkNXRMQzZHdFcz?=
+ =?utf-8?B?S3N4bHh3Q3RLUW9ldWo0ZW9Dc3VINkRnQkNSUEt6QUh3eU1nUm00cDdDZ05o?=
+ =?utf-8?Q?tx0UIrbmTvroPzwVUPORK9zqk?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3d2e5bd3-31d4-4224-0b2d-08dab5bfe3de
+X-MS-Exchange-CrossTenant-Network-Message-Id: 779faba5-8a43-425d-316e-08dab5c14a9b
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 13:01:39.5050
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 13:11:41.3846
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vKa0li4QqAOXZq4VKyIlN/KDij8gNAHus+vlPYlkf0xitQlBGcnuhJJYQwgvSfZ9M6fVMpJdHS+RAhDgDWdzXw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4861
+X-MS-Exchange-CrossTenant-UserPrincipalName: kAkpxaoojxPsU5Biw45f7rHPsVsepdYrAEP917zcgqcgSE8507Bhdz/md75SEZUl4eUdfu2uP5xhF3sPGrJrIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6023
 
 
-On 24/10/2022 12:35, Xenia Ragiadakou wrote:
+On 24/10/2022 11:06, Bertrand Marquis wrote:
 > Hi Ayan,
-Hi Xenia,
+Hi Bertrand,
 >
-> On 10/24/22 14:00, Ayan Kumar Halder wrote:
+>> On 20 Oct 2022, at 11:41, Ayan Kumar Halder <ayankuma@amd.com> wrote:
 >>
->> On 21/10/2022 22:18, Xenia Ragiadakou wrote:
->>> On 10/21/22 18:31, Ayan Kumar Halder wrote:
->>> Hi Ayan
->> Hi Xenia,
->>>
->>>> Refer https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm64/ \
->>>> include/asm/cputype.h#L14 , these macros are specific for arm64.
->>>>
->>>> When one computes MPIDR_LEVEL_SHIFT(3), it crosses the width of a 32
->>>> bit register.
->>>>
->>>> Refer 
->>>> https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm/include/ \
->>>> asm/cputype.h#L54  , these macros are specific for arm32.
->>>>
->>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
->>>> ---
->>>>   xen/arch/arm/include/asm/arm32/processor.h | 10 ++++++++++
->>>>   xen/arch/arm/include/asm/arm64/processor.h | 13 +++++++++++++
->>>>   xen/arch/arm/include/asm/processor.h       | 14 --------------
->>>>   3 files changed, 23 insertions(+), 14 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/include/asm/arm32/processor.h 
->>>> b/xen/arch/arm/include/asm/arm32/processor.h
->>>> index 4e679f3273..3e03ce78dc 100644
->>>> --- a/xen/arch/arm/include/asm/arm32/processor.h
->>>> +++ b/xen/arch/arm/include/asm/arm32/processor.h
->>>> @@ -56,6 +56,16 @@ struct cpu_user_regs
->>>>       uint32_t pad1; /* Doubleword-align the user half of the frame */
->>>>   };
->>>>   +/*
->>>> + * Macros to extract affinity level. Picked from kernel
->>>> + */
->>>> +
->>>> +#define MPIDR_LEVEL_MASK ((1 << MPIDR_LEVEL_BITS) - 1)
->>>> +#define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
->>>> +
->>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
->>>> +    ((mpidr >> (MPIDR_LEVEL_BITS * level)) & MPIDR_LEVEL_MASK)
->>>> +
+>> Refer GIC v3 specification (Arm IHI 0069H ID020922), IGRPMODR (similar to
+>> IGROUPR) is relevant only when the guests run in secure/non-secure mode.
+> This sentence is a bit misleading as guests are always running in either secure or non-secure.
+
+Oh, my understanding from the comment "We do not implement security 
+extensions for guests" is that Xen does not allow guests to run in 
+secure mode.
+
+Also, does Xen itself ever run in secure mode ? I thought it was no.
+
+From https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions
+
+"The primary requirement is that the hypervisor must be launched in 
+Non-Secure Hypervisor mode only."
+
+> We should just say that we do not want guest to change the group of interrupts so we do as if all guests are running in non-secure.
 >
-> Above, since
-> #define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
-> you can replace (MPIDR_LEVEL_BITS * level) with 
-> MPIDR_LEVEL_SHIFT(level) in the definition of MPIDR_AFFINITY_LEVEL.
-> You will see that it is identical to the arm64 definition
-> #define MPIDR_AFFINITY_LEVEL(mpidr, level) \
->         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
+>> As Xen does not implement security extensions for guests, so the registers
+>> are emulated as read as zero/write ignore.
+> I would rephrase this as “Xen does support to run in secure mode so emulate all registers as the hardware does in non-secure.”
 
-Currently, MPIDR_AFFINITY_LEVEL(mpidr, 3) differs between arm32 and arm64:-
+Do you mean ?
 
-In arm32 :- (mpidr >> 24) & 0xff
-
-In arm64 :- (mpidr >> 32) & 0xff
-
-I think this is what is expected. See xen/arch/arm/gic-v3.c ,
-
-static inline uint64_t gicv3_mpidr_to_affinity(int cpu)
-{
-      uint64_t mpidr = cpu_logical_map(cpu);
-      return (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
-              MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
-              MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8  |
-              MPIDR_AFFINITY_LEVEL(mpidr, 0));
-}
-
->
->>>>   #endif
->>>>     #endif /* __ASM_ARM_ARM32_PROCESSOR_H */
->>>> diff --git a/xen/arch/arm/include/asm/arm64/processor.h 
->>>> b/xen/arch/arm/include/asm/arm64/processor.h
->>>> index c749f80ad9..c026334eec 100644
->>>> --- a/xen/arch/arm/include/asm/arm64/processor.h
->>>> +++ b/xen/arch/arm/include/asm/arm64/processor.h
->>>> @@ -84,6 +84,19 @@ struct cpu_user_regs
->>>>       uint64_t sp_el1, elr_el1;
->>>>   };
->>>>   +/*
->>>> + * Macros to extract affinity level. picked from kernel
->>>> + */
->>>> +
->>>> +#define MPIDR_LEVEL_BITS_SHIFT  3
->>>> +#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
->>>> +
->>>> +#define MPIDR_LEVEL_SHIFT(level) \
->>>> +         (((1 << level) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
->>>> +
->>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
->>>> +         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
->>>> +
->>>>   #undef __DECL_REG
->>>>     #endif /* __ASSEMBLY__ */
->>>> diff --git a/xen/arch/arm/include/asm/processor.h 
->>>> b/xen/arch/arm/include/asm/processor.h
->>>> index 1dd81d7d52..7d90c3b5f2 100644
->>>> --- a/xen/arch/arm/include/asm/processor.h
->>>> +++ b/xen/arch/arm/include/asm/processor.h
->>>> @@ -118,20 +118,6 @@
->>>>   #define MPIDR_INVALID       (~MPIDR_HWID_MASK)
->>>>   #define MPIDR_LEVEL_BITS    (8)
->>>>   -
->>>> -/*
->>>> - * Macros to extract affinity level. picked from kernel
->>>> - */
->>>> -
->>>> -#define MPIDR_LEVEL_BITS_SHIFT  3
->>>> -#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
->>>> -
->>>> -#define MPIDR_LEVEL_SHIFT(level) \
->>>> -         (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
->>>> -
->>>> -#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
->>>> -         (((mpidr) >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
->>>> -
->>>>   #define AFFINITY_MASK(level)    ~((_AC(0x1,UL) << 
->>>> MPIDR_LEVEL_SHIFT(level)) - 1)
->>>>     /* TTBCR Translation Table Base Control Register */
->>>
->>> Since only the definition of the MPIDR_AFFINITY_LEVEL() differs, 
->>> maybe you could add only this one to the arch specific headers e.g
->>> for arm64:
->>> #define MPIDR_LEVEL_SHIFT(level) \
->>>     (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
->>> for arm32:
->>> #define MPIDR_LEVEL_SHIFT(level) \
->>>     ((level) << MPIDR_LEVEL_BITS_SHIFT)
->>
->> Also, MPIDR_AFFINITY_LEVEL needs to be defined in arch specific 
->> headers as it differs between arm32 and arm64.
->
-> As I point out above, there is no difference between arm32 and arm64 
-> regarding the definition of MPIDR_AFFINITY_LEVEL(level).
-
-Please see above and let me know if it makes sense.
+" Xen does *not* support *guests* to run in secure mode so emulate all 
+registers as the hardware does in non-secure. "
 
 - Ayan
 
 >
->>
->> However, MPIDR_LEVEL_MASK can be defined in the common header (as it 
->> is same for arm32 and arm64).
->>
->> Please let me know if it makes sense.
->>
->>>
->>> But in any case don't forget to add parentheses around the macro 
->>> parameters when an operator acts on them to avoid trouble with 
->>> operator precedence (MISRA-C Rule 20.7 :))
->>
->> Thanks for pointing it out. Yes, this is a mistake in my patches.
->>
->> - Ayan
->>
+> On a side note, the question might come at some point if we support to run from secure mode on hardware supporting it, it could be that dom0 or Xen itself would need to modify those.
 >
+> The code is ok, just the commit message would need a bit of rework I think.
+>
+> Cheers
+> Bertrand
+>
+>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>> ---
+>>
+>> Observed the issue while running Zephyr on R52.
+>> Also, found that KVM has similar behaviour.
+>>
+>> Changes from:-
+>> v1 - Moved the definitions of GICD_IGRPMODR, GICD_IGRPMODRN to gic_v3
+>> specific header.
+>>
+>> xen/arch/arm/include/asm/gic_v3_defs.h | 2 ++
+>> xen/arch/arm/vgic-v3.c                 | 4 ++++
+>> 2 files changed, 6 insertions(+)
+>>
+>> diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/asm/gic_v3_defs.h
+>> index 34ed5f857d..728e28d5e5 100644
+>> --- a/xen/arch/arm/include/asm/gic_v3_defs.h
+>> +++ b/xen/arch/arm/include/asm/gic_v3_defs.h
+>> @@ -30,6 +30,8 @@
+>> #define GICD_CLRSPI_NSR              (0x048)
+>> #define GICD_SETSPI_SR               (0x050)
+>> #define GICD_CLRSPI_SR               (0x058)
+>> +#define GICD_IGRPMODR                (0xD00)
+>> +#define GICD_IGRPMODRN               (0xD7C)
+>> #define GICD_IROUTER                 (0x6000)
+>> #define GICD_IROUTER32               (0x6100)
+>> #define GICD_IROUTER1019             (0x7FD8)
+>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+>> index 7fb99a9ff2..0c23f6df9d 100644
+>> --- a/xen/arch/arm/vgic-v3.c
+>> +++ b/xen/arch/arm/vgic-v3.c
+>> @@ -685,6 +685,7 @@ static int __vgic_v3_distr_common_mmio_read(const char *name, struct vcpu *v,
+>>      switch ( reg )
+>>      {
+>>      case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>          /* We do not implement security extensions for guests, read zero */
+>>          if ( dabt.size != DABT_WORD ) goto bad_width;
+>>          goto read_as_zero;
+>> @@ -781,6 +782,7 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+>>      switch ( reg )
+>>      {
+>>      case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>          /* We do not implement security extensions for guests, write ignore */
+>>          goto write_ignore_32;
+>>
+>> @@ -1192,6 +1194,7 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, mmio_info_t *info,
+>>      case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+>>      case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+>>      case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>          /*
+>>           * Above all register are common with GICR and GICD
+>>           * Manage in common
+>> @@ -1379,6 +1382,7 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
+>>      case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+>>      case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+>>      case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>          /* Above registers are common with GICR and GICD
+>>           * Manage in common */
+>>          return __vgic_v3_distr_common_mmio_write("vGICD", v, info,
+>> -- 
+>> 2.17.1
+>>
 
