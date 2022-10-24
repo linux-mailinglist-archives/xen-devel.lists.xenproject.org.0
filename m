@@ -2,51 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F77460B54B
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 20:20:10 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429314.680257 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE2C960B555
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 20:21:34 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429319.680269 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on22s-0000v6-91; Mon, 24 Oct 2022 18:19:30 +0000
+	id 1on24h-0002In-OE; Mon, 24 Oct 2022 18:21:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429314.680257; Mon, 24 Oct 2022 18:19:30 +0000
+Received: by outflank-mailman (output) from mailman id 429319.680269; Mon, 24 Oct 2022 18:21:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on22s-0000rc-5B; Mon, 24 Oct 2022 18:19:30 +0000
-Received: by outflank-mailman (input) for mailman id 429314;
- Mon, 24 Oct 2022 18:19:28 +0000
+	id 1on24h-0002GB-L8; Mon, 24 Oct 2022 18:21:23 +0000
+Received: by outflank-mailman (input) for mailman id 429319;
+ Mon, 24 Oct 2022 18:21:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZViS=2Z=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1on22q-0000rW-IH
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 18:19:28 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12hn2213.outbound.protection.outlook.com [52.100.166.213])
+ id 1on24g-0002G5-8N
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 18:21:22 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2072.outbound.protection.outlook.com [40.107.92.72])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 63d1ecbd-53c8-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 20:19:26 +0200 (CEST)
-Received: from MW4PR04CA0352.namprd04.prod.outlook.com (2603:10b6:303:8a::27)
- by PH7PR12MB6905.namprd12.prod.outlook.com (2603:10b6:510:1b7::18)
+ id a86d2892-53c8-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 20:21:21 +0200 (CEST)
+Received: from MW4PR04CA0068.namprd04.prod.outlook.com (2603:10b6:303:6b::13)
+ by BN9PR12MB5291.namprd12.prod.outlook.com (2603:10b6:408:104::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Mon, 24 Oct
- 2022 18:19:23 +0000
-Received: from CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:8a:cafe::3a) by MW4PR04CA0352.outlook.office365.com
- (2603:10b6:303:8a::27) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.27 via Frontend
- Transport; Mon, 24 Oct 2022 18:19:22 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT039.mail.protection.outlook.com (10.13.174.110) with Microsoft SMTP
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.35; Mon, 24 Oct
+ 2022 18:21:17 +0000
+Received: from CO1NAM11FT090.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::c0) by MW4PR04CA0068.outlook.office365.com
+ (2603:10b6:303:6b::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.26 via Frontend
+ Transport; Mon, 24 Oct 2022 18:21:17 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT090.mail.protection.outlook.com (10.13.175.152) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 18:19:21 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 18:21:16 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 13:19:20 -0500
+ 2022 13:21:15 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
+ 2022 11:21:15 -0700
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Mon, 24 Oct 2022 13:19:19 -0500
+ via Frontend Transport; Mon, 24 Oct 2022 13:21:14 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,123 +62,104 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 63d1ecbd-53c8-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: a86d2892-53c8-11ed-8fd0-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vxbd7WIoiMXFOwnr8n4jepXsw1Q5DS5Ud+z8WlAqDYs1TK9gMm/uAV41KLMEVi+z1IelGDzSvcyj6vDr7oD6+PF18WfyaBhAEJuZlz76ibeyZMnS7MKlc9FTEbnpzXzPfURkstExO7glCe67RqYkG097gfhM5eFtv17Ta5RUinMSotByU1JMfn86Erpkxxqf/WX9PP6/DoXSS0DopH1NBbT0IF11QX72yMhDVW57MOaMNHmgqs1hsOgd/CITx4nOTkQsmmg0q4p8Jre+IaVmcrarEq45ZESr8WuyO59A938mIck31VN160zPnrA+kRoVDWryqX4zDqlCaLLDDPlWUA==
+ b=itXPX+BDmO/hZxgNGd6itSu6N7YEwRDM3no2MNj6vE2TQBsH3p1nE0k/HBPbl46QGq3US0CdDi7byJICG4/sE6Cf0QG0e3+x43XBW3Z0AxVAGfBaUE18CkzPI6o00RBVB5pLMppyY7z6nxCdvoCuhcLbMS3ASHn7J3kJtSNvbRBmleb3FSZ0SPJTZ4kAhbtJWNLwdl9Fv4niPuNSAZDYgxKQmvqS7YebU4c8oYlNgtJW20ZoSCagFgeE2bdlbuMYdzh31xtEdYTQmeqZevkzjDQsI9X56sHTnmC3B1oewA2SROdJ0e9emctBlVf2ndHTTcCOQ+HZahLpEeI5yy0kUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J5B3TqJ58VJAkItxAN9gqSaQ9XwjpKLxd/rGzStRCyQ=;
- b=T/EKsq+B3cL8DN3thiImCJF8cZNK9RKzRCP+wHGj8SeQlvhjOXFOD1mrs+cqkbjaCau5GDAFMxTbqA7bwOl/J3bK6Hl9AxFVutmDMpN5+mLN2fL/Iozgfh4BLKJAWIYrmk1NHzA+IwJhv5uziiMYpUImodpUrVR/6kJp4Et3TfJ0siRHVWAnxdHh56i6W94M5CDVY+Vyh0zhLAkd1mHZkpCuFwtGEz1Ecb6zTOy+Rk5kG96d0XEjyk7+6UZTrhbVErdCckvJcFdcf5qQOvh5sZqqgDrgZsTOnWi+aJPjb1bdU4NO5+c/llvtIjjKxJXiGb4erAuFtKj+cRrKNIIogw==
+ bh=yeM/jQyVI4e8F7utEeCiyfeBbYsSPRRaablKg4pztz8=;
+ b=HdmKkWR8qOc8sz7BVkkH7enI3wmE/cf2EtoM8s9H+NBVaVvMANu327JcggFW1+m5DFoXEOOdwszpvFUqcE8mDemW2XfiQzN4tK1/cuyCxEpGpv+n+2cmY5oa99CNofgotT/WgHi6yHEYx33FEiV0vKbyg9w5lGvH1mQ7dZNXwG9eO/zpN1cIpSjqIfiqGwlJvbmMou63XR7NJYg4KLjPRHBCsldBlVWDLG2gi8+r3TanhcCSa6oVCAXOhoRE0+UC1wuSwxs+qvxuPMw7eQbrlD8qzJsS1S8sH7VoOTM/h64pAKMvM1TcRadlkgvvl+cz1lfiKQQ8453lj9GcM+oMVw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J5B3TqJ58VJAkItxAN9gqSaQ9XwjpKLxd/rGzStRCyQ=;
- b=YQ/0D5Fmfd0//KxExben+BO5qEVK6lpTQQZii4eIMbhUHtgtfFV1s/rRlQZoyfoZjg04ZXLr6l73wNgjv9ueBy7tWljLjyCeLeLNxO3rQmABJ78V58KwEAqni8a8UZQ0OFwP+oG+ajQCF4MfGEWe4osccBzuXp/EoMj8gDlf+3k=
+ bh=yeM/jQyVI4e8F7utEeCiyfeBbYsSPRRaablKg4pztz8=;
+ b=K/glthB24nksoCoK03hquKEtnGx+F8DO2EeFCyRu/t328k2HAGXaUnxN+0U9dyicS0Lr0wiOJM58ZgKE73mPKrCswdBR28w7ZlNXr3yb6Hpb9jXFN4pKSiwfYbt35tczeNB8OitqVs//1ughaFsk/dc1vFo5esd09/vOKRUN42A=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Ayan Kumar Halder <ayankuma@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, <michalo@amd.com>,
 	Ayan Kumar Halder <ayankuma@amd.com>
-Subject: [RFC PATCH v1 00/12] Arm: Enable GICv3 for AArch32
-Date: Mon, 24 Oct 2022 19:19:04 +0100
-Message-ID: <20221024181917.60416-1-ayankuma@amd.com>
+Subject: [RFC PATCH v1 01/12] Arm: GICv3: Sysreg emulation is applicable for Aarch64 only
+Date: Mon, 24 Oct 2022 19:19:05 +0100
+Message-ID: <20221024181917.60416-2-ayankuma@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20221024181917.60416-1-ayankuma@amd.com>
+References: <20221024181917.60416-1-ayankuma@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT039:EE_|PH7PR12MB6905:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1c2983bd-22eb-49b4-c535-08dab5ec462c
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT090:EE_|BN9PR12MB5291:EE_
+X-MS-Office365-Filtering-Correlation-Id: e7d79043-67fc-49f3-c1bd-08dab5ec8a92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?f3Qm2FUr1u+BdkV3joZ2mNxbEEikTviXoEVU61AH93uCQKT9nS5jf+Ng0EHh?=
- =?us-ascii?Q?5LF8JXOVI47uuG5+YgBC1uEhOtGwXXdO7CUjOb/GUKY6AL1v9asYSjzrN5DI?=
- =?us-ascii?Q?Sz2QmQ8NHDnwz9cKPPR49gUe3u+w/hdW/fECDM3EL8nVCOJnZhzow2zMT612?=
- =?us-ascii?Q?xHYczkuZF/jJSauFF8JR0WhfXd1FoCMXrKCCDqjAYiQqhcN+pfXNfFhC48qb?=
- =?us-ascii?Q?Ors18mZbqmetX8ovT+cwfrVHVb8GFEvNBgIrjq0I6vXGH4l0FLSprdZbZ1/L?=
- =?us-ascii?Q?KhSLUZDyL5+BfspE8h3LcZ5fbLFs5A4a+CK3gDLd9lgAjj+Ite00jA0gZvzd?=
- =?us-ascii?Q?oCqxjg/EHlUgnRKMQZpI47D5RKyewfOljMElbAtFTCGrRsgkQoMv5sh+aDtA?=
- =?us-ascii?Q?Otu1DwBUVNY5WAbyM3p7r+OTUpKJKXVR7wErOxAdmRkQrKYrS2XfR4Aj7s75?=
- =?us-ascii?Q?+ZNU9NQKlyh59ltfAScWUalgMSyzZ4yIfnpRls3NKJo1dE3ZbJmVh1u5J+4I?=
- =?us-ascii?Q?7KRX++a9FJzBz4N9zNkvYaMD2Rh4Booszy54kzyp4crg+JbvxCGYNFHqmQFL?=
- =?us-ascii?Q?dNbgOEU1k53FFLMWPfTGcEU2sGswVuf5ZT5UXZ10rJUCBzk0BH2GXrxwSr5B?=
- =?us-ascii?Q?TVLshR2E2MuQ6jXTEN5L0nvSAZ3cH7El5MtxLRKfikD276B4IJXjuSY5zKkG?=
- =?us-ascii?Q?9kzrvxS8QF7RSB29n9MDajvwt5fPiV5zAIRdSo3BePE8FzSCI8+Wj+0ZmoQ2?=
- =?us-ascii?Q?9v9+5Whfax0QPQUThcX4jsQIF/z2CAlSPqZRDxxZsdUVlqaP6cq9qHUGr+Qc?=
- =?us-ascii?Q?y6MMSGHJ582Y14hyXPwAX5TBktSxeMnuDVE3hylpO20YhmRa1E0kpfU274X6?=
- =?us-ascii?Q?B14vOAmrvelWWB4KoBSTbIVS59Wdjf0rwft7DcPrpayO+spK7kcDNzUvNfaQ?=
- =?us-ascii?Q?XohRDzkZwvvBjfPm8Rzy4LZ/mjfP39v+Qfp/5kJdqiFEhBqLFoKUNsM6Bid4?=
- =?us-ascii?Q?54Drn2hQOFOATL+cYlDrns4QBiY1GNBUDar50f665ueaSneEGEccauhA5Gk4?=
- =?us-ascii?Q?gFN+a9LtY6P69CNOABKN5iqmOwMTH9wHh08y5/8868yudVL/Ustl/euIeh5O?=
- =?us-ascii?Q?ThCPfzn3ptTyw9G8N3GiTF5lUhRokLCA0zn5FacX+qN6BRbLrRZOYXd8/xlk?=
- =?us-ascii?Q?mJnJW682sfVmYBa0quV8DjhpCxQKN1iE97NyjbW8IY8kk23AONfS4FG9XO8?=
- =?us-ascii?Q?=3D?=
+	OQFXLdbH/CX3VKAIydvPBx+sFFuQleKtm7bCpYjGYlyzJP0kUw4/aV9UIsOl0OhnkgXK6uiCTZQzK0EDIMA+MO09HjaC3ep5NBK6NNqfkGvSz0peO4///0PHvmVx93DU25c6aJ6dhKDEXPfQnNMomYyDKLFmCq0c7x1azpmm9SWGdPjp0ZJbfw/aSeVhSA4HuPg+rVo1IUBFruulVFXVRrF2xb9IhExvwV1HG924rJjwSmWxoPh9x4B3HIJprD/unvrOt3viHIdwatgmDREGrtdy4eB2ZhkkK6+jK3yXyaW5TtTyinTkmT6ohzXxQUl6iIKoSwG/9qAJZjNorNPORd668EINgsPB2kYfhRLPE6W/HIGqdbq9qLcDobMmkeSNwtCDU+J8Qk9z5jAcoFF9Y5PUFL5p4fUJe2GhrbASQThLtgWU4xLQFCevBiLk+yw+Jy7Z/23TcsbrNQdcFz/6FxDpWLQ55+AFBfkRCUJPwphhSpvH9GASo5zgIyIN96mqhGnaN4jy0BpqoH3GuzCji9DPOWs3NIwF4Uf4qlWYb6GRB7Tmn9l+3qIKfAZMUYT221wyhxWPLUDUMuOpOJ4X793p5VhZElqAwoE6X62ZSdw6GazUv7U03ZbkqyqQK0U/P7jsWPj5MF5UuaN5L5eCQVcsKhcVIAGn4255m4dX/X2QUXBOdCxiUz3sHyHxXbonjCOmZQovLL1RdFvpr0XhqiWIe4jpE6vJ4axuT/N0bRhtFMmf034CJDjjSW6gK1L+t7lWHNeAiFv1Kv/379f7ztorlZDSLRjQYIdYIBzm3EA=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:5;SRV:;IPV:CAL;SFV:SPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:OSPM;SFS:(13230022)(4636009)(346002)(376002)(396003)(136003)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(426003)(83380400001)(47076005)(81166007)(356005)(36860700001)(82740400003)(8936002)(70586007)(70206006)(5660300002)(8676002)(4326008)(41300700001)(82310400005)(2906002)(6666004)(26005)(2616005)(40460700003)(1076003)(336012)(54906003)(6916009)(478600001)(36756003)(316002)(40480700001)(186003)(36900700001)(11215385002);DIR:OUT;SFP:1501;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(41300700001)(40460700003)(82310400005)(478600001)(356005)(81166007)(54906003)(316002)(6916009)(6666004)(36860700001)(5660300002)(36756003)(2906002)(186003)(47076005)(336012)(82740400003)(70586007)(4326008)(8676002)(1076003)(70206006)(40480700001)(26005)(2616005)(426003)(8936002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 18:19:21.8876
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 18:21:16.6254
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c2983bd-22eb-49b4-c535-08dab5ec462c
+X-MS-Exchange-CrossTenant-Network-Message-Id: e7d79043-67fc-49f3-c1bd-08dab5ec8a92
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT039.eop-nam11.prod.protection.outlook.com
+	CO1NAM11FT090.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6905
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5291
 
-Hi All,
+Refer ARM DDI 0487G.b ID072021, EC==0b011000 is supported for Aarch64 state
+only. This is when MSR, MRS, System instruction execution in AArch64 state
+is trapped, that is not reported using EC 0b000000, 0b000001 or 0b000111.
 
-Please find the following patches to enable GICv3 for AArch32.
-This is a pre-requisite to support Xen on Cortex-R52 (AArch32-v8R system)
+Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+---
+ xen/arch/arm/vgic-v3.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Let me know your thoughts.
-
-Ayan Kumar Halder (12):
-  Arm: GICv3: Sysreg emulation is applicable for Aarch64 only
-  Arm: GICv3: Move the macros to compute the affnity level to
-    arm64/arm32
-  Arm: GICv3: Enable vreg_reg64_* macros for AArch32
-  Arm: GICv3: Emulate GICR_TYPER on AArch32
-  Arm: GICv3: Emulate GICR_PENDBASER and GICR_PROPBASER on AArch32
-  Arm: GICv3: Emulate of ICC_SGI1R on AArch32
-  Arm: GICv3: Emulate ICH_LR<n>_EL2 on AArch32
-  Arm: GICv3: Define ICH_AP0R<n> and ICH_AP1R<n> for AArch32
-  Arm: GICv3: Define GIC registers for AArch32
-  Arm: GICv3: Use ULL instead of UL for 64bits
-  Arm: GICv3: Define macros to read/write 64 bit
-  Arm: GICv3: Enable GICv3 for AArch32
-
- xen/arch/arm/Kconfig                       |   2 +-
- xen/arch/arm/gic-v3-its.c                  |  20 ++--
- xen/arch/arm/gic-v3-lpi.c                  |   8 +-
- xen/arch/arm/gic-v3.c                      | 132 ++++++++++-----------
- xen/arch/arm/include/asm/arm32/io.h        |   4 +
- xen/arch/arm/include/asm/arm32/processor.h |  10 ++
- xen/arch/arm/include/asm/arm32/sysregs.h   |  80 +++++++++++++
- xen/arch/arm/include/asm/arm64/processor.h |  13 ++
- xen/arch/arm/include/asm/arm64/sysregs.h   |   7 +-
- xen/arch/arm/include/asm/cpufeature.h      |   1 +
- xen/arch/arm/include/asm/gic_v3_defs.h     |  24 ++--
- xen/arch/arm/include/asm/gic_v3_its.h      |   2 +-
- xen/arch/arm/include/asm/processor.h       |  14 ---
- xen/arch/arm/include/asm/vreg.h            |  23 ++--
- xen/arch/arm/vgic-v3-its.c                 |  17 +--
- xen/arch/arm/vgic-v3.c                     |  26 ++--
- 16 files changed, 242 insertions(+), 141 deletions(-)
-
+diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+index 0c23f6df9d..c31140eb20 100644
+--- a/xen/arch/arm/vgic-v3.c
++++ b/xen/arch/arm/vgic-v3.c
+@@ -1520,6 +1520,7 @@ static bool vgic_v3_emulate_sgi1r(struct cpu_user_regs *regs, uint64_t *r,
+     }
+ }
+ 
++#ifdef CONFIG_ARM_64
+ static bool vgic_v3_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr)
+ {
+     struct hsr_sysreg sysreg = hsr.sysreg;
+@@ -1540,6 +1541,7 @@ static bool vgic_v3_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr)
+         return false;
+     }
+ }
++#endif
+ 
+ static bool vgic_v3_emulate_cp64(struct cpu_user_regs *regs, union hsr hsr)
+ {
+@@ -1563,8 +1565,10 @@ static bool vgic_v3_emulate_reg(struct cpu_user_regs *regs, union hsr hsr)
+ {
+     switch (hsr.ec)
+     {
++#ifdef CONFIG_ARM_64
+     case HSR_EC_SYSREG:
+         return vgic_v3_emulate_sysreg(regs, hsr);
++#endif
+     case HSR_EC_CP15_64:
+         return vgic_v3_emulate_cp64(regs, hsr);
+     default:
 -- 
 2.17.1
 
