@@ -2,51 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7D07609B19
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 09:16:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428751.679219 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 005EA609B4A
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 09:26:31 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.428758.679229 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omrgz-0008On-Es; Mon, 24 Oct 2022 07:16:13 +0000
+	id 1omrqd-0001Xb-Ff; Mon, 24 Oct 2022 07:26:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428751.679219; Mon, 24 Oct 2022 07:16:13 +0000
+Received: by outflank-mailman (output) from mailman id 428758.679229; Mon, 24 Oct 2022 07:26:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omrgz-0008MV-Bw; Mon, 24 Oct 2022 07:16:13 +0000
-Received: by outflank-mailman (input) for mailman id 428751;
- Mon, 24 Oct 2022 07:16:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=tdD1=2Z=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1omrgx-0008MP-Qu
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 07:16:11 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2051.outbound.protection.outlook.com [40.107.220.51])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7af580d-536b-11ed-91b5-6bf2151ebd3b;
- Mon, 24 Oct 2022 09:16:04 +0200 (CEST)
-Received: from DS7PR03CA0077.namprd03.prod.outlook.com (2603:10b6:5:3bb::22)
- by DS7PR12MB5911.namprd12.prod.outlook.com (2603:10b6:8:7c::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.29; Mon, 24 Oct
- 2022 07:15:59 +0000
-Received: from DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3bb:cafe::74) by DS7PR03CA0077.outlook.office365.com
- (2603:10b6:5:3bb::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.27 via Frontend
- Transport; Mon, 24 Oct 2022 07:15:59 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT061.mail.protection.outlook.com (10.13.173.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 07:15:58 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 02:15:57 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Mon, 24 Oct 2022 02:15:42 -0500
+	id 1omrqd-0001VA-Cy; Mon, 24 Oct 2022 07:26:11 +0000
+Received: by outflank-mailman (input) for mailman id 428758;
+ Mon, 24 Oct 2022 07:26:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ny4u=2Z=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1omrqc-0001V4-00
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 07:26:10 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70081.outbound.protection.outlook.com [40.107.7.81])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1c8f5b8d-536d-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 09:26:01 +0200 (CEST)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VE1PR04MB7325.eurprd04.prod.outlook.com (2603:10a6:800:1af::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Mon, 24 Oct
+ 2022 07:25:59 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Mon, 24 Oct 2022
+ 07:25:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,156 +46,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7af580d-536b-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 1c8f5b8d-536d-11ed-8fd0-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gUq3C/8/yiKxQy3eoRbLRCZ4q0em8fZ2hpVrGkiHDtXwLlrXpAJgGUlKFdX6GATAbuOYAfJoyQhDhR1KTzFdVywGOVr64wBixolSbbUrt1+j1QoPCWl1xYq6tEHqxWdbq+3c1qIQ6N52DxfENP0mnhUJuglax8adyZbhSwPzlKaHbG+NuG79dLSaIrBsPo5/L4Y5x1jQt5qkqyYpjjb9pnPXT+BCe3gRmCbQ0TdXFaI1/9tsfuJXRrObT1bynBCJcvYulQrkKXUCVmflJzl1kX14t/dkaXE3/8tVq+LsVDweYh0YPcHLrr4CaPulVHhygq4/wDvqB91+5fdJFmrSJQ==
+ b=Yu1OAr9bbNPUeIz3liHC+lbbzWZav4XNvf+JvBZfrcIMs5M45dfM9mESU0P0mA1jlMWoZc2sB5E5stNKGmMz2/FbrAmvMukpEv07Zt1KYzbFj2C+34/JWcE49YArXD+rgaWKZBiyNTuhA5WYcJJQw8qb/3cbd02uZDuAJaLec8WJut52ZQYPRoncwb5B8Eqf6lphOfQwSvf1n6hXwDcwiiSXJNbsIDDPYgCgj7aIl4fu/bLk0ZzIT0PXZ7YMvHNhI41zIhAAYHwUxyNc1PNMZ2uFNmuVof01lM1aPqjUxKUbXwmrKclACtD3wjpZA+H6+4W7mcYSn1Whp+s3L3dzRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZgHiBQ/44sNd/SB4hB3n+crBYmw51aO1I6Gz5eztZ9M=;
- b=CCGiBQsPsWboWb32r9/EbSQA13q79JSMr2TmLqtg+dF7DdiDpmfjBv2jILZfyJYJTSVmij74M+9B3HNw88pBrMqi4KQqJT0yIpG/Gfa2TKVZ2BrC3sKMceIGhs3L9H9IDp60oItPXPHdw8Og+tQY3UJp2lEb0BapYmY0mmGGjPoY5z5DqpcoS7WaZQaYfbgAjV0ZP9LjxnTmgLIMy72bAd/HPIyDCbcCKplRSrzcVFjQcYGas19APjAalDQxvp9alLFSX1xoFdxAiL+wR1BFI9PuQpBzBMrk8x7C5U8xNr2iYp5QNstRfoWNeAZRXNr/gzop7vrorV928SfNZCvfFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=uPaDHwW2Nd27hbTBtl7yBYj4ui9VHqKZz/zBBXiF8uA=;
+ b=W0KQHi3vnEOJm8oCijW9TtWOYlQqoXO50S3cuC4RQqQHu4IpzxtsfckMN9YG2Du8RwozL90FYA3VZOxwMRsAZOTHyaro5j/Dj4fmnPYaIXahMv1Ppw+v6tzLup0jIwYi9eDAFLtjtu+UTsqKugke9YP1+YRp5iaRBQA7KN12hNKSkT0ESKQ328ISgBf2r+yTlW8YO/Nt7nO228SpmVX0ZZvELdpEPuQDV5ABMN7ycTvKkQJ2OwltHK7ldS/dpXPTt8oYiczehLYsxOITrRWpXrki6YhETYBOOAZfhF1QuG9tfEvGpLUVg6URuZnKwcWM50ZKeFyC2DIzNHcIruemJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZgHiBQ/44sNd/SB4hB3n+crBYmw51aO1I6Gz5eztZ9M=;
- b=viehAIf7F3cN2GYpnWQwB6xPwc+VMI4NJUEUYukKEeR46SM9ppfdo5b61lw2vAFADi8NUAvHhZWxoblmhy20XpPRtUeYcuzoHvGPfnBQoQO4MvXehv7BFN6mhSwW2HMSqTixpnuRuWaCJSvE99062xbbsbqz3NZDHYxwJ4RmoO0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <76b7f236-f99d-7600-3958-6a92943b564c@amd.com>
-Date: Mon, 24 Oct 2022 09:15:41 +0200
-MIME-Version: 1.0
+ bh=uPaDHwW2Nd27hbTBtl7yBYj4ui9VHqKZz/zBBXiF8uA=;
+ b=BOC2U0Mqz2XR1sgEPiKie1uybj6YEtQO0DcWtnO5bqcdD80MZaJa8qMdwZzFhDJ3vGaFHrU1+iAMd4DmU/hQTaTk1j7TvDoOfE+g4UtUNyJ+Vfi4/4xESWnHQnpyH9A/jFLLOBMSSnl0PljbxP90+CKzSWxLUMEcBPbJfT/DRiTKOaYVntRxuuzRU+b+c9dxxMke89j9dVr0uHDFSRL2ouHNO3vKw+Arkz2BHl5SBpSkOyvENQ6hhwFPMn2WGwyt3BXT52tPuMuExmjn8/oQmVJZ3Lgav6QT7YnwvlIvEZUtfeCe+Mr9OmLjOzc5OPXPXLrk46MZkb3Yy4iGaWL5fw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <8b2d008b-526f-dc36-71d6-81b653bbf467@suse.com>
+Date: Mon, 24 Oct 2022 09:26:00 +0200
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.3
-Subject: Re: [for-4.17] automation: Do not use null scheduler for boot
- cpupools test
-To: Stefano Stabellini <sstabellini@kernel.org>, Andrew Cooper
-	<Andrew.Cooper3@citrix.com>, Julien Grall <julien@xen.org>, Jan Beulich
-	<jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Doug
- Goldstein <cardoe@cardoe.com>, Henry Wang <Henry.Wang@arm.com>
-References: <20221021165341.7905-1-michal.orzel@amd.com>
- <b1f7c77b-6e39-85e9-074e-0e31ed9648db@citrix.com>
- <alpine.DEB.2.22.394.2210211211090.3873@ubuntu-linux-20-04-desktop>
+Subject: Re: [PATCH v2][4.17?] core-parking: fix build with gcc12 and
+ NR_CPUS=1
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <alpine.DEB.2.22.394.2210211211090.3873@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset="UTF-8"
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <3e72f386-7afa-84a5-54c5-14d17609dac7@suse.com>
+ <61e8475d-868d-3ff0-041f-8f6790990ce4@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <61e8475d-868d-3ff0-041f-8f6790990ce4@xen.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR0P281CA0061.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT061:EE_|DS7PR12MB5911:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8d34c4b-d0ef-4105-f36d-08dab58f99bc
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VE1PR04MB7325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d0a05dd-3914-47c3-bcc0-08dab590ff5f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	joHy93JEuUE7OiORb2Qj6ZjRXQfrYXnqwHx9mlCi54O6KO0IKz11EVXhCKdlGW2Iv9xtyeU2l36U90Ivfn7ObzqKXgWkT01Hx+DS7nqeayUUrSiNOa8b2d/cpNr2zrICWOWT7hX9oHBVfn2WD24aFrz0P7pxwOOQrlCoKsK8IgdA6sTL4e7gCwlRXjupBY53s8Iiu4zo/h6V68314B5G0kKbIwVzdI2DSu4/gbXaGzYHlSgI7DRwygvKzJdFUL4blIJLOHZ+FRYsqGICUjFI0axUhb6V8jVCOq+C/TZela3/d79iEIpPYn254oUxVZzxB8ri5KqYGHYlpyYSLpleR/0FaLMefp4ySZEJzH2bKQkXzOaBXOUEA3tULvuhVCARINV7NudHxS7zv0wyR157zSQEMkVGs4k4AawhIHrMrmrro69HkKFTkXXgQMUJh+sLpfEzMx2qfeibLsdzrxWLW8uCL26ZK7PHwV4Swz+q0YyAUbcrJmOw8I5TNRI9ikdtw04GuAcLEwfYMb2M7M5p2JWORf6mE+q4MBHjD0vUDpB58LoqHjucg+hZz83Z7XNy/uj6fFUlM+BqNuEQ2X0pxkBcr/JH4EGNB+lqF7lmIm6VOP7IB8T/ZGKZQKIQmhN03FEFY5tJCePvHigr5I7aquZe4hSUlEhlmHCBU2yrtJvblf4iKY2SRxQNY5jaBfSNSliv7emLd18EdfkTPOPnl6j3+zGS67Y3ncDdBIrAhXCfdajiCm6+UQ8k4W8n/FSsgJLtVh9ZsIXob96uHebnoA/Cq72QT3EfadGAivqE1cRjN9UJWPWIYsXRdEnvjTC1uv2FVLU3tC1ncqg92EXviA==
+	UxClFyCk8Lvs+LqQTG0Ggt9zxEp/PUwiKH0Fv11c17UCw1zO7VR+VH4LpxmSY2la7E/q3hbCkXSl1ziKzq7sXY5JNT6XsC/YIo5qw3MHq0bOyUOgbCx4JreyvWxtJ/bxgGIEskh1a2ctShxKBSE0ABLgtMCmWKRnXlqzY4ag8tfuenPQSr7Mf9EwySNBA3OVr2w4b1El+xDfYGX5ETbu5hgyieN2EFlsEw0I4AE+749z7l2KgFQFxyfECoYF4wpsxh+o2sGWzXCyjHyanxO3J/gNLBMS4lVoCOtw3JrekZlyDiioTklRfnecyVxGqD7bNuNw3qgr8+W9DVLQFbjMNsM5/Ufg8/0VRhFY2Ew9TGqSh1E2wfwwQG9LF4P9DuLvCow40jIcsVTJioBJjGdIOG5nefsCNIDaEpXgJlrGYqRArQduhZZfqChsYOdhUHLDN3wDMsmAlsB6mXso8Uzm1yQg+Ho+oZJTiiEMw9XSE3D4PFV/k1aK9M7e+xm6RRuxxz/98Iuzdn6RVlfnp6NV2LHzi66OInj/i/1VG7Fe1lYp0CRmzEftm3AqZb2CWKAF4C8jinTy0gG5jCDr4ZQlsEyi/FlNcJVOAizl837paHqoat+xUAAki5rhADKDEZW5us605ZA3YvGBLLaExGZSK/tdSCBRuMiuzFdXuZ8Q1Xqrv83YPt9kLOLTzTioAvyFtTqyQBAMbCqKoiYKdttrKv+1RGCS8mHK/UOabni8di1sjhDYxOg5yHamhSl0sB0zOzlS0DcpXp6r7UGOa8qfEzEnr/zJE8U+Ph55jJw8s/g=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36860700001)(31696002)(81166007)(40460700003)(356005)(83380400001)(47076005)(8936002)(336012)(44832011)(5660300002)(82740400003)(8676002)(186003)(110136005)(86362001)(16576012)(82310400005)(4326008)(53546011)(54906003)(70206006)(316002)(40480700001)(70586007)(2906002)(41300700001)(26005)(2616005)(426003)(36756003)(478600001)(31686004)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 07:15:58.9813
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(366004)(39850400004)(396003)(346002)(451199015)(186003)(2616005)(83380400001)(31696002)(86362001)(38100700002)(2906002)(41300700001)(8936002)(54906003)(5660300002)(478600001)(53546011)(66946007)(26005)(6666004)(6486002)(4326008)(66556008)(66476007)(6506007)(316002)(6916009)(8676002)(6512007)(31686004)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UGE2RDRkem5nYkdwZHFuVXRacFNReDNzUjAzcVYvQURGU0FXUUJWbDNTaU1a?=
+ =?utf-8?B?YnVhYWpnQWlOUk5uMC84bC9JSkVtWjFTRGJwYWJVNFZCK2VxMnEwWTZIRUN2?=
+ =?utf-8?B?K2MzQTZEMmJQMFNUNHFQcnVqZC9TcXJRc3lEaHRuV0NPNXpJeTA3K2tOSE81?=
+ =?utf-8?B?QkZ2WVo1QTErTVRMMHJGMjM4Rjd6c25KUFhONHZFdlgrV1FBZUlCSThjbUJ0?=
+ =?utf-8?B?bGlVdFJFSUlPVmRtaUU1NDJpYmRmOGdMTkdYT00yaUVVbVdTT01ndEh5RjdZ?=
+ =?utf-8?B?WXIwTGx0cEJobDdBKzg3c2ZpMzNWN0w3SlE3RVlUakdGdzFDTjYxbVk5UUdH?=
+ =?utf-8?B?UTR6R3lTQVpoVjE2dm5HVTVma3lsdFhKU0MwaTY1M2Rid2t2WThvT3NxTDZn?=
+ =?utf-8?B?VEJpWjBtYzJvcFp6RDlQTWgzRHpzM25tRkRZdlFRVnBabWJJV1pPZUdJTkZo?=
+ =?utf-8?B?c0ZhdUlWSFRJSEU0MENWVHdJdmxuVkxyeUdSMktWanJuQzl0eGh3WFRzSDB3?=
+ =?utf-8?B?TldvRVk5MEV1bk9jSFVUdDV2WGtqU2lUeHhGd1RMQ2ZSTklKSnVObCtrVGl0?=
+ =?utf-8?B?YXpBL3F6aE95SW9BcFdGQi9kbkpBZzZKUklaMFpzNDhMbVExcFd1WjFFTCtR?=
+ =?utf-8?B?bEhlQUVKZGlnUFFpdnJHWnpkSmpvRytveXQySFV4S2Fkb1NvQXBTSVNtQklF?=
+ =?utf-8?B?VXZlbGFHcWEzQUxUTk1vWlNOWmJJMUt4Rm9xZk1WUnowYXZpQTJyaytvWjNi?=
+ =?utf-8?B?eUVOWGNrREdKdzVwWERBcmNlU2N6dGEwbG5YcU5vb1ZpLzZHN05zakdoY2pi?=
+ =?utf-8?B?czZJdkFvS05nWmQ4bkhLRCs5cFIraTZJaUZ1NlhoZnY0MGwrOXJjVlUweUJj?=
+ =?utf-8?B?QnM5d3hmM3NTSm1pNThURlUySjRibitZdXFVdW9id2xxSTIwNjluV1ZjRUw3?=
+ =?utf-8?B?WnZnbXo1NkhGcXhtWk5Pc0Z3eWNFQjlsR290UTZ5ZVNhWU9xUXk5eUhaSWxm?=
+ =?utf-8?B?WkhwL05JWFJOcFRuTWp1V21JbTdTZW1yaVk4ZzFncUg1UlpPeGs1NDdRUkZi?=
+ =?utf-8?B?SC9mbUpLSDRyREFXRVYvWHJkZDc0c01WWlVEWFBhWkY3VWNqSjhwUFRPTk1X?=
+ =?utf-8?B?WUp1YUNQb2NjYjF0U0VIelJDTkQyRkxSWWpmYllGM2R5MlBnOStjY1oraW8y?=
+ =?utf-8?B?UVk1VU1mN3NtcFVDaWgyV3pWRVNMQ2pZYlZGLytVYmI0UFcvdWMvWGFkbTB1?=
+ =?utf-8?B?eStVRFF0Umg4L2x4b0NhYW5UZVh1OWtoWVorcXllSlkwUmhweTlZd3pzNGNJ?=
+ =?utf-8?B?aUtnY2pzZFBUKzhIVVpSTHVxcHFFVHlGalpGY3FaY0FUWElMeUhNdkduNHJz?=
+ =?utf-8?B?R1gyMlV1Zi9QdGNOMG0zS1dWUVc3S3ZTM1B0R2ZOZHdtbnE3RFB2amwzNW05?=
+ =?utf-8?B?cUh2bGZKNTNJa3ErdHJoUUdUdUh6TTdQOFplZU82d0hDejFNV0xuUTZicThw?=
+ =?utf-8?B?VG9sQUhxS2NZNXZyODFML1laUS9KR1NHK2d2N0pZRno4Zi9JZzJSeWx3Yzkw?=
+ =?utf-8?B?Vzl1YkwxaXArbkFrSFA1c3RKakdvRW9jVkpyZk5hV2YyRUU0RUJUUTQvbC9r?=
+ =?utf-8?B?enFzUkJIMnVoN01vaXZnMCtMaXJSemFuMDl0cEZpd3RwaGRpdTlWVHRqcmVt?=
+ =?utf-8?B?aDg1ZkZEQTRWYnhkeUhvNXora0FPbVBKRW5PT3g1WU9FYVJyUmVITkt6Yk10?=
+ =?utf-8?B?d3RWOUttNjNUeFZjZ2RxclErazRhR01wcnB5eWsxTVROMjdLdktOQUtjZGRY?=
+ =?utf-8?B?Z2w3SWxKMEYzeGJGdHdvU1EwS2xlUXNBbHBybUFyQ0dpV2JhckZOSGptWFJR?=
+ =?utf-8?B?WHd1WkFZOVplUEZ4ZHlvNHYyMTlVdFlZd3lpbkRTVzU5VVgvSjBNbWNvT2lX?=
+ =?utf-8?B?Q05hdUdlQkVFMVNxYkNHdm4zWUcxRUJNT0Y4ejdQWVlTcHVKci91YmsvZ0JG?=
+ =?utf-8?B?M3VodURWeG1sdXoxTkVEQUtVcUMxaTlXY2x0V1M3ZWd5NG1hbW5tUnFZTDhj?=
+ =?utf-8?B?WnNIK1k1eEVMWjV0anBWMER5dU0rbHkzaFNxYjhDTCtPS3BoTkFFTkZSNEdO?=
+ =?utf-8?Q?vK5bKBYQJv5dKvuJajgI0oElw?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d0a05dd-3914-47c3-bcc0-08dab590ff5f
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 07:25:59.1978
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8d34c4b-d0ef-4105-f36d-08dab58f99bc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT061.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5911
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Yn7EDE3qrN5pUK7mylG6DeBST1ccRUs76JQR8CwsN8dY37YjsSfgZeMMB0TbhrkuHSJVJUfZrAd0UIb7tYg7Mg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7325
 
-Replying to all,
+On 22.10.2022 17:30, Julien Grall wrote:
+> Is this intended for 4.17?
 
-On 21/10/2022 21:36, Stefano Stabellini wrote:
-> 
-> 
-> On Fri, 21 Oct 2022, Andrew Cooper wrote:
->> On 21/10/2022 17:53, Michal Orzel wrote:
->>> Null scheduler is not enabled on non-debug Xen builds so the current
->>> test can lead to a failure on such jobs. We still want to test that we
->>> can assign the cpupool to a domU with a different scheduler than default
->>> one (credit2). Switch to credit as it is enabled by default.
->>>
->>> Fixes: 36e3f4158778 ("automation: Add a new job for testing boot time cpupools on arm64")
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>
->> /sigh - I'm sure I nacked that stupidity to begin with.  apparently not...
->>
->> It is totally bogus for CONFIG_DEBUG to influence logical chunks of
->> functionality like this.  The CI script is good in its current form.
->>
->> RTDS and ARINC should be default n.
->>
->> NULL is more tricky.  PV_SHIM is explicitly security supported, and has
->> been for years, so the "UNSUPPORTED" is bogus, whatever the default is.
->>
->> As NULL is explicitly tested in CI, it's clearly supported, and probably
->> ought to be on default.
->>
->>
->> Please instead fix Kconfig to not be broken.  That will be a far better
->> fix overall for people.
->>
->> As a more general note, tests which are using non-default pieces of
->> logic ought to activate them explicitly.
-> 
-> 
-> I agree with you, but first let me clarify the word "supported".
-> 
-> 
-> In Xen Project "supported" implies extra efforts to follow the security
-> process and of course the security team should be on board with it. If
-> we say "supported, non security supported" we don't need to follow the
-> security process but still we sign up for backporting fixes to the
-> stable tree. It is less extra effort but still some extra effort is
-> involved.
-> 
-> So, this specific issue aside, I think that as we expand the testing
-> capabilities of gitlab-ci, we'll have tests for things that are not
-> necessarily neither "supported" nor "supported, non security supported".
-> 
-> 
-> For the NULL scheduler, it is clearly important to many users so it
-> would be valuable to move it to "supported, non security supported" and
-> enabling it by default in the build. I don't recall if we still have any
-> known outstanding issues with it. I think we need a separate email
-> thread for that discussion and I would understand if the decision is not
-> to change NULL support status for the 4.17 release (maybe for the 4.18
-> release?).
-> 
-> 
-> In any case, we don't need CONFIG_DEBUG to enable CONFIG_UNSUPPORTED. It
-> is just that UNSUPPORTED and NULL don't get enabled by default in the
-> non-DEBUG build. So to fix gitlab-ci, we can simply enable
-> CONFIG_UNSUPPORTED explicitly for the builds where we need it
-> (alpine-3.12-gcc-arm64-boot-cpupools).
+Well, yes, it was meant to be - it has been ...
 
-Given that there are still diverging opinions \wrt making use of DEBUG
-to influence enabling/disabling some functionalities in the code, I would
-opt for modifying the CI job to explicitly specify the required config options,
-just like I did for static-mem test. The necessary options to enable NULL are:
-CONFIG_EXPERT=y
-CONFIG_UNSUPPORTED=y
-CONFIG_SCHED_NULL=y
+> On 09/09/2022 15:30, Jan Beulich wrote:
 
-This will fix the issue and allow us to continue with 4.17 release.
-Given the outstanding issues reported by Julien, it would be challenging to
-try to mark the NULL scheduler as supported, not security supported for this release.
+... well over a month since it was sent.
 
-Besides that, I think that Andrew still has a valid point. We seem to use DEBUG
-only in Kconfig.debug (obvious choice) and sched/Kconfig. So this is not something
-common to rely on DEBUG to enable logical functionalities (why did we make this exception for schedulers?).
-Having said that, I think the discussion on whether to switch to default n
-instead of default DEBUG or not is still valid and requires more people to give feedback.
+>> --- a/xen/arch/x86/sysctl.c
+>> +++ b/xen/arch/x86/sysctl.c
+>> @@ -157,7 +157,7 @@ long arch_do_sysctl(
+>>           long (*fn)(void *);
+>>           void *hcpu;
+>>   
+>> -        switch ( op )
+>> +        switch ( op | -(CONFIG_NR_CPUS == 1) )
+> This code is quite confusing to read and potentially risky as you are 
+> are relying the top bit of 'op' to never be 1. While I am expecting this 
+> will ever be the case, this will be a "fun" issue to debug if this ever 
+> happen. So I would suggest to check CONFIG_NR_CPUS == 1 separately.
 
-~Michal
+You're aware that we use this pattern in a few other places already (I
+guess in my local tree I have one or two which aren't upstream yet)? Just
+grep for "switch[^_].*[|]" to see them. Also note that it's not just the
+top bit of "op" - we merely assume "op" will never be ~0. Personally I
+prefer this way of coding the logic, but if at least one of the other x86
+maintainers agreed with you, I'd be okay to switch to using a separate
+if().
 
-
+Jan
 
