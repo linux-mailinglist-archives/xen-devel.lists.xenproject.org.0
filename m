@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E7E660A026
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 13:20:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.428893.679496 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 854F260A061
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 13:20:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.428899.679532 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omvUN-00039d-Lz; Mon, 24 Oct 2022 11:19:27 +0000
+	id 1omvUy-0004Of-Ld; Mon, 24 Oct 2022 11:20:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 428893.679496; Mon, 24 Oct 2022 11:19:27 +0000
+Received: by outflank-mailman (output) from mailman id 428899.679532; Mon, 24 Oct 2022 11:20:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omvUN-00036Y-If; Mon, 24 Oct 2022 11:19:27 +0000
-Received: by outflank-mailman (input) for mailman id 428893;
- Mon, 24 Oct 2022 11:19:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ny4u=2Z=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1omvUM-00036S-GD
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 11:19:26 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2078.outbound.protection.outlook.com [40.107.21.78])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b75150ce-538d-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 13:19:25 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB7840.eurprd04.prod.outlook.com (2603:10a6:102:ce::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Mon, 24 Oct
- 2022 11:19:24 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Mon, 24 Oct 2022
- 11:19:23 +0000
+	id 1omvUy-0004DX-9m; Mon, 24 Oct 2022 11:20:04 +0000
+Received: by outflank-mailman (input) for mailman id 428899;
+ Mon, 24 Oct 2022 11:20:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=fxyk=2Z=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1omvUv-0003Yp-Mk
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 11:20:01 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cb5b37a2-538d-11ed-91b5-6bf2151ebd3b;
+ Mon, 24 Oct 2022 13:19:59 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 973881FD86;
+ Mon, 24 Oct 2022 11:19:58 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 03E2813357;
+ Mon, 24 Oct 2022 11:19:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id zybkOt10VmOYMgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Mon, 24 Oct 2022 11:19:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,157 +51,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b75150ce-538d-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gZAk5fdYMq4mrTpbe7/ge5UguUqSHnl172nZ4ALV0MGLiapCLFgtI5jZtpZ68uWvFFpOt7zXJSyXL7o2Gd952fG0Nkq5d7xEiyifJIOa1irqmzXRIFy+wy5zpX7W7XRBxIZ29TcgFiNxsZ9vb+jOXpRYPGOAhuzFqffCuHOE1lyesIP0hht9/k9klbfYhKn68tbhaMbJZ7nbjta6XafOq9K4aZQQurJZVrRb048E7AszPufkW6nzklg0V6iKgjUz/2d8i6pYt50ySy3/KLPets7EDKZSuQoUmE1sJnkDS3iRDvZgNbR2KJYYxdCJ57PG42YpRd4lWiju+ZLcsyIQEQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r8kZznpgOg5CqY/vO6wbKyA14Iki5cPMQ5lTivfHkHg=;
- b=SBdvT9r4kXj+sJlW1yNEF8ZlWey50K5QqiZGfpTWzIfRPO6LdwnyJ2jfn3SnLZBRgZHNDKAC9b5+wn7p8cyhyYz2kRrroG/w6m7G+Qkh5nR2BV8I72RW8/8eaO018p9vS9g0uQdNIdH82v3U5LwwMVSr8KBKQzzN9OVLwc3mnvbxm2yRWQ0WXmNo3i0zNkKjlm2bkciUGopG10QQY8J7o7b/TFYfbIFtKjpRs6egLmMyA6dsm5mMs39WSNtvFak8HchQxcukfyZRM24dUsj9IpL3Jh/8hJStuJUSdD+smkhHMncvrbliOsDcH7X7SqhkjoSSu2d2uIBaWhM9p42qkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r8kZznpgOg5CqY/vO6wbKyA14Iki5cPMQ5lTivfHkHg=;
- b=mYVHhWmVCr8GR0fKmVII/8R3OjRnmm/2wJdbFRVcehEth9jZ60P7xY6tqeb/qgyvG+zvqYf1qOR1u4r7Gg8F22pAClNKk8kcyz0ItANqVyGyR6ea2PGYYHI1ZBo3NEm752TB9M+dolf6nJD1hYVo0PAA5qx0QiY9p2UZebLy3nq+2QO7ApBzbj97TQwH0bgAFz5ejfe3mkB0mxx7ZRJOdzhtobfKUttZitRPmqLMLotGPzc5wQWUBy9z3XqfEfMsQL1amFNdj01a+EDYlqb52Q0EldwXGACMPv6moWPgKeCu7UNl33a/OWTkwfANSzLrs1WqWip0TqJ1PYPaOxrKrw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <4c960f12-6561-d8e9-c1bf-8da18243ca6b@suse.com>
-Date: Mon, 24 Oct 2022 13:19:22 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.3
-Subject: Re: [PATCH for-4.17 5/6] pci: do not disable memory decoding for
- devices
-Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-Cc: Paul Durrant <paul@xen.org>
-References: <20221020094649.28667-1-roger.pau@citrix.com>
- <20221020094649.28667-6-roger.pau@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20221020094649.28667-6-roger.pau@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0107.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: cb5b37a2-538d-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1666610398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hzNk2J1kv0hvXKhIHs7HnwozHE2hDAXgOdFZp8AywGo=;
+	b=HkTG27jc1phmO2sYSspbljuTMragV3RllZDVeL22LJUT+RamYsIuqsaoqDlSHb0l9OA6q6
+	GT0tqNWWqBg+tcq/3TR4T/xB1NJ2r0tlY31pSNOZnxJ/sjEt0/Pg+eWqW99hZIupGc0ZMW
+	XR3pQTAbIh0q7Iv51jt/wuMpfkBc3pw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1666610398;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=hzNk2J1kv0hvXKhIHs7HnwozHE2hDAXgOdFZp8AywGo=;
+	b=WgrsXz4shLgIugdW3McjjV/i28ZaSykMoNzWHCg2sSAlZ3E3ktA3U8MVWkGJBmn75Oj+fQ
+	sylXkr/Z8upKERDw==
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch,
+	airlied@gmail.com,
+	sam@ravnborg.org,
+	javierm@redhat.com,
+	mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org,
+	etnaviv@lists.freedesktop.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org,
+	linux-mips@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org,
+	freedreno@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	spice-devel@lists.freedesktop.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev,
+	linux-tegra@vger.kernel.org,
+	xen-devel@lists.xenproject.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v2 00/21] drm/fb-helper: Untangle fbdev emulation and helpers
+Date: Mon, 24 Oct 2022 13:19:32 +0200
+Message-Id: <20221024111953.24307-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7840:EE_
-X-MS-Office365-Filtering-Correlation-Id: a2137ebf-5e4b-4b87-8ec6-08dab5b19ace
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+ZkLFoQUVopRwzabIFHwBpRmQGoMe1weekABmYcqOIR/QotzVM8myIM4Zj7AgFrrvfGdZVg72NkpcPIci2vNwQqQTALxUCcayWpPcj/eYe8sif0gVoZnOPeURZvk5S8ezm0Vszh9OXCcchzptLEs0/Ou2a0hclyLwrchxf7Jxw4Tiadu7OvfbX+POBHRnL/ciP2Cw3ZIilaosYZ76TyHiDax0Ga1G6VqaqKh2LcOZyv28OclKpKb83NZp3Vemf7ANbNH5I6Q6/m0WkWuay1ZBKc5gWiBo3CdgssejSmApB8VoxlE+PRx1v1cNrpf8oMqFbV93ctx7BerygAR0vYq+M9Uv0kPYlTH3efnz7UiWD6uJLEdRxZF439w8+u6TGlgm8JrN3WWelQcX/JIstIdBCGxl+LXwaNckmynKtWzt5DcF9TcgvHAM/2Q/K9mYNma4GL4PRg/sCG4SAklJbCUG9FqpP1gXZa/tPkZPbn5cJEaGK0TERTTNI28BADxFdu6jme0ir13IwYLrMgwG1ARIZbM7ILZmVzDzgOP9LgCku3UL4UqBoPFobMx4SGmeJOh31L4o53trP8PWKnY9yo5TOP3ahecihUsuJOTKIC9qnHXL5mKdG2UVVHa8DBqU8jCWGp4WK/siqWNiMGaVgmOjPi/6IRiFw1RgTiO+JyiXcCPUfG6sRKg6oU/ThAlX8snV+N3IwO8+8jm98rkOpSc2cIcaEm6uoZc/DoOELZ19KckUY/KwCdWUfjSSkBr4ygGh8VG09tLkhAGDWxBOYSFB0q8IWsUqofGWJ8fRbTjuTU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(396003)(376002)(136003)(366004)(346002)(451199015)(6486002)(478600001)(31686004)(2906002)(38100700002)(5660300002)(36756003)(41300700001)(8936002)(66476007)(66556008)(8676002)(66946007)(4326008)(316002)(86362001)(31696002)(6506007)(26005)(6512007)(53546011)(186003)(2616005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1hBR2kxVHJvd2liQTVYUUxkT0p4ekNaaGJQc1VmZFJ1dTZKR3hNdGFJU3ZI?=
- =?utf-8?B?RVlQSFJMYytpNHZtMEgzQzMvUzBiUUllaVNoQ1F1VVRyb1FOVDF3by94ekEy?=
- =?utf-8?B?TnpDS0hyYXdEWCt4QnNaTlRSZzJHamtFalRmN0psdXVwS2J1WlQ0SVlEMEtC?=
- =?utf-8?B?Yk05aFpNVXAxay9YMEFjV3lHOUJYMGpLQlZoK3ZqYmlHQWtMMUVmWmRhSjhz?=
- =?utf-8?B?SFBOTzlIMEY4aUVyNFBUd25qdkJoZWJvWURKSDN2Zy9FbGtPUkF5bzB0YUow?=
- =?utf-8?B?dzBPcjExQmhVdDZwWW9pMFA3Zi93V0UzLzRJWUk3RUVwaGppVUY1RkRKRTM0?=
- =?utf-8?B?Y2Q2ekFJeWUzWjBvQzRjaXV0WmVsUG1MZkFjWW5uSTlTRFB4bHN2RFEwMGpT?=
- =?utf-8?B?cUdvVC8zcVh0WXpHUzRjRm9XTzErMVRneGxZVHZNRTNvMGg4Q1FpQ1NOMkZQ?=
- =?utf-8?B?bEhKMk95S1hGWGdidGJaSFE4cCtzeC9YSVpUTVh6VE1QVEVtNWQ0ejlsdU9i?=
- =?utf-8?B?OVFCWTRxWVdzd3NaSHZZbkdrYlhpYldqd3gyN0xOZDM4UC9OTGZJQTNCNC9k?=
- =?utf-8?B?VHQzcm9tNkFzYjAzbUxWQU9CWElNam9rcVhxSmpCbEtRejRRV2cxNnd1cm1a?=
- =?utf-8?B?NHFHRU44WkoveFdPR2QweHJRendsbFlQRFZIYzUrdTJlRGFSLzN1aEpCVk9i?=
- =?utf-8?B?NGhHQnkyU0xQUmREcVBGNGVuQnRuT0UrUlkyZlJLanNET1M3Z2JZdXZQd1VO?=
- =?utf-8?B?bWJoQWJuZG1kRnR3NW9TV3RSMjRlV0hla0V1c09SaHNJc0IvdW14N2hKK3R3?=
- =?utf-8?B?NTh5ejRyblhqOVVSQ1EzL0hpWnVjV0JzMkpTWFJJYUQ1WjB3dkVkaHRpcVlB?=
- =?utf-8?B?Rkt5cWdSZXpHQlFLb2NQUUlzdG5wZy9kRVNhWHE5ZkZGZ21vRUNqQ2FXUU81?=
- =?utf-8?B?NzZDSnUwakdMUnFWNXBVT3B2dFptWmdiVy9UdTZ6UzRSNWhKUjhxeWRYeS9P?=
- =?utf-8?B?UHZiR1V2R1oxMC95aXpsMnhUbU9zSnNabkZOUmRUVmFDcWM2MGk3QUY3QS91?=
- =?utf-8?B?R2w1RmJZb1R6dmFIZHJCV2NSaVBSSiszTlFyMk9kT3lxazcva3poTTJZaWMz?=
- =?utf-8?B?alF4ZG5NUUdJNzhOOVIrUUh1RE9YVExVbHpYaXZJM2xEK29IeEhEeXBxeG5t?=
- =?utf-8?B?bGJNcEViVnkrSnlKOFljL0Y5cWo4Y21ubFhwV2s0SkxiQ2xWcDJqMTZFVGV3?=
- =?utf-8?B?Nnk0eHlJaHZxN1dBUko4WTNWVFZDTTEvS0I0MFR1aFE2VzZGeWVwb28wWDNp?=
- =?utf-8?B?N3Y5SnVESUtKYVk1YW1JdVdaWFpML2VmZm1ZVURqc2RGc1NBQkJ1U1dYcVgv?=
- =?utf-8?B?M0kzS1NDS0tqbWxLSDBLY3FqbS9uTVF4eGIvYWlaSG1JVzIwOWFEWGN5Vlpy?=
- =?utf-8?B?ZEtockFsdHFUVDZvVzhWQlRIenpBZXFhVE1kaHBmdXJhUVFhV0s2RHgrUnVE?=
- =?utf-8?B?MjF5RzVEWDRsS0JmVFl4LzV1ZE8wTWYzemxoV1N5WEZ6QTVuUzJ3d1RacXpP?=
- =?utf-8?B?Q3Q3Rjg5UURrS0tkbG14bm8xYzdCdjRxN1NSQmRxazhVTndGUDZIZXVuRkNq?=
- =?utf-8?B?YWI5ZGRFUWxWVVExZnhTQTdydG1WTDBDMGwwQUhVYlZoUUV4bVdvNVJ4cko1?=
- =?utf-8?B?L3l5ZFFRcVRXMHRmdlJvMDRVRUJOZFhKQjFJc2RJY1U0Skcrc3BPMzgxM2ZN?=
- =?utf-8?B?VUpLVnJLSEcvRENyU0VKRUdKbGhUTjJBcm1PR0hxRGV5QkV0bEdlS2JSUHdT?=
- =?utf-8?B?U2JMWlRvTkdnTitEVGxxTWQ1bVphRFRaNmhyTlRWUTF2eG9oWnNKWVh4MDFH?=
- =?utf-8?B?ZEdBVytnNlg0V3F3eFdUbG1VWDVScXFSS0d0T3g5YldOMjdDaXU2Z2JHK3Zy?=
- =?utf-8?B?Qi9QUTlPNTVvZk1oSXRPa2tkRjNFRGFLRmR3VWRsYVJBZ3Z1alhIbzBtOGlk?=
- =?utf-8?B?V1cxT044amt0K1cvZkVyRllDeU0yd2ViUjY0ZlpGUTN4T0VKcjhuNVAxdHZj?=
- =?utf-8?B?ZEZKQ0F4K1o4QmRZcXIzMG1vMVJYT000TkI5QUJzc0RJdGZsQVdUMGhpYWJj?=
- =?utf-8?Q?6V2g647GfyiEMobiRI816XiW0?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2137ebf-5e4b-4b87-8ec6-08dab5b19ace
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 11:19:23.8507
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: clHIZxwe0vEYfRKBXjzhPvlCHo7pPth8DEGjjD1upDn5/lhodrZnac2elPmRASx5NXOc1NT1VypXSFU5Yy5pNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7840
+Content-Transfer-Encoding: 8bit
 
-On 20.10.2022 11:46, Roger Pau Monne wrote:
-> Commit 75cc460a1b added checks to ensure the position of the BARs from
-> PCI devices don't overlap with regions defined on the memory map.
-> When there's a collision memory decoding is left disabled for the
-> device, assuming that dom0 will reposition the BAR if necessary and
-> enable memory decoding.
-> 
-> While this would be the case for devices being used by dom0, devices
-> being used by the firmware itself that have no driver would usually be
-> left with memory decoding disabled by dom0 if that's the state dom0
-> found them in, and thus firmware trying to make use of them will not
-> function correctly.
-> 
-> The initial intent of 75cc460a1b was to prevent vPCI from creating
-> MMIO mappings on the dom0 p2m over regions that would otherwise
-> already have mappings established.  It's my view now that we likely
-> went too far with 75cc460a1b, and Xen disabling memory decoding of
-> devices (as buggy as they might be) is harmful, and reduces the set of
-> hardware on which Xen works.
-> 
-> This commits reverts most of 75cc460a1b, and instead adds checks to
-> vPCI in order to prevent misplaced BARs from being added to the
-> hardware domain p2m.
+Separate generic fbdev emulation from the helper code that is shared
+among the various fbdev implementations within DRM. Affects many drivers.
 
-Which makes me wonder: How do things work then? Dom0 then still can't
-access the BAR address range, can it? Plus with this adjustment, is
-...
+It has become apparent that our fully generic fbdev emulation will
+never produce optimal results for all drivers. In its current form,
+it is also hard to maintain. The goal of this patchset is to improve
+readability and streamline the fbdev helper code within DRM. In the
+long term, we want to get to a point where drivers or memory managers
+can pick and combine the various helpers for optimal fbdev support.
 
->  Signaling on whether BARs are mapped is tracked
-> in the vpci structure, so that misplaced BARs are not mapped, and thus
-> Xen won't attempt to unmap them when memory decoding is disabled.
-> 
-> This restores the behavior of Xen for PV dom0 to the state it was
-> previous to 75cc460a1b, while also introducing a more contained fix
-> for the vPCI BAR mapping issues.
+Patches 1 to 8 start by preparing drivers. Setting struct drm_driver's
+lastclose and output_poll_changed is not required by generic fbdev
+emulation.
 
-... this (in particular "restores the behavior") a valid description
-of this change?
+Two drivers depend on fb helpers implicitly including other Linux header
+files. Fixing this in patches 9 and 10 allows to remove unnecesary include
+statements from the fb-helper header in patch 11.
 
-> Fixes: 75cc460a1b ('xen/pci: detect when BARs are not suitably positioned')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
-> AT Citrix we have a system with a device with the following BARs:
-> 
-> BAR [0xfe010, 0xfe010] -> in a EfiMemoryMappedIO region
-> BAR [0, 0x1fff] -> not positioned, outside host bridge window
-> 
-> And memory decoding enabled by the firmware.  With the current code
-> (or any of the previous fix proposals), Xen would still disable memory
-> decoding for the device, and the system will freeze when attempting to
-> set EFI vars.
+Do some renaming in patches 12 to 14.
 
-Isn't the latter (BAR at address 0) yet another problem? I have to admit
-that I'm uncertain in how far it is a good idea to try to make Xen look
-to work on such a system ...
+There are currently various implementation of the fbdev I/O helpers
+with varying feature sets. The fb helpers for fbdev I/O should all call
+fb_sync, which is what fbdev's internal implementation does. For DRM,
+damage handling needs to be performed after updating a framebuffer. The
+damage worker is part of the fb helpers, but the actual update logic only
+works with generic fbdev emulation. Separate the two, which also gives
+other drivers an option to set their own damage handling if neccessary.
+The full-featured I/O helpers can be moved under a shared implementation
+and called by all drivers. Patches 15 to 18 resolve these issues.
 
-Jan
+Patch 19 changes fbdev disablement to work at the level of display
+detection. If disabled, generic fbdev emulation will be initialized,
+but no display will be detected. It can later be enabled by changing
+the parameter in sysfs and plugging in a connector.
+
+Patches 20 and 21 move the generic fbdev emulation into their own source
+and header files and clean up the include statements throughout DRM. Many
+drivers only call drm_fbdev_generic_setup() and can avoid including other
+Linux header files.
+
+Built on x86-64, aarch64, arm, ppc64le. Tested with various combinations
+of bochs, i915, simpledrm.
+
+v2:
+	* fixed commit descriptions (Christian, Sergey)
+
+Thomas Zimmermann (21):
+  drm/komeda: Don't set struct drm_driver.lastclose
+  drm/mcde: Don't set struct drm_driver.lastclose
+  drm/vboxvideo: Don't set struct drm_driver.lastclose
+  drm/amdgpu: Don't set struct drm_driver.output_poll_changed
+  drm/imx/dcss: Don't set struct drm_driver.output_poll_changed
+  drm/ingenic: Don't set struct drm_driver.output_poll_changed
+  drm/logicvc: Don't set struct drm_driver.output_poll_changed
+  drm/rockchip: Don't set struct drm_driver.output_poll_changed
+  drm/panel-ili9341: Include <linux/backlight.h>
+  drm/tve200: Include <linux/of.h>
+  drm/fb-helper: Cleanup include statements in header file
+  drm/fb_helper: Rename field fbdev to info in struct drm_fb_helper
+  drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to use _info postfix
+  drm/fb-helper: Rename drm_fb_helper_unregister_fbi() to use _info
+    postfix
+  drm/fb-helper: Disconnect damage worker from update logic
+  drm/fb-helper: Call fb_sync in I/O functions
+  drm/fb-helper: Perform all fbdev I/O with the same implementation
+  drm/fb_helper: Minimize damage-helper overhead
+  drm/fb-helper: Always initialize generic fbdev emulation
+  drm/fb-helper: Move generic fbdev emulation into separate source file
+  drm/fb-helper: Remove unnecessary include statements
+
+ drivers/gpu/drm/Makefile                      |    2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |    2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |    1 -
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    2 -
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |    2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.c   |    2 -
+ drivers/gpu/drm/arm/hdlcd_crtc.c              |    1 -
+ drivers/gpu/drm/arm/hdlcd_drv.c               |    2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |    2 +-
+ drivers/gpu/drm/armada/armada_fbdev.c         |    6 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |    2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |    1 +
+ drivers/gpu/drm/ast/ast_drv.h                 |    1 -
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |    2 +-
+ drivers/gpu/drm/bridge/tc358762.c             |    2 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |    1 -
+ drivers/gpu/drm/drm_fb_helper.c               | 1081 ++++++-----------
+ drivers/gpu/drm/drm_fbdev.c                   |  512 ++++++++
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |    1 -
+ drivers/gpu/drm/drm_probe_helper.c            |    1 -
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |    3 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |    6 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |    2 +-
+ drivers/gpu/drm/gma500/framebuffer.c          |    6 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |    2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |    1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |    1 -
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |    8 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |    3 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |    2 +-
+ drivers/gpu/drm/imx/imx-ldb.c                 |    2 +-
+ drivers/gpu/drm/imx/imx-tve.c                 |    1 -
+ drivers/gpu/drm/imx/parallel-display.c        |    2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |    3 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                 |    2 +-
+ drivers/gpu/drm/kmb/kmb_plane.c               |    1 -
+ drivers/gpu/drm/logicvc/logicvc_drm.c         |    2 +-
+ drivers/gpu/drm/logicvc/logicvc_mode.c        |    2 -
+ drivers/gpu/drm/mcde/mcde_drv.c               |    3 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |    2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |    2 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |    1 +
+ drivers/gpu/drm/mgag200/mgag200_drv.h         |    1 -
+ drivers/gpu/drm/msm/msm_fbdev.c               |    4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c             |    2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |    2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c       |   27 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |    6 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |    3 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |    2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |    1 +
+ drivers/gpu/drm/qxl/qxl_drv.h                 |    1 -
+ drivers/gpu/drm/radeon/radeon_fb.c            |    6 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c    |    2 -
+ drivers/gpu/drm/solomon/ssd130x.c             |    2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |    2 +-
+ drivers/gpu/drm/stm/drv.c                     |    2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |    2 +-
+ drivers/gpu/drm/tegra/fb.c                    |    8 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |    2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c             |    1 -
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |    2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |    2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |    2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |    2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |    2 +-
+ drivers/gpu/drm/tiny/hx8357d.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9163.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9341.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9486.c                |    2 +-
+ drivers/gpu/drm/tiny/mi0283qt.c               |    2 +-
+ drivers/gpu/drm/tiny/ofdrm.c                  |    2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c         |    2 +-
+ drivers/gpu/drm/tiny/repaper.c                |    2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |    2 +-
+ drivers/gpu/drm/tiny/st7586.c                 |    2 +-
+ drivers/gpu/drm/tiny/st7735r.c                |    2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |    3 +-
+ drivers/gpu/drm/udl/udl_drv.c                 |    2 +-
+ drivers/gpu/drm/v3d/v3d_drv.c                 |    1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |    4 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c         |    1 -
+ drivers/gpu/drm/vc4/vc4_drv.c                 |    2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |    1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h          |    1 -
+ drivers/gpu/drm/vkms/vkms_drv.c               |    2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fb.c            |    3 +
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       |    1 -
+ drivers/gpu/drm/xlnx/zynqmp_dpsub.c           |    2 +-
+ include/drm/drm_fb_helper.h                   |   59 +-
+ include/drm/drm_fbdev.h                       |   15 +
+ 99 files changed, 1019 insertions(+), 883 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_fbdev.c
+ create mode 100644 include/drm/drm_fbdev.h
+
+
+base-commit: 746559738f1335241ea686566cb654847c20d7a4
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
+-- 
+2.38.0
+
 
