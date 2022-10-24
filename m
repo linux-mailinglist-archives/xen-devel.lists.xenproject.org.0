@@ -2,51 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C911660B56D
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 20:25:51 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429336.680301 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0AFF60B57D
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 20:29:29 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429342.680313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on28l-0004Ao-Rh; Mon, 24 Oct 2022 18:25:35 +0000
+	id 1on2Bw-0004p7-Ah; Mon, 24 Oct 2022 18:28:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429336.680301; Mon, 24 Oct 2022 18:25:35 +0000
+Received: by outflank-mailman (output) from mailman id 429342.680313; Mon, 24 Oct 2022 18:28:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on28l-00048I-Ox; Mon, 24 Oct 2022 18:25:35 +0000
-Received: by outflank-mailman (input) for mailman id 429336;
- Mon, 24 Oct 2022 18:25:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1on2Bw-0004mF-7V; Mon, 24 Oct 2022 18:28:52 +0000
+Received: by outflank-mailman (input) for mailman id 429342;
+ Mon, 24 Oct 2022 18:28:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZViS=2Z=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1on28k-00048A-Gi
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 18:25:34 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2068.outbound.protection.outlook.com [40.107.95.68])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e810d53-53c9-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 20:25:33 +0200 (CEST)
-Received: from BN9PR03CA0320.namprd03.prod.outlook.com (2603:10b6:408:112::25)
- by PH0PR12MB7078.namprd12.prod.outlook.com (2603:10b6:510:21d::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.34; Mon, 24 Oct
- 2022 18:25:29 +0000
-Received: from BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:112:cafe::f5) by BN9PR03CA0320.outlook.office365.com
- (2603:10b6:408:112::25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
- Transport; Mon, 24 Oct 2022 18:25:29 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT079.mail.protection.outlook.com (10.13.177.61) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Mon, 24 Oct 2022 18:25:29 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 24 Oct
- 2022 13:25:28 -0500
-Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Mon, 24 Oct 2022 13:25:26 -0500
+ id 1on2Bu-0004m9-Nc
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 18:28:50 +0000
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-sn1anam02on2048.outbound.protection.outlook.com [40.107.96.48])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b376bd83-53c9-11ed-91b5-6bf2151ebd3b;
+ Mon, 24 Oct 2022 20:28:49 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by DM6PR12MB4561.namprd12.prod.outlook.com (2603:10b6:5:2ac::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Mon, 24 Oct
+ 2022 18:28:44 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.026; Mon, 24 Oct 2022
+ 18:28:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,137 +46,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e810d53-53c9-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: b376bd83-53c9-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KnEey0Fjx347cCS6a1ye5qSl/p+sKGt87jVhmjJk1Qnpcm+m4jlHaFBTzrzqtnh0O4BmZi+63zNFFDNU0G9Zopd/Qn6BOG9670EDIgxhmXBpLadJ5/Tg/R7OfD+cLZCfHUGvT5brbSND8SXR7t8z/8dGvZJ9bOokEsgcOQ1+MXyrmVU1KeNlhYtiqWGbAS98WO9LFCpEK5kyDj7fnkVOS9GvX6HrLPkOKcanPpaVPLVRmmHo2sRdoc/I/31Hpo502LwfM+RJnMl/TkJIl/BuLxsTDt7KCfnjPxf+QQf1imJOfBDTxTGSi1P0kCl9+Uq0uTBYppmpA6ck94YJBLbQqA==
+ b=VPNePxQA4cOTUo728MT7/hQl5lVXaD6BNj3yhlusRDe5xoIUCGcHC6qGNuBA3WQ9UrzID2004YdkkxguTfGNh5ApslMXgt4+j3VpTdqNzJdwECe1FyFs5s4SrH54AhYA8JAL4dLelBcJmpL3TfVeXVCMmczDgXqmmuTPDx5btARhmaNs+DpRnDDGHOfBm1Qx2PMiFJ+pUlU/P3nl3ewbCLytPuRZ2bLXx7fuNKHGkMyfe9SaP0m98VbKgIS3F+OMYaBqHUy2QlejStvr9HnUlrj1Njnps36ma4KsUI3Rgq+UtD4+8FRVTLXJPssC3M2nhYB1+fKL77YHUOi9RKjAyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9MocgCiMwjGKC6jmWCbUClFO/S1BbEXwKRDuBTLT5nY=;
- b=ae57cdxg7/KUY9t2yvhuRXgeMCwPfHh9AdTHcxS13gSmhUVUvugjfJ0s6gDgNSQjOwpVk7no0VOHbDP6nrZUvXUxQuzMiBUcT7NCQnzanpiCaKxfCDfyWWFCsZKgy9FrLlSdVaiuy9pv0CdkqTE2Dq9Xz8hGCBlmDJ45Qm10xx00h2vEqjydH3J2VtgsFmP9pEq7EknGDRia8tK7ng9ttQvNoIacjnUVTU6Kf00gbD4p7jSCPEaqwhUhmttayGx4ERYVF4Wtb26IWPYkGwZchUYWREisSo2V0KIGFoydlPFtqgg0kcfvdXIc+z/G0DnVg606q9afbKO/FHWP8ncqEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=ipa5zbm/riYkk9XDmnfmhMaJUxeYgVAjYPpTlvYMJho=;
+ b=Ruchb+rBlrpZeVC1fw5vqTBCeKZ6E4qmsgVcbdN/3RhRhqQMVYyhfR+8FXRLcwTZod/uLm0yhaQH4xW2clU7cOW2G5Po+k/2qMr8bUyyOS9VdaOJYFvDppwS96X198EgtfAyspbWQK35bO9/nt7qxP/T641kt9w5v459toaMphqPfsxyn33z/Opm6nEGMvlrtO90TmWYVg9NbkZyJnkk2kFnqziXkb3dTdiIpU8Y8/5Bhia8TtVmzNMEbX2RQAE49CRUrjLJSeYV+mMm2Y4lh1hTaOxDfCRAW2+E8G0J2QM+Ohd4dVjHDRzaTr34eRXyqkw7EBWIvRfwTgelDM9jRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9MocgCiMwjGKC6jmWCbUClFO/S1BbEXwKRDuBTLT5nY=;
- b=pQ1x494/c5WIHjAZhCxUfVIIQLMtpmOvMN4PKSbaRET69I+pUmmCXScmD1KKHx4GdOWXdKJnBEmtl0TH9XAx8OeMPLwg/KNmGNppCIH2apA1WFEiuuol5u9c99NQ6ss0NZ5/gzg3VBJVq43ZzpBhOdJxJyuNe+zRVB4ddr75CXQ=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ bh=ipa5zbm/riYkk9XDmnfmhMaJUxeYgVAjYPpTlvYMJho=;
+ b=ndIxmnw4FG2a+XEORlejAZAUl8F64Y9QT4v3K9oIZJKZYoqX0JG3bowlnmRFv3byGJatKTLxFOxM4EtWjQ3Bbnsg2HJ8/LwME9F5kSoS7Q0ri7JwgJrdDurXeaq9L/9z2ym7wsXKGIEdTSmxwygLc85X69f84d7mdaJpqMQIdII=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <3c37a51f-5286-ea84-8497-4b1f25014c04@amd.com>
+Date: Mon, 24 Oct 2022 19:28:38 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: [XEN v2] GICv3: Emulate GICD_IGRPMODR as RAZ / WI
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "stefanos@xilinx.com" <stefanos@xilinx.com>, "julien@xen.org"
+ <julien@xen.org>, "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
+References: <20221020104146.29841-1-ayankuma@amd.com>
+ <AE2C68A9-4276-444C-B227-F079D330EB8A@arm.com>
+ <ba43677f-903b-f30c-76e4-1668cdab2cc2@amd.com>
+ <F8CD5734-B62A-403E-B888-AA24053A9F03@arm.com>
 From: Ayan Kumar Halder <ayankuma@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, <michalo@amd.com>,
-	Ayan Kumar Halder <ayankuma@amd.com>
-Subject: [XEN v3 01/13] GICv3: Emulate GICD_IGRPMODR as RAZ / WI
-Date: Mon, 24 Oct 2022 19:25:18 +0100
-Message-ID: <20221024182518.65002-1-ayankuma@amd.com>
-X-Mailer: git-send-email 2.17.1
+In-Reply-To: <F8CD5734-B62A-403E-B888-AA24053A9F03@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0661.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:316::15) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT079:EE_|PH0PR12MB7078:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a2da696-f8e8-4e1a-5d68-08dab5ed20e8
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM6PR12MB4561:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b9da197-6563-4bed-66e3-08dab5ed955c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	v8XQ8HA17MSaPNS3CXX+muZklSQuTNVzr9ug7J46vBVW/zYD+5hxpZRPYe8Sy3sMZJsjNnMivIDjJwiBIWPm8Gnm9DTfO8IIDZxoiPVGyEK+4WqwgOK2Gebl/Nw1U8otAo6oWDIQkrgG+BxL9OQVhLb5SnV3XYjfDeUROQ2IEJS7UNsdZV9BGry9N87VgcBuxariyD1E7VvuQQB5S9tvdi3pdo1KIszCn0WHBCFDM/cRXr9mTJmRwlbYYwzB9rUwo6kXEsG6Wgc8hJyui9EA+iROtX1mBwAnO37s80YoIlCDbpPs3k+FE3APf8bOkBDnjzf+Nig5TASWHTBOswFa+3PvR/yRwuEjjyLXflL+BOCpxcr0YzC0VXE8q340eeTSg0FOwWxo1v0n/HvrVp4NohP4mAuKZOQJe9dLUG83wctkyudDe+T30mcJyFAh+pv4YfXkD2j/R2exORsx16CqtoOyprx9jL9QouNvwOe57jUVtzyyN9wcFZ9Rzb7b96dNrCCVHjoX0cisvE93u013453B+r8GdWMqtpemgErPxHR1fEHkzXQdVOrW7WmxnfsSt7k0+bUTKLK8CxSZA54YGd009vEHCDML6RG4AMPULntBIwi1Zn3yMRQYcQ5R3eBfCWzfIBAPmEWPpyYd8bjTqWs96wQE4hgg8uWjTx0WXq/4jDFrYhKt3E7pCwIgBRBkaGPokzCBg/RCwL1ot3CnKe0Q5dEVs2QP2QPx53qvxaZxA7pe3Zv1Ax5VJmQIEAtcLOAv0CvS5ZqoLSA5CmENuOBqRn9lY6btyzt/UtXf38g=
+	nC9MF5cmRdGVUD46hWuzvUxvAO7gu8uxx5YGiWs5FcslFIkLSL1V4XVygBu9oPMHQrvCrGRMslZDtjVM8nNGEWPXw2nquRk14Wpy7JQ7RewEngh1PftO7lVbJp/N2H7UMqhevSaEA6hejbksf2Y9nBMHVpmVkg/k//gRhnRMvrRbJcWTTsWdssjCJ04UcFNM9H1PO2rHDOV8v3WZVZBu/DuoPfntz3MnjwXUOTduQKExZf6/Mig5gpmFGHNAteMqLihY3tD1xCTXFNkNdInj30UWvAsGCfveXY+A41EM6UKTHQSK4m6fmglH+YV0QHhrxyT/v2FRFpdlNoYiM5K6Mz+aL31n5equsLDnc5Ge2e/duRS4IctZTs2+KVUps6ruNLfO1TZPcWSJFJ+bCA75KIk5gtHnjyhKIvqCgn37eyOcEh0AnXMqYAkMLdrVp+pJzHA4jnsoyEtvt1H7TGCRkju6nYNTBiSnEvnzU/YgKskjY1YxmxrsBI3NAYHTGoRUmqBaKnOxIZ8Z4ACVhGWCvPyrucG3BFiRk0Np/JTI0DSi/rL5Q2t4jahKKs/TFAm9a69jlMcqnIM/NVrXybJ4wPZvBZ5nz7kgCOy5liPD+1EfDsc8Pr/I7g+D0KwAOvIG3oB1AryCc+T7rpFiC86/1xwa3avzXiNcPsYwDGUfZW6kGqmK3epWrsjQYgglw/xgnxhBg1lawXz8fptxWrMfTyTHt8QAcTiLkrzXda3Zrc21fm8X9+mZfaPdFxuaFLZbJjFgeCY5FG9y6/FenBhH0xM6W3rvakJr0mIoW3aWEG2JD4G7gph9MUqqGXnzEujf
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199015)(36840700001)(46966006)(40470700004)(36860700001)(36756003)(1076003)(478600001)(83380400001)(6666004)(47076005)(81166007)(356005)(316002)(82740400003)(426003)(40480700001)(336012)(2906002)(2616005)(6916009)(8676002)(41300700001)(54906003)(5660300002)(26005)(4326008)(186003)(40460700003)(82310400005)(8936002)(70586007)(70206006)(36900700001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(366004)(39860400002)(451199015)(2906002)(6512007)(8936002)(53546011)(6916009)(5660300002)(2616005)(26005)(54906003)(41300700001)(316002)(36756003)(6666004)(186003)(31686004)(6486002)(966005)(31696002)(83380400001)(478600001)(6506007)(66946007)(66556008)(66476007)(4326008)(38100700002)(8676002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZDdFZElnMWI4eFZNSTRlYnNaVnUzTTBreGVtR3pBeXhCald1M2UvanpUVTBr?=
+ =?utf-8?B?cG5tY1dlbnFQR1NhWlRySVFtSFdCWk9hYlhGSHlSV09aeFM3akp3YzZ5eVdF?=
+ =?utf-8?B?dUdTQVBBekNyQnpESlJReUtOOHl1akxSLzV2TlpLS0tNK3VZVnU1SUFrOHE4?=
+ =?utf-8?B?SGwwdzQvNWVMQVZEREZTWG9hVWRxSENuQlFhMU81a1RRdGUxMmpZNDdZeGJr?=
+ =?utf-8?B?Q2RZbHRRbnBuckNsb2RRTkhVRU1pNzdKbUlWbDRRZWE5R3VKMFphcXhRMEQ4?=
+ =?utf-8?B?QlBSN1BmdmlHU1JMM1JjdmFTVWVDWWFlL0RpVzQyLzJ5Vm0zZWxnbUh5NGIy?=
+ =?utf-8?B?a0ZPWDdoUE94U0ZxSWRXelJKWG96bGdQNmhjUFlLa2NCcDg3bnBIVTBBOXlO?=
+ =?utf-8?B?cU9KbVRjU0tZNzlBMGR5cXYzblZkM0pML0dqNmxLN0lvdC9XaWVCb0NHYjFX?=
+ =?utf-8?B?UmUrUEJWWDMvb3ZDaVdIUFJIR2lqbm12NmtzWVc5RG9ZcUhnZFpqWk11VW9I?=
+ =?utf-8?B?YWpSeWRCYkZEbHNlNjBOTzJrZDQxQ2I0SnZpcko0b1lUbXQ3S1JMZ0hYbE9S?=
+ =?utf-8?B?U1hOd2piNWV3cXRpWDhyZWMveUtYWHFuVUtOZE9Jb0JRMmljYjhkQ2ZYQnly?=
+ =?utf-8?B?bklQMWJKMUtLVlo0L2hhWUJHZ1JKVW9VZE01NkdCYUZEdVR4WDhPdUozRy83?=
+ =?utf-8?B?K1VkYkZGSWRHU2tORFdjcHU3a3pMZERwZWpGcjNQT2h2dkEyck11YWlWdFdR?=
+ =?utf-8?B?dndXWVYvdS9pVllrVFppMStwaVc3K0JsSUtoSTJ4ZFB3d3hiR0pXcmNkcHlF?=
+ =?utf-8?B?SUFRZTdqR29KblhOT3ZKUGQ1ZXplN2s3TVdvY011bFZrYVFtVHJZcDc4dE45?=
+ =?utf-8?B?TDhzOXhYZFdyUU9NU2pvNDBSOEdKY3YxY3h1cEdMZTg2YXBQQS9oV1N5K240?=
+ =?utf-8?B?elBJaGc1Zm5rSXFpVXZzRSt6MFdkc21Wb09UczkxUWFJd0toSWFjKzdrMG4v?=
+ =?utf-8?B?ckQ4cXBCR2gyL3k5Y21LbXA0RDZReUpkMzJPWi94emVNK1Vrb1R6SEVhTTZo?=
+ =?utf-8?B?R0ZHTnUrNmx1Z0owaDAwc2pJdUNyTXhWMUhEWGFneUNDb29tSnYxcis1aXFN?=
+ =?utf-8?B?cTErdnlTYStPaXRZR012NmdhQXBuTHdlZCthQmtJd2szV0owdmpKeFZHczh6?=
+ =?utf-8?B?Y0piaUJHaTN6MVpGVEtiWEdQWkUxRDB1bWx3cmFzcmtoTkw3QmdJenlMdm9B?=
+ =?utf-8?B?R3A5Q0JVOXV3REMvTUFGMlBZS3oyVUQ2SGlTMGJXOERBTmFvZGE2UThIN2d1?=
+ =?utf-8?B?d0RJRURSb3M2eXo2RVlvaW9PRTRwQ3pWTFFLTkRONENwUHBnZEdJbkZjdnB0?=
+ =?utf-8?B?VVhqSDNPZG5MMHYwN1JSeVkvUU1JdGw0REVsc2N4dHNodjJaK3JzNlhMR3RM?=
+ =?utf-8?B?VmJLa1d0R0d1bnB6ZVNVdUZQVVdtR3FRTkxpWmlicGlycUFhVi9McEN6cnVH?=
+ =?utf-8?B?UHkvOGJDQWJWemliVjJzYWZrZCtCNVFabXdkUis3YW0zUTFVa2xRVzhsVDZy?=
+ =?utf-8?B?Z3NwVENqS0NMUGNiNXNmTDNsNHhIYUxTVGp3MHRhRHd6OUZwOVVUa0F5L1BJ?=
+ =?utf-8?B?aG5EUlRGYlNPWDhkZ3VWRjJRaUYwYWhoQWVCVTRKZDFJbS8zTnN0SXpiNTRQ?=
+ =?utf-8?B?NSs4ZDdKbmZMTWFpYmJEWVFLQVVja1Y5Qzd6RzRqNlZvRE9KMFNGc1VPQ0Q4?=
+ =?utf-8?B?OTlGWUhIZy9MYjFNU0hjeVpXVkJ0cko2bGpCamhBZE9pZnltMUYyNHhrNzVE?=
+ =?utf-8?B?YXVFWGtSNVVTbzNBSWFkRWZmczVsQzc1eFlLOGZQTVNBd0xmNXFvRXVxdHQv?=
+ =?utf-8?B?dGVQNjdBcWY2ckE5RkVDTjBtT2JyWGw0TlVjSUs1ZitKaUF6VURYa0RDRzhw?=
+ =?utf-8?B?NnZkdEpsWDhieWRJUEZza0poejlQNjljc1J2SWRaWXlsUjluNnBBYkZYd2py?=
+ =?utf-8?B?Tmp1YWl0bk55VUpPN2tDb0xpc3VDb1NoOStzZm9qa01KaE1YMTV3TkVoQk5v?=
+ =?utf-8?B?SjYzYW1rMXlaVFVZVWRiZ2FNNVhsR1VmWmRMcnlzMG90eG1sR0FkdDVrMVdj?=
+ =?utf-8?Q?Un0MtHxB9BA8q4dszPHao+XTX?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 18:25:29.0009
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b9da197-6563-4bed-66e3-08dab5ed955c
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Oct 2022 18:28:44.6583
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a2da696-f8e8-4e1a-5d68-08dab5ed20e8
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7078
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: z/3Hz7PeEpJL8w3JdR3h+gXq/BNwQho11rXSpdFTsWM7pD2ZreSgZwWx6Fw9SOKpSvEte4gOGs2Jc+ZIxv460Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4561
 
-Refer GIC v3 specification (Arm IHI 0069H ID020922), IGRPMODR is emulated
-as RAZ / WI for the guests as "GICD_CTLR.ARE_S==0" is true.
-Xen is currently supported to run in non-secure mode, so guests will run in
-non-secure mode only.
 
-Also, if Xen was supposed to run in secure mode with guests, the programming
-of the interrupts (ie whether it belongs to secure/non secure and group 0/1)
-will be done by Xen only. The guests will not be allowed to change this.
+On 24/10/2022 14:22, Bertrand Marquis wrote:
+> Hi Ayan,
+Hi Bertrand,
+>
+>> On 24 Oct 2022, at 14:11, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+>>
+>>
+>> On 24/10/2022 11:06, Bertrand Marquis wrote:
+>>> Hi Ayan,
+>> Hi Bertrand,
+>>>> On 20 Oct 2022, at 11:41, Ayan Kumar Halder <ayankuma@amd.com> wrote:
+>>>>
+>>>> Refer GIC v3 specification (Arm IHI 0069H ID020922), IGRPMODR (similar to
+>>>> IGROUPR) is relevant only when the guests run in secure/non-secure mode.
+>>> This sentence is a bit misleading as guests are always running in either secure or non-secure.
+>> Oh, my understanding from the comment "We do not implement security extensions for guests" is that Xen does not allow guests to run in secure mode.
+>>
+>> Also, does Xen itself ever run in secure mode ? I thought it was no.
+>>
+>>  From https://wiki.xenproject.org/wiki/Xen_ARM_with_Virtualization_Extensions
+>>
+>> "The primary requirement is that the hypervisor must be launched in Non-Secure Hypervisor mode only."
+> For a long time there was no EL2 in secure mode so that was not even possible.
+> This has been introduced in the past year but nobody ever tested that apart from the work on R82 and R52.
+>
+> So for now, Xen must be launched in non secure mode, any other setup is unsupported (might work though).
+>
+>>> We should just say that we do not want guest to change the group of interrupts so we do as if all guests are running in non-secure.
+>>>
+>>>> As Xen does not implement security extensions for guests, so the registers
+>>>> are emulated as read as zero/write ignore.
+>>> I would rephrase this as “Xen does support to run in secure mode so emulate all registers as the hardware does in non-secure.”
+>> Do you mean ?
+>>
+>> " Xen does *not* support *guests* to run in secure mode so emulate all registers as the hardware does in non-secure."
+> A guest is always running in the same mode as Xen.
+>
+> There is a question for guest running in secure mode when (if) Xen will run in secure mode: what rights can we give to guest ?
+>  From the theory point of view, it does not make sense for a guest to play with the groups I think, as interrupt management is to be done by Xen.
+>
+> So I think it makes sense to say that those hardware registers are not accessible to Xen guests as Xen will have to be the one programming interrupt to be fired in secure or non secure world.
 
-Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
----
+Many thanks for the explanation. It makes sense.
 
-Observed the issue while running Zephyr on R52.
-Also, found that KVM has similar behaviour.
+I have sent out "[XEN v3 01/13] GICv3: Emulate GICD_IGRPMODR as RAZ / 
+WI" with the updated commit message.
 
-Changes from:-
-v1 - Moved the definitions of GICD_IGRPMODR, GICD_IGRPMODRN to gic_v3
-specific header.
+- Ayan
 
-v2 - Updated the commit message.
-
- xen/arch/arm/include/asm/gic_v3_defs.h | 2 ++
- xen/arch/arm/vgic-v3.c                 | 4 ++++
- 2 files changed, 6 insertions(+)
-
-diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/asm/gic_v3_defs.h
-index 34ed5f857d..728e28d5e5 100644
---- a/xen/arch/arm/include/asm/gic_v3_defs.h
-+++ b/xen/arch/arm/include/asm/gic_v3_defs.h
-@@ -30,6 +30,8 @@
- #define GICD_CLRSPI_NSR              (0x048)
- #define GICD_SETSPI_SR               (0x050)
- #define GICD_CLRSPI_SR               (0x058)
-+#define GICD_IGRPMODR                (0xD00)
-+#define GICD_IGRPMODRN               (0xD7C)
- #define GICD_IROUTER                 (0x6000)
- #define GICD_IROUTER32               (0x6100)
- #define GICD_IROUTER1019             (0x7FD8)
-diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-index 7fb99a9ff2..0c23f6df9d 100644
---- a/xen/arch/arm/vgic-v3.c
-+++ b/xen/arch/arm/vgic-v3.c
-@@ -685,6 +685,7 @@ static int __vgic_v3_distr_common_mmio_read(const char *name, struct vcpu *v,
-     switch ( reg )
-     {
-     case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
-+    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
-         /* We do not implement security extensions for guests, read zero */
-         if ( dabt.size != DABT_WORD ) goto bad_width;
-         goto read_as_zero;
-@@ -781,6 +782,7 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
-     switch ( reg )
-     {
-     case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
-+    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
-         /* We do not implement security extensions for guests, write ignore */
-         goto write_ignore_32;
- 
-@@ -1192,6 +1194,7 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, mmio_info_t *info,
-     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
-     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
-     case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
-+    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
-         /*
-          * Above all register are common with GICR and GICD
-          * Manage in common
-@@ -1379,6 +1382,7 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
-     case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
-     case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
-     case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
-+    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
-         /* Above registers are common with GICR and GICD
-          * Manage in common */
-         return __vgic_v3_distr_common_mmio_write("vGICD", v, info,
--- 
-2.17.1
-
+>
+> Cheers
+> Bertrand
+>
+>> - Ayan
+>>
+>>> On a side note, the question might come at some point if we support to run from secure mode on hardware supporting it, it could be that dom0 or Xen itself would need to modify those.
+>>>
+>>> The code is ok, just the commit message would need a bit of rework I think.
+>>>
+>>> Cheers
+>>> Bertrand
+>>>
+>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>>>> ---
+>>>>
+>>>> Observed the issue while running Zephyr on R52.
+>>>> Also, found that KVM has similar behaviour.
+>>>>
+>>>> Changes from:-
+>>>> v1 - Moved the definitions of GICD_IGRPMODR, GICD_IGRPMODRN to gic_v3
+>>>> specific header.
+>>>>
+>>>> xen/arch/arm/include/asm/gic_v3_defs.h | 2 ++
+>>>> xen/arch/arm/vgic-v3.c                 | 4 ++++
+>>>> 2 files changed, 6 insertions(+)
+>>>>
+>>>> diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/asm/gic_v3_defs.h
+>>>> index 34ed5f857d..728e28d5e5 100644
+>>>> --- a/xen/arch/arm/include/asm/gic_v3_defs.h
+>>>> +++ b/xen/arch/arm/include/asm/gic_v3_defs.h
+>>>> @@ -30,6 +30,8 @@
+>>>> #define GICD_CLRSPI_NSR              (0x048)
+>>>> #define GICD_SETSPI_SR               (0x050)
+>>>> #define GICD_CLRSPI_SR               (0x058)
+>>>> +#define GICD_IGRPMODR                (0xD00)
+>>>> +#define GICD_IGRPMODRN               (0xD7C)
+>>>> #define GICD_IROUTER                 (0x6000)
+>>>> #define GICD_IROUTER32               (0x6100)
+>>>> #define GICD_IROUTER1019             (0x7FD8)
+>>>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+>>>> index 7fb99a9ff2..0c23f6df9d 100644
+>>>> --- a/xen/arch/arm/vgic-v3.c
+>>>> +++ b/xen/arch/arm/vgic-v3.c
+>>>> @@ -685,6 +685,7 @@ static int __vgic_v3_distr_common_mmio_read(const char *name, struct vcpu *v,
+>>>>      switch ( reg )
+>>>>      {
+>>>>      case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>>>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>>>          /* We do not implement security extensions for guests, read zero */
+>>>>          if ( dabt.size != DABT_WORD ) goto bad_width;
+>>>>          goto read_as_zero;
+>>>> @@ -781,6 +782,7 @@ static int __vgic_v3_distr_common_mmio_write(const char *name, struct vcpu *v,
+>>>>      switch ( reg )
+>>>>      {
+>>>>      case VRANGE32(GICD_IGROUPR, GICD_IGROUPRN):
+>>>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>>>          /* We do not implement security extensions for guests, write ignore */
+>>>>          goto write_ignore_32;
+>>>>
+>>>> @@ -1192,6 +1194,7 @@ static int vgic_v3_distr_mmio_read(struct vcpu *v, mmio_info_t *info,
+>>>>      case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+>>>>      case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+>>>>      case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+>>>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>>>          /*
+>>>>           * Above all register are common with GICR and GICD
+>>>>           * Manage in common
+>>>> @@ -1379,6 +1382,7 @@ static int vgic_v3_distr_mmio_write(struct vcpu *v, mmio_info_t *info,
+>>>>      case VRANGE32(GICD_ICACTIVER, GICD_ICACTIVERN):
+>>>>      case VRANGE32(GICD_IPRIORITYR, GICD_IPRIORITYRN):
+>>>>      case VRANGE32(GICD_ICFGR, GICD_ICFGRN):
+>>>> +    case VRANGE32(GICD_IGRPMODR, GICD_IGRPMODRN):
+>>>>          /* Above registers are common with GICR and GICD
+>>>>           * Manage in common */
+>>>>          return __vgic_v3_distr_common_mmio_write("vGICD", v, info,
+>>>> -- 
+>>>> 2.17.1
+>>>>
 
