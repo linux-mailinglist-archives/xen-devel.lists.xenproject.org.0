@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4D160A3F3
-	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 14:02:45 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429044.679803 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B08EC60A1EA
+	for <lists+xen-devel@lfdr.de>; Mon, 24 Oct 2022 13:36:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429014.679748 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omw9p-0007ZO-PC; Mon, 24 Oct 2022 12:02:17 +0000
+	id 1omvk1-0001dH-FD; Mon, 24 Oct 2022 11:35:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429044.679803; Mon, 24 Oct 2022 12:02:17 +0000
+Received: by outflank-mailman (output) from mailman id 429014.679748; Mon, 24 Oct 2022 11:35:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1omw9p-0007WE-LZ; Mon, 24 Oct 2022 12:02:17 +0000
-Received: by outflank-mailman (input) for mailman id 429044;
- Mon, 24 Oct 2022 12:02:15 +0000
+	id 1omvk1-0001bQ-Aa; Mon, 24 Oct 2022 11:35:37 +0000
+Received: by outflank-mailman (input) for mailman id 429014;
+ Mon, 24 Oct 2022 11:35:35 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DVco=2Z=linuxfoundation.org=gregkh@srs-se1.protection.inumbo.net>)
- id 1omw9n-0007W8-Nc
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 12:02:15 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=QvrT=2Z=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1omvjz-0001bF-O9
+ for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 11:35:35 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id afd4690e-5393-11ed-8fd0-01056ac49cbb;
- Mon, 24 Oct 2022 14:02:09 +0200 (CEST)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 30B16B81250;
- Mon, 24 Oct 2022 12:02:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64D13C433D6;
- Mon, 24 Oct 2022 12:02:12 +0000 (UTC)
+ id f9338446-538f-11ed-8fd0-01056ac49cbb;
+ Mon, 24 Oct 2022 13:35:34 +0200 (CEST)
+Received: by mail-ed1-x534.google.com with SMTP id m16so29939930edc.4
+ for <xen-devel@lists.xenproject.org>; Mon, 24 Oct 2022 04:35:34 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-235.109.242.224.tellas.gr.
+ [109.242.224.235]) by smtp.gmail.com with ESMTPSA id
+ p6-20020a05640243c600b0045b4b67156fsm18307202edc.45.2022.10.24.04.35.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 24 Oct 2022 04:35:33 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,101 +44,191 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: afd4690e-5393-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linuxfoundation.org;
-	s=korg; t=1666612932;
-	bh=HDBZX01FN2W9c75Sd8NoXHb1ZhN7yyXXynCHY/64+/k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=pND0li9PULhAZ5WGWsVwxg82gs5hly/Vnn/CKFpKa2LRY7bOsjDtEpcmCVbQwj/O2
-	 gn1YSu/K3jWSnXc47NgdgmPwB9t620DY8KGXQCWZFjktH23fUfjmrYlggGyGdSzy1g
-	 5UskNI2UYgsHLyuQGVhQKGGGC6UFXCP8xlpcR/RA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: linux-kernel@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	xen-devel@lists.xenproject.org,
-	Kees Cook <keescook@chromium.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 4.19 174/229] x86/entry: Work around Clang __bdos() bug
-Date: Mon, 24 Oct 2022 13:31:33 +0200
-Message-Id: <20221024113004.718917343@linuxfoundation.org>
-X-Mailer: git-send-email 2.38.1
-In-Reply-To: <20221024112959.085534368@linuxfoundation.org>
-References: <20221024112959.085534368@linuxfoundation.org>
-User-Agent: quilt/0.67
+X-Inumbo-ID: f9338446-538f-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=U0/xnVi7XSgR0494vg1vVMMuMGoGpBezzObnlHLZFRg=;
+        b=lefRXcmT9E4U0tczUmleIthZ+WsAcoVrZh/KNdf+r6ZyuMSAAIseRPyFdR1GNwxO+S
+         D3gue5ruOa+WPmcNpMavWeZQjO2U1wn/Xeb5+RhutPhC9WAF8DPLkvD7A4NDUQIszK+L
+         ihqXmERU2HDB6fOzzw2jSEyX0eHdkx1TRJa9bx6isPwMnMZEdauOel7WT5AiO1+my3ls
+         Q4SFwqotZzQhyPCmxNa/BlK/uBoomH7pjgO7KBq0CXp15kzMFvDTvztg6t5soGyH/f12
+         mtOpIIMz1P48uNqZmaNQ5tYHUI+ZRmvPkgAaOx5th4Vg3t1LOc8NHOYagEuppLvkUoUK
+         KieQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=U0/xnVi7XSgR0494vg1vVMMuMGoGpBezzObnlHLZFRg=;
+        b=p3Ma6CUZi44kx8/NQOfJTJSvJZjBSLrpICHBEoAaUJF3appwltr8GcT8ouUcjGwwGb
+         Y+CMixt11DCaspUtCbG00cVSAdSyjKsTcZ8jGeCoazXEgHZ05LWj4W9qV3x368DYUuVm
+         abTuV1L6aDakJrvo+xkSp4eLIZVhKU25bzsKTj5IX1StasK9YsykGnrwk58b1Kbg686G
+         aC8bkeaddyAnfyIhmChL/4Aoqo1GUJttlaLMsNJDMoQnlODfDxoUDDnh+2b9wkT/Zdox
+         4W5Ot0yqjU3aQ4axDARhj2CkmjiofZlo/bHyH/T7tcgC9SCu/xrE4U2UvnOwtGb8A2g4
+         otuA==
+X-Gm-Message-State: ACrzQf1OLGOWxWZEWmNOTImBUQ7v8tzzahNWIPJd0jz02egvWvV/bW/a
+	Q5dzQ/3qZqdEfQONbSgVSoc=
+X-Google-Smtp-Source: AMsMyM6+C2Fv+w92c2oFiNyKqV5fvaty6weFFFxpUjwPuKCxTMhIDny0HgGsKDIXw5RRxNZCbuPYYw==
+X-Received: by 2002:a17:907:2ceb:b0:78d:b765:c50d with SMTP id hz11-20020a1709072ceb00b0078db765c50dmr27049888ejc.73.1666611334022;
+        Mon, 24 Oct 2022 04:35:34 -0700 (PDT)
+Message-ID: <78306c56-7cdd-a705-f8af-0cae4e359336@gmail.com>
+Date: Mon, 24 Oct 2022 14:35:31 +0300
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [RFC PATCH v1 02/12] Arm: GICv3: Move the macros to compute the
+ affnity level to arm64/arm32
+Content-Language: en-US
+To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20221021153128.44226-1-ayankuma@amd.com>
+ <20221021153128.44226-3-ayankuma@amd.com>
+ <cb67c768-1a05-e5d5-efed-9a282c6a8c2a@gmail.com>
+ <e0183387-8556-5fcc-2f18-003832d5cd70@amd.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <e0183387-8556-5fcc-2f18-003832d5cd70@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Kees Cook <keescook@chromium.org>
+Hi Ayan,
 
-[ Upstream commit 3e1730842f142add55dc658929221521a9ea62b6 ]
+On 10/24/22 14:00, Ayan Kumar Halder wrote:
+> 
+> On 21/10/2022 22:18, Xenia Ragiadakou wrote:
+>> On 10/21/22 18:31, Ayan Kumar Halder wrote:
+>> Hi Ayan
+> Hi Xenia,
+>>
+>>> Refer https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm64/ \
+>>> include/asm/cputype.h#L14 , these macros are specific for arm64.
+>>>
+>>> When one computes MPIDR_LEVEL_SHIFT(3), it crosses the width of a 32
+>>> bit register.
+>>>
+>>> Refer 
+>>> https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm/include/ \
+>>> asm/cputype.h#L54  , these macros are specific for arm32.
+>>>
+>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>>> ---
+>>>   xen/arch/arm/include/asm/arm32/processor.h | 10 ++++++++++
+>>>   xen/arch/arm/include/asm/arm64/processor.h | 13 +++++++++++++
+>>>   xen/arch/arm/include/asm/processor.h       | 14 --------------
+>>>   3 files changed, 23 insertions(+), 14 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/include/asm/arm32/processor.h 
+>>> b/xen/arch/arm/include/asm/arm32/processor.h
+>>> index 4e679f3273..3e03ce78dc 100644
+>>> --- a/xen/arch/arm/include/asm/arm32/processor.h
+>>> +++ b/xen/arch/arm/include/asm/arm32/processor.h
+>>> @@ -56,6 +56,16 @@ struct cpu_user_regs
+>>>       uint32_t pad1; /* Doubleword-align the user half of the frame */
+>>>   };
+>>>   +/*
+>>> + * Macros to extract affinity level. Picked from kernel
+>>> + */
+>>> +
+>>> +#define MPIDR_LEVEL_MASK ((1 << MPIDR_LEVEL_BITS) - 1)
+>>> +#define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
+>>> +
+>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>> +    ((mpidr >> (MPIDR_LEVEL_BITS * level)) & MPIDR_LEVEL_MASK)
+>>> +
 
-Clang produces a false positive when building with CONFIG_FORTIFY_SOURCE=y
-and CONFIG_UBSAN_BOUNDS=y when operating on an array with a dynamic
-offset. Work around this by using a direct assignment of an empty
-instance. Avoids this warning:
+Above, since
+#define MPIDR_LEVEL_SHIFT(level) (MPIDR_LEVEL_BITS * level)
+you can replace (MPIDR_LEVEL_BITS * level) with MPIDR_LEVEL_SHIFT(level) 
+in the definition of MPIDR_AFFINITY_LEVEL.
+You will see that it is identical to the arm64 definition
+#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
 
-../include/linux/fortify-string.h:309:4: warning: call to __write_overflow_field declared with 'warn
-ing' attribute: detected write beyond size of field (1st parameter); maybe use struct_group()? [-Wat
-tribute-warning]
-                        __write_overflow_field(p_size_field, size);
-                        ^
+>>>   #endif
+>>>     #endif /* __ASM_ARM_ARM32_PROCESSOR_H */
+>>> diff --git a/xen/arch/arm/include/asm/arm64/processor.h 
+>>> b/xen/arch/arm/include/asm/arm64/processor.h
+>>> index c749f80ad9..c026334eec 100644
+>>> --- a/xen/arch/arm/include/asm/arm64/processor.h
+>>> +++ b/xen/arch/arm/include/asm/arm64/processor.h
+>>> @@ -84,6 +84,19 @@ struct cpu_user_regs
+>>>       uint64_t sp_el1, elr_el1;
+>>>   };
+>>>   +/*
+>>> + * Macros to extract affinity level. picked from kernel
+>>> + */
+>>> +
+>>> +#define MPIDR_LEVEL_BITS_SHIFT  3
+>>> +#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
+>>> +
+>>> +#define MPIDR_LEVEL_SHIFT(level) \
+>>> +         (((1 << level) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>> +
+>>> +#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>> +         ((mpidr >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
+>>> +
+>>>   #undef __DECL_REG
+>>>     #endif /* __ASSEMBLY__ */
+>>> diff --git a/xen/arch/arm/include/asm/processor.h 
+>>> b/xen/arch/arm/include/asm/processor.h
+>>> index 1dd81d7d52..7d90c3b5f2 100644
+>>> --- a/xen/arch/arm/include/asm/processor.h
+>>> +++ b/xen/arch/arm/include/asm/processor.h
+>>> @@ -118,20 +118,6 @@
+>>>   #define MPIDR_INVALID       (~MPIDR_HWID_MASK)
+>>>   #define MPIDR_LEVEL_BITS    (8)
+>>>   -
+>>> -/*
+>>> - * Macros to extract affinity level. picked from kernel
+>>> - */
+>>> -
+>>> -#define MPIDR_LEVEL_BITS_SHIFT  3
+>>> -#define MPIDR_LEVEL_MASK        ((1 << MPIDR_LEVEL_BITS) - 1)
+>>> -
+>>> -#define MPIDR_LEVEL_SHIFT(level) \
+>>> -         (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>> -
+>>> -#define MPIDR_AFFINITY_LEVEL(mpidr, level) \
+>>> -         (((mpidr) >> MPIDR_LEVEL_SHIFT(level)) & MPIDR_LEVEL_MASK)
+>>> -
+>>>   #define AFFINITY_MASK(level)    ~((_AC(0x1,UL) << 
+>>> MPIDR_LEVEL_SHIFT(level)) - 1)
+>>>     /* TTBCR Translation Table Base Control Register */
+>>
+>> Since only the definition of the MPIDR_AFFINITY_LEVEL() differs, maybe 
+>> you could add only this one to the arch specific headers e.g
+>> for arm64:
+>> #define MPIDR_LEVEL_SHIFT(level) \
+>>     (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>> for arm32:
+>> #define MPIDR_LEVEL_SHIFT(level) \
+>>     ((level) << MPIDR_LEVEL_BITS_SHIFT)
+> 
+> Also, MPIDR_AFFINITY_LEVEL needs to be defined in arch specific headers 
+> as it differs between arm32 and arm64.
 
-which was isolated to the memset() call in xen_load_idt().
+As I point out above, there is no difference between arm32 and arm64 
+regarding the definition of MPIDR_AFFINITY_LEVEL(level).
 
-Note that this looks very much like another bug that was worked around:
-https://github.com/ClangBuiltLinux/linux/issues/1592
+> 
+> However, MPIDR_LEVEL_MASK can be defined in the common header (as it is 
+> same for arm32 and arm64).
+> 
+> Please let me know if it makes sense.
+> 
+>>
+>> But in any case don't forget to add parentheses around the macro 
+>> parameters when an operator acts on them to avoid trouble with 
+>> operator precedence (MISRA-C Rule 20.7 :))
+> 
+> Thanks for pointing it out. Yes, this is a mistake in my patches.
+> 
+> - Ayan
+> 
 
-Cc: Juergen Gross <jgross@suse.com>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Thomas Gleixner <tglx@linutronix.de>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: x86@kernel.org
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: xen-devel@lists.xenproject.org
-Reviewed-by: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Link: https://lore.kernel.org/lkml/41527d69-e8ab-3f86-ff37-6b298c01d5bc@oracle.com
-Signed-off-by: Kees Cook <keescook@chromium.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/xen/enlighten_pv.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/xen/enlighten_pv.c b/arch/x86/xen/enlighten_pv.c
-index 8f1ff8dad2ce..04bfd9c3987b 100644
---- a/arch/x86/xen/enlighten_pv.c
-+++ b/arch/x86/xen/enlighten_pv.c
-@@ -752,6 +752,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- {
- 	static DEFINE_SPINLOCK(lock);
- 	static struct trap_info traps[257];
-+	static const struct trap_info zero = { };
- 	unsigned out;
- 
- 	trace_xen_cpu_load_idt(desc);
-@@ -761,7 +762,7 @@ static void xen_load_idt(const struct desc_ptr *desc)
- 	memcpy(this_cpu_ptr(&idt_desc), desc, sizeof(idt_desc));
- 
- 	out = xen_convert_trap_info(desc, traps, false);
--	memset(&traps[out], 0, sizeof(traps[0]));
-+	traps[out] = zero;
- 
- 	xen_mc_flush();
- 	if (HYPERVISOR_set_trap_table(traps))
 -- 
-2.35.1
-
-
-
+Xenia
 
