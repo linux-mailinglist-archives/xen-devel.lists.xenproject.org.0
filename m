@@ -2,55 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4523B60C615
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 10:08:24 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429625.680709 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F13260C626
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 10:13:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429632.680731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onEyV-0000Nb-Ph; Tue, 25 Oct 2022 08:07:51 +0000
+	id 1onF41-0002Az-Mz; Tue, 25 Oct 2022 08:13:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429625.680709; Tue, 25 Oct 2022 08:07:51 +0000
+Received: by outflank-mailman (output) from mailman id 429632.680731; Tue, 25 Oct 2022 08:13:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onEyV-0000Kh-Mz; Tue, 25 Oct 2022 08:07:51 +0000
-Received: by outflank-mailman (input) for mailman id 429625;
- Tue, 25 Oct 2022 08:07:50 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1onF41-00028x-Ie; Tue, 25 Oct 2022 08:13:33 +0000
+Received: by outflank-mailman (input) for mailman id 429632;
+ Tue, 25 Oct 2022 08:13:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N5aB=22=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1onEyU-0000Kb-6m
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 08:07:50 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2060.outbound.protection.outlook.com [40.107.244.60])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c3a1411-543c-11ed-91b5-6bf2151ebd3b;
- Tue, 25 Oct 2022 10:07:48 +0200 (CEST)
-Received: from DM6PR05CA0059.namprd05.prod.outlook.com (2603:10b6:5:335::28)
- by DM4PR12MB7767.namprd12.prod.outlook.com (2603:10b6:8:100::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.35; Tue, 25 Oct
- 2022 08:07:44 +0000
-Received: from DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:335:cafe::6b) by DM6PR05CA0059.outlook.office365.com
- (2603:10b6:5:335::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.8 via Frontend
- Transport; Tue, 25 Oct 2022 08:07:44 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT109.mail.protection.outlook.com (10.13.173.178) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Tue, 25 Oct 2022 08:07:44 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
- 2022 03:07:41 -0500
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
- 2022 01:07:12 -0700
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Tue, 25 Oct 2022 03:07:11 -0500
+ <SRS0=bJBo=22=citrix.com=prvs=2902c4af2=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1onF3z-00027J-PD
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 08:13:31 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e68fc449-543c-11ed-8fd0-01056ac49cbb;
+ Tue, 25 Oct 2022 10:13:28 +0200 (CEST)
+Received: from mail-mw2nam12lp2044.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.44])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 25 Oct 2022 04:13:24 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by SA1PR03MB6450.namprd03.prod.outlook.com (2603:10b6:806:1c1::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Tue, 25 Oct
+ 2022 08:13:21 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254%3]) with mapi id 15.20.5746.028; Tue, 25 Oct 2022
+ 08:13:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,269 +49,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c3a1411-543c-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: e68fc449-543c-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1666685608;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=YX6jqx21pGMDg6Blul6hkJqC8sdjRaTf+MR4wZxV8eI=;
+  b=eGcJ9ZhbXpcsdZUwjSvhFMdXjvu2PEE8/o0K/t6j4QA4ZF0D9dmHJeZ2
+   0r+qRvAFmrES2HM1aZWWfYtR2z0LAM4HxLVvdf9ZwspMoYmBqPk5Batm6
+   76NsCrYDm0JVF2nvEh8xkjwSqxOCtQzvVm7m90hYtt5B/hU8Jdx2UMIpw
+   0=;
+X-IronPort-RemoteIP: 104.47.66.44
+X-IronPort-MID: 83456124
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: =?us-ascii?q?A9a23=3Al52eLK64teSsJDXgsE+KmQxR2vbMJbbHMSYv2?=
+ =?us-ascii?q?y7JWF8qXhjsoshV/T9vMzAtp4WMNckWm8diJPyAfru/5I5j2gKE5yuO8bbr9?=
+ =?us-ascii?q?stcgWt1nkbNJVQgTP23j6yiff2+NX+0duchnxjw64xoPKRVkX05WPaRAcXcb?=
+ =?us-ascii?q?Fp0/pW8tZ6AY+7rUjAD4mi3gllc1gjwXnTE6jC15i+XeJxUV14mxZ5xk0YSZ?=
+ =?us-ascii?q?pOjKn9wEDsYQtD6sJMKBvP6gmuio/OEE45dEds7mXTOUz4W7bFwkmTgTtI7G?=
+ =?us-ascii?q?VH0Wvg6jagK644JxJeeCoyRPhP98H18FI7aAC5f3JfIGi3WEcmHv8PN1PtE7?=
+ =?us-ascii?q?VZbwWRo9NiAerGnlHXm+aJ8nRzb3eM7+aiLgYBoF/iY2zsDcHhrd4TPJWhUL?=
+ =?us-ascii?q?jW0bqFgtToSunB/FOZfHRm5jaQ/ufwsiL7Ti1HPdEEmZ2uNx+A1CcxtoFfU/?=
+ =?us-ascii?q?MXoMt2Kn+4gPTSMuNkprJor1GLq2lfPbqBJbi1fllEZhLBkzZIk8pqD+MJnS?=
+ =?us-ascii?q?+ox9QYazUI9K9s5H+v8BnvEcao4WRbm3OxsamQlrbv4Lu3IXJscAGqBq9hMV?=
+ =?us-ascii?q?DI4ZUmMKlStRCefpyWx3bg0RY0JTnqzMC15TNcnH9LbjRlAvBfbh2zPbv+ck?=
+ =?us-ascii?q?G06QWNp6IQYuKCfh9KvmaWEawbo7QgmAWIzJp0C94eFneXmdv8N6PsigUnf5?=
+ =?us-ascii?q?/dqeOKuAYriVU0BQXzwJoe6twAKVwj1zf2CCdKdtiGZOc6V1w0DlRpFScTZI?=
+ =?us-ascii?q?2KynH/pgxgcMak0c1j7vyFzuzCCBFSdNh1IMqxxP99czo3k+31jD6NTGBu9i?=
+ =?us-ascii?q?2KPjOHHqOO6BAhtQSWzmDC/Ggl1daSVJs7S1bvPl07zKNlVhTrH6e1tcMgn9?=
+ =?us-ascii?q?sCTHdSBLYNw6mE6BUbE9TlO8/TV3FZ2EHCD8nlr922M94K6ixDFv8QZtamo2?=
+ =?us-ascii?q?5krBYj3FGJviPGoJh8vpjLk/z0SaJeiaLX7K68xmpUDcV6YnubkxpPuFmu0G?=
+ =?us-ascii?q?mIIkFCoIy8h2//K5PIMQ2KPbXwE0M3Mu05i1SSsY0FzW4JUC6hOQ9rJoRJ0L?=
+ =?us-ascii?q?cNp0diYKRgwLDAmPQGp3poYahuKqlkEd9pU84pdjhb0UsrYEFur3uOLZu6nO?=
+ =?us-ascii?q?vfDlGgrjNKgqrn/rjnuDnoann3j+xDhR9vnj1lV6FYcOWe5Q5gFYKAX5tbET?=
+ =?us-ascii?q?YIl3TlaSoM1rMdkgIAjrrPdvFtmMcQKjftOHgsSjlGPpHnweUU6BPsL43+Iz?=
+ =?us-ascii?q?PXO/5vxeQgj5vGxwUUerPwbssdOElqWgSTROXzCmoB7yw3rzcl80Kd3VamSw?=
+ =?us-ascii?q?YQ0iOmBwEjanoLyOEak/1kx4ubMPlMUvV8x6Sc2q+Kqfddd/kwmoOEIJVhvO?=
+ =?us-ascii?q?5RDsM+P0iRStXvER3ddef0tyHxySQpxJ/v3NRelQgX31Scu3SrOIIy2hmjgj?=
+ =?us-ascii?q?RovceydGapAs/XS5DHUToN9Ry6LJvf/PEZkl/gx2Ylw0jNWIzovdz+CtiW3L?=
+ =?us-ascii?q?5UwR0YZfc+yXJ/Pp48j9NiX2jXL+5h/d65T4EM+kYoH8JhjbTbBVdnkT9Hm5?=
+ =?us-ascii?q?XegkSat7CxkIuDiIBO3uM1WuFAVbk+GPKYGk6Dc23J8dlxtHkoCtd/lsAdF6?=
+ =?us-ascii?q?JUMUWEe9nqxPiX9b1sl8fXqsjgK6wbGXX1rZoHtW/jFGuWWeBRbtK7SuS8cw?=
+ =?us-ascii?q?bK2fYPzgl0YE8l9hkXuspqhzP+hFlpvCvbExTafAQH9mBR3wR8iuHfzQNm+8?=
+ =?us-ascii?q?iGZbxo+klOQGMVozZmikXQL8dkSpQqaQ/2SWHH/2AtcYUKdTvrtTrdoB6U2c?=
+ =?us-ascii?q?rhEeN54aydFk/r6ahnm8Vq49DY2K8w/HSJ64at6b1tOGK+1FE5Rl879Iljdm?=
+ =?us-ascii?q?U2wjOZKF4EEYJortxTDaUy4/MdiJ0FhN8RtdPjLK4RXvL/PvoVSPndFJd+Y8?=
+ =?us-ascii?q?RcRepUtPqq3IFjG/SjUMzs1/svfizOXIXpgRJRx+XMw8ccSUMiM4OV2NElTQ?=
+ =?us-ascii?q?7VD1CgPuFE21A3gJl1P8yT/6qRxU+UgFEh+R6S5nUN6Q4UtgWBF3YNzcPzZA?=
+ =?us-ascii?q?F54rduPjki83XtvwZZepZLBwATwd46/VIszKpdTCnsA7B4W8TWlPnA6KTF5Z?=
+ =?us-ascii?q?E3TBUgu8DzarZu67RHOuui0M0lL739A3kC0krlpKobBdKaHFce6Wpacirzmw?=
+ =?us-ascii?q?mK4NCw2FJxh352uWNjo5f6q6YUmRLrWbtwzWFSOINQig+6JNx5C17Bjj5ysx?=
+ =?us-ascii?q?EKT2a0LhF1+CA4rIu/DMHiBZWa/H1UvpM/+puVIB9FPR6IMdDqrP0QpPHDoL?=
+ =?us-ascii?q?3piaM7WHG6U9Z+LC9jDTejiEfLrlL1xWGq3ViQPKE/jcfi4zkFTjr19qDWll?=
+ =?us-ascii?q?GyvT8JWNONxra/RNca3k06xHPUlWJmXb9Kcv5ohmv+OzVBCKxXgcQ9Hc7B+G?=
+ =?us-ascii?q?Thqp/UqQXNyzqGblZX2lMkcLHRef0GbSFozmPIZuU+KDF+WO/t9xQQdL0flB?=
+ =?us-ascii?q?RRoa18Qb8ANkArsDcYuCbR+U0lzbpnlBOeALcCNxdsYEDRESbVsFwZw5sKRA?=
+ =?us-ascii?q?oCaTMxKfVpbXj4QrD9l9G7HSpHddPMg2+UT7Nv0cqytJmXiCh90owIZbZ/CF?=
+ =?us-ascii?q?OvGCFxapuE77++7Z1pz5sauN9jcFuFfUA4EExY=3D?=
+X-IronPort-AV: E=Sophos;i="5.95,211,1661832000"; 
+   d="scan'208";a="83456124"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gvJ3XmtDzO5eJCk6Nq+xUDXapc1KdtEUGRwv/l1fRqje5HKIunVuNkr8weQa7XLtnl5bP2/ZNuF5Fe9EtLyf1hwlf9GWwn5I/vUpW6NIx3ThoK1B3OqZEVdAq8QDCSCKplKYLpurYNDsmrAIFaC3hNglg+3e2GrJyrxr7AdygfsMj5NsB0NHdKkYtd1a4TkSpQoPT0CNCkM4tAO9zD6gsgqwpvSP/57HxyLfxre3Qd32iLW2ZvAPV5djZnJHc1nTQc+ZhmOk6raZ/qEHV1Pzwnc/8GHfV/wx47f3FqUTjihYmAHqGRjJ+cmG2er2q1RtKj7K4Ku4umSkSdb0iIVJFg==
+ b=DxqvUWHDp4MOHLUfXaqoRuJNDHkkZcbIdF73FEG3Yt9DVV1pXOtidGU5b1noMmNhpRQQBAaObIVoePcAM9e2uS9f1gj3jP44KyEiY1CpYTKRxwjLTzkmS8dYEB+/CSNGTjIE8yUzXHhkj93FGIKtP9cXfSpBHqwIphd8Byzbq8gHoxlIl5p+T2ID6d5/IcdYvnMS6fSDNu2qaZWFtQ7MKDl8AoOfI1GN/wZ6P3u6DN3y9UI9r7NGRkTKc5sgpZxuEDffPgXsGo+aPCCXZPD6dQmCss/+yp7ruTaE8gORn9haZIX5BS0YmTOUzUNICn3FnVYLwsFbTKH4fY/74pSfKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AO+q60fC8oAS8vOAuaw2LYlhKXmeCxSCxPF1xUsVmq0=;
- b=MK0Ykm6tzHBdDGZ6IFYxEhJ0ELQqTnG2RMaHhLmNKMWiMX3E7k4t6+ImUTmmDE6u/2G+Fe3FTjU0UokVKipombir8BQdRKCbBaX/I07Awk3cxOyRe4vgAI/9/Qei5EbyhEuOaBAPaCxu8A+UmyLmsbsFvCinvoJpOqggjA9E4TJrh6p30b+qjIZxWxqSHPtE7Yb+e2gV5aBJ91t+lKgY+M+u48HXTD2TlNvilagjGKL3w2Y9L3ozgaN8laLl2YbiukAY9a1N9pLQYpdnPeW8dZecPjUYhZCXWGctMCk445pbg4IM0umo7N77jDWAPC1lDCPj/iuR1oufX+/bP6A5hA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=YX6jqx21pGMDg6Blul6hkJqC8sdjRaTf+MR4wZxV8eI=;
+ b=IYQMyZFEYwJDRvqyP6EK9jZF0SV4mcH4pbEEFz4FcTSF9120yFAUx6q4LW0sll91peIKlZOREIJ+5EVRAx9XJnLlxAxVZzfmRD7Bxu69T44t0d9rL5ZfthpsxIOePYY51JIzAWFyGCBgSu8T8ty0O6jlHmzJ+8/xynAhO8pc1vsLf3ndVSC/njMHeuDum2wNgONKUpjwVwWbZ5qH6+fW0/PLHTNBPELyY7P6AIG2NwWXD7+c/UUcvHw4hAwWooMFnYDeS8jegECo+8gGSQAh7BuwRSbJXzJCd15Wim6Q4Wyi+reot6JtPeEDAYyQTLMFkoGA1RuiEQQHsMg4rsUhvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AO+q60fC8oAS8vOAuaw2LYlhKXmeCxSCxPF1xUsVmq0=;
- b=Jxx9P3vWZBgqQnU4qc6Umc1CIVUWbXERSBZaTo/7ZhMCRMjkJleyHuA7yrO0hrgAbTY0k0bbu0xHR6N+nnrxwxlQoc9i+svLMOU4AWQOmjpZ3ZnYlUD5FFULG2YF5qpMRPU0+Eui6AW3NY5kbTzMLoG7RfgD+0N7h4CII+puPqc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <89ff9e50-be23-82c2-cd6b-81e05d339778@amd.com>
-Date: Tue, 25 Oct 2022 10:07:10 +0200
+ bh=YX6jqx21pGMDg6Blul6hkJqC8sdjRaTf+MR4wZxV8eI=;
+ b=AIcGIEoqrr0BI4OcJctrVXz5pxOP/1c7AhLkCVJg/9DB/zKixgBqOwq/JmbsuArO/QjgyDyaPt4RU8ghqSRsiiRGGDkW6lrlsdoeEnsB9A1svrG4AJCwxHb+J6azc0EmTTtG9A0YBILIMPxO2YcAqLYPJtSz+HUy+S2tMXV63xk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 25 Oct 2022 10:13:14 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Tamas K Lengyel <tamas.lengyel@intel.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH] xen/x86: Make XEN_DOMCTL_get_vcpu_msrs more configurable
+Message-ID: <Y1eamiBY0d+julWk@Air-de-Roger>
+References: <854cdedcdd2bfff08ea45a3c13367c610d710aaf.1666630317.git.tamas.lengyel@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <854cdedcdd2bfff08ea45a3c13367c610d710aaf.1666630317.git.tamas.lengyel@intel.com>
+X-ClientProxiedBy: LO4P265CA0169.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:312::6) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: Deadcode discussion based on Arm NS phys timer
-Content-Language: en-US
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-References: <d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com>
- <8691e100-4548-9752-8e7e-b292643cae83@xen.org>
- <6aefd6d6-45a2-a1f3-24da-8bbbba22fc08@amd.com>
- <aff58db0-646c-6699-48af-033e28c5626f@xen.org>
- <alpine.DEB.2.22.394.2210241819420.1151068@ubuntu-linux-20-04-desktop>
- <ed0bf3da-fe9f-e00c-9bc3-35e10840701e@amd.com>
- <06D2C614-0F17-4364-BE52-FB0DB51D097B@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <06D2C614-0F17-4364-BE52-FB0DB51D097B@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT109:EE_|DM4PR12MB7767:EE_
-X-MS-Office365-Filtering-Correlation-Id: a8b2ca3e-1681-4f4b-e250-08dab65fff32
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SA1PR03MB6450:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee1ba90c-460c-4a4b-57f8-08dab660c7b1
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	u7mlgpcUuXPZe0zFxBWdToX1ftcEGbjMG4PURWYaxtNd8VZJ74NvGHWb6isMKnTIofg2mZLr1uUpda4hp+DZyFk9WyOQKSEG5C0H5S4LUT8GH7KK3WaxjiXYo7fNPBYkKFRkqIlXT1ucPsyOcE7dwzkeOBbp+EbkTUiOk2WQJWW15OtktU51+AuR4udbtXWcCyZQzhMcbVsN8EsMvgvR7aA9pmfeSAh1JrlpNGBegq5s6dtHfZt4a0Z5gLoBCHvA+8q+TQjh3dZlw4p0nylLJ3BBgLkuj60pxvT6R79Tmi+Y6/ABmbNOeeVVx+M1OAIUWW5HwnZMBmappKRCV2P/A7MoP3vUpRLPahkecrvRLq4FEOEVdqDrgVJ6Tl6rnxojcXSgy9F4DJzmDrUx6dRN3nizOfvD9DFigd2xFhgx2e/aSVBbyJy6ul9Rid9Imxz1sfKgLx5hd9GFIVpoaNUBxRDBITA60SIAFHrhMpXQMkVWAoBuvgoMNS3n09Z5+WuDJnMDZjf7xIEaXt3RVg3KgquG4jec10TXf/luX68P3sXyhpMqNxOrDRSevwAzH9kGe0mlqA5mmGYMNsJWvbICKfyLHddseGKXFa8QAbgBL4x8PThkG/DFm/N0+hzyF3jMSQkWvrzW3OiIEvJCeTZONQFtveM5x98xts0/My+xm/gbjBMWBmji8UyoLVB8cOonKTC0KFJwgJznsyMUccjNDsycMsqf71U1YUwVyJV8YyVMi6vMynp89N3QbDRqIOyibr22q1eZfIpnII58rsHWeXsVkP/sW0jJ/8pVDl91W5RKX0w8gM4plHB+Yohjv3q3H9073YN4YzMqZ4UbWt2cEw==
+	JGXf6o3OiM560uymIG0xw6FtXfZBcX1aCMDhpp74EdCUOMP5GwGp0ajHSQo63zugTu/d2lh0fnU45cbZ/2zCxft5bfoxFJbswTfTLD1DdSanBNV/L+7FzBTsa7TZvN76hLnHfCqT2o94GESO3y4/v29/fHh+ZZUqYZUaIZIKa9dwDA1jitWrVqf7ehZuA14f6MQZpdx3gXx9L/n5mUGQ+E83mxFoX5W8JGgCqO/E5bTtsERt8jc4xzz2Ko+XaMptgh/U6+jGmdCsQMdxAMd+CW+T64AN0ly+fdvzcfHup/vq0caeOurTpEGS18EqEJylGUMcYMSDdiEDAmGuFx36I6oL3sgPfUfCrSjrQ8ob7yoMhBeTOvVkV2w5uqsFvYbvSM1DlNFfCE4jz1r6dLL2KGuDzmYgxPmIxliJFuwwwiDaorc4uVZH3zcOio+VFY11ywoGbOR/kUcdG9qRl/YOWfa+lgCQCG9dXwzMU1kpLooQ0GlCGAzAXsJ0Vu3ggZBDYHb7RhVeTgRs4c6UpPV6NwvTxCGIcv/9gULFG0KBYyvn2U/kQJTSJxLGDKmtfaE1rjh3o51W0bjKXfwIeRy3AiYTS6wtyjXePEOgPbYn37FEhsjSR4qZFPnoZEa3V8kYRHoDlvLq96aeeAkpVK1b1ROYWF5BpLB8qim8WPa3maGDOJx6u9uf/SQpbphHqMTciFXBN/91RChygqqLQEMxpQJMBwRVhpM8ND8EyIM4R+e7UOFMseZC65MTzY9yedYd
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(396003)(376002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(36756003)(31686004)(478600001)(66899015)(31696002)(86362001)(82310400005)(82740400003)(81166007)(356005)(336012)(316002)(36860700001)(70206006)(83380400001)(2906002)(16576012)(40480700001)(6916009)(70586007)(40460700003)(47076005)(2616005)(53546011)(186003)(44832011)(5660300002)(4326008)(8936002)(41300700001)(26005)(54906003)(8676002)(426003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 08:07:44.5238
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(7916004)(136003)(346002)(39860400002)(396003)(376002)(366004)(451199015)(478600001)(2906002)(6666004)(33716001)(26005)(9686003)(6512007)(6506007)(85182001)(6486002)(82960400001)(4326008)(38100700002)(5660300002)(8936002)(66556008)(66476007)(41300700001)(66946007)(186003)(8676002)(83380400001)(4744005)(86362001)(316002)(54906003)(6916009)(67856001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VEdPOGR6eDd2Y2pKRzMyM0JDQTMvd3BBd1hHbHNFY0dnNUNQZitFRTZFbU9E?=
+ =?utf-8?B?ZVU5MVZkTWU0cEVjbGxoM2RFVmpURXRCMTA4SFRsTEgySGZkNStpZllGVm9v?=
+ =?utf-8?B?Tm50SC9vc003ZUhvRmh5RFNsK21Kc3Qyd0V5djF2cEI2c0NoOU5hK1JQcGJv?=
+ =?utf-8?B?TmdSZElOdzRjUUVrZzM4b0dhZGxTY0NsUVppSXRNT0x1Rk9mQldFajh1aHZR?=
+ =?utf-8?B?azhmWm9IdmYzM3U5TTkvbHUwYjMxQm9kcDRhRG1kdjA3T0lDVkNzSHdOWktH?=
+ =?utf-8?B?NHhDMFN6Y29zU0EvVW5oTGRGNFZ1R1gzNEg2by9hYi9SSVZ3MlNnUnV5UmYw?=
+ =?utf-8?B?clpFazZWbFdEWW5WTVQyOUxQQW9xZ0ljcmNWZ0plUFJVWHI5aksxVVJvQ3RR?=
+ =?utf-8?B?eUllTHJiOGRPeHFkVnpGcncwcVBYRjVsWEwrNnIxZVBuVWliUGg3L2p4ZTR1?=
+ =?utf-8?B?aHZtcThwUmc4aGxSYStFSE1vSHV1di9OTEhQbERFa3JydUdoRExaNXJFRVRr?=
+ =?utf-8?B?YThNM0grZUdJaGdaY0ZVL2tyaVRiVEJpdm8ybkJvdFYrSWMxUCtTUytoRElZ?=
+ =?utf-8?B?MWxBbUs1cS9qc0lXZ25VWHMrOEpUM2d3YnYvVlljREthd1Z3VmxWZjlhNVMy?=
+ =?utf-8?B?OWpTVnlUaElCc3l1QzlDcTNSQUc5UVRyQ3cxVk9lTzJHMUtwcmJhVUU0c0My?=
+ =?utf-8?B?S3RzdlRMWUxTZVY5MUxUZVJoRlord1FEMTI2SlVVeTZOTnd6cFJ6ZDlKTXdo?=
+ =?utf-8?B?TWlNdGVCNFdTSThkYS9XekREOUZoQVVDMWFTMG41d2JidGNoUG5RaU9MZTFN?=
+ =?utf-8?B?RGR2bERMOGhIOW1hdDkvOWpybjMyVjFlWHlTYXJnUEVUZjhJSWNTWmtISDBF?=
+ =?utf-8?B?a3cwb1R4UnozRmpNdktYSTNraW5IWG9XOURjdm1Lb2U4RmE0YmJTYW1Scm1L?=
+ =?utf-8?B?ZUlsQTZWUyttMGIzTXVQd2VYZ2FGTEp0cjdXd1JjUktKbGJoNEF2L1Q5NDk2?=
+ =?utf-8?B?clBKTndFbkNQWCtMdWptUkZxc2RILzJNQTZyTGhhSG9VNi9UMzVPZWNHZk4w?=
+ =?utf-8?B?REJWZ28rK1pTSmMwSWYvVjREVmI3WnhlSVRZRU4xcGRRQW5SaXRJbzBXRXlp?=
+ =?utf-8?B?Q0svZXgxdXVsOWErdi9qbS80U1YxamMxMmNjMFhBejNxSW11RjZoRldJUUxs?=
+ =?utf-8?B?b0pDWGtvcE0zanZYYU9MUGxEOC95NDBaRUE2NTVodStrU0hNSitGYktPaTBo?=
+ =?utf-8?B?TlltZEcrY1dtUkpBRjcrOHJreUJYRUJmZ2wwMkFHVzV4aGVsTGVuYWwxb3RN?=
+ =?utf-8?B?V1daSXg2WW1tZEU2Z3JZRWxiSGJvMmNMeURpRS94MnpuUlpySWJEYy8yOG44?=
+ =?utf-8?B?VGw4V2JFclhuamRCMVNKSmcwdjdtN2NkcFYrNDdlRlJJVXVFeU5yYVkxcEVJ?=
+ =?utf-8?B?Wm1FN0d6bjNzc2xhZis1M2NsenBKUCtSbXV6TEM2N3E2WkhBNTV6TXlveThm?=
+ =?utf-8?B?TTRQQ1pmSEt4UkVXK2lHclhZL0c0RXhIVnRSc3FNM0Y3Tk5Mendvdk05OFVS?=
+ =?utf-8?B?MFk2eERjMXEyS0xCKzZ4L2JiRHI2Z09lYUlYSVFhYnl6ZHFHQ0F5ay9sTGdk?=
+ =?utf-8?B?bzB1QXhyU0ZMY0w1Ym9kV05QcUdMeC9TRVVBWTN5WUdoZXorWWN2YmoyYkpG?=
+ =?utf-8?B?djZISk9FZ2FmT3poengwa2x2WU9KNDNYek4zMWVIWEtKaXhLTG1MejZpSWZP?=
+ =?utf-8?B?dFhnZEszUFh1ejA4QWlJQ3E3RDF5b21oOUVOYjZQOUt3V29Xekd0T0diRzEx?=
+ =?utf-8?B?RGd2OVR1MENpMmdiaVpnV2dIeFlrdjRLWFl6V3dwNVdtdkVhQnRqcTVlOGJq?=
+ =?utf-8?B?d2Z6SWtMREZHYm5YQXZzNEpOYS9yU2NpMXppNjNocVp4cS9mRm4xcGNNSUtR?=
+ =?utf-8?B?SnBDUW5TY05naDRVLzk2UUhvSnBxMlN3bTRDTllYTmtoQTdiNTE4VnExVUtn?=
+ =?utf-8?B?NlBaVWpxaVRlRFBvYzIxd3lBZXMvT051STR0d3dLMk9ROThVaW8rNlhSQnRQ?=
+ =?utf-8?B?MFVtMkVWVVdMeUlZUE1yNlNDZGFKclZqUFJIenJsYlM4dVZlRkJVMGUxYytH?=
+ =?utf-8?Q?vZqkToyPTBmmju6fI3heA9Nk8?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee1ba90c-460c-4a4b-57f8-08dab660c7b1
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 08:13:21.2093
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8b2ca3e-1681-4f4b-e250-08dab65fff32
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT109.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7767
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ML/8cnYrM+FS02yktgHn8WepsVSJx0pDyhw1F67xztb0VkQQjV1BcpbDpOhMv0ksVDDFkAyKjgLRwXjaptM4GQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB6450
 
-Hi Bertrand,
+On Mon, Oct 24, 2022 at 12:58:54PM -0400, Tamas K Lengyel wrote:
+> Currently the XEN_DOMCTL_get_vcpu_msrs is only capable of gathering a handful
+> of predetermined vcpu MSRs. In our use-case gathering the vPMU MSRs by an
+> external privileged tool is necessary, thus we extend the domctl to allow for
+> querying for any guest MSRs. To remain compatible with the existing setup if
+> no specific MSR is requested via the domctl the default list is returned.
 
-On 25/10/2022 09:45, Bertrand Marquis wrote:
-> 
-> 
-> Hi Michal,
-> 
->> On 25 Oct 2022, at 08:11, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Hi,
->>
->> On 25/10/2022 03:29, Stefano Stabellini wrote:
->>>
->>>
->>> On Mon, 24 Oct 2022, Julien Grall wrote:
->>>>> On 24/10/2022 12:51, Julien Grall wrote:
->>>>>> Caution: This message originated from an External Source. Use proper
->>>>>> caution when opening attachments, clicking links, or responding.
->>>>>>
->>>>>>
->>>>>> On 24/10/2022 10:07, Michal Orzel wrote:
->>>>>>> Hello,
->>>>>>
->>>>>> Hi Michal,
->>>>>>
->>>>>>> Recently I came across a deadcode in Xen Arm arch timer code. Briefly
->>>>>>> speaking, we are routing
->>>>>>> the NS phys timer (CNTP) IRQ to Xen, even though Xen does not make use
->>>>>>> of it (as it uses the hypervisor timer CNTHP).
->>>>>>> This timer is fully emulated, which means that there is nothing that can
->>>>>>> trigger such IRQ. This code is
->>>>>>> a left over from early days, where the CNTHP was buggy on some models
->>>>>>> and we had to use the CNTP instead.
->>>>>>>
->>>>>>> As far as the problem itself is not really interesting, it raises a
->>>>>>> question of what to do with a deadcode,
->>>>>>> as there might be/are other deadcode places in Xen.
->>>>>>
->>>>>> There are multiple definition of deadcode. Depending on which one you
->>>>>> chose, then this could cover IS_ENABLED() and possibly #ifdef. So this
->>>>>> would result to a lot of places impacted with the decision.
->>>>>>
->>>>>> So can you clarify what you mean by deadcode?
->>>>> In the timer example, I think we have both a deadcode and unreachable code.
->>>>> For the purpose of this discussion, let's take the MISRA definition of a
->>>>> deadcode which is a "code that can be executed
->>>>> but has no effect on the functional behavior of the program". This differs
->>>>> from the unreachable code definition that is
->>>>> a "code that cannot be executed". Setting up the IRQ for Xen is an example
->>>>> of a deadcode. Code within IRQ handler is an unreachable code
->>>>> (there is nothing that can trigger this IRQ).
->>>>>
->>>>> What I mean by deadcode happens to be the sum of the two cases above i.e.
->>>>> the code that cannot be executed as well as the code that
->>>>> does not impact the functionality of the program.
->>>>>
->>>>>>
->>>>>>> One may say that it is useful to keep it, because one day,
->>>>>>> someone might need it when dealing with yet another broken HW. Such
->>>>>>> person would still need to modify the other
->>>>>>> part of the code (e.g. reprogram_timer), but there would be less work
->>>>>>> required overall. Personally, I'm not in favor of
->>>>>>> such approach, because we should not really support possible scenarios
->>>>>>> with broken HW (except for erratas listing known issues).
->>>>>>
->>>>>> The difference between "broken HW" and "HW with known errata" is a bit
->>>>>> unclear to me. Can you clarify how you would make the difference here?
->>>>>>
->>>>>> In particular, at which point do you consider that the HW should not be
->>>>>> supported by Xen?
->>>>> I'm not saying that HW should not be supported. The difference for me
->>>>> between broken HW and
->>>>> HW with known errata is that for the former, the incorrect behavior is often
->>>>> due to the early support stage,
->>>>> using emulators/models instead of real HW, whereas for the latter, the HW is
->>>>> already released and it happens to be that it is buggy
->>>>> (the HW vendor is aware of the issue and released erratas).
->>>>
->>>> Thanks for the clarification. What I would call broken is anything that can't
->>>> be fixed in software. For a not too fictional example, an HW where PCI devices
->>>> are using the same stream ID. So effectively, passthrough can't be safely
->>>> supported.
->>>>
->>>> Regarding, not yet released HW, I don't think Xen should have workaround for
->>>> them. I wouldn't even call it "broken" because they are not yet released and
->>>> it is common to have bug in early revision.
->>>>
->>>>> Do we have any example in Xen for supporting broken HW,
->>>>> whose vendor is not aware of the issue or did not release any errata?
->>>> I will not cite any HW on the ML. But from my experience, the vendors are not
->>>> very vocal about issues in public (some don't even seem to have public doc).
->>>> The best way to find the issues is to look at Linux commit.
->>>>
->>>>>
->>>>>>
->>>>>>> Also, as part of the certification/FUSA process, there should be no
->>>>>>> deadcode and we should have explanation for every block of code.
->>>>>>
->>>>>> See above. What are you trying to cover by deadcode? Would protecting
->>>>>> code with IS_ENABLED() (or #ifdef) ok?
->>>>> I think this would be ok from the certification point of view (this would at
->>>>> least means, that we are aware of the issue
->>>>> and we took some steps). Otherwise, such code is just an example of a
->>>>> deadcode/unreachable code.
->>>>
->>>> Thanks for the clarification. So the exact approach will depend on the
->>>> context....
->>>>
->>>>>>> There are different ways to deal with a deadcode: > 1. Get rid of it
->>>>>>> completely
->>>>>>> 2. Leave it as it is
->>>>
->>>> ... this is my preference in the context of the timer.
->>>
->>> From a certification point of view, the fewer lines of code the better,
->>> and ideally all the lines of code used for the certified build should be
->>> testable and used.
->>>
->>> So I think 2. is the lest useful option from a certification
->>> perspective. For this reason, I'd prefer another alternative.
->>>
->>>
->>>> If the other don't like it, then 1 would be my preference.
->>>>
->>>> In general, my preference would be either 3.3 or 3.2 (see below).
->>>
->>> I also think that 3.2 and 3.3 are good options for the general case. For
->>> the timer, I can see why 1 is your (second) preference and I am fine
->>> with 1 as well.
->> Ok, sounds good to me. Let's still give Bertrand the chance to share his opinion.
-> 
-> We need to get rid of dead code and removing it is not always the best solution.
-> 
-> If the code is or could be useful for someone some day, protecting it with ifdef is ok.
-> 
-> In the mid term we will have to introduce a lot more ifdef or IS_ENABLED in the
-> code so that we can compile out what we do not need and code not applying to
-> some hardware is a case where we will do that (does not mean that by default
-> we will not compile it in but we will make it easier to reduce the code size for a
-> specific use case).
-> 
-> So 3.2 and 3.3 are ok for me.
+I'm afraid I would benefit from some extra description about why you
+need to introduce a separate hook instead of using the existing
+do_rdmsr hook in arch_vpmu_ops (which is already hooked into
+guest_rdmsr()).
 
-So we all agree that the code in the current form is a no go from certification purposes.
-That is good :)
+Are the MSRs you are trying to fetch not accessible for the guest
+itself to read?
 
-The reason why I opt for solution 1 and not the others is that in the latter case it would
-mean introducing the Kconfig option to allow user to select the timer to be used by Xen.
-This is not really correct. Also in the current form, it would also require adding more
-code to time.c code because at the moment using CNTP for Xen would not work out of the box.
-The architecture defines the hypervisor timer for a purpose. If it does not work, it means
-that the HW is problematic. I agree that we would want to support such use case but I'm not
-really aware of any issue like that. Adding more code and Kconfig options just because
-one day someone may face issues with a new HW is something I am not a fan of.
+It seems fragile to me to add such kind of hook to read MSRs that's
+only used by XEN_DOMCTL_get_vcpu_msrs and not guest_rdmsr(), so it
+would need some clear justification about why it's needed.
 
-I would agree with your solution under the condition that the code is already ready
-for the timer switch.
-
-I guess we need another round of sharing opinions.
-
-> 
->>
->>>
->>>
->>>>>>> 3. Admit that it can be useful one day and:
->>>>>>>    3.1. protect it with #if 0
->>>>
->>>> #if 0 should not be used in Xen code. IMHO this is the worse of all the world.
->> I share your opinion here Julien. Unfortunately we still have quite a few examples
->> in the Arm code using this either to mark something as TODO or to comment out
->> parts of the code waiting for future support. This is mostly in SMMU code that
->> was taken from Linux but already diverged quite far (maybe some cleanup is necessary).
-> 
-> Definitely the SMMU code will need some cleaning.
-> #if 0 are a no go from a certification point of view.
-> 
-> Cheers
-> Bertrand
-> 
->>
->>>>
->>>>>>>    3.2. protect it with a new Kconfig option (disabled by default)
->>>>>>> using #ifdef
->>>>>>>    3.3. protect it with a new Kconfig option (disabled by default)
->>>>>>> using IS_ENABLED (to make sure code always compile)
->>>>
->>>> I would prefer 3.3 over 3.2. 3.2 would be used if it is too difficult to get
->>>> the code compiled when !IS_ENABLED.
->>>>
->>>> Similar to one if this is to move all the affected code in a separate file
->>>> with using obj-$(CONFIG...). That would only work for large chunk of code and
->>>> would be preferred over 3.2.
->>>
->>
->> ~Michal
-> 
-
-~Michal
+Thanks, Roger.
 
