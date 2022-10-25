@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C301160C234
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 05:22:19 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429536.680534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2EB360C2B1
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 06:33:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429546.680553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onAVV-0006qb-2r; Tue, 25 Oct 2022 03:21:37 +0000
+	id 1onBbs-00068h-8n; Tue, 25 Oct 2022 04:32:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429536.680534; Tue, 25 Oct 2022 03:21:37 +0000
+Received: by outflank-mailman (output) from mailman id 429546.680553; Tue, 25 Oct 2022 04:32:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onAVU-0006n9-VX; Tue, 25 Oct 2022 03:21:36 +0000
-Received: by outflank-mailman (input) for mailman id 429536;
- Tue, 25 Oct 2022 03:21:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=F3CU=22=gmail.com=xxc3ncoredxx@srs-se1.protection.inumbo.net>)
- id 1onAVT-0006n3-OF
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 03:21:35 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 20a9cdd5-5414-11ed-8fd0-01056ac49cbb;
- Tue, 25 Oct 2022 05:21:34 +0200 (CEST)
-Received: by mail-wr1-x431.google.com with SMTP id z14so5287495wrn.7
- for <xen-devel@lists.xenproject.org>; Mon, 24 Oct 2022 20:21:34 -0700 (PDT)
-Received: from dj3ntoo (171.sub-72-110-15.myvzw.com. [72.110.15.171])
- by smtp.gmail.com with ESMTPSA id
- h10-20020a05600c314a00b003b47b80cec3sm9933587wmo.42.2022.10.24.20.21.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Oct 2022 20:21:33 -0700 (PDT)
+	id 1onBbs-00066k-5T; Tue, 25 Oct 2022 04:32:16 +0000
+Received: by outflank-mailman (input) for mailman id 429546;
+ Tue, 25 Oct 2022 04:32:14 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Ep8Y=22=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1onBbq-00066e-AB
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 04:32:14 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fead01cb-541d-11ed-91b5-6bf2151ebd3b;
+ Tue, 25 Oct 2022 06:32:12 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id DFC4A22055;
+ Tue, 25 Oct 2022 04:32:11 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 78062134CA;
+ Tue, 25 Oct 2022 04:32:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id z5uIG8tmV2NWMgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 25 Oct 2022 04:32:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,112 +51,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 20a9cdd5-5414-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=eTnwREWlqkIf0C+tQK1BYatGy5JJBtcEmRypgG1tfC8=;
-        b=FFlo3E3AJ6gVOkkZ877m15eYpdvi+2vc0258y0EJSMrwws0Qo8aEbAQ3uYBO3mBpGV
-         29QAPHVYzNVTF4prYWv/UTK3lKC6OSvgQwp9ZfKhRazFNHnHbVdjntwpi+GwA5aCimBw
-         MgCszF0dO8q2g+Nd0Uav92QDdAbINLMaNgdO7vkutDTjenvwxTS9C6/nl9FfzFnRTdel
-         FG0ZIqArzUpturRNSoiqH5h93JmWsnlzcg/Ty1wnill8/+H/weU2I7c4LZ142npcYi5M
-         0oHYgDleI9J8zFhVLzTSRRNMpSASd8Le6RyNXEfVEPrXiGQ3Ea6Q2BreFCv+b7QD1YnW
-         Fobg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references
-         :mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=eTnwREWlqkIf0C+tQK1BYatGy5JJBtcEmRypgG1tfC8=;
-        b=iIJkJGZyd2j6dcNzZCPM77V2dwTVH0/FMeJFOB/GPI2/huyNP/ruXToFCYEs5Rkiap
-         rmRG4BdeMJVGvyyLjhKIJQYMmHi+Eg89QcQIOytaeAX+mga2X8fCVZ7CZxh6vVt62sYz
-         6OC7Z/iTuBl4nwRyJAAkVmK4KFZ57kTkGETekBn9/mO4FZd9AINotm9qUZPxpOtEaPmU
-         wBgs89WTdMHHfEBXyINZFfeVW/Jvsr+uS39KuJSAx77KeSB0huoxfAvD5d6Ro/9xWtCd
-         kxMBYtUUeTtbBX1WAwXIuKQlcXD6vcOg0xtEptJF+Aa+HRkl+bPttUG9SIP3w7JqPBKA
-         pjdg==
-X-Gm-Message-State: ACrzQf1tK0rvfhx9dtYLg4Lc1tWuC1WUx/znkSo1P/P+Kl+7MUpBZnuh
-	86r/Q7N4A3szgIqqso3d+xE=
-X-Google-Smtp-Source: AMsMyM5XJApCOKG2D9tkZVO19Ozd/wp3HBGy2skSFF6/cK/qNc8usr9jwO5pYpUtNZW+RUggIAoVPw==
-X-Received: by 2002:a05:6000:a09:b0:236:6b18:6b30 with SMTP id co9-20020a0560000a0900b002366b186b30mr7544228wrb.356.1666668093838;
-        Mon, 24 Oct 2022 20:21:33 -0700 (PDT)
-Date: Mon, 24 Oct 2022 22:21:25 -0500
-From: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
-To: grub-devel@gnu.org
-Cc: Denton Liu <liu.denton@gmail.com>,
-	Daniel Kiper <daniel.kiper@oracle.com>,
-	mathieu.desnoyers@efficios.com, rharwood@redhat.com,
-	samuel.thibault@ens-lyon.org, debian-bsd@lists.debian.org,
-	xen-devel@lists.xenproject.org, Olaf Hering <olaf@aepfle.de>
-Subject: Re: [PATCH v5] templates: introduce GRUB_TOP_LEVEL_* vars
-Message-ID: <Y1dWNXeWlLUdxbFm@dj3ntoo>
-Mail-Followup-To: grub-devel@gnu.org, Denton Liu <liu.denton@gmail.com>,
-	Daniel Kiper <daniel.kiper@oracle.com>,
-	mathieu.desnoyers@efficios.com, rharwood@redhat.com,
-	samuel.thibault@ens-lyon.org, debian-bsd@lists.debian.org,
-	xen-devel@lists.xenproject.org, Olaf Hering <olaf@aepfle.de>
-References: <20221024104642.251016-1-liu.denton@gmail.com>
+X-Inumbo-ID: fead01cb-541d-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1666672331; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=7slYQYXkLjxXSTb9Jmeg4pGsOIyxx4med/b1FY0v2wM=;
+	b=OvRCnC/1X/LLTSN+t4KH5CIzknOCg51f0jnD6BYkfdeEo2k8YOJ/bTMPjZBHNWHZAx8SQr
+	vUf9w+fvU0mrI84wOpke1m7Nj/DAcGFwnT06b4NBOqL5g/rzRdb3grXfouVeH+gNl6TMXS
+	/GmE8IuWTBUb6CPstr6mIJw6OTUEI24=
+Message-ID: <59eab6d2-6710-a941-6e7d-7efe8dcf0f1b@suse.com>
+Date: Tue, 25 Oct 2022 06:32:11 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: jejb@linux.ibm.com, Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ Bart Van Assche <bvanassche@acm.org>
+Cc: Salvatore Bonaccorso <carnil@debian.org>, sathya.prakash@broadcom.com,
+ suganath-prabu.subramani@broadcom.com,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ adi@kriegisch.at
+References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
+ <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
+ <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+ <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
+ <aa9ebdef1f1dbfceb5a32f5f437b865861976957.camel@linux.ibm.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
+ update to 5.10.149 in 5.10.y.
+In-Reply-To: <aa9ebdef1f1dbfceb5a32f5f437b865861976957.camel@linux.ibm.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="M+Fpb3cxK4PU3FTu"
-Content-Disposition: inline
-In-Reply-To: <20221024104642.251016-1-liu.denton@gmail.com>
+ protocol="application/pgp-signature";
+ boundary="------------0rlDa9SQfT94UR4QIRjJLU0o"
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0rlDa9SQfT94UR4QIRjJLU0o
+Content-Type: multipart/mixed; boundary="------------nQfmobi3WurtVZY3p8acHADl";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: jejb@linux.ibm.com, Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+ Bart Van Assche <bvanassche@acm.org>
+Cc: Salvatore Bonaccorso <carnil@debian.org>, sathya.prakash@broadcom.com,
+ suganath-prabu.subramani@broadcom.com,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ MPT-FusionLinux.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+ adi@kriegisch.at
+Message-ID: <59eab6d2-6710-a941-6e7d-7efe8dcf0f1b@suse.com>
+Subject: Re: Report in downstream Debian: mpt3sas broken with xen dom0 with
+ update to 5.10.149 in 5.10.y.
+References: <Y1JkuKTjVYrOWbvm@eldamar.lan>
+ <85ad4508-b979-c792-e92b-01bc16260dec@acm.org>
+ <CAK=zhgr=MYn=-mrz3gKUFoXG_+EQ796bHEWSdK88o1Aqamby7g@mail.gmail.com>
+ <016732f4-d129-69bb-4b5f-82198407ee5e@suse.com>
+ <aa9ebdef1f1dbfceb5a32f5f437b865861976957.camel@linux.ibm.com>
+In-Reply-To: <aa9ebdef1f1dbfceb5a32f5f437b865861976957.camel@linux.ibm.com>
 
---M+Fpb3cxK4PU3FTu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--------------nQfmobi3WurtVZY3p8acHADl
+Content-Type: multipart/mixed; boundary="------------Tyxf3ySWUJiDFRHH0ip3jqDx"
+
+--------------Tyxf3ySWUJiDFRHH0ip3jqDx
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMjQuMTAuMjIgMjA6NTAsIEphbWVzIEJvdHRvbWxleSB3cm90ZToNCj4gT24gTW9uLCAy
+MDIyLTEwLTI0IGF0IDE0OjU1ICswMjAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPiBbLi4u
+XQ0KPj4gUGxlYXNlIHJlY2hlY2sgdGhlIGJhY2twb3J0ZWQgcGF0Y2ggaW4gNS4xMC55LiBJ
+dCBpcyBfd3JvbmdfLiBUaGUNCj4+IGJhY2twb3J0DQo+PiBoYXM6DQo+Pg0KPj4gLS0tIGEv
+ZHJpdmVycy9zY3NpL21wdDNzYXMvbXB0M3Nhc19iYXNlLmMNCj4+ICsrKyBiL2RyaXZlcnMv
+c2NzaS9tcHQzc2FzL21wdDNzYXNfYmFzZS5jDQo+PiBAQCAtMjk5Myw3ICsyOTkzLDcgQEAg
+X2Jhc2VfY29uZmlnX2RtYV9hZGRyZXNzaW5nKHN0cnVjdA0KPj4gTVBUM1NBU19BREFQVEVS
+ICppb2MsDQo+PiBzdHJ1Y3QgcGNpX2RldiAqcGRldikNCj4+DQo+PiAgICAgICAgICAgaWYg
+KGlvYy0+aXNfbWNwdV9lbmRwb2ludCB8fA0KPj4gICAgICAgICAgICAgICBzaXplb2YoZG1h
+X2FkZHJfdCkgPT0gNCB8fCBpb2MtPnVzZV8zMmJpdF9kbWEgfHwNCj4+IC0gICAgICAgICAg
+IGRtYV9nZXRfcmVxdWlyZWRfbWFzaygmcGRldi0+ZGV2KSA8PSAzMikNCj4+ICsgICAgICAg
+ICAgIGRtYV9nZXRfcmVxdWlyZWRfbWFzaygmcGRldi0+ZGV2KSA8PSBETUFfQklUX01BU0so
+MzIpKQ0KPj4gICAgICAgICAgICAgICAgICAgaW9jLT5kbWFfbWFzayA9IDMyOw0KPj4gICAg
+ICAgICAgIC8qIFNldCA2MyBiaXQgRE1BIG1hc2sgZm9yIGFsbCBTQVMzIGFuZCBTQVMzNSBj
+b250cm9sbGVycyAqLw0KPj4gICAgICAgICAgIGVsc2UgaWYgKGlvYy0+aGJhX21waV92ZXJz
+aW9uX2JlbG9uZ2VkID4gTVBJMl9WRVJTSU9OKQ0KPj4NCj4+IFdoaWxlIHRoZSB1cHN0cmVh
+bSBwYXRjaCBoYXM6DQo+Pg0KPj4gKyAgICAgICBpZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50
+IHx8IHNpemVvZihkbWFfYWRkcl90KSA9PSA0IHx8DQo+PiArICAgICAgICAgICBkbWFfZ2V0
+X3JlcXVpcmVkX21hc2soJnBkZXYtPmRldikgPD0gMzIpIHsNCj4+ICAgICAgICAgICAgICAg
+ICAgIGlvYy0+ZG1hX21hc2sgPSAzMjsNCj4+ICsgICAgICAgICAgICAgICBjb2hlcmVudF9k
+bWFfbWFzayA9IGRtYV9tYXNrID0gRE1BX0JJVF9NQVNLKDMyKTsNCj4+DQo+IA0KPiBUaGF0
+J3Mgbm90IHRoZSB1cHN0cmVhbSBjb21taXQuICBUaGUgcXVvdGVkIHVwc3RyZWFtIHBhdGNo
+IGluIHRoZQ0KPiBzdGFibGUgY29tbWl0IGlzOg0KPiANCj4gaHR0cHM6Ly9naXQua2VybmVs
+Lm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvdG9ydmFsZHMvbGludXguZ2l0L2NvbW1p
+dC8/aWQ9ZTBlMDc0N2RlMGVhM2RkODdjZGJiMDM5MzMxMWUxNzQ3MWE5YmFmMQ0KPiANCj4g
+V2hpY2ggaGFzIHRoZSBzYW1lIGRpZmYgYXMgeW91IHF1b3RlZCBmb3IgdGhlIHN0YWJsZSB0
+cmVlLg0KDQpIbW0sIHNvbWV0aGluZyBpcyBmaXNoeSBoZXJlLg0KDQpMb29raW5nIGF0IHRo
+ZSBzb3VyY2UgaW4gY3VycmVudCBIRUFEIG9mIExpbnVzJyB0cmVlIHNob3dzIG1lOg0KDQpz
+dGF0aWMgaW50DQpfYmFzZV9jb25maWdfZG1hX2FkZHJlc3Npbmcoc3RydWN0IE1QVDNTQVNf
+QURBUFRFUiAqaW9jLCBzdHJ1Y3QgcGNpX2RldiAqcGRldikNCnsNCiAgICAgICAgIHN0cnVj
+dCBzeXNpbmZvIHM7DQogICAgICAgICB1NjQgY29oZXJlbnRfZG1hX21hc2ssIGRtYV9tYXNr
+Ow0KDQogICAgICAgICBpZiAoaW9jLT5pc19tY3B1X2VuZHBvaW50IHx8IHNpemVvZihkbWFf
+YWRkcl90KSA9PSA0IHx8DQogICAgICAgICAgICAgZG1hX2dldF9yZXF1aXJlZF9tYXNrKCZw
+ZGV2LT5kZXYpIDw9IDMyKSB7DQogICAgICAgICAgICAgICAgIGlvYy0+ZG1hX21hc2sgPSAz
+MjsNCiAgICAgICAgICAgICAgICAgY29oZXJlbnRfZG1hX21hc2sgPSBkbWFfbWFzayA9IERN
+QV9CSVRfTUFTSygzMik7DQogICAgICAgICAvKiBTZXQgNjMgYml0IERNQSBtYXNrIGZvciBh
+bGwgU0FTMyBhbmQgU0FTMzUgY29udHJvbGxlcnMgKi8NCg0KVGhpcyBkb2Vzbid0IGxvb2sg
+bGlrZSBjb21taXQgZTBlMDc0N2RlMGVhM2RkIGhhcyBiZWVuIGFwcGxpZWQuDQoNCmdpdCBs
+b2cgZHJpdmVycy9zY3NpL21wdDNzYXMvbXB0M3Nhc19iYXNlLmMgZG9lc24ndCBzaG93IGl0
+IGVpdGhlci4NCg0KZ2l0IG5hbWUtcmV2IGUwZTA3NDdkZTBlYTNkZCB0ZWxscyBtZSBpdCBz
+aG91bGQgYmUgaW4gdjYuMC1yYzcuDQoNCg0KSnVlcmdlbg0K
+--------------Tyxf3ySWUJiDFRHH0ip3jqDx
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 24, 2022 at 03:46:42 -0700, Denton Liu wrote:
-> A user may wish to use an image that is not sorted as the "latest"
-> version as the top-level entry. For example, in Arch Linux, if a user
-> has the LTS and regular kernels installed, `/boot/vmlinuz-linux-lts`
-> gets sorted as the "latest" compared to `/boot/vmlinuz-linux`, meaning
-> the LTS kernel becomes the top-level entry. However, a user may wish to
-> use the regular kernel as the top-level default with the LTS only
-> existing as a backup.
->=20
-> This need can be seen in Arch Linux's AUR with two user-submitted
-> packages[0][1] providing an update hook which patches
-> /etc/grub.d/10_linux to move the desired kernel to the top-level. This
-> patch serves to solve this in a more generic way.
->=20
-> Introduce the GRUB_TOP_LEVEL, GRUB_TOP_LEVEL_XEN and
-> GRUB_TOP_LEVEL_OS_PROBER variables to allow users to specify the
-> top-level entry.
->=20
-> Create grub_move_to_front() as a helper function which moves entries to
-> the front of a list. This function does the heavy lifting of moving
-> the menu entry to the front in each script.
->=20
-> In 10_netbsd, since there isn't an explicit list variable, extract the
-> items that are being iterated through into a list so that we can
-> optionally apply grub_move_to_front() to the list before the loop.
->=20
-> [0]: https://aur.archlinux.org/packages/grub-linux-default-hook
-> [1]: https://aur.archlinux.org/packages/grub-linux-rt-default-hook
->=20
-> Signed-off-by: Denton Liu <liu.denton@gmail.com>
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Reviewed-by: Oskari Pirhonen <xxc3ncoredxx@gmail.com>
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-I've tested it on Linux, but the other platforms and os-prober are still
-untested.
+--------------Tyxf3ySWUJiDFRHH0ip3jqDx--
 
-- Oskari
+--------------nQfmobi3WurtVZY3p8acHADl--
 
---M+Fpb3cxK4PU3FTu
-Content-Type: application/pgp-signature; name="signature.asc"
+--------------0rlDa9SQfT94UR4QIRjJLU0o
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYIAB0WIQQfOU+JeXjo4uxN6vCp8he9GGIfEQUCY1dWLwAKCRCp8he9GGIf
-EQlWAP9KzyNwrmNeoh+pUYxfKaD0KqahfOci3jRBPT5HTjkWsgD6Ags50AtOFgwZ
-xGBmMRE5PQwxdn1oBD84vPzhTLcF9wM=
-=b5NF
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNXZssFAwAAAAAACgkQsN6d1ii/Ey/Y
+3Af/efKnoC1Imin1iahcfGy7nwXfrkxVY6xpdMTvy7aPOpWfaGhNmhnHHXVtpJlO408kzc1Sy27U
+Ko5KmC/Af6NLkqbvd6lW/INkvHOHPJ1XxIJyoncP3IFEbJL8xDCrl41d3dQ0w0ReohCPFXvkhgTN
+OeJgohZxj1MIOS15J6Vk/EYYCz03s0IpsgWythrDdZ9VAnqbpCSHuQ/+cVaDthsRY+4eDzGKi/3O
+PkBrDltkaB0L/Y2kzH1P6eRez+P+mfts3zUvhM1sVdTB4d0O+ZRiOV8wQxrkhpp1wMt+iu7qXg7Y
+TmayCYxmAnUTqq6kibX7wtwHkqV768lMtNGknVo29Q==
+=WgiH
 -----END PGP SIGNATURE-----
 
---M+Fpb3cxK4PU3FTu--
+--------------0rlDa9SQfT94UR4QIRjJLU0o--
 
