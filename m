@@ -2,36 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36AB760C7DD
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 11:21:46 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429683.680843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2475A60C7DF
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 11:22:11 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429693.680853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onG7s-0005Ew-3F; Tue, 25 Oct 2022 09:21:36 +0000
+	id 1onG8G-0006Et-DB; Tue, 25 Oct 2022 09:22:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429683.680843; Tue, 25 Oct 2022 09:21:36 +0000
+Received: by outflank-mailman (output) from mailman id 429693.680853; Tue, 25 Oct 2022 09:22:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onG7r-0005BU-Un; Tue, 25 Oct 2022 09:21:35 +0000
-Received: by outflank-mailman (input) for mailman id 429683;
- Tue, 25 Oct 2022 09:21:34 +0000
+	id 1onG8G-0006CX-9y; Tue, 25 Oct 2022 09:22:00 +0000
+Received: by outflank-mailman (input) for mailman id 429693;
+ Tue, 25 Oct 2022 09:21:58 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OBMn=22=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1onG7q-0004ZS-2G
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 09:21:34 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 6a4f42fc-5446-11ed-91b5-6bf2151ebd3b;
- Tue, 25 Oct 2022 11:21:32 +0200 (CEST)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8A7DFD6E;
- Tue, 25 Oct 2022 02:21:38 -0700 (PDT)
-Received: from entos-skylake.shanghai.arm.com (entos-skylake.shanghai.arm.com
- [10.169.212.207])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 3CBD13F792;
- Tue, 25 Oct 2022 02:21:29 -0700 (PDT)
+ <SRS0=N5aB=22=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1onG8E-0004ZS-1Z
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 09:21:58 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2058.outbound.protection.outlook.com [40.107.243.58])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77c6ce2d-5446-11ed-91b5-6bf2151ebd3b;
+ Tue, 25 Oct 2022 11:21:56 +0200 (CEST)
+Received: from DM6PR02CA0077.namprd02.prod.outlook.com (2603:10b6:5:1f4::18)
+ by SJ1PR12MB6241.namprd12.prod.outlook.com (2603:10b6:a03:458::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Tue, 25 Oct
+ 2022 09:21:53 +0000
+Received: from DM6NAM11FT086.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::87) by DM6PR02CA0077.outlook.office365.com
+ (2603:10b6:5:1f4::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
+ Transport; Tue, 25 Oct 2022 09:21:53 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT086.mail.protection.outlook.com (10.13.173.75) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Tue, 25 Oct 2022 09:21:53 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Tue, 25 Oct
+ 2022 04:21:50 -0500
+Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
+ Transport; Tue, 25 Oct 2022 04:21:18 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,182 +58,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a4f42fc-5446-11ed-91b5-6bf2151ebd3b
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH for-4.14-to-4.16 2/2] xen/arm: p2m: Populate pages for GICv2 mapping in p2m_init()
-Date: Tue, 25 Oct 2022 09:21:12 +0000
-Message-Id: <20221025092112.50168-3-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221025092112.50168-1-Henry.Wang@arm.com>
-References: <20221025092112.50168-1-Henry.Wang@arm.com>
+X-Inumbo-ID: 77c6ce2d-5446-11ed-91b5-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hS2Rx1p9bW7TQVJR0HiG97FpJxhQKsInhm3Zdqe/rHU994OcD2a5R80Clo+AdxZX2Mh8lCgyNL23ZJxuRo/w9R/TWPAvhxX486JIMXb2pnHOMlAOYaKLaTPN7EGKMEuM4TZWqsgcY0pCrylP0sv1iul66hgPOtJdWJWdiS2NBjkMU7JwA40foQrQEPd6rFVdzS4XOPJ7KzNU4yXFVOwODw+xK8ia/HxiZVzgEH6PcMXNWoeXM9p1JAwIugcM9ilQt3T2kLX3bngkdkiCI8w3JcTwuuhlcEfgZbEQD6K000AUvyfnKe77MDGaVHrEF6bbp4SC8N2RmEpyFWKkcWcLLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kc1OdzbUVoH/An6BsueD6Yy51rtby1vUctz6mo7jnHc=;
+ b=lwnQSkpOXnkrHH8i9il3GA48s74Utuw+x7t4QH5E62dYWXm3kJA2Ldic2NpIyOSfsa6MIyJgqlIHTmq+okO4woS4H2abBZmnAqrmBwgVyKYuyC2Tkf28mQ6Q+As4PoffBfI3MLUpaDpSVhUYd9JI+D2OVIUjVk8JwAxMhhmOfFVNGh7PHgev2fbkSqNB2my9D5vYBejt6sAWZHeMJp5KjV02NjFw35n2qtjJ+BMlYuiv9BtD7YsMTjrjjDGV4ubMVNwlieE3WiHHorPvCExkd4IlybbKDfL3uMetErkvPeZrwZZn7aHieVgAjULyAjotbB2rHhfI/h7/drfMNmgvNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kc1OdzbUVoH/An6BsueD6Yy51rtby1vUctz6mo7jnHc=;
+ b=M02ra2m1U6V20JTkxQWvtzueyxVvU/hq7A3LE4TGaSGRIwZVFstVKADW5Zh/1xDnXF05JXDRawIhOcgUti212Wk8H0f2wwF2ZowruvheslxBxTfVLYsmXLS912FR9L1xrF3DX1SVo0K9+oAI+qYSZhc12IdyNCIxcXRN5jSBO+Y=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c5767718-bb00-da6b-8623-1bcb6c832f85@amd.com>
+Date: Tue, 25 Oct 2022 11:21:18 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [RFC v2 01/12] xen/arm: Clean-up the memory layout
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <marco.solieri@minervasys.tech>, <lucmiccio@gmail.com>,
+	<carlo.nonato@minervasys.tech>, Julien Grall <jgrall@amazon.com>, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221022150422.17707-1-julien@xen.org>
+ <20221022150422.17707-2-julien@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20221022150422.17707-2-julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT086:EE_|SJ1PR12MB6241:EE_
+X-MS-Office365-Filtering-Correlation-Id: e10c64b3-686b-48d5-d5d6-08dab66a5add
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zrk4N6JMzcVwJmRArmkDRDKUZruHMUtER6zZ6BVs+l3ZvOUjdXlhMfvvnKZ3W7APP7hAZf3hADkE6bYJonMFgCGg7Fym6vfIdR75pXwDttU38zxiTx9t3s0060tIj6lag3eLm4bThnEXrvTpyUKSURdWY8qZzQ5EqqnMxKx88WZs7SpGYwFQb1uZAJZl9AJTC4TrGiizg0KQz4EPqP1G9EhNwtS0FmEOUKh3WI8b8u/NYmGikGm2ZcaO8zl2Aw2KuRmLhQ8u+TmzDOSLjE9VgTsiV4tuD0NRoedpT1OYis7ahc3oT/Cw5qW6AdnqrD4AcMt9JP7AbqZrxTM+tFjwt61cTu2Q1wgzswYhs65g4ymKKN4SGDW4fZCiVUzO4T8bIANII2HiItbiSsPDtC1WV4M7QJVgGSNYPK8FkMsMEc9UXu5WUWtrUEiSGFijs/3CWjEzheZ7dDv0Ee6KEWlBUos8aw5PzsOROFzL3a8jtO8vB/7VmTb6W+4WtELtz7zmJl/Hgsrd1FWqBqtL3GFMsdXcpZqcPo46DdSWJAtYz7X2c4Tq8cpveMjbM1cN7axZi5r2p2qJjKfbiKh+OUV6NN357gsauOnWtf2+cN6yN9vEFCLV9yDqLIG7hmtHnZm5B9o2s4jiV+86lPUYiPrznsevkm2Hwm6bI0f/7eEyY86VG+tnno7wAA+kXnUPg6+dGd+fOjv46GBrsE+IrZcKD+bp7pzASTjs0GbTlmqFMqweYiUTyJ8mnhL+6GAAqou1HGd6c9wsq9fJALeJOGW2kUvt7CJ6by9TpzHI1pqDQ8SKVMICXqhEkGkVn0iuuUGWFK0yA/QH9zFPSy0qvuliQQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(39860400002)(346002)(136003)(451199015)(46966006)(40470700004)(36840700001)(8676002)(70586007)(8936002)(31696002)(36860700001)(478600001)(70206006)(16576012)(41300700001)(316002)(2906002)(5660300002)(54906003)(4326008)(86362001)(81166007)(44832011)(356005)(4744005)(40460700003)(82310400005)(82740400003)(110136005)(36756003)(426003)(40480700001)(31686004)(2616005)(47076005)(53546011)(336012)(186003)(26005)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 09:21:53.2841
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e10c64b3-686b-48d5-d5d6-08dab66a5add
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT086.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6241
 
-Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
-when the domain is created. Considering the worst case of page tables
-which requires 6 P2M pages as the two pages will be consecutive but not
-necessarily in the same L3 page table and keep a buffer, populate 16
-pages as the default value to the P2M pages pool in p2m_init() at the
-domain creation stage to satisfy the GICv2 requirement. For GICv3, the
-above-mentioned P2M mapping is not necessary, but since the allocated
-16 pages here would not be lost, hence populate these pages
-unconditionally.
+Hi Julien,
 
-With the default 16 P2M pages populated, there would be a case that
-failures would happen in the domain creation with P2M pages already in
-use. To properly free the P2M for this case, firstly support the
-optionally preemption of p2m_teardown(), then call p2m_teardown() and
-p2m_set_allocation(d, 0, NULL) non-preemptively in p2m_final_teardown().
-As non-preemptive p2m_teardown() should only return 0, use a
-BUG_ON to confirm that.
+On 22/10/2022 17:04, Julien Grall wrote:
+> 
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> In a follow-up patch, the base address for the common mappings will
+> vary between arm32 and arm64. To avoid any duplication, define
+> every mapping in the common region from the previous one.
+Maybe the following title would be better suited if you only want to touch the common mappings?
+"xen/arm: Clean-up the common memory layout"
 
-Since p2m_final_teardown() is called either after
-domain_relinquish_resources() where relinquish_p2m_mapping() has been
-called, or from failure path of domain_create()/arch_domain_create()
-where mappings that require p2m_put_l3_page() should never be created,
-relinquish_p2m_mapping() is not added in p2m_final_teardown(), add
-in-code comments to refer this.
+> 
+> Take the opportunity to add missing *_SIZE for FIXMAP_VIRT_* and
+> XEN_VIRT_*.
+> 
+> Take the opportunity to add missing *_SIZE for some mappings.
+I think this sentence can be removed as the previous one already covers it.
 
-Fixes: cbea5a1149ca ("xen/arm: Allocate and free P2M pages from the P2M pool")
-Suggested-by: Julien Grall <jgrall@amazon.com>
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-(cherry picked from commit: c7cff1188802646eaa38e918e5738da0e84949be)
----
- xen/arch/arm/domain.c     |  2 +-
- xen/arch/arm/p2m.c        | 34 ++++++++++++++++++++++++++++++++--
- xen/include/asm-arm/p2m.h | 14 ++++++++++----
- 3 files changed, 43 insertions(+), 7 deletions(-)
+Apart from that, wouldn't it be useful to do the cleanup for the arm32 macros
+as you are here (FRAMETABLE, VMAP, {XEN/DOM}HEAP) ?
 
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index aae615f7d6..0fa1c0cb80 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -1032,7 +1032,7 @@ int domain_relinquish_resources(struct domain *d)
-             return ret;
- 
-     PROGRESS(p2m):
--        ret = p2m_teardown(d);
-+        ret = p2m_teardown(d, true);
-         if ( ret )
-             return ret;
- 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index 2642d2748c..3eb6f16b30 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1630,7 +1630,7 @@ static void p2m_free_vmid(struct domain *d)
-     spin_unlock(&vmid_alloc_lock);
- }
- 
--int p2m_teardown(struct domain *d)
-+int p2m_teardown(struct domain *d, bool allow_preemption)
- {
-     struct p2m_domain *p2m = p2m_get_hostp2m(d);
-     unsigned long count = 0;
-@@ -1638,6 +1638,9 @@ int p2m_teardown(struct domain *d)
-     unsigned int i;
-     int rc = 0;
- 
-+    if ( page_list_empty(&p2m->pages) )
-+        return 0;
-+
-     p2m_write_lock(p2m);
- 
-     /*
-@@ -1661,7 +1664,7 @@ int p2m_teardown(struct domain *d)
-         p2m_free_page(p2m->domain, pg);
-         count++;
-         /* Arbitrarily preempt every 512 iterations */
--        if ( !(count % 512) && hypercall_preempt_check() )
-+        if ( allow_preemption && !(count % 512) && hypercall_preempt_check() )
-         {
-             rc = -ERESTART;
-             break;
-@@ -1681,7 +1684,20 @@ void p2m_final_teardown(struct domain *d)
-     if ( !p2m->domain )
-         return;
- 
-+    /*
-+     * No need to call relinquish_p2m_mapping() here because
-+     * p2m_final_teardown() is called either after domain_relinquish_resources()
-+     * where relinquish_p2m_mapping() has been called, or from failure path of
-+     * domain_create()/arch_domain_create() where mappings that require
-+     * p2m_put_l3_page() should never be created. For the latter case, also see
-+     * comment on top of the p2m_set_entry() for more info.
-+     */
-+
-+    BUG_ON(p2m_teardown(d, false));
-     ASSERT(page_list_empty(&p2m->pages));
-+
-+    while ( p2m_teardown_allocation(d) == -ERESTART )
-+        continue; /* No preemption support here */
-     ASSERT(page_list_empty(&d->arch.paging.p2m_freelist));
- 
-     if ( p2m->root )
-@@ -1748,6 +1764,20 @@ int p2m_init(struct domain *d)
-     if ( rc )
-         return rc;
- 
-+    /*
-+     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
-+     * when the domain is created. Considering the worst case for page
-+     * tables and keep a buffer, populate 16 pages to the P2M pages pool here.
-+     * For GICv3, the above-mentioned P2M mapping is not necessary, but since
-+     * the allocated 16 pages here would not be lost, hence populate these
-+     * pages unconditionally.
-+     */
-+    spin_lock(&d->arch.paging.lock);
-+    rc = p2m_set_allocation(d, 16, NULL);
-+    spin_unlock(&d->arch.paging.lock);
-+    if ( rc )
-+        return rc;
-+
-     return 0;
- }
- 
-diff --git a/xen/include/asm-arm/p2m.h b/xen/include/asm-arm/p2m.h
-index b733f55d48..ac4edb95ce 100644
---- a/xen/include/asm-arm/p2m.h
-+++ b/xen/include/asm-arm/p2m.h
-@@ -185,14 +185,18 @@ int p2m_init(struct domain *d);
- 
- /*
-  * The P2M resources are freed in two parts:
-- *  - p2m_teardown() will be called when relinquish the resources. It
-- *    will free large resources (e.g. intermediate page-tables) that
-- *    requires preemption.
-+ *  - p2m_teardown() will be called preemptively when relinquish the
-+ *    resources, in which case it will free large resources (e.g. intermediate
-+ *    page-tables) that requires preemption.
-  *  - p2m_final_teardown() will be called when domain struct is been
-  *    freed. This *cannot* be preempted and therefore one small
-  *    resources should be freed here.
-+ *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
-+ *  free the P2M when failures happen in the domain creation with P2M pages
-+ *  already in use. In this case p2m_teardown() is called non-preemptively and
-+ *  p2m_teardown() will always return 0.
-  */
--int p2m_teardown(struct domain *d);
-+int p2m_teardown(struct domain *d, bool allow_preemption);
- void p2m_final_teardown(struct domain *d);
- 
- /*
-@@ -257,6 +261,8 @@ mfn_t p2m_get_entry(struct p2m_domain *p2m, gfn_t gfn,
- /*
-  * Direct set a p2m entry: only for use by the P2M code.
-  * The P2M write lock should be taken.
-+ * TODO: Add a check in __p2m_set_entry() to avoid creating a mapping in
-+ * arch_domain_create() that requires p2m_put_l3_page() to be called.
-  */
- int p2m_set_entry(struct p2m_domain *p2m,
-                   gfn_t sgfn,
--- 
-2.17.1
-
+~Michal
 
