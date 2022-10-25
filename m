@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E880F60D7C2
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 01:14:34 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430254.681720 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F63760D7D9
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 01:25:28 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430259.681732 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onT7p-0001sL-Ba; Tue, 25 Oct 2022 23:14:25 +0000
+	id 1onTI0-0003eV-E9; Tue, 25 Oct 2022 23:24:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430254.681720; Tue, 25 Oct 2022 23:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 430259.681732; Tue, 25 Oct 2022 23:24:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onT7p-0001qP-8X; Tue, 25 Oct 2022 23:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 430254;
- Tue, 25 Oct 2022 23:14:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1onTI0-0003cS-BF; Tue, 25 Oct 2022 23:24:56 +0000
+Received: by outflank-mailman (input) for mailman id 430259;
+ Tue, 25 Oct 2022 23:24:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qfDD=22=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1onT7o-0001qF-1p
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 23:14:24 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c24327b4-54ba-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 01:14:22 +0200 (CEST)
+ id 1onTHy-0003cM-7A
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 23:24:54 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3a3f551b-54bc-11ed-8fd0-01056ac49cbb;
+ Wed, 26 Oct 2022 01:24:52 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5F60061BF8;
- Tue, 25 Oct 2022 23:14:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEA0FC433C1;
- Tue, 25 Oct 2022 23:14:19 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 551CFB81FB6;
+ Tue, 25 Oct 2022 23:24:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6C49C433D6;
+ Tue, 25 Oct 2022 23:24:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,181 +43,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c24327b4-54ba-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 3a3f551b-54bc-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1666739660;
-	bh=MzpMrjWsH19E0r9kWq1TaDGhbd1xbuNvnFOB0rRZuG0=;
+	s=k20201202; t=1666740290;
+	bh=XKrymYmoOELPs01OO/UQUUQGqnqT3H/NVzD3tF0BGsI=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=tKirTCrkpCCd3YLx/m4i2cluGCr9cIfpNNUIUtlNsJ/DZNQjfoX454lPX3VSqBQ2p
-	 zhdBBTCDI3Q/KNfgVzdKOcXyveQC0zAfn/yHE9NAStjzn9I32Wnc7r0HrWZTZU/gw9
-	 s5NM24A32ZlFXUF1n5wbPgtTkHWYNV6saz+VHXhHEFIslvwIYGzQf3YRQlZSRkexc0
-	 cnRFvzSqm/RaywfgWrwzuIJRuW1gPPW814LYsY4hj3Q/c3gTrLm2S5zQLuvH/NbnAM
-	 acQ4G7Bu7ri3Vmx+Ka4TA9M/7IWQC7ZfyjOy4yqCejJjrl1zGDyVIY+UmbSTOvjB3c
-	 obBl5/YTcTp6A==
-Date: Tue, 25 Oct 2022 16:14:18 -0700 (PDT)
+	b=tcaK0PZXe5g4NrpkXdH9l2NDD4AKXSW7sPsDLVRa9/mpb5MI+qkdZI2O8jdoMQ/yH
+	 PfXvGZ6Z+JlFGYVQOsABboXBY1tDBMUuBYQnLPd9sA7aud7sZ4aqGAISBlrZSbaXKK
+	 QYjFdWxHz6FAzIoByiLZaB/enRkUkB+OyuGV2693MhiPRIwoOv9Q89IQ/OzLfb9tSN
+	 Zqfw93N5AEAZcp4+oQPEkmHb8hIPWlIGb/0CJMuv878UMzfPPtFe6Iy3/+DguO8vFX
+	 Ny5ZZkt1EcNiHEnqwU94J2YtmFpd/8ZYQTRugB9O5q6y4vMSyXRwRIqIyTqN2/aazZ
+	 SWMuifCaDmutQ==
+Date: Tue, 25 Oct 2022 16:24:47 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
-    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Juergen Gross <jgross@suse.com>, Xenia Ragiadakou <burzalodowa@gmail.com>
-Subject: Re: [PATCH V4 2/2] xen/virtio: Handle PCI devices which Host controller
- is described in DT
-In-Reply-To: <20221025162004.8501-3-olekstysh@gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2210251614110.1397955@ubuntu-linux-20-04-desktop>
-References: <20221025162004.8501-1-olekstysh@gmail.com> <20221025162004.8501-3-olekstysh@gmail.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>
+Subject: Re: [v2] Proposal for deviations in static analyser findings
+In-Reply-To: <83A7652A-3F00-4490-837F-81498808FCC7@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2210251619090.1397955@ubuntu-linux-20-04-desktop>
+References: <83A7652A-3F00-4490-837F-81498808FCC7@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-355867395-1666739992=:1397955"
+Content-ID: <alpine.DEB.2.22.394.2210251620370.1397955@ubuntu-linux-20-04-desktop>
 
-On Tue, 25 Oct 2022, Oleksandr Tyshchenko wrote:
-> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-> 
-> Use the same "xen-grant-dma" device concept for the PCI devices
-> behind device-tree based PCI Host controller, but with one modification.
-> Unlike for platform devices, we cannot use generic IOMMU bindings
-> (iommus property), as we need to support more flexible configuration.
-> The problem is that PCI devices under the single PCI Host controller
-> may have the backends running in different Xen domains and thus have
-> different endpoints ID (backend domains ID).
-> 
-> Add ability to deal with generic PCI-IOMMU bindings (iommu-map/
-> iommu-map-mask properties) which allows us to describe relationship
-> between PCI devices and backend domains ID properly.
-> 
-> To avoid having to look up for the PCI Host bridge twice and reduce
-> the amount of checks pass an extra struct device_node *np to
-> xen_dt_grant_init_backend_domid().
-> 
-> So with current patch the code expects iommus property for the platform
-> devices and iommu-map/iommu-map-mask properties for PCI devices.
-> 
-> The example of generated by the toolstack iommu-map property
-> for two PCI devices 0000:00:01.0 and 0000:00:02.0 whose
-> backends are running in different Xen domains with IDs 1 and 2
-> respectively:
-> iommu-map = <0x08 0xfde9 0x01 0x08 0x10 0xfde9 0x02 0x08>;
-> 
-> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--8323329-355867395-1666739992=:1397955
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2210251620371.1397955@ubuntu-linux-20-04-desktop>
+
+On Tue, 25 Oct 2022, Luca Fancellu wrote:
+> Hi all,
+> 
+> This is the V2 of the proposal for deviations tagging in the Xen codebase, this includes
+> all the feedbacks from the FuSa session held at the Xen Summit 2022 and all the
+> feedbacks received in the previous proposal sent on the mailing list.
+
+It would be good to commit this proposal (when acked) as a pandoc under
+xen.git/docs/misra
 
 
-> ---
-> Slightly RFC. This is needed to support Xen grant mappings for virtio-pci devices
-> on Arm at some point in the future. The Xen toolstack side is not completely ready yet.
-> Here, for PCI devices we use more flexible way to pass backend domid to the guest
-> than for platform devices.
+> Here a link to the previous thread: 
+> https://lists.xenproject.org/archives/html/xen-devel/2022-10/msg00541.html
 > 
-> Changes V1 -> V2:
->    - update commit description
->    - rebase
->    - rework to use generic PCI-IOMMU bindings instead of generic IOMMU bindings
+> Documenting violations
+> ======================
 > 
-> Changes V2 -> V3:
->    - update commit description, add an example
->    - drop xen_dt_map_id() and squash xen_dt_get_pci_host_node() with
->      xen_dt_get_node()
->    - pass struct device_node *np to xen_is_dt_grant_dma_device() and
->      xen_dt_grant_init_backend_domid()
->    - pass domid_t *backend_domid instead of struct xen_grant_dma_data *data
->      to xen_dt_grant_init_backend_domid()
+> Static analysers are used on the Xen codebase for both static analysis and MISRA
+> compliance.
+> There might be the need to suppress some findings instead of fixing them and
+> many tools permit the usage of in-code comments that suppress findings so that
+> they are not shown in the final report.
 > 
-> Changes V3 -> V4:
->    - just rebase on new prereq patch
->      "xen/virtio: Optimize the setup of "xen-grant-dma" devices"
+> Xen will include a tool capable of translating a specific comment used in its
+> codebase to the right proprietary in-code comment understandable by the selected
+> analyser that suppress its finding.
 > 
-> Previous discussion is at:
-> https://lore.kernel.org/xen-devel/20221006174804.2003029-1-olekstysh@gmail.com/
-> https://lore.kernel.org/xen-devel/20221015153409.918775-1-olekstysh@gmail.com/
-> https://lore.kernel.org/xen-devel/20221021172408.77397-1-olekstysh@gmail.com/
+> In the Xen codebase, these tags will be used to document and suppress findings:
 > 
-> Based on:
-> https://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git/log/?h=for-linus-6.1
-> ---
-> ---
->  drivers/xen/grant-dma-ops.c | 46 +++++++++++++++++++++++++++++++------
->  1 file changed, 39 insertions(+), 7 deletions(-)
+> - SAF-X-safe: This tag means that the next line of code contains a finding, but
+>  the non compliance to the checker is analysed and demonstrated to be safe.
+> - SAF-X-false-positive-<tool>: This tag means that the next line of code contains a
+>  finding, but the finding is a bug of the tool.
 > 
-> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
-> index 1e797a043980..9784a77fa3c9 100644
-> --- a/drivers/xen/grant-dma-ops.c
-> +++ b/drivers/xen/grant-dma-ops.c
-> @@ -10,6 +10,7 @@
->  #include <linux/module.h>
->  #include <linux/dma-map-ops.h>
->  #include <linux/of.h>
-> +#include <linux/pci.h>
->  #include <linux/pfn.h>
->  #include <linux/xarray.h>
->  #include <linux/virtio_anchor.h>
-> @@ -292,15 +293,43 @@ static const struct dma_map_ops xen_grant_dma_ops = {
->  	.dma_supported = xen_grant_dma_supported,
->  };
->  
-> +static struct device_node *xen_dt_get_node(struct device *dev)
-> +{
-> +	if (dev_is_pci(dev)) {
-> +		struct pci_dev *pdev = to_pci_dev(dev);
-> +		struct pci_bus *bus = pdev->bus;
-> +
-> +		/* Walk up to the root bus to look for PCI Host controller */
-> +		while (!pci_is_root_bus(bus))
-> +			bus = bus->parent;
-> +
-> +		return of_node_get(bus->bridge->parent->of_node);
-> +	}
-> +
-> +	return of_node_get(dev->of_node);
-> +}
-> +
->  static int xen_dt_grant_init_backend_domid(struct device *dev,
-> +					   struct device_node *np,
->  					   domid_t *backend_domid)
->  {
-> -	struct of_phandle_args iommu_spec;
-> +	struct of_phandle_args iommu_spec = { .args_count = 1 };
->  
-> -	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
-> -			0, &iommu_spec)) {
-> -		dev_dbg(dev, "Cannot parse iommus property\n");
-> -		return -ESRCH;
-> +	if (dev_is_pci(dev)) {
-> +		struct pci_dev *pdev = to_pci_dev(dev);
-> +		u32 rid = PCI_DEVID(pdev->bus->number, pdev->devfn);
-> +
-> +		if (of_map_id(np, rid, "iommu-map", "iommu-map-mask", &iommu_spec.np,
-> +				iommu_spec.args)) {
-> +			dev_dbg(dev, "Cannot translate ID\n");
-> +			return -ESRCH;
-> +		}
-> +	} else {
-> +		if (of_parse_phandle_with_args(np, "iommus", "#iommu-cells",
-> +				0, &iommu_spec)) {
-> +			dev_dbg(dev, "Cannot parse iommus property\n");
-> +			return -ESRCH;
-> +		}
->  	}
->  
->  	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
-> @@ -324,10 +353,13 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
->  static int xen_grant_init_backend_domid(struct device *dev,
->  					domid_t *backend_domid)
->  {
-> +	struct device_node *np;
->  	int ret = -ENODEV;
->  
-> -	if (dev->of_node) {
-> -		ret = xen_dt_grant_init_backend_domid(dev, backend_domid);
-> +	np = xen_dt_get_node(dev);
-> +	if (np) {
-> +		ret = xen_dt_grant_init_backend_domid(dev, np, backend_domid);
-> +		of_node_put(np);
->  	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_pv_domain()) {
->  		dev_info(dev, "Using dom0 as backend\n");
->  		*backend_domid = 0;
-> -- 
-> 2.25.1
+> SAF stands for Static Analyser Finding, the X is a placeholder for a positive
+> number, the number after SAF- shall be incremental and unique, base ten
+> notation and without leading zeros.
 > 
+> Entries in the database should never be removed, even if they are not used
+> anymore in the code (if a patch is removing or modifying the faulty line).
+> This is to make sure that numbers are not reused which could lead to conflicts
+> with old branches or misleading justifications.
+> 
+> An entry can be reused in multiple places in the code to suppress a finding if
+> and only if the justification holds for the same non-compliance to the coding
+> standard.
+> 
+> An orphan entry, that is an entry who was justifying a finding in the code, but later
+> that code was removed and there is no other use of that entry in the code, can be
+> reused as long as the justification for the finding holds. This is done to avoid the
+> allocation of a new entry with exactly the same justification, that would lead to waste
+> of space and maintenance issues of the database.
+> 
+> The files where to store all the justifications are in xen/docs/misra/ and are
+> named as safe.json and false-positive-<tool>.json, they have JSON format, entries
+> of these files have independent ID numbering.
+> 
+> Here is an example to add a new justification in safe.json::
+> 
+> |{
+> |    "version": "1.0",
+> |    "content": [
+> |        {
+> |            "id":"SAF-0-safe",
+> |            "analyser": {
+> |                "cppcheck": "misra-c2012-20.7",
+> |                "coverity": "misra_c_2012_rule_20_7_violation",
+> |                "eclair": "MC3R1.R20.7"
+> |            },
+> |            "name": “R20.7 C macro parameters not used as expression",
+> |            "text": "The macro parameters used in this […]"
+> |        },
+> |        {
+> |            "id":”SAF-1-safe",
+> |            "analyser": {
+> |                "cppcheck": "unreadVariable",
+> |                "coverity": "UNUSED_VALUE"
+> |            },
+> |            "name": “Variable set but not used",
+> |            "text": “It is safe because […]"
+> |        },
+> |        {
+> |            "id":”SAF-2-safe",
+> |            "analyser": {},
+> |            "name": "Sentinel",
+> |            "text": ""
+> |        }
+> |    ]
+> |}
+> 
+> Here is an example to add a new justification in false-positive-cppcheck.json::
+> 
+> |{
+> |    "version": "1.0",
+> |    "content": [
+> |        {
+> |            "id":"SAF-0-false-positive-cppcheck",
+> |            "analyser": {
+> |                "cppcheck": "misra-c2012-20.7"
+> |            },
+> |            “tool-version”: “2.7",
+> |            "name": “R20.7 second operand of member-access operator",
+> |            "text": "The second operand of a member access operator shall be a name of a member of the type pointed to, so in this particular case it is wrong to use parentheses on the macro parameter."
+
+Any way we can make the text max 80 chars in lengths (without breaking
+the json parser)?
+
+Also, if we are going to commit this document in xen.git, please use
+consistently " instead of “
+
+
+> |        },
+> |        {
+> |            "id":”SAF-1-false-positive-cppcheck",
+> |            "analyser": {},
+> |            “tool-version”: “",
+> |            "name": "Sentinel",
+> |            "text": ""
+> |        }
+> |    ]
+> |}
+> 
+> To document a finding, just add another block {[...]} before the sentinel block,
+> using the id contained in the sentinel block and increment by one the number
+> contained in the id of the sentinel block.
+> 
+> Here a brief explanation of the field inside an object of the "content" array:
+> - id: it is a unique string that is used to refer to the finding, many finding
+>  can be tagged with the same id, if the justification holds for any applied
+>  case.
+>  It tells the tool to substitute a Xen in-code comment having this structure:
+>  /* SAF-0-safe [...] \*/
+
+No need for the final \
+
+Everything else looks good to me.
+
+
+> - analyser: it is an object containing pair of key-value strings, the key is
+>  the analyser, so it can be cppcheck, coverity or eclair. The value is the
+>  proprietary id corresponding on the finding, for example when coverity is
+>  used as analyser, the tool will translate the Xen in-code coment in this way:
+>  /* SAF-0-safe [...] \*/ -> /* coverity[coverity-id] \*/
+>  if the object doesn't have a key-value, then the corresponding in-code
+>  comment won't be translated.
+> - name: a simple name for the finding
+> - text: a proper justification to turn off the finding.
+> 
+> 
+> 
+> Here an example of the usage of the in-code comment tags to suppress a finding for the Rule 8.6:
+> 
+> Eclair reports it here:
+> https://eclairit.com:3787/fs/var/lib/jenkins/jobs/XEN/configurations/axis-Target/ARM64/axis-agent/public/builds/549/archive/ECLAIR/out/PROJECT.ecd;/sources/xen/include/xen/kernel.h.html#R50743_1
+> 
+> Also coverity reports it, here an extract of the finding:
+> 
+> xen/include/xen/kernel.h:68:
+>  1. misra_c_2012_rule_8_6_violation: Function "_start" is declared but never defined.
+> 
+> The analysers are complaining because we have this in xen/include/xen/kernel.h at line 68:
+> 
+> extern char _start[], _end[], start[];
+> 
+> Those are symbols exported by the linker, hence we will need to have a proper deviation for this finding.
+> 
+> We will prepare our entry in the database:
+> 
+> |{
+> |    "version": "1.0",
+> |    "content": [
+> |        {
+> |        […]
+> |        },
+> |        {
+> |            "id":”SAF-1-safe",
+> |            "analyser": {
+> |                “eclair": "MC3R1.R8.6",
+> |                "coverity": "misra_c_2012_rule_8_6_violation"
+> |            },
+> |            "name": “Rule 8.6: linker defined symbols",
+> |            "text": “It is safe to declare this symbol because it is defined in the linker script."
+> |        },
+> |        {
+> |            "id":”SAF-2-safe",
+> |            "analyser": {},
+> |            "name": "Sentinel",
+> |            "text": ""
+> |        }
+> |    ]
+> |}
+> 
+> And we will use the proper tag above the violation line:
+> 
+> /* SAF-1-safe [optional text] */
+> extern char _start[], _end[], start[];
+> 
+> This entry will fix also the violation on _end and start, because they are on the same line and the
+> same “violation ID”.
+> 
+> Also, the same tag can be used on other symbols from the linker that are declared in the codebase,
+> because the justification holds for them too.
+--8323329-355867395-1666739992=:1397955--
 
