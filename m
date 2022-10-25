@@ -2,38 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04AF960BE2A
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 01:06:22 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429441.680407 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A03060C0BA
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 03:15:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429449.680426 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on6VC-00032A-OL; Mon, 24 Oct 2022 23:05:02 +0000
+	id 1on8Vr-0006ep-Qy; Tue, 25 Oct 2022 01:13:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429441.680407; Mon, 24 Oct 2022 23:05:02 +0000
+Received: by outflank-mailman (output) from mailman id 429449.680426; Tue, 25 Oct 2022 01:13:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on6VC-0002zl-KJ; Mon, 24 Oct 2022 23:05:02 +0000
-Received: by outflank-mailman (input) for mailman id 429441;
- Mon, 24 Oct 2022 23:05:01 +0000
+	id 1on8Vr-0006bw-Mn; Tue, 25 Oct 2022 01:13:51 +0000
+Received: by outflank-mailman (input) for mailman id 429449;
+ Tue, 25 Oct 2022 01:13:50 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8/mz=2Z=tklengyel.com=tamas@srs-se1.protection.inumbo.net>)
- id 1on6VA-0002zf-SQ
- for xen-devel@lists.xenproject.org; Mon, 24 Oct 2022 23:05:01 +0000
-Received: from MTA-11-3.privateemail.com (mta-11-3.privateemail.com
- [198.54.122.105]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 466db457-53f0-11ed-8fd0-01056ac49cbb;
- Tue, 25 Oct 2022 01:04:59 +0200 (CEST)
-Received: from mta-11.privateemail.com (localhost [127.0.0.1])
- by mta-11.privateemail.com (Postfix) with ESMTP id C849018000A4
- for <xen-devel@lists.xenproject.org>; Mon, 24 Oct 2022 19:04:54 -0400 (EDT)
-Received: from mail-yb1-f174.google.com (mail-yb1-f174.google.com
- [209.85.219.174])
- by mta-11.privateemail.com (Postfix) with ESMTPA id A37C518000A2
- for <xen-devel@lists.xenproject.org>; Mon, 24 Oct 2022 19:04:54 -0400 (EDT)
-Received: by mail-yb1-f174.google.com with SMTP id o70so12655113yba.7
- for <xen-devel@lists.xenproject.org>; Mon, 24 Oct 2022 16:04:54 -0700 (PDT)
+ <SRS0=qfDD=22=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1on8Vq-0006ba-5B
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 01:13:50 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 473bf088-5402-11ed-8fd0-01056ac49cbb;
+ Tue, 25 Oct 2022 03:13:48 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8112F616FA;
+ Tue, 25 Oct 2022 01:13:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89548C433B5;
+ Tue, 25 Oct 2022 01:13:46 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,80 +43,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 466db457-53f0-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=tklengyel.com;
-	s=default; t=1666652694;
-	bh=pC7Rl/r4SDQt5avi2u9wQXNDCm/wER4FHrGcJDmY8Is=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=oCTN8UcixYyyRUtFAQs0LK0aD+Liu49tXLU+Cg+WAVC7A/UILwBy/KPBc39LDjchu
-	 FgJfEFHmBqK8IkZEktKP3FW+T9awhp5GePkotz4glh+YmjQ+ew9YTSHYxgyD5wWnDx
-	 AkRGzekb6Ki10+H1Bf2kMvqAiI0hlvaapgi6ovfHQwlZbsHSnpCNG6N+UTGtD8Zs9Q
-	 rVGPt4/Qf8x5NXJoiVBtqa9BW3zba3MhcqRxiZnQDSxG+Jtet4G7NzKZgenHhuFAuq
-	 aReDuDPC9trtTPYSMXk0BgKAkqYbq6awSdx1vKyzhcia5gvIA8qaDBJkwqv1xDbPqG
-	 jgMOzWCmU47rQ==
-X-Gm-Message-State: ACrzQf2soumT5XizAbSDbcvc49jmLpGdFlZkJ4F6/rHxk7R2zk7b73jo
-	LbX6N5MwWbcx+MhyxGAigMt5aK379hvozekBt6g=
-X-Google-Smtp-Source: AMsMyM570MzfEHG+h6//NTCAyCssTuVZ33kcVRI8jBPeUBf66hJktS6hWXxssnPRAxN1/K8iLQWj7FGo5PMNC7Y8Szs=
-X-Received: by 2002:a5b:2ce:0:b0:6c9:b257:5229 with SMTP id
- h14-20020a5b02ce000000b006c9b2575229mr27373640ybp.136.1666652693856; Mon, 24
- Oct 2022 16:04:53 -0700 (PDT)
+X-Inumbo-ID: 473bf088-5402-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1666660427;
+	bh=/7ZDKTBmVbDxYRoypverc9XDjamz3U72xPqoy1OKOiM=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=WsxovWJxXiodDhe0fHQlNbLR2VNA9l0EjnEIy9NgnNATZq48d4I6RlMQq8A+4PwBd
+	 ijRsx/bX/qI60H5TLwfsr3lCHsJvvbrE5wZQQHiGrgQrv9Nb3RfJDOYQ135r+OejRO
+	 XWt5pyKaiayLAtxa7GzpvN2kgOaYi36yYr9WRwXeCj7o+x7ydNL1Jhf7k7OSdohLAw
+	 WEVBm3Ov4U95lzpt/4dOBXotDbzDybYa+uZTgIysNrrJ6kvxt/w+sNQbAKsXCRqih5
+	 Foonq4VUQdKOfekTIr6inw+0Yh32J7PLhM/2qtjbFkfO+DaFxvUpN+4yAtUhrfzmzZ
+	 JqbzoVEQG8d+A==
+Date: Mon, 24 Oct 2022 18:13:45 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Andrew.Cooper3@citrix.com, 
+    Henry.Wang@arm.com
+Subject: Re: [for-4.17, PATCH v2] automation: Explicitly enable NULL scheduler
+ for boot-cpupools test
+In-Reply-To: <20221024120443.16202-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2210241810200.1151068@ubuntu-linux-20-04-desktop>
+References: <20221024120443.16202-1-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com> <bb3be891-1dad-43db-da69-f20a471ccdb7@suse.com>
-In-Reply-To: <bb3be891-1dad-43db-da69-f20a471ccdb7@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 24 Oct 2022 19:04:17 -0400
-X-Gmail-Original-Message-ID: <CABfawhm-YHwO08f_tgN_-X1=2+U4krtaVv3UUoaFm6NJEhzVMA@mail.gmail.com>
-Message-ID: <CABfawhm-YHwO08f_tgN_-X1=2+U4krtaVv3UUoaFm6NJEhzVMA@mail.gmail.com>
-Subject: Re: [PATCH 06/10] x86/mem-sharing: copy GADDR based shared guest areas
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="000000000000c816b805ebcfd1f2"
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=US-ASCII
 
---000000000000c816b805ebcfd1f2
-Content-Type: text/plain; charset="UTF-8"
+On Mon, 24 Oct 2022, Michal Orzel wrote:
+> NULL scheduler is not enabled by default on non-debug Xen builds. This
+> causes the boot time cpupools test to fail on such build jobs. Fix the issue
+> by explicitly specifying the config options required to enable the NULL
+> scheduler.
+> 
+> Fixes: 36e3f4158778 ("automation: Add a new job for testing boot time cpupools on arm64")
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-> @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain
->
->   state:
->      if ( reset_state )
-> +    {
->          rc = copy_settings(d, pd);
-> +        /* TBD: What to do here with -ERESTART? */
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-Generally speaking the fork reset operation does not support "restarting".
-While in the memory op path the error can be propagated back to the
-toolstack and have it re-issue it, on the monitor reply path that's not
-possible. But the important question is where does the -ERESTART come
-from?  What I think would happen here though is that -ERESTART may happen
-during the initial fork op and that can fail, but if it succeeded, then
-during reset it can't happen since everything would be already allocated
-and mapped, the only thing during reset that would be done is the page
-copying.
+I would like a release-ack by Henry on this
 
-Tamas
-
---000000000000c816b805ebcfd1f2
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><br><br><br>&gt; @@ -1987,7 +2056,10 @@ int mem_sharing_fo=
-rk_reset(struct domain<br>&gt;<br>&gt; =C2=A0 state:<br>&gt; =C2=A0 =C2=A0 =
-=C2=A0if ( reset_state )<br>&gt; + =C2=A0 =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0rc =3D copy_settings(d, pd);<br><div>&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0/* TBD: What to do here with -ERESTART? */</div><div><br></div=
-><div>Generally speaking the fork reset operation does not support &quot;re=
-starting&quot;. While in the memory op path the error can be propagated bac=
-k to the toolstack and have it re-issue it, on the monitor reply path that&=
-#39;s not possible. But the important question is where does the -ERESTART =
-come from?=C2=A0 What I think would happen here though is that -ERESTART ma=
-y happen during the initial fork op and that can fail, but if it succeeded,=
- then during reset it can&#39;t happen since everything would be already al=
-located and mapped, the only thing during reset that would be done is the p=
-age copying.</div><div><br></div><div>Tamas<br></div></div>
-
---000000000000c816b805ebcfd1f2--
+> ---
+> Changes in v2:
+> - was: automation: Do not use null scheduler for boot cpupools test
+> - modify the commit msg/title
+> - explicitly enable NULL scheduler by specifying all the required options
+> 
+> This patch acts as a prerequisite before merging the following patch:
+> https://lore.kernel.org/xen-devel/20221021132238.16056-1-michal.orzel@amd.com/
+> (to which Henry already gave RAB), that helped to find the issue described
+> in the comment.
+> 
+> Tests shall explicitly specify the required Kconfig options for non-default
+> pieces of logic, thus this patch is unrelated to the discussions whether
+> enabling/disabling the NULL scheduler should be controlled by DEBUG or not.
+> ---
+>  automation/gitlab-ci/build.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index ddc2234faf39..716ee0b1e460 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -582,6 +582,9 @@ alpine-3.12-gcc-arm64-boot-cpupools:
+>    variables:
+>      CONTAINER: alpine:3.12-arm64v8
+>      EXTRA_XEN_CONFIG: |
+> +      CONFIG_EXPERT=y
+> +      CONFIG_UNSUPPORTED=y
+> +      CONFIG_SCHED_NULL=y
+>        CONFIG_BOOT_TIME_CPUPOOLS=y
+>  
+>  ## Test artifacts common
+> -- 
+> 2.25.1
+> 
 
