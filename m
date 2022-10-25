@@ -2,64 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBF3560C5BE
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 09:46:41 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429611.680687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5009560C5D6
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 09:50:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429615.680698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onEde-00053D-BR; Tue, 25 Oct 2022 07:46:18 +0000
+	id 1onEhk-0006Ro-U4; Tue, 25 Oct 2022 07:50:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429611.680687; Tue, 25 Oct 2022 07:46:18 +0000
+Received: by outflank-mailman (output) from mailman id 429615.680698; Tue, 25 Oct 2022 07:50:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onEde-0004zl-88; Tue, 25 Oct 2022 07:46:18 +0000
-Received: by outflank-mailman (input) for mailman id 429611;
- Tue, 25 Oct 2022 07:46:17 +0000
+	id 1onEhk-0006Ot-QW; Tue, 25 Oct 2022 07:50:32 +0000
+Received: by outflank-mailman (input) for mailman id 429615;
+ Tue, 25 Oct 2022 07:50:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=zbGC=22=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1onEdd-0004zf-0V
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 07:46:17 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on2073.outbound.protection.outlook.com [40.107.21.73])
+ <SRS0=qdjd=22=gmail.com=vsuneja63@srs-se1.protection.inumbo.net>)
+ id 1onEhj-0006On-3Y
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 07:50:31 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ae61da5-5439-11ed-91b5-6bf2151ebd3b;
- Tue, 25 Oct 2022 09:46:16 +0200 (CEST)
-Received: from ZR0P278CA0061.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:21::12)
- by AS4PR08MB7830.eurprd08.prod.outlook.com (2603:10a6:20b:51a::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.26; Tue, 25 Oct
- 2022 07:46:07 +0000
-Received: from VI1EUR03FT003.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:910:21:cafe::ea) by ZR0P278CA0061.outlook.office365.com
- (2603:10a6:910:21::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
- Transport; Tue, 25 Oct 2022 07:46:07 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VI1EUR03FT003.mail.protection.outlook.com (100.127.144.82) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5723.20 via Frontend Transport; Tue, 25 Oct 2022 07:46:06 +0000
-Received: ("Tessian outbound 73ab5f36653e:v130");
- Tue, 25 Oct 2022 07:46:05 +0000
-Received: from 833335acbc57.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- AFDAA6D0-80C6-42D9-B90E-22FF37AD6AEA.1; 
- Tue, 25 Oct 2022 07:45:59 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 833335acbc57.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Tue, 25 Oct 2022 07:45:59 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by PAWPR08MB9471.eurprd08.prod.outlook.com (2603:10a6:102:2e5::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Tue, 25 Oct
- 2022 07:45:56 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::58db:2a7f:e8f5:92ad]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::58db:2a7f:e8f5:92ad%7]) with mapi id 15.20.5746.028; Tue, 25 Oct 2022
- 07:45:56 +0000
+ id b1f95e30-5439-11ed-91b5-6bf2151ebd3b;
+ Tue, 25 Oct 2022 09:50:29 +0200 (CEST)
+Received: by mail-ej1-x634.google.com with SMTP id b2so10417991eja.6
+ for <xen-devel@lists.xenproject.org>; Tue, 25 Oct 2022 00:50:29 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,328 +39,551 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ae61da5-5439-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=cvzFzeMR9Cen0ubs0PesEyqLvbrfDu5hhBVtNgzz3Wjl+xkZdLGCVkzvwcrZAhuDMvU/kj8tgKHiFTKxcVZagM02jbw8Uten1z8KgCl6a/5n7TSsHOoPxTA1OljklaaVL9tpuoj+ijfq7DemGOP5S4IS7erUgatXS0ets8a5HRSGnxiF+qG7WVGv1u+OhbY2/MZ+OkvPQfhlXRA5W4AJKqIKyZqntzaFiECHrcm7BmKBYreC7zessPZupOFN7Nq7G/w04b+OqH/S/3upGuV5ULShZhjZactH0TmJUQYLngDiX5GsB3sXCTA9a8j79qMijaIZkltAKibuDy3dgbYjRg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrEkbOUnR6AsXQiT84eQ7FI+jm36E9jr/4TRrok4S8U=;
- b=BJsJRET3cOJTyfonqxGKNqCgxMsXvDBbp+d1PhQat0bpvnyQsajwzL9rMeeTovWvM8f7A+kTKX4JGjPd13At6spRKwQFU2eN2pZT+I0/0AFHf6Y/DBwkTluyfwnL3EHMgq3Yptg8nea1veHSfF/GoVp2ip+K+l0yVenJPKqWzU3E/hAKE9p7yYUWjCFjJardPob5jp/SAbtXT7mMGy6dkgzQJ6UC2ZW5Ohunw51PW6G95hjrvoNOck8uNciV5dTvvPBcK2DdXvzXFvgw5vRRu9qbuaBJ/WdXm19l7vXbJYTVHMHLfRQkradnSyDPQBd7p6bQCf68tn82Y2NH61itAA==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrEkbOUnR6AsXQiT84eQ7FI+jm36E9jr/4TRrok4S8U=;
- b=qyOmrbVDtnjsA0toHCTWL9tLW7VF137OWR8uUxirZdqSU7co6kpYON48SigQ+3R1zIXvHIoAa8SlHKMjB6pRwnTv4yz9h9p4WLgWy8HsgUrN8F0Lcfoju+ldKjcqJ490X6rlWf9YHhMC/HJ2YrPtKDas5B3n4NjMIWpX72kRtYs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: a4246da23ea3133d
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DbeL+UbyL2Jij8NBq5YTcP9SHpiEDy0gGLNfuiZJVL+N6/Fnzfoi3xspvVTVlEAYVSOBEkNuFyqUGdVRikql+rEjn+Z24u2wzUl3t5sYc9lfIUVBdG3uT7ouXflsEbjqVLr4pBkQlxeNKg7HPvTYj5ivuuVKd/LqlD2tLeqkkUkTn6+hWiujgXGjbh2oUb/gQ2ykPeXO0vqrUM/Gj3G6MKcADtj1+Mjgvsie0wawxdtm+MdNPqKRJi1NxnJXC0kjT6fb97gl18wxeDyUKigSa6vn75TBaHpCsoyFjwGJRoIwmRrBVlaYroCwCol7yMbunVD6VAQDDXcr94ILiJW09g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zrEkbOUnR6AsXQiT84eQ7FI+jm36E9jr/4TRrok4S8U=;
- b=I8O4BrFtAQ+oSfHEscN61KDzd6qCAuqJSnQEndYh2e19U3vlrw9HdEOazp8xcDNWlZOAXcXYR8AgZrmQ14pkAvCNjakRU3rGdVXGgkgsgONfXlA6G5o6sRxCrvBZffThOs/Fbk+EnHQArKOeCp+L7XHxNzXufbluPgbFvADXOst+69HTiC3lAyzwCBxp22dkfeQXi9e2LrR2nXeQAV1Z3cWK71lHdNeR5g1VZvS4FMPn/mCHwAzsZXSMbKK0900L/+hj3T7DK1risiYwZNJwCbcrg+8jke00SgcjRPYeGzpKTKkR3L1Bxsb/I7nCoh23ela2bdh0H8BawJ2taauaGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zrEkbOUnR6AsXQiT84eQ7FI+jm36E9jr/4TRrok4S8U=;
- b=qyOmrbVDtnjsA0toHCTWL9tLW7VF137OWR8uUxirZdqSU7co6kpYON48SigQ+3R1zIXvHIoAa8SlHKMjB6pRwnTv4yz9h9p4WLgWy8HsgUrN8F0Lcfoju+ldKjcqJ490X6rlWf9YHhMC/HJ2YrPtKDas5B3n4NjMIWpX72kRtYs=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Michal Orzel <michal.orzel@amd.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
-	<julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: Deadcode discussion based on Arm NS phys timer
-Thread-Topic: Deadcode discussion based on Arm NS phys timer
-Thread-Index:
- AQHY54gZ+lETtnfh9UiF8D+fGFbI5q4dXjCAgAANxICAAB5kgIAAySOAgABfjwCAAAmGgA==
-Date: Tue, 25 Oct 2022 07:45:56 +0000
-Message-ID: <06D2C614-0F17-4364-BE52-FB0DB51D097B@arm.com>
-References: <d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com>
- <8691e100-4548-9752-8e7e-b292643cae83@xen.org>
- <6aefd6d6-45a2-a1f3-24da-8bbbba22fc08@amd.com>
- <aff58db0-646c-6699-48af-033e28c5626f@xen.org>
- <alpine.DEB.2.22.394.2210241819420.1151068@ubuntu-linux-20-04-desktop>
- <ed0bf3da-fe9f-e00c-9bc3-35e10840701e@amd.com>
-In-Reply-To: <ed0bf3da-fe9f-e00c-9bc3-35e10840701e@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3784:EE_|PAWPR08MB9471:EE_|VI1EUR03FT003:EE_|AS4PR08MB7830:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2a39f5b-f285-4058-bd99-08dab65cf96e
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- YsWyCbvaOUuLVOiR71hfchndD4GSpJIOGI+EF3q/LQ7/JkJQgV+tBqPco+r6UGTtk5KxkFPkRuCjkXqhYl3WTU7MUdZZ4l7sjED1VRHR8g9s11INjFsmIIFymJmDCb+p85BWL6VwVgehy3iqP2mHYxq39Gc9SnPqMTiQN9dUGPHBsZKy6tn1GVE0htSgQNZvT41NuQpIk0QHAKPK2qRGL73c4FgRZPQ5+8z8JaX5r+i/3kl/xlYhAETjLlUflxgMtETdzDrZBwFYqnsuPC0+CL/oEcwOF7PksCfw+jyquSfjvhNmuo2JdSjJyuGglejw4v+LMl7jAydTX1EHExomZ7ABsl5GAt0EvzR+bF0tT4W70rR5xK68AmZ/+Okynk56BmvomaxzmD8xtDSgnlF63AIuibAHPvHT2TXl0St2ET3phVQdOUu3WJyiEcIbdiPOP+iIZn6m8DR+Yr0pvmilUbZCn/p7nsg+9GWrG1MH1fg6ySsBa0rwm65Ow3S96P6QaYHux1FgiPfplzJoYLuIXcvTsP/XVPO8DukR10GMq/0gsat0SZc/9Z52WBdUDh1n/+r8dYMTvp9/2ZmIY66j19gi25Bf+SMuSr+8fw/p9isoWuUSbIoqg3HMrbScGk1AHFK7zeeZKP4KPHCb8JYykq+/YsMwTgqOf8CIYl0o/AoRoZZZl3aXrpkHojonLtxoLSXvm49UtUh3mASVq96bor7baaBle3JSic6l0LQbqyowhxFNSmF2fTEaAYnypVA2IbMStMnSt85aQTADVn9ttJNTkt81vJGzQ1U1PI7Bibs=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(366004)(136003)(346002)(39860400002)(396003)(451199015)(66899015)(41300700001)(54906003)(478600001)(5660300002)(6486002)(33656002)(8936002)(83380400001)(38070700005)(38100700002)(8676002)(2906002)(36756003)(64756008)(66446008)(66476007)(66556008)(66946007)(4326008)(71200400001)(316002)(6916009)(76116006)(91956017)(6512007)(2616005)(186003)(26005)(122000001)(86362001)(6506007)(53546011)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <4F19440A11D6BF4CB6362C26B64F0C1A@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: b1f95e30-5439-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZSdKgLbT+qddTsa8l5SAlwxgpn6twTeI8D1SKYVHR/c=;
+        b=jZTWY/OJC7nfJlRYUz0fZT0IBXvhBGsXdjrtRbny/KkfBqd16v3r3YGEJWUfu7i/L4
+         IhXED9e3fHUSHP6dtwi6R9ZWbJR9z5QTWIqEqPSiEEnRFbq4Nq7CMXlU8P2w1YsfauIf
+         i4/ZVegdxOtCLZny/KjYhP2A+GbgSn1u66AsDJZvSn17wX+lxeSCdmJPjaLFyAcLrDRz
+         aTH3BAC6J/lm55LwrpEnxCpvisDbIxvCI2daJvMIyo925Y3+uactbc4Z+44GDtNe+sZp
+         xcTpRNrE4kTLdhzI67AL0pcfYgSIrK8pFTnefaS39EGLgOOlLJUlEqBQkO1IEpEGBwsK
+         Lj7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=ZSdKgLbT+qddTsa8l5SAlwxgpn6twTeI8D1SKYVHR/c=;
+        b=FwIM/fig334v5/TELTgC+8mG5A6qTRXAxw8zPZca0wEPP2dKBTPIMWLVKE3XvDTd92
+         uwZkEloGKelHOA0NSY+lD1sDGX1CKPOslyS2vxpdoDlOVQknfLedqDCVxJr0tJtcE0L6
+         2POPKioQrZPYdfC47OF52TA3wTPIqVCK6WN8GviVhKTtlhHCRgiOI+voS83VLBrG8tQL
+         x4zi5TSBNJaMce2Svw6fC+VUKXmg5KyIuOn0RI6xCOdWg9iJmnXuy3HTyKKqQ4qHIP27
+         T2wyBoXrF1eOqlmto2ajHvof266dUoI931s4CtaG88wsK+CjHc+A/p1euUs2AUhPN5sz
+         6WIg==
+X-Gm-Message-State: ACrzQf1MHLjVMqYtYfWRrgfRkaiymRVu7F/0kuF/gQJPfNQnW5T2aOIN
+	3dYMl0NJh3yUtL5rjjdGxvPgYWgVvyu2lujJ4Og=
+X-Google-Smtp-Source: AMsMyM5zyEBIsw7zMR4fIR0uBXbvENNyG3ihO+5VWWEh9kStr/ldUM6Xbz5GNcWMqETP9YpDV9ZZiMG8kCvui/nd4tk=
+X-Received: by 2002:a17:906:5a4b:b0:78d:8790:d4a1 with SMTP id
+ my11-20020a1709065a4b00b0078d8790d4a1mr31264783ejc.329.1666684228901; Tue, 25
+ Oct 2022 00:50:28 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9471
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VI1EUR03FT003.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	ca4ac37c-956e-4842-d61e-08dab65cf34e
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PGiL5DhRmStOESvBrFiVwJXfvRmppHTxSmb3YMV8NLBmE/2LvWFjJa79KJLWCKZr4VEwd4+nhvwthOMqBktSoG9Rg8jPSW72fdR0LyCjblnJTPwMNr0ByQ9bt9N70H12U9z11OAR9pZ5c7l4mP1+tLsHenuk/+PPTDr6BCLShg+FHZX8i6zhU2GaGPZ2pYWH8jesxeJbDIP4Asl8z74ax9IHe1Go+R+aQOvcYkQNEvoLYwGT7gipmkcoodep19jpeOfwhACWYJ259A/W9GztQRaU90zscMATwbSOaYZk/4ljHTU/LE7sUJnclmh6Jd/UOBtB7E7TsC+YfP+BuHZclXiHEoSuXcqSPZ0I+1tLWqKXP6vN+7BE1OUPhiafKtpXPhMDUc6XpotbTb52j/pcfnWK/28yv7W/VoI2RL16L/v5xkU4fJxmFXYcH1/Vqja5bOKDbTcfjHSEL2tpHOtlPjXf2mknqzF5LDdFWJ+v9tPvBc2s2+LnCePAUMB/Itt/GAaKcXvfoBnjXW0z5aEhEd+CqpJjcZjis4SocLFsscbQvZ/nCQkKRojLtToIIEtWx3TMOkPwS+NM2AAMoh0k7dsDt5CyaBlWbiRdJ7NBARasO/jgOXvP7cK9cZDS4ftiGW1vwYV0HiUc+V0nxcYifB99B/SWgmDGP5xIOVj5ZxTEe72/YvDf9VrjBiorftTm6J8Fz2zoCiyrFKW+Yf2/uNv4HHTI8Q7GwDn3WmaGi03WXUAd6RSNaeHff3Q+96PvEgB32UqqVErgRF9si7l60Q==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(376002)(136003)(346002)(396003)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(82310400005)(66899015)(36756003)(186003)(33656002)(83380400001)(8936002)(4326008)(70206006)(8676002)(2906002)(6862004)(70586007)(5660300002)(54906003)(41300700001)(86362001)(40480700001)(316002)(81166007)(2616005)(356005)(6506007)(40460700003)(53546011)(26005)(6512007)(47076005)(82740400003)(36860700001)(336012)(478600001)(6486002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Oct 2022 07:46:06.2971
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2a39f5b-f285-4058-bd99-08dab65cf96e
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VI1EUR03FT003.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7830
+References: <CALAP8f--jyG=ufJ9WGtL6qoeGdsykjNK85G3q50SzJm5+wOzhQ@mail.gmail.com>
+ <alpine.DEB.2.22.394.2210171400570.2351079@ubuntu-linux-20-04-desktop>
+ <CALAP8f81ojfVD9n5EMtD7DxY-8uomgENVEQH9Afz7Hk9rfaAsw@mail.gmail.com>
+ <alpine.DEB.2.22.394.2210181213370.4587@ubuntu-linux-20-04-desktop> <CALAP8f9Zgue6WfAk2uRGkg=1Up2Z+eQWqvQ1_Z2=r66Z5fvKoA@mail.gmail.com>
+In-Reply-To: <CALAP8f9Zgue6WfAk2uRGkg=1Up2Z+eQWqvQ1_Z2=r66Z5fvKoA@mail.gmail.com>
+From: Vipul Suneja <vsuneja63@gmail.com>
+Date: Tue, 25 Oct 2022 13:20:16 +0530
+Message-ID: <CALAP8f-qr5523h7tmz+URaXiEYPuMEQggvqXSm+B6f_Zo9B7aA@mail.gmail.com>
+Subject: Re: Porting Xen in raspberry pi4B
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: xen-devel@lists.xenproject.org, oleksandr_andrushchenko@epam.com, 
+	oleksandr_tyshchenko@epam.com, jgross@suse.com, boris.ostrovsky@oracle.com, 
+	Bertrand.Marquis@arm.com
+Content-Type: multipart/alternative; boundary="0000000000006aa06005ebd729fb"
 
-Hi Michal,
+--0000000000006aa06005ebd729fb
+Content-Type: text/plain; charset="UTF-8"
 
-> On 25 Oct 2022, at 08:11, Michal Orzel <michal.orzel@amd.com> wrote:
->=20
-> Hi,
->=20
-> On 25/10/2022 03:29, Stefano Stabellini wrote:
->>=20
->>=20
->> On Mon, 24 Oct 2022, Julien Grall wrote:
->>>> On 24/10/2022 12:51, Julien Grall wrote:
->>>>> Caution: This message originated from an External Source. Use proper
->>>>> caution when opening attachments, clicking links, or responding.
->>>>>=20
->>>>>=20
->>>>> On 24/10/2022 10:07, Michal Orzel wrote:
->>>>>> Hello,
->>>>>=20
->>>>> Hi Michal,
->>>>>=20
->>>>>> Recently I came across a deadcode in Xen Arm arch timer code. Briefl=
-y
->>>>>> speaking, we are routing
->>>>>> the NS phys timer (CNTP) IRQ to Xen, even though Xen does not make u=
-se
->>>>>> of it (as it uses the hypervisor timer CNTHP).
->>>>>> This timer is fully emulated, which means that there is nothing that=
- can
->>>>>> trigger such IRQ. This code is
->>>>>> a left over from early days, where the CNTHP was buggy on some model=
-s
->>>>>> and we had to use the CNTP instead.
->>>>>>=20
->>>>>> As far as the problem itself is not really interesting, it raises a
->>>>>> question of what to do with a deadcode,
->>>>>> as there might be/are other deadcode places in Xen.
->>>>>=20
->>>>> There are multiple definition of deadcode. Depending on which one you
->>>>> chose, then this could cover IS_ENABLED() and possibly #ifdef. So thi=
-s
->>>>> would result to a lot of places impacted with the decision.
->>>>>=20
->>>>> So can you clarify what you mean by deadcode?
->>>> In the timer example, I think we have both a deadcode and unreachable =
-code.
->>>> For the purpose of this discussion, let's take the MISRA definition of=
- a
->>>> deadcode which is a "code that can be executed
->>>> but has no effect on the functional behavior of the program". This dif=
-fers
->>>> from the unreachable code definition that is
->>>> a "code that cannot be executed". Setting up the IRQ for Xen is an exa=
-mple
->>>> of a deadcode. Code within IRQ handler is an unreachable code
->>>> (there is nothing that can trigger this IRQ).
->>>>=20
->>>> What I mean by deadcode happens to be the sum of the two cases above i=
-.e.
->>>> the code that cannot be executed as well as the code that
->>>> does not impact the functionality of the program.
->>>>=20
->>>>>=20
->>>>>> One may say that it is useful to keep it, because one day,
->>>>>> someone might need it when dealing with yet another broken HW. Such
->>>>>> person would still need to modify the other
->>>>>> part of the code (e.g. reprogram_timer), but there would be less wor=
-k
->>>>>> required overall. Personally, I'm not in favor of
->>>>>> such approach, because we should not really support possible scenari=
-os
->>>>>> with broken HW (except for erratas listing known issues).
->>>>>=20
->>>>> The difference between "broken HW" and "HW with known errata" is a bi=
-t
->>>>> unclear to me. Can you clarify how you would make the difference here=
-?
->>>>>=20
->>>>> In particular, at which point do you consider that the HW should not =
-be
->>>>> supported by Xen?
->>>> I'm not saying that HW should not be supported. The difference for me
->>>> between broken HW and
->>>> HW with known errata is that for the former, the incorrect behavior is=
- often
->>>> due to the early support stage,
->>>> using emulators/models instead of real HW, whereas for the latter, the=
- HW is
->>>> already released and it happens to be that it is buggy
->>>> (the HW vendor is aware of the issue and released erratas).
->>>=20
->>> Thanks for the clarification. What I would call broken is anything that=
- can't
->>> be fixed in software. For a not too fictional example, an HW where PCI =
-devices
->>> are using the same stream ID. So effectively, passthrough can't be safe=
-ly
->>> supported.
->>>=20
->>> Regarding, not yet released HW, I don't think Xen should have workaroun=
-d for
->>> them. I wouldn't even call it "broken" because they are not yet release=
-d and
->>> it is common to have bug in early revision.
->>>=20
->>>> Do we have any example in Xen for supporting broken HW,
->>>> whose vendor is not aware of the issue or did not release any errata?
->>> I will not cite any HW on the ML. But from my experience, the vendors a=
-re not
->>> very vocal about issues in public (some don't even seem to have public =
-doc).
->>> The best way to find the issues is to look at Linux commit.
->>>=20
->>>>=20
->>>>>=20
->>>>>> Also, as part of the certification/FUSA process, there should be no
->>>>>> deadcode and we should have explanation for every block of code.
->>>>>=20
->>>>> See above. What are you trying to cover by deadcode? Would protecting
->>>>> code with IS_ENABLED() (or #ifdef) ok?
->>>> I think this would be ok from the certification point of view (this wo=
-uld at
->>>> least means, that we are aware of the issue
->>>> and we took some steps). Otherwise, such code is just an example of a
->>>> deadcode/unreachable code.
->>>=20
->>> Thanks for the clarification. So the exact approach will depend on the
->>> context....
->>>=20
->>>>>> There are different ways to deal with a deadcode: > 1. Get rid of it
->>>>>> completely
->>>>>> 2. Leave it as it is
->>>=20
->>> ... this is my preference in the context of the timer.
->>=20
->> From a certification point of view, the fewer lines of code the better,
->> and ideally all the lines of code used for the certified build should be
->> testable and used.
->>=20
->> So I think 2. is the lest useful option from a certification
->> perspective. For this reason, I'd prefer another alternative.
->>=20
->>=20
->>> If the other don't like it, then 1 would be my preference.
->>>=20
->>> In general, my preference would be either 3.3 or 3.2 (see below).
->>=20
->> I also think that 3.2 and 3.3 are good options for the general case. For
->> the timer, I can see why 1 is your (second) preference and I am fine
->> with 1 as well.
-> Ok, sounds good to me. Let's still give Bertrand the chance to share his =
-opinion.
+Hi Stefano,
 
-We need to get rid of dead code and removing it is not always the best solu=
-tion.
+Thanks!
 
-If the code is or could be useful for someone some day, protecting it with =
-ifdef is ok.
+Any input further as per the logs attached?
 
-In the mid term we will have to introduce a lot more ifdef or IS_ENABLED in=
- the
-code so that we can compile out what we do not need and code not applying t=
-o
-some hardware is a case where we will do that (does not mean that by defaul=
-t
-we will not compile it in but we will make it easier to reduce the code siz=
-e for a
-specific use case).
+Regards,
+Vipul Kumar
 
-So 3.2 and 3.3 are ok for me.
+On Wed, Oct 19, 2022 at 10:49 PM Vipul Suneja <vsuneja63@gmail.com> wrote:
 
->=20
->>=20
->>=20
->>>>>> 3. Admit that it can be useful one day and:
->>>>>>    3.1. protect it with #if 0
->>>=20
->>> #if 0 should not be used in Xen code. IMHO this is the worse of all the=
- world.
-> I share your opinion here Julien. Unfortunately we still have quite a few=
- examples
-> in the Arm code using this either to mark something as TODO or to comment=
- out
-> parts of the code waiting for future support. This is mostly in SMMU code=
- that
-> was taken from Linux but already diverged quite far (maybe some cleanup i=
-s necessary).
+> Hi Stefano,
+>
+> Thanks for the response!
+>
+> I am following the same link you shared from the beginning. Tried the
+> command "vncviewer localhost:0" in DOM0 but same issue "Can't open
+> display", below are the logs:
+>
+>
+>
+>
+>
+>
+>
+> *root@raspberrypi4-64:~# vncviewer localhost:0TigerVNC Viewer 64-bit
+> v1.11.0Built on: 2020-09-08 12:16Copyright (C) 1999-2020 TigerVNC Team and
+> many others (see README.rst)See https://www.tigervnc.org
+> <https://www.tigervnc.org> for information on TigerVNC.Can't open display:*
+>
+> Below are the netstat logs, i couldn't see anything running at port 5900
+> or 5901:
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+> *root@raspberrypi4-64:~# netstat -tuwx Active Internet connections (w/o
+> servers)Proto Recv-Q Send-Q Local Address           Foreign Address
+> State       tcp        0    164 192.168.1.39:ssh        192.168.1.38:37472
+> <http://192.168.1.38:37472>      ESTABLISHED Active UNIX domain sockets
+> (w/o servers)Proto RefCnt Flags       Type       State         I-Node
+> Pathunix  8      [ ]         DGRAM      CONNECTED      10565 /dev/logunix
+>  3      [ ]         STREAM     CONNECTED      10891
+> /var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+>  13791 unix  3      [ ]         STREAM     CONNECTED      10843
+> /var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+>  10573 /var/run/xenstored/socketunix  2      [ ]         DGRAM
+>  CONNECTED      14510 unix  3      [ ]         STREAM     CONNECTED
+>  13249 unix  2      [ ]         DGRAM      CONNECTED      13887 unix  2
+>  [ ]         DGRAM      CONNECTED      10599 unix  3      [ ]
+> STREAM     CONNECTED      14005 unix  3      [ ]         STREAM
+> CONNECTED      13258 unix  3      [ ]         STREAM     CONNECTED
+>  13248 unix  3      [ ]         STREAM     CONNECTED      14003 unix  3
+>  [ ]         STREAM     CONNECTED      10572 /var/run/xenstored/socketunix
+>  3      [ ]         STREAM     CONNECTED      10786
+> /var/run/xenstored/socketunix  3      [ ]         DGRAM      CONNECTED
+>  13186 unix  3      [ ]         STREAM     CONNECTED      10864
+> /var/run/xenstored/socketunix  3      [ ]         STREAM     CONNECTED
+>  10812 /var/run/xenstored/socketunix  2      [ ]         DGRAM
+>  CONNECTED      14083 unix  3      [ ]         STREAM     CONNECTED
+>  10813 /var/run/xenstored/socket*
+>
+>
+>
+>
+>
+>
+>
+>
+>
+> *unix  3      [ ]         STREAM     CONNECTED      14068 unix  3      [ ]
+>         STREAM     CONNECTED      13256 unix  3      [ ]         STREAM
+> CONNECTED      10571 /var/run/xenstored/socketunix  3      [ ]
+> STREAM     CONNECTED      10842 unix  3      [ ]         STREAM
+> CONNECTED      13985 unix  3      [ ]         DGRAM      CONNECTED
+>  13185 unix  2      [ ]         STREAM     CONNECTED      13884 unix  2
+>  [ ]         DGRAM      CONNECTED      14528 unix  2      [ ]         DGRAM
+>      CONNECTED      13785 unix  3      [ ]         STREAM     CONNECTED
+>  14034 *
+>
+> Attaching xen log files of /var/log/xen.
+> I didn't get the role of QEMU here because as mentioned earlier, I am
+> porting in raspberrypi 4B.
+>
+> Regards,
+> Vipul Kumar
+>
+> On Wed, Oct 19, 2022 at 12:43 AM Stefano Stabellini <
+> sstabellini@kernel.org> wrote:
+>
+>> It usually works the way it is described in the guide:
+>>
+>>
+>> https://www.virtuatopia.com/index.php?title=Configuring_a_VNC_based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_Guest
+>>
+>> You don't need to install any VNC-related server software because it is
+>> already provided by Xen (to be precise it is provided by QEMU working
+>> together with Xen.)
+>>
+>> You only need the vnc client in dom0 so that you can connect, but you
+>> could also run the vnc client outside from another host. So basically
+>> the following should work when executed in Dom0 after creating DomU:
+>>
+>>   vncviewer localhost:0
+>>
+>> Can you attach the Xen and QEMU logs (/var/log/xen/*)? And also use
+>> netstat -taunp to check if there is anything running at port 5900 or
+>> 5901?
+>>
+>> Cheers,
+>>
+>> Stefano
+>>
+>>
+>> On Tue, 18 Oct 2022, Vipul Suneja wrote:
+>> > Hi Stefano,
+>> >
+>> > Thanks for the response!
+>> >
+>> > I could install tigerVNC, x11vnc & libvncserver in Dom0
+>> xen-image-minimal but only manage to install libvncserver(couldn't install
+>> tigervnc
+>> > & x11vnc because of x11
+>> > support missing, it's wayland) in DOMU custom graphical image. I tried
+>> running vncviewer with IP address & port in dom0 to access the domu
+>> > graphical image display as per below commands.
+>> >
+>> >  vncviewer 192.168.1.42:5901
+>> >
+>> >  But it showing can't open display, below are the logs:
+>> >
+>> > root@raspberrypi4-64:~/guest1# vncviewer 192.168.1.42:5901
+>> >
+>> > TigerVNC Viewer 64-bit v1.11.0
+>> > Built on: 2020-09-08 12:16
+>> > Copyright (C) 1999-2020 TigerVNC Team and many others (see README.rst)
+>> > See https://www.tigervnc.org for information on TigerVNC.
+>> > Can't open display:
+>> > root@raspberrypi4-64:~/guest1#
+>> >
+>> > I am not exactly sure what the issue is but I thought only libvncserver
+>> in DOMU could work to get access but it did not work.
+>> > If TigerVNC is the issue here then is there any other VNC source which
+>> could be installed for both x11 & wayland supported images?
+>> >
+>> > Regards,
+>> > Vipul Kumar
+>> >
+>> > On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini <
+>> sstabellini@kernel.org> wrote:
+>> >       VNC is typically easier to setup, because SDL needs extra
+>> libraries at
+>> >       build time and runtime. If QEMU is built without SDL support it
+>> won't
+>> >       start when you ask for SDL.
+>> >
+>> >       VNC should work with both x11 and wayland in your domU. It
+>> doesn't work
+>> >       at the x11 level, it exposes a special fbdev device in your domU
+>> that
+>> >       should work with:
+>> >       - a graphical console in Linux domU
+>> >       - x11
+>> >       - wayland (but I haven't tested this so I am not 100% sure about
+>> it)
+>> >
+>> >       When you say "it doesn't work", what do you mean? Do you get a
+>> black
+>> >       window?
+>> >
+>> >       You need CONFIG_XEN_FBDEV_FRONTEND in Linux domU
+>> >       (drivers/video/fbdev/xen-fbfront.c). I would try to get a
+>> graphical text
+>> >       console up and running in your domU before attempting x11/wayland.
+>> >
+>> >       Cheers,
+>> >
+>> >       Stefano
+>> >
+>> >       On Mon, 17 Oct 2022, Vipul Suneja wrote:
+>> >       > Hi,
+>> >       > Thanks!
+>> >       >
+>> >       > I have ported xen minimal image as DOM0 & custom wayland GUI
+>> based image as DOMU in raspberry pi4B. I am trying to make GUI
+>> >       display up
+>> >       > for guest machine. I tried using sdl, included below line in
+>> guest.conf file
+>> >       > vfb= [ 'sdl=1' ]
+>> >       >
+>> >       > But it is throwing below error:
+>> >       >
+>> >       > root@raspberrypi4-64:~/guest1# xl create -c guest1.cfg
+>> >       > Parsing config from guest1.cfg
+>> >       > libxl: error: libxl_qmp.c:1400:qmp_ev_fd_callback: Domain
+>> 3:error on QMP socket: Connection reset by peer
+>> >       > libxl: error: libxl_qmp.c:1439:qmp_ev_fd_callback: Domain
+>> 3:Error happened with the QMP connection to QEMU
+>> >       > libxl: error: libxl_dm.c:3351:device_model_postconfig_done:
+>> Domain 3:Post DM startup configs failed, rc=-26
+>> >       > libxl: error: libxl_create.c:1867:domcreate_devmodel_started:
+>> Domain 3:device model did not start: -26
+>> >       > libxl: error: libxl_aoutils.c:646:libxl__kill_xs_path: Device
+>> Model already exited
+>> >       > libxl: error: libxl_domain.c:1183:libxl__destroy_domid: Domain
+>> 3:Non-existant domain
+>> >       > libxl: error: libxl_domain.c:1137:domain_destroy_callback:
+>> Domain 3:Unable to destroy guest
+>> >       > libxl: error: libxl_domain.c:1064:domain_destroy_cb: Domain
+>> 3:Destruction of domain failed
+>> >       >
+>> >       > Another way is VNC, i could install tigervnc in DOM0 but same i
+>> couldn't in guest machine because it doesn't support
+>> >       x11(supports wayland
+>> >       > only). I am completely blocked here, Need your support to
+>> enable the display up.
+>> >       > Any alternative of VNC which could work in both x11 & wayland
+>> supported images?
+>> >       >
+>> >       > Any input on VNC, SDL or any other way to proceed on this?
+>> Looking forward to hearing from you.
+>> >       >
+>> >       > Regards,
+>> >       > Vipul Kumar
+>> >
+>> >
+>> >
+>
+>
 
-Definitely the SMMU code will need some cleaning.
-#if 0 are a no go from a certification point of view.
+--0000000000006aa06005ebd729fb
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Cheers
-Bertrand
+<div dir=3D"ltr">Hi Stefano,<div><br></div><div>Thanks!</div><div><br></div=
+><div>Any input further as per the logs attached?</div><div><br></div><div>=
+Regards,</div><div>Vipul Kumar</div></div><br><div class=3D"gmail_quote"><d=
+iv dir=3D"ltr" class=3D"gmail_attr">On Wed, Oct 19, 2022 at 10:49 PM Vipul =
+Suneja &lt;<a href=3D"mailto:vsuneja63@gmail.com">vsuneja63@gmail.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div d=
+ir=3D"ltr">Hi Stefano,<br><br>Thanks for the response!<br><br>I am followin=
+g the same link you shared from the beginning. Tried the command &quot;vncv=
+iewer localhost:0&quot; in DOM0 but same issue &quot;Can&#39;t open display=
+&quot;, below are the logs:<br><br><b>root@raspberrypi4-64:~# vncviewer loc=
+alhost:0<br><br>TigerVNC Viewer 64-bit v1.11.0<br>Built on: 2020-09-08 12:1=
+6<br>Copyright (C) 1999-2020 TigerVNC Team and many others (see README.rst)=
+<br>See <a href=3D"https://www.tigervnc.org" target=3D"_blank">https://www.=
+tigervnc.org</a> for information on TigerVNC.<br>Can&#39;t open display:</b=
+><br><br>Below are the netstat logs, i couldn&#39;t see anything running at=
+ port 5900 or 5901:<br><br><b>root@raspberrypi4-64:~# netstat -tuwx <br>Act=
+ive Internet connections (w/o servers)<br>Proto Recv-Q Send-Q Local Address=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 Foreign Address =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 State =C2=A0 =C2=A0 =C2=A0 <br>tcp =C2=A0 =C2=A0 =C2=A0 =C2=A00 =C2=
+=A0 =C2=A0164 192.168.1.39:ssh =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=3D"http:/=
+/192.168.1.38:37472" target=3D"_blank">192.168.1.38:37472</a> =C2=A0 =C2=A0=
+ =C2=A0ESTABLISHED <br>Active UNIX domain sockets (w/o servers)<br>Proto Re=
+fCnt Flags =C2=A0 =C2=A0 =C2=A0 Type =C2=A0 =C2=A0 =C2=A0 State =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 I-Node Path<br>unix =C2=A08 =C2=A0 =C2=A0 =C2=A0[ ] =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =
+=C2=A010565 /dev/log<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010891 /var=
+/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013791 <br=
+>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =
+=C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010843 /var/run/xenstored/socket=
+<br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM=
+ =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010573 /var/run/xenstored/socke=
+t<br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM=
+ =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A014510 <br>unix =C2=A03 =
+=C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CO=
+NNECTED =C2=A0 =C2=A0 =C2=A013249 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=
+=A0 =C2=A013887 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A010599 <b=
+r>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =
+=C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A014005 <br>unix =C2=A03 =C2=A0 =
+=C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED=
+ =C2=A0 =C2=A0 =C2=A013258 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A0132=
+48 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STR=
+EAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A014003 <br>unix =C2=A03 =C2=
+=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNE=
+CTED =C2=A0 =C2=A0 =C2=A010572 /var/run/xenstored/socket<br>unix =C2=A03 =
+=C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CO=
+NNECTED =C2=A0 =C2=A0 =C2=A010786 /var/run/xenstored/socket<br>unix =C2=A03=
+ =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =
+=C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A013186 <br>unix =C2=A03 =C2=A0 =C2=A0 =
+=C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0=
+ =C2=A0 =C2=A010864 /var/run/xenstored/socket<br>unix =C2=A03 =C2=A0 =C2=A0=
+ =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=
+=A0 =C2=A0 =C2=A010812 /var/run/xenstored/socket<br>unix =C2=A02 =C2=A0 =C2=
+=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECT=
+ED =C2=A0 =C2=A0 =C2=A014083 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=
+=A010813 /var/run/xenstored/socket</b><br><b>unix =C2=A03 =C2=A0 =C2=A0 =C2=
+=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =
+=C2=A0 =C2=A014068 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013256 <br>=
+unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=
+=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010571 /var/run/xenstored/socket<br=
+>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =
+=C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A010842 <br>unix =C2=A03 =C2=A0 =
+=C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED=
+ =C2=A0 =C2=A0 =C2=A013985 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=
+=A013185 <br>unix =C2=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=A013884 <br>unix =C2=
+=A02 =C2=A0 =C2=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=
+=A0 =C2=A0CONNECTED =C2=A0 =C2=A0 =C2=A014528 <br>unix =C2=A02 =C2=A0 =C2=
+=A0 =C2=A0[ ] =C2=A0 =C2=A0 =C2=A0 =C2=A0 DGRAM =C2=A0 =C2=A0 =C2=A0CONNECT=
+ED =C2=A0 =C2=A0 =C2=A013785 <br>unix =C2=A03 =C2=A0 =C2=A0 =C2=A0[ ] =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 STREAM =C2=A0 =C2=A0 CONNECTED =C2=A0 =C2=A0 =C2=
+=A014034 </b><br><br>Attaching xen log files of /var/log/xen.<br>I didn&#39=
+;t get the role of QEMU here because as mentioned earlier, I am porting in =
+raspberrypi 4B.<br><div><br></div><div>Regards,</div><div>Vipul Kumar</div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+On Wed, Oct 19, 2022 at 12:43 AM Stefano Stabellini &lt;<a href=3D"mailto:s=
+stabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt; wro=
+te:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px =
+0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">It usually w=
+orks the way it is described in the guide:<br>
+<br>
+<a href=3D"https://www.virtuatopia.com/index.php?title=3DConfiguring_a_VNC_=
+based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_Guest" rel=3D"nor=
+eferrer" target=3D"_blank">https://www.virtuatopia.com/index.php?title=3DCo=
+nfiguring_a_VNC_based_Graphical_Console_for_a_Xen_Paravirtualized_domainU_G=
+uest</a><br>
+<br>
+You don&#39;t need to install any VNC-related server software because it is=
+<br>
+already provided by Xen (to be precise it is provided by QEMU working<br>
+together with Xen.)<br>
+<br>
+You only need the vnc client in dom0 so that you can connect, but you<br>
+could also run the vnc client outside from another host. So basically<br>
+the following should work when executed in Dom0 after creating DomU:<br>
+<br>
+=C2=A0 vncviewer localhost:0<br>
+<br>
+Can you attach the Xen and QEMU logs (/var/log/xen/*)? And also use<br>
+netstat -taunp to check if there is anything running at port 5900 or<br>
+5901?<br>
+<br>
+Cheers,<br>
+<br>
+Stefano<br>
+<br>
+<br>
+On Tue, 18 Oct 2022, Vipul Suneja wrote:<br>
+&gt; Hi Stefano,<br>
+&gt; <br>
+&gt; Thanks for the response!<br>
+&gt; <br>
+&gt; I could install tigerVNC, x11vnc &amp; libvncserver in Dom0 xen-image-=
+minimal but only manage to install libvncserver(couldn&#39;t install tigerv=
+nc<br>
+&gt; &amp; x11vnc because of x11<br>
+&gt; support missing, it&#39;s wayland) in DOMU custom graphical image. I t=
+ried running vncviewer with IP address &amp; port in dom0 to access the dom=
+u<br>
+&gt; graphical image display as per below commands.<br>
+&gt; =C2=A0<br>
+&gt; =C2=A0vncviewer <a href=3D"http://192.168.1.42:5901" rel=3D"noreferrer=
+" target=3D"_blank">192.168.1.42:5901</a><br>
+&gt; =C2=A0<br>
+&gt; =C2=A0But it showing can&#39;t open display, below are the logs:<br>
+&gt; =C2=A0<br>
+&gt; root@raspberrypi4-64:~/guest1# vncviewer <a href=3D"http://192.168.1.4=
+2:5901" rel=3D"noreferrer" target=3D"_blank">192.168.1.42:5901</a><br>
+&gt; <br>
+&gt; TigerVNC Viewer 64-bit v1.11.0<br>
+&gt; Built on: 2020-09-08 12:16<br>
+&gt; Copyright (C) 1999-2020 TigerVNC Team and many others (see README.rst)=
+<br>
+&gt; See <a href=3D"https://www.tigervnc.org" rel=3D"noreferrer" target=3D"=
+_blank">https://www.tigervnc.org</a> for information on TigerVNC.<br>
+&gt; Can&#39;t open display:<br>
+&gt; root@raspberrypi4-64:~/guest1#<br>
+&gt; <br>
+&gt; I am not exactly=C2=A0sure what the issue is but I thought only libvnc=
+server in DOMU could work to get access but it did not work.=C2=A0<br>
+&gt; If TigerVNC is the issue here then is there any other VNC source which=
+ could be installed for both x11 &amp; wayland supported images?<br>
+&gt; <br>
+&gt; Regards,<br>
+&gt; Vipul Kumar<br>
+&gt; <br>
+&gt; On Tue, Oct 18, 2022 at 2:40 AM Stefano Stabellini &lt;<a href=3D"mail=
+to:sstabellini@kernel.org" target=3D"_blank">sstabellini@kernel.org</a>&gt;=
+ wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0VNC is typically easier to setup, because SD=
+L needs extra libraries at<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0build time and runtime. If QEMU is built wit=
+hout SDL support it won&#39;t<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0start when you ask for SDL.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0VNC should work with both x11 and wayland in=
+ your domU. It doesn&#39;t work<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0at the x11 level, it exposes a special fbdev=
+ device in your domU that<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0should work with:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- a graphical console in Linux domU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- x11<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- wayland (but I haven&#39;t tested this so =
+I am not 100% sure about it)<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0When you say &quot;it doesn&#39;t work&quot;=
+, what do you mean? Do you get a black<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0window?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0You need CONFIG_XEN_FBDEV_FRONTEND in Linux =
+domU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0(drivers/video/fbdev/xen-fbfront.c). I would=
+ try to get a graphical text<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0console up and running in your domU before a=
+ttempting x11/wayland.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Cheers,<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0Stefano<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0On Mon, 17 Oct 2022, Vipul Suneja wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Hi,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Thanks!<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I have ported xen minimal image as DOM0=
+ &amp; custom wayland GUI based image as DOMU in raspberry pi4B. I am tryin=
+g to make GUI<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0display up<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; for=C2=A0guest machine. I tried using=
+=C2=A0sdl, included below line in guest.conf file<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; vfb=3D [ &#39;sdl=3D1&#39; ]<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; But it is throwing below error:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; root@raspberrypi4-64:~/guest1# xl creat=
+e -c guest1.cfg<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Parsing config from guest1.cfg<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_qmp.c:1400:qmp_ev_f=
+d_callback: Domain 3:error on QMP socket: Connection reset by peer<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_qmp.c:1439:qmp_ev_f=
+d_callback: Domain 3:Error happened with the QMP connection to QEMU<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_dm.c:3351:device_mo=
+del_postconfig_done: Domain 3:Post DM startup configs failed, rc=3D-26<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_create.c:1867:domcr=
+eate_devmodel_started: Domain 3:device model did not start: -26<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_aoutils.c:646:libxl=
+__kill_xs_path: Device Model already exited<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1183:libxl=
+__destroy_domid: Domain 3:Non-existant domain<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1137:domai=
+n_destroy_callback: Domain 3:Unable to destroy guest<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; libxl: error: libxl_domain.c:1064:domai=
+n_destroy_cb: Domain 3:Destruction of domain failed<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Another way is VNC, i could install tig=
+ervnc in DOM0 but same i couldn&#39;t in guest machine because it doesn&#39=
+;t support<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0x11(supports wayland<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; only). I am completely blocked here, Ne=
+ed your support to enable the display up.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Any alternative of VNC which could work=
+ in both x11 &amp; wayland supported images?<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Any input on VNC, SDL or any other way =
+to proceed on this? Looking forward to hearing from you.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Regards,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Vipul Kumar<br>
+&gt; <br>
+&gt; <br>
+&gt; </blockquote></div>
+</blockquote></div>
 
->=20
->>>=20
->>>>>>    3.2. protect it with a new Kconfig option (disabled by default)
->>>>>> using #ifdef
->>>>>>    3.3. protect it with a new Kconfig option (disabled by default)
->>>>>> using IS_ENABLED (to make sure code always compile)
->>>=20
->>> I would prefer 3.3 over 3.2. 3.2 would be used if it is too difficult t=
-o get
->>> the code compiled when !IS_ENABLED.
->>>=20
->>> Similar to one if this is to move all the affected code in a separate f=
-ile
->>> with using obj-$(CONFIG...). That would only work for large chunk of co=
-de and
->>> would be preferred over 3.2.
->>=20
->=20
-> ~Michal
-
+--0000000000006aa06005ebd729fb--
 
