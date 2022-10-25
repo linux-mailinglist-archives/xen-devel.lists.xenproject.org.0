@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76AC360C0C3
-	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 03:16:05 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.429454.680438 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BE5560C107
+	for <lists+xen-devel@lfdr.de>; Tue, 25 Oct 2022 03:30:23 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.429463.680455 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on8Xq-0007H7-6T; Tue, 25 Oct 2022 01:15:54 +0000
+	id 1on8lQ-0000TC-GA; Tue, 25 Oct 2022 01:29:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 429454.680438; Tue, 25 Oct 2022 01:15:54 +0000
+Received: by outflank-mailman (output) from mailman id 429463.680455; Tue, 25 Oct 2022 01:29:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1on8Xq-0007Dx-3m; Tue, 25 Oct 2022 01:15:54 +0000
-Received: by outflank-mailman (input) for mailman id 429454;
- Tue, 25 Oct 2022 01:15:52 +0000
+	id 1on8lQ-0000Ql-Cb; Tue, 25 Oct 2022 01:29:56 +0000
+Received: by outflank-mailman (input) for mailman id 429463;
+ Tue, 25 Oct 2022 01:29:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qfDD=22=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1on8Xo-0007Dl-L1
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 01:15:52 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1on8lP-0000Qf-2l
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 01:29:55 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8fe1c092-5402-11ed-91b5-6bf2151ebd3b;
- Tue, 25 Oct 2022 03:15:51 +0200 (CEST)
+ id 86b98302-5404-11ed-91b5-6bf2151ebd3b;
+ Tue, 25 Oct 2022 03:29:53 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 97A97616FE;
- Tue, 25 Oct 2022 01:15:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6987DC433D7;
- Tue, 25 Oct 2022 01:15:48 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id E7282B816AD;
+ Tue, 25 Oct 2022 01:29:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01E3C433B5;
+ Tue, 25 Oct 2022 01:29:50 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,197 +43,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8fe1c092-5402-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 86b98302-5404-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1666660549;
-	bh=O4HwmCgTJmsMYtBlL/vTbq/qpgGlH+zi7yjo6BeKI8E=;
+	s=k20201202; t=1666661391;
+	bh=LKH0BsMeCNGK04ojDNl7xuPPsda44v9i3p/GMQsLUrk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=oKhM41tPo4F7+06N0g0Ub8dC5hQuAt2+aSx7AcEo+m8NdQRCSSJCvD8OC/SploX47
-	 MMqFzjXIpuz18gItGnQ3VIscA2mvpDaDcn/MIeB5s4HIVT36ASiJ55xoV3WhjmzI9y
-	 zn8ruheq2WjzTJ+mB9YgoIp191SwYHqyDt1gq2x2sxIk+CCCgWcAfakZGPV2vJ4A/E
-	 rr+ZGfVM7NtW4WQYauXWj/4R85Wyv8+X10q/b9N2TnQnWHB4UyUacl4NYqb6/UmnVa
-	 pJjXMa3unIUZfBWWl7XutGW9VAG1IATEcuhOIOfS8Zdxe/X/VdOwrq3fPZE/veeHxW
-	 keQOJwDdl57KA==
-Date: Mon, 24 Oct 2022 18:15:47 -0700 (PDT)
+	b=thtgkuroxICQfkoGf5rOQLopKlAcdkJTvdfEdi+lUi0F0d9Imf2K9wHgJ5U38DJuz
+	 HHfXAJ17vZXzu/gBER0EgtDN+iMcxLKvo9Q09VjYSCGupapRVp6EW+EzeC2KybwERo
+	 gUsqWKTBTpk60aAgnDUiEPEyRz4kvJGTdw0ddYbDS3UkjOnxK4TbLUUQZxpFBnN/Xk
+	 r8JRYIbQZ5h7TqmKmFOs8BNwpyBQLzg3vEh56c8d0qPG9hQyhi06Ve99WMAEDDc9pV
+	 MdX5DA88tOwHnQ2MdQo/naR2svNtVM+VDEE4K6AcRqv2UJJsaP/194mHJOz4t0RTUH
+	 4jjtOlrPiig3Q==
+Date: Mon, 24 Oct 2022 18:29:49 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH] automation: test.yaml: Introduce templates to reduce
- the overhead
-In-Reply-To: <b9da39df-8ec0-9255-1345-445f2a5b56e6@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2210241815010.1151068@ubuntu-linux-20-04-desktop>
-References: <20221019164246.5487-1-michal.orzel@amd.com> <alpine.DEB.2.22.394.2210211423560.3873@ubuntu-linux-20-04-desktop> <b9da39df-8ec0-9255-1345-445f2a5b56e6@amd.com>
+To: Julien Grall <julien@xen.org>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>
+Subject: Re: Deadcode discussion based on Arm NS phys timer
+In-Reply-To: <aff58db0-646c-6699-48af-033e28c5626f@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2210241819420.1151068@ubuntu-linux-20-04-desktop>
+References: <d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com> <8691e100-4548-9752-8e7e-b292643cae83@xen.org> <6aefd6d6-45a2-a1f3-24da-8bbbba22fc08@amd.com> <aff58db0-646c-6699-48af-033e28c5626f@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Mon, 24 Oct 2022, Michal Orzel wrote:
-> Hi Stefano,
+On Mon, 24 Oct 2022, Julien Grall wrote:
+> > On 24/10/2022 12:51, Julien Grall wrote:
+> > > Caution: This message originated from an External Source. Use proper
+> > > caution when opening attachments, clicking links, or responding.
+> > > 
+> > > 
+> > > On 24/10/2022 10:07, Michal Orzel wrote:
+> > > > Hello,
+> > > 
+> > > Hi Michal,
+> > > 
+> > > > Recently I came across a deadcode in Xen Arm arch timer code. Briefly
+> > > > speaking, we are routing
+> > > > the NS phys timer (CNTP) IRQ to Xen, even though Xen does not make use
+> > > > of it (as it uses the hypervisor timer CNTHP).
+> > > > This timer is fully emulated, which means that there is nothing that can
+> > > > trigger such IRQ. This code is
+> > > > a left over from early days, where the CNTHP was buggy on some models
+> > > > and we had to use the CNTP instead.
+> > > > 
+> > > > As far as the problem itself is not really interesting, it raises a
+> > > > question of what to do with a deadcode,
+> > > > as there might be/are other deadcode places in Xen.
+> > > 
+> > > There are multiple definition of deadcode. Depending on which one you
+> > > chose, then this could cover IS_ENABLED() and possibly #ifdef. So this
+> > > would result to a lot of places impacted with the decision.
+> > > 
+> > > So can you clarify what you mean by deadcode?
+> > In the timer example, I think we have both a deadcode and unreachable code.
+> > For the purpose of this discussion, let's take the MISRA definition of a
+> > deadcode which is a "code that can be executed
+> > but has no effect on the functional behavior of the program". This differs
+> > from the unreachable code definition that is
+> > a "code that cannot be executed". Setting up the IRQ for Xen is an example
+> > of a deadcode. Code within IRQ handler is an unreachable code
+> > (there is nothing that can trigger this IRQ).
+> > 
+> > What I mean by deadcode happens to be the sum of the two cases above i.e.
+> > the code that cannot be executed as well as the code that
+> > does not impact the functionality of the program.
+> > 
+> > > 
+> > > > One may say that it is useful to keep it, because one day,
+> > > > someone might need it when dealing with yet another broken HW. Such
+> > > > person would still need to modify the other
+> > > > part of the code (e.g. reprogram_timer), but there would be less work
+> > > > required overall. Personally, I'm not in favor of
+> > > > such approach, because we should not really support possible scenarios
+> > > > with broken HW (except for erratas listing known issues).
+> > > 
+> > > The difference between "broken HW" and "HW with known errata" is a bit
+> > > unclear to me. Can you clarify how you would make the difference here?
+> > > 
+> > > In particular, at which point do you consider that the HW should not be
+> > > supported by Xen?
+> > I'm not saying that HW should not be supported. The difference for me
+> > between broken HW and
+> > HW with known errata is that for the former, the incorrect behavior is often
+> > due to the early support stage,
+> > using emulators/models instead of real HW, whereas for the latter, the HW is
+> > already released and it happens to be that it is buggy
+> > (the HW vendor is aware of the issue and released erratas). 
 > 
-> On 21/10/2022 23:42, Stefano Stabellini wrote:
-> > 
-> > 
-> > On Wed, 19 Oct 2022, Michal Orzel wrote:
-> >> At the moment, we define lots of test jobs in test.yaml, that make use
-> >> of the same configuration sections like variables, tags, artifacts.
-> >> Introduce templates (hidden jobs whose names start with a dot) to
-> >> reduce the overhead and simplify the file (more than 100 lines saved).
-> >> This way, the actual jobs can only specify sections that are unique
-> >> to them.
-> >>
-> >> Most of the test jobs specify the same set of prerequisite jobs under needs
-> >> property with just one additional being unique to the job itself. Introduce
-> >> YAML anchors for that purpose, because when using extends, the needs property
-> >> is not being merged (the parent property overwrites the child one).
-> > 
-> > I like the patch. Replying here on top because the diff below is not
-> > very helpful.
-> > 
-> > When you say that "extends" overwrites the properties, do you mean that
-> > "needs" in qemu-smoke-dom0-arm64-gcc overwrites "needs" in .qemu-arm64,
-> > when qemu-smoke-dom0-arm64-gcc includes .qemu-arm64?
-> Yes, exactly. The behavior depends on the property. For example, the variables
-> section is merged but needs end up being overwritten. This is because the extends
-> does not merge the keys (variables uses key: value, whereas needs does not).
+> Thanks for the clarification. What I would call broken is anything that can't
+> be fixed in software. For a not too fictional example, an HW where PCI devices
+> are using the same stream ID. So effectively, passthrough can't be safely
+> supported.
+> 
+> Regarding, not yet released HW, I don't think Xen should have workaround for
+> them. I wouldn't even call it "broken" because they are not yet released and
+> it is common to have bug in early revision.
+> 
+> > Do we have any example in Xen for supporting broken HW,
+> > whose vendor is not aware of the issue or did not release any errata?
+> I will not cite any HW on the ML. But from my experience, the vendors are not
+> very vocal about issues in public (some don't even seem to have public doc).
+> The best way to find the issues is to look at Linux commit.
 > 
 > > 
-> > 
-> > If there is no way to solve the overwrite problem then it is OK to use
-> > YAML achors but is it possible to define the anchors outside of
-> > .qemu-arm64/.qemu-arm32 ? It would make things a lot clearer in the
-> > code. Maybe under a top level "definitions" key? The point is that
-> > .qemu-arm64 and .qemu-arm32 should use the anchor rather than define the
-> > anchor.
-> It is possible to define anchors outside qemu-arm64/arm32. I decided to
-> define them in these jobs because for me it looked cleaner (less lines of code).
-> But I'm ok to carve them out if that is what you prefer. This would
-> require dropping the needs property from the extend jobs, as they cannot make use
-> of the anchors (overwrite issue), and using the anchors from real jobs (just like I did in this patch).
+> > > 
+> > > > Also, as part of the certification/FUSA process, there should be no
+> > > > deadcode and we should have explanation for every block of code.
+> > > 
+> > > See above. What are you trying to cover by deadcode? Would protecting
+> > > code with IS_ENABLED() (or #ifdef) ok?
+> > I think this would be ok from the certification point of view (this would at
+> > least means, that we are aware of the issue
+> > and we took some steps). Otherwise, such code is just an example of a
+> > deadcode/unreachable code.
+> 
+> Thanks for the clarification. So the exact approach will depend on the
+> context....
+>
+> > > > There are different ways to deal with a deadcode: > 1. Get rid of it
+> > > > completely
+> > > > 2. Leave it as it is
+> 
+> ... this is my preference in the context of the timer.
 
-Yes that makes sense
+From a certification point of view, the fewer lines of code the better,
+and ideally all the lines of code used for the certified build should be
+testable and used.
+
+So I think 2. is the lest useful option from a certification
+perspective. For this reason, I'd prefer another alternative.
 
 
-> So we would have:
+> If the other don't like it, then 1 would be my preference.
 > 
-> .arm64-test-needs: &arm64-test-needs
->   - alpine-3.12-arm64-rootfs-export
->   - kernel-5.19-arm64-export
->   - qemu-system-aarch64-6.0.0-arm64-export
-> 
-> .qemu-arm64:
->   extends: .test-jobs-common
->   variables:
->     CONTAINER: debian:unstable-arm64v8
->     LOGFILE: qemu-smoke-arm64.log
->   artifacts:
->     paths:
->       - smoke.serial
->       - '*.log'
->     when: always
->   tags:
->     - arm64
-> 
-> qemu-smoke-dom0-arm64-gcc:
->   extends: .qemu-arm64
->   script:
->     - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
->   needs:
->     - *arm64-test-needs
->     - alpine-3.12-gcc-arm64
+> In general, my preference would be either 3.3 or 3.2 (see below).
 
-This looks better, thanks!
+I also think that 3.2 and 3.3 are good options for the general case. For
+the timer, I can see why 1 is your (second) preference and I am fine
+with 1 as well.
 
- 
-> > 
-> > I wouldn't call it qemu-arm64-needs because it has things
-> > like alpine-3.12-arm64-rootfs-export and kernel-5.19-arm64-export that
-> > are not required by qemu-system-aarch64-6.0.0-arm64-export. If anything
-> > qemu-system-aarch64-6.0.0-arm64-export needs CONTAINER:
-> > debian:unstable-arm64v8.
-> > 
-> > So I would call the anchor something like "arm64-test-needs". Same
-> > comment for the arm32 anchor.
-> Ok, this naming sounds good to me.
-> 
-> > 
-> > 
-> >> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-> >> ---
-> >> This patch is based on the CI next branch where we already have several
-> >> patches (already acked) to be merged into staging after the release:
-> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fsstabellini%2Fxen%2F-%2Ftree%2Fnext&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7Ca83af11b062b431b4f0908dab3ad2162%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019853419768862%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=TZxie442G%2Bm6SP%2FemyPuv8dwCDXAv1Wxwe22yGQZaB4%3D&amp;reserved=0
-> >>
-> >> Tested pipeline:
-> >> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Fpeople%2Fmorzel%2Fxen-orzelmichal%2F-%2Fpipelines%2F671114820&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7Ca83af11b062b431b4f0908dab3ad2162%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638019853419768862%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=tMwGAZUKyvDp%2BxmVdxUD1kg3uMagWdO2P1DjF5O3b2M%3D&amp;reserved=0
-> >> ---
-> >>  automation/gitlab-ci/test.yaml | 266 ++++++++++-----------------------
-> >>  1 file changed, 80 insertions(+), 186 deletions(-)
-> >>
-> >> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> >> index 92e0a1f7c510..fc0884b12082 100644
-> >> --- a/automation/gitlab-ci/test.yaml
-> >> +++ b/automation/gitlab-ci/test.yaml
-> >> @@ -7,32 +7,12 @@
-> >>      - /^coverity-tested\/.*/
-> >>      - /^stable-.*/
-> >>
-> >> -# Test jobs
-> >> -build-each-commit-gcc:
-> >> -  extends: .test-jobs-common
-> >> -  variables:
-> >> -    CONTAINER: debian:stretch
-> >> -    XEN_TARGET_ARCH: x86_64
-> >> -    CC: gcc
-> >> -  script:
-> >> -    - BASE=${BASE_SHA:-${CI_COMMIT_BEFORE_SHA}} TIP=${TIP_SHA:-${CI_COMMIT_SHA}} ./automation/gitlab-ci/build-each-commit.sh 2>&1 | tee ../build-each-commit-gcc.log
-> >> -    - mv ../build-each-commit-gcc.log .
-> >> -  artifacts:
-> >> -    paths:
-> >> -      - '*.log'
-> >> -    when: always
-> >> -  needs: []
-> >> -  tags:
-> >> -    - x86_64
-> >> -
-> >> -qemu-smoke-dom0-arm64-gcc:
-> >> +.qemu-arm64:
-> >>    extends: .test-jobs-common
-> >>    variables:
-> >>      CONTAINER: debian:unstable-arm64v8
-> >> -  script:
-> >> -    - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
-> >> -  needs:
-> >> -    - alpine-3.12-gcc-arm64
-> >> +    LOGFILE: qemu-smoke-arm64.log
-> >> +  needs: &qemu-arm64-needs
-> >>      - alpine-3.12-arm64-rootfs-export
-> >>      - kernel-5.19-arm64-export
-> >>      - qemu-system-aarch64-6.0.0-arm64-export
-> > 
-> > LOGFILE should be listed among the artifacts (and maybe we can remove
-> > *.log if it has become redundant?)
-> *.log is not redundant because we have 4 logs to be stored, e.g.:
-> - smoke.serial
-> - config.log
-> - build.log
-> - qemu-smoke-arm64.log aka LOGFILE
-> 
-> So we can either have this:
-> artifacts:
->   paths:
->     - smoke.serial
->     - '*.log'
-> 
-> or this:
-> artifacts:
->   paths:
->     - smoke.serial
->     - ${LOGFILE}
->     - '*.log'
-> 
-> I would prefer the former (just as it is now) but if you prefer the latter, it is ok.
 
-I agree with the former
+> > > > 3. Admit that it can be useful one day and:
+> > > >     3.1. protect it with #if 0
+> 
+> #if 0 should not be used in Xen code. IMHO this is the worse of all the world.
+> 
+> > > >     3.2. protect it with a new Kconfig option (disabled by default)
+> > > > using #ifdef
+> > > >     3.3. protect it with a new Kconfig option (disabled by default)
+> > > > using IS_ENABLED (to make sure code always compile)
+> 
+> I would prefer 3.3 over 3.2. 3.2 would be used if it is too difficult to get
+> the code compiled when !IS_ENABLED.
+> 
+> Similar to one if this is to move all the affected code in a separate file
+> with using obj-$(CONFIG...). That would only work for large chunk of code and
+> would be preferred over 3.2.
+
 
