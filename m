@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3318960D797
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 01:00:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430243.681690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB97960D7C0
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 01:13:46 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430250.681709 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onStA-00075i-NF; Tue, 25 Oct 2022 22:59:16 +0000
+	id 1onT6b-0001LO-1N; Tue, 25 Oct 2022 23:13:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430243.681690; Tue, 25 Oct 2022 22:59:16 +0000
+Received: by outflank-mailman (output) from mailman id 430250.681709; Tue, 25 Oct 2022 23:13:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onStA-00073i-KK; Tue, 25 Oct 2022 22:59:16 +0000
-Received: by outflank-mailman (input) for mailman id 430243;
- Tue, 25 Oct 2022 22:59:14 +0000
+	id 1onT6a-0001Ix-Ur; Tue, 25 Oct 2022 23:13:08 +0000
+Received: by outflank-mailman (input) for mailman id 430250;
+ Tue, 25 Oct 2022 23:13:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qfDD=22=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1onSt8-00073c-On
- for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 22:59:14 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1onT6Z-0001Io-Fw
+ for xen-devel@lists.xenproject.org; Tue, 25 Oct 2022 23:13:07 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a4836d37-54b8-11ed-8fd0-01056ac49cbb;
- Wed, 26 Oct 2022 00:59:13 +0200 (CEST)
+ id 94722705-54ba-11ed-8fd0-01056ac49cbb;
+ Wed, 26 Oct 2022 01:13:06 +0200 (CEST)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 5B931B81F83;
- Tue, 25 Oct 2022 22:59:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3DBC433D6;
- Tue, 25 Oct 2022 22:59:10 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 67FB3B81F98;
+ Tue, 25 Oct 2022 23:13:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0924C433D6;
+ Tue, 25 Oct 2022 23:13:01 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,437 +43,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a4836d37-54b8-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 94722705-54ba-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1666738751;
-	bh=9+KGN8zzncCSWU6QUT4wouOLxqWKGwJ/QsaEoWoIeic=;
+	s=k20201202; t=1666739583;
+	bh=Qd6iE4RAuy5ZRVM7OcQwoPbhETc72fMXCkxUe0ZuCWQ=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=EwfbUR19cSYcW7isJiAfEScjG3rKAl18qLGhBTXTnYKL9J2/sPT/RfqF+tJb4cZ1C
-	 b9qO4fIt4T8KjaDCPGLSoPDYPx5xpGezUsPp2Bkwx+CyHQluSblsVckZbPghe9+yDO
-	 gjKOmBHr+IvzCGOD5HT0C1nn4CUfUDfQgIDUbu6sMuBAuDLa3eKbMRLLJenp1s7RK2
-	 s5+R5slmapy7v4LHJqC60H3RBoK+j7QMHCEguEXzHToXGjmB7XeC69HO/9+SQE78M2
-	 JNUF/eEjz4LB5t/bmmPwvLQ6BkSKxqiSgIPZ4N4cZLQa2dWlrZ1Ol61QOQuSRtwMfD
-	 ThywQH8zYQQwg==
-Date: Tue, 25 Oct 2022 15:59:08 -0700 (PDT)
+	b=pdOhL9Z82OdmN1CvZPWmMlpejtz5j3ucXRzmSc5aD8YBFWeSsZtgeVLpkm5gX5RS4
+	 LQeDoxvyikqrg8wqReVsXoUdUFuknMyzp4/EmkA9nADPQ86WvImGaitaUY4DM5SGfK
+	 NBRX7bembHn4mM6ITrE2FwYAGGsvuopaOjpxicceRPV3qLqA5c0WmLhnUfXOqx6ygJ
+	 iA3aXQAUdOVNU6r7XY7Yed1i+hl28TUFTlatl6LTaM05wFL9XZbdrpwMDq4mQ44/iU
+	 O4bHe+Ctb0HU5yvwUC9WaMohyE8AowKombijSaMaFnfmQCnXEHz2K4mrOZo2ueL2/Q
+	 zYw77Vvb89DgA==
+Date: Tue, 25 Oct 2022 16:12:59 -0700 (PDT)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2] automation: test.yaml: Introduce templates to reduce
- the overhead
-In-Reply-To: <20221025095952.21980-1-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2210251547250.1397955@ubuntu-linux-20-04-desktop>
-References: <20221025095952.21980-1-michal.orzel@amd.com>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org, 
+    linux-arm-kernel@lists.infradead.org, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    Catalin Marinas <catalin.marinas@arm.com>, 
+    Russell King <linux@armlinux.org.uk>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Juergen Gross <jgross@suse.com>, Xenia Ragiadakou <burzalodowa@gmail.com>
+Subject: Re: [PATCH V4 1/2] xen/virtio: Optimize the setup of "xen-grant-dma"
+ devices
+In-Reply-To: <20221025162004.8501-2-olekstysh@gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2210251612530.1397955@ubuntu-linux-20-04-desktop>
+References: <20221025162004.8501-1-olekstysh@gmail.com> <20221025162004.8501-2-olekstysh@gmail.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 25 Oct 2022, Michal Orzel wrote:
-> At the moment, we define lots of test jobs in test.yaml, that make use
-> of the same configuration sections like variables, tags, artifacts.
-> Introduce templates (hidden jobs whose names start with a dot) to
-> reduce the overhead and simplify the file (more than 100 lines saved).
-> This way, the actual jobs can only specify sections that are unique
-> to them.
+On Tue, 25 Oct 2022, Oleksandr Tyshchenko wrote:
+> From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 > 
-> Most of the test jobs specify the same set of prerequisite jobs under
-> needs property with just one additional being unique to the job itself.
-> Introduce YAML anchors for that purpose, because when using extends, the
-> needs property is not being merged (the parent property overwrites the
-> child one).
+> This is needed to avoid having to parse the same device-tree
+> several times for a given device.
 > 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> For this to work we need to install the xen_virtio_restricted_mem_acc
+> callback in Arm's xen_guest_init() which is same callback as x86's
+> PV and HVM modes already use and remove the manual assignment in
+> xen_setup_dma_ops(). Also we need to split the code to initialize
+> backend_domid into a separate function.
+> 
+> Prior to current patch we parsed the device-tree three times:
+> 1. xen_setup_dma_ops()->...->xen_is_dt_grant_dma_device()
+> 2. xen_setup_dma_ops()->...->xen_dt_grant_init_backend_domid()
+> 3. xen_virtio_mem_acc()->...->xen_is_dt_grant_dma_device()
+> 
+> With current patch we parse the device-tree only once in
+> xen_virtio_restricted_mem_acc()->...->xen_dt_grant_init_backend_domid()
+> 
+> Other benefits are:
+> - Not diverge from x86 when setting up Xen grant DMA ops
+> - Drop several global functions
+> 
+> Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> Changes in v2:
->  - carve out anchors from extend jobs and use better naming
-> 
-> This patch is based on the CI next branch where we already have several
-> patches (already acked) to be merged into staging after the release:
-> https://gitlab.com/xen-project/people/sstabellini/xen/-/tree/next
+> New patch
 > ---
->  automation/gitlab-ci/test.yaml | 270 ++++++++++-----------------------
->  1 file changed, 83 insertions(+), 187 deletions(-)
+>  arch/arm/xen/enlighten.c    |  2 +-
+>  drivers/xen/grant-dma-ops.c | 77 ++++++++++++++-----------------------
+>  include/xen/arm/xen-ops.h   |  4 +-
+>  include/xen/xen-ops.h       | 16 --------
+>  4 files changed, 30 insertions(+), 69 deletions(-)
 > 
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 92e0a1f7c510..c7e0078e04f1 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -7,35 +7,32 @@
->      - /^coverity-tested\/.*/
->      - /^stable-.*/
+> diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
+> index 93c8ccbf2982..7d59765aef22 100644
+> --- a/arch/arm/xen/enlighten.c
+> +++ b/arch/arm/xen/enlighten.c
+> @@ -445,7 +445,7 @@ static int __init xen_guest_init(void)
+>  		return 0;
 >  
-> -# Test jobs
-> -build-each-commit-gcc:
-> +.arm64-test-needs: &arm64-test-needs
-> +  - alpine-3.12-arm64-rootfs-export
-> +  - kernel-5.19-arm64-export
-> +  - qemu-system-aarch64-6.0.0-arm64-export
+>  	if (IS_ENABLED(CONFIG_XEN_VIRTIO))
+> -		virtio_set_mem_acc_cb(xen_virtio_mem_acc);
+> +		virtio_set_mem_acc_cb(xen_virtio_restricted_mem_acc);
+>  
+>  	if (!acpi_disabled)
+>  		xen_acpi_guest_init();
+> diff --git a/drivers/xen/grant-dma-ops.c b/drivers/xen/grant-dma-ops.c
+> index daa525df7bdc..1e797a043980 100644
+> --- a/drivers/xen/grant-dma-ops.c
+> +++ b/drivers/xen/grant-dma-ops.c
+> @@ -292,50 +292,20 @@ static const struct dma_map_ops xen_grant_dma_ops = {
+>  	.dma_supported = xen_grant_dma_supported,
+>  };
+>  
+> -static bool xen_is_dt_grant_dma_device(struct device *dev)
+> -{
+> -	struct device_node *iommu_np;
+> -	bool has_iommu;
+> -
+> -	iommu_np = of_parse_phandle(dev->of_node, "iommus", 0);
+> -	has_iommu = iommu_np &&
+> -		    of_device_is_compatible(iommu_np, "xen,grant-dma");
+> -	of_node_put(iommu_np);
+> -
+> -	return has_iommu;
+> -}
+> -
+> -bool xen_is_grant_dma_device(struct device *dev)
+> -{
+> -	/* XXX Handle only DT devices for now */
+> -	if (dev->of_node)
+> -		return xen_is_dt_grant_dma_device(dev);
+> -
+> -	return false;
+> -}
+> -
+> -bool xen_virtio_mem_acc(struct virtio_device *dev)
+> -{
+> -	if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_pv_domain())
+> -		return true;
+> -
+> -	return xen_is_grant_dma_device(dev->dev.parent);
+> -}
+> -
+>  static int xen_dt_grant_init_backend_domid(struct device *dev,
+> -					   struct xen_grant_dma_data *data)
+> +					   domid_t *backend_domid)
+>  {
+>  	struct of_phandle_args iommu_spec;
+>  
+>  	if (of_parse_phandle_with_args(dev->of_node, "iommus", "#iommu-cells",
+>  			0, &iommu_spec)) {
+> -		dev_err(dev, "Cannot parse iommus property\n");
+> +		dev_dbg(dev, "Cannot parse iommus property\n");
+>  		return -ESRCH;
+>  	}
+>  
+>  	if (!of_device_is_compatible(iommu_spec.np, "xen,grant-dma") ||
+>  			iommu_spec.args_count != 1) {
+> -		dev_err(dev, "Incompatible IOMMU node\n");
+> +		dev_dbg(dev, "Incompatible IOMMU node\n");
+>  		of_node_put(iommu_spec.np);
+>  		return -ESRCH;
+>  	}
+> @@ -346,12 +316,28 @@ static int xen_dt_grant_init_backend_domid(struct device *dev,
+>  	 * The endpoint ID here means the ID of the domain where the
+>  	 * corresponding backend is running
+>  	 */
+> -	data->backend_domid = iommu_spec.args[0];
+> +	*backend_domid = iommu_spec.args[0];
+>  
+>  	return 0;
+>  }
+>  
+> -void xen_grant_setup_dma_ops(struct device *dev)
+> +static int xen_grant_init_backend_domid(struct device *dev,
+> +					domid_t *backend_domid)
+> +{
+> +	int ret = -ENODEV;
 > +
-> +.arm32-test-needs: &arm32-test-needs
-> +  - qemu-system-aarch64-6.0.0-arm32-export
+> +	if (dev->of_node) {
+> +		ret = xen_dt_grant_init_backend_domid(dev, backend_domid);
+> +	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT) || xen_pv_domain()) {
+> +		dev_info(dev, "Using dom0 as backend\n");
+> +		*backend_domid = 0;
+> +		ret = 0;
+> +	}
 > +
-> +.qemu-arm64:
->    extends: .test-jobs-common
->    variables:
-> -    CONTAINER: debian:stretch
-> -    XEN_TARGET_ARCH: x86_64
-> -    CC: gcc
-> -  script:
-> -    - BASE=${BASE_SHA:-${CI_COMMIT_BEFORE_SHA}} TIP=${TIP_SHA:-${CI_COMMIT_SHA}} ./automation/gitlab-ci/build-each-commit.sh 2>&1 | tee ../build-each-commit-gcc.log
-> -    - mv ../build-each-commit-gcc.log .
-> +    CONTAINER: debian:unstable-arm64v8
-> +    LOGFILE: qemu-smoke-arm64.log
->    artifacts:
->      paths:
-> +      - smoke.serial
->        - '*.log'
->      when: always
-> -  needs: []
->    tags:
-> -    - x86_64
-> +    - arm64
->  
-> -qemu-smoke-dom0-arm64-gcc:
-> +.qemu-arm32:
->    extends: .test-jobs-common
->    variables:
->      CONTAINER: debian:unstable-arm64v8
-> -  script:
-> -    - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
-> -  needs:
-> -    - alpine-3.12-gcc-arm64
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> +    LOGFILE: qemu-smoke-arm32.log
->    artifacts:
->      paths:
->        - smoke.serial
-> @@ -44,251 +41,150 @@ qemu-smoke-dom0-arm64-gcc:
->    tags:
->      - arm64
->  
-> -qemu-smoke-dom0-arm64-gcc-debug:
-> +.qemu-x86-64:
->    extends: .test-jobs-common
->    variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> -  script:
-> -    - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
-> -  needs:
-> -    - alpine-3.12-gcc-debug-arm64
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> +    CONTAINER: debian:stretch
-> +    LOGFILE: qemu-smoke-x86-64.log
->    artifacts:
->      paths:
->        - smoke.serial
->        - '*.log'
->      when: always
->    tags:
-> -    - arm64
-> +    - x86_64
->  
-> -qemu-alpine-x86_64-gcc:
-> +# Test jobs
-> +build-each-commit-gcc:
->    extends: .test-jobs-common
->    variables:
->      CONTAINER: debian:stretch
-> +    XEN_TARGET_ARCH: x86_64
-> +    CC: gcc
->    script:
-> -    - ./automation/scripts/qemu-alpine-x86_64.sh 2>&1 | tee qemu-smoke-x86_64.log
-> -  needs:
-> -    - alpine-3.12-gcc
-> -    - alpine-3.12-rootfs-export
-> -    - kernel-5.10.74-export
-> +    - BASE=${BASE_SHA:-${CI_COMMIT_BEFORE_SHA}} TIP=${TIP_SHA:-${CI_COMMIT_SHA}} ./automation/gitlab-ci/build-each-commit.sh 2>&1 | tee ../build-each-commit-gcc.log
-> +    - mv ../build-each-commit-gcc.log .
->    artifacts:
->      paths:
-> -      - smoke.serial
->        - '*.log'
->      when: always
-> +  needs: []
->    tags:
->      - x86_64
->  
-> +qemu-smoke-dom0-arm64-gcc:
-> +  extends: .qemu-arm64
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *arm64-test-needs
-> +    - alpine-3.12-gcc-arm64
+> +	return ret;
+> +}
 > +
-> +qemu-smoke-dom0-arm64-gcc-debug:
-> +  extends: .qemu-arm64
-> +  script:
-> +    - ./automation/scripts/qemu-smoke-dom0-arm64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - *arm64-test-needs
-> +    - alpine-3.12-gcc-debug-arm64
-> +
->  qemu-smoke-dom0less-arm64-gcc:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-arm64
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+> +static void xen_grant_setup_dma_ops(struct device *dev, domid_t backend_domid)
+>  {
+>  	struct xen_grant_dma_data *data;
 >  
->  qemu-smoke-dom0less-arm64-gcc-debug:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-debug-arm64
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+> @@ -365,16 +351,7 @@ void xen_grant_setup_dma_ops(struct device *dev)
+>  	if (!data)
+>  		goto err;
 >  
->  qemu-smoke-dom0less-arm64-gcc-staticmem:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-arm64-staticmem
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+> -	if (dev->of_node) {
+> -		if (xen_dt_grant_init_backend_domid(dev, data))
+> -			goto err;
+> -	} else if (IS_ENABLED(CONFIG_XEN_VIRTIO_FORCE_GRANT)) {
+> -		dev_info(dev, "Using dom0 as backend\n");
+> -		data->backend_domid = 0;
+> -	} else {
+> -		/* XXX ACPI device unsupported for now */
+> -		goto err;
+> -	}
+> +	data->backend_domid = backend_domid;
 >  
->  qemu-smoke-dom0less-arm64-gcc-debug-staticmem:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh static-mem 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-debug-arm64-staticmem
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+>  	if (store_xen_grant_dma_data(dev, data)) {
+>  		dev_err(dev, "Cannot store Xen grant DMA data\n");
+> @@ -392,12 +369,14 @@ void xen_grant_setup_dma_ops(struct device *dev)
 >  
->  qemu-smoke-dom0less-arm64-gcc-boot-cpupools:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-arm64-boot-cpupools
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+>  bool xen_virtio_restricted_mem_acc(struct virtio_device *dev)
+>  {
+> -	bool ret = xen_virtio_mem_acc(dev);
+> +	domid_t backend_domid;
 >  
->  qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm64
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee qemu-smoke-arm64.log
-> +    - ./automation/scripts/qemu-smoke-dom0less-arm64.sh boot-cpupools 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm64-test-needs
->      - alpine-3.12-gcc-debug-arm64-boot-cpupools
-> -    - alpine-3.12-arm64-rootfs-export
-> -    - kernel-5.19-arm64-export
-> -    - qemu-system-aarch64-6.0.0-arm64-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+> -	if (ret)
+> -		xen_grant_setup_dma_ops(dev->dev.parent);
+> +	if (!xen_grant_init_backend_domid(dev->dev.parent, &backend_domid)) {
+> +		xen_grant_setup_dma_ops(dev->dev.parent, backend_domid);
+> +		return true;
+> +	}
 >  
->  qemu-smoke-dom0-arm32-gcc:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm32
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-> +    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm32-test-needs
->      - debian-unstable-gcc-arm32
-> -    - qemu-system-aarch64-6.0.0-arm32-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
+> -	return ret;
+> +	return false;
+>  }
 >  
->  qemu-smoke-dom0-arm32-gcc-debug:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:unstable-arm64v8
-> +  extends: .qemu-arm32
->    script:
-> -    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee qemu-smoke-arm32.log
-> +    - ./automation/scripts/qemu-smoke-dom0-arm32.sh 2>&1 | tee ${LOGFILE}
->    needs:
-> +    - *arm32-test-needs
->      - debian-unstable-gcc-arm32-debug
-> -    - qemu-system-aarch64-6.0.0-arm32-export
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> -  tags:
-> -    - arm64
-> +
-> +qemu-alpine-x86_64-gcc:
-> +  extends: .qemu-x86-64
-> +  script:
-> +    - ./automation/scripts/qemu-alpine-x86_64.sh 2>&1 | tee ${LOGFILE}
-> +  needs:
-> +    - alpine-3.12-gcc
-> +    - alpine-3.12-rootfs-export
-> +    - kernel-5.10.74-export
+>  MODULE_DESCRIPTION("Xen grant DMA-mapping layer");
+> diff --git a/include/xen/arm/xen-ops.h b/include/xen/arm/xen-ops.h
+> index b0766a660338..70073f5a2b54 100644
+> --- a/include/xen/arm/xen-ops.h
+> +++ b/include/xen/arm/xen-ops.h
+> @@ -8,9 +8,7 @@
+>  static inline void xen_setup_dma_ops(struct device *dev)
+>  {
+>  #ifdef CONFIG_XEN
+> -	if (xen_is_grant_dma_device(dev))
+> -		xen_grant_setup_dma_ops(dev);
+> -	else if (xen_swiotlb_detect())
+> +	if (xen_swiotlb_detect())
+>  		dev->dma_ops = &xen_swiotlb_dma_ops;
+>  #endif
+>  }
+> diff --git a/include/xen/xen-ops.h b/include/xen/xen-ops.h
+> index a34f4271a2e9..47f11bec5e90 100644
+> --- a/include/xen/xen-ops.h
+> +++ b/include/xen/xen-ops.h
+> @@ -216,26 +216,10 @@ static inline void xen_preemptible_hcall_end(void) { }
+>  #endif /* CONFIG_XEN_PV && !CONFIG_PREEMPTION */
 >  
->  qemu-smoke-x86-64-gcc:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:stretch
-> +  extends: .qemu-x86-64
->    script:
-> -    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee qemu-smoke-x86-64.log
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> +    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
->    needs:
->      - debian-stretch-gcc-debug
-> -  tags:
-> -    - x86_64
+>  #ifdef CONFIG_XEN_GRANT_DMA_OPS
+> -void xen_grant_setup_dma_ops(struct device *dev);
+> -bool xen_is_grant_dma_device(struct device *dev);
+> -bool xen_virtio_mem_acc(struct virtio_device *dev);
+>  bool xen_virtio_restricted_mem_acc(struct virtio_device *dev);
+>  #else
+> -static inline void xen_grant_setup_dma_ops(struct device *dev)
+> -{
+> -}
+> -static inline bool xen_is_grant_dma_device(struct device *dev)
+> -{
+> -	return false;
+> -}
+> -
+>  struct virtio_device;
 >  
->  qemu-smoke-x86-64-clang:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:stretch
-> +  extends: .qemu-x86-64
->    script:
-> -    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee qemu-smoke-x86-64.log
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> +    - ./automation/scripts/qemu-smoke-x86-64.sh pv 2>&1 | tee ${LOGFILE}
->    needs:
->      - debian-unstable-clang-debug
-> -  tags:
-> -    - x86_64
->  
->  qemu-smoke-x86-64-gcc-pvh:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:stretch
-> +  extends: .qemu-x86-64
->    script:
-> -    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee qemu-smoke-x86-64.log
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> +    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
->    needs:
->      - debian-stretch-gcc-debug
-> -  tags:
-> -    - x86_64
->  
->  qemu-smoke-x86-64-clang-pvh:
-> -  extends: .test-jobs-common
-> -  variables:
-> -    CONTAINER: debian:stretch
-> +  extends: .qemu-x86-64
->    script:
-> -    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee qemu-smoke-x86-64.log
-> -  artifacts:
-> -    paths:
-> -      - smoke.serial
-> -      - '*.log'
-> -    when: always
-> +    - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
->    needs:
->      - debian-unstable-clang-debug
-> -  tags:
-> -    - x86_64
+> -static inline bool xen_virtio_mem_acc(struct virtio_device *dev)
+> -{
+> -	return false;
+> -}
+> -
+>  static inline bool xen_virtio_restricted_mem_acc(struct virtio_device *dev)
+>  {
+>  	return false;
 > -- 
 > 2.25.1
 > 
