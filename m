@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78EB560EAD2
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 23:25:57 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430797.682884 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3BA060EBA2
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 00:41:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430802.682897 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onntU-0002CP-11; Wed, 26 Oct 2022 21:25:00 +0000
+	id 1onp3o-0002Mr-G7; Wed, 26 Oct 2022 22:39:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430797.682884; Wed, 26 Oct 2022 21:24:59 +0000
+Received: by outflank-mailman (output) from mailman id 430802.682897; Wed, 26 Oct 2022 22:39:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onntT-00029b-UT; Wed, 26 Oct 2022 21:24:59 +0000
-Received: by outflank-mailman (input) for mailman id 430797;
- Wed, 26 Oct 2022 21:24:59 +0000
+	id 1onp3o-0002Jk-DA; Wed, 26 Oct 2022 22:39:44 +0000
+Received: by outflank-mailman (input) for mailman id 430802;
+ Wed, 26 Oct 2022 22:39:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1onntT-00029V-BW
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 21:24:59 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onp3m-0002Ja-PM; Wed, 26 Oct 2022 22:39:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1onntN-0003ni-JI; Wed, 26 Oct 2022 21:24:53 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1onntN-0006Lc-Cy; Wed, 26 Oct 2022 21:24:53 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onp3m-00050e-Mj; Wed, 26 Oct 2022 22:39:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onp3m-00075r-By; Wed, 26 Oct 2022 22:39:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1onp3m-0002IG-BT; Wed, 26 Oct 2022 22:39:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=sItJ5+hYj8CzCBe0BFkqN9pUL8NsekrPRIDvPd/T7qs=; b=2bMXgGrlSXKG8AOvmaZdFdozGv
-	VYmKjmulPo8gzq4jA0IV93H5orfLLRnrbpGl2W31VFPWSwpzTLVcI7Ka5spJCZpVWNELgJcDKtuA5
-	cvSbBl9tV9eHeyt8CN6n8tUhTLn3Inlsaok0mOFXnqt4QdaADzatS44UJpJFVdhfKpF4=;
-Message-ID: <4c713750-670b-eac1-5f5b-376de79192eb@xen.org>
-Date: Wed, 26 Oct 2022 22:24:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Henry Wang
- <Henry.Wang@arm.com>, Anthony Perard <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20221026102018.4144-1-andrew.cooper3@citrix.com>
- <20221026102018.4144-2-andrew.cooper3@citrix.com>
- <ffb8bdb8-f54b-2107-ce1a-775337c172ac@suse.com>
- <0f048bd2-d08c-8bd5-2a20-7e49e794c679@citrix.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 1/4] xen: Introduce non-broken hypercalls for the p2m pool
- size
-In-Reply-To: <0f048bd2-d08c-8bd5-2a20-7e49e794c679@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=YHpg7lZ1gFWbcBndMhrgIfclQadDw6pLLbAtC5int5k=; b=0iSbpN3x4Ip9H8wsAJCMOldfRC
+	XddqZTuv7zJtlCpZwEmlOACLYMS1VSCy0GOIkYEN44yYNKmrVbBOG0LzNoJm27uQb15y6KEGYjUJU
+	ozwhGSiQ3XeEppbQGetPUtous0mz+9sDSAi8PeeRX4uFpfdJ/6EZOPxJ3aQfvbMn9B4s=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174468-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 174468: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b6efc505e4d6eb2055a39afd0a1ee67846a1e5f9
+X-Osstest-Versions-That:
+    ovmf=9e2c88b16ed3444ea9dfffb39a91d6c17071835d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 Oct 2022 22:39:42 +0000
 
-Hi Andrew,
+flight 174468 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174468/
 
-On 26/10/2022 20:22, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/mm/hap/hap.c
->>> +++ b/xen/arch/x86/mm/hap/hap.c
->>> @@ -345,6 +345,16 @@ unsigned int hap_get_allocation(struct domain *d)
->>>               + ((pg & ((1 << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
->>>   }
->>>   
->>> +int hap_get_allocation_bytes(struct domain *d, uint64_t *size)
->>> +{
->>> +    unsigned long pages = (d->arch.paging.hap.total_pages +
->>> +                           d->arch.paging.hap.p2m_pages);
->> Unlike for Arm no ACCESS_ONCE() here? Also the addition can in
->> principle overflow, because being done only in 32 bits.
-> 
-> I'm not actually convinced ARM needs ACCESS_ONCE() to begin with.  I
-> can't see any legal transformation of that logic which could result in a
-> torn load.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b6efc505e4d6eb2055a39afd0a1ee67846a1e5f9
+baseline version:
+ ovmf                 9e2c88b16ed3444ea9dfffb39a91d6c17071835d
 
-AFAIU, ACCESS_ONCE() is not only about torn load but also making sure 
-that the compiler will only read the value once.
+Last test of basis   174432  2022-10-26 04:14:08 Z    0 days
+Testing same since   174468  2022-10-26 17:40:30 Z    0 days    1 attempts
 
-When LTO is enabled (not yet supported) in Xen, can we guarantee the 
-compiler will not try to access total_pages twice (obviously it would be 
-caller dependent)?
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
 
-With that in mind, when LTO is enabled on Linux arm64, the 
-implementation of READ_ONCE() is not a simple (volatile *) to prevent 
-the compiler to do harmful convertion. Possibly something we will need 
-to consider in Xen in the future if we enable LTO. In this context, the 
-ACCESS_ONCE() would make sense because we don't know (or should not 
-assume) how the caller will use it.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-Regardless that, I think using ACCESS_ONCE() help to document how the 
-variable should be used. This will reduce the risk that someone decides 
-to add a new use total_pages like below:
 
-val = d->arch.paging.total_pages;
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-if ( val == 0 )
-   return ...
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-/* use val */
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-AFAIU, a compiler would be allow to read total_pages twice here. Which 
-is not what we would want. I am ready to bet this will be missed.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-So consistency here is IMO much better. An alternative would be to 
-document why we think the compiler would not be naughty.
 
-Cheers,
+Pushing revision :
 
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   9e2c88b16e..b6efc505e4  b6efc505e4d6eb2055a39afd0a1ee67846a1e5f9 -> xen-tested-master
 
