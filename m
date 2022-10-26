@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA63460E66D
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:27:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430719.682705 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0D6360E720
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 20:24:30 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430727.682728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onkAx-0002M3-4A; Wed, 26 Oct 2022 17:26:47 +0000
+	id 1onl3j-0000ww-GD; Wed, 26 Oct 2022 18:23:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430719.682705; Wed, 26 Oct 2022 17:26:47 +0000
+Received: by outflank-mailman (output) from mailman id 430727.682728; Wed, 26 Oct 2022 18:23:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onkAx-0002Ja-1J; Wed, 26 Oct 2022 17:26:47 +0000
-Received: by outflank-mailman (input) for mailman id 430719;
- Wed, 26 Oct 2022 17:26:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1onl3j-0000uV-Cz; Wed, 26 Oct 2022 18:23:23 +0000
+Received: by outflank-mailman (input) for mailman id 430727;
+ Wed, 26 Oct 2022 18:23:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ANQJ=23=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1onkAv-0002JT-74
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:26:45 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5be497af-5553-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 19:26:44 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DS0PR12MB7584.namprd12.prod.outlook.com (2603:10b6:8:13b::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Wed, 26 Oct
- 2022 17:26:40 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.028; Wed, 26 Oct 2022
- 17:26:40 +0000
+ <SRS0=XGDX=23=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1onl3i-0000uN-1I
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 18:23:22 +0000
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [2607:f8b0:4864:20::1032])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 431a90af-555b-11ed-8fd0-01056ac49cbb;
+ Wed, 26 Oct 2022 20:23:18 +0200 (CEST)
+Received: by mail-pj1-x1032.google.com with SMTP id b11so8723541pjp.2
+ for <xen-devel@lists.xenproject.org>; Wed, 26 Oct 2022 11:23:18 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,156 +39,659 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5be497af-5553-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AN/EZLmmdZ/Vy56e2qXhg+D38yoYGHh1EbdsyucIiTAlQpz2ail7uZi3s6G26IDXWiDDKkFadLC32jra9yhTLBKdpMGInnd1mugCrTlldygLlMXxmVf0r1RDleloYq6kfX6KCeVrGbLakgQcqNVMn86jJG2AnwNEIaeh1vvRGCzYOv+TKGqwm30S4Ym6hba0fjrFh1ukN91Nnd4yeNrBmkGAqsOsP8GLuwjifF7uCeVFVk7UEDe3mGqbXOe7LAq9Ini9iyx/5BftlIalSnXD7+UCNVLjwd9QRWnXzl3J9ctJijg9hBN1fBi/LzbHlljz1nQxrKTcSlBZOdYt+gJN1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e/c89O2RN4c7grri9y0r8ZWkE5NdGSrl5/WAIN50Q3w=;
- b=BpZyPwFKqNYwdsNe06rbXelu8eMiFWyp6CyKDmR9lqcvZ8jmiKTt1DkCZKpN2In9XDX+mb5VUmQp7PMIV+daJNOVYMXJ6/QoMgXLT7sn3n9g1LOrkjhXUras0x8pLX/9f39jDrwX3Kmi9c8sXNTCzNypNk9zP0pZ59fxIHLOLinGBC+ZNzZ6/m0GEl4/iK+PJFw6q8i0NoTZZdAiVV8snO0TCljIXUQUgrGKClEf75HuWCFW95VNo5BTPAnvLrak2ZFL9QXEn/8i3S0yaUBgIWrSQD0EbaBvvmRi4QdSVJwZ+xy51mGHNQGRIyz915op/9yZJ2AzoHhmUW7UhjKQUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e/c89O2RN4c7grri9y0r8ZWkE5NdGSrl5/WAIN50Q3w=;
- b=WJSbhftyuDoo4hM0r+te6QJlQFuvCnA4xd33TAYOi47yrigBFpGk7TlW+CKNurN62F8adYKe4XWMaXuAP/5hOE6LZzV7Wgm/T1ND7EUAezA9mrzRv2KoxDe2XW+GVpm/esdNVHg3ZVKl5EiY0POpDSA1FmznGC7gUVfbpuxrxMk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <c8505d52-5bf5-e233-dcac-090a546d86b1@amd.com>
-Date: Wed, 26 Oct 2022 18:26:34 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: [XEN v3] xen/arm: vGICv3: Emulate properly 32-bit access on
- GICR_PENDBASER
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, andre.przywara@arm.com, Henry.Wang@arm.com
-References: <20221026133540.52191-1-ayankuma@amd.com>
- <95d0a8ca-9ff0-162a-02ae-8cbdc30af8b9@xen.org>
- <2accac91-d822-c493-4045-8657aed26fb1@amd.com>
- <bb8709ff-9b1a-91f4-3a73-c5f216b6b44e@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <bb8709ff-9b1a-91f4-3a73-c5f216b6b44e@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0355.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:d::31) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 431a90af-555b-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=MJZVoRGtRB/kzdtsP43JIicPpC6feHeGXeOHSjkuE0g=;
+        b=Usr5i5Ihw1FWdDZEembcgIFwrUrvnPSsM0dQrmnEeWEH0wyS8m0VIzyQQg4j+0B31N
+         rd81VC0bc+JBv/mDtdTeBmvJ1taXO1HWYnw+xpD1mgkDvNRqvKF+RtC15FuOvRX/s1J2
+         dvvvlX5vIYHRhW7adIBGNPNkw7Kst6KNms0CDQO/6lnRbvkTK43ewuqQwUEFVwR4RPy+
+         Xrq4+Gd5aIiYkXzOB+83HI6eHGKiDGwFgiFSaLv/C/vO8b1rx+H8B01IO+G3brJgUgWJ
+         zx4SPRfLktNip1q+87+i/WUaOh5aV198SuQsz6rVM/9/FNq6o4r2fIMiE//jmSugXLBZ
+         t7jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=MJZVoRGtRB/kzdtsP43JIicPpC6feHeGXeOHSjkuE0g=;
+        b=aRwoijMKl/9L3geGjnrR/pSnUbS67nbIS8sq4W56JhQZNiLAHD/gYR0fsQJzgdYTd7
+         CZvQjFa8rpeS9aqpymz8KnilyI2cdDg2qvOjfG/wMi2TOSIrB9QhOsWGex/PserM6Yxw
+         +FYJPLiThdUjNIe5h8DBK1rr21BTe1haMLDd6Uek7sCtpwEmODnBmGF+fhc91tFiwdiq
+         9rXcAsRc/AVOOu+rI/e7/T46wBDUhpWKGgzq/Bj6ZVgLc2HJ7UPncsiCz0fzx9IIsbkt
+         mQwKHeBcmQxv9FF3GMp+7n1LRdke+6s+9bT10VRxH1imbNfq+cduivlZALTIbLWZeo+d
+         BHqQ==
+X-Gm-Message-State: ACrzQf0OKKLreyar8CPfySJIIEZpqajI3NMIlnvHwGt4qzVh2piKkvGP
+	yuwZEXNZgXBvQz5SrBfNgxBOkyl4B/MlKzOfZ/Q=
+X-Google-Smtp-Source: AMsMyM73eaFBJ3KzSNvJpvoAB6IwlYBATdr15a0UMtY4p/Yu2VYs/A6yx5WVZmV+SclCgcrI8MYIAxwzMUEVSFtxzik=
+X-Received: by 2002:a17:90b:1e43:b0:213:1efe:9815 with SMTP id
+ pi3-20020a17090b1e4300b002131efe9815mr5734336pjb.164.1666808596818; Wed, 26
+ Oct 2022 11:23:16 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DS0PR12MB7584:EE_
-X-MS-Office365-Filtering-Correlation-Id: 368ac13e-f11d-4d3a-092d-08dab7773e5e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	aB0ldJ5l/QaXMGALISiA5CpAd89Blap5VCA53rpfDJAbtziSdgy7KAoy2crEDKLumawUooobDtE95kBEgS+7zOFp3wa9NVHZtJLarFu4tLNcsQdp9bwPdktEO45XIwj7x66Lopf7mmeV5Qso5IhSTPp3QgdgYeGODDUsz+hKR7pDgKJoQWWZkFaY3Bava5kL3W++CVxvXAQWyexp7rOW7WPO7P3wrq5TKpdJyGwmcJ3woUfIiHT6c7nqUkv0z/uzq1UbwjDvSRgzSCT0bJJztZtwJ0LORRSzP1zWN2HvvhFTJlbnGcMecgQW5vjzpRMbVMBvG8X2uPu0A/AL1ghDIt0sFIiiOPuairJOZyB3MGvxf5+YfeVztLDMXqXjFCtihNAdjr1Sz8d/WpnRlYChEfO0Rlm2403kGq/pB6qvwoNyqc8aK0ngL7RuwIGzDCFLnp3lc990B+oRxAEYp4FVtSC3ek6/6Mh3A4ztq2rKdRSfLyfnE7dJpXK2m7oIqx/d2bP/inFx/xOBi8wZ4qug2wHJLZpEKGZWKlGnPS0KN3yjngV+unQ1vgtI26ZWwdv98Ij1FNclM8XN9EyrBZ3GvS0oBlIeUuF6xCh2asOwt747++TN8qwjdT8/nifaiSgVxhZvub/BAw6eNvDUUdxywTmv5vSOPXWPbCXgDnTU7puLEBASWSG/oVupf2blMnjSmsJ5o9nYQqqVoq6XVHFj7DyxhWMtT46zOCw4m4CcrJVa3rGKllxhFs39RfMy2F6prP+E/7svqz+v52CcCGuEY8gcX0e8ZtBo5MzbQEI0prU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(396003)(366004)(346002)(39860400002)(451199015)(8936002)(41300700001)(26005)(6512007)(5660300002)(66556008)(53546011)(4326008)(36756003)(66946007)(6666004)(8676002)(66476007)(2616005)(316002)(38100700002)(6506007)(186003)(2906002)(83380400001)(31696002)(31686004)(6486002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R3AxUHIrbWxwbVExSytRSC93bmwvK0w1UStlZUc5cnJRb3NqOG5mc2RoQm1W?=
- =?utf-8?B?WVIzQ0Q2NlFPZHh0Zk11dXlGdGdTY2RhaDZPdERFSnAwbGloYitpdjIycVRh?=
- =?utf-8?B?SDMwRzNON1oxdlltUmt3NFkyMWJ0TlIyMk91dmFRQnFkbFR0bEpVeHpudVRB?=
- =?utf-8?B?N0htT1ZXM0tYVmZ3S3VhU2JUakR5QmRiWWo0cVpRNjhlNzh1S3l6dlFZMEF3?=
- =?utf-8?B?N2NYYVk2YnEzTlBBcHZXUXhjWHFNRmV3RHhxSHdFM09RUzZQVFhCUjQ2QzJw?=
- =?utf-8?B?eHRvdlQ0NmtGQ0RMRXdpbjRUeW5Rc2MwYVJxTDFiNUw3bjZxd3lEZVMxOFBO?=
- =?utf-8?B?ZVBaOTQ5R2FIZ05jeFZuUHdHdVZZSXMxY0ZoZ2JPUHVxcmpBTG9ZQ1JGdzJq?=
- =?utf-8?B?anRvYStYMkFaNUpvS3MvdzhMc3Nsa2tVRVZIQVdFMUcyQmZQZy9OOEUrSXBL?=
- =?utf-8?B?Z2RERllCVTNjb0cxUXJOQ1ppeHFZZXNPRE9YbzNGNnovekQxME1aaHJvK3Nl?=
- =?utf-8?B?WGlpaldJRUlqNGFPcHNXWmhaZ2c5SzZOSHdDaE9wR2ZZRHp3SGdqVkhIdExJ?=
- =?utf-8?B?SU53RncyTVhzaHhzQWZ2em5xMC9IU2VTOGNXeHlJWmJFN3NTMlV1YWhLY2o0?=
- =?utf-8?B?TzhMTnYvaXI3cmttR3lOQmZQMzRXSi9yWmh6Y0F6QmNyODBCUHg1OHowQ1ho?=
- =?utf-8?B?WlM2dEcxaFMyTGo5eVY3TVhlczJxaWNsdktNQWh3VTRLeWZoVitJQ3k1cENF?=
- =?utf-8?B?VTFIWWhlNlZaRXV5MGRDSFR2VmphSWM5LytWUnFwKzVqQmxVdUJKL0lHU2hz?=
- =?utf-8?B?TkoweHZ5Y3RPNTZMTnhCY1paSitHVSsxeU1ENVZmMzN4NG9VcEd3alhzOVFW?=
- =?utf-8?B?Mjh5aHFXdlJ6dWdhUUJ6V2doc3pnWiswWGtqTmgzUnhXeGMzZmxrN2NGTmlD?=
- =?utf-8?B?ZWNoUnhRY0xsM2NLV1pIVXRoRFJBYlpIM3g2MjRPb1NnVk1naTBSM1ZKWEFU?=
- =?utf-8?B?K3FVQWdoeVZjdzR3SlNyeXRCOG5iM1FyQW9Jb0NDTU0vM2tVTFRVSThGUHY3?=
- =?utf-8?B?WExZVnZxSmJKajkrNjVlMFlRZmFCdk50TDBOY3BBOE1JTjlSeSs0c0Z1YjJ0?=
- =?utf-8?B?cXYwaWd2T2V6MTFMdVFnYkNua3czZEVneG4xdnByWDBPUUlScElveVhTZUV6?=
- =?utf-8?B?U1prU0VLTVBQOXAzeTdPYjR3c25KT2JrdCt6cUpxMmo1V1FVMGpzTlNQSURK?=
- =?utf-8?B?L3BKQXY2djdjYm1iMmlrRWFIUHpJbGVRWEZhdm5meXM3N0RvVEtLVXQ4Ky81?=
- =?utf-8?B?Zm1kdzYxVmVSUHJVcW1RQW5xZERTOGl1alVBMlgxOGNGSVBnb1k3SlVoQkhJ?=
- =?utf-8?B?M0RCaEwzV2FzNDEvRkFkK1ZZVk5EeEwySy9oWmJtTWpQR0xJQ2F3SGNKOEpt?=
- =?utf-8?B?aWVIT2RPMU9xSTN0bmJkWWJNNzlPYzVGSUNxbHdBRVA2K3FoZ2xmSjZmWTZl?=
- =?utf-8?B?enI3MC9NdzVzMlNHWldjWG5BOW92enhXSXZBT3FuOVFiM1hRb3A0dk9XZDFV?=
- =?utf-8?B?aUlpVlBGNVpxWWZ4UURNc3NIK1dmVkRSKzAzemJYQ2JPdTIzaEJ2SXIzUTBV?=
- =?utf-8?B?NzIwaVJrWDQyZ0QyOW9BbXQ3dUlhajA1ZEJwelEzbTluU25yUXJkaXFHVUU3?=
- =?utf-8?B?c1c2c3ZKY3V2ZDAvbXJObCsvN0lEYURFZUlvZ0lLY3VnWmN4UWRDT01SWXVq?=
- =?utf-8?B?RkpLb3hKbTJhRGZ5K0ErK3g1WXdCbWg5dmtTbjJXc1lTR0IvdDliTjNDOWZl?=
- =?utf-8?B?c2JLVE13NTZxNEpBbFpMN2JTMDVrdUlGcVVIdVVydm1jN2l0MTJsZDJjeDd2?=
- =?utf-8?B?RWRmNllsTVhxR1dPZVlOTkFsUU56ZHpiMVVoQS9SSEtOaTQ3NjZoaTcvVHd2?=
- =?utf-8?B?cmc5WmRmMUp3aHZrUEcwZDVQcDNaRTZqTmQ0RnN5VU5pd2JLemgvYThQTmpp?=
- =?utf-8?B?cE01eWJ4UTlXeXlScHM3Y0l4K3R1ZzgxTTU2UWs3YWxSL1FsUTlnYVIrNTFH?=
- =?utf-8?B?eVZhN0VHOUZLWDJJUDhFRFgzaWFEeEIycHduSXlZMDlZN21Ndzc3Y0pBcHBO?=
- =?utf-8?Q?XtGf2S99pwtlIuYtZHvqFkCSh?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 368ac13e-f11d-4d3a-092d-08dab7773e5e
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 17:26:40.3875
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GTVFrVAeaR6CnWVEwMK2Cw5d6RIugtQ/2YIojJvKtfdTKcrhFzlR3dwMFn6B1OGULrm7DCshadwY3J4VDXfZIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7584
+References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com> <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
+ <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com> <95470820-dc9d-dc3b-eb5f-b4db688fa5b1@amd.com>
+In-Reply-To: <95470820-dc9d-dc3b-eb5f-b4db688fa5b1@amd.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Wed, 26 Oct 2022 21:23:05 +0300
+Message-ID: <CAPD2p-=PSahQR0JWe3tLEtp0-iiNH=yE96_GxNyDbhSw-fod0w@mail.gmail.com>
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough devices
+To: Michal Orzel <michal.orzel@amd.com>, Rahul Singh <rahul.singh@arm.com>
+Cc: Julien Grall <julien@xen.org>, 
+	Xen developer discussion <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+	Michal Orzel <Michal.Orzel@arm.com>, Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
+	Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>
+Content-Type: multipart/alternative; boundary="000000000000526ed205ebf41ebc"
 
-Hi Julien,
+--000000000000526ed205ebf41ebc
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 26/10/2022 17:45, Julien Grall wrote:
+On Wed, Oct 26, 2022 at 8:18 PM Michal Orzel <michal.orzel@amd.com> wrote:
+
+> Hi Rahul,
 >
->
-> On 26/10/2022 16:06, Ayan Kumar Halder wrote:
->>>
->>> ... you also need to ensure that the writers are atomically setting 
->>> rdist_pendbase. Please correct if I am wrong, but the callers are 
->>> not using write_atomic(). So how does that work?
->>
->> I think read_atomic()/write_atomic() may not be the correct approach 
->> for the following reasons :-
->>
->> 1. __vgic_v3_rdistr_rd_mmio_read is a static function. So 'val' has a 
->> global lifetime. Thus, all the following three lines need to be 
->> protected from concurrent access.
->
-> I don't understand this argument. 'static' means the function is not 
-> exported. The local variables will still reside on the stack.
->
-> So why does the use of 'val' needs to be protected with the lock?
 
-Yes, you are correct. I was misunderstanding this as a static variable.
 
-Also, I understood from Stefano that pre-emption does not occur in Xen. 
-So there will be no context switch.
+Hello all
 
-So, the only race is between __vgic_v3_rdistr_rd_mmio_read() and 
-__vgic_v3_rdistr_rd_mmio_write() for reading/writing rdist_pendbase.
+[sorry for the possible format issues]
 
-- Ayan
 
 >
->>
->>          val = read_atomic(&v->arch.vgic.rdist_pendbase);
->>          val &= ~GICR_PENDBASER_PTZ;      /* WO, reads as 0 */
->>
->>          /* If a context switch happens here, then the 'val' below 
->> may potentially be incorrect. */
->>
->>          *r = vreg_reg64_extract(val, info);
->>
->> 2. The same holds true for 'reg' as well in 
->> __vgic_v3_rdistr_rd_mmio_write()
->>
->>              reg = v->arch.vgic.rdist_pendbase;
->>              blah, blah
->>              v->arch.vgic.rdist_pendbase = reg;
+> On 26/10/2022 16:33, Rahul Singh wrote:
+> >
+> >
+> > Hi Julien,
+> >
+> >> On 26 Oct 2022, at 2:36 pm, Julien Grall <julien@xen.org> wrote:
+> >>
+> >>
+> >>
+> >> On 26/10/2022 14:17, Rahul Singh wrote:
+> >>> Hi All,
+> >>
+> >> Hi Rahul,
+> >>
+> >>> At Arm, we started to implement the POC to support 2 levels of page
+> tables/nested translation in SMMUv3.
+> >>> To support nested translation for guest OS Xen needs to expose the
+> virtual IOMMU. If we passthrough the
+> >>> device to the guest that is behind an IOMMU and virtual IOMMU is
+> enabled for the guest there is a need to
+> >>> add IOMMU binding for the device in the passthrough node as per [1].
+> This email is to get an agreement on
+> >>> how to add the IOMMU binding for guest OS.
+> >>> Before I will explain how to add the IOMMU binding let me give a brie=
+f
+> overview of how we will add support for virtual
+> >>> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3
+> Nested translation support. SMMUv3 hardware
+> >>> supports two stages of translation. Each stage of translation can be
+> independently enabled. An incoming address is logically
+> >>> translated from VA to IPA in stage 1, then the IPA is input to stage =
+2
+> which translates the IPA to the output PA. Stage 1 is
+> >>> intended to be used by a software entity( Guest OS) to provide
+> isolation or translation to buffers within the entity, for example,
+> >>> DMA isolation within an OS. Stage 2 is intended to be available in
+> systems supporting the Virtualization Extensions and is
+> >>> intended to virtualize device DMA to guest VM address spaces. When
+> both stage 1 and stage 2 are enabled, the translation
+> >>> configuration is called nesting.
+> >>> Stage 1 translation support is required to provide isolation between
+> different devices within the guest OS. XEN already supports
+> >>> Stage 2 translation but there is no support for Stage 1 translation
+> for guests. We will add support for guests to configure
+> >>> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU
+> hardware and exposes the virtual SMMU to the guest.
+> >>> Guest can use the native SMMU driver to configure the stage 1
+> translation. When the guest configures the SMMU for Stage 1,
+> >>> XEN will trap the access and configure the hardware accordingly.
+> >>> Now back to the question of how we can add the IOMMU binding between
+> the virtual IOMMU and the master devices so that
+> >>> guests can configure the IOMMU correctly. The solution that I am
+> suggesting is as below:
+> >>> For dom0, while handling the DT node(handle_node()) Xen will replace
+> the phandle in the "iommus" property with the virtual
+> >>> IOMMU node phandle.
+> >> Below, you said that each IOMMUs may have a different ID space. So
+> shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the
+> user to specify the mapping?
+> >
+> > Yes you are right we need to create one vIOMMU per pIOMMU for dom0. Thi=
+s
+> also helps in the ACPI case
+> > where we don=E2=80=99t need to modify the tables to delete the pIOMMU e=
+ntries
+> and create one vIOMMU.
+> > In this case, no need to replace the phandle as Xen create the vIOMMU
+> with the same pIOMMU
+> > phandle and same base address.
+> >
+> > For domU guests one vIOMMU per guest will be created.
+> >
+> >>
+> >>> For domU guests, when passthrough the device to the guest as per [2],
+> add the below property in the partial device tree
+> >>> node that is required to describe the generic device tree binding for
+> IOMMUs and their master(s)
+> >>> "iommus =3D < &magic_phandle 0xvMasterID>
+> >>>      =E2=80=A2 magic_phandle will be the phandle ( vIOMMU phandle in =
+xl)  that
+> will be documented so that the user can set that in partial DT node
+> (0xfdea).
+> >>
+> >> Does this mean only one IOMMU will be supported in the guest?
+> >
+> > Yes.
+> >
+> >>
+> >>>      =E2=80=A2 vMasterID will be the virtual master ID that the user =
+will
+> provide.
+> >>> The partial device tree will look like this:
+> >>> /dts-v1/;
+> >>>  / {
+> >>>     /* #*cells are here to keep DTC happy */
+> >>>     #address-cells =3D <2>;
+> >>>     #size-cells =3D <2>;
+> >>>       aliases {
+> >>>         net =3D &mac0;
+> >>>     };
+> >>>       passthrough {
+> >>>         compatible =3D "simple-bus";
+> >>>         ranges;
+> >>>         #address-cells =3D <2>;
+> >>>         #size-cells =3D <2>;
+> >>>         mac0: ethernet@10000000 {
+> >>>             compatible =3D "calxeda,hb-xgmac";
+> >>>             reg =3D <0 0x10000000 0 0x1000>;
+> >>>             interrupts =3D <0 80 4  0 81 4  0 82 4>;
+> >>>            iommus =3D <0xfdea 0x01>;
+> >>>         };
+> >>>     };
+> >>> };
+> >>>  In xl.cfg we need to define a new option to inform Xen about
+> vMasterId to pMasterId mapping and to which IOMMU device this
+> >>> the master device is connected so that Xen can configure the right
+> IOMMU. This is required if the system has devices that have
+> >>> the same master ID but behind a different IOMMU.
+> >>
+> >> In xl.cfg, we already pass the device-tree node path to passthrough. S=
+o
+> Xen should already have all the information about the IOMMU and Master-ID=
+.
+> So it doesn't seem necessary for Device-Tree.
+> >>
+> >> For ACPI, I would have expected the information to be found in the
+> IOREQ.
+> >>
+> >> So can you add more context why this is necessary for everyone?
+> >
+> > We have information for IOMMU and Master-ID but we don=E2=80=99t have
+> information for linking vMaster-ID to pMaster-ID.
+> > The device tree node will be used to assign the device to the guest and
+> configure the Stage-2 translation. Guest will use the
+> > vMaster-ID to configure the vIOMMU during boot. Xen needs information t=
+o
+> link vMaster-ID to pMaster-ID to configure
+> > the corresponding pIOMMU. As I mention we need vMaster-ID in case a
+> system could have 2 identical Master-ID but
+> > each one connected to a different SMMU and assigned to the guest.
 >
-> Same here.
+> I think the proposed solution would work and I would just like to clear
+> some issues.
 >
-> Cheers,
+> Please correct me if I'm wrong:
 >
+> In the xl config file we already need to specify dtdev to point to the
+> device path in host dtb.
+> In the partial device tree we specify the vMasterId as well as magic
+> phandle.
+> Isn't it that we already have all the information necessary without the
+> need for iommu_devid_map?
+> For me it looks like the partial dtb provides vMasterID and dtdev provide=
+s
+> pMasterID as well as physical phandle to SMMU.
+>
+> Having said that, I can also understand that specifying everything in one
+> place using iommu_devid_map can be easier
+> and reduces the need for device tree parsing.
+>
+> Apart from that, what is the reason of exposing only one vSMMU to guest
+> instead of one vSMMU per pSMMU?
+> In the latter solution, the whole issue with handling devices with the
+> same stream ID but belonging to different SMMUs
+> would be gone. It would also result in a more natural way of the device
+> tree look. Normally a guest would see
+> e.g. both SMMUs and exposing only one can be misleading.
+>
+
+I also have the same question. From earlier answers as I understand it is
+going to be identity vSMMU <-> pSMMU mappings for Dom0, so why diverge for
+DomU?
+
+Also I am thinking how this solution would work for IPMMU-VMSA Gen3(Gen4),
+which also supports two stages of translation, so the nested translation
+could be possible in general, although there might be some pitfalls
+(yes, I understand that code to emulate access to control registers would
+be different in comparison with SMMUv3, but some other code could be
+common).
+
+
+
+
+>
+> >>
+> >>>  iommu_devid_map =3D [ =E2=80=9CPMASTER_ID[@VMASTER_ID],IOMMU_BASE_AD=
+DRESS=E2=80=9D ,
+> =E2=80=9CPMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS=E2=80=9D]
+> >>>      =E2=80=A2 PMASTER_ID is the physical master ID of the device fro=
+m the
+> physical DT.
+> >>>      =E2=80=A2 VMASTER_ID is the virtual master Id that the user will
+> configure in the partial device tree.
+> >>>      =E2=80=A2 IOMMU_BASE_ADDRESS is the base address of the physical=
+ IOMMU
+> device to which this device is connected.
+
+
+
+If iommu_devid_map is a way to go, I have a question, would this
+configuration cover the following cases?
+1. Device has several stream IDs
+2. Several devices share the stream ID (or several stream IDs)
+
+
+
+
+> >>
+> >> Below you give an example for Platform device. How would that fit in
+> the context of PCI passthrough?
+> >
+> > In PCI passthrough case, xl will create the "iommu-map" property in vpc=
+i
+> host bridge node with phandle to vIOMMU node.
+> > vSMMUv3 node will be created in xl.
+> >
+> >>
+> >>>  Example: Let's say the user wants to assign the below physical devic=
+e
+> in DT to the guest.
+> >>>  iommu@4f000000 {
+> >>>                 compatible =3D "arm,smmu-v3";
+> >>>                      interrupts =3D <0x00 0xe4 0xf04>;
+> >>>                 interrupt-parent =3D <0x01>;
+> >>>                 #iommu-cells =3D <0x01>;
+> >>>                 interrupt-names =3D "combined";
+> >>>                 reg =3D <0x00 0x4f000000 0x00 0x40000>;
+> >>>                 phandle =3D <0xfdeb>;
+> >>>                 name =3D "iommu";
+> >>> };
+> >>
+> >> So I guess this node will be written by Xen. How will you the case
+> where there are extra property to added (e.g. dma-coherent)?
+> >
+> > In this example this is physical IOMMU node. vIOMMU node wil be created
+> by xl during guest creation.
+> >>
+> >>>  test@10000000 {
+> >>>      compatible =3D "viommu-test=E2=80=9D;
+> >>>      iommus =3D <0xfdeb 0x10>;
+> >>
+> >> I am a bit confused. Here you use 0xfdeb for the phandle but below...
+> >
+> > Here 0xfdeb is the physical IOMMU node phandle...
+> >>
+> >>>      interrupts =3D <0x00 0xff 0x04>;
+> >>>      reg =3D <0x00 0x10000000 0x00 0x1000>;
+> >>>      name =3D "viommu-test";
+> >>> };
+> >>>  The partial Device tree node will be like this:
+> >>>  / {
+> >>>     /* #*cells are here to keep DTC happy */
+> >>>     #address-cells =3D <2>;
+> >>>     #size-cells =3D <2>;
+> >>>       passthrough {
+> >>>         compatible =3D "simple-bus";
+> >>>         ranges;
+> >>>         #address-cells =3D <2>;
+> >>>         #size-cells =3D <2>;
+> >>>      test@10000000 {
+> >>>              compatible =3D "viommu-test";
+> >>>              reg =3D <0 0x10000000 0 0x1000>;
+> >>>              interrupts =3D <0 80 4  0 81 4  0 82 4>;
+> >>>              iommus =3D <0xfdea 0x01>;
+> >>
+> >> ... you use 0xfdea. Does this mean 'xl' will rewrite the phandle?
+> >
+> > but here user has to set the =E2=80=9Ciommus=E2=80=9D property with mag=
+ic phanle as
+> explained earlier. 0xfdea is magic phandle.
+> >
+> > Regards,
+> > Rahul
+>
+> ~Michal
+>
+>
+>
+
+--=20
+Regards,
+
+Oleksandr Tyshchenko
+
+--000000000000526ed205ebf41ebc
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Oct 26, 2022 at 8:18 PM Micha=
+l Orzel &lt;<a href=3D"mailto:michal.orzel@amd.com">michal.orzel@amd.com</a=
+>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
+ 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Hi =
+Rahul,<br></blockquote><div>=C2=A0</div><div><br></div><div>Hello all</div>=
+<div><br></div><div>[sorry for the possible format issues]</div><div>=C2=A0=
+</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
+order-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+On 26/10/2022 16:33, Rahul Singh wrote:<br>
+&gt; <br>
+&gt; <br>
+&gt; Hi Julien,<br>
+&gt; <br>
+&gt;&gt; On 26 Oct 2022, at 2:36 pm, Julien Grall &lt;<a href=3D"mailto:jul=
+ien@xen.org" target=3D"_blank">julien@xen.org</a>&gt; wrote:<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt;<br>
+&gt;&gt; On 26/10/2022 14:17, Rahul Singh wrote:<br>
+&gt;&gt;&gt; Hi All,<br>
+&gt;&gt;<br>
+&gt;&gt; Hi Rahul,<br>
+&gt;&gt;<br>
+&gt;&gt;&gt; At Arm, we started to implement the POC to support 2 levels of=
+ page tables/nested translation in SMMUv3.<br>
+&gt;&gt;&gt; To support nested translation for guest OS Xen needs to expose=
+ the virtual IOMMU. If we passthrough the<br>
+&gt;&gt;&gt; device to the guest that is behind an IOMMU and virtual IOMMU =
+is enabled for the guest there is a need to<br>
+&gt;&gt;&gt; add IOMMU binding for the device in the passthrough node as pe=
+r [1]. This email is to get an agreement on<br>
+&gt;&gt;&gt; how to add the IOMMU binding for guest OS.<br>
+&gt;&gt;&gt; Before I will explain how to add the IOMMU binding let me give=
+ a brief overview of how we will add support for virtual<br>
+&gt;&gt;&gt; IOMMU on Arm. In order to implement virtual IOMMU Xen need SMM=
+Uv3 Nested translation support. SMMUv3 hardware<br>
+&gt;&gt;&gt; supports two stages of translation. Each stage of translation =
+can be independently enabled. An incoming address is logically<br>
+&gt;&gt;&gt; translated from VA to IPA in stage 1, then the IPA is input to=
+ stage 2 which translates the IPA to the output PA. Stage 1 is<br>
+&gt;&gt;&gt; intended to be used by a software entity( Guest OS) to provide=
+ isolation or translation to buffers within the entity, for example,<br>
+&gt;&gt;&gt; DMA isolation within an OS. Stage 2 is intended to be availabl=
+e in systems supporting the Virtualization Extensions and is<br>
+&gt;&gt;&gt; intended to virtualize device DMA to guest VM address spaces. =
+When both stage 1 and stage 2 are enabled, the translation<br>
+&gt;&gt;&gt; configuration is called nesting.<br>
+&gt;&gt;&gt; Stage 1 translation support is required to provide isolation b=
+etween different devices within the guest OS. XEN already supports<br>
+&gt;&gt;&gt; Stage 2 translation but there is no support for Stage 1 transl=
+ation for guests. We will add support for guests to configure<br>
+&gt;&gt;&gt; the Stage 1 transition via virtual IOMMU. XEN will emulate the=
+ SMMU hardware and exposes the virtual SMMU to the guest.<br>
+&gt;&gt;&gt; Guest can use the native SMMU driver to configure the stage 1 =
+translation. When the guest configures the SMMU for Stage 1,<br>
+&gt;&gt;&gt; XEN will trap the access and configure the hardware accordingl=
+y.<br>
+&gt;&gt;&gt; Now back to the question of how we can add the IOMMU binding b=
+etween the virtual IOMMU and the master devices so that<br>
+&gt;&gt;&gt; guests can configure the IOMMU correctly. The solution that I =
+am suggesting is as below:<br>
+&gt;&gt;&gt; For dom0, while handling the DT node(handle_node()) Xen will r=
+eplace the phandle in the &quot;iommus&quot; property with the virtual<br>
+&gt;&gt;&gt; IOMMU node phandle.<br>
+&gt;&gt; Below, you said that each IOMMUs may have a different ID space. So=
+ shouldn&#39;t we expose one vIOMMU per pIOMMU? If not, how do you expect t=
+he user to specify the mapping?<br>
+&gt; <br>
+&gt; Yes you are right we need to create one vIOMMU per pIOMMU for dom0. Th=
+is also helps in the ACPI case<br>
+&gt; where we don=E2=80=99t need to modify the tables to delete the pIOMMU =
+entries and create one vIOMMU.<br>
+&gt; In this case, no need to replace the phandle as Xen create the vIOMMU =
+with the same pIOMMU<br>
+&gt; phandle and same base address.<br>
+&gt; <br>
+&gt; For domU guests one vIOMMU per guest will be created.<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt;&gt; For domU guests, when passthrough the device to the guest as p=
+er [2],=C2=A0 add the below property in the partial device tree<br>
+&gt;&gt;&gt; node that is required to describe the generic device tree bind=
+ing for IOMMUs and their master(s)<br>
+&gt;&gt;&gt; &quot;iommus =3D &lt; &amp;magic_phandle 0xvMasterID&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =E2=80=A2 magic_phandle will be the phandl=
+e ( vIOMMU phandle in xl)=C2=A0 that will be documented so that the user ca=
+n set that in partial DT node (0xfdea).<br>
+&gt;&gt;<br>
+&gt;&gt; Does this mean only one IOMMU will be supported in the guest?<br>
+&gt; <br>
+&gt; Yes.<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =E2=80=A2 vMasterID will be the virtual ma=
+ster ID that the user will provide.<br>
+&gt;&gt;&gt; The partial device tree will look like this:<br>
+&gt;&gt;&gt; /dts-v1/;<br>
+&gt;&gt;&gt;=C2=A0 / {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0/* #*cells are here to keep DTC happy */<br=
+>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;2&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0aliases {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0net =3D &amp;mac0;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0};<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0passthrough {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;simple-b=
+us&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ranges;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;2&gt;;=
+<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;<br=
+>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mac0: ethernet@10000000 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D =
+&quot;calxeda,hb-xgmac&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0reg =3D &lt;0 0=
+x10000000 0 0x1000&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0interrupts =3D =
+&lt;0 80 4=C2=A0 0 81 4=C2=A0 0 82 4&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 iommus =3D &lt;0xfdea=
+ 0x01&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0};<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0};<br>
+&gt;&gt;&gt; };<br>
+&gt;&gt;&gt;=C2=A0 In xl.cfg we need to define a new option to inform Xen a=
+bout vMasterId to pMasterId mapping and to which IOMMU device this<br>
+&gt;&gt;&gt; the master device is connected so that Xen can configure the r=
+ight IOMMU. This is required if the system has devices that have<br>
+&gt;&gt;&gt; the same master ID but behind a different IOMMU.<br>
+&gt;&gt;<br>
+&gt;&gt; In xl.cfg, we already pass the device-tree node path to passthroug=
+h. So Xen should already have all the information about the IOMMU and Maste=
+r-ID. So it doesn&#39;t seem necessary for Device-Tree.<br>
+&gt;&gt;<br>
+&gt;&gt; For ACPI, I would have expected the information to be found in the=
+ IOREQ.<br>
+&gt;&gt;<br>
+&gt;&gt; So can you add more context why this is necessary for everyone?<br=
+>
+&gt; <br>
+&gt; We have information for IOMMU and Master-ID but we don=E2=80=99t have =
+information for linking vMaster-ID to pMaster-ID.<br>
+&gt; The device tree node will be used to assign the device to the guest an=
+d configure the Stage-2 translation. Guest will use the<br>
+&gt; vMaster-ID to configure the vIOMMU during boot. Xen needs information =
+to link vMaster-ID to pMaster-ID to configure<br>
+&gt; the corresponding pIOMMU. As I mention we need vMaster-ID in case a sy=
+stem could have 2 identical Master-ID but<br>
+&gt; each one connected to a different SMMU and assigned to the guest.<br>
+<br>
+I think the proposed solution would work and I would just like to clear som=
+e issues.<br>
+<br>
+Please correct me if I&#39;m wrong:<br>
+<br>
+In the xl config file we already need to specify dtdev to point to the devi=
+ce path in host dtb.<br>
+In the partial device tree we specify the vMasterId as well as magic phandl=
+e.<br>
+Isn&#39;t it that we already have all the information necessary without the=
+ need for iommu_devid_map?<br>
+For me it looks like the partial dtb provides vMasterID and dtdev provides =
+pMasterID as well as physical phandle to SMMU.<br>
+<br>
+Having said that, I can also understand that specifying everything in one p=
+lace using iommu_devid_map can be easier<br>
+and reduces the need for device tree parsing.<br>
+<br>
+Apart from that, what is the reason of exposing only one vSMMU to guest ins=
+tead of one vSMMU per pSMMU?<br>
+In the latter solution, the whole issue with handling devices with the same=
+ stream ID but belonging to different SMMUs<br>
+would be gone. It would also result in a more natural way of the device tre=
+e look. Normally a guest would see<br>
+e.g. both SMMUs and exposing only one can be misleading.<br></blockquote><d=
+iv><br></div>I also have the same question. From earlier answers as I under=
+stand it is going to be identity vSMMU &lt;-&gt; pSMMU mappings for Dom0, s=
+o why diverge for DomU?<br><br>Also I am thinking how this solution would w=
+ork for IPMMU-VMSA Gen3(Gen4), which also supports two stages of translatio=
+n, so the nested translation could be possible in general, although there m=
+ight be some pitfalls<br><div>(yes, I understand that code to emulate acces=
+s to control registers would be different in comparison with SMMUv3, but so=
+me other code could be common).=C2=A0 =C2=A0 =C2=A0=C2=A0<br></div><div><br=
+></div><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" st=
+yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
+ing-left:1ex"><br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 iommu_devid_map =3D [ =E2=80=9CPMASTER_ID[@VMASTER_ID],I=
+OMMU_BASE_ADDRESS=E2=80=9D , =E2=80=9CPMASTER_ID[@VMASTER_ID],IOMMU_BASE_AD=
+DRESS=E2=80=9D]<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =E2=80=A2 PMASTER_ID is the physical maste=
+r ID of the device from the physical DT.<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =E2=80=A2 VMASTER_ID is the virtual master=
+ Id that the user will configure in the partial device tree.<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =E2=80=A2 IOMMU_BASE_ADDRESS is the base a=
+ddress of the physical IOMMU device to which this device is connected.</blo=
+ckquote><div>=C2=A0</div><div><br></div><div>If iommu_devid_map is a way to=
+ go, I have a question, would this configuration cover the following cases?=
+</div><div>1. Device has several stream IDs</div><div>2. Several devices sh=
+are the stream ID (or several stream IDs)<br></div><div><br></div><div><br>=
+</div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
+x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+&gt;&gt;<br>
+&gt;&gt; Below you give an example for Platform device. How would that fit =
+in the context of PCI passthrough?<br>
+&gt; <br>
+&gt; In PCI passthrough case, xl will create the &quot;iommu-map&quot; prop=
+erty in vpci host bridge node with phandle to vIOMMU node.<br>
+&gt; vSMMUv3 node will be created in xl.<br>
+&gt; <br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 Example: Let&#39;s say the user wants to assign the belo=
+w physical device in DT to the guest.<br>
+&gt;&gt;&gt;=C2=A0 iommu@4f000000 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c=
+ompatible =3D &quot;arm,smmu-v3&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 interrupts =3D &lt;0x00 0xe4 0xf04&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
+nterrupt-parent =3D &lt;0x01&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#=
+iommu-cells =3D &lt;0x01&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0i=
+nterrupt-names =3D &quot;combined&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r=
+eg =3D &lt;0x00 0x4f000000 0x00 0x40000&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0p=
+handle =3D &lt;0xfdeb&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0n=
+ame =3D &quot;iommu&quot;;<br>
+&gt;&gt;&gt; };<br>
+&gt;&gt;<br>
+&gt;&gt; So I guess this node will be written by Xen. How will you the case=
+ where there are extra property to added (e.g. dma-coherent)?<br>
+&gt; <br>
+&gt; In this example this is physical IOMMU node. vIOMMU node wil be create=
+d by xl during guest creation.<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 test@10000000 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 compatible =3D &quot;viommu-test=E2=80=9D;=
+<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 iommus =3D &lt;0xfdeb 0x10&gt;;<br>
+&gt;&gt;<br>
+&gt;&gt; I am a bit confused. Here you use 0xfdeb for the phandle but below=
+...<br>
+&gt; <br>
+&gt; Here 0xfdeb is the physical IOMMU node phandle...<br>
+&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 interrupts =3D &lt;0x00 0xff 0x04&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 reg =3D &lt;0x00 0x10000000 0x00 0x1000&gt=
+;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 name =3D &quot;viommu-test&quot;;<br>
+&gt;&gt;&gt; };<br>
+&gt;&gt;&gt;=C2=A0 The partial Device tree node will be like this:<br>
+&gt;&gt;&gt;=C2=A0 / {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0/* #*cells are here to keep DTC happy */<br=
+>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;2&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0passthrough {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0compatible =3D &quot;simple-b=
+us&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ranges;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#address-cells =3D &lt;2&gt;;=
+<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0#size-cells =3D &lt;2&gt;;<br=
+>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 test@10000000 {<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 compatible =3D=
+ &quot;viommu-test&quot;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 reg =3D &lt;0 =
+0x10000000 0 0x1000&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 interrupts =3D=
+ &lt;0 80 4=C2=A0 0 81 4=C2=A0 0 82 4&gt;;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 iommus =3D &lt=
+;0xfdea 0x01&gt;;<br>
+&gt;&gt;<br>
+&gt;&gt; ... you use 0xfdea. Does this mean &#39;xl&#39; will rewrite the p=
+handle?<br>
+&gt; <br>
+&gt; but here user has to set the =E2=80=9Ciommus=E2=80=9D property with ma=
+gic phanle as explained earlier. 0xfdea is magic phandle.<br>
+&gt; <br>
+&gt; Regards,<br>
+&gt; Rahul<br>
+<br>
+~Michal<br>
+<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div=
+ dir=3D"ltr"><span style=3D"background-color:rgb(255,255,255)"><font size=
+=3D"2"><span style=3D"color:rgb(51,51,51);font-family:Arial,sans-serif">Reg=
+ards,</span></font></span></div><div dir=3D"ltr"><br></div><div dir=3D"ltr"=
+><div><span style=3D"background-color:rgb(255,255,255)"><font size=3D"2">Ol=
+eksandr Tyshchenko</font></span></div></div></div></div></div></div></div><=
+/div>
+
+--000000000000526ed205ebf41ebc--
 
