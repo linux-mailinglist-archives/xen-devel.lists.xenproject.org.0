@@ -2,51 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E244B60E64E
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:18:35 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430714.682696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA63460E66D
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:27:08 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430719.682705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onk2M-0000fq-6B; Wed, 26 Oct 2022 17:17:54 +0000
+	id 1onkAx-0002M3-4A; Wed, 26 Oct 2022 17:26:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430714.682696; Wed, 26 Oct 2022 17:17:54 +0000
+Received: by outflank-mailman (output) from mailman id 430719.682705; Wed, 26 Oct 2022 17:26:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onk2M-0000cp-1R; Wed, 26 Oct 2022 17:17:54 +0000
-Received: by outflank-mailman (input) for mailman id 430714;
- Wed, 26 Oct 2022 17:17:52 +0000
+	id 1onkAx-0002Ja-1J; Wed, 26 Oct 2022 17:26:47 +0000
+Received: by outflank-mailman (input) for mailman id 430719;
+ Wed, 26 Oct 2022 17:26:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=azgP=23=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1onk2K-0000cj-Hy
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:17:52 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
+ <SRS0=ANQJ=23=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1onkAv-0002JT-74
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:26:45 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2057.outbound.protection.outlook.com [40.107.243.57])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1d5a4d17-5552-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 19:17:49 +0200 (CEST)
-Received: from MW2PR2101CA0007.namprd21.prod.outlook.com (2603:10b6:302:1::20)
- by CY8PR12MB7611.namprd12.prod.outlook.com (2603:10b6:930:9b::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Wed, 26 Oct
- 2022 17:17:45 +0000
-Received: from CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
- (2603:10b6:302:1:cafe::98) by MW2PR2101CA0007.outlook.office365.com
- (2603:10b6:302:1::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.0 via Frontend
- Transport; Wed, 26 Oct 2022 17:17:45 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT087.mail.protection.outlook.com (10.13.174.68) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Wed, 26 Oct 2022 17:17:44 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 26 Oct
- 2022 12:17:44 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Wed, 26 Oct 2022 12:17:41 -0500
+ id 5be497af-5553-11ed-91b5-6bf2151ebd3b;
+ Wed, 26 Oct 2022 19:26:44 +0200 (CEST)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by DS0PR12MB7584.namprd12.prod.outlook.com (2603:10b6:8:13b::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Wed, 26 Oct
+ 2022 17:26:40 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.028; Wed, 26 Oct 2022
+ 17:26:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,253 +46,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d5a4d17-5552-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 5be497af-5553-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZvFhiTWKHqduAcnIErXfynJeYKEpj2O+0OctTZ3nldYuL6l3Q99mdlkxfVaMT1cJKVIu/R5LUwAJ9s+96hwDddkt1tNAhN6YCACOEkNCpQjsU8+Zg3VFXFe/m+cGOrDDdFByv5/90VviIppdcaWBBZofKLlXjReA83PhjhTpr500qNPY1K981tPgHmb+PuXE982jiGRoGWsdEoGCJ348gbIlxp0V4VGZ75kyIN7gBB7lZ3McVoywBl0MvLjoaXmvRP1maSRIp5BUfxpVYkiOy+0/BzfsZwugMTwRozXVCIvItomdJctND39sE77MmFQ7Ym0kQ8n4cIJC5DZXu/38Nw==
+ b=AN/EZLmmdZ/Vy56e2qXhg+D38yoYGHh1EbdsyucIiTAlQpz2ail7uZi3s6G26IDXWiDDKkFadLC32jra9yhTLBKdpMGInnd1mugCrTlldygLlMXxmVf0r1RDleloYq6kfX6KCeVrGbLakgQcqNVMn86jJG2AnwNEIaeh1vvRGCzYOv+TKGqwm30S4Ym6hba0fjrFh1ukN91Nnd4yeNrBmkGAqsOsP8GLuwjifF7uCeVFVk7UEDe3mGqbXOe7LAq9Ini9iyx/5BftlIalSnXD7+UCNVLjwd9QRWnXzl3J9ctJijg9hBN1fBi/LzbHlljz1nQxrKTcSlBZOdYt+gJN1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k6TCyx2iWcfkvCOoNyftXRpBX6ft6Xvxvt7fMRXQa+0=;
- b=AfMKY0VdCkPzVk3jgdYDNewbVx+IB3XXAKhOsuW7s/53xBBgVlpl+4Er8nwvAkcbLW+05h9ZG5iHsJsEwhVCh0fDEEO0cIhZ4Q0pYz18/qx2MZiLFF4jMr0G6M7fbbC/Xah+4Eo0XPViR7kGNfI4U5+gahWVwrsNLcE7xms4bLHcVc0JvrVUZwUQK8yEsMVP/3AOJp74u3J/sVUt0YNCa2yJXZdxwSjVmCx4TTRyq36MeDTkDU4bOmUdj3mUblF5c6TbhZ5br8fUzXNF/Xz0ImoRPEgauV+Z696TYkZLBU1CguFZuUbu3xrXahDTAEdRARxMrfnWTpmbjOtErtS9Rg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
+ bh=e/c89O2RN4c7grri9y0r8ZWkE5NdGSrl5/WAIN50Q3w=;
+ b=BpZyPwFKqNYwdsNe06rbXelu8eMiFWyp6CyKDmR9lqcvZ8jmiKTt1DkCZKpN2In9XDX+mb5VUmQp7PMIV+daJNOVYMXJ6/QoMgXLT7sn3n9g1LOrkjhXUras0x8pLX/9f39jDrwX3Kmi9c8sXNTCzNypNk9zP0pZ59fxIHLOLinGBC+ZNzZ6/m0GEl4/iK+PJFw6q8i0NoTZZdAiVV8snO0TCljIXUQUgrGKClEf75HuWCFW95VNo5BTPAnvLrak2ZFL9QXEn/8i3S0yaUBgIWrSQD0EbaBvvmRi4QdSVJwZ+xy51mGHNQGRIyz915op/9yZJ2AzoHhmUW7UhjKQUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k6TCyx2iWcfkvCOoNyftXRpBX6ft6Xvxvt7fMRXQa+0=;
- b=sqEYXEeuPOeMIcRrMb2YjQFzk9Yi5Ve9n307VYTPJUYLiBj5HzNiaFLcPotMwpKyHkl5oljK//nQ092oUE9QZgSXm0xjP1ahjDlcUGpuOEbvzIn1rJHDQomQb+AyOUNa+/SFYu5OGgj8xROODxeOEPOKQDNJVpgO6Wut2nBx2/s=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <95470820-dc9d-dc3b-eb5f-b4db688fa5b1@amd.com>
-Date: Wed, 26 Oct 2022 19:17:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
- devices
-Content-Language: en-US
-To: Rahul Singh <Rahul.Singh@arm.com>, Julien Grall <julien@xen.org>
-CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Michal Orzel <Michal.Orzel@arm.com>, Oleksandr
- Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
- <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
- <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
-Content-Type: text/plain; charset="UTF-8"
+ bh=e/c89O2RN4c7grri9y0r8ZWkE5NdGSrl5/WAIN50Q3w=;
+ b=WJSbhftyuDoo4hM0r+te6QJlQFuvCnA4xd33TAYOi47yrigBFpGk7TlW+CKNurN62F8adYKe4XWMaXuAP/5hOE6LZzV7Wgm/T1ND7EUAezA9mrzRv2KoxDe2XW+GVpm/esdNVHg3ZVKl5EiY0POpDSA1FmznGC7gUVfbpuxrxMk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <c8505d52-5bf5-e233-dcac-090a546d86b1@amd.com>
+Date: Wed, 26 Oct 2022 18:26:34 +0100
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: [XEN v3] xen/arm: vGICv3: Emulate properly 32-bit access on
+ GICR_PENDBASER
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com, andre.przywara@arm.com, Henry.Wang@arm.com
+References: <20221026133540.52191-1-ayankuma@amd.com>
+ <95d0a8ca-9ff0-162a-02ae-8cbdc30af8b9@xen.org>
+ <2accac91-d822-c493-4045-8657aed26fb1@amd.com>
+ <bb8709ff-9b1a-91f4-3a73-c5f216b6b44e@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <bb8709ff-9b1a-91f4-3a73-c5f216b6b44e@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: LO2P265CA0355.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:d::31) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT087:EE_|CY8PR12MB7611:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffb817ad-1f71-4cac-cf72-08dab775ff65
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DS0PR12MB7584:EE_
+X-MS-Office365-Filtering-Correlation-Id: 368ac13e-f11d-4d3a-092d-08dab7773e5e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	uGQVYPwGREQV3oRFJeLh5qeCg1g+Lina+O2IBNsvleOIkQO9ycz8ZKy8F+Gs4mW/rS1H5oTs/SDMNKZY9NlzswIbo2L9jdGWFoWzzXKJUg5je7NvsDn1YoUUnsWsIDLSAPTuK31fcDVX0NOBCt0lyAw/4ehX2Q4VrGW+l8k6v47zS9JJ9yjU3CkaDwHn1OYrtu4b/oKCRqCUeA7kIHbqnyb2M1RfSdBvarh1ODsIw6uF2pPHf2Ez0XdJeqrxYyAqLTSRc9iQQ/c/wsnigi3YoyDBTxUHeK3dFrEGN1L5Rp/YtMipq9jWbA69kwWZVRtqYJS2sqbiR2zVIflPEGkSiPAyOyRoiNrJ35JPwoP0pFbOovNrZP/dLCuJHdym2m/q3/HIAdvGZKIQvcbJaE1o9z2SLipbKKhvQfHvwIybld+futW5yJUh8Sxkg8lw7vZjjLPn1QQvCWWzNUanAwQwa497ol3TvFa/pf/ws0JrXvc56mKYYmtbp7it89g01Rk5W/3YK+aINSkMNlw32S3C4PvRzfgmxiQaOvu/Vwq0QWHi2S1I0kv3DcF+9hTV+HD4eZAwZ5v+L1Sk7zIIUp8MENNpMpPg0v9EDJwbN3G3Z8WSzb8VGG+E304GYHmAOeHJORbz4ow6naHzJfyl1fVzocI2HcLsTs71aXgOOb0AWfppaHTdLBLVO05W5D1Pr+gnZetHr0aFfJlEzTsEpu2bRtl79UBw9YAz8tXM4SmS4QOKKO5ctdu/fZEGpoN0W4eYrXbGL5nAQpuRWadKBga6Q20pt7L+chgy0DxgFllq3/mq/K9Z7u6Gya1NWQelc4TOrgtDJFG3l/JtU6j400zE+Q==
+	aB0ldJ5l/QaXMGALISiA5CpAd89Blap5VCA53rpfDJAbtziSdgy7KAoy2crEDKLumawUooobDtE95kBEgS+7zOFp3wa9NVHZtJLarFu4tLNcsQdp9bwPdktEO45XIwj7x66Lopf7mmeV5Qso5IhSTPp3QgdgYeGODDUsz+hKR7pDgKJoQWWZkFaY3Bava5kL3W++CVxvXAQWyexp7rOW7WPO7P3wrq5TKpdJyGwmcJ3woUfIiHT6c7nqUkv0z/uzq1UbwjDvSRgzSCT0bJJztZtwJ0LORRSzP1zWN2HvvhFTJlbnGcMecgQW5vjzpRMbVMBvG8X2uPu0A/AL1ghDIt0sFIiiOPuairJOZyB3MGvxf5+YfeVztLDMXqXjFCtihNAdjr1Sz8d/WpnRlYChEfO0Rlm2403kGq/pB6qvwoNyqc8aK0ngL7RuwIGzDCFLnp3lc990B+oRxAEYp4FVtSC3ek6/6Mh3A4ztq2rKdRSfLyfnE7dJpXK2m7oIqx/d2bP/inFx/xOBi8wZ4qug2wHJLZpEKGZWKlGnPS0KN3yjngV+unQ1vgtI26ZWwdv98Ij1FNclM8XN9EyrBZ3GvS0oBlIeUuF6xCh2asOwt747++TN8qwjdT8/nifaiSgVxhZvub/BAw6eNvDUUdxywTmv5vSOPXWPbCXgDnTU7puLEBASWSG/oVupf2blMnjSmsJ5o9nYQqqVoq6XVHFj7DyxhWMtT46zOCw4m4CcrJVa3rGKllxhFs39RfMy2F6prP+E/7svqz+v52CcCGuEY8gcX0e8ZtBo5MzbQEI0prU=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(396003)(346002)(376002)(451199015)(40470700004)(36840700001)(46966006)(82310400005)(44832011)(316002)(356005)(16576012)(81166007)(83380400001)(110136005)(36756003)(54906003)(8676002)(70586007)(70206006)(5660300002)(40480700001)(2906002)(41300700001)(8936002)(4326008)(40460700003)(2616005)(426003)(47076005)(336012)(478600001)(7416002)(31686004)(36860700001)(186003)(82740400003)(31696002)(86362001)(26005)(53546011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(396003)(366004)(346002)(39860400002)(451199015)(8936002)(41300700001)(26005)(6512007)(5660300002)(66556008)(53546011)(4326008)(36756003)(66946007)(6666004)(8676002)(66476007)(2616005)(316002)(38100700002)(6506007)(186003)(2906002)(83380400001)(31696002)(31686004)(6486002)(478600001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?R3AxUHIrbWxwbVExSytRSC93bmwvK0w1UStlZUc5cnJRb3NqOG5mc2RoQm1W?=
+ =?utf-8?B?WVIzQ0Q2NlFPZHh0Zk11dXlGdGdTY2RhaDZPdERFSnAwbGloYitpdjIycVRh?=
+ =?utf-8?B?SDMwRzNON1oxdlltUmt3NFkyMWJ0TlIyMk91dmFRQnFkbFR0bEpVeHpudVRB?=
+ =?utf-8?B?N0htT1ZXM0tYVmZ3S3VhU2JUakR5QmRiWWo0cVpRNjhlNzh1S3l6dlFZMEF3?=
+ =?utf-8?B?N2NYYVk2YnEzTlBBcHZXUXhjWHFNRmV3RHhxSHdFM09RUzZQVFhCUjQ2QzJw?=
+ =?utf-8?B?eHRvdlQ0NmtGQ0RMRXdpbjRUeW5Rc2MwYVJxTDFiNUw3bjZxd3lEZVMxOFBO?=
+ =?utf-8?B?ZVBaOTQ5R2FIZ05jeFZuUHdHdVZZSXMxY0ZoZ2JPUHVxcmpBTG9ZQ1JGdzJq?=
+ =?utf-8?B?anRvYStYMkFaNUpvS3MvdzhMc3Nsa2tVRVZIQVdFMUcyQmZQZy9OOEUrSXBL?=
+ =?utf-8?B?Z2RERllCVTNjb0cxUXJOQ1ppeHFZZXNPRE9YbzNGNnovekQxME1aaHJvK3Nl?=
+ =?utf-8?B?WGlpaldJRUlqNGFPcHNXWmhaZ2c5SzZOSHdDaE9wR2ZZRHp3SGdqVkhIdExJ?=
+ =?utf-8?B?SU53RncyTVhzaHhzQWZ2em5xMC9IU2VTOGNXeHlJWmJFN3NTMlV1YWhLY2o0?=
+ =?utf-8?B?TzhMTnYvaXI3cmttR3lOQmZQMzRXSi9yWmh6Y0F6QmNyODBCUHg1OHowQ1ho?=
+ =?utf-8?B?WlM2dEcxaFMyTGo5eVY3TVhlczJxaWNsdktNQWh3VTRLeWZoVitJQ3k1cENF?=
+ =?utf-8?B?VTFIWWhlNlZaRXV5MGRDSFR2VmphSWM5LytWUnFwKzVqQmxVdUJKL0lHU2hz?=
+ =?utf-8?B?TkoweHZ5Y3RPNTZMTnhCY1paSitHVSsxeU1ENVZmMzN4NG9VcEd3alhzOVFW?=
+ =?utf-8?B?Mjh5aHFXdlJ6dWdhUUJ6V2doc3pnWiswWGtqTmgzUnhXeGMzZmxrN2NGTmlD?=
+ =?utf-8?B?ZWNoUnhRY0xsM2NLV1pIVXRoRFJBYlpIM3g2MjRPb1NnVk1naTBSM1ZKWEFU?=
+ =?utf-8?B?K3FVQWdoeVZjdzR3SlNyeXRCOG5iM1FyQW9Jb0NDTU0vM2tVTFRVSThGUHY3?=
+ =?utf-8?B?WExZVnZxSmJKajkrNjVlMFlRZmFCdk50TDBOY3BBOE1JTjlSeSs0c0Z1YjJ0?=
+ =?utf-8?B?cXYwaWd2T2V6MTFMdVFnYkNua3czZEVneG4xdnByWDBPUUlScElveVhTZUV6?=
+ =?utf-8?B?U1prU0VLTVBQOXAzeTdPYjR3c25KT2JrdCt6cUpxMmo1V1FVMGpzTlNQSURK?=
+ =?utf-8?B?L3BKQXY2djdjYm1iMmlrRWFIUHpJbGVRWEZhdm5meXM3N0RvVEtLVXQ4Ky81?=
+ =?utf-8?B?Zm1kdzYxVmVSUHJVcW1RQW5xZERTOGl1alVBMlgxOGNGSVBnb1k3SlVoQkhJ?=
+ =?utf-8?B?M0RCaEwzV2FzNDEvRkFkK1ZZVk5EeEwySy9oWmJtTWpQR0xJQ2F3SGNKOEpt?=
+ =?utf-8?B?aWVIT2RPMU9xSTN0bmJkWWJNNzlPYzVGSUNxbHdBRVA2K3FoZ2xmSjZmWTZl?=
+ =?utf-8?B?enI3MC9NdzVzMlNHWldjWG5BOW92enhXSXZBT3FuOVFiM1hRb3A0dk9XZDFV?=
+ =?utf-8?B?aUlpVlBGNVpxWWZ4UURNc3NIK1dmVkRSKzAzemJYQ2JPdTIzaEJ2SXIzUTBV?=
+ =?utf-8?B?NzIwaVJrWDQyZ0QyOW9BbXQ3dUlhajA1ZEJwelEzbTluU25yUXJkaXFHVUU3?=
+ =?utf-8?B?c1c2c3ZKY3V2ZDAvbXJObCsvN0lEYURFZUlvZ0lLY3VnWmN4UWRDT01SWXVq?=
+ =?utf-8?B?RkpLb3hKbTJhRGZ5K0ErK3g1WXdCbWg5dmtTbjJXc1lTR0IvdDliTjNDOWZl?=
+ =?utf-8?B?c2JLVE13NTZxNEpBbFpMN2JTMDVrdUlGcVVIdVVydm1jN2l0MTJsZDJjeDd2?=
+ =?utf-8?B?RWRmNllsTVhxR1dPZVlOTkFsUU56ZHpiMVVoQS9SSEtOaTQ3NjZoaTcvVHd2?=
+ =?utf-8?B?cmc5WmRmMUp3aHZrUEcwZDVQcDNaRTZqTmQ0RnN5VU5pd2JLemgvYThQTmpp?=
+ =?utf-8?B?cE01eWJ4UTlXeXlScHM3Y0l4K3R1ZzgxTTU2UWs3YWxSL1FsUTlnYVIrNTFH?=
+ =?utf-8?B?eVZhN0VHOUZLWDJJUDhFRFgzaWFEeEIycHduSXlZMDlZN21Ndzc3Y0pBcHBO?=
+ =?utf-8?Q?XtGf2S99pwtlIuYtZHvqFkCSh?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 17:17:44.8703
+X-MS-Exchange-CrossTenant-Network-Message-Id: 368ac13e-f11d-4d3a-092d-08dab7773e5e
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 17:26:40.3875
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffb817ad-1f71-4cac-cf72-08dab775ff65
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7611
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GTVFrVAeaR6CnWVEwMK2Cw5d6RIugtQ/2YIojJvKtfdTKcrhFzlR3dwMFn6B1OGULrm7DCshadwY3J4VDXfZIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7584
 
-Hi Rahul,
+Hi Julien,
 
-On 26/10/2022 16:33, Rahul Singh wrote:
-> 
-> 
-> Hi Julien,
-> 
->> On 26 Oct 2022, at 2:36 pm, Julien Grall <julien@xen.org> wrote:
+On 26/10/2022 17:45, Julien Grall wrote:
+>
+>
+> On 26/10/2022 16:06, Ayan Kumar Halder wrote:
+>>>
+>>> ... you also need to ensure that the writers are atomically setting 
+>>> rdist_pendbase. Please correct if I am wrong, but the callers are 
+>>> not using write_atomic(). So how does that work?
 >>
+>> I think read_atomic()/write_atomic() may not be the correct approach 
+>> for the following reasons :-
 >>
->>
->> On 26/10/2022 14:17, Rahul Singh wrote:
->>> Hi All,
->>
->> Hi Rahul,
->>
->>> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
->>> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
->>> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
->>> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
->>> how to add the IOMMU binding for guest OS.
->>> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
->>> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
->>> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
->>> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
->>> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
->>> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
->>> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
->>> configuration is called nesting.
->>> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
->>> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
->>> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
->>> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
->>> XEN will trap the access and configure the hardware accordingly.
->>> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
->>> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
->>> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
->>> IOMMU node phandle.
->> Below, you said that each IOMMUs may have a different ID space. So shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the user to specify the mapping?
-> 
-> Yes you are right we need to create one vIOMMU per pIOMMU for dom0. This also helps in the ACPI case
-> where we don’t need to modify the tables to delete the pIOMMU entries and create one vIOMMU.
-> In this case, no need to replace the phandle as Xen create the vIOMMU with the same pIOMMU
-> phandle and same base address.
-> 
-> For domU guests one vIOMMU per guest will be created.
-> 
->>
->>> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
->>> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
->>> "iommus = < &magic_phandle 0xvMasterID>
->>>      • magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
->>
->> Does this mean only one IOMMU will be supported in the guest?
-> 
-> Yes.
-> 
->>
->>>      • vMasterID will be the virtual master ID that the user will provide.
->>> The partial device tree will look like this:
->>> /dts-v1/;
->>>  / {
->>>     /* #*cells are here to keep DTC happy */
->>>     #address-cells = <2>;
->>>     #size-cells = <2>;
->>>       aliases {
->>>         net = &mac0;
->>>     };
->>>       passthrough {
->>>         compatible = "simple-bus";
->>>         ranges;
->>>         #address-cells = <2>;
->>>         #size-cells = <2>;
->>>         mac0: ethernet@10000000 {
->>>             compatible = "calxeda,hb-xgmac";
->>>             reg = <0 0x10000000 0 0x1000>;
->>>             interrupts = <0 80 4  0 81 4  0 82 4>;
->>>            iommus = <0xfdea 0x01>;
->>>         };
->>>     };
->>> };
->>>  In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
->>> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
->>> the same master ID but behind a different IOMMU.
->>
->> In xl.cfg, we already pass the device-tree node path to passthrough. So Xen should already have all the information about the IOMMU and Master-ID. So it doesn't seem necessary for Device-Tree.
->>
->> For ACPI, I would have expected the information to be found in the IOREQ.
->>
->> So can you add more context why this is necessary for everyone?
-> 
-> We have information for IOMMU and Master-ID but we don’t have information for linking vMaster-ID to pMaster-ID.
-> The device tree node will be used to assign the device to the guest and configure the Stage-2 translation. Guest will use the
-> vMaster-ID to configure the vIOMMU during boot. Xen needs information to link vMaster-ID to pMaster-ID to configure
-> the corresponding pIOMMU. As I mention we need vMaster-ID in case a system could have 2 identical Master-ID but
-> each one connected to a different SMMU and assigned to the guest.
+>> 1. __vgic_v3_rdistr_rd_mmio_read is a static function. So 'val' has a 
+>> global lifetime. Thus, all the following three lines need to be 
+>> protected from concurrent access.
+>
+> I don't understand this argument. 'static' means the function is not 
+> exported. The local variables will still reside on the stack.
+>
+> So why does the use of 'val' needs to be protected with the lock?
 
-I think the proposed solution would work and I would just like to clear some issues.
+Yes, you are correct. I was misunderstanding this as a static variable.
 
-Please correct me if I'm wrong:
+Also, I understood from Stefano that pre-emption does not occur in Xen. 
+So there will be no context switch.
 
-In the xl config file we already need to specify dtdev to point to the device path in host dtb.
-In the partial device tree we specify the vMasterId as well as magic phandle.
-Isn't it that we already have all the information necessary without the need for iommu_devid_map?
-For me it looks like the partial dtb provides vMasterID and dtdev provides pMasterID as well as physical phandle to SMMU.
+So, the only race is between __vgic_v3_rdistr_rd_mmio_read() and 
+__vgic_v3_rdistr_rd_mmio_write() for reading/writing rdist_pendbase.
 
-Having said that, I can also understand that specifying everything in one place using iommu_devid_map can be easier
-and reduces the need for device tree parsing.
+- Ayan
 
-Apart from that, what is the reason of exposing only one vSMMU to guest instead of one vSMMU per pSMMU?
-In the latter solution, the whole issue with handling devices with the same stream ID but belonging to different SMMUs
-would be gone. It would also result in a more natural way of the device tree look. Normally a guest would see
-e.g. both SMMUs and exposing only one can be misleading.
-
-> 
+>
 >>
->>>  iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
->>>      • PMASTER_ID is the physical master ID of the device from the physical DT.
->>>      • VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
->>>      • IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
+>>          val = read_atomic(&v->arch.vgic.rdist_pendbase);
+>>          val &= ~GICR_PENDBASER_PTZ;      /* WO, reads as 0 */
 >>
->> Below you give an example for Platform device. How would that fit in the context of PCI passthrough?
-> 
-> In PCI passthrough case, xl will create the "iommu-map" property in vpci host bridge node with phandle to vIOMMU node.
-> vSMMUv3 node will be created in xl.
-> 
+>>          /* If a context switch happens here, then the 'val' below 
+>> may potentially be incorrect. */
 >>
->>>  Example: Let's say the user wants to assign the below physical device in DT to the guest.
->>>  iommu@4f000000 {
->>>                 compatible = "arm,smmu-v3";
->>>                      interrupts = <0x00 0xe4 0xf04>;
->>>                 interrupt-parent = <0x01>;
->>>                 #iommu-cells = <0x01>;
->>>                 interrupt-names = "combined";
->>>                 reg = <0x00 0x4f000000 0x00 0x40000>;
->>>                 phandle = <0xfdeb>;
->>>                 name = "iommu";
->>> };
+>>          *r = vreg_reg64_extract(val, info);
 >>
->> So I guess this node will be written by Xen. How will you the case where there are extra property to added (e.g. dma-coherent)?
-> 
-> In this example this is physical IOMMU node. vIOMMU node wil be created by xl during guest creation.
+>> 2. The same holds true for 'reg' as well in 
+>> __vgic_v3_rdistr_rd_mmio_write()
 >>
->>>  test@10000000 {
->>>      compatible = "viommu-test”;
->>>      iommus = <0xfdeb 0x10>;
->>
->> I am a bit confused. Here you use 0xfdeb for the phandle but below...
-> 
-> Here 0xfdeb is the physical IOMMU node phandle...
->>
->>>      interrupts = <0x00 0xff 0x04>;
->>>      reg = <0x00 0x10000000 0x00 0x1000>;
->>>      name = "viommu-test";
->>> };
->>>  The partial Device tree node will be like this:
->>>  / {
->>>     /* #*cells are here to keep DTC happy */
->>>     #address-cells = <2>;
->>>     #size-cells = <2>;
->>>       passthrough {
->>>         compatible = "simple-bus";
->>>         ranges;
->>>         #address-cells = <2>;
->>>         #size-cells = <2>;
->>>      test@10000000 {
->>>              compatible = "viommu-test";
->>>              reg = <0 0x10000000 0 0x1000>;
->>>              interrupts = <0 80 4  0 81 4  0 82 4>;
->>>              iommus = <0xfdea 0x01>;
->>
->> ... you use 0xfdea. Does this mean 'xl' will rewrite the phandle?
-> 
-> but here user has to set the “iommus” property with magic phanle as explained earlier. 0xfdea is magic phandle.
-> 
-> Regards,
-> Rahul
-
-~Michal
-
+>>              reg = v->arch.vgic.rdist_pendbase;
+>>              blah, blah
+>>              v->arch.vgic.rdist_pendbase = reg;
+>
+> Same here.
+>
+> Cheers,
+>
 
