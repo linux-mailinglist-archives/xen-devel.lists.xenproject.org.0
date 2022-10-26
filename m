@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73E6960E98D
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 21:49:20 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430776.682844 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08B5A60EA40
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 22:28:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430785.682867 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onmOY-0006xy-Bz; Wed, 26 Oct 2022 19:48:58 +0000
+	id 1onmzj-0003cc-EC; Wed, 26 Oct 2022 20:27:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430776.682844; Wed, 26 Oct 2022 19:48:58 +0000
+Received: by outflank-mailman (output) from mailman id 430785.682867; Wed, 26 Oct 2022 20:27:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onmOY-0006wC-8c; Wed, 26 Oct 2022 19:48:58 +0000
-Received: by outflank-mailman (input) for mailman id 430776;
- Wed, 26 Oct 2022 19:48:57 +0000
+	id 1onmzj-0003a3-BA; Wed, 26 Oct 2022 20:27:23 +0000
+Received: by outflank-mailman (input) for mailman id 430785;
+ Wed, 26 Oct 2022 20:27:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1onmOX-0006w4-6Z
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 19:48:57 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onmzh-0003Zt-I6; Wed, 26 Oct 2022 20:27:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1onmOV-000294-L6; Wed, 26 Oct 2022 19:48:55 +0000
-Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1onmOV-0001st-FJ; Wed, 26 Oct 2022 19:48:55 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onmzh-0002td-6o; Wed, 26 Oct 2022 20:27:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1onmzg-0000FV-Os; Wed, 26 Oct 2022 20:27:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1onmzg-00007b-OR; Wed, 26 Oct 2022 20:27:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,194 +42,292 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=EfraIYUHNiit4dxFrnJ/h0saWNF3hEuMzVJIWeO/o5c=; b=5iJhi2tKYvPv0wZx+BOPII813p
-	u3D5dysuyo5T4rC/cm5TtQAqaIdTSbs37pkO170n30kjo6K4Y1Ve08TsLVTEW7jj43cByXoQR+rZg
-	9qlz1AhYV2wF9Xrjby9h8Z/QpkcuSoPZACRRGrImlJ5AQL3gdMVZp34hkQ4zEo18cuV0=;
-Message-ID: <60b9cc07-c0ec-756b-802b-5fc96f253dbf@xen.org>
-Date: Wed, 26 Oct 2022 20:48:52 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.3.3
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Xen developer discussion <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <Michal.Orzel@arm.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Juergen Gross <jgross@suse.com>
-References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
- <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
- <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
- devices
-In-Reply-To: <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FuTDurkkAqFcGHcEApcwt1catn/c5hum/N0ahaDIlps=; b=d9qXH7Co5z6AOVwRu5v7pQzMeE
+	AQcPAy8J5oTR6sgIK9NWSZNNNBvjI6s1GQZy1CtlrlTNF1fC3pBEDjcFeD9Y6GmLxTyZHyfsNS1kW
+	VbryPsoicQXWGDfVgEeAlcO4V9TTPJegjiNf8Nq4cYARPUbG6JM/OIhKrbVaxgRRkmg4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174411-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.13-testing test] 174411: regressions - FAIL
+X-Osstest-Failures:
+    xen-4.13-testing:test-arm64-arm64-xl-credit1:guest-start:fail:regression
+    xen-4.13-testing:test-arm64-arm64-xl-seattle:guest-start:fail:regression
+    xen-4.13-testing:test-arm64-arm64-xl-xsm:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-vhd:debian-di-install:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-arndale:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-credit1:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-credit2:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-multivcpu:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-libvirt:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-libvirt-qcow2:debian-di-install:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl:guest-start:fail:regression
+    xen-4.13-testing:test-armhf-armhf-libvirt-raw:debian-di-install:fail:regression
+    xen-4.13-testing:test-armhf-armhf-xl-cubietruck:guest-start:fail:regression
+    xen-4.13-testing:test-amd64-amd64-dom0pvh-xl-intel:xen-boot:fail:heisenbug
+    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:guest-start:fail:heisenbug
+    xen-4.13-testing:test-arm64-arm64-libvirt-raw:debian-di-install:fail:heisenbug
+    xen-4.13-testing:test-arm64-arm64-xl:guest-start:fail:heisenbug
+    xen-4.13-testing:test-arm64-arm64-xl-credit2:guest-start:fail:heisenbug
+    xen-4.13-testing:test-arm64-arm64-xl-vhd:debian-di-install:fail:heisenbug
+    xen-4.13-testing:test-armhf-armhf-xl-rtds:guest-start:fail:allowable
+    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.13-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=0be63c2615b268001f7cc9b72ce25eed952737dc
+X-Osstest-Versions-That:
+    xen=bde3b13043e31fd757c44bcec182b0ff1fe36d22
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 26 Oct 2022 20:27:20 +0000
+
+flight 174411 xen-4.13-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174411/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-credit1  14 guest-start              fail REGR. vs. 172549
+ test-arm64-arm64-xl-seattle  14 guest-start              fail REGR. vs. 172549
+ test-arm64-arm64-xl-xsm      14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-xl-vhd      12 debian-di-install        fail REGR. vs. 172549
+ test-armhf-armhf-xl-arndale  14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-xl-credit1  14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-xl-credit2  14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-xl-multivcpu 14 guest-start             fail REGR. vs. 172549
+ test-armhf-armhf-libvirt     14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 172549
+ test-armhf-armhf-xl          14 guest-start              fail REGR. vs. 172549
+ test-armhf-armhf-libvirt-raw 12 debian-di-install        fail REGR. vs. 172549
+ test-armhf-armhf-xl-cubietruck 14 guest-start            fail REGR. vs. 172549
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-dom0pvh-xl-intel  8 xen-boot    fail in 173935 pass in 174411
+ test-arm64-arm64-libvirt-xsm 14 guest-start                fail pass in 173735
+ test-arm64-arm64-libvirt-raw 12 debian-di-install          fail pass in 173735
+ test-arm64-arm64-xl          14 guest-start                fail pass in 173935
+ test-arm64-arm64-xl-credit2  14 guest-start                fail pass in 173935
+ test-arm64-arm64-xl-vhd      12 debian-di-install          fail pass in 173935
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds     14 guest-start              fail REGR. vs. 172549
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check fail in 173735 never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check fail in 173735 never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check fail in 173735 never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check fail in 173735 never pass
+ test-arm64-arm64-xl         15 migrate-support-check fail in 173935 never pass
+ test-arm64-arm64-xl     16 saverestore-support-check fail in 173935 never pass
+ test-arm64-arm64-xl-credit2 15 migrate-support-check fail in 173935 never pass
+ test-arm64-arm64-xl-credit2 16 saverestore-support-check fail in 173935 never pass
+ test-arm64-arm64-xl-vhd     14 migrate-support-check fail in 173935 never pass
+ test-arm64-arm64-xl-vhd 15 saverestore-support-check fail in 173935 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 172549
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 172549
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 172549
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 172549
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 172549
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 172549
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 172549
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 172549
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 172549
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+
+version targeted for testing:
+ xen                  0be63c2615b268001f7cc9b72ce25eed952737dc
+baseline version:
+ xen                  bde3b13043e31fd757c44bcec182b0ff1fe36d22
+
+Last test of basis   172549  2022-08-15 14:37:33 Z   72 days
+Failing since        173495  2022-10-11 14:08:01 Z   15 days   15 attempts
+Testing same since   173657  2022-10-13 01:09:08 Z   13 days   12 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Anthony PERARD <anthony.perard@citrix.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+  Tim Deegan <tim@xen.org>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 26/10/2022 15:33, Rahul Singh wrote:
-> Hi Julien,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Rahul,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
->> On 26 Oct 2022, at 2:36 pm, Julien Grall <julien@xen.org> wrote:
->>
->>
->>
->> On 26/10/2022 14:17, Rahul Singh wrote:
->>> Hi All,
->>
->> Hi Rahul,
->>
->>> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
->>> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
->>> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
->>> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
->>> how to add the IOMMU binding for guest OS.
->>> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
->>> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
->>> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
->>> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
->>> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
->>> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
->>> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
->>> configuration is called nesting.
->>> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
->>> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
->>> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
->>> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
->>> XEN will trap the access and configure the hardware accordingly.
->>> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
->>> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
->>> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
->>> IOMMU node phandle.
->> Below, you said that each IOMMUs may have a different ID space. So shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the user to specify the mapping?
-> 
-> Yes you are right we need to create one vIOMMU per pIOMMU for dom0. This also helps in the ACPI case
-> where we don’t need to modify the tables to delete the pIOMMU entries and create one vIOMMU.
-> In this case, no need to replace the phandle as Xen create the vIOMMU with the same pIOMMU
-> phandle and same base address.
-> 
-> For domU guests one vIOMMU per guest will be created.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-IIRC, the SMMUv3 is using a ring like the GICv3 ITS. I think we need to 
-be open here because this may end up to be tricky to security support it 
-(we have N guest ring that can write to M host ring).
 
-> 
->>
->>> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
->>> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
->>> "iommus = < &magic_phandle 0xvMasterID>
->>> 	• magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
->>
->> Does this mean only one IOMMU will be supported in the guest?
-> 
-> Yes.
-> 
->>
->>> 	• vMasterID will be the virtual master ID that the user will provide.
->>> The partial device tree will look like this:
->>> /dts-v1/;
->>>   / {
->>>      /* #*cells are here to keep DTC happy */
->>>      #address-cells = <2>;
->>>      #size-cells = <2>;
->>>        aliases {
->>>          net = &mac0;
->>>      };
->>>        passthrough {
->>>          compatible = "simple-bus";
->>>          ranges;
->>>          #address-cells = <2>;
->>>          #size-cells = <2>;
->>>          mac0: ethernet@10000000 {
->>>              compatible = "calxeda,hb-xgmac";
->>>              reg = <0 0x10000000 0 0x1000>;
->>>              interrupts = <0 80 4  0 81 4  0 82 4>;
->>>             iommus = <0xfdea 0x01>;
->>>          };
->>>      };
->>> };
->>>   In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
->>> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
->>> the same master ID but behind a different IOMMU.
->>
->> In xl.cfg, we already pass the device-tree node path to passthrough. So Xen should already have all the information about the IOMMU and Master-ID. So it doesn't seem necessary for Device-Tree.
->>
->> For ACPI, I would have expected the information to be found in the IOREQ.
->>
->> So can you add more context why this is necessary for everyone?
-> 
-> We have information for IOMMU and Master-ID but we don’t have information for linking vMaster-ID to pMaster-ID.
+Not pushing.
 
-I am confused. Below, you are making the virtual master ID optional. So 
-shouldn't this be mandatory if you really need the mapping with the 
-virtual ID?
-
-> The device tree node will be used to assign the device to the guest and configure the Stage-2 translation. Guest will use the
-> vMaster-ID to configure the vIOMMU during boot. Xen needs information to link vMaster-ID to pMaster-ID to configure
-> the corresponding pIOMMU. As I mention we need vMaster-ID in case a system could have 2 identical Master-ID but
-> each one connected to a different SMMU and assigned to the guest.
-
-I am afraid I still don't understand why this is a requirement. Libxl 
-could have enough knowledge (which will be necessarry for the PCI case) 
-to know the IOMMU and pMasterID associated with a device.
-
-So libxl could allocate the vMasterID, tell Xen the corresponding 
-mapping and update the device-tree.
-
-IOW, it doesn't seem to be necessary to involve the user in the process 
-here.
-
-> 
->>
->>>   iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
->>> 	• PMASTER_ID is the physical master ID of the device from the physical DT.
->>> 	• VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
->>> 	• IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
->>
->> Below you give an example for Platform device. How would that fit in the context of PCI passthrough?
-> 
-> In PCI passthrough case, xl will create the "iommu-map" property in vpci host bridge node with phandle to vIOMMU node.
-> vSMMUv3 node will be created in xl.
-
-This means that libxl will need to know the associated pMasterID to a 
-PCI device. So, I don't understand why you can't do the same for 
-platform devices.
-
-> 
->>
->>>   Example: Let's say the user wants to assign the below physical device in DT to the guest.
->>>   iommu@4f000000 {
->>>                  compatible = "arm,smmu-v3";
->>>               	interrupts = <0x00 0xe4 0xf04>;
->>>                  interrupt-parent = <0x01>;
->>>                  #iommu-cells = <0x01>;
->>>                  interrupt-names = "combined";
->>>                  reg = <0x00 0x4f000000 0x00 0x40000>;
->>>                  phandle = <0xfdeb>;
->>>                  name = "iommu";
->>> };
->>
->> So I guess this node will be written by Xen. How will you the case where there are extra property to added (e.g. dma-coherent)?
-> 
-> In this example this is physical IOMMU node. vIOMMU node wil be created by xl during guest creation.
-
-Ok. I think it would be better to use very different phandle in your 
-example so it doesn't look like a mistake.
-
-Cheers,
-
--- 
-Julien Grall
+(No revision log; it would be 450 lines long.)
 
