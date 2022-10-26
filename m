@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D80360DDD6
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 11:15:04 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430398.682041 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47CD460DE38
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 11:37:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430404.682057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oncUt-0003t0-17; Wed, 26 Oct 2022 09:14:51 +0000
+	id 1oncpu-0006hB-Sa; Wed, 26 Oct 2022 09:36:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430398.682041; Wed, 26 Oct 2022 09:14:51 +0000
+Received: by outflank-mailman (output) from mailman id 430404.682057; Wed, 26 Oct 2022 09:36:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oncUs-0003op-UU; Wed, 26 Oct 2022 09:14:50 +0000
-Received: by outflank-mailman (input) for mailman id 430398;
- Wed, 26 Oct 2022 09:14:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oncpu-0006eF-Pq; Wed, 26 Oct 2022 09:36:34 +0000
+Received: by outflank-mailman (input) for mailman id 430404;
+ Wed, 26 Oct 2022 09:36:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5DW6=23=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oncUq-0003io-KL
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 09:14:48 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2049.outbound.protection.outlook.com [40.107.105.49])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a325c9f5-550e-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 11:14:47 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8213.eurprd04.prod.outlook.com (2603:10a6:20b:3f3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Wed, 26 Oct
- 2022 09:14:46 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Wed, 26 Oct 2022
- 09:14:46 +0000
+ (envelope-from <julien@xen.org>) id 1oncpt-0006e9-MC
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 09:36:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oncpt-0007zF-BE; Wed, 26 Oct 2022 09:36:33 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oncpt-0002HS-3z; Wed, 26 Oct 2022 09:36:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,120 +39,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a325c9f5-550e-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OW8YAwGtfwd3WIQ5aT12fOMp6XBNjZ91R9pdMfC78xBA+KI0DNOejmwrD1ZjYLtVrzwgDDhZNKZK2CIUqkjNhuTkGTbcbRFsG+DFvdvos9QsrkOKnaIWqkz2G60AzP2aLy0OGi8qQQ1TDp2w/nR14L5xHAJXQpyHoyg3bbUVMfP7gZpnBo2BKZv4WK9cp+oK/bCCKR5pSDOsmCUca6bEKQbNOvISLfPLUP9MMRZegr7p79lcOY9P8kp69Tn0UfD6l1Si0GPJuy/YC/VkCnXKukAU/Uz910uAJpyDG6gHMhFtJaMuR7P7HP7HvXdOPv6SnpVl3e/ZiUh18yHpRIWPGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rV3pfXIMOwXzVwIuuQtpwMooCubqdzZP7iiKKnuQcgw=;
- b=g/mdzZ39+ohppFtFUSF3V5tTTTJIPpdRgdE/NrNyQaKnr98wtOWEsh2UOfe68DL5GtAhFWzrUCpX70QvUXAMidtphpIFj33e017EzIK23Wo4kpnN8Hxrugnkkuurkhks5GMs0h6wQI06NmGVCgO9ur7YD8OOwCWjPqLOCe5HXblYeDDXjWHU62g3EoWaS5doI4E45THWcHCFPfsSH/egv/fPpRr88++NUHMrUIagdG3Iah/dInkOO7uatwJS50i+8H6/sPa9MUpbf2FglUSq15TqZq2P11ot7qcP/c3qEFoXLH2dP13GC7bkE4L3GZRR91fRtiG/GlQKUnxnrkWuMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rV3pfXIMOwXzVwIuuQtpwMooCubqdzZP7iiKKnuQcgw=;
- b=48KqmgXYXdfPNMzuYqU/BacBfMYWx03ZYYHM2P+HgaDAKRJCV3R7SZzonKjLhzLO1MDeXFOWLvEvfGNuqV6or7VUE+94mVO0n3StVtf7Irh6DjAd1mJ+rtZkIESkThJ6pIeIJY54oU9N0+crXq8+9u4ftEEl4q8PqxY665Y1Ui9NhdVIfU17GDRjZa8EHm2QZKV/twHi/HTu2XzNBhrRXE22itS8v6moxGVu9zsoLR4UljX+zh8W+6GHjoMzNt5nQjjyDUDdHdHDPzkOIj2ukVAJh5CGJCQnjPrKhRe7+D2LuxHrdBFqKQ78QFtvA1j5R6U7Jkc7/O55EPlU0/DJ0g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <11096910-5574-657b-6d91-fb4ce4c39ed7@suse.com>
-Date: Wed, 26 Oct 2022 11:14:44 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH for-4.14-to-4.16 0/2] Backports for XSA-409 fixes
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
-References: <20221025092112.50168-1-Henry.Wang@arm.com>
- <9bec8877-25d2-8d50-6f03-523b806642b2@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <9bec8877-25d2-8d50-6f03-523b806642b2@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0107.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=2F+Ob1oXMIaVeKSAXliqSCKxg7aY9dtmBzqWXxHPJ9Y=; b=Krda/ohbX5E+Hts9MeVJngTm/1
+	PJBV5gx0R5dxv8abJGF0pqz9qhxqPiUmeRvXvfkFq+Oy7rNbN66r63EVkG5lyHq5Z01ra2JJnCyto
+	vwAyY4zoZM94X4Ttp96LJOKhJ1Kcg0BTHqDBw3aZY4IEtync06RAOl1NLXMi/H/VNMuY=;
+Message-ID: <4ec8b702-aebf-2ce4-78e9-2f72d1b53cc3@xen.org>
+Date: Wed, 26 Oct 2022 10:36:30 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 59f5b5c2-ccbd-464f-e41f-08dab732867e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5Ksq9kcEvSo8Y/fDoycFyzcd78LDrDOYy1dRuU3/nOr4uN5gb72gMAkbZUQbfJEXa5lSKEDUuiBaBlXbmv+SHTifqmPZi9dIw5xAoC1OaLlavSJ6uBVqmlU85qap3eaweI3fj/M8xYfG1GTSAxbUDhF0057Qh7loFnNY6WzLy7katotoSo6fUpfzyHApwEFAp1sefJIy0YxqzumCCJ+pqUY1QG8iqggfxbBOm27LVEugtKk992roh54Q1gdpOpxsgRvr01DwCFuBnddhuv4S97HS9xR1msX7FoFwYuBVeIsRRbueyDZ+9RuEODC2zOXW5IZ6xQevAxj8+sT5En4Mo6+We7hD9Alqx/dfA0IgpBvWyl0TizHZh4yfEcK5vckGpEZIha78EZm4QaieSc5TeIbT1LFqApdephz3ZMuicRgQEkeFE82eUXgm6n9CXvXQs6TvouKcy2vuxogHcaH3UwYgXDz/szlRw+HReM2tiD9gzY8Sokmka2hGrnsr88FaFKHgcC8CxqRfHW/8Ds9bXNYITaiWOJwwcFiGUK4RdfoCcnHafdJGDRljvVD0o3h6Vd8fdDMNsvPDnoavCDTi5DjmRGHBfGaYBB+IIbsFye9IaFB+AM7RieOKOPVEWQIVuZpFbbYQvu1fjIIQQp9JZUXAzV88WTEjltaiWKgVt7naAHHAQqvI2ZaFZlNQz+vw+RR+o179YLOnvkgSBmIZWRfHPa6c6To1Zp3oqprbfAETZ+ly6ayqowhnWvef2N4+7i9IudHl2Vovj3IiT+SHZwOe+29hgDMRnh9KTeBIlGw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(376002)(346002)(396003)(136003)(39860400002)(451199015)(83380400001)(31696002)(4744005)(86362001)(38100700002)(66556008)(66946007)(8936002)(5660300002)(66476007)(2906002)(4326008)(53546011)(6916009)(41300700001)(6506007)(186003)(26005)(2616005)(6512007)(54906003)(8676002)(478600001)(316002)(31686004)(36756003)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dHIzSFZMSHI1VUhkamVDRE1wZStGYy9PTk1sZTc2Q1BnZDl6bXpGdlhxVVlE?=
- =?utf-8?B?WnZTSGJtdnNIQWEzdjRGc0h1Z3ZOUU1iWDFPWlZvVDB5bjRVZkpIM3pyTXM1?=
- =?utf-8?B?Qk05aGZHV1NzVk5vZ0hueUowNG1ZRTdkNWdnbEtnaHRlMy9HUFFTN1JuUnlW?=
- =?utf-8?B?V3VPZ3E5T1RRRStBSFJZaUNDaCtNc3VLRXRwKzlLdVpqd3RrdTlpQzBTNmJ4?=
- =?utf-8?B?Um9LbTZTMDNoUlZ6S0w1L0hDRDJucDBDRXZDY1l5WnBldjhaZ1dOSGxhdnZN?=
- =?utf-8?B?Tml6elc1U3ZHSnh6TU9sMzBoRnVjcjQ4Uit4UzF2L1ZFOWNQaHVONlB0NStz?=
- =?utf-8?B?ZzR0N1NPaXFLQ1ZJOFdEekovN0dFWk9nQ3BkME9pYTlRZWhzN0lYWEdFcHIv?=
- =?utf-8?B?OWhoSThlNjRINTlKNlRGK3BZVVJVMFFaOTVCTmtZbDd6N2pwVVJOUDI4aGxH?=
- =?utf-8?B?VXNiMm5TYXMrdTk3ejFlMWgvSlVFc25hVFJoeFpWWUNrMmFXVkxPdXZKR2pM?=
- =?utf-8?B?NC9DOHQ2S2Y4bktqUkFUNTVSUVdSRUVyMC9qQTZHZjJWbXVWTjR5dnJEZUwr?=
- =?utf-8?B?REtOL0gwWGlUL3FyS2RRZ2gxT2s3TXFIUzlqU01QTktTaGtCeTVRdGpTU1lT?=
- =?utf-8?B?eVR1YUdtR0NsUlRlNmEvQkVuNGdxMlBoaFpWVVN2dVhvZXNLb3VhSWkyemNN?=
- =?utf-8?B?S1JNVTIyYTZXWkxsbXA4RnZxQktlcmZXSmVLWFJsYUk3cmJ0blVkOGVuQzhv?=
- =?utf-8?B?d0NpaW1MY3JDQUlHT2cyUTg4eWU0L2dmdlI3QVN5VDdmV1lWcmVwWTNCcUtC?=
- =?utf-8?B?RUlLSCtWYWpsb2w5WVUvcnJnOEZNNjlYZ1BhRm5XQS9mOWorbnRwdlhoVkZk?=
- =?utf-8?B?bW9kS3IzSVNnTG9taXBVK2wrTVh5NVNnS2tuYWRjR2QrZkpZVXpSMlBNNTVC?=
- =?utf-8?B?ZEZBdlVvRURGVXByeElqOGU3TllyWXZCdHl0T0VjeU8zaW9ISXg1YW50NTdB?=
- =?utf-8?B?RjZHOWZSWU1YR3Bzbk44RXA1Z3BWSUJ0VUtkUFRGakxJRVFCTHVLSWxNQTlv?=
- =?utf-8?B?NlVBbDZNaTJneU1TcW9ybFA5My9BZU5zSTFrOGY0cFp0aVhUbUJvbkxyU0ZY?=
- =?utf-8?B?blJ3KzUxaHcvTytoRWc0WTMxeWJyWjQxZjU5MnhSbE5iVDM0MWRMWk1YTThl?=
- =?utf-8?B?L25MTkE0NGdBam9IZ2pGUk96NWpicFUxTy84VFk1MmVYcm1LTjVRRFhxejkz?=
- =?utf-8?B?RGdJWTlQZjlGSVdPR2greURVSEFMcHY3ZzFyUzVNSXhBVWx1eDduc05qTEJx?=
- =?utf-8?B?K0o5akFtU1NMN1ZmYkV3bjZ0SWxvVlU5NExvZmJ6YnRHZXhpY3lzSllFd0pX?=
- =?utf-8?B?WGdUZHlLbDgrMlRQUmZLNjJyQXhtTFUveW9yN050WTZUQ2tYMHZSRSsvbnNP?=
- =?utf-8?B?cVo5cFFUVDJ4T2pWcGhCYm1lMGhCTWZ2Rmp0WDZ3c1k0TjNhbHY0SDRJZ0RR?=
- =?utf-8?B?ZlZINVozbm90RjBTRVp0RGQxK3ZMSzZFSHhrSzM0TXA3K3pxZzFCd3ZXeDU5?=
- =?utf-8?B?ZmY1SzYya1NIT2phR3dmRnBIVWprbVFhbmlmZ1FnVlREbURZakRWV0RSTE1v?=
- =?utf-8?B?REVrSU03L0tZVU9ScnZFd1h4d0prekhIVXdERHUrOVFVMHordklLN2Fua0li?=
- =?utf-8?B?K21CZkVNSWgwMTRkL2Q2OVEzcDBVaFVITW9Dd2ExYTBIUjNQUUhjR0d6bTdR?=
- =?utf-8?B?ZWJjWU1VU1VqcE5DVTJwNFRlS0N4NG1ETVN1TG1idkErVDNBaXh3V0hDZzky?=
- =?utf-8?B?enorNStjbXBCUkgyNDZTTVNlQ2RzdjJMN1g3Z05CSTdzaDRUVFFpMlk0c1NU?=
- =?utf-8?B?Z2ZLNUl6OWIyOWJqeVBnRGVJYytDeWJUNjhJblFLUklhMVlVcVRIRnhqU1hI?=
- =?utf-8?B?aldwOFNNVGoyZ2ZqMGRNOE5XcmtlZmU0cy90R3Y3c3hNZHBVSHA2dEtiU0wz?=
- =?utf-8?B?WW1ZbDExY2FBZ2xVUThpblhpeTdrOXFQSVBRa0o0ZjNMa0tDNkVGNWdkU3p5?=
- =?utf-8?B?UkpqdUVyOGhnUG9mQXIyUGFtc2lqSnBsODd2cXp4Y2RvaTJGK0tPcG1oWU1o?=
- =?utf-8?Q?47d6tQ+9wCoVs8kJePe5LLrNU?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 59f5b5c2-ccbd-464f-e41f-08dab732867e
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 09:14:46.0307
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IXNjmj6LWpVQfDD2MRzjW5rq6eygYYp3Rd+36Nfb/rbdz3BvhGqTGkm+y20VdltJOnCQ0SNflOjb+YSKvwXFuw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8213
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: [v2] Proposal for deviations in static analyser findings
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>
+Cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
+ <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
+References: <83A7652A-3F00-4490-837F-81498808FCC7@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <83A7652A-3F00-4490-837F-81498808FCC7@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 25.10.2022 22:06, Julien Grall wrote:
-> On 25/10/2022 10:21, Henry Wang wrote:
->> This series is a backported series for XSA-409 fixes from master for
->> 4.14 to 4.16, which cherry-picking commits:
->> 3783e583319f arm/p2m: Rework p2m_init()
->> c7cff1188802 xen/arm: p2m: Populate pages for GICv2 mapping in p2m_init()
+
+
+On 25/10/2022 11:13, Luca Fancellu wrote:
+> Hi all,
+
+Hi Luca,
+
+Some comments below if we plan to merge the doc in the tree.
+
+> This is the V2 of the proposal for deviations tagging in the Xen codebase, this includes
+> all the feedbacks from the FuSa session held at the Xen Summit 2022 and all the
+> feedbacks received in the previous proposal sent on the mailing list.
 > 
-> I have merged the 2 patches in Xen 4.16, 4.15 and 4.14. I noticed that 
-> the "released-acked-by" tags were removed.
+> Here a link to the previous thread:
+> https://lists.xenproject.org/archives/html/xen-devel/2022-10/msg00541.html >
+> Documenting violations
+> ======================
 > 
-> We usually keep the commit message as-is (including tags). But I vaguely 
-> remember that we may have stripped the "released-acked-by" tag in the 
-> past. So I left it alone.
+> Static analysers are used on the Xen codebase for both static analysis and MISRA
+> compliance.
+> There might be the need to suppress some findings instead of fixing them and
+> many tools permit the usage of in-code comments that suppress findings so that
+> they are not shown in the final report.
+> 
+> Xen will include a tool capable of translating a specific comment used in its
+> codebase to the right proprietary in-code comment understandable by the selected
+> analyser that suppress its finding.
+> 
+> In the Xen codebase, these tags will be used to document and suppress findings:
+> 
+> - SAF-X-safe: This tag means that the next line of code contains a finding, but
+>   the non compliance to the checker is analysed and demonstrated to be safe.
+> - SAF-X-false-positive-<tool>: This tag means that the next line of code contains a
+>   finding, but the finding is a bug of the tool.
+> 
+> SAF stands for Static Analyser Finding, the X is a placeholder for a positive
+> number, the number after SAF- shall be incremental and unique, base ten
+> notation and without leading zeros.
+> 
+> Entries in the database should never be removed, even if they are not used
+> anymore in the code (if a patch is removing or modifying the faulty line).
+> This is to make sure that numbers are not reused which could lead to conflicts
+> with old branches or misleading justifications.
+> 
+> An entry can be reused in multiple places in the code to suppress a finding if
+> and only if the justification holds for the same non-compliance to the coding
+> standard.
+> 
+> An orphan entry, that is an entry who was justifying a finding in the code, but later
+> that code was removed and there is no other use of that entry in the code, can be
+> reused as long as the justification for the finding holds. This is done to avoid the
+> allocation of a new entry with exactly the same justification, that would lead to waste
+> of space and maintenance issues of the database.
+> 
+> The files where to store all the justifications are in xen/docs/misra/ and are
+> named as safe.json and false-positive-<tool>.json, they have JSON format, entries
+> of these files have independent ID numbering.
+> 
+> Here is an example to add a new justification in safe.json::
+> 
+> |{
+> |    "version": "1.0",
+> |    "content": [
+> |        {
+> |            "id":"SAF-0-safe",
+> |            "analyser": {
+> |                "cppcheck": "misra-c2012-20.7",
+> |                "coverity": "misra_c_2012_rule_20_7_violation",
+> |                "eclair": "MC3R1.R20.7"
+> |            },
+> |            "name": “R20.7 C macro parameters not used as expression",
+> |            "text": "The macro parameters used in this […]"
+> |        },
+> |        {
+> |            "id":”SAF-1-safe",
+> |            "analyser": {
+> |                "cppcheck": "unreadVariable",
+> |                "coverity": "UNUSED_VALUE"
+> |            },
+> |            "name": “Variable set but not used",
+> |            "text": “It is safe because […]"
+> |        },
+> |        {
+> |            "id":”SAF-2-safe",
+> |            "analyser": {},
+> |            "name": "Sentinel",
+> |            "text": ""
+> |        }
+> |    ]
+> |}
+> 
+> Here is an example to add a new justification in false-positive-cppcheck.json::
+> 
+> |{
+> |    "version": "1.0",
+> |    "content": [
+> |        {
+> |            "id":"SAF-0-false-positive-cppcheck",
+> |            "analyser": {
+> |                "cppcheck": "misra-c2012-20.7"
+> |            },
+> |            “tool-version”: “2.7",
+> |            "name": “R20.7 second operand of member-access operator",
+> |            "text": "The second operand of a member access operator shall be a name of a member of the type pointed to, so in this particular case it is wrong to use parentheses on the macro parameter."
+> |        },
+> |        {
+> |            "id":”SAF-1-false-positive-cppcheck",
+> |            "analyser": {},
+> |            “tool-version”: “",
+> |            "name": "Sentinel",
+> |            "text": ""
+> |        }
+> |    ]
+> |}
+> 
+> To document a finding, just add another block {[...]} before the sentinel block,
+> using the id contained in the sentinel block and increment by one the number
+> contained in the id of the sentinel block.
+> 
+> Here a brief explanation of the field inside an object of the "content" array:
 
-Indeed I'm trying to remember to strip those when doing backports, as they
-aren't meaningful (but potentially confusing) on the stable branches.
+You don't seem to have a longer explanation afterwards. So I would drop 
+"brief".
 
-Jan
+> - id: it is a unique string that is used to refer to the finding, many finding
+>   can be tagged with the same id, if the justification holds for any applied
+>   case.
+>   It tells the tool to substitute a Xen in-code comment having this structure:
+>   /* SAF-0-safe [...] \*/
+> - analyser: it is an object containing pair of key-value strings, the key is
+>   the analyser, so it can be cppcheck, coverity or eclair. The value is the
+>   proprietary id corresponding on the finding, for example when coverity is
+>   used as analyser, the tool will translate the Xen in-code coment in this way:
+>   /* SAF-0-safe [...] \*/ -> /* coverity[coverity-id] \*/
+>   if the object doesn't have a key-value, then the corresponding in-code
+>   comment won't be translated.
+> - name: a simple name for the finding
+> - text: a proper justification to turn off the finding.
+> 
+> 
+> 
+> Here an example of the usage of the in-code comment tags to suppress a finding for the Rule 8.6:
+> 
+> Eclair reports it here:
+> https://eclairit.com:3787/fs/var/lib/jenkins/jobs/XEN/configurations/axis-Target/ARM64/axis-agent/public/builds/549/archive/ECLAIR/out/PROJECT.ecd;/sources/xen/include/xen/kernel.h.html#R50743_1
+
+How stable is this link?
+
+The rest of the document LGTM.
+
+Cheers,
+
+-- 
+Julien Grall
 
