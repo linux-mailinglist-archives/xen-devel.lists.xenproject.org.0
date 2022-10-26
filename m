@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A6F460E5FE
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:01:11 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430699.682655 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D7860E5FD
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:01:06 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430700.682666 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onjll-0005xp-VP; Wed, 26 Oct 2022 17:00:45 +0000
+	id 1onjlp-0006Cp-B1; Wed, 26 Oct 2022 17:00:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430699.682655; Wed, 26 Oct 2022 17:00:45 +0000
+Received: by outflank-mailman (output) from mailman id 430700.682666; Wed, 26 Oct 2022 17:00:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onjll-0005ue-S6; Wed, 26 Oct 2022 17:00:45 +0000
-Received: by outflank-mailman (input) for mailman id 430699;
- Wed, 26 Oct 2022 17:00:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1onjlp-0006AY-7V; Wed, 26 Oct 2022 17:00:49 +0000
+Received: by outflank-mailman (input) for mailman id 430700;
+ Wed, 26 Oct 2022 17:00:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/gdy=23=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1onjlj-0005uW-IM
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:00:44 +0000
-Received: from sonic316-54.consmr.mail.gq1.yahoo.com
- (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b815b5c7-554f-11ed-8fd0-01056ac49cbb;
- Wed, 26 Oct 2022 19:00:41 +0200 (CEST)
+ id 1onjln-0006A5-QI
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:00:47 +0000
+Received: from sonic308-55.consmr.mail.gq1.yahoo.com
+ (sonic308-55.consmr.mail.gq1.yahoo.com [98.137.68.31])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ba1a1f97-554f-11ed-91b5-6bf2151ebd3b;
+ Wed, 26 Oct 2022 19:00:45 +0200 (CEST)
 Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic316.consmr.mail.gq1.yahoo.com with HTTP; Wed, 26 Oct 2022 17:00:38 +0000
+ sonic308.consmr.mail.gq1.yahoo.com with HTTP; Wed, 26 Oct 2022 17:00:42 +0000
 Received: by hermes--production-ne1-c47ffd5f5-8c2cz (Yahoo Inc. Hermes SMTP
  Server) with ESMTPA ID 93f63f5da119448f595de422776c389f; 
- Wed, 26 Oct 2022 17:00:37 +0000 (UTC)
+ Wed, 26 Oct 2022 17:00:38 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,98 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b815b5c7-554f-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1666803638; bh=zb9TRqADCGUlSjnc/6p3hLWAmFwYge6kxBzZzfgm3nI=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=hOmfJzpS1Le1suDPpUVex+MuO1fsi3K4G2dIqxNauqBTCyCe+slpTkbwhYPIpxxz/s7+EnP5PkA1v5Ktrby4d96G6iSMpVCnim1f8aUX632UneXfmDOL2ZamQVsiAaukpZveBKRgZKLKs7h42qKjLSOupHCfW6a5vxsfyx+YUlipAuxOrnXfEo7yqHhLpIIF1BXkNhpuOiYAi3LObaKMgMsU4mqV7l0k0q9nNXckx0iMTK5YFL0xNW61M3Jp1yVVkYXJYhF2vEhdGQ4gwSAXnHUnyVXlzmy45pit6TPk1gyd1gAqs+WdiRRY+1NWOeafKMWktKZxpn17l5fIyVxcwA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1666803638; bh=psU36/V8qwUhsHYEEgkkx68ScTcq5dMEEdFw3pYAggB=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=N4RA2j/WZca9NqhQL1SImL11htm3lq7l8UbsawDFDIm9d/PrgCxlGiasM/uWYKAOhVzyUlapJcpoabA2SPS/qPAvphdbRdqGPmcFBiZzq+Adxj/SclxGlWFSP1wFc2LQox4TZOagNNkqE524gTXNM7608r7mW9B+KrqcD3U8n9syklTUJF+Z+gz3L6Igz7EytSmyMzCW+QtUY/Fza1LhD2VkdomN406dB9uMSCGyTTVepJCYRolTT2sGmvCNeqd3jQCBFJnHgjlYhNWrs7jMbzQ7NES46mbJAY4L0ESTrMZnVFVsxJzc38ZTdIpeW8DED//mwmcuj41huuy8umde5w==
-X-YMail-OSG: qqhJPAsVM1mKMCiM7fMFEtjmc3LTDFTcfwj6g3rvZezEOc_eN9s4GXzQWDU69.i
- puz0BUcOzNc3LGe_ha7HMTAIySNhZJquPdsvn3_ajRphWFNg46mdHFKHG2xF8vhOWF.ABsEliHL2
- _IQvK_Q7Y2AH_b1gE4eDHVAHsCVxdSXt8mSE05ZOb7QgvXOfkFuoufQWRw5HcDzO5HSPZzou4mOu
- kr9qDKm6DVxirIhg82vCymm98m1jgIbfkJEliFhXNA2jjO1Zz3EVuhbYllbgQENUn0xwSyT.o1FQ
- LZI0jLLbwT8BrsV0EGw905PHpluSblQDA.C0jRK.wF2tcT0YlMz.bi1YdXEQLFtaMwPJO.QGsdfd
- Pb0iEypNlnCHwqKRLyHVOnF8F.FnBAQea0OBbN9Y0YgpfeGDV8_SCH3JlpMBgxGctmUvQxPh864d
- mfy9KS7W0cHpW1ZiapW_7b0DU0Wdg8TiOhBlLdooGi1wm6jjTtjgSc_eGXCgDv7GfWlixx0VZ.wa
- 3F8hyceYHn.nR1rvyvUVqGcbxl5j8u7kUnBrA_Usow_DB.42Rw9uReJypTC2.Jem8Q8hLqyb194Q
- iqeIfyKprBKG.9jxR03_7VHMLN4ZJQF0Nh8kCHDJUBRdH1ftDJWynGz0RD5lr8QYnbRzBuyqH48S
- PatwGvq4hfYwhTkbKVA6PIvnqQ4e1RS11Le_HM6LMozCeY.mgL2OY_eSuKHHVRoQ8g33bStqaxEX
- 59pXiSxlx6T_szlpUhwJqnyY8UyddoB0j9VwWWXZsDytIbfvIyIAf5PJI7VfvvNSAEhwAM9_PvQ8
- 3zzxe8TBJPld_W1ZSLcvKmeC9NnUTKLWEPrL_o_tPUOyg7MobuqLD8sxS9O4Ev8DzVLcOurraugz
- CbrxRcyNJTDYZOTAZ0Q5e.6XqGsqxWSkBsiPp68ssZY6GlbLDN2Ovw4KVWXegtPvwz4TpOZuYQ.r
- LyE6bSiOINbdsrrqwnQHI14xocgYykOb0qoMHnCWOealCXA3LHDFS5XMCDUj9nbtNyP6UJ2axY1n
- kw4BpQBDbXAmSd2U_6xgF14p5SXcJ.z8xy9M.F4FtcmMEX4p57XJ_C9T8phzXbKwP5zTvconEDw3
- DXJGm8aoAm0Gt7utMJfFBxh3S.92T9xcKTZf3OITEJQmNk652ySCbx6J6lOwyTVB3b5d.37xuqQ7
- NXUfeB9RKBraekXu6XV0ZXbjghe6sksHJ8JYBrpV0sdyiMAA48wJglX9UGaywNKLqQ1JZyv9mqp7
- DKLDqKR7dw9T2Sn8q9_sY599iyKoF9fYPqMOpc854MKeQHOxlyoqMbFZA850zc0dhGyWUuVyrpXl
- Q81yD5t0AoQP5D8OSt48RcmS5Fqjl1bO5QNMYA6Fo5xcCGiS.l1gIbnitEm6AeXvqSfvO.Hiv8bQ
- .0OwzP.D.FGYM.6FMm_HhvAXebLyo7OfC..T9uMW2vlv9h3vBhbBKd4X1JvgMdgQ99wMy1F8XP5w
- a6HVYnNFbofBpOdk20gR..RQePtAoybFZ_vpIiqRdJZytHPKtFNAHvbgKKdqBZYS_StFZuEIZb0o
- 5eT9w8MCxQQdfPvwbdrDpWbgT0tE46oPGTAO8XrhJkSNXjt7go8.q1_DkgTqLOm9NkJFom_ZDuBB
- uNSLXjAtv3ktbITNv_asf2ktRzV.agd42A261aZHcVULi0NtVTxgOauxeatHBuIh_TKvS_nvYW2k
- 9Yh.PbqgN_YTJLTw3NVGNIJ6C1aGbasxa9rtmvHphb4pKdi0jjR3WnqOusvQePAuvXpVREk1DGxW
- JVnt2uMFxehnyi.VIGfne12tWCSlJuogTyFccwCARH1pd70NLE6hoAefeUQBN77pl5thGdR10y9Y
- saNwpcoOoyqo3UtuZ_iMxSY5iDSMTaaxNTFLw05URUZxrsI2W2s5RG6m4zmY9mZsGrqCjVj9dXDe
- G7Skc.2BJNBuCTArlWuSA5Aycctc.g2k2V0N2xMWQgTCVYhjZTT8URdMzOxZka6XK0lnjEqRNO3U
- pi_NR4hp6iWnsGU343Kvv9o2NHva5slIB2eQnKNNjCELhGJRDo9JaE2yvuOf2tyVWfncnf7HB9jJ
- WiyEgloEG87y_rhL.t58AS0QlV_dr_6djXtVx3ihvkApHbGcMbFAmqKhXSpfcG87iIGyVDv.AD82
- Vx7NNTwYvyVqlaWzj7Vz60urTSu0nMKdr65_Xj_Lg6FFKX3qP2G3BMmYbSlK3Qp6W1fZquxoLA41
- F9Q--
+X-Inumbo-ID: ba1a1f97-554f-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1666803642; bh=eU7PpBLLODdhmYNTWitUDr6syhPI4x30puQr0AkwZn0=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=JNWP5RxiSEimCPsFJEl5ySrpR8ZaHnJfgcTFBWhbHjxa+DX+yv6qC507mCEFdXj4/5qw9+e+sJD3nJgbF3jvpqbggjXIU6S0u9IzPaTBCIaufbrPLAWwxF6E/MpNiwtbZDFJ9H/N4+hd+V3eRGrbKyLh45olIAZu0D1lFyhzP1zlMoAvrx4m0Wg/f4sXw0yShsnFHWki+lppr6yAe+6P2yqp+/SFiRihd9lYQubx6sEB3q5uJhSk1Vd6rLpHo35abuciG1TlYlhg1e25xb22wMH5HSa1VbUdd9dHc7rpNCLs0UZb4+70twf1G8C3ZPxmvXF5C+crj7/Qj1tnZ0pkQg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1666803642; bh=FXj5u+59eDkG4z/KjVnwtjqV21VAHHrc8/npF8OKk4t=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=HUpTDXsO1/GSukqr3jTqsIL846hT4f4YfXtyBNVwLcjf/31l7VEHy+PZv+ScLGacBqJi5sHrRBCxxR2tDLGVPg3YpTco5SrKJsi1Jww8A+H2nOR/nbF9VSC4hn9ai1yjDxwnAMrqzwUw6ldJAAyx27sfjo5b70LX5aYbkN0e6VcciaoSmwTBc4WVTN0jDRBjelR1++ytOnoOb4EXgTkKuIP/uM2fQ6jgsKl+LKoU7+GDbQf0AaTTKFvVPerg2+ji7bwNIidcXrxUuAZdKtjINqJSkg1XzQdP9KMNeLSvwdzJW3d3Da/HnY+Q8qEj+/KQsmeaDZwrBDyjiPIZ+d7NOQ==
+X-YMail-OSG: bzItIX4VM1mi9pZWtTQTBkPiuqurRbhqdnekxPNUMqpuXt._1ZwXAh.j5pzGcHG
+ tuG4gfVPZkxPTHgP3RoPQ56NHOFwnm0wZcEJEgRA.qwntNEjJHFacsUahBMO.mGHXWpgF.BBIr6D
+ f1Hq5w0_c3JrwIyhbYqeIYxaTdWgjKkFRXG4pr8ySj1d8VFyVZ6ZwGx43bTPd_iWFvr6Ef73e2Nn
+ S1pHC_wTyYwGCv3FtMRKsm_nIEG3BhWa541rC0ipTVanydFS2j0D7jzpEYQwTbOoosq1zuSMXCat
+ IoUEc5LXejeEQyp5ETHbNina2ycd1OuOnwuK7fQI9JUiH4aYSMnwOdTkUO0P.vHAfZuuMmUAHRyZ
+ XyDToY0TRNjaNWEz7QS_2qHQhwp8iNYsbp9AqX9qorX.hWtvnImJkKJ6gr7BTZYS4lAqO9TKb7VK
+ rL59ezfk8OMxt3DMqKnXPOxmIJSg1EetWMAtsCf8Y3Wu0Zt_VG0SZ23BsHkddTd9jq1x8WItyvf9
+ dm2.7QRoqYFx0XuubQ5QAzR6AGB4mJdr.vEyT3O3ZztkRjVUcwWdHF5SRfYAVGzyuhUI4QvjAWvS
+ xcjeksl3OT9Ql.V41tax_qOWohQuNDUC1uWUUd.5gZJN3ybh5LW8Y6A9n7A.n86EYnwr8s7l9QL5
+ BjUAKECJlRNcLfj0L8TuzPCDLfH_urW5Itkam2jkdSmmPzH7.fALmmQNcomTqOMkBQb_4B1bWzN3
+ 1qKPykeQqosAEgSq4y_cmq0_Jik0c3S.Mios_Quoa7zknicejDjNyLoYAn39hAlsQcVQrfedk1YT
+ yi0_yBCiIwYEKSt_VvWSOndEi_rB0E.vu7231jUvpdYDUnPSJd5Gz.F8UfZjDhucGKa_uCao.kZ3
+ x_8uNdvGF052axxVf8oIhpKrwjtyM38eToCsoDTWBtm15ptWb.KnZuP7aOobSw7ZMJREdI4FbHeT
+ PXgAIyiw.RLmZRREF1CioTG5H.d_XRILScBzWf3VQW1OaYPtkiwZn7HVmbzKWrcKybhQJQK6xGA4
+ twqWo_voi3Fq10vq2wpMEZMFcJ1iQPU5OlARuSMyWQIhcv4uz1F.mLSqwp7Up4HmQPeNCFJu3Qdo
+ pDj9.Y4i3qEazsEp8pyEmPiMFzxELtH9xxZ6I7OBoOfE4CMY4q6leUsy3diQUu7IJDUhuJeXxdrw
+ vFhe7m1v5LQMHwPiDeXup.MRTxKmw9I7iud7ID5k_gyNdnUUaDQds0V6W7auum_16N45B8VpaBvD
+ f1HGpTFV.XMJecrVXmtK2y2reVe5ImeHcZPkKRIw8.iw46ks21jRrBHOGZATpOW6l6B0Mw_fcy5u
+ MIJ.kOWzbONVc3FhvB6DiyKnv05.dcCCXt7lrFUL89EDsrRZ3xVTfzGMZVSGLXFTWKMdyLtt2DPk
+ e1t5o7CVWMOxjrqHjfde0WnzAWAn2ecG0QaaN1CnMzxFJKGZNj6j_qAIaOA9O6E_FbiuuqlANMrv
+ JUZP2DnB6t3V1yPOLU1vrNpw7RRLSYMVN3EMK.e_5Ndcq3DO2ZNSFphilpmCNRbgShaNdesw5rke
+ hac9lp529iMSLPxFWZwIGPtmUMR9M3XDHrQg_NlGGKkvgHhQ7dNSea7CzlhUBXVeqbnzbZA6C20I
+ zNVLwTObc8XneKPMn95fiCXIlIKouUE1oDSbP.n3Y47k3tzGGWMMbA1ziW26r8zH8Bn2M_gx0TMW
+ WQgmcwmdiUY9HXjCsSsrCDCqNsQ5T4UtSzoyYAxOHMM3nfkh1I_PwLBCjKxTC4xUIOnNnXz_61Ow
+ .8I1LcUL6SZDwWXXUa0UslXxoxqlLBL1BaEEaiqIKBvXpdVSFSjhMzT12.a_wiYU.ZQCiB4U9NV0
+ 63DAezE8sUVytZLw9FowqT.MEg.HNKEvDZfIDf30iJmzYMfutUxoUQZDSVGSet6OvwE5qsqIK7J4
+ V4ttTU6aXBStkx7gX_PCMxjyuHPFrF2GFjyo7_EwJ2MNGmMhUp1jGhtNyQisZ_E8nemsXnqnKEEH
+ sFiJ25iTG7jeGIUZ.2xOvIJX7t2AVq0VTVXutvW0F._OAmsN.05Qg.XXyEftdjP3fcPh5xzD8nO_
+ Zjt_chzcAXyv8MnxCWfxu3edbGnD0..pgiTrpNMAxx2twdHsVqWq6aRa_ssw5ZIDfe5FC7yqs6M7
+ nd1yToQ6Tef.1N1BKv4ZPuNKM1Q0WQDeLhRny.Az1xOJge5e0x2wRGilz75AruBcu6NduQsPJAtI
+ 3jKuupKt6
 X-Sonic-MF: <brchuckz@aim.com>
 From: Chuck Zmudzinski <brchuckz@aol.com>
 To: qemu-devel@nongnu.org
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v3 0/2] xen/pt: fix FTBFS and reserve PCI slot 2 for the Intel IGD
-Date: Wed, 26 Oct 2022 13:00:25 -0400
-Message-Id: <cover.1666802059.git.brchuckz@netscape.net>
+	xen-devel@lists.xenproject.org,
+	Chuck Zmudzinski <brchuckz@netscape.net>
+Subject: [PATCH v3 1/2] xen/pt: fix syntax error that causes FTBFS in some configurations
+Date: Wed, 26 Oct 2022 13:00:26 -0400
+Message-Id: <1b63dcf10b2e99c6dba5f0c9b16bac3ac58d3848.1666802059.git.brchuckz@netscape.net>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <cover.1666802059.git.brchuckz@netscape.net>
+References: <cover.1666802059.git.brchuckz@netscape.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-References: <cover.1666802059.git.brchuckz.ref@netscape.net>
 
-This is a series of two patches:
+When Qemu is built with --enable-xen and --disable-xen-pci-passthrough
+and the target os is linux, the build fails with:
 
-The first fixes FTBFS when --enable-xen and --disable-xen-pci-passthrough
-configure options are set with when building for the linux target os.
+meson.build:3477:2: ERROR: File xen_pt_stub.c does not exist.
 
-The second fixes a regression that was introduced many years ago with the
-upgrade from the Qemu traditional device model that is still available
-from xenbits.xen.org and based on very old Qemu version 0.10.2.
+Fixes: 582ea95f5f93 ("meson: convert hw/xen")
 
-The regression is that the Qemu traditional device model reserves slot 2
-for the Intel IGD on the PCI bus when the Intel IGD is passed through
-to a Xen HVM domain, but the current Qemu upsream device model does not
-and in fact results in a different slot assigned to the Intel IGD.
+Signed-off-by: Chuck Zmudzinski <brchuckz@netscape.net>
+---
+v2: Remove From: <email address> tag at top of commit message
 
-This behavior does not conform to the requirement that the Intel IGD must
-be assigned to slot 2, as noted in docs/igd-assign.txt in the Qemu source
-code: "IGD must be given address 02.0 on the PCI root bus in the VM."
+v3: No change to this patch since v2
 
-I have used the second patch of the series for the past two years with
-no problems. Without the patch, the reliability of PCI passthrough of the
-Intel IGD to a Xen HVM guest is very poor, and in some cases the guest
-fails to start without the patch.
+ hw/xen/meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2: Remove From: <email address> tag at top of message
-
-v3: No change to this cover letter since v2
-
-Chuck Zmudzinski (2):
-  xen/pt: fix syntax error that causes FTBFS in some configurations
-  xen/pt: reserve PCI slot 2 for Intel igd-passthru
-
- hw/i386/pc_piix.c    |  3 +++
- hw/xen/meson.build   |  2 +-
- hw/xen/xen_pt.c      | 25 +++++++++++++++++++++++++
- hw/xen/xen_pt.h      | 16 ++++++++++++++++
- hw/xen/xen_pt_stub.c |  4 ++++
- 5 files changed, 49 insertions(+), 1 deletion(-)
-
+diff --git a/hw/xen/meson.build b/hw/xen/meson.build
+index 08dc1f6857..ae0ace3046 100644
+--- a/hw/xen/meson.build
++++ b/hw/xen/meson.build
+@@ -18,7 +18,7 @@ if have_xen_pci_passthrough
+     'xen_pt_msi.c',
+   ))
+ else
+-  xen_specific_ss.add('xen_pt_stub.c')
++  xen_specific_ss.add(files('xen_pt_stub.c'))
+ endif
+ 
+ specific_ss.add_all(when: ['CONFIG_XEN', xen], if_true: xen_specific_ss)
 -- 
 2.37.2
 
