@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBD2960E419
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 17:07:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430638.682568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E1FC60E480
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 17:31:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430649.682579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onhyz-0005vP-9X; Wed, 26 Oct 2022 15:06:17 +0000
+	id 1oniMT-00016N-8D; Wed, 26 Oct 2022 15:30:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430638.682568; Wed, 26 Oct 2022 15:06:17 +0000
+Received: by outflank-mailman (output) from mailman id 430649.682579; Wed, 26 Oct 2022 15:30:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onhyz-0005sY-6X; Wed, 26 Oct 2022 15:06:17 +0000
-Received: by outflank-mailman (input) for mailman id 430638;
- Wed, 26 Oct 2022 15:06:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oniMT-00013w-5U; Wed, 26 Oct 2022 15:30:33 +0000
+Received: by outflank-mailman (input) for mailman id 430649;
+ Wed, 26 Oct 2022 15:30:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ANQJ=23=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1onhyx-0005sC-8T
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 15:06:15 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ba063b3a-553f-11ed-8fd0-01056ac49cbb;
- Wed, 26 Oct 2022 17:06:12 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by SN7PR12MB7953.namprd12.prod.outlook.com (2603:10b6:806:345::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Wed, 26 Oct
- 2022 15:06:08 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5746.028; Wed, 26 Oct 2022
- 15:06:08 +0000
+ <SRS0=JuuU=23=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1oniMR-00013q-FJ
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 15:30:31 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1e843d64-5543-11ed-91b5-6bf2151ebd3b;
+ Wed, 26 Oct 2022 17:30:29 +0200 (CEST)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id D929AB82316;
+ Wed, 26 Oct 2022 15:30:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABD2C433C1;
+ Wed, 26 Oct 2022 15:30:25 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,216 +43,233 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ba063b3a-553f-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ogv9j53CPeu/CFyAS5Z/bkNJLedOO7twqF5jJM2by3s/WESuB31IwZA3YcQXvAdsk9N7nFPmcrp2Y18g8UZM8SwMu1RB9t7RxV4uFMoYYEpDdpa7eWkyDHa1ACdC57a0xinodBlzJ5IeXz0bCJ302keZUY6SYTDb6lzk/EMimhokrqDHpmqsLAfON5/4khcLqTO+OTBD9VCA+TMebSNnbWuPhK99Isv0MLc8S8AJEb5idvgJTy4SEae8Vfo7HAZ6xl/Su2DmOEpTdJ4cl6sBwqxZxX9ljv0yzrsD3cG5v3y7Ot6miEdY6TcSkRcMYARxC4IHS88vJa9qC0GSkaK4Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MKyDAe5syXKZErZKNtg70nsvt235EbivVhwOYDfV6F4=;
- b=FNy6bG2KVGix4a2/NrPR7+WzQiWYzAOTAr1qiJpJIwy6T84DNVj+AeXuy2t4KVamgyL4iuDmjAj/GEe1PFGgIw04IiNoL8CCJDOic3jwY0vwQY7JFyrG2N6vuJsi/p8hKTfrftnouTlQbPuvepmgIeJt4UUaxbE3JX6x85AtfpW9izFfA+uHMex5WrHFfBImjEJ913wFqcbZIOETNPj6ZAMnmg8WxLBSoBiSUm3vR5QbNrUeHUad3duvgeoRG/P2411HQREqtlKmHNsch9ItwGTPQFTjrfat+farr5sCCfUq2gVv5wODNsc/3QeHdFZYetljjYVCPyhUuZLIt7ECjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MKyDAe5syXKZErZKNtg70nsvt235EbivVhwOYDfV6F4=;
- b=ibFccaemKCzVRC8UVyYPRTVMeVp0VewLdmb113VcmSx4Msl4G8UrNbjG2tvoLj+V144pnntxewMucGocFKUMkrQKRkdqMebUf/iicj9c0Y1quvNE3yDC4rxuSokKrObInrL4ObvePEK0r/c37TCcvlzmoz8xrhG7OYTuPcAuKEU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <2accac91-d822-c493-4045-8657aed26fb1@amd.com>
-Date: Wed, 26 Oct 2022 16:06:02 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: [XEN v3] xen/arm: vGICv3: Emulate properly 32-bit access on
- GICR_PENDBASER
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, andre.przywara@arm.com, Henry.Wang@arm.com
-References: <20221026133540.52191-1-ayankuma@amd.com>
- <95d0a8ca-9ff0-162a-02ae-8cbdc30af8b9@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <95d0a8ca-9ff0-162a-02ae-8cbdc30af8b9@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0064.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::15) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 1e843d64-5543-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1666798226;
+	bh=dsp8KP98oVVVHIU6skf5Sad/rXjvqSo5U2iza8mUiIQ=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=EYd9Ls9E39FRajwxxoJDFsYmvSFDqsoFyDDyUyzZsqJvuG8NZ56dLSo87UfzCLtn3
+	 zcudhN52rfMOFIeJ9W7girjCTFEmZcsA1WhB5mM5xc5rS72Dn0DfgwTH1Y1X1W84J2
+	 m0mjaUoQcw8R+HhRfUlOp5cO1HXtdiGX7GrRRKjNlpDc3U0bJ6Op9dLVAAkK904PCK
+	 7rNrYc6IdYfSiYaDQC8Mvqm2UEBcgZTotbNYsesTnN9iegylChbT+LdhPX6FJWPSL9
+	 BoessUFPIh4XH0kNRo7J8plyIkkML+bMML/ExXDzMYnPjTk+FGS0gfohQsoAMN1b80
+	 3sgZyuDoQTEBw==
+Date: Wed, 26 Oct 2022 08:30:24 -0700 (PDT)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+cc: Michal Orzel <michal.orzel@amd.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: Deadcode discussion based on Arm NS phys timer
+In-Reply-To: <54F41F27-8753-4BA5-98D5-23E649EBE339@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2210260830170.1397955@ubuntu-linux-20-04-desktop>
+References: <d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com> <8691e100-4548-9752-8e7e-b292643cae83@xen.org> <6aefd6d6-45a2-a1f3-24da-8bbbba22fc08@amd.com> <aff58db0-646c-6699-48af-033e28c5626f@xen.org> <alpine.DEB.2.22.394.2210241819420.1151068@ubuntu-linux-20-04-desktop>
+ <ed0bf3da-fe9f-e00c-9bc3-35e10840701e@amd.com> <06D2C614-0F17-4364-BE52-FB0DB51D097B@arm.com> <89ff9e50-be23-82c2-cd6b-81e05d339778@amd.com> <7C838BB9-E8FA-4239-B851-B179CB6B7A02@arm.com> <a3306efe-16bb-feb0-91aa-d6a9b0e30691@amd.com>
+ <54F41F27-8753-4BA5-98D5-23E649EBE339@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SN7PR12MB7953:EE_
-X-MS-Office365-Filtering-Correlation-Id: f4193537-49cf-4cbd-549a-08dab7639c59
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	IwMGYECAmbcJhEwKU2oLIcwA5cQuKk7t2Yh38ahQRiGcvNoG0NhOkmUBcXySyUr/cafC2ie1AFRe8+B1KiJmvEtjOEZwotMgoPmqDj0lqIfde+s43Q8IJvNbgA7KWAinO5+RpJ3pLs5KXg0SMQCsMeuPHzFjfs7xOf6ik4fZcAEuG/xnVPiEajRjHQ8qbgklpZTcDU4ehoYCaACivbV0Y5/AY5uvmPDqXIkFYLqZ+ScgZQOF5qMSm4DBfmjR6CFT/CC3yZ/nipl1MRaLo6hHT/oHZ8m+lFSg2cae6is5ExHzSMO6Oewk97+XIXgjn04Lt5wB/Mh2BcLQT+Gvy94i8SgBY8ljyvhNpx3tdBbM35uktCBN+/+XzGqAlcyHrTwwLNkZiJ53wNFd6RusCExudN6seyMYhzUoDstGUsyEQ0ZDfTdqgJZv69VcmVVXi0IsUWVCSI98n7YMJNMJ3a6z7AthtKgYeMtXPsvnfMa0viJteoW8XumoyKtMsh+xKR6wsyyu8H9P+lv9o8iq+yIbZrdVh89Tuo5NGMkAEIOECoYBvtqOwess+Jt6CYyFCchKOsDutiutTmk1WvsWuB21fL8thEzuoO1vCP/+Fpct9DEy9n/mJVH0jP8UT7fvtfVktTMZ85Yqeq3XrK6AwZoXghcRfgzYtBbR1ZUdjZCGhMfl9MuLkMexO6Tb9ZGw53r1rGDTu//GdRLum2Xnt8GhONSBJoYf2fONhO4pQI9OmHx13zcqTvwVIY7uH2hkU3XvbYSkWAPMVEPKf7Rv5jxooibTLpMTCCPcFkMT3AqqfEY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(396003)(376002)(39860400002)(366004)(451199015)(31686004)(478600001)(38100700002)(83380400001)(6486002)(66556008)(53546011)(6666004)(8676002)(66476007)(36756003)(4326008)(186003)(31696002)(6506007)(8936002)(26005)(66946007)(41300700001)(316002)(2906002)(6512007)(2616005)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEhsdHBFOE1xSEpMU1ExYlp6S3hmdmxNUGlycGFjaWVMdjlZREFYNk42Y2Jx?=
- =?utf-8?B?TVJXT0xDcDRXaEtKRUh5L0VJZFdPWFJkTUFRNDFoV1ROdjFrcFVLbThzNTBF?=
- =?utf-8?B?UXBmMEVVVGxBNGhwRkJ3MkY2SHI0U25TeVJ5SVF4ZmVKbVhaRDRTd0VrbEwv?=
- =?utf-8?B?Vk4wcUFUS3F0NDNlSTZTRDRxWHF4SjRTclVCalRCNFNRZCtKeXpHc0dqdHMv?=
- =?utf-8?B?WWNsQlV6U2x0aCtTcFJFZGlCK2d1Y3hiNHVUdXFYRk5mUGNsRmtOTXI3cVdM?=
- =?utf-8?B?MFRQOEY3aWtKRTdhek53ck4vMm0yNVBIVmVvRlB5SDBxalVpQklUMUVtbUVK?=
- =?utf-8?B?djVOSThrTW5UU3VGVWFlZG5tWjdNdExtOGgxNk1tem5EemVzS2YvQ2VVdzZY?=
- =?utf-8?B?NWdzdzNaRC8ydFBuUStUYUlJeC9GZmlKV1BBZksyWWhMZm9yY29Mb09leVlL?=
- =?utf-8?B?WnoyOStuT0tyNWRIN2tmQmNwVlEwREJMWUN0UnFjT0EvbzZQWFhvbUNsdWFU?=
- =?utf-8?B?NHEweTc4OW9yQ3VtR3F0WC9NcC84cXh5cHRDZThJVzFRRkpYcFJENFA0YmUr?=
- =?utf-8?B?Q2xiUnk5Z1IwTjlVMDdtbDg0QzNoZnJuSWxxdk1FNE5EMDlvTmdDbmxMTnE3?=
- =?utf-8?B?Z3gvdFlLMS9WeEttWVV3K3hGSWZnUVplUnNsUFY4T21EOHZQcFZqOWtSNWt3?=
- =?utf-8?B?NVpMREw4dzU3c2k0Myt1SGp1OW5rUmdGVWhpWExXVDVPYUlnMHBBVW0xREpk?=
- =?utf-8?B?S1lJWkM2OHg2dGQrM3Q5WERKSThEWXZJZS8xYUpSdlZtaFpuNmZXOVFtRlR3?=
- =?utf-8?B?ZEltY2ZwdHhEY09YN1RkQ09QTHBlWmU4a2FYZGN1QnBSaVFJWk9OUUdBUU8z?=
- =?utf-8?B?TWRaUmwrMW1ueE9wVmszZk4vUWZyendJcWNQT3pKSVhsUmVGZE1LZjNlUWJq?=
- =?utf-8?B?VTdYMmVXZ25Rd1lOMVo4WmZmckthVHVndjBaNG5YM1RZb1czR0JnbjFtWSt4?=
- =?utf-8?B?dFB6andEN2FSNGQzUEpCQUxNL1Z0Q2VPZUJncFowY2hIY0M2Y0tqblpSTW9M?=
- =?utf-8?B?Mzc3U2JiMDQxOFU0QkRIQ0ozTFVWRlRFc0Uxck5tOWFadTNoQ0cxcVAvdGRV?=
- =?utf-8?B?cWxrNkxrRmhVL1Zjc2twaXlYMmM5RDZ4QlRmY1ZWT0FFQ3JZMm9zanAxSkFa?=
- =?utf-8?B?bi90OU5JekU5Slg2V2hYOStZeXI1V290OTIyVlQxZ1I3Tk12YnoxdFlTTklZ?=
- =?utf-8?B?OGE4TGg3UUt6aitNdjBKZGVVQmdKQURNSVM3aWtIeHNMWG1lWjAyM1BxaExC?=
- =?utf-8?B?eHFuWW9OUTkvWCt6akJlWXZzNHduNk1PbFlMTVdGbHp0MjE0NCthT3JaeUIv?=
- =?utf-8?B?TFlyelUrZnhYZWFTS0F5eUdUbVZNY2tONityRHlkTEVnRndpYmFFeVA3c0NZ?=
- =?utf-8?B?S21QMEpQbGhPRjdCRzY5cmNuL0IyL2s4TTV0K3BJekltVWdSbDdxaEVaQTEv?=
- =?utf-8?B?RzVmZGc2UkVXZnFabGpOdVNjZGJBN1RzTFo5dmJMTFBOWlhPMkYxMGlYNmIy?=
- =?utf-8?B?cDNCTlFZOWl0K1pNREE5bVhvRXlvWDljdWg5VUdzQ0hMeG1HUFphWTErR2ND?=
- =?utf-8?B?c25wcHNDZjZkMHkyVlVjVDdHUHIrbXNURW5IMFViY1p4a2prRzIrRE1lSVQz?=
- =?utf-8?B?RURqRjk0eExCb0pBZUowSk4yK0hlaGdYMW1VVUlWYmNZbG5EZWZvQjc5QkVC?=
- =?utf-8?B?Mi9yVFA3Mk1iVEp0bDJaNTNkalI4WXdRWEIvNzVoSTg1T1dPdlhkcElUR1Ro?=
- =?utf-8?B?Tng2Wmh5Q2lxbG1vTEJKVVNjZk5xaGRybzBIVitTY2twbmNGSkxHdUY1WDZw?=
- =?utf-8?B?UGpkZFZPaGplYXFDYTVUTlVtM3BxYmdDWFc3dWgybUJLZVl0QkJPei9BQVRa?=
- =?utf-8?B?T3d5aDRvR0VGRHl3bGRkNk1YejVaT0RvdjJ5Tyt1RG00ZjhnUDgvR1U1dmF4?=
- =?utf-8?B?LzVUOFpQNTNyMC9Yakl0V0ZBaFdmazEzd01qNVhGSXNCc1MyL25mNy92SU1h?=
- =?utf-8?B?UlNudXZoNzd6SjZZREJOamZqeHc2amt2UmxCTCtLemwzTFZSSitLaEorNzhk?=
- =?utf-8?Q?zkRK5htv3KCNMyct+P20xIWLI?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f4193537-49cf-4cbd-549a-08dab7639c59
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 15:06:08.1435
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DzdsFYN4Z1kb86ReOEesfE9AlxHrtQlCGpkspDRyyUNOPfshlnpd9ClnW/l5IZs0hP3pCdwCcOqjzJPC4SrCMA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7953
+Content-Type: multipart/mixed; boundary="8323329-1449371642-1666798226=:1397955"
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 26/10/2022 14:41, Julien Grall wrote:
-> Hi Ayan,
-Hi Julien,
->
-> On 26/10/2022 14:35, Ayan Kumar Halder wrote:
->> If a guest is running in 32 bit mode and it tries to access
->> "GICR_PENDBASER + 4" mmio reg, it will be trapped to Xen. 
->> vreg_reg64_extract()
->> will return the value stored "v->arch.vgic.rdist_pendbase + 4".
->> This will be stored in a 64bit cpu register.
-> >
->> So now we have the top 32 bits of GICR_PENDBASER (a 64 bit MMIO 
->> register) stored
->> in the lower 32 bits of the 64bit cpu register.
->>
->> This 64bit cpu register is then modified bitwise with a mask (ie
->> GICR_PENDBASER_PTZ, it clears the 62nd bit). But the PTZ (which is 
->> bit 30 in the
->> 64 bit cpu register) is not cleared as expected by the specification.
->>
->> The correct thing to do here is to store the value of
->> "v->arch.vgic.rdist_pendbase" in a temporary 64 bit variable. This 
->> variable is
->> then modified bitwise with GICR_PENDBASER_PTZ mask. It is then passed to
->> vreg_reg64_extract() which will extract 32 bits from the given offset.
->>
->> Fixes: fe7fa1332dabd9ce4 ("ARM: vGICv3: handle virtual LPI pending 
->> and property tables")
->> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
->> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
->
-> Given the changes you made below, the reviewed-by tags below should 
-> not have been retained.
-Sorry, I will take care of this henceforth.
->
->> Release-acked-by: Henry Wang <Henry.Wang@arm.com>
->> ---
->>
->> Changes from:-
->>
->> v1 - 1. Extracted this fix from "[RFC PATCH v1 05/12] Arm: GICv3: 
->> Emulate
->> GICR_PENDBASER and GICR_PROPBASER on AArch32" into a separate patch 
->> with an
->> appropriate commit message.
->>
->> v2 - 1. Removed spin_lock_irqsave(). Used read_atomic() to read
->> v->arch.vgic.rdist_pendbase in an atomic context.
->
-> Please in the commit message why the lock is removed. But...
-ok
->
->> 2. Rectified the commit message to state that the cpu register is 64 
->> bit.
->> (because currently, GICv3 is supported on Arm64 only). Reworded to 
->> make it
->> clear.
->>
->>   xen/arch/arm/vgic-v3.c | 10 +++++-----
->>   1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
->> index 0c23f6df9d..958af1532e 100644
->> --- a/xen/arch/arm/vgic-v3.c
->> +++ b/xen/arch/arm/vgic-v3.c
->> @@ -249,16 +249,16 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct 
->> vcpu *v, mmio_info_t *info,
->>         case VREG64(GICR_PENDBASER):
->>       {
->> -        unsigned long flags;
->> +        uint64_t val;
->>             if ( !v->domain->arch.vgic.has_its )
->>               goto read_as_zero_64;
->>           if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
->>   -        spin_lock_irqsave(&v->arch.vgic.lock, flags);
->> -        *r = vreg_reg64_extract(v->arch.vgic.rdist_pendbase, info);
->> -        *r &= ~GICR_PENDBASER_PTZ;       /* WO, reads as 0 */
->> -        spin_unlock_irqrestore(&v->arch.vgic.lock, flags);
->> +        val = read_atomic(&v->arch.vgic.rdist_pendbase);
->
-> ... you also need to ensure that the writers are atomically setting 
-> rdist_pendbase. Please correct if I am wrong, but the callers are not 
-> using write_atomic(). So how does that work?
+--8323329-1449371642-1666798226=:1397955
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-I think read_atomic()/write_atomic() may not be the correct approach for 
-the following reasons :-
+On Wed, 26 Oct 2022, Bertrand Marquis wrote:
+> > On 26 Oct 2022, at 12:29, Michal Orzel <michal.orzel@amd.com> wrote:
+> > 
+> > Hi all,
+> > 
+> > On 25/10/2022 10:20, Bertrand Marquis wrote:
+> >> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+> >> 
+> >> 
+> >> Hi Michal,
+> >> 
+> >>> On 25 Oct 2022, at 09:07, Michal Orzel <michal.orzel@amd.com> wrote:
+> >>> 
+> >>> Hi Bertrand,
+> >>> 
+> >>> On 25/10/2022 09:45, Bertrand Marquis wrote:
+> >>>> 
+> >>>> 
+> >>>> Hi Michal,
+> >>>> 
+> >>>>> On 25 Oct 2022, at 08:11, Michal Orzel <michal.orzel@amd.com> wrote:
+> >>>>> 
+> >>>>> Hi,
+> >>>>> 
+> >>>>> On 25/10/2022 03:29, Stefano Stabellini wrote:
+> >>>>>> 
+> >>>>>> 
+> >>>>>> On Mon, 24 Oct 2022, Julien Grall wrote:
+> >>>>>>>> On 24/10/2022 12:51, Julien Grall wrote:
+> >>>>>>>>> Caution: This message originated from an External Source. Use proper
+> >>>>>>>>> caution when opening attachments, clicking links, or responding.
+> >>>>>>>>> 
+> >>>>>>>>> 
+> >>>>>>>>> On 24/10/2022 10:07, Michal Orzel wrote:
+> >>>>>>>>>> Hello,
+> >>>>>>>>> 
+> >>>>>>>>> Hi Michal,
+> >>>>>>>>> 
+> >>>>>>>>>> Recently I came across a deadcode in Xen Arm arch timer code. Briefly
+> >>>>>>>>>> speaking, we are routing
+> >>>>>>>>>> the NS phys timer (CNTP) IRQ to Xen, even though Xen does not make use
+> >>>>>>>>>> of it (as it uses the hypervisor timer CNTHP).
+> >>>>>>>>>> This timer is fully emulated, which means that there is nothing that can
+> >>>>>>>>>> trigger such IRQ. This code is
+> >>>>>>>>>> a left over from early days, where the CNTHP was buggy on some models
+> >>>>>>>>>> and we had to use the CNTP instead.
+> >>>>>>>>>> 
+> >>>>>>>>>> As far as the problem itself is not really interesting, it raises a
+> >>>>>>>>>> question of what to do with a deadcode,
+> >>>>>>>>>> as there might be/are other deadcode places in Xen.
+> >>>>>>>>> 
+> >>>>>>>>> There are multiple definition of deadcode. Depending on which one you
+> >>>>>>>>> chose, then this could cover IS_ENABLED() and possibly #ifdef. So this
+> >>>>>>>>> would result to a lot of places impacted with the decision.
+> >>>>>>>>> 
+> >>>>>>>>> So can you clarify what you mean by deadcode?
+> >>>>>>>> In the timer example, I think we have both a deadcode and unreachable code.
+> >>>>>>>> For the purpose of this discussion, let's take the MISRA definition of a
+> >>>>>>>> deadcode which is a "code that can be executed
+> >>>>>>>> but has no effect on the functional behavior of the program". This differs
+> >>>>>>>> from the unreachable code definition that is
+> >>>>>>>> a "code that cannot be executed". Setting up the IRQ for Xen is an example
+> >>>>>>>> of a deadcode. Code within IRQ handler is an unreachable code
+> >>>>>>>> (there is nothing that can trigger this IRQ).
+> >>>>>>>> 
+> >>>>>>>> What I mean by deadcode happens to be the sum of the two cases above i.e.
+> >>>>>>>> the code that cannot be executed as well as the code that
+> >>>>>>>> does not impact the functionality of the program.
+> >>>>>>>> 
+> >>>>>>>>> 
+> >>>>>>>>>> One may say that it is useful to keep it, because one day,
+> >>>>>>>>>> someone might need it when dealing with yet another broken HW. Such
+> >>>>>>>>>> person would still need to modify the other
+> >>>>>>>>>> part of the code (e.g. reprogram_timer), but there would be less work
+> >>>>>>>>>> required overall. Personally, I'm not in favor of
+> >>>>>>>>>> such approach, because we should not really support possible scenarios
+> >>>>>>>>>> with broken HW (except for erratas listing known issues).
+> >>>>>>>>> 
+> >>>>>>>>> The difference between "broken HW" and "HW with known errata" is a bit
+> >>>>>>>>> unclear to me. Can you clarify how you would make the difference here?
+> >>>>>>>>> 
+> >>>>>>>>> In particular, at which point do you consider that the HW should not be
+> >>>>>>>>> supported by Xen?
+> >>>>>>>> I'm not saying that HW should not be supported. The difference for me
+> >>>>>>>> between broken HW and
+> >>>>>>>> HW with known errata is that for the former, the incorrect behavior is often
+> >>>>>>>> due to the early support stage,
+> >>>>>>>> using emulators/models instead of real HW, whereas for the latter, the HW is
+> >>>>>>>> already released and it happens to be that it is buggy
+> >>>>>>>> (the HW vendor is aware of the issue and released erratas).
+> >>>>>>> 
+> >>>>>>> Thanks for the clarification. What I would call broken is anything that can't
+> >>>>>>> be fixed in software. For a not too fictional example, an HW where PCI devices
+> >>>>>>> are using the same stream ID. So effectively, passthrough can't be safely
+> >>>>>>> supported.
+> >>>>>>> 
+> >>>>>>> Regarding, not yet released HW, I don't think Xen should have workaround for
+> >>>>>>> them. I wouldn't even call it "broken" because they are not yet released and
+> >>>>>>> it is common to have bug in early revision.
+> >>>>>>> 
+> >>>>>>>> Do we have any example in Xen for supporting broken HW,
+> >>>>>>>> whose vendor is not aware of the issue or did not release any errata?
+> >>>>>>> I will not cite any HW on the ML. But from my experience, the vendors are not
+> >>>>>>> very vocal about issues in public (some don't even seem to have public doc).
+> >>>>>>> The best way to find the issues is to look at Linux commit.
+> >>>>>>> 
+> >>>>>>>> 
+> >>>>>>>>> 
+> >>>>>>>>>> Also, as part of the certification/FUSA process, there should be no
+> >>>>>>>>>> deadcode and we should have explanation for every block of code.
+> >>>>>>>>> 
+> >>>>>>>>> See above. What are you trying to cover by deadcode? Would protecting
+> >>>>>>>>> code with IS_ENABLED() (or #ifdef) ok?
+> >>>>>>>> I think this would be ok from the certification point of view (this would at
+> >>>>>>>> least means, that we are aware of the issue
+> >>>>>>>> and we took some steps). Otherwise, such code is just an example of a
+> >>>>>>>> deadcode/unreachable code.
+> >>>>>>> 
+> >>>>>>> Thanks for the clarification. So the exact approach will depend on the
+> >>>>>>> context....
+> >>>>>>> 
+> >>>>>>>>>> There are different ways to deal with a deadcode: > 1. Get rid of it
+> >>>>>>>>>> completely
+> >>>>>>>>>> 2. Leave it as it is
+> >>>>>>> 
+> >>>>>>> ... this is my preference in the context of the timer.
+> >>>>>> 
+> >>>>>> From a certification point of view, the fewer lines of code the better,
+> >>>>>> and ideally all the lines of code used for the certified build should be
+> >>>>>> testable and used.
+> >>>>>> 
+> >>>>>> So I think 2. is the lest useful option from a certification
+> >>>>>> perspective. For this reason, I'd prefer another alternative.
+> >>>>>> 
+> >>>>>> 
+> >>>>>>> If the other don't like it, then 1 would be my preference.
+> >>>>>>> 
+> >>>>>>> In general, my preference would be either 3.3 or 3.2 (see below).
+> >>>>>> 
+> >>>>>> I also think that 3.2 and 3.3 are good options for the general case. For
+> >>>>>> the timer, I can see why 1 is your (second) preference and I am fine
+> >>>>>> with 1 as well.
+> >>>>> Ok, sounds good to me. Let's still give Bertrand the chance to share his opinion.
+> >>>> 
+> >>>> We need to get rid of dead code and removing it is not always the best solution.
+> >>>> 
+> >>>> If the code is or could be useful for someone some day, protecting it with ifdef is ok.
+> >>>> 
+> >>>> In the mid term we will have to introduce a lot more ifdef or IS_ENABLED in the
+> >>>> code so that we can compile out what we do not need and code not applying to
+> >>>> some hardware is a case where we will do that (does not mean that by default
+> >>>> we will not compile it in but we will make it easier to reduce the code size for a
+> >>>> specific use case).
+> >>>> 
+> >>>> So 3.2 and 3.3 are ok for me.
+> >>> 
+> >>> So we all agree that the code in the current form is a no go from certification purposes.
+> >>> That is good :)
+> >>> 
+> >>> The reason why I opt for solution 1 and not the others is that in the latter case it would
+> >>> mean introducing the Kconfig option to allow user to select the timer to be used by Xen.
+> >>> This is not really correct. Also in the current form, it would also require adding more
+> >>> code to time.c code because at the moment using CNTP for Xen would not work out of the box.
+> >>> The architecture defines the hypervisor timer for a purpose. If it does not work, it means
+> >>> that the HW is problematic. I agree that we would want to support such use case but I'm not
+> >>> really aware of any issue like that. Adding more code and Kconfig options just because
+> >>> one day someone may face issues with a new HW is something I am not a fan of.
+> >> 
+> >> I see 2 solutions here:
+> >> - somehow push the code to a different file (not quite sure this is feasible here)
+> >> - remove completely the code with a clean commit. Doing this it will be easy for someone needing this to later revert the patch
+> >> 
+> >> It is definitely true here that adding more code to keep some unused code does not really make sense.
+> >> And let’s be realistic here, if we need that one day, it will not take ages to support it somehow.
+> >> 
+> >> As said, from a pure certification point of view:
+> >> - we must not have deadcode
+> >> - proper ifdef is acceptable
+> >> - if 0 is not acceptable
+> >> - commented code is not acceptable
+> > 
+> > Given that we agree on that (+ IS_ENABLED option if possible), and the option 1 seems
+> > to be the best choice for the timer, I will create a patch removing the IRQ path to get rid
+> > of the deadcode/unreachable code.
+> > 
+> > Do you think this is something we want for 4.17?
+> > The risk is low as the code is already dead and the benefit is that we have no deadcode.
+> > What do you think?
+> > 
+> 
+> We are very near from the release so from my point of view as it is not solving a bug, this should not go into 4.17.
 
-1. __vgic_v3_rdistr_rd_mmio_read is a static function. So 'val' has a 
-global lifetime. Thus, all the following three lines need to be 
-protected from concurrent access.
-
-         val = read_atomic(&v->arch.vgic.rdist_pendbase);
-         val &= ~GICR_PENDBASER_PTZ;      /* WO, reads as 0 */
-
-         /* If a context switch happens here, then the 'val' below may 
-potentially be incorrect. */
-
-         *r = vreg_reg64_extract(val, info);
-
-2. The same holds true for 'reg' as well in __vgic_v3_rdistr_rd_mmio_write()
-
-             reg = v->arch.vgic.rdist_pendbase;
-             blah, blah
-             v->arch.vgic.rdist_pendbase = reg;
-
-Thus, I am thinking of going back to 
-spin_lock_irqsave()/spin_unlock_irqrestore(). Unless, you have some 
-other opinions.
-
-- Ayan
-
->
-> Cheers,
->
+I agree
+--8323329-1449371642-1666798226=:1397955--
 
