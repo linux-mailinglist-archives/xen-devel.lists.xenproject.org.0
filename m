@@ -2,35 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 302D360E600
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:01:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430701.682673 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E244B60E64E
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 19:18:35 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430714.682696 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onjlp-0006Ie-Kz; Wed, 26 Oct 2022 17:00:49 +0000
+	id 1onk2M-0000fq-6B; Wed, 26 Oct 2022 17:17:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430701.682673; Wed, 26 Oct 2022 17:00:49 +0000
+Received: by outflank-mailman (output) from mailman id 430714.682696; Wed, 26 Oct 2022 17:17:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onjlp-0006DE-HD; Wed, 26 Oct 2022 17:00:49 +0000
-Received: by outflank-mailman (input) for mailman id 430701;
- Wed, 26 Oct 2022 17:00:48 +0000
+	id 1onk2M-0000cp-1R; Wed, 26 Oct 2022 17:17:54 +0000
+Received: by outflank-mailman (input) for mailman id 430714;
+ Wed, 26 Oct 2022 17:17:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/gdy=23=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1onjlo-0006A5-Ce
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:00:48 +0000
-Received: from sonic314-19.consmr.mail.gq1.yahoo.com
- (sonic314-19.consmr.mail.gq1.yahoo.com [98.137.69.82])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=azgP=23=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1onk2K-0000cj-Hy
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 17:17:52 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2084.outbound.protection.outlook.com [40.107.94.84])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bb0df635-554f-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 19:00:46 +0200 (CEST)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic314.consmr.mail.gq1.yahoo.com with HTTP; Wed, 26 Oct 2022 17:00:43 +0000
-Received: by hermes--production-ne1-c47ffd5f5-8c2cz (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 93f63f5da119448f595de422776c389f; 
- Wed, 26 Oct 2022 17:00:40 +0000 (UTC)
+ id 1d5a4d17-5552-11ed-91b5-6bf2151ebd3b;
+ Wed, 26 Oct 2022 19:17:49 +0200 (CEST)
+Received: from MW2PR2101CA0007.namprd21.prod.outlook.com (2603:10b6:302:1::20)
+ by CY8PR12MB7611.namprd12.prod.outlook.com (2603:10b6:930:9b::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Wed, 26 Oct
+ 2022 17:17:45 +0000
+Received: from CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:302:1:cafe::98) by MW2PR2101CA0007.outlook.office365.com
+ (2603:10b6:302:1::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.0 via Frontend
+ Transport; Wed, 26 Oct 2022 17:17:45 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT087.mail.protection.outlook.com (10.13.174.68) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5746.16 via Frontend Transport; Wed, 26 Oct 2022 17:17:44 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 26 Oct
+ 2022 12:17:44 -0500
+Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
+ Transport; Wed, 26 Oct 2022 12:17:41 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,259 +58,253 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb0df635-554f-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1666803643; bh=HXJgswFBRRtT9kaDj9qpnwme4wa3QKPBT14ZHv3IuAU=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To; b=h2sC5ENKC6sY9lhvU1I21u4Jhkme4x/zyVVxVAanjFIqME+TnVLzTAqaHGlriTRjCPcN+AnOc/5W4PYDqUlbxygaYm+tVaD6kre+qdf5DZyjavwrQF7pe7yITcEifXt7mm4hwusT+gSuSFWSa9l8jfhcwaVROr9DQ9ImVaX0i1ke5yOQphSDubGAoeufSwU89k4/H0Ta/C54UD1de0XWcli6gM8u7I8H2snBhrs0/L8X9Lt/PvDPLg1OR+zAyAHD7lJt9kXqdfk/vZZVw030iFFwhYvrd+2ViWleZpw1/L2q4Jh/ccaRHy5wAAZQaVdjy18lLHPt7CeiWyiN5LTYzQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1666803643; bh=hI/bVGYJ937dVcuMfGwaxi78BNd+35SdIf3yn2Pl+fy=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=HcJO0HuRj1berk1VgSley9XOCw0PmJRq1kjQw8BeJTGfuHEEcrDdv7GXdiQshQ7YzBcNDTib0XEcbSD//Vtq0tgWosdXhfJxO0BgMqZ2ByJztrvyWzPPoyx/5rTg3m0UsFW70R4zhf0/xtU1LefPA/EyBFxWOrvocNzI6yofKNDW0TGsi9vEdahePJMOhR824X3uJoVeyrWuTsNcGzIU4un1I91AN0Ihouv6DGNdwnhsMm3lTBVgLjWrCMd/oG7Qap/fyx+5h9c1H8F226wvRrjQcR26bNYhkGP9GnsIVwpDyqwWs6hkp3NF7YgHGyJV7zwN5azlM7SwjXsVhB3iUQ==
-X-YMail-OSG: c29YqMkVM1leNLHSXhYnexgZfpg7xzousfaeplUPHAbmtTJF7_4Fs4b788dSVES
- .r1EZG7l8T4pU9uWTNartiXk4vpN2Zc.zmEqT9dLjcy8IVWHzCiu8hm2xjwAdv6z6c8DSpCvWd7H
- QeQQjOUQ_PodbEvgd_Oj9b46Voe5fgVpHHgadS955ctiFef2nMNLznf4BA2Alz0dBcxL9xS7TWub
- BwuiMNEpjOZmyheCH4T_sDyTFdgefoQbaTea1OyhKRXCLXCeUuYn5LNDOmmejsd_5R78jRRCrVsz
- S_Xc6B_F85FGCngo.Es_bZjsAitCF0bpLQj4neFDhDoVl4_j8lRyFpeaXUJ1r_b3KUhuavN2HRUT
- 56TZcEaBka4UWPC7OqZDYnSK4EazrXEjXLOXYs5HzDYYmcBu7cXiSVnlGFrZjAfz_3Ciy3K5cS.s
- 2XynfC7s9VDMpjKltNkaPge564AxdeIbVevLx52O88tc7tOPT18jXZG.rr8KL0HKdwaUFieMItMm
- lwvRk5WrfFz1EnTLxrxRzjlVFF.n.fiyci9HfYO4wESiEoqVSyIJ1FVl7hPpc1j4jRQnR29Pu2Pj
- h7.1gouPY9ZAJnSsSY3ga2v1IXWx_dFo9TlRFTIuWiN8v62NZ5IbW_u0skQxSKi7egVvmUaiWlOv
- IZT5I.IEg2tR0.Iq9P93ek8iu9sJAktJoAmGOh9fR9u6EK91M8FlR1uHu3bmczDzLIMf_ej2CG.z
- RhxVaO0ySxpuEp5.123sn9.h7yQ09dFNHcSoVhiIerdwaxL2rx8HF5FjmKI2ah79qOda5m7VbgQg
- NDd3e_84UnJtPHT_uMospkM0lEB4qwHUy9T5IXeniHIF0qZnFV.hXaxyhgK2oxGXF4iNIchpN3d_
- HgL5Y7Gh_xEm.9P8grDRntUzRwBCLyv4ub1QFsA1w9xc0d.tfSaw.kKR0SqsZSMwhqOauZluuvf1
- 2ULAxAmu6xCcJBfrxWA1a4ii3cC46pz3KcTQ8MX5MeakYZoIQVpKv_m_KUIGbYwPTw_Nqxdzv97Q
- rhfRhnHqF9kCTBobeCP.vnvzIz2EHYfDq9Ag91JBFjTZ.EqHCs2O0iHdHnNTYxjIKJai70XdRlar
- yM7XL94jMuky0mOLt3CgvFN5gVJdMTzCTvXy0aBQ5CmaFS0aS3DpWt2ykZjLJaG62pKSr5JxoC5q
- NCn4YFLAY3s6sK1pEETFRfb_hS.WTQEazVYEAHwLTTje0A88KJfZna1VH8is_NUEslySU6tzvoMU
- gVtjwsbgGsg6WC0m2N1Y8q3_4SnhWWGT.24saLA9ArPJMtVdT_YrK2XyzCmlpQdpSDS1pgpl19xM
- t3wbfGTw9dVVB0XIsyH1pyEofV1xHY1QZC8nxOe5XTyaW9qyke83Uvce6_IlO98u1zYHLHJkeCTy
- VWy3M2jx41ax4hv7k.peSA27DGVSWANg1x3IwbBQjP58Bk_nR6gJO97Vn0h7hR.jyqh9nmO6ppd9
- RgA97WKK2Xlha0CF.3Z49mIGuH6nQEdC06MePFJWWsE8NWHii5ARsgaEa244xRzpONhrGQy0Vn3L
- s6HQm_wySZWaDosicXPlGGnSQNgPCJ8tHHgVMHscns9WvV4sAylKwQF7mavI3Jw4nEBEzlGfEYoP
- nvyI6Feq3rZ4TfeN0AIhrwltm8Q_6thdR4M1HsiqN3RbvHG8ophOlfBdIiBM0dmdqPdpp7MPX.Sp
- ACF03FS0Vbzd5GRxQ3KAqtNa0ZXHZu3u1gRC7x62UurAoE7DRMG_NhGpJW_t4e4HF2.eWPiT2otI
- BRTa7H5ILs8mMVrRa.SYNmQtiOhvI43EsSOWz6QPraVIv_HjKg680bxfqpDvvNaRjKxCLVzuS0H2
- Jtf8eAwqjx.53K0hKBF_RnvS8PHzMgNdovVQjJjsrlEbAxjtUwCWxsE6Wmhi1Z4mFONz9de5IQqA
- v9WlJG4f6L9t114nJhcjF1AnQl3gcIfRf4Op5PBtJCrATc.LhEiSV2NWkeXItazFTJ8C4StSDu_p
- ZX8pOqcSBoUEEhRjO3o5yWhpvCOzcqERB6pkaWm4.R6mDCtua98AnSRj91.3XjC9tmL7kq2lGeA9
- RMBOFQZPkDnyv2.TjBuE2cghITNxt9X17G3e3n8pHVTTSbWFV6e58fKxQgzkZHO_dgwICSPmsq.J
- PIvVV45tWGZK9rjUJpbuTaWzj9WtTJOdq4q9VbQCuGeJzGRU9vZrpKM5ZoBN8kwpO2v1qZ8P53GU
- XvaetrS2E55Dm
-X-Sonic-MF: <brchuckz@aim.com>
-From: Chuck Zmudzinski <brchuckz@aol.com>
-To: qemu-devel@nongnu.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Richard Henderson <richard.henderson@linaro.org>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	xen-devel@lists.xenproject.org,
-	Chuck Zmudzinski <brchuckz@netscape.net>
-Subject: [PATCH v3 2/2] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Date: Wed, 26 Oct 2022 13:00:27 -0400
-Message-Id: <69ddfbd373a61dc3ec29b405191abf5eaa9a2650.1666802059.git.brchuckz@netscape.net>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <cover.1666802059.git.brchuckz@netscape.net>
-References: <cover.1666802059.git.brchuckz@netscape.net>
+X-Inumbo-ID: 1d5a4d17-5552-11ed-91b5-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZvFhiTWKHqduAcnIErXfynJeYKEpj2O+0OctTZ3nldYuL6l3Q99mdlkxfVaMT1cJKVIu/R5LUwAJ9s+96hwDddkt1tNAhN6YCACOEkNCpQjsU8+Zg3VFXFe/m+cGOrDDdFByv5/90VviIppdcaWBBZofKLlXjReA83PhjhTpr500qNPY1K981tPgHmb+PuXE982jiGRoGWsdEoGCJ348gbIlxp0V4VGZ75kyIN7gBB7lZ3McVoywBl0MvLjoaXmvRP1maSRIp5BUfxpVYkiOy+0/BzfsZwugMTwRozXVCIvItomdJctND39sE77MmFQ7Ym0kQ8n4cIJC5DZXu/38Nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k6TCyx2iWcfkvCOoNyftXRpBX6ft6Xvxvt7fMRXQa+0=;
+ b=AfMKY0VdCkPzVk3jgdYDNewbVx+IB3XXAKhOsuW7s/53xBBgVlpl+4Er8nwvAkcbLW+05h9ZG5iHsJsEwhVCh0fDEEO0cIhZ4Q0pYz18/qx2MZiLFF4jMr0G6M7fbbC/Xah+4Eo0XPViR7kGNfI4U5+gahWVwrsNLcE7xms4bLHcVc0JvrVUZwUQK8yEsMVP/3AOJp74u3J/sVUt0YNCa2yJXZdxwSjVmCx4TTRyq36MeDTkDU4bOmUdj3mUblF5c6TbhZ5br8fUzXNF/Xz0ImoRPEgauV+Z696TYkZLBU1CguFZuUbu3xrXahDTAEdRARxMrfnWTpmbjOtErtS9Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k6TCyx2iWcfkvCOoNyftXRpBX6ft6Xvxvt7fMRXQa+0=;
+ b=sqEYXEeuPOeMIcRrMb2YjQFzk9Yi5Ve9n307VYTPJUYLiBj5HzNiaFLcPotMwpKyHkl5oljK//nQ092oUE9QZgSXm0xjP1ahjDlcUGpuOEbvzIn1rJHDQomQb+AyOUNa+/SFYu5OGgj8xROODxeOEPOKQDNJVpgO6Wut2nBx2/s=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <95470820-dc9d-dc3b-eb5f-b4db688fa5b1@amd.com>
+Date: Wed, 26 Oct 2022 19:17:41 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
+ devices
+Content-Language: en-US
+To: Rahul Singh <Rahul.Singh@arm.com>, Julien Grall <julien@xen.org>
+CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Michal Orzel <Michal.Orzel@arm.com>, Oleksandr
+ Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksandr Andrushchenko
+	<Oleksandr_Andrushchenko@epam.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>
+References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+ <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
+ <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT087:EE_|CY8PR12MB7611:EE_
+X-MS-Office365-Filtering-Correlation-Id: ffb817ad-1f71-4cac-cf72-08dab775ff65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	uGQVYPwGREQV3oRFJeLh5qeCg1g+Lina+O2IBNsvleOIkQO9ycz8ZKy8F+Gs4mW/rS1H5oTs/SDMNKZY9NlzswIbo2L9jdGWFoWzzXKJUg5je7NvsDn1YoUUnsWsIDLSAPTuK31fcDVX0NOBCt0lyAw/4ehX2Q4VrGW+l8k6v47zS9JJ9yjU3CkaDwHn1OYrtu4b/oKCRqCUeA7kIHbqnyb2M1RfSdBvarh1ODsIw6uF2pPHf2Ez0XdJeqrxYyAqLTSRc9iQQ/c/wsnigi3YoyDBTxUHeK3dFrEGN1L5Rp/YtMipq9jWbA69kwWZVRtqYJS2sqbiR2zVIflPEGkSiPAyOyRoiNrJ35JPwoP0pFbOovNrZP/dLCuJHdym2m/q3/HIAdvGZKIQvcbJaE1o9z2SLipbKKhvQfHvwIybld+futW5yJUh8Sxkg8lw7vZjjLPn1QQvCWWzNUanAwQwa497ol3TvFa/pf/ws0JrXvc56mKYYmtbp7it89g01Rk5W/3YK+aINSkMNlw32S3C4PvRzfgmxiQaOvu/Vwq0QWHi2S1I0kv3DcF+9hTV+HD4eZAwZ5v+L1Sk7zIIUp8MENNpMpPg0v9EDJwbN3G3Z8WSzb8VGG+E304GYHmAOeHJORbz4ow6naHzJfyl1fVzocI2HcLsTs71aXgOOb0AWfppaHTdLBLVO05W5D1Pr+gnZetHr0aFfJlEzTsEpu2bRtl79UBw9YAz8tXM4SmS4QOKKO5ctdu/fZEGpoN0W4eYrXbGL5nAQpuRWadKBga6Q20pt7L+chgy0DxgFllq3/mq/K9Z7u6Gya1NWQelc4TOrgtDJFG3l/JtU6j400zE+Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(396003)(346002)(376002)(451199015)(40470700004)(36840700001)(46966006)(82310400005)(44832011)(316002)(356005)(16576012)(81166007)(83380400001)(110136005)(36756003)(54906003)(8676002)(70586007)(70206006)(5660300002)(40480700001)(2906002)(41300700001)(8936002)(4326008)(40460700003)(2616005)(426003)(47076005)(336012)(478600001)(7416002)(31686004)(36860700001)(186003)(82740400003)(31696002)(86362001)(26005)(53546011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 17:17:44.8703
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ffb817ad-1f71-4cac-cf72-08dab775ff65
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT087.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7611
 
-Intel specifies that the Intel IGD must occupy slot 2 on the PCI bus,
-as noted in docs/igd-assign.txt in the Qemu source code.
+Hi Rahul,
 
-Currently, when the xl toolstack is used to configure a Xen HVM guest with
-Intel IGD passthrough to the guest with the Qemu upstream device model,
-a Qemu emulated PCI device will occupy slot 2 and the Intel IGD will occupy
-a different slot. This problem often prevents the guest from booting.
+On 26/10/2022 16:33, Rahul Singh wrote:
+> 
+> 
+> Hi Julien,
+> 
+>> On 26 Oct 2022, at 2:36 pm, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 26/10/2022 14:17, Rahul Singh wrote:
+>>> Hi All,
+>>
+>> Hi Rahul,
+>>
+>>> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
+>>> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
+>>> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
+>>> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
+>>> how to add the IOMMU binding for guest OS.
+>>> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
+>>> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
+>>> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
+>>> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
+>>> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
+>>> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
+>>> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
+>>> configuration is called nesting.
+>>> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
+>>> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
+>>> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
+>>> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
+>>> XEN will trap the access and configure the hardware accordingly.
+>>> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
+>>> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
+>>> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
+>>> IOMMU node phandle.
+>> Below, you said that each IOMMUs may have a different ID space. So shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the user to specify the mapping?
+> 
+> Yes you are right we need to create one vIOMMU per pIOMMU for dom0. This also helps in the ACPI case
+> where we don’t need to modify the tables to delete the pIOMMU entries and create one vIOMMU.
+> In this case, no need to replace the phandle as Xen create the vIOMMU with the same pIOMMU
+> phandle and same base address.
+> 
+> For domU guests one vIOMMU per guest will be created.
+> 
+>>
+>>> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
+>>> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
+>>> "iommus = < &magic_phandle 0xvMasterID>
+>>>      • magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
+>>
+>> Does this mean only one IOMMU will be supported in the guest?
+> 
+> Yes.
+> 
+>>
+>>>      • vMasterID will be the virtual master ID that the user will provide.
+>>> The partial device tree will look like this:
+>>> /dts-v1/;
+>>>  / {
+>>>     /* #*cells are here to keep DTC happy */
+>>>     #address-cells = <2>;
+>>>     #size-cells = <2>;
+>>>       aliases {
+>>>         net = &mac0;
+>>>     };
+>>>       passthrough {
+>>>         compatible = "simple-bus";
+>>>         ranges;
+>>>         #address-cells = <2>;
+>>>         #size-cells = <2>;
+>>>         mac0: ethernet@10000000 {
+>>>             compatible = "calxeda,hb-xgmac";
+>>>             reg = <0 0x10000000 0 0x1000>;
+>>>             interrupts = <0 80 4  0 81 4  0 82 4>;
+>>>            iommus = <0xfdea 0x01>;
+>>>         };
+>>>     };
+>>> };
+>>>  In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
+>>> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
+>>> the same master ID but behind a different IOMMU.
+>>
+>> In xl.cfg, we already pass the device-tree node path to passthrough. So Xen should already have all the information about the IOMMU and Master-ID. So it doesn't seem necessary for Device-Tree.
+>>
+>> For ACPI, I would have expected the information to be found in the IOREQ.
+>>
+>> So can you add more context why this is necessary for everyone?
+> 
+> We have information for IOMMU and Master-ID but we don’t have information for linking vMaster-ID to pMaster-ID.
+> The device tree node will be used to assign the device to the guest and configure the Stage-2 translation. Guest will use the
+> vMaster-ID to configure the vIOMMU during boot. Xen needs information to link vMaster-ID to pMaster-ID to configure
+> the corresponding pIOMMU. As I mention we need vMaster-ID in case a system could have 2 identical Master-ID but
+> each one connected to a different SMMU and assigned to the guest.
 
-The only available workaround is not good: Configure Xen HVM guests to use
-the old and no longer maintained Qemu traditional device model available
-from xenbits.xen.org which does reserve slot 2 for the Intel IGD.
+I think the proposed solution would work and I would just like to clear some issues.
 
-To implement this feature in the Qemu upstream device model for Xen HVM
-guests, introduce the following new class, functions, types, and macros:
+Please correct me if I'm wrong:
 
-* XEN_PT_DEVICE_CLASS declaration, based on the existing TYPE_XEN_PT_DEVICE
-* XEN_PT_DEVICE_GET_CLASS macro helper function for XEN_PT_DEVICE_CLASS
-* typedef XenPTQdevRealize function pointer
-* XEN_PCI_IGD_SLOT_MASK, the value of slot_reserved_mask to reserve slot 2
-* xen_igd_reserve_slot and xen_igd_clear_slot functions
+In the xl config file we already need to specify dtdev to point to the device path in host dtb.
+In the partial device tree we specify the vMasterId as well as magic phandle.
+Isn't it that we already have all the information necessary without the need for iommu_devid_map?
+For me it looks like the partial dtb provides vMasterID and dtdev provides pMasterID as well as physical phandle to SMMU.
 
-The new xen_igd_reserve_slot function uses the existing slot_reserved_mask
-member of PCIBus to reserve PCI slot 2 for Xen HVM guests configured using
-the xl toolstack with the gfx_passthru option enabled, which sets the
-igd-passthru=on option to Qemu for the Xen HVM machine type.
+Having said that, I can also understand that specifying everything in one place using iommu_devid_map can be easier
+and reduces the need for device tree parsing.
 
-The new xen_igd_reserve_slot function also needs to be implemented in
-hw/xen/xen_pt_stub.c to prevent FTBFS during the link stage for the case
-when Qemu is configured with --enable-xen and --disable-xen-pci-passthrough,
-in which case it does nothing.
+Apart from that, what is the reason of exposing only one vSMMU to guest instead of one vSMMU per pSMMU?
+In the latter solution, the whole issue with handling devices with the same stream ID but belonging to different SMMUs
+would be gone. It would also result in a more natural way of the device tree look. Normally a guest would see
+e.g. both SMMUs and exposing only one can be misleading.
 
-The new xen_igd_clear_slot function overrides qdev->realize of the parent
-PCI device class to enable the Intel IGD to occupy slot 2 on the PCI bus
-since slot 2 was reserved by xen_igd_reserve_slot when the PCI bus was
-created in hw/i386/pc_piix.c for the case when igd-passthru=on.
+> 
+>>
+>>>  iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
+>>>      • PMASTER_ID is the physical master ID of the device from the physical DT.
+>>>      • VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
+>>>      • IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
+>>
+>> Below you give an example for Platform device. How would that fit in the context of PCI passthrough?
+> 
+> In PCI passthrough case, xl will create the "iommu-map" property in vpci host bridge node with phandle to vIOMMU node.
+> vSMMUv3 node will be created in xl.
+> 
+>>
+>>>  Example: Let's say the user wants to assign the below physical device in DT to the guest.
+>>>  iommu@4f000000 {
+>>>                 compatible = "arm,smmu-v3";
+>>>                      interrupts = <0x00 0xe4 0xf04>;
+>>>                 interrupt-parent = <0x01>;
+>>>                 #iommu-cells = <0x01>;
+>>>                 interrupt-names = "combined";
+>>>                 reg = <0x00 0x4f000000 0x00 0x40000>;
+>>>                 phandle = <0xfdeb>;
+>>>                 name = "iommu";
+>>> };
+>>
+>> So I guess this node will be written by Xen. How will you the case where there are extra property to added (e.g. dma-coherent)?
+> 
+> In this example this is physical IOMMU node. vIOMMU node wil be created by xl during guest creation.
+>>
+>>>  test@10000000 {
+>>>      compatible = "viommu-test”;
+>>>      iommus = <0xfdeb 0x10>;
+>>
+>> I am a bit confused. Here you use 0xfdeb for the phandle but below...
+> 
+> Here 0xfdeb is the physical IOMMU node phandle...
+>>
+>>>      interrupts = <0x00 0xff 0x04>;
+>>>      reg = <0x00 0x10000000 0x00 0x1000>;
+>>>      name = "viommu-test";
+>>> };
+>>>  The partial Device tree node will be like this:
+>>>  / {
+>>>     /* #*cells are here to keep DTC happy */
+>>>     #address-cells = <2>;
+>>>     #size-cells = <2>;
+>>>       passthrough {
+>>>         compatible = "simple-bus";
+>>>         ranges;
+>>>         #address-cells = <2>;
+>>>         #size-cells = <2>;
+>>>      test@10000000 {
+>>>              compatible = "viommu-test";
+>>>              reg = <0 0x10000000 0 0x1000>;
+>>>              interrupts = <0 80 4  0 81 4  0 82 4>;
+>>>              iommus = <0xfdea 0x01>;
+>>
+>> ... you use 0xfdea. Does this mean 'xl' will rewrite the phandle?
+> 
+> but here user has to set the “iommus” property with magic phanle as explained earlier. 0xfdea is magic phandle.
+> 
+> Regards,
+> Rahul
 
-Signed-off-by: Chuck Zmudzinski <brchuckz@netscape.net>
----
-Notes that might be helpful to reviewers of patched code in hw/xen:
-
-The new functions and types are based on recommendations from Qemu docs:
-https://qemu.readthedocs.io/en/latest/devel/qom.html
-
-Notes that might be helpful to reviewers of patched code in hw/i386:
-
-The small patch to hw/i386/pc_piix.c is protected by CONFIG_XEN so it does
-not affect builds that do not have CONFIG_XEN defined.
-
-xen_igd_gfx_pt_enabled() in the patched hw/i386/pc_piix.c file is an
-existing function that is only true when Qemu is built with
-xen-pci-passthrough enabled and the administrator has configured the Xen
-HVM guest with Qemu's igd-passthru=on option.
-
-v2: Remove From: <email address> tag at top of commit message
-
-v3: Changed the test for the Intel IGD in xen_igd_clear_slot:
-
-    if (is_igd_vga_passthrough(&s->real_device) &&
-        (s->real_device.vendor_id == PCI_VENDOR_ID_INTEL)) {
-
-    is changed to
-
-    if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
-        && (s->hostaddr.function == 0)) {
-
-    I hoped that I could use the test in v2, since it matches the
-    other tests for the Intel IGD in Qemu and Xen, but those tests
-    do not work because the necessary data structures are not set with
-    their values yet. So instead use the test that the administrator
-    has enabled gfx_passthru and the device address on the host is
-    02.0. This test does detect the Intel IGD correctly.
-
-    Sorry for the extra noise.
-
- hw/i386/pc_piix.c    |  3 +++
- hw/xen/xen_pt.c      | 25 +++++++++++++++++++++++++
- hw/xen/xen_pt.h      | 16 ++++++++++++++++
- hw/xen/xen_pt_stub.c |  4 ++++
- 4 files changed, 48 insertions(+)
-
-diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-index 0b1a79c0fa..a0f04ad62e 100644
---- a/hw/i386/pc_piix.c
-+++ b/hw/i386/pc_piix.c
-@@ -402,6 +402,9 @@ static void pc_xen_hvm_init(MachineState *machine)
-     }
- 
-     pc_xen_hvm_init_pci(machine);
-+    if (xen_igd_gfx_pt_enabled()) {
-+        xen_igd_reserve_slot(pcms->bus);
-+    }
-     pci_create_simple(pcms->bus, -1, "xen-platform");
- }
- #endif
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 0ec7e52183..c62f03dd9f 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -950,11 +950,35 @@ static void xen_pci_passthrough_instance_init(Object *obj)
-     PCI_DEVICE(obj)->cap_present |= QEMU_PCI_CAP_EXPRESS;
- }
- 
-+void xen_igd_reserve_slot(PCIBus *pci_bus)
-+{
-+    XEN_PT_LOG(0, "Reserving PCI slot 2 for IGD\n");
-+    pci_bus->slot_reserved_mask |= XEN_PCI_IGD_SLOT_MASK;
-+}
-+
-+static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
-+{
-+    PCIDevice *pci_dev = (PCIDevice *)qdev;
-+    XenPCIPassthroughState *s = XEN_PT_DEVICE(pci_dev);
-+    XenPTDeviceClass *xptc = XEN_PT_DEVICE_GET_CLASS(s);
-+    PCIBus *pci_bus = pci_get_bus(pci_dev);
-+
-+    if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
-+        && (s->hostaddr.function == 0)) {
-+        pci_bus->slot_reserved_mask &= ~XEN_PCI_IGD_SLOT_MASK;
-+        XEN_PT_LOG(pci_dev, "Intel IGD found, using slot 2\n");
-+    }
-+    xptc->pci_qdev_realize(qdev, errp);
-+}
-+
- static void xen_pci_passthrough_class_init(ObjectClass *klass, void *data)
- {
-     DeviceClass *dc = DEVICE_CLASS(klass);
-     PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
- 
-+    XenPTDeviceClass *xptc = XEN_PT_DEVICE_CLASS(klass);
-+    xptc->pci_qdev_realize = dc->realize;
-+    dc->realize = xen_igd_clear_slot;
-     k->realize = xen_pt_realize;
-     k->exit = xen_pt_unregister_device;
-     k->config_read = xen_pt_pci_read_config;
-@@ -977,6 +1001,7 @@ static const TypeInfo xen_pci_passthrough_info = {
-     .instance_size = sizeof(XenPCIPassthroughState),
-     .instance_finalize = xen_pci_passthrough_finalize,
-     .class_init = xen_pci_passthrough_class_init,
-+    .class_size = sizeof(XenPTDeviceClass),
-     .instance_init = xen_pci_passthrough_instance_init,
-     .interfaces = (InterfaceInfo[]) {
-         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index e7c4316a7d..40b31b5263 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -3,6 +3,7 @@
- 
- #include "hw/xen/xen_common.h"
- #include "hw/pci/pci.h"
-+#include "hw/pci/pci_bus.h"
- #include "xen-host-pci-device.h"
- #include "qom/object.h"
- 
-@@ -41,7 +42,20 @@ typedef struct XenPTReg XenPTReg;
- #define TYPE_XEN_PT_DEVICE "xen-pci-passthrough"
- OBJECT_DECLARE_SIMPLE_TYPE(XenPCIPassthroughState, XEN_PT_DEVICE)
- 
-+#define XEN_PT_DEVICE_CLASS(klass) \
-+    OBJECT_CLASS_CHECK(XenPTDeviceClass, klass, TYPE_XEN_PT_DEVICE)
-+#define XEN_PT_DEVICE_GET_CLASS(obj) \
-+    OBJECT_GET_CLASS(XenPTDeviceClass, obj, TYPE_XEN_PT_DEVICE)
-+
-+typedef void (*XenPTQdevRealize)(DeviceState *qdev, Error **errp);
-+
-+typedef struct XenPTDeviceClass {
-+    PCIDeviceClass parent_class;
-+    XenPTQdevRealize pci_qdev_realize;
-+} XenPTDeviceClass;
-+
- uint32_t igd_read_opregion(XenPCIPassthroughState *s);
-+void xen_igd_reserve_slot(PCIBus *pci_bus);
- void igd_write_opregion(XenPCIPassthroughState *s, uint32_t val);
- void xen_igd_passthrough_isa_bridge_create(XenPCIPassthroughState *s,
-                                            XenHostPCIDevice *dev);
-@@ -76,6 +90,8 @@ typedef int (*xen_pt_conf_byte_read)
- 
- #define XEN_PCI_INTEL_OPREGION 0xfc
- 
-+#define XEN_PCI_IGD_SLOT_MASK 0x4UL /* Intel IGD slot_reserved_mask */
-+
- typedef enum {
-     XEN_PT_GRP_TYPE_HARDWIRED = 0,  /* 0 Hardwired reg group */
-     XEN_PT_GRP_TYPE_EMU,            /* emul reg group */
-diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
-index 2d8cac8d54..5c108446a8 100644
---- a/hw/xen/xen_pt_stub.c
-+++ b/hw/xen/xen_pt_stub.c
-@@ -20,3 +20,7 @@ void xen_igd_gfx_pt_set(bool value, Error **errp)
-         error_setg(errp, "Xen PCI passthrough support not built in");
-     }
- }
-+
-+void xen_igd_reserve_slot(PCIBus *pci_bus)
-+{
-+}
--- 
-2.37.2
+~Michal
 
 
