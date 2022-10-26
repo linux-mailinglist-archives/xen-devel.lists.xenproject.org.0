@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 444B760E25C
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:42:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430595.682467 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 092DB60E2C4
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:59:12 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430603.682489 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongfn-00018s-2Z; Wed, 26 Oct 2022 13:42:23 +0000
+	id 1ongvT-00039Z-Mq; Wed, 26 Oct 2022 13:58:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430595.682467; Wed, 26 Oct 2022 13:42:23 +0000
+Received: by outflank-mailman (output) from mailman id 430603.682489; Wed, 26 Oct 2022 13:58:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongfm-00016W-W1; Wed, 26 Oct 2022 13:42:22 +0000
-Received: by outflank-mailman (input) for mailman id 430595;
- Wed, 26 Oct 2022 13:42:21 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=5DW6=23=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ongfl-00012X-90
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:42:21 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2051.outbound.protection.outlook.com [40.107.247.51])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0324ae12-5534-11ed-8fd0-01056ac49cbb;
- Wed, 26 Oct 2022 15:42:20 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by VE1PR04MB7487.eurprd04.prod.outlook.com (2603:10a6:800:1a2::13)
+	id 1ongvT-00036C-JH; Wed, 26 Oct 2022 13:58:35 +0000
+Received: by outflank-mailman (input) for mailman id 430603;
+ Wed, 26 Oct 2022 13:58:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=n4Ky=23=citrix.com=prvs=291e24488=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ongvR-000366-C2
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:58:33 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45379bef-5536-11ed-91b5-6bf2151ebd3b;
+ Wed, 26 Oct 2022 15:58:31 +0200 (CEST)
+Received: from mail-mw2nam04lp2173.outbound.protection.outlook.com (HELO
+ NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.173])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 26 Oct 2022 09:58:20 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by PH7PR03MB6972.namprd03.prod.outlook.com (2603:10b6:510:12f::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Wed, 26 Oct
- 2022 13:42:17 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Wed, 26 Oct 2022
- 13:42:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.30; Wed, 26 Oct
+ 2022 13:58:16 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254%3]) with mapi id 15.20.5746.028; Wed, 26 Oct 2022
+ 13:58:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,266 +49,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0324ae12-5534-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 45379bef-5536-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1666792711;
+  h=date:from:to:cc:subject:message-id:references:
+   in-reply-to:mime-version;
+  bh=EP5UQJ08KDhkBYVopzuTynVIcU3wGlXQdgLq8Yv5nM4=;
+  b=SFWOCsk5oZf9AmnYd+dF6ecDCXpLVpjyQml+DmNWyOnio9b9GRS5+Lwo
+   HDTG71j84V6Fv230bbRAb5SNeqTUzWxc+BBOsQiD5fQVYtH7X2Ik88PkD
+   BAJpDxBpdNOlRgiQajgnnccMp9/4AaPXuHrA63Iyp0NyLBTjPOSz4p+lu
+   Y=;
+X-IronPort-RemoteIP: 104.47.73.173
+X-IronPort-MID: 82645052
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:2kIBkK2CnIroyotbl/bD5fBwkn2cJEfYwER7XKvMYLTBsI5bp2RVy
+ GJNDD+Ga/fZNjH8LYonPN6y/EME7JDQnNBiHAVupC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefSAOKU5NfsYkhZXRVjRDoqlSVtkus4hp8AqdWiCkaGt
+ MiaT/f3YTdJ4BYpdDNJg06/gEk35q6r4GlG5gVWic1j5zcyqVFEVPrzGonpR5fIatE8NvK3Q
+ e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZWBiuFIPM0SRqkEqShgJ+rQ6LJIhhXJ/0F1lqTzTJ
+ OJl7vRcQS9xVkHFdX90vxNwS0mSNoUekFPLzOTWXWV+ACQqflO1q8iCAn3aMqUa/vpVX28ey
+ MciCzQdSyzcuPiskKmSH7wEasQLdKEHPas5k1Q4kXT8MqxjRprOBaLX+dVfwTE8wNhUGurTb
+ NYYbjwpawncZxpIOREcD5dWcOWA3yGjNWEH7g3O4/NouAA/zyQouFTpGMDSddGQA91cg26Tp
+ 37c/nS/CRYfXDCa4WrfrC7x3rKV9c/9cNJRSLuV6eJLu1KC6WowNjZMZV7nj+bs3yZSXPoac
+ ST44BEGr6I/6UiqRdnVRACjrTiPuRt0c/pdFfcrrj6EzKX86hycQGMDS1ZpeNEg8cM7WzEu/
+ luIhM/yQyxitqWPTnCQ/avSqim9URX5NkcHbC4ACA4aud/qpdlvigqVF4k4VqmoktfyBDf8h
+ SiQqzQzjKkSishN0Lin+VfAgHSnoZ2hohMJ2zg7l1mNtmtRDLNJraTxgbQHxZ6s9Lqkc2Q=
+IronPort-HdrOrdr: A9a23:yydNB61umPT5USDcFk9D6AqjBVdyeYIsimQD101hICG9Lfb0qy
+ n+pp4mPEHP4wr5OEtOpTlPAtjkfZr5z+8M3WBxB8baYOCCggeVxe5ZjbcKrweQeBEWs9Qtrp
+ uIEJIOdOEYb2IK6voSiTPQe7hA/DDEytHPuQ639QYRcegAUdAF0+4WMHf4LqUgLzM2f6bRWa
+ DskfZvln6FQzA6f867Dn4KU6zqoMDKrovvZVojCwQ84AeDoDu04PqieiLolys2Yndq+/MP4G
+ LFmwv26uGKtOy68AbV0yv2445NkNXs59NfDIini9QTKB/rlgG0Db4RLYGqjXQQmqWC+VwqmN
+ 7Dr1MJONly0WrYeiWPrR7ky2DboUQTwk6n7WXdrWrooMT/Sj5/IdFGn5hlfhzQ7FdllM1g0Y
+ pQtljp+qZ/PFflpmDQ9tLIXxZlmg6funw5i9MeiHRZTM83dKJRl4oC50lYea1wVh4S0LpXX9
+ WGMfusqsq/KTihHjHkVyhUsZeRt00Ib1u7qhNogL3U79BU9EoJvHfwivZv3Uvoz6hNOqWs19
+ 60TZiAq4s+MPP+TZgNcdvpEvHHflDlcFbrDF+4B2jBOeUuB0/twqSHkIndotvaMKA18A==
+X-IronPort-AV: E=Sophos;i="5.95,214,1661832000"; 
+   d="scan'208";a="82645052"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZY442MERyaNQyg0iOYE17Ivc0PW6+9DARJSDuxM3BYze9yDjbrXhBTolJET1FmfFEBsVUbF7vl1GRLDTEprVSCCWj3sfBV46Sq9VK+5D97VVPQPDFF+//NEKyHQXvyv+0Dey7TIlWz4PLd7HyNNKsb2pzl/iYW7nEPbT9rMNJoV95gvSRU2P2VapqJ1N1HIKNr0t5xgaAPNFJiP5pvQ0hTFJBLl9KoyIoIgCFnHG2XPp2VYL6k4nqJIgVm5M1rlvNKOY6Jnc1AWiNNiU6gYaNL5QJfb4HiBniBbx6VoWxoII9u9MnoRm/W/ikjsPiqwqviKPqTGr5J6W1iXCSIQvsQ==
+ b=Nw2gOw/oKOhSTbMGB3p7ueCKOOH6+0EonapNKIi+YHTB95X7sZU7BNwL3cgpc6/vRwp4lqztjNZ+uXRzktoEpsCwG6PZuXe9Xh/qU0Eo/0cxg0x4w2Jv7fC8VzK+hB22lqTBcmxbX9C3f/oYnAK15jIYt977dahPPad8Pv2b4A35jbQUmNwR2s2Df0T/LhxSIcMLen0bvtum1nZHiiysmNE5bC3TroSvvUJmmzDCGN1+z8aGVKVrhN/Q+oBM+4zPbqg5vAoSPuugwtd9wQ9Gk5ZK4ro7k//I8XFY0jqO9xDqPH0UuBIHLCX/KFHi+vkLJ0MvxlQz7Az4U19K82wtSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cx3W9P+imJMsWqJjb3/Fd9pb/bD2d42JW7SPBB3zBKw=;
- b=A0bHcRJx7nYYZVdgY85Vw8qazZx2EE9uxZDWjy/eEG/+6JvcTFhlGbfWhftCXeTUv9Me9g0ePDJRGt31wZcXT5sYu0HjoQBcc3rXPOvzvJOguIHdDEEAgNon1IqwD3b0ONCGGRFn5MlnyTP/a0OKa2ABcHzqZRYnazxF2GTlpvUqeE1kX4vo3daBTJ+DWfCqQOYDBUg3JPI0keOX2TdCGhH0dSXqjzRabvQgpmDV7Ec7Q3MXgmAK0Jh5362pJSZsK7ggnO6cAPWdTCHHKVPLQ/0BbfIu0BIv0wownYhCzkaeH5tR6eAnx+Qa9JwPxXnZ6pLe1219phSFn4JW27BCiQ==
+ bh=0qSp6mfsVSYJSkqhY8tIio+vVK4ih0bpe64V9TSGzyU=;
+ b=cloopdE8EuhEjds2PkNnlt9gcY++qRWp9d9+ref3/IbrijDKh5Z9AETaqmTdRDraF/8qr4H9hPaEGAHjPd/+/gl5vU2hyWX7EABRj+bxt/8ppMjWzPr4PgKhMftdp+QaDK9Ae8l/3/a1Wo6yKJNtU+L82jDyopqBSAI2QC6TF/P6ljzN91rwKbcXM+oKHPhtEGK31G9e/AxcfukdQ4/ZY7fnNqFPzmBRvtxVzwB1z5qG1XoM4lnyknwTrfhS5KZFjviyyd7rVb5pck6/4YVoSOXkZd5SYGgkT+VO8TuWgFYXBzOvV4Rywb0424V8/1lDAEQtA09WE1KcSwyEkcWfPA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cx3W9P+imJMsWqJjb3/Fd9pb/bD2d42JW7SPBB3zBKw=;
- b=ibrYv+OJXZwWqMF/IyCTHNxZgqs3q1rguP2G+IeeOE3ri9zxst83HZy2wLe6J/ifeeAEWZoicFiFZy2UlqzTCZWK3ne2tT5bzpCnDEiBDvfm2Uu0NGIYIPO5xmRrk6Ue18vgbayqDvpAwEXmzMVE1MHx6yVjPOwbmJHyiGom4VnL0pX5dSp7YwHGBEaUNsqdx/tpo04+HK3PU4gGxTMp3EUFLnNRE/6hE2UgRW8q90QajtG9lv+viiYcr4UudRje0rWM+E4XH6WSat9JlQmHPE0OQOfYKHP5irvoZpUSggb11i54UJdeeUZ2O+/xCJimEGOdX4YI0TZTZ4tFOMDWqw==
+ bh=0qSp6mfsVSYJSkqhY8tIio+vVK4ih0bpe64V9TSGzyU=;
+ b=NKFU03qnrH4ae1inMK+2CIVdSL/x9stt7udTGL4PG37eT4xhWlBVRtK/GDCpasWLGSQv8UD6PWExEA0q78jVS65E55IBYJN5tPvGG77fxtzlUpg4RciXh5tpX6XDunfARB2q1jy7biC6UQ2VR9XyjlyOSmA36rqjunhKCOXtIUw=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ffb8bdb8-f54b-2107-ce1a-775337c172ac@suse.com>
-Date: Wed, 26 Oct 2022 15:42:15 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH 1/4] xen: Introduce non-broken hypercalls for the p2m pool
- size
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Henry Wang <Henry.Wang@arm.com>, Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20221026102018.4144-1-andrew.cooper3@citrix.com>
- <20221026102018.4144-2-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20221026102018.4144-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0132.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 26 Oct 2022 15:58:10 +0200
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Henry.Wang@arm.com, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH for-4.17 v2 5/5] vpci: refuse BAR writes only if the BAR
+ is mapped
+Message-ID: <Y1k88uhbSNdMvsa+@Air-de-Roger>
+References: <20221025144418.66800-1-roger.pau@citrix.com>
+ <20221025144418.66800-6-roger.pau@citrix.com>
+ <666377e8-fe58-bc9f-70ff-2e21d93c691f@suse.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <666377e8-fe58-bc9f-70ff-2e21d93c691f@suse.com>
+X-ClientProxiedBy: LO4P265CA0015.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ad::18) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VE1PR04MB7487:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41050455-72eb-4c39-df2d-08dab757e5bb
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|PH7PR03MB6972:EE_
+X-MS-Office365-Filtering-Correlation-Id: 67c5e006-0c5f-4746-b04f-08dab75a215a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	QLwOIb+t5AaNXTCKnj/BDnQbgok0I+EE7pOo8KDu1L8+z7xXQCvlc3eq836a0exE4/Ca46Q/frPULetw9FbWsCTSdPVqeBJzcA8uT4/4ho7w1y+TBa8OF9VNj9sodb8T+/l5Ki/5MpxFtwij2tjA81BFpeLD6XxaM52h9ScmQbwvLRKZF7+0ty9m2zO0gvbrwQnmiobtpv94oYKq8NmAT820coHWF3hr4EAC3Rx00rU2AUyPW7h3WDiH6JPYflcrY6IVY+1FmYZBQXzCLwRdOUrLwrCZD7N5jR0mXo+deBC6Uhb97It8JP0z1xzW7CN3lUxw83Kx/1GfvPTG1rimIo7ehcMWfIQ+tYjUr3ejBHUv7kC4+Blhj+RL8egMAA748ZEOkj9N0a26+ike03/ed43X0m/LJclypXjIcIpunqnB7AxLiBvyWU6oo8cCPilYxQgpVGPdbxLwkvnz/cXc5ocVUxkXc1SEyYwhE9gSkfSTXarCuSD0i/RhXZ9SIf79zjxOjY2kGGrmyIizY4mx8HkJnnAj3nFcGqAQcM8j1NWTFHjtiKj0HctQysjBoywkxCh5HolP9jRduVJXA4WDOPrzzLilk6QQcDmcU+4pKPQtXpASI304vFe1s/LjaJ+dCzmOT2Z0a3c6cZ/ua4SStYWfGjpWF6PGDKm4FBVqFG8u3f6XaU/MWe9q/x0MIOz4gIrW+HqZvn4iRlJvs5YJI4boRPP6Tb0h8Sno74uWYbsZWzwtORrn1OW59PVkOrbb/Aq54BDFRURlfJQgkiqLbw6HFLnKewSnNcWKHVwSqN3dr3sAkkfirl4cpOq9xcsF
+	NbM3KcksN/bhwzQUPS1TXahiv0b6UYf5bvoYR8vJv8E1RtptM6/VfXro8sNsn5aFD73pBFjPOWU/0lx8wvyX7XfWcGLaa+Fv/gEX0v7HPihKWvcPDJWLlOs5b7Wkilqq8JOL0TU9tBV+PSmodHHmj0vWgI86awLyvubIHXatMwH/VV2YIvAam1QPd6kEDmZZgFjnxtiYzL4omznCxrRqC/VJkUHAxNtOolNRJRho6y8M58cOehiy1KwSRaYnkOEeLBHx1QSLJUUXF/j20IDqsB/0foF1eArTALaGDe+SkXNmhr0qzxUtRksEFc8wNi+O9v4kRrGF1uvaL3fnQI/BdIo6ds/2BRLyKKt4dkE3/+8FuS+2FU/aVtgozDdRKWoFuTY/nMcAc/eLXKuryGvdPxnkiCxGZbrAOfJ2XkS4VEdH2bTZr9lZqFUmMcH3nKsqmMGV6Wq0sfrQ1llzOLOxq6bB127pkfskgUhnvyc6+kFJeDnyjAQ60/gjOrNwHsWyyFugGfI3w7I5HkYCWEYrR9bYkaoMQWfP2xuUmo3f8U3nsMNeoddC4V/iVOKUk7uy2zB6CGjE0qXgPuDrkcqXgLiQu/rhHA/4SkqMjXpAs6lSMCzCjEDJynxdTYQc/LfVvLQAiUfvx59ny7VHKZr0rGRjxc0Z4fgkXTCcZgP08ql4/CAcZzodq7Ydi7dciDfDiYWawLQCpHNKStjfdiy5lQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(366004)(376002)(39860400002)(396003)(451199015)(2906002)(54906003)(6916009)(316002)(53546011)(86362001)(6506007)(6512007)(6486002)(5660300002)(478600001)(26005)(38100700002)(7416002)(31686004)(8936002)(41300700001)(4326008)(186003)(66946007)(36756003)(2616005)(8676002)(83380400001)(66556008)(31696002)(66476007)(45980500001)(43740500002)(473944003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(7916004)(4636009)(39860400002)(366004)(396003)(346002)(376002)(136003)(451199015)(33716001)(478600001)(38100700002)(186003)(66476007)(41300700001)(83380400001)(85182001)(6666004)(53546011)(6916009)(66946007)(8676002)(5660300002)(26005)(2906002)(6512007)(82960400001)(66556008)(86362001)(316002)(6486002)(6506007)(9686003)(8936002)(4326008);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bm5hWXk1S2tXekIvRldId3dYbGpnaWtZTUpTWGhjZ2dsNWgyMUdDbXF1dERD?=
- =?utf-8?B?cWtSK3VMcjdhVmFVS2V4emZjdVJ4bDJKa1FTNUFSMXRqT1JHTlZlY1A1dmVS?=
- =?utf-8?B?Tm16Uzk2bjhCL0w5akFMaHJoZXlNclVmN2lOM2xpNjUrUmx0ZE5takZFL2Vu?=
- =?utf-8?B?bnk5dEFDNHFuZERFSis2WVA1TEFZZnN1K094WHRrZ0VxdG4vRFdzdURzbEk3?=
- =?utf-8?B?aWpIQ0N1YzVjd2wyRFBtdnJ2VjNtZDJCY0swTld2RTgxNmxzS3VJWW1STG44?=
- =?utf-8?B?QWRBUlNhOUxscFFmalE3SjdGcjdnT04vS085UEFSTjhxZ0lFOUZEallLOU1G?=
- =?utf-8?B?Uk1XWE9xM3hOd21XWWdFejEzYWwxOG9PWS9RVEhWV0dFbStMQk05NFFXSncw?=
- =?utf-8?B?MXFOME5nTWI1akNZS0c3VHJHQ1JNeklXR0taWVpTYVFlR2RHUFhkbTRHRzRi?=
- =?utf-8?B?TFgvRUIrcmVScVg4OGtsY1lzZGxWdHF2aTZ1N3laTkxqcXVvY2c0WGJ4T2tv?=
- =?utf-8?B?dS9BbkhIV1orZ2FubHRlK0I3SzhJbFgwOU9YM2xWeVZsT21LV051a2dqdkNy?=
- =?utf-8?B?K0I3T3RXQmZQRnBmU2VEZ0JMZjJaVy9xakxPVWtPUmw1c0tMenNjbXF1b0RZ?=
- =?utf-8?B?RjM1MkVuRWlGL3hjVmEwak80WlVLSktkYWt5cGh4NVRDUllWNFkzOGFLaVRI?=
- =?utf-8?B?OUJUSW0rcGw2Sk1YWXY3ckpMbUVNck5JR0xROWtYaURPeVR4K3RZcGtSem9B?=
- =?utf-8?B?bDQ2dTlBSG9SWGpoaEk4L1crSkJDRTZTZHFxWXhBNm83aWhmdUI2ZzBaUGxE?=
- =?utf-8?B?VlBtNTRuRXBja2VnQWp6RWVWa0IwbGg3Y3JWS21FMUI5endYNzk0ekpiZWxT?=
- =?utf-8?B?cEVBcTlyaXpLL0tneU5xbHo4cDdxU2IyNHc3RkZhWUhuUDhWSmZNWCtZazhB?=
- =?utf-8?B?ak5YZ21ZSHA4MVVGSDQwaXBwc0hxRTBQRVRyY2ExMWRlOGF0WUlHSjJrd0xV?=
- =?utf-8?B?NEFoZVBKV1ZnYWNWR0xBbldWTnFHRXFaanFPVXhKUkIvQ0dBMXNMa0h4NHNv?=
- =?utf-8?B?b0orZTBRU1hjQkUvdHpQcGdOSW41U041bEFranJxSlF6eFluWXJBcDZEUjVr?=
- =?utf-8?B?aFkyZlpkZ1RNL1pKbEJ3NVV2S3VVYnAzMW5od2JDa0UrVC9tSGhUbnBBTzZB?=
- =?utf-8?B?ZUFZRjM3YUkyNWdaQUJRYk1QL1ZHY1hsakFsLzltYlUwSE9aY29CZm4xbkts?=
- =?utf-8?B?b1dZYjRJZ1VHazNzMDF1TUswVkdvZ1lQWDVIVnpQbndFVmNHVnMwdkRnVjd1?=
- =?utf-8?B?bzB0ZmFvV2JpT20rV0tHTGZFOWU2eTlXSmVPbHpyTmdWaWhaZ01Tek9JRTgy?=
- =?utf-8?B?QjFOQWx4UFh1TlNTVi9CUC96SkRUM0RFRFhjK0IwcFhRTjJNQ29PQ2NvVXhL?=
- =?utf-8?B?SFA3UlJpOHF4ZDRuNnh2TUNKZlFSQjdML08xN0l3OEo1KzlNLzNsVDhIUG52?=
- =?utf-8?B?dnZXWnd1WFhQZTc1aUI2aXB6OWpPOE1uWWRnVE04ak5aRnVvUm1aMGVQSGx3?=
- =?utf-8?B?YU9CTXpSS0wxMGtwcXRRa3hrVXNyS0ladlE0alVtQVN4bkR5L0F2SUZYT1d6?=
- =?utf-8?B?UG42WWVsR2x3TE1HOWJWRjJHYkRFTzZUU3dxQktpU0xDRTMzd1FCdGpTK1o0?=
- =?utf-8?B?S0NVaG5HaHN6NE53dGg2ZGRUc1ZINVgyZ3M3SUdkZkRUem5xbXJhQkZPeVVv?=
- =?utf-8?B?MVdOUUZYYlhFdDlKLzRBeUJLV212cytOaGplWmswQ3lEMlp5bUhsR3Fzdjgy?=
- =?utf-8?B?UVRlY0FldzBkeFBYS0NwQ2JyRHM5US9IdkFUWjJmRkZablZmZThRS2IzSmwz?=
- =?utf-8?B?d0ZwQ1pXcXpVaW1wYTQycUtWSXNuNXpkQXZZWTR3NWk1MEQ5WElPRE1Dd1Bs?=
- =?utf-8?B?RGRCT0pVcXNEK3FoeGtJM0MzZkE3RSt3QnBCUFNVSmFVV1p3bVdqUXo4Y1JV?=
- =?utf-8?B?Yno1WlIzang3TE1LWnF2TXhZS2ZIS1h2UTRWbExKL1JnSlEzNUdFR2FnRy92?=
- =?utf-8?B?bTZjdmErNjBhRmluS1BNaFRKcTFXMFB3YVVoandHa3pIdytpOWpZT2lXY21n?=
- =?utf-8?Q?l3c4xa+no2+fP2pxX1hIYYKee?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41050455-72eb-4c39-df2d-08dab757e5bb
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?Q3dxcUFMVUVqc3B6ODlocmhlQmpNZTZMK09tVnpoR3laM2VCeEcxaWh0VFJ4?=
+ =?utf-8?B?cjFudXhrNytmWStRNFVyUjhGQ2hmRExBSFpSVCtFek1VcGVPNnk4SWxCUzVt?=
+ =?utf-8?B?S2JDckkzdllOS1U5bjlSUEc1WUhFSk5MMVU3MzBuMzJwOVg2UWNkRHJ1MWgr?=
+ =?utf-8?B?bWozNmN1dG5RSFU3blJqcWsrSFRTR3RkNUhSUjRwdGFWbWtjMm1QVnRjVFNE?=
+ =?utf-8?B?TXVNejdBa1JpOHdCNVdEbTlMMTNseXFmeVlSdFpNbk9TbTlGTkd3WjRKSjJq?=
+ =?utf-8?B?NytCRllhMVV5RjZBYVoyNmtDbFhDL1NyNkR0ZlIzT0hwakFUck1UM1pNbzUx?=
+ =?utf-8?B?UzRSS3V6a0hmUzRVS0JTdDNLd0pQNmZoTVp6d21wWW1EWE52THJiaTBaQUFv?=
+ =?utf-8?B?SXYwempjd1F2aFlpU0JpRUVGdmFFclRKai9lVk01SDNmdjhPRXlLSDlOaGR5?=
+ =?utf-8?B?WTdTWTV5TkdKMGswQWdONXZqc0FNQWZSbTllYURKa1JwUWVqY21Nc3pmQlZ6?=
+ =?utf-8?B?aElrNHIzaStybnJwMG1oaUJjc0cra3VHNDNNaWwwNEJzSHA4cW8wMEh4Wklx?=
+ =?utf-8?B?VUFnSlIvTDF5eUhwaUN1d1I2THFsMmsxbS9yOEs5dlpveTM4bnErRk1qRHk1?=
+ =?utf-8?B?V2l6cnJ0OTl3d252MlZDN3M1ZWVneFU3ODN5K2hnbUFGTFVubm1RQ1FBMVBy?=
+ =?utf-8?B?aGlGU0FNMlJDRG91ZVA2K250bm5oM2VHUUV1eFRaSkl3L2NWb3NuaVNVYVQw?=
+ =?utf-8?B?dVdnYms5VHVOdnpjWVhaV0pRdUNNbnI0TVVucFU2Mjh0SUdzdEVtRDdBZlBB?=
+ =?utf-8?B?akE3NW1CUFE2ZjFFQUkyTEJLczZ1MEpiUUN4Z0hySUJqZE1Mc0lsS3hiclhB?=
+ =?utf-8?B?dEhXaFc0SnRleHdqMWdzLzgrVnZCS3BuN1BFWTNjRFl2dkhGNG9XakI0bG1N?=
+ =?utf-8?B?a2lLVk1FZW1nSDloeUpoa3hGcFM4RkRWRiszRFRxVnlTdElLQlI4WWNHTFpl?=
+ =?utf-8?B?MUxJMUZOeHpOdGJOSnYvKythd2hLcjFwOFJ3L0NKVVR4ZmxVQ0M5elFiWTZC?=
+ =?utf-8?B?bk5pSVYzSVo2VEtEd2s5MzhMb3dlazBoL0JmWUNPMmdEeEZqdU5wdy9vSDVK?=
+ =?utf-8?B?eS9QYmU5Tk1kNGZOdFZSNHIwaGlGNG5qVm5KZnZLdmQ1WW9zYkFKb2E3VW5M?=
+ =?utf-8?B?UHNWSjlzVGUxU29ZTUE2TjcwMzFsd1MxOUVLcTg4akZNenB0T2JNaHVCMXV5?=
+ =?utf-8?B?OTVqOXltYWFPQ2dRWEpqU3phV3h5dlJlOWZ1SU9QVDdLU3liQzZITk45ekIv?=
+ =?utf-8?B?eTdvckRuT0ZnMHYzVnNDeDJZbTZNcFdKdTVuUnpVM0d1MGtuYmMwZjUvS2lB?=
+ =?utf-8?B?blBOMkhteDVzT1NDREVod2FDaUQ0WUlxZEVQZ1VzMi94dkF3RExDeWRjYmt1?=
+ =?utf-8?B?UWdKMHk2bkdxSVU4Z3pFMFk5STF4a1FUYmJVbXc1WVF4d2xxRXNyZXJwZXBs?=
+ =?utf-8?B?Q3c2ZWxSTGMvakczU3VoY3JwVjRIbE5sbno0U045NUZ1cWE0K3ZLMGNjbE1D?=
+ =?utf-8?B?OTBuRUJ4cjRzK21jSGN3NzJXTGJ3NzUrQitCRjYxTDU4VkZjRFdQWUFaMlV2?=
+ =?utf-8?B?T3UxWDBFUlVxcW1HQ1dnNUY0T0dEWFJjWlVtSmtwVXBPSVpkZXNpUkk1ZVdw?=
+ =?utf-8?B?aVpVdldzSXdxMEgvbDE4WjFEQ0hWK3laNEwrclNmSG8vRXd0d0RKdlFMK0lz?=
+ =?utf-8?B?YnFxSGNvZDlCT3pPaFJFOWtKa0d1S0tSWnlLUHI3dEFsVVVoZlFDZzRmeHNM?=
+ =?utf-8?B?MW42NnlvYTFOV3VISHVxYXhuKzNiZHlsT3Fsb1l6M1lyYTdPRjhHcVAxSmxS?=
+ =?utf-8?B?Snc0aEc0SFByemVPcEovL2VVNGxyaHFvVUZLRXRoZEFyQkErMDZ4a1VVQmFa?=
+ =?utf-8?B?bnNWalVEejh3Y28wT3pnMkJkNnYwY3JZYjl1M3d5Q25BOHNCM0Z6SVZ6a1NW?=
+ =?utf-8?B?VGh4SEw1UUhYZG1jckRQeVMwdkUrWVVoRlVMaW5uMmlmbnVYUW14Y25UTlNX?=
+ =?utf-8?B?Z3VMMWlXaGtOOS9BZ3liM21FQnhIUzY5RzZZREdBaThFbmQ0Q2hjd0xFZHE2?=
+ =?utf-8?Q?69iAzyOX/E8VgxVmhlB70eOrP?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 67c5e006-0c5f-4746-b04f-08dab75a215a
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 13:42:17.1772
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 13:58:16.3220
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: aYji9VYN8b5kTbPTVYPRcRnoIYP6b55EyUOKqnQ8sevmXaxdDuKZiqyBXVh0ET2bk6VkAWChA1kvcy+DKn1Xbw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB7487
+X-MS-Exchange-CrossTenant-UserPrincipalName: MRjER1/TPVoj2VsXU+rQXxnFUytR5ISxMpgCu8akU9UwqFh6baOP1H/N3DtKUgaG7Ql8j0wMPkT1sMQeOtjeCQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR03MB6972
 
-On 26.10.2022 12:20, Andrew Cooper wrote:
-> The existing XEN_DOMCTL_SHADOW_OP_{GET,SET}_ALLOCATION have problems:
+On Wed, Oct 26, 2022 at 02:47:43PM +0200, Jan Beulich wrote:
+> On 25.10.2022 16:44, Roger Pau Monne wrote:
+> > Writes to the BARs are ignored if memory decoding is enabled for the
+> > device, and the same happen with ROM BARs if the write is an attempt
+> > to change the position of the BAR without disabling it first.
+> > 
+> > The reason of ignoring such writes is a limitation in Xen, as it would
+> > need to unmap the BAR, change the address, and remap the BAR at the
+> > new position, which the current logic doesn't support.
+> > 
+> > Some devices however seem to (wrongly) have the memory decoding bit
+> > hardcoded to enabled, and attempts to disable it don't get reflected
+> > on the command register.
+> > 
+> > This causes issues for well behaved guests that disable memory
+> > decoding and then try to size the BARs, as vPCI will think memory
+> > decoding is still enabled and ignore the write.
 > 
->  * All set_allocation() flavours have an overflow-before-widen bug when
->    calculating "sc->mb << (20 - PAGE_SHIFT)".
->  * All flavours have a granularity of of 1M.  This was tolerable when the size
->    of the pool could only be set at the same granularity, but is broken now
->    that ARM has a 16-page stopgap allocation in use.
->  * All get_allocation() flavours round up, and in particular turn 0 into 1,
->    meaning the get op returns junk before a successful set op.
->  * The x86 flavours reject the hypercalls before the VM has vCPUs allocated,
->    despite the pool size being a domain property.
+> Just to avoid misunderstandings: "guests" here includes Dom0? In such
+> cases we typically prefer to say "domains". This then also affects
+> the next (final) paragraph.
 
-I guess this is merely a remnant and could easily be dropped there.
+Right, will adjust.
 
->  * Even the hypercall names are long-obsolete.
+> > --- a/xen/drivers/vpci/header.c
+> > +++ b/xen/drivers/vpci/header.c
+> > @@ -128,7 +128,10 @@ static void modify_decoding(const struct pci_dev *pdev, uint16_t cmd,
+> >      }
+> >  
+> >      if ( !rom_only )
+> > +    {
+> >          pci_conf_write16(pdev->sbdf, PCI_COMMAND, cmd);
+> > +        header->bars_mapped = map;
+> > +    }
+> >      else
+> >          ASSERT_UNREACHABLE();
+> >  }
+> > @@ -355,13 +358,13 @@ static int modify_bars(const struct pci_dev *pdev, uint16_t cmd, bool rom_only)
+> >  static void cf_check cmd_write(
+> >      const struct pci_dev *pdev, unsigned int reg, uint32_t cmd, void *data)
+> >  {
+> > -    uint16_t current_cmd = pci_conf_read16(pdev->sbdf, reg);
+> > +    struct vpci_header *header = data;
+> >  
+> >      /*
+> >       * Let Dom0 play with all the bits directly except for the memory
+> >       * decoding one.
+> >       */
+> > -    if ( (cmd ^ current_cmd) & PCI_COMMAND_MEMORY )
+> > +    if ( header->bars_mapped != !!(cmd & PCI_COMMAND_MEMORY) )
+> >          /*
+> >           * Ignore the error. No memory has been added or removed from the p2m
+> >           * (because the actual p2m changes are deferred in defer_map) and the
+> > @@ -388,12 +391,12 @@ static void cf_check bar_write(
+> >      else
+> >          val &= PCI_BASE_ADDRESS_MEM_MASK;
+> >  
+> > -    if ( pci_conf_read16(pdev->sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY )
+> > +    if ( bar->enabled )
 > 
-> Implement an interface that doesn't suck, which can be first used to unit test
-> the behaviour, and subsequently correct a broken implementation.  The old
-> interface will be retired in due course.
-> 
-> This is part of XSA-409 / CVE-2022-33747.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Xen Security Team <security@xen.org>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Bertrand Marquis <bertrand.marquis@arm.com>
-> CC: Henry Wang <Henry.Wang@arm.com>
-> CC: Anthony PERARD <anthony.perard@citrix.com>
-> 
-> Name subject to improvement.
+> In 3 of the 4 cases you use header->bars_mapped as replacement. Since it's
+> not clear to me why you don't here, could you explain this to me? (I'm
+> therefore undecided whether this is merely a cosmetic [consistency] issue.)
 
-paging_{get,set}_mempool_size() for the arch helpers (in particular
-fitting better with them living in paging.c as well its multi-purpose use
-on x86) and XEN_DOMCTL_{get,set}_paging_mempool_size? Perhaps even the
-"mem" could be dropped?
+No, it's intended to use bar->enabled here rather than
+header->bars_mapped.
 
->  ABI not.
+It's possible to have header->bars_mapped == true, but bar->enabled ==
+false if memory decoding is enabled, but this BAR specifically has
+failed to be mapped in the guest p2m, which means dom0 is safe to move
+it for what Xen cares (ie: it won't mess with p2m mappings because
+there are none for the BAR).
 
-With the comment in the public header saying "Users of this interface are
-required to identify the granularity by other means" I wonder why the
-interface needs to be byte-granular. If the caller needs to know page size
-by whatever means, it can as well pass in a page count.
+We could be more strict and use header->bars_mapped, but I don't think
+there's a need for it.
 
-> Future TODOs:
->  * x86 shadow still rounds up.  This is buggy as it's a simultaneous equation
->    with tot_pages which varies over time with ballooning.
->  * x86 PV is weird.  There are no toolstack interact with the shadow pool
->    size, but the "shadow" pool it does come into existence when logdirty (or
->    pv-l1tf) when first enabled.
->  * The shadow+hap logic is in desperate need of deduping.
+What about adding a comment with:
 
-I have a tiny step towards this queued as post-XSA-410 work, folding HAP's
-and shadow's freelist, total_pages, free_pages, and p2m_pages. Here this
-would mean {hap,shadow}_get_allocation_bytes() could be done away with,
-having the logic exclusively in paging.c.
+/*
+ * Xen only cares whether the BAR is mapped into the p2m, so allow BAR
+ * writes as long as the BAR is not mapped into the p2m.
+ */
 
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -100,6 +100,14 @@ unsigned int p2m_get_allocation(struct domain *d)
->      return ROUNDUP(nr_pages, 1 << (20 - PAGE_SHIFT)) >> (20 - PAGE_SHIFT);
->  }
->  
-> +/* Return the size of the pool, in bytes. */
-> +int arch_get_p2m_mempool_size(struct domain *d, uint64_t *size)
-> +{
-> +    *size = ACCESS_ONCE(d->arch.paging.p2m_total_pages) << PAGE_SHIFT;
+Otherwise I can switch to using header->bars_mapped if you think
+that's clearer.
 
-This may overflow for Arm32.
-
-> @@ -157,6 +165,25 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
->      return 0;
->  }
->  
-> +int arch_set_p2m_mempool_size(struct domain *d, uint64_t size)
-> +{
-> +    unsigned long pages = size >> PAGE_SHIFT;
-> +    bool preempted = false;
-> +    int rc;
-> +
-> +    if ( (size & ~PAGE_MASK) ||          /* Non page-sized request? */
-> +         pages != (size >> PAGE_SHIFT) ) /* 32-bit overflow? */
-> +        return -EINVAL;
-
-Simply "(pages << PAGE_SHIFT) != size"? And then move the check into
-common code?
-
-> --- a/xen/arch/x86/mm/hap/hap.c
-> +++ b/xen/arch/x86/mm/hap/hap.c
-> @@ -345,6 +345,16 @@ unsigned int hap_get_allocation(struct domain *d)
->              + ((pg & ((1 << (20 - PAGE_SHIFT)) - 1)) ? 1 : 0));
->  }
->  
-> +int hap_get_allocation_bytes(struct domain *d, uint64_t *size)
-> +{
-> +    unsigned long pages = (d->arch.paging.hap.total_pages +
-> +                           d->arch.paging.hap.p2m_pages);
-
-Unlike for Arm no ACCESS_ONCE() here? Also the addition can in
-principle overflow, because being done only in 32 bits.
-
-> --- a/xen/arch/x86/mm/paging.c
-> +++ b/xen/arch/x86/mm/paging.c
-> @@ -977,6 +977,45 @@ int __init paging_set_allocation(struct domain *d, unsigned int pages,
->  }
->  #endif
->  
-> +int arch_get_p2m_mempool_size(struct domain *d, uint64_t *size)
-> +{
-> +    int rc;
-> +
-> +    if ( is_pv_domain(d) )
-> +        return -EOPNOTSUPP;
-> +
-> +    if ( hap_enabled(d) )
-> +        rc = hap_get_allocation_bytes(d, size);
-> +    else
-> +        rc = shadow_get_allocation_bytes(d, size);
-> +
-> +    return rc;
-> +}
-> +
-> +int arch_set_p2m_mempool_size(struct domain *d, uint64_t size)
-> +{
-> +    unsigned long pages = size >> PAGE_SHIFT;
-> +    bool preempted = false;
-> +    int rc;
-> +
-> +    if ( is_pv_domain(d) )
-> +        return -EOPNOTSUPP;
-
-Why? You do say "PV is weird" in a post-commit-message remark, but why
-do you want to retain this weirdness? Even if today the tool stack
-doesn't set the size when enabling log-dirty mode, I'd view this as a
-bug which could be addressed purely in the tool stack if this check
-wasn't there.
-
-> +    if ( size & ~PAGE_MASK )             /* Non page-sized request? */
-> +        return -EINVAL;
-> +
-> +    ASSERT(paging_mode_enabled(d));
-
-Not only with the PV aspect in mind - why? It looks reasonable to me
-to set the pool size before enabling any paging mode.
-
-> +    paging_lock(d);
-> +    if ( hap_enabled(d) )
-> +        rc = hap_set_allocation(d, pages, &preempted);
-> +    else
-> +        rc = shadow_set_allocation(d, pages, &preempted);
-
-Potential truncation from the "unsigned long" -> "unsigned int"
-conversions.
-
-Jan
+Thanks, Roger.
 
