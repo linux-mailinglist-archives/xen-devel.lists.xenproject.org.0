@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EDD5260E245
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:37:42 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430584.682435 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1630B60E25B
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:41:55 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430591.682458 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongaF-00073B-SW; Wed, 26 Oct 2022 13:36:39 +0000
+	id 1ongf4-0000c2-Q7; Wed, 26 Oct 2022 13:41:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430584.682435; Wed, 26 Oct 2022 13:36:39 +0000
+Received: by outflank-mailman (output) from mailman id 430591.682458; Wed, 26 Oct 2022 13:41:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongaF-000713-PV; Wed, 26 Oct 2022 13:36:39 +0000
-Received: by outflank-mailman (input) for mailman id 430584;
- Wed, 26 Oct 2022 13:36:38 +0000
+	id 1ongf4-0000YU-N9; Wed, 26 Oct 2022 13:41:38 +0000
+Received: by outflank-mailman (input) for mailman id 430591;
+ Wed, 26 Oct 2022 13:41:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ongaE-00070x-Fa
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:36:38 +0000
+ (envelope-from <julien@xen.org>) id 1ongf4-0000YO-1p
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:41:38 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ongaE-0003mA-36; Wed, 26 Oct 2022 13:36:38 +0000
+ id 1ongf3-0003rs-MS; Wed, 26 Oct 2022 13:41:37 +0000
 Received: from 54-240-197-235.amazon.com ([54.240.197.235]
  helo=[192.168.28.184]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ongaD-0005iI-S2; Wed, 26 Oct 2022 13:36:38 +0000
+ id 1ongf3-0005tg-Fj; Wed, 26 Oct 2022 13:41:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,188 +42,99 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=98F6bgrjz7sIeL9FPPRZjNKw97p6xD7EaVybNoD0hmI=; b=yxKhq42WtteIzmJDJSuwsxMXKd
-	28vDZ88KQT/DyquAwtrS5IDeGhi1lekcl9Fo9uJzQMrUmGS8JX0RZhF2Ysbr7Tbjd+vaL78o51mgn
-	2qemw2aqPOTZMm14kxgUofCaZUOetmjOk1+f1eZ2dOlGCo6FeIBQxKO67WNVws+/T1Ko=;
-Message-ID: <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
-Date: Wed, 26 Oct 2022 14:36:34 +0100
+	bh=ikrKre8zf6ff2/vdwgDK7M0P68hkRUB3XwKF9qbYtPQ=; b=NMcvqxyXP6okrWJ3lDVE3Shnx9
+	cfUjb9ixyOtGgnT0OSe7kHJkiuKqpZkMjndzqCH4+5QR2pXJuR+bsaF0xU2llO3fd2CIy1KQjse/n
+	jL6lsoAklN2d8/ZrRwBoaLJJNHDDBz693SHyMm/ZTJNFG6Evkb+9e8cVANLj0V9mr/Lw=;
+Message-ID: <95d0a8ca-9ff0-162a-02ae-8cbdc30af8b9@xen.org>
+Date: Wed, 26 Oct 2022 14:41:34 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
- devices
+Subject: Re: [XEN v3] xen/arm: vGICv3: Emulate properly 32-bit access on
+ GICR_PENDBASER
 Content-Language: en-US
-To: Rahul Singh <Rahul.Singh@arm.com>,
- Xen developer discussion <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <Michal.Orzel@arm.com>,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
- Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Juergen Gross <jgross@suse.com>
-References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com, andre.przywara@arm.com, Henry.Wang@arm.com
+References: <20221026133540.52191-1-ayankuma@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+In-Reply-To: <20221026133540.52191-1-ayankuma@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+Hi Ayan,
 
-
-On 26/10/2022 14:17, Rahul Singh wrote:
-> Hi All,
-
-Hi Rahul,
-
-> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
-> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
-> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
-> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
-> how to add the IOMMU binding for guest OS.
+On 26/10/2022 14:35, Ayan Kumar Halder wrote:
+> If a guest is running in 32 bit mode and it tries to access
+> "GICR_PENDBASER + 4" mmio reg, it will be trapped to Xen. vreg_reg64_extract()
+> will return the value stored "v->arch.vgic.rdist_pendbase + 4".
+> This will be stored in a 64bit cpu register.
+ >
+> So now we have the top 32 bits of GICR_PENDBASER (a 64 bit MMIO register) stored
+> in the lower 32 bits of the 64bit cpu register.
 > 
-> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
-> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
-> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
-> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
-> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
-> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
-> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
-> configuration is called nesting.
+> This 64bit cpu register is then modified bitwise with a mask (ie
+> GICR_PENDBASER_PTZ, it clears the 62nd bit). But the PTZ (which is bit 30 in the
+> 64 bit cpu register) is not cleared as expected by the specification.
 > 
-> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
-> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
-> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
-> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
-> XEN will trap the access and configure the hardware accordingly.
+> The correct thing to do here is to store the value of
+> "v->arch.vgic.rdist_pendbase" in a temporary 64 bit variable. This variable is
+> then modified bitwise with GICR_PENDBASER_PTZ mask. It is then passed to
+> vreg_reg64_extract() which will extract 32 bits from the given offset.
 > 
-> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
-> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
+> Fixes: fe7fa1332dabd9ce4 ("ARM: vGICv3: handle virtual LPI pending and property tables")
+> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+
+Given the changes you made below, the reviewed-by tags below should not 
+have been retained.
+
+> Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+> ---
 > 
-> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
-> IOMMU node phandle.
-Below, you said that each IOMMUs may have a different ID space. So 
-shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the 
-user to specify the mapping?
-
+> Changes from:-
 > 
-> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
-> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
+> v1 - 1. Extracted this fix from "[RFC PATCH v1 05/12] Arm: GICv3: Emulate
+> GICR_PENDBASER and GICR_PROPBASER on AArch32" into a separate patch with an
+> appropriate commit message.
 > 
-> "iommus = < &magic_phandle 0xvMasterID>
-> 	• magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
+> v2 - 1. Removed spin_lock_irqsave(). Used read_atomic() to read
+> v->arch.vgic.rdist_pendbase in an atomic context.
 
-Does this mean only one IOMMU will be supported in the guest?
+Please in the commit message why the lock is removed. But...
 
-> 	• vMasterID will be the virtual master ID that the user will provide.
+> 2. Rectified the commit message to state that the cpu register is 64 bit.
+> (because currently, GICv3 is supported on Arm64 only). Reworded to make it
+> clear.
 > 
-> The partial device tree will look like this:
-> /dts-v1/;
->   
-> / {
->      /* #*cells are here to keep DTC happy */
->      #address-cells = <2>;
->      #size-cells = <2>;
->   
->      aliases {
->          net = &mac0;
->      };
->   
->      passthrough {
->          compatible = "simple-bus";
->          ranges;
->          #address-cells = <2>;
->          #size-cells = <2>;
->          mac0: ethernet@10000000 {
->              compatible = "calxeda,hb-xgmac";
->              reg = <0 0x10000000 0 0x1000>;
->              interrupts = <0 80 4  0 81 4  0 82 4>;
->             iommus = <0xfdea 0x01>;
->          };
->      };
-> };
->   
-> In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
-> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
-> the same master ID but behind a different IOMMU.
-
-In xl.cfg, we already pass the device-tree node path to passthrough. So 
-Xen should already have all the information about the IOMMU and 
-Master-ID. So it doesn't seem necessary for Device-Tree.
-
-For ACPI, I would have expected the information to be found in the IOREQ.
-
-So can you add more context why this is necessary for everyone?
-
->   
-> iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
+>   xen/arch/arm/vgic-v3.c | 10 +++++-----
+>   1 file changed, 5 insertions(+), 5 deletions(-)
 > 
-> 	• PMASTER_ID is the physical master ID of the device from the physical DT.
-> 	• VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
-> 	• IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
-
-Below you give an example for Platform device. How would that fit in the 
-context of PCI passthrough?
-
+> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+> index 0c23f6df9d..958af1532e 100644
+> --- a/xen/arch/arm/vgic-v3.c
+> +++ b/xen/arch/arm/vgic-v3.c
+> @@ -249,16 +249,16 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct vcpu *v, mmio_info_t *info,
 >   
-> Example: Let's say the user wants to assign the below physical device in DT to the guest.
+>       case VREG64(GICR_PENDBASER):
+>       {
+> -        unsigned long flags;
+> +        uint64_t val;
 >   
-> iommu@4f000000 {
->                  compatible = "arm,smmu-v3";
->               	interrupts = <0x00 0xe4 0xf04>;
->                  interrupt-parent = <0x01>;
->                  #iommu-cells = <0x01>;
->                  interrupt-names = "combined";
->                  reg = <0x00 0x4f000000 0x00 0x40000>;
->                  phandle = <0xfdeb>;
->                  name = "iommu";
-> };
-
-So I guess this node will be written by Xen. How will you the case where 
-there are extra property to added (e.g. dma-coherent)?
-
+>           if ( !v->domain->arch.vgic.has_its )
+>               goto read_as_zero_64;
+>           if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
 >   
-> test@10000000 {
-> 	compatible = "viommu-test”;
-> 	iommus = <0xfdeb 0x10>;
+> -        spin_lock_irqsave(&v->arch.vgic.lock, flags);
+> -        *r = vreg_reg64_extract(v->arch.vgic.rdist_pendbase, info);
+> -        *r &= ~GICR_PENDBASER_PTZ;       /* WO, reads as 0 */
+> -        spin_unlock_irqrestore(&v->arch.vgic.lock, flags);
+> +        val = read_atomic(&v->arch.vgic.rdist_pendbase);
 
-I am a bit confused. Here you use 0xfdeb for the phandle but below...
-
-> 	interrupts = <0x00 0xff 0x04>;
-> 	reg = <0x00 0x10000000 0x00 0x1000>;
-> 	name = "viommu-test";
-> };
->   
-> The partial Device tree node will be like this:
->   
-> / {
->      /* #*cells are here to keep DTC happy */
->      #address-cells = <2>;
->      #size-cells = <2>;
->   
->      passthrough {
->          compatible = "simple-bus";
->          ranges;
->          #address-cells = <2>;
->          #size-cells = <2>;
-> 
-> 	test@10000000 {
->              	compatible = "viommu-test";
->              	reg = <0 0x10000000 0 0x1000>;
->              	interrupts = <0 80 4  0 81 4  0 82 4>;
->              	iommus = <0xfdea 0x01>;
-
-... you use 0xfdea. Does this mean 'xl' will rewrite the phandle?
-
->          };
->      };
-> };
->   
->   iommu_devid_map = [ “0x10@0x01,0x4f000000”]
-> 	• 0x10 is the real physical master id from the physical DT.
-> 	• 0x01 is the virtual master Id that the user defines as a partial device tree.
-> 	• 0x4f000000 is the base address of the IOMMU device.
+... you also need to ensure that the writers are atomically setting 
+rdist_pendbase. Please correct if I am wrong, but the callers are not 
+using write_atomic(). So how does that work?
 
 Cheers,
 
