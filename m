@@ -2,51 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA17E60E246
-	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:37:44 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430585.682445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDD5260E245
+	for <lists+xen-devel@lfdr.de>; Wed, 26 Oct 2022 15:37:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430584.682435 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongae-0007SM-7K; Wed, 26 Oct 2022 13:37:04 +0000
+	id 1ongaF-00073B-SW; Wed, 26 Oct 2022 13:36:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430585.682445; Wed, 26 Oct 2022 13:37:04 +0000
+Received: by outflank-mailman (output) from mailman id 430584.682435; Wed, 26 Oct 2022 13:36:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ongae-0007PN-47; Wed, 26 Oct 2022 13:37:04 +0000
-Received: by outflank-mailman (input) for mailman id 430585;
- Wed, 26 Oct 2022 13:37:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ANQJ=23=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1ongac-0007NX-E1
- for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:37:02 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44ab19b1-5533-11ed-91b5-6bf2151ebd3b;
- Wed, 26 Oct 2022 15:37:00 +0200 (CEST)
-Received: from MW4PR04CA0303.namprd04.prod.outlook.com (2603:10b6:303:82::8)
- by LV2PR12MB5965.namprd12.prod.outlook.com (2603:10b6:408:172::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5723.26; Wed, 26 Oct
- 2022 13:36:56 +0000
-Received: from CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:82:cafe::ca) by MW4PR04CA0303.outlook.office365.com
- (2603:10b6:303:82::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
- Transport; Wed, 26 Oct 2022 13:36:56 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT070.mail.protection.outlook.com (10.13.175.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Wed, 26 Oct 2022 13:36:56 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 26 Oct
- 2022 08:36:17 -0500
-Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Wed, 26 Oct 2022 08:36:16 -0500
+	id 1ongaF-000713-PV; Wed, 26 Oct 2022 13:36:39 +0000
+Received: by outflank-mailman (input) for mailman id 430584;
+ Wed, 26 Oct 2022 13:36:38 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1ongaE-00070x-Fa
+ for xen-devel@lists.xenproject.org; Wed, 26 Oct 2022 13:36:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ongaE-0003mA-36; Wed, 26 Oct 2022 13:36:38 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.28.184]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1ongaD-0005iI-S2; Wed, 26 Oct 2022 13:36:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,128 +39,194 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44ab19b1-5533-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oee8nAeZ0e7IMaYnjTdBV+jz0cNT04wyfQn51D8oJH9i+h7BbvHPsDQNiIH1ikM/4eRUm/uu0mvNQhM5aODyeAJ+W7pomJGOEOOTxXa6uhSFzlnq9t+bd5XNbG9QLv0aqrWAX0x+yJRd6vxTT2gU3ivGK51ywFLDV+vxZR1RFav9S/ao7NbSP3leyOQZAKcSTJVi/+elXkA4aLxm96klqk51mBeYkn3q7uRT3gN5LWlxGqgfaT6q6RtojDAOsBTOp8DDJVmErkD5zGsfpQoLDwjzuUBPCoPA7Q7XIvZt01G7AKrgy9Guyu2ZNuJVWvl+nKAzV7GbaOIV8yxk91Sv9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wwEyZHBa3dPSOxtzUwSKMcWCHBoTLECu3tT8+ePe6jE=;
- b=LroUwE2ZuOcCu7KUrZ3tGnR0J/ndhpHh2FEdDIOb/ZdNtWndoApO08fIIg1YTAP/UeoN6xftf6J29C0jfMt5qYddMTjIIG/wcLD2zC/NXwgrWF0I2z7iXH9yug3EP0do3QpV+F3sWLTDnrDsio51luxZWBCIuzO8in47w5eCljdcT2j85F+T78r3xr94awpOunVz78qIY+s5pLaQnPaLhhea98X+iPyIzPHA8c4mjgNEMt7OdJsIBkXVW+CorTEJvHcG0heJC6/Bp/BJSheG1PIGZ2C09XSKQP5OwN0lbAKp57cOih8EuPMMdUlma6rOx5ERpBGx4Rf6eSixa4kkaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wwEyZHBa3dPSOxtzUwSKMcWCHBoTLECu3tT8+ePe6jE=;
- b=ZFObGO8/IXn898KvloihPTeiIpmpMLNt/EsiFRsw/q+9bV9l/N8sVyTBbFzbsDlglZRHk7+TekEVOLLrwU0qu478KFQDUTGTBwlfu6BMBjwQaBF8QSc/hQ7SwjQyJVyB/C9+E16Y6Bu8nAyNjHoJdZ2IPrAgjs3uSztlonT4U0A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayankuma@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<andre.przywara@arm.com>, <Henry.Wang@arm.com>, Ayan Kumar Halder
-	<ayankuma@amd.com>
-Subject: [XEN v3] xen/arm: vGICv3: Emulate properly 32-bit access on GICR_PENDBASER
-Date: Wed, 26 Oct 2022 14:35:40 +0100
-Message-ID: <20221026133540.52191-1-ayankuma@amd.com>
-X-Mailer: git-send-email 2.17.1
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=98F6bgrjz7sIeL9FPPRZjNKw97p6xD7EaVybNoD0hmI=; b=yxKhq42WtteIzmJDJSuwsxMXKd
+	28vDZ88KQT/DyquAwtrS5IDeGhi1lekcl9Fo9uJzQMrUmGS8JX0RZhF2Ysbr7Tbjd+vaL78o51mgn
+	2qemw2aqPOTZMm14kxgUofCaZUOetmjOk1+f1eZ2dOlGCo6FeIBQxKO67WNVws+/T1Ko=;
+Message-ID: <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
+Date: Wed, 26 Oct 2022 14:36:34 +0100
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT070:EE_|LV2PR12MB5965:EE_
-X-MS-Office365-Filtering-Correlation-Id: dea28037-51af-454a-6297-08dab75726b2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rWntPbS4r9y3KnRr2bGGR3DfIto9M/NIcHRmColpSwvPmtOcBFZ3XsL8FcdRtjajv43FV4duECzEAMdXkXA4k/bZLgkwPxtB9w3wjQuTz9Av4ELwB+BsuCRFoPI1ZRZK3ZOjG3Lf9eWX+Nus9/LEq/vWI2TGWrMpvQl40rSOjrBIHzxXkm88jJ3lfnVni4yurR5Vu08Fyp27yUXU1heQ+eOlsy6sbM9VHu50MJwtfiMhO7Jp7RKUC6fZ1/5AyNfnfyctfcYGF3aXwLOyDT0PUF9GZC1FtmUVpj3h2a8ax+WFRokwKXSf3yzNXvvoC8hSCJ8J/Cq/zlQDeAXpKq1kiUBPmvb2wYMEAOo8HoWDKStgseSEv9r95ZzHgMs41MxA1VxbKgKOmdZrN/zxpHtQXLkm/cG2fPOJN0xxR1OgZq8kxfRrNr19px6Y/wS2FWHLRWUINdLfIBmzvx9WakC5ebqVTsdAfVwPRy5Nmr3pIx0BgILW0JGVAZC3R8nCk8cldR+yUAAv7I3K1O2Okw6qFnHtGrtuL95KlQ5bI4M1QR6T3xKhsvtB9jAl8MXDPAGChnDSBg9xiChUlAw72RCWWzhm5jIky13+qJK2IIi2XQGKOhqNPTGkBwoApPX172Nx+7tres9vyh3PZyNduLlqK2DFZbTNkjwy66FUFTa7Dd5GeckEzZ2eer7DX8vfjJvyjz3WWsc+hQPX5b3uJA3r15cpvUUTdg5wGhNvL/LpPyA+s/rULkeXAn4dvazGtB0Ce32RYddP4BtAnCiY3QCOaGkkcnny23DIq4ShqLMTwRq7pqPJP3ZOPbxv7LCIY2Fq
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199015)(40470700004)(46966006)(36840700001)(82310400005)(41300700001)(6666004)(5660300002)(82740400003)(316002)(26005)(4326008)(356005)(54906003)(81166007)(40460700003)(36756003)(478600001)(40480700001)(8936002)(70206006)(83380400001)(8676002)(47076005)(426003)(336012)(186003)(6916009)(2616005)(1076003)(36860700001)(2906002)(70586007)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Oct 2022 13:36:56.4202
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dea28037-51af-454a-6297-08dab75726b2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT070.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5965
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.0
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
+ devices
+Content-Language: en-US
+To: Rahul Singh <Rahul.Singh@arm.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Michal Orzel <Michal.Orzel@arm.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Juergen Gross <jgross@suse.com>
+References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-If a guest is running in 32 bit mode and it tries to access
-"GICR_PENDBASER + 4" mmio reg, it will be trapped to Xen. vreg_reg64_extract()
-will return the value stored "v->arch.vgic.rdist_pendbase + 4".
-This will be stored in a 64bit cpu register.
-So now we have the top 32 bits of GICR_PENDBASER (a 64 bit MMIO register) stored
-in the lower 32 bits of the 64bit cpu register.
 
-This 64bit cpu register is then modified bitwise with a mask (ie
-GICR_PENDBASER_PTZ, it clears the 62nd bit). But the PTZ (which is bit 30 in the
-64 bit cpu register) is not cleared as expected by the specification.
 
-The correct thing to do here is to store the value of
-"v->arch.vgic.rdist_pendbase" in a temporary 64 bit variable. This variable is
-then modified bitwise with GICR_PENDBASER_PTZ mask. It is then passed to
-vreg_reg64_extract() which will extract 32 bits from the given offset.
+On 26/10/2022 14:17, Rahul Singh wrote:
+> Hi All,
 
-Fixes: fe7fa1332dabd9ce4 ("ARM: vGICv3: handle virtual LPI pending and property tables")
-Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
-Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-Release-acked-by: Henry Wang <Henry.Wang@arm.com>
----
+Hi Rahul,
 
-Changes from:-
+> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
+> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
+> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
+> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
+> how to add the IOMMU binding for guest OS.
+> 
+> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
+> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
+> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
+> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
+> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
+> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
+> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
+> configuration is called nesting.
+> 
+> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
+> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
+> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
+> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
+> XEN will trap the access and configure the hardware accordingly.
+> 
+> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
+> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
+> 
+> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
+> IOMMU node phandle.
+Below, you said that each IOMMUs may have a different ID space. So 
+shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the 
+user to specify the mapping?
 
-v1 - 1. Extracted this fix from "[RFC PATCH v1 05/12] Arm: GICv3: Emulate
-GICR_PENDBASER and GICR_PROPBASER on AArch32" into a separate patch with an
-appropriate commit message.
+> 
+> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
+> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
+> 
+> "iommus = < &magic_phandle 0xvMasterID>
+> 	• magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
 
-v2 - 1. Removed spin_lock_irqsave(). Used read_atomic() to read 
-v->arch.vgic.rdist_pendbase in an atomic context.
-2. Rectified the commit message to state that the cpu register is 64 bit.
-(because currently, GICv3 is supported on Arm64 only). Reworded to make it
-clear.
+Does this mean only one IOMMU will be supported in the guest?
 
- xen/arch/arm/vgic-v3.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+> 	• vMasterID will be the virtual master ID that the user will provide.
+> 
+> The partial device tree will look like this:
+> /dts-v1/;
+>   
+> / {
+>      /* #*cells are here to keep DTC happy */
+>      #address-cells = <2>;
+>      #size-cells = <2>;
+>   
+>      aliases {
+>          net = &mac0;
+>      };
+>   
+>      passthrough {
+>          compatible = "simple-bus";
+>          ranges;
+>          #address-cells = <2>;
+>          #size-cells = <2>;
+>          mac0: ethernet@10000000 {
+>              compatible = "calxeda,hb-xgmac";
+>              reg = <0 0x10000000 0 0x1000>;
+>              interrupts = <0 80 4  0 81 4  0 82 4>;
+>             iommus = <0xfdea 0x01>;
+>          };
+>      };
+> };
+>   
+> In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
+> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
+> the same master ID but behind a different IOMMU.
 
-diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
-index 0c23f6df9d..958af1532e 100644
---- a/xen/arch/arm/vgic-v3.c
-+++ b/xen/arch/arm/vgic-v3.c
-@@ -249,16 +249,16 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct vcpu *v, mmio_info_t *info,
- 
-     case VREG64(GICR_PENDBASER):
-     {
--        unsigned long flags;
-+        uint64_t val;
- 
-         if ( !v->domain->arch.vgic.has_its )
-             goto read_as_zero_64;
-         if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
- 
--        spin_lock_irqsave(&v->arch.vgic.lock, flags);
--        *r = vreg_reg64_extract(v->arch.vgic.rdist_pendbase, info);
--        *r &= ~GICR_PENDBASER_PTZ;       /* WO, reads as 0 */
--        spin_unlock_irqrestore(&v->arch.vgic.lock, flags);
-+        val = read_atomic(&v->arch.vgic.rdist_pendbase);
-+        val = v->arch.vgic.rdist_pendbase;
-+        val &= ~GICR_PENDBASER_PTZ;      /* WO, reads as 0 */
-+        *r = vreg_reg64_extract(val, info);
-         return 1;
-     }
- 
+In xl.cfg, we already pass the device-tree node path to passthrough. So 
+Xen should already have all the information about the IOMMU and 
+Master-ID. So it doesn't seem necessary for Device-Tree.
+
+For ACPI, I would have expected the information to be found in the IOREQ.
+
+So can you add more context why this is necessary for everyone?
+
+>   
+> iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
+> 
+> 	• PMASTER_ID is the physical master ID of the device from the physical DT.
+> 	• VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
+> 	• IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
+
+Below you give an example for Platform device. How would that fit in the 
+context of PCI passthrough?
+
+>   
+> Example: Let's say the user wants to assign the below physical device in DT to the guest.
+>   
+> iommu@4f000000 {
+>                  compatible = "arm,smmu-v3";
+>               	interrupts = <0x00 0xe4 0xf04>;
+>                  interrupt-parent = <0x01>;
+>                  #iommu-cells = <0x01>;
+>                  interrupt-names = "combined";
+>                  reg = <0x00 0x4f000000 0x00 0x40000>;
+>                  phandle = <0xfdeb>;
+>                  name = "iommu";
+> };
+
+So I guess this node will be written by Xen. How will you the case where 
+there are extra property to added (e.g. dma-coherent)?
+
+>   
+> test@10000000 {
+> 	compatible = "viommu-test”;
+> 	iommus = <0xfdeb 0x10>;
+
+I am a bit confused. Here you use 0xfdeb for the phandle but below...
+
+> 	interrupts = <0x00 0xff 0x04>;
+> 	reg = <0x00 0x10000000 0x00 0x1000>;
+> 	name = "viommu-test";
+> };
+>   
+> The partial Device tree node will be like this:
+>   
+> / {
+>      /* #*cells are here to keep DTC happy */
+>      #address-cells = <2>;
+>      #size-cells = <2>;
+>   
+>      passthrough {
+>          compatible = "simple-bus";
+>          ranges;
+>          #address-cells = <2>;
+>          #size-cells = <2>;
+> 
+> 	test@10000000 {
+>              	compatible = "viommu-test";
+>              	reg = <0 0x10000000 0 0x1000>;
+>              	interrupts = <0 80 4  0 81 4  0 82 4>;
+>              	iommus = <0xfdea 0x01>;
+
+... you use 0xfdea. Does this mean 'xl' will rewrite the phandle?
+
+>          };
+>      };
+> };
+>   
+>   iommu_devid_map = [ “0x10@0x01,0x4f000000”]
+> 	• 0x10 is the real physical master id from the physical DT.
+> 	• 0x01 is the virtual master Id that the user defines as a partial device tree.
+> 	• 0x4f000000 is the base address of the IOMMU device.
+
+Cheers,
+
 -- 
-2.17.1
-
+Julien Grall
 
