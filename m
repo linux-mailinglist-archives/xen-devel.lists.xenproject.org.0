@@ -2,39 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6CC060F153
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 09:44:06 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.430905.683184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 708DD60F1D4
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 10:06:43 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.430913.683195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onxXT-0008Un-00; Thu, 27 Oct 2022 07:42:55 +0000
+	id 1onxu1-0003cv-4R; Thu, 27 Oct 2022 08:06:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 430905.683184; Thu, 27 Oct 2022 07:42:54 +0000
+Received: by outflank-mailman (output) from mailman id 430913.683195; Thu, 27 Oct 2022 08:06:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1onxXS-0008Ro-Sk; Thu, 27 Oct 2022 07:42:54 +0000
-Received: by outflank-mailman (input) for mailman id 430905;
- Thu, 27 Oct 2022 07:42:53 +0000
+	id 1onxu1-0003ZZ-1U; Thu, 27 Oct 2022 08:06:13 +0000
+Received: by outflank-mailman (input) for mailman id 430913;
+ Thu, 27 Oct 2022 08:06:11 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a7vm=24=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1onxXR-0008Ri-JG
- for xen-devel@lists.xenproject.org; Thu, 27 Oct 2022 07:42:53 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2068.outbound.protection.outlook.com [40.107.22.68])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=uk3A=24=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
+ id 1onxtz-0003ZT-79
+ for xen-devel@lists.xenproject.org; Thu, 27 Oct 2022 08:06:11 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5b9f6ff-55ca-11ed-91b5-6bf2151ebd3b;
- Thu, 27 Oct 2022 09:42:51 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7511.eurprd04.prod.outlook.com (2603:10a6:20b:23f::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.21; Thu, 27 Oct
- 2022 07:42:49 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Thu, 27 Oct 2022
- 07:42:49 +0000
+ id 32ac2419-55ce-11ed-91b5-6bf2151ebd3b;
+ Thu, 27 Oct 2022 10:06:02 +0200 (CEST)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ c7-20020a05600c0ac700b003c6cad86f38so3525703wmr.2
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Oct 2022 01:06:02 -0700 (PDT)
+Received: from zen.linaroharston ([185.81.254.11])
+ by smtp.gmail.com with ESMTPSA id
+ j21-20020a05600c42d500b003b492753826sm739610wme.43.2022.10.27.01.06.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Oct 2022 01:06:01 -0700 (PDT)
+Received: from zen (localhost [127.0.0.1])
+ by zen.linaroharston (Postfix) with ESMTP id 919ED1FFB7;
+ Thu, 27 Oct 2022 09:06:00 +0100 (BST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,144 +48,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5b9f6ff-55ca-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MCKbqd/dbt8R6ig8Xr7f1F3KOlRqe5+oajETQajI1IYQV/xbvjDwaJr5/GmI+Z2r5o6kxGZZ7e09/fcaVhDkBQCjVPREi1/qFanFy1TueiYB7S82F/xw2+FP38htrFOhR85xhYazqollis+9znneKXDnpZA2XOWM7rkeZhz4r3LxxDtbhpHK9Y6OCyBYemWE/oSZmMAtNJG4k/tOqfXbhe8lpQg3myCPx4776jbi4LqhsMVSaHnjG++OKQS7Li6URXsP8Cl0vkj9fHhFjSw01n7m+bXL9LdKqfpMu083bqHZSefVOo1YoNDGu21oSRUxcvbnMpCTAJ0elmm8j1dnlA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rbj/4eHtZ0EwWOarKG1TXEsOJjIYCSgqAK0gFP8TdVg=;
- b=XHA4XlqG3MervS9rJN3CtLrS17EPT5dOyaXcWIsOWXi2cfn3fkyCztae5Nzg7NroFTKLRY2q4VoD0xm7U1C4Fd0+A6amhUI//eCBSrj24HHu4g+Wp2aL+XZj3rSq6j6h38AUbMfg+UwSF5ZkFWYSjzBgPTGUuU9M2JT8pXBqk+rI8/lRcXhDQQqD//klqp9cQs/u2ICWdK1wCifrdIVnBfqjOOeiiVGt80WRnZC6/E/+r5ea5H9IJszpq+FO0eqMICO9nTwI9yBJPJqaHosNQl07OtVK5vXCdDbGMhtOAFq7dF/3koKlp8BexUZBZkw97RWTpk4CQOONdY68+0swnQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rbj/4eHtZ0EwWOarKG1TXEsOJjIYCSgqAK0gFP8TdVg=;
- b=xc0KkG2NuG4wFMtG1WqObT2hzILUOsln+hANK4F9ZnXAjODe3My+byWTqZy3HivcG2rPIxyCwORzhe+/JjHfM3GGup1OJRqc/PF1R/G4DCniB5+i7Q6tBrtYbfw8cR62HtbMrwtdt4IrRlwgk9xFLIw40dKIilsjnRQAanBdCmYA4j+VCvqs1sBkOVqE6lR00v5KtlDn0zFqwbIaGqNX+/jXzS5FRhI2BL5mMoEE/YJN6IRzpZQ0NaOC3MINfCc4QNcJQpUTiq85vDsaVZJ0Eb7AaBhMUw+3DPkZYx71J6ym+9V6IxvljA6ZUvzr2EYywAuJHSf3xFjTUAEvbNSZXw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ddcfd948-a189-7094-2300-aa7a1cdd5f2a@suse.com>
-Date: Thu, 27 Oct 2022 09:42:47 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH 1/4] xen: Introduce non-broken hypercalls for the p2m pool
- size
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen Security Team <security@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Julien Grall <julien@xen.org>, Volodymyr Babchuk
- <Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Henry Wang <Henry.Wang@arm.com>, Anthony PERARD <anthony.perard@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20221026102018.4144-1-andrew.cooper3@citrix.com>
- <20221026102018.4144-2-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20221026102018.4144-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0146.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:95::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 32ac2419-55ce-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=z1uurC34g6Qf9FWFyk2KxYKzqdHfrq68bhaSqBXYo5I=;
+        b=voqhycX7azc3qkNmoaEI47DED1JheWSB5FvAWFHrw81a6fImlbnNBRSDIcvG9BExml
+         26iN6aGZtpUIqliBs2HcdUXiCK9sCNgqejR09ardAtqfe1ldJOqYwTYhsy66h6AT59DR
+         2e9VtXnRyyT2pb8OfQeq7gsEohoR/Vuh4xOVtgr4vsfmd6t55TrG2HE8urDAq/rk8hgy
+         wnI0sfFjkvjadU1fAiW6KhI9kYv2eZsWFxUr9poXziE8F1XELnifCJiNpvsWne4sR0td
+         2jDP3QSSJUfIwV5Wy0IznPBzh+7wPiFSIaFSWUWKoMtV23j+WIeqoVnVlMVQHW6rGVUI
+         yRdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
+         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=z1uurC34g6Qf9FWFyk2KxYKzqdHfrq68bhaSqBXYo5I=;
+        b=cTZnfoI5t7azEMmCfBeRZhVWGRBa0vEyg9Ns5ZjgUzBkFlnQE6YG28Ye6GiI94mCVp
+         7yACdVAO4EjIc1B/GxXqlQZrYeZmeSIIqvECJy3NDzqNQFnd9kZfVhjcd4a6xHeDDM5L
+         PZQmTHi41r/ufyRrPKfYH4F2vdox7A/3E8toE1Lg/n571lyIsnb8YRpiaD540J1XAZEN
+         iUSe1EEIWj07alzX+/9HgUIUZ6eEN+g+yVxtaU/LzRy7vLruTeEP/5W0vnOuq4ZN5CXb
+         FZWiVKafp9Gkf7BMgm9nTiGWMKP9EDDrVY6PWAeRArydzZY0drXeHIygCEUY0euarraW
+         D7ZQ==
+X-Gm-Message-State: ACrzQf3wSbN7twdjz1lewJ3yRbH6sCnA9lm/gHdXPH+Tj467ao8NLGX1
+	YX7KleR7An+2Gyshx/rb0hFSSA==
+X-Google-Smtp-Source: AMsMyM5GL4qb1MFYnFCbiDZDc7xYJjB+hmZlm/UCDT+/BW/Bb1iQZ3miWz9BLFpOIdi8TqX2va0aTw==
+X-Received: by 2002:a1c:25c1:0:b0:3cf:4dc4:5a97 with SMTP id l184-20020a1c25c1000000b003cf4dc45a97mr3556803wml.147.1666857961556;
+        Thu, 27 Oct 2022 01:06:01 -0700 (PDT)
+References: <20221015050750.4185-1-vikram.garhwal@amd.com>
+ <20221015050750.4185-11-vikram.garhwal@amd.com>
+User-agent: mu4e 1.9.1; emacs 28.2.50
+From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+Cc: qemu-devel@nongnu.org, stefano.stabellini@amd.com, Peter Maydell
+ <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
+ xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v1 10/12] hw/arm: introduce xenpv machine
+Date: Thu, 27 Oct 2022 09:02:54 +0100
+In-reply-to: <20221015050750.4185-11-vikram.garhwal@amd.com>
+Message-ID: <87wn8l3d3r.fsf@linaro.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7511:EE_
-X-MS-Office365-Filtering-Correlation-Id: 77b27d9c-06aa-4566-d84e-08dab7eed8c8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	sQj4tF+WeFNY/QArBkCVhBG3LbPjSnz2LQO4/t+syP/qvKYHP9HhAEEpgBejCG8z/ghJlP8gctdccTzTrV+JgO+B8lj5JDPHHnzZMAfG38h5RwgJg/y0aa0go2QFlCPhFs6X7ZtrmArr9Sub+KQr0PkAPxy2uD02AyjF0Nprm5NyiCxrZeFiPWFKzBPNv3cmVdByWlHEfRhn8Z8rWxnSnWsqCB+AFe4T4Ix+zG1cPnLjswcPPrX4lzqkq86guw++4r7PXtxGp0iA/FeWZIruQyizq7/ParEnj4HaT/ANHgIiCn9bi3ybdsnUphJ3FCIPFofKO9II6TH4wdJgYSdzlWLbUddtJ3P0Cib2aQZG97FxaxOqaZ8dpXoKWkoxelgYOBRh5VeZjJk/g7YDUvfRYJ1bOFV45TkS8dBM9E+ZGPFA66/BQaNsjUXEhRdg5XjOejbSKHYk2szT4djhhB9msaJkizXD09uzYP19PiT2agWC6WMqwUnUwOqLNOJ4Gi3Jwfa9TU8Ng3NfmOEpYuUlyzu3v51RDLc2Yy57QERdI/jf7WVKcKEQwakt52MhKcofYc6hN5Xa8Hssbdd7DwPX0T0OgFIWHoR0WSszYhcdog81Ys/vQ4R/1itJF+Kv9TAP9X3RuyUWYAsWYexcW1fvH6+SMpTKlN9+nFjMlsySFH1OZ/GTrS7zf25uFx3grjO4RLwXj7BeScyS0uckHmr5/woWeb+NuXD9kDT+duA7YkPZ86ymhR6e1uIJp+JoWT/chrErbbtAdDXS8vHca0q5go2NGwEn1lHWfCbuMwud8KE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(136003)(396003)(366004)(376002)(346002)(451199015)(6916009)(31696002)(86362001)(54906003)(8676002)(316002)(26005)(6512007)(186003)(2906002)(7416002)(5660300002)(83380400001)(38100700002)(66946007)(66556008)(66476007)(4326008)(8936002)(36756003)(41300700001)(2616005)(6486002)(31686004)(478600001)(53546011)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RzdlWk5ScU5mNlNDY0VUbEwrbmI1NEticzJrZHBxR0l4QkExN0gyd2RYV2pI?=
- =?utf-8?B?QjdDSHRHOThSdGRMZWswYnQ2dVJ4VytxZGNzTWk3Z0VxNDdJS0FGT1pGQzgy?=
- =?utf-8?B?Ym9zWWlaSy9GU3I0cmdZWWNJanRQM3BRRHo5NnQ5SDB5dHZQL1Uyc0M1WkIz?=
- =?utf-8?B?ODM1NjNqQVBlZzNXdDVNeGQvSmJwV245bWtJZWJCUFQrZnFaSzg4cGNKQnBq?=
- =?utf-8?B?UkpZWUpUMU14enJwM05NWHAyK05RSUlRbWQ3Z3QrQ1dZQ3JPSzdNaS9sNHRa?=
- =?utf-8?B?SWRLZVQ2ait4bzhjeWUvaDBORytVWlAxQStFM0xkaUpmaSthZHpuQXU1cGFj?=
- =?utf-8?B?T1YwOGJXdldMNk5wVk9BY09uU2REVnlBSmcvbVJkSnQybWoyenB0UVV5Rklw?=
- =?utf-8?B?TEJSREZ6NjZlaGxVLzJGbm05akk4RGJ1Z0NqS3RzNEgwajFUL3htRTRleHVD?=
- =?utf-8?B?WmhoYTFPSWNsblhhbVJEQ1pPRmJwNmJ5SlAxYkRQMGhIZVNEOW91MHVNM3Bi?=
- =?utf-8?B?VmZuVmtadFdmcDhlYnFQMms4VWtINzk1UlVQVEpQQ1JGczhpVGcxUTZ1VHh2?=
- =?utf-8?B?ekJOZmhoejUxTTdkS3IxSkdkRUlVYlFrT0dXcjVpV3NpL1FhWDlhY1hwVlNi?=
- =?utf-8?B?Mk16eDUyay92ODFLNlljMkNkVVg3OTJ1bFcydDRuVmRSRkU0MDVYUS9MNGhD?=
- =?utf-8?B?YW4rcmxUVVI2allORUN2akt4eWt6MjJBblV3aXp4bDNuMUpYVTlHeTZXK0F1?=
- =?utf-8?B?Z3p1V1pTSGlvdzNVLzkxN3pIS0UvcUtadXFsTzM1YXZZVWFLeHg0WmZSQ09N?=
- =?utf-8?B?ODlqZjFoSEZWdExYREwzSzA0Z0lpdTdMUDBHQUVwOG5jeVJqQ3UwVzh2c0Mz?=
- =?utf-8?B?YmxwQmZmTkowTEJmNFVJdkhNQlVtZ3dzTWV5UDR2TC9mODhOU1ZDWW5XdHVS?=
- =?utf-8?B?bklHeFRTT0lwalRORXdhM2dZdjN2NU5iZmdTdUxodXhsdG9HRGF3YXhmS1JP?=
- =?utf-8?B?T2MzSE1QZDUwM3V4QVMrbDYxRXZGdFd1OU1lMjF5UkNVSHY3RTlsbmZ0TzVB?=
- =?utf-8?B?R1dDMkkxbkxDSEtDWk1ZanVzaHdDRnJPMGZ1VnlKdXVvazBaRDNNaG1sUVBx?=
- =?utf-8?B?d0Z4aHRnNytPcWdTcERJcmRzOTNHaEtnNm1qTWlJcFlvL0IrOUFCUEtRK0Vs?=
- =?utf-8?B?QkxvczJQanR5a3g0L0JBMkVDd3AvL094KzBVYjcwQk9ONVgwREJMZXVabUlZ?=
- =?utf-8?B?NlJhYWdSVHoyMVZKOHB4bW1mRGVMRjVFNDZoTUNYUmpPZHAzSlZnZjhMNHE3?=
- =?utf-8?B?VUpCSGYxUEJIeWNwY2FJZUI5TlBDcm5pMFc2QzlvMEtaaWkvVyt3cGFxNlhT?=
- =?utf-8?B?U2lYK1orK1VlU1dGY2lqZmZLS3JYNElPYThoMmhHWUJlenZQVGkvdHdPbHJm?=
- =?utf-8?B?ZHRQM3hyTFQvcmJFaHhrVURVSXhieFBSOFRocm94QUVhUVk2NEg4VlJTMXhm?=
- =?utf-8?B?em05VVowOXJLQ3dnZ1lqdFFHeDV6cjhNK09MTWVvYmFQM2RManE0WjQwQWt6?=
- =?utf-8?B?dkxraVUzenlTU284dmUvQ3BiVWFyUzFTdXFQRkg2Nnc5cGRmclhTSlpubTR6?=
- =?utf-8?B?Y1Rzc3F5THJyRTN3M0FJVVM1Qzc2bWIwUVRvV3ZiU0FjZUx6SjE5bldWR2wz?=
- =?utf-8?B?U2JFcEJsZ0Q5ejBnNTlkRXEvNFVaQTlEeTM2ZndNM3RMZENUdmY4WUNFdjBl?=
- =?utf-8?B?dGtsZFlicFR0bnJXZHZNR1Z5T1RuOU5DeFY5aUgyQ0JVTU03NEJMdnpWeXc4?=
- =?utf-8?B?aXIrZHNlVHdWLzl6T05LWndhRzhtWTJMTCtMbFQ3c05QM2lFNzdmQVg5MlFO?=
- =?utf-8?B?ZjY1WVpSV2NmdHFHdk9kM3NvWk4zNGJxRU1xaHNiQm5sM2R6WDRjTVhHRzI0?=
- =?utf-8?B?MExCWUVUeUs1dVpzVG1SZVFtTGFMZTJmU1RocE0yNEEwcGxoR3MrZXV3bEJ3?=
- =?utf-8?B?cEVmQ0k1aHJWNk9yRTRZcGNXMnBsOHljQ1Y3cVNqYjVkWjNtbUZpd2QrR3o2?=
- =?utf-8?B?TFpIcnlDODlicnpmbzJQQ3NKM0NHWUpVVkQ1QmJyeVdFVGp3ZUVYUnVsREVD?=
- =?utf-8?Q?8pYzBCMCEb/y+k7Crk5o51Rna?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 77b27d9c-06aa-4566-d84e-08dab7eed8c8
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 07:42:49.4893
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xgmcFwg+9uEAHRroNzT/7B9wnAr/0YkWYcK4Fh3SK2f9jppLALTMZThtphDt12RjimbT8KuFkH8eNaPBiISuiA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7511
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26.10.2022 12:20, Andrew Cooper wrote:
-> +int arch_set_p2m_mempool_size(struct domain *d, uint64_t size)
+
+Vikram Garhwal <vikram.garhwal@amd.com> writes:
+
+<snip>
+> Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device, a=
+dds a
+> TPM emulator and connects to swtpm running on host machine via chardev so=
+cket
+> and support TPM functionalities for a guest domain.
+>
+> Extra command line for aarch64 xenpv QEMU to connect to swtpm:
+>     -chardev socket,id=3Dchrtpm,path=3D/tmp/myvtpm2/swtpm-sock \
+>     -tpmdev emulator,id=3Dtpm0,chardev=3Dchrtpm \
+>
+> swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpm=
+s and
+> provides access to TPM functionality over socket, chardev and CUSE interf=
+ace.
+> Github repo: https://github.com/stefanberger/swtpm
+> Example for starting swtpm on host machine:
+>     mkdir /tmp/vtpm2
+>     swtpm socket --tpmstate dir=3D/tmp/vtpm2 \
+>     --ctrl type=3Dunixio,path=3D/tmp/vtpm2/swtpm-sock &
+
+<snip>
+> +static void xen_enable_tpm(void)
 > +{
-> +    unsigned long pages = size >> PAGE_SHIFT;
-> +    bool preempted = false;
-> +    int rc;
+> +/* qemu_find_tpm_be is only available when CONFIG_TPM is enabled. */
+> +#ifdef CONFIG_TPM
+> +    Error *errp =3D NULL;
+> +    DeviceState *dev;
+> +    SysBusDevice *busdev;
 > +
-> +    if ( is_pv_domain(d) )
-> +        return -EOPNOTSUPP;
-> +
-> +    if ( size & ~PAGE_MASK )             /* Non page-sized request? */
-> +        return -EINVAL;
-> +
-> +    ASSERT(paging_mode_enabled(d));
-> +
-> +    paging_lock(d);
-> +    if ( hap_enabled(d) )
-> +        rc = hap_set_allocation(d, pages, &preempted);
-> +    else
-> +        rc = shadow_set_allocation(d, pages, &preempted);
-> +    paging_unlock(d);
-> +
-> +    return preempted ? -ERESTART : rc;
-> +}
+> +    TPMBackend *be =3D qemu_find_tpm_be("tpm0");
+> +    if (be =3D=3D NULL) {
+> +        DPRINTF("Couldn't fine the backend for tpm0\n");
+> +        return;
+> +    }
+> +    dev =3D qdev_new(TYPE_TPM_TIS_SYSBUS);
+> +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
+> +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
+> +    busdev =3D SYS_BUS_DEVICE(dev);
+> +    sysbus_realize_and_unref(busdev, &error_fatal);
+> +    sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
 
-There's a further difference between HAP and shadow which may want/need
-reflecting here: shadow's handling of XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION
-rejects 0 as an input when shadow mode is still enabled. On one hand
-that's reasonable from an abstract pov, while otoh it may be viewed as
-questionable when at the same time setting to a very small value (which
-will then be upped to the minimum acceptable one) is permitted. At the
-very least this guards against emptying of the pool where active shadows
-would be allocated from (which isn't a problem on HAP as there apart
-from the allocations through hap_alloc_p2m_page() the only thing coming
-from the pool are the monitor tables of each vCPU, which set-allocation
-wouldn't attempt to free).
+I'm not sure what has gone wrong here but I'm getting:
 
-Jan
+  ../../hw/arm/xen_arm.c: In function =E2=80=98xen_enable_tpm=E2=80=99:
+  ../../hw/arm/xen_arm.c:120:32: error: =E2=80=98GUEST_TPM_BASE=E2=80=99 un=
+declared (first use in this function); did you mean =E2=80=98GUEST_RAM_BASE=
+=E2=80=99?
+    120 |     sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
+        |                                ^~~~~~~~~~~~~~
+        |                                GUEST_RAM_BASE
+  ../../hw/arm/xen_arm.c:120:32: note: each undeclared identifier is report=
+ed only once for each function it appears in
+
+In my cross build:
+
+  # Configured with: '../../configure' '--disable-docs' '--target-list=3Daa=
+rch64-softmmu' '--disable-kvm' '--enable-xen' '--disable-opengl' '--disable=
+-libudev' '--enable-tpm' '--disable-xen-pci-passthrough' '--cross-prefix=3D=
+aarch64-linux-gnu-' '--skip-meson'
+
+which makes me wonder if this is a configure failure or a confusion
+about being able to have host swtpm implementations during emulation but
+needing target tpm for Xen?
+
+--=20
+Alex Benn=C3=A9e
 
