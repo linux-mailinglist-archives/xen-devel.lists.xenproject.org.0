@@ -2,51 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C079960FF35
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 19:19:08 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431136.683733 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCB3560FFF4
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 20:14:15 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431143.683750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oo6WZ-0004vM-8I; Thu, 27 Oct 2022 17:18:35 +0000
+	id 1oo7NS-0003f8-9L; Thu, 27 Oct 2022 18:13:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431136.683733; Thu, 27 Oct 2022 17:18:35 +0000
+Received: by outflank-mailman (output) from mailman id 431143.683750; Thu, 27 Oct 2022 18:13:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oo6WZ-0004sn-4I; Thu, 27 Oct 2022 17:18:35 +0000
-Received: by outflank-mailman (input) for mailman id 431136;
- Thu, 27 Oct 2022 17:18:33 +0000
+	id 1oo7NS-0003c8-5z; Thu, 27 Oct 2022 18:13:14 +0000
+Received: by outflank-mailman (input) for mailman id 431143;
+ Thu, 27 Oct 2022 18:13:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6J+t=24=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oo6WW-0004sR-P7
- for xen-devel@lists.xenproject.org; Thu, 27 Oct 2022 17:18:33 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on2084.outbound.protection.outlook.com [40.107.102.84])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5efd5dee-561b-11ed-91b5-6bf2151ebd3b;
- Thu, 27 Oct 2022 19:18:28 +0200 (CEST)
-Received: from BN9PR03CA0607.namprd03.prod.outlook.com (2603:10b6:408:106::12)
- by PH8PR12MB6769.namprd12.prod.outlook.com (2603:10b6:510:1c4::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Thu, 27 Oct
- 2022 17:18:24 +0000
-Received: from BN8NAM11FT111.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:106:cafe::c6) by BN9PR03CA0607.outlook.office365.com
- (2603:10b6:408:106::12) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
- Transport; Thu, 27 Oct 2022 17:18:24 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT111.mail.protection.outlook.com (10.13.177.54) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5746.16 via Frontend Transport; Thu, 27 Oct 2022 17:18:23 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 27 Oct
- 2022 12:18:23 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Thu, 27 Oct 2022 12:18:21 -0500
+ <SRS0=4k8K=24=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1oo7NQ-0003c2-D2
+ for xen-devel@lists.xenproject.org; Thu, 27 Oct 2022 18:13:12 +0000
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 01b50e3d-5623-11ed-91b5-6bf2151ebd3b;
+ Thu, 27 Oct 2022 20:13:09 +0200 (CEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 95F273200ACA;
+ Thu, 27 Oct 2022 14:13:05 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 27 Oct 2022 14:13:06 -0400
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 27 Oct 2022 14:13:03 -0400 (EDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,311 +43,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5efd5dee-561b-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=E0bjR/UC9KeHphw4P/DDOJ/HptTy23ev5Ji/KQV2IK3CqJTcXioqRXSfn/beVdr6jX/Kor6OB+zykhsM07UAh8dgJv8XkMqaKJGYaMkH5EGDYuX6JZt0IAZuOWD34oeklJCA+W6hmwZU+o6xNrRhZeHtxXgOVdTEb9LZUUfHJQ0Ktl12LHl3BvP410pqKMb6HxtjuB6ivzO5YK1KIeLGxjpKXtRZCK/S4s4tCeIQU8TncOc4wMuLvVgwzwK3WF/AoJAyvdJVV9IAsAcMQZco9zjxjH6j8HJ3bEI2Tqfxc4X2nNF8bnrqRdC40flmojsn90cJplGCdr+bmhN3W3G4EA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QOGjgVScCEyvCzW4wOzlicFrgQI4xTDncbB9kJaxG2s=;
- b=H90TGcpbWJGyJQvlaJ/8nLBwRzZqKR0lUIF/g5A39SpJxaZ330gaL0F9bqTxv7RgBL2dQpDLQEpo7/I4+r+sRJuUSHHEVNW7TO6NJAbxgfxDmPxDMutCOZ/cRDyothQJ1ii8WnDsphL8k2MvqtqB31i3d+GMJf5AaoKsJ02xgCH8osq29VaQXRYxo3fOJ8821nxCwsdBeX02BvyfwhqOldvzbiRXvUjRbkN9tPoKf08s39Y69d6iz6KOOoX7Z/Ne6N28MezvRsZV5URpFykxdBXN23lj8Z4eVuPbNofGQz8QthzdraZFVJye0tRZThgw3K4KvVG0clu0+rawIpm+qQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QOGjgVScCEyvCzW4wOzlicFrgQI4xTDncbB9kJaxG2s=;
- b=O/XDTW2/BppF0qIW2C+zt3ozsUs4oxvi+Jfkd5Fay5PJBGxoEXEaR7LheLfV196bx+skqVv+5V4K5iSLbtjjDI1SPGOAOWbDl3WZJ/wrddNrVWV+VP00/SuLqMs4Do6rsGVAC2ZS61kNGZkkK58sasSb052AWkfnwu7m+QVdTvw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <15e041fe-1ec2-b616-3f9c-5f5ef8014290@amd.com>
-Date: Thu, 27 Oct 2022 19:18:20 +0200
+X-Inumbo-ID: 01b50e3d-5623-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1666894385; x=
+	1666980785; bh=yHOCAXYXPvmZdJ2Y3WExOCbtnTnjCGpfS6blLilQoBY=; b=O
+	ZaA2L0RmJE0afsVed7G17BCN/0QzsvBTDH61xUMG2qlcQPUB/yPQecRL5phb2Fb/
+	3T3VPohi2y7kLC8DKqb8BraHoUvBfb7Mx/GRc2EWMYO2E4eFzj69sCYhM1O93+QJ
+	Hn/AEpJac+I+3VIylEb+77ibcezm/0fMi/fIOs4Q/pCdGy4yqvbJdFL8+IhNpewQ
+	PRBab2QZO724LnW7YUd3mUVjFZSWu+Ap2RRolhFoPogX4SJCxoZRU4I6SHawKZz7
+	P/rf7zr8o72UrjfvvODYedud+OTHbdV31dBcwLrQScn89PCJ1S6/z4s45YCsMUAI
+	wNF3AUumYlU64miWZa0hg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1666894385; x=1666980785; bh=yHOCAXYXPvmZdJ2Y3WExOCbtnTnj
+	CGpfS6blLilQoBY=; b=OwdjQOBFOerlE0dSfISAuvhbXwLMJFFidooqvkIA6cvB
+	udYH3EltDa7oMtmlHHiMlsR2/JVAwPDZhljycYeU3ieXZCY6CrjhOcp8HVSTlWvA
+	BvrD5kpnSgEqXVVa3/tJLS/EuKMCEHqtrdjIt6MpzQD56p1+1YXNJOU2Bj5uqR+z
+	9V9DPl/gx6rDtX3RXu6cv/5vNiP84i7Znbbml0IXUcI8MvQOB1HM+OROJ80PaTE4
+	k8GUUz/A2SI9ljnRiW7CN509pNQY8sPYl9Rgo5wk79iIjvUlFfrJ24EDqqdbMfA4
+	2Eb49nYEODILZZcfjRkl+us5NdtlQMSWs2vVsTWX2Q==
+X-ME-Sender: <xms:MMpaY2HfGLWiuTU_jVwjsUjUnK3K25ZWIxshtkMGUyDxtTqh_jlQQQ>
+    <xme:MMpaY3VeqsfcsXsBUcTa4rQOOD4mfy3r8CS69LritKdpkWx8njFfZftNaVM0F1XWb
+    Osvkw_9PR9mEQ>
+X-ME-Received: <xmr:MMpaYwKuo5WVpFKUqS5TbiJIM4jhbhdUt236pkG1_mwR6NyJ6FTRWEjK5jDz-uf305-ejSfev7JW_VY_YWBxQVxANwyq6VyRleMA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrtdeggdduvddtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
+    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:McpaYwFPwi_pH-g0q10dE_axtM_0ZrYWjBGIiT7fyMCpZDHOtlbvoQ>
+    <xmx:McpaY8VN5tetw3IIKKbkBos6pyIXL3rsXiL817QB7lQwya5uX0CO4A>
+    <xmx:McpaYzO3cN_wyA6qjrwUZOw34sGjUn8LYBaEDKhOVTIBZnaZTEZttQ>
+    <xmx:McpaYzSwV9zJL3mGEfyEztCy2FHtDtP2F0IxB8-X2JMFFKCSk_tYQw>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 27 Oct 2022 20:13:00 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
+	Henry Wang <Henry.Wang@arm.com>
+Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
+ suspend
+Message-ID: <Y1rKLJP/p+E+eVi7@mail-itl>
+References: <20221021145357.17931-1-jgross@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
- devices
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>
-CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Michal Orzel <Michal.Orzel@arm.com>, Oleksandr
- Tyshchenko <Oleksandr_Tyshchenko@epam.com>, Oleksandr Andrushchenko
-	<Oleksandr_Andrushchenko@epam.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>
-References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
- <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
- <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
- <60b9cc07-c0ec-756b-802b-5fc96f253dbf@xen.org>
- <EDDD0430-0BFF-4C95-B9CE-402487C2E5DE@arm.com>
- <fde8c845-8d35-83cd-d4fd-bb2c5fd1a7ed@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <fde8c845-8d35-83cd-d4fd-bb2c5fd1a7ed@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT111:EE_|PH8PR12MB6769:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba7ef6b6-b7c0-4895-b7ef-08dab83f40fd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	rakmkZ3BWA7BIwGq8YOHyh1zuz9zqLzrx/orc95b9DZBVO7ckL6u7Pq1xdBxo+eneWxWW5vqqBDMvWtHV73fxA5RRYpMBbrFaW2KtQD7D7Ms5yr84V4w7i726MMJ0f4B9AFB2d72rOOM+YR+Y5G3wcUUzHs2hKzPJfgYjqFxOo97ZdPn0e3aBIy0QytvQw2BhqWDQhlZKUhdcoQHMob89S8/tl/6PlUuDnQyqdq+ZVyilC2OmI+70zhxg5HyWefl6NBiGoU7ggRIwCzMfdeMC5E67QVhwhMyEP3429PVzP6eZcTWvFuT2Y1aUs6eVbo0b/A3AE2m2yu4wQC53Va46/FvC46eLby4tUrmflrTH8lyQG4WxPl5cUeylkjdLWYCA9DP37og70oxDFlvmRODhfhfj4VBnlgMyrj3C9T9uZ0/x+LlwYeq4zPzdEahGA7YkNNocin1lFBqdoIUnP3xhxxMsxARsRH3JDfdiNl/dGvpBtCmkImsjrR8vIoau6/jC6E8y1wACopZWONdaVK4pV3hwC96HHyEosnWc9B2zGzzYNPsjd6IiU+k2KExlAE3P5NQTBVsnYsehJBFSkj3amZ90sYQpshMPAmHGa6PnGT5tHetOMgy2iS23nyU/QCTfFcCvq30qqV8AC1jnUtGS15o1OXDc1kocTZ4IPFiIpkOIRsHj49SZHLmdnbtLyxqA3Ig2gB6Ke0pncZIumC7tqZgOBF3aCsIWaImbOBeFyz+qpaKw8UHYJbtkqdPZiSwkRpbnjvLhT4adkoG6L68orJbDCKkwKrEdUzET9Wx8b543TCIees1YHuRVbqK0JHAWhVgObcmLeyTn9aWTvTIG66DpUXoBIWoveLWDquih38=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199015)(40470700004)(36840700001)(46966006)(83380400001)(31686004)(31696002)(16576012)(478600001)(966005)(36756003)(70586007)(4326008)(8676002)(41300700001)(110136005)(86362001)(53546011)(7416002)(5660300002)(26005)(8936002)(40480700001)(426003)(70206006)(82310400005)(47076005)(336012)(54906003)(186003)(2616005)(40460700003)(2906002)(44832011)(316002)(30864003)(81166007)(356005)(82740400003)(36860700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Oct 2022 17:18:23.8697
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba7ef6b6-b7c0-4895-b7ef-08dab83f40fd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT111.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6769
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="dMEw57xvfhB1YxK7"
+Content-Disposition: inline
+In-Reply-To: <20221021145357.17931-1-jgross@suse.com>
 
-Hi Rahul,
 
-On 27/10/2022 18:33, Julien Grall wrote:
-> 
-> 
-> On 27/10/2022 17:08, Rahul Singh wrote:
->> Hi Julien,
-> 
-> Hi Rahul,
-> 
->>> On 26 Oct 2022, at 8:48 pm, Julien Grall <julien@xen.org> wrote:
->>>
->>>
->>>
->>> On 26/10/2022 15:33, Rahul Singh wrote:
->>>> Hi Julien,
->>>
->>> Hi Rahul,
->>>
->>>>> On 26 Oct 2022, at 2:36 pm, Julien Grall <julien@xen.org> wrote:
->>>>>
->>>>>
->>>>>
->>>>> On 26/10/2022 14:17, Rahul Singh wrote:
->>>>>> Hi All,
->>>>>
->>>>> Hi Rahul,
->>>>>
->>>>>> At Arm, we started to implement the POC to support 2 levels of page tables/nested translation in SMMUv3.
->>>>>> To support nested translation for guest OS Xen needs to expose the virtual IOMMU. If we passthrough the
->>>>>> device to the guest that is behind an IOMMU and virtual IOMMU is enabled for the guest there is a need to
->>>>>> add IOMMU binding for the device in the passthrough node as per [1]. This email is to get an agreement on
->>>>>> how to add the IOMMU binding for guest OS.
->>>>>> Before I will explain how to add the IOMMU binding let me give a brief overview of how we will add support for virtual
->>>>>> IOMMU on Arm. In order to implement virtual IOMMU Xen need SMMUv3 Nested translation support. SMMUv3 hardware
->>>>>> supports two stages of translation. Each stage of translation can be independently enabled. An incoming address is logically
->>>>>> translated from VA to IPA in stage 1, then the IPA is input to stage 2 which translates the IPA to the output PA. Stage 1 is
->>>>>> intended to be used by a software entity( Guest OS) to provide isolation or translation to buffers within the entity, for example,
->>>>>> DMA isolation within an OS. Stage 2 is intended to be available in systems supporting the Virtualization Extensions and is
->>>>>> intended to virtualize device DMA to guest VM address spaces. When both stage 1 and stage 2 are enabled, the translation
->>>>>> configuration is called nesting.
->>>>>> Stage 1 translation support is required to provide isolation between different devices within the guest OS. XEN already supports
->>>>>> Stage 2 translation but there is no support for Stage 1 translation for guests. We will add support for guests to configure
->>>>>> the Stage 1 transition via virtual IOMMU. XEN will emulate the SMMU hardware and exposes the virtual SMMU to the guest.
->>>>>> Guest can use the native SMMU driver to configure the stage 1 translation. When the guest configures the SMMU for Stage 1,
->>>>>> XEN will trap the access and configure the hardware accordingly.
->>>>>> Now back to the question of how we can add the IOMMU binding between the virtual IOMMU and the master devices so that
->>>>>> guests can configure the IOMMU correctly. The solution that I am suggesting is as below:
->>>>>> For dom0, while handling the DT node(handle_node()) Xen will replace the phandle in the "iommus" property with the virtual
->>>>>> IOMMU node phandle.
->>>>> Below, you said that each IOMMUs may have a different ID space. So shouldn't we expose one vIOMMU per pIOMMU? If not, how do you expect the user to specify the mapping?
->>>> Yes you are right we need to create one vIOMMU per pIOMMU for dom0. This also helps in the ACPI case
->>>> where we don’t need to modify the tables to delete the pIOMMU entries and create one vIOMMU.
->>>> In this case, no need to replace the phandle as Xen create the vIOMMU with the same pIOMMU
->>>> phandle and same base address.
->>>> For domU guests one vIOMMU per guest will be created.
->>>
->>> IIRC, the SMMUv3 is using a ring like the GICv3 ITS. I think we need to be open here because this may end up to be tricky to security support it (we have N guest ring that can write to M host ring).
->>
->> If xl want to creates the one vIOMMU per pIOMMU for domU then xl needs to know the below information:
->>   -  Find the number of holes in guest memory same as the number of vIOMMU that needs the creation to create the vIOMMU DT nodes. (Think about a big system that has 50+ IOMMUs)
->>      Yes, we will create vIOMMU for only those devices that are assigned to guests but still we need to find the hole in guest memory.
-> 
-> I agree this is a problem with the one vIOMMU per pIOMMU.
-> 
->>   -  Find the pIOMMU attached to the assigned device and create mapping b/w vIOMMU -> pIOMMU to register the MMIO handler.
->>      Either we need to modify the current hyerpcall or need to implement a new hypercall to find this information.
-> 
-> Adding hypercalls are is not a big problem.
-> 
->>
->> Because of the above reason I thought of creating one vIOMMU for domU. Yes you are right this may end up to be tricky to security support
->> but as per my understanding one vIOMMU  per domU guest is easy to implement and simple to handle as compared to one vIOMMU per pIOMMU
-> 
-> I am not sure about this. My gut feeling is the code in Xen will end up
-> to be tricky (there more that Xen doesn't support preemption). So I
-> think we will trade-off complexity in Xen over simplicity in libxl.
-> 
-> That said, I haven't looked deeper in the code. So I may be wrong. I
-> will need to see the code to confirm.
-> 
->>>>>> For domU guests, when passthrough the device to the guest as per [2],  add the below property in the partial device tree
->>>>>> node that is required to describe the generic device tree binding for IOMMUs and their master(s)
->>>>>> "iommus = < &magic_phandle 0xvMasterID>
->>>>>>   • magic_phandle will be the phandle ( vIOMMU phandle in xl)  that will be documented so that the user can set that in partial DT node (0xfdea).
->>>>>
->>>>> Does this mean only one IOMMU will be supported in the guest?
->>>> Yes.
->>>>>
->>>>>>   • vMasterID will be the virtual master ID that the user will provide.
->>>>>> The partial device tree will look like this:
->>>>>> /dts-v1/;
->>>>>>   / {
->>>>>>      /* #*cells are here to keep DTC happy */
->>>>>>      #address-cells = <2>;
->>>>>>      #size-cells = <2>;
->>>>>>        aliases {
->>>>>>          net = &mac0;
->>>>>>      };
->>>>>>        passthrough {
->>>>>>          compatible = "simple-bus";
->>>>>>          ranges;
->>>>>>          #address-cells = <2>;
->>>>>>          #size-cells = <2>;
->>>>>>          mac0: ethernet@10000000 {
->>>>>>              compatible = "calxeda,hb-xgmac";
->>>>>>              reg = <0 0x10000000 0 0x1000>;
->>>>>>              interrupts = <0 80 4  0 81 4  0 82 4>;
->>>>>>             iommus = <0xfdea 0x01>;
->>>>>>          };
->>>>>>      };
->>>>>> };
->>>>>>   In xl.cfg we need to define a new option to inform Xen about vMasterId to pMasterId mapping and to which IOMMU device this
->>>>>> the master device is connected so that Xen can configure the right IOMMU. This is required if the system has devices that have
->>>>>> the same master ID but behind a different IOMMU.
->>>>>
->>>>> In xl.cfg, we already pass the device-tree node path to passthrough. So Xen should already have all the information about the IOMMU and Master-ID. So it doesn't seem necessary for Device-Tree.
->>>>>
->>>>> For ACPI, I would have expected the information to be found in the IOREQ.
->>>>>
->>>>> So can you add more context why this is necessary for everyone?
->>>> We have information for IOMMU and Master-ID but we don’t have information for linking vMaster-ID to pMaster-ID.
->>>
->>> I am confused. Below, you are making the virtual master ID optional. So shouldn't this be mandatory if you really need the mapping with the virtual ID?
->>
->> vMasterID is optional if user knows pMasterID is unique on the system. But if pMasterId is not unique then user needs to provide the vMasterID.
-> 
-> So the expectation is the user will be able to know that the pMasterID
-> is uniq. This may be easy with a couple of SMMUs, but if you have 50+
-> (as suggested above). This will become a pain on larger system.
-> 
-> IHMO, it would be much better if we can detect that in libxl (see below).
-> 
->>
->>>
->>>> The device tree node will be used to assign the device to the guest and configure the Stage-2 translation. Guest will use the
->>>> vMaster-ID to configure the vIOMMU during boot. Xen needs information to link vMaster-ID to pMaster-ID to configure
->>>> the corresponding pIOMMU. As I mention we need vMaster-ID in case a system could have 2 identical Master-ID but
->>>> each one connected to a different SMMU and assigned to the guest.
->>>
->>> I am afraid I still don't understand why this is a requirement. Libxl could have enough knowledge (which will be necessarry for the PCI case) to know the IOMMU and pMasterID associated with a device.
->>>
->>> So libxl could allocate the vMasterID, tell Xen the corresponding mapping and update the device-tree.
->>>
->>> IOW, it doesn't seem to be necessary to involve the user in the process here.
->>
->> Yes, libxl could allocate the vMasterID but there is no way we can find the link b/w vMasterID created to pMasterID from dtdev.
->>
->> What I understand from the code is that there is no link between the passthrough node and dtdev config option. The passthrough
->> node is directly copied to guest DT without any modification. Dtdev is used to add and assign the device to IOMMU.
->>
->> Let's take an example if the user wants to assign two devices to the guest via passthrough node.
->>
->> /dts-v1/;
->>
->> / {
->>     /* #*cells are here to keep DTC happy */
->>     #address-cells = <2>;
->>     #size-cells = <2>;
->>
->>     aliases {
->>         net = &mac0;
->>     };
->>
->>     passthrough {
->>         compatible = "simple-bus";
->>         ranges;
->>         #address-cells = <2>;
->>         #size-cells = <2>;
->>
->>         mac0: ethernet@10000000 {
->>             compatible = "calxeda,hb-xgmac";
->>             reg = <0 0x10000000 0 0x1000>;
->>             interrupts = <0 80 4  0 81 4  0 82 4>;
->>         };
->>
->>       mac1: ethernet@20000000 {
->>             compatible = “r8169";
->>             reg = <0 0x10000000 0 0x1000>;
->>             interrupts = <0 80 4  0 81 4  0 82 4>;
->>         };
->>
->>     };
->> };
->>
->> dtdev = [ "/soc/ethernet@10000000”, “/soc/ethernet@f2000000” ]
->>
->> There is no link which dtdev entry belongs to which node. Therefor there is no way to link the vMasterID created to pMasterID.
-> 
-> I agree there is no link today. But we could add a property in the
-> partial device-tree to mention which physical device is associated.
-+1
+--dMEw57xvfhB1YxK7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 27 Oct 2022 20:13:00 +0200
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel@lists.xenproject.org,
+	George Dunlap <george.dunlap@citrix.com>,
+	Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
+	Henry Wang <Henry.Wang@arm.com>
+Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
+ suspend
 
-And we already have this property in partial device trees for dom0less domUs:
-https://xenbits.xen.org/gitweb/?p=xen.git;a=blob;f=docs/misc/arm/passthrough.txt;h=219d1cca571b01bc8f0afbbe64435299547fed75;hb=HEAD#l104
+On Fri, Oct 21, 2022 at 04:53:57PM +0200, Juergen Gross wrote:
+> Today all timers are migrated to cpu 0 when the system is being
+> suspended. They are not migrated back after resuming the system again.
+>=20
+> This results (at least) to problems with the credit scheduler, as the
+> timer isn't handled on the cpu it was expected to occur.
+>=20
+> Add migrating the scheduling related timers of a specific cpu from cpu
+> 0 back to its original cpu when that cpu has gone up when resuming the
+> system.
+>=20
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-FWIK, the solution proposed in this thread was chosen due to the fact that at the moment we do not parse the partial device tree in libxl.
-But if this is a way to go (to reduce the complexity in Xen), then it will allow us to drop the need for both specifying vMasterID and iommu_devid_map.
+I tested it in my setup, but it crashed:
 
-> 
-> With that, I think all, the complexity is moved to libxl and it will be
-> easier for the user to use vIOMMU.
-> 
-> [...]
-> 
->>>>>>   iommu_devid_map = [ “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS” , “PMASTER_ID[@VMASTER_ID],IOMMU_BASE_ADDRESS”]
->>>>>>   • PMASTER_ID is the physical master ID of the device from the physical DT.
->>>>>>   • VMASTER_ID is the virtual master Id that the user will configure in the partial device tree.
->>>>>>   • IOMMU_BASE_ADDRESS is the base address of the physical IOMMU device to which this device is connected.
->>>>>
->>>>> Below you give an example for Platform device. How would that fit in the context of PCI passthrough?
->>>> In PCI passthrough case, xl will create the "iommu-map" property in vpci host bridge node with phandle to vIOMMU node.
->>>> vSMMUv3 node will be created in xl.
->>>
->>> This means that libxl will need to know the associated pMasterID to a PCI device. So, I don't understand why you can't do the same for platform devices.
->>
->> For the PCI passthrough case, we don’t need to provide the MasterID to create "iommu-map” property as for
->> PCI device MasterID is RID ( BDF ). For non-PCI devices, MasterID is required to create “iommus” property.
-> 
-> Are you talking about the physical MasterID or virtual one? If physical
-> MasterID then I don't think this is always the RID (see [1]). But for
-> the virtual Master ID we could make this association.
-> 
-> This still means that in some way the toolstack need to let Xen know (or
-> the other way around) the mapping between the pMasterID and vMasterID.
-> 
-> [1] Documentation/devicetree/bindings/pci/pci-iommu.txt.
-> 
-> Cheers,
-> 
-> --
-> Julien Grall
-> 
+(XEN) arch/x86/cpu/mcheck/mce_intel.c:770: MCA Capability: firstbank 0, ext=
+ended MCE MSR 0, BCAST, CMCI
+(XEN) CPU0 CMCI LVT vector (0xf1) already installed
+(XEN) Finishing wakeup from ACPI S3 state.
+(XEN) Enabling non-boot CPUs  ...
+(XEN) Platform timer appears to have unexpectedly wrapped 3 times.
+(XEN) ----[ Xen-4.17-rc  x86_64  debug=3Dy  Tainted:   C    ]----
+(XEN) CPU:    0
+(XEN) RIP:    e008:[<ffff82d040250c7e>] sched_migrate_timers+0x4d/0xc9
+(XEN) RFLAGS: 0000000000010202   CONTEXT: hypervisor
+(XEN) rax: ffff82d0405c5298   rbx: 0000000000000000   rcx: 0000000000000001
+(XEN) rdx: 0000003211219000   rsi: 0000000000000004   rdi: 0000000000000001
+(XEN) rbp: ffff830256227d20   rsp: ffff830256227d18   r8:  ffff82d0405d2f78
+(XEN) r9:  ffff82d0405ef8a0   r10: 00000000ffffffff   r11: 00000000002191c0
+(XEN) r12: 0000000000000000   r13: 0000000000000001   r14: 0000000000000004
+(XEN) r15: 0000000000000000   cr0: 000000008005003b   cr4: 00000000003526e0
+(XEN) cr3: 0000000049677000   cr2: 0000000000000070
+(XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000000
+(XEN) ds: 0000   es: 0000   fs: 0000   gs: 0000   ss: 0000   cs: e008
+(XEN) Xen code around <ffff82d040250c7e> (sched_migrate_timers+0x4d/0xc9):
+(XEN)  48 8b 14 ca 48 8b 1c 02 <39> 7b 70 74 51 48 8d 05 56 34 37 00 48 89 =
+e2 48
+(XEN) Xen stack trace from rsp=3Dffff830256227d18:
+(XEN)    0000000000000001 ffff830256227d58 ffff82d04023f1a0 ffff82d04047a308
+(XEN)    ffff82d04047a300 ffff82d04047a060 0000000000000004 0000000000000000
+(XEN)    ffff830256227da0 ffff82d040226a04 0000000000000000 0000000000000001
+(XEN)    0000000000000001 0000000000000000 0000000000000001 ffff830256227fff
+(XEN)    ffff82d04046c520 ffff830256227db8 ffff82d040207e75 0000000000000001
+(XEN)    ffff830256227de0 ffff82d040208243 ffff82d04047a220 0000000000000001
+(XEN)    0000000000000010 ffff830256227e18 ffff82d040208428 0000000000000200
+(XEN)    0000000000000000 0000000000000003 ffff830256227ef8 ffff82d0405de6c0
+(XEN)    ffff830256227e48 ffff82d04027a2df ffff830251491490 ffff830251757000
+(XEN)    0000000000000000 0000000000000000 ffff830256227e68 ffff82d040209c73
+(XEN)    ffff8302517571b8 ffff82d040479618 ffff830256227e88 ffff82d04022e484
+(XEN)    ffff82d0405c41a0 ffff82d0405c41b0 ffff830256227eb8 ffff82d04022e76e
+(XEN)    0000000000000000 0000000000007fff ffff82d0405caf00 ffff82d0405c41b0
+(XEN)    ffff830256227ef0 ffff82d0402f455d ffff82d0402f44e5 ffff830251757000
+(XEN)    ffff830256227ef8 ffff8302517f5000 0000000000000000 ffff830256227e18
+(XEN)    0000000000000000 ffffc90040b43d60 0000000000003403 0000000000000000
+(XEN)    0000000000000003 ffffffff82e37868 0000000000000246 0000000000000003
+(XEN)    0000000000003403 0000000000003403 0000000000000000 ffffffff81e4a0ea
+(XEN)    0000000000003403 0000000000000010 deadbeefdeadf00d 0000010000000000
+(XEN)    ffffffff81e4a0ea 000000000000e033 0000000000000246 ffffc90040b43c30
+(XEN) Xen call trace:
+(XEN)    [<ffff82d040250c7e>] R sched_migrate_timers+0x4d/0xc9
+(XEN)    [<ffff82d04023f1a0>] F cpupool.c#cpu_callback+0x13d/0x47e
+(XEN)    [<ffff82d040226a04>] F notifier_call_chain+0x6c/0x96
+(XEN)    [<ffff82d040207e75>] F cpu.c#cpu_notifier_call_chain+0x1b/0x36
+(XEN)    [<ffff82d040208243>] F cpu_up+0xaf/0xc8
+(XEN)    [<ffff82d040208428>] F enable_nonboot_cpus+0x7b/0x1ef
+(XEN)    [<ffff82d04027a2df>] F power.c#enter_state_helper+0x156/0x5dc
+(XEN)    [<ffff82d040209c73>] F domain.c#continue_hypercall_tasklet_handler=
++0x50/0xbf
+(XEN)    [<ffff82d04022e484>] F tasklet.c#do_tasklet_work+0x7b/0xac
+(XEN)    [<ffff82d04022e76e>] F do_tasklet+0x58/0x8a
+(XEN)    [<ffff82d0402f455d>] F domain.c#idle_loop+0x78/0xe6
+(XEN)=20
+(XEN) Pagetable walk from 0000000000000070:
+(XEN)  L4[0x000] =3D 00000002517fb063 ffffffffffffffff
+(XEN)  L3[0x000] =3D 00000002517fa063 ffffffffffffffff
+(XEN)  L2[0x000] =3D 00000002517f9063 ffffffffffffffff
+(XEN)  L1[0x000] =3D 0000000000000000 ffffffffffffffff
+(XEN)=20
+(XEN) ****************************************
+(XEN) Panic on CPU 0:
+(XEN) FATAL PAGE FAULT
+(XEN) [error_code=3D0000]
+(XEN) Faulting linear address: 0000000000000070
+(XEN) ****************************************
 
-~Michal
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--dMEw57xvfhB1YxK7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmNayi0ACgkQ24/THMrX
+1ywtEwf/RtLpNcPpYjAHTuJpdiUQS46/uilMBQzJ9WbnatCUEPfyPNCyr/I1IaYE
+PzOL6m39i3d5sKsbIyVoKLfoMY6A16WG8BufCU82vkBXADMcaDPAq2OAk11awu5m
+4YbEJMqMl1/YiJ3Au/Qaga3QQI1juLvHKvLrICVQMb/RBgTfmsRQmZ48+Ru1kSej
+9lyWZm+PdX3WDnfKgqf0v/BVpC3Z5OOggUtoEYOXvc6ksTXbT0V5/AeFGHRQsqzu
+vH/PrEX0YxA0qfrkTAlRunxRp+dZ3W9faCuJ7IgK/w1lzpXZ85O/QvQgKIW85Mh6
+MGYjdnWgQ6fRuRqAlGQn+IwKQ7Q7Pg==
+=u11S
+-----END PGP SIGNATURE-----
+
+--dMEw57xvfhB1YxK7--
 
