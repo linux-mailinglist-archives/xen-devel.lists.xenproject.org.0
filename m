@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B38A060F718
-	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 14:22:54 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431031.683490 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5F1460F7D2
+	for <lists+xen-devel@lfdr.de>; Thu, 27 Oct 2022 14:46:07 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431040.683511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oo1u8-0002f6-LD; Thu, 27 Oct 2022 12:22:36 +0000
+	id 1oo2Fs-0005XJ-Qk; Thu, 27 Oct 2022 12:45:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431031.683490; Thu, 27 Oct 2022 12:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 431040.683511; Thu, 27 Oct 2022 12:45:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oo1u8-0002c4-IF; Thu, 27 Oct 2022 12:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 431031;
- Thu, 27 Oct 2022 12:22:35 +0000
+	id 1oo2Fs-0005U1-Mc; Thu, 27 Oct 2022 12:45:04 +0000
+Received: by outflank-mailman (input) for mailman id 431040;
+ Thu, 27 Oct 2022 12:45:03 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oo1u7-0002by-8B
- for xen-devel@lists.xenproject.org; Thu, 27 Oct 2022 12:22:35 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oo2Fr-0005Tr-Aj; Thu, 27 Oct 2022 12:45:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oo1u6-0002GF-3c; Thu, 27 Oct 2022 12:22:34 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.29.62]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oo1u5-0005Q5-Rd; Thu, 27 Oct 2022 12:22:34 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oo2Fr-0002cf-8D; Thu, 27 Oct 2022 12:45:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oo2Fq-00021L-TZ; Thu, 27 Oct 2022 12:45:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oo2Fq-0006AJ-TB; Thu, 27 Oct 2022 12:45:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,86 +42,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nyPPKmCS1j28BPWFcMl8JsK0BaQ8YaQOQoEUDg9JxiU=; b=0ziwU8Mri+kIYcIGdfMzTDI8wF
-	Rnwxad51noIQ6o1rQgEjW22wVnKEQxZHkd7GIDNq8XrYHqRYMAwCUN9p3DUd1dIxwh7epI/LtJ6v7
-	/mhzoA0B+4BEmUXAf0VaCFoYEGoAFpowUw9GA9dS3issKQQxFvRLBWRjiDaWUh9bhAJU=;
-Message-ID: <77793987-d638-deaa-f3a5-4a9aba3d2a30@xen.org>
-Date: Thu, 27 Oct 2022 13:22:31 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: [4.17?] Re: [PATCH] common: map_vcpu_info() wants to unshare the
- underlying page
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <b2382fad-e328-fb03-2860-cca93625f4bb@suse.com>
- <Y1gD7GmclguLZCM8@Air-de-Roger>
- <b9c190ee-f916-b03d-e56f-0a54d93ba948@suse.com>
- <AS8PR08MB7991C7034FE22A68AE77A39A92309@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB7991C7034FE22A68AE77A39A92309@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=AKL6K3izuv/XR9Lu1oaujZ2U3fD86w3iHrU+cBqldlw=; b=Jt2uL+XaaU/6kmki7Da3aK2E5B
+	/xeMCUUz5+7l5dkbUeOGIC93BUcLTt/XUmM+czlBJxk70x1Vb6HunsG9k4D7D/hgHjW6lmWyAD1Po
+	ArYIucqg5SawbOSzcgbP4bgAmivpjFqrDMsg7GW4WxCudisaB1+ut3P1UIb8q+wCpmL0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174500-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 174500: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=20cf0ab774e828dc4e75ecebecf56b53aca754fc
+X-Osstest-Versions-That:
+    xen=bad4832710c7261fad1abe2d0e8e2e1d259b3e8d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 27 Oct 2022 12:45:02 +0000
 
-Hi Henry, Jan,
+flight 174500 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174500/
 
-Sorry for the late reply.
+Failures :-/ but no regressions.
 
-On 26/10/2022 03:03, Henry Wang wrote:
->> -----Original Message-----
->> From: Jan Beulich <jbeulich@suse.com>
->> Sent: Wednesday, October 26, 2022 12:07 AM
->> To: Henry Wang <Henry.Wang@arm.com>
->> Cc: xen-devel@lists.xenproject.org; Andrew Cooper
->> <andrew.cooper3@citrix.com>; George Dunlap <george.dunlap@citrix.com>;
->> Julien Grall <julien@xen.org>; Stefano Stabellini <sstabellini@kernel.org>;
->> Wei Liu <wl@xen.org>; Roger Pau Monné <roger.pau@citrix.com>
->> Subject: [4.17?] Re: [PATCH] common: map_vcpu_info() wants to unshare
->> the underlying page
->>
->> On 25.10.2022 17:42, Roger Pau Monné wrote:
->>> On Tue, Oct 11, 2022 at 10:48:38AM +0200, Jan Beulich wrote:
->>>> Not passing P2M_UNSHARE to get_page_from_gfn() means there won't
->> even be
->>>> an attempt to unshare the referenced page, without any indication to the
->>>> caller (e.g. -EAGAIN). Note that guests have no direct control over
->>>> which of their pages are shared (or paged out), and hence they have no
->>>> way to make sure all on their own that the subsequent obtaining of a
->>>> writable type reference can actually succeed.
->>>>
->>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>>
->>> Reviewed-by: Roger Pau Monné <roger.pau@citrix.com>
->>
->> I didn't Cc you on the initial submission because mem-sharing isn't a
->> supported feature, but upon reconsideration I thought I'd at least ask
->> whether you would want to give this a release-ack. I don't really see
->> any risk associated with it.
-> 
-> By looking at the patch itself, this change seems ok to me, so I think
-> I will not block it, but I think Arm maintainers' approval might be needed
-> because of the discussion in [1], so I added them for their information.
-> If Arm maintainers do not object the change, you can have my release-ack.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
-The P2M query type is so far ignored on Arm as we neither support 
-populate-on-demand nor memsharing.
+version targeted for testing:
+ xen                  20cf0ab774e828dc4e75ecebecf56b53aca754fc
+baseline version:
+ xen                  bad4832710c7261fad1abe2d0e8e2e1d259b3e8d
 
-I am assuming that if we ever introduce any those of features, we would 
-follow the same behavior as x86. So:
+Last test of basis   174474  2022-10-26 20:00:32 Z    0 days
+Testing same since   174500  2022-10-27 10:00:28 Z    0 days    1 attempts
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+------------------------------------------------------------
+People who touched revisions under test:
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Cheers,
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
--- 
-Julien Grall
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   bad4832710..20cf0ab774  20cf0ab774e828dc4e75ecebecf56b53aca754fc -> smoke
 
