@@ -2,55 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E5D76111E3
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 14:50:33 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.432036.684726 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 652F16111E2
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 14:50:32 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.432035.684715 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooOoD-000307-7T; Fri, 28 Oct 2022 12:50:01 +0000
+	id 1ooOo8-0002kz-Ug; Fri, 28 Oct 2022 12:49:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432036.684726; Fri, 28 Oct 2022 12:50:01 +0000
+Received: by outflank-mailman (output) from mailman id 432035.684715; Fri, 28 Oct 2022 12:49:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooOoD-0002yE-3t; Fri, 28 Oct 2022 12:50:01 +0000
-Received: by outflank-mailman (input) for mailman id 432036;
- Fri, 28 Oct 2022 12:49:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ooOo8-0002iX-Rb; Fri, 28 Oct 2022 12:49:56 +0000
+Received: by outflank-mailman (input) for mailman id 432035;
+ Fri, 28 Oct 2022 12:49:55 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ToJk=25=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ooOoB-0002xh-73
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 12:49:59 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2042.outbound.protection.outlook.com [40.107.95.42])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 05f727d6-56bf-11ed-91b5-6bf2151ebd3b;
- Fri, 28 Oct 2022 14:49:57 +0200 (CEST)
-Received: from BLAPR03CA0014.namprd03.prod.outlook.com (2603:10b6:208:32b::19)
- by IA1PR12MB6580.namprd12.prod.outlook.com (2603:10b6:208:3a0::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
- 2022 12:49:53 +0000
-Received: from BL02EPF0000C407.namprd05.prod.outlook.com
- (2603:10b6:208:32b:cafe::30) by BLAPR03CA0014.outlook.office365.com
- (2603:10b6:208:32b::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.29 via Frontend
- Transport; Fri, 28 Oct 2022 12:49:52 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C407.mail.protection.outlook.com (10.167.241.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5723.20 via Frontend Transport; Fri, 28 Oct 2022 12:49:52 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 07:49:51 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 05:49:46 -0700
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Fri, 28 Oct 2022 07:49:44 -0500
+ <SRS0=22xF=25=arm.com=andre.przywara@srs-se1.protection.inumbo.net>)
+ id 1ooOo7-0002iQ-9G
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 12:49:55 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 0227d0bf-56bf-11ed-8fd0-01056ac49cbb;
+ Fri, 28 Oct 2022 14:49:49 +0200 (CEST)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C075D1FB;
+ Fri, 28 Oct 2022 05:49:58 -0700 (PDT)
+Received: from donnerap.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com
+ [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 995923F445;
+ Fri, 28 Oct 2022 05:49:51 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,173 +43,260 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05f727d6-56bf-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eMD3YJJfx4DdAA3SI2NCUFPbKgYlPPmDReq6y/MTP0rLaqJpvQ3uE8r/D9R2WngY4ak03BcfszYPxMfsrhze6uetoTgsVczuUbrCSB69hxbILMK9x1MCu/d8EKeV90b/VrUala5Z/fUAUzXGa9GiGdRvEXiMmNaDmtcMbOnaPyoL1UtmAlEUmXNBGjxycqsOf/yno/fczJVE7Gdxoxtd5rEKX3liJMohpFBrcXrOa9ldQQzKFVzBjbQh0Qv6ZTkvHeiudvYS2Tv99RL4U4ZZhb0dwhUM+Q+0AEr8Q9nC9uCtaOX4SG2OKuv+0j33DrftDTY/zJnKfsXzSg5hkUoZbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pRgEOTS1Rmgglb4+SH4FFiPgR6NU5Z4DYRT+gL0JZcA=;
- b=YSwU8EkmXfOfmbzPPA3cIolwhiOtJYqLtLKosiv8JvBXcnC+WJgRTT9BSJLZYa8LbjFRTFf8WqDjhvEuWb0jxXg9TDnU8fhgeHUUST3OBuBV3CGCNrvK9+LeSNYj9VD3V0UCsPeAogdLrw3hEKlUlvNiyVMel4rxm9MR2zvtCL19Hi9SnsDc+TBoznCybQnIIiMCVATsCi7b/XrqkhbtiJ/CHeeiYIWMeFbNExt/Bvg5yp4IlWVVVZcIpbP+Kph2ODg51nKmnxbHcrogSeoBv0ZqO4lBxghjueLxq79jR1zrAfhak3eVpYhaHFlO//+hQcHyQZzkVyI6eH35AMVWhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pRgEOTS1Rmgglb4+SH4FFiPgR6NU5Z4DYRT+gL0JZcA=;
- b=BXnosmD6+Ryarey/82vSM3Ki8WhyEm9LZHxsnPO4LmoJL8miq1Qg2tY52ntSUY/kFlPesoTyJOCH2Zm5wO8R9eqbI+XkJvFWi9MqwFEAO5QuaHvlzjXFMY6SedhBSHAD+lmX6vB5UB/9NV4zZ58A2KTZwllc+eXiRJANt0H5cqc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2] xen/arm: Do not route NS phys timer IRQ to Xen
-Date: Fri, 28 Oct 2022 14:49:37 +0200
-Message-ID: <20221028124937.27677-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+X-Inumbo-ID: 0227d0bf-56bf-11ed-8fd0-01056ac49cbb
+Date: Fri, 28 Oct 2022 13:49:47 +0100
+From: Andre Przywara <andre.przywara@arm.com>
+To: Ayan Kumar Halder <ayankuma@amd.com>
+Cc: Julien Grall <julien@xen.org>, "stefanos@xilinx.com"
+ <stefanos@xilinx.com>, bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: GICv3: Aarch32: Need guidance on the atomic access of "union
+ host_lpi" or if ITS is supported on R52
+Message-ID: <20221028134947.6cc0b985@donnerap.cambridge.arm.com>
+In-Reply-To: <5afda99e-dd57-5820-7075-6b60e7a794f7@amd.com>
+References: <bedc03b9-e6b9-c85b-27d6-33860ba7bdd7@amd.com>
+	<20221025145506.5708839c@donnerap.cambridge.arm.com>
+	<7f1bdc88-da6b-9a0c-03d4-319e9d8966d4@amd.com>
+	<20221027153632.0cf7d004@donnerap.cambridge.arm.com>
+	<5afda99e-dd57-5820-7075-6b60e7a794f7@amd.com>
+Organization: ARM
+X-Mailer: Claws Mail 3.18.0 (GTK+ 2.24.32; aarch64-unknown-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C407:EE_|IA1PR12MB6580:EE_
-X-MS-Office365-Filtering-Correlation-Id: 765ff581-ba31-43b9-ccbc-08dab8e2e840
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	XT6ITHF9kZbGL//bFDa9JaYcVK9XRoSy9HqxyabqWKRqqs7jZsxb1N1LmnGi3Z/D4bYyn6q9CWAwZmMEG+Y2/amgF0J6KsWxQ3WPumVZn8l32nL+Do7pp/ffciBwtxGoY4ncHZQ1YaZ91l/ujymz4KJAYESeOXJfnQCm7xuhYVPEHOcm4Lydhan3TZmUPLvd9Drkq4M6PRhd7zn8+te3++N4Am8JopMR53qd0ZTcyTVamNWorgtK5k8oYdfYV0fnLUDhgSCJVCRTh3+Vn0Bbj+mYr14CI3eGTjEsGofzupDlukUCef1X+YruQTwQ98F9Dmmjq/gZ342UIYqf+AafuhbgbYGluc2jWe6mUDeXWATUtJ9H21KcNVc3p07Oz+9WkrraQiw6Ip+svf9lDPd8nTLbqZfkDOgQ5vceRHqKOueT3tm93UjIlHD7jhNdE7WWMlseirVAGyt8+hAT+jmOyQ2tGA1G7ybEI8PZ6ylGboIobz4RElkl6SKRXiQfPPzrHcKGDVBQFdq+bpJyx/WqMBjYfQ3+vV7RAnUolzBnEkO2ZizMuck69J2Dpt00p4UniKF0of/t4Ooe7LdYwqsAbVYJ29AqcxqlorvgEWxH8WsURXZTbgmCMr4ac82/7e2AK2o5FMgrBSmHGsVHp6/H673Dz2TB4khR0k/4VuFxgv6YcfHw8NR4gKIdkJIpho4gxiZeN3hIRg2Ec/HEiZR/mKh566PJKSYZ0A8/E82NVlu8fZfPQhvLZVv4BLd1shTFQhrLPT65wo6FjlWzs/JpycDfAJdSy/bL1GkOoQddi2gd6f2We+IG7LtPwW4lZzncDZRsvZ1iPve+4/NDuTNS8Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(376002)(39860400002)(396003)(136003)(451199015)(36840700001)(40470700004)(46966006)(36756003)(83380400001)(44832011)(2616005)(47076005)(426003)(356005)(82740400003)(966005)(186003)(8936002)(81166007)(478600001)(336012)(86362001)(40460700003)(41300700001)(1076003)(70206006)(70586007)(2906002)(4326008)(5660300002)(8676002)(40480700001)(36860700001)(6916009)(54906003)(26005)(316002)(82310400005)(6666004)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 12:49:52.4558
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 765ff581-ba31-43b9-ccbc-08dab8e2e840
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0000C407.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6580
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-At the moment, we route NS phys timer IRQ to Xen even though it does not
-make use of this timer. Xen uses hypervisor timer for itself and the
-physical timer is fully emulated, hence there is nothing that can trigger
-such IRQ. This means that requesting/releasing IRQ ends up as a deadcode
-as it has no impact on the functional behavior, whereas the code within
-a handler ends up being unreachable. This is a left over from the early
-days when the CNTHP IRQ was buggy on the HW model used for testing and we
-had to use the CNTP instead.
+On Fri, 28 Oct 2022 12:44:08 +0100
+Ayan Kumar Halder <ayankuma@amd.com> wrote:
 
-Remove the calls to {request/release}_irq for this timer as well as the
-code within the handler. Since timer_interrupt handler is now only used
-by the CNTHP, refactor it as follows:
- - rename it to htimer_interrupt to reflect its purpose,
- - remove the IRQ affiliation test,
- - invert the condition to avoid indented code and use unlikely,
- - improve readability by adding new lines \btw code and comments.
+> On 27/10/2022 15:36, Andre Przywara wrote:
+> > On Thu, 27 Oct 2022 14:38:52 +0100
+> > Ayan Kumar Halder <ayankuma@amd.com> wrote:
+> >
+> > Hi Ayan, =20
+> Hi Andre / Julien,
+> > =20
+> >> On 25/10/2022 14:55, Andre Przywara wrote: =20
+> >>> On Tue, 25 Oct 2022 13:25:52 +0100
+> >>> Ayan Kumar Halder <ayankuma@amd.com> wrote:
+> >>>
+> >>> Hi, =20
+> >> Hi Andre,
+> >>
+> >> Many thanks for the explanation.
+> >>
+> >> I need a clarification on the issue of atomic access to 64bit normal
+> >> memory on R52.
+> >> =20
+> >>>    =20
+> >>>> Hi Andre/All,
+> >>>>
+> >>>> This came up while porting Xen on R52.
+> >>>>
+> >>>> Refer "ARM DDI 0568A.cID110520", B1.3.1
+> >>>>
+> >>>> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE
+> >>>> must not implement LPI support. "
+> >>>>
+> >>>> Does this mean ITS is not supported on R52 ? I am assuming yes, plea=
+se
+> >>>> correct me if mistaken. =20
+> >>> An ITS relies on LPIs, so yes: no ITS on a v8-R32 system. I cannot fi=
+nd
+> >>> this restriction anymore in the v8-R64 supplement, so it would only a=
+pply
+> >>> to the R52/AArch32.
+> >>>    =20
+> >>>> If the answer is no, then my next query is follows :- =20
+> >>> Answering to that anyway ...
+> >>>    =20
+> >>>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
+> >>>> index 9ca74bc321..dea60aac0d 100644
+> >>>> --- a/xen/arch/arm/gic-v3-lpi.c
+> >>>> +++ b/xen/arch/arm/gic-v3-lpi.c
+> >>>> @@ -423,7 +423,7 @@ int gicv3_lpi_init_host_lpis(unsigned int host_l=
+pi_bits)
+> >>>>    =C2=A0=C2=A0=C2=A0=C2=A0 int rc;
+> >>>>
+> >>>>    =C2=A0=C2=A0=C2=A0=C2=A0 /* We rely on the data structure being a=
+tomically accessible. */
+> >>>> -=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(uns=
+igned long));
+> >>>> +=C2=A0=C2=A0=C2=A0 BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(uin=
+t64_t));
+> >>>>
+> >>>> "unsigned long" on Aarch32 is 32 bits. So this bug gets triggered.
+> >>>>
+> >>>> Is it fine to change it as above ?
+> >>>>
+> >>>> Reading"ARM DDI 0487G.bID07202", E2.2.1, "Requirements for single-co=
+py
+> >>>> atomicity".
+> >>>>
+> >>>> "LDRD and STRD accesses to 64-bit aligned locations are 64-bit
+> >>>> single-copy atomic as seen by translation table walks and accesses to
+> >>>> translation tables" =20
+> >>> This (and the explaining paragraph) indeed suggests that this should
+> >>> work architecturally, if you use normal system memory (where you would
+> >>> hold page tables). It would be confined to ARMv8 AArch32 and ARMv7 w/
+> >>> LPAE, which matches Xen's requirements. =20
+> >> Does it mean that ldrd/strd will not work atomically on AArch32-v8R as
+> >> it uses MPU (not MMU, so no page tables) ? =20
+> > No, this mentioning of page tables is more an example or a rationale, t=
+han
+> > a requirement.
+> > What this means (in the ARMv7-A/ARMv8-A AArch32 context) it:
+> > Because on v7A-LPAE and v8-AArch32 PTEs are 64 bits wide, it's too pain=
+ful
+> > to use explicit locking to make sure just writing one PTE is atomic. So
+> > the architecture demands that 64-bit aligned accesses using ldrd/strd
+> > are single-copy atomic, so software can update just one PTE easily. But
+> > this is only required for locations where page tables typically reside,=
+ so
+> > system memory. This avoids this 64-bit atomicity requirement for *every*
+> > part of the system, for instance separate buses, SRAM or flash on small=
+er
+> > buses, or MMIO in general.
+> >
+> > I don't find anything in the v8-R32 supplement that would step back from
+> > this requirement, although indeed the original reason (atomic PTE write=
+s)
+> > would not apply to v8-R32. Both the LDRD/STRD description and the secti=
+on
+> > listing differences in the system memory architecture do not mention
+> > anything, so I'd say that the ldrd atomicity requirement still holds.
+> >
+> > Please note that this only applies to ARMv7 *LPAE* systems, but Xen
+> > requires LPAE, and R52 is v8, so we are good, and the Xen code can rely=
+ on
+> > this.
+> >
+> > So for Xen on ARMv8-R32:
+> > *LDRD/STRD* accesses to *64-bit aligned* addresses in *RAM* would be
+> > atomic. You need to satisfy all three requirements:
+> > - You must use ldrd/strd. Just dereferencing a uint64_t pointer in C do=
+es
+> > not guarantee that, but read_atomic()/write_atomic() does.
+> > - It must be 64-bit aligned. Shouldn't be a problem if the data type is
+> > 64 bits wide. Please note the slight nastiness that ldrd would silently
+> > work on non-aligned addresses, but would lose the atomicity guarantee.
+> > ldrexd would always fault if the address is not aligned.
+> > We might want to check the alignment of data we access (assert?), if not
+> > done already.
+> > - It must be in system RAM, so not MMIO. Also I think TCM might be a
+> > different story, but I would hope Xen would not use that directly.
+> > =20
+> Many thanks for the nice explanation.
+>=20
+> I am trying to compare this with the atomicity requirement for AArch64=20
+> (ARM DDI 0487G.b ID072021, B2.2.1 Requirements for single-copy atomicit )
+>=20
+> I seethat the alignment requirement is the same as for ARMv8-R32.
+>=20
+> "-A read that is generated by a load instruction that loads a single=20
+> general-purpose register and is aligned to the size of the read in the=20
+> instruction is single-copy atomic.
+>=20
+> -A write that is generated by a store instruction that stores a single=20
+> general-purpose register and is aligned to the size of the write in the=20
+> instruction is single-copy atomic"
+>=20
+> I think the following code change should help us to confirm the correct=20
+> behavior of atomic read/write on both AArch64 and AArch32 (including R52).
+>=20
+> diff --git a/xen/arch/arm/include/asm/atomic.h=20
+> b/xen/arch/arm/include/asm/atomic.h
+> index ac2798d095..f22c65a853 100644
+> --- a/xen/arch/arm/include/asm/atomic.h
+> +++ b/xen/arch/arm/include/asm/atomic.h
+> @@ -78,6 +78,7 @@ static always_inline void read_atomic_size(const=20
+> volatile void *p,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *res,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int size)
+>  =C2=A0{
+> +=C2=A0=C2=A0=C2=A0 ASSERT(IS_ALIGNED((unsigned long)p, size));
+>  =C2=A0=C2=A0=C2=A0=C2=A0 switch ( size )
+>  =C2=A0=C2=A0=C2=A0=C2=A0 {
+>  =C2=A0=C2=A0=C2=A0=C2=A0 case 1:
+> @@ -102,6 +103,7 @@ static always_inline void write_atomic_size(volatile=
+=20
+> void *p,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void *val,
+>  =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int size)
+>  =C2=A0{
+> +=C2=A0=C2=A0=C2=A0 ASSERT(IS_ALIGNED((unsigned long)p, size));
+>  =C2=A0=C2=A0=C2=A0=C2=A0 switch ( size )
+>  =C2=A0=C2=A0=C2=A0=C2=A0 {
+>  =C2=A0=C2=A0=C2=A0=C2=A0 case 1:
+>=20
+> Please let me know if I misunderstand something.
 
-Keep the calls to zero the CNTP_CTL_EL0 register for sanity and also
-remove the corresponding perf counter definition.
+Yes, that looks correct. Even the more "simple" atomic accesses always
+require alignment, so if you do an unaligned 32-bit read in AArch64, it
+wouldn't be single-copy atomic either.
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
- - take the opportunity to rename the handler, modify the condition to
-   avoid the indented code and improve readability.
+Cheers,
+Andre
 
-Based on the outcome of the following discussion:
-https://lore.kernel.org/xen-devel/d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com/
----
- xen/arch/arm/include/asm/perfc_defn.h |  1 -
- xen/arch/arm/time.c                   | 34 +++++++++------------------
- 2 files changed, 11 insertions(+), 24 deletions(-)
-
-diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
-index 31f071222b24..3ab0391175d7 100644
---- a/xen/arch/arm/include/asm/perfc_defn.h
-+++ b/xen/arch/arm/include/asm/perfc_defn.h
-@@ -70,7 +70,6 @@ PERFCOUNTER(spis,                 "#SPIs")
- PERFCOUNTER(guest_irqs,           "#GUEST-IRQS")
- 
- PERFCOUNTER(hyp_timer_irqs,   "Hypervisor timer interrupts")
--PERFCOUNTER(phys_timer_irqs,  "Physical timer interrupts")
- PERFCOUNTER(virt_timer_irqs,  "Virtual timer interrupts")
- PERFCOUNTER(maintenance_irqs, "Maintenance interrupts")
- 
-diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-index dec53b5f7d53..0054cf2b7b78 100644
---- a/xen/arch/arm/time.c
-+++ b/xen/arch/arm/time.c
-@@ -220,27 +220,18 @@ int reprogram_timer(s_time_t timeout)
- }
- 
- /* Handle the firing timer */
--static void timer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-+static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
- {
--    if ( irq == (timer_irq[TIMER_HYP_PPI]) &&
--         READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING )
--    {
--        perfc_incr(hyp_timer_irqs);
--        /* Signal the generic timer code to do its work */
--        raise_softirq(TIMER_SOFTIRQ);
--        /* Disable the timer to avoid more interrupts */
--        WRITE_SYSREG(0, CNTHP_CTL_EL2);
--    }
-+    if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
-+        return;
- 
--    if ( irq == (timer_irq[TIMER_PHYS_NONSECURE_PPI]) &&
--         READ_SYSREG(CNTP_CTL_EL0) & CNTx_CTL_PENDING )
--    {
--        perfc_incr(phys_timer_irqs);
--        /* Signal the generic timer code to do its work */
--        raise_softirq(TIMER_SOFTIRQ);
--        /* Disable the timer to avoid more interrupts */
--        WRITE_SYSREG(0, CNTP_CTL_EL0);
--    }
-+    perfc_incr(hyp_timer_irqs);
-+
-+    /* Signal the generic timer code to do its work */
-+    raise_softirq(TIMER_SOFTIRQ);
-+
-+    /* Disable the timer to avoid more interrupts */
-+    WRITE_SYSREG(0, CNTHP_CTL_EL2);
- }
- 
- static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-@@ -302,12 +293,10 @@ void init_timer_interrupt(void)
-     WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-     isb();
- 
--    request_irq(timer_irq[TIMER_HYP_PPI], 0, timer_interrupt,
-+    request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-                 "hyptimer", NULL);
-     request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
-                    "virtimer", NULL);
--    request_irq(timer_irq[TIMER_PHYS_NONSECURE_PPI], 0, timer_interrupt,
--                "phytimer", NULL);
- 
-     check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
-     check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
-@@ -326,7 +315,6 @@ static void deinit_timer_interrupt(void)
- 
-     release_irq(timer_irq[TIMER_HYP_PPI], NULL);
-     release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
--    release_irq(timer_irq[TIMER_PHYS_NONSECURE_PPI], NULL);
- }
- 
- /* Wait a set number of microseconds */
--- 
-2.25.1
+> >> If so, then is using ldrexd/strexd the solution for this ? =20
+> > As mentioned above, you would not need that, just
+> > read_atomic()/write_atomic() would do.
+> >
+> > Hope that clears that up.
+> >
+> > Cheers,
+> > Andre
+> >
+> > P.S. This above is my reading of the ARM ARM and the R32 supplement. I =
+can
+> > double check with the architects, but this might take a while.
+> > =20
+> >> IIUC "Memory accesses caused by LDREXD and STREXD instructions to
+> >> doubleword-aligned locations.", then the answer seems yes.
+> >>
+> >> - Ayan
+> >> =20
+> >>> But it's only atomic if you are using ldrd/strd, which you cannot kno=
+w for
+> >>> sure in C, because it's up to the compiler to generate the instructio=
+ns.
+> >>>
+> >>> This is why we have that test. Changing the unsigned long to uint64_t
+> >>> would make the check pointless, since the data structure is 64-bits l=
+ong,
+> >>> so it would always be true.
+> >>>
+> >>> So given that you don't seem to need it, right now, it would leave the
+> >>> test alone.
+> >>>
+> >>> If you need that on AArch32 anyway, you would need to replace accesse=
+s to
+> >>> the host_lpis array with inline assembly accessors, to ensure ldrd/st=
+rd
+> >>> instructions. This seems doable (there are only so many places which
+> >>> directly access the array members), but would need a good use case.
+> >>>
+> >>> Cheers,
+> >>> Andre
+> >>>    =20
+> >>>> Does this imply that atomicity will be retained (with the above chan=
+ge)
+> >>>> ? Os will this require ldrexd/strexd as R52 supports MPU (not MMU, so
+> >>>> translation tables are irrelevant).
+> >>>> Kind regards,
+> >>>> Ayan
+> >>>>    =20
 
 
