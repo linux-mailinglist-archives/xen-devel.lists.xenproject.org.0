@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB256114C6
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 16:39:52 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.432119.684859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65849611559
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 17:01:51 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.432128.684870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooQW9-0006BD-7n; Fri, 28 Oct 2022 14:39:29 +0000
+	id 1ooQrC-0001bh-3g; Fri, 28 Oct 2022 15:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432119.684859; Fri, 28 Oct 2022 14:39:29 +0000
+Received: by outflank-mailman (output) from mailman id 432128.684870; Fri, 28 Oct 2022 15:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooQW9-00068N-4A; Fri, 28 Oct 2022 14:39:29 +0000
-Received: by outflank-mailman (input) for mailman id 432119;
- Fri, 28 Oct 2022 14:39:28 +0000
+	id 1ooQrC-0001Yw-0P; Fri, 28 Oct 2022 15:01:14 +0000
+Received: by outflank-mailman (input) for mailman id 432128;
+ Fri, 28 Oct 2022 15:01:12 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ooQW7-00068H-VC
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 14:39:27 +0000
+ (envelope-from <julien@xen.org>) id 1ooQrA-0001Yq-DM
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 15:01:12 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ooQW4-0004qz-QN; Fri, 28 Oct 2022 14:39:24 +0000
+ id 1ooQr9-0005Df-O8; Fri, 28 Oct 2022 15:01:11 +0000
 Received: from 54-240-197-233.amazon.com ([54.240.197.233]
  helo=[192.168.25.146]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ooQW4-000258-KE; Fri, 28 Oct 2022 14:39:24 +0000
+ id 1ooQr9-00038I-F7; Fri, 28 Oct 2022 15:01:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,203 +42,132 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=Hdg5PraNstj6e9uRbatxRM3GxleF6RF6zlyTJAgec0M=; b=mMFq3B0U2WTCrNU9CpA9Vjawe7
-	8FOhNhI6w4zUfxptPxFg/aYd0EqyhOwTtX7ilLeNYLxAspuLtWkj9wOX7mYzi2MobUKdnjJhT5Z3N
-	M5uXtCSlexyystB84GalCOVG6ky+BvFF4/bjm1HGB1NgjjckXdAqH7sxK8JYdX76Np/M=;
-Message-ID: <da8190ba-74b2-8eb2-b859-6b3b845896f0@xen.org>
-Date: Fri, 28 Oct 2022 15:39:22 +0100
+	bh=qSbtmEmc5nChW8eJHwZXZt6FJsJmhdkALKXw+AkCq5M=; b=zo0NufyNn+inrn2/DMxHAaydnC
+	ZJlBKQg/Td95/3MiULZznQV8HLaFtfVq6BwP59FtkuwTRBfleXuZd3g/26p/GCEbV1xl7gAxS+1FB
+	5wJxDvc9vfc5kId3QE3ixoLE7CMXCaYwO+Sz+OHEDr0BKgAp3DhJAchcYHafd9eHzebE=;
+Message-ID: <affc51c9-0f8b-b76a-6f23-ec161c967580@xen.org>
+Date: Fri, 28 Oct 2022 16:01:08 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: GICv3: Aarch32: Need guidance on the atomic access of "union
- host_lpi" or if ITS is supported on R52
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
+ devices
 Content-Language: en-US
-To: Andre Przywara <andre.przywara@arm.com>,
- Ayan Kumar Halder <ayankuma@amd.com>
-Cc: "stefanos@xilinx.com" <stefanos@xilinx.com>,
- bertrand Marquis <Bertrand.Marquis@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bedc03b9-e6b9-c85b-27d6-33860ba7bdd7@amd.com>
- <20221025145506.5708839c@donnerap.cambridge.arm.com>
- <7f1bdc88-da6b-9a0c-03d4-319e9d8966d4@amd.com>
- <20221027153632.0cf7d004@donnerap.cambridge.arm.com>
- <5afda99e-dd57-5820-7075-6b60e7a794f7@amd.com>
- <20221028134947.6cc0b985@donnerap.cambridge.arm.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+Cc: Rahul Singh <Rahul.Singh@arm.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Michal Orzel <Michal.Orzel@arm.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Juergen Gross <jgross@suse.com>
+References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com>
+ <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org>
+ <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com>
+ <60b9cc07-c0ec-756b-802b-5fc96f253dbf@xen.org>
+ <EDDD0430-0BFF-4C95-B9CE-402487C2E5DE@arm.com>
+ <fde8c845-8d35-83cd-d4fd-bb2c5fd1a7ed@xen.org>
+ <227AD28E-DFB8-4EB3-9E0E-61C70A0D19EB@arm.com>
+ <f777b164-54c6-6091-79ce-fac3dd603b8c@xen.org>
+ <34B31FA6-72D8-4F03-AC94-3DC795D0FF55@arm.com>
+ <222ed837-594d-6301-edec-6f9d26e1fadf@xen.org>
+ <2981F6DC-444B-49DE-9D01-C0093A32E68F@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221028134947.6cc0b985@donnerap.cambridge.arm.com>
+In-Reply-To: <2981F6DC-444B-49DE-9D01-C0093A32E68F@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 28/10/2022 13:49, Andre Przywara wrote:
-> On Fri, 28 Oct 2022 12:44:08 +0100
-> Ayan Kumar Halder <ayankuma@amd.com> wrote:
-> 
->> On 27/10/2022 15:36, Andre Przywara wrote:
->>> On Thu, 27 Oct 2022 14:38:52 +0100
->>> Ayan Kumar Halder <ayankuma@amd.com> wrote:
->>>
->>> Hi Ayan,
->> Hi Andre / Julien,
->>>   
->>>> On 25/10/2022 14:55, Andre Przywara wrote:
->>>>> On Tue, 25 Oct 2022 13:25:52 +0100
->>>>> Ayan Kumar Halder <ayankuma@amd.com> wrote:
->>>>>
->>>>> Hi,
->>>> Hi Andre,
+
+On 28/10/2022 15:37, Bertrand Marquis wrote:
+> Hi Julien,
+
+Hi Bertrand,
+
+>> On 28 Oct 2022, at 14:27, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 28/10/2022 14:13, Bertrand Marquis wrote:
+>>> Hi Julien,
+>>
+>> Hi Bertrand,
+>>
+>>>> On 28 Oct 2022, at 14:06, Julien Grall <julien@xen.org> wrote:
 >>>>
->>>> Many thanks for the explanation.
+>>>> Hi Rahul,
 >>>>
->>>> I need a clarification on the issue of atomic access to 64bit normal
->>>> memory on R52.
->>>>   
->>>>>      
->>>>>> Hi Andre/All,
+>>>> On 28/10/2022 13:54, Rahul Singh wrote:
+>>>>>>>>>> For ACPI, I would have expected the information to be found in the IOREQ.
+>>>>>>>>>>
+>>>>>>>>>> So can you add more context why this is necessary for everyone?
+>>>>>>>>> We have information for IOMMU and Master-ID but we don’t have information for linking vMaster-ID to pMaster-ID.
+>>>>>>>>
+>>>>>>>> I am confused. Below, you are making the virtual master ID optional. So shouldn't this be mandatory if you really need the mapping with the virtual ID?
+>>>>>>> vMasterID is optional if user knows pMasterID is unique on the system. But if pMasterId is not unique then user needs to provide the vMasterID.
 >>>>>>
->>>>>> This came up while porting Xen on R52.
+>>>>>> So the expectation is the user will be able to know that the pMasterID is uniq. This may be easy with a couple of SMMUs, but if you have 50+ (as suggested above). This will become a pain on larger system.
 >>>>>>
->>>>>> Refer "ARM DDI 0568A.cID110520", B1.3.1
->>>>>>
->>>>>> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE
->>>>>> must not implement LPI support. "
->>>>>>
->>>>>> Does this mean ITS is not supported on R52 ? I am assuming yes, please
->>>>>> correct me if mistaken.
->>>>> An ITS relies on LPIs, so yes: no ITS on a v8-R32 system. I cannot find
->>>>> this restriction anymore in the v8-R64 supplement, so it would only apply
->>>>> to the R52/AArch32.
->>>>>      
->>>>>> If the answer is no, then my next query is follows :-
->>>>> Answering to that anyway ...
->>>>>      
->>>>>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
->>>>>> index 9ca74bc321..dea60aac0d 100644
->>>>>> --- a/xen/arch/arm/gic-v3-lpi.c
->>>>>> +++ b/xen/arch/arm/gic-v3-lpi.c
->>>>>> @@ -423,7 +423,7 @@ int gicv3_lpi_init_host_lpis(unsigned int host_lpi_bits)
->>>>>>          int rc;
->>>>>>
->>>>>>          /* We rely on the data structure being atomically accessible. */
->>>>>> -    BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(unsigned long));
->>>>>> +    BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(uint64_t));
->>>>>>
->>>>>> "unsigned long" on Aarch32 is 32 bits. So this bug gets triggered.
->>>>>>
->>>>>> Is it fine to change it as above ?
->>>>>>
->>>>>> Reading"ARM DDI 0487G.bID07202", E2.2.1, "Requirements for single-copy
->>>>>> atomicity".
->>>>>>
->>>>>> "LDRD and STRD accesses to 64-bit aligned locations are 64-bit
->>>>>> single-copy atomic as seen by translation table walks and accesses to
->>>>>> translation tables"
->>>>> This (and the explaining paragraph) indeed suggests that this should
->>>>> work architecturally, if you use normal system memory (where you would
->>>>> hold page tables). It would be confined to ARMv8 AArch32 and ARMv7 w/
->>>>> LPAE, which matches Xen's requirements.
->>>> Does it mean that ldrd/strd will not work atomically on AArch32-v8R as
->>>> it uses MPU (not MMU, so no page tables) ?
->>> No, this mentioning of page tables is more an example or a rationale, than
->>> a requirement.
->>> What this means (in the ARMv7-A/ARMv8-A AArch32 context) it:
->>> Because on v7A-LPAE and v8-AArch32 PTEs are 64 bits wide, it's too painful
->>> to use explicit locking to make sure just writing one PTE is atomic. So
->>> the architecture demands that 64-bit aligned accesses using ldrd/strd
->>> are single-copy atomic, so software can update just one PTE easily. But
->>> this is only required for locations where page tables typically reside, so
->>> system memory. This avoids this 64-bit atomicity requirement for *every*
->>> part of the system, for instance separate buses, SRAM or flash on smaller
->>> buses, or MMIO in general.
->>>
->>> I don't find anything in the v8-R32 supplement that would step back from
->>> this requirement, although indeed the original reason (atomic PTE writes)
->>> would not apply to v8-R32. Both the LDRD/STRD description and the section
->>> listing differences in the system memory architecture do not mention
->>> anything, so I'd say that the ldrd atomicity requirement still holds.
->>>
->>> Please note that this only applies to ARMv7 *LPAE* systems, but Xen
->>> requires LPAE, and R52 is v8, so we are good, and the Xen code can rely on
->>> this.
->>>
->>> So for Xen on ARMv8-R32:
->>> *LDRD/STRD* accesses to *64-bit aligned* addresses in *RAM* would be
->>> atomic. You need to satisfy all three requirements:
->>> - You must use ldrd/strd. Just dereferencing a uint64_t pointer in C does
->>> not guarantee that, but read_atomic()/write_atomic() does.
->>> - It must be 64-bit aligned. Shouldn't be a problem if the data type is
->>> 64 bits wide. Please note the slight nastiness that ldrd would silently
->>> work on non-aligned addresses, but would lose the atomicity guarantee.
->>> ldrexd would always fault if the address is not aligned.
->>> We might want to check the alignment of data we access (assert?), if not
->>> done already.
-
-For Arm32, we have configured the processor to enforce the alignment for 
-all store/load. So I believe, it means a ldrd/strd on an unaligned 
-address would crash at least on arm32.
-
-We should ensure this will also be the case for R52 (assuming that 
-strd/ldrd are considered atomic).
-
->>> - It must be in system RAM, so not MMIO. Also I think TCM might be a
->>> different story, but I would hope Xen would not use that directly.
->>>   
->> Many thanks for the nice explanation.
+>>>>>> IHMO, it would be much better if we can detect that in libxl (see below).
+>>>>> We can make the vMasterID compulsory to avoid complexity in libxl to solve this
+>>>>
+>>>> In general, complexity in libxl is not too much of problem.
+>>> I am a bit unsure about this strategy.
+>>> Currently xl has one configuration file where you put all Xen parameters. The device tree is only needed by some guests to have a description of the system they run on.
+>>> If we change the model and say that Xen configuration parameters are both in the configuration and the device tree, we somehow enforce to have a device tree even though some guests do not need it at all (for example Zephyr).
 >>
->> I am trying to compare this with the atomicity requirement for AArch64
->> (ARM DDI 0487G.b ID072021, B2.2.1 Requirements for single-copy atomicit )
+>> I think my approach was misunderstood because there is no change in the existing model.
 >>
->> I seethat the alignment requirement is the same as for ARMv8-R32.
+>> What I am suggesting is to not introduce iommu_devid_map but instead let libxl allocate the virtual Master-ID and create the mapping with the physical Master-ID.
 >>
->> "-A read that is generated by a load instruction that loads a single
->> general-purpose register and is aligned to the size of the read in the
->> instruction is single-copy atomic.
->>
->> -A write that is generated by a store instruction that stores a single
->> general-purpose register and is aligned to the size of the write in the
->> instruction is single-copy atomic"
->>
->> I think the following code change should help us to confirm the correct
->> behavior of atomic read/write on both AArch64 and AArch32 (including R52).
->>
->> diff --git a/xen/arch/arm/include/asm/atomic.h
->> b/xen/arch/arm/include/asm/atomic.h
->> index ac2798d095..f22c65a853 100644
->> --- a/xen/arch/arm/include/asm/atomic.h
->> +++ b/xen/arch/arm/include/asm/atomic.h
->> @@ -78,6 +78,7 @@ static always_inline void read_atomic_size(const
->> volatile void *p,
->>                                               void *res,
->>                                               unsigned int size)
->>    {
->> +    ASSERT(IS_ALIGNED((unsigned long)p, size));
-
-Please use vaddr_t instead of "unsigned long".
-
->>        switch ( size )
->>        {
->>        case 1:
->> @@ -102,6 +103,7 @@ static always_inline void write_atomic_size(volatile
->> void *p,
->>                                                void *val,
->>                                                unsigned int size)
->>    {
->> +    ASSERT(IS_ALIGNED((unsigned long)p, size));
->>        switch ( size )
->>        {
->>        case 1:
->>
->> Please let me know if I misunderstand something.
+>> Libxl would then update the property "iommus" in the device-tree with the allocated virtual Master-ID.
 > 
-> Yes, that looks correct. Even the more "simple" atomic accesses always
-> require alignment, so if you do an unaligned 32-bit read in AArch64, it
-> wouldn't be single-copy atomic either.
+> Ok I understand now.
+> 
+>>
+>> Each node in the partial device-tree would need to have a property
+>> to refer to the physical device just so we know how to update the "iommus". The list of device passthrough will still be specified in the configuration file. IOW, the partial device-tree is not directly involved in the configuration of the guest.
+> 
+> But we will generate it. How would something like Zephyr guest work ? Zephyr is not using the device tree we pass, it has an embedded one.
 
-This patch looks fine as a way to enforce the address is always aligned. 
-And that would be a nice improvement for arm64. On arm32 it should not 
-matter (see above why).
+In general, guest that don't use the device-tree/ACPI table to detect 
+the layout are already in a bad situation because we don't guarantee 
+that the layout (memory, interrupt...) will be stable across Xen 
+version. Although, there are a implicit agreement that the layout will 
+not change for minor release (i.e. 4.14.x).
+
+But see below for some suggestions how this could be handled.
+
+> 
+>>
+>> So far, I don't see a particular issue with this approach because the vMaster ID algorithm allocation should be generic. But please let me know if you think there are bits I am missing.
+> 
+> I am a bit afraid of things that are “automatic”.
+> 
+> For everything else we let the user in control (IPA for mapping, virtual interrupt number) and in this case we switch to a model where we automatically generated a vMaster ID.
+
+We only let the user control where the device is mapped. But this is 
+quite fragile... I think this should be generated at runtime.
+
+> With this model, guest not using the device tree will have to guess the vMaster ID or somehow know how the tools are generating it to use the right one.
+
+To be honest, this is already the case today because the layout exposed 
+to the guest is technically not fixed. Yes, so far, we haven't changed 
+it too much. But sooner or later, this is going to bite because we made 
+clear that the layout is not stable.
+
+Now, if those projects are willing to rebuild for each version, then we 
+could use the following approach:
+   1) Write the xl.cfg
+   2) Ask libxl to generate the device-tree
+   3) Build Zephyr
+   4) Create the domain
+
+The expectation is for a given Xen version (and compatible), libxl will 
+always generate the same Device-Tree.
 
 Cheers,
 
