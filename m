@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9DF1610E4F
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 12:23:14 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431891.684549 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88B42610F2A
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 12:57:26 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431902.684561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooMVe-0001wD-Pr; Fri, 28 Oct 2022 10:22:42 +0000
+	id 1ooN2X-0006NO-E6; Fri, 28 Oct 2022 10:56:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431891.684549; Fri, 28 Oct 2022 10:22:42 +0000
+Received: by outflank-mailman (output) from mailman id 431902.684561; Fri, 28 Oct 2022 10:56:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooMVe-0001tJ-My; Fri, 28 Oct 2022 10:22:42 +0000
-Received: by outflank-mailman (input) for mailman id 431891;
- Fri, 28 Oct 2022 10:22:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=IcqW=25=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ooMVd-0001tD-0L
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 10:22:41 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 71945715-56aa-11ed-91b5-6bf2151ebd3b;
- Fri, 28 Oct 2022 12:22:38 +0200 (CEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 7346D5C0073;
- Fri, 28 Oct 2022 06:22:36 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 28 Oct 2022 06:22:36 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Oct 2022 06:22:34 -0400 (EDT)
+	id 1ooN2X-0006KW-BA; Fri, 28 Oct 2022 10:56:41 +0000
+Received: by outflank-mailman (input) for mailman id 431902;
+ Fri, 28 Oct 2022 10:56:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Mkji=25=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ooN2V-0006KQ-AU
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 10:56:39 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 30fff563-56af-11ed-8fd0-01056ac49cbb;
+ Fri, 28 Oct 2022 12:56:36 +0200 (CEST)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0669121A59;
+ Fri, 28 Oct 2022 10:56:37 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B610513A6E;
+ Fri, 28 Oct 2022 10:56:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id Ma7nKmS1W2MvSAAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 28 Oct 2022 10:56:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,128 +51,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 71945715-56aa-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1666952556; x=
-	1667038956; bh=LQTrCQ1SmBiYMtTtcTNZ6a86ZIztFd+ZsK2jWKD8/hw=; b=B
-	L48UI05TXtVtXyiJ7VqO7IoT81CGwCNPasYNoptIIuqNAjTkmkwLDF8jKzqLYr5v
-	nWb2e0phsrlHsinbsP/cG+/4wplfCpSiTEgmI438w7trvyLCnTwaq5QDRVOBhlFc
-	iexnGzAkc9VzmwsSrYqkuoXFWQdgrfwsYt++y/QHWNrZoz6nPpK/HaTDBXToK0dF
-	wgnZdAP2HOrWFEgGD7kExbbM91cptOPDZSZ2YcmjxWFyXB4DhkT3HOniwwLZWNbf
-	YZVNdcAGo1bdGo6nNlx0a8gTJX38WbJ+vXyYuL2zf9St6v5wlgYcOhMOPIFgiG8k
-	JM8dqVWjMezSCzy4c3Djw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1666952556; x=1667038956; bh=LQTrCQ1SmBiYMtTtcTNZ6a86ZIzt
-	Fd+ZsK2jWKD8/hw=; b=BuPCIX3pgX6U/YlebhmYeaDQO8ukMQ71hn8upA5me+Os
-	Ud2XaqTf8sJ0/ruTGDC1O1tmcnuh9OQ+XcVZWYjvNbGxmiDpwV8oZlwDUD2CzS7K
-	407ZKug+zsXZV1sR+Ofule44jHQGc+H+nB/WGSYTMxNbwZcjd+KuQL4Hz5oNZe1q
-	GhK9NtSRqRi2Ya8slZYeUOqERbWVe2WtQbhIKZcZ35qm2O+g0yBaYmnTW6qpgWpk
-	wFUcQvW6b06WkPf1OsNbBw/sMGRqA1ILs7t53cy89ixJsjo5V6NWuljPrA7HHYgB
-	ZbOU9ZfSG9aT/0wgmgETafmq5ZZap+Mp34ZfYVffnw==
-X-ME-Sender: <xms:bK1bYzL_0gH5OUmSnGoqub7QpBQhtmOmuBzufXj0fn8NKGQtoyFk4g>
-    <xme:bK1bY3KwKz53ZD53kXBk0m-eV6AleB5uoDcbgbwoLe11_5JjMejqcR9hL9B2oLFJj
-    ITV72kVNXhsnw>
-X-ME-Received: <xmr:bK1bY7vkmDVUcADB_cRok8Qc7jYsd1Bhym6cOn9Nm6wrH9QP8RkVudhB5zzq_1_lD2Gncyf25YKn7a87sfJYWr6r3tVJqQ_pSGNJ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrtdeigddviecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeet
-    teeggffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffohhmrg
-    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:bK1bY8bR4HpI6hWZeq3juHDbHtQv9zkucnGpA2FwwfG031TFpNPUjA>
-    <xmx:bK1bY6b5_KDVoTXTLUcKw4bEMu6al_JJIhonn_vKCfZVjREvxFTCbQ>
-    <xmx:bK1bYwAM8G1ivjO4wr5oYskNDdiYJ-GmjrR3djs8gYaJm0Mf8xNEUg>
-    <xmx:bK1bYxUnBkXFTirBg56viCKu1kGGtlK9w2S7krVEqQmflSvD_lt6QQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 28 Oct 2022 12:22:29 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
-	Henry Wang <Henry.Wang@arm.com>
-Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
- suspend
-Message-ID: <Y1utZequY2IC9Apw@mail-itl>
-References: <20221021145357.17931-1-jgross@suse.com>
- <Y1rKLJP/p+E+eVi7@mail-itl>
- <4977c33a-fe11-172a-11be-17acb01d61bb@suse.com>
- <901fa58e-6693-ca2e-9231-447f989d614d@citrix.com>
+X-Inumbo-ID: 30fff563-56af-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1666954597; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y+pzUQWrSPJMKcGCvx5iWaKBsT+Mz7M8rB9qZ9ADrVg=;
+	b=IuyhB2yOZC+Ty6FStCjSmlt97uBlq7FmwYV0uMEIfbVnY4WUZLbZusVGRlJPAYrx8+wbDH
+	BiuXYb67QV4mdLtpFIMuPPOUOjCNpsHSwFbBPhIlqpeDCd394ogXFOYDRNEyQVaRC2wjFm
+	e63n3nKeZT1Ml9TyZSLhGPJE3SUuqwk=
+Message-ID: <301b11d2-ed2f-8e00-1c0c-4c2211eb3f38@suse.com>
+Date: Fri, 28 Oct 2022 12:56:36 +0200
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="5KRzSUE2BoJpADaP"
-Content-Disposition: inline
-In-Reply-To: <901fa58e-6693-ca2e-9231-447f989d614d@citrix.com>
-
-
---5KRzSUE2BoJpADaP
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 28 Oct 2022 12:22:29 +0200
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Juergen Gross <jgross@suse.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.2.2
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
 Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
-	Henry Wang <Henry.Wang@arm.com>
+ George Dunlap <George.Dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <20221021145357.17931-1-jgross@suse.com>
+ <Y1rKLJP/p+E+eVi7@mail-itl> <4977c33a-fe11-172a-11be-17acb01d61bb@suse.com>
+ <901fa58e-6693-ca2e-9231-447f989d614d@citrix.com> <Y1utZequY2IC9Apw@mail-itl>
+From: Juergen Gross <jgross@suse.com>
 Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
  suspend
+In-Reply-To: <Y1utZequY2IC9Apw@mail-itl>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------dyY9gXJnoU90HCMTI0K9FZUx"
 
-On Fri, Oct 28, 2022 at 10:12:36AM +0000, Andrew Cooper wrote:
-> On 28/10/2022 11:08, Juergen Gross wrote:
-> > On 27.10.22 20:13, Marek Marczykowski-G=C3=B3recki wrote:
-> >
-> > This is very weird. The data suggests that the scheduling resource
-> > pointer
-> > for cpu 1 was NULL, but I can't see how this can be the case without
-> > causing
-> > similar crashes without this patch.
-> >
-> > Are there any additional patches related to cpu on/offlining or
-> > suspend/resume
-> > in the hypervisor?
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------dyY9gXJnoU90HCMTI0K9FZUx
+Content-Type: multipart/mixed; boundary="------------tVKpkSfc72PZx5fweGhqJxXu";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ George Dunlap <George.Dunlap@citrix.com>, Dario Faggioli
+ <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
+ Henry Wang <Henry.Wang@arm.com>
+Message-ID: <301b11d2-ed2f-8e00-1c0c-4c2211eb3f38@suse.com>
+Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
+ suspend
+References: <20221021145357.17931-1-jgross@suse.com>
+ <Y1rKLJP/p+E+eVi7@mail-itl> <4977c33a-fe11-172a-11be-17acb01d61bb@suse.com>
+ <901fa58e-6693-ca2e-9231-447f989d614d@citrix.com> <Y1utZequY2IC9Apw@mail-itl>
+In-Reply-To: <Y1utZequY2IC9Apw@mail-itl>
 
-No such patches, it was this:
-https://github.com/marmarek/xen/commits/master-credit-timers
+--------------tVKpkSfc72PZx5fweGhqJxXu
+Content-Type: multipart/mixed; boundary="------------p0Pnm2fL2DbFuql9tnB8BgQv"
 
-> QubesOS runs with smt=3D0 by default.=C2=A0 Siblings ought to be parked a=
-t this
-> point.
+--------------p0Pnm2fL2DbFuql9tnB8BgQv
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-Yes, indeed this test was with smt=3Doff.
+T24gMjguMTAuMjIgMTI6MjIsIE1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSB3cm90ZToN
+Cj4gT24gRnJpLCBPY3QgMjgsIDIwMjIgYXQgMTA6MTI6MzZBTSArMDAwMCwgQW5kcmV3IENv
+b3BlciB3cm90ZToNCj4+IE9uIDI4LzEwLzIwMjIgMTE6MDgsIEp1ZXJnZW4gR3Jvc3Mgd3Jv
+dGU6DQo+Pj4gT24gMjcuMTAuMjIgMjA6MTMsIE1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNr
+aSB3cm90ZToNCj4+Pg0KPj4+IFRoaXMgaXMgdmVyeSB3ZWlyZC4gVGhlIGRhdGEgc3VnZ2Vz
+dHMgdGhhdCB0aGUgc2NoZWR1bGluZyByZXNvdXJjZQ0KPj4+IHBvaW50ZXINCj4+PiBmb3Ig
+Y3B1IDEgd2FzIE5VTEwsIGJ1dCBJIGNhbid0IHNlZSBob3cgdGhpcyBjYW4gYmUgdGhlIGNh
+c2Ugd2l0aG91dA0KPj4+IGNhdXNpbmcNCj4+PiBzaW1pbGFyIGNyYXNoZXMgd2l0aG91dCB0
+aGlzIHBhdGNoLg0KPj4+DQo+Pj4gQXJlIHRoZXJlIGFueSBhZGRpdGlvbmFsIHBhdGNoZXMg
+cmVsYXRlZCB0byBjcHUgb24vb2ZmbGluaW5nIG9yDQo+Pj4gc3VzcGVuZC9yZXN1bWUNCj4+
+PiBpbiB0aGUgaHlwZXJ2aXNvcj8NCj4gDQo+IE5vIHN1Y2ggcGF0Y2hlcywgaXQgd2FzIHRo
+aXM6DQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9tYXJtYXJlay94ZW4vY29tbWl0cy9tYXN0ZXIt
+Y3JlZGl0LXRpbWVycw0KPiANCj4+IFF1YmVzT1MgcnVucyB3aXRoIHNtdD0wIGJ5IGRlZmF1
+bHQuwqAgU2libGluZ3Mgb3VnaHQgdG8gYmUgcGFya2VkIGF0IHRoaXMNCj4+IHBvaW50Lg0K
+PiANCj4gWWVzLCBpbmRlZWQgdGhpcyB0ZXN0IHdhcyB3aXRoIHNtdD1vZmYuDQoNCkFoLCB0
+aGlzIGlzIHN1YnRsZS4gVGhlIENQVV9PTkxJTkUgbm90aWZpZXJzIGFyZSBjYWxsZWQgZm9y
+IHRoZSBzaWJsaW5ncywNCnRvbywgcmVzdWx0aW5nIGluIGFib3ZlIGVycm9yLg0KDQpQcmVw
+YXJpbmcgVjIgb2YgdGhlIHBhdGNoLg0KDQoNCkp1ZXJnZW4NCg==
+--------------p0Pnm2fL2DbFuql9tnB8BgQv
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
---5KRzSUE2BoJpADaP
-Content-Type: application/pgp-signature; name="signature.asc"
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------p0Pnm2fL2DbFuql9tnB8BgQv--
+
+--------------tVKpkSfc72PZx5fweGhqJxXu--
+
+--------------dyY9gXJnoU90HCMTI0K9FZUx
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmNbrWUACgkQ24/THMrX
-1yxfigf9HwIx/DDg6yHOiG9tf2VFYfWAuomfIjGOX7CrygSreAXhDsWPRF4DLGjJ
-XwzVq/c3lb9CVRNwlRfd+T9mhKAsyzVXltqfJsQncoRQjvbtNj72D3dPXalfURYx
-S0kW4CuBT5QT6Fh/owQGujTm/ffkxePAlRhxlZIxuTVpHZniXyQQr4xsDnR5ToSv
-ZgsDHA+MUFuwaGE7bUUGLLXUhPjoOjB5R15j103Cc5t9vGc2x7ehehXF1ua48O9U
-/6gT2ltGpjaBBn0CanmbzuuhOysjoOV/lHemMNsQx66dv7C2PFQPIBhvxqmoJDbs
-y/QmNX9Y9mJXd0Vb3cYeqYR0KK0X6A==
-=Y2d5
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNbtWQFAwAAAAAACgkQsN6d1ii/Ey9+
+Igf/Vj33ldZyQKaRSBXqcToUGGSQ1Tuzxmwb8wJSQ/mt7y6p76KZUJudBuy3oMjFiTsK7HNEbZ0K
+m0yXIZHv1VirQHnBjjCtGfIjXUhNhcA6aU11xxHeLzBMDwhKbiI7Yxt5nPPuOs63Y6udnXFaiJa/
+ZVqPTvh4z7/gyMwIiruOR9S6mv1GBfUY5emw/v02KSXx4CR6cdTJ+hoRoozYEvwPDGFcJIPagMh0
+Nkn59DTXKjIxSnjxe26IaKGsR9SD4P/OlqBpgImRofiDFeaFE0opP7SKoCaa1I5wPs+P+NDYuS4N
+UjFTEz8w/vYl2trwyRnY+s0HcSCasn8udp+ud2aqzw==
+=My0V
 -----END PGP SIGNATURE-----
 
---5KRzSUE2BoJpADaP--
+--------------dyY9gXJnoU90HCMTI0K9FZUx--
 
