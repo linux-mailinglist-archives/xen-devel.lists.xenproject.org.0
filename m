@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B32F4610FF6
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 13:44:36 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431976.684637 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E144610FFE
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 13:49:54 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431983.684650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooNmf-0007rI-S5; Fri, 28 Oct 2022 11:44:21 +0000
+	id 1ooNrk-0000LL-Gz; Fri, 28 Oct 2022 11:49:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431976.684637; Fri, 28 Oct 2022 11:44:21 +0000
+Received: by outflank-mailman (output) from mailman id 431983.684650; Fri, 28 Oct 2022 11:49:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooNmf-0007ow-Oy; Fri, 28 Oct 2022 11:44:21 +0000
-Received: by outflank-mailman (input) for mailman id 431976;
- Fri, 28 Oct 2022 11:44:20 +0000
+	id 1ooNrk-0000Hh-DR; Fri, 28 Oct 2022 11:49:36 +0000
+Received: by outflank-mailman (input) for mailman id 431983;
+ Fri, 28 Oct 2022 11:49:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JFjJ=25=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1ooNme-0007oq-IV
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 11:44:20 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id da2e2984-56b5-11ed-91b5-6bf2151ebd3b;
- Fri, 28 Oct 2022 13:44:17 +0200 (CEST)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by MW4PR12MB6683.namprd12.prod.outlook.com (2603:10b6:303:1e2::5)
+ <SRS0=jk72=25=citrix.com=prvs=293452418=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1ooNrj-0000Hb-07
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 11:49:35 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 95dee47c-56b6-11ed-91b5-6bf2151ebd3b;
+ Fri, 28 Oct 2022 13:49:33 +0200 (CEST)
+Received: from mail-bn8nam11lp2168.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.168])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 28 Oct 2022 07:49:30 -0400
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by BN9PR03MB6027.namprd03.prod.outlook.com (2603:10b6:408:118::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.23; Fri, 28 Oct
- 2022 11:44:14 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5769.015; Fri, 28 Oct 2022
- 11:44:14 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
+ 2022 11:49:28 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::9f90:6ba5:5b44:c254%3]) with mapi id 15.20.5769.015; Fri, 28 Oct 2022
+ 11:49:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,293 +49,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: da2e2984-56b5-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 95dee47c-56b6-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1666957773;
+  h=from:to:cc:subject:date:message-id:
+   content-transfer-encoding:mime-version;
+  bh=Zm/3UsG2PpP0G67ER8fI7VqnfG4u2Sxk7j1RNkhhpG4=;
+  b=G5xiDPgBb+SiBqmEVn9QfSWO5T8R+3RitRSTuIcXIA9osqUiVSsj/Vfw
+   INq02Gmj0jE0MfA83zJTZ1RkUU0+EfqpH8pGh5MjE80sZOAymjwHUB6OR
+   1d4w8TD4k20X3HlOjewn4gY5/W6QxVAPbrlWJUw9hjgIDGV0kRDRzsOUX
+   w=;
+X-IronPort-RemoteIP: 104.47.58.168
+X-IronPort-MID: 84129515
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:jVzIQqmFAX9XoxxK95gvEkbo5gxaJ0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJNDz+DbKzfZGf9Kd13PY2/8E9X75fdnNdgS1ZkrnxjQiMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7amaVA8w5ARkP6kT5g+GzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ b81Di8iKU65vtqnh6P4cNlSl80xNta+aevzulk4pd3YJdAPZMmaBo/stZpf1jp2gd1SF/HDY
+ cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVw3iea9WDbWUoXiqcF9hEGXq
+ 3iA523kKhobKMae2XyO9XfEaurnzX+iAtNPTeDQGvhC3V+CljVILAEvcHiqud6XhmGHBdxHN
+ BlBksYphe1onKCxdfHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpQPwrstUnAwMj0
+ FChlsnsQzdotdW9S3iQ67OVpjOaIjUOICkJYipsZRQBy8nupsc0lB2nZtR+FK+4iPXlFDe2x
+ CqFxAAlnKkah8MP06S9/HjEjiiqq5yPSRQ6jjg7RUqg5wJ9IYSjN4qh7AGC6e4addjJCF6co
+ HIDhs6SqvgUCo2AnzCMR+NLG6y14/GCM3vXhlsH84QdyglBMkWLJeh4iAyS7m8wWirYUVcFu
+ HPuhD4=
+IronPort-HdrOrdr: A9a23:cN7rZKhDu9/FEX+vqZtH4arzFHBQXzV13DAbv31ZSRFFG/FwyP
+ rCoB1L73XJYWgqM03I+eruBEBPewK/yXcT2/hoAV7CZniehILMFu1fBOTZslnd8kHFltK1tp
+ 0QDpSWdueAamSS5PySiGfYLz9J+qj8zEnCv5a6854Cd3AIV0k2hD0JcTpzX3cGMDVuNN4cLt
+ 6x98BHrz2vdTA+adm6PGAMW6zmq8fQnJzrTBYaD1p/gTP++w+A2frfKVy1zx0eWzRAzfML9n
+ XEqRXw4uGGv+ugwhHR+mfP59B9mcfnyPFEGMuQ4/JlXQnEu0KNXsBMSreCtDc6rKWG70srqs
+ DFp1MaM8F6+xrqDxKIiCqo/zOl/Ccl6nfkx1Pdq2Dku9bFSDUzDNcErZ5FczPCgnBQ9u1U4e
+ Zu5Sa0ppBXBRTPkGDW/N7TTSxnkUKyvD4LjfMTtXpCSoETAYUh5rD3xHklXKvoIRiKp7zOSI
+ JVfY/hDbdtABunhknizyRSKIfGZAVzIv+EKnJyyvB9nQIm3EyR9HFouvD3rk1wiK7VdKM0mN
+ gsSp4Y8o2mbvVmH56VV91xNPefOyjqfS/mFl60DBDOKJwnUki92qIfpo9Frd2XRA==
+X-IronPort-AV: E=Sophos;i="5.95,221,1661832000"; 
+   d="scan'208";a="84129515"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gaRgPiwbbZHFII0cYsJaIQEtk4g5HfA62g3oZtk79eYoEvFmHa4obLX9StkMnbBt6F98fts3Y/Zqu2sbIJe4CKj5RvDhS1fEL5WvDGSfE2hhsp7vZfJr0A/tgAP/lZ6O4orJy8Fd48oeTyvqUJ6wT9gfpUQ+xQgxn++nZYeWAowuex7Db9bOzpT8mhxc8iiwC9Lq/qgm/9I3fYbk4U6yidLSk4QnESlOzvOiUwfJD2yePQ6gFnCjynZff4Klv0SS02UMs4VmWRgtWffLOOCoVOdzKnzchkGkYKk6dMIABMG0dDZzgf+SFh0yDm/gdFizl7zfHVHXIAmTbQCLTBJAeQ==
+ b=E9AJazwRmBH+JyCTTPqbO57tQiiQdRz3EE0omOorqQBWGDJPZn4jkIJMFEbMKb8rH6LtbxmAKzZkzlYwa9Bpt/LlIC5nGR1+gS9cET2Lf9iXExACwHcR6SaLifyaVSkiGh2Dy0x4nN/vTY9F6/R92vAus1qllxjD1qZCnBoDyaxNBfTT4Q4VoDAQfK5H21KLL5OFSHwnuaeJ9agfJ1RdTdtgUJVzBYof9XwZjydV4KB42Qdjl/J7Ab5ESl/rfPWeYRv0sb5sGX0ioaKRRzNgzVfNfq4LIjGyptG5tkpHza92d/9zmoSpBKRFiuhDP99+et8oi6ewpUpHuA03syCivQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W9Mldf5qUAwvWWbpAsoDm+xZrDAm0kaUATQDqGU47wc=;
- b=Q91rw6YMAGv6En1ar5HpQLFnORw2T9NUULX4PjnIri83Zmn/27hYkNk93zT0HWaBR3d03EV7VGxvGvysDbGD6LNYhB6ykX8GbK+Es/A8oxIzkzVcOrMqg0RgHSuYlEgrIlxXRzxCMqGZjzTosLwirYJTwvybZ/li/YKwkCl5FBBgK/C2ewQB2O7M+K4fxr6UmUtqOIKe81xoGG15RZRrbeT+5KoaGoyRgdSABNTUWHRpMJzpoVUOs+HatbiUC4UvokmEq/kj4a19O7kPuRmArOfgAuF2zAF49fZ4m2QGdmBkixgIYjGUDn4iLgUKRaI+EgtysGGioa2OkoxlMoPuBg==
+ bh=zKECUDVl1zscucUPv/GjI0191rht6maSxmk0rYH8+MM=;
+ b=h63r+u2tmoD0E2ZY1Nsz6PM+AXc925MFJEGRaM1TQBHMymj7nZJxPFPEqMcKWgMELcnCh7ifdgV3616OqhCGqtDb68WDO05QUwyf8gLbjKUS6LOqnnUvGi5fHSd28qFNS5/lvxAAv30sNfWF+t1MSOj2Os/3RMaZn0Vx6K76bhLER4iA7zBc0i1MZXAwte1qdIiWe1N1R3yzb1qjj1i6Mbh3fZqnHrfC+N9DBh5Z8jGKmohRwRWWhUZQ6pOaMibOyOrwoGsRgqKkigI2wSasKeBwKZ2noimc3WGnyl4GMfYSgTHIE7JqPOinfCzmaN+LlkNPMGJwaLJ8LBULMgFxsw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W9Mldf5qUAwvWWbpAsoDm+xZrDAm0kaUATQDqGU47wc=;
- b=Wuf+8sNQAsEbK744wF+1DS9HDHBjVAwG9WBGF4y5IUlh4hkUSkgmXmIN3DEZWGBD015o3Sfo5wgP9sPK5MoUXOm3LQ6S+DB+kJ407bk5102M77GNb5ETGc0rx29gM5Lqfv0K+Di7wsVmF33QLrcorkgTtFrUCTfgr3OQNINkkew=
+ bh=zKECUDVl1zscucUPv/GjI0191rht6maSxmk0rYH8+MM=;
+ b=e1t0lpUMKNk+s4hPfWP6UqHfaVudL408ZdZ2gfTi6G+n7kUZCngMsrTCRNQbvAQO/L3lx9LfEWi1/Pe58ZpjGjUgs5t9ZtFuUagcGBWrJdqplUpPGXOKxhfrAAGL1YNB029Q4i/QU6N7g3K20puK5SgJ93ynrlhSf5nYrNjg5VA=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <5afda99e-dd57-5820-7075-6b60e7a794f7@amd.com>
-Date: Fri, 28 Oct 2022 12:44:08 +0100
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.0
-Subject: Re: GICv3: Aarch32: Need guidance on the atomic access of "union
- host_lpi" or if ITS is supported on R52
-To: Andre Przywara <andre.przywara@arm.com>, Julien Grall <julien@xen.org>
-Cc: "stefanos@xilinx.com" <stefanos@xilinx.com>,
- bertrand Marquis <Bertrand.Marquis@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bedc03b9-e6b9-c85b-27d6-33860ba7bdd7@amd.com>
- <20221025145506.5708839c@donnerap.cambridge.arm.com>
- <7f1bdc88-da6b-9a0c-03d4-319e9d8966d4@amd.com>
- <20221027153632.0cf7d004@donnerap.cambridge.arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20221027153632.0cf7d004@donnerap.cambridge.arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+From: Roger Pau Monne <roger.pau@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Henry.Wang@arm.com,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH for-4.17 v2 0/3] amd/virt_ssbd: refactoring and fixes
+Date: Fri, 28 Oct 2022 13:49:10 +0200
+Message-Id: <20221028114913.88921-1-roger.pau@citrix.com>
+X-Mailer: git-send-email 2.37.3
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BY3PR10CA0001.namprd10.prod.outlook.com
- (2603:10b6:a03:255::6) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-ClientProxiedBy: LO4P123CA0421.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::12) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW4PR12MB6683:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5513767-4195-4c43-6fc8-08dab8d9bcdf
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|BN9PR03MB6027:EE_
+X-MS-Office365-Filtering-Correlation-Id: bf6b57bd-5c50-46dc-6f9b-08dab8da779e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	evyZPX1Efjk0pYPcdrkxwkAR38BiAj0X9u+QXu42Km2DRvvGPCqY3TEyNZ2S03dca1LoqNInQ8/xyCxRU64apNnVOX733F1P8IeHw7YSGQh7PtiHM8LeWTWrd/l/+fd9o32DSiqOwxPCs75tzHbGeEbFQorUPBtiC8fu56k6vclq8LdhdQ8vfOZUdsIsreOGNxZA+op1WRE0tAJeZ1J+zSNJdiKXF0R5S5Mm+q3fnhCaEU0iN7qU3VzuuEwZ2ttEHKehurnKXPAFsZRTwoawlssmx0PjFg7efAgvbLVCynN/ve/wCJSD4qqFNapPas/Zektw9YL79opCz5uURKTh0rrep4nNj2Z7F8zbajygk2JH1N2zuETSsGHg/f0E8WTfrk6FyjYEKYtXP7K101UAnt/d9UmG/DvutcI9BnwHfiMWR5ne5Q2CMn4zOC9+eZ2tiN2Gbnrpkf+LU447f4rU0XN+K0va9X2lhwf8cF96FUb/0UFyoymcMdV7Pp80AB47Ko/aB+qSKY9owY+Zy7bxFHI0SY0GArhM6oWUtujT+orRAVlaRROLr9gkMEts2WhHNqg/WybhNuBlK5o8fgpoLjHe6CQojIobcTM4RwL9oRlHTFPltHeHo9QKwF5sN+MGjjqzQ/qz37QgBPQ+bkQT6MLcDSQ2Uyi+nXCi8szfjTPdm+aPRhuK9HhiI/zCDIpb9HGKP3CYn1elz1XFqZOt8hBVxQhmrK8Qf4mCXPVgfGQrasgkEM8sqegrXoUEasU+tLKESEIfzRCik07B9soIEALirGGp0JHuL5R9bjR8+zk=
+	Xg0eooQ38ocxNC/YsyGBpcgz7dm60+9K9P5ThOhq9+zItvXSUeH+VErvLgAr7qVxYN28+b9NsR1nVvysLa535VKMJwuPNvLFKeBDv2AgE42DeomffLfgyQiGN0gdhieC+coJInK+hoYKjQLjOSfqVUo9WjvKzYE5G3C+lRP7i3xhUPe+9qSb9D5bqY2wwi46pk9jDvE/DyWqQe8jbNvjUnZ3w6gcmbcDgZf3XvrTUFLb9G/z9+5vB/D4CEWnHtSy+OxwLZRtQRiILZPPy+loVTCd8etuRqaf9da2vYHpYRUVazpDW904+Iq2f07ufy79stveDS1nS8a1LUR7CJ80pYa3PmEQjuuZSj7gbIkBdfPCL0IHYz8pAt8G9u3EyovY7ablK/bi9kxrTKmGrWY7i1XJJ+Mmt9gqrtOmTlAzzh1sKfV4FnoHtlQMWn4EkG9lqEXA/sb9ysOfeYJKmyW/ZwBtx+tFBQlyj+gDSjTBm4/PJeJBHk69LlTafpSl/3sQH2u0uQ1m6lRf7feH3mwuwLfjiPR6bn/o/+eMyJ24Jycld3aQBVRiUzL/ymMGO9+KpuMc77Ugf45l91f5bd+GYzfuIx+a/fGRv/qCwb/GHvtlFgHsAZpF3oGFJfXNFsR5ownafsFCDOk71kzD+K+bebQsRLVzeVbu5ZusyHeL2qENdcB5SvYzSC8Lar+/M9y3NCviUKS82Ij9h3V9uilM6Q==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(346002)(366004)(136003)(396003)(451199015)(31696002)(66946007)(316002)(66556008)(4326008)(478600001)(54906003)(110136005)(66476007)(41300700001)(8676002)(8936002)(5660300002)(38100700002)(6506007)(6512007)(53546011)(6666004)(26005)(83380400001)(36756003)(2616005)(186003)(2906002)(6486002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(451199015)(1076003)(186003)(2616005)(6666004)(26005)(6512007)(6506007)(83380400001)(2906002)(5660300002)(54906003)(66476007)(6486002)(316002)(6916009)(478600001)(41300700001)(8936002)(66556008)(8676002)(4326008)(66946007)(36756003)(86362001)(82960400001)(38100700002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c1BrYTdHb3JzcW9lVCtPTzdSY0prSTIzaTdWR1Zwc3hzKytFZkd6ZWxDWm5E?=
- =?utf-8?B?YXVmOG1pLzQzSzJFVlVZeVZVcGY4eEJkUnFhSWczeHRyaTlySFA1L0N0eDB0?=
- =?utf-8?B?REwxR2lxZG9xUmtqOVFacmJVZzN6U0FqRmVReFhuVHl5OU5oeGY2TmJGQ2Zj?=
- =?utf-8?B?VGo2aXJyTmlPUHNWRU1aYUhiZFZ6ZVNWQTBqL0xEUUZhNWRabU1yNytFaGVm?=
- =?utf-8?B?OTRveWNiVjRHaEI5L3NQd0dFL3pUSXVmU3ZMaXRvMkdzWmsrMmQwdmMyK2k2?=
- =?utf-8?B?ZVcxWHpIbmc2cy9DRVlWckp0aTYwVDVIRzg3VHBEalEzQzhvTFlVYmIxOUMw?=
- =?utf-8?B?a3N0VkRJMWlOLzU3c3YxbVZnWXRrTDRWa3VTTERWa0pTZzFGTEQrSFBuQlVp?=
- =?utf-8?B?dFk3RlFnbzFpK3ZkQUtTOStQbzlmOVZvZTIxaktCdEpEblp1dFZMOXh3ME9L?=
- =?utf-8?B?cklSSjRGRXYzUW85TEdZVHF2R3pEenZ6V3NaeFM5YlRZWmx6eEJkdGJSSXVj?=
- =?utf-8?B?QlovUHc3QXRPMEtRbjAwZ2QraUh3ZVJtVmJNSDhqeXZRb21tSmVRaHNtNUZ3?=
- =?utf-8?B?Qzd2NkliRnMwUDhTVXE4SzZXM2x2dzh4L0VmeHdsdzJWL2JjRjRORENrL1pQ?=
- =?utf-8?B?YXYwNC9DRHU3cUFyWTF3MEJDZk44eDl0TWlRTlFuNUp3SFJsV3FyeG9sMnhk?=
- =?utf-8?B?TUlLa2JVb0VvWC9LN3UzTE9FRXc1N3VtYmZRcG5URGhWalpkaXRYOHBwVEZh?=
- =?utf-8?B?UjVSUEhlb0V1Vnp4ckFQbVBtY3ZWT2tRenA1UmJrZmFwU3AweWI2L1RyZk5l?=
- =?utf-8?B?alpWQktzb01uTEN2NnVscEU4bGFYanljK1ZEemt3ZHdqeWtScW5nVUhsUm9t?=
- =?utf-8?B?Q3F0bG00OWhiVXJSZG5ISTNJVU1DY3BJMXpaL1BFNGtwYjBzdnNENVNjK0sr?=
- =?utf-8?B?aUtPQjRCRU9xREJZSi9FbzhoT3hWeTJBV1hNbXhSWnpOSDM3Wk5hWjJMcU00?=
- =?utf-8?B?emkvbDVVSjhxY2NhZXJ1ejhNK1VwV20xZGtzckgxSnhCRUZnZUpVTXdzNG9s?=
- =?utf-8?B?YW8vMDNLREQzeHh5MERGNkdjdkduZVdNMVl4dmM5MERrVkllQS9IdGJlTmlp?=
- =?utf-8?B?SVpRU3N2dDMyYkR1MnFpdmhjMm5DejYydUNFVHBVUmhqUExYa2xXZ0ZwRVdQ?=
- =?utf-8?B?Yk9CODhPc3ZYTFRRbXFHRTlqNURsNzRjb3lSUFN0SU9jcExLR1piMmMzaWFJ?=
- =?utf-8?B?N2RqNVVId283R1U4THdwSVF5cVlSQ0NDcXR2WTRCWEQ5QlVpZFBsZDl6K09F?=
- =?utf-8?B?U1dkRjM3d3Q4em9Ydkh5azFLWFF1R1ZkVStLdWpINFoyK0hkRE15Nkc3bmsz?=
- =?utf-8?B?U3NyOEhLNXJMUW1oZW53a3BLR0VhTWdubDZiTGVWZ2p2NVE2QXNXZityelB2?=
- =?utf-8?B?MEdhU01vNjhWSy9vaTBWQlN6R2tWRCtEdHpNKytEeTZ3OWwwVUpXcmxBSEhZ?=
- =?utf-8?B?WGV4NExtaklLQk9ZOEQzS2dqMGI4Y0dqQ0doZVBOZUlnWWNFQUE5L0NUMHRV?=
- =?utf-8?B?OUR3T2FCLzdwZnNPSFYyZVRibjB3bCtGK280SDRMSlljQ21RUmwyU0F1d09M?=
- =?utf-8?B?eUVPN2FWbWl0UnZtN1Y0RFB4Tm1zSHNnaU15cGswTTJYL2dlOHk4U0hhU1R2?=
- =?utf-8?B?Znd6blJtQStKaUNpamloemlGMTBJdERjekZBbkIwa2RnN2dPTms4N2JFeUZu?=
- =?utf-8?B?YW10TW1FamZQUXRPcHZ6N1VMUUxuRzJvdGJINm1EYXhvOGxNL0tyZnBqL3Jz?=
- =?utf-8?B?NFoycVJ5aEc2blVNRFQvNEZZWTZqbUtsREdZck5SNFpHQU4xand6U1RBclk0?=
- =?utf-8?B?a25hV3pHN3pSU1QwVDE5VVN0aHQ2dGJkZHVNOFF6cDJnVk1kczNpZHQwK1lW?=
- =?utf-8?B?SDRiWkJRYjVMMmwvRUdpREIxTDNvQm5NWWZSK3lOUkZMOVo2YU5ralVxcTZD?=
- =?utf-8?B?RXNsUmtLd2t2TzdvRGhSYnE0NlVGeXVIbnJ2S1hWUWgyK3ZiWUtRVVpJd21E?=
- =?utf-8?B?emFzM3lVWm10dGptelNQRDExK2llME9JQTZMTlpXMlh5SWNkckRFMHlEN3Jx?=
- =?utf-8?Q?79w5vbYlQwhOyeNjmxdUO3usH?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5513767-4195-4c43-6fc8-08dab8d9bcdf
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?NEM3ZlRSU2d6QjNCbEJaSkdkaG9jZmlFUit5emViQjFxNmZxRDNwRm1qZXZM?=
+ =?utf-8?B?NFVNL3pXZ0R6cG5GMzA3R29WZC9Fd1A0bG9vU0FRN0lWZTZsdy9oVXRrYnkw?=
+ =?utf-8?B?NUdoWkZPOW1yRHZjM3NnTFVlUHY4SXc2R2N4UWwxVTg5UDJZVldiZDIraVpp?=
+ =?utf-8?B?UG9BOWdGSmsrY1pLdUVFY0dRNWR3SnBzNE5QUUhmZTRSb1JIZTg1Y05ZWlpR?=
+ =?utf-8?B?VExtSVUvcEZwMGVnbm9BYWNXMGczaDlpSnhyZ3ltSWNvaWhYTnNFRHYyYU5Q?=
+ =?utf-8?B?ZGptWUJSWUQ5YTBFZ3h6TU1aM29weG45MFI3ZnlhazNRTWM3dHk3ZUhCYUZj?=
+ =?utf-8?B?WjZpZXBTV01HSHJyNXVBOG8zMG9EeTgwTUF2dnFTMmRnemRLQk9RWUd4eVdL?=
+ =?utf-8?B?eGYyNUxlcDMwejFORk1yQVVQNkxNcUx3V1ZsVnFNYlczSEJGSDM0R3l0aEw0?=
+ =?utf-8?B?RGRmN05BUXk3SEN3TkM1cmtoTUc3eDh6Tmc3cWl4enNlNHdLaSsxcThXOFQ1?=
+ =?utf-8?B?SnJPb3hGTENKVUZlYnc1SkNURVYzNFovUXc5bzNCY2NTTE5temZGTjFOeElP?=
+ =?utf-8?B?dWpTK2haTHVVckZ4WGRSMDIzU0oycTZlVHVoMm1ubjVCTFpjRGdQUnI0SnJM?=
+ =?utf-8?B?VnRKWUhCMDN0TDdKdHNKcjZQSHE3QkJTbkRiL3RrZDZZakJoR0FqcUc3ZzJw?=
+ =?utf-8?B?U3dydTN0OWhuTnZnTGRoeUR6cHBZTWZRTkMybVc3TU9QZlNBclBidWVCdlVk?=
+ =?utf-8?B?Q1pNNXBVQjMxQzJwZHJrRzBDZ2VyY2dBT25CNWJBZ1NOREZtZ3lsc2tnNHlX?=
+ =?utf-8?B?S2laenRNUFUyTWtwMG83MlhWcTNhdzhkSkp6YmgwK0F5NmhLMlZFcTZSM0xM?=
+ =?utf-8?B?WTJQODk5U3RwTlNYSjRxYlprMThHSzhTVkRqWlRrNUlrK0FleGNkYkk4a0k2?=
+ =?utf-8?B?c3l2WkJ6NldnNW1CTHpZVWlrV1pGSE1peUVXc1hBT2hBSExLTFJZeURFU3NC?=
+ =?utf-8?B?eGc5VVhTUkh2RHdzZWR2dXF1OXUxLzVRazNTTlhsM2ZSdHpGY3dseFVQQmEz?=
+ =?utf-8?B?ZTkvUGlPZllHNjFRc1B0T0FubStQMWt6M3VPYkUxYXdLdTh5OXRzaWVWZEZj?=
+ =?utf-8?B?ek5naC9DdFVzNXF2S3l3NXd4bVZJYktSMkVzT0ZoUFFQK002NUlJamxVUmZM?=
+ =?utf-8?B?elVlYUVSZGNlM3NXcUR1aUxRVmJIclpBeDJPS1M5VkRFMnROWnd6NkxEdi91?=
+ =?utf-8?B?bjNCdkRiZkViR3BRT2ZETktaOHVjNUJ2bzNsTWlwdERMT1VSa3B0UDZycFJ4?=
+ =?utf-8?B?VGN5TUc2MFllT2VhMWZtb3h0R0JPYVc5TEY2a2V6amJJVkkrYS9CZXRjTkJ0?=
+ =?utf-8?B?SmNUeFRaN1pkMGdwbmR6TW1xMW42dHp2OUxQdzA3ZityZ0R1N25DYndERVN3?=
+ =?utf-8?B?Z2cyazA2eFhRRjErSDJ4ckNEdTBPZ0pmRXhBSk1rdWIyUkNEZ3daNG1SMEUw?=
+ =?utf-8?B?V3pUczJsNXpHV2pXU0t3alJOWVV3azdSVGEvT1BaNVAxaUYwUVFLSGQ5Q2Jz?=
+ =?utf-8?B?MXZiazE5dm02WGUwTzd5c3JtMGNDVGc5dlNYRmNSK1NzdmFrZjFielpwcVo0?=
+ =?utf-8?B?eUoxN0VDNk5oNDlFY3VRZFpaYTBndktndHVhRmJSSTE1ZEMvVDhGNHZ0bHdo?=
+ =?utf-8?B?STczS0ZCUGViazBERE5OVmNNR3B5L05Dak1mOFZtd0ZUeWNWeHl2VDNCcDdX?=
+ =?utf-8?B?Q2xDRVlyNXF3djREdDU4Tkk2T2tHRVI0SGhKNmZyQk1QMmljS2J2N3VLSzdj?=
+ =?utf-8?B?dkR2MW45ejZjM0RLNWtJWkJyTXBjL2tXcFV2ZlF1cWVFaW9vb1o1R3VaSjFR?=
+ =?utf-8?B?RjkyQzllOGt3N2pGQVJnV3ZkeGJjOFZuZThreTRQeW0zTzNOa1NHM0tLejlN?=
+ =?utf-8?B?SWRDa3dGQnVTZEpSNjB1TENSN1g2c2xxR3JJeS9WeVR0MGtXaEdWR3o4MUVS?=
+ =?utf-8?B?dXhPSC85SEpaZUtxc3lHTTh1eUpSYWQwRlFkdXc0TXRVWjg3dGN5YzV3YzF6?=
+ =?utf-8?B?a1pFNUlDQzlvYk1IRnI4VXdJTklobUtXUXNvaFFUanpxaHMwK2RlV29vR1c5?=
+ =?utf-8?Q?r7Esj4qirSKDPqv4OR2v7FgMk?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf6b57bd-5c50-46dc-6f9b-08dab8da779e
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 11:44:14.3457
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 11:49:27.8255
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: erw95vi3fABE4G5W5gY9EhKtMdeEImhq4QPhj2MI1pIfKAyurqWi6M/vMS6HInissGzYcAnLi7QswlXLtR9XfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6683
+X-MS-Exchange-CrossTenant-UserPrincipalName: fhb33fwukJoW6bbrqPpJXocA/79PAfRJu7gjsoqeTwDrV8uLhRj7xwgVlUGuDQaqQu9RCvxGVbC17+gNW40smA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR03MB6027
 
+Hello,
 
-On 27/10/2022 15:36, Andre Przywara wrote:
-> On Thu, 27 Oct 2022 14:38:52 +0100
-> Ayan Kumar Halder <ayankuma@amd.com> wrote:
->
-> Hi Ayan,
-Hi Andre / Julien,
->
->> On 25/10/2022 14:55, Andre Przywara wrote:
->>> On Tue, 25 Oct 2022 13:25:52 +0100
->>> Ayan Kumar Halder <ayankuma@amd.com> wrote:
->>>
->>> Hi,
->> Hi Andre,
->>
->> Many thanks for the explanation.
->>
->> I need a clarification on the issue of atomic access to 64bit normal
->> memory on R52.
->>
->>>   
->>>> Hi Andre/All,
->>>>
->>>> This came up while porting Xen on R52.
->>>>
->>>> Refer "ARM DDI 0568A.cID110520", B1.3.1
->>>>
->>>> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE
->>>> must not implement LPI support. "
->>>>
->>>> Does this mean ITS is not supported on R52 ? I am assuming yes, please
->>>> correct me if mistaken.
->>> An ITS relies on LPIs, so yes: no ITS on a v8-R32 system. I cannot find
->>> this restriction anymore in the v8-R64 supplement, so it would only apply
->>> to the R52/AArch32.
->>>   
->>>> If the answer is no, then my next query is follows :-
->>> Answering to that anyway ...
->>>   
->>>> diff --git a/xen/arch/arm/gic-v3-lpi.c b/xen/arch/arm/gic-v3-lpi.c
->>>> index 9ca74bc321..dea60aac0d 100644
->>>> --- a/xen/arch/arm/gic-v3-lpi.c
->>>> +++ b/xen/arch/arm/gic-v3-lpi.c
->>>> @@ -423,7 +423,7 @@ int gicv3_lpi_init_host_lpis(unsigned int host_lpi_bits)
->>>>         int rc;
->>>>
->>>>         /* We rely on the data structure being atomically accessible. */
->>>> -    BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(unsigned long));
->>>> +    BUILD_BUG_ON(sizeof(union host_lpi) > sizeof(uint64_t));
->>>>
->>>> "unsigned long" on Aarch32 is 32 bits. So this bug gets triggered.
->>>>
->>>> Is it fine to change it as above ?
->>>>
->>>> Reading"ARM DDI 0487G.bID07202", E2.2.1, "Requirements for single-copy
->>>> atomicity".
->>>>
->>>> "LDRD and STRD accesses to 64-bit aligned locations are 64-bit
->>>> single-copy atomic as seen by translation table walks and accesses to
->>>> translation tables"
->>> This (and the explaining paragraph) indeed suggests that this should
->>> work architecturally, if you use normal system memory (where you would
->>> hold page tables). It would be confined to ARMv8 AArch32 and ARMv7 w/
->>> LPAE, which matches Xen's requirements.
->> Does it mean that ldrd/strd will not work atomically on AArch32-v8R as
->> it uses MPU (not MMU, so no page tables) ?
-> No, this mentioning of page tables is more an example or a rationale, than
-> a requirement.
-> What this means (in the ARMv7-A/ARMv8-A AArch32 context) it:
-> Because on v7A-LPAE and v8-AArch32 PTEs are 64 bits wide, it's too painful
-> to use explicit locking to make sure just writing one PTE is atomic. So
-> the architecture demands that 64-bit aligned accesses using ldrd/strd
-> are single-copy atomic, so software can update just one PTE easily. But
-> this is only required for locations where page tables typically reside, so
-> system memory. This avoids this 64-bit atomicity requirement for *every*
-> part of the system, for instance separate buses, SRAM or flash on smaller
-> buses, or MMIO in general.
->
-> I don't find anything in the v8-R32 supplement that would step back from
-> this requirement, although indeed the original reason (atomic PTE writes)
-> would not apply to v8-R32. Both the LDRD/STRD description and the section
-> listing differences in the system memory architecture do not mention
-> anything, so I'd say that the ldrd atomicity requirement still holds.
->
-> Please note that this only applies to ARMv7 *LPAE* systems, but Xen
-> requires LPAE, and R52 is v8, so we are good, and the Xen code can rely on
-> this.
->
-> So for Xen on ARMv8-R32:
-> *LDRD/STRD* accesses to *64-bit aligned* addresses in *RAM* would be
-> atomic. You need to satisfy all three requirements:
-> - You must use ldrd/strd. Just dereferencing a uint64_t pointer in C does
-> not guarantee that, but read_atomic()/write_atomic() does.
-> - It must be 64-bit aligned. Shouldn't be a problem if the data type is
-> 64 bits wide. Please note the slight nastiness that ldrd would silently
-> work on non-aligned addresses, but would lose the atomicity guarantee.
-> ldrexd would always fault if the address is not aligned.
-> We might want to check the alignment of data we access (assert?), if not
-> done already.
-> - It must be in system RAM, so not MMIO. Also I think TCM might be a
-> different story, but I would hope Xen would not use that directly.
->
-Many thanks for the nice explanation.
+The following series aims to remove running C code with GIF=0 on the AMD
+vm{entry,exit} paths.  As a result, the context switching of SSBD is
+done when context switching vCPUs, and hence Xen code is run with the
+guest selection of SSBD.
 
-I am trying to compare this with the atomicity requirement for AArch64 
-(ARM DDI 0487G.b ID072021, B2.2.1 Requirements for single-copy atomicit )
+First patch is a bugfix for missing VIRT_SPEC_CTRL MSR loading, while
+second takes care of removing the loading of VIRT_SPEC_CTRL on
+guest/hypervisor context switch.  Last patch is a cleanup, that's
+already reviewed.
 
-I seethat the alignment requirement is the same as for ARMv8-R32.
+I tested on Naples and Milan CPUs (and migrating from Naples to Milan
+correctly carrying the VIRT_SSBD bit), but I haven't tested on a
+platform that exposes VIRT_SSBD itself.  I think the path is
+sufficiently similar to the legacy one.
 
-"-A read that is generated by a load instruction that loads a single 
-general-purpose register and is aligned to the size of the read in the 
-instruction is single-copy atomic.
+Currently running a gitlab CI loop in order to check everything is OK.
 
--A write that is generated by a store instruction that stores a single 
-general-purpose register and is aligned to the size of the write in the 
-instruction is single-copy atomic"
+Roger Pau Monne (3):
+  hvm/msr: load VIRT_SPEC_CTRL
+  amd/virt_ssbd: set SSBD at vCPU context switch
+  amd: remove VIRT_SC_MSR_HVM synthetic feature
 
-I think the following code change should help us to confirm the correct 
-behavior of atomic read/write on both AArch64 and AArch32 (including R52).
+ docs/misc/xen-command-line.pandoc      | 10 +++--
+ xen/arch/x86/cpu/amd.c                 | 56 ++++++++++++++------------
+ xen/arch/x86/cpuid.c                   |  9 +++--
+ xen/arch/x86/hvm/hvm.c                 |  1 +
+ xen/arch/x86/hvm/svm/entry.S           |  6 ---
+ xen/arch/x86/hvm/svm/svm.c             | 49 ++++++++++------------
+ xen/arch/x86/include/asm/amd.h         |  3 +-
+ xen/arch/x86/include/asm/cpufeatures.h |  2 +-
+ xen/arch/x86/msr.c                     |  7 ++++
+ xen/arch/x86/spec_ctrl.c               |  8 ++--
+ 10 files changed, 78 insertions(+), 73 deletions(-)
 
-diff --git a/xen/arch/arm/include/asm/atomic.h 
-b/xen/arch/arm/include/asm/atomic.h
-index ac2798d095..f22c65a853 100644
---- a/xen/arch/arm/include/asm/atomic.h
-+++ b/xen/arch/arm/include/asm/atomic.h
-@@ -78,6 +78,7 @@ static always_inline void read_atomic_size(const 
-volatile void *p,
-                                             void *res,
-                                             unsigned int size)
-  {
-+    ASSERT(IS_ALIGNED((unsigned long)p, size));
-      switch ( size )
-      {
-      case 1:
-@@ -102,6 +103,7 @@ static always_inline void write_atomic_size(volatile 
-void *p,
-                                              void *val,
-                                              unsigned int size)
-  {
-+    ASSERT(IS_ALIGNED((unsigned long)p, size));
-      switch ( size )
-      {
-      case 1:
+-- 
+2.37.3
 
-Please let me know if I misunderstand something.
-
-- Ayan
-
->> If so, then is using ldrexd/strexd the solution for this ?
-> As mentioned above, you would not need that, just
-> read_atomic()/write_atomic() would do.
->
-> Hope that clears that up.
->
-> Cheers,
-> Andre
->
-> P.S. This above is my reading of the ARM ARM and the R32 supplement. I can
-> double check with the architects, but this might take a while.
->
->> IIUC "Memory accesses caused by LDREXD and STREXD instructions to
->> doubleword-aligned locations.", then the answer seems yes.
->>
->> - Ayan
->>
->>> But it's only atomic if you are using ldrd/strd, which you cannot know for
->>> sure in C, because it's up to the compiler to generate the instructions.
->>>
->>> This is why we have that test. Changing the unsigned long to uint64_t
->>> would make the check pointless, since the data structure is 64-bits long,
->>> so it would always be true.
->>>
->>> So given that you don't seem to need it, right now, it would leave the
->>> test alone.
->>>
->>> If you need that on AArch32 anyway, you would need to replace accesses to
->>> the host_lpis array with inline assembly accessors, to ensure ldrd/strd
->>> instructions. This seems doable (there are only so many places which
->>> directly access the array members), but would need a good use case.
->>>
->>> Cheers,
->>> Andre
->>>   
->>>> Does this imply that atomicity will be retained (with the above change)
->>>> ? Os will this require ldrexd/strexd as R52 supports MPU (not MMU, so
->>>> translation tables are irrelevant).
->>>> Kind regards,
->>>> Ayan
->>>>   
 
