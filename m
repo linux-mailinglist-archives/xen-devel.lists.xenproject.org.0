@@ -2,64 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18C20610960
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 06:45:32 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431399.684273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D4AE61097D
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 07:05:13 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431403.684285 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooHEg-0005dZ-Bc; Fri, 28 Oct 2022 04:44:50 +0000
+	id 1ooHXl-0000PZ-2z; Fri, 28 Oct 2022 05:04:33 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431399.684273; Fri, 28 Oct 2022 04:44:50 +0000
+Received: by outflank-mailman (output) from mailman id 431403.684285; Fri, 28 Oct 2022 05:04:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooHEg-0005b6-8w; Fri, 28 Oct 2022 04:44:50 +0000
-Received: by outflank-mailman (input) for mailman id 431399;
- Fri, 28 Oct 2022 04:44:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ooHXk-0000Me-Uh; Fri, 28 Oct 2022 05:04:32 +0000
+Received: by outflank-mailman (input) for mailman id 431403;
+ Fri, 28 Oct 2022 05:04:31 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=l/aT=25=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1ooHEe-0005b0-J9
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 04:44:48 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60041.outbound.protection.outlook.com [40.107.6.41])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3fc1942c-567b-11ed-91b5-6bf2151ebd3b;
- Fri, 28 Oct 2022 06:44:47 +0200 (CEST)
-Received: from AM5PR0701CA0059.eurprd07.prod.outlook.com (2603:10a6:203:2::21)
- by VI1PR08MB5501.eurprd08.prod.outlook.com (2603:10a6:803:138::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
- 2022 04:44:31 +0000
-Received: from AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:203:2:cafe::bb) by AM5PR0701CA0059.outlook.office365.com
- (2603:10a6:203:2::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.14 via Frontend
- Transport; Fri, 28 Oct 2022 04:44:30 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- AM7EUR03FT009.mail.protection.outlook.com (100.127.140.130) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5769.14 via Frontend Transport; Fri, 28 Oct 2022 04:44:29 +0000
-Received: ("Tessian outbound b4aebcc5bc64:v130");
- Fri, 28 Oct 2022 04:44:29 +0000
-Received: from fce0fe867e8d.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 7A561CBB-D959-47F2-A5DA-3624458618F4.1; 
- Fri, 28 Oct 2022 04:43:36 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id fce0fe867e8d.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 28 Oct 2022 04:43:36 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by AM8PR08MB6514.eurprd08.prod.outlook.com (2603:10a6:20b:36b::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
- 2022 04:43:33 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::5cdc:31ff:2d2d:339%8]) with mapi id 15.20.5769.015; Fri, 28 Oct 2022
- 04:43:33 +0000
+ <SRS0=aLI4=25=redhat.com=jasowang@srs-se1.protection.inumbo.net>)
+ id 1ooHXj-0000MY-BS
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 05:04:31 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ffd29ac5-567d-11ed-8fd0-01056ac49cbb;
+ Fri, 28 Oct 2022 07:04:29 +0200 (CEST)
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-18-1GfdpKXBP2iOMuaxLrVIBg-1; Fri, 28 Oct 2022 01:04:26 -0400
+Received: by mail-pj1-f70.google.com with SMTP id
+ om10-20020a17090b3a8a00b002108b078ab1so5008704pjb.9
+ for <xen-devel@lists.xenproject.org>; Thu, 27 Oct 2022 22:04:26 -0700 (PDT)
+Received: from [10.72.13.50] ([43.228.180.230])
+ by smtp.gmail.com with ESMTPSA id
+ e16-20020aa79810000000b0056b6c7a17c6sm2062169pfl.12.2022.10.27.22.04.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 27 Oct 2022 22:04:23 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,135 +49,556 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3fc1942c-567b-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=dXSSSKPwLLe/A11e90exfg7E7SVS3or+XYv6PfrLRJgKmemdGMVehViRHIqAonWl5LOdezwsjiQHJ9ZAp7dbczSMxpwRnAH1FmqcPTx3Euv082pJGa7t9r3k3Fw5T/CcZtd2QfV8Ez0im4ZrXyushGfsW2vJi1dx27Ub/4PxTJAJXwL1ZSB0HDIMDQmycMAbrsJYV1IqGhuAjHTyQIPCYiIqzmRdtoq3th02KWLRza7gcJOJisuoplj+Mn4yPLxBYw6C4bBVhbHhm3EE/FVI6UvOnxQqbDKr8BA/+QCNLw0FUD2dVlqeGWJlGBCyGpfeoqU0sBYS5GM/0MXwMYKNrA==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XDTXL0vWjxx0ZpH5GwKEm5jF0HBp/iReKAR0LSi3f7o=;
- b=G9RcGTzx7xDktn8Y4U8+hueWYytZOiR1KK1RhDT5sGWIR+IQEuIbch+3X1DJhM6+KzXbhjH9m0iCaDDm8fJvRYrhaxjOLMhpV1r91bvUpK7qUdZs8OVlQm9uV7XvIoquojswPaGVXhRVY8Vr/QiGTyY9JXOlPriZdkwb2rDL1CO7pW0f4sC2zjitAa1vM3zLYdQqTL2uBlp+/dUx12/dp15I326BnkvNpdFD5g8MGj9uhvvvl2N200xDPbOqxT7PebrbQo61ua6mHUMh0F8WllmSkz/4VuoW5xjzBknjmaV0XRhtLw3D3Nz4fNFP7Y0NK5rksdL3GHPfkIFG48QdEQ==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
- dkim=pass (signature was verified) header.d=armh.onmicrosoft.com; arc=pass (0
- oda=1 ltdi=1 spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XDTXL0vWjxx0ZpH5GwKEm5jF0HBp/iReKAR0LSi3f7o=;
- b=Se5cb12kCd2p9KFn7DFN1W8KukEilIjAkFHbyTyGVcswNGeSswRxtVkVj9PKTlSaNn8R6gLrtni3kGiz7TzqIZmocoOMOQAheVH80QwM/pVOO41FNqXv4DHgL4JW9D5vFY26AVPn3ajBIMEWLxn/jAu2E8Ou4tpjdnxYXaKAXKU=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: 8cd2310d058e8748
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V2muTnQzUHZuINRdPFwwokUm9olkkdrYvaZRqwy2uodgSXPItqHZ6idaV2aD8rxcjKOCLVEWNQm+4ynYiLQhKDGCx5FoGKLjRSw89s0SkBC+j1H1NmPWqrKbHe7A86ekOm9viVxRvRusZj7WYJTjzwGdtIPofkwj0FIlNWigH3/sE0/spCyub+oo3LpayKoyzhzlh7okc0D5+wLr25zaRRQrjsDqv9THLKccCqgZzj6OP8rEYdAFq/XSBOQmcVqoPjAaBx86yzYmStl+Znh0Towseovp8a+Az9hI3gRUFvJS6frLlk6n96FB5EctunX3orcHjaYFhyn2HI1h9rSVuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XDTXL0vWjxx0ZpH5GwKEm5jF0HBp/iReKAR0LSi3f7o=;
- b=ioqcm9LAtlMNVlhTRarPSIBaRtV8rePQERZvJlQhhdwlVOBc04NAIqEB15qVXtop3xHQNnFIZbGMzduax7G56eS8ktjhnagG56SCqONGvhsDwhVo37q7GfgBMFU51xPHavix2Y97vsngn9YyL6tc/hZbE6UMRAjDwlczs4jELVaVbqY1uaLIfyBvBaagJiCVwOWm1UdVsHzMHPgUTiq8j+qlC5bkkEdcbWEUXq0fj7q/C9Pfm6etXggL3jCERnby4qEROz9b/Um5BDStvDWIRqKBBuJj5muxmvCpfjNDB+k8mTFixFYwxoNuZ5t/ONG7b4iHFPSeEPPOX5eE0Dr0qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XDTXL0vWjxx0ZpH5GwKEm5jF0HBp/iReKAR0LSi3f7o=;
- b=Se5cb12kCd2p9KFn7DFN1W8KukEilIjAkFHbyTyGVcswNGeSswRxtVkVj9PKTlSaNn8R6gLrtni3kGiz7TzqIZmocoOMOQAheVH80QwM/pVOO41FNqXv4DHgL4JW9D5vFY26AVPn3ajBIMEWLxn/jAu2E8Ou4tpjdnxYXaKAXKU=
-From: Henry Wang <Henry.Wang@arm.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-CC: "Daniel P. Smith" <dpsmith@apertussolutions.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
-	"christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>,
-	"christopher.clark@starlab.io" <christopher.clark@starlab.io>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Julien Grall <julien@xen.org>, Julien
- Grall <jgrall@amazon.com>, Stefano Stabellini
-	<stefano.stabellini@xilinx.com>, "sstabellini@kernel.org"
-	<sstabellini@kernel.org>, "jgross@suse.com" <jgross@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?=
-	<roger.pau@citrix.com>, Anthony PERARD <anthony.perard@citrix.com>, Volodymyr
- Babchuk <Volodymyr_Babchuk@epam.com>, Wei Liu <wl@xen.org>, "Wei Liu (LSG)"
-	<liuwe@microsoft.com>
-Subject: Feedback for postponing the 4.17 release to a week later
-Thread-Topic: Feedback for postponing the 4.17 release to a week later
-Thread-Index: Adjqh6nb7bpyTo+8QPKuDS/Y5NDKqw==
-Date: Fri, 28 Oct 2022 04:43:33 +0000
-Message-ID:
- <AS8PR08MB79919CCB4F14F5FDE8929DF092329@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: EEED2DDA949674468255770FF13229F8.0
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|AM8PR08MB6514:EE_|AM7EUR03FT009:EE_|VI1PR08MB5501:EE_
-X-MS-Office365-Filtering-Correlation-Id: edd2719b-caf5-47ed-0de0-08dab89f19cc
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- FjamBxIuTVuMrlMh++YdnFioVT8ha+EMAxZSYw3m2VJ5MR9gbsqWKsN6v1b++NhpCN8ZVEL7aCkT2az6DpnBxoNT+DrqTGyJJDAfQ6XCq09skvkOrJa7pYBhNHL5bb+OBPk3JDBlRdSRmE+no5nQzol5JCqLcTieSv82SkSY8IxBw/UlJx2sSYoniheq9qm04EZCESPJOmdLpjGT9d3OhWqN9VFLDIjX/IVMJibgohOW8XeG2AXIsSV2aPsaQYvFOYaL8Iq3Nzpg23m2qBhZoRgCmQCY59D6VJlX6sQ1+LrN/JIKgMqv2bS/o4SRgF/l1amtUO2BSLkhUAOmbGceYtt4KpglYAId+DXAYYYGCpuM1cPEh6ttQsserQ0Bw6mVV/UqUjyKdiAjsdx8SDzwWgbZjNsS++FnCq/JAiEIoy8nWzzD757wH/NN+Nhudnrec7L+gQ1bVxGYMOEK4EmGlfFplIgv3WLRBkb9xubojIZMfu+utN2eMgj4JcrD2mE6T8C0jxdXNm7UWV2cNAVzycS6j0cFTCvSspgUg5mVB+5GaZoMIU4Lm3oIYZrb8Z/iVSiTXAuWl/SboHFVo3xxVHM82TQt/l3iFA8vqUWI37FXkY+5FX0y5WR0x49tSjHhBennVl78e+DvFA4vs8ErKxPIR3sAYqGNVktXeuZaVLiyqnVgNC2MQd7bQbqle61ob1elpWwDEtp2B5pb4VJEexrTiKOSYHk4mQ8SyccjYbfSl9P70dwOFrChA9seTBtBT6sXYOO+1sAD1r2vU15qeHORc6a255sUFmwzrW0pHRU=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(451199015)(86362001)(33656002)(38070700005)(38100700002)(122000001)(8936002)(2906002)(83380400001)(55016003)(6506007)(26005)(7696005)(478600001)(9686003)(186003)(71200400001)(966005)(4744005)(54906003)(6916009)(316002)(8676002)(76116006)(66946007)(66556008)(66476007)(66446008)(64756008)(4326008)(5660300002)(41300700001)(7416002)(52536014);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: ffd29ac5-567d-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1666933467;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=okMdc+KhJjKXcis0bcDj5EWl2UnVMQS0OzmNUP9xDbI=;
+	b=FN1oK56umF6F/gA5ejdQPewR8WZSeLaMwD/DirCaOADVkAbP5CKeVNKrBS+ATvRsB5A8Jz
+	lVFBaz1tyQL8xfp87HfXniuthou+nWtMfJalq2BgcL83WNKoSZgulbvF36A/fLKsbozMTw
+	F9XEZ7remiI47CefLmfekXAEqpqVe5w=
+X-MC-Unique: 1GfdpKXBP2iOMuaxLrVIBg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=okMdc+KhJjKXcis0bcDj5EWl2UnVMQS0OzmNUP9xDbI=;
+        b=uZZW7wgjehQLdgPvn0tewlr+U+inu3SSCtJ3asrgkJU1CpxRPOQJAiJOPDnYX62u4r
+         Wtui8AHCuC72xhDrC1LAax3QOHPuvqgxStUVgS4snUqeNbFG2bHlwJJF/CJto9H+ZRxJ
+         VvYopLgFOeRhtGfcjn4MZKI2kVzEB0gjtUV/oD1boucTHDAju+AUQb7Ha1IhALyBFt6c
+         dpnfKhOkZCh+1J48ieI6se1zEAnRHNW4NkTYCCFgXfIjvh67UPWZmmRnvowgdE55f/GS
+         +umZKITgkpJs1XoRm3bMJUtXHSiuj8b51kWbEh03Y04OJzSY0YjWHNiAIsbWkNFuHaEv
+         J/5w==
+X-Gm-Message-State: ACrzQf2TCj67BxCiTxGCIkBDkbMkBKW6mnU3c+laTR3ZKlroGaAUz+b1
+	Ztd8ZkRzr2hm4YIETL+Yj+dU3X+h0cutaSfq0ogK5fvQOfN9d/WUxJbMtl7JGiTR6KOxu6IU22p
+	iccKeVxbV5SQzBMimI49u2MRjgBE=
+X-Received: by 2002:a17:90b:1649:b0:20d:2d96:6b05 with SMTP id il9-20020a17090b164900b0020d2d966b05mr14284810pjb.9.1666933465303;
+        Thu, 27 Oct 2022 22:04:25 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM763cM40Ox4h2hsO44kzlRFkLDSF93C9SC1IIjEwDsaISVB67+Ka9W6ONBS2A+3fnGisQJaow==
+X-Received: by 2002:a17:90b:1649:b0:20d:2d96:6b05 with SMTP id il9-20020a17090b164900b0020d2d966b05mr14284755pjb.9.1666933464749;
+        Thu, 27 Oct 2022 22:04:24 -0700 (PDT)
+Message-ID: <700ef645-6cb6-66e6-00a9-3db187be0c43@redhat.com>
+Date: Fri, 28 Oct 2022 13:04:12 +0800
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6514
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	9902745c-acdf-4292-2ebc-08dab89ef815
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NAA01Rj/x5FgEJ+AqmF4euWvdITEzhODNkREqzD2/aSGtMkfos35eg0BxPuUAT7zIOO7SkbH3bprefz5wSKzwPIRa+1WzZtoIHMB2a6yz2Cb/UYCYzyVrfdwV1qsb1pgCBcvQlW1/MDFykX6Vfm+HmBmZALH/WfZpBzMq0PFGCGQU2KEvLaLREaCTWDI6j0uPD1TkNeVV84Guj8FUDIZ7eHTR9cTkuGXz/1eyksSfEMSBjpCgfv65Mx8SdmPiumX4HyqLlaJGqcUBb9NO8snbYfLHWudbVo05/uPiSpqQTWc2SCjEr9tIZTC+K9TjOGznnklHIUVeN09mq+be/JqF2oByqeCwa/866tF9NLC27Kmd+n0xLYNK9CJjCrWe9GVOHJAK5R0KacLi3gkLJCGKAyPOAVUhxZMnQvO02CcOkyN8zpW3KKE4177x5PR8uzgzsoO3Ebsx3psVvCyBOz6ncTkoSZilyNqUddwOri3jwYh8yDBAYUasFu+19qxkxtSLvQKjqAhNz5de1vKVdg+hCvLx0jWTdLegQtLmoSqbudSXTu6vKTL3l1Nf9dY6m3Hz6i42+lHzb7XmXmmgiuQ9/1qFBuQ+q4zruviRL19zuL6KkL5mb+jZGQ0UfMj/KHTD7lQD/BVgIjW+mKzwfAcfZ14xHMZq2381eQSbeVlgUrxdpB+J2+KN2tIUZ5F2Qc3U3h2jQhbGsrpdvTYtG8eHZBX2faKESxZ8GvScFc7xS4M1aHZ8NzYlocie1tsRBR4ZsL5Lanj+MmQ1eMo+T4iHTeFosaiWMbbs4uxGQnQQw0=
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(136003)(39860400002)(376002)(451199015)(36840700001)(40470700004)(46966006)(83380400001)(40460700003)(478600001)(966005)(82310400005)(33656002)(81166007)(356005)(54906003)(6916009)(52536014)(4744005)(82740400003)(36860700001)(47076005)(107886003)(8676002)(4326008)(316002)(40480700001)(70586007)(70206006)(6506007)(9686003)(2906002)(55016003)(8936002)(7696005)(26005)(5660300002)(41300700001)(336012)(186003)(86362001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 04:44:29.7835
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: edd2719b-caf5-47ed-0de0-08dab89f19cc
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR08MB5501
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.13.1
+Subject: Re: [PATCH v14 16/17] tests/qtest: netdev: test stream and dgram
+ backends
+To: Laurent Vivier <lvivier@redhat.com>, qemu-devel@nongnu.org
+Cc: Thomas Huth <thuth@redhat.com>, xen-devel@lists.xenproject.org,
+ "Dr. David Alan Gilbert" <dgilbert@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Stefan Weil <sw@weilnetz.de>,
+ David Gibson <david@gibson.dropbear.id.au>,
+ Stefano Stabellini <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>,
+ Eric Blake <eblake@redhat.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Markus Armbruster <armbru@redhat.com>,
+ Samuel Thibault <samuel.thibault@ens-lyon.org>, Greg Kurz <groug@kaod.org>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>
+References: <20221021090922.170074-1-lvivier@redhat.com>
+ <20221021090922.170074-17-lvivier@redhat.com>
+From: Jason Wang <jasowang@redhat.com>
+In-Reply-To: <20221021090922.170074-17-lvivier@redhat.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi all,
 
-Since there will be a batch of XSAs released on Nov. 1 [1] and the original=
- date for
-the 4.17 release was supposed to be Nov. 2, I am thinking to postpone the 4=
-.17
-release to a week later (Nov. 11) to give a little bit longer time so that:
+在 2022/10/21 17:09, Laurent Vivier 写道:
+> Signed-off-by: Laurent Vivier <lvivier@redhat.com>
+> Acked-by: Michael S. Tsirkin <mst@redhat.com>
+> ---
 
-- The security team won't do anything in rush.
-- We can have more feedback after merging these XSAs.
-- Include more release-relevant bugfixes.
 
-May I please have some feedback on this proposal? Thanks very much!
+I got this:
 
-[1] https://xenbits.xen.org/xsa/
+63/63 ERROR:../tests/qtest/netdev-socket.c:139:test_stream_inet_ipv6: 
+assertion failed (resp == expect): ("st0: index=0,type=stream,connection 
+error\r\n" == "st0: index=0,type=stream,tcp:::1:40389\r\n") ERROR
+63/63 qemu:qtest+qtest-x86_64 / 
+qtest-x86_64/netdev-socket                  ERROR 5.29s   killed by 
+signal 6 SIGABRT
+ >>> QTEST_QEMU_IMG=./qemu-img QTEST_QEMU_BINARY=./qemu-system-x86_64 
+MALLOC_PERTURB_=96 
+QTEST_QEMU_STORAGE_DAEMON_BINARY=./storage-daemon/qemu-storage-daemon 
+G_TEST_DBUS_DAEMON=/home/devel/git/qemu/tests/dbus-vmstate-daemon.sh 
+/home/devel/git/qemu/build/tests/qtest/netdev-socket --tap -k
+――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― 
+✀ 
+―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+stderr:
+**
+ERROR:../tests/qtest/netdev-socket.c:139:test_stream_inet_ipv6: 
+assertion failed (resp == expect): ("st0: index=0,type=stream,connection 
+error\r\n" == "st0: index=0,type=stream,tcp:::1:40389\r\n")
 
-Kind regards,
-Henry
+(test program exited with status code -6)
+――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
+The base is:
+
+commit 344744e148e6e865f5a57e745b02a87e5ea534ad (HEAD -> master, 
+origin/master, origin/HEAD)
+Merge: 08a5d04606 e38c24cb58
+Author: Stefan Hajnoczi <stefanha@redhat.com>
+Date:   Wed Oct 26 10:53:48 2022 -0400
+
+     Merge tag 'dump-pull-request' of 
+https://gitlab.com/marcandre.lureau/qemu into staging
+
+So I dropped this patch from the queue and we can add it back after 
+soft-freeze.
+
+Thanks
+
+
+>   tests/qtest/meson.build     |   1 +
+>   tests/qtest/netdev-socket.c | 420 ++++++++++++++++++++++++++++++++++++
+>   2 files changed, 421 insertions(+)
+>   create mode 100644 tests/qtest/netdev-socket.c
+>
+> diff --git a/tests/qtest/meson.build b/tests/qtest/meson.build
+> index c07a5b1a5f43..6953797e4e3e 100644
+> --- a/tests/qtest/meson.build
+> +++ b/tests/qtest/meson.build
+> @@ -27,6 +27,7 @@ qtests_generic = [
+>     'test-hmp',
+>     'qos-test',
+>     'readconfig-test',
+> +  'netdev-socket',
+>   ]
+>   if config_host.has_key('CONFIG_MODULES')
+>     qtests_generic += [ 'modules-test' ]
+> diff --git a/tests/qtest/netdev-socket.c b/tests/qtest/netdev-socket.c
+> new file mode 100644
+> index 000000000000..b24c0819b9ac
+> --- /dev/null
+> +++ b/tests/qtest/netdev-socket.c
+> @@ -0,0 +1,420 @@
+> +/*
+> + * QTest testcase for netdev stream and dgram
+> + *
+> + * Copyright (c) 2022 Red Hat, Inc.
+> + *
+> + * SPDX-License-Identifier: GPL-2.0-or-later
+> + */
+> +
+> +#include "qemu/osdep.h"
+> +#include "libqtest.h"
+> +
+> +#define CONNECTION_TIMEOUT    5
+> +
+> +#define EXPECT_STATE(q, e, t)                             \
+> +do {                                                      \
+> +    char *resp = qtest_hmp(q, "info network");            \
+> +    if (t) {                                              \
+> +        strrchr(resp, t)[0] = 0;                          \
+> +    }                                                     \
+> +    g_test_timer_start();                                 \
+> +    while (g_test_timer_elapsed() < CONNECTION_TIMEOUT) { \
+> +        if (strcmp(resp, e) == 0) {                       \
+> +            break;                                        \
+> +        }                                                 \
+> +        g_free(resp);                                     \
+> +        resp = qtest_hmp(q, "info network");              \
+> +        if (t) {                                          \
+> +            strrchr(resp, t)[0] = 0;                      \
+> +        }                                                 \
+> +    }                                                     \
+> +    g_assert_cmpstr(resp, ==, e);                         \
+> +    g_free(resp);                                         \
+> +} while (0)
+> +
+> +static int inet_get_free_port_socket(int sock)
+> +{
+> +    struct sockaddr_in addr;
+> +    socklen_t len;
+> +
+> +    memset(&addr, 0, sizeof(addr));
+> +    addr.sin_family = AF_INET;
+> +    addr.sin_addr.s_addr = INADDR_ANY;
+> +    addr.sin_port = 0;
+> +    if (bind(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+> +        return -1;
+> +    }
+> +
+> +    len = sizeof(addr);
+> +    if (getsockname(sock,  (struct sockaddr *)&addr, &len) < 0) {
+> +        return -1;
+> +    }
+> +
+> +    return ntohs(addr.sin_port);
+> +}
+> +
+> +static int inet_get_free_port_multiple(int nb, int *port)
+> +{
+> +    int sock[nb];
+> +    int i;
+> +
+> +    for (i = 0; i < nb; i++) {
+> +        sock[i] = socket(AF_INET, SOCK_STREAM, 0);
+> +        if (sock[i] < 0) {
+> +            break;
+> +        }
+> +        port[i] = inet_get_free_port_socket(sock[i]);
+> +    }
+> +
+> +    nb = i;
+> +    for (i = 0; i < nb; i++) {
+> +        closesocket(sock[i]);
+> +    }
+> +
+> +    return nb;
+> +}
+> +
+> +static int inet_get_free_port(void)
+> +{
+> +    int nb, port;
+> +
+> +    nb = inet_get_free_port_multiple(1, &port);
+> +    g_assert_cmpint(nb, ==, 1);
+> +
+> +    return port;
+> +}
+> +
+> +static void test_stream_inet_ipv4(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    int port;
+> +
+> +    port = inet_get_free_port();
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=true,addr.type=inet,"
+> +                       "addr.ipv4=on,addr.ipv6=off,"
+> +                       "addr.host=localhost,addr.port=%d", port);
+> +
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,\r\n", 0);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,server=false,id=st0,addr.type=inet,"
+> +                       "addr.ipv4=on,addr.ipv6=off,"
+> +                       "addr.host=localhost,addr.port=%d", port);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=stream,tcp:127.0.0.1:%d\r\n",
+> +                             port);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    g_free(expect);
+> +
+> +    /* the port is unknown, check only the address */
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,tcp:127.0.0.1", ':');
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_stream_inet_ipv6(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    int port;
+> +
+> +    port = inet_get_free_port();
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=true,addr.type=inet,"
+> +                       "addr.ipv4=off,addr.ipv6=on,"
+> +                       "addr.host=localhost,addr.port=%d", port);
+> +
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,\r\n", 0);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,server=false,id=st0,addr.type=inet,"
+> +                       "addr.ipv4=off,addr.ipv6=on,"
+> +                       "addr.host=localhost,addr.port=%d", port);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=stream,tcp:::1:%d\r\n",
+> +                             port);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    g_free(expect);
+> +
+> +    /* the port is unknown, check only the address */
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,tcp:::1", ':');
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_stream_unix(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    gchar *path;
+> +    int ret;
+> +
+> +    ret = g_file_open_tmp("netdev-XXXXXX", &path, NULL);
+> +    g_assert_true(ret >= 0);
+> +    close(ret);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=true,"
+> +                       "addr.type=unix,addr.path=%s,",
+> +                       path);
+> +
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,\r\n", 0);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=false,"
+> +                       "addr.type=unix,addr.path=%s",
+> +                       path);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=stream,unix:%s\r\n", path);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +    unlink(path);
+> +    g_free(path);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_stream_unix_abstract(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    gchar *path;
+> +    int ret;
+> +
+> +    ret = g_file_open_tmp("netdev-XXXXXX", &path, NULL);
+> +    g_assert_true(ret >= 0);
+> +    close(ret);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=true,"
+> +                       "addr.type=unix,addr.path=%s,"
+> +                       "addr.abstract=on",
+> +                       path);
+> +
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,\r\n", 0);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=false,"
+> +                       "addr.type=unix,addr.path=%s,addr.abstract=on",
+> +                       path);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=stream,unix:%s\r\n", path);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +    unlink(path);
+> +    g_free(path);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_stream_fd(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    int ret, sock0, sock1;
+> +    struct sockaddr_un addr;
+> +    gchar *path;
+> +
+> +    ret = g_file_open_tmp("netdev-XXXXXX", &path, NULL);
+> +    g_assert_true(ret >= 0);
+> +    close(ret);
+> +    addr.sun_family = AF_UNIX;
+> +    strcpy(addr.sun_path, path);
+> +
+> +    unlink(addr.sun_path);
+> +    sock0 = socket(AF_LOCAL, SOCK_STREAM, 0);
+> +    g_assert_cmpint(sock0, !=, -1);
+> +
+> +    ret = bind(sock0, (struct sockaddr *)&addr, sizeof(addr));
+> +    g_assert_cmpint(ret, !=, -1);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=true,"
+> +                       "addr.type=fd,addr.str=%d",
+> +                       sock0);
+> +
+> +    EXPECT_STATE(qts0, "st0: index=0,type=stream,\r\n", 0);
+> +
+> +    sock1 = socket(AF_LOCAL, SOCK_STREAM, 0);
+> +    g_assert_cmpint(sock1, !=, -1);
+> +
+> +    ret = connect(sock1, (struct sockaddr *)&addr, sizeof(addr));
+> +    g_assert_cmpint(ret, !=, -1);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev stream,id=st0,server=false,addr.type=fd,addr.str=%d",
+> +                       sock1);
+> +
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=stream,unix:%s\r\n", path);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +
+> +    closesocket(sock0);
+> +    closesocket(sock1);
+> +
+> +    g_free(path);
+> +}
+> +
+> +static void test_dgram_inet(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    int port[2];
+> +    int nb;
+> +
+> +    nb = inet_get_free_port_multiple(2, port);
+> +    g_assert_cmpint(nb, ==, 2);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,"
+> +                       "local.type=inet,local.host=localhost,local.port=%d,"
+> +                       "remote.type=inet,remote.host=localhost,remote.port=%d",
+> +                        port[0], port[1]);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,"
+> +                             "udp=127.0.0.1:%d/127.0.0.1:%d\r\n",
+> +                             port[0], port[1]);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,"
+> +                       "local.type=inet,local.host=localhost,local.port=%d,"
+> +                       "remote.type=inet,remote.host=localhost,remote.port=%d",
+> +                        port[1], port[0]);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,"
+> +                             "udp=127.0.0.1:%d/127.0.0.1:%d\r\n",
+> +                             port[1], port[0]);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    g_free(expect);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_dgram_mcast(void)
+> +{
+> +    QTestState *qts;
+> +
+> +    qts = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,"
+> +                       "remote.type=inet,remote.host=230.0.0.1,remote.port=1234");
+> +
+> +    EXPECT_STATE(qts, "st0: index=0,type=dgram,mcast=230.0.0.1:1234\r\n", 0);
+> +
+> +    qtest_quit(qts);
+> +}
+> +
+> +static void test_dgram_unix(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    gchar *path0, *path1;
+> +    int ret;
+> +
+> +    ret = g_file_open_tmp("netdev-XXXXXX", &path0, NULL);
+> +    g_assert_true(ret >= 0);
+> +    close(ret);
+> +
+> +    ret = g_file_open_tmp("netdev-XXXXXX", &path1, NULL);
+> +    g_assert_true(ret >= 0);
+> +    close(ret);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,local.type=unix,local.path=%s,"
+> +                       "remote.type=unix,remote.path=%s",
+> +                       path0, path1);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,udp=%s:%s\r\n",
+> +                             path0, path1);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,local.type=unix,local.path=%s,"
+> +                       "remote.type=unix,remote.path=%s",
+> +                       path1, path0);
+> +
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,udp=%s:%s\r\n",
+> +                             path1, path0);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    g_free(expect);
+> +
+> +    unlink(path0);
+> +    g_free(path0);
+> +    unlink(path1);
+> +    g_free(path1);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +}
+> +
+> +static void test_dgram_fd(void)
+> +{
+> +    QTestState *qts0, *qts1;
+> +    char *expect;
+> +    int ret;
+> +    int sv[2];
+> +
+> +    ret = socketpair(PF_UNIX, SOCK_DGRAM, 0, sv);
+> +    g_assert_cmpint(ret, !=, -1);
+> +
+> +    qts0 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,local.type=fd,local.str=%d",
+> +                       sv[0]);
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,fd=%d unix\r\n", sv[0]);
+> +    EXPECT_STATE(qts0, expect, 0);
+> +    g_free(expect);
+> +
+> +    qts1 = qtest_initf("-nodefaults "
+> +                       "-netdev dgram,id=st0,local.type=fd,local.str=%d",
+> +                       sv[1]);
+> +
+> +
+> +    expect = g_strdup_printf("st0: index=0,type=dgram,fd=%d unix\r\n", sv[1]);
+> +    EXPECT_STATE(qts1, expect, 0);
+> +    g_free(expect);
+> +
+> +    qtest_quit(qts1);
+> +    qtest_quit(qts0);
+> +
+> +    closesocket(sv[0]);
+> +    closesocket(sv[1]);
+> +}
+> +
+> +int main(int argc, char **argv)
+> +{
+> +    int ret;
+> +
+> +    g_test_init(&argc, &argv, NULL);
+> +
+> +    qtest_add_func("/netdev/stream/inet/ipv4", test_stream_inet_ipv4);
+> +    qtest_add_func("/netdev/stream/inet/ipv6", test_stream_inet_ipv6);
+> +    qtest_add_func("/netdev/stream/unix", test_stream_unix);
+> +    qtest_add_func("/netdev/stream/unix/abstract", test_stream_unix_abstract);
+> +    qtest_add_func("/netdev/stream/fd", test_stream_fd);
+> +    qtest_add_func("/netdev/dgram/inet", test_dgram_inet);
+> +    qtest_add_func("/netdev/dgram/mcast", test_dgram_mcast);
+> +    qtest_add_func("/netdev/dgram/unix", test_dgram_unix);
+> +    qtest_add_func("/netdev/dgram/fd", test_dgram_fd);
+> +
+> +    ret = g_test_run();
+> +
+> +    return ret;
+> +}
 
 
