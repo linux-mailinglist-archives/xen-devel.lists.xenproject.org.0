@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51808610E1B
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 12:09:13 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431872.684517 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2037610E1C
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 12:10:25 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431876.684528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooMID-0006ar-Uo; Fri, 28 Oct 2022 10:08:49 +0000
+	id 1ooMJX-0007vQ-9w; Fri, 28 Oct 2022 10:10:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431872.684517; Fri, 28 Oct 2022 10:08:49 +0000
+Received: by outflank-mailman (output) from mailman id 431876.684528; Fri, 28 Oct 2022 10:10:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooMID-0006Yb-S2; Fri, 28 Oct 2022 10:08:49 +0000
-Received: by outflank-mailman (input) for mailman id 431872;
- Fri, 28 Oct 2022 10:08:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mkji=25=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1ooMIB-0006YV-Qw
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 10:08:47 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 82626845-56a8-11ed-8fd0-01056ac49cbb;
- Fri, 28 Oct 2022 12:08:46 +0200 (CEST)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id BBB6F1F86B;
- Fri, 28 Oct 2022 10:08:45 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7E79213A6E;
- Fri, 28 Oct 2022 10:08:45 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id uJRKHS2qW2NiMAAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 28 Oct 2022 10:08:45 +0000
+	id 1ooMJX-0007sb-69; Fri, 28 Oct 2022 10:10:11 +0000
+Received: by outflank-mailman (input) for mailman id 431876;
+ Fri, 28 Oct 2022 10:10:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=3R+4=25=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1ooMJV-0007sI-Ae
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 10:10:09 +0000
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [2607:f8b0:4864:20::42b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b27ddbb9-56a8-11ed-91b5-6bf2151ebd3b;
+ Fri, 28 Oct 2022 12:10:07 +0200 (CEST)
+Received: by mail-pf1-x42b.google.com with SMTP id b29so4390352pfp.13
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Oct 2022 03:10:07 -0700 (PDT)
+Received: from leoy-huanghe.lan (211-75-219-199.hinet-ip.hinet.net.
+ [211.75.219.199]) by smtp.gmail.com with ESMTPSA id
+ p11-20020a1709026b8b00b0017fe9b038fdsm2678944plk.14.2022.10.28.03.10.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Oct 2022 03:10:05 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,236 +44,287 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 82626845-56a8-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1666951725; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TnU+iYoPyoglay09VhRXgr5yQMxV8rttNsD3ycEHKug=;
-	b=knfrsSVwOTS0meNdLoPwZ5FET3VH4F2+dmPsB0HSCCVbrvrxFtL+Vt7POXmnTzRZJxv3Sb
-	vLXtZyALeePnfWNJTSzg/Xt/Pt/po5b7J7j9G8lEbGhkWt7urVYTSCEBxbo3dl6rv6xs4o
-	zvHgAgq58dwb4sooEss2ugZwkeUkKa4=
-Message-ID: <4977c33a-fe11-172a-11be-17acb01d61bb@suse.com>
-Date: Fri, 28 Oct 2022 12:08:44 +0200
+X-Inumbo-ID: b27ddbb9-56a8-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=qoRKvtVQlXySzXk8G6GxZl37sL+q1/QwV2HPSxPeiwQ=;
+        b=EvFGmUcam85mPU0pWZxH6ePEah+NiQ92/juH9eZ9nt6RwEhkupBOFeXHHiewO+VGm4
+         cK/0HvtCy24KHAdyppSXLcQNaDXTh9diezwJi2Nn/9qhiVhNECMkJNK+MVIj6m7v5T22
+         bh2AOrfEI2a4OiWM+1mYbdBm8xc5ITGTIJ5nGLbW2rggipCQjlmrIDj1hYVRBaBpwICv
+         3DWWCXyaLxb68pypPfOtdT66Gshga9EyHM/6V5Sxab5100RjHYQ4TDiS4VJZPglZmjgI
+         qaRmNU91LzgQ3/60W08nm67WuJYmzvNv86D7Fze9nvhbQp8nWerY7IXBm5x0yF0C3asw
+         omvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qoRKvtVQlXySzXk8G6GxZl37sL+q1/QwV2HPSxPeiwQ=;
+        b=uAal0i5eCnFsMh/y4GLh07lUdjRGwGz7+mpu7JcK+V79yS9QuwjvKXzLOdhGsf1T6Y
+         7Z8j/3kNstGMpDm342JC5q84UXczEdvd/uiYlIvu2OqWR6QgOGBWl17qlK6rkTDI9+UI
+         vcPQPylGZIE6NzlAOsE51ncSeYjJivDtx6/ZqNdbcQ5NC/yhl5x06qNQq30yEhJJf2zX
+         6P847MoiPLtQSsu+bEtakSOBJrZFOC0FeXgq+PzXD+LqFLva0HPKR+POPeuvQ3JnWWx8
+         3i8E5qYdSk+WdYBv/aCMghUcO1JJr3MdBGHih6Ph6gwcZCmFVaX+ZghtZxTEtXiJBZX5
+         suQA==
+X-Gm-Message-State: ACrzQf3/qongQonOdaX9w8YUdEFJgl5ZiShN84Rge8WpvVyGPAsctyJT
+	nkJBnbxjvtS2eEP2+QzKQdjCZw==
+X-Google-Smtp-Source: AMsMyM5F7/JB5P5Mo8KOtDo05NIjk05htZLFA9MKQVlsl7hYw5B3L+bPTBRrgVivHZS1+pKwqqfGDQ==
+X-Received: by 2002:a63:ea4a:0:b0:439:4695:c0f8 with SMTP id l10-20020a63ea4a000000b004394695c0f8mr45676573pgk.440.1666951806030;
+        Fri, 28 Oct 2022 03:10:06 -0700 (PDT)
+Date: Fri, 28 Oct 2022 18:09:58 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Develop <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>,
+	jgross@suse.com, oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com, wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+Message-ID: <Y1uqdr1j9YwuIUBU@leoy-huanghe.lan>
+References: <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
+ <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop>
+ <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
+ <Y1J39UsPlM8htxFx@leoy-huanghe.lan>
+ <alpine.DEB.2.22.394.2210211341440.3873@ubuntu-linux-20-04-desktop>
+ <Y1ZvDt7/I9JXJh2r@leoy-huanghe.lan>
+ <alpine.DEB.2.22.394.2210251655420.1397955@ubuntu-linux-20-04-desktop>
+ <Y1umvVrGLktIvJuk@leoy-huanghe.lan>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Content-Language: en-US
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20221021145357.17931-1-jgross@suse.com>
- <Y1rKLJP/p+E+eVi7@mail-itl>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
- suspend
-In-Reply-To: <Y1rKLJP/p+E+eVi7@mail-itl>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------YlT41rAiS2D0e9gsCYcK3gDh"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y1umvVrGLktIvJuk@leoy-huanghe.lan>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------YlT41rAiS2D0e9gsCYcK3gDh
-Content-Type: multipart/mixed; boundary="------------FL8GGzN6KMP3dgOgxr1IjBUU";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>
-Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>,
- Dario Faggioli <dfaggioli@suse.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Henry Wang <Henry.Wang@arm.com>
-Message-ID: <4977c33a-fe11-172a-11be-17acb01d61bb@suse.com>
-Subject: Re: [PATCH-for-4.17] xen/sched: migrate timers to correct cpus after
- suspend
-References: <20221021145357.17931-1-jgross@suse.com>
- <Y1rKLJP/p+E+eVi7@mail-itl>
-In-Reply-To: <Y1rKLJP/p+E+eVi7@mail-itl>
+On Fri, Oct 28, 2022 at 05:54:05PM +0800, Leo Yan wrote:
 
---------------FL8GGzN6KMP3dgOgxr1IjBUU
-Content-Type: multipart/mixed; boundary="------------7vefNumKYJnunoQLa1wCcNQz"
+[...]
 
---------------7vefNumKYJnunoQLa1wCcNQz
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> If map to the code, I think the function xennet_start_xmit() in Xen
+> frontend driver is critical for the sending interval in domU.  I can
+> see several things cost time when sending a packet:
+> 
+> - Xen frontend driver needs to setup grant table for every skb, it
+>   invokes the function xennet_tx_setup_grant() and
+>   gnttab_grant_foreign_access_ref() to prepare grant table;
+> 
+> - Xen frontend driver sends notification by calling
+>   notify_remote_via_irq().  It will trap to Xen hypervisor to send the
+>   interrupt, this takes several macro seonds for this step.
+> 
+> - Xen frontend driver calls xennet_tx_buf_gc(), the interval for this
+>   function is vary, it will take ~30us in the case for reclaiming grant
+>   table.
+> 
+> Any thoughts for this?
 
-T24gMjcuMTAuMjIgMjA6MTMsIE1hcmVrIE1hcmN6eWtvd3NraS1Hw7NyZWNraSB3cm90ZToN
-Cj4gT24gRnJpLCBPY3QgMjEsIDIwMjIgYXQgMDQ6NTM6NTdQTSArMDIwMCwgSnVlcmdlbiBH
-cm9zcyB3cm90ZToNCj4+IFRvZGF5IGFsbCB0aW1lcnMgYXJlIG1pZ3JhdGVkIHRvIGNwdSAw
-IHdoZW4gdGhlIHN5c3RlbSBpcyBiZWluZw0KPj4gc3VzcGVuZGVkLiBUaGV5IGFyZSBub3Qg
-bWlncmF0ZWQgYmFjayBhZnRlciByZXN1bWluZyB0aGUgc3lzdGVtIGFnYWluLg0KPj4NCj4+
-IFRoaXMgcmVzdWx0cyAoYXQgbGVhc3QpIHRvIHByb2JsZW1zIHdpdGggdGhlIGNyZWRpdCBz
-Y2hlZHVsZXIsIGFzIHRoZQ0KPj4gdGltZXIgaXNuJ3QgaGFuZGxlZCBvbiB0aGUgY3B1IGl0
-IHdhcyBleHBlY3RlZCB0byBvY2N1ci4NCj4+DQo+PiBBZGQgbWlncmF0aW5nIHRoZSBzY2hl
-ZHVsaW5nIHJlbGF0ZWQgdGltZXJzIG9mIGEgc3BlY2lmaWMgY3B1IGZyb20gY3B1DQo+PiAw
-IGJhY2sgdG8gaXRzIG9yaWdpbmFsIGNwdSB3aGVuIHRoYXQgY3B1IGhhcyBnb25lIHVwIHdo
-ZW4gcmVzdW1pbmcgdGhlDQo+PiBzeXN0ZW0uDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogSnVl
-cmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KPiANCj4gSSB0ZXN0ZWQgaXQgaW4gbXkg
-c2V0dXAsIGJ1dCBpdCBjcmFzaGVkOg0KPiANCj4gKFhFTikgYXJjaC94ODYvY3B1L21jaGVj
-ay9tY2VfaW50ZWwuYzo3NzA6IE1DQSBDYXBhYmlsaXR5OiBmaXJzdGJhbmsgMCwgZXh0ZW5k
-ZWQgTUNFIE1TUiAwLCBCQ0FTVCwgQ01DSQ0KPiAoWEVOKSBDUFUwIENNQ0kgTFZUIHZlY3Rv
-ciAoMHhmMSkgYWxyZWFkeSBpbnN0YWxsZWQNCj4gKFhFTikgRmluaXNoaW5nIHdha2V1cCBm
-cm9tIEFDUEkgUzMgc3RhdGUuDQo+IChYRU4pIEVuYWJsaW5nIG5vbi1ib290IENQVXMgIC4u
-Lg0KPiAoWEVOKSBQbGF0Zm9ybSB0aW1lciBhcHBlYXJzIHRvIGhhdmUgdW5leHBlY3RlZGx5
-IHdyYXBwZWQgMyB0aW1lcy4NCj4gKFhFTikgLS0tLVsgWGVuLTQuMTctcmMgIHg4Nl82NCAg
-ZGVidWc9eSAgVGFpbnRlZDogICBDICAgIF0tLS0tDQo+IChYRU4pIENQVTogICAgMA0KPiAo
-WEVOKSBSSVA6ICAgIGUwMDg6WzxmZmZmODJkMDQwMjUwYzdlPl0gc2NoZWRfbWlncmF0ZV90
-aW1lcnMrMHg0ZC8weGM5DQo+IChYRU4pIFJGTEFHUzogMDAwMDAwMDAwMDAxMDIwMiAgIENP
-TlRFWFQ6IGh5cGVydmlzb3INCj4gKFhFTikgcmF4OiBmZmZmODJkMDQwNWM1Mjk4ICAgcmJ4
-OiAwMDAwMDAwMDAwMDAwMDAwICAgcmN4OiAwMDAwMDAwMDAwMDAwMDAxDQo+IChYRU4pIHJk
-eDogMDAwMDAwMzIxMTIxOTAwMCAgIHJzaTogMDAwMDAwMDAwMDAwMDAwNCAgIHJkaTogMDAw
-MDAwMDAwMDAwMDAwMQ0KPiAoWEVOKSByYnA6IGZmZmY4MzAyNTYyMjdkMjAgICByc3A6IGZm
-ZmY4MzAyNTYyMjdkMTggICByODogIGZmZmY4MmQwNDA1ZDJmNzgNCj4gKFhFTikgcjk6ICBm
-ZmZmODJkMDQwNWVmOGEwICAgcjEwOiAwMDAwMDAwMGZmZmZmZmZmICAgcjExOiAwMDAwMDAw
-MDAwMjE5MWMwDQo+IChYRU4pIHIxMjogMDAwMDAwMDAwMDAwMDAwMCAgIHIxMzogMDAwMDAw
-MDAwMDAwMDAwMSAgIHIxNDogMDAwMDAwMDAwMDAwMDAwNA0KPiAoWEVOKSByMTU6IDAwMDAw
-MDAwMDAwMDAwMDAgICBjcjA6IDAwMDAwMDAwODAwNTAwM2IgICBjcjQ6IDAwMDAwMDAwMDAz
-NTI2ZTANCj4gKFhFTikgY3IzOiAwMDAwMDAwMDQ5Njc3MDAwICAgY3IyOiAwMDAwMDAwMDAw
-MDAwMDcwDQo+IChYRU4pIGZzYjogMDAwMDAwMDAwMDAwMDAwMCAgIGdzYjogMDAwMDAwMDAw
-MDAwMDAwMCAgIGdzczogMDAwMDAwMDAwMDAwMDAwMA0KPiAoWEVOKSBkczogMDAwMCAgIGVz
-OiAwMDAwICAgZnM6IDAwMDAgICBnczogMDAwMCAgIHNzOiAwMDAwICAgY3M6IGUwMDgNCj4g
-KFhFTikgWGVuIGNvZGUgYXJvdW5kIDxmZmZmODJkMDQwMjUwYzdlPiAoc2NoZWRfbWlncmF0
-ZV90aW1lcnMrMHg0ZC8weGM5KToNCj4gKFhFTikgIDQ4IDhiIDE0IGNhIDQ4IDhiIDFjIDAy
-IDwzOT4gN2IgNzAgNzQgNTEgNDggOGQgMDUgNTYgMzQgMzcgMDAgNDggODkgZTIgNDgNCj4g
-KFhFTikgWGVuIHN0YWNrIHRyYWNlIGZyb20gcnNwPWZmZmY4MzAyNTYyMjdkMTg6DQo+IChY
-RU4pICAgIDAwMDAwMDAwMDAwMDAwMDEgZmZmZjgzMDI1NjIyN2Q1OCBmZmZmODJkMDQwMjNm
-MWEwIGZmZmY4MmQwNDA0N2EzMDgNCj4gKFhFTikgICAgZmZmZjgyZDA0MDQ3YTMwMCBmZmZm
-ODJkMDQwNDdhMDYwIDAwMDAwMDAwMDAwMDAwMDQgMDAwMDAwMDAwMDAwMDAwMA0KPiAoWEVO
-KSAgICBmZmZmODMwMjU2MjI3ZGEwIGZmZmY4MmQwNDAyMjZhMDQgMDAwMDAwMDAwMDAwMDAw
-MCAwMDAwMDAwMDAwMDAwMDAxDQo+IChYRU4pICAgIDAwMDAwMDAwMDAwMDAwMDEgMDAwMDAw
-MDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAxIGZmZmY4MzAyNTYyMjdmZmYNCj4gKFhFTikg
-ICAgZmZmZjgyZDA0MDQ2YzUyMCBmZmZmODMwMjU2MjI3ZGI4IGZmZmY4MmQwNDAyMDdlNzUg
-MDAwMDAwMDAwMDAwMDAwMQ0KPiAoWEVOKSAgICBmZmZmODMwMjU2MjI3ZGUwIGZmZmY4MmQw
-NDAyMDgyNDMgZmZmZjgyZDA0MDQ3YTIyMCAwMDAwMDAwMDAwMDAwMDAxDQo+IChYRU4pICAg
-IDAwMDAwMDAwMDAwMDAwMTAgZmZmZjgzMDI1NjIyN2UxOCBmZmZmODJkMDQwMjA4NDI4IDAw
-MDAwMDAwMDAwMDAyMDANCj4gKFhFTikgICAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAw
-MDAwMDAzIGZmZmY4MzAyNTYyMjdlZjggZmZmZjgyZDA0MDVkZTZjMA0KPiAoWEVOKSAgICBm
-ZmZmODMwMjU2MjI3ZTQ4IGZmZmY4MmQwNDAyN2EyZGYgZmZmZjgzMDI1MTQ5MTQ5MCBmZmZm
-ODMwMjUxNzU3MDAwDQo+IChYRU4pICAgIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAw
-MDAwMCBmZmZmODMwMjU2MjI3ZTY4IGZmZmY4MmQwNDAyMDljNzMNCj4gKFhFTikgICAgZmZm
-ZjgzMDI1MTc1NzFiOCBmZmZmODJkMDQwNDc5NjE4IGZmZmY4MzAyNTYyMjdlODggZmZmZjgy
-ZDA0MDIyZTQ4NA0KPiAoWEVOKSAgICBmZmZmODJkMDQwNWM0MWEwIGZmZmY4MmQwNDA1YzQx
-YjAgZmZmZjgzMDI1NjIyN2ViOCBmZmZmODJkMDQwMjJlNzZlDQo+IChYRU4pICAgIDAwMDAw
-MDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwN2ZmZiBmZmZmODJkMDQwNWNhZjAwIGZmZmY4MmQw
-NDA1YzQxYjANCj4gKFhFTikgICAgZmZmZjgzMDI1NjIyN2VmMCBmZmZmODJkMDQwMmY0NTVk
-IGZmZmY4MmQwNDAyZjQ0ZTUgZmZmZjgzMDI1MTc1NzAwMA0KPiAoWEVOKSAgICBmZmZmODMw
-MjU2MjI3ZWY4IGZmZmY4MzAyNTE3ZjUwMDAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmODMwMjU2
-MjI3ZTE4DQo+IChYRU4pICAgIDAwMDAwMDAwMDAwMDAwMDAgZmZmZmM5MDA0MGI0M2Q2MCAw
-MDAwMDAwMDAwMDAzNDAzIDAwMDAwMDAwMDAwMDAwMDANCj4gKFhFTikgICAgMDAwMDAwMDAw
-MDAwMDAwMyBmZmZmZmZmZjgyZTM3ODY4IDAwMDAwMDAwMDAwMDAyNDYgMDAwMDAwMDAwMDAw
-MDAwMw0KPiAoWEVOKSAgICAwMDAwMDAwMDAwMDAzNDAzIDAwMDAwMDAwMDAwMDM0MDMgMDAw
-MDAwMDAwMDAwMDAwMCBmZmZmZmZmZjgxZTRhMGVhDQo+IChYRU4pICAgIDAwMDAwMDAwMDAw
-MDM0MDMgMDAwMDAwMDAwMDAwMDAxMCBkZWFkYmVlZmRlYWRmMDBkIDAwMDAwMTAwMDAwMDAw
-MDANCj4gKFhFTikgICAgZmZmZmZmZmY4MWU0YTBlYSAwMDAwMDAwMDAwMDBlMDMzIDAwMDAw
-MDAwMDAwMDAyNDYgZmZmZmM5MDA0MGI0M2MzMA0KPiAoWEVOKSBYZW4gY2FsbCB0cmFjZToN
-Cj4gKFhFTikgICAgWzxmZmZmODJkMDQwMjUwYzdlPl0gUiBzY2hlZF9taWdyYXRlX3RpbWVy
-cysweDRkLzB4YzkNCj4gKFhFTikgICAgWzxmZmZmODJkMDQwMjNmMWEwPl0gRiBjcHVwb29s
-LmMjY3B1X2NhbGxiYWNrKzB4MTNkLzB4NDdlDQo+IChYRU4pICAgIFs8ZmZmZjgyZDA0MDIy
-NmEwND5dIEYgbm90aWZpZXJfY2FsbF9jaGFpbisweDZjLzB4OTYNCj4gKFhFTikgICAgWzxm
-ZmZmODJkMDQwMjA3ZTc1Pl0gRiBjcHUuYyNjcHVfbm90aWZpZXJfY2FsbF9jaGFpbisweDFi
-LzB4MzYNCj4gKFhFTikgICAgWzxmZmZmODJkMDQwMjA4MjQzPl0gRiBjcHVfdXArMHhhZi8w
-eGM4DQo+IChYRU4pICAgIFs8ZmZmZjgyZDA0MDIwODQyOD5dIEYgZW5hYmxlX25vbmJvb3Rf
-Y3B1cysweDdiLzB4MWVmDQo+IChYRU4pICAgIFs8ZmZmZjgyZDA0MDI3YTJkZj5dIEYgcG93
-ZXIuYyNlbnRlcl9zdGF0ZV9oZWxwZXIrMHgxNTYvMHg1ZGMNCj4gKFhFTikgICAgWzxmZmZm
-ODJkMDQwMjA5YzczPl0gRiBkb21haW4uYyNjb250aW51ZV9oeXBlcmNhbGxfdGFza2xldF9o
-YW5kbGVyKzB4NTAvMHhiZg0KPiAoWEVOKSAgICBbPGZmZmY4MmQwNDAyMmU0ODQ+XSBGIHRh
-c2tsZXQuYyNkb190YXNrbGV0X3dvcmsrMHg3Yi8weGFjDQo+IChYRU4pICAgIFs8ZmZmZjgy
-ZDA0MDIyZTc2ZT5dIEYgZG9fdGFza2xldCsweDU4LzB4OGENCj4gKFhFTikgICAgWzxmZmZm
-ODJkMDQwMmY0NTVkPl0gRiBkb21haW4uYyNpZGxlX2xvb3ArMHg3OC8weGU2DQo+IChYRU4p
-DQo+IChYRU4pIFBhZ2V0YWJsZSB3YWxrIGZyb20gMDAwMDAwMDAwMDAwMDA3MDoNCj4gKFhF
-TikgIEw0WzB4MDAwXSA9IDAwMDAwMDAyNTE3ZmIwNjMgZmZmZmZmZmZmZmZmZmZmZg0KPiAo
-WEVOKSAgTDNbMHgwMDBdID0gMDAwMDAwMDI1MTdmYTA2MyBmZmZmZmZmZmZmZmZmZmZmDQo+
-IChYRU4pICBMMlsweDAwMF0gPSAwMDAwMDAwMjUxN2Y5MDYzIGZmZmZmZmZmZmZmZmZmZmYN
-Cj4gKFhFTikgIEwxWzB4MDAwXSA9IDAwMDAwMDAwMDAwMDAwMDAgZmZmZmZmZmZmZmZmZmZm
-Zg0KPiAoWEVOKQ0KPiAoWEVOKSAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqDQo+IChYRU4pIFBhbmljIG9uIENQVSAwOg0KPiAoWEVOKSBGQVRBTCBQQUdFIEZB
-VUxUDQo+IChYRU4pIFtlcnJvcl9jb2RlPTAwMDBdDQo+IChYRU4pIEZhdWx0aW5nIGxpbmVh
-ciBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMDcwDQo+IChYRU4pICoqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioNCj4gDQoNClRoaXMgaXMgdmVyeSB3ZWlyZC4gVGhl
-IGRhdGEgc3VnZ2VzdHMgdGhhdCB0aGUgc2NoZWR1bGluZyByZXNvdXJjZSBwb2ludGVyDQpm
-b3IgY3B1IDEgd2FzIE5VTEwsIGJ1dCBJIGNhbid0IHNlZSBob3cgdGhpcyBjYW4gYmUgdGhl
-IGNhc2Ugd2l0aG91dCBjYXVzaW5nDQpzaW1pbGFyIGNyYXNoZXMgd2l0aG91dCB0aGlzIHBh
-dGNoLg0KDQpBcmUgdGhlcmUgYW55IGFkZGl0aW9uYWwgcGF0Y2hlcyByZWxhdGVkIHRvIGNw
-dSBvbi9vZmZsaW5pbmcgb3Igc3VzcGVuZC9yZXN1bWUNCmluIHRoZSBoeXBlcnZpc29yPw0K
-DQoNCkp1ZXJnZW4NCg==
---------------7vefNumKYJnunoQLa1wCcNQz
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Supplement info with Ftrace function graph.  You could see below
+log which shows the time is spent in xennet_start_xmit():
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+ 1)               |  xennet_start_xmit() {
+ 1)               |  /* xennet_start_xmit: TSC: 50702652609 */
+ 1)   0.240 us    |    _raw_spin_lock_irqsave();
+ 1)               |    netif_skb_features() {
+ 1)   0.280 us    |      skb_network_protocol();
+ 1)   0.920 us    |    }
+ 1)               |    gnttab_foreach_grant_in_range() {
+ 1)               |      xennet_tx_setup_grant() {
+ 1)   0.280 us    |        gnttab_claim_grant_reference();
+ 1)               |        gnttab_grant_foreign_access_ref() {
+ 1)   0.280 us    |          gnttab_update_entry_v1();
+ 1)   0.800 us    |        }
+ 1)               |        /* id=103 ref=871 offset=2050 len=1514 TSC: 50702652709 */
+ 1)   2.200 us    |      }
+ 1)   2.800 us    |    }
+ 1)               |  /* xennet_notify_tx_irq: TSC: 50702652741 */
+ 1)               |    notify_remote_via_irq() {
+ 1)               |      irq_get_irq_data() {
+ 1)   0.240 us    |        irq_to_desc();
+ 1)   0.760 us    |      }
+ 1)   3.880 us    |    }
+ 1)   0.280 us    |    xennet_tx_buf_gc();
+ 1)   0.240 us    |    _raw_spin_unlock_irqrestore();
+ 1) + 11.120 us   |  }
+ 1)               |  xennet_start_xmit() {
+ 1)               |  /* xennet_start_xmit: TSC: 50702652974 */
+ 1)   0.280 us    |    _raw_spin_lock_irqsave();
+ 1)               |    netif_skb_features() {
+ 1)   0.240 us    |      skb_network_protocol();
+ 1)   0.760 us    |    }
+ 1)               |    gnttab_foreach_grant_in_range() {
+ 1)               |      xennet_tx_setup_grant() {
+ 1)   0.280 us    |        gnttab_claim_grant_reference();
+ 1)               |        gnttab_grant_foreign_access_ref() {
+ 1)   0.360 us    |          gnttab_update_entry_v1();
+ 1)   0.840 us    |        }
+ 1)               |        /* id=101 ref=869 offset=1026 len=574 TSC: 50702653093 */
+ 1)   2.800 us    |      }
+ 1)   3.320 us    |    }
+ 1)               |  /* xennet_notify_tx_irq: TSC: 50702653124 */
+ 1)               |    notify_remote_via_irq() {
+ 1)               |      irq_get_irq_data() {
+ 1)   0.240 us    |        irq_to_desc();
+ 1)   0.760 us    |      }
+ 1)   3.840 us    |    }
+ 1)   0.280 us    |    xennet_tx_buf_gc();
+ 1)   0.280 us    |    _raw_spin_unlock_irqrestore();
+ 1) + 11.800 us   |  }
+ 1)               |  /* finish_transmit_data */
+ 1)               |  /* transmit_data */
+ 1)               |  /* finish_transmit_data */
+ 1)               |  /* transmit_data */
+ 1)               |  /* finish_transmit_data */
+ 1)               |  /* transmit_data */
+ 1)               |  /* finish_transmit_data */
+ 1)               |  /* Before_throttle */
+ 1)               |  xennet_start_xmit() {
+ 1)               |  /* xennet_start_xmit: TSC: 50702654697 */
+ 1)   0.280 us    |    _raw_spin_lock_irqsave();
+ 1)               |    netif_skb_features() {
+ 1)   0.240 us    |      skb_network_protocol();
+ 1)   0.760 us    |    }
+ 1)               |    gnttab_foreach_grant_in_range() {
+ 1)               |      xennet_tx_setup_grant() {
+ 1)   0.280 us    |        gnttab_claim_grant_reference();
+ 1)               |        gnttab_grant_foreign_access_ref() {
+ 1)   0.320 us    |          gnttab_update_entry_v1();
+ 1)   0.920 us    |        }
+ 1)               |        /* id=3 ref=771 offset=2050 len=1514 TSC: 50702654801 */
+ 1)   2.400 us    |      }
+ 1)   2.960 us    |    }
+ 1)               |  /* xennet_notify_tx_irq: TSC: 50702654832 */
+ 1)               |    notify_remote_via_irq() {
+ 1)               |      irq_get_irq_data() {
+ 1)   0.280 us    |        irq_to_desc();
+ 1)   0.760 us    |      }
+ 1)   4.160 us    |    }
+ 1)               |    xennet_tx_buf_gc() {
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.480 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.960 us    |      }
+ 1)   0.280 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   1.240 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.480 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.960 us    |      }
+ 1)   0.240 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.400 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.840 us    |      }
+ 1)   0.280 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.280 us    |        __raise_softirq_irqoff();
+ 1)   0.880 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.360 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.840 us    |      }
+ 1)   0.240 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.240 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.760 us    |      }
+ 1)   0.240 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.360 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.960 us    |      }
+ 1)   0.240 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1) + 17.720 us   |    }
+ 1)   0.360 us    |    _raw_spin_unlock_irqrestore();
+ 1) + 29.320 us   |  }
+ 1)               |  xennet_start_xmit() {
+ 1)               |  /* xennet_start_xmit: TSC: 50702655824 */
+ 1)   0.360 us    |    _raw_spin_lock_irqsave();
+ 1)               |    netif_skb_features() {
+ 1)   0.280 us    |      skb_network_protocol();
+ 1)   0.760 us    |    }
+ 1)               |    gnttab_foreach_grant_in_range() {
+ 1)               |      xennet_tx_setup_grant() {
+ 1)   0.280 us    |        gnttab_claim_grant_reference();
+ 1)               |        gnttab_grant_foreign_access_ref() {
+ 1)   0.280 us    |          gnttab_update_entry_v1();
+ 1)   0.880 us    |        }
+ 1)               |        /* id=28 ref=796 offset=2 len=1514 TSC: 50702655925 */
+ 1)   2.280 us    |      }
+ 1)   2.920 us    |    }
+ 1)               |  /* xennet_notify_tx_irq: TSC: 50702655958 */
+ 1)               |    notify_remote_via_irq() {
+ 1)               |      irq_get_irq_data() {
+ 1)   0.280 us    |        irq_to_desc();
+ 1)   0.760 us    |      }
+ 1)   4.160 us    |    }
+ 1)               |    xennet_tx_buf_gc() {
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.360 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.880 us    |      }
+ 1)   0.280 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.280 us    |        __raise_softirq_irqoff();
+ 1)   1.280 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.360 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.880 us    |      }
+ 1)   0.760 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.280 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.400 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.880 us    |      }
+ 1)   0.240 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.400 us    |        __raise_softirq_irqoff();
+ 1)   0.880 us    |      }
+ 1)               |      gnttab_end_foreign_access_ref() {
+ 1)   0.400 us    |        gnttab_end_foreign_access_ref_v1();
+ 1)   0.880 us    |      }
+ 1)   0.280 us    |      gnttab_release_grant_reference();
+ 1)               |      __dev_kfree_skb_irq() {
+ 1)   0.240 us    |        __raise_softirq_irqoff();
+ 1)   0.760 us    |      }
+ 1) + 12.440 us   |    }
+ 1)   0.800 us    |    _raw_spin_unlock_irqrestore();
+ 1) + 24.080 us   |  }
+ 1)               |  xennet_start_xmit() {
+ 1)               |  /* xennet_start_xmit: TSC: 50702656728 */
+ 1)   0.240 us    |    _raw_spin_lock_irqsave();
+ 1)               |    netif_skb_features() {
+ 1)   0.240 us    |      skb_network_protocol();
+ 1)   0.760 us    |    }
+ 1)               |    gnttab_foreach_grant_in_range() {
+ 1)               |      xennet_tx_setup_grant() {
+ 1)   0.280 us    |        gnttab_claim_grant_reference();
+ 1)               |        gnttab_grant_foreign_access_ref() {
+ 1)   0.240 us    |          gnttab_update_entry_v1();
+ 1)   0.720 us    |        }
+ 1)               |        /* id=103 ref=871 offset=2050 len=1422 TSC: 50702656823 */
+ 1)   2.160 us    |      }
+ 1)   2.800 us    |    }
+ 1)               |  /* xennet_notify_tx_irq: TSC: 50702656850 */
+ 1)               |    notify_remote_via_irq() {
+ 1)               |      irq_get_irq_data() {
+ 1)   0.240 us    |        irq_to_desc();
+ 1)   0.720 us    |      }
+ 1)   3.920 us    |    }
+ 1)   0.320 us    |    xennet_tx_buf_gc();
+ 1)   0.280 us    |    _raw_spin_unlock_irqrestore();
+ 1) + 11.000 us   |  }
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------7vefNumKYJnunoQLa1wCcNQz--
-
---------------FL8GGzN6KMP3dgOgxr1IjBUU--
-
---------------YlT41rAiS2D0e9gsCYcK3gDh
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNbqiwFAwAAAAAACgkQsN6d1ii/Ey9v
-YQf/fA51PCDgohgOEpyMCWT0gA1GkHGf6h7rbCr91B0jDodICKut0aps1JspTC02f0rwK0e3qKK4
-Jeodkwe9SsXGuUhcxFXcx7hu9LOOAon3kxg5UFyAU9wQ5aJB7UxRF9rFDTdpR3imPiXOoVkwd2hf
-BheUwjWV5YPIp64IKorthOmPJVFWpw9VVGvXlQXKqfuNItmLlvYBkyEtsGdsZfBTRn9dtNl+SKRx
-em+P+cWgSQwxrBP/1mx9yQF6GN/3VMmbyEJPjEvJ4++XFBNVnCY58SCzb5CQ7cykeRCP6S6TaTm3
-VxLROZK5te7AABQwunlloAQo/+lNYIUZELJ8TW1LEg==
-=Pm83
------END PGP SIGNATURE-----
-
---------------YlT41rAiS2D0e9gsCYcK3gDh--
 
