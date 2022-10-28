@@ -2,39 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 779E6610B37
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 09:23:30 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431441.684350 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBD6E610BC0
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 09:58:09 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431527.684362 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooJi1-0003KH-CG; Fri, 28 Oct 2022 07:23:17 +0000
+	id 1ooKEa-0007se-Vg; Fri, 28 Oct 2022 07:56:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431441.684350; Fri, 28 Oct 2022 07:23:17 +0000
+Received: by outflank-mailman (output) from mailman id 431527.684362; Fri, 28 Oct 2022 07:56:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooJi1-0003Hy-9O; Fri, 28 Oct 2022 07:23:17 +0000
-Received: by outflank-mailman (input) for mailman id 431441;
- Fri, 28 Oct 2022 07:23:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jtyv=25=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ooJi0-0003Hp-ED
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 07:23:16 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2066.outbound.protection.outlook.com [40.107.104.66])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62d9dbd7-5691-11ed-8fd0-01056ac49cbb;
- Fri, 28 Oct 2022 09:23:15 +0200 (CEST)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS1PR04MB9264.eurprd04.prod.outlook.com (2603:10a6:20b:4c4::14)
+	id 1ooKEa-0007pz-Sg; Fri, 28 Oct 2022 07:56:56 +0000
+Received: by outflank-mailman (input) for mailman id 431527;
+ Fri, 28 Oct 2022 07:56:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ToJk=25=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ooKEZ-0007pj-G9
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 07:56:55 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2041.outbound.protection.outlook.com [40.107.94.41])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 156bc132-5696-11ed-91b5-6bf2151ebd3b;
+ Fri, 28 Oct 2022 09:56:53 +0200 (CEST)
+Received: from MW4PR03CA0058.namprd03.prod.outlook.com (2603:10b6:303:8e::33)
+ by LV2PR12MB5728.namprd12.prod.outlook.com (2603:10b6:408:17c::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Fri, 28 Oct
- 2022 07:23:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5746.021; Fri, 28 Oct 2022
- 07:23:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28; Fri, 28 Oct
+ 2022 07:56:47 +0000
+Received: from CO1NAM11FT106.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:8e:cafe::88) by MW4PR03CA0058.outlook.office365.com
+ (2603:10b6:303:8e::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5746.28 via Frontend
+ Transport; Fri, 28 Oct 2022 07:56:46 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT106.mail.protection.outlook.com (10.13.175.44) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5769.14 via Frontend Transport; Fri, 28 Oct 2022 07:56:45 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
+ 2022 02:56:45 -0500
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
+ 2022 00:56:45 -0700
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31
+ via Frontend Transport; Fri, 28 Oct 2022 02:56:43 -0500
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,161 +62,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62d9dbd7-5691-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 156bc132-5696-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RP0MM2Dbw+SIT8P/cq1IuvqZl0F4NCrnhjtHjOh0zPefiNKUPTiJ5IFHu2DDWekt2YvMDR6JXWtdRRUs3+cgzs/QK/Z08PWOugRodB6b153wg49cSno+DspqJEBmJl7cGlSUO8YquzU1eJJzKvHXWTCbX2lLwwrb1RbQYoLD62q7UZq4LqyJCDj0f2ioRIOl1dus+5JsJ5LYPDdbbNT+1Nxa29yfaEW0m8mdFzx3H7xfM5N+fbWl/e/B4M4suBiHddQsR565JBUUVY3xbS57pwwswRTrOC1boVIQmTvP/fuiPXJnAX7XWyEjaLG9aX6dvpnAb/MNoRgUDqQycf9toQ==
+ b=c+HlRMoj1jel+9LmkrPf5qA3D/Y+VKFuGeAai+D9BfDsY9DbY8+creOFsFPGxMMv/e/KJ8zcn9A8ORYiad4RKfy/cIEyvCAdRO3tMzItoJrqOEypWmtso82mjdUvs8YxRo6pddaXDfRucQXTrQXR7HHjq6GNYB8ZC9uR/NPiAWPachxgeH43DuwBTdp2qEHgET3gbmwlxJxPz7+fnUdoDdWKLjeY7QNcTdjRhM6ozk4AWpdhzF8rkWhA/UJGJKdaEtI3t36M7EBUiWopeedFKrgy2nf4hCFRHjpH7Rpmxtqm9XR68XBPw4ROGg/SGY9DOdYVL+L9SR4Rj6D7WuAabw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B4EnGeRwXar3+da6jwqvXI51YktxFxeKbOMUsdd7OF8=;
- b=n3ui2QSscLcNXWx53MsSA1MFmdJ0XphkFKK6l0i5EEpO1GS2BX4BxK/LDXLCu9duLoQ7/p/NitDlRJeiPpfL3/OjGGmji+QIydr3GBScSveFlKH98TZbEDHCBlgpJkjWHFGkoXm6r+Xn+mE7slHodEaNmh2nsGLNmASjjWyfmZxosdUvpVD74BUYncfDZmDGv6jMag6WieFWxhfaQ6yZnGbTPRjtqCGVUsHV1qmSVVN+hGy7C+PO6v9iKtJfZOXkArzzab/9j7mAwgTF2+YJXWV+G9xJ9WOgPE6g2ZxTschkN21MZRis2qCwAVmqQpVWy4auvAmEySq4oZt4wDymwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=wutamKw3Z7Q+Eb/ceHGMavXxD6AMVnBkePAKZWrFltM=;
+ b=SMFAnIR9Wx1nukn99obgPTUquMwePHjEkTBoTxBq+BdxqRkB+cvpv+wL0Mq/hHOTe+qqzbTY4B03rbPY/M+TtcpeQcWkaJvMk3aoVrWl0pxN/PHDcgxZnernaX4Nnf2/q/bCxBZD5QfDd6X6GcRG/jIo3ypxfHRuRNJsBmaJmBdO6e80r47jegejhSqYYutkCvwYn5UtCgGW6nnqPrkB194d3GrIBxl+f3WlIygpEQYN+FZQMU7A2ZH20mQAgHp86p5kEkm+f53pBWzNxpjbNI7b6JGMpU0ZUeN9kHhM/AfVIjZDuyEiOTfAqlYQNa9/GHaO8sDOyN66ii9g0pta6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B4EnGeRwXar3+da6jwqvXI51YktxFxeKbOMUsdd7OF8=;
- b=CMf+uJBsEN0kWZASqJEnO7IYLhFosBujId9SraPi/42LRzZSbpdYm+E9UkurKX/K1M9Fu5mySFUtfPGrSMVehA0UI7rLQ9BVOFL5DGooI9XFIZyivjiqrF6SN8kffpiZ4Ffb9gecRCvbZ436ldqe7zdkpn3szOqm5PNf/1k36kZkOoDetUuWItuRc5j7zKk1d/tBaoz+71y23eznh0XBYEHAWILYIGKSzm5PxQnAT78WH0UqdVdYYRxlDuuGGsQ93VL4dNtxW5mI1DcLIIt5t8UNxe1L45hEVp/jHW89lCIz5b4AR7e1tSyBURMJHetNqlTT/8TtrO7bGDEx3C0N9Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <b038c16d-2c94-584a-ad84-02403c52b0e3@suse.com>
-Date: Fri, 28 Oct 2022 09:23:11 +0200
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: [PATCH 3/3][4.17?] x86/pv-shim: correct ballooning down for compat
- guests
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Henry Wang <Henry.Wang@arm.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-References: <2398b0e8-ea5f-dc8e-46d8-2d3994a98b34@suse.com>
-In-Reply-To: <2398b0e8-ea5f-dc8e-46d8-2d3994a98b34@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8PR04CA0015.eurprd04.prod.outlook.com
- (2603:10a6:20b:310::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ bh=wutamKw3Z7Q+Eb/ceHGMavXxD6AMVnBkePAKZWrFltM=;
+ b=dU0Xiwq8yPtSXaqk8sTsHFWpUvARpCS0genpJFDA0m3XbOIMVMIaumUWViDUKUxOqpYcw/lnNs6PA3zhbKGLbcoGUTK5omvFjzcoVeI9RP2+KNLtj7d5HyJipSGgkCFNjPBcXQlxHunK1+8Ynj7SE/L67884XUH+fte0rDhGqdQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: Do not route NS phys timer IRQ to Xen
+Date: Fri, 28 Oct 2022 09:56:30 +0200
+Message-ID: <20221028075630.32261-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS1PR04MB9264:EE_
-X-MS-Office365-Filtering-Correlation-Id: 401ac5b1-ad37-4fd6-5975-08dab8b54626
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT106:EE_|LV2PR12MB5728:EE_
+X-MS-Office365-Filtering-Correlation-Id: c11ebadc-10f4-4542-4d80-08dab8b9f5de
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	MaKF6QKUQhTwCvkvqieXw77wWm1OI3YsgaHzzaH/MIhe9w0WrWinAM1GonlRIOV5or70tF+L2cEAWDcmc0H3f9sD4h/MG1MLF40Hj5hf+EsKY53DuQL1pXR/akaWD+O9fdkYTZZhIerdFHEGPZyyIizsfhXegCdnrkDUbvDOwonrZQrZ7ZbCQ2rRY8Mlttxktulx6kD8b6ZlUYoevDBJrUqy2ZxNQbHbBZ2QvQO8xag4AcLbvXZMc0u7mzobY1dr5cAyi58yVA6ruUN5JAyAqxKN8edJR+ZKtpsYyy2wFfYv+TOn/G4F7nFdY78tcIM7QmHkN9vZunNYJ3nB/vF/hf0vlktK00I5O54buj4yODDMpygPuv3+N07Q6t79zeEvF63Q592ivFKfq0JYXz4NkJY84LHN8XptJVr9MuEalQJ0FM/PmfOlenuer1aAMgpeJ3goyVbibbTY6lTo4lKPyzY+g6FRez1ZwBzD1nfeLZSWvGN/Ecv8u/wVWVR+yFJ305EeZ2E51czqOO80neMjmnHSVMnQleD+fyg5jmi6UMqSAn8zLBs9+9TMij5TlGOGVna1G+eWCQ1D1WmxQZ+IrjhUXa+q/nISKROQNH0anmmMYgidZCbImQT/wZaje8A7xzuHKZJjvc7YSc3DgNesXfkT/1JPqGDwX3aWu9BR3Jt4UCPpVFGNLvs54ADESemmANC+e+vXxeQ/kjR75NQmqGtVCYJZW5bGhuqqTa9ZAhF0WOmbvn5P77VldaPdqfNJzPB2ZR7ScmTFyDZYftL4+yCifXtXggLKoGgAvLsMcz0=
+	lzEr5mg7urmT99AKQ6boJr3h0zCqzmZJu3Im4awNKd8OQrKNtENljsFn5g15GbyrR6jdGV+cyrpHW1zaGnuokudICvyNQZNuSRtWs0R95EnRiaBBHv1UCwepeIRRbX1y6gY7JRgO0SQDtL9wYfU1yYsq3bhI8WAmD8+S5bqTx8e9OVKT24l0rU6W+z9A9lV0tYK9yU3YeF/zXMuLs6ScbBmpsAL6pOJA8urcwS8Ph5Wf5Njo5xwAOkHuF63y2p0fW+oA4LyuV5L7urHvHrDTcR9XdivrPymoiAe8s/QcYW7VQfSzJpykijbtQo4Prnz1GqH57AFXbnimTRkiiF8rY2AeKoPXr+Da9jmoEmW8WP4CK22OVRooeKLkeJ1ME8d2rMB7+uTxyymw2DTtCDkW+sNDKEPBvxw5ZIgpsn4pKaOLVjPVq6YLKxfOYgM3tf4CM+RVi3kXLTEVvWQqmAs+Vn9A5IgUysW/lfbXm8PKK5xG5/EJDe4x7uHv3zetNWn5rdFGXoSCu4T0xs71IlFy6ZJo2F5Bzl0JUqbandT5pITdgEVugZvCcm4C/ePQA8F+giyjpjVPs+iQnF6VE52ri7MyjPpgxEcsGld5npAt1/Lo4BbQP72hj98e2CZeNmAFGuYPeA29MITcFjtVhw8MgylLBvY+lb98/CKq6REpREEnobxN3CZI51u/KQcoJxVWwTMo+ZkotdzKiBzxuvX7Zat/h28aKe2N4of+OtYuB1NZk+7y4Gu37nBGdYSgfL3HLlnNij+NzxcKlYMM/bfjrhFMXSBm+GtiTdv5q7uEQ9uT14H3DLGKMUlqePRlpG3xKM9iYbdxzWZNzHaER2xhUw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(136003)(346002)(39860400002)(376002)(396003)(451199015)(316002)(54906003)(6916009)(8936002)(5660300002)(2616005)(186003)(4326008)(36756003)(8676002)(6506007)(66476007)(66946007)(66556008)(26005)(6512007)(41300700001)(2906002)(83380400001)(86362001)(31696002)(38100700002)(6486002)(478600001)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cm1LNXNNS1U0aFg4dGpIZGVtVGp3WVkxS3R6WnJEQklzNmJCZHNacnJKSXRX?=
- =?utf-8?B?enRVWStDMGY0R0RQekR5RkJTcjZteGFDNHVwYmN1aFFxY2F2aDRvME9qYmIz?=
- =?utf-8?B?ajUzbWtyK1VERmZ1d082Q2RVSTRQOFBVeFNpMzdHTnNROWNkdHI4cWtmZG9O?=
- =?utf-8?B?L3RsTFhBcHJ6cUFTZmltU3Y4djc0SldWMjJkcmx5RWpPM3M2VUZ0QWVMUHlv?=
- =?utf-8?B?a0pNWnFmQnZsanpGUC85YW9PRlNubGlTZ0o4a0hHaW9LR2VWNnhkV0NTL1l5?=
- =?utf-8?B?bklpTGpMclF6K0NHVVZSTDBZL1FIYWxaVkZZUkVGdGpBREdhVTRxQTBMUFZQ?=
- =?utf-8?B?eEM3a2RCNXNVaVNmTkV6TFBXNHNMaXJzU0lOQWpDd25UTU1CME5KekdqL3lu?=
- =?utf-8?B?YUNrMVEyb0I0T3MwTE90anVZRDhKY0REUCt2Q3NBcTVhN056dmpzc3pmbkc4?=
- =?utf-8?B?czBNTTB2amVGL1F1VGxVWEhheDRRNFZncERKaHZac0t1UzIwMWxKYVZUR1VL?=
- =?utf-8?B?emh6cG01KzZXMUNUV3htc1BWdjlMZ0ZhVW9FVm5oYUxTQXZvTFAyb2NsQWM0?=
- =?utf-8?B?RzhteUs0NG54dHR4SUdMY3VrZEN6STN2bkV3WisxQ0NKcHhKcjcrR2I2OHRX?=
- =?utf-8?B?a2p1ejdOT1A5Z0R6RWVxS05QRHB6T3VUTmdnSmFVZ1BTTFBTaDMvSXVKNnZT?=
- =?utf-8?B?NzFJMS9TUTdJTi9tQ3g4V3JhaC9CT3JxOGY5bkhjWWVTb1J2bnluT3BrbHFM?=
- =?utf-8?B?UzBnYzAwZmxwWEoxUDIxd085Ly9rczJkT3hzT1NXL1BNVGcyd2NmQnlsSEhO?=
- =?utf-8?B?ZUlEalFDSVZ4UWJuS3ByY09KMTdrRExQK0xGZVV1TklOejkrQk8waXY5azBI?=
- =?utf-8?B?SnZCSXdzdkdma2crZmZIZHpHN09WQUJDalgxSUJwYXlHWnUxWThaYXhRYTdF?=
- =?utf-8?B?SWtzSEJPUzhtYy92NFdNNHVBRndvRWQwZC9WbEhET2ZWdjJFbU9LQ25MRWZU?=
- =?utf-8?B?Lzk1dmtIdmxWWUsyTHZYK2l0RXkwbEdmMkZxZ0U0aFBFT2dyd3B6WWEvdTQ0?=
- =?utf-8?B?NHZvS0RrU0VvZExwNkdUdEJSUXpsZWNrUmdOOGFNMVBCUDl4dHorUUs1Rmp6?=
- =?utf-8?B?M1ZvQmJCaUpXMXdNczVJdUJVU0tCM3h4YVBUWEM5YWNlek5OTW1GUDc5Rm11?=
- =?utf-8?B?bmZFd0lCUjRyVWRuR0hEbko1VHZTOXBLcUppRVhLRmJqR2VTZzJ2emZmR1pS?=
- =?utf-8?B?MzF3RVc3aDFSd3BhU1RwcE1hR2s5c3MxMVpHajY0dUx1TWsrdlMzSzBmMksw?=
- =?utf-8?B?TlNiUkJicEhpNDh4SGhHNEhkWGg5UmFadTdzOVIvOU5KK2dJaUZRRmRlWTY1?=
- =?utf-8?B?a0kwd1lLanpDUFVvY3Q1N0Rhai9Pak1OakIxbjQ0bHBpMW1OUzhsUE1NT1Vi?=
- =?utf-8?B?Z0xUM0xnWG53dDNQek5ZRFhxcHdla2lBYzFOWlcxTmtVWnY3VnVyWE9LOXZ2?=
- =?utf-8?B?VGw1a0FwUkVyODZGTTNrRDNVVk5IRzNyNnE1VVdzV0svRFdjZW1NSXFoUjNX?=
- =?utf-8?B?SUpsS0lhZGlOZmxOZStWMGs1cm5vcmpmOXFBN3VidkNKRjFMcnE5ZFN6Ykxh?=
- =?utf-8?B?cFVVakRxOGJnci9lOWIwb2ZEN3E1WjFOZyt5V0sydGFRdXB0WkgxaGtObUpK?=
- =?utf-8?B?Mll2dW1hQ0ZXVm5BQnNHUjhGdUtLRjI2TkVEeTl0V3hlR2N2c1E5UXVwcjFr?=
- =?utf-8?B?OUhaQ3F4TUJSbjlNWUZDTkZIbkllT0tsbm9BbkV5QlBlM1Q0aURRSERyRVgy?=
- =?utf-8?B?eTJGNlcwV3F6VmVEbDFBNkZsNWYvYTNhb3lzMUtsT3h0L1Z1OXkyWkZ5Mjdw?=
- =?utf-8?B?VWdieVllVHlrTzVxRXF5UEtOK04yc0k0emcvWkl0MG1RVmxNYk9PV1Iwcmg2?=
- =?utf-8?B?TFM0VmdwdDZNR1ByakNoOXZuOEJZNW1UNlpiZExxRGFtcmFCL2NqUVhSdjJT?=
- =?utf-8?B?ekhPU3J2UXY4QUZqNm85d0Y0QUwxTUFIU2NKSFZwQlJ4SmVBd1JDbDJxMEFN?=
- =?utf-8?B?eTgrc2RsZW00S0x3Q001QVhNdFpCV0oyLzJyMGlWZ2IzWkdkZHNvU1FGWXMv?=
- =?utf-8?Q?qPS/i+GMrZXg+HbUvTPPLS880?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 401ac5b1-ad37-4fd6-5975-08dab8b54626
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 07:23:13.2949
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(376002)(396003)(39860400002)(136003)(451199015)(36840700001)(40470700004)(46966006)(41300700001)(8936002)(5660300002)(83380400001)(70586007)(70206006)(2906002)(8676002)(966005)(36860700001)(6916009)(82310400005)(6666004)(316002)(26005)(4326008)(478600001)(47076005)(36756003)(426003)(54906003)(44832011)(40480700001)(1076003)(356005)(186003)(81166007)(40460700003)(82740400003)(86362001)(336012)(2616005)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 07:56:45.8231
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d2W5LiGUCBqks8d5844u/qQQNP+huyopMCOjkYs+eBRnVoBoZzOHTnz9bdrMjyu+E6fHKEpAfoGpn3HiaRIjfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9264
+X-MS-Exchange-CrossTenant-Network-Message-Id: c11ebadc-10f4-4542-4d80-08dab8b9f5de
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT106.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5728
 
-From: Igor Druzhinin <igor.druzhinin@citrix.com>
+At the moment, we route NS phys timer IRQ to Xen even though it does not
+make use of this timer. Xen uses hypervisor timer for itself and the
+physical timer is fully emulated, hence there is nothing that can trigger
+such IRQ. This means that requesting/releasing IRQ ends up as a deadcode
+as it has no impact on the functional behavior, whereas the code within
+a handler ends up being unreachable. This is a left over from the early
+days when the CNTHP IRQ was buggy on the HW model used for testing and we
+had to use the CNTP instead.
 
-The compat layer for multi-extent memory ops may need to split incoming
-requests. Since the guest handles in the interface structures may not be
-altered, it does so by leveraging do_memory_op()'s continuation
-handling: It hands on non-initial requests with a non-zero start extent,
-with the (native) handle suitably adjusted down. As a result
-do_memory_op() sees only the first of potentially several requests with
-start extent being zero. In order to be usable as overall result, the
-function accumulates args.nr_done, i.e. it initialized the field with
-the start extent. Therefore non-initial requests resulting from the
-split would pass too large a number into pv_shim_offline_memory().
+Remove the calls to {request/release}_irq for this timer as well as the
+code within the handler. Since timer_interrupt handler is now only used
+by the CNTHP, remove the IRQ affiliation condition. Keep the calls to
+zero the CNTP_CTL_EL0 register on timer init/deinit for sanity and also remove
+the corresponding perf counter definition.
 
-Address that breakage by always calling pv_shim_offline_memory()
-regardless of current hypercall preemption status, with a suitably
-adjusted first argument. Note that this is correct also for the native
-guest case: We now simply "commit" what was completed right away, rather
-than at the end of a series of preemption/re-start cycles. In fact this
-improves overall preemption behavior: There's no longer a potentially
-big chunk of work done non-preemptively at the end of the last
-"iteration".
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+---
+Based on the outcome of the following discussion:
+https://lore.kernel.org/xen-devel/d55938a3-aaca-1d01-b34f-858dbca9830b@amd.com/
+---
+ xen/arch/arm/include/asm/perfc_defn.h |  1 -
+ xen/arch/arm/time.c                   | 16 +---------------
+ 2 files changed, 1 insertion(+), 16 deletions(-)
 
-Fixes: b2245acc60c3 ("xen/pvshim: memory hotplug")
-Signed-off-by: Igor Druzhinin <igor.druzhinin@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
-
---- a/xen/common/memory.c
-+++ b/xen/common/memory.c
-@@ -1461,22 +1461,17 @@ long do_memory_op(unsigned long cmd, XEN
+diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
+index 31f071222b24..3ab0391175d7 100644
+--- a/xen/arch/arm/include/asm/perfc_defn.h
++++ b/xen/arch/arm/include/asm/perfc_defn.h
+@@ -70,7 +70,6 @@ PERFCOUNTER(spis,                 "#SPIs")
+ PERFCOUNTER(guest_irqs,           "#GUEST-IRQS")
  
-         rc = args.nr_done;
+ PERFCOUNTER(hyp_timer_irqs,   "Hypervisor timer interrupts")
+-PERFCOUNTER(phys_timer_irqs,  "Physical timer interrupts")
+ PERFCOUNTER(virt_timer_irqs,  "Virtual timer interrupts")
+ PERFCOUNTER(maintenance_irqs, "Maintenance interrupts")
  
--        if ( args.preempted )
--            return hypercall_create_continuation(
--                __HYPERVISOR_memory_op, "lh",
--                op | (rc << MEMOP_EXTENT_SHIFT), arg);
+diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+index dec53b5f7d53..3160fcc7b440 100644
+--- a/xen/arch/arm/time.c
++++ b/xen/arch/arm/time.c
+@@ -222,8 +222,7 @@ int reprogram_timer(s_time_t timeout)
+ /* Handle the firing timer */
+ static void timer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
+ {
+-    if ( irq == (timer_irq[TIMER_HYP_PPI]) &&
+-         READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING )
++    if ( READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING )
+     {
+         perfc_incr(hyp_timer_irqs);
+         /* Signal the generic timer code to do its work */
+@@ -231,16 +230,6 @@ static void timer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
+         /* Disable the timer to avoid more interrupts */
+         WRITE_SYSREG(0, CNTHP_CTL_EL2);
+     }
 -
- #ifdef CONFIG_X86
-         if ( pv_shim && op == XENMEM_decrease_reservation )
--            /*
--             * Only call pv_shim_offline_memory when the hypercall has
--             * finished. Note that nr_done is used to cope in case the
--             * hypercall has failed and only part of the extents where
--             * processed.
--             */
--            pv_shim_offline_memory(args.nr_done, args.extent_order);
-+            pv_shim_offline_memory(args.nr_done - start_extent,
-+                                   args.extent_order);
- #endif
+-    if ( irq == (timer_irq[TIMER_PHYS_NONSECURE_PPI]) &&
+-         READ_SYSREG(CNTP_CTL_EL0) & CNTx_CTL_PENDING )
+-    {
+-        perfc_incr(phys_timer_irqs);
+-        /* Signal the generic timer code to do its work */
+-        raise_softirq(TIMER_SOFTIRQ);
+-        /* Disable the timer to avoid more interrupts */
+-        WRITE_SYSREG(0, CNTP_CTL_EL0);
+-    }
+ }
  
-+        if ( args.preempted )
-+           return hypercall_create_continuation(
-+                __HYPERVISOR_memory_op, "lh",
-+                op | (rc << MEMOP_EXTENT_SHIFT), arg);
-+
-         break;
+ static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
+@@ -306,8 +295,6 @@ void init_timer_interrupt(void)
+                 "hyptimer", NULL);
+     request_irq(timer_irq[TIMER_VIRT_PPI], 0, vtimer_interrupt,
+                    "virtimer", NULL);
+-    request_irq(timer_irq[TIMER_PHYS_NONSECURE_PPI], 0, timer_interrupt,
+-                "phytimer", NULL);
  
-     case XENMEM_exchange:
+     check_timer_irq_cfg(timer_irq[TIMER_HYP_PPI], "hypervisor");
+     check_timer_irq_cfg(timer_irq[TIMER_VIRT_PPI], "virtual");
+@@ -326,7 +313,6 @@ static void deinit_timer_interrupt(void)
+ 
+     release_irq(timer_irq[TIMER_HYP_PPI], NULL);
+     release_irq(timer_irq[TIMER_VIRT_PPI], NULL);
+-    release_irq(timer_irq[TIMER_PHYS_NONSECURE_PPI], NULL);
+ }
+ 
+ /* Wait a set number of microseconds */
+-- 
+2.25.1
 
 
