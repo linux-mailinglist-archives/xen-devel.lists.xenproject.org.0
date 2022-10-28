@@ -2,55 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18379610D6C
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 11:36:48 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.431851.684473 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2340610DDA
+	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 11:54:42 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.431860.684495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooLmz-00011v-QV; Fri, 28 Oct 2022 09:36:33 +0000
+	id 1ooM48-0003pC-EX; Fri, 28 Oct 2022 09:54:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 431851.684473; Fri, 28 Oct 2022 09:36:33 +0000
+Received: by outflank-mailman (output) from mailman id 431860.684495; Fri, 28 Oct 2022 09:54:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooLmz-0000yS-NF; Fri, 28 Oct 2022 09:36:33 +0000
-Received: by outflank-mailman (input) for mailman id 431851;
- Fri, 28 Oct 2022 09:36:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ooM48-0003mW-B6; Fri, 28 Oct 2022 09:54:16 +0000
+Received: by outflank-mailman (input) for mailman id 431860;
+ Fri, 28 Oct 2022 09:54:15 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ToJk=25=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ooLmx-0000yI-3p
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 09:36:31 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2083.outbound.protection.outlook.com [40.107.244.83])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fe1a5e0a-56a3-11ed-8fd0-01056ac49cbb;
- Fri, 28 Oct 2022 11:36:27 +0200 (CEST)
-Received: from BN9PR03CA0572.namprd03.prod.outlook.com (2603:10b6:408:10d::7)
- by CH2PR12MB4922.namprd12.prod.outlook.com (2603:10b6:610:65::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.14; Fri, 28 Oct
- 2022 09:36:24 +0000
-Received: from BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:10d:cafe::d7) by BN9PR03CA0572.outlook.office365.com
- (2603:10b6:408:10d::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.14 via Frontend
- Transport; Fri, 28 Oct 2022 09:36:23 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT035.mail.protection.outlook.com (10.13.177.116) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Fri, 28 Oct 2022 09:36:23 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 04:36:23 -0500
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Fri, 28 Oct
- 2022 04:36:23 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Fri, 28 Oct 2022 04:36:22 -0500
+ <SRS0=3R+4=25=linaro.org=leo.yan@srs-se1.protection.inumbo.net>)
+ id 1ooM47-0003mQ-Dn
+ for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 09:54:15 +0000
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [2607:f8b0:4864:20::535])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 79b0f72c-56a6-11ed-91b5-6bf2151ebd3b;
+ Fri, 28 Oct 2022 11:54:13 +0200 (CEST)
+Received: by mail-pg1-x535.google.com with SMTP id f193so4442514pgc.0
+ for <xen-devel@lists.xenproject.org>; Fri, 28 Oct 2022 02:54:13 -0700 (PDT)
+Received: from leoy-huanghe.lan (45.78.19.212.16clouds.com. [45.78.19.212])
+ by smtp.gmail.com with ESMTPSA id
+ q5-20020a170902bd8500b00186c3af9644sm2590315pls.273.2022.10.28.02.54.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Oct 2022 02:54:10 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,141 +44,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe1a5e0a-56a3-11ed-8fd0-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YpE3cS477FHgdF4hAthAozkm/EbhDyOV4VSA7c85DOEL7KiFDBTkD6KS5+CQ8/MUFc/ye2pOP8GRiYnjiZCJDWWF6Ep2QFW3EJjO7072vPD+MggIm0IlWED357H83dBc9uQYHyNv7gR1wmeRzWBcFIVIc58iO0P6KNB1j759Pw0Hz8/VZOCK2hK5Mdu2kHoDc3EVEt5vqoO3Heb0l4ezUFkAg/K9jYSXxea3Qaww/zdl5aU43FBqoE2o9qymdPaSe27HLcv9PGeHTicQd58B1BZPk7cBq/vqDyIX7nrN83lJQx8BmWqHylRGfRWg2CEHPAs9ttkHltK4BEERlFO2Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UFyMI16L8NG++G/MAxE4y4FnFfJTFapEsVSkvT3B5Rw=;
- b=FYaLd9AJWNYSlU4Xb28RiH5tCU/CMrIrfwDahLJHgzW/rDU6l47LoIp6srOlhiB36lPTr47rQ4oE5kRArvvRuUzJ7+FPZMTZQ70xNZN2lSew+iGnt/suk2tzL3Z0G1SusPMBiqDkxLv4nQRT0cOnOaTkUEJx4Gwuv60OlvbYaocL+O1VsC49m19L6S3pbvJPIQSTxhINOWjKyo4eWevfs3s5+Df/y4GnudtzgEJbCdjY6vg8CdykO2je6TdrFKyAzDBXbCXmZSRWt5ZxnysdGiad/W7NqOtpJiTjCNVwiMC0fv2HyzAvtDYnkCAyjV/0bIMMnWdChAFAHHDXgCgJBQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UFyMI16L8NG++G/MAxE4y4FnFfJTFapEsVSkvT3B5Rw=;
- b=SPADtIgQS9WAyK5DxDnlWD2RoQhFMThsWBfyUptxSoikVI9R3yTrvq/DWT/dArT8/cS5bkkb1hqI8IDPLSZs3P9R3hx3iCcEdEj1EvuAPwtDCS1B3+OFk+Vyoskrww/pf8XjhZqjlRdBrXqKDb1PHzVa5FDr+k9ifMPcMP174PM=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <6413650b-efc4-8feb-2e70-f54044cdb0ef@amd.com>
-Date: Fri, 28 Oct 2022 11:36:21 +0200
+X-Inumbo-ID: 79b0f72c-56a6-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=wDdEpU7/bUqib1nFdmfTyZtogRI3Oc+HnuFFSmIhnSk=;
+        b=Voc8SFUhEtioAI/OIZeqrsZ8TYqvxlE+UYZJc+Tu2mZbEuqUJkg6euakDDebGed7kq
+         JV8NG6vK1EUTte9HBXKJ/zZ/Nhauf6vbtRxjGkRt71ytSsNTh0sUf6qPAsDrRoU/6a4l
+         Di31IX5HmEevLMiqdSAyi4mMjlc5rlXYO/HsJtXQOqimIpb7BbYuftOsgj6kvM/IW1qN
+         CH7J5C4obIX0nopBwlW2TLh5EOB9U3nEmUF4cj/qoUB6ogKojFLXPLBE7s/wMo6XRA8G
+         YRlh+pp0+Q7z+nfjIym0TIjzDPR8XOaJO2uHdgQS0x//1kIZxkzquJfvv17TkB9zEy7W
+         CTTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=wDdEpU7/bUqib1nFdmfTyZtogRI3Oc+HnuFFSmIhnSk=;
+        b=VScikgf3cLthjFHdHS5k2fjNjVv+xWyXWKc7rNXPbVdUnbKl4oecQo0TSDqHEQN4PZ
+         +neubLrii8xYkqFym+7BzJjwkkp68zyFHfYvMgpQCwJmcO3jB61HGd4KXeDssj8qOadY
+         MDzA6KNkr86hIqqnIKodhWkE5vgN5ydu4d2HDWzbiZUKqHmNMTIHDO+udb29pQTWJMTa
+         KSMXSB9EX3csSlKNXqbezmZEFGFezmVtPwcCb8udMDF7fCGr3+swiHe48HL/Nkg0igBB
+         CxK8F3mLuXP5+hSq/Ggo4CqtJDKgdzSfGqMdnLIo2eWPRofm2i7EiczrgDiTy1YQEor5
+         yJJQ==
+X-Gm-Message-State: ACrzQf2Zig4hV+0+zxxbMUWzxRiKYv+/xt4ZxfqqUV2jE9KFZ/NMvHCB
+	iyX3XtvTP4RxeQ2k90mB/eiMzg==
+X-Google-Smtp-Source: AMsMyM7X1wiVk6REf1jNOZc2PWy1jV4/3REP4zhQQBTp3JodVkcN763V1yYcFN3Zjxkn/bKXlOFbxQ==
+X-Received: by 2002:a63:4507:0:b0:43c:9cf4:f1d6 with SMTP id s7-20020a634507000000b0043c9cf4f1d6mr47433689pga.316.1666950851599;
+        Fri, 28 Oct 2022 02:54:11 -0700 (PDT)
+Date: Fri, 28 Oct 2022 17:54:05 +0800
+From: Leo Yan <leo.yan@linaro.org>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Xen Develop <xen-devel@lists.xenproject.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>,
+	jgross@suse.com, oleksandr_tyshchenko@epam.com,
+	boris.ostrovsky@oracle.com, wei.liu@kernel.org, paul@xen.org
+Subject: Re: Issue: Networking performance in Xen VM on Arm64
+Message-ID: <Y1umvVrGLktIvJuk@leoy-huanghe.lan>
+References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop>
+ <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop>
+ <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
+ <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop>
+ <Y1J39UsPlM8htxFx@leoy-huanghe.lan>
+ <alpine.DEB.2.22.394.2210211341440.3873@ubuntu-linux-20-04-desktop>
+ <Y1ZvDt7/I9JXJh2r@leoy-huanghe.lan>
+ <alpine.DEB.2.22.394.2210251655420.1397955@ubuntu-linux-20-04-desktop>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH] xen/arm: Do not route NS phys timer IRQ to Xen
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221028075630.32261-1-michal.orzel@amd.com>
- <ecd3e603-b1d1-210b-1212-3b9151f4bc3d@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <ecd3e603-b1d1-210b-1212-3b9151f4bc3d@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT035:EE_|CH2PR12MB4922:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8fd77b3-9e71-4734-d7ed-08dab8c7e0d2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	BmtbOueOwK9JD3d/WM6rcgchYiufgIpjAxefJykiMZMQt533TFP7VgQVfpsLQQEm3jXjx3KkpKj0udM9Bp+Pgrs7JMiKP7sPcGihQY1/CqgL2c2pTIMnkroK03DfxVZfNGXwdv/EQTUQZewesnYNJzSbze7Kp2cI8YkEIW3g3jP6awdk4fAOuKxdN7GUL7tlzwEvIl2WN3LR5X6n/eYY+jeOjViP7zPUimugTqFoi9k6AlcatotUmOIB3qUTuL5OEKLz0L9v+pSmQMN5FwDsx1v8ola5mMXV6mPgDOd3qK4cPnW1Bt7lImK6rqAa9+CLX6oC+CCz2Jsm/p902jZjya3ine+3pgJfg/vHRez5eiScUnEsPRq41KYLkaedfyXAbTSAKw/ui5QWjL8n29KKcuxRD/auENjogzT5FPJpJcd+INCYW9JFX0nQJm1CuO64/jj+dz2Mfw63RuVDfym4nYg0itRR7+PYaTBGphCQ55s/6bV9XXdBiMP4c9uBU14+skqdycGtEbptWyDqYdiZteyRG2I6Gy8amlaodkETT8tE7X8VNqQkRtZyMMcS6Gd29l+FUZtRB2ODVG4HU4TotBu5mJyh/pTKtbE8Z4azqKK/tUNlA2V0rgfExcs4LW2OOWhgyiJd60xOGa9scQKfOZm03d/z99TyER33lK0EN1GOjTkLTPA3aSQ84PPzfw9LwoNzHgcxPN/vyrtZgAmOP2kUvloKZl3UT/3veDqjRIXKJ7fWEFr6EVmriTIeM2VyOy7hnwDOr0BcBrTUav18rqBAtMyOBWRMxeH1F3oUgI1EGSNCyrc4idGnqZL5a88WPSoE+sMWGeXs6EVqA6FnFPcokDUHM0H77DO+URpBTg4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(39860400002)(346002)(376002)(451199015)(46966006)(40470700004)(36840700001)(478600001)(966005)(31686004)(45080400002)(356005)(82740400003)(81166007)(110136005)(8936002)(54906003)(16576012)(316002)(86362001)(83380400001)(31696002)(41300700001)(8676002)(70206006)(426003)(70586007)(4326008)(26005)(47076005)(5660300002)(82310400005)(44832011)(40460700003)(2616005)(186003)(36860700001)(2906002)(53546011)(36756003)(336012)(40480700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Oct 2022 09:36:23.5950
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8fd77b3-9e71-4734-d7ed-08dab8c7e0d2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT035.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4922
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <alpine.DEB.2.22.394.2210251655420.1397955@ubuntu-linux-20-04-desktop>
 
-Hi Julien,
+Hi Stefano,
 
-On 28/10/2022 11:03, Julien Grall wrote:
+On Tue, Oct 25, 2022 at 04:58:16PM -0700, Stefano Stabellini wrote:
+> On Mon, 24 Oct 2022, Leo Yan wrote:
+> > > If you are really running with the NULL scheduler, then I would
+> > > investigate why the vCPU has is_running == 0 because it should not
+> > > happen.
+> > 
+> > Correct for this: it's my bad that I didn't really enable NULL scheduler
+> > in my code base.  After I enabled NULL scheduler, the latency by context
+> > switching is dismissed.
+> > 
+> >  8963              pub-338   [002]   217.777652: bprint:               xennet_tx_setup_grant: id=60 ref=1340 offset=2 len=1514 TSC: 7892178799
+> >  8964              pub-338   [002]   217.777662: bprint:               xennet_tx_setup_grant: id=82 ref=1362 offset=2050 len=1006 TSC: 7892179043
+> >  8965     ksoftirqd/12-75    [012]   255.466914: bprint:               xenvif_tx_build_gops.constprop.0: id=60 ref=1340 offset=2 len=1514 TSC: 7892179731
+> >  8966     ksoftirqd/12-75    [012]   255.466915: bprint:               xenvif_tx_build_gops.constprop.0: id=82 ref=1362 offset=2050 len=1006 TSC: 7892179761
+> >  8967              pub-338   [002]   217.778057: bprint:               xennet_tx_setup_grant: id=60 ref=1340 offset=2050 len=1514 TSC: 7892188930
+> >  8968              pub-338   [002]   217.778072: bprint:               xennet_tx_setup_grant: id=53 ref=1333 offset=2 len=1514 TSC: 7892189293
+> >  8969       containerd-2965  [012]   255.467304: bprint:               xenvif_tx_build_gops.constprop.0: id=60 ref=1340 offset=2050 len=1514 TSC: 7892189479
+> >  8970       containerd-2965  [012]   255.467306: bprint:               xenvif_tx_build_gops.constprop.0: id=53 ref=1333 offset=2 len=1514 TSC: 7892189533
 > 
-> 
-> Hi Michal,
-> 
-> On 28/10/2022 08:56, Michal Orzel wrote:
->> At the moment, we route NS phys timer IRQ to Xen even though it does not
->> make use of this timer. Xen uses hypervisor timer for itself and the
->> physical timer is fully emulated, hence there is nothing that can trigger
->> such IRQ. This means that requesting/releasing IRQ ends up as a deadcode
->> as it has no impact on the functional behavior, whereas the code within
->> a handler ends up being unreachable. This is a left over from the early
->> days when the CNTHP IRQ was buggy on the HW model used for testing and we
->> had to use the CNTP instead.
->>
->> Remove the calls to {request/release}_irq for this timer as well as the
->> code within the handler. Since timer_interrupt handler is now only used
->> by the CNTHP, remove the IRQ affiliation condition. Keep the calls to
->> zero the CNTP_CTL_EL0 register on timer init/deinit for sanity and also remove
->> the corresponding perf counter definition.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> ---
->> Based on the outcome of the following discussion:
->> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.kernel.org%2Fxen-devel%2Fd55938a3-aaca-1d01-b34f-858dbca9830b%40amd.com%2F&amp;data=05%7C01%7Cmichal.orzel%40amd.com%7C4df8dc89b3124eb8f51608dab8c35ab3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638025446431622763%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=qeZR%2BBvOwKA9PKjq2xemSXhJ1Xij%2F%2FMWKADD70vrwW0%3D&amp;reserved=0
->> ---
->>   xen/arch/arm/include/asm/perfc_defn.h |  1 -
->>   xen/arch/arm/time.c                   | 16 +---------------
->>   2 files changed, 1 insertion(+), 16 deletions(-)
->>
->> diff --git a/xen/arch/arm/include/asm/perfc_defn.h b/xen/arch/arm/include/asm/perfc_defn.h
->> index 31f071222b24..3ab0391175d7 100644
->> --- a/xen/arch/arm/include/asm/perfc_defn.h
->> +++ b/xen/arch/arm/include/asm/perfc_defn.h
->> @@ -70,7 +70,6 @@ PERFCOUNTER(spis,                 "#SPIs")
->>   PERFCOUNTER(guest_irqs,           "#GUEST-IRQS")
->>
->>   PERFCOUNTER(hyp_timer_irqs,   "Hypervisor timer interrupts")
->> -PERFCOUNTER(phys_timer_irqs,  "Physical timer interrupts")
->>   PERFCOUNTER(virt_timer_irqs,  "Virtual timer interrupts")
->>   PERFCOUNTER(maintenance_irqs, "Maintenance interrupts")
->>
->> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
->> index dec53b5f7d53..3160fcc7b440 100644
->> --- a/xen/arch/arm/time.c
->> +++ b/xen/arch/arm/time.c
->> @@ -222,8 +222,7 @@ int reprogram_timer(s_time_t timeout)
->>   /* Handle the firing timer */
->>   static void timer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
->>   {
->> -    if ( irq == (timer_irq[TIMER_HYP_PPI]) &&
->> -         READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING )
->> +    if ( READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING )
-> 
-> AFAICT, this condition is meant to be true most of the times. So as you
-> are modifying the code, could you take the opportunity to add a
-> "likely()"? Or better invert the condition so the code below is not
-> indented.
+> I am having difficulty following the messages. Are the two points [a]
+> and [b] as described in the previous email shown here?
 
-Sure thing. I can take the opportunity to do the following:
-if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
-    return;
+No, the [b] point is about the trace point in Xen hypvervisor.  
 
-Also, shouldn't we reflect the purpose of this handler by renaming it
-from timer_interrupt to htimer_interrupt (or hyp_timer_interrupt) to be consistent
-with the naming (i.e. vtimer_interrupt -> virtual, timer_interrupt -> quite ambiguous given the usage)?
+For easier review I combined the trace log from Xen dom0 and dom0
+Linux kernels, in above log, the function xennet_tx_setup_grant() is
+traced from domU Linux kernel and the function
+xenvif_tx_build_gops.constprop.0 from dom0 Linux kernel and I sorted
+the logs with TSC (Arm arch timer physical counter).
 
+Sorry for confusion and I didn't explain clearly.
+
+> > So the xennet (Xen net forend driver) and xenvif (net backend driver)
+> > work in parallel.  Please note, I didn't see networking performance
+> > improvement after changed to use NULL scheduler.
+> > 
+> > Now I will compare the duration for two directions, one direction is
+> > sending data from xennet to xenvif, and another is the reversed
+> > direction.  It's very likely the two directions have significant
+> > difference for sending data with grant tables, you could see in above
+> > log, it takes 20~30us to transmit a data block (we can use the id
+> > number and grant table's ref number to match the data block in xennet
+> > driver and xenvif driver).
+> > 
+> > > Now regarding the results, I can see the timestamp 3842008681 for
+> > > xennet_notify_tx_irq, 3842008885 for vgic_inject_irq, and 3842008935 for
+> > > vcpu_kick. Where is the corresponding TSC for the domain receiving the
+> > > notification?
+> > > 
+> > > Also for the other case, starting at 3842016505, can you please
+> > > highlight the timestamp for vgic_inject_irq, vcpu_kick, and also the one
+> > > for the domain receiving the notification?
+> > > 
+> > > The most interesting timestamps would be the timestamp for vcpu_kick in
+> > > "notification sending domain" [a], the timestamp for receiving the
+> > > interrupt in the Xen on pCPU for the "notification receiving domain"
+> > > [b], and the timestamp for the "notification receiving domain" getting
+> > > the notification [c].
+> > > 
+> > > If really context switch is the issue, then the interesting latency
+> > > would be between [a] and [b].
+> > 
+> > Understand.  I agree that I didn't move into more details, the main
+> > reason is Xen dmesg buffer is fragile after adding more logs, e.g.
+> > after I added log in the function gicv3_send_sgi(), Xen will stuck
+> > during the booting phase, and after adding logs in
+> > leave_hypervisor_to_guest() it will introduce huge logs (so I need to
+> > only trace for first 16 CPUs to mitigate log flood).
+> > 
+> > I think it would be better to enable xentrace for my profiling at my
+> > side.  If I have any further data, will share back.
 > 
-> Cheers,
-> 
-> --
-> Julien Grall
+> Looking forward to it. Without more details it is impossible to identify
+> the source of the problem and fix it.
 
-~Michal
+The application passes data to Linux kernel and low level driver needs
+to transfer skbs between Xen network frontend and backend drivers via
+Xen shared ring buffer / grant table.  So let's step back to review
+the duration in the network drivers for sending and receiving skbs.
+
+I measured intervals for sending skbs, one direction is for sending skb
+from dom0 to domU and another direction is from domU to dom0. For easier
+review, I plotted the intervals in diagrams [1][2] for these two
+directions respectively.
+
+In a diagram it has three metrics:
+
+- Packet sending interval: measures the interval from the sender.
+
+  For the direction from dom0 to domu, this metric measures the
+  interval for sending skbs in the Xen backend driver in dom0.
+
+  For the direction from domU to dom0, this metric measures the
+  interval for sending skbs in the Xen frontend driver in domU.
+
+- Packet receiving interval: measures the interval for the receiver.
+
+  For the direction from dom0 to domu, this metric measures the
+  interval for receiving skbs in the Xen frontend driver in domU.
+
+  For the direction from domU to dom0, this metric measures the
+  interval for receiving skbs in the Xen backend driver in dom0.
+
+- Packet response interval: measures the interval between sender and
+  receiver.
+
+  This interval measures the duration between a skb is sending out
+  from the sender and until it's fetched from grant table by the
+  receiver.
+
+From these three metrics we can know the latency is caused by three
+actors: sender, receiver, Xen hypervisor.
+
+In two diagrams we can see the packet response interval (yellow line)
+is about 10~20us.  The response interval for domu -> dom0 (~10us) is
+even better than the interval for dom0 -> domu (15~20us), which means
+the response time is not the curplit for the poor performance when
+sending data from domu to dom0.
+
+The purple line and blue line for sending and receiving intervals are
+correlated, this means the drivers in two sides (dom0 and domU) work in
+parallel.
+
+A big difference is we can see the sending interval (purple line) in the
+diagram xmit_interval_dom0_to_domu.png usually keeps at ~1us, but the
+sending interval in the diagram xmit_interval_domu_to_dom0.png is
+about 10us.
+
+If map to the code, I think the function xennet_start_xmit() in Xen
+frontend driver is critical for the sending interval in domU.  I can
+see several things cost time when sending a packet:
+
+- Xen frontend driver needs to setup grant table for every skb, it
+  invokes the function xennet_tx_setup_grant() and
+  gnttab_grant_foreign_access_ref() to prepare grant table;
+
+- Xen frontend driver sends notification by calling
+  notify_remote_via_irq().  It will trap to Xen hypervisor to send the
+  interrupt, this takes several macro seonds for this step.
+
+- Xen frontend driver calls xennet_tx_buf_gc(), the interval for this
+  function is vary, it will take ~30us in the case for reclaiming grant
+  table.
+
+Any thoughts for this?
+
+Thanks,
+Leo
+
+[1] https://people.linaro.org/~leo.yan/xen/xmit_interval_dom0_to_domu.png
+[2] https://people.linaro.org/~leo.yan/xen/xmit_interval_domu_to_dom0.png
+
+P.s. I will take other priority tasks from next week, it's pity that I
+cannot fix the issue at this point.  Just want you know I will take this
+task as low priority, but if you have any idea I can give a try or
+test at my side.
 
