@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF3E9611B8A
-	for <lists+xen-devel@lfdr.de>; Fri, 28 Oct 2022 22:27:40 +0200 (CEST)
-Received: from list by lists.xenproject.org with outflank-mailman.432231.685014 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10631611ECF
+	for <lists+xen-devel@lfdr.de>; Sat, 29 Oct 2022 02:53:10 +0200 (CEST)
+Received: from list by lists.xenproject.org with outflank-mailman.432240.685025 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooVwC-0005sX-74; Fri, 28 Oct 2022 20:26:44 +0000
+	id 1ooa4g-0005HX-Av; Sat, 29 Oct 2022 00:51:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432231.685014; Fri, 28 Oct 2022 20:26:44 +0000
+Received: by outflank-mailman (output) from mailman id 432240.685025; Sat, 29 Oct 2022 00:51:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ooVwC-0005qD-41; Fri, 28 Oct 2022 20:26:44 +0000
-Received: by outflank-mailman (input) for mailman id 432231;
- Fri, 28 Oct 2022 20:26:43 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SnbH=25=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1ooVwA-0005q7-S0
- for xen-devel@lists.xenproject.org; Fri, 28 Oct 2022 20:26:43 +0000
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [2607:f8b0:4864:20::429])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d48ac068-56fe-11ed-8fd0-01056ac49cbb;
- Fri, 28 Oct 2022 22:26:41 +0200 (CEST)
-Received: by mail-pf1-x429.google.com with SMTP id e4so5725841pfl.2
- for <xen-devel@lists.xenproject.org>; Fri, 28 Oct 2022 13:26:41 -0700 (PDT)
+	id 1ooa4g-0005F3-8D; Sat, 29 Oct 2022 00:51:46 +0000
+Received: by outflank-mailman (input) for mailman id 432240;
+ Sat, 29 Oct 2022 00:51:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ooa4d-0005Et-Sv; Sat, 29 Oct 2022 00:51:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ooa4d-0007dx-PT; Sat, 29 Oct 2022 00:51:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ooa4d-0000jN-8A; Sat, 29 Oct 2022 00:51:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ooa4d-0007bg-7V; Sat, 29 Oct 2022 00:51:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,253 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d48ac068-56fe-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=OXDBbwRSJNCji3jISCvGg1G1iOkeozCcaMRPzPzWFQ8=;
-        b=doIPLx0kLWCXHT8iMjLNP+JtDUAVuJgmQ7CzhU8FcE+H8nw0CedGgn3AYpi9MWDo0K
-         jmavq23FhbbM7zbsVYWuhF0SQI1grfrQsoXdR6tF1rHiD44jMhudTwV5O8B8uYVuxX3p
-         4h3O6veHniM2trJPG0MEOnrGCRCA1wozEnfAvKNBx9hxfIPCDhetrXsoPgQBk2Fk7ios
-         /aWTEr7mMeTjm7+xps0/u9zzKeofLYPhz6ZICK4nScoPq9BPrfyQ0X15kLK9QwM5KTD2
-         hTVCw4S/nwSLKIOtPTVEc7Og8EJejLv4ADR+jbZdjKPyiaBfUfehA2kq5lQyOskl8b/9
-         eVBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OXDBbwRSJNCji3jISCvGg1G1iOkeozCcaMRPzPzWFQ8=;
-        b=sfm4rYC83XhYMkJnSAcrePjsmL5GG3pMpjFDxkYFGnrKm2zMbvYDhbYC9BluOY4g44
-         9mtL+gswUCtgA3lNQ2QxAZjKspTUydGcJBvn2kPaf8CyDdvqtHHPl16dC+l0cZIElQYG
-         ymfl0AD8enrDCb13o54YrGrHylDIeVFcarfv9LdfRvT5mrnZL/hI6BqoN71pS7aRjsTy
-         s7ZGav6CceMFsC7X8/r52DVIsrM/WTNyzGGRfQT9zHu3lv7zgm+TBmEFIRDocWKiBIWm
-         pkCDrltlE42vKjEt4yv8J0jtZPZeY4UPgCMDSNaY2N9uKxVOoZkkYyzBJF/7g49nzXLW
-         EwYw==
-X-Gm-Message-State: ACrzQf0HM/MzLQlNcEwB4FTUgR19npq5Q8WrtzoZcu6WV4895gK9fbZw
-	LR/E8Afm8Bm7clAk88Sq/7V+LkbXDl869QD1Pbg=
-X-Google-Smtp-Source: AMsMyM4zrYEfDDYckj6NMgHQPAC9dscffKiIflNN9hjZpznv/3MPmKl0sySmXt0fxy8wzOwgRVaaaWMbP6g0SMgLJ0Y=
-X-Received: by 2002:a63:e806:0:b0:44b:d45b:b8a2 with SMTP id
- s6-20020a63e806000000b0044bd45bb8a2mr1147699pgh.14.1666988799900; Fri, 28 Oct
- 2022 13:26:39 -0700 (PDT)
-MIME-Version: 1.0
-References: <20221015050750.4185-1-vikram.garhwal@amd.com> <20221015050750.4185-10-vikram.garhwal@amd.com>
- <87pmed1uww.fsf@linaro.org>
-In-Reply-To: <87pmed1uww.fsf@linaro.org>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Fri, 28 Oct 2022 23:26:28 +0300
-Message-ID: <CAPD2p-=gTqAevPi8-Tq_wkbd+PeVgnLLergmJVLh_eE2HumbGA@mail.gmail.com>
-Subject: Re: [PATCH v1 09/12] accel/xen/xen-all: export xenstore_record_dm_state
-To: Vikram Garhwal <vikram.garhwal@amd.com>, stefano.stabellini@amd.com
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
-	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-	=?UTF-8?B?QWxleCBCZW5uw6ll?= <alex.bennee@linaro.org>, 
-	xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="0000000000004340f305ec1e135c"
-
---0000000000004340f305ec1e135c
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FhJH07rgg4GMAEmyN59oWV5eBjE7vK9EoZf6hzvEU+w=; b=HtMbRR9DqzhmQngTa2AHBC8EV4
+	7ZyT5BUbSqP9GjoXEQk01gvpNCgM7TcLwMXuj+vvc4RuSIULMIThRqR50csucMYod1NDUoh3E3rEA
+	5Eoy6PSzuwRQUzWqMGBScQgNTgwAKTfqAWZOiWOcbB48/OgtlOQPntBHDjunilOsNa0w=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174531-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 174531: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=23758867219c8d84c8363316e6dd2f9fd7ae3049
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 29 Oct 2022 00:51:43 +0000
 
-On Thu, Oct 27, 2022 at 12:24 PM Alex Benn=C3=A9e <alex.bennee@linaro.org> =
-wrote:
+flight 174531 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174531/
 
-Hello all
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ linux                23758867219c8d84c8363316e6dd2f9fd7ae3049
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   21 days
+Failing since        173470  2022-10-08 06:21:34 Z   20 days   29 attempts
+Testing same since   174531  2022-10-28 12:14:57 Z    0 days    1 attempts
+
+------------------------------------------------------------
+1449 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> Vikram Garhwal <vikram.garhwal@amd.com> writes:
->
-> > xenstore_record_dm_state() will also be used in aarch64 xenpv machine.
-> >
-> > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > ---
-> >  accel/xen/xen-all.c  | 2 +-
-> >  include/hw/xen/xen.h | 2 ++
-> >  2 files changed, 3 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-> > index 69aa7d018b..276625b78b 100644
-> > --- a/accel/xen/xen-all.c
-> > +++ b/accel/xen/xen-all.c
-> > @@ -100,7 +100,7 @@ void xenstore_store_pv_console_info(int i, Chardev
-> *chr)
-> >  }
-> >
-> >
-> > -static void xenstore_record_dm_state(struct xs_handle *xs, const char
-> *state)
-> > +void xenstore_record_dm_state(struct xs_handle *xs, const char *state)
-> >  {
-> >      char path[50];
-> >
-> > diff --git a/include/hw/xen/xen.h b/include/hw/xen/xen.h
-> > index afdf9c436a..31e9538a5c 100644
-> > --- a/include/hw/xen/xen.h
-> > +++ b/include/hw/xen/xen.h
-> > @@ -9,6 +9,7 @@
-> >   */
-> >
-> >  #include "exec/cpu-common.h"
-> > +#include <xenstore.h>
->
-> This is breaking a bunch of the builds and generally we try and avoid
-> adding system includes in headers (apart from osdep.h) for this reason.
-> In fact there is a comment just above to that fact.
->
-> I think you can just add struct xs_handle to typedefs.h (or maybe just
-> xen.h) and directly include xenstore.h in xen-all.c following the usual
-> rules:
->
->
-> https://qemu.readthedocs.io/en/latest/devel/style.html#include-directives
->
-> It might be worth doing an audit to see what else is including xen.h
-> needlessly or should be using sysemu/xen.h.
->
-> >
-> >  /* xen-machine.c */
-> >  enum xen_mode {
-> > @@ -31,5 +32,6 @@ qemu_irq *xen_interrupt_controller_init(void);
-> >  void xenstore_store_pv_console_info(int i, Chardev *chr);
-> >
-> >  void xen_register_framebuffer(struct MemoryRegion *mr);
-> > +void xenstore_record_dm_state(struct xs_handle *xs, const char *state)=
-;
-> >
-> >  #endif /* QEMU_HW_XEN_H */
->
->
-> --
-> Alex Benn=C3=A9e
->
->
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-For considering:
-I think this patch and some other changes done in "[PATCH v1 10/12] hw/arm:
-introduce xenpv machine" (the opening of Xen interfaces and
-calling xenstore_record_dm_state() in hw/arm/xen_arm.c:xen_init_ioreq())
-could be avoided if we enable the Xen accelerator (either by passing "-M
-xenpv,accel=3Dxen" or by adding mc->default_machine_opts =3D "accel=3Dxen";
-to hw/arm/xen_arm.c:xen_arm_machine_class_init() or by some other method).
-These actions are already done in accel/xen/xen-all.c:xen_init(). Please
-note, that I am not too familiar with that code, so there might be nuances.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Besides that, Xen accelerator will be needed for the xen-mapcache to be in
-use (this is needed for mapping guest memory), there are a few
-xen_enabled() checks spreading around that code to perform Xen specific
-actions.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---=20
-Regards,
 
-Oleksandr Tyshchenko
+Not pushing.
 
---0000000000004340f305ec1e135c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Oct 27, 2022 at 12:24 PM Alex=
- Benn=C3=A9e &lt;<a href=3D"mailto:alex.bennee@linaro.org" target=3D"_blank=
-">alex.bennee@linaro.org</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"=
-gmail_attr"><br></div><div class=3D"gmail_attr">Hello all</div><div dir=3D"=
-ltr" class=3D"gmail_attr"><br></div><div dir=3D"ltr" class=3D"gmail_attr"><=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-Vikram Garhwal &lt;<a href=3D"mailto:vikram.garhwal@amd.com" target=3D"_bla=
-nk">vikram.garhwal@amd.com</a>&gt; writes:<br>
-<br>
-&gt; xenstore_record_dm_state() will also be used in aarch64 xenpv machine.=
-<br>
-&gt;<br>
-&gt; Signed-off-by: Vikram Garhwal &lt;<a href=3D"mailto:vikram.garhwal@amd=
-.com" target=3D"_blank">vikram.garhwal@amd.com</a>&gt;<br>
-&gt; Signed-off-by: Stefano Stabellini &lt;<a href=3D"mailto:stefano.stabel=
-lini@amd.com" target=3D"_blank">stefano.stabellini@amd.com</a>&gt;<br>
-&gt; ---<br>
-&gt;=C2=A0 accel/xen/xen-all.c=C2=A0 | 2 +-<br>
-&gt;=C2=A0 include/hw/xen/xen.h | 2 ++<br>
-&gt;=C2=A0 2 files changed, 3 insertions(+), 1 deletion(-)<br>
-&gt;<br>
-&gt; diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c<br>
-&gt; index 69aa7d018b..276625b78b 100644<br>
-&gt; --- a/accel/xen/xen-all.c<br>
-&gt; +++ b/accel/xen/xen-all.c<br>
-&gt; @@ -100,7 +100,7 @@ void xenstore_store_pv_console_info(int i, Chardev=
- *chr)<br>
-&gt;=C2=A0 }<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 <br>
-&gt; -static void xenstore_record_dm_state(struct xs_handle *xs, const char=
- *state)<br>
-&gt; +void xenstore_record_dm_state(struct xs_handle *xs, const char *state=
-)<br>
-&gt;=C2=A0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 char path[50];<br>
-&gt;=C2=A0 <br>
-&gt; diff --git a/include/hw/xen/xen.h b/include/hw/xen/xen.h<br>
-&gt; index afdf9c436a..31e9538a5c 100644<br>
-&gt; --- a/include/hw/xen/xen.h<br>
-&gt; +++ b/include/hw/xen/xen.h<br>
-&gt; @@ -9,6 +9,7 @@<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 #include &quot;exec/cpu-common.h&quot;<br>
-&gt; +#include &lt;xenstore.h&gt;<br>
-<br>
-This is breaking a bunch of the builds and generally we try and avoid<br>
-adding system includes in headers (apart from osdep.h) for this reason.<br>
-In fact there is a comment just above to that fact.<br>
-<br>
-I think you can just add struct xs_handle to typedefs.h (or maybe just<br>
-xen.h) and directly include xenstore.h in xen-all.c following the usual<br>
-rules:<br>
-<br>
-=C2=A0 <a href=3D"https://qemu.readthedocs.io/en/latest/devel/style.html#in=
-clude-directives" rel=3D"noreferrer" target=3D"_blank">https://qemu.readthe=
-docs.io/en/latest/devel/style.html#include-directives</a><br>
-<br>
-It might be worth doing an audit to see what else is including xen.h<br>
-needlessly or should be using sysemu/xen.h. <br>
-<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 /* xen-machine.c */<br>
-&gt;=C2=A0 enum xen_mode {<br>
-&gt; @@ -31,5 +32,6 @@ qemu_irq *xen_interrupt_controller_init(void);<br>
-&gt;=C2=A0 void xenstore_store_pv_console_info(int i, Chardev *chr);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 void xen_register_framebuffer(struct MemoryRegion *mr);<br>
-&gt; +void xenstore_record_dm_state(struct xs_handle *xs, const char *state=
-);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 #endif /* QEMU_HW_XEN_H */<br>
-<br>
-<br>
--- <br>
-Alex Benn=C3=A9e<br>
-<br></blockquote><div><br></div><div><br></div><div>For considering:</div><=
-div>I think this patch and some other changes done in &quot;[PATCH v1 10/12=
-] hw/arm: introduce xenpv machine&quot; (the opening of Xen interfaces and =
-calling=C2=A0xenstore_record_dm_state() in hw/arm/xen_arm.c:xen_init_ioreq(=
-))</div><div>could be avoided if we enable the Xen accelerator (either by p=
-assing &quot;-M xenpv,accel=3Dxen&quot; or by adding mc-&gt;default_machine=
-_opts =3D &quot;accel=3Dxen&quot;; to=C2=A0hw/arm/xen_arm.c:xen_arm_machine=
-_class_init() or by some other method).<br></div><div>These actions are alr=
-eady done in=C2=A0accel/xen/xen-all.c:xen_init(). Please note, that I am no=
-t too familiar with that code, so there might be nuances.=C2=A0<br></div><d=
-iv><br></div>Besides that, Xen accelerator will be needed for the xen-mapca=
-che to be in use (this is needed for mapping guest memory), there are a few=
- xen_enabled() checks=C2=A0spreading around that code to perform Xen specif=
-ic actions.</div><div><br></div>-- <br><div dir=3D"ltr"><div dir=3D"ltr"><d=
-iv><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=3D"background-color:r=
-gb(255,255,255)"><font size=3D"2"><span style=3D"color:rgb(51,51,51);font-f=
-amily:Arial,sans-serif">Regards,</span></font></span></div><div dir=3D"ltr"=
-><br></div><div dir=3D"ltr"><div><span style=3D"background-color:rgb(255,25=
-5,255)"><font size=3D"2">Oleksandr Tyshchenko</font></span></div></div></di=
-v></div></div></div></div></div>
-
---0000000000004340f305ec1e135c--
+(No revision log; it would be 135977 lines long.)
 
