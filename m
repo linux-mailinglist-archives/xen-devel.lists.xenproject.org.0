@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8E5612CF5
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Oct 2022 22:15:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.432629.685302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94438612D3B
+	for <lists+xen-devel@lfdr.de>; Sun, 30 Oct 2022 23:06:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.432637.685312 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opFdR-0000D5-7o; Sun, 30 Oct 2022 21:14:25 +0000
+	id 1opGRA-0006c7-U2; Sun, 30 Oct 2022 22:05:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432629.685302; Sun, 30 Oct 2022 21:14:25 +0000
+Received: by outflank-mailman (output) from mailman id 432637.685312; Sun, 30 Oct 2022 22:05:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opFdR-0000A2-3t; Sun, 30 Oct 2022 21:14:25 +0000
-Received: by outflank-mailman (input) for mailman id 432629;
- Sun, 30 Oct 2022 21:14:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=oc5E=27=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1opFdP-00009Y-D8
- for xen-devel@lists.xenproject.org; Sun, 30 Oct 2022 21:14:23 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d2e97300-5897-11ed-91b5-6bf2151ebd3b;
- Sun, 30 Oct 2022 22:14:22 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 9D324B80DA8;
- Sun, 30 Oct 2022 21:14:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91896C433D6;
- Sun, 30 Oct 2022 21:14:17 +0000 (UTC)
+	id 1opGRA-0006Za-R2; Sun, 30 Oct 2022 22:05:48 +0000
+Received: by outflank-mailman (input) for mailman id 432637;
+ Sun, 30 Oct 2022 22:05:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1opGR9-0006ZQ-Ih; Sun, 30 Oct 2022 22:05:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1opGR9-0002c4-Bq; Sun, 30 Oct 2022 22:05:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1opGR8-00020D-Os; Sun, 30 Oct 2022 22:05:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1opGR8-00061g-OT; Sun, 30 Oct 2022 22:05:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,197 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d2e97300-5897-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1667164460;
-	bh=XciBK2+w7UmHSTsPArQZvPuCyUtZHsyvPyqXMoFOLBs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=h6brfdAx72B71SWDADb3fszm8xNVHiPG+kwdGhajt+RtgsSp5MYLJAmE3fLG/4GAC
-	 2JjlDJs63n2LiKIY4JTvXFm7GY7muresHxpPcHrmDQPlIQQ+hFxPw0kRvK+Kfx/xJp
-	 iFOCH46qCskBq2W2GMapJsa+6TB5vabriPr3bCN7VkH7k113RPOTwVUcl8ZXS6nZU7
-	 qdci0zPInauvhgYJEGNpsIDxFEt8mEBA8ZfbHQXQd4PL/RHAasyQY/xk+TpYjikO/K
-	 hwsrRVXHV2gk7KL/s/xDOp1lYHpPx0A2Jg0rUA2FlIB5eT/8rqKUX9XFZ/O5zCFhcd
-	 o/iFp9J195zJw==
-Date: Sun, 30 Oct 2022 22:14:15 +0100 (CET)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Rahul Singh <Rahul.Singh@arm.com>, 
-    Xen developer discussion <xen-devel@lists.xenproject.org>, 
-    Michal Orzel <Michal.Orzel@arm.com>, 
-    Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>, 
-    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, Juergen Gross <jgross@suse.com>
-Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
- devices
-In-Reply-To: <82c45bc1-6052-502b-3007-8a16fbd1d433@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2210302148150.3408@ubuntu-linux-20-04-desktop>
-References: <DD70007C-300F-44D3-B314-A5F8C4582CD3@arm.com> <75b7665f-66aa-2e11-35a0-edf20a9c0139@xen.org> <99E954B0-50F5-4D7B-A7D2-50D1B7B3657C@arm.com> <60b9cc07-c0ec-756b-802b-5fc96f253dbf@xen.org> <EDDD0430-0BFF-4C95-B9CE-402487C2E5DE@arm.com>
- <fde8c845-8d35-83cd-d4fd-bb2c5fd1a7ed@xen.org> <227AD28E-DFB8-4EB3-9E0E-61C70A0D19EB@arm.com> <f777b164-54c6-6091-79ce-fac3dd603b8c@xen.org> <34B31FA6-72D8-4F03-AC94-3DC795D0FF55@arm.com> <222ed837-594d-6301-edec-6f9d26e1fadf@xen.org>
- <alpine.DEB.2.22.394.2210301523450.3408@ubuntu-linux-20-04-desktop> <82c45bc1-6052-502b-3007-8a16fbd1d433@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DOnPXrdP5auCWK602Ry0+8ATrDZjW0Ooc1jHYCFJ83U=; b=5zdqljFvqOLEktOSpTBAGxE4pL
+	YGUwYICQLpWzeIcyV/8T3MY7kDRUoqQ3RcyM2Z5rZSb7RMiP6twYtairWWN5c9GFHsqRpZUNoUFGb
+	h7xXrjwOto3c/mzBgAkz/UFOJ4QK0bIw9h2/J82WM/Zo5R6iRQR2dFuC0rJtiHhqdATg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174544-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1834020026-1667163085=:3408"
-Content-ID: <alpine.DEB.2.22.394.2210302151350.3408@ubuntu-linux-20-04-desktop>
+Subject: [linux-linus test] 174544: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=882ad2a2a8ffa1defecdf907052f04da2737dc46
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 30 Oct 2022 22:05:46 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 174544 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174544/
 
---8323329-1834020026-1667163085=:3408
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2210302151351.3408@ubuntu-linux-20-04-desktop>
+Regressions :-(
 
-On Sun, 30 Oct 2022, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 30/10/2022 14:23, Stefano Stabellini wrote:
-> > On Fri, 28 Oct 2022, Julien Grall wrote:
-> > > On 28/10/2022 14:13, Bertrand Marquis wrote:
-> > > > > On 28 Oct 2022, at 14:06, Julien Grall <julien@xen.org> wrote:
-> > > > > 
-> > > > > Hi Rahul,
-> > > > > 
-> > > > > On 28/10/2022 13:54, Rahul Singh wrote:
-> > > > > > > > > > > For ACPI, I would have expected the information to be
-> > > > > > > > > > > found in
-> > > > > > > > > > > the IOREQ.
-> > > > > > > > > > > 
-> > > > > > > > > > > So can you add more context why this is necessary for
-> > > > > > > > > > > everyone?
-> > > > > > > > > > We have information for IOMMU and Master-ID but we don’t
-> > > > > > > > > > have
-> > > > > > > > > > information for linking vMaster-ID to pMaster-ID.
-> > > > > > > > > 
-> > > > > > > > > I am confused. Below, you are making the virtual master ID
-> > > > > > > > > optional. So shouldn't this be mandatory if you really need
-> > > > > > > > > the
-> > > > > > > > > mapping with the virtual ID?
-> > > > > > > > vMasterID is optional if user knows pMasterID is unique on the
-> > > > > > > > system. But if pMasterId is not unique then user needs to
-> > > > > > > > provide
-> > > > > > > > the vMasterID.
-> > > > > > > 
-> > > > > > > So the expectation is the user will be able to know that the
-> > > > > > > pMasterID
-> > > > > > > is uniq. This may be easy with a couple of SMMUs, but if you have
-> > > > > > > 50+
-> > > > > > > (as suggested above). This will become a pain on larger system.
-> > > > > > > 
-> > > > > > > IHMO, it would be much better if we can detect that in libxl (see
-> > > > > > > below).
-> > > > > > We can make the vMasterID compulsory to avoid complexity in libxl to
-> > > > > > solve this
-> > > > > 
-> > > > > In general, complexity in libxl is not too much of problem.
-> > 
-> > I agree with this and also I agree with Julien's other statement:
-> > 
-> > "I am strongly in favor of libxl to modify it if it greatly improves the
-> > user experience."
-> > 
-> > I am always in favor of reducing complexity for the user as they
-> > typically can't deal with tricky details such as MasterIDs. In general,
-> > I think we need more automation with our tooling.
-> > 
-> > However, it might not be as simple as adding support for automatically
-> > generating IDs in libxl because we have 2 additional cases to support:
-> > 1) dom0less
-> > 2) statically built guests
-> > 
-> > For 1) we would need the same support also in Xen? Which means more
-> > complexity in Xen.
-> Xen will need to parse the device-tree to find the mapping. So I am not
-> entirely convinced there will be more complexity needed other than requiring a
-> bitmap to know which vMasterID has been allocated.
-> 
-> That said, you would still need one to validate the input provided by the
-> user. So overall maybe there will be no added complexity?
-> 
-> > 
-> > 2) are guests like Zephyr that consume a device tree at
-> > build time instead of runtime. These guests are built specifically for a
-> > given environment and it is not a problem to rebuild them for every Xen
-> > release.
-> > 
-> > However I think it is going to be a problem if we have to run libxl to
-> > get the device tree needed for the Zephyr build. That is because it
-> > means that the Zephyr build system would have to learn how to compile
-> > (or crosscompile) libxl in order to retrieve the data needed for its
-> > input. Even for systems based on Yocto (Yocto already knows how to build
-> > libxl) would cause issues because of internal dependencies this would
-> > introduce.
-> 
-> That would not be very different to how this works today for Zephyr. They need
-> libxl to generate the guest DT.
-> 
-> That said, I agree this is a bit of a pain...
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
 
-Yeah..
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ linux                882ad2a2a8ffa1defecdf907052f04da2737dc46
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   23 days
+Failing since        173470  2022-10-08 06:21:34 Z   22 days   34 attempts
+Testing same since   174543  2022-10-30 06:39:20 Z    0 days    2 attempts
+
+------------------------------------------------------------
+1512 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-> > So I think the automatic generation might be best done in another tool.
-> It sounds like what you want is creating something similar to libacpi but for
-> Device-Tree. That should work with some caveats.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Yes, something like that. We have a framework for reading, editing and
-generating Device Tree: Lopper https://github.com/devicetree-org/lopper
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-It is mostly targeted at build time but it could also be invoked on
-target at runtime.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
- 
-> > I think we need something like a script that takes a partial device tree
-> > as input and provides a more detailed partial device tree as output with
-> > the generated IDs.
-> 
-> AFAICT, having the partial device-tree is not enough. You also need the real
-> DT to figure out the pMaster-ID.
-> 
-> > 
-> > If we did it that way, we could call the script from libxl, but also we
-> > could call it separately from ImageBuilder for dom0less and Zephyr/Yocto
-> > could also call it.
-> > 
-> > Basically we make it easier for everyone to use it. The only price to
-> > pay is that it will be a bit less efficient for xl guests (one more
-> > script to fork and exec) but I think is a good compromise.
-> 
-> We would need an hypercall to retrieve the host Device-Tree. But that would
-> not be too difficult to add.
-
-Good point
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> > I think this is a great idea, I only suggest that we move the automatic
-> > generation out of libxl (a separate stand-alone script), in another
-> > place that can be more easily reused by multiple projects and different
-> > use-cases.
-> 
-> If we use the concept of libacpi, we may not need a to have a stand-alone
-> script. It could directly linked in libxl or any other tools.
- 
-I don't feel strongly whether it should be a library, a script or
-something else. My only point is that it should be easy to use both at
-build time (e.g. Yocto/Zephyr/ImageBuilder/Lopper) and runtime
-(xl/libxl).
+Not pushing.
 
-We have already a partial DTB generator as a Lopper "lop" (a Lopper
-plugin). Probably using Lopper would be the easiest way to implement it,
-and the "lop" could be under xen.git (it doesn't have to reside under
-the lopper repository).
-
-But if we wanted a library that would be OK too. The issue with libxl is
-not much that it is a library but that it is complex to build and has
-many dependencies (it can only be built from the top level ./configure
-and make).
-
-Ideally this would be something quick that can be easily invoked as the
-first step of an external third-party build process.
---8323329-1834020026-1667163085=:3408--
+(No revision log; it would be 141175 lines long.)
 
