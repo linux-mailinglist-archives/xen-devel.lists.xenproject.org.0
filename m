@@ -2,51 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BA266139CA
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 16:14:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.433036.685952 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0E32613ADC
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 16:57:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.433081.685974 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opWUd-0003s6-OS; Mon, 31 Oct 2022 15:14:27 +0000
+	id 1opX8n-0003bh-5H; Mon, 31 Oct 2022 15:55:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 433036.685952; Mon, 31 Oct 2022 15:14:27 +0000
+Received: by outflank-mailman (output) from mailman id 433081.685974; Mon, 31 Oct 2022 15:55:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opWUd-0003nM-HS; Mon, 31 Oct 2022 15:14:27 +0000
-Received: by outflank-mailman (input) for mailman id 433036;
- Mon, 31 Oct 2022 15:14:26 +0000
+	id 1opX8n-0003Yu-1b; Mon, 31 Oct 2022 15:55:57 +0000
+Received: by outflank-mailman (input) for mailman id 433081;
+ Mon, 31 Oct 2022 15:55:55 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7CAU=3A=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1opWUb-0001KF-Tt
- for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 15:14:26 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=CXQ+=3A=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1opX8l-0003Yl-7w
+ for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 15:55:55 +0000
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20052.outbound.protection.outlook.com [40.107.2.52])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3f06997-592e-11ed-91b5-6bf2151ebd3b;
- Mon, 31 Oct 2022 16:14:25 +0100 (CET)
-Received: from BN9PR03CA0878.namprd03.prod.outlook.com (2603:10b6:408:13c::13)
- by MN2PR12MB4440.namprd12.prod.outlook.com (2603:10b6:208:26e::14)
+ id 7f68c065-5934-11ed-91b5-6bf2151ebd3b;
+ Mon, 31 Oct 2022 16:55:53 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM7PR04MB6823.eurprd04.prod.outlook.com (2603:10a6:20b:102::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Mon, 31 Oct
- 2022 15:14:21 +0000
-Received: from BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:13c:cafe::d6) by BN9PR03CA0878.outlook.office365.com
- (2603:10b6:408:13c::13) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15 via Frontend
- Transport; Mon, 31 Oct 2022 15:14:21 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT079.mail.protection.outlook.com (10.13.177.61) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5769.14 via Frontend Transport; Mon, 31 Oct 2022 15:14:21 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Mon, 31 Oct
- 2022 10:14:21 -0500
-Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31
- via Frontend Transport; Mon, 31 Oct 2022 10:14:19 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.15; Mon, 31 Oct
+ 2022 15:55:51 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5769.019; Mon, 31 Oct 2022
+ 15:55:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,142 +46,140 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3f06997-592e-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 7f68c065-5934-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gzfLaBmB9hRMxjzUqTgLvUaZCKOkMk4+Bqa5VI6X/Qwbt2jJO/2A3Uekk5JJ8ia/G6BnqgfFE3Ef4LwpjPW24j2T3q+QpLjqZXAJMdzvdioJbruFG0kutOcOdkVaLY2q7L02J6/vzFUH4d9pXN3sNGEw/qkDTOc4nZ2BO1afDNWrHaxaS9sEbHK7pg04lDGs6GiYatRfBhIZXoJCRksPXlueu98nUQXIjP6epY6mkY1rA9yX1Tnw9cpsUEhVwcd3qeEnH2N/wjVZazTFSJ+jRwatIFjdEvH71WHfX26MzmdHG7DvsdmTTPVOR8vues4hO2tG6baPxQGaC0ouHFk4eA==
+ b=AIs+i+ZmvQvvqvVMX2jXqF13+2jFG9U9TlZEniV4ZgcmUbgrh+HB4k1Cn2Q+Te8QSQv4YsY5nnbkO+y+CjjN/AJcQR0b925vwkobyFYkcGN3BsGi+M4gqeDu6AbbCF3LYAJX09m6kt3+tus4i5p3IOapxnczhfWsR1wadwjGPlz01+qNUL0uKYPkdg7tSIQhEya5DtSwIL6yob4QuiKorttiALLtkO7TRQaa/CBKXjS3FLE9Nl60ewjX7AC2/F/vO6jtXqgjDkFigWgSlkYTGbpdTRqbFpJ66tJi6JxrR5v6+vx+fbz0baHvB7ssgbSw6t8xGXone3O8Md08L3Dddg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=thswsDnEpoVXekQFz2ERdchgMy9LbS20QZGymqiADZU=;
- b=H8jThX7ffAPSHjX/JHx2y7eQUeVDD1tg18ArZVZe6jb49I6QThM8Wje687UkpK51lSCYsPhB0hGJwdUpqB1bkz48pxyD483WGuzHEsgN/fz1YF4pH8F06yyjLoQ7WpQqGGd9xB2YLtymMKHmnRpJttJBP+fWrrp+IhDs6tomYA8adi82FYXIYQkqQO1hmbbC7Tg/i9PGobf1SwlceZEy3q7nkTYRoYKVxL+akRZm8LYrwYs3lFfc3bOzrXZios85hmIKkAqGGM0rVNi9oNwDDgSRIFYgCZXh1pQP3VrJUnEUuGpfykdCLbnJ8alqTc2k9mDhwjS1yqBSfK7ezF9w/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=43LYhshjj694LGAizJ/O2VDaAhBGlD3rOZX6GAlF0Ow=;
+ b=MR7g2/YzniL0esrvvU7PQ0ZHAu5lVig9cONdz3sUs8sUNBZ2gl6kEkGrDtmWGUIt0lTWEgts++m1lxKuF6onWbjaWnfJtw15nwsc9tuOE7TvzmvcAmclv12lEbh/sUCcus89tevP/bmPlOulJYrFZhWo4Ix9NEaxL8fok9klTH/skn5Yvbn70rviaWBIKVDPF6qSMf3Is8KjDYtQslCWbfOLeqs1oyPDWs0DRol4D1eMYeU2NDS4nI3+XIKWiGqkN6AMcZ17bjv3rlyhW+7z4e0rTd5lAchvjfaTmXh9VseOoKLHUOyPGY4NIqEk7v6Bw1gxNqKdl0am/i0IOahytw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=thswsDnEpoVXekQFz2ERdchgMy9LbS20QZGymqiADZU=;
- b=tYhr3ZvXLqJgmskhKO0GQ839rE+PbNl9WaY8bRovC0lJnUnai6pKDPCCt2b3Omt2P7ELE70CYQ3abohKgUC/UUeVK3h55BDFEvmJO+JYaetyB1zs4bf3ThlrL3UqeiSSB0zAtUI4r3+hesaInqY+1uwTOWO+G5m6+0KCN2jIieE=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayankuma@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<burzalodowa@gmail.com>, Ayan Kumar Halder <ayankuma@amd.com>
-Subject: [XEN v2 12/12] xen/Arm: GICv3: Enable GICv3 for AArch32
-Date: Mon, 31 Oct 2022 15:13:26 +0000
-Message-ID: <20221031151326.22634-13-ayankuma@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221031151326.22634-1-ayankuma@amd.com>
-References: <20221031151326.22634-1-ayankuma@amd.com>
+ bh=43LYhshjj694LGAizJ/O2VDaAhBGlD3rOZX6GAlF0Ow=;
+ b=Dq9WEQbcGsmy6KqHRqe0bkK9heDu4O7Z+9tj/g6Ofa90Ff9PLX41y/9R8tIFtxMrUJWe5iWfmjKoSEyb9kIGWRE5mBHNDPWrrX/kRu3zCQqwqKXkQlQj6mjAdZBrxncDzOF2WRykTjh6ObIFjJLKWbmJg6ufOMN/9AYO84INIH/0LsKfKjzx+xWlKh7IC9pDSQhi//QoQqQq6UgzlhJBa7i94jBigo4tRw7oi1zZ81F4kiRa1Y1ERjtKpKKFNYSVdJCs7LqzUyWbK5rdUuh4pQYW3ypNaxoX5MSw2UT3sG+lvy2yiDMRU7AMgmvvRkBOG+P1WeqwLarloS5bWfF+nA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <7d9022ce-4a46-e0cb-67c3-4124e1c0d2db@suse.com>
+Date: Mon, 31 Oct 2022 16:55:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: x86/HVM: Linux'es apic_pending_intr_clear() warns about stale IRR
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::21) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT079:EE_|MN2PR12MB4440:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5f961f8-e35e-41ba-6937-08dabb5296b7
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3cd7453e-cc1a-42a5-0232-08dabb586280
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Ul05mLEvhkOfwIr2YqPl13UCqovYsIUmykUUKu2cZkhqMJO86zranB6C5qNzh0N+iCbXDUcE49uZ2Ork/uq4MkrlzI9Xj7J99I75biCeXZm849Dr3V0HAvLQDvhspr+0lD9i3Tsn5a1AWoooeDDyguYpWdgrVfco/FW4ovieKHUlBe/CmEyb/p9B17zHwt5UQgex7qfLVQox95oM6wexjX6GM7C6GiLE70AQH3Bp36Att9fSsgPLf/oyERQSie22slt5VZebyMOafKGsd2w21cbQYjrg8GwR54iyjlBABCJMR+gUObWyiqnRd0rYAuT84hu7LIOL40SGEWMOvTsax8Ms0UmGAyJDylU6bHSmoPLT6iPlD2fK540e6Rvd/sBHrhg00c66/iR1DHDAC4qU/Bn4Dwn6/Sqk9X0H72f40y6G1xJvLEwAohDjJfLIPT5dkzdUHHiSFIoKQ610g1H1IrheMV0z6xXL23sOX55OiCfViyeWJGHGtndw40nNItxziK3Kv//Ul+8h1iGff/kgluN8k7/uCxwh16gBNtMMIE2UHPivBXSqIphaq57/aqCOd2gk8cmY+XiCm/60IlTUf5lErp+NHU0DP7wmfbtz8v3mQcT8UVrt86IWnEXBmqrZhlf0/Uc3hPP/pLVgES+8tQy71AAWnnN7WZK/gkRyzhaC+DJd/FuFni90yFusUnqUisZs21SozGAxGzk1hGYZTJnPWuWcT+0+4IWzycnt4kMFDYqKla8qBperfTDXLOfJsyfsP0433GG6U0dotyEIcGuFLFs8Vt8oKSNjMbfG79jVQjksfgtNqwcP+WdecLVR
+	bXPLhPAZiRjXYMmLZh6oH5gs/G0kK8Np0pqbCCmeMW3Ksjk0uuuyddDZCIGQ9UE6V+R/gaGM5TnwWweD7ZAEij/y9/LotlxN5UWwFRmD46B1SoZaS5prvJzJvBQNtDUIfoptjf/0Kj8KhiKvztZb+JXMAPRMCpV9YaEZtHpqy4au7dsQ1QlZHYerW352VqOi/Ct21f2XxHJ2MEzkzlb9R3I6AMGGmbXAziv0Xx4wH3MR3Z6zlhwC/x9PYd0S/QPzdKx9O1oVou3esVK2TjXmUaOop7ouKoHcmE1czRGjvw8IJRtVTnUnfsaSC/FLEHcXIA4yMTP/Y7P536JimM6YPlbQ3rWpmPzqGx3r63zwXAsELJ5077eoPBJCEiyUoRSKw6lbbvvnznyv6/iOdmcWiG0xEhKbPSWRc/XQKAi6Rusk1Zpi8eqqTKMMtSKk16Uh16wbQ+AmvXP7Hgq1mXTBaO5YMuemR5kiLjqi8HELX5QNV0naW1fmMo8ncsxGGD0yZ35tSEEkX6cA6SOl98ZZ/i//LDohx4ncmPziRs6gqeyAR2Y7501dWwhRE62awmJbE6BsyI3aNiF7nCtdaR1XMxnT/rDVnnRKtbqThb/oikr5JQ1fznmDQxTRbmQCP+wzJqo3vDUBXzud6cNr2XO0eIUp/5MBQNrmZo6qjqtqCRX6z9ifHxoW0Z5p6+wXT5X1yF1Rk9vbXGA4K9tKYFu1hLmmO0MkaUf61hvbr4grm7l4yztSzK7cnnopJ0AluygyO9IkAT3FTTbbZnzulSk7RpjT1W7HxJkN6GIGTCnLNQo=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199015)(46966006)(36840700001)(40470700004)(6916009)(36756003)(54906003)(316002)(478600001)(41300700001)(40480700001)(83380400001)(5660300002)(1076003)(186003)(40460700003)(356005)(26005)(426003)(47076005)(336012)(2906002)(36860700001)(82740400003)(2616005)(81166007)(6666004)(8936002)(8676002)(70206006)(70586007)(4326008)(82310400005)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 15:14:21.6192
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(346002)(136003)(396003)(366004)(376002)(451199015)(31696002)(41300700001)(8936002)(478600001)(6486002)(5660300002)(86362001)(36756003)(83380400001)(316002)(26005)(8676002)(66556008)(4326008)(66476007)(2906002)(2616005)(6506007)(31686004)(186003)(54906003)(38100700002)(6916009)(6512007)(66946007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Ymd3cUIzQkM3L3d1d1l4RGh0SkhVT3RmODJaODRVaVpRd3BOY2tDbG1KN3BC?=
+ =?utf-8?B?eWFoT1JZK3FLazlNeS84RTBsWGZucndaRkhmSUFmb2FXQzgrNndkam0zQjRD?=
+ =?utf-8?B?Mi9kT1dIWTJmYzA2RXUyQ0JVdStwZXN0SUlmQ2tDU2U0Z0UrOEpVb3hjMGpP?=
+ =?utf-8?B?YUl0TE1VejlSdDJhS2hxazN1dS9rWmdEYXhOWHg2bm8yL1lCNGREKzBTZytO?=
+ =?utf-8?B?akZ0S2tsMXVGdWk5YVNyUnZ1aDZiK2JlRE8yUWNMcjRyTFNiOFlicWl2dCtL?=
+ =?utf-8?B?TkYyTnpSalBHbzJUWVZUOHl1UEYzaWhFZzlTNlBCTzdxK1RDKzJ2U1A3Rk5Y?=
+ =?utf-8?B?THlFNXZmSEg0L2szMmhGU0hYV05QcjI0bDd4OHFxbUlRM1pPd2FEMU5YQVAr?=
+ =?utf-8?B?eGdVTU9JUGFBVTdFYmh2N3gxVUp0SVdFR0ZYYlBQSGtTRjdCWjdIUXlGKzBG?=
+ =?utf-8?B?cGI1TmZ3SEp4VjFrUTN4Y1JUUXRBb0lJUzVPdUc0NHdJZnFNdkZMcklqWDlk?=
+ =?utf-8?B?SGpabnlSUkVwY25Ud1YrUWRnOHhXSS95Q2JETHZzaEEyRHNoUkRlQld4MXRQ?=
+ =?utf-8?B?OTRaS2Q1Y25CVVYwdmMwS01NeG9DQStpaW1WV2xyejc0QXZYLzVmZXVFVWx4?=
+ =?utf-8?B?cURuRWhEaDAyeTdRMy9zb0tPYk1zQ3czN2pRblEzVmtLYTgyUHQxeW1QZzJO?=
+ =?utf-8?B?N3hsSmNlSTBrYno5a3JsdGFEcXFmSGNjWWRTeGd5M3J2VU4rQy9yWDFQL1Ba?=
+ =?utf-8?B?aU5aRGZ6K3JHOE1nSUZzYW51dkdlSTVsakoxQjdxVGVJZGJnZ2dhejI3Vkpr?=
+ =?utf-8?B?aFprUGs4SFdYeXZGRE1sTkNJVGdlcms3YkwyUnVxb3Z1RXQ4Y00rL2FUVFht?=
+ =?utf-8?B?NXFMQ3F6NjZhNnRVOEtWUTJaTnRjUmdleWZaVVR2UFBldkFEOHlBdmYxeEww?=
+ =?utf-8?B?RUgxZXMwT3dERlpwcGQxSFhVTElRN1V2ZGxoTWRMenBVSk15N1ZFazBMLzhV?=
+ =?utf-8?B?aTVOU0liZkRjRVJQd1AyRFhlNW1abnpTRmZxWCtLWU81SWFKRVhMU1dhZ3Vv?=
+ =?utf-8?B?N2FZTmRmMGZISHFVeGd2TjFLcEowaVVmdXo1alNxOE9Pa2IzZ2tWVmg5TWZz?=
+ =?utf-8?B?N1RLQ2liMmltWHJXRmpoT0xHN1hsd3pxZ25qeDBEUVkwb0hJTUVLZVplTXAx?=
+ =?utf-8?B?VmdPUmVveHlvUnJ4TCtiNmVWQzZwQlRoMzVQYklqZlFXRmpiZ1ZVZ1M5YnZY?=
+ =?utf-8?B?UGkvWUtMT1pGN1lCdW9sREdQT29nbURESHlLM2NYN1R5eE9tTVZkdTZWa0Fz?=
+ =?utf-8?B?WG9mZW1YOFY1eTF5R2FwdnlXUzNLMmhoODhHbEl4Ykk2RG5ZMk05RXMrYThX?=
+ =?utf-8?B?QWJQV29WRTd0dlVEZDJOSW5rWEx4VEJrMU8wekJ2YURWM1JlUlJLME1RVVM1?=
+ =?utf-8?B?cllQYmdZYjVuTEVBSW5IRzMyd1VwR0dxdm1peDlrV2h4TWZlSXBwTTdFazBz?=
+ =?utf-8?B?MFk4SkYxaldSS1lPSExCUE5NQ3RGSkoxRkNBemdJT2E0K3NUZ3VnVnlFN1BF?=
+ =?utf-8?B?WjV6OFdib2RDZHpzc1lDN3FOL0NjMmtoZzJCZE4wUkhXMDUrOGVEa2IvOG8y?=
+ =?utf-8?B?YVMrSDlFZE94emZ4SmJvSThIb29wbzZLcjk5d0V5WTdndUJ0M0QyRkdEaTdi?=
+ =?utf-8?B?bTZVSXJ6WUo3Q3VaZFJBMmFMT3lpWXQzUzhrbW1xNzFMN3QxNWRLZHBQaDVS?=
+ =?utf-8?B?T0FsN3k0WDY1WTRNcGRwdkRwanMxSHNqb0pBN3RSRnNSM0ZvcDJ2ZklieVBX?=
+ =?utf-8?B?Yi9oL1ZzdG1GWjhJSHV4V3pwT3N2ZEgyaXBhTzRuWXQ5T0dYQ2RJUUozS1Fy?=
+ =?utf-8?B?S2Vvd1BPUmJqaUJqc1MwanZNaTk1MGVPOEVJMWRjYlFmdjBRQnZjQTduK0dt?=
+ =?utf-8?B?NVdkd083ZXJRMmxsZVJSRFlneGlyOVVrZnF6d3RIdFJ4L2FNNEt3T2lLSzJ3?=
+ =?utf-8?B?eERiL2kzWXR0Tjg1cjJCb3IyTlo2Wnk0L1l2Vnorem9XWEN2c0IyaW9FbnQ4?=
+ =?utf-8?B?NTNvc1R0OEhlUlJYNGo3bm80KzF4czJzY3JoZGo5NmwwTUFIWE9EeHh0MVE0?=
+ =?utf-8?Q?f11NCM5AvctJiulHvPfeeK4gl?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cd7453e-cc1a-42a5-0232-08dabb586280
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2022 15:55:51.1825
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5f961f8-e35e-41ba-6937-08dabb5296b7
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT079.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4440
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JLkzfuWY0TMUf+dho+z5BwSYfpNq4oUbDuc7gUUVAkSHbhwUFAXsPhRg9KyRSerUkKu12xVCw18IyA8BI9jZ4g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6823
 
-Refer ARM DDI 0487G.b ID072021,
-D13.2.86 -
-ID_PFR1_EL1, AArch32 Processor Feature Register 1
+Hello,
 
-GIC, bits[31:28] == 0b0001 for GIC3.0 on Aarch32
+quite likely this isn't new, but I've ended up noticing it only recently:
+On an oldish system where I hand a HVM guest an SR-IOV NIC (not sure yet
+whether that actually matters) all APs have that warning issued, with all
+reported values zero except for the very first IRR one - that's 00080000.
+Which is suspicious by itself, for naming vector 0x13, i.e. below 0x20
+and hence within CPU exception range.
 
-One can now enable GICv3 on AArch32 systems. However, ITS is not supported.
-The reason being currently we are trying to validate GICv3 on an AArch32_v8R
-system. Refer ARM DDI 0568A.c ID110520, B1.3.1,
-"A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE must not
-implement LPI support."
+For one I wonder about their logic: The function is called after setting
+TPR to 0x10, which prevents the handling of vectors below 0x20 (and in
+particular their propagation from ISR to IRR, if my understanding of the
+process is right and the convoluted and imo partly incomplete SDM
+description hasn't confused me). Plus the function runs when IRQs are
+still off, which is another reason why nothing would ever propagate from
+IRR to ISR while the function performs it work. Yet a comment there says
 
-Updated SUPPORT.md.
+	/*
+	 * If the ISR map is not empty. ACK the APIC and run another round
+	 * to verify whether a pending IRR has been unblocked and turned
+	 * into a ISR.
+	 */
 
-Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
----
+suggesting IRR bits could "promote" to ISR ones. And this, to me, is the
+only justification for warning about leftover IRR bits (whereas I
+certainly agree that the logic should result in all clear ISR bits, and
+hence warning when one is still set is appropriate).
 
-Changed from :-
-v1 - 1. Remove "ARM_64 || ARM_32" as it is always true.
-2. Updated SUPPORT.md.
+And then I got puzzled by our logic: vlapic_get_ppr() is called only by
+vlapic_set_ppr(), vlapic_lowest_prio(), and vlapic_read_aligned(). Yet
+in particular not by vlapic_has_pending_irq(). While it looks like we
+don't really ignore TPR during delivery, this appears to be a strange
+split approach: hvm_interrupt_blocked() checks TPR, whereas
+vlapic_has_pending_irq() checks ISR. I wonder if subtle issues can't
+result from that ...
 
- SUPPORT.md                            | 6 ++++++
- xen/arch/arm/Kconfig                  | 4 ++--
- xen/arch/arm/include/asm/cpufeature.h | 1 +
- 3 files changed, 9 insertions(+), 2 deletions(-)
+Of course I'm yet to figure out how IRR bit 0x13 ends up being set in
+the first place.
 
-diff --git a/SUPPORT.md b/SUPPORT.md
-index cf2ddfacaf..0137855c66 100644
---- a/SUPPORT.md
-+++ b/SUPPORT.md
-@@ -82,6 +82,12 @@ Extension to the GICv3 interrupt controller to support MSI.
- 
-     Status: Experimental
- 
-+### ARM/GICv3 + AArch32 ARM v8
-+
-+GICv3 is supported on AArch32 ARMv8 (besides AArch64)
-+
-+    Status: Supported, not security supported
-+
- ## Guest Type
- 
- ### x86/PV
-diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-index 1fe5faf847..7c3c6eb3bd 100644
---- a/xen/arch/arm/Kconfig
-+++ b/xen/arch/arm/Kconfig
-@@ -41,7 +41,7 @@ config ARM_EFI
- 
- config GICV3
- 	bool "GICv3 driver"
--	depends on ARM_64 && !NEW_VGIC
-+	depends on !NEW_VGIC
- 	default y
- 	---help---
- 
-@@ -50,7 +50,7 @@ config GICV3
- 
- config HAS_ITS
-         bool "GICv3 ITS MSI controller support (UNSUPPORTED)" if UNSUPPORTED
--        depends on GICV3 && !NEW_VGIC
-+        depends on GICV3 && !NEW_VGIC && !ARM_32
- 
- config HVM
-         def_bool y
-diff --git a/xen/arch/arm/include/asm/cpufeature.h b/xen/arch/arm/include/asm/cpufeature.h
-index c86a2e7f29..c62cf6293f 100644
---- a/xen/arch/arm/include/asm/cpufeature.h
-+++ b/xen/arch/arm/include/asm/cpufeature.h
-@@ -33,6 +33,7 @@
- #define cpu_has_aarch32   (cpu_has_arm || cpu_has_thumb)
- 
- #ifdef CONFIG_ARM_32
-+#define cpu_has_gicv3     (boot_cpu_feature32(gic) >= 1)
- #define cpu_has_gentimer  (boot_cpu_feature32(gentimer) == 1)
- /*
-  * On Armv7, the value 0 is used to indicate that PMUv2 is not
--- 
-2.17.1
+Any correction to my understanding as well as any useful insight would
+be appreciated.
 
+Jan
 
