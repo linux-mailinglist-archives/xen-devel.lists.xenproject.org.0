@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A781613EF4
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 21:27:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.433202.686090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98579614000
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 22:36:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.433213.686101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opbNU-0006Tn-Vd; Mon, 31 Oct 2022 20:27:24 +0000
+	id 1opcS5-0006DE-UD; Mon, 31 Oct 2022 21:36:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 433202.686090; Mon, 31 Oct 2022 20:27:24 +0000
+Received: by outflank-mailman (output) from mailman id 433213.686101; Mon, 31 Oct 2022 21:36:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opbNU-0006R2-ST; Mon, 31 Oct 2022 20:27:24 +0000
-Received: by outflank-mailman (input) for mailman id 433202;
- Mon, 31 Oct 2022 20:27:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=grsl=3A=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1opbNU-0006Qw-1M
- for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 20:27:24 +0000
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a314de3-595a-11ed-8fd0-01056ac49cbb;
- Mon, 31 Oct 2022 21:27:21 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 1281E320092F;
- Mon, 31 Oct 2022 16:27:17 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 31 Oct 2022 16:27:17 -0400
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 31 Oct 2022 16:27:15 -0400 (EDT)
+	id 1opcS5-0006AN-RS; Mon, 31 Oct 2022 21:36:13 +0000
+Received: by outflank-mailman (input) for mailman id 433213;
+ Mon, 31 Oct 2022 21:36:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=2TDv=3A=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1opcS3-0006AC-Kx
+ for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 21:36:12 +0000
+Received: from sonic311-24.consmr.mail.gq1.yahoo.com
+ (sonic311-24.consmr.mail.gq1.yahoo.com [98.137.65.205])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 07312e52-5964-11ed-91b5-6bf2151ebd3b;
+ Mon, 31 Oct 2022 22:36:08 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.gq1.yahoo.com with HTTP; Mon, 31 Oct 2022 21:36:06 +0000
+Received: by hermes--production-ne1-c47ffd5f5-2l5gs (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 1d450870d12d3f727fe97841ca3633d5; 
+ Mon, 31 Oct 2022 21:36:03 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,123 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a314de3-595a-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1667248036; x=
-	1667334436; bh=CcVMZSWC/nZz2RRW6ULZLxYdjPK/WNorJkNgpb/0MSg=; b=C
-	Gqe8P3s1OnS3MpKKEyK/EcOoEb/6y0mt9jXOHEvcFXF/+dU/J26LNa/oFluM3iWf
-	OZ3xnON9X9EIHoYm16gz0duEftEJykSuz40PxmmUteo2VOVYZWuE50P26r1oNY8t
-	eSsqoAZ/7gGM2AZfgS42rncxqJrX+zO9qc9a5BfkLvNb7Hc1vwbGTK7byOIq8tfA
-	V+LxuVjPKYKB4K9jruH/SZECvzU5mxIsXKhcKffpbdUyweGf5DQmFL94FD84sAEh
-	EFFMA8JPShUSXhrhSp3y62VHYIPvt8K72ubkn2vGJPROjFbaZ0K/JlIr/72G1sdF
-	2JXMZCVzVEQPz8St0YkdA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1667248036; x=1667334436; bh=CcVMZSWC/nZz2RRW6ULZLxYdjPK/
-	WNorJkNgpb/0MSg=; b=q/yhZmbJNTvMkqsnpNCo1kfNcj3AQY91oM4/gF0MOV8T
-	DbCqI74sn8KTitSOp4Rvl9l0Z/tlL3pZ8QbcFtodCjvhjk193XxqTNc7fdpN4wN9
-	v3XMgJehVOE19na7ZX3h4tR/M+xtgOsdGdWODvHBHlSZD0T9IHV3jKRmQs2hQp8j
-	X1QT//lpptQZN90uZiOhuWykdeqbO/ZWHpQV3SUp/b1Uam82qhrix4QFv/MwGqPY
-	JJbr+ZZE6P/DWrjliGpY+KuY6atsXegNz+FC/ALh9HylVGV0jzDVZOe51yBXk1cO
-	uaWhP3WwLI/4boZJWRkp8Vurm8Gw+V36jVXEi2zEKA==
-X-ME-Sender: <xms:pC9gYxYMyP657TPxStEIB_6Pyp9G7g_ZryXmd2TxajONM2ilbJje4Q>
-    <xme:pC9gY4YFR7buTuoN__xZFExWmASV8TVf7-2aEfk2UW8r__7QpkLlgQWAyP3TvyLNj
-    LliYWDAXm9agN8>
-X-ME-Received: <xmr:pC9gYz8WHK7PfPtYAa85brbj_PmP5Q8p9OUwDYDoEk7GXGLNpfakjT8ukzAP>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrudefgddufeeiucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
-    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:pC9gY_p-6cbaduINnB_fOB3-wDQUWl7NFeKj5y910g5qQQj7YX4TWg>
-    <xmx:pC9gY8pwO5BdjWE47SqpX7XU0i4xFMXvsp3CFJaDlUEdXr84iuRdKA>
-    <xmx:pC9gY1Qew3dyGMkrdsupcRBtpS2beaqnp0fqCaDu69VefAiRHsfdgw>
-    <xmx:pC9gY0L9NIn90O9S19LWluB33xAuDV7hh4r9e8lVOFwYnaBsPuav7g>
-Feedback-ID: iac594737:Fastmail
-Date: Mon, 31 Oct 2022 16:27:13 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"M. Vefa Bicakci" <m.v.b@runbox.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] xen/gntdev: Accommodate VMA splitting
-Message-ID: <Y2AvojXJ5IAGJyL8@itl-email>
-References: <20221030071243.1580-1-demi@invisiblethingslab.com>
- <20221030071243.1580-4-demi@invisiblethingslab.com>
- <Y194M/6GboCwWiZX@kroah.com>
+X-Inumbo-ID: 07312e52-5964-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1667252166; bh=uxOwrD0U0H546e379z6pIj7ishCHeKXz2cYS+K7ZCSA=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=t4PsUBVbL+tFKr+SCIjGYKBa8LZKNdOhXiAlD8Ly2GVIw9xKKr7GAb6WLl8nkGWlL9rdNykimQXvuey826Pa902P/J+FkhDiPMR8A7yagH3KB2HywKVEc2YKSBHVehmvz3F7xcGkQnDXmp/Jc+0/izPD+GctV5hyPFJsMXGC5SV/MX6leP/eGcEhfahXzR5uoM9ojxit7mD9uSuh99+SYGUhuuS+dxHhgrO6pGQfoCH9bFoKy4NoFksxRYVc20PrSsWwXydXXXi4kdPe6/azfT8a5TuQDdoXQG9YnqIpFSdPefMnP09w8JstPUX8iMASOrXJKDnk2qaSz9jPJXUcmw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1667252166; bh=LRLXbF/s7/ITJbULB0qtJPEFf5qS9irXKOaTvElYx3I=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=QQqxT1+t3wWPEZ2YuPMqeG2lGig4FKsOxCc7iSM9SioH2/08Bri9fGMg0QMvnpo9jYMRhD5u7RCGJrbUq1FnZrVyHS6JsIMf/UbF1G2mtDBxOfkMU40FdBg5O3dZaqq4NZ6HAB5TTM/k0Zu7PxEyeyUi851bTcfkt178HNSU5CnltRmT10j+A8+On8/su50CwENmzIhYlyhW20bySUAX3bvxeKuZRTSqzeC5OUMZPMXIpfIn8JDBmTu8wer/FAsUcdKFvQe26ikGjQj4KXPfxG7W32lxgo2rLmsMrunrJctLBjV1AKXqL5LRX6KLrXQnbUWVMgFL9Prq5DNHk6lZ3g==
+X-YMail-OSG: TrYy9g4VM1lWmXA0S3_Txh3IolAWizPT4cc1wBKX7DrboJBnewHToGBPbqJPiPo
+ LXMUjBKN5dm.y1mMxLx9T2IGrHqRf3SqMpk9y6rvyTQFmJA8B41Z_DFJYaZW1rHhXKS9.L8pvtMS
+ Kkoiv4BozHwDZZQmccnwgSaxoNyTGE0rqPFJzHbi2xThVJjb4byFJuafxtCqPV5OqxtwL9fvnQrL
+ sTJ8zX2ymlG7.XouBq3yacHDhNiy.tFsMxjVvNzyJf4JAQCWGbKID4qrYHDMay7NFu5h1.4Cb4ga
+ 0psVCajKZyyf44HNZK0kC2ade4VSY4_tugvos_pxPkiOW3vaZyswY0Uq8BnEMozX3_phlA3yGJCv
+ 8yPybUXO5m4UHWmAO7PA8cOIFZ9XMzs2QbGrL.qm9H759_qFoajVGY6WiJ0.s.ydWDCg.HORmg27
+ mBV7ZMeP0Q4750mJ9wLnnDcsSSEu.rwUOYgjjUzdkBeYyfTk6Bbe0OHwTglbUrjio3ETGIFJiXeD
+ xTHm022rg7ZwKUnFeej1WZm18egsamcIB5_WVrvgrwfGURLCy8kAV7a3H3W5KH09Rkw.PVtRVovU
+ GqPioWEuCEaBIWRc1aQgn_ZEaq15.dcGdwHa.qv298TQh6_MjHWIkQpp7XU6C0T.sm.aHh5Lyqdl
+ C20.D54OoO0QSONrV8iXWza8n2wRys04kfknXiTqvpCp0.eYShKOMFoziAfWnjGsXe86cvlfyXUc
+ odxYs6Xyy59JPo.G0z4SQYh6freIDjoVHxOaeMWYMN90eBYviYHozk_k29lv.KAptbL_LUFpH0L4
+ bAIwDI9SR5CEaHS8jwKgCazVYg4ikOwsT4nu_h5gPJpmqeCfc6cpI.GVjZyzhWpXcdbZEXrPlxZN
+ _qiQEh4xC21.VX7HhTvZZplbAF1eYT1j5j_NgW7vFg8RM5p7Q2oJud6hZl2_6v28OaIJhsDOv8sL
+ Q446JpUE4klxwh9SxmGKEML_XeI5nZq2An3EuqYcGEIeZA8pNrheJxkcRWAF.mNSMDW7U2MdEQaS
+ j.ZV1VLD9rIdfpM0xLiR8kIzYbYuetma6LuMzjkJScWwCcycCZygchycab4qsyNJ4mffmV9mmu7F
+ qm8ooHzGqKFwpJU465pOc8u1gq40A1.BULOaYPMl9GRGRzr6uDQemUv8ohh5BGNi1DWj_l3zT8jB
+ toKO8L__YcHil8ozB6vs4vRJEPgZTEf9qfOhmyxhqPniaKVzRRiTk5C4C0FhUmsoYxTQLJdVTLqV
+ 5cNzrNcntCMZKWFf_kiyqFzfxTgZ0yPgKM59L6alBoJUYEMlVwVQG5YWX7WekrTJyQ9uYWgWPpR3
+ jLuE6x1AR8eCh_mN8uScWvTOIPd3I0FMTve8palMJNu0CMfkE.39yXp3QaFgeWlFSTYVoCaywAlv
+ Wse2_IpIorDjOaqntZKad2_rD5aHknHNk0va96TLeisApzPCr4ncGMfZ_d_M68WlH.3lWzMkt1o_
+ hNK1G40PYdvZdQh3XTOGVeQ1GcZtdtgvaHnkhiIrP8alfI5Wwa6RdxJEpeqbKCWJDtIvHwMaZE3l
+ MdBzCfeZSLhwIfpHt.X2oYMNJU5SKPUh3xEqtn6T_IDLSkgu090iMUttM7tOnM_XRCAuctKqBEAr
+ CnZauTtEeAh4yaqsLbfhy7058VL.L0fxbHp2tRNH4ROxc49.3orrEa1VPxppwtxqvm5Kdj1wJDkO
+ SC3tKXYb25Kd8Netz5e7XEkqvgmArlgywyY1GH7ssOqZy.4cnyVstaI_4WEqR4ORvLDtKfzGO7Cr
+ _b5ivGFcn8Bh9UI0mxDU33YlraZmWDSumETmG012Bu2iiILcOilXBAANYjKehG9h2GZSIYVNra21
+ ovQelIX6fsXibhAXFvhulszrRAEc4RHKHFsipYcAa0VlwcUhAMQF9HecxOboBmJ.WyW34YqIhC.Q
+ uEghrocvcRGcqCVNHbQRyEPZDXq7TksBpUZak_xTNYQLDxch.4gT3fUCfSWr3CzodhAWpoEOsGpJ
+ q2qXPOFfRpy_t8DgB5mj35appz66z1SOgk4j7KO8M0PJZrfizhBnDUG9RtwOJnp.wkrkVVgTcA8B
+ qwcwgYvq3mGi5BTl.bBZP0F.nmyaZz7LUGdvvU9me9lercry3L2sMLzYGIeYzWwLWDMsOBPTfCfk
+ 3Tr3f6FIEJHFKkfFdl9cE_.CeKJUogSbzcanBSVPIru89S6BkQ8OP4UcUMuqfPeidrs1uXpitkQg
+ ftLSUzf0-
+X-Sonic-MF: <brchuckz@aim.com>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+To: qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v4 0/2] xen/pt: fix FTBFS and reserve PCI slot 2 for the Intel IGD
+Date: Mon, 31 Oct 2022 17:35:51 -0400
+Message-Id: <cover.1667242033.git.brchuckz@aol.com>
+X-Mailer: git-send-email 2.37.2
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/fr8i7DH4beEBrSo"
-Content-Disposition: inline
-In-Reply-To: <Y194M/6GboCwWiZX@kroah.com>
+Content-Transfer-Encoding: 8bit
+References: <cover.1667242033.git.brchuckz.ref@aol.com>
 
+This is a series of two patches:
 
---/fr8i7DH4beEBrSo
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 31 Oct 2022 16:27:13 -0400
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	"M. Vefa Bicakci" <m.v.b@runbox.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 3/3] xen/gntdev: Accommodate VMA splitting
+The first fixes FTBFS when --enable-xen and --disable-xen-pci-passthrough
+configure options are set with when building for the linux target os.
 
-On Mon, Oct 31, 2022 at 08:24:35AM +0100, Greg Kroah-Hartman wrote:
-> On Sun, Oct 30, 2022 at 03:12:43AM -0400, Demi Marie Obenour wrote:
-> > From: "M. Vefa Bicakci" <m.v.b@runbox.com>
-> >=20
-> > Prior to this commit, the gntdev driver code did not handle the
-> > following scenario correctly with paravirtualized (PV) Xen domains:
->=20
-> This is already in 5.10.152, do we need to add it again?
+The second fixes a regression that was introduced many years ago with the
+upgrade from the Qemu traditional device model that is still available
+from xenbits.xen.org and based on very old Qemu version 0.10.2.
 
-Not as far as I can tell.  I was looking at the linux-5.10.y branch and
-didn=E2=80=99t think to check the patch queue.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+The regression is that the Qemu traditional device model reserves slot 2
+for the Intel IGD on the PCI bus when the Intel IGD is passed through
+to a Xen HVM domain, but the current Qemu upsream device model does not
+and in fact results in a different slot assigned to the Intel IGD.
 
---/fr8i7DH4beEBrSo
-Content-Type: application/pgp-signature; name="signature.asc"
+This behavior does not conform to the requirement that the Intel IGD must
+be assigned to slot 2, as noted in docs/igd-assign.txt in the Qemu source
+code: "IGD must be given address 02.0 on the PCI root bus in the VM."
 
------BEGIN PGP SIGNATURE-----
+I have used the second patch of the series for the past two years with
+no problems. Without the patch, the reliability of PCI passthrough of the
+Intel IGD to a Xen HVM guest is very poor, and in some cases the guest
+fails to start without the patch.
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmNgL6IACgkQsoi1X/+c
-IsEagA//Z0ru2SlxozIFeWNgC4gI9vchMR6d6fW/3iSKqQGB3wASQpAkDs/af/3b
-0kUm20Gurees1D+b9yxy0FuRoCSZoL7Ukwypu2TFkMdYwrl1+xQnNINyWxXTx5dq
-Mf1wuz5KdzGlzYsaktqzxdgkQGaelTWEJLrBoyNgLbbhKkAF6TDuv3h2SezybRPv
-+H+mJi+6MVliKiRV55KbRh62FN2ZsU0jMzHRlCpm+XGtbXROYpF/ldyF3srXmVjp
-4qvr77r1UpOYGJlRfdIhdAihhq3/yA4h2DLvE7tWjE0ySwev+tUkbF8y5p4QbPho
-ZUrZUoRI/XX1/Bnqbgx37d0kIp1QctWkIokutQhoSIfsLZm2AX6kFVtv/9lKNzsl
-cdX5U3aiUvPrjf3W8OIil/cVf4l/mjPBJH6kmkc1pZPr53ssxNAw9goeWqmGAKce
-IYtx3eKzwPZV20euUCX+LR/+Ii+zWuMifI+iF3eWPc0qJhBp/N/9DrDXDP4dl3VC
-g/+MYviZFbYsVn3xeW3x23JfxYUool3ztkvjM71pcQgUdQytpJj/R9PoDEpcC8Ax
-4S4Arg99ghR2XrAjhsTAXgtbNXyXplZDwALfiFoEGnqZxxmuEaBVycyY775ak3vA
-qLIJqdVSUtQhlhT2AjmCFCq38nvmzkQDQAQTMNkFbxNtF0BaLKI=
-=4xEt
------END PGP SIGNATURE-----
+v2: Remove From: <email address> tag at top of message
 
---/fr8i7DH4beEBrSo--
+v3: No change to this cover letter since v2
+
+v4: Use brchuckz@aol.com instead of brchuckz@netscape.net for the author's
+    email address to match the address used by the same author in commits
+    be9c61da and c0e86b76 
+
+Chuck Zmudzinski (2):
+  xen/pt: fix syntax error that causes FTBFS in some configurations
+  xen/pt: reserve PCI slot 2 for Intel igd-passthru
+
+ hw/i386/pc_piix.c    |  3 +++
+ hw/xen/meson.build   |  2 +-
+ hw/xen/xen_pt.c      | 25 +++++++++++++++++++++++++
+ hw/xen/xen_pt.h      | 16 ++++++++++++++++
+ hw/xen/xen_pt_stub.c |  4 ++++
+ 5 files changed, 49 insertions(+), 1 deletion(-)
+
+-- 
+2.37.2
+
 
