@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBD666138AB
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 15:06:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.432775.685660 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2D5C6138A8
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 15:06:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.432787.685667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opVQZ-00083Z-TO; Mon, 31 Oct 2022 14:06:11 +0000
+	id 1opVQa-0008FA-DW; Mon, 31 Oct 2022 14:06:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432775.685660; Mon, 31 Oct 2022 14:06:11 +0000
+Received: by outflank-mailman (output) from mailman id 432787.685667; Mon, 31 Oct 2022 14:06:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opVQZ-0007vQ-9M; Mon, 31 Oct 2022 14:06:11 +0000
-Received: by outflank-mailman (input) for mailman id 432775;
- Mon, 31 Oct 2022 12:13:47 +0000
+	id 1opVQZ-00083K-Um; Mon, 31 Oct 2022 14:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 432787;
+ Mon, 31 Oct 2022 12:16:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a9QX=3A=redhat.com=javierm@srs-se1.protection.inumbo.net>)
- id 1opTfn-00064X-9N
- for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 12:13:47 +0000
+ id 1opTiF-0007Kt-QE
+ for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 12:16:19 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 77a02b38-5915-11ed-8fd0-01056ac49cbb;
- Mon, 31 Oct 2022 13:13:46 +0100 (CET)
+ id d28150b5-5915-11ed-8fd0-01056ac49cbb;
+ Mon, 31 Oct 2022 13:16:18 +0100 (CET)
 Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
  [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-19-ty7L1GAdO6mkRXNXxC619Q-1; Mon, 31 Oct 2022 08:13:42 -0400
+ us-mta-618-FPQfGad1PaK6NQ_jQidDJg-1; Mon, 31 Oct 2022 08:16:16 -0400
 Received: by mail-wm1-f69.google.com with SMTP id
- p14-20020a05600c204e00b003cf4cce4da5so2548430wmg.0
- for <xen-devel@lists.xenproject.org>; Mon, 31 Oct 2022 05:13:41 -0700 (PDT)
+ v188-20020a1cacc5000000b003cf76c4ae66so437744wme.7
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Oct 2022 05:16:16 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- az29-20020a05600c601d00b003cdf141f363sm7207444wmb.11.2022.10.31.05.13.38
+ d2-20020a05600c34c200b003b3365b38f9sm7118010wmq.10.2022.10.31.05.16.13
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
+ Mon, 31 Oct 2022 05:16:14 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,44 +49,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 77a02b38-5915-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: d28150b5-5915-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667218425;
+	s=mimecast20190719; t=1667218577;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
-	b=Fyinmr+Q0n1IVSrn1/exfVMuahFI1GnKDLxSO9gZGMd5IxN240qNx53yJ9b8Xz6pqMid2b
-	CEI3LOrG0zsDnl738U59edgRRo+QqiKnBUmP449C4+uKDWKqe0ZDPz5nEbUAotsDijRKNC
-	OqQAZMk1+J6bQq5CGLVsSuBJCkLyXMI=
-X-MC-Unique: ty7L1GAdO6mkRXNXxC619Q-1
+	bh=WlC4H0gmckJZ8E/tDGtmzwjQN3hfnWY+OkvhUHpUiTc=;
+	b=SzxIp3KH1MJqCBUG1OdZLDtnmNr9ze9qCNca0D8W7lQRRd7ZxIpp/bc+uAAaPM2RO0+6dP
+	gKIwcXSPzSp6YmttVdvmmB32i8J1A4MuFA+0Vaz6QSGVxi4OOhikTdPAddVDg4EK0Msryg
+	sHj/vUsp15Qd6j9vD3TLgzuO/uTAz80=
+X-MC-Unique: FPQfGad1PaK6NQ_jQidDJg-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
-        b=7JOvEnKaBl49ljtmZsFoPXkhtRGzKBRFKPSB9jL1pJpgtmiEE+4XOZmJqRcrUsB3fY
-         Vf49lISQcgR/rprKN1NExcgnqhgHa81EFDkVeIldJ+HkmsopnSgDjetusDiKEsiSWmTM
-         Zn7EYRlBriEsepLmYycfUqBjg0QtsCuKFkhBbbCaONXoKtKWv9xZgJfhzFf9PEf/j9xL
-         EaVZfxW9OB3VAkDCNB+pve11E3FaQW3KtfJ6ID3fr3iv70twy1dFnU7jHqLIYCqoQxd3
-         DEUqDIXQVvg2ytQYlzjIVL85uxJFLqojDTOxQcyKiS7s3Pmn5k/x5CjQe35aSxUjE1rx
-         OaMA==
-X-Gm-Message-State: ACrzQf2glnlK1fC0JL/lSRTDyS+rnL0rOGv6mtq3c9XcE+IguCyKMj8v
-	Zd1sI6tMhOFkEg6y4nL/SwSfe/sfmf31uBnFA6zZrvCVbJhwCY5it+YrqNmTB36nhKw265UaiSq
-	JBTOyGt80b74Nvp5XFCTMnCn9CsM=
-X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id f13-20020a5d64cd000000b002366d1cc1a2mr8196703wri.360.1667218420935;
-        Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6+QX10ZDmjvc1IfL0XXmvBimtEQHEjFBrrHb50hNQes1zzurNnpW//og1SN1o9c/o5tX548g==
-X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id f13-20020a5d64cd000000b002366d1cc1a2mr8196664wri.360.1667218420692;
-        Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
-Message-ID: <231be619-96b7-b725-0735-0275e07477d8@redhat.com>
-Date: Mon, 31 Oct 2022 13:13:38 +0100
+        bh=WlC4H0gmckJZ8E/tDGtmzwjQN3hfnWY+OkvhUHpUiTc=;
+        b=icSXDnJLIgbZbmhwQWbeROSQlX1LPC1hmgmYRvbWItRpPVF5dIx0EveHo/yjJaVamg
+         QkgfXaTr8VROP00XQxSAtOplDbkXE/lNHhU+ZF+vjuA6rV3DUZFM38WM01gXJnUIvYGO
+         XBCKbEmBF59aZ0b+uHNLetRk8wafB3zkH1B5XnFf43aCGD21vCKaNfSdazh5NOl17vJJ
+         DA/TYVYjBnOMv0C4JIoHzvJpXcDoz3P0atApCSXMMGbRQwVcvc4Kl2xivngcFVJ6/46W
+         d44ccFSPzF7JQl5kumlZ0PIF2RED0ZXzeE/gAWa55tTIc9oSEAm6UKUEAKHvAGH/hdzx
+         tx+A==
+X-Gm-Message-State: ACrzQf00+d8KplXlWGoP6s+hZEFmf39/JG5wuQeImV0SdphFN3+9i/Rm
+	dLPCJUZiG2Zc69UewIeYrmhm9J+QE1DrY+1VWvPEd8XxYxBs3VB6A6a2pIbGxtsQzveQzJuMq+N
+	6s01ZUsppbT7RF0oFkLnfgwmyyLY=
+X-Received: by 2002:a05:600c:1c0d:b0:3cf:5fd2:1fd1 with SMTP id j13-20020a05600c1c0d00b003cf5fd21fd1mr10268837wms.8.1667218575303;
+        Mon, 31 Oct 2022 05:16:15 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM7vtgF5OcVzyyhJbAVQv0UtjhNq0IgAK2jPkGsnoYeZKQ/ZE7IsMKsB/emo+io4u+dLlmSgSQ==
+X-Received: by 2002:a05:600c:1c0d:b0:3cf:5fd2:1fd1 with SMTP id j13-20020a05600c1c0d00b003cf5fd21fd1mr10268814wms.8.1667218575124;
+        Mon, 31 Oct 2022 05:16:15 -0700 (PDT)
+Message-ID: <8423bcd3-84f6-b6c9-914a-c70166e20482@redhat.com>
+Date: Mon, 31 Oct 2022 13:16:13 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
-Subject: Re: [PATCH v2 04/21] drm/amdgpu: Don't set struct
+Subject: Re: [PATCH v2 05/21] drm/imx/dcss: Don't set struct
  drm_driver.output_poll_changed
 To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
  airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
@@ -104,9 +104,9 @@ Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org
 References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-5-tzimmermann@suse.de>
+ <20221024111953.24307-6-tzimmermann@suse.de>
 From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-5-tzimmermann@suse.de>
+In-Reply-To: <20221024111953.24307-6-tzimmermann@suse.de>
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
@@ -115,7 +115,7 @@ Content-Transfer-Encoding: 7bit
 
 On 10/24/22 13:19, Thomas Zimmermann wrote:
 > Don't set struct drm_driver.output_poll_changed. It's used to restore
-> the fbdev console. But as amdgpu uses generic fbdev emulation, the
+> the fbdev console. But as DCSS uses generic fbdev emulation, the
 > console is being restored by the DRM client helpers already. See the
 > functions drm_kms_helper_hotplug_event() and
 > drm_kms_helper_connector_hotplug_event() in drm_probe_helper.c.
