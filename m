@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94438612D3B
-	for <lists+xen-devel@lfdr.de>; Sun, 30 Oct 2022 23:06:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.432637.685312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9DDE612FFB
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 06:51:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.432659.685323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opGRA-0006c7-U2; Sun, 30 Oct 2022 22:05:48 +0000
+	id 1opNgN-0008Oh-CM; Mon, 31 Oct 2022 05:49:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432637.685312; Sun, 30 Oct 2022 22:05:48 +0000
+Received: by outflank-mailman (output) from mailman id 432659.685323; Mon, 31 Oct 2022 05:49:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opGRA-0006Za-R2; Sun, 30 Oct 2022 22:05:48 +0000
-Received: by outflank-mailman (input) for mailman id 432637;
- Sun, 30 Oct 2022 22:05:47 +0000
+	id 1opNgN-0008LV-63; Mon, 31 Oct 2022 05:49:59 +0000
+Received: by outflank-mailman (input) for mailman id 432659;
+ Mon, 31 Oct 2022 05:49:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1opGR9-0006ZQ-Ih; Sun, 30 Oct 2022 22:05:47 +0000
+ id 1opNgM-0008LL-3g; Mon, 31 Oct 2022 05:49:58 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1opGR9-0002c4-Bq; Sun, 30 Oct 2022 22:05:47 +0000
+ id 1opNgL-00029p-Kg; Mon, 31 Oct 2022 05:49:57 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1opGR8-00020D-Os; Sun, 30 Oct 2022 22:05:46 +0000
+ id 1opNgL-0001VL-07; Mon, 31 Oct 2022 05:49:57 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1opGR8-00061g-OT; Sun, 30 Oct 2022 22:05:46 +0000
+ id 1opNgK-00050H-UQ; Mon, 31 Oct 2022 05:49:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=DOnPXrdP5auCWK602Ry0+8ATrDZjW0Ooc1jHYCFJ83U=; b=5zdqljFvqOLEktOSpTBAGxE4pL
-	YGUwYICQLpWzeIcyV/8T3MY7kDRUoqQ3RcyM2Z5rZSb7RMiP6twYtairWWN5c9GFHsqRpZUNoUFGb
-	h7xXrjwOto3c/mzBgAkz/UFOJ4QK0bIw9h2/J82WM/Zo5R6iRQR2dFuC0rJtiHhqdATg=;
+	bh=Ebj9/eOHU5zw8sLFSsf1rKLrBT0Uuumk9vNkjYs+dKk=; b=dP1DkzoAFuy/Zsn3oVnqSskq/h
+	XEeYX9+7YbXCHju7+5iUWy3SINpagapbuxrjzR6ROvIK1dKQLaOxR1Mn7XTKnsutXC7udgP0/kRJa
+	X4SO5+2BJ3hbbBQrixGXvGsRzc1ILuHpskLqRPxiITHfU0z+saoQF3Ioe09WMb1GrKQ0=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174544-mainreport@xen.org>
+Message-ID: <osstest-174545-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 174544: regressions - FAIL
+Subject: [linux-linus test] 174545: regressions - FAIL
 X-Osstest-Failures:
     linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
     linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
@@ -67,13 +67,13 @@ X-Osstest-Failures:
     linux-linus:test-armhf-armhf-examine:reboot:fail:regression
     linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
     linux-linus:test-arm64-arm64-examine:reboot:fail:regression
     linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
     linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
     linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
@@ -90,14 +90,14 @@ X-Osstest-Failures:
     linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
     linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    linux=882ad2a2a8ffa1defecdf907052f04da2737dc46
+    linux=b72018ab8236c3ae427068adeb94bdd3f20454ec
 X-Osstest-Versions-That:
     linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 30 Oct 2022 22:05:46 +0000
+Date: Mon, 31 Oct 2022 05:49:56 +0000
 
-flight 174544 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174544/
+flight 174545 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174545/
 
 Regressions :-(
 
@@ -115,13 +115,13 @@ including tests which could not be run:
  test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
  test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
  test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
  test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
  test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
  test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
  test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
  test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
  test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
 
 Regressions which are regarded as allowable (not blocking):
  test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
@@ -143,16 +143,16 @@ Tests which did not succeed, but are not blocking:
  test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
 version targeted for testing:
- linux                882ad2a2a8ffa1defecdf907052f04da2737dc46
+ linux                b72018ab8236c3ae427068adeb94bdd3f20454ec
 baseline version:
  linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
 Last test of basis   173462  2022-10-07 18:41:45 Z   23 days
-Failing since        173470  2022-10-08 06:21:34 Z   22 days   34 attempts
-Testing same since   174543  2022-10-30 06:39:20 Z    0 days    2 attempts
+Failing since        173470  2022-10-08 06:21:34 Z   22 days   35 attempts
+Testing same since   174545  2022-10-30 22:12:19 Z    0 days    1 attempts
 
 ------------------------------------------------------------
-1512 people touched revisions under test,
+1528 people touched revisions under test,
 not listing them all
 
 jobs:
@@ -254,5 +254,5 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 141175 lines long.)
+(No revision log; it would be 143054 lines long.)
 
