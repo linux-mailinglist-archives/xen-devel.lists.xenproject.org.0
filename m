@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 415246138A9
-	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 15:06:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.432773.685652 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DBD666138AB
+	for <lists+xen-devel@lfdr.de>; Mon, 31 Oct 2022 15:06:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.432775.685660 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opVQZ-0007wQ-4s; Mon, 31 Oct 2022 14:06:11 +0000
+	id 1opVQZ-00083Z-TO; Mon, 31 Oct 2022 14:06:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 432773.685652; Mon, 31 Oct 2022 14:06:11 +0000
+Received: by outflank-mailman (output) from mailman id 432775.685660; Mon, 31 Oct 2022 14:06:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1opVQY-0007k6-Pg; Mon, 31 Oct 2022 14:06:10 +0000
-Received: by outflank-mailman (input) for mailman id 432773;
- Mon, 31 Oct 2022 12:08:23 +0000
+	id 1opVQZ-0007vQ-9M; Mon, 31 Oct 2022 14:06:11 +0000
+Received: by outflank-mailman (input) for mailman id 432775;
+ Mon, 31 Oct 2022 12:13:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a9QX=3A=redhat.com=javierm@srs-se1.protection.inumbo.net>)
- id 1opTaZ-0005Dc-GP
- for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 12:08:23 +0000
+ id 1opTfn-00064X-9N
+ for xen-devel@lists.xenproject.org; Mon, 31 Oct 2022 12:13:47 +0000
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b68c087b-5914-11ed-8fd0-01056ac49cbb;
- Mon, 31 Oct 2022 13:08:22 +0100 (CET)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ id 77a02b38-5915-11ed-8fd0-01056ac49cbb;
+ Mon, 31 Oct 2022 13:13:46 +0100 (CET)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-222-1Jzp8XYrMiqLEg4pn2ZSXg-1; Mon, 31 Oct 2022 08:08:19 -0400
-Received: by mail-wm1-f70.google.com with SMTP id
- l1-20020a7bc341000000b003bfe1273d6cso2534925wmj.4
- for <xen-devel@lists.xenproject.org>; Mon, 31 Oct 2022 05:08:19 -0700 (PDT)
+ us-mta-19-ty7L1GAdO6mkRXNXxC619Q-1; Mon, 31 Oct 2022 08:13:42 -0400
+Received: by mail-wm1-f69.google.com with SMTP id
+ p14-20020a05600c204e00b003cf4cce4da5so2548430wmg.0
+ for <xen-devel@lists.xenproject.org>; Mon, 31 Oct 2022 05:13:41 -0700 (PDT)
 Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
  [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- bn26-20020a056000061a00b0022cd0c8c696sm6948033wrb.103.2022.10.31.05.08.17
+ az29-20020a05600c601d00b003cdf141f363sm7207444wmb.11.2022.10.31.05.13.38
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
+ Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,40 +49,40 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b68c087b-5914-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 77a02b38-5915-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667218101;
+	s=mimecast20190719; t=1667218425;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=UzviKTRQBMSKwIl6kvNWZgMaFQwic4ec30sKv7m652k=;
-	b=HVwgxIFnTQWShJIbAp+p3yMHeOQrB6J5obh03OwUqlJlXbm90w49w/nPJiu98HKGScM9Uj
-	vcR2K1W6wwdh1fa05SHdk+3fuL31eun9CsHTnQBBPzXgM2GVsUWvjC59Qd/0aT4EbN9Vql
-	WRS4q8gCbvbwjjBXqhS0GpswFgCgaLQ=
-X-MC-Unique: 1Jzp8XYrMiqLEg4pn2ZSXg-1
+	bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
+	b=Fyinmr+Q0n1IVSrn1/exfVMuahFI1GnKDLxSO9gZGMd5IxN240qNx53yJ9b8Xz6pqMid2b
+	CEI3LOrG0zsDnl738U59edgRRo+QqiKnBUmP449C4+uKDWKqe0ZDPz5nEbUAotsDijRKNC
+	OqQAZMk1+J6bQq5CGLVsSuBJCkLyXMI=
+X-MC-Unique: ty7L1GAdO6mkRXNXxC619Q-1
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=UzviKTRQBMSKwIl6kvNWZgMaFQwic4ec30sKv7m652k=;
-        b=5IzmLwy4KUG3NsyiHeRuGK9sPwZZHjVCgbe2MZhk7VB9yMMjyhqtK0MkAqEtd4AmCg
-         vGAWlJ3YIxJYqr7g6Qho5GUawO7gCLUO+CSFXxOoXaAyyeF1M1bBuJn6WAchMjV0hDC6
-         QhqiirdnCIOvzK8B4BpD99VIahkkrRXJ9ABHlHZ0LgPUsC5wwqn/TmhnLnGopsGvzOMj
-         cIJ0lfNhuYJKp/rBh5KXVufkQruhXIX92jtCu8BGGNvuzYDfgU6oxxa89DpZyeptR2Ni
-         Buzs3LwBJeN2KDoHyLPytu28skqXCgEBUAyCE9iK6o/Qb8njVApc0CfmU2apTEojfFVi
-         3jtg==
-X-Gm-Message-State: ACrzQf3Tqro5srQZNyh2V2Gih2uZW47wmYrBny25Wfq8QHXZ4rJgrQv3
-	R3gPqOiTjOnc2kShT95kSqrtG1hP3SahjE8nLmTYbIjAp9eJWNDnGc7DdivaQItCyNAAL1n5a+v
-	jF7C9z01m+HDcbUsgabZChQHqhyE=
-X-Received: by 2002:a05:6000:15cd:b0:236:9701:7939 with SMTP id y13-20020a05600015cd00b0023697017939mr7691181wry.248.1667218098865;
-        Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6Xfc/ao13H30KX93ABjLq4iUJ6oQF+1EOXF8gvz+3LvWSBMjjIijdjEWsEsBBK0GpYNHL8UA==
-X-Received: by 2002:a05:6000:15cd:b0:236:9701:7939 with SMTP id y13-20020a05600015cd00b0023697017939mr7691171wry.248.1667218098682;
-        Mon, 31 Oct 2022 05:08:18 -0700 (PDT)
-Message-ID: <fd53a4f9-34a8-f5f3-1b1f-baf4a456bcc9@redhat.com>
-Date: Mon, 31 Oct 2022 13:08:16 +0100
+        bh=2H8Fq04+XbNugdc6Ty/YSDXQIs5WWNt9cW9u1MIkjOA=;
+        b=7JOvEnKaBl49ljtmZsFoPXkhtRGzKBRFKPSB9jL1pJpgtmiEE+4XOZmJqRcrUsB3fY
+         Vf49lISQcgR/rprKN1NExcgnqhgHa81EFDkVeIldJ+HkmsopnSgDjetusDiKEsiSWmTM
+         Zn7EYRlBriEsepLmYycfUqBjg0QtsCuKFkhBbbCaONXoKtKWv9xZgJfhzFf9PEf/j9xL
+         EaVZfxW9OB3VAkDCNB+pve11E3FaQW3KtfJ6ID3fr3iv70twy1dFnU7jHqLIYCqoQxd3
+         DEUqDIXQVvg2ytQYlzjIVL85uxJFLqojDTOxQcyKiS7s3Pmn5k/x5CjQe35aSxUjE1rx
+         OaMA==
+X-Gm-Message-State: ACrzQf2glnlK1fC0JL/lSRTDyS+rnL0rOGv6mtq3c9XcE+IguCyKMj8v
+	Zd1sI6tMhOFkEg6y4nL/SwSfe/sfmf31uBnFA6zZrvCVbJhwCY5it+YrqNmTB36nhKw265UaiSq
+	JBTOyGt80b74Nvp5XFCTMnCn9CsM=
+X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id f13-20020a5d64cd000000b002366d1cc1a2mr8196703wri.360.1667218420935;
+        Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM6+QX10ZDmjvc1IfL0XXmvBimtEQHEjFBrrHb50hNQes1zzurNnpW//og1SN1o9c/o5tX548g==
+X-Received: by 2002:a5d:64cd:0:b0:236:6d1c:c1a2 with SMTP id f13-20020a5d64cd000000b002366d1cc1a2mr8196664wri.360.1667218420692;
+        Mon, 31 Oct 2022 05:13:40 -0700 (PDT)
+Message-ID: <231be619-96b7-b725-0735-0275e07477d8@redhat.com>
+Date: Mon, 31 Oct 2022 13:13:38 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.3.1
@@ -127,13 +127,6 @@ On 10/24/22 13:19, Thomas Zimmermann wrote:
 > ---
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-
-Do you think that the fbdev helpers kernel doc has to be updated to mention
-that drm_fb_helper_lastclose() and drm_fb_helper_output_poll_changed() are
-not needed when generic fbdev emulation is used? Because by reading that is
-not clear that's the case:
-
-https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/drm_fb_helper.c#L86
 
 -- 
 Best regards,
