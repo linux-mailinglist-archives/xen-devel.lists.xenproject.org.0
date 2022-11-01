@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DABF6614EEB
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 17:15:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435076.688139 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BA3C614EF0
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 17:15:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435084.688166 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optv0-0001u6-FT; Tue, 01 Nov 2022 16:15:14 +0000
+	id 1optv6-000305-D4; Tue, 01 Nov 2022 16:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435076.688139; Tue, 01 Nov 2022 16:15:14 +0000
+Received: by outflank-mailman (output) from mailman id 435084.688166; Tue, 01 Nov 2022 16:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optv0-0001pC-9A; Tue, 01 Nov 2022 16:15:14 +0000
-Received: by outflank-mailman (input) for mailman id 435076;
- Tue, 01 Nov 2022 16:15:12 +0000
+	id 1optv6-0002vU-5T; Tue, 01 Nov 2022 16:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 435084;
+ Tue, 01 Nov 2022 16:15:18 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PfM8=3B=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1optuy-0000i5-AU
- for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 16:15:12 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ id 1optv4-0000i5-0L
+ for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 16:15:18 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c3528f9-5a00-11ed-8fd0-01056ac49cbb;
- Tue, 01 Nov 2022 17:15:11 +0100 (CET)
+ id 5f893797-5a00-11ed-8fd0-01056ac49cbb;
+ Tue, 01 Nov 2022 17:15:17 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 202503382E;
- Tue,  1 Nov 2022 16:15:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id AE73D1F90F;
+ Tue,  1 Nov 2022 16:15:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E69B71346F;
- Tue,  1 Nov 2022 16:15:10 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7EDF41346F;
+ Tue,  1 Nov 2022 16:15:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id QVjxNg5GYWMedwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 16:15:10 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id PHilHRRGYWMtdwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 16:15:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,228 +51,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c3528f9-5a00-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 5f893797-5a00-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1667319311; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1667319316; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=pIb0/mYGQ+HwHEptI7zIsqWzXRU1CQBKgofF97fLAvs=;
-	b=Mux+Oyeny1sk2ahF5isrQx7yM9meirOsLaQ2iXfYQm8Hn1AuqztnbpMJ8yiumFWQ9a70lW
-	N1tKEZ/nKhEY9+oNc+JLe+Wm7x2xRa9yH4Zw8AGCvj7jQFA2ZRkGCY79FYlxIMS2upluMZ
-	DsqP0sR1byMe9zu2wfI69MyLzeDBJwI=
+	bh=ePljyH5jlUhgLAg8XDkia2Vo0lFqj2Qpdrf2FB4EPzU=;
+	b=KGxM5llsacI35uOqsmNhcEZhS/uWRSdQhPmi6hi/EOUtXVNP6dTXi/+gv9A516MZo3uqat
+	HDKcN7WyMEqmUvXEGFJyQPbC9oBIEvoRjKo+Cxix4Bd/ItrzMO7SsJqcqycf7FJx6TwsIS
+	V4d+xVt278CTw05khGNw+C4W/BywrZg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 02/10] tools/xenstore: do some cleanup of hashtable.c
-Date: Tue,  1 Nov 2022 17:14:49 +0100
-Message-Id: <20221101161457.8470-3-jgross@suse.com>
+Subject: [PATCH 03/10] tools/xenstore: modify interface of create_hashtable()
+Date: Tue,  1 Nov 2022 17:14:50 +0100
+Message-Id: <20221101161457.8470-4-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20221101161457.8470-1-jgross@suse.com>
 References: <20221101161457.8470-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Do the following cleanups:
-- hashtable_count() isn't used at all, so remove it
-- replace prime_table_length and max_load_factor with macros
-- make hash() static
-- add a loadlimit() helper function
-- remove the /***/ lines between functions
-- do some style corrections
+The minsize parameter of create_hashtable() doesn't have any real use
+case for Xenstore, so drop it.
+
+For better talloc_report_full() diagnostic output add a name parameter
+to create_hashtable().
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/hashtable.c | 74 ++++++++++++++------------------------
- tools/xenstore/hashtable.h | 10 ------
- 2 files changed, 27 insertions(+), 57 deletions(-)
+ tools/xenstore/hashtable.c        | 24 ++++++++----------------
+ tools/xenstore/hashtable.h        |  4 ++--
+ tools/xenstore/xenstored_core.c   |  2 +-
+ tools/xenstore/xenstored_domain.c |  4 ++--
+ 4 files changed, 13 insertions(+), 21 deletions(-)
 
 diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
-index 1c8656e016..d312004d70 100644
+index d312004d70..43a8caab82 100644
 --- a/tools/xenstore/hashtable.c
 +++ b/tools/xenstore/hashtable.c
-@@ -40,22 +40,25 @@ static const unsigned int primes[] = {
- 50331653, 100663319, 201326611, 402653189,
- 805306457, 1610612741
- };
--const unsigned int prime_table_length = sizeof(primes)/sizeof(primes[0]);
--const unsigned int max_load_factor = 65; /* percentage */
- 
--/*****************************************************************************/
--/* indexFor */
--static inline unsigned int
--indexFor(unsigned int tablelength, unsigned int hashvalue) {
-+#define PRIME_TABLE_LEN   ARRAY_SIZE(primes)
-+#define MAX_LOAD_PERCENT  65
-+
-+static inline unsigned int indexFor(unsigned int tablelength,
-+                                    unsigned int hashvalue)
-+{
-     return (hashvalue % tablelength);
+@@ -55,36 +55,28 @@ static unsigned int loadlimit(unsigned int pindex)
+     return ((uint64_t)primes[pindex] * MAX_LOAD_PERCENT) / 100;
  }
  
--/*****************************************************************************/
--struct hashtable *
--create_hashtable(const void *ctx, unsigned int minsize,
--                 unsigned int (*hashf) (void*),
--                 int (*eqf) (void*,void*),
--                 unsigned int flags)
-+static unsigned int loadlimit(unsigned int pindex)
-+{
-+    return ((uint64_t)primes[pindex] * MAX_LOAD_PERCENT) / 100;
-+}
-+
-+struct hashtable *create_hashtable(const void *ctx, unsigned int minsize,
-+                                   unsigned int (*hashf) (void *),
-+                                   int (*eqf) (void *,void *),
-+                                   unsigned int flags)
+-struct hashtable *create_hashtable(const void *ctx, unsigned int minsize,
+-                                   unsigned int (*hashf) (void *),
+-                                   int (*eqf) (void *,void *),
++struct hashtable *create_hashtable(const void *ctx, const char *name,
++                                   unsigned int (*hashf) (void*),
++                                   int (*eqf) (void*,void*),
+                                    unsigned int flags)
  {
      struct hashtable *h;
-     unsigned int pindex, size = primes[0];
-@@ -64,7 +67,7 @@ create_hashtable(const void *ctx, unsigned int minsize,
-     if (minsize > (1u << 30)) return NULL;
+-    unsigned int pindex, size = primes[0];
+-
+-    /* Check requested hashtable isn't too large */
+-    if (minsize > (1u << 30)) return NULL;
+-
+-    /* Enforce size as prime */
+-    for (pindex=0; pindex < PRIME_TABLE_LEN; pindex++) {
+-        if (primes[pindex] > minsize) { size = primes[pindex]; break; }
+-    }
  
-     /* Enforce size as prime */
--    for (pindex=0; pindex < prime_table_length; pindex++) {
-+    for (pindex=0; pindex < PRIME_TABLE_LEN; pindex++) {
-         if (primes[pindex] > minsize) { size = primes[pindex]; break; }
-     }
+     h = talloc_zero(ctx, struct hashtable);
+     if (NULL == h)
+         goto err0;
+-    h->table = talloc_zero_array(h, struct entry *, size);
++    talloc_set_name_const(h, name);
++    h->table = talloc_zero_array(h, struct entry *, primes[0]);
+     if (NULL == h->table)
+         goto err1;
  
-@@ -81,7 +84,7 @@ create_hashtable(const void *ctx, unsigned int minsize,
+-    h->tablelength  = size;
++    h->tablelength  = primes[0];
+     h->flags        = flags;
+-    h->primeindex   = pindex;
++    h->primeindex   = 0;
      h->entrycount   = 0;
      h->hashfn       = hashf;
      h->eqfn         = eqf;
--    h->loadlimit    = (unsigned int)(((uint64_t)size * max_load_factor) / 100);
-+    h->loadlimit    = loadlimit(pindex);
+-    h->loadlimit    = loadlimit(pindex);
++    h->loadlimit    = loadlimit(0);
      return h;
  
  err1:
-@@ -90,9 +93,7 @@ err0:
-    return NULL;
- }
- 
--/*****************************************************************************/
--unsigned int
--hash(struct hashtable *h, void *k)
-+static unsigned int hash(struct hashtable *h, void *k)
- {
-     /* Aim to protect against poor hash functions by adding logic here
-      * - logic taken from java 1.4 hashtable source */
-@@ -104,9 +105,7 @@ hash(struct hashtable *h, void *k)
-     return i;
- }
- 
--/*****************************************************************************/
--static int
--hashtable_expand(struct hashtable *h)
-+static int hashtable_expand(struct hashtable *h)
- {
-     /* Double the size of the table to accomodate more entries */
-     struct entry **newtable;
-@@ -114,7 +113,7 @@ hashtable_expand(struct hashtable *h)
-     struct entry **pE;
-     unsigned int newsize, i, index;
-     /* Check we're not hitting max capacity */
--    if (h->primeindex == (prime_table_length - 1)) return 0;
-+    if (h->primeindex == (PRIME_TABLE_LEN - 1)) return 0;
-     newsize = primes[++(h->primeindex)];
- 
-     newtable = talloc_realloc(h, h->table, struct entry *, newsize);
-@@ -144,21 +143,11 @@ hashtable_expand(struct hashtable *h)
-     }
- 
-     h->tablelength = newsize;
--    h->loadlimit   = (unsigned int)
--        (((uint64_t)newsize * max_load_factor) / 100);
-+    h->loadlimit   = loadlimit(h->primeindex);
-     return -1;
- }
- 
--/*****************************************************************************/
--unsigned int
--hashtable_count(struct hashtable *h)
--{
--    return h->entrycount;
--}
--
--/*****************************************************************************/
--int
--hashtable_insert(struct hashtable *h, void *k, void *v)
-+int hashtable_insert(struct hashtable *h, void *k, void *v)
- {
-     /* This method allows duplicate keys - but they shouldn't be used */
-     unsigned int index;
-@@ -182,9 +171,7 @@ hashtable_insert(struct hashtable *h, void *k, void *v)
-     return -1;
- }
- 
--/*****************************************************************************/
--void * /* returns value associated with key */
--hashtable_search(struct hashtable *h, void *k)
-+void *hashtable_search(struct hashtable *h, void *k)
- {
-     struct entry *e;
-     unsigned int hashvalue, index;
-@@ -200,9 +187,7 @@ hashtable_search(struct hashtable *h, void *k)
-     return NULL;
- }
- 
--/*****************************************************************************/
--void * /* returns value associated with key */
--hashtable_remove(struct hashtable *h, void *k)
-+void *hashtable_remove(struct hashtable *h, void *k)
- {
-     /* TODO: consider compacting the table when the load factor drops enough,
-      *       or provide a 'compact' method. */
-@@ -235,10 +220,8 @@ hashtable_remove(struct hashtable *h, void *k)
-     return NULL;
- }
- 
--/*****************************************************************************/
--int
--hashtable_iterate(struct hashtable *h,
--                  int (*func)(void *k, void *v, void *arg), void *arg)
-+int hashtable_iterate(struct hashtable *h,
-+                      int (*func)(void *k, void *v, void *arg), void *arg)
- {
-     int ret;
-     unsigned int i;
-@@ -261,10 +244,7 @@ hashtable_iterate(struct hashtable *h,
-     return 0;
- }
- 
--/*****************************************************************************/
--/* destroy */
--void
--hashtable_destroy(struct hashtable *h)
-+void hashtable_destroy(struct hashtable *h)
- {
-     unsigned int i;
-     struct entry *e;
 diff --git a/tools/xenstore/hashtable.h b/tools/xenstore/hashtable.h
-index 07fdc1a82b..f1caef0d4f 100644
+index f1caef0d4f..5575f6c1dd 100644
 --- a/tools/xenstore/hashtable.h
 +++ b/tools/xenstore/hashtable.h
-@@ -75,16 +75,6 @@ hashtable_search(struct hashtable *h, void *k);
- void * /* returns value */
- hashtable_remove(struct hashtable *h, void *k);
+@@ -10,7 +10,7 @@ struct hashtable;
+    
+  * @name                    create_hashtable
+  * @param   ctx             talloc context to use for allocations
+- * @param   minsize         minimum initial size of hashtable
++ * @param   name            talloc name of the hashtable
+  * @param   hashfunction    function for hashing keys
+  * @param   key_eq_fn       function for determining key equality
+  * @param   flags           flags HASHTABLE_*
+@@ -23,7 +23,7 @@ struct hashtable;
+ #define HASHTABLE_FREE_KEY   (1U << 1)
  
--/*****************************************************************************
-- * hashtable_count
--   
-- * @name        hashtable_count
-- * @param   h   the hashtable
-- * @return      the number of items stored in the hashtable
-- */
--unsigned int
--hashtable_count(struct hashtable *h);
--
- /*****************************************************************************
-  * hashtable_iterate
+ struct hashtable *
+-create_hashtable(const void *ctx, unsigned int minsize,
++create_hashtable(const void *ctx, const char *name,
+                  unsigned int (*hashfunction) (void*),
+                  int (*key_eq_fn) (void*,void*),
+                  unsigned int flags
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 714841d9ca..c4d9d275be 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -2502,7 +2502,7 @@ void check_store(void)
+ 	struct check_store_data data;
  
+ 	/* Don't free values (they are all void *1) */
+-	data.reachable = create_hashtable(NULL, 16, hash_from_key_fn,
++	data.reachable = create_hashtable(NULL, "checkstore", hash_from_key_fn,
+ 					  keys_equal_fn, HASHTABLE_FREE_KEY);
+ 	if (!data.reachable) {
+ 		log("check_store: ENOMEM");
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 1f746afd70..b3c288bf40 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -1020,7 +1020,7 @@ void domain_init(int evtfd)
+ 	int rc;
+ 
+ 	/* Start with a random rather low domain count for the hashtable. */
+-	domhash = create_hashtable(NULL, 8, domhash_fn, domeq_fn, 0);
++	domhash = create_hashtable(NULL, "domains", domhash_fn, domeq_fn, 0);
+ 	if (!domhash)
+ 		barf_perror("Failed to allocate domain hashtable");
+ 
+@@ -1798,7 +1798,7 @@ struct hashtable *domain_check_acc_init(void)
+ {
+ 	struct hashtable *domains;
+ 
+-	domains = create_hashtable(NULL, 8, domhash_fn, domeq_fn,
++	domains = create_hashtable(NULL, "domain_check", domhash_fn, domeq_fn,
+ 				   HASHTABLE_FREE_VALUE);
+ 	if (!domains)
+ 		return NULL;
 -- 
 2.35.3
 
