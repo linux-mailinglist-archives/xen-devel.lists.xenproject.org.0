@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16A2B614E8B
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 16:43:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.434972.687916 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F4F614E70
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 16:35:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.434893.687686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optQO-00035d-RB; Tue, 01 Nov 2022 15:43:36 +0000
+	id 1optIC-00064p-4B; Tue, 01 Nov 2022 15:35:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 434972.687916; Tue, 01 Nov 2022 15:43:36 +0000
+Received: by outflank-mailman (output) from mailman id 434893.687686; Tue, 01 Nov 2022 15:35:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optQO-0002tJ-Ky; Tue, 01 Nov 2022 15:43:36 +0000
-Received: by outflank-mailman (input) for mailman id 434972;
- Tue, 01 Nov 2022 15:43:35 +0000
+	id 1optIC-00061S-0G; Tue, 01 Nov 2022 15:35:08 +0000
+Received: by outflank-mailman (input) for mailman id 434893;
+ Tue, 01 Nov 2022 15:35:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PfM8=3B=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1optDD-0007Bd-Ln
- for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 15:29:59 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1optDJ-0007Bd-Od
+ for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 15:30:05 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0b7c0860-59fa-11ed-8fd0-01056ac49cbb;
- Tue, 01 Nov 2022 16:29:59 +0100 (CET)
+ id 0ece2237-59fa-11ed-8fd0-01056ac49cbb;
+ Tue, 01 Nov 2022 16:30:04 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B0D111F8E3;
- Tue,  1 Nov 2022 15:29:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 48C743385D;
+ Tue,  1 Nov 2022 15:30:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 828381346F;
- Tue,  1 Nov 2022 15:29:58 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1A3B71346F;
+ Tue,  1 Nov 2022 15:30:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 7z17HnY7YWMYYQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 15:29:58 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id xksRBXw7YWNGYQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 15:30:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,58 +51,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b7c0860-59fa-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 0ece2237-59fa-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1667316598; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1667316604; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=E0EnVO0aZYolAaiP6qGG7pTwSLxkIEF5XkBdvMekgyk=;
-	b=hHzm9gqbBIbfmvXUshM5RoHjqnOu/zNp8CQR1IJ87mbtBAEmKfoIblzWK+VjbElb5T/OEu
-	XdPBz/nP50myYPQJ2i/WT/tJCJX9CJhnZQJfrAFgJiHv3hVd1+VDlls8DXO+7G1RuWFXYK
-	8y2zmaa//bnv7roGpGGHu5LFXRL/FXo=
+	bh=OXW2q3TSE2sqfE+CLKAdRKeOGAyBZRR57o9SMNJeWXg=;
+	b=pc2W4hcBKUl9aOOF72kOOB4n9AKlmfC1e8IkhndZQOTiqKbPKFuijJs0z9Y6+sW1T08mzB
+	OKo2cL5KltYgbWsalH1cehr4oR+QcU0I/IYnvH/9LdCL4MNVlfMNOXndZ/HgL9uIsu9yWv
+	SMShbQdmKerTHLJN4putmEXddYa3JQI=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 13/20] tools/xenstore: don't allow creating too many nodes in a transaction
-Date: Tue,  1 Nov 2022 16:28:35 +0100
-Message-Id: <20221101152842.4257-14-jgross@suse.com>
+Subject: [PATCH 14/20] tools/xenstore: replace literal domid 0 with dom0_domid
+Date: Tue,  1 Nov 2022 16:28:36 +0100
+Message-Id: <20221101152842.4257-15-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20221101152842.4257-1-jgross@suse.com>
 References: <20221101152842.4257-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The accounting for the number of nodes of a domain in an active
-transaction is not working correctly, as it allows to create arbitrary
-number of nodes. The transaction will finally fail due to exceeding
-the number of nodes quota, but before closing the transaction an
-unprivileged guest could cause Xenstore to use a lot of memory.
+There are some places left where dom0 is associated with domid 0.
+
+Use dom0_domid instead.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/xenstored_domain.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+V2:
+- new patch
+---
+ tools/xenstore/xenstored_core.c   | 5 +++--
+ tools/xenstore/xenstored_domain.c | 8 ++++----
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 5fd4f8e606..5013f8b909 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -2302,9 +2302,10 @@ static void accept_connection(int sock)
+ 		return;
+ 
+ 	conn = new_connection(&socket_funcs);
+-	if (conn)
++	if (conn) {
+ 		conn->fd = fd;
+-	else
++		conn->id = dom0_domid;
++	} else
+ 		close(fd);
+ }
+ #endif
 diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index b737a77683..529ffb522a 100644
+index 529ffb522a..0f1c903ee6 100644
 --- a/tools/xenstore/xenstored_domain.c
 +++ b/tools/xenstore/xenstored_domain.c
-@@ -1125,9 +1125,8 @@ int domain_nbentry_fix(unsigned int domid, int num, bool update)
+@@ -324,7 +324,7 @@ static int destroy_domain(void *_domain)
+ 	if (domain->interface) {
+ 		/* Domain 0 was mapped by dom0_init, so it must be unmapped
+ 		   using munmap() and not the grant unmap call. */
+-		if (domain->domid == 0)
++		if (domain->domid == dom0_domid)
+ 			unmap_xenbus(domain->interface);
+ 		else
+ 			unmap_interface(domain->interface);
+@@ -414,7 +414,7 @@ void handle_event(void)
  
- int domain_nbentry(struct connection *conn)
+ static bool domid_is_unprivileged(unsigned int domid)
  {
--	return (domain_is_unprivileged(conn))
--		? conn->domain->nbentry
--		: 0;
-+	return domain_is_unprivileged(conn)
-+	       ? domain_nbentry_add(conn, conn->id, 0, true) : 0;
+-	return domid != 0 && domid != priv_domid;
++	return domid != dom0_domid && domid != priv_domid;
  }
  
- static bool domain_chk_quota(struct domain *domain, int mem)
+ bool domain_is_unprivileged(struct connection *conn)
+@@ -806,7 +806,7 @@ static struct domain *onearg_domain(struct connection *conn,
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	domid = atoi(domid_str);
+-	if (!domid)
++	if (domid == dom0_domid)
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	return find_connected_domain(domid);
+@@ -1009,7 +1009,7 @@ static int chk_domain_generation(unsigned int domid, uint64_t gen)
+ {
+ 	struct domain *d;
+ 
+-	if (!xc_handle && domid == 0)
++	if (!xc_handle && domid == dom0_domid)
+ 		return 1;
+ 
+ 	d = find_domain_struct(domid);
 -- 
 2.35.3
 
