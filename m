@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDCB96144E3
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 08:09:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.433342.686324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6413161454E
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 08:57:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.433359.686335 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oplNv-0007Y7-Pz; Tue, 01 Nov 2022 07:08:31 +0000
+	id 1opm81-00054F-E1; Tue, 01 Nov 2022 07:56:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 433342.686324; Tue, 01 Nov 2022 07:08:31 +0000
+Received: by outflank-mailman (output) from mailman id 433359.686335; Tue, 01 Nov 2022 07:56:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oplNv-0007Uh-Mw; Tue, 01 Nov 2022 07:08:31 +0000
-Received: by outflank-mailman (input) for mailman id 433342;
- Tue, 01 Nov 2022 07:08:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6Jvn=3B=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1oplNt-0007Ub-P9
- for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 07:08:29 +0000
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
- [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbd3300d-59b3-11ed-91b5-6bf2151ebd3b;
- Tue, 01 Nov 2022 08:08:28 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id 21so20585935edv.3
- for <xen-devel@lists.xenproject.org>; Tue, 01 Nov 2022 00:08:28 -0700 (PDT)
-Received: from [192.168.1.93] (adsl-235.109.242.227.tellas.gr.
- [109.242.227.235]) by smtp.gmail.com with ESMTPSA id
- f14-20020a056402150e00b004610899742asm4120503edw.13.2022.11.01.00.08.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 01 Nov 2022 00:08:27 -0700 (PDT)
+	id 1opm81-00051F-AZ; Tue, 01 Nov 2022 07:56:09 +0000
+Received: by outflank-mailman (input) for mailman id 433359;
+ Tue, 01 Nov 2022 07:56:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=PfM8=3B=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1opm7z-000519-Kb
+ for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 07:56:07 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a06a520d-59ba-11ed-8fd0-01056ac49cbb;
+ Tue, 01 Nov 2022 08:56:02 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A87AF33982;
+ Tue,  1 Nov 2022 07:56:02 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8EC9B13AAF;
+ Tue,  1 Nov 2022 07:56:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id k4ZaIRLRYGOcFwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 07:56:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,128 +51,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbd3300d-59b3-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=OE5nUEXCoGJTQIxnJ6QxeDcCeetfHlEtd4i1iX4NJvE=;
-        b=lC5WXkEYCyogMF5KDuV2BjapNnYHA8wyKrU4ISZGwhnhjsCgCVzhsgF3NfrMG8kXzb
-         VMLqUUC6+ceeCCjuLsaLwiIFLculq+tpYOeQ0NIFti8EC8cxRkomWzR0RZOuQWQOB8wC
-         exz7RUlj46FhAmvYa+RonecjO2837Rgbf9WNw1eZ0fQQQPf/1XBvPQcnMpxS9BvtOq0e
-         gYcq/s+H12bHSEDQ3yxJk+A3qjxnEkSqJmV95jTbRaj/hrEzceDRbQ38YUBNJxkyj2LN
-         jjYj32TWq6Jq7OsMsFhcNlG4WxqiVx2fICf3iQfDHHZVSAYX79I5LHlMIXc3ifaKVWvv
-         xdQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=OE5nUEXCoGJTQIxnJ6QxeDcCeetfHlEtd4i1iX4NJvE=;
-        b=8MLrTXJyTX++FLGYrBPKzOoa6qKnpo37bqrYIN2mcNWUhm1DWa7hfaivy3SN/wt2VR
-         OVPTFyzljJuN5I52ICxsO7d1nBuZSNfD1Z/zFEz/NmXi5yk8MwCegC8LV2CQopUQew+s
-         fleuno2mqVedZqkOxkva9QIgWmMDmeqnE9323NmSplCq4+F9Rqd7ahhnYH9haA9Y1D6W
-         1j1vHqRCKkLMHkztwD2x4PiEdgvOP1ISnXJIpnxjmb0YFJQ+4dZRy6KmpUoecci5q5Vz
-         xx3O6bIWGAhQw2oNf7VseHIwwjkXe1MifI91gXFvgc4a9Fj07Ds5v3EfsyBr4l3MPLoz
-         rS/A==
-X-Gm-Message-State: ACrzQf3KzP8zE/8l3w2KkUHQoxKlvRJE1B7TDGOJanL2MZ6sDnatzkaG
-	XVqXGUi39/p1x6ID4zrQg9E=
-X-Google-Smtp-Source: AMsMyM4a4CfeWzdQOzdSI95DDPT3ciy9u3s5Iv4flcBeuAUiyrkEFAh/Mq7np1YepV61eIDGe8B6hQ==
-X-Received: by 2002:a05:6402:1d4e:b0:461:c7bd:7d9c with SMTP id dz14-20020a0564021d4e00b00461c7bd7d9cmr17551263edb.284.1667286507630;
-        Tue, 01 Nov 2022 00:08:27 -0700 (PDT)
-Message-ID: <956195e5-0409-1da0-f0db-a0192061d29d@gmail.com>
-Date: Tue, 1 Nov 2022 09:08:25 +0200
+X-Inumbo-ID: a06a520d-59ba-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1667289362; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FhA0lkFE3ehJRTOuZvzMI+szc0yJt9Js+RvntOlYpGk=;
+	b=J0ZXtEe0alc3g5ng7lrO6egtdq+mMXi7PVBjlcFGBCRxn9jPv4DkomnMcMiu2C9TUkD5Ts
+	ykvUfvnBqVNZlWoQfa3/b10WZuhcer6kPl8/6cvOxZA/yvPi5rc3X2Zm30Eci/fVXUYfjI
+	t8oCeTO4UQ2mmV/oCF+MYw94ffCZxho=
+Message-ID: <3c8a3be2-db65-253d-94ae-1bfcad1b94e2@suse.com>
+Date: Tue, 1 Nov 2022 08:56:01 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [XEN v2 11/12] xen/Arm: GICv3: Define macros to read/write 64 bit
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: [linux-linus test] 174539: regressions - FAIL
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+References: <osstest-174539-mainreport@xen.org>
 Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221031151326.22634-1-ayankuma@amd.com>
- <20221031151326.22634-12-ayankuma@amd.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <20221031151326.22634-12-ayankuma@amd.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <osstest-174539-mainreport@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------YOonz3PkZkSEnL3i3OYV22s9"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------YOonz3PkZkSEnL3i3OYV22s9
+Content-Type: multipart/mixed; boundary="------------PlmKIhi0yXpu0KpeGpl0UY48";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ xen-devel@lists.xenproject.org
+Message-ID: <3c8a3be2-db65-253d-94ae-1bfcad1b94e2@suse.com>
+Subject: Re: [linux-linus test] 174539: regressions - FAIL
+References: <osstest-174539-mainreport@xen.org>
+In-Reply-To: <osstest-174539-mainreport@xen.org>
+
+--------------PlmKIhi0yXpu0KpeGpl0UY48
+Content-Type: multipart/mixed; boundary="------------egLvjb7GefCbgNDbst4STKfx"
+
+--------------egLvjb7GefCbgNDbst4STKfx
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
 
-Hi Ayan,
+T24gMjkuMTAuMjIgMjM6NTAsIG9zc3Rlc3Qgc2VydmljZSBvd25lciB3cm90ZToNCj4gZmxp
+Z2h0IDE3NDUzOSBsaW51eC1saW51cyByZWFsIFtyZWFsXQ0KPiBodHRwOi8vbG9ncy50ZXN0
+LWxhYi54ZW5wcm9qZWN0Lm9yZy9vc3N0ZXN0L2xvZ3MvMTc0NTM5Lw0KPiANCj4gUmVncmVz
+c2lvbnMgOi0oDQoNCkknbSByYXRoZXIgc3VyZSB0aGlzIGlzIG5vdCBrZXJuZWwgcmVsYXRl
+ZCwgYXMgdGhlIGlzc3VlIGlzIG9jY3VycmluZyBvbmx5IG9uDQpBcm0gYW5kIGl0IGRvZXNu
+J3Qgc2VlbSB0byBiZSBhbiBhcmNoaXRlY3R1cmUgcmVsYXRlZCBpc3N1ZSAodGhlIHZvbHVt
+ZSBncm91cA0KY29udGFpbmluZyB0aGUgcm9vdCBmaWxlIHN5c3RlbSBjb3VsZG4ndCBiZSBm
+b3VuZCkuDQoNCkNvdWxkIGl0IGJlIGFuIGluZnJhc3RydWN0dXJlIHByb2JsZW0/DQoNCg0K
+SnVlcmdlbg0K
+--------------egLvjb7GefCbgNDbst4STKfx
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 10/31/22 17:13, Ayan Kumar Halder wrote:
-> Defined readq_relaxed()/writeq_relaxed() to read and write 64 bit regs.
-> This uses ldrd/strd instructions.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
-> ---
-> 
-> Changes from :-
-> v1 - 1. Use ldrd/strd for readq_relaxed()/writeq_relaxed().
-> 2. No need to use le64_to_cpu() as the returned byte order is already in cpu
-> endianess.
-> 
->   xen/arch/arm/include/asm/arm32/io.h | 21 +++++++++++++++++++++
->   1 file changed, 21 insertions(+)
-> 
-> diff --git a/xen/arch/arm/include/asm/arm32/io.h b/xen/arch/arm/include/asm/arm32/io.h
-> index 73a879e9fb..d9d19ad764 100644
-> --- a/xen/arch/arm/include/asm/arm32/io.h
-> +++ b/xen/arch/arm/include/asm/arm32/io.h
-> @@ -72,6 +72,22 @@ static inline u32 __raw_readl(const volatile void __iomem *addr)
->           return val;
->   }
->   
-> +static inline u64 __raw_readq(const volatile void __iomem *addr)
-> +{
-> +        u64 val;
-> +        asm volatile("ldrd %Q1, %R1, %0"
-> +                     : "+Qo" (*(volatile u64 __force *)addr),
-> +                       "=r" (val));
-> +        return val;
-> +}
-> +
-> +static inline void __raw_writeq(u64 val, const volatile void __iomem *addr)
-> +{
-> +    asm volatile("strd %Q1, %R1, %0"
-> +                 : "+Q" (*(volatile u64 __force *)addr)
-> +                 : "r" (val));
-> +}
-> +
->   #define __iormb()               rmb()
->   #define __iowmb()               wmb()
->   
-> @@ -80,17 +96,22 @@ static inline u32 __raw_readl(const volatile void __iomem *addr)
->                                           __raw_readw(c)); __r; })
->   #define readl_relaxed(c) ({ u32 __r = le32_to_cpu((__force __le32) \
->                                           __raw_readl(c)); __r; })
-> +#define readq_relaxed(c) ({ u64 __r = le64_to_cpu((__force __le64) \
-> +                                        __raw_readq(c)); __r; })
->   
->   #define writeb_relaxed(v,c)     __raw_writeb(v,c)
->   #define writew_relaxed(v,c)     __raw_writew((__force u16) cpu_to_le16(v),c)
->   #define writel_relaxed(v,c)     __raw_writel((__force u32) cpu_to_le32(v),c)
-> +#define writeq_relaxed(v,c)     __raw_writeq((__force u64) cpu_to_le64(v),c)
->   
->   #define readb(c)                ({ u8  __v = readb_relaxed(c); __iormb(); __v; })
->   #define readw(c)                ({ u16 __v = readw_relaxed(c); __iormb(); __v; })
->   #define readl(c)                ({ u32 __v = readl_relaxed(c); __iormb(); __v; })
-> +#define readq(c)                ({ u64 __v = readq_relaxed(c); __iormb(); __v; })
->   
->   #define writeb(v,c)             ({ __iowmb(); writeb_relaxed(v,c); })
->   #define writew(v,c)             ({ __iowmb(); writew_relaxed(v,c); })
->   #define writel(v,c)             ({ __iowmb(); writel_relaxed(v,c); })
-> +#define writeq(v,c)             ({ __iowmb(); writeq_relaxed(v,c); })
->   
->   #endif /* _ARM_ARM32_IO_H */
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-AFAIU, ldrd/strd accesses to MMIO are not guaranteed to be 64-bit 
-single-copy atomic. So, as Julien suggested, you still need to use a 
-different name to reflect this.
-Also, having nested virtualization in mind, since these instructions 
-can't be virtualized, maybe it would be better to avoid using them for 
-MMIO accesses.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
--- 
-Xenia
+--------------egLvjb7GefCbgNDbst4STKfx--
+
+--------------PlmKIhi0yXpu0KpeGpl0UY48--
+
+--------------YOonz3PkZkSEnL3i3OYV22s9
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNg0RIFAwAAAAAACgkQsN6d1ii/Ey/F
+Xwf9GtlRXwXrji0k6F1DrQf4win+Cbw4yLA+ZUfwMqFWroAOuxQvcdxvBS+TNhTTdq7TLnWjtOs4
+G5GWUl00E9jfa4zeeYCNmTVQ10d8RAhwGqItCea69gvCmtEUE2bE+3nmtfTYI0bnKCruEdbGtKp0
+e2RPYCAKy6BtILy1OLZVSy/PG7V+fJcYQ4ULdmU42HCh/wOIm5MXEkCFoGMAsnAGFmnZSegpGJgJ
+a6a7CFDOIYv2OQdLGZnsMXaotzKJTovmmOTTPPudWieqTjP5dmIbOyVSQYb8FOUu+VaP4qI+Uft7
+rrcQIs/gHwyjLUObbrpGmY+Bfdv1KTbeM+WY9HHVGA==
+=r3gk
+-----END PGP SIGNATURE-----
+
+--------------YOonz3PkZkSEnL3i3OYV22s9--
 
