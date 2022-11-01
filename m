@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8823614EF2
-	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 17:15:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435090.688199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA898614EF4
+	for <lists+xen-devel@lfdr.de>; Tue,  1 Nov 2022 17:15:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435095.688211 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optvB-00049a-HN; Tue, 01 Nov 2022 16:15:25 +0000
+	id 1optvH-00053K-SO; Tue, 01 Nov 2022 16:15:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435090.688199; Tue, 01 Nov 2022 16:15:25 +0000
+Received: by outflank-mailman (output) from mailman id 435095.688211; Tue, 01 Nov 2022 16:15:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1optvB-00044X-9i; Tue, 01 Nov 2022 16:15:25 +0000
-Received: by outflank-mailman (input) for mailman id 435090;
- Tue, 01 Nov 2022 16:15:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1optvH-0004yq-Nc; Tue, 01 Nov 2022 16:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 435095;
+ Tue, 01 Nov 2022 16:15:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=PfM8=3B=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1optv9-0000i5-AG
- for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 16:15:23 +0000
+ id 1optvF-0000yH-8v
+ for xen-devel@lists.xenproject.org; Tue, 01 Nov 2022 16:15:29 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 62dddeb9-5a00-11ed-8fd0-01056ac49cbb;
- Tue, 01 Nov 2022 17:15:22 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 662faff1-5a00-11ed-91b5-6bf2151ebd3b;
+ Tue, 01 Nov 2022 17:15:28 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4904E3382E;
- Tue,  1 Nov 2022 16:15:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id D3BAF3382E;
+ Tue,  1 Nov 2022 16:15:27 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1CF4A1346F;
- Tue,  1 Nov 2022 16:15:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A031E1346F;
+ Tue,  1 Nov 2022 16:15:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 30vABRpGYWNCdwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 16:15:22 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mjLRJR9GYWNKdwAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 01 Nov 2022 16:15:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,175 +51,529 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 62dddeb9-5a00-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 662faff1-5a00-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1667319322; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1667319327; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wkI1F2q0wuo3k02I3w30xmcUIYPftf6mWJLCe27OacU=;
-	b=UTcOeQTSFT9SOojEBqDhJP0nJ6RXmzODIkVf9DxuMqnQYqzAy2gWNtsAMPc0ocFA7GFAv2
-	1pxrKEuzJ6pKP6gjBHrYbetw/ISTcpdzr54LfJKeWsaz+ue4JAZRZcA52TgDMFsTpJHezh
-	BgXJmzbhGPeEW8V4brzn7b4GSeC523I=
+	bh=R7SNA0TjbXqw84TAvx2L4UOdxld+IGgbLt1a5t0hQVU=;
+	b=bZAuQg/e1wdVIjlcMwpvW7DNycqex9ZABU2aAOblEY9Ok1NLH22xsBs/viLsa/AJJs0XPg
+	pSIAMNsSq/9B4+TJt2Agi4z80qkDLrh4zxXfKJlwPcdyk75MgZcUB581v7+i3Y3gxdfxAw
+	Kymk2gDfWtQPKs8NjUNvy1hcrHvuhBg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 04/10] tools/xenstore: let hashtable_insert() return 0 on success
-Date: Tue,  1 Nov 2022 17:14:51 +0100
-Message-Id: <20221101161457.8470-5-jgross@suse.com>
+Subject: [PATCH 05/10] tools/xenstore: make some write limit functions static
+Date: Tue,  1 Nov 2022 17:14:52 +0100
+Message-Id: <20221101161457.8470-6-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20221101161457.8470-1-jgross@suse.com>
 References: <20221101161457.8470-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Today hashtable_insert() returns 0 in case of an error. Change that to
-let it return an errno value in the error case and 0 in case of success.
-
-Even if not used today, do the same switch for the return value of
-hashtable_expand().
+Some wrl_*() functions are only used in xenstored_domain.c, so make
+them static. In order to avoid the need of forward declarations, move
+the whole function block to the start of the file.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 ---
- tools/xenstore/hashtable.c             | 15 ++++++++++-----
- tools/xenstore/hashtable.h             |  2 +-
- tools/xenstore/xenstored_core.c        |  4 ++--
- tools/xenstore/xenstored_domain.c      |  4 ++--
- tools/xenstore/xenstored_transaction.c |  4 ++--
- 5 files changed, 17 insertions(+), 12 deletions(-)
+ tools/xenstore/xenstored_domain.c | 456 +++++++++++++++---------------
+ tools/xenstore/xenstored_domain.h |   3 -
+ 2 files changed, 228 insertions(+), 231 deletions(-)
 
-diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
-index 43a8caab82..1bed5ad384 100644
---- a/tools/xenstore/hashtable.c
-+++ b/tools/xenstore/hashtable.c
-@@ -105,14 +105,15 @@ static int hashtable_expand(struct hashtable *h)
-     struct entry **pE;
-     unsigned int newsize, i, index;
-     /* Check we're not hitting max capacity */
--    if (h->primeindex == (PRIME_TABLE_LEN - 1)) return 0;
-+    if (h->primeindex == (PRIME_TABLE_LEN - 1))
-+        return ENOSPC;
-     newsize = primes[++(h->primeindex)];
- 
-     newtable = talloc_realloc(h, h->table, struct entry *, newsize);
-     if (!newtable)
-     {
-         h->primeindex--;
--        return 0;
-+        return ENOMEM;
-     }
- 
-     h->table = newtable;
-@@ -136,7 +137,7 @@ static int hashtable_expand(struct hashtable *h)
- 
-     h->tablelength = newsize;
-     h->loadlimit   = loadlimit(h->primeindex);
--    return -1;
-+    return 0;
- }
- 
- int hashtable_insert(struct hashtable *h, void *k, void *v)
-@@ -153,14 +154,18 @@ int hashtable_insert(struct hashtable *h, void *k, void *v)
-         hashtable_expand(h);
-     }
-     e = talloc_zero(h, struct entry);
--    if (NULL == e) { --(h->entrycount); return 0; } /*oom*/
-+    if (NULL == e)
-+    {
-+        --h->entrycount;
-+       return ENOMEM;
-+    }
-     e->h = hash(h,k);
-     index = indexFor(h->tablelength,e->h);
-     e->k = k;
-     e->v = v;
-     e->next = h->table[index];
-     h->table[index] = e;
--    return -1;
-+    return 0;
- }
- 
- void *hashtable_search(struct hashtable *h, void *k)
-diff --git a/tools/xenstore/hashtable.h b/tools/xenstore/hashtable.h
-index 5575f6c1dd..99a8331bec 100644
---- a/tools/xenstore/hashtable.h
-+++ b/tools/xenstore/hashtable.h
-@@ -36,7 +36,7 @@ create_hashtable(const void *ctx, const char *name,
-  * @param   h   the hashtable to insert into
-  * @param   k   the key - hashtable claims ownership and will free on removal
-  * @param   v   the value - does not claim ownership
-- * @return      non-zero for successful insertion
-+ * @return      zero for successful insertion
-  *
-  * This function will cause the table to expand if the insertion would take
-  * the ratio of entries to table size over the maximum load factor.
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index c4d9d275be..5d35925ed8 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -2385,7 +2385,7 @@ int remember_string(struct hashtable *hash, const char *str)
- 	char *k = talloc_strdup(NULL, str);
- 
- 	if (!k)
--		return 0;
-+		return ENOMEM;
- 	return hashtable_insert(hash, k, (void *)1);
- }
- 
-@@ -2419,7 +2419,7 @@ static int check_store_step(const void *ctx, struct connection *conn,
- 				: WALK_TREE_SKIP_CHILDREN;
- 	}
- 
--	if (!remember_string(data->reachable, node->name))
-+	if (remember_string(data->reachable, node->name))
- 		return WALK_TREE_ERROR_STOP;
- 
- 	domain_check_acc_add(node, data->domains);
 diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index b3c288bf40..f871bdf04a 100644
+index f871bdf04a..559687a9d9 100644
 --- a/tools/xenstore/xenstored_domain.c
 +++ b/tools/xenstore/xenstored_domain.c
-@@ -542,7 +542,7 @@ static struct domain *alloc_domain(const void *context, unsigned int domid)
- 	domain->generation = generation;
- 	domain->introduced = false;
+@@ -157,6 +157,234 @@ struct changed_domain
  
--	if (!hashtable_insert(domhash, &domain->domid, domain)) {
-+	if (hashtable_insert(domhash, &domain->domid, domain)) {
- 		talloc_free(domain);
- 		errno = ENOMEM;
- 		return NULL;
-@@ -1786,7 +1786,7 @@ static int domain_check_acc_init_sub(void *k, void *v, void *arg)
- 	 */
- 	dom->nodes = -d->acc[ACC_NODES].val;
+ static struct hashtable *domhash;
  
--	if (!hashtable_insert(domains, &dom->domid, dom)) {
-+	if (hashtable_insert(domains, &dom->domid, dom)) {
- 		talloc_free(dom);
- 		return -1;
- 	}
-diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
-index 13fabe030d..7b2e78f104 100644
---- a/tools/xenstore/xenstored_transaction.c
-+++ b/tools/xenstore/xenstored_transaction.c
-@@ -588,13 +588,13 @@ int check_transactions(struct hashtable *hash)
- 		list_for_each_entry(trans, &conn->transaction_list, list) {
- 			tname = talloc_asprintf(trans, "%"PRIu64,
- 						trans->generation);
--			if (!tname || !remember_string(hash, tname))
-+			if (!tname || remember_string(hash, tname))
- 				goto nomem;
++static wrl_creditt wrl_config_writecost      = WRL_FACTOR;
++static wrl_creditt wrl_config_rate           = WRL_RATE   * WRL_FACTOR;
++static wrl_creditt wrl_config_dburst         = WRL_DBURST * WRL_FACTOR;
++static wrl_creditt wrl_config_gburst         = WRL_GBURST * WRL_FACTOR;
++static wrl_creditt wrl_config_newdoms_dburst =
++	                         WRL_DBURST * WRL_NEWDOMS * WRL_FACTOR;
++
++long wrl_ntransactions;
++
++static long wrl_ndomains;
++static wrl_creditt wrl_reserve; /* [-wrl_config_newdoms_dburst, +_gburst ] */
++static time_t wrl_log_last_warning; /* 0: no previous warning */
++
++#define trace_wrl(...)				\
++do {						\
++	if (trace_flags & TRACE_WRL)		\
++		trace("wrl: " __VA_ARGS__);	\
++} while (0)
++
++void wrl_gettime_now(struct wrl_timestampt *now_wt)
++{
++	struct timespec now_ts;
++	int r;
++
++	r = clock_gettime(CLOCK_MONOTONIC, &now_ts);
++	if (r)
++		barf_perror("Could not find time (clock_gettime failed)");
++
++	now_wt->sec = now_ts.tv_sec;
++	now_wt->msec = now_ts.tv_nsec / 1000000;
++}
++
++static void wrl_xfer_credit(wrl_creditt *debit,  wrl_creditt debit_floor,
++			    wrl_creditt *credit, wrl_creditt credit_ceil)
++	/*
++	 * Transfers zero or more credit from "debit" to "credit".
++	 * Transfers as much as possible while maintaining
++	 * debit >= debit_floor and credit <= credit_ceil.
++	 * (If that's violated already, does nothing.)
++	 *
++	 * Sufficient conditions to avoid overflow, either of:
++	 *  |every argument| <= 0x3fffffff
++	 *  |every argument| <= 1E9
++	 *  |every argument| <= WRL_CREDIT_MAX
++	 * (And this condition is preserved.)
++	 */
++{
++	wrl_creditt xfer = MIN( *debit      - debit_floor,
++			        credit_ceil - *credit      );
++	if (xfer > 0) {
++		*debit -= xfer;
++		*credit += xfer;
++	}
++}
++
++static void wrl_domain_new(struct domain *domain)
++{
++	domain->wrl_credit = 0;
++	wrl_gettime_now(&domain->wrl_timestamp);
++	wrl_ndomains++;
++	/* Steal up to DBURST from the reserve */
++	wrl_xfer_credit(&wrl_reserve, -wrl_config_newdoms_dburst,
++			&domain->wrl_credit, wrl_config_dburst);
++}
++
++static void wrl_domain_destroy(struct domain *domain)
++{
++	wrl_ndomains--;
++	/*
++	 * Don't bother recalculating domain's credit - this just
++	 * means we don't give the reserve the ending domain's credit
++	 * for time elapsed since last update.
++	 */
++	wrl_xfer_credit(&domain->wrl_credit, 0,
++			&wrl_reserve, wrl_config_dburst);
++}
++
++static void wrl_credit_update(struct domain *domain, struct wrl_timestampt now)
++{
++	/*
++	 * We want to calculate
++	 *    credit += (now - timestamp) * RATE / ndoms;
++	 * But we want it to saturate, and to avoid floating point.
++	 * To avoid rounding errors from constantly adding small
++	 * amounts of credit, we only add credit for whole milliseconds.
++	 */
++	long seconds      = now.sec -  domain->wrl_timestamp.sec;
++	long milliseconds = now.msec - domain->wrl_timestamp.msec;
++	long msec;
++	int64_t denom, num;
++	wrl_creditt surplus;
++
++	seconds = MIN(seconds, 1000*1000); /* arbitrary, prevents overflow */
++	msec = seconds * 1000 + milliseconds;
++
++	if (msec < 0)
++                /* shouldn't happen with CLOCK_MONOTONIC */
++		msec = 0;
++
++	/* 32x32 -> 64 cannot overflow */
++	denom = (int64_t)msec * wrl_config_rate;
++	num  =  (int64_t)wrl_ndomains * 1000;
++	/* denom / num <= 1E6 * wrl_config_rate, so with
++	   reasonable wrl_config_rate, denom / num << 2^64 */
++
++	/* at last! */
++	domain->wrl_credit = MIN( (int64_t)domain->wrl_credit + denom / num,
++				  WRL_CREDIT_MAX );
++	/* (maybe briefly violating the DBURST cap on wrl_credit) */
++
++	/* maybe take from the reserve to make us nonnegative */
++	wrl_xfer_credit(&wrl_reserve,        0,
++			&domain->wrl_credit, 0);
++
++	/* return any surplus (over DBURST) to the reserve */
++	surplus = 0;
++	wrl_xfer_credit(&domain->wrl_credit, wrl_config_dburst,
++			&surplus,            WRL_CREDIT_MAX);
++	wrl_xfer_credit(&surplus,     0,
++			&wrl_reserve, wrl_config_gburst);
++	/* surplus is now implicitly discarded */
++
++	domain->wrl_timestamp = now;
++
++	trace_wrl("dom %4d %6ld msec %9ld credit  %9ld reserve %9ld discard\n",
++		  domain->domid, msec, (long)domain->wrl_credit,
++		  (long)wrl_reserve, (long)surplus);
++}
++
++void wrl_check_timeout(struct domain *domain,
++		       struct wrl_timestampt now,
++		       int *ptimeout)
++{
++	uint64_t num, denom;
++	int wakeup;
++
++	wrl_credit_update(domain, now);
++
++	if (domain->wrl_credit >= 0)
++		/* not blocked */
++		return;
++
++	if (!*ptimeout)
++		/* already decided on immediate wakeup,
++		   so no need to calculate our timeout */
++		return;
++
++	/* calculate  wakeup = now + -credit / (RATE / ndoms); */
++
++	/* credit cannot go more -ve than one transaction,
++	 * so the first multiplication cannot overflow even 32-bit */
++	num   = (uint64_t)(-domain->wrl_credit * 1000) * wrl_ndomains;
++	denom = wrl_config_rate;
++
++	wakeup = MIN( num / denom /* uint64_t */, INT_MAX );
++	if (*ptimeout==-1 || wakeup < *ptimeout)
++		*ptimeout = wakeup;
++
++	trace_wrl("domain %u credit=%ld (reserve=%ld) SLEEPING for %d\n",
++		  domain->domid, (long)domain->wrl_credit, (long)wrl_reserve,
++		  wakeup);
++}
++
++#define WRL_LOG(now, ...) \
++	(syslog(LOG_WARNING, "write rate limit: " __VA_ARGS__))
++
++void wrl_apply_debit_actual(struct domain *domain)
++{
++	struct wrl_timestampt now;
++
++	if (!domain || !domain_is_unprivileged(domain->conn))
++		/* sockets and privileged domain escape the write rate limit */
++		return;
++
++	wrl_gettime_now(&now);
++	wrl_credit_update(domain, now);
++
++	domain->wrl_credit -= wrl_config_writecost;
++	trace_wrl("domain %u credit=%ld (reserve=%ld)\n", domain->domid,
++		  (long)domain->wrl_credit, (long)wrl_reserve);
++
++	if (domain->wrl_credit < 0) {
++		if (!domain->wrl_delay_logged) {
++			domain->wrl_delay_logged = true;
++			WRL_LOG(now, "domain %ld is affected\n",
++				(long)domain->domid);
++		} else if (!wrl_log_last_warning) {
++			WRL_LOG(now, "rate limiting restarts\n");
++		}
++		wrl_log_last_warning = now.sec;
++	}
++}
++
++void wrl_log_periodic(struct wrl_timestampt now)
++{
++	if (wrl_log_last_warning &&
++	    (now.sec - wrl_log_last_warning) > WRL_LOGEVERY) {
++		WRL_LOG(now, "not in force recently\n");
++		wrl_log_last_warning = 0;
++	}
++}
++
++void wrl_apply_debit_direct(struct connection *conn)
++{
++	if (!conn)
++		/* some writes are generated internally */
++		return;
++
++	if (conn->transaction)
++		/* these are accounted for when the transaction ends */
++		return;
++
++	if (!wrl_ntransactions)
++		/* we don't conflict with anyone */
++		return;
++
++	wrl_apply_debit_actual(conn->domain);
++}
++
++void wrl_apply_debit_trans_commit(struct connection *conn)
++{
++	if (wrl_ntransactions <= 1)
++		/* our own transaction appears in the counter */
++		return;
++
++	wrl_apply_debit_actual(conn->domain);
++}
++
+ static bool check_indexes(XENSTORE_RING_IDX cons, XENSTORE_RING_IDX prod)
+ {
+ 	return ((prod - cons) <= XENSTORE_RING_SIZE);
+@@ -1437,234 +1665,6 @@ unsigned int domain_transaction_get(struct connection *conn)
+ 		: 0;
+ }
  
- 			list_for_each_entry(i, &trans->accessed, list) {
- 				if (!i->ta_node)
- 					continue;
--				if (!remember_string(hash, i->trans_name))
-+				if (remember_string(hash, i->trans_name))
- 					goto nomem;
- 			}
+-static wrl_creditt wrl_config_writecost      = WRL_FACTOR;
+-static wrl_creditt wrl_config_rate           = WRL_RATE   * WRL_FACTOR;
+-static wrl_creditt wrl_config_dburst         = WRL_DBURST * WRL_FACTOR;
+-static wrl_creditt wrl_config_gburst         = WRL_GBURST * WRL_FACTOR;
+-static wrl_creditt wrl_config_newdoms_dburst =
+-	                         WRL_DBURST * WRL_NEWDOMS * WRL_FACTOR;
+-
+-long wrl_ntransactions;
+-
+-static long wrl_ndomains;
+-static wrl_creditt wrl_reserve; /* [-wrl_config_newdoms_dburst, +_gburst ] */
+-static time_t wrl_log_last_warning; /* 0: no previous warning */
+-
+-#define trace_wrl(...)				\
+-do {						\
+-	if (trace_flags & TRACE_WRL)		\
+-		trace("wrl: " __VA_ARGS__);	\
+-} while (0)
+-
+-void wrl_gettime_now(struct wrl_timestampt *now_wt)
+-{
+-	struct timespec now_ts;
+-	int r;
+-
+-	r = clock_gettime(CLOCK_MONOTONIC, &now_ts);
+-	if (r)
+-		barf_perror("Could not find time (clock_gettime failed)");
+-
+-	now_wt->sec = now_ts.tv_sec;
+-	now_wt->msec = now_ts.tv_nsec / 1000000;
+-}
+-
+-static void wrl_xfer_credit(wrl_creditt *debit,  wrl_creditt debit_floor,
+-			    wrl_creditt *credit, wrl_creditt credit_ceil)
+-	/*
+-	 * Transfers zero or more credit from "debit" to "credit".
+-	 * Transfers as much as possible while maintaining
+-	 * debit >= debit_floor and credit <= credit_ceil.
+-	 * (If that's violated already, does nothing.)
+-	 *
+-	 * Sufficient conditions to avoid overflow, either of:
+-	 *  |every argument| <= 0x3fffffff
+-	 *  |every argument| <= 1E9
+-	 *  |every argument| <= WRL_CREDIT_MAX
+-	 * (And this condition is preserved.)
+-	 */
+-{
+-	wrl_creditt xfer = MIN( *debit      - debit_floor,
+-			        credit_ceil - *credit      );
+-	if (xfer > 0) {
+-		*debit -= xfer;
+-		*credit += xfer;
+-	}
+-}
+-
+-void wrl_domain_new(struct domain *domain)
+-{
+-	domain->wrl_credit = 0;
+-	wrl_gettime_now(&domain->wrl_timestamp);
+-	wrl_ndomains++;
+-	/* Steal up to DBURST from the reserve */
+-	wrl_xfer_credit(&wrl_reserve, -wrl_config_newdoms_dburst,
+-			&domain->wrl_credit, wrl_config_dburst);
+-}
+-
+-void wrl_domain_destroy(struct domain *domain)
+-{
+-	wrl_ndomains--;
+-	/*
+-	 * Don't bother recalculating domain's credit - this just
+-	 * means we don't give the reserve the ending domain's credit
+-	 * for time elapsed since last update.
+-	 */
+-	wrl_xfer_credit(&domain->wrl_credit, 0,
+-			&wrl_reserve, wrl_config_dburst);
+-}
+-
+-void wrl_credit_update(struct domain *domain, struct wrl_timestampt now)
+-{
+-	/*
+-	 * We want to calculate
+-	 *    credit += (now - timestamp) * RATE / ndoms;
+-	 * But we want it to saturate, and to avoid floating point.
+-	 * To avoid rounding errors from constantly adding small
+-	 * amounts of credit, we only add credit for whole milliseconds.
+-	 */
+-	long seconds      = now.sec -  domain->wrl_timestamp.sec;
+-	long milliseconds = now.msec - domain->wrl_timestamp.msec;
+-	long msec;
+-	int64_t denom, num;
+-	wrl_creditt surplus;
+-
+-	seconds = MIN(seconds, 1000*1000); /* arbitrary, prevents overflow */
+-	msec = seconds * 1000 + milliseconds;
+-
+-	if (msec < 0)
+-                /* shouldn't happen with CLOCK_MONOTONIC */
+-		msec = 0;
+-
+-	/* 32x32 -> 64 cannot overflow */
+-	denom = (int64_t)msec * wrl_config_rate;
+-	num  =  (int64_t)wrl_ndomains * 1000;
+-	/* denom / num <= 1E6 * wrl_config_rate, so with
+-	   reasonable wrl_config_rate, denom / num << 2^64 */
+-
+-	/* at last! */
+-	domain->wrl_credit = MIN( (int64_t)domain->wrl_credit + denom / num,
+-				  WRL_CREDIT_MAX );
+-	/* (maybe briefly violating the DBURST cap on wrl_credit) */
+-
+-	/* maybe take from the reserve to make us nonnegative */
+-	wrl_xfer_credit(&wrl_reserve,        0,
+-			&domain->wrl_credit, 0);
+-
+-	/* return any surplus (over DBURST) to the reserve */
+-	surplus = 0;
+-	wrl_xfer_credit(&domain->wrl_credit, wrl_config_dburst,
+-			&surplus,            WRL_CREDIT_MAX);
+-	wrl_xfer_credit(&surplus,     0,
+-			&wrl_reserve, wrl_config_gburst);
+-	/* surplus is now implicitly discarded */
+-
+-	domain->wrl_timestamp = now;
+-
+-	trace_wrl("dom %4d %6ld msec %9ld credit %9ld reserve %9ld discard\n",
+-		  domain->domid, msec, (long)domain->wrl_credit,
+-		  (long)wrl_reserve, (long)surplus);
+-}
+-
+-void wrl_check_timeout(struct domain *domain,
+-		       struct wrl_timestampt now,
+-		       int *ptimeout)
+-{
+-	uint64_t num, denom;
+-	int wakeup;
+-
+-	wrl_credit_update(domain, now);
+-
+-	if (domain->wrl_credit >= 0)
+-		/* not blocked */
+-		return;
+-
+-	if (!*ptimeout)
+-		/* already decided on immediate wakeup,
+-		   so no need to calculate our timeout */
+-		return;
+-
+-	/* calculate  wakeup = now + -credit / (RATE / ndoms); */
+-
+-	/* credit cannot go more -ve than one transaction,
+-	 * so the first multiplication cannot overflow even 32-bit */
+-	num   = (uint64_t)(-domain->wrl_credit * 1000) * wrl_ndomains;
+-	denom = wrl_config_rate;
+-
+-	wakeup = MIN( num / denom /* uint64_t */, INT_MAX );
+-	if (*ptimeout==-1 || wakeup < *ptimeout)
+-		*ptimeout = wakeup;
+-
+-	trace_wrl("domain %u credit=%ld (reserve=%ld) SLEEPING for %d\n",
+-		  domain->domid, (long)domain->wrl_credit, (long)wrl_reserve,
+-		  wakeup);
+-}
+-
+-#define WRL_LOG(now, ...) \
+-	(syslog(LOG_WARNING, "write rate limit: " __VA_ARGS__))
+-
+-void wrl_apply_debit_actual(struct domain *domain)
+-{
+-	struct wrl_timestampt now;
+-
+-	if (!domain || !domid_is_unprivileged(domain->domid))
+-		/* sockets and privileged domain escape the write rate limit */
+-		return;
+-
+-	wrl_gettime_now(&now);
+-	wrl_credit_update(domain, now);
+-
+-	domain->wrl_credit -= wrl_config_writecost;
+-	trace_wrl("domain %u credit=%ld (reserve=%ld)\n", domain->domid,
+-		  (long)domain->wrl_credit, (long)wrl_reserve);
+-
+-	if (domain->wrl_credit < 0) {
+-		if (!domain->wrl_delay_logged) {
+-			domain->wrl_delay_logged = true;
+-			WRL_LOG(now, "domain %ld is affected\n",
+-				(long)domain->domid);
+-		} else if (!wrl_log_last_warning) {
+-			WRL_LOG(now, "rate limiting restarts\n");
+-		}
+-		wrl_log_last_warning = now.sec;
+-	}
+-}
+-
+-void wrl_log_periodic(struct wrl_timestampt now)
+-{
+-	if (wrl_log_last_warning &&
+-	    (now.sec - wrl_log_last_warning) > WRL_LOGEVERY) {
+-		WRL_LOG(now, "not in force recently\n");
+-		wrl_log_last_warning = 0;
+-	}
+-}
+-
+-void wrl_apply_debit_direct(struct connection *conn)
+-{
+-	if (!conn)
+-		/* some writes are generated internally */
+-		return;
+-
+-	if (conn->transaction)
+-		/* these are accounted for when the transaction ends */
+-		return;
+-
+-	if (!wrl_ntransactions)
+-		/* we don't conflict with anyone */
+-		return;
+-
+-	wrl_apply_debit_actual(conn->domain);
+-}
+-
+-void wrl_apply_debit_trans_commit(struct connection *conn)
+-{
+-	if (wrl_ntransactions <= 1)
+-		/* our own transaction appears in the counter */
+-		return;
+-
+-	wrl_apply_debit_actual(conn->domain);
+-}
+-
+ const char *dump_state_connections(FILE *fp)
+ {
+ 	const char *ret = NULL;
+diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+index 1d11085ebc..b691a28778 100644
+--- a/tools/xenstore/xenstored_domain.h
++++ b/tools/xenstore/xenstored_domain.h
+@@ -152,9 +152,6 @@ struct wrl_timestampt {
+ extern long wrl_ntransactions;
  
+ void wrl_gettime_now(struct wrl_timestampt *now_ts);
+-void wrl_domain_new(struct domain *domain);
+-void wrl_domain_destroy(struct domain *domain);
+-void wrl_credit_update(struct domain *domain, struct wrl_timestampt now);
+ void wrl_check_timeout(struct domain *domain,
+                        struct wrl_timestampt now,
+                        int *ptimeout);
 -- 
 2.35.3
 
