@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99E34615E62
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 09:52:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435662.689317 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20CD1615E8D
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 09:59:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435670.689328 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oq9U7-0000d1-JZ; Wed, 02 Nov 2022 08:52:31 +0000
+	id 1oq9aL-0001pd-BY; Wed, 02 Nov 2022 08:58:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435662.689317; Wed, 02 Nov 2022 08:52:31 +0000
+Received: by outflank-mailman (output) from mailman id 435670.689328; Wed, 02 Nov 2022 08:58:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oq9U7-0000bB-Eu; Wed, 02 Nov 2022 08:52:31 +0000
-Received: by outflank-mailman (input) for mailman id 435662;
- Wed, 02 Nov 2022 08:52:29 +0000
+	id 1oq9aL-0001nF-8X; Wed, 02 Nov 2022 08:58:57 +0000
+Received: by outflank-mailman (input) for mailman id 435670;
+ Wed, 02 Nov 2022 08:58:56 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Cd3U=3C=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oq9U5-0000b1-K5
- for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 08:52:29 +0000
-Received: from NAM04-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam04on2087.outbound.protection.outlook.com [40.107.101.87])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O20d=3C=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1oq9aJ-0001n8-Qm
+ for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 08:58:55 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id abb4a283-5a8b-11ed-91b5-6bf2151ebd3b;
- Wed, 02 Nov 2022 09:52:27 +0100 (CET)
-Received: from DM6PR02CA0097.namprd02.prod.outlook.com (2603:10b6:5:1f4::38)
- by SJ0PR12MB5609.namprd12.prod.outlook.com (2603:10b6:a03:42c::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.19; Wed, 2 Nov
- 2022 08:52:22 +0000
-Received: from DM6NAM11FT082.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:1f4:cafe::40) by DM6PR02CA0097.outlook.office365.com
- (2603:10b6:5:1f4::38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.21 via Frontend
- Transport; Wed, 2 Nov 2022 08:52:21 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT082.mail.protection.outlook.com (10.13.173.107) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Wed, 2 Nov 2022 08:52:21 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 2 Nov
- 2022 03:52:19 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Wed, 2 Nov 2022 03:52:18 -0500
+ id 93cf6ccc-5a8c-11ed-91b5-6bf2151ebd3b;
+ Wed, 02 Nov 2022 09:58:54 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id BE9CA225DC;
+ Wed,  2 Nov 2022 08:58:53 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 539C8139D3;
+ Wed,  2 Nov 2022 08:58:53 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id mxTmEk0xYmPmHAAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 02 Nov 2022 08:58:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,243 +51,238 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abb4a283-5a8b-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=esEuTEJp4PkZS3hUvY/RaaVcaUGd3OZJHgebkNeJVqj715FUQHDvyhsB9l8NMj4BXi1ikWlJTsYfCZVHjuUBnfhTb2ealo3GkP6mZvsKjwhI5rDfIlThi7UnPWPh2WoRScHGScePfOIrdi+0UvZ+0/2L/u1gRRSyVdW5C/U163df7rZRX23oExVg9DcA8K6LldEDuVJOvxc8QdTrAYzvvm49Q6akdopuo2JTznV8mE8NELGevQRBSqxVrsxl5Gmb0897lVIO5gG0pc+SvZ/IEsJ737VkpL1sfG2H/vhDhoaddtXcVTgNCTqzS/ORD9nFjO+N5kfHZiP0MkLbY6C2kA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X/jLUbXTFMMm9MS2oC3GDrF/cplqLRXe+DAHKVZ9w/U=;
- b=jyeMIiFCWBSEcwFJLgvn6gx+AXI41IiweB2TDDMaznPDs00JsgM3lTIR2JJn54Y5nSZECOGMu0EnrNNLF4awEd2jbyrknW/i2heAoCdJUXWF48F3Sb8dkYRS1C1tbDAVRN+xt9luXtClEGwVJDgbnM4GC7b6yEfcH3bhiq+jeYprit8pZQ7rUK5PaCO5wle7t/rDs2kaVqho8eeeQZlJfGsP8mhaaGr59224JiiA3evvSqKcuETp90eVQQWEZ2VbeGNi7+0dZD54ejKVuwejseuEqBUAK3pTTObtP/KaIKcX5VJEpwIBoxDe3znLh2H9mZ7ZVHKvwkzpukdrhmdbSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/jLUbXTFMMm9MS2oC3GDrF/cplqLRXe+DAHKVZ9w/U=;
- b=3dbBNZwVMcdBx3NqC+LsinW1pyAwAsxQ8yTyVzziTa2HjRmDb/XBvwDKpk7HMmJOgsIzdM4nlLXuCKOrQqn7OZ1OPr9E5RKiaewHiKug73Hf8S8V92VX1DypqpsLYtuiBNaCUcvFjl5l336sSGoIMSqRM7WiJKB7JHu/vPw1jqs=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <a4881436-83f3-c580-ed96-ac6b477e325e@amd.com>
-Date: Wed, 2 Nov 2022 09:52:18 +0100
+X-Inumbo-ID: 93cf6ccc-5a8c-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1667379533; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=x32TTSXhwza5c7baqBgiOCbV2AXnegIHoi3AjHskP0Y=;
+	b=Y65T1xmuEky7XtQo065WDHNFG2bBmcNcA8SMKwV1flVuA8gBCT+23xawrwdHDo2Cusu2o5
+	lLsU541qCRsQhS2QljZneSMuXIwQTWpyJv01vGycSSHSPT22WU19Kcdeh0P3JcdTQXeIrs
+	KhD4j7db0e+tgEimRCX+CNN+nsEQzZ8=
+Message-ID: <e5a22545-ce22-87a1-63b6-6b3ffa3f68ed@suse.com>
+Date: Wed, 2 Nov 2022 09:58:52 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [XEN v2 03/12] xen/Arm: vreg: Support vreg_reg64_* helpers on
- Aarch32
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
+ devices
 Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<burzalodowa@gmail.com>
-References: <20221031151326.22634-1-ayankuma@amd.com>
- <20221031151326.22634-4-ayankuma@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221031151326.22634-4-ayankuma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT082:EE_|SJ0PR12MB5609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36c40938-b95f-4e6a-4da9-08dabcaf8df0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	mhumzKm6F3uAw4iq2z7T8kTzwwGRuUOREaCtbUVRxT6keERIVSsIy2X/d3fjsHco+SWx/FiJV2PdwKw+ZOqa3zRQlptQ6JTNJA/X2B74aQdFdKz6iSqlKOkbqKcwLpZfx9QYrtZ38l7ew3jT3ITzxp1HfOZBlmTI2aWBp5Bs1BT89SW8dLO3KQyy73JK0DvhuHT6HE4htM+ynA4QltAkIud/sM453EI6Rlexj2nsYDt1ulI9ib9UO41TFxoxP7sl2ptbga1ri8PhbiYOMVo5ZzHliML2Cjuwm+T59ZY0f4BDpwFCXQ7tW3AcYNYfAOZFtkQwBlD6rtTIk5+ZbaW3/FMdqPbxZmsVAw/cyzrFJI5dlFjFqaFvYx+p8yN5te2iHjE9jIxz1fPXpMGpJ2HVb4vO2s8vO7EdH9X7wqj0CqC1BKu/AQ7eXN07tzOEmsSO0MQErbpLADD/TuJtJHRfJR32yd2P0t2M0IIDJch40VtB/wq8tb4qUvzQUQHAKBpa2FQuPpY4CQA/H+I2/ihv+qPCLnGbwcky03Pvb7fGy4uF+UtgJ/JDCI3lC9pjiqKc5poWzV6kfw/SGHi1njMYPll9DK9WU09oYhiyubcRKQgOr6EibUPLk49wLxSVfjckJepCuyjJcLUAMSA6Tgo5jOqVl69gnCBQuZY191q/T48U6XAptFO9/W/98eBwGKUrKFuBfQV7/eXjREaSFyXkx6+7Sj4gMqzPOGp7n7jt4IczSsAxGUaoe12y5cC0uRhAf/VJ/Lo8YBWqsLORz5B947tgr+Mih55pnKbClZSDf8DH6tEk/CovZbL9b1SmBRoDidn61QJYI1EcDA3jDN5IFg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(376002)(39860400002)(136003)(451199015)(46966006)(40470700004)(36840700001)(83380400001)(426003)(336012)(47076005)(31686004)(86362001)(316002)(44832011)(31696002)(40480700001)(2906002)(356005)(82740400003)(36756003)(81166007)(478600001)(40460700003)(53546011)(82310400005)(186003)(26005)(2616005)(36860700001)(8936002)(41300700001)(8676002)(16576012)(54906003)(70206006)(4326008)(70586007)(110136005)(5660300002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2022 08:52:21.2356
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36c40938-b95f-4e6a-4da9-08dabcaf8df0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT082.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5609
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Michal Orzel <Michal.Orzel@arm.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+References: <227AD28E-DFB8-4EB3-9E0E-61C70A0D19EB@arm.com>
+ <f777b164-54c6-6091-79ce-fac3dd603b8c@xen.org>
+ <34B31FA6-72D8-4F03-AC94-3DC795D0FF55@arm.com>
+ <222ed837-594d-6301-edec-6f9d26e1fadf@xen.org>
+ <alpine.DEB.2.22.394.2210301523450.3408@ubuntu-linux-20-04-desktop>
+ <82c45bc1-6052-502b-3007-8a16fbd1d433@xen.org>
+ <alpine.DEB.2.22.394.2210302148150.3408@ubuntu-linux-20-04-desktop>
+ <9F323893-B1C9-4D31-9A40-213345421860@arm.com>
+ <Y2E05RLmXRIR6heO@mattapan.m5p.com>
+ <947E315E-6537-48DC-8AC6-5218C12B604C@arm.com>
+ <Y2GAwKsmx9f39p+Y@mattapan.m5p.com>
+ <FB140BBA-B27D-413D-84C6-B75D66218413@arm.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <FB140BBA-B27D-413D-84C6-B75D66218413@arm.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------IfVgbINxJkhComWf6T80Q9Je"
 
-Hi Ayan,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------IfVgbINxJkhComWf6T80Q9Je
+Content-Type: multipart/mixed; boundary="------------bKqdsL0ifYJIOn5PfF7fOG5X";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+ <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Michal Orzel <Michal.Orzel@arm.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>,
+ Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
+ <roger.pau@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>
+Message-ID: <e5a22545-ce22-87a1-63b6-6b3ffa3f68ed@suse.com>
+Subject: Re: Proposal for virtual IOMMU binding b/w vIOMMU and passthrough
+ devices
+References: <227AD28E-DFB8-4EB3-9E0E-61C70A0D19EB@arm.com>
+ <f777b164-54c6-6091-79ce-fac3dd603b8c@xen.org>
+ <34B31FA6-72D8-4F03-AC94-3DC795D0FF55@arm.com>
+ <222ed837-594d-6301-edec-6f9d26e1fadf@xen.org>
+ <alpine.DEB.2.22.394.2210301523450.3408@ubuntu-linux-20-04-desktop>
+ <82c45bc1-6052-502b-3007-8a16fbd1d433@xen.org>
+ <alpine.DEB.2.22.394.2210302148150.3408@ubuntu-linux-20-04-desktop>
+ <9F323893-B1C9-4D31-9A40-213345421860@arm.com>
+ <Y2E05RLmXRIR6heO@mattapan.m5p.com>
+ <947E315E-6537-48DC-8AC6-5218C12B604C@arm.com>
+ <Y2GAwKsmx9f39p+Y@mattapan.m5p.com>
+ <FB140BBA-B27D-413D-84C6-B75D66218413@arm.com>
+In-Reply-To: <FB140BBA-B27D-413D-84C6-B75D66218413@arm.com>
 
-On 31/10/2022 16:13, Ayan Kumar Halder wrote:
-> 
-> 
-> In some situations (eg GICR_TYPER), the hypervior may need to emulate
-> 64bit registers in aarch32 mode. In such situations, the hypervisor may
-> need to read/modify the lower or upper 32 bits of the 64 bit register.
-> 
-> In aarch32, 'unsigned long' is 32 bits. Thus, we cannot use it for 64 bit
-> registers.
-> 
-> The correct approach is to typecast 'mask' based on the size of register access
-> (ie uint32_t or uint64_t) instead of using 'unsigned long' as it will not
-> generate the correct mask for the upper 32 bits of a 64 bit register.
-> Also, 'val' needs to be typecasted so that it can correctly update the upper/
-> lower 32 bits of a 64 bit register.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
-> ---
-> 
-> Changes from :-
-> v1 - 1. Remove vreg_reg_extract(), vreg_reg_update(), vreg_reg_setbits() and
-> vreg_reg_clearbits(). Moved the implementation to  vreg_reg##sz##_*.
-> 'mask' and 'val' is now using uint##sz##_t.
-> 
->  xen/arch/arm/include/asm/vreg.h | 88 ++++++++-------------------------
->  1 file changed, 20 insertions(+), 68 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/vreg.h b/xen/arch/arm/include/asm/vreg.h
-> index f26a70d024..122ea79b65 100644
-> --- a/xen/arch/arm/include/asm/vreg.h
-> +++ b/xen/arch/arm/include/asm/vreg.h
-> @@ -89,107 +89,59 @@ static inline bool vreg_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr
->   * The check on the size supported by the register has to be done by
->   * the caller of vreg_regN_*.
->   *
-> - * vreg_reg_* should never be called directly. Instead use the vreg_regN_*
-> - * according to size of the emulated register
-> - *
->   * Note that the alignment fault will always be taken in the guest
->   * (see B3.12.7 DDI0406.b).
->   */
-> -static inline register_t vreg_reg_extract(unsigned long reg,
-> -                                          unsigned int offset,
-> -                                          enum dabt_size size)
-> -{
-> -    reg >>= 8 * offset;
-> -    reg &= VREG_REG_MASK(size);
-> -
-> -    return reg;
-> -}
-> -
-> -static inline void vreg_reg_update(unsigned long *reg, register_t val,
-> -                                   unsigned int offset,
-> -                                   enum dabt_size size)
-> -{
-> -    unsigned long mask = VREG_REG_MASK(size);
-> -    int shift = offset * 8;
-> -
-> -    *reg &= ~(mask << shift);
-> -    *reg |= ((unsigned long)val & mask) << shift;
-> -}
-> -
-> -static inline void vreg_reg_setbits(unsigned long *reg, register_t bits,
-> -                                    unsigned int offset,
-> -                                    enum dabt_size size)
-> -{
-> -    unsigned long mask = VREG_REG_MASK(size);
-> -    int shift = offset * 8;
-> -
-> -    *reg |= ((unsigned long)bits & mask) << shift;
-> -}
-> -
-> -static inline void vreg_reg_clearbits(unsigned long *reg, register_t bits,
-> -                                      unsigned int offset,
-> -                                      enum dabt_size size)
-> -{
-> -    unsigned long mask = VREG_REG_MASK(size);
-> -    int shift = offset * 8;
-> -
-> -    *reg &= ~(((unsigned long)bits & mask) << shift);
-> -}
-> 
->  /* N-bit register helpers */
->  #define VREG_REG_HELPERS(sz, offmask)                                   \
->  static inline register_t vreg_reg##sz##_extract(uint##sz##_t reg,       \
->                                                  const mmio_info_t *info)\
->  {                                                                       \
-> -    return vreg_reg_extract(reg, info->gpa & (offmask),                 \
-> -                            info->dabt.size);                           \
-> +    unsigned int offset = info->gpa & (offmask);                        \
-In all the other helpers you are also defining the variables to store shift and mask,
-no matter the number of uses. I know that this is a left over from the removed helpers,
-but since you are modifying the file you could improve consistency and define them
-here as well.
+--------------bKqdsL0ifYJIOn5PfF7fOG5X
+Content-Type: multipart/mixed; boundary="------------z6Uogb5YoIpOS7nT1iS9sxHW"
 
-> +                                                                        \
-> +    reg >>= 8 * offset;                                                 \
-> +    reg &= VREG_REG_MASK(info->dabt.size);                              \
-> +                                                                        \
-> +    return reg;                                                         \
->  }                                                                       \
->                                                                          \
->  static inline void vreg_reg##sz##_update(uint##sz##_t *reg,             \
->                                           register_t val,                \
->                                           const mmio_info_t *info)       \
->  {                                                                       \
-> -    unsigned long tmp = *reg;                                           \
-> -                                                                        \
-> -    vreg_reg_update(&tmp, val, info->gpa & (offmask),                   \
-> -                    info->dabt.size);                                   \
-> +    unsigned int offset = info->gpa & (offmask);                        \
-> +    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
-> +    int shift = offset * 8;                                             \
->                                                                          \
-> -    *reg = tmp;                                                         \
-> +    *reg &= ~(mask << shift);                                           \
-> +    *reg |= ((uint##sz##_t)val & mask) << shift;                        \
->  }                                                                       \
->                                                                          \
->  static inline void vreg_reg##sz##_setbits(uint##sz##_t *reg,            \
->                                            register_t bits,              \
->                                            const mmio_info_t *info)      \
->  {                                                                       \
-> -    unsigned long tmp = *reg;                                           \
-> -                                                                        \
-> -    vreg_reg_setbits(&tmp, bits, info->gpa & (offmask),                 \
-> -                     info->dabt.size);                                  \
-> +    unsigned int offset = info->gpa & (offmask);                        \
-> +    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
-> +    int shift = offset * 8;                                             \
->                                                                          \
-> -    *reg = tmp;                                                         \
-> +    *reg |= ((uint##sz##_t)bits & mask) << shift;                       \
->  }                                                                       \
->                                                                          \
->  static inline void vreg_reg##sz##_clearbits(uint##sz##_t *reg,          \
->                                              register_t bits,            \
->                                              const mmio_info_t *info)    \
->  {                                                                       \
-> -    unsigned long tmp = *reg;                                           \
-> +    unsigned int offset = info->gpa & (offmask);                        \
-> +    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
-> +    int shift = offset * 8;                                             \
->                                                                          \
-> -    vreg_reg_clearbits(&tmp, bits, info->gpa & (offmask),               \
-> -                       info->dabt.size);                                \
-> -                                                                        \
-> -    *reg = tmp;                                                         \
-> +    *reg &= ~(((uint##sz##_t)bits & mask) << shift);                    \
->  }
-> 
-> -/*
-> - * 64 bits registers are only supported on platform with 64-bit long.
-> - * This is also allow us to optimize the 32 bit case by using
-> - * unsigned long rather than uint64_t
-> - */
-> -#if BITS_PER_LONG == 64
-> -VREG_REG_HELPERS(64, 0x7);
-> -#endif
->  VREG_REG_HELPERS(32, 0x3);
-> +VREG_REG_HELPERS(64, 0x7);
-No need for the movement. 64 should stay as it was before 32 and you should only
-remove the guards.
+--------------z6Uogb5YoIpOS7nT1iS9sxHW
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-> 
->  #undef VREG_REG_HELPERS
-> 
-> --
-> 2.17.1
-> 
-> 
-Apart from that, the change looks good.
+T24gMDIuMTEuMjIgMDk6NTAsIEJlcnRyYW5kIE1hcnF1aXMgd3JvdGU6DQo+IEhpIEVsbGlv
+dHQsDQo+IA0KPj4gT24gMSBOb3YgMjAyMiwgYXQgMjA6MjUsIEVsbGlvdHQgTWl0Y2hlbGwg
+PGVoZW0reGVuQG01cC5jb20+IHdyb3RlOg0KPj4NCj4+IE9uIFR1ZSwgTm92IDAxLCAyMDIy
+IGF0IDA0OjMwOjMxUE0gKzAwMDAsIEJlcnRyYW5kIE1hcnF1aXMgd3JvdGU6DQo+Pj4NCj4+
+Pj4gT24gMSBOb3YgMjAyMiwgYXQgMTU6MDEsIEVsbGlvdHQgTWl0Y2hlbGwgPGVoZW0reGVu
+QG01cC5jb20+IHdyb3RlOg0KPj4+Pg0KPj4+PiBPbiBNb24sIE9jdCAzMSwgMjAyMiBhdCAw
+MToyNjo0NFBNICswMDAwLCBCZXJ0cmFuZCBNYXJxdWlzIHdyb3RlOg0KPj4+Pj4NCj4+Pj4+
+PiBPbiAzMCBPY3QgMjAyMiwgYXQgMjE6MTQsIFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJl
+bGxpbmlAa2VybmVsLm9yZz4gd3JvdGU6DQo+Pj4+Pj4NCj4+Pj4+PiBJZGVhbGx5IHRoaXMg
+d291bGQgYmUgc29tZXRoaW5nIHF1aWNrIHRoYXQgY2FuIGJlIGVhc2lseSBpbnZva2VkIGFz
+IHRoZQ0KPj4+Pj4+IGZpcnN0IHN0ZXAgb2YgYW4gZXh0ZXJuYWwgdGhpcmQtcGFydHkgYnVp
+bGQgcHJvY2Vzcy4NCj4+Pj4+DQo+Pj4+PiBJIHRoaW5rIHRoYXQgd2UgYXJlIG1ha2luZyB0
+aGlzIHByb2JsZW0gYSBsb3QgdG8gY29tcGxleCBhbmQgSSBhbSBub3Qgc3VyZQ0KPj4+Pj4g
+dGhhdCBhbGwgdGhpcyBjb21wbGV4aXR5IGlzIHJlcXVpcmVkLg0KPj4+Pg0KPj4+PiBTcGVh
+a2luZyBvZiBjb21wbGV4aXR5LiAgSXMgaXQganVzdCBtZSBvciBkb2VzIGEgdklPTU1VIGhh
+ZCBhbiBvZGQgc29ydA0KPj4+PiBvZiBzaW1pbGFyaXR5IHdpdGggYSBHcmFudCBUYWJsZT8N
+Cj4+Pj4NCj4+Pj4gQm90aCBhcmUgYWJvdXQgYWxsb3dpbmcgZm9yZWlnbiBlbnRpdGllcyBh
+Y2Nlc3MgdG8gcG9ydGlvbnMgb2YgdGhlDQo+Pj4+IGN1cnJlbnQgZG9tYWluJ3MgbWVtb3J5
+LiAgSnVzdCBpbiB0aGUgY2FzZSBvZiBhIEdyYW50IFRhYmxlIHRoZSBlbnRpdHkNCj4+Pj4g
+aGFwcGVucyB0byBiZSBhbm90aGVyIGRvbWFpbiwgd2hlcmVhcyBmb3IgYSB2SU9NTVUgaXQg
+aXMgYSBoYXJkd2FyZQ0KPj4+PiBkZXZpY2UuDQo+Pj4+DQo+Pj4+IFBlcmhhcHMgc29tZSBm
+dW5jdGlvbmFsaXR5IGNvdWxkIGJlIHNoYXJlZCBiZXR3ZWVuIHRoZSB0d28/ICBQZXJoYXBz
+DQo+Pj4+IHRoaXMgaXMgc29tZXRoaW5nIGZvciB0aGUgZGVzaWduZXIgb2YgdGhlIG5leHQg
+dmVyc2lvbiBvZiBJT01NVSB0byB0aGluaw0KPj4+PiBhYm91dD8gIChvciBwZXJoYXBzIEkn
+bSBvZmYgdGhlIGRlZXAgZW5kIGFuZCBicmluZ2luZyBpbiBhIHNpbGx5IGlkZWEpDQo+Pj4N
+Cj4+PiBJIGFtIG5vdCBxdWl0ZSBzdXJlIHdoYXQgeW91IG1lYW4gaGVyZS4NCj4+Pg0KPj4+
+IFRoZSBJT01NVSBpcyBzb21ldGhpbmcgbm90IFhlbiBzcGVjaWZpYy4gTGludXggaXMgdXNp
+bmcgaXQgdG8gcmVzdHJpY3QgdGhlIGFyZWENCj4+PiBvZiBtZW1vcnkgYWNjZXNzaWJsZSB0
+byBhIGRldmljZSB1c2luZyBpdHMgRE1BIGVuZ2luZS4gSGVyZSB3ZSBqdXN0IHRyeSB0byBn
+aXZlDQo+Pj4gdGhlIHNhbWUgcG9zc2liaWxpdHkgd2hlbiBydW5uaW5nIG9uIHRvcCBYZW4g
+aW4gYSB0cmFuc3BhcmVudCB3YXkgc28gdGhhdCB0aGUNCj4+PiBMaW51eCAob3IgYW4gb3Ro
+ZXIgZ3Vlc3QpIGNhbiBjb250aW51ZSB0byBkbyB0aGUgc2FtZSBldmVuIGlmIGl0IGlzIHJ1
+bm5pbmcgb24NCj4+PiB0b3Agb2YgWGVuLg0KPj4+IEluIHByYWN0aWNlLCB0aGUgZ3Vlc3Qg
+aXMgbm90IHRlbGxpbmcgdXMgd2hhdCBpdCBkb2VzLCB3ZSBqdXN0IGdldCB0aGUgcG9pbnRl
+ciB0byB0aGUNCj4+PiBmaXJzdCBsZXZlbCBvZiBwYWdlIHRhYmxlIGFuZCB3ZSB3cml0ZSBp
+dCBpbiB0aGUgaGFyZHdhcmUgd2hpY2ggaXMgZG9pbmcgdGhlIHJlc3QuDQo+Pj4gV2UgbmVl
+ZCB0byBoYXZlIGEgdklPTU1VIGJlY2F1c2Ugd2UgbmVlZCB0byBtYWtlIHN1cmUgdGhlIGd1
+ZXN0IGlzIG9ubHkNCj4+PiBkb2luZyB0aGlzIGZvciBkZXZpY2VzIGFzc2lnbmVkIHRvIGhp
+bSBhbmQgdGhhdCBpdCBpcyBub3QgbW9kaWZ5aW5nIHRoZSBzZWNvbmQNCj4+PiBsZXZlbCBv
+ZiBwYWdlIHRhYmxlcyB3aGljaCBpcyB1c2VkIGJ5IFhlbiB0byBtYWtlIHN1cmUgdGhhdCBv
+bmx5IHRoZSBtZW1vcnkNCj4+PiBmcm9tIHRoZSBndWVzdCBpcyBhY2Nlc3NpYmxlIHVzaW5n
+IHRoZSBETUEgZW5naW5lLg0KPj4+DQo+Pj4gU28gSSBhbSBub3QgZXhhY3RseSBzZWVpbmcg
+dGhlIGNvbW1vbiBwYXJ0IHdpdGggZ3JhbnQgdGFibGVzIGhlcmUuDQo+Pg0KPj4gV2l0aCBH
+cmFudCBUYWJsZXMsIG9uZSBkb21haW4gaXMgYWxsb2NhdGluZyBwYWdlcyBhbmQgdGhlbiBh
+bGxvd2luZw0KPj4gYW5vdGhlciBkb21haW4gdG8gcmVhZCBhbmQgcG90ZW50aWFsbHkgd3Jp
+dGUgdG8gdGhlbS4gIFdoYXQgaXMgYmVpbmcNCj4+IGdpdmVuIHRvIFhlbiBpcyB0aGUgdHVw
+bGUgb2YgcGFnZSBhZGRyZXNzIGFuZCBvdGhlciBkb21haW4uDQo+IA0KPiBXaXRoIHRoZSBJ
+T01NVSB3ZSBkbyBub3QgZ2V0IHRvIHRoYXQgaW5mb3JtYXRpb24sIHdlIG9ubHkgZ2V0IHRo
+ZSBmaXJzdCBsZXZlbCBvZg0KPiBwYWdlIHRhYmxlIHBvaW50ZXIgYW5kIHRoZSBoYXJkd2Fy
+ZSBpcyBkb2luZyB0aGUgcmVzdCwgcHJvdGVjdGluZyB0aGUgYWNjZXNzDQo+IHVzaW5nIHRo
+ZSBzZWNvbmQgbGV2ZWwgb2YgcGFnZSB0YWJsZXMgaGFuZGxlZCBieSBYZW4uDQo+IA0KPj4N
+Cj4+IFdpdGggdGhlIG1vZGVsIHByZXNlbnRseSBiZWluZyBkaXNjdXNzZWQgeW91IHdvdWxk
+IGhhdmUgYSB2SU9NTVUgZm9yIGVhY2gNCj4+IG90aGVyIGRvbWFpbi4gIFRoZSB0aGUgcGFn
+ZXMgYWNjZXNzIGlzIGJlaW5nIGdyYW50ZWQgdG8gYXJlIHRoZSBwYWdlcw0KPj4gYmVpbmcg
+ZW50ZXJlZCBpbnRvIHRoZSB2SU9NTVUgcGFnZSB0YWJsZS4NCj4gDQo+IFdoaWNoIFhlbiBk
+b2VzIG5vdCBjaGVjay4NCj4gDQo+Pg0KPj4gQWxsb2NhdGUgYSBkb21haW4gSWQgdG8gZWFj
+aCBJT01NVSBkb21haW4gYW5kIHRoaXMgdmVyeSBtdWNoIHNlZW1zIHF1aXRlDQo+PiBzaW1p
+bGFyIHRvIFhlbidzIGdyYW50IHRhYmxlcy4gIEknbSB1bnN1cmUgdGhlIHR3byBjYW4gYmUg
+dW5pZmllZCwgYnV0DQo+PiB0aGV5IGFwcGVhciB0byBoYXZlIG1hbnkgY29tbW9uIGFzcGVj
+dHMuDQo+IA0KPj5Gcm9tIGFuIGhpZ2ggbGV2ZWwgcG9pbnQgb2YgdmlldyBpdCBtaWdodCBi
+dXQgZnJvbSB0aGUgZ3Vlc3QgcG9pbnQgb2YgdmlldyB0aGUNCj4gSU9NTVUgaXMgc29tZXRo
+aW5nIHVzZWQgd2l0aCBvciB3aXRob3V0IFhlbiB3aGVyZSBncmFudCB0YWJsZXMgYXJlIHZl
+cnkNCj4gc3BlY2lmaWMgdG8gWGVuLiBJIGRvIG5vdCBzZWUgYW55dGhpbmcgdGhhdCBjb3Vs
+ZCBiZSB1bmlmaWVkIHRoZXJlLg0KPiANCj4gTWF5YmUgSSBhbSBtaXNzaW5nIHNvbWV0aGlu
+ZyBoZXJlIHRoYXQgb3RoZXIgY291bGQgc2VlIHRob3VnaCA6LSkNCg0KWW91IG1pZ2h0IHdh
+bnQgdG8gaGF2ZSBhIGxvb2sgYXQgbXkgIkdyYW50IHRhYmxlIFYzIiBkZXNpZ24gc2Vzc2lv
+biBhdCB0aGUNClhlbiBTdW1taXQgdGhpcyB5ZWFyOg0KDQpodHRwczovL2xpc3RzLnhlbi5v
+cmcvYXJjaGl2ZXMvaHRtbC94ZW4tZGV2ZWwvMjAyMi0wOS9tc2cwMTQyOS5odG1sDQoNCg0K
+SnVlcmdlbg0KDQo=
+--------------z6Uogb5YoIpOS7nT1iS9sxHW
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-~Michal
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------z6Uogb5YoIpOS7nT1iS9sxHW--
+
+--------------bKqdsL0ifYJIOn5PfF7fOG5X--
+
+--------------IfVgbINxJkhComWf6T80Q9Je
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNiMUwFAwAAAAAACgkQsN6d1ii/Ey+n
+Zgf/dF9X26FL59JQ7t+VJVI6bjtLKaMEYiLK7zhHXtRU+i4IbmQkMZvdb8muv6M6YnZXEWtIfjOO
+NVQErbNM/WSHA9ZEe2JxSegIGsN9g5VC+yEE9yKo2wsyTYdGJJU4+eB1dKRzbTYOX4siGaO2/a/1
+Z+QO/daVOdGQa4YF610V5LiLkzPS+8ceDnTkrhD52bq349Dl6VdkbYxJ1W7hBj29n4RLxQIFOMxR
+Zhe94/seuKNAvs6YL4zZVEXIRxDAMJoHci+TFzcW0jp1vJNekNfg11oLA943av6yV/GjuLA77zFY
+2ST0qH0Y3Ur69D2bOKBMVH8ycWn+lOPvMPyvK249cA==
+=4N0q
+-----END PGP SIGNATURE-----
+
+--------------IfVgbINxJkhComWf6T80Q9Je--
 
