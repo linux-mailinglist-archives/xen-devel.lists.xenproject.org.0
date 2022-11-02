@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693DC616614
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 16:27:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435981.689967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ACB5616654
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 16:39:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435986.689977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqFdc-0004LA-Fe; Wed, 02 Nov 2022 15:26:44 +0000
+	id 1oqFpY-0006A0-I8; Wed, 02 Nov 2022 15:39:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435981.689967; Wed, 02 Nov 2022 15:26:44 +0000
+Received: by outflank-mailman (output) from mailman id 435986.689977; Wed, 02 Nov 2022 15:39:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqFdc-0004IE-Cl; Wed, 02 Nov 2022 15:26:44 +0000
-Received: by outflank-mailman (input) for mailman id 435981;
- Wed, 02 Nov 2022 15:26:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oqFpY-00067V-Eq; Wed, 02 Nov 2022 15:39:04 +0000
+Received: by outflank-mailman (input) for mailman id 435986;
+ Wed, 02 Nov 2022 15:39:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2cji=3C=citrix.com=prvs=298722737=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oqFda-0004I8-M6
- for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 15:26:42 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be757f72-5ac2-11ed-8fd0-01056ac49cbb;
- Wed, 02 Nov 2022 16:26:39 +0100 (CET)
+ id 1oqFpW-00067P-Oj
+ for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 15:39:02 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 77d2c749-5ac4-11ed-91b5-6bf2151ebd3b;
+ Wed, 02 Nov 2022 16:39:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,100 +36,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be757f72-5ac2-11ed-8fd0-01056ac49cbb
+X-Inumbo-ID: 77d2c749-5ac4-11ed-91b5-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1667402799;
+  d=citrix.com; s=securemail; t=1667403540;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=H963iADFFHE0RAKLVSkRhg3KPlfTRTn86dkD/1P0sEk=;
-  b=K7g02+QpuDt3Mf+RH4QwVCvzBTEyWqktU9SHOvaaEBBl12DiQZIfpEky
-   kU5Mm1ykV3ZD0An1CLCA040UJVDNN+h/Vl19+h3b0YxIDCvboq3/Jr6mx
-   DydIPFz0MRQ5VQoXC49hn67raKBvxAtYEr4WLTSqWGM7Nob2kmHseKpHa
-   Y=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=RGEEqNl9smxBROa5nfaheIgphZedWkrD7OyQg4TiCwE=;
+  b=UDZRPMbssdVtEJcGBsI7hl2DToL41ulmIVI9RQA6RgpTaBUSxPaaAaCF
+   jufnjZnUfv9M0nZiFBrVm7f7IsYDuspKY/jx3aprdNuO7u8g93agcU/D4
+   QvclIT2br8i0fGUbBER5V6JsYkS3/Rb1T1XSukSRFAWucOGV93FubK8jn
+   I=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 84019006
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 83111231
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:46Yz8q7IXuSuPeivfcGzLgxRtPXHchMFZxGqfqrLsTDasY5as4F+v
- mdMW2/QbqmMNmHwKdp2b46180kH6MfVxtEyGVFqq3o1Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraBYnoqLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+4ZwehBtC5gZkPKkT5geE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m0
- sMHNjEBaCG6pqGJ4+24b+Vigp4lBZy+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
- YxDM2MpNUmeJU0UUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0Fwh7B9
- zqeoQwVBDlKa/2WkjCPyUi9xf7mhDLgeaw0Oeeno6sCbFq7mTVIVUx+uUGAieKilke0VtZbK
- koV0ikjt64/8AqsVNaVdx+lpH+JuDYMVtwWFPc1gCmdx6yR7wuHC2wsSj9adMdgpMIwXSYt1
- FKCg5XuHzMHmKKRYWKQ8PGTtzzaEQgYK3UTIxANSwQt6sPm5oo0i3rnTNxuDaq0hd3dAizrz
- naBqy1WulkIpZdVjePhpwmB2m/y4MiSJuIo2unJdkWa8R14aIiUXq3r1nuE7tNMIoLDSHDU6
- RDohPOixOwJCJiMkgmET+MMAKyl6p65DdHMvbJ8N8J/rmrwohZPaagVuWgjfxkxbq7obBezO
- CfuVRVtCIi/1ZdARYt+eMqPBssj1sAM/vy1B6mPPrKijnWcHTJrHR2Ch2bKgQgBc2B2y8nT3
- Kt3lu71VB4n5VxPlmbeegvk+eZDKtoC7W3SX4vn6B+szKCTYnWYIZ9cbgXRNbpms/vV8VyJm
- zq6Cydt40wBONASnwGNqdJDRbz0BSVT6W/KRzx/KbfYf1sO9JAJAP7N27IxE7GJbIwM/tokC
- kqVAxYAoGcTcFWddm1mnFg/N+60NXu+xFpnVRER0aGAgCJ5MNnzvfdGJvPav9APrYRe8BK9d
- NFdE+3oPxiFYm6vF+g1BXUlkLFfSQ==
-IronPort-HdrOrdr: A9a23:CigtYqsBxUAabURrVxwX05zC7skDdtV00zEX/kB9WHVpmszxra
- 6TddAgpHvJYVcqKRQdcL+7VZVoLUmxyXcx2/h3AV7AZniFhILLFuFfBOLZqlWKcREWtNQttp
- uIG5IObuEYZmIasS+V2maFL+o=
+IronPort-Data: A9a23:+JW3kqJffrxza5XiFE+RHJUlxSXFcZb7ZxGr2PjKsXjdYENS0DYAn
+ GpNWGCCOK6NZjSmfdtxOoq1/EhQ7JSDnddhTFRlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPewP9TlK6q4mlB5wRkPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5WGEZE/
+ 6YWEAkHNAyniPqbmpO+T8Jj05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpPE+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUozRHJwMxB3Bz
+ o7A13nVUhpGGNW69SCA0Sjwp8GMvw3DVY1HQdVU8dY12QbOlwT/EiY+TkCnqPO0jkq/XdN3K
+ EEO/Ccq668o+ySDUd3VTxC+5nmesXY0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
+ neLld70AT1ksJWOVGmQsLyTqFuaGSUTN35EWiYCQiMM+dylq4Y25jrNU9JiHaidntDzXzbqz
+ Fi3QDMW3utJy5RRjuPioA6B02nESoX1ohAdxxzwVGj/4DtAbtS5Q4OwxAL66PNrI9PMJrWeh
+ 0Qsl8+b5eEIKJiCki2RXekAdI2UC+a53C702gA2QcR4n9i50zv6JN0LvmkiTKt8GpxcEQIFd
+ nM/ru+4CHV7GHKxJZF6bIuqYyjB5fixTI+1Phw4gzcnX3SQSONl1HswDaJz9zq3+KTJrU3YE
+ c7CGftA9V5AVcxaIMOeHo/xK4MDyCEk3n/0Tpvm1Rmh2rf2TCfLF+heagTRNrFotf/sTODpH
+ zF3bpXi9vmieLemPnm/HXA7cDjm0kTX9bip8pcKJ4Zv0yJtGX07Cu+5/F/SU9UNokihrc+Rp
+ ynVZ6Ot4ACg7ZExAVnVNysLhXKGdcoXkE/XygR3Zwz5hCRyMd/+hErdHrNuFYQaGCVY5aYcZ
+ 5E4lw+oWZyjlhyvF+whUKTA
+IronPort-HdrOrdr: A9a23:XIic2KikCIeD3kDh+09O+XBIQnBQXtgji2hC6mlwRA09TySZ//
+ rOoB0+726StN9xYgBFpTnuAsW9qB/nmqKdpLNhW4tKPzOW3VdATrsSjrcKqgeIc0aVm9K1l5
+ 0QEZSWYOeAdGSS5vyb3ODXKbgd/OU=
 X-IronPort-AV: E=Sophos;i="5.95,234,1661832000"; 
-   d="scan'208";a="84019006"
-Date: Wed, 2 Nov 2022 15:26:33 +0000
+   d="scan'208";a="83111231"
+Date: Wed, 2 Nov 2022 15:38:38 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Jan Beulich <jbeulich@suse.com>
 CC: Henry Wang <Henry.Wang@arm.com>, Andrew Cooper
-	<Andrew.Cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien
- Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH for-4.17 1/4] xen: Add licence information to
- public/errno.h
-Message-ID: <Y2KMKUagLDUBlSvP@perard.uk.xensource.com>
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [XEN PATCH for-4.17 4/4] Rework COPYING installed in
+ /usr/include/xen/, due to several licences
+Message-ID: <Y2KO/jA/aTpYkgge@perard.uk.xensource.com>
 References: <20221102112854.49020-1-anthony.perard@citrix.com>
- <20221102112854.49020-2-anthony.perard@citrix.com>
- <bd732008-d3f3-0f84-651d-f6bf64d9f33a@suse.com>
+ <20221102112854.49020-5-anthony.perard@citrix.com>
+ <619bb7bb-a60a-5f13-53da-72e1d3a4aaf1@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <bd732008-d3f3-0f84-651d-f6bf64d9f33a@suse.com>
+In-Reply-To: <619bb7bb-a60a-5f13-53da-72e1d3a4aaf1@suse.com>
 
-On Wed, Nov 02, 2022 at 01:58:11PM +0100, Jan Beulich wrote:
+On Wed, Nov 02, 2022 at 02:09:08PM +0100, Jan Beulich wrote:
 > On 02.11.2022 12:28, Anthony PERARD wrote:
-> > Fixes: 81f559e97974 ("make error codes a formal part of the ABI")
-> > Reported-by: Andrew Cooper <Andrew.Cooper3@citrix.com>
-> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
-> > ---
-> >  xen/include/public/errno.h | 2 ++
-> >  1 file changed, 2 insertions(+)
-> > 
-> > diff --git a/xen/include/public/errno.h b/xen/include/public/errno.h
-> > index 5c53af6af9..6bdc8c5079 100644
-> > --- a/xen/include/public/errno.h
-> > +++ b/xen/include/public/errno.h
-> > @@ -1,3 +1,5 @@
-> > +/* SPDX-License-Identifier: MIT */
+> > --- /dev/null
+> > +++ b/tools/include/xen/COPYING
+> > @@ -0,0 +1,26 @@
+> > +XEN NOTICE
+> > +==========
 > > +
-> >  /*
-> >   * There are two expected ways of including this header.
-> >   *
+> > +This licence applies to all files within this subdirectory ("/usr/include/xen")
+> > +with the exception of "sys/" which may include an header under public domain or
+> > +BSD-2 licence.
 > 
-> Doesn't this require at least part of Stefano's "[PATCH v4 0/4] introduce
-> SPDX" as a prereq? I notice quite a few files already use leading SPDX
-> comments, but perhaps wrongly so without it being explained anywhere in
-> tree what this is about?
+> Nit: s/an header/headers/ ? And perhaps better to not name the two licenses
+> here but instead keep this more generic so it wouldn't need changing if a
+> header with yet another license appeared?
 
-I don't think Stefano's work is required or needed, beside pointing out
-that new file should use SPDX, and providing guidelines.
+I guess I can make the text more generic without to much issue. As long
+as the exception is for the "sys/" headers, we would probably be fine.
+New change would be:
 
-It seems that using the SPDX identifier in a project without explanation
-is enough. It could be seen as a useless comment if not understood (but
-useful for some tools) and in this case the COPYING files (in our case)
-would tell the licence been used.
+    +with the exception of "sys/" which may include headers under different
+    +licences.
 
-But, if used, "SPDX-License-Identifier: MIT" have a very specific
-meaning, it means that the licence used in question is
-https://spdx.org/licenses/MIT.html, and Stefano's work shouldn't change
-that meaning.
+> > +=====================================================================
+> > +
+> > +Permission is hereby granted, free of charge, to any person obtaining a copy
+> > +of this software and associated documentation files (the "Software"), to
+> > +deal in the Software without restriction, including without limitation the
+> 
+> I understand you've simply copied this from ./COPYING, but shouldn't it be
+> "limitation of" or "limiting"?
+
+The text match the text at https://spdx.org/licenses/MIT.html, so I'm
+not going to change it.
 
 Thanks,
 
