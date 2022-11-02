@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A70166161C4
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 12:29:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435810.689634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 006326161C8
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 12:29:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435811.689645 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqBw5-00034y-2v; Wed, 02 Nov 2022 11:29:33 +0000
+	id 1oqBw6-0003L5-9F; Wed, 02 Nov 2022 11:29:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435810.689634; Wed, 02 Nov 2022 11:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 435811.689645; Wed, 02 Nov 2022 11:29:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqBw4-00031H-UL; Wed, 02 Nov 2022 11:29:32 +0000
-Received: by outflank-mailman (input) for mailman id 435810;
- Wed, 02 Nov 2022 11:29:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oqBw6-0003Iw-5k; Wed, 02 Nov 2022 11:29:34 +0000
+Received: by outflank-mailman (input) for mailman id 435811;
+ Wed, 02 Nov 2022 11:29:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=2cji=3C=citrix.com=prvs=298722737=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1oqBw3-0001la-Mm
- for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 11:29:31 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9d1f519b-5aa1-11ed-91b5-6bf2151ebd3b;
- Wed, 02 Nov 2022 12:29:30 +0100 (CET)
+ id 1oqBw4-00021c-LX
+ for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 11:29:32 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9d915115-5aa1-11ed-8fd0-01056ac49cbb;
+ Wed, 02 Nov 2022 12:29:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d1f519b-5aa1-11ed-91b5-6bf2151ebd3b
+X-Inumbo-ID: 9d915115-5aa1-11ed-8fd0-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1667388570;
+  d=citrix.com; s=securemail; t=1667388571;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=AB+G/K/xEbC4EusmJ8MPpns5BVj+9RqzmSAPIYA2wGU=;
-  b=NXTdvWjGyf3h6zo9Yw5Q1yfAEKpPFcR/xrkDQ2SSmzq1mYhmCplpe/bG
-   ZEtOdOck3tMYhK7r7vfcIBaf3E8B5VD/qwVf10yspyVIsJiRNVuGqS4a+
-   19frH49J7IeX/F+1hL7muSE1LlT1HDlJrPUkSbOPZAgD/hgUe8AV0mhZ/
-   4=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=2iKsKAFpwVBDCeJ/fX/gBxBJJ7BZRdN62cOsn36HHnw=;
+  b=V4KFPLgdYG0ybIjKl0MD3IQK82Jjk9STaCRte8OG1XWMrBwRgAo02oCO
+   tXh4POskyAhMlbjLy0g+83JUlfQP03fbekzr+HfC8ZF1ZcAVsESH4b3Vf
+   o0J/vrhwRWel8/fcV/rQqHT2UAn/7gFSHWiNEutb+nrCkmi+vC4oGB1TV
+   c=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 2.7
-X-MesageID: 83088809
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 83996305
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:CYfMjKnEl0wY812IrSadzNjo5gxMJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIXCmCFbPjYamOke98gYNnk9B9Sv8KHx9VnGwQ4ryE2RiMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7amaVA8w5ARkP6kS5AWGzhH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- cBfAT1OMh3eu8js77iDVsl02OgRa+C+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsfYT/7C7pn9AusrnD5bz1frkPTvact6nLf5AdwzKLsIJzefdniqcB9zh3A9
- jKWpzWR7hcyFf2iwzrVqW2WvbH13jHFR98SMZfl+as/6LGU7jNKU0BHPbehmtG7l0q/VtR3O
- 0ESvC00osAa9kamU938VB2Qu2Ofs1gXXN84O/I+wBGAzOzT+QnxLnMfUjdLZdgitck3bT8nz
- FmEm5XuHzMHmJ2YT2iMsIidqzyaMDIQa2QFYEcsXQYDptXuvow3phbOVcp4Vr64iMXvHjP9y
- CzMqzIx74j/luZSif/9pwqexWvx+N6ZFWbZ+zk7QEqZqSp0J9KoOrCCs3fR1epgNNi1fB6o6
- S1sd9el0MgCCpSElSqoSeoLHa206/vtDAAwkWKDDLF6qW3zpifLkZR4pWgneRw3appslSrBO
- he7hO9H2HNE0JJGh4dTapn5NcklxLOI+T/NBqGNNYomjnScmWa6EMBSiay4hT6FfKsEy/tX1
- XKnnSGEVC9yNEif5GDqL9rxKJdyrszE+UvdRIrg0zOs2qeEaXieRN8taQXQMbtjs/zc8VSMr
- 76z0vdmLD0GDoXDjtT/q9ZPfTjm01BmbXwJlyCnXrHaeVc3cI3QI/TQ3akga+RYc1d9z4/1E
- oWGchYBkDLCaYjvc1rihoZLNOyyBv6SbBsTYUQRALpf8yF9P9b0tPdOKcVfkHtO3LUL8MOYh
- sItI62oasmjgByek9jBRfERdLBfSSk=
-IronPort-HdrOrdr: A9a23:y8jkm60oc9XWbeQ+BIbaKgqjBLgkLtp133Aq2lEZdPRUGvb2qy
- nIpoV/6faUskd3ZJhOo7G90cW7LE80lqQFg7X5X43DYOCOggLBR+tfBOPZslnd8kbFmNK1u5
- 0NT0EHMqySMWRH
+IronPort-Data: A9a23:s4qQOK2AQLakYsWWePbD5R5xkn2cJEfYwER7XKvMYLTBsI5bpzZTy
+ mRODW3QbvqPY2f1LY13bYm+pkNS7cLVndFiGVRqpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK5ULSfUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS9XuDgNyo4GlC5wVmP6gS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfL21o3
+ vkbGio0ay+dle7o4LeGEfdXmZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
+ ZNfMGcxKkSbC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TaHpQEwB3A+
+ woq+UzaAghDBMKW4wDf822lierGmz39AKsrQejQGvlC3wTImz175ActfVmmpfi0jGauVtQZL
+ FYbkgI1trQ7/kGvStj7XjW7rWSCsxpaXMBfe8Ul7Cmdx6yS5ByWbkAUQzgEZNE4ucseQT0xy
+ kTPj97vHSZosrCeVTSa7Lj8hRO/PzIEa1ALYyAsRBEApdLkpekbjBjCU9JiG66dlcDuFHf7x
+ DXikcQlr+xN14hRjfz9pA2ZxWL3znTUcuIrzivbeEmg7TFjXYuaeZ6kt3je0K1eF5nMGzFto
+ 0M4s8SZ6ekPC7SEmyqMXPgBEdmV2hqVDNHPqQUxRsd8rlxB71bmJNkNu28meC+FJ+5eIVfUj
+ FnvVRS9DXO5FF+jdudJbo24EKzGJoCwRI2+Bpg4gjejC6WdlTNrHgk0OyZ8PEi3yiDAdJ3T3
+ r/CKK6R4Y4yU/gP8dZPb751PUUX7i4/33jPYpvw0g6q17GTDFbMF+laawHRMbhovfrYyOkwz
+ zq4H5LUoyizrcWkOnWHmWLtBQ1iwYcH6WDe9JUMK7/rzvtOE2A9Ef7BqY7NiKQ895m5Ytzgp
+ yjlMnK0PXKl2hUr3y3WNS04AF4uNL4jxU8G0dsEZAj2iyN7Mdfxss/ytfIfJNEayQCq9tYsJ
+ 9FtRilKKq0npujvk9jFUaTAkQ==
+IronPort-HdrOrdr: A9a23:9RKjeaiEwa2Sfx9CX3dWuqmBXHBQXtwji2hC6mlwRA09TySZ//
+ rAoB19726StN9xYgBYpTnuAsi9qB/nmKKdpLNhX4tKPzOW3FdATrsD0WKK+VSJcEfDH6xmpM
+ JdmsBFebvN5DNB4/oSjjPVLz9Z+qjlzJyV
 X-IronPort-AV: E=Sophos;i="5.95,232,1661832000"; 
-   d="scan'208";a="83088809"
+   d="scan'208";a="83996305"
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Henry Wang <Henry.Wang@arm.com>, Anthony PERARD
-	<anthony.perard@citrix.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
-	<wl@xen.org>
-Subject: [XEN PATCH for-4.17 3/4] xen: Add licence header to device_tree_defs.h
-Date: Wed, 2 Nov 2022 11:28:53 +0000
-Message-ID: <20221102112854.49020-4-anthony.perard@citrix.com>
+	<anthony.perard@citrix.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, Andrew Cooper <Andrew.Cooper3@citrix.com>
+Subject: [XEN PATCH for-4.17 4/4] Rework COPYING installed in /usr/include/xen/, due to several licences
+Date: Wed, 2 Nov 2022 11:28:54 +0000
+Message-ID: <20221102112854.49020-5-anthony.perard@citrix.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20221102112854.49020-1-anthony.perard@citrix.com>
 References: <20221102112854.49020-1-anthony.perard@citrix.com>
@@ -93,46 +92,81 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This header have been created by moving code from other part of the
-project and miss a licence header. The original source code was some
-version of GPL or LGPL but we intend to have the public header to be
-MIT so they can be included easily in other projects.
+The notice in the COPYING file in "xen/include/public/COPYING" doesn't
+really apply to the files that ultimately are been install at
+"/usr/include/xen". The issue are headers in the "sys/" subdirectory
+that comes from other projects such as Linux or FreeBSD.
 
-Part of device_tree_defs.h were moved from libxl_arm.c which is
-LGPL-2.1-only. And part were moved from device_tree.h that is
-GPL-2.0-only.
+The main issue is that there are two headers that have a different
+licence than the MIT licence:
 
-Part of the original code were added by Julien Grall @ Citrix with a
-Linaro "hat" in commits c3ba52a84dd8 and 405c167f0ec9 and
-886f34045bf0. The other part were added by Ian Campbell @ Citrix, with
-commit 0c64527e7fc9.
+- xen-sys/Linux/gntalloc.h (installed as "sys/gntalloc.h") is public
+  domain.
+- xen-sys/FreeBSD/gntdev.h (installed as "sys/gntdev.h") is BSD-2.
 
-Resolves: xen-project/xen#35
-Fixes: 1c898a9fec7e ("xen/arm: move a few DT related defines to public/device_tree_defs.h")
+To clarify this, we'll install a COPYING file with a different notice.
+
 Reported-by: Andrew Cooper <Andrew.Cooper3@citrix.com>
 Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 ---
 
 Notes:
-    Julian was working @citrix until 2015.
+    CC: Andrew Cooper <andrew.cooper3@citrix.com>
+    CC: George Dunlap <george.dunlap@citrix.com>
+    CC: Jan Beulich <jbeulich@suse.com>
+    CC: Julien Grall <julien@xen.org>
+    CC: Stefano Stabellini <sstabellini@kernel.org>
+    CC: Wei Liu <wl@xen.org>
 
- xen/include/public/device_tree_defs.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ tools/include/Makefile    |  1 -
+ tools/include/xen/COPYING | 26 ++++++++++++++++++++++++++
+ 2 files changed, 26 insertions(+), 1 deletion(-)
+ create mode 100644 tools/include/xen/COPYING
 
-diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
-index 228daafe81..9e80d0499d 100644
---- a/xen/include/public/device_tree_defs.h
-+++ b/xen/include/public/device_tree_defs.h
-@@ -1,3 +1,9 @@
-+/* SPDX-License-Identifier: MIT */
-+/*
-+ * Copyright (c) 2013 Linaro Limited
-+ * Copyright (c) 2015 Citrix Systems, Inc
-+ */
+diff --git a/tools/include/Makefile b/tools/include/Makefile
+index 81c3d09039..f838171e8c 100644
+--- a/tools/include/Makefile
++++ b/tools/include/Makefile
+@@ -24,7 +24,6 @@ xen-foreign:
+ xen-dir:
+ 	mkdir -p xen/libelf acpi
+ 	find xen/ acpi/ -type l -exec rm '{}' +
+-	ln -s $(XEN_ROOT)/xen/include/public/COPYING xen/
+ 	ln -s $(XEN_ROOT)/xen/include/public/*.h xen/
+ 	ln -s $(XEN_ROOT)/xen/include/public/*/ xen/
+ 	ln -s ../xen-sys/$(XEN_OS) xen/sys
+diff --git a/tools/include/xen/COPYING b/tools/include/xen/COPYING
+new file mode 100644
+index 0000000000..e54eb79832
+--- /dev/null
++++ b/tools/include/xen/COPYING
+@@ -0,0 +1,26 @@
++XEN NOTICE
++==========
 +
- #ifndef __XEN_DEVICE_TREE_DEFS_H__
- #define __XEN_DEVICE_TREE_DEFS_H__
- 
++This licence applies to all files within this subdirectory ("/usr/include/xen")
++with the exception of "sys/" which may include an header under public domain or
++BSD-2 licence.
++
++=====================================================================
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to
++deal in the Software without restriction, including without limitation the
++rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
++sell copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in
++all copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++DEALINGS IN THE SOFTWARE.
 -- 
 Anthony PERARD
 
