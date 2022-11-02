@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 932486160E5
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 11:33:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435777.689538 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DFA46160FB
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 11:37:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435781.689547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqB3d-0000Td-1l; Wed, 02 Nov 2022 10:33:17 +0000
+	id 1oqB7A-00013l-Gm; Wed, 02 Nov 2022 10:36:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435777.689538; Wed, 02 Nov 2022 10:33:16 +0000
+Received: by outflank-mailman (output) from mailman id 435781.689547; Wed, 02 Nov 2022 10:36:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqB3c-0000QV-Tp; Wed, 02 Nov 2022 10:33:16 +0000
-Received: by outflank-mailman (input) for mailman id 435777;
- Wed, 02 Nov 2022 10:33:15 +0000
+	id 1oqB7A-00010s-Dr; Wed, 02 Nov 2022 10:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 435781;
+ Wed, 02 Nov 2022 10:36:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gBiX=3C=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
- id 1oqB3b-0000QP-2C
- for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 10:33:15 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ <SRS0=O0pi=3C=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1oqB79-00010m-6b
+ for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 10:36:55 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c09535b8-5a99-11ed-8fd0-01056ac49cbb;
- Wed, 02 Nov 2022 11:33:12 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F080D336B1;
- Wed,  2 Nov 2022 10:33:12 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 733C813AE0;
- Wed,  2 Nov 2022 10:33:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id pwAgG2hHYmPXUwAAMHmgww
- (envelope-from <tzimmermann@suse.de>); Wed, 02 Nov 2022 10:33:12 +0000
+ id 441d1f76-5a9a-11ed-8fd0-01056ac49cbb;
+ Wed, 02 Nov 2022 11:36:53 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id t1so6691370wmi.4
+ for <xen-devel@lists.xenproject.org>; Wed, 02 Nov 2022 03:36:54 -0700 (PDT)
+Received: from [192.168.1.93] (adsl-187.176.58.195.tellas.gr. [176.58.195.187])
+ by smtp.gmail.com with ESMTPSA id
+ j27-20020a05600c1c1b00b003c6bd91caa5sm1790106wms.17.2022.11.02.03.36.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 02 Nov 2022 03:36:53 -0700 (PDT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,192 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c09535b8-5a99-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1667385193; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=39AVSkEHI1J+0NxFici1XfnR3bd2AlgAeg7g921bvYs=;
-	b=Cx2xiWMC5E11WkmY909rsos2svtnzjxSZkKuTFtXUFgr5/q5Xz2IM5g1+XgGiDXWLl3iN6
-	j9vK8FYTQJj8c/fwCAVjGLZsRRl8/etR11oAGlj7oqfq0SZsvlm7Gqn7NqATYTdOX31lSm
-	kEohXWWBhiXVhscLaSrUkGEyO7CmrEQ=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1667385193;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=39AVSkEHI1J+0NxFici1XfnR3bd2AlgAeg7g921bvYs=;
-	b=VmKtdHzSvWZGkFNSUcLJzJsMZ9sTv9odj9s9+U4GRjt8StJaU5YRqyzyk25taSOPmszLei
-	O0R9jIyTleysD+AQ==
-Message-ID: <0ca70b76-c24a-4fdb-cf0d-2647d37379df@suse.de>
-Date: Wed, 2 Nov 2022 11:33:12 +0100
+X-Inumbo-ID: 441d1f76-5a9a-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Q6Dde4fbYO/gMhCkyc5MUWLqgS/KiOiRy+op50FhtwQ=;
+        b=hfNkE7PaCMbxMsRlmJv4j59ZUW75/mgcKevqds+FfUH3c1bEmrhkT2Ia+kKjPv5wFw
+         T0DBgyO+xxL0JTC6Bc+tJvPMuhK5Ug0oDoP4ZyYKAOge+6og7jN6/SdorkLvmBiDaB4g
+         l5inwrI8vqozVKu5P1nEgQmsHD6WkW3brYb6Ee6whDLEe3dKP5EK/xlrte4pDFlyYTX1
+         3YNlN0XLKF9/GlzAXf3OWof96hAV4V41Werb9oEapwGDnG2m0EnFFjeKDUHueP3ebSHp
+         NNcDY8mvXhLjzM6s4d/xvyKtOoQSqP1DZXbr39Ub9dDvIvwhmDjoTeXpV34HdmqngCSV
+         UqTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Q6Dde4fbYO/gMhCkyc5MUWLqgS/KiOiRy+op50FhtwQ=;
+        b=M5ZeE1czdEtb+qvk3QTZdKXwwRmlj3VQECNi4jNPuUi9h5QyE2LNAYuBykzneQsAcn
+         NxKZ8pIC2M8pcp2wzKiCeDg36O3JjpEOTd00bNejN9b2IA73Cvy8RR756uuybxzqhI81
+         InKotGJj6DonwgYxiOMsTjCv/jfUh60JMx/p83KHyGxya5Do8oou8/uxihAyUnd1KiXV
+         URLhGXWhR3FfmleX5EkKFcmnVGldmUqflMZ5/C3oHe/rMJNCGOMhr5wYIbx/DbkhztoU
+         KqxO5HIOLzMhdKfp1EFQbAkHjRmNhxGesuom3f9rR2BIXVJXYKUz19lrb+pISQIaxmxn
+         xK0Q==
+X-Gm-Message-State: ACrzQf1pdrDLmuXWxOch02QOVnN7J2IIXg588xx5+9lNk/tIZxIgZBOG
+	DBTcwYWKoElur5Y5TcAmDEg=
+X-Google-Smtp-Source: AMsMyM7KhZdipAGlJiA7bNdRe5fEGuVULMeld9yi40BvJmUqr53T1/bfNQ7NYN83iXUYv/89HT7ijg==
+X-Received: by 2002:a1c:4641:0:b0:3cf:4ff3:8d2f with SMTP id t62-20020a1c4641000000b003cf4ff38d2fmr15351651wma.107.1667385413671;
+        Wed, 02 Nov 2022 03:36:53 -0700 (PDT)
+Message-ID: <2cf591c5-df8c-d231-8862-e5c00b9a3698@gmail.com>
+Date: Wed, 2 Nov 2022 12:36:51 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.0
-Subject: Re: [PATCH v2 17/21] drm/fb-helper: Perform all fbdev I/O with the
- same implementation
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [XEN v2 02/12] xen/Arm: GICv3: Move the macros to compute the
+ affnity level to arm64/arm32
 Content-Language: en-US
-To: Javier Martinez Canillas <javierm@redhat.com>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- etnaviv@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-18-tzimmermann@suse.de>
- <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-In-Reply-To: <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------580Yj573GGcKpjSl0DPBr0oc"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------580Yj573GGcKpjSl0DPBr0oc
-Content-Type: multipart/mixed; boundary="------------0mHlbG09Ag4oDeheVwguJWiS";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Javier Martinez Canillas <javierm@redhat.com>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- etnaviv@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org
-Message-ID: <0ca70b76-c24a-4fdb-cf0d-2647d37379df@suse.de>
-Subject: Re: [PATCH v2 17/21] drm/fb-helper: Perform all fbdev I/O with the
- same implementation
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-18-tzimmermann@suse.de>
- <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-In-Reply-To: <3ab32fc3-f2aa-1b42-fd87-557482ab56d5@redhat.com>
-
---------------0mHlbG09Ag4oDeheVwguJWiS
+To: Julien Grall <julien@xen.org>, Ayan Kumar Halder <ayankuma@amd.com>,
+ xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com
+References: <20221031151326.22634-1-ayankuma@amd.com>
+ <20221031151326.22634-3-ayankuma@amd.com>
+ <d791158a-4f1b-9d6a-6bd4-8792da2217b2@xen.org>
+ <8e36fec2-6df5-835c-f75a-f530c1a678e3@gmail.com>
+ <9c4ca761-6ef4-d0e9-f496-27e0acaba95c@xen.org>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <9c4ca761-6ef4-d0e9-f496-27e0acaba95c@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-SGkNCg0KQW0gMDIuMTEuMjIgdW0gMTA6MzIgc2NocmllYiBKYXZpZXIgTWFydGluZXogQ2Fu
-aWxsYXM6DQo+IE9uIDEwLzI0LzIyIDEzOjE5LCBUaG9tYXMgWmltbWVybWFubiB3cm90ZToN
-Cj4+IEltcGxlbWVudCB0aGUgZmJkZXYncyByZWFkL3dyaXRlIGhlbHBlcnMgd2l0aCB0aGUg
-c2FtZSBmdW5jdGlvbnMuIFVzZQ0KPj4gdGhlIGdlbmVyaWMgZmJkZXYncyBjb2RlIGFzIHRl
-bXBsYXRlLiBDb252ZXJ0IGFsbCBkcml2ZXJzLg0KPj4NCj4+IERSTSdzIGZiIGhlbHBlcnMg
-bXVzdCBpbXBsZW1lbnQgcmVndWxhciBJL08gZnVuY3Rpb25hbGl0eSBpbiBzdHJ1Y3QNCj4+
-IGZiX29wcyBhbmQgcG9zc2libHkgcGVyZm9ybSBhIGRhbWFnZSB1cGRhdGUuIEhhbmRsZSBh
-bGwgdGhpcyBpbiB0aGUNCj4+IHNhbWUgZnVuY3Rpb25zIGFuZCBjb252ZXJ0IGRyaXZlcnMu
-IFRoZSBmdW5jdGlvbmFsaXR5IGhhcyBiZWVuIHVzZWQNCj4+IGFzIHBhcnQgb2YgdGhlIGdl
-bmVyaWMgZmJkZXYgY29kZSBmb3Igc29tZSB0aW1lLiBUaGUgZHJpdmVycyBkb24ndA0KPj4g
-c2V0IHN0cnVjdCBkcm1fZmJfaGVscGVyLmZiX2RpcnR5LCBzbyB0aGV5IHdpbGwgbm90IGJl
-IGFmZmVjdGVkIGJ5DQo+PiBkYW1hZ2UgaGFuZGxpbmcuDQo+Pg0KPj4gRm9yIEkvTyBtZW1v
-cnksIGZiIGhlbHBlcnMgbm93IHByb3ZpZGUgZHJtX2ZiX2hlbHBlcl9jZmJfcmVhZCgpIGFu
-ZA0KPj4gZHJtX2ZiX2hlbHBlcl9jZmJfd3JpdGUoKS4gU2V2ZXJhbCBkcml2ZXJzIHJlcXVp
-cmUgdGhlc2UuIFVudGlsIG5vdw0KPj4gdGVncmEgdXNlZCBJL08gcmVhZCBhbmQgd3JpdGUs
-IGFsdGhvdWdoIHRoZSBtZW1vcnkgYnVmZmVyIGFwcGVhcnMgdG8NCj4+IGJlIGluIHN5c3Rl
-bSBtZW1vcnkuIFNvIHVzZSBfc3lzXyBoZWxwZXJzIG5vdy4NCj4+DQo+PiBTaWduZWQtb2Zm
-LWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1hbm5Ac3VzZS5kZT4NCj4+IC0tLQ0K
-PiANCj4gWy4uLl0NCj4gDQo+PiArc3RhdGljIHNzaXplX3QgX19kcm1fZmJfaGVscGVyX3dy
-aXRlKHN0cnVjdCBmYl9pbmZvICppbmZvLCBjb25zdCBjaGFyIF9fdXNlciAqYnVmLCBzaXpl
-X3QgY291bnQsDQo+PiArCQkJCSAgICAgbG9mZl90ICpwcG9zLCBkcm1fZmJfaGVscGVyX3dy
-aXRlX3NjcmVlbiB3cml0ZV9zY3JlZW4pDQo+PiArew0KPiANCj4gWy4uLl0NCj4gDQo+PiAr
-CS8qDQo+PiArCSAqIENvcHkgdG8gZnJhbWVidWZmZXIgZXZlbiBpZiB3ZSBhbHJlYWR5IGxv
-Z2dlZCBhbiBlcnJvci4gRW11bGF0ZXMNCj4+ICsJICogdGhlIGJlaGF2aW9yIG9mIHRoZSBv
-cmlnaW5hbCBmYmRldiBpbXBsZW1lbnRhdGlvbi4NCj4+ICsJICovDQo+PiArCXJldCA9IHdy
-aXRlX3NjcmVlbihpbmZvLCBidWYsIGNvdW50LCBwb3MpOw0KPj4gKwlpZiAocmV0IDwgMCkN
-Cj4+ICsJCXJldHVybiByZXQ7IC8qIHJldHVybiBsYXN0IGVycm9yLCBpZiBhbnkgKi8NCj4+
-ICsJZWxzZSBpZiAoIXJldCkNCj4+ICsJCXJldHVybiBlcnI7IC8qIHJldHVybiBwcmV2aW91
-cyBlcnJvciwgaWYgYW55ICovDQo+PiArDQo+PiArCSpwcG9zICs9IHJldDsNCj4+ICsNCj4g
-DQo+IFNob3VsZCAqcHBvcyBiZSBpbmNyZW1lbnRlZCBldmVuIGlmIHRoZSBwcmV2aW91cyBl
-cnJvciBpcyByZXR1cm5lZD8NCg0KWWVzLiBJdCBlbXVsYXRlcyB0aGUgb3JpZ2luYWwgZmJk
-ZXYgY29kZSBhdCBbMV0uIEZ1cnRoZXIgZG93biBpbiB0aGF0IA0KZnVuY3Rpb24sIHRoZSBw
-b3NpdGlvbiBpcyBiZWluZyB1cGRhdGVkIGV2ZW4gaWYgYW4gZXJyb3Igb2NjdXJlZC4gV2Ug
-DQpvbmx5IHJldHVybiB0aGUgaW5pdGlhbCBlcnJvciBpZiBubyBieXRlcyBnb3Qgd3JpdHRl
-bi4NCg0KSXQgY291bGQgaGFwcGVuIHRoYXQgc29tZSB1c2Vyc3BhY2UgcHJvZ3JhbSBoaXRz
-IHRvIGVycm9yLCBidXQgc3RpbGwgDQpyZWxpZXMgb24gdGhlIG91dHB1dCBhbmQgcG9zaXRp
-b24gYmVpbmcgdXBkYXRlZC4gSUlSQyBJIGV2ZW4gYWRkZWQgDQp2YWxpZGF0aW9uIG9mIHRo
-aXMgYmVoYXZpb3IgdG8gdGhlIElHVCBmYmRldiB0ZXN0cy4gIEkgYWdyZWUgdGhhdCB0aGlz
-IA0KaXMgc29tZXdoYXQgYm9ndXMgYmVoYXZpb3IsIGJ1dCBjaGFuZ2luZyBpdCB3b3VsZCBj
-aGFuZ2UgbG9uZy1zdGFuZGluZyANCnVzZXJzcGFjZSBzZW1hbnRpY3MuDQoNClsxXSANCmh0
-dHBzOi8vZWxpeGlyLmJvb3RsaW4uY29tL2xpbnV4L3Y2LjAuNi9zb3VyY2UvZHJpdmVycy92
-aWRlby9mYmRldi9jb3JlL2ZibWVtLmMjTDgyNQ0KDQo+IA0KPiBUaGUgd3JpdGVfc2NyZWVu
-KCkgc3VjY2VlZGVkIGFueXdheXMsIGV2ZW4gd2hlbiB0aGUgY291bnQgd3JpdHRlbiB3YXMN
-Cj4gc21hbGxlciB0aGFuIHdoYXQgdGhlIGNhbGxlciBhc2tlZCBmb3IuDQo+IA0KPj4gICAv
-KioNCj4+IC0gKiBkcm1fZmJfaGVscGVyX3N5c19yZWFkIC0gd3JhcHBlciBhcm91bmQgZmJf
-c3lzX3JlYWQNCj4+ICsgKiBkcm1fZmJfaGVscGVyX3N5c19yZWFkIC0gSW1wbGVtZW50cyBz
-dHJ1Y3QgJmZiX29wcy5mYl9yZWFkIGZvciBzeXN0ZW0gbWVtb3J5DQo+PiAgICAqIEBpbmZv
-OiBmYl9pbmZvIHN0cnVjdCBwb2ludGVyDQo+PiAgICAqIEBidWY6IHVzZXJzcGFjZSBidWZm
-ZXIgdG8gcmVhZCBmcm9tIGZyYW1lYnVmZmVyIG1lbW9yeQ0KPj4gICAgKiBAY291bnQ6IG51
-bWJlciBvZiBieXRlcyB0byByZWFkIGZyb20gZnJhbWVidWZmZXIgbWVtb3J5DQo+PiAgICAq
-IEBwcG9zOiByZWFkIG9mZnNldCB3aXRoaW4gZnJhbWVidWZmZXIgbWVtb3J5DQo+PiAgICAq
-DQo+PiAtICogQSB3cmFwcGVyIGFyb3VuZCBmYl9zeXNfcmVhZCBpbXBsZW1lbnRlZCBieSBm
-YmRldiBjb3JlDQo+PiArICogUmV0dXJuczoNCj4+ICsgKiBUaGUgbnVtYmVyIG9mIHJlYWQg
-Ynl0ZXMgb24gc3VjY2Vzcywgb3IgYW4gZXJyb3IgY29kZSBvdGhlcndpc2UuDQo+PiAgICAq
-Lw0KPiANCj4gVGhpcyBzZW50ZW5jZSBzb3VuZHMgYSBsaXR0bGUgYml0IG9mZiB0byBtZS4g
-U2hvdWxkbid0IGJlICJudW1iZXIgb2YgYnl0ZXMgcmVhZCINCj4gaW5zdGVhZD8gSSdtIG5v
-dCBhIG5hdGl2ZSBFbmdsaXNoIHNwZWFrZXIgdGhvdWdoLCBzbyBmZWVsIGZyZWUgdG8ganVz
-dCBpZ25vcmUgbWUuDQoNCllvdSdyZSByaWdodC4NCg0KPiANCj4gWy4uLl0NCj4gDQo+PiAg
-IA0KPj4gK3N0YXRpYyBzc2l6ZV90IGZiX3JlYWRfc2NyZWVuX2Jhc2Uoc3RydWN0IGZiX2lu
-Zm8gKmluZm8sIGNoYXIgX191c2VyICpidWYsIHNpemVfdCBjb3VudCwNCj4+ICsJCQkJICAg
-bG9mZl90IHBvcykNCj4+ICt7DQo+PiArCWNvbnN0IGNoYXIgX19pb21lbSAqc3JjID0gaW5m
-by0+c2NyZWVuX2Jhc2UgKyBwb3M7DQo+PiArCXNpemVfdCBhbGxvY19zaXplID0gbWluX3Qo
-c2l6ZV90LCBjb3VudCwgUEFHRV9TSVpFKTsNCj4+ICsJc3NpemVfdCByZXQgPSAwOw0KPj4g
-KwlpbnQgZXJyID0gMDsNCj4gDQo+IERvIHlvdSByZWFsbHkgbmVlZCB0aGVzZSB0d28/IEFG
-QUlLIHNzaXplX3QgaXMgYSBzaWduZWQgdHlwZQ0KDQpJIHRoaW5rIHNvLiBXZSdsbCBnbyB0
-aHJvdWdoIHRoZSB3aGlsZSBsb29wIG11bHRpcGxlIHRpbWVzLiBJZiB3ZSBmYWlsIA0Kb24g
-dGhlIGluaXRpYWwgaXRlcmF0aW9uLCB3ZSByZXR1cm4gdGhlIGVycm9yIGluIGVyci4gSWYg
-d2UgZmFpbCBvbiBhbnkgDQpsYXRlciBpdGVyYXRpb24sIHdlIHJldHVybiB0aGUgbnVtYmVy
-IG9mIHByb2Nlc3NlZCBieXRlcy4gIEhhdmluZyB0aGlzIA0KaW4gdHdvIHZhcmlhYmxlcyBz
-aW1wbGlmaWVzIHRoZSBsb2dpYyBBRkFJQ1QuDQoNCkJlc3QgcmVnYXJkcw0KVGhvbWFzDQoN
-Cj4gc28geW91IGNhbiBqdXN0IHVzZSB0aGUgcmV0IHZhcmlhYmxlIHRvIHN0b3JlIGFuZCBy
-ZXR1cm4gdGhlDQo+IGVycm5vIHZhbHVlLg0KPiANCj4gWy4uLl0NCj4gDQo+PiArc3RhdGlj
-IHNzaXplX3QgZmJfd3JpdGVfc2NyZWVuX2Jhc2Uoc3RydWN0IGZiX2luZm8gKmluZm8sIGNv
-bnN0IGNoYXIgX191c2VyICpidWYsIHNpemVfdCBjb3VudCwNCj4+ICsJCQkJICAgIGxvZmZf
-dCBwb3MpDQo+PiArew0KPj4gKwljaGFyIF9faW9tZW0gKmRzdCA9IGluZm8tPnNjcmVlbl9i
-YXNlICsgcG9zOw0KPj4gKwlzaXplX3QgYWxsb2Nfc2l6ZSA9IG1pbl90KHNpemVfdCwgY291
-bnQsIFBBR0VfU0laRSk7DQo+PiArCXNzaXplX3QgcmV0ID0gMDsNCj4+ICsJaW50IGVyciA9
-IDA7DQo+IA0KPiBTYW1lIGhlcmUuDQo+IA0KDQotLSANClRob21hcyBaaW1tZXJtYW5uDQpH
-cmFwaGljcyBEcml2ZXIgRGV2ZWxvcGVyDQpTVVNFIFNvZnR3YXJlIFNvbHV0aW9ucyBHZXJt
-YW55IEdtYkgNCk1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZywgR2VybWFueQ0KKEhS
-QiAzNjgwOSwgQUcgTsO8cm5iZXJnKQ0KR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBUb3Rldg0K
+Hi Julien,
 
+On 11/2/22 12:10, Julien Grall wrote:
+> Hi Xenia,
+> 
+> On 02/11/2022 09:57, Xenia Ragiadakou wrote:
+>>
+>> On 11/2/22 10:46, Julien Grall wrote:
+>>> Hi,
+>>>
+>>> Title: The macros you are moving are not GICv3 specific.
+>>>
+>>> On 31/10/2022 15:13, Ayan Kumar Halder wrote:
+>>>> Refer https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm64/ \
+>>>> include/asm/cputype.h#L14 , for the macros specific for arm64.
+>>>>
+>>>> Refer 
+>>>> https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm/include/ \
+>>>> asm/cputype.h#L54  , for the macros specific for arm32.
+>>>>
+>>>> MPIDR_LEVEL_SHIFT() differs between 64 and 32 bit. > For 64 bit :-
+>>>>
+>>>>   aff_lev3          aff_lev2 aff_lev1 aff_lev0
+>>>> |________|________|________|________|________|
+>>>> 40       32       24       16       8        0
+>>>>
+>>>> For 32 bit :-
+>>>>
+>>>>   aff_lev3 aff_lev2 aff_lev1 aff_lev0
+>>>> |________|________|________|________|
+>>>> 32       24       16       8        0
+>>>
+>>> As discussed with Michal, AFF3 doesn't exist for 32-bit. So it is not 
+>>> clear to me what we are gaining by moving the macros.
+>>>
+>>
+>> I cannot understand what do you mean by "what we are gaining by moving 
+>> the macros".
+>  >
+>> IIUC, when identifying the cpu topology, a mask is applied to the 
+>> value of MPIDR_EL1
+>> #ifdef CONFIG_ARM_64
+>> #define MPIDR_HWID_MASK     _AC(0xff00ffffff,UL)
+>> #else
+>> #define MPIDR_HWID_MASK     _AC(0xffffff,U)
+>> #endif
+>> So, for arm32, the affinity at level 3 is considered to be 0.
+>>
+>> Do you mean, what we are gaining by defining the MPIDR_LEVEL_SHIFT in 
+>> a different way for arm32 and for arm64?
+> 
+> Yes. There are nothing justifying the move so far.
+> 
+>>
+>> IMO, we need to do so, because the shift, used to retrieve the 
+>> affinity at each level, cannot be calculated using the same logic i.e
+>> (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+>>
+>> For arm32 the affinity at each level is calculated as follows
+>> ((level) << MPIDR_LEVEL_BITS_SHIFT)
+> 
+> I understand they are written differently. But if you look at the 
+> layout, AFF0, AFF1, AFF2 are in the same position. AFF3 doesn't exist 
+> for arm32 and, AFAICT, the shift will not matter because the bits 40:32 
+> will be zeroed in any case.
+> 
+> So I don't see the problem of using the arm64 version.
 
---------------0mHlbG09Ag4oDeheVwguJWiS--
+Now I see :) ... IIUC you are proposing to just cast the mpidr in 
+MPIDR_AFFINITY_LEVEL(mpidr, level) to uint64_t?
 
---------------580Yj573GGcKpjSl0DPBr0oc
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+In this case, I think, UL, below, needs to also to become ULL
 
------BEGIN PGP SIGNATURE-----
+#define AFFINITY_MASK(level)    ~((_AC(0x1,UL) << 
+MPIDR_LEVEL_SHIFT(level)) - 1)
 
-wsF5BAABCAAjFiEExndm/fpuMUdwYFFolh/E3EQov+AFAmNiR2gFAwAAAAAACgkQlh/E3EQov+Bj
-MxAAp4wfwx+b/f1M/vv0NPDNSC9u3BJZBg47JuiNuprKGsOIBEeua7fb65cfh+LHqgna0CjJ9xSh
-bxNVEMHqrEWsi84G6EpqeIoHlfMhRK83P5zAE/GXqpxpQVPmOGmRq8RHk3fRXB+NUjW/hp6m2vm1
-4UKKcQr8pm1POl+FqlvBPgIwFcrilo9Xx8FytS+0e1cZhqf1Z3y2sXVzNUQYrdq9Dvz884Jz3wmL
-17m5oRbTVBQke7h08jMRyneJkZgnhF8jBT33C5X+HVNvjgLKSOGQiQbdiMEHhTT/lLa248ypTC2x
-ZtXQfyeTtEb/eGIInJXlE6gizVrOGJpGQb1jg3t1CoxJA0rXFHmHwVFLV+CA9pOtrMOYeE6ud9w+
-iVYQbN/HLph6mIbYkZViGfFABNIr5u32ZJkR90aQWfSeLHgFJtON8p25LxLcUNQEkRe1X/pXaElE
-TLKY2S7E/OKeTTWxhQCk+gF+ZqBcH7uX4oBm6aSfzF/a6wy9XvGRAPPs7vVvD+r7cb0Yj+GLB8Yx
-aWhWFOYh+GZt5xkJ1H3UBQDOhJ237+4NpIzskMoLJPzl5EcSWVE4Nr39CfZTTFFISJsnHmAHt+Za
-bpUEIgHrkfrtP8KsXztM5SXXwSHzICLZHsps/fyvC8MSODtD2hRENA1BtVPpYcGl0MHBtuKjLZWp
-y4I=
-=DprF
------END PGP SIGNATURE-----
+> 
+> Cheers,
+> 
 
---------------580Yj573GGcKpjSl0DPBr0oc--
+-- 
+Xenia
 
