@@ -2,42 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29D40616066
-	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 11:02:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.435758.689503 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A9C8D61609E
+	for <lists+xen-devel@lfdr.de>; Wed,  2 Nov 2022 11:10:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.435766.689515 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqAZz-00036t-0x; Wed, 02 Nov 2022 10:02:39 +0000
+	id 1oqAha-00054N-TI; Wed, 02 Nov 2022 10:10:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 435758.689503; Wed, 02 Nov 2022 10:02:39 +0000
+Received: by outflank-mailman (output) from mailman id 435766.689515; Wed, 02 Nov 2022 10:10:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqAZy-00034t-UM; Wed, 02 Nov 2022 10:02:38 +0000
-Received: by outflank-mailman (input) for mailman id 435758;
- Wed, 02 Nov 2022 10:02:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E+Qw=3C=redhat.com=javierm@srs-se1.protection.inumbo.net>)
- id 1oqAZx-00034X-4T
- for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 10:02:37 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 795c7c37-5a95-11ed-8fd0-01056ac49cbb;
- Wed, 02 Nov 2022 11:02:36 +0100 (CET)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-467-XDoRL1XLMTyIXSWM5Jbipg-1; Wed, 02 Nov 2022 06:02:31 -0400
-Received: by mail-wm1-f72.google.com with SMTP id
- r6-20020a1c4406000000b003cf4d3b6644so3572024wma.6
- for <xen-devel@lists.xenproject.org>; Wed, 02 Nov 2022 03:02:31 -0700 (PDT)
-Received: from [192.168.1.130] (205.pool92-176-231.dynamic.orange.es.
- [92.176.231.205]) by smtp.gmail.com with ESMTPSA id
- fn13-20020a05600c688d00b003a3170a7af9sm1564836wmb.4.2022.11.02.03.02.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 02 Nov 2022 03:02:30 -0700 (PDT)
+	id 1oqAha-000512-Q4; Wed, 02 Nov 2022 10:10:30 +0000
+Received: by outflank-mailman (input) for mailman id 435766;
+ Wed, 02 Nov 2022 10:10:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1oqAha-00050w-21
+ for xen-devel@lists.xenproject.org; Wed, 02 Nov 2022 10:10:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oqAhY-0007CW-W7; Wed, 02 Nov 2022 10:10:28 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1oqAhY-0003KY-PC; Wed, 02 Nov 2022 10:10:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,85 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 795c7c37-5a95-11ed-8fd0-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667383354;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=lYDm2f88uo7N+T5CuGh2kGVIDaWbYMjQLaRZ3nU/m+Y=;
-	b=Mwcfz5L0ulLeIm+Y2T2sVMkrbMzYnXrEZSPdikrHgMjcrwcQG3fACvszbCufoJjXQoYs7u
-	dZbA2GEOnEn8MNhLyf6j3YAcxL1DV6xPfJ7EefGLtV001lrH/mEnJToVjvJcoQkvJl7sVU
-	aucY35Pybi1KoSpJbjjiiolK8+Z7EVw=
-X-MC-Unique: XDoRL1XLMTyIXSWM5Jbipg-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lYDm2f88uo7N+T5CuGh2kGVIDaWbYMjQLaRZ3nU/m+Y=;
-        b=aAWgcmUqzRzGLVoLwaoXoajOSSlIJsEt0IOYO/AZLEXtTucLS3HhCkj+/kbg4+i19g
-         tPEWBAwew2wrfh9nRsmqOh8RlHCnWl5HAX3Vi/ixaP1XrjOr8G+QDoxo7wH/vP3Aa5BN
-         fJqLpfli4RsztPpcyMdUXd5S78xUS7rgkUm2SRH6Gk5xFtF6JZaPoU8N+VC0P+KQtlNc
-         KaLvsTYpCsUfpTEKWGI+ohnbZpUsIXTE2D1/qF+tI3EBuAaqaKTjnPl+v7Wc0KSzfDxx
-         PoNxTTGi4t9KCHaLWFfT6hMEqAJAgn8qisBVuifjMtEEzS17khBBB4y4Z4GtlJE1FL3m
-         hbbw==
-X-Gm-Message-State: ACrzQf1yFgFMXBpthyF7pCVi+8+jioW2sUUm6wcpzhg4dO7LpXJaiVXa
-	cKWbv9DoC3EqosDgWv9SEajLPsnsxZ8+x3ljMyN4WHqnz7jFpgM+phCCsdGAT0C4nSCdeSwEFQM
-	YB41besOSoPV/7NvukUUVBaeVl4E=
-X-Received: by 2002:adf:f9cf:0:b0:236:6a26:c055 with SMTP id w15-20020adff9cf000000b002366a26c055mr14584883wrr.195.1667383350616;
-        Wed, 02 Nov 2022 03:02:30 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6OHHkFmpcUlQhLx4VZSF/FNGP0hsrmpEExWtKIxFg2Jf6dmbAckk/gQVQTytU8dXpfU2B04w==
-X-Received: by 2002:adf:f9cf:0:b0:236:6a26:c055 with SMTP id w15-20020adff9cf000000b002366a26c055mr14584846wrr.195.1667383350420;
-        Wed, 02 Nov 2022 03:02:30 -0700 (PDT)
-Message-ID: <68309442-ad39-36da-b1ec-680dd4129a7f@redhat.com>
-Date: Wed, 2 Nov 2022 11:02:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=mptFKpEndcS7416tpebhikfpMHYhH2a8NS3Ohm9rpJs=; b=rLq2i1prMGSW+wsZFZIJhh5qW0
+	gb6jLtwJTPLQ/oyoomAhiTsVER3HmrC+j8iN+a/AxwMWyjCKnXUZYIqbK3GWkw2HRZW+B/RKiChxb
+	mrZfv+1lfruuQpfD9ddSZbveIq2MbWDSIZakH1lRlxkkeLtFHIjwcYRrXwy1o3r++KGE=;
+Message-ID: <9c4ca761-6ef4-d0e9-f496-27e0acaba95c@xen.org>
+Date: Wed, 2 Nov 2022 10:10:26 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v2 21/21] drm/fb-helper: Remove unnecessary include
- statements
-To: Thomas Zimmermann <tzimmermann@suse.de>, daniel@ffwll.ch,
- airlied@gmail.com, sam@ravnborg.org, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- etnaviv@lists.freedesktop.org, linux-samsung-soc@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- linux-mips@vger.kernel.org, linux-mediatek@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- freedreno@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org,
- spice-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
- linux-tegra@vger.kernel.org, xen-devel@lists.xenproject.org
-References: <20221024111953.24307-1-tzimmermann@suse.de>
- <20221024111953.24307-22-tzimmermann@suse.de>
-From: Javier Martinez Canillas <javierm@redhat.com>
-In-Reply-To: <20221024111953.24307-22-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [XEN v2 02/12] xen/Arm: GICv3: Move the macros to compute the
+ affnity level to arm64/arm32
+To: Xenia Ragiadakou <burzalodowa@gmail.com>,
+ Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com
+References: <20221031151326.22634-1-ayankuma@amd.com>
+ <20221031151326.22634-3-ayankuma@amd.com>
+ <d791158a-4f1b-9d6a-6bd4-8792da2217b2@xen.org>
+ <8e36fec2-6df5-835c-f75a-f530c1a678e3@gmail.com>
 Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <8e36fec2-6df5-835c-f75a-f530c1a678e3@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/24/22 13:19, Thomas Zimmermann wrote:
-> Remove include statements for <drm/drm_fb_helper.h> where it is not
-> required (i.e., most of them). In a few places include other header
-> files that are required by the source code.
+Hi Xenia,
+
+On 02/11/2022 09:57, Xenia Ragiadakou wrote:
 > 
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> ---
+> On 11/2/22 10:46, Julien Grall wrote:
+>> Hi,
+>>
+>> Title: The macros you are moving are not GICv3 specific.
+>>
+>> On 31/10/2022 15:13, Ayan Kumar Halder wrote:
+>>> Refer https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm64/ \
+>>> include/asm/cputype.h#L14 , for the macros specific for arm64.
+>>>
+>>> Refer 
+>>> https://elixir.bootlin.com/linux/v6.1-rc1/source/arch/arm/include/ \
+>>> asm/cputype.h#L54  , for the macros specific for arm32.
+>>>
+>>> MPIDR_LEVEL_SHIFT() differs between 64 and 32 bit. > For 64 bit :-
+>>>
+>>>   aff_lev3          aff_lev2 aff_lev1 aff_lev0
+>>> |________|________|________|________|________|
+>>> 40       32       24       16       8        0
+>>>
+>>> For 32 bit :-
+>>>
+>>>   aff_lev3 aff_lev2 aff_lev1 aff_lev0
+>>> |________|________|________|________|
+>>> 32       24       16       8        0
+>>
+>> As discussed with Michal, AFF3 doesn't exist for 32-bit. So it is not 
+>> clear to me what we are gaining by moving the macros.
+>>
+> 
+> I cannot understand what do you mean by "what we are gaining by moving 
+> the macros".
+ >
+> IIUC, when identifying the cpu topology, a mask is applied to the value 
+> of MPIDR_EL1
+> #ifdef CONFIG_ARM_64
+> #define MPIDR_HWID_MASK     _AC(0xff00ffffff,UL)
+> #else
+> #define MPIDR_HWID_MASK     _AC(0xffffff,U)
+> #endif
+> So, for arm32, the affinity at level 3 is considered to be 0.
+> 
+> Do you mean, what we are gaining by defining the MPIDR_LEVEL_SHIFT in a 
+> different way for arm32 and for arm64?
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Yes. There are nothing justifying the move so far.
+
+> 
+> IMO, we need to do so, because the shift, used to retrieve the affinity 
+> at each level, cannot be calculated using the same logic i.e
+> (((1 << (level)) >> 1) << MPIDR_LEVEL_BITS_SHIFT)
+> 
+> For arm32 the affinity at each level is calculated as follows
+> ((level) << MPIDR_LEVEL_BITS_SHIFT)
+
+I understand they are written differently. But if you look at the 
+layout, AFF0, AFF1, AFF2 are in the same position. AFF3 doesn't exist 
+for arm32 and, AFAICT, the shift will not matter because the bits 40:32 
+will be zeroed in any case.
+
+So I don't see the problem of using the arm64 version.
+
+Cheers,
 
 -- 
-Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Julien Grall
 
