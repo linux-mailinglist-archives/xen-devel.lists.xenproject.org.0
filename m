@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A3486180AB
-	for <lists+xen-devel@lfdr.de>; Thu,  3 Nov 2022 16:10:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.436626.690723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 874C0618123
+	for <lists+xen-devel@lfdr.de>; Thu,  3 Nov 2022 16:15:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.436632.690745 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqbpq-0000QN-6m; Thu, 03 Nov 2022 15:08:50 +0000
+	id 1oqbvi-00024F-54; Thu, 03 Nov 2022 15:14:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 436626.690723; Thu, 03 Nov 2022 15:08:50 +0000
+Received: by outflank-mailman (output) from mailman id 436632.690745; Thu, 03 Nov 2022 15:14:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oqbpq-0000Nk-44; Thu, 03 Nov 2022 15:08:50 +0000
-Received: by outflank-mailman (input) for mailman id 436626;
- Thu, 03 Nov 2022 15:08:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oqbvi-00022o-1F; Thu, 03 Nov 2022 15:14:54 +0000
+Received: by outflank-mailman (input) for mailman id 436632;
+ Thu, 03 Nov 2022 15:14:52 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=aeB9=3D=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1oqbpo-0000Ne-Bi
- for xen-devel@lists.xenproject.org; Thu, 03 Nov 2022 15:08:48 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2089.outbound.protection.outlook.com [40.107.92.89])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69120864-5b89-11ed-91b5-6bf2151ebd3b;
- Thu, 03 Nov 2022 16:08:46 +0100 (CET)
-Received: from DM6PR04CA0021.namprd04.prod.outlook.com (2603:10b6:5:334::26)
- by PH8PR12MB7349.namprd12.prod.outlook.com (2603:10b6:510:217::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5769.16; Thu, 3 Nov
- 2022 15:08:40 +0000
-Received: from DM6NAM11FT100.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:334:cafe::95) by DM6PR04CA0021.outlook.office365.com
- (2603:10b6:5:334::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22 via Frontend
- Transport; Thu, 3 Nov 2022 15:08:39 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT100.mail.protection.outlook.com (10.13.172.247) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5791.20 via Frontend Transport; Thu, 3 Nov 2022 15:08:39 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Thu, 3 Nov
- 2022 10:08:37 -0500
-Received: from [10.71.192.110] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
- Transport; Thu, 3 Nov 2022 10:08:35 -0500
+ <SRS0=Yy4e=3D=suse.de=tzimmermann@srs-se1.protection.inumbo.net>)
+ id 1oqbvf-0001nI-W4
+ for xen-devel@lists.xenproject.org; Thu, 03 Nov 2022 15:14:52 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 41342fa9-5b8a-11ed-8fd0-01056ac49cbb;
+ Thu, 03 Nov 2022 16:14:47 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 77F601F88C;
+ Thu,  3 Nov 2022 15:14:49 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E34DA13AAF;
+ Thu,  3 Nov 2022 15:14:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id oqOUNujaY2PBGgAAMHmgww
+ (envelope-from <tzimmermann@suse.de>); Thu, 03 Nov 2022 15:14:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,137 +51,250 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69120864-5b89-11ed-91b5-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d8Z/iLNNNOzm4QG9eC+AePu4GET5M5OBqvGrMJmQ2WOqV/pzZb5PjUgtxpDAbF6kNUD6k5JvLtaLfapu7KthjpdEeSGOWzsBnWohKNdkyDlp6GzKTEJMBGYEoj4gXKMULt6EMhNla32lx57zBVab7YQWin+9gaDRed7daQYeY+9qamvKc1RTeyHS0qRJJoxMYmN0B71OLVIT+kv4FEJv53TDY5imNkdo7sVuc2vla8QLzIjs4b6bQriSbyTDVh4Ylku/bXarnm26ntp3VdKj9B5VkPEnyv4FwJRnRRGElOXQJQfzptMSCd7lC1IeS9dxzpkBL6Qh5xGAiqBB0/wQng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vUamV8ns79Uz6qy1FNonxnhqJWgCwThEMbkZfgiAeFU=;
- b=lUDh187gMpSlO8uR5Mp/6sqKrAouITPA7aXU31ymMRLavU1VrotaHsxwAAWoTuq6LpkzfVMussfeZjII376vdQrFVIb17fUGyteQCuUjdH/UGMZGvJJ1Y0CyNYxfZvR3boD56PDgjVX2IHbPWa1hHx4w3qyKiD4hlszyuFS8M6Xos7AGQNIUG6W8QXmO+qrKhGbasXh8rOF5wbBDEFCluzJBZcHS3zLiYr6Bt3vQy9l5hg1F0iKsokzwzqNBmJoHVYxtyriSG+dO7lh93tTLfhPQb6Omg3FA1yFoT/26I+8OtOMGRx7e5O/WE1Ov1/C1zktvn/Ln5wSVva0WHuS3/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vUamV8ns79Uz6qy1FNonxnhqJWgCwThEMbkZfgiAeFU=;
- b=TrufrXPs+g0Cy/H46qXB3O8XxqDxgVtmbmQ9vpVCzLBnOLig84GOssOKgK/yIAx+0QEcNhd9D2cQqq2NINIqbyoG9VosESLMrdA4Rn+q9tlIyva+q6RISTATOspK+OJL8CEeA7eHNjywi2kU5+7z7bOPbQGByj2Kwd7ltIznpJk=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <dfdc0cfa-70ee-d591-bbb4-1b8426bafaab@amd.com>
-Date: Thu, 3 Nov 2022 16:08:34 +0100
+X-Inumbo-ID: 41342fa9-5b8a-11ed-8fd0-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1667488489; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HedAlrS8erHkRoHUc/nk9PZPahT98wWins1TZNQ+myo=;
+	b=ts+mFZqzw7nt496UOWxsBj/xG6sJKPY/ZWmHdFZxUG6ONqcbseLnVXu/wXRLAFn+VGn/YR
+	Rqass7K9e5Tf8KqeYY+gKZRv+JgfpuuYK6ggxjkZHiOpS0V3LO8NFAUASBN8QOA44nud45
+	u9o1mCiJIX4XReB+zkbZ4HbcduFUihs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1667488489;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=HedAlrS8erHkRoHUc/nk9PZPahT98wWins1TZNQ+myo=;
+	b=lsvt5cpyVTNQvpmzx5qsqs1XtiL2L/Eibv9TPCR/dY0Qky34DmnJAVBCZYMH6j2JOe7LS2
+	KLgvNS9ctlteh0Cg==
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: daniel@ffwll.ch,
+	airlied@gmail.com,
+	sam@ravnborg.org,
+	javierm@redhat.com,
+	mripard@kernel.org,
+	maarten.lankhorst@linux.intel.com
+Cc: "linux-hyperv@vger.kernel.orglinux-hyperv"@vger.kernel.org,
+	linux-aspeed@lists.ozlabs.org, nouveau@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	virtualization@lists.linux-foundation.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-samsung-soc@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org, xen-devel@lists.xenproject.org,
+	linux-sunxi@lists.linux.dev, linux-arm-msm@vger.kernel.org,
+	intel-gfx@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
+	linux-mediatek@lists.infradead.org,
+	spice-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, freedreno@lists.freedesktop.org,
+	Thomas Zimmermann <tzimmermann@suse.de>
+Subject: [PATCH v3 00/23] drm/fb-helper: Untangle fbdev emulation and helpers
+Date: Thu,  3 Nov 2022 16:14:23 +0100
+Message-Id: <20221103151446.2638-1-tzimmermann@suse.de>
+X-Mailer: git-send-email 2.38.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.1
-Subject: Re: [XEN v2 09/12] xen/Arm: GICv3: Define GIC registers for AArch32
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<burzalodowa@gmail.com>
-References: <20221031151326.22634-1-ayankuma@amd.com>
- <20221031151326.22634-10-ayankuma@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221031151326.22634-10-ayankuma@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT100:EE_|PH8PR12MB7349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60dc4a5c-2d1f-4d35-a1ba-08dabdad4a02
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+cevpXBz4iEKL8ssCTvKYaBeINlUHUhnQ74DKwPMrBDqcOq+loma0Tw69FBw5GV84lj4TDN1QPwW/wQRHcEMWe5tVQ5x+uh9s/GU4EDP4GXzf66DM37eIjtu9x0wilqCfQtvOFBJQjvIbOn+McgwmRrO28d6uGHF4RZlMQ0wvS7SIxhT0cEv1FIDIk9Y0iLTqkVTkNp3JIZ+F2Tam9FGay0svCjFO+Zbw2z2y0mlKgaTwJBBJNpJd0lqjNF6/Mmf/aMXOWu4mSdiE3MuGZi5fmWy+C+7n/Cb2hhP6mL4GgMnLVbL8qZHjYJBoFpT0ZwFejlgm90aSNoFigQgnzj/OkOOOfSy6fxQHTK6mBvtebfmc6UA62XrSybXlwj/xRIs+O6qCwguAQkOptiqhH0VRNssl1jHBai24l2XS14jScTBqkeQKmUQUZNCJ6D06Vmhf7IfcH1kNM8pFxXzhycW4mOywzrdrXI5kuhbiLdDGqlfTcLh5M0dc5V7DDVdBuTIZFVrVadJt0/U/iSy4Pu+q7DSEolUQNt8xlKtCsYBgo9mohIHU4e9Pwzsw5XFdK1uz0NSIF+2pGAbqB8AV2svB2Whg5VfEyYbVkJPTcv+yBsjLgccDCrTsIGN5cpw/KkSKhU/9DHsYnuE150yaHT7+5FP3AceeFQCsXUzcHMrM9Lvj98BtgdNr6SOPOeeXoljGCBE27HmRuvjO9S/dcpEg5cHN2pHlhGDLf7Ln7ODROwKspP0leJttNoYHuzVauMZUAQn7kZp+dCwlfQ01MhyCg6MMRoFfZYc2fIZ5lz+yjyIzfjxdckGTyVD3X3E1HjhzP9XhZ54nyyUd8P5RVQXag==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199015)(46966006)(40470700004)(36840700001)(70206006)(36860700001)(40460700003)(2906002)(426003)(478600001)(54906003)(53546011)(41300700001)(16576012)(26005)(110136005)(8676002)(4326008)(40480700001)(186003)(70586007)(8936002)(336012)(47076005)(83380400001)(31686004)(31696002)(316002)(2616005)(5660300002)(82310400005)(356005)(86362001)(81166007)(44832011)(36756003)(82740400003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Nov 2022 15:08:39.4243
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60dc4a5c-2d1f-4d35-a1ba-08dabdad4a02
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT100.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7349
+Content-Transfer-Encoding: 8bit
 
-Hi Ayan,
+Separate generic fbdev emulation from the helper code that is shared
+among the various fbdev implementations within DRM. Affects many drivers.
 
-On 31/10/2022 16:13, Ayan Kumar Halder wrote:
-> 
-The title is a bit ambiguous given that the previous patches were also defining GIC registers.
-Maybe adding "remaining" would result in a better commit title.
+It has become apparent that our fully generic fbdev emulation will
+never produce optimal results for all drivers. In its current form,
+it is also hard to maintain. The goal of this patchset is to improve
+readability and streamline the fbdev helper code within DRM. In the
+long term, we want to get to a point where drivers or memory managers
+can pick and combine the various helpers for optimal fbdev support.
 
-> 
-> Refer "Arm IHI 0069H ID020922"
-> 12.5.23 ICC_SGI1R, Interrupt Controller Software Generated Interrupt
-> Group 1 Register
-> 12.5.12 ICC_HSRE, Interrupt Controller Hyp System Register Enable register
-> 12.7.10 ICH_VTR, Interrupt Controller VGIC Type Register
-> 12.7.5 ICH_HCR, Interrupt Controller Hyp Control Register
-> 12.5.20 ICC_PMR, Interrupt Controller Interrupt Priority Mask Register
-> 12.5.24 ICC_SRE, Interrupt Controller System Register Enable register
-> 12.5.7 ICC_DIR, Interrupt Controller Deactivate Interrupt Register
-> 12.5.9 ICC_EOIR1, Interrupt Controller End Of Interrupt Register 1
-> 12.5.14 ICC_IAR1, Interrupt Controller Interrupt Acknowledge Register 1
-> 12.5.5 ICC_BPR1, Interrupt Controller Binary Point Register 1
-> 12.5.6 ICC_CTLR, Interrupt Controller Control Register
-> 12.5.16 ICC_IGRPEN1, Interrupt Controller Interrupt Group 1 Enable register
-> 12.7.9 ICH_VMCR, Interrupt Controller Virtual Machine Control Register
-> 
-As said in the previous patches: this may be my personal opinion but sth like this would be easier to read:
-"
-Define missing assembly aliases for GIC registers on arm32, taking the ones
-defined already for arm64 as a base. Aliases are defined according to the
-GIC Architecture Specification ARM IHI 0069H.
-"
-> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
-> ---
-> 
-> Changes from :-
-> v1 - 1. Moved coproc regs definition to asm/cpregs.h
-> 
->  xen/arch/arm/include/asm/cpregs.h | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-> index bfabee0bc3..62b63f4cef 100644
-> --- a/xen/arch/arm/include/asm/cpregs.h
-> +++ b/xen/arch/arm/include/asm/cpregs.h
-> @@ -415,6 +415,22 @@
->  #define ICH_AP1R1_EL2             __AP1Rx_EL2(1)
->  #define ICH_AP1R2_EL2             __AP1Rx_EL2(2)
->  #define ICH_AP1R3_EL2             __AP1Rx_EL2(3)
-> +
-> +#define ICC_SGI1R_EL1             p15,0,c12
-> +
-> +#define ICC_SRE_EL2               p15,4,c12,c9,5
-> +#define ICH_VTR_EL2               p15,4,c12,c11,1
-> +#define ICH_HCR_EL2               p15,4,c12,c11,0
-> +
-> +#define ICC_PMR_EL1               p15,0,c4,c6,0
-> +#define ICC_SRE_EL1               p15,0,c12,c12,5
-> +#define ICC_DIR_EL1               p15,0,c12,c11,1
-> +#define ICC_EOIR1_EL1             p15,0,c12,c12,1
-> +#define ICC_IAR1_EL1              p15,0,c12,c12,0
-> +#define ICC_BPR1_EL1              p15,0,c12,c12,3
-> +#define ICC_CTLR_EL1              p15,0,c12,c12,4
-> +#define ICC_IGRPEN1_EL1           p15,0,c12,c12,7
-> +#define ICH_VMCR_EL2              p15,4,c12,c11,7
-I did not check this in previous patches but in which order are you defining these registers?
-I took a look at arm64/sysregs.h and these regs are placed in assembly aliases name order.
-So for instance ICC_PMR_EL1 would be defined before ICC_SRE_EL2, etc.
+Patches 1 to 8 start by preparing drivers. Setting struct drm_driver's
+lastclose and output_poll_changed is not required by generic fbdev
+emulation.
 
-Also, I cannot see some regs like MISR, EISR that are defined for arm64. Did you decide not to define them
-for arm32 because they are not used by Xen?
+Two drivers depend on fb helpers implicitly including other Linux header
+files. Fixing this in patches 9 and 10 allows to remove unnecesary include
+statements from the fb-helper header in patch 11.
 
-~Michal
+Do some renaming in patches 12 to 14.
+
+There are currently various implementation of the fbdev I/O helpers
+with varying feature sets. The fb helpers for fbdev I/O should all call
+fb_sync, which is what fbdev's internal implementation does. For DRM,
+damage handling needs to be performed after updating a framebuffer. The
+damage worker is part of the fb helpers, but the actual update logic only
+works with generic fbdev emulation. Separate the two, which also gives
+other drivers an option to set their own damage handling if neccessary.
+The full-featured I/O helpers can be moved under a shared implementation
+and called by all drivers. Patches 15 to 18 resolve these issues.
+
+Patch 19 changes fbdev disablement to work at the level of display
+detection. If disabled, generic fbdev emulation will be initialized,
+but no display will be detected. It can later be enabled by changing
+the parameter in sysfs and plugging in a connector.
+
+Patches 20 to 22 move the generic fbdev emulation into their own source
+and header files and clean up the include statements throughout DRM. Many
+drivers only call drm_fbdev_generic_setup() and can avoid including other
+Linux header files.
+
+Patch 23 is a documentation update.
+
+Built on x86-64, aarch64, arm, ppc64le. Tested with various combinations
+of bochs, i915, simpledrm.
+
+v3:
+	* documentation fixes (Javier)
+	* rename drm_fbdev.{c,h} to drm_fbdev_generic.{c,h}
+	* keep drm_leak_fbdev_smem in drm_fb_helper.c
+	* fix several include statements
+	* rebases
+v2:
+      	* fixed commit descriptions (Christian, Sergey)
+
+Thomas Zimmermann (23):
+  drm/komeda: Don't set struct drm_driver.lastclose
+  drm/mcde: Don't set struct drm_driver.lastclose
+  drm/vboxvideo: Don't set struct drm_driver.lastclose
+  drm/amdgpu: Don't set struct drm_driver.output_poll_changed
+  drm/imx/dcss: Don't set struct drm_driver.output_poll_changed
+  drm/ingenic: Don't set struct drm_driver.output_poll_changed
+  drm/logicvc: Don't set struct drm_driver.output_poll_changed
+  drm/rockchip: Don't set struct drm_driver.output_poll_changed
+  drm/panel-ili9341: Include <linux/backlight.h>
+  drm/tve200: Include <linux/of.h>
+  drm/fb-helper: Cleanup include statements in header file
+  drm/fb_helper: Rename field fbdev to info in struct drm_fb_helper
+  drm/fb-helper: Rename drm_fb_helper_alloc_fbi() to use _info postfix
+  drm/fb-helper: Rename drm_fb_helper_unregister_fbi() to use _info
+    postfix
+  drm/fb-helper: Disconnect damage worker from update logic
+  drm/fb-helper: Call fb_sync in I/O functions
+  drm/fb-helper: Perform all fbdev I/O with the same implementation
+  drm/fb_helper: Minimize damage-helper overhead
+  drm/fb-helper: Always initialize generic fbdev emulation
+  drm/fb-helper: Set flag in struct drm_fb_helper for leaking physical
+    addresses
+  drm/fb-helper: Move generic fbdev emulation into separate source file
+  drm/fb-helper: Remove unnecessary include statements
+  drm/fb-helper: Clarify use of last_close and output_poll_changed
+
+ drivers/gpu/drm/Makefile                      |    4 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    |    1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   |    3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |    1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mode.h      |    1 -
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c        |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |    1 +
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |    1 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    2 -
+ .../gpu/drm/arm/display/komeda/komeda_drv.c   |    2 +-
+ .../gpu/drm/arm/display/komeda/komeda_kms.c   |    2 -
+ drivers/gpu/drm/arm/hdlcd_crtc.c              |    1 -
+ drivers/gpu/drm/arm/hdlcd_drv.c               |    2 +-
+ drivers/gpu/drm/arm/malidp_drv.c              |    2 +-
+ drivers/gpu/drm/armada/armada_fbdev.c         |    6 +-
+ drivers/gpu/drm/aspeed/aspeed_gfx_drv.c       |    2 +-
+ drivers/gpu/drm/ast/ast_drv.c                 |    1 +
+ drivers/gpu/drm/ast/ast_drv.h                 |    1 -
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_dc.c  |    2 +-
+ drivers/gpu/drm/bridge/tc358762.c             |    2 +-
+ drivers/gpu/drm/drm_crtc_helper.c             |    1 -
+ drivers/gpu/drm/drm_fb_helper.c               | 1008 ++++++-----------
+ drivers/gpu/drm/drm_fbdev_generic.c           |  493 ++++++++
+ drivers/gpu/drm/drm_gem_framebuffer_helper.c  |    1 -
+ drivers/gpu/drm/drm_probe_helper.c            |    1 -
+ drivers/gpu/drm/etnaviv/etnaviv_drv.h         |    3 +-
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c     |    6 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_drv.c     |    2 +-
+ drivers/gpu/drm/gma500/framebuffer.c          |    6 +-
+ drivers/gpu/drm/gud/gud_drv.c                 |    2 +-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   |    1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |    1 -
+ .../gpu/drm/hisilicon/kirin/kirin_drm_drv.c   |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c       |    2 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |    1 -
+ drivers/gpu/drm/i915/display/intel_fbdev.c    |    8 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c           |    3 +-
+ drivers/gpu/drm/imx/imx-drm-core.c            |    2 +-
+ drivers/gpu/drm/imx/imx-ldb.c                 |    2 +-
+ drivers/gpu/drm/imx/imx-tve.c                 |    1 -
+ drivers/gpu/drm/imx/parallel-display.c        |    2 +-
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c     |    3 +-
+ drivers/gpu/drm/kmb/kmb_drv.c                 |    2 +-
+ drivers/gpu/drm/kmb/kmb_plane.c               |    1 -
+ drivers/gpu/drm/logicvc/logicvc_drm.c         |    2 +-
+ drivers/gpu/drm/logicvc/logicvc_mode.c        |    2 -
+ drivers/gpu/drm/mcde/mcde_drv.c               |    3 +-
+ drivers/gpu/drm/mediatek/mtk_drm_drv.c        |    2 +-
+ drivers/gpu/drm/meson/meson_drv.c             |    2 +-
+ drivers/gpu/drm/mgag200/mgag200_drv.c         |    1 +
+ drivers/gpu/drm/mgag200/mgag200_drv.h         |    1 -
+ drivers/gpu/drm/msm/msm_fbdev.c               |    4 +-
+ drivers/gpu/drm/mxsfb/lcdif_drv.c             |    2 +-
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c             |    2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c       |   27 +-
+ drivers/gpu/drm/omapdrm/omap_fbdev.c          |    6 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9341.c  |    3 +-
+ drivers/gpu/drm/pl111/pl111_drv.c             |    2 +-
+ drivers/gpu/drm/qxl/qxl_drv.c                 |    1 +
+ drivers/gpu/drm/qxl/qxl_drv.h                 |    1 -
+ drivers/gpu/drm/radeon/radeon_fb.c            |    6 +-
+ drivers/gpu/drm/rcar-du/rcar_du_drv.c         |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.c   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_drv.h   |    2 +-
+ drivers/gpu/drm/rockchip/rockchip_drm_fb.c    |    2 -
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c   |    1 +
+ drivers/gpu/drm/solomon/ssd130x.c             |    2 +-
+ drivers/gpu/drm/sti/sti_drv.c                 |    2 +-
+ drivers/gpu/drm/stm/drv.c                     |    2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c             |    2 +-
+ drivers/gpu/drm/tegra/fb.c                    |    8 +-
+ drivers/gpu/drm/tidss/tidss_drv.c             |    2 +-
+ drivers/gpu/drm/tidss/tidss_kms.c             |    1 -
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |    2 +-
+ drivers/gpu/drm/tiny/arcpgu.c                 |    2 +-
+ drivers/gpu/drm/tiny/bochs.c                  |    2 +-
+ drivers/gpu/drm/tiny/cirrus.c                 |    2 +-
+ drivers/gpu/drm/tiny/gm12u320.c               |    2 +-
+ drivers/gpu/drm/tiny/hx8357d.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9163.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9225.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9341.c                |    2 +-
+ drivers/gpu/drm/tiny/ili9486.c                |    2 +-
+ drivers/gpu/drm/tiny/mi0283qt.c               |    2 +-
+ drivers/gpu/drm/tiny/ofdrm.c                  |    2 +-
+ drivers/gpu/drm/tiny/panel-mipi-dbi.c         |    2 +-
+ drivers/gpu/drm/tiny/repaper.c                |    2 +-
+ drivers/gpu/drm/tiny/simpledrm.c              |    2 +-
+ drivers/gpu/drm/tiny/st7586.c                 |    2 +-
+ drivers/gpu/drm/tiny/st7735r.c                |    2 +-
+ drivers/gpu/drm/tve200/tve200_drv.c           |    3 +-
+ drivers/gpu/drm/udl/udl_drv.c                 |    2 +-
+ drivers/gpu/drm/v3d/v3d_drv.c                 |    1 -
+ drivers/gpu/drm/vboxvideo/vbox_drv.c          |    4 +-
+ drivers/gpu/drm/vboxvideo/vbox_main.c         |    1 -
+ drivers/gpu/drm/vc4/vc4_drv.c                 |    2 +-
+ drivers/gpu/drm/virtio/virtgpu_drv.c          |    1 +
+ drivers/gpu/drm/virtio/virtgpu_drv.h          |    1 -
+ drivers/gpu/drm/vkms/vkms_drv.c               |    2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_drv.c           |    2 +-
+ drivers/gpu/drm/xen/xen_drm_front_gem.c       |    1 -
+ drivers/gpu/drm/xlnx/zynqmp_kms.c             |    2 +-
+ include/drm/drm_fb_helper.h                   |   61 +-
+ include/drm/drm_fbdev_generic.h               |   15 +
+ 107 files changed, 987 insertions(+), 835 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_fbdev_generic.c
+ create mode 100644 include/drm/drm_fbdev_generic.h
+
+
+base-commit: f5a9fb2d688dfc6efa1fd779a2d225048bfb10f9
+prerequisite-patch-id: c2b2f08f0eccc9f5df0c0da49fa1d36267deb11d
+prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+prerequisite-patch-id: 3f204510fcbf9530d6540bd8e6128cce598988b6
+prerequisite-patch-id: db1c43fc253bf3b55cfa09128a2d83d960599ead
+prerequisite-patch-id: 007fca7c89f5fe0e5279021fcac49fb621bf5708
+-- 
+2.38.0
+
 
