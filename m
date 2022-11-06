@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64F7E61E604
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Nov 2022 21:56:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.438970.692870 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7D9861E611
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Nov 2022 22:02:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.438976.692882 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ormgk-000121-Jh; Sun, 06 Nov 2022 20:56:18 +0000
+	id 1ormmh-0002UH-AG; Sun, 06 Nov 2022 21:02:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 438970.692870; Sun, 06 Nov 2022 20:56:18 +0000
+Received: by outflank-mailman (output) from mailman id 438976.692882; Sun, 06 Nov 2022 21:02:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ormgk-0000zV-H2; Sun, 06 Nov 2022 20:56:18 +0000
-Received: by outflank-mailman (input) for mailman id 438970;
- Sun, 06 Nov 2022 20:56:17 +0000
+	id 1ormmh-0002Ru-6d; Sun, 06 Nov 2022 21:02:27 +0000
+Received: by outflank-mailman (input) for mailman id 438976;
+ Sun, 06 Nov 2022 21:02:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ormgj-0000zP-Bi
- for xen-devel@lists.xenproject.org; Sun, 06 Nov 2022 20:56:17 +0000
+ (envelope-from <julien@xen.org>) id 1ormmg-0002Ro-2n
+ for xen-devel@lists.xenproject.org; Sun, 06 Nov 2022 21:02:26 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ormgi-0000cc-6l; Sun, 06 Nov 2022 20:56:16 +0000
-Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ id 1ormmf-0000kl-Qi; Sun, 06 Nov 2022 21:02:25 +0000
+Received: from home.octic.net ([81.187.162.82] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ormgi-0006Z3-0e; Sun, 06 Nov 2022 20:56:16 +0000
+ id 1ormmf-0006sa-KZ; Sun, 06 Nov 2022 21:02:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,176 +40,140 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=Ykobt1IReiaxgDo/u6xr7n5pDvpOSSLl0q1tIiQMGxU=; b=RqXXrxlPpCCyLf61MkxjiYioGq
-	8NPdg36FXhoCiAT7TjsBsPuWXnipH7ckH6YUcGxPpKxcMEXXNYtfdBbdXzShWWGbjxH1HchKfMAmw
-	xq7JvvkyXTIXtmY79OgSPJn7ri4qqL0DlcPJrxMsYKKNQ/e2ae4k3Teef6rvPNyoEyh4=;
-Message-ID: <54d6e747-c791-c321-3c75-87613393d789@xen.org>
-Date: Sun, 6 Nov 2022 20:56:14 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=6ec2LBk54MFmYYjhSdL5pisY844zpu/8f73ync2lh7A=; b=VX2gAqZDYAjI7tE4KVSc0KWu10
+	o4/DTz4s1Jr3QmxdQCYLbI7QfvjST8vM2Iw0aJLmrtb/pW6RpeqTmif9QKQ1dl5hZo1c+6pqG3uz7
+	NAOS4ZAbykwScXF+lKhHMnGlLmKq27E4wZndncrZP2IL0QrM9YD/Yh5BoDWgLb89hMgM=;
+Message-ID: <84e476a5-9365-bb80-a8e2-86dcf09681f0@xen.org>
+Date: Sun, 6 Nov 2022 21:02:23 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [PATCH v6 11/11] xen/arm64: add setup_fixmap and
+ remove_identity_mapping for MPU
 To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org
 Cc: nd@arm.com, Penny Zheng <penny.zheng@arm.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20221104100741.2176307-1-wei.chen@arm.com>
- <20221104100741.2176307-11-wei.chen@arm.com>
+ <20221104100741.2176307-12-wei.chen@arm.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v6 10/11] xen/arm64: introduce helpers for MPU
- enable/disable
-In-Reply-To: <20221104100741.2176307-11-wei.chen@arm.com>
+In-Reply-To: <20221104100741.2176307-12-wei.chen@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Wei,
+Hi,
 
 On 04/11/2022 10:07, Wei Chen wrote:
 > From: Penny Zheng <penny.zheng@arm.com>
 > 
-> We need some helpers for Xen to enable/disable MPU in boot-time
-> and runtime. For MPU enable helper, we know that it's an
-> essential requirement of MPU system. But for MPU disable,
-> we need to use it for some special situations. For example,
-> in the progress of tranferring from boot-time to runtime,
-> we need to update the MPU protection regions configuration,
-> but we can't modify an MPU protection region if there is some
-> data accessed by Xen. But in boot-time all of Xen text, data
-> and BSS are in one MPU protection region, if Xen want to update
-> this protection region, above restriction will be triggered.
-
-This raises the following question: Why can't we create the split 
-regions right now?
-
-In particular, disabling the MMU/Cache is fairly risky because you need 
-to ensure that anything in the cache you care about have been written 
-back to the RAM).
-
-> So in this situation, we need to disable the whole MPU to update
-> the protection regions.
+> setup_fixmap and remove_identity_mapping are two functions that
+> are used in Xen boot-time code flow. We implement these two
+> functions for MPU system, in this case, the code flow in head.S
+> doesn't need to use #ifdef to gate MPU/MMU code.
 > 
-> In these helper, enable/disable MPU will also enable/disable
-> the D-cache. There are two reasons for it:
-> 1. Make the function semantic be consistent with enable_mmu.
->     For MMU systems, enable_mmu will turn MMU and D-Cache at
->     the same time.
-> 2. When MPU is disabled, the MPU background attributes will
->     be used. On some platforms, the background will treat all
->     memory as device memory. The access to device memory will
->     bypass the cache, even if the C bit is enabled in SCTLR.
->     To avoid this implicit behavior, we disable cache with MPU
->     explicitly to tell user that when MPU is disabled, the
->     memory access is uncacheable.
+> In MMU system, setup_fixmap is used for Xen to map some essentail
+> data or devices in boot-time. For MPU system, we still have this
+> requirement, we map the early UART to MPU protection region when
+> earlyprintk is enabled. This also means PRINT can't be used after
+> turning on MPU but before setup_fixmap. This restriction is the
+> same as MMU system.
 > 
-> In this patch, we also introduce a neutral name enable_mm for
-> Xen to enable MMU/MPU. This can help us to keep one code flow
-> in head.S
+> For remove_identity_mapping, we just need an empty function to
+> make head.S code flow happy.
 > 
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 > ---
->   xen/arch/arm/arm64/head.S     |  5 +++--
->   xen/arch/arm/arm64/head_mmu.S |  4 ++--
->   xen/arch/arm/arm64/head_mpu.S | 35 +++++++++++++++++++++++++++++++++++
->   3 files changed, 40 insertions(+), 4 deletions(-)
+>   xen/arch/arm/arm64/head_mpu.S                 | 49 +++++++++++++++++++
+>   .../arm/include/asm/platforms/fvp_baser.h     |  4 ++
+>   2 files changed, 53 insertions(+)
 > 
-> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-> index 6c1a5f74a1..228f01db69 100644
-> --- a/xen/arch/arm/arm64/head.S
-> +++ b/xen/arch/arm/arm64/head.S
-> @@ -255,7 +255,8 @@ real_start_efi:
->            * and protection regions for MPU systems.
->            */
->           bl    prepare_early_mappings
-> -        bl    enable_mmu
-> +        /* Turn on MMU or MPU */
-> +        bl    enable_mm
->   
->           /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
->           ldr   x0, =primary_switched
-> @@ -313,7 +314,7 @@ GLOBAL(init_secondary)
->           bl    check_cpu_mode
->           bl    cpu_init
->           bl    prepare_early_mappings
-> -        bl    enable_mmu
-> +        bl    enable_mm
->   
->           /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
->           ldr   x0, =secondary_switched
-> diff --git a/xen/arch/arm/arm64/head_mmu.S b/xen/arch/arm/arm64/head_mmu.S
-> index fc64819a98..b542755bd2 100644
-> --- a/xen/arch/arm/arm64/head_mmu.S
-> +++ b/xen/arch/arm/arm64/head_mmu.S
-> @@ -217,7 +217,7 @@ ENDPROC(prepare_early_mappings)
->    *
->    * Clobbers x0 - x3
->    */
-> -ENTRY(enable_mmu)
-> +ENTRY(enable_mm)
->           PRINT("- Turning on paging -\r\n")
->   
->           /*
-> @@ -239,7 +239,7 @@ ENTRY(enable_mmu)
->           msr   SCTLR_EL2, x0          /* now paging is enabled */
->           isb                          /* Now, flush the icache */
->           ret
-> -ENDPROC(enable_mmu)
-> +ENDPROC(enable_mm)
->   
->   /*
->    * Remove the 1:1 map from the page-tables. It is not easy to keep track
 > diff --git a/xen/arch/arm/arm64/head_mpu.S b/xen/arch/arm/arm64/head_mpu.S
-> index f60611b556..5a1b03e293 100644
+> index 5a1b03e293..336c0a630f 100644
 > --- a/xen/arch/arm/arm64/head_mpu.S
 > +++ b/xen/arch/arm/arm64/head_mpu.S
-> @@ -68,3 +68,38 @@ ENTRY(prepare_early_mappings)
+> @@ -20,13 +20,20 @@
+>   /*
+>    * In boot stage, we will use 1 MPU region:
+>    * Region#0: Normal memory for Xen text + data + bss (2MB)
+> + * Region#1: Device memory for EARLY UART, size is defined
+> + *           by platform's EARLY_UART_SIZE
+>    */
+>   #define BOOT_NORMAL_REGION_IDX  0x0
+> +#define BOOT_DEVICE_REGION_IDX  0x1
 >   
+>   /* MPU normal memory attributes. */
+>   #define PRBAR_NORMAL_MEM        0x30    /* SH=11 AP=00 XN=00 */
+>   #define PRLAR_NORMAL_MEM        0x0f    /* NS=0 ATTR=111 EN=1 */
+>   
+> +/* MPU device memory attributes. */
+> +#define PRBAR_DEVICE_MEM        0x20    /* SH=10 AP=00 XN=00 */
+> +#define PRLAR_DEVICE_MEM        0x09    /* NS=0 ATTR=100 EN=1 */
+> +
+>   .macro write_pr, sel, prbar, prlar
+>       msr   PRSELR_EL2, \sel
+>       dsb   sy
+> @@ -69,6 +76,48 @@ ENTRY(prepare_early_mappings)
 >       ret
 >   ENDPROC(prepare_early_mappings)
-> +
+>   
 > +/*
-> + * Enable EL2 MPU and data cache. Because we will disable cache
-> + * with MPU at the same time, in accordance with that, we have
-> + * to enable cache with MPU at the same time in this function.
-> + * When MPU is disabled, the MPU background attributes will
-> + * be used. On some platform, the background will treat all
-> + * memory as IO memory.
+> + * In MMU system, setup_fixmap is used for Xen to map some essential data
+> + * or devices in boot-time. In order to be consistent with MMU system, we
+> + * inherit the function name for MPU system.
+> + * setup_fixmap of MPU system will:
+> + * - Map the early UART to MPU protection region when earlyprintk is
+> + *   enabled (The PRINT can't be used after turning on MPU but before
+> + *   setup_fixmap).
 
-I was under the impression that all access would be treated as Device 
-Memory when the MMU is off. Isn't it the case for the MPU?
+For the MMU, we have this restriction because the fixmap could clash 
+with the identity mapping. I don't think there are such restrictions for 
+the MPU and therefore it seems strange to pertain the same behavior.
 
-Also, I think the correct wording is "device memory" rather than "IO 
-memory".
+In fact, I have plan to get rid of this restriction even for the MMU. So 
+better this restriction is not spread if we can.
 
-> The access to IO memory will bypass
-
-Ditto.
-
-> + * the cache, even you have enabled the C bit in SCTLR.
-> + * To avoid this implicit behavior, we disable cache with MPU
-> + * explicitly to tell user that when MPU is disabled, the memory
-> + * access is uncacheable.
+> + *
+> + * Clobbers x0 - x3
 > + */
-> +ENTRY(enable_mm)
-> +    mrs   x0, SCTLR_EL2
-> +    mov   x1, #(SCTLR_Axx_ELx_M | SCTLR_Axx_ELx_C)
-> +    /* Enable EL2 MPU and D-cache */
-> +    orr   x0, x0, x1
-> +    dsb   sy
-> +    msr   SCTLR_EL2, x0
-> +    isb
-> +    ret
-> +ENDPROC(enable_mm)
+> +ENTRY(setup_fixmap)
+> +#ifdef CONFIG_EARLY_PRINTK
+> +    /* Map early uart to MPU device region for early printk. */
+> +    mov x0, #BOOT_DEVICE_REGION_IDX
+> +    ldr x1, =CONFIG_EARLY_UART_BASE_ADDRESS
+> +    and x1, x1, #MPU_REGION_MASK
+> +    mov x3, #PRBAR_DEVICE_MEM
+> +    orr x1, x1, x3
 > +
-> +/* Disable MPU system, including data cache. */
-> +ENTRY(disable_mm)
+> +    ldr x2, =CONFIG_EARLY_UART_BASE_ADDRESS
+> +    ldr x3, =(CONFIG_EARLY_UART_BASE_ADDRESS + EARLY_UART_SIZE - 1)
+> +    add x2, x2, x3
+> +    and x2, x2, #MPU_REGION_MASK
+> +    mov x3, #PRLAR_DEVICE_MEM
+> +    orr x2, x2, x3
+> +
+> +    /*
+> +     * Write to MPU protection region:
+> +     * x0 for pr_sel, x1 for prbar x2 for prlar
+> +     */
+> +    write_pr x0, x1, x2
+> +#endif
+> +
+> +    ret
+> +ENDPROC(setup_fixmap)
+> +
+> +/* Stub of remove_identity_mapping for MPU systems */
+> +ENTRY(remove_identity_mapping)
+> +    ret
+> +ENDPROC(remove_identity_mapping)
 
-I would rather not introduce this function until there is a caller. This 
-is because, I believe, there are some assumptions on the state of the 
-cache before we can turn off the MMU. So I would like to see the caller 
-in order to assess whether this function makes sense.
+This stub could be avoided if you move the call to 
+remove_identity_mapping in enable_mmu() as I did for arm32. See [1].
+
+[1] https://lore.kernel.org/all/20221022150422.17707-3-julien@xen.org/
 
 Cheers,
 
