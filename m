@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 200D061E564
-	for <lists+xen-devel@lfdr.de>; Sun,  6 Nov 2022 19:50:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.438670.692749 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 432D461E567
+	for <lists+xen-devel@lfdr.de>; Sun,  6 Nov 2022 19:55:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.438675.692761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1orkiL-00040E-Vc; Sun, 06 Nov 2022 18:49:49 +0000
+	id 1orknZ-0005nC-Hb; Sun, 06 Nov 2022 18:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 438670.692749; Sun, 06 Nov 2022 18:49:49 +0000
+Received: by outflank-mailman (output) from mailman id 438675.692761; Sun, 06 Nov 2022 18:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1orkiL-0003yR-SU; Sun, 06 Nov 2022 18:49:49 +0000
-Received: by outflank-mailman (input) for mailman id 438670;
- Sun, 06 Nov 2022 18:49:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4hAr=3G=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1orkiK-0003yL-PL
- for xen-devel@lists.xenproject.org; Sun, 06 Nov 2022 18:49:48 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c828fa98-5e03-11ed-8fd1-01056ac49cbb;
- Sun, 06 Nov 2022 19:49:46 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 07BA760D57;
- Sun,  6 Nov 2022 18:49:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6DF6DC433D7;
- Sun,  6 Nov 2022 18:49:44 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 4C5F3E270DD; Sun,  6 Nov 2022 18:49:44 +0000 (UTC)
+	id 1orknZ-0005kx-Ep; Sun, 06 Nov 2022 18:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 438675;
+ Sun, 06 Nov 2022 18:55:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1orknX-0005kb-Ng
+ for xen-devel@lists.xenproject.org; Sun, 06 Nov 2022 18:55:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1orknX-0006Jl-B2; Sun, 06 Nov 2022 18:55:11 +0000
+Received: from gw1.octic.net ([81.187.162.82] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1orknX-00027w-4f; Sun, 06 Nov 2022 18:55:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,43 +39,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c828fa98-5e03-11ed-8fd1-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1667760584;
-	bh=MfPHo+0mPM8JcO0sg8ivk7lLZLBFpDVM1b+O/kblazs=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=ohp/yTocx7u1uzQa0yyMrpBNC1FK7RCjeYuQmjnbILPxo9+1LRnC1r3EvqbcidyGs
-	 3S7tjxBg+tEt/ei8bpFgA3OHEFemc+Imu5GoP2R7Cj7Ey8MMM6vNSITSLVnl7xDw1h
-	 NUZEfTy/iNQP+e/vvMACL7DOkiZUSZpAWJSI5YazkS6VVyab7sjrF3vqBrrT5p7sc8
-	 T4u4txOqg4VhuSm+Hzz/q4W7yIz1PhLft+81HpeyRhKRsrIhcRxTZUDUY9qIWCvE/x
-	 3RnFJ0h+2dza19lTZJrjr/ie3mn/qRvfPeWdJJTp2Sovn3b0lf2JT4qYkCX8aZrwrV
-	 tCqQXhqJAe4bQ==
-Subject: Re: [GIT PULL] xen: branch for v6.1-rc4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20221106055958.14139-1-jgross@suse.com>
-References: <20221106055958.14139-1-jgross@suse.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <20221106055958.14139-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.1-rc4-tag
-X-PR-Tracked-Commit-Id: 4bff677b30156435afa2cc4c3601b542b4ddd439
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 6e8c78d32b5c60737bcd71346130f0bf91d6e066
-Message-Id: <166776058430.6751.15098264634464095841.pr-tracker-bot@kernel.org>
-Date: Sun, 06 Nov 2022 18:49:44 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=MpeTcE9GW2bBEQ5mJW3VAHRwMPM8OSVW6IKCRow1rSM=; b=cGq2H1xfFsz92xPEz0d+aF2pHj
+	vKroEn9aHx5lccBb4OSxQzvcHvwXBO8Ol9X85OoubxwOmkbePJrsWGofvv0K51e62Gn+QpVcIAqeS
+	MQf/L8LfWPGc4I/pxuFLZUg4Wc1nNdls7jiQTE5AkPyHNpxXc+nh8oHL2SMLtyzGz3qQ=;
+Message-ID: <a3b0c695-3e2f-7529-39c6-2e4c23ee9b78@xen.org>
+Date: Sun, 6 Nov 2022 18:55:09 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org
+Cc: nd@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Henry Wang <Henry.Wang@arm.com>
+References: <20221104100741.2176307-1-wei.chen@arm.com>
+ <20221104100741.2176307-3-wei.chen@arm.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v6 02/11] xen/arm: add iounmap after initrd has been
+ loaded in domain_build
+In-Reply-To: <20221104100741.2176307-3-wei.chen@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Sun,  6 Nov 2022 06:59:58 +0100:
+(+ Henry)
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.1-rc4-tag
+Hi,
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/6e8c78d32b5c60737bcd71346130f0bf91d6e066
+On 04/11/2022 10:07, Wei Chen wrote:
+> domain_build use ioremap_wc to map a new non-cacheable virtual
 
-Thank you!
+s/use/uses/
+
+> address for initrd. After Xen copy initrd from this address to
+> guest, this new allocated virtual address has not been unmapped.
+> 
+> So in this patch, we add an iounmap to the end of domain_build,
+> after Xen loaded initrd to guest memory.
+> 
+
+Please a fixes tag. The issue was introduced by commit bb7e6d565d92.
+
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/arch/arm/domain_build.c | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 4fb5c20b13..bd30d3798c 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3418,6 +3418,8 @@ static void __init initrd_load(struct kernel_info *kinfo)
+>                                             initrd, len);
+>       if ( res != 0 )
+>           panic("Unable to copy the initrd in the hwdom memory\n");
+> +
+> +    iounmap(initrd);
+
+This looks good to me. But I am wondering whether using ioremap_wc() is 
+actually correct because we are reading the region. So it seems strang 
+to map it with write-combine.
+
+So I would consider to use ioremap_cache(). That said, this would be a 
+separate patch.
+
+I think this wants to be in 4.17. This will avoid Xen to have two 
+mappings with different caching attribute (initrd is part of the RAM and 
+therefore directmap).
+
+Cheers,
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Julien Grall
 
