@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBF2B61F9FE
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 17:36:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439503.693525 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B877961FAB1
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 17:58:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.439518.693536 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os55w-0003uW-FE; Mon, 07 Nov 2022 16:35:32 +0000
+	id 1os5Ro-0006qn-4w; Mon, 07 Nov 2022 16:58:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439503.693525; Mon, 07 Nov 2022 16:35:32 +0000
+Received: by outflank-mailman (output) from mailman id 439518.693536; Mon, 07 Nov 2022 16:58:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os55w-0003rZ-Bn; Mon, 07 Nov 2022 16:35:32 +0000
-Received: by outflank-mailman (input) for mailman id 439503;
- Mon, 07 Nov 2022 16:35:31 +0000
+	id 1os5Ro-0006nx-1q; Mon, 07 Nov 2022 16:58:08 +0000
+Received: by outflank-mailman (input) for mailman id 439518;
+ Mon, 07 Nov 2022 16:58:06 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Gy2E=3H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1os55u-0003rT-Q1
- for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 16:35:31 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-eopbgr60083.outbound.protection.outlook.com [40.107.6.83])
+ id 1os5Rm-0006nr-GQ
+ for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 16:58:06 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2062.outbound.protection.outlook.com [40.107.22.62])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 307f0419-5eba-11ed-8fd1-01056ac49cbb;
- Mon, 07 Nov 2022 17:35:29 +0100 (CET)
+ id 58af280d-5ebd-11ed-8fd1-01056ac49cbb;
+ Mon, 07 Nov 2022 17:58:05 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU2PR04MB9067.eurprd04.prod.outlook.com (2603:10a6:10:2f2::10)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DU0PR04MB9299.eurprd04.prod.outlook.com (2603:10a6:10:356::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.22; Mon, 7 Nov
- 2022 16:35:26 +0000
+ 2022 16:58:03 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5791.026; Mon, 7 Nov 2022
- 16:35:26 +0000
+ 16:58:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,337 +46,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 307f0419-5eba-11ed-8fd1-01056ac49cbb
+X-Inumbo-ID: 58af280d-5ebd-11ed-8fd1-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f2pjlE6aM8gaC6YoO17WqVH/6rt0Zk8yIBMdRp45CoJ5HOSbLJyh7+v6FMj1l9YzO05+YUe21XKO06BmVcvNGoWRSQwpR0Ze/efSamd4jnb91EBpe4WGL1oV+FrBfbi4CJt4U3fh2eaZq9COwef63GxK8RCDo+50X/XRbQdjmpGt7GDjoLQylOsV4rRdkj4RMtkisYz2wAQMODh6PBpR/8/v88Y+bpDoiF0FGm1h78TkPMAqLCL3WasMMGcC8f48w6RQfz6HegZuaXFUOkI54j7tZkNcJw1puGZbk35BDKfka8OR01cgT5hb4Yt1Q5MFyq+C7r14z6sxoZJRa/65Dw==
+ b=Ek8c9VvBWA3N0TSm+1vQxJHsZ5grOfgbwR67pjDAm5gUucu11NkrdvjPVybOtTe55SZmvegJQy+7mj89LGtp+ynaDoe6GjEVu/duXXRul7cb2+/D+TorFZyBzp4fZn/prW/YxWl924iPKW9Uscu2LjQOT6As0mW+ZC4lDgm2eb/BQOXsO09ewV7LZDu+eiRbK1h4BJZQQjXiZs6dGa3JgDvngy+xGMCozleXZ0Lz8rzA8ugzgeZKmig/kKwQj61itySwwMPxkXrMDJWFVscd0cefqoa28X7vfTJ+AGHEmn9xwpHOiePTfR9icybpXvtY7kMRmC+wx4HVTAyqDAGPtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rkryOQpiG5imWtvlvruFNVJCPJ5uPxQikcqLQVyA+WM=;
- b=kii3/bJOsUJCfg+uYDZyW95UcvgbxopTji9mvcaaWg3N4JKbS/kV3sysodfDFCLr0b/zbdbhOxA+TwR/8gGwsLnOpFuOIGeDvq9GyM2vocgLgg2GpnwBDQBQd+BLGfX5AVHvgqKd94QqHiYscfuykKR+8pWTvaRHJSdN7RU9DQTdohO/9+9b+m1W+LrwdUVBtlrK6gCnZyCobWWIjWNOpMMuDBa6s7bAyy8D6uaxFQz+WRcrmfGFpvMg3Ds+ICnSTRQ/MMrNabI71ZQaK20OP7+Zq60HkrF2SSacU2lJyTrwftkDoTx7D1Du4SDbigxNqqp9js9ouX+/8azo6vtm5Q==
+ bh=SJfLxzj4Aen0EOaZb5flGHyz7PKsrvFaIHE7OOYdv1o=;
+ b=ADh0pwfUubDLWEPFfBaKyoNHHSx2mSB8ctzZitmsJ3I1UGRuw08Ljg/iUTP0Knn6BhcYt/bMwarbL/HOpRcDz8enXhWJiQlpoTrfg1hjNu1QORffxCQ+Yhc+C98NriQk+tNUgN8SW18YHnsXiLW+1QGC7ujGQAdCm+HHQv8PquaGpD6iFVPufny4ScEjHh1j6TEOiHFu2SIX7/JPAk0dZ23XC7T5qbeO/WFNtfo9K03nLgBlwQsbb9ehBUHoU/FbscNc7ez49vh6J+T3Qr4RAoDgqUOotwSSvaxdZfmL8BkDOXSJWpd8nnZkn7Obs/iM7vGvTcz37uqt1mGPAK/ugQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rkryOQpiG5imWtvlvruFNVJCPJ5uPxQikcqLQVyA+WM=;
- b=zFp3wV4j+YHqjNv1KrdKpjUevTq+jPvg2QU+WIiTu553utusU4FTTR2DrUawJh+3acsYkoVa4pg2ldOOR/gpebrur+7Kvd4fylFS/WXUEPDOESETNg2kZowQlVOVjksiFx0D24pGbvEaTLiyeaiA6suU5GMiKnAiAmlC2p+JKLBWKCuF5exwIi37uCTHhrZgcIhVsqyC/ib3JDuPBHTv/aPFE4ELL9wH84bjGUzscbo7+nPW375rhQHDGq9RLeoDW3Sa0FAS1KSLpLXhsSQ3VdFkQBg4wZVdJ2NHPeguuMsfSovYaVYe75xmZUN7CZti+xCJledwXmC2zS3l99Bf+Q==
+ bh=SJfLxzj4Aen0EOaZb5flGHyz7PKsrvFaIHE7OOYdv1o=;
+ b=gwuVazyX2Chf/48jW3MQIYo814xW/YH9UI+FKyCfXG3Wp+/uvEqflWu83vvCrcCOiMmMXYFwDqz8IvMbPlpelzqifwljRROs0TV6ckNBFCFSlL3GBMnJdtQzaYhvAxEC5h6a3JivSu3Ki8vfUmCGY59xvV1PLIliNedwaPsv4I1fOAGmgedEupo/NU517Vk/AHb3mXPWs/KHEQ3T15HVeD88CYu0y2Gv5RXrBpmiTxRGQIsHhRcCXCAfZ7igE2aOhZd4OnWOSDfpmLFGvveCYqXGXntBXw01KYNmzIQnM2zfXG/SBrKCjBj+3+F7RYTdGncWG7/t8wyXFCIKk/BpYw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <aa989d27-45c2-6cb8-160a-b0368b1bb2a2@suse.com>
-Date: Mon, 7 Nov 2022 17:35:27 +0100
+Message-ID: <4c8d31de-539a-4252-f0a1-617b220eadc2@suse.com>
+Date: Mon, 7 Nov 2022 17:58:04 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.1
-Subject: Re: [RFC PATCH 1/4] xen/Makefile: add analysis-coverity and
- analysis-eclair
+Subject: Re: [PATCH for-4.17 v2] hvm/apic: repurpose the reporting of the APIC
+ assist options
 Content-Language: en-US
-To: Luca Fancellu <luca.fancellu@arm.com>
-Cc: bertrand.marquis@arm.com, wei.chen@arm.com,
+To: Roger Pau Monne <roger.pau@citrix.com>
+Cc: Henry.Wang@arm.com, Paul Durrant <paul@xen.org>, Wei Liu <wl@xen.org>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
  xen-devel@lists.xenproject.org
-References: <20221107104739.10404-1-luca.fancellu@arm.com>
- <20221107104739.10404-2-luca.fancellu@arm.com>
+References: <20221104161815.38007-1-roger.pau@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20221107104739.10404-2-luca.fancellu@arm.com>
+In-Reply-To: <20221104161815.38007-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS9P251CA0003.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:50f::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0034.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB9067:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31ca850f-919e-4889-5a9c-08dac0de130e
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9299:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec9e727b-0bda-4911-13eb-08dac0e13bde
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	GDdJi51jQRFaPKU4OLY1ZnPycMFyv4SzEukISIsGeHvd0lhglevP4qfXJP04yRBpzS9bRXV0k/mVSEnEfSapFd8aYdcjPykKgGrLRaSI9aefhEH182NlZYZKdHpv/70oVTtpxaIyzOCbp9ywlS9oh2M6RrRsftgQmhfy/m4+Y+wX90l6LxMN42041/LhD+W/6GpQnf1DBjZPFHqQu7HfFOIkxLI5FXFV0Yy23onhXQKwVgSi2ltOBAb5VD8KjI4x5jS0p7zw/JpTGjVmVZG67g56O7rdeV5MpHa2dQTCf8PcqpOjrgK3kNVSTKIEZ4scFBzMS939OZHqdEoZYLolwrpOG7PmHz8c88zTuThLZvJhbgpxnZJNeGhFAUXxc0qcr9roPKDB6PftUkwLXfCaPDCpRo0nMurpz4eWWxNCziourqG7NtfOAT971dna1iNsxmPJTSjqxO3tOEwjGQ44yM1UwisTcCRyADcO/n5o4SWGvPOV4Qq3dx7xOZt2sp38WKt99LGiMjhWPwiSGMFKkgDOmwPfZtk9eOBZW7xyy8sFWQkAvj/s8upnJnp4Az6onYoaik5QU3x3N0DwthftxKJgajjO751PjZrBe48p3NpQFKetlhzjbqqtjPknSHdNQU6QhWDn5ZeRtZ7XqTXKYaOxp9BBRWetHLCELhiotpx6yWVPjzM/f1DDKaJ9CCOZLIfR3kIkrc6Kakas8rW7kp10Hiihr/hnm0wnubMlTSKWxG/mr+4aEDbr379YE3OU2ufmrYHHFuk6zjRepnv9IrP7Fp/cqZIf88oksh/YU+0=
+	qAPSM/HpVfecvN+ehF9eQOU/wkK5SEKPFahLsy5VjbmtI1tk00kxTt47rPwMJTEyrNgu1xt4/fpIaLK/4sL3F9hLZ29ShTiSAHU9KN9o1Me3DvL7if9Hqh9fE9bTYU9G7sUgvzSYrDihEW1jdPcJtC2SEpIVp+xFHbTyZmQ6jecOIDy16SmnNVppfws5fpkLKeueoshq7jGPGoNeFQp6AN6hJzWTAAga9DukNhQDTqjadsGCCsbiSm8J8PTO/w70nf8k3DjPoB+tE0m5N5SQP+YB/xxvUCfzdqs931+njm8Ak/sygOKnT+a9sW6a2VwH7iKnyq09kwOEXkwPAIoPA8pP/ij5PhvyfKr/5v5d606hvBWl68JjszKHUOK8N8qE4PiA7mzO4OaOMyCtMkSshhsYME/sBot0BscilJWBCWK/bOuWzD7ls26siRbDct7PsRAAUzkZsgDWOfHIpxOos7tWjG56rZPaaNbZtEykLrnh/6c312wE3MJKBOJcTymApdYZLb1TGviZWF52XkuWHG5D/Msqxqu04MeVLGW9UO5Kz5+pEoPDktdo8k3b1qiYXiuc9cHXXjQu1X7RchtDt4ROjB0B68ZcYUP+2eITMjv6/6S5BxFc4QbTS16UwvPvDRzePbgQb/5UoFC7ajgk2d8cYfvjR18CJ9uSyYRw0jvvzbNVSbBUKMQimZ3gYF97itlBo7AyfxJ+Z3JgN9lMOT9vGpPSqHjQwo8pCPEAexSSQ81LlyHQ7wJvIFTo+00HeqMKC8vBt+1rF0oP9mWaEz2yG21HjF14rmkkEVVLAvc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(136003)(396003)(366004)(346002)(376002)(451199015)(66899015)(36756003)(31686004)(86362001)(31696002)(5660300002)(6916009)(2906002)(26005)(6512007)(2616005)(6506007)(53546011)(186003)(83380400001)(38100700002)(54906003)(4326008)(478600001)(8676002)(66946007)(316002)(66556008)(66476007)(8936002)(6486002)(41300700001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(376002)(136003)(396003)(366004)(451199015)(2616005)(83380400001)(6506007)(186003)(31686004)(53546011)(6512007)(26005)(66476007)(6486002)(4326008)(66946007)(66556008)(478600001)(36756003)(8936002)(38100700002)(8676002)(2906002)(86362001)(31696002)(5660300002)(316002)(41300700001)(6916009)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Q21Rd2E2RnF0MGpVMU9tdCtQMFpyWEg1U3dUVHZFNFNiR09YQ2ZDTVZXREJT?=
- =?utf-8?B?SVBkYno2VkNEcTVlRzlPeWEvTXU3dmxnWDl1TDAyQ2g4T0cvZ084V3kvTFZW?=
- =?utf-8?B?NENDYmh3RXA2bVczZ25yUEZHd3BHdXpRUE5RTW5HamxXMTFqc2dJZWVLdkQy?=
- =?utf-8?B?d09TL2QzZUgrNW9ZclQxSjM5RG13Q0xrbjdaRUVpYWxjdUhEbXN6a2pqMmFz?=
- =?utf-8?B?UWNGZTVISTV0K00rMHpTOGYyMHpWbHBmY09ncWNwOStPUDlIS1pyQUp5Vit6?=
- =?utf-8?B?amd5K1NOcElkd2lIdFZJNm96dXRSRUp5UzNmYXU5cTVFTWxBMXVTWEZ3Ny9u?=
- =?utf-8?B?N0kvcnZoVDV0ell2R0UrRi9CWHd6R056Q3o2Tk1RVkVGYmV1VjVpQlliaDdR?=
- =?utf-8?B?bGNCTlF6Mis4QmpXZVlrZGk4dWp5djU4VVhVZXg1ZTNCRmFHbnJZZ0hrVm9l?=
- =?utf-8?B?eFpOcGUwWklWNVorU01QV1pxSFkwS09XR1pUdUcyY09TQlB2NjlyREJpNlR2?=
- =?utf-8?B?OUZ3d3RINjMzTDdLTEY1TmVKNDFnMy9VSEZ4SE9mSGc3VzBLUE4xd1Mzd2tk?=
- =?utf-8?B?dDYzOVdVMHYvSXhhc2xzQ0g0T04wYmZrV0U1Z25mc3RjTnFhZ3V1WFB2N1ZM?=
- =?utf-8?B?YzgyZU1uSnp0dlYrMzBObkdsTWYvWUhMV0tVY21xVk9Ma0d3enozWHlXVHJC?=
- =?utf-8?B?UjIrRUFoV0h6N1grVHlIMnlVWVBkcnVMbWhiSldBOXFZYlo0c3ZHK1YzUGF2?=
- =?utf-8?B?U3E2TmZWcFpib3p5bmlYZzlleW5iRGxpL1dzMGthWFIwWUcwRURrTDB0azhL?=
- =?utf-8?B?OHl1ek5TZUV4bk9JQU9KK2JSSTBDZkhaOTduc0g3a25SSFMrdzdpcWlZQ1Uz?=
- =?utf-8?B?RTgvdkJyMkJLR1NvSkNQbkVxU0Nna1ZuNCtnYUtHUzVKekxabTlMNXFTMzBp?=
- =?utf-8?B?MzdTU2x3WWhabVFhQTRMVUd6S2hBR3UyMEdqNzV4RE9lVFJ5N2hhVDBJNUdB?=
- =?utf-8?B?TDBpSUVHSWFNMllYdVdiWlEyOEVNTkZiK2UzaGkrRFhPSnRjUWtzdlVpVmlj?=
- =?utf-8?B?djZZaHl5cnp4WUxSMVRQcC9CWm9oWkRNd08rYndvNHVOdzA0dU84OHJ3YXY2?=
- =?utf-8?B?c3cwVzlMaXhTVnp5VDJ2UnFRRUhrTmlaVHV4MDFwd1BEQnRvellkNitlMnJ5?=
- =?utf-8?B?YkJvT05ja1NUSER6RzB4b3lQaU91MEZOWm1NU3Fpc2JZYmN0d0pCTG9DM25h?=
- =?utf-8?B?TVlOUlRVSDhEd2lmZTcyOUxOS1BIWDdYRmJyb0pSdTZJb3VoRHlnTzBxSmhQ?=
- =?utf-8?B?VUxMTW43L1FISXNBc2RkTE9tU3gzVTVoTUUweWVydGVRcElXVnB5NnY2bDFa?=
- =?utf-8?B?RGxzMFZtU00zZU5ZaEowVzNSYi9nbkxoRzBtVUxyNWYwdHRpd0NNRjY4VXVG?=
- =?utf-8?B?UFdycEdlN2hram9xQktZTzNoVTA5MnE3bzgrVlVjbGpNTTY4UWc2dThPcm4r?=
- =?utf-8?B?WnZYMXptQUFNb2g1K1RsWVI5c3F6Y0YzZVFManJGdmpzak5qL1JaU1krT0Ro?=
- =?utf-8?B?R1FMellYMldlWUtweWhXUVNKTHVObFUyUFJ0NGxwTy9QRkFuQUZ5YURRaUEv?=
- =?utf-8?B?em9UcHh1ejhHRlZxcmF6NE02TzFOVTE1WlBiUmYvcFBRTDNyU3ViYlhvNHZu?=
- =?utf-8?B?U3RZRzE4RGcwREVkTHgxMGhlL0FYbjM5REpSNDBsYUlHQWJSaG1XbkJOZEJS?=
- =?utf-8?B?NEsrY3hKUkt0VFZab3lwdnZGYnBheHBaNG9weFU0VGUvRHd1OEU5VHlVYUJm?=
- =?utf-8?B?dEsrN3IrSVN0UCsvR3psQnJyOXdVQllScHVGWm4wb0xNMlNPa0MraitMQlVI?=
- =?utf-8?B?ZVhxYzZxdFZrY2V2eG4zaHZLYWtMdDAxclA2dnkveHpWZ1hBU2FZZU1leW01?=
- =?utf-8?B?NzJzYjN4RTdHckltNVJXNmlEUW5uK3pGY2cwSWhXRXRmTDdCNTdONUVnWGhk?=
- =?utf-8?B?YlVYTlpLa0dYZDhiMW1LcEdHQkpXUmJXOWlHcTdiKzZxT3B4VWE3ajhyYWx5?=
- =?utf-8?B?WjRMUXpFczA5UXZwTlcwb25wM3lvRFp0aEZoTXl1Si9zQlU3b1lIcFZDZk5t?=
- =?utf-8?Q?Ph224tfOIQQy6MilctevkUL0+?=
+	=?utf-8?B?cDc4UmkyL2RFRGttUndqOXk2OTR2M0JXNkRrVnhZazZWUlhhSlkyakg3Qmdu?=
+ =?utf-8?B?bGRwUGoxbnRKbS9VTDdYRUovdVI2ZU5XMHB5SzY5ZEM3NzNYSXlWR0pmNnF2?=
+ =?utf-8?B?WURpOVV0TDRUeFRaODU4Zit0UWJXZVM4MG0rRzhYNGZhSGhxcFROZDRYRHZO?=
+ =?utf-8?B?dmNLNWJrWmx2LzZFNXQ2L0tDSUNDMGF5T05mV08xMmR3aHhNWll3QWFHS0hP?=
+ =?utf-8?B?Zm5nQ2R2VGk1UFQvUVBxNVRjMjB5NERtbjVBRG5yWHkrajQ4NlJHYituS3ZS?=
+ =?utf-8?B?SDQ0czlOY3FvSExQL2JkeGR1RFNycnNYWjRCV212S1BGZFJMeVVTdUpMc3pk?=
+ =?utf-8?B?TzY5MjQrNkVkVlZnK2ZmYkNHbmgwczNiaDJGNEhFZkZ1QjBOZjlHZThBNHpN?=
+ =?utf-8?B?Rm9UeVpaY1V6eExMMk5qaUsycnlobU5ENmVBbTRZeVVNMGd6TnVTQmZBQThX?=
+ =?utf-8?B?RXpxUnFjNHFESUJVZVJ0Vk5ZSEVSR2lvc3lRUHNnc3J0ZmZxVi82MTZEbStT?=
+ =?utf-8?B?dmUxc1d4QjBCYlBOUnJkZEc0RU9zT2tpOEV5Wkh1VXVlNEQrSnUxZ2ZMR2NR?=
+ =?utf-8?B?c29veGhxQW0wTnFha0VjYTJ6ZC95Vk1Eb2cwaitIOEdZU1pZb2xwK3VGSk93?=
+ =?utf-8?B?MTRpQ01uWUwzdlhPbFVTQkxEdksvSlRwY0pFR3hiTTg4RHpoeHR1UnNyNGU0?=
+ =?utf-8?B?d2x0NlUrR0IwYlNoY0FyVmM5aWNtMlpidHk4dUp4WkNxa1QwL0RlY214OEcx?=
+ =?utf-8?B?eWwzdkE3QUNJaWlKelg3MEFRemlKaU9EOUlBZEhEcDU1Yis2OEU2ZFBRNWtJ?=
+ =?utf-8?B?UGdYUndEbkpMa3ZvMGhDNXhvRnNLdURmRDZhcm9ES0lZVVp4QmlJRnBNK3VJ?=
+ =?utf-8?B?Tk1EZndENmxYNVVMZlRTeHptM3h5T2lpam8xMVVwWHhOeTlNOWVVZE9neVNE?=
+ =?utf-8?B?SEJETWF3VnBzSmU2WVMvcnJQdzR4a2tzS1R1cjFYa1VrK3RDL3R0ZE9EeHhS?=
+ =?utf-8?B?UWh3ZmVYOGdmckJhWGRqNzdqdlBTVkwyNXFoVzVtS0hjZGxEa2VpdFd4WFJU?=
+ =?utf-8?B?ME9YUTk5VE8rVmU1L25pYUU1aHZKeWdIcWxJVmF1S3RFZ1BkVG1RblI0S1Uv?=
+ =?utf-8?B?OS9aUzVCb3paWUZKWUNsN3lMejhWYkVUQms0dXZJWk15N0lmb3VmNDVWWVV6?=
+ =?utf-8?B?UTdrUEI2SVM3ZHRINnd5bDR1d0FJbE1WMXZjQUN4QlJFcHBJTzZCaVdqSTB4?=
+ =?utf-8?B?TmZWMEVjcGhKeVpDQm1XeDdsdDJzMmpUejNHb1ZVaTBob0FjbkFydldTSnBH?=
+ =?utf-8?B?aFVLMktGUlpLbmUrd0RKYXNtVHppRXIwbnJlZGFVM0p4WW1ZU0FmUnJHaHN4?=
+ =?utf-8?B?SXFQRDFza2VLRDlPNU5mdHUwSnA5eUlMRG1lcWRLMnEyU0lMQXJmdDBncU5E?=
+ =?utf-8?B?MzVGR05laGhEUEN3TXM4WG9SWE94RnZMS0tBc3JuUDIvMWwzNHlna3MvRzJ1?=
+ =?utf-8?B?TzRyV01hN29vYzZta3RaMG9DU2dhVnJLZW1mMjZIdGdZMGRqNk5lSEpPTjNp?=
+ =?utf-8?B?Y3ZuaUpCZlh2ci9zVjEzcHQvbnZmcHBhRHlSUjB3UzFxZ2wvQXl4eEJpb09y?=
+ =?utf-8?B?QVllanpaeWh3WXJDR1ZtakI5NEQ1Wkw2WFR1cGx1ZGJod3BXVzlkenlwdXRF?=
+ =?utf-8?B?L0w3VDh4OE9iWTU1NnBmeWJyaHVBUC9mcWtFbGw5NVdWZGZQWlFUUU1EZzhC?=
+ =?utf-8?B?QzZOWmFmU1hUVnQ5QnBBTXpzL1dyMnpmdGEyRzRHTE5vZS80MWZPSS9OaUYz?=
+ =?utf-8?B?L2J5a1I4YlZVNFpzYk9QM284Q0t1WmM2ZURLTmpvbmlGVTVkdFQ4dFpHREJN?=
+ =?utf-8?B?UXFuZjR3aDhPd3psSi9RWXdoSmV2cjZUbTRPSUhDM2VpRjdVT2JjRy9uTjFR?=
+ =?utf-8?B?MGh4WFduVDFnYmdKTkpHRGJZeDR6QmhycWFkOU9kSllzODF6eW1RaXRGZ3Rr?=
+ =?utf-8?B?WTlEYXdFemRDQkZmdU0yUmNHeWpqcGRaYjZ0NnEvNklGbGZFNWRBeEdHd3Na?=
+ =?utf-8?B?MEI1SVlMUFo5LzI0dWlCQ1lVaHpnZm5hanZKcTBvSC93TU1QSXNUWUt6dVRX?=
+ =?utf-8?Q?wL9kFT/6FBlyWdNAzRuQ2TSV2?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31ca850f-919e-4889-5a9c-08dac0de130e
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec9e727b-0bda-4911-13eb-08dac0e13bde
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 16:35:26.2733
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2022 16:58:03.2962
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xRYBi4/j49aexGLPKI1oD4NFixsr395ueC5BhmCyqTbmitWMr4+6AvtRt7xHfjnCnVu7WlAS0EBOKLsJFDDPMw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9067
+X-MS-Exchange-CrossTenant-UserPrincipalName: pcfYylEcPNYIsZBKlUJ96uKBdbm3gwOAtDd2yvzSbewQeKOoQaj3YJJLME19wg5EhDf3zsH8/PrJmMAqj+7RZw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9299
 
-On 07.11.2022 11:47, Luca Fancellu wrote:
-> +Here is an example to add a new justification in false-positive-<tool>.json::
+On 04.11.2022 17:18, Roger Pau Monne wrote:
+> --- a/xen/arch/x86/hvm/viridian/viridian.c
+> +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> @@ -197,7 +197,7 @@ void cpuid_viridian_leaves(const struct vcpu *v, uint32_t leaf,
+>          res->a = CPUID4A_RELAX_TIMER_INT;
+>          if ( viridian_feature_mask(d) & HVMPV_hcall_remote_tlb_flush )
+>              res->a |= CPUID4A_HCALL_REMOTE_TLB_FLUSH;
+> -        if ( !cpu_has_vmx_apic_reg_virt )
+> +        if ( !has_assisted_xapic(d) )
+>              res->a |= CPUID4A_MSR_BASED_APIC;
 
-With <tool> already present in the name, ...
+Isn't this too restrictive when considering x2APIC? IOW is there anything
+wrong with leaving this as is?
 
-> +|{
-> +|    "version": "1.0",
-> +|    "content": [
-> +|        {
-> +|            "id": "SAF-0-false-positive-<tool>",
-> +|            "analyser": {
-> +|                "<tool>": "<proprietary-id>"
-
-... can we avoid the redundancy here? Perhaps ...
-
-> +|            },
-> +|            "tool-version": "<version>",
-
-... it could be
-
-            "analyser": {
-                "<version>": "<proprietary-id>"
-            },
-
-? It's not really clear to me though how a false positive would be
-correctly recorded which is present over a range of versions.
-
-> --- a/xen/Makefile
-> +++ b/xen/Makefile
-> @@ -457,7 +457,8 @@ endif # need-config
->  
->  __all: build
->  
-> -main-targets := build install uninstall clean distclean MAP cppcheck cppcheck-html
-> +main-targets := build install uninstall clean distclean MAP cppcheck \
-> +    cppcheck-html analysis-coverity analysis-eclair
->  .PHONY: $(main-targets)
->  ifneq ($(XEN_TARGET_ARCH),x86_32)
->  $(main-targets): %: _% ;
-> @@ -572,7 +573,7 @@ _clean:
->  	rm -f $(TARGET).efi $(TARGET).efi.map $(TARGET).efi.stripped
->  	rm -f asm-offsets.s arch/*/include/asm/asm-offsets.h
->  	rm -f .banner .allconfig.tmp include/xen/compile.h
-> -	rm -f cppcheck-misra.* xen-cppcheck.xml
-> +	rm -f cppcheck-misra.* xen-cppcheck.xml *.sed
-
-Is *.sed perhaps a little too wide? But yes, we can of course deal with that
-in case any *.sed file appears in the source tree.
-
-> @@ -757,6 +758,51 @@ cppcheck-version:
->  $(objtree)/include/generated/compiler-def.h:
->  	$(Q)$(CC) -dM -E -o $@ - < /dev/null
->  
-> +JUSTIFICATION_FILES := $(XEN_ROOT)/docs/misra/safe.json \
-> +                       $(XEN_ROOT)/docs/misra/false-positive-$$*.json
+> @@ -3432,6 +3436,10 @@ void vmx_vlapic_msr_changed(struct vcpu *v)
+>                  vmx_set_msr_intercept(v, MSR_X2APIC_PPR, VMX_MSR_R);
+>                  vmx_set_msr_intercept(v, MSR_X2APIC_TMICT, VMX_MSR_R);
+>                  vmx_set_msr_intercept(v, MSR_X2APIC_TMCCT, VMX_MSR_R);
 > +
-> +# The following command is using grep to find all files that contains a comment
-> +# containing "SAF-<anything>" on a single line.
-> +# %.safparse will be the original files saved from the build system, these files
-> +# will be restored at the end of the analysis step
-> +PARSE_FILE_LIST := $(addsuffix .safparse,$(filter-out %.safparse,\
-> +$(shell grep -ERl '^[[:blank:]]*\/\*[[:space:]]+SAF-.*\*\/$$' $(srctree))))
-
-Please indent such line continuations. And then isn't this going to risk
-matching non-source files as well? Perhaps you want to restrict this to
-*.c and *.h?
-
-> +.PRECIOUS: $(PARSE_FILE_LIST) $(objtree)/%.sed
+> +                v->arch.hvm.vmx.secondary_exec_control |=
+> +                    SECONDARY_EXEC_APIC_REGISTER_VIRT;
 > +
-> +.SECONDEXPANSION:
+>              }
 
-I have to admit that I'm a little worried of this living relatively early in
-the script.
+Nit: stray trailing blank line inside the block.
 
-> +$(objtree)/%.sed: $(JUSTIFICATION_FILES) $(srctree)/tools/xenfusa-gen-tags.py
-> +	$(PYTHON) $(srctree)/tools/xenfusa-gen-tags.py \
-> +		$(foreach file, $(filter %.json, $^), --input $(file)) --output $@ \
-> +		--tool $*
-
-To reduce redundancy, how about
-
-$(objtree)/%.sed: $(srctree)/tools/xenfusa-gen-tags.py $(JUSTIFICATION_FILES)
-	$(PYTHON) $< --output $@ --tool $* \
-		$(foreach file, $(filter %.json, $^), --input $(file))
-
-?
-
-> +%.safparse: %
-
-For this to not be overly widely matching, maybe better
-
-$(PARSE_FILE_LIST): %.safparse: %
-
-?
-
-> +# Create a copy of the original file (-p preserves also timestamp)
-> +	$(Q)if [ -f "$@" ]; then \
-> +		echo "Found $@, please check the integrity of $*"; \
-> +		exit 1; \
-> +	fi
-> +	$(Q)cp -p "$*" "$@"
-
-While you use the full source name as the stem, I still think $< would be
-more clear to use here.
-
-To limit work done, could this me "mv" instead of "cp -p", and then ...
-
-> +analysis-parse-tags-%: $(PARSE_FILE_LIST) $(objtree)/%.sed
-> +	$(Q)for file in $(patsubst %.safparse,%,$(PARSE_FILE_LIST)); do \
-> +		sed -i -f "$(objtree)/$*.sed" "$${file}"; \
-
-... with then using
-
-		sed -f "$(objtree)/$*.sed" "$${file}.safparse" >"$${file}"
-
-here? This would then also have source consistent between prereqs and
-rule.
-
-> +	done
-> +
-> +analysis-build-%: analysis-parse-tags-%
-> +	$(MAKE) O=$(abs_objtree) -f $(srctree)/Makefile build
-
-This rule doesn't use the stem, so I'm struggling to understand what
-this is about.
-
-> +analysis-clean:
-> +# Reverts the original file (-p preserves also timestamp)
-> +	$(Q)find $(srctree) -type f -name "*.safparse" -print | \
-> +	while IFS= read file; do \
-> +		cp -p "$${file}" "$${file%.safparse}"; \
-> +		rm -f "$${file}"; \
-
-Why not "mv"?
-
-> +	done
-> +
-> +_analysis-%: analysis-build-%
-> +	$(Q)$(MAKE) O=$(abs_objtree) -f $(srctree)/Makefile analysis-clean
-
-Again no use of the stem, plus here I wonder if this may not lead to
-people invoking "analysis-clean" without having said anything about
-cleaning on their command line.
-
-> --- /dev/null
-> +++ b/xen/tools/xenfusa-gen-tags.py
-> @@ -0,0 +1,81 @@
-> +#!/usr/bin/env python
-> +
-> +import sys, getopt, json
-> +
-> +def help():
-> +    print('Usage: {} [OPTION] ...'.format(sys.argv[0]))
-> +    print('')
-> +    print('This script converts the justification file to a set of sed rules')
-> +    print('that will replace generic tags from Xen codebase in-code comments')
-> +    print('to in-code comments having the proprietary syntax for the selected')
-> +    print('tool.')
-> +    print('')
-> +    print('Options:')
-> +    print('  -i/--input   Json file containing the justifications, can be')
-> +    print('               passed multiple times for multiple files')
-> +    print('  -o/--output  Sed file containing the substitution rules')
-> +    print('  -t/--tool    Tool that will use the in-code comments')
-> +    print('')
-> +
-> +# This is the dictionary for the rules that translates to proprietary comments:
-> +#  - cppcheck: /* cppcheck-suppress[id] */
-> +#  - coverity: /* coverity[id] */
-> +#  - eclair:   /* -E> hide id 1 "" */
-> +# Add entries to support more analyzers
-> +tool_syntax = {
-> +    "cppcheck":"s,^.*/*[[:space:]]*TAG.*$,/* cppcheck-suppress[VID] */,g",
-> +    "coverity":"s,^.*/*[[:space:]]*TAG.*$,/* coverity[VID] */,g",
-> +    "eclair":"s,^.*/*[[:space:]]*TAG.*$,/* -E> hide VID 1 \"\" */,g"
-> +}
-> +
-> +def main(argv):
-> +    infiles = []
-> +    justifications = []
-> +    outfile = ''
-> +    tool = ''
-> +
-> +    try:
-> +        opts, args = getopt.getopt(argv,"hi:o:t:",["input=","output=","tool="])
-> +    except getopt.GetoptError:
-> +        help()
-> +        sys.exit(2)
-> +    for opt, arg in opts:
-> +        if opt == '-h':
-> +            help()
-> +            sys.exit(0)
-> +        elif opt in ("-i", "--input"):
-> +            infiles.append(arg)
-> +        elif opt in ("-o", "--output"):
-> +            outfile = arg
-> +        elif opt in ("-t", "--tool"):
-> +            tool = arg
-> +
-> +    # Open all input files
-> +    for file in infiles:
-> +        try:
-> +            handle = open(file, 'rt')
-> +            content = json.load(handle)
-> +            justifications = justifications + content['content']
-> +            handle.close()
-> +        except json.JSONDecodeError:
-> +            print('JSON decoding error in file: ' + file)
-> +        except:
-> +            print('Error opening ' + file)
-> +            sys.exit(1)
-> +
-> +    try:
-> +        outstr = open(outfile, "w")
-> +    except:
-> +        print('Error creating ' + outfile)
-> +        sys.exit(1)
-> +
-> +    for j in justifications:
-> +        if tool in j['analyser']:
-> +            comment=tool_syntax[tool].replace("TAG",j['id'])
-> +            comment=comment.replace("VID",j['analyser'][tool])
-> +            outstr.write('{}\n'.format(comment))
-> +
-> +    outstr.close()
-> +
-> +if __name__ == "__main__":
-> +   main(sys.argv[1:])
-> \ No newline at end of file
-
-Nit: ^^^
+Everything else looks plausible to me, but from prior discussion I
+wonder whether the result isn't still going to be too coarse grained
+for Andrew's taste.
 
 Jan
 
