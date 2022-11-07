@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8673061F0FA
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 11:45:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439277.693311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 867A061F11D
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 11:48:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.439284.693322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1orzcV-0001RM-Aa; Mon, 07 Nov 2022 10:44:47 +0000
+	id 1orzfT-0002ID-Oo; Mon, 07 Nov 2022 10:47:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439277.693311; Mon, 07 Nov 2022 10:44:47 +0000
+Received: by outflank-mailman (output) from mailman id 439284.693322; Mon, 07 Nov 2022 10:47:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1orzcV-0001Ow-7K; Mon, 07 Nov 2022 10:44:47 +0000
-Received: by outflank-mailman (input) for mailman id 439277;
- Mon, 07 Nov 2022 10:44:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1orzcT-0001Oq-6C
- for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 10:44:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1orzcS-0003ag-No; Mon, 07 Nov 2022 10:44:44 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=[192.168.25.99]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1orzcS-0005UY-GN; Mon, 07 Nov 2022 10:44:44 +0000
+	id 1orzfT-0002FX-LH; Mon, 07 Nov 2022 10:47:51 +0000
+Received: by outflank-mailman (input) for mailman id 439284;
+ Mon, 07 Nov 2022 10:47:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=or3T=3H=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1orzfS-0002FR-QH
+ for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 10:47:50 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 9e9af3d0-5e89-11ed-91b5-6bf2151ebd3b;
+ Mon, 07 Nov 2022 11:47:49 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 114051FB;
+ Mon,  7 Nov 2022 02:47:54 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE5773F73D;
+ Mon,  7 Nov 2022 02:47:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +43,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=DSlAdsbIIpXcQ4Va4b6w1JeG0tSAfdhpG/PrKwQnXWY=; b=rDYMqqYUP6w5XNMdqapst3CbYT
-	AHlF7mC9z9iyBZAHmE/zBWqcYCk6rAe1VLyA16UufZqeRgQaNpJTdZXIyVqLPGehPodIBd7oox2ZM
-	0mA7iVUae7y3lrXfZq2v3SJksS5qDhy68xOZs0S7Ojhtg8dehvDm/V7dZvVCFskvYIVw=;
-Message-ID: <b17653b6-e4e7-8f5b-647e-37f2d71f9a3a@xen.org>
-Date: Mon, 7 Nov 2022 10:44:42 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: [XEN v2] xen/Arm: Enforce alignment check for atomic read/write
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, michal.orzel@amd.com
-References: <20221104162355.23369-1-ayan.kumar.halder@amd.com>
- <062c9507-7744-0742-effb-76d2f1222a27@xen.org>
- <33a2d125-b7f2-3637-9dab-6b7d616fd4ff@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <33a2d125-b7f2-3637-9dab-6b7d616fd4ff@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 9e9af3d0-5e89-11ed-91b5-6bf2151ebd3b
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: bertrand.marquis@arm.com,
+	wei.chen@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [RFC PATCH 0/4] Static analyser finding deviation
+Date: Mon,  7 Nov 2022 10:47:35 +0000
+Message-Id: <20221107104739.10404-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-Hi Ayan,
+This serie introduces a way to suppress a static analyser finding providing a
+proper justification for it.
+The process is explained in the docs/misra/documenting-violations.rst document
+that this serie will provide.
+The tools currently supported are eclair, coverity and cppcheck, but the design
+is open to support many other static analysis tool.
 
-On 07/11/2022 10:36, Ayan Kumar Halder wrote:
-> 
-> On 06/11/2022 17:54, Julien Grall wrote:
->> Hi Ayan,
-> 
-> Hi Julien,
-> 
-> I need some clarification.
-> 
->>
->> To me the title and the explaination below suggests...
->>
->> On 04/11/2022 16:23, Ayan Kumar Halder wrote:
->>> From: Ayan Kumar Halder <ayankuma@amd.com>
->>>
->>> Refer ARM DDI 0487I.a ID081822, B2.2.1
->>> "Requirements for single-copy atomicity
->>>
->>> - A read that is generated by a load instruction that loads a single
->>> general-purpose register and is aligned to the size of the read in the
->>> instruction is single-copy atomic.
->>>
->>> -A write that is generated by a store instruction that stores a single
->>> general-purpose register and is aligned to the size of the write in the
->>> instruction is single-copy atomic"
->>>
->>> On AArch32, the alignment check is enabled at boot time by setting 
->>> HSCTLR.A bit.
->>> ("HSCTLR, Hyp System Control Register").
->>> However in AArch64, alignment check is not enabled at boot time.
->>
->> ... you want to enable the alignment check on AArch64 always. 
-> 
-> I want to enable alignment check *only* for atomic access.
-> 
-> May be I should remove this line --> "However in AArch64, alignment 
-> check is not enabled at boot time.".
-> 
->> However, this is not possible to do because memcpy() is using 
->> unaligned access.
-> This is a non atomic access. So the commit does not apply here.
+The changes are split between the first two patches to reduce the review effort,
+the first patch is introducing the deviation process for the eclair and coverity
+tools, this is because their analysis system is similar.
 
-Right, but your commit message refers to the alignment check on arm32. 
-You wrote too much for someone to wonder but not enough to explain why 
-we can't enable the alignment check on arm64.
+The second patch is introducing the same deviation process for cppcheck,
+modifying the current way it is called from the makefile and improving its
+analysis.
 
->>
->> I think the commit message/title should clarify that the check is 
->> *only* done during debug build. IOW, there are no enforcement in 
->> producation build.
-> 
-> AFAICS read_atomic()/write_atomic() is enabled during non debug builds 
-> (ie CONFIG_DEBUG=n) as well.
+The third patch is a fix for a tool used for cppcheck and the fourth patch
+is an example of how a deviation can be applied for some MISRA findings.
 
-My point was that ASSERT() is a NOP in production build. So you 
-effectively the enforcement happens only in debug build.
+Luca Fancellu (4):
+  xen/Makefile: add analysis-coverity and analysis-eclair
+  xen/Makefile: add analysis-cppcheck and analysis-cppcheck-html
+  tools/misra: fix skipped rule numbers
+  xen: Justify linker script defined symbols in include/xen/kernel.h
 
-IOW, unless you test exhaustively with a debug build, you may never 
-notice that the access was not atomic.
-
-Cheers,
+ .gitignore                                  |  10 +-
+ docs/misra/cppcheck.txt                     |  47 +++--
+ docs/misra/documenting-violations.rst       | 173 +++++++++++++++
+ docs/misra/false-positive-coverity.json     |  12 ++
+ docs/misra/false-positive-cppcheck.json     |  12 ++
+ docs/misra/false-positive-eclair.json       |  12 ++
+ docs/misra/safe.json                        |  20 ++
+ xen/Makefile                                | 181 +++++++++++-----
+ xen/include/hypercall-defs.c                |   9 +
+ xen/include/xen/kernel.h                    |   4 +
+ xen/tools/convert_misra_doc.py              |  32 ++-
+ xen/tools/cppcheck-build-suppr-list.sh      |  81 +++++++
+ xen/tools/cppcheck-cc.sh                    | 223 ++++++++++++++++++++
+ xen/tools/cppcheck-html-prepare.sh          | 110 ++++++++++
+ xen/tools/cppcheck-plat/arm32-wchar_t4.xml  |  17 ++
+ xen/tools/cppcheck-plat/arm64-wchar_t2.xml  |  17 ++
+ xen/tools/cppcheck-plat/arm64-wchar_t4.xml  |  17 ++
+ xen/tools/cppcheck-plat/x86_64-wchar_t2.xml |  17 ++
+ xen/tools/cppcheck-plat/x86_64-wchar_t4.xml |  17 ++
+ xen/tools/cppcheck-txt-prepare.sh           |  74 +++++++
+ xen/tools/xenfusa-gen-tags.py               |  81 +++++++
+ 21 files changed, 1089 insertions(+), 77 deletions(-)
+ create mode 100644 docs/misra/documenting-violations.rst
+ create mode 100644 docs/misra/false-positive-coverity.json
+ create mode 100644 docs/misra/false-positive-cppcheck.json
+ create mode 100644 docs/misra/false-positive-eclair.json
+ create mode 100644 docs/misra/safe.json
+ create mode 100755 xen/tools/cppcheck-build-suppr-list.sh
+ create mode 100755 xen/tools/cppcheck-cc.sh
+ create mode 100755 xen/tools/cppcheck-html-prepare.sh
+ create mode 100644 xen/tools/cppcheck-plat/arm32-wchar_t4.xml
+ create mode 100644 xen/tools/cppcheck-plat/arm64-wchar_t2.xml
+ create mode 100644 xen/tools/cppcheck-plat/arm64-wchar_t4.xml
+ create mode 100644 xen/tools/cppcheck-plat/x86_64-wchar_t2.xml
+ create mode 100644 xen/tools/cppcheck-plat/x86_64-wchar_t4.xml
+ create mode 100755 xen/tools/cppcheck-txt-prepare.sh
+ create mode 100755 xen/tools/xenfusa-gen-tags.py
 
 -- 
-Julien Grall
+2.17.1
+
 
