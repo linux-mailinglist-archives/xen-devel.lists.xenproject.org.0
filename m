@@ -2,29 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADB5761FB37
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 18:25:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439540.693557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD5861FB96
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 18:37:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.439546.693568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os5rc-0002ks-Ih; Mon, 07 Nov 2022 17:24:48 +0000
+	id 1os63i-0004mZ-Lj; Mon, 07 Nov 2022 17:37:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439540.693557; Mon, 07 Nov 2022 17:24:48 +0000
+Received: by outflank-mailman (output) from mailman id 439546.693568; Mon, 07 Nov 2022 17:37:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os5rc-0002in-Fz; Mon, 07 Nov 2022 17:24:48 +0000
-Received: by outflank-mailman (input) for mailman id 439540;
- Mon, 07 Nov 2022 17:24:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yoMc=3H=citrix.com=prvs=30380d06f=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1os5ra-0002ih-Oo
- for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 17:24:46 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 10b7ea26-5ec1-11ed-91b5-6bf2151ebd3b;
- Mon, 07 Nov 2022 18:24:44 +0100 (CET)
+	id 1os63i-0004jg-Ii; Mon, 07 Nov 2022 17:37:18 +0000
+Received: by outflank-mailman (input) for mailman id 439546;
+ Mon, 07 Nov 2022 17:37:17 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1os63h-0004ja-6o
+ for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 17:37:17 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1os63g-0004qw-MY; Mon, 07 Nov 2022 17:37:16 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[192.168.25.99]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1os63g-0001ek-FP; Mon, 07 Nov 2022 17:37:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,69 +39,211 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10b7ea26-5ec1-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1667841884;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=16IPYLBbQfIYc3xLH61tqI20N+/WsksmfwDZh78tSvE=;
-  b=dCY2wV1iqlzfPDBXa/UkMIdd3xG9FHWGNvsuGvWMA19LKmT8J2SP+Mvw
-   bzFKA0xzzlrK/rfZc2HqTH9Ysp9vBVQYfURZ/eyqVbt4+qiP/CNkhbClO
-   sWO4Y37UrnbRqR/CDq25xDL11cyt2bYe3wcOIK3b3GFwH0eS5nb0Rod5v
-   0=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: None
-X-MesageID: 84342471
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:fYMAGaIKoiE4shmLFE+R2JUlxSXFcZb7ZxGr2PjKsXjdYENSgTAHy
- mRKWTjTM6qJYDajKdhyPdux8UxV7JKAxoBgTwVlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPdwP9TlK6q4mlB5wRhPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c56KHlW1
- e4YBgkNdzG+jey44a2ybbJF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpPE+ojx5nYz/7DLo3mvuogX/uNSVVsluPqYI84nTJzRw327/oWDbQUozWHpkPwhnBz
- o7A10rkORYACdiC8H2u1GyBtu2Qw3zQeqtHQdVU8dY12QbOlwT/EiY+Sl+TsfS/zEmkVLp3C
- 0ES4DtokqE0+2SiVNy7VBq9yFaGsQQbQMF4CPAh5UeGza+8yxaUAC0IQyBMbPQitdQqXno62
- 1mRhdTrCDdz9rqPRhqgGqy89G3of3JPdClbOHFCHVBtD8TfTJ8bgzvXVvZxEICMjsTUJDv+z
- RGVpQ9lruBG5SIU7JmT8VfCijOqg5HGSA8p+wnaNl6YAhNFiJ2NPNLxtwWChRpUBMPAFwTa4
- iBY8ySLxLpWZaxhghBhVwnk8FuBw/+eeAPRjld0d3XK32T8oiXzFWy8DdwXGauIDirmUWW4C
- KMwkVkLjHO2AJdNRf4fXm5JI552pZUM7Py8Ph0UB/IXCnSLSCeJ/Tt1eWmb1H33nU4nnMkXY
- MnFLpnxXChEVfk6k1JaotvxNpdymEgDKZ77H8inn3xLL5LDDJJqdVv1GATXNb1ohE91iA7U7
- 8xeJ6O3J+Z3CYXDj+i+2dB7EG3m2lBiX8mo+p0PLL/cSuekcUl4Y8LsLXoaU9QNt8xoei3gp
- xlRhmcwJILDuED6
-IronPort-HdrOrdr: A9a23:ogXfgK/UiyG1VpMcfm5uk+DaI+orL9Y04lQ7vn2YSXRuE/Bws/
- re+8jztCWE7Ar5N0tNpTntAsa9qDbnhPhICOoqTNKftWvdyQiVxehZhOOIqVDd8m/Fh4xgPM
- 9bAtFD4bbLbWSS4/yV3DWF
-X-IronPort-AV: E=Sophos;i="5.96,145,1665460800"; 
-   d="scan'208";a="84342471"
-Date: Mon, 7 Nov 2022 17:24:37 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Juergen Gross <jgross@suse.com>
-CC: <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, Henry Wang
-	<Henry.Wang@arm.com>
-Subject: Re: [PATCH-for-4.17] tools/hotplug: fix systemd unit dependencies
-Message-ID: <Y2k/VQEJT4jIYtvB@perard.uk.xensource.com>
-References: <20221106061517.15602-1-jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=G8z0oZidGxbHPdiNDAYGslHRRuJCC1UyB5cEm7cfpRo=; b=RJ1TAGs5uqgcSAnSKQy75kM8q+
+	CtGGA77TMSag74HOgI+in7CdwEDOALxMXl0VhUprkihIAgM2FPXGgv4SZMbKScJ19lVdImZLgrr9X
+	LxU8jjq/ymSCD7uKMtrxMV7uMyyGwItqKqJz7YZ/7Iw/3dqraXqUTuHumOCx+4V24fMA=;
+Message-ID: <5ec85781-bb42-fdd7-22f1-630fa8eb08ce@xen.org>
+Date: Mon, 7 Nov 2022 17:37:13 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20221106061517.15602-1-jgross@suse.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [XEN v2 04/12] xen/Arm: vGICv3: Adapt emulation of GICR_TYPER for
+ AArch32
+Content-Language: en-US
+To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
+ bertrand.marquis@arm.com, burzalodowa@gmail.com
+References: <20221031151326.22634-1-ayankuma@amd.com>
+ <20221031151326.22634-5-ayankuma@amd.com>
+ <5d369b95-f412-67b2-5c34-3cd317128ec3@xen.org>
+ <a10978a2-2887-5819-f5c6-3ebf56c32d19@amd.com>
+ <8bb1c421-2dc5-cdbc-94f7-6ea09f2d64fc@xen.org>
+ <00e4eb67-2b47-346a-f5cf-98b73c8ba218@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <00e4eb67-2b47-346a-f5cf-98b73c8ba218@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 06, 2022 at 07:15:17AM +0100, Juergen Gross wrote:
-> Commit 1283af6465cd ("tools/xenstore: remove XEN_LIB_STORED and
-> XENSTORED_ROOTDIR") removed the systemd file var-lib-xenstored.mount
-> without removing dependencies to this file.
+Hi Ayan,
+
+On 07/11/2022 14:00, Ayan Kumar Halder wrote:
 > 
-> Fixes: 1283af6465cd ("tools/xenstore: remove XEN_LIB_STORED and XENSTORED_ROOTDIR")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+> On 07/11/2022 11:54, Julien Grall wrote:
+>> Hi Ayan,
+> 
+> Hi Julien,
+> 
+> I need one clarification.
+> 
+>>
+>> On 07/11/2022 11:33, Ayan Kumar Halder wrote:
+>>>
+>>> On 06/11/2022 18:04, Julien Grall wrote:
+>>>> Hi Ayan,
+>>>
+>>> Hi Julien,
+>>>
+>>> I need a clarification.
+>>>
+>>>>
+>>>> In the title you are using AArch32 but below you are using...
+>>>>
+>>>> On 31/10/2022 15:13, Ayan Kumar Halder wrote:
+>>>>> v->arch.vmpidr is assigned to uint64_t variable. This is to enable 
+>>>>> left shifts
+>>>>> for Aarch32 so that one can extract affinity bits.
+>>>>
+>>>> ... Aarch32. The naming also seem to be inconsistent across your 
+>>>> series. AFAIU, it should be AArch32. So please look at all your 
+>>>> commits and make sure you use the same everywhere.
+>>> Ack
+>>>>
+>>>>> This is then assigned to 'typer' so that the affinity bits form the 
+>>>>> upper 32 bits.
+>>>>>
+>>>>> Refer Arm IHI 0069H ID020922,
+>>>>> The upper 32 bits of GICR_TYPER represent the affinity
+>>>>> whereas the lower 32 bits represent the other bits (eg processor
+>>>>> number, etc).
+>>>>>
+>>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
+>>>>> ---
+>>>>>
+>>>>> Changes from :-
+>>>>> 1. v1 - Assigned v->arch.vmpidr to "uint64_t vmpdir". Then, we can use
+>>>>> MPIDR_AFFINITY_LEVEL macros to extract the affinity value.
+>>>>>
+>>>>>   xen/arch/arm/vgic-v3.c | 10 ++++++----
+>>>>>   1 file changed, 6 insertions(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
+>>>>> index 3f4509dcd3..e5e6f2c573 100644
+>>>>> --- a/xen/arch/arm/vgic-v3.c
+>>>>> +++ b/xen/arch/arm/vgic-v3.c
+>>>>> @@ -191,13 +191,15 @@ static int 
+>>>>> __vgic_v3_rdistr_rd_mmio_read(struct vcpu *v, mmio_info_t *info,
+>>>>>       case VREG64(GICR_TYPER):
+>>>>>       {
+>>>>>           uint64_t typer, aff;
+>>>>> +        uint64_t vmpidr = v->arch.vmpidr;
+>>>>>             if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
+>>>>> -        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 56 |
+>>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 48 |
+>>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 40 |
+>>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0) << 32);
+>>>>> +        aff = (MPIDR_AFFINITY_LEVEL(vmpidr, 3) << 56 |
+>>>>
+>>>> Shouldn't we #ifdef this level for 32-bit? Or maybe check if the 
+>>>> domain is 64-bit so we are using consistently regardless of the 
+>>>> hypervisor bitness.
+>>>
+>>> We have typecasted "v->arch.vmpidr" (which is 32bit for AArch32 and 
+>>> 64bit for AArch64)  to vmpidr (uint64_t).
+>>>
+>>> So, we don't need to have any #ifdef for AArch32 or AArch64.
+>>
+>> This is not related to the typecast. This is more that fact that 
+>> affinity level 3 doesn't exist for 32-bit guest. For instance vpsci.c 
+>> will protect level 3 with an #ifdef.
+> 
+> Just to make sure, I understand you. You are suggesting this ?
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Yes with...
 
-Thanks,
+> 
+> --- a/xen/arch/arm/vgic-v3.c
+> +++ b/xen/arch/arm/vgic-v3.c
+> @@ -191,13 +191,15 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct 
+> vcpu *v, mmio_info_t *info,
+>       case VREG64(GICR_TYPER):
+>       {
+>           uint64_t typer, aff;
+> +        uint64_t vmpidr = v->arch.vmpidr;
+> 
+>           if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
+> -        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 56 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 48 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 40 |
+> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0) << 32);
+> +        aff = (
+> +#ifdef CONFIG_ARM_64
+> +               MPIDR_AFFINITY_LEVEL(vmpidr, 3) << 56 |
+> +#endif
+> +               MPIDR_AFFINITY_LEVEL(vmpidr, 2) << 48 |
+> +               MPIDR_AFFINITY_LEVEL(vmpidr, 1) << 40 |
+> +               MPIDR_AFFINITY_LEVEL(vmpidr, 0) << 32);
+>           typer = aff;
+> +
+
+... this spurious change dropped.
+
+>           /* We use the VCPU ID as the redistributor ID in bits[23:8] */
+>           typer |= v->vcpu_id << GICR_TYPER_PROC_NUM_SHIFT;
+> 
+> If so, then we can drop the patch "[XEN v2 02/12] xen/Arm: GICv3: Move 
+> the macros to compute the affnity level to arm64/arm32"
+> 
+> Also, we should do the following change :-
+
+Yes but in a separate patch (we should keep vGIC and GIC changes separate).
+
+> 
+> ayankuma@xcbayankuma41x:/scratch/ayankuma/r52_xen/xen-pristine$ git diff 
+> xen/arch/arm/gic-v3.c
+> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
+> index d8ce0f46c6..e7d5338152 100644
+> --- a/xen/arch/arm/gic-v3.c
+> +++ b/xen/arch/arm/gic-v3.c
+> @@ -527,7 +527,10 @@ static void gicv3_set_pending_state(struct irq_desc 
+> *irqd, bool pending)
+>   static inline uint64_t gicv3_mpidr_to_affinity(int cpu)
+>   {
+>        uint64_t mpidr = cpu_logical_map(cpu);
+> -     return (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
+> +     return (
+> +#ifdef CONFIG_ARM_64
+> +             MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
+> +#endif
+>                MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
+>                MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8  |
+>                MPIDR_AFFINITY_LEVEL(mpidr, 0));
+> @@ -720,7 +723,10 @@ static int __init gicv3_populate_rdist(void)
+>        * Convert affinity to a 32bit value that can be matched to 
+> GICR_TYPER
+>        * bits [63:32]
+>        */
+> -    aff = (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
+> +    aff = (
+> +#ifdef CONFIG_ARM_64
+> +           MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
+> +#endif
+>              MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
+>              MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8 |
+>              MPIDR_AFFINITY_LEVEL(mpidr, 0));
+> @@ -972,7 +978,10 @@ static void gicv3_send_sgi_list(enum gic_sgi sgi, 
+> const cpumask_t *cpumask)
+>            * Prepare affinity path of the cluster for which SGI is 
+> generated
+>            * along with SGI number
+>            */
+> -        val = (MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
+> +        val = (
+> +#ifdef CONFIG_ARM_64
+> +               MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
+> +#endif
+>                  MPIDR_AFFINITY_LEVEL(cluster_id, 2) << 32  |
+>                  sgi << 24                                  |
+>                  MPIDR_AFFINITY_LEVEL(cluster_id, 1) << 16  |
+> 
+> - Ayan
+> 
+>>
+>> Cheers,
+>>
 
 -- 
-Anthony PERARD
+Julien Grall
 
