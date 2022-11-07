@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FD5861FB96
-	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 18:37:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439546.693568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FD7161FCC9
+	for <lists+xen-devel@lfdr.de>; Mon,  7 Nov 2022 19:07:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.439556.693580 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os63i-0004mZ-Lj; Mon, 07 Nov 2022 17:37:18 +0000
+	id 1os6W2-0000JS-UN; Mon, 07 Nov 2022 18:06:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439546.693568; Mon, 07 Nov 2022 17:37:18 +0000
+Received: by outflank-mailman (output) from mailman id 439556.693580; Mon, 07 Nov 2022 18:06:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1os63i-0004jg-Ii; Mon, 07 Nov 2022 17:37:18 +0000
-Received: by outflank-mailman (input) for mailman id 439546;
- Mon, 07 Nov 2022 17:37:17 +0000
+	id 1os6W2-0000GZ-Qn; Mon, 07 Nov 2022 18:06:34 +0000
+Received: by outflank-mailman (input) for mailman id 439556;
+ Mon, 07 Nov 2022 18:06:33 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1os63h-0004ja-6o
- for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 17:37:17 +0000
+ (envelope-from <julien@xen.org>) id 1os6W1-0000GT-39
+ for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 18:06:33 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1os63g-0004qw-MY; Mon, 07 Nov 2022 17:37:16 +0000
+ (envelope-from <julien@xen.org>) id 1os6W1-0005Zk-29
+ for xen-devel@lists.xenproject.org; Mon, 07 Nov 2022 18:06:33 +0000
 Received: from 54-240-197-230.amazon.com ([54.240.197.230]
  helo=[192.168.25.99]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1os63g-0001ek-FP; Mon, 07 Nov 2022 17:37:16 +0000
+ id 1os6W0-0002iJ-R0; Mon, 07 Nov 2022 18:06:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,207 +42,178 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=G8z0oZidGxbHPdiNDAYGslHRRuJCC1UyB5cEm7cfpRo=; b=RJ1TAGs5uqgcSAnSKQy75kM8q+
-	CtGGA77TMSag74HOgI+in7CdwEDOALxMXl0VhUprkihIAgM2FPXGgv4SZMbKScJ19lVdImZLgrr9X
-	LxU8jjq/ymSCD7uKMtrxMV7uMyyGwItqKqJz7YZ/7Iw/3dqraXqUTuHumOCx+4V24fMA=;
-Message-ID: <5ec85781-bb42-fdd7-22f1-630fa8eb08ce@xen.org>
-Date: Mon, 7 Nov 2022 17:37:13 +0000
+	bh=TEFbjhQ7r78CCH9agleS2kBNdvGVrpH1qsQR6QEJJbw=; b=yhE0oCIcShW/J9HR5K7lWh/nFY
+	KOdzhvQ+7Cps/eHsJY+GBHNmUwou5EHe4+nTXZJjG8tm9cXQ+HEFdQrISoLQvdlSl+kD9ecbwTXdE
+	zMa25K1PVWdHhES038s6c5cv5ea9lhKE71b0hhwABUwtk5HYKlhwXTWN428cGN29PCwE=;
+Message-ID: <74b1c6af-d6de-2728-9d59-2d561a521793@xen.org>
+Date: Mon, 7 Nov 2022 18:06:30 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: [XEN v2 04/12] xen/Arm: vGICv3: Adapt emulation of GICR_TYPER for
- AArch32
+Subject: Re: [XEN v2] xen/Arm: Enforce alignment check for atomic read/write
 Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>, xen-devel@lists.xenproject.org
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, burzalodowa@gmail.com
-References: <20221031151326.22634-1-ayankuma@amd.com>
- <20221031151326.22634-5-ayankuma@amd.com>
- <5d369b95-f412-67b2-5c34-3cd317128ec3@xen.org>
- <a10978a2-2887-5819-f5c6-3ebf56c32d19@amd.com>
- <8bb1c421-2dc5-cdbc-94f7-6ea09f2d64fc@xen.org>
- <00e4eb67-2b47-346a-f5cf-98b73c8ba218@amd.com>
+ bertrand.marquis@arm.com, michal.orzel@amd.com
+References: <20221104162355.23369-1-ayan.kumar.halder@amd.com>
+ <062c9507-7744-0742-effb-76d2f1222a27@xen.org>
+ <33a2d125-b7f2-3637-9dab-6b7d616fd4ff@amd.com>
+ <b17653b6-e4e7-8f5b-647e-37f2d71f9a3a@xen.org>
+ <36e84512-9b44-303e-2834-5aafe9c6cc15@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <00e4eb67-2b47-346a-f5cf-98b73c8ba218@amd.com>
+In-Reply-To: <36e84512-9b44-303e-2834-5aafe9c6cc15@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi Ayan,
 
-On 07/11/2022 14:00, Ayan Kumar Halder wrote:
+On 07/11/2022 12:49, Ayan Kumar Halder wrote:
 > 
-> On 07/11/2022 11:54, Julien Grall wrote:
+> On 07/11/2022 10:44, Julien Grall wrote:
 >> Hi Ayan,
-> 
 > Hi Julien,
-> 
-> I need one clarification.
-> 
 >>
->> On 07/11/2022 11:33, Ayan Kumar Halder wrote:
+>> On 07/11/2022 10:36, Ayan Kumar Halder wrote:
 >>>
->>> On 06/11/2022 18:04, Julien Grall wrote:
+>>> On 06/11/2022 17:54, Julien Grall wrote:
 >>>> Hi Ayan,
 >>>
 >>> Hi Julien,
 >>>
->>> I need a clarification.
+>>> I need some clarification.
 >>>
 >>>>
->>>> In the title you are using AArch32 but below you are using...
+>>>> To me the title and the explaination below suggests...
 >>>>
->>>> On 31/10/2022 15:13, Ayan Kumar Halder wrote:
->>>>> v->arch.vmpidr is assigned to uint64_t variable. This is to enable 
->>>>> left shifts
->>>>> for Aarch32 so that one can extract affinity bits.
+>>>> On 04/11/2022 16:23, Ayan Kumar Halder wrote:
+>>>>> From: Ayan Kumar Halder <ayankuma@amd.com>
+>>>>>
+>>>>> Refer ARM DDI 0487I.a ID081822, B2.2.1
+>>>>> "Requirements for single-copy atomicity
+>>>>>
+>>>>> - A read that is generated by a load instruction that loads a single
+>>>>> general-purpose register and is aligned to the size of the read in the
+>>>>> instruction is single-copy atomic.
+>>>>>
+>>>>> -A write that is generated by a store instruction that stores a single
+>>>>> general-purpose register and is aligned to the size of the write in 
+>>>>> the
+>>>>> instruction is single-copy atomic"
+>>>>>
+>>>>> On AArch32, the alignment check is enabled at boot time by setting 
+>>>>> HSCTLR.A bit.
+>>>>> ("HSCTLR, Hyp System Control Register").
+>>>>> However in AArch64, alignment check is not enabled at boot time.
 >>>>
->>>> ... Aarch32. The naming also seem to be inconsistent across your 
->>>> series. AFAIU, it should be AArch32. So please look at all your 
->>>> commits and make sure you use the same everywhere.
->>> Ack
->>>>
->>>>> This is then assigned to 'typer' so that the affinity bits form the 
->>>>> upper 32 bits.
->>>>>
->>>>> Refer Arm IHI 0069H ID020922,
->>>>> The upper 32 bits of GICR_TYPER represent the affinity
->>>>> whereas the lower 32 bits represent the other bits (eg processor
->>>>> number, etc).
->>>>>
->>>>> Signed-off-by: Ayan Kumar Halder <ayankuma@amd.com>
->>>>> ---
->>>>>
->>>>> Changes from :-
->>>>> 1. v1 - Assigned v->arch.vmpidr to "uint64_t vmpdir". Then, we can use
->>>>> MPIDR_AFFINITY_LEVEL macros to extract the affinity value.
->>>>>
->>>>>   xen/arch/arm/vgic-v3.c | 10 ++++++----
->>>>>   1 file changed, 6 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/vgic-v3.c b/xen/arch/arm/vgic-v3.c
->>>>> index 3f4509dcd3..e5e6f2c573 100644
->>>>> --- a/xen/arch/arm/vgic-v3.c
->>>>> +++ b/xen/arch/arm/vgic-v3.c
->>>>> @@ -191,13 +191,15 @@ static int 
->>>>> __vgic_v3_rdistr_rd_mmio_read(struct vcpu *v, mmio_info_t *info,
->>>>>       case VREG64(GICR_TYPER):
->>>>>       {
->>>>>           uint64_t typer, aff;
->>>>> +        uint64_t vmpidr = v->arch.vmpidr;
->>>>>             if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
->>>>> -        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 56 |
->>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 48 |
->>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 40 |
->>>>> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0) << 32);
->>>>> +        aff = (MPIDR_AFFINITY_LEVEL(vmpidr, 3) << 56 |
->>>>
->>>> Shouldn't we #ifdef this level for 32-bit? Or maybe check if the 
->>>> domain is 64-bit so we are using consistently regardless of the 
->>>> hypervisor bitness.
+>>>> ... you want to enable the alignment check on AArch64 always. 
 >>>
->>> We have typecasted "v->arch.vmpidr" (which is 32bit for AArch32 and 
->>> 64bit for AArch64)  to vmpidr (uint64_t).
+>>> I want to enable alignment check *only* for atomic access.
 >>>
->>> So, we don't need to have any #ifdef for AArch32 or AArch64.
+>>> May be I should remove this line --> "However in AArch64, alignment 
+>>> check is not enabled at boot time.".
+>>>
+>>>> However, this is not possible to do because memcpy() is using 
+>>>> unaligned access.
+>>> This is a non atomic access. So the commit does not apply here.
 >>
->> This is not related to the typecast. This is more that fact that 
->> affinity level 3 doesn't exist for 32-bit guest. For instance vpsci.c 
->> will protect level 3 with an #ifdef.
-> 
-> Just to make sure, I understand you. You are suggesting this ?
-
-Yes with...
-
-> 
-> --- a/xen/arch/arm/vgic-v3.c
-> +++ b/xen/arch/arm/vgic-v3.c
-> @@ -191,13 +191,15 @@ static int __vgic_v3_rdistr_rd_mmio_read(struct 
-> vcpu *v, mmio_info_t *info,
->       case VREG64(GICR_TYPER):
->       {
->           uint64_t typer, aff;
-> +        uint64_t vmpidr = v->arch.vmpidr;
-> 
->           if ( !vgic_reg64_check_access(dabt) ) goto bad_width;
-> -        aff = (MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 3) << 56 |
-> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 2) << 48 |
-> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 1) << 40 |
-> -               MPIDR_AFFINITY_LEVEL(v->arch.vmpidr, 0) << 32);
-> +        aff = (
-> +#ifdef CONFIG_ARM_64
-> +               MPIDR_AFFINITY_LEVEL(vmpidr, 3) << 56 |
-> +#endif
-> +               MPIDR_AFFINITY_LEVEL(vmpidr, 2) << 48 |
-> +               MPIDR_AFFINITY_LEVEL(vmpidr, 1) << 40 |
-> +               MPIDR_AFFINITY_LEVEL(vmpidr, 0) << 32);
->           typer = aff;
-> +
-
-... this spurious change dropped.
-
->           /* We use the VCPU ID as the redistributor ID in bits[23:8] */
->           typer |= v->vcpu_id << GICR_TYPER_PROC_NUM_SHIFT;
-> 
-> If so, then we can drop the patch "[XEN v2 02/12] xen/Arm: GICv3: Move 
-> the macros to compute the affnity level to arm64/arm32"
-> 
-> Also, we should do the following change :-
-
-Yes but in a separate patch (we should keep vGIC and GIC changes separate).
-
-> 
-> ayankuma@xcbayankuma41x:/scratch/ayankuma/r52_xen/xen-pristine$ git diff 
-> xen/arch/arm/gic-v3.c
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index d8ce0f46c6..e7d5338152 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -527,7 +527,10 @@ static void gicv3_set_pending_state(struct irq_desc 
-> *irqd, bool pending)
->   static inline uint64_t gicv3_mpidr_to_affinity(int cpu)
->   {
->        uint64_t mpidr = cpu_logical_map(cpu);
-> -     return (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
-> +     return (
-> +#ifdef CONFIG_ARM_64
-> +             MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
-> +#endif
->                MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
->                MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8  |
->                MPIDR_AFFINITY_LEVEL(mpidr, 0));
-> @@ -720,7 +723,10 @@ static int __init gicv3_populate_rdist(void)
->        * Convert affinity to a 32bit value that can be matched to 
-> GICR_TYPER
->        * bits [63:32]
->        */
-> -    aff = (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
-> +    aff = (
-> +#ifdef CONFIG_ARM_64
-> +           MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
-> +#endif
->              MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
->              MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8 |
->              MPIDR_AFFINITY_LEVEL(mpidr, 0));
-> @@ -972,7 +978,10 @@ static void gicv3_send_sgi_list(enum gic_sgi sgi, 
-> const cpumask_t *cpumask)
->            * Prepare affinity path of the cluster for which SGI is 
-> generated
->            * along with SGI number
->            */
-> -        val = (MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
-> +        val = (
-> +#ifdef CONFIG_ARM_64
-> +               MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
-> +#endif
->                  MPIDR_AFFINITY_LEVEL(cluster_id, 2) << 32  |
->                  sgi << 24                                  |
->                  MPIDR_AFFINITY_LEVEL(cluster_id, 1) << 16  |
-> 
-> - Ayan
-> 
+>> Right, but your commit message refers to the alignment check on arm32. 
+>> You wrote too much for someone to wonder but not enough to explain why 
+>> we can't enable the alignment check on arm64.
 >>
->> Cheers,
+>>>>
+>>>> I think the commit message/title should clarify that the check is 
+>>>> *only* done during debug build. IOW, there are no enforcement in 
+>>>> producation build.
+>>>
+>>> AFAICS read_atomic()/write_atomic() is enabled during non debug 
+>>> builds (ie CONFIG_DEBUG=n) as well.
 >>
+>> My point was that ASSERT() is a NOP in production build. So you 
+>> effectively the enforcement happens only in debug build.
+>>
+>> IOW, unless you test exhaustively with a debug build, you may never 
+>> notice that the access was not atomic.
+> 
+> This makes sense.
+> 
+> Does the following commit message look better ?
+> 
+> xen/Arm: Enforce alignment check for atomic read/write
+
+title:
+
+xen/arm: Enforce alignment check in debug build for {read, write}_atomic
+
+> 
+> Refer ARM DDI 0487I.a ID081822, B2.2.1
+> "Requirements for single-copy atomicity
+> 
+> - A read that is generated by a load instruction that loads a single
+> general-purpose register and is aligned to the size of the read in the
+> instruction is single-copy atomic.
+> 
+> -A write that is generated by a store instruction that stores a single
+> general-purpose register and is aligned to the size of the write in the
+> instruction is single-copy atomic"
+> 
+> Thus, one needs to check for alignment when performing atomic operations.
+> However, as ASSERT() are disabled in production builds, so one needs to
+
+This seems to be a bit out of context because you don't really explain 
+that ASSERT() would be used. Also...
+
+> run the debug builds to catch any unaligned access during atomic 
+> operations.
+> Enforcing alignment checks during production build has quite a high 
+> overhead.
+> 
+> On AArch32, the alignment check is enabled at boot time by setting 
+> HSCTLR.A bit.
+> ("HSCTLR, Hyp System Control Register").
+> However, on AArch64, memcpy()/memset() may be used on 64bit unaligned 
+> addresses.
+> Thus, one does not wish to enable alignment check at boot time.
+
+... to me this paragraph should be first because this explained why we 
+can't check in production. So how about the following commit message:
+
+"
+xen/arm: Enforce alignment check in debug build for {read, write}_atomic
+
+Xen provides helper to atomically read/write memory (see {read, 
+write}_atomic()). Those helpers can only work if the address is aligned 
+to the size of the access (see B2.2.1 ARM DDI 08476I.a).
+
+On Arm32, the alignment is already enforced by the processor because 
+HSCTLR.A bit is set (it enforce alignment for every access). For Arm64, 
+this bit is not set because memcpy()/memset() can use unaligned access 
+for performance reason (the implementation is taken from the Cortex 
+library).
+
+To avoid any overhead in production build, the alignment will only be 
+checked using an ASSERT. Note that it might be possible to do it in 
+production build using the acquire/exclusive version of load/store. But 
+this is left to a follow-up (if wanted).
+"
+
+While trying to find a justification for the debug version. I was 
+wondering whether we could actually use the acquire or exclusive 
+version. I am not entirely sure about the overhead.
+
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
+> 
+> I think I can keep R-b as there is no code change ?
+
+My signed-off-by will need to be added for the commit message I proposed 
+above. So I would like Bertrand/Michal to confirm they are happy with it 
+(I don't usually add my reviewed-by/acked-by for patch where my 
+signed-off-by is added).
+
+Cheers,
 
 -- 
 Julien Grall
