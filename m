@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46560620CA4
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Nov 2022 10:48:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439821.693896 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1788620CCF
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Nov 2022 11:04:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.439829.693907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osLDf-0007hs-HH; Tue, 08 Nov 2022 09:48:35 +0000
+	id 1osLS1-0001vy-Pd; Tue, 08 Nov 2022 10:03:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439821.693896; Tue, 08 Nov 2022 09:48:35 +0000
+Received: by outflank-mailman (output) from mailman id 439829.693907; Tue, 08 Nov 2022 10:03:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osLDf-0007fM-DO; Tue, 08 Nov 2022 09:48:35 +0000
-Received: by outflank-mailman (input) for mailman id 439821;
- Tue, 08 Nov 2022 09:48:34 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1osLS1-0001tK-M4; Tue, 08 Nov 2022 10:03:25 +0000
+Received: by outflank-mailman (input) for mailman id 439829;
+ Tue, 08 Nov 2022 10:03:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nxm+=3I=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1osLDe-0007fG-7G
- for xen-devel@lists.xenproject.org; Tue, 08 Nov 2022 09:48:34 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on2057.outbound.protection.outlook.com [40.107.95.57])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 810cd03d-5f4a-11ed-8fd1-01056ac49cbb;
- Tue, 08 Nov 2022 10:48:32 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by MW3PR12MB4556.namprd12.prod.outlook.com (2603:10b6:303:52::20)
+ <SRS0=f5nK=3I=citrix.com=prvs=3047eb21c=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1osLRz-0001tE-JU
+ for xen-devel@lists.xenproject.org; Tue, 08 Nov 2022 10:03:23 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 91b55eee-5f4c-11ed-91b5-6bf2151ebd3b;
+ Tue, 08 Nov 2022 11:03:20 +0100 (CET)
+Received: from mail-dm6nam10lp2105.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.105])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 08 Nov 2022 05:03:17 -0500
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by CH2PR03MB5334.namprd03.prod.outlook.com (2603:10b6:610:92::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27; Tue, 8 Nov
- 2022 09:48:28 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::901f:4652:83f:c3c2%7]) with mapi id 15.20.5791.026; Tue, 8 Nov 2022
- 09:48:27 +0000
+ 2022 10:03:15 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::d197:992c:4dca:3c4c]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::d197:992c:4dca:3c4c%6]) with mapi id 15.20.5791.025; Tue, 8 Nov 2022
+ 10:03:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,271 +49,229 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 810cd03d-5f4a-11ed-8fd1-01056ac49cbb
+X-Inumbo-ID: 91b55eee-5f4c-11ed-91b5-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1667901800;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=UKrkgbvJjhs/s0GTACIj+3gmYp8FnnnYrb+25O5DyoM=;
+  b=GZ57iQTSY4Pd7RNTzal9gQirwiOBS7kD+y/qrLVd9g3fF3KCYKjXjqto
+   OX/Jrx14FLnV2B0fu/X78UUmDdXxYikaHUFTXe1CELXT3MV/clEKO+i9j
+   jIeEW8PMWR3Altx/ga02ZvW+iFePd5BK4drMH2SABPJC76K4VYv+KjIRb
+   o=;
+X-IronPort-RemoteIP: 104.47.58.105
+X-IronPort-MID: 84390988
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:xugPeKkYu08au3paY4IG/F7o5gx9J0RdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIZXDqPb6uIZGTze4slOt7j808P7JbVyYIxTAJt/n01FyMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7aqaVA8w5ARkP6kS5A+GzhH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ dsSIWgcSy7bvuf18KChbPR1qv55Pta+aevzulk4pd3YJdAPZMmbBonvu5pf1jp2gd1SF/HDY
+ cZfcSBocBnLfxxIPBEQFY46m+CrwHL4dlW0qnrM/fZxvzeVkVw3ieCwWDbWUoXiqcF9hEGXq
+ 3iA523kKhobKMae2XyO9XfEaurnzX+gCdpDRO3QGvhCiQat4UVIVg8sDVKJj8S1rF+4YsMAA
+ hlBksYphe1onKCxdfHtVhG5pXGCvx00VN9ZEul84waIooLE7gDcCmUaQzppbN09qNRwVTEsz
+ kWOnd7iGXpoqrL9YVKQ8K2F6wy7Pyc9JHUHIyQDSGMt/N3LsIw1yBXVQb5LEqS4k9n0EjHY2
+ C2RoW41gLB7pcwW0eO99FPOgTOpr7DISBI44kPcWWfNxgB0eo+jIZCp4F7z7PBcIYLfRV6E1
+ EXogOCb5eEKSJ2IyiqERbxVGKnzvq7YdjrBnVRoAp8tsSy3/GKudpxR5zc4I1p1NsEDenniZ
+ 0q7VR5t2aK/9UCCNcdfC79dwex2pUQ8PbwJjszpU+c=
+IronPort-HdrOrdr: A9a23:pHBTOK5xvIMXMBbGhQPXwVqBI+orL9Y04lQ7vn2ZFiY5TiXIra
+ qTdaogviMc6Ax/ZJjvo6HkBEClewKlyXcT2/hrAV7CZniehILMFu1fBOTZowEIdxeOldK1kJ
+ 0QCZSWa+eAcmSS7/yKhzVQeuxIqLfnzEnrv5a5854Ed3AXV0gK1XYcNu/0KDwVeOEQbqBJaa
+ Z0q/A37gZJPh8sH7eGL0hAe9KGi8zAlZrgbxJDLxk76DOWhTftzLLhCRCX0joXTjsKmN4ZgC
+ P4uj28wp/mn+Cwyxfa2WOWx5NKmOH5wt8GIMCXkMAaJhjllw7tToV8XL+puiwzvYiUmR4Xue
+ iJhy1lE9V46nvXcG3wiRzx2zP42DJr0HPmwU/wuwqWneXJABYBT+ZRj4NQdRXUr2A6ustn7a
+ 5N12WF87JKEBLphk3Glpf1fiAvsnDxjWspkOYVgXAae5AZcqVtoYsW+14QOIscHRj99JssHI
+ BVfY3hDc5tABKnhk3izylSKITGZAVxIv7GeDlOhiWt6UkZoJgjpHFohvD2nR87hecAotd/lq
+ H5259T5cFzp/8tHNxA7dg6MLqK40z2MGXx2TGpUCLaPZBCHU7xgLjKx5hwzN2WWfUzvekPcd
+ L6IRlliVI=
+X-IronPort-AV: E=Sophos;i="5.96,147,1665460800"; 
+   d="scan'208";a="84390988"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P4WgI+C7toWgZGHeDXO0Yhemqx9kmS75ePyzVrPGzYWSYHZ7osBT4P0s34qJYkY5UQdBQo+wmKUCYz+gKiWbLKwYSU8L0ZNpmukGoxcNDm652NoHcrMng51qLHVA03xBKYh5GzH7VdsxOtLA2g9UhB4qqFMeKjVDlIhIXEqVYY2c7gN7xt0fmU3Th12t0pcC84D5vUXJ1jTqeZ3Yc+WGHTQI5CTNmjW6bHM95LI49V8mq6VbYcMeAZ2bSaLg6pXpJ4GsWNwMjwvVXsO5uR6hyyK8j4DIKJ/7MXQ3UKBEY8Tfv0nYA0JMQ++FOQix5JK0xWfmAJWhm+nRWdWAZdnA/A==
+ b=L+pP1F7wfgbgpeZlQ1XMAlFNeWM/5tP0wO9iod/e8LmeqsMfJQFOOdNbg3casEq5wvZpoGcFE3L3Xji70Z89U2ZZvrTaOLR3ddGb84FkWDQcC/L6zUcEYg1WfJBlDi7qkTCOl29bgPtX/TSE/J34+OIctLvrs4I3Ulmy1N0HMVqGAt4tf3FmkOKUIjvmO63fAtSRUnGFBeJ6Acojvrimk/OpDY4mzdR9nKCQ62bxAYm5180kSHphieLfeCB5Kcb3Sv6Yf5UqcG6Htv7A7ElsI5EVSYtnn8e6DfTC0GunofLxQWofMWZpqAJpzIhHbb7Kn/ldKvuTgq+ABvHBUWmS2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aZHuaY6YEGRIHh0N1jse2Emh590S4dEyCSej+mYQC6M=;
- b=jqjDmYjaXMK4VEdTGQnDCAowtUhCbQLQAjujJG3nVKdBjNrq40gkcKMIFUc+ZMfAhDWF60ZzktPmHlnczRHRoqRskAqaNlnfR5aUNamzDnVWEOqhGQvcPgDglDBVCxolVbh3gYk7QshuUeLHf0y1MR5YSJ+KMxh+/SHQXS8pfeZ0y3DEYlbPFfTVUjd7V9vAafNkRaLzewpcfWBfX6UG47klqaeiH3hyB5qAuWT/rEH2b8JLZXAB8laE6xB4Lh7SIbDSwoEXa+vJkRzQAv52yVzv1Fa++QnCFjkWFFoXay9xTdNYWnVk9PRcXsS6DedfxkbesREh6sW7alFiAL6n2g==
+ bh=aooQ3uriuBZ1XS8ErDJpsLsMEgoeYZYtKG86JL2P+zg=;
+ b=f2KzYAsxffCvgqgQKl9wH6WPu5frI4n5ZRg9XDgX42ZPhmxaZNtxr0LE8MTtdyNNyy37KVXU1ubguDfFOVMrkwYUzJ2M0vpbl0i0/NB96IuHHdjMG4zU1WG25R7RKxsljdoMfOln8g/v/up3ojbTjBJ/6OkKK8/Q4VqEYM7E1EkuLGa4i9S5zt8QaZp743g7cdnTZ7oa542+swnvKXwjtV4GEOIoltMX34nya5jhj1T1lvg9NjfMJUkvZWA2XR4YywWEF/QTSVibURGYcMYgcVgAIFSSvqzlxcnVyO50Rag2hakYIQ2mHBEjQpnTgFE4gcsKJmbFPQB46zxNcerLcg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aZHuaY6YEGRIHh0N1jse2Emh590S4dEyCSej+mYQC6M=;
- b=ylgEIM9WjphiPyzofA+Q55UjrLVbKVQNRc9p586YDEfikhf2/VR3XSO5Mp3Xcmi3xAiYYHk46XLMvcscgX2WL+XFGmyc7ZrgcP38as78lp0oMs4Fen/vzDTgO7qgK0VpPaQO2a7eRpGq0jYmfceKVdPKn3klcNhLbUBFtNk0ms8=
+ bh=aooQ3uriuBZ1XS8ErDJpsLsMEgoeYZYtKG86JL2P+zg=;
+ b=f39IHup2TXWacsyH2+QNPJS2YXafiTWPeIMk9NldDtTaqGLd8UPpYsXc0pXJB7mkeYTzbuAUZZQNclaBs//XFkSYtthzmyDCo90ACMQIFLXa9Ux+wEYWNNRjGuFwjbvJIIjWIxCljt2QvDIjwut8aNZJ83JBb84eJXpO4d1d738=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <31497aff-5b94-3df8-9c15-7340cf6a46b5@amd.com>
-Date: Tue, 8 Nov 2022 09:48:21 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: [XEN v2] xen/Arm: Enforce alignment check for atomic read/write
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Michal Orzel <michal.orzel@amd.com>
-Cc: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "sstabellini@kernel.org" <sstabellini@kernel.org>,
- "stefanos@xilinx.com" <stefanos@xilinx.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
-References: <20221104162355.23369-1-ayan.kumar.halder@amd.com>
- <062c9507-7744-0742-effb-76d2f1222a27@xen.org>
- <33a2d125-b7f2-3637-9dab-6b7d616fd4ff@amd.com>
- <b17653b6-e4e7-8f5b-647e-37f2d71f9a3a@xen.org>
- <36e84512-9b44-303e-2834-5aafe9c6cc15@amd.com>
- <74b1c6af-d6de-2728-9d59-2d561a521793@xen.org>
- <3720a691-3303-a673-58b6-95da9a4341d2@amd.com>
- <211D65B7-2CCD-4BDD-A9A3-FF4DF9D562AC@arm.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <211D65B7-2CCD-4BDD-A9A3-FF4DF9D562AC@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0273.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a1::21) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Tue, 8 Nov 2022 11:03:09 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+To: Paul Durrant <xadimgnik@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Henry.Wang@arm.com,
+	Wei Liu <wl@xen.org>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>
+Subject: Re: [PATCH for-4.17 2/2] hvm/apic: repurpose the reporting of the
+ APIC assist options
+Message-ID: <Y2opXblnpVMTIdZ2@Air-de-Roger>
+References: <20221104142235.36556-1-roger.pau@citrix.com>
+ <20221104142235.36556-3-roger.pau@citrix.com>
+ <2a3c5141-516d-a5e4-392b-e7fe54f3781c@xen.org>
+ <Y2U3Zf/nCv3PlTxa@Air-de-Roger>
+ <9a505567-57be-a7b4-7cab-d1d737172db0@xen.org>
+ <Y2U5bmp2rsUy2C93@Air-de-Roger>
+ <2c2d8b2b-e607-6d9d-b991-d1c065aac95d@xen.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2c2d8b2b-e607-6d9d-b991-d1c065aac95d@xen.org>
+X-ClientProxiedBy: LO4P123CA0295.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:196::12) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW3PR12MB4556:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7ceff707-425a-4f96-1b02-08dac16e62cf
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|CH2PR03MB5334:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8157972-fe00-428d-80a7-08dac170739d
+X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	eDBvQJuxzF1slrimXlzIA0aW4/sFiI1j0K41N4WhJe8C9refoAw2y4/qb0fracVwrp8PBEgQTst0FjzzuK/CVzONtD/UeRADLNTqFjLPsT66nSVY+v5wp56BydALRb6eJXvZMsF7Tt3dxl2/i6KWqkXZA2PixaJJMOz46kfJnQQ73gLkm1ICGFQBN0Q/Vv7QFGKEzqyUo8ZR3xmp7HITRDxQlGebu8bueEdlQALGIB+xHeT9Kod5gn9sPzNzqRb6B4MkUHBPzZ2+dYjdR5rR9OxZQ0AejyKa1R0Uv1FQCqzeUGlZZlLjXZoRlN/PIUc99IQaOlqQxrzKAURzdqDVJZSq78IbQ3xO3E3kjVk8wwHS55rwiwo5E0/v6mYC8DUi6sAox7wM2LENXUHXKZ0gCwSZmYYxTLCZfvIiWZHNeZquxlyOBFmoEKMw/qw44qqJ+I8PWNQLNY6k1dWeZnFFEoG5aJmi3VUdITqd0tNwAZETjb0CX92/Slui++Yr6TFjhbnYROv6JZ/MsH+FlqpSWGf/w2SuPhPhNe20wjo1tH0ug+Nsq+9tyySASUb4iTTu+ZIBijyISu/x7ON57iUEGWzM9LufBVT4MSzObwQI4m+c9mgxnhZgZ41LhIb2SS7cDFqGPF+BBwY3wNSnGZdw8tM9xau1QIJ4OdgiSbTjmpxFAV7odjfxG9JvDu1xbiMCLi/R9uW/BNNY/akfbLl8Ga34+aI63UaavwleSE7CMajO92IXvN87UxPTotlA6RuaPisloLEN9TTcspSMYr3mgNt6VvRC7bXd5Q29BQKjAKA=
+	Ow2GYPpNf1oExl6wZaRL43+771lLIM4OIxQo8qHTaoERG0nV0gU826iUCdUeWqJBuRP+a14fWfO+3kZUD/GEP+sPW+VxaOCDq3v1BKdahfQRc0G01kiNJ09G5Nx9ll9q57KquCD3FG3NN0VEZ/fKT99/Avm3rf8vHEgu8ntGMPhLJJVU56eU3vrPgjMGd5XTbF4CR/W8TQnkarOWxTkC3xzhBdLwfohhDBok4Dg8f7yetI3u6jYj1oDlNQyB0i8BwnKhFYLlz7TSlE/aPlAMM8ba+k5F10xvTo3Fm+ym+DRGp0R5iUwQM9DyTWLyhd7qYvV4B4D7du2mtzIvBbdhNu6yPMZKVcq9bFDmkn1cd79HLcLDRyoXJfKGiHCiKh7utW6JSsAKPFpXCzq/AzL3SRfOUONKUbL/db++STRk0rLs/wBjVhsgQcYeUJkIY91+TGnXroLZNelzsLjTHloLdSUxyS2V7yov+/5+JX088UELtDhpHV8ZGbSldhPZaDM55fK7XFSkV8p94SwQqSTjoC+dk8k3i/PsiTCKyIkJzz+ABgyy7D6sou1A9wsUY5Nn7ySZW3IA45HXhNxUId/T0x0Dyor7QWvrouVEvvOKXTLVWK9XDS4Se1WUChZC20ueQOTAXb78U5Ho5kdnvJBXeAaNR6TrpaHU1/FngZg4fWochiiP/jkW9ad4l1rB6SGvRoPJM7RQmdipn7l6mDre/vYP1uaA5K0RJW0iFcaOljsbwVk14wPu5UBWoO4i+nkv
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(451199015)(41300700001)(83380400001)(8936002)(6636002)(186003)(316002)(54906003)(110136005)(36756003)(8676002)(66556008)(2616005)(66476007)(38100700002)(66946007)(4326008)(5660300002)(2906002)(31696002)(6506007)(31686004)(6666004)(53546011)(478600001)(6486002)(26005)(6512007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(7916004)(4636009)(396003)(136003)(376002)(366004)(346002)(39860400002)(451199015)(86362001)(85182001)(66556008)(38100700002)(8936002)(5660300002)(2906002)(186003)(26005)(83380400001)(6512007)(82960400001)(9686003)(316002)(4326008)(54906003)(66946007)(8676002)(66476007)(41300700001)(6916009)(6666004)(33716001)(53546011)(478600001)(6486002)(6506007);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Lzg3MFZwM2V5bjA2cjdRNzcxbFYza2ZjaXcvdzRvVXV4dlpMa3F2MzVRMFJD?=
- =?utf-8?B?cHVCUm11a2lteVZ5QU44ckVPMjZwSG1sR1g0QTA0Mjdud2dIbXNtU2VVN3lu?=
- =?utf-8?B?eHlDcGdLZUkrUytmNVBKUDV1eWpHUUhjRTJ3Zm52bXhuenBGaFpUbTJmcDNE?=
- =?utf-8?B?Y0RxU2RWYTB0cU1xR3BPR0FTb1hOMEd1aXM1UjN4clNSeS9pRUE0c3gxbG1n?=
- =?utf-8?B?WVhPZXBNNkoxOEpMUWJ5c1ZwTUM5U0dIcGlISnlSNWlIM2txSm1qOGQ5Z2NL?=
- =?utf-8?B?UFJrOFdpL2g0QzMrSmV0b3k3cElKcXpIZEoxdEdOaTZFNmlKY0FqK1A2ZUE0?=
- =?utf-8?B?Q0t4VUpIUWplT1dNbkx5MUptL3FDNXVKTDhJei80ckZBemt0MU9UVTQ2L0c1?=
- =?utf-8?B?c3dXRVhYM1ZWc2tXVWpsZjVMOGFhSXRjYThmeVRmUHltNnlJS1JERENTNG90?=
- =?utf-8?B?MEVVbktGK2NWL0hZUGwvcmpwZllKby96RGhqUEhjVXNneWJIYzJGSWxQeU1k?=
- =?utf-8?B?MU0yOWJtQnMzaDZjS2U3cUxTYVRYTTg1cEtsZTNVS1V2YnBrWk5qcjJoM3JF?=
- =?utf-8?B?L1pobU1UUGZ6TGYwMkZBaTY1VGZmUjRNRUEyZ1A4eTFrRTB4R0ZOdm1HaEt3?=
- =?utf-8?B?TG1NTjJqVURKRUdpVVFCQjI2K2V4OWt3MVkycDNnTWdFL2VoL2ZoaGpuUnFO?=
- =?utf-8?B?WlBFWWhVeUVRL3JOTjU4bXJRZkNtTXV0M2Z1cUZ6dlA2L21LUnQwd0FFeDJp?=
- =?utf-8?B?dEFrZWtSeW0zYThKaEZwMnhRN2ZyUjcvZ3RDSm8rTUJrMHpLdFdwSXRKUEFS?=
- =?utf-8?B?M1MyZnRBNkQrZno1Z1JjUHpKZXY3anVXcURlTVRSVi9XeEt5emwxTEpER3do?=
- =?utf-8?B?TWszbGVsZEZjTHhWRmJBNW1DdkVPUjdaRi9qUVNIN2c3YVpBUVFlaWZOUDFs?=
- =?utf-8?B?T0NwYi9tVDlYUG1Ua0RIY0pmNXhGL0FhNzJieWVnMTIxZEpOdi9NaG14VXlP?=
- =?utf-8?B?Y1JRUDRXZ2pGQXhacVRRWDhMOGdjNms4aEpXUU0xOXJMQlIvSmVJZkl5Z2tx?=
- =?utf-8?B?MmpQWWxFQktNUldIN2tISXFEVEZmZmlheXE0N0ducmtmWjc2UTNyTlVXQUVm?=
- =?utf-8?B?dkhrTVgxN083RGJsYUlrVC9GZHBOK21zTVcxbU1zbk41TW5nN3ZlQm1FOXha?=
- =?utf-8?B?aXlYVWxvNm1NWHVTZ2VHZVFDSDZJeU1aUXR1VXBSQ002VGltUHhhd2lHQ283?=
- =?utf-8?B?Q1I2a21uclp2NGxTbXJVSjc4YWp2ZmQ0VFpRVjhkMmkzS3p5ZVVCY1lySzFp?=
- =?utf-8?B?WmVaYm9OSjZvK1FTbEp2bDJUeVIxbWVlOHFWanlaVjBSSnpRWkFQNWJlLzBu?=
- =?utf-8?B?bW1hYTBpWFFWMVg5ZzBxd0lBRkk3a1JZdFJPbDZsd0IwYkozT040ZDcxNU81?=
- =?utf-8?B?Q3FkWjYxVU1KZjh1ZkZhT29KcGFuVzh3TGVQQ3hLQ1pNaHYvTHdMNFIyM04w?=
- =?utf-8?B?NElkN0h2bGJMaVZESDZSOWx4bDR2VURoQmd5Z0ZnS0NvZGhUcGdGUTBUd0x3?=
- =?utf-8?B?WmtpT2l3R0RlWXB6bWR0UDV4eUZrOXhnV1BQTEJSd04xbEdnNUEzVE03bkdH?=
- =?utf-8?B?SXl3aXNmWXlicUZJT0liQVRJWDJCai9VTXBET2dsN1BLSkZFdUQ4TjV6Nmw4?=
- =?utf-8?B?TVBnWURCRkZLRTd4eGhNKzM5R1E3b3JLU0Uzek5wZzdheEhkUVUvclFwOTFO?=
- =?utf-8?B?eFRsdERUb1gwZGxMTU9CQnVmWlhsbEhIQkkycVFzTlFQUnFJNHd3cHVQSDdC?=
- =?utf-8?B?MVM4ZXdDRmc2ZVFaaXJpOHpyMVRJZ0ZROHZENURYc1o5QTBtYlBZVVZhSzdD?=
- =?utf-8?B?eFRSOFhsVTJzeG5BV3R6amgxWjFQTjUvNi9qTFE2T0piUUhKUG80K0psa3dm?=
- =?utf-8?B?RkdQc1pvdC9jWmVvN1AwMXhtYmlnU1FQWXZOb1JQUTVMZ3U4OHdhZk01YmNW?=
- =?utf-8?B?c0VNTnpmOUcwTEZvY25CR3UwcGJDcmVaZWdVUkZrRHc3NnBRMDdIaFRlQ1JU?=
- =?utf-8?B?bmlGNCtuOFJhVHY2bFlQZlJSUWY1RHdsclZpZXpzTVl6WkVKNVNPWThsc0d0?=
- =?utf-8?Q?OUGYeGacn/DixRJKmWnLeUlGA?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ceff707-425a-4f96-1b02-08dac16e62cf
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?cGxVU2lyRDNYOGZ3eWJXVGVQcDhrSHZpeVJmVi9RSVVidTh4ekpkbndOOTEr?=
+ =?utf-8?B?WU5QR1JmL2pYTXJlLzFpR0NzUjhnY0tsR3RPV0NUYXREck5qc29lTit1d0lC?=
+ =?utf-8?B?R29KNmkrQ2tMZjcyRWpoZk1Xb1d6UVc5YzVEY1NsL2RmVm9SazZvelZIMDFy?=
+ =?utf-8?B?TmdRS1FZeDYwMVd3eWNTU0xnSzhibTJnVUFIczhKMGRHbXFxUlJTNUtHd2dp?=
+ =?utf-8?B?MEsycnI2Q29mU0NZMlRBZkVFM0JSZDRiOFhUeFVXTnUzeEpJMk5PNXJjMVVr?=
+ =?utf-8?B?OEpPN1dqYmUxeHhXbHVCeHdIS2R6aVFZbExXR3U0RVBtMkN3ckhhbWhpTStK?=
+ =?utf-8?B?QzJDUUpISjkxbEZSZW9pM0VmQ3NxTXYxMEZuZWxHSW9JNGE4cnk5MlNMZytV?=
+ =?utf-8?B?YTROeWF2cnVTQ0FzNEtOODJoUjhyeW9zaUNQVEV4NDV1a0FxZCtKVWw1Y01G?=
+ =?utf-8?B?VUVmaEhtakl1Yi9tMUVsKzVhK1ZRQ2thZ2lpbitjMlFiRGtFRlk4OUp2YmxT?=
+ =?utf-8?B?MU9vSVQwSzJRQlNnVGh3R1B2VjlzY3g4NHZGVDAySk51U1JLY1AwcGNJYUxP?=
+ =?utf-8?B?TkxLRWV0NzYwTHpwcWhJYVdBaFp5cFBsc1J2b1htc2U2aW5QNFV2UWFuVGJN?=
+ =?utf-8?B?T1VjbzdXbWZTd25IT295dHArc0ZLanU0YzVGVkFpTzJ4WlZ3RDJVN2pFZGE0?=
+ =?utf-8?B?V1hGSTh6V1Nxd2ljVzd2N3hHRHRUTlN1TkJYTjdsM0JQVjhhVXBFM2V1WUNL?=
+ =?utf-8?B?Y0k2aUxiRkQ1OTRQb0crU0xsYk16OG5LelZYbXFsckFYSVNSeExKL3FyVlpw?=
+ =?utf-8?B?VlMwWDBtN3BSd2krV2d1RTJZYnBMVTN6Wm11QWlSUW1weEJLTU5CMTk5T3Rq?=
+ =?utf-8?B?eW5BNlNsL3ZOeWZlc3pVQ1BXTGRJbUhVejltQjdyR3YvNnh2R29XMVhpVDhQ?=
+ =?utf-8?B?YzI5MHVicTNZTk45c1U3ck83RGFZRDZ2WkhEQzNwVkJWd3JkelR1TjRTajZD?=
+ =?utf-8?B?blBEUFR2V1lWOHBDR01UNll5djNuZXhUWTh2TmNjWDM4NndldHBFT1FHK3pH?=
+ =?utf-8?B?NFk3LzJoL2ZpaFQ1N0loUDd0SzhyMmVsQTNKdExKYWtvTjh4MzJtWkljWHd5?=
+ =?utf-8?B?ZFE3M1h1bzRTZzBvQkMzQ0w0dHB6QzJSSmdHcnVKSFhLN1ozM3NzMFY3Z0lZ?=
+ =?utf-8?B?NUZ3a1liTnQyQzE0Vm5PMWd4cC82aHQ5VmRWRW93dWlrWG55dHpQbHBtZHpP?=
+ =?utf-8?B?d0NvbHJKbGUrUGdLVHVyRDNtQ0NoNEdzTmFGcmhyRXFWa1NnRXl4ajdWTmM0?=
+ =?utf-8?B?WDFldkFXTmNzZ3YzdGtuZHFJOVUvc3huRVdYejZFQURHdVFGQlVrUEVMdmpp?=
+ =?utf-8?B?TmROMDFvaWZWK01XRzVhR2hvV0ozalhHaUZWOXZrc3BYWGFNdXZSVWMwNzgv?=
+ =?utf-8?B?MjhjQ2JNZnExRjhoYWlCYlNCMk9ZMW5tR09rMzZVakNTM1NlV05Nb0RDVmxo?=
+ =?utf-8?B?aHNaeTNRbkVVbkFURFh4d3YyZWZqSDJ0S21GZm85QTRvN1JFOTI3WGo4ZUdC?=
+ =?utf-8?B?eUIzd0x4MENZR1Z1aUJna2h1RHd3V083RGE0d0tUV1h5QkgrOHZYWDNrNk5Q?=
+ =?utf-8?B?K1dDZ2ZucVNGREFWTzI5ZUk5NHV4M09LSmlReTRqd1EwOUJaRGY2Y0pJc0tU?=
+ =?utf-8?B?NHhzdUNISHkzZ3duelFHZFlZaDk1V2lucks4eG0raExEQ3NlUXJEUEM1ckcy?=
+ =?utf-8?B?UUszZFNCQWM0OWdGNGxaQUtyRTFZbGZoTnE4SVhRWmNLQVdiTy9rS2FWT3Nm?=
+ =?utf-8?B?SlpMUDkzUGcxUGtVQmtjWENGTkpDVE9NcmpjSkZDSGJTR3RQNjlxeHMzd0Jy?=
+ =?utf-8?B?U09OcEl1UjhqN25kSmJtcC94b0tKVDZFOGhGODRnTE1SRFFTaytLM2NuRUpu?=
+ =?utf-8?B?ZVhDc3pqRjEwS3VLMDFUbnhDWjFLU0lNSHhGU25CZWhRdWgrQW9zOWU5U3FJ?=
+ =?utf-8?B?eFVpWVJXMVEvbndqT2VMVllnd1JET3IwUUZWanRHdXo5WUZ1RU5rWk9qUU1I?=
+ =?utf-8?B?eDN2aFFKSk1IdzRaRUFxYjFUdVd5a2NCdE04bFErTWRnbGUzU0sxaFFNVmRk?=
+ =?utf-8?Q?KtXwVWZSgyoMIcJGV7ptoEATe?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8157972-fe00-428d-80a7-08dac170739d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2022 09:48:27.6993
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Nov 2022 10:03:14.9839
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 893IS4QRqDwUtVVvO9gIndpaeDkAfSXbfhosJarWK6cbjZ4iLSGzhqIjroUqb982K6fbJzYewS4THTRT+FyEIw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4556
+X-MS-Exchange-CrossTenant-UserPrincipalName: LVyO/6S+90sDq4Onnv8PxbMRkK3LJQHyMHhVVR0LIwMWsQ1MyW9p34yFZm/DYcdPeX7mIjW58K/yq0AOK/5V4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5334
 
+On Fri, Nov 04, 2022 at 05:35:23PM +0000, Paul Durrant wrote:
+> On 04/11/2022 16:10, Roger Pau Monné wrote:
+> > On Fri, Nov 04, 2022 at 04:05:05PM +0000, Paul Durrant wrote:
+> > > On 04/11/2022 16:01, Roger Pau Monné wrote:
+> > > > On Fri, Nov 04, 2022 at 03:55:54PM +0000, Paul Durrant wrote:
+> > > > > On 04/11/2022 14:22, Roger Pau Monne wrote:
+> > > > > > The current reporting of the hardware assisted APIC options is done by
+> > > > > > checking "virtualize APIC accesses" which is not very helpful, as that
+> > > > > > feature doesn't avoid a vmexit, instead it does provide some help in
+> > > > > > order to detect APIC MMIO accesses in vmexit processing.
+> > > > > > 
+> > > > > > Repurpose the current reporting of xAPIC assistance to instead report
+> > > > > > such feature as present when there's support for "TPR shadow" and
+> > > > > > "APIC register virtualization" because in that case some xAPIC MMIO
+> > > > > > register accesses are handled directly by the hardware, without
+> > > > > > requiring a vmexit.
+> > > > > > 
+> > > > > > For symetry also change assisted x2APIC reporting to require
+> > > > > > "virtualize x2APIC mode" and "APIC register virtualization", dropping
+> > > > > > the option to also be reported when "virtual interrupt delivery" is
+> > > > > > available.  Presence of the "virtual interrupt delivery" feature will
+> > > > > > be reported using a different option.
+> > > > > > 
+> > > > > > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > > > > > ---
+> > > > > > I find the logic in vmx_vlapic_msr_changed() hard to follow, but I
+> > > > > > don't want to rewrite the function logic at this point.
+> > > > > > ---
+> > > > > >     xen/arch/x86/hvm/viridian/viridian.c |  2 +-
+> > > > > >     xen/arch/x86/hvm/vmx/vmcs.c          |  8 ++++----
+> > > > > >     xen/arch/x86/hvm/vmx/vmx.c           | 25 ++++++++++++++++++-------
+> > > > > >     xen/arch/x86/traps.c                 |  4 +---
+> > > > > >     4 files changed, 24 insertions(+), 15 deletions(-)
+> > > > > > 
+> > > > > > diff --git a/xen/arch/x86/hvm/viridian/viridian.c b/xen/arch/x86/hvm/viridian/viridian.c
+> > > > > > index c4fa0a8b32..bafd8e90de 100644
+> > > > > > --- a/xen/arch/x86/hvm/viridian/viridian.c
+> > > > > > +++ b/xen/arch/x86/hvm/viridian/viridian.c
+> > > > > > @@ -201,7 +201,7 @@ void cpuid_viridian_leaves(const struct vcpu *v, uint32_t leaf,
+> > > > > >              * Suggest x2APIC mode by default, unless xAPIC registers are hardware
+> > > > > >              * virtualized and x2APIC ones aren't.
+> > > > > >              */
+> > > > > > -        if ( !cpu_has_vmx_apic_reg_virt || cpu_has_vmx_virtualize_x2apic_mode )
+> > > > > > +        if ( !has_assisted_xapic(d) || has_assisted_x2apic(d) )
+> > > > > 
+> > > > > So, not sure why this is separated from patch 1 but stated this way it seems
+> > > > > counterintuitive. We only want to use the viridian MSRs if they are going to
+> > > > > be more efficient.. which I think is only in the case where we have neither
+> > > > > an x2apic not an assisted xapic (hence we would trap for MMIO).
+> > > > 
+> > > > I've read the MS HTLFS and I guess I got confused, the section about
+> > > > this CPUID bit states:
+> > > > 
+> > > > "Bit 3: Recommend using MSRs for accessing APIC registers EOI, ICR and
+> > > > TPR rather than their memory-mapped"
+> > > > 
+> > > > So I've (wrongly) understood that MSRs for accessing APIC registers
+> > > > was meant to be a recommendation to use x2APIC mode in order to access
+> > > > those registers.  Didn't realize Viridian had a way to expose certain
+> > > > APIC registers using MSRs when the APIC is in xAPIC mode.
+> > > > 
+> > > 
+> > > Yeah, I think they predate the existence of x2apic.
+> > > 
+> > > > I withdraw patch 1 and adjust patch 2 accordingly then.
+> > > > 
+> > > Cool. Thanks,
+> > 
+> > How does Windows know whether to use xAPIC or x2APIC?
+> > 
+> 
+> cpuid? TBH I'm not sure why this recommendation would ever trump x2apic
+> anyway.
 
-On 08/11/2022 08:34, Bertrand Marquis wrote:
-> Hi,
-Hi Julien/Bertrand/Michal,
->
->> On 8 Nov 2022, at 07:26, Michal Orzel <michal.orzel@amd.com> wrote:
->>
->> Hi Julien,
->>
->> On 07/11/2022 19:06, Julien Grall wrote:
->>>
->>> Hi Ayan,
->>>
->>> On 07/11/2022 12:49, Ayan Kumar Halder wrote:
->>>> On 07/11/2022 10:44, Julien Grall wrote:
->>>>> Hi Ayan,
->>>> Hi Julien,
->>>>> On 07/11/2022 10:36, Ayan Kumar Halder wrote:
->>>>>> On 06/11/2022 17:54, Julien Grall wrote:
->>>>>>> Hi Ayan,
->>>>>> Hi Julien,
->>>>>>
->>>>>> I need some clarification.
->>>>>>
->>>>>>> To me the title and the explaination below suggests...
->>>>>>>
->>>>>>> On 04/11/2022 16:23, Ayan Kumar Halder wrote:
->>>>>>>> From: Ayan Kumar Halder <ayankuma@amd.com>
->>>>>>>>
->>>>>>>> Refer ARM DDI 0487I.a ID081822, B2.2.1
->>>>>>>> "Requirements for single-copy atomicity
->>>>>>>>
->>>>>>>> - A read that is generated by a load instruction that loads a single
->>>>>>>> general-purpose register and is aligned to the size of the read in the
->>>>>>>> instruction is single-copy atomic.
->>>>>>>>
->>>>>>>> -A write that is generated by a store instruction that stores a single
->>>>>>>> general-purpose register and is aligned to the size of the write in
->>>>>>>> the
->>>>>>>> instruction is single-copy atomic"
->>>>>>>>
->>>>>>>> On AArch32, the alignment check is enabled at boot time by setting
->>>>>>>> HSCTLR.A bit.
->>>>>>>> ("HSCTLR, Hyp System Control Register").
->>>>>>>> However in AArch64, alignment check is not enabled at boot time.
->>>>>>> ... you want to enable the alignment check on AArch64 always.
->>>>>> I want to enable alignment check *only* for atomic access.
->>>>>>
->>>>>> May be I should remove this line --> "However in AArch64, alignment
->>>>>> check is not enabled at boot time.".
->>>>>>
->>>>>>> However, this is not possible to do because memcpy() is using
->>>>>>> unaligned access.
->>>>>> This is a non atomic access. So the commit does not apply here.
->>>>> Right, but your commit message refers to the alignment check on arm32.
->>>>> You wrote too much for someone to wonder but not enough to explain why
->>>>> we can't enable the alignment check on arm64.
->>>>>
->>>>>>> I think the commit message/title should clarify that the check is
->>>>>>> *only* done during debug build. IOW, there are no enforcement in
->>>>>>> producation build.
->>>>>> AFAICS read_atomic()/write_atomic() is enabled during non debug
->>>>>> builds (ie CONFIG_DEBUG=n) as well.
->>>>> My point was that ASSERT() is a NOP in production build. So you
->>>>> effectively the enforcement happens only in debug build.
->>>>>
->>>>> IOW, unless you test exhaustively with a debug build, you may never
->>>>> notice that the access was not atomic.
->>>> This makes sense.
->>>>
->>>> Does the following commit message look better ?
->>>>
->>>> xen/Arm: Enforce alignment check for atomic read/write
->>> title:
->>>
->>> xen/arm: Enforce alignment check in debug build for {read, write}_atomic
->>>
->>>> Refer ARM DDI 0487I.a ID081822, B2.2.1
->>>> "Requirements for single-copy atomicity
->>>>
->>>> - A read that is generated by a load instruction that loads a single
->>>> general-purpose register and is aligned to the size of the read in the
->>>> instruction is single-copy atomic.
->>>>
->>>> -A write that is generated by a store instruction that stores a single
->>>> general-purpose register and is aligned to the size of the write in the
->>>> instruction is single-copy atomic"
->>>>
->>>> Thus, one needs to check for alignment when performing atomic operations.
->>>> However, as ASSERT() are disabled in production builds, so one needs to
->>> This seems to be a bit out of context because you don't really explain
->>> that ASSERT() would be used. Also...
->>>
->>>> run the debug builds to catch any unaligned access during atomic
->>>> operations.
->>>> Enforcing alignment checks during production build has quite a high
->>>> overhead.
->>>>
->>>> On AArch32, the alignment check is enabled at boot time by setting
->>>> HSCTLR.A bit.
->>>> ("HSCTLR, Hyp System Control Register").
->>>> However, on AArch64, memcpy()/memset() may be used on 64bit unaligned
->>>> addresses.
->>>> Thus, one does not wish to enable alignment check at boot time.
->>> ... to me this paragraph should be first because this explained why we
->>> can't check in production. So how about the following commit message:
->>>
->>> "
->>> xen/arm: Enforce alignment check in debug build for {read, write}_atomic
->>>
->>> Xen provides helper to atomically read/write memory (see {read,
->>> write}_atomic()). Those helpers can only work if the address is aligned
->>> to the size of the access (see B2.2.1 ARM DDI 08476I.a).
->>>
->>> On Arm32, the alignment is already enforced by the processor because
->>> HSCTLR.A bit is set (it enforce alignment for every access). For Arm64,
->>> this bit is not set because memcpy()/memset() can use unaligned access
->>> for performance reason (the implementation is taken from the Cortex
->>> library).
->>>
->>> To avoid any overhead in production build, the alignment will only be
->>> checked using an ASSERT. Note that it might be possible to do it in
->>> production build using the acquire/exclusive version of load/store. But
->>> this is left to a follow-up (if wanted).
->>> "
->> This reads very well.
->>
->>> While trying to find a justification for the debug version. I was
->>> wondering whether we could actually use the acquire or exclusive
->>> version. I am not entirely sure about the overhead.
->>>
->>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
->>>> Reviewed-by: Bertrand Marquis <bertrand.marquis@arm.com>
->>>>
->>>> I think I can keep R-b as there is no code change ?
->>> My signed-off-by will need to be added for the commit message I proposed
->>> above. So I would like Bertrand/Michal to confirm they are happy with it
->>> (I don't usually add my reviewed-by/acked-by for patch where my
->>> signed-off-by is added).
->>>
->> You can keep my Rb and Bertrand or Stefano can ack it, so that we can avoid
->> acking a patch by one of the authors.
-> I will check and ack the v3 once out.
+OK, so the recommendation is ignored when running in x2APIC mode,
+which should be the default since Xen does always expose x2APIC by
+default to guests.
 
-Many thanks for this.
-
-I have sent out "[XEN v3] xen/arm: Enforce alignment check in debug 
-build for {read, write}_atomic"
-
-- Ayan
-
->
-> Cheers
-> Bertrand
->
->>> Cheers,
->>>
->>> --
->>> Julien Grall
->> ~Michal
+Thanks, Roger.
 
