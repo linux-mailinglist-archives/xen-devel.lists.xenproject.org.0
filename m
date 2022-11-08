@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB6F2620EF3
-	for <lists+xen-devel@lfdr.de>; Tue,  8 Nov 2022 12:24:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.439977.694042 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4D04620F21
+	for <lists+xen-devel@lfdr.de>; Tue,  8 Nov 2022 12:32:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.440000.694054 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osMiV-0007QX-AX; Tue, 08 Nov 2022 11:24:31 +0000
+	id 1osMq5-0001YH-4h; Tue, 08 Nov 2022 11:32:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 439977.694042; Tue, 08 Nov 2022 11:24:31 +0000
+Received: by outflank-mailman (output) from mailman id 440000.694054; Tue, 08 Nov 2022 11:32:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osMiV-0007NZ-6y; Tue, 08 Nov 2022 11:24:31 +0000
-Received: by outflank-mailman (input) for mailman id 439977;
- Tue, 08 Nov 2022 11:24:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jDgD=3I=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1osMiT-0006S1-Lx
- for xen-devel@lists.xen.org; Tue, 08 Nov 2022 11:24:29 +0000
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com
- [2607:f8b0:4864:20::431])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e824af50-5f57-11ed-8fd1-01056ac49cbb;
- Tue, 08 Nov 2022 12:24:29 +0100 (CET)
-Received: by mail-pf1-x431.google.com with SMTP id b185so13531509pfb.9
- for <xen-devel@lists.xen.org>; Tue, 08 Nov 2022 03:24:28 -0800 (PST)
-Received: from localhost ([122.172.84.80]) by smtp.gmail.com with ESMTPSA id
- n6-20020a170903110600b001865c298588sm6677765plh.258.2022.11.08.03.24.26
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 08 Nov 2022 03:24:27 -0800 (PST)
+	id 1osMq5-0001VZ-1I; Tue, 08 Nov 2022 11:32:21 +0000
+Received: by outflank-mailman (input) for mailman id 440000;
+ Tue, 08 Nov 2022 11:32:20 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1osMq4-0001VT-2H
+ for xen-devel@lists.xenproject.org; Tue, 08 Nov 2022 11:32:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1osMpu-00046T-DG; Tue, 08 Nov 2022 11:32:10 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224] helo=[192.168.3.98])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1osMpu-0002C1-5m; Tue, 08 Nov 2022 11:32:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,100 +39,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e824af50-5f57-11ed-8fd1-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=4O5etID8pnJ+mOBEfmxIpjayhQN9TbUVsRBMhrbeh44=;
-        b=NCjoYqLzGCF5lUfugIxT0rR9KaqTtPk0rXEL13eqJQojws8POkXXPr3CRRkY+y4K3D
-         NvIGuyf6Vmk8CWW11agxMhUkscJjnD0m7QvpGJ2zcmBy03sG44IqD8qRKq7MRkNLzIP9
-         W4qfed7DoWIqs8fZqy7TfceQPQCTz/OLQ67SfG1XpMTebMzG9FstJKbQHAA3SbS3FTLV
-         nsjBwbtZsM7/T+kirM3QtQItPb4B/vwepXaSwjJrU6N1qJUARWP9ca4b/ZaAoQTaeLNf
-         OpKPFcX824Vp8As3cl7Pjlm4dXa1zHJM/04u3w/gm/Fb8v001z/FCSPjqvqm7mmdhaDT
-         BUqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4O5etID8pnJ+mOBEfmxIpjayhQN9TbUVsRBMhrbeh44=;
-        b=QcUQ6ImpxmnCbjZW5WfYD78M+xTJQ+sW99EPUTxpL9+rZU/5bwMpNqp1a+Lkxj8YXw
-         c2y5Oplj/vupckRZrX8Hgi9O2bcpG0PMGAYN/6evyj0p9r6Ew2DlpRUwD/fti9Ut9+qI
-         VIA11KF+kobHYgNwgPv/fJZfyE9ilsSlioA97gYdCIxxCJ2cFvW4Cb+emUy5bvYYrD/z
-         mVcUOff6NJarwwqmPjfgvQtLKNuJHLwYj02SjMBXZC+s1V9v8pbacnc8VcqnB1UQYFtT
-         ymIZ+nXR4qCeD4vrTVmPkmoQpmpJPyr4nepc7/tQUw3Or+rvKJcNddPRPHSigY4yhIiQ
-         7p/Q==
-X-Gm-Message-State: ACrzQf0Zr7WXT7o6zMg8QfHq9hFUYs8BtyMhpqXBOMtHtVYHJPbgjzzL
-	WoecKUcyIZLriGPtkCWu7ZpcdXmiwr5hXA==
-X-Google-Smtp-Source: AMsMyM7OwRKvh4arUDf2IMW8MGEbBtDR2PFf/GJH4pH79GdWyFn2gsPOcsdW7kYp833YO+wkRtyIpg==
-X-Received: by 2002:a63:4420:0:b0:470:89:8e7c with SMTP id r32-20020a634420000000b0047000898e7cmr31541733pga.150.1667906667403;
-        Tue, 08 Nov 2022 03:24:27 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xen-devel@lists.xen.org,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Mike Holmes <mike.holmes@linaro.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH V6 3/3] docs: Add documentation for generic virtio devices
-Date: Tue,  8 Nov 2022 16:54:00 +0530
-Message-Id: <24a0278313ea9a9e6c093880dead835184025734.1667906228.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <cover.1667906228.git.viresh.kumar@linaro.org>
-References: <cover.1667906228.git.viresh.kumar@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=AGZy5J90T/G3qtYKMfEanDERIn0ve4m192F7lR1tzWE=; b=TUfcqDrUUC+bLjIOGrkaI38z3d
+	EO6MGx47W7AMJ4Mn1h0HpeaV/UHjWQ5X3Bip7GX044dP3jn+J2pVKFAfTTjHct1Zn5JqNqht98Rpb
+	1n+tZbMePaaokpyaakHGMzjy4aapZKvbRGXiPU415z4omqRN/3vFE1P276to5L/FExS0=;
+Message-ID: <d4ceb892-7265-f23f-7785-9368e18edf6e@xen.org>
+Date: Tue, 8 Nov 2022 11:32:07 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [RFC PATCH 4/4] xen: Justify linker script defined symbols in
+ include/xen/kernel.h
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Jan Beulich <jbeulich@suse.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20221107104739.10404-1-luca.fancellu@arm.com>
+ <20221107104739.10404-5-luca.fancellu@arm.com>
+ <5caf911d-e96d-39e4-d945-db6537412f60@suse.com>
+ <3925276F-8B6E-4B19-9EC2-C085FE88A637@arm.com>
+ <933c4227-5839-312e-3996-693a7d8f7706@suse.com>
+ <f338e43f-d77d-06e9-ee50-7fc691848bb0@xen.org>
+ <5B9130CD-BC40-42E3-8D79-DABC321AFF13@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <5B9130CD-BC40-42E3-8D79-DABC321AFF13@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This patch updates xl.cfg man page with details of generic Virtio device
-related information.
+Hi Luca,
 
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- docs/man/xl.cfg.5.pod.in | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+On 08/11/2022 11:00, Luca Fancellu wrote:
+> 
+> 
+>> On 7 Nov 2022, at 19:06, Julien Grall <julien@xen.org> wrote:
+>>
+>>
+>>
+>> On 07/11/2022 12:56, Jan Beulich wrote:
+>>> On 07.11.2022 12:53, Luca Fancellu wrote:
+>>>>> On 7 Nov 2022, at 11:49, Jan Beulich <jbeulich@suse.com> wrote:
+>>>>> On 07.11.2022 11:47, Luca Fancellu wrote:
+>>>>>> --- a/xen/include/xen/kernel.h
+>>>>>> +++ b/xen/include/xen/kernel.h
+>>>>>> @@ -65,24 +65,28 @@
+>>>>>> 	1;                                      \
+>>>>>> })
+>>>>>>
+>>>>>> +/* SAF-0-safe R8.6 linker script defined symbols */
+>>>>>> extern char _start[], _end[], start[];
+>>>>>> #define is_kernel(p) ({                         \
+>>>>>>      char *__p = (char *)(unsigned long)(p);     \
+>>>>>>      (__p >= _start) && (__p < _end);            \
+>>>>>> })
+>>>>>>
+>>>>>> +/* SAF-0-safe R8.6 linker script defined symbols */
+>>>>>> extern char _stext[], _etext[];
+>>>>>> #define is_kernel_text(p) ({                    \
+>>>>>>      char *__p = (char *)(unsigned long)(p);     \
+>>>>>>      (__p >= _stext) && (__p < _etext);          \
+>>>>>> })
+>>>>>>
+>>>>>> +/* SAF-0-safe R8.6 linker script defined symbols */
+>>>>>> extern const char _srodata[], _erodata[];
+>>>>>> #define is_kernel_rodata(p) ({                  \
+>>>>>>      const char *__p = (const char *)(unsigned long)(p);     \
+>>>>>>      (__p >= _srodata) && (__p < _erodata);      \
+>>>>>> })
+>>>>>>
+>>>>>> +/* SAF-0-safe R8.6 linker script defined symbols */
+>>>>>> extern char _sinittext[], _einittext[];
+>>>>>> #define is_kernel_inittext(p) ({                \
+>>>>>>      char *__p = (char *)(unsigned long)(p);     \
+>>>>>
+>>>>> Why the "R8.6" everywhere here? Didn't we agree that the in-code
+>>>>> comments should be tool-agnostic?
+>>>>
+>>>> The R8.6 is not tool specific, it is to give the quick hint that we are deviating
+>>>> from MISRA Rule 8.6.
+>>> Well, yes, "tool" was wrong for me to write. Imo references to a specific
+>>> spec should equally be avoided in in-code comments, as other specs may
+>>> turn up.
+>>
+>> +1. The comment duplication is not great and sometimes even a short explanation it may not fit in 80 characters (AFAICT the justification should be a one line comment).
+>>
+> 
+> Ok we can remove the R8.6 from the comments, is the remaining part ok?
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index 31e58b73b0c9..1056b03df846 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1585,6 +1585,27 @@ Set maximum height for pointer device.
- 
- =back
- 
-+=item B<virtio=[ "VIRTIO_DEVICE_STRING", "VIRTIO_DEVICE_STRING", ...]>
-+
-+Specifies the Virtio devices to be provided to the guest.
-+
-+Each B<VIRTIO_DEVICE_STRING> is a comma-separated list of C<KEY=VALUE>
-+settings from the following list:
-+
-+=over 4
-+
-+=item B<compatible=STRING>
-+
-+Specifies the compatible string for the specific Virtio device. The same will be
-+written in the Device Tree compatible property of the Virtio device. For
-+example, "type=virtio,device22" for the I2C device.
-+
-+=item B<transport=STRING>
-+
-+Specifies the transport mechanism for the Virtio device, like "mmio" or "pci".
-+
-+=back
-+
- =item B<tee="STRING">
- 
- B<Arm only.> Set TEE type for the guest. TEE is a Trusted Execution
+I am afraid no. The comment should only be /* SAF-0-safe */.
+
+Cheers,
+
 -- 
-2.31.1.272.g89b43f80a514
-
+Julien Grall
 
