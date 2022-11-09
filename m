@@ -2,42 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92C526226C9
-	for <lists+xen-devel@lfdr.de>; Wed,  9 Nov 2022 10:22:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.440742.694891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BD5F6226D9
+	for <lists+xen-devel@lfdr.de>; Wed,  9 Nov 2022 10:26:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.440747.694902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oshHi-0007mj-QP; Wed, 09 Nov 2022 09:22:14 +0000
+	id 1oshLV-0000Ef-Ah; Wed, 09 Nov 2022 09:26:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 440742.694891; Wed, 09 Nov 2022 09:22:14 +0000
+Received: by outflank-mailman (output) from mailman id 440747.694902; Wed, 09 Nov 2022 09:26:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oshHi-0007kJ-NX; Wed, 09 Nov 2022 09:22:14 +0000
-Received: by outflank-mailman (input) for mailman id 440742;
- Wed, 09 Nov 2022 09:22:12 +0000
+	id 1oshLV-0000Cr-7v; Wed, 09 Nov 2022 09:26:09 +0000
+Received: by outflank-mailman (input) for mailman id 440747;
+ Wed, 09 Nov 2022 09:26:07 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=opqx=3J=citrix.com=prvs=305fc5d8a=edvin.torok@srs-se1.protection.inumbo.net>)
- id 1oshHg-0007kD-BI
- for xen-devel@lists.xenproject.org; Wed, 09 Nov 2022 09:22:12 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fbdb6dca-600f-11ed-91b5-6bf2151ebd3b;
- Wed, 09 Nov 2022 10:22:10 +0100 (CET)
-Received: from mail-dm6nam10lp2108.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.108])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 09 Nov 2022 04:21:59 -0500
-Received: from SJ0PR03MB5888.namprd03.prod.outlook.com (2603:10b6:a03:2d6::7)
- by BY5PR03MB5063.namprd03.prod.outlook.com (2603:10b6:a03:1e4::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27; Wed, 9 Nov
- 2022 09:21:57 +0000
-Received: from SJ0PR03MB5888.namprd03.prod.outlook.com
- ([fe80::fc0e:731b:b539:94b]) by SJ0PR03MB5888.namprd03.prod.outlook.com
- ([fe80::fc0e:731b:b539:94b%5]) with mapi id 15.20.5791.027; Wed, 9 Nov 2022
- 09:21:57 +0000
+ <SRS0=mo2k=3J=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1oshLT-0000Cl-Mf
+ for xen-devel@lists.xenproject.org; Wed, 09 Nov 2022 09:26:07 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on2075.outbound.protection.outlook.com [40.107.102.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 884bc925-6010-11ed-91b5-6bf2151ebd3b;
+ Wed, 09 Nov 2022 10:26:05 +0100 (CET)
+Received: from DM6PR11CA0012.namprd11.prod.outlook.com (2603:10b6:5:190::25)
+ by SA0PR12MB4447.namprd12.prod.outlook.com (2603:10b6:806:9b::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26; Wed, 9 Nov
+ 2022 09:26:00 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:190:cafe::1c) by DM6PR11CA0012.outlook.office365.com
+ (2603:10b6:5:190::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.26 via Frontend
+ Transport; Wed, 9 Nov 2022 09:26:00 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5813.12 via Frontend Transport; Wed, 9 Nov 2022 09:26:00 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.31; Wed, 9 Nov
+ 2022 03:25:57 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.31 via Frontend
+ Transport; Wed, 9 Nov 2022 03:25:56 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,202 +58,204 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fbdb6dca-600f-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1667985730;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=DLJsNvHDALY0jAq0emL9Sxhp8HyNQccgjSFLDh8mNBo=;
-  b=bzYSDJSoSsy3XUGn7SK0xT6aBNLcmCvH0u1hFtexqINuUe0uAilFuj8L
-   GlJbtHatBYbZHIbf+ZssXzkjdAv4Jmaazg11opNIetN5ln5yTM2oIIl8S
-   N5ELG/bsoevKIo0a39NpFW+zW84ypgWlYZyhPDWzLraIMVNSVFi5mMmR8
-   E=;
-X-IronPort-RemoteIP: 104.47.58.108
-X-IronPort-MID: 84053412
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:7Tay4a6O+IznVXAQ+l2MJgxRtPTGchMFZxGqfqrLsTDasY5as4F+v
- mcWDWyAOKvbZmTwe9l+b4S080gEuMWBmIRnGwNqpCg9Hi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
- plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraBYnoqLeNdYH9JoQp5nOIkiZJfj9G8Agec0
- fv/uMSaM1K+s9JOGjt8B5mr9VU+4pwehBtC5gZkPKkT7QeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
- 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
- I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m5
- a1HBTVSaj65rMWrza63VeNUvfg9I5y+VG8fkikIITDxK98DGMiGb4CUoNhS0XE3m9xEGuvYa
- 4wBcz1zYR/cYhpJfFAKFJY5m+TujX76G9FagAvN+exrvC6OnEooiOiF3Nn9I7RmQe1YkliZo
- CTa+H7+ATkRNcCFyCrD+XWp7gPKtXOnAN9JSOTinhJsqGGQmmk5FhwWb3aU/d2z1x66fNZ7a
- HVBr0LCqoB3riRHVOLVXRe1vXqFtR40QMdLHqsx7wTl4orZ5RyIQFcNSDFpYcYj8sQxQFQC2
- laXkvvzCDdosbnTTmiSnp+LqRuiNC5TKnUNDQcUQA1A79T9rYUbihPUUs0lAKOzlsfyGzz73
- 3aNtidWulkIpcsC1qH+8VWZhTup/8DNVlRsvlWRWX+55ARkYoLjf5av9VXQ8fdHKsCeU0WFu
- 38H3cOZ6YjiEK2wqcBEe81VdJnB2hpPGGS0bYJHd3X5ywmQxg==
-IronPort-HdrOrdr: A9a23:CbcWf6Brb9v1THDlHegPsceALOsnbusQ8zAXPh9KJCC9I/bzqy
- nxpp8mPEfP+U0ssHFJo6HiBEEZKUmsuKKdkrNhR4tKOzOW9FdATbsSp7cKpgeNJ8SQzJ876U
- 4NSclD4ZjLfCBHZKXBkUaF+rQbsb+6GcmT7I+woUuFDzsaEp2IhD0JaDpzZ3cGIDWucqBJca
- Z0iPAmmxOQPVAsKuirDHgMWObO4/fRkoj9XBIADxk7rCGTkDKB8tfBYlml9yZbdwkK7aYp8G
- DDnQC8zL6kqeuHxhjV0HKWx4hKmeHm1sBICKW3+4gow3TX+0WVjbZaKvi/VQMO0aWSAZER4Z
- 7xSiIbToZOArXqDyeISFXWqlDdOX0VmgLfIBej8AfeSIrCNXwH4oN69PxkWwqc5Ew6sN5m1q
- VXm2qfqppMFBvF2D/w/t7SSnhR5wOJSepLq59ts5Vza/poVFZql/1owGpFVJMbWC7q4oEuF+
- djSMna+fZNaFufK3TUpHNmztCgVmk6Wk7ueDlIhuWFlzxN2HxpxUoRw8IS2n8G6ZImUpFBo+
- DJKL5hmr1CRtIfKah9GOACS82qDXGle2OFDEuCZVD8UK0XMXPErJD6pL0z+eGxYZQNiIA/nZ
- zQOWkowVLau3iefPFm8Kc7gSwlGl/NLAgF4vsul6RRq/n7WKfhNzGFRRQnj9agys9vcPHmZw
- ==
-X-IronPort-AV: E=Sophos;i="5.96,150,1665460800"; 
-   d="scan'208";a="84053412"
+X-Inumbo-ID: 884bc925-6010-11ed-91b5-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cgg7mjHFh66e25hGpy4zDhJGQtfzCH46Z/4Zd18jOgsfELA2xpv+0LtqSyQKrsgp2hvkNqYwxByuS3Chh3Ajs/4GVVFC8FSKzNBshMdrSgA/Fm0eel22mGiykCqvdZVRjc8WUz+jeyiNlbLWXOKO4mZHlfNncpXEwU9xJPHapEXAiIgIAeOSHP3UsMBf8O/XPQaRVt7s9kjeXaoHLy7mzevXmv0X4tnXM22lc35IqUPuNCkrc+pvzege+jqoAp26Wqw2AMsUsy9penswszq4ZVecCRmRr+dVw2oZBYyutIJVaU8DUcvr6ms9vk4u3vuVAyCGY2Aa8e8BnTtUh60tEg==
+ b=edvRUrg3/jwmFrtYbZI7h327JwsO9ClXCpMa2aI/hPWLENkTp6bv9HiWmWD9fw6PvFwnOzo89yHAWgZrRCShnPbY5vxNfLVEp3eDs1Rti5vxBkGYgOX08jmR57t5icJaiYKk2wQHJOLz7QXZAXDEIEU4NISmmKoUWevVLy4dNM6A7vN4m492LaO1B9JZZHjXLOlPaAVeK7AZtOqUXV2pNHqSYTRdyo5pbZDGQ1/1kX70GDtmOnEMpaF154oQutQTjh/GHPNLEQmLsw2WeYpHCkWIWDL7jHRWiYNZylQelGyk3HCQQGOegI/E7vO55K+qqM9fGL+yPdAVBmy7VeGR4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DLJsNvHDALY0jAq0emL9Sxhp8HyNQccgjSFLDh8mNBo=;
- b=RCqUmpZ/GzJbm1So/3ub7ew4JolEFoK1U+uF43kxAtSAP/m3hFD7bSPiJD9Xia6BSmRrYRu682d6D3cVzqoS97uUzd1LtMTJ6UKtLWD8p54HgzpaqjAH0kxJXUwLo7Mkzkqfeo5P++E/RF5VnjWlYnRh72Nk+BNGYYGYI+VAsf57sh2x5SqBdicu0KXU3EG80efpz6kn5Xe04dmAIHeLCpfqDMYC6S33p9KWLVJDF/2t4lxCHH5MNjAjnPHQ3HrGUNH8dhst4AqNdPQJYb2yLXiGz75iv+PBHMaYu6+IOh8Jzc3oFc85ehAGBhaBx37EDbJvwezRolhcS5CCxp8uOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=1IgZXZ8vzh/ylSC0DwcCkflG0dKrWJQYwSG0rIHDXiQ=;
+ b=hOhHIbpL88E+173NyazgAqYdntkRgi2arwtPsXSx++Yx8QqJHL2nMRKAQUjvKmpfgTLMBPOZ4M09lf77yGv2IRZC6WBNN3UB33ewcgiOeBDbq106JRTjDXlpAJXmlVsnprEg0VqxQtrR+zonIJ6whhVzxZ50uV2APqQJytT18Ye+EzyTFGjU+S3lCsycFwXnrYeXTZcJp9Uxri5J3bcHPjOy2g6kMaPwl8udwZgZq5aD2qmWIyMW4PezdjJ31Tu9oBSvnq93vYFdrRtUnxocTbsbXhbjFMqz4A/k3nGXlmsvMaUAkExcKCup2zFbw/sET/6IQq96Iyxk31tler9bbQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DLJsNvHDALY0jAq0emL9Sxhp8HyNQccgjSFLDh8mNBo=;
- b=py+ZQ3W4s5W4GyJzUHFoF2WWzo8cNg9wjGSmFSTmKsSHLqIdXjKTGZTzD3t40Y+8uUJJMxqzfE0mnPDemraI9MWJI9PZPbV4JqBWDWiHT7Pgxh/UL06hg/74f5mHdNP6TINc6qSl70jOjANKUhxFmUbOibLu6XcXtocj/x22uFE=
-From: Edwin Torok <edvin.torok@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Henry Wang <Henry.Wang@arm.com>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
-	<wl@xen.org>, Anthony Perard <anthony.perard@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH for-4.17 v3 09/15] tools/ocaml/xenstored/store.ml: fix
- build error
-Thread-Topic: [PATCH for-4.17 v3 09/15] tools/ocaml/xenstored/store.ml: fix
- build error
-Thread-Index: AQHY84enx+9R1HXBN0OC3OTqctPuu6415EUAgABJboCAACSeAA==
-Date: Wed, 9 Nov 2022 09:21:57 +0000
-Message-ID: <D9D3FE01-976F-4609-BBED-961BE59E09F8@citrix.com>
-References: <cover.1667920496.git.edvin.torok@citrix.com>
- <09afc07ba0ba65afc02028bd6b4950d8e51af69b.1667920496.git.edvin.torok@citrix.com>
- <AS8PR08MB79910C8281C7C356450152C4923E9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <1e994604-7a3f-ef5f-63f4-d03e4abe4124@suse.com>
-In-Reply-To: <1e994604-7a3f-ef5f-63f4-d03e4abe4124@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.200.110.1.12)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR03MB5888:EE_|BY5PR03MB5063:EE_
-x-ms-office365-filtering-correlation-id: 9b9c6aa9-e93d-4ecf-68cb-08dac233d945
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- nGR645d4hdD/wk1geKRtpX9lwBAWjvLAzh//kDLoyMonAYQm8EQNX1o6vp7GCEODUlv+qmZxOUx1yrTewE1XnOaMGeqKw92h7l1caWuF3t6UqnBQZJCfP4R2Mq20VKEr0lPfQDdbulpWoRq2hvVZ1DRASk0YkRpVgtxuTEnUrzv8sH3V7kRKeOEhZczTuKdkh7g164wWIqZo3sbDew92++Dl8dFcy3keE52upjTsDfYuVzhXXJRXvjH7lwZdQ+FNPTg2DinpwMwSXEp7lAEomZEyyv/t6Y/G6wD5ur6fi21sUKPBH4gaEimVvORL8IDiqEZQwfI4sz0ImElqLZi/NXWCrIrD4XvHl0Sk/7e0ZgW89O7rukVMsVsVBDZ2wCsj+ee1OCN8Po9XGUl3+GbAsqKnqfVO5vt3cWM0x8ZcEfJUuH7Fax5HSDXRXfZKpfDJpbgnISV2D/4dkeRXI04bu+Zz0JzN7gCxzELR9P9EZ6YtZ3RbP68s+nSyHZxB+EhW3u3oL0WUWZb8/9YYkt3yDoq5rwpKFg7UrSzXvrSch0dqZzQoDj1N3+oCo/qu/gBE08fzx+mu6dcdSqWblyyk5snpHe+xav55M6n9uszJ3wUWTARCUdZ2nTRMFjSbQUV8aRRfTZCndo8vQ8Zq5xUBS/dQeD3kSLnEPPGYRqoJK6BgacfocNW3d543O2G00ExL+vJUrbTh9beRhejSY78oAodQVsDf2j1FWjCX34VZT9E79MQwAnBqfVpn+ATUwaza8CbczQ5vQ05BBqGteqCXkLOOYaGPU+ZPesBflCzZ76Csj+aQXxsp202SHXvh4zQjsVyaJh60AU51+4nbGqKZHg==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5888.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(366004)(136003)(39860400002)(346002)(376002)(451199015)(122000001)(38070700005)(38100700002)(82960400001)(86362001)(54906003)(36756003)(6916009)(316002)(966005)(71200400001)(8936002)(6486002)(478600001)(41300700001)(33656002)(66446008)(76116006)(5660300002)(4326008)(66476007)(64756008)(66556008)(8676002)(91956017)(2906002)(66946007)(6512007)(53546011)(26005)(6506007)(83380400001)(66574015)(2616005)(186003)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RXpwbkQvYWhrc0hybWhtdmp0WTM1VC8wSFI4Vmxrdi9uZjJ2RW9nNzV0Q1Bl?=
- =?utf-8?B?WjYxRitZSEQyQllqY3RpYWRpZ1lPNGZvU0tjM1IzY201WXFpYnlSanBSM3Zm?=
- =?utf-8?B?aWpodnp6YllTZy9IVmVTWlg1dVJDRE5yMGUrV0krRnFQUUhPalZDcmZZQzJu?=
- =?utf-8?B?d1kzV21JN0ZlWkMreUZjZG51bWZqdDZSdVFNa0tRNnY4WURzUFNMaER6MlVJ?=
- =?utf-8?B?QVZNNFc3SDJadThxckpDTTBpbzdJN3JHRXlLR2F2TGVLd2FMZHE2ZlYwSDVu?=
- =?utf-8?B?dXlzVlpPSlhGM2xBQkNISjdDeUFsaWRRR1R0KzJOeUJHUklyaXZCTW1iY2tW?=
- =?utf-8?B?RExRZ2xzRXEvWGVwZDk5NkR2MitPV3Z1MzRUNnFIaGZGdGczbGgwNWU0Q09u?=
- =?utf-8?B?clhSR1RRcjBVMUxpZ0R5dlVSZllkbUs2bWVyZ2hvbFVXZDRSSnFsaWpyekJD?=
- =?utf-8?B?K09PSG9QVlFPZkNsR3N0aktrZ29keWxxSXVqMmNTa1JhN0p1eEZoUHpWdkF1?=
- =?utf-8?B?WnI1eVhtTnpick5xSGl0bEVBeTgwRlJ0L21sdVVSQnFpM28wQnpvOU9XRHBj?=
- =?utf-8?B?UkN3Z1UwTXJMV3FIQXI0T0hQKzdaRUZzZzhCSTl5aGxyTVlMNUNpMWtIcWpV?=
- =?utf-8?B?S3pBa1pTZS9lRzJTcXJtL0lQQ1pkVWZUdFhacGxoeWZKdTB1NDBKR3VMdTQ0?=
- =?utf-8?B?UE9hZDRpaC9VejdBZk54SGxWRVJnN1ZDeTNHTDhoaVlROVRXNlZnYndjbGR4?=
- =?utf-8?B?TXBlNHZSNmZKZHBzYys2TjhPTFRib1Bkd0pDQXpjRVAvTEx2OGVkaVN0YWEw?=
- =?utf-8?B?T2Mzb3NzZ0oxM3BzZzB0RDF1UmNrV1NYUHhJN3lYSG8yNE94U2RGczNqWkFp?=
- =?utf-8?B?cDllNk9EeVpXRFZwbmw3TFB1aG9pK2FOWllDakZMeDZvTkNZNVBRTEpYY2lH?=
- =?utf-8?B?SjBvUkI2aDcyZDN1c1dVamE5ODRTcHM2VU54eDkxdGwrMXRyYzhwblJMMHg4?=
- =?utf-8?B?UmNKMDAxZzNQaytqYWJhSzNoLzRKbDNsd0I2cktLbmFvNjZJQlEzRk41SUtj?=
- =?utf-8?B?cTNFTjdCc3VrL2RQaGNBeGZpN0o4L1FrdGo0ejVOQUxkYUpLQkZYOTJ6V1RZ?=
- =?utf-8?B?aHkzNnVaOG01RXlReDlRVGlQL0FKR1VPYTVtbTgyOVdmbWlucHY0VWcxOHow?=
- =?utf-8?B?bmFKSkwvTUdqZm1pbGc2U1RpM0crOWd4amdIUTczTG9mU2hsak8zSDZOSExD?=
- =?utf-8?B?c3dTbVBvUFQyc214ak56cHQwengrT0RZUW1lTlBEeThQWk1laGhRNEVwQjY3?=
- =?utf-8?B?c2NLL2YxaGZPVFJXbHllTU9SZVJQV05TMlBYQjBRNzZHb21JTE0rdU53ZXJk?=
- =?utf-8?B?TURmTTRhenQ3MTRlaUQzRVpjQkpLTkFoZmtsVjcwY0lTNWwzaWdNZXN3T3d2?=
- =?utf-8?B?WFJHUm0vV3U3T01CYUNKVFpCL3NkS2hIQjRPeXJETkhYZFhxTWxRUEdEM0ZP?=
- =?utf-8?B?QUV2ajN5ZkZZSzF5YWRIaDZQa3pqcGYzSmcxVnlGUERKOFpWMDMxdHRlTFA3?=
- =?utf-8?B?NzZtc2I0alpLdzlJdFF3UEtyWVV1WDVueGRRQTVCMnVrdGdLRlNEMmpqNUJs?=
- =?utf-8?B?d2E5L0hPWWI1WGg2RWxUQTNRZStsNFZyVnJMWDFSTnBnU0lEcElKdjRHeUZj?=
- =?utf-8?B?RGVuQmVmdnAwa213YmVLdElaYmhNY3EzTjJoVUxyMm50NjhUMWhUK1IwOU5X?=
- =?utf-8?B?QXp4TmRQRzl2OFlYTWprZE9ZQzZjbFYvNmVab0laUFpXTHg3bUEwKzk5ZXI2?=
- =?utf-8?B?Wi9UNzNiZjh2bmJ3K05Fa0JpZEdROUlkQzJ0dnpCbWF3cDBRV1JBZ1RQREY4?=
- =?utf-8?B?L0RqMnhTM0xVYTlIT2Vwb1dRTU04WW03bmZyd2FxTURhSDNUcVhadFpHQTcy?=
- =?utf-8?B?MVlDZnZSblZ1bzBKNXdMeS9iZmVKTCtIYTUySUQ2Y2dWeE5hb1NjT0h6TXRv?=
- =?utf-8?B?OWE4V2hHM0RGSy9mUm8rQ2RMWk5oS0hCSWl6ZnhXejJmbDA4N1Z3Wm4xZFF0?=
- =?utf-8?B?QlpLZEpwS0psRSs4aHRmcnBka0tmQW0zcVR0MG1jOHpDZjVnb2tmNDFpQU9i?=
- =?utf-8?B?UUo4N0I1NlBlM1dCb2J0cmtkeVVrUlZtd0FXSGc1bGtCKzd3VTkxR1ArQlV0?=
- =?utf-8?B?R1E9PQ==?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <31CF3861C39A994DB38501F4F667C123@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ bh=1IgZXZ8vzh/ylSC0DwcCkflG0dKrWJQYwSG0rIHDXiQ=;
+ b=YWBvDv2oJgSzX+j7qKLWpEimIeAyARzdTYIX6aByipOiG0O99EL9fUKTnCVHwIT7dAPlgk7st8wUmJr313k4r0+hghLTiMQjnAkmZFNcfNHY/WcPUfyzLG3xpvEwOT5JgI+Qj3BYWSnqUN6FCL9GJ7OCjUGurjZUPIq5dbl4ymA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <f650683a-c2e6-e282-b32c-52151341ecfb@amd.com>
+Date: Wed, 9 Nov 2022 10:25:55 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5888.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9b9c6aa9-e93d-4ecf-68cb-08dac233d945
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Nov 2022 09:21:57.0515
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: Xen Arm vpl011 UART will cause segmentation fault in Linux guest
+Content-Language: en-US
+To: Jiamei Xie <Jiamei.Xie@arm.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Wei Chen <Wei.Chen@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+	"julien@xen.org" <julien@xen.org>, "sstabellini@kernel.org"
+	<sstabellini@kernel.org>
+References: <AS8PR08MB76960AFEAA767A12368E83D9923E9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+ <00764fe2-f78a-e5db-cb16-903ad1a5ec03@amd.com>
+ <AS8PR08MB7696950216E688E67644CBDB923E9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <AS8PR08MB7696950216E688E67644CBDB923E9@AS8PR08MB7696.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT030:EE_|SA0PR12MB4447:EE_
+X-MS-Office365-Filtering-Correlation-Id: b85539f4-f079-472c-1b9a-08dac2346a5e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	DmZfD9v1v9wdDZKKqh8/mlmDd3DK3O1NeEL406+xvFLyHuzosDdjiXmmcEsLBZhAxc4iTDzzFdH0O+U5PHwpvNz5YqRE8hYzgV4ruWgGpsZVGijbuLBMyC3rK+s2V3gLNTdpOCX2sziSaFZQwR77zThaNxzVa7JveVss9Z8hiMrm7uAWMNYjwgZfwoSo/uF31+/SFK8UxGZj/JxcNFQuPK8G07XG8MjSD56OPv0z6cShK2qOwOQB9tV4emk4HgKGjni+GJQFpvtPrLAl1nIFDcZHya+Nyuj3dmBHoj2VnMa8g2gIIy2u7YO4n00ku/pCq7bwSUmwe59EHL2WCb5sCjs4wOUM9K3/NjBu4SGcZNV0OGYhFY/nFgHxD3PK6N1VzM53rrueOuNOHG+89TGe/MKdKFs0ZMx8t70R8necGjBcK5UjbxItn0FnVavx/kB+/U/oHs8oHqw6uRGxbQb/gQTnTR19eLTbRT8IjiTXIv+f9TQ3Z+nsRLu15RBI1nj6TqpcZTq3Vc4AwFAOba8EWeHfuFxagQQiyS62K7NCNrFHIl/Huui+Cn9Qgon2l+zBLfZCfuTsIPm4D4JOXA0L9YjIvgpEP9EOQlpC6PXb+endnu2i5T8HpNZQnZ3Vt9FdGGATIAAbGqBtetqolFYJjI+VKaiX++2qX158a/N37EX1z7QtvRm+VTXeWZD0i8lJGE9oc8fZ6wysqb7Qt82OfJFWbzGn4T2GmtpeubUV6uMjJLfFzApEsw9oLGPBMNHUD3McYRmPPyCE+Yr/noPqMfULCZJQZf7bshAZ8ebubTGrWKnXl44YKD1cD+M0A2EVFyGfZLXtCNXp5h2WTN0LaA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(136003)(346002)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(47076005)(83380400001)(2616005)(426003)(26005)(356005)(36860700001)(186003)(53546011)(336012)(8936002)(40460700003)(2906002)(40480700001)(82310400005)(41300700001)(16576012)(5660300002)(478600001)(54906003)(4326008)(8676002)(44832011)(70206006)(70586007)(316002)(110136005)(45080400002)(66899015)(36756003)(81166007)(31696002)(82740400003)(86362001)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Nov 2022 09:26:00.4205
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5PN3HdHBpIMI6rECgw7hc50SzrTeLzsA7FDlC7DXSael8oFrfw+zdjWV+86O1MwekaMQepwYWjbOfhhlo+LL6Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB5063
+X-MS-Exchange-CrossTenant-Network-Message-Id: b85539f4-f079-472c-1b9a-08dac2346a5e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4447
 
-DQoNCj4gT24gOSBOb3YgMjAyMiwgYXQgMDc6MTAsIEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNl
-LmNvbT4gd3JvdGU6DQo+IA0KPiBPbiAwOS4xMS4yMDIyIDAzOjQ3LCBIZW5yeSBXYW5nIHdyb3Rl
-Og0KPj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+Pj4gRnJvbTogRWR3aW4gVMO2csO2
-ayA8ZWR2aW4udG9yb2tAY2l0cml4LmNvbT4NCj4+PiBTdWJqZWN0OiBbUEFUQ0ggZm9yLTQuMTcg
-djMgMDkvMTVdIHRvb2xzL29jYW1sL3hlbnN0b3JlZC9zdG9yZS5tbDogZml4IGJ1aWxkDQo+Pj4g
-ZXJyb3INCj4+PiANCj4+PiBCdWlsZGluZyB3aXRoIER1bmUgaW4gcmVsZWFzZSBtb2RlIGZhaWxz
-IHdpdGg6DQo+Pj4gYGBgDQo+Pj4gRmlsZSAib2NhbWwveGVuc3RvcmVkL3N0b3JlLm1sIiwgbGlu
-ZSA0NjQsIGNoYXJhY3RlcnMgMTMtMzI6DQo+Pj4gV2FybmluZyAxODogdGhpcyB0eXBlLWJhc2Vk
-IHJlY29yZCBkaXNhbWJpZ3VhdGlvbiBpcyBub3QgcHJpbmNpcGFsLg0KPj4+IEZpbGUgIm9jYW1s
-L3hlbnN0b3JlZC9zdG9yZS5tbCIsIGxpbmUgMToNCj4+PiBFcnJvcjogU29tZSBmYXRhbCB3YXJu
-aW5ncyB3ZXJlIHRyaWdnZXJlZCAoMSBvY2N1cnJlbmNlcykNCj4+PiBgYGANCj4+PiANCj4+PiBU
-aGlzIGlzIGEgd2FybmluZyB0byBoZWxwIGtlZXAgdGhlIGNvZGUgZnV0dXJlcHJvb2YsIHF1b3Rp
-bmcgZnJvbSBpdHMNCj4+PiBkb2N1bWVudGF0aW9uOg0KPj4+PiBDaGVjayBpbmZvcm1hdGlvbiBw
-YXRoIGR1cmluZyB0eXBlLWNoZWNraW5nLCB0byBtYWtlIHN1cmUgdGhhdCBhbGwgdHlwZXMNCj4+
-PiBhcmUNCj4+Pj4gZGVyaXZlZCBpbiBhIHByaW5jaXBhbCB3YXkuIFdoZW4gdXNpbmcgbGFiZWxs
-ZWQgYXJndW1lbnRzIGFuZC9vcg0KPj4+IHBvbHltb3JwaGljDQo+Pj4+IG1ldGhvZHMsIHRoaXMg
-ZmxhZyBpcyByZXF1aXJlZCB0byBlbnN1cmUgZnV0dXJlIHZlcnNpb25zIG9mIHRoZSBjb21waWxl
-ciB3aWxsDQo+Pj4+IGJlIGFibGUgdG8gaW5mZXIgdHlwZXMgY29ycmVjdGx5LCBldmVuIGlmIGlu
-dGVybmFsIGFsZ29yaXRobXMgY2hhbmdlLiBBbGwNCj4+Pj4gcHJvZ3JhbXMgYWNjZXB0ZWQgaW4g
-LXByaW5jaXBhbCBtb2RlIGFyZSBhbHNvIGFjY2VwdGVkIGluIHRoZSBkZWZhdWx0DQo+Pj4gbW9k
-ZSB3aXRoDQo+Pj4+IGVxdWl2YWxlbnQgdHlwZXMsIGJ1dCBkaWZmZXJlbnQgYmluYXJ5IHNpZ25h
-dHVyZXMsIGFuZCB0aGlzIG1heSBzbG93IGRvd24NCj4+PiB0eXBlDQo+Pj4+IGNoZWNraW5nOyB5
-ZXQgaXQgaXMgYSBnb29kIGlkZWEgdG8gdXNlIGl0IG9uY2UgYmVmb3JlIHB1Ymxpc2hpbmcgc291
-cmNlIGNvZGUuDQo+Pj4gDQo+Pj4gRml4ZXM6IGRiNDcxNDA4ZWRkNDYgInRvb2xzL29jYW1sL3hl
-bnN0b3JlZDogRml4IHF1b3RhIGJ5cGFzcyBvbiBkb21haW4NCj4+PiBzaHV0ZG93biINCj4+IA0K
-Pj4gTml0OiBUaGUgZm9ybWF0IG9mIHRoaXMgIkZpeGVzOiIgdGFnIG1pZ2h0IG5lZWQgdG8gYmUg
-Zml4ZWQ/DQo+PiANCj4+PiANCj4+PiBTaWduZWQtb2ZmLWJ5OiBFZHdpbiBUw7Zyw7ZrIDxlZHZp
-bi50b3Jva0BjaXRyaXguY29tPg0KPj4+IC0tLQ0KPj4+IFJlYXNvbiBmb3IgaW5jbHVzaW9uIGlu
-IDQuMTc6DQo+Pj4gLSBmaXhlcyBhIGJ1aWxkIGVycm9yIGluIGEgcHJldmlvdXMgY29tbWl0IHRo
-YXQgaXMgYWxyZWFkeSBpbiBtYXN0ZXINCj4+IA0KPj4gWWVzLCBnaXZlbiB0aGlzIGlzIGEgc2lt
-cGxlIGVub3VnaCBwYXRjaDoNCj4+IA0KPj4gUmVsZWFzZS1hY2tlZC1ieTogSGVucnkgV2FuZyA8
-SGVucnkuV2FuZ0Bhcm0uY29tPg0KPiANCj4gQWZhaWNzIHRoaXMgcGF0Y2ggd2FzIHByZXZpb3Vz
-bHkgcG9zdGVkIGluIGlzb2xhdGlvbiwgYW5kIGl0IHdhcw0KPiBhbHJlYWR5IHJlbGVhc2UtYWNr
-ZWQuIFdoYXQncyBsYWNraW5nIHRoZXJlIGlzIGEgMm5kIG1haW50YWluZXIncw0KPiBhY2sgb3Ig
-YSBwcm9wZXIgUi1iLiBXaGVuIGl0IG5vdyBpcyBwYXRjaCA5IGluIGEgc2VyaWVzLCBpdCBpc24n
-dA0KPiByZWFsbHkgb2J2aW91cyB3aGV0aGVyIHRoaXMgY291bGQgYWxzbyBiZSBjb21taXR0ZWQg
-aW4gaXNvbGF0aW9uDQo+IChpdCBsb29rcyBsaWtlIGl0IGRvZXMsIGJ1dCBhIGNsZWFyIHN0YXRl
-bWVudCB0byB0aGlzIGVmZmVjdA0KPiB3b3VsZCBoYXZlIGJlZW4gYmVuZWZpY2lhbCkuDQo+IA0K
-DQoNCllvdSdyZSByaWdodCBpdCBhbHJlYWR5IGhhcyBib3RoIGFja3MsIGl0IGp1c3QgaGFzbid0
-IGJlZW4gY29tbWl0ZWQgeWV0OiBodHRwczovL3BhdGNod29yay5rZXJuZWwub3JnL3Byb2plY3Qv
-eGVuLWRldmVsL3BhdGNoLzVhNDUzMzkzZGFkMWRlODI4NmZlNWRiMTY1MDRkM2RiMjkwNmVlZjgu
-MTY2NzUwMDk3MC5naXQuZWR2aW4udG9yb2tAY2l0cml4LmNvbS8NCkkndmUgYWRkZWQgdGhlIGFj
-a3Mgbm93IHRvIG15IGdpdGh1YiBicmFuY2gsIHNvIG5leHQgdGltZSBJIHJlc2VuZCB0aGUgc2Vy
-aWVzIGl0IHNob3VsZCBiZSB0aGVyZS4NCkl0IGNhbiBiZSBhcHBsaWVkIGluZGVwZW5kZW50bHks
-IEkndmUgcmViYXNlZCBhbmQgbW92ZWQgaXQgYXQgdGhlIGJlZ2lubmluZyBvZiB0aGUgc2VyaWVz
-ICh0aGVyZSB3YXMganVzdCBzb21lIHdoaXRlc3BhY2UgdG8gZml4IHVwKQ0KDQpJZiBpdCBoZWxw
-cyBoZXJlIGlzIHRoZSBjb21taXQgaW4gaXNvbGF0aW9uIHRoYXQgY291bGQgYmUgY2hlcnJ5LXBp
-Y2tlZCBvbnRvIG1hc3RlcjoNCmh0dHBzOi8vZ2l0aHViLmNvbS9lZHdpbnRvcm9rL3hlbi9jb21t
-aXQvZGE4OGI0MzhlMDNkYTM2MjEyZDA3ZDI0ZDY3YWIxNTFhZTI4N2Y0ZQ0KDQpCZXN0IHJlZ2Fy
-ZHMsDQotLUVkd2lu
+Hi Jiamei,
+
+On 09/11/2022 09:25, Jiamei Xie wrote:
+> 
+> 
+> Hi Michal，
+> 
+> Below log can be got when stating the linux guest. It says 9c09 is sbsa. And 9c09 is also output
+>  in bootlogd error message:
+> Serial: AMBA PL011 UART driver
+> 9c0b0000.uart: ttyAMA0 at MMIO 0x9c0b0000 (irq = 12, base_baud = 0) is a PL011 rev2
+> printk: console [ttyAMA0] enabled
+> 9c090000.sbsa-uart: ttyAMA1 at MMIO 0x9c090000 (irq = 15, base_baud = 0) is a SBSA
+> 
+
+Xen behavior is correct and this would be Linux fault to try to write to DMACR for SBSA UART device.
+DMACR is just an example. If you try to program e.g. the baudrate (through LCR) for VPL011 it will
+also result in injecting abort into the guest. Should Xen support it? No. The reason why is that
+it is not spec compliant operation. SBSA specification directly specifies what registers are exposed.
+If Linux tries to write to some of the none-spec compliant registers - it is its fault.
+
+> Best wishes
+> Jiamei Xie
+> 
+
+~Michal
+
+> 
+> 
+>> -----Original Message-----
+>> From: Michal Orzel <michal.orzel@amd.com>
+>> Sent: Wednesday, November 9, 2022 3:40 PM
+>> To: Jiamei Xie <Jiamei.Xie@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Wei Chen <Wei.Chen@arm.com>; Bertrand Marquis
+>> <Bertrand.Marquis@arm.com>; julien@xen.org; sstabellini@kernel.org
+>> Subject: Re: Xen Arm vpl011 UART will cause segmentation fault in Linux
+>> guest
+>>
+>> Hi Jiamei,
+>>
+>> On 09/11/2022 08:20, Jiamei Xie wrote:
+>>>
+>>>
+>>> Hi all,
+>>>
+>>> When the guest kernel enables DMA engine with
+>> "CONFIG_DMA_ENGINE=y", Linux AMBA PL011 driver will access PL011
+>> DMACR register. But this register have not been supported by vpl011 of Xen.
+>> Xen will inject a data abort into guest, this will cause segmentation fault of
+>> guest with the below message:
+>> I am quite confused.
+>> VPL011 implements SBSA UART which only implements some subset of PL011
+>> operations (SBSA UART is not PL011).
+>> According to spec (SBSA ver. 6.0), the SBSA_UART does not support DMA
+>> features so Xen code is fine.
+>> When Xen exposes vpl011 device to a guest, this device has "arm,sbsa-uart"
+>> compatible and not "uart-pl011".
+>> Linux driver "amba-pl011.c" should see this compatible and assign proper
+>> operations (sbsa_uart_pops instead of amba_pl011_pops) that do not enable
+>> DMA.
+>> Maybe the issue is with your configuration?
+>>
+>> ~Michal
+>>
+>>> Unhandled fault at 0xffffffc00944d048
+>>> Mem abort info:
+>>> ESR = 0x96000000
+>>> EC = 0x25: DABT (current EL), IL = 32 bits
+>>> SET = 0, FnV = 0
+>>> EA = 0, S1PTW = 0
+>>> FSC = 0x00: ttbr address size fault
+>>> Data abort info:
+>>> ISV = 0, ISS = 0x00000000
+>>> CM = 0, WnR = 0
+>>> swapper pgtable: 4k pages, 39-bit VAs, pgdp=0000000020e2e000
+>>> [ffffffc00944d048] pgd=100000003ffff803, p4d=100000003ffff803,
+>> pud=100000003ffff803, pmd=100000003fffa803, pte=006800009c090f13
+>>> Internal error: ttbr address size fault: 96000000 [#1] PREEMPT SMP
+>>> Modules linked in:
+>>> CPU: 0 PID: 132 Comm: bootlogd Not tainted 5.15.44-yocto-standard #1
+>>> pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>>> pc : pl011_stop_rx+0x70/0x80
+>>> lr : uart_tty_port_shutdown+0x44/0x110
+>>> sp : ffffffc00999bba0
+>>> x29: ffffffc00999bba0 x28: ffffff80234ac380 x27: ffffff8022f5d000
+>>> x26: 0000000000000000 x25: 0000000045585401 x24: 0000000000000000
+>>> x23: ffffff8021ba4660 x22: 0000000000000001 x21: ffffff8021a0e2a0
+>>> x20: ffffff802198f880 x19: ffffff8021a0e1a0 x18: 0000000000000000
+>>> x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+>>> x14: 0000000000000000 x13: 0000000000000000 x12: 0000000000000000
+>>> x11: 0000000000000000 x10: 0000000000000000 x9 : ffffffc00871ba14
+>>> x8 : ffffffc0099de260 x7 : ffffff8021a0e318 x6 : 0000000000000003
+>>> x5 : ffffffc009315f20 x4 : ffffffc00944d038 x3 : 0000000000000000
+>>> x2 : ffffffc00944d048 x1 : 0000000000000000 x0 : 0000000000000048
+>>> Call trace:
+>>> pl011_stop_rx+0x70/0x80
+>>> tty_port_shutdown+0x7c/0xb4
+>>> tty_port_close+0x60/0xcc
+>>> uart_close+0x34/0x8c
+>>> tty_release+0x144/0x4c0
+>>> __fput+0x78/0x220
+>>> ____fput+0x1c/0x30
+>>> task_work_run+0x88/0xc0
+>>> do_notify_resume+0x8d0/0x123c
+>>> el0_svc+0xa8/0xc0
+>>> el0t_64_sync_handler+0xa4/0x130
+>>> el0t_64_sync+0x1a0/0x1a4
+>>> Code: b9000083 b901f001 794038a0 8b000042 (b9000041)
+>>> ---[ end trace 83dd93df15c3216f ]---
+>>> note: bootlogd[132] exited with preempt_count 1
+>>> /etc/rcS.d/S07bootlogd: line 47: 132 Segmentation fault start-stop-
+>> daemon
+>>> In Xen, vpl011_mmio_write doesn't handle DMACR . And kernel doesn't
+>> check if pl011_write executes sucessfully in pl011_dma_rx_stop . So such
+>> segmentation fault occurs.
+>>> static inline void pl011_dma_rx_stop(struct uart_amba_port *uap)
+>>> {
+>>>         /* FIXME.  Just disable the DMA enable */
+>>>         uap->dmacr &= ~UART011_RXDMAE;
+>>>         pl011_write(uap->dmacr, uap, REG_DMACR);
+>>> }
+>>>
+>>> I think we should prevent such segmentation fault. We have checked the
+>> PL011 spec, it seems there is not any register bit can indicate DMA support
+>> status of PL011. We might have two options:
+>>> 1. Option#1 is to add DMA support for vpl011, but this is not trivial.
+>>> 2. Option#2 is to ignore the write to DMACR, and return 0 for DMACR read
+>> in vpl011. But this option need co-work with kernel, because current Linux
+>> PL011 driver assume the write operation will never be failed, and will not
+>> fallback to no-DMA mode, when Xen return 0 for DMA enabled bit in DMACR.
+>>>
+>>> How do you think about it?  Any suggestion about it is welcome. Thanks.
+>>>
+>>> Best wishes
+>>> Jiamei Xie
+>>>
 
