@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9A9162380F
-	for <lists+xen-devel@lfdr.de>; Thu, 10 Nov 2022 01:18:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.441171.695508 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC1B9623831
+	for <lists+xen-devel@lfdr.de>; Thu, 10 Nov 2022 01:33:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.441177.695519 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osvGy-0000oK-6U; Thu, 10 Nov 2022 00:18:24 +0000
+	id 1osvUr-0003Sb-DF; Thu, 10 Nov 2022 00:32:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 441171.695508; Thu, 10 Nov 2022 00:18:24 +0000
+Received: by outflank-mailman (output) from mailman id 441177.695519; Thu, 10 Nov 2022 00:32:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1osvGy-0000li-3i; Thu, 10 Nov 2022 00:18:24 +0000
-Received: by outflank-mailman (input) for mailman id 441171;
- Thu, 10 Nov 2022 00:18:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+5rg=3K=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1osvGx-0000lc-75
- for xen-devel@lists.xenproject.org; Thu, 10 Nov 2022 00:18:23 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2e858215-608d-11ed-91b5-6bf2151ebd3b;
- Thu, 10 Nov 2022 01:18:21 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0DB64615C2;
- Thu, 10 Nov 2022 00:18:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C02D0C433C1;
- Thu, 10 Nov 2022 00:18:18 +0000 (UTC)
+	id 1osvUr-0003QH-AL; Thu, 10 Nov 2022 00:32:45 +0000
+Received: by outflank-mailman (input) for mailman id 441177;
+ Thu, 10 Nov 2022 00:32:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1osvUp-0003Q7-SZ; Thu, 10 Nov 2022 00:32:43 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1osvUp-00053K-Q2; Thu, 10 Nov 2022 00:32:43 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1osvUp-0000YQ-DS; Thu, 10 Nov 2022 00:32:43 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1osvUp-00088x-Cy; Thu, 10 Nov 2022 00:32:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,166 +42,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2e858215-608d-11ed-91b5-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1668039499;
-	bh=I0LwEOAxJdce79XqClkPp/TO9IptgplIdaHd8nsIStU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZUQNF86cwqhApgSgCq7SGxj6j9EzLt7A1ArSvjmZgySCUWhulN3H75bWZFbxRB6xd
-	 g+d7y+tn0+hvGse0Tez+ogrr4QDl/pLKpbqbFimn4rtGx7mcQHTiEU2nL3tTHhMNmR
-	 i1GEP73C2ueEGkSU+0nMbW2K2TG9cLPvZoae7qd88/+dNh0uOwpozRO0+VNJHTgpEM
-	 hSN4ysleUtUsfpD9VhF6E/bPzH/58U7OkVL0cdWjMSCC1Eg/qaa+TIHFHumGsJdes/
-	 XlTe1sNaAL+zwoM8YNxHJlskXY01ZwreME9eyQ7vOLXgWDAEHjbE1/eE/7XCBvj721
-	 mWHVZB0Z/HV2A==
-Date: Wed, 9 Nov 2022 16:18:17 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Michal Orzel <michal.orzel@amd.com>
-cc: Bertrand Marquis <Bertrand.Marquis@arm.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Doug Goldstein <cardoe@cardoe.com>
-Subject: Re: [PATCH v3 0/4] Yocto Gitlab CI
-In-Reply-To: <6ee0706b-d1b3-187a-1557-c4b8173c6e37@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2211091613160.50442@ubuntu-linux-20-04-desktop>
-References: <cover.1667224593.git.bertrand.marquis@arm.com> <1220596a-4fe7-5c08-5437-fa98eb14254c@amd.com> <D1248F50-542B-474D-B016-A3BF09A21CE8@arm.com> <6ee0706b-d1b3-187a-1557-c4b8173c6e37@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rVbEhp7l97xXayt7fM4l9ccegVFLe6hG0X/F2jKpQ10=; b=vvZZYMGhgiDbKGtKibk4H0cDW+
+	vjBh8WN/ZsVVkwsQrsB2dsIJ5jxcQEf+EWDaqGVJs+PV3T8GaclcZflTqqsZDZLahBY8mi9lOwirt
+	GCfuLirKbho3s2hMeUj938jFsaiIlYYeELdxQbe/IKFhWt8OY3zyf9tNOvwxfrB0dpM4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174699-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [xen-unstable-smoke test] 174699: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=a4180b03fffafa1868b0bcacc20198d4caef2908
+X-Osstest-Versions-That:
+    xen=aa1bf3858551b7cd1facfb116fe35830aceac497
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 10 Nov 2022 00:32:43 +0000
 
-On Mon, 7 Nov 2022, Michal Orzel wrote:
-> Hi Bertrand and Stefano,
-> 
-> On 31/10/2022 16:00, Bertrand Marquis wrote:
-> > 
-> > 
-> > Hi Michal,
-> > 
-> >> On 31 Oct 2022, at 14:39, Michal Orzel <michal.orzel@amd.com> wrote:
-> >>
-> >> Hi Bertrand,
-> >>
-> >> On 31/10/2022 15:00, Bertrand Marquis wrote:
-> >>>
-> >>>
-> >>> This patch series is a first attempt to check if we could use Yocto in
-> >>> gitlab ci to build and run xen on qemu for arm, arm64 and x86.
-> >>>
-> >>> The first patch is creating a container with all elements required to
-> >>> build Yocto, a checkout of the yocto layers required and an helper
-> >>> script to build and run xen on qemu with yocto.
-> >>>
-> >>> The second patch is creating containers with a first build of yocto done
-> >>> so that susbsequent build with those containers would only rebuild what
-> >>> was changed and take the rest from the cache.
-> >>>
-> >>> The third patch is adding a way to easily clean locally created
-> >>> containers.
-> >>>
-> >>> This is is mainly for discussion and sharing as there are still some
-> >>> issues/problem to solve:
-> >>> - building the qemu* containers can take several hours depending on the
-> >>>  network bandwith and computing power of the machine where those are
-> >>>  created
-> >> This is not really an issue as the build of the containers occurs on the local
-> >> machines before pushing them to registry. Also, building the containers
-> >> will only be required for new Yocto releases.
-> >>
-> >>> - produced containers containing the cache have a size between 8 and
-> >>>  12GB depending on the architecture. We might need to store the build
-> >>>  cache somewhere else to reduce the size. If we choose to have one
-> >>>  single image, the needed size is around 20GB and we need up to 40GB
-> >>>  during the build, which is why I splitted them.
-> >>> - during the build and run, we use a bit more then 20GB of disk which is
-> >>>  over the allowed size in gitlab
-> >> As we could see during v2 testing, we do not have any space restrictions
-> >> on the Xen GitLab and I think we already decided to have the Yocto
-> >> integrated into our CI.
-> > 
-> > Right, I should have modified this chapter to be coherent with your latest tests.
-> > Sorry for that.
-> > 
-> >>
-> >> I will do some testing and get back to you with results + review.
-> I did some testing and here are the results:
-> 
-> In the current form this series will fail when running CI because the Yocto containers
-> are based on "From ubuntu:22.04" (there is no platform prefix), which means that the containers
-> are built for the host architecture (in my case and in 99% of the cases of the local build it will
-> be x86). In Gitlab we have 2 runners (arm64 and x86_64). This means that all the test jobs would need
-> to specify x86_64 as a tag when keeping the current behavior.
-> After I built all the containers on my x86 machine, I pushed them to registry and the pipeline was successful:
-> https://gitlab.com/xen-project/people/morzel/xen-orzelmichal/-/pipelines/686853939
+flight 174699 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174699/
 
-When I tested the previous version of this series I built the
-containers natively on ARM64, so that is also an option.
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  a4180b03fffafa1868b0bcacc20198d4caef2908
+baseline version:
+ xen                  aa1bf3858551b7cd1facfb116fe35830aceac497
+
+Last test of basis   174689  2022-11-09 10:03:35 Z    0 days
+Testing same since   174699  2022-11-09 21:00:29 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Roger Pau Monne <roger.pau@citrix.com>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-> Here is the diff on patch no. 3 to make the series work (using x86 tag and small improvement to include needs: []):
-> ```
-> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-> index 5c620fefce59..52cccec6f904 100644
-> --- a/automation/gitlab-ci/test.yaml
-> +++ b/automation/gitlab-ci/test.yaml
-> @@ -65,6 +65,9 @@
->      paths:
->        - 'logs/*'
->      when: always
-> +  needs: []
-> +  tags:
-> +    - x86_64
->  
->  # Test jobs
->  build-each-commit-gcc:
-> @@ -206,19 +209,13 @@ yocto-qemuarm64:
->    extends: .yocto-test
->    variables:
->      YOCTO_BOARD: qemuarm64
-> -  tags:
-> -    - arm64
->  
->  yocto-qemuarm:
->    extends: .yocto-test
->    variables:
->      YOCTO_BOARD: qemuarm
-> -  tags:
-> -    - arm32
->  
->  yocto-qemux86-64:
->    extends: .yocto-test
->    variables:
->      YOCTO_BOARD: qemux86-64
-> -  tags:
-> -    - x86_64
-> ```
-> 
-> Now, the logical way would be to build x86 yocto container for x86, arm64 for arm64 and arm32 on arm64 or x86.
-> I tried building the container qemuarm64 specifying target arm64 on x86. After 15h, only 70% of the Yocto build
-> was completed and there was an error with glibc (the local build of the container for the host arch takes on my machine max 2h).
-> This enormous amount of time is due to the qemu docker emulation that happens behind the scenes (I checked on 2 different machines).
-> 
-> So we have 3 solutions:
-> 1) Build and run these containers for/on x86_64:
->  - local users can build the containers on local machines that are almost always x86 based, in short period of time,
->  - "everyone" can build/push the containers once there is a new Yocto release
->  - slightly slower CI build time
-> 2) Build and run these containers for specific architectures:
->  - almost no go for local users using x86 machine (unless using more than 16 threads (which I used) and willing to wait 2 days for the build)
->  - faster CI build time (arm64 runner is faster than x86 one)
->  - someone with arm64 based machine (not that common) would have to build and push the containers
-> 3) Try to use CI to build and push the containers to registry
->  - it could be possible but what about local users
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-From a gitlab-ci perspective, given the runners we currently have, we
-have to go with option 2). We don't have enough resources available on
-the x86 runner to run the Yocto jobs on x86.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> Regardless of what we chose, we need to keep in mind that the biggest advantage to the Yocto build/run is that
-> it allows/should allow local users to perform basic testing for all the Xen supported architectures. This is because
-> everything happens in one place with one command.
+Pushing revision :
 
-That's right, but it should be possible to allow the Yocto containers to
-also build and run correctly locally on x86, right? The arm/x86 tag in
-test.yaml doesn't matter when running the containers locally anyway.
+To xenbits.xen.org:/home/xen/git/xen.git
+   aa1bf38585..a4180b03ff  a4180b03fffafa1868b0bcacc20198d4caef2908 -> smoke
 
