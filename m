@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1867F6259BF
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 12:48:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442485.696687 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A750625A55
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 13:14:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442496.696697 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otSWc-0007Id-Pg; Fri, 11 Nov 2022 11:48:46 +0000
+	id 1otSuN-0002Z4-OW; Fri, 11 Nov 2022 12:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442485.696687; Fri, 11 Nov 2022 11:48:46 +0000
+Received: by outflank-mailman (output) from mailman id 442496.696697; Fri, 11 Nov 2022 12:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otSWc-0007Gb-Lz; Fri, 11 Nov 2022 11:48:46 +0000
-Received: by outflank-mailman (input) for mailman id 442485;
- Fri, 11 Nov 2022 11:48:45 +0000
+	id 1otSuN-0002XB-Le; Fri, 11 Nov 2022 12:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 442496;
+ Fri, 11 Nov 2022 12:13:18 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1otSWb-0007GT-Fx
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 11:48:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1otSuM-0002X1-7w; Fri, 11 Nov 2022 12:13:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1otSWV-0005bH-Is; Fri, 11 Nov 2022 11:48:39 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1otSWV-00085C-9a; Fri, 11 Nov 2022 11:48:39 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1otSuM-00064V-5k; Fri, 11 Nov 2022 12:13:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1otSuL-0004Eb-Lt; Fri, 11 Nov 2022 12:13:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1otSuL-0002V2-LO; Fri, 11 Nov 2022 12:13:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=smojBBlr3oxx8n7hMCZmeYtv9g/ogqx8PnI6PLESvhY=; b=2JDtfy0IeydFckdWxuK1CFiDa4
-	gkVcvBIEwRveU1PSSHU2cDVlEnMiK90s4yPzCJufzfWgRwX2baQsWlJ0GWQHSYoEr5Va1aaWye9Px
-	YNeoz6+ZnSpoEN3gSgqGiGDOpU5CJOoqiEvnaEzt5JK+mHeCYDO6Bo/8vPix5T/4jIrk=;
-Message-ID: <901a6fbc-1ea4-4192-b735-6384dcadbf07@xen.org>
-Date: Fri, 11 Nov 2022 11:48:33 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=QEGnu7BiPBs+hpycSbT8jO/Ul0Z0lbdKleM4k5JxP40=; b=bWnuWKVZJ6aMMOHJvYTefa4J6b
+	FJgC1yhhC7i2ISvHTrANgIMh98hcUjF56LsCc7sK9sPs3SgDe5eKsb2M1x0j7lAHKRVRxzYdYrZOM
+	pIh8f0vLXZgrg7Y5Q6lev7NzSJh0b2NuUlOasyZN4Tpb6/P4cPHW2V+iS3XciiQOzu3k=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174737-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: [PATCH 1/3] CHANGELOG: Update link for RELEASE-4.16.0
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
- Christopher Clark <christopher.w.clark@gmail.com>,
- Nathan Studer <nathan.studer@dornerworks.com>,
- Stewart Hildebrand <stewart@stew.dk>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Doug Goldstein <cardoe@cardoe.com>, Juergen Gross <jgross@suse.com>,
- Dario Faggioli <dfaggioli@suse.com>,
- Elena Ufimtseva <elena.ufimtseva@oracle.com>,
- George Dunlap <george.dunlap@citrix.com>, Nick Rosbrook
- <rosbrookn@gmail.com>, Lukasz Hawrylko <lukasz@hawrylko.pl>,
- "Daniel P . Smith" <dpsmith@apertussolutions.com>,
- =?UTF-8?Q?Mateusz_M=c3=b3wka?= <mateusz.mowka@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
- Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Tim Deegan <tim@xen.org>, Wei Liu <wl@xen.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
- Ross Lagerwall <ross.lagerwall@citrix.com>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, Anthony Perard
- <anthony.perard@citrix.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, Meng Xu <mengxu@cis.upenn.edu>,
- Samuel Thibault <samuel.thibault@ens-lyon.org>,
- Tamas K Lengyel <tamas@tklengyel.com>,
- Alexandru Isaila <aisaila@bitdefender.com>,
- Petre Pircalabu <ppircalabu@bitdefender.com>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>
-References: <20221111112208.451449-1-Henry.Wang@arm.com>
- <20221111112208.451449-2-Henry.Wang@arm.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221111112208.451449-2-Henry.Wang@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 174737: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b9e702c3c9bfe7bfb6bbcff44603add64e1787bf
+X-Osstest-Versions-That:
+    ovmf=6d55ad9a592ba3bbc9392a67fd8c936279b73a45
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 11 Nov 2022 12:13:17 +0000
 
-Hi Henry,
+flight 174737 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174737/
 
-On 11/11/2022 11:22, Henry Wang wrote:
-> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b9e702c3c9bfe7bfb6bbcff44603add64e1787bf
+baseline version:
+ ovmf                 6d55ad9a592ba3bbc9392a67fd8c936279b73a45
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Last test of basis   174734  2022-11-11 06:10:20 Z    0 days
+Testing same since   174737  2022-11-11 10:10:24 Z    0 days    1 attempts
 
-This also wants to be backported to staging-4.16.
+------------------------------------------------------------
+People who touched revisions under test:
+  Duggapu Chinni B <chinni.b.duggapu@intel.com>
+  Duggapu, Chinni B <chinni.b.duggapu@intel.com>
 
-Cheers,
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-> ---
->   CHANGELOG.md | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index 5e4bae5f35..adbbb216fa 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
->   ### Removed / support downgraded
->    - dropped support for the (x86-only) "vesa-mtrr" and "vesa-remap" command line options
->   
-> -## [4.16.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - 2021-12-02
-> +## [4.16.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.16.0) - 2021-12-02
->   
->   ### Removed
->    - XENSTORED_ROOTDIR environment variable from configuartion files and
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   6d55ad9a59..b9e702c3c9  b9e702c3c9bfe7bfb6bbcff44603add64e1787bf -> xen-tested-master
 
