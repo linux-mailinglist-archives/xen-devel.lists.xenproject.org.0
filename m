@@ -2,39 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79225625D59
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 15:42:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442623.696984 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88757625D75
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 15:48:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442629.696994 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otVEU-0000Uz-Jd; Fri, 11 Nov 2022 14:42:14 +0000
+	id 1otVKf-0001Nl-CW; Fri, 11 Nov 2022 14:48:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442623.696984; Fri, 11 Nov 2022 14:42:14 +0000
+Received: by outflank-mailman (output) from mailman id 442629.696994; Fri, 11 Nov 2022 14:48:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otVEU-0000SP-Gg; Fri, 11 Nov 2022 14:42:14 +0000
-Received: by outflank-mailman (input) for mailman id 442623;
- Fri, 11 Nov 2022 14:42:13 +0000
+	id 1otVKf-0001L4-92; Fri, 11 Nov 2022 14:48:37 +0000
+Received: by outflank-mailman (input) for mailman id 442629;
+ Fri, 11 Nov 2022 14:48:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GQiV=3L=cantab.net=dvrabel@srs-se1.protection.inumbo.net>)
- id 1otVET-0000SJ-0a
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 14:42:13 +0000
-Received: from smarthost01c.sbp.mail.zen.net.uk
- (smarthost01c.sbp.mail.zen.net.uk [212.23.1.5])
+ <SRS0=I8SH=3L=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1otVKd-0001Ky-2K
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 14:48:35 +0000
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [2607:f8b0:4864:20::1029])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 061abaac-61cf-11ed-91b6-6bf2151ebd3b;
- Fri, 11 Nov 2022 15:42:11 +0100 (CET)
-Received: from [82.70.146.41] (helo=pear.davidvrabel.org.uk)
- by smarthost01c.sbp.mail.zen.net.uk with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.90_1)
- (envelope-from <dvrabel@cantab.net>)
- id 1otVEO-0006Et-Mx; Fri, 11 Nov 2022 14:42:08 +0000
-Received: from apple.davidvrabel.org.uk ([82.70.146.43])
- by pear.davidvrabel.org.uk with esmtp (Exim 4.94.2)
- (envelope-from <dvrabel@cantab.net>)
- id 1otVEE-000WAF-6k; Fri, 11 Nov 2022 14:42:07 +0000
+ id e9d6d13f-61cf-11ed-91b6-6bf2151ebd3b;
+ Fri, 11 Nov 2022 15:48:33 +0100 (CET)
+Received: by mail-pj1-x1029.google.com with SMTP id
+ q1-20020a17090a750100b002139ec1e999so4898319pjk.1
+ for <xen-devel@lists.xenproject.org>; Fri, 11 Nov 2022 06:48:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,390 +40,268 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 061abaac-61cf-11ed-91b6-6bf2151ebd3b
-Message-ID: <2991d69a-eb13-7044-d65f-14540676e642@cantab.net>
-Date: Fri, 11 Nov 2022 14:41:58 +0000
+X-Inumbo-ID: e9d6d13f-61cf-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IhWJ2nLOKJu8brLADrOERw4TNBcH2kQxpA6zIJNjozs=;
+        b=dEtrqs4York8w/lGHpP+yDOG5OEboeDpOIo+L5WqUX7bmdympj9nybP4eSytGPAZQ/
+         stbe/MqTf/e3JdBEw3T3/Avwcpq34GdYwD6n5rM+eQH4wmHvTnbbQOCwetqwCGxc1llV
+         jNLTRo90w9m2rnFKcSs4WIXz9ti83M4Mm4zDfwmvnjEXAsYdcFdiw8zLIQJeZyLsHJcQ
+         2hyPi3JRNDWgwQ1pKVg5u2RCR1bJExZ9ZwtulE4yVdhvpZDzwjVkMuvt9mOl8rS/seYP
+         qD/l4Fs5FgGFeLcTQT9fB5gib5uMYFvU7lvwjaNxOWpPFc9NwT+khPIn/a7+Z65NjnmN
+         FcvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IhWJ2nLOKJu8brLADrOERw4TNBcH2kQxpA6zIJNjozs=;
+        b=RsFpY91d94uKnCdlc7iEVwCFM7H6l5VD9NdVyJJtB+pgVqJ8a1On6K5z23thbAjXuY
+         5gS8/K3llt2rbEHaVo54tEruUK7xcNyD6pyGVJvca7OX5DT7Hx/qJarI92zlrw4bDrjW
+         y+LBJT8EcTVPrnQOKrvKRXv7eN2NOfhK7o6CRKREl4a1MvOxja6fESVepyK3tw4k6oEh
+         hhN0S303oR5DToWicizYSsUhOQhqb+NdtlD6TKgbp29tAYHG1ZZ7O6iL+xpscbfbYqIj
+         FLGd9KW6/32M9r2N3bnqt5LVxvFdfl2Hjp157G/dUfJJRojYjt8QYy82THISFRAsKClR
+         ZPyQ==
+X-Gm-Message-State: ANoB5plFIduqDSsoJSuErLwdOd/VC3jlLYxBDwp4Q/NeADJcy0RweFJA
+	i9jyIVbPbR2CxL9dCFvhCz06VO5lPwA8hR3GStQ=
+X-Google-Smtp-Source: AA0mqf4H1yoeVxLU98n1XLKOYks3RamLzGyjbmjJ/GqJtIAuMQeqv1N5M0gvruyjDPZYPUDqy9DYHkJ8hXRFm6+opKA=
+X-Received: by 2002:a17:902:70c1:b0:188:77a7:eb5 with SMTP id
+ l1-20020a17090270c100b0018877a70eb5mr2666367plt.6.1668178111994; Fri, 11 Nov
+ 2022 06:48:31 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, David Vrabel <dvrabel@amazon.co.uk>,
- xen-devel@lists.xenproject.org
-References: <20221110165935.106376-1-dvrabel@amazon.co.uk>
- <20221110165935.106376-3-dvrabel@amazon.co.uk>
- <29e6e6ca-ffb8-3719-5004-0cccaeb5578b@suse.com>
-Content-Language: en-GB
-From: David Vrabel <dvrabel@cantab.net>
-In-Reply-To: <29e6e6ca-ffb8-3719-5004-0cccaeb5578b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 82.70.146.43
-X-SA-Exim-Mail-From: dvrabel@cantab.net
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
-	pear.davidvrabel.org.uk
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=5.0 tests=BAYES_00,NICE_REPLY_A,
-	SPF_HELO_NONE,SPF_SOFTFAIL autolearn=ham autolearn_force=no
-	version=3.4.6
-Subject: Re: [PATCH 2/3] x86/msi: remove return value from msi_set_mask_bit()
-X-SA-Exim-Version: 4.2.1 (built Sat, 13 Feb 2021 17:57:42 +0000)
-X-SA-Exim-Scanned: Yes (on pear.davidvrabel.org.uk)
-X-Originating-smarthost01c-IP: [82.70.146.41]
-Feedback-ID: 82.70.146.41
+References: <20221111112208.451449-1-Henry.Wang@arm.com> <20221111112208.451449-3-Henry.Wang@arm.com>
+In-Reply-To: <20221111112208.451449-3-Henry.Wang@arm.com>
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Date: Fri, 11 Nov 2022 14:48:20 +0000
+Message-ID: <CAPD2p-=Y-1SwcWc5p-_nrWZAjTZPiyF7KZbeM62q9hafybD9Gw@mail.gmail.com>
+Subject: Re: [PATCH 2/3] CHANGELOG: Add missing entries for work during the
+ 4.17 release
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="000000000000c9a02705ed32fbc8"
+
+--000000000000c9a02705ed32fbc8
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Nov 11, 2022 at 11:23 AM Henry Wang <Henry.Wang@arm.com> wrote:
+
+Hello Henry
+
+[leave only xen-devel@lists.xenproject.org in CC]
+[sorry for the possible format issues]
+
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+> ---
+>  CHANGELOG.md | 29 +++++++++++++++++++++++++++--
+>  1 file changed, 27 insertions(+), 2 deletions(-)
+>
+> diff --git a/CHANGELOG.md b/CHANGELOG.md
+> index adbbb216fa..fa8cc476b3 100644
+> --- a/CHANGELOG.md
+> +++ b/CHANGELOG.md
+> @@ -4,16 +4,41 @@ Notable changes to Xen will be documented in this file.
+>
+>  The format is based on [Keep a Changelog](
+> https://keepachangelog.com/en/1.0.0/)
+>
+> -## [unstable UNRELEASED](
+> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging) - T=
+BD
+> +## [4.17.0](
+> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging) -
+> 2022-11-??
+>
+>  ### Changed
+>   - On x86 "vga=3Dcurrent" can now be used together with GrUB2's gfxpaylo=
+ad
+> setting. Note that
+>     this requires use of "multiboot2" (and "module2") as the GrUB command=
+s
+> loading Xen.
+> + - The "gnttab" option now has a new command line sub-option for
+> disabling the
+> +   GNTTABOP_transfer functionality.
+> + - The x86 MCE command line option info is now updated.
+>
+>  ### Added / support upgraded
+> + - Out-of-tree builds for the hypervisor now supported.
+> + - The project has officially adopted 4 directives and 24 rules of
+> MISRA-C,
+> +   added MISRA-C checker build integration, and defined how to document
+> +   deviations.
+>   - IOMMU superpage support on x86, affecting PV guests as well as HVM/PV=
+H
+> ones
+>     when they don't share page tables with the CPU (HAP / EPT / NPT).
+> - - Support VIRT_SSBD feature for HVM guests on AMD.
+> + - Support VIRT_SSBD feature for HVM guests on AMD and MSR_SPEC_CTRL
+> feature for
+> +   SVM guests.
+> + - Improved TSC, CPU frequency calibration and APIC on x86.
+> + - Improved support for CET Indirect Branch Tracking on x86.
+> + - Improved mwait-idle support for SPR and ADL on x86.
+> + - Extend security support for hosts to 12 TiB of memory on x86.
+> + - Add command line option to set cpuid parameters for dom0 at boot time
+> on x86.
+> + - Improved static configuration options on Arm.
+> + - cpupools can be specified at boot using device tree on Arm.
+> + - It is possible to use PV drivers with dom0less guests, allowing
+> statically
+> +   booted dom0less guests with PV devices.
+> + - On Arm, p2m structures are now allocated out of a pool of memory set
+> aside at
+> +   domain creation.
+> + - Improved mitigations against Spectre-BHB on Arm.
+> + - Add support for VirtIO toolstack on Arm.
+>
+
+I would clarify that only virtio-mmio is supported on Arm.
+
+
+> + - Allow setting the number of CPUs to activate at runtime from command
+> line
+> +   option on Arm.
+> + - Improved toolstack build system.
+> + - Add Xue - console over USB 3 Debug Capability.
+>
+
+I would probably also add the following:
+
+- Add Renesas R-Car Gen4 IPMMU-VMSA support (Arm)
+- grant-table support on Arm was improved and hardened by implementing
+=E2=80=9Csimplified M2P-like
+approach for the xenheap pages=E2=80=9D
 
 
 
-On 11/11/2022 09:44, Jan Beulich wrote:
-> 
-> The idea of the WARN() / BUG_ON() is to
-> - not leave failed unmasking unrecorded,
-> - not continue after failure to mask an entry.
+>
+>  ### Removed / support downgraded
+>   - dropped support for the (x86-only) "vesa-mtrr" and "vesa-remap"
+> command line options
+> --
+> 2.25.1
+>
+>
+>
 
-Then lets make msi_set_mask_bit() unable to fail with something like 
-this (untested) patch. Would this be acceptable?
+--=20
+Regards,
 
-David
+Oleksandr Tyshchenko
 
- From 837649a70d44455f4fd98e2eaa46dcf35a56d00a Mon Sep 17 00:00:00 2001
-From: David Vrabel <dvrabel@amazon.co.uk>
-Date: Fri, 11 Nov 2022 14:30:16 +0000
-Subject: [PATCH] x86: Always enable memory space decodes when using MSI-X
+--000000000000c9a02705ed32fbc8
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Instead of the numerous (racy) checks for memory space accesses being
-enabled before writing the the MSI-X table, force Memory Space Enable
-to be set in the Command register if MSI-X is used.
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Nov 11, 2022 at 11:23 AM Henr=
+y Wang &lt;<a href=3D"mailto:Henry.Wang@arm.com" target=3D"_blank">Henry.Wa=
+ng@arm.com</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr"><b=
+r></div><div class=3D"gmail_attr">Hello Henry</div><div class=3D"gmail_attr=
+"><br></div><div class=3D"gmail_attr">[leave only <a href=3D"mailto:xen-dev=
+el@lists.xenproject.org">xen-devel@lists.xenproject.org</a> in CC]<br></div=
+><div class=3D"gmail_attr">[sorry for the possible format issues]</div><div=
+ dir=3D"ltr" class=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quot=
+e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
+;padding-left:1ex">Signed-off-by: Henry Wang &lt;<a href=3D"mailto:Henry.Wa=
+ng@arm.com" target=3D"_blank">Henry.Wang@arm.com</a>&gt;<br>
+---<br>
+=C2=A0CHANGELOG.md | 29 +++++++++++++++++++++++++++--<br>
+=C2=A01 file changed, 27 insertions(+), 2 deletions(-)<br>
+<br>
+diff --git a/CHANGELOG.md b/CHANGELOG.md<br>
+index adbbb216fa..fa8cc476b3 100644<br>
+--- a/CHANGELOG.md<br>
++++ b/CHANGELOG.md<br>
+@@ -4,16 +4,41 @@ Notable changes to Xen will be documented in this file.<b=
+r>
+<br>
+=C2=A0The format is based on [Keep a Changelog](<a href=3D"https://keepacha=
+ngelog.com/en/1.0.0/" rel=3D"noreferrer" target=3D"_blank">https://keepacha=
+ngelog.com/en/1.0.0/</a>)<br>
+<br>
+-## [unstable UNRELEASED](<a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxe=
+n.git;a=3Dshortlog;h=3Dstaging" rel=3D"noreferrer" target=3D"_blank">https:=
+//xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging</a>) - TBD<b=
+r>
++## [4.17.0](<a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsho=
+rtlog;h=3Dstaging" rel=3D"noreferrer" target=3D"_blank">https://xenbits.xen=
+.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging</a>) - 2022-11-??<br>
+<br>
+=C2=A0### Changed<br>
+=C2=A0 - On x86 &quot;vga=3Dcurrent&quot; can now be used together with GrU=
+B2&#39;s gfxpayload setting. Note that<br>
+=C2=A0 =C2=A0 this requires use of &quot;multiboot2&quot; (and &quot;module=
+2&quot;) as the GrUB commands loading Xen.<br>
++ - The &quot;gnttab&quot; option now has a new command line sub-option for=
+ disabling the<br>
++=C2=A0 =C2=A0GNTTABOP_transfer functionality.<br>
++ - The x86 MCE command line option info is now updated.<br>
+<br>
+=C2=A0### Added / support upgraded<br>
++ - Out-of-tree builds for the hypervisor now supported.<br>
++ - The project has officially adopted 4 directives and 24 rules of MISRA-C=
+,<br>
++=C2=A0 =C2=A0added MISRA-C checker build integration, and defined how to d=
+ocument<br>
++=C2=A0 =C2=A0deviations.<br>
+=C2=A0 - IOMMU superpage support on x86, affecting PV guests as well as HVM=
+/PVH ones<br>
+=C2=A0 =C2=A0 when they don&#39;t share page tables with the CPU (HAP / EPT=
+ / NPT).<br>
+- - Support VIRT_SSBD feature for HVM guests on AMD.<br>
++ - Support VIRT_SSBD feature for HVM guests on AMD and MSR_SPEC_CTRL featu=
+re for<br>
++=C2=A0 =C2=A0SVM guests.<br>
++ - Improved TSC, CPU frequency calibration and APIC on x86.<br>
++ - Improved support for CET Indirect Branch Tracking on x86.<br>
++ - Improved mwait-idle support for SPR and ADL on x86.<br>
++ - Extend security support for hosts to 12 TiB of memory on x86.<br>
++ - Add command line option to set cpuid parameters for dom0 at boot time o=
+n x86.<br>
++ - Improved static configuration options on Arm.<br>
++ - cpupools can be specified at boot using device tree on Arm.<br>
++ - It is possible to use PV drivers with dom0less guests, allowing statica=
+lly<br>
++=C2=A0 =C2=A0booted dom0less guests with PV devices.<br>
++ - On Arm, p2m structures are now allocated out of a pool of memory set as=
+ide at<br>
++=C2=A0 =C2=A0domain creation.<br>
++ - Improved mitigations against Spectre-BHB on Arm.<br>
++ - Add support for VirtIO toolstack on Arm.<br></blockquote><div>=C2=A0</d=
+iv><div>I would clarify that only virtio-mmio is supported on Arm.</div><di=
+v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
+ 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
++ - Allow setting the number of CPUs to activate at runtime from command li=
+ne<br>
++=C2=A0 =C2=A0option on Arm.<br>
++ - Improved toolstack build system.<br>
++ - Add Xue - console over USB 3 Debug Capability.<br></blockquote><div><br=
+></div><div>I would probably also add the following:</div><div><br></div><d=
+iv>- Add Renesas R-Car Gen4 IPMMU-VMSA support (Arm)<br></div><div>- grant-=
+table support on Arm was improved and hardened by implementing =E2=80=9Csim=
+plified M2P-like</div><div>approach for the xenheap pages=E2=80=9D<br></div=
+><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D=
+"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
+ft:1ex">
+<br>
+=C2=A0### Removed / support downgraded<br>
+=C2=A0 - dropped support for the (x86-only) &quot;vesa-mtrr&quot; and &quot=
+;vesa-remap&quot; command line options<br>
+-- <br>
+2.25.1<br>
+<br>
+<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=
+=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"colo=
+r:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></span>=
+</div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"backg=
+round-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</font><=
+/span></div></div></div></div></div></div></div></div>
 
-This allows the memory_decoded() function and the associated error
-paths to be removed (since it will always return true). In particular,
-msi_set_mask_bit() can no longer fail and its return value is removed.
-
-Note that if the PCI device is a virtual function, the relevant
-command register is in the corresponding physical function.
-
-Signed-off-by: David Vrabel <dvrabel@amazon.co.uk>
----
-  xen/arch/x86/include/asm/pci.h |   3 +
-  xen/arch/x86/msi.c             | 116 +++++++++------------------------
-  xen/arch/x86/pci.c             |  39 ++++++++++-
-  3 files changed, 71 insertions(+), 87 deletions(-)
-
-diff --git a/xen/arch/x86/include/asm/pci.h b/xen/arch/x86/include/asm/pci.h
-index f4a58c8acf..4f59b70959 100644
---- a/xen/arch/x86/include/asm/pci.h
-+++ b/xen/arch/x86/include/asm/pci.h
-@@ -32,8 +32,11 @@ struct arch_pci_dev {
-      domid_t pseudo_domid;
-      mfn_t leaf_mfn;
-      struct page_list_head pgtables_list;
-+    uint16_t host_command;
-+    uint16_t guest_command;
-  };
-
-+void pci_command_override(struct pci_dev *pdev, uint16_t val);
-  int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
-                               unsigned int reg, unsigned int size,
-                               uint32_t *data);
-diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
-index d0bf63df1d..2f8667aa7b 100644
---- a/xen/arch/x86/msi.c
-+++ b/xen/arch/x86/msi.c
-@@ -124,27 +124,11 @@ static void msix_put_fixmap(struct arch_msix 
-*msix, int idx)
-      spin_unlock(&msix->table_lock);
-  }
-
--static bool memory_decoded(const struct pci_dev *dev)
--{
--    pci_sbdf_t sbdf = dev->sbdf;
--
--    if ( dev->info.is_virtfn )
--    {
--        sbdf.bus = dev->info.physfn.bus;
--        sbdf.devfn = dev->info.physfn.devfn;
--    }
--
--    return pci_conf_read16(sbdf, PCI_COMMAND) & PCI_COMMAND_MEMORY;
--}
--
-  static bool msix_memory_decoded(const struct pci_dev *dev, unsigned 
-int pos)
-  {
-      uint16_t control = pci_conf_read16(dev->sbdf, msix_control_reg(pos));
-
--    if ( !(control & PCI_MSIX_FLAGS_ENABLE) )
--        return false;
--
--    return memory_decoded(dev);
-+    return control & PCI_MSIX_FLAGS_ENABLE;
-  }
-
-  /*
-@@ -314,7 +298,7 @@ int msi_maskable_irq(const struct msi_desc *entry)
-             || entry->msi_attrib.maskbit;
-  }
-
--static bool msi_set_mask_bit(struct irq_desc *desc, bool host, bool guest)
-+static void msi_set_mask_bit(struct irq_desc *desc, bool host, bool guest)
-  {
-      struct msi_desc *entry = desc->msi_desc;
-      struct pci_dev *pdev;
-@@ -354,45 +338,26 @@ static bool msi_set_mask_bit(struct irq_desc 
-*desc, bool host, bool guest)
-                               control | (PCI_MSIX_FLAGS_ENABLE |
-                                          PCI_MSIX_FLAGS_MASKALL));
-          }
--        if ( likely(memory_decoded(pdev)) )
--        {
--            writel(flag, entry->mask_base + 
-PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
--            readl(entry->mask_base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
-
--            if ( likely(control & PCI_MSIX_FLAGS_ENABLE) )
--                break;
--
--            entry->msi_attrib.host_masked = host;
--            entry->msi_attrib.guest_masked = guest;
-+        writel(flag, entry->mask_base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
-+        readl(entry->mask_base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
-
--            flag = true;
--        }
--        else if ( flag && !(control & PCI_MSIX_FLAGS_MASKALL) )
-+        if ( unlikely(!(control & PCI_MSIX_FLAGS_ENABLE)) )
-          {
--            domid_t domid = pdev->domain->domain_id;
--
--            maskall = true;
--            if ( pdev->msix->warned != domid )
--            {
--                pdev->msix->warned = domid;
--                printk(XENLOG_G_WARNING
--                       "cannot mask IRQ %d: masking MSI-X on Dom%d's 
-%pp\n",
--                       desc->irq, domid, &pdev->sbdf);
--            }
-+            pdev->msix->host_maskall = maskall;
-+            if ( maskall || pdev->msix->guest_maskall )
-+                control |= PCI_MSIX_FLAGS_MASKALL;
-+            pci_conf_write16(pdev->sbdf,
-+                             msix_control_reg(entry->msi_attrib.pos), 
-control);
-          }
--        pdev->msix->host_maskall = maskall;
--        if ( maskall || pdev->msix->guest_maskall )
--            control |= PCI_MSIX_FLAGS_MASKALL;
--        pci_conf_write16(pdev->sbdf,
--                         msix_control_reg(entry->msi_attrib.pos), control);
--        return flag;
-+        break;
-      default:
--        return 0;
-+        ASSERT_UNREACHABLE();
-+        break;
-      }
-+
-      entry->msi_attrib.host_masked = host;
-      entry->msi_attrib.guest_masked = guest;
--
--    return 1;
-  }
-
-  static int msi_get_mask_bit(const struct msi_desc *entry)
-@@ -418,16 +383,12 @@ static int msi_get_mask_bit(const struct msi_desc 
-*entry)
-
-  void cf_check mask_msi_irq(struct irq_desc *desc)
-  {
--    if ( unlikely(!msi_set_mask_bit(desc, 1,
-- 
-desc->msi_desc->msi_attrib.guest_masked)) )
--        BUG_ON(!(desc->status & IRQ_DISABLED));
-+    msi_set_mask_bit(desc, 1, desc->msi_desc->msi_attrib.guest_masked);
-  }
-
-  void cf_check unmask_msi_irq(struct irq_desc *desc)
-  {
--    if ( unlikely(!msi_set_mask_bit(desc, 0,
-- 
-desc->msi_desc->msi_attrib.guest_masked)) )
--        WARN();
-+    msi_set_mask_bit(desc, 0, desc->msi_desc->msi_attrib.guest_masked);
-  }
-
-  void guest_mask_msi_irq(struct irq_desc *desc, bool mask)
-@@ -437,15 +398,13 @@ void guest_mask_msi_irq(struct irq_desc *desc, 
-bool mask)
-
-  static unsigned int cf_check startup_msi_irq(struct irq_desc *desc)
-  {
--    if ( unlikely(!msi_set_mask_bit(desc, 0, !!(desc->status & 
-IRQ_GUEST))) )
--        WARN();
-+    msi_set_mask_bit(desc, 0, !!(desc->status & IRQ_GUEST));
-      return 0;
-  }
-
-  static void cf_check shutdown_msi_irq(struct irq_desc *desc)
-  {
--    if ( unlikely(!msi_set_mask_bit(desc, 1, 1)) )
--        BUG_ON(!(desc->status & IRQ_DISABLED));
-+    msi_set_mask_bit(desc, 1, 1);
-  }
-
-  void cf_check ack_nonmaskable_msi_irq(struct irq_desc *desc)
-@@ -785,6 +744,12 @@ static int msix_capability_init(struct pci_dev *dev,
-
-      ASSERT(pcidevs_locked());
-
-+    /*
-+     * Force enable access to the MSI-X tables, so access to the
-+     * per-vector mask bits always works.
-+     */
-+    pci_command_override(dev, PCI_COMMAND_MEMORY);
-+
-      control = pci_conf_read16(dev->sbdf, msix_control_reg(pos));
-      /*
-       * Ensure MSI-X interrupts are masked during setup. Some devices 
-require
-@@ -797,13 +762,6 @@ static int msix_capability_init(struct pci_dev *dev,
-                       control | (PCI_MSIX_FLAGS_ENABLE |
-                                  PCI_MSIX_FLAGS_MASKALL));
-
--    if ( unlikely(!memory_decoded(dev)) )
--    {
--        pci_conf_write16(dev->sbdf, msix_control_reg(pos),
--                         control & ~PCI_MSIX_FLAGS_ENABLE);
--        return -ENXIO;
--    }
--
-      if ( desc )
-      {
-          entry = alloc_msi_entry(1);
-@@ -1122,19 +1080,15 @@ static void __pci_disable_msix(struct msi_desc 
-*entry)
-
-      BUG_ON(list_empty(&dev->msi_list));
-
--    if ( likely(memory_decoded(dev)) )
--        writel(1, entry->mask_base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
--    else if ( !(control & PCI_MSIX_FLAGS_MASKALL) )
--    {
--        printk(XENLOG_WARNING "cannot disable IRQ %d: masking MSI-X on 
-%pp\n",
--               entry->irq, &dev->sbdf);
--        maskall = true;
--    }
-+    writel(1, entry->mask_base + PCI_MSIX_ENTRY_VECTOR_CTRL_OFFSET);
-+
-      dev->msix->host_maskall = maskall;
-      if ( maskall || dev->msix->guest_maskall )
-          control |= PCI_MSIX_FLAGS_MASKALL;
-      pci_conf_write16(dev->sbdf, msix_control_reg(pos), control);
-
-+    pci_command_override(dev, 0);
-+
-      _pci_cleanup_msix(dev->msix);
-  }
-
-@@ -1353,13 +1307,6 @@ int pci_restore_msi_state(struct pci_dev *pdev)
-              pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
-                               control | (PCI_MSIX_FLAGS_ENABLE |
-                                          PCI_MSIX_FLAGS_MASKALL));
--            if ( unlikely(!memory_decoded(pdev)) )
--            {
--                spin_unlock_irqrestore(&desc->lock, flags);
--                pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
--                                 control & ~PCI_MSIX_FLAGS_ENABLE);
--                return -ENXIO;
--            }
-          }
-          type = entry->msi_attrib.type;
-
-@@ -1368,10 +1315,9 @@ int pci_restore_msi_state(struct pci_dev *pdev)
-
-          for ( i = 0; ; )
-          {
--            if ( unlikely(!msi_set_mask_bit(desc,
-- 
-entry[i].msi_attrib.host_masked,
-- 
-entry[i].msi_attrib.guest_masked)) )
--                BUG();
-+            msi_set_mask_bit(desc,
-+                             entry[i].msi_attrib.host_masked,
-+                             entry[i].msi_attrib.guest_masked);
-
-              if ( !--nr )
-                  break;
-diff --git a/xen/arch/x86/pci.c b/xen/arch/x86/pci.c
-index 97b792e578..0c4b49f042 100644
---- a/xen/arch/x86/pci.c
-+++ b/xen/arch/x86/pci.c
-@@ -69,6 +69,24 @@ void pci_conf_write(uint32_t cf8, uint8_t offset, 
-uint8_t bytes, uint32_t data)
-      spin_unlock_irqrestore(&pci_config_lock, flags);
-  }
-
-+void pci_command_override(struct pci_dev *pdev, uint16_t val)
-+{
-+    pci_sbdf_t sbdf = pdev->sbdf;
-+
-+    ASSERT(pcidevs_locked());
-+
-+    if ( pdev->info.is_virtfn )
-+    {
-+        sbdf.bus = pdev->info.physfn.bus;
-+        sbdf.devfn = pdev->info.physfn.devfn;
-+
-+        pdev = pci_get_pdev(NULL, sbdf);
-+    }
-+
-+    pdev->arch.host_command = val;
-+    pci_conf_write16(sbdf, PCI_COMMAND, pdev->arch.host_command | 
-pdev->arch.guest_command);
-+}
-+
-  int pci_conf_write_intercept(unsigned int seg, unsigned int bdf,
-                               unsigned int reg, unsigned int size,
-                               uint32_t *data)
-@@ -85,14 +103,31 @@ int pci_conf_write_intercept(unsigned int seg, 
-unsigned int bdf,
-       * Avoid expensive operations when no hook is going to do anything
-       * for the access anyway.
-       */
--    if ( reg < 64 || reg >= 256 )
-+    if ( reg != PCI_COMMAND && (reg < 64 || reg >= 256) )
-          return 0;
-
-      pcidevs_lock();
-
-      pdev = pci_get_pdev(NULL, PCI_SBDF(seg, bdf));
-      if ( pdev )
--        rc = pci_msi_conf_write_intercept(pdev, reg, size, data);
-+    {
-+        switch ( reg )
-+        {
-+        case PCI_COMMAND:
-+            if ( size == 2 )
-+            {
-+                pdev->arch.guest_command = *data;
-+                *data |= pdev->arch.host_command;
-+            }
-+            else
-+                rc = -EACCESS;
-+            break;
-+
-+        default:
-+            rc = pci_msi_conf_write_intercept(pdev, reg, size, data);
-+            break;
-+        }
-+    }
-
-      pcidevs_unlock();
-
--- 
-2.37.1
-
+--000000000000c9a02705ed32fbc8--
 
