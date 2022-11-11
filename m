@@ -2,64 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A83756254BE
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 08:57:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442346.696445 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67FBC6255B9
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 09:49:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442361.696456 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otOuK-0002RD-5v; Fri, 11 Nov 2022 07:57:00 +0000
+	id 1otPhm-0000aN-Cb; Fri, 11 Nov 2022 08:48:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442346.696445; Fri, 11 Nov 2022 07:57:00 +0000
+Received: by outflank-mailman (output) from mailman id 442361.696456; Fri, 11 Nov 2022 08:48:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otOuK-0002OZ-2Z; Fri, 11 Nov 2022 07:57:00 +0000
-Received: by outflank-mailman (input) for mailman id 442346;
- Fri, 11 Nov 2022 07:56:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Waqq=3L=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1otOuI-0002OT-BC
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 07:56:58 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70041.outbound.protection.outlook.com [40.107.7.41])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6901710b-6196-11ed-8fd2-01056ac49cbb;
- Fri, 11 Nov 2022 08:56:55 +0100 (CET)
-Received: from DB8PR06CA0022.eurprd06.prod.outlook.com (2603:10a6:10:100::35)
- by VE1PR08MB5856.eurprd08.prod.outlook.com (2603:10a6:800:1ab::23)
+	id 1otPhm-0000XU-7t; Fri, 11 Nov 2022 08:48:06 +0000
+Received: by outflank-mailman (input) for mailman id 442361;
+ Fri, 11 Nov 2022 08:48:05 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=B4L/=3L=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
+ id 1otPhk-0000XO-UI
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 08:48:05 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2042.outbound.protection.outlook.com [40.107.22.42])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8bf78eb3-619d-11ed-91b6-6bf2151ebd3b;
+ Fri, 11 Nov 2022 09:48:03 +0100 (CET)
+Received: from DB9PR05CA0013.eurprd05.prod.outlook.com (2603:10a6:10:1da::18)
+ by AS2PR08MB9943.eurprd08.prod.outlook.com (2603:10a6:20b:546::20)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Fri, 11 Nov
- 2022 07:56:52 +0000
-Received: from DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:100:cafe::ec) by DB8PR06CA0022.outlook.office365.com
- (2603:10a6:10:100::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5791.27 via Frontend
- Transport; Fri, 11 Nov 2022 07:56:52 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.12; Fri, 11 Nov
+ 2022 08:47:57 +0000
+Received: from DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:1da:cafe::7a) by DB9PR05CA0013.outlook.office365.com
+ (2603:10a6:10:1da::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.14 via Frontend
+ Transport; Fri, 11 Nov 2022 08:47:57 +0000
 Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT021.mail.protection.outlook.com (100.127.142.184) with
+ DBAEUR03FT058.mail.protection.outlook.com (100.127.142.120) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5813.12 via Frontend Transport; Fri, 11 Nov 2022 07:56:51 +0000
-Received: ("Tessian outbound 0800d254cb3b:v130");
- Fri, 11 Nov 2022 07:56:51 +0000
-Received: from 060c07116091.2
+ 15.20.5813.12 via Frontend Transport; Fri, 11 Nov 2022 08:47:57 +0000
+Received: ("Tessian outbound f394866f3f2b:v130");
+ Fri, 11 Nov 2022 08:47:57 +0000
+Received: from 585ade191016.1
  by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- B09D2327-91C7-4306-A780-B7EDDBF94AA7.1; 
- Fri, 11 Nov 2022 07:56:40 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 060c07116091.2
+ C5D9AE2E-4E69-4114-B3E4-426C167EE7D4.1; 
+ Fri, 11 Nov 2022 08:47:51 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 585ade191016.1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 11 Nov 2022 07:56:40 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
- by AM9PR08MB6676.eurprd08.prod.outlook.com (2603:10a6:20b:2ff::21)
+ Fri, 11 Nov 2022 08:47:51 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
+ by DBAPR08MB5735.eurprd08.prod.outlook.com (2603:10a6:10:1a1::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Fri, 11 Nov
- 2022 07:56:39 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::b62d:6e04:1c26:6684]) by PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::b62d:6e04:1c26:6684%5]) with mapi id 15.20.5813.013; Fri, 11 Nov 2022
- 07:56:39 +0000
+ 2022 08:47:49 +0000
+Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::58db:2a7f:e8f5:92ad]) by AM6PR08MB3784.eurprd08.prod.outlook.com
+ ([fe80::58db:2a7f:e8f5:92ad%7]) with mapi id 15.20.5813.013; Fri, 11 Nov 2022
+ 08:47:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,14 +71,14 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6901710b-6196-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 8bf78eb3-619d-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=2; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=pass;
- b=Xx0E53wLiwXKbWSxiCJu+fxPZ0MT3oeLpM35PLMIwTG1io8Cv6OecRcLJ4ocy5ytTsuOyH89qmVOvWFErdpufw9AVoxLPYtu1BKYC2iQ0EHt1FuHU0ipvVKCNU3tMVc4IbUElIMQrjSF2jo93IQTYRJjUpI/Wlsw0O+F/q6r9zSG1z5TfvQ0LKYe9XuVTRJfrpeniFCDbBz7/GkHpkqQT3uKsiBfCbhnIiKcHIFNSzDp7St84ZRuYCuFGY1NrO+ptnUIX/+WVV2JUu1rOy+RouAFI+/Vmyjnk0MUdw5Nm42yxnMNLrGfrcAvzPxlbaW3f+FDl3KGF4mPkxI9HaDaqA==
+ b=UDoVX3EJoPm6h5Y2ep1ODqB2fG19GCV7hh/n051/Y6ldy54uW+gYXJbnUUoxXZL5wv83amukw2PfDBW0rSWWhRMysYjskRWQXwBHlIT2EfAdVm/LCb3QEuEuGgrzvqVsMpPXM7u9PbYQb4FVahJU/JK1C402HmN3iBDVIapK17MpT3q6D8IPTe8lpKt0U82YUu677wWgxf5bluGiVst0BHeoeOJePYctg/TNtsUbTDTF/HS65LiUkjY00P6NkDravqbzkfs+66SDdaghPC+yJIa0vBu/XNoqvU61bNCu+kGLUWEZ2dD8zaJLewWU/tFsUNwF9zQUOvrUk5c/CJKNkw==
 ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p4K/JReIs0wGnmT/fHNkpujlAvHDTOvPix5oIV+KhSU=;
- b=kOFqfnzB1IQn9z8Ns0g0D7zLT5XkmFnRsmnPC4xQbEJ4+4iyuqmNIMiCYAQ5t3uXwE3H5YEEllglJstYcdoUaVbaLZDSLDwAD05oLlfA6OaVNWPFURF2sMDqv7wI0F7onNOimCa25jK5XCJqaN03cekuI4Sla954Z9rJqF4jb7u7cU8PKEINWN7XN7R/yKHbA+bNBmMDP9XKdHN5tmVx3woDgNHvQQWYcc1KKQWhGvOevUICzK1GJ8zn/qiALgIAXVzWykYLMyfJghFlKCfd5uN++ySGsZBgDAg9g6y1zcWcpRIwen1QXQ9gTAxQL6ZpNgQk78ue2l9AQf4SL4QGgg==
+ bh=8XmmDx9oXfjzp+Pt4XxDc/KYVeY5G1xcwQlLS/djCSo=;
+ b=DSXhFj663X1lUubjgve84OnnYi8IoYC5X0z0P8zQjnb52S8/w9h2bTdPvnfng1fnTYRqA3tID81bVpFrT4uLiwZQtf5aeiq0M5eZYayN6PGw4hCzwjUbblCqjQoike52h0k0bVDjXuwKgQ0kDzNav6Np/Atj8qo8wzlrBXf2pc3HZ3hkTwODMqGIa3ODfTyJm7SGnyRFp6uClKo9hE1wmLwEB/hJi1ZusK6Nn0m6dNrftOhUX//lo0cMiarT73++6jqFjo2FOzwDN8Q9zPrSRdBdP8NirrmmJsqMN0x1OAMYmTMYN9Uhqrydr/0MzVRu3AC/HqfBpP+aMJbvplGYQg==
 ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
  63.35.35.123) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
@@ -88,8 +88,8 @@ ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p4K/JReIs0wGnmT/fHNkpujlAvHDTOvPix5oIV+KhSU=;
- b=7eJmDkYy35cSscsQrjbDjD2+4cjC1YrYe+ut8E+d6bwURIfuq7CiMoqG5At0t/xBRqqJZem2cNByMaOCdounDGI5Y2+8vyKTl5h2pfbNN1oNvJqgnDwHev3WoK528j44Nj7QkhR84A9OjSvwgjkevXjz9/ksLR5zLm7UbCZINsc=
+ bh=8XmmDx9oXfjzp+Pt4XxDc/KYVeY5G1xcwQlLS/djCSo=;
+ b=wgmuxiS65oaV2JJFSgfQvxo+Ka7Bp0zu9c6gmS2RDQiS7iErWOdhDNhG8CfJkQWrWfOxcs0J87aBUJaq8e2Bjctu1/rgd4w27g7u9KHwmObRay7S0hwVnHI4EzMRjy3I3vEJHN1LPoZ0rNwQ8EUaR41t40bbu37vlBB2rYIZcOI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
  smtp.mailfrom=arm.com; dkim=pass (signature was verified)
  header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
@@ -97,153 +97,295 @@ Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
  63.35.35.123 as permitted sender) receiver=protection.outlook.com;
  client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
  pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 2d3b40075698a225
 X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z81Q+O2j9KN0FhnAsRhMlyLRpsIU2QPpogeN6X5C9OgvNPaPwGQAjKIs9J/jgypD/Z5V+h5p7m1lgMAX3FWIRDMJUI5waXEaNz+5Ob2+Y8zpRbtbez4CndNUtVdW6Bv9aIzzTaQ/hV/L8/ZiKazwWB2nz0TGAGLjkxX78luUQhBmBQ91CnpkaZk5oQtzEXBixZApOoSy6UUp86tV2SIPfaxSvBJcufqavr3DpAgWJIJa6VCeCGD54YEnVcZQ/y0pNaVCuEFx5x7pfB/g41GMIuf8fm6W1gJOHmw3kZaYmEBzZlJsZMzEPrMjBgPWHa4DJZ+fAtwO+izHefMOuQicog==
+ b=VmNFCTf41CM3xxTjL+k2S3j2U8SoUxALHk3/7H38aY7yjUDs0ahWQornrMWkdLfjrM/qWkO1LeBRu3IF6pojLXkfQxQJs+DtiG3gxjP09GwrT+oZz+ZWoyQ64L5M4QsOOu0Isp4t5I6h3NfU/bK9zD0vrAKJ+bJdZyJrAchpjAf2r10o1asY+EvfLuuPILvytCx9vHRPfG9MRqPEE0Tx5xA1B1sFMsYDmHu48vsoULG400QE32WvSehdqWfY7C1VXb+/VQwV95F6gLWEc2z5VJH1/GhudvgMhHjYxfG0o4Al7NgcUuTPeF66VrM05ZNrd4Dl2Hc29MrNGu3k7mAP6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=p4K/JReIs0wGnmT/fHNkpujlAvHDTOvPix5oIV+KhSU=;
- b=FBjy8bnacf97SXNuJkRPeLb1/eWhtZ7G8q042pPlOmo8s5oredjKRRG9c973jgyecvO2E2RvUEqkg9rU+63SbrdWIoN+Bj1Raef6Vjslx0EzEjhvnSrm/++cRLGB1nZzj7JJX3FJnP8igcZa8oTq69KTG3mRmp7JkXeb7K+rjM4ndGlJCZPyD9gdCjdTEiZs5tAGrfNRFmcs8QkwRkVxVzbVkdwy4sCbXlj5Q7J8sijNJ+v4w6nVEWjCUQw+/ozi2V4vnWZPBSz513liuP1DcErpcHmA7gB6GVrjNS/RyPdRrOGbCfL1BKPltlEAdokG27DK+oDabA+A9X1KhBNs+g==
+ bh=8XmmDx9oXfjzp+Pt4XxDc/KYVeY5G1xcwQlLS/djCSo=;
+ b=X5O72lIfJ6w0M7ZDuc2CfCqECICRyRrV4BT9E0OZ+scDUhuZ1nvbVnrjSp4Ry+BsiF4BM0VZLXDYPiUWGoo20GQgR4G/kwy3JiYNx2PJyEwATluZyj6KqyUEnaf5MiXLN/KcabloPBYaLnkxv2w8HsWE75Bhp14yBFxlPxp4FZrZqaBIKc4C5tYUhIEA6MApQMaNL8Z2V2NMXNkKh/W15KDk9zs/t6mfR23zzOX92jMBkf2wsDTaWHMKr4CAx+SE7zDk69ZTR6p3ENCQGiZBuhGAxhPQxIHJTXB95+en+oc5alqgUZJhHo7+j5y1Z4j2CbzWuxCOS2JnfkYIOP1lnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=p4K/JReIs0wGnmT/fHNkpujlAvHDTOvPix5oIV+KhSU=;
- b=7eJmDkYy35cSscsQrjbDjD2+4cjC1YrYe+ut8E+d6bwURIfuq7CiMoqG5At0t/xBRqqJZem2cNByMaOCdounDGI5Y2+8vyKTl5h2pfbNN1oNvJqgnDwHev3WoK528j44Nj7QkhR84A9OjSvwgjkevXjz9/ksLR5zLm7UbCZINsc=
-From: Wei Chen <Wei.Chen@arm.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v6 07/11] xen/arm: implement FIXMAP_ADDR for MPU systems
-Thread-Topic: [PATCH v6 07/11] xen/arm: implement FIXMAP_ADDR for MPU systems
-Thread-Index: AQHY8DVneLUTj6n4XEmKaYaqtg988K4yT/yAgAPcKRCAAMX/AIACaq9w
-Date: Fri, 11 Nov 2022 07:56:38 +0000
-Message-ID:
- <PAXPR08MB7420AF1E44DF6FF39CD74B749E009@PAXPR08MB7420.eurprd08.prod.outlook.com>
-References: <20221104100741.2176307-1-wei.chen@arm.com>
- <20221104100741.2176307-8-wei.chen@arm.com>
- <db5667fc-ac64-411c-4011-dd4bbe25ad7e@xen.org>
- <PAXPR08MB7420B9D326528EC2D20FE47D9E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <88350ef8-3f52-7535-b3e0-b2a76e8bc7de@xen.org>
-In-Reply-To: <88350ef8-3f52-7535-b3e0-b2a76e8bc7de@xen.org>
-Accept-Language: en-US
+ bh=8XmmDx9oXfjzp+Pt4XxDc/KYVeY5G1xcwQlLS/djCSo=;
+ b=wgmuxiS65oaV2JJFSgfQvxo+Ka7Bp0zu9c6gmS2RDQiS7iErWOdhDNhG8CfJkQWrWfOxcs0J87aBUJaq8e2Bjctu1/rgd4w27g7u9KHwmObRay7S0hwVnHI4EzMRjy3I3vEJHN1LPoZ0rNwQ8EUaR41t40bbu37vlBB2rYIZcOI=
+From: Bertrand Marquis <Bertrand.Marquis@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Michal Orzel <michal.orzel@amd.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v3 0/4] Yocto Gitlab CI
+Thread-Topic: [PATCH v3 0/4] Yocto Gitlab CI
+Thread-Index:
+ AQHY7TFh2hDh7VPqHUGkPo4tUdJZza4okuGAgAAFoQCACog5gIAEOL6AgAB51ICAANd5AIAAz2MA
+Date: Fri, 11 Nov 2022 08:47:48 +0000
+Message-ID: <B476DC51-3800-42EE-A423-95E3A19F11A1@arm.com>
+References: <cover.1667224593.git.bertrand.marquis@arm.com>
+ <1220596a-4fe7-5c08-5437-fa98eb14254c@amd.com>
+ <D1248F50-542B-474D-B016-A3BF09A21CE8@arm.com>
+ <6ee0706b-d1b3-187a-1557-c4b8173c6e37@amd.com>
+ <alpine.DEB.2.22.394.2211091613160.50442@ubuntu-linux-20-04-desktop>
+ <46c0e05f-47e1-39e6-d978-9f6c7d6db53a@amd.com>
+ <alpine.DEB.2.22.394.2211101222230.50442@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2211101222230.50442@ubuntu-linux-20-04-desktop>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach:
 X-MS-TNEF-Correlator:
-x-ts-tracking-id: 6D600E6ACDB5524E846A4B24DAEDF1A0.0
-x-checkrecipientchecked: true
+x-mailer: Apple Mail (2.3696.120.41.1.1)
 Authentication-Results-Original: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-traffictypediagnostic:
-	PAXPR08MB7420:EE_|AM9PR08MB6676:EE_|DBAEUR03FT021:EE_|VE1PR08MB5856:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74ea0241-116d-4d19-e411-08dac3ba4af0
+	AM6PR08MB3784:EE_|DBAPR08MB5735:EE_|DBAEUR03FT058:EE_|AS2PR08MB9943:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5a6d0d0-e4da-4338-a6ca-08dac3c16e50
 x-checkrecipientrouted: true
 nodisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam-Untrusted: BCL:0;
 X-Microsoft-Antispam-Message-Info-Original:
- lkyRzgwAjtRy4kuETLnabTtAEVAeZCWEAuK3TxOLnmIASoC8kGD7GMhRhmbzqWHnuaZJWXHU6jhHk2wIgK4yb9pwGx1Yl+juwm3sYNve/KCP/w1vExo1RSXjSXhuRJSKRwg5Wp4P5H//wmSzWoFRGbAczXEtpclnmnwugiCFG4ZiHWn7lgBt/lS4OI7plwJC5l//NxIPSPdvfFErQAq6dsgBYi4QMsyKSRRoPYPAJwaPHas9OUxSYjaU8lFmSq6ltdKmGg4gYH+N6QfAGDgdMkOJwFGED5Fz+cKkrx9df9Ch9z9Qv2fZRZHkoPHHnLDd2pGN/6rnVawc76VZuKyER3oGVhTr9oZ7XsEqXpapt4G1OY4Ror8+t8EERNbrepAD94d4pZO0424BUjZcSuhiLyCmDPvEZ7NnrmoczfAsIQSNedWlRFY9nEIwyfBqPMDjfx/E8s71XBMBXou409gn6WCsMrxRwVP0uUnb8FqK7gsCO/V9kRfrDS5Kl7RdzU6xULHYi54Lhc2BmjlUiXwEKv9yELMxORmJPN42QHzlKSk69NqI4rYxWyuoAmswhQFV5V4es+0OplCA2vP02a7CnbPB0IpQR28eaU3T+hwoOgATSSVn7qsWpVVIz2ASsIIKXTrGmSLQP+/zVGz8TZU/eqKszYC/zI3hIhxG813miD8Ixue9VXV0iEClkdH5a0YFx6UvOkVngmrqfy+rRRRb+vSa8spvjtW9jGpJ4MmVfG35YA1A8hROSAVUH+YoEHW5EowRGwyu+9n2IRbB9DAX7g==
+ 8nqAuAk1zky22tWZMVfVl7JinUk/VBQzucZAAuLXr5AUxR2LeOgnZrSnrg3dH4UP3Vp/WHKwVJvT6wQKVPMZg8Mkw5/J1vlw5hFwBdG1Tw1on86AfCDsEZYHz61WnMmPTYs8X7XnTnA+RBrOveOlZDYyJmnvGNiUjBzP4883ZQ/oA5r/tN1a7/jkpob6U3QoRv+Mi5wnt+S8JqBIL4r59BWFYjPK9Yl0lKGxJIKealxApWkrenGyQSfqIJvylFShZsiZJpmUaG2vsHEeJctZe1xjf3Bo6lA8l1oFRCIgM3bs1CnAa1tgyp8zUJrfXoIceXjWexW/8iAyul+0DtyC+j3k6YlzjlPUOKnB6vrXPrq9B6TWY8PqSSiFuyRndyhaWYaFeVkl+DJ/4oD8328vMu4KNaDHmjR1ozUE0Z3JnvQuRc5HWMlTmpJ/psCtP5kNDCNgWCAF0I4EWpBXMNazhQjN1dciS+Xz3tV+kUIAKbIVBa1nKvtOtoWaSPpt0JcI/ZgJiYfmYruM71EuHf+QZPkjFS4101kOUdLLhI4LJa3fNBjoAuTZZuNa3bFXHjSITqe+lJc2GhQJUd7R5hKEYU91eAtG7XP10rY8X9qcGJExgHS4UitQMmHLkv0tJZ+6PI0I2B0d4g+HcIr7Nr93TmDQ++f6AuJ7EuZIiW7h6Qr8VtXvAdvLE+ZxcWyxPKtEz03yx4y0MC8mZ02Yyxo+4vZoYF21VgdiomXyFOUqAQhynG74S6tGVHcpMjfkwUS2TUBdiLu/HzSG64LaiBY+Vgr6XB+HspN/2/DxBWScYq5eUx/YYCnRXaG4Lgw6jJoKExz/cmf5r7V5Dv5D7YpX8A==
 X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(366004)(39860400002)(451199015)(38070700005)(71200400001)(110136005)(66446008)(316002)(66556008)(76116006)(66476007)(64756008)(66946007)(8676002)(38100700002)(55016003)(86362001)(33656002)(122000001)(26005)(6506007)(186003)(7696005)(9686003)(53546011)(54906003)(478600001)(41300700001)(2906002)(4326008)(83380400001)(5660300002)(52536014)(8936002);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(366004)(136003)(39860400002)(346002)(396003)(451199015)(33656002)(86362001)(36756003)(122000001)(38100700002)(5660300002)(2906002)(8936002)(26005)(186003)(83380400001)(2616005)(38070700005)(6512007)(66446008)(91956017)(54906003)(316002)(66476007)(64756008)(6916009)(76116006)(66556008)(41300700001)(8676002)(66946007)(4326008)(966005)(71200400001)(53546011)(6486002)(6506007)(45080400002)(478600001)(45980500001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <77957D1AE399A540B3F45D2795C75AB6@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6676
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR08MB5735
 Original-Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 X-EOPAttributedMessage: 0
 X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
+ DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	18ed0bb3-e988-4e02-914b-08dac3ba4374
+	03e144a2-8ace-4610-1c07-08dac3c16954
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	22VgmkHq5Xf2DkjaEdj5wAdn662hKfJ7MvOebXZ2yx0kVHMAZ9qvy+ibtDtfHIRfnFKMkMJLklK9Fv8XMxD6hkuF7ig3N0nw5Smcq8tJ8TKSvltzUquMuZi/4EUFfpK5I11f40KZ7VxLjTzfNrocR55wHGBf8qMYEk/OKZ0lT9q2bTC6yma02Hz2elZnTRWcJCMAGI9G8VOm4zbeVNTM/O9AzZ2Uyd3gwbodinJIWA0irA/1UFWv8CZnvzzxRfq3SLiUUsa+DzXBM8vKV8Js+qObgmy9njkzwRVPReV17PW0HKO+UV4hOzo9wTpQI9UYP/ri3ATaumULcTW7UOgZaDEFe/5H5EB9UsYfRTWRtyiV68A8jtikMub4M908Nyk/F1fiKLuDeaROYgMSIfh7PH1Yc3hmYpubiufrNNaFbQqSB3jU+0rOz1Ilj9HZ/60ktfSG9mGICen84jRaxJa+F9m1KqtjUO7+7rku21U061+U15ob+uEhNmq6E8x3kCDthYHl26QdBFIu7lrJPIrV7QsV2L300rKiGroTiBD66pXVMuJ+qcRlzSbPtzkkrF5vmZGs08N83BCYLVVmciqiVOUMeHafXzo9eqvoD1aXAr1JxC7T3sK1f1Ov9cmoSMzH+JMmDg9h5c7GILkv0YUy2TY2T1sbViEUU+D4qmoJVCItB3s/lKdz7L8hOUodRFgB8pZDEHjiRNVvX5hRM7xwDWHbpeC6T6gsbaKUxi0noqfPooK0BjZ2aigG/bzJ2bGk8rkVS9B2SSuqKs+RzXAKBw==
+	CVZoIEU4uUOxR+IEgLhKnAdl5k4fY3IB1jzK8BPte614JT4u/JfeeQK6iqR9pDYX3xo4/WTihpSsiVj2hZ9M//hzqGAcec6PhT5TQ8Ft0TCyiTL1S0MOCNG7YsTsSUDz+NMHEdF/1PgKRyN6SHGsRJdZshj8z4oeI0MU9OzvGuuakGFHTeHiK4Uy2rWNl5Op8RB8elr3/Knxzch/X1V5KUWrNPoOHftgWFUelnM1ImKQPICNZAQb91fgkeZ/hl/BexgMr8gxpvIBlif9JVk3ksCt4h9hmCiu4g4imKUtsxdcy2n1LRLFvybby3InpaYDGQISCMJ85GiinMEwZ1tO9g7NEvcUNap4m6ouR2cELRAGSgf47FFp6y5ZXNCxgzGnXgv710zpzCwoNISUZwjj4Pw8QTB2S/VOJZGOCVBrflEtesmiQFvobHj/ukPFzhfuQggxTRHyrJDw6n1g5KCFjL2vpkjByj2Ny+VbktWi0nR5x1pPdnFw83TMNgLU2b82uWncuGR2N9qCcTO217pbZ6f04zU/Kaw6RFkmKzI3ZkZSGeMQLPB0y8CTCD8aP2vLjZJdIOY8IQrAj/qCtmSU2v2zoM2rlc0Jsp7bomFQPUVDbzeGnZOPQb1G+wG4LERys6eIKfWsWya+huC+1yhgioIbjyDaxgsslvKngZUNVd375AaqIVCf/uUjzTfaG8grOHaOgakNE2wHZqnCsmBEa4S+NhBn3yjN4a0bDbW4iGVjoR1g0OnaG/uShpaE49oYwdNosSA/9teJDmKm1Th2Tayf7C7yo5Xtj6PVduDyWh4g59cD/bKFcDEypvuFKZ4y
 X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(40470700004)(36840700001)(46966006)(26005)(4326008)(47076005)(9686003)(40460700003)(8676002)(33656002)(70586007)(70206006)(2906002)(52536014)(8936002)(107886003)(86362001)(5660300002)(41300700001)(336012)(316002)(53546011)(356005)(186003)(55016003)(7696005)(478600001)(6506007)(81166007)(40480700001)(82310400005)(82740400003)(54906003)(83380400001)(110136005)(36860700001);DIR:OUT;SFP:1101;
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(36756003)(2906002)(966005)(33656002)(356005)(40480700001)(81166007)(6486002)(478600001)(26005)(83380400001)(36860700001)(82310400005)(86362001)(6506007)(186003)(70586007)(336012)(45080400002)(8936002)(82740400003)(40460700003)(6512007)(107886003)(6862004)(5660300002)(2616005)(41300700001)(47076005)(8676002)(53546011)(70206006)(316002)(54906003)(4326008);DIR:OUT;SFP:1101;
 X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2022 07:56:51.4980
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Nov 2022 08:47:57.3074
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74ea0241-116d-4d19-e411-08dac3ba4af0
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5a6d0d0-e4da-4338-a6ca-08dac3c16e50
 X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT021.eop-EUR03.prod.protection.outlook.com
+	DBAEUR03FT058.eop-EUR03.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5856
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB9943
 
-SGkgSnVsaWVuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEp1bGll
-biBHcmFsbCA8anVsaWVuQHhlbi5vcmc+DQo+IFNlbnQ6IDIwMjLlubQxMeaciDEw5pelIDI6MzAN
-Cj4gVG86IFdlaSBDaGVuIDxXZWkuQ2hlbkBhcm0uY29tPjsgeGVuLWRldmVsQGxpc3RzLnhlbnBy
-b2plY3Qub3JnDQo+IENjOiBuZCA8bmRAYXJtLmNvbT47IFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0
-YWJlbGxpbmlAa2VybmVsLm9yZz47IEJlcnRyYW5kDQo+IE1hcnF1aXMgPEJlcnRyYW5kLk1hcnF1
-aXNAYXJtLmNvbT47IFZvbG9keW15ciBCYWJjaHVrDQo+IDxWb2xvZHlteXJfQmFiY2h1a0BlcGFt
-LmNvbT4NCj4gU3ViamVjdDogUmU6IFtQQVRDSCB2NiAwNy8xMV0geGVuL2FybTogaW1wbGVtZW50
-IEZJWE1BUF9BRERSIGZvciBNUFUNCj4gc3lzdGVtcw0KPiANCj4gDQo+IA0KPiBPbiAwOS8xMS8y
-MDIyIDA2OjQ2LCBXZWkgQ2hlbiB3cm90ZToNCj4gPiBIaSBKdWxpZW4sDQo+IA0KPiBIaSBXZWks
-DQo+IA0KPiA+DQo+ID4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4+IEZyb206IEp1
-bGllbiBHcmFsbCA8anVsaWVuQHhlbi5vcmc+DQo+ID4+IFNlbnQ6IDIwMjLlubQxMeaciDfml6Ug
-Mzo0NQ0KPiA+PiBUbzogV2VpIENoZW4gPFdlaS5DaGVuQGFybS5jb20+OyB4ZW4tZGV2ZWxAbGlz
-dHMueGVucHJvamVjdC5vcmcNCj4gPj4gQ2M6IG5kIDxuZEBhcm0uY29tPjsgU3RlZmFubyBTdGFi
-ZWxsaW5pIDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPjsNCj4gQmVydHJhbmQNCj4gPj4gTWFycXVp
-cyA8QmVydHJhbmQuTWFycXVpc0Bhcm0uY29tPjsgVm9sb2R5bXlyIEJhYmNodWsNCj4gPj4gPFZv
-bG9keW15cl9CYWJjaHVrQGVwYW0uY29tPg0KPiA+PiBTdWJqZWN0OiBSZTogW1BBVENIIHY2IDA3
-LzExXSB4ZW4vYXJtOiBpbXBsZW1lbnQgRklYTUFQX0FERFIgZm9yIE1QVQ0KPiA+PiBzeXN0ZW1z
-DQo+ID4+DQo+ID4+IEhpIFdlaSwNCj4gPj4NCj4gPj4gT24gMDQvMTEvMjAyMiAxMDowNywgV2Vp
-IENoZW4gd3JvdGU6DQo+ID4+PiBGSVhNQVAgaXMgYSBzcGVjaWFsIHZpcnR1YWwgYWRkcmVzcyBz
-ZWN0aW9uIGZvciBYZW4gdG8gbWFwIHNvbWUNCj4gPj4+IHBoeXNpY2FsIHJhbSBvciBkZXZpY2Ug
-bWVtb3J5IHRlbXBvcmFyaWx5IGluIGluaXRpYWxpemF0aW9uIGZvcg0KPiA+Pj4gTU1VIHN5c3Rl
-bXMuIEZJWE1BUF9BRERSIHdpbGwgcmV0dXJuIGEgdmlydHVhbCBhZGRyZXNzIGJ5IGluZGV4DQo+
-ID4+PiBmb3Igc3BlY2lhbCBwdXJwb3NlIHBoeXMtdG8tdmlydCBtYXBwaW5nIHVzYWdlLiBGb3Ig
-ZXhhbXBsZSwNCj4gPj4+IEZJWE1BUF9BRERSKEZJWE1BUF9DT05TT0xFKSBmb3IgZWFybHkgY29u
-c29sZSBtYXBwaW5nIGFuZA0KPiA+Pj4gRklYTUFQX0FERFIoRklYTUFQX01JU0MpIGZvciBjb3B5
-X2Zyb21fcGFkZHIuDQo+ID4+DQo+ID4+IFRvIG1lLCB3ZSBhcmUgYmVuZGluZyBxdWl0ZSBhIGJp
-dCB0aGUgZGVmaW5pdGlvbiBvZiB0aGUgZml4bWFwLiBUaGVyZQ0KPiA+PiBhcmUgbm90IG1hbnkg
-dXNlIG9mIHRoZSBGSVhNQVAgd2l0aGluIHRoZSBjb2RlIGFuZCBJIHRoaW5rIGl0IHdvdWxkDQo+
-ID4+IHNpbXBseSBiZSBiZXR0ZXIgdG8gYWJzdHJhY3QgdGhlIHVzZSAob3IgcmVtb3ZpbmcgaXQg
-d2hlbiBwb3NzaWJsZSkgYW5kDQo+ID4+IGF2b2lkIGRlZmluaW5nIEZJWE1BUF9BRERSKCkgJiBj
-byBmb3IgTVBVLg0KPiA+Pg0KPiA+DQo+ID4gSSBhZ3JlZSwgaWYgd2UgZG9uJ3QgbWluZCB0byBh
-ZGQgc29tZSBDT05GSUdfSEFTX01QVSBpbiBzb21lIGdlbmVyaWMNCj4gY29kZS4NCj4gDQo+IEZB
-T0QsIHRoaXMgaXMgbm90IHdoYXQgSSBoYWQgaW4gbWluZC4gSW5zdGVhZCwgaXQgd2FzIHRvIHBy
-b3ZpZGUgaGVscGVyDQo+IHdoaWNoIGZvciAhSEFTX01QVSB3b3VsZCBjYWxsIGZpeG1hcCBhbmQg
-Zm9yIEhBU19NUFUgd291bGQgZG8gdGhlIHdvcmsNCj4gdG8gbWFwIHRoZSByZWdpb24gaW4gdGhl
-IE1QVS4NCj4gDQoNClNvcnJ5LCBJIGFtIHN0aWxsIGNvbmZ1c2VkIGFib3V0IHRoaXMgY29tbWVu
-dCwgZGlkIHlvdSBtZWFuIHdlIGNhbiBwcm92aWRlcg0KU29tZSBnZW5lcmljIGhlbHBlcnMgbGlr
-ZTogZWFybHlfbWFwX2NvbnNvbGUgLyBlYXJ5X21hcF9ndWVzdF9tZW1vcnkuDQpGb3Igbm9uLU1Q
-VSBzeXN0ZW0sIHdlIHN0aWxsIGNhbiBjYWxsIGZpeG1hcCBpbiB0aGVzZSBjYWxsZXJzLCBidXQg
-Zm9yDQpNUFUgc3lzdGVtLCB3ZSBoYXZlIHRvIG1hcCB0aGUgcmVnaW9uIHRvIE1QVSByZWdpb24/
-DQoNCj4gWy4uLl0NCj4gDQo+ID4+PiAgICB4ZW4vYXJjaC9hcm0vS2NvbmZpZyAgICAgICAgICAg
-ICAgICAgIHwgIDIgKy0NCj4gPj4+ICAgIHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9jb25maWdf
-bXB1LmggfCAgMiArKw0KPiA+Pj4gICAgeGVuL2FyY2gvYXJtL2luY2x1ZGUvYXNtL2ZpeG1hcC5o
-ICAgICB8IDI1DQo+ICsrKysrKysrKysrKysrKysrKysrKysrKysNCj4gPj4+ICAgIDMgZmlsZXMg
-Y2hhbmdlZCwgMjggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQ0KPiA+Pj4NCj4gPj4+IGRp
-ZmYgLS1naXQgYS94ZW4vYXJjaC9hcm0vS2NvbmZpZyBiL3hlbi9hcmNoL2FybS9LY29uZmlnDQo+
-ID4+PiBpbmRleCBhYzI3NjMwN2Q2Li4xNDU4ZmZhNzc3IDEwMDY0NA0KPiA+Pj4gLS0tIGEveGVu
-L2FyY2gvYXJtL0tjb25maWcNCj4gPj4+ICsrKyBiL3hlbi9hcmNoL2FybS9LY29uZmlnDQo+ID4+
-PiBAQCAtMTYsNyArMTYsNyBAQCBjb25maWcgQVJNDQo+ID4+PiAgICAJc2VsZWN0IEhBU19ERVZJ
-Q0VfVFJFRQ0KPiA+Pj4gICAgCXNlbGVjdCBIQVNfUEFTU1RIUk9VR0gNCj4gPj4+ICAgIAlzZWxl
-Y3QgSEFTX1BEWA0KPiA+Pj4gLQlzZWxlY3QgSEFTX1BNQVANCj4gPj4+ICsJc2VsZWN0IEhBU19Q
-TUFQIGlmICFIQVNfTVBVDQo+ID4+DQo+ID4+IEkgY2FuJ3QgZmluZCBhbnkgY2hhbmdlIG9mIG1t
-LmMgaW4gdGhpcyBzZXJpZXMuIFNvIHN1cmVseSB0aGlzIHdpbGwNCj4gPj4gYnJlYWsgdGhlIGJ1
-aWxkPw0KPiA+DQo+ID4gWWVzLCBpbiBvdXIgaW50ZXJuYWwgdGVzdGluZywgb3BlbiBQTUFQIGZv
-ciBNUFUgd2lsbCBjYXVzZSBidWlsZGluZw0KPiA+IGZhaWxlZCwgZXhjZXB0IHdlIGFkZCBzb21l
-IG5ldyBzdHVicyBmb3IgTVBVIHN5c3RlbS4NCj4gDQo+IERvIHlvdSBtZWFuIHlvdSBhZGRlZCBz
-b21lIHN0dWJzIGZvciBQTUFQPyBJZiBzbywgSSB3b3VsZCBub3QgZXhwZWN0IGFueQ0KPiBjYWxs
-ZXIgZm9yIHRoZSBwbWFwKCkgdG8gYmUgdXNlZCBmb3IgdGhlIE1QVS4gVGhlcmVmb3JlLCB3aHkg
-d291bGQgdGhleQ0KPiBiZSBuZWNlc3Nhcnk/DQo+IA0KDQpObywgSSBtZWFuIGlmIHdlIHdhbnQg
-dG8gbWFrZSBwbWFwIGNhbiBiZSBidWlsdCBzdWNjZXNzZnVsbHkgZm9yIE1QVSwNCndlIGhhdmUg
-dG8gaW1wbGVtZW50IHNvbWUgc3R1YnMgbGlrZTogZml4X3RvX3ZpcnQsIHhlbl9maXhtYXAgYW5k
-DQp3cml0ZV9wdGUsIHRvIG1ha2UgY29tcGlsaW5nIHN1Y2Nlc3MuIEJ1dCBqdXN0IGFzIHlvdSBz
-YWlkLCB3ZSB3b3VsZA0Kbm90IGV4cGVjdCBNUFUgdG8gdXNlIGFueSBQTUFQIGZ1bmN0aW9uLCBz
-byB3ZSBoYXZlIG5vdCBpbXBsZW1lbnRlZA0KdGhlbSBmb3IgTVBVLiBJbnN0ZWFkIHdlIGRpc2Fi
-bGUgUE1BUCBmb3IgTVBVLiANCg0KQ2hlZXIsDQpXZWkgQ2hlbg0KDQo+IENoZWVycywNCj4gDQo+
-IC0tDQo+IEp1bGllbiBHcmFsbA0K
+Hi Stefano,
+
+> On 10 Nov 2022, at 20:25, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Thu, 10 Nov 2022, Michal Orzel wrote:
+>> Hi Stefano,
+>>=20
+>> On 10/11/2022 01:18, Stefano Stabellini wrote:
+>>>=20
+>>>=20
+>>> On Mon, 7 Nov 2022, Michal Orzel wrote:
+>>>> Hi Bertrand and Stefano,
+>>>>=20
+>>>> On 31/10/2022 16:00, Bertrand Marquis wrote:
+>>>>>=20
+>>>>>=20
+>>>>> Hi Michal,
+>>>>>=20
+>>>>>> On 31 Oct 2022, at 14:39, Michal Orzel <michal.orzel@amd.com> wrote:
+>>>>>>=20
+>>>>>> Hi Bertrand,
+>>>>>>=20
+>>>>>> On 31/10/2022 15:00, Bertrand Marquis wrote:
+>>>>>>>=20
+>>>>>>>=20
+>>>>>>> This patch series is a first attempt to check if we could use Yocto=
+ in
+>>>>>>> gitlab ci to build and run xen on qemu for arm, arm64 and x86.
+>>>>>>>=20
+>>>>>>> The first patch is creating a container with all elements required =
+to
+>>>>>>> build Yocto, a checkout of the yocto layers required and an helper
+>>>>>>> script to build and run xen on qemu with yocto.
+>>>>>>>=20
+>>>>>>> The second patch is creating containers with a first build of yocto=
+ done
+>>>>>>> so that susbsequent build with those containers would only rebuild =
+what
+>>>>>>> was changed and take the rest from the cache.
+>>>>>>>=20
+>>>>>>> The third patch is adding a way to easily clean locally created
+>>>>>>> containers.
+>>>>>>>=20
+>>>>>>> This is is mainly for discussion and sharing as there are still som=
+e
+>>>>>>> issues/problem to solve:
+>>>>>>> - building the qemu* containers can take several hours depending on=
+ the
+>>>>>>> network bandwith and computing power of the machine where those are
+>>>>>>> created
+>>>>>> This is not really an issue as the build of the containers occurs on=
+ the local
+>>>>>> machines before pushing them to registry. Also, building the contain=
+ers
+>>>>>> will only be required for new Yocto releases.
+>>>>>>=20
+>>>>>>> - produced containers containing the cache have a size between 8 an=
+d
+>>>>>>> 12GB depending on the architecture. We might need to store the buil=
+d
+>>>>>>> cache somewhere else to reduce the size. If we choose to have one
+>>>>>>> single image, the needed size is around 20GB and we need up to 40GB
+>>>>>>> during the build, which is why I splitted them.
+>>>>>>> - during the build and run, we use a bit more then 20GB of disk whi=
+ch is
+>>>>>>> over the allowed size in gitlab
+>>>>>> As we could see during v2 testing, we do not have any space restrict=
+ions
+>>>>>> on the Xen GitLab and I think we already decided to have the Yocto
+>>>>>> integrated into our CI.
+>>>>>=20
+>>>>> Right, I should have modified this chapter to be coherent with your l=
+atest tests.
+>>>>> Sorry for that.
+>>>>>=20
+>>>>>>=20
+>>>>>> I will do some testing and get back to you with results + review.
+>>>> I did some testing and here are the results:
+>>>>=20
+>>>> In the current form this series will fail when running CI because the =
+Yocto containers
+>>>> are based on "From ubuntu:22.04" (there is no platform prefix), which =
+means that the containers
+>>>> are built for the host architecture (in my case and in 99% of the case=
+s of the local build it will
+>>>> be x86). In Gitlab we have 2 runners (arm64 and x86_64). This means th=
+at all the test jobs would need
+>>>> to specify x86_64 as a tag when keeping the current behavior.
+>>>> After I built all the containers on my x86 machine, I pushed them to r=
+egistry and the pipeline was successful:
+>>>> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgi=
+tlab.com%2Fxen-project%2Fpeople%2Fmorzel%2Fxen-orzelmichal%2F-%2Fpipelines%=
+2F686853939&amp;data=3D05%7C01%7Cmichal.orzel%40amd.com%7C2449f063e67341c3b=
+95a08dac2b112a5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C63803636302770=
+7274%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik=
+1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;sdata=3DEwTJrW2vuwQIugKc7mnzG9NNbs=
+YLP6tw5UODzBMmPEE%3D&amp;reserved=3D0
+>>>=20
+>>> When I tested the previous version of this series I built the
+>>> containers natively on ARM64, so that is also an option.
+>>>=20
+>>>=20
+>>>> Here is the diff on patch no. 3 to make the series work (using x86 tag=
+ and small improvement to include needs: []):
+>>>> ```
+>>>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/tes=
+t.yaml
+>>>> index 5c620fefce59..52cccec6f904 100644
+>>>> --- a/automation/gitlab-ci/test.yaml
+>>>> +++ b/automation/gitlab-ci/test.yaml
+>>>> @@ -65,6 +65,9 @@
+>>>>     paths:
+>>>>       - 'logs/*'
+>>>>     when: always
+>>>> +  needs: []
+>>>> +  tags:
+>>>> +    - x86_64
+>>>>=20
+>>>> # Test jobs
+>>>> build-each-commit-gcc:
+>>>> @@ -206,19 +209,13 @@ yocto-qemuarm64:
+>>>>   extends: .yocto-test
+>>>>   variables:
+>>>>     YOCTO_BOARD: qemuarm64
+>>>> -  tags:
+>>>> -    - arm64
+>>>>=20
+>>>> yocto-qemuarm:
+>>>>   extends: .yocto-test
+>>>>   variables:
+>>>>     YOCTO_BOARD: qemuarm
+>>>> -  tags:
+>>>> -    - arm32
+>>>>=20
+>>>> yocto-qemux86-64:
+>>>>   extends: .yocto-test
+>>>>   variables:
+>>>>     YOCTO_BOARD: qemux86-64
+>>>> -  tags:
+>>>> -    - x86_64
+>>>> ```
+>>>>=20
+>>>> Now, the logical way would be to build x86 yocto container for x86, ar=
+m64 for arm64 and arm32 on arm64 or x86.
+>>>> I tried building the container qemuarm64 specifying target arm64 on x8=
+6. After 15h, only 70% of the Yocto build
+>>>> was completed and there was an error with glibc (the local build of th=
+e container for the host arch takes on my machine max 2h).
+>>>> This enormous amount of time is due to the qemu docker emulation that =
+happens behind the scenes (I checked on 2 different machines).
+>>>>=20
+>>>> So we have 3 solutions:
+>>>> 1) Build and run these containers for/on x86_64:
+>>>> - local users can build the containers on local machines that are almo=
+st always x86 based, in short period of time,
+>>>> - "everyone" can build/push the containers once there is a new Yocto r=
+elease
+>>>> - slightly slower CI build time
+>>>> 2) Build and run these containers for specific architectures:
+>>>> - almost no go for local users using x86 machine (unless using more th=
+an 16 threads (which I used) and willing to wait 2 days for the build)
+>>>> - faster CI build time (arm64 runner is faster than x86 one)
+>>>> - someone with arm64 based machine (not that common) would have to bui=
+ld and push the containers
+>>>> 3) Try to use CI to build and push the containers to registry
+>>>> - it could be possible but what about local users
+>>>=20
+>>> From a gitlab-ci perspective, given the runners we currently have, we
+>>> have to go with option 2). We don't have enough resources available on
+>>> the x86 runner to run the Yocto jobs on x86.
+>>>=20
+>> That is what I reckon too. Running the Yocto build/test on CI using x86 =
+runner will always be slower.
+>> So, if we go with this solution, then the following is needed:
+>> 1. Modify test jobs so that yocto-qemu{arm64/arm} uses arm64 tag to be t=
+aken by arm64 runner and use tag x86_64 for yocto-qemux86-64.
+>> 2. Come up with a solution to build the yocto containers automatically f=
+or the above platforms + possibility to specify the platform for local user=
+s.
+>>   Right now, these containers are being always build for the host machin=
+e platform, so without doing tricks like adding --platform or prefix to ima=
+ge name,
+>>   one cannot build the Yocto containers that would be ready to be pushed=
+ to registry. We need to have a clean solution without requiring user to do=
+ tricks.
+>>=20
+>> The only drawback of this solution is that the person building the yocto=
+-qemu{arm64/arm} container and willing to push it to registry,
+>> needs to have access to arm64 machine.
+>=20
+> I am fine with this drawback for now.
+>=20
+> Due to resource constraints, we might want to avoid adding
+> yocto-qemux86-64 (if yocto-qemux86-64 has to run on x86) for now, I
+> worry it might choke the x86 ci-loop. Or we could add it but keep it
+> disabled. We'll enable it when we get better x86 runners.=20
+
+
+Yocto-qemux86 actually runs quite well on an arm64 platform :-)
+
+Cheers
+Bertrand
+
+
 
