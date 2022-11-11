@@ -2,33 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88757625D75
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 15:48:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442629.696994 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09DD8625D79
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 15:50:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442632.697006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otVKf-0001Nl-CW; Fri, 11 Nov 2022 14:48:37 +0000
+	id 1otVM8-0002h2-NI; Fri, 11 Nov 2022 14:50:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442629.696994; Fri, 11 Nov 2022 14:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 442632.697006; Fri, 11 Nov 2022 14:50:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otVKf-0001L4-92; Fri, 11 Nov 2022 14:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 442629;
- Fri, 11 Nov 2022 14:48:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=I8SH=3L=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1otVKd-0001Ky-2K
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 14:48:35 +0000
-Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
- [2607:f8b0:4864:20::1029])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e9d6d13f-61cf-11ed-91b6-6bf2151ebd3b;
- Fri, 11 Nov 2022 15:48:33 +0100 (CET)
-Received: by mail-pj1-x1029.google.com with SMTP id
- q1-20020a17090a750100b002139ec1e999so4898319pjk.1
- for <xen-devel@lists.xenproject.org>; Fri, 11 Nov 2022 06:48:33 -0800 (PST)
+	id 1otVM8-0002fG-Je; Fri, 11 Nov 2022 14:50:08 +0000
+Received: by outflank-mailman (input) for mailman id 442632;
+ Fri, 11 Nov 2022 14:50:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=mhcu=3L=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1otVM7-0002de-B3
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 14:50:07 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 21546fae-61d0-11ed-8fd2-01056ac49cbb;
+ Fri, 11 Nov 2022 15:50:06 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 7CC482250A;
+ Fri, 11 Nov 2022 14:50:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2077113357;
+ Fri, 11 Nov 2022 14:50:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id MsldBh1hbmMRHQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 11 Nov 2022 14:50:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,268 +51,222 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e9d6d13f-61cf-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=IhWJ2nLOKJu8brLADrOERw4TNBcH2kQxpA6zIJNjozs=;
-        b=dEtrqs4York8w/lGHpP+yDOG5OEboeDpOIo+L5WqUX7bmdympj9nybP4eSytGPAZQ/
-         stbe/MqTf/e3JdBEw3T3/Avwcpq34GdYwD6n5rM+eQH4wmHvTnbbQOCwetqwCGxc1llV
-         jNLTRo90w9m2rnFKcSs4WIXz9ti83M4Mm4zDfwmvnjEXAsYdcFdiw8zLIQJeZyLsHJcQ
-         2hyPi3JRNDWgwQ1pKVg5u2RCR1bJExZ9ZwtulE4yVdhvpZDzwjVkMuvt9mOl8rS/seYP
-         qD/l4Fs5FgGFeLcTQT9fB5gib5uMYFvU7lvwjaNxOWpPFc9NwT+khPIn/a7+Z65NjnmN
-         FcvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=IhWJ2nLOKJu8brLADrOERw4TNBcH2kQxpA6zIJNjozs=;
-        b=RsFpY91d94uKnCdlc7iEVwCFM7H6l5VD9NdVyJJtB+pgVqJ8a1On6K5z23thbAjXuY
-         5gS8/K3llt2rbEHaVo54tEruUK7xcNyD6pyGVJvca7OX5DT7Hx/qJarI92zlrw4bDrjW
-         y+LBJT8EcTVPrnQOKrvKRXv7eN2NOfhK7o6CRKREl4a1MvOxja6fESVepyK3tw4k6oEh
-         hhN0S303oR5DToWicizYSsUhOQhqb+NdtlD6TKgbp29tAYHG1ZZ7O6iL+xpscbfbYqIj
-         FLGd9KW6/32M9r2N3bnqt5LVxvFdfl2Hjp157G/dUfJJRojYjt8QYy82THISFRAsKClR
-         ZPyQ==
-X-Gm-Message-State: ANoB5plFIduqDSsoJSuErLwdOd/VC3jlLYxBDwp4Q/NeADJcy0RweFJA
-	i9jyIVbPbR2CxL9dCFvhCz06VO5lPwA8hR3GStQ=
-X-Google-Smtp-Source: AA0mqf4H1yoeVxLU98n1XLKOYks3RamLzGyjbmjJ/GqJtIAuMQeqv1N5M0gvruyjDPZYPUDqy9DYHkJ8hXRFm6+opKA=
-X-Received: by 2002:a17:902:70c1:b0:188:77a7:eb5 with SMTP id
- l1-20020a17090270c100b0018877a70eb5mr2666367plt.6.1668178111994; Fri, 11 Nov
- 2022 06:48:31 -0800 (PST)
+X-Inumbo-ID: 21546fae-61d0-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1668178205; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mByjmISEKdalqe7JQPlupRP4g09wlWA9jjtuTrL9KpY=;
+	b=F0Zo+/xJHagbEfqClZuEBxIS5uSdUGb/ZhWp9LJjKXcdzLi21N7iDjiAkTTpiyX0SlUOFD
+	qAc1zY6MDng8twz4XKsSUdPuCR42jqlQsZ1cObmJUAv0G5bkBQHrrkClmurbJ/h1kcea92
+	MmexqAT8bhdvKXsUIjodKUr9a8/wCRA=
+Message-ID: <7a7553b2-79c1-759d-b020-c75b3118661f@suse.com>
+Date: Fri, 11 Nov 2022 15:50:04 +0100
 MIME-Version: 1.0
-References: <20221111112208.451449-1-Henry.Wang@arm.com> <20221111112208.451449-3-Henry.Wang@arm.com>
-In-Reply-To: <20221111112208.451449-3-Henry.Wang@arm.com>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Date: Fri, 11 Nov 2022 14:48:20 +0000
-Message-ID: <CAPD2p-=Y-1SwcWc5p-_nrWZAjTZPiyF7KZbeM62q9hafybD9Gw@mail.gmail.com>
-Subject: Re: [PATCH 2/3] CHANGELOG: Add missing entries for work during the
- 4.17 release
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="000000000000c9a02705ed32fbc8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.0
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Maximilian Heyne <mheyne@amazon.de>, xen-devel@lists.xenproject.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20220729070416.23306-1-jane.malalane@citrix.com>
+ <1918c63f-0065-b468-3691-de6e314f4374@suse.com>
+ <e7341a89-208c-8845-fbab-cb0326cc0883@suse.com>
+ <9ab99257-844b-de15-cd20-7cda61295186@suse.com>
+ <2476e467-1c31-91f4-1e75-86723b8da486@suse.com>
+ <3cd62b0b-a131-b709-4244-0ae694c3d022@suse.com>
+ <a5342914-e9fd-60be-50c3-60f29ee27b99@suse.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v4] x86/xen: Add support for
+ HVMOP_set_evtchn_upcall_vector
+In-Reply-To: <a5342914-e9fd-60be-50c3-60f29ee27b99@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------0hRGbhcyHFwbcd61gAq87GYo"
 
---000000000000c9a02705ed32fbc8
-Content-Type: text/plain; charset="UTF-8"
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------0hRGbhcyHFwbcd61gAq87GYo
+Content-Type: multipart/mixed; boundary="------------5FjtObaYiiDKaRpBY8HzAwLk";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ Maximilian Heyne <mheyne@amazon.de>, xen-devel@lists.xenproject.org,
+ LKML <linux-kernel@vger.kernel.org>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Message-ID: <7a7553b2-79c1-759d-b020-c75b3118661f@suse.com>
+Subject: Re: [PATCH v4] x86/xen: Add support for
+ HVMOP_set_evtchn_upcall_vector
+References: <20220729070416.23306-1-jane.malalane@citrix.com>
+ <1918c63f-0065-b468-3691-de6e314f4374@suse.com>
+ <e7341a89-208c-8845-fbab-cb0326cc0883@suse.com>
+ <9ab99257-844b-de15-cd20-7cda61295186@suse.com>
+ <2476e467-1c31-91f4-1e75-86723b8da486@suse.com>
+ <3cd62b0b-a131-b709-4244-0ae694c3d022@suse.com>
+ <a5342914-e9fd-60be-50c3-60f29ee27b99@suse.com>
+In-Reply-To: <a5342914-e9fd-60be-50c3-60f29ee27b99@suse.com>
+
+--------------5FjtObaYiiDKaRpBY8HzAwLk
+Content-Type: multipart/mixed; boundary="------------eZPec4DGzN1q5kIEiQLZsg00"
+
+--------------eZPec4DGzN1q5kIEiQLZsg00
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTEuMTEuMjIgMTQ6MTcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxMS4xMS4yMDIy
+IDEzOjQ0LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gT24gMTEuMTEuMjIgMTA6MDEsIEp1
+ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pj4gT24gMDguMTEuMjIgMTc6MjYsIEphbiBCZXVsaWNo
+IHdyb3RlOg0KPj4+PiBPbiAwMy4xMS4yMDIyIDE2OjQxLCBKYW4gQmV1bGljaCB3cm90ZToN
+Cj4+Pj4+IE9uIDAzLjExLjIwMjIgMTQ6MzgsIEphbiBCZXVsaWNoIHdyb3RlOg0KPj4+Pj4+
+IE9uIDI5LjA3LjIwMjIgMDk6MDQsIEphbmUgTWFsYWxhbmUgd3JvdGU6DQo+Pj4+Pj4+IEBA
+IC0xMjUsNiArMTMwLDkgQEAgREVGSU5FX0lEVEVOVFJZX1NZU1ZFQyhzeXN2ZWNfeGVuX2h2
+bV9jYWxsYmFjaykNCj4+Pj4+Pj4gIMKgIHsNCj4+Pj4+Pj4gIMKgwqDCoMKgwqAgc3RydWN0
+IHB0X3JlZ3MgKm9sZF9yZWdzID0gc2V0X2lycV9yZWdzKHJlZ3MpOw0KPj4+Pj4+PiArwqDC
+oMKgIGlmICh4ZW5fcGVyY3B1X3VwY2FsbCkNCj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgIGFj
+a19BUElDX2lycSgpOw0KPj4+Pj4+PiArDQo+Pj4+Pj4+ICDCoMKgwqDCoMKgIGluY19pcnFf
+c3RhdChpcnFfaHZfY2FsbGJhY2tfY291bnQpOw0KPj4+Pj4+PiAgwqDCoMKgwqDCoCB4ZW5f
+aHZtX2V2dGNobl9kb191cGNhbGwoKTsNCj4+Pj4+Pj4gQEAgLTE2OCw2ICsxNzYsMTUgQEAg
+c3RhdGljIGludCB4ZW5fY3B1X3VwX3ByZXBhcmVfaHZtKHVuc2lnbmVkIGludCBjcHUpDQo+
+Pj4+Pj4+ICDCoMKgwqDCoMKgIGlmICgheGVuX2hhdmVfdmVjdG9yX2NhbGxiYWNrKQ0KPj4+
+Pj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAwOw0KPj4+Pj4+PiArwqDCoMKgIGlm
+ICh4ZW5fcGVyY3B1X3VwY2FsbCkgew0KPj4+Pj4+PiArwqDCoMKgwqDCoMKgwqAgcmMgPSB4
+ZW5fc2V0X3VwY2FsbF92ZWN0b3IoY3B1KTsNCj4+Pj4+Pg0KPj4+Pj4+ICDCoEZyb20gYWxs
+IEkgY2FuIHRlbGwgYXQgbGVhc3QgZm9yIEFQcyB0aGlzIGhhcHBlbnMgYmVmb3JlIHNldHVw
+X2xvY2FsX2FwaWMoKS4NCj4+Pj4+PiBXaXRoIHRoZXJlIGJlaW5nIEFQSUMgaW50ZXJhY3Rp
+b24gaW4gdGhpcyBvcGVyYXRpb24gbW9kZSwgYXMgc2VlbiBlLmcuIGluDQo+Pj4+Pj4gdGhl
+IGVhcmxpZXIgaHVuayBhYm92ZSwgSSB0aGluayB0aGlzIGlzIGxvZ2ljYWxseSB3cm9uZy4g
+QW5kIGl0IGxlYWRzIHRvDQo+Pj4+Pj4gYXBpY19wZW5kaW5nX2ludHJfY2xlYXIoKSBpc3N1
+aW5nIGl0cyB3YXJuaW5nOiBUaGUgdmVjdG9yIHJlZ2lzdHJhdGlvbiwgYXMNCj4+Pj4+PiBh
+biBpbnRlbnRpb25hbCBzaWRlIGVmZmVjdCwgbWFya3MgdGhlIHZlY3RvciBhcyBwZW5kaW5n
+LiBVbmxlc3MgSVJRcyB3ZXJlDQo+Pj4+Pj4gZW5hYmxlZCBhdCBhbnkgcG9pbnQgYmV0d2Vl
+biB0aGUgcmVnaXN0cmF0aW9uIGFuZCB0aGUgY2hlY2ssIHRoZXJlJ3MNCj4+Pj4+PiBzaW1w
+bHkgbm8gd2F5IGZvciB0aGUgY29ycmVzcG9uZGluZyBJUlIgYml0IHRvIGJlIGRlYWx0IHdp
+dGggKGJ5DQo+Pj4+Pj4gcHJvcGFnYXRpbmcgdG8gSVNSIHdoZW4gdGhlIGludGVycnVwdCBp
+cyBkZWxpdmVyZWQsIGFuZCB0aGVuIGJlaW5nIGNsZWFyZWQNCj4+Pj4+PiBmcm9tIElTUiBi
+eSBFT0kpLg0KPj4+Pj4NCj4+Pj4+IFdpdGggUm9nZXIncyBoZWxwIEkgbm93IGhhdmUgYSBw
+b2ludGVyIHRvIG9zc3Rlc3QgYWxzbyBleHBvc2luZyB0aGUgaXNzdWU6DQo+Pj4+Pg0KPj4+
+Pj4gaHR0cDovL2xvZ3MudGVzdC1sYWIueGVucHJvamVjdC5vcmcvb3NzdGVzdC9sb2dzLzE3
+NDU5Mi90ZXN0LWFtZDY0LWFtZDY0LXhsLXB2aHYyLWludGVsL2h1eGVscmViZTAtLS12YXIt
+bG9nLXhlbi1jb25zb2xlLWd1ZXN0LWRlYmlhbi5ndWVzdC5vc3N0ZXN0LmxvZy5neg0KPj4+
+Pg0KPj4+PiBJJ3ZlIG5vdGljZWQgb25seSBub3cgdGhhdCBteSBtYWlsIHRvIEphbmUgYm91
+bmNlZCwgYW5kIEknbSBub3cgdG9sZA0KPj4+PiBzaGUncyBubyBsb25nZXIgaW4gaGVyIHJv
+bGUgYXQgQ2l0cml4LiBTaW5jZSBJIGRvbid0IGV4cGVjdCB0byBoYXZlIHRpbWUNCj4+Pj4g
+dG8gaW52ZXN0aWdhdGUgYW4gYXBwcm9wcmlhdGUgc29sdXRpb24gaGVyZSwgbWF5IEkgYXNr
+IHdoZXRoZXIgb25lIG9mDQo+Pj4+IHRoZSB0d28gb2YgeW91IGNvdWxkIGxvb2sgaW50byB0
+aGlzLCBiZWluZyB0aGUgbWFpbnRhaW5lcnMgb2YgdGhpcyBjb2RlPw0KPj4+DQo+Pj4gSSB0
+aGluayB0aGUgY29ycmVjdCB3YXkgdG8gaGFuZGxlIHRoaXMgd291bGQgYmU6DQo+Pj4NCj4+
+PiAtIHJlbmFtZSBDUFVIUF9BUF9BUk1fWEVOX1NUQVJUSU5HIHRvIENQVUhQX0FQX1hFTl9T
+VEFSVElORw0KPj4+IC0gbW92ZSB0aGUgeGVuX3NldF91cGNhbGxfdmVjdG9yKCkgY2FsbCB0
+byBhIG5ldyBob3RwbHVnIGNhbGxiYWNrDQo+Pj4gICDCoCByZWdpc3RlcmVkIGZvciBDUFVI
+UF9BUF9YRU5fU1RBUlRJTkcgKHRoaXMgY2FuIGJlIGRvbmUgZXZlbg0KPj4+ICAgwqAgY29u
+ZGl0aW9uYWxseSBvbmx5IGlmIHhlbl9wZXJjcHVfdXBjYWxsIGlzIHNldCkNCj4+Pg0KPj4+
+IFdyaXRpbmcgYSBwYXRjaCBub3cgLi4uDQo+Pg0KPj4gRm9yIHRoZSBBUHMgdGhpcyBpcyB3
+b3JraW5nIGFzIGV4cGVjdGVkLg0KPj4NCj4+IFRoZSBib290IHByb2Nlc3NvciBzZWVtcyB0
+byBiZSBoYXJkZXIgdG8gZml4LiBUaGUgcmVsYXRlZCBtZXNzYWdlIGlzIGJlaW5nDQo+PiBp
+c3N1ZWQgZXZlbiB3aXRoIGludGVycnVwdHMgYmVpbmcgb24gd2hlbiBzZXR1cF9sb2NhbF9B
+UElDKCkgaXMgY2FsbGVkLg0KPiANCj4gSG1tLCBwdXp6bGluZzogSSBkb24ndCByZWNhbGwg
+aGF2aW5nIHNlZW4gdGhlIG1lc3NhZ2UgZm9yIHRoZSBCU1AuIFdoaWNoDQo+IG1hZGUgbWUg
+YXNzdW1lICh3aXRob3V0IGhhdmluZyBhY3R1YWxseSBjaGVja2VkKSB0aGF0IC4uLg0KPiAN
+Cj4+IEkndmUgdHJpZWQgdG8gcmVnaXN0ZXIgdGhlIGNhbGxiYWNrIG9ubHkgYWZ0ZXIgdGhl
+IHNldHVwX2xvY2FsX0FQSUMoKSBjYWxsLA0KPiANCj4gLi4uIGl0J3MgYWxyZWFkeSBoYXBw
+ZW5pbmcgYWZ0ZXJ3YXJkcyBpbiB0aGF0IGNhc2UuDQo+IA0KPj4gYnV0IHRoaXMgcmVzdWx0
+cyBpbiBhIHN5c3RlbSBoYW5nIHdoZW4gdGhlIEFQcyBhcmUgc3RhcnRlZC4NCj4+DQo+PiBB
+bnkgaWRlYXM/DQo+IA0KPiBOb3QgcmVhbGx5LCB0byBiZSBob25lc3QuDQoNCkkgbWlnaHQg
+YmUgd3JvbmcgaGVyZSwgYnV0IGlzIGEgYml0IHNldCBpbiBJUlIgcGx1cyBpbnRlcnJ1cHRz
+IGVuYWJsZWQNCmVub3VnaCB0byBtYWtlIHRoZSBrZXJuZWwgaGFwcHk/IFRoZSBsb2NhbCBB
+UElDIGlzbid0IGVuYWJsZWQgeWV0IHdoZW4NCmFwaWNfcGVuZGluZ19pbnRyX2NsZWFyKCkg
+aXMgYmVpbmcgY2FsbGVkLCBzbyBJTUhPIHRoZSBoeXBlcnZpc29yIHdpbGwNCm5ldmVyIHBy
+b3BhZ2F0ZSB0aGUgYml0IHRvIElTUi4NCg0KSSBkaWRuJ3QgZmluZCBhbnkgc3BlY2lmaWMg
+aW5mb3JtYXRpb24gaW4gdGhlIFNETSByZWdhcmRpbmcgImFjY2VwdGluZw0KYW4gaW50ZXJy
+dXB0IiBvZiBhIGRpc2FibGVkIGxvY2FsIEFQSUMsIGJ1dCBtYXliZSBJIGRpZG4ndCBmaW5k
+IHRoZQ0KcmVsZXZhbnQgcGFydCBvZiB0aGUgbWFudWFsLg0KDQoNCkp1ZXJnZW4NCg==
+--------------eZPec4DGzN1q5kIEiQLZsg00
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Nov 11, 2022 at 11:23 AM Henry Wang <Henry.Wang@arm.com> wrote:
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Hello Henry
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-[leave only xen-devel@lists.xenproject.org in CC]
-[sorry for the possible format issues]
+--------------eZPec4DGzN1q5kIEiQLZsg00--
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-> ---
->  CHANGELOG.md | 29 +++++++++++++++++++++++++++--
->  1 file changed, 27 insertions(+), 2 deletions(-)
->
-> diff --git a/CHANGELOG.md b/CHANGELOG.md
-> index adbbb216fa..fa8cc476b3 100644
-> --- a/CHANGELOG.md
-> +++ b/CHANGELOG.md
-> @@ -4,16 +4,41 @@ Notable changes to Xen will be documented in this file.
->
->  The format is based on [Keep a Changelog](
-> https://keepachangelog.com/en/1.0.0/)
->
-> -## [unstable UNRELEASED](
-> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging) - T=
-BD
-> +## [4.17.0](
-> https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging) -
-> 2022-11-??
->
->  ### Changed
->   - On x86 "vga=3Dcurrent" can now be used together with GrUB2's gfxpaylo=
-ad
-> setting. Note that
->     this requires use of "multiboot2" (and "module2") as the GrUB command=
-s
-> loading Xen.
-> + - The "gnttab" option now has a new command line sub-option for
-> disabling the
-> +   GNTTABOP_transfer functionality.
-> + - The x86 MCE command line option info is now updated.
->
->  ### Added / support upgraded
-> + - Out-of-tree builds for the hypervisor now supported.
-> + - The project has officially adopted 4 directives and 24 rules of
-> MISRA-C,
-> +   added MISRA-C checker build integration, and defined how to document
-> +   deviations.
->   - IOMMU superpage support on x86, affecting PV guests as well as HVM/PV=
-H
-> ones
->     when they don't share page tables with the CPU (HAP / EPT / NPT).
-> - - Support VIRT_SSBD feature for HVM guests on AMD.
-> + - Support VIRT_SSBD feature for HVM guests on AMD and MSR_SPEC_CTRL
-> feature for
-> +   SVM guests.
-> + - Improved TSC, CPU frequency calibration and APIC on x86.
-> + - Improved support for CET Indirect Branch Tracking on x86.
-> + - Improved mwait-idle support for SPR and ADL on x86.
-> + - Extend security support for hosts to 12 TiB of memory on x86.
-> + - Add command line option to set cpuid parameters for dom0 at boot time
-> on x86.
-> + - Improved static configuration options on Arm.
-> + - cpupools can be specified at boot using device tree on Arm.
-> + - It is possible to use PV drivers with dom0less guests, allowing
-> statically
-> +   booted dom0less guests with PV devices.
-> + - On Arm, p2m structures are now allocated out of a pool of memory set
-> aside at
-> +   domain creation.
-> + - Improved mitigations against Spectre-BHB on Arm.
-> + - Add support for VirtIO toolstack on Arm.
->
+--------------5FjtObaYiiDKaRpBY8HzAwLk--
 
-I would clarify that only virtio-mmio is supported on Arm.
+--------------0hRGbhcyHFwbcd61gAq87GYo
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
+-----BEGIN PGP SIGNATURE-----
 
-> + - Allow setting the number of CPUs to activate at runtime from command
-> line
-> +   option on Arm.
-> + - Improved toolstack build system.
-> + - Add Xue - console over USB 3 Debug Capability.
->
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmNuYRwFAwAAAAAACgkQsN6d1ii/Ey/E
+Zgf/eU++OBDGUwnTkMOfDChOoHfGUWCh6/cnwF9FScf3bB8ujsf3/rDr6FjQQIkqInEWQ9i7ijIE
+/tAxEcNHI6olYq1BKBlvWo06REPOj02JEK484iOk0lbdmtH6PFZnkQxud7nc0xNsyUGD8VEHMOb0
+1C2JKj5QLIc8JU06TQx6P7BslA1LkzIFPSQcm9I5Gi71OGA+DsD+1+gmxecUm+8WOIqLxhsuH8eL
+0vW/LxUMREVGemthAVglbcPREtUtu84TpQOTNVmw4cSK+Li/GmQ72CerOqLTk7+fEJ1WOda7+inC
+ju53yIgXpru9Nvp2LY9pIBJgDOn7n3pGmXccAcQroQ==
+=+tSq
+-----END PGP SIGNATURE-----
 
-I would probably also add the following:
-
-- Add Renesas R-Car Gen4 IPMMU-VMSA support (Arm)
-- grant-table support on Arm was improved and hardened by implementing
-=E2=80=9Csimplified M2P-like
-approach for the xenheap pages=E2=80=9D
-
-
-
->
->  ### Removed / support downgraded
->   - dropped support for the (x86-only) "vesa-mtrr" and "vesa-remap"
-> command line options
-> --
-> 2.25.1
->
->
->
-
---=20
-Regards,
-
-Oleksandr Tyshchenko
-
---000000000000c9a02705ed32fbc8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Nov 11, 2022 at 11:23 AM Henr=
-y Wang &lt;<a href=3D"mailto:Henry.Wang@arm.com" target=3D"_blank">Henry.Wa=
-ng@arm.com</a>&gt; wrote:<br></div><div dir=3D"ltr" class=3D"gmail_attr"><b=
-r></div><div class=3D"gmail_attr">Hello Henry</div><div class=3D"gmail_attr=
-"><br></div><div class=3D"gmail_attr">[leave only <a href=3D"mailto:xen-dev=
-el@lists.xenproject.org">xen-devel@lists.xenproject.org</a> in CC]<br></div=
-><div class=3D"gmail_attr">[sorry for the possible format issues]</div><div=
- dir=3D"ltr" class=3D"gmail_attr"><br></div><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">Signed-off-by: Henry Wang &lt;<a href=3D"mailto:Henry.Wa=
-ng@arm.com" target=3D"_blank">Henry.Wang@arm.com</a>&gt;<br>
----<br>
-=C2=A0CHANGELOG.md | 29 +++++++++++++++++++++++++++--<br>
-=C2=A01 file changed, 27 insertions(+), 2 deletions(-)<br>
-<br>
-diff --git a/CHANGELOG.md b/CHANGELOG.md<br>
-index adbbb216fa..fa8cc476b3 100644<br>
---- a/CHANGELOG.md<br>
-+++ b/CHANGELOG.md<br>
-@@ -4,16 +4,41 @@ Notable changes to Xen will be documented in this file.<b=
-r>
-<br>
-=C2=A0The format is based on [Keep a Changelog](<a href=3D"https://keepacha=
-ngelog.com/en/1.0.0/" rel=3D"noreferrer" target=3D"_blank">https://keepacha=
-ngelog.com/en/1.0.0/</a>)<br>
-<br>
--## [unstable UNRELEASED](<a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxe=
-n.git;a=3Dshortlog;h=3Dstaging" rel=3D"noreferrer" target=3D"_blank">https:=
-//xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging</a>) - TBD<b=
-r>
-+## [4.17.0](<a href=3D"https://xenbits.xen.org/gitweb/?p=3Dxen.git;a=3Dsho=
-rtlog;h=3Dstaging" rel=3D"noreferrer" target=3D"_blank">https://xenbits.xen=
-.org/gitweb/?p=3Dxen.git;a=3Dshortlog;h=3Dstaging</a>) - 2022-11-??<br>
-<br>
-=C2=A0### Changed<br>
-=C2=A0 - On x86 &quot;vga=3Dcurrent&quot; can now be used together with GrU=
-B2&#39;s gfxpayload setting. Note that<br>
-=C2=A0 =C2=A0 this requires use of &quot;multiboot2&quot; (and &quot;module=
-2&quot;) as the GrUB commands loading Xen.<br>
-+ - The &quot;gnttab&quot; option now has a new command line sub-option for=
- disabling the<br>
-+=C2=A0 =C2=A0GNTTABOP_transfer functionality.<br>
-+ - The x86 MCE command line option info is now updated.<br>
-<br>
-=C2=A0### Added / support upgraded<br>
-+ - Out-of-tree builds for the hypervisor now supported.<br>
-+ - The project has officially adopted 4 directives and 24 rules of MISRA-C=
-,<br>
-+=C2=A0 =C2=A0added MISRA-C checker build integration, and defined how to d=
-ocument<br>
-+=C2=A0 =C2=A0deviations.<br>
-=C2=A0 - IOMMU superpage support on x86, affecting PV guests as well as HVM=
-/PVH ones<br>
-=C2=A0 =C2=A0 when they don&#39;t share page tables with the CPU (HAP / EPT=
- / NPT).<br>
-- - Support VIRT_SSBD feature for HVM guests on AMD.<br>
-+ - Support VIRT_SSBD feature for HVM guests on AMD and MSR_SPEC_CTRL featu=
-re for<br>
-+=C2=A0 =C2=A0SVM guests.<br>
-+ - Improved TSC, CPU frequency calibration and APIC on x86.<br>
-+ - Improved support for CET Indirect Branch Tracking on x86.<br>
-+ - Improved mwait-idle support for SPR and ADL on x86.<br>
-+ - Extend security support for hosts to 12 TiB of memory on x86.<br>
-+ - Add command line option to set cpuid parameters for dom0 at boot time o=
-n x86.<br>
-+ - Improved static configuration options on Arm.<br>
-+ - cpupools can be specified at boot using device tree on Arm.<br>
-+ - It is possible to use PV drivers with dom0less guests, allowing statica=
-lly<br>
-+=C2=A0 =C2=A0booted dom0less guests with PV devices.<br>
-+ - On Arm, p2m structures are now allocated out of a pool of memory set as=
-ide at<br>
-+=C2=A0 =C2=A0domain creation.<br>
-+ - Improved mitigations against Spectre-BHB on Arm.<br>
-+ - Add support for VirtIO toolstack on Arm.<br></blockquote><div>=C2=A0</d=
-iv><div>I would clarify that only virtio-mmio is supported on Arm.</div><di=
-v>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px=
- 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-+ - Allow setting the number of CPUs to activate at runtime from command li=
-ne<br>
-+=C2=A0 =C2=A0option on Arm.<br>
-+ - Improved toolstack build system.<br>
-+ - Add Xue - console over USB 3 Debug Capability.<br></blockquote><div><br=
-></div><div>I would probably also add the following:</div><div><br></div><d=
-iv>- Add Renesas R-Car Gen4 IPMMU-VMSA support (Arm)<br></div><div>- grant-=
-table support on Arm was improved and hardened by implementing =E2=80=9Csim=
-plified M2P-like</div><div>approach for the xenheap pages=E2=80=9D<br></div=
-><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D=
-"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-le=
-ft:1ex">
-<br>
-=C2=A0### Removed / support downgraded<br>
-=C2=A0 - dropped support for the (x86-only) &quot;vesa-mtrr&quot; and &quot=
-;vesa-remap&quot; command line options<br>
--- <br>
-2.25.1<br>
-<br>
-<br>
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
-><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><span style=
-=3D"background-color:rgb(255,255,255)"><font size=3D"2"><span style=3D"colo=
-r:rgb(51,51,51);font-family:Arial,sans-serif">Regards,</span></font></span>=
-</div><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div><span style=3D"backg=
-round-color:rgb(255,255,255)"><font size=3D"2">Oleksandr Tyshchenko</font><=
-/span></div></div></div></div></div></div></div></div>
-
---000000000000c9a02705ed32fbc8--
+--------------0hRGbhcyHFwbcd61gAq87GYo--
 
