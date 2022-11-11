@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB6086260B1
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 18:53:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442686.697109 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FCC06262AB
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 21:16:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442698.697121 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otYDK-00038I-4h; Fri, 11 Nov 2022 17:53:14 +0000
+	id 1otaQi-0002Ya-4J; Fri, 11 Nov 2022 20:15:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442686.697109; Fri, 11 Nov 2022 17:53:14 +0000
+Received: by outflank-mailman (output) from mailman id 442698.697121; Fri, 11 Nov 2022 20:15:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otYDK-00035N-1u; Fri, 11 Nov 2022 17:53:14 +0000
-Received: by outflank-mailman (input) for mailman id 442686;
- Fri, 11 Nov 2022 17:53:13 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1otYDJ-00035H-49
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 17:53:13 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1otYDI-0005m6-N5; Fri, 11 Nov 2022 17:53:12 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=[192.168.11.31]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1otYDI-0002Gs-G5; Fri, 11 Nov 2022 17:53:12 +0000
+	id 1otaQi-0002VY-0Q; Fri, 11 Nov 2022 20:15:12 +0000
+Received: by outflank-mailman (input) for mailman id 442698;
+ Fri, 11 Nov 2022 20:15:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JraP=3L=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1otaQg-0002VS-Av
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 20:15:10 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 899172d0-61fd-11ed-91b6-6bf2151ebd3b;
+ Fri, 11 Nov 2022 21:15:08 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 582CFB8260C;
+ Fri, 11 Nov 2022 20:15:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09FFEC433D6;
+ Fri, 11 Nov 2022 20:15:04 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,196 +43,206 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7x4fSVNoFVXEjjkkkEI9Pyq+oOD42XESGGKw/cmc6BM=; b=InBXtNR6qEQ7FVPnqY4aW6PGS2
-	300p46B0qIwAKCC6Yp5BRq4cQbuotbQfRn/vPgeepsU/yTNMc2lD1JeagKiiOEWifGOAwAtJ2sdnv
-	FmAQS0+JDG0gbPDn+Qua9Snt3JRgSTjvzEn0+UrzYz5Qa83KftpNbdUjgYzlQ1MEPu/Y=;
-Message-ID: <36c7f27d-10c7-b4fd-c775-a247660ec125@xen.org>
-Date: Fri, 11 Nov 2022 17:53:09 +0000
+X-Inumbo-ID: 899172d0-61fd-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1668197706;
+	bh=bR2dMVzmjdvM7WFCh+o1y8snkL418ulaASAYMDx2CdA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=Y4cpybX5zBOQRwHfLN610OFoJKDhmt7V4YpdsSMuWNf2812mqsBtACyBACI0LMU+E
+	 efvhu/ZARAGxiyQ9saQhMKwX1IMdhTa3SB+EO3OV1ss9m8u7QK7rfgvBvrK2u9YSU3
+	 lfXzRQJ0VOodswRYCWAmzYDYRjTd1iZONYM0YLxFrH6eMfV5sM+PHwT+34UgaJ7Hjj
+	 EqM/AuDpHa/QApckfhEufeN5fytTKuLLN8n9ZLLoRJaPagZKVYbc5muH6f6xArFSz9
+	 6iQu69ZlU/KzjrLlXwBqtkPmoAzyVd3Y77pMngarUvYe5kp+umkl0ZuPeiGVSoDW2S
+	 vLsjJ7kpNO7jw==
+Date: Fri, 11 Nov 2022 12:15:03 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Wei Chen <Wei.Chen@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    nd <nd@arm.com>, Bertrand Marquis <Bertrand.Marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    Jiamei Xie <Jiamei.Xie@arm.com>
+Subject: RE: [PATCH v6 05/11] xen/arm: define Xen start address for FVP BaseR
+ platform
+In-Reply-To: <PAXPR08MB7420EFE8FD44EAD0DC4321E19E009@PAXPR08MB7420.eurprd08.prod.outlook.com>
+Message-ID: <alpine.DEB.2.22.394.2211111214430.50442@ubuntu-linux-20-04-desktop>
+References: <20221104100741.2176307-1-wei.chen@arm.com> <20221104100741.2176307-6-wei.chen@arm.com> <0ffe8a4d-7caf-89af-d189-a872b6b4f0fa@xen.org> <PAXPR08MB7420A3A20199F477622EB7099E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com> <e2a1233c-c001-9553-7abe-de97e96a650e@xen.org>
+ <alpine.DEB.2.22.394.2211101358090.50442@ubuntu-linux-20-04-desktop> <PAXPR08MB7420EFE8FD44EAD0DC4321E19E009@PAXPR08MB7420.eurprd08.prod.outlook.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.1
-Subject: Re: [XEN v3 11/12] xen/Arm: GICv3: Define macros to read/write 64 bit
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Xenia Ragiadakou <burzalodowa@gmail.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, michal.orzel@amd.com, jgrall@amazon.com
-References: <20221111141739.2872-1-ayan.kumar.halder@amd.com>
- <20221111141739.2872-12-ayan.kumar.halder@amd.com>
- <3ea29174-abb4-0fe9-fde8-28d4d62f2f67@gmail.com>
- <96e799be-fc98-3457-2243-c979162e8a79@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <96e799be-fc98-3457-2243-c979162e8a79@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/mixed; boundary="8323329-44684058-1668197705=:50442"
 
-Hi,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 11/11/2022 17:37, Ayan Kumar Halder wrote:
-> 
-> On 11/11/2022 16:17, Xenia Ragiadakou wrote:
->> Hi Ayan,
-> Hi Xenia,
->>
->> On 11/11/22 16:17, Ayan Kumar Halder wrote:
->>> On AArch32, ldrd/strd instructions are not atomic when used to access 
->>> MMIO.
->>> Furthermore, ldrd/strd instructions are not decoded by Arm when 
->>> running as
->>> a guest to access emulated MMIO region.
->>> Thus, we have defined 
->>> readq_relaxed_non_atomic()/writeq_relaxed_non_atomic()
->>> which in turn calls readl_relaxed()/writel_relaxed() for the lower 
->>> and upper
->>> 32 bits.
->>> As GICv3 registers (GICD_IROUTER, GICR_TYPER) can be accessed in a 
->>> non atomic
->>> fashion, so we have used {read/write}q_relaxed_non_atomic() on Arm32.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>
->>> Changes from :-
->>> v1 - 1. Use ldrd/strd for readq_relaxed()/writeq_relaxed().
->>> 2. No need to use le64_to_cpu() as the returned byte order is already 
->>> in cpu
->>> endianess.
->>>
->>> v2 - 1. Replace {read/write}q_relaxed with 
->>> {read/write}q_relaxed_non_atomic().
->>>
->>>   xen/arch/arm/gic-v3.c               | 12 ++++++++++++
->>>   xen/arch/arm/include/asm/arm32/io.h |  9 +++++++++
->>>   2 files changed, 21 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
->>> index 6457e7033c..a5bc549765 100644
->>> --- a/xen/arch/arm/gic-v3.c
->>> +++ b/xen/arch/arm/gic-v3.c
->>> @@ -651,7 +651,11 @@ static void __init gicv3_dist_init(void)
->>>       affinity &= ~GICD_IROUTER_SPI_MODE_ANY;
->>>         for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i++ )
->>> +#ifdef CONFIG_ARM_32
->>> +        writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTER + i 
->>> * 8);
->>> +#else
->>>           writeq_relaxed(affinity, GICD + GICD_IROUTER + i * 8);
->>> +#endif
+--8323329-44684058-1668197705=:50442
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-I would have been OK if there was one place needed a #ifdef. But 2 is a 
-bit too much.
+On Fri, 11 Nov 2022, Wei Chen wrote:
+> Hi Stefano, Julien,
+> 
+> > -----Original Message-----
+> > From: Xen-devel <xen-devel-bounces@lists.xenproject.org> On Behalf Of
+> > Stefano Stabellini
+> > Sent: 2022年11月11日 6:13
+> > To: Julien Grall <julien@xen.org>
+> > Cc: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org; nd
+> > <nd@arm.com>; Stefano Stabellini <sstabellini@kernel.org>; Bertrand
+> > Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+> > <Volodymyr_Babchuk@epam.com>; Jiamei Xie <Jiamei.Xie@arm.com>
+> > Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for FVP
+> > BaseR platform
+> > 
+> > On Wed, 9 Nov 2022, Julien Grall wrote:
+> > > > > -----Original Message-----
+> > > > > From: Julien Grall <julien@xen.org>
+> > > > > Sent: 2022年11月7日 3:20
+> > > > > To: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org
+> > > > > Cc: nd <nd@arm.com>; Stefano Stabellini <sstabellini@kernel.org>;
+> > Bertrand
+> > > > > Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+> > > > > <Volodymyr_Babchuk@epam.com>; Jiamei Xie <Jiamei.Xie@arm.com>
+> > > > > Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for
+> > FVP
+> > > > > BaseR platform
+> > > > >
+> > > > >
+> > > > >
+> > > > > On 04/11/2022 10:07, Wei Chen wrote:
+> > > > > > On Armv8-A, Xen has a fixed virtual start address (link address
+> > > > > > too) for all Armv8-A platforms. In an MMU based system, Xen can
+> > > > > > map its loaded address to this virtual start address. So, on
+> > > > > > Armv8-A platforms, the Xen start address does not need to be
+> > > > > > configurable. But on Armv8-R platforms, there is no MMU to map
+> > > > > > loaded address to a fixed virtual address and different platforms
+> > > > > > will have very different address space layout. So Xen cannot use
+> > > > > > a fixed physical address on MPU based system and need to have it
+> > > > > > configurable.
+> > > > > >
+> > > > > > So in this patch, we reuse the existing arm/platforms to store
+> > > > > > Armv8-R platforms' parameters. And `XEN_START_ADDRESS` is one
+> > > > > > kind of FVP BaseR platform's parameters. So we define default
+> > > > > > `XEN_START_ADDRESS` for FVP BaseR in its platform file.
+> > > > > >
+> > > > > > We also introduce one Kconfig option for users to override the
+> > > > > > default Xen start address of selected platform, if they think
+> > > > > > the default address doesn't suit their scenarios. For this
+> > > > > > Kconfig option, we use an unaligned address "0xffffffff" as the
+> > > > > > default value to indicate that users haven't used a customized
+> > > > > > Xen start address.
+> > > > > >
+> > > > > > And as we introduced Armv8-R platforms to Xen, that means the
+> > > > > > existed Arm64 platforms should not be listed in Armv8-R platform
+> > > > > > list, so we add !ARM_V8R dependency for these platforms.
+> > > > > >
+> > > > > > Signed-off-by: Wei Chen <wei.chen@arm.com>
+> > > > > > Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
+> > > > > > ---
+> > > > > >    xen/arch/arm/Kconfig                           | 11 +++++++++++
+> > > > > >    xen/arch/arm/include/asm/platforms/fvp_baser.h | 14
+> > ++++++++++++++
+> > > > >
+> > > > > I looked at the content of fvp_baser.h after this series is applied.
+> > > > > There are a bit of boiler plate that I expect to be part for other
+> > > > > platforms. In particular...
+> > > > >
+> > > > > >    xen/arch/arm/platforms/Kconfig                 | 16
+> > +++++++++++++---
+> > > > > >    3 files changed, 38 insertions(+), 3 deletions(-)
+> > > > > >    create mode 100644
+> > xen/arch/arm/include/asm/platforms/fvp_baser.h
+> > > > > >
+> > > > > > diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> > > > > > index ad592367bd..ac276307d6 100644
+> > > > > > --- a/xen/arch/arm/Kconfig
+> > > > > > +++ b/xen/arch/arm/Kconfig
+> > > > > > @@ -138,6 +138,17 @@ config TEE
+> > > > > >    	  This option enables generic TEE mediators support. It allows
+> > > > > guests
+> > > > > >    	  to access real TEE via one of TEE mediators implemented in
+> > > > > > XEN.
+> > > > > >
+> > > > > > +config XEN_START_ADDRESS
+> > > > > > +	hex "Xen start address: keep default to use platform defined
+> > > > > address"
+> > > > > > +	default 0xFFFFFFFF
+> > > > >
+> > > > > ... this default value will need to be tested everywhere. At least
+> > for
+> > > > > now, I think you can avoid the per platform header by using the
+> > Kconfig
+> > > > > to select the proper address (see the config for selecting early
+> > printk
+> > > > > address).
+> > > > >
+> > > > > This will also avoids to use an invalid value here.
+> > > > >
+> > > >
+> > > > We had considered to use Kconfig to define the start addresses of
+> > v8R64
+> > > > platforms (prompt users to input the address). But we also want to
+> > provide
+> > > > a default start address for each platform (Discussed in [1], header
+> > for
+> > > > default value, Kconfig option for customized address).
+> > > Why do you want to provide a default value? And how it is guaranteed
+> > that it
+> > > will work for most of the users?
+> > >
+> > > >
+> > > > We also had thought to use Kconfig to define a default start address
+> > > > for each platform like what we had done for early printk in RFC[2].
+> > > > But this method has been deprecated.
+> > >
+> > > Most of the current Xen is board agnostic except the UART. We push back
+> > the
+> > > addition of new one because the address can be found in the firmware
+> > table and
+> > > I wanted to avoid increase the number of option (there are dozens of
+> > platform
+> > > out...).
+> > >
+> > > >
+> > > > So if we don’t use header files, just use the Kconfig, we can't
+> > > > provide a default start address for platforms, and have to force users
+> > > > to enter the start address.
+> > >
+> > > I am not sure I see the problem to force the user to enter the start
+> > address.
+> > > My worry with per-platform default value is we end up to force each
+> > vendor to
+> > > provide an header in order to boot Xen.
+> > >
+> > > I think it would be better to provide a config tailored for that
+> > platform
+> > > (whether it is part of Xen can be debatable). This would allow a user to
+> > try a
+> > > release Xen on their platform with zero changes in the code.
+> > 
+> > I agree with Julien, especially on this last point.
+> > 
+> > Of course we need a default configuration for a given platform, we don't
+> > want every user of the same platform to have to go and look at the
+> > manual to find the right address to use.
+> > 
+> > The question is where to put the per-platform default value. The kconfig
+> > "default" keyword is not great for that and it is not realistic to have
+> > a single address that works everywhere.
+> > 
+> > Instead, we could have a prepopulated kconfig under
+> > xen/arch/arm/configs, or something under ImageBuilder, or maybe expand
+> 
+> Do you mean we can keep a config like armv8r_fvp_baser_config in
+> xen/arch/arm/configs for users to generate a default config?
 
-Please provide a wrapper writeq_relaxed_non_atomic() for arm64. The 
-implementation would call writeq(). The same stands for...
-
->>>   }
->>>     static int gicv3_enable_redist(void)
->>> @@ -745,7 +749,11 @@ static int __init gicv3_populate_rdist(void)
->>>           }
->>>             do {
->>> +#ifdef CONFIG_ARM_32
->>> +            typer = readq_relaxed_non_atomic(ptr + GICR_TYPER);
->>> +#else
->>>               typer = readq_relaxed(ptr + GICR_TYPER);
->>> +#endif
-
-... here.
-
->>>                 if ( (typer >> 32) == aff )
->>>               {
->>> @@ -1265,7 +1273,11 @@ static void gicv3_irq_set_affinity(struct 
->>> irq_desc *desc, const cpumask_t *mask)
->>>       affinity &= ~GICD_IROUTER_SPI_MODE_ANY;
->>>         if ( desc->irq >= NR_GIC_LOCAL_IRQS )
->>> +#ifdef CONFIG_ARM_32
->>> +        writeq_relaxed_non_atomic(affinity, (GICD + GICD_IROUTER + 
->>> desc->irq * 8));
->>> +#else
->>>           writeq_relaxed(affinity, (GICD + GICD_IROUTER + desc->irq * 
->>> 8));
->>> +#endif
->>>         spin_unlock(&gicv3.lock);
->>>   }
->>> diff --git a/xen/arch/arm/include/asm/arm32/io.h 
->>> b/xen/arch/arm/include/asm/arm32/io.h
->>> index 73a879e9fb..4ddfbea5c2 100644
->>> --- a/xen/arch/arm/include/asm/arm32/io.h
->>> +++ b/xen/arch/arm/include/asm/arm32/io.h
->>> @@ -80,17 +80,26 @@ static inline u32 __raw_readl(const volatile void 
->>> __iomem *addr)
->>>                                           __raw_readw(c)); __r; })
->>>   #define readl_relaxed(c) ({ u32 __r = le32_to_cpu((__force __le32) \
->>>                                           __raw_readl(c)); __r; })
->>> +#define readq_relaxed_non_atomic(c) \
->>> +                         ({ u64 __r = (((u64)readl_relaxed((c) + 4)) 
->>> << 32) | \
->>> +                                             readl_relaxed(c); __r; })
->>
->> As Julien pointed out, the expression c will be evaluated twice and if 
->> it produces side effects they will be performed twice.
->> To prevent this, you can either assign the expression to a local 
->> variable and pass this one to readl_relaxed() 
-> 
-> Just to make sure I understand you correctly, you are suggesting this :-
-> 
-> #define readq_relaxed_non_atomic(c) \
-> 
->                          ({ void _iomem *__addr = (c); \
-> 
->                              u64 __r = (((u64)readl_relaxed(__addr + 4)) 
-> << 32) | \
-> 
-> readl_relaxed(__addr); __r; })
-> 
-> #define writeq_relaxed_non_atomic(v,c) \
-> 
->                         (( u64 __v = (v); \
-> 
->                            void _iomem *__addr = (c); \
-> 
->                            writel_relaxed((u32)__v, __addr); \
-> 
->                            writel_relaxed((u32)((__v) >> 32), (__addr + 
-> 4); })
+Yes
 
 
-> 
-> Is this correct understanding ?
-> 
->> or use a static inline function instead of a macro, for implementing 
->> readq_relaxed_non_atomic().
->> The latter is the MISRA C recommended (not strictly required) approach 
->> according to Dir 4.9 "A function should be used in preference to a 
->> function-like macro where
->>  they are interchangeable".
-> 
-> I have mixed opinion about this.
-> 
-> On one hand, there will be a performance penalty when invoking a 
-> function (compared to macro).
+> If yes I think this method might be better for now. And about ImageBuilder
+> solution we can do it after MPU support be merged?
 
-Most of the compilers are nowadays clever enough to inline small 
-functions. But we can force the compiler with the attribute always_inline.
-
-> 
-> On the other hand {readq/writeq}_relaxed_non_atomic() are called during 
-> init (gicv3 initialization, setting up the interrupt handlers), so the 
-> impact will not be bad.
-> 
-> I am fine with whatever you and any maintainer suggest.
-
-Project wide, we are trying to use "static inline" whenever it is 
-possible because it adds a bit more type-safety (the error you made 
-wouldn't have happened) and the code is clearer (no slash).
-
-So my preference is to use static line.
-
-Cheers,
-
--- 
-Julien Grall
+That's fine
+--8323329-44684058-1668197705=:50442--
 
