@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83721625941
-	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 12:23:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442460.696643 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B44C4625942
+	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 12:23:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.442465.696653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otS7d-0002H2-VF; Fri, 11 Nov 2022 11:22:57 +0000
+	id 1otS7t-0002nF-6p; Fri, 11 Nov 2022 11:23:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442460.696643; Fri, 11 Nov 2022 11:22:57 +0000
+Received: by outflank-mailman (output) from mailman id 442465.696653; Fri, 11 Nov 2022 11:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otS7d-0002DA-RC; Fri, 11 Nov 2022 11:22:57 +0000
-Received: by outflank-mailman (input) for mailman id 442460;
- Fri, 11 Nov 2022 11:22:56 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1otS7t-0002kC-3j; Fri, 11 Nov 2022 11:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 442465;
+ Fri, 11 Nov 2022 11:23:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FoG2=3L=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1otS7c-0001Qu-Ef
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 11:22:56 +0000
+ id 1otS7r-0001z9-Tu
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 11:23:11 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 300d774e-61b3-11ed-8fd2-01056ac49cbb;
- Fri, 11 Nov 2022 12:22:55 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 393bace1-61b3-11ed-91b6-6bf2151ebd3b;
+ Fri, 11 Nov 2022 12:23:10 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E24011042;
- Fri, 11 Nov 2022 03:23:00 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 535001063;
+ Fri, 11 Nov 2022 03:23:16 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 995E73F73D;
- Fri, 11 Nov 2022 03:22:43 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0D1DC3F73D;
+ Fri, 11 Nov 2022 03:22:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 300d774e-61b3-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 393bace1-61b3-11ed-91b6-6bf2151ebd3b
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -86,9 +86,9 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Petre Pircalabu <ppircalabu@bitdefender.com>,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
-Subject: [PATCH 2/3] CHANGELOG: Add missing entries for work during the 4.17 release
-Date: Fri, 11 Nov 2022 19:22:07 +0800
-Message-Id: <20221111112208.451449-3-Henry.Wang@arm.com>
+Subject: [PATCH 3/3] CHANGELOG: Start new "unstable" section
+Date: Fri, 11 Nov 2022 19:22:08 +0800
+Message-Id: <20221111112208.451449-4-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20221111112208.451449-1-Henry.Wang@arm.com>
 References: <20221111112208.451449-1-Henry.Wang@arm.com>
@@ -97,57 +97,22 @@ Content-Transfer-Encoding: 8bit
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 ---
- CHANGELOG.md | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+ CHANGELOG.md | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/CHANGELOG.md b/CHANGELOG.md
-index adbbb216fa..fa8cc476b3 100644
+index fa8cc476b3..d2ed1fdcb9 100644
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
-@@ -4,16 +4,41 @@ Notable changes to Xen will be documented in this file.
+@@ -4,6 +4,8 @@ Notable changes to Xen will be documented in this file.
  
  The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
  
--## [unstable UNRELEASED](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
-+## [4.17.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - 2022-11-??
++## [unstable UNRELEASED](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - TBD
++
+ ## [4.17.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - 2022-11-??
  
  ### Changed
-  - On x86 "vga=current" can now be used together with GrUB2's gfxpayload setting. Note that
-    this requires use of "multiboot2" (and "module2") as the GrUB commands loading Xen.
-+ - The "gnttab" option now has a new command line sub-option for disabling the
-+   GNTTABOP_transfer functionality.
-+ - The x86 MCE command line option info is now updated.
- 
- ### Added / support upgraded
-+ - Out-of-tree builds for the hypervisor now supported.
-+ - The project has officially adopted 4 directives and 24 rules of MISRA-C,
-+   added MISRA-C checker build integration, and defined how to document
-+   deviations.
-  - IOMMU superpage support on x86, affecting PV guests as well as HVM/PVH ones
-    when they don't share page tables with the CPU (HAP / EPT / NPT).
-- - Support VIRT_SSBD feature for HVM guests on AMD.
-+ - Support VIRT_SSBD feature for HVM guests on AMD and MSR_SPEC_CTRL feature for
-+   SVM guests.
-+ - Improved TSC, CPU frequency calibration and APIC on x86.
-+ - Improved support for CET Indirect Branch Tracking on x86.
-+ - Improved mwait-idle support for SPR and ADL on x86.
-+ - Extend security support for hosts to 12 TiB of memory on x86.
-+ - Add command line option to set cpuid parameters for dom0 at boot time on x86.
-+ - Improved static configuration options on Arm.
-+ - cpupools can be specified at boot using device tree on Arm.
-+ - It is possible to use PV drivers with dom0less guests, allowing statically
-+   booted dom0less guests with PV devices.
-+ - On Arm, p2m structures are now allocated out of a pool of memory set aside at
-+   domain creation.
-+ - Improved mitigations against Spectre-BHB on Arm.
-+ - Add support for VirtIO toolstack on Arm.
-+ - Allow setting the number of CPUs to activate at runtime from command line
-+   option on Arm.
-+ - Improved toolstack build system.
-+ - Add Xue - console over USB 3 Debug Capability.
- 
- ### Removed / support downgraded
-  - dropped support for the (x86-only) "vesa-mtrr" and "vesa-remap" command line options
 -- 
 2.25.1
 
