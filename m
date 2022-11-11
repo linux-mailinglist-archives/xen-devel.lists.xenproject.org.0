@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B4E625940
+	by mail.lfdr.de (Postfix) with ESMTPS id 425CF62593F
 	for <lists+xen-devel@lfdr.de>; Fri, 11 Nov 2022 12:23:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.442456.696620 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.442457.696632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otS7I-0001To-CJ; Fri, 11 Nov 2022 11:22:36 +0000
+	id 1otS7Q-0001kh-KV; Fri, 11 Nov 2022 11:22:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 442456.696620; Fri, 11 Nov 2022 11:22:36 +0000
+Received: by outflank-mailman (output) from mailman id 442457.696632; Fri, 11 Nov 2022 11:22:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1otS7I-0001R0-9W; Fri, 11 Nov 2022 11:22:36 +0000
-Received: by outflank-mailman (input) for mailman id 442456;
- Fri, 11 Nov 2022 11:22:34 +0000
+	id 1otS7Q-0001hz-HW; Fri, 11 Nov 2022 11:22:44 +0000
+Received: by outflank-mailman (input) for mailman id 442457;
+ Fri, 11 Nov 2022 11:22:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=FoG2=3L=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1otS7G-0001Qu-N9
- for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 11:22:34 +0000
+ id 1otS7O-0001Qu-W8
+ for xen-devel@lists.xenproject.org; Fri, 11 Nov 2022 11:22:42 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 2094a972-61b3-11ed-8fd2-01056ac49cbb;
- Fri, 11 Nov 2022 12:22:29 +0100 (CET)
+ id 282bbb6c-61b3-11ed-8fd2-01056ac49cbb;
+ Fri, 11 Nov 2022 12:22:42 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E21771FB;
- Fri, 11 Nov 2022 03:22:34 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ADBE623A;
+ Fri, 11 Nov 2022 03:22:47 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 95CB93F73D;
- Fri, 11 Nov 2022 03:22:17 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 66DE33F73D;
+ Fri, 11 Nov 2022 03:22:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2094a972-61b3-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 282bbb6c-61b3-11ed-8fd2-01056ac49cbb
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -86,33 +86,33 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Petre Pircalabu <ppircalabu@bitdefender.com>,
 	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
 	Quan Xu <quan.xu0@gmail.com>
-Subject: [PATCH 0/3] Populate entries for 4.17
-Date: Fri, 11 Nov 2022 19:22:05 +0800
-Message-Id: <20221111112208.451449-1-Henry.Wang@arm.com>
+Subject: [PATCH 1/3] CHANGELOG: Update link for RELEASE-4.16.0
+Date: Fri, 11 Nov 2022 19:22:06 +0800
+Message-Id: <20221111112208.451449-2-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20221111112208.451449-1-Henry.Wang@arm.com>
+References: <20221111112208.451449-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+---
+ CHANGELOG.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The following changes are preparation work for the 4.17 release. This
-is my first pass at the log for the release, it's likely missing more
-entries.
-
-I'm Ccing all maintainers in this cover letter and also in patch #2 for
-further feedback on missing items.
-
-Thanks,
-Henry
-
-Henry Wang (3):
-  CHANGELOG: Update link for RELEASE-4.16.0
-  CHANGELOG: Add missing entries for work during the 4.17 release
-  CHANGELOG: Start new "unstable" section
-
- CHANGELOG.md | 31 +++++++++++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 2 deletions(-)
-
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 5e4bae5f35..adbbb216fa 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+ ### Removed / support downgraded
+  - dropped support for the (x86-only) "vesa-mtrr" and "vesa-remap" command line options
+ 
+-## [4.16.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=staging) - 2021-12-02
++## [4.16.0](https://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=RELEASE-4.16.0) - 2021-12-02
+ 
+ ### Removed
+  - XENSTORED_ROOTDIR environment variable from configuartion files and
 -- 
 2.25.1
 
