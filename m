@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05AA06287E0
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 19:08:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443504.698052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A931462889C
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 19:54:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443511.698062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oudsm-0006ou-Bo; Mon, 14 Nov 2022 18:08:32 +0000
+	id 1oueZi-0004Lb-EQ; Mon, 14 Nov 2022 18:52:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443504.698052; Mon, 14 Nov 2022 18:08:32 +0000
+Received: by outflank-mailman (output) from mailman id 443511.698062; Mon, 14 Nov 2022 18:52:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oudsm-0006mb-8m; Mon, 14 Nov 2022 18:08:32 +0000
-Received: by outflank-mailman (input) for mailman id 443504;
- Mon, 14 Nov 2022 18:08:30 +0000
+	id 1oueZi-0004IW-BO; Mon, 14 Nov 2022 18:52:54 +0000
+Received: by outflank-mailman (input) for mailman id 443511;
+ Mon, 14 Nov 2022 18:52:52 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=l1QY=3O=suse.com=jfehlig@srs-se1.protection.inumbo.net>)
- id 1oudsk-0006mV-GV
- for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 18:08:30 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on0610.outbound.protection.outlook.com
- [2a01:111:f400:fe0c::610])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=0dAn=3O=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1oueZg-0004IQ-Ew
+ for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 18:52:52 +0000
+Received: from NAM04-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam04on20602.outbound.protection.outlook.com
+ [2a01:111:f400:7e8b::602])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 573063cc-6447-11ed-91b6-6bf2151ebd3b;
- Mon, 14 Nov 2022 19:08:29 +0100 (CET)
-Received: from AM0PR04MB4899.eurprd04.prod.outlook.com (2603:10a6:208:c5::16)
- by DB8PR04MB6827.eurprd04.prod.outlook.com (2603:10a6:10:f8::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Mon, 14 Nov
- 2022 18:08:27 +0000
-Received: from AM0PR04MB4899.eurprd04.prod.outlook.com
- ([fe80::3342:8b15:bc9b:3d47]) by AM0PR04MB4899.eurprd04.prod.outlook.com
- ([fe80::3342:8b15:bc9b:3d47%7]) with mapi id 15.20.5813.017; Mon, 14 Nov 2022
- 18:08:27 +0000
+ id 88c16b7e-644d-11ed-91b6-6bf2151ebd3b;
+ Mon, 14 Nov 2022 19:52:50 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17; Mon, 14 Nov
+ 2022 18:52:46 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::62cc:47ae:a750:8f57]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::62cc:47ae:a750:8f57%4]) with mapi id 15.20.5813.017; Mon, 14 Nov 2022
+ 18:52:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,155 +47,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 573063cc-6447-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 88c16b7e-644d-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XMfhQ1BmCK8116ABR2FKuIJ2OLYAkNRBp3sH3BO1S8wCDyE4NVOTw5NpkQ8aPMtmXk8PJjvv3BT6yjlS7x7F6wrcCh2AyrmE6SHkqmiI9A48zhFxvC8pJg8q0N69DFljkzKKZWs7EYUt3rYIR5onVUvP5MVEvycDz21MaBm3tcHdsVf48CoQ5QWa0ZlkviBm+QqmFm/uJ0Mf10n1ahizkYN/q+ETHtxKvSHLJCkUgVP3tJ4PxQY5wmuzfszAtoqpR/JKNOWplqZrGcmnNZJ7sNeCg3Fcx0pAC/IePGUFYbwqb10nPJMp2Eu2m0y54cJMx/AlJCyWYeFDDPpa7hqPNg==
+ b=V4s/1LIMjtGDpyZNShAssITKgFPxU3Ir4ytXnw63ll2U/xvzZchl6+4u+Psmd+I4OZGoscdgG7jwVIH4qsn9Qf7vPjdOoKdj017SWjuDPgjZtN5xGelkAoDt2jfIC2MrXOSFFQo/CFwB+geGbuN2UsVP3F/4QBV+T06eNl5QLla0G6Ss+sukAxiwxe1q1fZ8R177vaxiqqa0TtVSoKdHIvXmkqo2qA3peWgMJMJWkGT8eY682i5e8UypO8/tR23+tcefKMAh1eLSgXZ3w88GWQ137vzfG41AyinkiiXm2IFnO+RPHGm6lwGbwCEdsPVBR3NEBQdO5X/g6oWEHQEixA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nWpWVQrC1DQaGImjsJWLYcGICoBgwfl7WlYrSk/35nc=;
- b=DhY4Iyr1t0jdDz2CYfAxMZViC6IkUQP3w6WRgegcmBCnUe3WF5cBFsz9+h7Lqi4DABT/Fa0R3VTm/eSw4mNtwwwnwiR0eHkJYff1XhOisKzmzrArV6woD5L6Iz7mJ6PBC1x+vzL90kK3seMhePF4g5cAPSfvX9qbqJY5XQzB54yHrz+azxJMUG962MD2UgR+dVj8vPnA6clDIgauhEcVeZc/+jMJDdDOCJJpQrpsX5g7TeG17dqAcC8HvdVE/bCSumvN8puaP+5ywf61nahfIn/Ann6MJEjIb1PCuKpi6SKzsS28AdQuZs7Bqj4iPI9oeZGAm29x6YY53+hlmc7AvA==
+ bh=dQFWV1AW5IPthzY9LgpThqWkLLvMASjgxOJcwcV3N50=;
+ b=Dphy/8RbFhSGJoO65mRwltj4+WjzJ4UXWRyPt/ay2seni+9bhpRIhcpDaC1AjYuZDTuthXCMyAOBRP1j1M7bI3ANqf7gv2OjNvJ1tSK+596aXDQ7TERyDNfcyC/rU5/DY+l0cUNCm1Uyn0E+1EIvqxzUAorfb0YylYPHg0Eg2VoK1DSJVRoTCMZuQYKgHXb07Oi1ilKQ1uDLLrhuecj6f1GWoatk9sc//XwvEijt46R8JcN/OAz1Qw+44WS9DqC9MYyWJQ5vGsxoAaQwd/nVKiUm3JaOQNmOwgOIbhjF9kEhpbCOz/I/9oj2iWuIX1qfRBL/InYTFRQg1ncRlB9qCA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nWpWVQrC1DQaGImjsJWLYcGICoBgwfl7WlYrSk/35nc=;
- b=j4kWV3L12BvyKauq1h2qi1vLYytSKaMetGx7TRtUuI+nMgtjgLDWrwARADu96N8HnI+/yb7zOTwZy477f6A/2F1dhSxl/nLS/OQ1Wm0betkNjQs4PG9tqCLExfpACiLdiLBkKv/AJawkIsmgBDoWqTOq2yKkEakj/fB6h1zlzqzkf8t4m5XEMTtB4yFo+bcU+2KHVXaoAoyn1idcO0unL0C5T9vU5maNYCM11qhE5YqAYu5+x5dm7nS8vcRu3uzaeCYv5RqfV/Grt9Ju7rvzmT+AeLi6+vC9GkScC3IVWhNYHcEPxpNwtM1H6VXMRQ2wRHGlA6UR3Tmuu0f/Y8FSXA==
+ bh=dQFWV1AW5IPthzY9LgpThqWkLLvMASjgxOJcwcV3N50=;
+ b=X+CC1sALGKHGex4QtF8fWEwMXmB0nA05gdWkWfJMeSCGC7ziRFFaC6nXfzVlQUjXgjp0XYR0A0Gg6SNDSDxcrQyCSfOIAPiJIzfVI1uiUdPKzxtw5+bvXy7Yo93yYO9Sp3ZzJqikQnvBGFz3v12ibWc3aA6xcHbk6QaqvuQ4mD0=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <08424b48-3ce1-3e3a-857e-1a6d3cae3a1c@suse.com>
-Date: Mon, 14 Nov 2022 11:08:21 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.0
-Subject: Re: vnuma_nodes missing pnode 0
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Henry Wang <Henry.Wang@arm.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- xen-devel <xen-devel@lists.xenproject.org>
-References: <2046b5fb-2533-02fe-69e8-f46174cf825d@suse.com>
- <AS8PR08MB799119CD58863C6D1D309E9092059@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <AS8PR08MB799186D9559BB2A066D3349092059@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <d3697867-7df2-0a1e-2485-18957b3b94a2@suse.com>
- <fb2f034c-9e65-ea64-6e54-71301497b37a@suse.com>
- <Y3KBNpszKjG76PAA@perard.uk.xensource.com>
-From: Jim Fehlig <jfehlig@suse.com>
-In-Reply-To: <Y3KBNpszKjG76PAA@perard.uk.xensource.com>
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <a6417c35-e765-c5c5-1acb-90537d0335db@amd.com>
+Date: Mon, 14 Nov 2022 18:52:40 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.1
+Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for FVP BaseR
+ platform
+To: Wei Chen <wei.chen@arm.com>, xen-devel@lists.xenproject.org
+Cc: nd@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "Jiamei . Xie" <jiamei.xie@arm.com>
+References: <20221104100741.2176307-1-wei.chen@arm.com>
+ <20221104100741.2176307-6-wei.chen@arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <20221104100741.2176307-6-wei.chen@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0023.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::7) To AM0PR04MB4899.eurprd04.prod.outlook.com
- (2603:10a6:208:c5::16)
+X-ClientProxiedBy: LO4P123CA0549.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:319::18) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB4899:EE_|DB8PR04MB6827:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07e69bc4-bfb3-4e26-0187-08dac66b3a38
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SN7PR12MB7348:EE_
+X-MS-Office365-Filtering-Correlation-Id: f34a0652-7151-4872-3aa1-08dac6716b81
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	P2zNJ8Fxslw/omSXdsMWwfSbcmwbMKNing9GIzrA7oIxwor7XqQ2bZZRwuQW9vVK1WzND/Owhzp2tkG/rIzCBEKZNo1Ff9BdE8RWvVW55jlzziJ7FaS96cbGbq4y3MYtHQcLmc8+nL9nH1OOMsnblqJyIKzK9T21AZlH6uMm25EnCC2nbLGRgc4Kws3eFA1CLxSqgV4c/u+YFs0sdvgURdhbxCvJBcOrLfzoYm7q1eeKc9fo5ZGeepxynBggSAMJTBVQuQV3w0W9tymfi1EzDTv0+JNY+BivrTwi+UTP8qnJHcAbEVCw1U5af2gK2OjTuHT2zUVt+QofFXROsW6A6cX7CUwifxOCFU9oUyjUIPA05eDmQs9bHFAMCoECwl9VLA93A/lYOq7NpMAhVVClLc7W5VU39WhmW1wcxZftZE1TXwYYCdXymA4IsT3/09rbnRnDn7z7C3OFQGgaO8Zv3MopQR0k6Kfwx2uvXH5zT/aYgBVKJlpT4976K/nLgRnlbKBAIbhE5pT+DFwTMYa/4IO5VAwE/LEN7ekNaH6ujVYshyxXq9dffjC4Fsg/EDmQEAr4dpkdqvFb9Y1XOThx/HmVF8Qea85na9TU1LJjkNoKmKQvFEiJEkPsS8IDFc5uZ3QsQDP7sd/bqB/WmHtdPpdN2V7/e2qwXndGxnSnYFtk1zskJtQ843scrr91GsvT+kStd7Lfdc7jBIg9hopeADce12ADomm1LJySFezB7pWk5IW31IeKZvT59NRKQevNE0Ra6csZzZBJii5hp8kZ9r1Tw1+E+aAS46H8c8bPu6ZrSdZFsbNc1KDtFHJyNOP0
+	RnBj3XVsXNYGpYgDZDKVp9bR6fTKPoNYejw+/zj1xhKbPFHojcrWEhOA6BqPatn6tpUbbLYrp94XkXKgwbUeSa4Q+F6L9rQt5cFUU+LfgbcIM7WJjXlqQnj2uwyA3xdpSXtdR19SymxH2OrPDYx0xrHAJxaaGUopwk8OaF9eger+HHkoHaqd8eVcebzl3hkMCsOmXncIQ1rZFMYgH4VwlWUdpRcMkgviWMrwGYOailYLR2r6W3kbdpLmcFgPMJ0ypi9K6CR7fC22n1vs72+fCLO6l/vbL+4Rtzy0jz4t6CURB7QF2NWvDqMLU3fcXOdVkfN9FC6jK5BdpAfvF4dMDkTbuRJmsvJCn+vWJq7vjWb3L0FC5OlO6W6IC0hK9LPqL6BkeRkhqZVna8Gppi1gFwnVq2LiJrQdafzLcW/Fp5q0Kz67Sjcg7g5pPOQxchb7sSqljbrAZTIJSqNuoH8uT1+O2eYs6GBQpxufdIuJuEAo2OwwAxzzR/usKB4z7wXGjPZfMSaIO5kkeYZOSHSIGdQ+4vGMpZZ8pcLGSadINeK/m9XT1TlHtjX00CJi5QRmZXlfc80q3BoMm0uKO1rAe7gFlD9XyNc3iR7d3Tn1KP2ZFQO0LmVMSlsDQ2HRpYvFuqfIuEzN/+OcoKXobN3VbJ3qYygqVhKfFO4tue9U8WUdBrGVnYqIDwXjXQr2tqTyOzDCMNpApR83Zw/18HByYbLpZROlneu2LJU1A/ox9OYAoUE67QJ0rsImFi9rR7SWav3Y4vuKY6TbldE+9syxMiYz6q/iXbOnWP3ibsTx7Ek=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB4899.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(396003)(366004)(39860400002)(376002)(451199015)(83380400001)(53546011)(316002)(186003)(7116003)(41300700001)(31696002)(36756003)(8936002)(5660300002)(2616005)(2906002)(4326008)(26005)(8676002)(86362001)(6512007)(66476007)(66556008)(66946007)(38100700002)(31686004)(6506007)(66899015)(478600001)(966005)(6486002)(6666004)(54906003)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(346002)(136003)(396003)(376002)(451199015)(41300700001)(5660300002)(31696002)(8936002)(2906002)(83380400001)(26005)(6512007)(186003)(2616005)(38100700002)(316002)(54906003)(66476007)(66946007)(8676002)(66556008)(4326008)(6506007)(6666004)(6486002)(53546011)(478600001)(31686004)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TWJVK3NRWG8zWmlpcE1DYzk4Z3ZiV1lqeldjNDhXSUhuVWQ4bkRWakN6MUFC?=
- =?utf-8?B?K2g4TjRBMkYvUE9tYmRSZmJneDVDSHVqeFJEVC90MXhoK2Y2UjE0Vys4VWY2?=
- =?utf-8?B?ZCtlaWh0MTg3eW9aQmJ0V0JKY1RtRTF4SHIrMFd1S1ZSNUZWYlpjcG1NcHRJ?=
- =?utf-8?B?TmJBNW90NFF5YlJIRVRYU0pOcm0rMXVjN1pkU1hndlppR3Z0S3BqZ3dNTkZS?=
- =?utf-8?B?cEVZZVY2UHN1bHdGbHFlTnNmRTBEMkgrMDhzWm1TL3FDUEY5T29Qbmo2UjB1?=
- =?utf-8?B?R2sxOTRmNGdOQjBYRCtpQzYrb3Q3SkhxRzY1dTJQTmY4NGVKZXZ0UytFYzEw?=
- =?utf-8?B?aFZCbFdQQS9ta0tQRVFMQWFGckVJcjVadmFRTjJvUU15KzZMb3NTaWRteGo5?=
- =?utf-8?B?RUlnVjBhZzB5STRrQlo0ekdoWlh4Nk9wWXdUMjI3Z0IyemFJZDRDdFJxemd6?=
- =?utf-8?B?bGo4eElHazRLTnh5Nnd5V25UZ0kxWHBJNUV1VnNTVng0c29ncU1QNGFjblpL?=
- =?utf-8?B?VnZEb2M1SWNnRzZZc0VMYzg1MVhQSVl0SEJ5ZGhxbHdlQXp3Y3djcTQrc3pi?=
- =?utf-8?B?MlNjTDdReVdjZVVlc1Vad3RNdmNsSWI1NzNFYmwzNGtXdEwrVG96TVRmdHh2?=
- =?utf-8?B?YXRwZXJNVGRTYlpzRWdBL0ZHbmNUOS9QMEs5NEQ3SmsyQytpNnBCQzd3eHlO?=
- =?utf-8?B?R0dhWW5NU1A0ZDMzbStIVHlLdVVqMHdtVnlkK1ZxOGw5ZUhMSFJZQ09mQ0Jk?=
- =?utf-8?B?a0FNbDJrMG9lUlhRMjlSd2F4cFdLMFM3SUt4eGpMRlJVY2dwRnFhQWU4MEFz?=
- =?utf-8?B?OGRuQ2thTkVlemFJdzhMcXdtYWVJRWhXbGVkVHpsQ1F5L0pHYXZvR1FRTXJq?=
- =?utf-8?B?UEpQbERoc2xFM1JvREQzdENadnhTR3REVHl6VVhydy8yMHkzVzNYREN2aDgx?=
- =?utf-8?B?Vm8wWkFhY1k1clhCVnhrZ01lSDRnZmgrZUdJSHFqTElSVzRkS3UwTURnVUVP?=
- =?utf-8?B?OTdiUzV1V2tGYTVsSHdPVVFKWjc1WGRoT2JUekVENmo5TkhYLzgrTW5NbFQ4?=
- =?utf-8?B?SExQd1J0K0NleFB2d3B2enRYVFR1YTFaUCtJOWsrZXdzOGIvd29GNFNpdkpu?=
- =?utf-8?B?VEh5NVByR1Fzclk0cE0rTlY2dWdBbmo5YjB1NGlLTVgzemhWWkovR3FmcEpr?=
- =?utf-8?B?NlFJRzV5cmtnR3hmYXhiU0JxV2ZRelhibmVvVU5TcEZ0RjBLWW1GRldzc2Yz?=
- =?utf-8?B?R2VMblN1Yyt4bVVTR3RGdndSTnhDbjJOM2crQ1JIRTAyMEJVNjJlSC8vbkVo?=
- =?utf-8?B?TXRRdlB3YTU2T085aVpIVVd2NUF0TVBxRDZ0WFVwZXZwTVcwUDVXQTVwRSt2?=
- =?utf-8?B?M2hUVWt2OWwrejk4UDVkUERWNDlTbHpXN1BBYXllczAwRUNrcXlnSHNleFZa?=
- =?utf-8?B?OFkySXI3Z3BtY0tRWGVMMVNqRWJhSEljaElvSlN2L0c5V1oycWlYRmNzOXNJ?=
- =?utf-8?B?MGpxakw4Y3pWanhzMHlud1dTMm1tcml2ZGt3dzlXQ3JKeUdRWGhReXpucjRI?=
- =?utf-8?B?MHVneVBsQUI5M2RnczgwbnJMcnFRMGF1WDRGMXZYc0JhMFlCcVFiUEJNWFlH?=
- =?utf-8?B?SlBtWVBZYWl2bXExMk5QQlVQaWdDUU56ZURScGs3RkdOZHZjN0F6Sm1Daks5?=
- =?utf-8?B?c29UU0hXa1VBckVwakhZVFZ5K2tLcXNhUmRhb05pZWJRQ1pkYW15dlRjc0JY?=
- =?utf-8?B?WTl6R1ZObFkvUzZuaC9zdnhnZ21LdFVQMm1SMmR2UjVOMFl2ZmN1ckJCdGxo?=
- =?utf-8?B?Y3FxUzV5NkFKek1qZEFTVEZLeDl5bGZESUIzb3lUa0xZQncybDhoYnJ0WjhI?=
- =?utf-8?B?Z213RTN0ODNYM2dxckFrNlZoUWRhU0o2MThndkcrTkpSbTlRN0NVcThSenBJ?=
- =?utf-8?B?bHdYQ1c5aXdQbmowS2cwT1d1eWZFTkk0Z0NBQnh2ZFZRcXVoa0xNY1FFbVVm?=
- =?utf-8?B?VUZ3RHJ1SUdvQjgvNUM2Ni90emRWRHFjZkIvM0hQaHNwQVVlRU5IQkZmblN5?=
- =?utf-8?B?U1g0R2dTRXhGakYzZ2xFMmNUUkRUTVJ0a2NleTdNN2IxY04wYmxTTW9hb3ZR?=
- =?utf-8?Q?t279hm9d2+mDunepsbfVit8XT?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07e69bc4-bfb3-4e26-0187-08dac66b3a38
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB4899.eurprd04.prod.outlook.com
+	=?utf-8?B?b21tTDdSNW04by91V0hLbnptUHhjMjA4YjNVcmlWelhqeXZuUVVzd2lXWGZX?=
+ =?utf-8?B?YjdnejI1N1ZLWFVlNTB3Qm00MUI5aGl4cEZib1Y5TlVSbzkySlBrNzRXcUJZ?=
+ =?utf-8?B?NnZVMUVjRStsOVVRL0F0RWNWeWRzOXZVbWttdjVqQjl3OGpBYVdUZXlsNmMv?=
+ =?utf-8?B?SlRVVHJUOUdJOEVUMWh2MDU0SkZtNDlnWFZ1anR1b1NXaENERkZHZHYzaFFx?=
+ =?utf-8?B?TDI5T2pDcFkrR2t4SlZFNHU1R09xL2lscHFXbGlObXZMSWF5a2VoTi9NRW8x?=
+ =?utf-8?B?RFpaVFV3eTc1M1BLRndzWkM1K3E0Ky9TVm1lMUF2M0VPSFkxa3JPN21sQlBr?=
+ =?utf-8?B?QUI2Y0RJQjVKNHZsZmphVnYxZ2VaanhTbzhZWFNFY2ZjdURoM09kUW1kcklp?=
+ =?utf-8?B?em1lWU82YmJVdXdzdFUxY2JNa1B0S3ZjbGR6b2dPYlE0ZUduNmlpV2l3K3lP?=
+ =?utf-8?B?NHp6YTRyTVdEYmgyeHBPRXNyWktkMDVOelZPSWNJbjJPRkVMNWtORTR5RnlJ?=
+ =?utf-8?B?UjNHN3ZxNU5PK2hPZnpwK2FqZXpFVjR4UGpjeEpFaDZHdVFmM2ZzbzFSUHJH?=
+ =?utf-8?B?YlR4dHVJOVpUcnBNOHp5bGxCakNrZm5QWndVVXlCM1VONTFnT2N6c0ZrT3pE?=
+ =?utf-8?B?OGZhS2ZQUFYvQ3dQYTVnK2tzZjF0aHdoc1dDMjZrU05HcE5keUFqSWs3UnFM?=
+ =?utf-8?B?NExhTzVMcmhqeWFINitTTzlHMklvelRKMGs1MHpRcmtBV21sRFFQQVpDblgx?=
+ =?utf-8?B?Rm8wcU1SU3NicXYvTGFNWVUzRW5ob1pGK2tQN0pEWFdWNkZNd29JQkt2cnU4?=
+ =?utf-8?B?Q3JybS9ZZlc4L1ZwdFJNaVVPUUYvQW5IZW5XMnl1Unpobzh3c1RGMjUwOUMv?=
+ =?utf-8?B?cHFjcjFmbzl6RDU5M1FucHJ6KzRLa29iTmsxdjJzem1CYTlzVG8xRklURTBs?=
+ =?utf-8?B?Si9YYmF4a05jM28rMVIwQzgrNktOcG9sdmhYNG1YSCtHTU1VdXc4ZEFMcTYy?=
+ =?utf-8?B?dlFFeWhYdXFVa0c2bVBFb2ZFMmJXUmIzR29zOUF6NU9VWjFYbnhydlJ2dVNO?=
+ =?utf-8?B?V0ROTjB6cXoySC9mZzlhcUtRcGJ0SUw3UklOZ3A4a3FqaDJVdk9oWWp2ekdQ?=
+ =?utf-8?B?K3lJYkNWWUR4Z2svYUxXSEY1TVE0V0VZcmI4cnM0dDM3NnJUZUlCcEU2VFp1?=
+ =?utf-8?B?Tm1SWnRDL3c3TGpYbTJyejI0eUlwam9QTlFoRDlqYU5YdkNKbm90Y1JVSVli?=
+ =?utf-8?B?bGx6NDZ6VjZ0U1lrVVcvZlBhRGR4UnFhL2VFQ3BZSVJXYUJ2NktnK2RMOXJB?=
+ =?utf-8?B?MkZlanZhZ2ZHWXFoN243WENGQkpzOEJMQkdCaHpFNVRBSE5iUTVBS3VBM3NY?=
+ =?utf-8?B?S3ZmWU5SQmwvYzlDZG1IdnI3THBuR0Z2Y2JIa0FUK01Wd05yeU16azRCcWlZ?=
+ =?utf-8?B?S2ZrRGpwb21KWWt1cDFYeE01b3RKTDl6bHAzK1o4MjFTZkp2MjNHT2dPcDcr?=
+ =?utf-8?B?SnZpY2x5OS9TejM0NFoySjRRUmFiNmRvMy8wYnNuYnB4ZVFWNWQ4ZzJxYmZz?=
+ =?utf-8?B?U3dReUQwWkNvV2UreUdGUzBuMlVUV1QxYmNURk4rUWpScFV6TFo4UzlSSHQ5?=
+ =?utf-8?B?alE2VFB0THRHVExHOEFlUVVxaUFDZll0MHBwektyemRDVnlNVWxESjFDcWRt?=
+ =?utf-8?B?OGsyczNmTmlLc0FjR1kzTlRORXhHSm1NL01vSGxRZi9sOTZvU1F0MkVwT1R0?=
+ =?utf-8?B?cnZkT2laUE9CbStxYVFjeWdiS2VwSEJvMW5MQ2VYSlEwZ1BQUjFOKzN4YjYx?=
+ =?utf-8?B?eVBLQjRvT3NLWnIyUk8zWVdFNTdhaGxqWVdJSG5lWGJmTWk4NWh3RUFvUHly?=
+ =?utf-8?B?Zm5kZTREUkcxc05HQm9zZWxzSWR6SGx4K1FIS3JmQ24zU3d1VVpkRXgyV2lV?=
+ =?utf-8?B?UGdReFJhUmRnK0EvMFljVG9LMkRWM0poYmJITHdLWHlmNEswTXozRDV1S0dX?=
+ =?utf-8?B?RW1VQ3pZay83OTEwem52SXVOWkxEV3pwak1jN0FHZmNmSExMb2ZxdWdxb05U?=
+ =?utf-8?B?ck0vQ1laZUJjbWx1bkJvSFI0ZFJpLzEzQmNIRWdGYzdHOTdhM2pyVmlYeVVI?=
+ =?utf-8?Q?RJbRm+U4p+/EJvTFMXtz02C3q?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f34a0652-7151-4872-3aa1-08dac6716b81
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2022 18:08:27.4395
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Nov 2022 18:52:46.6237
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A4Teua3yCcV5kprelZLp+rrA7NluL9YXRCGUc1dlkdY1Pj76UjEhpF/AptACF1/vrxkhl9cpN5Cvuyy4z1wh4g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6827
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1bdXO06sNXVS+OD0vYhVdf+P/LsEWJA4z7HSVcGCRV0mctoiUpcO+kntBTb/VJ5MFCNcz9JhbxheLAsKr0BfJw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
 
-On 11/14/22 10:56, Anthony PERARD wrote:
-> On Mon, Nov 14, 2022 at 08:53:17AM -0700, Jim Fehlig wrote:
->> On 11/14/22 01:18, Jan Beulich wrote:
->>> On 14.11.2022 07:43, Henry Wang wrote:
->>>> Sorry, missed Anthony (The toolstack maintainer). Also added him
->>>> to this thread.
->>>
->>> Indeed there's nothing x86-ish in here, it's all about data representation.
->>> It merely happens to be (for now) x86-specific data which is being dealt
->>> with.
->>>
->>> Internally I indicated to Jim that the way the code presently is generated
->>> it looks to me as if 0 was simply taken as the default for "pnode". What I
->>> don't know at all is whether the concept of any kind of default is actually
->>> valid in json representation of guest configs.
->>
->> 0 is definitely ignored in the generated libxl_vnode_info_gen_json()
->> function, which essentially has
->>
->> if (p->pnode)
->>    format-json
->>
->> I took a quick peek at the generator, but being totally unfamiliar could not
->> spot a fix. I'm also not sure how such a fix could be detected for testing
->> purposes by libxl users like libvirt. I.e. how to detect a libxl that emits
->> `"pnode:" 0` in the json representation of libxl_domain_config object and
->> one that does not.
-> 
-> Well, the missing "pnode: 0' in json isn't exactly a bug, it's been done
-> on purpose, see https://xenbits.xen.org/gitweb/?p=xen.git;h=731233d64f6a7602c1ca297f7b67ec254
-> 
-> When the JSON is been reloaded into it's original struct,
-> libxl_vnode_info, pnode will have the expected value, that is 0, because
-> libxl_vnode_info_init() would have reset this field to 0.
-> 
-> I don't think it's possible to change the generator to just have it
-> generate '"pnode": 0', as if we make a change, it would have to be for
-> all unsigned it, I think.
+Hi Wei,
 
-Which would likely cause lots of libvirt libxlxml2domconfig test failures.
+On 04/11/2022 10:07, Wei Chen wrote:
+> CAUTION: This message has originated from an External Source. Please use proper judgment and caution when opening attachments, clicking links, or responding to this email.
+>
+>
+> On Armv8-A, Xen has a fixed virtual start address (link address
+> too) for all Armv8-A platforms. In an MMU based system, Xen can
+> map its loaded address to this virtual start address. So, on
+> Armv8-A platforms, the Xen start address does not need to be
+> configurable. But on Armv8-R platforms, there is no MMU to map
+> loaded address to a fixed virtual address and different platforms
+> will have very different address space layout. So Xen cannot use
+> a fixed physical address on MPU based system and need to have it
+> configurable.
+>
+> So in this patch, we reuse the existing arm/platforms to store
+> Armv8-R platforms' parameters. And `XEN_START_ADDRESS` is one
+> kind of FVP BaseR platform's parameters. So we define default
+> `XEN_START_ADDRESS` for FVP BaseR in its platform file.
+>
+> We also introduce one Kconfig option for users to override the
+> default Xen start address of selected platform, if they think
+> the default address doesn't suit their scenarios. For this
+> Kconfig option, we use an unaligned address "0xffffffff" as the
+> default value to indicate that users haven't used a customized
+> Xen start address.
+>
+> And as we introduced Armv8-R platforms to Xen, that means the
+> existed Arm64 platforms should not be listed in Armv8-R platform
+> list, so we add !ARM_V8R dependency for these platforms.
+>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
+> ---
+>   xen/arch/arm/Kconfig                           | 11 +++++++++++
+>   xen/arch/arm/include/asm/platforms/fvp_baser.h | 14 ++++++++++++++
+>   xen/arch/arm/platforms/Kconfig                 | 16 +++++++++++++---
+>   3 files changed, 38 insertions(+), 3 deletions(-)
+>   create mode 100644 xen/arch/arm/include/asm/platforms/fvp_baser.h
+>
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index ad592367bd..ac276307d6 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -138,6 +138,17 @@ config TEE
+>            This option enables generic TEE mediators support. It allows guests
+>            to access real TEE via one of TEE mediators implemented in XEN.
+>
+> +config XEN_START_ADDRESS
+> +       hex "Xen start address: keep default to use platform defined address"
+> +       default 0xFFFFFFFF
+> +       depends on HAS_MPU
+> +       help
+> +         This option allows to set the customized address at which Xen will be
+> +         linked on MPU systems. This address must be aligned to a page size.
+> +         Use 0xFFFFFFFF as the default value to indicate that user hasn't
+> +         customized this address, and Xen use use the default value that has
+> +         been defined in platform files.
+> +
+>   source "arch/arm/tee/Kconfig"
+>
+>   config STATIC_SHM
+> diff --git a/xen/arch/arm/include/asm/platforms/fvp_baser.h b/xen/arch/arm/include/asm/platforms/fvp_baser.h
+> new file mode 100644
+> index 0000000000..9450a411a9
+> --- /dev/null
+> +++ b/xen/arch/arm/include/asm/platforms/fvp_baser.h
+> @@ -0,0 +1,14 @@
+> +#ifndef __ASM_ARM_PLATFORMS_FVP_BASER_H__
+> +#define __ASM_ARM_PLATFORMS_FVP_BASER_H__
+> +
+> +/*
+> + * 0xFFFFFFFF indicates users haven't customized XEN_START_ADDRESS,
+> + * we will use platform defined default address.
+> + */
+> +#if CONFIG_XEN_START_ADDRESS == 0xFFFFFFFF
+> +#define XEN_START_ADDRESS 0x200000
+> +#else
+> +#define XEN_START_ADDRESS CONFIG_XEN_START_ADDRESS
+> +#endif
+> +
+> +#endif /* __ASM_ARM_PLATFORMS_FVP_BASER_H__ */
+> diff --git a/xen/arch/arm/platforms/Kconfig b/xen/arch/arm/platforms/Kconfig
+> index c93a6b2756..0904793a0b 100644
+> --- a/xen/arch/arm/platforms/Kconfig
+> +++ b/xen/arch/arm/platforms/Kconfig
+> @@ -1,6 +1,7 @@
+>   choice
+>          prompt "Platform Support"
+>          default ALL_PLAT
+> +       default FVP_BASER if ARM_V8R
 
-> Is it actually wanted to have all those in json, or is it just a case of
-> looking like there's missing part?
+I could not spot the patch which introduced ARM_V8R.
 
-The latter. ATM, libvirt only uses the json in its unit tests. No functionality 
-is affected. I'm fine with the status quo if you are :-).
+Can you rename this to ARM64_V8R ? The reason being the underlying code 
+is specific to R82 ie 64 bit V8R.
 
-Thanks,
-Jim
+- Ayan
+
+>          ---help---
+>          Choose which hardware platform to enable in Xen.
+>
+> @@ -8,13 +9,14 @@ choice
+>
+>   config ALL_PLAT
+>          bool "All Platforms"
+> +       depends on !ARM_V8R
+>          ---help---
+>          Enable support for all available hardware platforms. It doesn't
+>          automatically select any of the related drivers.
+>
+>   config QEMU
+>          bool "QEMU aarch virt machine support"
+> -       depends on ARM_64
+> +       depends on ARM_64 && !ARM_V8R
+>          select GICV3
+>          select HAS_PL011
+>          ---help---
+> @@ -23,7 +25,7 @@ config QEMU
+>
+>   config RCAR3
+>          bool "Renesas RCar3 support"
+> -       depends on ARM_64
+> +       depends on ARM_64 && !ARM_V8R
+>          select HAS_SCIF
+>          select IPMMU_VMSA
+>          ---help---
+> @@ -31,14 +33,22 @@ config RCAR3
+>
+>   config MPSOC
+>          bool "Xilinx Ultrascale+ MPSoC support"
+> -       depends on ARM_64
+> +       depends on ARM_64 && !ARM_V8R
+>          select HAS_CADENCE_UART
+>          select ARM_SMMU
+>          ---help---
+>          Enable all the required drivers for Xilinx Ultrascale+ MPSoC
+>
+> +config FVP_BASER
+> +       bool "Fixed Virtual Platform BaseR support"
+> +       depends on ARM_V8R
+> +       help
+> +         Enable platform specific configurations for Fixed Virtual
+> +         Platform BaseR
+> +
+>   config NO_PLAT
+>          bool "No Platforms"
+> +       depends on !ARM_V8R
+>          ---help---
+>          Do not enable specific support for any platform.
+>
+> --
+> 2.25.1
+>
+>
 
