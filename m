@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F034E6281EF
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 15:07:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443375.697910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3C7628271
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 15:24:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443381.697921 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oua6D-0007Er-Fs; Mon, 14 Nov 2022 14:06:09 +0000
+	id 1ouaNP-0001R8-VU; Mon, 14 Nov 2022 14:23:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443375.697910; Mon, 14 Nov 2022 14:06:09 +0000
+Received: by outflank-mailman (output) from mailman id 443381.697921; Mon, 14 Nov 2022 14:23:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oua6D-0007BO-D9; Mon, 14 Nov 2022 14:06:09 +0000
-Received: by outflank-mailman (input) for mailman id 443375;
- Mon, 14 Nov 2022 14:06:07 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1ouaNP-0001O1-SP; Mon, 14 Nov 2022 14:23:55 +0000
+Received: by outflank-mailman (input) for mailman id 443381;
+ Mon, 14 Nov 2022 14:23:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oua6B-0007BE-Re; Mon, 14 Nov 2022 14:06:07 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oua6B-0006so-OT; Mon, 14 Nov 2022 14:06:07 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1oua6B-0005S8-DS; Mon, 14 Nov 2022 14:06:07 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1oua6B-00087R-D0; Mon, 14 Nov 2022 14:06:07 +0000
+ (envelope-from <SRS0=nftf=3O=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1ouaNN-0001Nv-Q3
+ for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 14:23:53 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f0072a96-6427-11ed-8fd2-01056ac49cbb;
+ Mon, 14 Nov 2022 15:23:41 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B547620047;
+ Mon, 14 Nov 2022 14:23:51 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8528113A92;
+ Mon, 14 Nov 2022 14:23:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OwIAH3dPcmMtagAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 14 Nov 2022 14:23:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +51,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=TjmF5xarnhEv9cj52iZ3iYUo7EBAqN1UkxctY5jLCvs=; b=fwk/sFtUtuH/NNNOtcWjLno3fW
-	2or7NgGTX461j0IEA+usoGsjfdNaT/7rV2+FAuh/zo4b+PJORpZQ8JW44bnJtqUdkPjTieg4kc0j/
-	Zzjw+m7T2c+GZTvRDj+3kG1iuqMg+4MmCvay7yhnOQcNpZGHUHzaqZtGgdAPB5KGyc04=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174766-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f0072a96-6427-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1668435831; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
+	bh=sAfl5fuNeiYw163kQkU47PxfF3Zja2zKggUEdCCcBhk=;
+	b=gp8JXiltXKb1uWqjC2t5qQtcG7+F9MBrH/xUbap/0IPmp81Z94Iz2J/dS88U0CRcqLhWQV
+	wTEvQEfHqi/kDIGYEh8ZGKJV6Es/bCBCLhtpO9FonmMEi/N9et6tYlBl/oV3YJbbAQPHDW
+	xXQhut/guvd1A7piXFT6qk4zMoX7oLM=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH] xen/platform-pci: use define instead of literal number
+Date: Mon, 14 Nov 2022 15:23:48 +0100
+Message-Id: <20221114142348.1499-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 174766: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c805ceb0b26a643c7e47f01f2dbc50555d93cce8
-X-Osstest-Versions-That:
-    xen=17dfc79ce9fd6cf508ee84a7d0d972d6abe268c2
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 14 Nov 2022 14:06:07 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 174766 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174766/
+Instead of "0x01" use the HVM_PARAM_CALLBACK_TYPE_PCI_INTX define from
+the interface header in get_callback_via().
 
-Failures :-/ but no regressions.
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ drivers/xen/platform-pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
+index 18f0ed8b1f93..24a3de1b7b03 100644
+--- a/drivers/xen/platform-pci.c
++++ b/drivers/xen/platform-pci.c
+@@ -54,7 +54,8 @@ static uint64_t get_callback_via(struct pci_dev *pdev)
+ 	pin = pdev->pin;
+ 
+ 	/* We don't know the GSI. Specify the PCI INTx line instead. */
+-	return ((uint64_t)0x01 << HVM_CALLBACK_VIA_TYPE_SHIFT) | /* PCI INTx identifier */
++	return ((uint64_t)HVM_PARAM_CALLBACK_TYPE_PCI_INTX <<
++			  HVM_CALLBACK_VIA_TYPE_SHIFT) |
+ 		((uint64_t)pci_domain_nr(pdev->bus) << 32) |
+ 		((uint64_t)pdev->bus->number << 16) |
+ 		((uint64_t)(pdev->devfn & 0xff) << 8) |
+-- 
+2.35.3
 
-version targeted for testing:
- xen                  c805ceb0b26a643c7e47f01f2dbc50555d93cce8
-baseline version:
- xen                  17dfc79ce9fd6cf508ee84a7d0d972d6abe268c2
-
-Last test of basis   174741  2022-11-11 23:00:26 Z    2 days
-Testing same since   174766  2022-11-14 11:04:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Christian Lindig <christian.lindig@citrix.com>
-  Henry Wang <Henry.Wang@arm.com>
-  Julien Grall <jgrall@amazon.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   17dfc79ce9..c805ceb0b2  c805ceb0b26a643c7e47f01f2dbc50555d93cce8 -> smoke
 
