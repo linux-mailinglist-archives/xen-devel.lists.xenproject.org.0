@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1198362837D
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 16:05:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443386.697933 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A65A6283B3
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 16:19:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443392.697943 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oub1K-0006FF-0g; Mon, 14 Nov 2022 15:05:10 +0000
+	id 1oubFD-0007wV-AM; Mon, 14 Nov 2022 15:19:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443386.697933; Mon, 14 Nov 2022 15:05:09 +0000
+Received: by outflank-mailman (output) from mailman id 443392.697943; Mon, 14 Nov 2022 15:19:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oub1J-0006Bn-Tn; Mon, 14 Nov 2022 15:05:09 +0000
-Received: by outflank-mailman (input) for mailman id 443386;
- Mon, 14 Nov 2022 15:05:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ws5r=3O=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1oub1H-0006Bh-K2
- for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 15:05:07 +0000
-Received: from mail-ed1-x536.google.com (mail-ed1-x536.google.com
- [2a00:1450:4864:20::536])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b26b6d67-642d-11ed-8fd2-01056ac49cbb;
- Mon, 14 Nov 2022 16:04:55 +0100 (CET)
-Received: by mail-ed1-x536.google.com with SMTP id f7so17739596edc.6
- for <xen-devel@lists.xenproject.org>; Mon, 14 Nov 2022 07:05:05 -0800 (PST)
+	id 1oubFD-0007uZ-7O; Mon, 14 Nov 2022 15:19:31 +0000
+Received: by outflank-mailman (input) for mailman id 443392;
+ Mon, 14 Nov 2022 15:19:29 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oubFB-0007uP-Pr; Mon, 14 Nov 2022 15:19:29 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oubFB-0008WA-Kt; Mon, 14 Nov 2022 15:19:29 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oubFB-0001Kj-4H; Mon, 14 Nov 2022 15:19:29 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oubFB-00011b-3r; Mon, 14 Nov 2022 15:19:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,407 +42,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b26b6d67-642d-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=dT0DldhRQ1Rv2uvTCiK9GiQ3pfOMhNFKBi3Sli3lCEI=;
-        b=oSUQZrv9hzfsoOUyzseFH/14zyaRLNg5wZqjx2R4YYXyhtTZqNqKWRLZnCebDESS1P
-         sFiiNDjS/3GGGQoLFerTk9HlG73s6YRae6qNkzGtkvNnK4uQnOT/lSgazrw1mrBMFbNg
-         iLB9E7N336YTkkCQUbQefZN4ni5G4GzwGwv/H2A6btAllY8VUif7gO9MM2J5dbwsPi5N
-         1uC4DGOtUYaL7XVAxtaKNAHGDIzLDXUyKtYr2GDIm8qDplPVqcEm7fRtoj4tq7EaieFK
-         l6nssqVwco+WyNf04zmHkVT0SQteeV6g9le5YLJtRKMWsAoUIdgXxt3y7K2Oqw/97YU8
-         rFpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dT0DldhRQ1Rv2uvTCiK9GiQ3pfOMhNFKBi3Sli3lCEI=;
-        b=iAYf+cIsR5EgHDD3Xxad774VUqofzqY0FSYzVVQeuM29mKMKFtze2Kz9HCvx8oY0SS
-         M2bIPtTRdR31QxscQJ9mKoG8LGRf3aP7dju4/++Xuh2ph2K91epNRQMM/9i3j7cYsU/S
-         GADlchrAr4puoPEPUCfG1RpnMhk4cfbhf3pnOGHeNdurg84W8oy+vU5K2/wh7+e122cI
-         6uasm+ZqjhGkuIUqwlZ5u5vGft9Kh0Fwsdar3A06gV0GWsvmrav/H4cS8x9pc4GfMNEF
-         XPE0WT1DQPtK/mBXVgDNZk0/T5Vt/HYoxUfNv8DG9A5B91zVC+17ggh5/USdu2QH2Hjx
-         z3MQ==
-X-Gm-Message-State: ANoB5pk/0EEFTqfZfHvK5xhkdmXT86JCP88eTQOnBNiioVveLFzQj2lb
-	NNckbd7HOz3Y3H27ccdfwikqabWMcFn6SF6eEqNU8w==
-X-Google-Smtp-Source: AA0mqf44Yuq4D3K2d4jhT85UGH/dYLFM7bhtooOP18p5Pa89Wa77QMDwrfAzqJ2imCQav1H03TjykFIiINnfjJqn67U=
-X-Received: by 2002:aa7:d6cb:0:b0:467:e2dd:b593 with SMTP id
- x11-20020aa7d6cb000000b00467e2ddb593mr3721870edr.378.1668438305197; Mon, 14
- Nov 2022 07:05:05 -0800 (PST)
-MIME-Version: 1.0
-References: <20221022155120.7000-1-carlo.nonato@minervasys.tech>
- <20221022155120.7000-7-carlo.nonato@minervasys.tech> <d7ecb1c6-4340-f44f-4f5e-f74236b900f3@suse.com>
-In-Reply-To: <d7ecb1c6-4340-f44f-4f5e-f74236b900f3@suse.com>
-From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Mon, 14 Nov 2022 16:04:51 +0100
-Message-ID: <CAG+AhRXeuNeLEWArZ+7b+=jZgLSs2LLL2nEt+jwyQZVOorqxkg@mail.gmail.com>
-Subject: Re: [PATCH v3 6/9] xen/common: add cache coloring allocator for domains
-To: Jan Beulich <jbeulich@suse.com>
-Cc: marco.solieri@unimore.it, andrea.bastoni@minervasys.tech, 
-	lucmiccio@gmail.com, Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>, 
-	xen-devel@lists.xenproject.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=87D9qNcAiH5FBNqS3eevj/WI0mjSYx/dC4+7MT9+UtE=; b=JYiokaz81KzAaMXKy10t30BS6p
+	cVIF499M3VFoMOKY7QQ3SU4wpbwAXG8KdVCZM2NBxjD73zXee9uR40I3ueel04q78VPs3oBuyvJFG
+	LpxO0Sdu3sXiaLJk3yHtvtRO8FDDkoJP3tsXUApB8TlAVBPlUOQL4P6qSIiPZuOEkQCg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174764-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 174764: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:build-arm64:xen-build:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=094226ad94f471a9f19e8f8e7140a09c2625abaa
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 14 Nov 2022 15:19:29 +0000
 
-Hi Jan,
+flight 174764 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174764/
 
-On Thu, Nov 10, 2022 at 5:47 PM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 22.10.2022 17:51, Carlo Nonato wrote:
-> > --- a/xen/arch/arm/p2m.c
-> > +++ b/xen/arch/arm/p2m.c
-> > @@ -661,7 +661,12 @@ static int p2m_create_table(struct p2m_domain *p2m, lpae_t *entry)
-> >
-> >      ASSERT(!p2m_is_valid(*entry));
-> >
-> > -    page = alloc_domheap_page(NULL, 0);
-> > +    /* If cache coloring is enabled, p2m tables are allocated using the domain
-> > +     * coloring configuration to prevent cache interference. */
-> > +    if ( IS_ENABLED(CONFIG_CACHE_COLORING) )
-> > +        page = alloc_domheap_page(p2m->domain, MEMF_no_refcount);
->
-> Are you sure you don't mean MEMF_no_owner (which implies MEMF_no_refcount)
-> here? And then ...
+Regressions :-(
 
-Yes. I've already fixed it in the v4 that I'm working on right now.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ build-arm64                   6 xen-build                fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
 
-> > +    else
-> > +        page = alloc_domheap_page(NULL, 0);
->
-> ... is it really necessary to keep the two cases separate?
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-Not sure. I don't know the reason behind the original code.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-> Also nit: Comment style.
->
-> > --- a/xen/common/page_alloc.c
-> > +++ b/xen/common/page_alloc.c
-> > @@ -150,6 +150,9 @@
-> >  #define p2m_pod_offline_or_broken_hit(pg) 0
-> >  #define p2m_pod_offline_or_broken_replace(pg) BUG_ON(pg != NULL)
-> >  #endif
-> > +#ifdef CONFIG_HAS_CACHE_COLORING
-> > +#include <asm/coloring.h>
-> > +#endif
-> >
-> >  #ifndef PGC_static
-> >  #define PGC_static 0
-> > @@ -231,6 +234,14 @@ static bool __read_mostly scrub_debug;
-> >  #define scrub_debug    false
-> >  #endif
-> >
-> > +/* Memory required for buddy allocator to work with colored one */
-> > +#ifdef CONFIG_BUDDY_ALLOCATOR_SIZE
-> > +static unsigned long __initdata buddy_alloc_size =
-> > +    CONFIG_BUDDY_ALLOCATOR_SIZE << 20;
-> > +#else
-> > +    static unsigned long __initdata buddy_alloc_size = 0;
->
-> Nit: Bogus indentation. I wonder anyway whether if wouldn't better
-> be
->
-> static unsigned long __initdata buddy_alloc_size =
-> #ifdef CONFIG_BUDDY_ALLOCATOR_SIZE
->     CONFIG_BUDDY_ALLOCATOR_SIZE << 20;
-> #else
->     0;
-> #endif
->
-> or
->
-> static unsigned long __initdata buddy_alloc_size
-> #ifdef CONFIG_BUDDY_ALLOCATOR_SIZE
->     = CONFIG_BUDDY_ALLOCATOR_SIZE << 20
-> #endif
->     ;
->
-> > +static void free_color_heap_page(struct page_info *pg)
-> > +{
-> > +    struct page_info *pos;
-> > +    unsigned int color = page_to_color(pg);
-> > +    colored_pages_t *head = color_heap(color);
-> > +
-> > +    spin_lock(&heap_lock);
-> > +
-> > +    pg->count_info = PGC_state_free | PGC_colored;
-> > +    page_set_owner(pg, NULL);
-> > +    free_colored_pages[color]++;
-> > +
-> > +    page_list_for_each( pos, head )
-> > +    {
-> > +        if ( page_to_maddr(pos) < page_to_maddr(pg) )
-> > +            break;
-> > +    }
->
-> I continue to view such loops as problematic. With them in place I don't
-> think this feature can move to being (security) supported, so I think this
-> and similar places want annotating with a FIXME or alike comment.
+version targeted for testing:
+ linux                094226ad94f471a9f19e8f8e7140a09c2625abaa
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-So I have another change for that but I don't think it solves much.
-I've turned free_color_heap_page() into free_color_heap_pages() to free more
-pages with a single call. By doing so I can do the linear search once for
-each color: after finding the right insert position, all the pages that
-share the same color can be inserted one after the other. This should
-speed up the init phase, but it doesn't solve the domain destroy phase where
-pages are freed one by one.
+Last test of basis   173462  2022-10-07 18:41:45 Z   37 days
+Failing since        173470  2022-10-08 06:21:34 Z   37 days   61 attempts
+Testing same since   174764  2022-11-14 05:45:10 Z    0 days    1 attempts
 
-> > +    page_list_add_next(pg, pos, head);
-> >
-> > +    spin_unlock(&heap_lock);
-> > +}
-> > +
-> > +static struct page_info *alloc_color_heap_page(unsigned int memflags,
-> > +                                               const unsigned int *colors,
-> > +                                               unsigned int num_colors)
-> > +{
-> > +    struct page_info *pg = NULL;
-> > +    unsigned int i, color;
-> > +    bool need_tlbflush = false;
-> > +    uint32_t tlbflush_timestamp = 0;
-> > +
-> > +    spin_lock(&heap_lock);
-> > +
-> > +    for ( i = 0; i < num_colors; i++ )
-> > +    {
-> > +        struct page_info *tmp;
-> > +
-> > +        if ( page_list_empty(color_heap(colors[i])) )
-> > +            continue;
-> > +
-> > +        tmp = page_list_first(color_heap(colors[i]));
-> > +        if ( !pg || page_to_maddr(tmp) > page_to_maddr(pg) )
-> > +            pg = tmp;
-> > +    }
-> > +
-> > +    if ( !pg )
-> > +    {
-> > +        spin_unlock(&heap_lock);
-> > +        return NULL;
-> > +    }
-> > +
-> > +    pg->count_info = PGC_state_inuse | PGC_colored;
-> > +
-> > +    if ( !(memflags & MEMF_no_tlbflush) )
-> > +        accumulate_tlbflush(&need_tlbflush, pg, &tlbflush_timestamp);
-> > +
-> > +    init_free_page_fields(pg);
-> > +    flush_page_to_ram(mfn_x(page_to_mfn(pg)),
-> > +                      !(memflags & MEMF_no_icache_flush));
-> > +
-> > +    color = page_to_color(pg);
->
-> You don't really need to retrieve the color here, do you? You could as
-> well latch it in the loop above.
+------------------------------------------------------------
+1704 people touched revisions under test,
+not listing them all
 
-Yes.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  fail    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      fail    
 
-> > +static void dump_color_heap(void)
-> > +{
-> > +    unsigned int color;
-> > +
-> > +    printk("Dumping coloring heap info\n");
-> > +    for ( color = 0; color < get_max_colors(); color++ )
-> > +        printk("Color heap[%u]: %lu pages\n", color, free_colored_pages[color]);
-> > +}
-> > +
-> > +integer_param("buddy-alloc-size", buddy_alloc_size);
->
-> This would preferably live next to the variable it controls, e.g. (taking
-> the earlier comment into account)
->
-> static unsigned long __initdata buddy_alloc_size =
-> #ifdef CONFIG_CACHE_COLORING
->     CONFIG_BUDDY_ALLOCATOR_SIZE << 20;
-> integer_param("buddy-alloc-size", buddy_alloc_size);
-> #else
->     0;
-> #endif
->
-> (Assuming buddy_alloc_size is indeed used anywhere outside any #ifdef
-> CONFIG_CACHE_COLORING in the first place.)
->
-> > @@ -1926,24 +2106,49 @@ static unsigned long avail_heap_pages(
-> >  void __init end_boot_allocator(void)
-> >  {
-> >      unsigned int i;
-> > +    unsigned long buddy_pages;
-> >
-> > -    /* Pages that are free now go to the domain sub-allocator. */
-> > -    for ( i = 0; i < nr_bootmem_regions; i++ )
-> > +    buddy_pages = PFN_DOWN(buddy_alloc_size);
->
-> Any reason this can't be the initializer of the variable?
 
-Nope. The end_boot_allocator() changes are a bit messy. In v4 I'm doing
-things more nicely, moving everything in init_color_heap_pages().
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> > +    if ( !IS_ENABLED(CONFIG_CACHE_COLORING) )
-> >      {
-> > -        struct bootmem_region *r = &bootmem_region_list[i];
-> > -        if ( (r->s < r->e) &&
-> > -             (phys_to_nid(pfn_to_paddr(r->s)) == cpu_to_node(0)) )
-> > +        /* Pages that are free now go to the domain sub-allocator. */
-> > +        for ( i = 0; i < nr_bootmem_regions; i++ )
-> >          {
-> > -            init_heap_pages(mfn_to_page(_mfn(r->s)), r->e - r->s);
-> > -            r->e = r->s;
-> > -            break;
-> > +            struct bootmem_region *r = &bootmem_region_list[i];
-> > +            if ( (r->s < r->e) &&
->
-> Even if you're only re-indenting the original code (which personally I'd
-> prefer if it was avoided), please add the missing blank line between
-> declaration and statement here.
->
-> > +                (phys_to_nid(pfn_to_paddr(r->s)) == cpu_to_node(0)) )
-> > +            {
-> > +                init_heap_pages(mfn_to_page(_mfn(r->s)), r->e - r->s);
-> > +                r->e = r->s;
-> > +                break;
-> > +            }
-> >          }
-> >      }
-> > +
-> >      for ( i = nr_bootmem_regions; i-- > 0; )
-> >      {
-> > -        struct bootmem_region *r = &bootmem_region_list[i];
-> > +        struct bootmem_region *r;
-> > +
-> > +        if ( IS_ENABLED(CONFIG_CACHE_COLORING) )
-> > +            r = &bootmem_region_list[nr_bootmem_regions - i - 1];
->
-> If you want to handle things low-to-high, why don't you alter the
-> earlier loop rather than skipping (and re-indenting) it?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Yes, you're right.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> However,
-> considering that in alloc_color_heap_page() you prefer pages at
-> higher addresses, I continue to find it odd that here you want to
-> process low address pages first.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-It doesn't matter if alloc_color_heap_page() returns higher or lower
-addresses. The important thing is to create a sorted list so that min or
-max are easily found. Having a sorted list means that it's easier to insert
-pages if their addresses are always increasing or always decreasing, so that
-starting either from the head or from the tail, the position where to insert
-is found in O(1). If regions are processed high-to-low but pages of each
-region are instead low-to-high, the always-decreasing/always-increasing
-property doesn't hold anymore and the linear search needs to be repeated
-multiple times. This problem can be solved in many ways and doing
-everything low-to-high is one solution.
 
-> > +        else
-> > +            r = &bootmem_region_list[i];
-> > +
-> > +        if ( buddy_pages && (r->s < r->e) )
-> > +        {
-> > +            unsigned long pages = MIN(r->e - r->s, buddy_pages);
-> > +            init_heap_pages(mfn_to_page(_mfn(r->s)), pages);
->
-> Nit: Blank line between declaration(s) and statement(s) please. Also:
-> Any reason the type-safe min() cannot be used here?
+Not pushing.
 
-Not really. I've changed it.
-
-> > --- a/xen/include/xen/mm.h
-> > +++ b/xen/include/xen/mm.h
-> > @@ -297,6 +297,37 @@ page_list_add_tail(struct page_info *page, struct page_list_head *head)
-> >      }
-> >      head->tail = page;
-> >  }
-> > +static inline void
-> > +_page_list_add(struct page_info *new, struct page_info *prev,
-> > +               struct page_info *next)
-> > +{
-> > +    new->list.prev = page_to_pdx(prev);
-> > +     new->list.next = page_to_pdx(next);
-> > +     prev->list.next = page_to_pdx(new);
-> > +     next->list.prev = page_to_pdx(new);
->
-> Nit: Several hard tabs here, and ...
->
-> > +}
-> > +static inline void
-> > +page_list_add_next(struct page_info *new, struct page_info *prev,
-> > +                   struct page_list_head *head)
-> > +{
-> > +     struct page_info *next = page_list_next(prev, head);
->
-> ... one more here (and at least one more further down).
-
-Sorry, I don't really know how I've added those since my editor only uses
-spaces...
-
-> Afaict you're passing a NULL "pos" in here from free_color_heap_page()
-> if the list was previously empty and page lists aren't simply "normal"
-> (xen/list.h) lists. I don't consider it valid to call page_list_next()
-> with a NULL first argument, even if it looks as if this would work
-> right now as long as the list is empty (but I think we'd see a NULL
-> prev here also if all other pages looked at by free_color_heap_page()
-> are at lower addresses). So perhaps ...
->
-> > +    if ( !next )
-> > +        page_list_add_tail(new, head);
-> > +    else
-> > +        _page_list_add(new, prev, next);
->
->     if ( !prev )
->         page_list_add_tail(new, head);
->     else
->         _page_list_add(new, prev, page_list_next(prev, head));
->
-> ?
-
-Note: I was wrongly calling page_list_add_next() while I'm inserting a
-predecessor instead. Anyway, yes, you're right about the fact that both next and
-prev need to be checked since both can be NULL. This is my last version of
-page_list_add_prev().
-
-static inline void
-page_list_add_prev(struct page_info *page, struct page_info *next,
-                   struct page_list_head *head)
-{
-    struct page_info *prev;
-
-    if ( !next )
-    {
-        page_list_add_tail(page, head);
-        return;
-    }
-
-    prev = page_list_prev(next, head);
-    if ( !prev )
-        page_list_add(page, head);
-    else
-        _page_list_add(page, prev, next);
-}
-
-> > +}
-> > +static inline void
-> > +page_list_add_prev(struct page_info *new, struct page_info *next,
-> > +                   struct page_list_head *head)
-> > +{
-> > +     struct page_info *prev = page_list_prev(next, head);
-> > +
-> > +    if ( !prev )
-> > +        page_list_add(new, head);
-> > +    else
-> > +        _page_list_add(new, prev, next);
-> > +}
->
-> This function looks to not be used anywhere.
-
-Yes. I've added it only for completeness. I'm gonna drop it.
-
-> Jan
-
-Thanks.
-
-- Carlo Nonato
+(No revision log; it would be 162127 lines long.)
 
