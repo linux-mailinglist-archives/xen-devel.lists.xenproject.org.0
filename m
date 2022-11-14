@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6EF96272C2
-	for <lists+xen-devel@lfdr.de>; Sun, 13 Nov 2022 22:44:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443038.697421 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21ABD6273E6
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 01:41:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443048.697431 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouKkk-0000mT-KF; Sun, 13 Nov 2022 21:42:58 +0000
+	id 1ouNWB-0003ie-5k; Mon, 14 Nov 2022 00:40:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443038.697421; Sun, 13 Nov 2022 21:42:58 +0000
+Received: by outflank-mailman (output) from mailman id 443048.697431; Mon, 14 Nov 2022 00:40:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouKkk-0000jO-HG; Sun, 13 Nov 2022 21:42:58 +0000
-Received: by outflank-mailman (input) for mailman id 443038;
- Sun, 13 Nov 2022 21:42:57 +0000
+	id 1ouNWB-0003gu-2U; Mon, 14 Nov 2022 00:40:07 +0000
+Received: by outflank-mailman (input) for mailman id 443048;
+ Mon, 14 Nov 2022 00:40:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ouKki-0000jI-UV
- for xen-devel@lists.xenproject.org; Sun, 13 Nov 2022 21:42:56 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ouNWA-0003gk-Ba; Mon, 14 Nov 2022 00:40:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ouKki-0007YV-Kl; Sun, 13 Nov 2022 21:42:56 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ouKki-0001mM-Ev; Sun, 13 Nov 2022 21:42:56 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ouNWA-0003Wc-70; Mon, 14 Nov 2022 00:40:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ouNW9-0000w9-N6; Mon, 14 Nov 2022 00:40:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ouNW9-0000RA-Kt; Mon, 14 Nov 2022 00:40:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,103 +42,379 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=/ypwJxiHzPl9vExkIEqQHC4z5UcjeSfFVjYZkhhExrc=; b=SrAZ5RJv6RIn0BAtwpum5G8o1s
-	L5RXxTjbtiRATcir8v8Zd+08fMoouOcBdPwXbwChWUdGEtvsuDfecDClKNjaatz120R6Xwy9UmZlz
-	TFeGT0Kk3Xpu9P8/PnzvsTztwVFg5Z6iKdnwZIhCUTpBK+Exr6f7QGf4cR0W1v3grsaw=;
-Message-ID: <927355c8-aea1-83c4-60c1-b06f8e0f182f@xen.org>
-Date: Sun, 13 Nov 2022 21:42:54 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.2
-To: Wei Chen <Wei.Chen@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Henry Wang <Henry.Wang@arm.com>
-References: <20221104100741.2176307-1-wei.chen@arm.com>
- <20221104100741.2176307-9-wei.chen@arm.com>
- <5b975a59-5e97-c2a8-805c-9ab99b8712aa@xen.org>
- <PAXPR08MB74206E8C1513DC90DCD71CEC9E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v6 08/11] xen/arm64: move MMU related code from head.S to
- head_mmu.S
-In-Reply-To: <PAXPR08MB74206E8C1513DC90DCD71CEC9E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=0cmDFqiSfWeRA8TVzzF1o1AFd/1QZCrBupoKLObZfYc=; b=IB98+wTmHX1VMurFgxEd3z0dAR
+	CU7BUv2BSzSLj1tVr7J1TLQlLsP2jC/MAUnhQ+nUorXiHaoTwcQ8U0tr+9ppPX4VddL7WDCc1046d
+	iRM+sM4NQLygrCDin771hOtCdLTC27pLUu20NzEeEa0xXRI+KjEn9wwJjEYJtTDHHwrE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174756-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 174756: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:regression
+    qemu-mainline:test-armhf-armhf-libvirt-raw:xen-boot:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:windows-install:fail:heisenbug
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    qemuu=305f6f62d9d250a32cdf090ddcb7e3a5b26a342e
+X-Osstest-Versions-That:
+    qemuu=6a4cff8e1a80bafc4b8fe2bfb10081f4880d1b3b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 14 Nov 2022 00:40:05 +0000
+
+flight 174756 qemu-mainline real [real]
+flight 174759 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174756/
+http://logs.test-lab.xenproject.org/osstest/logs/174759/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2   21 guest-start/debian.repeat fail REGR. vs. 174752
+
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-libvirt-raw  8 xen-boot            fail pass in 174759-retest
+ test-amd64-amd64-xl-qemuu-ws16-amd64 12 windows-install fail pass in 174759-retest
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop  fail in 174759 like 174752
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check fail in 174759 like 174752
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check fail in 174759 never pass
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 174752
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 174752
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 174752
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 174752
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 174752
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 174752
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
+ test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ qemuu                305f6f62d9d250a32cdf090ddcb7e3a5b26a342e
+baseline version:
+ qemuu                6a4cff8e1a80bafc4b8fe2bfb10081f4880d1b3b
+
+Last test of basis   174752  2022-11-13 01:10:32 Z    0 days
+Testing same since   174756  2022-11-13 11:40:07 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Bin Meng <bmeng@tinylab.org>
+  Philippe Mathieu-Daudé <f4bug@amsat.org>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Song Gao <gaosong@loongson.cn>
+  Stefan Hajnoczi <stefanha@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-armhf-armhf-xl-arndale                                  pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  pass    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  pass    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                pass    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     pass    
+ test-arm64-arm64-xl-seattle                                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      pass    
+ test-amd64-i386-xl-vhd                                       pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 09/11/2022 07:36, Wei Chen wrote:
-> Hi Julien,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Wei,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: 2022年11月7日 4:06
->> To: Wei Chen <Wei.Chen@arm.com>; xen-devel@lists.xenproject.org
->> Cc: nd <nd@arm.com>; Stefano Stabellini <sstabellini@kernel.org>; Bertrand
->> Marquis <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->> <Volodymyr_Babchuk@epam.com>; Henry Wang <Henry.Wang@arm.com>
->> Subject: Re: [PATCH v6 08/11] xen/arm64: move MMU related code from head.S
->> to head_mmu.S
->>
->> Hi Wei,
->>
->> On 04/11/2022 10:07, Wei Chen wrote:
->>> There are lots of MMU specific code in head.S. This code will not
->>> be used in MPU systems. If we use #ifdef to gate them, the code
->>> will become messy and hard to maintain. So we move MMU related
->>> code to head_mmu.S, and keep common code still in head.S.
->>
->> I am afraid that you can't simply move the MMU code out of head.S
->> because this will break Xen when running using the identity map.
->>
->> This is because we only map the first 4KB of Xen with PA == VA. At the
->> moment, we guarantee it by having everything that needs to be used in
->> the identity mapping before _end_boot and checking at link time if this
->> fits in 4KB.
->>
->> Now that you moved the MMU code outside of head.S. We need to find a
->> different way to guarantee it. One way to do it would be to create a
->> section that would be used for everything that needs to be identity mapped.
->>
-> 
-> Quote from next email
-> "
-> Looking at the code this morning, I noticed that we already have the
-> section ".text.header". For now, that should do the job. So we just need
-> to check the size of .text.header.
-> 
-> Ideally, checking the size should be done in a separate pre-patch so it
-> is easier to review.
-> "
-> 
-> OK. We will create a patch to check the size, and place it in the
-> head of the series.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-I thought a bit more about what I wrote. Xen binary should always start 
-with the Image/Zimage header. At the moment, this is guaranteed because 
-there is only one object using the section .text.header.
 
-With the change introduced in this patch, there will be multiple objects 
-using with the sections .text.header. This means we are relying on the 
-compiler to always put the content of head.S first.
+Not pushing.
 
-This is basically reverting to the behavior before commit 4267a33b19d 
-("xen/build: put image header into a separate section").
+------------------------------------------------------------
+commit 305f6f62d9d250a32cdf090ddcb7e3a5b26a342e
+Merge: 57bc6e40e8 46b21de238
+Author: Stefan Hajnoczi <stefanha@redhat.com>
+Date:   Sat Nov 12 09:17:06 2022 -0500
 
-Therefore we do need a separate section to be used for head_*.S and 
-maybe part of head.S. This new section could be called text.idmap so we 
-know what the section is used for.
+    Merge tag 'pull-la-20221112' of https://gitlab.com/rth7680/qemu into staging
+    
+    Fix loongarch make check-tcg failure.
+    
+    # -----BEGIN PGP SIGNATURE-----
+    #
+    # iQFRBAABCgA7FiEEekgeeIaLTbaoWgXAZN846K9+IV8FAmNu8aUdHHJpY2hhcmQu
+    # aGVuZGVyc29uQGxpbmFyby5vcmcACgkQZN846K9+IV90jAgAsaB0nU7YGzJRYRmK
+    # +QXtrQa5AmXf014X7OeOZyxdYCPCwri2rnCxc1eOKAIOeSbdFY54xjXXEV8qpej+
+    # ZiLbdvXFG519vJpZquEJm1wgk68NnKYy2wfeRuwBMcQD4E7yeE9y11IKtuN6vbcq
+    # sh/Zxh43KwzyZ1wrVQl8DUxesTcE4RwVDJ+t2q+uYKcgmUVRQJJd9aXLkOKpOb1f
+    # QU+6lJAGv293IbW5LUD8fIPNKVWqlVwDIsFVWhYYJFxvWfbL211NsJbX70RnKahr
+    # vJ6olGORlShNJEiV++9QTrgGr1v76KkVECaKNtohkYL/BkfNxoy4yWxcC7I9zds+
+    # 6oH9vQ==
+    # =7NI1
+    # -----END PGP SIGNATURE-----
+    # gpg: Signature made Fri 11 Nov 2022 20:06:45 EST
+    # gpg:                using RSA key 7A481E78868B4DB6A85A05C064DF38E8AF7E215F
+    # gpg:                issuer "richard.henderson@linaro.org"
+    # gpg: Good signature from "Richard Henderson <richard.henderson@linaro.org>" [full]
+    # Primary key fingerprint: 7A48 1E78 868B 4DB6 A85A  05C0 64DF 38E8 AF7E 215F
+    
+    * tag 'pull-la-20221112' of https://gitlab.com/rth7680/qemu:
+      hw/loongarch: Fix loongarch fdt addr confict
+    
+    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
 
-Cheers,
+commit 57bc6e40e82c0446a358ab01f9bbf0db0d9465e4
+Author: Philippe Mathieu-Daudé <f4bug@amsat.org>
+Date:   Fri Nov 11 13:45:50 2022 +0100
 
--- 
-Julien Grall
+    libvduse: Avoid warning about dangerous use of strncpy()
+    
+    GCC 8 added a -Wstringop-truncation warning:
+    
+      The -Wstringop-truncation warning added in GCC 8.0 via r254630 for
+      bug 81117 is specifically intended to highlight likely unintended
+      uses of the strncpy function that truncate the terminating NUL
+      character from the source string.
+    
+    Here the next line indeed unconditionally zeroes the last byte, but
+    1/ the buffer has been calloc'd, so we don't need to add an extra
+    byte, and 2/ we called vduse_name_is_invalid() which checked the
+    string length, so we can simply call strcpy().
+    
+    This fixes when using gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0:
+    
+      [42/666] Compiling C object subprojects/libvduse/libvduse.a.p/libvduse.c.o
+      FAILED: subprojects/libvduse/libvduse.a.p/libvduse.c.o
+      cc -m64 -mcx16 -Isubprojects/libvduse/libvduse.a.p -Isubprojects/libvduse -I../../subprojects/libvduse [...] -o subprojects/libvduse/libvduse.a.p/libvduse.c.o -c ../../subprojects/libvduse/libvduse.c
+      In file included from /usr/include/string.h:495,
+                       from ../../subprojects/libvduse/libvduse.c:24:
+      In function ‘strncpy’,
+          inlined from ‘vduse_dev_create’ at ../../subprojects/libvduse/libvduse.c:1312:5:
+      /usr/include/x86_64-linux-gnu/bits/string_fortified.h:106:10: error: ‘__builtin_strncpy’ specified bound 256 equals destination size [-Werror=stringop-truncation]
+        106 |   return __builtin___strncpy_chk (__dest, __src, __len, __bos (__dest));
+            |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      cc1: all warnings being treated as errors
+      ninja: build stopped: cannot make progress due to previous errors.
+    
+    Fixes: d9cf16c0be ("libvduse: Replace strcpy() with strncpy()")
+    Suggested-by: Markus Armbruster <armbru@redhat.com>
+    Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+    Reviewed-by: Xie Yongji <xieyongji@bytedance.com>
+    Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
+    Tested-by: Bin Meng <bmeng@tinylab.org>
+    Signed-off-by: Stefan Hajnoczi <stefanha@redhat.com>
+    Message-Id: <20221111124550.35753-1-philmd@linaro.org>
+
+commit 46b21de238c643ea098f2dcffe493abd135f7d89
+Author: Song Gao <gaosong@loongson.cn>
+Date:   Wed Nov 9 10:04:49 2022 +0800
+
+    hw/loongarch: Fix loongarch fdt addr confict
+    
+    Fix LoongArch check-tcg error:
+       TEST    hello on loongarch64
+    qemu-system-loongarch64: Some ROM regions are overlapping
+    These ROM regions might have been loaded by direct user request or by default.
+    They could be BIOS/firmware images, a guest kernel, initrd or some other file loaded into guest memory.
+    Check whether you intended to load all this guest code, and whether it has been built to load to the correct addresses.
+    
+    The following two regions overlap (in the memory address space):
+       hello ELF program header segment 0 (addresses 0x0000000000200000 - 0x0000000000242000)
+       fdt (addresses 0x0000000000200000 - 0x0000000000300000)
+    make[1]: *** [Makefile:177: run-hello] Error 1
+    
+    Fixes: 021836936ef ("hw/loongarch: Load FDT table into dram memory space")
+    Reported-by: Richard Henderson <richard.henderson@linaro.org>
+    Signed-off-by: Song Gao <gaosong@loongson.cn>
+    Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
+    Message-Id: <20221109020449.978064-1-gaosong@loongson.cn>
+    Signed-off-by: Richard Henderson <richard.henderson@linaro.org>
 
