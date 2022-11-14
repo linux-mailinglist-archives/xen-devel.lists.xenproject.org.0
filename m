@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5B7628931
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 20:21:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443546.698140 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EAF628932
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 20:21:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443547.698152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouf0j-00032t-SJ; Mon, 14 Nov 2022 19:20:49 +0000
+	id 1ouf0n-0003J8-3b; Mon, 14 Nov 2022 19:20:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443546.698140; Mon, 14 Nov 2022 19:20:49 +0000
+Received: by outflank-mailman (output) from mailman id 443547.698152; Mon, 14 Nov 2022 19:20:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouf0j-0002zs-P4; Mon, 14 Nov 2022 19:20:49 +0000
-Received: by outflank-mailman (input) for mailman id 443546;
- Mon, 14 Nov 2022 19:20:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ouf0n-0003Fc-0o; Mon, 14 Nov 2022 19:20:53 +0000
+Received: by outflank-mailman (input) for mailman id 443547;
+ Mon, 14 Nov 2022 19:20:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VGCG=3O=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ouf0h-0002zm-Fn
- for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 19:20:47 +0000
+ id 1ouf0l-0003F1-Ab
+ for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 19:20:51 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6f26e228-6451-11ed-8fd2-01056ac49cbb;
- Mon, 14 Nov 2022 20:20:45 +0100 (CET)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 4306932009F4;
- Mon, 14 Nov 2022 14:20:42 -0500 (EST)
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 70bd97cc-6451-11ed-91b6-6bf2151ebd3b;
+ Mon, 14 Nov 2022 20:20:48 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 9EF3D32009B0;
+ Mon, 14 Nov 2022 14:20:45 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 14 Nov 2022 14:20:42 -0500
+ by compute2.internal (MEProxy); Mon, 14 Nov 2022 14:20:46 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Nov 2022 14:20:40 -0500 (EST)
+ 14 Nov 2022 14:20:43 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,47 +43,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f26e228-6451-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 70bd97cc-6451-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1668453641; x=1668540041; bh=GH/JWXPsdg09JGNt1E/t/7yRp8zml7s1JpL
-	dNsT07i0=; b=l4ek2n98KvwRy1A3BfKCbpoIuRMQ0ZayIbq81LVAUPwAr0MegJW
-	TFH2EcLlPSnEMPlP2HRVPD7w+h6P0vBlcAM/z9FzsXYtd9majPOdJVNgxKnCWlDh
-	iu+Zrl5/UVL85jX3sczJ34YxLFzVAZmt4+r7/zQiQC9zktk9+o8NJomoAbLWzGRy
-	O6VcqIrrOTJXKD1R0wweQw/S4nTQBcHh0ejQ3kZbtDG+Wh0QVVYyZPB2x2PobGut
-	s58+3nDJ3ikrMxmAyvZ5SdvhI7X/gfE8af4ikVm9qahUq0qbS5YtVUIghTwtmu5S
-	lmwU4Jnd0eG5igv5DNVcj7EuWRyIBpvOPLw==
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
+	:subject:to:to; s=fm1; t=1668453645; x=1668540045; bh=oqI/+sgvZ2
+	OKVRaSTG42v6mrCeoTzSNksNPbobAHtyw=; b=nZQvOB/3uWzHry1FZf0mIgSsio
+	TvpqbQFtXxVW9joxJ7lW/EuPyJU8PRYnedTs4mAqvG/tc5l1Pc1970/9Sbmg/t7p
+	EZbllWG966ciU059asbn53Ip6E5nQhynPE7mvJUIsUC1sE5Fq/a7sbfEeozLuBaX
+	InUaggTqErhrhpqDFMNyjV230YOSnrWTr2INMzE0wER/nUXhoDk0pFCTSGt8wh7A
+	aRacxuWdLD6BxgGXfCh+q4OobrVRWwh+byCc0+yxwFJ291Mcqs/Ki2GebVEzzNvH
+	jMjMEDVDqF/PytoU0LwsFEY/maS8b5g5gBgzr5yc7qs8mQGAdd/kYEKhNzLw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1668453641; x=1668540041; bh=GH/JWXPsdg09J
-	GNt1E/t/7yRp8zml7s1JpLdNsT07i0=; b=aNJtZykfI6WDSLw5FBqPaNH98ubt1
-	rixjr8H23RxZCqUmrGIqsBbs7MazMfVCno2aJBtHpKbTK8QWh9qtQdogTyZ2s1yw
-	Gqo+mh7IC9gf1vzPysozfO5J6n5AB+zGgPekKxcJtZl264l9kSfozpo1NpNm7BbB
-	c6yL9bqHtp47UViJ8Z+n1VeHijQx6pyjCnJMafWd4/Emx/LOZoOUHF2kbEbVC++e
-	mSOqcBXTF0QQEImPD+CYKa9tNXaz8VGrlTgWxFqCjPU1Qjpix0DTEMiBc9KquA8B
-	zhMrgVSD+AK9kOzjkW3MbZQwjrbNmIhnLv2sf5NjTDCFpQfHGV5iGL9yA==
-X-ME-Sender: <xms:CZVyYwZ6zYu3Ht7dBCNg9wqW2mPU8TDlf4R1tRd77SHftWEuSowGcg>
-    <xme:CZVyY7Z0nBuk5ZNUpC75H_Ne4Tc0RO9aspYO7ihZCGkyrr5rpQsKcKRd7iVeaeALz
-    GaOedPZE1b8WA>
-X-ME-Received: <xmr:CZVyY6-NobWIjbCiOn-S0VX34xKK2I0DWQi1HzflvquXOM0jn9RnvEBQ7-B-MY_1cqS9tb3OT5SFCMjAW6W7xrakfyjEWH4g5vdMJF4y6S1DWfdbU00>
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668453645; x=
+	1668540045; bh=oqI/+sgvZ2OKVRaSTG42v6mrCeoTzSNksNPbobAHtyw=; b=D
+	2P5sBpbEsNu6MaRLAFp5J8quqclpPDdJRkMM1LI903pFADdgAXtiEoVTcOPQ4wiZ
+	otXWafF8iM8VcODK7xQr8K1sDHD0Tn2tT30tIcdEI4zpAWSONS/yhRA4nCi5M+SI
+	ff+gcGkeMBKFvKLbcqJE2wfQ5BC6oY20wLOpmPyQRfJwmxeBoOE+1S9H9FRgpJtY
+	MNFl+H44gOFYLbmjtngCof2icNN0cnIY8sE5HCYsA+ucYZYdXMTbs3KYwfQxuRGN
+	T15Vv6pUYKJdLeOTNp/W3yJVX6QWzlfDA1iRFQGW5VT/7ICnw9WcV1IBk+RDneFa
+	4tLIoK+iUNeySmtbZYEtg==
+X-ME-Sender: <xms:DJVyY4_9WND8N8kud-egLwPvnfn7p8X-MLxvNFn4HChtwiUQWcEgtA>
+    <xme:DJVyYwuMfLMSKXGPMaXIt2RyvJatdxvgiOI37DtxS_BFoYeiWNDDpATJp-4SW-Ttp
+    YgBPLLNC0Fhyg>
+X-ME-Received: <xmr:DJVyY-DaXe1oVwj3132y_FPogz0fraQ3Ek4HhBlVQg0M_WrSzgwW6Fj900mDdqhEIaxC46kteITdWFVF633Z86MqsMxzqMQQvrPbwRTUHzHuTtI5AYo>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgedvgdeliecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
-    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
-    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleekhfdu
-    leetleelleetteevfeefteffkeetteejheelgfegkeelgeehhfdthedvnecuvehluhhsth
-    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
-    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:CZVyY6r5Sx_xhFJ8jWwXl59tvAhMZ67BPWuY2Ce7rOyUJHY9YP4Vxw>
-    <xmx:CZVyY7rNo2anSImkl6e8qHuxF-q63oVbVCx4bRWmU-Tt7ehoCfSOPg>
-    <xmx:CZVyY4RQ8lIjrIhrgxAiwo8-tqDdDDBkapr0aXLJNZssDRq2_eI3gA>
-    <xmx:CZVyY6XC-rWdTgtThSco2mExldV2Sk75OqN5-X4vjADy4Er7n8MJaA>
+    fjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeu
+    udehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluh
+    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
+    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:DJVyY4fd_q5AQwTm8hfu-hGHGrUNa_NlaV4rNF8TeQU52MGTSsFV-w>
+    <xmx:DJVyY9NgQwTd329JmW5qWZTk05Qq7r0tvs4QN72MR45RUA-dxY-g7Q>
+    <xmx:DJVyYyloGBdI6D-m55EDEBVtvNSSKMX1Cd4O7iwaOy2jEWTl27oiMA>
+    <xmx:DZVyY-pJbI2V7IAOSZyqH7pBd8HJyDFQeEeLigbZ7oB8NPERytrZJQ>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: qemu-devel@nongnu.org
@@ -92,84 +93,141 @@ Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.c
 	Anthony Perard <anthony.perard@citrix.com>,
 	Paul Durrant <paul@xen.org>,
 	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH 1/2] hw/xen/xen_pt: Call default handler only if no custom one is set
-Date: Mon, 14 Nov 2022 20:20:10 +0100
-Message-Id: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
+Subject: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on Xen
+Date: Mon, 14 Nov 2022 20:20:11 +0100
+Message-Id: <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
+References: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Call pci_default_write_config() in xen_pt_pci_write_config() only for
-registers that do not have custom handler, and do that only after
-resolving them. This is important for two reasons:
-1. XenPTRegInfo has ro_mask which needs to be enforced - Xen-specific
-   hooks do that on their own (especially xen_pt_*_reg_write()).
-2. Not setting value early allows the hooks to see the old value too.
+The /dev/mem is used for two purposes:
+ - reading PCI_MSIX_ENTRY_CTRL_MASKBIT
+ - reading Pending Bit Array (PBA)
 
-If it would be only about the first point, setting PCIDevice.wmask would
-probably be sufficient, but given the second point, restructure those
-writes.
+The first one was originally done because when Xen did not send all
+vector ctrl writes to the device model, so QEMU might have outdated old
+register value. This has been changed in Xen, so QEMU can now use its
+cached value of the register instead.
+
+The Pending Bit Array (PBA) handling is for the case where it lives on
+the same page as the MSI-X table itself. Xen has been extended to handle
+this case too (as well as other registers that may live on those pages),
+so QEMU handling is not necessary anymore.
+
+Removing /dev/mem access is useful to work within stubdomain, and
+necessary when dom0 kernel runs in lockdown mode.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- hw/xen/xen_pt.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ hw/xen/xen_pt.h     |  1 -
+ hw/xen/xen_pt_msi.c | 51 ++++-----------------------------------------
+ 2 files changed, 4 insertions(+), 48 deletions(-)
 
-diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-index 0ec7e52183..269bd26109 100644
---- a/hw/xen/xen_pt.c
-+++ b/hw/xen/xen_pt.c
-@@ -255,6 +255,7 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-     uint32_t find_addr = addr;
-     XenPTRegInfo *reg = NULL;
-     bool wp_flag = false;
-+    uint32_t emul_mask = 0, write_val;
+diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+index e7c4316a7d..de4094e7ec 100644
+--- a/hw/xen/xen_pt.h
++++ b/hw/xen/xen_pt.h
+@@ -206,7 +206,6 @@ typedef struct XenPTMSIX {
+     uint32_t table_offset_adjust; /* page align mmap */
+     uint64_t mmio_base_addr;
+     MemoryRegion mmio;
+-    void *phys_iomem_base;
+     XenPTMSIXEntry msix_entry[];
+ } XenPTMSIX;
  
-     if (xen_pt_pci_config_access_check(d, addr, len)) {
-         return;
-@@ -310,7 +311,6 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
+diff --git a/hw/xen/xen_pt_msi.c b/hw/xen/xen_pt_msi.c
+index b71563f98a..a8a75dff66 100644
+--- a/hw/xen/xen_pt_msi.c
++++ b/hw/xen/xen_pt_msi.c
+@@ -460,15 +460,7 @@ static void pci_msix_write(void *opaque, hwaddr addr,
+         entry->updated = true;
+     } else if (msix->enabled && entry->updated &&
+                !(val & PCI_MSIX_ENTRY_CTRL_MASKBIT)) {
+-        const volatile uint32_t *vec_ctrl;
+-
+-        /*
+-         * If Xen intercepts the mask bit access, entry->vec_ctrl may not be
+-         * up-to-date. Read from hardware directly.
+-         */
+-        vec_ctrl = s->msix->phys_iomem_base + entry_nr * PCI_MSIX_ENTRY_SIZE
+-            + PCI_MSIX_ENTRY_VECTOR_CTRL;
+-        xen_pt_msix_update_one(s, entry_nr, *vec_ctrl);
++        xen_pt_msix_update_one(s, entry_nr, entry->latch(VECTOR_CTRL));
      }
  
-     memory_region_transaction_begin();
--    pci_default_write_config(d, addr, val, len);
+     set_entry_value(entry, offset, val);
+@@ -493,7 +485,9 @@ static uint64_t pci_msix_read(void *opaque, hwaddr addr,
+         return get_entry_value(&msix->msix_entry[entry_nr], offset);
+     } else {
+         /* Pending Bit Array (PBA) */
+-        return *(uint32_t *)(msix->phys_iomem_base + addr);
++        XEN_PT_LOG(&s->dev, "reading PBA, addr %#lx, offset %#lx\n",
++                   addr, addr - msix->total_entries * PCI_MSIX_ENTRY_SIZE);
++        return 0xFFFFFFFF;
+     }
+ }
  
-     /* adjust the read and write value to appropriate CFC-CFF window */
-     read_val <<= (addr & 3) << 3;
-@@ -370,6 +370,8 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-                 return;
-             }
+@@ -529,7 +523,6 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
+     int i, total_entries, bar_index;
+     XenHostPCIDevice *hd = &s->real_device;
+     PCIDevice *d = &s->dev;
+-    int fd = -1;
+     XenPTMSIX *msix = NULL;
+     int rc = 0;
  
-+            emul_mask |= ( (1 << (reg->size * 8) ) - 1 ) << ((find_addr & 3) * 8);
-+
-             /* calculate next address to find */
-             emul_len -= reg->size;
-             if (emul_len > 0) {
-@@ -396,6 +398,24 @@ static void xen_pt_pci_write_config(PCIDevice *d, uint32_t addr,
-     /* need to shift back before passing them to xen_host_pci_set_block. */
-     val >>= (addr & 3) << 3;
+@@ -576,34 +569,6 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
+     msix->table_base = s->real_device.io_regions[bar_index].base_addr;
+     XEN_PT_LOG(d, "get MSI-X table BAR base 0x%"PRIx64"\n", msix->table_base);
  
-+    /* store emulated registers that didn't have specific hooks */
-+    write_val = val;
-+    for (index = 0; emul_mask; index += emul_len) {
-+        emul_len = 0;
-+        while (emul_mask & 0xff) {
-+            emul_len++;
-+            emul_mask >>= 8;
-+        }
-+        if (emul_len) {
-+            uint32_t mask = ((1 << (emul_len * 8)) - 1);
-+            pci_default_write_config(d, addr, write_val & mask, emul_len);
-+            write_val >>= emul_len * 8;
-+        } else {
-+            emul_mask >>= 8;
-+            write_val >>= 8;
-+        }
-+    }
-+
-     memory_region_transaction_commit();
+-    fd = open("/dev/mem", O_RDWR);
+-    if (fd == -1) {
+-        rc = -errno;
+-        XEN_PT_ERR(d, "Can't open /dev/mem: %s\n", strerror(errno));
+-        goto error_out;
+-    }
+-    XEN_PT_LOG(d, "table_off = 0x%x, total_entries = %d\n",
+-               table_off, total_entries);
+-    msix->table_offset_adjust = table_off & 0x0fff;
+-    msix->phys_iomem_base =
+-        mmap(NULL,
+-             total_entries * PCI_MSIX_ENTRY_SIZE + msix->table_offset_adjust,
+-             PROT_READ,
+-             MAP_SHARED | MAP_LOCKED,
+-             fd,
+-             msix->table_base + table_off - msix->table_offset_adjust);
+-    close(fd);
+-    if (msix->phys_iomem_base == MAP_FAILED) {
+-        rc = -errno;
+-        XEN_PT_ERR(d, "Can't map physical MSI-X table: %s\n", strerror(errno));
+-        goto error_out;
+-    }
+-    msix->phys_iomem_base = (char *)msix->phys_iomem_base
+-        + msix->table_offset_adjust;
+-
+-    XEN_PT_LOG(d, "mapping physical MSI-X table to %p\n",
+-               msix->phys_iomem_base);
+-
+     memory_region_add_subregion_overlap(&s->bar[bar_index], table_off,
+                                         &msix->mmio,
+                                         2); /* Priority: pci default + 1 */
+@@ -624,14 +589,6 @@ void xen_pt_msix_unmap(XenPCIPassthroughState *s)
+         return;
+     }
  
- out:
+-    /* unmap the MSI-X memory mapped register area */
+-    if (msix->phys_iomem_base) {
+-        XEN_PT_LOG(&s->dev, "unmapping physical MSI-X table from %p\n",
+-                   msix->phys_iomem_base);
+-        munmap(msix->phys_iomem_base, msix->total_entries * PCI_MSIX_ENTRY_SIZE
+-               + msix->table_offset_adjust);
+-    }
+-
+     memory_region_del_subregion(&s->bar[msix->bar_index], &msix->mmio);
+ }
+ 
 -- 
 2.37.3
 
