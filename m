@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33EAF628932
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 20:21:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443547.698152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAE9C628933
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 20:21:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443551.698162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouf0n-0003J8-3b; Mon, 14 Nov 2022 19:20:53 +0000
+	id 1ouf1F-00040y-CL; Mon, 14 Nov 2022 19:21:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443547.698152; Mon, 14 Nov 2022 19:20:53 +0000
+Received: by outflank-mailman (output) from mailman id 443551.698162; Mon, 14 Nov 2022 19:21:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouf0n-0003Fc-0o; Mon, 14 Nov 2022 19:20:53 +0000
-Received: by outflank-mailman (input) for mailman id 443547;
- Mon, 14 Nov 2022 19:20:51 +0000
+	id 1ouf1F-0003y4-8x; Mon, 14 Nov 2022 19:21:21 +0000
+Received: by outflank-mailman (input) for mailman id 443551;
+ Mon, 14 Nov 2022 19:21:20 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=VGCG=3O=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ouf0l-0003F1-Ab
- for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 19:20:51 +0000
+ id 1ouf1E-0003F1-78
+ for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 19:21:20 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
  [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 70bd97cc-6451-11ed-91b6-6bf2151ebd3b;
- Mon, 14 Nov 2022 20:20:48 +0100 (CET)
+ id 839dd65a-6451-11ed-91b6-6bf2151ebd3b;
+ Mon, 14 Nov 2022 20:21:19 +0100 (CET)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 9EF3D32009B0;
- Mon, 14 Nov 2022 14:20:45 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 51083320096E;
+ Mon, 14 Nov 2022 14:21:17 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 14 Nov 2022 14:20:46 -0500
+ by compute2.internal (MEProxy); Mon, 14 Nov 2022 14:21:17 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 14 Nov 2022 14:20:43 -0500 (EST)
+ 14 Nov 2022 14:21:15 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,189 +43,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 70bd97cc-6451-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 839dd65a-6451-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1668453645; x=1668540045; bh=oqI/+sgvZ2
-	OKVRaSTG42v6mrCeoTzSNksNPbobAHtyw=; b=nZQvOB/3uWzHry1FZf0mIgSsio
-	TvpqbQFtXxVW9joxJ7lW/EuPyJU8PRYnedTs4mAqvG/tc5l1Pc1970/9Sbmg/t7p
-	EZbllWG966ciU059asbn53Ip6E5nQhynPE7mvJUIsUC1sE5Fq/a7sbfEeozLuBaX
-	InUaggTqErhrhpqDFMNyjV230YOSnrWTr2INMzE0wER/nUXhoDk0pFCTSGt8wh7A
-	aRacxuWdLD6BxgGXfCh+q4OobrVRWwh+byCc0+yxwFJ291Mcqs/Ki2GebVEzzNvH
-	jMjMEDVDqF/PytoU0LwsFEY/maS8b5g5gBgzr5yc7qs8mQGAdd/kYEKhNzLw==
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1668453676; x=1668540076; bh=nPfMqp058g7kRRkTy0PrtYx6pL+BIhReFJy
+	JxLlMvDU=; b=adB/wBdxqn4/pY6JIFrxF6O1vOBh44yy4R4Dc2AZL08q4ws41M5
+	xI/6lI96evI9Zf3+P97qNAHGg5AwCEVE1ItUteABcYnD8ofDZ4G9EIakwcVYt23i
+	qQaICE23Ct2ItuohBscfgzZ6yyN1DTSINqt//+E0pIL39xDPimxW+Y8apZi3fpYf
+	FNBkBjgCanTFoEz7HbQYK9lrZyEDwfIA1ABy+wB3I4Hrw8DgE9KV1FiGbdgNghPc
+	+NJ5J2Q0fM/wvH74TPNx1a4mvqI/AAPGyZ3Oc6ksm3JPgeRCzrAlZ1YPPpf8lva6
+	MoPezvGUMpsViTcfLaba83fEj5UFl+oPfqQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1668453645; x=
-	1668540045; bh=oqI/+sgvZ2OKVRaSTG42v6mrCeoTzSNksNPbobAHtyw=; b=D
-	2P5sBpbEsNu6MaRLAFp5J8quqclpPDdJRkMM1LI903pFADdgAXtiEoVTcOPQ4wiZ
-	otXWafF8iM8VcODK7xQr8K1sDHD0Tn2tT30tIcdEI4zpAWSONS/yhRA4nCi5M+SI
-	ff+gcGkeMBKFvKLbcqJE2wfQ5BC6oY20wLOpmPyQRfJwmxeBoOE+1S9H9FRgpJtY
-	MNFl+H44gOFYLbmjtngCof2icNN0cnIY8sE5HCYsA+ucYZYdXMTbs3KYwfQxuRGN
-	T15Vv6pUYKJdLeOTNp/W3yJVX6QWzlfDA1iRFQGW5VT/7ICnw9WcV1IBk+RDneFa
-	4tLIoK+iUNeySmtbZYEtg==
-X-ME-Sender: <xms:DJVyY4_9WND8N8kud-egLwPvnfn7p8X-MLxvNFn4HChtwiUQWcEgtA>
-    <xme:DJVyYwuMfLMSKXGPMaXIt2RyvJatdxvgiOI37DtxS_BFoYeiWNDDpATJp-4SW-Ttp
-    YgBPLLNC0Fhyg>
-X-ME-Received: <xmr:DJVyY-DaXe1oVwj3132y_FPogz0fraQ3Ek4HhBlVQg0M_WrSzgwW6Fj900mDdqhEIaxC46kteITdWFVF633Z86MqsMxzqMQQvrPbwRTUHzHuTtI5AYo>
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm1; t=1668453676; x=1668540076; bh=nPfMqp058g7kR
+	RkTy0PrtYx6pL+BIhReFJyJxLlMvDU=; b=SD2laVW9Ax8rDvDZpjGg6HEw90BFA
+	xWiAwbnB8WGQuLHNn22HG92VuL5ipHx4+A5lCz2SL8RUcHlCuR85GmwhyWn6nqRM
+	WzI/rqpDaDyZVb9jfkvOkTiOmjisKchSKuGZKRu3HsDXtfdgv9/pGh+m/gAF/wxR
+	vL7i0lYbFTOE3GEAD140RLIDpyn92Dz4bc/MKXfGcHib/68S1Hj+4U6wGFq2N1jL
+	TL7PNZmEvTL+k86rqpTNJR8TKIubbDJRPsOiplAMF+v8IpzN7WSy3bJq9UhQcMbz
+	LmfnYwVDOcVeFvFeq5TmekV8Y0L+hFC0P4st/naRROEXfK4iBNLlJ66fw==
+X-ME-Sender: <xms:LJVyY1Qnwvl8qow4MxjXs6-LnkAHsebMTAu1yPtcTp-zBl2caer8Lw>
+    <xme:LJVyY-xSZiiBT3e1GJbrX1HmDG3wqhTOY_B8RoSjfgvVTYLUQxQYy6XninvaIwx6Y
+    YG5_rwwYTKPzw>
+X-ME-Received: <xmr:LJVyY62uATPi8uVTorJhwHnjglx1TJhbVtAATLVIcQwzL0bIPwedgZ6BAm6Y_nWPQlavrXNiYgdqpkqjJO-F8oRBEW_fGLvxmzdi0G3_uKDIhfMdGhE>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgedvgdeliecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfeu
-    udehgfdvfeehhedujeehfeduveeugefhkefhheelgeevudetueeiudfggfffnecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:DJVyY4fd_q5AQwTm8hfu-hGHGrUNa_NlaV4rNF8TeQU52MGTSsFV-w>
-    <xmx:DJVyY9NgQwTd329JmW5qWZTk05Qq7r0tvs4QN72MR45RUA-dxY-g7Q>
-    <xmx:DJVyYyloGBdI6D-m55EDEBVtvNSSKMX1Cd4O7iwaOy2jEWTl27oiMA>
-    <xmx:DZVyY-pJbI2V7IAOSZyqH7pBd8HJyDFQeEeLigbZ7oB8NPERytrZJQ>
+    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepofgrrhgvkhcu
+    ofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinhhvih
+    hsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepleekhfdu
+    leetleelleetteevfeefteffkeetteejheelgfegkeelgeehhfdthedvnecuvehluhhsth
+    gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehi
+    nhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:LJVyY9A5Bo1rTzfno8cnuhRTt-o7dLqeN3Cy7VgyGLDzTj7yUz-nPA>
+    <xmx:LJVyY-hBm4vFbcYaOpvXoU2J_7mmmQxvnp20lIo27dyzkbPEgwwPEA>
+    <xmx:LJVyYxocGGHyQUWAQyXxSIcG3EImttxnq6Z04cNPMvWUho29hQa4Ow>
+    <xmx:LJVyY_sq-pjFdGx5pbP9gnRqtKSGneKtasP_HwpxgKosdGGSxqIwTw>
 Feedback-ID: i1568416f:Fastmail
 From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: qemu-devel@nongnu.org
+To: xen-devel@lists.xenproject.org
 Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs)
-Subject: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on Xen
-Date: Mon, 14 Nov 2022 20:20:11 +0100
-Message-Id: <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 1/2] x86/msi: passthrough all MSI-X vector ctrl writes to device model
+Date: Mon, 14 Nov 2022 20:20:59 +0100
+Message-Id: <20221114192100.1539267-1-marmarek@invisiblethingslab.com>
 X-Mailer: git-send-email 2.37.3
-In-Reply-To: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
-References: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The /dev/mem is used for two purposes:
- - reading PCI_MSIX_ENTRY_CTRL_MASKBIT
- - reading Pending Bit Array (PBA)
+QEMU needs to know whether clearing maskbit of a vector is really
+clearing, or was already cleared before. Currently Xen sends only
+clearing that bit to the device model, but not setting it, so QEMU
+cannot detect it. Because of that, QEMU is working this around by
+checking via /dev/mem, but that isn't the proper approach.
 
-The first one was originally done because when Xen did not send all
-vector ctrl writes to the device model, so QEMU might have outdated old
-register value. This has been changed in Xen, so QEMU can now use its
-cached value of the register instead.
-
-The Pending Bit Array (PBA) handling is for the case where it lives on
-the same page as the MSI-X table itself. Xen has been extended to handle
-this case too (as well as other registers that may live on those pages),
-so QEMU handling is not necessary anymore.
-
-Removing /dev/mem access is useful to work within stubdomain, and
-necessary when dom0 kernel runs in lockdown mode.
+Give all necessary information to QEMU by passing all ctrl writes,
+including masking a vector.
 
 Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- hw/xen/xen_pt.h     |  1 -
- hw/xen/xen_pt_msi.c | 51 ++++-----------------------------------------
- 2 files changed, 4 insertions(+), 48 deletions(-)
+ xen/arch/x86/hvm/vmsi.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-index e7c4316a7d..de4094e7ec 100644
---- a/hw/xen/xen_pt.h
-+++ b/hw/xen/xen_pt.h
-@@ -206,7 +206,6 @@ typedef struct XenPTMSIX {
-     uint32_t table_offset_adjust; /* page align mmap */
-     uint64_t mmio_base_addr;
-     MemoryRegion mmio;
--    void *phys_iomem_base;
-     XenPTMSIXEntry msix_entry[];
- } XenPTMSIX;
- 
-diff --git a/hw/xen/xen_pt_msi.c b/hw/xen/xen_pt_msi.c
-index b71563f98a..a8a75dff66 100644
---- a/hw/xen/xen_pt_msi.c
-+++ b/hw/xen/xen_pt_msi.c
-@@ -460,15 +460,7 @@ static void pci_msix_write(void *opaque, hwaddr addr,
-         entry->updated = true;
-     } else if (msix->enabled && entry->updated &&
-                !(val & PCI_MSIX_ENTRY_CTRL_MASKBIT)) {
--        const volatile uint32_t *vec_ctrl;
--
--        /*
--         * If Xen intercepts the mask bit access, entry->vec_ctrl may not be
--         * up-to-date. Read from hardware directly.
--         */
--        vec_ctrl = s->msix->phys_iomem_base + entry_nr * PCI_MSIX_ENTRY_SIZE
--            + PCI_MSIX_ENTRY_VECTOR_CTRL;
--        xen_pt_msix_update_one(s, entry_nr, *vec_ctrl);
-+        xen_pt_msix_update_one(s, entry_nr, entry->latch(VECTOR_CTRL));
-     }
- 
-     set_entry_value(entry, offset, val);
-@@ -493,7 +485,9 @@ static uint64_t pci_msix_read(void *opaque, hwaddr addr,
-         return get_entry_value(&msix->msix_entry[entry_nr], offset);
-     } else {
-         /* Pending Bit Array (PBA) */
--        return *(uint32_t *)(msix->phys_iomem_base + addr);
-+        XEN_PT_LOG(&s->dev, "reading PBA, addr %#lx, offset %#lx\n",
-+                   addr, addr - msix->total_entries * PCI_MSIX_ENTRY_SIZE);
-+        return 0xFFFFFFFF;
-     }
+diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+index 75f92885dc5e..ba4cf46dfe91 100644
+--- a/xen/arch/x86/hvm/vmsi.c
++++ b/xen/arch/x86/hvm/vmsi.c
+@@ -271,7 +271,8 @@ out:
  }
  
-@@ -529,7 +523,6 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
-     int i, total_entries, bar_index;
-     XenHostPCIDevice *hd = &s->real_device;
-     PCIDevice *d = &s->dev;
--    int fd = -1;
-     XenPTMSIX *msix = NULL;
-     int rc = 0;
+ static int msixtbl_write(struct vcpu *v, unsigned long address,
+-                         unsigned int len, unsigned long val)
++                         unsigned int len, unsigned long val,
++                         bool completion)
+ {
+     unsigned long offset;
+     struct msixtbl_entry *entry;
+@@ -343,7 +344,7 @@ static int msixtbl_write(struct vcpu *v, unsigned long address,
  
-@@ -576,34 +569,6 @@ int xen_pt_msix_init(XenPCIPassthroughState *s, uint32_t base)
-     msix->table_base = s->real_device.io_regions[bar_index].base_addr;
-     XEN_PT_LOG(d, "get MSI-X table BAR base 0x%"PRIx64"\n", msix->table_base);
+ unlock:
+     spin_unlock_irqrestore(&desc->lock, flags);
+-    if ( len == 4 )
++    if ( len == 4 && completion )
+         r = X86EMUL_OKAY;
  
--    fd = open("/dev/mem", O_RDWR);
--    if (fd == -1) {
--        rc = -errno;
--        XEN_PT_ERR(d, "Can't open /dev/mem: %s\n", strerror(errno));
--        goto error_out;
--    }
--    XEN_PT_LOG(d, "table_off = 0x%x, total_entries = %d\n",
--               table_off, total_entries);
--    msix->table_offset_adjust = table_off & 0x0fff;
--    msix->phys_iomem_base =
--        mmap(NULL,
--             total_entries * PCI_MSIX_ENTRY_SIZE + msix->table_offset_adjust,
--             PROT_READ,
--             MAP_SHARED | MAP_LOCKED,
--             fd,
--             msix->table_base + table_off - msix->table_offset_adjust);
--    close(fd);
--    if (msix->phys_iomem_base == MAP_FAILED) {
--        rc = -errno;
--        XEN_PT_ERR(d, "Can't map physical MSI-X table: %s\n", strerror(errno));
--        goto error_out;
--    }
--    msix->phys_iomem_base = (char *)msix->phys_iomem_base
--        + msix->table_offset_adjust;
--
--    XEN_PT_LOG(d, "mapping physical MSI-X table to %p\n",
--               msix->phys_iomem_base);
--
-     memory_region_add_subregion_overlap(&s->bar[bar_index], table_off,
-                                         &msix->mmio,
-                                         2); /* Priority: pci default + 1 */
-@@ -624,14 +589,6 @@ void xen_pt_msix_unmap(XenPCIPassthroughState *s)
+ out:
+@@ -355,7 +356,7 @@ static int cf_check _msixtbl_write(
+     const struct hvm_io_handler *handler, uint64_t address, uint32_t len,
+     uint64_t val)
+ {
+-    return msixtbl_write(current, address, len, val);
++    return msixtbl_write(current, address, len, val, false);
+ }
+ 
+ static bool cf_check msixtbl_range(
+@@ -633,7 +634,7 @@ void msix_write_completion(struct vcpu *v)
          return;
-     }
  
--    /* unmap the MSI-X memory mapped register area */
--    if (msix->phys_iomem_base) {
--        XEN_PT_LOG(&s->dev, "unmapping physical MSI-X table from %p\n",
--                   msix->phys_iomem_base);
--        munmap(msix->phys_iomem_base, msix->total_entries * PCI_MSIX_ENTRY_SIZE
--               + msix->table_offset_adjust);
--    }
--
-     memory_region_del_subregion(&s->bar[msix->bar_index], &msix->mmio);
+     v->arch.hvm.hvm_io.msix_unmask_address = 0;
+-    if ( msixtbl_write(v, ctrl_address, 4, 0) != X86EMUL_OKAY )
++    if ( msixtbl_write(v, ctrl_address, 4, 0, true) != X86EMUL_OKAY )
+         gdprintk(XENLOG_WARNING, "MSI-X write completion failure\n");
  }
  
 -- 
