@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC5A628B82
-	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 22:44:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443582.698206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1592F628B8F
+	for <lists+xen-devel@lfdr.de>; Mon, 14 Nov 2022 22:46:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443586.698217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouhFQ-0004r7-BX; Mon, 14 Nov 2022 21:44:08 +0000
+	id 1ouhHk-0005T1-Oe; Mon, 14 Nov 2022 21:46:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443582.698206; Mon, 14 Nov 2022 21:44:08 +0000
+Received: by outflank-mailman (output) from mailman id 443586.698217; Mon, 14 Nov 2022 21:46:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouhFQ-0004oK-86; Mon, 14 Nov 2022 21:44:08 +0000
-Received: by outflank-mailman (input) for mailman id 443582;
- Mon, 14 Nov 2022 21:44:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ouhHk-0005Q4-LX; Mon, 14 Nov 2022 21:46:32 +0000
+Received: by outflank-mailman (input) for mailman id 443586;
+ Mon, 14 Nov 2022 21:46:32 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5Ip0=3O=citrix.com=prvs=31080188b=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1ouhFO-0004oB-1Q
- for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 21:44:06 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7448a6de-6465-11ed-91b6-6bf2151ebd3b;
- Mon, 14 Nov 2022 22:44:04 +0100 (CET)
+ <SRS0=h/6B=3O=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1ouhHk-0005Py-0J
+ for xen-devel@lists.xenproject.org; Mon, 14 Nov 2022 21:46:32 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cbf2f3ac-6465-11ed-8fd2-01056ac49cbb;
+ Mon, 14 Nov 2022 22:46:30 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 0690D60EF4;
+ Mon, 14 Nov 2022 21:46:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6205C433C1;
+ Mon, 14 Nov 2022 21:46:27 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,88 +43,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7448a6de-6465-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1668462244;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=h2OAyHLea+exyEJ7uLsi7jSK7CEsyDrXg/IeWLpxi8w=;
-  b=SQVeqwchNmM3xyiHd1MNQYCGMS8oalDUlmNWU7c15pRxnkF4446B7YZQ
-   nssvQAloNyNjGECqeUmg9mNXuYcb/Q5N8subiKZeO3rNEkhrtohMVAR/i
-   ir+P+uIjcGFUHfDcfrznkJaP0tHFJmvBXHKkaDfx0+xGfAgVvXBsjEAfA
-   o=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: None
-X-MesageID: 85231925
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:GwXwXKOeKqD1i/zvrR2ul8FynXyQoLVcMsEvi/4bfWQNrUon1jcAz
- GoaCzrVbPyCZWf3ftlybYnk8kxTu8LRx9RhSgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQA+KmU4YoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvzrRC9H5qyo4mpB5wBmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0uVqXWdh/
- vlAFDcqdVPfp8mm8Jy1ePY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w/N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9KoHQHpwExBvwS
- mTu/kCkGD0VNI2jyCPc+XaJ3snegHnKR9dHfFG/3qEz2wDCroAJMzUJUXOrrP//jVSxM/p/J
- koO62wRpK493EWxS5/2WBjQiG6JuFsQVsRdF8U+6RqR0ezE7gCBHG8GQzVdLts8u6ceZxYny
- 1uIlNPBHiF0vfueTnf1y1uPhWrsY25PdzZEPHJaC1teizX+nG0tphHSEtBMG6vtstrSAnKs4
- xuanAYwtapG2KbnyJ6H1VzAhjutoL3AQQg0+hjbUwqZ0+9pWGK2T9f2sAaGtJ6sOK7cFwDc5
- yZcx6By+chUVfmweDqxrPLh9V1Dz9KMK3XijFFmBPHNHBz9qif4Lei8DNyTTXqF0/romxezP
- yc/WisLvve/2UdGiocpC79d8+xwkcDd+S3ND5g5rrNmO/CdjjOv8iB0flK31GvwikUqmqxXE
- c7FL5bwUC5LUfo6k2DeqwIhPVgDn35W+I8ubcqjk0TPPUS2ORZ5tovpwHPRN7tkvctoUS3e8
- spFNtvi9vmseLSWX8QWmKZNRW03wY8TXM2u8pQJKLfZemKL2ggJUpfs/F/oQKQ994w9qwsC1
- ivVtpNwoLYnuUD6FA==
-IronPort-HdrOrdr: A9a23:cdH5cKlX2axZGQUdl0mz8KSrYUjpDfIm3DAbv31ZSRFFG/Fxl6
- iV88jzsiWE7Ar5OUtQ/OxoV5PgfZqxz/NICOoqTNWftWvd2FdARbsKheCJ/9SJIVyYygc378
- ldmsZFZOEYdWIK7vrH3A==
-X-IronPort-AV: E=Sophos;i="5.96,164,1665460800"; 
-   d="scan'208";a="85231925"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Henry Wang <Henry.Wang@arm.com>
-Subject: [PATCH for-4.17] x86/spec-ctrl: Fill in whitepaper URL
-Date: Mon, 14 Nov 2022 21:43:58 +0000
-Message-ID: <20221114214358.17611-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: cbf2f3ac-6465-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1668462388;
+	bh=3GcDEeuAk8O0S4B39cMYJDrzzSSOnKsFT6Us8olDuog=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=YhfZhiXiFPyGeRmLe/OXyNCUV8TvuuWqiBCs3J7yH7Oc1Yjd/gIKdMmSn2Nupxgvz
+	 DCl9T7T2TSpXN3jrHxIMGdwwYOkWgLFB7LEBvpRScZeORCBlQ02Ujj9rt/Vtb4UTPM
+	 jLQenLb1EeFmT5CWrRvbc9IRPesgzYVAVS4pywy9165frNmXuQwcgDV+KdlAZPmLYW
+	 0J0MehT5fKp1cZxr3mh/7hpbaIvZcd1PF+4CJVBwyHKqRWgSJNmYCi33cKK6RDtALH
+	 7DQf7QXp+i/vL4wqXZhmcpah9r9rk91LI8JcBkqSld45Pgd9k9mgGe3Tllk9q26tMF
+	 aiHO83c1+INTw==
+Date: Mon, 14 Nov 2022 13:46:26 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Juergen Gross <jgross@suse.com>
+cc: linux-kernel@vger.kernel.org, Stefano Stabellini <sstabellini@kernel.org>, 
+    Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] xen/platform-pci: use define instead of literal number
+In-Reply-To: <20221114142348.1499-1-jgross@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2211141346200.4020@ubuntu-linux-20-04-desktop>
+References: <20221114142348.1499-1-jgross@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-... now that we a link available.
+On Mon, 14 Nov 2022, Juergen Gross wrote:
+> Instead of "0x01" use the HVM_PARAM_CALLBACK_TYPE_PCI_INTX define from
+> the interface header in get_callback_via().
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Fixes: 9deaf2d932f0 ("x86/spec-ctrl: Enable Zen2 chickenbit")
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
-CC: Henry Wang <Henry.Wang@arm.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
-For 4.17(?)  Seeing if I can sneak it in as just a documentation change,
-seeing as there are others outstanding.  If not, it can go into 4.18 and get
-backported.
----
- xen/arch/x86/cpu/amd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
-index 05d72c6501ee..af46d7119bbe 100644
---- a/xen/arch/x86/cpu/amd.c
-+++ b/xen/arch/x86/cpu/amd.c
-@@ -827,7 +827,7 @@ void amd_set_ssbd(bool enable)
-  * On Zen2 we offer this chicken (bit) on the altar of Speculation.
-  *
-  * Refer to the AMD Branch Type Confusion whitepaper:
-- * https://XXX
-+ * https://www.amd.com/system/files/documents/technical-guidance-for-mitigating-branch-type-confusion.pdf
-  *
-  * Setting this unnamed bit supposedly causes prediction information on
-  * non-branch instructions to be ignored.  It is to be set unilaterally in
--- 
-2.11.0
-
+> ---
+>  drivers/xen/platform-pci.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
+> index 18f0ed8b1f93..24a3de1b7b03 100644
+> --- a/drivers/xen/platform-pci.c
+> +++ b/drivers/xen/platform-pci.c
+> @@ -54,7 +54,8 @@ static uint64_t get_callback_via(struct pci_dev *pdev)
+>  	pin = pdev->pin;
+>  
+>  	/* We don't know the GSI. Specify the PCI INTx line instead. */
+> -	return ((uint64_t)0x01 << HVM_CALLBACK_VIA_TYPE_SHIFT) | /* PCI INTx identifier */
+> +	return ((uint64_t)HVM_PARAM_CALLBACK_TYPE_PCI_INTX <<
+> +			  HVM_CALLBACK_VIA_TYPE_SHIFT) |
+>  		((uint64_t)pci_domain_nr(pdev->bus) << 32) |
+>  		((uint64_t)pdev->bus->number << 16) |
+>  		((uint64_t)(pdev->devfn & 0xff) << 8) |
+> -- 
+> 2.35.3
+> 
 
