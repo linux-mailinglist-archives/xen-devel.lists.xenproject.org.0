@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47AF8629E38
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Nov 2022 16:57:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444001.698750 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C882A629E7B
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Nov 2022 17:08:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444007.698760 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouyHt-0002W3-UD; Tue, 15 Nov 2022 15:55:49 +0000
+	id 1ouyTb-0004mz-4W; Tue, 15 Nov 2022 16:07:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444001.698750; Tue, 15 Nov 2022 15:55:49 +0000
+Received: by outflank-mailman (output) from mailman id 444007.698760; Tue, 15 Nov 2022 16:07:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouyHt-0002Tf-Ra; Tue, 15 Nov 2022 15:55:49 +0000
-Received: by outflank-mailman (input) for mailman id 444001;
- Tue, 15 Nov 2022 15:55:49 +0000
+	id 1ouyTb-0004kL-1f; Tue, 15 Nov 2022 16:07:55 +0000
+Received: by outflank-mailman (input) for mailman id 444007;
+ Tue, 15 Nov 2022 16:07:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0MVo=3P=redhat.com=hdegoede@srs-se1.protection.inumbo.net>)
- id 1ouyHt-0002TZ-2u
- for xen-devel@lists.xenproject.org; Tue, 15 Nov 2022 15:55:49 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ <SRS0=oG5L=3P=linaro.org=grant.likely@srs-se1.protection.inumbo.net>)
+ id 1ouyTa-0004kF-5l
+ for xen-devel@lists.xenproject.org; Tue, 15 Nov 2022 16:07:54 +0000
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [2a00:1450:4864:20::42f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f6f90f10-64fd-11ed-91b6-6bf2151ebd3b;
- Tue, 15 Nov 2022 16:55:46 +0100 (CET)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-379-IoijgZNPNoCGDi6JSoRS-w-1; Tue, 15 Nov 2022 10:55:43 -0500
-Received: by mail-ed1-f69.google.com with SMTP id
- w4-20020a05640234c400b004631f8923baso10264455edc.5
- for <xen-devel@lists.xenproject.org>; Tue, 15 Nov 2022 07:55:43 -0800 (PST)
-Received: from ?IPV6:2001:1c00:c1e:bf00:d69d:5353:dba5:ee81?
- (2001-1c00-0c1e-bf00-d69d-5353-dba5-ee81.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c1e:bf00:d69d:5353:dba5:ee81])
+ id a8bcdd04-64ff-11ed-91b6-6bf2151ebd3b;
+ Tue, 15 Nov 2022 17:07:53 +0100 (CET)
+Received: by mail-wr1-x42f.google.com with SMTP id y16so25076512wrt.12
+ for <xen-devel@lists.xenproject.org>; Tue, 15 Nov 2022 08:07:53 -0800 (PST)
+Received: from smtpclient.apple ([84.64.97.234])
  by smtp.gmail.com with ESMTPSA id
- b25-20020a17090630d900b0078d38cda2b1sm5602709ejb.202.2022.11.15.07.55.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Nov 2022 07:55:41 -0800 (PST)
+ j7-20020a5d4527000000b00236545edc91sm12904953wra.76.2022.11.15.08.07.51
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 15 Nov 2022 08:07:51 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,140 +44,188 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f6f90f10-64fd-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668527744;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WPjmVSvbKB40CCR5+G61PkEf4Ba+oFIdDkT9Qj5RB98=;
-	b=PIaAHZQ1AG3n9/vVQwLPA5nrdcAdsbwBaysva+ZfswmR/y4hQjZoC6UPcn8vaif2yTNJqj
-	6xGFX/QIzOih/oIBrmfLLeukbRQG/w6mMJ97+NoQ56d/WPolyNv4a+ErR1xTJmrihP+oSG
-	L4fwn+P9dTwkvMTdcsss9GSDKem0PsA=
-X-MC-Unique: IoijgZNPNoCGDi6JSoRS-w-1
+X-Inumbo-ID: a8bcdd04-64ff-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:from:to:cc:subject:date:message-id:reply-to;
+        bh=evqU5NxwEOKZXOOFVQccO+bZ5pmK9VYGjD7XGWQB68Y=;
+        b=rIDv+FE6ErLNWmJfRUvwgpkqsnCMeAfi6QnN2gTrLw0ZY80H90CzVcW8AFllt9aKxJ
+         gM3Mq2XsIlv/XrLFfXuOcNVnXrcPl7cNn26XCtz42DvbBBFLb4oPjOADmWTitxFaIwyT
+         o2fy9gEAExmfeAJbrc4t9NuFbxnXf8gaLU6IANn0ViTch4BMTtxoN9H9nkpFYjyz1Kqu
+         IwaGbP4E2ys3SGiJHnaZgmpUrZrm1ji3KluoEwVSUK2lsMWIkWhjjIuRhroJi96t0d3m
+         ID/Hyx2R1yYcsRRprUG2YXCc/Qpor5x5miCt8CDBnuV9eH5NeuFHIgAnCZO5ZdhYaGDm
+         40/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=WPjmVSvbKB40CCR5+G61PkEf4Ba+oFIdDkT9Qj5RB98=;
-        b=exOCRDT7wRz7cYyR0BGl1+8SGuKRXk+0FBSV10OKKLBqfGUK+WpCA0SRch+Pxy5gkV
-         7wY+XzmZRE+v+IqBNIwfdiLsAVuazP3eM3/b426PZgiwyyh3nhYJF2D+6IXIDlQdVaib
-         FMjhs7YcXQIugHhDZcUKweqQ9yO1ZEvXozpYV30dfA0O6Y+AIaq6PgEW+CIH4fG25qHR
-         +LqWcrmyv+lA8qvE4as6dfPb/AAgjxsAwrX3Xfs1mBQf7oAzKLsfy6C5ck4RwvzIoyCc
-         23I2cVVuAa+ZLgxoCc4C/2NAoEu71XhgfoCN1VuKQ6mrdgO+7G+wBv54N7oXzZeheQXE
-         o3GQ==
-X-Gm-Message-State: ANoB5pnRCryMjs+OPPKCZjdiAFO54wUHDvoFZAqB53oR0qJ6+72n34uz
-	bihRiZCVMQohDsNe0cEGg7OuCPy4QTlFORx7MP3DUG0F8SB38YjCtdrP0l87xG/hdKS8WlDU2zV
-	19wQ+fCvycFo/JaG3636PI6l8zAs=
-X-Received: by 2002:a50:fe13:0:b0:461:565e:8779 with SMTP id f19-20020a50fe13000000b00461565e8779mr15869000edt.387.1668527742097;
-        Tue, 15 Nov 2022 07:55:42 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf62LnypI8+D6I1dwsExAn0tS+t62csKAA7KiPjW0+QdBxIexBU16E3VPnjUKKjLqOCYwTe88w==
-X-Received: by 2002:a50:fe13:0:b0:461:565e:8779 with SMTP id f19-20020a50fe13000000b00461565e8779mr15868982edt.387.1668527741895;
-        Tue, 15 Nov 2022 07:55:41 -0800 (PST)
-Message-ID: <8f28a8dd-5a0c-c233-217c-0e610b830406@redhat.com>
-Date: Tue, 15 Nov 2022 16:55:40 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.3.1
-Subject: Re: [PATCH v3] platform/x86: don't unconditionally attach Intel PMC
- when virtualized
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org, jgross@suse.com,
- "David E . Box" <david.e.box@linux.intel.com>,
- Rajneesh Bhardwaj <irenic.rajneesh@gmail.com>,
- David E Box <david.e.box@intel.com>, Mark Gross <markgross@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
- platform-driver-x86@vger.kernel.org
-References: <20221110163145.80374-1-roger.pau@citrix.com>
-From: Hans de Goede <hdegoede@redhat.com>
-In-Reply-To: <20221110163145.80374-1-roger.pau@citrix.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, nl
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-Hi,
-
-On 11/10/22 17:31, Roger Pau Monne wrote:
-> The current logic in the Intel PMC driver will forcefully attach it
-> when detecting any CPU on the intel_pmc_core_platform_ids array,
-> even if the matching ACPI device is not present.
-> 
-> There's no checking in pmc_core_probe() to assert that the PMC device
-> is present, and hence on virtualized environments the PMC device
-> probes successfully, even if the underlying registers are not present.
-> Previous to 21ae43570940 the driver would check for the presence of a
-> specific PCI device, and that prevented the driver from attaching when
-> running virtualized.
-> 
-> Fix by only forcefully attaching the PMC device when not running
-> virtualized.  Note that virtualized platforms can still get the device
-> to load if the appropriate ACPI device is present on the tables
-> provided to the VM.
-> 
-> Make an exception for the Xen initial domain, which does have full
-> hardware access, and hence can attach to the PMC if present.
-> 
-> Fixes: 21ae43570940 ('platform/x86: intel_pmc_core: Substitute PCI with CPUID enumeration')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> Acked-by: David E. Box <david.e.box@linux.intel.com>
-
-Thank you for your patch, I've applied this patch to my fixes
-branch:
-https://git.kernel.org/pub/scm/linux/kernel/git/pdx86/platform-drivers-x86.git/log/?h=fixes
-
-Note it will show up in my fixes branch once I've pushed my
-local branch there, which might take a while.
-
-I will include this patch in my next fixes pull-req to Linus
-for the current kernel development cycle.
-
-Regards,
-
-Hans
+        h=references:to:cc:in-reply-to:date:subject:mime-version:message-id
+         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=evqU5NxwEOKZXOOFVQccO+bZ5pmK9VYGjD7XGWQB68Y=;
+        b=NRpAD9XkGVjgsqSVIlM2vDLIAFFsUvkKWM3+X1FZB1WE9ZPbqpa29bftzrl4P2QeKE
+         Pg/UxbjmBD+QbaAghALjsBABIwaDngQJzInezmEH//xWbDwk4mDediSRa5zgJhEs+Jhb
+         6ithaUER+UTq30y6PN4PtQe+D1GWz0JqVGwbkh2E/w2H1kfdrEt4B+E8L23GMAETH7B7
+         8Uy5JPaiA+IiqvgrcgPu2kJRxVJWi+D+N3mN4He5Pq6tsXdt6Wp31i2GMkwqGB7Vpd7X
+         sduet/0ExGfbe3Z3xgjVQBfHwNEtO75wTGjBUIWEeTPsGPAypmO+/wEH9x4+b5zfaWsn
+         a28w==
+X-Gm-Message-State: ANoB5plk9C2mZEQ11ApKmnisPga87AricOeXI+ldE0g9iPwXbemyzZdl
+	Lc/rlW2kK5//3PN5vfw1/D6ugA==
+X-Google-Smtp-Source: AA0mqf4o+Opd6iZHcIE3wpQuVYIag2P9ZEaQkNzJlDYHX3AmOp+vAgdalh05FTemyjJ/ijxekkwsug==
+X-Received: by 2002:adf:f209:0:b0:241:792e:237a with SMTP id p9-20020adff209000000b00241792e237amr9389879wro.511.1668528472439;
+        Tue, 15 Nov 2022 08:07:52 -0800 (PST)
+From: Grant Likely <grant.likely@linaro.org>
+Message-Id: <D04DC85F-A139-4A5A-A8DB-298F80E0C6E7@linaro.org>
+Content-Type: multipart/alternative;
+	boundary="Apple-Mail=_C69F1D2A-0C88-475B-AD2F-384D65B68652"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.200.110.1.12\))
+Subject: Re: [XEN PATCH for-4.17 3/4] xen: Add licence header to
+ device_tree_defs.h
+Date: Tue, 15 Nov 2022 16:07:40 +0000
+In-Reply-To: <D374491A-0C9B-4A99-9276-44831EB4BCB2@arm.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>,
+ Henry Wang <Henry.Wang@arm.com>,
+ Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Jan Beulich <jbeulich@suse.com>,
+ Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Wei Liu <wl@xen.org>,
+ Andrew Wafaa <Andrew.Wafaa@arm.com>,
+ Robert Booth <rob.booth@linaro.org>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <20221102112854.49020-1-anthony.perard@citrix.com>
+ <20221102112854.49020-4-anthony.perard@citrix.com>
+ <D374491A-0C9B-4A99-9276-44831EB4BCB2@arm.com>
+X-Mailer: Apple Mail (2.3731.200.110.1.12)
 
 
+--Apple-Mail=_C69F1D2A-0C88-475B-AD2F-384D65B68652
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=us-ascii
 
-> ---
-> Changes since v2:
->  - Don't split condition line.
-> 
-> Changes since v1:
->  - Use cpu_feature_enabled() instead of boot_cpu_has().
-> ---
->  drivers/platform/x86/intel/pmc/pltdrv.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/intel/pmc/pltdrv.c b/drivers/platform/x86/intel/pmc/pltdrv.c
-> index 15ca8afdd973..ddfba38c2104 100644
-> --- a/drivers/platform/x86/intel/pmc/pltdrv.c
-> +++ b/drivers/platform/x86/intel/pmc/pltdrv.c
-> @@ -18,6 +18,8 @@
->  #include <asm/cpu_device_id.h>
->  #include <asm/intel-family.h>
->  
-> +#include <xen/xen.h>
-> +
->  static void intel_pmc_core_release(struct device *dev)
->  {
->  	kfree(dev);
-> @@ -53,6 +55,13 @@ static int __init pmc_core_platform_init(void)
->  	if (acpi_dev_present("INT33A1", NULL, -1))
->  		return -ENODEV;
->  
-> +	/*
-> +	 * Skip forcefully attaching the device for VMs. Make an exception for
-> +	 * Xen dom0, which does have full hardware access.
-> +	 */
-> +	if (cpu_feature_enabled(X86_FEATURE_HYPERVISOR) && !xen_initial_domain())
-> +		return -ENODEV;
-> +
->  	if (!x86_match_cpu(intel_pmc_core_platform_ids))
->  		return -ENODEV;
->  
+Linaro approves the license change
 
+Acked-by: Grant Likely <grant.likely@linaro.org =
+<mailto:grant.likely@linaro.org>>
+
+> On 11 Nov 2022, at 13:51, Bertrand Marquis <Bertrand.Marquis@arm.com> =
+wrote:
+>=20
+> Hi,
+>=20
+> +Grant Likely from Linaro.
+>=20
+> In the following change, we need to change the license to MIT (from =
+GPL) of one of Xen public headers which has a Linaro copyright.
+>=20
+> @Grant Likely: could you confirm that Linaro is agreeing for Xen =
+Project to do such a change ?
+>=20
+> Kind regards
+> Bertrand Marquis
+>=20
+>> On 2 Nov 2022, at 11:28, Anthony PERARD <anthony.perard@citrix.com> =
+wrote:
+>>=20
+>> This header have been created by moving code from other part of the
+>> project and miss a licence header. The original source code was some
+>> version of GPL or LGPL but we intend to have the public header to be
+>> MIT so they can be included easily in other projects.
+>>=20
+>> Part of device_tree_defs.h were moved from libxl_arm.c which is
+>> LGPL-2.1-only. And part were moved from device_tree.h that is
+>> GPL-2.0-only.
+>>=20
+>> Part of the original code were added by Julien Grall @ Citrix with a
+>> Linaro "hat" in commits c3ba52a84dd8 and 405c167f0ec9 and
+>> 886f34045bf0. The other part were added by Ian Campbell @ Citrix, =
+with
+>> commit 0c64527e7fc9.
+>>=20
+>> Resolves: xen-project/xen#35
+>> Fixes: 1c898a9fec7e ("xen/arm: move a few DT related defines to =
+public/device_tree_defs.h")
+>> Reported-by: Andrew Cooper <Andrew.Cooper3@citrix.com>
+>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+>> ---
+>>=20
+>> Notes:
+>>   Julian was working @citrix until 2015.
+>>=20
+>> xen/include/public/device_tree_defs.h | 6 ++++++
+>> 1 file changed, 6 insertions(+)
+>>=20
+>> diff --git a/xen/include/public/device_tree_defs.h =
+b/xen/include/public/device_tree_defs.h
+>> index 228daafe81..9e80d0499d 100644
+>> --- a/xen/include/public/device_tree_defs.h
+>> +++ b/xen/include/public/device_tree_defs.h
+>> @@ -1,3 +1,9 @@
+>> +/* SPDX-License-Identifier: MIT */
+>> +/*
+>> + * Copyright (c) 2013 Linaro Limited
+>> + * Copyright (c) 2015 Citrix Systems, Inc
+>> + */
+>> +
+>> #ifndef __XEN_DEVICE_TREE_DEFS_H__
+>> #define __XEN_DEVICE_TREE_DEFS_H__
+>>=20
+>> --=20
+>> Anthony PERARD
+>>=20
+>>=20
+>=20
+
+
+--Apple-Mail=_C69F1D2A-0C88-475B-AD2F-384D65B68652
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html;
+	charset=us-ascii
+
+<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
+charset=3Dus-ascii"></head><body style=3D"overflow-wrap: break-word; =
+-webkit-nbsp-mode: space; line-break: after-white-space;"><div>Linaro =
+approves the license change</div><div><br></div><div>Acked-by: Grant =
+Likely &lt;<a =
+href=3D"mailto:grant.likely@linaro.org">grant.likely@linaro.org</a>&gt;</d=
+iv><div><br></div><div><div><div><blockquote type=3D"cite"><div>On 11 =
+Nov 2022, at 13:51, Bertrand Marquis &lt;Bertrand.Marquis@arm.com&gt; =
+wrote:</div><br =
+class=3D"Apple-interchange-newline"><div><div>Hi,<br><br>+Grant Likely =
+from Linaro.<br><br>In the following change, we need to change the =
+license to MIT (from GPL) of one of Xen public headers which has a =
+Linaro copyright.<br><br>@Grant Likely: could you confirm that Linaro is =
+agreeing for Xen Project to do such a change ?<br><br>Kind =
+regards<br>Bertrand Marquis<br><br><blockquote type=3D"cite">On 2 Nov =
+2022, at 11:28, Anthony PERARD &lt;anthony.perard@citrix.com&gt; =
+wrote:<br><br>This header have been created by moving code from other =
+part of the<br>project and miss a licence header. The original source =
+code was some<br>version of GPL or LGPL but we intend to have the public =
+header to be<br>MIT so they can be included easily in other =
+projects.<br><br>Part of device_tree_defs.h were moved from libxl_arm.c =
+which is<br>LGPL-2.1-only. And part were moved from device_tree.h that =
+is<br>GPL-2.0-only.<br><br>Part of the original code were added by =
+Julien Grall @ Citrix with a<br>Linaro "hat" in commits c3ba52a84dd8 and =
+405c167f0ec9 and<br>886f34045bf0. The other part were added by Ian =
+Campbell @ Citrix, with<br>commit 0c64527e7fc9.<br><br>Resolves: =
+xen-project/xen#35<br>Fixes: 1c898a9fec7e ("xen/arm: move a few DT =
+related defines to public/device_tree_defs.h")<br>Reported-by: Andrew =
+Cooper &lt;Andrew.Cooper3@citrix.com&gt;<br>Signed-off-by: Anthony =
+PERARD &lt;anthony.perard@citrix.com&gt;<br>---<br><br>Notes:<br> =
+&nbsp;&nbsp;Julian was working @citrix until =
+2015.<br><br>xen/include/public/device_tree_defs.h | 6 ++++++<br>1 file =
+changed, 6 insertions(+)<br><br>diff --git =
+a/xen/include/public/device_tree_defs.h =
+b/xen/include/public/device_tree_defs.h<br>index 228daafe81..9e80d0499d =
+100644<br>--- a/xen/include/public/device_tree_defs.h<br>+++ =
+b/xen/include/public/device_tree_defs.h<br>@@ -1,3 +1,9 @@<br>+/* =
+SPDX-License-Identifier: MIT */<br>+/*<br>+ * Copyright (c) 2013 Linaro =
+Limited<br>+ * Copyright (c) 2015 Citrix Systems, Inc<br>+ =
+*/<br>+<br>#ifndef __XEN_DEVICE_TREE_DEFS_H__<br>#define =
+__XEN_DEVICE_TREE_DEFS_H__<br><br>-- <br>Anthony =
+PERARD<br><br><br></blockquote><br></div></div></blockquote></div><br></di=
+v></div></body></html>=
+
+--Apple-Mail=_C69F1D2A-0C88-475B-AD2F-384D65B68652--
 
