@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A23AD629A24
-	for <lists+xen-devel@lfdr.de>; Tue, 15 Nov 2022 14:28:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.443946.698691 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BA9A629A23
+	for <lists+xen-devel@lfdr.de>; Tue, 15 Nov 2022 14:28:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.443947.698701 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouvyU-00086T-8a; Tue, 15 Nov 2022 13:27:38 +0000
+	id 1ouvyW-0008Ls-Gh; Tue, 15 Nov 2022 13:27:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 443946.698691; Tue, 15 Nov 2022 13:27:38 +0000
+Received: by outflank-mailman (output) from mailman id 443947.698701; Tue, 15 Nov 2022 13:27:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ouvyU-00083f-3m; Tue, 15 Nov 2022 13:27:38 +0000
-Received: by outflank-mailman (input) for mailman id 443946;
- Tue, 15 Nov 2022 13:27:37 +0000
+	id 1ouvyW-0008JI-Dk; Tue, 15 Nov 2022 13:27:40 +0000
+Received: by outflank-mailman (input) for mailman id 443947;
+ Tue, 15 Nov 2022 13:27:38 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=wxYI=3P=citrix.com=prvs=31178c1ec=roger.pau@srs-se1.protection.inumbo.net>)
- id 1ouvyT-00083Z-4K
- for xen-devel@lists.xenproject.org; Tue, 15 Nov 2022 13:27:37 +0000
+ id 1ouvyU-00083Z-E2
+ for xen-devel@lists.xenproject.org; Tue, 15 Nov 2022 13:27:38 +0000
 Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
  [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43515c48-64e9-11ed-8fd2-01056ac49cbb;
- Tue, 15 Nov 2022 14:27:35 +0100 (CET)
-Received: from mail-bn8nam12lp2177.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.177])
+ id 44c05f2f-64e9-11ed-8fd2-01056ac49cbb;
+ Tue, 15 Nov 2022 14:27:36 +0100 (CET)
+Received: from mail-bn8nam12lp2170.outbound.protection.outlook.com (HELO
+ NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.170])
  by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 15 Nov 2022 08:27:27 -0500
+ 15 Nov 2022 08:27:31 -0500
 Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
  by SJ0PR03MB6713.namprd03.prod.outlook.com (2603:10b6:a03:404::5)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17; Tue, 15 Nov
- 2022 13:27:24 +0000
+ 2022 13:27:30 +0000
 Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
  ([fe80::2393:22c1:7766:5caa]) by SJ0PR03MB6360.namprd03.prod.outlook.com
  ([fe80::2393:22c1:7766:5caa%5]) with mapi id 15.20.5813.016; Tue, 15 Nov 2022
- 13:27:24 +0000
+ 13:27:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,64 +49,65 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43515c48-64e9-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 44c05f2f-64e9-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1668518855;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=o1c92K8E2/WuwVnA/VrVYjtQGgrD0onohOcw6L2hy44=;
-  b=Jnv1Qt9YI022qS8RfIhrsLlcYpiT2JngVUY/spWdpA4b0eVPxk5rDRbL
-   0vAUJPc6nYyAiMHfcVGCy8tiCH7CvdPvDF1xGy5wz3iqj+ta/QrEZJ1ZU
-   WhJbS0buDOyiZf6mBUKyeEXqY+URmTr7uQYgQMrTTtsFi77idQJpOORKu
-   Q=;
-X-IronPort-RemoteIP: 104.47.55.177
-X-IronPort-MID: 87387751
+  d=citrix.com; s=securemail; t=1668518856;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=S8vX3VCUDfWem5EKpM+BWQyIehCHdz/guxow4oRJrXI=;
+  b=HBVXef6piPA0wW8Z850A9PqY8Pos2zxLYOJ66AAe0GTyXuI+xCwGVJri
+   KWYebBqV/5Eu6bIjFK9KvKOImx4SKJ028kXIz1dVqnZ3U7LnKuoFDX9C7
+   CJlB9uFNcvvYYrw9lkfFP/tNhNFZ4OElWzoJWyr+5vGzcyr80jNP60+ds
+   0=;
+X-IronPort-RemoteIP: 104.47.55.170
+X-IronPort-MID: 87387759
 X-IronPort-Reputation: None
 X-IronPort-Listener: OutboundMail
 X-IronPort-SenderGroup: RELAY_O365
 X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:ezhNUKLpqJdGSVWqFE+RCpQlxSXFcZb7ZxGr2PjKsXjdYENS1zJUy
- DZNXTyBPKyLamDxLdFwPtvkpx4BsMLSm4A3QVFlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPdwP9TlK6q4mlB5wVjPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5oD3AN7
- Nw9BwsSZwqD1tuV5uLkVuNj05FLwMnDZOvzu1lG5BSAV7MMZ8CGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dqpTGMk2Sd05C0WDbRUsaNSshP2F6Ru
- 0rN/njjAwFcP9uaodaA2iLz3b+Qwn6iMG4UPL2UseVajAyf/EkeEDcVfF3ks/KDoHfrDrqzL
- GRRoELCt5Ma5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAkQzhbeZoZvck5bTUw0
- xmCmNaBLT5lvaCRSHmd3qyJtj70Mi8QRUcAeCsFQA0t89Tl5oYpgXrnVc1/GaS4itn0HzDYw
- D2QqiU6wbIJgqYjyKGT7V3BxTW2qfD0ohUd4wzWWiev6FN/bYv8PYiwswGEsrBHMZqTSUSHs
- D4cgc+C4esSDJaL0iuQXOEKG7Lv7PGAWNHBvWNS81Aa32zF0xaekUp4u1mS+G8B3h44RALU
-IronPort-HdrOrdr: A9a23:T45pAK3MkF4i9fEyEAYzXQqjBcZxeYIsimQD101hICG9Lfb0qy
- n+pp4mPEHP4wr5OEtOpTlPAtjjfZq6z+8M3WBxB8baYOCCggeVxe5ZnO/fKlHbexEWldQtqJ
- uIDZIOb+EYZGIS5aia3ODRKadb/DDtytHMuQ6x9QYPcek8AJsQlDuRRzzrZnFedU1jP94UBZ
- Cc7s1Iq36JfmkWVN2yAj0oTvXOvNrCkbPheFojCwQ84AeDoDu04PqieiLolis2Yndq+/MP4G
- LFmwv26uGKtOy68AbV0yv+/olbg9zoz/pEHYiphtIOIjvhpw60bMBKWqGEvhoyvOazgWxa2e
- XkklMFBYBe+nnRdma6rV/E3BTh6i8n7zvHxUWDiXXujMTlTHZiYvAx875xQ1/80Q4Nrdt82K
- VE0yawsIdWNwrJmGDY68LTXx9nu0KoqT4JkPIVjVZYTYwCAYUh2rA3zQdwKtMtDSj64IcoHK
- 1HC9zd3u9fdRegY3XQrgBUsa+Rd0V2Oi3DblkJu8ST3TQTtmt+1VEkyMsWmWpF3I4hSrFfjt
- 60fphApfVrdIs7fKh9DOAOTY+cEWrWWy/BN2qUPBDOCLwHAXTQsJT6iY9Fqd1CQKZ4gqfapa
- 6xEW+x7QUJCgLT4Iy1rdd2Gyn2MSqAtW+H8LAc23B70oeMNIYDfxfzCmzGqPHQ3cn3MverJ8
- pbB6gmfMMLVVGef7qh/zeOKaW6ekNuJfE9i5IcZ2+khP7tB8nDitH7GcyjVYYFVwxUEV/CPg
- ==
+IronPort-Data: A9a23:N9CVyqy49C4ex4wtv1V6t+fsxyrEfRIJ4+MujC+fZmUNrF6WrkVUz
+ jNOWzuAP/2JY2Wnc48lYI+390JS78KHzN9kGQI4qSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTbaeYUidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw//F+U0HUMja4mtC5AVnPK0T5jcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVp23
+ KMKIwAUVUmK2fmnyrbqcrM02st2eaEHPKtH0p1h5RfwKK98BLrlE+DN79Ie2yosjMdTG/qYf
+ 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvjWVlVMpuFTuGIO9ltiiX8Jak1zev
+ mvb12/4HgsbJJqUzj/tHneE1rCUzXykBdN6+LuQzP1hulGRm1EpMSIvDXanpsWwgBTgVIcKQ
+ 6AT0m90xUQoz2S7Q9+4UxCmrXqsuh8HR8EWA+A88BuKyKff/0CeHGdsZh5MbsY38vA/QzMC3
+ 0WM2djuAFRHsreYVHac/be8ti6pNG4eKmpqTS0ZSQoI5fHzrYd1iQjAJv54C7K8hNDxHTD2w
+ hiJoTI4irFVitQEv42k+XjXjjTqoYLGJjPZ/S3SV2Ohqwl/NIisYtXy7UCBtKkYaoGEUlOGo
+ X4I3dCE6/wDBo2MkyrLR/gRGLau5LCONzi0bUNTIqTNPg+FoxaLFb28KhkkTKu1Gq7ooQPUX
+ XI=
+IronPort-HdrOrdr: A9a23:kka65az7cJ4Uo5TnwszBKrPxTOgkLtp133Aq2lEZdPULSKGlfp
+ GV9sjziyWetN9wYh4dcB67Scu9qBTnhORICOgqTMyftWzd1FdAQ7sSibcKrweBJ8S6zJ8l6U
+ 4CSdkANDSPNykcsS+S2mDRfbcdKZu8gdiVbI/lvgtQpGpRGsRdBmlCe2Wm+hocfng6OXN1Lu
+ vr2uN34x6bPVgHZMWyAXcIG8DFut3wjZrjJTIWGhI97wGKrDWwrJr3CQKR0BsyWy5Ghe5Kyx
+ mOryXJooGY992rwB7V0GHeq7xQhdva09NGQOCcl8QPLT3oqwCwIKBsQaeLsjwZqPymrHwqjN
+ 7PiRE9ONkb0QKbQkiF5T/WnyXw2jcn7HHvjXeenHvYuMT8ABY3EdBIi451egbQrxNIhqA17I
+ t7m0ai87ZHBxLJmyrwo/DOShFRj0Kx5V4vi/QagXBzWZYXLJVRsYsc1kVIF4poJlOy1KkXVM
+ 1VSO3M7vdfdl2XK1jfo2lU2dSpGk8+Gx+XK3Jyz/C94nxzpjRU3kEYzMsQkjMr75QmUaRJ4O
+ zCL+BBiKxOZtV+V9MyOM4xBe+MTkDdSxPFN2yfZX79ErscBn7Lo5nrpJ0o+eCRfoASxpdaou
+ WPbLphjx9zR6vSM7zM4HUSmSq9AllVHA6dhv223qIJ+4EVH9HQQGi+oFNHqbrTnxxQOLyeZx
+ +JAuMnPxbSFxqRJW935XyOZ3ArEwh5bCQ0gKdOZ7vcmLO9FqTa8srmTd30GJ3BVR4ZZ0KXOA
+ pxYNG0HrQM0nyW
 X-IronPort-AV: E=Sophos;i="5.96,166,1665460800"; 
-   d="scan'208";a="87387751"
+   d="scan'208";a="87387759"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ep2cp77bAW4Up775s3vWKUVIOIeW9RR9K102Hz45udGN7dB5Bg/1tbIwyoChpr0P201GE+HH22E5VOZanUd9zFZ3WRGETWNee1DQ1HNCOUWl6Le3aF+GMehw8ljKt3b+NZJ0VBSGPq2xirR6SqkFniF4dU54Tc65wxehm33Kzs0QQN6gBmk8Xlz3wBSS/qldBWPMXg+76evWBi9tdMGwrkZGqFEGo53TCoIQFkbIuJPtETUQabcCOgnkt+SjKpnLb5bIHhSxUM+WuMNkBZGjKTIM89duJiWhV10fMP5h9jh7YPJBPv2If2yk28cBlY0BH264MST3bNA4R2v+0dlhlA==
+ b=fUBvsY8hI8yhc3glMmkhueuHC09cv+2q1kCVJ/bmnvLQ8W/g/Jtc6MgNh1wURARLoJxMLjGE+hypEsIz6BwxygpazxCYRyDSKa+k3O+dYMRUKOcpjss4zZDgo3lqjMwj5e/wvqjlvbaQ1DghV3b24A7hVGf3UtdxFB47cloH6HXzL/vJWHSkXeYiaMDYqyucY1W6yyYksNk5QY67/4d5LilL3v2C3fm4hT0RHE5LDvhAeKtbj/HiZOeWYSVhBWP0rHyvFAtU7p4NASkUH8wM6MRpmtoF5YGEWFxRraSodefKrL5ms0kodcDyScdsjOEy6Qafp0BpCO169YoqMxFjRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pkNy96xUO2/O5XKJY1CODRf7oTA7fVpbICttqPA7ERo=;
- b=in1rGBqZpTmSoGp5moZN+7vr7Va2+F/X84J7+2ZMC7ryTaq9/82+OjWQRGDGB4N4Sdm3M3h9jCIPwH9AoMYFbAJiag00AGshDlbGocgpu6b9Va03G03GiJ7jRJR31p6VRZAS8ZUmlpnrSiFnTwXRs29OfV9J4M2i8012VEbcluFXOI86a3xrFPABA19o5QvIcBqRgcl94PUPyc/sjWzwUL+zMbkPNwUGNOWhRgBqirTrq/6u7KrmJkQ8fQzMG6sKHhdYUG7zR/e8VJxd7bVxl/cEn9MdWp26yBjL9IDQhypKhPOKdOGef/R7tIA6qOaLQ6AbCiBOMiZrBzKW4DZLgw==
+ bh=llNWAbVbQKPHFmbKIFdwCSdHk/qh12AMcSXIl4F0egY=;
+ b=mKKqZGfOML2N6UWR2Pq6outp39LHRc7WD3upsxZB6fextTwUkNBPMDFArmvF3S6d/XaDHyO2Yqh6RnvUcCclCET6ZTdlzNPG4sRlSYhy0W+j8Ww7Pwu4xSdJJZL+7cAxeR98FO1fxg72LnME+GVcLUbVzizSj/yBOSLJ69j47J0A003jEAAf4iFha65TzUvO5Ctf8I/lecoC1oaG+qEOSbWUS0qhFsjAR9YUbGt2Q31XPrH/uRS+eRZLJ2LoshaUKx4nzxXX4WyX3/kBIRXeKLlQQvgWE7//fkcwZvkQcAe2LpfcRp3pwO/UyVVmx4r+M0Q8y/TSTGIuPLys/7v1Pw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
  dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pkNy96xUO2/O5XKJY1CODRf7oTA7fVpbICttqPA7ERo=;
- b=vHZUb4d5m8xkT/LgoXZYu7FGCvqzIqGE/35ZUVG0VVWbuCeLlaoDuvNtLyEUXU+BJcDgVT5TPY2jmMHfZMeBhXThzksouh7u+VznqvVlgCsCnUGlJUsinOZX6cF0sPNLknP1uKe+r8gCZudYKEhuDwUn3QJh2uZWcEdaEMM4Jr8=
+ bh=llNWAbVbQKPHFmbKIFdwCSdHk/qh12AMcSXIl4F0egY=;
+ b=BxvdMRCtCQEnnmX7J8H0UI5KO48C0/Jm2qX9/xeKCGGgWKzFlvnFTpPWr8DN9wwR4iDv4wg0SeWjltOypBf849ebmsL+n9MVHBhTPh3pW+kQCFvVwWoJKp7kD8g8GOkWQEBpmEC+fYHXftob8nYpR3DfL/JntlHRJOJVRU5WwHE=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=citrix.com;
 From: Roger Pau Monne <roger.pau@citrix.com>
@@ -119,109 +120,389 @@ Cc: Henry.Wang@arm.com,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH for-4.17 v4 0/2] amd/virt_ssbd: refactoring and fixes
-Date: Tue, 15 Nov 2022 14:26:54 +0100
-Message-Id: <20221115132657.97864-1-roger.pau@citrix.com>
+Subject: [PATCH for-4.17 v4 1/2] amd/virt_ssbd: set SSBD at vCPU context switch
+Date: Tue, 15 Nov 2022 14:26:55 +0100
+Message-Id: <20221115132657.97864-2-roger.pau@citrix.com>
 X-Mailer: git-send-email 2.37.3
+In-Reply-To: <20221115132657.97864-1-roger.pau@citrix.com>
+References: <20221115132657.97864-1-roger.pau@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0059.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2af::15) To SJ0PR03MB6360.namprd03.prod.outlook.com
+X-ClientProxiedBy: LO4P265CA0020.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::16) To SJ0PR03MB6360.namprd03.prod.outlook.com
  (2603:10b6:a03:395::11)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|SJ0PR03MB6713:EE_
-X-MS-Office365-Filtering-Correlation-Id: 83e2fd7c-6d33-48cf-9c88-08dac70d21d5
+X-MS-Office365-Filtering-Correlation-Id: 3521d0b6-1024-4075-e836-08dac70d2524
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	yrSqsBexMSGl2xPnJTg9L4qlW7Yu67G9cXMRJr7zeFcePQA1rylfM9tLT4RYh5nDJWs50/KOyx1Jt/gAA4Os7VaEUexOdgh/e81CdXgOpGLudaF02kNK118v+GBG0FOKJEwM9PiLgtENIpmHLOVQkrTKTJIjzi6t0Qc2uTNT427pZrbvtMnv+7sY16LXAFzsfg+v/Y9TEq0l/n+W/gPN/KZSwK+my5BSbhCk2IsFrsOZyDR9FHBmnDFLoMfTyulu0qRA4p2gBNnvUU/j4qsf0M1dKcHIs1kAE4ytE7z51OkWyc+LZdM5xB94UZJ3v1ik/1yi9VGMrjtUWOIo5UDFjwRtCIxL8THCDb0P5TXAGGdxOyNRT1fToXzwDUonPM2j+PGuqtAApjouUZVM2/pA9CosHIiWKy640GUHoDgzXn5PpxWN2t9ilI8F1XgLQTwJt0ubP3d2CkO/NBg1fm/8v/xPUeZqlO9Xt2d7rketRscbccWYhB4JaJIPUTDdQgYgQPwHPhNl3HqY4Ud8eEzG2ybIDXD0CgT6my6DgNylwWynqa3WIYJtH2dZYvLlL6HVGplV7bUmSi5z50/NF7xncv0hQHU1dWTTwgiUhfN977ufR4VscF4V2cwbKfQQxSdfqRBDmGGFd6xwRpL/OFlZEmuBEAZQTKmC6+AXa5fZvh/dBmU/oo+ZSuu8NV6Jkx3MHD5sb4W+K2vaC/2OhEefaw==
+	yfuvDrP6VRYofAzjTqHSu51VBxskf0VogzFATNamuEXoxsueNPVRqZ2lPy3Ht3OSZpXgQhBxU/aQVBk1VGmFoHeZlRXDqtwoERhQhvttp3XPCnuRoxDqxyH9sS/z3wPWusEpJF8UL8SzGzpLU/04qnMIzyziM3JhtKpEQNu+BalTLERroplMvfEOnXKmZtEYRB7lRcBsOAl0/p5pTy09/MPB3XhMYKX6G4gZMI0/L0fQe7OrM7xFRW1ImramtMxcikizm+EhukRyJ3pMKpcTg/kELW74kSe8FM5NeCsrC/zSwYjLMCuA2b2JnD46wUzGPRBu6mgLlM3RqKfVXbLQyErgl7ktIW9pFXGMEeVfe8lgmvdyDmlInGidfF8HugzdhqGRDmtCvmnYoT7uTKNsDwQ21/e9ihS5153Wpc5lsdhveUndX2zXZ8Fl+uFERNThHFcRGSOzvW8Ck4OJFfuufHRk8+vkRDbA7Pk4hC3Y16wTJqcYriG0QKnM2k0ULwxXbpfWYwnjAPOfFVqOcQqdhAzCOG/mUURHutmd5f0iqtd20fYsfNOJspHYX0FORrmFm+PyWu2i+P3YcYlXf5NRGRNnxA0dceE9WWRLJu6NDkroSDM0+qwZcjv5RhLMdIWKU2q5TZxbi12whPLlWNwVmIp27QqfrDovOYGh8aFGIRiYbAOPSRgsYjwCkIeuLa6vRivrkd7r4oIQ+PcRscRIrA==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(366004)(451199015)(82960400001)(2906002)(66946007)(66556008)(66476007)(38100700002)(5660300002)(36756003)(83380400001)(8936002)(41300700001)(8676002)(4326008)(66899015)(6666004)(478600001)(6506007)(6512007)(54906003)(26005)(2616005)(1076003)(6916009)(186003)(316002)(86362001)(6486002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(366004)(451199015)(82960400001)(2906002)(66946007)(66556008)(66476007)(38100700002)(5660300002)(36756003)(83380400001)(8936002)(30864003)(41300700001)(8676002)(4326008)(6666004)(478600001)(6506007)(6512007)(54906003)(26005)(2616005)(1076003)(6916009)(186003)(316002)(86362001)(6486002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UlA0Y0QwZTg2TUs0aXlBelBnVzNHeWVwU1FPcnpVbE9HaVVkTjNSaE40dlZG?=
- =?utf-8?B?aWdiQTRaNmlXRkl4WGJVL3libVF6NGxYVjl2V3cvc080MVMvYVVvRFJOUCtP?=
- =?utf-8?B?ZnNrTnBBc00rTmQzTE5KUVJNUjdlRlE4SGxEOHp4cGRkWW11NzVzQ1N1cytN?=
- =?utf-8?B?cWFiSjA4cllYRk1CVXVlbGNsQTM2WG1EWHJ1bkxyVlpNRmRoMGFhU0tpOTBw?=
- =?utf-8?B?eUdFMHNHYVR6dUF2cncyOHpqQ0RaYzFZeVR4cWUyNTZ6RFBoQkRNSU5vMUY0?=
- =?utf-8?B?emdqTWNCdm0yMk1RV0VKMEtDR1ErSTlHdmFNWGhPQ2lUb2J5SGZLVThJVmZI?=
- =?utf-8?B?aDFnQjdIajlyMHppME9NWGhZNWFpcngxQS9BRXQ1aE5xNzhaN1JSb1hxZVp5?=
- =?utf-8?B?VElaeExFVzhSOXo0QTJMQ3NpK2dCM0xJcytramhuY3J5blUzSWZ3WFd2TzMw?=
- =?utf-8?B?WEltOUsrNnpiVEdDN2RXNkVyL25kREdjOEhvYW1ZR1RpUUF5QStvUGdYQ0JJ?=
- =?utf-8?B?TlhzRElOUWJ5K0hpUUYxZEVwQnhCMjlXQ09NZDhkZGdvaGgwNWtra2NCeFE2?=
- =?utf-8?B?d053cUJHdysxZk0yNzExSVA2cVRKdzNWd05kTVVBT0g2OTJhZVVIZjVaNmYv?=
- =?utf-8?B?YlpyS2krNzNWM1h5bXU1U0tZUDFsYUhGc3d4aVZUVHNnV1hYOGJ5MWFqVnp6?=
- =?utf-8?B?R1gvNlZYK2psbENzK1I0VUh2em5OWksyYndmck9lL1Y1Z3ZPM0dHdTdrSnhJ?=
- =?utf-8?B?MTUxcUNlS1M0ZUhpWmhGdm9LMEh1YmlyUUdPdnF2TUZUV0xmbzB1Y3pWVUxy?=
- =?utf-8?B?UEdUbDVCWGx6b0g4ejFmVjNEeEFweE93dS9BWC8vT0lSZERaZzJrdkpWdnpy?=
- =?utf-8?B?dUJQUkNkT0xQU3M3VFBKZVRXdWJlRUFJZ2l1eHJvUkFBaDk4UisreU1FR1Ju?=
- =?utf-8?B?UVNYbzVLeFhjRmVnTFNXSkc5SWY2alF0clJaRzlrU0xTSUJPMnExL1JNcHhl?=
- =?utf-8?B?T2ZieW5qQXBOMmZmMldKa1J1TXFTTTN6L0dmZzU2cVFBS2YvTTlRWFBtSjJR?=
- =?utf-8?B?b0J6ZzNOVUtwQW4vb2ZnRlZyVW9yWWlzak1ENXVFK3IzMkttVCtodlQ0SEFy?=
- =?utf-8?B?VzZJTDgvL3NvVldtcmtMR2U2Q0lhTlF6K3pnS2VNcnNVTCtVbkFibW1neFJ3?=
- =?utf-8?B?ajlvNGhzcEFIT3JQcDJ6c05pODB3MGFXbVpHbXpDTk94RjF2aGRuRk1oblo2?=
- =?utf-8?B?OWh5WFZjRGtKMHFsUnEyRFJId1M3bzB3ak5CZm1nSzhtbXZqcm1ybWdvS3I2?=
- =?utf-8?B?UWFNak5MYXRFbW54MjdOQ29SdW83ZjVkQU9ENlFnQkFKVHdTVFB4dmt2aEdO?=
- =?utf-8?B?N2o5MUtrcHFjZU56L0ZNcmFoZTdGNy9ON2xoL3JHSi92azhWc0gwQVNUVWZl?=
- =?utf-8?B?bnFla1VLME9ITENIREVSaCsvdHBxNit0aDJHRkZkQkJOU2lXaTlxSGo5RGJh?=
- =?utf-8?B?QVk2ajRDbVBDeXFBY3JOMUt1TytNSTNQRzBsbzB6bVZaKzBOcnlLOFJnV2d5?=
- =?utf-8?B?Q2FDNFNvY2hhL3FKV05pZEtYc0FSVFlaSmdPWlNVVXhabm9sT21BL0c0WmhK?=
- =?utf-8?B?bWlJYldhMkNTUDRSN0F2c1R5VzZoY3oyRGhjOFNvV2YvNUd1N283bUx5eXI4?=
- =?utf-8?B?Ukd0YWJTWEFrdmV5VS9Vd0JMUFRQaEZBT01xSWJjRFE4dTQ1S01SeWl6R0Zy?=
- =?utf-8?B?TVcwSW9mL3lRUWVGSUVSV0xSTkkzVUM2VVVmUGZaRXlIaU5FRWdrTkEzTFVM?=
- =?utf-8?B?ZWY5WS95MStZNmZqamM5MU9QUCtZK3dJM0VJbnNsVTYveWsvZU16bW5Ea0NQ?=
- =?utf-8?B?R2IrSHVoRFJoQ3AveHpTS2IzTi8yK2JVVnk3aTdjVmw0cmYxd3hiWEZUdzA0?=
- =?utf-8?B?SHA5VjZzOXVtTzAvQTFOTmVQQWVKcEFQSlJXa0I1ZVJ5czBXZ28zVTE2blZh?=
- =?utf-8?B?cnA0V2JzcXZxSHFjeENCV0xXdE5tWFJFUi8vTnZ3b3FKSFBTaHV3NUNFbXNl?=
- =?utf-8?B?dmJ6U1RXSXRIeTdwVWl0MGVDZEN0d2ZqTDNsQThhUCtQUmJ3ZHFtMW11TVp3?=
- =?utf-8?Q?t+k2MCwmpqME20fixkamNh7le?=
+	=?utf-8?B?RFl0VGhveDhoS3ZUanZpZFVNMUhaSHRmbHpRWDZ2aDdRRlVpeVJ2WGFlbUpM?=
+ =?utf-8?B?M0pJZURZa2F6bzZKWEJyMFYrM0JpTEJOcVhvOGFIUmtQaEk4V3pQQk9taW1r?=
+ =?utf-8?B?bVlYbDh4LzIxM2JQQjBBKzBlQzYySzNKVCtIRGFLdDgveCs4M1BBdTRHTktR?=
+ =?utf-8?B?a25LVTdFcU1VQUUzTmFRd3AzcTB4Ynh3YlBWWXpkZmlwNUN1QjRuLzlMaEZj?=
+ =?utf-8?B?QlBNYk9sUDEvTitOTzQvRXpOTHR6U29uMDVoeG4rSFZDZlk0U3U1TFo2VW56?=
+ =?utf-8?B?T2pYR0dReTdUc0hMRFVnTFRsaDFIT0xCVDdmN09SRURLOTh2Q3NsUHpQd1RY?=
+ =?utf-8?B?TTlDaVMxVnNhdVdnR3FYdE1NQjNPOWlZM3NhSTdXKzgvNmZQaFNWTDk2bkdw?=
+ =?utf-8?B?TitreGdNVVg0SXNTZlJVWlpOZXZIVlVJNUZraTc0Yk5SaEFxNndobjlBRzh1?=
+ =?utf-8?B?bXdEMjN4TUJ4cFI1SU4rNVlyMXU5K2k3bmp2bEFuTWpGaEhZZThIRFI5Ym0y?=
+ =?utf-8?B?NTdKTmlNaFI4dk41OGhFKzdFQm5hSytxK3haQjN4dEVRNW9PQUF1UmY5V0dE?=
+ =?utf-8?B?QW9rcXVIaTFaeGEyeWFtZllkLzMwK2hPRUE4eFFGOGM1dXZzQUUvQUlSNmhG?=
+ =?utf-8?B?SnNwbWZKcmFsQVBnaFhFNWE3MWQrYXJOdmpaMm5pTTJoNFlDN0tKeUozbUJ3?=
+ =?utf-8?B?Nmk5b2RvNG9vb2pqcDBRZTFZdUM0b2YxeHFmdmlCRVovVE94RnJ4L3JvWmpQ?=
+ =?utf-8?B?eDlxWVk3Z21NWXpzMEV5Q0UvdVNXeTNmblE3ZXdhTUdMYVZuU1RUZ1Fpcytr?=
+ =?utf-8?B?U1BndTlLcXR6MXRIaDRLcTFWeXVockc1U3NLWENnNnVFelNmaDFsVmhNd1VX?=
+ =?utf-8?B?d0hsOXA0R2Z4eVdSWWVVdVk4NkZQRzYyT1ZCOUpDbHlQOFhvdEJNZDZUaEk4?=
+ =?utf-8?B?YU9PRW9VK0tZSitNMFo3anN1cUxlR3N3ZGY0clY0aGJ5NTBQUnM3SFRzNE1J?=
+ =?utf-8?B?TTEvQXJzeTRQb2NNL1lHekR6SldCQzFBVm1NSGhWbENnenNiOVpWVjFDZVBy?=
+ =?utf-8?B?N0RHUzdMV1VrQStjblAvR3NqOG9BdGR3S0hhM0t5Tjh6WUQwRFJMcm9xM3lR?=
+ =?utf-8?B?c25ONTVaVGRnZWd4empsZUthNEs3VHJmM2dCcXdYOUhrRW1vYlJnblBCRi9L?=
+ =?utf-8?B?WEVpVWYxcVlvanJmMjd6SXk4a3ZJbEZJMWszWjlDN3RoWk1xTU9Zd3NabFUv?=
+ =?utf-8?B?K2k5WlBna0RvWWJrNHhEWmZ6OTMrUmgwTWpGWjM4bkhPUm5aLzdSVkV2TjYx?=
+ =?utf-8?B?TVpxTGFBL2p4K3gzYm9oZFNLaVFZRDhQUS9rYW9JdTlFc1B1a3FtRE0yNW1O?=
+ =?utf-8?B?WXR1K0xxYkN3c3ByZ2lyb1R5eVY5S3lESFMvbmRoTk9NczcxNTJwVitkMnZR?=
+ =?utf-8?B?MnUvSExRbUpwUFhSU2F5N3htc2lIQXRjbUR5Z2hjWGwrVHZWbXBmbGhQZDhp?=
+ =?utf-8?B?V0pDbitqanJKV2JyYUZqVzhzYlpLS2VSMUd2cjBBaXk5MEZ0dFJKeXorWFY2?=
+ =?utf-8?B?WTNYVmEvQjI3R0ZQbmFqdndzYTgvU2xzcWsrNUEzVG9ZcnU0eDNWQnNXYzBN?=
+ =?utf-8?B?Mmo5ZjBDRkYyRVNBNjljLzFZRWlsRjN4dXJmcTR3NS9KVFQzTTBSSmMrMWxL?=
+ =?utf-8?B?ZHZYWlRRS1hydW5odm5HRnhDZmNNRk4rbTFkZnczR05wY2JrSyt1ekEyYWIr?=
+ =?utf-8?B?ZjlhSUNUZDVLZjdnK2NleTRUTXhMV1l2RlFXM0grcHhVLythcFE5OTA5bytw?=
+ =?utf-8?B?UWpVbTZsWjBuSXdxTUYzdTgvb2psSWxSWUxhelh4K0VXTHByTmpCTGRjbmZp?=
+ =?utf-8?B?V2d3cVlQRnNnRzJMdEgyeEFONXlvbHhBa0N1bG02S1VxYnZHYllMUjRDN0Fx?=
+ =?utf-8?B?MXd1V3ozK2Y3a1hJMm9tSDBVQ1pxUS9CUW56akpDN2hmQlN2MTJmdVBuSXJk?=
+ =?utf-8?B?TDJNRnNqRXorSjdqWjZiRktJaWdDNjhHb2VmdDJvdzV6ZnZ1UDlJcUp6bmtw?=
+ =?utf-8?B?aGdqNVF2QjdYaTUrdkhJTkZoUE4vMXoyUEwxR3NydSs0M285YzduenpQWlhF?=
+ =?utf-8?Q?pggldquZUJ6E3rpkYk5SA0nvd?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	UqIiG3TzjUHUGPRHedCq0d8uMNeW881d3UJVd/QpIh/QawnR2lZnohKnVEWF10mWxK71jNpGxnKfFIPkkWOf4hpHXDBw/2QbNOZQb692rUYq7gHWMxLlbEpreueDSEff07EBfL/Subt5YMhlTRBgWRJ9xWRqbhFuGGz/PjI1QMPEY8wpsGDqC5GfNoR/RugrDwHJnfn/dJ1Sa3l2WAU5nptIclbcaYEl5Zg89IAqp+cW2H879Kp4hFDAlvXbWx29AgtN2qvLMmiUWCMdRvM3qjOH0js47oBadsYZVZh4TtgDCjIz0wVNtWcTeIo+iF4F8GtHaBQTlT8TyUEcoLHHQN4goVbW5dzFg3UWsUqwCwqHgC47slOoFNcekGj9mYqpHfvDx2JwPji5cj4JAAecjNJ7bam+bwr4HdqgyTVMXojXjJuApt1NhIH0DA0ZWPJk8LCO427fjdPBuRHoZg7VKGIKF1VoiAwGM4ZAc0+Kle9CxInu56iqneuBTDcVZLrwfb0HYaayCJ5mvwXGs19dIQDkE4mai6IcTSJH4SQPNow5YU5HyfXMKZv2xRpEGZ+RpFrsl73KTVc/LcXaJ9qL83gpuTY1notMo++Oo/RlcwYEzKhoJNIj6285lzt1jFE+hzmTOfuWOZcUdwYO2IQ7LasZlz2HitPfIoH1SdYrTMH6FAuAmStGoj2UNVmrDXIPxeZeiQFBWSVJIr/5AMUkEmepmrhkktusC0zTPFzX7mNbD+CyvbmYMyG7lKrQnBysGFKVQIkJN+TkEVZaMFN1LDaeb8CMGQXNYD0NTSLLpTBoVODqD78CxCRvNO0sZJeou5hWLDduqR+ezLGEohQOnc/irvYz2Om5B2sNJGnwshLRbAB2ZWsIBswbdV93QO/uZNIFxHUtWPaGuKdqhBZPFg==
+	f+Z+B5EMF0ePOQPp8NukjjBoADpHPiGBtgbnhP+wAz61bl5e0QasXgwC7HjARzTmE9BuGdloDZ5M/BiQQeubjbiRSvlZslBcj/eyz+juWI7d8s8E9sIKl50srFpTGwDf6e9zzemJSHO5OSsWh1sDr+Q5jFGW0tJySwoBy70zBudYTXX2O/fZtX7gBh2t9I5t6xNt086eEr/f1IUWfm1NyHUpRP6DCxNwH7GFO1ntwIhpkxMQFltjq3LmlsFRWbftO5Um3ECaqpqGvFeU0UxKuQFk4llLO/USaJmu+InzoaZUA48j18L9SDSoNxBPzx3q1aaE4xDT5HOz76Q2HNqhW/aQNEh06tsAqQCwtptUuiqyhuFrZA7Jt5oIccwuZtnsjqL7Xi9gUCa+XvP+UtS5tznxbR+90myf2Wz0jhSpf5xfUESb83pweu39LGOXDYLfNbqA3iONeGbd1edmtx6kjnS2Hi8C4RutMf/c6S9CebUWqD5ZVO9Bs486091VZTp4GbSFi/OfgSzljs7nJIl2kCElY3tsYGjZ0mCQ2L45vrzy6k7QUXm6APXZh2cVD1LGT4MpXxo8TnRthg38Z4ec+CbYQMDeTdfiUYGq2S/IkP1X/hCBhpsTmAJO/wEdkhSDYjwKRct2jFOIY0bmy40Tilt64gD1a7paTPfJQJbuu7vlZkca8doiEwLro3qmjOMWj0LDN+M2DegO9PpAm8JQNtEpHAnf80bdn/GUd9eDymtd3oCEvZWdf0MiPqeTPPtmdDsJFlw0kM14rT2facaPeVje0Yk/8tsQ6gunk8jL7MB0/EHMjcFhbc33hjEaqAwCUYxMDTjlLQgu/+5Axycesn5jb6IaPfNEK2UodZp2CGwscGaUeE4MPpmZcLyarDyXxDV/a9PBqDWtDT/MabUqhw==
 X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 83e2fd7c-6d33-48cf-9c88-08dac70d21d5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3521d0b6-1024-4075-e836-08dac70d2524
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2022 13:27:24.5151
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2022 13:27:29.9587
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xw6I5U9c9chn6y56hNhCOl6NOkSrYsn1w05g7fdt7HlC2FBk95RRm9erO1wB/N9lrpqDlE+tGLc2hhAq9TZp4w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: xGoCWf0xapzWKk6fgxEeP055HgzjysiZi5eTCyMB0gfybrGHSFeiKWN0fNsCjtee7zgqGvR8+YOmk4lqtSbX2Q==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6713
 
-Hello,
+This fixes an issue with running C code in a GIF=0 region, that's
+problematic when using UBSAN or other instrumentation techniques.
 
-Just two patches remaining, and the last one is already Acked.
+The current logic for AMD SSBD context switches it on every
+vm{entry,exit} if the Xen and guest selections don't match.  This is
+expensive when not using SPEC_CTRL, and hence should be avoided as
+much as possible.
 
-First patch deals with moving the switching of SSBD from guest
-vm{entry,exit} to vCPU context switch, and lets Xen run with the guest
-SSBD selection under some circumstances by default.
+When SSBD is not being set from SPEC_CTRL on AMD don't context switch
+at vm{entry,exit} and instead only context switch SSBD when switching
+vCPUs.  This has the side effect of running Xen code with the guest
+selection of SSBD, the documentation is updated to note this behavior.
+Also note that then when `ssbd` is selected on the command line guest
+SSBD selection will not have an effect, and the hypervisor will run
+with SSBD unconditionally enabled when not using SPEC_CTRL itself.
 
-Andrew has expressed reservations to me privately with patch 2/2, but
-I'm still sending it so that comments can be made publicly (or the patch
-applied).
+As a result of no longer running the code to set SSBD in a GIF=0
+region the locking of amd_set_legacy_ssbd() can be done using normal
+spinlocks, and some more checks can be added to assure it works as
+intended.
 
-Thanks, Roger.
+Finally it's also worth noticing that since the guest SSBD selection
+is no longer set on vmentry the VIRT_SPEC_MSR handling needs to
+propagate the value to the hardware as part of handling the wrmsr.
 
-Roger Pau Monne (2):
-  amd/virt_ssbd: set SSBD at vCPU context switch
-  amd: remove VIRT_SC_MSR_HVM synthetic feature
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes since v3:
+ - Fix commit message order.
+ - Remove msr.h comment about context switching virt_spec_ctrl.
+ - s/amd_set_ssbd/amd_set_legacy_ssbd/.
+ - Adjust comment about clearing SSBD in svm_ctxt_switch_from().
 
- docs/misc/xen-command-line.pandoc      | 10 +++--
- xen/arch/x86/cpu/amd.c                 | 56 ++++++++++++++------------
- xen/arch/x86/cpuid.c                   |  9 +++--
- xen/arch/x86/hvm/svm/entry.S           |  6 ---
- xen/arch/x86/hvm/svm/svm.c             | 45 ++++++++-------------
- xen/arch/x86/include/asm/amd.h         |  1 +
- xen/arch/x86/include/asm/cpufeatures.h |  2 +-
- xen/arch/x86/include/asm/msr.h         |  3 +-
- xen/arch/x86/msr.c                     |  9 +++++
- xen/arch/x86/spec_ctrl.c               |  8 ++--
- 10 files changed, 75 insertions(+), 74 deletions(-)
+Changes since v2:
+ - Fix calling set_reg unconditionally.
+ - Fix comment.
+ - Call amd_set_ssbd() from guest_wrmsr().
 
+Changes since v1:
+ - Just check virt_spec_ctrl value != 0 on context switch.
+ - Remove stray asm newline.
+ - Use val in svm_set_reg().
+ - Fix style in amd.c.
+ - Do not clear ssbd
+---
+ docs/misc/xen-command-line.pandoc | 10 +++---
+ xen/arch/x86/cpu/amd.c            | 55 +++++++++++++++++--------------
+ xen/arch/x86/hvm/svm/entry.S      |  6 ----
+ xen/arch/x86/hvm/svm/svm.c        | 45 ++++++++++---------------
+ xen/arch/x86/include/asm/msr.h    |  3 +-
+ xen/arch/x86/msr.c                |  9 +++++
+ 6 files changed, 63 insertions(+), 65 deletions(-)
+
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 0fbdcb574f..424b12cfb2 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2372,10 +2372,12 @@ By default, Xen will use STIBP when IBRS is in use (IBRS implies STIBP), and
+ when hardware hints recommend using it as a blanket setting.
+ 
+ On hardware supporting SSBD (Speculative Store Bypass Disable), the `ssbd=`
+-option can be used to force or prevent Xen using the feature itself.  On AMD
+-hardware, this is a global option applied at boot, and not virtualised for
+-guest use.  On Intel hardware, the feature is virtualised for guests,
+-independently of Xen's choice of setting.
++option can be used to force or prevent Xen using the feature itself.  The
++feature is virtualised for guests, independently of Xen's choice of setting.
++On AMD hardware, disabling Xen SSBD usage on the command line (`ssbd=0` which
++is the default value) can lead to Xen running with the guest SSBD selection
++depending on hardware support, on the same hardware setting `ssbd=1` will
++result in SSBD always being enabled, regardless of guest choice.
+ 
+ On hardware supporting PSFD (Predictive Store Forwarding Disable), the `psfd=`
+ option can be used to force or prevent Xen using the feature itself.  By
+diff --git a/xen/arch/x86/cpu/amd.c b/xen/arch/x86/cpu/amd.c
+index 98c52d0686..a332087604 100644
+--- a/xen/arch/x86/cpu/amd.c
++++ b/xen/arch/x86/cpu/amd.c
+@@ -742,7 +742,7 @@ void amd_init_ssbd(const struct cpuinfo_x86 *c)
+ }
+ 
+ static struct ssbd_ls_cfg {
+-    bool locked;
++    spinlock_t lock;
+     unsigned int count;
+ } __cacheline_aligned *ssbd_ls_cfg;
+ static unsigned int __ro_after_init ssbd_max_cores;
+@@ -753,7 +753,7 @@ bool __init amd_setup_legacy_ssbd(void)
+ 	unsigned int i;
+ 
+ 	if ((boot_cpu_data.x86 != 0x17 && boot_cpu_data.x86 != 0x18) ||
+-	    boot_cpu_data.x86_num_siblings <= 1)
++	    boot_cpu_data.x86_num_siblings <= 1 || opt_ssbd)
+ 		return true;
+ 
+ 	/*
+@@ -776,46 +776,51 @@ bool __init amd_setup_legacy_ssbd(void)
+ 	if (!ssbd_ls_cfg)
+ 		return false;
+ 
+-	if (opt_ssbd)
+-		for (i = 0; i < ssbd_max_cores * AMD_FAM17H_MAX_SOCKETS; i++)
+-			/* Set initial state, applies to any (hotplug) CPU. */
+-			ssbd_ls_cfg[i].count = boot_cpu_data.x86_num_siblings;
++	for (i = 0; i < ssbd_max_cores * AMD_FAM17H_MAX_SOCKETS; i++)
++		spin_lock_init(&ssbd_ls_cfg[i].lock);
+ 
+ 	return true;
+ }
+ 
+-/*
+- * Executed from GIF==0 context: avoid using BUG/ASSERT or other functionality
+- * that relies on exceptions as those are not expected to run in GIF==0
+- * context.
+- */
+-void amd_set_legacy_ssbd(bool enable)
++static void core_set_legacy_ssbd(bool enable)
+ {
+ 	const struct cpuinfo_x86 *c = &current_cpu_data;
+ 	struct ssbd_ls_cfg *status;
++	unsigned long flags;
+ 
+ 	if ((c->x86 != 0x17 && c->x86 != 0x18) || c->x86_num_siblings <= 1) {
+-		set_legacy_ssbd(c, enable);
++		BUG_ON(!set_legacy_ssbd(c, enable));
+ 		return;
+ 	}
+ 
++	BUG_ON(c->phys_proc_id >= AMD_FAM17H_MAX_SOCKETS);
++	BUG_ON(c->cpu_core_id >= ssbd_max_cores);
+ 	status = &ssbd_ls_cfg[c->phys_proc_id * ssbd_max_cores +
+ 	                      c->cpu_core_id];
+ 
+-	/*
+-	 * Open code a very simple spinlock: this function is used with GIF==0
+-	 * and different IF values, so would trigger the checklock detector.
+-	 * Instead of trying to workaround the detector, use a very simple lock
+-	 * implementation: it's better to reduce the amount of code executed
+-	 * with GIF==0.
+-	 */
+-	while (test_and_set_bool(status->locked))
+-		cpu_relax();
++	spin_lock_irqsave(&status->lock, flags);
+ 	status->count += enable ? 1 : -1;
++	ASSERT(status->count <= c->x86_num_siblings);
+ 	if (enable ? status->count == 1 : !status->count)
+-		set_legacy_ssbd(c, enable);
+-	barrier();
+-	write_atomic(&status->locked, false);
++		BUG_ON(!set_legacy_ssbd(c, enable));
++	spin_unlock_irqrestore(&status->lock, flags);
++}
++
++void amd_set_legacy_ssbd(bool enable)
++{
++	if (opt_ssbd)
++		/*
++		 * Ignore attempts to turn off SSBD, it's hardcoded on the
++		 * command line.
++		 */
++		return;
++
++	if (cpu_has_virt_ssbd)
++		wrmsr(MSR_VIRT_SPEC_CTRL, enable ? SPEC_CTRL_SSBD : 0, 0);
++	else if (amd_legacy_ssbd)
++		core_set_legacy_ssbd(enable);
++	else
++		ASSERT_UNREACHABLE();
+ }
+ 
+ /*
+diff --git a/xen/arch/x86/hvm/svm/entry.S b/xen/arch/x86/hvm/svm/entry.S
+index a26589aa9a..981cd82e7c 100644
+--- a/xen/arch/x86/hvm/svm/entry.S
++++ b/xen/arch/x86/hvm/svm/entry.S
+@@ -59,9 +59,6 @@ __UNLIKELY_END(nsvm_hap)
+ 
+         clgi
+ 
+-        ALTERNATIVE "", STR(call vmentry_virt_spec_ctrl), \
+-                        X86_FEATURE_VIRT_SC_MSR_HVM
+-
+         /* WARNING! `ret`, `call *`, `jmp *` not safe beyond this point. */
+         /* SPEC_CTRL_EXIT_TO_SVM       Req: b=curr %rsp=regs/cpuinfo, Clob: acd */
+         .macro svm_vmentry_spec_ctrl
+@@ -131,9 +128,6 @@ __UNLIKELY_END(nsvm_hap)
+         ALTERNATIVE "", svm_vmexit_spec_ctrl, X86_FEATURE_SC_MSR_HVM
+         /* WARNING! `ret`, `call *`, `jmp *` not safe before this point. */
+ 
+-        ALTERNATIVE "", STR(call vmexit_virt_spec_ctrl), \
+-                        X86_FEATURE_VIRT_SC_MSR_HVM
+-
+         /*
+          * STGI is executed unconditionally, and is sufficiently serialising
+          * to safely resolve any Spectre-v1 concerns in the above logic.
+diff --git a/xen/arch/x86/hvm/svm/svm.c b/xen/arch/x86/hvm/svm/svm.c
+index 1aeaabcb13..fa73257203 100644
+--- a/xen/arch/x86/hvm/svm/svm.c
++++ b/xen/arch/x86/hvm/svm/svm.c
+@@ -973,6 +973,16 @@ static void cf_check svm_ctxt_switch_from(struct vcpu *v)
+ 
+     /* Resume use of ISTs now that the host TR is reinstated. */
+     enable_each_ist(idt_tables[cpu]);
++
++    /*
++     * Possibly clear previous guest selection of SSBD if set.  Note that
++     * SPEC_CTRL.SSBD is already handled by svm_vmexit_spec_ctrl.
++     */
++    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
++    {
++        ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
++        amd_set_legacy_ssbd(false);
++    }
+ }
+ 
+ static void cf_check svm_ctxt_switch_to(struct vcpu *v)
+@@ -1000,6 +1010,13 @@ static void cf_check svm_ctxt_switch_to(struct vcpu *v)
+ 
+     if ( cpu_has_msr_tsc_aux )
+         wrmsr_tsc_aux(v->arch.msrs->tsc_aux);
++
++    /* Load SSBD if set by the guest. */
++    if ( v->arch.msrs->virt_spec_ctrl.raw & SPEC_CTRL_SSBD )
++    {
++        ASSERT(v->domain->arch.cpuid->extd.virt_ssbd);
++        amd_set_legacy_ssbd(true);
++    }
+ }
+ 
+ static void noreturn cf_check svm_do_resume(void)
+@@ -3116,34 +3133,6 @@ void svm_vmexit_handler(struct cpu_user_regs *regs)
+     vmcb_set_vintr(vmcb, intr);
+ }
+ 
+-/* Called with GIF=0. */
+-void vmexit_virt_spec_ctrl(void)
+-{
+-    unsigned int val = opt_ssbd ? SPEC_CTRL_SSBD : 0;
+-
+-    if ( val == current->arch.msrs->virt_spec_ctrl.raw )
+-        return;
+-
+-    if ( cpu_has_virt_ssbd )
+-        wrmsr(MSR_VIRT_SPEC_CTRL, val, 0);
+-    else
+-        amd_set_legacy_ssbd(val);
+-}
+-
+-/* Called with GIF=0. */
+-void vmentry_virt_spec_ctrl(void)
+-{
+-    unsigned int val = current->arch.msrs->virt_spec_ctrl.raw;
+-
+-    if ( val == (opt_ssbd ? SPEC_CTRL_SSBD : 0) )
+-        return;
+-
+-    if ( cpu_has_virt_ssbd )
+-        wrmsr(MSR_VIRT_SPEC_CTRL, val, 0);
+-    else
+-        amd_set_legacy_ssbd(val);
+-}
+-
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/xen/arch/x86/include/asm/msr.h b/xen/arch/x86/include/asm/msr.h
+index de18e90b2e..3eef1dfb98 100644
+--- a/xen/arch/x86/include/asm/msr.h
++++ b/xen/arch/x86/include/asm/msr.h
+@@ -378,8 +378,7 @@ struct vcpu_msrs
+     /*
+      * 0xc001011f - MSR_VIRT_SPEC_CTRL (if !X86_FEATURE_AMD_SSBD)
+      *
+-     * AMD only. Guest selected value, context switched on guest VM
+-     * entry/exit.
++     * AMD only. Guest selected value.
+      */
+     struct {
+         uint32_t raw;
+diff --git a/xen/arch/x86/msr.c b/xen/arch/x86/msr.c
+index 95416995a5..cf46b18aa6 100644
+--- a/xen/arch/x86/msr.c
++++ b/xen/arch/x86/msr.c
+@@ -24,6 +24,7 @@
+ #include <xen/nospec.h>
+ #include <xen/sched.h>
+ 
++#include <asm/amd.h>
+ #include <asm/debugreg.h>
+ #include <asm/hvm/nestedhvm.h>
+ #include <asm/hvm/viridian.h>
+@@ -697,7 +698,15 @@ int guest_wrmsr(struct vcpu *v, uint32_t msr, uint64_t val)
+                 msrs->spec_ctrl.raw &= ~SPEC_CTRL_SSBD;
+         }
+         else
++        {
+             msrs->virt_spec_ctrl.raw = val & SPEC_CTRL_SSBD;
++            if ( v == curr )
++                /*
++                 * Propagate the value to hardware, as it won't be set on guest
++                 * resume path.
++                 */
++                amd_set_legacy_ssbd(val & SPEC_CTRL_SSBD);
++        }
+         break;
+ 
+     case MSR_AMD64_DE_CFG:
 -- 
 2.37.3
 
