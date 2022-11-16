@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 561B162B07A
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 02:20:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444113.698963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C9B62B09E
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 02:38:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444118.698973 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ov759-0008W8-RZ; Wed, 16 Nov 2022 01:19:15 +0000
+	id 1ov7NA-0002rm-C4; Wed, 16 Nov 2022 01:37:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444113.698963; Wed, 16 Nov 2022 01:19:15 +0000
+Received: by outflank-mailman (output) from mailman id 444118.698973; Wed, 16 Nov 2022 01:37:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ov759-0008TH-O1; Wed, 16 Nov 2022 01:19:15 +0000
-Received: by outflank-mailman (input) for mailman id 444113;
- Wed, 16 Nov 2022 01:19:13 +0000
+	id 1ov7NA-0002pk-7M; Wed, 16 Nov 2022 01:37:52 +0000
+Received: by outflank-mailman (input) for mailman id 444118;
+ Wed, 16 Nov 2022 01:37:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CGj7=3Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1ov757-0008TB-CB
- for xen-devel@lists.xenproject.org; Wed, 16 Nov 2022 01:19:13 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1ov7N8-0002pe-Os
+ for xen-devel@lists.xenproject.org; Wed, 16 Nov 2022 01:37:51 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac59791c-654c-11ed-91b6-6bf2151ebd3b;
- Wed, 16 Nov 2022 02:19:11 +0100 (CET)
+ id 470c8cac-654f-11ed-91b6-6bf2151ebd3b;
+ Wed, 16 Nov 2022 02:37:48 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id B2ED7612C5;
- Wed, 16 Nov 2022 01:19:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EBCCC433D6;
- Wed, 16 Nov 2022 01:19:07 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 1AA30B818E0;
+ Wed, 16 Nov 2022 01:37:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CC7CC433D6;
+ Wed, 16 Nov 2022 01:37:45 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +43,300 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac59791c-654c-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 470c8cac-654f-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1668561549;
-	bh=JYQq041R94EZJjtnqoaotWOzKK3sbn68ph6ek3e+epc=;
+	s=k20201202; t=1668562666;
+	bh=vHaCRRFbotSGOLE5yF/YKh3mcvMP8ASTAprw+xW1pY0=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dR7xN2I9C4Z7SdQmj4C5SYLWzFO1k2DKXnA9acUAxa+oCiByOuwHFC7rIHoMbuImV
-	 I7W6aQ+b6ZPXqPrDWegtKEpgDihbDlcHZ8Hi9f/kgV8PGT9j/1LTOXLEzGcQlh8ooU
-	 uBsVtQ6N5c21kcoQHmURnA0aBCY/eWfj7arluuyrDnz9CwYYX7lWnAMG2NsKX4kRMH
-	 TTPJocyoox/a5x0YBfQnuZYmWA/nkOeRpIhpStCu6/UXh5n6Z15im4446jMqn4+shl
-	 PAVyMY+p7Wytdahba5iN0VAjA23Dgx37RfHnE424uQ6lF6oiRfvYx8hc6C8YGreiOp
-	 f9J7e2IaIQ90Q==
-Date: Tue, 15 Nov 2022 17:19:05 -0800 (PST)
+	b=DqfyctZt+fjQcYOAL8DwPWskWWCE5b9PEYDntbFBHbMi9tm2DkXLdppNGnc+LBKbj
+	 YcxdBNoUCR4rI9H+wUm/O8IWe3m77YkgNM+EYyQIUUcEPAjabuqbsvK4tVRFanmt9C
+	 1F30saYAU6+Rtgr1O7P5b1Nla8BZziWoP4/esLKp+IbBEx2sXkhbp9Gg5TFUsh36ek
+	 F32aIfl4y00W+fu3y1sx6xc6KUE5RcACimoNIpgq5UBwuA9IIwLM29egHEr+JAZoWU
+	 MZLK6L4Zp9S8Bpllm4HqJFmL22aV3GEuW0lXgua5y1Ii1ZFfdanRB5oUhHFicjWARv
+	 GMJun86a6LU4w==
+Date: Tue, 15 Nov 2022 17:37:43 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: George Dunlap <dunlapg@umich.edu>
-cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>, 
-    Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+cc: Xen-devel <xen-devel@lists.xenproject.org>, 
+    Xen Security Team <security@xen.org>, Jan Beulich <JBeulich@suse.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Julien Grall <julien@xen.org>, 
     Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
     Bertrand Marquis <bertrand.marquis@arm.com>, 
     Henry Wang <Henry.Wang@arm.com>, 
-    Anthony Perard <anthony.perard@citrix.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    George Dunlap <george.dunlap@citrix.com>
-Subject: Re: [PATCH 1/4] xen: Introduce non-broken hypercalls for the p2m
- pool size
-In-Reply-To: <CAFLBxZbWkLSMxXAYRGYc9Z3Vvj6bT+m7nvdiZgWRdr+_nF0BfQ@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2211151715540.4020@ubuntu-linux-20-04-desktop>
-References: <20221026102018.4144-1-andrew.cooper3@citrix.com> <20221026102018.4144-2-andrew.cooper3@citrix.com> <ffb8bdb8-f54b-2107-ce1a-775337c172ac@suse.com> <0f048bd2-d08c-8bd5-2a20-7e49e794c679@citrix.com> <8a8bc184-6237-ed24-8d9f-daa3c36df915@suse.com>
- <CAFLBxZbWkLSMxXAYRGYc9Z3Vvj6bT+m7nvdiZgWRdr+_nF0BfQ@mail.gmail.com>
+    Anthony PERARD <anthony.perard@citrix.com>
+Subject: Re: [PATCH 3/4] xen/arm, libxl: Revert XEN_DOMCTL_shadow_op; use
+ p2m mempool hypercalls
+In-Reply-To: <20221026102018.4144-4-andrew.cooper3@citrix.com>
+Message-ID: <alpine.DEB.2.22.394.2211151724320.4020@ubuntu-linux-20-04-desktop>
+References: <20221026102018.4144-1-andrew.cooper3@citrix.com> <20221026102018.4144-4-andrew.cooper3@citrix.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-670147019-1668561549=:4020"
+Content-Type: multipart/mixed; BOUNDARY="8323329-202925017-1668562053=:4020"
+Content-ID: <alpine.DEB.2.22.394.2211151729230.4020@ubuntu-linux-20-04-desktop>
 
   This message is in MIME format.  The first part should be readable text,
   while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323329-670147019-1668561549=:4020
-Content-Type: text/plain; charset=UTF-8
+--8323329-202925017-1668562053=:4020
+Content-Type: text/plain; CHARSET=UTF-8
 Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2211151729231.4020@ubuntu-linux-20-04-desktop>
 
-On Fri, 28 Oct 2022, George Dunlap wrote:
-> On Thu, Oct 27, 2022 at 8:12 AM Jan Beulich <jbeulich@suse.com> wrote:
->       On 26.10.2022 21:22, Andrew Cooper wrote:
->       > On 26/10/2022 14:42, Jan Beulich wrote:
+On Wed, 26 Oct 2022, Andrew Cooper wrote:
+> This reverts most of commit cf2a68d2ffbc3ce95e01449d46180bddb10d24a0, and bits
+> of cbea5a1149ca7fd4b7cdbfa3ec2e4f109b601ff7.
 > 
->  
->       > paging isn't a great name.  While it's what we call the infrastructure
->       > in x86, it has nothing to do with paging things out to disk (the thing
->       > everyone associates the name with), nor the xenpaging infrastructure
->       > (Xen's version of what OS paging supposedly means).
+> First of all, with ARM borrowing x86's implementation, the logic to set the
+> pool size should have been common, not duplicated.  Introduce
+> libxl__domain_set_p2m_pool_size() as a shared implementation, and use it from
+> the ARM and x86 paths.  It is left as an exercise to the reader to judge how
+> libxl/xl can reasonably function without the ability to query the pool size...
 > 
->       Okay, "paging" can be somewhat misleading. But "p2m" also doesn't fit
->       the use(s) on x86. Yet we'd like to use a name clearly better than the
->       previous (and yet more wrong/misleading) "shadow". I have to admit that
->       I can't think of any other sensible name, and among the ones discussed
->       I still think "paging" is the one coming closest despite the
->       generally different meaning of the word elsewhere.
+> Remove ARM's p2m_domctl() infrastructure now the functioanlity has been
+> replaced with a working and unit tested interface.
 > 
-> 
-> Inside the world of operating systems / hypervisors, "paging" has always meant "things related to a pagetable"; this includes "paging out
-> to disk".  In fact, the latter already has a perfectly good name -- "swap" (e.g., swap file, swappiness, hypervisor swap).
-> 
-> Grep for "paging" inside of Xen.  We have the paging lock, paging modes, nested paging, and so on.  There's absolutely no reason to start
-> thinking of "paging" as exclusively meaning "hypervisor swap".
->  
-> [ A bunch of stuff about using bytes as a unit size]
-> 
->       > This is going to be a reoccurring theme through fixing the ABIs.  Its
->       > one of a several areas where there is objectively one right answer, both
->       > in terms of ease of use, and compatibility to future circumstances.
-> 
->       Well, I wouldn't say using whatever base granularity as a unit is
->       "objectively" less right.
-> 
-> 
-> Personally I don't think bytes or pages either have a particular advantage:
-> 
-> * Using bytes
->  - Advantage: Can always use the same number regardless of the underlying page size
->  - Disadvantage: "Trap" where if you forget to check the page size, you might accidentally pass an invalid input.  Or to put it
-> differently, most "reasonable-looking" numbers are actually invalid (since most numbers aren't page-aligned)/
-> * Using pages
->  - Advantage: No need to check page alignment in HV, no accidentally invalid input
->  - Disadvantage: Caller must check page size and do a shift on every call
-> 
-> What would personally tip me one way or the other is consistency with other hypercalls.  If most of our hypercalls (or even most of our MM
-> hypercalls) use bytes, then I'd lean towards bytes.  Whereas if most of our hypercalls use pages, I'd lean towards pages.
+> This is part of XSA-409 / CVE-2022-33747.
+
+Genuine question: I can see this patch removes the implementation of
+XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION on ARM. It also switches libxl (both
+ARM and x86) to the new hypercall.
+
+Why keep the old hypercall (XEN_DOMCTL_shadow_op and
+XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION) implementation on x86 (not on ARM)?
+
+Is that because it was only recently implemented? And not actually
+present in any past Xen release?
+
+If so, please add a note about this in the commit message. Also, if that
+is the case, I think this patch series should go in 4.17. If it is too
+late to get it in before the release, then we should backport it to 4.17
+as soon as possible. That's because ideally we want to keep the
+hypercall interface changes down to a minimum.
 
 
-Joining the discussion late to try to move things forward.
-
-Let me premise that I don't have a strong feeling either way, but I
-think it would be clearer to use "bytes" instead of "pages" as argument.
-The reason is that with pages you are never sure of the actual
-granularity. Is it 4K? 16K? 64K? Especially considering that hypervisor
-pages can be of different size than guest pages. In theory you could
-have a situation where Xen uses 4K, Dom0 uses 16K and domU uses 64K, or
-any combination of the three. With bytes, at least you know the actual
-size.
-
-If we use "bytes" as argument, then it also makes sense not to use the
-word "pages" in the hypercall name.
-
-That said, any name would work and both bytes and pages would work, so
-I would leave it to the contributor who is doing the work to choose.
---8323329-670147019-1668561549=:4020--
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Xen Security Team <security@xen.org>
+> CC: Jan Beulich <JBeulich@suse.com>
+> CC: Roger Pau Monné <roger.pau@citrix.com>
+> CC: Wei Liu <wl@xen.org>
+> CC: Stefano Stabellini <sstabellini@kernel.org>
+> CC: Julien Grall <julien@xen.org>
+> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+> CC: Bertrand Marquis <bertrand.marquis@arm.com>
+> CC: Henry Wang <Henry.Wang@arm.com>
+> CC: Anthony PERARD <anthony.perard@citrix.com>
+> ---
+>  tools/libs/light/libxl_arm.c      | 14 +----------
+>  tools/libs/light/libxl_dom.c      | 19 ++++++++++++++
+>  tools/libs/light/libxl_internal.h |  3 +++
+>  tools/libs/light/libxl_x86.c      | 15 ++---------
+>  xen/arch/arm/domctl.c             | 53 ---------------------------------------
+>  xen/arch/arm/include/asm/p2m.h    |  1 -
+>  xen/arch/arm/p2m.c                |  8 ------
+>  7 files changed, 25 insertions(+), 88 deletions(-)
+> 
+> diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+> index 2a5e93c28403..2f5615263543 100644
+> --- a/tools/libs/light/libxl_arm.c
+> +++ b/tools/libs/light/libxl_arm.c
+> @@ -209,19 +209,7 @@ int libxl__arch_domain_create(libxl__gc *gc,
+>                                libxl__domain_build_state *state,
+>                                uint32_t domid)
+>  {
+> -    libxl_ctx *ctx = libxl__gc_owner(gc);
+> -    unsigned int shadow_mb = DIV_ROUNDUP(d_config->b_info.shadow_memkb, 1024);
+> -
+> -    int r = xc_shadow_control(ctx->xch, domid,
+> -                              XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION,
+> -                              &shadow_mb, 0);
+> -    if (r) {
+> -        LOGED(ERROR, domid,
+> -              "Failed to set %u MiB shadow allocation", shadow_mb);
+> -        return ERROR_FAIL;
+> -    }
+> -
+> -    return 0;
+> +    return libxl__domain_set_p2m_pool_size(gc, d_config, domid);
+>  }
+>  
+>  int libxl__arch_extra_memory(libxl__gc *gc,
+> diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+> index 2abaab439c4f..f93b221f1c1f 100644
+> --- a/tools/libs/light/libxl_dom.c
+> +++ b/tools/libs/light/libxl_dom.c
+> @@ -1448,6 +1448,25 @@ int libxl_userdata_unlink(libxl_ctx *ctx, uint32_t domid,
+>      return rc;
+>  }
+>  
+> +int libxl__domain_set_p2m_pool_size(
+> +    libxl__gc *gc, libxl_domain_config *d_config, uint32_t domid)
+> +{
+> +    libxl_ctx *ctx = libxl__gc_owner(gc);
+> +    uint64_t shadow_mem;
+> +
+> +    shadow_mem = d_config->b_info.shadow_memkb;
+> +    shadow_mem <<= 10;
+> +
+> +    int r = xc_get_p2m_mempool_size(ctx->xch, domid, &shadow_mem);
+> +    if (r) {
+> +        LOGED(ERROR, domid,
+> +              "Failed to set p2m pool size to %"PRIu64"kB", shadow_mem);
+> +        return ERROR_FAIL;
+> +    }
+> +
+> +    return 0;
+> +}
+> +
+>  /*
+>   * Local variables:
+>   * mode: C
+> diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+> index cb9e8b3b8b5a..f31164bc6c0d 100644
+> --- a/tools/libs/light/libxl_internal.h
+> +++ b/tools/libs/light/libxl_internal.h
+> @@ -4864,6 +4864,9 @@ int libxl__is_domid_recent(libxl__gc *gc, uint32_t domid, bool *recent);
+>  /* os-specific implementation of setresuid() */
+>  int libxl__setresuid(uid_t ruid, uid_t euid, uid_t suid);
+>  
+> +_hidden int libxl__domain_set_p2m_pool_size(
+> +    libxl__gc *gc, libxl_domain_config *d_config, uint32_t domid);
+> +
+>  #endif
+>  
+>  /*
+> diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+> index 7c5ee74443e5..99aba51d05df 100644
+> --- a/tools/libs/light/libxl_x86.c
+> +++ b/tools/libs/light/libxl_x86.c
+> @@ -538,20 +538,9 @@ int libxl__arch_domain_create(libxl__gc *gc,
+>          xc_domain_set_time_offset(ctx->xch, domid, rtc_timeoffset);
+>  
+>      if (d_config->b_info.type != LIBXL_DOMAIN_TYPE_PV) {
+> -        unsigned int shadow_mb = DIV_ROUNDUP(d_config->b_info.shadow_memkb,
+> -                                             1024);
+> -        int r = xc_shadow_control(ctx->xch, domid,
+> -                                  XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION,
+> -                                  &shadow_mb, 0);
+> -
+> -        if (r) {
+> -            LOGED(ERROR, domid,
+> -                  "Failed to set %u MiB %s allocation",
+> -                  shadow_mb,
+> -                  libxl_defbool_val(d_config->c_info.hap) ? "HAP" : "shadow");
+> -            ret = ERROR_FAIL;
+> +        ret = libxl__domain_set_p2m_pool_size(gc, d_config, domid);
+> +        if (ret)
+>              goto out;
+> -        }
+>      }
+>  
+>      if (d_config->c_info.type == LIBXL_DOMAIN_TYPE_PV &&
+> diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
+> index c8fdeb124084..1baf25c3d98b 100644
+> --- a/xen/arch/arm/domctl.c
+> +++ b/xen/arch/arm/domctl.c
+> @@ -47,64 +47,11 @@ static int handle_vuart_init(struct domain *d,
+>      return rc;
+>  }
+>  
+> -static long p2m_domctl(struct domain *d, struct xen_domctl_shadow_op *sc,
+> -                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> -{
+> -    long rc;
+> -    bool preempted = false;
+> -
+> -    if ( unlikely(d == current->domain) )
+> -    {
+> -        printk(XENLOG_ERR "Tried to do a p2m domctl op on itself.\n");
+> -        return -EINVAL;
+> -    }
+> -
+> -    if ( unlikely(d->is_dying) )
+> -    {
+> -        printk(XENLOG_ERR "Tried to do a p2m domctl op on dying domain %u\n",
+> -               d->domain_id);
+> -        return -EINVAL;
+> -    }
+> -
+> -    switch ( sc->op )
+> -    {
+> -    case XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION:
+> -    {
+> -        /* Allow and handle preemption */
+> -        spin_lock(&d->arch.paging.lock);
+> -        rc = p2m_set_allocation(d, sc->mb << (20 - PAGE_SHIFT), &preempted);
+> -        spin_unlock(&d->arch.paging.lock);
+> -
+> -        if ( preempted )
+> -            /* Not finished. Set up to re-run the call. */
+> -            rc = hypercall_create_continuation(__HYPERVISOR_domctl, "h",
+> -                                               u_domctl);
+> -        else
+> -            /* Finished. Return the new allocation. */
+> -            sc->mb = p2m_get_allocation(d);
+> -
+> -        return rc;
+> -    }
+> -    case XEN_DOMCTL_SHADOW_OP_GET_ALLOCATION:
+> -    {
+> -        sc->mb = p2m_get_allocation(d);
+> -        return 0;
+> -    }
+> -    default:
+> -    {
+> -        printk(XENLOG_ERR "Bad p2m domctl op %u\n", sc->op);
+> -        return -EINVAL;
+> -    }
+> -    }
+> -}
+> -
+>  long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+>                      XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+>  {
+>      switch ( domctl->cmd )
+>      {
+> -    case XEN_DOMCTL_shadow_op:
+> -        return p2m_domctl(d, &domctl->u.shadow_op, u_domctl);
+>      case XEN_DOMCTL_cacheflush:
+>      {
+>          gfn_t s = _gfn(domctl->u.cacheflush.start_pfn);
+> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+> index c8f14d13c2c5..91df922e1c9f 100644
+> --- a/xen/arch/arm/include/asm/p2m.h
+> +++ b/xen/arch/arm/include/asm/p2m.h
+> @@ -222,7 +222,6 @@ void p2m_restore_state(struct vcpu *n);
+>  /* Print debugging/statistial info about a domain's p2m */
+>  void p2m_dump_info(struct domain *d);
+>  
+> -unsigned int p2m_get_allocation(struct domain *d);
+>  int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted);
+>  int p2m_teardown_allocation(struct domain *d);
+>  
+> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> index 4607cde6f0b8..92b678cf0d09 100644
+> --- a/xen/arch/arm/p2m.c
+> +++ b/xen/arch/arm/p2m.c
+> @@ -92,14 +92,6 @@ static void p2m_free_page(struct domain *d, struct page_info *pg)
+>      spin_unlock(&d->arch.paging.lock);
+>  }
+>  
+> -/* Return the size of the pool, rounded up to the nearest MB */
+> -unsigned int p2m_get_allocation(struct domain *d)
+> -{
+> -    unsigned long nr_pages = ACCESS_ONCE(d->arch.paging.p2m_total_pages);
+> -
+> -    return ROUNDUP(nr_pages, 1 << (20 - PAGE_SHIFT)) >> (20 - PAGE_SHIFT);
+> -}
+> -
+>  /* Return the size of the pool, in bytes. */
+>  int arch_get_p2m_mempool_size(struct domain *d, uint64_t *size)
+>  {
+> -- 
+> 2.11.0
+> 
+--8323329-202925017-1668562053=:4020--
 
