@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05DB662C832
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 19:51:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444389.699546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46F1162C8D2
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 20:16:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444395.699556 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovNVQ-0003L9-Tv; Wed, 16 Nov 2022 18:51:28 +0000
+	id 1ovNsn-0006KJ-P7; Wed, 16 Nov 2022 19:15:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444389.699546; Wed, 16 Nov 2022 18:51:28 +0000
+Received: by outflank-mailman (output) from mailman id 444395.699556; Wed, 16 Nov 2022 19:15:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovNVQ-0003IW-Q6; Wed, 16 Nov 2022 18:51:28 +0000
-Received: by outflank-mailman (input) for mailman id 444389;
- Wed, 16 Nov 2022 18:51:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ovNsn-0006Hf-MR; Wed, 16 Nov 2022 19:15:37 +0000
+Received: by outflank-mailman (input) for mailman id 444395;
+ Wed, 16 Nov 2022 19:15:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ah7g=3Q=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1ovNVP-0003IQ-7r
- for xen-devel@lists.xenproject.org; Wed, 16 Nov 2022 18:51:27 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id abddb04a-65df-11ed-91b6-6bf2151ebd3b;
- Wed, 16 Nov 2022 19:51:25 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id DDB36B81DA8;
- Wed, 16 Nov 2022 18:51:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9C673C433D6;
- Wed, 16 Nov 2022 18:51:23 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 8011EE21EFD; Wed, 16 Nov 2022 18:51:23 +0000 (UTC)
+ <SRS0=APSV=3Q=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1ovNsm-0006HZ-5r
+ for xen-devel@lists.xenproject.org; Wed, 16 Nov 2022 19:15:36 +0000
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0be2eefa-65e3-11ed-8fd2-01056ac49cbb;
+ Wed, 16 Nov 2022 20:15:35 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id 21so28093281edv.3
+ for <xen-devel@lists.xenproject.org>; Wed, 16 Nov 2022 11:15:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,43 +39,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: abddb04a-65df-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1668624683;
-	bh=Ix65TQWZ4DpjbScvYzV559zitmw6e2Fr+crZYEqU9vU=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=CImTd82z0bEtf8pkWKBANxbBU3MPuIwCtromsO3gBx4MZ8AsWWIjxJMpcKNL9Itd9
-	 oIfv6jGQQ87JqZZvGtBgTV3O8g2+ukgLzoKud0IJYEMKolxZ2c8py01HinLofd+H0i
-	 AvSXZzqTuUnklVzguBOTtxgFlvyo1jTI+hJH8GPvkaus4/KsXMA+tfr67BvMc0ELF8
-	 i9P1hgCXzfOBc6abb5wJkkIj6IvoQOqfCzUAI4d/njFC1GQo2YXKupa46rrjpRWC0e
-	 UFfKtqwLChPckbxM5JuE/EYuSdT976v8JonLLAjudT7tfmtNN1y2NtT5v0KL+rLXh4
-	 9rM4o6E4n3VMw==
-Subject: Re: [GIT PULL] xen: branch for v6.1-rc6
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20221116120055.4299-1-jgross@suse.com>
-References: <20221116120055.4299-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20221116120055.4299-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.1-rc6-tag
-X-PR-Tracked-Commit-Id: 4abb77fc5531381484477cac95913336c97176b7
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: cc675d22e422442f6d230654a55a5fc5682ea018
-Message-Id: <166862468351.19828.7207830520981155384.pr-tracker-bot@kernel.org>
-Date: Wed, 16 Nov 2022 18:51:23 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+X-Inumbo-ID: 0be2eefa-65e3-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L9qI+icUfecGM5aEXi1wLqFbcmy/8kfIaJ2CdGEr+qY=;
+        b=pp08S/M4nd8Tjj7HnvOL2k/2yxOseTicNANPQqj1LsB2RCtM7K68HZcK4ruJ7zBLaa
+         2V4rHUU4qtKg76l7LaozxgXlyZHzu5LCIMvzEFQIYf4u/nT7v+GKTYjATzrAf/mgV21B
+         p6ySG1lTvBwzIx/vFU+FuKpYKSK6R+zqW77J227TMq0Jj8sLb/2+zoh29YhE+NExG2NN
+         BUJR3I5ZaYWEOGdh6j8tpUMUx/iVagV9hcdqJZYvCqRculJiFlagl1vU8pF4dSFfeLnX
+         tNvlVGOt1oMuWbe0kqQmgJupRO3VNz8UTg79zAVm9nwTn2JxykxnRCeYxWWQSAhvex57
+         K61g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=L9qI+icUfecGM5aEXi1wLqFbcmy/8kfIaJ2CdGEr+qY=;
+        b=5DaaHXqzx9fEccU1ZBrT9nLKW57Ot1ecm9H2IcNCk/a22N5YFuzwFTqWKgUoed4z3b
+         w4sy6dCbeDSVIzTNfEQWS7E72tJqdhwxx4hltPje2MQBU+RcLOFnAJ+/yu0O5xtXk6I8
+         Xgruk3lz2Ph8/9r0nG760InjfaBjZdSTOqPoU84PNnhnMhyz7GzaAZbqcQwCo+25bG9a
+         EazXmq3JtT5xyCpDqFvf6CcBKF33g+F2Fu4ZVNXJ21GXTxOWg0lTduUDA25NHXD6PiKb
+         KBZl6i/Q0vhMWgibx7EwTJwaZMfLFdOMJfIJJLKL8d6P6eCt9EUG/badqAXwyucpNu7p
+         CcWA==
+X-Gm-Message-State: ANoB5pkNeQPg0Fmb4SJ0cmhABS9JLq8mtLH+jMihnLxp/r1atk2mpySl
+	nmt8U1xDeUU2vHbO3KLUPGs0jrQY+/MAdyRYVCI=
+X-Google-Smtp-Source: AA0mqf460KZmOzPdB65VsL8WstVQNNL/kkGB4YpwZ1HtXGdIP15UNObEbaawGu1MRfPB5+lI836EXhqkCxAOgiIZPO8=
+X-Received: by 2002:a05:6402:229b:b0:457:d794:f5ee with SMTP id
+ cw27-20020a056402229b00b00457d794f5eemr20852477edb.227.1668626134584; Wed, 16
+ Nov 2022 11:15:34 -0800 (PST)
+MIME-Version: 1.0
+References: <20221114192011.1539233-1-marmarek@invisiblethingslab.com> <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
+In-Reply-To: <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 16 Nov 2022 14:15:22 -0500
+Message-ID: <CAKf6xpvpsJuMZx98vLJ7CAmUWG-vW91Am0L8817eD8nmAN4NUw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on Xen
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
+	Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The pull request you sent on Wed, 16 Nov 2022 13:00:55 +0100:
+On Mon, Nov 14, 2022 at 2:21 PM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> The /dev/mem is used for two purposes:
+>  - reading PCI_MSIX_ENTRY_CTRL_MASKBIT
+>  - reading Pending Bit Array (PBA)
+>
+> The first one was originally done because when Xen did not send all
+> vector ctrl writes to the device model, so QEMU might have outdated old
+> register value. This has been changed in Xen, so QEMU can now use its
+> cached value of the register instead.
+>
+> The Pending Bit Array (PBA) handling is for the case where it lives on
+> the same page as the MSI-X table itself. Xen has been extended to handle
+> this case too (as well as other registers that may live on those pages),
+> so QEMU handling is not necessary anymore.
+>
+> Removing /dev/mem access is useful to work within stubdomain, and
+> necessary when dom0 kernel runs in lockdown mode.
+>
+> Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.1-rc6-tag
+I put the Xen, QEMU, and xen-pciback patches into OpenXT and gave a
+little test.  When pci_permissive=3D0, iwlwifi fails to load its
+firmware.  With pci_permissive=3D1, it looks like MSI-X is enabled. (I
+previously included your libxl allow_interrupt_control patch - that
+seemed to get regular MSIs working prior to the MSI-X patches.)  I
+also removed the OpenXT equivalent of 0005-Disable-MSI-X-caps.patch.
+I am testing with Linux 5.4.y, so that could be another factor.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/cc675d22e422442f6d230654a55a5fc5682ea018
+One strange thing is the lspci output.  Dom0 shows MSI-X enabled.
+Meanwhile NDVM (sys-net) does not show the MSI-X capability.  If you
+`hexdump -C /sys/bus/pci/devices/$dev/config` you can see MSI-X
+enabled, but you also see that the MSI capability has 00 as the next
+pointer, so lspci stops parsing.
 
-Thank you!
+MSI cap stubdom:
+00000040  10 00 92 00 c0 0e 00 00  10 0c 10 00 00 00 00 00  |..............=
+..|
+0x41 -> next 0x00
+MSI cap dom0:
+00000040  10 80 92 00 c0 0e 00 10  10 0c 10 00 00 00 00 00  |..............=
+..|
+0x41 -> next 0x80
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+MSI-X:
+00000080  11 00 0f 80 00 20 00 00  00 30 00 00 00 00 00 00
+
+AFAIU, the value 0x80 at offset 0x83 is MSI-X Enabled.
+
+I had a boot where assignment failed with the hypervisor printing:
+d12: assign (0000:00:14.3) failed (-16)
+Rebooting the laptop seemed to clear that.
+
+Regards,
+Jason
 
