@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B22462CB63
-	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 21:49:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444406.699579 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6275E62CCE0
+	for <lists+xen-devel@lfdr.de>; Wed, 16 Nov 2022 22:41:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444412.699589 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovPKn-0001Ft-IK; Wed, 16 Nov 2022 20:48:37 +0000
+	id 1ovQ8k-00005J-7z; Wed, 16 Nov 2022 21:40:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444406.699579; Wed, 16 Nov 2022 20:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 444412.699589; Wed, 16 Nov 2022 21:40:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovPKn-0001Cu-FM; Wed, 16 Nov 2022 20:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 444406;
- Wed, 16 Nov 2022 20:48:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ovPKm-0001Ck-5O; Wed, 16 Nov 2022 20:48:36 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ovPKm-0005sw-2o; Wed, 16 Nov 2022 20:48:36 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1ovPKl-00009N-Og; Wed, 16 Nov 2022 20:48:35 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ovPKl-0008SX-OD; Wed, 16 Nov 2022 20:48:35 +0000
+	id 1ovQ8k-0008VA-56; Wed, 16 Nov 2022 21:40:14 +0000
+Received: by outflank-mailman (input) for mailman id 444412;
+ Wed, 16 Nov 2022 21:40:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=URqW=3Q=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ovQ8i-0008TX-F3
+ for xen-devel@lists.xenproject.org; Wed, 16 Nov 2022 21:40:12 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3e1b3d5c-65f7-11ed-8fd2-01056ac49cbb;
+ Wed, 16 Nov 2022 22:40:10 +0100 (CET)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id DE3CD5C01F3;
+ Wed, 16 Nov 2022 16:40:08 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Wed, 16 Nov 2022 16:40:08 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 16 Nov 2022 16:40:07 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,217 +43,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=iDvfFFzzlpO5aZJ6DzBQ7+Shmf4COyQV6i780xh8Nm0=; b=HSLVGABL03NrRAlpKB8mGOBYi9
-	kl+D2V9WY8X2tX6/9EPgUgx0nnAeLF7BBZP3m2aQW9Gv/OFuj5yCnNSSm6UQL6glp34rDNk47KGs0
-	cVSQK958FxwJQ2btVlYv5uQTt7hHywItWnUyII0dnecXvMN1dJA0I+RcWCMXJDwfUEJA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174789-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 3e1b3d5c-65f7-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668634808; x=
+	1668721208; bh=79ymK68beQa1zK3znI/v+JsysT5CmM/aDYWh63Kes/Y=; b=k
+	4ti1iaeVYjYjuhHhZPofLTGWtawGjZuRyt7PNO4RR9xygMfmad9gvPj5SPMtxbaT
+	JcB3GcfEWl5XTPiav65bg+qjCx5r6auFTfdDw5+uXhDOeTsvnTVwGKwU9q8AT1Ea
+	XpNsPzD/zbhM3XYsgT046QwVNEdxewkMlEXhrq6s6sQB0NuEcU4ARXJhSILL6ztk
+	eo74yOU3NYLPybAiJmq9LqA+xF5i8wQtH9lwYkb6yUYjjq+9v9KqEGIHMSRSLUxw
+	zr07a9iYTdSVdfqwC0SyV9rke1ZilcMgtTXrs16+MmzUlEy75g8O0/a5Aw758c6L
+	ZcM1nMUXwU+yW2GL68RPA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1668634808; x=1668721208; bh=79ymK68beQa1zK3znI/v+JsysT5C
+	mM/aDYWh63Kes/Y=; b=X6rOSiE+RkQHmcK9nrlMTCoDlA0yXXFgVzw3CsfeMfk1
+	CMv+cioEgXjGTiq/gHKJn2H2Q4K/6Doxkb++G8JfdRUTWsMESQY0UpMZ+EeHwrSr
+	DilplfZRAOIsXbwVLUN6Q9LfmQdJsMO0i5jUYeqSJiwPu35lZa9EkJ7dygMd8wqA
+	o/wpIkTTJwEXR0QLFzuITr7iOxoN7Jy6smMSro5NrdmWMqw3or9F0Vl1BUQhzb70
+	cjYpgVuR78Rf0Vs+6jW4Ofg/R9mRoWjyQov4qzQrOXgE/hcYyuJzhoHPqZXCvOZW
+	+3iP0IrOUZfIhghLRNms+Odlplpz9IAY0g9Hn1hDfw==
+X-ME-Sender: <xms:uFh1Y315j3tqr7CmtC8HqvSFrwu4ap79vF9sTSdywvREkTfQtUiTKQ>
+    <xme:uFh1Y2EkbzCliM4wb1_VJAHtADQPU4mcPER-OOdnNf5dlM-r90GKennlsbVuAEbru
+    95OchW0MIqj4w>
+X-ME-Received: <xmr:uFh1Y377zRhQmLsYXmXQQfLUU-ohAKIRCMsZ2STNZWME410MTkF-sMMGUA3_hHe0fW7zqeNBfk8K9v7y6DTXbmke7C0ldJAfKw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgeeigdduhedtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
+    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
+    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhm
+X-ME-Proxy: <xmx:uFh1Y820sgCTrcNEbuVX10-5YyO5uqPacT1LnYtZF5GBUqBapbGfzQ>
+    <xmx:uFh1Y6HtxolulhVOcZ9S13OCyJjpeShqzN9fnbqbiWsypoD1neY8yg>
+    <xmx:uFh1Y99vhJLdfRqNw8Czc6ybnaNn8Eu56QaGxEbgTZCTljPEDZhVdA>
+    <xmx:uFh1Y2BScbZbWS0cCfBhYS6UyEX9_YNqmr3LP2rt6o2wlF00qpdmQA>
+Feedback-ID: i1568416f:Fastmail
+Date: Wed, 16 Nov 2022 22:40:02 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on
+ Xen
+Message-ID: <Y3VYs/sS4VddrBCK@mail-itl>
+References: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
+ <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
+ <CAKf6xpvpsJuMZx98vLJ7CAmUWG-vW91Am0L8817eD8nmAN4NUw@mail.gmail.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 174789: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:build-arm64-pvops:kernel-build:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=59d0d52c30d4991ac4b329f049cc37118e00f5b0
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 16 Nov 2022 20:48:35 +0000
-
-flight 174789 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174789/
-
-Regressions :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- build-arm64-pvops             6 kernel-build             fail REGR. vs. 173462
-
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
-
-version targeted for testing:
- linux                59d0d52c30d4991ac4b329f049cc37118e00f5b0
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-
-Last test of basis   173462  2022-10-07 18:41:45 Z   40 days
-Failing since        173470  2022-10-08 06:21:34 Z   39 days   66 attempts
-Testing same since   174783  2022-11-16 01:10:10 Z    0 days    2 attempts
-
-------------------------------------------------------------
-1706 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            fail    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      fail    
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="pdecqJYtKVupcCRx"
+Content-Disposition: inline
+In-Reply-To: <CAKf6xpvpsJuMZx98vLJ7CAmUWG-vW91Am0L8817eD8nmAN4NUw@mail.gmail.com>
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--pdecqJYtKVupcCRx
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 16 Nov 2022 22:40:02 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on
+ Xen
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On Wed, Nov 16, 2022 at 02:15:22PM -0500, Jason Andryuk wrote:
+> On Mon, Nov 14, 2022 at 2:21 PM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
+> >
+> > The /dev/mem is used for two purposes:
+> >  - reading PCI_MSIX_ENTRY_CTRL_MASKBIT
+> >  - reading Pending Bit Array (PBA)
+> >
+> > The first one was originally done because when Xen did not send all
+> > vector ctrl writes to the device model, so QEMU might have outdated old
+> > register value. This has been changed in Xen, so QEMU can now use its
+> > cached value of the register instead.
+> >
+> > The Pending Bit Array (PBA) handling is for the case where it lives on
+> > the same page as the MSI-X table itself. Xen has been extended to handle
+> > this case too (as well as other registers that may live on those pages),
+> > so QEMU handling is not necessary anymore.
+> >
+> > Removing /dev/mem access is useful to work within stubdomain, and
+> > necessary when dom0 kernel runs in lockdown mode.
+> >
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+>=20
+> I put the Xen, QEMU, and xen-pciback patches into OpenXT and gave a
+> little test.  When pci_permissive=3D0, iwlwifi fails to load its
+> firmware.  With pci_permissive=3D1, it looks like MSI-X is enabled. (I
+> previously included your libxl allow_interrupt_control patch - that
+> seemed to get regular MSIs working prior to the MSI-X patches.)  I
+> also removed the OpenXT equivalent of 0005-Disable-MSI-X-caps.patch.
+> I am testing with Linux 5.4.y, so that could be another factor.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Can you confirm the allow_interrupt_control is set by libxl? Also,
+vanilla 5.4 doesn't have the allow_interrupt_control patch at all, and you
+may have an earlier version that had "allow_msi_enable" as the sysfs
+file name.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> One strange thing is the lspci output.  Dom0 shows MSI-X enabled.
+> Meanwhile NDVM (sys-net) does not show the MSI-X capability.  If you
+> `hexdump -C /sys/bus/pci/devices/$dev/config` you can see MSI-X
+> enabled, but you also see that the MSI capability has 00 as the next
+> pointer, so lspci stops parsing.
 
+This 00 value is written by Linux[1] (sic!) and then qemu incorrectly
+allowing the write and happily emulating that zero. The other qemu patch
+in this series ought to fix that (as in: properly refuse the write), do
+you have it included?
 
-Not pushing.
+[1] https://github.com/torvalds/linux/blob/master/drivers/net/wireless/inte=
+l/iwlwifi/pcie/drv.c#L1721
 
-(No revision log; it would be 162594 lines long.)
+> MSI cap stubdom:
+> 00000040  10 00 92 00 c0 0e 00 00  10 0c 10 00 00 00 00 00  |............=
+=2E...|
+> 0x41 -> next 0x00
+> MSI cap dom0:
+> 00000040  10 80 92 00 c0 0e 00 10  10 0c 10 00 00 00 00 00  |............=
+=2E...|
+> 0x41 -> next 0x80
+>=20
+> MSI-X:
+> 00000080  11 00 0f 80 00 20 00 00  00 30 00 00 00 00 00 00
+>=20
+> AFAIU, the value 0x80 at offset 0x83 is MSI-X Enabled.
+>=20
+> I had a boot where assignment failed with the hypervisor printing:
+> d12: assign (0000:00:14.3) failed (-16)
+> Rebooting the laptop seemed to clear that.
+
+Zombie of previous domain? Not set as "assignable" first?
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--pdecqJYtKVupcCRx
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN1WLIACgkQ24/THMrX
+1yxXpQf/Tpxw6IVza7ILJAFIjQbfpFFDHNbiSAVS03xF88K3crKqKmPaJ+fKvBSZ
+ntFetwY/Paz4/V3dFWv7ly5f6K3E1K4B0kYlBoYBCmZwv5NW8G+CYfOigr2J9mQn
+9nYW0Dsn0UXVZklEUey6J/UA7C7byU6lKuVSseXfj8BpkH8+9fZMPKvokLEiszol
+NLBpy2k11M7JFdlILZ4JhcTdZPhnN6Etr41jjud1hg2boPxfIdwH3FtAx33fkda5
+3Y/BTMd8m4nigEiLBDwFIjJnuPwrF5ST2dGU2qWZEN8hen6QJ+2NGgRCMSk4ZVmW
+VT+8gJzGM2n5XXi7T1oVqvGoXysnVw==
+=cMsU
+-----END PGP SIGNATURE-----
+
+--pdecqJYtKVupcCRx--
 
