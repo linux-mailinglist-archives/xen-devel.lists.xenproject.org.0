@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6A062D062
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 02:09:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444453.699722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D74C62D065
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 02:09:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444450.699689 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovTOR-0003vm-3f; Thu, 17 Nov 2022 01:08:39 +0000
+	id 1ovTOC-0002ic-Vt; Thu, 17 Nov 2022 01:08:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444453.699722; Thu, 17 Nov 2022 01:08:39 +0000
+Received: by outflank-mailman (output) from mailman id 444450.699689; Thu, 17 Nov 2022 01:08:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovTOQ-0003sU-Vk; Thu, 17 Nov 2022 01:08:38 +0000
-Received: by outflank-mailman (input) for mailman id 444453;
- Thu, 17 Nov 2022 01:08:36 +0000
+	id 1ovTOC-0002g5-RF; Thu, 17 Nov 2022 01:08:24 +0000
+Received: by outflank-mailman (input) for mailman id 444450;
+ Thu, 17 Nov 2022 01:08:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BOBv=3R=citrix.com=prvs=31353e2df=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1ovTOO-0002PW-Kd
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 01:08:36 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b64a19f-6614-11ed-91b6-6bf2151ebd3b;
- Thu, 17 Nov 2022 02:08:35 +0100 (CET)
+ id 1ovTOB-0002PW-5O
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 01:08:23 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 52e7fc15-6614-11ed-91b6-6bf2151ebd3b;
+ Thu, 17 Nov 2022 02:08:21 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,46 +36,46 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b64a19f-6614-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 52e7fc15-6614-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1668647315;
+  d=citrix.com; s=securemail; t=1668647301;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=LGNXYRbqu08/x18C0o33vlfzJWuGN3UVgv27ZYimOA4=;
-  b=MDxUSFVXro9+EaaZhXO//XMg3+sYibSmj/lZgtU0wUJCPle1AXhW57v2
-   rxDS8SFfgPQPGVv+Y/Le602iQY3O4huZJH3VsZoB+/xqTuUVuorfsWULG
-   AMLJ4shL7x7wPPGwrm+dYJKpZXIkCra/fvd8ifYVE3t/wwlOzo9pLClYv
-   E=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=J0y9Rl8v0F76CgtxLvCCWe9CUZTAHzzgMbNWoK/a9vE=;
+  b=OvXO2HkbONE1Z0hDSGHAk9F8NJLr+vNru3KFPSn2JFeBjB4MYeYkEVaW
+   zp1vzB3HE1oNrTFpU0lsXQlx3Au8LjqHPNrGWCQxwvZ8NYVvCGtAYM+5E
+   nBMeM92YVLRYJtmPje9UYnEar3FpUnD5j+vAifaK19pGB4BX2G3Mn1P6U
+   U=;
+Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: None
-X-MesageID: 85413939
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 84987027
+X-Ironport-Server: esa3.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:WvCOHaDjMoFcAhVW/97jw5YqxClBgxIJ4kV8jS/XYbTApDtx0TEHm
- GUdD2+BMqqOMDCkfN4ja9vk8U9TsJHSydI2QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFtcpvlDs15K6o4WpB4ARlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwyMMsHCIR1
- NokdGoddzyKg+GE7qyZc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2o0BPjDS0Qn1lM/IZQyhuq3wFL4dCVVsgm9rqsr+WnDigd21dABNfKFJ4DTHpQOzy50o
- ErW32SiAQoAGeW9lzPUqm+JvNDCmzjSDdd6+LqQqacx3Qz7KnYoICMRUVy3sPyokHmUUthUK
- 1EX0ic2pK10/0uuJvH/Qhm5rXisrhMaHd1KHIUSyAyL0LuS3A+fCUANVDsHY9sj3Oc8SCY2z
- FaPk5XsDCZ2rbyOYXuH8/GfqjbaEQo/IHIGZCQEZRAY+NSlq4Y25jrfQ9AmHKOrg9ndHTDr3
- yvMvCU4n68Uj8MAy+O851+vqym3upHDQwox5wPWdmGo9AV0YMiifYPAwUffxeZNKsCeVFbpg
- ZQfs5HAtqZUV8jLzXHTBrVWdF202xqbGA/52kMsQLgHy2j362ePdIRT0h9gBn48Z67oZgTVS
- EPUvApQ4rpaM32rcbJ7buqNNig68UTzPY+7D66JN7KidrA0LVbap382OSZ8yki3yCARfbcD1
- YB3mCpGJVITEuxZwTW/XI/xOpd7l3lllQs/qX0WpilLMIZyhlbPF9/p03PUNIjVCZ9oRy2Lm
- +uzz+PQl31ivBTWO0E6Mec7dDjm10QTC5HssNBwfeWeOAdgE2xJI6aPn+N/Idc5wP4Lyb2gE
- pSBtqlwkwOXaZrvcFviV5yeQOm3AcYXQYwTYETAwmpEK1B8ON3yvc/zhrM8fKU99fwL8BKHZ
- 6BtRihBa9wRIgn6F8M1PcOs9tIzKk/67e9MVgL8CAUCk1dbb1Sh0rfZksHHrXJm4vaf3Sfmn
- 4Cd6w==
-IronPort-HdrOrdr: A9a23:/VcpnKFuJTZcwOcmpLqE0MeALOsnbusQ8zAXP0AYc3Jom6uj5r
- mTdZUgpHnJYVkqOE3I9ertBEDEewK4yXcX2/h3AV7BZniEhILAFugLhuGO/9SjIVybygc079
- YZT0EUMrzN5DZB4voSmDPIceod/A==
+IronPort-Data: A9a23:vdvjfaw2//tgc/iI9od6t+fDxirEfRIJ4+MujC+fZmUNrF6WrkVUy
+ GsaXzzTMviMamL3Kd10a4S1/UMHvpTUzYNkSgE4rSAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTbaeYUidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw//F+U0HUMja4mtC5AVnPK4T5zcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVFB9
+ /YnMS1XVz2ohueKy6qYRvk2lNt2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
+ ZBAL2MyMlKQOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiFZkEzhnA/
+ D2uE2LRJTsmGv6Dyyi57FGy2uzOlg/GSpMpC+jtnhJtqALKnTFCYPEMbnOFpv2+hl+7SshoA
+ UUe8SozroA/7EWuCNL6WnWQomOAvxMac8pdFas98g7l4orZ5RyIQFcNSDFpYcYj8sQxQFQC3
+ FKTg8ngAzAptbSPUG+c7Z+dtzb0Mi8QRUcgTyIZSQoO4/H4vZo+yBnIS75LAKOzy9H4Bzz06
+ zSLtzQlwaUei9YR0Ke29kyBhCijzrDSVRI87AjTWmOj7yt6aZSjaoju7kLUhd5fKK6JQ1/Hu
+ 2IL8/Vy98hXU8vLznbUBrxQQvf5vJ5pLQEwn3ZfEJsryC2woUeOVoFV3DpmB0t5aNQbLGqBj
+ FDohStd45paPX2PZKBxYp6sB8lC8ZUMBegJRdiPMIMQP8EZmBuvuXg3OBXOhzyFfF0Ey/lXB
+ HuNTSq74Z/244xDxSH+eeoS2KRDKssWlTKKHsCTI/hKPNOjiJ+ppVUtagXmggMRtvnsTODpH
+ zF3aaO3J+13CrGWX8Uu2dd7wJBjBSFT6WrKg8JWbPWfBQFtBXssDfTcqZt4JdI1wf4OyriSo
+ C7nMqO99LYZrSaeQeltQik9AI4DoL4l9S5rVcDSFQvAN4cfjXaHs/5EKspfkUgP/+1/1/9kJ
+ 8TpiO3Zasmii13vpVwgUHUKhNw4JU711FzVbkJIolEXJvZdeuAAwfe8FiOHycXEJnDfWRcWy
+ 1F46j7mfA==
+IronPort-HdrOrdr: A9a23:2vkR16qalYKO2lisAt5vTZgaV5oTeYIsimQD101hICG8cqSj+f
+ xG+85rrCMc6QxhPk3I9urhBEDtex/hHNtOkOws1NSZLW7bUQmTXeJfBOLZqlWKcUDDH6xmpM
+ NdmsBFeaXN5DNB7PoSjjPWLz9Z+qjkzJyV
 X-IronPort-AV: E=Sophos;i="5.96,169,1665460800"; 
-   d="scan'208";a="85413939"
+   d="scan'208";a="84987027"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
@@ -84,9 +84,9 @@ CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
 	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>,
 	Henry Wang <Henry.Wang@arm.com>, Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 2/4] tools/tests: Unit test for paging mempool size
-Date: Thu, 17 Nov 2022 01:08:02 +0000
-Message-ID: <20221117010804.9384-3-andrew.cooper3@citrix.com>
+Subject: [PATCH 3/4] xen/arm, libxl: Revert XEN_DOMCTL_shadow_op; use p2m mempool hypercalls
+Date: Thu, 17 Nov 2022 01:08:03 +0000
+Message-ID: <20221117010804.9384-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20221117010804.9384-1-andrew.cooper3@citrix.com>
 References: <20221117010804.9384-1-andrew.cooper3@citrix.com>
@@ -94,11 +94,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Exercise some basic functionality of the new
-xc_{get,set}_paging_mempool_size() hypercalls.
+This reverts most of commit cf2a68d2ffbc3ce95e01449d46180bddb10d24a0, and bits
+of cbea5a1149ca7fd4b7cdbfa3ec2e4f109b601ff7.
 
-This passes on x86, but fails currently on ARM.  ARM will be fixed up in
-future patches.
+First of all, with ARM borrowing x86's implementation, the logic to set the
+pool size should have been common, not duplicated.  Introduce
+libxl__domain_set_p2m_pool_size() as a shared implementation, and use it from
+the ARM and x86 paths.  It is left as an exercise to the reader to judge how
+libxl/xl can reasonably function without the ability to query the pool size...
+
+Remove ARM's p2m_domctl() infrastructure now the functioanlity has been
+replaced with a working and unit tested interface.
 
 This is part of XSA-409 / CVE-2022-33747.
 
@@ -115,277 +121,215 @@ CC: Bertrand Marquis <bertrand.marquis@arm.com>
 CC: Henry Wang <Henry.Wang@arm.com>
 CC: Anthony PERARD <anthony.perard@citrix.com>
 
-x86 Shadow is complicated because of how it behaves for PV guests, and because
-of how it forms a simultaneous equation with tot_pages.  This will require
-more work to untangle.
-
 v2:
  * s/p2m/paging/
- * Fix CFLAGS_libxenforeginmemory typo
+ * Fix get/set typo in libxl__domain_set_p2m_pool_size()
 ---
- tools/tests/Makefile                             |   1 +
- tools/tests/paging-mempool/.gitignore            |   1 +
- tools/tests/paging-mempool/Makefile              |  42 ++++++
- tools/tests/paging-mempool/test-paging-mempool.c | 181 +++++++++++++++++++++++
- 4 files changed, 225 insertions(+)
- create mode 100644 tools/tests/paging-mempool/.gitignore
- create mode 100644 tools/tests/paging-mempool/Makefile
- create mode 100644 tools/tests/paging-mempool/test-paging-mempool.c
+ tools/libs/light/libxl_arm.c      | 14 +----------
+ tools/libs/light/libxl_dom.c      | 19 ++++++++++++++
+ tools/libs/light/libxl_internal.h |  3 +++
+ tools/libs/light/libxl_x86.c      | 15 ++---------
+ xen/arch/arm/domctl.c             | 53 ---------------------------------------
+ xen/arch/arm/include/asm/p2m.h    |  1 -
+ xen/arch/arm/p2m.c                |  8 ------
+ 7 files changed, 25 insertions(+), 88 deletions(-)
 
-diff --git a/tools/tests/Makefile b/tools/tests/Makefile
-index d99146d56a64..1319c3a9d88c 100644
---- a/tools/tests/Makefile
-+++ b/tools/tests/Makefile
-@@ -11,6 +11,7 @@ endif
- SUBDIRS-y += xenstore
- SUBDIRS-y += depriv
- SUBDIRS-y += vpci
-+SUBDIRS-y += paging-mempool
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index 2a5e93c28403..2f5615263543 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -209,19 +209,7 @@ int libxl__arch_domain_create(libxl__gc *gc,
+                               libxl__domain_build_state *state,
+                               uint32_t domid)
+ {
+-    libxl_ctx *ctx = libxl__gc_owner(gc);
+-    unsigned int shadow_mb = DIV_ROUNDUP(d_config->b_info.shadow_memkb, 1024);
+-
+-    int r = xc_shadow_control(ctx->xch, domid,
+-                              XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION,
+-                              &shadow_mb, 0);
+-    if (r) {
+-        LOGED(ERROR, domid,
+-              "Failed to set %u MiB shadow allocation", shadow_mb);
+-        return ERROR_FAIL;
+-    }
+-
+-    return 0;
++    return libxl__domain_set_p2m_pool_size(gc, d_config, domid);
+ }
  
- .PHONY: all clean install distclean uninstall
- all clean distclean install uninstall: %: subdirs-%
-diff --git a/tools/tests/paging-mempool/.gitignore b/tools/tests/paging-mempool/.gitignore
-new file mode 100644
-index 000000000000..2f9305b7cc07
---- /dev/null
-+++ b/tools/tests/paging-mempool/.gitignore
-@@ -0,0 +1 @@
-+test-paging-mempool
-diff --git a/tools/tests/paging-mempool/Makefile b/tools/tests/paging-mempool/Makefile
-new file mode 100644
-index 000000000000..5d49497710e0
---- /dev/null
-+++ b/tools/tests/paging-mempool/Makefile
-@@ -0,0 +1,42 @@
-+XEN_ROOT = $(CURDIR)/../../..
-+include $(XEN_ROOT)/tools/Rules.mk
-+
-+TARGET := test-paging-mempool
-+
-+.PHONY: all
-+all: $(TARGET)
-+
-+.PHONY: clean
-+clean:
-+	$(RM) -- *.o $(TARGET) $(DEPS_RM)
-+
-+.PHONY: distclean
-+distclean: clean
-+	$(RM) -- *~
-+
-+.PHONY: install
-+install: all
-+	$(INSTALL_DIR) $(DESTDIR)$(LIBEXEC_BIN)
-+	$(INSTALL_PROG) $(TARGET) $(DESTDIR)$(LIBEXEC_BIN)
-+
-+.PHONY: uninstall
-+uninstall:
-+	$(RM) -- $(DESTDIR)$(LIBEXEC_BIN)/$(TARGET)
-+
-+CFLAGS += $(CFLAGS_xeninclude)
-+CFLAGS += $(CFLAGS_libxenctrl)
-+CFLAGS += $(CFLAGS_libxenforeignmemory)
-+CFLAGS += $(CFLAGS_libxengnttab)
-+CFLAGS += $(APPEND_CFLAGS)
-+
-+LDFLAGS += $(LDLIBS_libxenctrl)
-+LDFLAGS += $(LDLIBS_libxenforeignmemory)
-+LDFLAGS += $(LDLIBS_libxengnttab)
-+LDFLAGS += $(APPEND_LDFLAGS)
-+
-+%.o: Makefile
-+
-+$(TARGET): test-paging-mempool.o
-+	$(CC) -o $@ $< $(LDFLAGS)
-+
-+-include $(DEPS_INCLUDE)
-diff --git a/tools/tests/paging-mempool/test-paging-mempool.c b/tools/tests/paging-mempool/test-paging-mempool.c
-new file mode 100644
-index 000000000000..942a2fde19c7
---- /dev/null
-+++ b/tools/tests/paging-mempool/test-paging-mempool.c
-@@ -0,0 +1,181 @@
-+#include <err.h>
-+#include <errno.h>
-+#include <inttypes.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <sys/mman.h>
-+
-+#include <xenctrl.h>
-+#include <xenforeignmemory.h>
-+#include <xengnttab.h>
-+#include <xen-tools/libs.h>
-+
-+static unsigned int nr_failures;
-+#define fail(fmt, ...)                          \
-+({                                              \
-+    nr_failures++;                              \
-+    (void)printf(fmt, ##__VA_ARGS__);           \
-+})
-+
-+static xc_interface *xch;
-+static uint32_t domid;
-+
-+static struct xen_domctl_createdomain create = {
-+    .flags = XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
-+    .max_vcpus = 1,
-+    .max_grant_frames = 1,
-+    .grant_opts = XEN_DOMCTL_GRANT_version(1),
-+
-+    .arch = {
-+#if defined(__x86_64__) || defined(__i386__)
-+        .emulation_flags = XEN_X86_EMU_LAPIC,
-+#endif
-+    },
-+};
-+
-+static uint64_t default_mempool_size_bytes =
-+#if defined(__x86_64__) || defined(__i386__)
-+    256 << 12; /* Only x86 HAP for now.  x86 Shadow needs more work. */
-+#elif defined (__arm__) || defined(__aarch64__)
-+    16 << 12;
-+#endif
-+
-+static void run_tests(void)
+ int libxl__arch_extra_memory(libxl__gc *gc,
+diff --git a/tools/libs/light/libxl_dom.c b/tools/libs/light/libxl_dom.c
+index 2abaab439c4f..f8f7b7e81837 100644
+--- a/tools/libs/light/libxl_dom.c
++++ b/tools/libs/light/libxl_dom.c
+@@ -1448,6 +1448,25 @@ int libxl_userdata_unlink(libxl_ctx *ctx, uint32_t domid,
+     return rc;
+ }
+ 
++int libxl__domain_set_p2m_pool_size(
++    libxl__gc *gc, libxl_domain_config *d_config, uint32_t domid)
 +{
-+    xen_pfn_t physmap[] = { 0 };
-+    uint64_t size_bytes, old_size_bytes;
-+    int rc;
++    libxl_ctx *ctx = libxl__gc_owner(gc);
++    uint64_t shadow_mem;
 +
-+    printf("Test default mempool size\n");
++    shadow_mem = d_config->b_info.shadow_memkb;
++    shadow_mem <<= 10;
 +
-+    rc = xc_get_paging_mempool_size(xch, domid, &size_bytes);
-+    if ( rc )
-+        return fail("  Fail: get mempool size: %d - %s\n",
-+                    errno, strerror(errno));
-+
-+    printf("mempool size %"PRIu64" bytes (%"PRIu64"kB, %"PRIu64"MB)\n",
-+           size_bytes, size_bytes >> 10, size_bytes >> 20);
-+
-+
-+    /*
-+     * Check that the domain has the expected default allocation size.  This
-+     * will fail if the logic in Xen is altered without an equivelent
-+     * adjustment here.
-+     */
-+    if ( size_bytes != default_mempool_size_bytes )
-+        return fail("  Fail: size %"PRIu64" != expected size %"PRIu64"\n",
-+                    size_bytes, default_mempool_size_bytes);
-+
-+
-+    printf("Test that allocate doesn't alter pool size\n");
-+
-+    /*
-+     * Populate the domain with some RAM.  This will cause more of the mempool
-+     * to be used.
-+     */
-+    old_size_bytes = size_bytes;
-+
-+    rc = xc_domain_setmaxmem(xch, domid, -1);
-+    if ( rc )
-+        return fail("  Fail: setmaxmem: : %d - %s\n",
-+                    errno, strerror(errno));
-+
-+    rc = xc_domain_populate_physmap_exact(xch, domid, 1, 0, 0, physmap);
-+    if ( rc )
-+        return fail("  Fail: populate physmap: %d - %s\n",
-+                    errno, strerror(errno));
-+
-+    /*
-+     * Re-get the p2m size.  Should not have changed as a consequence of
-+     * populate physmap.
-+     */
-+    rc = xc_get_paging_mempool_size(xch, domid, &size_bytes);
-+    if ( rc )
-+        return fail("  Fail: get mempool size: %d - %s\n",
-+                    errno, strerror(errno));
-+
-+    if ( old_size_bytes != size_bytes )
-+        return fail("  Fail: mempool size changed %"PRIu64" => %"PRIu64"\n",
-+                    old_size_bytes, size_bytes);
-+
-+
-+
-+    printf("Test bad set size\n");
-+
-+    /*
-+     * Check that setting a non-page size results in failure.
-+     */
-+    rc = xc_set_paging_mempool_size(xch, domid, size_bytes + 1);
-+    if ( rc != -1 || errno != EINVAL )
-+        return fail("  Fail: Bad set size: expected -1/EINVAL, got %d/%d - %s\n",
-+                    rc, errno, strerror(errno));
-+
-+
-+    printf("Test very large set size\n");
-+
-+    /*
-+     * Check that setting a large P2M size succeeds.  This is expecting to
-+     * trigger continuations.
-+     */
-+    rc = xc_set_paging_mempool_size(xch, domid, 64 << 20);
-+    if ( rc )
-+        return fail("  Fail: Set size 64MB: %d - %s\n",
-+                    errno, strerror(errno));
-+
-+
-+    /*
-+     * Check that the reported size matches what set consumed.
-+     */
-+    rc = xc_get_paging_mempool_size(xch, domid, &size_bytes);
-+    if ( rc )
-+        return fail("  Fail: get p2m mempool size: %d - %s\n",
-+                    errno, strerror(errno));
-+
-+    if ( size_bytes != 64 << 20 )
-+        return fail("  Fail: expected mempool size %u, got %"PRIu64"\n",
-+                    64 << 20, size_bytes);
-+}
-+
-+int main(int argc, char **argv)
-+{
-+    int rc;
-+
-+    printf("Paging mempool tests\n");
-+
-+    xch = xc_interface_open(NULL, NULL, 0);
-+
-+    if ( !xch )
-+        err(1, "xc_interface_open");
-+
-+    rc = xc_domain_create(xch, &domid, &create);
-+    if ( rc )
-+    {
-+        if ( errno == EINVAL || errno == EOPNOTSUPP )
-+            printf("  Skip: %d - %s\n", errno, strerror(errno));
-+        else
-+            fail("  Domain create failure: %d - %s\n",
-+                 errno, strerror(errno));
-+        goto out;
++    int r = xc_set_paging_mempool_size(ctx->xch, domid, shadow_mem);
++    if (r) {
++        LOGED(ERROR, domid,
++              "Failed to set paging mempool size to %"PRIu64"kB", shadow_mem);
++        return ERROR_FAIL;
 +    }
 +
-+    printf("  Created d%u\n", domid);
-+
-+    run_tests();
-+
-+    rc = xc_domain_destroy(xch, domid);
-+    if ( rc )
-+        fail("  Failed to destroy domain: %d - %s\n",
-+             errno, strerror(errno));
-+ out:
-+    return !!nr_failures;
++    return 0;
 +}
 +
-+/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * tab-width: 4
-+ * indent-tabs-mode: nil
-+ * End:
-+ */
+ /*
+  * Local variables:
+  * mode: C
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index cb9e8b3b8b5a..f31164bc6c0d 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -4864,6 +4864,9 @@ int libxl__is_domid_recent(libxl__gc *gc, uint32_t domid, bool *recent);
+ /* os-specific implementation of setresuid() */
+ int libxl__setresuid(uid_t ruid, uid_t euid, uid_t suid);
+ 
++_hidden int libxl__domain_set_p2m_pool_size(
++    libxl__gc *gc, libxl_domain_config *d_config, uint32_t domid);
++
+ #endif
+ 
+ /*
+diff --git a/tools/libs/light/libxl_x86.c b/tools/libs/light/libxl_x86.c
+index 7c5ee74443e5..99aba51d05df 100644
+--- a/tools/libs/light/libxl_x86.c
++++ b/tools/libs/light/libxl_x86.c
+@@ -538,20 +538,9 @@ int libxl__arch_domain_create(libxl__gc *gc,
+         xc_domain_set_time_offset(ctx->xch, domid, rtc_timeoffset);
+ 
+     if (d_config->b_info.type != LIBXL_DOMAIN_TYPE_PV) {
+-        unsigned int shadow_mb = DIV_ROUNDUP(d_config->b_info.shadow_memkb,
+-                                             1024);
+-        int r = xc_shadow_control(ctx->xch, domid,
+-                                  XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION,
+-                                  &shadow_mb, 0);
+-
+-        if (r) {
+-            LOGED(ERROR, domid,
+-                  "Failed to set %u MiB %s allocation",
+-                  shadow_mb,
+-                  libxl_defbool_val(d_config->c_info.hap) ? "HAP" : "shadow");
+-            ret = ERROR_FAIL;
++        ret = libxl__domain_set_p2m_pool_size(gc, d_config, domid);
++        if (ret)
+             goto out;
+-        }
+     }
+ 
+     if (d_config->c_info.type == LIBXL_DOMAIN_TYPE_PV &&
+diff --git a/xen/arch/arm/domctl.c b/xen/arch/arm/domctl.c
+index c8fdeb124084..1baf25c3d98b 100644
+--- a/xen/arch/arm/domctl.c
++++ b/xen/arch/arm/domctl.c
+@@ -47,64 +47,11 @@ static int handle_vuart_init(struct domain *d,
+     return rc;
+ }
+ 
+-static long p2m_domctl(struct domain *d, struct xen_domctl_shadow_op *sc,
+-                       XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+-{
+-    long rc;
+-    bool preempted = false;
+-
+-    if ( unlikely(d == current->domain) )
+-    {
+-        printk(XENLOG_ERR "Tried to do a p2m domctl op on itself.\n");
+-        return -EINVAL;
+-    }
+-
+-    if ( unlikely(d->is_dying) )
+-    {
+-        printk(XENLOG_ERR "Tried to do a p2m domctl op on dying domain %u\n",
+-               d->domain_id);
+-        return -EINVAL;
+-    }
+-
+-    switch ( sc->op )
+-    {
+-    case XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION:
+-    {
+-        /* Allow and handle preemption */
+-        spin_lock(&d->arch.paging.lock);
+-        rc = p2m_set_allocation(d, sc->mb << (20 - PAGE_SHIFT), &preempted);
+-        spin_unlock(&d->arch.paging.lock);
+-
+-        if ( preempted )
+-            /* Not finished. Set up to re-run the call. */
+-            rc = hypercall_create_continuation(__HYPERVISOR_domctl, "h",
+-                                               u_domctl);
+-        else
+-            /* Finished. Return the new allocation. */
+-            sc->mb = p2m_get_allocation(d);
+-
+-        return rc;
+-    }
+-    case XEN_DOMCTL_SHADOW_OP_GET_ALLOCATION:
+-    {
+-        sc->mb = p2m_get_allocation(d);
+-        return 0;
+-    }
+-    default:
+-    {
+-        printk(XENLOG_ERR "Bad p2m domctl op %u\n", sc->op);
+-        return -EINVAL;
+-    }
+-    }
+-}
+-
+ long arch_do_domctl(struct xen_domctl *domctl, struct domain *d,
+                     XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+ {
+     switch ( domctl->cmd )
+     {
+-    case XEN_DOMCTL_shadow_op:
+-        return p2m_domctl(d, &domctl->u.shadow_op, u_domctl);
+     case XEN_DOMCTL_cacheflush:
+     {
+         gfn_t s = _gfn(domctl->u.cacheflush.start_pfn);
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index c8f14d13c2c5..91df922e1c9f 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -222,7 +222,6 @@ void p2m_restore_state(struct vcpu *n);
+ /* Print debugging/statistial info about a domain's p2m */
+ void p2m_dump_info(struct domain *d);
+ 
+-unsigned int p2m_get_allocation(struct domain *d);
+ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted);
+ int p2m_teardown_allocation(struct domain *d);
+ 
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index 8c1972e58227..b2f7e8d804aa 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -92,14 +92,6 @@ static void p2m_free_page(struct domain *d, struct page_info *pg)
+     spin_unlock(&d->arch.paging.lock);
+ }
+ 
+-/* Return the size of the pool, rounded up to the nearest MB */
+-unsigned int p2m_get_allocation(struct domain *d)
+-{
+-    unsigned long nr_pages = ACCESS_ONCE(d->arch.paging.p2m_total_pages);
+-
+-    return ROUNDUP(nr_pages, 1 << (20 - PAGE_SHIFT)) >> (20 - PAGE_SHIFT);
+-}
+-
+ /* Return the size of the pool, in bytes. */
+ int arch_get_paging_mempool_size(struct domain *d, uint64_t *size)
+ {
 -- 
 2.11.0
 
