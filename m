@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD14562D6DC
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 10:29:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444816.699901 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CDB162D734
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 10:40:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444822.699913 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovbDB-0007hr-4K; Thu, 17 Nov 2022 09:29:33 +0000
+	id 1ovbNO-0001bI-4z; Thu, 17 Nov 2022 09:40:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444816.699901; Thu, 17 Nov 2022 09:29:33 +0000
+Received: by outflank-mailman (output) from mailman id 444822.699913; Thu, 17 Nov 2022 09:40:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovbDB-0007fi-1h; Thu, 17 Nov 2022 09:29:33 +0000
-Received: by outflank-mailman (input) for mailman id 444816;
- Thu, 17 Nov 2022 09:29:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ovbD9-0007fa-PY
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 09:29:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ovbD9-0006En-CL; Thu, 17 Nov 2022 09:29:31 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239]
- helo=[192.168.7.117]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1ovbD9-0000dH-5s; Thu, 17 Nov 2022 09:29:31 +0000
+	id 1ovbNO-0001Zv-0M; Thu, 17 Nov 2022 09:40:06 +0000
+Received: by outflank-mailman (input) for mailman id 444822;
+ Thu, 17 Nov 2022 09:40:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Sbrt=3R=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
+ id 1ovbNM-0001D0-2E
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 09:40:04 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id cf6a3cb0-665b-11ed-8fd2-01056ac49cbb;
+ Thu, 17 Nov 2022 10:40:03 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99971150C;
+ Thu, 17 Nov 2022 01:40:08 -0800 (PST)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 982EB3F73B;
+ Thu, 17 Nov 2022 01:40:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,147 +43,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NXvCIXwKm5qyx6kWPp043oS0rkyzN44t1tWw2RAuqF8=; b=OoVsCGKAMVa5NzoCAfDDrIBWpX
-	7UP5zsnLWhOREAqTg+TMnU3el9CDcF3hoZU1dmyO0trZOtrpmV8W8sPEuukNm7WWVhAD/8sFruLEJ
-	m5Or+INHb1+x1q3u7ZYTc9pfLQOoiZKkuhlgJcgRkuPi/CBGRa1wx41aus7p/81AH1/Q=;
-Message-ID: <7d3f9021-d608-9e8f-9593-1099d7bd2003@xen.org>
-Date: Thu, 17 Nov 2022 09:29:29 +0000
+X-Inumbo-ID: cf6a3cb0-665b-11ed-8fd2-01056ac49cbb
+From: Bertrand Marquis <bertrand.marquis@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: michal.orzel@amd.com,
+	Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v4 0/3] Yocto Gitlab CI
+Date: Thu, 17 Nov 2022 09:39:48 +0000
+Message-Id: <cover.1668677493.git.bertrand.marquis@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.4.2
-Subject: Re: [PATCH] xen/arm: debug-pl011.inc: Use macros instead of hardcoded
- values
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221024100536.12874-1-michal.orzel@amd.com>
- <fd7bd57d-b7a2-8be6-cead-2903a6115f40@xen.org>
- <d472516a-6ba4-167d-6eed-e9a4a43f65b2@amd.com>
- <653bdfb0-2926-531b-bb56-d0797fbf3877@xen.org>
- <60cf8d8e-e4d6-2c8b-50ba-ab6c3fe7d84c@amd.com>
- <0400b2d8-6f2c-6406-d966-64ed5720688c@xen.org>
- <350afafd-821c-1a05-13cb-1704d3a61bfc@amd.com>
- <84710d96-c473-fa41-d847-2b109dfb49c9@xen.org>
- <85f4f42b-b1ee-36bf-5ba9-21b1047351cf@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <85f4f42b-b1ee-36bf-5ba9-21b1047351cf@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+This patch series is a first attempt to check if we could use Yocto in
+gitlab ci to build and run xen on qemu for arm, arm64 and x86.
+
+The first patch is introducing a container template from which container
+files can be generated for all combinations we want to support (qemu
+arm, arm64 and x86 targets and hosts x86_64 and arm64).
+It is also introducing a generic build script (build-yocto.sh) that is
+used to create, build and run a Yocto project.
+
+The second patch is adding a way to easily clean locally created
+containers.
+
+The third patch is introducing some gitlab CI templates and jobs so that
+we can test a Xen source tree in gitlab-CI using Yocto.
+
+This has been tested on a x86 host machine and on an arm host machine
+(with mk_dsdt.c fix).
+
+Changes in v4:
+- rework the container generation to support multiple hosts
+- rework the container generation to use a single template for all
+  docker files (make process is generating the docker files).
+
+Changes in v3:
+- limit number of jobs in yocto
+- do not copy build script inside container
+- add patch from Michal to create gitlab jobs
+
+Changes in v2:
+- remove gitignore patch which was merged
+- add a --dump-log support in build-yocto.sh script and use it during
+  container creation to see the error logs.
 
 
+Bertrand Marquis (2):
+  automation: Create Yocto docker images
+  automation: Add a clean rule for containers
 
-On 17/11/2022 08:34, Michal Orzel wrote:
-> Hi Julien,
-> 
-> On 16/11/2022 19:37, Julien Grall wrote:
->>
->>
->> Hi Michal,
->>
->> On 16/11/2022 18:05, Michal Orzel wrote:
->>> On 16/11/2022 16:56, Julien Grall wrote:
->>>>
->>>>
->>>> On 16/11/2022 14:45, Michal Orzel wrote:
->>>>> Hi Julien,
->>>>
->>>> Hi Michal,
->>>>
->>>>>>
->>>>>>> and use it in the pl011-debug files (+ there is a question whether we should define WLEN_7-5 for completeness).
->>>>>>
->>>>>> I would not define WLEN_7-5. That said, I wonder if we really need to
->>>>>> set the baud rate & co here?
->>>>>>
->>>>>> AFAICT the runtime driver never touch them. The reasoning is the
->>>>>> firmware is responsible to configure the serial. Therefore, I would
->>>>>> consider to drop the code (setting UARTCR might still be necessary).
->>>>> I do not really agree because the current behavior was done on purpose.
->>>>
->>>> EARLY_UART_PL011_BAUD_RATE is only used for very early debugging (this
->>>> is protected by CONFIG_DEBUG and CONFIG_EXPERT). This is not a
->>>> production ready code.
->>> I am fully aware of it. I just found it useful but I understand the global reasoning.
->>>
->>>>
->>>>> At the moment early_uart_init is called only if EARLY_UART_PL011_BAUD_RATE is set to a value != 0.
->>>>> This is done in order to have flexibility to either stick to what firmware/bootloader configured or to change this
->>>>> configuration by specifying the EARLY_UART_PL011_BAUD_RATE (useful when you do not know what
->>>>> the firmware configured).
->>>> The chances are that you want to use the baud rate that was configured
->>>> by the firmware. Otherwise, you would need to change the configuration
->>>> of minicom (or whatever you used) to get proper output for the firmware
->>>> and then Xen.
->>>>
->>>> Furthermore, as I wrote before, the runtime driver doesn't configure the
->>>> baud rate. This was removed in Xen 4.7 (see commit 2048e17ca9df
->>>> "drivers/pl011: Don't configure baudrate") because it was buggy and this
->>>> code is not simple.
->>>>
->>>> So it makes no sense to configure the baud rate when using early printk
->>>> but not the runtime driver.
->>> Ok, so we will get rid of EARLY_UART_PL011_BAUD_RATE config and setting the bd
->>> in the early uart code. Now, what about setting "8n1"? The runtime driver sets them
->>> as well as the early code. It can also be set to a different value from the firmware
->>> (unlikely but it can happen I think). In any case, if we decide to do what the runtime driver
->>> does, I reckon setting LCR_H should be kept in early code.
->>
->> Good question. I think, you would end up with the same issue I mentioned
->> above if the firmware and Xen have different line control registers
->> (tools like minicom/screen would ask for it).
->>
->> So I am on the fence here. In one way, it seems pointless keep it. But
->> on the other hand, Xen has always set it. So I have no data to prove
->> this will be fine everywhere.
-> If we are relying on the firmware[1] to configure the baud rate, it is not very wise
-> not to rely on it to configure the LCR. Looking at the other serial drivers in Xen,
-> we have a real mismatch in what is being configured. Some of the drivers (omap, imx),
-> apart from setting 8n1 also set the baud rate explicitly to 115200 and almost all of them
-> do set 8n1. In that case we will not benefit too much from fixing just pl011.
-It is not great that Xen hardcode the baud rate (I can't remember 
-whether there was a reason), but I don't think the consistency is 
-necessary here (see more below).
+Michal Orzel (1):
+  automation: Add CI test jobs for Yocto
 
-> 
-> On the other hand, Xen follows the zImage/Image protocols for ARM [2] which do not
-> state that serial port initializing is something mandatory. This could indicate that
-> the firmware does not really need to configure the serial.
-
-The firmware doesn't need to configure the serial and yes in theory Xen 
-should configure the baud rate and parity based on the firmware table.
-
-However, this is a trade off between complexity and benefits. The patch 
-I mentioned earlier has been removed nearly 6 years ago and I haven't 
-seen anyone reporting any issues.
-
-Hence why I think for the PL011 it is not worth looking [3] at the baud 
-rate and instead removing it completely in the early PL011 code as well.
-
-That said, if you feel strongly adding support for baud rate then I will 
-be happy to review the patch.
-
-> 
-> [1] It is not stated anywhere in our docs.
-
-Our docs are not perfect. Patches are welcomed for improvement. 
-Although, I think the statement should only be for driver where we don't 
-set the baud rate. For the others, we should leave it as is unless you 
-can prove this is not necessary (we don't want to break existing setup).
-
-> 
-> [2] BTW: our docs/misc/arm/booting contains invalid links to the kernel docs. I guess
-> this wants to be fixed.
-
-Patches are welcomed.
-
-[3] I do have a large list of more critical bugs that I will be happy to 
-share if you are looking for improving Xen.
+ automation/build/Makefile                  |  26 +-
+ automation/build/yocto/build-yocto.sh      | 349 +++++++++++++++++++++
+ automation/build/yocto/yocto.dockerfile.in | 114 +++++++
+ automation/build/yocto/yocto.inc           |  41 +++
+ automation/gitlab-ci/test.yaml             |  43 +++
+ 5 files changed, 571 insertions(+), 2 deletions(-)
+ create mode 100755 automation/build/yocto/build-yocto.sh
+ create mode 100644 automation/build/yocto/yocto.dockerfile.in
+ create mode 100644 automation/build/yocto/yocto.inc
 
 -- 
-Julien Grall
+2.25.1
+
 
