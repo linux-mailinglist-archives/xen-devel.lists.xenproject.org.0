@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D7DA62DC66
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 14:13:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445205.700260 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6416062DCDE
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 14:34:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445212.700270 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oveho-0008CU-QD; Thu, 17 Nov 2022 13:13:24 +0000
+	id 1ovf1a-0002TE-D4; Thu, 17 Nov 2022 13:33:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445205.700260; Thu, 17 Nov 2022 13:13:24 +0000
+Received: by outflank-mailman (output) from mailman id 445212.700270; Thu, 17 Nov 2022 13:33:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oveho-0008Ag-MW; Thu, 17 Nov 2022 13:13:24 +0000
-Received: by outflank-mailman (input) for mailman id 445205;
- Thu, 17 Nov 2022 13:13:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=p9yL=3R=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ovehm-0008Aa-Qy
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 13:13:23 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9808c6bd-6679-11ed-91b6-6bf2151ebd3b;
- Thu, 17 Nov 2022 14:13:20 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id ACC613200B37;
- Thu, 17 Nov 2022 08:13:12 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 17 Nov 2022 08:13:13 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Nov 2022 08:13:10 -0500 (EST)
+	id 1ovf1a-0002QC-9x; Thu, 17 Nov 2022 13:33:50 +0000
+Received: by outflank-mailman (input) for mailman id 445212;
+ Thu, 17 Nov 2022 13:33:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=iQoc=3R=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1ovf1Z-0002Q6-3o
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 13:33:49 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70059.outbound.protection.outlook.com [40.107.7.59])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 76e459a4-667c-11ed-8fd2-01056ac49cbb;
+ Thu, 17 Nov 2022 14:33:47 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM8PR04MB7971.eurprd04.prod.outlook.com (2603:10a6:20b:234::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Thu, 17 Nov
+ 2022 13:33:17 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5813.018; Thu, 17 Nov 2022
+ 13:33:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,139 +46,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9808c6bd-6679-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668690792; x=
-	1668777192; bh=nEhR7pMCw3FhT/lMNgCiEBfKk2fj+LcGrS37oNxSJro=; b=t
-	YiS7Q2KpFt+zCX59+TZBrjYf3nUm7hq3hXo+1j8FQ3xm6WoiMN9V5Dfag6tBG9hn
-	UoF3q4WD1QIUOZgkKYQB82uYsUKm037Sie+6sg8Lsv39PBoSZxAKvlc8A2O7j0ft
-	gIfmdu+SQvPDO57ZMVcBDQY9UaV0m+iGPHFb7tEFC7ohunegdyD07fncHQlzMlEl
-	O8SNj+va7/zco4xudc4RNh1lB2H1jLABhjSDs2Peo0XTwehLaC/Ngm2oKVhHftrQ
-	Z7gds+bUnWfD0Kaq9VhgV51hz3Flg6zMUoHnFUDnQlgbI85DU/3/Z0srylLXVjPm
-	xqiKIHan8hS4dvGmOuzCQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1668690792; x=1668777192; bh=nEhR7pMCw3FhT/lMNgCiEBfKk2fj
-	+LcGrS37oNxSJro=; b=XWumqYaEWqMNBnVsg/ykzRMnmY/VHi7Ba6GO8ga97YO9
-	6oIJn3AKEiB5l/hoiCUjLqbMus7TQE2TePOAoIJgPrD6D7hkbHeLnWq54hSJXqhx
-	7O54uKBSwJCJABBAWQGkFDwBGozq5C0RHt5oRq9iIIUQ0InWVLP6FbYKgvEWoRc2
-	uluFz+l4vAFpNURNtQjDlQf8u40cjJo2DEHnWSDj0yUwjat3rgReHGYhf04itPMK
-	MkCDwczeWfw03FCDhyF+IxUaCGIenmbKTjNjGU388uWPd6G2aDCeULaDPhpUmILT
-	bo02ylNhpgjGHu9d5odBcU59EhoO5ADQ1TB6AkerTA==
-X-ME-Sender: <xms:ZzN2Y2opGdz6R_hTc_7f-Dg3TFLY2jPYFAurcua68Pw6wS5-VFtDTA>
-    <xme:ZzN2Y0r6mbP6QXU9Ys5D1t4FjN6nUuhG6L6rJ8FbCJkKEUBoxy1py1oTDzamDCnS7
-    CMHO-jJDCmlFw>
-X-ME-Received: <xmr:ZzN2Y7NlBq-95DfIqHcJ952ie0-6tcQS0WJDFE3zK_EXsY2bEr_DL3diVDmU7zFYKwmgmv7MzLHFsETVBz8VUGVCGrjCQEkKdA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgeekgdegkecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:ZzN2Y16L_4QjBYieEgjjvB7g0WOSN_UFFotPUwuSWb6ZSLeXfHvwLg>
-    <xmx:ZzN2Y16P8HITgnPaK5whWpM72mqI17Gf0B1TMT-zMnC-W2bHDTFfZA>
-    <xmx:ZzN2Y1gbykADqoZhfnq5kNlLbspZLnVjCElPR0OC6xKOBVSs0Oxm5A>
-    <xmx:aDN2Y41WBfKL2Lv9zQqLXIJ25-uFH8kxqFA8j98rqadyYVVMEDyBrA>
-Feedback-ID: i1568416f:Fastmail
-Date: Thu, 17 Nov 2022 14:13:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: David Vrabel <dvrabel@cantab.net>
+X-Inumbo-ID: 76e459a4-667c-11ed-8fd2-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d+qBLtn03a0+ndnHWxB90txpYFAiWylJqiOBvX/6oEQ2CIAGudvmD2D+L1lTgnCF4+J4DfIBgnKvxruHtCGDnOq8j/ChPLNmFNbRPaCALFaiVxjAtK6SIgAWT2Xwot6lcNeJ80X9C72nvGKOa5r4IAzf96TWNFp5BXL+Pwy4hWOvn+q3yFtSBu1xebkCcAQaJwQO4PV+Rl7XJJaPMieuWtT3Y69l5FY6nt+Rj3ih0n+GvK5NoxnnP2s1344CkzETK77S4uJ8be0f1qQSh9+NnDDFxHb+pndWfQqr/7HBWREs4gwhcczulrS51+aYL8R/T2kdzcYPjbVQgV5nyl0QfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9ogx26bF65DqYPWtbZlo99oztsooSlTMopXO4O6WJnE=;
+ b=eL/2/9+G7Hl//x8eIWIGwk5P47F3NihfEfyEwW8uKSH4dVGtZ5/9y4AflHykHkKUsN5YlQJe8Tkuli9HGgY7Xz3LbPo+pkaGBEUSE5JDSkEZo5YMsxl+2BmcIfivFK9QH0jCMXls2X55qnJyKD1SnwXfOTpO8ABzynKQau9YPeYnSpeH40xcsE79U2M2YphrtSTeEvWeSnDJ4WbT+PZCot3qeNpXAu+9mNLJ/R/rK/qJcavYKHepUucALe6FcJQin7DuIA9ZLUljcSCUAvt2S4vXVckBXyIaiHS400gXeTGD9SogL9JwdJ/P69zUJh5V5kbB5Rjo6JbmZA8oEiuPAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9ogx26bF65DqYPWtbZlo99oztsooSlTMopXO4O6WJnE=;
+ b=V7NaT7apK8kVaIDtdtiBjUmHCZJsrPjcAUZB5myGIn8oIZcVC/RnJ2ExgqbOXvF56YddOou1U6WJGxhOPubQgLUkyI8UtHwmtAnc0is9Bvk2wIAdZ8E9SJHltWgl8UT9gNKDTJn0yCe6VsEVrTRfJQ9tJtcPj9/tmn65iQJLTrWLCHN0E6xiIKyuU810o6zNjGTFOyZnHwGZhbhu3fXYK9rSzjGpGib7vjd6DmSq9jm9e50RaJOVdWMITegdmLllSq2qQrkKqX78HxR4+gAOLvAo26APz64xR8L8e29HZxVThLfGW79GxbPRMcsQvPruA51BbYLm1jsqnd7BmT9VgQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a84234d8-9f48-4b8f-e171-599c34840581@suse.com>
+Date: Thu, 17 Nov 2022 14:33:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH] xen-pciback: Consider MSI-X enabled only when MASKALL bit
+ is cleared
+Content-Language: en-US
+To: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>
 Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen-pciback: Consider MSI-X enabled only when MASKALL
- bit is cleared
-Message-ID: <Y3YzY0aUc42cQGk/@mail-itl>
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+ "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>,
+ David Vrabel <dvrabel@cantab.net>
 References: <20221117114122.1588338-1-marmarek@invisiblethingslab.com>
- <0afe3f35-1b25-d1c6-89bb-8dae7a4070e9@cantab.net>
+ <0afe3f35-1b25-d1c6-89bb-8dae7a4070e9@cantab.net> <Y3YzY0aUc42cQGk/@mail-itl>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <Y3YzY0aUc42cQGk/@mail-itl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0059.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="QOL0n3NG2/pM9Yw2"
-Content-Disposition: inline
-In-Reply-To: <0afe3f35-1b25-d1c6-89bb-8dae7a4070e9@cantab.net>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM8PR04MB7971:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d888d9b-49b7-4b55-6932-08dac8a0493b
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	eR0Nsdkf6UPFGVUWIopx/RwdcHK6zHtnpNFUD4cGaGmAh3M5SHQhu29/aQdTk7x6jHhHUwmXF90DBrjca5r4Yp3bOKbmb4EVtyCvK2LHZ/wv9DVFnxE8PLkAHj9C+PeCUED8FbgZCEAT/A+lOqrAgUCkoYFgb39i2rXs1cW4r4VGQxu95aS0uzqQ2RdXJUmfzG5ykJxB4t7bEvxTIIZvUG6EkOGAhuVq6o+YqpyU5MJ/7w/9kRzmoiyVJ2puhpiGnJn6IPd6gOU9WPQGnTE75QH2mBBWh6KmVDCfmwiGsoVGP6BaC/gghzUefADAbCHyQZgUTe5JgmTxVqOCYGRfDWG9rVq5rEiA1MsogvvWQtmnBREXlMXPYTsMH6nhrW9ikJOjo9CcMukUbKFajW5wzsSZc2mLRy+avNT2yHeC9R644CjuycpyIgjM77ZVPSeugeV7OeQ9tn0YzmlRVDw0moHFCS93ZSu49dV428Zta+8mmHM2WJhA9iDrxjDRDlFZWliNEvnwGebx7PcPgwGDhl3X4S84NKjAgOf2QUQ9k0s+eYkeZVYAxvUfXhzbE5vZHkLGET5HNEQfQ3H7cczREsihQrQmYnrhjcbn+7RvEopQjPKalnr82IrkVFyMlixxRt5WHTQK72iE6O5VqWfHGUWsOJBgQdictFWEGuZ2C8JkdCdLJB6pgRjHWZm6O1+WePs9qXl/kUbMeeAEKCsdh7FU7YNIRm+L24i8I2aoBr8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(396003)(376002)(136003)(366004)(346002)(451199015)(2906002)(38100700002)(53546011)(26005)(2616005)(4326008)(8676002)(31696002)(66556008)(66476007)(6916009)(54906003)(66946007)(6506007)(36756003)(6512007)(186003)(31686004)(316002)(5660300002)(86362001)(41300700001)(478600001)(8936002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MnVnSUVPam5kTFJFTzBYY1pkTTdLbnNBTndOQjJ2a1Fxa2ZvOUtsQXRxeXRn?=
+ =?utf-8?B?dVNwYm5hc2l5b0kvS2YxUmhwNFYyRHNKcEVabnNCRjIxa0xQb1o4MzRjNGhV?=
+ =?utf-8?B?N2pIZXNaR0t6OHZuVERCeHppN3EzRWttRzRieCtHTk1mYTY5bENmY1dCekp1?=
+ =?utf-8?B?TUdBUkJUeGJydW5zd0Rwd3ZDdVNITis2NG9UbTFMRzJtelU0V2xuQ0VXN3hs?=
+ =?utf-8?B?cXlnY1ZqcXBQaXZ2YWxmYWgxZkVybXZoSE1Fdy91KzcwUGQ0YTMwM2VnajNv?=
+ =?utf-8?B?Ly9vdXlUN1Rwd3VVVnM2NDFHazNLQzk1U21tdmM2Y1hkTXIxcUlIdzBNWlBR?=
+ =?utf-8?B?ZStiaVVrZTVDN2FPaVY5Y3JoYVBWaHFBWEliem90QXpVcE9IQ3h3YWxVbTFK?=
+ =?utf-8?B?L1pJazRGSVBaVVZaZXBhSFJUcnl6M1BVR1dPZko0VFoxTUc5ZmJJRWJEekhC?=
+ =?utf-8?B?eHliU0lKVzcyYzVUVGNDcS9FQUlwVHE0Q2xYTGo3Tkl0eExVNWxaa3I3K0My?=
+ =?utf-8?B?TmsxZVJzU1RDb2xyUk5rejlobVJSOGFtY0NUeU10aFdYQ1ZTWmRQbVdCOW40?=
+ =?utf-8?B?R3VWdTg4eG5Zd2ZCYjB0QlFreGpnUWM2T295N1Y0T1FnZ2VaRGVvM1VZT3d6?=
+ =?utf-8?B?YnRtUnBrODViQ3RYN0Rwb1E5MDRVS2JwNUF0VENSNkVKQ1o3cGNTZDhxWTUw?=
+ =?utf-8?B?T1VXdFVzU0V2elhYWHVQQTFsYytlUnR2YXVrUEJxWEJGRmtNTDM2MUJhVVBt?=
+ =?utf-8?B?VlY5blBsSUxZWW8xbFlTYnZ2TjlXRnhtaGhIUU4zQnBLbjJSVTdUcU01eXJJ?=
+ =?utf-8?B?WHZXakVlM3E4OE5NblJjZlFjd002T3hIYnpkN3pYdDNIZzhsMEs4WG9mMTJx?=
+ =?utf-8?B?T2svZ3RjOFRZNEdlaEp6MW1seWk4eTVOVml1d2VQRDlEendsNGE3TjNJQkd2?=
+ =?utf-8?B?RjVxc0pjVFZ5ZGdydU1UMUkvdE01U2RXaWNYcUZmM3pIazcxU0FtWXJoMHc3?=
+ =?utf-8?B?N1RremxCNmlUVFprUXZuWEN5UmxBL29TSEV0Rm0wTytaWENtQmJYNWlWLzBS?=
+ =?utf-8?B?MXI1TDRRSVhJK1gyaWpZa3RYUkNjd1lVbjFGNEZVWVJnb0RSQ1BKSklmVmRR?=
+ =?utf-8?B?UTcwKzgyWUxDanBldEVPWEdZUFplUU9aM3BoVUxBMVZWWVA5S2IyVDVpRDZw?=
+ =?utf-8?B?QVcxUFRxVUI2U29wSjBCNC9iNHBDNHc1aW91NkNnQTNNRkFhckVsU1VwcWhN?=
+ =?utf-8?B?SEcvRGx3T0FlVU9LNkhMVmt6WEFEYTJzOE1PQml0cXdFZTd0Zk50T0VVbnR4?=
+ =?utf-8?B?T0JNTlV6bmYvamMrTDlJa2lHVHg4bGphVllZVnpMS0lGSC9ENmp4TW9uT3Jl?=
+ =?utf-8?B?T2RhU1BNdzBJOVBFYjBmdXhMTG9uTDBJb3JRdGdFbU1rQTQ1YmZqQVhRem53?=
+ =?utf-8?B?ekNZdGF0TmR3eFhiNTc0SzRYK3JTUnFhZVZiblByaGhNVjBKTHRNYVQvNFFh?=
+ =?utf-8?B?NVN2OTF3Qnd1bnZhdC9JbnNqa2NPWUltdHlDSThzYi9CRjFwbVU2WS9Mc0Yv?=
+ =?utf-8?B?QXZ5M28yc0tlT3hmNTh5aXljb21Eam5GRHMrYlFxaXoxakxBY0psTXJYZWgr?=
+ =?utf-8?B?RjlaeVpBN0xhWktWQ25Na25EMk5vbit1VHQrZWY5dUt5SXNXQzlwd0pxMmlX?=
+ =?utf-8?B?NENKZk12L2k5ZWZzYjFEUDRVc1k3alpwVStwcHdRWHFYbTUvYW0wWmlEbDlu?=
+ =?utf-8?B?bUNJeDM5cHVkdVlTMzVWUE4rb2FzNkFEeUpXS3AzSDl6akh3eWl3aUNySFF0?=
+ =?utf-8?B?RzV2Q0hlN2s3aXhVREFSQWRyaW95N3Era25qYjd5d2F2UjNZaklaM3F6bVho?=
+ =?utf-8?B?UUp6UHR4YjhUSjFhVEE3NFowcnRiNzl1c1Z1TEJ4a1VPampDN1JZdFJ2a0tu?=
+ =?utf-8?B?YmQxdTVPNDQvR0NMNEhHczhCZ3NTVGE2enk2bndPVTdubzFtNXJyaGxpc3Vl?=
+ =?utf-8?B?S0MyYWFNblNpRFJmd0V0b1E3NFJmeFlvbHpEYUVuN1JwMmJxZE9yTWkyelF1?=
+ =?utf-8?B?T1kwbUlNWkorTzhpREZXVGtoUW02RDVXNHB4ZHpkeVE2bVB6cEJhU1AzK1Nz?=
+ =?utf-8?Q?cXz1tHgZwogKylfA5X6kEy998?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d888d9b-49b7-4b55-6932-08dac8a0493b
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 13:33:17.6080
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 99vQkEgnb4jXBL1nbHzBLeD5edeAbb9R79vb7m2f5urie7131cN70xSgcOzXkOBNgEIUJeCC8Pbz5agHX29Xcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7971
 
+On 17.11.2022 14:13, Marek Marczykowski-Górecki wrote:
+> On Thu, Nov 17, 2022 at 12:54:51PM +0000, David Vrabel wrote:
+>> On 17/11/2022 11:41, Marek Marczykowski-Górecki wrote:
+>>> Linux enables MSI-X before disabling INTx, but keeps MSI-X masked until
+>>> the table is filled. Then it disables INTx just before clearing MASKALL
+>>> bit. Currently this approach is rejected by xen-pciback.
+>>> Allow setting PCI_MSIX_FLAGS_ENABLE while INTx is still enabled as long
+>>> as PCI_MSIX_FLAGS_MASKALL is set too.
+>>
+>> The use of MSI-X interrupts is conditional on only the MSI-X Enable bit.
+>> Setting MSI-X Enable effectively overrides the Interrupt Disable bit in the
+>> Command register.
+> 
+> That means the second chunk of the patch may even drop the '(new_value &
+> PCI_MSIX_FLAGS_MASKALL)' part, right? 
+> 
+>> PCIe 6.0.1 section 7.7.2.2. "MSI-X Enable ... is prohibited from using INTx
+>> interrupts (if implemented)." And there is similar wording for MSI Enable.
+> 
+> And this would mean the 'field_config->int_type == INTERRUPT_TYPE_MSIX'
+> part isn't necessary either.
+> 
+> Jan in another thread pointed out that disabling INTx explicitly is
+> still a useful workaround for a flawed hardware. But if that isn't
+> mandated by the spec, maybe it doesn't need to be enforced by pciback
+> either?
 
---QOL0n3NG2/pM9Yw2
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 17 Nov 2022 14:13:04 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: David Vrabel <dvrabel@cantab.net>
-Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH] xen-pciback: Consider MSI-X enabled only when MASKALL
- bit is cleared
+Well, allowing a device to go into a mode exhibiting undefined behavior
+is what we ought to prevent when it comes to a DomU doing so vs overall
+host safety.
 
-On Thu, Nov 17, 2022 at 12:54:51PM +0000, David Vrabel wrote:
-> On 17/11/2022 11:41, Marek Marczykowski-G=C3=B3recki wrote:
-> > Linux enables MSI-X before disabling INTx, but keeps MSI-X masked until
-> > the table is filled. Then it disables INTx just before clearing MASKALL
-> > bit. Currently this approach is rejected by xen-pciback.
-> > Allow setting PCI_MSIX_FLAGS_ENABLE while INTx is still enabled as long
-> > as PCI_MSIX_FLAGS_MASKALL is set too.
->=20
-> The use of MSI-X interrupts is conditional on only the MSI-X Enable bit.
-> Setting MSI-X Enable effectively overrides the Interrupt Disable bit in t=
-he
-> Command register.
-
-That means the second chunk of the patch may even drop the '(new_value &
-PCI_MSIX_FLAGS_MASKALL)' part, right?=20
-
-> PCIe 6.0.1 section 7.7.2.2. "MSI-X Enable ... is prohibited from using IN=
-Tx
-> interrupts (if implemented)." And there is similar wording for MSI Enable.
-
-And this would mean the 'field_config->int_type =3D=3D INTERRUPT_TYPE_MSIX'
-part isn't necessary either.
-
-Jan in another thread pointed out that disabling INTx explicitly is
-still a useful workaround for a flawed hardware. But if that isn't
-mandated by the spec, maybe it doesn't need to be enforced by pciback
-either?
-
-> I think you need to shuffle the checks for MSI/MSI-X in
-> xen_pcibk_get_interrupt_type() so they are _before_ the check of the
-> Interrupt Disable bit in the Command register.
-
-Note the xen_pcibk_get_interrupt_type() returns a bitmask of enabled
-types. It seems it should consider INTx only if both MSI and MSI-X are
-disabled. I'll make the adjustment. But this alone, won't cover enabling
-part, as INTx is the only one active at the time.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---QOL0n3NG2/pM9Yw2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN2M2MACgkQ24/THMrX
-1yy7Xgf/VXm1tljAkL14zb63jld+ZWk8SJp3bJmR29my72LkJSDRptt56K2JKUo7
-Morpduk3y63d4eOWbR1QQ+Ms3fXXn6anDTweGWq3wChZZu1v4ZwWcUD1tZNBpIk2
-b1dDJOIJyYBYaVN084X874y6Lt1sh8OKzbwzCB0smNtsTNSxFMUKEwTqAOLpYOxg
-2QYhy3zzvrDEQPgMzCSMJV5kcJSXl8+Tkpt2RYVBu6y9VuatGYnlOSI66p/bH4t7
-0i/QrAUZc7FgYWkH8gzr3M6kcOzRfHy44Ye1IS78/7Z387M3qwyLnLnS8dcuMxuX
-mTpZ640102hfSbQzQAT9HMY8E7PN7Q==
-=2Ltr
------END PGP SIGNATURE-----
-
---QOL0n3NG2/pM9Yw2--
+Jan
 
