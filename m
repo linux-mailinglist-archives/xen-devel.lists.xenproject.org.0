@@ -2,40 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1D2C962D8DF
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 12:06:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444976.700160 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A2B62D933
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 12:16:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445117.700171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovciG-0005JX-3C; Thu, 17 Nov 2022 11:05:44 +0000
+	id 1ovcru-0007SR-FC; Thu, 17 Nov 2022 11:15:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444976.700160; Thu, 17 Nov 2022 11:05:44 +0000
+Received: by outflank-mailman (output) from mailman id 445117.700171; Thu, 17 Nov 2022 11:15:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovciG-0005HD-0O; Thu, 17 Nov 2022 11:05:44 +0000
-Received: by outflank-mailman (input) for mailman id 444976;
- Thu, 17 Nov 2022 11:05:42 +0000
+	id 1ovcru-0007QE-Ba; Thu, 17 Nov 2022 11:15:42 +0000
+Received: by outflank-mailman (input) for mailman id 445117;
+ Thu, 17 Nov 2022 11:15:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=iQoc=3R=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ovciE-0005Gv-BB
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 11:05:42 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20626.outbound.protection.outlook.com
- [2a01:111:f400:7d00::626])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c4639b1b-6667-11ed-8fd2-01056ac49cbb;
- Thu, 17 Nov 2022 12:05:38 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8964.eurprd04.prod.outlook.com (2603:10a6:20b:42f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Thu, 17 Nov
- 2022 11:05:37 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5813.018; Thu, 17 Nov 2022
- 11:05:37 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=p9yL=3R=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ovcrs-0007Q8-8k
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 11:15:40 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23d378db-6669-11ed-8fd2-01056ac49cbb;
+ Thu, 17 Nov 2022 12:15:28 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 8C9E35C0760;
+ Thu, 17 Nov 2022 06:15:36 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 17 Nov 2022 06:15:36 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Nov 2022 06:15:35 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,126 +43,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c4639b1b-6667-11ed-8fd2-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bqseZaqo3AWopjD7rTyhHm8S60fhlx78pXk/DFuZ9WSoB7oodZPjPoTL+TSWCwK/CdQp4QzKJK/H0T8dmnVtecNKkgtHUI1jTEfqcUrSAJu1ySdFczbamsPALoT8QdfiqxIgTXeqW7jI3wXoJWAPeozX8fUCy6rBBGGm5fMvdbfw7d9RsaauP+1/0NO1zjyb/n0+dmNOa1Ymg8FtXmWN412Xqkb7d+7ErIQMlg2BLTA/i/4BLVwQY31E7UAhyq4vS7FjzKxbhR0LG8MbE1TnimIgYOZbefp9/4puGCXzbnfwYInjA2fzEj51cRmPZVfLsNXnK6bFdKXOk9de/sCa1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZOPem5wlv44zkGOeFPMl74oN24xthUeEZJcqZUxn0jY=;
- b=LCRZ62GkrIdOnS0iBsNO3juu0wedKpjGNIyhLrWoSl0iIcrOvsCtUGnLtQA8Dm0rOwU3kblPbKvY2++Brk3eh/MfGajFl9E8WI+qd8gnW9Prymi2zJDVsetimmyCRRr6bArFZkWC4QtapYOdYYLe+s7PivoziHqdiEHBcyZPYFp9uysatbLtCO3t5OUnrgVeKDpJoeo2pX4epy9c756m9jlVKoJfsieer8aVdJGj/9mPKtt1FO0UkHk5pmTkv6aIxhJOTBh7mqZLOCDt1D2wzFuutpQzFR5bKXODKduCa7J55QXoTLJ4TLjg7Obnlvy8o1yA90kO7u2YCHO0f4Xpxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZOPem5wlv44zkGOeFPMl74oN24xthUeEZJcqZUxn0jY=;
- b=sXXSJyt9kClN8WLJGGF4DF+qkJPuLWeNNUAPGpZVdWecJVUG23eRkUig8mt1QudUlq0/ynth84EHikZBwuEetxQ8fDPPgoVSGnIi530VsLjZujkdSBgOEcUmWddOR32v8dHezBJr/VmImr2y581wkYsyUKVnyrCU03oluVXkdavovgeEEdlao8yC3+k+co55zPtUAvPogbmKVL7R1pqGSGledvxaHe9401wPnBXTvC/nbRKbSUNYdRTORpRoKRByptFr5irIXakz3SlQh+7uYIxqJQlHI3nV3ft1lCXzVe4naZfscqaw4sbEGqq3i7IdRR8DCJ+G/mEZ4ld4QHciBQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <8a59fe37-bded-24f5-a2dd-108f84f2c434@suse.com>
-Date: Thu, 17 Nov 2022 12:05:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH] x86/pvh: do not forward MADT Local APIC NMI structures to
- dom0
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20221116164216.7220-1-roger.pau@citrix.com>
- <9b559146-11d8-f848-d6fa-baed7e0fa06f@suse.com>
- <Y3YLpFuYlVoifDuz@Air-de-Roger>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <Y3YLpFuYlVoifDuz@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 23d378db-6669-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668683736; x=
+	1668770136; bh=fRC9zntwG89J7/RUbd4ryrJLykigctEhig3DEmAzbqk=; b=C
+	AGag0iPzG1x4VKKK2AvuzKLpmPJ7eEr9cN2CTY3nBaypDZ79RqslS4Ih99Kr6doi
+	MXodUbw0hufmd6s0SsEQs2GVFD2up+DFiIPNiGk3YqU3I0AOix3gesMNLlLyzHYm
+	lWlavYJMCxS/uK3lRjCwILSP/5lB1xcbuCd+NDmPF5H21gsEjeG+iHr2rSTo15zP
+	Truy0W8pz6dqlUUu9zYpbsSRM80e6UMOeBG2bWdDA0K2XGoYyiflDwJuIp3C5Xq5
+	S59iVHeWU1WjYuRucQUqC1POA8rIXEgDuWChHQ6bpYHXklUCS8n6Pm9NTAXegHt0
+	XtcWdeGsNgJ1jYOzq3QaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1668683736; x=1668770136; bh=fRC9zntwG89J7/RUbd4ryrJLykig
+	ctEhig3DEmAzbqk=; b=RS/LCuRXwyq+8kQc6o7zNJklNM/JE755mOJLIvxD25wh
+	zN1UlKlA5KA+SAy5BIQjNmOHlIz7yO/eHyqYq45h1YDemwIPQvhRtAAtgWDxSoDK
+	pcSU8QKyKONVZP8pToWYt2BSaTpsOdAkS0D/9l9EHOLLuGMBP8V7yP021b+5CtRg
+	+l6nUle7PVoFFBhEFD8dIQdeTmtXqbfIMxCC9dfrmmD3tqhlM6u7ZHbdzT2dEp5Y
+	+hG8Y7mHOvyIBSgVdkBojKBRBLlY0eZz5pJUlpJL51Tx+xDCrVZU8fItPu95cevP
+	ncig8foWEE9TgnV0L5Sd7r5t2INBX44TQLmMiP/ddQ==
+X-ME-Sender: <xms:2Bd2Y9L6NmldMoRdl7Bfcv31eCvvq-hvIxaImPB3lJ7EshDjAkWakg>
+    <xme:2Bd2Y5KTT894Q1NvrzIEwPsctM8XJo-gYpsSDTMHh71Hld0M2UmygYVxT5DBMjGSU
+    d78cIvOD3lDjQ>
+X-ME-Received: <xmr:2Bd2Y1tZb2GTiTav-d7OmVzO1chaOzyC6SUX5357_N39qVIMVYdCRLQ0ajyOxrdC6vY_uXKE2capDgwfCoGxAKRFrqmwQDnaBQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrgeekgddvgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeet
+    teeggffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffohhmrg
+    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
+    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomh
+X-ME-Proxy: <xmx:2Bd2Y-Y5eBURZIbl3KlVldryFYvglcvzgWjhfr_cHA_q7DxE6ZcDtw>
+    <xmx:2Bd2Y0YPgTg7U89I271IZBqKczMXN_aszw6SL9Xvw2e5PK4Wbv9kUA>
+    <xmx:2Bd2YyABG0yjyAen7UPJLqIAKCx82f164Oi1xbW-Zueje4EtOXGN1A>
+    <xmx:2Bd2Y7V51Gq60GBkcRElwoSd5su744BHSuuMTw72UewWwydRWZwc9w>
+Feedback-ID: i1568416f:Fastmail
+Date: Thu, 17 Nov 2022 12:15:30 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+	Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on
+ Xen
+Message-ID: <Y3YX04aorSaDhk6l@mail-itl>
+References: <20221114192011.1539233-1-marmarek@invisiblethingslab.com>
+ <20221114192011.1539233-2-marmarek@invisiblethingslab.com>
+ <CAKf6xpvpsJuMZx98vLJ7CAmUWG-vW91Am0L8817eD8nmAN4NUw@mail.gmail.com>
+ <Y3VYs/sS4VddrBCK@mail-itl>
+ <Y3WruE/VOBZFfHfi@mail-itl>
+ <1443e924-5b53-9ee0-00fb-4d790d404b08@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8964:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18541070-c601-4964-930f-08dac88ba83b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	1TE99X7OyV9iFNdpWDBXA+6Laomu1w5HkR8Hz/IwRWx4lOE2zsUFb84ufjftE91UHBHYL4cznVMoKdXo5XNawC0Uq+m2AIC7U4dZyraau9mNXEajTIZR1b3BaJGZheWvz3s4SZ6NJBYIVj8dkoI50URxIoK85V5jsBq1DRtTAvyXLdFACcsD23MQ/4MA1V9sAzBmSaMjpI6SMgUbH8Ddzpv7LTZTUDsolwVgQQR/02bUawddLwdBdIBFD0BbKWgHg5UIltCnx/R2/WV0NSH/UKMzxbm/I18DJ5yEpQyAZv1sxwYwJ2mI31kK4foVLpdMIxsq3/x7DEZkl8epekhz57dae/+meanHOt26RRSeFNuqAbfcks4486xfDJkC6gp+BnUkLUPzmb5Q5jZvallKQAbCFKXxhaghdDx7h0MBONYBE9n20QWldlMLDnUiC6N+FOAtPG+Sf1h2YMJLHgbNyYhHOC0n7qySrXuoatnHBhVYKlTZ2kHU1dl2Zw+L9Jsex+elreOlZQaym8AtcOGD3ofZF9yIlHes37is2tgp3SBLSIFet4+TzJDvBAjJIqo6YsJFH0tdaArj/8h7a5+MQatb6hFyhr45KP86lbLtMhXowxMMSgxTteFYPFM4XibrLBoeJjQrLsDbQubhZ7FD2D6D7I+G5xoj8xiC+QFcpLIkjIdgOHj1ANvxhzvn/QFI4cv1FhVzmLQfnw+wknugCCAmedXWxUFJ9Ourhpo66+c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(376002)(136003)(366004)(396003)(346002)(451199015)(6486002)(31696002)(86362001)(83380400001)(38100700002)(53546011)(5660300002)(8936002)(66476007)(41300700001)(8676002)(66946007)(66556008)(4326008)(6506007)(6512007)(316002)(26005)(186003)(2616005)(54906003)(2906002)(478600001)(36756003)(31686004)(6916009)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UmFCWGF5dFhCWG8zdHo5SXIwRmtodmlQdmNrVUlXNHo1azZXMmU3bmhGTjBK?=
- =?utf-8?B?K204cnkxSFAvVVZNZTUvbERuTG8rVTdqa0YxWmhEK2RMN3RNZzV0Unk4ZWR4?=
- =?utf-8?B?RTRFUW9mZzFXN1NOSEJ6WEkvblJHSHNiZW5YYjZPcjBnOXN1cmN1WUI5eWdx?=
- =?utf-8?B?QllsN2FIZkV6QldVcjVYdlBxeWZ1NzVFeGdXQkpaVzJlaWs0dm50em1kSEdq?=
- =?utf-8?B?TVVDK3p2OGN2MmZGMi95WWR6a0Zob1JVMnpVWFVPYWJ4RTlsMEhYNFg3Ulo3?=
- =?utf-8?B?dmRGR1hhSDJVT2JROUtVUXBpSDRHVWt0QW8wS2IweXVFL29oN21vbU1tR2Fy?=
- =?utf-8?B?Z2NFaXgrSmhUdEt5WkEzeGI0bXRhQXNIbFFrUVpEdHBTbWJOSUpSeGU1L0lr?=
- =?utf-8?B?RTd0MWFiRU15WWJDeXlHTFlTcnBHUmcyL1pkSjVZZ1lFMlA4Vk1hN1ZLai9l?=
- =?utf-8?B?NWd2bmZoSUppYlFzVFNFRHRGdHU4TFZ2emI3bWN1WTQrNlBSOVJjS29VblRu?=
- =?utf-8?B?RUc0UWh2eWRVT0tnemVMSCsvQlB2eU5HcE85clU1YWkvM0ZPU1RsVXBKc3Vu?=
- =?utf-8?B?ZFpPTUFyckJlU2ZzTVZNaFFKUjc3U1F5TittV09hWTIzdWIxNnFuL2xUTGdF?=
- =?utf-8?B?Mm0wbFNuS3ZqWk5jOGp2SVVmZjRWSHlUUHQ4enpSU3pUNUZ4TW1uTUd1Qk9r?=
- =?utf-8?B?aUhyZlNkeE1NcmdPenFNNHA4OFVqdlIrQXFBOXYzdGJvcGh1N2lEeWVobFgx?=
- =?utf-8?B?dGpjWldza01YTlg1Sk1ubHVsRmx6eEJON1poM0F0MmRBRjFUNk1BMWR1S1ow?=
- =?utf-8?B?R2ovczNraUN3V0lUQWtlakgwVHN5UmdUVVZjU3lsUHhQUEg4N1dJYzFTR2lB?=
- =?utf-8?B?VlR1RHJMSlpIbUZwL3BHTlFGZVArTzIwT1FUS1dxMnJJRjltWERnWmlLSzIr?=
- =?utf-8?B?UkJiK3diQjNpYmdUN3VJMXZOSGhPUEh0NkRWN1h4S1NTWXBKTk5ZSjI5YTM2?=
- =?utf-8?B?c0s0NU9pdUFMYTRBYnFDMjhQOFNiQ2lvUGgyLzNiT2M0bnU0OFkzcUlLVmxP?=
- =?utf-8?B?STlDbWNlQlQ3WnY5NzhsbGVHYXNjUXRXR2RHM0FkWHdDSkdGbHRTNmlUWVlT?=
- =?utf-8?B?aUY5OE5LL2p3K1VnWUI0anZsRWhuWDNrdzZwNkNpbUhwcUU1ZUZveXlHMlp5?=
- =?utf-8?B?aThqakFKUWg1YmtsdTNwMTJVZE9mTy9XYnI3cm9QYU5VNUsvMzhKd0ptNjhx?=
- =?utf-8?B?dk9tZ1FpL0x5TjNPUDhsS2dHZGhpNzUyVFlYMVVpaGRKR1l6V2RVdkFjaU03?=
- =?utf-8?B?cjd5UlpPL0M5a3Y3ZDRnUXNTdTl0YU5DVGNyOXFCMXZYYVM3eEh4SFcxT2lh?=
- =?utf-8?B?dzRwRlhPZ2t2c2pqNzllNGIrTjJuTU8xbWE1aGZCWjR3cnBDaU4rRG9aMnkz?=
- =?utf-8?B?bWxtY3YwdmZRd0pmeHVFWjgzN0wyZG1jdUZSYVRsR09vYTA2RGJTV3V2RWtx?=
- =?utf-8?B?YzV5Wi9TOWFqd1FVTGdlMm40SFd5bDdBMWU0N0hnVk90elJlUnJqMDVxQXA2?=
- =?utf-8?B?dERUTThKVXdzOG9FY1BnV3U4R3ZNTVVUMGQ0amtrajhucGFDRG1mdWNrWUUr?=
- =?utf-8?B?U0l2c0xpVjUyU1MxdHRLNlU2S2dpQkM5YWN3QVdhbURJQlRqUDA3OEFjeGpS?=
- =?utf-8?B?YU05cXlyZnlwUStha3NBWXhGQzRiS1I0azA2Nm5mQkx1YjhFZ0JlQ2JhSS9Q?=
- =?utf-8?B?dllXeTJ3cURocXZBdjZXVEc3M01vcGpQQk92MlRZeWFRV1gyRVdkYkZGbzdE?=
- =?utf-8?B?V2llRklKWWhWQ0s4Zm1VdlJEc2FaQUp4N1NBNm1GbWZBdmJrbVE1NS9xb252?=
- =?utf-8?B?aEo5QmF2Y2NDaDVPREY5T3o3My9WbllXZytMVDhleEhsQ1lVOWFlTGdWYWZN?=
- =?utf-8?B?RDVlSVNYamNVbGFJQklxZDZBMmY5SGVFM0pPZElEVFNNQlVndFFWdmt2N3Fx?=
- =?utf-8?B?QU5RWjFlRWhBTHc2dnE1aGF6ZTROVDExNmh6VTBVaUpnbjFNSzBMQ1Y3bldv?=
- =?utf-8?B?cEU5eVQxWFlzQml5ZjFFTlRBUlBacXlhOGNoSGtQYnFOeVVubTRsL2tYeWp6?=
- =?utf-8?Q?VHEdHzA3sCrlAfv1PB+cOtBUE?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18541070-c601-4964-930f-08dac88ba83b
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 11:05:37.5926
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B8OFJmDAW19upn6mWj0mNnyT7/+4zSMJ0izP3IQC76juh1r9sdp11M3nf5rscx9q1/OvuCPLGru+BJswHChj7g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8964
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fJdg5cbyRovzVsoQ"
+Content-Disposition: inline
+In-Reply-To: <1443e924-5b53-9ee0-00fb-4d790d404b08@suse.com>
 
-On 17.11.2022 11:23, Roger Pau Monné wrote:
-> On Thu, Nov 17, 2022 at 10:27:41AM +0100, Jan Beulich wrote:
->> On 16.11.2022 17:42, Roger Pau Monne wrote:
->>> Currently Xen will passthrough any Local APIC NMI Structure found in
->>> the native ACPI MADT table to a PVH dom0.  This is wrong because PVH
->>> doesn't have access to the physical local APIC, and instead gets an
->>> emulated local APIC by Xen, that doesn't have the LINT0 or LINT1
->>> pins wired to anything.  Furthermore the ACPI Processor UIDs used in
->>> the APIC NMI Structures are likely to not match the ones generated by
->>> Xen for the Local x2APIC Structures, creating confusion to dom0.
->>
->> Plus we should have passed through Local x2APIC NMI Structures then as
->> well.
-> 
-> Sadly this is not possible for PVH dom0, Linux will use the ACPI
-> Processor UID as vCPU ID in hypercalls, so if the UIDs don't start at
-> 0 and are sequential Linux will panic during boot because vCPU
-> operations will fail.
 
-Sure - I was merely hinting at the original attempt having been incomplete
-(besides being flawed as per the description here).
+--fJdg5cbyRovzVsoQ
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 17 Nov 2022 12:15:30 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+	Jason Andryuk <jandryuk@gmail.com>
+Subject: Re: [PATCH 2/2] Do not access /dev/mem in MSI-X PCI passthrough on
+ Xen
 
-Jan
+On Thu, Nov 17, 2022 at 09:04:40AM +0100, Jan Beulich wrote:
+> On 17.11.2022 04:34, Marek Marczykowski-G=C3=B3recki wrote:
+> > Ok, I found what is wrong. Enabling MSI-X is refused, because INTx isn't
+> > disabled at this point yet. And apparently I was testing this with
+> > permissive=3D1...
+> >=20
+> > Linux does this:
+> > https://github.com/torvalds/linux/blob/master/drivers/pci/msi/msi.c#L611
+> > In short:
+> > 1. Enable MSI-X with MASKALL=3D1
+> > 2. Setup MSI-X table
+> > 3. Disable INTx
+> > 4. Set MASKALL=3D0
+> >=20
+> > This patch on top should fix this:
+> > ----8<----
+> > diff --git a/drivers/xen/xen-pciback/conf_space_capability.c b/drivers/=
+xen/xen-pciback/conf_space_capability.c
+> > index 097316a74126..f4c4381de76e 100644
+> > --- a/drivers/xen/xen-pciback/conf_space_capability.c
+> > +++ b/drivers/xen/xen-pciback/conf_space_capability.c
+> > @@ -235,7 +235,7 @@ static int msi_msix_flags_write(struct pci_dev *dev=
+, int offset, u16 new_value,
+> >  	    (new_value ^ old_value) & ~field_config->allowed_bits)
+> >  		return PCIBIOS_SET_FAILED;
+> > =20
+> > -	if (new_value & field_config->enable_bit) {
+> > +	if ((new_value & field_config->allowed_bits) =3D=3D field_config->ena=
+ble_bit) {
+> >  		/* don't allow enabling together with other interrupt types */
+> >  		int int_type =3D xen_pcibk_get_interrupt_type(dev);
+> > =20
+> > ----8<----
+> >=20
+> > Jan, is the above safe? It should prevent clearing MASKALL if INTx isn't
+> > disabled, unless I missed something? But also, it will allow enabling
+> > MSI-X with MASKALL=3D1 together with MSI, which I'm not sure if should =
+be
+> > allowed.
+>=20
+> While it would probably be okay with what we have now (after your earlier
+> patch introducing allowed_bits), it's likely not going to be correct once
+> further bits would be added to allowed_bits (which clearly is going to be
+> wanted sooner or later, e.g. for multi-vector MSI). Hence I think ...
+>=20
+> > Alternatively to the above patch, I could allow specifically setting
+> > MSIX_FLAGS_ENABLE + MSIX_FLAGS_MASKALL while INTx isn't disabled as a
+> > single exception,
+>=20
+> ... this is the way to go, and ...
 
+Ok, I'll go this way then.
+
+> > but at this point I'm not sure if some other driver or
+> > OS wouldn't approach this in yet another way.
+>=20
+> ... I guess we need to further add exceptions as needed - the one further
+> approach I could see is to keep all entry's mask bits set until setting
+> "INTx disable", without using MASKALL.
+>=20
+> I'd like to note though that the PCI spec has no such exception. It,
+> however, also doesn't mandate setting "INTx disable" - that's merely a
+> workaround for flawed hardware afaik. (In Xen we also only cross check
+> MSI and MSI-X. IOW we rely on Dom0 anyway when it comes to driving
+> "INTx disable".) Therefore in the end pciback looks to be going too far
+> in enforcing such dependencies.
+>=20
+> Thinking of this - what about making the change in
+> xen_pcibk_get_interrupt_type() instead, setting INTERRUPT_TYPE_MSIX only
+> when MASKALL is clear (alongside ENABLE being set)? This would then also
+> cover command_write().
+
+That may be a good idea, but wouldn't cover the case here:
+xen_pcibk_get_interrupt_type() at this time returns INTERRUPT_TYPE_INTX
+only, and setting MSIX_FLAGS_ENABLE is prevented.
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--fJdg5cbyRovzVsoQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN2F9MACgkQ24/THMrX
+1ywedAf/dOdpvHMdqxqZIURx2tzub79X1LxTrSa9mqH/9utKQj2xrBX2UAjQ53pi
+3q4t9afEFRzYKqGTolbTmY+YGHDEKNFfHxN4UMo97V3qD89WsaKTtL02YRf8FgXn
+A5qIicth/fwYhP1XSHuTTc9JGGi0+b1i0eULWDM6Kv9nqJCmPXQgxoNKv9Y3/n8w
+cBYBhuII6SPgHnaFsFmpcra7XfGoOUF8fz0zh99/f0v+M/Q1oASezM4Bq1EylM8u
+bJa9MyRaIhOH1CB1tzZVCRHFpH1ifoXFQNck8jFuaa0DTVTMOV4rWD7ncFvfRJ3d
+cpn/DJ2kgMrr9tjAAaXnwK2DTxDK0A==
+=Xa69
+-----END PGP SIGNATURE-----
+
+--fJdg5cbyRovzVsoQ--
 
