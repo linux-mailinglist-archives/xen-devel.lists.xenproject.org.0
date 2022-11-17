@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5F6B62D8B2
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 12:01:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444937.700125 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B53A062D8C2
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 12:03:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444942.700136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovcdC-0003KH-Rg; Thu, 17 Nov 2022 11:00:30 +0000
+	id 1ovcfS-0003x3-C1; Thu, 17 Nov 2022 11:02:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444937.700125; Thu, 17 Nov 2022 11:00:30 +0000
+Received: by outflank-mailman (output) from mailman id 444942.700136; Thu, 17 Nov 2022 11:02:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovcdC-0003HJ-Ny; Thu, 17 Nov 2022 11:00:30 +0000
-Received: by outflank-mailman (input) for mailman id 444937;
- Thu, 17 Nov 2022 11:00:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ovcfS-0003uQ-8x; Thu, 17 Nov 2022 11:02:50 +0000
+Received: by outflank-mailman (input) for mailman id 444942;
+ Thu, 17 Nov 2022 11:02:48 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iQoc=3R=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ovcdB-0003HC-0Z
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 11:00:29 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on060c.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::60c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0af55324-6667-11ed-91b6-6bf2151ebd3b;
- Thu, 17 Nov 2022 12:00:27 +0100 (CET)
+ id 1ovcfQ-0003u9-RU
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 11:02:48 +0000
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2062e.outbound.protection.outlook.com
+ [2a01:111:f400:fe1b::62e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5df7e22a-6667-11ed-8fd2-01056ac49cbb;
+ Thu, 17 Nov 2022 12:02:47 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR04MB7169.eurprd04.prod.outlook.com (2603:10a6:208:19a::24)
+ by AM7PR04MB6952.eurprd04.prod.outlook.com (2603:10a6:20b:107::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Thu, 17 Nov
- 2022 11:00:25 +0000
+ 2022 11:02:44 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5813.018; Thu, 17 Nov 2022
- 11:00:25 +0000
+ 11:02:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,264 +47,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0af55324-6667-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 5df7e22a-6667-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Z9yhTOWOm0bVfgWe5GH3eyM4Zj7xnTvROdy2+FNMdeVwdt3gRgZzm7CWu3KCceHvx1lMDr5+aXW/zFKxXK1vHMrReuvjzMKX5GSZYl+NZ50CZ1RxMgSih4IgynhHGCzDyN2mnjG95/fjq9G2/8m1D6DTgqJ1MXw2bO/oTWdllDb3X6ROTHDYWsPKZ9oqiLDEtLJ9mTjrbohj/vtgS7r6L5iIxK55XVsEflEQSzFzEXXgBYkBMu3btRv9mc6YB9Lym3kKUuFS3Idl9ox8NodHBZ2lYS3x+xwJrGtXsb2m0Xh7Y8kf0dXvKywx8hyShLj3rs9e69aZ9pgCf72J3E49wA==
+ b=WTtxOlwebTgCSRc+0bk5TEGtt3zwLJZZ+X+SaOv6rfQIDpHnE2hZe7k6wyRyUyWZizVnz0DfoAEHEsLoudusQfK5lPTqGbNSNe51JLEJKzvHZPqolttcOT6JLg6vcnsKnUvS4NUE7MvyAESDpjAwej6tAVxqiR/PjlGTdQciyFOzKGc8J2U+1t6hdajtwTv2uFujrAX2mPP2JriciqLO6DPyPY0ZMI+LLdCw+HKq7VwjTiqvnwro9BMPt/410ng1P1C17OFCgtjhzrYJx8RmefmP/6+Jv6Ew3HFwmh/zw0vx+TnyIACFv1QlS4CjcHisUBMAPQlQk2G/C0SoNR65AQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jasQHcIxN6EHMhwqWyfdrKJiQeUrsfV8YGhcHfUEZzc=;
- b=jQPkXT/9l7uAkrDi/g7+D5HWchXSF9k55UgAk9T/BJ1y0mDo/KDijvi/BsgrG5HmOh1wYxjH8ZJ1I0SR6MJxYkulVCdK6gE9yH74Z8eupFjal7cnWuKymrhB7tVxuuYSZjSxfPbCc8TOgcbCEWDs/qxNSzwoE3Zug+/9YMasdu/HLXVC8XZ6V4VRyVVqJC5HhSZ6tlX7XNXjNwY7WhQjgbFDyQbgXSP/2awdF0wwADUSVuX4fndU3H7CQZezEA6QtxsIsw21CGKpIGe36j+bMQmaNQqQ2MivHsVihD0rfAW9qov6hlKZNtC7K3hkEf3rseIBZ6pNCqDHNIFBLVnYbg==
+ bh=enzpmgm+Wx2zaDFOlTJh3Vae26JcCCV25docySovQK8=;
+ b=NZUvasErmmNFS7MRqrUiE4n0rrpXXSeBDQOsTfEzavwkO2riVtf7wNTjqEtGYc8BR/4cAlLKIT9c9jlv6xsHqn++XjOcH+bqbU3gaRfnDnRjkbvG8cYM9x4n+lamWeAhNW4EHHhh0uOj4kjFrWUFJg2r7KBz07MFzSJIzFYCF+q+vHxUG9RtytqVKX99ALY4to0oa2v0vWyUuxaJ5yk/Fc81VjN3Tt2Fv7YNV0b//kQQYLfAtAbT5xhQeJJ9uG7aY070zpjlmgxrrVP71Z3hPJF3K88QtUdeKGDQdY6tLvvrk/XE7QUyPiB5oth6oipAnVO/vwq7qVTJvTqZM5ofoQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jasQHcIxN6EHMhwqWyfdrKJiQeUrsfV8YGhcHfUEZzc=;
- b=Wq/DTmWU3tEGIFni7ZLgqdELAhrTReT1GD2Y5sw4T0RSvjGfHOdD2tiAWUzR/ExaA9JNUFkGOsKFNAIEjGOWHujpxKyPyNLrmy5ojA7sfQIGcsArpsRFDMHAqHC1pXVWFRrjBNEVwqiEsifvcEqaLN2bx7eqIbGzs3UFj7dYk+Qe80MYotV2qap7qydQ3JrzGMlhVREzua6mZZEov4NrD1slqueD0bNHX9ak1rLMiaiV0uiiZh4XZqpG3jBZczfld4H9DOcspvCPnwib04MfIUD4SOhEX7sPCY2wmrfTpXVckC8zndwUG7pvBwWmmdfNmi7lD7avB/vDXSq40QXhUQ==
+ bh=enzpmgm+Wx2zaDFOlTJh3Vae26JcCCV25docySovQK8=;
+ b=cRxghlbvPvJzTaXD1ZvPdCbRF8yQ1mqiEERCdLEUMf9FYx1VMoaL10Di7+WFT4gzuL3gxyefWvkpML8NLKhgHF2JAKkXr/RrEDuyYw7rz3fc5/IV77y3sKOATZ4H9IOCdfHaraLFI54WGMuL/8VpLkV8fh3/H4tcu/tpXdy+lmW/dLdrkzO2H8507zn+RqJjrnxlIi1blT7vkDOkhdmrVhi87NKRYDyWk2FXGc0iZ+zHpk1hjEfmxngFB3/cBToMa5rRWbOkkukaYeSH2G69ZpMJxMHw/Xb7NtSv55nPEOMrmv/3IgEulqtO3dLQ2hV/rr6bwRRjZZD9I/W7J4l22w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <dfa1eb96-5538-e3f2-250b-3cf17a6e50fd@suse.com>
-Date: Thu, 17 Nov 2022 12:00:23 +0100
+Message-ID: <487ab146-825d-37f7-ead8-a510b0c4d6b1@suse.com>
+Date: Thu, 17 Nov 2022 12:02:43 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [RFC] docs/misra: List files in Xen originated from external
- sources
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20221116092032.4423-1-michal.orzel@amd.com>
- <93736488-8e0c-282a-2e5f-db0cf9419183@suse.com>
- <88a04b63-04ba-ef03-771d-1f2d11ea8549@amd.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <88a04b63-04ba-ef03-771d-1f2d11ea8549@amd.com>
+Subject: Xen 4.15.4 released
+To: xen-announce@lists.xenproject.org
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Language: en-US
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0055.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB7169:EE_
-X-MS-Office365-Filtering-Correlation-Id: de9bac01-a9a6-4ec1-94df-08dac88aedec
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6952:EE_
+X-MS-Office365-Filtering-Correlation-Id: ef8ba820-9410-44df-633b-08dac88b4137
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Vh+whbaI/j0SZkeruhHiaYCO7yZcSJ558+tv/TkDEwHOYjCM7QXFEc9C5wfwukVR4/GkESvqcSiYdNMValoobh2atnomNQjPX7Q/6qDX9DhDnTCpxx5+eTQPFwK5rUdHp7lbWIOlxY/aaLKiBzWzeZQXu6iOwR3knd5OXnp+CT73tnQiTw6hdKJNlNJGdL7M1Q3wDi6AwLLba+8JyPr3BH4k3Xjyj7mz1T/8rkEpW0E+URNweKlfyzRIuUKZBciB32P/bH+CAXokVVcLtDMhl1kD90AeuM3pRQ2GTlPp7Xr25I5AbKHBc5axtnOTq34sc7xte/uIT8Lo9cwBGvoOiAO6BxmXqydgGP81A6nhTHgSX31qww9RoBpldl6JjUQtZKP+Bu8LYtmvtIReyfyqIr612Q/XWpcZHGckr/abeb21ruZdJ4kJLIfKr6QXVi+kXCLnva/dp3w5kMz7euQtYZmlEtF767Wg10ZEyHc4xQhaymrHnFTD5MDN5qf8zQNkZrGz4c89aOXjo3EPHPYQ7dwITB10dBABvquGohRKhfo596jhwOBozRLCYOvNnlMqn5ohraqYNkhaxdYpav7IuNJjRmd3ZdoOGMtIwA5JXl+wr1ukBSxeiebMrhhZlxrY27Zw41cv6dNZw//FlZbtIGTtTkBBwfmui2vvhbsly2gsE/FoHQdXTFhr3ntXRg4XG8QgPuBN2r2b9VrbbYWRlNfkWq452JZFVMcSX4DsV24=
+	qAopv+CGxvEhc0yVEN6T4zvn3fZ/IlnrSXHYuBYT/2zcH7y8Xsv5Nnegi8+r9wLu2jzfAJB68ieP6d0ruulf+heXSaGrsjfHySCn/dFehDnjdxGpn2n+u0bIIywOOJWEDgBX7yzBNI+B6xc3ehjSj/cnE1Bt0pYUbNKC7CmZfmRQJqIQ4Zyhn6bd5SW2V5opTGiLykLkhd035kKs8z69QxsNfGOW2XzZZhR5u7MhwsrsERpNcTq+d1Rwk5HN6OkWZ9YDMtX6myUwvVDGCOYOs4rPEDNriofnyS+zIg0xHcXXUdXRlrbzcjm74UQn1vYzDp+/onjpwnYirzO98uNoJO0HKbx2Exb5lZihrQk6MfSBfxUF8xxxFiLUqbEvsVO2/LytbviJCkfkmitMYQx9ZTvIXCpWYnryw5DroWOCtLKq5NIUY41hhRZG1KHwIAP4YX0JF3dx/PyNjT0TWpKsHc17Cx7Iby67cxfBdE5Bkn3tjUSHamzPdXK3H0KC8xWysOnW8HHsy3eduolm91DBGpC3H1zc1/7Q9XLR7Bk4SK9AMu2123R1wWBFeR4vgp9iIWbI+kUn82hIS4yEfQ5gukK7gQEQaQaG+deduTzKHDGhm4y8yaBlbI2Xhy883CwXSfOIOYo19ls8/o/f2iipPfJBYP1m1D5nTzg9EfDrJ5z7aBC70yXvqzk9EFksj6jWZLDPWs8c2wnsOybiVz/vTSZUXgFIaZy+wQGHdE2xTAJiJkt6RHI+heISUz+5a3zr
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(39860400002)(366004)(376002)(346002)(451199015)(31686004)(2906002)(66556008)(5660300002)(66476007)(41300700001)(8936002)(83380400001)(31696002)(4326008)(8676002)(86362001)(66946007)(316002)(2616005)(6916009)(54906003)(36756003)(186003)(26005)(6512007)(38100700002)(6486002)(6506007)(478600001)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(376002)(366004)(136003)(39860400002)(396003)(451199015)(7116003)(4326008)(83380400001)(31696002)(66476007)(86362001)(8676002)(2616005)(450100002)(66946007)(66556008)(4744005)(5660300002)(8936002)(41300700001)(186003)(26005)(38100700002)(6512007)(36756003)(966005)(6486002)(478600001)(6506007)(316002)(6916009)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MndIaE5pSlU1bXBoSFhFdlhzd3c2cC9Ic1UrVXA2OFE2ODVaUGZrNnpKeGVk?=
- =?utf-8?B?THBiRjRKR0hIQlJkenhzbWZyclo3Z1g5ODJLRHVpSGZqeHBGNEhleFZSaHVa?=
- =?utf-8?B?RTlQYUZWTFdRaVRyWmxWMDl2NDNDSTlBeEF6a2MxZXBTZVlVeUdYZlR3L1ht?=
- =?utf-8?B?bnh4K1VYSjR6NXFmT3I3WHVkWHAxTzA3K29neWlYZElwSnhsZ0Y5ODJJL2JP?=
- =?utf-8?B?OWovNEpwZWc2am5MUHZ3NGVaVHFoczU1ZmNndHk5UkdmRnpWd3hJRHlsUG1H?=
- =?utf-8?B?dFJaa1dESnE3U1ZpeGZEbHhlZlJPY284aTJueDdhQldVc1hVYy9ZdjgrZktk?=
- =?utf-8?B?UHphS1QzblJKVjg4Z1FNamZUS2xWTGIyeDNqYytna05Rand1c2dmUmN2SEV1?=
- =?utf-8?B?aDNlcENGL3hUT05Xd3VReVc5OXdIYXUyUldtdHR0L3YxaGo3UG9icFFqQmVJ?=
- =?utf-8?B?ZjhuZFowUlNpazZGaE02cnpicGtsc0c4WVQ1YWdnRnRkN1dGQmZzSHYwUUxM?=
- =?utf-8?B?bzdEMEl1RnN0Z2o2akZua3RkdXZhRm5aajlaS004bi9ISWtUeTdaZnZZT0Vo?=
- =?utf-8?B?Y3JiUHkySldsWGNZZkFkcnRqK2RhTytVTENoaEkrVWNXTzRLRXB4Qi83R3cx?=
- =?utf-8?B?NHFQMm9tMTRqalQ5TEZTdlhPOHZGeHY3QTdOdm5VNUc4ZFFLNW4yUk81a2ow?=
- =?utf-8?B?T1dsVWVDd0dIQU9DeDRkaXNFZjkwSUZzS2paK2lrcmovU251ekNwQmVWRGdV?=
- =?utf-8?B?Qyt6YTdJekR0T0xsdmdRTmF6d2RQbm4vTGg2a0szYWZ3SWRyY2pLRFdDYyts?=
- =?utf-8?B?MWc2c0J6RzJtd044QWJjQWNtTC9iOFdETW5ZQjVYbFBUN3hSZHIzb0lSajZI?=
- =?utf-8?B?bWFneml6ZEp2bk9TQ1oxZ3crZUJSM2ZuNEwrL0F1RUl3RUdmbmUzT0pQWUpK?=
- =?utf-8?B?WlV2N00rN1FQQjJoZ0U2eXgyYlp4Y0dUNUkrV1pQZmhBeTlIdUVab0ExQjVB?=
- =?utf-8?B?WUhwVmZjMWJlWFZMdERIOU5oZmg0VUdxeVZHVXF2Z1lTbitHUGRnblZ0ZExO?=
- =?utf-8?B?dlV0TnJmNHJjTC9IZmVBTDBvMGVqTnpYa2g5OHkzc0NaTk1VWWc4MXNNRG9I?=
- =?utf-8?B?WTd0bW9tSXFHTmtHQTNLU0IzTmp2WFZuNS9RaVRtV01xR080WVFwUmJCU0I5?=
- =?utf-8?B?c09uRW5SVjNNMGUreHl4MzF0WWU5dFFZanNKNEZEaXJxNVhnQllSSE5OZ0NL?=
- =?utf-8?B?TTg4aUdpNERxMm1lZHhCWmxBV2NOTUdvWXJsRzY5MW84Z0ZDalZOaGZaMWRl?=
- =?utf-8?B?Z2xEdFNteTAwS0dTclI3MXVUL1E5bWtnYmhpUmJ5TmRncmV4QS9yOVlxRkpG?=
- =?utf-8?B?UXVWOHdmR292bHhUUjZwZ2RpdFZhWGVzc2hNVWU2R05zd2RQNHRaa3oyZTBu?=
- =?utf-8?B?Rk15NnNGb3ZwTGI0b2RJK3lTYXhXMHhyTm5TWGthSEYvajEyaWVYVkpLbC9R?=
- =?utf-8?B?eFJGRGlHNnhDaEJpWkhsOENQQUtZMUs2M3F5M0RjYlcxTDd2a1VwQ21IVlky?=
- =?utf-8?B?U3F0TWdheGhFdDlMWG5aekxFNlA4WHJSYXloeUtBS1ozb2sza3A2L2h0dVFL?=
- =?utf-8?B?ZVd5MGZjTVMwaXJUeUJEL28yMnVOTkpFc2lvQUNUWGFOSUV5Sk16allFdFFI?=
- =?utf-8?B?ckFLV05xTmM5WUpOM0dDSVlzUWlHUzFQeHY2Y2lVYjdPRWd2RUkxZWpKNVNo?=
- =?utf-8?B?bkNKMjA5ZDI4ZmZ0emFIVzdWcVJtZE54K09Rc0JrVEd0VitscXFqenlaMmIz?=
- =?utf-8?B?S3dhbUd3c2JldW1JMU1INjYyS1NjZlNWVXNwbzM4bm11d2Q3R1JYQ0JUTEp6?=
- =?utf-8?B?UzVJYll4VjRGNjNCU0c2dFhoY0t2Q0hscU84Y3BPVWU3SFl3UHNONjdncFVF?=
- =?utf-8?B?QXVSS09WOVBES0N3aklFZDZmMGZpY3hHOUt6bm5uK25GY3I0Sm1WM1RKTDJK?=
- =?utf-8?B?OHdLYnpWVkxjRGhqUmprZFpzeHFYR0pqNEE3TWpuTE1PRTZNalVwUmVaUytj?=
- =?utf-8?B?UTYwcFpUUStaZ1F0OUFNbzAyTzZoTXpBalZxaWhYN1I4SFdzTU1WNFVGK1d4?=
- =?utf-8?Q?EL78gx5XLFYmm87ZFUVUW2G3g?=
+	=?utf-8?B?MzhBN2VKOTZ6Z3FTQUpBcWhlUTkvd2FpcEcxLytIT1hEU2M3OTZqT0U5WkMz?=
+ =?utf-8?B?YVpzdlV0bEtUV1lSVC8zRldUTWprNTRWYXVybjJrY082a3VydW05dzhweE85?=
+ =?utf-8?B?emlZczF1blFOaVJqZkNLYUF3VWZJYXg3bFdnNVZZcFpaUUhPektqa1ZnQnFp?=
+ =?utf-8?B?d2gzUkNrWkJUOFFHc0t0Qi92NnVsZjNrLzdNU2t4T2x1Y1h0M1hJdXo4VlNj?=
+ =?utf-8?B?WVFoRWFGUzUzVjFtU0VRQWJZamVmeUZCb1MvblN2eUcvem1ocXduZjNmcjFv?=
+ =?utf-8?B?ZjlBS3d4RFdpUEhiYUM1ZzF3MUxUN21MZGRtS3dUdHVWQ3dFOHQvK0Ywdzl4?=
+ =?utf-8?B?OXFlMDZUUzJTKzNjVEwzR09SUHgyLzY2UTlWMFRPTElpeUlrYytlNWVKMUlV?=
+ =?utf-8?B?cjhhWlZnM3g2YlBWb2h4OGZSQlNEcG1USWxndXpSdm5QeDJpY3Z1b1FuSnlH?=
+ =?utf-8?B?ZWp3RldNS3plYUpWdkpNZ0J5V25Db2VnVGVnVkVpVk10OVFCOURvTzVFcDhK?=
+ =?utf-8?B?Ukx3T3Y0MEprbXpjc3RBT1V5QUlLc1NoYkFleXo5UVVFa1l3cFV5aERGUkF4?=
+ =?utf-8?B?NWY4M2xwbUFmMUpnaitFRnJhblN3aFkrdEltVDJsbk1Bc0tOeFQyMm5LU1Nl?=
+ =?utf-8?B?aEk1ZG1hOThJdHVxaWhWSHR4WTNSWmhiYnQ3YmNhK2RaZ3pMS2lnc0crVDhj?=
+ =?utf-8?B?Zjh6UkI4bVVVZ3ZLdGRhN1ZxeEN4QjQ3Q0JUdXBKa2dhdk9vNCtYbnQ3Sm81?=
+ =?utf-8?B?N0VmWDdYcXFOcU5LRFBlZnhwUG15MVI2V3RNUDRsY0lNVUJXd1lOeVhLYzRq?=
+ =?utf-8?B?eGFCeU1DTzN6OVE5RmtpTHlJYnp3cmROT0hIWmUzU09heW9DU3ZxdVdqK3Nm?=
+ =?utf-8?B?enBHUjlzdXIwdHRwNDltb3lQRS9SRzYyYSt1S25uQWdPMFBYRVB3M2NTbzA4?=
+ =?utf-8?B?dkdqeDhWdkZnYTk5dkUzS1FJTWZXSk85dmZDTzdwWFpVV3BNeXRrK3VyR3Bj?=
+ =?utf-8?B?YnE4UlpIS1k5UDdPc2lxUWRKaFFMaUpwRG1ZME15WUJlTU5sSW1iSHR5Q1F3?=
+ =?utf-8?B?TVh4alNtQzJyMU5vRFlyRGQ1aUpLWDJSSmxWS1YyMEY1YU5SQmxXMDNZMnVV?=
+ =?utf-8?B?dHdWVnozbGFZdCsxcGN0QlNqb3lFdzhDYllRUk90c202QUZoTkJEMXlwNkY3?=
+ =?utf-8?B?T0dRM3NPOHp2ZXBsVGFOdC9sd0FqSUtablJ2bFdySFlmQld0ZW91NTUyT3R1?=
+ =?utf-8?B?NTdXUmlFL3pKbGxQZDhrUEhocHVHREdTcjRZUjllVHZPd3RFa3VuRGVxcnBj?=
+ =?utf-8?B?dFg0ZVZhN1JpbnlONnRYdm5CdlgyN0tzY2dYampPL0l3Vi9SYmF6K2ZzOEdp?=
+ =?utf-8?B?dXdDWVF4dlNSOXhLNDFFVzc4SHZVaklEdGtsMkdlTUhkZjNmVDRyeHBjeEUv?=
+ =?utf-8?B?NmMvdUNGcWpad0RmcE51VTRrWWpObCtacDZNWHdkQ0pFUU90em8zZUw5YlBt?=
+ =?utf-8?B?aWJ2WE1pNkN3bUVYZGlVbnJjQk5YSThLVFh2cy9ydG5ycmRhcCtXQ3I4V05Q?=
+ =?utf-8?B?bUpGcE10ZFJhK251eUppOENhaEpuOHFycFVjdzhlZHh5cUtQU2JwMTJDQ2Jk?=
+ =?utf-8?B?SndPOTkrTmp0K1VuT3BZdjNQU3hIcHlPTlEvd01uVE1udkYvcEI1dWJpZFRW?=
+ =?utf-8?B?VHlxMzVaamp1Sjk5Mmo5VTV2SHRhaFVTRkxxODFvUjBSZHFpdFdxYTRRVklO?=
+ =?utf-8?B?Qzc5T1NtNVp1NXgvL0hHTXM2L2hNenhnUEFrOHZCWklqaEtqakRDVi8yUnNq?=
+ =?utf-8?B?R2JPc3BqYktDd0ZFT3hnUjQwY0lBZGNNMC9uYUdPMWNWaDZFRm5xUXRoSmps?=
+ =?utf-8?B?bGU2L0duZ2l2ZHBPK0YyUkFVYkJUOERYbDllaTZucWxwbnhBZ20wMnlSSC83?=
+ =?utf-8?B?emFLR0dBV0pSZjFaa1pKRjJkd0V3ckk5Yk9HR3d1UGpvem1tWlJyQzBMMjM1?=
+ =?utf-8?B?MUhtWnlvcVRNV1pMVWdPdWhldnBoKzFoV3Z5cXoxYzNNcVpmRHNvaEhIM3hW?=
+ =?utf-8?B?eHMwYjlqamhqYjdxaXRjeFRuOVhOSEc5T1dqK2k4UGtSZkRtRmJvUFp2L2Y1?=
+ =?utf-8?Q?qizIh41FJJeURYjKxF7EWphSq?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de9bac01-a9a6-4ec1-94df-08dac88aedec
+X-MS-Exchange-CrossTenant-Network-Message-Id: ef8ba820-9410-44df-633b-08dac88b4137
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 11:00:25.0187
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 11:02:44.8067
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: miG5L13WuX1SLQiZG4eUryW3tlnxVUeiYPDnSUHELwAWsafOvrE8IpmARJjDzk4eSBGJ9x0SVKyLKU8ubW+bxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7169
+X-MS-Exchange-CrossTenant-UserPrincipalName: IGFohuTIDR2TtOhF16w8vcj+giC9FKcoR2tXzqjlemY/x+8vyPodshOtTiOCdKS+Ewv6wdHlSh5ECFbPi72RzA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6952
 
-On 17.11.2022 11:39, Michal Orzel wrote:
-> On 17/11/2022 11:03, Jan Beulich wrote:
->> On 16.11.2022 10:20, Michal Orzel wrote:
->>> --- /dev/null
->>> +++ b/docs/misra/external-files.txt
->>> @@ -0,0 +1,70 @@
->>> +External files in Xen
->>> +=====================
->>> +
->>> +The following table lists files present in the Xen codebase that originated
->>> +from external sources e.g. Linux kernel. The purpose of this table is to:
->>> + - keep track of the external files in the Xen codebase,
->>> + - help with the review process (e.g. changes done to the files that did not
->>> +   diverge, shall be first submitted to the external projects and then
->>> +   backported to Xen),
->>> + - act as a base for listing files to exclude from MISRA checkers.
->>> +
->>> +NOTES:
->>> +1) The files shall be listed in alphabetical order.
->>
->> But then you don't?
-> True, it is alphabetical order with directories having a precedence.
+All,
 
-Which is kind of surprising and, at least for me, confusing.
+we're pleased to announce the release of Xen 4.15.4. This is available
+immediately from its git repository
+http://xenbits.xen.org/gitweb/?p=xen.git;a=shortlog;h=refs/heads/stable-4.15
+(tag RELEASE-4.15.4) or from the XenProject download page
+https://xenproject.org/downloads/xen-project-archives/xen-project-4-15-series/xen-project-4-15-4/
+(where a list of changes can also be found).
 
->>> +2) The origin of the files derived from the projects other than Linux, shall
->>> +   be specified within the () placed next to the path.
->>
->> Might it be more generally useful to have another column, then not only
->> stating the project but also the path it lives at there (or lived at the
->> time of cloning)?
-> We though about it. Would be a good idea but can be quite challenging for files
-> that appeared in Xen before switching to git (difficult to establish the time of cloning in such cases).
-> 
->>
->>> +3) The table shall be updated when importing new files from external projects.
->>> +4) At the moment, only the source files are listed in the table.
->>> +
->>> +| Relative path to xen/                     | Diverged from | Subject to       |
->>> +|                                           | origin? [Y/N] | backports? [Y/N] |
->>> ++-------------------------------------------+---------------+------------------+
->>> +| arch/arm/arm64/cpufeature.c               | N             | Y                |
->>> +| arch/arm/arm64/insn.c                     | N             | Y                |
->>> +| arch/arm/arm64/lib/find_next_bit.c        | N             | Y                |
->>> +| arch/x86/acpi/boot.c                      | Y             | ?                |
->>> +| arch/x86/acpi/lib.c                       | ?             | ?                |
->>
->> This was simply split off from boot.c, which I'd be inclined to take to
->> mean Y in the "diverged" column. In the backports column I'd prefer to
->> keep ? for both, or any other indicator taken to mean "maybe / uncertain".
->>
->> What about arch/x86/acpi/cpufreq/* and other stuff in arch/x86/acpi/?
->>
->>> +| arch/x86/cpu/mcheck/mce-apei.c            | N             | Y                |
->>> +| arch/x86/cpu/mcheck/non-fatal.c           | ?             | Y                |
->>
->> Even before disappearing in 2.6.32 the file was different from Linux'es,
->> simply because we don't have anything like schedule_delayed_work(). So
->> it's pretty clearly Y for "diverged".
->>
->>> +| arch/x86/cpu/mtrr/*                       | Y             | N                |
->>> +| arch/x86/cpu/amd.c                        | Y             | N                |
->>> +| arch/x86/cpu/centaur.c                    | Y             | N                |
->>> +| arch/x86/cpu/common.c                     | Y             | N                |
->>> +| arch/x86/cpu/hygon.c                      | Y             | N                |
->>> +| arch/x86/cpu/intel_cacheinfo.c            | Y             | Y                |
->>> +| arch/x86/cpu/intel.c                      | Y             | N                |
->>> +| arch/x86/cpu/mwait-idle.c                 | Y             | Y                |
->>> +| arch/x86/genapic/*                        | Y             | N                |
->>> +| arch/x86/x86_64/mmconf-fam10h.c           | N             | Y                |
->>> +| arch/x86/dmi_scan.c                       | Y             | ?                |
->>> +| arch/x86/mpparse.c                        | Y             | ?                |
->>
->> Like above I'd like to keep ? (or alike) here, as neither Y nor N are
->> fully accurate.
->>
->>> +| arch/x86/srat.c                           | Y             | N                |
->>
->> What about common/cpu.c?
->>
->>> +| common/libfdt/* (libfdt)                  | N             | Y                |
->>> +| common/lz4/decompress.c                   | N             | Y                |
->>> +| common/ubsan/ubsan.c                      | Y             | Y                |
->>> +| common/xz/*                               | N             | Y                |
->>> +| common/zstd/*                             | N             | Y                |
->>> +| common/bitmap.c                           | N             | Y                |
->>> +| common/bunzip2.c                          | N             | Y                |
->>> +| common/earlycpio.c                        | N             | Y                |
->>> +| common/inflate.c                          | N             | Y                |
->>
->> What about common/notifier.c?
->>
->>> +| common/radix-tree.c                       | N             | Y                |
->>
->> What about common/rcupdate.c? (Stopping at this in this regard:
->> It's unclear by what criteria you have gone. Even as simple an
->> indicator as "Copyright (C) ... Linus Torvalds" was apparently not
-> Please see [1]
-> 
->> used. Similarly mentioning criteria for considering a file
->> "diverged" would be very helpful to spell out, even if there's
->> likely some fuzziness involved there.)
-> 
-> We would need to pre-define some criteria to avoid having a long justifications.
-> Any ideas?
+We recommend all users of the 4.15 stable series to update to this
+final Xen Project coordinated point release from this branch.
 
-Well, changing just #include-s to fit Xen's model shouldn't count as
-divergence. But coding style conversion already may. I'm afraid
-criteria here depend very much on the purpose, and hence I don't
-feel qualified to suggest any.
-
->>> +| common/un*.c                              | N             | Y                |
->>> +| crypto/rijndael.c (OpenBSD)               | N             | Y                |
->>> +| crypto/vmac.c (public domain)             | N             | Y                |
->>> +| drivers/acpi/apei/*                       | N             | Y                |
->>
->> I'm not sure of the N here.
->>
->>> +| drivers/acpi/tables/*                     | N             | Y                |
->>> +| drivers/acpi/utilities/*                  | N             | Y                |
->>> +| drivers/acpi/hwregs.c                     | N             | Y                |
->>> +| drivers/acpi/numa.c                       | ?             | Y                |
->>
->> Y
->>
->>> +| drivers/acpi/osl.c                        | Y             | Y                |
->>> +| drivers/acpi/reboot.c                     | N             | Y                |
->>> +| drivers/acpi/tables.c                     | ?             | Y                |
->>
->> Y
->>
->> What about drivers/cpufreq/*, drivers/char/ehci-dbgp.c,
->> drivers/char/xhci-dbc.c, and drivers/video/font*? What about some of
->> the stuff under tools/, especially tools/kconfig/?
-> 
-> [1]
-> For the first shot, the criteria was to list files using different coding style than Xen,
-> especially the ones using tabs instead of spaces. As I indicated before, the list may not be
-> completed, hence a gentle ask to list the missing ones. Some of the files you mentioned
-> use Xen coding style + there is no information in the git history that they originated from
-> external sources. This is why, the maintainers who are the addressee of this RFC should have
-> a better knowledge of the origin of such files.
-
-Hmm. Please forgive me being blunt, but to me this then looks like
-offloading work to people who shouldn't be required to invest
-meaningful amounts of time. But maybe that's just me viewing it this
-way ... Yet this is particularly relevant if ...
-
-> As for the files under tools/, FWICS they are being filtered-out from MISRA checks, hence I
-> did not list them.
-
-... the goal here then indeed is use for MISRA alone. I did e.g. ask
-whether it wouldn't be worthwhile to more precisely describe the
-origin of files because at some point in the past it was also
-proposed to arrange for some more automatic monitoring of changes
-being applied at their origins for files we have cloned. Which
-obviously first of all requires establishing an association between
-our files and their origins.
-
-Jan
+Regards, Jan
 
