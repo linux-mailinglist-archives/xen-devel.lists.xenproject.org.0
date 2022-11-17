@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F22F962D4E1
-	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 09:19:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.444566.699843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE97262D4F1
+	for <lists+xen-devel@lfdr.de>; Thu, 17 Nov 2022 09:25:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.444795.699855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ova6U-0005Sr-17; Thu, 17 Nov 2022 08:18:34 +0000
+	id 1ovaCS-0007Wx-LN; Thu, 17 Nov 2022 08:24:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 444566.699843; Thu, 17 Nov 2022 08:18:33 +0000
+Received: by outflank-mailman (output) from mailman id 444795.699855; Thu, 17 Nov 2022 08:24:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ova6T-0005Qj-UP; Thu, 17 Nov 2022 08:18:33 +0000
-Received: by outflank-mailman (input) for mailman id 444566;
- Thu, 17 Nov 2022 08:18:33 +0000
+	id 1ovaCS-0007VB-If; Thu, 17 Nov 2022 08:24:44 +0000
+Received: by outflank-mailman (input) for mailman id 444795;
+ Thu, 17 Nov 2022 08:24:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=iQoc=3R=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ova6T-0005Qd-0h
- for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 08:18:33 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20630.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::630])
+ id 1ovaCR-0007V5-JC
+ for xen-devel@lists.xenproject.org; Thu, 17 Nov 2022 08:24:43 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on0609.outbound.protection.outlook.com
+ [2a01:111:f400:fe0e::609])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6a75e3e6-6650-11ed-8fd2-01056ac49cbb;
- Thu, 17 Nov 2022 09:18:29 +0100 (CET)
+ id 48cce6c2-6651-11ed-8fd2-01056ac49cbb;
+ Thu, 17 Nov 2022 09:24:42 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS4PR04MB9649.eurprd04.prod.outlook.com (2603:10a6:20b:4cc::5)
+ by AM9PR04MB7604.eurprd04.prod.outlook.com (2603:10a6:20b:287::5)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.18; Thu, 17 Nov
- 2022 08:18:27 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Thu, 17 Nov
+ 2022 08:24:38 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5813.018; Thu, 17 Nov 2022
- 08:18:27 +0000
+ 08:24:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +47,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6a75e3e6-6650-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 48cce6c2-6651-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nIBtvIRW560ljuuPyLHWVChTk20MJmUp2lj9cs2MWz2kbGPbUSZnXmf6tU/CLP5pamP9W2cgjBT7sjnYXxQMReOhuGfQHdePy/H3lvFIYdUQGPibR9bQi/rNXaNyLyFw1ZYYU+qQZYGfAWaQcwysmSuKnfcxYsI3GHbkHJsREDr3hjEmWJGnm+tdZjPQHZOHl1QQ3GKa5NnKDhg7qs+prLQwOY+SbXRrpfloDpS0ysPDCOsoojrJVvSDH2MHC6RFGkOsOM5aeBZtNiWhs3KTbZ7dH3HFa39ucOUHwEJ+Colncea2JUdgozTc+Uu7DW4SW4dj1qDWzyG702zzEPWfXg==
+ b=mgBc/R2+7/l86KuQAC2TdSRsrCf4QYrK72HTHf0wU/NFUryoc0c8kRjjGEaAB7TNZQ//AduENRQlFDtx9Z2oPIgV6ONDMH3vLme9gStlmEVMFEeWxP5hBFIBSBZGsdieGQxuLLeNJyQVjhuO3qxRBowX71F+2xS/msvsxjUgefyzzTfkV91VZMDTE7F1DGD0A/8rvD0mtNNi4SSscmTW1xy4GgJNuu7foPX4FlOhAZ8efj9fM0jFYZBUF7FzSqcWdJSdhNhNbhpS+kHqyInAK2n++vkinqzoXqNtCIG1RMU2s3Q7WARLsfHhTmNQmR5467Rw4xL2NTk8tf0s+B7ApA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YV6QUFEY9vlzYTTsEbqFIs+0kvYepxwj+YmoHgkufPM=;
- b=mofRmUUYLvW6tKTpb0NWIO7h/cfom8Rq7FFTciuPoUMIidsyYuwPFhV9zpBgOxwJLeKFzivJ+/YE8SswVPsXyrERdqGtYXxU7FGukIb9YBUMk36dM4mJxQHUwQ8SY+tfL9Wiyommws6R9iGCX0+yiMhsgNfdvdn1WBpbGfmBdlbHyM8CeeREmIarqlrrTZCkDU0tzEaNRfYv8nUngGtikYjSeD2wHVJbPwlZMLenHdAGmqRszKVhQKBfe4cjeMDz3HfPe/K0Iqcm10TeaKVTVOgj+2dwr4ZR4CAPnrTzWgVBBqEB8GdXgJD6Wql/G7kEP4ZIqMb8IhMWfO759bybVw==
+ bh=H5QUOWx2yaIUU2v4e2qHioxPLN1Ucatf7wWz4lH5g7c=;
+ b=nQJjJril9gtVGsB1+A7pXfRlbrpIhcV02DsUSdJuQohhH9eHX/r2ZYghLUYcervkhoHey4qPiEU8sDwXp4HhwK0t13FfnIZE2nu9f7yKtvvjvR/y0vSk6Kq6ws7XUkdDHy7fPMPJJdDArWbeKUXD7xZiO5u0pI+PbvpHEG+smSQpFIzwJpTlYGN90ed4CUnEQBrM3UHiBYC/UNS1yCupQZQ5y+CauHR48t7nLp0T4dU1J4iFUx3ok4WwqX2hzdXWfSJZE2QWOGHRmE1jFXnrvmQ6YBXiA7ZboO43BnqW0yROOHVzXn9UPAzGoWC9gzb9uHa6gJZ8a6boYs+DPi/ycw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YV6QUFEY9vlzYTTsEbqFIs+0kvYepxwj+YmoHgkufPM=;
- b=uROWZ04Nc0bciUzDh0fMJxL0zl88CkmqhKWSwVvFEJQL0VSSjPTOnwaBG1Q62OtVAcCRKHZxfEeqpRvpE1888Ec9M6h/RTCbpWzzDTdDBYnOglKjwMKgU2ht28tyAy8XArUD52O9J5XbJUZybsNKfKOvQHRNj1o0XDrbR9Ob5yJA/Q2Uk4kjw6iHek5glGjnYvGLEy0Nrm/oZzbDiF+YmblfVkBi+rvJP7rYXr3mxmHh4HzsQE6ysUGwKIdNTURGzC8T1qB6ix1SsFB4fmCGH2I8AE83r1ddXpNcNpk+y8X8cVhF3+WNoqexBuauWuE1OU9NYrCyFjpuKPeP9jmOog==
+ bh=H5QUOWx2yaIUU2v4e2qHioxPLN1Ucatf7wWz4lH5g7c=;
+ b=Ry+J4U9jwiCbIZjVqEkOomYmXiT6Ptpbpaxdu5Gc9/niiK9SUnGtlsO3X+/JlV+oke51cSEq3BSYYxql5WHdzE4SQ1Kprbtx3k3YZqEzTE+ApIuzGfhmyffuge8Z4LOIqxwdiyCzf9tSE7bSu5ANi2qDOms3dTkVsitvbFCRtBvJxyYxeVF665kc9V2mNgpKEtJ+mHh8VWRdK9M9IRVjrKbtpzUuy8voAKweypkLq1cWOozDKqQmGdxrCt+VNcebQdRpw3+yyarxX7twcXq7Xtm0UAH1MVuVq/0DgA2mfoQ+dQr5DBygeK/GBkKxHJTiHelUI2WoG7am2G+OzM8k4w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <0e2e79fc-efe0-501b-e80e-c98748c9babe@suse.com>
-Date: Thu, 17 Nov 2022 09:18:25 +0100
+Message-ID: <c4f853a8-deae-7c7f-6786-38b994c5a444@suse.com>
+Date: Thu, 17 Nov 2022 09:24:37 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [PATCH 3/4] xen/arm, libxl: Revert XEN_DOMCTL_shadow_op; use p2m
- mempool hypercalls
+Subject: Re: [PATCH for-4.17] x86/hvm: Revert per-domain APIC acceleration
+ support
 Content-Language: en-US
 To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Xen Security Team <security@xen.org>, Roger Pau Monne
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Henry Wang
- <Henry.Wang@arm.com>, Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20221026102018.4144-1-andrew.cooper3@citrix.com>
- <20221026102018.4144-4-andrew.cooper3@citrix.com>
- <alpine.DEB.2.22.394.2211151724320.4020@ubuntu-linux-20-04-desktop>
- <c0ba7b0f-d91f-74f2-be4a-3cb944392c95@citrix.com>
- <alpine.DEB.2.22.394.2211151759480.4020@ubuntu-linux-20-04-desktop>
- <ddb3dd9b-8697-1fe8-2dcc-2b5b859d18f6@suse.com>
- <269f4e70-07c2-5cf6-f42e-6f98e2ce70dd@citrix.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ Henry Wang <Henry.Wang@arm.com>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20221115003539.19502-1-andrew.cooper3@citrix.com>
+ <29469c16-856c-bce7-c556-66622e349f1c@suse.com>
+ <2334ba7c-d744-c1ca-8f67-b2013e9c5fe4@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <269f4e70-07c2-5cf6-f42e-6f98e2ce70dd@citrix.com>
+In-Reply-To: <2334ba7c-d744-c1ca-8f67-b2013e9c5fe4@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0024.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0172.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS4PR04MB9649:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c111cf3-c539-42ef-17db-08dac8744dec
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB7604:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6415377-46f9-4589-875b-08dac8752b16
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	lXyaJ9zf9s0gCkKZoo08MdGSjPPiBDyHCtA/IpehU2EOHXdkZO4tdk3K51XyPU/SXap9g3lfKhy0Zf7M3vo9EYmcKN97ALO8UlKe05lkT+/74t4obKz1iE15dTgbJV47LtdMBY82eTwnmvp7xvjNL6B8r7ManMoAk/KgdCfqmepyOpTPF9tI/xHtfEMKAg+ggrzOWE44ZHLV7V+ijcoDnLNoOf/oS62b5BnbnCQk6lxgfShitFRj/78VtwEmy1t/1nGW8LH5+7ofOT7uTGcKlaKiAtYobHUq733/9JgXwZopaZZpbGm9U0hEgdbvmqu8sn9krDgGxnxBGuxy5Rk630q0byn6CtH489LenFCsjlI564BDKmA9dfEL6VDwqxvJrGfW8Vl7oPi/RU5k9thN+oAdyTn0Zo0tTQDzGgHMUMlq8Jr0wFvJckgHERvPU05rZ6svnUf/wJoyEt3CqSnpm7ABmpDGHUwtlLj239Ar/+wF3I/k9qXTk7Y9V17JLvx+1+/KKcXTQUmGuSnCOtVxKyt809KphXpB092rfrzamHF27uBKeEEtBCr4iGG51bxdOkf7vby2cAmkTqJb0fcoF8pHt/4Q0SY1MwoHHRLcjYUeHVNZ2KuhB1S1APq8+W9ldjBTHWi46hSeG1PkOdT/8wuEMi1bHFstNAuB4eLVLW4Tw+BZq4CEsYJLp30adqFRgl/+gQuIcwTnTL9bt4MOSDpchiVam3SAz16v2TO2Jps=
+	lQ/27qKMIu7O1zCmXrtEki4defnJ3IMTk5O+yj/a5aSawhUlH130/zkj+LYP6vIreuo3nWZ6VoByFQt4qKGlCWkw++bdJ81fqzbaYnLwzSIrVS7bg4pTKNGh2oglgCCGefPrDG4PiG2dSbcV6K5UQjRXfFovEIn4CJYhq0sAT0iQqeFHHPG4FCj3o/jydya+8tlViB4G8kGIpo13ieJSGwKNDvP/U7zjXp4Y84sqZMxzHkfO8hKAbO/peftXKbtNF229tJJ23UkVjUR6euTVuUKwYhrIGJ400PWwmuXN6+6BBF33zJ97uW4squUDu/a4olZMuSk6A6JkP+CQmslFBU6YjTEiNiWDodXMfRlkQnCJD7Mjqt1P5v+bFhrLE1YkhK7LWCyVN/rQtbCPa/frELoiS2Us4jQ11H+P215IX45au7oz9S7CxQd/xJkZXJNIGcoK1MVznCAz4AuwkYYPkUaVADCzy2aotWypRK+MB4esYguO00F6+r8z8yjdGhkFg8+ievWUQUvjE7UQyrs+luwdxxBu99+VFreNTXOqupW3JGHX+y9G+f+YOOSWVsOXti1vI3udjfkP7/6ZZqdiKUhBIG9PEWjysEDCtU0jtk+8qhmZZuX2KlH3ffKiTLf1dW0+YpKY1Fk46UR7tuRH4VloudhdU8Z8TU5OpcdOmstx0ymivecMuHxjzGJm3A7+eS0H/87mnnLo7Dd9OXRAUt8cTLS7NQhpJw6sQhP4Nho=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(366004)(396003)(346002)(376002)(136003)(451199015)(53546011)(6512007)(6506007)(86362001)(54906003)(6486002)(6916009)(36756003)(26005)(478600001)(38100700002)(31696002)(2616005)(2906002)(186003)(83380400001)(7416002)(8936002)(316002)(31686004)(41300700001)(8676002)(66476007)(66556008)(4326008)(66899015)(5660300002)(66946007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(366004)(39860400002)(346002)(136003)(396003)(451199015)(86362001)(38100700002)(31696002)(6506007)(53546011)(26005)(6512007)(186003)(2616005)(54906003)(6916009)(8936002)(8676002)(6486002)(66476007)(66556008)(5660300002)(4326008)(41300700001)(36756003)(66946007)(478600001)(316002)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?emc0bng0Z1pzZjlvL2RSWXNRTDlxeGdxVHR4SG92ZFlNZUh6eCttQ0NVT3hw?=
- =?utf-8?B?SUlHV3ptZ3c3VFFsTk5wL3FTRU1nY3dGcHVOcGxnR2ZjS2RhU1FiTGJnbmhx?=
- =?utf-8?B?SmFpa0VlcGtoWGpPbTE0MnZDZ0Y1bDNJZmlXcWE5elZsVDYzY3hTc2VHSHhl?=
- =?utf-8?B?L0ZVS2FvZ0lRV1Buc1NjVE5GSUlVRDRxOHBhbHhqc3ZOLzUwT1U0RU5lSTda?=
- =?utf-8?B?VHM0d1JDcUJ5UHdEcHRXUk8wSGhTTDhpeEJwMVhMUCtvUlhtMy9EcTZEYjY3?=
- =?utf-8?B?YnZTbStNaDNueXIvMW43OG9td1Rtb0V2SEdhem1LdEdyYnBCUXJtQW1ESVgy?=
- =?utf-8?B?L0xnTXkxT2svelVvVXVZSklRWGtYNXZYbWRMYkoyQkRxQmpMallRZG5EVXRJ?=
- =?utf-8?B?NklVTThjUTU3RUVwb0h0WnBWZmlsOXc3cWppL0ZNTGMvazdOK3hMWG91K3R5?=
- =?utf-8?B?bG1PWUNQTlhQUVhTeUZUOXMwU2RBdW82Q2lUTm56akNmVnY0cWJzRGdkNmRi?=
- =?utf-8?B?WThvMWN2czRWUFhUejVpQUkvMmtoMTFvSUZxWndqRGFvbGdtQUZ5ZS9nQnJh?=
- =?utf-8?B?dldRZEZwZ2QvdWRZbFI0Z2xpN3RKblZZNDdaeTRSYUg2d1lxK3M0TW1OZEhs?=
- =?utf-8?B?eWFLQ0M5MWhUbFBNdGVYdGxkRFM1cmhWRzJpbm5iQWdIWnRTcXVxMVhpUDNN?=
- =?utf-8?B?aHFXbFRqdGpzMWRQUnYvNDRGRWV4VmRkdWs3VkdyZGJwcnJmV3lTRXE1T0VF?=
- =?utf-8?B?SlNteVZiYUVPOEpzb0piTFhzbVR5bEpVL0xnSXo3ekpnUzdoclNKYWpScGZ4?=
- =?utf-8?B?QmpUV003RDhrS09kUFBWWEpoYVpnZXNPS3dTOWJPRFg0cUVraGRIQ0xpMFUw?=
- =?utf-8?B?TG96clJnSEpRMzBYempOaklSeG8rb3d6bFJrUEdIMlJkY0FOeHRXd0dneUJs?=
- =?utf-8?B?VVNoektmU1lGSEU5aml3Z084SW04M2xBc3VZWHdoby9uZjBsTjlDRGhPdklS?=
- =?utf-8?B?N3ZZN1RwR21qZkVxSTJocWtwTkp1OUdTRDY1WGFsbmJCc2ZibDhLM1Z1eUNF?=
- =?utf-8?B?QzYrVUZpRkNkREpWa0s5M0NHOE5TbkVsekNqRHhHZEFpNWdMMmJtTllvUGZZ?=
- =?utf-8?B?QXdteWdFTGZWdCtFY2RPT2cxTGFQSEhDd1hTQTNrVmZURlZNY1RjcmFDdDB6?=
- =?utf-8?B?THV0L0gzdjFYSFhHd3ZZVm9jazNRUnFuenJzdkJHMU9xRUJ0YWsvdmJCS1JV?=
- =?utf-8?B?d1QrYXhPM0poaUNGQlFNK1BOdzZWek5zK1ZLY0RHQmlxWkZCUXB2Y3dNOWdn?=
- =?utf-8?B?MTBLTVUxYzBHZ08xZGpuRE5NMEV5RS80NDlLeTYydmtFdTBLM2wzdmQySGlS?=
- =?utf-8?B?d2IwaEczZFNTNTJodldkSDVZZTRpSExlYVk0Z0NoS08ybmVYcFQ0UXpaNDl0?=
- =?utf-8?B?bnlGcnRrTnZDWXYyYmhsdzNweXNHaWRBcGpxcGJwZE5NQ3l0YmJaaE81dGtI?=
- =?utf-8?B?QlJybTVkYmQzd29YNHlrVWJzeG96WlJraDdKaWhTcnp3cjhVSExkN1Uwc2pw?=
- =?utf-8?B?bXVXaU94RExDYzkwOGVkOGUwclF6eWx2RmtuSnZXVS9nZGw1UGVaYk92Z3RS?=
- =?utf-8?B?Ymw3eDNxd2JiSU9zcTdkZ1RRK2dZNnk2ajlPS2t2SnhNNmcyMmJRRnJyaGFY?=
- =?utf-8?B?c2Q4Q2VPNXFycG1Sa3NSRldUNzQ2QlJ2VE5QQTVpOHowVytuVTlNblVqK21i?=
- =?utf-8?B?NDdPWEpMKzZxSUU1MUVHbmJXeVRWaG5xWkVmNnZnUTdsOWlkYXJMN2JhMXE4?=
- =?utf-8?B?TmhlZE42QjJIaGY3aTU3S3JYbUNOR3ZNZnlOSU5NVUo1a2VCS3Q2MVNDL1NV?=
- =?utf-8?B?TDFsVnd6eHVjRmRaUG5Rc1QxT1R2WVoxQUV6eExMTGs1d0tlVW1XQUk1R1dq?=
- =?utf-8?B?OU1Bd1BtVTdhNFNRZnNpbURoNExKOHJCT3FFRXBOVmhQYzc2YTZKc1NScWw3?=
- =?utf-8?B?WjJ1azBXOHgrUzlUVW9pNUx1Rm1RTUx4NXhFaGRGL2dZMkZHcnBEMmhkMkJV?=
- =?utf-8?B?eTErVFhYRVpFdHE1NnpxQ0ZCYmxta01tOXpoM0N4WlpndkVidWE4TFBqSTRH?=
- =?utf-8?Q?5tQtMJ62bV8w+iJ/Syb8dHQwD?=
+	=?utf-8?B?WndDWVlDTklQSDFBblgyc3l1dkFxem9GTU11a0wwNTlJSVF1L3lqRE1JckNO?=
+ =?utf-8?B?NnkzODBqRVZ3T3prcEVqUDRTM3UyMXgvUm9WVThLZy9JUU03VFczak5lMUVB?=
+ =?utf-8?B?ZzNvZ0swZUEveWtqeWRQN1pWVm5DU1N5NEhWRS9CTG5nZnprUExFT0dOcW1k?=
+ =?utf-8?B?Sk1UK09qVC8reWJ5LzZFMzhNUGhEM1R1TDNaT2FZKzRPQWhOOHlhWnRZVjNo?=
+ =?utf-8?B?V1ZOSm5uWEtWeXU0bmVzK0hxZDRGb2Y5YXNVNURtY0dOQVg1ZWtrQTBrbnRG?=
+ =?utf-8?B?YTdiWWRKQnFsYngrNm1EUG4wTUtOU2x4UkRIeUsxM1hITUJ4MHhXcC84QWZH?=
+ =?utf-8?B?TWV3ckEwNmR3dW02NnRkN0NtVUk5UUNSem9TMjFVUlFSUzMxTms2cmJBQWVo?=
+ =?utf-8?B?dVhENGVkRmdNalVVOVEyc2NOU3RGNXVIaGQ4WHZCUmNvTHZNTWtOYmVQbXhW?=
+ =?utf-8?B?cHdZdXQzbHBWemRYeUxac1l2M3E5WUJFNjg2b0t4S3QxaEhVRTNCa0ppNkU4?=
+ =?utf-8?B?QlVTYlJDMHdSR2FBc0RqODJpZENMWE1IVDVIeVNtS3BSSjdvSWNrT2dyMVd0?=
+ =?utf-8?B?M1g3WU5zMk1BdGxnTnBvcUswOVg4cFJBeDZJREFDT3pmdTJYWjF5Z2hJeC8y?=
+ =?utf-8?B?MUIyMm4yV2FlVi9MQnVEUVZzUnNWdDNBWkpTLzZ4ajhQaGVVUGdqV2hxbXNQ?=
+ =?utf-8?B?OEpQZ1hndjFOYjJ3OHJTRmx5ZVVWKzlHQjQxbms0anF0TkFPOU5hYWtJa0ZT?=
+ =?utf-8?B?cFZxcXUyQWt3bVBub01rWjM4ZlZzQzFVQm5NMlJrSHNBZllyV0RtZ05sd3dk?=
+ =?utf-8?B?MUR6Y3ZTWWNNRlZ5WlFHM2FmK2VYNUVvMXNhdURVV1RDakRlMHNLMytWa0xn?=
+ =?utf-8?B?T2c3WW9RUjJIWStjYWx5L2RLQTR0ME92TlVBUm9vd3ZHdVhjS250SU40UXls?=
+ =?utf-8?B?VkwydEdUT3JqamFrMVlEdzFXdTJrNjJKb0NXTWN5aVRiUTZvNlBYNEl4SE53?=
+ =?utf-8?B?NGk2ZWJlSk5vL21wRzZkRGtLM250UE1FdTVVWkhMSFIyaU11OFdwMXB3WG5R?=
+ =?utf-8?B?WU1Vekw3eW5JdVh2eDZSN1NYRUFuR3NiQ2xQbHdyWE5tU3M3S3gvN1NUc3dq?=
+ =?utf-8?B?endQOG03VmlJamxOU2lWdEVGOVNyWFFXYmJBZzFKWEY0dHcxWmhXNTRxMkp5?=
+ =?utf-8?B?ZnhWY0M5d2xFLzBkM2VPMTNTODZnYVVPUENuNkxxME5xb3p2ZVhXL0NUbit1?=
+ =?utf-8?B?Nm15ODFUVEROK0FuMEtyTjNmY0pQZ0k1RmNsRWdpSDVaN09HUlZPcXkwVGFG?=
+ =?utf-8?B?bjlvRWg1cnRzTEZFYmpzWFpCeW4zVUcwWE5KQU10UEo4QUVNWUwrejlPN05a?=
+ =?utf-8?B?eHpVbUQ2TkhhOXNVbXAyVjBuZTRpa0Rhb3dnU1J6MU1MVVVYTWhKZ3pvQ3Ev?=
+ =?utf-8?B?OUNzcVR3QnZ0NndpcUo0RW5ibFppTnpBSDdiNEkwWXBtNXVvcTNFczdMZlha?=
+ =?utf-8?B?dTVBUjk4NGxLUEY0L0N6NFQvL2tIcmdHU3puL0N5eDZCLzZhSEcvcm9nVzNB?=
+ =?utf-8?B?S2pncmtrSmZubjE1NHhBNzk4WTZuamJaRlZZSS9xeWx4YXplQ0lSOWRPS2FC?=
+ =?utf-8?B?N2tHWXdidGJLRG5wa3k2TDRMd3hqY3dtd2h2MklBTzBBeUZkSktHMXJFRDNO?=
+ =?utf-8?B?Tk1QU1RFdmhMRHJleEZVOEphTnFBTDl4TGlyaXBCVjFyR1d3SkE1bEdnS1Q5?=
+ =?utf-8?B?bzZrY2xoRHZYVFN6RHVGTlk4S21hNndWdHI5ekZTNlhxYitqb2x2ZXMzYm1K?=
+ =?utf-8?B?WStZb2ErTjJWc0kzVFBVMU9iRmVLRGM2WDB2cW1KZDZnMVFmMCt0TWJjSHJ2?=
+ =?utf-8?B?dTRGQXprbkFpYkFBQWpQNlBoRTA5YTJwRTN4R3lQWjhFdGlmeG9ySWwydzRV?=
+ =?utf-8?B?azZUVldWK3lZeWZ5dVhsc3pjSzNDeGdpdU5IZ2lNVVQ0RXBnMnYwZWdoTyt3?=
+ =?utf-8?B?UDlGc2VETDVRL09iREJrK2NKNHBTNEgweVdRcCtTem02R0FCbFNEK1FQNEds?=
+ =?utf-8?B?SEV6dE1hSld4UzJKQjN6bjdCdXhqM0lHaXNIeWZ0RUpYdUtJNFYvN056K1VY?=
+ =?utf-8?Q?qsz1eWaVST8Vdl1oU1Zy7Mi/v?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c111cf3-c539-42ef-17db-08dac8744dec
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6415377-46f9-4589-875b-08dac8752b16
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 08:18:27.6988
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2022 08:24:38.7221
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bFp/IRNCtBHCTmcan4/8dN/brxRGDOyAwhH3Qt7/lI6f37SzVFw/jXoFlFfztHzMFnfkIpGmnMxvmA1+YjWyVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9649
+X-MS-Exchange-CrossTenant-UserPrincipalName: lvZT5Q+6HpMgTfyolAauECGYtjAufdJESEkqWb3tnSc7nLTwDGHhqKgLoCKzHEuPXkYKulUA0fS4rM2N3xu5+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7604
 
-On 17.11.2022 00:41, Andrew Cooper wrote:
-> On 16/11/2022 08:30, Jan Beulich wrote:
->> On 16.11.2022 03:00, Stefano Stabellini wrote:
->>> On Wed, 16 Nov 2022, Andrew Cooper wrote:
->>>> On 16/11/2022 01:37, Stefano Stabellini wrote:
->>>>> On Wed, 26 Oct 2022, Andrew Cooper wrote:
->>>>>> This reverts most of commit cf2a68d2ffbc3ce95e01449d46180bddb10d24a0, and bits
->>>>>> of cbea5a1149ca7fd4b7cdbfa3ec2e4f109b601ff7.
->>>>>>
->>>>>> First of all, with ARM borrowing x86's implementation, the logic to set the
->>>>>> pool size should have been common, not duplicated.  Introduce
->>>>>> libxl__domain_set_p2m_pool_size() as a shared implementation, and use it from
->>>>>> the ARM and x86 paths.  It is left as an exercise to the reader to judge how
->>>>>> libxl/xl can reasonably function without the ability to query the pool size...
->>>>>>
->>>>>> Remove ARM's p2m_domctl() infrastructure now the functioanlity has been
->>>>>> replaced with a working and unit tested interface.
->>>>>>
->>>>>> This is part of XSA-409 / CVE-2022-33747.
->>>>> Genuine question: I can see this patch removes the implementation of
->>>>> XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION on ARM. It also switches libxl (both
->>>>> ARM and x86) to the new hypercall.
->>>>>
->>>>> Why keep the old hypercall (XEN_DOMCTL_shadow_op and
->>>>> XEN_DOMCTL_SHADOW_OP_SET_ALLOCATION) implementation on x86 (not on ARM)?
->>>>>
->>>>> Is that because it was only recently implemented? And not actually
->>>>> present in any past Xen release?
->>>>>
->>>>> If so, please add a note about this in the commit message. Also, if that
->>>>> is the case, I think this patch series should go in 4.17. If it is too
->>>>> late to get it in before the release, then we should backport it to 4.17
->>>>> as soon as possible. That's because ideally we want to keep the
->>>>> hypercall interface changes down to a minimum.
->>>> On ARM, the hypercall has existed for a little over 4 weeks, and isn't
->>>> in any released version of Xen (yet).
->>>>
->>>> On x86, the hypercall has existed for more than a decade, and has known
->>>> out-of-tree users.  It needs to be deprecated properly, which in this
->>>> case means "phased out in the 4.18 cycle once known callers have been
->>>> adapted to the new hypercall".
->>> Understoon. Then I am in favor of getting all 4 patches in 4.17, either
->>> before the release or via backports.
->> Removing something from the domctl interface generally requires bumping
->> the interface version, so some extra care may need applying if such an
->> interface change was to be backported to any stable branch.
+On 16.11.2022 19:14, Andrew Cooper wrote:
+> On 15/11/2022 08:49, Jan Beulich wrote:
+>> On 15.11.2022 01:35, Andrew Cooper wrote:
+>>> I was really hoping to avoid this, but its now too late in the 4.17 freeze and
+>>> we still don't have working fixes.
+>>>
+>>> The in-Xen calculations for assistance capabilities are buggy.  For the
+>>> avoidance of doubt, the original intention was to be able to control every
+>>> aspect of a APIC acceleration so we could comprehensively test Xen's support,
+>>> as it has proved to be buggy time and time again.
+>>>
+>>> Even after a protracted discussion on what the new API ought to mean, attempts
+>>> to apply it to the existing logic have been unsuccessful, proving that the
+>>> API/ABI is too complicated for most people to reason about.
+>> Like Roger I'm still having trouble seeing what ABI you're talking
+>> about here. Yes, there are internal handling issues, but that's hardly
+>> "ABI". And as Roger indicated before, anything domctl/sysctl isn't
+>> stable anyway.
 > 
-> To be clear, I have no plans to remove the x86 "older" interface in this
-> patch series.  It will definitely break out of tree users.
+> It absolutely is stable when it it extends beyond domctl/sysctl into the
+> libxl API, two different xl config files, and Xen command line (for PVH
+> dom0).
 > 
-> In the 4.18 timeframe, we can see about retiring the older hypercalls,
-> but as a non-backportable change.
+> domctl/sysctl are the very least of the problem.
 
-Sure, but I was referring to the (pretty new) Arm incarnation thereof.
+Which still leaves open which "ABI" you've been referring to. As Roger
+and I have said - it doesn't look as if we couldn't change the meaning
+we internally assign to what libxl has started to expose (and what the
+Xen command line option simply mirrors).
 
 Jan
 
