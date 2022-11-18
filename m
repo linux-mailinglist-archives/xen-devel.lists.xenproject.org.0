@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277F062F56F
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 13:59:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445731.701062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D24D862F574
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 14:00:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445735.701074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow0xl-0002FV-EU; Fri, 18 Nov 2022 12:59:21 +0000
+	id 1ow0yu-0003kJ-Nq; Fri, 18 Nov 2022 13:00:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445731.701062; Fri, 18 Nov 2022 12:59:21 +0000
+Received: by outflank-mailman (output) from mailman id 445735.701074; Fri, 18 Nov 2022 13:00:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow0xl-0002CO-Bj; Fri, 18 Nov 2022 12:59:21 +0000
-Received: by outflank-mailman (input) for mailman id 445731;
- Fri, 18 Nov 2022 12:59:20 +0000
+	id 1ow0yu-0003iJ-Kz; Fri, 18 Nov 2022 13:00:32 +0000
+Received: by outflank-mailman (input) for mailman id 445735;
+ Fri, 18 Nov 2022 13:00:31 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jn0n=3S=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1ow0xk-0002CI-4v
- for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 12:59:20 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20621.outbound.protection.outlook.com
- [2a01:111:f400:fe59::621])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cf60853b-6740-11ed-91b6-6bf2151ebd3b;
- Fri, 18 Nov 2022 13:59:18 +0100 (CET)
-Received: from BN9PR03CA0074.namprd03.prod.outlook.com (2603:10b6:408:fc::19)
- by IA1PR12MB6233.namprd12.prod.outlook.com (2603:10b6:208:3e7::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9; Fri, 18 Nov
- 2022 12:59:14 +0000
-Received: from BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fc:cafe::51) by BN9PR03CA0074.outlook.office365.com
- (2603:10b6:408:fc::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9 via Frontend
- Transport; Fri, 18 Nov 2022 12:59:14 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT068.mail.protection.outlook.com (10.13.177.69) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 12:59:14 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
- 2022 06:59:13 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
- 2022 04:58:16 -0800
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 18 Nov 2022 06:58:14 -0600
+ <SRS0=W0R6=3S=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ow0ys-0003iB-VS
+ for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 13:00:30 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f9f18eea-6740-11ed-91b6-6bf2151ebd3b;
+ Fri, 18 Nov 2022 14:00:29 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 449653200C19;
+ Fri, 18 Nov 2022 08:00:27 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Fri, 18 Nov 2022 08:00:27 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Nov 2022 08:00:25 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,131 +43,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cf60853b-6740-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JyM3+vhgjqgTaUd8xsFypVdBmUfiF4VuOhCYEoEW/UIzVi3F8oyxgd1G0uBKnSmcJ0jwov0LCD9sebAEnFcol3oWUSxyDgT8c1b0u6KRoX1Rp+8v5vDiIcUHHQOpfBI2VMPkxcwGPZs0nXN7Hd0uvuwtajsD3hzE6yP58JTiFPd+sjn+huQi1NiotPIMmxZI3XE9qIXUK6l/AYmvYpLVakBAB2wfAFGpV/cSWllOWyvp5UxVQv3xxI+ZVGPeLxmaPtkHrNzmlqvR7p29IaPxCncKxtZICAfPtam7CGRDyB0DHOaKtPeE1veaF6GeQtiZmxx27/VYKMjaACJgRTc3VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+9Gwi04Kd3N+fiPfOQAsJErAbjp8tegdtG/SBTivV+A=;
- b=noGQHnSX6Ts8O3sZpOb5l920NE48THM2Oin6kHUo4EHAsB82gIN0jfvv+zMNEbsM8s56iBx9nPZ+vkiYzxgj7frduYf1MZlPdGRsMZ3FsPnWgJO2Xd5npm7n/cFAFbAvby26IphIKeYUT2kjlJqZaIq3FYfnPrwmHY4pl8mjIshGyYj2kBSYvWxNboUr8be5d6YBF7glYprQPGD9tJ+fGQiSoceUvWgPywJkOGoDqIYjk25Sjfjglrx1MimorQLmOwMBd+LBmTLMnNFJkhYLjWYm80HwFmTe1Hxb0I/x2OAcJ+cZeNtrYp69hrVqLRiOIXKy2M5QQhn/NN5vbVKK7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+9Gwi04Kd3N+fiPfOQAsJErAbjp8tegdtG/SBTivV+A=;
- b=S5BzpKNnjracQXafwWcqqehRA6mOGvrEAVfr1c4MHprNQGkZhJoSDxlr5AVuNkOuGeSfMXGCZYFkODpeMLTEMogVeyr+Nj/6KExGgPsvb2VvQqwiza2t4xknbTNsjXTZA1ewfCkuot3nz8usabwYWOw8yfzlOCh0Bxqp5zZMzEw=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <1ae42d38-51e5-2dad-1e15-872022c234ad@amd.com>
-Date: Fri, 18 Nov 2022 13:58:14 +0100
+X-Inumbo-ID: f9f18eea-6740-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668776426; x=
+	1668862826; bh=4EHC9MKw629pycdLTqwfH+QKLCKS3aENIW6Fnu+Z/Ms=; b=H
+	WCTJ1p7Ur0q1kOZOuKVB8DYeMDH7nSRlIewqZN0yWF33pZTrDjkUnyQsckgzwlMu
+	9xnBAybNi8LlLq4l5M3ayfkRukXi7fTdpdd+g2jjKBG8QZqevACN2ODXqptyfiE6
+	2GO1Agd7LcWh1hh7+v8/COEjzDtxDWOlgpvXoAg4IhC2+Q882Qa1nYkkJHQigX5U
+	eDG5Tl+ErH38JtfAcL6CNbkTjY4Z/WqnY4GZr5ZPcygj7bvLGUw2lD5wlhqvlEof
+	JE6ofFJCbvln5ar2DpNIiz7Z2euA/JnJ01XzPivmLNg6fXLg3qZMbqLunur+nbe9
+	WDd06l20aSQrPkVUONj9A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1668776426; x=1668862826; bh=4EHC9MKw629pycdLTqwfH+QKLCKS
+	3aENIW6Fnu+Z/Ms=; b=EPoZ8lQFM7WnkD2kn0+DJaKIC/I4Doa5nNO8dv9j1wpe
+	lAUBu58kfgh1TEe3UUUl3PagVLy8pilWuqq69VerOFyVzjsb8iNKnzTEJKQBISwV
+	OeGnDRbNAxAparwTpuK+VZ3VrDc3UVAioRNtWOdVv9kCa5qkYfKGEEg6gZ1OpFKg
+	XrIiIqGnkSurdZRAp7p0BKNo2wfDg/is2w7q4398LIbm53PaPpz8WLJxAiB8R/58
+	xooGdbXh71IqjXJ6kD+vBkI2UQZ4Hr171Uo11dzx+yn17EL95+fqlgp2aYwqKdAH
+	npDYSs4PfHsOMsUCTqv607FyWarOQgf/GlKQbw55+g==
+X-ME-Sender: <xms:6oF3YypE4akRlzQ0z_ozuPxWF4_cMbnKCHgTwumJipB5mbdoN3Ze5g>
+    <xme:6oF3Ywre1UK6LtKfBPE5G4MSqsmaNRuinDWZl8RqBDTM6njZbkSxUFgGMh4InxdYn
+    C3WiYYMad0hzA>
+X-ME-Received: <xmr:6oF3Y3PeJO-_qOEn55Pr2fSHHax6jA_uQAf0LWLIx67ECt1_lSrJxO1RulhkWFIofORJUp1ulPHuhFIwQLEa9-oCx1N8izQ1IA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedtgdegjecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:6oF3Yx51dQOXU-97y2AX2BJWgHIlmGRCZhIwqlB1yfzxxKWIqh4SJg>
+    <xmx:6oF3Yx6WJziDMNi2Se_HR9TvokSdLSsgtlwp--xdU9YLio7qaz_L6w>
+    <xmx:6oF3Yxh7SGKKxp6Dw7i96Z9pUYzfjjWVbKWfD7aTwRKunC1l4anLwg>
+    <xmx:6oF3YxEJeORKTl9AC_F4pW5gZC9FtKYfsuwK4HzYIt5jAhPglVIzTA>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 18 Nov 2022 14:00:23 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] x86/msi: Allow writes to registers on the same page
+ as MSI-X table
+Message-ID: <Y3eB5+GEQ36X9LnR@mail-itl>
+References: <20221114192100.1539267-1-marmarek@invisiblethingslab.com>
+ <20221114192100.1539267-2-marmarek@invisiblethingslab.com>
+ <15138618-5cb0-8304-a56b-cb787e187772@suse.com>
+ <Y3ZwAJITlD/rSf/n@mail-itl>
+ <cc75d927-b936-0716-bf36-70bb65be7a1e@suse.com>
+ <Y3d4aW4LjYwEZ85Z@mail-itl>
+ <9d034957-822c-74ba-9aea-0944cc456870@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [XEN v3 10/12] xen/Arm: GICv3: Use ULL instead of UL for 64bits
-Content-Language: en-US
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<jgrall@amazon.com>, <burzalodowa@gmail.com>
-References: <20221111141739.2872-1-ayan.kumar.halder@amd.com>
- <20221111141739.2872-11-ayan.kumar.halder@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221111141739.2872-11-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT068:EE_|IA1PR12MB6233:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0e8761b-96a0-4cf6-8f38-08dac964b1b4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	SRKnR+xQdQ+wIeGQ2/VzCPbjyPzbY2z7lr8jn4Q34KcSUpUmFBkDs+iK8uZxvpU/0SHZ4mHI+Udpifgh86NU4bjV38CeiYpuiv4XvWtFIVJCl76i5RDUAhAdOMkajVsrZ6UW7vbjOwI9qsmfhdr8/BWtKlojKg9RCTxDfdRAuR7ng399QJ3Nkt2MqSRbJCZbA/vqhwl00sX2QcmoVjs/WmWUDwjmkV6FwOz/zdAgYy8CGiw6MtrIqvPNPNLEf2iveRuPjlXuHmlq61FAwsRoKyPbUgBWa7Rsrr3/8u3WOEE92UFknhbg0dLwVFwDeLiLVU5mCdH/rUAZEremqLPpVTkzywVYGFpFTHVTkM+9QhbV6O7jNcrcYYrHxB0UxRH5GqRQvksBlNztp1IKzQRZTBXFVPm9br3nEXBhAv3yE3RWOm7VV+6H2MP32I68WmWOOQ/X8BXQ5RwDCZ+9y9af8Jsq9FHE3m4AYfZarwNB5D7X4l77xCM1mMRvYKCmVK2UqCl6Ns9rhzCdXoXoN5XRrNTNKnHVApybcxxTMA1fxUM/nSjR1JHBQC2aVR1xd3eCYdK3G8Ce+M5RrPAAqA9UFA1l4Fc7eWxRUYnGdnHz5Wfz5vSkJKi8DPKJLfmH/lcb3a2HqI1SBcJb3OJ0j32TGLuRidBVKmICvvNmyhCjk1kGoUsqAb79kNuvfwlI5cAxvFvz74wGeT5wbY/KaiFQ591OggpNubG2QW9o8pTK1UBsWFSqda8wRrZKTzgJGCnoUNfxoAQLUPbqHiZBryNNaw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(136003)(396003)(376002)(451199015)(36840700001)(40470700004)(46966006)(478600001)(31686004)(82740400003)(36860700001)(81166007)(41300700001)(356005)(83380400001)(426003)(47076005)(2906002)(82310400005)(336012)(26005)(36756003)(31696002)(186003)(44832011)(54906003)(53546011)(110136005)(316002)(2616005)(8936002)(16576012)(86362001)(40460700003)(70206006)(70586007)(40480700001)(5660300002)(8676002)(4326008)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 12:59:14.0409
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0e8761b-96a0-4cf6-8f38-08dac964b1b4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT068.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6233
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="GusqaJC/8lAeSwP9"
+Content-Disposition: inline
+In-Reply-To: <9d034957-822c-74ba-9aea-0944cc456870@suse.com>
 
-Hi Ayan,
 
-On 11/11/2022 15:17, Ayan Kumar Halder wrote:
-> "unsigned long long" is defined as 64 bits on AArch64 and AArch32
-> Thus, one should this instead of "unsigned long" which is 32 bits
-> on AArch32.
-> 
-> Also use 'PRIx64' instead of 'lx' or 'llx' to print uint64_t.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changed from :-
-> v1 - 1. Replace PRIu64 with PRIx64 so that the values are printed in hex as
-> desired.
-> 2. Use ULL in GITS_BASER_RO_MASK as MMIO registers are always unsigned.
-> 
-> v2 - 1. Removed changes to ITS and LPI as they are not supported for AArch32.
-> 
->  xen/arch/arm/gic-v3.c                  | 4 ++--
->  xen/arch/arm/include/asm/gic_v3_defs.h | 2 +-
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index 4722bb4daf..6457e7033c 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -417,12 +417,12 @@ static void gicv3_dump_state(const struct vcpu *v)
->      if ( v == current )
->      {
->          for ( i = 0; i < gicv3_info.nr_lrs; i++ )
-> -            printk("   HW_LR[%d]=%llx\n", i, gicv3_ich_read_lr(i));
-> +            printk("   HW_LR[%d]=%" PRIx64 "\n", i, gicv3_ich_read_lr(i));
->      }
->      else
->      {
->          for ( i = 0; i < gicv3_info.nr_lrs; i++ )
-> -            printk("   VCPU_LR[%d]=%llx\n", i, v->arch.gic.v3.lr[i]);
-> +            printk("   VCPU_LR[%d]=%" PRIx64 "\n", i, v->arch.gic.v3.lr[i]);
-You changed these specifiers to be llx in patch no.7 so such a change (using PRIx64) should
-be done in that patch. Generally there is no need for a patch to fix something that you
-introduced earlier in the series. It should be done in one step. Having said that...
+--GusqaJC/8lAeSwP9
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Nov 2022 14:00:23 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 2/2] x86/msi: Allow writes to registers on the same page
+ as MSI-X table
 
->      }
->  }
->  
-> diff --git a/xen/arch/arm/include/asm/gic_v3_defs.h b/xen/arch/arm/include/asm/gic_v3_defs.h
-> index 743ebb20fd..227533868f 100644
-> --- a/xen/arch/arm/include/asm/gic_v3_defs.h
-> +++ b/xen/arch/arm/include/asm/gic_v3_defs.h
-> @@ -195,7 +195,7 @@
->  
->  #define ICH_SGI_IRQMODE_SHIFT        40
->  #define ICH_SGI_IRQMODE_MASK         0x1
-> -#define ICH_SGI_TARGET_OTHERS        1UL
-> +#define ICH_SGI_TARGET_OTHERS        1ULL
->  #define ICH_SGI_TARGET_LIST          0
->  #define ICH_SGI_IRQ_SHIFT            24
->  #define ICH_SGI_IRQ_MASK             0xf
+On Fri, Nov 18, 2022 at 01:33:39PM +0100, Jan Beulich wrote:
+> On 18.11.2022 13:19, Marek Marczykowski-G=C3=B3recki wrote:
+> > On Fri, Nov 18, 2022 at 08:20:14AM +0100, Jan Beulich wrote:
+> >> On 17.11.2022 18:31, Marek Marczykowski-G=C3=B3recki wrote:
+> >>> On Thu, Nov 17, 2022 at 05:34:36PM +0100, Jan Beulich wrote:
+> >>>> Which in turn raises the question: Do you need to handle reads
+> >>>> in the new code in the first place?
+> >>>
+> >>> The page not being mapped is also the reason why I do need to handle
+> >>> reads too.
+> >>
+> >> Just for my own clarity: You mean "not mapped to qemu" here?
+> >=20
+> > No, to the HVM domain (in p2m). Xen (outside of MSI-X specific code for
+> > HVM) doesn't know where those reads should be from.
+>=20
+> Hmm, I was expecting them to be mapped r/o to the guest, but perhaps I'm
+> misremembering. Clearly both ept_p2m_type_to_flags() and
+> p2m_type_to_flags() take mmio_ro_ranges into consideration, which is
+> what I was basing my understanding on (without having looked at other
+> places in detail).
 
-adding a patch for just this macro is not very useful and you could take the opportunity
-to modify it in any of your patches.
+Qemu doesn't map the page (using xc_domain_memory_mapping()) where MSI-X
+table lives. I tried to modify this part, but it resulted in EPT
+violation on write attempt (and my emulation code wasn't called at all).
 
-~Michal
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--GusqaJC/8lAeSwP9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN3gecACgkQ24/THMrX
+1yz9yQf/QS1FJclofzjtQVr6ZaCqzuNX4dMjEJKWEjojyd4EvPlWBZ2qs+IDtKjS
+hEAn+pfKe/2y089giG+Dh5wvZwnONZobxeQ14Vg2jTeV7rIgSG5SVmPhZkfU4KIQ
+1ABhPg+EAdRXklbCb6SoIWSYcLHRg44VsYURuMrazXbT3/VKGhT5eLd6xgc1LttK
+2P1gy4J76x1rLGoPF5YMCMpD19tczQcQdKWtGMoZFI9d/Lu6YlntHwllf+AUkShe
+CbMrauSkNajQrqOt6vCDifavzJur6khROYRVV8FEypgy+FTgWgkIbeWWYB2dbDlu
+uwS1bzatLFE3SnW42Fyqyfdr0IAxtA==
+=eYPR
+-----END PGP SIGNATURE-----
+
+--GusqaJC/8lAeSwP9--
 
