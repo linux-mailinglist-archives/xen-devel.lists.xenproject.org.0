@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF66662F479
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 13:20:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445667.700942 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40AD762F4A2
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 13:27:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445674.700953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow0Lk-0000KA-N8; Fri, 18 Nov 2022 12:20:04 +0000
+	id 1ow0SS-0001Vx-F4; Fri, 18 Nov 2022 12:27:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445667.700942; Fri, 18 Nov 2022 12:20:04 +0000
+Received: by outflank-mailman (output) from mailman id 445674.700953; Fri, 18 Nov 2022 12:27:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow0Lk-0000H7-JU; Fri, 18 Nov 2022 12:20:04 +0000
-Received: by outflank-mailman (input) for mailman id 445667;
- Fri, 18 Nov 2022 12:20:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1ow0SS-0001TT-BF; Fri, 18 Nov 2022 12:27:00 +0000
+Received: by outflank-mailman (input) for mailman id 445674;
+ Fri, 18 Nov 2022 12:26:59 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W0R6=3S=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1ow0Li-0008Kc-TS
- for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 12:20:02 +0000
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5228ed3b-673b-11ed-91b6-6bf2151ebd3b;
- Fri, 18 Nov 2022 13:20:00 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 28C463200C05;
- Fri, 18 Nov 2022 07:19:58 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Fri, 18 Nov 2022 07:19:58 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Nov 2022 07:19:56 -0500 (EST)
+ <SRS0=jn0n=3S=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1ow0SR-0001TN-KR
+ for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 12:26:59 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20608.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4a8a663c-673c-11ed-8fd2-01056ac49cbb;
+ Fri, 18 Nov 2022 13:26:57 +0100 (CET)
+Received: from MW4PR04CA0134.namprd04.prod.outlook.com (2603:10b6:303:84::19)
+ by SA1PR12MB7101.namprd12.prod.outlook.com (2603:10b6:806:29d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20; Fri, 18 Nov
+ 2022 12:26:54 +0000
+Received: from CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:84:cafe::4b) by MW4PR04CA0134.outlook.office365.com
+ (2603:10b6:303:84::19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.20 via Frontend
+ Transport; Fri, 18 Nov 2022 12:26:54 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT114.mail.protection.outlook.com (10.13.174.103) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 12:26:53 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 18 Nov
+ 2022 06:26:51 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 18 Nov 2022 06:26:50 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,225 +59,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5228ed3b-673b-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668773997; x=
-	1668860397; bh=iSvtC9+L0nNeMjsqo3aw2P2BV9TWCeGKsRvhhRZP+aY=; b=T
-	yewhoAq51qYRBPPNQ+6c53Guc+5DPzuO12hTBFmzno0fwFlrgemX+H2rIuICZril
-	CNF9lSVHq3ba3oXZUH4EvAAivoVng/EOTmBMxVDVNNnvzoz1RMHn7Q89oxxqASU/
-	u+8cfF4XN46jfgFSWk8WKJecU/1duwwW8KP+YOIXgi7BybkiVV5HnCTm345tTXR1
-	WQwYEHQmsprKW9m2ORGWPxYV25KZ+V8po30x4AUaqovaDoL4D7EItvH8oJ2K/d6T
-	WwM+8NRb822HZGDyYaIE8v+OKY0lwRGrl9FXqWZlhoJLLTGIFemb1DoIv/f+OPie
-	h74tzNCymN1swz80E1ARw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1668773997; x=1668860397; bh=iSvtC9+L0nNeMjsqo3aw2P2BV9TW
-	CeGKsRvhhRZP+aY=; b=Av4Al2j1m8m9NLGtPWA+6zQrJtaODUlwsJC9Ibm4IjT/
-	HRxP6Lj3SFYHKYXkM9fZRecFFuJynfBWZnJgXDkYNbdAx7jHfbtzg/y49MNYgPZg
-	E+9PEj/ScKXdO6Vdcmw+s6vfLGvjewrTIWJl2FlW/AzcSL1i+zkL6xuFYUFyLsjz
-	PLoFpxORSVQBZjt7kLYoHmzRazvbOhObuB/uREcY9hnG/8XMuA12r4OsiIiB//J4
-	0pqPWT4/5LJHqtLpTr2iWhmD9LZXPqWHqAhEdKjfTvEb5XeH14XDwXh54iutgj6T
-	n8NGR3pzIcn4w2TK1/PXSaxNofbYwn/yEptCojfuFA==
-X-ME-Sender: <xms:bXh3Y-CuK6UaeZbgkyvt3UdPvfZ44OnYgmj0esFRAQNPoKfuD248SQ>
-    <xme:bXh3Y4jRLFHfyXwmXTcJOjsDD-Z3dLDpeesHyNDwJa0ibQLbiot14Ka5tVWtA8-or
-    If6nn2v5PChVA>
-X-ME-Received: <xmr:bXh3Yxm_FeWypT2ui83Puccr-kboSpfKXP4JqAlMuhjVcIieXusEwjcb_R1AojyPgb_yL8FZ9hRfMTzhATfq22auXp5aTl-3sA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedtgdeflecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:bXh3Y8w_4jHM20ijXmIQq58LmDbAHeTqJ43FImnERyDmCoSqXWSc4g>
-    <xmx:bXh3YzQ2-naZVsykwsuoASPWU6O4ZOUfevf-u0WnLut0AwNXY2Zi1g>
-    <xmx:bXh3Y3ZoEga-oTghJ9860Tm1nRq8Fot7izLYMBjuu53qt2ZvdKQ2YA>
-    <xmx:bXh3Y-dVOpxVXNmKIU8T-70QLDixWUJUqxgzhBwLckFHDiJMTcajig>
-Feedback-ID: i1568416f:Fastmail
-Date: Fri, 18 Nov 2022 13:19:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] x86/msi: Allow writes to registers on the same page
- as MSI-X table
-Message-ID: <Y3d4aW4LjYwEZ85Z@mail-itl>
-References: <20221114192100.1539267-1-marmarek@invisiblethingslab.com>
- <20221114192100.1539267-2-marmarek@invisiblethingslab.com>
- <15138618-5cb0-8304-a56b-cb787e187772@suse.com>
- <Y3ZwAJITlD/rSf/n@mail-itl>
- <cc75d927-b936-0716-bf36-70bb65be7a1e@suse.com>
+X-Inumbo-ID: 4a8a663c-673c-11ed-8fd2-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AiflTBViyqM7MYFr/uyW2XbypgNtVxMpDbZEQSkCxNIA+kIwsjPVGpB/RKrAUJSBwYgtMKYiPP0CDaqbttShUUebBByNjtb7QTwBtxHudoCPPkySbEHQlMC+ynQPJo7GGNeJ27PGlO0hG0EhWqSp/P6uzF9iKV93GApZvl/oNJiC//AjmAT0CVLUr/XynJELLMMsW+LbHJW7UIU/G4TLtRoLQdsfMnSSuwOiW3xlnW2nz9sD4cu+yuowGC9n6+ZNjI1j8/TYkkbP5IIF1sMdNiUDkXATv/FGXh6yrkKc78DB9pBLt/X8jcGSGoaXAHGOolS9gdw5/NucdQX3BiM5cQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f38sHVwwDBo2274oknHPzAXruJunsQYCI4+9TLMWY38=;
+ b=igLrgvcBe9iB/A+9qniZtN1idUfrgVHuaGxqNBoJEjgFsC2/pN0tAyVlwErVp5Lx+TQk6M5guBe7LkvOf6PVBXqnWVepasZnHy5UYdRhe42aBX94bs/PYAkl9rLaBBYtCbcrIfpC+Z1wa5a5nXPs/mQh8yhflvF2Su45995nNQFknqlqHOapcfrf9HsJ5bW/+Ha9vWEURxPaImBtnpKB0ugq4SmdccHVsRyUCLybHHztBUZFSPuPvd5Mn0lyq+Jb6tgUmY+/Wm7+VXMkxuegPmJAnxHlrXgKSDX8kmPBy7nP/75nV4D0wyRYRlblTYoDCOSHs3BIBJFcOlpAVL4HoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f38sHVwwDBo2274oknHPzAXruJunsQYCI4+9TLMWY38=;
+ b=DCjVqhwdPMif/abwTT5hVTvhOQQ/+HhsIKPNPOIKCiwSgkqjidx1a0MFjijcfBdG6B3YQLUO1F6HbFRM5bDAmx9f2q8IsBx6XWH/coLZyUoIiyjxn86sppr2kXnMxTW/4lSRgol/MQ79s0Oux4fqM3ipX8dflG9d7fVaoBCyrQE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <4c9d45a3-1bfc-3f4a-de37-2c3a894439f8@amd.com>
+Date: Fri, 18 Nov 2022 13:26:49 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="SYnEHPhPt8JfjktG"
-Content-Disposition: inline
-In-Reply-To: <cc75d927-b936-0716-bf36-70bb65be7a1e@suse.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [XEN v3 08/12] xen/Arm: GICv3: Define ICH_AP0R<n> and ICH_AP1R<n>
+ for AArch32
+Content-Language: en-US
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+	<xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<jgrall@amazon.com>, <burzalodowa@gmail.com>
+References: <20221111141739.2872-1-ayan.kumar.halder@amd.com>
+ <20221111141739.2872-9-ayan.kumar.halder@amd.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20221111141739.2872-9-ayan.kumar.halder@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT114:EE_|SA1PR12MB7101:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6152a1a9-0616-4924-9b1d-08dac9602d0d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	kYM91TVkVZrg6dGMrM4n6ecmCgnYRC2fm0/gjjKe/CqOdZX6SsUMHVKgky4rBJ50oxecAEG7dmiUfTNkaWDHKp3DVj6Dw3w8VWB+jnuB4iS3DWivoSWOI+EjoTjDTq7/s7sMYrlby5rc8D6VoScZBDkE3Gpsv+/oCnqv63wYnKkFFFyxNHYOIzkHEp4Rzj7+xPZKrwaEAMIa8a9qPtQlV6iDZPqG3jzbv3FplHWZFjUnUAquKtQGVzHjV1bZLuHzcVJnFt16F8yvzQnR1JbCsg87xDhAUnjSnBwr8+DsEtjKV/gDzZXFliIj/UaytRrQsBnoQUA4hEEyW/dCfLmor+5ghPfFYGvhb6niYKngPIipYnX+RoTrAITXx25cQqdkEI0A+RLI7OCBpZWranFqhC619gqLlwYNSmlATtmhSAtraM3n3QXxCHBhk6rjbhQZJHFDbQlk8BbS9kbUCOt74SCoWKnZ/TDSabvKPGmLE42gMJ3enIwBK1oYgWsd5dVIVB6J+cSXuwgeIQ30N85eMBj2ov8TR79ufa7nJTFRYGohBOZbI/pe/Be0F/bnPcuBc6RLcaXjUdtz3i2MPehnerIPdqfyqEIz7ABfdZRPX0qJx9bldYLQ2o0FZW1X3qeIF4h9S9h6uGVgP3a7O64ypcTpm49ZbmiddPiIv1dhYF/FjZS8HWTToJdGzz0cpEbJgbyaYXvCG+rIfiaDhiNL00fZwX5YLl4VlaQ68+GVqk0Go+79ftAta80XsrY/GsQ/a3aVsqCFwu2tMmzCp6KnTA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(31686004)(81166007)(70586007)(356005)(82740400003)(2906002)(4326008)(8936002)(40480700001)(86362001)(36860700001)(31696002)(83380400001)(316002)(8676002)(426003)(54906003)(336012)(186003)(2616005)(36756003)(16576012)(47076005)(478600001)(5660300002)(110136005)(26005)(44832011)(41300700001)(82310400005)(40460700003)(53546011)(70206006)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 12:26:53.4537
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6152a1a9-0616-4924-9b1d-08dac9602d0d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT114.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7101
 
+Hi Ayan,
 
---SYnEHPhPt8JfjktG
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Nov 2022 13:19:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] x86/msi: Allow writes to registers on the same page
- as MSI-X table
+On 11/11/2022 15:17, Ayan Kumar Halder wrote:
+> Adapt save_aprn_regs()/restore_aprn_regs() for AArch32.
+> 
+> For which we have defined the following registers:-
+> 1. Interrupt Controller Hyp Active Priorities Group0 Registers 0-3
+> 2. Interrupt Controller Hyp Active Priorities Group1 Registers 0-3
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> 
+> Changes from :-
+> v1 - 1. Moved coproc register definition to asm/cpregs.h.
+> 
+> v2 - 1. Defined register alias.
+> 2. Style issues.
+> 3. Dropped R-b and Ack.
+> 
+>  xen/arch/arm/include/asm/cpregs.h | 28 ++++++++++++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
+> index 242dabaea8..5331ec3448 100644
+> --- a/xen/arch/arm/include/asm/cpregs.h
+> +++ b/xen/arch/arm/include/asm/cpregs.h
+> @@ -259,6 +259,26 @@
+>  #define VBAR            p15,0,c12,c0,0  /* Vector Base Address Register */
+>  #define HVBAR           p15,4,c12,c0,0  /* Hyp. Vector Base Address Register */
+>  
+> +/*
+> + * CP15 CR12: Interrupt Controller Hyp Active Priorities Group 0 Registers,
+> + * n = 0 - 3
+> + */
+> +#define __AP0Rx(x)      ___CP32(p15, 4, c12, c8, x)
+You are using a macro ___CP32 here but it is defined somewhere down the file.
+So I think you need to make a change so that the definition appears before use.
 
-On Fri, Nov 18, 2022 at 08:20:14AM +0100, Jan Beulich wrote:
-> On 17.11.2022 18:31, Marek Marczykowski-G=C3=B3recki wrote:
-> > On Thu, Nov 17, 2022 at 05:34:36PM +0100, Jan Beulich wrote:
-> >> On 14.11.2022 20:21, Marek Marczykowski-G=C3=B3recki wrote:
-> >>> --- a/xen/arch/x86/msi.c
-> >>> +++ b/xen/arch/x86/msi.c
-> >>> @@ -961,6 +961,21 @@ static int msix_capability_init(struct pci_dev *=
-dev,
-> >>>                  domain_crash(d);
-> >>>              /* XXX How to deal with existing mappings? */
-> >>>          }
-> >>> +
-> >>> +        /*
-> >>> +         * If the MSI-X table doesn't span full page(s), map the las=
-t page for
-> >>> +         * passthrough accesses.
-> >>> +         */
-> >>> +        if ( (msix->nr_entries * PCI_MSIX_ENTRY_SIZE) & (PAGE_SIZE -=
- 1) )
-> >>> +        {
-> >>> +            uint64_t entry_paddr =3D table_paddr + msix->nr_entries =
-* PCI_MSIX_ENTRY_SIZE;
-> >>> +            int idx =3D msix_get_fixmap(msix, table_paddr, entry_pad=
-dr);
-> >>> +
-> >>> +            if ( idx >=3D 0 )
-> >>> +                msix->last_table_page =3D fix_to_virt(idx);
-> >>> +            else
-> >>> +                gprintk(XENLOG_ERR, "Failed to map last MSI-X table =
-page: %d\n", idx);
-> >>> +        }
-> >>
-> >> Could we avoid the extra work if there's only less than one page's
-> >> worth of entries for a device? But then again maybe not worth any
-> >> extra code, as the same mapping will be re-used anyway due to the
-> >> refcounting that's being used.
-> >=20
-> > I was considering that, but decided against exactly because of
-> > msix_get_fixmap() reusing existing mappings.
-> >=20
-> >> Makes me think of another aspect though: Don't we also need to
-> >> handle stuff living on the same page as the start of the table, if
-> >> that doesn't start at a page boundary?
-> >=20
-> > I have considered that, but decided against given every single device I
-> > tried have MSI-X table at the page boundary. But if you prefer, I can
-> > add such handling too (will require adding another variable to the
-> > arch_msix structure - to store the fixmap location).
->=20
-> To limit growth of the struct, please at least consider storing the fixmap
-> indexes instead of full pointers.
+> +#define ICH_AP0R0       __AP0Rx(0)
+> +#define ICH_AP0R1       __AP0Rx(1)
+> +#define ICH_AP0R2       __AP0Rx(2)
+> +#define ICH_AP0R3       __AP0Rx(3)
+> +
+> +/*
+> + * CP15 CR12: Interrupt Controller Hyp Active Priorities Group 1 Registers,
+> + * n = 0 - 3
+> + */
+> +#define __AP1Rx(x)      ___CP32(p15, 4, c12, c9, x)
+> +#define ICH_AP1R0       __AP1Rx(0)
+> +#define ICH_AP1R1       __AP1Rx(1)
+> +#define ICH_AP1R2       __AP1Rx(2)
+> +#define ICH_AP1R3       __AP1Rx(3)
+> +
+>  /* CP15 CR12: Interrupt Controller List Registers, n = 0 - 15 */
+>  #define ___CP32(coproc, opc1, crn, crm, opc2) coproc, opc1, crn, crm, opc2
+>  #define __LR0(x)                  ___CP32(p15, 4, c12, c12, x)
+> @@ -360,6 +380,14 @@
+>  #define HCR_EL2                 HCR
+>  #define HPFAR_EL2               HPFAR
+>  #define HSTR_EL2                HSTR
+> +#define ICH_AP0R0_EL2           ICH_AP0R0
+> +#define ICH_AP0R1_EL2           ICH_AP0R1
+> +#define ICH_AP0R2_EL2           ICH_AP0R2
+> +#define ICH_AP0R3_EL2           ICH_AP0R3
+> +#define ICH_AP1R0_EL2           ICH_AP1R0
+> +#define ICH_AP1R1_EL2           ICH_AP1R1
+> +#define ICH_AP1R2_EL2           ICH_AP1R2
+> +#define ICH_AP1R3_EL2           ICH_AP1R3
+>  #define ICH_LR0_EL2             ICH_LR0
+>  #define ICH_LR1_EL2             ICH_LR1
+>  #define ICH_LR2_EL2             ICH_LR2
 
-Ok.
-
-> >>> @@ -1090,6 +1105,12 @@ static void _pci_cleanup_msix(struct arch_msix=
- *msix)
-> >>>              WARN();
-> >>>          msix->table.first =3D 0;
-> >>>          msix->table.last =3D 0;
-> >>> +        if ( msix->last_table_page )
-> >>> +        {
-> >>> +            msix_put_fixmap(msix,
-> >>> +                            virt_to_fix((unsigned long)msix->last_ta=
-ble_page));
-> >>> +            msix->last_table_page =3D 0;
-> >>
-> >> To set a pointer please use NULL.
-> >=20
-> > Ok.
-> >=20
-> >> Overall it looks like you're dealing with the issue for HVM only.
-> >> You will want to express this in the title, perhaps by using x86/hvm:
-> >> as the prefix. But then the question of course is whether this couldn't
-> >> be dealt with in/from mmio_ro_emulated_write(), which handles both HVM
-> >> and PV.=20
-> >=20
-> > The issue is correlating BAR mapping location with guest's view.
-> > Writable BAR areas are mapped (by qemu) via xc_domain_memory_mapping(),=
- but
-> > that fails for read-only pages (and indeed, qemu doesn't attempt to do
-> > that for the pages with the MSI-X table). Lacking that, I need to use
-> > msixtbl_entry->gtable, which is HVM-only thing.
-> >=20
-> > In fact there is another corner case I don't handle here: guest
-> > accessing those registers when MSI-X is disabled. In that case, there is
-> > no related msixtbl_entry, so I can't correlate the access, but the
-> > page(s) is still read-only, so direct mapping would fail. In practice,
-> > such access will trap into qemu, which will complain "Should not
-> > read/write BAR through QEMU". I have seen this happening several times
-> > when developing the series (due to bugs in my patches), but I haven't
-> > found any case where it would happen with the final patch version.
-> > In fact, I have considered handling this whole thing via qemu (as it
-> > knows better where BAR live from the guest PoV), but stubdomain still
-> > don't have write access to that pages, so that would need to be trapped
-> > (for the second time) by Xen anyway.
-> >=20
-> > For the PV case, I think this extra translation wouldn't be necessary as
-> > BAR are mapped at their actual location, right?
->=20
-> I think so, yes.
->=20
-> > But then, it makes it
-> > rather different implementation (separate feature), than just having a
-> > common one for PV and HVM.
->=20
-> It would be different, yes, and if - as you explain above - there are
-> technical reasons why it cannot be shared, then so be it. Mentioning
-> this in the description may be worthwhile, or else the same question
-> may be asked again (even by me, in case I forget part of the discussion
-> by the time I look at a particular future version).
-
-Ok, I'll extend the commit message.
-
-> >> Which in turn raises the question: Do you need to handle reads
-> >> in the new code in the first place?
-> >=20
-> > The page not being mapped is also the reason why I do need to handle
-> > reads too.
->=20
-> Just for my own clarity: You mean "not mapped to qemu" here?
-
-No, to the HVM domain (in p2m). Xen (outside of MSI-X specific code for
-HVM) doesn't know where those reads should be from.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---SYnEHPhPt8JfjktG
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN3eGkACgkQ24/THMrX
-1yxmsgf9HBYVECbngHhti/dCGQVxhEiVTP17KAmcb/TactXFS0LB3Pjzih4nErLk
-aDT1362UI/HP4Czj81iAcTMDVoXMM/P2m2B5QfAjD+7vlOae2rWtZ5PK+Ua+e/Iv
-Vl7dciGlF9Q6+gTzZkHrDJ16wbZdTCfAz1N+VK4e0Pl8OaieHU1DUVKI8bTHm7RY
-E+5T4W5mQdbqhuxGkqOEnTyldfV7rbKQFSp8n1XTvozUL6PDxsg7ABH+yWpwan9j
-DVHws3SlIQ7NRsYCns4ZasmEHwiNbWvzTWhJ0KlAhAqzrBymAUTLXFP7sz1GlESB
-oY8TRMut8vz4tJW3n24Rr6bATnoOOg==
-=FnA0
------END PGP SIGNATURE-----
-
---SYnEHPhPt8JfjktG--
+~Michal
 
