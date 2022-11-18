@@ -2,39 +2,77 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F98A62F299
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 11:32:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445555.700766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D4662F2E9
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 11:46:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445561.700777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovyfB-0004fm-E9; Fri, 18 Nov 2022 10:32:01 +0000
+	id 1ovysR-0006Lg-JB; Fri, 18 Nov 2022 10:45:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445555.700766; Fri, 18 Nov 2022 10:32:01 +0000
+Received: by outflank-mailman (output) from mailman id 445561.700777; Fri, 18 Nov 2022 10:45:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ovyfB-0004cu-B2; Fri, 18 Nov 2022 10:32:01 +0000
-Received: by outflank-mailman (input) for mailman id 445555;
- Fri, 18 Nov 2022 10:31:59 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ovysR-0006Iw-FR; Fri, 18 Nov 2022 10:45:43 +0000
+Received: by outflank-mailman (input) for mailman id 445561;
+ Fri, 18 Nov 2022 10:45:42 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=LL5N=3S=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1ovyf9-0004co-L1
- for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 10:31:59 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70083.outbound.protection.outlook.com [40.107.7.83])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 35f4608f-672c-11ed-8fd2-01056ac49cbb;
- Fri, 18 Nov 2022 11:31:50 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PA4PR04MB7551.eurprd04.prod.outlook.com (2603:10a6:102:e9::16)
+ (envelope-from <SRS0=Nf+F=3S=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
+ id 1ovysP-0006Il-Vt
+ for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 10:45:42 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20601.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::601])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2381c934-672e-11ed-91b6-6bf2151ebd3b;
+ Fri, 18 Nov 2022 11:45:38 +0100 (CET)
+Received: from AS8PR04CA0086.eurprd04.prod.outlook.com (2603:10a6:20b:313::31)
+ by AS8PR08MB6135.eurprd08.prod.outlook.com (2603:10a6:20b:29f::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.16; Fri, 18 Nov
- 2022 10:31:29 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5813.018; Fri, 18 Nov 2022
- 10:31:29 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9; Fri, 18 Nov
+ 2022 10:45:36 +0000
+Received: from AM7EUR03FT035.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:313:cafe::a3) by AS8PR04CA0086.outlook.office365.com
+ (2603:10a6:20b:313::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9 via Frontend
+ Transport; Fri, 18 Nov 2022 10:45:36 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT035.mail.protection.outlook.com (100.127.141.24) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 10:45:36 +0000
+Received: ("Tessian outbound 0800d254cb3b:v130");
+ Fri, 18 Nov 2022 10:45:35 +0000
+Received: from 512672730ec5.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 17EFD73E-CDBF-4268-A296-41C05B7ED42B.1; 
+ Fri, 18 Nov 2022 10:45:29 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 512672730ec5.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 18 Nov 2022 10:45:29 +0000
+Received: from AS9PR06CA0199.eurprd06.prod.outlook.com (2603:10a6:20b:45d::18)
+ by GV1PR08MB8282.eurprd08.prod.outlook.com (2603:10a6:150:a3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.7; Fri, 18 Nov
+ 2022 10:45:25 +0000
+Received: from VI1EUR03FT043.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:45d:cafe::9c) by AS9PR06CA0199.outlook.office365.com
+ (2603:10a6:20b:45d::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.17 via Frontend
+ Transport; Fri, 18 Nov 2022 10:45:25 +0000
+Received: from nebula.arm.com (40.67.248.234) by
+ VI1EUR03FT043.mail.protection.outlook.com (100.127.145.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5834.8 via Frontend Transport; Fri, 18 Nov 2022 10:45:25 +0000
+Received: from AZ-NEU-EX04.Arm.com (10.251.24.32) by AZ-NEU-EX04.Arm.com
+ (10.251.24.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.16; Fri, 18 Nov
+ 2022 10:45:14 +0000
+Received: from ais-wip-ds.shanghai.arm.com (10.169.190.86) by mail.arm.com
+ (10.251.24.32) with Microsoft SMTP Server id 15.1.2507.16 via Frontend
+ Transport; Fri, 18 Nov 2022 10:45:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,151 +84,312 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 35f4608f-672c-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 2381c934-672e-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h3/p1nqS41EbjHPQPygremo0ETj4Qsi4txZRseA7A4M=;
+ b=NxwfLHI9bVp6stCHiCksFe275s1jpunLFqV3y6w7d7NDoiMB+b8VAt1F+kv+KNir0FsqSdYq1iZ6z1mL78jhnVbRyqFv4jMKdikfixb9J0ba3FobL1KsZg6XwIJ9eFCODLJIbCXqCUHol2EkiaFTe6GpAJ3FD8yk0xyQZvFBk88=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: 8ab75544f7eb704a
+X-CR-MTA-TID: 64aa7808
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XlmrzwobKb2nRm1TyXPlhkHdclgdwdPJ2rUbxVCofkVzTb8836q0+pyuZr3ge4HrKgl0DSDINhy0HZbMQAydPCMn2/I0+ZdyGJmFKKhO6rvcxkcjIWGSMt3uP8GiA2D9uqPQwRB5N55zfw/DPxdF3XmzRlY0MrNlw9GLuvI29rjCSyPP9hm8G8rTsI4zi/G4yNHJp0EDjCoBwnW6MUP7sbSyank7ct+jLhvi5tZ3TrTZoAoAoWB/wPfWoS/WVy96J9QLbFPG+8BmBBl3fE0hjFP89tAizrZsX6/adxua0Hm+22yT2+sVIArAThquHknC0lo2zgLJYGtKAxY8lk3plg==
+ b=fWayiA9LFuzUYGMjvbcodlSgdARBkUPZmNIOYSL9aiZeTdDTEb2p2a3B4GLw/VlkcRILn7vtJLvQ+6SD9/RyjXMRBKBAIvtgFNVcckH0H1v7SZ3Sz/bMVoqLwauhMSl4Z/xI+0xjAOuuLRSQOz1/+VQ8GqxM61BaJCe6hFR3xB9USN3mrYLtv4yvnp/s6WlUY/r9acSy/VzQCX2GVDiyWj7NY6vDDWYBsGP8xdxkKGiZuPNf2tt/s8f+Sz71OdNNgijQq4PFDBsesLSdJWMNx8pO9m/19UIDLbaHBREJQFd98oIyoUKZgay3d8AJGyDaFsxvINRP5aw2XieET37U+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/4843PEKfZVz9As49dWM3d43kFfV2jNSzREIg8Ev5iw=;
- b=AeCLcKzsp2h741xRaOUz7HlHvSpGX4Vr9uxXkCYynOIIqegYdfoFtkR+sF5DPV0ZGohMxP/DSbYnicI9sChRTvUjEAU2OMtTGubLNieqXAuV6zDjx67mVVD9s6qc+xsxw9AmtOfWkKp6eYFbIEwBZ9Umi1squt/94DtdnyZngDr9LgGTCLCDGUZl88YcM3EmUdbRCdeAyrRMI/vKr3EDUww+aB8598q3Wh6/1uLrrosrj36lf5bpMtudry25Kj9HRPpktHTuO90OPJLNTka6POLesRxImGYBwrCfIGTNobXGGK/xQhodHn43Jf+L8G2gEJ9qTSfDjv8TD6Cip4XMzg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=h3/p1nqS41EbjHPQPygremo0ETj4Qsi4txZRseA7A4M=;
+ b=Leq6UVYioYtp7mUSz/aJ/yyTU8pzyrzlYbgGKaUC1DWtsIateLxSORSZJEW1iJr9wEfE1HfmXJ3pYV4dG2X+rnzLgo9InniZRXNF/04z/MPsGH0xJeM4Vn4MqZ2G/rkw21ebxDdSR4efLTnk2K3xIhlGUgOUIWe9MpFArtnVgN7oZBPuTKQ9q48hrUtTUip2g9QeqKtdR2ZxqYVyHW2lFsnxiWoAHONUPxReZ/JSUgnAbsMlF0j8hN1i4HFMz3nFQHHuzoy34cIMbgN06rgczZstOhtWBasyt8gTOuMETKDRMIdvoZcbE2OYrhTec99YcvQv0AAuatPHU2JKHhvC3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 40.67.248.234) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/4843PEKfZVz9As49dWM3d43kFfV2jNSzREIg8Ev5iw=;
- b=bNE9JpbQdpGGvucXntkMR78M6FawfdOk1bqK1whmOPT1Zh1cYRIW8QrE7RqBbEa1ULoWzJ2VDymqMa1W6bPetA+QHHZUc6YetIZHIJhVS3PsUkspmi1LBvFN9l8qe4vJpFq6a/v46GuAadOi4yHfEYz/0L4u3E69CdGdEJpbINecGncTThSpI80MndT9Kt+qlqBTC2PpJK2eaVEOrm1Pz14B27F5bJ8Ul6fBZNIE5h2rx3FZhDIqtJpQIYUQxvF3QWwOxD1TiKtFkdWlawkA06V0LdGO9hO1Lt7DU+JZAm6V4dq+tLG91yGwEYGwJ7uXBjUMeBZrqaMcE4OOI0YR8Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f0d73fa7-8fe3-3810-f4e7-ddb654ac0afd@suse.com>
-Date: Fri, 18 Nov 2022 11:31:28 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Paul Durrant <paul@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] x86/HVM: don't mark evtchn upcall vector as pending when
- vLAPIC is disabled
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0007.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::17)
- To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ bh=h3/p1nqS41EbjHPQPygremo0ETj4Qsi4txZRseA7A4M=;
+ b=NxwfLHI9bVp6stCHiCksFe275s1jpunLFqV3y6w7d7NDoiMB+b8VAt1F+kv+KNir0FsqSdYq1iZ6z1mL78jhnVbRyqFv4jMKdikfixb9J0ba3FobL1KsZg6XwIJ9eFCODLJIbCXqCUHol2EkiaFTe6GpAJ3FD8yk0xyQZvFBk88=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 40.67.248.234)
+ smtp.mailfrom=arm.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 40.67.248.234 as permitted sender) receiver=protection.outlook.com;
+ client-ip=40.67.248.234; helo=nebula.arm.com; pr=C
+From: Wei Chen <wei.chen@arm.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Jan Beulich
+	<jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v9 0/6] Device tree based NUMA support for Arm - Part#2
+Date: Fri, 18 Nov 2022 18:45:02 +0800
+Message-ID: <20221118104508.768274-1-wei.chen@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7551:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5c1e7db-86d1-444b-6d5d-08dac9500df1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 1
+X-MS-TrafficTypeDiagnostic:
+	VI1EUR03FT043:EE_|GV1PR08MB8282:EE_|AM7EUR03FT035:EE_|AS8PR08MB6135:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0141c61-a652-4aaa-6303-08dac952069b
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 1FxuQrTFvi6gM5VZn8Axqe56JEZs1v68YWv5vOepK73r35OOBrqeH0l9F+ebEzA2Mj5ZgI5jaAfavW4CbfCTAxsAa3+sVcu6VjnQNbExiLDyKOIETa4BuNut6d+9eCFbLqyjk7NTqWSf+bOUIwzNk6biAx648EIFnTJDTj+uRHr9ibaaBJD9Vl8c/qcV6psWfBmaZYsJalPdhMwM4otj5m/t07NwVw0slqFQpMXHsYsQrdCYNXeRnS7g33uMxEHGX+ORxhPNWykw0AMaMxZGQyx+JAq0SeNOSEmrlUSFWHc+VM5Ibb9I9AR0+eo8+qQPhnGt+uJqt4nPadpVEwvaJLfrDF0Q7qsSHxfGeiho1KSs+sYdoM4Q1ZnQNlE0+seUAyW1IkT8dJs3mghj+Zee4mp3wToMxskIt5Ggz6D9Tk9zB2Iyg0vxNaruFuNKuuEbfwf25CB9LfmS8CU2NqFv+ZO1S2jLS6g9mN6oHT7wv3A+E8snN6dTz8a2Ad5vNQXmsZNMC00mxJrN47k2QdDvVRTlGf2NBTrLj+GC6rHIV2mdgdB7cB6jUf0SeXdlsm5O81dFW/TFO+mBI+wa2NLO0YgPFjySLjjixkVLmUHNp18Adw6FIK4XcV5fBlCRTxJGWCZgF0KuVtsyZaqk5NUo61ByxGq9mtd+QKzVSNpy4JRrreaKndAMo0cxDPCsTKLWm2HWYg3WVNX+mIdF2z1dtrTusNujOHqEwo+oqk80JaLvyIkYLCtmlGpj0FSyId6ubcqOVbOjSfy0sqbXj5aP7AoCuZ9cWlb+wgvLZQFOIp3kIK2rnVARDTBJG0jQP3Ot
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:40.67.248.234;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:nebula.arm.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(39850400004)(451199015)(40470700004)(36840700001)(46966006)(26005)(6666004)(7696005)(2906002)(82310400005)(5660300002)(44832011)(81166007)(356005)(47076005)(966005)(336012)(426003)(1076003)(2616005)(186003)(70206006)(36756003)(83380400001)(70586007)(478600001)(8676002)(40480700001)(40460700003)(54906003)(316002)(8936002)(41300700001)(4326008)(86362001)(82740400003)(6916009)(36860700001)(36900700001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR08MB8282
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	dbc08d06-fe27-4de1-3ed7-08dac952001d
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	au/URv5ffAdLEBmvnqBX7bh6mhD4dp23RZp4qckylcDS1loOst5lfSDDYqu/c5kYP7s6witB3f9sx0R8u+C8a6FvJPnESwOuXKFp5WrWeHU7hAieY2lYKF2zMlmuXqzoVVUQT8wgCG8jpZr/iITilcoDg0yO54h3CMPdz1az+/OuikkxkW1GaCIqcmJwRuqnZULsGiDORVlwdpgRv3T/djvhKuKmIWRtb8o9kIJ2azq02hvtP/3NhLfjFT6VLijkUmfi+U+/2hLojIi+KLy8qRZ91bofjVbsFkGQI4PkW+DSDeZo6ue7fsQPaBXOOPd7G5PKd+5ikis6B6bBK7szvBXRaYH6jtjOpPrUE1abymQogDbOpuTjpvm2mGX1iyarlE8/cFIqLV7Rb4WMYaUSyovYaKR5sO9mfac/IQLjepuiJ3HwAEBMeC3xdaC+cPP1fMmmLXKkYsrMIQBDbPJwOnnbvzYB8kr3lW56GiIgHHK67rws05I+B2Cieuzg3lvgUf7N9De0zTXjh64E/1FJLkm7wmDR5osBLkEEvhD1bIoX63BxPcDZCAQaUHmw4nmpgQM9Lus5fUJ+4s/mgW1/zRaM6tem8/7GZ5/kRUw5N4blNELy4/i1mrJRTQ+ZAppJ8lWyLUYH0FBdoYPjZt0rDxuCQzqVgeGLpntu6PAVnKgfjPuGQj+8CHaFGvj3KPjGPwjDBR4z56zMyeuftCOaPxtuxZIF9eFUpB6NRZDzUDM=
+	pN84wKvdq1F9A0V3YC9tqFMFE9WXkdQ4aGTPCDnTpOBCL72+SF6d425odNPpc3H363eRMjzDDWtGUuGx5V2CO8BclAsxKPvUTJDKz/Ne9tJDXTPcmucO2d7Q4u+YANBC/LzqyZXofa7k/NxhrzVqXfUXDrdxFOJvs+dtpmRzvZyi5SuecXOWAMLgVe6v8r7ieI1WgLeblRGSjfNYBP6zepauD8fmJIKC/AgYtL/cYflCHEysRPQ/cGEPbIPMLoAmRtXYDZhNYJFGAmQsfxNKoK3dfzeNWC6IWKRGcIw6H5U4cE4SolyUfv9KNmRFG8VmVbg9qY1CFwd8ArFS9pHOcQ78na4nChCk9CgmBBqMoQzK3Gx13XvWH5c37V/OUi4Ks4g/z5SzR+0pK5W/RuSMZckV1Mkvk+gZF9bbzFq6TMQlGTzwGc7i8xSmMvsl6TZkRQS9J6Qi0ACfHD7PlQGOTVCOGW1ESNAmuOcfAjw5bumpJgpk3FNetNHBpLJBW9+X7NOm64uCoYEYF+3CU8t6tJIUFKhPi1VTHcmbguu4HjjgpYybYkE3Kro3KI3W6+i44xtWm2Jzswygn48y3gjTXf1saHIWOK7awYrrtXxkXxfuM4wMKfMMLiY3s7VtQANyxCa7dRO7n90v6s5eRL+u0S+giLcDWosRFYzZatJZ6EdzO1sIjJHTSTPcSBs7JHk+g7hkQI90BePYUc0V+sOHJs+QOrWJiEjTIcVwjg2fQ00B2aMi8Bd8fQPrc5Xic/G3zhuH25BEhWNrRbMufy7d5w==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(39860400002)(396003)(376002)(346002)(366004)(451199015)(86362001)(31696002)(83380400001)(66946007)(38100700002)(8936002)(2906002)(4326008)(41300700001)(6916009)(66476007)(26005)(66556008)(6506007)(6512007)(186003)(2616005)(8676002)(316002)(54906003)(478600001)(5660300002)(6486002)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d25Ia1ZrVFpwL2hERW50TDBCRjNqWlhrdTZDWVVrQURWOHpMN1dDb2ZoWTkv?=
- =?utf-8?B?RU5CT2EzV1Y5Q2IvTVNQUEY1M3RLMExrdEd1VUFRS0xaQXRsd1p4WEd0R0tM?=
- =?utf-8?B?dzJ4K2liNEhtRko0anVsamllWHY5RWswYzdjRStZcTdjckxBQWxTa1FrTnlz?=
- =?utf-8?B?OGpNTXlYcTNwNjVQNnNWRURkZTFxZU8vSHZKM09raWQ5T3g2R3ZvdUFpOVlj?=
- =?utf-8?B?M2dEOElmdlFMMFlMTGJRQW02RlBRVVhtRmJublV0UXpjWTJ0SGd0YkFySkR2?=
- =?utf-8?B?U1M5Vzk3VWpqMitScnlXR2JVaUF3ZUE5OWVrMm56Zm9MMUVadzNxUnNmSEF6?=
- =?utf-8?B?TWhYZzdGWlpzWUxLZEkwdkdocmVmT05nK0NENVplSUxiL0JoYXppdzAwdWtV?=
- =?utf-8?B?eDhMUUMxWUszZUd2cE1WM3pGd3M1THZTV1J1SExLY0tEUnlyV1JrYXpMcUJR?=
- =?utf-8?B?bGpSU0tybWxuS1AxbEhIcUYrMmY5ZUI2ZUxzYWJ1amlSczE2c2hnRzR4SjA4?=
- =?utf-8?B?VktQS3NnNWtKZnFxSXhwSlljK1Z6NHcrdWp2MSs4VjhyK1BPOEVhVm1lWVg0?=
- =?utf-8?B?aXgzSUNwbHpqUHNqbHZ5Q3BQL0xnZ3BoaWphdVlrS3NOTXBvYmxoUmNvWi8v?=
- =?utf-8?B?ZEJSemc5VEZXckI1Z2pxczRFWUJGY1p2U2RvTThCS2R4OVdiMVM5VVdOc1FK?=
- =?utf-8?B?QjdlbXA5dUFRUVdKT1ZxNXg3Nm1zdGZmZGNxOWRqa0JUV1B0VWxPUkFkU0pO?=
- =?utf-8?B?WGpjZlQ5eTdUVWNzWUVHYmpnRXdOV1BTZXloTHdLRXhHTG10V0ZRWU93NnFt?=
- =?utf-8?B?dXYvR0dMaU12bmJYbzhYbUhOcGJiUlRtMElkSjg0bTgyckR0OW5HS2xKbE41?=
- =?utf-8?B?cFAxTTNCb1g3TXB1YTg0RzFqZEd2U3lJTStkR2F1Vy8zZGVYbElEcEN0MXFz?=
- =?utf-8?B?dFl3aEJRbXVQK1BiMUJhenJIblhVWWhlcVA3MElSdldYQnNXYm1zbzhRQzhm?=
- =?utf-8?B?QzJ5M09id2ZXd2RTMjdKTUlGUnNGS0VPNS9xNm5LMnltN3JyNDRzOWxVdXB5?=
- =?utf-8?B?eURyRHJlV3R5djVzejJRWWhmc0Y2RWVjcy91T05zYTZyT3dYZXFmN1lzNEhD?=
- =?utf-8?B?OFZ0ZjcvOTI3SEtheUluVUIzZ0ljMDhpWHBjekRWblMrQVl1aW91M2xxN1N6?=
- =?utf-8?B?TmVVd05RNEVSK25NdmdEUytCVWtVY241bEsxcS8vYmozSmtIdEkxUTZ0VENX?=
- =?utf-8?B?TjdtVllqaHJ1RDZXRHJtTlJiTU9CUkxQcnZPYUZweDBaRDQrb0tpcndPVVBW?=
- =?utf-8?B?ZDg3dmoreDVCTk5IZ0VkNzdFeUJoemN4Q1pUYmtSbU12WmZkbzRNMy9Ud0o3?=
- =?utf-8?B?K2dNenhob0lqRVU1S1ZmNEhmbDVLYmNFdDZVajVuV0lISTBKQi9OWlZSOHBm?=
- =?utf-8?B?WDd6Skg3bUMwdlAzdWo0cVpJZVd0VEtQYmI5MGorVVk0NDQyRE1jeUpvTHhL?=
- =?utf-8?B?Sy9GWHNMQmVreGNzOXF6SmxMSE1sa01sNkZDWlRWNE9ncHlhcTIzOG5xRWhu?=
- =?utf-8?B?bUhhZm9PbHJ1YmV2STdMbVQ0dmExN3lrbmFnekFRRmdkWkxsQmg0dlJXMHVE?=
- =?utf-8?B?SVpHZE9TV0RlMitCK2JKTm93QkhpS0tnakFrSXR4Nm82NlpRaFpGTmMvK2VT?=
- =?utf-8?B?akJsU0YxZk1YUXBlbUp0eVJmeWtVTGlnTThrWDRxK2ZNdFdSTC8yeUs4UUcr?=
- =?utf-8?B?eGVFVFl4TUtieTgxeDFPWHNMOU1xSFpEb2NLQ2FxVTZ6RWlncktjUTE5bjZY?=
- =?utf-8?B?b1FaZFMwc2RKdkJBOGlZd2RETXBjQ2FmUzZyN2R4cUUvSFdUNlhqazhKMGcw?=
- =?utf-8?B?NDNQazJBMG1uL3U3WUl0eHRTaUtFV01Zb3NvZ1JJVkI2dDNlNm1ycU83Vm4z?=
- =?utf-8?B?bUVObjdSR3VneGJtbGZlMFRWektlcnZML2pES0Q1Zmt1WTU0cjZmY1l5cUNJ?=
- =?utf-8?B?U0FaTEk5WEEzMWdKeW9oZzJRTjVDZWFqK0J5U0J6VjhYVzVrdmYvSStQZG1u?=
- =?utf-8?B?eE1vVWE2TXB6QnkzOWdlU2oxeUljU3Y5TjhQNTY5OXhURmYyOFRtOU84bTRH?=
- =?utf-8?Q?xwjhrnwqQA5SDS/WTmxXXzAiR?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5c1e7db-86d1-444b-6d5d-08dac9500df1
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 10:31:29.6245
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(346002)(376002)(136003)(451199015)(36840700001)(46966006)(40470700004)(426003)(186003)(336012)(2616005)(1076003)(81166007)(47076005)(82740400003)(2906002)(26005)(107886003)(7696005)(6666004)(36860700001)(83380400001)(478600001)(6916009)(966005)(54906003)(316002)(5660300002)(44832011)(70586007)(8936002)(86362001)(41300700001)(8676002)(40460700003)(70206006)(4326008)(82310400005)(36756003)(40480700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2022 10:45:36.0913
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rCluhwvBhQhB574tVLsdXHOWta8aekrryrhIMYzf+w1yVSYqmdn7cxJSrzopuEWACSqkg5ifbdDf5CspXBDQEw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7551
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0141c61-a652-4aaa-6303-08dac952069b
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT035.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB6135
 
-Linux'es relatively new use of HVMOP_set_evtchn_upcall_vector has
-exposed a problem with the marking of the respective vector as
-pending: For quite some time Linux has been checking whether any stale
-ISR or IRR bits would still be set while preparing the LAPIC for use.
-This check is now triggering on the upcall vector, as the registration,
-at least for APs, happens before the LAPIC is actually enabled.
+(The Arm device tree based NUMA support patch set contains 35
+patches. In order to make stuff easier for reviewers, I split
+them into 3 parts:
+1. Preparation. I have re-sorted the patch series. And moved
+   independent patches to the head of the series - merged in [1]
+2. Move generically usable code from x86 to common - this series.
+3. Add new code to support Arm.
 
-In software-disabled state an LAPIC would not accept any interrupt
-requests and hence no IRR bit would newly become set while in this
-state. As a result it is also wrong for us to mark the upcall vector as
-having a pending request when the vLAPIC is in this state.
+This series only contains the second part patches. As the whole NUMA
+series has been reviewed for 1 round in [2], so this series would
+be v9)
 
-To compensate for the "enabled" check added to the assertion logic, add
-logic to (conditionally) mark the upcall vector as having a request
-pending at the time the LAPIC is being software-enabled by the guest.
+Xen memory allocation and scheduler modules are NUMA aware.
+But actually, on x86 has implemented the architecture APIs
+to support NUMA. Arm was providing a set of fake architecture
+APIs to make it compatible with NUMA awared memory allocation
+and scheduler.
 
-Fixes: 7b5b8ca7dffd ("x86/upcall: inject a spurious event after setting upcall vector")
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Arm system was working well as a single node NUMA system with
+these fake APIs, because we didn't have multiple nodes NUMA
+system on Arm. But in recent years, more and more Arm devices
+support multiple nodes NUMA system.
+
+So now we have a new problem. When Xen is running on these Arm
+devices, Xen still treat them as single node SMP systems. The
+NUMA affinity capability of Xen memory allocation and scheduler
+becomes meaningless. Because they rely on input data that does
+not reflect real NUMA layout.
+
+Xen still think the access time for all of the memory is the
+same for all CPUs. However, Xen may allocate memory to a VM
+from different NUMA nodes with different access speeds. This
+difference can be amplified in workloads inside VM, causing
+performance instability and timeouts.
+
+So in this patch series, we implement a set of NUMA API to use
+device tree to describe the NUMA layout. We reuse most of the
+code of x86 NUMA to create and maintain the mapping between
+memory and CPU, create the matrix between any two NUMA nodes.
+Except ACPI and some x86 specified code, we have moved other
+code to common. In next stage, when we implement ACPI based
+NUMA for Arm64, we may move the ACPI NUMA code to common too,
+but in current stage, we keep it as x86 only.
+
+This patch serires has been tested and booted well on one
+Arm64 NUMA machine and one HPE x86 NUMA machine.
+
+[1] https://lists.xenproject.org/archives/html/xen-devel/2022-06/msg00499.html
+[2] https://lists.xenproject.org/archives/html/xen-devel/2021-09/msg01903.html
+
 ---
-Don't one or both of the Viridian uses of vlapic_set_irq() need similar
-guarding?
+v8 ->v9:
+ 1. Remove incorrect description in patch#5's commit log.
+ 2. Add code comments for the places to set numa_fw_nid_name.
+v7 -> v8:
+ 1. Change "of shift too small" to "or shift too small".
+ 2. Add numa_fw_nid_name setting in srat_parse_regions after
+    acpi_table_parse succeeded.
+v6 -> v7:
+ 1. Restore %d for nodeid_t in dump_numa.
+ 2. Use sizeof(page_num_node) for page_num_node size in memset.
+ 3. Add description for using min(PADDR_BITS, BITS_PER_LONG - 1)
+    to calculate the shift when only one node is in the system.
+ 4. Use %pd for domain print in dump_numa.
+ 5. Add __init for arch_numa_unavailable.
+ 6. Use __ro_after_init for mem_hotplug.
+ 7. Use "???" instead of "NONAME" for unset numa_fw_nid_name.
+ 8. Fix code-style.
+v5 -> v6:
+ 1. Revert arch_numa_broken to arch_numa_disabled, as acpi_numa
+    can be set to -1 by users. So acpi_numa < 0 does not mean
+    a broken firmware.
+ 2. Replace numa_scan_node to numa_process_nodes in commit log.
+ 3. Limit the scope of page_num_node, vnuma and page of numa_setup
+    function.
+ 4. Use memset to init page_num_node instead of for_each_online_node.
+ 5. Use %u instead of %d for nodeid_t and j in numa_setup print
+    messages.
+ 6. Use min(PADDR_BITS, BITS_PER_LONG - 1) to calculate the shift
+    when only one node is in the system.
+ 7. Drop the marco: node_to_first_cpu(node)
+ 8. Use arch_numa_unavailable to replace arch_numa_disabled for
+    acpi_numa <= 0.
+ 9. Remove Kconfig for HAS_NUMA_NODE_FWID.
+10. Use numa_fw_nid_name for NUMA implementation to set their fw
+    NUMA node name for print messages.
 
-Is it actually necessary for hvmop_set_evtchn_upcall_vector() and
-hvm_set_callback_via() to call hvm_assert_evtchn_irq() when
-evtchn_upcall_pending is false?
+v4 -> v5:
+ 1. Use arch_numa_broken instead of arch_numa_disabled for
+    acpi_numa < 0 check. Because arch_numa_disabled might
+    include acpi_numa < 0 (init failed) and acpi_numa == 0
+    (no data or data no init) cases.
+ 2. Use nodeid_t instead of uint8_t for memnodemap.
+ 3. Restore to use typeof(*memnodemap) for _memnodemap, this will avoid the
+    further adjustments for _memnodemap's type.
+ 4. Use __ro_after_init for numa_off.
+ 5. Use pointer-to-const for proper function parameters.
+ 6. Use unsigned int for variables that are not realy used for node ID.
+ 7. Fix code comments code-style and adjust the length.
+ 8. Fix code-styles.
+ 9. Rename numa_scan_nodes to numa_process_nodes.
+10. Defer introduce arch_numa_disabled for acpi_numa <= 0. And remove
+    the paramter init_as_disable of arch_numa_disabled.
+11. Fix typo "expandsion".
+12. Fix Indentation for l1tf_safe_maddr.
+13. Remove double blank lines.
+14. Add a space between for_each_node_mask and '('.
+    Add a space page_list_for_each and '('.
+15. Use bool for nodes_cover_memory return value.
+16. Use a plain "int ret" to record compute_hash_shift return value.
+17. Add a blank line before the function's main "return".
+18. Add new Kconfig option HAS_NUMA_NODE_FWID to common/Kconfig.
 
---- a/xen/arch/x86/hvm/irq.c
-+++ b/xen/arch/x86/hvm/irq.c
-@@ -321,9 +321,10 @@ void hvm_assert_evtchn_irq(struct vcpu *
- 
-     if ( v->arch.hvm.evtchn_upcall_vector != 0 )
-     {
--        uint8_t vector = v->arch.hvm.evtchn_upcall_vector;
-+        struct vlapic *vlapic = vcpu_vlapic(v);
- 
--        vlapic_set_irq(vcpu_vlapic(v), vector, 0);
-+        if ( vlapic_enabled(vlapic) )
-+           vlapic_set_irq(vlapic, v->arch.hvm.evtchn_upcall_vector, 0);
-     }
-     else if ( is_hvm_pv_evtchn_domain(v->domain) )
-         vcpu_kick(v);
---- a/xen/arch/x86/hvm/vlapic.c
-+++ b/xen/arch/x86/hvm/vlapic.c
-@@ -829,6 +829,9 @@ void vlapic_reg_write(struct vcpu *v, un
-         {
-             vlapic->hw.disabled &= ~VLAPIC_SW_DISABLED;
-             pt_may_unmask_irq(vlapic_domain(vlapic), &vlapic->pt);
-+            if ( v->arch.hvm.evtchn_upcall_vector &&
-+                 vcpu_info(v, evtchn_upcall_pending) )
-+                vlapic_set_irq(vlapic, v->arch.hvm.evtchn_upcall_vector, 0);
-         }
-         break;
- 
+v3 -> v4:
+ 1. Add init_as_disable as arch_numa_disabled parameter in the patche
+    where use it.
+ 2. Drop unnecessary "else" from arch_numa_setup, and fix its
+   indentation.
+ 3. Restore compute_hash_shift's return value to int.
+ 4. Remove unnecessary parentheses for macros.
+ 5. Use unsigned int for proper variables.
+ 6. Fix some code-style.
+ 7. Move arch_get_ram_range function comment to header file.
+ 8. Use bool for found, and add a new "err" for the return
+    value of arch_get_ram_range.
+ 9. Use -ENODATA instead of -EINVAL for non-RAM type ranges.
+10. Use bool as return value for functions that only return
+    0/1 or 0/-EINVAL.
+11. Move mem_hotplug to a proper place in mm.h
+12. Remove useless "size" in numa_scan_nodes.
+13. Add CONFIG_HAS_NUMA_NODE_FWID to gate print the mapping
+    between node id and architectural node id (fw node id).
+
+v2 -> v3:
+ 1. Drop enumeration of numa status.
+ 2. Use helpers to get/update acpi_numa.
+ 3. Insert spaces among parameters of strncmp in numa_setup.
+ 4. Drop helpers to access mem_hotplug. Export mem_hotplug for all arch.
+ 5. Remove acpi.h from common/numa.c.
+ 6. Rename acpi_scan_nodes to numa_scan_nodes.
+ 7. Replace u8 by uint8_t for memnodemap.
+ 8. Use unsigned int for memnode_shift and adjust related functions
+    (compute_hash_shift, populate_memnodemap) to use correct types for
+    return values or parameters.
+ 9. Use nodeid_t for nodeid and node numbers.
+10. Use __read_mostly and __ro_after_init for appropriate variables.
+11. Adjust the __read_mostly and __initdata location for some variables.
+12. Convert from plain int to unsigned for cpuid and other proper 
+13. Remove unnecessary change items in history.
+14. Rename arch_get_memory_map to arch_get_ram_range.
+15. Use -ENOENT instead of -ENODEV to indicate end of memory map.
+16. Add description to code comment that arch_get_ram_range returns
+    RAM range in [start, end) format.
+17. Rename bad_srat to numa_fw_bad.
+18. Rename node_to_pxm to numa_node_to_arch_nid.
+19. Merge patch#7 and #8 into patch#6.
+20. Move NR_NODE_MEMBLKS from x86/acpi.h to common/numa.h
+22. Use 2-64 for node range.
+
+v1 -> v2:
+ 1. Refine the commit messages of several patches.
+ 2. Merge v1 patch#9,10 into one patch. Introduce the new functions
+    in the same patch that this patch will be used first time.
+ 3. Fold if ( end > mem_hotplug ) to mem_hotplug_update_boundary,
+    in this case, we can drop mem_hotplug_boundary.
+ 4. Remove fw_numa, use enumeration to replace numa_off and acpi_numa.
+ 5. Correct return value of srat_disabled.
+ 6. Introduce numa_enabled_with_firmware.
+ 7. Refine the justification of using !node_data[nid].node_spanned_pages.
+ 8. Use ASSERT to replace VIRTUAL_BUG_ON in phys_to_nid.
+ 9. Adjust the conditional express for ASSERT.
+10. Move MAX_NUMNODES from xen/numa.h to asm/numa.h for x86.
+11. Use conditional macro to gate MAX_NUMNODES for other architectures.
+12. Use arch_get_memory_map to replace arch_get_memory_bank_range
+    and arch_get_memory_bank_number.
+13. Remove the !start || !end check, because caller guarantee
+    these two pointers will not be NULL.
+14. Add code comment for numa_update_node_memblks to explain:
+    Assumes all memory regions belonging to a single node
+    are in one chunk. Holes between them will be included
+    in the node.
+15. Merge this single patch instead of serval patches to move
+    x86 SRAT code to common.
+16. Export node_to_pxm to keep pxm information in NUMA scan
+    nodes error messages.
+17. Change the code style to target file's Xen code-style.
+18. Adjust some __init and __initdata for some functions and
+    variables.
+19. Replace CONFIG_ACPI_NUMA by CONFIG_NUMA. Replace "SRAT" texts.
+20. Turn numa_scan_nodes to static.
+21. Change NR_NUMA_NODES upper bound from 4095 to 255.
+
+Wei Chen (6):
+  xen/x86: Provide helpers for common code to access acpi_numa
+  xen/x86: move generically usable NUMA code from x86 to common
+  xen/x86: Use ASSERT instead of VIRTUAL_BUG_ON for phys_to_nid
+  xen/x86: use arch_get_ram_range to get information from E820 map
+  xen/x86: move NUMA process nodes nodes code from x86 to common
+  xen: introduce a Kconfig option to configure NUMA nodes number
+
+ xen/arch/Kconfig                 |  11 +
+ xen/arch/x86/include/asm/acpi.h  |   2 -
+ xen/arch/x86/include/asm/mm.h    |   2 -
+ xen/arch/x86/include/asm/numa.h  |  61 +--
+ xen/arch/x86/include/asm/setup.h |   1 -
+ xen/arch/x86/mm.c                |   2 -
+ xen/arch/x86/numa.c              | 441 +----------------
+ xen/arch/x86/smpboot.c           |   2 +-
+ xen/arch/x86/srat.c              | 337 ++-----------
+ xen/common/Makefile              |   1 +
+ xen/common/numa.c                | 803 +++++++++++++++++++++++++++++++
+ xen/common/page_alloc.c          |   2 +
+ xen/include/xen/mm.h             |   2 +
+ xen/include/xen/numa.h           |  96 +++-
+ 14 files changed, 964 insertions(+), 799 deletions(-)
+ create mode 100644 xen/common/numa.c
+
+-- 
+2.25.1
+
 
