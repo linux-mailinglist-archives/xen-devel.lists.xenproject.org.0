@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96D1362FF2E
-	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 22:11:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445916.701341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA13C62FF97
+	for <lists+xen-devel@lfdr.de>; Fri, 18 Nov 2022 22:47:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445922.701352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow8dg-0004L5-IL; Fri, 18 Nov 2022 21:11:08 +0000
+	id 1ow9CA-0008Ay-8y; Fri, 18 Nov 2022 21:46:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445916.701341; Fri, 18 Nov 2022 21:11:08 +0000
+Received: by outflank-mailman (output) from mailman id 445922.701352; Fri, 18 Nov 2022 21:46:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ow8dg-0004J6-F6; Fri, 18 Nov 2022 21:11:08 +0000
-Received: by outflank-mailman (input) for mailman id 445916;
- Fri, 18 Nov 2022 21:11:06 +0000
+	id 1ow9CA-00088K-6F; Fri, 18 Nov 2022 21:46:46 +0000
+Received: by outflank-mailman (input) for mailman id 445922;
+ Fri, 18 Nov 2022 21:46:45 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g77P=3S=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ow8de-0004J0-EX
- for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 21:11:06 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83641e3d-6785-11ed-8fd2-01056ac49cbb;
- Fri, 18 Nov 2022 22:11:05 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id s5so8787436edc.12
- for <xen-devel@lists.xenproject.org>; Fri, 18 Nov 2022 13:11:05 -0800 (PST)
+ <SRS0=W0R6=3S=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1ow9C9-00088E-9y
+ for xen-devel@lists.xenproject.org; Fri, 18 Nov 2022 21:46:45 +0000
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c98939e-678a-11ed-8fd2-01056ac49cbb;
+ Fri, 18 Nov 2022 22:46:42 +0100 (CET)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 8CDB332008FF;
+ Fri, 18 Nov 2022 16:46:39 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Fri, 18 Nov 2022 16:46:40 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Nov 2022 16:46:37 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,121 +43,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83641e3d-6785-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=jxcv2nm3tG3Z0vhlABJP9BKuaFPvcny/CHCF+xgivEo=;
-        b=EQNRksUcissCQfWp3uUCSBPpc84XrnRzLQrYVMzCPILzwF0WyUtsGQwFje4Ff44V3i
-         fvPeeyi9f2nArlCS9x9Wq+AkuJEDKDXA1yaBMpHW5INw4li9BWv8sdH8kqdbVWKcD4Yy
-         gYgvQdP0cZjRWhan0dgIUjBlYpkaIjslxn6b4uARHM3GyOV63ZCXSd3h5SFBP/1ksRpu
-         lT0NPUwK20UMtD/on2qUOXjLojgNb4wf/0YPPYq2gJxr2GyqQXFtr+LrtC7yQtwwem7W
-         UIywRFX1iin4VgUU8b6WOJIQ85ohiBb7Z/NEG3XdPlzDTPhvuz7YRthacJn2CgausC/1
-         Mgpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jxcv2nm3tG3Z0vhlABJP9BKuaFPvcny/CHCF+xgivEo=;
-        b=O+2z0IPLGsX6InCAF9XSe/exyvaQweytUxFnQo9w8Ix9NywRiOc7i+DiIlva3Gw+pu
-         G0mJBKi+QhouQgqqIn8izIx+mHgqM9hfRD4VAY49Xt3EPkFaN0zifzLUnV4LhMjUp+uc
-         1bao9hu71EKKVqduVo7CB5EanpgYdJD/rwEWH/xUWCheKUXSxNudfw3JD5PnUTkyDB0i
-         t61U7Qa4aauZsqR0pQ4iXU52Dd4XMxUEzCAwICjyjz1aWcpLDqMcb6zP71GTAIyCUCtG
-         ES8I2RYS4ht4Tok1cXdOVrKO22/SwGGylrXwUvlwMTf/O808WzqXs9l3YjGleKzG32Es
-         v5KQ==
-X-Gm-Message-State: ANoB5pl+SflDFZ9pMnd17roh2jhaU0udo8mYn4hB12ap7V+8OQUC1FOG
-	3wVKMuXUrkKfyQjmMXm+r8FB6iw464MkFY+QzjP1bQbd
-X-Google-Smtp-Source: AA0mqf7HP8NVU94cZsKl8GsLsvV6qUNqiZT2IJZYbjR6N4V8rePa08CDrfvwedq99SGcYxzDnzBOw/y5CkNPEEDEPVg=
-X-Received: by 2002:a05:6402:2d6:b0:461:8efb:3f84 with SMTP id
- b22-20020a05640202d600b004618efb3f84mr7676426edx.210.1668805864709; Fri, 18
- Nov 2022 13:11:04 -0800 (PST)
+X-Inumbo-ID: 7c98939e-678a-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668807999; x=
+	1668894399; bh=m0qim5xloUqSWCBLe4PKp9y/XJvQoCDrt2G9AYpaGa8=; b=p
+	vQtOjvp0f4uVWQ650FLODz+Gchx4RTWFrmCorFUs3dg/qF1gR1GReNAOvbbDfj05
+	RLwzicAWmcn8mGNWcF3IAvcG5gW9LYpPqHENDYbnMbklMCg9hXlPB07IShrVMIcX
+	qC7s5++ppkM7TXGOiLqX+KV6BvmK/Hroty8SKb28aiPCpVOyDl74w9mW7ewvdd2r
+	Vw10DJMI23PS/hxi6FugyCWCt9ME9jVw7uMof2mx28V7jH+WEiiBxHs9XjCkga6J
+	o6rGfCN2BHTJFe9ipcfRsR4FGQJ1cMEn4hw7F28f3jzxL/DJmycnDxOMjoBGrH22
+	bIG3ymvM9l7kaTbHKlQPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1668807999; x=1668894399; bh=m0qim5xloUqSWCBLe4PKp9y/XJvQ
+	oCDrt2G9AYpaGa8=; b=L2OjdpMEGbpYn5RluyOLgAEawWRJnDxcYx09A1H0V3vG
+	UVaNQojhYS6LC/+PuhmaXch59rbf6FjYJ7jVNQAPA74IHXP2nPD7qB7RzQCUrS+C
+	d70ucOla/rdJ+hz/SB5uxohfTGMD4vuHfWC01frMuTFsu2/GUEU5qr4gtTK88Lzf
+	qiPwZ1G95xVVAqey4X+ZkaKSWS8q/Iex2YywB1s3SOFs0pD9pTBADlx/e/Rxngfh
+	FUqpuRvwHBH5PlTTGjbS/2vGFKQjdllSlRS1ezGpImRXeOwDoQRT4nuMKks1MdYn
+	zHA/rcTIbE3Lhps863FnqszHU8wSv2PZ5X99AMS7FA==
+X-ME-Sender: <xms:Pv13Y2BSVW7FH2Dd-O5P3KMtPxNXHCirpVY40CKB6SZ-elgpiIGK-A>
+    <xme:Pv13YwhvzBrq5W8pQRmdzoa9L7YI9va2F3vECYPbCPCk66ZGpyioE6NMAQN8GjuJ2
+    WwiHjJOmVdNiw>
+X-ME-Received: <xmr:Pv13Y5nOjFdBd47nFs7geRsHUOEqE51wnLKmaFXWAuA7WK4gB6NJ-syQWb_m_-2Ejf9eaTwoUmj5Bu-b8mQ487PKMwH9oql_EQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedtgdduheehucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
+    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
+    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
+    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
+    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
+    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhm
+X-ME-Proxy: <xmx:Pv13Y0zZgDAzIvV9kP25qNbzIqAIVD4P3LHbtRde5xkUSs1_uTldAg>
+    <xmx:Pv13Y7SRauCLnSXdbtmWYVm1VNplMzubcAINVCqgDI538NasB2RmhA>
+    <xmx:Pv13Y_ZdHjesRLy7pFixTt52MxbmjRRQG64zyRA5yBaRUYgfRQ6hYA>
+    <xmx:P_13Y5NKSqvqRzVCNTa0n6wrQSqWVltzkWQ_EwuIQ1QVOrBZeRbnIQ>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 18 Nov 2022 22:46:34 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is
+ enabled
+Message-ID: <Y3f9O0S8kVXZ+py+@mail-itl>
+References: <20221118154931.1928298-1-marmarek@invisiblethingslab.com>
+ <CAKf6xpuCxftyQ+PKN_ffJ0onsSxcT8kVSwkM7Z10pfjqf0XFgA@mail.gmail.com>
 MIME-Version: 1.0
-References: <osstest-174809-mainreport@xen.org> <Y3eZOcmOYkNLdeGe@Air-de-Roger>
- <6846bb37-345e-ca3d-4cad-2032c4852e15@citrix.com>
-In-Reply-To: <6846bb37-345e-ca3d-4cad-2032c4852e15@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Fri, 18 Nov 2022 16:10:52 -0500
-Message-ID: <CAKf6xpvpqrrjbvn5zvBifZg2J=0TpLqgwic4gM7=4Viq-8uzLg@mail.gmail.com>
-Subject: Re: Flask vs paging mempool - Was: [xen-unstable test] 174809:
- regressions - trouble: broken/fail/pass
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Henry Wang <Henry.Wang@arm.com>, 
-	Anthony Perard <anthony.perard@citrix.com>, Daniel Smith <dpsmith@apertussolutions.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="qQdthczOYgb16K95"
+Content-Disposition: inline
+In-Reply-To: <CAKf6xpuCxftyQ+PKN_ffJ0onsSxcT8kVSwkM7Z10pfjqf0XFgA@mail.gmail.com>
 
-On Fri, Nov 18, 2022 at 12:22 PM Andrew Cooper
-<Andrew.Cooper3@citrix.com> wrote:
->
-> On 18/11/2022 14:39, Roger Pau Monne wrote:
-> > Nov 18 01:55:11.753936 (XEN) arch/x86/mm/hap/hap.c:304: d1 failed to allocate from HAP pool
-> > Nov 18 01:55:18.633799 (XEN) Failed to shatter gfn 7ed37: -12
-> > Nov 18 01:55:18.633866 (XEN) d1v0 EPT violation 0x19c (--x/rw-) gpa 0x0000007ed373a1 mfn 0x33ed37 type 0
-> > Nov 18 01:55:18.645790 (XEN) d1v0 Walking EPT tables for GFN 7ed37:
-> > Nov 18 01:55:18.645850 (XEN) d1v0  epte 9c0000047eba3107
-> > Nov 18 01:55:18.645893 (XEN) d1v0  epte 9c000003000003f3
-> > Nov 18 01:55:18.645935 (XEN) d1v0  --- GLA 0x7ed373a1
-> > Nov 18 01:55:18.657783 (XEN) domain_crash called from arch/x86/hvm/vmx/vmx.c:3758
-> > Nov 18 01:55:18.657844 (XEN) Domain 1 (vcpu#0) crashed on cpu#8:
-> > Nov 18 01:55:18.669781 (XEN) ----[ Xen-4.17-rc  x86_64  debug=y  Not tainted ]----
-> > Nov 18 01:55:18.669843 (XEN) CPU:    8
-> > Nov 18 01:55:18.669884 (XEN) RIP:    0020:[<000000007ed373a1>]
-> > Nov 18 01:55:18.681711 (XEN) RFLAGS: 0000000000010002   CONTEXT: hvm guest (d1v0)
-> > Nov 18 01:55:18.681772 (XEN) rax: 000000007ed373a1   rbx: 000000007ed3726c   rcx: 0000000000000000
-> > Nov 18 01:55:18.693713 (XEN) rdx: 000000007ed2e610   rsi: 0000000000008e38   rdi: 000000007ed37448
-> > Nov 18 01:55:18.693775 (XEN) rbp: 0000000001b410a0   rsp: 0000000000320880   r8:  0000000000000000
-> > Nov 18 01:55:18.705725 (XEN) r9:  0000000000000000   r10: 0000000000000000   r11: 0000000000000000
-> > Nov 18 01:55:18.717733 (XEN) r12: 0000000000000000   r13: 0000000000000000   r14: 0000000000000000
-> > Nov 18 01:55:18.717794 (XEN) r15: 0000000000000000   cr0: 0000000000000011   cr4: 0000000000000000
-> > Nov 18 01:55:18.729713 (XEN) cr3: 0000000000400000   cr2: 0000000000000000
-> > Nov 18 01:55:18.729771 (XEN) fsb: 0000000000000000   gsb: 0000000000000000   gss: 0000000000000002
-> > Nov 18 01:55:18.741711 (XEN) ds: 0028   es: 0028   fs: 0000   gs: 0000   ss: 0028   cs: 0020
+
+--qQdthczOYgb16K95
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Nov 2022 22:46:34 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Jason Andryuk <jandryuk@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is
+ enabled
+
+On Fri, Nov 18, 2022 at 03:46:47PM -0500, Jason Andryuk wrote:
+> On Fri, Nov 18, 2022 at 10:50 AM Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com> wrote:
 > >
-> > It seems to be related to the paging pool adding Andrew and Henry so
-> > that he is aware.
->
-> Summary of what I've just given on IRC/Matrix.
->
-> This crash is caused by two things.  First
->
->   (XEN) FLASK: Denying unknown domctl: 86.
->
-> because I completely forgot to wire up Flask for the new hypercalls.
-> But so did the original XSA-409 fix (as SECCLASS_SHADOW is behind
-> CONFIG_X86), so I don't feel quite as bad about this.
+> > Linux enables MSI-X before disabling INTx, but keeps MSI-X masked until
+> > the table is filled. Then it disables INTx just before clearing MASKALL
+> > bit. Currently this approach is rejected by xen-pciback.
+> > According to the PCIe spec, device cannot use INTx when MSI/MSI-X is
+> > enabled (in other words: enabling MSI/MSI-X implicitly disables INTx).
+> >
+> > Change the logic to consider INTx disabled if MSI/MSI-X is enabled. This
+> > applies to three places:
+> >  - checking currently enabled interrupts type,
+> >  - transition to MSI/MSI-X - where INTx would be implicitly disabled,
+> >  - clearing INTx disable bit - which can be allowed even if MSI/MSI-X is
+> >    enabled, as device should consider INTx disabled anyway in that case
+> >
+> > Fixes: 5e29500eba2a ("xen-pciback: Allow setting PCI_MSIX_FLAGS_MASKALL=
+ too")
+> > Signed-off-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblething=
+slab.com>
+> > ---
+> > Changes in v3:
+> >  - allow clearing INTx regardless of MSI/MSI-X state, to be consistent
+> >    with enabling MSI/MSI-X
+> > Changes in v2:
+> >  - restructure the patch to consider not only MASKALL bit, but enabling
+> >    MSI/MSI-X generally, without explicitly disabling INTx first
+> > ---
+>=20
+> I was trying to test your xen-pciback v3 patch, and I am having
+> assignment fail consistently now.  It is actually failing to
+> quarantine to domIO in the first place, which matches the failure from
+> the other day (when I more carefully read through the logs).  It now
+> consistently fails to quarantine on every boot unlike the other day
+> where it happened once.
 
-Broken for ARM, but not for x86, right?
+Does this include the very first assignment too, or only after domain
+reboot? If the latter, maybe some cleanup missed clearing MASKALL?
 
-I think SECCLASS_SHADOW is available in the policy bits - it's just
-whether or not the hook functions are available?
+FWIW, the patch applied to Qubes
+(https://github.com/QubesOS/qubes-linux-kernel/pull/680) seems to work
+fine (the full test run is still in progress, but I see some green marks
+already).
 
-> And second because libxl ignores the error it gets back, and blindly
-> continues onward.  Anthony has posted "libs/light: Propagate
-> libxl__arch_domain_create() return code" to fix the libxl half of the
-> bug, and I posted a second libxl bugfix to fix an error message.  Both
-> are very simple.
->
->
-> For Flask, we need new access vectors because this is a common
-> hypercall, but I'm unsure how to interlink it with x86's shadow
-> control.  This will require a bit of pondering, but it is probably
-> easier to just leave them unlinked.
+> I added some printks and it 's getting -EBUSY from pdev_msix_assign()
+> which means pci_reset_msix_state() is failing:
+>     if ( pci_conf_read16(pdev->sbdf, msix_control_reg(pos)) &
+>          PCI_MSIX_FLAGS_MASKALL )
+>         return -EBUSY;
+>=20
+> # lspci -vv -s 14.3
+> ...
+>     Capabilities: [80] MSI-X: Enable- Count=3D16 Masked+
+>         Vector table: BAR=3D0 offset=3D00002000
+>         PBA: BAR=3D0 offset=3D00003000
+>=20
+> So it looks like MASKALL is set and prevents assignment.
+>=20
+> setpci -s 00:14.3 82.W=3Df
+> cleared that out for me and I could assign the device.
+>=20
+> My dom0 boots, it runs flask-label-pci for a set of PCI devices
+> (including iwlwifi), then xl pci-assignable-add for all PCI devices
+> which will be passed through, then a little later it boots the
+> associated domains.  Dom0 does not have a driver for iwlwifi.
+>=20
+> I'll have to investigate more to see how MASKALL is getting set.  This
+> had not been an issue before your recent patches.
 
-It sort of seems like it could go under domain2 since domain/domain2
-have most of the memory stuff, but it is non-PV.  shadow has its own
-set of hooks.  It could go in hvm which already has some memory stuff.
+I guess before the patches nothing set anything in MSI-X capability,
+because it was hidden...
 
-> Flask is listed as experimental which means it doesn't technically
-> matter if we break it, but it is used by OpenXT so not fixing it for
-> 4.17 would be rather rude.
+Anyway, to support my cleanup hypothesis, I tried to destroy a
+PCI-having domain, and it left MSI-X enabled (at least according to the
+config space). MASKALL was _not_ set, but I haven't checked masking of
+individual vectors. TBH, I'm not sure what should be responsible for the
+MSI-X cleanup after guest destroy. Should it be Xen? Qemu? Pciback?
+Pciback calls PHYSDEVOP_{prepare,release}_msix only when
+binding/unbinding from the device (so - xl pci-assignable-{add,remove}),
+so this isn't the right place.
+Should that be in Xen, in deassign_device() (part of
+DOMCTL_deassign_device)?
 
-It's definitely nicer to have functional Flask in the release.  OpenXT
-can use a backport if necessary, so it doesn't need to be a release
-blocker.  Having said that, Flask is a nice feature of Xen, so it
-would be good to have it functioning in 4.17.
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
 
-Regards,
-Jason
+--qQdthczOYgb16K95
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN3/TsACgkQ24/THMrX
+1ywkSQf/aTohVS7nA2ExCmuvEVfy/hGZ6deH7uoh3uApGTOhNEmD+ImNzRDDwDW9
+vK7MAeJnE9zBQq4zklTd/DiktxefRu6X8HGTklrI8sZ8qjq92NYZF4Vul/g7/+l6
+4XGi6dNdvN5P7e7TUTHI49rtBrvfA51DCuW9SLJTvI5RAXXRbLan8luGij51/TWH
+TsxfNPJ+fX0pWr/G9ynnSeBUJzw+BcBAwj4FaMPkWaOvl0wDK98lspRTrXIJ7Usw
+nzbgnNqwkAbQ+E/s1eSDnw1BQxDXcFxM6orO6fP/ntFSIpIbHmLesV3erYumLYLf
+/O8lcstVWu7jFOXtQMBMoc2sYJh92A==
+=m44E
+-----END PGP SIGNATURE-----
+
+--qQdthczOYgb16K95--
 
