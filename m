@@ -2,36 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9B2163083F
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 02:11:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445960.701414 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C240F63088B
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 02:40:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445969.701429 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owCNe-0007C1-GH; Sat, 19 Nov 2022 01:10:50 +0000
+	id 1owCpg-0001dm-0s; Sat, 19 Nov 2022 01:39:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445960.701414; Sat, 19 Nov 2022 01:10:50 +0000
+Received: by outflank-mailman (output) from mailman id 445969.701429; Sat, 19 Nov 2022 01:39:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owCNe-00078Z-D0; Sat, 19 Nov 2022 01:10:50 +0000
-Received: by outflank-mailman (input) for mailman id 445960;
- Sat, 19 Nov 2022 01:10:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1owCpf-0001aS-Ss; Sat, 19 Nov 2022 01:39:47 +0000
+Received: by outflank-mailman (input) for mailman id 445969;
+ Sat, 19 Nov 2022 01:39:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UD8z=3T=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1owCNc-00078T-Ig
- for xen-devel@lists.xenproject.org; Sat, 19 Nov 2022 01:10:49 +0000
-Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
- [64.147.123.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd6eb5e3-67a6-11ed-91b6-6bf2151ebd3b;
- Sat, 19 Nov 2022 02:10:45 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 3562732005BC;
- Fri, 18 Nov 2022 20:10:41 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Fri, 18 Nov 2022 20:10:42 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Nov 2022 20:10:39 -0500 (EST)
+ <SRS0=VbUS=3T=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1owCpe-0001aM-7P
+ for xen-devel@lists.xenproject.org; Sat, 19 Nov 2022 01:39:46 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20606.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::606])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 09cf5131-67ab-11ed-8fd2-01056ac49cbb;
+ Sat, 19 Nov 2022 02:39:42 +0100 (CET)
+Received: from DUZPR01CA0064.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c2::17) by PAWPR08MB9590.eurprd08.prod.outlook.com
+ (2603:10a6:102:2e8::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9; Sat, 19 Nov
+ 2022 01:39:39 +0000
+Received: from DBAEUR03FT046.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:3c2:cafe::6b) by DUZPR01CA0064.outlook.office365.com
+ (2603:10a6:10:3c2::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.9 via Frontend
+ Transport; Sat, 19 Nov 2022 01:39:39 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT046.mail.protection.outlook.com (100.127.142.67) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5834.8 via Frontend Transport; Sat, 19 Nov 2022 01:39:39 +0000
+Received: ("Tessian outbound 6c699027a257:v130");
+ Sat, 19 Nov 2022 01:39:39 +0000
+Received: from 7233a6393383.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ EDB50CCD-11C3-4560-A55D-AE9198E895D1.1; 
+ Sat, 19 Nov 2022 01:39:32 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 7233a6393383.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Sat, 19 Nov 2022 01:39:32 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by PAWPR08MB9055.eurprd08.prod.outlook.com (2603:10a6:102:343::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.8; Sat, 19 Nov
+ 2022 01:39:31 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::1245:e53:a5ec:66fd]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::1245:e53:a5ec:66fd%9]) with mapi id 15.20.5834.009; Sat, 19 Nov 2022
+ 01:39:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,275 +72,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd6eb5e3-67a6-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668820240; x=
-	1668906640; bh=5ZTgwin0129aHkVKnahjCMa8iAMdMUWn/8FuM88/l8s=; b=Y
-	/kP2NAbHWWMuxtBzYGa+f7z0RUBou8a73WlsYgDTjXguRT0kLWMM5Gp8Qw6qwzy8
-	ysLeF1gtK9fKJUX0cZrmCFGc+SyLVU22oiwRvpcRK2r/jywU7jbY6z2EmqezONAh
-	DHqJk36+TrmMxla7hOeR/Rr5G0aFgaFNa7Hhw+3761ztHl1JWOgxo4xdezGUDsnM
-	7O+5vz/ngBPkzIAz/MlPLWoCz52RX8RC+ZJv5HOWQGeKPsLx+cXkNS1IKki188NV
-	xDtmLvLURwwJDrIC/8A/xetPJ/V41IADQKYyStoilVMHeI+jY5nb8I6FyDKyJp0B
-	VfR1HwGzjTZ/8k7PNnF5w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1668820240; x=1668906640; bh=5ZTgwin0129aHkVKnahjCMa8iAMd
-	MUWn/8FuM88/l8s=; b=A2qiiyNnB1jaLh+c3g0Bv2qIzo1xFA/STTCwKwGQhV8c
-	CaQNuH8inrMNyUeDpesjwG4ZCt/STe/8bPr6H7gjsmRLAYmqf40smjpWrYKxabqg
-	xRS6V/mBMQfsjKPJHumNqzUmzbobj2Sl8/VwJs0SYg0AGDhpQaVIyX0JaIf+fJJW
-	jWk227NazmYUVG33QAImi1YYyyMsHifWAm0z6+t+Y3hUuyoy/Saqw17nTDJkdcSv
-	gKj/yG8plOpQhmOE5GCHx7TmlzbVgNtCJhXWg+YhoEsJKX3LT808r9iqpeWLj4pb
-	tOpceD1Nfm/RNRKr73YXXI4z3hXrM4BbJFnvizaRPQ==
-X-ME-Sender: <xms:EC14Y280hcU5A1RrHFInJGG70pZJavb3XhdGRR93B959Pv2DB4akRQ>
-    <xme:EC14Y2spHaf_CLDmV2FIoKAPYrtEUjqzqXAcnsjoTnXKXy5KlHbUZb9zeC157RzpU
-    JvoY3BZ8zaxL4g>
-X-ME-Received: <xmr:EC14Y8AcpUoF6n0cT3RGiRNnxW2iglnsjSSV1gSUVpd3nxwy798_V9jva6ky>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedugdefudcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeutdehhfdtvdfffeejjedvhedvjeei
-    heffheekkeehgeelueelveeludetheetteenucffohhmrghinhepghhithhhuhgsrdgtoh
-    hmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggv
-    mhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:EC14Y-cpBWb5QY20bmPxP62_-v4S90T2xWO1Bsk0dKMruX2kGTi0sw>
-    <xmx:EC14Y7MlEEMBmIyOH-ID-cQ80NPTqW1QnIYzBon2JZrG_vZSMRnkkg>
-    <xmx:EC14Y4l7qYuACqWRmp-f86ufzOf54CUohgu6JgWo1VjVrF4hGGpFJA>
-    <xmx:EC14Y2qSZKvPN0cFz6r1znnh5Dh3ojE80Gf_FQDiHM6gO3YkMyktmQ>
-Feedback-ID: iac594737:Fastmail
-Date: Fri, 18 Nov 2022 20:10:33 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
-Message-ID: <Y3gtDS60csz03tjJ@itl-email>
-References: <20221003112625.972646-1-ardb@kernel.org>
- <20221003112625.972646-6-ardb@kernel.org>
- <Yzr/1s9CbA0CClmt@itl-email>
- <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
- <YzsMYfEwmjHwVheb@itl-email>
- <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
- <YzsWAnD7q9qeBoBn@mail-itl>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eZXLIpVKxA42QWNq"
-Content-Disposition: inline
-In-Reply-To: <YzsWAnD7q9qeBoBn@mail-itl>
-
-
---eZXLIpVKxA42QWNq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
+X-Inumbo-ID: 09cf5131-67ab-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xPmB5r0Qb0oqisuYaZfatXH2js6mSfv/b+/205Fi+vo=;
+ b=2VYm6Pow5u9v+ZsI8Dq6k4f7cHg3NqnGbuT5MqP7gOkSmdklA5yj0qsZTCkBArYco5VCAwGx8WJxY+DtcCfgCojYEZFNoKLodfQcdS9DuFUC7pUCqDbj1sKMUPYEXQhUgvPDBnMJJdakTRk3sfjkB1Ayktn7/8ltW70ZYdu0mPw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KEIobXLEZyKhk9881WgwZANJpUQBTEHjmeEx85pTbf5uMkW0BzQfk7RLad2RUX+6u1Zgl7L72XaVS3R//UKitIBbSrC1ra/TSRQSFIxDB6Ww0s9Ohg8SniHOZHDm1Auf2rZduNisJ5WUy12DbTjfCTFEgIJGqQvuJl5lJwbFYFp/To4YXiyx3zYazb2OUK74CQUjsqqIU9sS+D/pp4byx2mQk2WtpNnlMRzf8ID/wKmqyGBo4yDoWl3r730NkN4/HaFj+OdlUb9OcR41/rNDfPA0cPf0/GsO5HFFuzYyqfPaA8jaP1mzEAFI87BdWO/7hI72aLG4jwayBVeq0ngDNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xPmB5r0Qb0oqisuYaZfatXH2js6mSfv/b+/205Fi+vo=;
+ b=YgpczSQiQkCzymzBOjNOQO1DI1ApRnL47K80VbmjfFT94sE/US6Si7vs4PbyiZF4vkgUXOm9zkIZ2JI6yNGNwejaDC5OJb1vFMINvz83t92JuZJ48Ixah2xcc1yAPWg4vk+6qvc5ZtKA/2+rhzhNMJPUnV/tPRDYT0tHO5j16Yr7vfet7MmJ/bBFr9Nbs9mtAixzy1h8SCNoT4chTKrgMDRybNmGAde4b+RenGApsq8NSqg/c+jJERpIQkzg3RDxpLhBA1cCcB8PsdqGGAcRN0nlGGpSixRdz6yQM0+nXy5+mXXiJLrufom1bBFIiYsYeWxIqAtXvxPUfwgwDa+uvQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xPmB5r0Qb0oqisuYaZfatXH2js6mSfv/b+/205Fi+vo=;
+ b=2VYm6Pow5u9v+ZsI8Dq6k4f7cHg3NqnGbuT5MqP7gOkSmdklA5yj0qsZTCkBArYco5VCAwGx8WJxY+DtcCfgCojYEZFNoKLodfQcdS9DuFUC7pUCqDbj1sKMUPYEXQhUgvPDBnMJJdakTRk3sfjkB1Ayktn7/8ltW70ZYdu0mPw=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Anthony PERARD <anthony.perard@citrix.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, Juergen
+ Gross <jgross@suse.com>
+Subject: RE: [XEN PATCH for-4.17] libs/light: Propagate
+ libxl__arch_domain_create() return code
+Thread-Topic: [XEN PATCH for-4.17] libs/light: Propagate
+ libxl__arch_domain_create() return code
+Thread-Index: AQHY+245sY2WpYuKG0eYsgh9xhHeR65FeJEA
+Date: Sat, 19 Nov 2022 01:39:31 +0000
+Message-ID:
+ <AS8PR08MB7991DEC6DB2D9F9ACAB3B33392089@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <20221118165235.14143-1-anthony.perard@citrix.com>
+In-Reply-To: <20221118165235.14143-1-anthony.perard@citrix.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: BAA1DF80BFE6044789EB0732A9F95C72.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|PAWPR08MB9055:EE_|DBAEUR03FT046:EE_|PAWPR08MB9590:EE_
+X-MS-Office365-Filtering-Correlation-Id: d420e06d-e523-4252-d8b5-08dac9ceec77
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ 1utKKLiDQjzh8B6eB/maOFcqNeEoP4J5KTV5Qyr/KdrIiZbygD0MDSTTH8D4Y++E4gwboFm1dwO6m9LT0b9NbrjhOYKhOHghz0Hv3PBHGBGGq/4O+Y6sqAgAFQm2Fwe9L3On/vXlWDhMr9tP9w3Frojiwfgb2NlQf3oLOt8XZgmJ/A6UKfVHMx/P7nnVIeoqdLcQGX6t4BrqSnDQ5yGhPDzVoXpEzWI8vbu7tUyhrOWsCsBg8zv3SN0jaPVe+tI8Q2intXxi5zkAvonqXxV5B+mxfagdV1RdNjUp4OVBAD4xNVHKJRw3jCAl50e7kQHTg+gsU8xlrATzHUZaX/Gcea24FjnXJZDbMy7ciNENgAuyLujvMw3THoC20kZvFBk0qJYssZLyo6KvLVZhAxkvg49fY5ITmZ6TyBxjeFOD6FqWoE4uY3lny/lYUWkfjyLypbJAbJWBDirGHB+hrSUsdzy2Iq60NK6cTYQJFH+VBnqt+s5CohFmlnHuiclzMKXB5qV/diLhRK0G2E0/gl6wjej/j8okXPQNwtLsYC3nj3xr/vO0/3bx6w6I8IwXGcXar6Le+rC+O7V+rGHa4cxzVH11TXyPEzakN4KRvg4uXjsVq5lLFwssob6muhzxQioZ3LQUq8h1ovQ2+Zs09gRwBG8OwCrPY602Npcv4JfZ4+oCzq47XpWuiqTDRKbwDHs90tm5z9lVHMm9ci1anrrhzZjdRZCTkXHYvL2/om+O0S0=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(346002)(396003)(376002)(136003)(39860400002)(451199015)(316002)(54906003)(2906002)(478600001)(110136005)(6506007)(66946007)(9686003)(7696005)(71200400001)(26005)(76116006)(186003)(41300700001)(8936002)(4326008)(122000001)(83380400001)(4744005)(38100700002)(55016003)(5660300002)(52536014)(8676002)(86362001)(66476007)(66556008)(33656002)(66446008)(38070700005)(64756008)(101420200003);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 18 Nov 2022 20:10:33 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9055
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT046.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	35f714be-e358-4f07-060b-08dac9cee790
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	1oXQZPUUqRkfGgayG+k+lwmh5nJjxI1lBLNxgESk7KvvjsEi7yfCcLoLma7NTOA1BYvaKwr3yaiqyjkc3L6fS4IMVM82jVlT0hRplHqshCpiGXugGXxvkqxMfKiPrN8lbF+3kszlNQSF2Cm0qpfBuovKDTyI347cl9B8dllFLCHfm4+7O9C3ewiQS8WEFpkE5X0NHT/SxxEU05puvleY/1IISkjve0kd0NZRHvSKImH/JC4VvHavq1iC77rEMwh3e/O9cbmZhha4oVD0UN4aueBIHxnHjTXOR5ctoWqAOn5boSGvg8K9F0chFg2gdaimBtF1cn6wvP1gQZYlww0RLoDIZ4S605UQN45riV+TnqfeFgGmArNymuGOLp7tmFZ5hvg3Hj8LIAyzHZojj/ZI/HRlLWcS0ccEbQvhJ9NEgn+eYaSihx4JaTZUSnDr9BfkL18mZLHZwYA54ZHnDYEP9KeanDinoJofOy0ImVoT7ofulSmF0lQ27tUuTbSqVD8lIUORTSOG9b8GOl9yWHVMTaTru+bakZBS9Sr3UoAq1eFN3Oq37Or33TJE2CV5cGiZUhpyxxYGhBMdGiCrVdpe3EFc7FcfQGrhTd+oatCwMkIIinOB76SCKx1PuzatgdtwPAElulDJeH/hAfvLtQyt+esI1hz/HqPK3B9gR4/8YC+mxPOgfHpnRO6T/sPvlT9Hz1DGljVSiHZmxVVB2dhBeWkVf/gJQX8uMvAb8E/NH7sby5MjXYA23fmmgVb9AlvS
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(40460700003)(186003)(110136005)(33656002)(5660300002)(336012)(316002)(54906003)(9686003)(26005)(7696005)(6506007)(4744005)(41300700001)(70586007)(52536014)(8936002)(4326008)(70206006)(8676002)(40480700001)(36860700001)(82310400005)(356005)(81166007)(82740400003)(83380400001)(47076005)(55016003)(2906002)(86362001)(478600001)(107886003)(101420200003);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2022 01:39:39.3913
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d420e06d-e523-4252-d8b5-08dac9ceec77
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT046.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB9590
 
-On Mon, Oct 03, 2022 at 07:04:02PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Mon, Oct 03, 2022 at 06:37:19PM +0200, Ard Biesheuvel wrote:
-> > On Mon, 3 Oct 2022 at 18:23, Demi Marie Obenour
-> > <demi@invisiblethingslab.com> wrote:
-> > >
-> > > On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
-> > > > On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
-> > > > <demi@invisiblethingslab.com> wrote:
-> > > > >
-> > > > > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
-> > > > > > Xen on x86 boots dom0 in EFI mode but without providing a memor=
-y map.
-> > > > > > This means that some sanity checks we would like to perform on
-> > > > > > configuration tables or other data structures in memory are not
-> > > > > > currently possible. Xen does, however, expose EFI memory descri=
-ptor info
-> > > > > > via a Xen hypercall, so let's wire that up instead.
-> > > > > >
-> > > > > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.co=
-m>
-> > > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > > > > > ---
-> > > > > >  drivers/firmware/efi/efi.c |  5 ++-
-> > > > > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
-> > > > > >  include/linux/efi.h        |  1 +
-> > > > > >  3 files changed, 39 insertions(+), 1 deletion(-)
-> > > > > >
-> > > > > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/=
-efi.c
-> > > > > > index 55bd3f4aab28..2c12b1a06481 100644
-> > > > > > --- a/drivers/firmware/efi/efi.c
-> > > > > > +++ b/drivers/firmware/efi/efi.c
-> > > > > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
-> > > > > >   * and if so, populate the supplied memory descriptor with the=
- appropriate
-> > > > > >   * data.
-> > > > > >   */
-> > > > > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_=
-md)
-> > > > > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *ou=
-t_md)
-> > > > > >  {
-> > > > > >       efi_memory_desc_t *md;
-> > > > > >
-> > > > > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_=
-memory_desc_t *out_md)
-> > > > > >       return -ENOENT;
-> > > > > >  }
-> > > > > >
-> > > > > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_=
-t *out_md)
-> > > > > > +      __weak __alias(__efi_mem_desc_lookup);
-> > > > > > +
-> > > > > >  /*
-> > > > > >   * Calculate the highest address of an efi memory descriptor.
-> > > > > >   */
-> > > > > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
-> > > > > > index d1ff2186ebb4..74f3f6d8cdc8 100644
-> > > > > > --- a/drivers/xen/efi.c
-> > > > > > +++ b/drivers/xen/efi.c
-> > > > > > @@ -26,6 +26,7 @@
-> > > > > >
-> > > > > >  #include <xen/interface/xen.h>
-> > > > > >  #include <xen/interface/platform.h>
-> > > > > > +#include <xen/page.h>
-> > > > > >  #include <xen/xen.h>
-> > > > > >  #include <xen/xen-ops.h>
-> > > > > >
-> > > > > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
-> > > > > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_high=
-_mono_count;
-> > > > > >       efi.reset_system                =3D xen_efi_reset_system;
-> > > > > >  }
-> > > > > > +
-> > > > > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_=
-md)
-> > > > > > +{
-> > > > > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
-> > > > > > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_PA=
-GE_SHIFT");
-> > > > > > +     struct xen_platform_op op =3D {
-> > > > > > +             .cmd =3D XENPF_firmware_info,
-> > > > > > +             .u.firmware_info =3D {
-> > > > > > +                     .type =3D XEN_FW_EFI_INFO,
-> > > > > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
-> > > > > > +                     .u.efi_info.mem.addr =3D phys_addr,
-> > > > > > +                     .u.efi_info.mem.size =3D U64_MAX - phys_a=
-ddr,
-> > > > > > +             }
-> > > > > > +     };
-> > > > > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_=
-info;
-> > > > > > +     int rc;
-> > > > > > +
-> > > > > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMAP))
-> > > > > > +             return __efi_mem_desc_lookup(phys_addr, out_md);
-> > > > > > +
-> > > > > > +     rc =3D HYPERVISOR_platform_op(&op);
-> > > > > > +     if (rc) {
-> > > > > > +             pr_warn("Failed to lookup header 0x%llx in Xen me=
-mory map: error %d\n",
-> > > > > > +                     phys_addr, rc);
-> > > > > > +     }
-> > > > > > +
-> > > > > > +     out_md->phys_addr       =3D info->mem.addr;
-> > > > >
-> > > > > This will be equal to phys_addr, not the actual start of the memo=
-ry
-> > > > > region.
-> > > > >
-> > > > > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_SH=
-IFT;
-> > > > >
-> > > > > Similarly, this will be the number of bytes in the memory region
-> > > > > after phys_addr, not the total number of bytes in the region.  Th=
-ese two
-> > > > > differences mean that this function is not strictly equivalent to=
- the
-> > > > > original efi_mem_desc_lookup().
-> > > > >
-> > > > > I am not sure if this matters in practice, but I thought you woul=
-d want
-> > > > > to be aware of it.
-> > > >
-> > > > This is a bit disappointing. Is there no way to obtain this
-> > > > information via a Xen hypercall?
-> > >
-> > > It is possible, but doing so is very complex (it essentially requires=
- a
-> > > binary search).  This really should be fixed on the Xen side.
-> > >
-> > > > In any case, it means we'll need to round down phys_addr to page si=
-ze
-> > > > at the very least.
-> > >
-> > > That makes sense.  Are there any callers that will be broken even with
-> > > this rounding?
-> >=20
-> > As far as I can tell, it should work fine. The only thing to double
-> > check is whether we are not creating spurious error messages from
-> > efi_arch_mem_reserve() this way, but as far as I can tell, that should
-> > be fine too.
-> >=20
-> > Is there anyone at your end that can give this a spin on an actual
-> > Xen/x86 system?
+Hi Anthony,
+
+> -----Original Message-----
+> From: Anthony PERARD <anthony.perard@citrix.com>
+> Subject: [XEN PATCH for-4.17] libs/light: Propagate
+> libxl__arch_domain_create() return code
 >=20
-> Demi, if you open a PR with this at
-> https://github.com/QubesOS/qubes-linux-kernel/pulls, I can run it
-> through our CI - (at least) one of the machines has ESRT table.
+> Commit 34990446ca91 started to overwrite the `rc` value from
+> libxl__arch_domain_create(), thus error aren't propagated anymore.
+>=20
+> Check `rc` value before doing the next thing.
+>=20
+> Fixes: 34990446ca91 ("libxl: don't ignore the return value from
+> xc_cpuid_apply_policy")
+> Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
 
-Done: https://github.com/QubesOS/qubes-linux-kernel/pull/681
+Release-acked-by: Henry Wang <Henry.Wang@arm.com>
 
-> AFAIR your test laptop has it too.
-
-It does; I plan to test a version that has the needed rounding.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---eZXLIpVKxA42QWNq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmN4LQ4ACgkQsoi1X/+c
-IsHajw//UHBxXvpBAaynVshK24kWcagS+15BbXEqlSvj8f4y7Kjd/j71nedJG9wM
-fbDlTd9ThZh+Bts17ytNdVxxx1NPN0vwm9Y65alkMraBBS0zKlbSMLofYTBHc4K5
-k9JxkuEejvWOYXKEHzDXIong/pKBMa1LFQVrkS/SfV8KpRm8jAS7+a/+5MnzsRP5
-iAQ89uiCJO2fipRHlw7dEnwMy1UR7S/huHUaKh0Zjdyu3LGFNVkPC1LE43BVg8rB
-2nwkfGpBcnHvGmG74/DC3SoPdlA89NCSaJnbJzY+0eEfkhZrZBaV4C7+MLCljXeQ
-mDGyTDLYWpt5GKv52OfL1UmW1qlp2b1cn8mADcqAHFGKyWzhvsfV16J+q1p9eJ4f
-xeX7PIYpHefhifjHnghR792HoVYaHrzz0fELsYlBCYxkysSzACpUbdgOXI3CJZ2u
-nTuI+ktChEb9+EoV5ZF3RWzWjIQRLRZBkAXZdLuFn0+VKojnirSTf5UeBsqORStK
-sNuHUirH2Y917nSidGZjAcMeh7wg1gA6nTx/zvfR+hoGZW7BUdlqbWUKHFyu8PqN
-vlosBmJp16MCylNe61+1fxyM78dfpTMd72jHwJLyq71Na+WgiRXuCFUoADHCi6He
-0KH4QOPfjJ0xYOokeSnC/6MNGIBYJdUaxxKUGgdQKSZ5emLd5WI=
-=ahFb
------END PGP SIGNATURE-----
-
---eZXLIpVKxA42QWNq--
+Kind regards,
+Henry
 
