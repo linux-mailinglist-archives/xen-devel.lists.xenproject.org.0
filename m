@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2344763079B
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 01:37:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.445952.701402 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9B2163083F
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 02:11:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.445960.701414 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owBqD-00045z-P3; Sat, 19 Nov 2022 00:36:17 +0000
+	id 1owCNe-0007C1-GH; Sat, 19 Nov 2022 01:10:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 445952.701402; Sat, 19 Nov 2022 00:36:17 +0000
+Received: by outflank-mailman (output) from mailman id 445960.701414; Sat, 19 Nov 2022 01:10:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owBqD-00043V-MB; Sat, 19 Nov 2022 00:36:17 +0000
-Received: by outflank-mailman (input) for mailman id 445952;
- Sat, 19 Nov 2022 00:36:17 +0000
+	id 1owCNe-00078Z-D0; Sat, 19 Nov 2022 01:10:50 +0000
+Received: by outflank-mailman (input) for mailman id 445960;
+ Sat, 19 Nov 2022 01:10:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=OpAN=3T=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1owBqC-00043P-Rz
- for xen-devel@lists.xenproject.org; Sat, 19 Nov 2022 00:36:17 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2c5ec814-67a2-11ed-91b6-6bf2151ebd3b;
- Sat, 19 Nov 2022 01:36:14 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id D7781B825DA;
- Sat, 19 Nov 2022 00:36:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90B7C433D6;
- Sat, 19 Nov 2022 00:36:09 +0000 (UTC)
+ <SRS0=UD8z=3T=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1owCNc-00078T-Ig
+ for xen-devel@lists.xenproject.org; Sat, 19 Nov 2022 01:10:49 +0000
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fd6eb5e3-67a6-11ed-91b6-6bf2151ebd3b;
+ Sat, 19 Nov 2022 02:10:45 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 3562732005BC;
+ Fri, 18 Nov 2022 20:10:41 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Fri, 18 Nov 2022 20:10:42 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Nov 2022 20:10:39 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,219 +43,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2c5ec814-67a2-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1668818171;
-	bh=dwGE39AbfR/PbAZBDDm4IDB9zj109djqC5+9ZbOhbjY=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Cu3GwSrnLAsXa2R99AMu5o44DYWPcM+WIczC8Wyn7c9F/jbvXntG4DV+XFZ4Xe5vN
-	 LaAnINMSwb4EbnuRVHv6PNPqOgPxEP3TOnTxmLe/MTFWZAZKP0uWb9Iv4Z+dMNTp0O
-	 FnGGdbugWv3beTjsqy6buCqGQsNeeCJbqp+3NyACIimyhhwY2kvtEBHaaOMaF+cdac
-	 +A0RBtkkRB55hzBiP7+cu6R5qU+bODgoxe0orsEYjdxHAU/D0i8dWgBCrNkPmytNG8
-	 15TB+PanZLPl9AYhxSwNkI6NTm8d7HVQGk2q8WavV7lEEGSkYet1YkZFgltKDlqW8U
-	 7srwYdXDJdevA==
-Date: Fri, 18 Nov 2022 16:36:08 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Leo Yan <leo.yan@linaro.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen Develop <xen-devel@lists.xenproject.org>, 
-    Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Mathieu Poirier <mathieu.poirier@linaro.org>, 
-    Kasper Ornstein Mecklenburg <Kasper.OrnsteinMecklenburg@arm.com>, 
-    jgross@suse.com, oleksandr_tyshchenko@epam.com, boris.ostrovsky@oracle.com, 
-    wei.liu@kernel.org, paul@xen.org
-Subject: Re: Issue: Networking performance in Xen VM on Arm64
-In-Reply-To: <Y1umvVrGLktIvJuk@leoy-huanghe.lan>
-Message-ID: <alpine.DEB.2.22.394.2211181621160.1049131@ubuntu-linux-20-04-desktop>
-References: <Y0QMQuAUKKSgrAAV@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210101621480.3690179@ubuntu-linux-20-04-desktop> <Y0VbQ3esM8gucmqQ@leoy-yangtze.lan> <alpine.DEB.2.22.394.2210111434240.3690179@ubuntu-linux-20-04-desktop> <Y00/SW5Ro+SlhoBU@leoy-yangtze.lan>
- <alpine.DEB.2.22.394.2210171638080.4587@ubuntu-linux-20-04-desktop> <Y1J39UsPlM8htxFx@leoy-huanghe.lan> <alpine.DEB.2.22.394.2210211341440.3873@ubuntu-linux-20-04-desktop> <Y1ZvDt7/I9JXJh2r@leoy-huanghe.lan> <alpine.DEB.2.22.394.2210251655420.1397955@ubuntu-linux-20-04-desktop>
- <Y1umvVrGLktIvJuk@leoy-huanghe.lan>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: fd6eb5e3-67a6-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668820240; x=
+	1668906640; bh=5ZTgwin0129aHkVKnahjCMa8iAMdMUWn/8FuM88/l8s=; b=Y
+	/kP2NAbHWWMuxtBzYGa+f7z0RUBou8a73WlsYgDTjXguRT0kLWMM5Gp8Qw6qwzy8
+	ysLeF1gtK9fKJUX0cZrmCFGc+SyLVU22oiwRvpcRK2r/jywU7jbY6z2EmqezONAh
+	DHqJk36+TrmMxla7hOeR/Rr5G0aFgaFNa7Hhw+3761ztHl1JWOgxo4xdezGUDsnM
+	7O+5vz/ngBPkzIAz/MlPLWoCz52RX8RC+ZJv5HOWQGeKPsLx+cXkNS1IKki188NV
+	xDtmLvLURwwJDrIC/8A/xetPJ/V41IADQKYyStoilVMHeI+jY5nb8I6FyDKyJp0B
+	VfR1HwGzjTZ/8k7PNnF5w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1668820240; x=1668906640; bh=5ZTgwin0129aHkVKnahjCMa8iAMd
+	MUWn/8FuM88/l8s=; b=A2qiiyNnB1jaLh+c3g0Bv2qIzo1xFA/STTCwKwGQhV8c
+	CaQNuH8inrMNyUeDpesjwG4ZCt/STe/8bPr6H7gjsmRLAYmqf40smjpWrYKxabqg
+	xRS6V/mBMQfsjKPJHumNqzUmzbobj2Sl8/VwJs0SYg0AGDhpQaVIyX0JaIf+fJJW
+	jWk227NazmYUVG33QAImi1YYyyMsHifWAm0z6+t+Y3hUuyoy/Saqw17nTDJkdcSv
+	gKj/yG8plOpQhmOE5GCHx7TmlzbVgNtCJhXWg+YhoEsJKX3LT808r9iqpeWLj4pb
+	tOpceD1Nfm/RNRKr73YXXI4z3hXrM4BbJFnvizaRPQ==
+X-ME-Sender: <xms:EC14Y280hcU5A1RrHFInJGG70pZJavb3XhdGRR93B959Pv2DB4akRQ>
+    <xme:EC14Y2spHaf_CLDmV2FIoKAPYrtEUjqzqXAcnsjoTnXKXy5KlHbUZb9zeC157RzpU
+    JvoY3BZ8zaxL4g>
+X-ME-Received: <xmr:EC14Y8AcpUoF6n0cT3RGiRNnxW2iglnsjSSV1gSUVpd3nxwy798_V9jva6ky>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedugdefudcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeutdehhfdtvdfffeejjedvhedvjeei
+    heffheekkeehgeelueelveeludetheetteenucffohhmrghinhepghhithhhuhgsrdgtoh
+    hmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggv
+    mhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:EC14Y-cpBWb5QY20bmPxP62_-v4S90T2xWO1Bsk0dKMruX2kGTi0sw>
+    <xmx:EC14Y7MlEEMBmIyOH-ID-cQ80NPTqW1QnIYzBon2JZrG_vZSMRnkkg>
+    <xmx:EC14Y4l7qYuACqWRmp-f86ufzOf54CUohgu6JgWo1VjVrF4hGGpFJA>
+    <xmx:EC14Y2qSZKvPN0cFz6r1znnh5Dh3ojE80Gf_FQDiHM6gO3YkMyktmQ>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 18 Nov 2022 20:10:33 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
+Message-ID: <Y3gtDS60csz03tjJ@itl-email>
+References: <20221003112625.972646-1-ardb@kernel.org>
+ <20221003112625.972646-6-ardb@kernel.org>
+ <Yzr/1s9CbA0CClmt@itl-email>
+ <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
+ <YzsMYfEwmjHwVheb@itl-email>
+ <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
+ <YzsWAnD7q9qeBoBn@mail-itl>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-Hi Leo,
-
-Thank you for the fantastic work with so many good details. Apologies
-for the late reply -- I have been traveling and on holiday.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eZXLIpVKxA42QWNq"
+Content-Disposition: inline
+In-Reply-To: <YzsWAnD7q9qeBoBn@mail-itl>
 
 
-On Fri, 28 Oct 2022, Leo Yan wrote:
-> Hi Stefano,
-> 
-> On Tue, Oct 25, 2022 at 04:58:16PM -0700, Stefano Stabellini wrote:
-> > On Mon, 24 Oct 2022, Leo Yan wrote:
-> > > > If you are really running with the NULL scheduler, then I would
-> > > > investigate why the vCPU has is_running == 0 because it should not
-> > > > happen.
-> > > 
-> > > Correct for this: it's my bad that I didn't really enable NULL scheduler
-> > > in my code base.  After I enabled NULL scheduler, the latency by context
-> > > switching is dismissed.
-> > > 
-> > >  8963              pub-338   [002]   217.777652: bprint:               xennet_tx_setup_grant: id=60 ref=1340 offset=2 len=1514 TSC: 7892178799
-> > >  8964              pub-338   [002]   217.777662: bprint:               xennet_tx_setup_grant: id=82 ref=1362 offset=2050 len=1006 TSC: 7892179043
-> > >  8965     ksoftirqd/12-75    [012]   255.466914: bprint:               xenvif_tx_build_gops.constprop.0: id=60 ref=1340 offset=2 len=1514 TSC: 7892179731
-> > >  8966     ksoftirqd/12-75    [012]   255.466915: bprint:               xenvif_tx_build_gops.constprop.0: id=82 ref=1362 offset=2050 len=1006 TSC: 7892179761
-> > >  8967              pub-338   [002]   217.778057: bprint:               xennet_tx_setup_grant: id=60 ref=1340 offset=2050 len=1514 TSC: 7892188930
-> > >  8968              pub-338   [002]   217.778072: bprint:               xennet_tx_setup_grant: id=53 ref=1333 offset=2 len=1514 TSC: 7892189293
-> > >  8969       containerd-2965  [012]   255.467304: bprint:               xenvif_tx_build_gops.constprop.0: id=60 ref=1340 offset=2050 len=1514 TSC: 7892189479
-> > >  8970       containerd-2965  [012]   255.467306: bprint:               xenvif_tx_build_gops.constprop.0: id=53 ref=1333 offset=2 len=1514 TSC: 7892189533
-> > 
-> > I am having difficulty following the messages. Are the two points [a]
-> > and [b] as described in the previous email shown here?
-> 
-> No, the [b] point is about the trace point in Xen hypvervisor.  
-> 
-> For easier review I combined the trace log from Xen dom0 and dom0
-> Linux kernels, in above log, the function xennet_tx_setup_grant() is
-> traced from domU Linux kernel and the function
-> xenvif_tx_build_gops.constprop.0 from dom0 Linux kernel and I sorted
-> the logs with TSC (Arm arch timer physical counter).
-> 
-> Sorry for confusion and I didn't explain clearly.
-> 
-> > > So the xennet (Xen net forend driver) and xenvif (net backend driver)
-> > > work in parallel.  Please note, I didn't see networking performance
-> > > improvement after changed to use NULL scheduler.
-> > > 
-> > > Now I will compare the duration for two directions, one direction is
-> > > sending data from xennet to xenvif, and another is the reversed
-> > > direction.  It's very likely the two directions have significant
-> > > difference for sending data with grant tables, you could see in above
-> > > log, it takes 20~30us to transmit a data block (we can use the id
-> > > number and grant table's ref number to match the data block in xennet
-> > > driver and xenvif driver).
-> > > 
-> > > > Now regarding the results, I can see the timestamp 3842008681 for
-> > > > xennet_notify_tx_irq, 3842008885 for vgic_inject_irq, and 3842008935 for
-> > > > vcpu_kick. Where is the corresponding TSC for the domain receiving the
-> > > > notification?
-> > > > 
-> > > > Also for the other case, starting at 3842016505, can you please
-> > > > highlight the timestamp for vgic_inject_irq, vcpu_kick, and also the one
-> > > > for the domain receiving the notification?
-> > > > 
-> > > > The most interesting timestamps would be the timestamp for vcpu_kick in
-> > > > "notification sending domain" [a], the timestamp for receiving the
-> > > > interrupt in the Xen on pCPU for the "notification receiving domain"
-> > > > [b], and the timestamp for the "notification receiving domain" getting
-> > > > the notification [c].
-> > > > 
-> > > > If really context switch is the issue, then the interesting latency
-> > > > would be between [a] and [b].
-> > > 
-> > > Understand.  I agree that I didn't move into more details, the main
-> > > reason is Xen dmesg buffer is fragile after adding more logs, e.g.
-> > > after I added log in the function gicv3_send_sgi(), Xen will stuck
-> > > during the booting phase, and after adding logs in
-> > > leave_hypervisor_to_guest() it will introduce huge logs (so I need to
-> > > only trace for first 16 CPUs to mitigate log flood).
-> > > 
-> > > I think it would be better to enable xentrace for my profiling at my
-> > > side.  If I have any further data, will share back.
-> > 
-> > Looking forward to it. Without more details it is impossible to identify
-> > the source of the problem and fix it.
-> 
-> The application passes data to Linux kernel and low level driver needs
-> to transfer skbs between Xen network frontend and backend drivers via
-> Xen shared ring buffer / grant table.  So let's step back to review
-> the duration in the network drivers for sending and receiving skbs.
-> 
-> I measured intervals for sending skbs, one direction is for sending skb
-> from dom0 to domU and another direction is from domU to dom0. For easier
-> review, I plotted the intervals in diagrams [1][2] for these two
-> directions respectively.
-> 
-> In a diagram it has three metrics:
-> 
-> - Packet sending interval: measures the interval from the sender.
-> 
->   For the direction from dom0 to domu, this metric measures the
->   interval for sending skbs in the Xen backend driver in dom0.
-> 
->   For the direction from domU to dom0, this metric measures the
->   interval for sending skbs in the Xen frontend driver in domU.
-> 
-> - Packet receiving interval: measures the interval for the receiver.
-> 
->   For the direction from dom0 to domu, this metric measures the
->   interval for receiving skbs in the Xen frontend driver in domU.
-> 
->   For the direction from domU to dom0, this metric measures the
->   interval for receiving skbs in the Xen backend driver in dom0.
-> 
-> - Packet response interval: measures the interval between sender and
->   receiver.
-> 
->   This interval measures the duration between a skb is sending out
->   from the sender and until it's fetched from grant table by the
->   receiver.
-> 
-> >From these three metrics we can know the latency is caused by three
-> actors: sender, receiver, Xen hypervisor.
-> 
-> In two diagrams we can see the packet response interval (yellow line)
-> is about 10~20us.  The response interval for domu -> dom0 (~10us) is
-> even better than the interval for dom0 -> domu (15~20us), which means
-> the response time is not the curplit for the poor performance when
-> sending data from domu to dom0.
+--eZXLIpVKxA42QWNq
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 18 Nov 2022 20:10:33 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Kees Cook <keescook@chromium.org>,
+	Anton Vorontsov <anton@enomsg.org>,
+	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
+Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
+ based on hypercall
 
-I agree with you.
+On Mon, Oct 03, 2022 at 07:04:02PM +0200, Marek Marczykowski-G=C3=B3recki w=
+rote:
+> On Mon, Oct 03, 2022 at 06:37:19PM +0200, Ard Biesheuvel wrote:
+> > On Mon, 3 Oct 2022 at 18:23, Demi Marie Obenour
+> > <demi@invisiblethingslab.com> wrote:
+> > >
+> > > On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
+> > > > On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
+> > > > <demi@invisiblethingslab.com> wrote:
+> > > > >
+> > > > > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrote:
+> > > > > > Xen on x86 boots dom0 in EFI mode but without providing a memor=
+y map.
+> > > > > > This means that some sanity checks we would like to perform on
+> > > > > > configuration tables or other data structures in memory are not
+> > > > > > currently possible. Xen does, however, expose EFI memory descri=
+ptor info
+> > > > > > via a Xen hypercall, so let's wire that up instead.
+> > > > > >
+> > > > > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingslab.co=
+m>
+> > > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+> > > > > > ---
+> > > > > >  drivers/firmware/efi/efi.c |  5 ++-
+> > > > > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
+> > > > > >  include/linux/efi.h        |  1 +
+> > > > > >  3 files changed, 39 insertions(+), 1 deletion(-)
+> > > > > >
+> > > > > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/=
+efi.c
+> > > > > > index 55bd3f4aab28..2c12b1a06481 100644
+> > > > > > --- a/drivers/firmware/efi/efi.c
+> > > > > > +++ b/drivers/firmware/efi/efi.c
+> > > > > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
+> > > > > >   * and if so, populate the supplied memory descriptor with the=
+ appropriate
+> > > > > >   * data.
+> > > > > >   */
+> > > > > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_=
+md)
+> > > > > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *ou=
+t_md)
+> > > > > >  {
+> > > > > >       efi_memory_desc_t *md;
+> > > > > >
+> > > > > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, efi_=
+memory_desc_t *out_md)
+> > > > > >       return -ENOENT;
+> > > > > >  }
+> > > > > >
+> > > > > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_=
+t *out_md)
+> > > > > > +      __weak __alias(__efi_mem_desc_lookup);
+> > > > > > +
+> > > > > >  /*
+> > > > > >   * Calculate the highest address of an efi memory descriptor.
+> > > > > >   */
+> > > > > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
+> > > > > > index d1ff2186ebb4..74f3f6d8cdc8 100644
+> > > > > > --- a/drivers/xen/efi.c
+> > > > > > +++ b/drivers/xen/efi.c
+> > > > > > @@ -26,6 +26,7 @@
+> > > > > >
+> > > > > >  #include <xen/interface/xen.h>
+> > > > > >  #include <xen/interface/platform.h>
+> > > > > > +#include <xen/page.h>
+> > > > > >  #include <xen/xen.h>
+> > > > > >  #include <xen/xen-ops.h>
+> > > > > >
+> > > > > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
+> > > > > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_high=
+_mono_count;
+> > > > > >       efi.reset_system                =3D xen_efi_reset_system;
+> > > > > >  }
+> > > > > > +
+> > > > > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *out_=
+md)
+> > > > > > +{
+> > > > > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
+> > > > > > +                   "Mismatch between EFI_PAGE_SHIFT and XEN_PA=
+GE_SHIFT");
+> > > > > > +     struct xen_platform_op op =3D {
+> > > > > > +             .cmd =3D XENPF_firmware_info,
+> > > > > > +             .u.firmware_info =3D {
+> > > > > > +                     .type =3D XEN_FW_EFI_INFO,
+> > > > > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
+> > > > > > +                     .u.efi_info.mem.addr =3D phys_addr,
+> > > > > > +                     .u.efi_info.mem.size =3D U64_MAX - phys_a=
+ddr,
+> > > > > > +             }
+> > > > > > +     };
+> > > > > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.efi_=
+info;
+> > > > > > +     int rc;
+> > > > > > +
+> > > > > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEMMAP))
+> > > > > > +             return __efi_mem_desc_lookup(phys_addr, out_md);
+> > > > > > +
+> > > > > > +     rc =3D HYPERVISOR_platform_op(&op);
+> > > > > > +     if (rc) {
+> > > > > > +             pr_warn("Failed to lookup header 0x%llx in Xen me=
+mory map: error %d\n",
+> > > > > > +                     phys_addr, rc);
+> > > > > > +     }
+> > > > > > +
+> > > > > > +     out_md->phys_addr       =3D info->mem.addr;
+> > > > >
+> > > > > This will be equal to phys_addr, not the actual start of the memo=
+ry
+> > > > > region.
+> > > > >
+> > > > > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAGE_SH=
+IFT;
+> > > > >
+> > > > > Similarly, this will be the number of bytes in the memory region
+> > > > > after phys_addr, not the total number of bytes in the region.  Th=
+ese two
+> > > > > differences mean that this function is not strictly equivalent to=
+ the
+> > > > > original efi_mem_desc_lookup().
+> > > > >
+> > > > > I am not sure if this matters in practice, but I thought you woul=
+d want
+> > > > > to be aware of it.
+> > > >
+> > > > This is a bit disappointing. Is there no way to obtain this
+> > > > information via a Xen hypercall?
+> > >
+> > > It is possible, but doing so is very complex (it essentially requires=
+ a
+> > > binary search).  This really should be fixed on the Xen side.
+> > >
+> > > > In any case, it means we'll need to round down phys_addr to page si=
+ze
+> > > > at the very least.
+> > >
+> > > That makes sense.  Are there any callers that will be broken even with
+> > > this rounding?
+> >=20
+> > As far as I can tell, it should work fine. The only thing to double
+> > check is whether we are not creating spurious error messages from
+> > efi_arch_mem_reserve() this way, but as far as I can tell, that should
+> > be fine too.
+> >=20
+> > Is there anyone at your end that can give this a spin on an actual
+> > Xen/x86 system?
+>=20
+> Demi, if you open a PR with this at
+> https://github.com/QubesOS/qubes-linux-kernel/pulls, I can run it
+> through our CI - (at least) one of the machines has ESRT table.
 
+Done: https://github.com/QubesOS/qubes-linux-kernel/pull/681
 
-> The purple line and blue line for sending and receiving intervals are
-> correlated, this means the drivers in two sides (dom0 and domU) work in
-> parallel.
-> 
-> A big difference is we can see the sending interval (purple line) in the
-> diagram xmit_interval_dom0_to_domu.png usually keeps at ~1us, but the
-> sending interval in the diagram xmit_interval_domu_to_dom0.png is
-> about 10us.
+> AFAIR your test laptop has it too.
 
-I also find it curious that the receiving interval is almost 0 in the
-"dom0 to domU" direction and instead it is about 10us in the "domU to
-dom0" direction. Why would it take more time to receive skbs in one
-direction compared to the other?
+It does; I plan to test a version that has the needed rounding.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-Are the "receiving interval" and the "sending interval" measuring the
-same delay just from the receiver side and from the sender side?
+--eZXLIpVKxA42QWNq
+Content-Type: application/pgp-signature; name="signature.asc"
 
- 
-> If map to the code, I think the function xennet_start_xmit() in Xen
-> frontend driver is critical for the sending interval in domU.  I can
-> see several things cost time when sending a packet:
-> 
-> - Xen frontend driver needs to setup grant table for every skb, it
->   invokes the function xennet_tx_setup_grant() and
->   gnttab_grant_foreign_access_ref() to prepare grant table;
-> 
-> - Xen frontend driver sends notification by calling
->   notify_remote_via_irq().  It will trap to Xen hypervisor to send the
->   interrupt, this takes several macro seonds for this step.
-> 
-> - Xen frontend driver calls xennet_tx_buf_gc(), the interval for this
->   function is vary, it will take ~30us in the case for reclaiming grant
->   table.
-> 
-> Any thoughts for this?
+-----BEGIN PGP SIGNATURE-----
 
-For the sake of latency, it is better to avoid sources of uncertainty
-(even at the cost of bandwidth). From what you wrote above and from the
-other email it would seem that xennet_tx_buf_gc() can cause significant
-delays.
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmN4LQ4ACgkQsoi1X/+c
+IsHajw//UHBxXvpBAaynVshK24kWcagS+15BbXEqlSvj8f4y7Kjd/j71nedJG9wM
+fbDlTd9ThZh+Bts17ytNdVxxx1NPN0vwm9Y65alkMraBBS0zKlbSMLofYTBHc4K5
+k9JxkuEejvWOYXKEHzDXIong/pKBMa1LFQVrkS/SfV8KpRm8jAS7+a/+5MnzsRP5
+iAQ89uiCJO2fipRHlw7dEnwMy1UR7S/huHUaKh0Zjdyu3LGFNVkPC1LE43BVg8rB
+2nwkfGpBcnHvGmG74/DC3SoPdlA89NCSaJnbJzY+0eEfkhZrZBaV4C7+MLCljXeQ
+mDGyTDLYWpt5GKv52OfL1UmW1qlp2b1cn8mADcqAHFGKyWzhvsfV16J+q1p9eJ4f
+xeX7PIYpHefhifjHnghR792HoVYaHrzz0fELsYlBCYxkysSzACpUbdgOXI3CJZ2u
+nTuI+ktChEb9+EoV5ZF3RWzWjIQRLRZBkAXZdLuFn0+VKojnirSTf5UeBsqORStK
+sNuHUirH2Y917nSidGZjAcMeh7wg1gA6nTx/zvfR+hoGZW7BUdlqbWUKHFyu8PqN
+vlosBmJp16MCylNe61+1fxyM78dfpTMd72jHwJLyq71Na+WgiRXuCFUoADHCi6He
+0KH4QOPfjJ0xYOokeSnC/6MNGIBYJdUaxxKUGgdQKSZ5emLd5WI=
+=ahFb
+-----END PGP SIGNATURE-----
 
-One idea is only to parse the responses (RING_COPY_RESPONSE) in
-xennet_tx_buf_gc() and delay the calls to gnttab_end_foreign_access_ref
-for later. In other words:
-
-1) xennet_tx_buf_gc: read responses, grants to be removed "for later"
-2) independently when idle (maybe from a kthread or independent tasklet)
-   look for grants to be removed and remove them 
-
-Basically it is a lazy grant removal scheme where once receiving skbs,
-the related grants are not immediately freed, but later lazily.
+--eZXLIpVKxA42QWNq--
 
