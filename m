@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E18E9630F80
-	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 17:35:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.446133.701633 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7BE63112B
+	for <lists+xen-devel@lfdr.de>; Sat, 19 Nov 2022 23:01:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.446153.701668 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owQmq-0005a0-1C; Sat, 19 Nov 2022 16:33:48 +0000
+	id 1owVsi-0006pJ-3f; Sat, 19 Nov 2022 22:00:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 446133.701633; Sat, 19 Nov 2022 16:33:48 +0000
+Received: by outflank-mailman (output) from mailman id 446153.701668; Sat, 19 Nov 2022 22:00:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1owQmp-0005XN-Tr; Sat, 19 Nov 2022 16:33:47 +0000
-Received: by outflank-mailman (input) for mailman id 446133;
- Sat, 19 Nov 2022 16:33:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dbc6=3T=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1owQmo-0005XF-5x
- for xen-devel@lists.xenproject.org; Sat, 19 Nov 2022 16:33:46 +0000
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ed55fec5-6827-11ed-8fd2-01056ac49cbb;
- Sat, 19 Nov 2022 17:33:42 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 039975C0049;
- Sat, 19 Nov 2022 11:33:41 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sat, 19 Nov 2022 11:33:41 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 19 Nov 2022 11:33:39 -0500 (EST)
+	id 1owVsi-0006mP-0e; Sat, 19 Nov 2022 22:00:12 +0000
+Received: by outflank-mailman (input) for mailman id 446153;
+ Sat, 19 Nov 2022 22:00:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1owVsg-0006mF-GD; Sat, 19 Nov 2022 22:00:10 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1owVsg-0003kF-DZ; Sat, 19 Nov 2022 22:00:10 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1owVsg-00021D-2t; Sat, 19 Nov 2022 22:00:10 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1owVsg-00039x-2T; Sat, 19 Nov 2022 22:00:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,201 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ed55fec5-6827-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1668875620; x=
-	1668962020; bh=k1JAkdVKYVaYxy7kpC5w8PdLHIgc/yfPIYL5UkOFoDY=; b=U
-	FfepIQkuRItQ+/RiE97orM1O6zNvi/VRaBRkKEf7rZY/eNrkBFpNjDdIeMa8resL
-	voWC3eqP7CwW31vto5TEet10oPB1Lt6Y67vEe8AynLgPhIaBTzxIHTCuChFPeXdj
-	OeWnoqFOwvt/uYeZWGpPuHEEnVOmqTsalJUGbRyhGqmt37jWK9ux/CE3v3rwfySN
-	2POOHBjhRHSfCY5qsB3WW7SCN25M5FqkinuzfD9D+XfYoAAx37WHW9cYWQMpfD3R
-	pnbNkS2s6dxTdswawuohCdzRvwzKuoJAxgEw3TVO5vFbiMZgwSU4WRNuBHjKucFr
-	MuYvlHWErGT0xCGqzyIYA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1668875620; x=1668962020; bh=k1JAkdVKYVaYxy7kpC5w8PdLHIgc
-	/yfPIYL5UkOFoDY=; b=lJcopc9Opa+b6cHyTKQiOD7+nX2mwT03Ph9BbVVZuT5I
-	9VP8a5u0d3AeJOBBREXjFugQusX0JMrdM/Rt2rzsEVqWXRbmNMcoiSUZy3/Eb2tQ
-	Krk1TUa95At6+S2CJ1wZJQtCffQFB1GktV2vTOvxhlCNrBmKSNwUExOaJRLMASuj
-	S0NDX4atxmBdozpETZMlV7vQA5W/wWZG+Gx7zPrc2rtIab/YFP+pD1wAPcRRD359
-	lWu0kzBk6NVJz/nyhFWUhrYvW2Y8zGbO4cDKQDeG/sBh1vCD7NtFv2bupzobkIK+
-	teN1qvBEEDHJneZmbGkOJAjMchPfd/+BHd558a+gBQ==
-X-ME-Sender: <xms:ZAV5Y-96qg0f4N_AWENtp-ksK1EpYDDaS3BXTlOiSQDwgFqRedSDvA>
-    <xme:ZAV5Y-stU9oWZ-9W5yyUgpRi7FwNzMg_O_p_cyQkCu3tyzVDwcf0Wyqh1XIKSr5iE
-    LBMRC_F_byrdw>
-X-ME-Received: <xmr:ZAV5Y0AHsMbG_25t4-3u1r8NLbfDjYUl5x4o25EFEl4-IiOde_Zn5hH1uBmxwrMFsRm8g7V1vMKbzK4B786gSQVB8N9jgDRFSQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrhedvgdeludcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeet
-    teeggffgkeduheetgeeileejjeeiiefhjeegvefhtefggfetueetteeuteenucffohhmrg
-    hinhepghhithhhuhgsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghm
-    pehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomh
-X-ME-Proxy: <xmx:ZAV5Y2cCWjMhQYvDtPrdoDictb9Wt4l679Opiq0tkytljnobSHgi0Q>
-    <xmx:ZAV5YzNUs4AbTHygyCv2PiD-DRmoCWk78lfIE1w6noHCLPdvQ_ZCnA>
-    <xmx:ZAV5YwlI60M0UmBiSdeYD0eVeRL6szNI5SwURk2PZR7r4NgqrHUXHQ>
-    <xmx:ZAV5Y4rSl3vGOJPrf2A0VNO5h5mEUL5JyyW6G6yejj8BXuwGUdThZQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Sat, 19 Nov 2022 17:33:36 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is
- enabled
-Message-ID: <Y3kFYeml1CPL318u@mail-itl>
-References: <20221118154931.1928298-1-marmarek@invisiblethingslab.com>
- <CAKf6xpuCxftyQ+PKN_ffJ0onsSxcT8kVSwkM7Z10pfjqf0XFgA@mail.gmail.com>
- <Y3f9O0S8kVXZ+py+@mail-itl>
- <CAKf6xpvUcR=rta6SD7mw_pvgQJTxKjN5VHpC6x-zCAiaJ=pKfg@mail.gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Wt9cFmHMu21lI7HP0U8i0pteLh5Ta5VaiB3DeyqogNk=; b=OkNNs3wpfttxrv4fnIZyqXyeE+
+	bBnoVK2Ct5/BD3JVeKATikFksJ54RadpE0QnyoGXXq7cmBW7nN07tABMCWT0zF+tq/fUhSjE4Fau7
+	KS0UDc56Sa2EIbKn7E7aK0pe9/9jw7+Lu/A1wQ0fe+BqiKczjXfS5X76pezfVclBhL84=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174833-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="sCWikLql3O/b4frL"
-Content-Disposition: inline
-In-Reply-To: <CAKf6xpvUcR=rta6SD7mw_pvgQJTxKjN5VHpC6x-zCAiaJ=pKfg@mail.gmail.com>
+Subject: [linux-linus test] 174833: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=fe24a97cf2543e8832e7a2124802e5c32aac05aa
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 19 Nov 2022 22:00:10 +0000
+
+flight 174833 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174833/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ linux                fe24a97cf2543e8832e7a2124802e5c32aac05aa
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   43 days
+Failing since        173470  2022-10-08 06:21:34 Z   42 days   74 attempts
+Testing same since   174823  2022-11-19 03:58:29 Z    0 days    2 attempts
+
+------------------------------------------------------------
+1791 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
---sCWikLql3O/b4frL
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 19 Nov 2022 17:33:36 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jason Andryuk <jandryuk@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is
- enabled
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Sat, Nov 19, 2022 at 09:36:54AM -0500, Jason Andryuk wrote:
-> Hi, Marek,
->=20
-> On Fri, Nov 18, 2022 at 4:46 PM Marek Marczykowski-G=C3=B3recki
-> <marmarek@invisiblethingslab.com> wrote:
-> >
-> > On Fri, Nov 18, 2022 at 03:46:47PM -0500, Jason Andryuk wrote:
-> > > I was trying to test your xen-pciback v3 patch, and I am having
-> > > assignment fail consistently now.  It is actually failing to
-> > > quarantine to domIO in the first place, which matches the failure from
-> > > the other day (when I more carefully read through the logs).  It now
-> > > consistently fails to quarantine on every boot unlike the other day
-> > > where it happened once.
-> >
-> > Does this include the very first assignment too, or only after domain
-> > reboot? If the latter, maybe some cleanup missed clearing MASKALL?
->=20
-> It's the quarantine during dom0 boot that fails.  Later assignment
-> during VM boot fails.  I tried warm reboots and cold boots and it
-> happened both times.
->=20
-> I also modified my initrd to halt in there and checked the config
-> space.  MASKALL wasn't set at that time.  I need to double check -
-> MASKALL may have been unset after dom0 booted in that case.
->=20
-> I'll test more to figure when and how MASKALL is getting set.
->=20
-> > FWIW, the patch applied to Qubes
-> > (https://github.com/QubesOS/qubes-linux-kernel/pull/680) seems to work
-> > fine (the full test run is still in progress, but I see some green marks
-> > already).
->=20
-> Does Qubes quarantine devices explicitly, or are they in dom0 and
-> libvirt/libxl just assigns them when a domain boots?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-We do quarantine them explicitly, still in initramfs.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > > I added some printks and it 's getting -EBUSY from pdev_msix_assign()
-> > > which means pci_reset_msix_state() is failing:
-> > >     if ( pci_conf_read16(pdev->sbdf, msix_control_reg(pos)) &
-> > >          PCI_MSIX_FLAGS_MASKALL )
-> > >         return -EBUSY;
-> > >
-> > > # lspci -vv -s 14.3
-> > > ...
-> > >     Capabilities: [80] MSI-X: Enable- Count=3D16 Masked+
-> > >         Vector table: BAR=3D0 offset=3D00002000
-> > >         PBA: BAR=3D0 offset=3D00003000
-> > >
-> > > So it looks like MASKALL is set and prevents assignment.
-> > >
-> > > setpci -s 00:14.3 82.W=3Df
-> > > cleared that out for me and I could assign the device.
-> > >
-> > > My dom0 boots, it runs flask-label-pci for a set of PCI devices
-> > > (including iwlwifi), then xl pci-assignable-add for all PCI devices
-> > > which will be passed through, then a little later it boots the
-> > > associated domains.  Dom0 does not have a driver for iwlwifi.
-> > >
-> > > I'll have to investigate more to see how MASKALL is getting set.  This
-> > > had not been an issue before your recent patches.
-> >
-> > I guess before the patches nothing set anything in MSI-X capability,
-> > because it was hidden...
->=20
-> Well, stubdom hasn't even booted when, so it would be the Xen or
-> pciback change to modify MASKALL?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Weird...
 
-> > Anyway, to support my cleanup hypothesis, I tried to destroy a
-> > PCI-having domain, and it left MSI-X enabled (at least according to the
-> > config space). MASKALL was _not_ set, but I haven't checked masking of
-> > individual vectors. TBH, I'm not sure what should be responsible for the
-> > MSI-X cleanup after guest destroy. Should it be Xen? Qemu? Pciback?
-> > Pciback calls PHYSDEVOP_{prepare,release}_msix only when
-> > binding/unbinding from the device (so - xl pci-assignable-{add,remove}),
-> > so this isn't the right place.
->=20
-> I need to review all this code to give a meaningful response.  Would
-> xen-pciback set MASKALL when it binds a device?  That happens before
-> xl pci-assignable-add tries to quarantine (assign to to domIO).
+Not pushing.
 
-I don't see pciback doing that. And also, my patches shouldn't change
-behaviour of pciback when binding to a device (so, if it would be doing
-that, it would happen before my patches too).
-
-Maybe that's an interaction with some other patches?
-
-> > Should that be in Xen, in deassign_device() (part of
-> > DOMCTL_deassign_device)?
->=20
-> It seems to me that Xen needs to ultimately disable the device.
-
-That's my intuition too.
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---sCWikLql3O/b4frL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmN5BWAACgkQ24/THMrX
-1yyF0Af/aYMmZvYJ1q+GwXf5MPWXWaBIlU/0TQMqLyNv6+JNpsplksGAxarsFwMr
-4sXcwivdu7fslA6RfvbZ6L5hV5opwAGyg76i3PZsQo35ezsdcVIGAqNt3Uj+4LE7
-rzPwn+7b6yaKLjVPybqvN6n0/sLpO7d5E4ZpPy6/Ww89DAUFwhIS5hDDnnmrc3QO
-UQkQ5HpykQNx7Iq9cOdZabbSzS1ms0bS9pj8GzCPmJY3Lgu/q2aPkqMvpuJ+TwpQ
-oDKPzNK/BPoAVaEWf5bzFcybMf3ZiaQS4E6sauKxausfkh4Sn+hCeoqJVKreBUvQ
-8Jksic/ya73VURI5MVCfaHH33g1wTw==
-=wgKy
------END PGP SIGNATURE-----
-
---sCWikLql3O/b4frL--
+(No revision log; it would be 169553 lines long.)
 
