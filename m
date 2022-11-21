@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03D52632867
-	for <lists+xen-devel@lfdr.de>; Mon, 21 Nov 2022 16:40:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.446725.702483 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4A663286A
+	for <lists+xen-devel@lfdr.de>; Mon, 21 Nov 2022 16:42:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.446730.702495 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ox8tt-0001bJ-QJ; Mon, 21 Nov 2022 15:40:01 +0000
+	id 1ox8ve-0002yb-6F; Mon, 21 Nov 2022 15:41:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 446725.702483; Mon, 21 Nov 2022 15:40:01 +0000
+Received: by outflank-mailman (output) from mailman id 446730.702495; Mon, 21 Nov 2022 15:41:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ox8tt-0001Y4-N1; Mon, 21 Nov 2022 15:40:01 +0000
-Received: by outflank-mailman (input) for mailman id 446725;
- Mon, 21 Nov 2022 15:39:59 +0000
+	id 1ox8ve-0002v9-2k; Mon, 21 Nov 2022 15:41:50 +0000
+Received: by outflank-mailman (input) for mailman id 446730;
+ Mon, 21 Nov 2022 15:41:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=e+Qx=3V=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1ox8tr-0001Su-QG
- for xen-devel@lists.xenproject.org; Mon, 21 Nov 2022 15:39:59 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
+ id 1ox8vc-0002v3-0Q
+ for xen-devel@lists.xenproject.org; Mon, 21 Nov 2022 15:41:48 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c13b0ab6-69b2-11ed-91b6-6bf2151ebd3b;
- Mon, 21 Nov 2022 16:39:58 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id f27so29534309eje.1
- for <xen-devel@lists.xenproject.org>; Mon, 21 Nov 2022 07:39:58 -0800 (PST)
+ id 01d6f580-69b3-11ed-91b6-6bf2151ebd3b;
+ Mon, 21 Nov 2022 16:41:47 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id me22so12870157ejb.8
+ for <xen-devel@lists.xenproject.org>; Mon, 21 Nov 2022 07:41:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,80 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c13b0ab6-69b2-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 01d6f580-69b3-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=TL4bxAMdTZ7/1iyaxpPl4jxAMqdKroHRy/h4GAuBQWQ=;
-        b=HRicA2c2dHd8dbFhosIW4sVbG3lBUOTPKDKmYe8cR6sg29ZjWSxVPDQt4z+N4hG7tO
-         aZzD5XwkNpgQRh6IbTCjFxrlAAEteg7YgmTlN6YJvLbjSCN/wR8Twn8Gj9P4mQCeRp1s
-         +P/6MzvX/dpsh83ZR9MTs0xVVKzC7FmNN4ZvGliFAptZgBIZjp+AqZtxVLe+fKGLg52m
-         3eTrv/xfR1pz2mjZ3ISQQeRr9HfHXWR0uRr50j87rjfsXCbP5ruQHjl8zQ9p1lCVIfh2
-         79x+nuztF3Lww/HwcZEkvY+ERzt8g+5RYL0AtCZd53u0QEcNyE96OH1KmNwiCeVHDi1V
-         EADA==
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TCMlnWg+myOhhKN0SxZMVCH4mYM2c7IIKgrkO+HeaWk=;
+        b=Y2RO/yW642IDIaLYTAISydu25+lH0EHbLtHCbKmBKzdnSwR4XVBHiICXHVrhgghG8f
+         qzDASEcxyUzmk5Az0j2opwEyoq+DlHwLteDgK1bUfPBVgMSxXn4RfCTuSaZ+0g67ZzS6
+         7PC8oehAF2iilexEtWcuzzPq194e5+ZsSkStZnZwm0M8jP8p6EEstIbEcO8wND7uY+9Z
+         KQLWrNK0wMSON02oH+DSHWAWUVQuPYVDYr/E5OIZ/ugRbDxYxsEg4PkrAMgjYGAZq8Xn
+         uXHkfai7YE97+XY6rOJusPdqRdvo2H+eIq/y7P2MBDncBo4Xr02NdvLuzE2Yd+Uf2zLc
+         Dr8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=TL4bxAMdTZ7/1iyaxpPl4jxAMqdKroHRy/h4GAuBQWQ=;
-        b=kXXcOA83Za2KPWB1yUZIGBF84dkmY7o/3kLJ78VU+qftoRH/BlZwdm6H+kGWemL0QH
-         bONppDS3xUPzBYM/tG54kXM4lP7dj0xW/A+pE9LftjptEK3MMvRV905uxg8/5H9TRvkJ
-         f3KwM8wDa5oePQ2vN7Sgeng4c9xCuUyIudLIApZwUxB11oUV9/ud1PSEpc5CUMH/klxr
-         DN1d5FXDK/fdZfDj3FeWQOR9u/D2wK3fXeaN29ToUOrJhFanOgCfC047k/8dG9audcgE
-         yMPk0OQHGDam6AdzD//XntlloHlr8eExwrgUNpRMUNfTQNXsZUwqCiH6HLFRDH7ulyE1
-         e78w==
-X-Gm-Message-State: ANoB5pm71D6jHlmYo744FBEcNe/dKUpur+DZvYbnRlzH/714gN5HcZyr
-	pfgjQrsJMveu4NAkXcz6nxb3adTbIbn8oq65K40=
-X-Google-Smtp-Source: AA0mqf7j8jthng5USitAtvZjDRWXc92ugVtfIfkWRF/Wr83E3WdNJS8TQ5MdKmxwzsvvewdkXRLx+QS/+WWQyT+8hTs=
-X-Received: by 2002:a17:907:b686:b0:78d:f796:c00d with SMTP id
- vm6-20020a170907b68600b0078df796c00dmr1335927ejc.251.1669045198116; Mon, 21
- Nov 2022 07:39:58 -0800 (PST)
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=TCMlnWg+myOhhKN0SxZMVCH4mYM2c7IIKgrkO+HeaWk=;
+        b=jR8BEtuLRb1DXuhdvBivB1NfT2OpBFXNHM6gjvkSrnBJU5CYV2hopwtiguY7je5RVp
+         a1aKBsvonp9hCkQlJKG0hhVl/VHcYsFQBSFhVkxcujUtYjLT0dJW3zHSVOXZtb7y8oPS
+         dFYF0RBlovLfC/o91rMEtnyzU/I8BPX7tQDZ1kGxaFMJ3ovnPJ4nTDtQ4DsiOQKHg5mS
+         EQ+OXxfrTdq/DalvoYgdAzctv+NLyewbXT7WbrkQP/1tgkXK597DntIPXwrTYT+an9l6
+         k8KTvfcqBuMfdDRcJ/HNmAEeIaMkpytWZ6mklSnH+QARFZBUkd3+UdDUqfGOJvoc3WQe
+         aRAg==
+X-Gm-Message-State: ANoB5pn1uKhiWVAHpsXOGjnkSlhLHkF2Ujcuto1xX0EduWkLswsZKaeZ
+	l2cUIBzLx/v9cVIXcjbqOfz88WR433glTdPP39k=
+X-Google-Smtp-Source: AA0mqf5uOHOc2RxD/WaWaZ1u85j1VVhGSa0IldqxagvBVMqoRS1IH+b3Ral1oqQSSUWehCElDYUPp1lqEbwMbm6ODRU=
+X-Received: by 2002:a17:906:448d:b0:7ae:37aa:6bf with SMTP id
+ y13-20020a170906448d00b007ae37aa06bfmr15892382ejo.481.1669045306558; Mon, 21
+ Nov 2022 07:41:46 -0800 (PST)
 MIME-Version: 1.0
-References: <20221121143731.27545-1-andrew.cooper3@citrix.com> <20221121143731.27545-3-andrew.cooper3@citrix.com>
-In-Reply-To: <20221121143731.27545-3-andrew.cooper3@citrix.com>
+References: <20221118154931.1928298-1-marmarek@invisiblethingslab.com>
+ <CAKf6xpuCxftyQ+PKN_ffJ0onsSxcT8kVSwkM7Z10pfjqf0XFgA@mail.gmail.com>
+ <Y3f9O0S8kVXZ+py+@mail-itl> <CAKf6xpvUcR=rta6SD7mw_pvgQJTxKjN5VHpC6x-zCAiaJ=pKfg@mail.gmail.com>
+ <Y3kFYeml1CPL318u@mail-itl>
+In-Reply-To: <Y3kFYeml1CPL318u@mail-itl>
 From: Jason Andryuk <jandryuk@gmail.com>
-Date: Mon, 21 Nov 2022 10:39:46 -0500
-Message-ID: <CAKf6xpto_4KPH5K=vXorAK0_e483qE6RRu1ioF7pRwh8TBGjaw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] xen/flask: Wire up XEN_DOMCTL_{get,set}_paging_mempool_size
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, 
-	Daniel Smith <dpsmith@apertussolutions.com>, Henry Wang <Henry.Wang@arm.com>
+Date: Mon, 21 Nov 2022 10:41:34 -0500
+Message-ID: <CAKf6xpts-u_JUtTGnzhxmRHZYVFnVMksTERZWS8EC+7BGsoViw@mail.gmail.com>
+Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is enabled
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jan Beulich <jbeulich@suse.com>, 
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 21, 2022 at 9:37 AM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
+On Sat, Nov 19, 2022 at 11:33 AM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
 >
-> These were overlooked in the original patch, and noticed by OSSTest which does
-> run some Flask tests.
->
-> Fixes: 22b20bd98c02 ("xen: Introduce non-broken hypercalls for the paging mempool size")
-> Suggested-by: Daniel Smith <dpsmith@apertussolutions.com>
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-> CC: Daniel Smith <dpsmith@apertussolutions.com>
-> CC: Jason Andryuk <jandryuk@gmail.com>
-> CC: Henry Wang <Henry.Wang@arm.com>
+> On Sat, Nov 19, 2022 at 09:36:54AM -0500, Jason Andryuk wrote:
+> > Hi, Marek,
+> >
+> > On Fri, Nov 18, 2022 at 4:46 PM Marek Marczykowski-G=C3=B3recki
+> > <marmarek@invisiblethingslab.com> wrote:
+> > >
+> > > On Fri, Nov 18, 2022 at 03:46:47PM -0500, Jason Andryuk wrote:
+> > > > I was trying to test your xen-pciback v3 patch, and I am having
+> > > > assignment fail consistently now.  It is actually failing to
+> > > > quarantine to domIO in the first place, which matches the failure f=
+rom
+> > > > the other day (when I more carefully read through the logs).  It no=
+w
+> > > > consistently fails to quarantine on every boot unlike the other day
+> > > > where it happened once.
+> > >
+> > > Does this include the very first assignment too, or only after domain
+> > > reboot? If the latter, maybe some cleanup missed clearing MASKALL?
+> >
+> > It's the quarantine during dom0 boot that fails.  Later assignment
+> > during VM boot fails.  I tried warm reboots and cold boots and it
+> > happened both times.
+> >
+> > I also modified my initrd to halt in there and checked the config
+> > space.  MASKALL wasn't set at that time.  I need to double check -
+> > MASKALL may have been unset after dom0 booted in that case.
+> >
+> > I'll test more to figure when and how MASKALL is getting set.
 
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com>
+I'm testing with a laptop without a battery.  It seems MASKALL remains
+set when rebooting or when left plugged in.
 
-Thanks, Andrew.  Though we might want a small tweak - possibly as a follow up?
+From unplugged, a cold boot doesn't have MASKALL set and the network vm boo=
+ts.
 
-> diff --git a/tools/flask/policy/modules/xen.if b/tools/flask/policy/modules/xen.if
-> index 424daab6a022..6b7b7d403ab4 100644
-> --- a/tools/flask/policy/modules/xen.if
-> +++ b/tools/flask/policy/modules/xen.if
-> @@ -92,7 +92,7 @@ define(`manage_domain', `
->         allow $1 $2:domain { getdomaininfo getvcpuinfo getaffinity
->                         getaddrsize pause unpause trigger shutdown destroy
->                         setaffinity setdomainmaxmem getscheduler resume
-> -                       setpodtarget getpodtarget };
-> +                       setpodtarget getpodtarget getpagingmempool setpagingmempool };
+After that, rebooting the laptop leaves MASKALL set on the NIC when
+the laptop reboots.   NIC assignment fails.
 
-There is also create_domain_common which is for a dedicated "domain
-builder" that creates but does not manage domains.  I think that
-should gain setpagingmempool permission?
+Shutdown and later boot while left plugged in keeps MASKALL set.  NIC
+assignment fails.  I have only tested this scenario for short periods
+of time, so I don't know if it would eventually clear after a longer
+time.
 
 Regards,
 Jason
