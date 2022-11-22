@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B100634007
-	for <lists+xen-devel@lfdr.de>; Tue, 22 Nov 2022 16:21:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447229.703267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57C61633FFF
+	for <lists+xen-devel@lfdr.de>; Tue, 22 Nov 2022 16:21:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447222.703193 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxV5G-0001oF-TW; Tue, 22 Nov 2022 15:21:14 +0000
+	id 1oxV55-0008LN-R9; Tue, 22 Nov 2022 15:21:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447229.703267; Tue, 22 Nov 2022 15:21:14 +0000
+Received: by outflank-mailman (output) from mailman id 447222.703193; Tue, 22 Nov 2022 15:21:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxV5G-0001jW-Fs; Tue, 22 Nov 2022 15:21:14 +0000
-Received: by outflank-mailman (input) for mailman id 447229;
- Tue, 22 Nov 2022 15:21:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oxV55-0008IO-Nh; Tue, 22 Nov 2022 15:21:03 +0000
+Received: by outflank-mailman (input) for mailman id 447222;
+ Tue, 22 Nov 2022 15:21:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ahN6=3W=citrix.com=prvs=318e6c854=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oxV5E-0000Pt-Hn
- for xen-devel@lists.xenproject.org; Tue, 22 Nov 2022 15:21:12 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4a1b946e-6a79-11ed-8fd2-01056ac49cbb;
- Tue, 22 Nov 2022 16:21:08 +0100 (CET)
+ id 1oxV53-00082v-T5
+ for xen-devel@lists.xenproject.org; Tue, 22 Nov 2022 15:21:02 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 453674ee-6a79-11ed-91b6-6bf2151ebd3b;
+ Tue, 22 Nov 2022 16:21:00 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,52 +36,52 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a1b946e-6a79-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 453674ee-6a79-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1669130468;
+  d=citrix.com; s=securemail; t=1669130460;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0EP93NE9oZj0G/r8F641xXDztqVUJkqAFbkxrSBRCso=;
-  b=FuUUYDEyZqu4ivHK7Yw/6WCpzlerdU5WmyhRVq+YM0MBcbWCTPRhYFlU
-   eBgwohKLX1zgzoVNwxMPbdtqW6FuhjWF9Mbv7OjitS8xUcGwr3JX62nCW
-   XpoFaShNyLhXyn6GIsg/JL9sj4c+rFrb5ndHVHBKOkIwWeOvxgGrlqqhG
-   4=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=U8Mtv4XJ0/V7GDXCKpr+dmKQ2P2iVaWXqmopORRTpv8=;
+  b=XqtljNjkrgSEWkZba8m12/Fm83Jy19xqetAP/d2hZ+P2QnCMgsZ8cHGd
+   0JhP1v2EeSXR14k+Lkkj26fERMcZdd5FmfrlqO5K+fvvxDl30E4mY8g2j
+   grMjpqOyA3r4O7+sJToMVVzBnoqjekVfZFtZ3QB/2gM2jYWUmIp4FFDTj
+   U=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: None
-X-MesageID: 84920461
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-MesageID: 85763998
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:/m1Og6wtyNzAYIc9EMN6t+dlxirEfRIJ4+MujC+fZmUNrF6WrkUGz
- mceWGzSPa7YNjT8fIglYIWwoB4CsJPSzdJiGQU4rCAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTbaeYUidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw//F+U0HUMja4mtC5AVnP6oT4DcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KTwfy
- u4ZLj0KUh6KoOeM0erqbOdQmNt2eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyMlKQOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiFZkExB7E+
- DuuE2LRMhcdNPmv5Rm81U2229HxrAarBLovLejtnhJtqALKnTFCYPEMbnO3qOe0olSzUNVeL
- woT4CVGhbg/8gmnQ8fwWzW8oWWYpVgMVtxICeo45QqRjK3O7G6k6nMsF2AbLoZ87YlvGGJsh
- gThc87V6SJH7eyqW3Ob+7CoozqVPBIEdT4kaxMaUl5QizX8m73fni4jX/46TvDk1o2uQGChq
- 9yZhHNg3utO1Kbnw43+pAma2Gz0+/AlWyZvvm3qsnSZAhSVjWJPT6ih8hDl4PlJN+51pXHR7
- SFfy6ByAA3jZKxhdRBho81XRtlFH97fbFXhbadHRvHMN12FohZPh7x47jBkP1tOOc0ZYzLva
- 0K7kVoPus4LYSb0MvUpPd3Z5yEWIU/ITISNaxwpRoAWPsgZmPGvoUmCmnJ8L0iyyRNxwMnTy
- L+QcNq2DGZyNEiU5GPeegrcuJd1rh0DKZT7H82nn0/+iODGDJNXIJ9cWGazgikCxPvsiG3oH
- xx3baNmFz03vDXCXxTq
-IronPort-HdrOrdr: A9a23:wxi1dKDj1Ql8FhDlHemq55DYdb4zR+YMi2TC1yhKJiC9Ffbo8f
- xG/c5rsiMc5wxxZJhNo7290ey7MBHhHP1OkO0s1NWZPDUO0VHAROoJ0WKh+UyEJ8SXzJ8l6U
- 4KScZD4bPLYWSS9fyKgzWFLw==
+IronPort-Data: A9a23:hTo2yKt7nX/mPVa7uVC3M74eeefnVAReMUV32f8akzHdYApBsoF/q
+ tZmKWqPaf+ON2ChfNklbdzloRkGvZSAn4JjTwBkrSBjQShH+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg0HVU/IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj5lv0gnRkPaoR5QaEzSFJZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwMm5dcw+EnMiP/rfqZbhuqpk+NJbkBdZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
+ 5NHM3w1Nk2GOkARfAdMYH49tL7Aan3XWjtUsl+K44Ew5HDe1ldZ27nxKtvFPNeNQK25m27I+
+ z2YpDWoUnn2MvTB4yie9Umj1tbhujHDVpgwL+K176Zl1Qj7Kms7V0RNCArTTeOCokK3Rd93M
+ UEf/Ssq668o+ySDXtT7GhG1vnOAlhodQMZLVf037hmXzajZ6BrfAXILJgOtc/R/6pVwH2Zzk
+ AbUwZW5XlSDrYF5V1qHqOeJsjSpExErKD4tNC0oEBYdvNba9dRbYg30cjpzLEKkpoSrR2Cok
+ 2vT/XlWa6Y71pBSifjilbzTq3f1/8WSEFZojunCdjj9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
+ JTvs5jPtbteZX1hecHkfQnsIF1Kz6zfWNEkqQQzd6TNDhz0k5NjFKgJiN2EGG9nM9wfZRjia
+ 1LJtAVa6fd7ZSX0PPcqPtzuUZp0ksAM8OgJsdiNPrJzjmVZLlfbrEmCm2bNt4wSrKTcuf5mY
+ srKGSpdJX0bFb5m3FKLqxQ1iNcWK+FX7T27eK0XODz9jObOPyfME+9t3ZnnRrlR0Z5oaT79q
+ 753X/ZmAT0GOAEiSkE7KbIuEG0=
+IronPort-HdrOrdr: A9a23:DuguTqnm83TML+DVJOEj+peXo6TpDfIU3DAbv31ZSRFFG/Fxl6
+ iV8sjzsiWE8Qr5OUtQ/+xoV5PhfZqxz/JICMwqTNKftWrdyQyVxeNZnOjfKlTbckWUnINgPO
+ VbAsxD4bXLfCBHZK3BgTVQfexO/DD+ytHLudvj
 X-IronPort-AV: E=Sophos;i="5.96,184,1665460800"; 
-   d="scan'208";a="84920461"
+   d="scan'208";a="85763998"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Christian Lindig
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, "Andrew
+ Cooper" <andrew.cooper3@citrix.com>, Christian Lindig
 	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Rob Hoes
 	<Rob.Hoes@citrix.com>
-Subject: [PATCH 3/8] tools/ocaml/evtchn: Add binding for xenevtchn_fdopen()
-Date: Tue, 22 Nov 2022 15:20:38 +0000
-Message-ID: <20221122152043.8518-4-andrew.cooper3@citrix.com>
+Subject: [PATCH 4/8] tools/ocaml/evtchn: Extend the init() binding with a cloexec flag
+Date: Tue, 22 Nov 2022 15:20:39 +0000
+Message-ID: <20221122152043.8518-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20221122152043.8518-1-andrew.cooper3@citrix.com>
 References: <20221122152043.8518-1-andrew.cooper3@citrix.com>
@@ -91,8 +91,11 @@ Content-Transfer-Encoding: 8bit
 
 From: Edwin Török <edvin.torok@citrix.com>
 
-For live update, the new oxenstored needs to reconstruct an evtchn object
-around an existing file descriptor.
+For live update, oxenstored wants to clear CLOEXEC on the evtchn handle, so it
+survives the execve() into the new oxenstored.
+
+Have the new interface match how cloexec works in other Ocaml standard
+libraries.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
@@ -105,68 +108,73 @@ CC: Rob Hoes <Rob.Hoes@citrix.com>
 
 Split out of combined patch
 ---
- tools/ocaml/libs/eventchn/xeneventchn.ml      |  1 +
- tools/ocaml/libs/eventchn/xeneventchn.mli     |  4 ++++
- tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 19 +++++++++++++++++++
- 3 files changed, 24 insertions(+)
+ tools/ocaml/libs/eventchn/xeneventchn.ml      |  5 ++++-
+ tools/ocaml/libs/eventchn/xeneventchn.mli     |  9 ++++++---
+ tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 10 +++++++---
+ 3 files changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/tools/ocaml/libs/eventchn/xeneventchn.ml b/tools/ocaml/libs/eventchn/xeneventchn.ml
-index dd00a1f0ead5..be4de82f46b9 100644
+index be4de82f46b9..c16fdd4674f7 100644
 --- a/tools/ocaml/libs/eventchn/xeneventchn.ml
 +++ b/tools/ocaml/libs/eventchn/xeneventchn.ml
-@@ -17,6 +17,7 @@
+@@ -16,7 +16,10 @@
+ 
  type handle
  
- external init: unit -> handle = "stub_eventchn_init"
-+external fdopen: Unix.file_descr -> handle = "stub_eventchn_fdopen"
+-external init: unit -> handle = "stub_eventchn_init"
++external _init: bool -> handle = "stub_eventchn_init"
++
++let init ?(cloexec=true) () = _init cloexec
++
+ external fdopen: Unix.file_descr -> handle = "stub_eventchn_fdopen"
  external fd: handle -> Unix.file_descr = "stub_eventchn_fd"
  
- type t = int
 diff --git a/tools/ocaml/libs/eventchn/xeneventchn.mli b/tools/ocaml/libs/eventchn/xeneventchn.mli
-index 08c73376438e..98b3c86f3702 100644
+index 98b3c86f3702..870429b6b53a 100644
 --- a/tools/ocaml/libs/eventchn/xeneventchn.mli
 +++ b/tools/ocaml/libs/eventchn/xeneventchn.mli
-@@ -47,6 +47,10 @@ val init: unit -> handle
- (** Return an initialised event channel interface. On error it
-     will throw a Failure exception. *)
+@@ -43,9 +43,12 @@ val to_int: t -> int
  
-+val fdopen: Unix.file_descr -> handle
-+(** Return an initialised event channel interface, from an already open evtchn
-+    file descriptor.  On error it will throw a Failure exception. *)
-+
- val fd: handle -> Unix.file_descr
- (** Return a file descriptor suitable for Unix.select. When
-     the descriptor becomes readable, it is safe to call 'pending'.
+ val of_int: int -> t
+ 
+-val init: unit -> handle
+-(** Return an initialised event channel interface. On error it
+-    will throw a Failure exception. *)
++val init: ?cloexec:bool -> unit -> handle
++(** [init ?cloexec ()]
++    Return an initialised event channel interface.
++    The default is to close the underlying file descriptor
++    on [execve], which can be overriden with [~cloexec:false].
++    On error it will throw a Failure exception. *)
+ 
+ val fdopen: Unix.file_descr -> handle
+ (** Return an initialised event channel interface, from an already open evtchn
 diff --git a/tools/ocaml/libs/eventchn/xeneventchn_stubs.c b/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
-index 37f1cc4e1478..7bdf711bc150 100644
+index 7bdf711bc150..aa8a69cc1ecb 100644
 --- a/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
 +++ b/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
-@@ -69,6 +69,25 @@ CAMLprim value stub_eventchn_init(void)
- 	CAMLreturn(result);
- }
+@@ -50,14 +50,18 @@ static struct custom_operations xenevtchn_ops = {
+ 	.compare_ext = custom_compare_ext_default, /* Can't compare     */
+ };
  
-+CAMLprim value stub_eventchn_fdopen(value fdval)
-+{
-+	CAMLparam1(fdval);
-+	CAMLlocal1(result);
-+	xenevtchn_handle *xce;
-+
-+	caml_enter_blocking_section();
-+	xce = xenevtchn_fdopen(NULL, Int_val(fdval), 0);
-+	caml_leave_blocking_section();
-+
-+	if (xce == NULL)
-+		caml_failwith("evtchn fdopen failed");
-+
-+	result = caml_alloc_custom(&xenevtchn_ops, sizeof(xce), 0, 1);
-+	_H(result) = xce;
-+
-+	CAMLreturn(result);
-+}
-+
- CAMLprim value stub_eventchn_fd(value xce)
+-CAMLprim value stub_eventchn_init(void)
++CAMLprim value stub_eventchn_init(value cloexec)
  {
- 	CAMLparam1(xce);
+-	CAMLparam0();
++	CAMLparam1(cloexec);
+ 	CAMLlocal1(result);
+ 	xenevtchn_handle *xce;
++	unsigned int flags = 0;
++
++	if ( !Bool_val(cloexec) )
++		flags |= XENEVTCHN_NO_CLOEXEC;
+ 
+ 	caml_enter_blocking_section();
+-	xce = xenevtchn_open(NULL, 0);
++	xce = xenevtchn_open(NULL, flags);
+ 	caml_leave_blocking_section();
+ 
+ 	if (xce == NULL)
 -- 
 2.11.0
 
