@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1730A635D5F
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 13:45:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447566.703974 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 788E7635EC5
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 14:00:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447582.703986 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxp8N-0000bd-NY; Wed, 23 Nov 2022 12:45:47 +0000
+	id 1oxpLI-0002dA-Ts; Wed, 23 Nov 2022 12:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447566.703974; Wed, 23 Nov 2022 12:45:47 +0000
+Received: by outflank-mailman (output) from mailman id 447582.703986; Wed, 23 Nov 2022 12:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxp8N-0000Za-Kh; Wed, 23 Nov 2022 12:45:47 +0000
-Received: by outflank-mailman (input) for mailman id 447566;
- Wed, 23 Nov 2022 12:45:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1oxpLI-0002aR-QL; Wed, 23 Nov 2022 12:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 447582;
+ Wed, 23 Nov 2022 12:59:07 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=hZVx=3X=kernel.org=sashal@srs-se1.protection.inumbo.net>)
- id 1oxp8M-0008L9-Pd
- for xen-devel@lists.xenproject.org; Wed, 23 Nov 2022 12:45:46 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf6c6782-6b2c-11ed-91b6-6bf2151ebd3b;
- Wed, 23 Nov 2022 13:45:46 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id F282F61C63;
- Wed, 23 Nov 2022 12:45:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DEEFC43470;
- Wed, 23 Nov 2022 12:45:43 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxpLH-0002aE-Lt; Wed, 23 Nov 2022 12:59:07 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxpLH-0004wE-Jo; Wed, 23 Nov 2022 12:59:07 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxpLH-00014b-8P; Wed, 23 Nov 2022 12:59:07 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxpLH-0005PX-7x; Wed, 23 Nov 2022 12:59:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +42,111 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf6c6782-6b2c-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1669207544;
-	bh=Syc8Sdgco/obOHgr5TpFdObKEaPxMDPmIGv/HB5/1Zo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FuGAmgu2w93dOO/5Rwq0l1Fs/lg+CsfwEAgsGbCkjZiUt2qz+QO01AR757NJ4gplj
-	 JDnW7d1sg1yUXRqdfWgwlLjg7jO0EO5n0wQf5JmwJkmAnMerMC+5UFr1ZHSJvcTcbv
-	 PTocfp9Uwu5ShTjMFFRmrFQYo7qHRRrEO18tzXri8OnQrGvE8mQH6zAlezJfqKTNJR
-	 V6yctH67eZhcjCsu9zE2yO8wZ/W+Wh/EPEBmxusT3VRUqATm4jdGLz4VczJMDavtr0
-	 z4lqJ11HLMzPNUZ+bEmXKRxtghWjRKWyCX0qXtnFuc6/gBxKp2L4m13WWpC9GXScoN
-	 6mhGSfDgt6pzA==
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Cc: ruanjinjie <ruanjinjie@huawei.com>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Juergen Gross <jgross@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH AUTOSEL 4.9 2/5] xen/platform-pci: add missing free_irq() in error path
-Date: Wed, 23 Nov 2022 07:45:34 -0500
-Message-Id: <20221123124540.266772-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.35.1
-In-Reply-To: <20221123124540.266772-1-sashal@kernel.org>
-References: <20221123124540.266772-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HCZ1NQ2QYH6Jz5zVzsS0cLlJSbPzUhw3y+FtGyGZhQ8=; b=2Wwi7anMHy/htNDyITt5yWJuul
+	yl7wLX9EychznI1mGl13dKHEKIXMw9L/NrZdYdfwgSco0IJd/vUy4a3vQOmr/azLehzzS6oigN670
+	SHqJ/XlQW9adEb494H+ifJcHz2N7HgiUgiilwCOglWWtjEQrUB6umOi45ccx32TmVz9o=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174943-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [seabios test] 174943: tolerable FAIL - PUSHED
+X-Osstest-Failures:
+    seabios:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    seabios:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    seabios:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    seabios:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    seabios=3208b098f51a9ef96d0dfa71d5ec3a3eaec88f0a
+X-Osstest-Versions-That:
+    seabios=85d56f812f4d020b3b486682aff07d9f4a4c60fe
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Nov 2022 12:59:07 +0000
 
-From: ruanjinjie <ruanjinjie@huawei.com>
+flight 174943 seabios real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174943/
 
-[ Upstream commit c53717e1e3f0d0f9129b2e0dbc6dcc5e0a8132e9 ]
+Failures :-/ but no regressions.
 
-free_irq() is missing in case of error in platform_pci_probe(), fix that.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 174925
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 174925
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 174925
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 174925
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 174925
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-Signed-off-by: ruanjinjie <ruanjinjie@huawei.com>
-Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Link: https://lore.kernel.org/r/20221114112124.1965611-1-ruanjinjie@huawei.com
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/xen/platform-pci.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+version targeted for testing:
+ seabios              3208b098f51a9ef96d0dfa71d5ec3a3eaec88f0a
+baseline version:
+ seabios              85d56f812f4d020b3b486682aff07d9f4a4c60fe
 
-diff --git a/drivers/xen/platform-pci.c b/drivers/xen/platform-pci.c
-index cf9666680c8c..20365b01c36b 100644
---- a/drivers/xen/platform-pci.c
-+++ b/drivers/xen/platform-pci.c
-@@ -149,7 +149,7 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 		if (ret) {
- 			dev_warn(&pdev->dev, "Unable to set the evtchn callback "
- 					 "err=%d\n", ret);
--			goto out;
-+			goto irq_out;
- 		}
- 	}
- 
-@@ -157,7 +157,7 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 	grant_frames = alloc_xen_mmio(PAGE_SIZE * max_nr_gframes);
- 	ret = gnttab_setup_auto_xlat_frames(grant_frames);
- 	if (ret)
--		goto out;
-+		goto irq_out;
- 	ret = gnttab_init();
- 	if (ret)
- 		goto grant_out;
-@@ -165,6 +165,9 @@ static int platform_pci_probe(struct pci_dev *pdev,
- 	return 0;
- grant_out:
- 	gnttab_free_auto_xlat_frames();
-+irq_out:
-+	if (!xen_have_vector_callback)
-+		free_irq(pdev->irq, pdev);
- out:
- 	pci_release_region(pdev, 0);
- mem_out:
--- 
-2.35.1
+Last test of basis   174925  2022-11-22 18:40:17 Z    0 days
+Testing same since   174943  2022-11-23 08:40:13 Z    0 days    1 attempts
 
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Igor Mammedov <imammedo@redhat.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/seabios.git
+   85d56f8..3208b09  3208b098f51a9ef96d0dfa71d5ec3a3eaec88f0a -> xen-tested-master
 
