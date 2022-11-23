@@ -2,40 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06CDB63575E
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 10:42:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447473.703722 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF6CB635802
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 10:49:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447478.703733 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxmGO-0002U5-Fz; Wed, 23 Nov 2022 09:41:52 +0000
+	id 1oxmNV-00036v-6B; Wed, 23 Nov 2022 09:49:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447473.703722; Wed, 23 Nov 2022 09:41:52 +0000
+Received: by outflank-mailman (output) from mailman id 447478.703733; Wed, 23 Nov 2022 09:49:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxmGO-0002RZ-Bt; Wed, 23 Nov 2022 09:41:52 +0000
-Received: by outflank-mailman (input) for mailman id 447473;
- Wed, 23 Nov 2022 09:41:50 +0000
+	id 1oxmNV-000359-3N; Wed, 23 Nov 2022 09:49:13 +0000
+Received: by outflank-mailman (input) for mailman id 447478;
+ Wed, 23 Nov 2022 09:49:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=BfOp=3X=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1oxmGM-0002RT-RX
- for xen-devel@lists.xenproject.org; Wed, 23 Nov 2022 09:41:50 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2062c.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::62c])
+ id 1oxmNU-000353-12
+ for xen-devel@lists.xenproject.org; Wed, 23 Nov 2022 09:49:12 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr130043.outbound.protection.outlook.com [40.107.13.43])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0d698ff3-6b13-11ed-91b6-6bf2151ebd3b;
- Wed, 23 Nov 2022 10:41:49 +0100 (CET)
+ id 14510261-6b14-11ed-91b6-6bf2151ebd3b;
+ Wed, 23 Nov 2022 10:49:10 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS1PR04MB9383.eurprd04.prod.outlook.com (2603:10a6:20b:4d9::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ by DU0PR04MB9299.eurprd04.prod.outlook.com (2603:10a6:10:356::7) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5834.15; Wed, 23 Nov
- 2022 09:41:48 +0000
+ 2022 09:48:40 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5834.015; Wed, 23 Nov 2022
- 09:41:47 +0000
+ 09:48:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,30 +46,31 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d698ff3-6b13-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 14510261-6b14-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bOavXKx0BcA0o5Ktrv1/Tebv6tr/BWObddB2RXaw1TKMkUJ3ndZM8GXSHqP5zqMUhR2lTWMMMai+4nRlXlNXon8tzsZbnoPX+Tt31SCHQLXdGIkajwvIoZPa7aK5RCNOJNVG3CTEBc3o/FVB+MEP6OFlMlsnujnECsMQ8bo2euxR6npTD1C6qZtofj/OexWnxl+kcfN6vyvbxWyraicSaKBx7iyRTyaTLLKd/LsfHhYt/9ayxEJNP6O/x2LFZ7Of9P9Q/0uUAJzOXJ3cQy6CYnV52/hFELyWXMzXsz47GNzn722SD+FRM9Ud/NwzGshahXOHWCCRiuZjyLLi3CGWVA==
+ b=GEKlvSeNiuDLfEhIIKgwYaTrV0AjDn2/n0pn9dSGyhhslxBVvyRLRYLtZSpdlbr98uQevJCL13KgZsijJfW1bk4Olmm6OzNf/ZE+aO9xINRAt+vPvN2Jyea833Wnb3k9z85xlgaEAJ0fY1IJz3tvh1QtY672aoAmg1oYnt5RWfwcGymCr9C0MDJYRUFpYdsJFatvmcOoHB2+NRod6UZCgeUlzX5g4XHJjQsULg+1QKeHZIhLMZOqEP+9/6PAONAQneJgwflTWeQLmjBWkLJXL+oVoQv9qSTET7pDVSCyaQicTfuxc0fQRzqkxkC6C9kybU0eUNJvJcnzKLZ24M52QQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XG1AHlPhDXiS6rIw87uuY4aq1P2umvYb3YE/AwvEi+g=;
- b=gfuocVR/YKwg+0cq/vygONg6W8Rsa4cpFVp6N/AV/PE9dbuAycGFTPY2K8tyMp1JjzConjV7pfadRDPD/z4K38tjW2XDkTPEenVgtolACf/rr9NXne6xHtpOUz0V2hc0t1hqWdfP8Lq89STnMX0McL2bbLwBwhY//ww9wp0cNgAlXHp4bkhahJnbCEcGhqi0mkorH3kavc9iTGc8BMIuRtakEZNuT43y43FN0DQ7xwOfjY60MHOr1L4q3+7SsXT0auP3PsDdRi8uh32PCpRsjwifyHO1qxM6WYoNRAAB9gKaRldvPo/E0ra1RBG80sWB4c9J5CN2UW13nwCAj4ukzA==
+ bh=gNau7kEw/1JZlPoPq7/ahtZEnJsjIHP0Aq2EgbodHO4=;
+ b=Y7CvWcMs0rGSsS9Lm9mBiCaFbHlNeT85tulnxSmHEgG0SQzgQrxYAOHWF2peJZOXGd3caMNpl+Nnuf+zZOJV5jossKF7aXJ5cnusECdXlVC7xRjJbMVT2OpWvJsUZdceG9QgWShK+lV8COLt3kdmT3OW8bY05phZCIwDBpCPwZYmZNnwCMK/jO45wEYOT7TwUe69DJiQKNyvN/CdPYjOjc4UG7+mzBzL7CinMPnVVSMFjzOIenZhoTNMbDZRy0JF1Q3ZjPi8GkZ5NTWtFZUAv05k1Tg/qTogbCOWzCmRBL67Ko3NN8cGOhPg8CVlPatUMg3LVpraX3PSpixSb9ywDQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XG1AHlPhDXiS6rIw87uuY4aq1P2umvYb3YE/AwvEi+g=;
- b=sUb0jKe3w+bkGDuzvKR8UPM6NLUCOfWVvTHd0RskzCH71btx+k0UPl/FfrFLEsdpeEfcKj8mmLIi5eRButTu/e5OqhHdxz/jnqIRnmvfZ3A3fiVZH2zRxPoFMsS6DIX5tFX7N2xJlgSEvIzKGwaqx/VXKxaaBxrmSbmndbuFHU0ixd56D3FGaoEhVOuxvlETFAx1/5LC9W/PDeQT5ffRbBaRRbwUB0ft3TBXehwr4MEHbL43fJnP6lU3I0/14BsEruW0QqeX7+2oxBgwfjL5wto/Au2zEtaXjbhi9Gl3ejx+hC/K8lOZJ4NjGcqNu+prMhs4TcP1Z/m2VN/Tuq8qTw==
+ bh=gNau7kEw/1JZlPoPq7/ahtZEnJsjIHP0Aq2EgbodHO4=;
+ b=tUicRpuBUMZPjlxsX+uuI0HhvyTxrYbbE9j673sqq1tI7MZ4dH4o7RJVAmOnYFFkMzLdVmZPBtHY+jqABUvEadG7uziSrGt9Q4osQfYMs3dHJfskOJsVlxcBs2kjcHAclH+vLahrI2tK5W/Lc3RVYRi1yIqesJbleXCJ0OAciVAEsXVlYoUX0auWRlfpZtTV1Ylms1aEbnFeu/QDBhFw/xdFEr1GduV7AEyhdR9pOffhfnL2jBjwvxj6+MJ3WVC/5k7311f53GAgLiroScHf5ds1EOi5hcGJNLpbssGF4gKwizBD+vCPvq4PrO5c82BbJNJ3H/gJRPAD6zLuWbpUGg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <d0d0ee24-f92c-d0c8-2bfb-f6beff269a1f@suse.com>
-Date: Wed, 23 Nov 2022 10:41:45 +0100
+Message-ID: <8d26e256-d5d3-2cc2-9cfd-c5cc6fd41b79@suse.com>
+Date: Wed, 23 Nov 2022 10:48:39 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
 Subject: Re: [PATCH v3 2/9] xen/arm: add cache coloring initialization for
  domains
 Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
 To: Julien Grall <julien@xen.org>
 Cc: marco.solieri@unimore.it, xen-devel@lists.xenproject.org,
  andrea.bastoni@minervasys.tech, lucmiccio@gmail.com,
@@ -88,144 +88,121 @@ References: <20221022155120.7000-1-carlo.nonato@minervasys.tech>
  <CAG+AhRUEoJQGSw2qJmE1JFTuCMa_0sUR2+M2Zd8pkd+dgf2wPg@mail.gmail.com>
  <6c07cdfc-888a-45bb-2077-528a809a62f4@suse.com>
  <2645971b-8094-6108-f3dd-567e93d1f1e5@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <2645971b-8094-6108-f3dd-567e93d1f1e5@xen.org>
+ <d0d0ee24-f92c-d0c8-2bfb-f6beff269a1f@suse.com>
+In-Reply-To: <d0d0ee24-f92c-d0c8-2bfb-f6beff269a1f@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0061.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4b::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS1PR04MB9383:EE_
-X-MS-Office365-Filtering-Correlation-Id: 43049f81-f4a2-4253-c13b-08dacd36f0b5
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU0PR04MB9299:EE_
+X-MS-Office365-Filtering-Correlation-Id: 906f16e2-f26e-4e3e-8cea-08dacd37e6bd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	3rPkZHP8sTy+RiOVPJYz1YhLO4SIZmLJ+Q79EBLiNTCS+YfcbFAOVTUu9PBJaJ/ZDQbdvhZpTah48NFzeq2oO9wbrZBtCsiTFiutGAk98eOpk9rGymH4+6khOaKA1MsqHqrsvgfej8iVs+L7HoxHWb+WrF9tvJdVTi7kDr5fg5/3l59W5qK+gIICASUuWyKUpOwhyOEUaRNg2zBqbQIwea+4gjt3kTqLIDS343nakFpW5Tmn7g0muKBG272D0wrW6z0MPtsUldQS2QuPlcmTuH4X6Y8PuoA9UfkTmwJIi7rPv+gFJ/FrW3CCtv944fR78bilLawh+4q/vxEfDbEBr0A+DFFkkq0TS69QjUYR+wkLwCCm/dq1bMP59jBFOwHlRqt91MmvodMWatij6l29OVlNibn1iaOvDnKaxAVLz/7uFcIHN20kkYeWE21nAcqiMa9ZPmzmFs5FmDTXWGxA0q1wicgphy3awIIcVkkIDMx0swcSChF5xdl9bojIezvWGKkB1kvsyvAcpiD0CJTvyANNTFcDWOhM+XAhEutYAQNCXX5oRURXaMLKVUGpiaWOT35N9A+7Ck9aqMwmImj2frIldc34+bBcQVhYua3IM1wzCXJSoAX5Ug1NpWMFCPEULG2RJGQ6K1mBp3ofwLnz4AhOY8sEBxcfY7VKa1EXv23DZjRii1hoGB+R4XjnaXhelk6EXBQdTAyoggqJ3wXHE3ExkwfyXIz1+v9cN2zG16c/ffjn/LyIg71Q/G9cpXv3U+kd52DZ9Xf7jyaIKxLetQ==
+	RVk3FVISovgINM+8iSIL32xJvcUfRyJRMvhHvTvp/7VOP5Oa/KSCXqq9II8uNBtS/a7yP5l9cjsLR+YkInAcl+u6mr5nR0g9Uq1l0KmKcxkqimQonf11OCumGJRyTgwZyZeqG4cBVvR77kzm2VQ3AYmxCxHfdzN8h8O11Sywzt8wyaaN+VHZM7wSRUqWQ9zD9wsHOnmb2Miko7VMukeeEjvG/GW7ZIuYBfYSt6DR8cLj8Igji/F+MUnx6l87+GM6FkOlJ7b02LOcPEVc5JlgQwURS66PZrvd8oUKso6rO4Pw0EbnNFJXtlE64TJZPZ0C2R3mVXA58eDywp0GLBB8icTbqjgx3v1ig9+BDsNKeACNorAZMpIwect9AtAu73RwTvwj0S+J2WAl8rJ74o5Na8I1h0nzSJXoavdlaHPsRaYFKnnG3kyI6uHpbdo5X9Ie/s0M2yW1+2ZcqeFBb6Khh/S4Q2BxGxPEQVsteF/dL0NMnN2qD1uvjtl5S6gKmnAwTCqtuEiDFFSkiof2/zQW4dP/VI/BJrjetZojx0nwUSbtzP6gYzQ0JkBjmSu3264zz9rh8vGQQFbIBqh59VgjAuMj8YFEtB9G2ff2nLhkw8dpurHF4h9uh8n4AeqL3gTOTiG2gysVDZ0ZCj/hhggj03dEcSrOmwUKBe8zIx7uvfj46hup6O+9ecYnAD0sEdS/nw2SWCMrLJsooh2yGl+AwlRDfa93hgGAuRLrcpXzbls=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(366004)(376002)(346002)(39860400002)(451199015)(66476007)(41300700001)(31686004)(66946007)(66556008)(7416002)(5660300002)(8936002)(2906002)(66899015)(4326008)(8676002)(316002)(6916009)(54906003)(966005)(6486002)(478600001)(31696002)(186003)(2616005)(86362001)(6512007)(6506007)(26005)(53546011)(83380400001)(36756003)(38100700002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(346002)(396003)(376002)(366004)(136003)(451199015)(36756003)(478600001)(38100700002)(66946007)(4326008)(41300700001)(6486002)(8676002)(66476007)(316002)(66556008)(54906003)(186003)(2616005)(6512007)(26005)(6506007)(83380400001)(53546011)(86362001)(31696002)(66899015)(6916009)(2906002)(31686004)(7416002)(5660300002)(8936002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VEt3WGVLUGtJcFRHdWZmSVg4RDZDenIyWk9WeUU0VHNSZkplc3pyTW9TdnQ0?=
- =?utf-8?B?a0dRaVZaOEN5QnBZWVhDWlFGUnlDMmJNYnEzSVJsckkvVUhQaWJzRnl4UjJn?=
- =?utf-8?B?MjBtSStZL3JWa2pXR1c1MFQ4TGt4K25EdmMyMGtMdkFDalNxekR5VXhqVjNT?=
- =?utf-8?B?dnhScUxRbWRiM1FUMlBMQVQ5cjlYVVdyQU9Ubjc0SmFsR2E1OXk1S2RPWHlG?=
- =?utf-8?B?enlaSU55d1pad3BUMmZQcFI5c1lQQUw3bjQ1bGxXcnIxazJGUWNXSHltVURX?=
- =?utf-8?B?RXJhNGl0d3FPRVJHUWo1LysrZWVnNngzWVhEejNZcVFiTi8zU3Y5TkZZenVH?=
- =?utf-8?B?RlE5RUxHN3VXUkkzZ3hDaEJTUWJhWndoS3VHd0hnenc1NERtbUZjRnc4WW9T?=
- =?utf-8?B?SEFqcWM4WFFGcDdCQnIwYUZWNlhCWWxaNTIwZVQ0cG5oTWdSTWpnV29RTVdB?=
- =?utf-8?B?ZDJQM20yQ3Nac3ZxSDRwb3ljZnBqYUlGSU9VZU1YQXJjN1F6U3VqcjE0SUti?=
- =?utf-8?B?NE9OVHZhMmptcU1CVUV2U3pkY05ERmU4RXZ6Q1h0Q2ZDUWU3VDNyRDBMTUx2?=
- =?utf-8?B?SmtJL3NEd0xJYndrdmovNk5iNklZTWNTUHo0NE80ZjFSR2xwUERJNWppaG5T?=
- =?utf-8?B?Q3RpVDZCajNCQU5VWGRYancyN2V5NXpyVGh1dGJNMEc4VWF5MVZsa1NHMTQv?=
- =?utf-8?B?RGR5Tm5rUllnajZMWDdUOFZBVU5lUWxGOEU1SnlONE90RG81aHA3WG4vazE3?=
- =?utf-8?B?RzNJODluUVJ2Sm1UMVVsZHlMU1g5ekZISVY2QzA4Zkp2NGZEdENrVXF1ZHpR?=
- =?utf-8?B?THFseVh1WnVYY3VNWXlZWkJNajFSL0FHdFMwbGdvWFd4eHZaZUVMRVFWSU5N?=
- =?utf-8?B?NWFsdFA5NEl2YWlzNWZmLytyTFpPQU9GeW9oaXc1azBaSVp5Z200TjUvS2NB?=
- =?utf-8?B?R1pKV0ZyN2FDSk9LRnl5d1Rsa0dpdHNST21KcGtxTGRjdzZHaWRHVnpuUVRu?=
- =?utf-8?B?dEJhcFA1bkRjbEs4ZVZJMU5KZ2ZhQkwwR2p0ZWJLclVGMzhkLzlxS3pBVHdn?=
- =?utf-8?B?QUNBK0RLaERXRVZqS1FkTWQ2bFAwVjVxZFR4WjR2Qmx4YnJoOWgzQWZyb21r?=
- =?utf-8?B?VFRoZXA5dURqVDBpckx5RTBNdFN1dCs2RHlUOVJYRytWTHFmNjR3NG9hTElo?=
- =?utf-8?B?NWg3bk1wajM1ZUI3SGZxR25xcnFTOWNnejhBQ2dYeVFMRmxMRzNCVWVuV0dU?=
- =?utf-8?B?aDZsNEJhNlNpR2RnNDBRMW5FSFh2ZXBhckRVdS9FQmpDVDlzbXZjWllGVlJ4?=
- =?utf-8?B?Y2x1Y2xKWjdvZmFUYlpoaWtLMXhSQ3JkZlNIR0dBRVVnTkltYUVPdlhmNC8v?=
- =?utf-8?B?SzNRWXRuK1JLN3ZGMTZOb0VyK1hzU0sxVnBkbklsQktKZG1jL282QTFkVU5t?=
- =?utf-8?B?aXRRQkVVNVJaaXYxTDF4UGNwdHJqTFNvOFJDOUFBRzF4UlRYVUtrbWJjb2ZN?=
- =?utf-8?B?dk4xTzNrTWdiRzJUaHdrRHZ4MEVPVTduUGcwTzBVWTloelFxSkYzNExibERx?=
- =?utf-8?B?cXlSN2Z6VXRUK2IrMXZRaDVoQk1ZczFldWJPM2xUT1Fzb1BsWDFZZWVsbzZt?=
- =?utf-8?B?V2xudzRLUTlxTW1lbTVocEpWMkxhdnFCeHo1bkEvN0UzbSs0MHFXV1B4cmdt?=
- =?utf-8?B?NTB0M1FtMldkUmQrTHFuZFFSR3lTY0wyanJuSnI4TEdUazJuYTY2S2ZLVkpa?=
- =?utf-8?B?cjg2Q3ZaMHN0c1hxWHFmN0J5bHpzcWJxZVB6djc3eVNvM2RDRTdoTEFLbjFQ?=
- =?utf-8?B?MnkyUVd3VXVFTkpZdk84eVh1WTJ0YVRNL3c1MjVOWTZUaVZrUTVLWlBQU3Za?=
- =?utf-8?B?VEhrdjVGaTFKWXVKblNDTHhQejBTOEoveC9VTitWWXhxNzJUL1Y4Y3BBN08r?=
- =?utf-8?B?ei9wbDR1ZUdmKzFBZUxGK1NQZU13dUlqenI3QUhRYlBRelR6M0tZWU5lY25i?=
- =?utf-8?B?SGh0THRuY0VESFpyUHV3UktaSFQ5UXVjLzBUUXVhVGYxcndtUVFWWWhkL1dQ?=
- =?utf-8?B?SzVBbEEybGViMnFrUjI0Q2dHSVhWMDFUdEtEMnNGRnQ4YzliUkNNK21Rb0Fu?=
- =?utf-8?Q?Lf/8WvqdkQkFQzIV417KV4m1r?=
+	=?utf-8?B?RjljM0VhbTRWQ0M5TG81N0RoeEd0VkpibjJtdEFBTzJ6bGRTNFhIZjdqbnBa?=
+ =?utf-8?B?U1dxc3g0Ykx4TEVPTElFeXJZclZXb3pzOVdaTThvYnhXc1ROam1FZWE3a3VF?=
+ =?utf-8?B?WDQ3OTZVK1VsNXh6WWxLS2djZis2ZHM0cjA3RllFNHd0dzNzRDVhQ3VOMG1z?=
+ =?utf-8?B?R1QyaTg2Z1NIcUhsMlhOR1REUzdXcTVEbHlEY3BEeENCRVJHcVNER1lDSWox?=
+ =?utf-8?B?Yy9JbnhEc2RGbTErOGFsS1NVTTRtSTYxYVU4TldsSHVYSDEwMVRCL0pJcVpv?=
+ =?utf-8?B?WlF3S3hhOU1YaXErOG9tYUxWaG14OHZCdkxPUnFoYUE2YXlIWU5WOStRTlUv?=
+ =?utf-8?B?d05IWXczVWZKZGI1RS9jQUxsb2JJUldIVi9Tb3ZJUkFJNVg1eVlwZXdMRTB6?=
+ =?utf-8?B?QkI2eDVYRFdud3I2cUdhRVFtMnZXZU1vUXh4YzJNRU9QcExlR3lEN1NEQ3dH?=
+ =?utf-8?B?aWZ3VCtyWk1ZOVIrNTU2VEk1dVd3Rm5BK2Y5a05VbVpPMkJnS0UvQnRXd1pN?=
+ =?utf-8?B?S2pZUUFtTlp0RWpteEdmeTM0YTFpUFRteEpxM2xlUTlCZUx1cW1TVEU5TW9L?=
+ =?utf-8?B?eTZUUHp6RjdqNnF2SjRRNFFMaXltZWd6UG83bHo4ak9FSHlHVVpLN2dtU3lV?=
+ =?utf-8?B?dWkvejhITWJnQkVhYWNoaG8xbDlVUGpRQTZUbC9MTzB1d0VlaHlvUjFiUXM0?=
+ =?utf-8?B?TlZ2dWM0QlY3M3g3aG1wYjUvemJoSmxDK1BLQU1ZUjlxRWdEcGRIelJXdjFw?=
+ =?utf-8?B?MXFJNmoxSW5kMmxtK2k3WFZmc0JKMDBpWFNtTDVWeU91M3lBdXFPVC9UdVdW?=
+ =?utf-8?B?cDlHTUwwczBmeU0zeGpnTTZFRld5SkMxVTlWU202V2NDdXlsK2l0QVFxR2Jm?=
+ =?utf-8?B?SjlNNGIwcGcvYWpKV1dpUWxtQ0dtR3doQy9lU0duOWdxc2J1bmVlZ2p4OS9G?=
+ =?utf-8?B?cml6Y2JZSS9FWHEyZFZ4dmh4em5LaDJlTDhsR3ZxY1dDWVg1V3hvTzhicm1r?=
+ =?utf-8?B?K0xQL1UvVFhlTGtpUnZhaWR4aWlUSEE5VFMzNG5HeDVTUHJhdGRnc2x3elNm?=
+ =?utf-8?B?UGk5M1E4cHVlSGs3TWdrbnlDNTdBUUxuekJTcWF3ZUNyRUJNRWpwL3R5SExv?=
+ =?utf-8?B?Y3pjMFBnUzBKd3ZKVkJjVkRlNTVJN2c4U0FQR012Szk1Q2p2VWpYODdkcWpt?=
+ =?utf-8?B?NmZ4NEhYS1N2M2lLQ2lIWHlJRWFtQUhZL09TbTFPZ3lqS1ZWcUZVSDlZVzdF?=
+ =?utf-8?B?VXQ1VCtBRzZURXVzcTVRdTJFQ096aW9NTmRUeXdabjl2MFdOTlpNaWRZTU4y?=
+ =?utf-8?B?QUVUWUdJdGF2VFFjMjJYMm83Y1lEYWNXMDhJNFdpeXhhMEc1Wm9yZmxXbFlH?=
+ =?utf-8?B?SXVHZEVRcTVZT1JXMzJYNzZjM3NqdEdHTnJ3aWg2bXFBTUFLc0I3OWROdGRw?=
+ =?utf-8?B?amlkME54Y0JFaFNUdFVDSU8rL3ZKbFBlVGNUd0VCWWhtOUtucGtnUTZNcVBv?=
+ =?utf-8?B?TzY0MW1VVEt2ODJ3TWNrQ05Od0ZJaFRzTnlrRXJuUDBiZFNHMHVvSVE1VTZ6?=
+ =?utf-8?B?cjg3U2RFZzhOTElRRmRjOEswcDV5N0hpKzJkMzhQKzdzYTFOejREWmhoL3Ir?=
+ =?utf-8?B?WG4rVlpQTWkrcEV2V0FqSVQwRkJ4TGsxV2EvY0tUbURQcmRiT0M5b1VHUG9V?=
+ =?utf-8?B?cnhRNGxXaWQydWVMSHdWTjM4eWk3VkxYUUphK0l0YUY2YWpORVNsbWpUUjcx?=
+ =?utf-8?B?bzVVa3ZTb0tzK0NDVlgrRWpiZFVZMFVmbHN5Wm1LWUt2aktIUFFoMnprN1Rs?=
+ =?utf-8?B?VTFHeFRwTExHZExwWUtTTGRhVnRNR05WbUpjdHZYVy9IT1BsL2ZxbHhkMmtz?=
+ =?utf-8?B?dmpIL1BOYzlhTDhQRy9HakxUWGhjblFaOVBUYUxqbTNTVGFGZU9ESVVub05x?=
+ =?utf-8?B?b2ZsRU81RW91NDRrSGR4U3o5K3J5a1dhbldLRmJGNzdCcDZ6VzdjUDY3SWYx?=
+ =?utf-8?B?c004eVI0aWo3eDYvTStwTStEcngvL0tqSjlTc1VrREtuYnB0Umk0QjhRdkVv?=
+ =?utf-8?B?K0hLVTRYYi9TSkZ3ZjJsNzROallLNFpzdEI2eXR2YkpVZ0VOeGdhVkFJU0NC?=
+ =?utf-8?Q?NVen8qGG3y4CvTz87lH8RzeYh?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 43049f81-f4a2-4253-c13b-08dacd36f0b5
+X-MS-Exchange-CrossTenant-Network-Message-Id: 906f16e2-f26e-4e3e-8cea-08dacd37e6bd
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 09:41:47.8280
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Nov 2022 09:48:40.5986
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iLbkd+EkpIgBjimzpArSfDorQl7v57pUPTQye4vkpgaV7iOVH0ftAfk34WiG0H/2jzIPHgaaea6Hebg4yVMPPw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9383
+X-MS-Exchange-CrossTenant-UserPrincipalName: jIBIFsyrxI3ZVyGiaePgdm5X61FvpXXvgrHV4ecXJeA9M45ML5s5Zbxeln+AiBcCfBDvjqyPQI9ueeLJZ6uJcw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9299
 
-On 22.11.2022 21:25, Julien Grall wrote:
-> Hi Jan,
-> 
-> On 21/11/2022 16:40, Jan Beulich wrote:
->> On 21.11.2022 17:23, Carlo Nonato wrote:
->>> On Mon, Nov 21, 2022 at 4:14 PM Jan Beulich <jbeulich@suse.com> wrote:
->>>> On 21.11.2022 15:50, Carlo Nonato wrote:
->>>>> I want to ask you some questions about this patch because in the previous
->>>>> version me and Julien have discussed how cache colors should be passed in
->>>>> domain creation. You should be able to read that discussion, anyway here is
->>>>> a link to it
->>>>>
->>>>> https://marc.info/?l=xen-devel&m=166151802002263
->>>>
->>>> I've looked at the first few entries, without finding an answer to ...
->>>>
->>>>> In short, using struct xen_arch_domainconfig works fine only when domctl
->>>>> hypercall is issued. That struct contains a XEN_GUEST_HANDLE so it
->>>>> should point to guest memory and must not be used when creating a domain
->>>>> from Xen itself (i.e. dom0 or dom0less domains). The easy way to go is then
->>>>> changing the domain_create() signature to require also a color array and its
->>>>> length to be passed in for these latter cases.
->>>>> Are you ok with that? See below for more comments.
->>>>
->>>> ... my immediate question: Does supplying the colors necessarily need to
->>>> done right at domain creation? Wouldn't it suffice to be done before first
->>>> allocating memory to the new domain, i.e. via a separate domctl (and then
->>>> for Xen-created domains via a separate Xen-internal function, which the
->>>> new domctl handling would also call)? Or do colors also affect the
->>>> allocation of struct domain itself (and pointers hanging off of it)?
+On 23.11.2022 10:41, Jan Beulich wrote:
+> On 22.11.2022 21:25, Julien Grall wrote:
+>> On 21/11/2022 16:40, Jan Beulich wrote:
+>>> On 21.11.2022 17:23, Carlo Nonato wrote:
+>>>> This would be really good. The only problem I can see is the p2m allocation
+>>>> which is done during domain creation. With the current set of patches it
+>>>> results in a "Failed to allocate P2M pages" since we want to have p2m tables
+>>>> allocated with the same color of the domain and a null page is returned
+>>>> because we have no colors.
 >>>
->>> This would be really good. The only problem I can see is the p2m allocation
->>> which is done during domain creation. With the current set of patches it
->>> results in a "Failed to allocate P2M pages" since we want to have p2m tables
->>> allocated with the same color of the domain and a null page is returned
->>> because we have no colors.
+>>> Hmm, I see. It would seem to me that this p2m init really is happening
+>>> too early. Ideally domain_create would merely mean creating a largely
+>>> empty container, with stuff being populated subsequently as necessary.
 >>
->> Hmm, I see. It would seem to me that this p2m init really is happening
->> too early. Ideally domain_create would merely mean creating a largely
->> empty container, with stuff being populated subsequently as necessary.
+>> The vGIC is not optional. So to me it sounds wrong to defer the decision 
+>> to after the domain is created.
+>>
+>> It is not clear to me how you would check that mandatory components have 
+>> been properly initialized.
 > 
-> The vGIC is not optional. So to me it sounds wrong to defer the decision 
-> to after the domain is created.
+> There could be final checking right before unpausing a domain for the
+> first time.
 > 
-> It is not clear to me how you would check that mandatory components have 
-> been properly initialized.
-
-There could be final checking right before unpausing a domain for the
-first time.
-
->> But I guess this is too much of a re-work to be done in the context
->> here, plus of course I may be overlooking something which actually
->> makes it necessary for domain creation to be structured the way it is
->> right now. (Imo the reason for the early minimal population of the p2m,
->> added only quite recently, wasn't a good one, and the vGIC init would
->> better be deferred. Yet once again I may lack details on why that's not
->> possible.)
+>>> But I guess this is too much of a re-work to be done in the context
+>>> here, plus of course I may be overlooking something which actually
+>>> makes it necessary for domain creation to be structured the way it is
+>>> right now. (Imo the reason for the early minimal population of the p2m,
+>>> added only quite recently, wasn't a good one, and the vGIC init would
+>>> better be deferred. Yet once again I may lack details on why that's not
+>>> possible.)
+>>
+>> See above for the theoritical part. For the practice part, we need to 
+>> know the vGIC version at domain creation because it impact the maximum 
+>> of vCPU we can expose.
 > 
-> See above for the theoritical part. For the practice part, we need to 
-> know the vGIC version at domain creation because it impact the maximum 
-> of vCPU we can expose.
+> Sure - I didn't suggest to leave that information out of domain_create.
+> 
+>> It is also not very clear where this could be initialized. Are you 
+>> suggesting to add an extra mandatory hypercall? FAOD, I don't think 
+>> p2m_set_allocation() would be the right place.
+> 
+> I agree with the latter - that would at best be a bodge. And yes, I was
+> thinking of having a separate domctl for that purpose.
 
-Sure - I didn't suggest to leave that information out of domain_create.
-
-> It is also not very clear where this could be initialized. Are you 
-> suggesting to add an extra mandatory hypercall? FAOD, I don't think 
-> p2m_set_allocation() would be the right place.
-
-I agree with the latter - that would at best be a bodge. And yes, I was
-thinking of having a separate domctl for that purpose.
+The expand further: I think setvnumainfo would also better be issued
+before _any_ memory allocations for a domain. And I view vNUMA data as
+kind of comparable to the coloring data here.
 
 Jan
 
