@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A05F63669F
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 18:09:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447697.704223 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A866369E1
+	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 20:27:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447704.704235 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxtFO-0008ML-AG; Wed, 23 Nov 2022 17:09:18 +0000
+	id 1oxvNo-0007CX-4J; Wed, 23 Nov 2022 19:26:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447697.704223; Wed, 23 Nov 2022 17:09:18 +0000
+Received: by outflank-mailman (output) from mailman id 447704.704235; Wed, 23 Nov 2022 19:26:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxtFO-0008Jb-7X; Wed, 23 Nov 2022 17:09:18 +0000
-Received: by outflank-mailman (input) for mailman id 447697;
- Wed, 23 Nov 2022 17:09:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=BzeF=3X=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
- id 1oxtFM-0008JV-Ve
- for xen-devel@lists.xenproject.org; Wed, 23 Nov 2022 17:09:17 +0000
-Received: from mail-lj1-x22e.google.com (mail-lj1-x22e.google.com
- [2a00:1450:4864:20::22e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8f204587-6b51-11ed-91b6-6bf2151ebd3b;
- Wed, 23 Nov 2022 18:09:15 +0100 (CET)
-Received: by mail-lj1-x22e.google.com with SMTP id r8so11493271ljn.8
- for <xen-devel@lists.xenproject.org>; Wed, 23 Nov 2022 09:09:15 -0800 (PST)
+	id 1oxvNo-0007AI-0q; Wed, 23 Nov 2022 19:26:08 +0000
+Received: by outflank-mailman (input) for mailman id 447704;
+ Wed, 23 Nov 2022 19:26:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxvNm-0007A8-Gw; Wed, 23 Nov 2022 19:26:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxvNm-0005av-FA; Wed, 23 Nov 2022 19:26:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxvNl-0001G3-Ud; Wed, 23 Nov 2022 19:26:06 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oxvNl-0005Zx-UB; Wed, 23 Nov 2022 19:26:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,154 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8f204587-6b51-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=k3ZmQCA06DghUmm4/08LgMrzJ9Jcm98zIeKuuGnYmnE=;
-        b=Z3w2hDG+gD3kDBUDOTKXJiKkdYGarxhaa7IjKH0qdbpY71ZVkcDbJYapTe/6UN+bap
-         h+VQjDuJKwCCu4AqiErj6uj3ro/k5ooGbEANq/uGQHiK38hbNlxnMCSpZFV7TfD5aES9
-         W4qlBd2ahS5ueBTlVBHxmoANBK2zGvvStCF+zUarDzP013T0Jbt0hlpWfSTEF9PEBGXZ
-         cQODspNYYHb0aIUhb14/zAayPMNLsMjCX3Ii5z8Nn15s7dqyAPIvEdYvfy/Aaan88Zlb
-         i6fp5YBXg862xT0+FO5DNH+NMC9YMmFgwXt8iHD2tdmopNULL2qiWKKN9qzd0+mgKat+
-         fCoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=k3ZmQCA06DghUmm4/08LgMrzJ9Jcm98zIeKuuGnYmnE=;
-        b=ELU5232YOyhz8rMQ0wv0N8VqtY6LSywJQTTy0UuwhDjdp5nxIHil3R/d+ere2wNCJL
-         tZ6RIjMXvSBaTJS6Xe9786naCtvBo8tLhWYBeBj6sm3U8SV3vvvqYuLa4X5uSeFRXdCj
-         aVVYWrK5+yuOSJ3IKs90XPu3mTDNhRRAuIAf6a3JybFf7f7a6S4C4ZxUNDHGJf2+AR5z
-         gGOxn4DvdOlBps83I6SXJyHvjY/EhIoGGwjRXkUrmdzPalYY93eHli/HWH4ssh+y5NIf
-         4ch9jV/BTrMOhRBC0qVGO7IyTZv8Bh76X1atLVXcfjKJV6cXE52XMvR8JnfbnzjIZ+pV
-         SaVw==
-X-Gm-Message-State: ANoB5pkx0BlcA7PQElyvo13EMHntAvcBhvRnzH/+KEiQjdnRn2jDK9P4
-	x0X7Ef4oNUul3G2qnclK1PHWEYCc6FmeYSVGetI=
-X-Google-Smtp-Source: AA0mqf4+wh3zmf6SqcU+g9RnG/X8Je08CCEtO5G2E9SpIQOlEkVftFtm9SKylmUdUnN1i8yl1Wi0ljK1OTofLYT9i14=
-X-Received: by 2002:a2e:be1c:0:b0:26e:6fb:4845 with SMTP id
- z28-20020a2ebe1c000000b0026e06fb4845mr4391642ljq.120.1669223355226; Wed, 23
- Nov 2022 09:09:15 -0800 (PST)
-MIME-Version: 1.0
-References: <f9cd7b84-6f51-d797-cd2a-b9c9bc62b0f6@suse.com> <d03dc8b3-4c1f-2db0-4d97-944972dc6e06@suse.com>
-In-Reply-To: <d03dc8b3-4c1f-2db0-4d97-944972dc6e06@suse.com>
-From: Christopher Clark <christopher.w.clark@gmail.com>
-Date: Wed, 23 Nov 2022 09:09:01 -0800
-Message-ID: <CACMJ4GY0eYPGN_hepOo__fu7D2pUnbzQ+GeqsWt_gk_7Mdtw+Q@mail.gmail.com>
-Subject: Re: Ping: [PATCH] Argo: don't obtain excess page references
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="00000000000023a07805ee26597e"
-
---00000000000023a07805ee26597e
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=I9dibCTK9mZe658ycO2ABOIK1+QjLZkvCmDUyQbQ+p4=; b=Zb2lODb6a0L4ofQ5EcKppLcV1t
+	ZmS5OdHW+ng5ue8+BAUAjcPSJRYMsfmjCYCTU5T23CK+Q8RsMHhu+ACQY4fnuxEuSR161djTdXP+4
+	JxM+3BcfXAfT0XEDXUfx82s2nCT9dF41UPQGYWaaDbikqZHuGHdKAzsVqPN4vb/PiNFY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174942-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 174942: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=eb7081409f94a9a8608593d0fb63a1aa3d6f95d8
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 23 Nov 2022 19:26:05 +0000
 
-On Mon, Nov 21, 2022 at 4:41 AM Jan Beulich <jbeulich@suse.com> wrote:
+flight 174942 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174942/
 
-> On 11.10.2022 11:28, Jan Beulich wrote:
-> > find_ring_mfn() already holds a page reference when trying to obtain a
-> > writable type reference. We shouldn't make assumptions on the general
-> > reference count limit being effectively "infinity". Obtain merely a type
-> > ref, re-using the general ref by only dropping the previously acquired
-> > one in the case of an error.
-> >
-> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> Ping?
->
+Regressions :-(
 
-Message received -- I will look at this. Thanks.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
 
-Christopher
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+
+version targeted for testing:
+ linux                eb7081409f94a9a8608593d0fb63a1aa3d6f95d8
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   47 days
+Failing since        173470  2022-10-08 06:21:34 Z   46 days   84 attempts
+Testing same since   174871  2022-11-21 00:40:59 Z    2 days    7 attempts
+
+------------------------------------------------------------
+1802 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
->
-> > ---
-> > I further question the log-dirty check there: The present P2M type of a
-> > page doesn't really matter for writing to the page (plus it's stale by
-> > the time it is looked at). Instead I think every write to such a page
-> > needs to be accompanied by a call to paging_mark_dirty().
-> >
-> > --- a/xen/common/argo.c
-> > +++ b/xen/common/argo.c
-> > @@ -1429,10 +1429,11 @@ find_ring_mfn(struct domain *d, gfn_t gf
-> >          ret = -EAGAIN;
-> >  #endif
-> >      else if ( (p2mt != p2m_ram_rw) ||
-> > -              !get_page_and_type(page, d, PGT_writable_page) )
-> > +              !get_page_type(page, PGT_writable_page) )
-> >          ret = -EINVAL;
-> >
-> > -    put_page(page);
-> > +    if ( unlikely(ret) )
-> > +        put_page(page);
-> >
-> >      return ret;
-> >  }
-> >
->
->
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
---00000000000023a07805ee26597e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 21, 2022 at 4:41 AM Jan B=
-eulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 11.10.2=
-022 11:28, Jan Beulich wrote:<br>
-&gt; find_ring_mfn() already holds a page reference when trying to obtain a=
-<br>
-&gt; writable type reference. We shouldn&#39;t make assumptions on the gene=
-ral<br>
-&gt; reference count limit being effectively &quot;infinity&quot;. Obtain m=
-erely a type<br>
-&gt; ref, re-using the general ref by only dropping the previously acquired=
-<br>
-&gt; one in the case of an error.<br>
-&gt; <br>
-&gt; Signed-off-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" ta=
-rget=3D"_blank">jbeulich@suse.com</a>&gt;<br>
-<br>
-Ping?<br></blockquote><div><br></div><div>Message received -- I will look a=
-t this. Thanks.</div><div><br></div><div>Christopher</div><div>=C2=A0</div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex">
-<br>
-&gt; ---<br>
-&gt; I further question the log-dirty check there: The present P2M type of =
-a<br>
-&gt; page doesn&#39;t really matter for writing to the page (plus it&#39;s =
-stale by<br>
-&gt; the time it is looked at). Instead I think every write to such a page<=
-br>
-&gt; needs to be accompanied by a call to paging_mark_dirty().<br>
-&gt; <br>
-&gt; --- a/xen/common/argo.c<br>
-&gt; +++ b/xen/common/argo.c<br>
-&gt; @@ -1429,10 +1429,11 @@ find_ring_mfn(struct domain *d, gfn_t gf<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -EAGAIN;<br>
-&gt;=C2=A0 #endif<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 else if ( (p2mt !=3D p2m_ram_rw) ||<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !get_page_and_type(p=
-age, d, PGT_writable_page) )<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !get_page_type(page,=
- PGT_writable_page) )<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -EINVAL;<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 put_page(page);<br>
-&gt; +=C2=A0 =C2=A0 if ( unlikely(ret) )<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 put_page(page);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 return ret;<br>
-&gt;=C2=A0 }<br>
-&gt; <br>
-<br>
-</blockquote></div></div>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---00000000000023a07805ee26597e--
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 171425 lines long.)
 
