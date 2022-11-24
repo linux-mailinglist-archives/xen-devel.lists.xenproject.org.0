@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FF7B637F59
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 19:57:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.448026.704804 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2C52637F62
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 20:09:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.448030.704816 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyHPV-0005sP-BJ; Thu, 24 Nov 2022 18:57:21 +0000
+	id 1oyHah-0007cd-DC; Thu, 24 Nov 2022 19:08:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 448026.704804; Thu, 24 Nov 2022 18:57:21 +0000
+Received: by outflank-mailman (output) from mailman id 448030.704816; Thu, 24 Nov 2022 19:08:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyHPV-0005pv-8S; Thu, 24 Nov 2022 18:57:21 +0000
-Received: by outflank-mailman (input) for mailman id 448026;
- Thu, 24 Nov 2022 18:57:19 +0000
+	id 1oyHah-0007ZX-AK; Thu, 24 Nov 2022 19:08:55 +0000
+Received: by outflank-mailman (input) for mailman id 448030;
+ Thu, 24 Nov 2022 19:08:54 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oyHPS-0005pp-QU
- for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 18:57:18 +0000
+ (envelope-from <julien@xen.org>) id 1oyHag-0007ZR-3y
+ for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 19:08:54 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oyHPS-0003VV-Dr; Thu, 24 Nov 2022 18:57:18 +0000
-Received: from [54.239.6.186] (helo=[192.168.1.238])
+ id 1oyHaf-0003iL-SV; Thu, 24 Nov 2022 19:08:53 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1oyHPS-0006Ug-7S; Thu, 24 Nov 2022 18:57:18 +0000
+ id 1oyHaf-00074F-IJ; Thu, 24 Nov 2022 19:08:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,57 +41,60 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yR+6Qol7h/zbe2k8iJ4QBQVvzuit0LZY6iElvEjKmpU=; b=jJZZhdLly97TW07FsvCRadJyhs
-	WdMGww22ae4CQYuJJ8TziGG4UoojH6OjKoBb7qHoma2cMIrnx2bPM1MZIvFpRCxG/q/U8X1E9Rj1p
-	qLo5nPYFvPuFiQ1tKCiZAfEisTkFcTwnMW67KW2tR9Z8L6gVn5XSTiXzaaZ2V+NO1Vts=;
-Message-ID: <eedd5b2f-3d5c-aa85-5a86-98a8717568a1@xen.org>
-Date: Thu, 24 Nov 2022 19:57:16 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: [PATCH v2] xen/arm: Do not route NS phys timer IRQ to Xen
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221028124937.27677-1-michal.orzel@amd.com>
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=wblOyOaomIbApi0HQcEovhAkEWUwzbqG2eynKc7y0Q8=; b=vEVlTs
+	1jvN4aRnPZaIVvnj/EG3vLUncHFOgr5zowrlvePdC3Q76Q3g91LdmqNm9TMHvKRB76WNyqnJHZUFB
+	BVneQy1Jw5fe+iB0ykeLnSaAlmgIOGJHn/8LkM9CJWO93Fb9yqfPM+FLJ6Tc8vCUyvp401YQ/K5rx
+	jlOWRk3/sXo=;
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221028124937.27677-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH v2] process/release-technician-checklist: Explain how the banner in README is generated
+Date: Thu, 24 Nov 2022 19:08:50 +0000
+Message-Id: <20221124190850.35344-1-julien@xen.org>
+X-Mailer: git-send-email 2.37.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Michal,
+From: Julien Grall <jgrall@amazon.com>
 
-On 28/10/2022 14:49, Michal Orzel wrote:
-> At the moment, we route NS phys timer IRQ to Xen even though it does not
-> make use of this timer. Xen uses hypervisor timer for itself and the
-> physical timer is fully emulated, hence there is nothing that can trigger
-> such IRQ. This means that requesting/releasing IRQ ends up as a deadcode
-> as it has no impact on the functional behavior, whereas the code within
-> a handler ends up being unreachable. This is a left over from the early
-> days when the CNTHP IRQ was buggy on the HW model used for testing and we
-> had to use the CNTP instead.
-> 
-> Remove the calls to {request/release}_irq for this timer as well as the
-> code within the handler. Since timer_interrupt handler is now only used
-> by the CNTHP, refactor it as follows:
->   - rename it to htimer_interrupt to reflect its purpose,
->   - remove the IRQ affiliation test,
->   - invert the condition to avoid indented code and use unlikely,
->   - improve readability by adding new lines \btw code and comments.
-> 
-> Keep the calls to zero the CNTP_CTL_EL0 register for sanity and also
-> remove the corresponding perf counter definition.
-> 
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Explain how the banner in README is generated and take the opportunity
+to mention what it should look like for RC.
 
-Reviewed-by: Julien Grall <jgrall@amazon.com>
+Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-Cheers,
+----
+    Changes in v2:
+        - Mention what the banner looks like for RC.
+---
+ docs/process/release-technician-checklist.txt | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
+diff --git a/docs/process/release-technician-checklist.txt b/docs/process/release-technician-checklist.txt
+index 7515da202c92..5031d1bd2288 100644
+--- a/docs/process/release-technician-checklist.txt
++++ b/docs/process/release-technician-checklist.txt
+@@ -48,7 +48,12 @@ t=RELEASE-$r
+ 
+ * consider bumping sonames of shlibs
+ 
+-* change xen-unstable README (should say "Xen 4.5" in releases and on stable branches, "Xen 4.5-unstable" on unstable)
++* change xen-unstable README. Should say:
++    - "Xen 4.5" in releases and on stable branches
++    - "Xen 4.5-unstable" on unstable
++    - "Xen 4.5-rc" for release candidate
++
++*   The banner is generated using figlet
+ * change xen-unstable Config.mk
+ #   QEMU_UPSTREAM_REVISION,
+ #   QEMU_TRADITIONAL_REVISION
 -- 
-Julien Grall
+2.37.1
+
 
