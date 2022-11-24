@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96DE3637D10
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 16:36:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447985.704706 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 553A3637D22
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 16:40:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447991.704717 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyEGq-0002ra-Rl; Thu, 24 Nov 2022 15:36:12 +0000
+	id 1oyEKL-0003ZL-Bd; Thu, 24 Nov 2022 15:39:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447985.704706; Thu, 24 Nov 2022 15:36:12 +0000
+Received: by outflank-mailman (output) from mailman id 447991.704717; Thu, 24 Nov 2022 15:39:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyEGq-0002ox-P2; Thu, 24 Nov 2022 15:36:12 +0000
-Received: by outflank-mailman (input) for mailman id 447985;
- Thu, 24 Nov 2022 15:36:11 +0000
+	id 1oyEKL-0003X3-7t; Thu, 24 Nov 2022 15:39:49 +0000
+Received: by outflank-mailman (input) for mailman id 447991;
+ Thu, 24 Nov 2022 15:39:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=4ZTP=3Y=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oyEGp-0002nb-GZ
- for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 15:36:11 +0000
+ id 1oyEKJ-0003Wx-UK
+ for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 15:39:47 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b6542c8d-6c0d-11ed-8fd2-01056ac49cbb;
- Thu, 24 Nov 2022 16:36:07 +0100 (CET)
+ id 397dcd36-6c0e-11ed-8fd2-01056ac49cbb;
+ Thu, 24 Nov 2022 16:39:47 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6EDE321AB4;
- Thu, 24 Nov 2022 15:36:06 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B4EB421116;
+ Thu, 24 Nov 2022 15:39:46 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 29B3013B4F;
- Thu, 24 Nov 2022 15:36:06 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5E4A913B4F;
+ Thu, 24 Nov 2022 15:39:46 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IffBCGaPf2PibgAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 24 Nov 2022 15:36:06 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1oGOFUKQf2O0cAAAMHmgww
+ (envelope-from <jgross@suse.com>); Thu, 24 Nov 2022 15:39:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,69 +51,71 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b6542c8d-6c0d-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 397dcd36-6c0e-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1669304166; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1669304386; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=wKNi5deH4BoIskVZCgDsQzQoFbLRzsokztAH6oXCNrk=;
-	b=BQhdgH4R+2aMiZMoj20bRKy1LmbIg/I+hE8wPh/4+hYACFWGwQE6m97ds6PMNqgQJrng1P
-	iv1cmDdFh8Q6aLioEDSZy/XpDOj9hm9hlaKUt9xbCmqIBbtmkQxDC8usr7+JuZtcqQOvWw
-	oKD+LiJu81BYWwo239arLn4XCdVfxzA=
-Message-ID: <a0a366d7-0634-0e19-d8fb-1505ff041f7f@suse.com>
-Date: Thu, 24 Nov 2022 16:36:05 +0100
+	bh=KVU414zfbUm2A5y1GOkaZ9BZzgZN37LCy+XUUBznaxY=;
+	b=cYzDwpaI/9LjCBKGYfXmH3ZQkZ9vN3HHBWO7UR8awdBVreEAHQfsTz+AjL/uKmJ6uoQvXk
+	JGoY96nQ6+G4+zjiLpg/N2HGyGGKawVBy36Ufjy5Ldkz5APSaTIDJMHt/1Id/X3c4LbBxY
+	YRNJjOumJ1IWEJH+bbkhc5dS9engY7s=
+Message-ID: <d09dc29e-0f68-3a48-5d5c-f2d39debe9ef@suse.com>
+Date: Thu, 24 Nov 2022 16:39:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH v3] x86/boot: skip realmode init code when running as Xen
- PV guest
+Subject: Re: [PATCH v2 1/2] x86/xen: Fix memory leak in
+ xen_smp_intr_init{_pv}()
 Content-Language: en-US
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-References: <20221123114523.3467-1-jgross@suse.com> <Y39xcnKCkbYQZjaE@zn.tnic>
- <a1fc1d88-2112-2b81-52bc-cbfb6736edf0@suse.com> <Y3+PK23tdXIMtuSE@zn.tnic>
+To: Xiu Jianfeng <xiujianfeng@huawei.com>, boris.ostrovsky@oracle.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, jeremy@goop.org
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+References: <20221123155858.11382-1-xiujianfeng@huawei.com>
+ <20221123155858.11382-2-xiujianfeng@huawei.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <Y3+PK23tdXIMtuSE@zn.tnic>
+In-Reply-To: <20221123155858.11382-2-xiujianfeng@huawei.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------CpSuLEDiqmV6m0VZTCdrJczW"
+ boundary="------------S35eaZd0j89mmKCyPx08j3kb"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------CpSuLEDiqmV6m0VZTCdrJczW
-Content-Type: multipart/mixed; boundary="------------0QEft5VLZuvNdepsITW01X4u";
+--------------S35eaZd0j89mmKCyPx08j3kb
+Content-Type: multipart/mixed; boundary="------------whnj3FRMM09BBjAxi0ZWTByg";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, xen-devel@lists.xenproject.org
-Message-ID: <a0a366d7-0634-0e19-d8fb-1505ff041f7f@suse.com>
-Subject: Re: [PATCH v3] x86/boot: skip realmode init code when running as Xen
- PV guest
-References: <20221123114523.3467-1-jgross@suse.com> <Y39xcnKCkbYQZjaE@zn.tnic>
- <a1fc1d88-2112-2b81-52bc-cbfb6736edf0@suse.com> <Y3+PK23tdXIMtuSE@zn.tnic>
-In-Reply-To: <Y3+PK23tdXIMtuSE@zn.tnic>
+To: Xiu Jianfeng <xiujianfeng@huawei.com>, boris.ostrovsky@oracle.com,
+ tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, jeremy@goop.org
+Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
+ linux-kernel@vger.kernel.org
+Message-ID: <d09dc29e-0f68-3a48-5d5c-f2d39debe9ef@suse.com>
+Subject: Re: [PATCH v2 1/2] x86/xen: Fix memory leak in
+ xen_smp_intr_init{_pv}()
+References: <20221123155858.11382-1-xiujianfeng@huawei.com>
+ <20221123155858.11382-2-xiujianfeng@huawei.com>
+In-Reply-To: <20221123155858.11382-2-xiujianfeng@huawei.com>
 
---------------0QEft5VLZuvNdepsITW01X4u
-Content-Type: multipart/mixed; boundary="------------bxSL8Rx0Pqxi7ireBdmCyZ1b"
+--------------whnj3FRMM09BBjAxi0ZWTByg
+Content-Type: multipart/mixed; boundary="------------a9LCdkXEub1w0kVnalGgGY1q"
 
---------------bxSL8Rx0Pqxi7ireBdmCyZ1b
+--------------a9LCdkXEub1w0kVnalGgGY1q
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMjQuMTEuMjIgMTY6MzUsIEJvcmlzbGF2IFBldGtvdiB3cm90ZToNCj4gT24gVGh1LCBO
-b3YgMjQsIDIwMjIgYXQgMDI6MzA6MzlQTSArMDEwMCwgSnVlcmdlbiBHcm9zcyB3cm90ZToN
-Cj4+IExvb2tpbmcgYXQgdGhlIGRhdGUgd2hlbiAwODRlZTFjNjQxYTAgd2VudCBpbiBJIGRv
-bid0IHRoaW5rIGl0IF9uZWVkc18NCj4+IHRvIGdvIGluIG5vdywgYnV0IEkgd291bGRuJ3Qg
-Y29tcGxhaW4gLi4uDQo+IA0KPiBTbyBpZiB5b3UgZG9uJ3QgaGF2ZSBhIHBhcnRpY3VsYXIg
-YW5kIHNwZWNpZmljIHJlYXNvbiwgSSB3b24ndCBxdWV1ZSBpdA0KPiBmb3Igc3RhYmxlIGF0
-IGFsbC4NCj4gDQoNClllcywgSSB0aGluayB0aGlzIGlzIGZpbmUuDQoNCg0KSnVlcmdlbg0K
-
---------------bxSL8Rx0Pqxi7ireBdmCyZ1b
+T24gMjMuMTEuMjIgMTY6NTgsIFhpdSBKaWFuZmVuZyB3cm90ZToNCj4gVGhlc2UgbG9jYWwg
+dmFyaWFibGVzIEB7cmVzY2hlZHxwbXV8Y2FsbGZ1bmMuLi59X25hbWUgc2F2ZXMgdGhlIG5l
+dw0KPiBzdHJpbmcgYWxsb2NhdGVkIGJ5IGthc3ByaW50ZigpLCBhbmQgd2hlbiBiaW5kX3t2
+fWlwaV90b19pcnFoYW5kbGVyKCkNCj4gZmFpbHMsIGl0IGdvZXMgdG8gdGhlIEBmYWlsIHRh
+ZywgYW5kIGNhbGxzIHhlbl9zbXBfaW50cl9mcmVle19wdn0oKSB0bw0KPiBmcmVlIHJlc291
+cmNlLCBob3dldmVyIHRoZSBuZXcgc3RyaW5nIGlzIG5vdCBzYXZlZCwgd2hpY2ggY2F1c2Ug
+YSBtZW1vcnkNCj4gbGVhayBpc3N1ZS4gZml4IGl0Lg0KPiANCj4gRml4ZXM6IDk3MDI3ODVh
+NzQ3YSAoImkzODY6IG1vdmUgeGVuIikNCj4gU2lnbmVkLW9mZi1ieTogWGl1IEppYW5mZW5n
+IDx4aXVqaWFuZmVuZ0BodWF3ZWkuY29tPg0KDQpSZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9z
+cyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJnZW4NCg0K
+--------------a9LCdkXEub1w0kVnalGgGY1q
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -171,25 +173,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------bxSL8Rx0Pqxi7ireBdmCyZ1b--
+--------------a9LCdkXEub1w0kVnalGgGY1q--
 
---------------0QEft5VLZuvNdepsITW01X4u--
+--------------whnj3FRMM09BBjAxi0ZWTByg--
 
---------------CpSuLEDiqmV6m0VZTCdrJczW
+--------------S35eaZd0j89mmKCyPx08j3kb
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmN/j2UFAwAAAAAACgkQsN6d1ii/Ey84
-ZAgAhcKWf06iOffRhSIt2t/DqoRYFnETjfoOw1Swpb00p2sCECLDMJL6WUaOAsl+XsNb2ed+dztj
-p8cCEcOmeybTRfx7kOYyJm+ZY7GX470fjeH2nGgRKVzUTvUbLvJjB4O+RviUd1y4RDK0RmHU31+Y
-u2xJKOWUPAbVVbmCsA7KgVI9d2WIKG5ZHN1AoChNaC5npufm6ok06KJgIwVuLFAIRWty6bJkHeSc
-JlfO4SnqPHvCQIBJTldsCm2C97JyYvAh10N1So79zywqZ8nwrPO2PszO/9OzvxUh1iiRTQdwbViU
-Q5tN/q7FKa+60IUn7u+tddrzCZ2xLZoHa0YVWBbHbw==
-=vXBS
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmN/kEIFAwAAAAAACgkQsN6d1ii/Ey9A
+Ngf+JW1FpJQ3Q/U1OwyMpz6NnvZJ0UaaHX7PCntua7xqGOiSsrZor4jNe9JH92ieett/gs33m9wK
+DIY0qJSg7JqInXguaTMyxOOSfR2r2ziX+ce86Eo+ybaxO7UWIeFO0RmzstsRZq4tv/XQE2bvswF7
+/KU+ZvCLLrvfp1+7TxMdAJEzRbgZF14Y74JuC9Z4F5BqxIr7EnGDIsSjthQgKnej4cBtQDXYyqhx
+63zMbtzqqhOyTWfP3rHsiaoeXfuR8WUBzSdSVkUn3vrd4UY6XcRPS1NO/p0Jf5Am61mV8+RWUaA2
+O1CfT0gWL9qe2rACNhWea6aLzStps6181AyUwltgbQ==
+=gyfQ
 -----END PGP SIGNATURE-----
 
---------------CpSuLEDiqmV6m0VZTCdrJczW--
+--------------S35eaZd0j89mmKCyPx08j3kb--
 
