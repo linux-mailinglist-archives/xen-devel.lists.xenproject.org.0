@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10279637DAD
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 17:41:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.448001.704739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46FF6637DB0
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 17:43:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.448004.704750 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyFGD-0003ZZ-4C; Thu, 24 Nov 2022 16:39:37 +0000
+	id 1oyFJu-00059Y-MB; Thu, 24 Nov 2022 16:43:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 448001.704739; Thu, 24 Nov 2022 16:39:37 +0000
+Received: by outflank-mailman (output) from mailman id 448004.704750; Thu, 24 Nov 2022 16:43:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyFGD-0003Wg-0j; Thu, 24 Nov 2022 16:39:37 +0000
-Received: by outflank-mailman (input) for mailman id 448001;
- Thu, 24 Nov 2022 16:39:35 +0000
+	id 1oyFJu-000577-Hk; Thu, 24 Nov 2022 16:43:26 +0000
+Received: by outflank-mailman (input) for mailman id 448004;
+ Thu, 24 Nov 2022 16:43:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4qOg=3Y=kernel.org=jpoimboe@srs-se1.protection.inumbo.net>)
- id 1oyFGB-0003WZ-5g
- for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 16:39:35 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 93036ac4-6c16-11ed-91b6-6bf2151ebd3b;
- Thu, 24 Nov 2022 17:39:33 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 363F0B82839;
- Thu, 24 Nov 2022 16:39:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5C5C433C1;
- Thu, 24 Nov 2022 16:39:30 +0000 (UTC)
+ <SRS0=EC/E=3Y=citrix.com=prvs=320cd9450=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1oyFJt-000571-Em
+ for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 16:43:25 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 1b54ad42-6c17-11ed-91b6-6bf2151ebd3b;
+ Thu, 24 Nov 2022 17:43:23 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,107 +36,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93036ac4-6c16-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1669307970;
-	bh=OKXY4HOb6tjr1fLTcQMjreoqibQdHiqlX3XPx/NKo9c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FF5BWWm70I4oWNIABZDD5ZpFGtfi4xlErQuLbHrchom/bIyjGAbpEMOYVG8rmdXq2
-	 6wd7icEHORG3GbzZLud50WsU3LCUvSdfENs1JIYho+TKFacLC+WjnL1qKGuIOziaV6
-	 cr14plP3s5Mqnfve1ScQR/NMHdIfZXrlbW6pCyCBrO45F+TD2H29FP7OmVrMnmx+37
-	 0pMTWSW3bm/1D/YVt6SapbZaIjNc/Zz8CFvYh3Fs5kmEv8gpsy4teGGd6pXgMcI9Nl
-	 spWVSqEETTY2dJ2LUJz7/jgvHdy33n1dmdw+EojgYr23nC6zfKtA1q+kezQE3v0DYe
-	 8cBAfQH4M+MfA==
-Date: Thu, 24 Nov 2022 08:39:28 -0800
-From: Josh Poimboeuf <jpoimboe@kernel.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	"sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"sstabellini@kernel.org" <sstabellini@kernel.org>,
-	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: objtool warning for next-20221118
-Message-ID: <20221124163928.dof5ldfer6rswlnx@treble>
-References: <20221121145215.GF4001@paulmck-ThinkPad-P17-Gen-1>
- <20221122051605.4hcbslwxez2trdvt@treble>
- <Y3yJxQJ9DwxTx7km@hirez.programming.kicks-ass.net>
- <20221123012350.kelmmadh65lyswqz@treble>
- <Y33gAiFP2IpVdxJu@hirez.programming.kicks-ass.net>
- <2255c45f-d8ba-3f32-9d99-737ad3040dd7@citrix.com>
- <20221123170337.keacggyvn4ykbtsw@treble>
- <20221124023934.nft3udxelth4lvai@treble>
- <72a4871b-3ee8-42c1-912a-321a45690428@suse.com>
- <68dc479a-6b61-0012-888d-c1b4cc513cdb@suse.com>
+X-Inumbo-ID: 1b54ad42-6c17-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1669308203;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=65nK8wEs6tGHvEng34CrzXajvfyLyoM+LOPRulqvbS0=;
+  b=iJH75i424ImQi81hWX5Ch7TqUADRQ/pWM4bykvjZlehTp2oCZPSANafc
+   6itWbDyd7zq4EJctziWhiaZgyyS/Da/+0fDcpXq8fHIupHhGC3yTQAV3z
+   yinolKpLuvIreV9T1MazhvI0jMDO0K96iVU2ZzVOrmnhjNvmNEfLOf8pv
+   g=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: None
+X-MesageID: 85079088
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:BIXIAa4ZeYjVrrd7R2dARgxRtEvHchMFZxGqfqrLsTDasY5as4F+v
+ mtOX27QOa2CNmGjfIp3YYvk/E5XuJSBmNFjT1Nl+XxnHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraBYnoqLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+4pwehBtC5gZkPKkR4AeE/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m6
+ 9E7ES0JShu5lu+K2byQTNU2oP8aFZy+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmeJU0UUrsUIMtWcOOAj3/jczpeuRSNqLA++WT7xw1tyrn9dtHSf7RmQO0Fwx7H9
+ zqWrwwVBDkQatq722GK0UuXodXzxyneYrxCFuOBo6sCbFq7mTVIVUx+uUGAiea9ol6zXZRYM
+ UN80gojq7IjsnOiSNbVVge95nWDu3Y0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
+ mJlhPuwW2Yp6ufMDyvAqPHE9lteJBT5M0ccSAw9UA8h6OPyrb0qgDnJcoxFK5eM24id9S7L/
+ xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodt7xc7WXg
+ JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF5yLJ9g4DNJWfh0B3iM4RNMRS
+ BWP0T69HbcKVJZqBIcuC25LN+wkzLL7CfPuXe3OY9xFb/BZLVHZrXs0NRLAjzu3yCDAdJ3T3
+ r/CIa6R4YsyU/w7nFJauc9DuVPU+szO7TyKHs2qp/hW+bGfeGSUWd843KimN4gEAWLtiFu9z
+ uuzwOPQlUoHAbOkOXOGmWPRRHhTRUUG6VnNg5Q/Xoa+zsBOQQnN19e5LWsdRrFY
+IronPort-HdrOrdr: A9a23:1ISy96z6NEpYLabfbXPHKrPwIL1zdoMgy1knxilNoRw8SKKlfq
+ eV7ZAmPH7P+VAssR4b+exoVJPtfZq+z+8R3WByB8bAYOCOggLBR+sO0WKL+UyGJ8SUzI9gPM
+ lbHJSWcOeAb2RHsQ==
+X-IronPort-AV: E=Sophos;i="5.96,190,1665460800"; 
+   d="scan'208";a="85079088"
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Henry Wang <Henry.Wang@arm.com>, Anthony PERARD
+	<anthony.perard@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [XEN PATCH maybe for-4.17] tools/include: Fix clean and rework COPYING for installed Xen public header
+Date: Thu, 24 Nov 2022 16:42:54 +0000
+Message-ID: <20221124164254.33476-1-anthony.perard@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <68dc479a-6b61-0012-888d-c1b4cc513cdb@suse.com>
+Content-Type: text/plain
 
-On Thu, Nov 24, 2022 at 08:47:47AM +0100, Juergen Gross wrote:
-> > > +++ b/arch/x86/xen/smp_pv.c
-> > > @@ -385,17 +385,9 @@ static void xen_pv_play_dead(void) /* used only
-> > > with HOTPLUG_CPU */
-> > >   {
-> > >       play_dead_common();
-> > >       HYPERVISOR_vcpu_op(VCPUOP_down, xen_vcpu_nr(smp_processor_id()), NULL);
-> > > -    cpu_bringup();
-> > > -    /*
-> > > -     * commit 4b0c0f294 (tick: Cleanup NOHZ per cpu data on cpu down)
-> > > -     * clears certain data that the cpu_idle loop (which called us
-> > > -     * and that we return from) expects. The only way to get that
-> > > -     * data back is to call:
-> > > -     */
-> > > -    tick_nohz_idle_enter();
-> > > -    tick_nohz_idle_stop_tick_protected();
-> > > -    cpuhp_online_idle(CPUHP_AP_ONLINE_IDLE);
-> > > +    /* FIXME: converge cpu_bringup_and_idle() and start_secondary() */
-> > > +    cpu_bringup_and_idle();
-> > 
-> > I think this will leak stack memory. Multiple cpu offline/online cycles of
-> > the same cpu will finally exhaust the idle stack.
+Use actual include directory used to install the public header in
+COPYING file.
 
-Doh!  Of course...
+Also, move the input file out of "tools/include/xen/" because that
+directory is removed on `make clean`.
 
-I was actually thinking ahead, to where eventually xen_pv_play_dead()
-can call start_cpu0(), which can be changed to automatically reset the
-stack pointer like this:
+We can't used ./configure because $includedir contain another
+variable, so the change is done in Makefile.
 
-SYM_CODE_START(start_cpu0)
-	ANNOTATE_NOENDBR
-	UNWIND_HINT_EMPTY
-	movq	PER_CPU_VAR(pcpu_hot + X86_top_of_stack), %rax
-	leaq	-PTREGS_SIZE(%rax), %rsp
-	jmp	.Ljump_to_C_code
-SYM_CODE_END(start_cpu0)
+Fixes: 4ea75e9a9058 ("Rework COPYING installed in /usr/include/xen/, due to several licences")
+Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+---
 
-but that would only be possible be after more cleanups which converge
-cpu_bringup_and_idle() with start_secondary().
+Notes:
+    For 4.17 inclusion:
+    
+    Doing `make clean && make` in the root dir is going to fail as make
+    isn't going to find the COPYING file while trying to install the
+    includes.
+    
+    If that patch is too much, we could replace the `sed` by `cp` and just
+    move COPYING instead of changing it.
 
-> The attached patch seems to work fine.
+ tools/include/Makefile                        | 1 +
+ tools/include/{xen/COPYING => xen.COPYING.in} | 2 +-
+ tools/include/.gitignore                      | 1 +
+ tools/include/xen/.gitignore                  | 2 --
+ 4 files changed, 3 insertions(+), 3 deletions(-)
+ rename tools/include/{xen/COPYING => xen.COPYING.in} (93%)
+ create mode 100644 tools/include/.gitignore
+ delete mode 100644 tools/include/xen/.gitignore
 
-The patch looks good to me.
-
-It doesn't solve Paul's original issue where arch_cpu_idle_dead() needs
-to be __noreturn.  But that should probably be a separate patch anyway.
-
-> The __noreturn annotation seems to trigger an objtool warning, though, in
-> spite of the added BUG() at the end of xen_pv_play_dead():
->
-> arch/x86/xen/smp_pv.o: warning: objtool: xen_pv_play_dead() falls through to
-> next function xen_pv_cpu_die()
-
-You'll need to tell objtool that xen_cpu_bringup_again() is noreturn by
-adding "xen_cpu_bringup_again" to global_noreturns[] in
-tools/objtool/check.c.
-
-(Yes it's a pain, I'll be working an improved solution to the noreturn
-thing...)
-
+diff --git a/tools/include/Makefile b/tools/include/Makefile
+index f838171e8c..d69aeb54bf 100644
+--- a/tools/include/Makefile
++++ b/tools/include/Makefile
+@@ -24,6 +24,7 @@ xen-foreign:
+ xen-dir:
+ 	mkdir -p xen/libelf acpi
+ 	find xen/ acpi/ -type l -exec rm '{}' +
++	sed -e 's#@includedir@#$(includedir)/xen#g' xen.COPYING.in > xen/COPYING
+ 	ln -s $(XEN_ROOT)/xen/include/public/*.h xen/
+ 	ln -s $(XEN_ROOT)/xen/include/public/*/ xen/
+ 	ln -s ../xen-sys/$(XEN_OS) xen/sys
+diff --git a/tools/include/xen/COPYING b/tools/include/xen.COPYING.in
+similarity index 93%
+rename from tools/include/xen/COPYING
+rename to tools/include/xen.COPYING.in
+index fe3f9b7557..25513fe529 100644
+--- a/tools/include/xen/COPYING
++++ b/tools/include/xen.COPYING.in
+@@ -1,7 +1,7 @@
+ XEN NOTICE
+ ==========
+ 
+-This licence applies to all files within this subdirectory ("/usr/include/xen")
++This licence applies to all files within this subdirectory ("@includedir@")
+ with the exception of "sys/" which may include headers under different
+ licences.
+ 
+diff --git a/tools/include/.gitignore b/tools/include/.gitignore
+new file mode 100644
+index 0000000000..be14e3632d
+--- /dev/null
++++ b/tools/include/.gitignore
+@@ -0,0 +1 @@
++/xen/
+diff --git a/tools/include/xen/.gitignore b/tools/include/xen/.gitignore
+deleted file mode 100644
+index 0628b2daf1..0000000000
+--- a/tools/include/xen/.gitignore
++++ /dev/null
+@@ -1,2 +0,0 @@
+-*
+-!COPYING
 -- 
-Josh
+Anthony PERARD
+
 
