@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99F01636D0B
-	for <lists+xen-devel@lfdr.de>; Wed, 23 Nov 2022 23:27:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447736.704307 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B27A5637091
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 03:41:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.447742.704317 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxyBW-0003cd-MN; Wed, 23 Nov 2022 22:25:38 +0000
+	id 1oy29P-000524-64; Thu, 24 Nov 2022 02:39:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447736.704307; Wed, 23 Nov 2022 22:25:38 +0000
+Received: by outflank-mailman (output) from mailman id 447742.704317; Thu, 24 Nov 2022 02:39:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oxyBW-0003ZK-IX; Wed, 23 Nov 2022 22:25:38 +0000
-Received: by outflank-mailman (input) for mailman id 447736;
- Wed, 23 Nov 2022 22:25:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1oy29P-00050L-12; Thu, 24 Nov 2022 02:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 447742;
+ Thu, 24 Nov 2022 02:39:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wuiL=3X=citrix.com=prvs=31995ac12=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1oxyBV-0003ZB-PC
- for xen-devel@lists.xenproject.org; Wed, 23 Nov 2022 22:25:37 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id be43bc55-6b7d-11ed-8fd2-01056ac49cbb;
- Wed, 23 Nov 2022 23:25:34 +0100 (CET)
+ <SRS0=4qOg=3Y=kernel.org=jpoimboe@srs-se1.protection.inumbo.net>)
+ id 1oy29N-00050F-9R
+ for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 02:39:41 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3d1d5e6e-6ba1-11ed-91b6-6bf2151ebd3b;
+ Thu, 24 Nov 2022 03:39:39 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5D5EA61FC3;
+ Thu, 24 Nov 2022 02:39:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54220C433C1;
+ Thu, 24 Nov 2022 02:39:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,184 +43,180 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be43bc55-6b7d-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1669242334;
-  h=from:to:cc:subject:date:message-id:mime-version;
-  bh=ss1D4ingsK86pl+VHuAvo8YZPZvL2G85Rxu9B0/DrhI=;
-  b=DzH5TA7x0x6i5kKGhEZWxjQGQT50DnWt/xswhUgcEclt/AjU6CLC9CTu
-   r5TYbf23UUs4fGfuPf7usi5JJ66PwRF1ZvQZfmInOftvPQppBmvmrVHoD
-   j9mCx6T4cRZnJnbVTX7CNklR/aapSQNi+o9q8Kdah3fC0a4G8YHFENJ3n
-   Y=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: None
-X-MesageID: 87991771
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:yQxpZKkO2FyqLJGAzT2usY3o5gziJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIXWmqAOKncMGb3Lt0ga4u3/ElUvJeDzNBgSQc4/y4xFyMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7aqaVA8w5ARkP6kS5gSGzBH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- dsVDh0SdxGqvMez/ILqa7hDiNgyAeC+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsfYT/7C7pn9AusrlD5fydVtxS+oq0v7nKI5AdwzKLsIJzefdniqcB9zhnJ9
- zuZoD2R7hcyF+zB5Cqf+2CQlMjsliD9aIM2DYyWz6s/6LGU7jNKU0BHPbehmtG1g1Czc8hSI
- EsV/mwpt6da3FymSJzxUgO1pFaAvwUAQJxAHusi8gaPx6HIpQGDCQA5oiVpMYJ88pVsHHpzi
- wHPz4iB6SFTXKO9bn+726iNrBqJHC0pHT4jNAAKURooyoy2yG0stS7nQtFmGa+zq9T6HzDs3
- jyHxBQDa6UvYd0jjPviow2e6964jt2QF1NuuF2LNo6wxlkhDLNJcbBE/rQyARxoCI+CBmeMs
- 3Ef8yR1xLBfVMrd/MBhrQhkIV1I2xpnGGeE6bKMN8N7n9hIx0NPhagKvFlDyL5Ba67puVbBO
- Sc/Qz956p5JJ2eNZqRqeY+3AMlC5fG+S4W/DKCIPooVOMAZmOq7EMZGPB744owQuBJ0zfFX1
- WmzL65A8kr2+Yw4lWHrFo/xIJcgxzwkxHO7eHwI503P7FdfDVbLIYo43KymNLpmtvPd+F2Nm
- zudXuPToyhivCTFSnG/2eYuwZoidxDX2bieRxRrS9O+
-IronPort-HdrOrdr: A9a23:zOFf/KvkWEaXFsm62Gi8xp4w7skDYtV00zEX/kB9WHVpmszxra
- +TdZUgpHvJYVkqOU3I9ersBEDiewK4yXcW2+ks1N6ZNWGM0ldARLsSj7cKqAePJ8SRzIJgPN
- 9bAstDNOE=
-X-IronPort-AV: E=Sophos;i="5.96,187,1665460800"; 
-   d="scan'208";a="87991771"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Christian Lindig
-	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Edwin Torok
-	<edvin.torok@citrix.com>, Rob Hoes <Rob.Hoes@citrix.com>
-Subject: [PATCH] tools/ocaml/xenctrl: OCaml 5 support, fix use-after-free
-Date: Wed, 23 Nov 2022 22:25:17 +0000
-Message-ID: <20221123222517.12140-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
+X-Inumbo-ID: 3d1d5e6e-6ba1-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1669257576;
+	bh=v/MVsTswqTV6pYQHqN9mCNsFiduQhw05EJKbm6J8B9Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dqnAV5JxjBhMTnqY+nsEdkJAdIqMvZR6VuuOrh2h8I9tTjoLWtiHgBBOY2p/LTeO5
+	 3YNbf4WRvW0FihD+OMLoGtrv+IGs1wE9PkexlM6ybOshYiULCYuLx+FuabWE0Qn2VR
+	 tsZTzMZFV7QQGp3alstflhnff41Gqilqe4MxebM3kFf1PwF1ILeZMwVv1V3zrf1hBn
+	 yEpi21i7a8rhnjF21bqIGrM/b2+T1HTYE7U5KMWUw25bH9izmkcy2yVOVUenrEXXpL
+	 6zOCT7RrE95YnQ7bEHjtOLm2IfSv2A+USxLAuH4UPXotiUB7Tm9MdiiIcF+nqu9aeR
+	 oJ9CfKu49phXA==
+Date: Wed, 23 Nov 2022 18:39:34 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	"sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"jgross@suse.com" <jgross@suse.com>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: objtool warning for next-20221118
+Message-ID: <20221124023934.nft3udxelth4lvai@treble>
+References: <20221121040736.GA3738360@paulmck-ThinkPad-P17-Gen-1>
+ <Y3thrQxfcvZSXFlr@hirez.programming.kicks-ass.net>
+ <20221121145215.GF4001@paulmck-ThinkPad-P17-Gen-1>
+ <20221122051605.4hcbslwxez2trdvt@treble>
+ <Y3yJxQJ9DwxTx7km@hirez.programming.kicks-ass.net>
+ <20221123012350.kelmmadh65lyswqz@treble>
+ <Y33gAiFP2IpVdxJu@hirez.programming.kicks-ass.net>
+ <2255c45f-d8ba-3f32-9d99-737ad3040dd7@citrix.com>
+ <20221123170337.keacggyvn4ykbtsw@treble>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221123170337.keacggyvn4ykbtsw@treble>
 
-The binding for xc_interface_close() free the underlying handle while leaving
-the Ocaml object still in scope and usable.  This would make it easy to suffer
-a use-after-free, if it weren't for the fact that the typical usage is as a
-singleton that lives for the lifetime of the program.
+On Wed, Nov 23, 2022 at 09:03:40AM -0800, Josh Poimboeuf wrote:
+> On Wed, Nov 23, 2022 at 10:52:09AM +0000, Andrew Cooper wrote:
+> > > Well, if you return from arch_cpu_idle_dead() you're back in the idle
+> > > loop -- exactly where you would be if you were to bootstrap the whole
+> > > CPU -- provided you have it remember the whole state (easier with a
+> > > vCPU).
+> 
+> play_dead() really needs sane semantics.  Not only does it introduce a
+> surprise to the offlining code in do_idle(), it also skips the entire
+> hotplug state machine.  Not sure if that introduces any bugs, but at the
+> very least it's subtle and surprising.
+> 
+> > > But maybe I'm missing something, lets add Xen folks on.
+> > 
+> > Calling VCPUOP_down on oneself always succeeds, but all it does is
+> > deschedule the vCPU.
+> > 
+> > It can be undone at a later point by a different vcpu issuing VCPUOP_up
+> > against the previously-downed CPU, at which point the vCPU gets rescheduled.
+> > 
+> > This is why the VCPUOP_down hypercall returns normally.  All state
+> > really is intact.
+> > 
+> > As for what Linux does, this is how xen_pv_cpu_up() currently behaves. 
+> > If you want to make Xen behave more everything else, then bug a BUG()
+> > after VCPUOP_down, and adjust xen_pv_cpu_up() to skip its initialised
+> > check and always use VCPUOP_initialise to bring the vCPU back online.
+> 
+> Or we could do what sev_es_play_dead() does and just call start_cpu0()
+> after the hypercall returns?
 
-Ocaml 5 no longer permits storing a naked C pointer in an Ocaml value.
+Something like so (untested).  This is only the x86 bits.
 
-Therefore, use a Custom block.  This allows us to use the finaliser callback
-to call xc_interface_close(), if the Ocaml object goes out of scope.
+I think I convinced myself that start_cpu0() isn't buggy.  I'm looking
+at other cleanups, e.g. converging cpu_bringup_and_idle() with
+start_secondary().
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Christian Lindig <christian.lindig@citrix.com>
-CC: David Scott <dave@recoil.org>
-CC: Edwin Torok <edvin.torok@citrix.com>
-CC: Rob Hoes <Rob.Hoes@citrix.com>
+I can pick it up again next week, post-turkey.
 
-I've confirmed that Xenctrl.close_handle does cause the finaliser to be
-called, simply by dropping the handle reference.
----
- tools/ocaml/libs/xc/xenctrl.ml      |  3 +--
- tools/ocaml/libs/xc/xenctrl.mli     |  1 -
- tools/ocaml/libs/xc/xenctrl_stubs.c | 43 ++++++++++++++++++++++---------------
- 3 files changed, 27 insertions(+), 20 deletions(-)
-
-diff --git a/tools/ocaml/libs/xc/xenctrl.ml b/tools/ocaml/libs/xc/xenctrl.ml
-index aa650533f718..4b74e31c75cb 100644
---- a/tools/ocaml/libs/xc/xenctrl.ml
-+++ b/tools/ocaml/libs/xc/xenctrl.ml
-@@ -175,7 +175,6 @@ exception Error of string
- type handle
- 
- external interface_open: unit -> handle = "stub_xc_interface_open"
--external interface_close: handle -> unit = "stub_xc_interface_close"
- 
- let handle = ref None
- 
-@@ -183,7 +182,7 @@ let get_handle () = !handle
- 
- let close_handle () =
- 	match !handle with
--	| Some h -> handle := None; interface_close h
-+	| Some h -> handle := None
- 	| None -> ()
- 
- let with_intf f =
-diff --git a/tools/ocaml/libs/xc/xenctrl.mli b/tools/ocaml/libs/xc/xenctrl.mli
-index 5bf5f5dfea36..ddfe84dc22a9 100644
---- a/tools/ocaml/libs/xc/xenctrl.mli
-+++ b/tools/ocaml/libs/xc/xenctrl.mli
-@@ -146,7 +146,6 @@ type shutdown_reason = Poweroff | Reboot | Suspend | Crash | Watchdog | Soft_res
- exception Error of string
- type handle
- external interface_open : unit -> handle = "stub_xc_interface_open"
--external interface_close : handle -> unit = "stub_xc_interface_close"
- 
- (** [with_intf f] runs [f] with a global handle that is opened on demand
-  * and kept open. Conceptually, a client should use either
-diff --git a/tools/ocaml/libs/xc/xenctrl_stubs.c b/tools/ocaml/libs/xc/xenctrl_stubs.c
-index f37848ae0bb3..4e1204085422 100644
---- a/tools/ocaml/libs/xc/xenctrl_stubs.c
-+++ b/tools/ocaml/libs/xc/xenctrl_stubs.c
-@@ -37,13 +37,28 @@
- 
- #include "mmap_stubs.h"
- 
--#define _H(__h) ((xc_interface *)(__h))
-+#define _H(__h) (*((xc_interface **)Data_custom_val(__h)))
- #define _D(__d) ((uint32_t)Int_val(__d))
- 
- #ifndef Val_none
- #define Val_none (Val_int(0))
- #endif
- 
-+static void stub_xenctrl_finalize(value v)
-+{
-+	xc_interface_close(_H(v));
-+}
-+
-+static struct custom_operations xenctrl_ops = {
-+	.identifier  = "xenctrl",
-+	.finalize    = stub_xenctrl_finalize,
-+	.compare     = custom_compare_default,     /* Can't compare     */
-+	.hash        = custom_hash_default,        /* Can't hash        */
-+	.serialize   = custom_serialize_default,   /* Can't serialize   */
-+	.deserialize = custom_deserialize_default, /* Can't deserialize */
-+	.compare_ext = custom_compare_ext_default, /* Can't compare     */
-+};
-+
- #define string_of_option_array(array, index) \
- 	((Field(array, index) == Val_none) ? NULL : String_val(Field(Field(array, index), 0)))
- 
-@@ -70,26 +85,20 @@ static void Noreturn failwith_xc(xc_interface *xch)
- CAMLprim value stub_xc_interface_open(void)
- {
- 	CAMLparam0();
--        xc_interface *xch;
--
--	/* Don't assert XC_OPENFLAG_NON_REENTRANT because these bindings
--	 * do not prevent re-entrancy to libxc */
--        xch = xc_interface_open(NULL, NULL, 0);
--        if (xch == NULL)
--		failwith_xc(NULL);
--        CAMLreturn((value)xch);
--}
--
--
--CAMLprim value stub_xc_interface_close(value xch)
--{
--	CAMLparam1(xch);
-+	CAMLlocal1(result);
-+	xc_interface *xch;
- 
- 	caml_enter_blocking_section();
--	xc_interface_close(_H(xch));
-+	xch = xc_interface_open(NULL, NULL, 0);
- 	caml_leave_blocking_section();
- 
--	CAMLreturn(Val_unit);
-+	if ( !xch )
-+		failwith_xc(xch);
-+
-+	result = caml_alloc_custom(&xenctrl_ops, sizeof(xch), 0, 1);
-+	_H(result) = xch;
-+
-+	CAMLreturn(result);
+diff --git a/arch/x86/include/asm/smp.h b/arch/x86/include/asm/smp.h
+index b4dbb20dab1a..e6d1d2810e38 100644
+--- a/arch/x86/include/asm/smp.h
++++ b/arch/x86/include/asm/smp.h
+@@ -93,9 +93,10 @@ static inline void __cpu_die(unsigned int cpu)
+ 	smp_ops.cpu_die(cpu);
  }
  
- static void domain_handle_of_uuid_string(xen_domain_handle_t h,
--- 
-2.11.0
-
+-static inline void play_dead(void)
++static inline void __noreturn play_dead(void)
+ {
+ 	smp_ops.play_dead();
++	BUG();
+ }
+ 
+ static inline void smp_send_reschedule(int cpu)
+diff --git a/arch/x86/kernel/process.c b/arch/x86/kernel/process.c
+index 26e8f57c75ad..8e2841deb1eb 100644
+--- a/arch/x86/kernel/process.c
++++ b/arch/x86/kernel/process.c
+@@ -700,7 +700,7 @@ EXPORT_SYMBOL(boot_option_idle_override);
+ static void (*x86_idle)(void);
+ 
+ #ifndef CONFIG_SMP
+-static inline void play_dead(void)
++static inline void __noreturn play_dead(void)
+ {
+ 	BUG();
+ }
+diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+index 55cad72715d9..d8b12ac1a7c5 100644
+--- a/arch/x86/kernel/smpboot.c
++++ b/arch/x86/kernel/smpboot.c
+@@ -1833,9 +1833,12 @@ void native_play_dead(void)
+ 	play_dead_common();
+ 	tboot_shutdown(TB_SHUTDOWN_WFS);
+ 
+-	mwait_play_dead();	/* Only returns on failure */
++	mwait_play_dead();	/* Only returns if mwait is not supported */
++
+ 	if (cpuidle_play_dead())
+ 		hlt_play_dead();
++
++	BUG();
+ }
+ 
+ #else /* ... !CONFIG_HOTPLUG_CPU */
+diff --git a/arch/x86/xen/smp_pv.c b/arch/x86/xen/smp_pv.c
+index 480be82e9b7b..30dc904ca990 100644
+--- a/arch/x86/xen/smp_pv.c
++++ b/arch/x86/xen/smp_pv.c
+@@ -385,17 +385,9 @@ static void xen_pv_play_dead(void) /* used only with HOTPLUG_CPU */
+ {
+ 	play_dead_common();
+ 	HYPERVISOR_vcpu_op(VCPUOP_down, xen_vcpu_nr(smp_processor_id()), NULL);
+-	cpu_bringup();
+-	/*
+-	 * commit 4b0c0f294 (tick: Cleanup NOHZ per cpu data on cpu down)
+-	 * clears certain data that the cpu_idle loop (which called us
+-	 * and that we return from) expects. The only way to get that
+-	 * data back is to call:
+-	 */
+-	tick_nohz_idle_enter();
+-	tick_nohz_idle_stop_tick_protected();
+ 
+-	cpuhp_online_idle(CPUHP_AP_ONLINE_IDLE);
++	/* FIXME: converge cpu_bringup_and_idle() and start_secondary() */
++	cpu_bringup_and_idle();
+ }
+ 
+ #else /* !CONFIG_HOTPLUG_CPU */
+diff --git a/include/linux/cpu.h b/include/linux/cpu.h
+index 314802f98b9d..7fbbd1572288 100644
+--- a/include/linux/cpu.h
++++ b/include/linux/cpu.h
+@@ -185,7 +185,7 @@ void arch_cpu_idle(void);
+ void arch_cpu_idle_prepare(void);
+ void arch_cpu_idle_enter(void);
+ void arch_cpu_idle_exit(void);
+-void arch_cpu_idle_dead(void);
++void __noreturn arch_cpu_idle_dead(void);
+ 
+ int cpu_report_state(int cpu);
+ int cpu_check_up_prepare(int cpu);
+diff --git a/kernel/sched/idle.c b/kernel/sched/idle.c
+index f26ab2675f7d..097afe98e53e 100644
+--- a/kernel/sched/idle.c
++++ b/kernel/sched/idle.c
+@@ -71,7 +71,7 @@ static noinline int __cpuidle cpu_idle_poll(void)
+ void __weak arch_cpu_idle_prepare(void) { }
+ void __weak arch_cpu_idle_enter(void) { }
+ void __weak arch_cpu_idle_exit(void) { }
+-void __weak arch_cpu_idle_dead(void) { }
++void __weak __noreturn arch_cpu_idle_dead(void) { BUG(); }
+ void __weak arch_cpu_idle(void)
+ {
+ 	cpu_idle_force_poll = 1;
 
