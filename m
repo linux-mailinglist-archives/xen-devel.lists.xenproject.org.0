@@ -2,44 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66768637D27
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 16:40:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.447995.704727 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10279637DAD
+	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 17:41:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.448001.704739 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyEKu-0004w1-Ng; Thu, 24 Nov 2022 15:40:24 +0000
+	id 1oyFGD-0003ZZ-4C; Thu, 24 Nov 2022 16:39:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 447995.704727; Thu, 24 Nov 2022 15:40:24 +0000
+Received: by outflank-mailman (output) from mailman id 448001.704739; Thu, 24 Nov 2022 16:39:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyEKu-0004tp-Kt; Thu, 24 Nov 2022 15:40:24 +0000
-Received: by outflank-mailman (input) for mailman id 447995;
- Thu, 24 Nov 2022 15:40:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4ZTP=3Y=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1oyEKt-0003Wx-KN
- for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 15:40:23 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4ec63146-6c0e-11ed-8fd2-01056ac49cbb;
- Thu, 24 Nov 2022 16:40:22 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+	id 1oyFGD-0003Wg-0j; Thu, 24 Nov 2022 16:39:37 +0000
+Received: by outflank-mailman (input) for mailman id 448001;
+ Thu, 24 Nov 2022 16:39:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=4qOg=3Y=kernel.org=jpoimboe@srs-se1.protection.inumbo.net>)
+ id 1oyFGB-0003WZ-5g
+ for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 16:39:35 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 93036ac4-6c16-11ed-91b6-6bf2151ebd3b;
+ Thu, 24 Nov 2022 17:39:33 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 770ED1F854;
- Thu, 24 Nov 2022 15:40:22 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 275E313B4F;
- Thu, 24 Nov 2022 15:40:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MdjmB2aQf2MZcQAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 24 Nov 2022 15:40:22 +0000
+ by ams.source.kernel.org (Postfix) with ESMTPS id 363F0B82839;
+ Thu, 24 Nov 2022 16:39:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5C5C433C1;
+ Thu, 24 Nov 2022 16:39:30 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,143 +43,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4ec63146-6c0e-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1669304422; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=M43Sq4E5bN0CSI+TVPLNQU1qdDXk/NKQyKKWB2HL/b8=;
-	b=LC+IBh4FSJytL4ZKN0kNCcivseNpaPNaEW8p+pDd+vOU4pueN9fjUcWBDNREBZ1mPeGXH3
-	ct77h/MrHb9AJbAun1Pt0CQpsc2HB6v9h1nTavlM5iMZ4pekVbTFqlSS4krPQnLWk2MTba
-	OziTnjdI2zwq40zKlD4iI4e2grynR+E=
-Message-ID: <08829868-2c84-8ec9-936d-e6814edaf4c7@suse.com>
-Date: Thu, 24 Nov 2022 16:40:21 +0100
+X-Inumbo-ID: 93036ac4-6c16-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1669307970;
+	bh=OKXY4HOb6tjr1fLTcQMjreoqibQdHiqlX3XPx/NKo9c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FF5BWWm70I4oWNIABZDD5ZpFGtfi4xlErQuLbHrchom/bIyjGAbpEMOYVG8rmdXq2
+	 6wd7icEHORG3GbzZLud50WsU3LCUvSdfENs1JIYho+TKFacLC+WjnL1qKGuIOziaV6
+	 cr14plP3s5Mqnfve1ScQR/NMHdIfZXrlbW6pCyCBrO45F+TD2H29FP7OmVrMnmx+37
+	 0pMTWSW3bm/1D/YVt6SapbZaIjNc/Zz8CFvYh3Fs5kmEv8gpsy4teGGd6pXgMcI9Nl
+	 spWVSqEETTY2dJ2LUJz7/jgvHdy33n1dmdw+EojgYr23nC6zfKtA1q+kezQE3v0DYe
+	 8cBAfQH4M+MfA==
+Date: Thu, 24 Nov 2022 08:39:28 -0800
+From: Josh Poimboeuf <jpoimboe@kernel.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	"sfr@canb.auug.org.au" <sfr@canb.auug.org.au>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"sstabellini@kernel.org" <sstabellini@kernel.org>,
+	"boris.ostrovsky@oracle.com" <boris.ostrovsky@oracle.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+	Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: objtool warning for next-20221118
+Message-ID: <20221124163928.dof5ldfer6rswlnx@treble>
+References: <20221121145215.GF4001@paulmck-ThinkPad-P17-Gen-1>
+ <20221122051605.4hcbslwxez2trdvt@treble>
+ <Y3yJxQJ9DwxTx7km@hirez.programming.kicks-ass.net>
+ <20221123012350.kelmmadh65lyswqz@treble>
+ <Y33gAiFP2IpVdxJu@hirez.programming.kicks-ass.net>
+ <2255c45f-d8ba-3f32-9d99-737ad3040dd7@citrix.com>
+ <20221123170337.keacggyvn4ykbtsw@treble>
+ <20221124023934.nft3udxelth4lvai@treble>
+ <72a4871b-3ee8-42c1-912a-321a45690428@suse.com>
+ <68dc479a-6b61-0012-888d-c1b4cc513cdb@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v2 2/2] x86/xen: Fix memory leak in xen_init_lock_cpu()
-Content-Language: en-US
-To: Xiu Jianfeng <xiujianfeng@huawei.com>, boris.ostrovsky@oracle.com,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, jeremy@goop.org
-Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-References: <20221123155858.11382-1-xiujianfeng@huawei.com>
- <20221123155858.11382-3-xiujianfeng@huawei.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221123155858.11382-3-xiujianfeng@huawei.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------g71cZsF08Iq2xNN0ChTv5qHm"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <68dc479a-6b61-0012-888d-c1b4cc513cdb@suse.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------g71cZsF08Iq2xNN0ChTv5qHm
-Content-Type: multipart/mixed; boundary="------------zz8IykRPSugzkPiOuLEBOuZW";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Xiu Jianfeng <xiujianfeng@huawei.com>, boris.ostrovsky@oracle.com,
- tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, jeremy@goop.org
-Cc: x86@kernel.org, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org
-Message-ID: <08829868-2c84-8ec9-936d-e6814edaf4c7@suse.com>
-Subject: Re: [PATCH v2 2/2] x86/xen: Fix memory leak in xen_init_lock_cpu()
-References: <20221123155858.11382-1-xiujianfeng@huawei.com>
- <20221123155858.11382-3-xiujianfeng@huawei.com>
-In-Reply-To: <20221123155858.11382-3-xiujianfeng@huawei.com>
+On Thu, Nov 24, 2022 at 08:47:47AM +0100, Juergen Gross wrote:
+> > > +++ b/arch/x86/xen/smp_pv.c
+> > > @@ -385,17 +385,9 @@ static void xen_pv_play_dead(void) /* used only
+> > > with HOTPLUG_CPU */
+> > >   {
+> > >       play_dead_common();
+> > >       HYPERVISOR_vcpu_op(VCPUOP_down, xen_vcpu_nr(smp_processor_id()), NULL);
+> > > -    cpu_bringup();
+> > > -    /*
+> > > -     * commit 4b0c0f294 (tick: Cleanup NOHZ per cpu data on cpu down)
+> > > -     * clears certain data that the cpu_idle loop (which called us
+> > > -     * and that we return from) expects. The only way to get that
+> > > -     * data back is to call:
+> > > -     */
+> > > -    tick_nohz_idle_enter();
+> > > -    tick_nohz_idle_stop_tick_protected();
+> > > -    cpuhp_online_idle(CPUHP_AP_ONLINE_IDLE);
+> > > +    /* FIXME: converge cpu_bringup_and_idle() and start_secondary() */
+> > > +    cpu_bringup_and_idle();
+> > 
+> > I think this will leak stack memory. Multiple cpu offline/online cycles of
+> > the same cpu will finally exhaust the idle stack.
 
---------------zz8IykRPSugzkPiOuLEBOuZW
-Content-Type: multipart/mixed; boundary="------------chaXyuWdvybov2Rsq7Xk2SdP"
+Doh!  Of course...
 
---------------chaXyuWdvybov2Rsq7Xk2SdP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+I was actually thinking ahead, to where eventually xen_pv_play_dead()
+can call start_cpu0(), which can be changed to automatically reset the
+stack pointer like this:
 
-T24gMjMuMTEuMjIgMTY6NTgsIFhpdSBKaWFuZmVuZyB3cm90ZToNCj4gSW4geGVuX2luaXRf
-bG9ja19jcHUoKSwgdGhlIEBuYW1lIGhhcyBhbGxvY2F0ZWQgbmV3IHN0cmluZyBieSBrYXNw
-cmludGYoKSwNCj4gaWYgYmluZF9pcGlfdG9faXJxaGFuZGxlcigpIGZhaWxzLCBpdCBzaG91
-bGQgYmUgZnJlZWQsIG90aGVyd2lzZSBtYXkgbGVhZA0KPiB0byBhIG1lbW9yeSBsZWFrIGlz
-c3VlLCBmaXggaXQuDQo+IA0KPiBGaXhlczogMmQ5ZTFlMmY1OGI1ICgieGVuOiBpbXBsZW1l
-bnQgWGVuLXNwZWNpZmljIHNwaW5sb2NrcyIpDQo+IFNpZ25lZC1vZmYtYnk6IFhpdSBKaWFu
-ZmVuZyA8eGl1amlhbmZlbmdAaHVhd2VpLmNvbT4NCg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4g
-R3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------chaXyuWdvybov2Rsq7Xk2SdP
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+SYM_CODE_START(start_cpu0)
+	ANNOTATE_NOENDBR
+	UNWIND_HINT_EMPTY
+	movq	PER_CPU_VAR(pcpu_hot + X86_top_of_stack), %rax
+	leaq	-PTREGS_SIZE(%rax), %rsp
+	jmp	.Ljump_to_C_code
+SYM_CODE_END(start_cpu0)
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+but that would only be possible be after more cleanups which converge
+cpu_bringup_and_idle() with start_secondary().
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+> The attached patch seems to work fine.
 
---------------chaXyuWdvybov2Rsq7Xk2SdP--
+The patch looks good to me.
 
---------------zz8IykRPSugzkPiOuLEBOuZW--
+It doesn't solve Paul's original issue where arch_cpu_idle_dead() needs
+to be __noreturn.  But that should probably be a separate patch anyway.
 
---------------g71cZsF08Iq2xNN0ChTv5qHm
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> The __noreturn annotation seems to trigger an objtool warning, though, in
+> spite of the added BUG() at the end of xen_pv_play_dead():
+>
+> arch/x86/xen/smp_pv.o: warning: objtool: xen_pv_play_dead() falls through to
+> next function xen_pv_cpu_die()
 
------BEGIN PGP SIGNATURE-----
+You'll need to tell objtool that xen_cpu_bringup_again() is noreturn by
+adding "xen_cpu_bringup_again" to global_noreturns[] in
+tools/objtool/check.c.
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmN/kGUFAwAAAAAACgkQsN6d1ii/Ey8+
-Ngf8CR1nYyQ6myrATb6TqeVL3tznFOZeNSwPZ95St0vd2ku2qoUpUsxNgEH/UJQjD8lllBQvkMS4
-WWxLK0VfJ783ZKid4ropnDhNvaDLsAR983pgvvVM54CADN3frawJbUbv1qgf5OoDqIzntDONOXXT
-fGd82BcYCff0qZ4BgFjseMKiLROigoui4ciPw22+ENkShfmeHUVhfWp8Em9jQ8m7S3gyGy3Jp1Da
-TFX8svclJzTisPG72kXGsQGxD35PJR5mN+P6ePcIMsXRFBPtzNat55gfBG8NIvSEA2UtVoZezF35
-5yLw+LebRCKQZx9AuizlR/6oKcEyQMmwO/ozOu+HSQ==
-=cjx7
------END PGP SIGNATURE-----
+(Yes it's a pain, I'll be working an improved solution to the noreturn
+thing...)
 
---------------g71cZsF08Iq2xNN0ChTv5qHm--
+-- 
+Josh
 
