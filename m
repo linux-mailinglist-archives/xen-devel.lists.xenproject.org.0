@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F7C36380A8
-	for <lists+xen-devel@lfdr.de>; Thu, 24 Nov 2022 22:30:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.448050.704859 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 518556382CC
+	for <lists+xen-devel@lfdr.de>; Fri, 25 Nov 2022 04:42:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.448056.704870 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyJnA-0000a4-Tt; Thu, 24 Nov 2022 21:29:56 +0000
+	id 1oyPaE-0001AQ-Fu; Fri, 25 Nov 2022 03:40:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 448050.704859; Thu, 24 Nov 2022 21:29:56 +0000
+Received: by outflank-mailman (output) from mailman id 448056.704870; Fri, 25 Nov 2022 03:40:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1oyJnA-0000XH-R6; Thu, 24 Nov 2022 21:29:56 +0000
-Received: by outflank-mailman (input) for mailman id 448050;
- Thu, 24 Nov 2022 21:29:55 +0000
+	id 1oyPaE-00017e-AG; Fri, 25 Nov 2022 03:40:58 +0000
+Received: by outflank-mailman (input) for mailman id 448056;
+ Fri, 25 Nov 2022 03:40:57 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1oyJn9-0000XB-Dx
- for xen-devel@lists.xenproject.org; Thu, 24 Nov 2022 21:29:55 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oyPaD-00017U-9v; Fri, 25 Nov 2022 03:40:57 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oyJn7-0006s0-Lj; Thu, 24 Nov 2022 21:29:53 +0000
-Received: from [54.239.6.186] (helo=[192.168.1.238])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1oyJn7-0003w8-Ej; Thu, 24 Nov 2022 21:29:53 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oyPaD-0005iD-7U; Fri, 25 Nov 2022 03:40:57 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1oyPaC-000634-O9; Fri, 25 Nov 2022 03:40:56 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1oyPaC-00085b-NU; Fri, 25 Nov 2022 03:40:56 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,210 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=VxbrYK7WZDIG0H7Mg3eWIuTmq1Wga6d6EunaCC48low=; b=fHGP/RqIPY56bsNtl1f5fgShLz
-	ZUSt0rnqMlnvmU5ij/hscOj+CCou0igRcPKlGU/Z1kcr934c0tr4vegDeibdFo+5X7HNtHWHg5/YK
-	w5N1izH/Xd1vU0ZgSQxg3NtgWVGzhg6SQHt1EXY+cmLLCGSMG6UlVBoaqEIozOcjm8K8=;
-Message-ID: <f1229a27-f92c-a0dc-928e-1d78b928fdd0@xen.org>
-Date: Thu, 24 Nov 2022 22:29:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=fvpzs35cJz/wgDELuGPtTYjc3bH6TUVZlMc9gK7Zo/M=; b=0E6YX7uyrqVJTYnTMcCnELRBwH
+	wnVxyTONA1xrc1kX4Nd5UZxkN2AaNyJ9eP2C3TTAG96DA025DeUtVOP8UXGluOSoFffIsesdaJXX+
+	sPoiu8QsJM1ExsXal7Ewo5uxquLUNH7/140xlcVOP++K/xx6KeMSVtQy8cH3sH4oCEBg=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174957-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: [PATCH RFC 07/10] domain: map/unmap GADDR based shared guest
- areas
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <5a571fd9-b0c2-216e-a444-102397a22ca0@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5a571fd9-b0c2-216e-a444-102397a22ca0@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 174957: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=08ad43d554bacb9769c6a69d5f771f02f5ba411c
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 25 Nov 2022 03:40:56 +0000
 
-Hi Jan,
+flight 174957 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174957/
 
-I am still digesting this series and replying with some initial comments.
+Regressions :-(
 
-On 19/10/2022 09:43, Jan Beulich wrote:
-> The registration by virtual/linear address has downsides: At least on
-> x86 the access is expensive for HVM/PVH domains. Furthermore for 64-bit
-> PV domains the areas are inaccessible (and hence cannot be updated by
-> Xen) when in guest-user mode.
-> 
-> In preparation of the introduction of new vCPU operations allowing to
-> register the respective areas (one of the two is x86-specific) by
-> guest-physical address, flesh out the map/unmap functions.
-> 
-> Noteworthy differences from map_vcpu_info():
-> - areas can be registered more than once (and de-registered),
-> - remote vCPU-s are paused rather than checked for being down (which in
->    principle can change right after the check),
-> - the domain lock is taken for a much smaller region.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> RFC: By using global domain page mappings the demand on the underlying
->       VA range may increase significantly. I did consider to use per-
->       domain mappings instead, but they exist for x86 only. Of course we
->       could have arch_{,un}map_guest_area() aliasing global domain page
->       mapping functions on Arm and using per-domain mappings on x86. Yet
->       then again map_vcpu_info() doesn't do so either (albeit that's
->       likely to be converted subsequently to use map_vcpu_area() anyway).
-> 
-> RFC: In map_guest_area() I'm not checking the P2M type, instead - just
->       like map_vcpu_info() - solely relying on the type ref acquisition.
->       Checking for p2m_ram_rw alone would be wrong, as at least
->       p2m_ram_logdirty ought to also be okay to use here (and in similar
->       cases, e.g. in Argo's find_ring_mfn()). p2m_is_pageable() could be
->       used here (like altp2m_vcpu_enable_ve() does) as well as in
->       map_vcpu_info(), yet then again the P2M type is stale by the time
->       it is being looked at anyway without the P2M lock held.
-> 
-> --- a/xen/common/domain.c
-> +++ b/xen/common/domain.c
-> @@ -1563,7 +1563,82 @@ int map_guest_area(struct vcpu *v, paddr
->                      struct guest_area *area,
->                      void (*populate)(void *dst, struct vcpu *v))
->   {
-> -    return -EOPNOTSUPP;
-> +    struct domain *currd = v->domain;
-> +    void *map = NULL;
-> +    struct page_info *pg = NULL;
-> +    int rc = 0;
-> +
-> +    if ( gaddr )
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
 
-0 is technically a valid (guest) physical address on Arm.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-> +    {
-> +        unsigned long gfn = PFN_DOWN(gaddr);
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-This could be gfn_t for adding some type safety.
+version targeted for testing:
+ linux                08ad43d554bacb9769c6a69d5f771f02f5ba411c
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-> +        unsigned int align;
-> +        p2m_type_t p2mt;
-> +
-> +        if ( gfn != PFN_DOWN(gaddr + size - 1) )
-> +            return -ENXIO;
-> +
-> +#ifdef CONFIG_COMPAT
-> +        if ( has_32bit_shinfo(currd) )
-> +            align = alignof(compat_ulong_t);
-> +        else
-> +#endif
-> +            align = alignof(xen_ulong_t);
-> +        if ( gaddr & (align - 1) )
-> +            return -ENXIO;
-> +
-> +        rc = check_get_page_from_gfn(currd, _gfn(gfn), false, &p2mt, &pg);
-> +        if ( rc )
-> +            return rc;
-> +
-> +        if ( !get_page_type(pg, PGT_writable_page) )
-> +        {
-> +            put_page(pg);
-> +            return -EACCES;
-> +        }
-> +
-> +        map = __map_domain_page_global(pg);
-> +        if ( !map )
-> +        {
-> +            put_page_and_type(pg);
-> +            return -ENOMEM;
-> +        }
-> +        map += PAGE_OFFSET(gaddr);
-> +    }
-> +
-> +    if ( v != current )
-> +    {
-> +        if ( !spin_trylock(&currd->hypercall_deadlock_mutex) )
-> +        {
-> +            rc = -ERESTART;
-> +            goto unmap;
-> +        }
-> +
-> +        vcpu_pause(v);
+Last test of basis   173462  2022-10-07 18:41:45 Z   48 days
+Failing since        173470  2022-10-08 06:21:34 Z   47 days   88 attempts
+Testing same since   174957  2022-11-24 20:12:25 Z    0 days    1 attempts
 
-AFAIU, the goal of vcpu_pause() here is to guarantee that the "area" 
-will not be touched by another pCPU. However, looking at the function 
-context_switch() we have:
+------------------------------------------------------------
+1854 people touched revisions under test,
+not listing them all
 
-sched_context_switched(prev, next);
-_update_runstate_area();
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-The first function will set v->is_running to false (see 
-vcpu_context_saved()). So I think the "area" could be touched even afte 
-vcpu_pause() is returned.
 
-Therefore, I think we will need _update_runstate_area() (or 
-update_runstate_area()) to be called first.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> +
-> +        spin_unlock(&currd->hypercall_deadlock_mutex);
-> +    }
-> +
-> +    domain_lock(currd);
-> +
-> +    if ( map )
-> +        populate(map, v);
-> +
-> +    SWAP(area->pg, pg);
-> +    SWAP(area->map, map);
-> +
-> +    domain_unlock(currd);
-> +
-> +    if ( v != current )
-> +        vcpu_unpause(v);
-> +
-> + unmap:
-> +    if ( pg )
-> +    {
-> +        unmap_domain_page_global(map);
-> +        put_page_and_type(pg);
-> +    }
-> +
-> +    return rc;
->   }
->   
->   /*
-> @@ -1573,6 +1648,22 @@ int map_guest_area(struct vcpu *v, paddr
->    */
->   void unmap_guest_area(struct vcpu *v, struct guest_area *area)
->   {
-> +    struct domain *d = v->domain;
-> +    void *map;
-> +    struct page_info *pg;
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-AFAIU, the assumption is the vCPU should be paused here. Should we add 
-an ASSERT()?
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> +
-> +    domain_lock(d);
-> +    map = area->map;
-> +    area->map = NULL;
-> +    pg = area->pg;
-> +    area->pg = NULL;
-> +    domain_unlock(d);
-> +
-> +    if ( pg )
-> +    {
-> +        unmap_domain_page_global(map);
-> +        put_page_and_type(pg);
-> +    }
->   }
->   
->   int default_initialise_vcpu(struct vcpu *v, XEN_GUEST_HANDLE_PARAM(void) arg)
-> 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Cheers,
 
--- 
-Julien Grall
+Not pushing.
+
+(No revision log; it would be 175887 lines long.)
 
