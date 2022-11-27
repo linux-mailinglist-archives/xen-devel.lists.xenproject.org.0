@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41383639B89
-	for <lists+xen-devel@lfdr.de>; Sun, 27 Nov 2022 16:30:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.448685.705302 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 473CC639E3A
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Nov 2022 00:30:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.448733.705313 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozJaq-0004zO-91; Sun, 27 Nov 2022 15:29:20 +0000
+	id 1ozR4t-0004xs-A6; Sun, 27 Nov 2022 23:28:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 448685.705302; Sun, 27 Nov 2022 15:29:20 +0000
+Received: by outflank-mailman (output) from mailman id 448733.705313; Sun, 27 Nov 2022 23:28:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozJaq-0004wX-5z; Sun, 27 Nov 2022 15:29:20 +0000
-Received: by outflank-mailman (input) for mailman id 448685;
- Sun, 27 Nov 2022 15:29:18 +0000
+	id 1ozR4t-0004wR-56; Sun, 27 Nov 2022 23:28:51 +0000
+Received: by outflank-mailman (input) for mailman id 448733;
+ Sun, 27 Nov 2022 23:28:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ozJao-0004wN-Kf; Sun, 27 Nov 2022 15:29:18 +0000
+ id 1ozR4r-0004wH-WD; Sun, 27 Nov 2022 23:28:50 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ozJao-0003Sx-HN; Sun, 27 Nov 2022 15:29:18 +0000
+ id 1ozR4r-0005pd-T8; Sun, 27 Nov 2022 23:28:49 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1ozJao-0001GV-3m; Sun, 27 Nov 2022 15:29:18 +0000
+ id 1ozR4r-00070H-Cw; Sun, 27 Nov 2022 23:28:49 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1ozJao-0007ZO-3L; Sun, 27 Nov 2022 15:29:18 +0000
+ id 1ozR4r-0008R5-CR; Sun, 27 Nov 2022 23:28:49 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,15 +45,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=HqYcEr/5GBfkMwJ9XHmgaFPKPnKQAlJQ336aakTJTY8=; b=LfgzExbFvEr1oCqmsudkj7HAf7
-	Xy5yiSDoDxdysLItsgqwoR0rIarH2RJ4mPOXvybmjoOBGLL2JgpfxFl0+NcVnu2IeAcRunHcuyqIC
-	FMRrPux1eWbEcFQ33xc21gM6eSBGgkOS3MOo1HxW2l1nvId8RV+tbqc8gH2qdXeLHhgM=;
+	bh=BHExVzNIwR2EsA9f4M8mXzJMGibnX0sHKkv3aXu4x6w=; b=cf4JTFhk3rriAV/HZqueQORHHf
+	L57yLrYDmmQMlTSIwyUsWCiiSL8dQb1dbmF92ISyEGjSWsJLbHTtEa4HDisYY5ctR+3gf/EYjYP3F
+	PaLwKCEFchfc3owW9/d3kgpX+cev0THbJ1FPiaVeQGjLg8hepbi5t7Z5ygWbEJfeIE78=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174973-mainreport@xen.org>
+Message-ID: <osstest-174974-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 174973: regressions - FAIL
+Subject: [linux-linus test] 174974: regressions - FAIL
 X-Osstest-Failures:
     linux-linus:test-arm64-arm64-examine:reboot:fail:regression
     linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
@@ -74,6 +74,7 @@ X-Osstest-Failures:
     linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
     linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start/freebsd.repeat:fail:heisenbug
     linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
     linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
     linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
@@ -94,10 +95,10 @@ X-Osstest-Versions-This:
 X-Osstest-Versions-That:
     linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 27 Nov 2022 15:29:18 +0000
+Date: Sun, 27 Nov 2022 23:28:49 +0000
 
-flight 174973 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174973/
+flight 174974 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174974/
 
 Regressions :-(
 
@@ -123,6 +124,9 @@ including tests which could not be run:
  test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
  test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
 
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-freebsd11-amd64 21 guest-start/freebsd.repeat fail pass in 174973
+
 Regressions which are regarded as allowable (not blocking):
  test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
@@ -147,9 +151,9 @@ version targeted for testing:
 baseline version:
  linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-Last test of basis   173462  2022-10-07 18:41:45 Z   50 days
-Failing since        173470  2022-10-08 06:21:34 Z   50 days   95 attempts
-Testing same since   174973  2022-11-27 07:13:53 Z    0 days    1 attempts
+Last test of basis   173462  2022-10-07 18:41:45 Z   51 days
+Failing since        173470  2022-10-08 06:21:34 Z   50 days   96 attempts
+Testing same since   174973  2022-11-27 07:13:53 Z    0 days    2 attempts
 
 ------------------------------------------------------------
 1890 people touched revisions under test,
@@ -188,7 +192,7 @@ jobs:
  test-amd64-amd64-dom0pvh-xl-amd                              pass    
  test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
  test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd11-amd64                             fail    
  test-amd64-amd64-freebsd12-amd64                             pass    
  test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
  test-amd64-amd64-xl-qemut-win7-amd64                         fail    
