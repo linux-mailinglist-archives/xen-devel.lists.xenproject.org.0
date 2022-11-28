@@ -2,56 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B339763AD16
-	for <lists+xen-devel@lfdr.de>; Mon, 28 Nov 2022 16:57:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449012.705621 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 962DE63AD15
+	for <lists+xen-devel@lfdr.de>; Mon, 28 Nov 2022 16:57:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449013.705632 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozgVY-0004b3-Dp; Mon, 28 Nov 2022 15:57:24 +0000
+	id 1ozgVe-0004wY-PP; Mon, 28 Nov 2022 15:57:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449012.705621; Mon, 28 Nov 2022 15:57:24 +0000
+Received: by outflank-mailman (output) from mailman id 449013.705632; Mon, 28 Nov 2022 15:57:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozgVY-0004XH-At; Mon, 28 Nov 2022 15:57:24 +0000
-Received: by outflank-mailman (input) for mailman id 449012;
- Mon, 28 Nov 2022 15:57:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1ozgVe-0004tJ-M0; Mon, 28 Nov 2022 15:57:30 +0000
+Received: by outflank-mailman (input) for mailman id 449013;
+ Mon, 28 Nov 2022 15:57:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xF6c=34=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1ozgVX-0004G7-5j
- for xen-devel@lists.xenproject.org; Mon, 28 Nov 2022 15:57:23 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20600.outbound.protection.outlook.com
- [2a01:111:f400:7eae::600])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 576c74cc-6f35-11ed-8fd2-01056ac49cbb;
- Mon, 28 Nov 2022 16:57:22 +0100 (CET)
-Received: from BN1PR12CA0005.namprd12.prod.outlook.com (2603:10b6:408:e1::10)
- by DM4PR12MB6565.namprd12.prod.outlook.com (2603:10b6:8:8c::14) with
+ id 1ozgVc-00040T-KA
+ for xen-devel@lists.xenproject.org; Mon, 28 Nov 2022 15:57:28 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5a816de2-6f35-11ed-91b6-6bf2151ebd3b;
+ Mon, 28 Nov 2022 16:57:27 +0100 (CET)
+Received: from DM6PR06CA0090.namprd06.prod.outlook.com (2603:10b6:5:336::23)
+ by SJ1PR12MB6193.namprd12.prod.outlook.com (2603:10b6:a03:459::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Mon, 28 Nov
- 2022 15:57:19 +0000
-Received: from BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:e1:cafe::ad) by BN1PR12CA0005.outlook.office365.com
- (2603:10b6:408:e1::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.22; Mon, 28 Nov
+ 2022 15:57:23 +0000
+Received: from DM6NAM11FT105.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::4d) by DM6PR06CA0090.outlook.office365.com
+ (2603:10b6:5:336::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Mon, 28 Nov 2022 15:57:18 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT052.mail.protection.outlook.com (10.13.177.210) with Microsoft SMTP
+ Transport; Mon, 28 Nov 2022 15:57:22 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT105.mail.protection.outlook.com (10.13.173.164) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.21 via Frontend Transport; Mon, 28 Nov 2022 15:57:18 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5857.18 via Frontend Transport; Mon, 28 Nov 2022 15:57:21 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 28 Nov
- 2022 09:57:17 -0600
+ 2022 09:57:21 -0600
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 28 Nov
- 2022 07:57:17 -0800
+ 2022 07:57:20 -0800
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 28 Nov 2022 09:57:15 -0600
+ via Frontend Transport; Mon, 28 Nov 2022 09:57:19 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,37 +63,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 576c74cc-6f35-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 5a816de2-6f35-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=cYTqpSPvNl5BmK3oF1P+lwPdmU7fA5G8YpYF8CXER7t+c+3KaIziLMOl3xfUCY5WcZ01ul12ht8xhSK78B+0E31tRq97xPsCs2lBzgkTp/6CXam8lfKyl/Upik0FlCTF2M6cx3leNncuD+X+0OaZM/uEAaxfu27P6jlvcWvP/b9IrUK6tzTMj8ddTKHJF88x26+YxwyTsARRN2ei/l4uzzcbpedNnsLM+VxhP20Z+5Qb1NwG9ff9e/+7/xUgF1xnp9MkGDIoD5N0rYX7CRYsqnkNS9ydcjoRvhUtd/m1BMDolY6slwTTxts+KiFW28SeZZHSanke3D2a4A9JxEtknA==
+ b=QV9RBHR5CCEwDJ5Ez3NA6enHDWUZEuhv56RtzPzGpYjVHPXmr09igoNL4SMmgF2lSAQaYpFW8RNJ7Rlt8z0JV6pErbWqZOcjAsoCoFNF6QzH88R3NWqW/ZzMk6xX5Tp0rop1mzH0CIz2tE59zVclhdn33nVu7oDM2qSzQLddlUuVeifns9ucQgs7A3V4kB+X9gZDaiqdXFDi7WYRFxm7D/CmMqVQZckjaE0G5+67BU6xC1+YJRGXukYgOjQMMJ72Z8Gxqs9kP9vIEziE4dogNSdWC97TJjsJm5YXzhQYfJCZLXde4VmPKx14Xzovwdm5ZY/L5Lknys8fCHz8VvCqcA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BFXp0sPs0JxcYqGLbqqhGHuasdeiZ8ZsSBnPbFyCZpE=;
- b=lQy6RkmtNH0J2FvFo3V8Iit0jFwKI988t8OXKs0mhay2erPJ21NLAvWr/euyK/HO1LReaxluNEBWbO03LWxREaCGYE1ck5gUgaggoGMy+7lTma07/n7Uot9LyjceA8K0bJbBIg9g2cQiOEbrYyXJFaOkO10WTjDEkCACbemBXin2Xi1kEm0ouL4PQSAIKMTgx+QSYr2tFEJdPYk5HupE4+Z44mP/KHJ85rCC0gQ1xa8I91F+FJN9HUpTDGGJ3SZhDuLL+UGReByfxGpswJqqIxPfaQIiG1Bf3CazUbg9SGvdUdNRDYchy0uPZ65QaN7i4uGoQuRGk7Akcqi/QUQlmQ==
+ bh=Wo2+sVo6LtAt5RMJpKRO/GdQYNQZj2Z4JvovHOpUzxI=;
+ b=aYvc1Snsv/vCgvpMPP+OYWdEcjdvE85gSo6bIpvpgml4Z/CpiIwMh+/0mUfupETuxmhWBKW6PXuWajcQOFA8a3Ol0Sd7CUSaTW1KgUI1gGmlDkuVwWVxoQ3MMF4705skm2Bvs/Fh7OCNDUV+yonYB8xJTZ+zXtqHpA/Nb98PN6/S+nJbq+mpmrUKbULvrZEjaDhztkIDs7rW/KoDxL/bZ1cNmjDXWJo/K0W9+V1eeg/MmNSBPlrj2zvsVetAhpQNuTFJhdreUvQRrCXPuNceRLC277ETQh24N0pfHD0wN1nxc6pPw/QqgaI3NHfTRCF/6+aRrXKTikk9CEiU8CmS7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BFXp0sPs0JxcYqGLbqqhGHuasdeiZ8ZsSBnPbFyCZpE=;
- b=swkdUCW2Ze6G3VkbI5ez1ech2T3QHli5PGX36sxJE7mVl/2fdGHy0T75/bEplBCwRAhtL4XtGuwCEC8yVZgjnAEEjCIKubsCSG3OvWLUwya3kUQSWEaRqI5iK+AQiXKfnWGGH705igrXV3GXNcK9t4pgLKPJ16AdqtaHnFyTh04=
+ bh=Wo2+sVo6LtAt5RMJpKRO/GdQYNQZj2Z4JvovHOpUzxI=;
+ b=p448bisrsPbOSTEnV1H8Ws314UgIryCzGL6Fqu6/ka2/53EGMCbSTKv5DxMX+CHVE8ZD4zzxIyiGEJE5W1mJ3U4uG/LO9NGuut1Vxe4/57QEltJk2GnSJzk1MABzm7Ujeap4pzQ0oyXr5hy1OigsFNf5qDuxcRvmWM+50DPar5c=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
 	<michal.orzel@amd.com>, <jgrall@amazon.com>, <burzalodowa@gmail.com>, "Ayan
  Kumar Halder" <ayan.kumar.halder@amd.com>
-Subject: [XEN v4 02/11] xen/Arm: GICv3: Do not calculate affinity level 3 for AArch32
-Date: Mon, 28 Nov 2022 15:56:40 +0000
-Message-ID: <20221128155649.31386-3-ayan.kumar.halder@amd.com>
+Subject: [XEN v4 03/11] xen/Arm: vreg: Support vreg_reg64_* helpers on AArch32
+Date: Mon, 28 Nov 2022 15:56:41 +0000
+Message-ID: <20221128155649.31386-4-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221128155649.31386-1-ayan.kumar.halder@amd.com>
 References: <20221128155649.31386-1-ayan.kumar.halder@amd.com>
@@ -101,89 +101,188 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT052:EE_|DM4PR12MB6565:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99eb87ab-513e-416c-6058-08dad1593a04
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT105:EE_|SJ1PR12MB6193:EE_
+X-MS-Office365-Filtering-Correlation-Id: c8bc0b8d-d4c3-4046-db0d-08dad1593c42
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	nv45T+TL7UM60CxgCltUE+Vr17EVjxkwEpe8EPSvbBK3kEggQzUZ0USDTeDd+zOdGt8aRqJbhxQtUVQzMfQuUITKlGKlpizDP69tWndz7tD6Bs+1PR96aarp+FcE8lwPUts7n0ht7CP+tPrq16/syYA4RjjVqqGWNexyPAF76vrxnxtYwfTW1J8GFrNSchEMxyNizPN7olKyUBQSjUUf0HnF5Op11n2a3PIq8gwlub4Oyun24AzsFmfHDLp6moXvD5hvbPWmLOmm1gulUQN+uYI3UAN82Cdc91F5E5w4TuvUIYBpdlnFsSXbZZD7o9fLVV9ofFabsiHx2oP0Sqit1+oJOHfV49XGudgpe+cxwwrZXJ/dj7S6VKTNACfPKRg39QotKX1f038LUNtYuSU2hSEom95e/6fFWI4AhA+9sBq77MDdFX3rVS3D9mFTfnKeGgiMHs1qeNCt4rv75wNDL9TJRxCgIWBZAXKqWCYh1ZgpSIwa6n85Ju1I0Ivk3q1uC9tTxXOweIA9FU9dAq5jlyJPSg7iRu1SpsDr17tV9JpY7owBxbftDZf6+bAlWyi11rcZa1G48pbZ0sgfJjMiMkpspFUcoqLULAzawuydOCp9s/9GQb0BtBFhjL0GJ0F8ncL5F5vUnRLUrZfwC74CbrpsnAeUa8WhB3DFXBJIChdcDEHiCxFQu/yMMZNLvAD6Ge542GZdIvPiueFACmvG+U4UOUkkVaTSj4QU4IN7cls=
+	NfG6yuKSlD3RysAjcQjOa9ReUPytDgLoiXSmyD6USL34nFcj9R7fX0g1s5dOtP5e225IkCyJTFYLpBgJBLQjdUygkXglOQssczrj4Z89vPbrNPr8cmwD7RQfwYi49XuRGAaMZCQLFkLbL0y8j1+urLl1sFXC0E2Z/8NIF4s1R+Nwj9wIqdZlSgDXV0oot5naaIbQ6eGW7lrvHYREgaRc1+Lj+zYRJg2c1T8dJNx6Rpp0mRtGFKBS2zMTB12ETrnlpLgDqKYYwVeAwDtCQRL/0awgGXZx+udHee82c+PvTNF9GklnOnKe0Jh0U3NiJXyKfWYzZI1pHZfVy54QetwEUr++J/5zgaPokCHjQ/3UL1y+uZt2qVlVfpGDud1M9p9aKKGsz+s1Wtb/w1Rhz5+ZR8VigyOyVZuGF7ZQaz2QxdtW+cf+SkpTKZeg485ZguOFb8p11FBCw+BxARtRdnB6pEGaBh1KzJuwOEm5/UWAc/eKnbH7ZqdRJ3m8VbvWkC6OJasns+MNE973DnLAOuPTz4Rky4GQZgoolFwdANDSGWLCXN5xuap4Jdf57u9KI7RCGsSsoBeIA+R1aHkbZsQ/5UL2TAmyTVzK22X9kg6USzglhRlUzt4fLVhtcvdntwcziFWUUcFmm7r/EPR1lxQt2OdeDlN1vXrjXOHpgaye2MlDC+kYcPrswwYPPgWkJJ75TsJCk4h0xeGbI6auW3kpb+jk9IUaqFP5Gas2eXAhK9w=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(376002)(39860400002)(346002)(136003)(451199015)(36840700001)(46966006)(40470700004)(83380400001)(478600001)(86362001)(36860700001)(6666004)(316002)(26005)(103116003)(54906003)(8936002)(6916009)(40460700003)(336012)(41300700001)(2616005)(426003)(47076005)(5660300002)(40480700001)(356005)(81166007)(2906002)(82740400003)(8676002)(4326008)(36756003)(70586007)(1076003)(186003)(70206006)(82310400005)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(39860400002)(376002)(396003)(346002)(451199015)(40470700004)(36840700001)(46966006)(1076003)(2616005)(41300700001)(6666004)(86362001)(26005)(36756003)(40460700003)(316002)(6916009)(70206006)(8676002)(54906003)(40480700001)(70586007)(4326008)(103116003)(82740400003)(2906002)(83380400001)(5660300002)(336012)(8936002)(186003)(36860700001)(356005)(478600001)(82310400005)(426003)(47076005)(81166007)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2022 15:57:18.1537
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2022 15:57:21.8874
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99eb87ab-513e-416c-6058-08dad1593a04
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8bc0b8d-d4c3-4046-db0d-08dad1593c42
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT052.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT105.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6565
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6193
 
-Refer ARM DDI 0487I.a ID081822, G8-9817, G8.2.169
-Affinity level 3 is not present in AArch32.
-Also, refer ARM DDI 0406C.d ID040418, B4-1644, B4.1.106,
-Affinity level 3 is not present in Armv7 (ie arm32).
-Thus, any access to affinity level 3 needs to be guarded within
-"ifdef CONFIG_ARM_64".
+In some situations (e.g. GICR_TYPER), the hypervior may need to emulate
+64bit registers in AArch32 mode. In such situations, the hypervisor may
+need to read/modify the lower or upper 32 bits of the 64 bit register.
+
+In AArch32, 'unsigned long' is 32 bits. Thus, we cannot use it for 64 bit
+registers.
+
+While we could replace 'unsigned long' by 'uint64_t', it is not entirely clear
+whether a 32-bit compiler would not allocate register for the upper 32-bit.
+Therefore fold vreg_reg_* helper in the size specific one and use the
+appropriate type based on the size requested.
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Acked-by: Julien Grall <julien@xen.org>
 ---
 
 Changes from -
 
-v1 - NA (as it is a new patch)
+v1 - 1. Remove vreg_reg_extract(), vreg_reg_update(), vreg_reg_setbits() and
+vreg_reg_clearbits(). Moved the implementation to  vreg_reg##sz##_*.
+'mask' and 'val' is now using uint##sz##_t.
 
-v2 - NA (as it is a new patch)
+v2 - 1. Use 'unsigned int' for 'shift' variable.
+2. Updated the commit message.
 
-v3 - Modified the title. Added Rb.
+v3 - 1. No changes. Added Rb and Ack.
 
- xen/arch/arm/gic-v3.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ xen/arch/arm/include/asm/vreg.h | 86 ++++++++-------------------------
+ 1 file changed, 19 insertions(+), 67 deletions(-)
 
-diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-index 018fa0dfa0..64a76307dd 100644
---- a/xen/arch/arm/gic-v3.c
-+++ b/xen/arch/arm/gic-v3.c
-@@ -527,7 +527,10 @@ static void gicv3_set_pending_state(struct irq_desc *irqd, bool pending)
- static inline uint64_t gicv3_mpidr_to_affinity(int cpu)
- {
-      uint64_t mpidr = cpu_logical_map(cpu);
--     return (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
-+     return (
-+#ifdef CONFIG_ARM_64
-+             MPIDR_AFFINITY_LEVEL(mpidr, 3) << 32 |
-+#endif
-              MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
-              MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8  |
-              MPIDR_AFFINITY_LEVEL(mpidr, 0));
-@@ -720,7 +723,10 @@ static int __init gicv3_populate_rdist(void)
-      * Convert affinity to a 32bit value that can be matched to GICR_TYPER
-      * bits [63:32]
-      */
--    aff = (MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
-+    aff = (
-+#ifdef CONFIG_ARM_64
-+           MPIDR_AFFINITY_LEVEL(mpidr, 3) << 24 |
-+#endif
-            MPIDR_AFFINITY_LEVEL(mpidr, 2) << 16 |
-            MPIDR_AFFINITY_LEVEL(mpidr, 1) << 8 |
-            MPIDR_AFFINITY_LEVEL(mpidr, 0));
-@@ -972,7 +978,10 @@ static void gicv3_send_sgi_list(enum gic_sgi sgi, const cpumask_t *cpumask)
-          * Prepare affinity path of the cluster for which SGI is generated
-          * along with SGI number
-          */
--        val = (MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
-+        val = (
-+#ifdef CONFIG_ARM_64
-+               MPIDR_AFFINITY_LEVEL(cluster_id, 3) << 48  |
-+#endif
-                MPIDR_AFFINITY_LEVEL(cluster_id, 2) << 32  |
-                sgi << 24                                  |
-                MPIDR_AFFINITY_LEVEL(cluster_id, 1) << 16  |
+diff --git a/xen/arch/arm/include/asm/vreg.h b/xen/arch/arm/include/asm/vreg.h
+index f26a70d024..d92450017b 100644
+--- a/xen/arch/arm/include/asm/vreg.h
++++ b/xen/arch/arm/include/asm/vreg.h
+@@ -89,106 +89,58 @@ static inline bool vreg_emulate_sysreg(struct cpu_user_regs *regs, union hsr hsr
+  * The check on the size supported by the register has to be done by
+  * the caller of vreg_regN_*.
+  *
+- * vreg_reg_* should never be called directly. Instead use the vreg_regN_*
+- * according to size of the emulated register
+- *
+  * Note that the alignment fault will always be taken in the guest
+  * (see B3.12.7 DDI0406.b).
+  */
+-static inline register_t vreg_reg_extract(unsigned long reg,
+-                                          unsigned int offset,
+-                                          enum dabt_size size)
+-{
+-    reg >>= 8 * offset;
+-    reg &= VREG_REG_MASK(size);
+-
+-    return reg;
+-}
+-
+-static inline void vreg_reg_update(unsigned long *reg, register_t val,
+-                                   unsigned int offset,
+-                                   enum dabt_size size)
+-{
+-    unsigned long mask = VREG_REG_MASK(size);
+-    int shift = offset * 8;
+-
+-    *reg &= ~(mask << shift);
+-    *reg |= ((unsigned long)val & mask) << shift;
+-}
+-
+-static inline void vreg_reg_setbits(unsigned long *reg, register_t bits,
+-                                    unsigned int offset,
+-                                    enum dabt_size size)
+-{
+-    unsigned long mask = VREG_REG_MASK(size);
+-    int shift = offset * 8;
+-
+-    *reg |= ((unsigned long)bits & mask) << shift;
+-}
+-
+-static inline void vreg_reg_clearbits(unsigned long *reg, register_t bits,
+-                                      unsigned int offset,
+-                                      enum dabt_size size)
+-{
+-    unsigned long mask = VREG_REG_MASK(size);
+-    int shift = offset * 8;
+-
+-    *reg &= ~(((unsigned long)bits & mask) << shift);
+-}
+ 
+ /* N-bit register helpers */
+ #define VREG_REG_HELPERS(sz, offmask)                                   \
+ static inline register_t vreg_reg##sz##_extract(uint##sz##_t reg,       \
+                                                 const mmio_info_t *info)\
+ {                                                                       \
+-    return vreg_reg_extract(reg, info->gpa & (offmask),                 \
+-                            info->dabt.size);                           \
++    unsigned int offset = info->gpa & (offmask);                        \
++                                                                        \
++    reg >>= 8 * offset;                                                 \
++    reg &= VREG_REG_MASK(info->dabt.size);                              \
++                                                                        \
++    return reg;                                                         \
+ }                                                                       \
+                                                                         \
+ static inline void vreg_reg##sz##_update(uint##sz##_t *reg,             \
+                                          register_t val,                \
+                                          const mmio_info_t *info)       \
+ {                                                                       \
+-    unsigned long tmp = *reg;                                           \
++    unsigned int offset = info->gpa & (offmask);                        \
++    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
++    unsigned int shift = offset * 8;                                    \
+                                                                         \
+-    vreg_reg_update(&tmp, val, info->gpa & (offmask),                   \
+-                    info->dabt.size);                                   \
+-                                                                        \
+-    *reg = tmp;                                                         \
++    *reg &= ~(mask << shift);                                           \
++    *reg |= ((uint##sz##_t)val & mask) << shift;                        \
+ }                                                                       \
+                                                                         \
+ static inline void vreg_reg##sz##_setbits(uint##sz##_t *reg,            \
+                                           register_t bits,              \
+                                           const mmio_info_t *info)      \
+ {                                                                       \
+-    unsigned long tmp = *reg;                                           \
+-                                                                        \
+-    vreg_reg_setbits(&tmp, bits, info->gpa & (offmask),                 \
+-                     info->dabt.size);                                  \
++    unsigned int offset = info->gpa & (offmask);                        \
++    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
++    unsigned int shift = offset * 8;                                    \
+                                                                         \
+-    *reg = tmp;                                                         \
++    *reg |= ((uint##sz##_t)bits & mask) << shift;                       \
+ }                                                                       \
+                                                                         \
+ static inline void vreg_reg##sz##_clearbits(uint##sz##_t *reg,          \
+                                             register_t bits,            \
+                                             const mmio_info_t *info)    \
+ {                                                                       \
+-    unsigned long tmp = *reg;                                           \
+-                                                                        \
+-    vreg_reg_clearbits(&tmp, bits, info->gpa & (offmask),               \
+-                       info->dabt.size);                                \
++    unsigned int offset = info->gpa & (offmask);                        \
++    uint##sz##_t mask = VREG_REG_MASK(info->dabt.size);                 \
++    unsigned int shift = offset * 8;                                    \
+                                                                         \
+-    *reg = tmp;                                                         \
++    *reg &= ~(((uint##sz##_t)bits & mask) << shift);                    \
+ }
+ 
+-/*
+- * 64 bits registers are only supported on platform with 64-bit long.
+- * This is also allow us to optimize the 32 bit case by using
+- * unsigned long rather than uint64_t
+- */
+-#if BITS_PER_LONG == 64
+ VREG_REG_HELPERS(64, 0x7);
+-#endif
+ VREG_REG_HELPERS(32, 0x3);
+ 
+ #undef VREG_REG_HELPERS
 -- 
 2.17.1
 
