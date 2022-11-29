@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AB9163B78D
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 02:59:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449190.705832 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4EBE63B7AA
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 03:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449197.705842 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozpuN-0000Ub-Ol; Tue, 29 Nov 2022 01:59:39 +0000
+	id 1ozq4O-0002Sp-MN; Tue, 29 Nov 2022 02:10:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449190.705832; Tue, 29 Nov 2022 01:59:39 +0000
+Received: by outflank-mailman (output) from mailman id 449197.705842; Tue, 29 Nov 2022 02:10:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozpuN-0000Sp-Ki; Tue, 29 Nov 2022 01:59:39 +0000
-Received: by outflank-mailman (input) for mailman id 449190;
- Tue, 29 Nov 2022 01:59:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=H/K0=35=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1ozpuM-0000Sj-GN
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 01:59:38 +0000
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 78c8ebc8-6f89-11ed-91b6-6bf2151ebd3b;
- Tue, 29 Nov 2022 02:59:35 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.nyi.internal (Postfix) with ESMTP id 470565C00C1;
- Mon, 28 Nov 2022 20:59:34 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 28 Nov 2022 20:59:34 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 28 Nov 2022 20:59:33 -0500 (EST)
+	id 1ozq4O-0002Pv-Ja; Tue, 29 Nov 2022 02:10:00 +0000
+Received: by outflank-mailman (input) for mailman id 449197;
+ Tue, 29 Nov 2022 02:09:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ozq4N-0002Pl-AV; Tue, 29 Nov 2022 02:09:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ozq4N-0007tG-6E; Tue, 29 Nov 2022 02:09:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1ozq4M-0006qH-K8; Tue, 29 Nov 2022 02:09:58 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1ozq4M-0004pO-HL; Tue, 29 Nov 2022 02:09:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,157 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 78c8ebc8-6f89-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1669687174; x=
-	1669773574; bh=bCzCW4/+DVi1mzJ0xQmcTMOHmu4kfPgKqlGu0numccY=; b=U
-	RmYDHJ3F7x35fkfLBKI1Yo7XVUTRRsN45Ny5R/P3xVK3+G0SBNwwIHAcqpMuRKdQ
-	oWxfudlkLYSzENGbXPCCcNO5ekFGmsd6aPoNy7AaMB9FqtCymC46XybioL8bgckH
-	/6CIO84fjtTQ0nVg2Zh5FHy4ilJFX4eS0tv23Y5jorCPXWJdHfLjuzdwHw8JpiHP
-	bLLQGV2pNBlVNdfg/EmDh3zO5I9VOM+YTjwSCm92rfLmegjIjh+MayTgjDDB03WS
-	5c4wUeb2wa9IX6pcPWYm8u1tBK1ismm0DPcot1aTE52IDMlslGQbsJoBOGJGR5/6
-	nnMcAfcYSVLJOvksNY69g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1669687174; x=1669773574; bh=bCzCW4/+DVi1mzJ0xQmcTMOHmu4k
-	fPgKqlGu0numccY=; b=NIJS1wT1ugY8hKu5vKDZbYa4OE4PqOrDqCRC5w+GcxXq
-	aFS2t6g9r87n2OeMeAhK01dyokuD8pPfNaNthqDB4oQMB92nLotQ3aPIWL4owj5h
-	7qeu9XOcv1WZRgo6uBMn00VmZENQAxl+NjPEpFSj3cVsOqlWnoX2AqBkoLKUy5mz
-	Kl1cBr931HsTm4dyYvAaFbF9dQikX23UJQtAV3GMR+Z0DOa8OrTRegTKoNBtUijy
-	hLyq3b0zMgctvuAA3O6adHmIvH3Xkz7dptacZ7QxI7rOmqpqDibR4j7ouVa6sET3
-	kRYGd91pkl7LX+1kW8YiKNuV9D2cIvTf+YMf4hIDQA==
-X-ME-Sender: <xms:hmeFYxTHm_9kBPzYBGxkgu86VYLchQqD9KX3nBkrEVzijL26XL57Jg>
-    <xme:hmeFY6zXlfBGJkg0d--OA7d7zbqg6We1E4aq5Hd1ElOlJBzuvC2TAthVUQwKtnnrL
-    urGoZCivaEytMQ>
-X-ME-Received: <xmr:hmeFY220gQECshzXv-scsal88PUAQC37Jg3ZJIUJ-PXog7krHOTZrdlZZRiR>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvgedrjeefgdegfecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvvefhlefhhfetledvgefhvddukeet
-    jeffvdeigeeiteetjefhjefgvdelveehgfenucffohhmrghinhepkhgvrhhnvghlrdhorh
-    hgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhep
-    mhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtoh
-    hm
-X-ME-Proxy: <xmx:hmeFY5Ass0uI--XdYAk0U_TS5KrJ9Sm7xFbOfLTlPAc2qv5koRidJg>
-    <xmx:hmeFY6gdV2ZwIfbTJpU2ybTrfI7S8-9L34VUB8p6QeJnKe9c1COtAQ>
-    <xmx:hmeFY9osg18XXGjnvK1Ok0mmRpr46-7ODtZLRjRFDuG5okFgcFDNKg>
-    <xmx:hmeFY7uT7o_FHUYHmNTsyoQy3Q_TgyEhh3piLsTpX8udzlraq3ecyg>
-Feedback-ID: iac594737:Fastmail
-Date: Mon, 28 Nov 2022 20:59:28 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: christian.koenig@amd.com,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: AMD GPU problems under Xen
-Message-ID: <Y4Vngz5tTA74Qr8L@itl-email>
-References: <Y4Mz0glMNwDPaFPO@itl-email>
- <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zWbRD3G/NNSElmLbWZWdJZKWWYdOMyEz/51xLz8I62g=; b=do1xA0elq0osYQpBjFIzy+qTR4
+	cbJGfOmKd5S6tDp1Dkgsqtv4zKpZfY7oeauxrS5W6Zngzw3lCVW1arQdNAzQqKIFtLB4uLozee2WV
+	6d/C5DDW3UFcVTtdZ7sZ5Z3Q0QPl92/RSr7PTy++CXgT9SQXmM0GHP2WVFUFcMvB51wE=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174982-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wz46AtdtDi0AOdbm"
-Content-Disposition: inline
-In-Reply-To: <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+Subject: [linux-linus test] 174982: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=b7b275e60bcd5f89771e865a8239325f86d9927d
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 29 Nov 2022 02:09:58 +0000
+
+flight 174982 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174982/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+
+version targeted for testing:
+ linux                b7b275e60bcd5f89771e865a8239325f86d9927d
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   52 days
+Failing since        173470  2022-10-08 06:21:34 Z   51 days   99 attempts
+Testing same since   174975  2022-11-27 23:39:38 Z    1 days    3 attempts
+
+------------------------------------------------------------
+1906 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
---wz46AtdtDi0AOdbm
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 28 Nov 2022 20:59:28 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: christian.koenig@amd.com,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Subject: Re: AMD GPU problems under Xen
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Mon, Nov 28, 2022 at 11:18:00AM -0500, Alex Deucher wrote:
-> On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> >
-> > Dear Christian:
-> >
-> > What is the status of the AMDGPU work for Xen dom0?  That was mentioned=
- in
-> > https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8982@=
-amd.com/
-> > and there have been bug reports to Qubes OS about problems with AMDGPU
-> > under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7648).
->=20
-> I would say it's a work in progress.  It depends what GPU  you have
-> and what type of xen setup you are using (PV vs PVH, etc.).
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-The current situation is:
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-- dom0 is PV.
-- VMs with assigned PCI devices are HVM and use a Linux-based stubdomain
-  QEMU does not run in dom0.
-- Everything else is PVH.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-In the future, I believe the goal is to move away from PV and HVM in
-favor of PVH, though HVM support will remain for compatibility with
-guests (such as Windows) that need emulated devices.
 
-> In general, your best bet currently is dGPU add in boards because they
-> are largely self contained.
+Not pushing.
 
-The main problem is that for the trusted GUI to work, there needs to
-be at least one GPU attached to a trusted VM, such as the host or a
-dedicated GUI VM.  That VM will typically not be running graphics-
-intensive workloads, so the compute power of a dGPU is largely wasted.
-SR-IOV support would help with that, but the only GPU vendor with open
-source SR-IOV support is Intel and it is still not upstream.  I am also
-not certain if the support extends to Arc dGPUs.
-
-> APUs and platforms with integrated dGPUs
-> are a bit more complicated as they tend to have more platform
-> dependencies like ACPI tables and methods in order for the driver to
-> be able to initialize the hardware properly.
-
-Is Xen dom0/domU support for such GPUs being worked on?  Is there an
-estimate as to when the needed support will be available upstream?  This
-is mostly directed at Christian and other people who work for hardware
-vendors.
-
-> Additionally, GPUs map a
-> lot of system memory so bounce buffers aren't really viable.  You'll
-> really need IOMMU,
-
-Qubes OS already needs an IOMMU so that is not a concern. =20
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---wz46AtdtDi0AOdbm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOFZ4MACgkQsoi1X/+c
-IsHybQ//VsSMy5gMOlPDvJX8SVGfDZwZ0OEKd3sBJjaGIsMRg4BtgxkDu1qH2oKw
-cV0ADVylb7KnBZtpGDeeAChhi7TQ8Jty8OKgzTuxQ/lkDOVJo1rZ5mxe70kVDfww
-6Vyn9kWkG0P1ht0IZqpqwjTis0yrqvlmwauEcxmZtWMo/wL/EZwoPSCadF6ch3Mv
-JGvIbiXdNbVRVQAIU0wyl/jYvXDxGxgtcZWWChp6RoHZfu7zzjbUY5UirKtIRBbH
-q/lyplg3VjDkvd6iSwu7SbfgorjmFa/bIRL5JAL4QQGmyUYORjbsozXpTA8gzQt0
-8dEZzD2NRcFX+6m10m45sQKjKY7FWoeWlOIRzag/5uYTpe0ay9gu5FNjVlLWzgQp
-Hyml5L8MutGMp0+Zy7dSwdrZXU4iAVMctNDSDIPKkKngXG2fcHgNc6QeaHbX075z
-FbjPyItnZt5XnUMkUpdvElJYvKJkzVb9WkzOUgnN8j9Nmm+h8T1sQFzNF4i/Mlv/
-9eywtNvN4jn9Qtb4DaRz3n4Gtactx3sjNcaaqK4MG6rYFKuW0FghEzdz2W1Sgoil
-kIVyuaTwcbq+SL+m8PlmTnL765/tKyV6pWWvaqiDsxm0Y8bSrvnumPCtnzADdn1F
-Eb71xoPQH8Idhrftp+DjU2O7TaOPogKg5e8iPkBUm8hQCSltDpE=
-=rqwd
------END PGP SIGNATURE-----
-
---wz46AtdtDi0AOdbm--
+(No revision log; it would be 181680 lines long.)
 
