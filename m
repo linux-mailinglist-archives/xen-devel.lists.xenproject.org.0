@@ -2,56 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC80463C347
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 16:03:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449472.706239 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B66C163C35F
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 16:15:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449485.706261 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p028L-0003rq-88; Tue, 29 Nov 2022 15:02:53 +0000
+	id 1p02KO-0006Aj-Kx; Tue, 29 Nov 2022 15:15:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449472.706239; Tue, 29 Nov 2022 15:02:53 +0000
+Received: by outflank-mailman (output) from mailman id 449485.706261; Tue, 29 Nov 2022 15:15:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p028L-0003pt-56; Tue, 29 Nov 2022 15:02:53 +0000
-Received: by outflank-mailman (input) for mailman id 449472;
- Tue, 29 Nov 2022 15:02:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p02KO-00068K-IA; Tue, 29 Nov 2022 15:15:20 +0000
+Received: by outflank-mailman (input) for mailman id 449485;
+ Tue, 29 Nov 2022 15:15:19 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iBYr=35=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p028J-0003pn-1O
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 15:02:51 +0000
-Received: from NAM04-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam04on20630.outbound.protection.outlook.com
- [2a01:111:f400:7e8b::630])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3319eff-6ff6-11ed-91b6-6bf2151ebd3b;
- Tue, 29 Nov 2022 16:02:49 +0100 (CET)
-Received: from BN0PR04CA0079.namprd04.prod.outlook.com (2603:10b6:408:ea::24)
- by MN2PR12MB4439.namprd12.prod.outlook.com (2603:10b6:208:262::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Tue, 29 Nov
- 2022 15:02:45 +0000
-Received: from BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ea:cafe::a7) by BN0PR04CA0079.outlook.office365.com
- (2603:10b6:408:ea::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
- Transport; Tue, 29 Nov 2022 15:02:45 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT031.mail.protection.outlook.com (10.13.177.25) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5857.17 via Frontend Transport; Tue, 29 Nov 2022 15:02:45 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 29 Nov
- 2022 09:02:45 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 29 Nov
- 2022 07:02:44 -0800
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 29 Nov 2022 09:02:43 -0600
+ <SRS0=YVFN=35=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1p02KN-00068E-2z
+ for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 15:15:19 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a0ba39c5-6ff8-11ed-8fd2-01056ac49cbb;
+ Tue, 29 Nov 2022 16:15:16 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 66EC55C00CF;
+ Tue, 29 Nov 2022 10:15:15 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Tue, 29 Nov 2022 10:15:15 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 29 Nov 2022 10:15:12 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,84 +43,203 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3319eff-6ff6-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=exfY5MBCZyuv8+pj2soR4sgdavnpwCgdOZeutj/KttthVzxSYubIt8JxcHcykH16xIkdPu8V586mDFh1SBkL4Ub8hbB9H4Q2W5ds1g1p7Q2OKjDoMe5JkU23eFVJafuxJmWZ7rc+Qqcv0IbWVIzXvCzdvQMwPz3Apiwm3Gv9gF0e3m+4+d7EUaOT7t9MgQRAPD+srfz9k4gb8pHjxAzTa/MV7sx9BFmvmFmElcx13lyb79uiIwnCTMj3R6C2s9SUOmxzBhYewQjIOSmODYlCbi8MWB+7pKy0M5zcOGdPPYwwgbeZPAFOao37+iafdvofHh357D8CAY7CEuuj0Hlk0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BoPvd3sa3RBD8P+HoEBR8TADvF00Wx35FeNQ6pJDlLA=;
- b=iXA8+6azqBH6LHPxgkzztKBSSTp+B/iWSUPs6PhhaCUDvU7lFRZTPdUMrv9AhlWyOTEDRWDPbRZbFAkeUjqPB3EsvnD90kJXLcBiU0aKjC1uhnzrAsRCVaDBpFeH12NnRgMPwR8NTbsdPm7IWFNYE1EpzJCbfQn8/DWuaNC/FP243k7NlfAqFFCcmo2PPlhA8kchFA4uZCBqNEGHG0Lm+I93kMIoSDkkWGJpzcuqHNkoP1wDebMxLhGluRtwjodmOMvXor02BkBQB/LFmBJ4IeXa/r6/DM+Jt68o+NLj7TQzmkBC4icIypuBiHq+BQF5D8LHlvYaqEQSyCnmCOFoZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BoPvd3sa3RBD8P+HoEBR8TADvF00Wx35FeNQ6pJDlLA=;
- b=BhvQPeCC+f4afmrZWgJr6EyHCiydh4uxO7n2AkXhZ2QDA7U0zwgCQYgglDy/NH1ZG9Fgj7+ZA3dThR9FrCZyqvCt9WmtDegLV5/GlE2yjdVUbdabrb4IM5JnjFTU3QLBuISn4wXkJet0m048u9Izu+lsKqJkg7m0HjY/Viox8wo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <e999b40c-4b9b-316b-9200-fc7e39b9710c@amd.com>
-Date: Tue, 29 Nov 2022 16:02:42 +0100
+X-Inumbo-ID: a0ba39c5-6ff8-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1669734915; x=
+	1669821315; bh=Sselh9PMPp+YXx0b/8C6fFInUaOfP3jD6verSMjxhVM=; b=D
+	SbZ+WdKDRP/8Ypqbx8RaSRttN5rGOWO/bLOlkeUbmzjI8JMMdgkk9WBc5xuFGmin
+	dMUt0C/5vW3ZOkPLapoxIHRKZD6KVz9LXx3L5UKnQEDLx7HfsWB1VcBndcHVf9dH
+	H4lXZPp0LrunYuxuaAkTvg/PLAXs441upTNf0cC9o7GT7EVqI5AS2RhxMyNt3RCO
+	sgg5vTtt2DoBO4sPieGeVlxmwJB29PLkMY7SVDfocT4styC6lsXIT9Ngko9XeJxl
+	PVMai/wQ+ikjL3RIflAX6GunDAd0qIlXj2dMha+DlsSiLCRl57xfB+2vzXLPCvGc
+	ZM8rRMeCgGMi5sck4j2Qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1669734915; x=1669821315; bh=Sselh9PMPp+YXx0b/8C6fFInUaOf
+	P3jD6verSMjxhVM=; b=NQu39eszLsMlTbbZhV5nP6SPUjLTkF7cqZm3BjAcH9yA
+	qx89mT1+eh3XNBPr3AHrkBncoJVrM1H2K7rxbnbP4V17uJNVJffDKuBtsuop9Aul
+	dXpq3ozSWfbENecyWH1Btm78kVHbU1u1Bor9clnIKSq6LUMQnqfMJnjV2sQCHVto
+	7suWA2+qdkqDIRQ9lmYwugbfUDADCHsCujHzodkRCEETV7GZ0QpcMqX0PI0Hc17d
+	FhNS/+O4+wzxX3Cku1iWLrMcKAdHvKF+yIyKlZcm/+Aew/VBMC2BBku8cvHgUhHJ
+	jgIjTr0NHjqt0rUIpgUddBP46LpooqnwbRR9hM/cXw==
+X-ME-Sender: <xms:ASKGY0c_VQUEd80G-qdjJTURCmAJfzV0k_X0JEzrAn1sOWxyLHDL2g>
+    <xme:ASKGY2PXjwuX3tGNCi8iMCL6lBfZ-AN1B0SOSBTlWHa2KbHLlEZRRP_IFSAZylv1n
+    rd-BxY4wWhfYA>
+X-ME-Received: <xmr:ASKGY1j_ZYix7HKg0n-Q0HHXo5S_QOTQo6ovfzBs0qGdcdtf3ELcvWdUBIai1IZGP2iwxJUyrIBtLEMk1ji4A4bKvxLgDsPfzg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrtddtgdegfecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetueeg
+    fefhffdvffetleeltdelkedvlefhkeehgfehhffhheehudeitdegheejleenucffohhmrg
+    hinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomhenucevlhhushhtvghrufhi
+    iigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhish
+    hisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:AiKGY5802rBC-FmyHJMBKAsxHpVRHv57Shb4X1JPunnjVCHn3CtATA>
+    <xmx:AiKGYwsGB_mHWDvOM6HNoe2fYZAABoAsoPaxrnutQVkZyx2vciX08w>
+    <xmx:AiKGYwERdvQueWfSZ53vUphekMqtLND5N57nI4n2DOaDG9qYEp_ILg>
+    <xmx:AyKGY8I1ldEJtPL-GeMehBMyJU5b9S8xQN4qJBQ0uGCGjuEx80MRQg>
+Feedback-ID: i1568416f:Fastmail
+Date: Tue, 29 Nov 2022 16:15:10 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	christian.koenig@amd.com,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: AMD GPU problems under Xen
+Message-ID: <Y4Yh/gyt48zoIOyL@mail-itl>
+References: <Y4Mz0glMNwDPaFPO@itl-email>
+ <CADnq5_NfupG-DzNDJfntg+uSWH2m_8mLfj=ddkMdnNYNRhXWUw@mail.gmail.com>
+ <Y4Vngz5tTA74Qr8L@itl-email>
+ <CADnq5_P8kuSsSFatMq4g0r2yE3TW0Rqzm07+Kpv9wKTi0GGS-Q@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [XEN v4 11/11] xen/Arm: GICv3: Enable GICv3 for AArch32
-Content-Language: en-US
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<jgrall@amazon.com>, <burzalodowa@gmail.com>
-References: <20221128155649.31386-1-ayan.kumar.halder@amd.com>
- <20221128155649.31386-12-ayan.kumar.halder@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221128155649.31386-12-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT031:EE_|MN2PR12MB4439:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbfe2f5d-4477-48ce-01b8-08dad21ac5ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	qnky/e8dNH+g2pBKRLc6/nc2nguLplkj/aBAb4LyaVxIJoTAN7JQdMPaGV3/aAyOiOKmQyrsYuVfmDXFQZvu32Cmbios8eih4HB30EpyTlcTua5XoS8+a+hnjYiZLrpd/FX1hhdv8PLCbp1JcnRkvP1aDjp5MMtbycDt8Uj82aGIVKYiv/7jAZUvnJOZegiDxqnW4LZi3NxMjE0wb6idJyKPIOK1ADVE5cIq4Nl7+MPN6OPP/zTk4XfDqF69Y6y+UTgYD6/MwkbxUUX24q5KLzrcqr8ww53/DzaCmdVCQ6LfcPFKTySl9/M54/kofY95xBf9IiRSDuAPLNLGvCKUxtiZ3I+G3n8BLYJNN/plPO6eeJg3ujTjPyI3f1pI2ikDPoUDRMzJM2iyP6/ak8CTD5iF/ZoCLNUln1D339KW+YZ5WTeav6YmE5JExjc5YTbFHD19wVjhneHz7gPDBmLWDhqwo9f6XfiM600/ERzE4VPQdJcoGbnNZxiC38+qfS28ZawRHxNCcUCZrqgf9n1sZi1tQIjaZc4c/F4Ke5Z1Rn6RdnkSsWJp0I4B2PFvigK/UKIVbLWWzGieEkLVgmw/Jwwb1Nz74/BVrT6sn/ZOqIXV+5T2MeKzSoBeoQ0CdmIthOOfC8989A15WVGzqDeSMIQsj5X7xNkA9LOlc/sjvQxr22fd73azMLvQa/5df9iPIleXov5mE37p8HERC5XtiyfRZ/xZCYcgb2GI2UCUiowlf20xfKLsucYdgKtNy5+amQ0eihgxS3GfNHbfu789NA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199015)(46966006)(40470700004)(36840700001)(2616005)(31686004)(36860700001)(2906002)(83380400001)(70206006)(356005)(70586007)(41300700001)(478600001)(8676002)(40460700003)(36756003)(82310400005)(53546011)(82740400003)(26005)(81166007)(40480700001)(186003)(336012)(426003)(8936002)(5660300002)(47076005)(31696002)(4326008)(86362001)(110136005)(54906003)(44832011)(4744005)(316002)(16576012)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 15:02:45.5210
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbfe2f5d-4477-48ce-01b8-08dad21ac5ca
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT031.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4439
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="ldwT7sa60O/uU5QD"
+Content-Disposition: inline
+In-Reply-To: <CADnq5_P8kuSsSFatMq4g0r2yE3TW0Rqzm07+Kpv9wKTi0GGS-Q@mail.gmail.com>
 
-Hi Ayan,
 
-On 28/11/2022 16:56, Ayan Kumar Halder wrote:
-> One can now use GICv3 on AArch32 systems. However, ITS is not supported.
-> The reason being currently we are trying to validate GICv3 on an AArch32_v8R
-> system. Refer ARM DDI 0568A.c ID110520, B1.3.1,
-> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE must not
-> implement LPI support."
-> 
-> By default GICv3 is disabled on AArch32 and enabled on AArch64.
-> 
-> Updated SUPPORT.md to state that GICv3 on Arm32 is not security supported.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+--ldwT7sa60O/uU5QD
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 29 Nov 2022 16:15:10 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	christian.koenig@amd.com,
+	Xen developer discussion <xen-devel@lists.xenproject.org>,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Subject: Re: AMD GPU problems under Xen
 
-~Michal
+On Tue, Nov 29, 2022 at 09:32:54AM -0500, Alex Deucher wrote:
+> On Mon, Nov 28, 2022 at 8:59 PM Demi Marie Obenour
+> <demi@invisiblethingslab.com> wrote:
+> >
+> > On Mon, Nov 28, 2022 at 11:18:00AM -0500, Alex Deucher wrote:
+> > > On Mon, Nov 28, 2022 at 2:18 AM Demi Marie Obenour
+> > > <demi@invisiblethingslab.com> wrote:
+> > > >
+> > > > Dear Christian:
+> > > >
+> > > > What is the status of the AMDGPU work for Xen dom0?  That was menti=
+oned in
+> > > > https://lore.kernel.org/dri-devel/b2dec9b3-03a7-e7ac-306e-1da024af8=
+982@amd.com/
+> > > > and there have been bug reports to Qubes OS about problems with AMD=
+GPU
+> > > > under Xen (such as https://github.com/QubesOS/qubes-issues/issues/7=
+648).
+> > >
+> > > I would say it's a work in progress.  It depends what GPU  you have
+> > > and what type of xen setup you are using (PV vs PVH, etc.).
+> >
+> > The current situation is:
+> >
+> > - dom0 is PV.
+> > - VMs with assigned PCI devices are HVM and use a Linux-based stubdomain
+> >   QEMU does not run in dom0.
+> > - Everything else is PVH.
+> >
+> > In the future, I believe the goal is to move away from PV and HVM in
+> > favor of PVH, though HVM support will remain for compatibility with
+> > guests (such as Windows) that need emulated devices.
+> >
+> > > In general, your best bet currently is dGPU add in boards because they
+> > > are largely self contained.
+> >
+> > The main problem is that for the trusted GUI to work, there needs to
+> > be at least one GPU attached to a trusted VM, such as the host or a
+> > dedicated GUI VM.  That VM will typically not be running graphics-
+> > intensive workloads, so the compute power of a dGPU is largely wasted.
+> > SR-IOV support would help with that, but the only GPU vendor with open
+> > source SR-IOV support is Intel and it is still not upstream.  I am also
+> > not certain if the support extends to Arc dGPUs.
+>=20
+> Can you elaborate on this?  Why wouldn't you just want to pass-through
+> a dGPU to a domU to use directly in the guest?
+
+You can do that, but if that's your only GPU in the system, you'll lose
+graphical interface for other guests.
+But yes, simply pass-through of a dGPU is enough in some setups.
+
+> Are you sure?  I didn't think intel's GVT solution was actually
+> SR-IOV.  I think GVT is just a paravirtualized solution.
+
+Yes, it's a paravirtualized solution, with device emulation done in dom0
+kernel. This, besides being rather unusual approach in Xen world
+(emulators, aka IOREQ servers usually live in userspace) puts rather
+complex piece of code that interacts with untrusted data (instructions
+=66rom guests) in almost the most privileged system component, without
+ability to sandbox it in any way. We consider it too risky for Qubes OS,
+especially since the kernel patches were never accepted upstream and the
+Xen support is not maintained anymore.
+
+The SR-IOV approach Demi is talking about is newer development,
+supported since Adler Lake (technically, IGD in Tiger Lake presents
+SR-IOV capability too, but officially it's supported since ADL). The driver
+for managing it is in the process of upstreaming. Some links here:
+https://github.com/intel/linux-intel-lts/issues/33
+(I have not tried it, yet)
+
+>  That aside,
+> we are working on enabling virtio gpu with our GPUs on xen in addition
+> to domU passthrough.
+
+That's interesting development. Please note, Linux recently (part of
+6.1) gained support to use grant tables with virtio. This allows having
+backends without full access to guest's memory. The work is done in
+generic way, so a driver using proper APIs (including DMA) should work
+out in such setup out of the box. Please try to not break it :)
+
+> >
+> > > APUs and platforms with integrated dGPUs
+> > > are a bit more complicated as they tend to have more platform
+> > > dependencies like ACPI tables and methods in order for the driver to
+> > > be able to initialize the hardware properly.
+> >
+> > Is Xen dom0/domU support for such GPUs being worked on?  Is there an
+> > estimate as to when the needed support will be available upstream?  This
+> > is mostly directed at Christian and other people who work for hardware
+> > vendors.
+>=20
+> Yes, there are some minor fixes in the driver required which we'll be
+> sending out soon and we had to add some ACPI tables to the whitelist
+> in xen, but unfortunately the ACPI tables are AMD platform specific so
+> there has been pushback from the xen maintainers on accepting them
+> because they are not an official part of the ACPI spec.
+
+Can the driver work without them? Such dependency, as you noted above,
+make things rather complicated for pass-through (specific ACPI tables
+can probably be made available to the guest, but usually guest wouldn't
+see all the resources they talk about anyway).
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--ldwT7sa60O/uU5QD
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOGIf0ACgkQ24/THMrX
+1ywEbQf+PEElPPxfmzpsF7KCl9us8eI4hUgwXur7ALf7DdhApavQOMgYmyMp47lO
+shMbFQygjqSJ4YCTvtRCWmEDIqmUduv/q6M69Hxv5bldxDx2qe/2/wwcUcQ4jKQB
+34BJNGeLyuuxtgJ1Fw7EvmUVVm3TKTa57r5YqVpxmXkQ28or+2vbHmY8BGeQgYmn
+k6rJ24EDNfTs/fINw68+Rigvdt8tNKRvl69aHpwGMO1F6/k4EfBmqYUB6Al19xrY
+SIXSRI9skw/5UGR7fJ6ST7Cmm1FSOKWWkq/gmTMNy7qWbtSbelUouNPa+WAorBHr
+xBAtDguDGYb4pWCilHWOxHrC05G7Zw==
+=qLiG
+-----END PGP SIGNATURE-----
+
+--ldwT7sa60O/uU5QD--
 
