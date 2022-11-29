@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A88D63CB06
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 23:25:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449673.706562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8374F63CB8A
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 00:01:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449678.706574 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p092W-0002iA-7i; Tue, 29 Nov 2022 22:25:20 +0000
+	id 1p09aH-0007Vg-Vb; Tue, 29 Nov 2022 23:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449673.706562; Tue, 29 Nov 2022 22:25:20 +0000
+Received: by outflank-mailman (output) from mailman id 449678.706574; Tue, 29 Nov 2022 23:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p092W-0002fa-4x; Tue, 29 Nov 2022 22:25:20 +0000
-Received: by outflank-mailman (input) for mailman id 449673;
- Tue, 29 Nov 2022 22:25:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CMqW=35=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p092U-0002fU-SQ
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 22:25:18 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b3accec4-7034-11ed-91b6-6bf2151ebd3b;
- Tue, 29 Nov 2022 23:25:17 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 66E00B8197E;
- Tue, 29 Nov 2022 22:25:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBD4C433D6;
- Tue, 29 Nov 2022 22:25:13 +0000 (UTC)
+	id 1p09aH-0007SM-S8; Tue, 29 Nov 2022 23:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 449678;
+ Tue, 29 Nov 2022 23:00:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p09aG-0007Qf-4C; Tue, 29 Nov 2022 23:00:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p09aF-00039r-VI; Tue, 29 Nov 2022 23:00:11 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p09aF-0004u6-Kc; Tue, 29 Nov 2022 23:00:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p09aF-0007MH-KA; Tue, 29 Nov 2022 23:00:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b3accec4-7034-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1669760715;
-	bh=MTi3eCesRlzQNLX++3E0N9zK19ByIHxrBbpWGeJzPsc=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=bcuwe4011W1EV7m7lqiLQCoubqhZSBuRQ4IFeHON2n+irELW9/XO4T1BNRrd3sFQG
-	 C8iloTFvWqOLLjrasPmVZmRvL21w4m6XgrxeaQN0n4oMWpI5BcMR7N1pRcEDfOKd6l
-	 qXAWhElGrrP2DeS840ArAoGgl089SvzMDKI7/ex75BkDHXInBDU4I0NddEENZLVRQv
-	 iicP73qxnn1g0HG4cOdXTIzzhHBtWPP3wYxFDpAREURYvnonHpJ2DMGLPlUgEZrEnZ
-	 1AFf1zpagYRmQrVpTa5kXCcEa1QdfAR0C2uN9O1uzX9dqGVrTqTYdfMPg4D8nRlPOF
-	 ycJ+Oe2l21X8A==
-Date: Tue, 29 Nov 2022 14:25:12 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Roger Pau Monne <roger.pau@citrix.com>
-cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Jan Beulich <jbeulich@suse.com>, 
-    Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, 
-    linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH] hvc/xen: lock console list traversal
-In-Reply-To: <20221129143145.4234-1-roger.pau@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2211291416540.4039@ubuntu-linux-20-04-desktop>
-References: <20221129143145.4234-1-roger.pau@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XZbDTAlknhiV3OYbpCa1lvokiswmM18NH0LPC8EvNDU=; b=1BLMacGMKLSI0sGPv9WPyO3pUO
+	q4ylD+m2W9+TOfPqCEOYUqvDffuSWt3COjnrzHSTAJgl+91ATj7OqX0qHkPPkoTQQ1nmcem5bs2fw
+	IIl3wu1GEOBjZhbNEnuE3rkhglXay33vD01/PLGErzsWrzBJ5zw7mFWK70P+R5mO+z8U=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-174990-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-503985613-1669760387=:4039"
-Content-ID: <alpine.DEB.2.22.394.2211291420410.4039@ubuntu-linux-20-04-desktop>
+Subject: [ovmf test] 174990: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=8aff08c817728092fda5707ae27cfa6321108980
+X-Osstest-Versions-That:
+    ovmf=b92e0495221a3b298b069d9fb01e48fd2a0469f6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 29 Nov 2022 23:00:11 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 174990 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/174990/
 
---8323329-503985613-1669760387=:4039
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2211291420411.4039@ubuntu-linux-20-04-desktop>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 8aff08c817728092fda5707ae27cfa6321108980
+baseline version:
+ ovmf                 b92e0495221a3b298b069d9fb01e48fd2a0469f6
 
-On Tue, 29 Nov 2022, Roger Pau Monne wrote:
-> The currently lockless access to the xen console list in
-> vtermno_to_xencons() is incorrect, as additions and removals from the
-> list can happen anytime, and as such the traversal of the list to get
-> the private console data for a given termno needs to happen with the
-> lock held.  Note users that modify the list already do so with the
-> lock taken.
-> 
-> While there switch from using list_for_each_entry_safe to
-> list_for_each_entry: the current entry cursor won't be removed as
-> part of the code in the loop body, so using the _safe variant is
-> pointless.
-> 
-> Fixes: 02e19f9c7cac ('hvc_xen: implement multiconsole support')
-> Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-> ---
->  drivers/tty/hvc/hvc_xen.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
-> index d65741983837..117dc48f980e 100644
-> --- a/drivers/tty/hvc/hvc_xen.c
-> +++ b/drivers/tty/hvc/hvc_xen.c
-> @@ -53,17 +53,22 @@ static DEFINE_SPINLOCK(xencons_lock);
->  
->  static struct xencons_info *vtermno_to_xencons(int vtermno)
->  {
-> -	struct xencons_info *entry, *n, *ret = NULL;
-> +	struct xencons_info *entry, *ret = NULL;
-> +	unsigned long flags;
->  
-> -	if (list_empty(&xenconsoles))
-> -			return NULL;
-> +	spin_lock_irqsave(&xencons_lock, flags);
+Last test of basis   174987  2022-11-29 10:13:15 Z    0 days
+Testing same since   174990  2022-11-29 19:40:43 Z    0 days    1 attempts
 
-If xencons_lock requires irqsave then we need to change all the
-xencons_lock spinlocks to call irqsave, including the ones in
-xen_hvm_console_init if they can happen at runtime.
+------------------------------------------------------------
+People who touched revisions under test:
+  Rebecca Cran <rebecca@quicinc.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-> +	if (list_empty(&xenconsoles)) {
-> +		spin_unlock_irqrestore(&xencons_lock, flags);
-> +		return NULL;
-> +	}
->  
-> -	list_for_each_entry_safe(entry, n, &xenconsoles, list) {
-> +	list_for_each_entry(entry, &xenconsoles, list) {
->  		if (entry->vtermno == vtermno) {
->  			ret  = entry;
->  			break;
->  		}
->  	}
-> +	spin_unlock_irqrestore(&xencons_lock, flags);
->  
->  	return ret;
->  }
-> -- 
-> 2.37.3
-> 
---8323329-503985613-1669760387=:4039--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   b92e049522..8aff08c817  8aff08c817728092fda5707ae27cfa6321108980 -> xen-tested-master
 
