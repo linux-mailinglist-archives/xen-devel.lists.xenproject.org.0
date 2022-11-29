@@ -2,32 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3ED963C334
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 15:52:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449452.706206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1598363C338
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 15:56:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449459.706216 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p01yP-0000zV-Ns; Tue, 29 Nov 2022 14:52:37 +0000
+	id 1p021X-0001ee-5s; Tue, 29 Nov 2022 14:55:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449452.706206; Tue, 29 Nov 2022 14:52:37 +0000
+Received: by outflank-mailman (output) from mailman id 449459.706216; Tue, 29 Nov 2022 14:55:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p01yP-0000wt-L7; Tue, 29 Nov 2022 14:52:37 +0000
-Received: by outflank-mailman (input) for mailman id 449452;
- Tue, 29 Nov 2022 14:52:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1p021X-0001br-2v; Tue, 29 Nov 2022 14:55:51 +0000
+Received: by outflank-mailman (input) for mailman id 449459;
+ Tue, 29 Nov 2022 14:55:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p01yO-0000wn-Jf
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 14:52:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p01yO-0000Ir-2p; Tue, 29 Nov 2022 14:52:36 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=[192.168.9.110]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p01yN-00064Z-Ny; Tue, 29 Nov 2022 14:52:36 +0000
+ (envelope-from <SRS0=EGMg=35=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p021W-0001bl-5r
+ for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 14:55:50 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20614.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::614])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e90591ef-6ff5-11ed-91b6-6bf2151ebd3b;
+ Tue, 29 Nov 2022 15:55:49 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8152.eurprd04.prod.outlook.com (2603:10a6:20b:3fb::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.21; Tue, 29 Nov
+ 2022 14:55:47 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5857.023; Tue, 29 Nov 2022
+ 14:55:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,451 +47,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5GHRx9MS2VH0b3ZC3JgZuIlyB4uPGMSRWYLxSkzTJao=; b=sS5Y+GxutqygN0XkMrdE8Z6xZ1
-	7lFCnV2Du8bOiw1x6xiaCVXSd+xYBbWRHDDA14EG8AcGJihDpZ3uaM3nykLffhnwbgcERGurtJBNb
-	JnhFMzgEANn9mCwcvtpwz4bkAugAN5/VUlVoTzRHXEjbmwyrek/gTWIu6rE2S7aQqaAM=;
-Message-ID: <a352eb18-0ae6-a1f3-08e6-87f53494ad8a@xen.org>
-Date: Tue, 29 Nov 2022 14:52:33 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: Arm: AArch32: Need suggestions to support 32 bit physical
- addresses
+X-Inumbo-ID: e90591ef-6ff5-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KqTH/2VgeLFnirpIYIBQQG2ejIvxnwcmW0jTf1Jc1dqBMVmbXJPsznBxmHGhYlx5Q5UZnhZ59sdeN763+Hrn57Sy4ZbzB2+W8PWBIsCMRPgJzUES7XuzG1BOwCI3eJONMaP+yhX4X1O6STYqoY9HYqS95f9BYlND+2uGRCNeV6GAiXPEuwPu/UJru6BgnSgB6ljI/1GECYHNmy1T/BVcYTNQYwMfHGfeXfXX1E0mhuN93IpLEtEMk8aCS6BRSjYb+3NUwKDZT2zzsavX105lW4aiXydmnrTXTXmED1CTiXUlm+bacidgvzXkwPVbdrBmIP5tNiihNKt3wTNEXl29jQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=E9e/K2ZxeIJXak06Lk356njAefBtPZNeUDKX9joG6ao=;
+ b=fTdJ5dYRJeks4W+SiIXlAcQJHT0D72jyktfmjE+TJijZWsjsPiE9ny/tZo/vcbxBN07pXafu5rhiABDbimSp7+VBtMjg9qauF43iuaoUOClCQtmgnMCvQYM/FmvtxC/uDpRARAbEwYpx5xIhfYc0BqIayNrLbT55Qb+73S3AiF/r4RJ8dL5YDPCZt7gfujv2/R1vsUKhVCJZ4lSMX67qgwLwPfGtJVipnaFMhvv2yWb9QcTAkSjMnejbWThzLmdWGunuIadPzTqhNItpWITXD0QtZwgRLpH/af0xBCDkKTkfvWMow2rwtM6Ns6fYvOiUXyhjSMWoWUfhdXEyxJXrtQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=E9e/K2ZxeIJXak06Lk356njAefBtPZNeUDKX9joG6ao=;
+ b=IFQ6LfOB4P2a+I/pRoGNdmr/DNyrunY73fO+bAu4R/X91yJKkxE+qv0P9e1lzFkoHHeP8yTMA8xGjmc4yjZ0xl0wWXk4vWITKN9+6XURKHQNYpJH5aYMayhu8zVVXIuKWVHGoXFT3Otiam2UNXpXOyd79EWyQKa8R6vz6835rprjnGwW4D0iyoBCkWLN3O3+iN2yctMxXyypKAbcljLyKC4MplROH7NG/0jMVbOXAMa5GMCG03s8/EcPwLlNR2/j+207/FUIWH7fYLUJlDNR5wsgD79XO6LocFCh0dVi/N9rC3+OFl4RCWE4TP+AzMOuVFffDLGNnphzIniIR+mUig==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <df240766-7a57-d9ce-f0a9-697fc470e1f5@suse.com>
+Date: Tue, 29 Nov 2022 15:55:45 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
 Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- bertrand Marquis <Bertrand.Marquis@arm.com>,
- Andre Przywara <andre.przywara@arm.com>,
- "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
- Rahul Singh <rahul.singh@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>
-References: <70651dbc-085d-706d-17d0-a419086a0700@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <70651dbc-085d-706d-17d0-a419086a0700@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH] x86/mm: PGC_page_table is used by shadow code only
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0033.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e53daca-9469-48b2-8ed3-08dad219cc3c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qUCenrb+ghLEICUPhv4Gz9vmizLaGG2UEUa7aG46YDavR4KRh+NwDk5YNnHfK8x5PVKD2yQBsLQLLvzOXkU/Wfo2ckohi4P3tpZBRkqOv656feA50eHGM+D7NdhDNm1uH9rGbmtaoxpNyNwIY2IFeM18oqYsECwsng/rNMieeLvozMy+X/LMP/YkL2y7VZhOVL3lVIDa3y47+Q5nskVLO0rlmRs1KloHNYBDgzCVnGtOdFswbAcWdhEatFZclipMjYKTsDNhDWnS9AZZlppJxuaLi5nwN+/kr9CbZ0mlt4rfekYNp24gkZoITaMWsHChszzaEB2mjiXMTUgvGjzpbBa3SIWb0rUnJlPqjfVs+EtBxgvEOlMScpIJEsqIWjiPCbq3yHq1tyuBDNWWLA4+nCIhMWWK2GYUT/7Xzw0ColBuC/Pl0geLte4O047kn3+ctku59OGnqN+M2i+FxNEACn6zdUzFdqM9sYQAzo1GJNhIh/f02yutfar7GHkyND2uz4QjvKJsXopsRxv4c2SMRpZU53eJbHUl4Ii11syIjKlHIeDbykqH1XDeA3J4mePvOQ4MINmjc1Ogv4IyKt7EImL13C9Yuk4132/rb2V8FXTxudHK+R6bt5FkbKVZClprbgnhCG4y5oC+aCMeY1Sn1Gs7ZZyNLTKlPLV0c1zHto6tF7jwPiT293FAt67Yrs5mEZ9KFeGDArahPBoPFdo9FRsL/RaN7Sy66db/sKbQT60=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(376002)(39860400002)(136003)(346002)(366004)(451199015)(66899015)(2906002)(31686004)(54906003)(5660300002)(41300700001)(8936002)(66556008)(316002)(6916009)(66476007)(66946007)(4326008)(8676002)(478600001)(6486002)(36756003)(26005)(6512007)(2616005)(186003)(6506007)(38100700002)(86362001)(31696002)(83380400001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SzVHd0JieUlQQ0doSnM3cHdVZnVCTmsvQlhrYlBsUTJuZjk5aEpXSmQ2a3pw?=
+ =?utf-8?B?a1BmaUhDWmpJK0lmYTVNRnA3UXJHbkJqVU9NZnBITXR2MFNERy9ZR1c2VFlo?=
+ =?utf-8?B?V0VlaEczNnFVbmcwYm5zbFRPK2dvdllLR29PbXFXV2RkQnlSaEthSUtWMk9t?=
+ =?utf-8?B?VDk1U2RrMEhFTURjUkxGZTJseWVJRktZcUdnZ3Yxc2pRQTJhNm5UMGExOTVi?=
+ =?utf-8?B?NHRMVWhLWjlqTzYvRnU5SjZSSnBuNGFqV3RQL0Z2azFFZndpK3p3NzI3cDVo?=
+ =?utf-8?B?OS9UNW9yRWFHK3A0OENuSnlxSFVjSXVnajVMVjUwUHZTeWhHRWs1M1Fod0dF?=
+ =?utf-8?B?KzJYV2dOcVdlWjkzcnFqeDVYZmxxalZLNVhZbnFjUTI0aVRxNmp3Nk0rMkk5?=
+ =?utf-8?B?aXNDR29GODlCK0EwdTlROTNWVzFZSllVWlJGRVJDV2JKZ3hCSjlFMzBSVmtP?=
+ =?utf-8?B?UGpyUFdyRFErbFFRaTBMcFo0dW5qSUU0SDlpdGR5QXpxOU9IalNIZDVKR0Ur?=
+ =?utf-8?B?TVFxSk9IRU9jSjJrWms5OTl5a2lzdVA5MnV6bWlxMVhXdUlxckxKYzhHWWNM?=
+ =?utf-8?B?Y09qLzZNakRYc1IrOW1tT2c4TklBclZ5QUxldm5tTk1nVHU3M29BbVhXd0Na?=
+ =?utf-8?B?RTVXZnMyQUNYU0FZNGo3TnErTFBIVzl4S2R2bHc3T1N5eDdNaklER1RFZEts?=
+ =?utf-8?B?VjdRTDJGb0plaVRxMjc4SjZIdVJJMnh4cTEyMUN3dG82WUo0V01EWmxINHM0?=
+ =?utf-8?B?NW90a1VuUzlHTnhIbzh5ZGw1dEJnZUhqWmFDNzRreUVXZndaU3lETkw1Um8v?=
+ =?utf-8?B?cGlHSnZQNTl5WG1vSnM1WSs2dUhJWFZaRUwyU2l3TlNmenhWejZCS2hKQmMv?=
+ =?utf-8?B?UjI3ZG1reTJFTWxUZWRsTytZeHVIWUZCWG1zQmxDeFRGTVdZWDBzZE14UDg2?=
+ =?utf-8?B?UTU2ODJoMW42S3VXNUNEdHBBb3dmRTVxcElDanMzaHJXQVQwUWZaZUVQekdP?=
+ =?utf-8?B?R0NwQ3pYVDVoaWlVS3liSUFIUHJIZlgzajVRbzkyTlVyMFNBeTBJd2RMTHl5?=
+ =?utf-8?B?TE9PalNycUxHVWdxQ2hnY1JuY25DeEVhY0dybXRkYVZZeWdIdFV2bmw0WU5Y?=
+ =?utf-8?B?bERLdGtyZElXL3NLSFpaY3BiV3VYSHJDMXVYY3lkbFdYQmxwb0dWWDhBbW1T?=
+ =?utf-8?B?UzhJeVR1KzZMeHhLMllhblYrdjVuS0hWd1ZtREVWMVlKZmJqaHhyM1dYT0RF?=
+ =?utf-8?B?WXgxM1Izd2FzYlNRN0trcUVsa2dOQ2wxUDBnaGI3MEhoRFNFbzRLZElOOFhD?=
+ =?utf-8?B?UGkyZ09lMlp2SUlRcloxeFE3SVB1WkZRWDdaUGs2cm9aK2EvaHJCMTRJdnA0?=
+ =?utf-8?B?YlprZjRrSU5rQWxsTU56MWVhbzdxTGRuOWozODZpYklwRVZKS2xsd25kMkN6?=
+ =?utf-8?B?Sk5FWjlUazdOS1J5UXpjOThlRlJ6R2pWMFhhSEoxM1FGSW9Bek1kNkhiRndq?=
+ =?utf-8?B?K2FtTlJhcEJHb2JQb2k1QmttYUtUenF4d242aStuRTR4M3pac2ZxSkUvY3pY?=
+ =?utf-8?B?bnBNWFMvQ1NPZEJDYTFQdnJYcDBYa2RjR0xMZm9BaFE4QjB6T01Vd1l6blpG?=
+ =?utf-8?B?NVIvUi9Ha1F5Qm4wbGs3a09iUmRJejVlU2c5QlNQTEpPZEhqQ2ZFRlpRT096?=
+ =?utf-8?B?NmkrUEViM3IrSzQ5eEowZ0sycUp6cmVxdlh0NEE0TkEweFNzbEFHbFhnbnVv?=
+ =?utf-8?B?QjBCeEhYOGVnS083TENtRjJ6N1I1TUpaTG9GVkhTOVB5QzVnQ2UwZmRFaXdv?=
+ =?utf-8?B?T1krM2UzR0I5VHU2MUQwdERaVTJ2TmRxc1pOYUZmSllLZlJTdW5IZ255blpw?=
+ =?utf-8?B?aUVJV0lNL3FxMjI3ZCs3SGQzdjVKV0MvSzg3dlBJYzdUUk5PNm1QV0RZTjZD?=
+ =?utf-8?B?NXQvTThoa3NyMGZ3b1YxdWRuNElGN3A1R3IxRnY2aWFiV1hKK0hpSnh0ZTB3?=
+ =?utf-8?B?R1FtUityTlFrSzNLdjZEQWQ3UTArMUg2ZDNlcVB0WXlBcU8yMjlzTVIrckxm?=
+ =?utf-8?B?TWUzOGdRWE13YXpzMWVnRWtndldFQ2ZUaitYYnJ4Qlg5VTQzME5ialEyUUhO?=
+ =?utf-8?Q?vhmp1SyvplYkOrDVqyFcO1XS1?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e53daca-9469-48b2-8ed3-08dad219cc3c
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Nov 2022 14:55:47.0288
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6584UM81BzdeddfXSdLrcu5W+mXOVQ9sd/giixj0qR2S7iyeLeW1G6zZSXMXFIx6lh+Qc/aVmttBNBoJMWZD5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8152
 
+By defining the constant to zero when !SHADOW_PAGING we give compilers
+the chance to eliminate a little more dead code elsewhere in the tree.
+Plus, as a minor benefit, the general reference count can be one bit
+wider. (To simplify things, have PGC_page_table change places with
+PGC_extra.)
 
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+tboot.c's update_pagetable_mac() is suspicious: It effectively is a
+no-op even prior to this change when !SHADOW_PAGING, which can't be
+quite right. If (guest) page tables are relevant to include in the
+verification, shouldn't this look for PGT_l<N>_page_table as well? How
+to deal with HAP guests there is entirely unclear.
 
-On 29/11/2022 14:57, Ayan Kumar Halder wrote:
-> Hi All,
-
-Hi,
-
-> I am trying to gather opinions on how to support 32 bit physical 
-> addresses to enable Xen running on R52.
-> 
-> Refer Cortex R52 TRM, Section 2.2.12 "Memory Model"
-> 
-> "...This is because the physical address is always the same as the 
-> virtual address...The virtual and physical address can be treated as 
-> synonyms for Cortex-R52."
-> 
-> Thus, I understand that R52 supports 32 bit physical address only. This 
-> is a bit different from Armv7 systems which supports Large Physical 
-> Address Extension (LPAE) ie 40 bit physical addresses. >
-> Please correct me if I misunderstand something. >
-> So currently, Xen supports 64 bit physical address for Arm_32 (ie Armv7) 
-> based system.
-
-Xen supports *up to* 64-bit physical address. This may be lower in the 
-HW (not all the Armv7 HW supports 40-bit address).
-
-> My aim is to enable support for 32 bit physical address.
-
-Technically this is already supported because this is a subset of 
-64-bit. I can see a use case (even on non R* HW) where you may want to 
-use 32-bit paddr_t to reduce the code size (and registers used).
-
-But I think that's more an optimization that rather than been necessary.
-
-> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> index 6014c0f852..4f8b5fc4be 100644
-> --- a/xen/arch/arm/bootfdt.c
-> +++ b/xen/arch/arm/bootfdt.c
-> @@ -56,10 +56,10 @@ static bool __init device_tree_node_compatible(const 
-> void *fdt, int node,
->   }
-> 
->   void __init device_tree_get_reg(const __be32 **cell, u32 address_cells,
-> -                                u32 size_cells, u64 *start, u64 *size)
-> +                                u32 size_cells, paddr_t *start, paddr_t 
-> *size)
-
-This needs to stay uint64_t because the Device-Tree may contain 64-bit 
-values and you...
-
->   {
-> -    *start = dt_next_cell(address_cells, cell);
-> -    *size = dt_next_cell(size_cells, cell);
-> +    *start = (paddr_t) dt_next_cell(address_cells, cell);
-> +    *size = (paddr_t) dt_next_cell(size_cells, cell);
-
-... don't want to always blindly cast it. That's up to the caller to 
-check that the top 32-bit are zeroed and downcast it.
-
->   }
-> 
->   static int __init device_tree_get_meminfo(const void *fdt, int node,
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index bd30d3798c..3cbcf8f854 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1314,7 +1314,7 @@ static int __init make_memory_node(const struct 
-> domain *d,
->       dt_dprintk("Create memory node\n");
-> 
->       /* ePAPR 3.4 */
-> -    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
-> +    snprintf(buf, sizeof(buf), "memory@%"PRIpaddr, mem->bank[i].start);
->       res = fdt_begin_node(fdt, buf);
->       if ( res )
->           return res;
-> @@ -1665,7 +1665,7 @@ static int __init find_memory_holes(const struct 
-> kernel_info *kinfo,
->       dt_for_each_device_node( dt_host, np )
->       {
->           unsigned int naddr;
-> -        u64 addr, size;
-> +        paddr_t addr, size;
-> 
->           naddr = dt_number_of_address(np);
-> 
-> @@ -2444,7 +2444,7 @@ static int __init handle_device(struct domain *d, 
-> struct dt_device_node *dev,
->       unsigned int naddr;
->       unsigned int i;
->       int res;
-> -    u64 addr, size;
-> +    paddr_t addr, size;
->       bool own_device = !dt_device_for_passthrough(dev);
->       /*
->        * We want to avoid mapping the MMIO in dom0 for the following cases:
-> @@ -2718,7 +2718,7 @@ static int __init make_gicv2_domU_node(struct 
-> kernel_info *kinfo)
->       /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
->       char buf[38];
-> 
-> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
->                vgic_dist_base(&d->arch.vgic));
->       res = fdt_begin_node(fdt, buf);
->       if ( res )
-> @@ -2774,7 +2774,7 @@ static int __init make_gicv3_domU_node(struct 
-> kernel_info *kinfo)
->       char buf[38];
->       unsigned int i, len = 0;
-> 
-> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
->                vgic_dist_base(&d->arch.vgic));
-> 
->       res = fdt_begin_node(fdt, buf);
-> @@ -2860,7 +2860,7 @@ static int __init make_vpl011_uart_node(struct 
-> kernel_info *kinfo)
->       /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
->       char buf[27];
-> 
-> -    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, 
-> d->arch.vpl011.base_addr);
-> +    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIpaddr, 
-> d->arch.vpl011.base_addr);
->       res = fdt_begin_node(fdt, buf);
->       if ( res )
->           return res;
-> @@ -2940,9 +2940,9 @@ static int __init handle_passthrough_prop(struct 
-> kernel_info *kinfo,
->           if ( res )
->           {
->               printk(XENLOG_ERR "Unable to permit to dom%d access to"
-> -                   " 0x%"PRIx64" - 0x%"PRIx64"\n",
-> +                   " 0x%"PRIpaddr" - 0x%"PRIpaddr"\n",
-
-What's wrong with printing using PRIx64? At least...
-
->                      kinfo->d->domain_id,
-> -                   mstart & PAGE_MASK, PAGE_ALIGN(mstart + size) - 1);
-> +                   (paddr_t) (mstart & PAGE_MASK), (paddr_t) 
-> (PAGE_ALIGN(mstart + size) - 1));
-
-... this would avoid adding explicit cast which I quite dislike.
-
->               return res;
->           }
-> 
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index ae5bd8e95f..839623c32e 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1058,7 +1058,7 @@ static void __init gicv2_dt_init(void)
->       if ( csize < SZ_8K )
->       {
->           printk(XENLOG_WARNING "GICv2: WARNING: "
-> -               "The GICC size is too small: %#"PRIx64" expected %#x\n",
-> +               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
->                  csize, SZ_8K);
->           if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
->           {
-> @@ -1289,11 +1289,11 @@ static int __init gicv2_init(void)
->           gicv2.map_cbase += aliased_offset;
-> 
->           printk(XENLOG_WARNING
-> -               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
-> +               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
->                  cbase + aliased_offset);
->       } else if ( csize == SZ_128K )
->           printk(XENLOG_WARNING
-> -               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
-> +               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
->                  csize);
-> 
->       gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index 3c5b88148c..322ed15e6c 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -1402,7 +1402,7 @@ static void __init gicv3_dt_init(void)
-> 
->       for ( i = 0; i < gicv3.rdist_count; i++ )
->       {
-> -        uint64_t rdist_base, rdist_size;
-> +        paddr_t rdist_base, rdist_size;
-> 
->           res = dt_device_get_address(node, 1 + i, &rdist_base, 
-> &rdist_size);
->           if ( res )
-> diff --git a/xen/arch/arm/include/asm/setup.h 
-> b/xen/arch/arm/include/asm/setup.h
-> index fdbf68aadc..ddffffe44c 100644
-> --- a/xen/arch/arm/include/asm/setup.h
-> +++ b/xen/arch/arm/include/asm/setup.h
-> @@ -158,7 +158,7 @@ extern uint32_t hyp_traps_vector[];
->   void init_traps(void);
-> 
->   void device_tree_get_reg(const __be32 **cell, u32 address_cells,
-> -                         u32 size_cells, u64 *start, u64 *size);
-> +                         u32 size_cells, paddr_t *start, paddr_t *size);
-> 
->   u32 device_tree_get_u32(const void *fdt, int node,
->                           const char *prop_name, u32 dflt);
-> diff --git a/xen/arch/arm/include/asm/types.h 
-> b/xen/arch/arm/include/asm/types.h
-> index 083acbd151..a7466d65c2 100644
-> --- a/xen/arch/arm/include/asm/types.h
-> +++ b/xen/arch/arm/include/asm/types.h
-> @@ -37,9 +37,15 @@ typedef signed long long s64;
->   typedef unsigned long long u64;
->   typedef u32 vaddr_t;
->   #define PRIvaddr PRIx32
-> +#if defined(CONFIG_ARM_PA_32)
-> +typedef u32 paddr_t;
-> +#define PRIpaddr PRIx32
-> +#define INVALID_PADDR (~0UL)
-> +#else
->   typedef u64 paddr_t;
->   #define PRIpaddr 016llx
->   #define INVALID_PADDR (~0ULL)
-> +#endif
->   typedef u32 register_t;
->   #define PRIregister "08x"
->   #elif defined (CONFIG_ARM_64)
-> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
-> index 6c9712ab7b..0c50b196b5 100644
-> --- a/xen/common/device_tree.c
-> +++ b/xen/common/device_tree.c
-> @@ -747,7 +747,7 @@ static const struct dt_bus *dt_match_bus(const 
-> struct dt_device_node *np)
->   }
-> 
->   static const __be32 *dt_get_address(const struct dt_device_node *dev,
-> -                                    unsigned int index, u64 *size,
-> +                                    unsigned int index, paddr_t *size,
-
-Same as for the other dt helper.
-
->                                       unsigned int *flags)
->   {
->       const __be32 *prop;
-> @@ -781,7 +781,7 @@ static const __be32 *dt_get_address(const struct 
-> dt_device_node *dev,
->           if ( i == index )
->           {
->               if ( size )
-> -                *size = dt_read_number(prop + na, ns);
-> +                *size = (paddr_t) dt_read_number(prop + na, ns);
-I strongly dislike adding unnecessary cast in C because they could hide 
-away issue. In this case, this raise the question why always ignoring 
-the top 32-bit is always fine?
-
-This remark is also valid for all the other changes in device_tree.c.
-
->               if ( flags )
->                   *flags = bus->get_flags(prop);
->               return prop;
-> @@ -935,7 +935,7 @@ bail:
-> 
->   /* dt_device_address - Translate device tree address and return it */
->   int dt_device_get_address(const struct dt_device_node *dev, unsigned 
-> int index,
-> -                          u64 *addr, u64 *size)
-> +                          paddr_t *addr, paddr_t *size)
->   {
->       const __be32 *addrp;
->       unsigned int flags;
-> @@ -947,7 +947,7 @@ int dt_device_get_address(const struct 
-> dt_device_node *dev, unsigned int index,
->       if ( !addr )
->           return -EINVAL;
-> 
-> -    *addr = __dt_translate_address(dev, addrp, "ranges");
-> +    *addr = (paddr_t) __dt_translate_address(dev, addrp, "ranges");
-> 
->       if ( *addr == DT_BAD_ADDR )
->           return -EINVAL;
-> diff --git a/xen/common/libfdt/fdt_ro.c b/xen/common/libfdt/fdt_ro.c
-> index 17584da257..a1e0e154c5 100644
-> --- a/xen/common/libfdt/fdt_ro.c
-> +++ b/xen/common/libfdt/fdt_ro.c
-
-Please don't change fdt_ro.c. This is a copy of libfdt and should stay 
-as is.
-
-> @@ -172,7 +172,7 @@ static const struct fdt_reserve_entry 
-> *fdt_mem_rsv(const void *fdt, int n)
->      return fdt_mem_rsv_(fdt, n);
->   }
-> 
-> -int fdt_get_mem_rsv(const void *fdt, int n, uint64_t *address, uint64_t 
-> *size)
-> +int fdt_get_mem_rsv(const void *fdt, int n, paddr_t *address, paddr_t 
-> *size)
->   {
->      const struct fdt_reserve_entry *re;
-> 
-> diff --git a/xen/drivers/char/pl011.c b/xen/drivers/char/pl011.c
-> index be67242bc0..1f86443136 100644
-> --- a/xen/drivers/char/pl011.c
-> +++ b/xen/drivers/char/pl011.c
-> @@ -258,7 +258,7 @@ static int __init pl011_dt_uart_init(struct 
-> dt_device_node *dev,
->   {
->       const char *config = data;
->       int res;
-> -    u64 addr, size;
-> +    paddr_t addr, size;
-> 
->       if ( strcmp(config, "") )
->       {
-> diff --git a/xen/drivers/passthrough/arm/smmu.c 
-> b/xen/drivers/passthrough/arm/smmu.c
-> index 0a514821b3..59b9a24099 100644
-> --- a/xen/drivers/passthrough/arm/smmu.c
-> +++ b/xen/drivers/passthrough/arm/smmu.c
-> @@ -73,8 +73,8 @@
->   /* Xen: Helpers to get device MMIO and IRQs */
->   struct resource
->   {
-> -   u64 addr;
-> -   u64 size;
-> +   paddr_t addr;
-> +   paddr_t size;
->      unsigned int type;
->   };
-> 
-> @@ -169,7 +169,7 @@ static void __iomem *devm_ioremap_resource(struct 
-> device *dev,
->      ptr = ioremap_nocache(res->addr, res->size);
->      if (!ptr) {
->          dev_err(dev,
-> -           "ioremap failed (addr 0x%"PRIx64" size 0x%"PRIx64")\n",
-> +           "ioremap failed (addr 0x%"PRIpaddr" size 0x%"PRIpaddr")\n",
->              res->addr, res->size);
->          return ERR_PTR(-ENOMEM);
->      }
-> @@ -1179,10 +1179,12 @@ static void arm_smmu_init_context_bank(struct 
-> arm_smmu_domain *smmu_domain)
-> 
->      reg = (p2maddr & ((1ULL << 32) - 1));
->      writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBR0_LO);
-> +#if !CONFIG_ARM_PA_32
->      reg = (p2maddr >> 32);
->      if (stage1)
->          reg |= ARM_SMMU_CB_ASID(cfg) << TTBRn_HI_ASID_SHIFT;
->      writel_relaxed(reg, cb_base + ARM_SMMU_CB_TTBR0_HI);
-> +#endif
-> 
->      /*
->       * TTBCR
-> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-> index 1528ced509..20b4462fdd 100644
-> --- a/xen/include/public/arch-arm.h
-> +++ b/xen/include/public/arch-arm.h
-> @@ -466,8 +466,8 @@ typedef uint64_t xen_callback_t;
->   /* Largest amount of actual RAM, not including holes */
->   #define GUEST_RAM_MAX     (GUEST_RAM0_SIZE + GUEST_RAM1_SIZE)
->   /* Suitable for e.g. const uint64_t ramfoo[] = GUEST_RAM_BANK_FOOS; */
-> +#if !CONFIG_ARM_PA_32
-CONFIG_ARM_PA_32 is not going to be defined for the tools and I don't 
-think we should define it.
-
-If there are any restriction on which bank to use, then this should be 
-done in the toolstack.
-
->   #define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE, GUEST_RAM1_BASE }
->   #define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE, GUEST_RAM1_SIZE }
-> +#else
-> +#define GUEST_RAM_BANK_BASES   { GUEST_RAM0_BASE }
-> +#define GUEST_RAM_BANK_SIZES   { GUEST_RAM0_SIZE }
-> +#endif
-> 
->   /* Current supported guest VCPUs */
->   #define GUEST_MAX_VCPUS 128
-> diff --git a/xen/include/xen/device_tree.h b/xen/include/xen/device_tree.h
-> index a28937d12a..7f86af54b6 100644
-> --- a/xen/include/xen/device_tree.h
-> +++ b/xen/include/xen/device_tree.h
-> @@ -572,7 +572,7 @@ const struct dt_device_node *dt_get_parent(const 
-> struct dt_device_node *node);
->    * device-tree node. It returns 0 on success.
->    */
->   int dt_device_get_address(const struct dt_device_node *dev, unsigned 
-> int index,
-> -                          u64 *addr, u64 *size);
-> +                          paddr_t *addr, paddr_t *size);
-> 
->   /**
->    * dt_number_of_irq - Get the number of IRQ for a device
-> diff --git a/xen/include/xen/libfdt/libfdt.h 
-> b/xen/include/xen/libfdt/libfdt.h
-> index c71689e2be..fabde78edf 100644
-> --- a/xen/include/xen/libfdt/libfdt.h
-> +++ b/xen/include/xen/libfdt/libfdt.h
-> @@ -444,7 +444,7 @@ int fdt_num_mem_rsv(const void *fdt);
->    *     -FDT_ERR_BADVERSION,
->    *     -FDT_ERR_BADSTATE, standard meanings
->    */
-> -int fdt_get_mem_rsv(const void *fdt, int n, uint64_t *address, uint64_t 
-> *size);
-> +int fdt_get_mem_rsv(const void *fdt, int n, paddr_t *address, paddr_t 
-> *size);
-> 
->   /**
->    * fdt_subnode_offset_namelen - find a subnode based on substring
-> 
-> 3. I am happy with any other suggestion.
-> 
-> In linux source code 
-> (https://elixir.bootlin.com/linux/v6.1-rc1/source/include/linux/types.h#L152), CONFIG_PHYS_ADDR_T_64BIT <https://elixir.bootlin.com/linux/v6.1-rc1/K/ident/CONFIG_PHYS_ADDR_T_64BIT> is used for distinguish 64/32 bit physical address.
-> 
-> Kind regards,
-> 
-> Ayan
-> 
-
--- 
-Julien Grall
+--- a/xen/arch/x86/include/asm/mm.h
++++ b/xen/arch/x86/include/asm/mm.h
+@@ -70,9 +70,9 @@
+  /* Page is Xen heap? */
+ #define _PGC_xen_heap     PG_shift(2)
+ #define PGC_xen_heap      PG_mask(1, 2)
+- /* Set when is using a page as a page table */
+-#define _PGC_page_table   PG_shift(3)
+-#define PGC_page_table    PG_mask(1, 3)
++ /* Page is not reference counted */
++#define _PGC_extra        PG_shift(3)
++#define PGC_extra         PG_mask(1, 3)
+  /* Page is broken? */
+ #define _PGC_broken       PG_shift(4)
+ #define PGC_broken        PG_mask(1, 4)
+@@ -83,12 +83,20 @@
+ #define PGC_state_offlined  PG_mask(2, 6)
+ #define PGC_state_free      PG_mask(3, 6)
+ #define page_state_is(pg, st) (((pg)->count_info&PGC_state) == PGC_state_##st)
+-/* Page is not reference counted */
+-#define _PGC_extra        PG_shift(7)
+-#define PGC_extra         PG_mask(1, 7)
++#ifdef CONFIG_SHADOW_PAGING
++ /* Set when is using a page as a page table */
++#define _PGC_page_table   PG_shift(7)
++#define PGC_page_table    PG_mask(1, 7)
++#else
++#define PGC_page_table    0
++#endif
+ 
+ /* Count of references to this frame. */
++#if PGC_page_table
+ #define PGC_count_width   PG_shift(7)
++#else
++#define PGC_count_width   PG_shift(6)
++#endif
+ #define PGC_count_mask    ((1UL<<PGC_count_width)-1)
+ 
+ /*
 
