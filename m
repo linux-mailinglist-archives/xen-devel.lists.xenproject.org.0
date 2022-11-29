@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7311163C3BA
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 16:27:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449499.706293 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76FD563C432
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 16:53:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449509.706304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p02WB-0000Yp-86; Tue, 29 Nov 2022 15:27:31 +0000
+	id 1p02uX-0004G9-7v; Tue, 29 Nov 2022 15:52:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449499.706293; Tue, 29 Nov 2022 15:27:31 +0000
+Received: by outflank-mailman (output) from mailman id 449509.706304; Tue, 29 Nov 2022 15:52:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p02WB-0000X1-5E; Tue, 29 Nov 2022 15:27:31 +0000
-Received: by outflank-mailman (input) for mailman id 449499;
- Tue, 29 Nov 2022 15:27:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p02uX-0004Db-5E; Tue, 29 Nov 2022 15:52:41 +0000
+Received: by outflank-mailman (input) for mailman id 449509;
+ Tue, 29 Nov 2022 15:52:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mq1n=35=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1p02WA-0000Wv-Gx
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 15:27:30 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55c96cfb-6ffa-11ed-91b6-6bf2151ebd3b;
- Tue, 29 Nov 2022 16:27:29 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C12211FDDE;
- Tue, 29 Nov 2022 15:27:28 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8613113AF6;
- Tue, 29 Nov 2022 15:27:28 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id V+ETH+AkhmMzcwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 29 Nov 2022 15:27:28 +0000
+ (envelope-from <julien@xen.org>) id 1p02uV-0004DV-V4
+ for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 15:52:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p02uV-0001ce-Dk; Tue, 29 Nov 2022 15:52:39 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
+ helo=[192.168.9.110]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p02uV-0008Gk-4j; Tue, 29 Nov 2022 15:52:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,214 +39,311 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55c96cfb-6ffa-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1669735648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rXlM+yvFockFzQWFJtuOywTcr68TPYdF51NVeHyrMC4=;
-	b=ic12lZLyUebEjX1uRTMeugjus9W7CYPinxpKDtCtrjkhTsYeuE0mg11xX2lQRP+RvvrAlB
-	v4TAHTB5A7rxopdhmvDeK2ydiD0s5/PPYYyae+KeRAJsZF5WB7S/7NLZQSF82iETqN0toX
-	f78tSyWqwVfQmOvDPhB2Y9J6noNdpGo=
-Message-ID: <358e49fa-8ce7-67ce-8e0b-e523dee9ea19@suse.com>
-Date: Tue, 29 Nov 2022 16:27:28 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=X+aui+FkEB8UVyBrf67Ons0+Mula1suZc8wR5AreFx4=; b=xYYaGpWK9aqHo7+IvHmEVWZ4WD
+	Wy0Kk1WWwvQIl5ORr6DyWlfrsGsB8VtFC4yJVV/pDIpwORWKU3mWzPnrFGtep9Ivzb6FzR+RgoWvJ
+	Etq/Ct5aqVtGxx4LlVlAmhcrw5ob/lgjc8qCvEsNoJgGTdaqrcGXVWaEnJS8S12QVT9A=;
+Message-ID: <ddeb7a03-cab3-2a26-7f64-3a1b5f0882d6@xen.org>
+Date: Tue, 29 Nov 2022 15:52:36 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.0
+Subject: Re: Arm: AArch32: Need suggestions to support 32 bit physical
+ addresses
 Content-Language: en-US
-To: Per Bilse <per.bilse@citrix.com>, linux-kernel@vger.kernel.org
+To: Ayan Kumar Halder <ayankuma@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich
- <jbeulich@suse.com>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-References: <20221129150058.266943-1-per.bilse@citrix.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] drivers/xen/hypervisor: Expose VM SIF flags to userspace
-In-Reply-To: <20221129150058.266943-1-per.bilse@citrix.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------bX2PESQviO3CpgKBjxM6PRjP"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------bX2PESQviO3CpgKBjxM6PRjP
-Content-Type: multipart/mixed; boundary="------------X8D0eoeDEr15NPcmqFQSmGVr";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Per Bilse <per.bilse@citrix.com>, linux-kernel@vger.kernel.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich
- <jbeulich@suse.com>,
- "moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
-Message-ID: <358e49fa-8ce7-67ce-8e0b-e523dee9ea19@suse.com>
-Subject: Re: [PATCH] drivers/xen/hypervisor: Expose VM SIF flags to userspace
-References: <20221129150058.266943-1-per.bilse@citrix.com>
-In-Reply-To: <20221129150058.266943-1-per.bilse@citrix.com>
-
---------------X8D0eoeDEr15NPcmqFQSmGVr
-Content-Type: multipart/mixed; boundary="------------LNhIUa17THGTpfpqC5kv1FfE"
-
---------------LNhIUa17THGTpfpqC5kv1FfE
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Rahul Singh <rahul.singh@arm.com>, Vladimir Murzin <vladimir.murzin@arm.com>
+References: <70651dbc-085d-706d-17d0-a419086a0700@amd.com>
+ <a352eb18-0ae6-a1f3-08e6-87f53494ad8a@xen.org>
+ <65891843-db28-e5dd-6e9e-3fb003fcabc5@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <65891843-db28-e5dd-6e9e-3fb003fcabc5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMjkuMTEuMjIgMTY6MDAsIFBlciBCaWxzZSB3cm90ZToNCj4gL3Byb2MveGVuIGlzIGEg
-bGVnYWN5IHBzZXVkbyBmaWxlc3lzdGVtIHdoaWNoIHByZWRhdGVzIFhlbiBzdXBwb3J0DQo+
-IGdldHRpbmcgbWVyZ2VkIGludG8gTGludXguICBJdCBoYXMgbGFyZ2VseSBiZWVuIHJlcGxh
-Y2VkIHdpdGggbW9yZQ0KPiBub3JtYWwgbG9jYXRpb25zIGZvciBkYXRhICgvc3lzL2h5cGVy
-dmlzb3IvIGZvciBpbmZvLCAvZGV2L3hlbi8gZm9yDQo+IHVzZXIgZGV2aWNlcykuICBXZSB3
-YW50IHRvIGNvbXBpbGUgeGVuZnMgc3VwcG9ydCBvdXQgb2YgdGhlIGRvbTAga2VybmVsLg0K
-PiANCj4gVGhlcmUgaXMgb25lIGl0ZW0gd2hpY2ggb25seSBleGlzdHMgaW4gL3Byb2MveGVu
-LCBuYW1lbHkNCj4gL3Byb2MveGVuL2NhcGFiaWxpdGllcyB3aXRoICJjb250cm9sX2QiIGJl
-aW5nIHRoZSBzaWduYWwgb2YgInlvdSdyZSBpbg0KPiB0aGUgY29udHJvbCBkb21haW4iLiAg
-VGhpcyB1bHRpbWF0ZWx5IGNvbWVzIGZyb20gdGhlIFNJRiBmbGFncyBwcm92aWRlZA0KPiBh
-dCBWTSBzdGFydC4NCj4gDQo+IFRoaXMgcGF0Y2ggZXhwb3NlcyBhbGwgU0lGIGZsYWdzIGlu
-IC9zeXMvaHlwZXJ2aXNvci9wcm9wZXJ0aWVzL2ZsYWdzLA0KPiB3aGljaCB3aWxsIGNvZXhp
-c3Qgd2l0aCAvcHJvYy94ZW4gd2hpbGUgZGVwZW5kZW5jaWVzIGFyZSBiZWluZyBtaWdyYXRl
-ZC4NCj4gUG9zc2libGUgdmFsdWVzIGFyZSAicHJpdmlsZWdlZCIsICJpbml0ZG9tYWluIiwg
-Im11bHRpYm9vdCIsDQo+ICJtb2Rfc3RhcnRfcGZuIiwgYW5kICJ2aXJ0bWFwIiwgd2l0aCAi
-aW5pdGRvbWFpbiIgYmVpbmcgdGhlIGVxdWl2YWxlbnQNCj4gb2YgImNvbnRyb2xfZCIuDQo+
-IA0KPiBTaWduZWQtb2ZmLWJ5OiBQZXIgQmlsc2UgPHBlci5iaWxzZUBjaXRyaXguY29tPg0K
-PiAtLS0NCj4gICBkcml2ZXJzL3hlbi9zeXMtaHlwZXJ2aXNvci5jIHwgMjYgKysrKysrKysr
-KysrKysrKysrKysrKysrKysNCj4gICBpbmNsdWRlL3hlbi9pbnRlcmZhY2UveGVuLmggIHwg
-MTMgKysrKysrKystLS0tLQ0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgMzQgaW5zZXJ0aW9ucygr
-KSwgNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3hlbi9zeXMt
-aHlwZXJ2aXNvci5jIGIvZHJpdmVycy94ZW4vc3lzLWh5cGVydmlzb3IuYw0KPiBpbmRleCBm
-Y2IwNzkyZjA5MGUuLjczOTNlMDRiZGI2ZCAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy94ZW4v
-c3lzLWh5cGVydmlzb3IuYw0KPiArKysgYi9kcml2ZXJzL3hlbi9zeXMtaHlwZXJ2aXNvci5j
-DQo+IEBAIC0zNzksNiArMzc5LDMxIEBAIHN0YXRpYyBzc2l6ZV90IGJ1aWxkaWRfc2hvdyhz
-dHJ1Y3QgaHlwX3N5c2ZzX2F0dHIgKmF0dHIsIGNoYXIgKmJ1ZmZlcikNCj4gICANCj4gICBI
-WVBFUlZJU09SX0FUVFJfUk8oYnVpbGRpZCk7DQo+ICAgDQo+ICtzdGF0aWMgc3NpemVfdCBm
-bGFnc19zaG93KHN0cnVjdCBoeXBfc3lzZnNfYXR0ciAqYXR0ciwgY2hhciAqYnVmZmVyKQ0K
-PiArew0KPiArCXN0YXRpYyBjaGFyIGNvbnN0ICpjb25zdCBzaWZzdHJbU0lGTl9OVU1fU0lG
-Tl0gPSB7DQo+ICsJCVtTSUZOX1BSSVZdICA9ICJwcml2aWxlZ2VkIiwNCj4gKwkJW1NJRk5f
-SU5JVF0gID0gImluaXRkb21haW4iLA0KPiArCQlbU0lGTl9NVUxUSV0gPSAibXVsdGlib290
-IiwNCj4gKwkJW1NJRk5fUEZOXSAgID0gIm1vZF9zdGFydF9wZm4iLA0KPiArCQlbU0lGTl9W
-SVJUXSAgPSAidmlydG1hcCINCj4gKwl9Ow0KPiArCXVuc2lnbmVkIHNpZm51bSwgc2lmbWFz
-azsNCj4gKwlzc2l6ZV90IHJldCA9IDA7DQo+ICsNCj4gKwlzaWZtYXNrID0gfih+MFUgPDwg
-U0lGTl9OVU1fU0lGTik7ICAvLyAuLi4wMDAwMTExLi4uDQo+ICsJaWYgKHhlbl9kb21haW4o
-KSAmJiAoeGVuX3N0YXJ0X2ZsYWdzICYgc2lmbWFzaykgIT0gMCkgew0KPiArCQlmb3IgKHNp
-Zm51bSA9IDA7IHNpZm51bSAhPSBTSUZOX05VTV9TSUZOOyBzaWZudW0rKykgew0KPiArCQkJ
-aWYgKCh4ZW5fc3RhcnRfZmxhZ3MgJiAoMTw8c2lmbnVtKSkgIT0gMCkNCj4gKwkJCQlyZXQg
-Kz0gc3ByaW50ZihidWZmZXIrcmV0LCAiJXMgIiwgc2lmc3RyW3NpZm51bV0pOw0KPiArCQl9
-DQo+ICsJCWJ1ZmZlcltyZXQtMV0gPSAnXG4nOw0KPiArCX0NCj4gKwlyZXR1cm4gcmV0Ow0K
-PiArfQ0KPiArDQo+ICtIWVBFUlZJU09SX0FUVFJfUk8oZmxhZ3MpOw0KPiArDQo+ICAgc3Rh
-dGljIHN0cnVjdCBhdHRyaWJ1dGUgKnhlbl9wcm9wZXJ0aWVzX2F0dHJzW10gPSB7DQo+ICAg
-CSZjYXBhYmlsaXRpZXNfYXR0ci5hdHRyLA0KPiAgIAkmY2hhbmdlc2V0X2F0dHIuYXR0ciwN
-Cj4gQEAgLTM4Niw2ICs0MTEsNyBAQCBzdGF0aWMgc3RydWN0IGF0dHJpYnV0ZSAqeGVuX3By
-b3BlcnRpZXNfYXR0cnNbXSA9IHsNCj4gICAJJnBhZ2VzaXplX2F0dHIuYXR0ciwNCj4gICAJ
-JmZlYXR1cmVzX2F0dHIuYXR0ciwNCj4gICAJJmJ1aWxkaWRfYXR0ci5hdHRyLA0KPiArCSZm
-bGFnc19hdHRyLmF0dHIsDQo+ICAgCU5VTEwNCj4gICB9Ow0KPiAgIA0KPiBkaWZmIC0tZ2l0
-IGEvaW5jbHVkZS94ZW4vaW50ZXJmYWNlL3hlbi5oIGIvaW5jbHVkZS94ZW4vaW50ZXJmYWNl
-L3hlbi5oDQo+IGluZGV4IDBjYTIzZWNhMmE5Yy4uNzYyYTM0OGFiZTNlIDEwMDY0NA0KPiAt
-LS0gYS9pbmNsdWRlL3hlbi9pbnRlcmZhY2UveGVuLmgNCj4gKysrIGIvaW5jbHVkZS94ZW4v
-aW50ZXJmYWNlL3hlbi5oDQo+IEBAIC02NDgsMTEgKzY0OCwxNCBAQCBzdHJ1Y3Qgc3RhcnRf
-aW5mbyB7DQo+ICAgfTsNCj4gICANCj4gICAvKiBUaGVzZSBmbGFncyBhcmUgcGFzc2VkIGlu
-IHRoZSAnZmxhZ3MnIGZpZWxkIG9mIHN0YXJ0X2luZm9fdC4gKi8NCj4gLSNkZWZpbmUgU0lG
-X1BSSVZJTEVHRUQgICAgICAoMTw8MCkgIC8qIElzIHRoZSBkb21haW4gcHJpdmlsZWdlZD8g
-Ki8NCj4gLSNkZWZpbmUgU0lGX0lOSVRET01BSU4gICAgICAoMTw8MSkgIC8qIElzIHRoaXMg
-dGhlIGluaXRpYWwgY29udHJvbCBkb21haW4/ICovDQo+IC0jZGVmaW5lIFNJRl9NVUxUSUJP
-T1RfTU9EICAgKDE8PDIpICAvKiBJcyBtb2Rfc3RhcnQgYSBtdWx0aWJvb3QgbW9kdWxlPyAq
-Lw0KPiAtI2RlZmluZSBTSUZfTU9EX1NUQVJUX1BGTiAgICgxPDwzKSAgLyogSXMgbW9kX3N0
-YXJ0IGEgUEZOPyAqLw0KPiAtI2RlZmluZSBTSUZfVklSVF9QMk1fNFRPT0xTICgxPDw0KSAg
-LyogRG8gWGVuIHRvb2xzIHVuZGVyc3RhbmQgYSB2aXJ0LiBtYXBwZWQgKi8NCj4gKy8qIFRl
-eHQgc3RyaW5ncyBhcmUgcHJpbnRlZCBvdXQgaW4gc3lzLWh5cGVydmlzb3IuYywgd2UgZ3Vh
-cmQgICAqLw0KPiArLyogYWdhaW5zdCBtaXgtdXBzIGFuZCBlcnJvcnMgYnkgZW51bWVyYXRp
-bmcgdGhlIGZsYWdzLiAgICAgICAgICovDQo+ICtlbnVtIHsgU0lGTl9QUklWLCBTSUZOX0lO
-SVQsIFNJRk5fTVVMVEksIFNJRk5fUEZOLCBTSUZOX1ZJUlQsIFNJRk5fTlVNX1NJRk4gfTsN
-Cj4gKyNkZWZpbmUgU0lGX1BSSVZJTEVHRUQgICAgICAoMTw8U0lGTl9QUklWKSAgLyogSXMg
-dGhlIGRvbWFpbiBwcml2aWxlZ2VkPyAqLw0KPiArI2RlZmluZSBTSUZfSU5JVERPTUFJTiAg
-ICAgICgxPDxTSUZOX0lOSVQpICAvKiBJcyB0aGlzIHRoZSBpbml0aWFsIGNvbnRyb2wgZG9t
-YWluPyAqLw0KPiArI2RlZmluZSBTSUZfTVVMVElCT09UX01PRCAgICgxPDxTSUZOX01VTFRJ
-KSAvKiBJcyBtb2Rfc3RhcnQgYSBtdWx0aWJvb3QgbW9kdWxlPyAqLw0KPiArI2RlZmluZSBT
-SUZfTU9EX1NUQVJUX1BGTiAgICgxPDxTSUZOX1BGTikgICAvKiBJcyBtb2Rfc3RhcnQgYSBQ
-Rk4/ICovDQo+ICsjZGVmaW5lIFNJRl9WSVJUX1AyTV80VE9PTFMgKDE8PFNJRk5fVklSVCkg
-IC8qIERvIFhlbiB0b29scyB1bmRlcnN0YW5kIGEgdmlydC4gbWFwcGVkICovDQoNClBsZWFz
-ZSBkb24ndCBjaGFuZ2UgdGhpcyBoZWFkZXIsIGFzIGl0IGlzIGJhc2VkIG9uIGl0cyBtYXN0
-ZXINCmxvY2F0ZWQgaW4gdGhlIFhlbiByZXBvc2l0b3J5Lg0KDQpBbiBhY2NlcHRhYmxlIHNv
-bHV0aW9uIHdvdWxkIGJlIHRvIHNlbmQgYSBYZW4gcGF0Y2ggZmlyc3QgZG9pbmcgdGhlDQp4
-ZW4uaCBjaGFuZ2VzLCBhbmQgd2hlbiB0aGF0IHBhdGNoIGhhcyBiZWVuIHRha2VuIHRvIG1v
-ZGlmeSB0aGUNCnJlbGF0ZWQgTGludXggaGVhZGVyIGFjY29yZGluZ2x5Lg0KDQpJbiBjYXNl
-IHlvdSB3YW50IHRvIGdvIHRoYXQgcm91dGUsIHBsZWFzZSBhZGQgYSAiWEVOXyIgcHJlZml4
-IHRvIHRoZQ0KZW51bSBtZW1iZXJzLg0KDQoNCkp1ZXJnZW4NCg==
---------------LNhIUa17THGTpfpqC5kv1FfE
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+On 29/11/2022 16:23, Ayan Kumar Halder wrote:
+> 
+> On 29/11/2022 14:52, Julien Grall wrote:
+>>
+>>
+>> On 29/11/2022 14:57, Ayan Kumar Halder wrote:
+>>> Hi All,
+>>
+>> Hi,
+> 
+> Hi Julien,
+> 
+> Many thanks for your inputs.
+> 
+>>
+>>> I am trying to gather opinions on how to support 32 bit physical 
+>>> addresses to enable Xen running on R52.
+>>>
+>>> Refer Cortex R52 TRM, Section 2.2.12 "Memory Model"
+>>>
+>>> "...This is because the physical address is always the same as the 
+>>> virtual address...The virtual and physical address can be treated as 
+>>> synonyms for Cortex-R52."
+>>>
+>>> Thus, I understand that R52 supports 32 bit physical address only. 
+>>> This is a bit different from Armv7 systems which supports Large 
+>>> Physical Address Extension (LPAE) ie 40 bit physical addresses. >
+>>> Please correct me if I misunderstand something. >
+>>> So currently, Xen supports 64 bit physical address for Arm_32 (ie 
+>>> Armv7) based system.
+>>
+>> Xen supports *up to* 64-bit physical address. This may be lower in the 
+>> HW (not all the Armv7 HW supports 40-bit address).
+>>
+>>> My aim is to enable support for 32 bit physical address.
+>>
+>> Technically this is already supported because this is a subset of 
+>> 64-bit. I can see a use case (even on non R* HW) where you may want to 
+>> use 32-bit paddr_t to reduce the code size (and registers used).
+>>
+>> But I think that's more an optimization that rather than been necessary.
+>>
+>>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+>>> index 6014c0f852..4f8b5fc4be 100644
+>>> --- a/xen/arch/arm/bootfdt.c
+>>> +++ b/xen/arch/arm/bootfdt.c
+>>> @@ -56,10 +56,10 @@ static bool __init 
+>>> device_tree_node_compatible(const void *fdt, int node,
+>>>   }
+>>>
+>>>   void __init device_tree_get_reg(const __be32 **cell, u32 
+>>> address_cells,
+>>> -                                u32 size_cells, u64 *start, u64 *size)
+>>> +                                u32 size_cells, paddr_t *start, 
+>>> paddr_t *size)
+>>
+>> This needs to stay uint64_t because the Device-Tree may contain 64-bit 
+>> values and you...
+> 
+> Are you saying that the device tree may contain 64 bit addresses even 
+> though the platform is 32 bit ?
 
---------------LNhIUa17THGTpfpqC5kv1FfE--
+There should not be any 32-bit address but you don't know what the 
+device-tree is containing because this is user input.
 
---------------X8D0eoeDEr15NPcmqFQSmGVr--
+This is not the business of the Device-Tree parser to decide whether the 
+value should be downcasted or rejected. That's the goal of the callers.
 
---------------bX2PESQviO3CpgKBjxM6PRjP
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> 
+> I think then this approach (ie "typedef u32 paddr_t" for 32 bit system) 
+> is incorrect.
+I am a bit surprised you came to this conclusion just based on the 
+above. As I said before, there are benefits to allow Xen to be built 
+with 32-bit (e.g. smaller code size and better use of the register).
 
------BEGIN PGP SIGNATURE-----
+> 
+> Then, the other option would be to downcast 64 bit physical addresses to 
+> 32 bits, when we need to translate pa to va.
+> 
+> Do you think this approach looks better ?
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmOGJOAFAwAAAAAACgkQsN6d1ii/Ey/X
-Owf/aua5Zg2x6wG1EtP8f+LPoE4S7CXMbNsPRuJc3lrxAJy2A3cRWPRhcCxTD7Rhg5+Deg/hmK9F
-Kg9QZ/hn+OX8uRYWCe1drmegBHbZdzsN80+gj2sCLAiZ498b34yi+wsH+mLbqbxCH1On2FThaStv
-/Oo+GuuHTkBeUmfle6JSWWmaN6IHzo5O4R5JoUTjceSH8euhBxbBvPkQ7GzG+PxOfbk6P2LtdXGd
-oogYxsYxoVtnhvgEs7Tiw9V9DaeVTHN/aV5rqhAoFBC6HZ32i6W0CUFteW0+gLbHCqQ8ZD971aO7
-Kr0yVPtS5wfiBF/FeTWC36Yd1pI1GGIb+aFimHJSyg==
-=3//U
------END PGP SIGNATURE-----
+Some of the changes you propose are questionable (see below).
 
---------------bX2PESQviO3CpgKBjxM6PRjP--
+> Or any better suggestions ?
+
+Rework you previous approach by not touching the Device-Tree code.
+
+> diff --git a/xen/arch/arm/include/asm/mm_mpu.h 
+> b/xen/arch/arm/include/asm/mm_mpu.h
+> index 306a4c497c..f4f5ae1488 100644
+> --- a/xen/arch/arm/include/asm/mm_mpu.h
+> +++ b/xen/arch/arm/include/asm/mm_mpu.h
+> @@ -89,7 +89,18 @@ static inline paddr_t __virt_to_maddr(vaddr_t va)
+>   static inline void *maddr_to_virt(paddr_t ma)
+>   {
+>       /* In MPU system, VA == PA. */
+> +#ifdef CONFIG_AARCH32_V8R
+> +    /*
+> +     * 64 bit physical addresses are not supported.
+> +     * Raise a bug if one encounters 64 bit address.
+> +     */
+> +    if (ma >> BITOP_BITS_PER_WORD)
+> +        BUG();
+I don't particularly like the runtime check when you should be able to 
+sanitize the values before hand.
+
+> +
+> +    return (void *) ((uint32_t)(ma & GENMASK(31,0)));
+
+& GENMASK (...) is a bit pointless here given that you above confirmed 
+the top 32-bit are zeroed.
+
+> +#else
+>       return (void *)ma;
+> +#endif
+>   }
+> 
+>   /*
+> diff --git a/xen/arch/arm/include/asm/setup.h 
+> b/xen/arch/arm/include/asm/setup.h
+> index b3330cd584..3f4ac7f475 100644
+> --- a/xen/arch/arm/include/asm/setup.h
+> +++ b/xen/arch/arm/include/asm/setup.h
+> @@ -119,7 +119,11 @@ extern struct bootinfo bootinfo;
+> 
+>   extern domid_t max_init_domid;
+> 
+> +#ifdef CONFIG_AARCH32_V8R
+> +void copy_from_paddr(void *dst, uint32_t paddr, unsigned long len);
+> +#else
+>   void copy_from_paddr(void *dst, paddr_t paddr, unsigned long len);
+> +#endif
+
+I don't understand why the probably needs to be changed here...
+
+> 
+>   size_t estimate_efi_size(unsigned int mem_nr_banks);
+> 
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index 04c05d7a05..7a7386f33a 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -46,7 +46,11 @@ struct minimal_dtb_header {
+>    * @paddr: source physical address
+>    * @len: length to copy
+>    */
+> +#ifdef CONFIG_AARCH32_V8R
+> +void __init copy_from_paddr(void *dst, uint32_t paddr, unsigned long len)
+> +#else
+>   void __init copy_from_paddr(void *dst, paddr_t paddr, unsigned long len)
+> +#endif
+>   {
+>       void *src = (void *)(unsigned long)paddr;
+
+... because the code should compile without any issue. If you were 
+really concern about ignore the top 32-bit, then you could add a 
+BUG_ON() (This is OK because this is init code).
+
+> 
+> diff --git a/xen/arch/arm/mm_mpu.c b/xen/arch/arm/mm_mpu.c
+> index df43621ee7..62774aebc6 100644
+> --- a/xen/arch/arm/mm_mpu.c
+> +++ b/xen/arch/arm/mm_mpu.c
+> @@ -29,7 +29,7 @@
+>   #include <asm/arm64/fw_shareinfo.h>
+>   #endif
+> 
+> -#ifdef CONFIG_AARCH32_ARMV8_R
+> +#ifdef CONFIG_AARCH32_V8R
+>   #include <asm/arm32/armv8r/sysregs.h>
+>   #endif
+> 
+> @@ -414,7 +414,18 @@ void *ioremap_attr(paddr_t pa, size_t len, unsigned 
+> int attributes)
+>           return NULL;
+>       }
+> 
+> +#ifdef CONFIG_AARCH32_V8R
+> +    /*
+> +     * 64 bit physical addresses are not supported.
+> +     * Raise a bug if one encounters 64 bit address.
+> +     */
+> +    if (pa >> BITOP_BITS_PER_WORD)
+> +        BUG();
+
+Why not returning NULL?
+
+> +
+> +    return (void *) ((uint32_t)(pa & GENMASK(31,0)));
+> +#else
+>       return (void *)pa;
+> +#endif
+>   }
+> 
+>   static void clear_boot_mpumap(void)
+> @@ -1007,7 +1018,19 @@ void * __init early_fdt_map(paddr_t fdt_paddr)
+>       nr_xen_mpumap++;
+> 
+>       /* VA == PA */
+> +#ifdef CONFIG_AARCH32_V8R
+> +
+> +    /*
+> +     * 64 bit physical addresses are not supported.
+> +     * Raise a bug if one encounters 64 bit address.
+> +     */
+> +    if (fdt_paddr >> BITOP_BITS_PER_WORD)
+> +        BUG();
+
+Same here question here.
+
+> +
+> +    fdt_virt = (void *) ((uint32_t)(fdt_paddr & GENMASK(31,0)));
+> +#else
+>       fdt_virt = (void *)fdt_paddr;
+> +#endif
+> 
+>       if ( fdt_magic(fdt_virt) != FDT_MAGIC )
+>           return NULL;
+> @@ -1165,13 +1188,13 @@ void __init setup_protection_regions()
+>           {
+>               pr_t region;
+>               access_protection_region(true, &region, NULL, i);
+> -#ifdef CONFIG_AARCH32_ARMV8_R
+> +#ifdef CONFIG_AARCH32_V8R
+>               printk("Boot-time Xen MPU memory configuration. #%u : 
+> 0x%"PRIx32" - 0x%"PRIx32".\n",
+>                      i, pr_get_base(&region), pr_get_limit(&region));
+> -#else /* CONFIG_AARCH32_ARMV8_R */
+> +#else
+>               printk("Boot-time Xen MPU memory configuration. #%u : 
+> 0x%"PRIx64" - 0x%"PRIx64".\n",
+>                      i, pr_get_base(&region), pr_get_limit(&region));
+> -#endif /* CONFIG_AARCH32_ARMV8_R */
+> +#endif
+>           }
+>   }
+> 
+> @@ -1262,8 +1285,13 @@ static int __init relocate_xen_mpumap(void)
+>       if ( !xen_mpumap )
+>           return -EINVAL;
+> 
+> +#ifdef CONFIG_AARCH32_V8R
+> +    copy_from_paddr(xen_mpumap, (uint32_t)(pr_t *)boot_mpumap,
+> +                    sizeof(pr_t) * next_xen_mpumap_index);
+> +#else
+>       copy_from_paddr(xen_mpumap, (paddr_t)(pr_t *)boot_mpumap,
+>                       sizeof(pr_t) * next_xen_mpumap_index);
+> +#endif
+> 
+>       clear_boot_mpumap();
+> 
+> diff --git a/xen/common/page_alloc.c b/xen/common/page_alloc.c
+> index 62afb07bc6..a73bf7de01 100644
+> --- a/xen/common/page_alloc.c
+> +++ b/xen/common/page_alloc.c
+> @@ -2245,7 +2245,9 @@ void __init xenheap_max_mfn(unsigned long mfn)
+>   {
+>       ASSERT(!first_node_initialised);
+>       ASSERT(!xenheap_bits);
+> +#ifndef CONFIG_AARCH32_V8R
+>       BUILD_BUG_ON(PADDR_BITS >= BITS_PER_LONG);
+> +#endif
+
+BUILD_BUG_ON() are used to indicate that the code would fall over the 
+check pass. I can't find the justification for this change in the commit 
+message.
+
+It is also not clear why you are modifying this path because so far on 
+Arm32 the xenheap and domheap are separated for good reason (i.e. lack 
+of address space). Is this going to change with Armv8-R?
+
+Cheers,
+
+-- 
+Julien Grall
 
