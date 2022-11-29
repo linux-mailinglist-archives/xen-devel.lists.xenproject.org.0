@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5CBE63BBDC
-	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 09:41:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449272.705930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 835FE63BBF0
+	for <lists+xen-devel@lfdr.de>; Tue, 29 Nov 2022 09:46:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449280.705942 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozwA2-0006wq-BD; Tue, 29 Nov 2022 08:40:14 +0000
+	id 1ozwFx-0007hl-Vi; Tue, 29 Nov 2022 08:46:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449272.705930; Tue, 29 Nov 2022 08:40:14 +0000
+Received: by outflank-mailman (output) from mailman id 449280.705942; Tue, 29 Nov 2022 08:46:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1ozwA2-0006uC-8C; Tue, 29 Nov 2022 08:40:14 +0000
-Received: by outflank-mailman (input) for mailman id 449272;
- Tue, 29 Nov 2022 08:40:13 +0000
+	id 1ozwFx-0007ek-SD; Tue, 29 Nov 2022 08:46:21 +0000
+Received: by outflank-mailman (input) for mailman id 449280;
+ Tue, 29 Nov 2022 08:46:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1ozwA1-0006tP-1l
- for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 08:40:13 +0000
+ (envelope-from <julien@xen.org>) id 1ozwFw-0007ee-4N
+ for xen-devel@lists.xenproject.org; Tue, 29 Nov 2022 08:46:20 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ozw9u-0000SK-OA; Tue, 29 Nov 2022 08:40:06 +0000
+ id 1ozwFv-0000i0-QQ; Tue, 29 Nov 2022 08:46:19 +0000
 Received: from 54-240-197-224.amazon.com ([54.240.197.224]
  helo=[192.168.9.110]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1ozw9u-00073G-Gt; Tue, 29 Nov 2022 08:40:06 +0000
+ id 1ozwFv-0007KB-Jl; Tue, 29 Nov 2022 08:46:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,139 +42,129 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=7Y13d8yrr1Ogdj+wm9hfRbCedsWLRho3pNsD7M8gzeE=; b=OlRZC9zs8gK6hYOAzQB7IqmA8Y
-	fxDs8AOOxnrAhd7w5oNvm44SIsjreE9IP3fOHkVW/Pm/EOLq7qERf5/VBkraNcg9y5F8467L9gJwT
-	Cxbb7F0KZiTPGQyj6oD5wiRA2uIXc0EbM+T5tkQowZzsnEjkQ2d7LBIPqvIpor1TWdMY=;
-Message-ID: <ceb28c2f-d4c6-3190-ea84-d6f7c9acb4ad@xen.org>
-Date: Tue, 29 Nov 2022 08:40:04 +0000
+	bh=VQeUPbLvW8N0BdpHppup9iMVHpNG69XXEtooMxp+5D8=; b=FFfzwGsuT4DO4Zbi315XoCGtIO
+	tqADyUcMaknkb4Z8vR6Qalir9EcHQcDYRDqXcH6vT6gmUXjXQIxdaadM3A7I95fqC3CwnSu29u9tK
+	9Ai3dHMH9rjloc5BxD1rXdDQueWMQ5kFtIKl1gSNeHvaWHX7mMRu8fujRXGosdPjsc6A=;
+Message-ID: <44c8e3ec-e1af-013a-e83a-1495b1332587@xen.org>
+Date: Tue, 29 Nov 2022 08:46:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: [PATCH RFC 07/10] domain: map/unmap GADDR based shared guest
- areas
+Subject: Re: [PATCH v3 1/2] xen/arm: vpl011: emulate non-SBSA registers as
+ WI/RAZ
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <5a571fd9-b0c2-216e-a444-102397a22ca0@suse.com>
- <f1229a27-f92c-a0dc-928e-1d78b928fdd0@xen.org>
- <c8f79867-42b3-a23f-6fe0-de8b698c6b0c@suse.com>
+To: Jiamei Xie <jiamei.xie@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221129023935.1576133-1-jiamei.xie@arm.com>
+ <20221129023935.1576133-2-jiamei.xie@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <c8f79867-42b3-a23f-6fe0-de8b698c6b0c@suse.com>
+In-Reply-To: <20221129023935.1576133-2-jiamei.xie@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Jan,
+Hi,
 
-On 28/11/2022 10:01, Jan Beulich wrote:
-> On 24.11.2022 22:29, Julien Grall wrote:
->> On 19/10/2022 09:43, Jan Beulich wrote:
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -1563,7 +1563,82 @@ int map_guest_area(struct vcpu *v, paddr
->>>                       struct guest_area *area,
->>>                       void (*populate)(void *dst, struct vcpu *v))
->>>    {
->>> -    return -EOPNOTSUPP;
->>> +    struct domain *currd = v->domain;
->>> +    void *map = NULL;
->>> +    struct page_info *pg = NULL;
->>> +    int rc = 0;
->>> +
->>> +    if ( gaddr )
->>
->> 0 is technically a valid (guest) physical address on Arm.
+On 29/11/2022 03:39, Jiamei Xie wrote:
+> When the guest kernel enables DMA engine with "CONFIG_DMA_ENGINE=y",
+> Linux SBSA PL011 driver will access PL011 DMACR register in some
+> functions. As chapter "B Generic UART" in "ARM Server Base System
+> Architecture"[1] documentation describes, SBSA UART doesn't support
+> DMA. In current code, when the kernel tries to access DMACR register,
+> Xen will inject a data abort:
+> Unhandled fault at 0xffffffc00944d048
+> Mem abort info:
+>    ESR = 0x96000000
+>    EC = 0x25: DABT (current EL), IL = 32 bits
+>    SET = 0, FnV = 0
+>    EA = 0, S1PTW = 0
+>    FSC = 0x00: ttbr address size fault
+> Data abort info:
+>    ISV = 0, ISS = 0x00000000
+>    CM = 0, WnR = 0
+> swapper pgtable: 4k pages, 39-bit VAs, pgdp=0000000020e2e000
+> [ffffffc00944d048] pgd=100000003ffff803, p4d=100000003ffff803, pud=100000003ffff803, pmd=100000003fffa803, pte=006800009c090f13
+> Internal error: ttbr address size fault: 96000000 [#1] PREEMPT SMP
+> ...
+> Call trace:
+>   pl011_stop_rx+0x70/0x80
+>   tty_port_shutdown+0x7c/0xb4
+>   tty_port_close+0x60/0xcc
+>   uart_close+0x34/0x8c
+>   tty_release+0x144/0x4c0
+>   __fput+0x78/0x220
+>   ____fput+0x1c/0x30
+>   task_work_run+0x88/0xc0
+>   do_notify_resume+0x8d0/0x123c
+>   el0_svc+0xa8/0xc0
+>   el0t_64_sync_handler+0xa4/0x130
+>   el0t_64_sync+0x1a0/0x1a4
+> Code: b9000083 b901f001 794038a0 8b000042 (b9000041)
+> ---[ end trace 83dd93df15c3216f ]---
+> note: bootlogd[132] exited with preempt_count 1
+> /etc/rcS.d/S07bootlogd: line 47: 132 Segmentation fault start-stop-daemon
 > 
-> I guess it is everywhere; it certainly also is on x86. While perhaps a
-> little unfortunate in ordering, the public header changes coming only
-> in the following patches was the best way I could think of to split
-> this work into reasonable size pieces. There the special meaning of 0
-> is clearly documented. And I don't really see it as a meaningful
-> limitation to not allow guests to register such areas at address zero.
-I would expect an OS to allocate the region using the generic physical 
-allocator. This allocator may decide that '0' is a valid address and 
-return it.
-
-So I think your approach could potentially complicate the OS 
-implementation. I think it would be better to use an all Fs value as 
-this cannot be valid for this hypercall (we require at least 4-byte 
-alignment).
-
+> As discussed in [2], this commit makes the access to non-SBSA registers
+> RAZ/WI as an improvement.
 > 
->>> +    {
->>> +        unsigned long gfn = PFN_DOWN(gaddr);
->>
->> This could be gfn_t for adding some type safety.
+> [1] https://developer.arm.com/documentation/den0094/c/?lang=en
+> [2] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2211161552420.4020@ubuntu-linux-20-04-desktop/
 > 
-> Indeed I did consider doing so, but the resulting code would imo be
-> less legible. But this difference perhaps isn't significant enough
-> for me to object to changing, in case you (or others) think the
-> type safety is really a meaningful gain here.
-
-In general, my preference is to always use the typesafe version because 
-it reduces the number of "unsigned long".
-
-[...]
-
->> The first function will set v->is_running to false (see
->> vcpu_context_saved()). So I think the "area" could be touched even afte
->> vcpu_pause() is returned.
->>
->> Therefore, I think we will need _update_runstate_area() (or
->> update_runstate_area()) to be called first.
+> Signed-off-by: Jiamei Xie <jiamei.xie@arm.com>
+> ---
+> v2 -> v3
+> - emulate non-SBSA registers as WI/RAZ in default case
+> - update commit message
+> v1 -> v2
+> - print a message using XENLOG_G_DEBUG when it's write-ignore
+> ---
+>   xen/arch/arm/vpl011.c | 13 +++++++++++--
+>   1 file changed, 11 insertions(+), 2 deletions(-)
 > 
-> ... I don't see a need for adjustment. The corresponding
-> 
->      _update_runstate_area(prev);
-> 
-> sits quite a bit earlier in context_switch(). (Arm code is quite a bit
-> different, but this particular aspect looks to apply there as well.)
+> diff --git a/xen/arch/arm/vpl011.c b/xen/arch/arm/vpl011.c
+> index 43522d48fd..1bf803fc1f 100644
+> --- a/xen/arch/arm/vpl011.c
+> +++ b/xen/arch/arm/vpl011.c
+> @@ -414,11 +414,19 @@ static int vpl011_mmio_read(struct vcpu *v,
+>       default:
+>           gprintk(XENLOG_ERR, "vpl011: unhandled read r%d offset %#08x\n",
+>                   dabt.reg, vpl011_reg);
+> -        return 0;
+> +        goto read_as_zero;
+>       }
+>   
+>       return 1;
+>   
+> +read_as_zero:
+> +    if ( !vpl011_reg32_check_access(dabt) ) goto bad_width;
 
-You are right. Sorry I misread the code.
+We don't know the registers and therefore I don't think we should check 
+the size.
 
-> 
->>> @@ -1573,6 +1648,22 @@ int map_guest_area(struct vcpu *v, paddr
->>>     */
->>>    void unmap_guest_area(struct vcpu *v, struct guest_area *area)
->>>    {
->>> +    struct domain *d = v->domain;
->>> +    void *map;
->>> +    struct page_info *pg;
->>
->> AFAIU, the assumption is the vCPU should be paused here.
-> 
-> Yes, as the comment ahead of the function (introduced by an earlier
-> patch) says.
+> +
+> +    VPL011_LOCK(d, flags);
+> +    *r = 0;
+> +    VPL011_UNLOCK(d, flags);
+There is no need to lock/unlock here.
 
-Ah, I missed that. Thanks!
+> +    return 1;
+> +
+>   bad_width:
+>       gprintk(XENLOG_ERR, "vpl011: bad read width %d r%d offset %#08x\n",
+>               dabt.size, dabt.reg, vpl011_reg);
+> @@ -486,10 +494,11 @@ static int vpl011_mmio_write(struct vcpu *v,
+>       default:
+>           gprintk(XENLOG_ERR, "vpl011: unhandled write r%d offset %#08x\n",
+>                   dabt.reg, vpl011_reg);
+> -        return 0;
+> +        goto write_ignore;
+>       }
+>   
+>   write_ignore:
+> +    if ( !vpl011_reg32_check_access(dabt) ) goto bad_width;
 
-> 
->> Should we add an ASSERT()?
-> 
-> I was going from unmap_vcpu_info(), which had the same requirement,
-> while also only recording it by way of a comment. I certainly could
-> add an ASSERT(), but besides this being questionable as to the rules
-> set forth in ./CODING_STYLE I also view assertions of "paused" state
-> as being of limited use - the entity in question may become unpaused
-> on the clock cycle after the check was done. 
-
-That's correct. However, that race you mention is unlikely to happen 
-*every* time. So there are a very high chance the ASSERT() will hit if 
-miscalled.
-
-> (But yes, such are no
-> different from e.g. the fair number of spin_is_locked() checks we
-> have scattered around, which don't really provide guarantees either.)
-And that's fine to not provide the full guarantee. You are still 
-probably going to catch 95% (if not more) of the callers that forgot to 
-call it with the spin lock held.
-
-At least for me, those ASSERTs() were super helpful during development 
-in more than a few cases.
+Same as for the read_as_zero, the size is unknown and shouldn't be checked.
 
 Cheers,
 
