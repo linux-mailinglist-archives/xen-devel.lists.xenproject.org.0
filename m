@@ -2,38 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49EF363D754
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 14:57:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449906.706944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42DAF63D806
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 15:26:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449913.706953 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0NZw-0005JP-U5; Wed, 30 Nov 2022 13:56:48 +0000
+	id 1p0O1n-0000rV-5n; Wed, 30 Nov 2022 14:25:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449906.706944; Wed, 30 Nov 2022 13:56:48 +0000
+Received: by outflank-mailman (output) from mailman id 449913.706953; Wed, 30 Nov 2022 14:25:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0NZw-0005G8-O1; Wed, 30 Nov 2022 13:56:48 +0000
-Received: by outflank-mailman (input) for mailman id 449906;
- Wed, 30 Nov 2022 13:56:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p0O1n-0000ot-3A; Wed, 30 Nov 2022 14:25:35 +0000
+Received: by outflank-mailman (input) for mailman id 449913;
+ Wed, 30 Nov 2022 14:25:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NcZi=36=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1p0NZv-0005G2-4h
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 13:56:47 +0000
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [2a00:1450:4864:20::32d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id cc86d7fe-70b6-11ed-8fd2-01056ac49cbb;
- Wed, 30 Nov 2022 14:56:33 +0100 (CET)
-Received: by mail-wm1-x32d.google.com with SMTP id
- ay27-20020a05600c1e1b00b003d070f4060bso1454085wmb.2
- for <xen-devel@lists.xenproject.org>; Wed, 30 Nov 2022 05:56:44 -0800 (PST)
-Received: from [192.168.23.148] (54-240-197-225.amazon.com. [54.240.197.225])
- by smtp.gmail.com with ESMTPSA id
- g8-20020a5d46c8000000b0023662d97130sm1673991wrs.20.2022.11.30.05.56.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 30 Nov 2022 05:56:43 -0800 (PST)
+ <SRS0=nhrb=36=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1p0O1l-0000on-E8
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 14:25:33 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d7721899-70ba-11ed-91b6-6bf2151ebd3b;
+ Wed, 30 Nov 2022 15:25:31 +0100 (CET)
+Received: from [10.10.1.154] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1669818321344846.5741021890385;
+ Wed, 30 Nov 2022 06:25:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,94 +40,99 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cc86d7fe-70b6-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to;
-        bh=JJCTMIqF448FJLyxITwgMGZvlQGJ1mGh31rovw0F9WE=;
-        b=UkOYn5dkaxHV8op/sI1h8z338WQK7lhezmBhf/ENNFoPhN7Ir5TwMjUHd3PU3UqaPA
-         /RX9ixfy3iwJIDrNBSKjZIL5EfVPRmt2dL2KwqQi5NAwfuZeBc5Zg5sGu2a3ioOo2KHx
-         AcUcm4GjTSy6xv0p5IFsyHTPOuu3T3lg49P5KsehgKTxrbpm2m9VIEOPiL/I6oJCq8hh
-         ot72Ht8mueCy9VK2r8HbE1WXlTPbISpJPMVb9z0R0MulEMrp3f23wXJ95+BHBugl6Vkd
-         ImytgSI6MwvrD1/uhb/YCpQJTmwos5oB15L0Uk8NY+d2pA1qTbZdObPtTPt/2V2HZd6s
-         0O9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JJCTMIqF448FJLyxITwgMGZvlQGJ1mGh31rovw0F9WE=;
-        b=Z60C9RweU2Zh8hn4Ant1M384G1BxF2uJhn2cG0IxuIJNPDxNY9UgQm5rQoXNpfVWc6
-         41P8WuRu+N+O8Dj5/iM2c6IlxYO2hpm8wcRgy4I0Grm1vghTXWej07hOWlskk59W9+Ci
-         3FNWbxB4zjzUb3s5ohbg8uE3d/4ov22Jg76iG0GavtrowddZb86dVaAeGrdYZkzlSwZJ
-         Z6Z53bhLfRYwdJ5WVkNpXLTPtkwcxpiAYQ6cmL6H3pby4Kak+KmmeULfiz1xXr5I0tX+
-         dV89ZX42oXa5ZhneMG0PJKjsbhGsVX/fEgiXw+4LSbxN91W9z6FeYWq2rvy5MsCwzIsE
-         vLWQ==
-X-Gm-Message-State: ANoB5pmm5pRdF392z1DXxyeNsgec/uZX30HMXWAeAK6tCdt293iugv/d
-	zR0fGz+xLLfheFfVnM9Fvik=
-X-Google-Smtp-Source: AA0mqf5RuqhW7TvmQbTm1OmbDzH2pQ04E1xdPZA6bRiGZp6y7j10d09oNV9zrk3znAgW5yQw/PaL5A==
-X-Received: by 2002:a05:600c:2302:b0:3cf:a3c4:59b3 with SMTP id 2-20020a05600c230200b003cfa3c459b3mr37573664wmo.198.1669816603925;
-        Wed, 30 Nov 2022 05:56:43 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <b4f6191a-ddc7-86c3-83e9-7587b566dce2@xen.org>
-Date: Wed, 30 Nov 2022 13:56:42 +0000
+X-Inumbo-ID: d7721899-70ba-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; t=1669818323; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DAiV77C3l9KkiRJXUqaVkHfs09E+z81dGBZbmpxlu3OTtTPFSCV0R4iJIliHdctNwO7uc1jWn/+99rZrrGuc2eDk81Y9Sx9V78f4KOgPH/xb8zOxNWydKmMArtnN/Hyhi2V78QEmuc9L4Ro5nXRLwVK3eWd28HfgiQd+ayZlaiY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1669818323; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=g7TipV0I7Gy5yDaSXWreS2VrBfDhMbzklK2sAAD97W4=; 
+	b=FmXE7edscpaY07Qt29BCtzKXHuhRQqRTWeo8fdGb4Bn+8zAkrtW8pQLiB33HOPfYKT2OSdz4GzElLw18zfQLpDKJrCHPQXhNaqaF/qd1Cgg8eT7a2Mw4BPE2qvlYK065BoYd/nI1jeW6GTKk2xQ36ISGNnXEqF6Tj2i+WpOurW0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1669818323;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=g7TipV0I7Gy5yDaSXWreS2VrBfDhMbzklK2sAAD97W4=;
+	b=qnCrwdHaCBfvSYWE/E+32aJmd3ybYLF1EAev1sWMe/0PcD5jKGBgNcotqmjpWUel
+	59+CtaN21VfD+upTotZQAjPVQNpBllKGjnRqNvEwTe5SXEBBloTbQNZB0Fw19CEeGYS
+	fMkKxJoFfOENMxnVHHyvepK4Oevbf4jkLWFNFGJQ=
+Message-ID: <ef7de705-a5e8-0728-f567-9ac83a2b3efc@apertussolutions.com>
+Date: Wed, 30 Nov 2022 09:25:19 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.0
-Subject: Re: [PATCH] ioreq_broadcast(): accept partial broadcast success
-To: Jan Beulich <jbeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>
-Cc: Per Bilse <per.bilse@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-References: <06ad4b3a67a15192fc986b35e3f2fcd35b2f4c2f.1669383767.git.per.bilse@citrix.com>
- <d7a42f21-6dd3-108e-9278-74d756d941e6@xen.org>
- <fdc2eb93-2b8a-f3c9-82b0-5d4e90ecda9c@suse.com>
- <Y4SWTceb13wfRimb@Air-de-Roger>
- <f3d00a16-3cf3-9cad-60c3-84eb455a3323@suse.com>
+Subject: Re: [PATCH] x86/mm: PGC_page_table is used by shadow code only
 Content-Language: en-US
-Organization: Xen Project
-In-Reply-To: <f3d00a16-3cf3-9cad-60c3-84eb455a3323@suse.com>
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <df240766-7a57-d9ce-f0a9-697fc470e1f5@suse.com>
+ <4fef5b0c-4463-cd6f-15fc-47268505517b@citrix.com>
+ <96f6a943-0e1e-7399-fe83-56a550d47bf6@suse.com>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <96f6a943-0e1e-7399-fe83-56a550d47bf6@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On 28/11/2022 12:26, Jan Beulich wrote:
-> On 28.11.2022 12:06, Roger Pau Monné wrote:
->> On Mon, Nov 28, 2022 at 09:21:47AM +0100, Jan Beulich wrote:
->>> On 26.11.2022 23:19, Julien Grall wrote:
->>>> On 25/11/2022 14:15, Per Bilse wrote:
->>>>> This patch modifies ioreq_broadcast() to allow partial success.
->>>>
->>>> The commit message is quite vague, so it is hard to know what you are
->>>> trying to solve exactly. AFAIU, there are two reasons for
->>>> ioreq_broadcast to fails:
->>>>    1) The IOREQ server didn't register the bufioreq
->>>>    2) The IOREQ buffer page is full
->>>>
->>>> While I would agree that the error message is not necessary for 1) (the
->>>> IOREQ server doesn't care about the event), I would disagree for 2)
->>>> because it would indicate something went horribly wrong in the IOREQ
->>>> server and there is a chance your domain may misbehave afterwards.
+On 11/30/22 02:52, Jan Beulich wrote:
+> On 29.11.2022 21:56, Andrew Cooper wrote:
+>> On 29/11/2022 14:55, Jan Beulich wrote:
+>>> By defining the constant to zero when !SHADOW_PAGING we give compilers
+>>> the chance to eliminate a little more dead code elsewhere in the tree.
+>>> Plus, as a minor benefit, the general reference count can be one bit
+>>> wider. (To simplify things, have PGC_page_table change places with
+>>> PGC_extra.)
 >>>
->>> In addition I think ignoring failure (and, as said by Julien, only because
->>> of no bufioreq being registered) is (kind of implicitly) valid only for
->>> buffered requests. Hence I'm unconvinced of the need of a new boolean
->>> function parameter. Instead I think we need a new IOREQ_STATUS_... value
->>> representing the "not registered" case. And that could then be used by
->>> ioreq_broadcast() to skip incrementing of "failed".
+>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >>
->> So introduce an IOREQ_STATUS_UNREGISTERED return code and don't
->> increase failed if buffered == true and UNREGISTERED is returned,
->> would that be acceptable?
+>> Ahead of making this change, can we please rename it to something less
+>> confusing, and fix it's comment which is wrong.
+>>
+>> PGC_shadowed_pt is the best I can think of.
 > 
-> Yes afaic, but Paul is the maintainer of this code. And of course the
-> new error indicator shouldn't surprise any existing callers.
+> Can do, sure.
 > 
+>>> ---
+>>> tboot.c's update_pagetable_mac() is suspicious: It effectively is a
+>>> no-op even prior to this change when !SHADOW_PAGING, which can't be
+>>> quite right. If (guest) page tables are relevant to include in the
+>>> verification, shouldn't this look for PGT_l<N>_page_table as well? How
+>>> to deal with HAP guests there is entirely unclear.
+>>
+>> Considering the caller, it MACs every domheap page for domains with
+>> CDF_s3_integrity.
+>>
+>> The tboot logical also blindly assumes that any non-idle domain has an
+>> Intel IOMMU context with it.  This only doesn't (trivially) expose
+>> because struct domain_iommu is embedded in struct domain (rather than
+>> allocated separately), and reaching into the wrong part of the arch
+>> union is only mitigated by the tboot logic not being invoked on
+>> non-intel systems.  (Also the idle domain check is useless, given that
+>> it's in a for_each_domain() loop).
+>>
+>> It does look a little like the caller is wanting to MAC all Xen data
+>> that describes the guest, but doing this unilaterally for all shadowed
+>> guests seems wrong beside the per-domain s3_integrity setting.
+> 
+> Question is - do we care about addressing this (when, as said, it's
+> unclear how to deal with HAP domains; maybe their actively used p2m
+> pages would need including instead)? Or should we rather consider
+> ripping out tboot support?
 
-A new status code does indeed seem like the cleanest way forward.
+This would break a significant number of production deployed OpenXT 
+derivative solutions. I would respectively request that a middle ground 
+be found that will allow the capability to remain until TrenchBoot has 
+had time to build a Secure Launch for Xen that mirrors Secure Launch for 
+Linux.
 
-   Paul
+NB: I have a long list of changes for the tboot code but have opted thus 
+far to let them lie. Mainly as they would be hole patching that would 
+mostly be tossed with the clean room implementation that will come from TB.
+
+v/r,
+dps
 
