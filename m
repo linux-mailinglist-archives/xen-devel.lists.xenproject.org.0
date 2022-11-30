@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65F7263D98C
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 16:37:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449957.707017 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65DCD63D999
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 16:40:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449963.707028 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0P8K-0003Ki-Kh; Wed, 30 Nov 2022 15:36:24 +0000
+	id 1p0PBz-0004mj-9c; Wed, 30 Nov 2022 15:40:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449957.707017; Wed, 30 Nov 2022 15:36:24 +0000
+Received: by outflank-mailman (output) from mailman id 449963.707028; Wed, 30 Nov 2022 15:40:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0P8K-0003IM-Hs; Wed, 30 Nov 2022 15:36:24 +0000
-Received: by outflank-mailman (input) for mailman id 449957;
- Wed, 30 Nov 2022 15:36:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p0PBz-0004jH-6j; Wed, 30 Nov 2022 15:40:11 +0000
+Received: by outflank-mailman (input) for mailman id 449963;
+ Wed, 30 Nov 2022 15:40:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Jz7r=36=arm.com=Bertrand.Marquis@srs-se1.protection.inumbo.net>)
- id 1p0P8I-0003IG-Dk
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 15:36:22 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20626.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::626])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bca3f97a-70c4-11ed-8fd2-01056ac49cbb;
- Wed, 30 Nov 2022 16:36:20 +0100 (CET)
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com (2603:10a6:20b:85::25)
- by AS8PR08MB8899.eurprd08.prod.outlook.com (2603:10a6:20b:5b6::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Wed, 30 Nov
- 2022 15:36:18 +0000
-Received: from AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::58db:2a7f:e8f5:92ad]) by AM6PR08MB3784.eurprd08.prod.outlook.com
- ([fe80::58db:2a7f:e8f5:92ad%7]) with mapi id 15.20.5880.008; Wed, 30 Nov 2022
- 15:36:17 +0000
+ <SRS0=bCy/=36=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1p0PBy-0004jB-D3
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 15:40:10 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20613.outbound.protection.outlook.com
+ [2a01:111:f400:7e8d::613])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44273ee9-70c5-11ed-91b6-6bf2151ebd3b;
+ Wed, 30 Nov 2022 16:40:08 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by DM6PR12MB4122.namprd12.prod.outlook.com (2603:10b6:5:214::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
+ 2022 15:40:05 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::62cc:47ae:a750:8f57]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::62cc:47ae:a750:8f57%4]) with mapi id 15.20.5857.023; Wed, 30 Nov 2022
+ 15:40:04 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,206 +47,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bca3f97a-70c4-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 44273ee9-70c5-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kSoTiLcoIkt1NMCLEwtwt1lv4pKil5mTv96diNvMKFqSpUvEO6oVw+yNJtxDgAxk2RQXAKOvdNzF0l39mGlO4KoFCFVH3WgaEbiZc5kkYMUSzAoVzvpQ5kGo+eoEKNxA8xaMQMl2Swgmm6JSFrGq8dpJJr40aVIbZ+gJxCTo1CODm4tdOsnV/+AfqUo75zgaqr/8akrMUsNZ1rTfmuTOOifEGOOY/bxYVZ+qaqnHR2Bf9SV+ljN963pYIBKvwsNCPZFT9e1Hc+co2+ew3b4dalAbL+f0eM+GgSu83IWvoe73ph0SWTjUX3q8ozyg+vGFYICOPXSLEYiK3pk+9kkd6g==
+ b=aA/4V+R096bOZw7VP6c6KTnvid8j2iOZXqGW/dAQdxRC1s3QM2ftb5z8MXETNS8YrCOx5VgIthmRthcVr8g4GTOPJKAhJl/Auv+sQnyJxupIGRezrwOYPj21HnQiQ4fLDskg8OcUQ9532e8p1Bi396Te+k48nEw4r1elyuCZaJM5tO42n/qJK8yAs7Phx+osv3bvIEjiu31jdzjlCZP1kps/WOGvViJv/Iguo+gq/XLI6z6Fg1VGJagFVCD2+TXjn8yXesZXSThN0dScLbGOCujHk47CcnaGolSZLbFs/h4awJVn1guPtS/RuscChlNL9pcoCURuE8/DfUE0h9MFlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bepxMMEEnDWs2olTHgnFgMjnFmMkMh2OKKHr5pkSSzM=;
- b=huBTy8jimj9cjb95EOhxgT3KMYHRctO+vCfOuNc3V0sBzo1vxaeTc9MVZHAW5x3IKbUufOhriE6Ppd7E4f6l+VWkeEH1zXwPqFw4TKBejvrUOjQlDmlRw6NrXD+iq7O8sh4VEk3fl6392u/PBCcAAkZw7EJGPC5GHFgeBiJWeE+Q8b3XmiHcyEk/9PSaujOfJbK1wbweZZLLlpDIiaukb3ASMw9g3XVMYKidwiInWHbBpRtOxp1fFu50GKg1dzvX5Q3aOWnjvbDxGQ7vrULptzuuaYXrHFYcwpmwuX/KLBcy6r1/RADMzkIOe7O+gn0dSPjHtyX9jYTvGx2yZcLxvA==
+ bh=VBPPbwHQ/BQhnGWLh/VK0JmYCz9NG3kdBrOefXvuwQs=;
+ b=l7G0OCo7d//lRCaPY2TwWYmUM0DEBivegW8bB/z6PYv1D+vbt0sNTwOJc3m2USasb7k/omMla4prX1GKCf0+XPgwQnpaGTJht01wKyZiwPxXDmZ7na36EKEoQ+pdGaIdTfzBRaNzCwAlibkQTVwySyjUOCdcnsQkVd2J+0B6lLzbP0ZPLTbdFFcfWKHRRA9Tt9xTmIAc4OrExFqDeEwvjO58j2cOt8wYQm4RYwJCbucI0sEDemTdjfgQk+Eccd82FrMkDDsyoRg3vgQfn/nlqDqutLof/4PA8tumKbepi93L5qTKnYco3sPHT5uAkT8wJEN4tmXtturE6LQxgcumCQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bepxMMEEnDWs2olTHgnFgMjnFmMkMh2OKKHr5pkSSzM=;
- b=yJYXKS01e5Ymw4KytnDIrlh95zcGuqnsskdnN8HL8TfSHHNqnVeyxRf4BMhEREHqDjpsNrSKR1b1s0SRcg+q73h58KR9PP+9SEdEoOq2iMpCEzgs9TVE2FAeqaO5nRD0rsEIH8QCORzPHGwL4UGsXEWxDHKmiLVPM/a2vzSVEkk=
-From: Bertrand Marquis <Bertrand.Marquis@arm.com>
-To: Michal Orzel <michal.orzel@amd.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Doug
- Goldstein <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v5 3/3] automation: Add CI test jobs for Yocto
-Thread-Topic: [PATCH v5 3/3] automation: Add CI test jobs for Yocto
-Thread-Index: AQHZBLWHjw1n6cWydUSV320FMd2tla5XbqkAgAAi7oCAAARRAIAAA6UA
-Date: Wed, 30 Nov 2022 15:36:17 +0000
-Message-ID: <EB813F87-8B8B-4E4B-A99B-6B6FD6714B6D@arm.com>
-References: <cover.1669810269.git.bertrand.marquis@arm.com>
- <e64015d3e8682d068223e94f3bfc8ad823b27a65.1669810269.git.bertrand.marquis@arm.com>
- <e453dd21-5fbd-5edd-2269-29c72a70299f@amd.com>
- <C03FF185-AAC7-4E06-8505-876BC17F800B@arm.com>
- <7310c943-4402-745e-c012-077f7c520c2a@amd.com>
-In-Reply-To: <7310c943-4402-745e-c012-077f7c520c2a@amd.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR08MB3784:EE_|AS8PR08MB8899:EE_
-x-ms-office365-filtering-correlation-id: 1dde8047-276a-4756-e3e4-08dad2e89f76
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 9KKtdtKjdPNTYgzKT1RdASuSWYSHlfqSj58X/ap6ZkVdsKIbTu3dpMUqG4YFMfLWl88j7E5Ou9z0ekHlvJ3MT3oLHI1bPB2R3t3sycAWCASnCcxP9ZcqbPGzS6+qumXcostCvl3xneGkJgMp6nCqO1ECdeYyiRWgKuJxJCoLZBXJRftLUORSG5ZAFduzPh0/f7mxaMQnOFYcztf6mQOfzRZKsN+eV99II+ujxj2wxL8oKp7ltHPlgMKrFzBthu/Xrx0SVQW+UYrDz8GC4NA49LHK557QcEPTFLswmzCIebeQDWOO2zVSWGwKIM1RunbDxZTBlGpI+AqBcHneC5IZecEv0x094CfSQMXwB2ibXXGtYJ/1RInsuNbeiKmiH2voxWuDxLWBdDdTCo/g69iy/PusXjwjLwyaaVO+zNAW2R8S62sc3TeIwWPJOHwOr1s3P0KdcgRRZZQEPgwzGCA+Dc7lxJbUr/tfy7C19bv9M1PrmthC3VmD8EINYK95xKLcHg19iA/C0UzYGW6HhJ7JhDp1fZYsnfGSUzvj3tx/J2pd118u2pcYHyzXVD27s9XqotWsvy4kLG7SPa5Z057ByT6/s0gHF9AoSX5eQiWZ08ih6IIhIbZIunQ6vaRRj7y6eLPxL3iC0I7GYOh+K/UJdwxkWi8cBg7+yFaSEmvLRqzJGGJXJGl9B9dAJX9dptX6XZoZgLywAmruvMaMgLHcWf+YUrKfq0XTwHaqWtAaFuQ=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3784.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(136003)(376002)(346002)(366004)(451199015)(38070700005)(33656002)(36756003)(86362001)(6916009)(54906003)(316002)(6486002)(71200400001)(478600001)(91956017)(2906002)(66556008)(66476007)(76116006)(66946007)(64756008)(41300700001)(8676002)(5660300002)(66446008)(4326008)(8936002)(38100700002)(122000001)(6506007)(53546011)(26005)(6512007)(186003)(2616005)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?yG/L0XLrpzh3ZQ8rI1lwH/jhOcPY6o82gFZwz8KMckT8ota2221WOB50BO4a?=
- =?us-ascii?Q?ZKvHjpPuJf9WmR9qN6ieopzoJMHwU6gRcwS2rwAO1x7V+a2BpJoEP0tGGLbR?=
- =?us-ascii?Q?t44XjZmFYSuqv78DAB0mmqFSga9hIZP5hwSkNglIJ1+g1c+BMamdS70L6KmC?=
- =?us-ascii?Q?NVx/FIvzYijOvMJNd8cZPoaoVE6hAEeG1OCeK5SnInKnPqJ4GRfLfzZpZMHJ?=
- =?us-ascii?Q?lRe9evU4nMnn/MNxI27lecRQFDuGtVrlr2qRJeFVr2lt3FMTHIgqFVUuhPS6?=
- =?us-ascii?Q?15lI4w2R5Ib9PxfitFvwvvHj67gg8BlwYzNpfMiQKXaQocgjC2N0SiJdkuAQ?=
- =?us-ascii?Q?SeHnI93zGEZFEzkaNDTX4NOqKbWCFxciCEOsqwJrTGbYCfjib14/0KgkAGg8?=
- =?us-ascii?Q?aDHHgLQg1bImCZvb7WxR7U4NJiNpqgzP3No6M38/MTXx4RgFpUMX0fhM+Qn3?=
- =?us-ascii?Q?x2zAkyJC60DoD3jzWPDok3ZNqwPwLR3KsoV2kGrvHlBBqO75pGHW/rAXPEKH?=
- =?us-ascii?Q?O0MQylFvgc8H2ryFt0Jij4sPI71hy+MjHkBXaCw1RUYuPATiZC9gv3q6wvw8?=
- =?us-ascii?Q?eloob17US6BKcb9o3CMQ1egcw070aN8NdW5VQprewiwmovO2ZLVnc6qZ4L93?=
- =?us-ascii?Q?2gCbcjxofm8f86nM10DqWT3+aUo98tn5gHohkqpIxb9IakOybJ6hwHdWygz4?=
- =?us-ascii?Q?zw7uCseK7X38zwBGDerEvldrMsv5h3+fRJNqLuwy8LE74a4rAdzlE+vVsJYg?=
- =?us-ascii?Q?Tbid+d6BinIH5mEmGHoEtH97qTJT97h1cigBh5jCjbdCbBO5po89OB5zz1Ew?=
- =?us-ascii?Q?+LyGEZ1G0qGchYa+2HYUknvN3MfHiLATRbuAREa1KwKvC996can13zLCLXqz?=
- =?us-ascii?Q?0y6UWM9i8bs5qzNA29kSWnDcjWrkdnS/SbMR6U3uW9PEGBq+M/Fh9Gos9wSb?=
- =?us-ascii?Q?vg1BQFJPkoulEzRDt3rxO66Ad0W1dzP6p7PqRr8k4//C10nbENRUMLJeSP0e?=
- =?us-ascii?Q?Ij4VC/MkBzGTYuMaf0mPWnCQRMXlWlCeeCayqmmQ1XBryazAnLUwWlxSpMSi?=
- =?us-ascii?Q?KKRWgrNhMAryCYARD8TJR+LhdzMR29kEkaodnD4jJWZRIhuyfyC+xzVspK+/?=
- =?us-ascii?Q?lzpMN/hZ3jRwPPJRoUWP8MnL3lR1L2WEpBQw8z5wR3AefzN8vrUwsmU3vF2O?=
- =?us-ascii?Q?iERkQwwF2F7GAV4wJfemkwjJtBT4YvFVwmzeC7Z9/xwA95jbFTuz+IeDLaMP?=
- =?us-ascii?Q?bjbaJtBd24voomnR5RctvK/E7ibjMcPhcGBXI4tZ+4E2Qta7KoWqQvE27wiq?=
- =?us-ascii?Q?Wj8wlz79rqj6deyAuJegLpq1qaaR73AfPScnl2VlbZqBmGCo22QYLu5pcUK0?=
- =?us-ascii?Q?a+sazl4kMXuSqVne+ELcXc50UI9TW0KsmEfUI3fTfrv50tGVSkGa1+I1JkaF?=
- =?us-ascii?Q?aiw4vJEKHaMOKbkWHzR3hFtFQM5yK49dmBjMf0TdVKlWmEMZUIHaJTUxHG59?=
- =?us-ascii?Q?E0ZXl1xxZ3R0tjobJpMUA+OOmvNR5URPewZ2M/XTVq+MX/wwQ5fYYzvao/7e?=
- =?us-ascii?Q?JDP8Rg2Se1svUyiE5ilJc4dYbBwIJx747QpJkbChsJM6ssG38BLDmVqtLCw2?=
- =?us-ascii?Q?DA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <6A9A2FED89D51143869A2BA322F92540@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ bh=VBPPbwHQ/BQhnGWLh/VK0JmYCz9NG3kdBrOefXvuwQs=;
+ b=c6VK0+nAt5OrsA1v1sqATv4925HLZsDBTJCJHlJr1fYq9tthicSPMaYyguCcMjXA4gusK8sq72Yb9HQm2XhMtkce29xgb/rMK3XpPn0WbjzOp+eGO18xKb3J+ZIr9IpH78peHnDZxpybuHv/zXPOdLL9oAOuxmF2ph+8D+Lz0gU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <4e84c85c-7e2f-38b1-a235-5323a77738e7@amd.com>
+Date: Wed, 30 Nov 2022 15:39:56 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+Subject: Re: Arm: AArch32: Need suggestions to support 32 bit physical
+ addresses
+To: Andre Przywara <andre.przywara@arm.com>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ "Stabellini, Stefano" <stefano.stabellini@amd.com>,
+ bertrand Marquis <Bertrand.Marquis@arm.com>,
+ "Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>,
+ Rahul Singh <rahul.singh@arm.com>, Vladimir Murzin
+ <vladimir.murzin@arm.com>, Julien Grall <julien@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <70651dbc-085d-706d-17d0-a419086a0700@amd.com>
+ <a352eb18-0ae6-a1f3-08e6-87f53494ad8a@xen.org>
+ <65891843-db28-e5dd-6e9e-3fb003fcabc5@amd.com>
+ <ddeb7a03-cab3-2a26-7f64-3a1b5f0882d6@xen.org>
+ <105a0d45-5b3d-7986-92c1-9a13eb803bd8@amd.com>
+ <22d28805-8889-25e9-6d18-c868bf5e51bb@suse.com>
+ <20221130131316.13ebf9d1@donnerap.cambridge.arm.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <20221130131316.13ebf9d1@donnerap.cambridge.arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P123CA0226.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:1a6::15) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM6PR12MB4122:EE_
+X-MS-Office365-Filtering-Correlation-Id: b1778186-3545-4291-16cd-08dad2e926d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	8Nu/T9ZdtKp8b58mQDV/Z+LkL8Uw3Cyj5WZCV5OTQq2UkGJBEmeREh+VpMuEOgjpIf5ihEVuBUWKFEHMZNzo2Th7bvNTRSUDIn89A+AoAXRiFfGvpvRXEOs+81Q+WZqX42dUVu/OxRmGYm6fE5+DHVxAyupg63E6CEhYotAgk47EGz2W68jARZVbYM4kdUHeuXUuJNA/pY2IEWKHAzJTkN7+ZvOzN+EgA92IOZ3lckkKIAi9L5RHqockBj5YjlbiSA9N46I5UcPIFAAFVAgZVYNqyID3XaeDseTPAJEl4IUAQ6FSp+eFyjHxPJlGATzoW39YZuWzSW6X14gTZp0pnQgT2dwea5O4PqV1n2aMDF4JEP0r/JyjTrXfpcpbaP+/uuff7VAWkOmiSzItSf17+9uVfNM+Ecv+w18bsNknOEjKVE6z/JGghx+pdC4elkkkqYQLQ2L7YC3G1hzSbff+V4EGCjkvUMaETeDSrXzAOzhRJP9FifvQBypWa74xJ0XVP+Ajb4L2K3623GvUuFXYwEYimD+UxCgLDKcbAOfHtzklHXefEGrxZnMHJVKM3GZh1lYVNrjABN9mujE2NwW/UF7hqZ5JREogW0eIuctGyjOZL0mmnczCT6uxFDO3F6PyOJqSoSztV4omUjMKL16v4gDudg4AtkKnv26WuxVWQNhqagSEms0ntxHlFxkQ/qVEuZNKdQ++m0ZLba+zzarFmwCFuaxiLJQsQ63ZwGPnWNk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(396003)(39860400002)(366004)(376002)(451199015)(6506007)(2906002)(31686004)(66899015)(66476007)(4326008)(66556008)(41300700001)(54906003)(186003)(36756003)(316002)(8676002)(110136005)(8936002)(5660300002)(478600001)(26005)(66946007)(6486002)(2616005)(6512007)(6666004)(31696002)(53546011)(38100700002)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Ry83T3hta2hsSjFCckpMR09IN3BkK3RLeFl3TDJoSmdjaU4xdStyeE1BSzFO?=
+ =?utf-8?B?WjltQUUwRXlaVmhQd2ljdE1MQWp1R1RQcDRvU3ZCcmZvemxMVWx5Sk44aFdP?=
+ =?utf-8?B?TTl2NVpZVHpaMTRoZFQrNzVTbCtBRjM5bHFBZjByK08rWXJuZHJsZlluRWI2?=
+ =?utf-8?B?T0crUWpKVStxNks4aFdnZll1bDI0T2ZZZGp0UmU5eUlXaG1wYzRuZm9zeXFC?=
+ =?utf-8?B?dDlMUmRPa05LcDZvYm1UYzhYQ3l2SXNENTZrTGpaZ2tIUTAxR1lZelp4YkJv?=
+ =?utf-8?B?YlJOdWJhNzArcFBPdzNRNmN4Y2UzUlRtc056SGQ3bmNvTWQ5QVhpa1VyYjJ2?=
+ =?utf-8?B?RDNqOWZOZVZKVlFkd1hxWTlWUDBMWXBQM3VNRzkzcGpyd1h5M09rb2RsdHho?=
+ =?utf-8?B?cXBLc25HcTRBQWtaRThiTEtLbHNUSGRKS2F2M3I4YitwY3JidTB0MGUyNE1J?=
+ =?utf-8?B?a1JHT3VHYTNQcktzdFdqSXBMMzhwU0RWMVpMbGFFVExhZFBqNG1GK0VTRXJk?=
+ =?utf-8?B?Z2E2RWs5YjJyYWU2MDB1WXByNHc3UDFRTmpFSEROaURzQ3Y4dGtLSmhmVmtv?=
+ =?utf-8?B?S0FsU0NKZWNBMC9HZEd5M0VyTFpPUHNqVkRzU3ZybGtOaEpoWGRpbE15aUc0?=
+ =?utf-8?B?QUVTLzAwdC82ZVgyUWtzdHcrajJwcUJyZEh5QnVoUzVxNFlMMFU0S2VlL0tR?=
+ =?utf-8?B?SzlVNkpLb2VoOE15UFZyKzcrYnZvazBzcEljMFhXZEFNYy80cUpiVnFkMzgv?=
+ =?utf-8?B?OVhtYUhRQkw3eW56VmJSRnQrenN0K1l4aklxUjk5NVdHTmE1SHdTRnFuRmpz?=
+ =?utf-8?B?cDNvU1JEblhXZUFjNEhwa3J1R0draTliZU9MWWtDdU9EN1hjRjhwbzhjZ0xu?=
+ =?utf-8?B?R1UxUDNWVms3eDZUb1Z5ZWcwdTBpRWR1MjB5dWdOREt5a1VqbndlSW95S1FP?=
+ =?utf-8?B?Q3dYUUE4bGdVVnF4MGRiZUVUN09iV25JL2V1cnFLT0dWdW52SU4yZGRGdVpK?=
+ =?utf-8?B?c2R3QmNEV1lvN1hRaVE3S1phRkI2NXYrZWFTRTI0RU5QUUlJaEZkeE9sMDQy?=
+ =?utf-8?B?eEp3RG1EckN5dE5RQ2ZuZHZwK1FkYlNwWHhHZjdmR0xmUkRBcHMwM0lCUjRI?=
+ =?utf-8?B?aDkxbEk3VllFN1JtRk1RZkYwR2dhRkxlSExyY0loNFdHVEFCb1c3SzRGRHRH?=
+ =?utf-8?B?cXBjYVdJVWhDM2tQQnUxclpkNTNrOG1UZjl4aTVHOVZSNmVuSTM0WGFiSy9F?=
+ =?utf-8?B?VnR4bDFoVWYxZnZWTGNFUDF6Vm0xQ3VUQkkvb0xHUk5UWGxFTUdNWEg4THMv?=
+ =?utf-8?B?ZElqam52WkFWdzRjQ3dyRUJoWjhQcGhUWTUxYVpLTzJ4UnliazBreWpDU0pN?=
+ =?utf-8?B?bWwwa3pjSVpoandGS0hZT1hWM3F0NzluVU1SNjFwRXJLY2VpYnRHbW8yS2Fy?=
+ =?utf-8?B?YTdGZ3Vaa0YyYlFtbkhaK1h3ZVdwRzlnUXI0ek80YzE1ekhYNC9ya0NTcHQ5?=
+ =?utf-8?B?MVowK1I2aktyYWRjNnh1ZnBGZUdGMXhYNllRaEZiQ0JYSHpqTUxGTGgwMnFw?=
+ =?utf-8?B?bDRjaTl2UGplWTUxTGpPYnB2a1hXeDVSTkhrejJvSVhObFJoUzM0VS9VSXVm?=
+ =?utf-8?B?NnVDT3pieXFvY05MNXg0d05PYThDRTJVMWFrS3UyOTJGRjRGS05TSHNZOERx?=
+ =?utf-8?B?dUJGOVpjWUJMU2lxVUh3QkU1aCtaL2t0QzNtdGdWVG1KRVZkeXNKL3RrczhR?=
+ =?utf-8?B?OU84Z3VWV2lWWENJMkNMR2twd3BMRHp5L2pvVmtoZFB5ckVFdVVYMmxKWXZQ?=
+ =?utf-8?B?NmtPU0U2QmlHRWRLMVA5elF5eGdMNkV6eXJiUyt4QnZyaXRxYXoyckdhWlQx?=
+ =?utf-8?B?NlRRbzZuenpqZFJocWpxQnZDSDUzWHJnMUVNQzJIaGhGN3hMSlg4NnVKREhl?=
+ =?utf-8?B?VnBCOGJ0cVRUcTRGaExUeGZRZlluYVFhek9Ha0sxYzVhSk5oR25UeGg2RnRT?=
+ =?utf-8?B?ZTJFTGd3N2NnQ3Y2bXc3WFB0SnIwSXJOUmNRWVl2OTFwSnAzRzFOYTZSZnUz?=
+ =?utf-8?B?QTZqS1pnVm8yRkh5NTkzRXlDUkhMY2plbytrL0c0cHMybWhKZ1JkeTNwbHJz?=
+ =?utf-8?Q?KGhT1vQS+BM/SlHdNclM4Lfp+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1778186-3545-4291-16cd-08dad2e926d6
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR08MB3784.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1dde8047-276a-4756-e3e4-08dad2e89f76
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2022 15:36:17.5336
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 15:40:04.8999
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X+HwLURCvGmiEz+v53gP03fDlLN/hQisDtlN4Ygrz03jBoz3hsie09TcUF9FbDiatcLW8eOEGzNDcp0ujMVrNZHJ5voFmXukB46GSA9ng4U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8899
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 04p0IdkmzzaAGXyJ+cQEDvqgJ3L5MQFINjWaSEYzN9LFvz52spazchQCUj9/BlPqc39DY1cnYQzzzfsov+21/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4122
 
-Hi Michal
 
-> On 30 Nov 2022, at 15:23, Michal Orzel <michal.orzel@amd.com> wrote:
->=20
-> Hi Bertrand,
->=20
-> On 30/11/2022 16:07, Bertrand Marquis wrote:
->>=20
->>=20
->> Hi Michal,
->>=20
->>> On 30 Nov 2022, at 13:02, Michal Orzel <michal.orzel@amd.com> wrote:
->>>=20
->>> Hi Bertrand,
->>>=20
->>> On 30/11/2022 13:15, Bertrand Marquis wrote:
->>>>=20
->>>>=20
->>>> From: Michal Orzel <michal.orzel@amd.com>
->>>>=20
->>>> Populate test jobs for Yocto based tests using the provided containers=
-.
->>>> Due to the size restrictions, it is currently not possible to split th=
-e
->>>> build and run tasks, therefore everything is done in a single step.
->>>>=20
->>>> Test jobs for the supported Yocto targets are generic to avoid the
->>>> necessity to add new ones after each Yocto release. The only thing
->>>> required to be changed after updating the containers is the variable
->>>> YOCTO_VERSION stored in a .yocto-test template.
->>>>=20
->>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>>> ---
->>>> Changes in v5:
->>>> - none
->>>> Changes in v4:
->>>> - add .yocto-test for arm64 and x86
->>>> - make yocto jobs use arm64 version
->>>> Changes in v3:
->>>> - patch added
->>>> ---
->>>> automation/gitlab-ci/test.yaml | 43 ++++++++++++++++++++++++++++++++++
->>>> 1 file changed, 43 insertions(+)
->>>>=20
->>>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/tes=
-t.yaml
->>>> index c7e0078e04f1..6ce2fd63eee6 100644
->>>> --- a/automation/gitlab-ci/test.yaml
->>>> +++ b/automation/gitlab-ci/test.yaml
->>>> @@ -54,6 +54,33 @@
->>>>  tags:
->>>>    - x86_64
->>>>=20
->>>> +.yocto-test:
->>>> +  extends: .test-jobs-common
->>>> +  script:
->>>> +    - ./automation/build/yocto/build-yocto.sh -v --log-dir=3D./logs -=
--xen-dir=3D`pwd` ${YOCTO_BOARD}
->>>> +  variables:
->>>> +    YOCTO_VERSION: kirkstone
->>>> +    CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}-${YOCTO_HOST}
->>>> +  artifacts:
->>>> +    paths:
->>>> +      - 'logs/*'
->>>> +    when: always
->>>> +  needs: []
->>>> +
->>>> +.yocto-test-arm64:
->>>> +  extends: .yocto-test
->>>> +  variables:
->>>> +    YOCTO_HOST: arm64v8
->>>> +  tags:
->>>> +    - arm64
->>>> +
->>>> +.yocto-test-x86-64:
->>>> +  extends: .yocto-test
->>>> +  variables:
->>>> +    YOCTO_HOST: amd64
->>>> +  tags:
->>>> +    - x86_64
->>> This hidden job is not used by any yocto test job and as such can be mi=
-sleading to others working on this file.
->>> So we can either remove it (can be easily reintroduced once we will fin=
-d more x86 resources) or add a comment explaining why is it here.
->>=20
->> If I remove it then there is not reason to have something separated for =
-arm64.
->> I will keep and add the following comment on top:
->> # This is not used by any test job as we only run Yocto on arm based mac=
-hines
->> # Keep it here so that someone having x86 hardware can easily add jobs
->>=20
->> Would you be ok with that ?
-> Yes, sure (+ add comma after end of sentence in multi line comments)
+On 30/11/2022 13:13, Andre Przywara wrote:
+> On Wed, 30 Nov 2022 08:09:53 +0100
+> Jan Beulich <jbeulich@suse.com> wrote:
+>
+> Hi Ayan,
+Hi Andre,
+>
+>> On 29.11.2022 19:18, Ayan Kumar Halder wrote:
+>>> On 29/11/2022 15:52, Julien Grall wrote:
+>>>> On 29/11/2022 16:23, Ayan Kumar Halder wrote:
+>>>>> On 29/11/2022 14:52, Julien Grall wrote:
+>>>>>> On 29/11/2022 14:57, Ayan Kumar Halder wrote:
+>>>>> --- a/xen/common/page_alloc.c
+>>>>> +++ b/xen/common/page_alloc.c
+>>>>> @@ -2245,7 +2245,9 @@ void __init xenheap_max_mfn(unsigned long mfn)
+>>>>>    {
+>>>>>        ASSERT(!first_node_initialised);
+>>>>>        ASSERT(!xenheap_bits);
+>>>>> +#ifndef CONFIG_AARCH32_V8R
+>>>>>        BUILD_BUG_ON(PADDR_BITS >= BITS_PER_LONG);
+>>>>> +#endif
+>>>> BUILD_BUG_ON() are used to indicate that the code would fall over the
+>>>> check pass. I can't find the justification for this change in the
+>>>> commit message.
+>>> I had a look at the following commit which introduced this, but I
+>>> couldn't get the explaination for this.
+>>>
+>>> commit 88e3ed61642bb393458acc7a9bd2f96edc337190
+>>> Author: Jan Beulich <jbeulich@suse.com>
+>>> Date:   Tue Sep 1 14:02:57 2015 +0200
+>>>
+>>> @Jan :- Do you know why BUILD_BUG_ON() was introduced ?
+>> You've cut too much context - the next line explains this all by itself,
+>> I think:
+>>
+>>      xenheap_bits = min(flsl(mfn + 1) - 1 + PAGE_SHIFT, PADDR_BITS);
+>>
+>> Clearly addresses used for the Xen heap need to be representable in an
+>> unsigned long (which we assume to be the same size as void *).
+> So I am wondering why you hit that code for your port in the first case?
+> If you check, then ARM32 won't pass this, because PADDR_BITS is 40, while
+> a long is still 32 bits.
 
-Will do.
+But, PADDR_BITS should be equal to 32 for R52.
 
-Bertrand
+Refer Cortex R52 TRM, Section 2.2.12 "Memory Model"
+"...This is because the physical address is always the same as the
+  virtual address...The virtual and physical address can be treated as
+  synonyms for Cortex-R52."
 
->=20
->>=20
->> Cheers
->> Bertrand
->>=20
-> ~Michal
->=20
+ From this, I understood that as virtual address is 32 bits for AArch32, 
+so physical address will also be 32 bits.
 
+Please correct me if I am misunderstanding ?
+
+If this is correct, then ...
+
+> So digging deeper this is code for the case when we want to map the entire
+> physical memory into Xen (the Xen heap, or direct map in Linux terms).
+> Which we cannot do for ARM32, and that's why the code is protected by
+> !CONFIG_SEPARATE_XENHEAP, which is forced to 1 for CONFIG_ARM_32 (in a
+> hacked up way, btw).
+
+we can map entire physical memory into Xen as VA == PA.
+
+- Ayan
+
+>
+> So I think you must just force the same thing for your port, then this
+> code will never be compiled.
+>
+> Does that make sense?
+>
+> Cheers,
+> Andre
+>
+>> But I'm afraid there's further context missing for your question: Why
+>> would that construct be a problem in your case? Is it just that you'd
+>> need it to be > rather than the >= that's used presently? If so, why
+>> do you add an #ifdef rather than dealing with the (apparent) off-by-1?
+>> (I say "apparent" because I haven't checked whether the >= is really
+>> depended upon anywhere.)
+>>
+>> Jan
 
