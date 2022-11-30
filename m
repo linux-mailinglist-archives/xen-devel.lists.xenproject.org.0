@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BBCE63D126
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 09:55:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449772.706707 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163DF63D1CE
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 10:27:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449777.706718 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Iqj-0002Xr-J5; Wed, 30 Nov 2022 08:53:49 +0000
+	id 1p0JMF-0006Mr-7B; Wed, 30 Nov 2022 09:26:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449772.706707; Wed, 30 Nov 2022 08:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 449777.706718; Wed, 30 Nov 2022 09:26:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Iqj-0002UP-GR; Wed, 30 Nov 2022 08:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 449772;
- Wed, 30 Nov 2022 08:53:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p0JMF-0006JN-2g; Wed, 30 Nov 2022 09:26:23 +0000
+Received: by outflank-mailman (input) for mailman id 449777;
+ Wed, 30 Nov 2022 09:26:21 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=rKz+=36=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1p0Iqh-0002UI-Mm
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 08:53:48 +0000
-Received: from EUR02-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur02on20631.outbound.protection.outlook.com
- [2a01:111:f400:fe12::631])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7ed7db36-708c-11ed-91b6-6bf2151ebd3b;
- Wed, 30 Nov 2022 09:53:44 +0100 (CET)
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by DB9PR08MB9755.eurprd08.prod.outlook.com (2603:10a6:10:460::15)
+ <SRS0=SP/j=36=citrix.com=prvs=3264ca9f5=roger.pau@srs-se1.protection.inumbo.net>)
+ id 1p0JMD-0006JH-9V
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 09:26:21 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a31b87e-7091-11ed-8fd2-01056ac49cbb;
+ Wed, 30 Nov 2022 10:26:18 +0100 (CET)
+Received: from mail-bn8nam11lp2169.outbound.protection.outlook.com (HELO
+ NAM11-BN8-obe.outbound.protection.outlook.com) ([104.47.58.169])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 30 Nov 2022 04:26:15 -0500
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
+ by BN8PR03MB4929.namprd03.prod.outlook.com (2603:10b6:408:79::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Wed, 30 Nov
- 2022 08:53:40 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda%3]) with mapi id 15.20.5880.008; Wed, 30 Nov 2022
- 08:53:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
+ 2022 09:26:13 +0000
+Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::740b:4e0a:7de4:5ab1]) by SJ0PR03MB6360.namprd03.prod.outlook.com
+ ([fe80::740b:4e0a:7de4:5ab1%9]) with mapi id 15.20.5857.023; Wed, 30 Nov 2022
+ 09:26:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,231 +49,310 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7ed7db36-708c-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 0a31b87e-7091-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1669800379;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=a1tGRui2dX+2fniVTma8dS61MXBhNt7lFsSo8yvmmPs=;
+  b=LF8Tzy9n8bt8s4VNCgSLYKlUTLKF0aqx/wJut35gUmULonUZhFyoFUis
+   TBp48uiMQRBAAsTrZUor92KlQkFI+1tPcJWMh1/HhnGV+bAiu9QhwmfyX
+   Pqyp6Fwz5u2D6h9EsP5aLOETKnI23mQHMS9Zyi3yDB6uAgElyKD8aN5Pc
+   M=;
+X-IronPort-RemoteIP: 104.47.58.169
+X-IronPort-MID: 85842101
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:VB20q60by8+5IVB2c/bD5ahxkn2cJEfYwER7XKvMYLTBsI5bpzwFy
+ 2BKD2zTaPmMZWOhLtAnbom0oxsDsJLcz9ZnSlM6pC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK5ULSfUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS9nuDgNyo4GlC5wVlPagS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfHGV//
+ t48IRc2awmbieW86rP4UvNAr5F2RCXrFNt3VnBI6xj8VK9ja7aTBqLA6JlfwSs6gd1IEbDGf
+ c0FZDFzbRPGJRpSJlMQD5F4l+Ct7pX9W2QA9BTJ+uxqsy6Kkl0ZPLvFabI5fvSQQspYhACAr
+ 3/u9GXlGBAKcteYzFJp91r827+Tx3qjAer+EpXkqdR0q0LJ91YwGS0tDVGf/NWCpm6xDoc3x
+ 0s8v3BGQbIJ3FewUtD3Uhm8oXiFlh0RQdxdF6s98g7l4q7V5RuJQ2sJVDhMbPQ4u8IsAz8nz
+ FmEm5XuHzMHmK2YTzeR+6mZqRu2ODMJNikSaCkcVwwH7tL/5oYpgXrnQcxuH621ptn0Hyzgz
+ TeXqiQ3m7QUi4gMzarT1VLGmTO3opHDXyY26x/RU2bj6Rl2DKanaJav8kPz9utbIcCSSVzpl
+ HIDgcmFqucVEYuKijeOUc0KBrii4/vDOzrZ6XZtFZQ88zWm+1a4YJtdpjp5IS9BNcIDdxftY
+ V/UvEVX6YM7FH6ra6BwS4+1F8lszbWIPd/lTPHPcfJVZYVqMRSA+Gdpf0H492TsllU8ibk0f
+ JuWb+6oDG0GEuJg3j6/Tfxb1qUkrh3S3kvWTJH/ih6hgbyXYSfMTa9faQXfKOck8KmDvQPZt
+ c5FMNeHwAleV+u4ZTTL9YkULhYBKn1T6Y3KlvG7v9WremJOcFzNwdeIqV/9U+SJR5hoq9o=
+IronPort-HdrOrdr: A9a23:KmIqBqyGuaRbmbOWOHBeKrPxTOgkLtp133Aq2lEZdPULSKGlfp
+ GV9sjziyWetN9wYh4dcB67Scy9qFfnhOZICO4qTMyftWjdyRKVxeRZgbcKrAeBJ8STzJ8/6U
+ 4kSdkFNDSSNykEsS+Z2njeLz9I+rDunsGVbKXlvhFQpGlRGt1dBmxCe2Km+yNNNWt77c1TLu
+ vg2iMLnUvXRV0nKuCAQlUVVenKoNPG0LrgfB49HhYirCWekD+y77b+Mh6AmjMTSSlGz7sO+X
+ XM11WR3NToj9iLjjvnk0PD5ZVfn9XsjvNFGcy3k8AQbhn8lwqyY4xlerua+BQ4uvum5loGmM
+ TF5z0gI8NwwXXMeXzdm2qn5yDQlBIVr1Pyw16RhnXu5eT/WTIBEsJEwaZUaAHQ5UYMtMx1lP
+ sj5RPQi7NnSTf72Ajt7dnBUB9n0mKyvHoZiOYWy1hSS5EXZrN9pZEWuGlVDJADNiTn751PKp
+ gmMOjsoNJtNX+KZXHQuWdihPSqQ3QIBx+DBnMPv8SEugIm6UxR/g89/ogyj30A/JUyR91v/O
+ LfKJllk7lIU4s/cb99LP1pe7r4NkX9BTb3dE6CK1XuE68Kf1jXrYTs3bkz7Oa2PLQV0ZoJno
+ jbWl8wjx98R6vXM7zP4HR3yGGPfI3kNg6diP22pqIJ9oEUfYCbcBFqEzsV4o6dS/Z2OLyoZx
+ /8AuMTPxbZFxqfJW945XyBZ3BsEwhubCQ0gKdOZ7vcmLO9FqTa8srmTd30GJ3BVR4ZZ0KXOA
+ pxYNG0HrQM0nyW
+X-IronPort-AV: E=Sophos;i="5.96,205,1665460800"; 
+   d="scan'208";a="85842101"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QdRzY6p7b9IfT4WnpzVLeJf4bUAU1PpHmrIaUA330bTIm+ogfwb0wbW1TRl4/gLy2pcWmDNvTKP2P7vCorKfzEvPCxMmTf4jQ+6GY8oVWczSAoZwGbJdpWX/VocqxctF9g0f/gNcBXTsz4HIWGHUM/GYw5exR7xjiip/YGzsR6Cvso3Z8hE+Sba6lJx48Ekm/G5yKIeOVn/v2XDJw5FLj3rsK/crlU30Vp/ceSblvZ9xFhL+Dd7Ii0+VV7tyexfZDpW9ARKiORok8xrX9rPHZTyh5QEapOD/HYn1SWspyNfUOgnk40jixQc4RLOieDjSO5KOccpZUPyETnzDB9N5Bw==
+ b=Mem0jsJxVYcRnfsmc+k/2LMZTuFHuUdkWiyD1lPHwlvAPUU3cLbfwVRy0UPUm7G5IA/j9dxAHBHui+TcBCEYoGWCMx8Lqqm3sLY5qOWNHQjAvWo66r4jywrXnBo7FUGTegelcFyjDgrR30KIsZ10u0B0XlhRGHwNtKyhdplR47ewU8jXXf+NEstGJIzIIbOr8T/zrCRUaU+sk+jCqRZ5P5gggV/ssUI+5y0FI0U2gZau/r83C2R6YNd2J0eOxfcWcEFJ6/z3jXXc2TGNciWWgrvQdPbYR2MqxqtVtmKg+AnBuCt+Fsz5XBsu91f0EtDWWkUikeHBc7f7Ec4CEeL7eg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CFnbZWJFUp0sAzawbJ6JmnR+WoHSTi35d13YUqDmStE=;
- b=Njz7WuZonqX9Y//GltoV9lfRCWebjEQ7Y2MGurTY8FmKl63BuTtFUrSooKmNlm6CMCEGeMwErZg7PcaBdz7wk35eHC61zzOxsctLrwQuavancTFKi2wPPtY23yQ7KUxsNXPVprLgLjwACnfRrjtBOyNBxpzzRJMMm8JezLPcXsYUnuBS7BrA5cNhZ37PVk/gQZFS0/kIvKEhc7qnr/dTOnVTpll5kJw+KdxO/d0ls6AaXjwlLZb0U+fr8rFVZZ7K2qqdtKVtfZTSSTclTt8g6dovHHfQfr45oE7NxHcO+sOe7xyftVom/wXSQuBu8aPyo+kPdjdW3SFQP5xpf6rEvQ==
+ bh=2TzLxx3p+XBF6obhIGVlm//r/ntLl/f7S09/Az1T3TE=;
+ b=C8ArNvCUME4TFpdm1A/YLoQigcFu3maxdghz98L3OmfkVx9K3BT7dAxQZTT+giL3DOKQrRPMj09wKgDBtI/Co0HOugYHtfPu58CssyjokS438oxJ8zcg+WwvPxsv2ML80vGnmmm3cuSIxtDc5A9TivyIhp0AeuDkM6m0HUMA2twCPRymrWvPbeASoKN2E0ml7n1B0w8GJGQsplhG1l4+cTQaIfdx82bIRY2CZyfhPi6U5rdpo1G1G+6CMnvAgbf96bPRt3yDj2WQifZJWjrvs7Dt6RiZCtvLeMrFoQSOClD3OReouQsUR+p9L6joAXh/mvp9xw/nBdaOU4WegaqHug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CFnbZWJFUp0sAzawbJ6JmnR+WoHSTi35d13YUqDmStE=;
- b=ltPdw+TB4d5rVQL68GocmQzJPEhhf/Anbv2Yoi52gnvIqTFrcOytbw4Ye5cuCcZWcdgkXlCU1WyUP3+Ajo9fKR05bHsDONr2KWyW0H6RlhIjqse46L7Ik8esUlcX1H3MbeZ2+M4P0AqKUgsJDY6IgVItQWA+xFHAVEgq1zJpph4=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
+ bh=2TzLxx3p+XBF6obhIGVlm//r/ntLl/f7S09/Az1T3TE=;
+ b=XWefflSB3yZkrI96wQwG1WHr36WZTTdeCbQOi1u/oUrEQo0A/upjFe8NiaXUH3d5E/CvNEPOD+9HaXs0OBofK7kH8oXpmcv6nKWmSEqYYKUeVEAYAFysOkG/0c9fqajDZrzk93XvhcxHSUTIVnRDxO3zHoxmJ3km7UZffrh3UCM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+Date: Wed, 30 Nov 2022 10:26:07 +0100
+From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
 To: Stefano Stabellini <sstabellini@kernel.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
- Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
-	<wl@xen.org>
-Subject: Re: [PATCH 3/4] tools/misra: fix skipped rule numbers
-Thread-Topic: [PATCH 3/4] tools/misra: fix skipped rule numbers
-Thread-Index: AQHZAzNHmn5ClVb9v0W1JXlG6nXFZ65WlJMAgACXfQA=
-Date: Wed, 30 Nov 2022 08:53:40 +0000
-Message-ID: <21F6A61B-1476-49A7-8726-7F94BBA627F6@arm.com>
-References: <20221128141006.8719-1-luca.fancellu@arm.com>
- <20221128141006.8719-4-luca.fancellu@arm.com>
- <alpine.DEB.2.22.394.2211291545420.4039@ubuntu-linux-20-04-desktop>
-In-Reply-To:
- <alpine.DEB.2.22.394.2211291545420.4039@ubuntu-linux-20-04-desktop>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR08MB3749:EE_|DB9PR08MB9755:EE_
-x-ms-office365-filtering-correlation-id: 2ddff6ea-a5f9-4606-3307-08dad2b0609f
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- UnxYQGkwvIpJix0A0HjxSxlCsvm3KMbWLvZArO+CZ++6CeaVToCZ0t6nXAgUZZ8m8fgMRN6y5eOdEuMpWlI7OFY9W8F5ZZM5k3FJiw1FpKZD6ic9LQgHC4kl8QoQSWr+Sb+0hmdD5ULJUtCnAsZjtX8S3+u3nmhyI2P0JLh7DrW/EWz/KugbFJh8n4tlHn2LCM7IWSM0Aw7VNHF6uFmur0V4dQTYZgPCWI/HBWKTzwhiQCu6A1RiuWDt4waJfWKmHkurzAx041gne0hn97rZrhlw+Lwbwr+GuHB2HKWPxCuszzbSp8ng1qEwdFrPCgIcr6sZLNf1MXTvsSVGMK+f4hO0LmiIW+EKrm9XnKpvq0m7P0uYf8aNaN6+FG8Wgp2XIUC0W6aDDo4NZFHpoayP4XKWb7YZyTZJxEZz80KCOYQmHGuZY530CIeKUy2F8gU9iBbehsTeVstQQHvLfNfo2vMSwaUZ5ENctZGyLQjP7kq+yqC+xnefVNA4eZp4fQKOEirgwgqqFJ7q6Cgrb6p/1benActsX/VrVfvuYxWOnyRRjWLiLFUOehAP15Xxbh4ZvU+UA5c+lnZrUXDNtiQuGDD1Tkn3GR9irPqH2k7Ps759K044uH1qQDXbVonPN/Ovk/sDyx1+AD/tjNM29vdPG/ddPbBR5G2LcJXmyavxqg1Py21AxjS3UxZPijTznhLlJ8JBkai10oXJ6oHJ95zlFPQaa33xCv7+jU3gv7/GzsA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(396003)(366004)(39860400002)(376002)(346002)(451199015)(91956017)(122000001)(41300700001)(8936002)(83380400001)(5660300002)(66476007)(66946007)(86362001)(2906002)(2616005)(4326008)(186003)(38070700005)(8676002)(6506007)(33656002)(54906003)(6916009)(316002)(64756008)(38100700002)(66446008)(66556008)(76116006)(478600001)(6486002)(71200400001)(53546011)(36756003)(26005)(6512007)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?SohzbvRdW76RVXLe9P0o4iVdvycRsFRzb2hucUh7gTl4eDl0FIWkYS3sleHQ?=
- =?us-ascii?Q?es0A1FmD+adFSIwsmR5ZbzmTIdL8vfMGuSD+bCY1a9vrMQpu8f/y9/g+ULxT?=
- =?us-ascii?Q?Fi0uvvhNSoePTUWDvSVTcTiA5CEQ51Q7+kNdZ5DOesP5N9lrBa5Su961XSY2?=
- =?us-ascii?Q?1kiWfaffyFGInxlEfz0cfBdeEkq/aBuWOXmjwQ/RKxi6XRb/ibWyDqZAIXRq?=
- =?us-ascii?Q?pXkJl11Kgy3zP8J5r4U+imyPpDN9fnepeg3rwbywwIkazZczarWyB6zC4RI+?=
- =?us-ascii?Q?f3zIKzFTdMP33bl+wo5lj8seq4vqCCEbtS3vB4VGEbuVL9TzdxCqv4x+7HpE?=
- =?us-ascii?Q?I64aXhGssSs2lRMZvJ8/hdnco5tDfDmZxTxq+d2+n2CKWfJybFEDZq39BEVE?=
- =?us-ascii?Q?QcKalxW2xOJcHkjyEdHXwx82KJsX9udMRTlUq5dfSH8XlYSMr9doq1mETxuA?=
- =?us-ascii?Q?FCVEU6MsCBabmpWBfSBlqnj4vdwdAWcTaSiHssQwRb10E831pUc/eBMuOAZv?=
- =?us-ascii?Q?6TwxOlWXTkOuQPHIBadKXseVzlXUQAfakYLnKRogGG286KIkWmNwg+1uR6Sa?=
- =?us-ascii?Q?GVo1+dML8LjtL+CF7ey3iBwWdMIRP8r8y7BPz5cGZHXFtcJCZsBDCPzKpZTv?=
- =?us-ascii?Q?jGmGTT0lGNHUUznoOgYRdrSL8MipjUf7rOgfoU6RY200qHVtjkbodBONSThB?=
- =?us-ascii?Q?4JhT7qebYiQwZdeDMLqNes7sIYYr/e8dDdLa+GnyAaOWO57CdcAoLuJAhHY1?=
- =?us-ascii?Q?RBUWznaJstyHBp6OKKeu0AZDcPNeCU6Xf231O1q/BA8fiZ3m5fDdHnp4K8NZ?=
- =?us-ascii?Q?cgOUlwYYlacAIb5AKx4/GMejvJ/4vF3qz+9Nzo3ckVZMphf2vK0x1tJrlEUN?=
- =?us-ascii?Q?U9yrzXR6jp1KWLx5+tEx0ETalFT6aL1FAwgX3+PEsJcKHPqdrooV/KCt6vgC?=
- =?us-ascii?Q?bnOWFU66m6tzn1msW3gQdXj5T0idzqUUVikEaHEOhf5UzFTuH7UeZDYsB2sJ?=
- =?us-ascii?Q?RuMQd1y5dOEYogYnTk8ImaEYR/FdilSHWChLNbVP0TlWmeNsQy82lhSwcxQg?=
- =?us-ascii?Q?GsLAL+Y1kMqCrgyj/zCMzLMPj/AFhk/CuzVNSTrXPqHHO5cKoGTY+RVKAKda?=
- =?us-ascii?Q?rPOhlquplaJy/CO9GdXZvQjyj6x2NwPjBPXccQA1ZfMntjGSMWADau7St3wU?=
- =?us-ascii?Q?l0TmaRL3f8JJbbJK0mRCqjMH3K8oCZFZLexW4OQv+Sk8FNyVOmS1P+ehTQL+?=
- =?us-ascii?Q?Tx7zpcapjS39Bk8044vQh5mGaCcwXEfBptQvPsBMrDzqL82OQyfijGy43ke+?=
- =?us-ascii?Q?u5XWxYgKfv0TD3rwBzw8jSnLEpxtXZKQWCzQ7L8E9oqaa+DqXGbEkPEv3RGB?=
- =?us-ascii?Q?vr/HU3vMgRpYWehA+zim26vjd7619N5KeIKEdT9HBQv886sDeaK6hr+ifL5O?=
- =?us-ascii?Q?lHw4ywLtnvpQVKf/O2pS0i6YSNn8hBPVFwzZz2Uam96UdiOVcJUqD2JLHByy?=
- =?us-ascii?Q?gHeoEAFgm7d5G97TE2m8J5Fa4BPuoKrJgAiRwK/XIhpPBXp5ODX/VS4njkNs?=
- =?us-ascii?Q?VXdvcrhXcTWKaBTQue2XMBQVL4UPlrnNin9VT12wi3cY+CMQl8fg8hOIbOUp?=
- =?us-ascii?Q?ug=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <A7460166AA498340B855E186326F26C6@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Jan Beulich <jbeulich@suse.com>, Olof Johansson <olof@lixom.net>,
+	Ingo Molnar <mingo@elte.hu>,
+	Jeremy Fitzhardinge <jeremy@xensource.com>,
+	Chris Wright <chrisw@sous-sol.org>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH] hvc/xen: prevent concurrent accesses to the shared ring
+Message-ID: <Y4chryL2YvfhgQmk@Air-de-Roger>
+References: <20221129120107.2942-1-roger.pau@citrix.com>
+ <alpine.DEB.2.22.394.2211291351160.4039@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <alpine.DEB.2.22.394.2211291351160.4039@ubuntu-linux-20-04-desktop>
+X-ClientProxiedBy: LO4P123CA0158.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:188::19) To SJ0PR03MB6360.namprd03.prod.outlook.com
+ (2603:10b6:a03:395::11)
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|BN8PR03MB4929:EE_
+X-MS-Office365-Filtering-Correlation-Id: d2a09d31-8abe-4e4c-9fb5-08dad2b4ec2b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	coUehJfqy0sK2s+0FBuo5dxZM22si/edpRVXAPbmY1Wr/POFPn5poWbLM8H59YpeIHrco97iuLybc3UivQX1NWOYGbBgA61Ae8lvlWAZ9twTTLcu45R9pggulOcin+psboATNCq90R7U/eHQDkzF5eFATbC14hmyfsIb9RiFC28TOnNDeA/Kx4rNiASMtjHYrANi0bEBCIQH5SC5faWUjc+GNNpCVyxzTol7kmZNOiWKK5O1pgUzFMpoK+QZAss84mqZlUtn6gQ/nr/kdk2jnYcbSaWGG3nkf/yNPJGotzdq6GCt1hRLVGiGBsQaYJ5fiEKUK3+mNqRGaup4KoRjycC1igOQQVhwEjq0fo+lDPanxGlM7q69TSfE0eiOc/9iDtDqZrgFvOfOLYekPxn2KAIMLWRi6TvDbEhbmWdA1vKS/yG2tjsuH2OhblQzoCu1JFq/EIiXRwTlz1IfbaSMwCPK91lsQPkGV9PrJ+D3S+34tx78wzHQQOxiLj7e3TjETXMlSjcxamvGGBoGheaLqWlzcUys7BTv6nsX2OE3bn/vl1PTAUQWU5kN96si0aI2NiIgJCxT78sLTgvH8rHO63iUEiaXDlY8QzT/um0kLgNTvFMleo0PeOr7v9lHSqlnRLQNpcU4ghSuXs22nJHhsA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(7916004)(4636009)(396003)(366004)(39860400002)(376002)(136003)(346002)(451199015)(6506007)(86362001)(9686003)(66946007)(8936002)(41300700001)(26005)(8676002)(4326008)(66476007)(478600001)(6666004)(316002)(6486002)(6916009)(82960400001)(38100700002)(83380400001)(54906003)(2906002)(7416002)(6512007)(5660300002)(66556008)(186003)(33716001)(85182001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Q0FEb3hzd3hRUkw3N2VjM3Z3S0pLQ0wxVG90TW9nK2p3ZHJzRk5nM2JnZWRO?=
+ =?utf-8?B?T0gxRlNwM0NNWStoWDA2QnpoeDcySHRqQ25BNThhKzYxTmlmTWxyRXZ5RDA2?=
+ =?utf-8?B?YjRmOHkxMzhSckZPWk42aVFUV291eDl4U0hEc1U3WTRkcG1ZNUxxT2I1RVJN?=
+ =?utf-8?B?STJaR0E2Mmg3S1FmcXBpMHBPK2dxSmZkMWRreVI4amRJQUxrV0w3TXNiZUNt?=
+ =?utf-8?B?L3p6eEhDc0hQVkZBTFVnUmIyQ2orcDliZlh5ZTlYTTBNY2JtT2FoN0pBN215?=
+ =?utf-8?B?VzhqdEJTVlp0WGRLcERxU0Q4TnFkbGxadlFXYnY4TVhoUEJDdjdSNU9mQ1dh?=
+ =?utf-8?B?d2hmdXd2aEs5ekJnSnRia0dsemVGdVNVMkZXY2haNlVUWFlGL1BxYlZlRnNp?=
+ =?utf-8?B?WENvSUFaWVB2YjJkTTd3Q2RBVW50RVlJeGtTcnBhUGZJakUvelgvQUFyYWxv?=
+ =?utf-8?B?cERndG9XUmNJYldCdEY4N0JDK0xHcmdURlpaaE9UUG1KbUwyUWNNQ2JCYWEx?=
+ =?utf-8?B?M2w1ZmdrRGFEUlBpN2syRkNoQm5KVW91RUFGRUV1dGs3ZzNFQ0c2RGVJTXlE?=
+ =?utf-8?B?b05ZQ0ZBUGhkckpTcWdhNVQ4cy81ZlBicmdadE16cnlPeWl6OW5mSFQxOTVw?=
+ =?utf-8?B?cEVaaCt3dEtqN1U2S0plZ3BUWDhkRWZPaGhqSzRZZTFlbFM0TDVuRUxCclRt?=
+ =?utf-8?B?NUhxWkhQTVpPUGVwcEtSeDBIRmllUVNvNVRpbEJLQVZPUTBUNk02a01IblFZ?=
+ =?utf-8?B?cGo4N1JpUDRRVXptT3g2UUMra1IxaFJWV08wVUZRN2JCNzFJLytkM0l6bGor?=
+ =?utf-8?B?WDZGWnRYSFUrNnZMNVVVaDNkbnFtQkllbWZ0VlJDZEpROFpBckgycitxb1pV?=
+ =?utf-8?B?VmRvOXhFTC9ac25Wclc0amVJOTJRUVFLMTBjUEdJTURKdlJhVUovR3M1aXZE?=
+ =?utf-8?B?TEZCQ0RMaFdKZHUzNG9DRUVYSEYycENuaGJDYlJRVDRWN3FnRXlMcG1rMXFx?=
+ =?utf-8?B?cmZJeEJPS0UwbVBkYi9YUU5Zd1FRcGg3dHE4ZUJSdlVCMU9oU200TkxncUlN?=
+ =?utf-8?B?ampxYnRwUjZyREl3Vmw2KzN2RENkN2dYdFVPdTRNRzlHaGcxNmExS0NTa0V0?=
+ =?utf-8?B?STIzN3dmY3R3ei8vR3A1bUhKd1IwbjJ1dmxja2dDZmlvZ0dvTFNCdVdkVGgz?=
+ =?utf-8?B?Qk5JQ2wvajhRczR3SnJmanozMDhwSUV1YlhRZXFNOEtIcGgxaVZzSEg2RHZw?=
+ =?utf-8?B?WUJ5UGJnRWtRZ3BTV1pQVjRZeXpYM3lPWFZzT3BrSk1STlQ1VVJodXIzOU5E?=
+ =?utf-8?B?L2RPV0dUTTdwSGw5TW55MUlORlZkOG02Ly9tcXlpRi8rUW1hYzdVbm53eElF?=
+ =?utf-8?B?dTZySnBMdVdoK3VOTGxLT2FlVENCdTJMbmkrSWVSaDZjQlpQRTZTSWVUYWlU?=
+ =?utf-8?B?SEVRU2JIWG9WWGVOWm42cGdyRTJ2SS8wK1pydGVGNmFuZzRjajR1NXdnYlpk?=
+ =?utf-8?B?YStyQ0l4Y2VwU2lYZjd4RDBIL3pwTjYwWmdxUTduWWxKcEszaE9TazZUWEhU?=
+ =?utf-8?B?c3V3RzJobFNyclpyaDR5cm5zTEFzQUh3dkNhOTRkYzNWUkh5SWoxS2h2eUVv?=
+ =?utf-8?B?ajFtSWtuOU9WekJlM3ZiQVl2NzJYM21Bc1QzVWM0STVwY09PUVRDWENWbXFT?=
+ =?utf-8?B?cjliTUQ2ZlY4TDlDYUZGc1l0R1hNS05OVFhNVFYzU3VoNTdzZjlZcVREZExs?=
+ =?utf-8?B?UllnbnJsYnhjNFFORUJ3enhMMEtBMFY1aXpKeU84OVVXQXFJRnpESDVRQlZl?=
+ =?utf-8?B?Q2dqRHNScWozUmxiN2RXL3NKZnJRMXhrRXNyM0s1blBNam0zNDFFc21WOFFJ?=
+ =?utf-8?B?dHJkdWMySTFwV2Q1eFNYZTdJVVdRYnBaMklsc2lLdEFRcmRzbjc0S2c0bXFL?=
+ =?utf-8?B?L25ISG9SRGV1eDJFdTZvMmJxV2N3eis2VnFkTjFQOFZOWS8vNHdRR3Vhc1c1?=
+ =?utf-8?B?VUhIS1NJbm1McS85d1BMR2QxN1ZHN2FjdUJ4U2U1dDNINExFTlpCTTM0TW9p?=
+ =?utf-8?B?cFZLazZKZm13N2FETmhmZnpSbG11T0tMMHI1S1F1L1VlazNyV2xTajF6dVlC?=
+ =?utf-8?Q?wlFkFsIIcDYuTqlryEjVvVZt/?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	=?utf-8?B?SXJnclNNamoxUCthZDNsUXBmVTB5TlVlQnFDQlBwS3J6NjZ6K0lNMlpGc3Rs?=
+ =?utf-8?B?MmRZcjNqajFOemo5eGRLWHpNa1BSNXRBTy9SVDRBWkFhSlh1Z25IeWNJLzZW?=
+ =?utf-8?B?SEpqM3VQUkg5RUg4ZHRmT2ZJK1VlVlJBTTRzSzNkc0F5YTNtNEswaEU2alpS?=
+ =?utf-8?B?RVRtTWQ4Z3h0V3R3UllnNFc2ZnN6aDNLem0ySlQ1VFZWWjVxS2IveXo0UklC?=
+ =?utf-8?B?Y3prVWlNeDhpOEVrUEYrM0t0RC9NNGdIeHg5alNQVFZENTFOZ1ZMdGFhcGV0?=
+ =?utf-8?B?SnVZVmtPM0o0dFpvUmpDV25HbXpFUGFrdjVLS1JVRDY3SWFWTkp5ZXptUlVj?=
+ =?utf-8?B?ZVVOZ2htcDdrT0NhdCtqUWIwdDE3SWx3NnV4Z2ViZExSUm93a3FMWnJmczVo?=
+ =?utf-8?B?bCs4YWxMdWRXR2ZiMWRoSFVDL1daMTh3TjJnYW1DS0RxNWxaZndsNC8xK0Js?=
+ =?utf-8?B?ZUwrcEU1OUZWZXE2MllXS0JhY0ZDdkJyL3pRTzl0R1FoK1VJTFdHTlM2Nmdn?=
+ =?utf-8?B?YnplckJYSmdrTEFZN0xOdWFML0Y3cWlzeFNNdVF5YmpBOW43RXhTRnA0Zm5M?=
+ =?utf-8?B?dnNVREFxaTJuSkVDQ0ZMd1g5akczZU1IbXBlck1NWGJMcVlRbFArV2RhYmMw?=
+ =?utf-8?B?TGtSS2labHVBcWtSbXJNM200TVJuUHd1RUF2WU1Rc2VIYUxxKzNxSlNYb0R4?=
+ =?utf-8?B?SDF3N3Q3U2lrSmZmRjR2WGFLU2oraGJzd2ZmOTJRNmNPRGZCTWFBUlhaVnJa?=
+ =?utf-8?B?ZHRzTzU5WUNpZSsyeGZQdjNaR3E2Rk9MUVlabzF3MDg1ZDNWNDk4dFkzWVpD?=
+ =?utf-8?B?VFRTSk56WktsRmpuSVBrOHNrOVJiT2tKSWJQNFZKREFQbXppZkRiTjhtN1hR?=
+ =?utf-8?B?aXhBdkFzV3pvNytnbXhIcy9DT0p0TmxYb3lyV1daKzd0a2JYeFdzcUFRZmZW?=
+ =?utf-8?B?c2MxY0dadjNzdjhLc3ZjSFpGVVhxUnZwOGhOL3dMMld0b0VYYlVuaS9GWW12?=
+ =?utf-8?B?dWg1TVNMTGt1aUpZdjBqdDV4dk5JTGlpT3BhVVhERVhNdHFKTVltMDg0L1cy?=
+ =?utf-8?B?R083T2lVZ2VlbXdZVG5Fd0Z5alNBMlVuLy9SL01uR2diRW9WMGVnNm04WDFY?=
+ =?utf-8?B?eW1XY0tydkVBL3ZMazdibklMWm1oUUptSTBzdi9DRDM2NVBTMnFLTkpscTZq?=
+ =?utf-8?B?LzhqMzZFT3lzSU9zMk9XblhLTGwzSWN3R3RYK0pIZy8rbkxvL2EvRXYzSGdy?=
+ =?utf-8?B?MjhVdDVWdEN4NHpoV0I1MVN6VWZsUEhIV0tzRXp1OE9KSnlzV21TYzYveUZU?=
+ =?utf-8?B?OEpuVm1CTHh2M0xmbmtIQTNtNHdrWHVrNkI4Vy9TRDQvUW8vWGk3MHUvVURY?=
+ =?utf-8?B?Y1o0YkkrY3dMTjdEZkg4V3FRUmhoMVdnVjRDdnV4aTYzb2dnWE9rcFFscUJr?=
+ =?utf-8?B?d2d2RXhibHJJTmJMSUFLMVY0Vmk2a2JoWEVFWkhnVGdwTWV1aDNRQXY3cUM1?=
+ =?utf-8?Q?08gSesWchXBN/CujSB2xTuVK+JF?=
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d2a09d31-8abe-4e4c-9fb5-08dad2b4ec2b
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR08MB3749.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ddff6ea-a5f9-4606-3307-08dad2b0609f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2022 08:53:40.3000
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 09:26:12.7387
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cvFhx0ESTmYvncbX/WT2VobVbDl+WvtMhHr0AjzEr4QKhJ2tGJkK//HfZXo5INZtfyKn9B3cZYNUTtOLhvhgpQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9755
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OW5FLAOYTNltQyc9kLF10SYk0a+UDEwl0NE8tLjVFsj+1cqAzVBEeNai075jRGkvp9WEFp1r3dLrSDtYrv2LwQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR03MB4929
 
+On Tue, Nov 29, 2022 at 02:12:10PM -0800, Stefano Stabellini wrote:
+> On Tue, 29 Nov 2022, Roger Pau Monne wrote:
+> > The hvc machinery registers both a console and a tty device based on
+> > the hv ops provided by the specific implementation.  Those two
+> > interfaces however have different locks, and there's no single locks
+> > that's shared between the tty and the console implementations, hence
+> > the driver needs to protect itself against concurrent accesses.
+> > Otherwise concurrent calls using the split interfaces are likely to
+> > corrupt the ring indexes, leaving the console unusable.
+> >
+> > Introduce a lock to xencons_info to serialize accesses to the shared
+> > ring.  This is only required when using the shared memory console,
+> > concurrent accesses to the hypercall based console implementation are
+> > not an issue.
+> > 
+> > Note the conditional logic in domU_read_console() is slightly modified
+> > so the notify_daemon() call can be done outside of the locked region:
+> > it's an hypercall and there's no need for it to be done with the lock
+> > held.
+> > 
+> > Fixes: b536b4b96230 ('xen: use the hvc console infrastructure for Xen console')
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > While the write handler (domU_write_console()) is used by both the
+> > console and the tty ops, that's not the case for the read side
+> > (domU_read_console()).  It's not obvious to me whether we could get
+> > concurrent poll calls from the poll_get_char tty hook, hence stay on
+> > the safe side also serialize read accesses in domU_read_console().
+> 
+> I think domU_read_console doesn't need it. struct hv_ops and struct
+> console are both already locked although independently locked.
+> 
+> I think we shouldn't add an unrequired lock there.
 
+Not all accesses are done using the tty lock.  There's a path using
+tty_find_polling_driver() in kgdboc.c that directly calls into the
+->poll_get_char() hook without any locks apparently taken.
 
-> On 29 Nov 2022, at 23:51, Stefano Stabellini <sstabellini@kernel.org> wro=
-te:
->=20
-> On Mon, 28 Nov 2022, Luca Fancellu wrote:
->> Currently the script convert_misra_doc.py is using a loop through
->> range(1,22) to enumerate rules that needs to be skipped, however
->> range function does not include the stop counter in the enumeration
->> ending up into list rules until 21.21 instead of including rule 22.
->>=20
->> Fix the issue using a dictionary that list the rules in misra c2012.
->=20
-> I think I understand the problem you are trying to solve with this
-> patch. But I am confused about the proposed solution.
->=20
-> The original code is trying to list all the possible MISRA C rules that
-> are not in docs/misra/rules.rst. Instead of list(range(1,22)) now we
-> have a dictionary: misra_c2012_rules. But misra_c2012_rules doesn't have
-> all the possible MISRA C rules missing from docs/misra/rules.rst.
->=20
-> As an example Rule 13.1 is missing from docs/misra/rules.rst but it is
-> also missing from misra_c2012_rules.
->=20
-> Can you please help me understand why misra_c2012_rules has only a small
-> subset of MISRA C rules to be skipped?
+> 
+> > ---
+> >  drivers/tty/hvc/hvc_xen.c | 16 ++++++++++++++--
+> >  1 file changed, 14 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
+> > index 7c23112dc923..d65741983837 100644
+> > --- a/drivers/tty/hvc/hvc_xen.c
+> > +++ b/drivers/tty/hvc/hvc_xen.c
+> > @@ -43,6 +43,7 @@ struct xencons_info {
+> >  	int irq;
+> >  	int vtermno;
+> >  	grant_ref_t gntref;
+> > +	spinlock_t ring_lock;
+> >  };
+> >  
+> >  static LIST_HEAD(xenconsoles);
+> > @@ -84,12 +85,15 @@ static int __write_console(struct xencons_info *xencons,
+> >  	XENCONS_RING_IDX cons, prod;
+> >  	struct xencons_interface *intf = xencons->intf;
+> >  	int sent = 0;
+> > +	unsigned long flags;
+> >  
+> > +	spin_lock_irqsave(&xencons->ring_lock, flags);
+> >  	cons = intf->out_cons;
+> >  	prod = intf->out_prod;
+> >  	mb();			/* update queue values before going on */
+> >  
+> >  	if ((prod - cons) > sizeof(intf->out)) {
+> > +		spin_unlock_irqrestore(&xencons->ring_lock, flags);
+> >  		pr_err_once("xencons: Illegal ring page indices");
+> >  		return -EINVAL;
+> >  	}
+> > @@ -99,6 +103,7 @@ static int __write_console(struct xencons_info *xencons,
+> >  
+> >  	wmb();			/* write ring before updating pointer */
+> >  	intf->out_prod = prod;
+> > +	spin_unlock_irqrestore(&xencons->ring_lock, flags);
+> >  
+> >  	if (sent)
+> >  		notify_daemon(xencons);
+> > @@ -141,16 +146,19 @@ static int domU_read_console(uint32_t vtermno, char *buf, int len)
+> >  	int recv = 0;
+> >  	struct xencons_info *xencons = vtermno_to_xencons(vtermno);
+> >  	unsigned int eoiflag = 0;
+> > +	unsigned long flags;
+> >  
+> >  	if (xencons == NULL)
+> >  		return -EINVAL;
+> >  	intf = xencons->intf;
+> >  
+> > +	spin_lock_irqsave(&xencons->ring_lock, flags);
+> >  	cons = intf->in_cons;
+> >  	prod = intf->in_prod;
+> >  	mb();			/* get pointers before reading ring */
+> >  
+> >  	if ((prod - cons) > sizeof(intf->in)) {
+> > +		spin_unlock_irqrestore(&xencons->ring_lock, flags);
+> >  		pr_err_once("xencons: Illegal ring page indices");
+> >  		return -EINVAL;
+> >  	}
+> > @@ -174,10 +182,13 @@ static int domU_read_console(uint32_t vtermno, char *buf, int len)
+> >  		xencons->out_cons = intf->out_cons;
+> >  		xencons->out_cons_same = 0;
+> >  	}
+> > +	if (!recv && xencons->out_cons_same++ > 1) {
+> > +		eoiflag = XEN_EOI_FLAG_SPURIOUS;
+> > +	}
+> > +	spin_unlock_irqrestore(&xencons->ring_lock, flags);
+> > +
+> >  	if (recv) {
+> >  		notify_daemon(xencons);
+> > -	} else if (xencons->out_cons_same++ > 1) {
+> > -		eoiflag = XEN_EOI_FLAG_SPURIOUS;
+> >  	}
+> >  
+> >  	xen_irq_lateeoi(xencons->irq, eoiflag);
+> > @@ -576,6 +587,7 @@ static int __init xen_hvc_init(void)
+> >  
+> >  		info = vtermno_to_xencons(HVC_COOKIE);
+> >  		info->irq = bind_evtchn_to_irq_lateeoi(info->evtchn);
+> > +		spin_lock_init(&info->ring_lock);
+> 
+> Don't we also need a call to spin_lock_init in xencons_connect_backend
+> and xen_cons_init and xenboot_console_setup ?
 
-Hi Stefano,
+Not in xencons_connect_backend(), as that's called on resume.  Will
+fix the missing lock init, didn't realize the console init paths are
+so convoluted.
 
-MISRA rules are in this format X.Y, misra_c2012_rules is a dictionary where=
- the key is=20
-X and the value is the maximum number that Y can have.
+Early PV console on the shared ring worked fine,  I wonder why that
+didn't explode.
 
-For example rule 13.Y goes from 13.1 to 13.6 (in the dictionary misra_c2012=
-_rules[13] =3D=3D 6),
-so the code can now check which among (13.1 .. 13.6) is not in the rule_lis=
-t and add it to the
-list of skipped rules.
-
-Here an example:
-{
-    "script": "misra.py",
-    "args": [
-      "--rule-texts=3D/path/to/cppcheck-misra.txt",
-      "--suppress-rules=3D1.1,1.2,1.4,2.2,2.3,2.4,2.5,2.6,2.7,3.1,4.1,4.2,5=
-.5,5.6,5.7,5.8,5.9,6.1,7.1,7.2,7.3,7.4,8.2,8.3,8.7,8.9,8.11,8.13,8.14,9.3,9=
-.4,9.5,10.1,10.2,10.3,10.4,10.5,10.6,10.7,10.8,11.1,11.2,11.3,11.4,11.5,11.=
-6,11.7,11.8,11.9,12.1,12.2,12.3,12.4,12.5,13.1,13.2,13.3,13.4,13.5,14.2,14.=
-3,14.4,15.1,15.2,15.3,15.4,15.5,15.6,15.7,16.1,16.2,16.3,16.4,16.5,16.6,17.=
-1,17.2,17.5,17.6,17.7,17.8,18.1,18.2,18.3,18.4,18.5,18.6,18.7,18.8,19.1,19.=
-2,20.1,20.2,20.3,20.4,20.5,20.6,20.8,20.9,20.10,20.11,20.12,21.1,21.2,21.3,=
-21.4,21.5,21.6,21.7,21.8,21.9,21.10,21.11,21.12,21.13,21.14,21.15,21.16,21.=
-17,21.18,21.19,21.20,21.21,22.1,22.2,22.3,22.4,22.5,22.6,22.7,22.8,22.9,22.=
-10"
-    ]
-}
-
-So this patch is solving two issues, the first one was that rule 22.Y was n=
-ever included in the suppressed
-list because range(1,22) produces a range in [1..21], the second issue is t=
-hat the code was producing
-Invalid MISRA C 2012 rules, for example 1.21 and so on.
-
-
->=20
->=20
->> Fixes: 57caa5375321 ("xen: Add MISRA support to cppcheck make rule")
->> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
->> ---
->> xen/tools/convert_misra_doc.py | 32 ++++++++++++++++++++++++++++++--
->> 1 file changed, 30 insertions(+), 2 deletions(-)
->>=20
->> diff --git a/xen/tools/convert_misra_doc.py b/xen/tools/convert_misra_do=
-c.py
->> index caa4487f645f..13074d8a2e91 100755
->> --- a/xen/tools/convert_misra_doc.py
->> +++ b/xen/tools/convert_misra_doc.py
->> @@ -14,6 +14,34 @@ Usage:
->>=20
->> import sys, getopt, re
->>=20
->> +# MISRA rule are identified by two numbers, e.g. Rule 1.2, the main rul=
-e number
->> +# and a sub-number. This dictionary contains the number of the MISRA ru=
-le as key
->> +# and the maximum sub-number for that rule as value.
->> +misra_c2012_rules =3D {
->> +    1:4,
->> +    2:7,
->> +    3:2,
->> +    4:2,
->> +    5:9,
->> +    6:2,
->> +    7:4,
->> +    8:14,
->> +    9:5,
->> +    10:8,
->> +    11:9,
->> +    12:5,
->> +    13:6,
->> +    14:4,
->> +    15:7,
->> +    16:7,
->> +    17:8,
->> +    18:8,
->> +    19:2,
->> +    20:14,
->> +    21:21,
->> +    22:10
->> +}
->> +
->> def main(argv):
->>     infile =3D ''
->>     outfile =3D ''
->> @@ -142,8 +170,8 @@ def main(argv):
->>     skip_list =3D []
->>=20
->>     # Search for missing rules and add a dummy text with the rule number
->> -    for i in list(range(1,22)):
->> -        for j in list(range(1,22)):
->> +    for i in misra_c2012_rules:
->> +        for j in list(range(1,misra_c2012_rules[i]+1)):
->>             if str(i) + '.' + str(j) not in rule_list:
->>                 outstr.write('Rule ' + str(i) + '.' + str(j) + '\n')
->>                 outstr.write('No description for rule ' + str(i) + '.' +=
- str(j)
->> --=20
->> 2.17.1
->>=20
-
+Thanks, Roger.
 
