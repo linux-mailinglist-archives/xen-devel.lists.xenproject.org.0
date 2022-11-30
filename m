@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BA6763DB1B
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 17:55:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450016.707127 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB0AE63DB1E
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 17:55:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450018.707149 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0QMW-0001jq-Lq; Wed, 30 Nov 2022 16:55:08 +0000
+	id 1p0QMb-0002HY-Bl; Wed, 30 Nov 2022 16:55:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450016.707127; Wed, 30 Nov 2022 16:55:08 +0000
+Received: by outflank-mailman (output) from mailman id 450018.707149; Wed, 30 Nov 2022 16:55:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0QMW-0001hH-Iw; Wed, 30 Nov 2022 16:55:08 +0000
-Received: by outflank-mailman (input) for mailman id 450016;
- Wed, 30 Nov 2022 16:55:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p0QMb-0002FN-6X; Wed, 30 Nov 2022 16:55:13 +0000
+Received: by outflank-mailman (input) for mailman id 450018;
+ Wed, 30 Nov 2022 16:55:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kvFK=36=citrix.com=prvs=3260afb21=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1p0QMU-0001h8-VT
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 16:55:07 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb6406d4-70cf-11ed-8fd2-01056ac49cbb;
- Wed, 30 Nov 2022 17:55:05 +0100 (CET)
+ id 1p0QMY-00028d-Ux
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 16:55:10 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id be61cc1a-70cf-11ed-91b6-6bf2151ebd3b;
+ Wed, 30 Nov 2022 17:55:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,64 +36,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb6406d4-70cf-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: be61cc1a-70cf-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1669827304;
+  d=citrix.com; s=securemail; t=1669827309;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=z/izcCZYLALenFQZc+ciAhdGz2w/UXtld5npiWlVuFM=;
-  b=Is2DDria1i3/f5QVBpl0lXRZsUP1aLpd3ze/2RYCWwu2cS5uykoC81sl
-   wR4+5CKW+jvuz1+aRUKxJ/AYS/ySvVxZ+Dx0rUxdeL+nwjfvx3vk1/Toi
-   6F+b7q89NvC/uRBjWkKKlBrTbkfrMbYuo4r26F4YEfUylzs06Yebwo3jq
-   U=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=m3N373zQMCSuoA562ubDzuK9w6uDDTqYPMgngEFce1I=;
+  b=fms+vslK6IKOD+vkSNBLLioGfyhTLfrwEvxo1CvEI/Igfp9Ls6mRBysg
+   BFEp+i0wA0dK0Erm4Dw0L21L6cIYrmk0oZ8SZsCX41VEDIneOv7jZKJJc
+   d7WTL4GfUtoR0XFnl1Ex9m+GsErQGTlxk+b/oCFZUfr2tLCNRvyg1BU+N
+   k=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 85899572
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 85447238
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:rw8Izay4JRXhP7MlDNZ6t+c6xirEfRIJ4+MujC+fZmUNrF6WrkUOz
- 2MfWGCDOfaINmbwLdEjaYvg9h8Fu8WBzIIxTgo/pCAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTbaeYUidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw//F+U0HUMja4mtC5AVnPqgT5zcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KU9s9
- 80aIShcVTGotse4/6+/b9BNr/12eaEHPKtH0p1h5TTQDPJgSpHfWaTao9Rf2V/chOgXQ6yYP
- ZBAL2MyMlKQOHWjOX9OYH46tM6uimPybHtzr1WNqLBsy2PS0BZwwP7mN9+9ltmiFZgFzxfF+
- TiuE2LRHQ4nKN2SmTW/ryi8g/3kjCHYCaE4LejtnhJtqALKnTFCYPEMbnO3qOe0olSzUNVeL
- woT4CVGhbg/8gmnQ8fwWzW8oWWYpVgMVtxICeo45QqRjK3O7G6k6nMsF2AbLoZ87YlvGGJsh
- gThc87V6SJHnp+XeHCU7uavjBiDHCYqMGsnXA4tdF5QizX8m70bghXKR9dlNae6iNzpBD39q
- wy3QDgCa6Y71pBSifjilbzTq3f1/8WSEFZpjunCdjj9hj6VcrJJcGBBBbLzyf9bZLiUQVCa1
- JTvs5jPtbteZX1hecHkfQnsIF1Lz6zdWNE/qQQ1d3XEy9hK0yDLQGyoyGsiTHqFy+5dEdMTX
- GfduBlK+LhYN2awYKl8buqZUpp0nPe8S4q4CKyIMLKih6SdkifdpEmCgmbJjwjQfLUEy/lja
- f93j+7zZZrlNUiX5GXvHLpMuVPa7is/2XnSVfjGI+ePiNKjiIquYe5dajOmN7lphJ5oVS2Jq
- 76zwePWkUQAOAA/CwGLmbMuwacidCNqX8mp+5EPL4Zu4GNOQQkcNhMY+pt5E6QNokifvrqgE
- q2VMqOA9GfCuA==
-IronPort-HdrOrdr: A9a23:oRJkH6y0SElKDWwFRqXxKrPwLL1zdoMgy1knxilNoRw8SKOlfq
- GV7ZImPHDP6Qr5NEtMpTnEAtjjfZq+z+8T3WByB9eftWDd0QPCRr2Kr7GSpgEIcxeOktK1vp
- 0PT0ERMrHN5CBB/KXH3DU=
+IronPort-Data: A9a23:q9OwQK/7JjS3R8cTsVQoDrUDjX6TJUtcMsCJ2f8bNWPcYEJGY0x3z
+ 2dMXziFPPiIZzegeY12YYvioUsA6MPWzoViSgdkr3o8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKucYHsZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kIx1BjOkGlA5AZnPKsT5AS2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklw1
+ dwgKxpQbyytnqWP0qyDesI1g9YaeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGM0Yn1lQ/UfrSmM+BgHXlfiIeg1WSvactuEDYzRBr0airO93QEjCPbZUIwhrH/
+ DmWl4j/Kk8/b+SG0TGXyGK1h6zdjD/2dK42BaLto5aGh3XMnzdOWXX6T2CTrfCnh2akVtlYK
+ khS/TAhxYAi+UruQtTjUhmQpH+fogVaS9dWC/c96gyG1uzT+QnxO4QfZmcfMpp87pZwHGF0k
+ A/S9z/0OdBxmIO1aUqe3OqVkR2rfhEHM1cyTnYBXzJQtrEPv7oPph7IS99iFou8gdv0BSz8z
+ li2kcQuu1kApZVVjvvmpDgrlxrp/8GUFVBtum07S0r/tmtEiJiZi5tEALQxxdJJN86nQ1aIp
+ xDocODOvblVXflheMFgKdjh/Y1FBd7faFUwYnY1RfHNEghBHFb9Fb28GBkkeC9U3j8sIFcFm
+ nP7twJL/4N0N3C3d6JxaI/ZI510k/m/SYq7C66IMoQmjn1NmOmvpnkGiam4hjCFraTRuftnZ
+ cfznTiEUh729piLPBLpHrxAgNfHNwg1xH/JRICT8vhU+eP2WZJhcp9caAHmRrlgvMu5TPD9r
+ 4432z2il08OD4UTo0D/reYuELz9BSFgVMqv9JwKLrfrz8gPMDhJNsI9CIgJI+RN95m5XM+Ul
+ p1hcie0EGbCuEA=
+IronPort-HdrOrdr: A9a23:y9w/SqAHcX70Ak3lHemd55DYdb4zR+YMi2TDj3oBLSC9Afbo8P
+ xG/c5rrSMc5wxwZJhNo7290ey7MBbhHP1OkPIs1NWZLWrbUQKTRekIh7cKgQeQeREWndQz6U
+ 4USclD4arLY2SS4/yX3ODyKadH/DDOytHQudvj
 X-IronPort-AV: E=Sophos;i="5.96,207,1665460800"; 
-   d="scan'208";a="85899572"
+   d="scan'208";a="85447238"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
 CC: Andrew Cooper <andrew.cooper3@citrix.com>, Christian Lindig
 	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Edwin Torok
 	<edvin.torok@citrix.com>, Rob Hoes <Rob.Hoes@citrix.com>
-Subject: [PATCH v2 1/6] tools/oxenstored: Style fixes to Domain
-Date: Wed, 30 Nov 2022 16:54:50 +0000
-Message-ID: <20221130165455.31125-2-andrew.cooper3@citrix.com>
+Subject: [PATCH v2 2/6] tools/oxenstored: Bind the DOM_EXC VIRQ in in Event.init()
+Date: Wed, 30 Nov 2022 16:54:51 +0000
+Message-ID: <20221130165455.31125-3-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20221130165455.31125-1-andrew.cooper3@citrix.com>
 References: <20221130165455.31125-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-This file has some style problems so severe that they interfere with the
-readability of the subsequent bugfix patches.
+Xenstored always needs to bind the DOM_EXC VIRQ.
 
-Fix these issues ahead of time, to make the subsequent changes more readable.
+Instead of doing it shortly after the call to Event.init(), do it in the
+init() call itself.  This removes the need for the field to be a mutable
+option.
 
-No functional change.
+It will also simplify a future change to restore both parts from the live
+update record, rather than re-initialising them from scratch.
+
+Rename the field from virq_port (which could be any VIRQ) to it's proper name.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
@@ -103,49 +107,64 @@ CC: Edwin Torok <edvin.torok@citrix.com>
 CC: Rob Hoes <Rob.Hoes@citrix.com>
 
 v2:
- * New
+ * New.
 ---
- tools/ocaml/xenstored/domain.ml | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+ tools/ocaml/xenstored/event.ml     | 9 ++++++---
+ tools/ocaml/xenstored/xenstored.ml | 4 +---
+ 2 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/tools/ocaml/xenstored/domain.ml b/tools/ocaml/xenstored/domain.ml
-index 81cb59b8f1a2..ab08dcf37f62 100644
---- a/tools/ocaml/xenstored/domain.ml
-+++ b/tools/ocaml/xenstored/domain.ml
-@@ -57,17 +57,16 @@ let is_paused_for_conflict dom = dom.conflict_credit <= 0.0
- let is_free_to_conflict = is_dom0
+diff --git a/tools/ocaml/xenstored/event.ml b/tools/ocaml/xenstored/event.ml
+index ccca90b6fc4f..a3be296374ff 100644
+--- a/tools/ocaml/xenstored/event.ml
++++ b/tools/ocaml/xenstored/event.ml
+@@ -17,12 +17,15 @@
+ (**************** high level binding ****************)
+ type t = {
+ 	handle: Xeneventchn.handle;
+-	mutable virq_port: Xeneventchn.t option;
++	domexc: Xeneventchn.t;
+ }
  
- let string_of_port = function
--| None -> "None"
--| Some x -> string_of_int (Xeneventchn.to_int x)
-+	| None -> "None"
-+	| Some x -> string_of_int (Xeneventchn.to_int x)
+-let init () = { handle = Xeneventchn.init (); virq_port = None; }
++let init () =
++	let handle = Xeneventchn.init () in
++	let domexc = Xeneventchn.bind_dom_exc_virq handle in
++	{ handle; domexc }
++
+ let fd eventchn = Xeneventchn.fd eventchn.handle
+-let bind_dom_exc_virq eventchn = eventchn.virq_port <- Some (Xeneventchn.bind_dom_exc_virq eventchn.handle)
+ let bind_interdomain eventchn domid port = Xeneventchn.bind_interdomain eventchn.handle domid port
+ let unbind eventchn port = Xeneventchn.unbind eventchn.handle port
+ let notify eventchn port = Xeneventchn.notify eventchn.handle port
+diff --git a/tools/ocaml/xenstored/xenstored.ml b/tools/ocaml/xenstored/xenstored.ml
+index c5dc7a28d082..55071b49eccb 100644
+--- a/tools/ocaml/xenstored/xenstored.ml
++++ b/tools/ocaml/xenstored/xenstored.ml
+@@ -397,7 +397,6 @@ let _ =
+ 	if cf.restart && Sys.file_exists Disk.xs_daemon_database then (
+ 		let rwro = DB.from_file store domains cons Disk.xs_daemon_database in
+ 		info "Live reload: database loaded";
+-		Event.bind_dom_exc_virq eventchn;
+ 		Process.LiveUpdate.completed ();
+ 		rwro
+ 	) else (
+@@ -413,7 +412,6 @@ let _ =
  
- let dump d chan =
- 	fprintf chan "dom,%d,%nd,%d\n" d.id d.mfn d.remote_port
- 
--let notify dom = match dom.port with
--| None ->
--	warn "domain %d: attempt to notify on unknown port" dom.id
--| Some port ->
--	Event.notify dom.eventchn port
-+let notify dom =
-+	match dom.port with
-+	| None -> warn "domain %d: attempt to notify on unknown port" dom.id
-+	| Some port -> Event.notify dom.eventchn port
- 
- let bind_interdomain dom =
- 	begin match dom.port with
-@@ -84,8 +83,7 @@ let close dom =
- 	| None -> ()
- 	| Some port -> Event.unbind dom.eventchn port
- 	end;
--	Xenmmap.unmap dom.interface;
--	()
-+	Xenmmap.unmap dom.interface
- 
- let make id mfn remote_port interface eventchn = {
- 	id = id;
+ 		if cf.domain_init then (
+ 			Connections.add_domain cons (Domains.create0 domains);
+-			Event.bind_dom_exc_virq eventchn
+ 		);
+ 		rw_sock
+ 	) in
+@@ -451,7 +449,7 @@ let _ =
+ 			let port = Event.pending eventchn in
+ 			debug "pending port %d" (Xeneventchn.to_int port);
+ 			finally (fun () ->
+-				if Some port = eventchn.Event.virq_port then (
++				if port = eventchn.Event.domexc then (
+ 					let (notify, deaddom) = Domains.cleanup domains in
+ 					List.iter (Store.reset_permissions store) deaddom;
+ 					List.iter (Connections.del_domain cons) deaddom;
 -- 
 2.11.0
 
