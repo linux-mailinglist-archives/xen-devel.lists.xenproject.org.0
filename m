@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0773863D554
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 13:16:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449848.706865 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74B2163D552
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 13:16:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449847.706855 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0M0H-0006Gn-SG; Wed, 30 Nov 2022 12:15:53 +0000
+	id 1p0M0G-0005zE-JJ; Wed, 30 Nov 2022 12:15:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449848.706865; Wed, 30 Nov 2022 12:15:53 +0000
+Received: by outflank-mailman (output) from mailman id 449847.706855; Wed, 30 Nov 2022 12:15:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0M0H-0006Dr-O4; Wed, 30 Nov 2022 12:15:53 +0000
-Received: by outflank-mailman (input) for mailman id 449848;
- Wed, 30 Nov 2022 12:15:52 +0000
+	id 1p0M0G-0005xD-FF; Wed, 30 Nov 2022 12:15:52 +0000
+Received: by outflank-mailman (input) for mailman id 449847;
+ Wed, 30 Nov 2022 12:15:51 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Jz7r=36=arm.com=bertrand.marquis@srs-se1.protection.inumbo.net>)
- id 1p0M0G-0005h2-8z
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 12:15:52 +0000
+ id 1p0M0F-0005h2-Gx
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 12:15:51 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id b9e5904a-70a8-11ed-91b6-6bf2151ebd3b;
+ id ba6cb99f-70a8-11ed-91b6-6bf2151ebd3b;
  Wed, 30 Nov 2022 13:15:50 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 932D21042;
- Wed, 30 Nov 2022 04:15:55 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 75BCB12FC;
+ Wed, 30 Nov 2022 04:15:56 -0800 (PST)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 51D583F73D;
- Wed, 30 Nov 2022 04:15:48 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 348A93F73D;
+ Wed, 30 Nov 2022 04:15:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,61 +43,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9e5904a-70a8-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: ba6cb99f-70a8-11ed-91b6-6bf2151ebd3b
 From: Bertrand Marquis <bertrand.marquis@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: michal.orzel@amd.com,
 	Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v5 2/3] automation: Add a clean rule for containers
-Date: Wed, 30 Nov 2022 12:15:08 +0000
-Message-Id: <f793cc70fdb6802b66156a8756bf676fbac0d809.1669810269.git.bertrand.marquis@arm.com>
+Subject: [PATCH v5 3/3] automation: Add CI test jobs for Yocto
+Date: Wed, 30 Nov 2022 12:15:09 +0000
+Message-Id: <e64015d3e8682d068223e94f3bfc8ad823b27a65.1669810269.git.bertrand.marquis@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1669810269.git.bertrand.marquis@arm.com>
 References: <cover.1669810269.git.bertrand.marquis@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add make clean support to remove the containers from the local docker
-registry.
-make clean-<image_name> must be called to remove an image:
-make clean-yocto/kirkstone-qemuarm: remove yocto kirkstone for qemuarm
-image
+From: Michal Orzel <michal.orzel@amd.com>
 
-Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
+Populate test jobs for Yocto based tests using the provided containers.
+Due to the size restrictions, it is currently not possible to split the
+build and run tasks, therefore everything is done in a single step.
+
+Test jobs for the supported Yocto targets are generic to avoid the
+necessity to add new ones after each Yocto release. The only thing
+required to be changed after updating the containers is the variable
+YOCTO_VERSION stored in a .yocto-test template.
+
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes in v5:
-- remove cleaning of all images using make clean
+- none
 Changes in v4:
-- also generate clean rule for CONTAINERS_EXTRA
+- add .yocto-test for arm64 and x86
+- make yocto jobs use arm64 version
 Changes in v3:
-- none
-Changes in v2:
-- none
-Changes in v1:
 - patch added
 ---
- automation/build/Makefile | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ automation/gitlab-ci/test.yaml | 43 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-diff --git a/automation/build/Makefile b/automation/build/Makefile
-index 72a5335baec1..4cbb1365f94e 100644
---- a/automation/build/Makefile
-+++ b/automation/build/Makefile
-@@ -28,3 +28,13 @@ all: $(CONTAINERS)
- clean:
- 	rm -f yocto/*.dockerfiles
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index c7e0078e04f1..6ce2fd63eee6 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -54,6 +54,33 @@
+   tags:
+     - x86_64
  
-+define CLEAN_RULE
-+.PHONY: clean-$(1)
-+clean-$(1):
-+ifneq ($$(shell docker image ls -q $(REGISTRY)/$(subst /,:,$(1))),)
-+	docker image rm $(REGISTRY)/$(subst /,:,$(1))
-+endif
++.yocto-test:
++  extends: .test-jobs-common
++  script:
++    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD}
++  variables:
++    YOCTO_VERSION: kirkstone
++    CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}-${YOCTO_HOST}
++  artifacts:
++    paths:
++      - 'logs/*'
++    when: always
++  needs: []
 +
-+endef
++.yocto-test-arm64:
++  extends: .yocto-test
++  variables:
++    YOCTO_HOST: arm64v8
++  tags:
++    - arm64
 +
-+$(eval $(foreach img,$(CONTAINERS) $(CONTAINERS_EXTRA),$(call CLEAN_RULE,$(img))))
++.yocto-test-x86-64:
++  extends: .yocto-test
++  variables:
++    YOCTO_HOST: amd64
++  tags:
++    - x86_64
++
+ # Test jobs
+ build-each-commit-gcc:
+   extends: .test-jobs-common
+@@ -188,3 +215,19 @@ qemu-smoke-x86-64-clang-pvh:
+     - ./automation/scripts/qemu-smoke-x86-64.sh pvh 2>&1 | tee ${LOGFILE}
+   needs:
+     - debian-unstable-clang-debug
++
++# Yocto test jobs
++yocto-qemuarm64:
++  extends: .yocto-test-arm64
++  variables:
++    YOCTO_BOARD: qemuarm64
++
++yocto-qemuarm:
++  extends: .yocto-test-arm64
++  variables:
++    YOCTO_BOARD: qemuarm
++
++yocto-qemux86-64:
++  extends: .yocto-test-arm64
++  variables:
++    YOCTO_BOARD: qemux86-64
 -- 
 2.25.1
 
