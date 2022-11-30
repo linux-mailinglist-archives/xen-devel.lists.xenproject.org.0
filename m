@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1CFD63CFFD
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 08:59:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449758.706695 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BBCE63D126
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 09:55:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449772.706707 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Hzz-0003WO-3D; Wed, 30 Nov 2022 07:59:19 +0000
+	id 1p0Iqj-0002Xr-J5; Wed, 30 Nov 2022 08:53:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449758.706695; Wed, 30 Nov 2022 07:59:19 +0000
+Received: by outflank-mailman (output) from mailman id 449772.706707; Wed, 30 Nov 2022 08:53:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Hzy-0003TE-W1; Wed, 30 Nov 2022 07:59:18 +0000
-Received: by outflank-mailman (input) for mailman id 449758;
- Wed, 30 Nov 2022 07:59:16 +0000
+	id 1p0Iqj-0002UP-GR; Wed, 30 Nov 2022 08:53:49 +0000
+Received: by outflank-mailman (input) for mailman id 449772;
+ Wed, 30 Nov 2022 08:53:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=4wzj=36=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p0Hzw-0003T8-ND
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 07:59:16 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on20607.outbound.protection.outlook.com
- [2a01:111:f400:fe16::607])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=rKz+=36=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
+ id 1p0Iqh-0002UI-Mm
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 08:53:48 +0000
+Received: from EUR02-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur02on20631.outbound.protection.outlook.com
+ [2a01:111:f400:fe12::631])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e238e27f-7084-11ed-91b6-6bf2151ebd3b;
- Wed, 30 Nov 2022 08:59:15 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9422.eurprd04.prod.outlook.com (2603:10a6:102:2b4::21)
+ id 7ed7db36-708c-11ed-91b6-6bf2151ebd3b;
+ Wed, 30 Nov 2022 09:53:44 +0100 (CET)
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
+ by DB9PR08MB9755.eurprd08.prod.outlook.com (2603:10a6:10:460::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
- 2022 07:59:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5857.023; Wed, 30 Nov 2022
- 07:59:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Wed, 30 Nov
+ 2022 08:53:40 +0000
+Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::b14f:1c13:afa:4eda]) by AM6PR08MB3749.eurprd08.prod.outlook.com
+ ([fe80::b14f:1c13:afa:4eda%3]) with mapi id 15.20.5880.008; Wed, 30 Nov 2022
+ 08:53:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +47,231 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e238e27f-7084-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 7ed7db36-708c-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=blgb+1t8CNOJR/POjq6ex61A3Ky1ADYKegOOaGWGQVHIM5c//W85e9+GYELINJ3k0EGxkL7/e7WocEXQB/ko8rZ3gI48m9Ssia3TrfmUJBcwlD96X4j4GO6BjftD2exmU298EHusL2o0yo4+Rj1+NmAAgPJp6eQ4Ss9Ox3hOGYnTkiHu0Y/llo6l619ndVMtjKcEjeAoR78/eSfWN749HhmhkhmRhJ8Ir7ykUmqpBh/3jaU276OhwS1Sdm0z26ehdrHG/UA1ZWw0+fHNLKOcGilagR5pkd05qOZalzYqnbolXmXWK9WXn/05eutrht3Z/FjyBuGjo9veEpEs3skjJQ==
+ b=QdRzY6p7b9IfT4WnpzVLeJf4bUAU1PpHmrIaUA330bTIm+ogfwb0wbW1TRl4/gLy2pcWmDNvTKP2P7vCorKfzEvPCxMmTf4jQ+6GY8oVWczSAoZwGbJdpWX/VocqxctF9g0f/gNcBXTsz4HIWGHUM/GYw5exR7xjiip/YGzsR6Cvso3Z8hE+Sba6lJx48Ekm/G5yKIeOVn/v2XDJw5FLj3rsK/crlU30Vp/ceSblvZ9xFhL+Dd7Ii0+VV7tyexfZDpW9ARKiORok8xrX9rPHZTyh5QEapOD/HYn1SWspyNfUOgnk40jixQc4RLOieDjSO5KOccpZUPyETnzDB9N5Bw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bgPKsdLcbxqD2OHRzaIQxIQ1pW2Esfntfw9/qZIIVdg=;
- b=dh2Gk9QVkyI/UWbd1S0ip+ScoBOudqAOmK2gLIP7GW2UInsXX/6wCMa03Cb84vk2GZ/sUmVyuInyTeGXsgZ3hG/GfzWGaYZ7GFD+R98h9DZksYr6Z2gAhfYmYyPrB4dil7LeGX2UUZNLQtBjFcPSJZtO8LZKfxGnKtfTDaTS5Qy0zw2AZ7C30gTb5hj+jGQOs8WqOuqlcWp7FvslSOI+dVW3/hz0N5dLIMEgX2zVN9NqKqeDcf4HZuDIcvlT07myCfEMN5+YVRwB/13yJnJyNw6rDqi7R7PbOZ8aaJAjCZ4+gq9j+NpgZPbCRhg5myXsWeEgpNBXIbWCJwggq7+Z/Q==
+ bh=CFnbZWJFUp0sAzawbJ6JmnR+WoHSTi35d13YUqDmStE=;
+ b=Njz7WuZonqX9Y//GltoV9lfRCWebjEQ7Y2MGurTY8FmKl63BuTtFUrSooKmNlm6CMCEGeMwErZg7PcaBdz7wk35eHC61zzOxsctLrwQuavancTFKi2wPPtY23yQ7KUxsNXPVprLgLjwACnfRrjtBOyNBxpzzRJMMm8JezLPcXsYUnuBS7BrA5cNhZ37PVk/gQZFS0/kIvKEhc7qnr/dTOnVTpll5kJw+KdxO/d0ls6AaXjwlLZb0U+fr8rFVZZ7K2qqdtKVtfZTSSTclTt8g6dovHHfQfr45oE7NxHcO+sOe7xyftVom/wXSQuBu8aPyo+kPdjdW3SFQP5xpf6rEvQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bgPKsdLcbxqD2OHRzaIQxIQ1pW2Esfntfw9/qZIIVdg=;
- b=K4yeoxNPdWmnExIZZ7cgUpgSWusg0qTCpZQqZEwdCfc+hFwb4YeEcRsDhl8k79hQpIYf7E5flMTTx3qV9fUEpfNrtBPoWXvgbavdvCrXgkhibLxqiWUY7RnyBQ6MTmZkMv990dq2VOQKvmeHLs1tD02sta52r7ISytvwnIWdmFJOQJn/q8BeE936/F6Tf63YJGhQVlOI1nkozNRBlDXpb7CS+XYAf0NSKOZwMX/HsFoZrrSMsEAi5NNRil6aCmAbhXVQAnMVUsKYvO+sDe4+yLANJk8c+pRTK7tlZa/+4L91IFizEv5iK+U2ydIdwEccVnbsUr0JosUzYciSvSf5NQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <fe00cc38-f5c5-2570-842f-1f7e2f4285e1@suse.com>
-Date: Wed, 30 Nov 2022 08:59:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH] x86/APIC: make a few interrupt handler functions static
+ bh=CFnbZWJFUp0sAzawbJ6JmnR+WoHSTi35d13YUqDmStE=;
+ b=ltPdw+TB4d5rVQL68GocmQzJPEhhf/Anbv2Yoi52gnvIqTFrcOytbw4Ye5cuCcZWcdgkXlCU1WyUP3+Ajo9fKR05bHsDONr2KWyW0H6RlhIjqse46L7Ik8esUlcX1H3MbeZ2+M4P0AqKUgsJDY6IgVItQWA+xFHAVEgq1zJpph4=
+From: Luca Fancellu <Luca.Fancellu@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH 3/4] tools/misra: fix skipped rule numbers
+Thread-Topic: [PATCH 3/4] tools/misra: fix skipped rule numbers
+Thread-Index: AQHZAzNHmn5ClVb9v0W1JXlG6nXFZ65WlJMAgACXfQA=
+Date: Wed, 30 Nov 2022 08:53:40 +0000
+Message-ID: <21F6A61B-1476-49A7-8726-7F94BBA627F6@arm.com>
+References: <20221128141006.8719-1-luca.fancellu@arm.com>
+ <20221128141006.8719-4-luca.fancellu@arm.com>
+ <alpine.DEB.2.22.394.2211291545420.4039@ubuntu-linux-20-04-desktop>
+In-Reply-To:
+ <alpine.DEB.2.22.394.2211291545420.4039@ubuntu-linux-20-04-desktop>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Roger Pau Monne <roger.pau@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Liu <wl@xen.org>
-References: <54ee1bd7-9b6a-efc7-8bad-50aa7d6d955b@suse.com>
- <Y4Yt400C4cHxMAal@Air-de-Roger>
- <b4e8cfc9-7a1d-dac4-4258-ddb7d2c06075@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b4e8cfc9-7a1d-dac4-4258-ddb7d2c06075@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0046.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:4a::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM6PR08MB3749:EE_|DB9PR08MB9755:EE_
+x-ms-office365-filtering-correlation-id: 2ddff6ea-a5f9-4606-3307-08dad2b0609f
+nodisclaimer: true
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ UnxYQGkwvIpJix0A0HjxSxlCsvm3KMbWLvZArO+CZ++6CeaVToCZ0t6nXAgUZZ8m8fgMRN6y5eOdEuMpWlI7OFY9W8F5ZZM5k3FJiw1FpKZD6ic9LQgHC4kl8QoQSWr+Sb+0hmdD5ULJUtCnAsZjtX8S3+u3nmhyI2P0JLh7DrW/EWz/KugbFJh8n4tlHn2LCM7IWSM0Aw7VNHF6uFmur0V4dQTYZgPCWI/HBWKTzwhiQCu6A1RiuWDt4waJfWKmHkurzAx041gne0hn97rZrhlw+Lwbwr+GuHB2HKWPxCuszzbSp8ng1qEwdFrPCgIcr6sZLNf1MXTvsSVGMK+f4hO0LmiIW+EKrm9XnKpvq0m7P0uYf8aNaN6+FG8Wgp2XIUC0W6aDDo4NZFHpoayP4XKWb7YZyTZJxEZz80KCOYQmHGuZY530CIeKUy2F8gU9iBbehsTeVstQQHvLfNfo2vMSwaUZ5ENctZGyLQjP7kq+yqC+xnefVNA4eZp4fQKOEirgwgqqFJ7q6Cgrb6p/1benActsX/VrVfvuYxWOnyRRjWLiLFUOehAP15Xxbh4ZvU+UA5c+lnZrUXDNtiQuGDD1Tkn3GR9irPqH2k7Ps759K044uH1qQDXbVonPN/Ovk/sDyx1+AD/tjNM29vdPG/ddPbBR5G2LcJXmyavxqg1Py21AxjS3UxZPijTznhLlJ8JBkai10oXJ6oHJ95zlFPQaa33xCv7+jU3gv7/GzsA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(396003)(366004)(39860400002)(376002)(346002)(451199015)(91956017)(122000001)(41300700001)(8936002)(83380400001)(5660300002)(66476007)(66946007)(86362001)(2906002)(2616005)(4326008)(186003)(38070700005)(8676002)(6506007)(33656002)(54906003)(6916009)(316002)(64756008)(38100700002)(66446008)(66556008)(76116006)(478600001)(6486002)(71200400001)(53546011)(36756003)(26005)(6512007)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?SohzbvRdW76RVXLe9P0o4iVdvycRsFRzb2hucUh7gTl4eDl0FIWkYS3sleHQ?=
+ =?us-ascii?Q?es0A1FmD+adFSIwsmR5ZbzmTIdL8vfMGuSD+bCY1a9vrMQpu8f/y9/g+ULxT?=
+ =?us-ascii?Q?Fi0uvvhNSoePTUWDvSVTcTiA5CEQ51Q7+kNdZ5DOesP5N9lrBa5Su961XSY2?=
+ =?us-ascii?Q?1kiWfaffyFGInxlEfz0cfBdeEkq/aBuWOXmjwQ/RKxi6XRb/ibWyDqZAIXRq?=
+ =?us-ascii?Q?pXkJl11Kgy3zP8J5r4U+imyPpDN9fnepeg3rwbywwIkazZczarWyB6zC4RI+?=
+ =?us-ascii?Q?f3zIKzFTdMP33bl+wo5lj8seq4vqCCEbtS3vB4VGEbuVL9TzdxCqv4x+7HpE?=
+ =?us-ascii?Q?I64aXhGssSs2lRMZvJ8/hdnco5tDfDmZxTxq+d2+n2CKWfJybFEDZq39BEVE?=
+ =?us-ascii?Q?QcKalxW2xOJcHkjyEdHXwx82KJsX9udMRTlUq5dfSH8XlYSMr9doq1mETxuA?=
+ =?us-ascii?Q?FCVEU6MsCBabmpWBfSBlqnj4vdwdAWcTaSiHssQwRb10E831pUc/eBMuOAZv?=
+ =?us-ascii?Q?6TwxOlWXTkOuQPHIBadKXseVzlXUQAfakYLnKRogGG286KIkWmNwg+1uR6Sa?=
+ =?us-ascii?Q?GVo1+dML8LjtL+CF7ey3iBwWdMIRP8r8y7BPz5cGZHXFtcJCZsBDCPzKpZTv?=
+ =?us-ascii?Q?jGmGTT0lGNHUUznoOgYRdrSL8MipjUf7rOgfoU6RY200qHVtjkbodBONSThB?=
+ =?us-ascii?Q?4JhT7qebYiQwZdeDMLqNes7sIYYr/e8dDdLa+GnyAaOWO57CdcAoLuJAhHY1?=
+ =?us-ascii?Q?RBUWznaJstyHBp6OKKeu0AZDcPNeCU6Xf231O1q/BA8fiZ3m5fDdHnp4K8NZ?=
+ =?us-ascii?Q?cgOUlwYYlacAIb5AKx4/GMejvJ/4vF3qz+9Nzo3ckVZMphf2vK0x1tJrlEUN?=
+ =?us-ascii?Q?U9yrzXR6jp1KWLx5+tEx0ETalFT6aL1FAwgX3+PEsJcKHPqdrooV/KCt6vgC?=
+ =?us-ascii?Q?bnOWFU66m6tzn1msW3gQdXj5T0idzqUUVikEaHEOhf5UzFTuH7UeZDYsB2sJ?=
+ =?us-ascii?Q?RuMQd1y5dOEYogYnTk8ImaEYR/FdilSHWChLNbVP0TlWmeNsQy82lhSwcxQg?=
+ =?us-ascii?Q?GsLAL+Y1kMqCrgyj/zCMzLMPj/AFhk/CuzVNSTrXPqHHO5cKoGTY+RVKAKda?=
+ =?us-ascii?Q?rPOhlquplaJy/CO9GdXZvQjyj6x2NwPjBPXccQA1ZfMntjGSMWADau7St3wU?=
+ =?us-ascii?Q?l0TmaRL3f8JJbbJK0mRCqjMH3K8oCZFZLexW4OQv+Sk8FNyVOmS1P+ehTQL+?=
+ =?us-ascii?Q?Tx7zpcapjS39Bk8044vQh5mGaCcwXEfBptQvPsBMrDzqL82OQyfijGy43ke+?=
+ =?us-ascii?Q?u5XWxYgKfv0TD3rwBzw8jSnLEpxtXZKQWCzQ7L8E9oqaa+DqXGbEkPEv3RGB?=
+ =?us-ascii?Q?vr/HU3vMgRpYWehA+zim26vjd7619N5KeIKEdT9HBQv886sDeaK6hr+ifL5O?=
+ =?us-ascii?Q?lHw4ywLtnvpQVKf/O2pS0i6YSNn8hBPVFwzZz2Uam96UdiOVcJUqD2JLHByy?=
+ =?us-ascii?Q?gHeoEAFgm7d5G97TE2m8J5Fa4BPuoKrJgAiRwK/XIhpPBXp5ODX/VS4njkNs?=
+ =?us-ascii?Q?VXdvcrhXcTWKaBTQue2XMBQVL4UPlrnNin9VT12wi3cY+CMQl8fg8hOIbOUp?=
+ =?us-ascii?Q?ug=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <A7460166AA498340B855E186326F26C6@eurprd08.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9422:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65034982-5d3e-4404-595b-08dad2a8c544
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	yw5VrPbVkaQN//hv29VShCM+gvqmw5XY8jaWSIaMLwAzz9cDU8eFGV3P1OZUWU9NGlw2Hp09/V5o4bZl4kUBqhDBkz6byfI2kpS4Brl5RO+eKsSiBDDY5qEYbMkl6eqSyq8LErf8N4rhyYgNpnvMUCoeL28YTeAXtpwSoOVx49v7j/H818yhjOXFH6UlT4m9ylX0yIyT+t8ifd4owRTTTBWN3cTvTkpmm64HLC+GwhYz4rkCcyEcMBDT+BLbvU4CNhEJRho1Wzghhp4Rzg3vscMA5tEuyWwWyAbmkbj+/vEKdLhki/abnl3+LBbYICKFwZlHuczLRC27V5b45ONfiwm6URSgjov0Q7uC65Hwzw9cKrP6o4gdnu3z0ho94lZchWbfHfVl9OqPA9CcjmS3GCNntu39ez46sGjzwCntHodyyEJib4DPI5OBEf3/GNRWAvViY/OHu1GpuuQOgJWDn6lApmOME1KvHu7itgbykLnZqno+hmhehLXRFbyCyTexsNmUwOgaGjLApR3ggyhBnpH7sZQyXQfsqdNE72NwfX3Xy5E0XL8E37XJAcUf2Fh/c8UhHWAMQg6QJMvB/vVZQnNXIn0RliQbgaZocQO+lAJVulgtJElqGbA5+f6Ebo3b3kWJR+fRkR0m3wh8vThBZqKbegGbfLmr6Es0Vm28A6KDZjG6D3AbMGv1jOnOVNe0J+iimfXghzloXpeuzWK62C3Fy7Mw3uPPbI1Oxq97QKg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(136003)(39860400002)(376002)(396003)(346002)(451199015)(36756003)(38100700002)(31696002)(86362001)(2906002)(66946007)(66476007)(66556008)(4326008)(8676002)(8936002)(110136005)(478600001)(186003)(316002)(2616005)(54906003)(31686004)(6486002)(41300700001)(5660300002)(26005)(6512007)(6506007)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b2tlaXcwSEtZeWZ4YkNPczNENFhvZFZ2TzdsbmoxRFFJTlZNSDFFVTFWNlYr?=
- =?utf-8?B?WFkreWFWOFc4b2g1U2ZmaEFTblcxaTl0cHhmeDAvS3gzRDlkdlRxbTZ6aGRE?=
- =?utf-8?B?cUFxWGZJMzRSTjEyNktJYm9LT0o4bmYralFxblI4b0Qrajg1VTdMbFNSRnpr?=
- =?utf-8?B?aHJKc1B0dHVoQVJJcmsrMjNUSzVIeGlvT1MzbTIyTXRKYlU0ZDJEZE5XUFJr?=
- =?utf-8?B?cHlDeEp4OWcwRjZiclBmQ0IzZndrcDgvdnI2SlRob25KR1BDaE5jMUw5TDI2?=
- =?utf-8?B?amVDSFB0cWJNRHpRNXFLdGc0YllMaHpxbzIvZFlBZlJkTmpjNmVEK1pFaG83?=
- =?utf-8?B?cHI2NXJqN2tZTE14dnRGUUlQYWFxVUxjY0o5R2tNUTlTeWlNZDdaa2w5VUx5?=
- =?utf-8?B?ZGFkTWRwQ3ZHRENrR2lFeTNWUjVjajZZMXNNOVlJNnc5TmJua3NRekF6SHNT?=
- =?utf-8?B?dGFqUHBNT0RrOEd3c3EyelRRdjJqdnlkYWtPWFR0M3ZuR1Uvdk95eWd2ODRi?=
- =?utf-8?B?Vk4wc2V6VkRkalU5MS9CaU1UM0t2VWgxQzdLaDM3L3JmaUlGUVV1eXdnZ0I3?=
- =?utf-8?B?YmxrN01IRXRiSDJyZEg1RzBBMDBKOW9kZ2txdjBXY2JmZEJGZEIrd1pMcFBQ?=
- =?utf-8?B?NzROY2lzZklHemhERHRmUExrWk8wNCs1Y2lySUFNWFJzT2lFNmJnWGVUNG03?=
- =?utf-8?B?Z0dKdytud0h0dHpNMDU5S1d2amh0RGdiUWRKT2x3U1czNmJyeWV6Zmk3YVFn?=
- =?utf-8?B?MEFJeFZzc2M0bFVGNisyVVVMV0owUjI2T2NiRE12RlFsenJHckpsbFVCQnBC?=
- =?utf-8?B?ZTVOdW9CZE1XSWZSUmJpRThlM2JESGlrelZOYWQyQWx2SmZnejd0MThJa1dp?=
- =?utf-8?B?TGc5cVdKS1AxZ0NGZGpDT212MmJhdFJsM2E0cWxrZFQzOWZBNmZJYUUwMzlk?=
- =?utf-8?B?UVFXeGdUb0IzdUxDaWI1QllnU04vU3lFMDd2K2tQT1E5Y011cjVnaHpmdmRC?=
- =?utf-8?B?MDZFUnM5aHJlT3ZYZ0c5NWI4d2locDVoQUkrTzFBNDhSR3FubllMWWdkUkRv?=
- =?utf-8?B?SDNVTit0R1h0SUdxY040ejRyQ25adGgwcjdlenZxTFFPeFkvVXRoTkJaYm5m?=
- =?utf-8?B?a0F3S3NlVDhKejNZdGg0dit0anZobitxK3p6bDR5TjB6RE1iRUhTY0VnbXZD?=
- =?utf-8?B?VXEwL3ZrcXViWXdKVkJPMGVrVlNRTW1Ib0F6ckV2dDJoNmtZMi9weFRtOTd5?=
- =?utf-8?B?YmJJWGxqUlQ1TU43OVErdXRpZW1Mcjk2Mms1dVZ4cVRUdVVqUFpmMzY1K29H?=
- =?utf-8?B?c1FZQlFNODlDV1B3OWpGWTJtejdUcUFsbUtkTXZRZDdXNGFRdFBrWDNDOHh1?=
- =?utf-8?B?R3pySXN0Z1NoYVVZYXl2V2lPVTh2UksxdFo1bVlUNGwxbWFESjY3YVVoTnd4?=
- =?utf-8?B?Zk54RkNQbzFWVHFCWUVleVVMYXhQbmxobXNoZWh0SjhoNzZzekxucERjU2oz?=
- =?utf-8?B?Y05FbnBYV08yVHVDd0pnZDdwR1Evc2MzUlROUXc5YWlFVm1GZ1BRMlhBc1Vl?=
- =?utf-8?B?YlNOekJQclNlZ0ZrWkdUUC9wNTNKYVNaWmQ3elNCSmhlV0dxdlppL0U0Z2hn?=
- =?utf-8?B?R2VmUWc5SWRtcm14N0dEcnlidFZVRlhpSElOeFAvVmlSN0pvTTBqWGZRNlNl?=
- =?utf-8?B?RFBrU0wrV24wM3I4VHJKYkhiRnRRU1NIR2NSaEI5WVpzTE9pNFFzN1VOR3Fi?=
- =?utf-8?B?bWIrM0tnbXBSS3l1eDJ4NWtVd0VDYmdmaEpPcE1jSkM3TXhzTFMzc0EweWVR?=
- =?utf-8?B?NnphVjJjMldSc1kxamFHTWtVcXRJeUJFZzJBNmU0bmoxb2ZjUnlYQmdEdTdQ?=
- =?utf-8?B?dXp3aXpuYkhBOXZMRktETFd3a2Znc2pYSmhRbnZObVdvVFNqUnJuQ1VuZTVC?=
- =?utf-8?B?cjk3bnVhYTJ6YzI1dURrbFdRbm1aUWJrQkNNcEJCdXZYVDgwR3U3dUVKWVlQ?=
- =?utf-8?B?YXVQZ1JhS3NPNEVpemdHU3dvVGh4T3J1SFI2NTBnaWF6Y0dhUTdIdWN3bEFE?=
- =?utf-8?B?WTg3MVhrQjE3UGZ0czJaaVQzWWFVSHBkSjIwNnZIeVVuSE5UcTR2MCtBSURB?=
- =?utf-8?Q?4SJiLlee13mZX+rJV/rTTsQhT?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65034982-5d3e-4404-595b-08dad2a8c544
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-OriginatorOrg: arm.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 07:59:13.3994
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR08MB3749.eurprd08.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ddff6ea-a5f9-4606-3307-08dad2b0609f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Nov 2022 08:53:40.3000
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: fXMneCGce+ByNtRIpWnuMcMaiVebgEnxefFKipJdB22ldxxEiByuBs6L6Xr7Lzcymdhaxq6VTYcaLyQrNnCyaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9422
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: cvFhx0ESTmYvncbX/WT2VobVbDl+WvtMhHr0AjzEr4QKhJ2tGJkK//HfZXo5INZtfyKn9B3cZYNUTtOLhvhgpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9755
 
-On 29.11.2022 17:21, Andrew Cooper wrote:
-> On 29/11/2022 16:05, Roger Pau Monné wrote:
->> On Tue, Nov 29, 2022 at 03:46:30PM +0100, Jan Beulich wrote:
->>> Four of them are used in apic.c only and hence better wouldn't be
->>> exposed to other CUs. To avoid the need for forward declarations, move
->>> apic_intr_init() past the four handlers.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->> Acked-by: Roger Pau Monné <roger.pau@citrix.com>
 
-Thanks.
 
->> A nit below.
->>
->>> --- a/xen/arch/x86/apic.c
->>> +++ b/xen/arch/x86/apic.c
->>> @@ -127,21 +127,6 @@ void ack_bad_irq(unsigned int irq)
->>>          ack_APIC_irq();
->>>  }
->>>  
->>> -void __init apic_intr_init(void)
->>> -{
->>> -    smp_intr_init();
->>> -
->>> -    /* self generated IPI for local APIC timer */
->>> -    set_direct_apic_vector(LOCAL_TIMER_VECTOR, apic_timer_interrupt);
->>> -
->>> -    /* IPI vectors for APIC spurious and error interrupts */
->>> -    set_direct_apic_vector(SPURIOUS_APIC_VECTOR, spurious_interrupt);
->>> -    set_direct_apic_vector(ERROR_APIC_VECTOR, error_interrupt);
->>> -
->>> -    /* Performance Counters Interrupt */
->>> -    set_direct_apic_vector(PMU_APIC_VECTOR, pmu_apic_interrupt);
->>> -}
->>> -
->>>  /* Using APIC to generate smp_local_timer_interrupt? */
->>>  static bool __read_mostly using_apic_timer;
->>>  
->>> @@ -1363,7 +1348,7 @@ int reprogram_timer(s_time_t timeout)
->>>      return apic_tmict || !timeout;
->>>  }
->>>  
->>> -void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
->>> +static void cf_check apic_timer_interrupt(struct cpu_user_regs *regs)
->> Given that the function is now not exported out of apic.c, wouldn't it
->> be better to drop the apic_ prefix?
-> 
-> This is the handler for the apic timer, as opposed to the plethora of
-> other timer interrupts we have elsewhere.
-> 
-> Simply "timer interrupt" is too generic a name.
+> On 29 Nov 2022, at 23:51, Stefano Stabellini <sstabellini@kernel.org> wro=
+te:
+>=20
+> On Mon, 28 Nov 2022, Luca Fancellu wrote:
+>> Currently the script convert_misra_doc.py is using a loop through
+>> range(1,22) to enumerate rules that needs to be skipped, however
+>> range function does not include the stop counter in the enumeration
+>> ending up into list rules until 21.21 instead of including rule 22.
+>>=20
+>> Fix the issue using a dictionary that list the rules in misra c2012.
+>=20
+> I think I understand the problem you are trying to solve with this
+> patch. But I am confused about the proposed solution.
+>=20
+> The original code is trying to list all the possible MISRA C rules that
+> are not in docs/misra/rules.rst. Instead of list(range(1,22)) now we
+> have a dictionary: misra_c2012_rules. But misra_c2012_rules doesn't have
+> all the possible MISRA C rules missing from docs/misra/rules.rst.
+>=20
+> As an example Rule 13.1 is missing from docs/misra/rules.rst but it is
+> also missing from misra_c2012_rules.
+>=20
+> Can you please help me understand why misra_c2012_rules has only a small
+> subset of MISRA C rules to be skipped?
 
-I agree with Andrew here.
+Hi Stefano,
 
->> The same would likely apply to pmu_apic_interrupt() then.
-> 
-> This one could lose the infix.  All PMU interrupts are from an LVT
-> vector.  It may have made a different back in the days of non-integrated
-> APICs, but those days are long gone.
+MISRA rules are in this format X.Y, misra_c2012_rules is a dictionary where=
+ the key is=20
+X and the value is the maximum number that Y can have.
 
-I'm happy to drop the infix. Won't bother sending a v2 just for this,
-though - I'll simply put the adjusted patch in soon after the tree
-has reopened.
+For example rule 13.Y goes from 13.1 to 13.6 (in the dictionary misra_c2012=
+_rules[13] =3D=3D 6),
+so the code can now check which among (13.1 .. 13.6) is not in the rule_lis=
+t and add it to the
+list of skipped rules.
 
-Jan
+Here an example:
+{
+    "script": "misra.py",
+    "args": [
+      "--rule-texts=3D/path/to/cppcheck-misra.txt",
+      "--suppress-rules=3D1.1,1.2,1.4,2.2,2.3,2.4,2.5,2.6,2.7,3.1,4.1,4.2,5=
+.5,5.6,5.7,5.8,5.9,6.1,7.1,7.2,7.3,7.4,8.2,8.3,8.7,8.9,8.11,8.13,8.14,9.3,9=
+.4,9.5,10.1,10.2,10.3,10.4,10.5,10.6,10.7,10.8,11.1,11.2,11.3,11.4,11.5,11.=
+6,11.7,11.8,11.9,12.1,12.2,12.3,12.4,12.5,13.1,13.2,13.3,13.4,13.5,14.2,14.=
+3,14.4,15.1,15.2,15.3,15.4,15.5,15.6,15.7,16.1,16.2,16.3,16.4,16.5,16.6,17.=
+1,17.2,17.5,17.6,17.7,17.8,18.1,18.2,18.3,18.4,18.5,18.6,18.7,18.8,19.1,19.=
+2,20.1,20.2,20.3,20.4,20.5,20.6,20.8,20.9,20.10,20.11,20.12,21.1,21.2,21.3,=
+21.4,21.5,21.6,21.7,21.8,21.9,21.10,21.11,21.12,21.13,21.14,21.15,21.16,21.=
+17,21.18,21.19,21.20,21.21,22.1,22.2,22.3,22.4,22.5,22.6,22.7,22.8,22.9,22.=
+10"
+    ]
+}
+
+So this patch is solving two issues, the first one was that rule 22.Y was n=
+ever included in the suppressed
+list because range(1,22) produces a range in [1..21], the second issue is t=
+hat the code was producing
+Invalid MISRA C 2012 rules, for example 1.21 and so on.
+
+
+>=20
+>=20
+>> Fixes: 57caa5375321 ("xen: Add MISRA support to cppcheck make rule")
+>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>> ---
+>> xen/tools/convert_misra_doc.py | 32 ++++++++++++++++++++++++++++++--
+>> 1 file changed, 30 insertions(+), 2 deletions(-)
+>>=20
+>> diff --git a/xen/tools/convert_misra_doc.py b/xen/tools/convert_misra_do=
+c.py
+>> index caa4487f645f..13074d8a2e91 100755
+>> --- a/xen/tools/convert_misra_doc.py
+>> +++ b/xen/tools/convert_misra_doc.py
+>> @@ -14,6 +14,34 @@ Usage:
+>>=20
+>> import sys, getopt, re
+>>=20
+>> +# MISRA rule are identified by two numbers, e.g. Rule 1.2, the main rul=
+e number
+>> +# and a sub-number. This dictionary contains the number of the MISRA ru=
+le as key
+>> +# and the maximum sub-number for that rule as value.
+>> +misra_c2012_rules =3D {
+>> +    1:4,
+>> +    2:7,
+>> +    3:2,
+>> +    4:2,
+>> +    5:9,
+>> +    6:2,
+>> +    7:4,
+>> +    8:14,
+>> +    9:5,
+>> +    10:8,
+>> +    11:9,
+>> +    12:5,
+>> +    13:6,
+>> +    14:4,
+>> +    15:7,
+>> +    16:7,
+>> +    17:8,
+>> +    18:8,
+>> +    19:2,
+>> +    20:14,
+>> +    21:21,
+>> +    22:10
+>> +}
+>> +
+>> def main(argv):
+>>     infile =3D ''
+>>     outfile =3D ''
+>> @@ -142,8 +170,8 @@ def main(argv):
+>>     skip_list =3D []
+>>=20
+>>     # Search for missing rules and add a dummy text with the rule number
+>> -    for i in list(range(1,22)):
+>> -        for j in list(range(1,22)):
+>> +    for i in misra_c2012_rules:
+>> +        for j in list(range(1,misra_c2012_rules[i]+1)):
+>>             if str(i) + '.' + str(j) not in rule_list:
+>>                 outstr.write('Rule ' + str(i) + '.' + str(j) + '\n')
+>>                 outstr.write('No description for rule ' + str(i) + '.' +=
+ str(j)
+>> --=20
+>> 2.17.1
+>>=20
+
 
