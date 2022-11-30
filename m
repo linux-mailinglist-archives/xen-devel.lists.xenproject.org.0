@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599F063DF37
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 19:45:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450130.707331 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD4CD63E0DE
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 20:41:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450138.707345 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0S3j-0008K9-QY; Wed, 30 Nov 2022 18:43:51 +0000
+	id 1p0SwO-00078j-1R; Wed, 30 Nov 2022 19:40:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450130.707331; Wed, 30 Nov 2022 18:43:51 +0000
+Received: by outflank-mailman (output) from mailman id 450138.707345; Wed, 30 Nov 2022 19:40:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0S3j-0008IK-NZ; Wed, 30 Nov 2022 18:43:51 +0000
-Received: by outflank-mailman (input) for mailman id 450130;
- Wed, 30 Nov 2022 18:43:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p0S3i-0008IA-Ls; Wed, 30 Nov 2022 18:43:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p0S3i-0004kZ-JI; Wed, 30 Nov 2022 18:43:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p0S3i-0002ql-2f; Wed, 30 Nov 2022 18:43:50 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p0S3i-0007JR-2D; Wed, 30 Nov 2022 18:43:50 +0000
+	id 1p0SwN-00076W-U0; Wed, 30 Nov 2022 19:40:19 +0000
+Received: by outflank-mailman (input) for mailman id 450138;
+ Wed, 30 Nov 2022 19:40:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=DhW9=36=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1p0SwM-00076P-Iv
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 19:40:18 +0000
+Received: from mail-ed1-x534.google.com (mail-ed1-x534.google.com
+ [2a00:1450:4864:20::534])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d11e5440-70e6-11ed-8fd2-01056ac49cbb;
+ Wed, 30 Nov 2022 20:40:17 +0100 (CET)
+Received: by mail-ed1-x534.google.com with SMTP id a16so3970402edb.9
+ for <xen-devel@lists.xenproject.org>; Wed, 30 Nov 2022 11:40:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,221 +39,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=f3iLq5hPsjxnHfFnuQxoDCk7Sgc8hWDciwPQIB1H5yU=; b=2Yh2Fc4kZKNgMF5z/70JGK+VLq
-	EfuEZ4cbi9WIxLqqoi5l8atB5cp3C7LVcs3FZGvgD0OYObizepEwugAbGxIXvQWAoKL0xEY4GJAXz
-	N6JOhjZrrxk/tLanFQ2M1HOysKDR+AocI+Pt6M2AlUpvDiWqjKDInlUUb8Fo6HrItUcs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-174996-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: d11e5440-70e6-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=98zeIMBH0W3RLt+Fp+Yzmkk0Rvjajs1ZMHuz47k0oRk=;
+        b=Ej83uBVjcRpD5UMAKZObwpQ+PbJQqifAenDMDyDJhsQQEAFwXSgoAmInrktMFeGd1D
+         Rv37aNrcfm737NzSpBzLM1sJq1PAAfSnoX3sjRKqvltRncMZ9JAzuAtensm0R1G4OS9t
+         A4UDBse0+A1tcd5cRgGiYMfw/WHKCkw8R9UF6EYsgjMG+uwji0j4Alsow++jCKWAprJj
+         Dgdb7OCIdBGGvkN4Cynnzt3B2Yui8aPMsQCFYgBJoWbh2twnpWZdPXeH63IfDePWmY3V
+         Y57XS+CGlS6hWJ8VNZ+aqksM3X7kt7v52P4x+pb32c8qFHWdxMssrnCz9xF292/dHujg
+         oXfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=98zeIMBH0W3RLt+Fp+Yzmkk0Rvjajs1ZMHuz47k0oRk=;
+        b=BHfMXTbFX/wJ0+SOkSrKEoHl7FJEjFODn4sJanm1MvsJHXztjGEE1J+GkFR58ugYLD
+         S6m7sDRegNcz5VLRwpYgOamHeDDCgboCe+h6RsBZe9rlxOiJm27V21CaglSlXx8i3hPd
+         QpyHyu/LPCLvQqlOtuCiGGArUo9r5RJ0UFyMHILUZoVS+wYRur09J29RiLtQufqhX4Nr
+         xkpP4O9FsgRvHxl3uULHA4PY3nIMDg99rV5E8BYgZ22LKI0wXEyvTMDl5FicGoJgDNui
+         hqxlVnmBkCLLdArB4xEhAgGe4MQko4HczlquBk+q6Scejzo5a5wJ2NJiHVwG+uaXKDz8
+         LMVA==
+X-Gm-Message-State: ANoB5pnYrrwFQ0/+eEAaiRp5XXurcSW5kE9umhdp57NVjASJO1f5ZA3Y
+	RV76VxBj/YKvyWTdmgWeX/Vi4pSKNBtWPxfZugc=
+X-Google-Smtp-Source: AA0mqf6QZLf6o6EcgkGaIDNmKKDe9Lkj9iL8O1A+Bf/LH1MNOzf2XqAfYKusTY0yAUnSF68weHxz5zqocd9jwOA/bHY=
+X-Received: by 2002:a05:6402:4284:b0:461:8156:e0ca with SMTP id
+ g4-20020a056402428400b004618156e0camr2609018edc.271.1669837216769; Wed, 30
+ Nov 2022 11:40:16 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-linus test] 174996: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:heisenbug
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=01f856ae6d0ca5ad0505b79bf2d22d7ca439b2a1
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 30 Nov 2022 18:43:50 +0000
+References: <20221118154931.1928298-1-marmarek@invisiblethingslab.com>
+ <CAKf6xpuCxftyQ+PKN_ffJ0onsSxcT8kVSwkM7Z10pfjqf0XFgA@mail.gmail.com>
+ <Y3f9O0S8kVXZ+py+@mail-itl> <CAKf6xpvUcR=rta6SD7mw_pvgQJTxKjN5VHpC6x-zCAiaJ=pKfg@mail.gmail.com>
+ <Y3kFYeml1CPL318u@mail-itl> <CAKf6xpts-u_JUtTGnzhxmRHZYVFnVMksTERZWS8EC+7BGsoViw@mail.gmail.com>
+ <Y3ukZqLaTqzjY/ro@mail-itl> <Y4S7R2dN7kpJnPpY@mail-itl>
+In-Reply-To: <Y4S7R2dN7kpJnPpY@mail-itl>
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Wed, 30 Nov 2022 14:40:04 -0500
+Message-ID: <CAKf6xpvV076SaJ_PtNwyuNSDYmi0aZoNF9cT3oQJLyjSwBK3ug@mail.gmail.com>
+Subject: Re: [PATCH v3] xen-pciback: Consider INTx disabled when MSI/MSI-X is enabled
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, Jan Beulich <jbeulich@suse.com>, 
+	"moderated list:XEN HYPERVISOR INTERFACE" <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 174996 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/174996/
+On Mon, Nov 28, 2022 at 8:44 AM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
+>
+> On Mon, Nov 21, 2022 at 05:16:37PM +0100, Marek Marczykowski-G=C3=B3recki=
+ wrote:
+> > On Mon, Nov 21, 2022 at 10:41:34AM -0500, Jason Andryuk wrote:
+> > > On Sat, Nov 19, 2022 at 11:33 AM Marek Marczykowski-G=C3=B3recki
+> > > <marmarek@invisiblethingslab.com> wrote:
+> > > >
+> > > > On Sat, Nov 19, 2022 at 09:36:54AM -0500, Jason Andryuk wrote:
+> > > > > Hi, Marek,
+> > > > >
+> > > > > On Fri, Nov 18, 2022 at 4:46 PM Marek Marczykowski-G=C3=B3recki
+> > > > > <marmarek@invisiblethingslab.com> wrote:
+> > > > > >
+> > > > > > On Fri, Nov 18, 2022 at 03:46:47PM -0500, Jason Andryuk wrote:
+> > > > > > > I was trying to test your xen-pciback v3 patch, and I am havi=
+ng
+> > > > > > > assignment fail consistently now.  It is actually failing to
+> > > > > > > quarantine to domIO in the first place, which matches the fai=
+lure from
+> > > > > > > the other day (when I more carefully read through the logs). =
+ It now
+> > > > > > > consistently fails to quarantine on every boot unlike the oth=
+er day
+> > > > > > > where it happened once.
+> > > > > >
+> > > > > > Does this include the very first assignment too, or only after =
+domain
+> > > > > > reboot? If the latter, maybe some cleanup missed clearing MASKA=
+LL?
+> > > > >
+> > > > > It's the quarantine during dom0 boot that fails.  Later assignmen=
+t
+> > > > > during VM boot fails.  I tried warm reboots and cold boots and it
+> > > > > happened both times.
+> > > > >
+> > > > > I also modified my initrd to halt in there and checked the config
+> > > > > space.  MASKALL wasn't set at that time.  I need to double check =
+-
+> > > > > MASKALL may have been unset after dom0 booted in that case.
+> > > > >
+> > > > > I'll test more to figure when and how MASKALL is getting set.
+> > >
+> > > I'm testing with a laptop without a battery.  It seems MASKALL remain=
+s
+> > > set when rebooting or when left plugged in.
+> > >
+> > > From unplugged, a cold boot doesn't have MASKALL set and the network =
+vm boots.
+> > >
+> > > After that, rebooting the laptop leaves MASKALL set on the NIC when
+> > > the laptop reboots.   NIC assignment fails.
+> > >
+> > > Shutdown and later boot while left plugged in keeps MASKALL set.  NIC
+> > > assignment fails.  I have only tested this scenario for short periods
+> > > of time, so I don't know if it would eventually clear after a longer
+> > > time.
+> >
+> > That's interesting, seems like firmware is not resetting the device
+> > properly. Maybe related to enabled wake on lan?
+> >
+> > Anyway, resetting the device at domain create/destroy is AFAIR normally
+> > done by pciback (at the instruction by the toolstack). Should it maybe
+> > be done when assigning to pciback initially too? Or maybe in this
+> > specific case, device reset doesn't properly clear MASKALL, so pciback
+> > should clear it explicitly (after ensuring the MSI-X enable is cleared
+> > too)?
+>
+> Can you check if `echo 1 > /sys/bus/pci/devices/$SBDF/reset` clears
+> MASKALL on this device?
 
-Regressions :-(
+`echo 1 > ..../reset` did not clear MASKALL.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+After shutting down the domain with the iwlwifi card, lspci from dom0 shows=
+:
+MSI-X: Enable+ Count=3D16 Masked+
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-xl-thunderx 14 guest-start                fail pass in 174991
+Hmm, Xen logged:
+(XEN) cannot disable IRQ 137: masking MSI-X on 0000:00:14.3
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+Oh, looking back, I see that was logged during my earlier testing of
+this patch set, but I missed it.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-thunderx 15 migrate-support-check fail in 174991 never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check fail in 174991 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+It seems like Xen set Enable and Masked itself in __pci_disable_msix()
+since memory decoding is not enabled.
 
-version targeted for testing:
- linux                01f856ae6d0ca5ad0505b79bf2d22d7ca439b2a1
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+I'm still investigating, but I wanted to give an update.  It seems
+like Xen should clear MASKALL when booting.  Something like clearing
+MASKALL in pdev_msi_init() when !ENABLE & MASKALL.  However, I have
+seen the system boot with both Enable and Maskall set on the iwlwifi
+nic.  Is it risky to just unilaterally clear both of those when
+enumerating PCI devices?  It doesn't seem appropriate to leave them
+set without a driver controlling them.
 
-Last test of basis   173462  2022-10-07 18:41:45 Z   53 days
-Failing since        173470  2022-10-08 06:21:34 Z   53 days  103 attempts
-Testing same since   174991  2022-11-29 21:43:19 Z    0 days    2 attempts
-
-------------------------------------------------------------
-1924 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 184155 lines long.)
+-Jason
 
