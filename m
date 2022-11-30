@@ -2,42 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B91C063D8EF
-	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 16:11:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.449937.706991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB0D963D95E
+	for <lists+xen-devel@lfdr.de>; Wed, 30 Nov 2022 16:24:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.449952.707006 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Ojo-00083V-Bc; Wed, 30 Nov 2022 15:11:04 +0000
+	id 1p0Ovk-0001d2-G0; Wed, 30 Nov 2022 15:23:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 449937.706991; Wed, 30 Nov 2022 15:11:04 +0000
+Received: by outflank-mailman (output) from mailman id 449952.707006; Wed, 30 Nov 2022 15:23:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0Ojo-00081F-7Z; Wed, 30 Nov 2022 15:11:04 +0000
-Received: by outflank-mailman (input) for mailman id 449937;
- Wed, 30 Nov 2022 15:11:02 +0000
+	id 1p0Ovk-0001a4-DE; Wed, 30 Nov 2022 15:23:24 +0000
+Received: by outflank-mailman (input) for mailman id 449952;
+ Wed, 30 Nov 2022 15:23:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=SP/j=36=citrix.com=prvs=3264ca9f5=roger.pau@srs-se1.protection.inumbo.net>)
- id 1p0Ojm-000819-Jz
- for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 15:11:02 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2b938db5-70c1-11ed-8fd2-01056ac49cbb;
- Wed, 30 Nov 2022 16:10:50 +0100 (CET)
-Received: from mail-co1nam11lp2174.outbound.protection.outlook.com (HELO
- NAM11-CO1-obe.outbound.protection.outlook.com) ([104.47.56.174])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 30 Nov 2022 10:10:56 -0500
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by MN2PR03MB5149.namprd03.prod.outlook.com (2603:10b6:208:1a4::16)
+ <SRS0=HXMn=36=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p0Ovi-0001Zy-4z
+ for xen-devel@lists.xenproject.org; Wed, 30 Nov 2022 15:23:22 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2062a.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::62a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id eb5e2f33-70c2-11ed-8fd2-01056ac49cbb;
+ Wed, 30 Nov 2022 16:23:20 +0100 (CET)
+Received: from MW4PR04CA0116.namprd04.prod.outlook.com (2603:10b6:303:83::31)
+ by PH8PR12MB7159.namprd12.prod.outlook.com (2603:10b6:510:229::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Wed, 30 Nov
- 2022 15:10:54 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::740b:4e0a:7de4:5ab1]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::740b:4e0a:7de4:5ab1%9]) with mapi id 15.20.5857.023; Wed, 30 Nov 2022
- 15:10:54 +0000
+ 2022 15:23:17 +0000
+Received: from CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:83:cafe::ac) by MW4PR04CA0116.outlook.office365.com
+ (2603:10b6:303:83::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23 via Frontend
+ Transport; Wed, 30 Nov 2022 15:23:17 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT038.mail.protection.outlook.com (10.13.174.231) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5857.17 via Frontend Transport; Wed, 30 Nov 2022 15:23:16 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 30 Nov
+ 2022 09:23:16 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 30 Nov 2022 09:23:15 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,315 +59,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b938db5-70c1-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1669821060;
-  h=from:to:cc:subject:date:message-id:
-   content-transfer-encoding:mime-version;
-  bh=yRZuZYESRTpPHJ5S0tLdmAUG8W1yOwAN/mIDBKSAHgo=;
-  b=ejoS/M0vQCTcvEhWNjY8GEY5cKq+JRjNVFXgBBQUkE4HpoiA0t7Zb6Vr
-   H9B8cD//ADmkaisegWi88zhaWkCouh5onqUXWo+Qf5cprzritnycDVXZE
-   VCFxDt13j95rzoloklHO6Thp7UpXdfzGZx/00b+bwvMRryjyUTmVamsQa
-   E=;
-X-IronPort-RemoteIP: 104.47.56.174
-X-IronPort-MID: 85866557
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:8F70CaryVtnMDWlj9TV6lxdbeydeBmJjZRIvgKrLsJaIsI4StFCzt
- garIBnUPv/eMDbzKYp3b9+1pkoF7cXRmN9qGQpvpXo3FngUpZuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpAFc+E0/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06W1wUmAWP6gR5gaHzCFNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXACkNSQm8uaXs+ZiYGutrhON9C/Tue4xK7xmMzRmBZRonabbqZvyToPR/hXI3jM0IGuvCb
- c0EbzYpdA7HfxBEJlYQDtQ5gfusgX78NTZfrTp5p4JuuzSVkFM3jearaYWJEjCJbZw9ckKwv
- GXJ8n6/GhgHHNee1SCE4jSngeqncSbTCN9CSuPlq6ECbFu74StLLSwwFniCiPiohnXuZe9wM
- WEI5X97xUQ13AnxJjXnZDW8oXiZrlsfVsBWHukS9g6A0OzX7hyfC2xCSSROAPQ2uclzSTE02
- 1uhm9LyGScpoLCTUWia9LqfsXW1Iyd9BWAYaCAHTSMB4t/+sI80kxTDR8piF6jzicf6cRnyw
- iqLtyw3jaQ7jsMR0ai/u1fdjFqEpJfTSRUuzh7KRW/j5QR8DKanbYG17VnQ7d5bMZ2UCFKGu
- RAskc+E7ftICoqRjiuTW+YcNLaz7v2BPXvXhlsHN4I66z2n9nqnfIZRyDJzPkFkNoADYzCBS
- ETTowJK+7dIO2axKLRwZ8S2EctC5a3hE9vifv3QctcIYoUZXAiD+y9GYU+A2GWrlkUw+Yk7O
- JGGYd60BjMWBLpPyDutW/xb1q0vzyolg2TJSvjGIw+P1LOfYDueTu4DOV7XN+Qhtvrb/EPS7
- spVMNaMx1NHSuribyLL8IkVa1cXMXw8ApOwoMtSHgKeHjdb9KgaI6e56dscl0ZNxsy5Ss+gE
- qmBZ3Jl
-IronPort-HdrOrdr: A9a23:wN1koKmTrUoItLas/FvBjALTOpbpDfNYiWdD5ihNYBxZY6Wkfp
- +V8cjzhCWftN9OYhodcLC7V5Voj0msl6KdhrNhRYtKPTOWwVdASbsP0WKM+UyFJ8STzI5gPM
- RbAtVD4aPLfD9HZK/BiWHXcurIqOP3ipxA7t2uqkuFIzsaCJ2JuGxCe32m+wBNNX17LKt8MK
- DZyttMpjKmd3hSRsOnBkMdV+yGi8zXmIngaRsmAQdizAWVlzun5JPzDhDdh34lInty6IZn1V
- KAvx3y562lvf3+4hjA11XL55ATtMr9xsBFDMmsjNFQDjn3kA6naKloRrXHljEop+OE7kosjb
- D30l4dFvU2z0mUUnC+oBPr1QWl+DEy60X6wVvdpXf4u8T2SB8zFsIE3OtiA23kwntlmOs5/L
- NA3mqfuZYSJRTcnB7l79yNcx1xjEK7rVcrjOZWpX1CVok1bqNXsOUkjTRoOaZFOBi/xJEsEe
- FoAs2ZzPFKcWmCZ3SchWVryMzEZAVBIj62Bmw5/uCF2Tlfm350i2ECwtYEo3sG/JUhD7FZ+u
- XtKM1T5f1zZ/5TSZg4KPYKQMOxBGCIawnLKniuLVPuE7xCE27RqqTw/K4+6IiRCdE1JaMJ6d
- r8uW5jxC8PkxqEM7zP4HQLyGGGfIyFZ0Wj9ikEjKIJ+YEVR9LQQF2+oR4V4omdSs4kc7Pmss
- aISe5r6sDYXBTT8P5yrmvDsrlpWAsjuZ4uy6MGcmPLhP73AavXkcGeWMrvBdPWYEcZsyXEcz
- A+YAQ=
-X-IronPort-AV: E=Sophos;i="5.96,206,1665460800"; 
-   d="scan'208";a="85866557"
+X-Inumbo-ID: eb5e2f33-70c2-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iH6HN18S03N5HgH1+Xrwa4laecsxw3iaWyUrJ/lvEXPEzmY5Ji75NzxT5/dBswF3I4WEY5oTdeIhF0X0fuMTXOwqK1TbnS6cLYNwTxWf7gyq8Bpubn1FcDnDXAoqm7pml81kXMVghXxEXZXyRO+Qusn+n3iDIeXEbbyHD/kOpvFswRXzx36tlJVlNmJV7xRu5RNt1lXDd0D52ISBYosMPjIkSaVsVmKg3YIgRW4BiOsGvPNB678157Zk5GawF7iY5ezlSAdDDPlmf1zf3lLbdQzuNVztrcSxeO2KuGG0LIqU8sK/1NoQJZornOgHylHxWyg7dWU4BEw6ubmCsC2+Ug==
+ b=gIzyGvJb79n6F90RHYpA8cDBTZtOY9MBtREw5AddjMk0qgNiHrAxKYXoroxIIJE1tqdkkWsv5g+fjDm0ng6M2fMsFRyeDzOMj0ERqBqoj5P2yyExUHC09jC7aTW3SnBAq1gmgpjC8Vsnqu3chBoYushoJkCFbJIvzBE+ke5Sxl5xvz5HASVk6/uuWJ25M/Gq0suKZF3JgflZQM+y6wqggZTrweK+IIe9hpwGgQm6Y76Bat2ZRpzQZqlhzrrVPuV990OG/hRm3Oqr5UC2Vh1uqp3rRBxL7lPQzyCCgym20J+LJ7kOx6x6bm0bOGv5rB2/Zeb6DmsFHnhCJwjgAiHXSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uZu0f4REIMCta0o/FGi0CGBdzmQ6cRIU6CKr6+ow/1Y=;
- b=EyD6nnK3skT+cN6Q+NToM6zFo3rYbZqFon/sHq80w2R79EhLSdexUNpBdSTgfLYjqy1fZRhwF3yKkJwnAa71nzSg+dOOGVQ3Oe/8Ms+9A13NW1kHBY0M5gv7ZAR6DiuTTQHNm4B/hIHI+ewm1Ni4hby0iUCM+WIZpblMXLpKIEpAxErcWOg5agCinGRwujLs7LqTDFm8jnXL1SfQP7BeqfexuBGNzukmZ42cAJ8TRVsw8bXtKqtBepv6wYiX7qCRz4LT8bIV8EUPHJbu5C5EBC8y1AvOl5JJ4yATsrEvdhIATP7GRowsudqR0wPDS8t4IT8KDLjcg1zrZC0fCHlDpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ bh=/LZiTT/etiwKJz8NHGkNsH5Q2Ru8GDkp4OT0oxH0eIw=;
+ b=B6s9Nfgpw9g31pLt27ZAbMDAcvaPDdUUJmbwBo2njuO2u6yg9uUjWlNSOJmizjtKAa2gT29GFIhRw9yjF9iTaxuGek7xYbTwU6wpMxeUkvdRhF7TiW8BLk7P0z+p6hyZ4ookWd3esDATh6NPN96eUfS9y/T+m8L9G7jAjZt/cqaKjNWV5QSRpmaHfqS1cbjcW0w+1lSU237GCDoQjcHDncKlmI1zU0dYcH2pSIp9twmMZ2SiyeLlbxrsmB8rcLy0enM7Xtyrmr7O7jhER8K6OdKEfoyW2pQneZIjy1IhWYLKcCR0c34LPgdG4O31b3JVFWHMKhjdZqapYUmg0fVPsg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uZu0f4REIMCta0o/FGi0CGBdzmQ6cRIU6CKr6+ow/1Y=;
- b=ugTRHSsa6sG4ugzi1rgO4E425SdSnniU6A/gWXpN9+Xxwnvg8dhibb8yz4+8TxCciXuCWMTc/gXpzSbNgtJyqsP9FtrztIhYX/iQMliHh8syHSpjh7qsOBzEHRJFHw/jAfgtzhQA45tQJUfSQ1sSc6AZnBjcG80f3egciADXf/E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: linux-kernel@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Chris Wright <chrisw@sous-sol.org>,
-	Ingo Molnar <mingo@elte.hu>,
-	Jeremy Fitzhardinge <jeremy@xensource.com>,
-	Olof Johansson <olof@lixom.net>,
-	linuxppc-dev@lists.ozlabs.org
-Subject: [PATCH v2] hvc/xen: prevent concurrent accesses to the shared ring
-Date: Wed, 30 Nov 2022 16:09:11 +0100
-Message-Id: <20221130150919.13935-1-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.37.3
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0165.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:9::33) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+ bh=/LZiTT/etiwKJz8NHGkNsH5Q2Ru8GDkp4OT0oxH0eIw=;
+ b=KT6ccQNrIgDHsGD+NvSD1S0t7c1w5Lh9GKF/0iGPaRx2V3YIbryEa3KGp2BT/YJPbVv6Eyg2Ja0t3cacvP/qjyZw7rGWKUnVh1gPLpWAIY5B8hND7Q5R3na/AKqviKJx7fm2giHKAgsvpSpf1ZKuQklpw7zftZZ9vXqBov5X8sw=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <7310c943-4402-745e-c012-077f7c520c2a@amd.com>
+Date: Wed, 30 Nov 2022 16:23:14 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH v5 3/3] automation: Add CI test jobs for Yocto
+Content-Language: en-US
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Doug
+ Goldstein <cardoe@cardoe.com>, Stefano Stabellini <sstabellini@kernel.org>
+References: <cover.1669810269.git.bertrand.marquis@arm.com>
+ <e64015d3e8682d068223e94f3bfc8ad823b27a65.1669810269.git.bertrand.marquis@arm.com>
+ <e453dd21-5fbd-5edd-2269-29c72a70299f@amd.com>
+ <C03FF185-AAC7-4E06-8505-876BC17F800B@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <C03FF185-AAC7-4E06-8505-876BC17F800B@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|MN2PR03MB5149:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b9baf0c-59ea-4337-3e39-08dad2e51343
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT038:EE_|PH8PR12MB7159:EE_
+X-MS-Office365-Filtering-Correlation-Id: c142893c-6a2d-4780-4241-08dad2e6ce49
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	xo2ptJEmCY92/7dFY1PDP/VqgTLmRrQjLa5z1qS6qluoSkcstOK2PjaoDlXUcOUrnab6qi1GPw4sjgxVCdK5iUjV59IDEnL68v6Kb0LcdKwxsyTj0svMXeAzYdz7p8LwAf0rIFTb14O160KeTBUHHEQYlF/9G0my1Cegc7jIQMPMCaCbcHOpi63ItTqwM2pUwAr2Ni0nq+/1zBMt69pJoWeFR/b3vWr9962uNJbi9xP/JzOmvmmkI/JGC+amM9xF84pFbyeySM1d+yygbU7MWbwabXJNAI4mlS4LJyAVmZSDsmBMu1hqt8EpiR7VDQHxiSynpT21JvDm+T4N4ffHxPtbb9f/BzBNvK33ErEmp/IKRKtzB5m0WlyExjFg3QnhF1JqhD4b3ST1JxKtyrk9a4oaYvcdDrb0L24HFL9YDTSRIsImyJXnP4D+oUrsoUmdoo1dT6OJ1EmJGp9ne28U85ac/3Lp2Vm6OY3L/SUM7p4PpAFEHKw3/9teMKWpciOspqffOAWXxWKa8lBQNVGmWlJjBR8gSyQ8wYWXFbLmm4PSBQb1M1sUp2wV1rbqYliN1eH6E2ArhApjlc6RsCjpCEPJ2pWbnkZgmMjo1GmhP+phYY8YdwN4yhPkeUnLI7avSWF6DmcGLEUbgVqAgbr0HA==
+	K31A6+JRacld3zvqlwCFnaoKDuLj9DosWVTG3UHfnHZyJaJqbMfkFU7Itu+Bzy0YUYQunJXVAsRV9x6O8TsO8T0NSlB6IfMMLUaFmn37xnLMf22s+ZkTq5QTOt1wyvg0dpJRP3tZvnlclPygXnr13H5UFMjCme402fIzwzdAJ41xlz608xk9TB05Vt3rydlZ6R9gQLJlVxK8t4R153PH1F4Dx0mU+Cxzk/8tJybsdRmWBEF3xVAg699IiGI1XMHUq9DgMmaQSuBvUA+kByM/5fvffEBAPUa1jkbtbrwqoFIQOMIZDMrT+2afEm8xn5a8DLAHtUB/DnfFn0icN310vJv+s9CWYcO/c8qYZ95HhtJoJJHslSUmXZ3HqgBhMR6VC0dHInsCEUh9VSuF8/WWGEfnt7kLDm++hwM8vBZH4hdsDYI3d7mjLwb3fogRnvHBURPt/3lLnihWGOyRj9wlIJBHgD/4MvZhYH0tQ6KSRiw2hXNkzam7ngjYI0SmHv77Q9p7NCw3HsSOHgyE0fSMvbPFbe+BnaFJueCDm0I9XPtWHm7WdykI0yZVsbj9EBgNcAUCUZRDhYfEOw7uy9UHdUbNBtBCfHOrEPaso0NuYRPnR1hfAvYHNZhHTmRaE65NUMKxeTJ13WE9OyZgoCEkSyLYS3yDpiQcAOQOp0UPxnPLM3EoLquQ4iQLYfCJqMF3oKDCJ6aNwXUqTGFgzoeXefnYyq1r/zNTqUUIsu7vp1i3gu21sp39E3HRmUJBfmjEVs1L/8GaF0KKdGS+6FcCDw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(39860400002)(346002)(396003)(366004)(451199015)(36756003)(7416002)(86362001)(6506007)(478600001)(6486002)(186003)(2906002)(316002)(66476007)(41300700001)(66556008)(6666004)(4326008)(66946007)(5660300002)(8676002)(8936002)(54906003)(6916009)(2616005)(38100700002)(26005)(1076003)(83380400001)(6512007)(82960400001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VUxlOHp1OUUxdnowS3pqTEhib2RuL1hPaGZCUDlRbGxrV1BzcnZPcXVCSDNM?=
- =?utf-8?B?NmQvTXNmTi9PVUpUZGY2M2FVN3hReTFpYVlSK3V1c3R3cHBJdU80eWlsVUdD?=
- =?utf-8?B?ZWxUNkt6QXdZdFhOa0RtM2NTUW41RkFtRnd5cWQ5bXpEZ2lTWkFiQklsWU8z?=
- =?utf-8?B?VzhyTmRLWksvTk93Z0ZMb0QvZXlJcTdJSjdseGpwSk9kNStPZjU1WGFQWHhq?=
- =?utf-8?B?S05WeDBFOHF5NS94czNoYVZaZHd1NmVtVlAybDQxalc3cXJra1QweWRTd250?=
- =?utf-8?B?T1ZMQ1FmTHNJY1ZIUmNCWWdvdDd0aG1CTm1tcVo3WWcvcWh1am1mMEtnT2Rs?=
- =?utf-8?B?NnNNN2l5Z2lkVFBneXJiME9URHBEUFA2UWlpU3R5U2xZdzNZWTVhbmpTR05a?=
- =?utf-8?B?VmRMRldvWkkyU3lzV2pBZU54UmJ6b21adlA0bzV5dENwTUk2V0pJUVNPMnVj?=
- =?utf-8?B?OFM3TUVlYlRSREdCOHBydDYvdWp2aUpteHA0RE9qM0dlNS9JTWoyMUk0WWpK?=
- =?utf-8?B?SVpSL0F6eHBIcVFkblFEck5Hc21UbG81WE9rS2dSOHR4dk9pbHhqcEh5ZFVF?=
- =?utf-8?B?YVplRE51UDhncEcyK1lPUXFUOFJXYk1qM1d6dWVrK01jZnNFTFhBWEpWTW0z?=
- =?utf-8?B?QnFNOHZ2QUlyQ3Jkdkl1NUtSWGNjQ0N5TlJrbFhTVFJ0UDFZblYyaHJ4RHg4?=
- =?utf-8?B?NTdBeVRSL0RXVlZ2R0tCUHRTeHlZa3BZQkh4TWRpMXNET25LWDlEdi9saEc4?=
- =?utf-8?B?aUdkMW1KMWNvM0NhTkZtd0RiMm5yaUdLb0VQdVpaTUVyTTR2TG1nbC9CdWlq?=
- =?utf-8?B?ZUJyR2pSM2k1Ry9yMWlUcXJVUklXdDVhQ0MrdHV3WFg2ZUd4ankyb1Jkd0ht?=
- =?utf-8?B?Rk03R29yeENFYkJxWTR3OWxaVTdsQXFDZUlXbWFvc28rZUg3ZmsvSjZPUzE5?=
- =?utf-8?B?b052VVFPdmZjbW1RamxkdVpwMTdJN1pQOExxTWd3aExkcytMYlRLTTNxTnpR?=
- =?utf-8?B?eHhucmVkNlJPVlZNWDZhVnJxdUtHMjY4bDZvMEFMQTE1blBLL0tyOFQ2SjQ5?=
- =?utf-8?B?N2loYW1sVzhEU0JKS1NxdldKYU53aWMvR0tQWS94NlNGRUU2VFZKZ0pBOUUw?=
- =?utf-8?B?b0xZb21meVpTMWkyS3JiY1grMDA1UldpZ3piVEVWWVREblFIRVVaUFBPaW43?=
- =?utf-8?B?TzNRaThZRW1Ib3JDcXlKQURQay92czZwVlA2ekQva2V6cjNvQXJkQzVwOGly?=
- =?utf-8?B?V3cwMkRNM0V0UjhGZUFSWnBURUR1dG9BT2kvdzRBYzZZek1zOUdJanNLZm5m?=
- =?utf-8?B?ZCt4WC8zNWtacGl1YWY5YkhqNm9jenBQOXdIdUczanErZDF4eUVZNFVwd0c3?=
- =?utf-8?B?SHBaY1BiU0YvVUltNlQwRCtrQXZCUEFzRDQyVUhmNDZlb2JtakIvRUtIRjNX?=
- =?utf-8?B?Ri82SGFrMUlrSVRSQUczRmlPSVJkOWw5QUtyN28yLzNjZzJHeTRhZnNkM29J?=
- =?utf-8?B?QnIrWEFOWERRS2dYOHdCWXdxUmxEWGNHTURKUE0wM3ZDY3V2dVhpNkdQSk1w?=
- =?utf-8?B?TmNQcnMwOGVoeEZHcmhvWWdyUkVyQy9DaG1udTZjejBFZUdBcWRCM2FQMTli?=
- =?utf-8?B?d3JCTXVuTDljWXZBWUNtZmc1Wld2ZnVoL0VKSml0eUpmdk1jeURRTFBLTkdK?=
- =?utf-8?B?b1FvUHJjZHZUazdXd0I0NVV3MXFzcG95RTBaTDZURmVzVE9xR3gzUnFJNkFs?=
- =?utf-8?B?b1c4RmpQbmJTTTVlaURLYytQYnNBSndyMkJnZW55azV1Mlc1Tk1OT0dJdnIy?=
- =?utf-8?B?eGw1d3g0cWZ6WWRoYlp5dEl5T0daMDZ0NGhqNjBXVE5JMHJUd2UxbXkrcnZi?=
- =?utf-8?B?NnhLTTFneFBNanpybXlHdkNVZ2JOUVhlOS8rd2Y4QkZjanRxb1RPYjZCQTJJ?=
- =?utf-8?B?MmNkaHYySEVtQkVtT0RTVHNjNkNhbGxhUW8vQnFmVHFMai9WTDVBQVVWSkRp?=
- =?utf-8?B?c2RzU2tXMDZVM3E4VnBzdWdPTjFDR0Niay9VaXFIYVZlZzNveEtaUUIvc0NW?=
- =?utf-8?B?dXlJdXNOVlBnME8wNzdXSXFWWXVXN1d5aTllN0xEb29lb3dxVVR4cndhRzNH?=
- =?utf-8?Q?fAWR8cQ9vVuXwqFgGgPiIseIa?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	=?utf-8?B?VER2Y3F0SkdwMi9LMkxaWTgxVXMzazFoVld1czdjZkZhbmpiQWVtRWZEcVZx?=
- =?utf-8?B?VjJNeXkrVUFpL0h6ZmxhanZDODJ5MmpZVTRkMEhUdzZrNlBhSmg4MnZvZEd5?=
- =?utf-8?B?d1dpU2pDcTZFWThLcWZYSFFKYmVTT0Q0V1hQUVF2YWhybjV1MUU3Q1k1RDgv?=
- =?utf-8?B?cGhpTzFhejhiVkRSaCtUMDNQenpuNXNxNUxVN1VKWGU0dXdHQWROQjVmSWpH?=
- =?utf-8?B?WXh1UEZlRko2eWM0RnlubnZKWFR5aUNHblFHTUFBTnZZeCtKbkEyekNZVGhK?=
- =?utf-8?B?dS8wRFJ0RExvWmtlbVBYeEFGYTRYS2dDdDJwNjVrVkRWOTAwTzQwek1yMVJB?=
- =?utf-8?B?cisyb1RnemZBdkhaZDJmaHlFTGpDTCtXSFpFUUxRWDNnMUlGOWYwMEtxS0VX?=
- =?utf-8?B?aG9FN3Bnb2ZXWVp2amFmaTJjbEgvWkp5czd4MnZkMlBJaDVYeVhYYkpYUmNX?=
- =?utf-8?B?YS9pN3B5aGFNMjJrS1k4ODB4eC9LU2RTb2hjbzNZdm1xUS9LSVZhMVdEaFE3?=
- =?utf-8?B?VFlZNGk1VzQ1akFNakFEVWpDODBDWkdkOGVKcWlpbjNUSzhDYTFaSXlvN04w?=
- =?utf-8?B?K2k5eDFDVjc1ajRlVy9FNmFVTDJtbWhyS25oNHMzZEMvU3ZkSVg5WmNYR1Rt?=
- =?utf-8?B?bEQ1Qzc2cjY5VWY1MHZxd0dkUGQ1UlZ6RUxPT2dzaHV2SVJXdytXRnpXb2Nr?=
- =?utf-8?B?SFNoWFYzN0FKWFRzR2ljNThYU2RJYVl5OEIwbUVGck1XYkg4OE5Rby9VWTdv?=
- =?utf-8?B?N2ZrR3RJSHNFRlRSUkhkbUFuZHNUNnR5SVN2SGxKM1pkZ2lYYWpZRXBIcGNU?=
- =?utf-8?B?cGJtcnRNR1lIT1NxdnhpeHR3eEl5WFlHc00zdXRGY2VyUGlUbE8zZE9TTkJz?=
- =?utf-8?B?NXNpWTMxa08yd3lxYm1oQmZ4YXpvU0I2VHVzNTlVV0lqaEVNSEU4Vjg3dGhP?=
- =?utf-8?B?VjB1MlFzajFSaVorRitwdWVQangzWGpvdUtEZURRaVY1N3pKUGNyZHEvMUJi?=
- =?utf-8?B?a1FNVUc5SlFubTNWc1hPVDZLS2tHdmdoanEyU1ZERk5rYXdMc295b1hKeVhJ?=
- =?utf-8?B?bHVNMS9VMkpQMCtodGJzM090S1pvcCtOREFDclB5emJzNEhIREpod0Mrck1j?=
- =?utf-8?B?c1ZmV1lDRkFNa1FROHc5R3dZcWErYkM2VkRCM0lnc3Zhb2h5em5va2kweS9i?=
- =?utf-8?B?a3pBcU9UMnQxRU1VN2RCdngvcWM4M2pFZVpvZzhTYmZManZLb3pMZUtZN3Fy?=
- =?utf-8?B?YkVPTUlta0ZEMy9vVkJ5SUxpWTJHalZYSEFsSU93Mk9zTy9TeHJhWmZHV0F1?=
- =?utf-8?B?eWJSbzVUV3dOb3pzeUt2cTV2QnExV0FpaTlaMUpUUGJtbTVPY2hiK1lOdmxN?=
- =?utf-8?B?cTVXZVVXTkxvMEVoMzMyR3NFNTgvcXVSODVIUElPcnNQNW5zZjZla21NOUQ1?=
- =?utf-8?B?S0pKblhWUm4vV0xZNWo4eVpSMy9RczZZZk1yNjdNb3NWa3BGd0JGckl1NFVF?=
- =?utf-8?Q?FpEufFxKZvcLWBjWVJ+VhHRBfSi?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b9baf0c-59ea-4337-3e39-08dad2e51343
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 15:10:54.2457
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(346002)(451199015)(46966006)(36840700001)(40470700004)(316002)(70586007)(478600001)(70206006)(2906002)(16576012)(81166007)(356005)(40460700003)(6916009)(54906003)(36756003)(336012)(36860700001)(82740400003)(426003)(53546011)(47076005)(26005)(82310400005)(40480700001)(2616005)(86362001)(31696002)(186003)(44832011)(5660300002)(41300700001)(8936002)(4326008)(31686004)(8676002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Nov 2022 15:23:16.9846
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kiSLTWgBuEIhT9ho2XTv3uD1zByPNmYi7F6/DFCgKhYnHhFRg6Mot9jZzwLlKe7eFRKujLMY5Kou2msvnGpXFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5149
+X-MS-Exchange-CrossTenant-Network-Message-Id: c142893c-6a2d-4780-4241-08dad2e6ce49
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT038.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7159
 
-The hvc machinery registers both a console and a tty device based on
-the hv ops provided by the specific implementation.  Those two
-interfaces however have different locks, and there's no single locks
-that's shared between the tty and the console implementations, hence
-the driver needs to protect itself against concurrent accesses.
-Otherwise concurrent calls using the split interfaces are likely to
-corrupt the ring indexes, leaving the console unusable.
+Hi Bertrand,
 
-Introduce a lock to xencons_info to serialize accesses to the shared
-ring.  This is only required when using the shared memory console,
-concurrent accesses to the hypercall based console implementation are
-not an issue.
+On 30/11/2022 16:07, Bertrand Marquis wrote:
+> 
+> 
+> Hi Michal,
+> 
+>> On 30 Nov 2022, at 13:02, Michal Orzel <michal.orzel@amd.com> wrote:
+>>
+>> Hi Bertrand,
+>>
+>> On 30/11/2022 13:15, Bertrand Marquis wrote:
+>>>
+>>>
+>>> From: Michal Orzel <michal.orzel@amd.com>
+>>>
+>>> Populate test jobs for Yocto based tests using the provided containers.
+>>> Due to the size restrictions, it is currently not possible to split the
+>>> build and run tasks, therefore everything is done in a single step.
+>>>
+>>> Test jobs for the supported Yocto targets are generic to avoid the
+>>> necessity to add new ones after each Yocto release. The only thing
+>>> required to be changed after updating the containers is the variable
+>>> YOCTO_VERSION stored in a .yocto-test template.
+>>>
+>>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>>> ---
+>>> Changes in v5:
+>>> - none
+>>> Changes in v4:
+>>> - add .yocto-test for arm64 and x86
+>>> - make yocto jobs use arm64 version
+>>> Changes in v3:
+>>> - patch added
+>>> ---
+>>> automation/gitlab-ci/test.yaml | 43 ++++++++++++++++++++++++++++++++++
+>>> 1 file changed, 43 insertions(+)
+>>>
+>>> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+>>> index c7e0078e04f1..6ce2fd63eee6 100644
+>>> --- a/automation/gitlab-ci/test.yaml
+>>> +++ b/automation/gitlab-ci/test.yaml
+>>> @@ -54,6 +54,33 @@
+>>>   tags:
+>>>     - x86_64
+>>>
+>>> +.yocto-test:
+>>> +  extends: .test-jobs-common
+>>> +  script:
+>>> +    - ./automation/build/yocto/build-yocto.sh -v --log-dir=./logs --xen-dir=`pwd` ${YOCTO_BOARD}
+>>> +  variables:
+>>> +    YOCTO_VERSION: kirkstone
+>>> +    CONTAINER: yocto:${YOCTO_VERSION}-${YOCTO_BOARD}-${YOCTO_HOST}
+>>> +  artifacts:
+>>> +    paths:
+>>> +      - 'logs/*'
+>>> +    when: always
+>>> +  needs: []
+>>> +
+>>> +.yocto-test-arm64:
+>>> +  extends: .yocto-test
+>>> +  variables:
+>>> +    YOCTO_HOST: arm64v8
+>>> +  tags:
+>>> +    - arm64
+>>> +
+>>> +.yocto-test-x86-64:
+>>> +  extends: .yocto-test
+>>> +  variables:
+>>> +    YOCTO_HOST: amd64
+>>> +  tags:
+>>> +    - x86_64
+>> This hidden job is not used by any yocto test job and as such can be misleading to others working on this file.
+>> So we can either remove it (can be easily reintroduced once we will find more x86 resources) or add a comment explaining why is it here.
+> 
+> If I remove it then there is not reason to have something separated for arm64.
+> I will keep and add the following comment on top:
+> # This is not used by any test job as we only run Yocto on arm based machines
+> # Keep it here so that someone having x86 hardware can easily add jobs
+> 
+> Would you be ok with that ?
+Yes, sure (+ add comma after end of sentence in multi line comments)
 
-Note the conditional logic in domU_read_console() is slightly modified
-so the notify_daemon() call can be done outside of the locked region:
-it's an hypercall and there's no need for it to be done with the lock
-held.
-
-Fixes: b536b4b96230 ('xen: use the hvc console infrastructure for Xen console')
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
----
-Changes since v1:
- - Properly initialize the introduced lock in all paths.
----
- drivers/tty/hvc/hvc_xen.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/tty/hvc/hvc_xen.c b/drivers/tty/hvc/hvc_xen.c
-index 7c23112dc923..e63c1761a361 100644
---- a/drivers/tty/hvc/hvc_xen.c
-+++ b/drivers/tty/hvc/hvc_xen.c
-@@ -43,6 +43,7 @@ struct xencons_info {
- 	int irq;
- 	int vtermno;
- 	grant_ref_t gntref;
-+	spinlock_t ring_lock;
- };
- 
- static LIST_HEAD(xenconsoles);
-@@ -84,12 +85,15 @@ static int __write_console(struct xencons_info *xencons,
- 	XENCONS_RING_IDX cons, prod;
- 	struct xencons_interface *intf = xencons->intf;
- 	int sent = 0;
-+	unsigned long flags;
- 
-+	spin_lock_irqsave(&xencons->ring_lock, flags);
- 	cons = intf->out_cons;
- 	prod = intf->out_prod;
- 	mb();			/* update queue values before going on */
- 
- 	if ((prod - cons) > sizeof(intf->out)) {
-+		spin_unlock_irqrestore(&xencons->ring_lock, flags);
- 		pr_err_once("xencons: Illegal ring page indices");
- 		return -EINVAL;
- 	}
-@@ -99,6 +103,7 @@ static int __write_console(struct xencons_info *xencons,
- 
- 	wmb();			/* write ring before updating pointer */
- 	intf->out_prod = prod;
-+	spin_unlock_irqrestore(&xencons->ring_lock, flags);
- 
- 	if (sent)
- 		notify_daemon(xencons);
-@@ -141,16 +146,19 @@ static int domU_read_console(uint32_t vtermno, char *buf, int len)
- 	int recv = 0;
- 	struct xencons_info *xencons = vtermno_to_xencons(vtermno);
- 	unsigned int eoiflag = 0;
-+	unsigned long flags;
- 
- 	if (xencons == NULL)
- 		return -EINVAL;
- 	intf = xencons->intf;
- 
-+	spin_lock_irqsave(&xencons->ring_lock, flags);
- 	cons = intf->in_cons;
- 	prod = intf->in_prod;
- 	mb();			/* get pointers before reading ring */
- 
- 	if ((prod - cons) > sizeof(intf->in)) {
-+		spin_unlock_irqrestore(&xencons->ring_lock, flags);
- 		pr_err_once("xencons: Illegal ring page indices");
- 		return -EINVAL;
- 	}
-@@ -174,10 +182,13 @@ static int domU_read_console(uint32_t vtermno, char *buf, int len)
- 		xencons->out_cons = intf->out_cons;
- 		xencons->out_cons_same = 0;
- 	}
-+	if (!recv && xencons->out_cons_same++ > 1) {
-+		eoiflag = XEN_EOI_FLAG_SPURIOUS;
-+	}
-+	spin_unlock_irqrestore(&xencons->ring_lock, flags);
-+
- 	if (recv) {
- 		notify_daemon(xencons);
--	} else if (xencons->out_cons_same++ > 1) {
--		eoiflag = XEN_EOI_FLAG_SPURIOUS;
- 	}
- 
- 	xen_irq_lateeoi(xencons->irq, eoiflag);
-@@ -234,6 +245,7 @@ static int xen_hvm_console_init(void)
- 		info = kzalloc(sizeof(struct xencons_info), GFP_KERNEL);
- 		if (!info)
- 			return -ENOMEM;
-+		spin_lock_init(&info->ring_lock);
- 	} else if (info->intf != NULL) {
- 		/* already configured */
- 		return 0;
-@@ -270,6 +282,7 @@ static int xen_hvm_console_init(void)
- 
- static int xencons_info_pv_init(struct xencons_info *info, int vtermno)
- {
-+	spin_lock_init(&info->ring_lock);
- 	info->evtchn = xen_start_info->console.domU.evtchn;
- 	/* GFN == MFN for PV guest */
- 	info->intf = gfn_to_virt(xen_start_info->console.domU.mfn);
-@@ -318,6 +331,7 @@ static int xen_initial_domain_console_init(void)
- 		info = kzalloc(sizeof(struct xencons_info), GFP_KERNEL);
- 		if (!info)
- 			return -ENOMEM;
-+		spin_lock_init(&info->ring_lock);
- 	}
- 
- 	info->irq = bind_virq_to_irq(VIRQ_CONSOLE, 0, false);
-@@ -472,6 +486,7 @@ static int xencons_probe(struct xenbus_device *dev,
- 	info = kzalloc(sizeof(struct xencons_info), GFP_KERNEL);
- 	if (!info)
- 		return -ENOMEM;
-+	spin_lock_init(&info->ring_lock);
- 	dev_set_drvdata(&dev->dev, info);
- 	info->xbdev = dev;
- 	info->vtermno = xenbus_devid_to_vtermno(devid);
--- 
-2.37.3
+> 
+> Cheers
+> Bertrand
+> 
+~Michal
 
 
