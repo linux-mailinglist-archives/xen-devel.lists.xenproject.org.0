@@ -2,40 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F2AC63EFEA
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 12:52:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450625.707996 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C9663F00A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 12:59:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450636.708008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0i70-0004Wq-MS; Thu, 01 Dec 2022 11:52:18 +0000
+	id 1p0iDk-0005Fl-E7; Thu, 01 Dec 2022 11:59:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450625.707996; Thu, 01 Dec 2022 11:52:18 +0000
+Received: by outflank-mailman (output) from mailman id 450636.708008; Thu, 01 Dec 2022 11:59:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0i70-0004U4-JJ; Thu, 01 Dec 2022 11:52:18 +0000
-Received: by outflank-mailman (input) for mailman id 450625;
- Thu, 01 Dec 2022 11:52:16 +0000
+	id 1p0iDk-0005Dz-Au; Thu, 01 Dec 2022 11:59:16 +0000
+Received: by outflank-mailman (input) for mailman id 450636;
+ Thu, 01 Dec 2022 11:59:14 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=lVjU=37=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p0i6y-0004K6-Nm
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 11:52:16 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2060b.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::60b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b9379c9b-716d-11ed-8fd2-01056ac49cbb;
- Thu, 01 Dec 2022 12:45:59 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8339.eurprd04.prod.outlook.com (2603:10a6:20b:3e6::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.21; Thu, 1 Dec
- 2022 11:52:13 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
- 11:52:13 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+/wf=37=citrix.com=prvs=32775c42f=christian.lindig@srs-se1.protection.inumbo.net>)
+ id 1p0iDi-0005Dt-MW
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 11:59:14 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b0a6953a-716e-11ed-8fd2-01056ac49cbb;
+ Thu, 01 Dec 2022 12:52:56 +0100 (CET)
+Received: from mail-dm6nam12lp2174.outbound.protection.outlook.com (HELO
+ NAM12-DM6-obe.outbound.protection.outlook.com) ([104.47.59.174])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 01 Dec 2022 06:59:09 -0500
+Received: from DM6PR03MB4172.namprd03.prod.outlook.com (2603:10b6:5:5c::23) by
+ SJ0PR03MB7022.namprd03.prod.outlook.com (2603:10b6:a03:430::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
+ 2022 11:59:02 +0000
+Received: from DM6PR03MB4172.namprd03.prod.outlook.com
+ ([fe80::bca9:6c1e:de4c:fa22]) by DM6PR03MB4172.namprd03.prod.outlook.com
+ ([fe80::bca9:6c1e:de4c:fa22%5]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
+ 11:59:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,180 +49,377 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b9379c9b-716d-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: b0a6953a-716e-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1669895952;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=2QlTRpb0BduG87YX0l2YUS9nWhXre08np46Sd69s4qw=;
+  b=LaRtL1hvrqBQt+7nqQ9uE4hCUgrBm1PLWWk/F0jQKfmJEjxgzhqwIErN
+   Nm8Kqa+nEmouGEh2Rvww1/+kaiUoIt2SfmpNLxr61ZgX+LfctBrSTQvGA
+   GwQGFcU6ebl+FelzOxDw3W3qla4J+yz7OG2icpwHklfC6H6mxR6GwYw4g
+   w=;
+X-IronPort-RemoteIP: 104.47.59.174
+X-IronPort-MID: 85072345
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:g2/K26jGsL6PSGuD/OmHW64JX161fhEKZh0ujC45NGQN5FlHY01je
+ htvXW3UO/rYazHxctwlatvn9UkBucfXz4dqHVBrryAyFCwb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWs0N8klgZmP6oS5geHzyN94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQXeDcIbiGvg9iH77mZTcdGl/4Bdo7SadZ3VnFIlVk1DN4AaLWaGeDmwIEd2z09wMdTAfzZe
+ swVLyJ1awjNaAFOPVFRD48imOCvhT/0dDgwRFC9/PJrpTSMilEgluGybLI5efTTLSlRtk2Yv
+ GPd42XwBFceNdqTyDWt+XOwnO7f2yj8Xer+EZXoq6Y12gbPmwT/DjUNbnyFp9acgHeSZNNnK
+ 30k2i0csIY9oRnDot7VGkfQTGS/lg4RXZ9cHvM37CmJy7HI+ECJC24cVDlDZdc68sgsSlQC2
+ laXkvvzCDdosbnTTmiSnop4thu3MCkRaGMHOykNSFJf58G5+d5vyBXSUtxkDai5yMXvHi39y
+ CyLqy54gKgPickM1OOw+lWvby+Qm6UlhzUdvm3/Nl9JJCsgDGJ5T+REMWTm0Ms=
+IronPort-HdrOrdr: A9a23:ggowEq8dqcTY76NwWBluk+EKdb1zdoMgy1knxilNoENuH/Bwxv
+ rFoB1E73TJYVcqKRcdcLW7VJVoLkmskaKdjbNhX4tKPzOW21dATrsSlLcKqgeIc0KRltK1vZ
+ 0QC5SWY+eAamSS4/yKhTVQJ+xQu+VvvZrY9tv2/jNId0VHeqtg5wB2BkKyFVB3fhBPAd4cGI
+ CH7sRKijK8cTBPB/7Lc0UtbqzmnZnmhZjmaRkJC1oO7xSPtyqh7PrfHwKD1hkTfjtTyfMJ8H
+ TDkSb++qK/2svLuCP05iv21dB7idHhwtxMCIiljdUUECzljkKSaIFoS9S5zU4ISLXE0jcXue
+ iJhy1lE9V46nvXcG3wiwDqwRPc3DEn7GKn4UOEgFP4yPaJDg4SOo5kv8Z0YxHZ400vsJVXy6
+ RQxV+UsJJREFfpgDn93d7VTBtn/3DE6kbKqdRjwkC3bLFuIYO57LZvin+9Ka1wax4SPbpXWN
+ WHD6nnlYlrmB2hHjzkV1JUsaCRt0QIb2q7q3c5y7aoOhht7QFEJhgjtbwidzE7heYAd6U=
+X-IronPort-AV: E=Sophos;i="5.96,209,1665460800"; 
+   d="scan'208";a="85072345"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D/QnbpN8nvSsCThcV8ajzBlTqA3HVXSwViJyUwfzJ/25rj1iI0LRBnldWh4fbtnnwiGojsQhhdJ0fFOaRyptwmWQQqQw0repKAwaL0EfMNQ8PUeSQdDvzb7bcXWmkbcvy5CDlZpyQxfKhj1v2QPFOMypOosMdOBHAD5nWhwPG4j9LQIyFTOklJQIohKH50eapDLosyzDCGkr1vDm8E757dGK2JW+eHoqW+NeWObSV4f08ir3jzixPYHqiCLqLyWqUmKCsbPVLphawBC/6R/tuxR4sjF7SGOthPhMznAvtBzX9aa2+BS+9VmPtSa0LAug1u6L/uJy291kMC4fiIECow==
+ b=YMFlyg8KelmJTiJuJpj1Ut905Amro0mriFOt4U+WmDsWMCtkCZC/2PE4M9FodIwh7hmIdy7HXH1TS8rquFXfDmZ2XyI2OiD/I/uSc4xqJrLVhj2F8xSoCzGCFdCXvTpavBEkMWZEyBMp3QOyabosvejz1pSA6AANvPb+1oD8ZYdfyX0YL/OIc0d2xYRv5MXhpJ6vtZF6tVnl5FTukJoLFRF4zBTtWWfuqdmqwmh9OQrLYfPlzDCv34ucpC3lKvuFYUNhWwwa81zg6KLeVy1sLTN2v+zpGFk7Yc9gEsjZuHaqKIIa3RBQZNGa7INHuqE4gWe0Nso8LCX7isu5el+upA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6g/ul4qbhNIp+YifkeZmyCzfUjU1gLa6XUqRzHUN97I=;
- b=ckQ/3yDT+MbkJnv4MHE1PK8g1WvdqId7CpSVfJrIFpzf6ycy77vfLdgIt6tPkGbVZIO+dyvLzzand5sziVO34G1r6XhAN55hA0MKeIAnJTkLdoMw9WyUFQ1ali0ijfa9fcxKIUjZ3ceSHotns/jbviD1fdwkEBkDXVhpyfGxuoDgX2os8cUQY7IuQ6M1oOqB21g5rgOIck7TdPW/9MFie+Fx2E8pOzkD0wcojI3RQ7Pfg+/a4siCiuXNyhZv7c4eB1PkQNCtN7/vqNKpr3u++Fdo4JV6hbL07gT52vp9P7xOG7C4Cm2QMfhZnyHv7yLgQypT/FkbVV/jNzKMsrxAXg==
+ bh=dsYQ3Tm6Q6ZPy/nZ9w8l7ig2KIVv+wjnpnXuwKZi1+0=;
+ b=OTevWftx45WUbp3HCzeVmsLLAJ197dubl48F09USfGBAktibSqYQJRbGMI8TdVu80HSJX+Z7a42SGtNHUb/fErAvuXYA1UWp8EEEI8FU+5cu+VHeMWpHqXfCKx6w8+abFe+pQWOoOueBezYqtPjC88yXVQTleQMm8Gwic3a3wpJo6WIhAK17vKkxNPgtWTA/JtuPH184D5OyCpSdsCtYLg2ckqqdxCk4NKO8aWjbmvkASCMSGJBiE0Vx0ccAF22Tg3KfL99u8xsC2XhYolkqFI0Ik8hH2EmK5r4nq05EaaS0puuHiyOAKZF/kWpjzXmRCDMKyjQ1gE1fO2vr40dx7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6g/ul4qbhNIp+YifkeZmyCzfUjU1gLa6XUqRzHUN97I=;
- b=SprqwPUXMPPK344t+jtXanhxG8zYipft0qgoMUNwW+fZL+K8xpDkyHOUSK7Pf46oy8SWWVuGZTK3N4NaOEkL7fY89wuryAr+7sisUwQv32yxk+pHVWF6SW2+k7Upx3IEr/LaCTTu8ixMmRgXpVQb1r0hfzEYS9/m0Qw/TwxwqCloPTV+9crkwW6+3ZvjeQGxmeS76JhXWOKhPgQ/f3ergU9dpk+kxDs1039uRvUlHy8V06W1oujjbTv/dRLJpo+M2N39kbNhsSgDFyjB0mDoeVicj63jlQhrL0ITpyrATmuyoJlJVj03HoB9F69ygI6I7AmC7vbfF+r1AiQF/8o0SA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f66fe5a0-a918-78d0-7314-39f420dda283@suse.com>
-Date: Thu, 1 Dec 2022 12:52:11 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v1 5/5] CODING_STYLE: add .clang-format
+ bh=dsYQ3Tm6Q6ZPy/nZ9w8l7ig2KIVv+wjnpnXuwKZi1+0=;
+ b=JJaTLmr/p01GAJeQc1MtvnUw+iByleAYVrDm2s43xx5v3v8QznQc58Vph8FknkX8bDH3FvVGssNuwTjiRMVIOYUj3Kg0Nk0EVhYkYYrnpQhdhNo8uIjjyOUuveEW1CAeK+U/x5lHe4mNCSKkbXtidfzBR0F46HQm9CvE8QEJtoI=
+From: Christian Lindig <christian.lindig@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: Xen-devel <xen-devel@lists.xenproject.org>, David Scott <dave@recoil.org>,
+	Edwin Torok <edvin.torok@citrix.com>, Rob Hoes <Rob.Hoes@citrix.com>
+Subject: Re: [PATCH v2 5/6] tools/oxenstored: Rework Domain evtchn handling to
+ use port_pair
+Thread-Topic: [PATCH v2 5/6] tools/oxenstored: Rework Domain evtchn handling
+ to use port_pair
+Thread-Index: AQHZBNyGYEY4cgr2f0u9q8Jh29xLbq5Y7uCA
+Date: Thu, 1 Dec 2022 11:59:02 +0000
+Message-ID: <B01EB9B0-2E59-460E-9F1B-04F2406C788B@citrix.com>
+References: <20221130165455.31125-1-andrew.cooper3@citrix.com>
+ <20221130165455.31125-6-andrew.cooper3@citrix.com>
+In-Reply-To: <20221130165455.31125-6-andrew.cooper3@citrix.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Wei Liu <wl@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross
- <jgross@suse.com>, Edwin Torok <edvin.torok@citrix.com>
-References: <cover.1669829264.git.edvin.torok@citrix.com>
- <bf4013cdb5f3e66693551b5e45b3f975b5a48795.1669829264.git.edvin.torok@citrix.com>
- <7e6b8e69-70d2-8178-205d-8c20b993162d@xen.org>
- <7DF6F06F-A65A-4F1F-8FDA-BF0E8977F99B@citrix.com>
- <c3af2730-d503-e139-644a-480a506c94d1@xen.org>
- <99df302d-8bc5-55a7-a97e-dcc8eee41d2c@suse.com>
- <3e6e6948-7852-751e-a025-9fe36e9cfb82@xen.org>
- <82bdfded-6271-d262-136d-57b4b1a92a9b@suse.com>
- <6a5af398-270b-f57c-091c-78ebea8630ec@xen.org>
- <3eb81135-0cd5-1788-3569-0db7d68541b8@suse.com>
- <b47efecd-c2cf-8fe9-7e47-7fb22231be8d@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b47efecd-c2cf-8fe9-7e47-7fb22231be8d@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0052.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:48::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-mailer: Apple Mail (2.3696.120.41.1.1)
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM6PR03MB4172:EE_|SJ0PR03MB7022:EE_
+x-ms-office365-filtering-correlation-id: 000de282-2399-449a-eb2b-08dad393704e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ l/xsbeo4dRNWoaEHSPikfCHefk0PqdlseU/bqkf9EneAkDl839NXR/lBl6SLBPC7XNdL4XU4I+5HL1WNHAn0ofPxAVxVhZ+xxIdgf6CTW8MS1HCPOTWEo1nSozW789Bi5f9p1MwZqebhC5vJF7CMpO/hTFfoKwMu/fur1Psk4ZwGziSqzfFbgZw1vCxUfab6/Bcj7wrZlxFPBQt5UN7zazyqnzJBYnT2KbDRzRK82gFhjqUaxlBVvrCVp82VfdU0kRyc4g9JTxuvMOqBNNi4bI3D6LcHMVKVL1H3DEk6ALlvyd2cnKErXG1pO87Fb+VZi5KiRYsopbXc9t4sRzRaiRmZJ4KuO9Myd/QQUmX7m55itVxZGYzCQCOdI5CBtofQtgQDmZisubi6PHZVlehG6OY4NWC7Db+HPaACSdikiQxK7Bd7LyGx6TsmKjvAApRRKdEsfaPdGI9xKt29gHN4wBDBcikJkKdXE87+MPFQONF+6bXINzr3/GH7T1/Bbyp5AFVIB0mM8P8CMnLr0eUnioyFdMYOw5eWjgK+lEOXaZ3d7+Zcb9OwuGIQbFBqXn8N058lkSwqpCVIWCtqAzmQJwOpPaxikqrm0cig2ri7bHOargRYL75EzKLh+ip77AWzkCGw0/2wG+GrznxIxBY/T6cRXZp4zhVxf6Tew8ZwDV2NgfZG509E9IkX6+3b0vwqxiuGKKumqSRSi9wZSqFUBENfwgVbL0XVi/b3RqQxYVA=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM6PR03MB4172.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(396003)(136003)(376002)(346002)(451199015)(2616005)(186003)(316002)(33656002)(6486002)(6636002)(37006003)(54906003)(38070700005)(36756003)(86362001)(82960400001)(38100700002)(83380400001)(122000001)(6506007)(53546011)(6512007)(26005)(107886003)(44832011)(2906002)(71200400001)(91956017)(478600001)(5660300002)(64756008)(41300700001)(8936002)(4326008)(6862004)(66476007)(66946007)(8676002)(76116006)(66556008)(66446008)(45980500001);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?I7hCZztXUQl5zc+NeWC3ef4hthvoovtJgtR5MEc3+gMFbdyzNFj/RXZ4C4S1?=
+ =?us-ascii?Q?Y4bupRa2TCbXkozbOptky+ylX26gl75US3Mkca1PjeQfC+emnBD2dhZfLwQ4?=
+ =?us-ascii?Q?H/+HnWPU6H3prdwjDX6OUd2QyOCcNA81bn48tA0kLN6ifi0yLpM/CinkOMNN?=
+ =?us-ascii?Q?YvW9GtvVNZDox/Aeln3H4RjcF9W12Oj8Df7L299RbdEhKziNntdE0nETUMtv?=
+ =?us-ascii?Q?JmTftgE6PdAdIJhgv80JuZnGSqQ8IVAh86yhvEjA2IMGmFoW9rHaOhYVTug+?=
+ =?us-ascii?Q?4FfskD3QDF1uLtaYVvqk/Le0cNriSsjpZElNqst8OdKsiStd/ycsCs4TOBXy?=
+ =?us-ascii?Q?94UtK3hPQmTJXukHIr4x8nNeQpm3nHJuC4KdqATqUfanuEioxYngY0v28TWf?=
+ =?us-ascii?Q?f9dCPRvQ8Y5ZKM9kMecw+IUmS3VZ1JfGJ8Li7PbvaKH4be99Ob1SSwfn9B3E?=
+ =?us-ascii?Q?YS9hy43TQO7DgidLZ8I54hwixfSbkxpfScaSQhdtAae2wjEKhcBZg8fmXspB?=
+ =?us-ascii?Q?B1eKuYgpwrhUx7bzBnmmAGT8hYWmd0kTh+LOGD78/2q1Hh8BB2Ru+WDXCLFs?=
+ =?us-ascii?Q?9q4tlfKn0UCgiMWy4Vyofq/3pj+Bvjfjh24zCJAFxVw1VbLnQpg8wTWsANtG?=
+ =?us-ascii?Q?DlCvjocYbZnLX4WzLSPcT557E91gI0+AKzEYCmdX12c9oXby3zLzIb83exVq?=
+ =?us-ascii?Q?PX2plW4PRuvMT2w1E2KwTJOizYAw88nUcwbOACGqa0hA2cade2P0ygSVpKIn?=
+ =?us-ascii?Q?nMJT46c99AzZux56BrEjuecUD+bonbR+HjZL1Nms9/cmyKqVF4dlV5E0jFUU?=
+ =?us-ascii?Q?rbjNXRECKuGhW9NX3qU8tagLfIclwLq6dAueAihj7GPO4bvj75eKVZEsrRss?=
+ =?us-ascii?Q?4azjJdU9ei2VDC+w5vGsAlvEnuKrDeM+V4+XUZIcmPsWU96hsihrcpg8E7Q0?=
+ =?us-ascii?Q?j+FnCHinJggbNvtTLPdBx7+zUARV7TLzC3+6g164AiW8EmcP9t4svHDT898q?=
+ =?us-ascii?Q?0c3tZ7ms6svmTpazM1BQgqrwXhoY7NTrgCt8viegpRbr0rAHeHFNMLpy5xSL?=
+ =?us-ascii?Q?oI5pjWqnhX8a201gtqmkTngRs/axPm5+GV9gyBuXo1s6o0wJyhIHDU99N940?=
+ =?us-ascii?Q?1DEvrusIQDLFVDSbSLcv2T3F2ssNZbuAvRsqg3LeAypssfkqzYgsmQrzOduk?=
+ =?us-ascii?Q?NPYtcaqkJygaavMgiW5WpXiAIHVdXEpPa0QgIe1HIAbYJp4pr1oh+9IXACAF?=
+ =?us-ascii?Q?TBaaIfm7k4mAS/x8otZ7aDbvo5ZqYwNTlL1vLPDtLbL6bs35icvsQfx2gQFc?=
+ =?us-ascii?Q?SJJqMbob+tuBaE1nvH2Esld4FOTHISf+RkduRSwUKj3CzJVxvo9ul2Td8LLH?=
+ =?us-ascii?Q?oUmJ7PuCt4R9iP6bSnku1yW/2lpQ+eSAYGFJhWWa33NScIaSwhT2gYujDPnt?=
+ =?us-ascii?Q?Ac4kiEET7Osz7lUIxmG425Xpi3FrewwqPVHLYUZ9fgGbkgipyK1zd+xJy+Kx?=
+ =?us-ascii?Q?lkFpPur7TtoNruO+riQZSwsRwTKhuA5dU/OXNccwYmD4Koot5oYXEsIooVlS?=
+ =?us-ascii?Q?dlcMsuAu/jctWpR7QPj+BhIua9Dd9clFU6NlCAwykEuv0syVF1t9ehf+6RBG?=
+ =?us-ascii?Q?aYv33mvSC29Tnaedg1vAhtY=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <BE9CA5DC5A738242903E34BFB6B1ED3E@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8339:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1fb05db-709b-4ea4-40be-08dad3927c5e
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	8jI6qWy4O2oDdXDR64rDbrmUH/4o7xlIbKcjAWExyp1duVN7wgC9bARGV0F2gp8jlO46/VotSdM/v8r7JaAaXfNU0N9xZkQxViStU5EgJASGgfq7Q66mA4RQp1BxFcb06b07s9wDUd2yoOXIMWKGB1aTOiOM1Gaitp/wc6JQW5NksL8Y0FQXNVFf1MF5vr/T8qW+JTHn4E7SGQ4hOEDs6MK4PWrKlvva2EZaN/c3dwdvRiaSQsbLNIHx6VfzxG8r2ZomHcxJ8FRPC8nDIQgyvaXYfR6L6FbUyPVZSred54Axn1CNZ2Swe/st2irBYx8Foxe/MNKniveSVnQFdisnX8swgQ4zony3I4w8ROt9UyDOANLvbXYxTlvkr5GAtPB1QIRvp9iYFrOnEkTc/VPVFYW/88kkBr9vQb4CpHHUQBwinV0gxjxM2jnvWyJCi1yS9kc99JtUUeA/Tw3bvD7n1AqTb8rQ8OAXuviPui+DJQQeG6PtjYC8qkaQ+8YAV9qDFdkWciEzpbLisYA5b0o9JMhWDGuzEEw9yqytx3Y8z+sGc7LqFeMdJ4lE3e0PfHKwDNBJmJoMUv2kLETupigI6u73Sx8nE5pnF95GXg0pYTtEllWeK24+Hoi1zNQJ2YqwC8FENzi2LkOfGHVWx88JFFXVyUU/f8/1aI6kOLJkEoUUZD7GfMTY21fo/GAjwOuNxjBQHoTiYTpWt/2v/Wka7fzsWoEvbo8qOm613azZFmWGY3msfwRWc+bLbWD6squl
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(346002)(39860400002)(396003)(366004)(451199015)(2906002)(83380400001)(31686004)(41300700001)(2616005)(186003)(36756003)(31696002)(86362001)(8936002)(6916009)(38100700002)(26005)(54906003)(53546011)(6512007)(5660300002)(4326008)(7416002)(8676002)(66556008)(66946007)(66476007)(478600001)(6486002)(316002)(6506007)(142923001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UFhCNWUzaE1NUU9vQ0NIUWQ0bGtsTW9vdkRoMnVMQUZaZGswUldudXUxRVNR?=
- =?utf-8?B?NmFPVndPeG5OQktONUtXSVR6QldMclRyTDU0cEhFaU9jdFQ4dFhlemRnOUgv?=
- =?utf-8?B?TmFpTkZYNnBvMGpUMTl4dHVnZ2NUem9VTm45N3dTeTBEMTM1M2lCN3gxeHZ4?=
- =?utf-8?B?YS9xOVdKNjhETGFnWUVzeitIc3Y1dDBBd016bExhMjhiYTNhcWpjb29DTStJ?=
- =?utf-8?B?ZGRnWU5NeVV5ekh5YVdxenlLUGFTdU9FV0ZocTkrWU9JVU4ycWtsODVjbmkw?=
- =?utf-8?B?dVI5SVNzNTAyVHBoZ24rUjBqc0xLZy81MmlDV2R1ZjJSOFQwMHRScXR5VjNM?=
- =?utf-8?B?Nkp6MEh0WmhFcDhwM3ZXV3ZhQTN0QzlpcHlDMUtaTDhRaGNWcXk2eU9KZ1k1?=
- =?utf-8?B?ZXZNSC8raXVQeDlHWTFObC84UXhoVWNWak5MMWMzbjh1Z080RHlBRDc1ZXhi?=
- =?utf-8?B?UkR1d2VSZkdtaEZQbEJUeGwxVGdPbUhuSW5hN2t1MDlpbkRYSnNmbFdFUGtr?=
- =?utf-8?B?WmlFbjFDMnNUcklINWEycDlXZ0FhN1MrNXFLZW9reDFZMGFjUmlRcG9tbytl?=
- =?utf-8?B?aEw3RzVVQmwxTnVqTjhIL0V4b2xzUUlmNGlTQmc3c2dQOW50bGRaWFMvbmtV?=
- =?utf-8?B?SWFrRXZjMmNGZ2VVeUs4SS9vT1ZVdys4bE9jL2JhZXNYQVhJNmZGTEh2V1cz?=
- =?utf-8?B?M2EyaDVpeXhhWXVLMEVRRHdsdFhKZVhhSVNXdWdqYnJFTlRDZjJmQVdudWYx?=
- =?utf-8?B?WklWY2tsL2dzM2lhWWFCVk5FVmVTOTNwVThEZmtCL05rN0JNM2x2YVN3ZHRn?=
- =?utf-8?B?MXdpSWc5N3dBVWdnUy9QKzY4Q0t4Snpvb2VScTA0aDFENGlIMU5qUmh5ajJY?=
- =?utf-8?B?M3NxSEZUdGhHR3c5STZoNDk4K0FCTGRYMEkwQjl1bUZvMnR4MXR1ZTZTZnRX?=
- =?utf-8?B?RGVRc0lQbVJmSFJkekh6ZFlyY3JZTzY5Z0YrT0hSSkUva0NuVmU4RE0vNUlW?=
- =?utf-8?B?QVNYdjNNTmE1MUcxcnF6b3dFUHNyRktqZ1FQdEltYWRad1JzYzVJTktMV2NR?=
- =?utf-8?B?QkxneVdTeWRaeFNZb3MxYWZOT0YxYVRvcUVGdFFKcGE3aklONXJFY0ZTY1NT?=
- =?utf-8?B?NzNGSFMyWmpxVG1EVkx0eWhVREFLMzZJeDZGVmRidzNzNk9yd01hMTU1OFMx?=
- =?utf-8?B?eVlENVQ0VlZ1YnpROW1GWmlLbDBreFFxSXlBaWlTYzc2WlBIRU4rMGhnSWZF?=
- =?utf-8?B?NzVUSWpidHhyRGREeGZTMy9uV2g5am53eURFd0J4dDZuOU9CZ3pRUzkxMG9C?=
- =?utf-8?B?MWpPM3NXanB6QVh1TWdaeFZGOVdNK1ZOMkF3YTk2VHFwVzBOWXhEUzdQd2Qr?=
- =?utf-8?B?ZXJYMjliZ0lvUWRWNmtUQ2xiY0crYlJGWjRIaHV4TFk0dDAxdjNmM2lwc29D?=
- =?utf-8?B?ZTl3M2l2Vk50SUpZckg0R3MzMnRlRXNUWnI2dGw1S3NUNlZ0ZjB4ZFRLd3o4?=
- =?utf-8?B?RVdSUElBZXYwZ3A0NlF5Q2Q1QTJqSCtQamJzcGNkeWJ6ZXB1SXlwem9Cd283?=
- =?utf-8?B?ZGNZNWI3TzF2VTlIbTFiZXYrdjFVMXJLOEQwK1FDbko3L0VNMmV3SDc4N21a?=
- =?utf-8?B?TWxNYnZJT2lqd2xOeEc1STVQYnlQaWpOS240R2QyUE0xbXgyVTEyL3VYN28x?=
- =?utf-8?B?ekZWQUdFSDJtTkZvNFhFeDJPNFFuMGcwNmQ1eXV2eUpkUFVFTDRuWHlEcXFn?=
- =?utf-8?B?WHM0UE5Bd3pkNWFieTFoaXpIbXZVYlRlVnVFazU3cjk2SmIzakQzYlc2RHlr?=
- =?utf-8?B?SjVmVHExbHZzWVhLbEdRQ1A0VkNDVVlJcFYyN0NieVlhOWJ2SDdMaUNpcGll?=
- =?utf-8?B?NHdRb0JaTWtnZFh1bjcvRnhsNU13ODk5eStURm1uSUN2aHJ0alZZdTNKaTUv?=
- =?utf-8?B?QlloYkZwaTBhN0p2c3JjNExyRVhnTWNNdzdUOHBsZnhDaHc1b0NvMnhIemhw?=
- =?utf-8?B?R0k2bnF1RnlqN3orNURJWkRsNEpnNjMvRldReE1VcWMxa053S0FYRDMyd3d1?=
- =?utf-8?B?ZjdodjVaN1dTYmdIaDdGZzlZTXlnZnVnM1dUMy90M3Z5RGY5dlVKUkUzcGZ5?=
- =?utf-8?Q?8SVfS8LhRRBZ/aNYujTxAdeqB?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1fb05db-709b-4ea4-40be-08dad3927c5e
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	oUQ2EZ9WRuo+vdohe11V9Q5ijL9Z5As9jIZ8uovTWj92DY1rZO0iZwiB8qcaZIfXoKoKAmmJCxK5hxI93oM9LxC/TzRNchpPvIKh3TRAsvJd/KLo2Li69TxcmGG1v8Ev09X/6m+H0iGk6DuAWrdbI16qveJswD4xIYlqNdx8E/5m6gYZZ40No42C0DKzp3fGVQJY120c8oqgIpKoBKKWPu4vu1WExYtGus+gSbFpT9V0AL48OV5tzseZRdjqz1t3NygNwLVA0r1RkZsk/eVrLA3piW5h8v4cH/kT8yv1/l1I8chrtSbiKtCjRJ5ex/DU/PpYZqO8fUSAyxXLANyknoVQ9lpxSRcZL4LHEuGU69+y9fUYBl39HhdmW3TusqTOHBovJEVnhU+6+A904YmeBLVF21dPb+/lDaqbiHUqh1EuQkYMF1TArFY9miyi0ZERvSIQeUzb/OQxityZRQasfvfwORCt3BfnDQ82ijmTWCxJvUoBmE/oBUTDsejMxBzBa+syJlUQCVuyLfvaeIs1cfWD+QjLo42Ufc0VaeVQ/Nw9T4hj736aTsgLTrU0+3/Zb/HYp2s9kEl1fruK9xRF5m+mtulChpi/i96CCLmsZDnv5yAIFhNg7N2BQ09LS1s4fchYGcrb5U7XRerdM5VtRgR1vItuvpZAUSYjOh4un54pbDnECeZUPZMjNtZZ9uSkNbu9wJYFHApfuRqJ5Lt1qBtz54e4jKc8lglxFkA7ZOean1GjPJ2DNeiUiP/H9vneYrpHQkiz/C3IVAN+koysfHtzY08f94uNJLpANZbGzx8vUhdjmoAN3gb1HrHE5hpf
+X-OriginatorOrg: citrix.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 11:52:13.2677
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR03MB4172.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 000de282-2399-449a-eb2b-08dad393704e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2022 11:59:02.4063
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rS2e6aswT7PVaeF0KEnRRE/qXOPhWt4yDZRItyCtzEVQmCYti1jktTbQnbzAysE5RMeRKOPyafnKKwQRfsiDyA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8339
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 3FI3NZGRnLA2oL5GG8t6W4F5Au5byqswdxHaUc8O9AuM76SH0hMkctQLCd288PKvcOGVdC4dYTbfKlA+0HrfwjjzzZUcYmEyMniDi++d5yk=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB7022
 
-On 01.12.2022 12:35, Julien Grall wrote:
-> On 01/12/2022 11:30, Jan Beulich wrote:
->> On 01.12.2022 11:47, Julien Grall wrote:
->>> On 01/12/2022 10:44, Juergen Gross wrote:
->>>> On 01.12.22 11:12, Julien Grall wrote:
->>>>>> We might want to add a comment to xs_wire.h like the one in ring.h in
->>>>>> order to
->>>>>> document the requirement of the type definition of uint32_t.
->>>>>
->>>>> The problem with this approach is you made more difficult for any
->>>>> userspace application to use the headers. So I would argue that the
->>>>> Linux copy can remove "stdint.h" if needed.
->>>>
->>>> Today there is exactly one public header including stdint.h, and I'd argue
->>>> that this was a mistake.
->>
->> I think so, too.
->>
->>>> xs_wire.h is especially rather uninteresting for any user space application
->>>> but a Xenstore implementation. All consumers of xs_wire.h are probably
->>>> either in the Xen tree, or operating system kernels. User space
->>>> applications
->>>> should use libxenstore for accessing the Xenstore, so I don't see an
->>>> advantage in breaking the usual philosophy of the Xen public headers NOT
->>>> including external headers like stdint.h.
->>>
->>> I think Edwin example is a pretty good justification for including
->>> stdint.h.
->>
->> I disagree. The intention has always been for consumers to provide the
->> basic C99 types by whatever suitable means they have. Note that in Xen
->> we also have no stdint.h.
-> 
-> I really dislike when I have to find the dependency of an header. This 
-> is really a waste of time...
 
-I can see your point, but for Xen's public headers it has always been
-that way. Plus, as said, adding (unguarded) #include <stdint.h> would
-even break the building of Xen itself.
 
-> If other disagree with that, then the strict minimum would be for this 
-> dependency to be recorded if it hasn't been done (I couldn't find anywhere).
+> On 30 Nov 2022, at 16:54, Andrew Cooper <Andrew.Cooper3@citrix.com> wrote=
+:
+>=20
+> Inter-domain event channels are always a pair of local and remote ports.
+> Right now the handling is asymmetric, caused by the fact that the evtchn =
+is
+> bound after the associated Domain object is constructed.
+>=20
+> First, move binding of the event channel into the Domain.make() construct=
+or.
+> This means the local port no longer needs to be an option.  It also remov=
+es
+> the final callers of Domain.bind_interdomain.
+>=20
+> Next, introduce a new port_pair type to encapsulate the fact that these t=
+wo
+> should be updated together, and replace the previous port and remote_port
+> fields.  This refactoring also changes the Domain.get_port interface (rem=
+oving
+> an option) so take the opportunity to name it get_local_port instead.
+>=20
+> Also, this fixes a use-after-free risk with Domain.close.  Once the evtch=
+n has
+> been unbound, the same local port number can be reused for a different
+> purpose, so explicitly invalidate the ports to prevent their accidental m=
+isuse
+> in the future.
+>=20
+> This also cleans up some of the debugging, to always print a port pair.
+>=20
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+> ---
+> CC: Christian Lindig <christian.lindig@citrix.com>
+> CC: David Scott <dave@recoil.org>
+> CC: Edwin Torok <edvin.torok@citrix.com>
+> CC: Rob Hoes <Rob.Hoes@citrix.com>
 
-It is kind of recorded in xen/include/Makefile, with the three
-"-include stdint.h" that are used there (of which one probably really
-ought to be -include cstdint). But I agree this can't really count as
-documentation.
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
 
->>> If you have a coding style requiring to order header alphabetically,
->>> then the developer may not even be able to include stdint.h without any
->>> hackery (e.g. introducing a header that will always be before the Xen
->>> public headers).
->>
->> Just to indicate that commonly style requirements may be weaker than
->> "fully alphabetic" - we don't request full ordering. What we request is
->> that groups (xen/, asm/, public/) be ordered within any group, but we
->> do not (afaia) demand ordering across groups (and indeed commonly we
->> have asm/ after xen/).
-> Right, but that's **our** coding style. You don't know what's going to 
-> be the coding style for other project.
+>=20
+> v2:
+> * New
+> ---
+> tools/ocaml/xenstored/connections.ml |  9 +----
+> tools/ocaml/xenstored/domain.ml      | 75 ++++++++++++++++++-------------=
+-----
+> tools/ocaml/xenstored/domains.ml     |  2 -
+> 3 files changed, 39 insertions(+), 47 deletions(-)
+>=20
+> diff --git a/tools/ocaml/xenstored/connections.ml b/tools/ocaml/xenstored=
+/connections.ml
+> index 7d68c583b43a..a80ae0bed2ce 100644
+> --- a/tools/ocaml/xenstored/connections.ml
+> +++ b/tools/ocaml/xenstored/connections.ml
+> @@ -48,9 +48,7 @@ let add_domain cons dom =3D
+> 	let xbcon =3D Xenbus.Xb.open_mmap ~capacity (Domain.get_interface dom) (=
+fun () -> Domain.notify dom) in
+> 	let con =3D Connection.create xbcon (Some dom) in
+> 	Hashtbl.add cons.domains (Domain.get_id dom) con;
+> -	match Domain.get_port dom with
+> -	| Some p -> Hashtbl.add cons.ports p con;
+> -	| None -> ()
+> +	Hashtbl.add cons.ports (Domain.get_local_port dom) con
 
-Sure, hence me having said "may be" in my reply.
+I would prefer Hashtbl.replace. Hashtbl.add shadows an existing binding whi=
+ch becomes visible again after Hashtabl.remove. When we are sure that we on=
+ly have one binding per key, we should use replace instead of add.=20
 
-Jan
+>=20
+> let select ?(only_if =3D (fun _ -> true)) cons =3D
+> 	Hashtbl.fold (fun _ con (ins, outs) ->
+> @@ -97,10 +95,7 @@ let del_domain cons id =3D
+> 		let con =3D find_domain cons id in
+> 		Hashtbl.remove cons.domains id;
+> 		(match Connection.get_domain con with
+> -		 | Some d ->
+> -		   (match Domain.get_port d with
+> -		    | Some p -> Hashtbl.remove cons.ports p
+> -		    | None -> ())
+> +		 | Some d -> Hashtbl.remove cons.ports (Domain.get_local_port d)
+> 		 | None -> ());
+> 		del_watches cons con;
+> 		Connection.close con
+> diff --git a/tools/ocaml/xenstored/domain.ml b/tools/ocaml/xenstored/doma=
+in.ml
+> index d59a9401e211..ecdd65f3209a 100644
+> --- a/tools/ocaml/xenstored/domain.ml
+> +++ b/tools/ocaml/xenstored/domain.ml
+> @@ -19,14 +19,31 @@ open Printf
+> let debug fmt =3D Logging.debug "domain" fmt
+> let warn  fmt =3D Logging.warn  "domain" fmt
+>=20
+> +(* An event channel port pair.  The remote port, and the local port it i=
+s
+> +   bound to. *)
+> +type port_pair =3D
+> +{
+> +	local: Xeneventchn.t;
+> +	remote: int;
+> +}
+> +
+> +(* Sentinal port_pair with both set to EVTCHN_INVALID *)
+> +let invalid_ports =3D
+> +{
+> +	local =3D Xeneventchn.of_int 0;
+> +	remote =3D 0
+> +}
+> +
+> +let string_of_port_pair p =3D
+> +	sprintf "(l %d, r %d)" (Xeneventchn.to_int p.local) p.remote
+> +
+> type t =3D
+> {
+> 	id: Xenctrl.domid;
+> 	mfn: nativeint;
+> 	interface: Xenmmap.mmap_interface;
+> 	eventchn: Event.t;
+> -	mutable remote_port: int;
+> -	mutable port: Xeneventchn.t option;
+> +	mutable ports: port_pair;
+> 	mutable bad_client: bool;
+> 	mutable io_credit: int; (* the rounds of ring process left to do, defaul=
+t is 0,
+> 	                           usually set to 1 when there is work detected,=
+ could
+> @@ -41,8 +58,8 @@ let is_dom0 d =3D d.id =3D 0
+> let get_id domain =3D domain.id
+> let get_interface d =3D d.interface
+> let get_mfn d =3D d.mfn
+> -let get_remote_port d =3D d.remote_port
+> -let get_port d =3D d.port
+> +let get_remote_port d =3D d.ports.remote
+> +let get_local_port d =3D d.ports.local
+>=20
+> let is_bad_domain domain =3D domain.bad_client
+> let mark_as_bad domain =3D domain.bad_client <- true
+> @@ -56,54 +73,36 @@ let is_paused_for_conflict dom =3D dom.conflict_credi=
+t <=3D 0.0
+>=20
+> let is_free_to_conflict =3D is_dom0
+>=20
+> -let string_of_port =3D function
+> -	| None -> "None"
+> -	| Some x -> string_of_int (Xeneventchn.to_int x)
+> -
+> let dump d chan =3D
+> -	fprintf chan "dom,%d,%nd,%d\n" d.id d.mfn d.remote_port
+> +	fprintf chan "dom,%d,%nd,%d\n" d.id d.mfn d.ports.remote
+>=20
+> let rebind_evtchn d remote_port =3D
+> -	begin match d.port with
+> -	| None -> ()
+> -	| Some p -> Event.unbind d.eventchn p
+> -	end;
+> +	Event.unbind d.eventchn d.ports.local;
+> 	let local =3D Event.bind_interdomain d.eventchn d.id remote_port in
+> -	debug "domain %d rebind (l %s, r %d) =3D> (l %d, r %d)"
+> -	      d.id (string_of_port d.port) d.remote_port
+> -	      (Xeneventchn.to_int local) remote_port;
+> -	d.remote_port <- remote_port;
+> -	d.port <- Some (local)
+> +	let ports =3D { local; remote =3D remote_port } in
+> +	debug "domain %d rebind %s =3D> %s"
+> +	      d.id (string_of_port_pair d.ports) (string_of_port_pair ports);
+> +	d.ports <- ports
+>=20
+> let notify dom =3D
+> -	match dom.port with
+> -	| None -> warn "domain %d: attempt to notify on unknown port" dom.id
+> -	| Some port -> Event.notify dom.eventchn port
+> -
+> -let bind_interdomain dom =3D
+> -	begin match dom.port with
+> -	| None -> ()
+> -	| Some port -> Event.unbind dom.eventchn port
+> -	end;
+> -	dom.port <- Some (Event.bind_interdomain dom.eventchn dom.id dom.remote=
+_port);
+> -	debug "bound domain %d remote port %d to local port %s" dom.id dom.remo=
+te_port (string_of_port dom.port)
+> -
+> +	Event.notify dom.eventchn dom.ports.local
+>=20
+> let close dom =3D
+> -	debug "domain %d unbound port %s" dom.id (string_of_port dom.port);
+> -	begin match dom.port with
+> -	| None -> ()
+> -	| Some port -> Event.unbind dom.eventchn port
+> -	end;
+> +	debug "domain %d unbind %s" dom.id (string_of_port_pair dom.ports);
+> +	Event.unbind dom.eventchn dom.ports.local;
+> +	dom.ports <- invalid_ports;
+> 	Xenmmap.unmap dom.interface
+>=20
+> -let make id mfn remote_port interface eventchn =3D {
+> +let make id mfn remote_port interface eventchn =3D
+> +	let local =3D Event.bind_interdomain eventchn id remote_port in
+> +	let ports =3D { local; remote =3D remote_port } in
+> +	debug "domain %d bind %s" id (string_of_port_pair ports);
+> +{
+> 	id =3D id;
+> 	mfn =3D mfn;
+> -	remote_port =3D remote_port;
+> +	ports;
+> 	interface =3D interface;
+> 	eventchn =3D eventchn;
+> -	port =3D None;
+> 	bad_client =3D false;
+> 	io_credit =3D 0;
+> 	conflict_credit =3D !Define.conflict_burst_limit;
+> diff --git a/tools/ocaml/xenstored/domains.ml b/tools/ocaml/xenstored/dom=
+ains.ml
+> index 26018ac0dd3d..2ab0c5f4d8d0 100644
+> --- a/tools/ocaml/xenstored/domains.ml
+> +++ b/tools/ocaml/xenstored/domains.ml
+> @@ -126,7 +126,6 @@ let create doms domid mfn remote_port =3D
+> 	let interface =3D Xenctrl.map_foreign_range xc domid (Xenmmap.getpagesiz=
+e()) mfn in
+> 	let dom =3D Domain.make domid mfn remote_port interface doms.eventchn in
+> 	Hashtbl.add doms.table domid dom;
+> -	Domain.bind_interdomain dom;
+> 	dom
+>=20
+> let xenstored_kva =3D ref ""
+> @@ -144,7 +143,6 @@ let create0 doms =3D
+>=20
+> 	let dom =3D Domain.make 0 Nativeint.zero remote_port interface doms.even=
+tchn in
+> 	Hashtbl.add doms.table 0 dom;
+> -	Domain.bind_interdomain dom;
+> 	Domain.notify dom;
+> 	dom
+>=20
+> --=20
+> 2.11.0
+>=20
+
 
