@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A3EF63F500
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 17:15:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451008.708586 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B562E63F508
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 17:17:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451016.708596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0mDs-00025Z-N8; Thu, 01 Dec 2022 16:15:40 +0000
+	id 1p0mFD-0002fe-0A; Thu, 01 Dec 2022 16:17:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451008.708586; Thu, 01 Dec 2022 16:15:40 +0000
+Received: by outflank-mailman (output) from mailman id 451016.708596; Thu, 01 Dec 2022 16:17:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0mDs-00022Y-Jc; Thu, 01 Dec 2022 16:15:40 +0000
-Received: by outflank-mailman (input) for mailman id 451008;
- Thu, 01 Dec 2022 16:15:39 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p0mFC-0002dK-TL; Thu, 01 Dec 2022 16:17:02 +0000
+Received: by outflank-mailman (input) for mailman id 451016;
+ Thu, 01 Dec 2022 16:17:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ShmB=37=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1p0mDr-00020U-6D
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 16:15:39 +0000
+ id 1p0mFB-0002cy-II
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 16:17:01 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 647e17e1-7193-11ed-91b6-6bf2151ebd3b;
- Thu, 01 Dec 2022 17:15:38 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 95b73105-7193-11ed-8fd2-01056ac49cbb;
+ Thu, 01 Dec 2022 17:17:00 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 37060D6E;
- Thu,  1 Dec 2022 08:15:44 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B6602D6E;
+ Thu,  1 Dec 2022 08:17:06 -0800 (PST)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CFB73F73B;
- Thu,  1 Dec 2022 08:15:36 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6E6273F73B;
+ Thu,  1 Dec 2022 08:16:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,119 +43,97 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 647e17e1-7193-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 95b73105-7193-11ed-8fd2-01056ac49cbb
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [RFC PATCH 15/21] xen/arm: vsmmuv3: Emulated SMMUv3 device tree node for dom0less
-Date: Thu,  1 Dec 2022 16:02:39 +0000
-Message-Id: <4e4d4fff4bb20d9718bd61b729f9421525baaa15.1669888522.git.rahul.singh@arm.com>
+Cc: Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [RFC PATCH 16/21] arm/libxl: vsmmuv3: Emulated SMMUv3 device tree node in libxl
+Date: Thu,  1 Dec 2022 16:02:40 +0000
+Message-Id: <a4c1c42a60c4c7032d11c3ef7c034b2a2fbeb54e.1669888522.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1669888522.git.rahul.singh@arm.com>
 References: <cover.1669888522.git.rahul.singh@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-XEN will create an Emulated SMMUv3 device tree node in the device tree
-to enable the dom0less domains to discover the virtual SMMUv3 during
-boot. Emulated SMMUv3 device tree node will only be created when cmdline
-option vsmmuv3 is enabled.
+libxl will create an Emulated SMMUv3 device tree node in the device
+tree to enable the guest OS to discover the virtual SMMUv3 during guest
+boot.
+
+Emulated SMMUv3 device tree node will only be created when
+"viommu=smmuv3" is set in xl domain configuration.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
- xen/arch/arm/domain_build.c           | 52 +++++++++++++++++++++++++++
- xen/include/public/device_tree_defs.h |  1 +
- 2 files changed, 53 insertions(+)
+ tools/libs/light/libxl_arm.c | 39 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index b82121beb5..29f00b18ec 100644
---- a/xen/arch/arm/domain_build.c
-+++ b/xen/arch/arm/domain_build.c
-@@ -2322,6 +2322,49 @@ static int make_hwdom_viommu_node(const struct kernel_info *kinfo)
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index b8eff10a41..00fcbd466c 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -831,6 +831,36 @@ static int make_vpl011_uart_node(libxl__gc *gc, void *fdt,
+     return 0;
  }
- #endif
  
-+#ifdef CONFIG_VIRTUAL_ARM_SMMU_V3
-+static int __init make_vsmmuv3_node(const struct kernel_info *kinfo)
++static int make_vsmmuv3_node(libxl__gc *gc, void *fdt,
++                             const struct arch_info *ainfo,
++                             struct xc_dom_image *dom)
 +{
 +    int res;
-+    char buf[24];
-+    __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-+    __be32 *cells;
-+    void *fdt = kinfo->fdt;
++    const char *name = GCSPRINTF("iommu@%llx", GUEST_VSMMUV3_BASE);
 +
-+    snprintf(buf, sizeof(buf), "iommu@%llx", GUEST_VSMMUV3_BASE);
++    res = fdt_begin_node(fdt, name);
++    if (res) return res;
 +
-+    res = fdt_begin_node(fdt, buf);
-+    if ( res )
-+        return res;
++    res = fdt_property_compat(gc, fdt, 1, "arm,smmu-v3");
++    if (res) return res;
 +
-+    res = fdt_property_string(fdt, "compatible", "arm,smmu-v3");
-+    if ( res )
-+        return res;
-+
-+    /* Create reg property */
-+    cells = &reg[0];
-+    dt_child_set_range(&cells, GUEST_ROOT_ADDRESS_CELLS, GUEST_ROOT_SIZE_CELLS,
-+                       GUEST_VSMMUV3_BASE, GUEST_VSMMUV3_SIZE);
-+    res = fdt_property(fdt, "reg", reg,
-+                       (GUEST_ROOT_ADDRESS_CELLS +
-+                       GUEST_ROOT_SIZE_CELLS) * sizeof(*reg));
-+    if ( res )
-+        return res;
++    res = fdt_property_regs(gc, fdt, GUEST_ROOT_ADDRESS_CELLS,
++                            GUEST_ROOT_SIZE_CELLS, 1, GUEST_VSMMUV3_BASE,
++                            GUEST_VSMMUV3_SIZE);
++    if (res) return res;
 +
 +    res = fdt_property_cell(fdt, "phandle", GUEST_PHANDLE_VSMMUV3);
-+    if ( res )
-+        return res;
++    if (res) return res;
 +
 +    res = fdt_property_cell(fdt, "#iommu-cells", 1);
-+    if ( res )
-+        return res;
++    if (res) return res;
 +
 +    res = fdt_end_node(fdt);
++    if (res) return res;
 +
-+    return res;
++    return 0;
 +}
-+#endif
 +
- int __init map_irq_to_domain(struct domain *d, unsigned int irq,
-                              bool need_mapping, const char *devname)
- {
-@@ -3395,6 +3438,15 @@ static int __init prepare_dtb_domU(struct domain *d, struct kernel_info *kinfo)
-             goto err;
-     }
+ static int make_vpci_node(libxl__gc *gc, void *fdt,
+                           const struct arch_info *ainfo,
+                           struct xc_dom_image *dom)
+@@ -872,6 +902,12 @@ static int make_vpci_node(libxl__gc *gc, void *fdt,
+         GUEST_VPCI_PREFETCH_MEM_SIZE);
+     if (res) return res;
  
-+#ifdef CONFIG_VIRTUAL_ARM_SMMU_V3
-+    if ( is_viommu_enabled() )
-+    {
-+        ret = make_vsmmuv3_node(kinfo);
-+        if ( ret )
-+            goto err;
-+    }
-+#endif
++    if (res) return res;
 +
-     ret = fdt_end_node(kinfo->fdt);
-     if ( ret < 0 )
-         goto err;
-diff --git a/xen/include/public/device_tree_defs.h b/xen/include/public/device_tree_defs.h
-index 9e80d0499d..7846a0425c 100644
---- a/xen/include/public/device_tree_defs.h
-+++ b/xen/include/public/device_tree_defs.h
-@@ -14,6 +14,7 @@
-  */
- #define GUEST_PHANDLE_GIC (65000)
- #define GUEST_PHANDLE_IOMMU (GUEST_PHANDLE_GIC + 1)
-+#define GUEST_PHANDLE_VSMMUV3 (GUEST_PHANDLE_IOMMU + 1)
++    res = fdt_property_values(gc, fdt, "iommu-map", 4, 0,
++                              GUEST_PHANDLE_VSMMUV3, 0, 0x10000);
++    if (res) return res;
++
+     res = fdt_end_node(fdt);
+     if (res) return res;
  
- #define GUEST_ROOT_ADDRESS_CELLS 2
- #define GUEST_ROOT_SIZE_CELLS 2
+@@ -1251,6 +1287,9 @@ next_resize:
+         if (d_config->num_pcidevs)
+             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
+ 
++        if (info->arch_arm.viommu_type == LIBXL_VIOMMU_TYPE_SMMUV3)
++            FDT( make_vsmmuv3_node(gc, fdt, ainfo, dom) );
++
+         iommu_created = false;
+         for (i = 0; i < d_config->num_disks; i++) {
+             libxl_device_disk *disk = &d_config->disks[i];
 -- 
 2.25.1
 
