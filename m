@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87DAA63F917
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 21:26:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451166.708795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3819663F98F
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 22:10:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451177.708806 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0q84-0005KD-W2; Thu, 01 Dec 2022 20:25:56 +0000
+	id 1p0qnv-000344-Au; Thu, 01 Dec 2022 21:09:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451166.708795; Thu, 01 Dec 2022 20:25:56 +0000
+Received: by outflank-mailman (output) from mailman id 451177.708806; Thu, 01 Dec 2022 21:09:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0q84-0005H1-Sf; Thu, 01 Dec 2022 20:25:56 +0000
-Received: by outflank-mailman (input) for mailman id 451166;
- Thu, 01 Dec 2022 20:25:55 +0000
+	id 1p0qnv-00030o-7s; Thu, 01 Dec 2022 21:09:11 +0000
+Received: by outflank-mailman (input) for mailman id 451177;
+ Thu, 01 Dec 2022 21:09:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=V/+l=37=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1p0q82-0005Gv-Vd
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 20:25:55 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on20617.outbound.protection.outlook.com
- [2a01:111:f400:7eab::617])
+ <SRS0=DAsL=37=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p0qnt-00030i-E6
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 21:09:09 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 591b5515-71b6-11ed-8fd2-01056ac49cbb;
- Thu, 01 Dec 2022 21:25:53 +0100 (CET)
-Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
- by SJ0PR12MB6829.namprd12.prod.outlook.com (2603:10b6:a03:47b::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Thu, 1 Dec
- 2022 20:25:48 +0000
-Received: from MW3PR12MB4409.namprd12.prod.outlook.com
- ([fe80::b955:9b0b:3b7e:40bb]) by MW3PR12MB4409.namprd12.prod.outlook.com
- ([fe80::b955:9b0b:3b7e:40bb%6]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
- 20:25:48 +0000
+ id 62ef6ecf-71bc-11ed-8fd2-01056ac49cbb;
+ Thu, 01 Dec 2022 22:09:05 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1BE7662120;
+ Thu,  1 Dec 2022 21:09:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36A75C433D6;
+ Thu,  1 Dec 2022 21:09:02 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,612 +44,699 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 591b5515-71b6-11ed-8fd2-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XPVLpY95BUvr7SH5wYLeeVjGkPJp67KaxBIU9n2Ah+r3WPAzDSu5PCR6eZJpRblChVC6glXVCx6+GaWzhXGwC3ZBwZY33Vb+XT/uJiCyH2j3qAIyk2VQOxcWgoBtrFQkekSFVsED6xvs/Y1PyDi3ftckVF5lebD9WUYcjQdIA0xEzUO3BipPqPKfyyCyf9WPJoCRRKq4zgbbM/QB62D3oN6Lizri2gFqqKN4kf+FFEDcg1cQU/9S1bwzmY9r6YxK487AWsSaa5PzMcrDNjdvNoFtlWL5BJwW8+RFp/oVqlJCkk+hstuCMjNFfA4kzIZYD2fpiFMK12XRFvOwPPSWZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JgrukNMH+r9O8CsJpFXjip/dCeEhoo9aAFpinq4jaws=;
- b=bXWEFDPWn90/3GiWJA4KvTsUHzk/FhGJCriH4eXy+gRIWbeHMu6OnVN8ntx+idoBzDpJ9hTUI/g/4vNQ7+QGHkoLTYYRSj0mmZOlQiJC7IXQ/2OgyjQJigQbULT76dMS+oJfJT2BKp2wZFrLjhu+dgfWpKgSwbC2AQ4Tb4cdMwd5ZQOIOG8iZ3fuJaQVAgzoGejW0M9rA0f/7vFLukERjHxMGk3weqURQMqtw/5GYddKcM8TzV+CN+QGPoBOLIdElgAzpCaMXHG2E7ijO5rzM02S3w3A1LJ/1I9C8Y6xl37nUtji0HBdm+83mHgWB+B64+oKj1OPZy9KyhxIpxw2Lw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JgrukNMH+r9O8CsJpFXjip/dCeEhoo9aAFpinq4jaws=;
- b=21UgHgdBgXZKejlue9l35NCqjCfqJIbaEuTXrGMAnYeWjgOs/ZMBVZjx02+sgDVq8v3a9Dec8vJ44Q5+vvhR8Mxexa+VrYKYKeAMFYM4di6pJLLoPZNVrb4K2nqrt4/24NmcMVTBrHBSLJgaGigYJE0fMIio1n+YSwBAATqFDZo=
-Content-Type: multipart/mixed;
-	boundary="_000_MW3PR12MB4409A8F7F10289C5ADD4E4F09F149MW3PR12MB4409namp_"
-From: "Garhwal, Vikram" <vikram.garhwal@amd.com>
-To: Paul Durrant <xadimgnik@gmail.com>, "qemu-devel@nongnu.org"
-	<qemu-devel@nongnu.org>
-CC: "Stabellini, Stefano" <stefano.stabellini@amd.com>, "Michael S. Tsirkin"
-	<mst@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo
- Bonzini <pbonzini@redhat.com>, Richard Henderson
-	<richard.henderson@linaro.org>, Eduardo Habkost <eduardo@habkost.net>,
-	Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
-	<anthony.perard@citrix.com>, "open list:X86 Xen CPUs"
-	<xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v1 02/12] hw/i386/xen/: move xen-mapcache.c to hw/xen/
-Thread-Topic: [PATCH v1 02/12] hw/i386/xen/: move xen-mapcache.c to hw/xen/
-Thread-Index: AQHY4FQylV3vdT7ngEmf8YcSO4sRc64V1JMAgEPwSro=
-Date: Thu, 1 Dec 2022 20:25:48 +0000
-Message-ID:
- <MW3PR12MB4409A8F7F10289C5ADD4E4F09F149@MW3PR12MB4409.namprd12.prod.outlook.com>
-References: <20221015050750.4185-1-vikram.garhwal@amd.com>
- <20221015050750.4185-3-vikram.garhwal@amd.com>
- <f12d712c-dc47-7778-8cf5-cfd621fdb9ad@xen.org>
-In-Reply-To: <f12d712c-dc47-7778-8cf5-cfd621fdb9ad@xen.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
- <MW3PR12MB4409A8F7F10289C5ADD4E4F09F149@MW3PR12MB4409.namprd12.prod.outlook.com>
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW3PR12MB4409:EE_|SJ0PR12MB6829:EE_
-x-ms-office365-filtering-correlation-id: 745c49be-e6f5-4da5-d979-08dad3da3bd2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- X9Q8K1eCb/K5RTvIt9bvj4iUh+cR4ZLmqJThJOlZBgeMNCZis3oOyJfJhX1jab1V76FeOYMSGM3SoGEVk1iee6Wxb7onZVDJlsDNHR7D7bjSU1mEcdxdqPxELpuk1kqIHhFtxlt6MjkYRXb5fIlJdWvYTd/T8Ba/Y6w9VN/2tK+kNweMQ2p3sqoEvngBO3qJ+Piq9yLKExNodhC/dZTBp9pw+QP+piirzKoWD/0uxU4uhoMPagf2QBnJV4Sq5IxKvL1yjUz/JJJ8+yoKjg4QN+1QDYc0rnRlBSZVEJanBKsoYznQUvgWItmcrsVIn3zngTwfFlWDJtGT9TEkWfeZG+hByd/xeyY/0/dumRxahvv30apab8i0kJde3JmHS5Xv5OEBJagJNsTsNxnaPXAJTHQpBe+D7us+gvUJ8L0xRzE8RVgn5Rdu+jNSSw0UsfGIWkJ8aX+r/MFscpHZ9YVV6OQO4tvIChDoahEk+8J/fEnXz53AeD5IFCgrU0sHsG5KWoVCZ0eQBGfweZsXAEkgBxI5WI5Ltbn2XLkT8Xh+lFtbSYgmzlJqMoD3BG+kxSjdPk+0IYDILV2mOoEc3eZxSG7+Mx45bk+Ao97TsYLj3zb09NiSiXSJlbCWjRPOfutODzhcd2dRCNYvpKQAkEdU3Ai0DoyMRDYFFoqY7BT+aCGhmYiPklgxlD11nAiDOQZ+v0GtBHIyILAa7nx1AgsCaA==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(136003)(346002)(376002)(396003)(451199015)(83380400001)(122000001)(38070700005)(71200400001)(110136005)(4326008)(86362001)(2906002)(41300700001)(7416002)(54906003)(9326002)(26005)(55016003)(52536014)(5660300002)(53546011)(9686003)(6506007)(7696005)(186003)(66946007)(8676002)(64756008)(91956017)(76116006)(66446008)(38100700002)(478600001)(66556008)(66476007)(316002)(8936002)(33656002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?Windows-1252?Q?HXlburL48qbLSexkfuJFVoPWP9gE4mRZHbQptTYBam023zIKdA4sbUj4?=
- =?Windows-1252?Q?kTUbHELoYnQqBztIaQ+NiUdv5/MkyAdLE+VYIbQr73U/Hm97DgTgMJ45?=
- =?Windows-1252?Q?hC4NZihtq5kdGGdRH5HQUXlZmVLcaz6tEYEYpn19dhU9CZTXCD1TMInf?=
- =?Windows-1252?Q?+Y6rxrZmzXJbRnqvShs5ucpT96ZCkXZ/1883Sh78sbqj55Pifadyouba?=
- =?Windows-1252?Q?EvzXKq1vE02mSnjU4I8dkVxA8Q0FCcIHs79LpE9Mc/XBQrtcO621liEt?=
- =?Windows-1252?Q?HKYvGAX5cTTXwoZOJskTZD76Zl2Q+IJLPqzhYICkSceF0RhfcHD0Cryu?=
- =?Windows-1252?Q?lfQcUlj3DLqat+3Za57jeQpOSB1GGxV71DzC7NUd90QSfxwAbY5oNbgg?=
- =?Windows-1252?Q?rItlrryLB5Rc8MmumD+W/g7akoGa9MJlTZf37iC3k6IWFVkPsqUScZJS?=
- =?Windows-1252?Q?NX9+eYVjKDtJGlucnevJUVXum7cecfXTG5YE1VoZR0w1k3lX+MBFsFRi?=
- =?Windows-1252?Q?NFvIfn8kQan4uiI/f6NT826SKdNdGikRxX9uOk6/bOhse5hYo9Y5z+Q5?=
- =?Windows-1252?Q?UjRHBiWMGsfWhV+7qFTqXOgR7SRc4/EDo4t3logux/AG/tOje5PEueKH?=
- =?Windows-1252?Q?/DyMbyTLsXbP2Dg+FAhjMDedIrlSnMEE/vmZ+4ojtI3vh3YbWBSr57IR?=
- =?Windows-1252?Q?MVNkgyIOz2/inYQxeT+DtcgtjpuBZdZa9rOeWvBpOkgR/pcS7EC+VP52?=
- =?Windows-1252?Q?cQqht70tdX/M2WP1ufxzVOPy3Dz52n6S1bVZrQkcegiuK8FBnfdOlDPd?=
- =?Windows-1252?Q?V8APeftaChaXz0ZLAAMdb+r8Xb0Jah/v/eAB8/b4hKP/MoX2ruRcUrY7?=
- =?Windows-1252?Q?1ObemDtOPYLSGEVM4dJ3zRZ2Id1uetCE2x7iO9zYjbzxF77yhQNlHnQ7?=
- =?Windows-1252?Q?FQFnyhspn0iP4LGCpX/I40+Zyt8OLyr6aTYl5upvZL8S5bgX0Av3asu4?=
- =?Windows-1252?Q?Vm5blDK7P4J9VoToXV60yqpUGH697MXW/Uhw086iT0vqBJdB4sVhs+3E?=
- =?Windows-1252?Q?4S6soh1/nZRzJz7Jt7LggLKCCb+d0s4l4nkqiSwfL30iIWumAt0NPqch?=
- =?Windows-1252?Q?7yM7G8FJ955dyJ/mg60gwCc6XsHECUgG/ypLxu0Hc9YuWDvdiV/8QoPW?=
- =?Windows-1252?Q?uhK5SFF4WxmeGcugMMHHGoAixINYjCbBRPQ4dA3+WsZRgLmXluyaZWFS?=
- =?Windows-1252?Q?9Zstv5bp52jzBFzspO7uTmUApebLrN1KcK35Zl58y6oC58zCdCl9czYX?=
- =?Windows-1252?Q?roorOHEsG31hDeZluZYGmuBhKoLuVxzZwyWNumVkFVifyPsBV2bkD4qc?=
- =?Windows-1252?Q?mOpSKnnfNSPeSK1rR0HEjzsbvTr2j0u8cZYQ/9GfV4pFNqPHXetXSxou?=
- =?Windows-1252?Q?IgGqtPXOD8KvUJxZODf4VOShqLSPc1qeH57Rz30/7ivdxsWdnXTrPxPg?=
- =?Windows-1252?Q?hxjbknr4ISyme1NubkVqjGH3l7TG/ZlNmggmoXTJPZvFaUHbirtLOiUv?=
- =?Windows-1252?Q?l1VQAlqfcGmPFWfN/nAUI2IgfsbGR6C4IxWs7y/+9Vu8yZSi+yeZJ+DQ?=
- =?Windows-1252?Q?pEwErno72p2IZzeLeFXJV/mYcB/b5FTJ423gIQB1bNSAPIzoWuPTNq+w?=
- =?Windows-1252?Q?+f2VZHelQT3D8XP4fy3S2S4w7tk5AzTFK5D7i58GdSFO0TCaVBKgBg?=
- =?Windows-1252?Q?=3D=3D?=
+X-Inumbo-ID: 62ef6ecf-71bc-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1669928943;
+	bh=VEUIsH3mvT8Zto9Jd4swKCEtib9FCiwqoMQPfz7lyPY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=NlYX9mVz5JOjGX6bmhEDcyVcroG6xOv1BRHxHA1WpqHd/2IP/ASvco4xVSfeypZQZ
+	 8Yy+PPWlkoggCFd++qYgvjZYeYUZkcB+b85XKV49JuezkoqjNDBuTvDQSl+OyfGH0t
+	 7tDbJEhiei6fPNSCZQHD+F4wfL+shtMyljxMgpxbtzkXND3mo8C4cWOy1ndjQks0tK
+	 XbVZBW0rpQw3iSLyMjnnzYnZR6qpdjX4/yanAO+PDMpPcjApAZK+Uqxg+ok7YTDHF+
+	 zY2r40DXKFH8dO4FnzV/sluvB1NVmq9sF7BmDuJLI8JInCLFXSDzOdTlcdZqFBtOPa
+	 lQmgjPMJGOkRA==
+Date: Thu, 1 Dec 2022 13:09:00 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Bertrand Marquis <bertrand.marquis@arm.com>
+cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Wei Liu <wl@xen.org>, Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v6 1/3] automation: Create Yocto docker images
+In-Reply-To: <43aa7a440ee7af24c829dc6a70064e2f5fce2302.1669904508.git.bertrand.marquis@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2212011308530.4039@ubuntu-linux-20-04-desktop>
+References: <cover.1669904508.git.bertrand.marquis@arm.com> <43aa7a440ee7af24c829dc6a70064e2f5fce2302.1669904508.git.bertrand.marquis@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 745c49be-e6f5-4da5-d979-08dad3da3bd2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2022 20:25:48.5726
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SQ9EKDrsw/ftWU4KAtlcP50OV2y3Tw6JrxL4ELz7gf7AMG6IBuuWe0ra1o3pMf8kOisOgJEy30Omt1YsTN+WLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6829
+Content-Type: text/plain; charset=US-ASCII
 
---_000_MW3PR12MB4409A8F7F10289C5ADD4E4F09F149MW3PR12MB4409namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+On Thu, 1 Dec 2022, Bertrand Marquis wrote:
+> Add containers suitable to run yocto kirkstone build based on ubuntu
+> 22.04. It contains all packages required by Yocto and a checkout of the
+> layers required to build Xen with Yocto.
+> 
+> Add a generic docker image template to be used to automatically generate
+> docker files for different configurations:
+> - specific yocto version
+> - different targets (qemu arm, arm64 and x86)
+> - different host platforms (x86 or arm64)
+> 
+> During a call to 'make all', only the images for the host platform we
+> run it on in the CI is generated.
+> If needed, images for an other host platform can be generated manually
+> by calling the right make target (see make help).
+> 
+> Add a build script to build and run xen on qemu using Yocto.
+> The script supports arm32, arm64 and x86_64 and checks that dom0 is
+> properly booting. At this stage this does not run any guest on top of
+> dom0. The script is to be executed in one of the docker images to build
+> and run a system using a Xen source tree.
+> 
+> Add automation/build/yocto/*.dockerfile to gitignore as those files are
+> generated.
+> 
+> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
 
-Hi Paul,
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-From: Paul Durrant <xadimgnik@gmail.com>
-Date: Wednesday, October 19, 2022 at 7:54 AM
-To: Garhwal, Vikram <vikram.garhwal@amd.com>, qemu-devel@nongnu.org <qemu-d=
-evel@nongnu.org>
-Cc: Stabellini, Stefano <stefano.stabellini@amd.com>, Michael S. Tsirkin <m=
-st@redhat.com>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, Paolo Bonzin=
-i <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>, =
-Eduardo Habkost <eduardo@habkost.net>, Stefano Stabellini <sstabellini@kern=
-el.org>, Anthony Perard <anthony.perard@citrix.com>, open list:X86 Xen CPUs=
- <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v1 02/12] hw/i386/xen/: move xen-mapcache.c to hw/xen/
-On 15/10/2022 06:07, Vikram Garhwal wrote:
-> xen-mapcache.c contains common functions which can be used for enabling X=
-en on
-> aarch64 with IOREQ handling. Moving it out from hw/i386/xen to hw/xen to =
-make it
-> accessible for both aarch64 and x86.
->
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+
 > ---
->   hw/i386/meson.build              | 1 +
->   hw/i386/xen/meson.build          | 1 -
->   hw/i386/xen/trace-events         | 5 -----
->   hw/xen/meson.build               | 4 ++++
->   hw/xen/trace-events              | 5 +++++
->   hw/{i386 =3D> }/xen/xen-mapcache.c | 0
->   6 files changed, 10 insertions(+), 6 deletions(-)
->   rename hw/{i386 =3D> }/xen/xen-mapcache.c (100%)
->
-> diff --git a/hw/i386/meson.build b/hw/i386/meson.build
-> index 213e2e82b3..cfdbfdcbcb 100644
-> --- a/hw/i386/meson.build
-> +++ b/hw/i386/meson.build
-> @@ -33,5 +33,6 @@ subdir('kvm')
->   subdir('xen')
->
->   i386_ss.add_all(xenpv_ss)
-> +i386_ss.add_all(xen_ss)
->
->   hw_arch +=3D {'i386': i386_ss}
-> diff --git a/hw/i386/xen/meson.build b/hw/i386/xen/meson.build
-> index be84130300..2fcc46e6ca 100644
-> --- a/hw/i386/xen/meson.build
-> +++ b/hw/i386/xen/meson.build
-> @@ -1,6 +1,5 @@
->   i386_ss.add(when: 'CONFIG_XEN', if_true: files(
->     'xen-hvm.c',
-> -  'xen-mapcache.c',
->     'xen_apic.c',
->     'xen_platform.c',
->     'xen_pvdevice.c',
-> diff --git a/hw/i386/xen/trace-events b/hw/i386/xen/trace-events
-> index 5d6be61090..a0c89d91c4 100644
-> --- a/hw/i386/xen/trace-events
-> +++ b/hw/i386/xen/trace-events
-> @@ -21,8 +21,3 @@ xen_map_resource_ioreq(uint32_t id, void *addr) "id: %u=
- addr: %p"
->   cpu_ioreq_config_read(void *req, uint32_t sbdf, uint32_t reg, uint32_t =
-size, uint32_t data) "I/O=3D%p sbdf=3D0x%x reg=3D%u size=3D%u data=3D0x%x"
->   cpu_ioreq_config_write(void *req, uint32_t sbdf, uint32_t reg, uint32_t=
- size, uint32_t data) "I/O=3D%p sbdf=3D0x%x reg=3D%u size=3D%u data=3D0x%x"
->
-> -# xen-mapcache.c
-> -xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
-> -xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
-> -xen_map_cache_return(void* ptr) "%p"
-> -
-> diff --git a/hw/xen/meson.build b/hw/xen/meson.build
-> index ae0ace3046..19d0637c46 100644
-> --- a/hw/xen/meson.build
-> +++ b/hw/xen/meson.build
-> @@ -22,3 +22,7 @@ else
->   endif
->
->   specific_ss.add_all(when: ['CONFIG_XEN', xen], if_true: xen_specific_ss=
-)
+> Changes in v6:
+> - move include of yocto.inc to keep help the default make target
+> - add yocto/*.dockerfile to gitignore
+> - fix typo {} instead of ()
+> - fix clean rule to remove s to dockerfile
+> - tell make to evaluate CONTAINER right away
+> - add example command in comment in yocto.inc
+> - fix compilation of qemux86 on arm by switching to AUTOREV to use the
+> latest version of Xen which includes fixes required.
+> Changes in v5:
+> - typo fixes
+> - add INTERMEDIATE to remove intermediate dockerfile
+> - use container architecture
+> - use full words in foreach loops
+> - fix shellcheck findings in build-yocto.sh
+> - rebase on sstabellini next branch
+> Changes in v4:
+> - Rework the system to have one dockerfile template from which make will
+> generate the required dockerfiles for the wanted configuration
+> - add support for different host architectures
+> - Merge the generation system into one single dockerfile
+> - Merge patches 1 and 2 in a single patch
+> - Introduce CONTAINERS_EXTRA to have extra containers not built by
+> default (for those not used by CI but useful to users)
+> Changes in v3:
+> - limit number of jobs in yocto by default to 8 and add --num-jobs
+> option to the script to set a custom number of jobs
+> - do not copy anymore the build-yocto.sh script inside the main image so
+> that the current one in the repository is used when running
+> Changes in v2:
+> - add a --dump-log command line option to build-yocto.sh script to dump
+> the logs if an error occurs.
+> Changes in v1:
+> - add --image command line argument to build-yocto.sh to allow building
+> something different than xen-image-minimal.
+> - modify dockerfile to have one layer per line and make it easier to add
+> other. I kept the for loop to keep the number of docker steps lower
+> - update commit message to warn that no guest are tested.
+> - fix build-yocto script to properly return with an error if expect
+> script ends up in timeout or EOF.
+> ---
+>  .gitignore                                 |   1 +
+>  automation/build/Makefile                  |  16 +-
+>  automation/build/yocto/build-yocto.sh      | 356 +++++++++++++++++++++
+>  automation/build/yocto/yocto.dockerfile.in | 114 +++++++
+>  automation/build/yocto/yocto.inc           |  44 +++
+>  5 files changed, 528 insertions(+), 3 deletions(-)
+>  create mode 100755 automation/build/yocto/build-yocto.sh
+>  create mode 100644 automation/build/yocto/yocto.dockerfile.in
+>  create mode 100644 automation/build/yocto/yocto.inc
+> 
+> diff --git a/.gitignore b/.gitignore
+> index ea3243af9dde..ce7caa56af6d 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -38,6 +38,7 @@ dist
+>  stubdom/*.tar.gz
+>  
+>  autom4te.cache/
+> +automation/build/yocto/*.dockerfile
+>  build-*/
+>  config.log
+>  config.status
+> diff --git a/automation/build/Makefile b/automation/build/Makefile
+> index a4b2b85178cf..c4aaa747ffdf 100644
+> --- a/automation/build/Makefile
+> +++ b/automation/build/Makefile
+> @@ -1,20 +1,30 @@
+>  
+>  # the base of where these containers will appear
+>  REGISTRY := registry.gitlab.com/xen-project/xen
+> -CONTAINERS = $(subst .dockerfile,,$(wildcard */*.dockerfile))
+> +CONTAINERS := $(filter-out yocto/%,$(subst .dockerfile,,$(wildcard */*.dockerfile)))
+> +CONTAINERS_EXTRA =
+>  DOCKER_CMD ?= docker
+>  
+>  help:
+>  	@echo "Builds containers for building Xen based on different distros"
+>  	@echo "To build one run 'make DISTRO/VERSION'. Available containers:"
+> -	@$(foreach file,$(sort $(CONTAINERS)),echo ${file};)
+> +	@$(foreach file,$(sort $(CONTAINERS)),echo $(file);)
+> +	@echo "Extra containers (not built using make all):"
+> +	@$(foreach file,$(sort $(CONTAINERS_EXTRA)),echo $(file);)
+>  	@echo "To push container builds, set the env var PUSH"
+>  
+> +include yocto/yocto.inc
 > +
-> +xen_ss =3D ss.source_set()
+>  %: %.dockerfile ## Builds containers
+>  	$(DOCKER_CMD) build -t $(REGISTRY)/$(@D):$(@F) -f $< $(<D)
+>  	@if [ ! -z $${PUSH+x} ]; then \
+>  		$(DOCKER_CMD) push $(REGISTRY)/$(@D):$(@F); \
+>  	fi
+>  
+> -.PHONY: all
+> +.PHONY: all clean
+>  all: $(CONTAINERS)
 > +
-> +xen_ss.add(when: 'CONFIG_XEN', if_true: files('xen-mapcache.c'))
-
-Curious as to why you couldn't just add this to the softmmu_ss list above?
-Moving it to softmmu_ss breaks the build as it builds without XEN_CONFIG. I=
- think xen option in =93softmmu_ss.add(when: ['CONFIG_XEN', xen], if_true: =
-files=94 is problem here.  I see below error:
-/sysemu/xen-mapcache.h:16:8: error: attempt to use poisoned "CONFIG_XEN"
-#ifdef CONFIG_XEN
-        ^
-../hw/xen/xen-mapcache.c:106:6: error: redefinition of 'xen_map_cache_init'
-void xen_map_cache_init(phys_offset_to_gaddr_t f, void *opaque)
-
-
-   Paul
-
-> diff --git a/hw/xen/trace-events b/hw/xen/trace-events
-> index 3da3fd8348..2c8f238f42 100644
-> --- a/hw/xen/trace-events
-> +++ b/hw/xen/trace-events
-> @@ -41,3 +41,8 @@ xs_node_vprintf(char *path, char *value) "%s %s"
->   xs_node_vscanf(char *path, char *value) "%s %s"
->   xs_node_watch(char *path) "%s"
->   xs_node_unwatch(char *path) "%s"
+> +# Remove generated dockerfiles for yocto
+> +clean:
+> +	rm -f yocto/*.dockerfile
 > +
-> +# xen-mapcache.c
-> +xen_map_cache(uint64_t phys_addr) "want 0x%"PRIx64
-> +xen_remap_bucket(uint64_t index) "index 0x%"PRIx64
-> +xen_map_cache_return(void* ptr) "%p"
-> diff --git a/hw/i386/xen/xen-mapcache.c b/hw/xen/xen-mapcache.c
-> similarity index 100%
-> rename from hw/i386/xen/xen-mapcache.c
-> rename to hw/xen/xen-mapcache.c
-
---_000_MW3PR12MB4409A8F7F10289C5ADD4E4F09F149MW3PR12MB4409namp_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
-
-eJ8+Ii5mAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAA5AQAAAAAAADoAAEJgAEAIQAAAEE3NDlCQTY3
-MzFBNUE2NDc4NjkzMUQxREVDRjBEMjUxAC8HAQ2ABAACAAAAAgACAAEFgAMADgAAAOYHDAABABQA
-GQAwAAQAWwEBIIADAA4AAADmBwwAAQAUABkAMAAEAFsBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAEIAAABSZTogW1BBVENIIHYxIDAyLzEyXSBody9pMzg2L3hlbi86IG1v
-dmUgeGVuLW1hcGNhY2hlLmMgdG8gaHcveGVuLwAMFAEDkAYABFQAAGEAAAACAX8AAQAAAFEAAAA8
-TVczUFIxMk1CNDQwOUE4RjdGMTAyODlDNUFERDRFNEYwOUYxNDlATVczUFIxMk1CNDQwOS5uYW1w
-cmQxMi5wcm9kLm91dGxvb2suY29tPgAAAAACARMQAQAAAAggAAA8aHRtbCB4bWxuczpvPSJ1cm46
-c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTpvZmZpY2UiIHhtbG5zOnc9InVybjpzY2hlbWFz
-LW1pY3Jvc29mdC1jb206b2ZmaWNlOndvcmQiIHhtbG5zOm09Imh0dHA6Ly9zY2hlbWFzLm1pY3Jv
-c29mdC5jb20vb2ZmaWNlLzIwMDQvMTIvb21tbCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnL1RS
-L1JFQy1odG1sNDAiPjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250
-ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9V2luZG93cy0xMjUyIj48bWV0YSBuYW1lPSJHZW5lcmF0
-b3IiIGNvbnRlbnQ9Ik1pY3Jvc29mdCBXb3JkIDE1IChmaWx0ZXJlZCBtZWRpdW0pIj48c3R5bGU+
-PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseToi
-Q2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0O30NCkBmb250LWZh
-Y2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUgMiAyIDIgNCAzIDIg
-NDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwg
-ZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCWZvbnQtc2l6ZToxMC4wcHQ7DQoJZm9udC1m
-YW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0Kc3Bhbi5FbWFpbFN0eWxlMTkNCgl7bXNvLXN0
-eWxlLXR5cGU6cGVyc29uYWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2Vy
-aWY7DQoJY29sb3I6d2luZG93dGV4dDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlw
-ZTpleHBvcnQtb25seTsNCglmb250LXNpemU6MTAuMHB0O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0K
-CXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0K
-ZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQotLT48L3N0eWxlPjwvaGVh
-ZD48Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiIHN0eWxl
-PSJ3b3JkLXdyYXA6YnJlYWstd29yZCI+PGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj48cCBjbGFz
-cz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+SGkgUGF1bCw8bzpw
-PjwvbzpwPjwvc3Bhbj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQt
-c2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD48ZGl2IHN0eWxlPSJib3Jk
-ZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzozLjBwdCAwaW4g
-MGluIDBpbiI+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDow
-aW47bWFyZ2luLXJpZ2h0OjBpbjttYXJnaW4tYm90dG9tOjEyLjBwdDttYXJnaW4tbGVmdDouNWlu
-Ij48Yj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+RnJvbTogPC9z
-cGFuPjwvYj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+UGF1bCBE
-dXJyYW50ICZsdDt4YWRpbWduaWtAZ21haWwuY29tJmd0Ozxicj48Yj5EYXRlOiA8L2I+V2VkbmVz
-ZGF5LCBPY3RvYmVyIDE5LCAyMDIyIGF0IDc6NTQgQU08YnI+PGI+VG86IDwvYj5HYXJod2FsLCBW
-aWtyYW0gJmx0O3Zpa3JhbS5nYXJod2FsQGFtZC5jb20mZ3Q7LCBxZW11LWRldmVsQG5vbmdudS5v
-cmcgJmx0O3FlbXUtZGV2ZWxAbm9uZ251Lm9yZyZndDs8YnI+PGI+Q2M6IDwvYj5TdGFiZWxsaW5p
-LCBTdGVmYW5vICZsdDtzdGVmYW5vLnN0YWJlbGxpbmlAYW1kLmNvbSZndDssIE1pY2hhZWwgUy4g
-VHNpcmtpbiAmbHQ7bXN0QHJlZGhhdC5jb20mZ3Q7LCBNYXJjZWwgQXBmZWxiYXVtICZsdDttYXJj
-ZWwuYXBmZWxiYXVtQGdtYWlsLmNvbSZndDssIFBhb2xvIEJvbnppbmkgJmx0O3Bib256aW5pQHJl
-ZGhhdC5jb20mZ3Q7LCBSaWNoYXJkIEhlbmRlcnNvbiAmbHQ7cmljaGFyZC5oZW5kZXJzb25AbGlu
-YXJvLm9yZyZndDssIEVkdWFyZG8gSGFia29zdCAmbHQ7ZWR1YXJkb0BoYWJrb3N0Lm5ldCZndDss
-IFN0ZWZhbm8gU3RhYmVsbGluaSAmbHQ7c3N0YWJlbGxpbmlAa2VybmVsLm9yZyZndDssIEFudGhv
-bnkgUGVyYXJkICZsdDthbnRob255LnBlcmFyZEBjaXRyaXguY29tJmd0Oywgb3BlbiBsaXN0Olg4
-NiBYZW4gQ1BVcyAmbHQ7eGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnJmd0Ozxicj48Yj5T
-dWJqZWN0OiA8L2I+UmU6IFtQQVRDSCB2MSAwMi8xMl0gaHcvaTM4Ni94ZW4vOiBtb3ZlIHhlbi1t
-YXBjYWNoZS5jIHRvIGh3L3hlbi88bzpwPjwvbzpwPjwvc3Bhbj48L3A+PC9kaXY+PGRpdj48cCBj
-bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OjBpbjttYXJnaW4tcmln
-aHQ6MGluO21hcmdpbi1ib3R0b206MTIuMHB0O21hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTEuMHB0Ij5PbiAxNS8xMC8yMDIyIDA2OjA3LCBWaWtyYW0gR2FyaHdhbCB3
-cm90ZTo8YnI+Jmd0OyB4ZW4tbWFwY2FjaGUuYyBjb250YWlucyBjb21tb24gZnVuY3Rpb25zIHdo
-aWNoIGNhbiBiZSB1c2VkIGZvciBlbmFibGluZyBYZW4gb248YnI+Jmd0OyBhYXJjaDY0IHdpdGgg
-SU9SRVEgaGFuZGxpbmcuIE1vdmluZyBpdCBvdXQgZnJvbSBody9pMzg2L3hlbiB0byBody94ZW4g
-dG8gbWFrZSBpdDxicj4mZ3Q7IGFjY2Vzc2libGUgZm9yIGJvdGggYWFyY2g2NCBhbmQgeDg2Ljxi
-cj4mZ3Q7IDxicj4mZ3Q7IFNpZ25lZC1vZmYtYnk6IFZpa3JhbSBHYXJod2FsICZsdDt2aWtyYW0u
-Z2FyaHdhbEBhbWQuY29tJmd0Ozxicj4mZ3Q7IFNpZ25lZC1vZmYtYnk6IFN0ZWZhbm8gU3RhYmVs
-bGluaSAmbHQ7c3RlZmFuby5zdGFiZWxsaW5pQGFtZC5jb20mZ3Q7PGJyPiZndDsgLS0tPGJyPiZn
-dDsmbmJzcDsmbmJzcDsgaHcvaTM4Ni9tZXNvbi5idWlsZCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8
-IDEgKzxicj4mZ3Q7Jm5ic3A7Jm5ic3A7IGh3L2kzODYveGVuL21lc29uLmJ1aWxkJm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwgMSAtPGJyPiZn
-dDsmbmJzcDsmbmJzcDsgaHcvaTM4Ni94ZW4vdHJhY2UtZXZlbnRzJm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwgNSAtLS0tLTxicj4mZ3Q7Jm5ic3A7Jm5i
-c3A7IGh3L3hlbi9tZXNvbi5idWlsZCZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
-OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8IDQgKysr
-Kzxicj4mZ3Q7Jm5ic3A7Jm5ic3A7IGh3L3hlbi90cmFjZS1ldmVudHMmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgfCA1ICsrKysrPGJyPiZndDsmbmJzcDsmbmJzcDsgaHcve2kzODYgPSZndDsgfS94ZW4v
-eGVuLW1hcGNhY2hlLmMgfCAwPGJyPiZndDsmbmJzcDsmbmJzcDsgNiBmaWxlcyBjaGFuZ2VkLCAx
-MCBpbnNlcnRpb25zKCspLCA2IGRlbGV0aW9ucygtKTxicj4mZ3Q7Jm5ic3A7Jm5ic3A7IHJlbmFt
-ZSBody97aTM4NiA9Jmd0OyB9L3hlbi94ZW4tbWFwY2FjaGUuYyAoMTAwJSk8YnI+Jmd0OyA8YnI+
-Jmd0OyBkaWZmIC0tZ2l0IGEvaHcvaTM4Ni9tZXNvbi5idWlsZCBiL2h3L2kzODYvbWVzb24uYnVp
-bGQ8YnI+Jmd0OyBpbmRleCAyMTNlMmU4MmIzLi5jZmRiZmRjYmNiIDEwMDY0NDxicj4mZ3Q7IC0t
-LSBhL2h3L2kzODYvbWVzb24uYnVpbGQ8YnI+Jmd0OyArKysgYi9ody9pMzg2L21lc29uLmJ1aWxk
-PGJyPiZndDsgQEAgLTMzLDUgKzMzLDYgQEAgc3ViZGlyKCdrdm0nKTxicj4mZ3Q7Jm5ic3A7Jm5i
-c3A7IHN1YmRpcigneGVuJyk8YnI+Jmd0OyZuYnNwOyZuYnNwOyA8YnI+Jmd0OyZuYnNwOyZuYnNw
-OyBpMzg2X3NzLmFkZF9hbGwoeGVucHZfc3MpPGJyPiZndDsgK2kzODZfc3MuYWRkX2FsbCh4ZW5f
-c3MpPGJyPiZndDsmbmJzcDsmbmJzcDsgPGJyPiZndDsmbmJzcDsmbmJzcDsgaHdfYXJjaCArPSB7
-J2kzODYnOiBpMzg2X3NzfTxicj4mZ3Q7IGRpZmYgLS1naXQgYS9ody9pMzg2L3hlbi9tZXNvbi5i
-dWlsZCBiL2h3L2kzODYveGVuL21lc29uLmJ1aWxkPGJyPiZndDsgaW5kZXggYmU4NDEzMDMwMC4u
-MmZjYzQ2ZTZjYSAxMDA2NDQ8YnI+Jmd0OyAtLS0gYS9ody9pMzg2L3hlbi9tZXNvbi5idWlsZDxi
-cj4mZ3Q7ICsrKyBiL2h3L2kzODYveGVuL21lc29uLmJ1aWxkPGJyPiZndDsgQEAgLTEsNiArMSw1
-IEBAPGJyPiZndDsmbmJzcDsmbmJzcDsgaTM4Nl9zcy5hZGQod2hlbjogJ0NPTkZJR19YRU4nLCBp
-Zl90cnVlOiBmaWxlcyg8YnI+Jmd0OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAneGVuLWh2bS5j
-Jyw8YnI+Jmd0OyAtJm5ic3A7ICd4ZW4tbWFwY2FjaGUuYycsPGJyPiZndDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsgJ3hlbl9hcGljLmMnLDxicj4mZ3Q7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-ICd4ZW5fcGxhdGZvcm0uYycsPGJyPiZndDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgJ3hlbl9w
-dmRldmljZS5jJyw8YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvaHcvaTM4Ni94ZW4vdHJhY2UtZXZlbnRz
-IGIvaHcvaTM4Ni94ZW4vdHJhY2UtZXZlbnRzPGJyPiZndDsgaW5kZXggNWQ2YmU2MTA5MC4uYTBj
-ODlkOTFjNCAxMDA2NDQ8YnI+Jmd0OyAtLS0gYS9ody9pMzg2L3hlbi90cmFjZS1ldmVudHM8YnI+
-Jmd0OyArKysgYi9ody9pMzg2L3hlbi90cmFjZS1ldmVudHM8YnI+Jmd0OyBAQCAtMjEsOCArMjEs
-MyBAQCB4ZW5fbWFwX3Jlc291cmNlX2lvcmVxKHVpbnQzMl90IGlkLCB2b2lkICphZGRyKSAmcXVv
-dDtpZDogJXUgYWRkcjogJXAmcXVvdDs8YnI+Jmd0OyZuYnNwOyZuYnNwOyBjcHVfaW9yZXFfY29u
-ZmlnX3JlYWQodm9pZCAqcmVxLCB1aW50MzJfdCBzYmRmLCB1aW50MzJfdCByZWcsIHVpbnQzMl90
-IHNpemUsIHVpbnQzMl90IGRhdGEpICZxdW90O0kvTz0lcCBzYmRmPTB4JXggcmVnPSV1IHNpemU9
-JXUgZGF0YT0weCV4JnF1b3Q7PGJyPiZndDsmbmJzcDsmbmJzcDsgY3B1X2lvcmVxX2NvbmZpZ193
-cml0ZSh2b2lkICpyZXEsIHVpbnQzMl90IHNiZGYsIHVpbnQzMl90IHJlZywgdWludDMyX3Qgc2l6
-ZSwgdWludDMyX3QgZGF0YSkgJnF1b3Q7SS9PPSVwIHNiZGY9MHgleCByZWc9JXUgc2l6ZT0ldSBk
-YXRhPTB4JXgmcXVvdDs8YnI+Jmd0OyZuYnNwOyZuYnNwOyA8YnI+Jmd0OyAtIyB4ZW4tbWFwY2Fj
-aGUuYzxicj4mZ3Q7IC14ZW5fbWFwX2NhY2hlKHVpbnQ2NF90IHBoeXNfYWRkcikgJnF1b3Q7d2Fu
-dCAweCUmcXVvdDtQUkl4NjQ8YnI+Jmd0OyAteGVuX3JlbWFwX2J1Y2tldCh1aW50NjRfdCBpbmRl
-eCkgJnF1b3Q7aW5kZXggMHglJnF1b3Q7UFJJeDY0PGJyPiZndDsgLXhlbl9tYXBfY2FjaGVfcmV0
-dXJuKHZvaWQqIHB0cikgJnF1b3Q7JXAmcXVvdDs8YnI+Jmd0OyAtPGJyPiZndDsgZGlmZiAtLWdp
-dCBhL2h3L3hlbi9tZXNvbi5idWlsZCBiL2h3L3hlbi9tZXNvbi5idWlsZDxicj4mZ3Q7IGluZGV4
-IGFlMGFjZTMwNDYuLjE5ZDA2MzdjNDYgMTAwNjQ0PGJyPiZndDsgLS0tIGEvaHcveGVuL21lc29u
-LmJ1aWxkPGJyPiZndDsgKysrIGIvaHcveGVuL21lc29uLmJ1aWxkPGJyPiZndDsgQEAgLTIyLDMg
-KzIyLDcgQEAgZWxzZTxicj4mZ3Q7Jm5ic3A7Jm5ic3A7IGVuZGlmPGJyPiZndDsmbmJzcDsmbmJz
-cDsgPGJyPiZndDsmbmJzcDsmbmJzcDsgc3BlY2lmaWNfc3MuYWRkX2FsbCh3aGVuOiBbJ0NPTkZJ
-R19YRU4nLCB4ZW5dLCBpZl90cnVlOiB4ZW5fc3BlY2lmaWNfc3MpPGJyPiZndDsgKzxicj4mZ3Q7
-ICt4ZW5fc3MgPSBzcy5zb3VyY2Vfc2V0KCk8YnI+Jmd0OyArPGJyPiZndDsgK3hlbl9zcy5hZGQo
-d2hlbjogJ0NPTkZJR19YRU4nLCBpZl90cnVlOiBmaWxlcygneGVuLW1hcGNhY2hlLmMnKSk8YnI+
-PGJyPkN1cmlvdXMgYXMgdG8gd2h5IHlvdSBjb3VsZG4ndCBqdXN0IGFkZCB0aGlzIHRvIHRoZSBz
-b2Z0bW11X3NzIGxpc3QgYWJvdmU/PG86cD48L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPSJNc29O
-b3JtYWwiIHN0eWxlPSJtYXJnaW4tYm90dG9tOjEyLjBwdCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMS4wcHQiPk1vdmluZyBpdCB0byBzb2Z0bW11X3NzIGJyZWFrcyB0aGUgYnVpbGQgYXMgaXQg
-YnVpbGRzIHdpdGhvdXQgWEVOX0NPTkZJRy4gSSB0aGluayB4ZW4gb3B0aW9uIGluIJNzb2Z0bW11
-X3NzLmFkZCh3aGVuOiBbJ0NPTkZJR19YRU4nLCB4ZW5dLCBpZl90cnVlOiBmaWxlc5QgaXMgcHJv
-YmxlbSBoZXJlLiAmbmJzcDtJIHNlZSBiZWxvdyBlcnJvcjo8YnI+L3N5c2VtdS94ZW4tbWFwY2Fj
-aGUuaDoxNjo4OiBlcnJvcjogYXR0ZW1wdCB0byB1c2UgcG9pc29uZWQgJnF1b3Q7Q09ORklHX1hF
-TiZxdW90OzxvOnA+PC9vOnA+PC9zcGFuPjwvcD48cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
-bWFyZ2luLWJvdHRvbToxMi4wcHQiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij4gI2lm
-ZGVmIENPTkZJR19YRU48bzpwPjwvbzpwPjwvc3Bhbj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIg
-c3R5bGU9Im1hcmdpbi1ib3R0b206MTIuMHB0Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
-dCI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IF48bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1ib3R0b206MTIu
-MHB0Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+Li4vaHcveGVuL3hlbi1tYXBjYWNo
-ZS5jOjEwNjo2OiBlcnJvcjogcmVkZWZpbml0aW9uIG9mICd4ZW5fbWFwX2NhY2hlX2luaXQnPG86
-cD48L286cD48L3NwYW4+PC9wPjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tYm90
-dG9tOjEyLjBwdCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPiB2b2lkIHhlbl9tYXBf
-Y2FjaGVfaW5pdChwaHlzX29mZnNldF90b19nYWRkcl90IGYsIHZvaWQgKm9wYXF1ZSk8bzpwPjwv
-bzpwPjwvc3Bhbj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9w
-LWFsdDowaW47bWFyZ2luLXJpZ2h0OjBpbjttYXJnaW4tYm90dG9tOjEyLjBwdDttYXJnaW4tbGVm
-dDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PGJyPjxicj4mbmJzcDsmbmJz
-cDsgUGF1bDxicj48YnI+Jmd0OyBkaWZmIC0tZ2l0IGEvaHcveGVuL3RyYWNlLWV2ZW50cyBiL2h3
-L3hlbi90cmFjZS1ldmVudHM8YnI+Jmd0OyBpbmRleCAzZGEzZmQ4MzQ4Li4yYzhmMjM4ZjQyIDEw
-MDY0NDxicj4mZ3Q7IC0tLSBhL2h3L3hlbi90cmFjZS1ldmVudHM8YnI+Jmd0OyArKysgYi9ody94
-ZW4vdHJhY2UtZXZlbnRzPGJyPiZndDsgQEAgLTQxLDMgKzQxLDggQEAgeHNfbm9kZV92cHJpbnRm
-KGNoYXIgKnBhdGgsIGNoYXIgKnZhbHVlKSAmcXVvdDslcyAlcyZxdW90Ozxicj4mZ3Q7Jm5ic3A7
-Jm5ic3A7IHhzX25vZGVfdnNjYW5mKGNoYXIgKnBhdGgsIGNoYXIgKnZhbHVlKSAmcXVvdDslcyAl
-cyZxdW90Ozxicj4mZ3Q7Jm5ic3A7Jm5ic3A7IHhzX25vZGVfd2F0Y2goY2hhciAqcGF0aCkgJnF1
-b3Q7JXMmcXVvdDs8YnI+Jmd0OyZuYnNwOyZuYnNwOyB4c19ub2RlX3Vud2F0Y2goY2hhciAqcGF0
-aCkgJnF1b3Q7JXMmcXVvdDs8YnI+Jmd0OyArPGJyPiZndDsgKyMgeGVuLW1hcGNhY2hlLmM8YnI+
-Jmd0OyAreGVuX21hcF9jYWNoZSh1aW50NjRfdCBwaHlzX2FkZHIpICZxdW90O3dhbnQgMHglJnF1
-b3Q7UFJJeDY0PGJyPiZndDsgK3hlbl9yZW1hcF9idWNrZXQodWludDY0X3QgaW5kZXgpICZxdW90
-O2luZGV4IDB4JSZxdW90O1BSSXg2NDxicj4mZ3Q7ICt4ZW5fbWFwX2NhY2hlX3JldHVybih2b2lk
-KiBwdHIpICZxdW90OyVwJnF1b3Q7PGJyPiZndDsgZGlmZiAtLWdpdCBhL2h3L2kzODYveGVuL3hl
-bi1tYXBjYWNoZS5jIGIvaHcveGVuL3hlbi1tYXBjYWNoZS5jPGJyPiZndDsgc2ltaWxhcml0eSBp
-bmRleCAxMDAlPGJyPiZndDsgcmVuYW1lIGZyb20gaHcvaTM4Ni94ZW4veGVuLW1hcGNhY2hlLmM8
-YnI+Jmd0OyByZW5hbWUgdG8gaHcveGVuL3hlbi1tYXBjYWNoZS5jPG86cD48L286cD48L3NwYW4+
-PC9wPjwvZGl2PjwvZGl2PjwvYm9keT48L2h0bWw+HwBCAAEAAAAgAAAARwBhAHIAaAB3AGEAbAAs
-ACAAVgBpAGsAcgBhAG0AAAAfAGUAAQAAAC4AAAB2AGkAawByAGEAbQAuAGcAYQByAGgAdwBhAGwA
-QABhAG0AZAAuAGMAbwBtAAAAAAAfAGQAAQAAAAoAAABTAE0AVABQAAAAAAACAUEAAQAAAHAAAAAA
-AAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBHAGEAcgBoAHcAYQBsACwAIABWAGkAawByAGEAbQAAAFMA
-TQBUAFAAAAB2AGkAawByAGEAbQAuAGcAYQByAGgAdwBhAGwAQABhAG0AZAAuAGMAbwBtAAAAHwAC
-XQEAAAAuAAAAdgBpAGsAcgBhAG0ALgBnAGEAcgBoAHcAYQBsAEAAYQBtAGQALgBjAG8AbQAAAAAA
-HwDlXwEAAAA2AAAAcwBpAHAAOgB2AGkAawByAGEAbQAuAGcAYQByAGgAdwBhAGwAQABhAG0AZAAu
-AGMAbwBtAAAAAAAfABoMAQAAACAAAABHAGEAcgBoAHcAYQBsACwAIABWAGkAawByAGEAbQAAAB8A
-HwwBAAAALgAAAHYAaQBrAHIAYQBtAC4AZwBhAHIAaAB3AGEAbABAAGEAbQBkAC4AYwBvAG0AAAAA
-AB8AHgwBAAAACgAAAFMATQBUAFAAAAAAAAIBGQwBAAAAcAAAAAAAAACBKx+kvqMQGZ1uAN0BD1QC
-AAAAgEcAYQByAGgAdwBhAGwALAAgAFYAaQBrAHIAYQBtAAAAUwBNAFQAUAAAAHYAaQBrAHIAYQBt
-AC4AZwBhAHIAaAB3AGEAbABAAGEAbQBkAC4AYwBvAG0AAAAfAAFdAQAAAC4AAAB2AGkAawByAGEA
-bQAuAGcAYQByAGgAdwBhAGwAQABhAG0AZAAuAGMAbwBtAAAAAAALAEA6AQAAAB8AGgABAAAAEgAA
-AEkAUABNAC4ATgBvAHQAZQAAAAAAAwDxPwkEAAALAEA6AQAAAAMA/T/kBAAAAgELMAEAAAAQAAAA
-p0m6ZzGlpkeGkx0d7PDSUQMAFwABAAAAQAA5AADu+hjDBdkBQAAIMJhQUhnDBdkBCwAjAAAAAAAD
-ACYAAAAAAAsAKQAAAAAAAwAuAAAAAAADADYAAAAAAB8AcAABAAAAfAAAAFsAUABBAFQAQwBIACAA
-dgAxACAAMAAyAC8AMQAyAF0AIABoAHcALwBpADMAOAA2AC8AeABlAG4ALwA6ACAAbQBvAHYAZQAg
-AHgAZQBuAC0AbQBhAHAAYwBhAGMAaABlAC4AYwAgAHQAbwAgAGgAdwAvAHgAZQBuAC8AAAACAXEA
-AQAAACAAAAABAdjgVDKVXe91PueASZ/xhxI7ixFzrhXUkwCAQ/BKugsABgwAAAAAHwA1EAEAAACi
-AAAAPABNAFcAMwBQAFIAMQAyAE0AQgA0ADQAMAA5AEEAOABGADcARgAxADAAMgA4ADkAQwA1AEEA
-RABEADQARQA0AEYAMAA5AEYAMQA0ADkAQABNAFcAMwBQAFIAMQAyAE0AQgA0ADQAMAA5AC4AbgBh
-AG0AcAByAGQAMQAyAC4AcAByAG8AZAAuAG8AdQB0AGwAbwBvAGsALgBjAG8AbQA+AAAAAAAfADkQ
-AQAAABoBAAA8ADIAMAAyADIAMQAwADEANQAwADUAMAA3ADUAMAAuADQAMQA4ADUALQAxAC0AdgBp
-AGsAcgBhAG0ALgBnAGEAcgBoAHcAYQBsAEAAYQBtAGQALgBjAG8AbQA+ACAAPAAyADAAMgAyADEA
-MAAxADUAMAA1ADAANwA1ADAALgA0ADEAOAA1AC0AMwAtAHYAaQBrAHIAYQBtAC4AZwBhAHIAaAB3
-AGEAbABAAGEAbQBkAC4AYwBvAG0APgAgADwAZgAxADIAZAA3ADEAMgBjAC0AZABjADQANwAtADcA
-NwA3ADgALQA4AGMAZgA1AC0AYwBmAGQANgAyADEAZgBkAGIAOQBhAGQAQAB4AGUAbgAuAG8AcgBn
-AD4AAAAAAB8AQhABAAAAXgAAADwAZgAxADIAZAA3ADEAMgBjAC0AZABjADQANwAtADcANwA3ADgA
-LQA4AGMAZgA1AC0AYwBmAGQANgAyADEAZgBkAGIAOQBhAGQAQAB4AGUAbgAuAG8AcgBnAD4AAAAA
-AAMAExIAAAAAQAAHMBOvxcLCBdkBAgETMAEAAAAQAAAAlV3vdT7ngEmf8YcSO4sRcwIBFDABAAAA
-DAAAAH8BAACxAQWP9EYrngMAWzMBAAAAAwBeMwkAAAADAFo2AAAAAAMAYzb/BwAAAwBoNg0AAAAL
-APo2AQAAAB8A2T8BAAAAAAIAAEgAaQAgAFAAYQB1AGwALAANAAoADQAKAEYAcgBvAG0AOgAgAFAA
-YQB1AGwAIABEAHUAcgByAGEAbgB0ACAAPAB4AGEAZABpAG0AZwBuAGkAawBAAGcAbQBhAGkAbAAu
-AGMAbwBtAD4ADQAKAEQAYQB0AGUAOgAgAFcAZQBkAG4AZQBzAGQAYQB5ACwAIABPAGMAdABvAGIA
-ZQByACAAMQA5ACwAIAAyADAAMgAyACAAYQB0ACAANwA6ADUANAAgAEEATQANAAoAVABvADoAIABH
-AGEAcgBoAHcAYQBsACwAIABWAGkAawByAGEAbQAgADwAdgBpAGsAcgBhAG0ALgBnAGEAcgBoAHcA
-YQBsAEAAYQBtAGQALgBjAG8AbQA+ACwAIABxAGUAbQB1AC0AZABlAHYAZQBsAEAAbgBvAG4AZwBu
-AHUALgBvAHIAZwAgADwAcQBlAG0AdQAtAGQAZQB2AGUAbABAAG4AbwBuAGcAbgB1AC4AbwByAGcA
-PgANAAoAQwBjADoAIABTAHQAYQBiAGUAbABsAGkAbgBpACwAIABTAHQAZQBmAGEAbgBvACAAPABz
-AHQAZQBmAGEAbgBvAC4AcwB0AGEAYgBlAGwAbABpAG4AaQBAAGEAbQBkAC4AYwBvAG0APgAsACAA
-TQBpAGMAaABhAGUAbAAgAAAAAwDeP+QEAAAfAPg/AQAAACAAAABHAGEAcgBoAHcAYQBsACwAIABW
-AGkAawByAGEAbQAAAB8A+j8BAAAAIAAAAEcAYQByAGgAdwBhAGwALAAgAFYAaQBrAHIAYQBtAAAA
-HwAiQAEAAAAGAAAARQBYAAAAAAAfACNAAQAAAAIBAAAvAE8APQBFAFgAQwBIAEEATgBHAEUATABB
-AEIAUwAvAE8AVQA9AEUAWABDAEgAQQBOAEcARQAgAEEARABNAEkATgBJAFMAVABSAEEAVABJAFYA
-RQAgAEcAUgBPAFUAUAAgACgARgBZAEQASQBCAE8ASABGADIAMwBTAFAARABMAFQAKQAvAEMATgA9
-AFIARQBDAEkAUABJAEUATgBUAFMALwBDAE4APQA1AEQAMwAzADEAQgAwAEQAQQBCADEANQA0ADcA
-NABBAEEANwBFAEIARgA3AEQAMABFAEMAOQBGADAANQA3AEUALQBHAEEAUgBIAFcAQQBMACwAIABW
-AEkAAAAAAB8AJEABAAAABgAAAEUAWAAAAAAAHwAlQAEAAAACAQAALwBPAD0ARQBYAEMASABBAE4A
-RwBFAEwAQQBCAFMALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBB
-AFQASQBWAEUAIABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkA
-LwBDAE4APQBSAEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0ANQBEADMAMwAxAEIAMABEAEEAQgAx
-ADUANAA3ADQAQQBBADcARQBCAEYANwBEADAARQBDADkARgAwADUANwBFAC0ARwBBAFIASABXAEEA
-TAAsACAAVgBJAAAAAAAfADBAAQAAACAAAABHAGEAcgBoAHcAYQBsACwAIABWAGkAawByAGEAbQAA
-AB8AMUABAAAAIAAAAEcAYQByAGgAdwBhAGwALAAgAFYAaQBrAHIAYQBtAAAAHwA4QAEAAAAgAAAA
-RwBhAHIAaAB3AGEAbAAsACAAVgBpAGsAcgBhAG0AAAAfADlAAQAAACAAAABHAGEAcgBoAHcAYQBs
-ACwAIABWAGkAawByAGEAbQAAAAMAWUAAAAAAAwBaQAAAAAADADdQAQAAAB8ACl0BAAAALgAAAHYA
-aQBrAHIAYQBtAC4AZwBhAHIAaAB3AGEAbABAAGEAbQBkAC4AYwBvAG0AAAAAAB8AC10BAAAALgAA
-AHYAaQBrAHIAYQBtAC4AZwBhAHIAaAB3AGEAbABAAGEAbQBkAC4AYwBvAG0AAAAAAAIBFV0BAAAA
-EgAAAAIfltg9iORgTo4RqC2ZThg9AQAAAgEWXQEAAAASAAAAAh+W2D2I5GBOjhGoLZlOGD0BAAAL
-AACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAAAAAAMAAIBQ42MLzJzQEbzbAIBfzM4EAQAAACQA
-AABJAG4AZABlAHgAaQBuAGcARQByAHIAbwByAEMAbwBkAGUAAAAbAAAACwAAgFDjYwvMnNARvNsA
-gF/MzgQBAAAAJgAAAEkAcwBQAGEAcgB0AGkAYQBsAGwAeQBJAG4AZABlAHgAZQBkAAAAAAAAAAAA
-QAAAgFDjYwvMnNARvNsAgF/MzgQBAAAAMAAAAEwAYQBzAHQASQBuAGQAZQB4AGkAbgBnAEEAdAB0
-AGUAbQBwAHQAVABpAG0AZQAAAOlf8BjDBdkBHwAAgFDjYwvMnNARvNsAgF/MzgQBAAAAKgAAAEkA
-bgBkAGUAeABpAG4AZwBFAHIAcgBvAHIATQBlAHMAcwBhAGcAZQAAAAAAAQAAAHAAAABJAG4AZABl
-AHgAaQBuAGcAIABQAGUAbgBkAGkAbgBnACAAdwBoAGkAbABlACAAQgBpAGcARgB1AG4AbgBlAGwA
-UABPAEkASQBzAFUAcABUAG8ARABhAHQAZQAgAGkAcwAgAGYAYQBsAHMAZQAuAAAASAAAgFDjYwvM
-nNARvNsAgF/MzgQBAAAALgAAAEIAaQBnAEYAdQBuAG4AZQBsAEMAbwByAHIAZQBsAGEAdABpAG8A
-bgBJAGQAAAAAADDZGBmGo/lBiL1lw2nMGJFAAACAUONjC8yc0BG82wCAX8zOBAEAAAA+AAAAQgBp
-AGcARgB1AG4AbgBlAGwAQwBvAG0AcABsAGUAdABlAEkAbgBkAGUAeABpAG4AZwBTAHQAYQByAHQA
-AAAAAOlf8BjDBdkBQAAAgFDjYwvMnNARvNsAgF/MzgQBAAAAOgAAAEIAaQBnAEYAdQBuAG4AZQBs
-AEMAbwBtAHAAbABlAHQAZQBJAG4AZABlAHgAaQBuAGcARQBuAGQAAAAAACrC8hjDBdkBCwAAgFDj
-YwvMnNARvNsAgF/MzgQBAAAAJgAAAEkAcwBQAGUAcgBtAGEAbgBlAG4AdABGAGEAaQBsAHUAcgBl
-AAAAAAAAAAAAHwAAgFDjYwvMnNARvNsAgF/MzgQBAAAAIgAAAEQAZQB0AGUAYwB0AGUAZABMAGEA
-bgBnAHUAYQBnAGUAAAAAAAEAAAAGAAAAZQBuAAAAAAADAACACCAGAAAAAADAAAAAAAAARgEAAAAy
-AAAARQB4AGMAaABhAG4AZwBlAEEAcABwAGwAaQBjAGEAdABpAG8AbgBGAGwAYQBnAHMAAAAAACAA
-AAAfAACAH6TrM6h6LkK+e3nhqY5UswEAAAA4AAAAQwBvAG4AdgBlAHIAcwBhAHQAaQBvAG4ASQBu
-AGQAZQB4AFQAcgBhAGMAawBpAG4AZwBFAHgAAAABAAAA1gEAAEkASQA9AFsAQwBJAEQAPQA3ADUA
-ZQBmADUAZAA5ADUALQBlADcAMwBlAC0ANAA5ADgAMAAtADkAZgBmADEALQA4ADcAMQAyADMAYgA4
-AGIAMQAxADcAMwA7AEkARABYAEgARQBBAEQAPQAwADEARAA4AEUAMAA1ADQAMwAyADsASQBEAFgA
-QwBPAFUATgBUAD0AMwBdADsAUwBCAE0ASQBEAD0AMwA4ADsAUwAxAD0APABmADEAMgBkADcAMQAy
-AGMALQBkAGMANAA3AC0ANwA3ADcAOAAtADgAYwBmADUALQBjAGYAZAA2ADIAMQBmAGQAYgA5AGEA
-ZABAAHgAZQBuAC4AbwByAGcAPgA7AFIAVABQAD0ARABpAHIAZQBjAHQAQwBoAGkAbABkADsAVABE
-AE4APQBTAGEAbQBlADsAVABGAFIAPQBOAG8AdABGAG8AcgBrAGkAbgBnADsAVgBlAHIAcwBpAG8A
-bgA9AFYAZQByAHMAaQBvAG4AIAAxADUALgAyADAAIAAoAEIAdQBpAGwAZAAgADUAOAA1ADcALgAw
-ACkALAAgAFMAdABhAGcAZQA9AEgAMQA7AFUAUAA9AEQAMAA7AEQAUAA9ADEAMAAxAAAAAAAfAACA
-E4/yQfSDFEGlhO7bWmsL/wEAAAAWAAAAQwBsAGkAZQBuAHQASQBuAGYAbwAAAAAAAQAAALIAAABD
-AGwAaQBlAG4AdAA9AE8AdQB0AGwAbwBvAGsAUwBlAHIAdgBpAGMAZQA7AE0AYQBjAE8AdQB0AGwA
-bwBvAGsALwAxADYALgA2ADYALgAyADIAMQAwADIAOAAwADEAIAAoAEkAbgB0AGUAbAB4ADYANAAg
-AE0AYQBjACAATwBTACAAWAAgADEAMQAuADYAIAAoAEIAdQBpAGwAZAAgADIAMABHADEANgA1ACkA
-KQA7AAAAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAGhQAAAAAAAAIBAIATj/JB9IMUQaWE7tta
-awv/AQAAAC4AAABIAGUAYQBkAGUAcgBCAG8AZAB5AEYAcgBhAGcAbQBlAG4AdABMAGkAcwB0AAAA
-AAABAAAANgAAAAEACgAAAAQAAAABAAAAFAAAAAAAAAB7BAAA1AUAAAAAAAAUAAAAAAAAAOgJAAD/
-////AAAAAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQA
-ZQB4AHQAAAABAAAACwAAgBOP8kH0gxRBpYTu21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABU
-AGUAeAB0AEMAaABhAG4AZwBlAGQAAAABAAAAQAAAgBOP8kH0gxRBpYTu21prC/8BAAAALAAAAEwA
-YQBzAHQAUwBtAGEAcgB0AFIAZQBzAHAAbwBuAHMAZQBUAGkAbQBlAAAAhcknw8IF2QEDAA00/T8A
-AB8APQABAAAACgAAAFIAZQA6ACAAAAAAAB8ANwABAAAAhAAAAFIAZQA6ACAAWwBQAEEAVABDAEgA
-IAB2ADEAIAAwADIALwAxADIAXQAgAGgAdwAvAGkAMwA4ADYALwB4AGUAbgAvADoAIABtAG8AdgBl
-ACAAeABlAG4ALQBtAGEAcABjAGEAYwBoAGUALgBjACAAdABvACAAaAB3AC8AeABlAG4ALwAAAB8A
-AICGAwIAAAAAAMAAAAAAAABGAQAAAC4AAABhAHUAdABoAGUAbgB0AGkAYwBhAHQAaQBvAG4ALQBy
-AGUAcwB1AGwAdABzAAAAAAABAAAAsgAAAGQAawBpAG0APQBuAG8AbgBlACAAKABtAGUAcwBzAGEA
-ZwBlACAAbgBvAHQAIABzAGkAZwBuAGUAZAApACAAaABlAGEAZABlAHIALgBkAD0AbgBvAG4AZQA7
-AGQAbQBhAHIAYwA9AG4AbwBuAGUAIABhAGMAdABpAG8AbgA9AG4AbwBuAGUAIABoAGUAYQBkAGUA
-cgAuAGYAcgBvAG0APQBhAG0AZAAuAGMAbwBtADsAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAA
-AB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUAAAAAAAEAAAAMAAAAZQBuAC0AVQBTAAAA
-HwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAIAAAAHgALQBtAHMALQBoAGEAcwAtAGEAdAB0AGEAYwBo
-AAAAAQAAAAIAAAAAAAAASAAAgAggBgAAAAAAwAAAAAAAAEYBAAAAIgAAAE4AZQB0AHcAbwByAGsA
-TQBlAHMAcwBhAGcAZQBJAGQAAAAAAL5JXHT15qVN2XkI2tPaO9IfAACAhgMCAAAAAADAAAAAAAAA
-RgEAAAAuAAAAeAAtAG0AcwAtAHAAdQBiAGwAaQBjAHQAcgBhAGYAZgBpAGMAdAB5AHAAZQAAAAAA
-AQAAAAwAAABFAG0AYQBpAGwAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAA2AAAAeAAtAG0AcwAt
-AHQAcgBhAGYAZgBpAGMAdAB5AHAAZQBkAGkAYQBnAG4AbwBzAHQAaQBjAAAAAAABAAAASAAAAE0A
-VwAzAFAAUgAxADIATQBCADQANAAwADkAOgBFAEUAXwB8AFMASgAwAFAAUgAxADIATQBCADYAOAAy
-ADkAOgBFAEUAXwAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAFAAAAB4AC0AbQBzAC0AbwBmAGYA
-aQBjAGUAMwA2ADUALQBmAGkAbAB0AGUAcgBpAG4AZwAtAGMAbwByAHIAZQBsAGEAdABpAG8AbgAt
-AGkAZAAAAAEAAABKAAAANwA0ADUAYwA0ADkAYgBlAC0AZQA2AGYANQAtADQAZABhADUALQBkADkA
-NwA5AC0AMAA4AGQAYQBkADMAZABhADMAYgBkADIAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAA
-ADgAAAB4AC0AbQBzAC0AZQB4AGMAaABhAG4AZwBlAC0AcwBlAG4AZABlAHIAYQBkAGMAaABlAGMA
-awAAAAEAAAAEAAAAMQAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAADoAAAB4AC0AbQBzAC0AZQB4
-AGMAaABhAG4AZwBlAC0AYQBuAHQAaQBzAHAAYQBtAC0AcgBlAGwAYQB5AAAAAAABAAAABAAAADAA
-AAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAqAAAAeAAtAG0AaQBjAHIAbwBzAG8AZgB0AC0AYQBu
-AHQAaQBzAHAAYQBtAAAAAAABAAAADgAAAEIAQwBMADoAMAA7AAAAAAAfAACAhgMCAAAAAADAAAAA
-AAAARgEAAABEAAAAeAAtAG0AaQBjAHIAbwBzAG8AZgB0AC0AYQBuAHQAaQBzAHAAYQBtAC0AbQBl
-AHMAcwBhAGcAZQAtAGkAbgBmAG8AAAABAAAAsgUAAFgAOQBRADgASwAxAGUAQwBiAC8ASwA1AFIA
-VAB2AEkAdAA5AGIAdgBqADQAaQBVAGgAKwBjAFIANABaAEwAbQBxAEoAVABoAEoATwBsAFoAQgBn
-AGUATQBOAEMAWgBpAHMAMwBvAE8AeQBKAGYASgBoAFgAMQBqAGEAYgAxAFYANwA2AEYAZQBPAFkA
-TQBTAEcATQAzAFMAbwBHAEUAVgBrADEAaQBlAGUANgBXAHgAYgA3AG8AbgBaAFYARABKAGwAcwBE
-AE4ASABSADcARAA3AGIAagBTAFUAMQBtAEUAYwBkAHgAZABxAFAAeABFAEwAcAB1AGsAMQBrAHEA
-SQBIAGgARgB0AHgAbAB0ADYATQBqAGsAWQBSAFgAYgA1AGYASQBsAEoAZABXAHYAWQBUAGQALwBU
-ADgAQgBhAC8AWQA2AHcAOQBWAE4ALwAyAHQASwArAGsATgB3AGUATQBRADIAcAAzAHMAcQBvAEUA
-dgBuAGcAQgBPADMAcQBKACsAUABpAHEAOQB5AEwASwBFAHgATgBvAGQAaABDAC8AZABaAFQAQgBw
-ADkAcAB3ACsAUQBQACsAcABpAGkAcgB6AEsAbwBXAEQALwAwAHUAeABVADQAdQBoAG8ATQBQAGEA
-ZwBmADIAUQBCAG4ASgBWADQAUwBxADUASQB4AEsAdgBMADEAeQBqAFUAegAvAEoASgBKADgAKwB5
-AG8ASwBqAGcANABRAE4AKwAxAFEARABZAGMAMAByAG4AUgBsAEIAUwBaAFYARQBKAGEAbgBCAEsA
-cwBvAFkAegBuAFEAVQB2AGcAVwBJAHQAbQBjAHIAcwBWAEkAbgAzAHoAbgBnAFQAdwBmAEYAbABX
-AEQASgB0AEcAVAA5AFQARQBrAFcAZgBlAFoARwArAGgAQgB5AGQALwB4AGUAeQBZAC8AMAAvAGQA
-dQBtAFIAeABhAGgAdgB2ADMAMABhAHAAYQBiADgAaQAwAGsASgBkAGUAMwBKAG0ASABTADUAWAB2
-ADUATwBFAEIASgBhAGcASgBOAHMAVABzAE4AeABuAGEAUABYAEEASgBUAEgAUQBwAEIAZQArAEQA
-NwB1AHMAKwBnAHYAVQBKADgATAAwAHgAUgB6AEUAOABSAFYAZwBuADUAUgBkAHUAKwBqAE4AUwBT
-AHcAMABVAHMAZgBHAEkAVwBrAEoAOABhAFgAKwByAC8ATQBGAHMAYwBwAEgAWgA5AFkAVgBWADYA
-TwBRAE8ANAB0AHYASQBDAGgARABvAGEAaABFAGsAKwA4AEoALwBmAEUAbgBYAHoANQAzAEEAZQBE
-ADUASQBGAEMAZwByAFUAMABzAEgAcwBHADUASwBXAG8AVgBDAFoAMABlAFEAQgBHAGYAdwBlAFoA
-cwBYAEEARQBrAGcAQgB4AEkANQBXAEkANQBMAHQAYgBuADIAWABMAGsAVAA4AFgAaAArAGwARgB0
-AGIAUwBZAGcAbQB6AGwASgBxAE0AbwBEADMAQgBHACsAawB4AFMAagBkAFAAawArADAASQBZAEQA
-SQBMAFYAMgBtAE8AbwBFAGMAMwBlAFoAeABTAEcANwArAE0AeAA0ADUAYgBrACsAQQBvADkANwBU
-AHMAWQBMAGoAMwB6AGIAMAA5AE4AaQBTAGkAWABTAEoAbABiAEMAVwBqAFIAUABPAGYAdQB0AE8A
-RAB6AGgAYwBkADIAZABSAEMATgBZAHYAcABLAFEAQQBrAEUAZABVADMAQQBpADAARABvAHkATQBS
-AEQAWQBGAEYAbwBxAFkANwBCAFQAKwBhAEMARwBoAG0AWQBpAFAAawBsAGcAeABsAEQAMQAxAG4A
-QQBpAEQATwBRAFoAKwB2ADAARwB0AEIASABJAHkASQBMAEEAYQA3AG4AeAAxAEEAZwBzAEMAYQBB
-AD0APQAAAAAAHwAAgIYDAgAAAAAAwAAAAAAAAEYBAAAAOAAAAHgALQBmAG8AcgBlAGYAcgBvAG4A
-dAAtAGEAbgB0AGkAcwBwAGEAbQAtAHIAZQBwAG8AcgB0AAAAAQAAAHAEAABDAEkAUAA6ADIANQA1
-AC4AMgA1ADUALgAyADUANQAuADIANQA1ADsAQwBUAFIAWQA6ADsATABBAE4ARwA6AGUAbgA7AFMA
-QwBMADoAMQA7AFMAUgBWADoAOwBJAFAAVgA6AE4ATABJADsAUwBGAFYAOgBOAFMAUABNADsASAA6
-AE0AVwAzAFAAUgAxADIATQBCADQANAAwADkALgBuAGEAbQBwAHIAZAAxADIALgBwAHIAbwBkAC4A
-bwB1AHQAbABvAG8AawAuAGMAbwBtADsAUABUAFIAOgA7AEMAQQBUADoATgBPAE4ARQA7AFMARgBT
-ADoAKAAxADMAMgAzADAAMAAyADIAKQAoADQANgAzADYAMAAwADkAKQAoADMAOQA4ADYAMAA0ADAA
-MAAwADAAMgApACgAMwA2ADYAMAAwADQAKQAoADEAMwA2ADAAMAAzACkAKAAzADQANgAwADAAMgAp
-ACgAMwA3ADYAMAAwADIAKQAoADMAOQA2ADAAMAAzACkAKAA0ADUAMQAxADkAOQAwADEANQApACgA
-OAAzADMAOAAwADQAMAAwADAAMAAxACkAKAAxADIAMgAwADAAMAAwADAAMQApACgAMwA4ADAANwAw
-ADcAMAAwADAAMAA1ACkAKAA3ADEAMgAwADAANAAwADAAMAAwADEAKQAoADEAMQAwADEAMwA2ADAA
-MAA1ACkAKAA0ADMAMgA2ADAAMAA4ACkAKAA4ADYAMwA2ADIAMAAwADEAKQAoADIAOQAwADYAMAAw
-ADIAKQAoADQAMQAzADAAMAA3ADAAMAAwADAAMQApACgANwA0ADEANgAwADAAMgApACgANQA0ADkA
-MAA2ADAAMAAzACkAKAA5ADMAMgA2ADAAMAAyACkAKAAyADYAMAAwADUAKQAoADUANQAwADEANgAw
-ADAAMwApACgANQAyADUAMwA2ADAAMQA0ACkAKAA1ADYANgAwADMAMAAwADAAMAAyACkAKAA1ADMA
-NQA0ADYAMAAxADEAKQAoADkANgA4ADYAMAAwADMAKQAoADYANQAwADYAMAAwADcAKQAoADcANgA5
-ADYAMAAwADUAKQAoADEAOAA2ADAAMAAzACkAKAA2ADYAOQA0ADYAMAAwADcAKQAoADgANgA3ADYA
-MAAwADIAKQAoADYANAA3ADUANgAwADAAOAApACgAOQAxADkANQA2ADAAMQA3ACkAKAA3ADYAMQAx
-ADYAMAAwADYAKQAoADYANgA0ADQANgAwADAAOAApACgAMwA4ADEAMAAwADcAMAAwADAAMAAyACkA
-KAA0ADcAOAA2ADAAMAAwADAAMQApACgANgA2ADUANQA2ADAAMAA4ACkAKAA2ADYANAA3ADYAMAAw
-ADcAKQAoADMAMQA2ADAAMAAyACkAKAA4ADkAMwA2ADAAMAAyACkAKAAzADMANgA1ADYAMAAwADIA
-KQA7AEQASQBSADoATwBVAFQAOwBTAEYAUAA6ADEAMQAwADEAOwAAAB8AAICGAwIAAAAAAMAAAAAA
-AABGAQAAAFwAAAB4AC0AbQBzAC0AZQB4AGMAaABhAG4AZwBlAC0AYQBuAHQAaQBzAHAAYQBtAC0A
-bQBlAHMAcwBhAGcAZQBkAGEAdABhAC0AYwBoAHUAbgBrAGMAbwB1AG4AdAAAAAEAAAAEAAAAMQAA
-AB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAEoAAAB4AC0AbQBzAC0AZQB4AGMAaABhAG4AZwBlAC0A
-YQBuAHQAaQBzAHAAYQBtAC0AbQBlAHMAcwBhAGcAZQBkAGEAdABhAC0AMAAAAAAAAQAAALIMAABI
-AFgAbABiAHUAcgBMADQAOABxAGIATABTAGUAeABrAGYAdQBKAEYAVgBvAFAAVwBQADkAZwBFADQA
-bQBSAFoASABiAFEAcAB0AFQAWQBCAGEAbQAwADIAMwB6AEkASwBkAEEANABzAGIAVQBqADQAawBU
-AFUAYgBIAEUATABvAFkAbgBRAHEAQgB6AHQASQBhAFEAKwBOAGkAVQBkAHYANQAvAE0AawB5AEEA
-ZABMAEUAKwBWAFkASQBiAFEAcgA3ADMAVQAvAEgAbQA5ADcARABnAFQAZwBNAEoANAA1AGgAQwA0
-AE4AWgBpAGgAdABxADUAawBkAEcARwBkAFIASAA1AEgAUQBVAFgAbABaAG0AVgBMAGMAYQB6ADYA
-dABFAFkARQBZAHAAbgAxADkAZABoAFUAOQBDAFoAVABYAEMARAAxAFQATQBJAG4AZgArAFkANgBy
-AHgAcgBaAG0AegBYAEoAYgBSAG4AcQB2AFMAaABzADUAdQBjAHAAVAA5ADYAWgBDAGsAWABaAC8A
-MQA4ADgAMwBTAGgANwA4AHMAYgBxAGoANQA1AFAAaQBmAGEAZAB5AG8AdQBiAGEARQB2AHoAWABL
-AHEAMQB2AEUAMAAyAG0AUwBuAGoAVQA0AEkAOABkAGsAVgB4AEEAOABRADAARgBDAGMASQBIAHMA
-NwA5AEwAcABFADkATQBjAC8AWABCAFEAcgB0AGMATwA2ADIAMQBsAGkARQB0AEgASwBZAHYARwBB
-AFgANQBjAFQAVABYAHcAbwBaAE8ASgBzAGsAVABaAEQANwA2AFoAbAAyAFEAKwBJAEoATABQAHEA
-egBoAFkASQBDAGsAUwBjAGUARgAwAFIAaABmAGMASABEADAAQwByAHkAdQBsAGYAUQBjAFUAbABq
-ADMARABMAHEAYQB0ACsAMwBaAGEANQA3AGoAZQBRAHAATwBTAEIAMQBHAEcAeABWADcAMQBEAHoA
-QwA3AE4AVQBkADkAMABRAFMAZgB4AHcAQQBiAFkANQBvAE4AYgBnAGcAcgBJAHQAbAByAHIAeQBM
-AEIANQBSAGMAOABNAG0AdQBtAEQAKwBXAC8AZwA3AGEAawBvAEcAYQA5AE0ASgBsAFQAWgBmADMA
-NwBpAEMAMwBrADYASQBXAEYAVgBrAFAAcwBxAFUAUwBjAFoASgBTAE4AWAA5ACsAZQBZAFYAagBL
-AEQAdABKAEcAbAB1AGMAbgBlAHYASgBVAFYAWAB1AG0ANwBjAGUAYwBmAFgAVABHADUAWQBFADEA
-VgBvAFoAUgAwAHcAMQBrADMAbABYACsATQBCAEYAcwBGAFIAaQBOAEYAdgBJAGYAbgA4AGsAUQBh
-AG4ANAB1AGkASQAvAGYANgBOAFQAOAAyADYAUwBLAGQATgBkAEcAaQBrAFIAeABYADkAdQBPAGsA
-NgAvAGIATwBoAHMAZQA1AGgAWQBvADkAWQA1AHoAKwBRADUAVQBqAFIASABCAGkAVwBNAEcAcwBm
-AFcAaABWACsANwBxAEYAVABxAFgATwBnAFIANwBTAFIAYwA0AC8ARQBEAG8ANAB0ADMAbABvAGcA
-dQB4AC8AQQBHAC8AdABPAGoAZQA1AFAARQB1AGUASwBIAC8ARAB5AE0AYgB5AFQATABzAFgAYgBQ
-ADIARABnACsARgBBAGgAagBNAEQAZQBkAEkAcgBsAFMAbgBNAEUARQAvAHYAbQBaACsANABvAGoA
-dABJADMAdgBoADMAWQBiAFcAQgBTAHIANQA3AEkAUgBNAFYATgBrAGcAeQBJAE8AegAyAC8AaQBu
-AFkAUQB4AGUAVAArAEQAdABjAGcAdABqAHAAdQBCAFoAZABaAGEAOQByAE8AZQBXAHYAQgBwAE8A
-awBnAFIALwBwAGMAUwA3AEUAQwArAFYAUAA1ADIAYwBRAHEAaAB0ADcAMAB0AGQAWAAvAE0AMgBX
-AFAAMQB1AGYAeAB6AFYATwBQAHkAMwBEAHoANQAyAG4ANgBTADEAYgBWAFoAcgBRAGsAYwBlAGcA
-aQB1AEsAOABGAEIAbgBmAGQATwBsAEQAUABkAFYAOABBAFAAZQBmAHQAYQBDAGgAYQBYAHoAMABa
-AEwAQQBBAE0AZABiACsAcgA4AFgAYgAwAEoAYQBoAC8AdgAvAGUAQQBCADgALwBiADQAaABLAFAA
-LwBNAG8AWAAyAHIAdQBSAGMAVQByAFkANwAxAE8AYgBlAG0ARAB0AE8AUABZAEwAUwBHAEUAVgBN
-ADQAZABKADMAegBSAFoAMgBJAGQAMQB1AGUAdABDAEUAMgB4ADcAaQBPADkAegBZAGoAYgB6AHgA
-RgA3ADcAeQBoAFEATgBsAEgAbgBRADcARgBRAEYAbgB5AGgAcwBwAG4AMABpAFAANABMAEcAQwBw
-AFgALwBJADQAMAArAFoAeQB0ADgATwBMAHkAcgA2AGEAVABZAGwANQB1AHAAdgBaAEwAOABTADUA
-YgBnAFgAMABBAHYAMwBhAHMAdQA0AFYAbQA1AGIAbABEAEsANwBQADQASgA5AFYAbwBUAG8AWABW
-ADYAMAB5AHEAcABVAEcASAA2ADkANwBNAFgAVwAvAFUAaAB3ADAAOAA2AGkAVAAwAHYAcQBCAEoA
-ZABCADQAcwBWAGgAcwArADMARQA0AFMANgBzAG8AaAAxAC8AbgBaAFIAegBKAHoANwBKAHQANwBM
-AGcAZwBMAEsAQwBDAGIAKwBkADAAcwA0AGwANABuAGsAcQBpAFMAdwBmAEwAMwAwAGkASQBXAHUA
-bQBBAHQAMABOAFAAcQBjAGgANwB5AE0ANwBHADgARgBKADkANQA1AGQAeQBKAC8AbQBnADYAMABn
-AHcAQwBjADYAWABzAEgARQBDAFUAZwBHAC8AeQBwAEwAeAB1ADAASABjADkAWQB1AFcARAB2AGQA
-aQBWAC8AOABRAG8AUABXAHUAaABLADUAUwBGAEYANABXAHgAbQBlAEcAYwB1AGcATQBNAEgASABH
-AG8AQQBpAHgASQBOAFkAagBDAGIAQgBSAFAAUQA0AGQAQQAzACsAVwBzAFoAUgBnAEwAbQBYAGwA
-dQB5AGEAWgBXAEYAUwA5AFoAcwB0AHYANQBiAHAANQAyAGoAegBCAEYAegBzAHAATwA3AHUAVABt
-AFUAQQBwAGUAYgBMAHIATgAxAEsAYwBLADMANQBaAGwANQA4AHkANgBvAEMANQA4AHoAQwBkAEMA
-bAA5AGMAegBZAFgAcgBvAG8AcgBPAEgARQBzAEcAMwAxAGgARABlAFoAbAB1AFoAWQBHAG0AdQBC
-AGgASwBvAEwAdQBWAHgAegBaAHcAeQBXAE4AdQBtAFYAawBGAFYAaQBmAHkAUABzAEIAVgAyAGIA
-awBEADQAcQBjAG0ATwBwAFMASwBuAG4AZgBOAFMAUABlAFMASwAxAHIAUgAwAEgARQBqAHoAcwBi
-AHYAVAByADIAagAwAHUAOABjAFoAWQBRAC8AOQBHAGYAVgA0AHAARgBOAHEAUABIAFgAZQB0AFgA
-UwB4AG8AdQBJAGcARwBxAHQAUABYAE8ARAA4AEsAdgBVAEoAeABaAE8ARABmADQAVgBPAFMAaABx
-AEwAUwBQAGMAMQBxAGUASAA1ADcAUgB6ADMAMAAvADcAaQB2AGQAeABzAFcAZABuAFgAVAByAFAA
-eABQAGcAaAB4AGoAYgBrAG4AcgA0AEkAUwB5AG0AZQAxAE4AdQBiAGsAVgBxAGoARwBIADMAbAA3
-AFQARwAvAFoAbABOAG0AZwBnAG0AbwBYAFQASgBQAFoAdgBGAGEAVQBIAGIAaQByAHQATABPAGkA
-VQB2AGwAMQBWAFEAQQBsAHEAZgBjAEcAbQBQAEYAVwBmAE4ALwBuAEEAVQBJADIASQBnAGYAcwBi
-AEcAUgA2AEMANABJAHgAVwBzADcAeQAvACsAOQBWAHUAOAB5AFoAUwBpACsAeQBlAFoASgArAEQA
-UQBwAEUAdwBFAHIAbgBvADcAMgBwADIASQBaAHoAZQBMAGUARgBYAEoAVgAvAG0AWQBjAEIALwBi
-ADUARgBUAEoANAAyADMAZwBJAFEAQgAxAGIATgBTAEEAUABJAHoAbwBXAHUAUABUAE4AcQArAHcA
-KwBmADIAVgBaAEgAZQBsAFEAVAAzAEQAOABYAFAANABmAHkAMwBTADIAUwA0AHcANwB0AGsANQBB
-AHoAVABGAEsANQBEADcAaQA1ADgARwBkAFMARgBPADAAVABDAGEAVgBCAEsAZwBCAGcAPQA9AAAA
-AACi8w==
-
---_000_MW3PR12MB4409A8F7F10289C5ADD4E4F09F149MW3PR12MB4409namp_--
+> diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
+> new file mode 100755
+> index 000000000000..3601cebc3cff
+> --- /dev/null
+> +++ b/automation/build/yocto/build-yocto.sh
+> @@ -0,0 +1,356 @@
+> +#!/bin/bash
+> +#
+> +# Yocto meta virtualization build and run script
+> +#
+> +# This script is building Yocto xen-image-minimal for qemu targets and run
+> +# them using runqemu inside yocto to check that dom0 is booting properly.
+> +# The build is using a local xen source tree so that specific patches can be
+> +# tested.
+> +# In order to optimize the build time, a build cache is used so that only xen
+> +# packages and its dependencies are rebuilt (qemu and final image mainly).
+> +#
+> +# get command error even when piped.
+> +set -o pipefail
+> +
+> +# Directories
+> +YOCTODIR="$HOME/yocto-layers"
+> +CACHEDIR="$HOME/yocto-cache"
+> +LOGDIR="$HOME/logs"
+> +XENDIR="$HOME/xen"
+> +BUILDDIR="$HOME/build"
+> +
+> +# what yocto bsp we support
+> +TARGET_SUPPORTED="qemuarm qemuarm64 qemux86-64"
+> +VERBOSE="n"
+> +TARGETLIST=""
+> +BUILDJOBS="8"
+> +
+> +# actions to do
+> +do_clean="n"
+> +do_build="y"
+> +do_run="y"
+> +do_localsrc="n"
+> +do_dump="n"
+> +build_result=0
+> +
+> +# layers to include in the project
+> +build_layerlist="poky/meta poky/meta-poky poky/meta-yocto-bsp \
+> +                 meta-openembedded/meta-oe meta-openembedded/meta-python \
+> +                 meta-openembedded/meta-filesystems \
+> +                 meta-openembedded/meta-networking meta-virtualization"
+> +
+> +# yocto image to build
+> +build_image="xen-image-minimal"
+> +
+> +function print_progress() {
+> +    echo -n "$(date +%T) $*"
+> +}
+> +
+> +function run_task() {
+> +    local task_name="$1"
+> +    local task_target="$2"
+> +
+> +    task_log="${task_name//project_}-${task_target}"
+> +
+> +    mkdir -p "${LOGDIR}"
+> +    print_progress
+> +    echo -n "${task_name//project_} ${task_target}: "
+> +    if [ "${VERBOSE}" = "n" ]; then
+> +        "$@" > "${LOGDIR}/${task_log}.log" 2>&1
+> +    else
+> +        "$@" 2>&1 | tee "${LOGDIR}/${task_log}.log"
+> +    fi
+> +
+> +    if [ ${?} -ne 0 ]; then
+> +        echo "Error"
+> +        build_result=$((build_result+1))
+> +        if [ "${do_dump}" = "y" ]; then
+> +            echo
+> +            echo "############ LOGS-START ############"
+> +            cat "${LOGDIR}/${task_log}.log"
+> +            echo "############  LOGS-END  ############"
+> +            echo
+> +        fi
+> +        return 1
+> +    else
+> +        echo "OK"
+> +        return 0
+> +    fi
+> +}
+> +
+> +function project_create() {
+> +    target="${1:?}"
+> +    destdir="${BUILDDIR}/${target}"
+> +
+> +    (
+> +        # init yocto project
+> +        source "${YOCTODIR}/poky/oe-init-build-env" "${destdir}"
+> +
+> +        # add needed layers
+> +        for layer in ${build_layerlist}; do
+> +            bitbake-layers add-layer "${YOCTODIR}/${layer}" || exit 1
+> +        done
+> +    ) || return 1
+> +
+> +    # Detect latest version available in Yocto and use it instead of default
+> +    # one.
+> +    XENVERS=$(grep -e "^XEN_REL" \
+> +        "${YOCTODIR}"/meta-virtualization/recipes-extended/xen/xen_*.bb \
+> +        2> /dev/null | tr -d ' ' | tr -d '?' | tr -d '"' \
+> +        | sed -e "s/.*=//" | sort -V | tail -n 1)
+> +
+> +    # customize project configuration
+> +    cat <<EOF >> "${destdir}/conf/local.conf"
+> +# Yocto BSP
+> +MACHINE = "${target}"
+> +
+> +# Use local cache to reuse previous builds results
+> +SSTATE_DIR = "${CACHEDIR}/sstate-cache"
+> +DL_DIR = "${CACHEDIR}/downloads"
+> +
+> +# Enable xen and virtualization
+> +DISTRO_FEATURES = " virtualization xen ipv4"
+> +
+> +# Speed up run by not generating ssh host keys
+> +IMAGE_INSTALL:append:pn-xen-image-minimal = " ssh-pregen-hostkeys"
+> +
+> +# Save some disk space
+> +INHERIT += "rm_work"
+> +
+> +# Reduce number of jobs
+> +BB_NUMBER_THREADS="${BUILDJOBS}"
+> +
+> +# Use latest Xen version
+> +PREFERRED_VERSION:pn-xen = "${XENVERS}%"
+> +PREFERRED_VERSION:pn-xen-tools = "${XENVERS}%"
+> +
+> +# Use autorev for now as Xen SHA used by latest yocto recipe for Xen does not
+> +# include fixes required to build x86 on arm
+> +SRCREV:pn-xen = "\${AUTOREV}"
+> +SRCREV:pn-xen-tools = "\${AUTOREV}"
+> +
+> +# Disable all QA errors as the recipe is not up to date with changes in Xen
+> +# when we use local sources
+> +ERROR_QA:pn-xen = "arch"
+> +ERROR_QA:pn-xen-tools = "arch"
+> +
+> +EOF
+> +
+> +    if [ "${do_localsrc}" = "y" ]; then
+> +        XENBASE=$(dirname "$(realpath -m "${XENDIR}")")
+> +        XENSUB=$(basename "$(realpath -m "${XENDIR}")")
+> +
+> +        cat <<EOF >> "${destdir}/conf/local.conf"
+> +# Use local sources for xen and xen-tools
+> +FILESEXTRAPATHS:prepend:pn-xen := "${XENBASE}:"
+> +FILESEXTRAPATHS:prepend:pn-xen-tools := "${XENBASE}:"
+> +
+> +SRC_URI:pn-xen = "file://${XENSUB}/;subdir=local-xen/"
+> +SRC_URI:pn-xen-tools = "file://${XENSUB}/;subdir=local-xen/"
+> +
+> +S:pn-xen = "\${WORKDIR}/local-xen/${XENSUB}"
+> +S:pn-xen-tools = "\${WORKDIR}/local-xen/${XENSUB}"
+> +
+> +SRCPV:pn-xen = "1"
+> +SRCPV:pn-xen-tools = "1"
+> +
+> +EOF
+> +    fi
+> +}
+> +
+> +function project_build() {
+> +    target="${1:?}"
+> +    destdir="${BUILDDIR}/${target}"
+> +
+> +    (
+> +        source "${YOCTODIR}/poky/oe-init-build-env" "${destdir}"
+> +
+> +        bitbake "${build_image}" || exit 1
+> +    ) || return 1
+> +}
+> +
+> +function project_clean() {
+> +    target="${1:?}"
+> +    destdir="${BUILDDIR}/${target}"
+> +
+> +    rm -rf "${destdir}"
+> +}
+> +
+> +function project_run() {
+> +    target="${1:?}"
+> +    destdir="${BUILDDIR}/${target}"
+> +    (
+> +        source "${YOCTODIR}/poky/oe-init-build-env" "${destdir}" > /dev/null 2>&1
+> +
+> +        /usr/bin/expect <<EOF
+> +set timeout 1000
+> +spawn bash -c "runqemu serialstdio nographic slirp"
+> +
+> +expect_after {
+> +    -re "(.*)\r" {
+> +        exp_continue
+> +    }
+> +    timeout {send_user "ERROR-Timeout!\n"; exit 1}
+> +    eof {send_user "ERROR-EOF!\n"; exit 1}
+> +}
+> +
+> +# wait initial login
+> +expect -re ".* login: "
+> +send "root\r"
+> +expect -re "root@.*# "
+> +
+> +EOF
+> +    exit $?
+> +    ) || return 1
+> +}
+> +
+> +function help() {
+> +    cat <<EOF
+> +Usage: ${0} [TARGET1] [TARGET2]
+> +
+> +This script is build the yocto xen-image-minimal for different qemu targets
+> +and is running it after.
+> +Without any target specified, all supported targets are done.
+> +
+> +Options:
+> +  -h, --help       Print this help
+> +  -v, --verbose    Verbose build
+> +  --list-target    List supported targets
+> +  --clean          Clean existing project before starting
+> +  --no-build       Do not build (to run an already built project)
+> +  --no-run         Do not run
+> +  --num-jobs=NUM   Define the number of parallel jobs in Yocto.
+> +                   Default: ${BUILDJOBS}
+> +  --dump-log       On error, dump the logs on the console
+> +  --image=IMG      Yocto image or package to build
+> +                   Default: xen-image-minimal
+> +  --xen-dir=DIR    path to xen hypervisor source tree
+> +                   if not provide, normal yocto version of xen is built
+> +                   Default: ${XENDIR}
+> +  --out-dir=DIR    directory where to create the projectss
+> +                   Default: ${BUILDDIR}
+> +  --log-dir=DIR    directory to store logs
+> +                   Default: ${LOGDIR}
+> +  --cache-dir=DIR  directory where to take and store build cache
+> +                   Default: ${CACHEDIR}
+> +  --layer-dir=DIR  directory containing the checkout of yocto layers
+> +                   Default: ${YOCTODIR}
+> +EOF
+> +}
+> +
+> +for OPTION in "$@"
+> +do
+> +    case ${OPTION} in
+> +        -h|--help)
+> +            help
+> +            exit 0
+> +            ;;
+> +        -v|--verbose)
+> +            VERBOSE="y"
+> +            ;;
+> +        --list-targets)
+> +            echo "${TARGET_SUPPORTED}"
+> +            exit 0
+> +            ;;
+> +        --clean)
+> +            do_clean="y"
+> +            ;;
+> +        --no-build)
+> +            do_build="n"
+> +            ;;
+> +        --no-run)
+> +            do_run="n"
+> +            ;;
+> +        --dump-log)
+> +            do_dump="y"
+> +            ;;
+> +        --num-jobs=*)
+> +            BUILDJOBS="${OPTION#*=}"
+> +            ;;
+> +        --image=*)
+> +            build_image="${OPTION#*=}"
+> +            ;;
+> +        --xen-dir=*)
+> +            XENDIR="${OPTION#*=}"
+> +            if [ ! -e "${XENDIR}/xen/Makefile" ]; then
+> +                echo "No Xen source tree in ${XENDIR}"
+> +                exit 1
+> +            fi
+> +            do_localsrc="y"
+> +            ;;
+> +        --out-dir=*)
+> +            BUILDDIR="${OPTION#*=}"
+> +            ;;
+> +        --log-dir=*)
+> +            LOGDIR="${OPTION#*=}"
+> +            ;;
+> +        --cache-dir=*)
+> +            CACHEDIR="${OPTION#*=}"
+> +            ;;
+> +        --layer-dir=*)
+> +            YOCTODIR="${OPTION#*=}"
+> +            ;;
+> +        --*)
+> +            echo "Invalid option ${OPTION}"
+> +            help
+> +            exit 1
+> +            ;;
+> +        *)
+> +            if echo "${TARGET_SUPPORTED}" | grep -q -w "${OPTION}"; then
+> +                TARGETLIST="${TARGETLIST} ${OPTION}"
+> +            else
+> +                echo "Unsupported target ${OPTION}"
+> +                exit 1
+> +            fi
+> +            ;;
+> +    esac
+> +done
+> +
+> +# if no target is specified build all targets
+> +if [ -z "${TARGETLIST}" ]; then
+> +    TARGETLIST="${TARGET_SUPPORTED}"
+> +fi
+> +
+> +mkdir -p "${CACHEDIR}"
+> +mkdir -p "${LOGDIR}"
+> +mkdir -p "${BUILDDIR}"
+> +
+> +# Make sure we have an absolute path
+> +YOCTODIR=$(realpath -m "${YOCTODIR}")
+> +CACHEDIR=$(realpath -m "${CACHEDIR}")
+> +BUILDDIR=$(realpath -m "${BUILDDIR}")
+> +LOGDIR=$(realpath -m "${LOGDIR}")
+> +if [ "${do_localsrc}" = "y" ]; then
+> +    XENDIR=$(realpath -m "${XENDIR}")
+> +fi
+> +
+> +# Check that we have all the layers we need
+> +for f in ${build_layerlist}; do
+> +    if [ ! -f "${YOCTODIR}/${f}/conf/layer.conf" ]; then
+> +        echo "Layer ${f} missing in ${YOCTODIR}"
+> +        exit 1
+> +    fi
+> +done
+> +
+> +for f in ${TARGETLIST}; do
+> +    if [ "${do_clean}" = "y" ]; then
+> +        run_task project_clean "${f}"
+> +    fi
+> +    if [ ! -f "${BUILDDIR}/${f}/conf/local.conf" ]; then
+> +        run_task project_create "${f}"
+> +    fi
+> +    if [ -f "${BUILDDIR}/${f}/conf/local.conf" ]; then
+> +        if [ "${do_build}" = "y" ]; then
+> +            run_task project_build "${f}"
+> +        fi
+> +        if [ "${do_run}" = "y" ]; then
+> +            run_task project_run "${f}"
+> +        fi
+> +
+> +    fi
+> +done
+> +
+> +print_progress "Build Complete (${build_result} errors)"
+> +echo
+> +exit ${build_result}
+> +
+> diff --git a/automation/build/yocto/yocto.dockerfile.in b/automation/build/yocto/yocto.dockerfile.in
+> new file mode 100644
+> index 000000000000..b0892d420377
+> --- /dev/null
+> +++ b/automation/build/yocto/yocto.dockerfile.in
+> @@ -0,0 +1,114 @@
+> +# Docker file to create an environment to build yocto with virtualization
+> +#
+> +# Arguments that can be passed during image creation using --build-arg:
+> +# "host_uid=$(id -u)": to use current user uid for build user in the image
+> +# "host_gid=$(id -g)": to use current user gid for build user in the image
+> +# "ubuntu_version=VERS": to select the ubuntu version number
+> +
+> +# Use standard ubuntu minimal.
+> +ARG ubuntu_version=22.04
+> +From ##DOCKERPLAT##ubuntu:$ubuntu_version AS base
+> +LABEL maintainer.name="The Xen Project " \
+> +      maintainer.email="xen-devel@lists.xenproject.org"
+> +
+> +ENV DEBIAN_FRONTEND=noninteractive
+> +
+> +# Install minimal ubuntu requirements for yocto and other tools we need.
+> +# See https://docs.yoctoproject.org/4.0.1/brief-yoctoprojectqs/index.html#build-host-packages
+> +RUN apt-get update && \
+> +    apt-get --quiet --yes install \
+> +        gawk \
+> +        wget \
+> +        git \
+> +        diffstat \
+> +        unzip \
+> +        texinfo \
+> +        gcc \
+> +        build-essential \
+> +        chrpath \
+> +        socat \
+> +        cpio \
+> +        python3 \
+> +        python3-pip \
+> +        python3-pexpect \
+> +        xz-utils \
+> +        debianutils \
+> +        iputils-ping \
+> +        python3-git \
+> +        python3-jinja2 \
+> +        libegl1-mesa \
+> +        libsdl1.2-dev \
+> +        python3-subunit \
+> +        mesa-common-dev \
+> +        zstd \
+> +        liblz4-tool \
+> +        file \
+> +        vim \
+> +        bison \
+> +        expect \
+> +        locales \
+> +        liblz4-tool \
+> +        zstd \
+> +        openssl \
+> +        libssl3 \
+> +        ca-certificates \
+> +        && \
+> +        apt-get autoremove -y && \
+> +        apt-get clean && \
+> +        rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+> +
+> +# Use bash as shell.
+> +RUN rm /bin/sh && ln -s bash /bin/sh
+> +
+> +# Fix local for yocto.
+> +RUN locale-gen en_US.UTF-8 && update-locale LC_ALL=en_US.UTF-8 \
+> +    LANG=en_US.UTF-8
+> +ENV LANG en_US.UTF-8
+> +ENV LC_ALL en_US.UTF-8
+> +
+> +# Create a user for the build (we don't want to build as root).
+> +ENV USER_NAME docker-build
+> +ARG host_uid=1000
+> +ARG host_gid=1000
+> +RUN groupadd -g $host_gid $USER_NAME && \
+> +    useradd -g $host_gid -m -s /bin/bash -u $host_uid $USER_NAME
+> +
+> +# Switch to our user instead of root and start in its home.
+> +USER $USER_NAME
+> +WORKDIR /home/$USER_NAME
+> +
+> +# Create needed directories
+> +RUN mkdir -p /home/$USER_NAME/yocto-layers \
+> +             /home/$USER_NAME/yocto-cache \
+> +             /home/$USER_NAME/logs \
+> +             /home/$USER_NAME/bin \
+> +             /home/$USER_NAME/xen && \
+> +    chown $USER_NAME.$USER_NAME /home/$USER_NAME/*
+> +
+> +# clone yocto repositories we need.
+> +RUN for rep in \
+> +                https://github.com/openembedded/meta-openembedded \
+> +                https://git.yoctoproject.org/poky \
+> +                https://git.yoctoproject.org/meta-virtualization \
+> +            ; do \
+> +        git -C /home/$USER_NAME/yocto-layers \
+> +            clone -b ##YOCTOVERSION## --single-branch $rep; \
+> +    done
+> +
+> +# The builder stage is building an initial cache state that we include in the
+> +# final image.
+> +From base AS builder
+> +
+> +# This step can take one to several hours depending on your download bandwith
+> +# and the speed of your computer.
+> +COPY ./build-yocto.sh /
+> +RUN /build-yocto.sh --dump-log ##YOCTOTARGET##
+> +
+> +From base
+> +
+> +# Only copy the cache status.
+> +COPY --from=builder /home/$USER_NAME/yocto-cache /home/$USER_NAME/yocto-cache/.
+> +
+> +LABEL maintainer.name="The Xen Project " \
+> +      maintainer.email="xen-devel@lists.xenproject.org"
+> +
+> diff --git a/automation/build/yocto/yocto.inc b/automation/build/yocto/yocto.inc
+> new file mode 100644
+> index 000000000000..e4328ec7f378
+> --- /dev/null
+> +++ b/automation/build/yocto/yocto.inc
+> @@ -0,0 +1,44 @@
+> +# This makefile generates the docker files for Yocto builds.
+> +# The containers for the current architecture are the one built using make all.
+> +# To build containers for a different architecture, you need to call make for
+> +# the image you want explicitely.
+> +# The containers are named this way:
+> +# YOCTOVERSION-TARGET for x86_64 hosts
+> +# YOCTOVERSION-TARGET-arm64v8 for arm64 hosts
+> +# For example you can build an arm64 container with the following command:
+> +# make yocto/kirkstone-qemuarm64-arm64v8
+> +
+> +# Yocto versions we are currently using.
+> +YOCTO_VERSION = kirkstone
+> +
+> +# Yocto BSPs we want to build for.
+> +YOCTO_TARGETS = qemuarm64 qemuarm qemux86-64
+> +
+> +# Supported container architectures.
+> +YOCTO_ARCHS = amd64 arm64v8
+> +
+> +# Architecture we want to use in gitlab CI (depends on runners arch).
+> +CI_ARCH = arm64v8
+> +
+> +define GEN_DOCKER
+> +# Make all is generating architecture we use in the CI.
+> +ifeq ($(CI_ARCH),$(3))
+> +CONTAINERS += yocto/$(1)-$(2)$(4)
+> +else
+> +CONTAINERS_EXTRA += yocto/$(1)-$(2)$(4)
+> +endif
+> +
+> +.INTERMEDIATE: yocto/$(1)-$(2)$(4).dockerfile
+> +
+> +yocto/$(1)-$(2)$(4).dockerfile: yocto/yocto.dockerfile.in
+> +	@cat $$< | \
+> +	    sed -e "s,##YOCTOVERSION##,$(1),g" | \
+> +	    sed -e "s,##YOCTOTARGET##,$(2),g" | \
+> +	    sed -e "s,##DOCKERPLAT##,$(3)/,g" > $$@
+> +
+> +endef
+> +
+> +$(eval $(foreach version,$(YOCTO_VERSION),\
+> +       $(foreach target,$(YOCTO_TARGETS),\
+> +       $(foreach arch,$(YOCTO_ARCHS),\
+> +       $(call GEN_DOCKER,$(version),$(target),$(arch),$(if $(filter amd64,$(arch)),,-$(arch)))))))
+> -- 
+> 2.25.1
+> 
 
