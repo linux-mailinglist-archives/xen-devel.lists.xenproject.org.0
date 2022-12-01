@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69C8F63F38A
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 16:17:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450835.708311 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B19FC63F394
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 16:18:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450842.708322 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0lIc-0004Ki-Sz; Thu, 01 Dec 2022 15:16:30 +0000
+	id 1p0lJT-0004ux-5e; Thu, 01 Dec 2022 15:17:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450835.708311; Thu, 01 Dec 2022 15:16:30 +0000
+Received: by outflank-mailman (output) from mailman id 450842.708322; Thu, 01 Dec 2022 15:17:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0lIc-0004Ih-P4; Thu, 01 Dec 2022 15:16:30 +0000
-Received: by outflank-mailman (input) for mailman id 450835;
- Thu, 01 Dec 2022 15:16:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=DAsL=37=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p0lIb-0004IW-JY
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 15:16:29 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1fd84359-718b-11ed-8fd2-01056ac49cbb;
- Thu, 01 Dec 2022 16:16:27 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id AEB67CE1D00;
- Thu,  1 Dec 2022 15:16:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BDD7C433C1;
- Thu,  1 Dec 2022 15:16:22 +0000 (UTC)
+	id 1p0lJT-0004sz-26; Thu, 01 Dec 2022 15:17:23 +0000
+Received: by outflank-mailman (input) for mailman id 450842;
+ Thu, 01 Dec 2022 15:17:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lVjU=37=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p0lJQ-0004pl-Vk
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 15:17:21 +0000
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2061c.outbound.protection.outlook.com
+ [2a01:111:f400:fe1b::61c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3f43ac50-718b-11ed-91b6-6bf2151ebd3b;
+ Thu, 01 Dec 2022 16:17:19 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8783.eurprd04.prod.outlook.com (2603:10a6:102:20e::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Thu, 1 Dec
+ 2022 15:17:17 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
+ 15:17:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,78 +47,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fd84359-718b-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1669907783;
-	bh=66NEiIlTrHZZpiZASYlKhgBWxrXF7VIKt7lC6rAyhAg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=n9rObCEcxdux3qpYQvoJLfGsvn+U3m2SbzNZp1WVM41hDD1ebBQxsKUGv4kaol+fb
-	 IfdwZ9VYSbA9ijo+9ZRq6ST2Ybf+FoSWYzBa1j7aSzierIeAg4ktGWVhj5CaOEuZG3
-	 V9AdmaeUQwmzTUjSOy4pLi1VmAfeDLKHdwxF1li0r4oACozlw4ovaq1eU16norOZKF
-	 Fl2HLnotl1x99xBdGKdLmHEN4zzmkW/ycEv0KLCxwnSSGncwGD0W8eVaSajQYnsbAS
-	 u8py2QJJthC8sod1OBq7D7g1Ag6I/+NC2sh+7OQl9qZjB1Gvtcnk/Xw36RM9fQ1iFq
-	 iC320h3DWvkFw==
-Date: Thu, 1 Dec 2022 07:16:20 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 3/4] tools/misra: fix skipped rule numbers
-In-Reply-To: <677D59B8-839D-4C43-8546-67B2D1C887E6@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2212010716140.4039@ubuntu-linux-20-04-desktop>
-References: <20221128141006.8719-1-luca.fancellu@arm.com> <20221128141006.8719-4-luca.fancellu@arm.com> <alpine.DEB.2.22.394.2211291545420.4039@ubuntu-linux-20-04-desktop> <21F6A61B-1476-49A7-8726-7F94BBA627F6@arm.com> <alpine.DEB.2.22.394.2211301534190.4039@ubuntu-linux-20-04-desktop>
- <677D59B8-839D-4C43-8546-67B2D1C887E6@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 3f43ac50-718b-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iO2jnw52phmgJWQmD+Yr7tpmY/F6vy9Dlv0FzQv+x3ynEV8igkwKPTIbAEsgjDwqYafTuStqiuKUmEs61vhEgFzND4GVoUpyNZmuxsUoWixJd2nGhicUO+NQiUtWrirHHNF+IkWEzplk9Zo/l0x2bIxQ5pCXNWtH86HpW8bFqxwYSU5G/ulO+W3f0B9ZgkwIK2xhjDWvaKx74wxAzgbEWCVvmzYO50wr6+NQrkMhVffZ0tyTJ2pCosEZhANObMdn6ATz9VtWL3QGQppM3BIGf5FoYRsXPyOJOleTseYwN38TJyrGHGiZRA4/M4z529b3O+20DffLAxuUvAmIKKsd8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dj0YB9lYypHcboaWuvWlUU4K4AJRltYjViBZorZSRUo=;
+ b=ImJdGYhlHC5l7zA5Fg4w3zzSFrUUNxyj4yBNn7eV37sHgYySrlN7cUt02Ym4p730kHNuHKd0m4riqulcDw9AiKqjfc+uBhzjgzr0yDaBNFvt2JqpYrmHDvcRHOIvtxFRjQuyINwykWOzJttdzFsSqWr80kmCbQpo99ESdGFSez7LC/5VQ3w0FmSo+hL3DXst9E29GwwA/dSYwsoPtknk3m56w5InRZN57SktZa7D0AEVR4d1tWpLeQGzGVb+YxJSljaNT9ZNnHrqQ5mrUFeV/O5swadVrUd7OVFqNd2P8j81E8QfdzOluISTw+NDoo7JJERZoLPL/gVRGwcqxFheTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dj0YB9lYypHcboaWuvWlUU4K4AJRltYjViBZorZSRUo=;
+ b=fhF6NsTtugKyo3qwEgQ64QkcCEKFpxIUtCsfe7Pz/pdaT8dmJYueraLvY63jfp+kjuRxOQ7yHngN/P8RI/NtaWtiGkUwfc68C6sakUtV9nzfN8RDuHeUKwMjnVnLZJ4KRHWEuehK4rTnkFSwiRBEARK7uJrCrJbwZ2shCv4tiGH4qTOJVm/SVxAqntn/AT/C6kmI50lFY5V0TmIJmcSZIhADD2kHGAiARckQ7Rq9gJ+EeYt7p8chUNYyLMsrGlptNQAEHsekAW0Xlyv8vU8ARLNnp/HXB7qHOhgCUKzOc72ox+dfh6uu8BHYgN1zjTt5mWlmnGAWvlTwDBRQMvOwtQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <791303a6-7b37-20fc-083c-be8083c90014@suse.com>
+Date: Thu, 1 Dec 2022 16:17:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: Commit moratorium
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Henry Wang <Henry.Wang@arm.com>,
+ "committers@xenproject.org" <committers@xenproject.org>
+References: <3deaeaf4-dd5d-93cb-2ca5-3c22e2c19bff@xen.org>
+ <16684217-afbd-3671-5fad-08057a0e1b20@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <16684217-afbd-3671-5fad-08057a0e1b20@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0125.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:97::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8783:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc247060-7b4e-4c4a-ff40-08dad3af2239
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	5ujVeSPKfGoh0WMFaNjoflF+cUoveOFEqxmYgsa9xhkhLxoGRZtbezErmHJjMWp+GcdTClNXOzhb5BHgfOxXn/icVQH1ukMohblqi6a003t1yx/c5B8Xq24uYRUDLWTFLrgejPJwpo0BCwLCqEsdI+jEnfYTL1ORXV5Gjo2J10gL+1bI/RqVjGansuP6g4NEt+SwfS1lfAsgZZFbT6rH3Xcsqmc4IgFr1VlzQpdt7UVsvIymF2PLlCCM0NVhuDPRpznkKiCmwBCXWj7TwwZapMYlxYMxeUBXswgjPIDrNeSMTiXZFwN+dnGf2Rcr5PrCNBkKhRcEZk8AR1C3yLju/h0BOtojIgKa5hRoPBIZcG+NYubqTGaPdRJDkBI2UabF1or+68nUuOz29anKgqQqWvAAsIPbLPV4sO/n5eyBhMUMP4eaY3Rr5iAa2aalbDhVmrwK1LSKqLJ4MHvaGv3b18pBSAWrqN+C5JN+b5pvNZTxxI1G4gsk0eXYtIF4PrPPNtYfovaeWtnNYgritYZrqGkJVGam7SZP1kjppz1Owqo6VnY9SX0YrSiBvEOW3nhx6cCKmFeSON7ZNT8l9ZdjUYYRFUyF88aTEy18up+H73WX/7ogtGrZu92PNLFPSp08XpFqBnKLHPBAyoXsmH0fzcz9cPIHjtaa6FuQqhJx6zdZSOVmgNpO2DCOV877rB0cIFjEiGqiQ4ymz74+ekyfsqQ/XEIpgFEWY8ruMkB3YoQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(376002)(346002)(39860400002)(366004)(451199015)(36756003)(31696002)(86362001)(31686004)(54906003)(558084003)(6486002)(6916009)(316002)(5660300002)(7116003)(66946007)(8676002)(4326008)(478600001)(66476007)(41300700001)(8936002)(66556008)(3480700007)(38100700002)(2906002)(53546011)(6512007)(26005)(186003)(6506007)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TDVFY1MxaUdFT0tRcVF0QVJxV1FWSzJ2UUoyVVFKNWdiRk9SWWNSZ0JOa25S?=
+ =?utf-8?B?VER1Vlh2Ym5xaTQxRWV3NHRTMUNENHgwYzFBN0RLbXJIYjhhOXdxTmF3MDl3?=
+ =?utf-8?B?MlRta0d4TFEvQWNsNUVLSnYxNzEraWpOeWJsN2wzOHYvd2tRUUNtanpCUTZM?=
+ =?utf-8?B?bW1DaDBsMU1MV2tWMzJmaFNjckk4SEdHb2IrZ25VeCsyU0tEdUpkTGtocnJJ?=
+ =?utf-8?B?RUdhU0lmL2RJOHRTaW5hR0xpZHFvem9DeVhVTDNWREhGUGFWWGRyMDVqMHFE?=
+ =?utf-8?B?SjdsUGd0aXhidkRTWXNad1lZc1VFQW1ldHZaOWJPYmI5elFnWG9uVGNqWHF0?=
+ =?utf-8?B?SHdGSW5IMDZWM0hqNllVNzR4eHhCdVR3NWdydWlpeEpwUGNkTEozVFB2TDBT?=
+ =?utf-8?B?MTZkazd2b3FFS0psQzJ5R3ZFcGkyQTNrd1RyOFh1dk01UTJ0TWR1VlhTbzRm?=
+ =?utf-8?B?TU9IcmVYRklIblJWZjBCMDQyNlNDNWlPYlRTVm9PR0VjcjZyOXhzRG5FeWdW?=
+ =?utf-8?B?YnFtdjdCMDNJenpUNEJsM2tUcDVMN0tSWC9Xc1VpMzNWRkFyZjBHdDBMZWsx?=
+ =?utf-8?B?SlkrUnFlMHV2L2dEYmMwSXIzZ2Raa3drNTl6N0NwRWh5K1Q3TjFzVlFGT1hr?=
+ =?utf-8?B?RWpzQXpFMGVObTBJL2xiUXpzMlVFWUk5R2NSWU9XcTlPZjI2QndCTERPd0xW?=
+ =?utf-8?B?emR0K2xkVjRLb21kbjZ3cUFYVGg4dGFVYWJZcld1VHBtc0M2WHAvMC9nQmdV?=
+ =?utf-8?B?ZmFxcXBoVlVVcXh2dUMwL0dyTjVzMFVCMFg3eTg2ODRnVVI1aWhYN1lnU3c0?=
+ =?utf-8?B?VW82MExwalBMRGJpSXBTMTlEb3JHYUNDbzV0bVl0NUxZM09FUUtOaUptTSsw?=
+ =?utf-8?B?MTdHaWhuQmdORDlqWnJJZzc5bklObVZDU3pvZkhYc1hBRTQ3N0YzbWp0VVdw?=
+ =?utf-8?B?dGJHeG1NK3BCdXR3Zk5Oa2JzY0dWZTMrK2thNmptYk1VVXFKWGFpSittaitC?=
+ =?utf-8?B?MVBiN3ZhbmZkT1BUbGRKK1VDdWpTR1VSeHo1dkdlaUxPSEo2VkQxdTRvZTA4?=
+ =?utf-8?B?eEFjbitnY2dNN2d0NVRKcFdROXRqSTg2SzVIeVhOaUd2OEdDT0VldWpibEg3?=
+ =?utf-8?B?VXI1NSttMDJ4SVdFOCtyK1JBMmJaSGRWb1Q2cFl1Y3p0NTkxTXNrQkFvOTB5?=
+ =?utf-8?B?aXFocnp3cll0WDcxSzhnS3ZoNWtVekliQkJjNmVwQnE2enNSREdmMEs5Wm9z?=
+ =?utf-8?B?VzlONmkyRDBxWkJmbm9CSDR5TjBzN242bnBNMTJ5b2lEYWJMVEh5VFFuWERI?=
+ =?utf-8?B?aVF3SFJmdUM3QkY1eS9PVlR5cWlOUnd6K2tSemxYcWlPOFNhUEVXOG4xZWdt?=
+ =?utf-8?B?WXRXb2dvZHoyL1VmejFuVlVwck9YZkZQcUI5WkFyU25EeTZjZU5SYTZPbUVx?=
+ =?utf-8?B?UWIxUkVpSkdqbExvWnpLTVUxTmVLdHcrd1FaOFgrR3dJVkZ0bFZiSmlWQ252?=
+ =?utf-8?B?VzlTUHhnVGpRUCs1SUJqWVpLbWdtdGd4dXlMckplank5THphWFl2VnBJV3ZN?=
+ =?utf-8?B?cm1PTEx4bHlNTDFMTWF4YnU3cFoydzBnZlhJMUVtZUtBdVBWVXVseVI2RnF3?=
+ =?utf-8?B?azZhZ2pUd2hzQWpRZER6Q2NTZTFMNkVZMThuRjR5bFZKOWgwR1ppK080cWVa?=
+ =?utf-8?B?R2FLY3pqNzl5UE9uaFhKSlhjUTFPVTkrNmlDekxhenUyQ09Vck9MZHAzWWkw?=
+ =?utf-8?B?OUIxaVR6TFVOTHVmNlR0WUxMc0NqNzljU0NoQVR2ZTdXS1V0bUQ1OWhhMnd5?=
+ =?utf-8?B?cUk3TnBGNUJJVVNnVzg0UXpjY3RjVUNtazhkNWpUNnc3TGNCN3RvSVNsR056?=
+ =?utf-8?B?alFHVFN0d0l6V2ZPQVp3QTJya1lHdC84WmFBUlpqNG9DRUNBMzRkK3lCRVBN?=
+ =?utf-8?B?RFV6b3lPSGRPMzdjYW5RY0p5c0loWTJXWTA1M1VIMkZjU1JzTEt6WlUvbUU2?=
+ =?utf-8?B?MzViTVNqeUZ1WVV6dG02dkN4d1FjNXk2MVV4MTB5SitMejBiSVZtaURlKzRX?=
+ =?utf-8?B?Z2NJWmo3emdkRGwxV2tuQzk2WlhZcE9iRlZoeDBObEY1d0FKdHVybENjKzcx?=
+ =?utf-8?Q?/tbuqKKolFCYtdPt5UEoIasc3?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc247060-7b4e-4c4a-ff40-08dad3af2239
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 15:17:17.5028
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: axyOekih4drRQuc2OqxlZLZGKfWtlQLSciVUFlxyIx/LQBdchC0FiHDZm2Rf1yi4E1z2eb0EnDND4MXr2Hu5WQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8783
 
-On Thu, 1 Dec 2022, Luca Fancellu wrote:
-> >> Hi Stefano,
-> >> 
-> >> MISRA rules are in this format X.Y, misra_c2012_rules is a dictionary where the key is 
-> >> X and the value is the maximum number that Y can have.
-> >> 
-> >> For example rule 13.Y goes from 13.1 to 13.6 (in the dictionary misra_c2012_rules[13] == 6),
-> >> so the code can now check which among (13.1 .. 13.6) is not in the rule_list and add it to the
-> >> list of skipped rules.
-> >> 
-> >> Here an example:
-> >> {
-> >>    "script": "misra.py",
-> >>    "args": [
-> >>      "--rule-texts=/path/to/cppcheck-misra.txt",
-> >>      "--suppress-rules=1.1,1.2,1.4,2.2,2.3,2.4,2.5,2.6,2.7,3.1,4.1,4.2,5.5,5.6,5.7,5.8,5.9,6.1,7.1,7.2,7.3,7.4,8.2,8.3,8.7,8.9,8.11,8.13,8.14,9.3,9.4,9.5,10.1,10.2,10.3,10.4,10.5,10.6,10.7,10.8,11.1,11.2,11.3,11.4,11.5,11.6,11.7,11.8,11.9,12.1,12.2,12.3,12.4,12.5,13.1,13.2,13.3,13.4,13.5,14.2,14.3,14.4,15.1,15.2,15.3,15.4,15.5,15.6,15.7,16.1,16.2,16.3,16.4,16.5,16.6,17.1,17.2,17.5,17.6,17.7,17.8,18.1,18.2,18.3,18.4,18.5,18.6,18.7,18.8,19.1,19.2,20.1,20.2,20.3,20.4,20.5,20.6,20.8,20.9,20.10,20.11,20.12,21.1,21.2,21.3,21.4,21.5,21.6,21.7,21.8,21.9,21.10,21.11,21.12,21.13,21.14,21.15,21.16,21.17,21.18,21.19,21.20,21.21,22.1,22.2,22.3,22.4,22.5,22.6,22.7,22.8,22.9,22.10"
-> >>    ]
-> >> }
-> >> 
-> >> So this patch is solving two issues, the first one was that rule 22.Y was never included in the suppressed
-> >> list because range(1,22) produces a range in [1..21], the second issue is that the code was producing
-> >> Invalid MISRA C 2012 rules, for example 1.21 and so on.
-> > 
-> > I see, that makes sense. Please improve the commit message with this
-> > information and add
-> > 
-> > Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-> 
-> Thank you,
-> 
-> If you agree, I will change the commit message to be this one:
-> 
-> MISRA rules are in the format Rule X.Y, currently the script
-> convert_misra_doc.py is using two nested loop through range(1,22) to
-> enumerate rules that needs to be skipped, using combination of X.Y in
-> that range, however there are two issues in the code:
->  - rule 22 is never included because the range(1,22) produces a range 
->    in [1..21]
->  - the second issue is that the code is producing invalid MISRA C 2012
->    rules, for example 1.21 and so on
-> 
-> Fix the issue using a dictionary that list the rules in misra c2012.
+On 01.12.2022 15:32, Julien Grall wrote:
+> I have finally managed to branch 4.17. The tree is now re-opened.
 
-Sounds good
+Does this extend to the 4.17 branch as well? I've committed Anthony's
+build fix to staging, but wasn't sure about doing the "backport"
+right away ...
+
+Jan
 
