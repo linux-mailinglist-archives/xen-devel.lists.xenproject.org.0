@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72F5F63FA26
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 22:57:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451249.708908 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8886463FA2A
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 22:59:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451256.708919 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0rYZ-0006eY-98; Thu, 01 Dec 2022 21:57:23 +0000
+	id 1p0ra9-0007Cg-Jx; Thu, 01 Dec 2022 21:59:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451249.708908; Thu, 01 Dec 2022 21:57:23 +0000
+Received: by outflank-mailman (output) from mailman id 451256.708919; Thu, 01 Dec 2022 21:59:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0rYZ-0006c4-5S; Thu, 01 Dec 2022 21:57:23 +0000
-Received: by outflank-mailman (input) for mailman id 451249;
- Thu, 01 Dec 2022 21:57:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p0ra9-0007AU-Fx; Thu, 01 Dec 2022 21:59:01 +0000
+Received: by outflank-mailman (input) for mailman id 451256;
+ Thu, 01 Dec 2022 21:59:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=dhpc=37=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1p0rYX-0006by-IH
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 21:57:21 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1ecbb62a-71c3-11ed-91b6-6bf2151ebd3b;
- Thu, 01 Dec 2022 22:57:18 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 2B1LunS3065313
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Thu, 1 Dec 2022 16:56:54 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 2B1Lunlf065312;
- Thu, 1 Dec 2022 13:56:49 -0800 (PST) (envelope-from ehem)
+ (envelope-from <julien@xen.org>) id 1p0ra8-0007AN-0E
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 21:59:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p0ra7-000512-EE; Thu, 01 Dec 2022 21:58:59 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p0ra7-0002Rk-83; Thu, 01 Dec 2022 21:58:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,55 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1ecbb62a-71c3-11ed-91b6-6bf2151ebd3b
-Date: Thu, 1 Dec 2022 13:56:49 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: xen-devel@lists.xenproject.org
-Subject: Re: [ANNOUNCE] Call for agenda items for 1 December Community Call @
- 1600 UTC
-Message-ID: <Y4kjIaU6PxrR9UcB@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=z31vgeUtwP7PlNo7T3SR2TqLSJGlpOUXOn7D0ezub7E=; b=QVqhlIwwzrJMzEFJOL2pDhRhSY
+	X07ygzqnVblHsI/m7rWPkwiB4aVG6QFGw3Z58rjpQBrSOIDPVuw7+jCSC0XRMaW5jN3UkCsbpw2uK
+	JlDNrHAqk2I6WbdvHGewR0SKuipcHwar2zUJtSorFQcMiQrqxSkro59djVBnXY6cXAcg=;
+Message-ID: <6bad7b3c-eaa2-d342-a7f2-d265bdefd54a@xen.org>
+Date: Thu, 1 Dec 2022 21:58:57 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CDEE837E-887F-4386-9EF4-E57C2057C4EC@citrix.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.0
+Subject: Re: [PATCH 11/20] tools/xenstore: move changed domain handling
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20221101152842.4257-1-jgross@suse.com>
+ <20221101152842.4257-12-jgross@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20221101152842.4257-12-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 24, 2022 at 05:11:36PM +0000, George Dunlap wrote:
-> 
-> == Dial-in Information ==
-> ## Meeting time
-> 16:00 - 17:00 UTC
-> Further International meeting times:
-> https://www.timeanddate.com/worldclock/meetingdetails.html?year=2022&month=12&day=1&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-> 
+Hi Juergen,
 
-I guess I have to ask, what is the goal of the Community Call?  Neither
-this message, nor the wiki page
-(https://wiki.xenproject.org/wiki/Community_Call) say much about the
-Community Call.
+On 01/11/2022 15:28, Juergen Gross wrote:
+>   static bool check_indexes(XENSTORE_RING_IDX cons, XENSTORE_RING_IDX prod)
+> @@ -492,8 +504,12 @@ static struct domain *find_or_alloc_existing_domain(unsigned int domid)
+>   	xc_dominfo_t dominfo;
+>   
+>   	domain = find_domain_struct(domid);
+> -	if (!domain && get_domain_info(domid, &dominfo))
+> -		domain = alloc_domain(NULL, domid);
+> +	if (!domain) {
+> +		if (!get_domain_info(domid, &dominfo))
+> +			errno = ENOENT;
+> +		else
+> +			domain = alloc_domain(NULL, domid);
+> +	}
 
-Varies from place to place, but many places meeting times are more
-aspirational than ridged.  As such I felt rather disparaged by being
-careful about time, but no (obvious) effort spent prioritizing items.
+I don't understand how this change is related to this commit.
 
-This seemed to be being pointed out at the end of D.3, which was meant as
-low-priority, but was dealt with first purely due to being added first.
-Then most of the time was spent on D.4 when D.9 actually seemed a rather
-timely issue (the idea to get a bit of consideration before 4.17).
+[...]
 
-Problem with D.1 being at the start is it was unexpected half the agenda
-would be thrown in the garbage due to time.  Could I suggest the 10th as
-better?
+> +int acc_add_dom_nbentry(const void *ctx, struct list_head *head, int val,
+> +			unsigned int domid)
+> +{
+> +	struct changed_domain *cd;
+> +
+> +	cd = acc_get_changed_domain(ctx, head, domid);
+> +	if (!cd)
+> +		return errno;
+> +
+> +	cd->nbentry += val;
 
+As a future improvement, it would be worth considering to check for 
+underflow/overflow.
+
+Cheers,
 
 -- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+Julien Grall
 
