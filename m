@@ -2,39 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AFBC63EE6F
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 11:51:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450489.707776 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 264AB63EF41
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 12:18:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450497.707798 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0h9y-0002NQ-78; Thu, 01 Dec 2022 10:51:18 +0000
+	id 1p0hZ7-00064W-S0; Thu, 01 Dec 2022 11:17:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450489.707776; Thu, 01 Dec 2022 10:51:18 +0000
+Received: by outflank-mailman (output) from mailman id 450497.707798; Thu, 01 Dec 2022 11:17:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0h9y-0002L6-4W; Thu, 01 Dec 2022 10:51:18 +0000
-Received: by outflank-mailman (input) for mailman id 450489;
- Thu, 01 Dec 2022 10:51:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p0hZ7-00062Z-PC; Thu, 01 Dec 2022 11:17:17 +0000
+Received: by outflank-mailman (input) for mailman id 450497;
+ Thu, 01 Dec 2022 11:08:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jPp1=37=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1p0h9x-0002Kx-3y
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 10:51:17 +0000
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur01on2074.outbound.protection.outlook.com [40.107.13.74])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33d44a89-7165-11ed-8fd2-01056ac49cbb;
- Thu, 01 Dec 2022 11:44:59 +0100 (CET)
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by PAVPR08MB8942.eurprd08.prod.outlook.com (2603:10a6:102:320::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Thu, 1 Dec
- 2022 10:50:46 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::1245:e53:a5ec:66fd]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::1245:e53:a5ec:66fd%9]) with mapi id 15.20.5880.008; Thu, 1 Dec 2022
- 10:50:46 +0000
+ <SRS0=ED7C=37=chromium.org=ribalda@srs-se1.protection.inumbo.net>)
+ id 1p0hQt-0004EZ-Mj
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 11:08:47 +0000
+Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
+ [2a00:1450:4864:20::533])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 862ce7e7-7168-11ed-91b6-6bf2151ebd3b;
+ Thu, 01 Dec 2022 12:08:46 +0100 (CET)
+Received: by mail-ed1-x533.google.com with SMTP id s12so1862600edd.5
+ for <xen-devel@lists.xenproject.org>; Thu, 01 Dec 2022 03:08:46 -0800 (PST)
+Received: from alco.roam.corp.google.com ([2620:0:1059:10:f554:724a:f89a:73db])
+ by smtp.gmail.com with ESMTPSA id
+ v17-20020a170906293100b0078e0973d1f5sm1663824ejd.0.2022.12.01.03.08.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 01 Dec 2022 03:08:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,139 +44,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33d44a89-7165-11ed-8fd2-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lW/nnohK1x5fbnzUHhXpSDghJ7KvLd7qgGDM0eZlcH7WBoEe/fLpUegAN6gMTas9AFiXtgUdrwuM+ygRyw/o5vcwregDm0v2w1CAu90mqQnTlJYCKIITkTgEJHc6XW8Ca9Y3MjFJhF8JVV8IIva4E+dkP81nCkPTp46i7Tyc/77+OohiLGxzL+R0ZB4azaMYLQHmSIk5YKpsIL/z3ov1wayM2r9CU/a4+2+4Ln74IS/0nVovFBXSsgtFKkRJAqcYI5PLYzZaDUTay/4IpFPNviidubhhtv0E1FLDBDzvn+0OqU5nZ9yRr/YI9NsCxQBxw+NVad8aWVZO7EfLRSf2aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=au/SVUP37GbPN4KtC4vztrnIPax4n84nmcvzPryxBDQ=;
- b=iY7R9ZusQIleGGbpxrZYv/NTx3p3RZnJgR870VFUA2M9Twh1/hIbKTFfGfBQFbccJ23Z14zf41cyIdb53amu1E86PYvQ2llkEa76UvKWh5KZT+3yNHqHgreHjOP0UgOJ5uI0H/4xjd6yIo+crVdFD3wrkjQyo7hKpV+SKxHWoZLjOK3R3vXUf3xmMViRJoU6AFQE902+y/p4hReezEzx95qmYrgxZ62UDeXXcAQnvrx2vXW+uP/hhA6cIcHpny7loEsNRpstdC3/a9z8jW9Yf6W5JM1/PeGeSYuwnxj4v9IUGEqkD9/NMZ+IfIPRlFl2WVSU4dCPDaJfOeemWBttEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=au/SVUP37GbPN4KtC4vztrnIPax4n84nmcvzPryxBDQ=;
- b=BcuUCvG4UMqAl3wHsXg6K1ZSLE+QpHjgcNkqE0snN2ctmmL6IaLphIOJjnhCBwrVCw+N53t/ZY/K1A2VaaJG6EVNmnoUtjMeEnbwqmW1GbqJsGfMRBeTXnVydTaaJUFhYy9NVT5NfWWMI7e+TclrFcJJeZ4ideHLE1PSWY+uPLE=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>
-CC: Julien Grall <jgrall@amazon.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Subject: RE: [PATCH v2] process/release-technician-checklist: Explain how the
- banner in README is generated
-Thread-Topic: [PATCH v2] process/release-technician-checklist: Explain how the
- banner in README is generated
-Thread-Index: AQHZADhFhRdqD5Su4EO+T+vPnuMlg65PXSeAgAmHn8A=
-Date: Thu, 1 Dec 2022 10:50:45 +0000
-Message-ID:
- <AS8PR08MB7991D653E57C71D2B4D4B0C992149@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <20221124190850.35344-1-julien@xen.org>
- <6819d05e-d1ab-fc3e-7795-bac650df3bc4@suse.com>
-In-Reply-To: <6819d05e-d1ab-fc3e-7795-bac650df3bc4@suse.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: AC14B4A755B02C48944213DD3C2C820E.0
-x-checkrecipientchecked: true
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR08MB7991:EE_|PAVPR08MB8942:EE_
-x-ms-office365-filtering-correlation-id: 1ff6c485-4ef2-4ec7-7a75-08dad389e6a7
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- KZTP2nv8rzsWPN3vzqQfH5DFdAoBu5AC3pPF3DM4K674hBmnylq3N4rIbzFidqOxHnOmiBPWovEBpf9TR24F57QQMPulWAn3/HVQYTKTOy9cDVmxHvHkrs3YXLHLesQMo7MdU2QJQMjiw+M6qWQUiUopsmkpaG3I0x1zpyEmiNA/kBnAj3Wd4u/ZdbYAFt/avcMmLXQxSDhUKcvLSCQx0rxTdB6KxlgPxsSMvG05SbSHxsut0nkCh2kSOgcFnDhKWftkp22+cwCsQEQuL60e7rPdZHF+h58+P1LWymX/uHl6pc28S51xaXdJ2/fz8igMT7TySfOpxObnJPNrzGA4OOalP0LU9L3gDPDDR0Z+SskoldoA85/tbwLMmnVUSuUM9RVgRDKOz6We68INYOfgTdz1Xy1/JUzsCFdxCIAgnBc8xi3tKiwaJK+XNUjYOHMYBUjWNmzlgG2CxphFejXEpKBWqDA51TYo6qOsajbdpV3jNlUbyg7hO/letA1SOtgE58tPMzemXzJQVlwPkSJ4dHB+LVEMPowTHd6peUNAItw9BtCd25nduKqPzbWuYTpPGVOq8v9bKhTZdyPvm7r1E0UskWSLfo7fx2+fmX7gz/M6g5eigLKhGPPlMD17xtXDgCvToC2cSLCYlQX46aXuQXEROxaZnfyO6DIbOmTQ8AgGoSytVahQ1CzeJDXr7fgC8E6seg2tQkOX6RQaEVK06Q==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(39860400002)(396003)(136003)(346002)(366004)(451199015)(9686003)(6506007)(8676002)(26005)(7696005)(53546011)(54906003)(76116006)(66946007)(110136005)(71200400001)(4326008)(66556008)(66476007)(66446008)(64756008)(41300700001)(478600001)(5660300002)(186003)(52536014)(8936002)(83380400001)(2906002)(316002)(86362001)(38070700005)(55016003)(33656002)(122000001)(38100700002);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZzBqQ2Y2Ym5ZV1BXQU02TnMxaTl1YVhIS1NneFgrUHlGM0VneTlPY2o1SkVa?=
- =?utf-8?B?QkxQMXUyVW5QejgrK09yNlVNRVBQT1hLRlZ6eUI4UldtWTFYMndmQ0tncVVx?=
- =?utf-8?B?RU51WDVmR2VjSjJmU3h3ZmI0QWVZYjNxMERISldvOVFoZExpSjF4Z01UNVcy?=
- =?utf-8?B?Z2FwelFiKzVqMHd6UXpzT2NPWHEzTDlZalVpbmpYSHhSYnVjRVd5bm9oRG1I?=
- =?utf-8?B?LytFdVdYQkhTQ0ViakQ4MmNhd1hvTldsc1BsZU1ONjBnb1Yzc3VYVHgwOFRB?=
- =?utf-8?B?NUZwS1RvNllFb21NdDl1K29zQXJjaTNTQkYyR2grNVBSVDg1aGtJemJqeW9J?=
- =?utf-8?B?eVJOc09JZUZaUFYxN3JXaVR1ZWczTEs2RGdidFBmaE1wZE5OTHpXc3h1VEl6?=
- =?utf-8?B?VDhGQ2pReCtlSFJ0aWtqQmduYzk2dnR0VGdzaDN6czROZzRzcFRrUWU1S0to?=
- =?utf-8?B?NWpYTVpaRUtnVFo3ckJCaC95cjE3RmJ3UTJRRmNLeTRjSkZvVGoxcmYvVVNM?=
- =?utf-8?B?ajdEZ0YreUIvZ054U2pWbzNpZUNiT2lKdnE4dlRqRXg3UEl1d2VOKzJvRnpX?=
- =?utf-8?B?dUZHT1J3dWlVS09LWVljUkFORlUzaE1yY1BybER2RlROSDV1Z1p5azVHcHE0?=
- =?utf-8?B?ZFJsTkVFUGNXTlN6VkQxRG55dmNKbjE1UDJwS3BtczlUeVpXRXhxVGRvMXBE?=
- =?utf-8?B?eDY2TjdqTFg2TTNnUHhtODcxUVIvdzRWVGlFN2ZvN0ZWTGNiZ0w0YXN0YTFh?=
- =?utf-8?B?Q0diMUg5QTR3U3k2VEF3WlpUK01kSUlYcXBoSmtORDhHY3pIQlBXcmxVM2dJ?=
- =?utf-8?B?TjdCd0swNW9tYkdzc2todTQwMzhsM1FnWEs4RUNKaTJNSFVUV204OWFoSFNX?=
- =?utf-8?B?eHpqcmRqNDJlYXU1dnc1eXg3TG8xMXY2ZkFRSmxDSUpSYUIzeWxBNjJYOEUz?=
- =?utf-8?B?TWgvOGRwbG1uRGQ5aEZaOFNSUHZDVWVGNXdkM2pjZ2JuQ3RXcjBHek9mRjRn?=
- =?utf-8?B?R2M3TlVhT3AvUzZROGN3RnpKVSsyZnVydUg2QlA3TmJWeG5pY3NOVTB2Z1Rl?=
- =?utf-8?B?d0pRSWM2a0EzVk1QelBsb3Z6MHRSc3MreWxlVTNrQXR2bWFnQVlNTFVSeUY1?=
- =?utf-8?B?M2VqRWE2ekJyMTRKdlg0TS9Kamp6eituLzBnVk96NVFjcHpDeUhHMm9CVjdw?=
- =?utf-8?B?SjFMSDl2MXF1RFpWYTFjcXdDUzFUcm4zdjlGTjR0L212R082dEpCdXhIZ3Jm?=
- =?utf-8?B?aUtIcmhqOFhsN2RIak1sVnJ0Zi8yMktxZW8xMm9GWjFHTENCa3JxK28xcURF?=
- =?utf-8?B?aTk3dnp3SUcyajEzUE9IaG1KSEw0RHlDV2psbFBYNVNsMHBGWEl2dWRVVUwx?=
- =?utf-8?B?bC9WWnFFcTBMNnFYU2Mxa2xNVjJaZkxDU09kK20rcXdFQUxQeWdWVEFtSXFY?=
- =?utf-8?B?bnoxd1FpSHFNNXE3TEg1aUNBc0N3NG1iWkRjMlpMRmFIbmNzSHRqUzBkNjdx?=
- =?utf-8?B?b1BwZDk3eEtrNSt6S0ljeXpaR0R1VGJxdjZORTc5QkVJUnFvSEpaYmpEWDdT?=
- =?utf-8?B?a29oKzRiZEo4S05RSWJmSFlqa3NQOFFRZHljeDNoS2FwYkJ0T3pKVUIwZ1VZ?=
- =?utf-8?B?aXNFTkVEam5uTDFzeUlNSExmVUR0dHJXSFY5NmNIbDJITVFENjBIYkV0MUhS?=
- =?utf-8?B?RVI0TDhaclN5UkxUWFZOY2JzSFRZYnN5ZzJHUDJNZU0zTWxsSm0vTUQzcVN4?=
- =?utf-8?B?cWpyTmpoaTlCZmVybzlVMEMwYnVlTHJ0YVhHRlBkS0tUZmpwNFNiTWVpOFJW?=
- =?utf-8?B?c0xsSm83QlA4a2k2QW1RcS9LOUFZNXRFdHpER1FxeG1CVCtZZUp5enBJbzUw?=
- =?utf-8?B?NDJjOEtKeDdwZ0tVa2xyM2lhclo3bUVhR25rUU0xbUFVMnpUcEpzUW1RdkhM?=
- =?utf-8?B?eVczdWU1eS9LeHNLSmZ1L2h1LzN4ZkJWaHFKN3lVbzA0eXZZMmZmOUFLWHUy?=
- =?utf-8?B?UkIrK0ZzT3B2TmVteGdrcVBnUUlVQTR2bzVvclA0MkNmN2VvUHJaaDMrVU1w?=
- =?utf-8?B?b2dmZkx1MnBTMElLZ1B0ZHlCNXJUNlltZ0Z6VFR3VlFNaExzRks4TDQ1NTlB?=
- =?utf-8?Q?sxfnZsOcli6TgoG0L6tHbXc/m?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: 862ce7e7-7168-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google;
+        h=cc:to:message-id:date:from:content-transfer-encoding:mime-version
+         :subject:from:to:cc:subject:date:message-id:reply-to;
+        bh=lGm4cyBDbhcC+E+E+8rSuqE3igb1lprN1pN6/M3QLys=;
+        b=ZRHyoajEwFC4By5LI1rVbOp/xLGzBq//9Xi/KMCz0lo8z9Pc1kxGrZQGSfdmpQmaMd
+         1GnniREAshZoCU4tyHuy1piJbRVEDqwJVixje9ZJzJ77PtUXKFFljT/b8/IV0BWReOGd
+         SqBdcc0wshVkJyGCE+uvwuRmeLcgRNVAq9pdQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:message-id:date:from:content-transfer-encoding:mime-version
+         :subject:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=lGm4cyBDbhcC+E+E+8rSuqE3igb1lprN1pN6/M3QLys=;
+        b=VSr059CcQP5NrigepbWCFS2gM1X+4c6zceIkbfoAT+we4SCacKTmFeu8Vf+bpNicNt
+         kDd8oLi/vkwILE4w7UoSfSFFlT+uPoeXYV8JWcERWVcaQDrA2YhGDf1EkmKW7+ZX52BJ
+         miuPLhF9JeSQaPmuzjkvQKeab4WtKMoq1WfCFhVxScnWk9jbXUrrSbTNQZV63BeitaAx
+         37ubVF/nJAf3Q3z2yw971Xu9D9sEf9P2cbOQce4GiGEGYBC0siSLG2xIj+hrxymudvIP
+         UrIes3P76Rnbf4+Og4/yQEBNkY8/lPi0tuUsw6te8Z0C9e9un0vnozoKo+0MwRtaGC2W
+         0rDA==
+X-Gm-Message-State: ANoB5plqGK1TXOdgieHmkjDXM+awkkv1o3EK96WZZnnanpMWXJCVAcMB
+	ZkLK82jWbuMmXt2p4bzFTXFNeg==
+X-Google-Smtp-Source: AA0mqf5zzNn9de5BfFPh0J6RLCpw0dw9HFYWDLvw7kVxPfSHwhQH5HyYQ8cKCqwRv03JB5G51Q4CsA==
+X-Received: by 2002:a05:6402:4516:b0:467:b88c:f3af with SMTP id ez22-20020a056402451600b00467b88cf3afmr43151776edb.24.1669892925587;
+        Thu, 01 Dec 2022 03:08:45 -0800 (PST)
+Subject:
+ [PATCH v8 0/3] ASoC: SOF: Fix deadlock when shutdown a frozen userspace
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR08MB7991.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ff6c485-4ef2-4ec7-7a75-08dad389e6a7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2022 10:50:45.9593
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: mevrFAFtZX8oN5VyBMsOzgC8eQrufHo2s03iwztqIGA28tWwoV1Ojn+F0oCm8UW0F9Ww6yYLgNNnHHM8G7Gi0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB8942
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACSLiGMC/3XPzWrDMAwA4FcpPs8jln/b095j7CA7SmNoHbDXwF
+ by7tN2HDY6CAk+/TxFo5qpicvpKSrtueWtcBFeTiKtWK4k88y1gAlAKfCylVkuleibpCJSRgMEDU
+ 4wiNhIxoolrUzK43bj5prb51a//hbsitN7d9au5CStN06hdo4SvKW1bvf8uL9u9So+eNIOYw2s54
+ AGLOHZOd3Reqw1awSa0WuVUJmONmNtfi9n50z0C2DsaDvWlrWhmSNOIeLU0W6sHWtN58lavTiDtq
+ P9WHvW3Es2wMIP/P/7OI4f/KJYEyACAAA=
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 01 Dec 2022 12:08:20 +0100
+Message-Id: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
+To: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>,
+ Chromeos Kdump <chromeos-kdump@google.com>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Len Brown <len.brown@intel.com>, Ard Biesheuvel <ardb@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+ Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+ Eric Biederman <ebiederm@xmission.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
+ Joel Fernandes <joel@joelfernandes.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Pavel Machek <pavel@ucw.cz>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Steven Rostedt <rostedt@goodmis.org>, "K. Y. Srinivasan" <kys@microsoft.com>,
+ Ingo Molnar <mingo@redhat.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Dexuan Cui <decui@microsoft.com>, Takashi Iwai <tiwai@suse.com>,
+ "H. Peter Anvin" <hpa@zytor.com>, Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>,
+ x86@kernel.org
+Cc: kexec@lists.infradead.org, alsa-devel@alsa-project.org,
+ Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org,
+ sound-open-firmware@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
+ linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org
+X-Mailer: b4 0.11.0-dev-696ae
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4368; i=ribalda@chromium.org;
+ h=from:subject:message-id; bh=Rud9IUdbPKIRkkkE6G4uaTZbcmuiccX+lZS5manvrHM=;
+ b=owEBbQKS/ZANAwAKAdE30T7POsSIAcsmYgBjiIsuiQZl7CGQiKdplkqC0gHCzURIkJXoavQjeFfS
+ sEPmEE6JAjMEAAEKAB0WIQREDzjr+/4oCDLSsx7RN9E+zzrEiAUCY4iLLgAKCRDRN9E+zzrEiIaWD/
+ 9SLVqH6ELG3Nj4DmzbcOc+YbsFvyvs/zS4DGTKOm4a1dsJ6EojOhIs9fpuGLT8o3p3+9VsWHC0In/y
+ k6Iuhsi7YI2K91jtIDrxVIf4dUlmsglcYsc4qe5s+tqH0tWT7y7OlpaNM4+W605lNX2FMTKjGgKfHe
+ jHVMfBfB0ebLbt7OhLXieR55yYucbmtChn3v49MHNc8u6oY5Zy9bC4bNkMJDJtd+ce/qqb8Bp4QeMA
+ rOQjtJMeieO5qtXaDb8EfsUc4gu1PYL42HfoTN2sr18FL9SKNzVejr4Jq0RhUCNg/rf+Oqoqn7EEmV
+ sjud45VDHbBcOD8OQJa/GQAuRwLJQYje6ycI76nIB/gnEiR08+uB3nK3tlAkKMMWbb4wS5vuWnCX2U
+ 3YF/ZK8xWASICm+G0JmfVBdajYCKUxaboXr7DPbP7oCUFU3bLEQqtBpNgeyfU46D4Q0gnTD8/frbVt
+ UgY++3lpoKK+Pxg3zbTIKOvN4fumazPJdSB+a586EbWiw7LhOtWns3EsiPZqFybXoW0BptbVq0Aqan
+ TLmIsVZkJSOl85YER762XGxsWyl9LeYioTLO/h4ozDLEbfseFlKxfz67nGgS7NBgsHBJDuc7Pu2/XP
+ dfaTOEkimDz87TdwqvVEa5v67H9Ve4p2lif6Z3g7ymf71PA6yB0dtq2z/ZqQ==
+X-Developer-Key: i=ribalda@chromium.org; a=openpgp;
+ fpr=9EC3BB66E2FC129A6F90B39556A0D81F9F782DA9
 
-SGksIA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IFN1YmplY3Q6IFJlOiBbUEFU
-Q0ggdjJdIHByb2Nlc3MvcmVsZWFzZS10ZWNobmljaWFuLWNoZWNrbGlzdDogRXhwbGFpbiBob3cg
-dGhlDQo+IGJhbm5lciBpbiBSRUFETUUgaXMgZ2VuZXJhdGVkDQo+IA0KPiBPbiAyNC4xMS4yMDIy
-IDIwOjA4LCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+ID4gRnJvbTogSnVsaWVuIEdyYWxsIDxqZ3Jh
-bGxAYW1hem9uLmNvbT4NCj4gPg0KPiA+IEV4cGxhaW4gaG93IHRoZSBiYW5uZXIgaW4gUkVBRE1F
-IGlzIGdlbmVyYXRlZCBhbmQgdGFrZSB0aGUgb3Bwb3J0dW5pdHkNCj4gPiB0byBtZW50aW9uIHdo
-YXQgaXQgc2hvdWxkIGxvb2sgbGlrZSBmb3IgUkMuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBK
-dWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPg0KPiANCj4gQWNrZWQtYnk6IEphbiBCZXVs
-aWNoIDxqYmV1bGljaEBzdXNlLmNvbT4NCg0KUmVsZWFzZS1hY2tlZC1ieTogSGVucnkgV2FuZyA8
-SGVucnkuV2FuZ0Bhcm0uY29tPg0KDQpXaXRoIHByb2JhYmx5IEphbidzIGNvbW1lbnQgaW4gLi4u
-DQoNCj4gYWxiZWl0IHdpdGggYSBjb3VwbGUgb2Ygbml0czoNCj4gDQo+ID4gLS0tIGEvZG9jcy9w
-cm9jZXNzL3JlbGVhc2UtdGVjaG5pY2lhbi1jaGVja2xpc3QudHh0DQo+ID4gKysrIGIvZG9jcy9w
-cm9jZXNzL3JlbGVhc2UtdGVjaG5pY2lhbi1jaGVja2xpc3QudHh0DQo+ID4gQEAgLTQ4LDcgKzQ4
-LDEyIEBAIHQ9UkVMRUFTRS0kcg0KPiA+DQo+ID4gICogY29uc2lkZXIgYnVtcGluZyBzb25hbWVz
-IG9mIHNobGlicw0KPiA+DQo+ID4gLSogY2hhbmdlIHhlbi11bnN0YWJsZSBSRUFETUUgKHNob3Vs
-ZCBzYXkgIlhlbiA0LjUiIGluIHJlbGVhc2VzIGFuZCBvbg0KPiBzdGFibGUgYnJhbmNoZXMsICJY
-ZW4gNC41LXVuc3RhYmxlIiBvbiB1bnN0YWJsZSkNCj4gPiArKiBjaGFuZ2UgeGVuLXVuc3RhYmxl
-IFJFQURNRS4gU2hvdWxkIHNheToNCj4gPiArICAgIC0gIlhlbiA0LjUiIGluIHJlbGVhc2VzIGFu
-ZCBvbiBzdGFibGUgYnJhbmNoZXMNCj4gPiArICAgIC0gIlhlbiA0LjUtdW5zdGFibGUiIG9uIHVu
-c3RhYmxlDQo+ID4gKyAgICAtICJYZW4gNC41LXJjIiBmb3IgcmVsZWFzZSBjYW5kaWRhdGUNCj4g
-PiArDQo+ID4gKyogICBUaGUgYmFubmVyIGlzIGdlbmVyYXRlZCB1c2luZyBmaWdsZXQNCj4gPiAg
-KiBjaGFuZ2UgeGVuLXVuc3RhYmxlIENvbmZpZy5taw0KPiANCj4gUGVyaGFwcyBpbnNlcnQgYW5v
-dGhlciBibGFuayBsaW5lIGJldHdlZW4gdGhlc2UgdHdvIGJ1bGxldCBwb2ludHM/DQo+IE9yLCBp
-ZiB0aGV5J3JlIGRlZW1lZCB0byBiZWxvbmcgdG9nZXRoZXIsIHJlbW92ZSB0aGUgb25lIHlvdSBp
-bnNlcnQ/DQo+IA0KPiBUaGUgbmV3IGJ1bGxldCBwb2ludCB5b3UgYWRkIGFsc28gd291bGQgbGlr
-ZWx5IHdhbnQgdG8gbWF0Y2ggdGhlDQo+IG90aGVycyBpbiBzdHlsZSwgYm90aCBmb3IgdGhlIG51
-bWJlciBvZiBzcGFjZXMgYWZ0ZXIgKiBhbmQgZm9yIG5vdA0KPiB1c2luZyBhIGNhcGl0YWwgZmly
-c3QgbGV0dGVyIChtYXliZSAiZ2VuZXJhdGUgYmFubmVyIHVzaW5nIGZpZ2xldCIpLg0KDQouLmhl
-cmUgYWRkcmVzc2VkIChjYW4gYmUgZml4IG9uIGNvbW1pdCkuDQoNCktpbmQgcmVnYXJkcywNCkhl
-bnJ5DQoNCg0KPiANCj4gSmFuDQoNCg==
+Since: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
+we wait for all the workloads to be completed during shutdown. This was done to 
+avoid a stall once the device is started again.
+
+Unfortunately this has the side effect of stalling kexec(), if the userspace
+is frozen. Let's handle that case.
+
+To: Joel Fernandes <joel@joelfernandes.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+To: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Eric Biederman <ebiederm@xmission.com>
+To: Chromeos Kdump <chromeos-kdump@google.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+To: Michael Ellerman <mpe@ellerman.id.au>
+To: Nicholas Piggin <npiggin@gmail.com>
+To: Christophe Leroy <christophe.leroy@csgroup.eu>
+To: "K. Y. Srinivasan" <kys@microsoft.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>
+To: Wei Liu <wei.liu@kernel.org>
+To: Dexuan Cui <decui@microsoft.com>
+To: Thomas Gleixner <tglx@linutronix.de>
+To: Ingo Molnar <mingo@redhat.com>
+To: Borislav Petkov <bp@alien8.de>
+To: Dave Hansen <dave.hansen@linux.intel.com>
+To: x86@kernel.org
+To: "H. Peter Anvin" <hpa@zytor.com>
+To: Juergen Gross <jgross@suse.com>
+To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+To: Bjorn Helgaas <bhelgaas@google.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+To: Pavel Machek <pavel@ucw.cz>
+To: Len Brown <len.brown@intel.com>
+Cc: stable@vger.kernel.org
+Cc: sound-open-firmware@alsa-project.org
+Cc: alsa-devel@alsa-project.org
+Cc: linux-kernel@vger.kernel.org
+Cc: kexec@lists.infradead.org
+Cc: linuxppc-dev@lists.ozlabs.org
+Cc: linux-hyperv@vger.kernel.org
+Cc: xen-devel@lists.xenproject.org
+Cc: linux-efi@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Changes in v8:
+- Wrap pm_freezing and kexec_inprogress in functions.
+- Do not run snd_sof_machine_unregister(sdev, pdata) during kexec (Thanks Kai).
+- Link to v7: https://lore.kernel.org/r/20221127-snd-freeze-v7-0-127c582f1ca4@chromium.org
+
+Changes in v7:
+- Fix commit message (Thanks Pierre-Louis).
+- Link to v6: https://lore.kernel.org/r/20221127-snd-freeze-v6-0-3e90553f64a5@chromium.org
+
+Changes in v6:
+- Check if we are in kexec with the userspace frozen.
+- Link to v5: https://lore.kernel.org/r/20221127-snd-freeze-v5-0-4ededeb08ba0@chromium.org
+
+Changes in v5:
+- Edit subject prefix.
+- Link to v4: https://lore.kernel.org/r/20221127-snd-freeze-v4-0-51ca64b7f2ab@chromium.org
+
+Changes in v4:
+- Do not call snd_sof_machine_unregister from shutdown.
+- Link to v3: https://lore.kernel.org/r/20221127-snd-freeze-v3-0-a2eda731ca14@chromium.org
+
+Changes in v3:
+- Wrap pm_freezing in a function.
+- Link to v2: https://lore.kernel.org/r/20221127-snd-freeze-v2-0-d8a425ea9663@chromium.org
+
+Changes in v2:
+- Only use pm_freezing if CONFIG_FREEZER .
+- Link to v1: https://lore.kernel.org/r/20221127-snd-freeze-v1-0-57461a366ec2@chromium.org
+
+---
+Ricardo Ribalda (3):
+      kexec: Refactor kexec_in_progress into a function
+      freezer: refactor pm_freezing into a function.
+      ASoC: SOF: Fix deadlock when shutdown a frozen userspace
+
+ arch/powerpc/platforms/pseries/vio.c |  2 +-
+ arch/x86/kernel/cpu/mshyperv.c       |  6 +++---
+ arch/x86/xen/enlighten_hvm.c         |  2 +-
+ drivers/firmware/efi/efi.c           |  2 +-
+ drivers/pci/pci-driver.c             |  2 +-
+ include/linux/freezer.h              |  3 ++-
+ include/linux/kexec.h                |  5 ++---
+ kernel/freezer.c                     |  3 +--
+ kernel/kexec_core.c                  | 12 ++++++++++--
+ kernel/power/process.c               | 24 ++++++++++++++++++++----
+ sound/soc/sof/core.c                 |  9 ++++++---
+ 11 files changed, 48 insertions(+), 22 deletions(-)
+---
+base-commit: 4312098baf37ee17a8350725e6e0d0e8590252d4
+change-id: 20221127-snd-freeze-1ee143228326
+
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
