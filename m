@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0849763F51C
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 17:19:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451038.708640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5CBC63F51D
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 17:20:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451043.708651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0mHm-0004sX-5g; Thu, 01 Dec 2022 16:19:42 +0000
+	id 1p0mI6-0005UM-FI; Thu, 01 Dec 2022 16:20:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451038.708640; Thu, 01 Dec 2022 16:19:42 +0000
+Received: by outflank-mailman (output) from mailman id 451043.708651; Thu, 01 Dec 2022 16:20:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0mHm-0004py-2q; Thu, 01 Dec 2022 16:19:42 +0000
-Received: by outflank-mailman (input) for mailman id 451038;
- Thu, 01 Dec 2022 16:19:40 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p0mI6-0005QP-BZ; Thu, 01 Dec 2022 16:20:02 +0000
+Received: by outflank-mailman (input) for mailman id 451043;
+ Thu, 01 Dec 2022 16:20:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ShmB=37=arm.com=rahul.singh@srs-se1.protection.inumbo.net>)
- id 1p0mHk-0003Vx-Od
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 16:19:40 +0000
+ id 1p0mI5-00056N-1n
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 16:20:01 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id f4a24343-7193-11ed-8fd2-01056ac49cbb;
- Thu, 01 Dec 2022 17:19:39 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 00b98bdb-7194-11ed-91b6-6bf2151ebd3b;
+ Thu, 01 Dec 2022 17:20:00 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 05FDAD6E;
- Thu,  1 Dec 2022 08:19:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 47ED4D6E;
+ Thu,  1 Dec 2022 08:20:06 -0800 (PST)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B1F5E3F73B;
- Thu,  1 Dec 2022 08:19:38 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D95343F73B;
+ Thu,  1 Dec 2022 08:19:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,15 +43,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4a24343-7193-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 00b98bdb-7194-11ed-91b6-6bf2151ebd3b
 From: Rahul Singh <rahul.singh@arm.com>
 To: xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [RFC PATCH 20/21] libxl/arm: vIOMMU: Modify the partial device tree for iommus
-Date: Thu,  1 Dec 2022 16:02:44 +0000
-Message-Id: <45ac5b639319b7282086bac609329ca3c5a411bf.1669888522.git.rahul.singh@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [RFC PATCH 21/21] xen/arm: vIOMMU: Modify the partial device tree for dom0less
+Date: Thu,  1 Dec 2022 16:02:45 +0000
+Message-Id: <127da5a0d4300e083b8840a4f3a0d2d63bde5b6f.1669888522.git.rahul.singh@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1669888522.git.rahul.singh@arm.com>
 References: <cover.1669888522.git.rahul.singh@arm.com>
@@ -66,82 +67,58 @@ IOMMU phandle when "iommus" property is set.
 
 Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 ---
- tools/libs/light/libxl_arm.c | 47 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 46 insertions(+), 1 deletion(-)
+ xen/arch/arm/domain_build.c | 31 ++++++++++++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
-index f2bb7d40dc..16d068404f 100644
---- a/tools/libs/light/libxl_arm.c
-+++ b/tools/libs/light/libxl_arm.c
-@@ -1167,6 +1167,41 @@ static int copy_partial_fdt(libxl__gc *gc, void *fdt, void *pfdt)
-     return 0;
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index 7cd99a6771..afb3e76409 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -3235,7 +3235,35 @@ static int __init handle_prop_pfdt(struct kernel_info *kinfo,
+     return ( propoff != -FDT_ERR_NOTFOUND ) ? propoff : 0;
  }
  
-+static int modify_partial_fdt(libxl__gc *gc, void *pfdt)
+-static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
++static void modify_pfdt_node(void *pfdt, int nodeoff)
 +{
-+    int nodeoff, proplen, i, r;
++    int proplen, i, rc;
 +    const fdt32_t *prop;
 +    fdt32_t *prop_c;
 +
-+    nodeoff = fdt_path_offset(pfdt, "/passthrough");
-+    if (nodeoff < 0)
-+        return nodeoff;
++    prop = fdt_getprop(pfdt, nodeoff, "iommus", &proplen);
++    if ( !prop )
++        return;
 +
-+    for (nodeoff = fdt_first_subnode(pfdt, nodeoff);
-+         nodeoff >= 0;
-+         nodeoff = fdt_next_subnode(pfdt, nodeoff)) {
++    prop_c = xzalloc_bytes(proplen);
 +
-+        prop = fdt_getprop(pfdt, nodeoff, "iommus", &proplen);
-+        if (!prop)
-+            continue;
-+
-+        prop_c = libxl__zalloc(gc, proplen);
-+
-+        for (i = 0; i < proplen / 8; ++i) {
-+            prop_c[i * 2] = cpu_to_fdt32(GUEST_PHANDLE_VSMMUV3);
-+            prop_c[i * 2 + 1] = prop[i * 2 + 1];
-+        }
-+
-+        r = fdt_setprop(pfdt, nodeoff, "iommus", prop_c, proplen);
-+        if (r) {
-+            LOG(ERROR, "Can't set the iommus property in partial FDT");
-+            return r;
-+        }
++    for ( i = 0; i < proplen / 8; ++i )
++    {
++        prop_c[i * 2] = cpu_to_fdt32(GUEST_PHANDLE_VSMMUV3);
++        prop_c[i * 2 + 1] = prop[i * 2 + 1];
 +    }
 +
-+    return 0;
++    rc = fdt_setprop(pfdt, nodeoff, "iommus", prop_c, proplen);
++    if ( rc )
++    {
++        dprintk(XENLOG_ERR, "Can't set the iommus property in partial FDT");
++        return;
++    }
++
++    return;
 +}
 +
- #else
- 
- static int check_partial_fdt(libxl__gc *gc, void *fdt, size_t size)
-@@ -1185,6 +1220,13 @@ static int copy_partial_fdt(libxl__gc *gc, void *fdt, void *pfdt)
-     return -FDT_ERR_INTERNAL;
- }
- 
-+static int modify_partial_fdt(libxl__gc *gc, void *pfdt)
-+{
-+    LOG(ERROR, "partial device tree not supported");
-+
-+    return ERROR_FAIL;
-+}
-+
- #endif /* ENABLE_PARTIAL_DEVICE_TREE */
- 
- #define FDT_MAX_SIZE (1<<20)
-@@ -1307,8 +1349,11 @@ next_resize:
-         if (d_config->num_pcidevs)
-             FDT( make_vpci_node(gc, fdt, ainfo, dom) );
- 
--        if (info->arch_arm.viommu_type == LIBXL_VIOMMU_TYPE_SMMUV3)
-+        if (info->arch_arm.viommu_type == LIBXL_VIOMMU_TYPE_SMMUV3) {
-             FDT( make_vsmmuv3_node(gc, fdt, ainfo, dom) );
-+            if (pfdt)
-+                FDT( modify_partial_fdt(gc, pfdt) );
-+        }
- 
-         iommu_created = false;
-         for (i = 0; i < d_config->num_disks; i++) {
++static int __init scan_pfdt_node(struct kernel_info *kinfo, void *pfdt,
+                                  int nodeoff,
+                                  uint32_t address_cells, uint32_t size_cells,
+                                  bool scan_passthrough_prop)
+@@ -3261,6 +3289,7 @@ static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+     node_next = fdt_first_subnode(pfdt, nodeoff);
+     while ( node_next > 0 )
+     {
++        modify_pfdt_node(pfdt, node_next);
+         scan_pfdt_node(kinfo, pfdt, node_next, address_cells, size_cells,
+                        scan_passthrough_prop);
+         node_next = fdt_next_subnode(pfdt, node_next);
 -- 
 2.25.1
 
