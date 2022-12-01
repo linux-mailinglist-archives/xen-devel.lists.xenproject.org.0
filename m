@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA7163EF51
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 12:20:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450527.707843 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8380063EF53
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 12:21:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450533.707854 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0hc7-0000yF-Lg; Thu, 01 Dec 2022 11:20:23 +0000
+	id 1p0hci-0001XY-V4; Thu, 01 Dec 2022 11:21:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450527.707843; Thu, 01 Dec 2022 11:20:23 +0000
+Received: by outflank-mailman (output) from mailman id 450533.707854; Thu, 01 Dec 2022 11:21:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0hc7-0000uE-IW; Thu, 01 Dec 2022 11:20:23 +0000
-Received: by outflank-mailman (input) for mailman id 450527;
- Thu, 01 Dec 2022 11:20:22 +0000
+	id 1p0hci-0001VW-S7; Thu, 01 Dec 2022 11:21:00 +0000
+Received: by outflank-mailman (input) for mailman id 450533;
+ Thu, 01 Dec 2022 11:20:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Yxuz=37=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1p0ha1-0007Jm-F1
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 11:18:13 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2062f.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::62f])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lVjU=37=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p0hch-0001EY-2c
+ for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 11:20:59 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2062f.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::62f])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d767aa69-7169-11ed-91b6-6bf2151ebd3b;
- Thu, 01 Dec 2022 12:18:12 +0100 (CET)
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by PA4PR08MB6287.eurprd08.prod.outlook.com (2603:10a6:102:ef::20)
+ id 3a51eb28-716a-11ed-91b6-6bf2151ebd3b;
+ Thu, 01 Dec 2022 12:20:58 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by VI1PR04MB6942.eurprd04.prod.outlook.com (2603:10a6:803:136::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Thu, 1 Dec
- 2022 11:18:09 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda%3]) with mapi id 15.20.5880.008; Thu, 1 Dec 2022
- 11:18:08 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.20; Thu, 1 Dec
+ 2022 11:20:54 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5857.023; Thu, 1 Dec 2022
+ 11:20:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,163 +47,156 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d767aa69-7169-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 3a51eb28-716a-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nOGR5c5A3Jd49KM4BIrrrfWhCMW6vWOYVF+UwANqFf92XqRQtTGY5S5nK0KLFPSGpXISpNGSsVrr2qSh5GYGT6BPSuTvK5KWCwEOE54ml53FlSJ/8f98oHboKVxPCExtmd1rPzuYW4+tdNa4dr8+z0s31ziLf9GEP4CXPrmxfs34Yc/S8O2SbGPqb1WtrAZ4BBfYgODU9iNGxoj6TzqiArLfkDMcGbvcH+awFJO6i++LguyUr+fCl2IejcS/hDY1og96oT1NNC7BfAvxjsgi/NLKdRbePeKkwj8bb0W2tg48nFpYDOzhVjFhzwo3HxQr45CYzwKBXKQIhs3ukfxAhA==
+ b=f0XXqcYPfyjK3WKD82dnvrHsJ8MMenr9YAupc6W/k4B8yllycUsAVNDvlhMfXEUapz8ulkJJcQV47Hb9buBrB9DImEFt5gDpM61/hFTZOsI2uzKO4SD5KeM4vr4si7i4YNbJw6nuSidQB++1cs5h7+8eSmJr0f6ErNHcWRYKMk740ftCZcwF6HLh3TaEmBWzGJDMdUSX1b66r44dRZ2MkwrQfTa4ZU12Jfag75Ab8pG+z3Nx7NU4BZMGn9+gTGKW/Go4af+b3KYNZRyiKbXzQ0cuLwv6OckzC5xtx5GUkhRoR985JvPFi4vZQO+F1KIuHvtzzEvaRM3n4F95O7rBqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A4AD/L8jR3RsJl4Pm02+iy8R79Zif1fOuANwHiiO+f8=;
- b=X8EBHQ/MFs6AvOAtSOMbfd/OvgOE0fayJ3WjGurCnksmvXPXh9PRzdgzgir/grYniOL4LzXSUe0PL6/e2JQ1WZK2RNrP96o5MycrQGtV7BrpM/0LXt1K1wm+zkmsfgdWu1BWSTJGtWqkskOexwaGoEQFNcVoe+8YTmXZz/gXQ6Mshs/Oz5HS9aBYQ8rixJpgLaPAxZzwggURTo1IRNO3fZFjN3NPaqKVVshfbG5fg0ToOAqFWHIvdQgclCIAwIHm5iQBi9bwARvoHg2Quqv1eoRQ23+/3jZdZtNllhimEFOrSvFTdib7dqlpsvwWsNDW0ApTcW+lbcHlxJs7ZriPdQ==
+ bh=ZMJjuJi8bJYQBmtK1tEJB0+DrvlHB8ny1vOTO1rWOzE=;
+ b=LnY2MeGxyH4AgaZKLjs8qGz5Uz3brH/x/1UnP+m9rkF1UZvUD672Bt7E0J/VW1556cJkCJDSCSWg+YlFa7l1farGwpdcE2fvZ3Hb9rsV6yYbb22EA0IdhxIUzo9fz9xBPwq8ysKd8Maczpmxm3Gw8RRHTvHv5RSo+iP/z+KzNEld0BtMCzs8SF2xMXdj40A+IYOhzGjWA0BgkcEMfyjjTzXPXxdsJNBREoRSiRAi32WzFJk/KK38lAIpzNt+bCs0o1Cf70Nseow5Civc2YUMpvxBa/SWnsqeIIBJdlgMV4NL8V000EemvFP0ShfkSi8mPcvu63CCAxadbX9XENeztg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A4AD/L8jR3RsJl4Pm02+iy8R79Zif1fOuANwHiiO+f8=;
- b=Q9Hh+w8pttvdj1menmsVyGAoL+OpJHfBQ3Pi0O0digFmXPydeTMv+zRlEDvUtQaCoHajOEBA807Th13ROgRGDLZM8cTqoHv+HV0LsN6dxX4nrmU/5lj6JR96ZlpC87oEoixyiG/69+wm2dvdg2TGwLtZrgkMAxgu+rYbY/uRuUI=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: Stefano Stabellini <sstabellini@kernel.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Julien
- Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+ bh=ZMJjuJi8bJYQBmtK1tEJB0+DrvlHB8ny1vOTO1rWOzE=;
+ b=OcVaZnuQBWExT3dR66IgL7/sn50LbhRLqgp1MrG/mP+qBqzzkP/6t7P5igMz+xVOzDrh4m25A0ILCIlPSOLvS7mcbDEAUpvInSVZ8DPtbVffBR1k7t3XyYWPLMZ3nUElqC4y88RWlLEmjS6KIYPaeRt4AS0IplYPpVL0b+mnHW6hILKKrY7CN1LFCe6tg/dOzM2gHscIp2Usp1HNT9TL5ybTTXno6czJfa77H3gPdfg3xwTpEu9l1m6a/E98O0biaFKV7b0VZWswCxbfKHnaBryS4LzQyfHYZxuJdwCRxYPBUiMobGGeINTcBCjtcFqZGMYZo6vKk7iSmyfctXAjAQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e5aacddc-1149-6a8d-4840-836edb3ad0c0@suse.com>
+Date: Thu, 1 Dec 2022 12:20:50 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
 Subject: Re: [PATCH 2/4] xen/scripts: add cppcheck tool to the xen-analysis.py
  script
-Thread-Topic: [PATCH 2/4] xen/scripts: add cppcheck tool to the
- xen-analysis.py script
-Thread-Index: AQHZAzNLrQ+cdSzeJ02hq/RTLwHjha5WqVKAgAC2sICAAI2ugIAAyymAgAAt7YA=
-Date: Thu, 1 Dec 2022 11:18:08 +0000
-Message-ID: <3FE8EBB1-B565-4257-B966-BD1E97E32451@arm.com>
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Wei Liu <wl@xen.org>
 References: <20221128141006.8719-1-luca.fancellu@arm.com>
  <20221128141006.8719-3-luca.fancellu@arm.com>
  <alpine.DEB.2.22.394.2211291607280.4039@ubuntu-linux-20-04-desktop>
  <CD8C2F1A-B321-4E3D-907C-E6DBB1A5E2CD@arm.com>
  <alpine.DEB.2.22.394.2211301145132.4039@ubuntu-linux-20-04-desktop>
  <471b6470-b0b7-a97d-2114-a1871e237a89@suse.com>
-In-Reply-To: <471b6470-b0b7-a97d-2114-a1871e237a89@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3696.120.41.1.1)
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AM6PR08MB3749:EE_|PA4PR08MB6287:EE_
-x-ms-office365-filtering-correlation-id: ea485b57-593e-44c8-a262-08dad38db970
-nodisclaimer: true
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 09BxsB/ui7/I0ZqRjcOMXOHUWTI4QCSS2iSf8Vj426CCnwVOnv2npPLD1x/zI8rrY2KTZH8X1lX0LlVHfEHQ5+SD52Pc21OlhTAOnoOXbAeS+nidJzZbbQXCPcsopgfcgrSquf+WMptnoQLfjNyzZ+fzfB+URDbQLV8Mb7Rji2KYrNiJF0JF6Mr3tkpCaCR0zwDO7YCV0xOTYPHHOzMTmNiSZgxl77leKQ+3SaBrZ58bROqMSdHzOGSG/8F6Gu2AVhkqSUoXiKTj0AzMaMo6oIwGfSNOjDuIUtn4S/1NohE7RYjYh9Wy3YiS7nprlKWL1jp94iTBV91Nm/wGT9OTbh4eWFvlu/Fmy9M05hcyrAKdtN76l35C5LPkXHrujXypsDSxTSQxtsHXV3uXfSPzCT29739jKK5Ki+gjAgjx2O8CT4T22Ql1iEkBvPUIF0kownf96zscGjca0YlKOVGqAAzeOZ1BJDeI1p6GZrrP7rNAG3qBQMJ2/EdcvLlCrbt/IuWtPgYXXLgIG5yEfTytxgdwfLdsRReRFOMG2jQaVbTEizrQSkHAhHebH6RNO3RlmTSEFRU6K4Mp4tmkDhocktCL2IIgNYUtrZo4CXimW4kgqRW0eHAftHYDUH1+cfmgJeMeiu6Gon2YbEE4lY35lnzpUcx+ylrrJd44MGvgyMrCBsm/NBc2SXrfcZoHIB9gxox1yKjcEfdJQh5exgydiTTC/VM1ro4q7dh6RY4hJu4=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(451199015)(53546011)(5660300002)(6506007)(86362001)(316002)(36756003)(186003)(8936002)(91956017)(76116006)(4326008)(41300700001)(2616005)(66446008)(66946007)(66556008)(8676002)(66476007)(6916009)(54906003)(2906002)(478600001)(6512007)(26005)(33656002)(38100700002)(38070700005)(64756008)(122000001)(71200400001)(6486002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?OfI7jIVYW37mJ1uehcRi7dFXYl792SeeAI4efZWWhmS0b2PI8TgWTL19K/TE?=
- =?us-ascii?Q?yb1oRfMgcR7cthJ5Gzk7TfWzK1xeo5W7JNgwj5rr+X4jX9+v8kw24FfxInI4?=
- =?us-ascii?Q?FDtIiEsjtANSlvrjtBDftoorf/oYo5KZAQu8F4CtPf1JBhCM3bHOW3rOKYfJ?=
- =?us-ascii?Q?EUqYO0Zl0luG1ZwutxZSZUGSbzSzGucEnQVSb9gGfka3JqAPIO/qD0GPin+k?=
- =?us-ascii?Q?OvKQaHS+TICRdpXG+E6FIPi6LygCfn/2I3MpiwapC+o9LOPFOc48V60lQVWR?=
- =?us-ascii?Q?UIH5iV6o33Zs6H7cAEQkbgprUTL+niu3aCjL0ofRLAomZ25qPdGz33scn2in?=
- =?us-ascii?Q?doWhZZKwTIR8qxJUnkljepx/KYKiJQ+dmJPRQfRPNrxzknKzmYUC85csJfNw?=
- =?us-ascii?Q?OMkGcFy2ySgAEe0Wb3dN9Dsh9ilsuMFofP/+eEcJSo9mG67NQ/qLbPmkPtG2?=
- =?us-ascii?Q?4TkRLNBFU9xMG1D7bIzDsZyLb5yS0fMjfcGJ46lU3cYgbxETjn/yJJU8F9dU?=
- =?us-ascii?Q?+SzW8PlT2vXOhI4ewclgVfvGLYmROOry0F5DXNec1YKToNC8a7fXQRfto665?=
- =?us-ascii?Q?o297SOow/KbYpYux0pTZwNnPs3L0lZPn0irx6LXmH+ZPmKuqYcg/G6yae4EZ?=
- =?us-ascii?Q?SyvAp8UP5bbF6O5f0xAaprT8kZNk1nJUYgMbHDMoDMrO8Zn89FOaBO6m6PJC?=
- =?us-ascii?Q?gyuMdfUm5IyGRmKV/paQPCP3UFae3iVZlDctkHV6DYXHHu/AidGRvS6iiJbh?=
- =?us-ascii?Q?VH/FW4g+fcRgt/ozGs1PRjqZx+K7nBEIDDPdCxEHSVJv/8COQMWohHuSm32y?=
- =?us-ascii?Q?1E0PBcaRwKWSxIZD2ErUyxtxcCNNMT63kYBHQJa3M2JlxFnLabH4PpJevbM4?=
- =?us-ascii?Q?11RG8Ljro53xDWZFzqPe3ZW2v9UaUZTQGd3EANihxyTvKJMeaclMOqz0hWXT?=
- =?us-ascii?Q?PAm6yKC7DSc9OP8NX3FwJTeTstKAdWjI2XLNz/kkTP/FqLe8aGByGSsFMRxT?=
- =?us-ascii?Q?XJWBOp/dRuKiSgwMy0J3+R0tyX3qF4m/AnwCpPmKa1n8LL+hTnUYsByWwW0P?=
- =?us-ascii?Q?KRpRuD6DfjHYv+uB1zXZcZFJkCqxFn9IuNl6W5YR4StYvwB+TfWlD0PC8DaQ?=
- =?us-ascii?Q?9Ut1nMCrNOtE2V/3QbmCWzjK65E4MHCUGhhZz7Ck6S15T0s3mjSQZ5Ixi3d9?=
- =?us-ascii?Q?U4I2E7vBq7cOsaZS92DdOMPgCyWiQxRJXEP/tdPzZHSmrqevSYMNpPjydg9I?=
- =?us-ascii?Q?I+PFBd1NQHYalujh7hLfiUhooT+wWK/9SdXo9KkQGZjxqOj/jI28GyMwHMfb?=
- =?us-ascii?Q?bZRqjeeNah5savDhIq7dSDn3EfaaKJvxCOtKDkyxnQLkSGK5OkXCf3a0vy+N?=
- =?us-ascii?Q?lRp4msq4wXLV7FaM4fPrS9X8YJCfnpARa5pvulfjHeRXDBlUYmLveV3LqJK0?=
- =?us-ascii?Q?dXIrtp2aVmR+nQ++vyOI+T2hvarsUxwkXcC3lLK9R9WlraMlh3aF9IfLP0x+?=
- =?us-ascii?Q?s6GLvfXexT3IVW3fmSe1UtCDuEchkLn5OmsKrTNuhUgv52yv4F7wSIv4iRka?=
- =?us-ascii?Q?EN3h1r91epzd3ce7d5JwNGDVr2fxkJtmwn5QzDzgfZxBxDwN8itaCceXHqTZ?=
- =?us-ascii?Q?Jw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <5AF8BDC5AB0B834FB7821208A4876C2F@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+ <3FE8EBB1-B565-4257-B966-BD1E97E32451@arm.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <3FE8EBB1-B565-4257-B966-BD1E97E32451@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0102.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|VI1PR04MB6942:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58391638-b900-46a4-bdf9-08dad38e1b2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	oJ1aW6ymSTVrnsXWP3A0SO849K7KQJHtC0ZIE3lT7+P1ZIBaV1ZhrnK9VRB76T9ls36Y5GFnDk+3Q8cptGRoR6rBXCbN18YO1CCnfYZ6FvE7mN/Zyy50S5tK7F41+WRBRQd5j7zOZ+CF3pdStKvaX4Jok3bO6ZVbAwkS1LDXveare3DqBqP1uvJIYbDs3oOJTTJ6iz4X4jE/eN142B/lEky+3ql/3EREMJ6JLDT3xZDTbf2EeOan41uql3JCUJ0emdU7G+2PkU/PRCOU2P+Gb+EuBTXl08R38MIWbPObEnddj60j4PcwOaNTtRYzrLeZwG6Z2P+sNax3ekqkM20/Ze/UUuPlnSC8Wb4D+JlswnLyyaVTqHT2UbHXR5+5UaNVqOKrXDksOSUz0bQK028AuAF1QGoLQVZUZ0kl0jMxSZNskjSrzsxS8x6oLj8TziuTiOT5MWDxcIlDMK3ItVCJYryPnopSDYk7LRYTfLUIYxN8J5et+U1OzunXMxttWTfA+hlOMKouJ7Ol3J554JMljGzmpUNkcj8Fg1Zh6Ydpr2Mv7R0Z5Mgh4FjIoUL9NlcphZTP8hWyD22HAvy/H/dRtHvDbsLr1DnbyoecIX1RYjN5qNxtMnqDUhJZ9dGIyx+yXSVrZKGkhHGWg5AZV+3/p1YIvNEmrbNbPxNU2aejBZeJ90EWoKHioG36LK/OnH36BP7RECYZYalOg+fvWZzWmBTIXMGYASRi6/h0cFzCqQ0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(396003)(366004)(346002)(136003)(376002)(451199015)(26005)(5660300002)(6512007)(36756003)(53546011)(54906003)(86362001)(6916009)(6506007)(316002)(38100700002)(4326008)(2906002)(66476007)(31696002)(8676002)(8936002)(66946007)(66556008)(2616005)(41300700001)(186003)(6486002)(31686004)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZVZ3bUh0ckJRWkFDZFhXZFE1RHBuQzhyc1B5cGxmVkQyT1czM0ZEeEFJbm1D?=
+ =?utf-8?B?ajlBdDJxSzI5SFNvajZNQTh6M1laTHJyU201NGkxODkydUJEQ2lRVFFvdy85?=
+ =?utf-8?B?czEwMVhKOVZFL1ZIdnZMekNGVXorZGlMckxrM0Ztb0wxRjFYaUd1MGxEOEpk?=
+ =?utf-8?B?VmJuUU95MjBmd05mdEtuSnp1VG5vM2IxWUJxS2w1UFZ5eHRhUTZDVXRrT3lM?=
+ =?utf-8?B?K1hnY3BFckRNdnllMlpONmsyRFoxazI2TUo4QS9KUG9HR3JjcGMxMzRZODJF?=
+ =?utf-8?B?eTRRVEpKcnhjWFhIUEp6SWphbXlzWkxqa3FzWmY1UFVtYkRlTm4vU1Zvb0t5?=
+ =?utf-8?B?Z3FvalFzbG04c01PNDB2TTMweVd0K0dYSlJodFNBWXdpc0REV2N6Y29MK29B?=
+ =?utf-8?B?bGhrRmVYVkQ4ekpMS294NmlKKzRodWpyQy9hcjE3ZmJLTU9XVHRzT1M2bXM4?=
+ =?utf-8?B?UmE5RHNYUTU0MVZXZ2pSa1JjUkV5NmQ0SlBCYzlnaTI1TmtBWFZzSmtPZDQv?=
+ =?utf-8?B?M1djR0ljTXAxcGlmdUFLQ0hWd2VVYjlrOEo1L252MDZHS1dMM3B3OUhkcWJU?=
+ =?utf-8?B?cHEyRE95dlhQVXNPREhYeHNWM2MxV2FtWDNZUkNFRW84R3BZVkVIbzVMcWdw?=
+ =?utf-8?B?eHR3VjJWdWFZblNOVWRjVXZSdytHQWY3aEtxVDNvZEFId0JrbFFzTlAzWWty?=
+ =?utf-8?B?cmtnRTVRZk9haEkrbDNuQlhBMnRSc2VBRjBjaFFvVkIybXVlNitSYU9EUzdX?=
+ =?utf-8?B?YzBYYmY1WjlkZGxDakpsckF5T1FzYVlIZUl5am5lcU92Vm1yQytJOVh0eUxG?=
+ =?utf-8?B?Tk9xd2ZVd1hyaSs2THY2YUkvK1IwZFNZcmN4SG02c0RNSG14b0tJRmxxSEFW?=
+ =?utf-8?B?WFp0KzU5SHRDMHpxZXZnUzNLQWNBZXhscmpldzZ4Wml0ZFEzUTZUSkdKMnZk?=
+ =?utf-8?B?c2dQSklUK2gzUlBFUU9NdzhHRVRIYjhOSUJCRi9UMWt0a1piVG42Z1I3TUp4?=
+ =?utf-8?B?d2c2QUsrVzNrSnJLVmVKMVJpZjhkczVZS3ZKUWQrMGVQSjRadG1rR0RWWHJ1?=
+ =?utf-8?B?L2ptSkU2Wk5Bd2NkVGRXMDJ6cnpOSGhtQW50V0Y4UjZQcEFud0ljQmhaU1Nv?=
+ =?utf-8?B?dCtCUWM2cXJjNVVqUk9Td2UySC9ReGE4cXFpK1E2cThGNVBZU2IxaHhLY29i?=
+ =?utf-8?B?b3ZjQU1YNUtWa3o4dXhLZ1VqODdXSUpleElQQW04Z0NhU2pqeTQ5Q1VlNkdo?=
+ =?utf-8?B?Q1FQVjh1WkhvRExsM3U3QlJGM1A1Vk9GTndGZTVsbFFoaXR0b2RUSER0UjNY?=
+ =?utf-8?B?MnNzcFhYQUV5UVdBSm9VM2txandJQWxzOFpya3U3dm5OSEhSWC9OOVNqVUlu?=
+ =?utf-8?B?ZTNKeHFHdUsxWWFNUms3bCtTRmZMTWVlRFhLbFpEU2FRdlQ2QlJLYUl3YUk3?=
+ =?utf-8?B?VUh0MWlKRnZEeHBGdDJNKzVTbWlJay8yL1J0MHdpcGlZOGluY2dyV3hzS3No?=
+ =?utf-8?B?SnhnempoaTZ3UW1BYjIwQ0ZyU3Uvcm9VWFBVbStHejNWMEZyWlFoVURGQ2kr?=
+ =?utf-8?B?ckhleWdmK05pRCtHOFEyTithWitKWHl0OStuMEVFRlhNWlRGZ05pSGgxcGl4?=
+ =?utf-8?B?WXliUDh6Vm9MRDhnNHNXSnB5V1VJOGp5UjR5dTBWV01oSjVKeFpvSXcwYklx?=
+ =?utf-8?B?ejdjRTdzSmo5eVk4OHNKbWwraGtzN0dCVTVCYlBJNWpYSXJNUVVzYTRkNHFo?=
+ =?utf-8?B?bmF1V1J1emhEbUNjRFBjZnpDcWFLcFhRMHVyalNyRFQvQTM1UHZKT05BQW4w?=
+ =?utf-8?B?QWhqQWRRbUtnbm5YVEcyQ2JJRHI2RjBaNXRweGRVZDZ2VTRmL3VuTlR1cDBq?=
+ =?utf-8?B?MDFwaGUwcnEyUXBMbTBYSkVaMlJRVVpZOXFwOVVvNHgxUDI0NlZQSWpXMkNQ?=
+ =?utf-8?B?Y1F0MDlJaUN4UjgwV1VxejdGNUcydkF4M0k0ZEVPUTBicnZicmhUMmo0VzZr?=
+ =?utf-8?B?RUdxeEh2c1ZmUEp3UHZ2dGpac2N3UUwyNUNvcFR2MkJCeWZpcVk5OWxqTnhl?=
+ =?utf-8?B?emJ3WnNZbCtpSUVldXcxdFlwWjcreUlQdEU1bWdPemlMQk54MWRoQWRGL1Jj?=
+ =?utf-8?Q?XVKCtMuYuFlll2Jj2bjjcwScJ?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58391638-b900-46a4-bdf9-08dad38e1b2e
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AM6PR08MB3749.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea485b57-593e-44c8-a262-08dad38db970
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Dec 2022 11:18:08.0737
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Dec 2022 11:20:52.2773
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2SHD4JYKVvCOMuMGoMxm2G1B+I+fehJtCVY8Jl8E3C7pMtzu3xVhbbVWPQRwC/M9HZLnSu2DHfiD1brNIyoZvQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB6287
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EMjJfXm3MsFF34fZRSQ0KgEiPicuMqlBNJcdbnRL8cJTCel4qNQW2zRz2YkCoWbCC5M/m4HGnUocs0OhJBoN1w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6942
 
+On 01.12.2022 12:18, Luca Fancellu wrote:
+>> On 1 Dec 2022, at 08:33, Jan Beulich <jbeulich@suse.com> wrote:
+>> On 30.11.2022 21:26, Stefano Stabellini wrote:
+>>> On Wed, 30 Nov 2022, Luca Fancellu wrote:
+>>>>> I think the revert of the cppcheck integration in xen/Makefile and
+>>>>> xen/tools/merge_cppcheck_reports.py could be a separate patch. There is
+>>>>> no need to make sure cppcheck support in the xen Makefile is
+>>>>> "bisectable". That patch could have my acked-by already.
+>>>>
+>>>> Ok I will split these changes in a following patch
+>>>>
+>>>>>
+>>>>> Also the document changes introduced in this patch have my reviewed-by:
+>>>>> - docs/misra/cppcheck.txt
+>>>>> - docs/misra/documenting-violations.rst
+>>>>> - docs/misra/false-positive-cppcheck.json
+>>>>> - docs/misra/xen-static-analysis.rst
+>>>>
+>>>> Thank you, should I put those files in a separate patch with your rev-by before
+>>>> this patch or this is just a comment for you to remember which file you already
+>>>> reviewed?
+>>>
+>>> If Jan and the other reviewers are OK, I think you could split them out
+>>> in a separate patch and add my reviewed-by. If Jan prefers to keep it
+>>> all together in one patch, then I wrote it down so that I remember what
+>>> I have already acked :-)
+>>
+>> Docs changes being split off and going in first is okay as long as what
+>> is being documented is present behavior. If other changes are needed to
+>> make (parts of) new documentation actually correct, then it should imo
+>> go together. If new documentation describes future behavior (e.g.
+>> design docs), then of course it's fine as well to go in early, as then
+>> there simply is no code anywhere which this would (temporarily) not
+>> describe correctly.
+> 
+> Yeah I thought so, I would prefer to keep these files here otherwise I would need to
+> change them somehow and I would lose the r-by anyway.
+> 
+> Regarding the revert of cppcheck from makefile and xen/tools/merge_cppcheck_reports.py,
+> are you ok if I send a patch with only those changes? Would it be ok for you if the new patch
+> is after this one?
 
+I don't mind you doing so, but I guess the question is mainly to people
+actually / possibly making use of those make goals.
 
-> On 1 Dec 2022, at 08:33, Jan Beulich <jbeulich@suse.com> wrote:
->=20
-> On 30.11.2022 21:26, Stefano Stabellini wrote:
->> On Wed, 30 Nov 2022, Luca Fancellu wrote:
->>>> I think the revert of the cppcheck integration in xen/Makefile and
->>>> xen/tools/merge_cppcheck_reports.py could be a separate patch. There i=
-s
->>>> no need to make sure cppcheck support in the xen Makefile is
->>>> "bisectable". That patch could have my acked-by already.
->>>=20
->>> Ok I will split these changes in a following patch
->>>=20
->>>>=20
->>>> Also the document changes introduced in this patch have my reviewed-by=
-:
->>>> - docs/misra/cppcheck.txt
->>>> - docs/misra/documenting-violations.rst
->>>> - docs/misra/false-positive-cppcheck.json
->>>> - docs/misra/xen-static-analysis.rst
->>>=20
->>> Thank you, should I put those files in a separate patch with your rev-b=
-y before
->>> this patch or this is just a comment for you to remember which file you=
- already
->>> reviewed?
->>=20
->> If Jan and the other reviewers are OK, I think you could split them out
->> in a separate patch and add my reviewed-by. If Jan prefers to keep it
->> all together in one patch, then I wrote it down so that I remember what
->> I have already acked :-)
->=20
-> Docs changes being split off and going in first is okay as long as what
-> is being documented is present behavior. If other changes are needed to
-> make (parts of) new documentation actually correct, then it should imo
-> go together. If new documentation describes future behavior (e.g.
-> design docs), then of course it's fine as well to go in early, as then
-> there simply is no code anywhere which this would (temporarily) not
-> describe correctly.
-
-Yeah I thought so, I would prefer to keep these files here otherwise I woul=
-d need to
-change them somehow and I would lose the r-by anyway.
-
-Regarding the revert of cppcheck from makefile and xen/tools/merge_cppcheck=
-_reports.py,
-are you ok if I send a patch with only those changes? Would it be ok for yo=
-u if the new patch
-is after this one?
-
-Just asking to prevent back and forth.
-
-Thank you
-
->=20
-> Jan
-
+Jan
 
