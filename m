@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F15663EC8C
-	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 10:32:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.450411.707656 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B476A63ECB0
+	for <lists+xen-devel@lfdr.de>; Thu,  1 Dec 2022 10:42:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.450417.707667 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0ful-0002ib-Id; Thu, 01 Dec 2022 09:31:31 +0000
+	id 1p0g4j-0004UR-GE; Thu, 01 Dec 2022 09:41:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 450411.707656; Thu, 01 Dec 2022 09:31:31 +0000
+Received: by outflank-mailman (output) from mailman id 450417.707667; Thu, 01 Dec 2022 09:41:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p0ful-0002ft-FD; Thu, 01 Dec 2022 09:31:31 +0000
-Received: by outflank-mailman (input) for mailman id 450411;
- Thu, 01 Dec 2022 09:31:30 +0000
+	id 1p0g4j-0004RP-DC; Thu, 01 Dec 2022 09:41:49 +0000
+Received: by outflank-mailman (input) for mailman id 450417;
+ Thu, 01 Dec 2022 09:41:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p0fuk-0002fn-4a
- for xen-devel@lists.xenproject.org; Thu, 01 Dec 2022 09:31:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p0g4h-0004RF-Oy; Thu, 01 Dec 2022 09:41:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p0fuj-0004ET-MU; Thu, 01 Dec 2022 09:31:29 +0000
-Received: from 54-240-197-225.amazon.com ([54.240.197.225]
- helo=[192.168.7.195]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p0fuj-0005c6-Ff; Thu, 01 Dec 2022 09:31:29 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p0g4h-0004YJ-ML; Thu, 01 Dec 2022 09:41:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p0g4h-0005NU-6a; Thu, 01 Dec 2022 09:41:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p0g4h-0003gw-68; Thu, 01 Dec 2022 09:41:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,114 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=mom8idnSv3TLsdNj6UdbDt2M/DoXfrR3rpLupqJeVV0=; b=t+Qbum3+Ci13EPZ4rvWG32ncwL
-	DfxhovQOOr+HOO/l/IvPqmJzL28rxErPoEoFEumvs6YmmJUCekAwNB0zCzCaFOnMz64xKB5R1HkMT
-	EcNxN9TuH+CCZPhEnEDtUpm7aCw9r5b0qWVbCQvCYzFw1LJGn9XCzK0D4aESUHm3kHyo=;
-Message-ID: <c3af2730-d503-e139-644a-480a506c94d1@xen.org>
-Date: Thu, 1 Dec 2022 09:31:26 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: [PATCH v1 5/5] CODING_STYLE: add .clang-format
-Content-Language: en-US
-To: Edwin Torok <edvin.torok@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>, David Scott
- <dave@recoil.org>, Wei Liu <wl@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
- <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Juergen Gross <jgross@suse.com>
-References: <cover.1669829264.git.edvin.torok@citrix.com>
- <bf4013cdb5f3e66693551b5e45b3f975b5a48795.1669829264.git.edvin.torok@citrix.com>
- <7e6b8e69-70d2-8178-205d-8c20b993162d@xen.org>
- <7DF6F06F-A65A-4F1F-8FDA-BF0E8977F99B@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <7DF6F06F-A65A-4F1F-8FDA-BF0E8977F99B@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=LFfdX/OhBZdske5gJUspRU5xMbiz5utd72xllQYJmSo=; b=nYPmVLDSJHovGtCtajn7H1DzjO
+	fRnD3eLRkxG8M4qsR4TrnTM/d3ReTt2k2aIWQarLZipXTcGfa1QOjCp2Zt7Ie4knpJ5Rjkuk8XK/N
+	NS4+j3bvSNdLos4NvVqLSuVSnkSSm0S+Au+9aZGByUkpCKoldD1W5fMU0oo9hj1mAUiY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175000-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 175000: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:build-arm64-pvops:kernel-build:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=ef4d3ea40565a781c25847e9cb96c1bd9f462bc6
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 01 Dec 2022 09:41:47 +0000
 
-(+ A few people)
+flight 175000 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175000/
 
-On 01/12/2022 09:21, Edwin Torok wrote:
-> 
-> 
->> On 1 Dec 2022, at 09:11, Julien Grall <julien@xen.org> wrote:
->>
->> Hi Edwin,
->>
->> The title should have "OCaml" to clarify that .clang-format is not added at the root level.
->>
-> 
-> Sure, I'll update that when I resend.
-> 
->> On 30/11/2022 17:32, Edwin Török wrote:
->>> Add a .clang-format configuration that tries to match CODING_STYLE where
->>> possible.
->>> I was not able to express the special casing of braces after 'do'
->>> though, this can only be controlled generally for all control
->>> statements.
->>> It is imperfect, but should be better than the existing bindings, which
->>> do not follow Xen coding style.
->>
->> Right, from previous discussion, I was under the impression that it requires some work to write a clang-format file for Xen.
->>
->> I am hopeful that some day we will have a proper one. In fact, we have been discussing about this as part of MISRA (+ Stefano).
->>
->>> Add this to tools/ocaml first because:
->>> * there are relatively few C files here, and it is a good place to start with
->>> * it'd be useful to make these follow Xen's CODING_STYLE
->>> (which they currently do not because they use tabs for example)
->>> * they change relatively infrequently, so shouldn't cause issues with
->>>    backporting security fixes (could either backport the reindentation
->>>    patch too, or use git cherry-pick with `-Xignore-space-change`)
->>> Once this is used it'll need inserting some '#include <stdint.h>', otherwise xs_wire.h
->>> fails to compile due to the missing uint32_t define.
->>
->> At first I was a bit concerned with this paragraph because a coding style should not impact compilation. But I guess that's because the format will convert u32 to uint32_t. Is that correct?
->>
->> If so, I would expand the paragraph to explicit say that, per the coding styel, u32 will be converted to uint32_t.
-> 
-> 
-> clang-format rearranges the order of '#include' in C files, it shouldn't convert types.
-> But rearranging (sorting) includes can sometimes reveal bugs where the code only happened to compile because the includes were done in a certain order
-> (e.g. we included something that included stdint.h, therefore the next include line worked, but if you swap the include order that no longer works), i.e.:
-> 
-> #include "c.h"
-> #include "b.h"
-> 
-> vs
-> 
-> /* post formatting */
-> #include "b.h"
-> #include "c.h"
-> 
-> Where c.h includes a.h, and b.h depends on declarations from a.h, then prior to reformat the code compiles, and afterwards it doesn't.
-Thanks for the detailed information, I think some of it needs to be 
-summarized in the commmit message.
+Regressions :-(
 
-> 
-> Which can be fixed by adding this to the C file (and then regardless of include order of the other 2 it compiles):
-> #include <a.h>
-This would not work if the file were called "d.h" rather than "a.h" 
-because the clang format would re-order it. So...
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ build-arm64-pvops             6 kernel-build             fail REGR. vs. 173462
 
-> 
-> Or by fixing b.h to include a.h itself it it depends on it.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-... this is the proper way to fix it.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-> 
-> Perhaps this'd better be fixed in xs_wire.h itself to include all its dependencies, but that is a publicly installed header, and there might be a reason why it doesn't include stdint.h.
+version targeted for testing:
+ linux                ef4d3ea40565a781c25847e9cb96c1bd9f462bc6
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-I am not aware of any restrictions and at least one public headers 
-already include <stdint.h>. I am CCed a few more people to get an opinion.
+Last test of basis   173462  2022-10-07 18:41:45 Z   54 days
+Failing since        173470  2022-10-08 06:21:34 Z   54 days  105 attempts
+Testing same since   174998  2022-11-30 19:12:42 Z    0 days    2 attempts
 
-Cheers,
+------------------------------------------------------------
+1925 people touched revisions under test,
+not listing them all
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            fail    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     blocked 
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 184191 lines long.)
 
