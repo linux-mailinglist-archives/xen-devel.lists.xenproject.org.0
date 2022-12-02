@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2C336403CE
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 10:54:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451758.709528 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36A026404DA
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 11:40:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451781.709550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p12jt-0001Jn-DO; Fri, 02 Dec 2022 09:53:49 +0000
+	id 1p13RC-0000JN-3H; Fri, 02 Dec 2022 10:38:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451758.709528; Fri, 02 Dec 2022 09:53:49 +0000
+Received: by outflank-mailman (output) from mailman id 451781.709550; Fri, 02 Dec 2022 10:38:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p12jt-0001HJ-AA; Fri, 02 Dec 2022 09:53:49 +0000
-Received: by outflank-mailman (input) for mailman id 451758;
- Fri, 02 Dec 2022 09:53:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1p13RB-0000HI-VT; Fri, 02 Dec 2022 10:38:33 +0000
+Received: by outflank-mailman (input) for mailman id 451781;
+ Fri, 02 Dec 2022 10:38:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p12jr-0001HD-RT
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 09:53:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p12jo-0006W1-3G; Fri, 02 Dec 2022 09:53:44 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p12jn-0001QU-T0; Fri, 02 Dec 2022 09:53:44 +0000
+ (envelope-from <SRS0=6g/C=4A=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1p13RA-0000HC-Nf
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 10:38:33 +0000
+Received: from mail-wr1-x42e.google.com (mail-wr1-x42e.google.com
+ [2a00:1450:4864:20::42e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 721bff61-722d-11ed-8fd2-01056ac49cbb;
+ Fri, 02 Dec 2022 11:38:23 +0100 (CET)
+Received: by mail-wr1-x42e.google.com with SMTP id bx10so7229261wrb.0
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Dec 2022 02:38:30 -0800 (PST)
+Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
+ h17-20020a05600c315100b003cfd64b6be1sm16259832wmo.27.2022.12.02.02.38.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 02 Dec 2022 02:38:28 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,119 +43,126 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1N+kd9SOJWC8ZGNBOYwaGBvTv+xiwpis+8gpeicTk+4=; b=uVS8/8gD6r3mZ0stGA9b5DZnD/
-	z7U4mIbPp3MFjsrLDVYJDRTSCbjqpUNIvPafEgMfGMsOcKXB4oCJR8DuHz6DOeeIPdz1sPFM5s2Xv
-	pJZWmOTefC7EnlQbisWRMtnFITiv1aStN43TSdt6FYXdNsjxk2+3OSMPIoJWAzWFbX78=;
-Message-ID: <a534bc75-7877-cf02-6493-777dc064e42b@xen.org>
-Date: Fri, 2 Dec 2022 09:53:41 +0000
+X-Inumbo-ID: 721bff61-722d-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=RY4sGq6ms1+IlvCLmkZ3BI4/p6p+Ce/MbN+cfQweZ90=;
+        b=pS7z7pezHrvyn5/JviuMr0kL2oOS52dkR+Wrc7O5IcpqzPyPUZ2MyuDNHDkTE1xMyh
+         U9rS6SXngowOBNAzwyiOVfb0b0r6ZVAVCv74c4Bq9jH6JUlo2hB0t4FCfWlUZFrrvFZT
+         NkEP/anpN433kaXL1xyZFdXDHJkFzjg53GGumb+otB1QDYZyElWDUap0eBzbhlVeIxEq
+         1Wj539iyBkBRTaocfqYX9g3UJTbz1eOyco+2/lFxyUPLZzEuLwE0DFbxnaPjiiRNKKZ2
+         bU0KG9fbwldlHieMr2TzRqiD1dODRuryW04UoaC56HuGGGkSyyLC8saWcBOjrKsqzMu7
+         ddUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:references:cc:to:from
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=RY4sGq6ms1+IlvCLmkZ3BI4/p6p+Ce/MbN+cfQweZ90=;
+        b=HzlwP5M9Vd5HI2EakuYLIQ0QVI4mn3vH1y2Vij3iDogZzrlqH+YjwKPK8LeXIkjDTd
+         PZlf+xfSYd4i/77Gn6M09IlYiFUqW/26huicYvcebDN3lS55d/1+7h0tsc2ETt51VL2r
+         8zYSqvbIb/9js5wcoABx1hIgnYKY8ZUPFUIVp3+q0rn1TnIV2c3Tsr5jJy6U/7Ld+v5i
+         Ct21xFVZ7i9Gv1+FTXvqMqR7EPic1SQXFgaSAgqqM3mNFrzsIwbtQ/YA7DJqEdskUf+1
+         Y5zaz3I6QkDfZxN1cJpWP94/TfMwD0fcm7+b0pmnnPz2Jbp/wo4TlvsN2P5H4w7mTyix
+         MzPg==
+X-Gm-Message-State: ANoB5pkQDl6eeVf3z2361YmJWEsw87Hnr4hr/fW/ftRb9a7zNt4GtT7T
+	1/5DlQL7OoM6uPLAzvVjljj0ig==
+X-Google-Smtp-Source: AA0mqf7eWXPIAFKiqlfqPTpidg+6qjtk2JWxrrXDDZf2ZR7bVc3fGCL1p2h2E5ovVnhsiqZXZ1QPOw==
+X-Received: by 2002:adf:fb4c:0:b0:236:5270:735e with SMTP id c12-20020adffb4c000000b002365270735emr32213783wrs.659.1669977509372;
+        Fri, 02 Dec 2022 02:38:29 -0800 (PST)
+Message-ID: <4b143736-d5a4-ac75-3671-9566a00707af@linaro.org>
+Date: Fri, 2 Dec 2022 11:38:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.0
-Subject: Re: [PATCH v1 10/12] hw/arm: introduce xenpv machine
+Subject: Re: [QEMU][PATCH v2 05/11] include/hw/xen/xen_common: return error
+ from xen_create_ioreq_server
 Content-Language: en-US
-To: "Garhwal, Vikram" <vikram.garhwal@amd.com>,
- "qemu-devel@nongnu.org" <qemu-devel@nongnu.org>
-Cc: "Stabellini, Stefano" <stefano.stabellini@amd.com>,
- Peter Maydell <peter.maydell@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-dev@xilinx.com,
+ Paolo Bonzini <pbonzini@redhat.com>
+Cc: stefano.stabellini@amd.com, alex.bennee@linaro.org,
+ xen-devel@lists.xenproject.org, Stefano Stabellini <sstabellini@kernel.org>,
  Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>,
- "open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>
-References: <20221015050750.4185-1-vikram.garhwal@amd.com>
- <20221015050750.4185-11-vikram.garhwal@amd.com>
- <3e504b1b-197d-b77b-16e1-86530eb3d64c@xen.org>
- <MW3PR12MB44096CC3AD5CD01D6043B0E79F159@MW3PR12MB4409.namprd12.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <MW3PR12MB44096CC3AD5CD01D6043B0E79F159@MW3PR12MB4409.namprd12.prod.outlook.com>
+ "open list:All patches CC here" <qemu-devel@nongnu.org>,
+ =?UTF-8?Q?Daniel_P=2e_Berrang=c3=a9?= <berrange@redhat.com>,
+ Thomas Huth <thuth@redhat.com>
+References: <20221202030003.11441-1-vikram.garhwal@amd.com>
+ <20221202030003.11441-6-vikram.garhwal@amd.com>
+ <a45c902a-043d-5256-7961-40c8aabd89b4@linaro.org>
+In-Reply-To: <a45c902a-043d-5256-7961-40c8aabd89b4@linaro.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-
-
-On 02/12/2022 03:24, Garhwal, Vikram wrote:
-> Hi Julien,
-
-Hi Vikram,
-
-I am having trouble to differentiate your answers from my remark. For 
-instance...
-
-
-> From: Julien Grall <julien@xen.org>
-> Date: Sunday, October 16, 2022 at 10:48 AM
-> To: Garhwal, Vikram <vikram.garhwal@amd.com>, qemu-devel@nongnu.org <qemu-devel@nongnu.org>
-> Cc: Stabellini, Stefano <stefano.stabellini@amd.com>, Peter Maydell <peter.maydell@linaro.org>, Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, open list:ARM TCG CPUs <qemu-arm@nongnu.org>, open list:X86 Xen CPUs <xen-devel@lists.xenproject.org>
-> Subject: Re: [PATCH v1 10/12] hw/arm: introduce xenpv machine
-> Hi,
+On 2/12/22 08:19, Philippe Mathieu-Daudé wrote:
+> Hi Stefano and Vikram,
 > 
-> There seem to be some missing patches on xen-devel (including the cover
-> letter). Is that expected?
-> Not sure what went wrong there. I can see all of these on QEMU-devel. Perhaps xen-devel is not in maintainer’s list for all the xen files?
-> 
-> 
-> On 15/10/2022 06:07, Vikram Garhwal wrote:
->> Add a new machine xenpv which creates a IOREQ server to register/connect with
->> Xen Hypervisor.
-> 
-> I don't like the name 'xenpv' because it doesn't convey the fact that
-> some of the HW may be emulated rather than para-virtualized. In fact one
-> may only want to use for emulating devices.
-> 
-> Potential name would be 'xen-arm' or re-using 'virt' but with
-> 'accel=xen' to select a Xen layout.
-> 
+> On 2/12/22 03:59, Vikram Garhwal wrote:
+>> From: Stefano Stabellini <stefano.stabellini@amd.com>
 >>
->> Xen IOREQ connection expect the TARGET_PAGE_SIZE to 4096, and the xenpv machine
->> on ARM will have no CPU definitions. We need to define TARGET_PAGE_SIZE
->> appropriately ourselves.
+>> This is done to prepare for enabling xenpv support for ARM architecture.
+>> On ARM it is possible to have a functioning xenpv machine with only the
+>> PV backends and no IOREQ server. If the IOREQ server creation fails,
+>> continue to the PV backends initialization.
 >>
->> Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device, adds a
->> TPM emulator and connects to swtpm running on host machine via chardev socket
->> and support TPM functionalities for a guest domain.
+>> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+>> ---
+>>   include/hw/xen/xen_common.h | 13 ++++++++-----
+>>   1 file changed, 8 insertions(+), 5 deletions(-)
 >>
->> Extra command line for aarch64 xenpv QEMU to connect to swtpm:
->>       -chardev socket,id=chrtpm,path=/tmp/myvtpm2/swtpm-sock \
->>       -tpmdev emulator,id=tpm0,chardev=chrtpm \
->>
->> swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpms and
->> provides access to TPM functionality over socket, chardev and CUSE interface.
->> Github repo: https://github.com/stefanberger/swtpm
->> Example for starting swtpm on host machine:
->>       mkdir /tmp/vtpm2
->>       swtpm socket --tpmstate dir=/tmp/vtpm2 \
->>       --ctrl type=unixio,path=/tmp/vtpm2/swtpm-sock &
+>> diff --git a/include/hw/xen/xen_common.h b/include/hw/xen/xen_common.h
+>> index 77ce17d8a4..6510ac15e0 100644
+>> --- a/include/hw/xen/xen_common.h
+>> +++ b/include/hw/xen/xen_common.h
+>> @@ -467,9 +467,10 @@ static inline void xen_unmap_pcidev(domid_t dom,
+>>   {
+>>   }
+>> -static inline void xen_create_ioreq_server(domid_t dom,
+>> -                                           ioservid_t *ioservid)
 > 
-> I see patches for QEMU but not Xen. How can this be tested with existing
-> Xen? Will libxl ever create QEMU?
-> Will send the patch for libxl Xen separately.
-
-... the first two lines are my remarks and the 3rd is your answer. Can 
-you configure your e-mail client to do proper quoting?
-
-[...]
-
->> +    dev = qdev_new(TYPE_TPM_TIS_SYSBUS);
->> +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
->> +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
->> +    busdev = SYS_BUS_DEVICE(dev);
->> +    sysbus_realize_and_unref(busdev, &error_fatal);
->> +    sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
+> How long are we supposed to maintain this code? Per [*]:
 > 
-> I can't find where GUEST_TPM_BASE is defined. But then the guest memory
-> layout is not expected to be stable. With your current approach, it
-> means QEMU would need to be rebuilt for every Xen version. Is it what we
-> want?
-> I cannot think of better way to do this. Either we add the the def here or rebuild it if GUEST_TPM_BASE changes for each xen version.
+>    In general XenProject.org supports stable branches for 18 months full
+>    support plus 18 months security fixes. When a new X.Y.0 release is
+>    made there is usually one more release on the to-be-retired stable
+>    branch to mop up any loose patches sitting in the repository at which
+>    point the branch is retired.
+> 
+> 4.17 was just released. 4.5 was 7 years ago. IIUC EOL'ed 4 years ago.
+> 
+> [*] 
+> https://wiki.xenproject.org/wiki/Xen_Project_Maintenance_Releases#Stable_Maintenance_Branches
 
-The alternative would be to specify the address on the QEMU command 
-line. The advantage is you could build a system where each guests have 
-different layout.
++Paolo for commit 14efd8d3b5 ("meson, configure: move Xen detection to 
+meson"):
 
-Cheers,
+     xen_libs = {
+       '4.11.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 
+'xenforeignmemory', 'xengnttab', 'xenevtchn', 'xentoolcore' ],
+       '4.10.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 
+'xenforeignmemory', 'xengnttab', 'xenevtchn', 'xentoolcore' ],
+       '4.9.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 
+'xenforeignmemory', 'xengnttab', 'xenevtchn' ],
+       '4.8.0': [ 'xenstore', 'xenctrl', 'xenforeignmemory', 
+'xengnttab', 'xenevtchn' ],
+       '4.7.1': [ 'xenstore', 'xenctrl', 'xenforeignmemory', 
+'xengnttab', 'xenevtchn' ],
+       '4.6.0': [ 'xenstore', 'xenctrl' ],
+       '4.5.0': [ 'xenstore', 'xenctrl' ],
+       '4.2.0': [ 'xenstore', 'xenctrl' ],
+     }
 
--- 
-Julien Grall
+According to repology for the 'xen' package:
+
+    FreeBSD (ports):    4.16
+    Debian 11:          4.14.5
+    Fedora 35:          4.16.2
+    Ubuntu 20.04:       4.11.3
+    OpenSUSE Leap 15.3: 4.14.1
+    RHEL 8:             ?
+
 
