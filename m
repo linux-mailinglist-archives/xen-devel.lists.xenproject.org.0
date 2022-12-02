@@ -2,32 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 735DF640829
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 15:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452019.709846 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA1A640845
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 15:20:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452034.709857 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p16fD-0005ix-CP; Fri, 02 Dec 2022 14:05:15 +0000
+	id 1p16st-0007wA-Jj; Fri, 02 Dec 2022 14:19:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452019.709846; Fri, 02 Dec 2022 14:05:15 +0000
+Received: by outflank-mailman (output) from mailman id 452034.709857; Fri, 02 Dec 2022 14:19:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p16fD-0005gf-9E; Fri, 02 Dec 2022 14:05:15 +0000
-Received: by outflank-mailman (input) for mailman id 452019;
- Fri, 02 Dec 2022 14:05:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p16st-0007u1-FP; Fri, 02 Dec 2022 14:19:23 +0000
+Received: by outflank-mailman (input) for mailman id 452034;
+ Fri, 02 Dec 2022 14:19:22 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xAMo=4A=chiark.greenend.org.uk=ijackson@srs-se1.protection.inumbo.net>)
- id 1p16fA-0005fO-Ms
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 14:05:13 +0000
-Received: from chiark.greenend.org.uk (v6.chiark.greenend.org.uk
- [2001:ba8:1e3::]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 541fd5bb-724a-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 15:05:11 +0100 (CET)
-Received: by chiark.greenend.org.uk (Debian Exim 4.94.2 #2) with local
- (return-path ijackson@chiark.greenend.org.uk)
- id 1p16f4-0004D7-Vt; Fri, 02 Dec 2022 14:05:07 +0000
+ <SRS0=NC9X=4A=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p16sr-0007tv-W5
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 14:19:22 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20608.outbound.protection.outlook.com
+ [2a01:111:f400:fe5b::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4f6ab6ce-724c-11ed-8fd2-01056ac49cbb;
+ Fri, 02 Dec 2022 15:19:20 +0100 (CET)
+Received: from MW4PR03CA0294.namprd03.prod.outlook.com (2603:10b6:303:b5::29)
+ by SA0PR12MB4365.namprd12.prod.outlook.com (2603:10b6:806:96::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10; Fri, 2 Dec
+ 2022 14:19:17 +0000
+Received: from CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b5:cafe::81) by MW4PR03CA0294.outlook.office365.com
+ (2603:10b6:303:b5::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10 via Frontend
+ Transport; Fri, 2 Dec 2022 14:19:17 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT021.mail.protection.outlook.com (10.13.175.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.10 via Frontend Transport; Fri, 2 Dec 2022 14:19:17 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Dec
+ 2022 08:19:15 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 2 Dec 2022 08:19:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +59,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 541fd5bb-724a-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=chiark.greenend.org.uk; s=c.chiark; h=DKIM-Signature-Warning:References:
-	In-Reply-To:Subject:Cc:To:Date:Message-ID:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:From:Sender:Reply-To:Content-ID:Content-Description
-	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=ndvOqqtb7/xEJJ/gOE8af9zXjM7HLrMx1PiTE6qEePc=; b=o5xq+JYRa0hs
-	JpjQJEwLmuTwL8tvsD7lI8CZcu19BNUTHfNXwwnGGqIH4bhdrFDClUczcj9mdEsAsLoXenhkta0y5
-	AzdX5r7YwqbK1Z1BYFImRI8yjYjBz72sq/K1FvPr8G4d7rsFxlkrMpdxoc/o+0bFA6qw/vdXVAeSd
-	afWad0tvkCTWkZ2MLCDZJXjoJz8aaEA0yN1NlgitDee715w/7druSFsVImn1ot8bqfcUdvOSorDkT
-	AhCqkAyKDngjhHsmfMJuAzsW6vzTdnanBOan9SM9jUQv5OPakOVGzXTiarpCIU1/s895OvCFnHqX8
-	3ZyKSbw4Ear+nE+O5rPtXw==;
-From: Ian Jackson <ijackson@chiark.greenend.org.uk>
+X-Inumbo-ID: 4f6ab6ce-724c-11ed-8fd2-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bmlOfVSw9WhNyAaU9AW/ImK6IDraL+QBV+FMVXuo3dLPLqzLUru7JoyuhKtzbawCKpyYxK5hPF0zXcpiTZGYC7bqLob+5rsWt8CW20Rz0yOu+Sq5MvF1DYaA2f6QU8k8veSgKqaoJeBtVSlw/ml/u555XY4ji1JiPszttHARAJqfxtSiH1zRCGSmeooIDydSTQGOi0uDxZyLvUnWC7o1yG4g8/sRZX9YRxJz0dwYl8RVMHndml7JuNa5qGT/J4+QxRjoUmGf1iwrtqYyY5KODscI2Mc4TcoSY7TWqJnNGL56oIXQNWbLZV4NjfylkBBIH9J07kHHa32KH6zScE2OxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X82WY2l648lDXTfyhxETZdxhcU7yEVu/JXMELHSHWGg=;
+ b=M1Wh1B4iFlJ12SukdVZEx3DCAu1ylIk/UGHs6dF4pE3IT8736cOm8h50YIVvwF03q66t2B24r4OkXSIBXwNM8XYGM+je4YbWepVK115zMm2mV6+yGSNyOrR/6GLzd2uUv4XNgsG1PbFdrNq7B5XUg64F536iRxX2Oget3W5GB04/2Abs+6rd8U7D9h6qgp6jVqPpO8eC3rMMyXPjsc3B1DV4QctyTamJtVRphcGgE9bM590zUJQ38KXnwF9y9duUYdCaBqB4cCfxy6kTYmj55RnbTNAybCFDkcun59VDInZ6/y9VA9veQ/MfMeBeRvpGh6nLZnDW9cKWQIl4gqAQkA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X82WY2l648lDXTfyhxETZdxhcU7yEVu/JXMELHSHWGg=;
+ b=OSiFQhgX3XjmZ+Kb9X93ny/fLnTievdCR2UBCXJxa4Phlvb9E5PdNiyD/QCqyV4fGYVhQTh/FUqSSQM+RJCScFG+3F5HrTcLJHwL4GfKUT7IyMlBOcOjIWXyV8q6YKP1J2cZ4KX68/RfTWZPGE893OkGtA0nTS2esViJmjXHgRc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8f4e2658-13b2-98ce-6fea-2067ff205e02@amd.com>
+Date: Fri, 2 Dec 2022 15:19:13 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [RFC PATCH 15/21] xen/arm: vsmmuv3: Emulated SMMUv3 device tree
+ node for dom0less
+Content-Language: en-US
+To: Rahul Singh <rahul.singh@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr
+ Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>
+References: <cover.1669888522.git.rahul.singh@arm.com>
+ <4e4d4fff4bb20d9718bd61b729f9421525baaa15.1669888522.git.rahul.singh@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <4e4d4fff4bb20d9718bd61b729f9421525baaa15.1669888522.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <25482.1554.910128.804488@chiark.greenend.org.uk>
-Date: Fri, 2 Dec 2022 14:05:06 +0000
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Julien Grall <julien@xen.org>,
-    xen-devel@lists.xenproject.org
-Subject: Release checklist and qemu-xen-traditional
-In-Reply-To: <AS8PR08MB79917D648261C9ADB5F8EB8A92159@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <AS8PR08MB79918A8115770DCF01863D7292159@AS8PR08MB7991.eurprd08.prod.outlook.com>
-	<25479.27844.230855.996791@chiark.greenend.org.uk>
-	<AS8PR08MB79917D648261C9ADB5F8EB8A92159@AS8PR08MB7991.eurprd08.prod.outlook.com>
-X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
-DKIM-Signature-Warning: NOTE REGARDING DKIM KEY COMPROMISE https://www.chiark.greenend.org.uk/dkim-rotate/README.txt https://www.chiark.greenend.org.uk/dkim-rotate/e7/e7ec394fc5bad70f9d03084a487df88f.pem
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT021:EE_|SA0PR12MB4365:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a7c02b6-922d-4aaf-4069-08dad4703266
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	n7UfQWUABiFOgpPX8qwUcVMGwFs/brOMxdRBUFW9LuMImEkogVzVzpLlIA7KYi1cRqvE90AUfZEr17cQmbONNQBZqrpJta365RB2l8+1d0Z+AtBa3SKgDxhH77R4wWYCg0tkJZ3v78OMTcOW7nhu3y+SWQvoQ9cv7k9JMigjldUXoiEKu/vuvca6EnrGFWyr313hzKKXf4ckTrD3nONkRuv+gtOIyjVEB+dOXWMF8yoW+qTmv44wFmw90hhfnlUVnLNOLxyyYgMyiCob8vT9PqeLOQFMeRl1NEaZfcHny05oD76UjGFzYQVJ0CgQ4U91JLl85d+PFHcwc0OhXl+iE9nS/HrjeLSPR+3NvNJH4FtdrcecFsSa9H7sCys7zj3a8G2XBs0SKO/lrEGiMqmnqcoJLRIlZAsqsjp6kkgH1A1h2h6xH2A/ULHC4kO/4K2q3K8V6vkY7GYaX7b3UqeodozEWGZAImAh/6O0rRZT1qgpLXrjEV9my2M2lHOYVPxsrte5jR/0rvLQgJfwzEaYvmcwyY10uoaKROAtk/Nz512a3uyLK1zAcErlLtKCzX2HRU/TodcelZvSC74HG66EqLUGKlSebdtqkM0Cx7obCNvBqEStahTUjJjVr/1vXizyxTsX6t5bafcmdp35+AOhcExB1dZCDF7R26T5IfguaAEnBf3Ob3FXQBtbhldnJF4MsTenFAGX84Y8AjAvNQYIZgIRwK+r+HTsNhbFp7Zu+z/dPG41i1DZ+3vB1O6OCwGOM/2k1fIL8+EbZtv9NQZt8FtxOXwFaFLwgp/kDGhYdY0=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(396003)(39860400002)(136003)(451199015)(40470700004)(36840700001)(46966006)(7416002)(4326008)(44832011)(8676002)(5660300002)(4744005)(8936002)(16576012)(316002)(41300700001)(2906002)(70586007)(70206006)(54906003)(478600001)(110136005)(40480700001)(36756003)(53546011)(31696002)(356005)(81166007)(26005)(86362001)(2616005)(31686004)(47076005)(426003)(186003)(336012)(82740400003)(40460700003)(36860700001)(82310400005)(32563001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2022 14:19:17.1615
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a7c02b6-922d-4aaf-4069-08dad4703266
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT021.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4365
 
-(Adding xen-devel to the CC list.)
+Hi Rahul,
 
-Hi, Henry.  Pleaed to "meet" you.  To answer your questions:
-
-> > > (1) Why do the instructions say to branch that repo?
-> > > (2) Where can we find this repo?
-> > > (3) Is this repo used anywhere since the 4.16 release?
-> > > (4) Is this repo used elsewhere in the release process?
-
-This repo is this one.  I think it is still used during some builds.
-See this line in Config.mk:
-
-  QEMU_TRADITIONAL_URL ?= http://xenbits.xen.org/git-http/qemu-xen-traditional.git
-
-It is very old and we have been slowly deprecating it.  (The copy on
-my workstation was called qemu-iwj.git for historical reasons which
-aren't relevant, but that's how that got into the checklist.)
-
-The release checklist will also instruct the release technician to
-update the pinning in Config.mk to the tag.  For example, Config.mk in
-RELEASE-4.16.0 says this:
-
-  QEMU_TRADITIONAL_REVISION ?= xen-4.16.0
-
-This needs to be updated so that people who get 4.16 don't get any
-changes that are made to the "master" branch in qemu-xen-traditional.
-The same will be true for 4.17, if it qemu-xen-traditional hasn't
-been completely abolished there yet.
-
-> > These instructons relate to my local clone of qemu-xen-traditional,
-> > and will need adjustment.
+On 01/12/2022 17:02, Rahul Singh wrote:
 > 
-> Thanks for your reply! It would be good for you to clarify what adjustments
-> we need to do. That said, I completely understand that you are quite busy
-> today, so...
+> 
+> XEN will create an Emulated SMMUv3 device tree node in the device tree
+> to enable the dom0less domains to discover the virtual SMMUv3 during
+> boot. Emulated SMMUv3 device tree node will only be created when cmdline
+> option vsmmuv3 is enabled.
+I think you meant viommu option.
 
-A clone of qemu-xen-traditional ought to do for this.  My tree here,
-rescued from my old Citrix workstation, has this for the "origin"
-remote:
-  xenbits.xen.org:/home/xen/git/qemu-xen-traditional.git
+In any case, I think that you want to introduce a device-tree property for dom0less domU
+e.g. string property viommu = "smmuv3" to control whether to add a virtual IOMMU node or not for a given domU.
+You did exactly the same for xl created domUs so you should do the same for dom0less domUs.
+Otherwise the behavior will be inconsistent and we will lack per-domain control over virtual IOMMU.
 
-I hope this is helpful.  If you want to talk through it some more,
-ping me on irc.  I'm Diziet on oftc.  I usually lurk on #xendevel
-(although I fell off at some point and only just rejoined), or you
-may send me a private message.
-
-Regards,
-Ian.
-
--- 
-Ian Jackson <ijackson@chiark.greenend.org.uk>   These opinions are my own.  
-
-Pronouns: they/he.  If I emailed you from @fyvzl.net or @evade.org.uk,
-that is a private address which bypasses my fierce spamfilter.
+~Michal
 
