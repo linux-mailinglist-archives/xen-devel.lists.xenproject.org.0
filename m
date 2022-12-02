@@ -2,38 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 082C7640BE9
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 18:18:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452181.710000 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED3F640C89
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 18:48:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452190.710011 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p19ee-0002fI-B0; Fri, 02 Dec 2022 17:16:52 +0000
+	id 1p1A8o-00084y-QW; Fri, 02 Dec 2022 17:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452181.710000; Fri, 02 Dec 2022 17:16:52 +0000
+Received: by outflank-mailman (output) from mailman id 452190.710011; Fri, 02 Dec 2022 17:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p19ee-0002cc-89; Fri, 02 Dec 2022 17:16:52 +0000
-Received: by outflank-mailman (input) for mailman id 452181;
- Fri, 02 Dec 2022 17:16:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p1A8o-000822-M9; Fri, 02 Dec 2022 17:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 452190;
+ Fri, 02 Dec 2022 17:48:01 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=qmEy=4A=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1p19ec-0002cW-Bo
- for xen-devel@lists.xen.org; Fri, 02 Dec 2022 17:16:50 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 19f10cad-7265-11ed-8fd2-01056ac49cbb;
- Fri, 02 Dec 2022 18:16:48 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id
- n16-20020a05600c3b9000b003d08febff59so231220wms.3
- for <xen-devel@lists.xen.org>; Fri, 02 Dec 2022 09:16:47 -0800 (PST)
-Received: from [10.17.77.118] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- k27-20020a5d525b000000b00242269c8b8esm7356725wrc.25.2022.12.02.09.16.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 02 Dec 2022 09:16:45 -0800 (PST)
+ <SRS0=Gvms=4A=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1p1A8m-000811-So
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 17:48:01 +0000
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 75dfdd05-7269-11ed-91b6-6bf2151ebd3b;
+ Fri, 02 Dec 2022 18:48:00 +0100 (CET)
+Received: by mail-qt1-f178.google.com with SMTP id x28so5080498qtv.13
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Dec 2022 09:47:59 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,244 +38,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19f10cad-7265-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=ttw8LbpKM0eEHzqaWPjSFujvnFjrkiLdIm4RuQPgm68=;
-        b=mZsqAgBUdIR0eadbI9pQj8rdKAjKREhKFn/63ugAZSz5YJIlMcoUlkqHXINawFvv/1
-         JqXqUf+yY4/4/WiH47BFwA1cNx+8MswYZkC+e3zxcYrAtb6WnOxaOvtaoe5ViKSCO3b7
-         +q2jWQhU5WybRocbGWAdXjPp2cP42IA0Ay9MvbhKAAkomZDXc5xQVOV9hY9CXkZ5blu0
-         4kP4ej1SZbq7AZjZl7rRO13PGJV4HmHmbm38xZ0mO5D0jPvg6SVc6J9+UfqEUY9hjn/h
-         fwlkeT6Y879Q/gwCeWluKz0bfgCKh4z+gz1ad2IfonQQ+WYFBGxaJ3/rnru2dVTIRxWL
-         4DPw==
+X-Inumbo-ID: 75dfdd05-7269-11ed-91b6-6bf2151ebd3b
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ttw8LbpKM0eEHzqaWPjSFujvnFjrkiLdIm4RuQPgm68=;
-        b=Ni3g8xej1Lq/KHjJcLMqHK4+HyM6AA/xdJSF919hYAedQLMUoUujdk/2dezn6HUa40
-         WeLO5ydUshmk5wrJtNXfkdI8IjuP/uWiW7VzqSJ2jTpKEnzpJIkc0i+r848KfZRAKl/Z
-         Ue28st3iAKaO+qPSO2KLc5y61nAPXPanRzwPfLvh29sLYmzi9ES8d8qCXUrXTHvkq9PF
-         v26sZWW9BG0ULA5H5za1C3jeIapFT7cBOmmuh/htv3Q7g2mZ8S0RFzLuOxVyWgUTu+rN
-         ab6Zw93YxAHq2Y056pSPezhpfYbqpv34CBNKuOCwo3UNlI7FaYGsXkbQPg619II/bAXX
-         T3JQ==
-X-Gm-Message-State: ANoB5plAnTe9bwlf8oosuCUkMnn3MKDu9cqE7so2SbNVM0sBIwCSEpIR
-	hN0U94sSgnFH4B1GCtqqi1Y=
-X-Google-Smtp-Source: AA0mqf5HAYjean4uqRAqWMEpNe9fRscNZxY/Be0e4mD6gRbgjd8B6JmsoT3jk/xCXu8GKGB9AflUnw==
-X-Received: by 2002:a05:600c:2213:b0:3cf:a6eb:3290 with SMTP id z19-20020a05600c221300b003cfa6eb3290mr46282203wml.116.1670001406573;
-        Fri, 02 Dec 2022 09:16:46 -0800 (PST)
-Message-ID: <4a355c28-9596-cfbd-ffd2-2f8d9dde9938@gmail.com>
-Date: Fri, 2 Dec 2022 19:16:39 +0200
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=cZkrcSltncE8/ZuZoYv4b2d7hscDOxyl0JUDZPI6liw=;
+        b=OYDvxwGFka8sDKZdxMaaxl2933kARopCpQRbF3hz/8dlFUfeoXLAEUV7KKf6OBlmGI
+         SddRnY4r/0DGIgr2mVe0ME36taPHc0UBYy8aCFexWSl0pb5EGTe3jAUFobPjKIq+3UVn
+         8kAwBjc6qPG3OFH6rOTBSZ5YENp/j3bkdSln68f2IFHutsbJOBh+Z1RUZpRimGbsDz93
+         mhnaTHmeA2Dn5MpicVPREqE9bvkE71ULF+OUIRAL5ySF4y4UbleNlKtVgA/RQ5mGVRBO
+         Kam37AL32Io/UrQ/3cnGKT1iBrsR6vnBBcDfXGYhRgbi1V3oHBLZ67xiXOIsQfh3+N5W
+         TUmg==
+X-Gm-Message-State: ANoB5pnPHMaduX5u4/w+OCb8IitZ0Q4i77+78yJgrtmYOfso38+YJ935
+	nNZRwYyTJexSAwhV+gnQBjuFszxbUpJ+WELzw5s=
+X-Google-Smtp-Source: AA0mqf51uIOWkjKSwhAqxTpfKMjsu42I0eiMVKrm0VEx7HQYTsVmieNicP3p40lc7YCyIthr+ry0hUYCl4VWsxspqf0=
+X-Received: by 2002:ac8:7dcb:0:b0:3a6:8dd0:4712 with SMTP id
+ c11-20020ac87dcb000000b003a68dd04712mr11196833qte.411.1670003278849; Fri, 02
+ Dec 2022 09:47:58 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH V6 2/3] xl: Add support to parse generic virtio device
-Content-Language: en-US
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Stefano Stabellini
- <stefano.stabellini@xilinx.com>, Mathieu Poirier
- <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xen.org,
- Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>
-References: <cover.1667906228.git.viresh.kumar@linaro.org>
- <73663851c5223b99ed0f23a163a0d44cba0ebe29.1667906228.git.viresh.kumar@linaro.org>
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <73663851c5223b99ed0f23a163a0d44cba0ebe29.1667906228.git.viresh.kumar@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org> <20221127-snd-freeze-v8-2-3bc02d09f2ce@chromium.org>
+In-Reply-To: <20221127-snd-freeze-v8-2-3bc02d09f2ce@chromium.org>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 2 Dec 2022 18:47:47 +0100
+Message-ID: <CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn=-Om5QP2-7ocuGdq8R9w@mail.gmail.com>
+Subject: Re: [PATCH v8 2/3] freezer: refactor pm_freezing into a function.
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>, 
+	Chromeos Kdump <chromeos-kdump@google.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
+	Christophe Leroy <christophe.leroy@csgroup.eu>, Len Brown <len.brown@intel.com>, 
+	Ard Biesheuvel <ardb@kernel.org>, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+	Eric Biederman <ebiederm@xmission.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Joel Fernandes <joel@joelfernandes.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	Pavel Machek <pavel@ucw.cz>, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	"K. Y. Srinivasan" <kys@microsoft.com>, Ingo Molnar <mingo@redhat.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Dexuan Cui <decui@microsoft.com>, Takashi Iwai <tiwai@suse.com>, 
+	"H. Peter Anvin" <hpa@zytor.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+	Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+	kexec@lists.infradead.org, alsa-devel@alsa-project.org, 
+	stable@vger.kernel.org, sound-open-firmware@alsa-project.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
+	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, 
+	xen-devel@lists.xenproject.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, Dec 1, 2022 at 12:08 PM Ricardo Ribalda <ribalda@chromium.org> wrote:
+>
+> Add a way to let the drivers know if the processes are frozen.
+>
+> This is needed by drivers that are waiting for processes to end on their
+> shutdown path.
+>
+> Convert pm_freezing into a function and export it, so it can be used by
+> drivers that are either built-in or modules.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
+> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 
+Why can't you export the original pm_freezing variable and why is this
+fixing anything?
 
-On 08.11.22 13:23, Viresh Kumar wrote:
-
-
-Hello Viresh
-
-[sorry for the possible format issues if any]
-
-> This patch adds basic support for parsing generic Virtio backend.
-> 
-> An example of domain configuration for mmio based Virtio I2C device is:
-> virtio = ["type=virtio,device22,transport=mmio"]
-> 
-> Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 > ---
->   tools/ocaml/libs/xl/genwrap.py       |  1 +
->   tools/ocaml/libs/xl/xenlight_stubs.c |  1 +
->   tools/xl/xl_parse.c                  | 84 ++++++++++++++++++++++++++++
->   3 files changed, 86 insertions(+)
-> 
-> diff --git a/tools/ocaml/libs/xl/genwrap.py b/tools/ocaml/libs/xl/genwrap.py
-> index 7bf26bdcd831..b188104299b1 100644
-> --- a/tools/ocaml/libs/xl/genwrap.py
-> +++ b/tools/ocaml/libs/xl/genwrap.py
-> @@ -36,6 +36,7 @@ DEVICE_LIST =      [ ("list",           ["ctx", "domid", "t list"]),
->   functions = { # ( name , [type1,type2,....] )
->       "device_vfb":     DEVICE_FUNCTIONS,
->       "device_vkb":     DEVICE_FUNCTIONS,
-> +    "device_virtio":     DEVICE_FUNCTIONS,
->       "device_disk":    DEVICE_FUNCTIONS + DEVICE_LIST +
->                         [ ("insert",         ["ctx", "t", "domid", "?async:'a", "unit", "unit"]),
->                           ("of_vdev",        ["ctx", "domid", "string", "t"]),
-> diff --git a/tools/ocaml/libs/xl/xenlight_stubs.c b/tools/ocaml/libs/xl/xenlight_stubs.c
-> index 45b8af61c74a..8e54f95da7c7 100644
-> --- a/tools/ocaml/libs/xl/xenlight_stubs.c
-> +++ b/tools/ocaml/libs/xl/xenlight_stubs.c
-> @@ -707,6 +707,7 @@ DEVICE_ADDREMOVE(disk)
->   DEVICE_ADDREMOVE(nic)
->   DEVICE_ADDREMOVE(vfb)
->   DEVICE_ADDREMOVE(vkb)
-> +DEVICE_ADDREMOVE(virtio)
->   DEVICE_ADDREMOVE(pci)
->   _DEVICE_ADDREMOVE(disk, cdrom, insert)
->   
-> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> index 1b5381cef033..c6f35c069d2a 100644
-> --- a/tools/xl/xl_parse.c
-> +++ b/tools/xl/xl_parse.c
-> @@ -1208,6 +1208,87 @@ static void parse_vkb_list(const XLU_Config *config,
->       if (rc) exit(EXIT_FAILURE);
->   }
->   
-> +static int parse_virtio_config(libxl_device_virtio *virtio, char *token)
+>  include/linux/freezer.h |  3 ++-
+>  kernel/freezer.c        |  3 +--
+>  kernel/power/process.c  | 24 ++++++++++++++++++++----
+>  3 files changed, 23 insertions(+), 7 deletions(-)
+>
+> diff --git a/include/linux/freezer.h b/include/linux/freezer.h
+> index b303472255be..3413c869d68b 100644
+> --- a/include/linux/freezer.h
+> +++ b/include/linux/freezer.h
+> @@ -13,7 +13,7 @@
+>  #ifdef CONFIG_FREEZER
+>  DECLARE_STATIC_KEY_FALSE(freezer_active);
+>
+> -extern bool pm_freezing;               /* PM freezing in effect */
+> +bool pm_freezing(void);
+>  extern bool pm_nosig_freezing;         /* PM nosig freezing in effect */
+>
+>  /*
+> @@ -80,6 +80,7 @@ static inline int freeze_processes(void) { return -ENOSYS; }
+>  static inline int freeze_kernel_threads(void) { return -ENOSYS; }
+>  static inline void thaw_processes(void) {}
+>  static inline void thaw_kernel_threads(void) {}
+> +static inline bool pm_freezing(void) { return false; }
+>
+>  static inline bool try_to_freeze(void) { return false; }
+>
+> diff --git a/kernel/freezer.c b/kernel/freezer.c
+> index 4fad0e6fca64..2d3530ebdb7e 100644
+> --- a/kernel/freezer.c
+> +++ b/kernel/freezer.c
+> @@ -20,7 +20,6 @@ EXPORT_SYMBOL(freezer_active);
+>   * indicate whether PM freezing is in effect, protected by
+>   * system_transition_mutex
+>   */
+> -bool pm_freezing;
+>  bool pm_nosig_freezing;
+>
+>  /* protects freezing and frozen transitions */
+> @@ -46,7 +45,7 @@ bool freezing_slow_path(struct task_struct *p)
+>         if (pm_nosig_freezing || cgroup_freezing(p))
+>                 return true;
+>
+> -       if (pm_freezing && !(p->flags & PF_KTHREAD))
+> +       if (pm_freezing() && !(p->flags & PF_KTHREAD))
+>                 return true;
+>
+>         return false;
+> diff --git a/kernel/power/process.c b/kernel/power/process.c
+> index ddd9988327fe..8a4d0e2c8c20 100644
+> --- a/kernel/power/process.c
+> +++ b/kernel/power/process.c
+> @@ -108,6 +108,22 @@ static int try_to_freeze_tasks(bool user_only)
+>         return todo ? -EBUSY : 0;
+>  }
+>
+> +/*
+> + * Indicate whether PM freezing is in effect, protected by
+> + * system_transition_mutex.
+> + */
+> +static bool pm_freezing_internal;
+> +
+> +/**
+> + * pm_freezing - indicate whether PM freezing is in effect.
+> + *
+> + */
+> +bool pm_freezing(void)
 > +{
-> +    char *oparg;
-> +    int rc;
-> +
-> +    if (MATCH_OPTION("backend", token, oparg)) {
-> +        virtio->backend_domname = strdup(oparg);
-> +    } else if (MATCH_OPTION("type", token, oparg)) {
-> +        virtio->type = strdup(oparg);
-> +    } else if (MATCH_OPTION("transport", token, oparg)) {
-> +        rc = libxl_virtio_transport_from_string(oparg, &virtio->transport);
-> +        if (rc) return rc;
-> +    } else if (MATCH_OPTION("irq", token, oparg)) {
-> +        virtio->irq = strtoul(oparg, NULL, 0);
-> +    } else if (MATCH_OPTION("base", token, oparg)) {
-> +        virtio->base = strtoul(oparg, NULL, 0);
-
-
-Interesting, I see you allow user to configure virtio-mmio params (irq 
-and base), as far as I remember for virtio-disk these are internal only 
-(allocated by tools/libs/light/libxl_arm.c).
-
-I am not really sure why we need to configure virtio "base", could you 
-please clarify? But if we really want/need to be able to configure 
-virtio "irq" (for example to avoid possible clashing with physical one), 
-I am afraid, this will require more changes that current patch does. 
-Within current series saving virtio->irq here doesn't have any effect as 
-it will be overwritten in 
-libxl__arch_domain_prepare_config()->alloc_virtio_mmio_params() anyway. 
-I presume the code in libxl__arch_domain_prepare_config() shouldn't try 
-to allocate virtio->irq if it is already configured by user, also the 
-allocator should probably take into the account of what is already 
-configured by user, to avoid allocating the same irq for another device 
-assigned for the same guest.
-
-Also doc change in the subsequent patch doesn't mention about irq/base 
-configuration.
-
-
-So maybe we should just drop for now?
-+    } else if (MATCH_OPTION("irq", token, oparg)) {
-+        virtio->irq = strtoul(oparg, NULL, 0);
-+    } else if (MATCH_OPTION("base", token, oparg)) {
-+        virtio->base = strtoul(oparg, NULL, 0);
-
-
-
-> +    } else {
-> +        fprintf(stderr, "Unknown string \"%s\" in virtio spec\n", token);
-> +        return -1;
-> +    }
-> +
-> +    return 0;
+> +       return pm_freezing_internal;
 > +}
+> +EXPORT_SYMBOL(pm_freezing);
+
+Use EXPORT_SYMBOL_GPL() instead, please.
+
 > +
-> +static void parse_virtio_list(const XLU_Config *config,
-> +                              libxl_domain_config *d_config)
-> +{
-> +    XLU_ConfigList *virtios;
-> +    const char *item;
-> +    char *buf = NULL, *oparg, *str = NULL;
-> +    int rc;
-> +
-> +    if (!xlu_cfg_get_list (config, "virtio", &virtios, 0, 0)) {
-> +        int entry = 0;
-> +        while ((item = xlu_cfg_get_listitem(virtios, entry)) != NULL) {
-> +            libxl_device_virtio *virtio;
-> +            char *p;
-> +
-> +            virtio = ARRAY_EXTEND_INIT(d_config->virtios, d_config->num_virtios,
-> +                                       libxl_device_virtio_init);
-> +
-> +            buf = strdup(item);
-> +
-> +            p = strtok(buf, ",");
-> +            while (p != NULL)
-> +            {
-> +                while (*p == ' ') p++;
-> +
-> +                // Type may contain a comma, do special handling.
-> +                if (MATCH_OPTION("type", p, oparg)) {
-> +                    if (!strncmp(oparg, "virtio", strlen("virtio"))) {
-> +                        char *p2 = strtok(NULL, ",");
-> +                        str = malloc(strlen(p) + strlen(p2) + 2);
-> +
-> +                        strcpy(str, p);
-> +                        strcat(str, ",");
-> +                        strcat(str, p2);
-> +                        p = str;
-> +                    }
-> +                }
-> +
-> +                rc = parse_virtio_config(virtio, p);
-> +                if (rc) goto out;
-> +
-> +                free(str);
-> +                str = NULL;
-> +                p = strtok(NULL, ",");
-> +            }
-> +
-> +            entry++;
-> +            free(buf);
-> +        }
-> +    }
-> +
-> +    return;
-> +
-> +out:
-> +    free(buf);
-> +    if (rc) exit(EXIT_FAILURE);
-> +}
-> +
->   void parse_config_data(const char *config_source,
->                          const char *config_data,
->                          int config_len,
-> @@ -2309,8 +2390,10 @@ void parse_config_data(const char *config_source,
->   
->       d_config->num_vfbs = 0;
->       d_config->num_vkbs = 0;
-> +    d_config->num_virtios = 0;
->       d_config->vfbs = NULL;
->       d_config->vkbs = NULL;
-> +    d_config->virtios = NULL;
->   
->       if (!xlu_cfg_get_list (config, "vfb", &cvfbs, 0, 0)) {
->           while ((buf = xlu_cfg_get_listitem (cvfbs, d_config->num_vfbs)) != NULL) {
-> @@ -2752,6 +2835,7 @@ void parse_config_data(const char *config_source,
->       }
->   
->       parse_vkb_list(config, d_config);
-> +    parse_virtio_list(config, d_config);
->   
->       xlu_cfg_get_defbool(config, "xend_suspend_evtchn_compat",
->                           &c_info->xend_suspend_evtchn_compat, 0);
+>  /**
+>   * freeze_processes - Signal user space processes to enter the refrigerator.
+>   * The current thread will not be frozen.  The same process that calls
+> @@ -126,12 +142,12 @@ int freeze_processes(void)
+>         /* Make sure this task doesn't get frozen */
+>         current->flags |= PF_SUSPEND_TASK;
+>
+> -       if (!pm_freezing)
+> +       if (!pm_freezing())
+>                 static_branch_inc(&freezer_active);
+>
+>         pm_wakeup_clear(0);
+>         pr_info("Freezing user space processes ... ");
+> -       pm_freezing = true;
+> +       pm_freezing_internal = true;
+>         error = try_to_freeze_tasks(true);
+>         if (!error) {
+>                 __usermodehelper_set_disable_depth(UMH_DISABLED);
+> @@ -187,9 +203,9 @@ void thaw_processes(void)
+>         struct task_struct *curr = current;
+>
+>         trace_suspend_resume(TPS("thaw_processes"), 0, true);
+> -       if (pm_freezing)
+> +       if (pm_freezing())
+>                 static_branch_dec(&freezer_active);
+> -       pm_freezing = false;
+> +       pm_freezing_internal = false;
+>         pm_nosig_freezing = false;
+>
+>         oom_killer_enable();
+>
+> --
 
