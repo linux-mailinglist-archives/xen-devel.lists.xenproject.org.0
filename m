@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7933A6408C2
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 15:50:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452063.709889 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7C276408C3
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 15:50:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452058.709879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p17Mo-0006oa-GZ; Fri, 02 Dec 2022 14:50:18 +0000
+	id 1p17M0-0005Us-7r; Fri, 02 Dec 2022 14:49:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452063.709889; Fri, 02 Dec 2022 14:50:18 +0000
+Received: by outflank-mailman (output) from mailman id 452058.709879; Fri, 02 Dec 2022 14:49:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p17Mo-0006m3-DR; Fri, 02 Dec 2022 14:50:18 +0000
-Received: by outflank-mailman (input) for mailman id 452063;
- Fri, 02 Dec 2022 14:50:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p17M0-0005SL-4A; Fri, 02 Dec 2022 14:49:28 +0000
+Received: by outflank-mailman (input) for mailman id 452058;
+ Fri, 02 Dec 2022 14:49:26 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ddoq=4A=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1p17Mm-0005nw-Mn
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 14:50:16 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a17b19bd-7250-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 15:50:15 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id f18so8138067wrj.5
- for <xen-devel@lists.xenproject.org>; Fri, 02 Dec 2022 06:50:15 -0800 (PST)
-Received: from zen.linaroharston ([185.81.254.11])
- by smtp.gmail.com with ESMTPSA id
- k15-20020a05600c1c8f00b003c6c3fb3cf6sm9661920wms.18.2022.12.02.06.50.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 02 Dec 2022 06:50:12 -0800 (PST)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id C0BBC1FFB7;
- Fri,  2 Dec 2022 14:50:10 +0000 (GMT)
+ <SRS0=NC9X=4A=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p17Ly-0005SF-N4
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 14:49:26 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062d.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 822a15bc-7250-11ed-8fd2-01056ac49cbb;
+ Fri, 02 Dec 2022 15:49:23 +0100 (CET)
+Received: from DS7PR03CA0266.namprd03.prod.outlook.com (2603:10b6:5:3b3::31)
+ by DM4PR12MB6422.namprd12.prod.outlook.com (2603:10b6:8:b9::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Fri, 2 Dec
+ 2022 14:49:20 +0000
+Received: from DS1PEPF0000E64C.namprd02.prod.outlook.com
+ (2603:10b6:5:3b3:cafe::f0) by DS7PR03CA0266.outlook.office365.com
+ (2603:10b6:5:3b3::31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8 via Frontend
+ Transport; Fri, 2 Dec 2022 14:49:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DS1PEPF0000E64C.mail.protection.outlook.com (10.167.18.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.8 via Frontend Transport; Fri, 2 Dec 2022 14:49:19 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Dec
+ 2022 08:49:18 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Dec
+ 2022 08:49:17 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 2 Dec 2022 08:49:16 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,351 +63,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a17b19bd-7250-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=rtOsOMHxl2uAhuuvJS1mpbtcZpv73B0kQPPuLimxlXE=;
-        b=HFh0oL+wct9ZGd5uyOW/xzeOw8AHts1wEXWjryuZguo2anf3jBDF4E06449sun8ACX
-         gkUWNn4onCC+1wCcECY7vq3X1VC9WpED+dit/Yd1uHG1jKuFPGYS5bpNjGcjmp4JJMBo
-         O2DndXBeiMgVBk516BF3BJKkXAxhcqiljBdfQ3olWjc5fqtSZjxkui9hKsWJu4B4riJx
-         nY7mdewgpW+PkADcAmE5pUsR4LEnLp2bTq7FqPZOcSC7l1cNQ2kHnzSwKiPOCbPpLMiB
-         JYQ87OB6i7WQhejqQR771jmmdChGIwEvDN29hY69xFMNxWCNPk/cZ3CYmpSuHwc8TIOX
-         BOlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=rtOsOMHxl2uAhuuvJS1mpbtcZpv73B0kQPPuLimxlXE=;
-        b=BKMniDyn9Z1wYxqsXxvxezIyC72iLJo3owPCJpS27xwVRH2BFkXylg95RdLtnRtjMg
-         cApt3Nf9cIoZmGbAwDmQtI81uXkX50U8hFc9pX2IQCOS4ST3a4wEgHeOBPzOVaHnZYWT
-         sd7wJgctJQRxN0qnu+cwrE1xgeiOwH48G1tPRPX6PQXEQSBsJ6Uz4QRHcjrqz5jfp4bR
-         TuvSuVQGi1Q2gBlUjM6zeY2neRGstK+iT38bbENN2TcrBTuEFsPF536lIfur+k/IlWXW
-         zPyHArrLmoK9h8u6kkrpNT9OHaILce1O5oXLb7L78Uj0dkuG5nFM1Dx9GesBc52vSrs3
-         zGFw==
-X-Gm-Message-State: ANoB5pnGKqYWHHBQzdMIZ+85+8U+yHGf3XtehN8JBlYCP7+xn3iAN7RV
-	9w0V6YgBRazfCZHbmOA1I0CF6A==
-X-Google-Smtp-Source: AA0mqf5FC5bEswqJYp+0/k8oVuqz5wzMi8Iqe9GPKDNivNIwwaLiMTy1ip6TQaQjaJdJCCJrdZP7lw==
-X-Received: by 2002:a05:6000:8f:b0:22e:35e3:4427 with SMTP id m15-20020a056000008f00b0022e35e34427mr42744144wrx.44.1669992614656;
-        Fri, 02 Dec 2022 06:50:14 -0800 (PST)
-References: <20221202030003.11441-1-vikram.garhwal@amd.com>
- <20221202030003.11441-11-vikram.garhwal@amd.com>
-User-agent: mu4e 1.9.3; emacs 29.0.60
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-Cc: qemu-dev@xilinx.com, stefano.stabellini@amd.com,
- xen-devel@lists.xenproject.org, Peter Maydell <peter.maydell@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Anthony Perard
- <anthony.perard@citrix.com>, Paul  Durrant <paul@xen.org>, "open list:ARM
- TCG CPUs" <qemu-arm@nongnu.org>, "open list:All patches CC here"
- <qemu-devel@nongnu.org>
-Subject: Re: [QEMU][PATCH v2 10/11] hw/arm: introduce xenpv machine
-Date: Fri, 02 Dec 2022 14:45:58 +0000
-In-reply-to: <20221202030003.11441-11-vikram.garhwal@amd.com>
-Message-ID: <875yetc125.fsf@linaro.org>
+X-Inumbo-ID: 822a15bc-7250-11ed-8fd2-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d2qjx4jsigROle6nYzX8UCqv2/ydHea0hJFz/cSdNdyuDgEpdl31rI1psAjUZ/am9VRuf3/wm3UVWtV4P9Sh/L89rTO+ER1QjcynRPSZ1tpxJgHReBjTLlgpxzzI1nH7pXp0yovPP4tvxwR5MHGCrDkuY0bvD3XcDDdj7piLrHXaCgm95V5VaU/HrHRaOrrW17MDICvw9B4gFYbye39myaqU04ArbWlO9kqjgWyjPVFapm/3MRFrDdIiNTPpjULn0RAWfVaI4+ubL5umkD+mEXBYOSDLdqVDip3TvfVCLmwx4d+oOKbW2seA9qX81h6Tb7gnkE3LO6vCimx7s13mAw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G4pOKOEfP6FBR6fBVQNAbtjElKPPEKFpz84xFOABCAs=;
+ b=Q9o5b4zh+LorPzNa2+/wsYOVXwe3ESpP0beHjfNsgKUkHsBk/a/5DQ6gYlaY1mHenGeOUHLIj1JEbBd3t5QlTtU4Cc7EyK8lPa4NRtRXB/efiixqURs19ZLZgCBr8dP3llf3w5WfT11ocOLGyJEo3/jTX0whroJ0mDtUzk2dZFZ20ysyqlWOD/erobt9kFrVnpFB+EoGoOrDgVLwaJYWxC2aiv0Nx/yNLayioPIEeUGqJ+rQbGumf0EFTWTwRKrPiVqxx1ZJzC4VeBjjC44dhlKLSIjQF/TYPZzrdR3+feu7A/thRfZpNHchWzqrG2pHI8xOEGdDbaIvczq4IuOBdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G4pOKOEfP6FBR6fBVQNAbtjElKPPEKFpz84xFOABCAs=;
+ b=wzuc0GdjuT3IyOhKhc9fRwhnPaHNQds6X1pF+xsTBfsYom0jn6MdTno73QVkxy6AVQBKUisNCbjjNW1LRj34KF6k1qbjr9oDRTzuHEERpLplPlQwbmLqfNBNsPdrM4ahoTyV3LoxnrS3K3gkEPGeqzMPzbuwa3heSpLWR3gJqFo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <c4abb3b5-a6a7-2af1-08d5-4f3a6695d69a@amd.com>
+Date: Fri, 2 Dec 2022 15:49:16 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [RFC PATCH 21/21] xen/arm: vIOMMU: Modify the partial device tree
+ for dom0less
+Content-Language: en-US
+To: Rahul Singh <rahul.singh@arm.com>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
+	<julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, "Volodymyr
+ Babchuk" <Volodymyr_Babchuk@epam.com>
+References: <cover.1669888522.git.rahul.singh@arm.com>
+ <127da5a0d4300e083b8840a4f3a0d2d63bde5b6f.1669888522.git.rahul.singh@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <127da5a0d4300e083b8840a4f3a0d2d63bde5b6f.1669888522.git.rahul.singh@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E64C:EE_|DM4PR12MB6422:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6aa66ce6-125e-422a-0500-08dad474649b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	0WCpBtdz0mLfB7Daj3wm4wzzci1sJWoU892CEpavZaNo7riGZo5M7xnVHxwna7u8rDCkVfbxUFsUmDVcGapzZiaF45duXxxeNV1AcviGJT1GEhU2TodE2gzYhfkgrRDBN5RDM8mVVkDlZtaUyFsbrsEs5hfD/X49R2ySF98LtNAtrP7TrDRcTvH2Mwq8tRy+EFi2K7AT4iG9ktCBJFgHg3U358pef0TTJdXEDcw3txqMcwNOH3G6E99bOtwy1t7zC/IbGGw6QKZt94nn2EJ72lGUtc8Pj6A8N5CsTEeDa57ltSl5XuqbcZyGjiih2Gg4STC0tvPw8yJYZQJMGfK4s9n/vzInZB6ZnyWCG/SVGAZnZn43pnQpoZ33CDB73L1ZvvDKoFJTNwcRTAKbkay7Swp3mpW5yLJIXfB1eUOwnTSwSgcmMIkKxVotiA1o5Rp+t83E9MEgbGJv7dlrkxyGhvE5QzjaQdT6fLUQJm92Lc46UqPIi+0JnVH8z96/MkB8aE3HgGDOaeZwvOS/7R9kVlzAjTQgK0cZrtz8XYYOBgWksigZMwziVwAzDBJQlTkhd/0zf/dppIhoMAw/Tfl68NCObwhFo5qIVKD9ru68OT6um0FFDQSMVEeYA44KuUOZjiGCN5s0III2FUTsNQh+hs5WD9pf1696YHh3dpzGTlkRA90G1pplBLXbDKjt+nKqIlSv0aV10/T9K2ynEuwq243W/R9nsU8KMQ8GSmskF62Kd9Zh/EdL7udRUB5CGFZYaXJ+YGoxYhSh9iDv22fUNEDFh2pgUwVy98INqt9MWSA=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199015)(36840700001)(40470700004)(46966006)(70206006)(40480700001)(53546011)(82310400005)(36756003)(82740400003)(478600001)(40460700003)(70586007)(356005)(8676002)(26005)(81166007)(54906003)(336012)(316002)(4326008)(86362001)(16576012)(44832011)(110136005)(8936002)(47076005)(5660300002)(41300700001)(426003)(186003)(31696002)(2616005)(31686004)(83380400001)(2906002)(36860700001)(32563001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2022 14:49:19.3022
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aa66ce6-125e-422a-0500-08dad474649b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0000E64C.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6422
 
+Hi Rahul,
 
-Vikram Garhwal <vikram.garhwal@amd.com> writes:
-
-> Add a new machine xenpv which creates a IOREQ server to register/connect =
-with
-> Xen Hypervisor.
->
-> Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device, a=
-dds a
-> TPM emulator and connects to swtpm running on host machine via chardev so=
-cket
-> and support TPM functionalities for a guest domain.
->
-> Extra command line for aarch64 xenpv QEMU to connect to swtpm:
->     -chardev socket,id=3Dchrtpm,path=3D/tmp/myvtpm2/swtpm-sock \
->     -tpmdev emulator,id=3Dtpm0,chardev=3Dchrtpm \
->
-> swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpm=
-s and
-> provides access to TPM functionality over socket, chardev and CUSE interf=
-ace.
-> Github repo: https://github.com/stefanberger/swtpm
-> Example for starting swtpm on host machine:
->     mkdir /tmp/vtpm2
->     swtpm socket --tpmstate dir=3D/tmp/vtpm2 \
->     --ctrl type=3Dunixio,path=3D/tmp/vtpm2/swtpm-sock &
->
-> /* Comment about machine name. Will be removed in next version*/
-> Please reply with the machine name you agree. Below are two possible name=
-s:
-> 1. xenpv
-> 2. xenpvh
->
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+On 01/12/2022 17:02, Rahul Singh wrote:
+> 
+> 
+> To configure IOMMU in guest for passthrough devices, user will need to
+> copy the unmodified "iommus" property from host device tree to partial
+> device tree. To enable the dom0 linux kernel to confiure the IOMMU
+> correctly replace the phandle in partial device tree with virtual
+> IOMMU phandle when "iommus" property is set.
+> 
+> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 > ---
->  hw/arm/meson.build            |   2 +
->  hw/arm/xen_arm.c              | 175 ++++++++++++++++++++++++++++++++++
->  include/hw/arm/xen_arch_hvm.h |   9 ++
->  include/hw/xen/arch_hvm.h     |   2 +
->  4 files changed, 188 insertions(+)
->  create mode 100644 hw/arm/xen_arm.c
->  create mode 100644 include/hw/arm/xen_arch_hvm.h
->
-> diff --git a/hw/arm/meson.build b/hw/arm/meson.build
-> index 92f9f6e000..0cae024374 100644
-> --- a/hw/arm/meson.build
-> +++ b/hw/arm/meson.build
-> @@ -62,5 +62,7 @@ arm_ss.add(when: 'CONFIG_FSL_IMX7', if_true: files('fsl=
--imx7.c', 'mcimx7d-sabre.
->  arm_ss.add(when: 'CONFIG_ARM_SMMUV3', if_true: files('smmu-common.c', 's=
-mmuv3.c'))
->  arm_ss.add(when: 'CONFIG_FSL_IMX6UL', if_true: files('fsl-imx6ul.c', 'mc=
-imx6ul-evk.c'))
->  arm_ss.add(when: 'CONFIG_NRF51_SOC', if_true: files('nrf51_soc.c'))
-> +arm_ss.add(when: 'CONFIG_XEN', if_true: files('xen_arm.c'))
-> +arm_ss.add_all(xen_ss)
->=20=20
->  hw_arch +=3D {'arm': arm_ss}
-> diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
-> new file mode 100644
-> index 0000000000..bcb8e95f2c
-> --- /dev/null
-> +++ b/hw/arm/xen_arm.c
-> @@ -0,0 +1,175 @@
-> +/*
-> + * QEMU ARM Xen PV Machine
-> + *
-> + *
-> + * Permission is hereby granted, free of charge, to any person obtaining=
- a copy
-> + * of this software and associated documentation files (the "Software"),=
- to deal
-> + * in the Software without restriction, including without limitation the=
- rights
-> + * to use, copy, modify, merge, publish, distribute, sublicense, and/or =
-sell
-> + * copies of the Software, and to permit persons to whom the Software is
-> + * furnished to do so, subject to the following conditions:
-> + *
-> + * The above copyright notice and this permission notice shall be includ=
-ed in
-> + * all copies or substantial portions of the Software.
-> + *
-> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
-SS OR
-> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
-TY,
-> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHA=
-LL
-> + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR =
-OTHER
-> + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISI=
-NG FROM,
-> + * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALING=
-S IN
-> + * THE SOFTWARE.
-> + */
-> +
-> +#include "qemu/osdep.h"
-> +#include "qemu/error-report.h"
-> +#include "qapi/qapi-commands-migration.h"
-> +#include "hw/boards.h"
-> +#include "hw/sysbus.h"
-> +#include "sysemu/block-backend.h"
-> +#include "sysemu/tpm_backend.h"
-> +#include "sysemu/sysemu.h"
-> +#include "hw/xen/xen-legacy-backend.h"
-> +#include "hw/xen/xen-hvm-common.h"
-> +#include "sysemu/tpm.h"
-> +#include "hw/xen/arch_hvm.h"
-> +
-> +#define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpv")
-> +OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
-> +
-> +static MemoryListener xen_memory_listener =3D {
-> +    .region_add =3D xen_region_add,
-> +    .region_del =3D xen_region_del,
-> +    .log_start =3D NULL,
-> +    .log_stop =3D NULL,
-> +    .log_sync =3D NULL,
-> +    .log_global_start =3D NULL,
-> +    .log_global_stop =3D NULL,
-> +    .priority =3D 10,
-> +};
-> +
-> +struct XenArmState {
-> +    /*< private >*/
-> +    MachineState parent;
-> +
-> +    XenIOState *state;
-> +};
-> +
-> +void arch_handle_ioreq(XenIOState *state, ioreq_t *req)
+>  xen/arch/arm/domain_build.c | 31 ++++++++++++++++++++++++++++++-
+>  1 file changed, 30 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 7cd99a6771..afb3e76409 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3235,7 +3235,35 @@ static int __init handle_prop_pfdt(struct kernel_info *kinfo,
+>      return ( propoff != -FDT_ERR_NOTFOUND ) ? propoff : 0;
+>  }
+> 
+> -static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+> +static void modify_pfdt_node(void *pfdt, int nodeoff)
 > +{
-> +    hw_error("Invalid ioreq type 0x%x\n", req->type);
+> +    int proplen, i, rc;
+> +    const fdt32_t *prop;
+> +    fdt32_t *prop_c;
+> +
+> +    prop = fdt_getprop(pfdt, nodeoff, "iommus", &proplen);
+> +    if ( !prop )
+> +        return;
+> +
+> +    prop_c = xzalloc_bytes(proplen);
+> +
+> +    for ( i = 0; i < proplen / 8; ++i )
+> +    {
+> +        prop_c[i * 2] = cpu_to_fdt32(GUEST_PHANDLE_VSMMUV3);
+> +        prop_c[i * 2 + 1] = prop[i * 2 + 1];
+> +    }
+> +
+> +    rc = fdt_setprop(pfdt, nodeoff, "iommus", prop_c, proplen);
+> +    if ( rc )
+> +    {
+> +        dprintk(XENLOG_ERR, "Can't set the iommus property in partial FDT");
+> +        return;
+> +    }
 > +
 > +    return;
 > +}
 > +
-> +void arch_xen_set_memory(XenIOState *state, MemoryRegionSection *section,
-> +                         bool add)
-> +{
-> +}
-> +
-> +void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length)
-> +{
-> +}
-> +
-> +void qmp_xen_set_global_dirty_log(bool enable, Error **errp)
-> +{
-> +}
-> +
+> +static int __init scan_pfdt_node(struct kernel_info *kinfo, void *pfdt,
+>                                   int nodeoff,
+>                                   uint32_t address_cells, uint32_t size_cells,
+>                                   bool scan_passthrough_prop)
+> @@ -3261,6 +3289,7 @@ static int __init scan_pfdt_node(struct kernel_info *kinfo, const void *pfdt,
+>      node_next = fdt_first_subnode(pfdt, nodeoff);
+>      while ( node_next > 0 )
+>      {
+> +        modify_pfdt_node(pfdt, node_next);
+You do not protect this call in any way and there is no check inside it whether viommu is enabled or not.
+This means that even with viommu disabled, if a user copies the iommus property to partial dtb
+(which is understandable as the flow is to copy almost everything), you will perform the phandle replacement.
+I do not think we should do that (no need for an extra code).
 
-This function is only used under CONFIG_TPM so without it you get:
+>          scan_pfdt_node(kinfo, pfdt, node_next, address_cells, size_cells,
+>                         scan_passthrough_prop);
+>          node_next = fdt_next_subnode(pfdt, node_next);
+> --
+> 2.25.1
+> 
+> 
 
-  ../../hw/arm/xen_arm.c:78:12: error: =E2=80=98xen_init_ioreq=E2=80=99 def=
-ined but not used [-Werror=3Dunused-function]
-     78 | static int xen_init_ioreq(XenIOState *state, unsigned int max_cpu=
-s)
-        |            ^~~~~~~~~~~~~~
-  cc1: all warnings being treated as errors
+~Michal
 
-I think I reported this on v1 as well.
-
-> +static int xen_init_ioreq(XenIOState *state, unsigned int max_cpus)
-> +{
-> +    xen_dmod =3D xendevicemodel_open(0, 0);
-> +    if (xen_dmod =3D=3D NULL) {
-> +        perror("xen: can't open xen device model interface\n");
-> +        return -1;
-> +    }
-> +
-> +    xen_xc =3D xc_interface_open(0, 0, 0);
-> +    if (xen_xc =3D=3D NULL) {
-> +        perror("xen: can't open xen interface\n");
-> +        return -1;
-> +    }
-> +
-> +    xen_fmem =3D xenforeignmemory_open(0, 0);
-> +    if (xen_fmem =3D=3D NULL) {
-> +        perror("xen: can't open xen fmem interface\n");
-> +        xc_interface_close(xen_xc);
-> +        return -1;
-> +    }
-> +
-> +    xen_register_ioreq(state, max_cpus, xen_memory_listener);
-> +
-> +    xen_register_backend(state);
-> +
-> +    xenstore_record_dm_state(state->xenstore, "running");
-> +
-> +    return 0;
-> +}
-> +
-> +static void xen_enable_tpm(void)
-> +{
-> +/* qemu_find_tpm_be is only available when CONFIG_TPM is enabled. */
-> +#ifdef CONFIG_TPM
-> +    Error *errp =3D NULL;
-> +    DeviceState *dev;
-> +    SysBusDevice *busdev;
-> +
-> +    TPMBackend *be =3D qemu_find_tpm_be("tpm0");
-> +    if (be =3D=3D NULL) {
-> +        DPRINTF("Couldn't fine the backend for tpm0\n");
-> +        return;
-> +    }
-> +    dev =3D qdev_new(TYPE_TPM_TIS_SYSBUS);
-> +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
-> +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
-> +    busdev =3D SYS_BUS_DEVICE(dev);
-> +    sysbus_realize_and_unref(busdev, &error_fatal);
-> +    sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
-> +
-> +    DPRINTF("Connected tpmdev at address 0x%lx\n", GUEST_TPM_BASE);
-> +#endif
-> +}
-> +
-> +static void xen_arm_init(MachineState *machine)
-> +{
-> +    XenArmState *xam =3D XEN_ARM(machine);
-> +
-> +    xam->state =3D  g_new0(XenIOState, 1);
-> +
-> +    /* For now enable IOREQ only for CONFIG_TPM. */
-> +#ifdef CONFIG_TPM
-> +    if (xen_init_ioreq(xam->state, machine->smp.cpus)) {
-> +        return;
-> +    }
-> +#endif
-> +
-> +    xen_enable_tpm();
-
-In fact this just looks weird - you guard the call to init_ioreq with
-ifdefs guarding it but nest those ifdefs in xen_enable_tpm. Surely you
-want the IOREQ server support even if you don't have TPM. Otherwise it
-should be a hard configure requirement.
-
-> +
-> +    return;
-> +}
-> +
-> +static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
-> +{
-> +
-> +    MachineClass *mc =3D MACHINE_CLASS(oc);
-> +    mc->desc =3D "Xen Para-virtualized PC";
-> +    mc->init =3D xen_arm_init;
-> +    mc->max_cpus =3D 1;
-> +
-> +#ifdef CONFIG_TPM
-> +    machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TPM_TIS_SYSBUS);
-> +#endif
-> +}
-> +
-> +static const TypeInfo xen_arm_machine_type =3D {
-> +    .name =3D TYPE_XEN_ARM,
-> +    .parent =3D TYPE_MACHINE,
-> +    .class_init =3D xen_arm_machine_class_init,
-> +    .instance_size =3D sizeof(XenArmState),
-> +};
-> +
-> +static void xen_arm_machine_register_types(void)
-> +{
-> +    type_register_static(&xen_arm_machine_type);
-> +}
-> +
-> +type_init(xen_arm_machine_register_types)
-> diff --git a/include/hw/arm/xen_arch_hvm.h b/include/hw/arm/xen_arch_hvm.h
-> new file mode 100644
-> index 0000000000..8fd645e723
-> --- /dev/null
-> +++ b/include/hw/arm/xen_arch_hvm.h
-> @@ -0,0 +1,9 @@
-> +#ifndef HW_XEN_ARCH_ARM_HVM_H
-> +#define HW_XEN_ARCH_ARM_HVM_H
-> +
-> +#include <xen/hvm/ioreq.h>
-> +void arch_handle_ioreq(XenIOState *state, ioreq_t *req);
-> +void arch_xen_set_memory(XenIOState *state,
-> +                         MemoryRegionSection *section,
-> +                         bool add);
-> +#endif
-> diff --git a/include/hw/xen/arch_hvm.h b/include/hw/xen/arch_hvm.h
-> index 26674648d8..c7c515220d 100644
-> --- a/include/hw/xen/arch_hvm.h
-> +++ b/include/hw/xen/arch_hvm.h
-> @@ -1,3 +1,5 @@
->  #if defined(TARGET_I386) || defined(TARGET_X86_64)
->  #include "hw/i386/xen_arch_hvm.h"
-> +#elif defined(TARGET_ARM) || defined(TARGET_ARM_64)
-> +#include "hw/arm/xen_arch_hvm.h"
->  #endif
-
-
---=20
-Alex Benn=C3=A9e
 
