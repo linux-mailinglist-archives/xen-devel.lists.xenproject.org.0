@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16433640A75
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 17:18:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452136.709944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 887D7640AA9
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 17:26:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452147.709956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p18jn-0006zo-Vp; Fri, 02 Dec 2022 16:18:07 +0000
+	id 1p18rU-0000jL-P4; Fri, 02 Dec 2022 16:26:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452136.709944; Fri, 02 Dec 2022 16:18:07 +0000
+Received: by outflank-mailman (output) from mailman id 452147.709956; Fri, 02 Dec 2022 16:26:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p18jn-0006wn-Sm; Fri, 02 Dec 2022 16:18:07 +0000
-Received: by outflank-mailman (input) for mailman id 452136;
- Fri, 02 Dec 2022 16:18:06 +0000
+	id 1p18rU-0000hZ-LJ; Fri, 02 Dec 2022 16:26:04 +0000
+Received: by outflank-mailman (input) for mailman id 452147;
+ Fri, 02 Dec 2022 16:26:02 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Lg1c=4A=intel.com=dave.hansen@srs-se1.protection.inumbo.net>)
- id 1p18jl-0006iu-MP
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 16:18:05 +0000
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e3de7b3f-725c-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 17:18:02 +0100 (CET)
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 08:17:59 -0800
-Received: from rsnyder-mobl.amr.corp.intel.com (HELO [10.209.68.71])
- ([10.209.68.71])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2022 08:17:57 -0800
+ <SRS0=xAMo=4A=chiark.greenend.org.uk=ijackson@srs-se1.protection.inumbo.net>)
+ id 1p18rR-0000hT-Sx
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 16:26:02 +0000
+Received: from chiark.greenend.org.uk (v6.chiark.greenend.org.uk
+ [2001:ba8:1e3::]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 010760c9-725e-11ed-91b6-6bf2151ebd3b;
+ Fri, 02 Dec 2022 17:25:59 +0100 (CET)
+Received: by chiark.greenend.org.uk (Debian Exim 4.94.2 #2) with local
+ (return-path ijackson@chiark.greenend.org.uk)
+ id 1p18rO-0001lJ-7Q; Fri, 02 Dec 2022 16:25:58 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,61 +39,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e3de7b3f-725c-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1669997882; x=1701533882;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=7kU26MIub+cu0n7tSsFLX1XdaUFcNgPBdV26TZeWYFY=;
-  b=TSakR07WkkqBh3fQHAcFpnvOIjlit4d3nWC4vvOpC21q7dcSHQG4HOC9
-   nIbOeVNJv1q1HK/1XGcAHye91sSzK6HAvibAAHHO/hW8NbT+2fXoJIaiP
-   t79tMNA7UcQk+HaPA5svn9WSxzygnW4slIpNlXmgi97ogdcaH1pR+a3d0
-   LH+GhrO5cmmGEtDBnYXwvBJb7QY10UWJvLwbTyscohnUkazidp7eSF5MF
-   Ub3z9yBJ1eAo0vJNPHoAiLyaE2wbfSexDoYu7l39w6bWgTHYSJhVepKln
-   74VRZq0oXtbLaFThUzdzbKH+zuiy/egCVSVH03CU/qSLVYvfudPVS0HCH
-   w==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="380274539"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; 
-   d="scan'208";a="380274539"
-X-IronPort-AV: E=McAfee;i="6500,9779,10548"; a="595493381"
-X-IronPort-AV: E=Sophos;i="5.96,212,1665471600"; 
-   d="scan'208";a="595493381"
-Message-ID: <93fd7ed0-5311-d6db-4d8b-b992a8f78ada@intel.com>
-Date: Fri, 2 Dec 2022 08:17:56 -0800
+X-Inumbo-ID: 010760c9-725e-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=chiark.greenend.org.uk; s=c.chiark; h=DKIM-Signature-Warning:References:
+	In-Reply-To:Subject:Cc:To:Date:Message-ID:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:From:Sender:Reply-To:Content-ID:Content-Description
+	:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+	List-Archive; bh=J/cZp/UrAosgTtT+LBiXPS6IgdNnHrO5HzbozuydOFg=; b=DG7L9JpZKuxi
+	it1DXEHY2iAm5MY3F6oJXU48hXC4MmX6d0EWPtqMBtm/4o4BN1yVa/bpMFkld0sfdYPs7phJ9VlHx
+	2f3YWD4dZujTzsw86SLPyEnnTg0caMufO2oPuDCgLyF5ESCS0h1QajB8oI8iv0kkKn4oZ9uhBxp3P
+	EzZwTB64EiBAmYkggRye/dOa1L8Mj2S640wnKqr49bRUQkBnxCKh+5ZeUFpEFn58OFxz5/exVFvM7
+	b2p2HLSyF/p3JoX7h4WwyeMUAwgkCP4GjJEy5jvLqB7l5gtno78n++CnkPG1ZIU/ufIjFCDsOmoC5
+	qBkBVWffCpRJ3GKK12cTMA==;
+From: Ian Jackson <ijackson@chiark.greenend.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.2.2
-Subject: Re: [PATCH 1/3] acpi/processor: fix evaluating _PDC method when
- running as Xen dom0
-Content-Language: en-US
-To: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-Cc: linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
- jgross@suse.com, Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>,
- Alex Chiang <achiang@hp.com>,
- Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>,
- linux-acpi@vger.kernel.org
-References: <20221121102113.41893-1-roger.pau@citrix.com>
- <20221121102113.41893-2-roger.pau@citrix.com>
- <6b212148-4e3f-3ef6-7922-901175746d44@intel.com>
- <Y4d8cm97hn5zuRQ1@Air-de-Roger>
- <4a0e9f91-8d8b-84bc-c9db-7265f5b65b63@intel.com>
- <Y4nugxKV1J/BqhBt@Air-de-Roger>
-From: Dave Hansen <dave.hansen@intel.com>
-In-Reply-To: <Y4nugxKV1J/BqhBt@Air-de-Roger>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-ID: <25482.10006.140155.984629@chiark.greenend.org.uk>
+Date: Fri, 2 Dec 2022 16:25:58 +0000
+To: Henry Wang <Henry.Wang@arm.com>
+Cc: Julien Grall <julien@xen.org>,
+    "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: RE: Release checklist and qemu-xen-traditional
+In-Reply-To: <AS8PR08MB7991236FE66DA48390C8E88E92179@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <AS8PR08MB79918A8115770DCF01863D7292159@AS8PR08MB7991.eurprd08.prod.outlook.com>
+	<25479.27844.230855.996791@chiark.greenend.org.uk>
+	<AS8PR08MB79917D648261C9ADB5F8EB8A92159@AS8PR08MB7991.eurprd08.prod.outlook.com>
+	<25482.1554.910128.804488@chiark.greenend.org.uk>
+	<AS8PR08MB7991236FE66DA48390C8E88E92179@AS8PR08MB7991.eurprd08.prod.outlook.com>
+X-Mailer: VM 8.2.0b under 27.1 (x86_64-pc-linux-gnu)
+DKIM-Signature-Warning: NOTE REGARDING DKIM KEY COMPROMISE https://www.chiark.greenend.org.uk/dkim-rotate/README.txt https://www.chiark.greenend.org.uk/dkim-rotate/e7/e7ec394fc5bad70f9d03084a487df88f.pem
 
-On 12/2/22 04:24, Roger Pau Monné wrote:
-> On the implementation side, is the proposed approach acceptable?
-> Mostly asking because it adds Xen conditionals to otherwise generic
-> ACPI code.
+Henry Wang writes ("RE: Release checklist and qemu-xen-traditional"):
+> Although I am wondering if the instruction about qemu-iwj.git here:
+> ```
+> * make branch in qemu-iwj.git
+>         git-branch $v-testing master
+> ```
+> 
+> would be duplicated with instructions here:
+> ```
+> # make branches in xenbits.xen.org qemus
+>         ssh xen@xenbits.xen.org
+> 	cd ~/git/qemu-xen.git
+> 	git branch staging-$v staging
+> 	git branch stable-$v master
+> 	cd ~/git/qemu-xen-traditional.git
+> 	git branch stable-$v master
+> ```
 
-That's a good Rafael question.
+I confess I answered without looking at the instructions again myself.
+I think you are right, and that branch instruction may be a duplicate.
 
-But, how do other places in the ACPI code handle things like this?
+Later, when it comes to tagging, you'll probably want to have a local
+staging-$v branch in your working tree, so that the tag is in the
+right place.
+
+Ian.
+
+-- 
+Ian Jackson <ijackson@chiark.greenend.org.uk>   These opinions are my own.  
+
+Pronouns: they/he.  If I emailed you from @fyvzl.net or @evade.org.uk,
+that is a private address which bypasses my fierce spamfilter.
 
