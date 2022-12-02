@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 310CA640F1B
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 21:19:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452273.710092 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B50CA640FD9
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 22:18:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452281.710104 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1CUc-0002Rn-4W; Fri, 02 Dec 2022 20:18:42 +0000
+	id 1p1DPL-0004Kc-HA; Fri, 02 Dec 2022 21:17:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452273.710092; Fri, 02 Dec 2022 20:18:42 +0000
+Received: by outflank-mailman (output) from mailman id 452281.710104; Fri, 02 Dec 2022 21:17:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1CUc-0002Oz-0n; Fri, 02 Dec 2022 20:18:42 +0000
-Received: by outflank-mailman (input) for mailman id 452273;
- Fri, 02 Dec 2022 20:18:40 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=cQDv=4A=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1p1CUa-0002Ot-G5
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 20:18:40 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 80c87af7-727e-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 21:18:38 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 2B2KIFl5075715
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Fri, 2 Dec 2022 15:18:21 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 2B2KIF5f075714;
- Fri, 2 Dec 2022 12:18:15 -0800 (PST) (envelope-from ehem)
+	id 1p1DPL-0004HC-DK; Fri, 02 Dec 2022 21:17:19 +0000
+Received: by outflank-mailman (input) for mailman id 452281;
+ Fri, 02 Dec 2022 21:17:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=myKJ=4A=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p1DPK-0004H6-78
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 21:17:18 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b11911a1-7286-11ed-8fd2-01056ac49cbb;
+ Fri, 02 Dec 2022 22:17:15 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A4ED7623E8;
+ Fri,  2 Dec 2022 21:17:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5AEB5C433C1;
+ Fri,  2 Dec 2022 21:17:11 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,89 +43,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 80c87af7-727e-11ed-91b6-6bf2151ebd3b
-Date: Fri, 2 Dec 2022 12:18:15 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: George Dunlap <George.Dunlap@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>
-Subject: Re: [ANNOUNCE] Call for agenda items for 1 December Community Call @
- 1600 UTC
-Message-ID: <Y4pdhzQBdI77b5oR@mattapan.m5p.com>
-References: <Y4kjIaU6PxrR9UcB@mattapan.m5p.com>
- <A28E972F-8F8E-4370-9BCC-A56E8D19674E@citrix.com>
+X-Inumbo-ID: b11911a1-7286-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670015833;
+	bh=Daxnn9PxSBnQ8obySBdXs/Ovh5ZwL9UWPHAxJS63sKY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=RSCYRwi9hysgKOyVwJQDTH8mRGQd59YQETBzp9rlNcmhbbpM5BjBVs7V3nf7cHBDV
+	 lxSNpuM1uOPDKeJyikEj0ZPezdXfdDSymlre2rM+OPkf1E58KcH2vyk5b3EDZroWDZ
+	 rfl3xq2GUjdkDQnucuLWg5jainrPDIboIQKHJVL0wJ3S0r3xv7LJhKqy8I9y7BpeVW
+	 OLqywA30xZ04b2Zi3lc3xRpu82rGFQ4vm69Xr3v44jbdc2kUvvGAdE1EPmjQmZ538v
+	 Q5ikTHz+INkccLYZLvWDrPHIjP8+bnFEC3z6AJsDtM7MtguaGUNHrvVg0DxSg8vnRX
+	 YB0W+7A3HSI9w==
+Date: Fri, 2 Dec 2022 13:17:09 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+cc: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-dev@xilinx.com, 
+    Paolo Bonzini <pbonzini@redhat.com>, stefano.stabellini@amd.com, 
+    alex.bennee@linaro.org, xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
+    "open list:All patches CC here" <qemu-devel@nongnu.org>, 
+    =?UTF-8?Q?Daniel_P=2E_Berrang=C3=A9?= <berrange@redhat.com>, 
+    Thomas Huth <thuth@redhat.com>
+Subject: Re: [QEMU][PATCH v2 05/11] include/hw/xen/xen_common: return error
+ from xen_create_ioreq_server
+In-Reply-To: <4b143736-d5a4-ac75-3671-9566a00707af@linaro.org>
+Message-ID: <alpine.DEB.2.22.394.2212021316530.4039@ubuntu-linux-20-04-desktop>
+References: <20221202030003.11441-1-vikram.garhwal@amd.com> <20221202030003.11441-6-vikram.garhwal@amd.com> <a45c902a-043d-5256-7961-40c8aabd89b4@linaro.org> <4b143736-d5a4-ac75-3671-9566a00707af@linaro.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <A28E972F-8F8E-4370-9BCC-A56E8D19674E@citrix.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+Content-Type: multipart/mixed; boundary="8323329-181244257-1670015833=:4039"
 
-On Fri, Dec 02, 2022 at 11:17:18AM +0000, George Dunlap wrote:
-> 
-> 
-> > On 1 Dec 2022, at 21:56, Elliott Mitchell <ehem+xen@m5p.com> wrote:
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-181244257-1670015833=:4039
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
+
+On Fri, 1 Dec 2022, Philippe Mathieu-Daudé wrote:
+> On 2/12/22 08:19, Philippe Mathieu-Daudé wrote:
+> > Hi Stefano and Vikram,
 > > 
-> > On Thu, Nov 24, 2022 at 05:11:36PM +0000, George Dunlap wrote:
-> >> 
-> >> == Dial-in Information ==
-> >> ## Meeting time
-> >> 16:00 - 17:00 UTC
-> >> Further International meeting times:
-> >> https://www.timeanddate.com/worldclock/meetingdetails.html?year=2022&month=12&day=1&hour=16&min=0&sec=0&p1=1234&p2=37&p3=224&p4=179
-> >> 
-> 
-> Ellliot,
-> 
-> Thanks for your feedback.  Replies in-line.
-> 
-> > I guess I have to ask, what is the goal of the Community Call?  Neither
-> > this message, nor the wiki page
-> > (https://wiki.xenproject.org/wiki/Community_Call) say much about the
-> > Community Call.
-> 
-> The goal of the call in general is just to talk about things that need talking about.  We obviously have the mailing list, but sometimes discussions here are easy to miss; and sometimes a discussion can get sorted out more quickly with a fast back-and-forth than with long email chains.  The intent has always been that if we start getting one topic that consistently 1) takes up a large amount of time and 2) only requires a subset of the attendees, to split it off into a separate meeting.
-> 
+> > On 2/12/22 03:59, Vikram Garhwal wrote:
+> > > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > 
+> > > This is done to prepare for enabling xenpv support for ARM architecture.
+> > > On ARM it is possible to have a functioning xenpv machine with only the
+> > > PV backends and no IOREQ server. If the IOREQ server creation fails,
+> > > continue to the PV backends initialization.
+> > > 
+> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+> > > ---
+> > >   include/hw/xen/xen_common.h | 13 ++++++++-----
+> > >   1 file changed, 8 insertions(+), 5 deletions(-)
+> > > 
+> > > diff --git a/include/hw/xen/xen_common.h b/include/hw/xen/xen_common.h
+> > > index 77ce17d8a4..6510ac15e0 100644
+> > > --- a/include/hw/xen/xen_common.h
+> > > +++ b/include/hw/xen/xen_common.h
+> > > @@ -467,9 +467,10 @@ static inline void xen_unmap_pcidev(domid_t dom,
+> > >   {
+> > >   }
+> > > -static inline void xen_create_ioreq_server(domid_t dom,
+> > > -                                           ioservid_t *ioservid)
+> > 
+> > How long are we supposed to maintain this code? Per [*]:
+> > 
+> >    In general XenProject.org supports stable branches for 18 months full
+> >    support plus 18 months security fixes. When a new X.Y.0 release is
+> >    made there is usually one more release on the to-be-retired stable
+> >    branch to mop up any loose patches sitting in the repository at which
+> >    point the branch is retired.
+> > 
+> > 4.17 was just released. 4.5 was 7 years ago. IIUC EOL'ed 4 years ago.
 
-The page on the wiki and announcement should provide some sort of
-statement.  I'm still unsure the two items I was proposing were good
-candidates as they're more "these two /should/ be getting more
-attention".
+Hi Philippe,
 
-> > This seemed to be being pointed out at the end of D.3, which was meant as
-> > low-priority, but was dealt with first purely due to being added first.
-> > Then most of the time was spent on D.4 when D.9 actually seemed a rather
-> > timely issue (the idea to get a bit of consideration before 4.17).
-> 
-> To be honest, part of my reluctance to move that one up in the agenda was because it was my own item.  Even with the number of items ahead of it, I didn’t expect it to be a problem to get to — there were several items which took much longer to discuss than I was expecting.  In the future I’ll be more pro-active about trying to prioritize things.
-> 
+So far we have not removed any of the old compatibility code in the xen
+headers like xen_common.h. However, you have a point and I think we
+could do so going forward. Like you wrote, 4.5 was 7 years ago, I would
+be happy to remove the old compatibility code to support ancient
+releases and that would simplify the code in the QEMU xen headers quite
+a bit.
 
-First there is a need to know whether things can run long or not.  If
-key people need to drop out right at the end of the specified time,
-prioritization is important.  If everyone can run long, then in-order is
-fine.
+That said, the change in this patch is orthogonal. This is needed anyway
+because we can have very modern Xen builds without IOREQ server
+capabilities (it is a kconfig option). So we would still need this patch.
 
-> > Problem with D.1 being at the start is it was unexpected half the agenda
-> > would be thrown in the garbage due to time.  Could I suggest the 10th as
-> > better?
-> 
-> The 10th of January instead of the 12th of January?  Why is that better?
-> 
-> I work as a stay-at-home dad on Tuesdays, so I wouldn’t be able to chair the meeting if it was on the 10th.
-> 
+Cheers,
 
-As stated, I didn't expect everything to get dropped on the floor and so
-didn't comment on the 12th being no-go for me.  I've no idea which dates
-work better for whom, but the 10th or before is workable for me (heck,
-even the 29th is viable, but I suspect that will be worse for others).
+Stefano
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
 
-
+> > [*]
+> > https://wiki.xenproject.org/wiki/Xen_Project_Maintenance_Releases#Stable_Maintenance_Branches
+> 
+> +Paolo for commit 14efd8d3b5 ("meson, configure: move Xen detection to
+> meson"):
+> 
+>     xen_libs = {
+>       '4.11.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 'xenforeignmemory',
+> 'xengnttab', 'xenevtchn', 'xentoolcore' ],
+>       '4.10.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 'xenforeignmemory',
+> 'xengnttab', 'xenevtchn', 'xentoolcore' ],
+>       '4.9.0': [ 'xenstore', 'xenctrl', 'xendevicemodel', 'xenforeignmemory',
+> 'xengnttab', 'xenevtchn' ],
+>       '4.8.0': [ 'xenstore', 'xenctrl', 'xenforeignmemory', 'xengnttab',
+> 'xenevtchn' ],
+>       '4.7.1': [ 'xenstore', 'xenctrl', 'xenforeignmemory', 'xengnttab',
+> 'xenevtchn' ],
+>       '4.6.0': [ 'xenstore', 'xenctrl' ],
+>       '4.5.0': [ 'xenstore', 'xenctrl' ],
+>       '4.2.0': [ 'xenstore', 'xenctrl' ],
+>     }
+> 
+> According to repology for the 'xen' package:
+> 
+>    FreeBSD (ports):    4.16
+>    Debian 11:          4.14.5
+>    Fedora 35:          4.16.2
+>    Ubuntu 20.04:       4.11.3
+>    OpenSUSE Leap 15.3: 4.14.1
+>    RHEL 8:             ?
+> 
+--8323329-181244257-1670015833=:4039--
 
