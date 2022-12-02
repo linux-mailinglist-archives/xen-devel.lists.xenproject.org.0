@@ -2,52 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C21964056E
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 12:02:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.451823.709616 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4A16640571
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 12:04:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.451830.709627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p13o5-0007he-It; Fri, 02 Dec 2022 11:02:13 +0000
+	id 1p13pf-0008WS-UA; Fri, 02 Dec 2022 11:03:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 451823.709616; Fri, 02 Dec 2022 11:02:13 +0000
+Received: by outflank-mailman (output) from mailman id 451830.709627; Fri, 02 Dec 2022 11:03:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p13o5-0007fC-Fm; Fri, 02 Dec 2022 11:02:13 +0000
-Received: by outflank-mailman (input) for mailman id 451823;
- Fri, 02 Dec 2022 11:02:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p13pf-0008Ug-Qt; Fri, 02 Dec 2022 11:03:51 +0000
+Received: by outflank-mailman (input) for mailman id 451830;
+ Fri, 02 Dec 2022 11:03:51 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NC9X=4A=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p13o3-0007f2-FF
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 11:02:11 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on20603.outbound.protection.outlook.com
- [2a01:111:f400:fe5a::603])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3b4a785-7230-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 12:02:10 +0100 (CET)
-Received: from BN9PR03CA0421.namprd03.prod.outlook.com (2603:10b6:408:113::6)
- by CH2PR12MB4037.namprd12.prod.outlook.com (2603:10b6:610:7a::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5857.23; Fri, 2 Dec
- 2022 11:02:06 +0000
-Received: from BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:113:cafe::d7) by BN9PR03CA0421.outlook.office365.com
- (2603:10b6:408:113::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10 via Frontend
- Transport; Fri, 2 Dec 2022 11:02:06 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT008.mail.protection.outlook.com (10.13.177.95) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5880.8 via Frontend Transport; Fri, 2 Dec 2022 11:02:05 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 2 Dec
- 2022 05:02:05 -0600
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 2 Dec 2022 05:02:04 -0600
+ <SRS0=3Iy3=4A=citrix.com=prvs=3285f5271=edvin.torok@srs-se1.protection.inumbo.net>)
+ id 1p13jX-0005B6-Vi
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 10:57:32 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 15f668ba-7230-11ed-8fd2-01056ac49cbb;
+ Fri, 02 Dec 2022 11:57:23 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,82 +36,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3b4a785-7230-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d6fbSNy4F5L7yKJ9oRWpdU6L9V88p1bG+6ZQu6rz/cbtXmVP5Qgq8iK/KA3mb/+sx5EdGJk77Koe58RGpkxCfz/M8I1Vh/9EE8PLFbLHZ7WX5dxV0Luhkd3XZFvHdQqPAK/mVFLDRPl3XRGVh3PTIaIdFRtCs3t7c1I7TEAefoVN3AqYRjidft+Yerp7+giiuoEasHx9Te6Q54/rjCyDOFk1nSNOSEafWjHiQlH7RE+FOFJ6R4h9ZuFpRPl2y+Z67gRNrY+wR2GRyJC8QQrklCownVXy15eCUN10OcrxbtPeBE01zMxMFdS/I/F6qT9bCxzCW/RwGkK+47UNeLykwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Yr8c4JrpoIOWWEM2RhraY4ayOenBz/ERD4THBPmAmYc=;
- b=OzSBc89BclBtldbR88CVDz5/lnaBb0oygABbz8xDsL0QaHTPVaA/H09K/Yh8vT8mLaYI8wEMzlAvMMoT0g5HeSsXVTpvLnFK7Xu2ouUkXtf7xSKUjBGgMSggjykXYq2VimM0j6dAl6j/SzMnQA3qW7DDL8kaVX5hKxMxUKeLc/Tw+Cr6l1nHMpIi56AjaCC/E2oUtNd7RyQmbbWtk2TSRiGv9CytJwLTypqJ3dNjqm+TwbG3oyIpaGOYKn1+bDtvXPIG7i2ax5pIMDe2GxUY7mtIy7DW6pd7oTdoZvRAcmOT0vYjPdYDgs2Z0fc9l9C/N1ZEnjdwwAGEfzTVfAOMEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Yr8c4JrpoIOWWEM2RhraY4ayOenBz/ERD4THBPmAmYc=;
- b=CLiyXJMS+8BhLw7uzQk+I5Uf/tJsawPAfIwf76FmC6VaNKMdg3I65JSW9bExltDeZyHcaIqYIVNU3Si8XZJUeNawd2uHk0gouFiYRXsVVoJP85WB1kgiZS1dyAKPTId9nK4GeJC7kU2q592QNTLsoe+GkAViQjw5uuJ5smMpDjI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <14ca1062-09eb-4647-807d-1b465dad8374@amd.com>
-Date: Fri, 2 Dec 2022 12:01:58 +0100
+X-Inumbo-ID: 15f668ba-7230-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1669978650;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=UY5V1ztvLDHDeM6oRGbllgDT8thJsbWRrKuqMI5IDOE=;
+  b=aADnUJYBoV5l3PmH4WogsKtAJ2htxGZ8GEfiSHHvipDRUbrQvZPNOUyS
+   MZk/skEuW6ywvOdyN4u3NJWpsbAbKIJB3NT9kSd/6XrxxQ48jdO7f7f1Q
+   fOzhngvRO+6ZD+pPWTQ/0sUCuUD/k7sGQOYUENZQsI4mI1/MuY5R9EMfy
+   A=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 88766325
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:h7whramvFpViImZ7eQqQgGbo5gyJJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xJKD2iOMv/cY2rwKdkjPd7n9RkDuJHRn9YwTQA9pH80HyMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7aqaVA8w5ARkP6kR5AWGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ dlGEmkUMzGevd2/xevmFsNLu/4AMNa+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsfYT/7C7pn9AusrnTzbTxe7k6Sv600y2PS0BZwwP7mN9+9ltmiFZUKwBjD/
+ D+uE2LRPzQeNNCx0TO/40mSjMDChTLqBtoLPejtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHslhIVRdd4CeAx7wCJjK3O7G6xGWwsXjNHLts8u6cLqScCj
+ wHT2YmzXHo27ePTGSn1GqqoQS2aHHYvdHZfRDI+cgIAuoS/iqYOtDHTUYM2eEKqteHdFTb1y
+ jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
+ JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD3271k5JAVdoKiN2bGKuOGphsRNMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QQM8koJVHep383OCZ8OlwBd2B1wckC1
+ WqzK57wXR7294w4pNZJewvt+eBynX1vrY8ibZv60w6mwdKjiI29EN843K+1Rrlhtsus+VyFm
+ +uzwuPWk32zpsWiOHiImWPSRHhWRUUG6Wfe8JMNK77Zf1E4QgnMyZb5mNscRmCspIwN/s+gw
+ 513chQEkjITWVWvxd22V01e
+IronPort-HdrOrdr: A9a23:c3YxjKzE1kqWzBQM45gCKrPw6L1zdoMgy1knxilNoHxuH/Bw9v
+ re+cjzsCWftN9/Yh4dcLy7VpVoIkmsl6Kdg7NwAV7KZmCP1FdARLsI0WKI+UyCJ8SRzI9gPa
+ cLSdkFNDXzZ2IK8PoTNmODYqodKNrsytHWuQ/HpU0dKT2D88tbnn9E4gDwKDwQeCB2QaAXOb
+ C7/cR9qz+paR0sH7+G7ilsZZmkmzXT/qiWGCI7Ow==
+X-IronPort-AV: E=Sophos;i="5.96,212,1665460800"; 
+   d="scan'208";a="88766325"
+From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Christian
+ Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 4/4] tools/ocaml: add .clang-format
+Date: Fri, 2 Dec 2022 10:55:59 +0000
+Message-ID: <d4875eb966303398bf44c168b455b47544eb1edc.1669978356.git.edvin.torok@citrix.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1669978356.git.edvin.torok@citrix.com>
+References: <cover.1669978356.git.edvin.torok@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH v6 2/3] automation: Add a clean rule for containers
-Content-Language: en-US
-To: Bertrand Marquis <bertrand.marquis@arm.com>,
-	<xen-devel@lists.xenproject.org>
-CC: Doug Goldstein <cardoe@cardoe.com>, Stefano Stabellini
-	<sstabellini@kernel.org>
-References: <cover.1669904508.git.bertrand.marquis@arm.com>
- <b802d2523af791acfdb68b6f8603ff2f0f8573d6.1669904508.git.bertrand.marquis@arm.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <b802d2523af791acfdb68b6f8603ff2f0f8573d6.1669904508.git.bertrand.marquis@arm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT008:EE_|CH2PR12MB4037:EE_
-X-MS-Office365-Filtering-Correlation-Id: 348e1728-2c79-4d2e-0d26-08dad454a658
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	LUwo8y4WDPpteMZrJEscK0NW6q+mpU7y8w3zjRcpNmjhp2jQrUmyK8tgONxTxBoLs7coHGNzoqmMjiDUHATa/hEvzuiNsBLIeoW/lBpo+DOrz7SF8TtUSo/ANl+iLIC2z+OSqveHY2HszNeLQW22/KxCXCyp0ZNU6GHTaWv/y2swjwaqdn0VkfPQ4R8B+zc0VvdDWuwlVYyLRg4/kgW6e+40+B1RMgYDOCGJukcVZaTlNnMKhiwzpxkL4+8hg57FUGdW6Xj/5b7sXZy2NrRNG9wA14YFIGugZpIGP2iNwdDYduvKRnDfmBDT54EDosjbC5m5dw2z9tsFcjKmwwVP+Bfy0CiHMBPbr4e2ilPuY6A4xGogNwbR3epwAhgU5pGeYgpO1FyyGDhLs5dNKYxCLA8tjviOzypozshAStOAp3WG80DX1WO1s5rPkajTXR+rP4NdSDHkSlUjfKajXIbhPjzwZh3TiDaVLbLy95ogh4Aju8p8btZ8f4F88honUOzgFezfoboJDctf8FHgxxyFm/wDPEYV0VnmiTx/tDt0+BGlsUxPiDCwwA4vuTkgQBX5zvbTp+cl6vs438bgnz/JI+o9BqL6SaMisS9prwfWN5Fr+tzmiqPDWm1Ee/ok7Xy6dYF99/JXRrvtQQkGl2Gl0wPb2H2+Ri7nTlplZTQwoZpbNwI+lZdhL4Vf01g7/WQsXxBU6Yoz8zvH/i0zILXnwuk1HJAUdqLQ8xLV05A9N4uY1Yq0oQuADn8JNWLxiLAKhSpUfmthdqF/EVNj7vzAtw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(356005)(81166007)(2616005)(82310400005)(86362001)(110136005)(31696002)(41300700001)(36756003)(6666004)(40480700001)(54906003)(5660300002)(70206006)(8936002)(478600001)(316002)(2906002)(70586007)(4326008)(8676002)(16576012)(53546011)(186003)(4744005)(36860700001)(82740400003)(47076005)(40460700003)(44832011)(26005)(426003)(336012)(31686004)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Dec 2022 11:02:05.9007
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 348e1728-2c79-4d2e-0d26-08dad454a658
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT008.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4037
+Content-Transfer-Encoding: 8bit
 
-Hi Bertrand,
+Add a .clang-format configuration that tries to match CODING_STYLE where
+possible.
 
-On 01/12/2022 15:25, Bertrand Marquis wrote:
-> 
-> 
-> Add make clean support to remove the containers from the local docker
-> registry.
-> make clean-<image_name> must be called to remove an image:
-> make clean-yocto/kirkstone-qemuarm: remove yocto kirkstone for qemuarm
-> image
-> 
-> Signed-off-by: Bertrand Marquis <bertrand.marquis@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+I was not able to express the special casing of braces after 'do'
+though, this can only be controlled generally for all control
+statements.
+It is imperfect, but should be better than the existing bindings, which
+do not follow Xen coding style.
 
-~Michal
+Add this to tools/ocaml first because:
+* there are relatively few C files here, and it is a good place to start with
+* it'd be useful to make these follow Xen's CODING_STYLE
+(which they currently do not because they use tabs for example)
+* they change relatively infrequently, so shouldn't cause issues with
+  backporting security fixes (could either backport the reindentation
+  patch too, or use git cherry-pick with `-Xignore-space-change`)
+
+Does not yet reformat any code.
+
+No functional change.
+
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+---
+Changes since v1:
+* change commit title to reflect this is for OCaml subtree only
+* don't mention stdint.h here, that may be fixed in a different way elsewhere
+---
+ tools/ocaml/.clang-format | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+ create mode 100644 tools/ocaml/.clang-format
+
+diff --git a/tools/ocaml/.clang-format b/tools/ocaml/.clang-format
+new file mode 100644
+index 0000000000..7ff88ee043
+--- /dev/null
++++ b/tools/ocaml/.clang-format
+@@ -0,0 +1,9 @@
++BasedOnStyle: GNU
++IndentWidth: 4
++
++# override GNU to match Xen ../../CODING_STYLE more closely
++AlwaysBreakAfterDefinitionReturnType: None
++AlwaysBreakAfterReturnType: None
++SpacesInConditionalStatement: true
++SpaceBeforeParens: ControlStatements
++BreakBeforeBraces: Allman
+-- 
+2.34.1
 
 
