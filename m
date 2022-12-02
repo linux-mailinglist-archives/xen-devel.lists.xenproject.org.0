@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FDB640B90
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 18:01:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452164.709978 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8215640BBC
+	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 18:06:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452172.709989 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p19P0-0007tb-NK; Fri, 02 Dec 2022 17:00:42 +0000
+	id 1p19Un-0000UC-Da; Fri, 02 Dec 2022 17:06:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452164.709978; Fri, 02 Dec 2022 17:00:42 +0000
+Received: by outflank-mailman (output) from mailman id 452172.709989; Fri, 02 Dec 2022 17:06:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p19P0-0007rh-KT; Fri, 02 Dec 2022 17:00:42 +0000
-Received: by outflank-mailman (input) for mailman id 452164;
- Fri, 02 Dec 2022 17:00:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p19Oz-0007qI-8g; Fri, 02 Dec 2022 17:00:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p19Oz-0008Cv-3N; Fri, 02 Dec 2022 17:00:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p19Oy-0003WY-N8; Fri, 02 Dec 2022 17:00:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p19Oy-0003lt-Mg; Fri, 02 Dec 2022 17:00:40 +0000
+	id 1p19Un-0000SC-AU; Fri, 02 Dec 2022 17:06:41 +0000
+Received: by outflank-mailman (input) for mailman id 452172;
+ Fri, 02 Dec 2022 17:06:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Gvms=4A=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1p19Um-0000S6-Cc
+ for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 17:06:40 +0000
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
+ [209.85.160.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id af4a6673-7263-11ed-91b6-6bf2151ebd3b;
+ Fri, 02 Dec 2022 18:06:39 +0100 (CET)
+Received: by mail-qt1-f175.google.com with SMTP id h24so5985555qta.9
+ for <xen-devel@lists.xenproject.org>; Fri, 02 Dec 2022 09:06:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,86 +38,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=wJB+55accdWTWMBaxSpePxe6RD7MEhEIU227LdRYO+o=; b=yqUfGu6mX3YucbooYz7hjG/I6a
-	9LvLR+kPLodmzr6QyhyVBXzXNUuAU3ra5rnHkPm6YMk27Zrudl/FQ7Tnut1fVU4w3TGekB1oMyeiG
-	rwuEtF+uEafZ4YTKxkHgyCv3rkk4hIIlQ3GQ6XbwzTB7SVjTF5jcnVEQhZ6pIPpsSZNA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175024-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: af4a6673-7263-11ed-91b6-6bf2151ebd3b
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=xh9kgJLINYmxV8g3qTi7szoV+9siNmymyIdCpJv+cBQ=;
+        b=l0WKND0dKK3uRz01u5rfqemeAYMCUUT4kSpDi96Vrvxm8A7ln2ma+RY8Ff1BI6QAk1
+         KVvtV2dOpl1rFTbLjsw4AMAlqAJxePeIYZ5oVv8s8bXCKppsWRn+XJ2i1jc93ZbSR1JJ
+         Xu4cy1330Whj04o5Xrlj8WRE4vE5gY9vPLZBscUGMFBcmCGHak76h4X3IXQ/mvE0Snwp
+         aZ+AC6Bo+9vQbAHJT1Tg8emquu/xseY8zjGQQdIddev9ZDrYs6uTp71qjQD+kt+T7l7M
+         HavZ9Yqxh2QrU8SGmQ9yCx7+Ax3HgfWVjQb1Tmta3d2Qjgkr7OPreUEGutPc4n8PBLB/
+         1Q8g==
+X-Gm-Message-State: ANoB5pnU6Q0WR9mJ13Bn7jO7jRSc1PiBxDhtqhfGnGPHcDhB3t8L96jw
+	O0HK5F+bQNUHEGJuob+H4SeznPVFP+iTmaciXzY=
+X-Google-Smtp-Source: AA0mqf7fLL+ryfJc9gdlygwZFMKAW1X4WWvlOUNEoVLLyu7iJ7lEwsoaHA2t1RhbtGz9hRYHOwN5y8/jp/Ex9zi8Yls=
+X-Received: by 2002:ac8:4818:0:b0:3a6:a0d7:e1f7 with SMTP id
+ g24-20020ac84818000000b003a6a0d7e1f7mr1208911qtq.153.1670000798144; Fri, 02
+ Dec 2022 09:06:38 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175024: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=10acd21795a9df5c0908c58104e82472c5fa2d17
-X-Osstest-Versions-That:
-    xen=133f35f0f0cd0a415e599c20156aaaa5598356c0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 02 Dec 2022 17:00:40 +0000
+References: <20221121102113.41893-1-roger.pau@citrix.com> <20221121102113.41893-2-roger.pau@citrix.com>
+ <6b212148-4e3f-3ef6-7922-901175746d44@intel.com> <Y4d8cm97hn5zuRQ1@Air-de-Roger>
+ <4a0e9f91-8d8b-84bc-c9db-7265f5b65b63@intel.com> <Y4nugxKV1J/BqhBt@Air-de-Roger>
+ <93fd7ed0-5311-d6db-4d8b-b992a8f78ada@intel.com> <Y4opuLnLIT3v9Aa7@Air-de-Roger>
+In-Reply-To: <Y4opuLnLIT3v9Aa7@Air-de-Roger>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 2 Dec 2022 18:06:26 +0100
+Message-ID: <CAJZ5v0hrdwUNOELXM5zxtTeavp+_o7TbkCRBjZVqvQVxt4QBnA@mail.gmail.com>
+Subject: Re: [PATCH 1/3] acpi/processor: fix evaluating _PDC method when
+ running as Xen dom0
+To: =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Dave Hansen <dave.hansen@intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, jgross@suse.com, 
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Len Brown <lenb@kernel.org>, Alex Chiang <achiang@hp.com>, 
+	Venkatesh Pallipadi <venkatesh.pallipadi@intel.com>, linux-acpi@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 175024 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175024/
+On Fri, Dec 2, 2022 at 5:37 PM Roger Pau Monn=C3=A9 <roger.pau@citrix.com> =
+wrote:
+>
+> On Fri, Dec 02, 2022 at 08:17:56AM -0800, Dave Hansen wrote:
+> > On 12/2/22 04:24, Roger Pau Monn=C3=A9 wrote:
+> > > On the implementation side, is the proposed approach acceptable?
+> > > Mostly asking because it adds Xen conditionals to otherwise generic
+> > > ACPI code.
+> >
+> > That's a good Rafael question.
 
-Failures :-/ but no regressions.
+Sorry for joining late, but first off _PDC has been deprecated since
+ACPI 3.0 (2004) and it is not even present in ACPI 6.5 any more.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+It follows from your description that _PDC is still used in the field,
+though, after 18 years of deprecation.  Who uses it, if I may know?
 
-version targeted for testing:
- xen                  10acd21795a9df5c0908c58104e82472c5fa2d17
-baseline version:
- xen                  133f35f0f0cd0a415e599c20156aaaa5598356c0
+> > But, how do other places in the ACPI code handle things like this?
+>
+> Hm, I don't know of other places in the Xen case, the only resource
+> in ACPI AML tables managed by Xen are Processor objects/devices AFAIK.
+> The rest of devices are fully managed by the dom0 guest.
+>
+> I think such special handling is very specific to Xen, but maybe I'm
+> wrong and there are similar existing cases in ACPI code already.
+>
+> We could add some kind of hook (iow: a function pointer in some struct
+> that could be filled on a implementation basis?) but I didn't want
+> overengineering this if adding a conditional was deemed OK.
 
-Last test of basis   175022  2022-12-02 10:00:30 Z    0 days
-Testing same since   175024  2022-12-02 14:07:16 Z    0 days    1 attempts
+What _PDC capabilities specifically do you need to pass to the
+firmware for things to work correctly?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Christian Lindig <christian.lindig@citrix.com>
-  Edwin Török <edvin.torok@citrix.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   133f35f0f0..10acd21795  10acd21795a9df5c0908c58104e82472c5fa2d17 -> smoke
+What platforms are affected?
 
