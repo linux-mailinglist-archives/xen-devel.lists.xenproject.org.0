@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A06D0641910
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Dec 2022 21:38:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452790.710591 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66A3C641912
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Dec 2022 21:41:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452797.710603 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1ZGZ-0002af-EM; Sat, 03 Dec 2022 20:37:43 +0000
+	id 1p1ZJZ-00040S-Tz; Sat, 03 Dec 2022 20:40:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452790.710591; Sat, 03 Dec 2022 20:37:43 +0000
+Received: by outflank-mailman (output) from mailman id 452797.710603; Sat, 03 Dec 2022 20:40:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1ZGZ-0002XY-Bc; Sat, 03 Dec 2022 20:37:43 +0000
-Received: by outflank-mailman (input) for mailman id 452790;
- Sat, 03 Dec 2022 20:37:42 +0000
+	id 1p1ZJZ-0003xk-Qm; Sat, 03 Dec 2022 20:40:49 +0000
+Received: by outflank-mailman (input) for mailman id 452797;
+ Sat, 03 Dec 2022 20:40:48 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p1ZGY-0002XS-1Y
- for xen-devel@lists.xenproject.org; Sat, 03 Dec 2022 20:37:42 +0000
+ (envelope-from <julien@xen.org>) id 1p1ZJY-0003xe-Cz
+ for xen-devel@lists.xenproject.org; Sat, 03 Dec 2022 20:40:48 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p1ZGX-00032o-Mh; Sat, 03 Dec 2022 20:37:41 +0000
+ id 1p1ZJX-00036v-Ua; Sat, 03 Dec 2022 20:40:47 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p1ZGX-0002uA-Fv; Sat, 03 Dec 2022 20:37:41 +0000
+ id 1p1ZJX-00030p-Oc; Sat, 03 Dec 2022 20:40:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,108 +40,105 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=Nnpc4dGHJ3rZ5Nks+j9E413nJCxYN1US/ORMe+qhpYs=; b=HXiC8USopD6dgzDlhIfiLMtKfX
-	BJjde5b0Ev3LAYHbGcY5e8BHks9UK24nxzW+Xb464ZvV4GYSOw2DlSthJduk5jUUVzM7nU7Bn73Y1
-	TOV0eSXnBXTkoMXbjF2QgPjtwE/I/u0VniKFxyJjWAzVOhjtVIdbEZSp7fOSMJ2ofFA0=;
-Message-ID: <c56167cf-1a12-6910-ef19-825f94ed517b@xen.org>
-Date: Sat, 3 Dec 2022 20:37:39 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=1iqqiH64fbfJz4uoN1xPNVOd24d39ael6+6GhflFMa0=; b=sX5qYzdQwePT4v3TQlU3uwlfu4
+	O77fiO2la5fwMsnsp1TQeQo4YQDZtcrvjrSGky3ZjjkzaxKtpOvuudPbYq6ZZSmE0BcasVtL815nq
+	EkGR8uGoD2RKyEpBZnMYFbPbQP7Fvq4aQgzvfouRgLUuLwJoCSKbfn3MT1hXZPHDg9cc=;
+Message-ID: <fcb13f6a-2c84-be06-cfea-94b980c6a207@xen.org>
+Date: Sat, 3 Dec 2022 20:40:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.0
+Subject: Re: [XEN v4 11/11] xen/Arm: GICv3: Enable GICv3 for AArch32
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
  xen-devel@lists.xenproject.org
 Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
  bertrand.marquis@arm.com, michal.orzel@amd.com, jgrall@amazon.com,
  burzalodowa@gmail.com
 References: <20221128155649.31386-1-ayan.kumar.halder@amd.com>
- <20221128155649.31386-11-ayan.kumar.halder@amd.com>
+ <20221128155649.31386-12-ayan.kumar.halder@amd.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [XEN v4 10/11] xen/Arm: GICv3: Define macros to read/write 64 bit
-In-Reply-To: <20221128155649.31386-11-ayan.kumar.halder@amd.com>
+In-Reply-To: <20221128155649.31386-12-ayan.kumar.halder@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
 On 28/11/2022 15:56, Ayan Kumar Halder wrote:
-> On AArch32, ldrd/strd instructions are not atomic when used to access MMIO.
-> Furthermore, ldrd/strd instructions are not decoded by Arm when running as
-> a guest to access emulated MMIO region.
-> Thus, we have defined readq_relaxed_non_atomic()/writeq_relaxed_non_atomic()
-> which in turn calls readl_relaxed()/writel_relaxed() for the lower and upper
-> 32 bits.
-> For AArch64, readq_relaxed_non_atomic()/writeq_relaxed_non_atomic() invokes
-> readq_relaxed()/writeq_relaxed() respectively.
-> As GICv3 registers (GICD_IROUTER, GICR_TYPER) can be accessed in a non atomic
-> manner, so we have used readq_relaxed_non_atomic()/writeq_relaxed_non_atomic().
-
-I had another look at the code and I think there needs some 
-clarification necessary because the accesses to IROUTER is non-obvious.
-
+> One can now use GICv3 on AArch32 systems. However, ITS is not supported.
+> The reason being currently we are trying to validate GICv3 on an AArch32_v8R
+> system. Refer ARM DDI 0568A.c ID110520, B1.3.1,
+> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE must not
+> implement LPI support."
+> 
+> By default GICv3 is disabled on AArch32 and enabled on AArch64.
+> 
+> Updated SUPPORT.md to state that GICv3 on Arm32 is not security supported.
 > 
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 > ---
 > 
-> Changes from :-
-> v1 - 1. Use ldrd/strd for readq_relaxed()/writeq_relaxed().
-> 2. No need to use le64_to_cpu() as the returned byte order is already in cpu
-> endianess.
+> Changed from :-
+> v1 - 1. Remove "ARM_64 || ARM_32" as it is always true.
+> 2. Updated SUPPORT.md.
 > 
-> v2 - 1. Replace {read/write}q_relaxed with {read/write}q_relaxed_non_atomic().
+> v2 - 1. GICv3 is enabled by default only on ARM_64.
+> 2. Updated SUPPORT.md.
 > 
-> v3 - 1. Use inline function definitions for {read/write}q_relaxed_non_atomic().
-> 2. For AArch64, {read/write}q_relaxed_non_atomic() should invoke {read/write}q_relaxed().
-> Thus, we can avoid any ifdef in gic-v3.c.
+> v3 - 1. GICv3 is not selected by ARM_64. Rather, it is optionally
+> enabled.
+> 2. GICv3 is disabled by default on ARM_32.
 > 
->   xen/arch/arm/gic-v3.c               |  6 +++---
->   xen/arch/arm/include/asm/arm32/io.h | 20 ++++++++++++++++++++
->   xen/arch/arm/include/asm/arm64/io.h |  2 ++
->   3 files changed, 25 insertions(+), 3 deletions(-)
+>   SUPPORT.md                            | 7 +++++++
+>   xen/arch/arm/Kconfig                  | 9 +++++----
+>   xen/arch/arm/include/asm/cpufeature.h | 1 +
+>   3 files changed, 13 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/arch/arm/gic-v3.c b/xen/arch/arm/gic-v3.c
-> index 6457e7033c..3c5b88148c 100644
-> --- a/xen/arch/arm/gic-v3.c
-> +++ b/xen/arch/arm/gic-v3.c
-> @@ -651,7 +651,7 @@ static void __init gicv3_dist_init(void)
->       affinity &= ~GICD_IROUTER_SPI_MODE_ANY;
+> diff --git a/SUPPORT.md b/SUPPORT.md
+> index ab71464cf6..295369998e 100644
+> --- a/SUPPORT.md
+> +++ b/SUPPORT.md
+> @@ -76,6 +76,13 @@ For the Cortex A57 r0p0 - r1p1, see Errata 832075.
+>       Status, ARM SMMUv3: Tech Preview
+>       Status, Renesas IPMMU-VMSA: Supported, not security supported
 >   
->       for ( i = NR_GIC_LOCAL_IRQS; i < nr_lines; i++ )
-> -        writeq_relaxed(affinity, GICD + GICD_IROUTER + i * 8);
-> +        writeq_relaxed_non_atomic(affinity, GICD + GICD_IROUTER + i * 8);
-
-Using non atomic here makes sense because AFAIU the interrupt will be 
-disabled. Therefore the GIC should not use the register.
-
->   }
+> +### ARM/GICv3
+> +
+> +GICv3 is an interrupt controller specification designed by Arm.
+> +
+> +    Status, Arm64: Security supported
+> +    Status, Arm32: Supported, not security supported
+> +
+>   ### ARM/GICv3 ITS
 >   
->   static int gicv3_enable_redist(void)
-> @@ -745,7 +745,7 @@ static int __init gicv3_populate_rdist(void)
->           }
+>   Extension to the GICv3 interrupt controller to support MSI.
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 52a05f704d..9d0c45f892 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -41,16 +41,17 @@ config ARM_EFI
 >   
->           do {
-> -            typer = readq_relaxed(ptr + GICR_TYPER);
-> +            typer = readq_relaxed_non_atomic(ptr + GICR_TYPER);
-
-This non-atomic read is OK because GICR_TYPER is read-only.
-
+>   config GICV3
+>   	bool "GICv3 driver"
+> -	depends on ARM_64 && !NEW_VGIC
+> -	default y
+> +	depends on !NEW_VGIC
+> +	default n if ARM_32
+> +	default y if ARM_64
+>   	---help---
 >   
->               if ( (typer >> 32) == aff )
->               {
-> @@ -1265,7 +1265,7 @@ static void gicv3_irq_set_affinity(struct irq_desc *desc, const cpumask_t *mask)
->       affinity &= ~GICD_IROUTER_SPI_MODE_ANY;
->   
->       if ( desc->irq >= NR_GIC_LOCAL_IRQS )
-> -        writeq_relaxed(affinity, (GICD + GICD_IROUTER + desc->irq * 8));
-> +        writeq_relaxed_non_atomic(affinity, (GICD + GICD_IROUTER + desc->irq * 8));
+>   	  Driver for the ARM Generic Interrupt Controller v3.
+> -	  If unsure, say Y
+> +	  If unsure, say N for ARM_32 and Y for ARM_64
 
-This can be called with interrupt enabled. So a non-atomic access means 
-the GIC will see a transient value when only one of two 32-bit will be 
-updated.
+s/ARM_32/32-bit Arm/
+s/ARM_64/64-bit Arm/
 
-In practice this is fine because only Aff3 is so far defined in the top 
-32-bits. So effectively, they will be RESS0 and never change.
+Or you could use the following wording (used on x86 in similar 
+circumstances):
+
+"If unsure, use the default setting."
 
 Cheers,
 
