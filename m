@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEE906411E0
-	for <lists+xen-devel@lfdr.de>; Sat,  3 Dec 2022 01:18:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452316.710144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0DC641282
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Dec 2022 01:42:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452330.710154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1GD0-0002GT-Sq; Sat, 03 Dec 2022 00:16:46 +0000
+	id 1p1Gam-0007fR-SZ; Sat, 03 Dec 2022 00:41:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452316.710144; Sat, 03 Dec 2022 00:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 452330.710154; Sat, 03 Dec 2022 00:41:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1GD0-0002EQ-Pq; Sat, 03 Dec 2022 00:16:46 +0000
-Received: by outflank-mailman (input) for mailman id 452316;
- Sat, 03 Dec 2022 00:16:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p1GCz-0002EG-BL; Sat, 03 Dec 2022 00:16:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p1GCz-0001ax-8t; Sat, 03 Dec 2022 00:16:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p1GCy-0008JK-Mg; Sat, 03 Dec 2022 00:16:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p1GCy-0001lf-MD; Sat, 03 Dec 2022 00:16:44 +0000
+	id 1p1Gam-0007dI-Pu; Sat, 03 Dec 2022 00:41:20 +0000
+Received: by outflank-mailman (input) for mailman id 452330;
+ Sat, 03 Dec 2022 00:41:19 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LyC/=4B=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p1Gal-0007dC-7X
+ for xen-devel@lists.xenproject.org; Sat, 03 Dec 2022 00:41:19 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 31d002e9-72a3-11ed-91b6-6bf2151ebd3b;
+ Sat, 03 Dec 2022 01:41:17 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id C620DCE1E9A;
+ Sat,  3 Dec 2022 00:41:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589C8C433D7;
+ Sat,  3 Dec 2022 00:41:10 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,217 +43,143 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=314I8h3O5v1BPXZbvatoUFPL7czW/F3ZxrVE0KK/eEI=; b=FVTgKUqcCyFnM4Co0SRaXOZUeI
-	XBN7yXKj98CRwvatvQAK1a5ukEYfCRyzTI/hUPHXszS+/6LM9l1bMIeaFI8G6XdUFYpHmciZRYn9B
-	4FZuc9R4+iH+kvdRNCQ1awB1Ag2PCYMSTWwKu0bfHtqF8Qw2WFNUZNToKI2z7nu9lgU0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175023-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 31d002e9-72a3-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670028073;
+	bh=ekxCqppWFoTlsLuJCnEBNXzChSlisIdkK4XbALbH8Kc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=fffmVbfLCv3hUbD7BEu7qSq8IhI7xiar5fGSTi9uvyKWUy5XxjxrS61negyo7wvAW
+	 vgcAJW1Xbk8jCjIWSyvOZIe31ZNsTLYgFc15R1PEUCx6MQFbmFfvevnsPu1sL9TFh+
+	 bp6ETUcebjttwicZqAxDiDFegDj6QCWAxJ7u4W1aH8mT8BilMsJ3JqXsvYSXpbswy3
+	 Ol+rmR3ZFzFGvYy6ZUOEpoGJzNi31YZn2jQJsOSU5DdiYRsFMiQdtCW1oIr5TW6d4/
+	 TGtXBlVT0cwIOH9I68oWdpbJVzyfRCEW/dsS5MX7fDZb9eqmmR2H4hLx2H4ljoOEuV
+	 +QmYrn2h8ySdg==
+Date: Fri, 2 Dec 2022 16:41:08 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+cc: Stefano Stabellini <sstabellini@kernel.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+    Julien Grall <julien@xen.org>, Wei Liu <wl@xen.org>
+Subject: Re: [PATCH 2/4] xen/scripts: add cppcheck tool to the xen-analysis.py
+ script
+In-Reply-To: <3C1C5FC8-8AFB-4E21-B47F-1BE4EDBD0670@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2212021640210.4039@ubuntu-linux-20-04-desktop>
+References: <20221128141006.8719-1-luca.fancellu@arm.com> <20221128141006.8719-3-luca.fancellu@arm.com> <alpine.DEB.2.22.394.2211291607280.4039@ubuntu-linux-20-04-desktop> <CD8C2F1A-B321-4E3D-907C-E6DBB1A5E2CD@arm.com> <alpine.DEB.2.22.394.2211301145132.4039@ubuntu-linux-20-04-desktop>
+ <A3204E48-FF22-4275-961C-690F57A8AAEE@arm.com> <alpine.DEB.2.22.394.2212011210120.4039@ubuntu-linux-20-04-desktop> <3C1C5FC8-8AFB-4E21-B47F-1BE4EDBD0670@arm.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [linux-linus test] 175023: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=a4412fdd49dc011bcc2c0d81ac4cab7457092650
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 03 Dec 2022 00:16:44 +0000
+Content-Type: multipart/mixed; boundary="8323329-1384827540-1670028072=:4039"
 
-flight 175023 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175023/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Regressions :-(
+--8323329-1384827540-1670028072=:4039
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+On Fri, 2 Dec 2022, Luca Fancellu wrote:
+> > On 1 Dec 2022, at 20:23, Stefano Stabellini <sstabellini@kernel.org> wrote:
+> > 
+> > On Thu, 1 Dec 2022, Luca Fancellu wrote:
+> >> Hi Stefano,
+> >> 
+> >>>>> 
+> >>>>> 
+> >>>>>> +            sm_tool_args="n"
+> >>>>>> +            ;;
+> >>>>>> +        --cppcheck-cmd=*)
+> >>>>>> +            CPPCHECK_TOOL="$(eval echo "${OPTION#*=}")"
+> >>>>>> +            sm_tool_args="y"
+> >>>>>> +            ;;
+> >>>>>> +        --cppcheck-html)
+> >>>>>> +            CPPCHECK_HTML="y"
+> >>>>>> +            sm_tool_args="n"
+> >>>>>> +            ;;
+> >>>>>> +        --cppcheck-plat=*)
+> >>>>>> +            CPPCHECK_PLAT_PATH="$(eval echo "${OPTION#*=}")"
+> >>>>>> +            sm_tool_args="n"
+> >>>>>> +            ;;
+> >>>>>> +        --ignore-path=*)
+> >>>>>> +            IGNORE_PATH_LIST="${IGNORE_PATH_LIST} $(eval echo "${OPTION#*=}")"
+> >>>>>> +            sm_tool_args="n"
+> >>>>>> +            ;;
+> >>>>>> +        --)
+> >>>>>> +            forward_to_cc="y"
+> >>>>>> +            sm_tool_args="n"
+> >>>>>> +            ;;
+> >>>>>> +        *)
+> >>>>>> +            if [ "${sm_tool_args}" = "y" ]; then
+> >>>>>> +                CPPCHECK_TOOL_ARGS="${CPPCHECK_TOOL_ARGS} ${OPTION}"
+> >>>>>> +            else
+> >>>>>> +                echo "Invalid option ${OPTION}"
+> >>>>>> +                exit 1
+> >>>>> 
+> >>>>> It doesn't look like sm_tool_args is really needed? It is only set to
+> >>>>> 'y' in the case of --cppcheck-cmd, and in that case we also set
+> >>>>> CPPCHECK_TOOL. CPPCHECK_TOOL is the variable used below. Am I missing
+> >>>>> something?
+> >>>> 
+> >>>> We use sm_tool_args to fill CPPCHECK_TOOL_ARGS, basically it’s a state machine where
+> >>>> when we find --cppcheck-cmd=<xxx> we expect that every other space separated arguments
+> >>>> passed afterwards are the args for cppcheck, so we append to CPPCHECK_TOOL_ARGS
+> >>>> until we find an argument that is supposed to be only for this script.
+> >>> 
+> >>> That seems a bit unnecessary: if the user wants to pass arguments to
+> >>> cppcheck, the user would do --cppcheck-cmd="cppcheck arg1 arg2" with ""
+> >>> quotes. Doing that should make --cppcheck-cmd="cppcheck arg1 arg2" be
+> >>> seen as a single argument from this script point of view. CPPCHECK_TOOL
+> >>> would end up being set to "cppcheck arg1 arg2" which is what we want
+> >>> anyway? And if we need to distinguish between the cppcheck binary and
+> >>> its argument we could use "cut" to extract "cppcheck", "arg1", and
+> >>> "arg2" from CPPCHECK_TOOL.  Would that work?
+> >>> 
+> >> 
+> >> I gave a try for the quotes, the problem is that we need to have quotes in CC=“...”, so adding
+> >> quotes also to --cppcheck-cmd= which is inside CC=“...” is preventing the Makefile to work,
+> >> I tried escaping etc but I didn’t manage to have it working, so would you agree on keeping it
+> >> like that?
+> > 
+> > Is the problem coming from the following?
+> > 
+> >    cppcheck_cc_flags = """--compiler={} --cppcheck-cmd={} {}
+> > --cppcheck-plat={}/cppcheck-plat --ignore-path=tools/
+> > """.format(xen_cc, settings.cppcheck_binpath, cppcheck_flags,
+> >           settings.tools_dir)
+> > 
+> >    if settings.cppcheck_html:
+> >        cppcheck_cc_flags = cppcheck_cc_flags + " --cppcheck-html"
+> > 
+> >    # Generate the extra make argument to pass the cppcheck-cc.sh wrapper as CC
+> >    cppcheck_extra_make_args = "CC=\"{}/cppcheck-cc.sh {} --\"".format(
+> >                                        settings.tools_dir,
+> >                                        cppcheck_cc_flags
+> >                                    ).replace("\n", "")
+> > 
+> > 
+> > Wouldn't something like the following solve the issue?
+> > 
+> >    settings.cppcheck_binpath = settings.cppcheck_binpath + " " + cppcheck_cc_flags
+> > 
+> >    cppcheck_cc_flags = """--compiler={} --cppcheck-cmd=\"{}\"
+> > --cppcheck-plat={}/cppcheck-plat --ignore-path=tools/
+> > """.format(xen_cc, settings.cppcheck_binpath, settings.tools_dir)
+> > 
+> >    if settings.cppcheck_html:
+> >        cppcheck_cc_flags = cppcheck_cc_flags + " --cppcheck-html"
+> > 
+> >    # Generate the extra make argument to pass the cppcheck-cc.sh wrapper as CC
+> >    cppcheck_extra_make_args = "CC=\"{}/cppcheck-cc.sh {} --\"".format(
+> >                                        settings.tools_dir,
+> >                                        cppcheck_cc_flags
+> >                                    ).replace("\n", "")
+> 
+> No unfortunately not, Makefile is very sensitive to quotes, I’ve tried with many combination of single/double quotes but nothing worked
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
-
-version targeted for testing:
- linux                a4412fdd49dc011bcc2c0d81ac4cab7457092650
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-
-Last test of basis   173462  2022-10-07 18:41:45 Z   56 days
-Failing since        173470  2022-10-08 06:21:34 Z   55 days  108 attempts
-Testing same since   175023  2022-12-02 11:08:32 Z    0 days    1 attempts
-
-------------------------------------------------------------
-1931 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 184723 lines long.)
+I spent a couple of hours to try to get it to work. I also admit defeat.
+Keep your original code, that's better.
+--8323329-1384827540-1670028072=:4039--
 
