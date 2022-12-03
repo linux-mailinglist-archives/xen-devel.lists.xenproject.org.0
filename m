@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A62246410C3
-	for <lists+xen-devel@lfdr.de>; Fri,  2 Dec 2022 23:37:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.452302.710129 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE906411E0
+	for <lists+xen-devel@lfdr.de>; Sat,  3 Dec 2022 01:18:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.452316.710144 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1Edp-0001cD-Ix; Fri, 02 Dec 2022 22:36:21 +0000
+	id 1p1GD0-0002GT-Sq; Sat, 03 Dec 2022 00:16:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 452302.710129; Fri, 02 Dec 2022 22:36:21 +0000
+Received: by outflank-mailman (output) from mailman id 452316.710144; Sat, 03 Dec 2022 00:16:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p1Edp-0001Z2-F5; Fri, 02 Dec 2022 22:36:21 +0000
-Received: by outflank-mailman (input) for mailman id 452302;
- Fri, 02 Dec 2022 22:36:20 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=myKJ=4A=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p1Edo-0001Yw-Jz
- for xen-devel@lists.xenproject.org; Fri, 02 Dec 2022 22:36:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd36501f-7291-11ed-91b6-6bf2151ebd3b;
- Fri, 02 Dec 2022 23:36:19 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 391C7B822E6;
- Fri,  2 Dec 2022 22:36:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FB24C433D6;
- Fri,  2 Dec 2022 22:36:15 +0000 (UTC)
+	id 1p1GD0-0002EQ-Pq; Sat, 03 Dec 2022 00:16:46 +0000
+Received: by outflank-mailman (input) for mailman id 452316;
+ Sat, 03 Dec 2022 00:16:45 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p1GCz-0002EG-BL; Sat, 03 Dec 2022 00:16:45 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p1GCz-0001ax-8t; Sat, 03 Dec 2022 00:16:45 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p1GCy-0008JK-Mg; Sat, 03 Dec 2022 00:16:44 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p1GCy-0001lf-MD; Sat, 03 Dec 2022 00:16:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,156 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd36501f-7291-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1670020577;
-	bh=rLAQ/BjJBRgsdL1GIzGnLqJTVHQ6RbDZm8KJS7NvvNs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Bcoi54MxZCEKk4JJqW5lO4sRMCnjJFYEj/TlP1nb/iJOiwPy6iO2ddrQwiOHutgxW
-	 OUO494syNCE0WwJeftOPWtdave85sYbuZ7Km9NotaHODZ7IgZPAr1vrWPG/WdxhkFA
-	 NwsTnEVUX+71meaxEFd9Q1tRJM1gizeOfJZHvL6vw3qIEvt7fi74Bcef/kdqKk6WG7
-	 YgNp7qqUwaX4k3auJOxLKnzn6MVUo8llU5SEl+cw2wrsc0BeM7/cuIQWrr+Agc9R1J
-	 2RdSgk/5xdft/An4x/gH30yQYOJPRfIYxOtgnCaiEKd8gfXdGx3HDSLoJORG+uV0Hi
-	 Wok8Jn7JCUINQ==
-Date: Fri, 2 Dec 2022 14:36:14 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-cc: =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>, qemu-dev@xilinx.com, 
-    stefano.stabellini@amd.com, xen-devel@lists.xenproject.org, 
-    Peter Maydell <peter.maydell@linaro.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-    "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>, 
-    "open list:All patches CC here" <qemu-devel@nongnu.org>
-Subject: Re: [QEMU][PATCH v2 10/11] hw/arm: introduce xenpv machine
-In-Reply-To: <ade61d47-f8c0-09cc-1a44-faaaff87d76a@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2212021429220.4039@ubuntu-linux-20-04-desktop>
-References: <20221202030003.11441-1-vikram.garhwal@amd.com> <20221202030003.11441-11-vikram.garhwal@amd.com> <871qphc0p3.fsf@linaro.org> <ade61d47-f8c0-09cc-1a44-faaaff87d76a@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=314I8h3O5v1BPXZbvatoUFPL7czW/F3ZxrVE0KK/eEI=; b=FVTgKUqcCyFnM4Co0SRaXOZUeI
+	XBN7yXKj98CRwvatvQAK1a5ukEYfCRyzTI/hUPHXszS+/6LM9l1bMIeaFI8G6XdUFYpHmciZRYn9B
+	4FZuc9R4+iH+kvdRNCQ1awB1Ag2PCYMSTWwKu0bfHtqF8Qw2WFNUZNToKI2z7nu9lgU0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175023-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-971077313-1670020442=:4039"
-Content-ID: <alpine.DEB.2.22.394.2212021434070.4039@ubuntu-linux-20-04-desktop>
+Subject: [linux-linus test] 175023: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=a4412fdd49dc011bcc2c0d81ac4cab7457092650
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 03 Dec 2022 00:16:44 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 175023 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175023/
 
---8323329-971077313-1670020442=:4039
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2212021434071.4039@ubuntu-linux-20-04-desktop>
+Regressions :-(
 
-On Fri, 2 Dec 2022, Vikram Garhwal wrote:
-> On 12/2/22 6:52 AM, Alex Bennée wrote:
-> > Vikram Garhwal <vikram.garhwal@amd.com> writes:
-> > 
-> > > Add a new machine xenpv which creates a IOREQ server to register/connect
-> > > with
-> > > Xen Hypervisor.
-> > > 
-> > > Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device,
-> > > adds a
-> > > TPM emulator and connects to swtpm running on host machine via chardev
-> > > socket
-> > > and support TPM functionalities for a guest domain.
-> > > 
-> > > Extra command line for aarch64 xenpv QEMU to connect to swtpm:
-> > >      -chardev socket,id=chrtpm,path=/tmp/myvtpm2/swtpm-sock \
-> > >      -tpmdev emulator,id=tpm0,chardev=chrtpm \
-> > > 
-> > > swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpms
-> > > and
-> > > provides access to TPM functionality over socket, chardev and CUSE
-> > > interface.
-> > > Github repo: https://github.com/stefanberger/swtpm
-> > > Example for starting swtpm on host machine:
-> > >      mkdir /tmp/vtpm2
-> > >      swtpm socket --tpmstate dir=/tmp/vtpm2 \
-> > >      --ctrl type=unixio,path=/tmp/vtpm2/swtpm-sock &
-> > <snip>
-> > > +
-> > > +static void xen_enable_tpm(void)
-> > > +{
-> > > +/* qemu_find_tpm_be is only available when CONFIG_TPM is enabled. */
-> > > +#ifdef CONFIG_TPM
-> > > +    Error *errp = NULL;
-> > > +    DeviceState *dev;
-> > > +    SysBusDevice *busdev;
-> > > +
-> > > +    TPMBackend *be = qemu_find_tpm_be("tpm0");
-> > > +    if (be == NULL) {
-> > > +        DPRINTF("Couldn't fine the backend for tpm0\n");
-> > > +        return;
-> > > +    }
-> > > +    dev = qdev_new(TYPE_TPM_TIS_SYSBUS);
-> > > +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
-> > > +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
-> > > +    busdev = SYS_BUS_DEVICE(dev);
-> > > +    sysbus_realize_and_unref(busdev, &error_fatal);
-> > > +    sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
-> > Still fails on my aarch64 Debian machine:
-> > 
-> >    FAILED: libqemu-aarch64-softmmu.fa.p/hw_arm_xen_arm.c.o
-> >    cc -Ilibqemu-aarch64-softmmu.fa.p -I. -I../.. -Itarget/arm
-> > -I../../target/arm -Iqapi -Itrace -Iui -Iui/shader -I/usr/include/pixman-1
-> > -I/usr/local/include -I/usr/include/capstone -I/usr/include/spice-server
-> > -I/usr/include/spice-1 -I/usr/include/glib-2.0
-> > -I/usr/lib/aarch64-linux-gnu/glib-2.0/include -fdiagnostics-color=auto -Wall
-> > -Winvalid-pch -Werror -std=gnu11 -O2 -g -isystem
-> > /home/alex/lsrc/qemu.git/linux-headers -isystem linux-headers -iquote .
-> > -iquote /home/alex/lsrc/qemu.git -iquote /home/alex/lsrc/qemu.git/include
-> > -iquote /home/alex/lsrc/qemu.git/tcg/aarch64 -pthread -U_FORTIFY_SOURCE
-> > -D_FORTIFY_SOURCE=2 -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
-> > -Wstrict-prototypes -Wredundant-decls -Wundef -Wwrite-strings
-> > -Wmissing-prototypes -fno-strict-aliasing -fno-common -fwrapv
-> > -Wold-style-declaration -Wold-style-definition -Wtype-limits
-> > -Wformat-security -Wformat-y2k -Winit-self -Wignored-qualifiers -Wempty-body
-> > -Wnested-externs -Wendif-labels -Wexpansion-to-defined
-> > -Wimplicit-fallthrough=2 -Wno-missing-include-dirs -Wno-shift-negative-value
-> > -Wno-psabi -fstack-protector-strong -fPIE -isystem../../linux-headers
-> > -isystemlinux-headers -DNEED_CPU_H
-> > '-DCONFIG_TARGET="aarch64-softmmu-config-target.h"'
-> > '-DCONFIG_DEVICES="aarch64-softmmu-config-devices.h"' -MD -MQ
-> > libqemu-aarch64-softmmu.fa.p/hw_arm_xen_arm.c.o -MF
-> > libqemu-aarch64-softmmu.fa.p/hw_arm_xen_arm.c.o.d -o
-> > libqemu-aarch64-softmmu.fa.p/hw_arm_xen_arm.c.o -c ../../hw/arm/xen_arm.c
-> >    ../../hw/arm/xen_arm.c: In function ‘xen_enable_tpm’:
-> >    ../../hw/arm/xen_arm.c:126:32: error: ‘GUEST_TPM_BASE’ undeclared (first
-> > use in this function); did you mean ‘GUEST_RAM_BASE’?
-> >      126 |     sysbus_mmio_map(busdev, 0, GUEST_TPM_BASE);
-> >          |                                ^~~~~~~~~~~~~~
-> >          |                                GUEST_RAM_BASE
-> >    ../../hw/arm/xen_arm.c:126:32: note: each undeclared identifier is
-> > reported only once for each function it appears in
-> >    [2082/3246] Compiling C object
-> > libqemu-aarch64-softmmu.fa.p/hw_xen_xen-mapcache.c.o
-> >    [2083/3246] Compiling C object
-> > libqemu-aarch64-softmmu.fa.p/hw_xen_xen-hvm-common.c.o
-> >    ninja: build stopped: subcommand failed.
-> >    make: *** [Makefile:165: run-ninja] Error 1
-> > 
-> Do you know what Xen version your build env has?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
 
-I think Alex is just building against upstream Xen. GUEST_TPM_BASE is
-not defined there yet. I think we would need to introduce in
-xen_common.h something like:
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-#ifndef GUEST_TPM_BASE
-#define GUEST_TPM_BASE 0x0c000000
-#endif
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
 
-We already have similar code in xen_common.h for other things.  Also, it
-would be best to get GUEST_TPM_BASE defined upstream in Xen first.
+version targeted for testing:
+ linux                a4412fdd49dc011bcc2c0d81ac4cab7457092650
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   56 days
+Failing since        173470  2022-10-08 06:21:34 Z   55 days  108 attempts
+Testing same since   175023  2022-12-02 11:08:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+1931 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
-> Another way to fix this(as Julien suggested) is by setting this GUEST_TPM_BASE
-> value via a property or something and user can set it via command line.
-> 
-> @sstabellini@kernel.org, do you think of any other fix?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Setting the TPM address from the command line is nice and preferable to
-hardcoding the value in xen_common.h. It comes with the challenge that
-it is not very scalable (imagine we have a dozen emulated devices) but
-for now it is fine and a good way to start if you can arrange it.
---8323329-971077313-1670020442=:4039--
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 184723 lines long.)
 
