@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 080AC642805
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 13:07:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453561.711146 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D27A6428A4
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 13:40:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453584.711160 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2AEO-0007Qd-9z; Mon, 05 Dec 2022 12:05:56 +0000
+	id 1p2Al0-000430-Qy; Mon, 05 Dec 2022 12:39:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453561.711146; Mon, 05 Dec 2022 12:05:56 +0000
+Received: by outflank-mailman (output) from mailman id 453584.711160; Mon, 05 Dec 2022 12:39:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2AEO-0007NC-6h; Mon, 05 Dec 2022 12:05:56 +0000
-Received: by outflank-mailman (input) for mailman id 453561;
- Mon, 05 Dec 2022 12:05:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p2Al0-00040L-Nj; Mon, 05 Dec 2022 12:39:38 +0000
+Received: by outflank-mailman (input) for mailman id 453584;
+ Mon, 05 Dec 2022 12:39:37 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=0Qip=4D=chromium.org=ribalda@srs-se1.protection.inumbo.net>)
- id 1p2AEM-0007N6-IZ
- for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 12:05:54 +0000
-Received: from mail-qk1-x72b.google.com (mail-qk1-x72b.google.com
- [2607:f8b0:4864:20::72b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2a209871-7495-11ed-8fd2-01056ac49cbb;
- Mon, 05 Dec 2022 13:05:53 +0100 (CET)
-Received: by mail-qk1-x72b.google.com with SMTP id z17so4713515qki.11
- for <xen-devel@lists.xenproject.org>; Mon, 05 Dec 2022 04:05:53 -0800 (PST)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com.
- [209.85.219.54]) by smtp.gmail.com with ESMTPSA id
- u11-20020a05620a0c4b00b006fc8fc061f7sm12171892qki.129.2022.12.05.04.05.51
- for <xen-devel@lists.xenproject.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 05 Dec 2022 04:05:51 -0800 (PST)
-Received: by mail-qv1-f54.google.com with SMTP id mn15so8002308qvb.13
- for <xen-devel@lists.xenproject.org>; Mon, 05 Dec 2022 04:05:51 -0800 (PST)
+ <SRS0=2q+k=4D=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p2Akz-00040D-BZ
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 12:39:37 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on20610.outbound.protection.outlook.com
+ [2a01:111:f400:7e8d::610])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id df06ae0e-7499-11ed-91b6-6bf2151ebd3b;
+ Mon, 05 Dec 2022 13:39:35 +0100 (CET)
+Received: from BN9PR03CA0783.namprd03.prod.outlook.com (2603:10b6:408:13f::8)
+ by DS7PR12MB8081.namprd12.prod.outlook.com (2603:10b6:8:e6::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Mon, 5 Dec
+ 2022 12:39:30 +0000
+Received: from BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:13f:cafe::b4) by BN9PR03CA0783.outlook.office365.com
+ (2603:10b6:408:13f::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
+ Transport; Mon, 5 Dec 2022 12:39:30 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT026.mail.protection.outlook.com (10.13.177.51) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5880.14 via Frontend Transport; Mon, 5 Dec 2022 12:39:29 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 5 Dec
+ 2022 06:39:29 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 5 Dec
+ 2022 06:39:26 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 5 Dec 2022 06:39:24 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,219 +63,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2a209871-7495-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=je642uC/QM2q2uiJ455cWQgJTQZ2s2VIKEuHkYSqLSY=;
-        b=FEmiEyAfYIdpKkVVrcM2myJBq9Gd26hAz6+4yOpADnvfMVE0aPesCBgx342rXF08lp
-         TCQyXF8GkzmtS6Z9YrWkolPOItK1xsEU+96tzXEDb1AlyAmzgDCo23jDO4Kl30xB1XIr
-         tkvIYPgXOQR4RxorORzC5LorpFYswRYs8vLVc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=je642uC/QM2q2uiJ455cWQgJTQZ2s2VIKEuHkYSqLSY=;
-        b=O7dcMyJFQrMWMkbSqLO32rMEY4apZ85UKEziuP5Rhbjnxo0ycBmRQmRgtAyA6QeG3f
-         pdb+WeVUHZ/unJCqKOs3CElimXeVnEwRybYP6xsDANicY0MZ7RDpySBsM2Xm/0TrSoZL
-         dnhI31tsWFK7kuFDZ3ZSlWpYpx6tjAnVn2QfuNiZzMoCawkNmNTMDJygRUyhyHbY1yZk
-         6ExAEsr0jNTLlK5fKk2fOhLSE7QCMxFG6aXbs4gL22RnT1pVB1k177j6nwKs4+pqdM8a
-         +BwQAQEdbueb9wHHRHxy2gK6HVOHRMNvXzdtwko9ayBmxP/na/wrLr35CfoxFX/nZ0+/
-         lNwA==
-X-Gm-Message-State: ANoB5pnrVznMUGymGxEq9JYRtTWYau9pMnhAPRTLA3jpP9rHq+DVE8eH
-	VK5uS05QywYpJalYlYjinbwIxsnAwQsPyWi8
-X-Google-Smtp-Source: AA0mqf7yjuX1Xk36JEgpIkjyNVpQfEq9egamT+5i5rFOaecfy0i5+WNIhM/RvjHyDGGLTtVMv4o8nQ==
-X-Received: by 2002:a05:620a:a02:b0:6fc:abc5:7faf with SMTP id i2-20020a05620a0a0200b006fcabc57fafmr14696674qka.290.1670241951765;
-        Mon, 05 Dec 2022 04:05:51 -0800 (PST)
-X-Received: by 2002:a17:902:7d93:b0:186:9cf4:e53b with SMTP id
- a19-20020a1709027d9300b001869cf4e53bmr68703080plm.50.1670241940337; Mon, 05
- Dec 2022 04:05:40 -0800 (PST)
+X-Inumbo-ID: df06ae0e-7499-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jMiqqMrazj14vaf08cfCBNR3hvozS13htiwnx52PNOqLt9kmoxEaG357mn4NNnBH+YsjO9w6aLTG2J5KNdL2vZJuW2o1QASbhB3RysnIrx3yrjwI2U4859VxOAcBE/qFc5LRxYCCjDycu+2xtRGHuYcW76+mweXoLNBvzI69FDIg+Ct4KfJFo6FQHtCO3xGZ95ViiV4jm9qet8zQ6ijN/WnllxVwbWbV7YbK3XXora7BI/zrdKurMKmylolHGxPq+slSFvi9BHUnR2eld4pBTfbNoFgPUS2o4cdRK+yuymIuUDF8jkcVn/tR3TMBIz2Q53Z6KLht/k3UPt3quCuE6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A9qOP7PT/4Pf87Wgv6YgXPDZZq7+gLLDokToaLQohWA=;
+ b=QIEErrVyGnbdMtQEvYiK9XEqioHwPAWQQI9K7feW8J8ML5phXkW6Z6940DUxGHBVYN0G+cx9FpHB5KnFdWpKVPfM+fFAoa0xwyVIka8wuCnjZ3gPMItAYQTCiNllfumM7boon72hhBBk7iXC7YV7cN9J/zpOA7dI34OD2kB23tWr5Z3u85MzHLdwmmL1XULMGrPPYGvyQ91qXJdsl+jCBoVUnAhSraiwOdapM0ljuuLi9N6zIQvE7Z3A8ZmY6q+PCpWr977yDb76pmydNOfrhoDLRHZWza4AK3WMmlfWFVtBrLGyPzrZ13F2FQNKp7IQUolQ0Phn/fRmpR/105Oa2A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=A9qOP7PT/4Pf87Wgv6YgXPDZZq7+gLLDokToaLQohWA=;
+ b=M3DMTzW4T7TeKHZvbdyezdvUB7XxpLKS1kVRkqJz9ydCt0CLcKZmJ/uXae3W8hv389xPjmJRjGUI7Px33qV5ogIpZJILt7NLSa+W8wC9gz8AtKuU46c9sB/adCAECCH0mJeH/uKTnT2eTwju2nPTEyFBhktque7LfBuKGS8i8d0=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <6ab96cd0-9b9a-6ad4-50b1-ed5e02812696@amd.com>
+Date: Mon, 5 Dec 2022 13:39:24 +0100
 MIME-Version: 1.0
-References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org>
- <20221127-snd-freeze-v8-2-3bc02d09f2ce@chromium.org> <CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn=-Om5QP2-7ocuGdq8R9w@mail.gmail.com>
-In-Reply-To: <CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn=-Om5QP2-7ocuGdq8R9w@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 5 Dec 2022 13:05:29 +0100
-X-Gmail-Original-Message-ID: <CANiDSCt2+2EQpXvgQqTA3VwbfwDb=BsXn_YNcc05GK9xdTpVkA@mail.gmail.com>
-Message-ID: <CANiDSCt2+2EQpXvgQqTA3VwbfwDb=BsXn_YNcc05GK9xdTpVkA@mail.gmail.com>
-Subject: Re: [PATCH v8 2/3] freezer: refactor pm_freezing into a function.
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Juergen Gross <jgross@suse.com>, Mark Brown <broonie@kernel.org>, 
-	Chromeos Kdump <chromeos-kdump@google.com>, Daniel Baluta <daniel.baluta@nxp.com>, 
-	Christophe Leroy <christophe.leroy@csgroup.eu>, Len Brown <len.brown@intel.com>, 
-	Ard Biesheuvel <ardb@kernel.org>, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>, Nicholas Piggin <npiggin@gmail.com>, 
-	Michael Ellerman <mpe@ellerman.id.au>, Eric Biederman <ebiederm@xmission.com>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Joel Fernandes <joel@joelfernandes.org>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, Pavel Machek <pavel@ucw.cz>, 
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	"K. Y. Srinivasan" <kys@microsoft.com>, Ingo Molnar <mingo@redhat.com>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Dexuan Cui <decui@microsoft.com>, Takashi Iwai <tiwai@suse.com>, 
-	"H. Peter Anvin" <hpa@zytor.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-	Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
-	kexec@lists.infradead.org, alsa-devel@alsa-project.org, 
-	stable@vger.kernel.org, sound-open-firmware@alsa-project.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-hyperv@vger.kernel.org, 
-	linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org, 
-	xen-devel@lists.xenproject.org
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH v5 1/2] xen/arm: vpl011: emulate non-SBSA registers as
+ WI/RAZ
+Content-Language: en-US
+To: Jiamei Xie <jiamei.xie@arm.com>, <xen-devel@lists.xenproject.org>
+CC: <wei.chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>, "Julien
+ Grall" <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221205072640.2092473-1-jiamei.xie@arm.com>
+ <20221205072640.2092473-2-jiamei.xie@arm.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20221205072640.2092473-2-jiamei.xie@arm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT026:EE_|DS7PR12MB8081:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee790d15-8587-48ed-c05e-08dad6bdc0d9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	q838UnKGdhYVL6fpCtTi007n1H/z17ehCwJhlh0i54ftII4LJd3mF2vCgoi2tUOXi0N8O6EWHGJDeYM603cErNL2hbrZ0RPxQqyLMtUS5Aw0CWzMku2RHxZXvbeL98pvn6xDAAdJGql3DH05bBZGC2hruFVMk8RR5PiSNxwOcEhB5cO4J5HtIqX98rWvhOvLZwLJKZsfjKDh/V8rEnVqi7h7SsqW2gLlGLHfA3IKvhmUFn5+dvM/o1lCHSh2t59BSRo94MCyfj0VTRg1akUiRKtiG6JjHv/iOpRCEmJpA8KcKUWeWbxAGOumfG7SH87aQTFBbyx/qLvGquKTYv6cAUzOE0PFRuskLsNNZNo9lYcF+T+3CNFqpIESW6GHTgHCHXl42f8605gX3DmXQmiuZ2p6aZvnNM8w27tFsmT4891r314H+9e5tsNmDRcE+zzblHjHznfnikW8VpKGKXAicFGiKTIp9yEel0M2RaeyyDoeCk1HIG5hGUwOPNzUGPlVOCuLD1QownRh7JYLp3GvHTm4CTApsqtF4j2tRbEXj/rBH5gjunyVEbgYhK6/NSbCwcEVYOaFMP3OouHdKJ1sN+G/NCtrVnUM+AA87OHuWnoI8sKSk8x33G2OWYkxNeZwWK3CmlYif4nr0Ld9+ZYOXPD4GLupQfN8RDtGdxLjKJrixN79btYB1OpoxPsDYWiwkGBIHFCfyNdigcAhrZFdZJBzHGr/W136zmAjMpXL/CfO2bRa1tjscWsC1qdPIOgf/TmnmLv0keDE5kyCRa9lTI38qMRSfd2WsPCZTJxu2HDyTw6B6qeSAvtkNM4XXZbZdtGfo7xH3mtBcKk7jd0iHw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(376002)(346002)(396003)(451199015)(40470700004)(46966006)(36840700001)(36756003)(82740400003)(31696002)(86362001)(356005)(81166007)(2906002)(40460700003)(41300700001)(8936002)(4326008)(44832011)(5660300002)(36860700001)(83380400001)(70586007)(478600001)(966005)(70206006)(316002)(16576012)(54906003)(2616005)(110136005)(31686004)(40480700001)(8676002)(82310400005)(336012)(47076005)(426003)(53546011)(26005)(186003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2022 12:39:29.8536
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee790d15-8587-48ed-c05e-08dad6bdc0d9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8081
 
-Hi Rafael
+Hi Jiamei,
 
-On Fri, 2 Dec 2022 at 18:48, Rafael J. Wysocki <rafael@kernel.org> wrote:
->
-> On Thu, Dec 1, 2022 at 12:08 PM Ricardo Ribalda <ribalda@chromium.org> wrote:
-> >
-> > Add a way to let the drivers know if the processes are frozen.
-> >
-> > This is needed by drivers that are waiting for processes to end on their
-> > shutdown path.
-> >
-> > Convert pm_freezing into a function and export it, so it can be used by
-> > drivers that are either built-in or modules.
-> >
-> > Cc: stable@vger.kernel.org
-> > Fixes: 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers in .shutdown")
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->
-> Why can't you export the original pm_freezing variable and why is this
-> fixing anything?
+On 05/12/2022 08:26, Jiamei Xie wrote:
+> 
+> 
+> When the guest kernel enables DMA engine with "CONFIG_DMA_ENGINE=y",
+> Linux SBSA PL011 driver will access PL011 DMACR register in some
+> functions. As chapter "B Generic UART" in "ARM Server Base System
+> Architecture"[1] documentation describes, SBSA UART doesn't support
+> DMA. In current code, when the kernel tries to access DMACR register,
+> Xen will inject a data abort:
+> Unhandled fault at 0xffffffc00944d048
+> Mem abort info:
+>   ESR = 0x96000000
+>   EC = 0x25: DABT (current EL), IL = 32 bits
+>   SET = 0, FnV = 0
+>   EA = 0, S1PTW = 0
+>   FSC = 0x00: ttbr address size fault
+> Data abort info:
+>   ISV = 0, ISS = 0x00000000
+>   CM = 0, WnR = 0
+> swapper pgtable: 4k pages, 39-bit VAs, pgdp=0000000020e2e000
+> [ffffffc00944d048] pgd=100000003ffff803, p4d=100000003ffff803, pud=100000003ffff803, pmd=100000003fffa803, pte=006800009c090f13
+> Internal error: ttbr address size fault: 96000000 [#1] PREEMPT SMP
+> ...
+> Call trace:
+>  pl011_stop_rx+0x70/0x80
+>  tty_port_shutdown+0x7c/0xb4
+>  tty_port_close+0x60/0xcc
+>  uart_close+0x34/0x8c
+>  tty_release+0x144/0x4c0
+>  __fput+0x78/0x220
+>  ____fput+0x1c/0x30
+>  task_work_run+0x88/0xc0
+>  do_notify_resume+0x8d0/0x123c
+>  el0_svc+0xa8/0xc0
+>  el0t_64_sync_handler+0xa4/0x130
+>  el0t_64_sync+0x1a0/0x1a4
+> Code: b9000083 b901f001 794038a0 8b000042 (b9000041)
+> ---[ end trace 83dd93df15c3216f ]---
+> note: bootlogd[132] exited with preempt_count 1
+> /etc/rcS.d/S07bootlogd: line 47: 132 Segmentation fault start-stop-daemon
+> 
+> As discussed in [2], this commit makes the access to non-SBSA registers
+> RAZ/WI as an improvement.
+> 
+> [1] https://developer.arm.com/documentation/den0094/c/?lang=en
+> [2] https://lore.kernel.org/xen-devel/alpine.DEB.2.22.394.2211161552420.4020@ubuntu-linux-20-04-desktop/
+> 
+> Signed-off-by: Jiamei Xie <jiamei.xie@arm.com>
+As I wrote in v4:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Because then any module will be able to modify the content of the variable.
-
-The Fixes: is because the last patch on the set is doing a real fix.
-If you only cherry-pick the last patch on a stable branch, the build
-will fail. (Also, the zero-day builder complains)
-
-Anyway, I think we can hold this patch for a bit. The snd people are
-discussing if this the way to handle it, or if we should handle
-.shutdown in a different way.
-
-Thanks!
-
-
->
-> > ---
-> >  include/linux/freezer.h |  3 ++-
-> >  kernel/freezer.c        |  3 +--
-> >  kernel/power/process.c  | 24 ++++++++++++++++++++----
-> >  3 files changed, 23 insertions(+), 7 deletions(-)
-> >
-> > diff --git a/include/linux/freezer.h b/include/linux/freezer.h
-> > index b303472255be..3413c869d68b 100644
-> > --- a/include/linux/freezer.h
-> > +++ b/include/linux/freezer.h
-> > @@ -13,7 +13,7 @@
-> >  #ifdef CONFIG_FREEZER
-> >  DECLARE_STATIC_KEY_FALSE(freezer_active);
-> >
-> > -extern bool pm_freezing;               /* PM freezing in effect */
-> > +bool pm_freezing(void);
-> >  extern bool pm_nosig_freezing;         /* PM nosig freezing in effect */
-> >
-> >  /*
-> > @@ -80,6 +80,7 @@ static inline int freeze_processes(void) { return -ENOSYS; }
-> >  static inline int freeze_kernel_threads(void) { return -ENOSYS; }
-> >  static inline void thaw_processes(void) {}
-> >  static inline void thaw_kernel_threads(void) {}
-> > +static inline bool pm_freezing(void) { return false; }
-> >
-> >  static inline bool try_to_freeze(void) { return false; }
-> >
-> > diff --git a/kernel/freezer.c b/kernel/freezer.c
-> > index 4fad0e6fca64..2d3530ebdb7e 100644
-> > --- a/kernel/freezer.c
-> > +++ b/kernel/freezer.c
-> > @@ -20,7 +20,6 @@ EXPORT_SYMBOL(freezer_active);
-> >   * indicate whether PM freezing is in effect, protected by
-> >   * system_transition_mutex
-> >   */
-> > -bool pm_freezing;
-> >  bool pm_nosig_freezing;
-> >
-> >  /* protects freezing and frozen transitions */
-> > @@ -46,7 +45,7 @@ bool freezing_slow_path(struct task_struct *p)
-> >         if (pm_nosig_freezing || cgroup_freezing(p))
-> >                 return true;
-> >
-> > -       if (pm_freezing && !(p->flags & PF_KTHREAD))
-> > +       if (pm_freezing() && !(p->flags & PF_KTHREAD))
-> >                 return true;
-> >
-> >         return false;
-> > diff --git a/kernel/power/process.c b/kernel/power/process.c
-> > index ddd9988327fe..8a4d0e2c8c20 100644
-> > --- a/kernel/power/process.c
-> > +++ b/kernel/power/process.c
-> > @@ -108,6 +108,22 @@ static int try_to_freeze_tasks(bool user_only)
-> >         return todo ? -EBUSY : 0;
-> >  }
-> >
-> > +/*
-> > + * Indicate whether PM freezing is in effect, protected by
-> > + * system_transition_mutex.
-> > + */
-> > +static bool pm_freezing_internal;
-> > +
-> > +/**
-> > + * pm_freezing - indicate whether PM freezing is in effect.
-> > + *
-> > + */
-> > +bool pm_freezing(void)
-> > +{
-> > +       return pm_freezing_internal;
-> > +}
-> > +EXPORT_SYMBOL(pm_freezing);
->
-> Use EXPORT_SYMBOL_GPL() instead, please.
->
-> > +
-> >  /**
-> >   * freeze_processes - Signal user space processes to enter the refrigerator.
-> >   * The current thread will not be frozen.  The same process that calls
-> > @@ -126,12 +142,12 @@ int freeze_processes(void)
-> >         /* Make sure this task doesn't get frozen */
-> >         current->flags |= PF_SUSPEND_TASK;
-> >
-> > -       if (!pm_freezing)
-> > +       if (!pm_freezing())
-> >                 static_branch_inc(&freezer_active);
-> >
-> >         pm_wakeup_clear(0);
-> >         pr_info("Freezing user space processes ... ");
-> > -       pm_freezing = true;
-> > +       pm_freezing_internal = true;
-> >         error = try_to_freeze_tasks(true);
-> >         if (!error) {
-> >                 __usermodehelper_set_disable_depth(UMH_DISABLED);
-> > @@ -187,9 +203,9 @@ void thaw_processes(void)
-> >         struct task_struct *curr = current;
-> >
-> >         trace_suspend_resume(TPS("thaw_processes"), 0, true);
-> > -       if (pm_freezing)
-> > +       if (pm_freezing())
-> >                 static_branch_dec(&freezer_active);
-> > -       pm_freezing = false;
-> > +       pm_freezing_internal = false;
-> >         pm_nosig_freezing = false;
-> >
-> >         oom_killer_enable();
-> >
-> > --
->
-> --
-> You received this message because you are subscribed to the Google Groups "Chromeos Kdump" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to chromeos-kdump+unsubscribe@google.com.
-> To view this discussion on the web, visit https://groups.google.com/a/google.com/d/msgid/chromeos-kdump/CAJZ5v0jbKSTQopEoXW9FpqDmAqp6Pn%3D-Om5QP2-7ocuGdq8R9w%40mail.gmail.com.
-
-
-
---
-Ricardo Ribalda
+~Michal
 
