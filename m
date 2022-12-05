@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8D626429ED
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 14:53:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453680.711270 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47DF86429F2
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 14:55:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453688.711282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2BuW-0004SG-RQ; Mon, 05 Dec 2022 13:53:32 +0000
+	id 1p2BwY-00056r-BH; Mon, 05 Dec 2022 13:55:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453680.711270; Mon, 05 Dec 2022 13:53:32 +0000
+Received: by outflank-mailman (output) from mailman id 453688.711282; Mon, 05 Dec 2022 13:55:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2BuW-0004PB-O1; Mon, 05 Dec 2022 13:53:32 +0000
-Received: by outflank-mailman (input) for mailman id 453680;
- Mon, 05 Dec 2022 13:53:31 +0000
+	id 1p2BwY-00053N-83; Mon, 05 Dec 2022 13:55:38 +0000
+Received: by outflank-mailman (input) for mailman id 453688;
+ Mon, 05 Dec 2022 13:55:36 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=vUwf=4D=arm.com=Rahul.Singh@srs-se1.protection.inumbo.net>)
- id 1p2BuV-0004P5-7A
- for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 13:53:31 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on20624.outbound.protection.outlook.com
- [2a01:111:f400:7e1a::624])
+ id 1p2BwW-00053C-Jl
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 13:55:36 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20602.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::602])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d45bb17-74a4-11ed-8fd2-01056ac49cbb;
- Mon, 05 Dec 2022 14:53:20 +0100 (CET)
+ id 787e28b5-74a4-11ed-8fd2-01056ac49cbb;
+ Mon, 05 Dec 2022 14:55:26 +0100 (CET)
 Received: from AS8PR08MB7158.eurprd08.prod.outlook.com (2603:10a6:20b:404::24)
- by AS8PR08MB7992.eurprd08.prod.outlook.com (2603:10a6:20b:571::14)
+ by AS2PR08MB8384.eurprd08.prod.outlook.com (2603:10a6:20b:55b::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.11; Mon, 5 Dec
- 2022 13:53:27 +0000
+ 2022 13:55:32 +0000
 Received: from AS8PR08MB7158.eurprd08.prod.outlook.com
  ([fe80::b45:fa8a:caad:25c0]) by AS8PR08MB7158.eurprd08.prod.outlook.com
  ([fe80::b45:fa8a:caad:25c0%4]) with mapi id 15.20.5880.014; Mon, 5 Dec 2022
- 13:53:27 +0000
+ 13:55:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,22 +47,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d45bb17-74a4-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 787e28b5-74a4-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=db7dlU4qoH2YQMF3Xl6/aKbDuHfk9OSR0oELCy8v/hRCGdKRbs78RkhUgtkbyJLvwGKhKkS/aufK6p/HVUSlTgEdG6U8tvYwQAuVLIW7gV1oWNcORjRU8JqyfsjXydOzMEx+YSLoWl8z0MoqYwTud8rmTfWjvtExtychGb/a2cPL47o8rBcq0JKSU0RAoPyWTIBnOBKSO29VVqm1aqapG3ZVodNHmXi/sjq3sLoHqIkqOlm6DYqmPYhcoHl4zaYiHdKloHDv1ofqObnfK7T8G/75If5aho6pnxaRrVy10ixGRrkmRsoDClNirdvjUlhkU8bg8EgH6ro2xxnkpiycpQ==
+ b=MfEK0Idms30SZYbjfkG7Lj7m6BVV5o/9jqAVPV/PcfflmuxsIQUc4oEyAWYooihFKY+P5UJiXVD8oVZfl6dfJLNnCXFRLr0lsy6sM5PWPu0oCnCqxp96cTvI/QvFYdlae7d151BlOSdfpf4FhzzbQ77/LzKBLg9ETaUCox5uss4UZHfXsdl6L315CG1fxspqS8Rce4ts+/RPdxMkqWAa+5XkXBXQUQRcZpM+e5kkoKtMio0hDjXmiZoQ3SF//7ZWKOqHuVTqUD4cO38riPF3VFQXkDVv9R6bBhwWM9Sd7nhoCq98qGy32iEz5ivHRIJnDcTpu3nQ2G/Un19mlhV/nA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sOB1hVu11kHCktX8BhmH719TJWvlYfDab4pnHWnZ5Ko=;
- b=YZaCcTRM9EoSRLPdfVwI1sz4B3YnpRe0WFfS/HNM0pR14bMWDxswdBsPxc2OVperkjLbd8IpNJGGBkPjoDPGmsOxhmOtHuPGWTRlFywSgdfrLfleQyk8DgeewAF/e5t2Xurd/OHBAQrYD0qZPFQ522pVvHAgzU8SKy1ja49OdMdbhmne3A/ipF9zMW9pmlNVq2qgOytVYJ8r/3lYi6jD7uMPOMhZyPu9gVEPjGlSh1yieBCTyxpR9+LAD6BLBHZq9KQCcBy4DSUZ91yj6K28nv2l5w5AelWCPnQgZ+wn9qCGA97KZuWeb7k8wdD61FeI7cvBOs6cX1PTcrviUUWnJA==
+ bh=aHwnFhqXeG9K3ehpM3sL9gSDgICEZP8DX2v+fVN9XQc=;
+ b=ctDCZRbFD1ffr/IiEgvzBv7pcbv6yRdIVGFJAycFeNY/MAkyKAEc48lx+Su+baL6rM5aCmJg1ToxSr/hC7tWmYwBKGmaX6mG4CiRdAobR1vO+UZkhld/yFfDI1k0XxsjHfmDXUXXlK28BiWeXacvfnFEQmPisVCO1z9aKDTJnLuZuUhsWdlE0jfWfNTlwJmNONe34CdD5OzRXBAB7us5T6GWQ2Fd0iYFfN0xxo+0gvBW3ir+oz3GS/ki/Wp5lORhzNJUISIKhSCzr140isodHkG8vsHvosi/+V8QWaXfYZmCBxhMB4zAeDxsgsmyT6lzDVnj/GWZMlV740yhpXQqMw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
  header.d=arm.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
  s=selector2-armh-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sOB1hVu11kHCktX8BhmH719TJWvlYfDab4pnHWnZ5Ko=;
- b=Yab1urkEUIHDQ6lYo4pRl59KCGdK0tTV8cUQP8S+mQubXwHQvsSRbmaFvX2XgecyXI2a+wSV26AYqYFSr88uHqIGnKvTJspzOwctcD4C4+C0cBxf+Blx5fRPNtPKDM0w94vHpaNwqr42C4FctiL9GrVFAq1syktETcfXCunEndI=
+ bh=aHwnFhqXeG9K3ehpM3sL9gSDgICEZP8DX2v+fVN9XQc=;
+ b=USPif9XeKXp6BLdztRgFEaUFRuUWavXZD82VIk6wamGgtz0tCtZTrjBH9bDaXXeEznH6EQMWaxKXuWsQXxTlTG0ulV0mqexHtMt2LtIpxb/2Rqv1uAoiNDzxgc41Nvhfjd0AEPO/5f/FPStYVzjjrMI8wKoAERhOceQOcUjWvLM=
 From: Rahul Singh <Rahul.Singh@arm.com>
 To: Michal Orzel <michal.orzel@amd.com>
 CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Stefano
@@ -70,15 +70,17 @@ CC: Xen developer discussion <xen-devel@lists.xenproject.org>, Stefano
  Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
 	<Volodymyr_Babchuk@epam.com>, Jan Beulich <jbeulich@suse.com>, Paul Durrant
 	<paul@xen.org>, =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [RFC PATCH 04/21] xen/arm: vIOMMU: add generic vIOMMU framework
-Thread-Topic: [RFC PATCH 04/21] xen/arm: vIOMMU: add generic vIOMMU framework
-Thread-Index: AQHZBZ7dBYCbekoSiE+Vqn2CZKLLUK5e+1eAgABbRAA=
-Date: Mon, 5 Dec 2022 13:53:26 +0000
-Message-ID: <4D9FBC4E-CF83-4D45-B657-A58041EAFCAB@arm.com>
+Subject: Re: [RFC PATCH 05/21] xen/arm: vsmmuv3: Add dummy support for virtual
+ SMMUv3 for guests
+Thread-Topic: [RFC PATCH 05/21] xen/arm: vsmmuv3: Add dummy support for
+ virtual SMMUv3 for guests
+Thread-Index: AQHZBZ+jOmINPO0YK0q2/D3/eqDCs65e/VaAgABZ2IA=
+Date: Mon, 5 Dec 2022 13:55:31 +0000
+Message-ID: <8B553FEB-5DD1-4C01-903B-572E2BD8F1B2@arm.com>
 References: <cover.1669888522.git.rahul.singh@arm.com>
- <505b4566579b65afa0696c3a8772416a4c7cf59f.1669888522.git.rahul.singh@arm.com>
- <345d7d3c-e090-356b-1b4e-a9b491a146b5@amd.com>
-In-Reply-To: <345d7d3c-e090-356b-1b4e-a9b491a146b5@amd.com>
+ <6d25bcb543190d78c26db15a0f07e9af79349884.1669888522.git.rahul.singh@arm.com>
+ <b4cd1b34-3aa4-1f8c-b6f1-2ce4214fe2ed@amd.com>
+In-Reply-To: <b4cd1b34-3aa4-1f8c-b6f1-2ce4214fe2ed@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach:
@@ -86,376 +88,295 @@ X-MS-TNEF-Correlator:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=arm.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR08MB7158:EE_|AS8PR08MB7992:EE_
-x-ms-office365-filtering-correlation-id: 4ecb94d4-f10f-4a3a-4ee6-08dad6c8159a
+x-ms-traffictypediagnostic: AS8PR08MB7158:EE_|AS2PR08MB8384:EE_
+x-ms-office365-filtering-correlation-id: afe1fcb0-8f89-498d-6dda-08dad6c85fec
 nodisclaimer: true
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
 x-microsoft-antispam-message-info:
- 4k6pNLHQ4gLGFrxqc55JYUKp82Xgfj/xi4BLODRMx/XRkcQlLpE0eY68pprKJT77zdk8G2nmJ/Wub89gJ0GUGbzI2m1TRj1P3/mOKx6PpcFYBAr3ui0qAcTCUEJbRD5drL20NpaVJcuZxuLxYTMnOxRX/oprZBELmgXSib47DJlkkJFuHo7jp+kF4I5ZHfV1SYY9XZlZ1VQ6ivfWUK46biCJdhi+fpy1FWyyX6QTiKf67ZqJmZgDNmvgJrpWQUSJqbAE4qf1VkjXX7Zt2UbY1HUc/qnRDUWdTmXpCW5RX2DGAKKPy1OCuf6XEkLlQvWKKNXlRQVltuzqKC8XAokbgYjP9b+sacoo7eIK4lTLM5pTNxBCqd2LmQhwx0ilNOVmb9GiQlta2rwpMxbIVgiwxRvQs5lsifPMPct/3t6n8EQTAmq/8YRarTOeWeE+hglKsyBNKhi5eOsj5Q95mGPM0ZOZOff6kvU4z/AhZwW3wagvNn/WhKKlz5wrUa+1zl/UaL9bBrgN6n/6aaHetU/EK0FV5mj1iwZHRLqVJN4lENctpXpkcl9Fu0gUf8Ajev68yE+7iqRt9JQLLThhZYnuTRhf6gVXn967+/YMSLkp/AP497jRfm2Kw8fSh6ehXovyXVyTtPN2cuKLHmPT6VeXed6mgJ85Nkkl+zx0OGTB/MkU/PqBAfc3T0kTiLJXk3M5clLXBMr4rZE5b9Jyn6fFxdm0fKhSGq6pMz+mKkoN0oi4L39P/v2+BP4YPSG9iLRpYhOViD9W2YdjyvmYEjK8DiHQ14e+5OLS5vTQGbgye3k=
+ NgEGIDH4i3q15znNBjxtc43tlhATRYhvNZvijWoTRR852LmDpqlq3yqq7xvx/SI9LaSv9E7y3sEI5pSlKhoaBFuzmsgkI93/S9WaWCWkvMpTghvDOK1mEDzm/od+xzqRTIJGKkB2idvNmf4hT126426V/HPTbDXJZ+wCLAiaZemHNnJNPlbhbIJsq+jkyZmgqY80lMrf+x5YusDXZcYi6umdmtf+Sew7fw/pNfYbChqaug3HPWpoLCuuwjN7cexT7HHh/rzr7oyQfYQd3uLW96CLrfTOYQVFMJlEr4L6F2+1XnFPs7SImxIWiF26IXw6PMnlKaLh9eVH9C5l0P4VmadCYnIgKhIAcqQ1HcnLBfj6LOt0kSNf10bWZh/GJeVKbrEYRFv4/2Iij36tYDBD+x2/BVmW/ywRLW061B5lChvN+eoEz2rcn2VCQjSfaeYVKfeLH5cFO7SPb9ZhI5DzD64fODTSf/WIEopSweJNh/dyRg5/voZmZbxL+R15sYVm+M/4Iv4ie6dn4DfPSBpU/yFNjFgnO2vamj1h/HY5XHpbMKfj2FhK7yaQQfJKWK9U+MOdMAI9Lghc+TITK6VT1O3s6WwT4I1+sF7Xl1B9arL/izOa4dfEl7YhzLzt+yVILpVW7XxobjbkgrN6PrBPgeBaVbDS0cYThtpzqSQfIuJDKAtKBbRCMNytykCfJsluVbLgoBRh9YzaEYJPwaZIVEP5sfQ6opgSCbFMQdXIdIM=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(396003)(376002)(346002)(366004)(451199015)(478600001)(71200400001)(53546011)(6486002)(6506007)(4326008)(64756008)(38070700005)(8676002)(36756003)(2906002)(26005)(5660300002)(83380400001)(2616005)(186003)(6512007)(8936002)(41300700001)(33656002)(54906003)(38100700002)(6916009)(316002)(91956017)(122000001)(66556008)(76116006)(66946007)(66446008)(86362001)(66476007)(41533002)(21314003)(45980500001);DIR:OUT;SFP:1101;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7158.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39850400004)(376002)(136003)(396003)(346002)(366004)(451199015)(36756003)(71200400001)(83380400001)(316002)(6506007)(186003)(6486002)(6916009)(54906003)(6512007)(26005)(53546011)(2906002)(33656002)(86362001)(66556008)(66476007)(64756008)(76116006)(66446008)(66946007)(4326008)(122000001)(38100700002)(8676002)(478600001)(2616005)(38070700005)(41300700001)(8936002)(91956017)(5660300002)(45980500001);DIR:OUT;SFP:1101;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?gMm2FmlGDNwdCbVjAOGzNMo7QOsywubWuzui51AmbsTEKkl2NoCs7ffqiE?=
- =?iso-8859-1?Q?W+xUrcs59+tq5GkAkJv907UycWnhuzJHHPVw31bNTxJ8CRf90zdirZme3f?=
- =?iso-8859-1?Q?6REHDUuioiuycIqu1t1oiuS0gRXflYCTo7/QABNgCs421JSl+ck9Li8+dy?=
- =?iso-8859-1?Q?vdIDhAFg17yWJ7QMf8ij9kl5yDbOPAv4u7PGdOOcOxnZhGHbE/Rnv7qyDK?=
- =?iso-8859-1?Q?aG8S8IVGWIgyPW7SQBFh1knON4vJs3eCZudDqwYsKKd8CqOJZSrh97gJPN?=
- =?iso-8859-1?Q?T5k7+thApoYeYBLbluzn4fcjiOOhvLih/BfxXfxN8hlrl9t5X8x+B956lX?=
- =?iso-8859-1?Q?vAeYhZzTrGnTRsF+yNAppT3pbDYZP2w36IOBwyOzFs86S+VLb7Qy4lQDr9?=
- =?iso-8859-1?Q?CthWuHHdoK/yQHo6UOGNSIHoEOYcxf8Y3ufPipgywAg6473X9fzZFIXZpi?=
- =?iso-8859-1?Q?vSHSySNNBYBx7hI+zeooHpQtG+km2lsxr+5hVZfhF5FfnZS6i6pT1fVgAu?=
- =?iso-8859-1?Q?ParQS5nnJuFz/58Z2nRshipbG3zjVNEYYyYK7k0nUhtO7H+CuHTYRVuRCX?=
- =?iso-8859-1?Q?xCmpqwHwZUbGgVtiGhVwx2Tf0jBP7IwN6qcZweTwt+zTRl8uQ4oGmNcTsz?=
- =?iso-8859-1?Q?01LaCdJ6ehn7UHD9Ya+1hdFZhVx2i62+DG5T8FHZslNKNxbjUS/4sTs93O?=
- =?iso-8859-1?Q?9zXPQ/m/Y0jfbMi7YYxI+1t0ndLfUc688kP3trGO49b0GSvTyc9SGV33ln?=
- =?iso-8859-1?Q?IpmESbie4RVcRTvRlN1hfi0P+2O0vk+XuDMWWbi5o11lSBjyw5DGF0YZi1?=
- =?iso-8859-1?Q?hXXVS0PCGYdbxEGrjun/tDtlmj2jjQMTu4za4tmiyXOhbte21/SrWVwSgO?=
- =?iso-8859-1?Q?UgM5EWhA5XobiDleERPnXJ6baYRZnufUdD5QndIRN7QCrxN0bUbduArjB8?=
- =?iso-8859-1?Q?olFnDeiOiKaYNozc9TxKck/3Piki7naozDkp2W8biBJnIf264fBmJl/5ao?=
- =?iso-8859-1?Q?gSUfBf2tosnOzz9FF8yiafx/hEnGtXZXhA7Vj8aDvhXt2LWQzlkC6PaMHV?=
- =?iso-8859-1?Q?kxzJX/rMCfIZmGypJlviJxbC6HUXUO0MBh8yJPnwe9uH0bkRleGtqbMfVd?=
- =?iso-8859-1?Q?YMG08viM2+Dc2GO56JQ4F5EDV55qjnvMtNhewoVrZM/PDYiMmnxwyjCf2z?=
- =?iso-8859-1?Q?VkFYcQ9dsNS1Yei9z3bmssSylAiXYtMv1x/pwqP8dV4Zoo5XgCdgrZV5T9?=
- =?iso-8859-1?Q?S7rw/NVMsbbl23jCorhiuKsqeFhrF8Gl9e9k0pkmFpnfAazWfwhD0EPUAP?=
- =?iso-8859-1?Q?grOYALLNXgqiyKLS2z0YbElmNODxOy1rWwni+CA6YCBiIootjuhue7vG2N?=
- =?iso-8859-1?Q?IP1DdhLYivTxMhTKxZWcOQUOWk6szuNrVqVp1u8sXPMiAlCQld1jv6nzr/?=
- =?iso-8859-1?Q?jSx+UxchWAzDShoyT+ZO1jFBMqy8a2PVg7wRnXUjpKNuJqt4zWY7erwM9n?=
- =?iso-8859-1?Q?Hz/8kh+1p/vkeG7yvMatJclYSvxCGK4sS+GbxQpZGqmzcNDWnRSeMJxAfZ?=
- =?iso-8859-1?Q?9jSplMQRnKZk/ta92ijvdi1a+fVSyIxDaaeWR56EHJw3zDeTOtCf5kTlgc?=
- =?iso-8859-1?Q?Cnit97C3d7EiVadDRJcWy146vvThFyFjWp?=
+ =?iso-8859-1?Q?LZmbtF6vfpHGC9GsOw/k/mJ1aS5b3ghrrrPyRESA2rta3G8GzyfDRsEw4E?=
+ =?iso-8859-1?Q?t1vvMbS2bccMHV4GCyYiiDvSxt1fvwN5LPD0sHMOuAggp0BN5UMlw3vHIE?=
+ =?iso-8859-1?Q?Tb1kH1i26zEH/uKFCaU9BH3xXf+ULXYnQs4YG79yw2ASOo5HW5sq2FAiD4?=
+ =?iso-8859-1?Q?o0FxqZuOQBDGLoNsyJVNSabvhEqiv7Z2XLdPO4CYAYZsIoJhWrAqyXC6Ng?=
+ =?iso-8859-1?Q?OYbDWSs5sdhtF6eXVEb4mC0MOcPsZ5wKt27/9lMUElzRxwyHS8z+3LPn/b?=
+ =?iso-8859-1?Q?X2xCAIp9FYp/HL+zfa8/eTthW3NlpcQ0H4xpTvzhtpd4UlMtz0TrW8Tt1v?=
+ =?iso-8859-1?Q?ggeokbR2FOzX8V7hHZPDIGDDdql/S3TXbx77yv9laEur4Xi0uCy9j4ukuB?=
+ =?iso-8859-1?Q?80Tv9tmCjC1zAoQzQQjvCC67NPW1DAgvJVx4oosclH4jcYOJpiWcFPg9c/?=
+ =?iso-8859-1?Q?ebRhHDn3KURJQ06K5VLHE34Tlt0QGm0sy4j/jhrr6661OML5mKQkwtlza9?=
+ =?iso-8859-1?Q?YLWPm5XP7mwIcVejSdgOhrl6eN2TqnLMz5khGrzx0anAjIP94GkSD1lnmJ?=
+ =?iso-8859-1?Q?NFzX0CUk3Ae87WJkCMhchI2tCQMRw7A1Y/4Z+MJJOSBAOxvSd4NeDwVcik?=
+ =?iso-8859-1?Q?IsPDPlHhbPV1yvR5FMzSX3tABH5HS2jZi3cPLRV3p3TsIvfq8k0Px5dVNX?=
+ =?iso-8859-1?Q?JBCW42CemT94VGHJBhxREvy162BpDxisCElWzO+hgGdAj1A9SL8b9J39ot?=
+ =?iso-8859-1?Q?xIOjDGIQQKnKml22eU2Is0eBD4O83mDFZ6BpprhAvFKHZ+xQY0SK0l3Q4P?=
+ =?iso-8859-1?Q?HN224NYHYxI9yGJJ7576xLMv70EJs5pmOeRaRBYtlt91EFovo64NKVcWBv?=
+ =?iso-8859-1?Q?iuqKS0wsEQlaqHvdO1BBOsLTmlsrxk9UAJSpWAGZVYdB6ptXSBZicsl5yl?=
+ =?iso-8859-1?Q?R5lkrEg8Cs/AnY2QDmtWWYdxfDc9l5DYSwaGqpZLiIGiyR6a6rgOotE8fg?=
+ =?iso-8859-1?Q?27tcg9nFBwRW5eavpOELveXSI3ZGk9ZSseR9tk6GHAuBCKS3Iysn+RE/NI?=
+ =?iso-8859-1?Q?7SPE+XwQaq2/n/vB5ynPWulFdi78YMfwpTOajCrtdW0d3XsP+UYdLyyqnv?=
+ =?iso-8859-1?Q?Sq9Q0Af6cGhxp6cFcMAM1ljjODOCMeEtD7U7Idiva/buUkmdsfRycN5sDT?=
+ =?iso-8859-1?Q?WtG+1Q0rCZSdx96pTiaBdweXMzT+Anv0awiW4OwNFT7E+vNOYQFNKTZBya?=
+ =?iso-8859-1?Q?BzHvUWxg30Tk9Te4DWSkxDui//OmXdzlz5dpIkOHL/rwrlDD1J4T+h4dH/?=
+ =?iso-8859-1?Q?KMbKaGGal9O82UTHX8SwW4m0z24NkmqlpMghTa12vG1RGpreV+bSVe7Uqi?=
+ =?iso-8859-1?Q?7QkKdxgiJ9/uAW6iPboNOEIdZjPCgtMFSjPUkQh6n1UtjkFAzQJOxnbQ+x?=
+ =?iso-8859-1?Q?hcC/p1bAwbyAE6N70AeC+kEtwVC/IVm4lafH42bHmdsob9HaAsIJKXuPcw?=
+ =?iso-8859-1?Q?39E0BmLM/t2M0Nhs/x2kv+E97mMDJ3xy+mTe1GFW7xdqWQ72RLyBbJpIhp?=
+ =?iso-8859-1?Q?7mJgJhaw2/QTi7HzBma1qjdbrHRnGdYdwFdmoKJoR6SIjUIuDP8214rHcD?=
+ =?iso-8859-1?Q?UguNmj3qoUR0977BLPnkdLgco7BzO1+id6?=
 Content-Type: text/plain; charset="iso-8859-1"
-Content-ID: <7394A72AEFC10343889A204DC65D5874@eurprd08.prod.outlook.com>
+Content-ID: <96D03BAE1289F24C9BB9DE72A73864D0@eurprd08.prod.outlook.com>
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: arm.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS8PR08MB7158.eurprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ecb94d4-f10f-4a3a-4ee6-08dad6c8159a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2022 13:53:26.9959
+X-MS-Exchange-CrossTenant-Network-Message-Id: afe1fcb0-8f89-498d-6dda-08dad6c85fec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2022 13:55:31.7011
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: M7oEl37ybIXoLdZuXnU9t0LwBA2BlMM/9oRJihkyJ/o201AKS9ZrdD3vPXQTAcfsnIMiWmqKPrjvzsK+3QKAmA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB7992
+X-MS-Exchange-CrossTenant-userprincipalname: HTc19WGMP62Cfc6a0yb0F0ZWXksmtAznk4hDlIQcBzi8t7jtyg1saPmKmH64OWxJ/Pdo5QEF580lRvxtAq2dVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8384
 
 Hi Michal,
 
-> On 5 Dec 2022, at 8:26 am, Michal Orzel <michal.orzel@amd.com> wrote:
+> On 5 Dec 2022, at 8:33 am, Michal Orzel <michal.orzel@amd.com> wrote:
 >=20
 > Hi Rahul,
 >=20
 > On 01/12/2022 17:02, Rahul Singh wrote:
 >>=20
 >>=20
->> This patch adds basic framework for vIOMMU.
+>> domain_viommu_init() will be called during domain creation and will add
+>> the dummy trap handler for virtual IOMMUs for guests.
+>>=20
+>> A host IOMMU list will be created when host IOMMU devices are probed
+>> and this list will be used to create the IOMMU device tree node for
+>> dom0. For dom0, 1-1 mapping will be established between vIOMMU in dom0
+>> and physical IOMMU.
+>>=20
+>> For domUs, the 1-N mapping will be established between domU and physical
+>> IOMMUs. A new area has been reserved in the arm guest physical map at
+>> which the emulated vIOMMU node is created in the device tree.
+>>=20
+>> Also set the vIOMMU type to vSMMUv3 to enable vIOMMU framework to call
+>> vSMMUv3 domain creation/destroy functions.
 >>=20
 >> Signed-off-by: Rahul Singh <rahul.singh@arm.com>
 >> ---
->> xen/arch/arm/domain.c                | 17 +++++++
->> xen/arch/arm/domain_build.c          |  3 ++
->> xen/arch/arm/include/asm/viommu.h    | 70 ++++++++++++++++++++++++++++
->> xen/drivers/passthrough/Kconfig      |  6 +++
->> xen/drivers/passthrough/arm/Makefile |  1 +
->> xen/drivers/passthrough/arm/viommu.c | 48 +++++++++++++++++++
->> xen/include/public/arch-arm.h        |  4 ++
->> 7 files changed, 149 insertions(+)
->> create mode 100644 xen/arch/arm/include/asm/viommu.h
->> create mode 100644 xen/drivers/passthrough/arm/viommu.c
+>> xen/arch/arm/domain.c                  |   3 +-
+>> xen/arch/arm/include/asm/domain.h      |   4 +
+>> xen/arch/arm/include/asm/viommu.h      |  20 ++++
+>> xen/drivers/passthrough/Kconfig        |   8 ++
+>> xen/drivers/passthrough/arm/Makefile   |   1 +
+>> xen/drivers/passthrough/arm/smmu-v3.c  |   7 ++
+>> xen/drivers/passthrough/arm/viommu.c   |  30 ++++++
+>> xen/drivers/passthrough/arm/vsmmu-v3.c | 124 +++++++++++++++++++++++++
+>> xen/drivers/passthrough/arm/vsmmu-v3.h |  20 ++++
+>> xen/include/public/arch-arm.h          |   7 +-
+>> 10 files changed, 222 insertions(+), 2 deletions(-)
+>> create mode 100644 xen/drivers/passthrough/arm/vsmmu-v3.c
+>> create mode 100644 xen/drivers/passthrough/arm/vsmmu-v3.h
 >>=20
 >> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index 38e22f12af..2a85209736 100644
+>> index 2a85209736..9a2b613500 100644
 >> --- a/xen/arch/arm/domain.c
 >> +++ b/xen/arch/arm/domain.c
->> @@ -37,6 +37,7 @@
->> #include <asm/tee/tee.h>
->> #include <asm/vfp.h>
->> #include <asm/vgic.h>
->> +#include <asm/viommu.h>
->> #include <asm/vtimer.h>
->>=20
->> #include "vpci.h"
->> @@ -691,6 +692,13 @@ int arch_sanitise_domain_config(struct xen_domctl_c=
-reatedomain *config)
+>> @@ -692,7 +692,8 @@ int arch_sanitise_domain_config(struct xen_domctl_cr=
+eatedomain *config)
 >>         return -EINVAL;
 >>     }
 >>=20
->> +    if ( config->arch.viommu_type !=3D XEN_DOMCTL_CONFIG_VIOMMU_NONE )
->> +    {
->> +        dprintk(XENLOG_INFO,
->> +                "vIOMMU type requested not supported by the platform or=
- Xen\n");
-> Maybe a simpler message like for TEE would be better: "Unsupported vIOMMU=
- type"
-
-Ack.=20
->=20
->> +        return -EINVAL;
->> +    }
+>> -    if ( config->arch.viommu_type !=3D XEN_DOMCTL_CONFIG_VIOMMU_NONE )
+>> +    if ( config->arch.viommu_type !=3D XEN_DOMCTL_CONFIG_VIOMMU_NONE &&
+>> +         config->arch.viommu_type !=3D viommu_get_type() )
+>>     {
+>>         dprintk(XENLOG_INFO,
+>>                 "vIOMMU type requested not supported by the platform or =
+Xen\n");
+>> diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/as=
+m/domain.h
+>> index 2ce6764322..8eb4eb5fd6 100644
+>> --- a/xen/arch/arm/include/asm/domain.h
+>> +++ b/xen/arch/arm/include/asm/domain.h
+>> @@ -114,6 +114,10 @@ struct arch_domain
+>>     void *tee;
+>> #endif
+>>=20
+>> +#ifdef CONFIG_VIRTUAL_IOMMU
+>> +    struct list_head viommu_list;     /* List of virtual IOMMUs */
+>> +#endif
 >> +
+>> }  __cacheline_aligned;
+>>=20
+>> struct arch_vcpu
+>> diff --git a/xen/arch/arm/include/asm/viommu.h b/xen/arch/arm/include/as=
+m/viommu.h
+>> index 7cd3818a12..4785877e2a 100644
+>> --- a/xen/arch/arm/include/asm/viommu.h
+>> +++ b/xen/arch/arm/include/asm/viommu.h
+>> @@ -5,9 +5,21 @@
+>> #ifdef CONFIG_VIRTUAL_IOMMU
+>>=20
+>> #include <xen/lib.h>
+>> +#include <xen/list.h>
+>> #include <xen/types.h>
+>> #include <public/xen.h>
+>>=20
+>> +extern struct list_head host_iommu_list;
+>> +
+>> +/* data structure for each hardware IOMMU */
+>> +struct host_iommu {
+>> +    struct list_head entry;
+>> +    const struct dt_device_node *dt_node;
+>> +    paddr_t addr;
+>> +    paddr_t size;
+>> +    uint32_t irq;
+> You want this to be int and not unsigned. The reason is ...
+>=20
+>> +};
+>> +
+>> struct viommu_ops {
+>>     /*
+>>      * Called during domain construction if toolstack requests to enable
+>> @@ -35,6 +47,8 @@ struct viommu_desc {
+>> int domain_viommu_init(struct domain *d, uint16_t viommu_type);
+>> int viommu_relinquish_resources(struct domain *d);
+>> uint16_t viommu_get_type(void);
+>> +void add_to_host_iommu_list(paddr_t addr, paddr_t size,
+>> +                            const struct dt_device_node *node);
+>>=20
+>> #else
+>>=20
+>> @@ -56,6 +70,12 @@ static inline int viommu_relinquish_resources(struct =
+domain *d)
 >>     return 0;
 >> }
 >>=20
->> @@ -783,6 +791,9 @@ int arch_domain_create(struct domain *d,
->>     if ( (rc =3D domain_vpci_init(d)) !=3D 0 )
->>         goto fail;
->>=20
->> +    if ( (rc =3D domain_viommu_init(d, config->arch.viommu_type)) !=3D =
-0 )
->> +        goto fail;
->> +
->>     return 0;
->>=20
->> fail:
->> @@ -998,6 +1009,7 @@ static int relinquish_memory(struct domain *d, stru=
-ct page_list_head *list)
->> enum {
->>     PROG_pci =3D 1,
->>     PROG_tee,
->> +    PROG_viommu,
->>     PROG_xen,
->>     PROG_page,
->>     PROG_mapping,
->> @@ -1048,6 +1060,11 @@ int domain_relinquish_resources(struct domain *d)
->>         if (ret )
->>             return ret;
->>=20
->> +    PROGRESS(viommu):
->> +        ret =3D viommu_relinquish_resources(d);
->> +        if (ret )
->> +            return ret;
->> +
->>     PROGRESS(xen):
->>         ret =3D relinquish_memory(d, &d->xenpage_list);
->>         if ( ret )
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index bd30d3798c..abbaf37a2e 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -27,6 +27,7 @@
->> #include <asm/setup.h>
->> #include <asm/cpufeature.h>
->> #include <asm/domain_build.h>
->> +#include <asm/viommu.h>
->> #include <xen/event.h>
->>=20
->> #include <xen/irq.h>
->> @@ -3858,6 +3859,7 @@ void __init create_domUs(void)
->>         struct domain *d;
->>         struct xen_domctl_createdomain d_cfg =3D {
->>             .arch.gic_version =3D XEN_DOMCTL_CONFIG_GIC_NATIVE,
->> +            .arch.viommu_type =3D viommu_get_type(),
->>             .flags =3D XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap,
->>             /*
->>              * The default of 1023 should be sufficient for guests becau=
-se
->> @@ -4052,6 +4054,7 @@ void __init create_dom0(void)
->>         printk(XENLOG_WARNING "Maximum number of vGIC IRQs exceeded.\n")=
-;
->>     dom0_cfg.arch.tee_type =3D tee_get_type();
->>     dom0_cfg.max_vcpus =3D dom0_max_vcpus();
->> +    dom0_cfg.arch.viommu_type =3D viommu_get_type();
->>=20
->>     if ( iommu_enabled )
->>         dom0_cfg.flags |=3D XEN_DOMCTL_CDF_iommu;
->> diff --git a/xen/arch/arm/include/asm/viommu.h b/xen/arch/arm/include/as=
-m/viommu.h
->> new file mode 100644
->> index 0000000000..7cd3818a12
->> --- /dev/null
->> +++ b/xen/arch/arm/include/asm/viommu.h
->> @@ -0,0 +1,70 @@
->> +/* SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause) */
->> +#ifndef __ARCH_ARM_VIOMMU_H__
->> +#define __ARCH_ARM_VIOMMU_H__
->> +
->> +#ifdef CONFIG_VIRTUAL_IOMMU
->> +
->> +#include <xen/lib.h>
->> +#include <xen/types.h>
->> +#include <public/xen.h>
->> +
->> +struct viommu_ops {
->> +    /*
->> +     * Called during domain construction if toolstack requests to enabl=
-e
->> +     * vIOMMU support.
->> +     */
->> +    int (*domain_init)(struct domain *d);
->> +
->> +    /*
->> +     * Called during domain destruction to free resources used by vIOMM=
-U.
->> +     */
->> +    int (*relinquish_resources)(struct domain *d);
->> +};
->> +
->> +struct viommu_desc {
->> +    /* vIOMMU domains init/free operations described above. */
->> +    const struct viommu_ops *ops;
->> +
->> +    /*
->> +     * ID of vIOMMU. Corresponds to xen_arch_domainconfig.viommu_type.
->> +     * Should be one of XEN_DOMCTL_CONFIG_VIOMMU_xxx
->> +     */
->> +    uint16_t viommu_type;
-> Here the viommu_type is uint16_t ...
->=20
->> +};
->> +
->> +int domain_viommu_init(struct domain *d, uint16_t viommu_type);
->> +int viommu_relinquish_resources(struct domain *d);
->> +uint16_t viommu_get_type(void);
->> +
->> +#else
->> +
->> +static inline uint8_t viommu_get_type(void)
-> Here you are returning uint8_t ...
->=20
+>> +static inline void add_to_host_iommu_list(paddr_t addr, paddr_t size,
+>> +                                          const struct dt_device_node *=
+node)
 >> +{
->> +    return XEN_DOMCTL_CONFIG_VIOMMU_NONE;
+>> +    return;
 >> +}
 >> +
->> +static inline int domain_viommu_init(struct domain *d, uint16_t viommu_=
-type)
-> Here you are taking uint16_t. So it looks like that ...
->=20
->> +{
->> +    if ( likely(viommu_type =3D=3D XEN_DOMCTL_CONFIG_VIOMMU_NONE) )
->> +        return 0;
->> +
->> +    return -ENODEV;
->> +}
->> +
->> +static inline int viommu_relinquish_resources(struct domain *d)
->> +{
->> +    return 0;
->> +}
->> +
->> +#endif /* CONFIG_VIRTUAL_IOMMU */
->> +
->> +#endif /* __ARCH_ARM_VIOMMU_H__ */
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
+>> #endif /* CONFIG_VIRTUAL_IOMMU */
+>>=20
+>> #endif /* __ARCH_ARM_VIOMMU_H__ */
 >> diff --git a/xen/drivers/passthrough/Kconfig b/xen/drivers/passthrough/K=
 config
->> index 479d7de57a..19924fa2de 100644
+>> index 19924fa2de..4c725f5f67 100644
 >> --- a/xen/drivers/passthrough/Kconfig
 >> +++ b/xen/drivers/passthrough/Kconfig
->> @@ -35,6 +35,12 @@ config IPMMU_VMSA
->>          (H3 ES3.0, M3-W+, etc) or Gen4 SoCs which IPMMU hardware suppor=
-ts stage 2
->>          translation table format and is able to use CPU's P2M table as =
-is.
+>> @@ -41,6 +41,14 @@ config VIRTUAL_IOMMU
+>>        help
+>>         Support virtual IOMMU infrastructure to implement vIOMMU.
 >>=20
->> +config VIRTUAL_IOMMU
->> +       bool "Virtual IOMMU Support (UNSUPPORTED)" if UNSUPPORTED
->> +       default n
+>> +config VIRTUAL_ARM_SMMU_V3
+>> +       bool "ARM Ltd. Virtual SMMUv3 Support (UNSUPPORTED)" if UNSUPPOR=
+TED
+>> +       depends on ARM_SMMU_V3 && VIRTUAL_IOMMU
 >> +       help
->> +        Support virtual IOMMU infrastructure to implement vIOMMU.
+>> +        Support for implementations of the virtual ARM System MMU archi=
+tecture
+>> +        version 3. Virtual SMMUv3 is unsupported feature and should not=
+ be used
+>> +        in production.
 >> +
 >> endif
 >>=20
 >> config IOMMU_FORCE_PT_SHARE
 >> diff --git a/xen/drivers/passthrough/arm/Makefile b/xen/drivers/passthro=
 ugh/arm/Makefile
->> index c5fb3b58a5..4cc54f3f4d 100644
+>> index 4cc54f3f4d..e758a9d6aa 100644
 >> --- a/xen/drivers/passthrough/arm/Makefile
 >> +++ b/xen/drivers/passthrough/arm/Makefile
->> @@ -2,3 +2,4 @@ obj-y +=3D iommu.o iommu_helpers.o iommu_fwspec.o
->> obj-$(CONFIG_ARM_SMMU) +=3D smmu.o
+>> @@ -3,3 +3,4 @@ obj-$(CONFIG_ARM_SMMU) +=3D smmu.o
 >> obj-$(CONFIG_IPMMU_VMSA) +=3D ipmmu-vmsa.o
 >> obj-$(CONFIG_ARM_SMMU_V3) +=3D smmu-v3.o
->> +obj-$(CONFIG_VIRTUAL_IOMMU) +=3D viommu.o
+>> obj-$(CONFIG_VIRTUAL_IOMMU) +=3D viommu.o
+>> +obj-$(CONFIG_VIRTUAL_ARM_SMMU_V3) +=3D vsmmu-v3.o
+>> diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthr=
+ough/arm/smmu-v3.c
+>> index 9174d2dedd..4f96fdb92f 100644
+>> --- a/xen/drivers/passthrough/arm/smmu-v3.c
+>> +++ b/xen/drivers/passthrough/arm/smmu-v3.c
+>> @@ -91,6 +91,7 @@
+>> #include <asm/platform.h>
+>>=20
+>> #include "smmu-v3.h"
+>> +#include "vsmmu-v3.h"
+>>=20
+>> #define ARM_SMMU_VTCR_SH_IS            3
+>> #define ARM_SMMU_VTCR_RGN_WBWA         1
+>> @@ -2680,6 +2681,9 @@ static int arm_smmu_device_probe(struct platform_d=
+evice *pdev)
+>>        list_add(&smmu->devices, &arm_smmu_devices);
+>>        spin_unlock(&arm_smmu_devices_lock);
+>>=20
+>> +    /* Add to host IOMMU list to initialize vIOMMU for dom0 */
+>> +       add_to_host_iommu_list(ioaddr, iosize, dev_to_dt(pdev));
+>> +
+>>        return 0;
+>>=20
+>>=20
+>> @@ -2936,6 +2940,9 @@ static __init int arm_smmu_dt_init(struct dt_devic=
+e_node *dev,
+>>=20
+>>        iommu_set_ops(&arm_smmu_iommu_ops);
+>>=20
+>> +       /* Set vIOMMU type to SMMUv3 */
+>> +       vsmmuv3_set_type();
+>> +
+>>        return 0;
+>> }
+>>=20
 >> diff --git a/xen/drivers/passthrough/arm/viommu.c b/xen/drivers/passthro=
 ugh/arm/viommu.c
->> new file mode 100644
->> index 0000000000..7ab6061e34
->> --- /dev/null
+>> index 7ab6061e34..53ae46349a 100644
+>> --- a/xen/drivers/passthrough/arm/viommu.c
 >> +++ b/xen/drivers/passthrough/arm/viommu.c
->> @@ -0,0 +1,48 @@
->> +/* SPDX-License-Identifier: (GPL-2.0-or-later OR BSD-2-Clause) */
->> +
->> +#include <xen/errno.h>
->> +#include <xen/init.h>
->> +#include <xen/types.h>
->> +
->> +#include <asm/viommu.h>
->> +
->> +const struct viommu_desc __read_mostly *cur_viommu;
->> +
->> +int domain_viommu_init(struct domain *d, uint16_t viommu_type)
->> +{
->> +    if ( viommu_type =3D=3D XEN_DOMCTL_CONFIG_VIOMMU_NONE )
->> +        return 0;
->> +
->> +    if ( !cur_viommu )
->> +        return -ENODEV;
->> +
->> +    if ( cur_viommu->viommu_type !=3D viommu_type )
->> +        return -EINVAL;
->> +
->> +    return cur_viommu->ops->domain_init(d);
->> +}
->> +
->> +int viommu_relinquish_resources(struct domain *d)
->> +{
->> +    if ( !cur_viommu )
->> +        return 0;
->> +
->> +    return cur_viommu->ops->relinquish_resources(d);
->> +}
->> +
->> +uint16_t viommu_get_type(void)
->> +{
->> +    if ( !cur_viommu )
->> +        return XEN_DOMCTL_CONFIG_VIOMMU_NONE;
->> +
->> +    return cur_viommu->viommu_type;
->> +}
->> +
->> +/*
->> + * Local variables:
->> + * mode: C
->> + * c-file-style: "BSD"
->> + * c-basic-offset: 4
->> + * indent-tabs-mode: nil
->> + * End:
->> + */
->> diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm=
-.h
->> index 1528ced509..33d32835e7 100644
->> --- a/xen/include/public/arch-arm.h
->> +++ b/xen/include/public/arch-arm.h
->> @@ -297,10 +297,14 @@ DEFINE_XEN_GUEST_HANDLE(vcpu_guest_context_t);
->> #define XEN_DOMCTL_CONFIG_TEE_NONE      0
->> #define XEN_DOMCTL_CONFIG_TEE_OPTEE     1
+>> @@ -2,12 +2,42 @@
 >>=20
->> +#define XEN_DOMCTL_CONFIG_VIOMMU_NONE   0
+>> #include <xen/errno.h>
+>> #include <xen/init.h>
+>> +#include <xen/irq.h>
+>> #include <xen/types.h>
+>>=20
+>> #include <asm/viommu.h>
+>>=20
+>> +/* List of all host IOMMUs */
+>> +LIST_HEAD(host_iommu_list);
 >> +
->> struct xen_arch_domainconfig {
->>     /* IN/OUT */
->>     uint8_t gic_version;
->>     /* IN */
->> +    uint8_t viommu_type;
-> this should be uint16_t and not uint8_t=20
+>> const struct viommu_desc __read_mostly *cur_viommu;
+>>=20
+>> +/* Common function for adding to host_iommu_list */
+>> +void add_to_host_iommu_list(paddr_t addr, paddr_t size,
+>> +                            const struct dt_device_node *node)
+>> +{
+>> +    struct host_iommu *iommu_data;
+>> +
+>> +    iommu_data =3D xzalloc(struct host_iommu);
+>> +    if ( !iommu_data )
+>> +        panic("vIOMMU: Cannot allocate memory for host IOMMU data\n");
+>> +
+>> +    iommu_data->addr =3D addr;
+>> +    iommu_data->size =3D size;
+>> +    iommu_data->dt_node =3D node;
+>> +    iommu_data->irq =3D platform_get_irq(node, 0);
+> you are assigning platform_get_irq to it which can return a negative numb=
+er in case of failure.
+> In your current implementation, the following check does not make sense a=
+s unsigned can never be negative.
 
-I will modify the in viommu_type to uint8_t in "arch/arm/include/asm/viommu=
-.h" and will
-also fix  everywhere the viommu_type to uint8_t.=20
-
+Ack. I will fix that in next version.
+=20
 Regards,
-Rahul
-
-
+Rahul=
 
