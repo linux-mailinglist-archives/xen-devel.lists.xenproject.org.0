@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4F0D64271B
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:03:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453417.711031 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8441E64271A
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:02:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453419.711020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29FR-0000tM-2q; Mon, 05 Dec 2022 11:02:57 +0000
+	id 1p29FA-0000Zk-Oe; Mon, 05 Dec 2022 11:02:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453417.711031; Mon, 05 Dec 2022 11:02:57 +0000
+Received: by outflank-mailman (output) from mailman id 453419.711020; Mon, 05 Dec 2022 11:02:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29FQ-0000rT-TV; Mon, 05 Dec 2022 11:02:56 +0000
-Received: by outflank-mailman (input) for mailman id 453417;
- Mon, 05 Dec 2022 11:02:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p29FA-0000Ww-LH; Mon, 05 Dec 2022 11:02:40 +0000
+Received: by outflank-mailman (input) for mailman id 453419;
+ Mon, 05 Dec 2022 11:02:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/ZPr=4D=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1p29Ed-0000W9-5w
- for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 11:02:07 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 417e48a6-748c-11ed-91b6-6bf2151ebd3b;
- Mon, 05 Dec 2022 12:02:06 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id qk9so9083567ejc.3
- for <xen-devel@lists.xenproject.org>; Mon, 05 Dec 2022 03:02:06 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1p29F9-0000Wq-El
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 11:02:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p29F9-0004Z0-5i; Mon, 05 Dec 2022 11:02:39 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.30.208]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p29F8-0005tg-Vn; Mon, 05 Dec 2022 11:02:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,79 +39,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 417e48a6-748c-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=BEvzQObdwllKYzf1rM0gn5NgqqBSYsrZXBQG4nClVRg=;
-        b=Henub+u71ZoilZJfObgvjoWnQZE/h5gVGeWW0mU+OWNgAEYdvO5kJDePgUEoUcD76r
-         VHsYDHgW8cTwaa0obT8vpJk+3G1FZeXg0GNxu7IoV9ivld3W+CrwZAL9bQ3p8j7H7CMs
-         Id0mnOS1b0vXAIyIEBN+pStduBH/OjTRkNEqE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=BEvzQObdwllKYzf1rM0gn5NgqqBSYsrZXBQG4nClVRg=;
-        b=dYSZYffjzbcduDZJOg1yJCjhT1YTUPwmcwI78eq4dE6IBZwtEcrruw7gsdkKCFmy/5
-         5G2XtHKm1ahS/DxfjPytgIe/SNd6vCdt+8vzErkbVv0YziOVXSa3u8zeuFXo8dUoz+oO
-         zPx39bM8+0qKyWdYMoUS0tC4aU1bAgJsTPYJ7sNzTUTYzm0h2nDY2H0wyuoXg2JiiYlJ
-         tjwEXk4i8d8HNk80VXPobJOa7RxGg6EnkfEhSbFT2Lrxb2jurPHp46Ib0FJpT45b1xKL
-         1vO+k+u0FPUFAUfDQBw/NVRU5Ssx+Ccovdh83GWWbiidSPOHmRitGLYIBSUNgIC2Nzz/
-         fpnw==
-X-Gm-Message-State: ANoB5plFr4MNvekNfuK7rmpUiP1TTOp15z2x5xSkqVPVMPb+1x106HPV
-	+PaBIsZupTX2wHfXOG24pOTJiUMZmR/Uh/jbtdNu9jJqG9g/Iw==
-X-Google-Smtp-Source: AA0mqf6PzWGm9WW7vcnADJSVzftDJAZHPVoa+o3w71Z1tlQt1jikCvfz/G46wFAsRzSEregII96NrdMS2EYMgPfC/mQ=
-X-Received: by 2002:a17:906:7f16:b0:7c0:f2cf:8e09 with SMTP id
- d22-20020a1709067f1600b007c0f2cf8e09mr3583924ejr.257.1670238125623; Mon, 05
- Dec 2022 03:02:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=j3pR6XKEWQzmiMb8Y41MiRS5lF1Iui2G+SYP3J4AxKw=; b=ZcyFuivzirA7edbXcbc7NVc30z
+	At9nf3DNzGjR6PbAR8t/wROgheoqx926KI67wt7lxSaKNzbkvrFc0LYz0NK9T5nb/odo8oPdPgj5Y
+	ndFZWSDbpj2fFMhpqG8k+fGG37TtgCbtj6+po208yYNtSZCowcBMWJMv5reqr/lmQlb8=;
+Message-ID: <44779d4c-9d36-2989-1ee5-c245e9add9a3@xen.org>
+Date: Mon, 5 Dec 2022 11:02:36 +0000
 MIME-Version: 1.0
-References: <a7d3fc3dfe6fb8dfb75c7b35a78a299bee9685f9.1670172466.git.demi@invisiblethingslab.com>
-In-Reply-To: <a7d3fc3dfe6fb8dfb75c7b35a78a299bee9685f9.1670172466.git.demi@invisiblethingslab.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 5 Dec 2022 11:01:54 +0000
-Message-ID: <CA+zSX=bKN3cqCMKzR+5Xp9LOUw=38VzTp4BoN1-Qmn0-dZ7Zyg@mail.gmail.com>
-Subject: Re: [PATCH 1/2] Reduce hard-coding of PAT value
-To: xen-devel@lists.xenproject.org
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>, Jan Beulich <jbeulich@suse.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>, 
-	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
-Content-Type: multipart/alternative; boundary="0000000000002b316905ef129ed0"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for FVP BaseR
+ platform
+Content-Language: en-US
+To: Wei Chen <Wei.Chen@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jiamei Xie <Jiamei.Xie@arm.com>
+References: <20221104100741.2176307-1-wei.chen@arm.com>
+ <20221104100741.2176307-6-wei.chen@arm.com>
+ <0ffe8a4d-7caf-89af-d189-a872b6b4f0fa@xen.org>
+ <PAXPR08MB7420A3A20199F477622EB7099E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <e2a1233c-c001-9553-7abe-de97e96a650e@xen.org>
+ <b3240b30-39c7-d4b2-eb92-167a1a81c6ad@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <b3240b30-39c7-d4b2-eb92-167a1a81c6ad@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---0000000000002b316905ef129ed0
-Content-Type: text/plain; charset="UTF-8"
+Hi,
 
-On Sun, Dec 4, 2022 at 5:14 PM Demi Marie Obenour <
-demi@invisiblethingslab.com> wrote:
+On 05/12/2022 10:17, Wei Chen wrote:
+> On 2022/11/10 2:24, Julien Grall wrote:
+> diff --git a/xen/arch/arm/platforms/Kconfig
+>>>> b/xen/arch/arm/platforms/Kconfig
+>>>>> index c93a6b2756..0904793a0b 100644
+>>>>> --- a/xen/arch/arm/platforms/Kconfig
+>>>>> +++ b/xen/arch/arm/platforms/Kconfig
+>>>>> @@ -1,6 +1,7 @@
+>>>>>    choice
+>>>>>        prompt "Platform Support"
+>>>>>        default ALL_PLAT
+>>>>> +    default FVP_BASER if ARM_V8R
+>>>>
+>>>> Is there any reason to create a new Kconfig rather than using MPU?
+>>>>
+>>>
+>>> Did you mean FVP_BASER? If yes, we want to give each board a MACRO
+>>> to indicate its specific configurations. In current series, this MACRO
+>>> only be used for board specific start address.
+>>
+>> See above for this.
+>>
+> 
+> If we move board specific information to tailored config file, I think
+> we don't need FVP_BASER.
+> 
+>>>
+>>> If you meant Armv8R, that's because Armv8R does not equal to MPU.
+>>
+>> I am not entirely sure to understand. Are you saying that an existing 
+>> Xen can boot on Armv8R?
+>>
+> 
+> No, I didn't mean that. I just think we can't use only one MPU or one
+> ARM_V8R to cover all our changes in this series. For example, some
+> changes like new system registers are brought by Armv8R not the MPU.
 
-> This makes the code easier to read and more robust against any future
-> changes to this value.  No change in behavior (modulo bugs).
->
+I understand the theory. But in practice this needs to be a balance 
+between finer grain and too much Kconfig.
 
-Minor tweak: We generally say something like "No functional change
-intended."  No need to respin just for this, but handy to keep in your
-back pocket for future patches.
+ From this series alone, it doesn't seem to be make sense to introduce 
+the two. Furthermore, I am not entirely sure you will be able to make 
+the MPU work without enable the ARMv8-R Kconfig.
 
- -George
+Cheers,
 
---0000000000002b316905ef129ed0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Sun, Dec 4, 2022 at 5:14 PM Demi M=
-arie Obenour &lt;<a href=3D"mailto:demi@invisiblethingslab.com">demi@invisi=
-blethingslab.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">This makes the code easier to read and more robust against =
-any future<br>
-changes to this value.=C2=A0 No change in behavior (modulo bugs).<br></bloc=
-kquote><div><br></div><div>Minor tweak: We generally say something like &qu=
-ot;No functional change intended.&quot;=C2=A0 No need to respin just for th=
-is, but handy to keep in your back=C2=A0pocket for future patches.</div><di=
-v><br></div><div>=C2=A0-George</div></div></div>
-
---0000000000002b316905ef129ed0--
+-- 
+Julien Grall
 
