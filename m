@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2F93642692
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 11:18:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453365.710979 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD3B6426A4
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 11:24:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453374.710990 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p28Xn-0008SU-N3; Mon, 05 Dec 2022 10:17:51 +0000
+	id 1p28e7-0001xr-Cr; Mon, 05 Dec 2022 10:24:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453365.710979; Mon, 05 Dec 2022 10:17:51 +0000
+Received: by outflank-mailman (output) from mailman id 453374.710990; Mon, 05 Dec 2022 10:24:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p28Xn-0008Pk-KC; Mon, 05 Dec 2022 10:17:51 +0000
-Received: by outflank-mailman (input) for mailman id 453365;
- Mon, 05 Dec 2022 10:17:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=WMQ7=4D=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
- id 1p28Xm-0008Pe-G2
- for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 10:17:50 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on0609.outbound.protection.outlook.com
- [2a01:111:f400:fe0e::609])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 10f955fb-7486-11ed-8fd2-01056ac49cbb;
- Mon, 05 Dec 2022 11:17:48 +0100 (CET)
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
- by PAVPR08MB9188.eurprd08.prod.outlook.com (2603:10a6:102:30a::7)
+	id 1p28e7-0001vV-A1; Mon, 05 Dec 2022 10:24:23 +0000
+Received: by outflank-mailman (input) for mailman id 453374;
+ Mon, 05 Dec 2022 10:24:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=NO0Y=4D=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1p28e5-0001vP-VL
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 10:24:22 +0000
+Received: from NAM04-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04on2060d.outbound.protection.outlook.com
+ [2a01:111:f400:7e8d::60d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fa265c67-7486-11ed-91b6-6bf2151ebd3b;
+ Mon, 05 Dec 2022 11:24:19 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by SA0PR12MB4495.namprd12.prod.outlook.com (2603:10b6:806:70::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.11; Mon, 5 Dec
- 2022 10:17:45 +0000
-Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::eb53:5027:9f6c:cb1b]) by PAXPR08MB7420.eurprd08.prod.outlook.com
- ([fe80::eb53:5027:9f6c:cb1b%2]) with mapi id 15.20.5880.011; Mon, 5 Dec 2022
- 10:17:45 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Mon, 5 Dec
+ 2022 10:24:14 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::9856:da7:1ff1:d55c]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::9856:da7:1ff1:d55c%5]) with mapi id 15.20.5880.014; Mon, 5 Dec 2022
+ 10:24:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,204 +47,256 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 10f955fb-7486-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: fa265c67-7486-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QoR1qLrP8gSwl0WrkssZS4tuJZkVJIwEvEDRzRq4PW6AK3taNXdqg3iailVa1SUYNdxVEsadZVnYC32lFqNrRnETFa6KRW6BGdylJYYeY8TJU+VBDuM3DCWJNg9cYnGpfW6gtc5QD9KeXUdUuRORfJtt+udl/TSXb6T+wazknJLJHV2ywu/VAHs7PY2fNsOrpHjJHadNhc/q4SDxivgDLfZ5czbnd+TsYKD4Um8n25u7dTdyFvq6DViEN+ELD+oHxw2zpOPABKyrc+uLT5WRGAim00P+6yENRBcdnCzPMaiGXKjGhx8t5nYDCiv0tmdC7eFnv8WFV33oNv1ghk7GMw==
+ b=H9Eh1QXbqMN4E4hmigX5kBfBJvF8MtKAjxsSeT9cX96Lzl9BX9PAAzrTiquHjNxyWWzFxqU+KEnOOaoPeT52KVN+Cg6UHTPRx6+T2aB7l99c+lGVLnGLsfufB01pSCvZUgxehVwZAlvKQw36TQTOMPH5bm425DtBN8ybiqI7Gq61a4ypbVn5rgd4hxH8zJpHbZ6yDc53uM+GhCsrGsoNGWHTfYhwSeSqdCopB//M1nK+MW7ZEDRJfB2kvZ6GDWPQZZgLujJWgLagcYkoxIbUhwKCGOjsSwu913z8h32V4Skl0P28BzvJcgWI6eF4HnkZKPxcguWInZXJr8ZMo/mPAQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2sdMVvz6tMMMIMwONLQJiIX2KxDkoj9yBS4qM2Yjedo=;
- b=LU6unm5nyhHzi2m8nlDaDPOKPFkYa/UkwGGU1FsE9vGz4FYc3MX/CmrMHc5nPSehKda1oSoxrWEsvx3FFt6QgJcuDbdWcbZvy8N41hOGge5GIHjBhBxAjvNu184JynGR2uSYyMFt8/K/y2QJeIT1WTG7u3ogNLywz7UOrcF0tVo9HF1iO+9n1UM6TgnO+lQ6fOg1iUlNR1Lh5a8E5zz78cQUh2DKOoRBCIW1ZH4Mgbd2yh5yvNwYWMgec0iephp8x3wnXP0XkTrhg/Avi2iwEtVsl4E3Lox6/yk5N8lYrs+P7RPhomaZqZjkJ/kDVKf52gQ/lbK1pbp/0GrL0s00Qw==
+ bh=mHNoaakouzx8u32UkQuVIFtw6w10PoPUrzk1jY4Jm5U=;
+ b=L6H+ZsKv0WBohb9z3aIK4PVV61fWkm73qdXex9nB9ReHfplbzgQTTfIXiE2gXlLDn4r6L1fn7rrpNSAybwZXk9sPU06VQmg4jx7oxDdsSivoFUUD8FPch2cxoDVScFMd4g5lE4kHWt4tel+SppQP2VW30W4aQfmh/v65xqPEVek6FUMw8PFw5JuRxaUTj0tIvnp9RdXOLo/Q2hr7y3kvwB64K85HWQC0+Wyr6ALTibrzfH6REvtpG4PPHFITdWG4NoRfCnI+0aHtRz5Kjx3v4r1eobQdVQ/kzn3OGwGaVhOSsD/jSysYRlqR8nerWLiElISj8T3YYdalA69xYVmHpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2sdMVvz6tMMMIMwONLQJiIX2KxDkoj9yBS4qM2Yjedo=;
- b=N0oaQyL31Jdu4DTKifSUochdpy/BnuQzvtDYE7iskwLz27aPtcKWJOlxZsbjh5KLmbSTBHuJ+uUrgy5KmeEd1T12hhB/I63/yGKnPmH+LvCGKxxOcXyvTlrCBNkLFvnLrMwMKRiM9rDZXAyN42Ss/ppMwx1LPPWC1cQSY3GZBg4=
+ bh=mHNoaakouzx8u32UkQuVIFtw6w10PoPUrzk1jY4Jm5U=;
+ b=1xz/SmRFCGyBus7JUDb86280ADDkt0S59upHFnlcI6Le1HlbaAGEJdKWCZ43e52863WWO8lK0VrD/5qgOkWnae7I4KROpkv67HLbEzpJTudDAcSkaJFqg75Pu9P+EOd8FgodS8nm5QNL00VakV3r52PCNM5bTNfI46U9/XZOtc4=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Message-ID: <b3240b30-39c7-d4b2-eb92-167a1a81c6ad@arm.com>
-Date: Mon, 5 Dec 2022 18:17:37 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for FVP BaseR
- platform
-To: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jiamei Xie <Jiamei.Xie@arm.com>
-References: <20221104100741.2176307-1-wei.chen@arm.com>
- <20221104100741.2176307-6-wei.chen@arm.com>
- <0ffe8a4d-7caf-89af-d189-a872b6b4f0fa@xen.org>
- <PAXPR08MB7420A3A20199F477622EB7099E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <e2a1233c-c001-9553-7abe-de97e96a650e@xen.org>
-Content-Language: en-US
-From: Wei Chen <Wei.Chen@arm.com>
-In-Reply-To: <e2a1233c-c001-9553-7abe-de97e96a650e@xen.org>
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <24d54521-4136-62ca-67e8-e6408104b94e@amd.com>
+Date: Mon, 5 Dec 2022 10:24:03 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.4.2
+Subject: Re: [XEN v4 09/11] xen/Arm: GICv3: Define remaining GIC registers for
+ AArch32
+To: Michal Orzel <michal.orzel@amd.com>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefanos@xilinx.com, julien@xen.org,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, jgrall@amazon.com,
+ burzalodowa@gmail.com
+References: <20221128155649.31386-1-ayan.kumar.halder@amd.com>
+ <20221128155649.31386-10-ayan.kumar.halder@amd.com>
+ <4009fec8-4bd7-afe5-49d5-89deb4d132c4@amd.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <4009fec8-4bd7-afe5-49d5-89deb4d132c4@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2PR04CA0174.apcprd04.prod.outlook.com (2603:1096:4::36)
- To PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
+X-ClientProxiedBy: LO4P123CA0092.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:191::7) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR08MB7420:EE_|PAVPR08MB9188:EE_
-X-MS-Office365-Filtering-Correlation-Id: 532ff27e-3be0-4623-e83e-08dad6a9f3ae
-NoDisclaimer: true
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|SA0PR12MB4495:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0756c04-b8f5-46da-f631-08dad6aada20
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	xB46p/plzQY8ZMRu//e0taIFhJBKreTLVGoK/VRNevyDDxj0uEosSa371F1flIcE/48jmd61Pu1y/UxAZE6ilLpRdEKmgQpaMOTENxugXv9WFKHoSQETewtxzmXlJYGS79QQwRYl1UWwoU6DPQy0wGe5f6XsnaInZSho3+sz0rfSmsUdkbrfBwnW8Ug2wkCI5bTs6r9F6x3HPSu6miHGLo2WAHVoUTohw3CE/YZdgCLTmsqXqpERkxqWUp4i6CFGV+7CKDBLESl+GGtAoTK8CKuG4Vw9t1UA3m2sxAuehQkeh3ClUC4maq+Yp3KckjJ7lThvWC1c3oYORMHetP8bJ+GLNVg+aAtOwvc9o3HQYYcvSSEv8e34O6HGg49XAlDRPnIS/Y0dhCKW7yl6wYAe2sEUMbQDkhWF3lJcAz5mi1gWGyNPi74ns5UMPaWpDzrUzZyGcaKM7rvfP+s+V4wsTLaA/IgXq2yUXA9T52T3yNPOvwnMo7mbdstqEru9lT2txieCyKVjsSErJkzt0inylcpayrUWGLlo3n45ensSKJGmWBj3k+ItUmpMW6vJz7niCCc1Dn/1r9tUvEHThTyjik3FEKDU5tTXSZbvIM7O3sZHhP/XcLOrJNOn8yx2KCGbGPBovHjQ1etk0ETSSsTW7qtpJvYOE74GE3eH35qUr19MgXVJ5CatlwVIVE39U70Jm//v16C9pUYtUA3uXOgXK1xU1iD4zKr2dQTEa+E8pYk=
+	TMg6ZeZhmA/Jy+QTtev7lr3AmyxX9HXldekP2T5Aj0bjFMy2iQh/T4IcIARoFxssj6fD3QubJSZvuXKFLDK+Ok8fhMq/x9lOZYfz1cuEzeXQBdMtHy8DTEXPtKWBzdGAgnOad7J0z7IKvyvPF+tlzrrI27ReAx1EsHZU8k6Ilx16KdCSAhFWDj5VhNKZBrWoDcKgowd0qvDISM5OP82u6BUm5L7PkfkZnmTHoUeNDGNn17YukuFdQ/B6u3PcCYLoZJ/4OY9cH4/yGBGSXLd7ORNi5ZemAuWf0xqCaEVPCa7nLCdTyKpZM/aKYfCaAmoR0GVlB3dP3ZZdv6O0u3GCB5ITIytZF8gcSmKb5JG0Q2FosDLh0CsuGDURapFR1njA9K45MM3wZC60dbhSGogAocv8RNN6eXHUAfCiEix4sVjHlW1Cb06jMe7xIotzRvw4ccmz/YKflTOUDGsaCTIeRtQXjApHQEx/CXQM1Y8Tk6CO/RlXFzupugxve0Piocp7peELbnGXGkFxQ3sRZ97+8srtXO9ZjFt88M6FPErryDmhfK11dKMMRyRjGvugp2abBJDFGLYvVurevK2T6KQQUEGukbAUIatnn4JAhWrxxse6UnntBa/LiyyWyU3Kh/O9ox5BKHArOe83IFOmIPTOTrGxn0svDp+tacBi93zjdZ7rNVQpy2xMA3QuMt+6b0S/CVZ680adg7qw6q2/RtMnn/GDGEaspNgewPNi1e/D5dw=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(366004)(376002)(451199015)(2906002)(86362001)(31696002)(316002)(6506007)(83380400001)(186003)(110136005)(6666004)(6512007)(26005)(54906003)(6486002)(53546011)(478600001)(2616005)(8676002)(5660300002)(8936002)(41300700001)(66946007)(4326008)(66556008)(31686004)(66476007)(38100700002)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(451199015)(36756003)(38100700002)(31696002)(5660300002)(2906002)(41300700001)(8936002)(4326008)(83380400001)(66946007)(66556008)(66476007)(478600001)(6486002)(316002)(2616005)(110136005)(31686004)(8676002)(6666004)(53546011)(186003)(6512007)(6506007)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlpPZHB1cUhGcU51V3JlNENQYmdVQ1E4MW0vcXY2QnRreFhJQVdTc1R0SkVz?=
- =?utf-8?B?eDg0cjBjS1VvMTB0YlZQVVF3NjhkdEx4eXduU3dVRnRBMFZrY3M2VU1OSG9Z?=
- =?utf-8?B?ejQzRGVqdDdOQXJ3bUxxU2NKL0pmSWdQazNrcmVTNGNNQWVvNWZUaGJlOWUx?=
- =?utf-8?B?VDB1K1pVMjdpRVhRNTQ3MEhuaHpYQnF5aVNzUzhnNlBhWHdudmZibDlLMW5L?=
- =?utf-8?B?UXM5bm82aGptaWF6TkNBQXdEZVI5NTJYQ0tsVE1QQk5MY2x3empoS2tWV0NO?=
- =?utf-8?B?R0FUUHJUMHY2ZVNQTHd3ZnBWMVhjS2hONTIxOFg5NjMxdnVYeTg3YTBrYkVG?=
- =?utf-8?B?RUtaMUNLWk1lbVRqaVJMdUhqOFYrQ3F3dlFCSkZrQUFDeks2cnNHbVFKVTlU?=
- =?utf-8?B?VXdQY2JMZFJwcTFPd05IRTRDcTUvVEkzd2JWbW41SW50TTFtbnlBVnhJbEYv?=
- =?utf-8?B?STN2WHljTWg0U2RERDVYSnpPS3c0ZENEaDRiYTNFZjlVWnlIWExNYnFla1Zo?=
- =?utf-8?B?b3ZUT1B3alR3YWIyZmsreC90R1ZBQjhIM2pWendzbXlqdFAxTmZCNjdtL0lF?=
- =?utf-8?B?c3pNeng1NWlXKzI2K2ZrZFFuUEZwN3JEcXY2b0srTjRleitEYlBraVVqeU1M?=
- =?utf-8?B?d2hxM3o0SnpSMEd2N0IzNG5QOUJiQVdseHphNEtYODZKRGFNcUJ5a3hSb3VO?=
- =?utf-8?B?djFhN0h3NVNZVnJmNUY5YUJJcGF6dmEzOG9WNUdqL2ZMajF5QWs1YU5pb1pE?=
- =?utf-8?B?Y2ZheEpjTGdQVnlkSm5PZmNtSVFMTjA0aHA0Vy92ek0rdkhkNHlFK1dMV1N0?=
- =?utf-8?B?T0NjaTliZkVxb1JTbGJwNDBOZzJBbVF0R2cvZWpQREN0Z2ZHa2MzaU9YOVNM?=
- =?utf-8?B?THA3emdUQW45dEFkNjJPdmpVeEdwVVVOZndBeE1RcWM0Q3lNVDg0eE85R2Zj?=
- =?utf-8?B?eUNjS2theFlKUHFNdGFISXU3Y0VoVFhWTCtzQ0lvK25RdGVjS2NYa0NXSjZ0?=
- =?utf-8?B?VWVFaWRKQ1d2NHUzV2lVNXA4VEZDb0dTVWgzQmNRZDZub2dFYStwMFovZU9R?=
- =?utf-8?B?QlFhbzQ1RHhVTGZlOEZBTGJjNjBhUGVGdkxnVUFvaVhHSHhCbUNPWkJhNVZY?=
- =?utf-8?B?SmtleUJhaFJHQ0VSd1dIUlBMRHBBTTdMS2RraEZ1SVU1UzhmcXdCUXR5YjVM?=
- =?utf-8?B?Wlk4bGFCNi9lSWRkaEJMZXNlQXY2NHBmOTVkWEc3aC84aXZKQ0xHS2R3dVpC?=
- =?utf-8?B?VDk1UzkwQWJWK3Z4MmFNSWRLaVM4WHo0YkdoUU1nbWJlUDNuSDMxRkY0ZWdR?=
- =?utf-8?B?Y3R0OWlweFZ6d2ZtVUNuaG5lWTc2bXJBWWp3b0NaNU55OW9CSzNuMGpXbld0?=
- =?utf-8?B?MGQ5cm5NcjR3WTMrMCtsYnB1cFpOL3hZZXVLYmNFTVR4VGptV0l0N3ZBTEF4?=
- =?utf-8?B?bWxzSC90N0s3d3hxeUlyWllsaWYyTmpKUmE5NWlVQTdSNS9nZE5ucDhDOE1u?=
- =?utf-8?B?OVJid0tVcDVWR2hrSkNBUGwyYlhrSkVERzYySjB4cXZHcG5uMUZoaHZPb0ZL?=
- =?utf-8?B?cXFOYWoxWnhEellCUEFqbmRnWEs4OTVxcGxQREdVbzFEU3N4eWlOMkNGZ25s?=
- =?utf-8?B?SEk0S3dvQ3Ira0ZXdjJxUGpDQkdKNGRCZUc0ejgvdE81TWgzVmpsK3dtMGdy?=
- =?utf-8?B?dnJxM1hJVXJucTRiazdRUStvRjZXM2xYUENPaXBvMC95ckJsWms1Z2tJTkVi?=
- =?utf-8?B?S0R1a2ozUXpReGFvWDJtMW1aa21WUGpuZnZJMHZEOWU2MDVlczFXK2JRK0Y3?=
- =?utf-8?B?Q3hKSFFYb0IyQjQrK2J5ZWpyejd4eStSS1N3OEdwTHVlWCswaC96eGJTY21G?=
- =?utf-8?B?MFZuT3BSZTZQRzhYVFEyNmkraVNrRi81QWhTUGJHaWZiQmYxNGdiK29ITFBJ?=
- =?utf-8?B?b29nSkFVSWMyc0NYZDk0ZFpxR1hWUmxiSEI4L0NDeEJrUTZLcEJHWWVMSVgr?=
- =?utf-8?B?ZzNEVnVXSmREU3JRVGtXSGI5VGVTZk5sNiticnU1TDBNcHpZa3hXOFJGVXNp?=
- =?utf-8?B?SFBEN0VaV3FuN0NXcWU3ZlByY0haWTB0eC9jaTdqSjhmbnRnalhMSGxhVmRz?=
- =?utf-8?Q?pwQgTaa+FKg5YcOdB8xczgQo8?=
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 532ff27e-3be0-4623-e83e-08dad6a9f3ae
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR08MB7420.eurprd08.prod.outlook.com
+	=?utf-8?B?aWF3L3ZyK1RuRjFudzBUYi9OVmZIMnJsZkx4Y1F2dC9GWHYrZjFKVStQUmFU?=
+ =?utf-8?B?T3k2eS9sbkJGVWQ0QWdEUTZiRVNGZGZYZzN3REtKUm9tQWZxckxBaHFRLytO?=
+ =?utf-8?B?bW5ta2EzV2ozbzhIdmtOTk5WN3E2dEZYMTBaK0JDNUR6TTJmQlBHendtVDBz?=
+ =?utf-8?B?bDV5QU9FZGJ3WTU2N294TlhrL1puZFdzb3l4Sjk0MlhjZlZyeFNjVmNOQ2Js?=
+ =?utf-8?B?U0cxalVtcW9aRUpZRDI5dzcxVkNKcHhMUjBvRjFrOFhqNEhUOElXSHRuRXFk?=
+ =?utf-8?B?dHpFMWRWbFNqMjZRUUFmUkJNNEdIY2ppTUtBUDVzVEZjUC9zSkdwK2FKcnJQ?=
+ =?utf-8?B?MjJnQ0Z6YUY2MFZ3L29JVXk3SFVmWlNOdUdEL09SMHA0a2owVktBTXpXZEc5?=
+ =?utf-8?B?dUNXM0pTZFZQUUR5VUM2bkFLSTZkeFJRV3FVSWt2ZC8reEV1M2JWQ2hJUW44?=
+ =?utf-8?B?OVFueXgxK3hpR25DRFBKb0dNRWk4eVVmcWE1RFZZRlF5Q0JyQktOS1d6dGpY?=
+ =?utf-8?B?bHNLeEpnVEJZRURqVjNpSzVmOFE2a0F5K3lLTWVzZWJWT2RmZGVyK0JhQW5o?=
+ =?utf-8?B?SE56Y3pXQm9RN3F1ZmNpaWROeU84a0ZIVXgvUzQ3L0pERmF5dzZicXNHc2k4?=
+ =?utf-8?B?Q2h4T0lDbTREZGFHVXBweENWdlppMHlDbS90eDI1cTU1T2lQNnZydGV3Zm4r?=
+ =?utf-8?B?VUpLNWZxc283ZitHT2E0eWozTE9TT0lkazNaRnpxZVpEVU9OakptMGNlMjVo?=
+ =?utf-8?B?RkR4SzltTjJRTGROWUlYWjhLM1libExWdTE4QTFQb2Zhc0NZcm1leSttT1ht?=
+ =?utf-8?B?OGJHcG5xMndLL2dndmw5aXk4U29DZTd4RGh6Mmg2enZyZ1lyQ2VNUWVST0tP?=
+ =?utf-8?B?akRLWjN5UmtVbjZHTzAwdStKeCt4MllKZEsvdFFZRXlSeVhOQzRzV1YrZVBv?=
+ =?utf-8?B?U1dBSWF5dFIwVTIyMDlpZ2xPY05vOHlRa1ZtMDlDTy8zall2aUpyeG9WSGVL?=
+ =?utf-8?B?UTJQSW9NRVp2cVBYVFhtamNPbmZ4OU9mSHhKUEYvekMySmNSWnlDMjg2M21L?=
+ =?utf-8?B?YThEM216OEpkZ29nMFpWS3hTcWpmb0k0Z3hGb2Y0RTEwSWkzL1l3UG1zQzda?=
+ =?utf-8?B?eE5JblQ0MkhuQmVvSmRveHh3RVh4Yi8zazVSbk5yUU8yT1VrbG82Wkdxc01X?=
+ =?utf-8?B?bGwvZjB4ZktuVFhhc2d6ckNuYUh6ajUwS2NpanNsbEpzTk4rMVF1NTZWaito?=
+ =?utf-8?B?MVNXb1Q2UFhlV0licEpvQVc2cmJqbHFyU1FETnk5bC9EbDNHOUR6WkQzLzRP?=
+ =?utf-8?B?S29HRnVHaVdTLzBKeUtmbmVsZ0NPdEJSVldXa1FlV3UzcmdPTzlkWFBvTzVk?=
+ =?utf-8?B?aUJtb1M4MVpuSmlWQm5Bd2JaZlgxSnUzMVlpNklSUWRkajhLcmk1VWdBRnN2?=
+ =?utf-8?B?eTd4TnB2MHB0amFHSEtuNUpZVE5sME03cGxNWjVWZXBwWjJZdGpzZnJsZGY5?=
+ =?utf-8?B?Q2pBczF4Vjc2YjNIMzZLazUvUnhYMVhYbWwxS2tvWWJMU2tjbVZIODVYTk1x?=
+ =?utf-8?B?NUxvcDVuK2lFam91T0Fxc0pXbjJoZHlzOWcyT0ZrUGhKQ0k3ZHdOSkVlT09K?=
+ =?utf-8?B?ekNObDdTMWZoT1h6TFcvNENGanl4WEgvd0dpNUlYVWpGNjBUV2VGRXRQZ1Ra?=
+ =?utf-8?B?SWNEMzUyUXFscXFaWjNpUUdmcWpIMkxtSFByRVpueCtsaDREZnBSTFNtZHpC?=
+ =?utf-8?B?MENUdk9Rd3pwSHJkNUlZenV3Nlg4UXdXVE00cGd3YWZyN0FTUS9zU0p2RlNW?=
+ =?utf-8?B?NkxCWEZlSmF5Z1VrYUozcm9qTXJPT252M2RKK2ZtRnI1RXJGZHdHR1E4bW1i?=
+ =?utf-8?B?dm5pRExoQWZXcWNpbmphcmQrZnBkRXNKSWdmWjc5SloyQXQ5by9zRTdmQlR1?=
+ =?utf-8?B?azIyTWhVVWczaVZuRmVhYXBzR0VJTWpMYXZNaXhvcFBWWFVNNXd4Q0cvNnNj?=
+ =?utf-8?B?WmRDMzE1T1dyL2RtQjF3amtWWmlEWHZGRG5OUk5VWnNEUUhHOTA1NHdwUU5T?=
+ =?utf-8?B?WXFZVlBtRnFGOUFvTVVzOGV6SXB4bGhJZGFrajhySUtKdXFITTRkbTdEdjRu?=
+ =?utf-8?Q?FuLcKoXTYalHxcdmcYbvUxnx4?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0756c04-b8f5-46da-f631-08dad6aada20
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2022 10:17:45.5302
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Dec 2022 10:24:12.1223
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OMjRqI2Bm+pWtPGA+TuEuGdyOaPlBsV5PLMeAysMSS0+ZMGr6Gw4FVb1v0nvrEGRH/FQNcOTKDGh14NcPj+U8Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9188
-
-Hi Julien,
-
-I thought I had replied to your email, but when I am checking to see if 
-I have addressed all your comments, I didn't find my reply on the 
-mailing list. Maybe there is something wrong with my mail system, I 
-didn't find it sooner. Sorry about it. Hope my reply is not too late.
+X-MS-Exchange-CrossTenant-UserPrincipalName: X5uF8D8w9s3sl+QhONeWyf7pacOMPdz+xbPbzxmVVBiFwbPqvFmjBM0npx+VhfEiVTwigp9pTXRYJcbvOo2VBg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4495
 
 
-On 2022/11/10 2:24, Julien Grall wrote:
-> 
-> 
-> On 09/11/2022 04:55, Wei Chen wrote:
->> Hi Julien,
-> 
-> Hi Wei,
-> 
->>>
+On 29/11/2022 14:57, Michal Orzel wrote:
+> Hi Ayan,
+>
+> On 28/11/2022 16:56, Ayan Kumar Halder wrote:
+>> Define missing assembly aliases for GIC registers on arm32, taking the ones
+>> defined already for arm64 as a base. Aliases are defined according to the
+>> GIC Architecture Specification ARM IHI 0069H.
 >>
->> We had considered to use Kconfig to define the start addresses of v8R64
->> platforms (prompt users to input the address). But we also want to 
->> provide
->> a default start address for each platform (Discussed in [1], header for
->> default value, Kconfig option for customized address).
-> Why do you want to provide a default value? And how it is guaranteed 
-> that it will work for most of the users?
-> 
+>> Defined the following registers:-
+>> 1. Interrupt Controller Interrupt Priority Mask Register
+>> 2. Interrupt Controller System Register Enable register
+>> 3. Interrupt Controller Deactivate Interrupt Register
+>> 4. Interrupt Controller End Of Interrupt Register 1
+>> 5. Interrupt Controller Interrupt Acknowledge Register 1
+>> 6. Interrupt Controller Binary Point Register 1
+>> 7. Interrupt Controller Control Register
+>> 8. Interrupt Controller Interrupt Group 1 Enable register
+>> 9. Interrupt Controller Maintenance Interrupt State Register
+>> 10. Interrupt Controller End of Interrupt Status Register
+>> 11. Interrupt Controller Empty List Register Status Register
+>> 12. Interrupt Controller Virtual Machine Control Register
 >>
->> We also had thought to use Kconfig to define a default start address
->> for each platform like what we had done for early printk in RFC[2].
->> But this method has been deprecated.
-> 
-> Most of the current Xen is board agnostic except the UART. We push back 
-> the addition of new one because the address can be found in the firmware 
-> table and I wanted to avoid increase the number of option (there are 
-> dozens of platform out...).
-> 
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> with one remark...
+>
+>> ---
 >>
->> So if we don’t use header files, just use the Kconfig, we can't
->> provide a default start address for platforms, and have to force users
->> to enter the start address.
-> 
-> I am not sure I see the problem to force the user to enter the start 
-> address. My worry with per-platform default value is we end up to force 
-> each vendor to provide an header in order to boot Xen.
-> 
-> I think it would be better to provide a config tailored for that 
-> platform (whether it is part of Xen can be debatable). This would allow 
-> a user to try a release Xen on their platform with zero changes in the 
-> code.
-> 
-
-Above comments have been answered in my reply to you and Stefano.
-
->>>> diff --git a/xen/arch/arm/platforms/Kconfig
->>> b/xen/arch/arm/platforms/Kconfig
->>>> index c93a6b2756..0904793a0b 100644
->>>> --- a/xen/arch/arm/platforms/Kconfig
->>>> +++ b/xen/arch/arm/platforms/Kconfig
->>>> @@ -1,6 +1,7 @@
->>>>    choice
->>>>        prompt "Platform Support"
->>>>        default ALL_PLAT
->>>> +    default FVP_BASER if ARM_V8R
->>>
->>> Is there any reason to create a new Kconfig rather than using MPU?
->>>
+>> Changes from :-
+>> v1 - 1. Moved coproc regs definition to asm/cpregs.h
 >>
->> Did you mean FVP_BASER? If yes, we want to give each board a MACRO
->> to indicate its specific configurations. In current series, this MACRO
->> only be used for board specific start address.
-> 
-> See above for this.
-> 
-
-If we move board specific information to tailored config file, I think
-we don't need FVP_BASER.
-
+>> v2 - 1. Defined register alias.
+>> 2. Style issues.
+>> 3. Defined ELSR, MISR, EISR to make it consistent with AArch64.
 >>
->> If you meant Armv8R, that's because Armv8R does not equal to MPU.
-> 
-> I am not entirely sure to understand. Are you saying that an existing 
-> Xen can boot on Armv8R?
-> 
+>> v3 - 1. Rectified some of the register names.
+>>   
+>>   xen/arch/arm/include/asm/cpregs.h | 32 +++++++++++++++++++++++++++++++
+>>   1 file changed, 32 insertions(+)
+>>
+>> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
+>> index 53142fc2b2..8f4d097a15 100644
+>> --- a/xen/arch/arm/include/asm/cpregs.h
+>> +++ b/xen/arch/arm/include/asm/cpregs.h
+>> @@ -163,6 +163,7 @@
+>>   #define DACR            p15,0,c3,c0,0   /* Domain Access Control Register */
+>>   
+>>   /* CP15 CR4: */
+>> +#define ICC_PMR         p15,0,c4,c6,0   /* Interrupt Priority Mask Register */
+>>   
+>>   /* CP15 CR5: Fault Status Registers */
+>>   #define DFSR            p15,0,c5,c0,0   /* Data Fault Status Register */
+>> @@ -256,6 +257,7 @@
+>>   
+>>   /* CP15 CR12:  */
+>>   #define ICC_SGI1R       p15,0,c12       /* Interrupt Controller SGI Group 1 */
+>> +#define ICC_DIR         p15,0,c12,c11,1 /* Interrupt Controller Deactivate Interrupt Register */
+> Shouldn't ICC_DIR be placed after VBAR?
 
-No, I didn't mean that. I just think we can't use only one MPU or one
-ARM_V8R to cover all our changes in this series. For example, some
-changes like new system registers are brought by Armv8R not the MPU.
+I have moved ICC_DIR after VBAR in my v5 patch.
 
-Cheers,
-Wei Chen
+Actually, this ordering is not very clear to me.
 
+It defines the following ordering "Coprocessor-> CRn-> Opcode 1-> CRm-> 
+Opcode 2"
 
+So "p15, 0, c12 ...." should come before "p15,1,c12 ...".
 
+However, if I see in the file for examples where "crm, opc2" is not 
+present, the order does not seem to make sense.
 
-> Cheers,
-> 
+For eg
+
+#define TTBCR           p15,0,c2,c0,2   /* Translation Table Base 
+Control Register */
+#define TTBCR2          p15,0,c2,c0,3   /* Translation Table Base 
+Control Register 2 */
+#define TTBR0           p15,0,c2        /* Translation Table Base Reg. 0 */
+#define TTBR1           p15,1,c2        /* Translation Table Base Reg. 1 */
+#define HTTBR           p15,4,c2        /* Hyp. Translation Table Base 
+Register */
+#define TTBR0_32        p15,0,c2,c0,0   /* 32-bit access to TTBR0 */  
+<<<------ does not seem in correct position , it should have been at the top
+#define TTBR1_32        p15,0,c2,c0,1   /* 32-bit access to TTBR1 */ 
+<<<------- does not seem in correct position , it should have been 
+between TTBR0_32 and TTBCR
+
+- Ayan
+
+>
+>>   #define ICC_ASGI1R      p15,1,c12       /* Interrupt Controller Alias SGI Group 1 Register */
+>>   #define ICC_SGI0R       p15,2,c12       /* Interrupt Controller SGI Group 0 */
+>>   #define VBAR            p15,0,c12,c0,0  /* Vector Base Address Register */
+>> @@ -281,6 +283,20 @@
+>>   #define ICH_AP1R2       __AP1Rx(2)
+>>   #define ICH_AP1R3       __AP1Rx(3)
+>>   
+>> +#define ICC_IAR1        p15,0,c12,c12,0  /* Interrupt Controller Interrupt Acknowledge Register 1 */
+>> +#define ICC_EOIR1       p15,0,c12,c12,1  /* Interrupt Controller End Of Interrupt Register 1 */
+>> +#define ICC_BPR1        p15,0,c12,c12,3  /* Interrupt Controller Binary Point Register 1 */
+>> +#define ICC_CTLR        p15,0,c12,c12,4  /* Interrupt Controller Control Register */
+>> +#define ICC_SRE         p15,0,c12,c12,5  /* Interrupt Controller System Register Enable register */
+>> +#define ICC_IGRPEN1     p15,0,c12,c12,7  /* Interrupt Controller Interrupt Group 1 Enable register */
+>> +#define ICC_HSRE        p15,4,c12,c9,5   /* Interrupt Controller Hyp System Register Enable register */
+>> +#define ICH_HCR         p15,4,c12,c11,0  /* Interrupt Controller Hyp Control Register */
+>> +#define ICH_VTR         p15,4,c12,c11,1  /* Interrupt Controller VGIC Type Register */
+>> +#define ICH_MISR        p15,4,c12,c11,2  /* Interrupt Controller Maintenance Interrupt State Register */
+>> +#define ICH_EISR        p15,4,c12,c11,3  /* Interrupt Controller End of Interrupt Status Register */
+>> +#define ICH_ELRSR       p15,4,c12,c11,5  /* Interrupt Controller Empty List Register Status Register */
+>> +#define ICH_VMCR        p15,4,c12,c11,7  /* Interrupt Controller Virtual Machine Control Register */
+>> +
+>>   /* CP15 CR12: Interrupt Controller List Registers, n = 0 - 15 */
+>>   #define __LR0(x)        ___CP32(p15, 4, c12, c12, x)
+>>   #define __LR8(x)        ___CP32(p15, 4, c12, c13, x)
+>> @@ -381,6 +397,15 @@
+>>   #define HCR_EL2                 HCR
+>>   #define HPFAR_EL2               HPFAR
+>>   #define HSTR_EL2                HSTR
+>> +#define ICC_BPR1_EL1            ICC_BPR1
+>> +#define ICC_CTLR_EL1            ICC_CTLR
+>> +#define ICC_DIR_EL1             ICC_DIR
+>> +#define ICC_EOIR1_EL1           ICC_EOIR1
+>> +#define ICC_IGRPEN1_EL1         ICC_IGRPEN1
+>> +#define ICC_PMR_EL1             ICC_PMR
+>> +#define ICC_SGI1R_EL1           ICC_SGI1R
+>> +#define ICC_SRE_EL1             ICC_SRE
+>> +#define ICC_SRE_EL2             ICC_HSRE
+>>   #define ICH_AP0R0_EL2           ICH_AP0R0
+>>   #define ICH_AP0R1_EL2           ICH_AP0R1
+>>   #define ICH_AP0R2_EL2           ICH_AP0R2
+>> @@ -389,6 +414,10 @@
+>>   #define ICH_AP1R1_EL2           ICH_AP1R1
+>>   #define ICH_AP1R2_EL2           ICH_AP1R2
+>>   #define ICH_AP1R3_EL2           ICH_AP1R3
+>> +#define ICH_EISR_EL2            ICH_EISR
+>> +#define ICH_ELRSR_EL2           ICH_ELRSR
+>> +#define ICH_HCR_EL2             ICH_HCR
+>> +#define ICC_IAR1_EL1            ICC_IAR1
+>>   #define ICH_LR0_EL2             ICH_LR0
+>>   #define ICH_LR1_EL2             ICH_LR1
+>>   #define ICH_LR2_EL2             ICH_LR2
+>> @@ -421,6 +450,9 @@
+>>   #define ICH_LRC13_EL2           ICH_LRC13
+>>   #define ICH_LRC14_EL2           ICH_LRC14
+>>   #define ICH_LRC15_EL2           ICH_LRC15
+>> +#define ICH_MISR_EL2            ICH_MISR
+>> +#define ICH_VMCR_EL2            ICH_VMCR
+>> +#define ICH_VTR_EL2             ICH_VTR
+>>   #define ID_AFR0_EL1             ID_AFR0
+>>   #define ID_DFR0_EL1             ID_DFR0
+>>   #define ID_DFR1_EL1             ID_DFR1
+> ~Michal
 
