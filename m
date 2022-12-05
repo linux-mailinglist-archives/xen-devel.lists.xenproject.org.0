@@ -2,36 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3EFC64277D
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:30:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453472.711085 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F5C96427B4
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:41:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453505.711101 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29fW-0006ko-5B; Mon, 05 Dec 2022 11:29:54 +0000
+	id 1p29pd-0001MN-53; Mon, 05 Dec 2022 11:40:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453472.711085; Mon, 05 Dec 2022 11:29:54 +0000
+Received: by outflank-mailman (output) from mailman id 453505.711101; Mon, 05 Dec 2022 11:40:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29fW-0006iX-2V; Mon, 05 Dec 2022 11:29:54 +0000
-Received: by outflank-mailman (input) for mailman id 453472;
- Mon, 05 Dec 2022 11:29:52 +0000
+	id 1p29pd-0001Ki-2G; Mon, 05 Dec 2022 11:40:21 +0000
+Received: by outflank-mailman (input) for mailman id 453505;
+ Mon, 05 Dec 2022 11:40:20 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=g57r=4D=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1p29fU-0006iQ-B7
- for xen-devel@lists.xen.org; Mon, 05 Dec 2022 11:29:52 +0000
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [2607:f8b0:4864:20::632])
+ <SRS0=YoCH=4D=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
+ id 1p29pb-0001Kc-UW
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 11:40:19 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 21045360-7490-11ed-8fd2-01056ac49cbb;
- Mon, 05 Dec 2022 12:29:50 +0100 (CET)
-Received: by mail-pl1-x632.google.com with SMTP id g10so10488198plo.11
- for <xen-devel@lists.xen.org>; Mon, 05 Dec 2022 03:29:51 -0800 (PST)
-Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
- o8-20020a17090a420800b0020a7d076bfesm8925105pjg.2.2022.12.05.03.29.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Dec 2022 03:29:48 -0800 (PST)
+ id 976267a9-7491-11ed-8fd2-01056ac49cbb;
+ Mon, 05 Dec 2022 12:40:18 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 2C7C76101F;
+ Mon,  5 Dec 2022 11:40:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 086B8C433C1;
+ Mon,  5 Dec 2022 11:40:16 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ DDE7EC395E5; Mon,  5 Dec 2022 11:40:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,72 +47,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 21045360-7490-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=iVXW2V7isRG367mkt7rNrw2wPQksUNLUSv5XAk1GEm8=;
-        b=HqUauqiPEytjp+MNxGhPWtF4O+4nSW8/dCTVuvQtPQWNMSrsMZ0u5x3invn4jmrddD
-         nSe9zlvvv5PA3Qjy9Wa1ANWqoPU0F7gE7jqH6g7klCycXhcIfSQp76UWaaNDQzttyq+4
-         yXq2Aksf24uAgelsSE27tr/vjE1r1qdxu9BzdUMBSRDAfjcklFSuPl5JhNY954kT6OUQ
-         kXF9jSiGCIWjRFtYWGegZ8NAzNzvusluYoRHyrlXkKkkdPiJFAPeWqZxFJS9+95jhX4Q
-         YXZ7UqKLt/fAIejvZqgYNqevWYLcal36MEeuw0kIg54D48U5WPShpR5K5kMWEieqSRRf
-         BPEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iVXW2V7isRG367mkt7rNrw2wPQksUNLUSv5XAk1GEm8=;
-        b=SVcsCr4PPjG1iKuF/W44Jv9KwjilPjnurDGEnlX5GyydhNgApYxaeuSz1K/IEORwDw
-         nd/xhCl7QyZjy4r39G36WPUMJpT/IGKiP99Q+RP7bbTD6QQCgMcnW5ySvTGzxO5wTahL
-         1DmFtuj3r924xZ9UC6Od/qA75eVYC0lW2+hlxZ2qT4X1sjagWuXzDexEIbPHiBqnsu7c
-         c1iAIdA41LnGkiHSGh+jGSSx7AE6gatJjBftqgULON0UdT+IVyoqtnPuixTEq5niV4Nc
-         QATBXCarc8+7jpNt84annUvY9GiTJyzBjo/z1l+hiUJYi1nF4MUDsNCQa+Xjtb+6AlgQ
-         y1dw==
-X-Gm-Message-State: ANoB5plcwK8MCiCr4Y0QlxBvoaf3ukqPDcebUVOZcy5UB3Ybu/oUi7tu
-	1i4WfQo1Ou9vnZ+bIpYpLijBKA==
-X-Google-Smtp-Source: AA0mqf7aJlLHLH4sw8/bBJGZ0Qg9kTGxUACMXRpXWD/CjnS4paS69DkwNoGfnznk5mHryYe3iHu+5w==
-X-Received: by 2002:a17:90a:f402:b0:219:3212:c462 with SMTP id ch2-20020a17090af40200b002193212c462mr40967632pjb.83.1670239789548;
-        Mon, 05 Dec 2022 03:29:49 -0800 (PST)
-Date: Mon, 5 Dec 2022 16:59:46 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Mike Holmes <mike.holmes@linaro.org>, Wei Liu <wl@xen.org>,
-	xen-devel@lists.xen.org, Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH V6 1/3] libxl: Add support for generic virtio device
-Message-ID: <20221205112946.qwa647k35uv7eyqr@vireshk-i7>
-References: <cover.1667906228.git.viresh.kumar@linaro.org>
- <f1dc91669df27705c25a1f3018427c2db77b32a6.1667906228.git.viresh.kumar@linaro.org>
- <6a546552-d71d-a262-5981-8058dc37ae26@gmail.com>
- <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
+X-Inumbo-ID: 976267a9-7491-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670240416;
+	bh=Dnag4KYR87UxalELQSKEhSo9fyf55ONeAifg/ubORhc=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=LInkuSFZcND/F0Ms/Y+axDZDPwnaHWJ3AoOUlNKnhCeFVReBQrXrTGYcSsspQFVyL
+	 xreVe2cFdwoWr2EwHV7C3u9UQC68FiCGf9G1wLBVzNfjZZxLJB0nS5bYqe3De+1WzZ
+	 i+AE/N7IIsbUIpaJImZ+/6GCTRZ4D2awTxNWvTyxc60u7j2fy1Z3DoqQWdxENggEj0
+	 JweQ8cWVHdL2QmU5sBTBip1JRmlmYymyN0Zpcb0+gmO/f/asqAaGIanJmKVZlugVOq
+	 sOZzvplK48/7J/pRkx2UWMvK0+xUgWCX+cNlne++n4+0lT8UtEpVjq+5BMoP+39d3Q
+	 Z+p15U9Yow7SQ==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] xen-netfront: Fix NULL sring after live migration
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <167024041589.2981.8835947614822583831.git-patchwork-notify@kernel.org>
+Date: Mon, 05 Dec 2022 11:40:15 +0000
+References: <7ae75e4582993c6d3e89511aec9c84426405f6a4.1669960461.git.lin.liu@citrix.com>
+In-Reply-To: <7ae75e4582993c6d3e89511aec9c84426405f6a4.1669960461.git.lin.liu@citrix.com>
+To: Lin Liu <lin.liu@citrix.com>
+Cc: , jgross@suse.com, sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 
-On 05-12-22, 11:45, Viresh Kumar wrote:
-> > > +    rc = libxl__backendpath_parse_domid(gc, be_path, &virtio->backend_domid);
-> > > +    if (rc) goto out;
-> > > +
-> > > +    rc = libxl__parse_backend_path(gc, be_path, &dev);
-> > > +    if (rc) goto out;
-> > 
-> > The same question for dev variable.
+Hello:
+
+This patch was applied to netdev/net.git (master)
+by David S. Miller <davem@davemloft.net>:
+
+On Fri, 2 Dec 2022 08:52:48 +0000 you wrote:
+> A NAPI is setup for each network sring to poll data to kernel
+> The sring with source host is destroyed before live migration and
+> new sring with target host is setup after live migration.
+> The NAPI for the old sring is not deleted until setup new sring
+> with target host after migration. With busy_poll/busy_read enabled,
+> the NAPI can be polled before got deleted when resume VM.
 > 
-> Hmm, this we aren't using at all, which KBD does use it. Maybe we
-> should even call libxl__parse_backend_path() ?
+> [...]
 
-Removing it works just fine for me.
+Here is the summary with links:
+  - [net] xen-netfront: Fix NULL sring after live migration
+    https://git.kernel.org/netdev/net/c/d50b7914fae0
 
+You are awesome, thank you!
 -- 
-viresh
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 
