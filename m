@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8441E64271A
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:02:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453419.711020 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F3C9642756
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 12:17:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453433.711042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29FA-0000Zk-Oe; Mon, 05 Dec 2022 11:02:40 +0000
+	id 1p29Su-0003Cg-5p; Mon, 05 Dec 2022 11:16:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453419.711020; Mon, 05 Dec 2022 11:02:40 +0000
+Received: by outflank-mailman (output) from mailman id 453433.711042; Mon, 05 Dec 2022 11:16:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p29FA-0000Ww-LH; Mon, 05 Dec 2022 11:02:40 +0000
-Received: by outflank-mailman (input) for mailman id 453419;
- Mon, 05 Dec 2022 11:02:39 +0000
+	id 1p29Su-00039v-3C; Mon, 05 Dec 2022 11:16:52 +0000
+Received: by outflank-mailman (input) for mailman id 453433;
+ Mon, 05 Dec 2022 11:16:50 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p29F9-0000Wq-El
- for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 11:02:39 +0000
+ (envelope-from <julien@xen.org>) id 1p29Ss-00039p-FP
+ for xen-devel@lists.xenproject.org; Mon, 05 Dec 2022 11:16:50 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p29F9-0004Z0-5i; Mon, 05 Dec 2022 11:02:39 +0000
+ id 1p29Sl-0004xL-2r; Mon, 05 Dec 2022 11:16:43 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=[192.168.30.208]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p29F8-0005tg-Vn; Mon, 05 Dec 2022 11:02:39 +0000
+ id 1p29Sk-0006Sx-S3; Mon, 05 Dec 2022 11:16:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +42,70 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=j3pR6XKEWQzmiMb8Y41MiRS5lF1Iui2G+SYP3J4AxKw=; b=ZcyFuivzirA7edbXcbc7NVc30z
-	At9nf3DNzGjR6PbAR8t/wROgheoqx926KI67wt7lxSaKNzbkvrFc0LYz0NK9T5nb/odo8oPdPgj5Y
-	ndFZWSDbpj2fFMhpqG8k+fGG37TtgCbtj6+po208yYNtSZCowcBMWJMv5reqr/lmQlb8=;
-Message-ID: <44779d4c-9d36-2989-1ee5-c245e9add9a3@xen.org>
-Date: Mon, 5 Dec 2022 11:02:36 +0000
+	bh=QNVnad72U7xzKCA0asYb6mqx0ml/GyneFyBQtTBDxek=; b=XIO7qipqKH4MrPLAvwcwhwF38M
+	C1CYpiBXdpEiwBB1Z6zY+4b4vJxGxZIn+e9vXcqzJ28ZsAuJUnhr+XET0DTApQJ+o+tfciWaCcB0M
+	ADZlGQ6RRwfqXWR3Fsf/CXWYuGe0MH1Gufqw0TqX21hcukM1SzNEx2d4h1i4HtIZ7Zvo=;
+Message-ID: <e68c068c-d648-7915-8709-0367d7f0c48f@xen.org>
+Date: Mon, 5 Dec 2022 11:16:40 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [PATCH v6 05/11] xen/arm: define Xen start address for FVP BaseR
- platform
+Subject: Re: [PATCH v2] process/release-technician-checklist: Explain how the
+ banner in README is generated
 Content-Language: en-US
-To: Wei Chen <Wei.Chen@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Jiamei Xie <Jiamei.Xie@arm.com>
-References: <20221104100741.2176307-1-wei.chen@arm.com>
- <20221104100741.2176307-6-wei.chen@arm.com>
- <0ffe8a4d-7caf-89af-d189-a872b6b4f0fa@xen.org>
- <PAXPR08MB7420A3A20199F477622EB7099E3E9@PAXPR08MB7420.eurprd08.prod.outlook.com>
- <e2a1233c-c001-9553-7abe-de97e96a650e@xen.org>
- <b3240b30-39c7-d4b2-eb92-167a1a81c6ad@arm.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <jgrall@amazon.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <20221124190850.35344-1-julien@xen.org>
+ <6819d05e-d1ab-fc3e-7795-bac650df3bc4@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <b3240b30-39c7-d4b2-eb92-167a1a81c6ad@arm.com>
+In-Reply-To: <6819d05e-d1ab-fc3e-7795-bac650df3bc4@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Jan,
 
-On 05/12/2022 10:17, Wei Chen wrote:
-> On 2022/11/10 2:24, Julien Grall wrote:
-> diff --git a/xen/arch/arm/platforms/Kconfig
->>>> b/xen/arch/arm/platforms/Kconfig
->>>>> index c93a6b2756..0904793a0b 100644
->>>>> --- a/xen/arch/arm/platforms/Kconfig
->>>>> +++ b/xen/arch/arm/platforms/Kconfig
->>>>> @@ -1,6 +1,7 @@
->>>>>    choice
->>>>>        prompt "Platform Support"
->>>>>        default ALL_PLAT
->>>>> +    default FVP_BASER if ARM_V8R
->>>>
->>>> Is there any reason to create a new Kconfig rather than using MPU?
->>>>
->>>
->>> Did you mean FVP_BASER? If yes, we want to give each board a MACRO
->>> to indicate its specific configurations. In current series, this MACRO
->>> only be used for board specific start address.
+On 25/11/2022 09:17, Jan Beulich wrote:
+> On 24.11.2022 20:08, Julien Grall wrote:
+>> From: Julien Grall <jgrall@amazon.com>
 >>
->> See above for this.
+>> Explain how the banner in README is generated and take the opportunity
+>> to mention what it should look like for RC.
 >>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
 > 
-> If we move board specific information to tailored config file, I think
-> we don't need FVP_BASER.
+> Acked-by: Jan Beulich <jbeulich@suse.com>
+> albeit with a couple of nits:
 > 
->>>
->>> If you meant Armv8R, that's because Armv8R does not equal to MPU.
->>
->> I am not entirely sure to understand. Are you saying that an existing 
->> Xen can boot on Armv8R?
->>
+>> --- a/docs/process/release-technician-checklist.txt
+>> +++ b/docs/process/release-technician-checklist.txt
+>> @@ -48,7 +48,12 @@ t=RELEASE-$r
+>>   
+>>   * consider bumping sonames of shlibs
+>>   
+>> -* change xen-unstable README (should say "Xen 4.5" in releases and on stable branches, "Xen 4.5-unstable" on unstable)
+>> +* change xen-unstable README. Should say:
+>> +    - "Xen 4.5" in releases and on stable branches
+>> +    - "Xen 4.5-unstable" on unstable
+>> +    - "Xen 4.5-rc" for release candidate
+>> +
+>> +*   The banner is generated using figlet
+>>   * change xen-unstable Config.mk
 > 
-> No, I didn't mean that. I just think we can't use only one MPU or one
-> ARM_V8R to cover all our changes in this series. For example, some
-> changes like new system registers are brought by Armv8R not the MPU.
+> Perhaps insert another blank line between these two bullet points?
+> Or, if they're deemed to belong together, remove the one you insert?
 
-I understand the theory. But in practice this needs to be a balance 
-between finer grain and too much Kconfig.
+I will add another blank line.
 
- From this series alone, it doesn't seem to be make sense to introduce 
-the two. Furthermore, I am not entirely sure you will be able to make 
-the MPU work without enable the ARMv8-R Kconfig.
+> 
+> The new bullet point you add also would likely want to match the
+> others in style, both for the number of spaces after * and for not
+> using a capital first letter (maybe "generate banner using figlet").
+
+Sure. I will address them before committing.
 
 Cheers,
 
