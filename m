@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 587FA642507
-	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 09:50:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.453253.710918 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD4FF64257D
+	for <lists+xen-devel@lfdr.de>; Mon,  5 Dec 2022 10:12:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.453281.710928 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p27AN-0000ZW-Rw; Mon, 05 Dec 2022 08:49:35 +0000
+	id 1p27VV-0005Bf-Nh; Mon, 05 Dec 2022 09:11:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 453253.710918; Mon, 05 Dec 2022 08:49:35 +0000
+Received: by outflank-mailman (output) from mailman id 453281.710928; Mon, 05 Dec 2022 09:11:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p27AN-0000W2-P4; Mon, 05 Dec 2022 08:49:35 +0000
-Received: by outflank-mailman (input) for mailman id 453253;
- Mon, 05 Dec 2022 08:49:33 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p27AL-0000Vr-Mr; Mon, 05 Dec 2022 08:49:33 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p27AL-0001ZC-KM; Mon, 05 Dec 2022 08:49:33 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p27AL-0004MR-4R; Mon, 05 Dec 2022 08:49:33 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p27AL-0007hJ-3x; Mon, 05 Dec 2022 08:49:33 +0000
+	id 1p27VV-00058x-KP; Mon, 05 Dec 2022 09:11:25 +0000
+Received: by outflank-mailman (input) for mailman id 453281;
+ Mon, 05 Dec 2022 09:11:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=g57r=4D=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1p27VU-00058r-Gn
+ for xen-devel@lists.xen.org; Mon, 05 Dec 2022 09:11:24 +0000
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [2607:f8b0:4864:20::632])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c962d291-747c-11ed-91b6-6bf2151ebd3b;
+ Mon, 05 Dec 2022 10:11:23 +0100 (CET)
+Received: by mail-pl1-x632.google.com with SMTP id y4so10228218plb.2
+ for <xen-devel@lists.xen.org>; Mon, 05 Dec 2022 01:11:23 -0800 (PST)
+Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
+ u4-20020a17090341c400b00189e1522982sm706066ple.168.2022.12.05.01.11.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 01:11:20 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,74 +43,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=0GX38HIu7MOkQAwuY/NJCKmLqcojb6J3eQ0CJ0TMIk8=; b=sqUHjuMvUVdahIwHYiM0UfD2y1
-	lFs49FV5/DfWkxfyh/+rFwRWcE11RsXYxyS7IN18qNBFjFKBKPaubjATokhhVEy1zADYm/la+wUz0
-	lPB5ijzqHIQXbx94UbuGWjLFDbMAkYHRetlwrR5UzFW99mFvzj3fFxcn5Ctz2dQN1sGU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175047-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: c962d291-747c-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=TZTwTFyYVwVJSHxG8cTL49t90VCYZlLgxeIX/tBwbME=;
+        b=g9FYi07Dn1Hau1dsHKIjjn7xcxju/eScfmzF6vCTaHH9W/vq5FxZ+FN01vMFNQkCLL
+         rWSgSU1Gw+EFF4GdrU4Qcpt7qCNUzp45HlaJrokIGr8K7bTYt/dHVTb2hcY0ErCddwCW
+         A+0wKSbtyqQJD3KiDyMzuKlAuhHnkH99UHxrSrUHETb4vhuI+7rxZaXyuaRf9YPaSEkE
+         zsIkA6SaH6vxeCl/w5GfO0+qn8vgKK8mxPMgs5upIDQCdF+bJjaN7GOTas3bImEMERpq
+         J5LmUrEsFp0L68RQQA/HIEfc7TEMFFWH1TfFTzt0gKAT0T+oxjvFWJEDUNbt2PB0kq4H
+         E2VA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=TZTwTFyYVwVJSHxG8cTL49t90VCYZlLgxeIX/tBwbME=;
+        b=GLOlyFfFMqUZ/HHGlwTTo4vlGiaFIK8xTNqxoqKRYsugFu2W71iKxKi59MzdRlUjFH
+         xXlb91PqWemPF4Pe0sECItlRqp1N3aWKvb9uJZvIYEfshXKwfbfIigfTii3r1Kx5oCRg
+         5IT7KeVxYidDsKSH5m4spog8Yz7i6rdmlC8B+LvHJIed6aqGAyZhja19/UFbGOWEgL7v
+         39BhSWNg7u5D04WgmaOVk4YEOcBWhDtESS6aLTE66IjpAVK6AWwYN2VCRv39cAXQRyrV
+         Ld17tiqNGcBDmUzjIbP36U3GJrDYmcYN5j8lZOf7An4ywgjNKorrbk1UOhGhFZE1dd0b
+         nvwQ==
+X-Gm-Message-State: ANoB5plWA4hhere0f7Ui0bCGOcEzYXk4d5mybHotW8RPAPGMhgOsk3H/
+	a78/upW3HETb1FYi215e0zqhaA==
+X-Google-Smtp-Source: AA0mqf5k4MlSEdEYwKxKHmQvMJGSvYf6tukbTNRHfPPo1wI6YsA4q95jne0kTyE2S5qSgd4Vtn0pag==
+X-Received: by 2002:a17:90b:374f:b0:219:7bc8:f300 with SMTP id ne15-20020a17090b374f00b002197bc8f300mr20265674pjb.145.1670231481540;
+        Mon, 05 Dec 2022 01:11:21 -0800 (PST)
+Date: Mon, 5 Dec 2022 14:41:18 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+	stratos-dev@op-lists.linaro.org,
+	Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.com>,
+	Mike Holmes <mike.holmes@linaro.org>, Wei Liu <wl@xen.org>,
+	Julien Grall <julien@xen.org>, xen-devel@lists.xen.org,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH V6 3/3] docs: Add documentation for generic virtio devices
+Message-ID: <20221205091118.lttaot42hcidb7gj@vireshk-i7>
+References: <cover.1667906228.git.viresh.kumar@linaro.org>
+ <24a0278313ea9a9e6c093880dead835184025734.1667906228.git.viresh.kumar@linaro.org>
+ <4fbe5c89-4468-9ad4-e391-2f51ceaa5b67@gmail.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 175047: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=7bee2498910a9034faaf90802c49188afb7582dc
-X-Osstest-Versions-That:
-    ovmf=735a7496cb35e48ccad51aad0934844a475e3fef
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 05 Dec 2022 08:49:33 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <4fbe5c89-4468-9ad4-e391-2f51ceaa5b67@gmail.com>
 
-flight 175047 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175047/
+On 04-12-22, 20:52, Oleksandr Tyshchenko wrote:
+> So as I understand current series adds support for two virtio devices
+> (i2c/gpio) that require specific device-tree sub node with specific
+> compatible in it [1]. Those backends are standalone userspace applications
+> (daemons) that do not require any additional configuration parameters from
+> the toolstack other than just virtio-mmio irq and base (please correct me if
+> I am wrong).
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 7bee2498910a9034faaf90802c49188afb7582dc
-baseline version:
- ovmf                 735a7496cb35e48ccad51aad0934844a475e3fef
+For now, yes. But we may want to link these devices with other devices
+in DT, like GPIO line consumers. I am not pushing a half informed
+solution for that right now and that can be taken up later.
 
-Last test of basis   175045  2022-12-05 02:10:48 Z    0 days
-Testing same since   175047  2022-12-05 05:40:43 Z    0 days    1 attempts
+> Well, below just some thoughts (which might be wrong) regarding the possible
+> extensions for future use. Please note, I do not suggest the following to be
+> implemented right now (I mean within the context of current series):
+> 
+> 1. For supporting usual virtio devices that don't require specific
+> device-tree sub node with specific compatible in it [2] we would probably
+> need to either make "compatible" (or type?) string optional or to reserve
+> some value for it ("common" for the instance).
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ni, Ray <ray.ni@intel.com>
-  Ray Ni <ray.ni@intel.com>
+I agree. Maybe we can use "virtio,device" without a number for the
+device in this case.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+> 2. For supporting Qemu based virtio devices we would probably need to add
+> "backendtype" string (with "standalone" value for daemons like yours and
+> "qemu" value for Qemu backends).
 
+Hmm, I realize now that my patch did define a new type for this,
+libxl_virtio_backend, which defines STANDALONE already, but it isn't
+used currently. Maybe I should remove it too.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+And I am not sure sure how to use these values, STANDALONE or QEMU.
+Should the DT nodes be created only for STANDALONE and never for QEMU
+?
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Maybe we can add these fields and a config param, once someone wants
+to reuse this stuff for QEMU ?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+> 3. For supporting additional configuration parameters for Qemu based virtio
+> devices we could probably reuse "device_model_args" (although it is not
+> clear to me what alternative to use for daemons).
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+I would leave it for the person who will make use of this eventually,
+as then we will have more information on the same.
 
+> > +=item B<compatible=STRING>
+> 
+> Shouldn't it be "type" instead (the parsing code is looking for type and the
+> example below suggests the type)?
 
-Pushing revision :
+Yes.
 
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   735a7496cb..7bee249891  7bee2498910a9034faaf90802c49188afb7582dc -> xen-tested-master
+> > +Specifies the compatible string for the specific Virtio device. The same will be
+> > +written in the Device Tree compatible property of the Virtio device. For
+> > +example, "type=virtio,device22" for the I2C device > +
+> > +=item B<transport=STRING>
+> > +
+> > +Specifies the transport mechanism for the Virtio device, like "mmio" or "pci".
+> > +
+> > +=back
+> > +
+> >   =item B<tee="STRING">
+> >   B<Arm only.> Set TEE type for the guest. TEE is a Trusted Execution
+> 
+> Also the commit description for #1/3 mentions that Virtio backend could run
+> in any domain. So looks like the "backend" string is missing here. I would
+> add the following:
+> 
+> =item B<backend=domain-id>
+> 
+> Specify the backend domain name or id, defaults to dom0.
+
+I haven't used the backend in any other domain for now, just Dom0, but
+the idea is definitely there to run backends in separate user domains.
+
+> P.S. I am wondering do i2c/gpio virtio backends support Xen grant mappings
+> for the virtio?
+
+Not yet, we haven't made much progress in that area until now, but it
+is very much part of what we intend to do.
+
+> Have you tried to run the backends in non-hardware domain
+> with CONFIG_XEN_VIRTIO=y in Linux?
+
+Not yet.
+
+-- 
+viresh
 
