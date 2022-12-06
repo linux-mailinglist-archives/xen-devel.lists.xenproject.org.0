@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54288644E38
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 22:52:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455607.713126 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C907644E5E
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 23:10:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455616.713136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2frE-0002ya-Bl; Tue, 06 Dec 2022 21:52:08 +0000
+	id 1p2g8Y-00051Z-0p; Tue, 06 Dec 2022 22:10:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455607.713126; Tue, 06 Dec 2022 21:52:08 +0000
+Received: by outflank-mailman (output) from mailman id 455616.713136; Tue, 06 Dec 2022 22:10:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2frE-0002wp-8T; Tue, 06 Dec 2022 21:52:08 +0000
-Received: by outflank-mailman (input) for mailman id 455607;
- Tue, 06 Dec 2022 21:52:07 +0000
+	id 1p2g8X-0004zB-Tm; Tue, 06 Dec 2022 22:10:01 +0000
+Received: by outflank-mailman (input) for mailman id 455616;
+ Tue, 06 Dec 2022 22:10:00 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p2frC-0002wj-UN
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 21:52:06 +0000
+ (envelope-from <julien@xen.org>) id 1p2g8W-0004z5-Db
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 22:10:00 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p2frC-0003U6-GA; Tue, 06 Dec 2022 21:52:06 +0000
+ (envelope-from <julien@xen.org>) id 1p2g8W-0003oz-B2
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 22:10:00 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p2frC-0003ag-Al; Tue, 06 Dec 2022 21:52:06 +0000
+ id 1p2g8W-0004Pv-42; Tue, 06 Dec 2022 22:10:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=YHHIAWiZJz9+aky9OfP2qR7uY8Rr++QcRDmif+5d/bw=; b=UWok0XmvUv/8qlOhW2Z48/z1+Y
-	khpnW7jK4uFH80tKv+j7LB/dbeZbN4j2S5DuFgetjgBHQCylPDKoDbTcIbAARUv8vk5nkB9t3BPOc
-	2wkR0sFufWQrAvzIOkSSSyRmVUwjg1/frZ1125/TcZkyaLzocGetIlO2x5L8N3OmSBCA=;
-Message-ID: <e225cf3f-ac77-7bf9-79ad-91bf9a09c8ff@xen.org>
-Date: Tue, 6 Dec 2022 21:52:04 +0000
+	bh=4Usd5Xz806pgc0L0C0Ni/deS65EzWeNxfewjaFM2mHg=; b=WP/Ud4J6cN/jihNX5NEqQqaPPl
+	d9XojiQ/L1HWyxsOL9IWHzAoXzLbxUOzyv/XH6bPKj3bNXjCEbgsAEyrgHuc8lKKzboNEQ6BCB2Nd
+	YDnUzx9W0VFTS5hVLKk7yqbDoY0O5Qyqgt8H+eoLm7Jq//2TuMWJn8cN1wgnSfVEMLRA=;
+Message-ID: <597c89c5-9e2a-3174-9bae-29b721caa153@xen.org>
+Date: Tue, 6 Dec 2022 22:09:58 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
@@ -58,10 +58,10 @@ Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Saeed Nowshadi <saeed.nowshadi@xilinx.com>
 References: <cover.1665137247.git.mykyta_poturai@epam.com>
- <c4716207f7f269b8adf7ed1b1928558cfc1d3bc8.1665137247.git.mykyta_poturai@epam.com>
+ <dcd3e1ae475a478cd6f639c528565492b10e0f22.1665137247.git.mykyta_poturai@epam.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 13/19] xen/arm: Resume memory management on Xen resume
-In-Reply-To: <c4716207f7f269b8adf7ed1b1928558cfc1d3bc8.1665137247.git.mykyta_poturai@epam.com>
+Subject: Re: [PATCH 14/19] xen/arm: Save/restore context on suspend/resume
+In-Reply-To: <dcd3e1ae475a478cd6f639c528565492b10e0f22.1665137247.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
@@ -70,193 +70,251 @@ Hi,
 On 07/10/2022 11:32, Mykyta Poturai wrote:
 > From: Mirela Simonovic <mirela.simonovic@aggios.com>
 > 
-> The MMU needs to be enabled in the resume flow before the context
-> can be restored (we need to be able to access the context data by
-> virtual address in order to restore it). The configuration of system
-> registers prior to branching to the routine that sets up the page
-> tables is copied from xen/arch/arm/arm64/head.S.
-> After the MMU is enabled, the content of TTBR0_EL2 is changed to
-> point to init_ttbr (page tables used at runtime).
+> The context of CPU general purpose and system control registers
+> has to be saved on suspend and restored on resume. This is
+> implemented in hyp_suspend and before the return from hyp_resume
+> function. The hyp_suspend is invoked just before the PSCI system > suspend call is issued to the ATF.
+The software handling the PSCI call may not be ATF. It could be another 
+vendor specific firmware or even another hypervisor (if running in 
+nested environment). So let's avoid mention it.
 
-This is not Arm Arm compliant. Please look at the series [1] to see how 
-you can safely switch the MMU on and use the page tables.
-
-> 
-> At boot the init_ttbr variable is updated when a secondary CPU is
-> hotplugged. In the scenario where there is only one physical CPU in
-> the system, the init_ttbr would not be initialized for the use in
-> resume flow. To get the variable initialized in all scenarios in this
-> patch we add that the boot CPU updates init_ttbr after it sets the
-> page tables for runtime.
-> 
-> After the memory management is resumed, the SCTLR_WXN in SCTLR_EL2
-> has to be set in order to configure that a mapping cannot be both
-> writable and executable (this was configured prior to suspend).
-> This is done using an existing function (mmu_init_secondary_cpu).
+> The hyp_suspend has to return a
+> non-zero value so that the calling 'if' statement evaluates to true,
+> causing the system suspend to be invoked. > Upon the resume, context
+> saved on suspend will be restored, including the link register.
+> Therefore, after restoring the context the control flow will
+> return to the address pointed by the saved link register, which
+> is the place from which the hyp_suspend was called. To ensure
+> that the calling 'if' statement doesn't again evaluate to true
+> and initiate system suspend, hyp_resume has to return a zero value
+> after restoring the context.
+> Note that the order of saving register context into cpu_context
+> structure has to match the order of restoring.
+> Since the suspend/resume is supported only for arm64, we define
+> a null cpu_context structure so arm32 could compile.
 > 
 > Update: moved hyp_resume to head.S to place it near the rest of the
 > start code
+
+hyp_resume() is not moved in this patch. But this looks like more a 
+changelog rather than something that should be part of the commit message.
+
 > 
 > Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
 > Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
 > Signed-off-by: Mykyta Poturai <mykyta_poturai@epam.com>
 > ---
->   xen/arch/arm/arm64/entry.S      |  2 ++
->   xen/arch/arm/arm64/head.S       | 30 ++++++++++++++++++++++++++++++
->   xen/arch/arm/mm.c               |  1 +
->   xen/arch/arm/suspend.c          |  6 ++++++
->   xen/include/asm-arm/processor.h | 22 ++++++++++++++++++++++
->   5 files changed, 61 insertions(+)
+>   xen/arch/arm/arm64/head.S     | 90 ++++++++++++++++++++++++++++++++++-
+>   xen/arch/arm/suspend.c        | 25 ++++++++--
+>   xen/include/asm-arm/suspend.h | 22 +++++++++
+>   3 files changed, 133 insertions(+), 4 deletions(-)
 > 
-> diff --git a/xen/arch/arm/arm64/entry.S b/xen/arch/arm/arm64/entry.S
-> index fc3811ad0a..f49f1daf46 100644
-> --- a/xen/arch/arm/arm64/entry.S
-> +++ b/xen/arch/arm/arm64/entry.S
-> @@ -1,4 +1,6 @@
->   #include <asm/current.h>
-> +#include <asm/macros.h>
-> +#include <asm/page.h>
->   #include <asm/regs.h>
->   #include <asm/alternative.h>
->   #include <asm/smccc.h>
 > diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-> index 8857955699..82d83214dc 100644
+> index 82d83214dc..e2c46a864c 100644
 > --- a/xen/arch/arm/arm64/head.S
 > +++ b/xen/arch/arm/arm64/head.S
-> @@ -958,6 +958,36 @@ ENTRY(efi_xen_start)
+> @@ -957,6 +957,53 @@ ENTRY(efi_xen_start)
+>           b     real_start_efi
 >   ENDPROC(efi_xen_start)
 >   
+> +/*
+> + * void hyp_suspend(struct cpu_context *ptr)
+
+This prototype doesn't match the code nor the commit message.
+
+> + *
+> + * x0 - pointer to the storage where callee's context will be saved
+> + *
+> + * CPU context saved here will be restored on resume in hyp_resume function.
+> + * hyp_suspend shall return a non-zero value. Upon restoring context
+> + * hyp_resume shall return value zero instead. From C code that invokes
+> + * hyp_suspend, the return value is interpreted to determine whether the context
+> + * is saved (hyp_suspend) or restored (hyp_resume).
+> + */
+> +ENTRY(hyp_suspend)
+> +        /* Store callee-saved registers */
+> +        stp     x19, x20, [x0], #16
+> +        stp     x21, x22, [x0], #16
+> +        stp     x23, x24, [x0], #16
+> +        stp     x25, x26, [x0], #16
+> +        stp     x27, x28, [x0], #16
+> +        stp     x29, lr, [x0], #16
+> +
+> +        /* Store stack-pointer */
+> +        mov     x2, sp
+> +        str     x2, [x0], #8
+> +
+> +        /* Store system control registers */
+> +        mrs     x2, VBAR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, VTCR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, VTTBR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, TPIDR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, MDCR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, HSTR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, CPTR_EL2
+> +        str     x2, [x0], #8
+> +        mrs     x2, HCR_EL2
+> +        str     x2, [x0], #8
+> +
+> +        /* hyp_suspend must return a non-zero value */
+> +        mov     x0, #1
+> +        ret
+> +
+> +
 >   ENTRY(hyp_resume)
-> +        msr   DAIFSet, 0xf           /* Disable all interrupts */
+>           msr   DAIFSet, 0xf           /* Disable all interrupts */
+>   
+> @@ -988,7 +1035,48 @@ mmu_resumed:
+>           tlbi  alle2
+>           dsb   sy                     /* Ensure completion of TLB flush */
+>           isb
+> -        b .
 > +
-> +        tlbi  alle2
-> +        dsb   sy                     /* Ensure completion of TLB flush */
+> +        /* Now we can access the cpu_context, so restore the context here */
+> +        ldr     x0, =cpu_context
+> +
+> +        /* Restore callee-saved registers */
+> +        ldp     x19, x20, [x0], #16
+> +        ldp     x21, x22, [x0], #16
+> +        ldp     x23, x24, [x0], #16
+> +        ldp     x25, x26, [x0], #16
+> +        ldp     x27, x28, [x0], #16
+> +        ldp     x29, lr, [x0], #16
+> +
+> +        /* Restore stack pointer */
+> +        ldr     x2, [x0], #8
+> +        mov     sp, x2
+> +
+> +        /* Restore system control registers */
+> +        ldr     x2, [x0], #8
+> +        msr     VBAR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     VTCR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     VTTBR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     TPIDR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     MDCR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     HSTR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     CPTR_EL2, x2
+> +        ldr     x2, [x0], #8
+> +        msr     HCR_EL2, x2
 > +        isb
+> +
+> +        /* Since context is restored return from this function will appear as
 
-Please explain what this TLB is for.
+I can't parse it.
 
-> +
-> +        ldr   x0, =start
-> +        adr   x19, start             /* x19 := paddr (start) */
-> +        sub   x20, x19, x0           /* x20 := phys-offset */
-> +
-> +        mov   x22, #0                /* x22 := is_secondary_cpu */
+> +         * return from hyp_suspend. To distinguish a return from hyp_suspend
+> +         * which is called upon finalizing the suspend, as opposed to return
+> +         * from this function which executes on resume, we need to return zero
+> +         * value here. */
+Coding style. Multi-line comments looks like:
 
-x22 is not hold the is_secondary_cpu anymore.
+/*
+  * Foo
+  * Bar
+  */
 
-> +
-> +        bl    check_cpu_mode
-> +        bl    cpu_init
-> +        bl    create_page_tables
-> +        bl    enable_mmu
-> +
-> +        ldr   x0, =mmu_resumed      /* Explicit vaddr, not RIP-relative */
-> +        br    x0                    /* Get a proper vaddr into PC */
-> +
-> +mmu_resumed:
-> +        ldr   x4, =init_ttbr         /* VA of TTBR0_EL2 stashed by CPU 0 */
-> +        ldr   x4, [x4]               /* Actual value */
-> +        dsb   sy
-> +        msr   TTBR0_EL2, x4
-> +        dsb   sy
-> +        isb
-> +        tlbi  alle2
-> +        dsb   sy                     /* Ensure completion of TLB flush */
-> +        isb
->           b .
+> +        mov x0, #0
+> +        ret
 >   
 >   /*
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index eea926d823..29cdaff3bf 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -708,6 +708,7 @@ void __init setup_pagetables(unsigned long boot_phys_offset)
->       switch_ttbr(ttbr);
->   
->       xen_pt_enforce_wnx();
-> +    init_secondary_pagetables(0);
-
-This function is used to prepare the page tables for the secondary CPUs. 
-This may allocate memory. So this is incorrect to call for CPU0.
-
-In this case, I think it would be better if the code to suspend sets 
-init_ttbr and clear the boot pages tables. This could be done by split 
-init_secondary_pagetables() in two:
-  1) Allocate memory for the page tables
-  2) Clear the boot page tables and the init_ttbr
-
->   
->   #ifdef CONFIG_ARM_32
->       per_cpu(xen_pgtable, 0) = cpu0_pgtable;
+>    * Local variables:
 > diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
-> index a0258befc9..aa5ee4714b 100644
+> index aa5ee4714b..13d1aba658 100644
 > --- a/xen/arch/arm/suspend.c
 > +++ b/xen/arch/arm/suspend.c
-> @@ -167,6 +167,12 @@ static long system_suspend(void *data)
+> @@ -133,6 +133,11 @@ void vcpu_resume(struct vcpu *v)
+>       clear_bit(_VPF_suspended, &v->pause_flags);
+>   }
+>   
+> +#ifndef CONFIG_ARM_64
+> +/* not supported on ARM_32 */
+> +int32_t hyp_suspend(struct cpu_context *ptr) { return 1; }
+> +#endif
+> +
+
+It would be better if suspend.c is compiled out. So we avoid introduce 
+hyp_suspend().
+
+>   /* Xen suspend. Note: data is not used (suspend is the suspend to RAM) */
+>   static long system_suspend(void *data)
+>   {
+> @@ -161,9 +166,23 @@ static long system_suspend(void *data)
+>           goto resume_irqs;
+>       }
+>   
+> -    status = call_psci_system_suspend();
+> -    if ( status )
+> -        dprintk(XENLOG_ERR, "PSCI system suspend failed, err=%d\n", status);
+> +    if ( hyp_suspend(&cpu_context) )
+> +    {
+> +        status = call_psci_system_suspend();
+> +        /*
+> +         * If suspend is finalized properly by above system suspend PSCI call,
+> +         * the code below in this 'if' branch will never execute. Execution
+> +         * will continue from hyp_resume which is the hypervisor's resume point.
+> +         * In hyp_resume CPU context will be restored and since link-register is
+> +         * restored as well, it will appear to return from hyp_suspend. The
+> +         * difference in returning from hyp_suspend on system suspend versus
+> +         * resume is in function's return value: on suspend, the return value is
+> +         * a non-zero value, on resume it is zero. That is why the control flow
+> +         * will not re-enter this 'if' branch on resume.
+> +         */
+> +        if ( status )
+> +            dprintk(XENLOG_ERR, "PSCI system suspend failed, err=%d\n", status);
+> +    }
 >   
 >       system_state = SYS_STATE_resume;
 >   
-> +    /*
-> +     * SCTLR_WXN needs to be set to configure that a mapping cannot be both
-> +     * writable and executable. This is done by mmu_init_secondary_cpu.
-> +     */
-
-Let's avoid to describe what a function does in the caller. This can be 
-easily rot.
-
-> +    mmu_init_secondary_cpu();
-
-I dislike the idea of using this function here. It is meant to be used 
-by secondary CPUs, not CPU0.
-
-If you want to use it here, then it should be renamed to reflect how the 
-function is used.
-
+> diff --git a/xen/include/asm-arm/suspend.h b/xen/include/asm-arm/suspend.h
+> index 29420e27fa..70dbf4e208 100644
+> --- a/xen/include/asm-arm/suspend.h
+> +++ b/xen/include/asm-arm/suspend.h
+> @@ -1,9 +1,31 @@
+>   #ifndef __ASM_ARM_SUSPEND_H__
+>   #define __ASM_ARM_SUSPEND_H__
+>   
+> +#ifdef CONFIG_ARM_64
+> +struct cpu_context {
+> +    uint64_t callee_regs[12];
+> +    uint64_t sp;
+> +    uint64_t vbar_el2;
+> +    uint64_t vtcr_el2;
+> +    uint64_t vttbr_el2;
+> +    uint64_t tpidr_el2;
+> +    uint64_t mdcr_el2;
+> +    uint64_t hstr_el2;
+> +    uint64_t cptr_el2;
+> +    uint64_t hcr_el2;
+> +} __aligned(16);
+> +#else
+> +struct cpu_context {
+> +    uint8_t pad;
+> +};
+> +#endif
 > +
->       gic_resume();
->   
->   resume_irqs:
-> diff --git a/xen/include/asm-arm/processor.h b/xen/include/asm-arm/processor.h
-> index 8ab2940f68..ecf97f1ab4 100644
-> --- a/xen/include/asm-arm/processor.h
-> +++ b/xen/include/asm-arm/processor.h
-> @@ -133,6 +133,28 @@
->   #define TTBCR_PD1       (_AC(1,U)<<5)
->   
->   /* SCTLR System Control Register. */
-> +/* HSCTLR is a subset of this. */
-> +#define SCTLR_TE        (_AC(1,U)<<30)
-> +#define SCTLR_AFE       (_AC(1,U)<<29)
-> +#define SCTLR_TRE       (_AC(1,U)<<28)
-> +#define SCTLR_NMFI      (_AC(1,U)<<27)
-> +#define SCTLR_EE        (_AC(1,U)<<25)
-> +#define SCTLR_VE        (_AC(1,U)<<24)
-> +#define SCTLR_U         (_AC(1,U)<<22)
-> +#define SCTLR_FI        (_AC(1,U)<<21)
-> +#define SCTLR_WXN       (_AC(1,U)<<19)
-> +#define SCTLR_HA        (_AC(1,U)<<17)
-> +#define SCTLR_RR        (_AC(1,U)<<14)
-> +#define SCTLR_V         (_AC(1,U)<<13)
-> +#define SCTLR_I         (_AC(1,U)<<12)
-> +#define SCTLR_Z         (_AC(1,U)<<11)
-> +#define SCTLR_SW        (_AC(1,U)<<10)
-> +#define SCTLR_B         (_AC(1,U)<<7)
-> +#define SCTLR_C         (_AC(1,U)<<2)
-> +#define SCTLR_A         (_AC(1,U)<<1)
-> +#define SCTLR_M         (_AC(1,U)<<0)
+> +extern struct cpu_context cpu_context;
 > +
-> +#define HSCTLR_BASE     _AC(0x30c51878,U)
-
-I don't see any use of SCTLR_* and HSCTLR_* here. What why do you need 
-to define them?
-
+>   int32_t domain_suspend(register_t epoint, register_t cid);
+>   void vcpu_resume(struct vcpu *v);
+>   void hyp_resume(void);
+> +int32_t hyp_suspend(struct cpu_context *ptr);
 >   
->   /* Bits specific to SCTLR_EL1 for Arm32 */
+>   #endif
 >   
 
 Cheers,
-
-[2] https://lore.kernel.org/all/20221022150422.17707-1-julien@xen.org/
 
 -- 
 Julien Grall
