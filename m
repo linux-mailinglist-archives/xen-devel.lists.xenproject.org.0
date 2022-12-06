@@ -2,37 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E6AE644549
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:07:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454920.712507 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 221BB644554
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:09:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.454928.712516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Yb0-0001EM-MH; Tue, 06 Dec 2022 14:06:54 +0000
+	id 1p2Yd5-0001sT-5e; Tue, 06 Dec 2022 14:09:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454920.712507; Tue, 06 Dec 2022 14:06:54 +0000
+Received: by outflank-mailman (output) from mailman id 454928.712516; Tue, 06 Dec 2022 14:09:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Yb0-0001Ay-Hx; Tue, 06 Dec 2022 14:06:54 +0000
-Received: by outflank-mailman (input) for mailman id 454920;
- Tue, 06 Dec 2022 14:06:52 +0000
+	id 1p2Yd5-0001q9-2d; Tue, 06 Dec 2022 14:09:03 +0000
+Received: by outflank-mailman (input) for mailman id 454928;
+ Tue, 06 Dec 2022 14:09:01 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=d2tL=4E=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
- id 1p2Yay-0001Aq-DW
- for xen-devel@lists.xen.org; Tue, 06 Dec 2022 14:06:52 +0000
-Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
- [2607:f8b0:4864:20::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3a54676b-756f-11ed-91b6-6bf2151ebd3b;
- Tue, 06 Dec 2022 15:06:51 +0100 (CET)
-Received: by mail-pl1-x62d.google.com with SMTP id b21so13995738plc.9
- for <xen-devel@lists.xen.org>; Tue, 06 Dec 2022 06:06:50 -0800 (PST)
-Received: from [10.17.77.118] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
- by smtp.gmail.com with ESMTPSA id
- h13-20020a170902680d00b00189c62eac37sm6749498plk.32.2022.12.06.06.06.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 06 Dec 2022 06:06:48 -0800 (PST)
+ <SRS0=XkKw=4E=citrix.com=prvs=332b12f58=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1p2Yd3-0001q1-Hb
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:09:01 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86ca096d-756f-11ed-91b6-6bf2151ebd3b;
+ Tue, 06 Dec 2022 15:08:59 +0100 (CET)
+Received: from mail-sn1nam02lp2048.outbound.protection.outlook.com (HELO
+ NAM02-SN1-obe.outbound.protection.outlook.com) ([104.47.57.48])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 06 Dec 2022 09:08:23 -0500
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by MN2PR03MB5326.namprd03.prod.outlook.com (2603:10b6:208:1f0::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
+ 2022 14:08:19 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19%6]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
+ 14:08:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,226 +49,155 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a54676b-756f-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 86ca096d-756f-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1670335739;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=dar9TCF7YOt3nmlXKnGyINH4asMo4QDeYVUuUx8s4ow=;
+  b=HFqujGbnD+73TwcSRKQg0wq3ebE3l3lK7QZpAEEEZvPL6yvp9P8oJaYM
+   ceE/ab+oKrbSJYx02+vQY4uCA42pBtS/LEy0/9EdwVxy4ZS8IszAiBK0E
+   LK+kZOAOavz+V8R0SKPbW7lI3pYKzkMDbWHeaAAz9aMNz33guueiizyqd
+   Y=;
+X-IronPort-RemoteIP: 104.47.57.48
+X-IronPort-MID: 89347222
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:6tSZm6y4zAeeAqnhzLR6t+caxyrEfRIJ4+MujC+fZmUNrF6WrkUOn
+ TRNCjyGOqqJamP0KNl+bd+3o0kF7cTXytJrTAM/+CAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
+ ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTbaeYUidfCc8IA85kxVvhuUltYBhhNm9Emult
+ Mj75sbSIzdJ4RYtWo4vw//F+U0HUMja4mtC5AVkPa4T5jcyqlFOZH4hDfDpR5fHatE88t6SH
+ 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
+ Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KVlT1
+ vgdGXccVBaeg/unzemqRthRlO12eaEHPKtH0p1h5RfwKK58BKvlGuDN79Ie2yosjMdTG/qYf
+ 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvjeVkFwZPLvFabI5fvSjQ8lPk1nej
+ WXB52njWTkRNcCFyCrD+XWp7gPKtXOqA95NTufinhJsqAWYxF5QCwAoaQTliqKbknLiUugHE
+ GVBr0LCqoB3riRHVOLVXRe1vXqFtR40QMdLHqsx7wTl4rrZ5UOVC3YJShZFacc6r4kmSDoyz
+ FiLktj1Qzt1v9W9Vna15rqS6zSoNkAowXQqYCYFSU4e5YDlqYRr1BbXFI4/QOiyk8H/Hiz2z
+ 3aSti8iir4PjMkNkaKm4VTAhDHqrZ/MJuIo2jjqsquexlsRTOaYi0aAsAGFhRqcBO51lmW8g
+ UU=
+IronPort-HdrOrdr: A9a23:4vZFaqhpp9YAu0D0zuVJsPKzI3BQXh4ji2hC6mlwRA09TyX5ra
+ 2TdZUgpHrJYVMqMk3I9uruBEDtex3hHP1OkOss1NWZPDUO0VHARO1fBOPZqAEIcBeOldK1u5
+ 0AT0B/YueAd2STj6zBkXSF+wBL+qj6zEiq792usEuEVWtRGsVdB58SMHfiLqVxLjM2YqYRJd
+ 6nyedsgSGvQngTZtTTPAh/YwCSz+e78q4PeHQ9dmca1DU=
+X-IronPort-AV: E=Sophos;i="5.96,222,1665460800"; 
+   d="scan'208";a="89347222"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d59hEJSJwWya66AIaBvV5GjRCDxzAGHgwBGJ7Pd5YM6+Egt7Ry7/sC+cpyP05fLUuyAb7jYDJQBCvZ4LQ2owMY/n90LcavukxPpBqfn5oQ8cL8rNVB5p64fku9hMWE92GOT/zea+KkUTPRGH3SIoJrYTxNrI91eDDa7vBtNItLSn9+mFO9yuDEYzfxA54pLx1q0qOta89LFkmAZa4XV+YjO6WuRreRztQnUbxoXHuCD2cEosFjc95eK8Vk2AleKnrUjInlg1beX/JLhdo7dZc+NEScyMpSk2Im3Ye91kK4ADER6Jm1IObLioPDh+AOt+GjmykxBFGbdWxc7vLjdg3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dar9TCF7YOt3nmlXKnGyINH4asMo4QDeYVUuUx8s4ow=;
+ b=Tvd1aQpQYw8sZyHCBO/QnByYqoFthtwjnhxYfdaZ208jyv6/WrkfCHt1G0KPO3QiS/k+SPRDTsjWk37lLoMnBzLyIKwULe9BXvujW0geouzmqL5JVM+BUUQWlGsjaFiFugZO5Cb++6+/xgk+QfXBljeSYDfXEIlOkgjvZgkwjPvv+9QFsjjK5Qd7bBUTWjNLPwvq/cuM28arunw8tGH2nmv5qWmlhL4fajIztmDgFWt0HfvNrOQzlnJ+D7pCN34IWx92esKys1ioStXMt3mpSE02Eu+vaKeF1oF1EQg1sA2khGhmMKMKC3W96GyhHNbo54f2O0QTVl/3slB2xcnPPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fP5xJavYfw+udVxdse618vFGR2H6vGrEn/ZNEsRsWpE=;
-        b=ltxTTIg7eItZRNuUsj3XFlbMXW567ZyrwHYtpYFareAihiRMy39SU/stMFjnqrnKAJ
-         nuhfxOFevWOQGTcVaGv7S++kC6mkeCYqG/LcXtnfrFo/wD3vjbTgSh6ptVmR/YL+KngR
-         5bl9H4w1eIK//hwsTKRwuiJixFo++6BZjtvldDOeke8q2HUCLJH18Y+V9J/vNMfMxUqu
-         KvUEefPHXy+K/maudeR9oDUhJ4MwsNWVqPSjJ0axio5h+ihnkOm9OfKqoprEZ33osl4o
-         YIpoM4hJKcXg340l8owGiPqqKvGhaufHg+B2wAASL62nFj6VUThW++jj1fn0gOcYFGUt
-         L4XA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=fP5xJavYfw+udVxdse618vFGR2H6vGrEn/ZNEsRsWpE=;
-        b=iYKxtUR3rAPj3SE6/LO0LZrB47BA89swx2HRa0sJ5NeQmujMgb3hwhf03aNhWUaVYj
-         ZImScADJWKZBYGFUobeMNBAZoWv/eJEIi7ir3qR6VD60X3gihIm4mqa3A5FIgZHHriDV
-         yY8tFKx4w4pvHLxYyM8zgmiZTVyOF7joDMbBMq4iQTxOwahzRLSbLoyux2ctp/EWwTAI
-         EJFLd5Sz7B8/uh9cm9n5tGhGenuukQWK9pLFb5NNXfaltJx38fYtHGgod7jdZiBUcdsm
-         RsW/Ot/Yos7T/NYd6+6VUHzctt0PZe6+h3i3u6nFfr6NuzZK02Dum5l24UPBMUhpUg9v
-         dLBg==
-X-Gm-Message-State: ANoB5pkBK0FTNS0aSglCgVK1rAszibBQL0hqrin8Jau2rYgTbXrPnSSD
-	BUtHDg6y5ToY6VGq1GHVi7s=
-X-Google-Smtp-Source: AA0mqf7jre/E5aj71ikn01xnR3XnQlnYIbCwodJZw4YG1XwBb36m2Qbr5AEStrRD1Pw2SUtWf+YfFg==
-X-Received: by 2002:a17:902:e415:b0:189:e924:e27d with SMTP id m21-20020a170902e41500b00189e924e27dmr4042391ple.167.1670335609164;
-        Tue, 06 Dec 2022 06:06:49 -0800 (PST)
-Message-ID: <4261f3f1-09f6-9d63-b085-a7ae58b242e5@gmail.com>
-Date: Tue, 6 Dec 2022 16:06:30 +0200
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dar9TCF7YOt3nmlXKnGyINH4asMo4QDeYVUuUx8s4ow=;
+ b=KI7egetlTgLZvFTGphrn4XnHkN/HEOxM7jn/XqfgKUFyem/aSaHqvjPzu++f9FKRGoYSkkbY2DxDFxtZPpf4YiQN9y7/AjTAZ6Ln22wKp8s6345MhpXpjJCeAmzDuAk6kPNvwXc5PvEFLLpIDV/ziO2g81vyBuUEvyGvYE+PUs8=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>, George
+ Dunlap <George.Dunlap@citrix.com>
+Subject: Re: [PATCH 2/5] x86/mm: rename PGC_page_table to PGC_shadowed_pt
+Thread-Topic: [PATCH 2/5] x86/mm: rename PGC_page_table to PGC_shadowed_pt
+Thread-Index: AQHZCXoxJf3WjWoKeUi55I26RpBTwq5g5W2A
+Date: Tue, 6 Dec 2022 14:08:19 +0000
+Message-ID: <12e07d49-b8ec-1c8c-0560-a34cbe895642@citrix.com>
+References: <41a370eb-09b3-6e0f-7fb1-2d6e33d25021@suse.com>
+ <cb8f6cad-99bf-1656-4a2f-12a281481a65@suse.com>
+In-Reply-To: <cb8f6cad-99bf-1656-4a2f-12a281481a65@suse.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR03MB3623:EE_|MN2PR03MB5326:EE_
+x-ms-office365-filtering-correlation-id: 606c88ee-98dd-4b35-3f0b-08dad793540f
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ bKtMe2rLLmpciJw10+EBCCKOpyLFZ6CtuXmDRRxekg/YNFUAIssDwBbyQlt46X5Z+gzxhMwHyD1jIY9SVCsuJce6lmVx9AMvuohpWDYSuGVsYnsh14jrVuijbL7nRP9HznbSHFH9godYDHWjGV4AJPt61h2awPdSRzEuR2XOgcnoGh/pDLh1LGtk7X6hoon1NU6lcIesP2tRvP3VyVyk8hHtlUCbD5AFiCUVxjVakx6vp3XNUmXJ9vraBGZjqDoK3EllYyfXEtyNvlF0kQgjLrg5Ug+xKm4WRUCtLrH1o4Mg8XF3T6RmYjqr20qpKFRkgKGQUkTBDXFVH/bp0lBhmYs8qA85yoRPWnny1/ChQBRO1Iz779yfTSjHieZWOj1PHsadGyh1OOcmW8y8xI27k5MC2tqHyW5qhcdRY0OCB4n186rZk8EI1W9uDezLURBypMiUm01jPNAVlo10zIXhfOBd4WKN+P72gtVuG0CnskrrB2v7U8OHvGKy/UCD77yUiE2ZnNnlWrc2G4z7AGwYDSgBGJnt6vt19WhWECVb6gX5HazrQarBP9EusoNha4R7Lg9C4E88/FJJ6R4KHFrcaJY1wF/m/EC2i/ztjuBq0KN1CkDwYFT+9e0HRM6hwaCWIC1DrFvwJIQXj6Jk+N9GWckL0OqxY7CiWTT+eirVeo1Rjg8L4I6B6+BbzK9P/Dp/ltRbDKB4CdvMs9Ptgk84Ea2XbCFeLLZPcXWuq2XQ2yta12ovFQ3h6PaD/m03OqvKz5V4ThMk1Ier2UsMhkSLCg==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(346002)(396003)(376002)(136003)(451199015)(66946007)(71200400001)(6486002)(53546011)(31686004)(6506007)(91956017)(6512007)(26005)(316002)(110136005)(54906003)(4326008)(31696002)(86362001)(66556008)(76116006)(8676002)(64756008)(66476007)(66446008)(38070700005)(82960400001)(2906002)(38100700002)(41300700001)(2616005)(4744005)(186003)(478600001)(107886003)(83380400001)(8936002)(36756003)(122000001)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?c0liamovcUQrYUI2RFlOK1RiZTBzRVdYcFFVZm1wSmVnRldXcWpzeHNRZE8z?=
+ =?utf-8?B?QTV4NlpEN3JqdU52bVkwWE1NR0V6SGl6UG9WUWR0OXc0L1J4bXdxTDNVRWJV?=
+ =?utf-8?B?Rk5aWFZGdFUzQUxjY0hYNUh6Z3JoOGcyU2lsZ3BZSkVTNCs2d2llWEIzNTZv?=
+ =?utf-8?B?YVdzNW9LMFp4c3pZK0U4dXFXcmt4UUpYeGtxWmc3Z1N2WUZRbVdLMFpZYndL?=
+ =?utf-8?B?TUMrWXg1aUVJbytITUozTHA3dklMVzQvNTFFNWRhaVFZcmZ4Z2tlYjhZUE9U?=
+ =?utf-8?B?RTlxd3huWndXak00MFlIMjdzNmhueFJiaDRHSENMQ0VuRUFHYlZ0MDVHTmZx?=
+ =?utf-8?B?VTAyVkt2em9nbDBnLzNhc1BNYUI0bEFsWGpFUkVpazQvT3NKTlM0aHJHQXgr?=
+ =?utf-8?B?Qmk0NmxqVzNZaDYyd212TXUvODN5NTBLRWs4a0ZIM1FSakxCbGZwaUNzL0ZE?=
+ =?utf-8?B?UldqZDJqcGxxVmJISGx5ckd4L3k1VXVsYjVKb1ZNM1VVU3RBbGljT2dnb1pO?=
+ =?utf-8?B?UUYwV2NTT09RYldzK2ZwRVpnNmV3RkdsNHplczVRYXQ3cUw0Mmk5cnNMZjBY?=
+ =?utf-8?B?T0ZPK2RrcCtraUpCVFdJWGJHL3dqbTVLU1BRWXh1OVFxa09JYWpSYUFtMldt?=
+ =?utf-8?B?S3kvaWhZMTBBaHpib1NmdHlNV0M0ZVU3clhVV2dDT1ljZ0ZyVTNkU3o3TzlJ?=
+ =?utf-8?B?RTdpOEU2bGxBbk5FcTBna3BGMkpERmZ3WllwOXFoWmFCd1RqRmpFYS9BVDdH?=
+ =?utf-8?B?SVJZMUx5VDdLZEE1anlneEViZDFnRUx6M0VwYitGa0JWWDVVU2I0dVpTMnBJ?=
+ =?utf-8?B?YW9aeUtoMGdhYVJGVWNJYXZxeDFMQjNnOW1DaU9kS1BGeWlZWjRhYTgycVBp?=
+ =?utf-8?B?ckFiallybFZONGVrVFpobGhKYkF5T0FmNlpHZXlMZHN1YlRQbGxhajV4Szhj?=
+ =?utf-8?B?MUlrZ3JPd09YdHh2MmdQazlxYitxdW8xVHFiR284eFU4TGNVQkFNS1MvM01a?=
+ =?utf-8?B?QnNQbG5PRS9COWd4ZlR5YkVnMGVzL0V1NytJSzdSMnlMTFV6NHdLNGFLVkZh?=
+ =?utf-8?B?NVpVN0NRdDdRUW5mTWpGbzl2ZWxLN29zTlc1SGhmT1NHajdVVDFFZ0NBUi96?=
+ =?utf-8?B?UjdUMXJpWWpERUEzVlR2U2F1akhuWGRFNkZSZnZmaGx4K1BDNGdod1psRmtQ?=
+ =?utf-8?B?NmFlOXkxM0huQVhSc2dyd2p6OEhSUjkzL2VuN0pSQjhBWDN3WnRmM3ZBTmdY?=
+ =?utf-8?B?SWt6cUVvRGpJSTZ0UDYzSTVaMTdRYnlYQ3RSa0gxOG1pRUJxdVFTa1RRLzJF?=
+ =?utf-8?B?cnJuaE5lcENsU1lzbjBmMTZONEJzUmkxTkdsaDFWVHNKVGNRdHhzK1lMSEhW?=
+ =?utf-8?B?L2NxMVI3S01PTTl6RjBTa3Vub3AzVHkxZG9QRUYyUkhZSHc2alpENU44SFBP?=
+ =?utf-8?B?L3d6SUpMazBwOUF6bHhUWmdGMlN2T20xNVhlaHV3dUZwMmQwSFVSZG9uc1hn?=
+ =?utf-8?B?QU9NaU83VTNhb2djeGN6MlJGcUsweDRXRzduTGNnejJKc0FxemVLUnhrbVIx?=
+ =?utf-8?B?VGV2VDNMdjNvL1lyY1FVeEc5dGt6dmxRN2h0K21nQTJxc1J0SjlRTHlnaGlr?=
+ =?utf-8?B?Ty9GSHJxRk9HcGxZRWVDNmM4dVVKeFpRc3Y4cU9aQW53L2h4elVQL3NtWTFV?=
+ =?utf-8?B?Nm00QmMvN0FPaUhEbmRXZFpLZEQzR2Fndml0Wk5Bb2dxMzFnRGRvTFdWTFp0?=
+ =?utf-8?B?ZXZ6TmFpd3U4dzNMQmNpQ3ZuTXpzd1BtM0IzdXRYUjVCUXRldnE5eTIzL0da?=
+ =?utf-8?B?Qmo5bDNCRVlqZnR2WkZITjA2d3RKbU52Tk9tRWdBaDdpcjhwWWVmQk1HelBI?=
+ =?utf-8?B?NnI1ZGxTV3QyZWhrZndXdm5tc1VaWXFNdy94VWZkanJwNlZOOEVLRXE4V2tZ?=
+ =?utf-8?B?ZHJsdlU2ekpCZUZlcEtLQk0xTW1PUDYzcncrNzAwUFB0eFp5cTNBaUphR1Y5?=
+ =?utf-8?B?NnprR2lPMUtzbno0VnR3R1dveldOdnl2c2RTeTdxSHRhdWhjT3doV3FFVGtq?=
+ =?utf-8?B?V2haYnVVSVRuSlkzUnVVUmx3UUJZdE9zQlRQOGNLb09jdjU3RVB6amhYTkg1?=
+ =?utf-8?Q?Ndp6fF/phJvC5gyT/69uiePqD?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <D1228DF2BD1A0A47B88A0C4F8E188F0D@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH V6 1/3] libxl: Add support for generic virtio device
-To: Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
- stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
- <alex.bennee@linaro.org>, Stefano Stabellini
- <stefano.stabellini@xilinx.com>, Mathieu Poirier
- <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
- Wei Liu <wl@xen.org>, xen-devel@lists.xen.org, Julien Grall
- <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
- Juergen Gross <jgross@suse.com>
-References: <cover.1667906228.git.viresh.kumar@linaro.org>
- <f1dc91669df27705c25a1f3018427c2db77b32a6.1667906228.git.viresh.kumar@linaro.org>
- <6a546552-d71d-a262-5981-8058dc37ae26@gmail.com>
- <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
-Content-Language: en-US
-From: Oleksandr Tyshchenko <olekstysh@gmail.com>
-In-Reply-To: <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	0ndskARl8G25PZfEmCvj4nt8fWhnU45LTwMC3DEeuk7iTLisr77g9ZsCKOlIwpA2jBTGBadyrDez2/AbiFel2WsjF3OElEJeGTxwaRIuWU0te0z2GHkhlKHFku/oIwILuSn4CcPVnMByDoqoT96MB1qOW+aXfJEJFqM33Dh9NPpZ8zZJmFoDnlBRTpzSgpkskDYF5tp2FKchtyteVFTK2onJw5c5/SwTVtL27L/NhHgctml6HNnkSomj1N6F8nRNCWzu1Ln+CUPNRPUi2bD7WIOrCzXkgnig7QdMkONpW3/oAht5VRhU3qVoKc5yPSOr7Ea4cserEhgOIYSBoOhSfkHSe7m50mqFE0S/ViEj2qhW+bYBqPaITI1WHgqZdispJj//8ChZOhRSAzD+ewJj4RL8lPYpLJTD03Zza5rZoWKy5tcPE3/Va+4fAa7wA06uaHnMvtoHNFPDnbJGG1ffwEkEPNnfB/LmggPw5fCn2olxmnjUB0ntfN2Wz0iMfmcTgTlPQGNlvjOwzwZeSVvzKg3CWOngQXzscOZWD3Hng9FTuDwgN2GPrAFVhvSILKYAo992CncDULJ4BWzgqCIRkpSPyIfyVmocApvFicWYPEHvaF9LCrAHqPyevzPu6sUdEKt5i1aek9KZ7/5VacT9Zrip59kuBKSn3mizKp2v/5S02rbXalaCZKtNb2NY5wNxU7VzD0iglRZlF3HidZFJK24GgTS0yjKKNUmNBzjrW1xUO35CM9VV1Y//b8S4gXqMIaYZBvNWU6Pg2sesL6nnd/Z4JrNVD19KN1fqbCVDesnL+rar6Rjc3Nw9NHgRe33s
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 606c88ee-98dd-4b35-3f0b-08dad793540f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Dec 2022 14:08:19.6483
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nhGMGOsguenzFRjCTvXNfXMAvERfwH55u1Yr4GfNOW2oefZ5BQhXGSyDZugJpNHOlwzU2mxDPr+MVW89WIQ5DftOt1/QMPCh2hvgvvuc/5c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR03MB5326
 
-
-
-On 05.12.22 08:15, Viresh Kumar wrote:
-> Hi Oleksandr,
-
-
-Hello Viresh
-
-> 
-> On 02-12-22, 16:52, Oleksandr Tyshchenko wrote:
->>> This patch adds basic support for configuring and assisting generic
->>> Virtio backend which could run in any domain.
->>>
->>> An example of domain configuration for mmio based Virtio I2C device is:
->>> virtio = ["type=virtio,device22,transport=mmio"]
->>>
->>> Also to make this work on Arm, allocate Virtio MMIO params (IRQ and
->>> memory region) and pass them to the backend. Update guest device-tree as
->>> well to create a DT node for the Virtio devices.
->>
->>
->> Some NITs regarding the commit description:
->> 1. Besides making generic things current patch also adds i2c/gpio device
->> nodes, I would mention that in the description.
->> 2. I assume current patch is not enough to make this work on Arm, at least
->> the subsequent patch is needed, I would mention that as well.
->> 3. I understand where "virtio,device22"/"virtio,device29" came from, but I
->> think that links to the corresponding device-tree bindings should be
->> mentioned here (and/or maybe in the code).
-> 
-> Agree to all.
->   
->>> +static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
->>> +                                        uint32_t irq, const char *type,
->>> +                                        uint32_t backend_domid)
->>> +{
->>> +    int res, len = strlen(type);
->>> +
->>> +    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
->>> +    if (res) return res;
->>> +
->>> +    /* Add device specific nodes */
->>> +    if (!strncmp(type, "virtio,device22", len)) {
->>> +        res = make_virtio_mmio_node_i2c(gc, fdt);
->>> +        if (res) return res;
->>> +    } else if (!strncmp(type, "virtio,device29", len)) {
->>> +        res = make_virtio_mmio_node_gpio(gc, fdt);
->>> +        if (res) return res;
->>> +    } else {
->>> +        LOG(ERROR, "Invalid type for virtio device: %s", type);
->>> +        return -EINVAL;
->>> +    }
->>
->> I am not sure whether it is the best place to ask, but I will try anyway. So
->> I assume that with the whole series applied it would be possible to
->> configure only two specific device types ("22" and "29").
-> 
-> Right.
-> 
->> But what to do if user, for example, is interested in usual virtio device
->> (which doesn't require specific device-tree sub node with specific
->> compatible in it). For these usual virtio devices just calling
->> make_virtio_mmio_node_common() would be enough.
->>
->>
->> Maybe we should introduce something like type "common" which would mean we
->> don't need any additional device-tree sub nodes?
->>
->> virtio = ["type=common,transport=mmio"]
-> 
-> I am fine with this. Maybe, to keep it aligned with compatibles, we
-> can write it as
->   
-> virtio = ["type=virtio,device,transport=mmio"]
-> 
-> and document that "virtio,device" type is special and we won't add
-> compatible property to the DT node.
-
-
-Personally I am fine with this.
-
-
-> 
->>> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
->>> index 612eacfc7fac..15a32c75c045 100644
->>> --- a/tools/libs/light/libxl_create.c
->>> +++ b/tools/libs/light/libxl_create.c
->>> @@ -1802,6 +1802,11 @@ static void domcreate_launch_dm(libxl__egc *egc, libxl__multidev *multidev,
->>>                                  &d_config->vkbs[i]);
->>>            }
->>> +        for (i = 0; i < d_config->num_virtios; i++) {
->>> +            libxl__device_add(gc, domid, &libxl__virtio_devtype,
->>> +                              &d_config->virtios[i]);
->>> +        }
->>
->>
->> I am wondering whether this is the best place to put this call. This gets
->> called for LIBXL_DOMAIN_TYPE_PV and LIBXL_DOMAIN_TYPE_PVH (our Arm case),
->> and not for LIBXL_DOMAIN_TYPE_HVM. Is it what we want?
-> 
-> Can you suggest where should I move this ?
-
-
-I am not 100% sure, but I think if this whole enabling work is supposed 
-to be indeed generic,
-I would move this out of "switch (d_config->c_info.type)" at least.
-
->   
->>> +libxl_virtioinfo = Struct("virtioinfo", [
->>> +    ("backend", string),
->>> +    ("backend_id", uint32),
->>> +    ("frontend", string),
->>> +    ("frontend_id", uint32),
->>> +    ("devid", libxl_devid),
->>> +    ("state", integer),
->>> +    ], dir=DIR_OUT)
->>
->> I failed to find where libxl_virtioinfo is used within the series. Why do we
->> need it?
-> 
-> Looks like leftover that I missed. Will remove it.
->   
->>> +static int libxl__virtio_from_xenstore(libxl__gc *gc, const char *libxl_path,
->>> +                                       libxl_devid devid,
->>> +                                       libxl_device_virtio *virtio)
->>> +{
->>> +    const char *be_path, *fe_path, *tmp;
->>> +    libxl__device dev;
->>> +    int rc;
->>> +
->>> +    virtio->devid = devid;
->>> +
->>> +    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
->>> +                                  GCSPRINTF("%s/backend", libxl_path),
->>> +                                  &be_path);
->>> +    if (rc) goto out;
->>> +
->>> +    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
->>> +                                  GCSPRINTF("%s/frontend", libxl_path),
->>> +                                  &fe_path);
->>> +    if (rc) goto out;
->>
->> fe_path is not used anywhere down the code even within the series, why do we
->> need it? Or we just read it to make sure that corresponding entry is present
->> in Xenstore (some kind of sanity check)?
-> 
-> I copied it from libxl_vkb.c and it isn't using it either. So I assume
-> it is a sanity check, though can be removed if that's what makes
-> sense.
->   
->>> +
->>> +    rc = libxl__backendpath_parse_domid(gc, be_path, &virtio->backend_domid);
->>> +    if (rc) goto out;
->>> +
->>> +    rc = libxl__parse_backend_path(gc, be_path, &dev);
->>> +    if (rc) goto out;
->>
->> The same question for dev variable.
-> 
-> Hmm, this we aren't using at all, which KBD does use it. Maybe we
-> should even call libxl__parse_backend_path() ?
-
-
- From the code I see that KBD uses "dev.backend_kind" afterwards, so for 
-that purpose it calls libxl__parse_backend_path() to fill in dev's 
-fields, but here we do not need it. I would drop this call together with 
-dev variable.
+T24gMDYvMTIvMjAyMiAxMzo1MywgSmFuIEJldWxpY2ggd3JvdGU6DQo+IFRoZSBvcmlnaW5hbCBu
+YW1lIGRpZG4ndCBleHByZXNzIHRoZSBwdXJwb3NlIG9mIHRoZSBmbGFnOiBJdCBpcyBiZWluZw0K
+PiBzZXQgb25jZSBhIHBhZ2UgdGFibGUgcGFnZSBvYnRhaW5zIGEgc2hhZG93LCBhbmQgaXQgaXMg
+cmVtb3ZlZCB3aGVuIHRoZQ0KPiBsYXN0IHNoYWRvdyBvZiBhIHBhZ2Ugd2FzIGRlc3Ryb3llZC4N
+Cj4NCj4gSW4gc2V0X3RsYmZsdXNoX3RpbWVzdGFtcCgpIGFsc28gcmVtb3ZlIHRoZSAybmQgaGFs
+ZiBvZiB0aGUgY29uZGl0aW9uIGFzDQo+IGJlaW5nIHJlZHVuZGFudCAoUEdDX3NoYWRvd2VkX3B0
+IGNhbid0IGJlIHNldCBvbiBhIHBhZ2Ugd2l0aG91dCBzaGFkb3cNCj4gbW9kZSBiZWluZyBlbmFi
+bGVkIG9uIHRoZSBvd25pbmcgZG9tYWluKS4NCj4NCj4gUmVxdWVzdGVkLWJ5OiBBbmRyZXcgQ29v
+cGVyIDxhbmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBKYW4gQmV1
+bGljaCA8amJldWxpY2hAc3VzZS5jb20+DQoNClJldmlld2VkLWJ5OiBBbmRyZXcgQ29vcGVyIDxh
+bmRyZXcuY29vcGVyM0BjaXRyaXguY29tPg0K
 
