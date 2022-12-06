@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D362A644D92
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 21:54:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455543.713039 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52618644DA0
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 22:01:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455551.713049 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2ex3-0007Ir-Ey; Tue, 06 Dec 2022 20:54:05 +0000
+	id 1p2f3f-0000vI-5U; Tue, 06 Dec 2022 21:00:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455543.713039; Tue, 06 Dec 2022 20:54:05 +0000
+Received: by outflank-mailman (output) from mailman id 455551.713049; Tue, 06 Dec 2022 21:00:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2ex3-0007F6-C7; Tue, 06 Dec 2022 20:54:05 +0000
-Received: by outflank-mailman (input) for mailman id 455543;
- Tue, 06 Dec 2022 20:54:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Mhi9=4E=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1p2ex2-0007F0-4J
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 20:54:04 +0000
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1bf7a823-75a8-11ed-8fd2-01056ac49cbb;
- Tue, 06 Dec 2022 21:54:02 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 2685C3200681;
- Tue,  6 Dec 2022 15:53:58 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 06 Dec 2022 15:53:59 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Dec 2022 15:53:55 -0500 (EST)
+	id 1p2f3f-0000sR-2L; Tue, 06 Dec 2022 21:00:55 +0000
+Received: by outflank-mailman (input) for mailman id 455551;
+ Tue, 06 Dec 2022 21:00:53 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1p2f3d-0000sL-Ce
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 21:00:53 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2f3c-0002Gr-Up; Tue, 06 Dec 2022 21:00:52 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2f3c-0001hE-Pt; Tue, 06 Dec 2022 21:00:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,128 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bf7a823-75a8-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670360037; x=
-	1670446437; bh=AkgBJ3qAkEQO/DsyaJo9CWlLvoHIge8ZXPlKrw+Xs+s=; b=m
-	xp8nTJIfbdhGk760i+9NAQ36Dju7mC4wtnMl3EYi3u/zzUNEFQeAUOzjZGI7dUP1
-	mslkBkPj+6VhBn+9iGLTSV3i8S6h46G8nDQ2Ehzjx9VIoMle5MrEbFZ2BEZd2YeI
-	tPIzeppTy920kyqVzfhOnwFe9qKpqzOH6UouFfVXN9+cmuficfNb3spCHf3zZ6kS
-	JhyLnLKRwZKH6MdFn1PNjj2SMn6+3McwoWMRpJhUSSkxwSOaH8pCko0l04KOaSoE
-	WKpWkK+DwNuSNmMhk8/QUkbyTf/aUkg3HWNJSC2JS0+AWWaBqpmis3NadnmVHi7Y
-	uUKAmvyBKy7LJCce4FOxw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1670360037; x=1670446437; bh=AkgBJ3qAkEQO/DsyaJo9CWlLvoHI
-	ge8ZXPlKrw+Xs+s=; b=LCsuCs6hdPpz8BnEGt+6fDY5Dn9a9c6C4gYLmIIBZDxj
-	w0sLqWSkkXFEW7Df/IPzR3sPVdUsKH9yxaldTB+IzEOIYv0CsEfFAKHSSFRfGJJg
-	ghRRFIf7iJx1bPI5j96nbPPWMDYUg68Xr1OpYn8W7sGcP1oFfjn43tDuLyJeVLaA
-	ZxeYkxS0e5Kid9arln/oUlLPuRSMUPrrs5KSzjW9wTBh/d7FTpL01RRBdVeYi8Dm
-	EiDUwwSI4QH4z/+L9FqnE8UhUD3KOqRwVnwbCDr9Ol8x1tjg7+ZxwcVAVerkgsze
-	2lrcOB+eVnMVkO32DHEO3ZacKXYKr/nkTwweGBkI8g==
-X-ME-Sender: <xms:5auPY-2Kr0sneLfy9J1IBsb9oJlJhOGf5TVnBll5W60-ELmYgxGXkA>
-    <xme:5auPYxExAdGtU4F4b__HEtA2AtYC1CXxYX0PnXbbn9WjUBT25R277qUF8zneY-qpw
-    6WG-x-86UiKQw>
-X-ME-Received: <xmr:5auPY26CowCVGb28dVLppTQT671dY9g89I0mFuZfypFJquXkOB1G1pBLdx9zJE-jlz3DbWM3ubm0O_pGWv3GLo0_qVEOcj3FPA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeigddugedvucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepgfdu
-    leetfeevhfefheeiteeliefhjefhleduveetteekveettddvgeeuteefjedunecuvehluh
-    hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghk
-    sehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:5auPY_3IGBOj9d8fP4i29je44p73jykzSjXiv0Lp33ot-ayWU6gP9A>
-    <xmx:5auPYxGmoFFFmJT9tEJ2ss4Rl9BSX0A1q_hyn7BXYVluvH4KrwOciA>
-    <xmx:5auPY4-XLG1bJXXW7e5SlYw71SsQbkSPC2hBrwd4Yb03MEUvqvPnpw>
-    <xmx:5auPY26FeRUYZpLvQ4kAVhKspJXt4QlKfgvgRbP_QWZz16eStrN00Q>
-Feedback-ID: i1568416f:Fastmail
-Date: Tue, 6 Dec 2022 21:53:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	"Tim (Xen.org)" <tim@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [RFC PATCH 8/8] Use Linux's PAT
-Message-ID: <Y4+r4Wphip1+yhlr@mail-itl>
-References: <cover.1670300446.git.demi@invisiblethingslab.com>
- <9f0bd911ba6c7fe1b7285f232154d42807145ced.1670300446.git.demi@invisiblethingslab.com>
- <4b2a87e1-89d1-b5fb-bd92-b891c8cea98a@citrix.com>
- <Y4+Die8lcZUwwGmK@itl-email>
- <Y4+F9iujzOmoOAVe@mail-itl>
- <Y4+cYuLNfIbKGN+X@itl-email>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=M1wGMplVaSrVyos3PR8SOS4SkDZfkWpDaiJyGWdNaQU=; b=BO/QsMEX8UddO/9MOgwfY6b4Ao
+	n/Uk8skO9tXFu0S8dPYHq5Xi3B/1/aqDIL0wRLdSzvYHlJfI0PAzK55rv1AiaMmRx6m6BWlJ07cMu
+	bxocPZoQLpY61ZO8MahpVvRrHtUl5aclH7bW9Ik/7M2LQYAEYGj3yn0f1d7EfHmHYDeg=;
+Message-ID: <84edf8ea-4067-0059-3d93-3b7db4ba0a7e@xen.org>
+Date: Tue, 6 Dec 2022 21:00:51 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="6lQh8AuYuEEEtM/P"
-Content-Disposition: inline
-In-Reply-To: <Y4+cYuLNfIbKGN+X@itl-email>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH 07/19] xen/arm: Disable/enable non-boot physical CPUs on
+ suspend/resume
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+References: <cover.1665137247.git.mykyta_poturai@epam.com>
+ <74bf02f1c6c5280f2d79b9cd60515895e8ba3319.1665137247.git.mykyta_poturai@epam.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <74bf02f1c6c5280f2d79b9cd60515895e8ba3319.1665137247.git.mykyta_poturai@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi,
 
---6lQh8AuYuEEEtM/P
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 6 Dec 2022 21:53:53 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	"Tim (Xen.org)" <tim@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [RFC PATCH 8/8] Use Linux's PAT
+On 07/10/2022 11:32, Mykyta Poturai wrote:
+> From: Mirela Simonovic <mirela.simonovic@aggios.com>
+> 
+> Non-boot CPUs have to be disabled on suspend and enabled on resume
+> (hotplug-based mechanism). Disabling non-boot CPUs will lead to PSCI
+> CPU_OFF to be called by each non-boot CPU. Depending on the underlying
+> platform capabilities, this may lead to the physical powering down of
+> CPUs. Tested on Xilinx Zynq Ultrascale+ MPSoC (including power down of
+> each non-boot CPU).
+> 
+> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+> ---
+>   xen/arch/arm/suspend.c | 15 ++++++++++++++-
+>   1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/suspend.c b/xen/arch/arm/suspend.c
+> index 2b94816b63..0784979e4f 100644
+> --- a/xen/arch/arm/suspend.c
+> +++ b/xen/arch/arm/suspend.c
+> @@ -13,6 +13,7 @@
+>    */
+>   
+>   #include <xen/sched.h>
+> +#include <xen/cpu.h>
+>   #include <asm/cpufeature.h>
+>   #include <asm/event.h>
+>   #include <asm/psci.h>
+> @@ -135,17 +136,29 @@ void vcpu_resume(struct vcpu *v)
+>   /* Xen suspend. Note: data is not used (suspend is the suspend to RAM) */
+>   static long system_suspend(void *data)
+>   {
+> +    int status;
+> +
+>       BUG_ON(system_state != SYS_STATE_active);
+>   
+>       system_state = SYS_STATE_suspend;
+>       freeze_domains();
+>   
+> +    status = disable_nonboot_cpus();
+> +    if ( status )
+> +    {
+> +        system_state = SYS_STATE_resume;
+> +        goto resume_nonboot_cpus;
+> +    }
+> +
+>       system_state = SYS_STATE_resume;
+>   
+> +resume_nonboot_cpus:
+> +    enable_nonboot_cpus();
+>       thaw_domains();
+>       system_state = SYS_STATE_active;
+> +    dsb(sy);
 
-On Tue, Dec 06, 2022 at 02:47:42PM -0500, Demi Marie Obenour wrote:
-> On Tue, Dec 06, 2022 at 07:12:06PM +0100, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > On Tue, Dec 06, 2022 at 01:01:41PM -0500, Demi Marie Obenour wrote:
-> > > On Tue, Dec 06, 2022 at 11:38:03AM +0000, Andrew Cooper wrote:
-> > > > 2) The translation logic between Linux's idea of cacheability and X=
-en's
-> > > > PAT values is buggy.
-> > >=20
-> > > How could I check for this?
-> >=20
-> > See Andy's unit test idea on #xendevel:
-> >=20
-> >     as a pretty simple "unit" test in dom0, it might be a good idea to
-> >     have a module which watches the PTE in question, and cycles through
-> >     various of the memremap_*() APIs and checks the raw PTE that gets
-> >     written after Linux and Xen are done fighting with it
->=20
-> Which PTEs should I check?
+Please document what is this dsb() for.
 
-The ones adjusted by the memremap_*() call.
+>   
+> -    return -ENOSYS;
+> +    return status;
+>   }
+>   
+>   int32_t domain_suspend(register_t epoint, register_t cid)
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Cheers,
 
---6lQh8AuYuEEEtM/P
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOPq+AACgkQ24/THMrX
-1yxyrQgAhllxa7uz08a3QlN4jzBh7zfAbkEC8x/fLssXpz79V22VRIJHBn8T8ltj
-x/bRBC6YuTFmHunzCw5EwNb0UD8EgtTRBHLXiTOK/x34ZqYU4tyLT7XeKU5BxIfY
-QdaazDQleH1ZY0YrC0RVFgO2RutkHRxxz6zKvq4RuBaHv/9WthJMntqyM0gx8ULe
-7yndTIAvTcB9GLOOS2i/eWPHWQhjZhEs7nO3cTSBIltBFEjwwPwNLODwau3nvlMC
-3+UW9mtCf9a2zJvIHRaDEU4mR1yoqFgDaKFOaQfQ6EB8Hekn5je8obbco6zJEg9W
-UrQfO1xsg0LQiojPr3tM9M8olZC0oA==
-=DhcA
------END PGP SIGNATURE-----
-
---6lQh8AuYuEEEtM/P--
+-- 
+Julien Grall
 
