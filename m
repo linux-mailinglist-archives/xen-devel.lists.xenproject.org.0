@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9A7E644D4E
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 21:32:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455522.713005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F856644D55
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 21:37:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455529.713015 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2ec3-0002zL-9m; Tue, 06 Dec 2022 20:32:23 +0000
+	id 1p2egS-0003be-Q3; Tue, 06 Dec 2022 20:36:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455522.713005; Tue, 06 Dec 2022 20:32:23 +0000
+Received: by outflank-mailman (output) from mailman id 455529.713015; Tue, 06 Dec 2022 20:36:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2ec3-0002x8-6x; Tue, 06 Dec 2022 20:32:23 +0000
-Received: by outflank-mailman (input) for mailman id 455522;
- Tue, 06 Dec 2022 20:32:21 +0000
+	id 1p2egS-0003Zk-NR; Tue, 06 Dec 2022 20:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 455529;
+ Tue, 06 Dec 2022 20:36:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p2ec1-0002x2-OG
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 20:32:21 +0000
+ (envelope-from <julien@xen.org>) id 1p2egR-0003Ze-8Z
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 20:36:55 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p2ec0-0001Zx-Ij; Tue, 06 Dec 2022 20:32:20 +0000
+ id 1p2egO-0001fG-MK; Tue, 06 Dec 2022 20:36:52 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p2ec0-0000Ee-CH; Tue, 06 Dec 2022 20:32:20 +0000
+ id 1p2egO-0000XG-Hd; Tue, 06 Dec 2022 20:36:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,135 +40,108 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=M5saToTnZSTFDjMAb30/BVdrvc0n0AcaM3qD1/EZaII=; b=kmkPUurOF28++ONVNlpPw1b98f
-	aXncdTi/iCad2wSKXIrmWk56Xkdy9DsTt5pIDOIm0Iu9YIPdk87YLmUv2aglLlAPsCIQYevUkt1iB
-	dxDS3ME/cNunFr5hcq7JCGDDyrLee2YYTujoMHTue0RnhpSj8ore0JD7VO4QIRKrhgT8=;
-Message-ID: <1af48fce-b234-1f08-3882-8f071893dc3c@xen.org>
-Date: Tue, 6 Dec 2022 20:32:18 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=TQeE9We7ZtVdlcZH6cDKAsIse3P0yNznHDK8hktbePU=; b=6nZ3ECd2y24wEBVWTS4X6c6kE4
+	g7fhDsnvSGsl/lggqe0Q38JdKw9OUE0wGgoM92lsGu7y0GESPSqrp4yo0wQCw/iJcJdCXOlLDi1/h
+	JV0lqHIOyR2/9loRcjlVG55TPqjHSCt7fMouLvO/BD79uEbLdHYwLWI6TXUzCsQyPAHY=;
+Message-ID: <86b15c22-de90-fbbe-43ce-4f500b3ba5af@xen.org>
+Date: Tue, 6 Dec 2022 20:36:50 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH 05/19] xen/x86: Move freeze/thaw_domains into common files
 To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+Cc: Mirela Simonovic <mirela.simonovic@aggios.com>,
  Andrew Cooper <andrew.cooper3@citrix.com>,
  George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
- Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
- Dario Faggioli <dfaggioli@suse.com>
-References: <cover.1665128335.git.mykyta_poturai@epam.com>
+ Jan Beulich <jbeulich@suse.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Saeed Nowshadi <saeed.nowshadi@xilinx.com>
+References: <cover.1665137247.git.mykyta_poturai@epam.com>
+ <931418d761e47eee7847e6bd559e02597cbab1b6.1665137247.git.mykyta_poturai@epam.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH 00/19] xen/arm64: Suspend to RAM support for Xen
-In-Reply-To: <cover.1665128335.git.mykyta_poturai@epam.com>
+In-Reply-To: <931418d761e47eee7847e6bd559e02597cbab1b6.1665137247.git.mykyta_poturai@epam.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 07/10/2022 14:08, Mykyta Poturai wrote:
-> This is a series from Mirela Simonovic. Ported to 4.16 and with
-> added changes suggested here
-> https://lore.kernel.org/all/CAKPH-NjmaZENb8gT=+FobrAycRF01_--6GuRA2ck9Di5wiudhA@mail.gmail.com
+On 07/10/2022 11:32, Mykyta Poturai wrote:
+> From: Mirela Simonovic <mirela.simonovic@aggios.com>
 > 
-> This series contains support for suspend to RAM (in the following text just
-> 'suspend') for Xen on arm64. The implementation is aligned with the design
-> specification that has been proposed on xen-devel list:
-> https://lists.xenproject.org/archives/html/xen-devel/2017-12/msg01574.html
+> These functions will be reused by suspend/resume support for ARM.
 > 
-> At a high-level the series contains:
-> 1) Support for suspending guests via virtual PSCI SYSTEM_SUSPEND call
-> 2) Support for resuming a guest on an interrupt targeted to that guest
-> 3) Support for suspending Xen after dom0 finalizes the suspend
-> 4) Support for resuming Xen on an interrupt that is targeted to a guest
+> Signed-off-by: Mirela Simonovic <mirela.simonovic@aggios.com>
+> Signed-off-by: Saeed Nowshadi <saeed.nowshadi@xilinx.com>
 
- From the previous discussion, there were a few dubious code in 
-cpu_disable() (e.g. mdelay()). So did you go through the code to confirm 
-it is fully Arm compliant?
+Your Signed-off-by is missing.
 
-> 
-> 
-> --------------------------------------------------------------------------------
-> In more details:
-> 
-> *** About suspending/resuming guests
-> 
-> The patches included in this series allow PSCI compliant guests that have
-> support for suspend to RAM (e.g. echo mem > /sys/power/state in Linux) to
-> suspend and resume on top of Xen without any EL1 code changes.
+> ---
+>   xen/common/domain.c     | 29 +++++++++++++++++++++++++++++
 
-What's the mechanism to tell the guest to suspend?
+The title suggests that there will be code movement. However... I only 
+see addition here. Did you intend to remove the functions from 
+arch/x86/acpi/power.c?
 
+>   xen/include/xen/sched.h |  3 +++
+>   2 files changed, 32 insertions(+)
 > 
-> During their suspend procedure guests will hot-unplug their secondary CPUs,
-> triggering Xen's virtual CPU_OFF PSCI implementation, and then finalize the
-> suspend from their boot CPU, triggering Xen's virtual SYSTEM_SUSPEND PSCI.
-> Guests will save/restore their own EL1 context on suspend/resume.
-> 
-> A guest is expected to leave enabled interrupts that are considered to be its
-> wake-up sources. Those interrupts will be able to wake up the guest. This holds
-> regardless of the state of the underlying software layers, i.e. whether Xen gets
-> suspended or not doesn't affect the ability of the guest to wake up.
-> 
-> First argument of SYSTEM_SUSPEND PSCI call is a resume entry point, from which
-> the guest assumes to start on resume. On resume, guests assume to be running in
-> an environment whose state matches the CPU state after reset, e.g. with reset
-> register values, MMU disabled, etc. To ensure this, Xen has to 'reset' the
-> VCPU context and save the resume entry point into program counter before the
-> guest's VCPU gets scheduled in on resume. This is done when the guest resumes.
-> Xen also needs to take care that the guest's view of GIC and timer gets saved.
-> Also, while a guest is suspended its watchdogs are paused, in order to avoid
-> watchdog triggered shutdown of a guest that has been asleep for a period of time
-> that is longer than the watchdog period.
-> 
-> After this point, from Xen's point of view a suspended guest has one VCPU
-> blocked, waiting for an interrupt. When such an interrupt comes, Xen will
-> unblock the VCPU of the suspended domain, which results in the guest
-> resuming.
-> 
-> *** About suspending/resuming Xen
-> 
-> Xen starts its own suspend procedure once dom0 is suspended. Dom0 is
-> considered to be the decision maker for EL1 and EL2.
-
-Can you explain why dom0 is the decision maker here? Also, what about 
-cases where there is no dom0?
-
-> On suspend, Xen will first freeze all domains. Then, Xen disables physical
-> secondary CPUs, which leads to physical CPU_OFF to be called by each secondary
-> CPU. After that Xen finalizes the suspend from the boot CPU.
-> 
-> This consists of suspending the timer, i.e. suppressing its interrupts (we don't
-> want to be woken up by a timer, there is no VCPU ready to be scheduled). Then
-> the state of GIC is saved, console is suspended, and CPU context is saved. The
-> saved context tells where Xen needs to continue execution on resume.
-> Since Xen will resume with MMU disabled, the first thing to do in resume is to
-> resume memory management in order to be able to access the context that needs to
-> be restored (we know virtual address of the context data). Finally Xen calls
-> SYSTEM_SUSPEND PSCI to the EL3.
-> 
-> When resuming, all the steps done in suspend need to be reverted. This is
-> completed by unblocking dom0's VCPU, because we always want the dom0 to
-> resume,
-> regardless of the target domain whose interrupt woke up Xen.
-> 
-> *** Handling of unprivileged guests during Xen suspend/resume
-> 
-> Any domU that is not suspended when dom0 suspends will be frozen,
-Wouldn't this mess up with the timers in the guest OS?
-
-> domUs that are
-> already suspended remain suspended. On resume the suspended domUs still remain
-> suspended (unless their wake interrupt caused Xen to wake) while the
-> others will be thawed.
-> 
-> For more details please refer to patches or the design specification:
-> https://lists.xenproject.org/archives/html/xen-devel/2017-12/msg01574.html
-
-This is a 5 years old design and there were some comments on it. So I 
-think it would be best if a new version is sent.
+> diff --git a/xen/common/domain.c b/xen/common/domain.c
+> index 56d47dd664..5e5894c468 100644
+> --- a/xen/common/domain.c
+> +++ b/xen/common/domain.c
+> @@ -1884,6 +1884,35 @@ int continue_hypercall_on_cpu(
+>       return 0;
+>   }
+>   
+> +
+> +void freeze_domains(void)
+> +{
+> +    struct domain *d;
+> +
+> +    rcu_read_lock(&domlist_read_lock);
+> +    /*
+> +     * Note that we iterate in order of domain-id. Hence we will pause dom0
+> +     * first which is required for correctness (as only dom0 can add domains to
+> +     * the domain list). Otherwise we could miss concurrently-created domains.
+> +     */
+> +    for_each_domain ( d )
+> +        domain_pause(d);
+> +    rcu_read_unlock(&domlist_read_lock);
+> +}
+> +
+> +void thaw_domains(void)
+> +{
+> +    struct domain *d;
+> +
+> +    rcu_read_lock(&domlist_read_lock);
+> +    for_each_domain ( d )
+> +    {
+> +        restore_vcpu_affinity(d);
+> +        domain_unpause(d);
+> +    }
+> +    rcu_read_unlock(&domlist_read_lock);
+> +}
+> +
+>   /*
+>    * Local variables:
+>    * mode: C
+> diff --git a/xen/include/xen/sched.h b/xen/include/xen/sched.h
+> index 00a939aa01..c8ddfdd51c 100644
+> --- a/xen/include/xen/sched.h
+> +++ b/xen/include/xen/sched.h
+> @@ -978,6 +978,9 @@ static inline struct vcpu *domain_vcpu(const struct domain *d,
+>       return vcpu_id >= d->max_vcpus ? NULL : d->vcpu[idx];
+>   }
+>   
+> +void freeze_domains(void);
+> +void thaw_domains(void);
+> +
+>   void cpu_init(void);
+>   
+>   /*
 
 Cheers,
 
