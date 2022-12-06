@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 622C9644A90
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 18:45:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455396.712851 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D9E644AA3
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 18:53:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455406.712861 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2bzq-0006cp-RW; Tue, 06 Dec 2022 17:44:46 +0000
+	id 1p2c7g-0008RB-KH; Tue, 06 Dec 2022 17:52:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455396.712851; Tue, 06 Dec 2022 17:44:46 +0000
+Received: by outflank-mailman (output) from mailman id 455406.712861; Tue, 06 Dec 2022 17:52:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2bzq-0006aU-Oo; Tue, 06 Dec 2022 17:44:46 +0000
-Received: by outflank-mailman (input) for mailman id 455396;
- Tue, 06 Dec 2022 17:44:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p2c7g-0008PL-HO; Tue, 06 Dec 2022 17:52:52 +0000
+Received: by outflank-mailman (input) for mailman id 455406;
+ Tue, 06 Dec 2022 17:52:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7Feu=4E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p2bzp-0006aO-8M
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 17:44:45 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a95ddfa4-758d-11ed-91b6-6bf2151ebd3b;
- Tue, 06 Dec 2022 18:44:43 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 39EB832000D7;
- Tue,  6 Dec 2022 12:44:39 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Tue, 06 Dec 2022 12:44:39 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Dec 2022 12:44:37 -0500 (EST)
+ <SRS0=WlZ+=4E=citrix.com=prvs=3329fe38d=Per.Bilse@srs-se1.protection.inumbo.net>)
+ id 1p2c7e-0008PF-Rh
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 17:52:50 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cae3ae9b-758e-11ed-8fd2-01056ac49cbb;
+ Tue, 06 Dec 2022 18:52:49 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,192 +36,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a95ddfa4-758d-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670348678; x=
-	1670435078; bh=tUHwzAYdFynBoWNTayYlb2OFmj2e3mDaT11ayfBr6Ik=; b=I
-	QoOxUycZ3mm5SV+54MrFUDqS95EnYR5kkUtay256horx5DvvVA3lQ3H8sWXxhzwG
-	D48N7P7lnugjzkcV4+rYASq+aX12xh2QYrnWMx4M/AsgQNQNYhHqPK58Wy6M5ntc
-	LralyMOKR9Zs/lTNsSP5rQq9gOUjj0VgOE5mOkyA0fUnhadjq09Yn3qt71QuVNNM
-	hHlnoBSbcQGtsZnRL4ETbV4AD8DQehuv4eeLbjWFjbe7kV4pcwhuQqF5MBuzp0gg
-	bxpg55+W70wHmgD6sFjcUVPa7s/3u96Z2HjKFF0MKMOtHug7ssZohw81gfqVb3CJ
-	BvnRfOtZin0AT7Eb/TMJw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1670348678; x=1670435078; bh=tUHwzAYdFynBoWNTayYlb2OFmj2e
-	3mDaT11ayfBr6Ik=; b=Qf+5Agjmn0tEOwWOlt8zdvegfl1DARw0/ymyHWso6u4t
-	keunNBw4XWtvY5QXRkrb/4Sy28HKOSmWu/zLNhIP1xzx2NWgHi6OTfvwjHOY7SOQ
-	yF5NbxrP02ZZC9DmnS6eMFT6EQUJMKBTdpcf4EXJF8l4+YDXBGTtMg3k7d3Ax2Il
-	eENDXMIBhGjNVo2KtEfi/H11mhx0YLn1QwhLBN9v2JJj6j5JpV433JjvqiXApYgb
-	Qum7dyzsYzFCMWG7oR/Ykq6wjshAkrhHSw/w+t4vaCk0Yod5of6Bu6HSYQpa2UtM
-	BczlqgR1CwOQIBV3VwuPGpEa0DAcenDS+Tts0+ot9Q==
-X-ME-Sender: <xms:hn-PYxQP2cv5I7WXhQMjdvsT8xBf-E2LaD11MzGqOr6ykqjmodkk4g>
-    <xme:hn-PY6x_XVXEoAGHZm176IW7JGi2ybHI9QjUmoRdGV501mYJ-V9Wop5TOqVQS0LXF
-    56aJlNrr4Qhahg>
-X-ME-Received: <xmr:hn-PY208dCt6kLCDMlWVkIt4ugDMX1ywoLcbCUtbyASJuSAlxj4XfeGZY9Y4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeigddutdegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
-    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:hn-PY5AUJ243jFtrgNE5QfgBkyIyjrwfar52_IK4cCg0Hh6acW_-Mw>
-    <xmx:hn-PY6jlIBS71dGFVhOm01qgbcNN5BZC2kYR-z56IZxwUeOAX4HqhQ>
-    <xmx:hn-PY9pUHQi1W4HCdeSUJQaSkliypjRi7-P6bNIJzMld4sjfraUAdw>
-    <xmx:hn-PY8ZgR89ge_U2dupECXv-qOF5lbF-QkYKay3zSgjtcOvh-pvdDQ>
-Feedback-ID: iac594737:Fastmail
-Date: Tue, 6 Dec 2022 12:44:32 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	"Tim (Xen.org)" <tim@xen.org>
-Subject: Re: [PATCH 6/8] x86: Derive XEN_MSR_PAT from its individual entries
-Message-ID: <Y49/hCC2nrAhlJNo@itl-email>
-References: <cover.1670300446.git.demi@invisiblethingslab.com>
- <5ddd32a453b098f277f2d4aa9e044a40183d4bff.1670300446.git.demi@invisiblethingslab.com>
- <ac0605b2-5c1c-09f2-9526-1aa7e777e7dc@citrix.com>
+X-Inumbo-ID: cae3ae9b-758e-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1670349169;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=eAy052LVGQXRjHRas9sGiJLX5hwm2vKQ2T06dwe1Hts=;
+  b=JL8QjHoaXTvvclMumA3SyNFtWXicB5X1S2C7TnMh6l4Am6l2NLE1F4PX
+   ZRzDUON3PAZkECyhBb6Z3aP5C93y/Lc6aHwop7ig4qzeLVJiLgL+MNt6C
+   ATf6GcPGfxiblIF9D6xWK0qNNe8swKBgh9UDgG/tYIO/J5dCBMTsNMtza
+   k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 87290543
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:leJbGq5KCfeYVIulPpwK1QxRtETHchMFZxGqfqrLsTDasY5as4F+v
+ jAdXGyEOvjZajf9cotzOtjj/RwHuZLcnNVnGQs4rCBmHi5G8cbLO4+Ufxz6V8+wwm8vb2o8t
+ plDNYOQRCwQZiWBzvt4GuG59RGQ7YnRGvynTraBYnoqLeNdYH9JoQp5nOIkiZJfj9G8Agec0
+ fv/uMSaM1K+s9JOGjt8B5mr9VU+4pwehBtC5gZkPKoT4geF/5UoJMl3yZ+ZfiOQrrZ8RoZWd
+ 86bpJml82XQ+QsaC9/Nut4XpWVTH9Y+lSDX4pZnc/DKbipq/0Te4Y5iXBYoUm9Fii3hojxE4
+ I4lWapc6+seFvakdOw1C3G0GszlVEFM0OevzXOX6aR/w6BaGpdFLjoH4EweZOUlFuhL7W5m2
+ MQIDjIicwi5lcm5/u6WG+pBl8YeM5y+VG8fkikIITDxCP8nRdbIQrnQ5M8e1zA17ixMNa+AP
+ YxDM2MpNUmeJU0UUrsUIMtWcOOAvnTlNRdZrEmYjaE2/3LS3Ep6172F3N/9KoPQFJ0Iwh3wS
+ mTupSOnLEwoZfOmjiuqzWKR2NHCswT3cddHfFG/3qEz2wDCroAJMzUOXEa/iem0jAi5Qd03A
+ 1wZ/G8ioLY/8GSvT8LhRFuorXicpBkeVtFMVeog52mwJrH8uljDQDJeF3gYNYJg5JReqSEWO
+ kGhsuv5Iz5AraWvW1mSyOu5/DCfKCooMjpXDcMbdjct797mqYA1qxvASNd/DaK45uHI9SHML
+ yOi93Zn2ehK5SIf/+DipA2c3WrwznTcZlRtjjg7SF5J+e+QiGSNQ4WzoWbW4v9bRGpyZgnQ5
+ SNU8yRyAQ1nMH1sqMBvaL9UdF1Kz6zfWNE5vbKIN8dJythV0yT/Fb28GRknTKuTDu4KeCXyf
+ GjYsh5L6ZlYMROCNPEoO9jvVp17nfe7SrwJs8w4ifIXMvBMmPKvpnkyNSZ8IUiy+KTTrU3PE
+ cjCKpv9ZZrrIa9m0CC3V48gPUwDn0gDKZfobcmjlXyPiOPODEN5vJ9ZaDNimMhltvLbyOgUm
+ v4DX/a3J+J3DbWnPXeGrdZNRb3IRFBiba3LRwVsXrbrCmJb9KsJUpc9HZtJl1RZoplo
+IronPort-HdrOrdr: A9a23:WVjtTKENRVJzoS6cpLqFRJHXdLJyesId70hD6qkvc31om52j+f
+ xGws516fatskdqZJjvo6HYBEDyewKgyXcV2/hbAV7GZmnbUQSTXflfBOfZsljd8k7Fh6RgPM
+ VbAtND4bTLZDAQ56qKg3jbLz9K+qjhzEncv5am854bd3ANV0gP1XYcNu+cKCBLbTgDIaB8OI
+ uX58JBqTblU28QdN6HCn4MWPWGj8HXlbr9CCR2SyIP2U2rt3eF+bT6Gx+X0lM1SDVU24ov9m
+ DDjkjQ+rijifem0RXRvlWjoKi+2eGRhOerNvb8yvT9GQ+cyTpAo74RGYFqiQpF4d1HLmxa1e
+ Uk7S1Qe/iboEmhAl1d6SGdpDUIlgxepkMLgTKj8CDeSYeVfkNjNyIJ6LgpNCcwoScbzYtBON
+ on5RPfi3MfN2K/oA3to9fPTB1kjUyyvD4rlvMSlWVWVc8EZKZWtpF3xjIiLH4sJlOP1GkcKp
+ gYMOjMoPJNNV+KZXHQuWdihNSqQ3QoBx+DBkwPoNac3TRalG1wixJw/r1Wol4QsJYmD5VU7e
+ XNNapl0LlIU88NdKp4QOMMW9G+BGDBSQ/FdGiSPVPkHqcaPG+lke+/3JwloOWxPJAYxpo7n5
+ rMFFteqG4pYkrrTdaD2ZVamyq9NVlVnQ6duP22y6IJyYEUHoCbQBFrYGpe4/ednw==
+X-IronPort-AV: E=Sophos;i="5.96,223,1665460800"; 
+   d="scan'208";a="87290543"
+From: Per Bilse <per.bilse@citrix.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Per Bilse <per.bilse@citrix.com>, Paul Durrant <paul@xen.org>
+Subject: [PATCH v2] ioreq_broadcast(): accept partial broadcast success
+Date: Tue, 6 Dec 2022 17:52:09 +0000
+Message-ID: <9cc56d01a09fcf6e1e3e9d48e60420f435fa34c3.1670348481.git.per.bilse@citrix.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sfmSyrCM+UV609es"
-Content-Disposition: inline
-In-Reply-To: <ac0605b2-5c1c-09f2-9526-1aa7e777e7dc@citrix.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
+Avoid incorrectly triggering an error when a broadcast buffered ioreq
+is not handled by all registered clients, as long as the failure is
+strictly because the client doesn't handle buffered ioreqs.
 
---sfmSyrCM+UV609es
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 6 Dec 2022 12:44:32 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
-	George Dunlap <George.Dunlap@citrix.com>,
-	"Tim (Xen.org)" <tim@xen.org>
-Subject: Re: [PATCH 6/8] x86: Derive XEN_MSR_PAT from its individual entries
+Signed-off-by: Per Bilse <per.bilse@citrix.com>
+---
+v2: Complete rethink with better information. A lot of simplicity was added.
+---
+ xen/common/ioreq.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-On Tue, Dec 06, 2022 at 11:32:16AM +0000, Andrew Cooper wrote:
-> On 06/12/2022 04:33, Demi Marie Obenour wrote:
-> > This avoids it being a magic constant that is difficult for humans to
-> > decode.  Use a _Static_assert to check that the old and new values are
-> > identical.
-> >
-> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > ---
-> >  xen/arch/x86/include/asm/processor.h | 22 +++++++++++++++++++++-
-> >  1 file changed, 21 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/includ=
-e/asm/processor.h
-> > index 8e2816fae9b97bd4e153a30cc3802971fe0355af..64b75e444947c64e2e5eba4=
-57deec92a873d7a63 100644
-> > --- a/xen/arch/x86/include/asm/processor.h
-> > +++ b/xen/arch/x86/include/asm/processor.h
-> > @@ -92,13 +92,33 @@
-> >                            X86_EFLAGS_NT|X86_EFLAGS_DF|X86_EFLAGS_IF|  =
-  \
-> >                            X86_EFLAGS_TF)
-> > =20
-> > +/* Individual entries in IA32_CR_PAT */
-> > +#define MSR_PAT_UC  _AC(0x00, ULL)
-> > +#define MSR_PAT_WC  _AC(0x01, ULL)
-> > +#define MSR_PAT_RESERVED_1  _AC(0x02, ULL)
-> > +#define MSR_PAT_RESERVED_2  _AC(0x03, ULL)
-> > +#define MSR_PAT_WT  _AC(0x04, ULL)
-> > +#define MSR_PAT_WP  _AC(0x05, ULL)
-> > +#define MSR_PAT_WB  _AC(0x06, ULL)
-> > +#define MSR_PAT_UCM _AC(0x07, ULL)
->=20
-> This isn't really correct.
+diff --git a/xen/common/ioreq.c b/xen/common/ioreq.c
+index 4617aef29b..568e7aea91 100644
+--- a/xen/common/ioreq.c
++++ b/xen/common/ioreq.c
+@@ -1317,7 +1317,8 @@ unsigned int ioreq_broadcast(ioreq_t *p, bool buffered)
+ 
+     FOR_EACH_IOREQ_SERVER(d, id, s)
+     {
+-        if ( !s->enabled )
++        if ( !s->enabled || (buffered &&
++                    s->bufioreq_handling == HVM_IOREQSRV_BUFIOREQ_OFF) )
+             continue;
+ 
+         if ( ioreq_send(s, p, buffered) == IOREQ_STATUS_UNHANDLED )
+-- 
+2.31.1
 
-Do you mean that this in and of itself is buggy, or that the code ought
-to be structured differently?
-
-> Constants for MSRs typically live in
-> msr-index.h, but these are architectural x86 memory types.
->=20
-> These ought be
->=20
-> #define X86_MT_$X ...=C2=A0 (skipping the two reserved values)
-
-I will use the reserved values in BUILD_BUG_ON()s, so I would prefer to
-keep (possibly defined somewhere else) if that is okay.
-
-> in x86-defns.h, and the PAT_TYPE_*, MTRR_TYPE_* and EPT_EMT_* constants
-> want removing.
-
-This seems like a larger refactor that might belong in a separate patch.
-
-> There are two minor restrictions (EPT can't have UCM, MTRR can't have
-> WC), but they are all operating in terms of architectural memory type
-> values, and the code ought to reflect this.
-
-That makes sense.
-
-> > +
-> >  /*
-> >   * Host IA32_CR_PAT value to cover all memory types.  This is not the =
-default
-> >   * MSR_PAT value, and is an ABI with PV guests.
-> >   */
-> > -#define XEN_MSR_PAT _AC(0x050100070406, ULL)
-> > +#define XEN_MSR_PAT (MSR_PAT_WB  << 0x00 | \
-> > +                     MSR_PAT_WT  << 0x08 | \
-> > +                     MSR_PAT_UCM << 0x10 | \
-> > +                     MSR_PAT_UC  << 0x18 | \
-> > +                     MSR_PAT_WC  << 0x20 | \
-> > +                     MSR_PAT_WP  << 0x28 | \
-> > +                     MSR_PAT_UC  << 0x30 | \
-> > +                     MSR_PAT_UC  << 0x38 | \
-> > +                     0)
-> > =20
-> >  #ifndef __ASSEMBLY__
-> > +_Static_assert(XEN_MSR_PAT =3D=3D 0x050100070406ULL,
-> > +               "wrong XEN_MSR_PAT breaks PV guests");
->=20
-> This wants to be in the build_assertions() that you introduce in the
-> next patch, and a BUILD_BUG_ON().=C2=A0 We still support compilers which
-> don't know _Static_assert().
-
-That=E2=80=99s fair
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---sfmSyrCM+UV609es
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOPf4QACgkQsoi1X/+c
-IsF8XQ//cBj03+MCaFs6v1uijbgcgXtzZ9Esaum+KhCeognesnq7aHjCfm3o+7tK
-bDjEdFGegRQz+3LvPc/nUzb2GVDKmg7dtqOT7cNtbS2ulnzpeQq3ghBLihudPop8
-37QXXmLBd1FrR0z91JEDEpTex+VxVOuuVZDnWYNmxNhJbIkYye5ewtzNrjS77Sgg
-eIONBNBWngbFrMlhdlTvRhHTedwztvZVrlFuV9CPx0N0sf30DGDD1BIUcJViep6G
-bahiQCj5ALGNWX/0TL2U6ML0/p59EnfoJOi0LPyiFd5LZw/E8xbd92lONL5tFpwa
-5X3Qt70fxMjzu2Q+B/EXpRuB2XA/bq0jMClKTLNFp15Wd/9mY0ra3bJMCnVb6wCk
-ZDDuhEJdOnxDWlFp248vcwwlBluo4g/E/rJHdUYT5t5SeJqlzs25Y3GIJt2Jx2Bz
-CJLiXx45v+OAEBtPwUkzGX4/6Gm/i6DYoxnmfAmdXVDujb6aiAQga+Lfbfk8SspK
-PzFT3ONjd9QsWGjH64rsjGpB/rPuABH7tcVrvDcEHteIGRRTRymxSfCXMVD+ivUn
-ejeu0zZ/uYwGF4FppRXXhhTyTzVpPZYPI2yZsN0T09p6FgJfFNzNqa/WWlR3LmjF
-j9UXiV9JK+nml6OwZv+n+eYTVPAYMjbir6Lfh3UU1IvQSCheyN8=
-=8QCt
------END PGP SIGNATURE-----
-
---sfmSyrCM+UV609es--
 
