@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EAD50643B2F
+	by mail.lfdr.de (Postfix) with ESMTPS id C07F1643B2E
 	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 03:10:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454285.711824 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.454286.711835 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2NOR-00076H-3V; Tue, 06 Dec 2022 02:09:11 +0000
+	id 1p2NOm-0007RL-F4; Tue, 06 Dec 2022 02:09:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454285.711824; Tue, 06 Dec 2022 02:09:11 +0000
+Received: by outflank-mailman (output) from mailman id 454286.711835; Tue, 06 Dec 2022 02:09:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2NOQ-00073T-V3; Tue, 06 Dec 2022 02:09:10 +0000
-Received: by outflank-mailman (input) for mailman id 454285;
- Tue, 06 Dec 2022 02:09:09 +0000
+	id 1p2NOm-0007Ox-B8; Tue, 06 Dec 2022 02:09:32 +0000
+Received: by outflank-mailman (input) for mailman id 454286;
+ Tue, 06 Dec 2022 02:09:31 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ZZAw=4E=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p2NOP-00073N-2U
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 02:09:09 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ id 1p2NOk-00073N-Ta
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 02:09:31 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f5dfa23e-750a-11ed-8fd2-01056ac49cbb;
- Tue, 06 Dec 2022 03:09:06 +0100 (CET)
+ id 037ae368-750b-11ed-8fd2-01056ac49cbb;
+ Tue, 06 Dec 2022 03:09:28 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id CF9556150B;
- Tue,  6 Dec 2022 02:09:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F6EC433D6;
- Tue,  6 Dec 2022 02:09:02 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4FCBCB811B1;
+ Tue,  6 Dec 2022 02:09:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9718EC433D6;
+ Tue,  6 Dec 2022 02:09:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5dfa23e-750a-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 037ae368-750b-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1670292544;
-	bh=H2bO3LQ6ezULzxVdVBxlZcd0ZZzrWXtqyJErFWk1V+A=;
+	s=k20201202; t=1670292566;
+	bh=RtXoxepDCD8UbPs6tGmbO3asJD0YWvV8QC9sdQ9+Kbw=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=U3CiGoIlCwOU6kMizd2S9twPl8Rq6OQr6l2JumUfOZ/lUjj/HZh7uPrdxddQMdDiH
-	 iwv2a9dNhP5PAOWhkvsgiMtWhxxVaEHjQGq5sT1ng04EnOLFc5hVqg0hKOATuj3kRM
-	 ss1CKISg03u6rjlA66qmmqJ/pDrIL4heQOAFkTE2tom4b/sgN8hKCKhYmijEXOWR+N
-	 BGgtvyF5mt0P8u7wfhH0pE622fqvdlGxZ1EJsUhGtHSOD80s99x3huYM+LjJ++oWw9
-	 PSyHLQ73dmwRq0D5U8L/b0+3tRGmUYkY7f0dNdLOc7Wpi9OXrYtxFxIhPFFW6GVDkq
-	 ScviabFodyV3w==
-Date: Mon, 5 Dec 2022 18:09:01 -0800 (PST)
+	b=GpW+vwdwCN1nxWQQil+oP/eNr93TMLjrMZizENtCcBvUqFmR3jYuXqfZF4oEbbx1o
+	 xNQPIhAR4gnKNV3fVFwTox4R8zl+8AgHWxJgc7LjfJJarDBVDhAMxdgS5dH0EVZH8H
+	 EDL+z3kx9fPIGufxKEkEO3gWfF58stCtUKUR0H1ERG13bkK+nwPvZD/nIlHQDxjOEW
+	 rzFjNgrUTtdllvgMU/DaJOWqMLAKUrvCTg58hPtpof4zB49MCykwbjtH3o3nUTNGGd
+	 MOYVGU6sVcbXyKeg4vDpTd4ddfIWFftGhxx51aH8/rRWQYwEaWmFVw4dtBK8Hzl3tu
+	 hdOK1rJ286KYA==
+Date: Mon, 5 Dec 2022 18:09:23 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Luca Fancellu <luca.fancellu@arm.com>
@@ -63,298 +63,205 @@ cc: xen-devel@lists.xenproject.org, bertrand.marquis@arm.com, wei.chen@arm.com,
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
     Wei Liu <wl@xen.org>
-Subject: Re: [PATCH v2 1/5] xen/scripts: add xen-analysis.py for coverity
- and eclair analysis
-In-Reply-To: <20221205154052.14191-2-luca.fancellu@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2212051716410.4039@ubuntu-linux-20-04-desktop>
-References: <20221205154052.14191-1-luca.fancellu@arm.com> <20221205154052.14191-2-luca.fancellu@arm.com>
+Subject: Re: [PATCH v2 2/5] xen/scripts: add cppcheck tool to the xen-analysis.py
+ script
+In-Reply-To: <20221205154052.14191-3-luca.fancellu@arm.com>
+Message-ID: <alpine.DEB.2.22.394.2212051650300.4039@ubuntu-linux-20-04-desktop>
+References: <20221205154052.14191-1-luca.fancellu@arm.com> <20221205154052.14191-3-luca.fancellu@arm.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/mixed; BOUNDARY="8323329-215932922-1670288592=:4039"
+Content-ID: <alpine.DEB.2.22.394.2212051703301.4039@ubuntu-linux-20-04-desktop>
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+
+--8323329-215932922-1670288592=:4039
+Content-Type: text/plain; CHARSET=UTF-8
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.DEB.2.22.394.2212051703302.4039@ubuntu-linux-20-04-desktop>
 
 On Mon, 5 Dec 2022, Luca Fancellu wrote:
-> Add new script for coverity/eclair analysis tool that will enable
-> the procedure to suppress findings when these tool are used.
-> The procedure is documented in docs/misra/documenting-violations.rst
-> and the script is documented in docs/misra/xen-static-analysis.rst.
+> Add Cppcheck analysis to the xen-analysis.py script using the
+> arguments --run-cppcheck.
 > 
-> Add in docs/misra/ the files safe.json and
-> false-positive-{coverity,eclair}.json that are JSON files containing
-> the data structures for the justifications, they are used by the
-> analysis script to link the Xen tags to the proprietary tool comment.
+> Now cppcheck analysis will build Xen while the analysis is performed
+> on the source files, it will produce a text report and an additional
+> html output when the script is called with --cppcheck-html.
 > 
-> Add docs/misra/documenting-violations.rst to explain how to add
-> justifications.
+> With this patch cppcheck will benefit of platform configuration files
+> that will help it to understand the target of the compilation and
+> improve the analysis. These are XML files placed in
+> xen/tools/cppcheck-plat/, describing to cppcheck the length of basic
+> types to help it in the analysis.
 > 
-> Add docs/misra/xen-static-analysis.rst to explain how to use the
-> script to analyse Xen.
-> 
-> Add analysis artifacts files to .gitignore.
+> To do so:
+>  - Update xen-analysis.py with the code to integrate cppcheck.
+>  - add platform configuration files for cppcheck..
+>  - add cppcheck-cc.sh script that is a wrapper for cppcheck and it's
+>    used as Xen compiler, it will intercept all flags given from the
+>    make build system and it will execute cppcheck on the compiled
+>    file together with the file compilation.
+>  - guarded hypercall-defs.c with CPPCHECK define because cppcheck
+>    gets confused as the file does not contain c code.
+>  - add false-positive-cppcheck.json file
+>  - update documentation.
+>  - update .gitignore
 > 
 > Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
-
-Hi Luca,
-
-You can add my Tested-by to the entire series. I tested this series
-successfully as is. Then I tried adding one cppcheck suppression
-(shadowVariable) and everything worked as expected.  Very nice!
-
-
-Also for this patch:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
 > ---
-> v2 changes:
->  - no change
+> Changes in v2:
+>  - changes to commit message (Jan)
+>  - changes to the cppcheck-cc.sh script and on
+>    platform XML files, fixed version handling
+>    in cppcheck_analysis.py (Stefano)
+>  - Move revert of Makefile and xen/tools/merge_cppcheck_reports.py
+>    to the following patch, modified .gitignore to handle the
+>    presence of both Makefile invoked cppcheck and this new method
+>    (Stefano)
 > ---
 > ---
->  .gitignore                                   |   1 +
->  docs/misra/documenting-violations.rst        | 191 +++++++++++++++++++
->  docs/misra/false-positive-coverity.json      |  12 ++
->  docs/misra/false-positive-eclair.json        |  12 ++
->  docs/misra/safe.json                         |  11 ++
->  docs/misra/xen-static-analysis.rst           |  54 ++++++
->  xen/scripts/xen-analysis.py                  |  31 +++
->  xen/scripts/xen_analysis/__init__.py         |   0
->  xen/scripts/xen_analysis/generic_analysis.py |  93 +++++++++
->  xen/scripts/xen_analysis/settings.py         |  97 ++++++++++
->  xen/scripts/xen_analysis/tag_database.py     | 109 +++++++++++
->  xen/scripts/xen_analysis/utils.py            |  37 ++++
->  12 files changed, 648 insertions(+)
->  create mode 100644 docs/misra/documenting-violations.rst
->  create mode 100644 docs/misra/false-positive-coverity.json
->  create mode 100644 docs/misra/false-positive-eclair.json
->  create mode 100644 docs/misra/safe.json
->  create mode 100644 docs/misra/xen-static-analysis.rst
->  create mode 100755 xen/scripts/xen-analysis.py
->  create mode 100644 xen/scripts/xen_analysis/__init__.py
->  create mode 100644 xen/scripts/xen_analysis/generic_analysis.py
->  create mode 100644 xen/scripts/xen_analysis/settings.py
->  create mode 100644 xen/scripts/xen_analysis/tag_database.py
->  create mode 100644 xen/scripts/xen_analysis/utils.py
+>  .gitignore                                    |   6 +
+>  docs/misra/cppcheck.txt                       |  27 +-
+>  docs/misra/documenting-violations.rst         |   7 +-
+>  docs/misra/false-positive-cppcheck.json       |  12 +
+>  docs/misra/xen-static-analysis.rst            |  42 ++-
+>  xen/include/hypercall-defs.c                  |   9 +
+>  xen/scripts/xen-analysis.py                   |  18 +-
+>  xen/scripts/xen_analysis/cppcheck_analysis.py | 273 ++++++++++++++++++
+>  .../xen_analysis/cppcheck_report_utils.py     | 130 +++++++++
+>  xen/scripts/xen_analysis/generic_analysis.py  |  21 +-
+>  xen/scripts/xen_analysis/settings.py          |  77 ++++-
+>  xen/scripts/xen_analysis/utils.py             |  21 +-
+>  xen/tools/cppcheck-cc.sh                      | 223 ++++++++++++++
+>  xen/tools/cppcheck-plat/arm32-wchar_t4.xml    |  17 ++
+>  xen/tools/cppcheck-plat/arm64-wchar_t2.xml    |  17 ++
+>  xen/tools/cppcheck-plat/x86_64-wchar_t2.xml   |  17 ++
+>  16 files changed, 860 insertions(+), 57 deletions(-)
+>  create mode 100644 docs/misra/false-positive-cppcheck.json
+>  create mode 100644 xen/scripts/xen_analysis/cppcheck_analysis.py
+>  create mode 100644 xen/scripts/xen_analysis/cppcheck_report_utils.py
+>  create mode 100755 xen/tools/cppcheck-cc.sh
+>  create mode 100644 xen/tools/cppcheck-plat/arm32-wchar_t4.xml
+>  create mode 100644 xen/tools/cppcheck-plat/arm64-wchar_t2.xml
+>  create mode 100644 xen/tools/cppcheck-plat/x86_64-wchar_t2.xml
 > 
 > diff --git a/.gitignore b/.gitignore
-> index ea3243af9dde..f5a66f6194dd 100644
+> index f5a66f6194dd..39efe2933a33 100644
 > --- a/.gitignore
 > +++ b/.gitignore
-> @@ -10,6 +10,7 @@
+> @@ -8,8 +8,11 @@
+>  *.d
+>  *.d2
 >  *.c.cppcheck
+> +*.cppcheck.txt
+> +*.cppcheck.xml
 >  *.opic
 >  *.a
-> +*.safparse
+> +*.c.json
+>  *.safparse
 >  *.so
 >  *.so.[0-9]*
->  *.bin
+> @@ -282,9 +285,11 @@ xen/arch/*/efi/efi.h
+>  xen/arch/*/efi/pe.c
+>  xen/arch/*/efi/runtime.c
+>  xen/arch/*/include/asm/asm-offsets.h
+> +xen/build-dir-cppcheck/
+>  xen/common/config_data.S
+>  xen/common/config.gz
+>  xen/cppcheck-htmlreport/
+> +xen/cppcheck-report/
+>  xen/cppcheck-misra.*
+>  xen/include/headers*.chk
+>  xen/include/compat/*
+> @@ -315,6 +320,7 @@ xen/xsm/flask/xenpolicy-*
+>  tools/flask/policy/policy.conf
+>  tools/flask/policy/xenpolicy-*
+>  xen/xen
+> +xen/suppression-list.txt
+>  xen/xen-cppcheck.xml
+>  xen/xen-syms
+>  xen/xen-syms.map
+> diff --git a/docs/misra/cppcheck.txt b/docs/misra/cppcheck.txt
+> index 25d8c3050b72..f7b9f678b4d5 100644
+> --- a/docs/misra/cppcheck.txt
+> +++ b/docs/misra/cppcheck.txt
+> @@ -3,8 +3,7 @@ Cppcheck for Xen static and MISRA analysis
+>  
+>  Xen can be analysed for both static analysis problems and MISRA violation using
+>  cppcheck, the open source tool allows the creation of a report with all the
+> -findings. Xen has introduced the support in the Makefile so it's very easy to
+> -use and in this document we can see how.
+> +findings.
+>  
+>  The minimum version required for cppcheck is 2.7. Note that at the time of
+>  writing (June 2022), the version 2.8 is known to be broken [1].
+> @@ -38,27 +37,7 @@ Dependencies are listed in the readme.md of the project repository.
+>  Use cppcheck to analyse Xen
+>  ===========================
+>  
+> -Using cppcheck integration is very simple, it requires few steps:
+> -
+> - 1) Compile Xen
+> - 2) call the cppcheck make target to generate a report in xml format:
+> -    make CPPCHECK_MISRA=y cppcheck
+> - 3) call the cppcheck-html make target to generate a report in xml and html
+> -    format:
+> -    make CPPCHECK_MISRA=y cppcheck-html
+> -
+> -    In case the cppcheck binaries are not in the PATH, CPPCHECK and
+> -    CPPCHECK_HTMLREPORT variables can be overridden with the full path to the
+> -    binaries:
+> -
+> -    make -C xen \
+> -        CPPCHECK=/path/to/cppcheck \
+> -        CPPCHECK_HTMLREPORT=/path/to/cppcheck-htmlreport \
+> -        CPPCHECK_MISRA=y \
+> -        cppcheck-html
+> -
+> -The output is by default in a folder named cppcheck-htmlreport, but the name
+> -can be changed by passing it in the CPPCHECK_HTMLREPORT_OUTDIR variable.
+> -
+> +To analyse Xen using cppcheck, please refer to the document
+> +xen-static-analysis.rst, section "Analyse Xen with Cppcheck".
+>  
+>  [1] https://sourceforge.net/p/cppcheck/discussion/general/thread/bfc3ab6c41/?limit=25
 > diff --git a/docs/misra/documenting-violations.rst b/docs/misra/documenting-violations.rst
-> new file mode 100644
-> index 000000000000..1d23447556d2
-> --- /dev/null
+> index 1d23447556d2..31dafd5d4ece 100644
+> --- a/docs/misra/documenting-violations.rst
 > +++ b/docs/misra/documenting-violations.rst
-> @@ -0,0 +1,191 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
-> +
-> +Documenting violations
-> +======================
-> +
-> +Static analysers are used on the Xen codebase for both static analysis and MISRA
-> +compliance.
-> +There might be the need to suppress some findings instead of fixing them and
-> +many tools permit the usage of in-code comments that suppress findings so that
-> +they are not shown in the final report.
-> +
-> +Xen includes a tool capable of translating a specific comment used in its
-> +codebase to the right proprietary in-code comment understandable by the selected
-> +analyser that suppress its finding.
-> +
-> +In the Xen codebase, these tags will be used to document and suppress findings:
-> +
-> + - SAF-X-safe: This tag means that the next line of code contains a finding, but
-> +   the non compliance to the checker is analysed and demonstrated to be safe.
-> + - SAF-X-false-positive-<tool>: This tag means that the next line of code
-> +   contains a finding, but the finding is a bug of the tool.
-> +
-> +SAF stands for Static Analyser Finding, the X is a placeholder for a positive
-> +number that starts from zero, the number after SAF- shall be incremental and
-> +unique, base ten notation and without leading zeros.
-> +
-> +Entries in the database shall never be removed, even if they are not used
-> +anymore in the code (if a patch is removing or modifying the faulty line).
-> +This is to make sure that numbers are not reused which could lead to conflicts
-> +with old branches or misleading justifications.
-> +
-> +An entry can be reused in multiple places in the code to suppress a finding if
-> +and only if the justification holds for the same non-compliance to the coding
-> +standard.
-> +
-> +An orphan entry, that is an entry who was justifying a finding in the code, but
-> +later that code was removed and there is no other use of that entry in the code,
-> +can be reused as long as the justification for the finding holds. This is done
-> +to avoid the allocation of a new entry with exactly the same justification, that
-> +would lead to waste of space and maintenance issues of the database.
-> +
-> +The files where to store all the justifications are in xen/docs/misra/ and are
-> +named as safe.json and false-positive-<tool>.json, they have JSON format, each
-> +one has a different justification schema which shares some fields.
-> +
-> +Here is an example to add a new justification in safe.json::
-> +
-> +|{
-> +|    "version": "1.0",
-> +|    "content": [
-> +|        {
-> +|            "id": "SAF-0-safe",
-> +|            "analyser": {
-> +|                "coverity": "misra_c_2012_rule_20_7_violation",
-> +|                "eclair": "MC3R1.R20.7"
-> +|            },
-> +|            "name": "R20.7 C macro parameters not used as expression",
-> +|            "text": "The macro parameters used in this [...]"
-> +|        },
-> +|        {
-> +|            "id": "SAF-1-safe",
-> +|            "analyser": {},
-> +|            "name": "Sentinel",
-> +|            "text": "Next ID to be used"
-> +|        }
-> +|    ]
-> +|}
-> +
-> +To document a finding in safe.json, just add another block {[...]} before the
-> +sentinel block, using the id contained in the sentinel block and increment by
-> +one the number contained in the id of the sentinel block.
-> +
-> +Here is an explanation of the fields inside an object of the "content" array:
-> + - id: it is a unique string that is used to refer to the finding, many finding
-> +   can be tagged with the same id, if the justification holds for any applied
-> +   case.
-> +   It tells the tool to substitute a Xen in-code comment having this structure:
-> +   /* SAF-0-safe [...] \*/
-> + - analyser: it is an object containing pair of key-value strings, the key is
-> +   the analyser, so it can be coverity or eclair, the value is the proprietary
-> +   id corresponding on the finding, for example when coverity is used as
-> +   analyser, the tool will translate the Xen in-code coment in this way:
-> +   /* SAF-0-safe [...] \*/ -> /* coverity[misra_c_2012_rule_20_7_violation] \*/
-> +   if the object doesn't have a key-value, then the corresponding in-code
-> +   comment won't be translated.
-> + - name: a simple name for the finding
-> + - text: a proper justification to turn off the finding.
-> +
-> +
-> +Here is an example to add a new justification in false-positive-<tool>.json::
-> +
-> +|{
-> +|    "version": "1.0",
-> +|    "content": [
-> +|        {
-> +|            "id": "SAF-0-false-positive-<tool>",
-> +|            "violation-id": "<proprietary-id>",
-> +|            "tool-version": "<version>",
-> +|            "name": "R20.7 [...]",
-> +|            "text": "[...]"
-> +|        },
-> +|        {
-> +|            "id": "SAF-1-false-positive-<tool>",
-> +|            "violation-id": "",
-> +|            "tool-version": "",
-> +|            "name": "Sentinel",
-> +|            "text": "Next ID to be used"
-> +|        }
-> +|    ]
-> +|}
-> +
-> +To document a finding in false-positive-<tool>.json, just add another block
-> +{[...]} before the sentinel block, using the id contained in the sentinel block
-> +and increment by one the number contained in the id of the sentinel block.
-> +
-> +Here is an explanation of the fields inside an object of the "content" array:
-> + - id: it has the same meaning as in the "safe" justification schema.
-> +   It tells the tool to substitute a Xen in-code comment having this structure:
-> +   /* SAF-0-false-positive-<tool> [...] \*/
-> + - violation-id: its value is a string containing the proprietary id
-> +   corresponding to the finding, for example when <tool> is coverity, the Xen
-> +   tool will translate the Xen in-code coment in this way:
-> +   /* SAF-0-false-positive-coverity [...] \*/ -> /* coverity[misra_c_2012_rule_20_7_violation] \*/
-> +   if the object doesn't have a value, then the corresponding in-code comment
-> +   won't be translated.
-> + - tool-version: the version of the tool affected by the false positive, if it
-> +   is discovered in more than one version, this string can be a range
-> +   (eg. 2.7 - 3.0)
-> + - name, text: they have the same meaning as in the "safe" justification schema.
-> +
-> +
-> +Justification example
-> +---------------------
-> +
-> +Here an example of the usage of the in-code comment tags to suppress a finding
-> +for the Rule 8.6:
-> +
-> +Eclair reports it in its web report, file xen/include/xen/kernel.h, line 68:
-> +
-> +| MC3R1.R8.6 for program 'xen/xen-syms', variable '_start' has no definition
-> +
-> +Also coverity reports it, here is an extract of the finding:
-> +
-> +| xen/include/xen/kernel.h:68:
-> +| 1. misra_c_2012_rule_8_6_violation: Function "_start" is declared but never
-> + defined.
-> +
-> +The analysers are complaining because we have this in xen/include/xen/kernel.h
-> +at line 68::
-> +
-> +| extern char _start[], _end[], start[];
-> +
-> +Those are symbols exported by the linker, hence we will need to have a proper
-> +deviation for this finding.
-> +
-> +We will prepare our entry in the safe.json database::
-> +
-> +|{
-> +|    "version": "1.0",
-> +|    "content": [
-> +|        {
-> +|        [...]
-> +|        },
-> +|        {
-> +|            "id": "SAF-1-safe",
-> +|            "analyser": {
-> +|                "eclair": "MC3R1.R8.6",
-> +|                "coverity": "misra_c_2012_rule_8_6_violation"
-> +|            },
-> +|            "name": "Rule 8.6: linker script defined symbols",
-> +|            "text": "It is safe to declare this symbol because it is defined in the linker script."
-> +|        },
-> +|        {
-> +|            "id": "SAF-2-safe",
-> +|            "analyser": {},
-> +|            "name": "Sentinel",
-> +|            "text": "Next ID to be used"
-> +|        }
-> +|    ]
-> +|}
-> +
-> +And we will use the proper tag above the violation line::
-> +
-> +| /* SAF-1-safe R8.6 linker defined symbols */
-> +| extern char _start[], _end[], start[];
-> +
-> +This entry will fix also the violation on _end and start, because they are on
-> +the same line and the same "violation ID".
-> +
-> +Also, the same tag can be used on other symbols from the linker that are
-> +declared in the codebase, because the justification holds for them too.
-> diff --git a/docs/misra/false-positive-coverity.json b/docs/misra/false-positive-coverity.json
+> @@ -51,6 +51,7 @@ Here is an example to add a new justification in safe.json::
+>  |        {
+>  |            "id": "SAF-0-safe",
+>  |            "analyser": {
+> +|                "cppcheck": "misra-c2012-20.7",
+>  |                "coverity": "misra_c_2012_rule_20_7_violation",
+>  |                "eclair": "MC3R1.R20.7"
+>  |            },
+> @@ -77,9 +78,9 @@ Here is an explanation of the fields inside an object of the "content" array:
+>     It tells the tool to substitute a Xen in-code comment having this structure:
+>     /* SAF-0-safe [...] \*/
+>   - analyser: it is an object containing pair of key-value strings, the key is
+> -   the analyser, so it can be coverity or eclair, the value is the proprietary
+> -   id corresponding on the finding, for example when coverity is used as
+> -   analyser, the tool will translate the Xen in-code coment in this way:
+> +   the analyser, so it can be cppcheck, coverity or eclair, the value is the
+> +   proprietary id corresponding on the finding, for example when coverity is
+> +   used as analyser, the tool will translate the Xen in-code coment in this way:
+>     /* SAF-0-safe [...] \*/ -> /* coverity[misra_c_2012_rule_20_7_violation] \*/
+>     if the object doesn't have a key-value, then the corresponding in-code
+>     comment won't be translated.
+> diff --git a/docs/misra/false-positive-cppcheck.json b/docs/misra/false-positive-cppcheck.json
 > new file mode 100644
-> index 000000000000..462448414f80
+> index 000000000000..5d4da2ce6170
 > --- /dev/null
-> +++ b/docs/misra/false-positive-coverity.json
+> +++ b/docs/misra/false-positive-cppcheck.json
 > @@ -0,0 +1,12 @@
 > +{
 > +    "version": "1.0",
 > +    "content": [
 > +        {
-> +            "id": "SAF-0-false-positive-coverity",
+> +            "id": "SAF-0-false-positive-cppcheck",
 > +            "violation-id": "",
 > +            "tool-version": "",
 > +            "name": "Sentinel",
@@ -362,502 +269,1050 @@ Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 > +        }
 > +    ]
 > +}
-> diff --git a/docs/misra/false-positive-eclair.json b/docs/misra/false-positive-eclair.json
-> new file mode 100644
-> index 000000000000..1d6ea5d7f045
-> --- /dev/null
-> +++ b/docs/misra/false-positive-eclair.json
-> @@ -0,0 +1,12 @@
-> +{
-> +    "version": "1.0",
-> +    "content": [
-> +        {
-> +            "id": "SAF-0-false-positive-eclair",
-> +            "violation-id": "",
-> +            "tool-version": "",
-> +            "name": "Sentinel",
-> +            "text": "Next ID to be used"
-> +        }
-> +    ]
-> +}
-> diff --git a/docs/misra/safe.json b/docs/misra/safe.json
-> new file mode 100644
-> index 000000000000..e079d3038120
-> --- /dev/null
-> +++ b/docs/misra/safe.json
-> @@ -0,0 +1,11 @@
-> +{
-> +    "version": "1.0",
-> +    "content": [
-> +        {
-> +            "id": "SAF-0-safe",
-> +            "analyser": {},
-> +            "name": "Sentinel",
-> +            "text": "Next ID to be used"
-> +        }
-> +    ]
-> +}
+
+I think we need to add to the cppcheck document how to figure out the
+cppcheck id for a given violation in the html report
+
+
 > diff --git a/docs/misra/xen-static-analysis.rst b/docs/misra/xen-static-analysis.rst
-> new file mode 100644
-> index 000000000000..5b886474d4a0
-> --- /dev/null
+> index 5b886474d4a0..2712255db1b0 100644
+> --- a/docs/misra/xen-static-analysis.rst
 > +++ b/docs/misra/xen-static-analysis.rst
-> @@ -0,0 +1,54 @@
-> +.. SPDX-License-Identifier: CC-BY-4.0
+> @@ -7,9 +7,8 @@ The Xen codebase integrates some scripts and tools that helps the developer to
+>  perform static analysis of the code, currently Xen supports three analysis tool
+>  that are eclair, coverity and cppcheck.
+>  The Xen tree has a script (xen-analysis.py) available to ease the analysis
+> -process and it integrates a way to suppress findings on these tools (only Eclair
+> -and Coverity are currently supported by the script), please check the
+> -documenting-violation.rst document to know more about it.
+> +process and it integrates a way to suppress findings on these tools, please
+> +check the documenting-violation.rst document to know more about it.
+>  
+>  Analyse Xen with Coverity or Eclair
+>  -----------------------------------
+> @@ -52,3 +51,40 @@ When invoking the script, the procedure below will be followed:
+>      this step, call the script adding the --no-clean argument, but before
+>      running again the script, call it with the --clean-only argument, that will
+>      execute only this cleaning step.
 > +
-> +Xen static analysis
-> +===================
 > +
-> +The Xen codebase integrates some scripts and tools that helps the developer to
-> +perform static analysis of the code, currently Xen supports three analysis tool
-> +that are eclair, coverity and cppcheck.
-> +The Xen tree has a script (xen-analysis.py) available to ease the analysis
-> +process and it integrates a way to suppress findings on these tools (only Eclair
-> +and Coverity are currently supported by the script), please check the
-> +documenting-violation.rst document to know more about it.
+> +Analyse Xen with Cppcheck
+> +-------------------------
 > +
-> +Analyse Xen with Coverity or Eclair
-> +-----------------------------------
+> +Cppcheck tool is integrated in xen-analysis.py script, when using the script,
+> +the tool will be called on every source file compiled by the make build system.
+> +Here how to start the analysis with Cppcheck:
 > +
-> +The xen-analysis.py script has two arguments to select which tool is used for
-> +the analysis:
+> + - xen-analysis.py --run-cppcheck [--cppcheck-misra] [--cppcheck-html] --
+> +   [optional make arguments]
 > +
-> + - xen-analysis.py --run-coverity -- [optional make arguments]
-> + - xen-analysis.py --run-eclair -- [optional make arguments]
+> +The command above tells the script to prepare the codebase and use Cppcheck tool
+> +for the analysis.
+> +The optional argument --cppcheck-misra activates the analysis also for MISRA
+> +compliance.
+> +The optional argument --cppcheck-html instruct cppcheck to produce an additional
+> +HTML report.
 > +
-> +For example when using Coverity to analyse a Xen build obtained by passing these
-> +arguments to the make system: XEN_TARGET_ARCH=arm64
-> +CROSS_COMPILE=aarch64-linux-gnu-, the optional make arguments passed to
-> +xen-analysis.py must be the same and the command below should be passed to
-> +Coverity in its build phase:
+> +When invoking the script for Cppcheck analysis, the followed procedure is
+> +similar to the one above for Coverity or Eclair, but it has some additional
+> +steps:
 > +
-> + - xen-analysis.py --run-coverity -- XEN_TARGET_ARCH=arm64
-> +   CROSS_COMPILE=aarch64-linux-gnu-
+> + 1. This step is the same as step 1 for Coverity/Eclair.
+> + 2. The cppcheck dependency are created, build directory for cppcheck analysis
+> +    and an header file containing internal compiler macro
+> +    (include/generated/compiler-def.h) are generated
+> + 3. Xen compilation starts using every <additional make parameters> supplied
+> +    at the script invocation, but because cppcheck is not able to intercept the
+> +    compiled files and flags on compiler invocation, a script (cppcheck-cc.sh)
+> +    is passed as CC to the make system, it is a wrapper for the compiler that
+> +    will also execute cppcheck on every compiled file.
+> + 4. After the compilation and analysis, the cppcheck report will be created
+> +    putting together all the cppcheck report fragments for every analysed file.
+> +    Cppcheck will produce a text fragment and an additional XML report fragment
+> +    if the script is configured to produce the HTML output.
+> + 5. This step is the same as step 3 for Coverity/Eclair.
+> diff --git a/xen/include/hypercall-defs.c b/xen/include/hypercall-defs.c
+> index 189612107402..41e1af01f6b2 100644
+> --- a/xen/include/hypercall-defs.c
+> +++ b/xen/include/hypercall-defs.c
+> @@ -60,6 +60,13 @@
+>   * are possible.
+>   */
+>  
+> +/*
+> + * Cppcheck thinks this file needs to be analysed because it is preprocessed by
+> + * the compiler, but it gets confused because this file does not contains C
+> + * code. Hence protect the code when CPPCHECK is used.
+> + */
+> +#ifndef CPPCHECK
 > +
-> +Which tells to the script to prepare the codebase for an analysis by Coverity
-> +and forwards the make arguments to the make build invocation.
+>  #ifdef CONFIG_HVM
+>  #define PREFIX_hvm hvm
+>  #else
+> @@ -288,3 +295,5 @@ mca                                do       do       -        -        -
+>  #ifndef CONFIG_PV_SHIM_EXCLUSIVE
+>  paging_domctl_cont                 do       do       do       do       -
+>  #endif
 > +
-> +When invoking the script, the procedure below will be followed:
-> +
-> + 1. Find which files among \*.c and \*.h has any in-code comment as
-> +    /* SAF-X-[...] \*/, the meaning of these comments is explained in
-> +    documenting-violation.rst.
-> +    Save the files obtained as <file>.safparse and generate <file> files where
-> +    the special in-code comments above are substituted with the proprietary
-> +    in-code comment used by the selected analysis tool. The safe.json and
-> +    false-positive-<tool>.json text file database are used to link each Xen tag
-> +    to the right proprietary in-code comment.
-> + 2. Now Xen compilation starts using every <additional make parameters> supplied
-> +    at the script invocation. Coverity and Eclair are capable of intercepting
-> +    the compiler running from make to perform their analysis without
-> +    instrumenting the makefile.
-> + 3. As final step every <file>.safparse file are reverted back as <file> and
-> +    every artifact related to the analysis will be cleaned.
-> +    This step is performed even in case any of the previous step fail, to skip
-> +    this step, call the script adding the --no-clean argument, but before
-> +    running again the script, call it with the --clean-only argument, that will
-> +    execute only this cleaning step.
+> +#endif /* !CPPCHECK */
 > diff --git a/xen/scripts/xen-analysis.py b/xen/scripts/xen-analysis.py
-> new file mode 100755
-> index 000000000000..b5d9ef1862c9
-> --- /dev/null
+> index b5d9ef1862c9..8e50c27cd898 100755
+> --- a/xen/scripts/xen-analysis.py
 > +++ b/xen/scripts/xen-analysis.py
-> @@ -0,0 +1,31 @@
-> +#!/usr/bin/env python3
+> @@ -1,28 +1,42 @@
+>  #!/usr/bin/env python3
+>  
+>  import sys
+> -from xen_analysis import settings, generic_analysis
+> +from xen_analysis import settings, generic_analysis, cppcheck_analysis
+>  from xen_analysis.generic_analysis import *
+> +from xen_analysis.cppcheck_analysis import *
 > +
-> +import sys
-> +from xen_analysis import settings, generic_analysis
-> +from xen_analysis.generic_analysis import *
-> +
-> +
-> +def main(argv):
-> +    ret_code = 0
-> +    settings.parse_commandline(argv)
-> +    try:
-> +        if settings.step_parse_tags:
-> +            generic_analysis.parse_xen_tags()
-> +        if settings.step_build_xen:
-> +            generic_analysis.build_xen()
-> +    except (ParseTagPhaseError, BuildPhaseError) as e:
-> +        print("ERROR: {}".format(e))
-> +        if hasattr(e, "errorcode"):
-> +            ret_code = e.errorcode
-> +    finally:
-> +        if settings.step_clean_analysis:
-> +            e = generic_analysis.clean_analysis_artifacts()
-> +            if e:
-> +                print("ERROR: {}".format(e))
-> +                ret_code = 1
-> +
-> +    sys.exit(ret_code)
-> +
-> +
-> +if __name__ == "__main__":
-> +    main(sys.argv[1:])
-> diff --git a/xen/scripts/xen_analysis/__init__.py b/xen/scripts/xen_analysis/__init__.py
+> +PhaseExceptions = (GetMakeVarsPhaseError, ParseTagPhaseError,
+> +                   CppcheckDepsPhaseError, BuildPhaseError,
+> +                   CppcheckReportPhaseError)
+>  
+>  
+>  def main(argv):
+>      ret_code = 0
+>      settings.parse_commandline(argv)
+>      try:
+> +        if settings.step_get_make_vars:
+> +            cppcheck_analysis.get_make_vars()
+>          if settings.step_parse_tags:
+>              generic_analysis.parse_xen_tags()
+> +        if settings.step_cppcheck_deps:
+> +            cppcheck_analysis.generate_cppcheck_deps()
+>          if settings.step_build_xen:
+>              generic_analysis.build_xen()
+> -    except (ParseTagPhaseError, BuildPhaseError) as e:
+> +        if settings.step_cppcheck_report:
+> +            cppcheck_analysis.generate_cppcheck_report()
+> +    except PhaseExceptions as e:
+>          print("ERROR: {}".format(e))
+>          if hasattr(e, "errorcode"):
+>              ret_code = e.errorcode
+>      finally:
+>          if settings.step_clean_analysis:
+> +            cppcheck_analysis.clean_analysis_artifacts()
+>              e = generic_analysis.clean_analysis_artifacts()
+>              if e:
+>                  print("ERROR: {}".format(e))
+>                  ret_code = 1
+> +        if settings.step_distclean_analysis:
+> +            cppcheck_analysis.clean_reports()
+>  
+>      sys.exit(ret_code)
+>  
+> diff --git a/xen/scripts/xen_analysis/cppcheck_analysis.py b/xen/scripts/xen_analysis/cppcheck_analysis.py
 > new file mode 100644
-> index 000000000000..e69de29bb2d1
-> diff --git a/xen/scripts/xen_analysis/generic_analysis.py b/xen/scripts/xen_analysis/generic_analysis.py
-> new file mode 100644
-> index 000000000000..0b470c4ecf7d
+> index 000000000000..0e952a169641
 > --- /dev/null
-> +++ b/xen/scripts/xen_analysis/generic_analysis.py
-> @@ -0,0 +1,93 @@
+> +++ b/xen/scripts/xen_analysis/cppcheck_analysis.py
+> @@ -0,0 +1,273 @@
 > +#!/usr/bin/env python3
 > +
-> +import os, subprocess
-> +from . import settings, utils, tag_database
+> +import os, re, shutil
+> +from . import settings, utils, cppcheck_report_utils
 > +
-> +class ParseTagPhaseError(Exception):
+> +class GetMakeVarsPhaseError(Exception):
 > +    pass
 > +
-> +class BuildPhaseError(Exception):
+> +class CppcheckDepsPhaseError(Exception):
 > +    pass
 > +
-> +class CleanPhaseError(Exception):
+> +class CppcheckReportPhaseError(Exception):
 > +    pass
 > +
+> +CPPCHECK_BUILD_DIR = "build-dir-cppcheck"
+> +CPPCHECK_HTMLREPORT_OUTDIR = "cppcheck-htmlreport"
+> +CPPCHECK_REPORT_OUTDIR = "cppcheck-report"
+> +cppcheck_extra_make_args = ""
+> +xen_cc = ""
 > +
-> +def parse_xen_tags():
-> +    # Load the database for the Xen tags
-> +    subs_list = tag_database.load_tag_database(
-> +        settings.analysis_tool,
-> +        [settings.repo_dir + "/docs/misra/safe.json"]
-> +    )
-> +    subs_list = tag_database.load_tag_database(
-> +        settings.analysis_tool,
-> +        [settings.repo_dir + "/docs/misra/false-positive-{}.json"
-> +                                .format(settings.analysis_tool)],
-> +        subs_list,
-> +        "false-positive"
-> +    )
-> +
-> +    # Create outdir if it doesn't exists
-> +    os.makedirs(settings.outdir, exist_ok=True)
-> +
-> +    # The following lambda function will return a file if it contains lines with
-> +    # a comment containing "SAF-<number>-{safe|false-positive-<tool>}" on a
-> +    # single line.
-> +    grep_action = lambda x: utils.grep(x,
-> +                                    tag_database.get_xen_tag_comment_regex(
-> +                                                        settings.analysis_tool)
-> +    )
-> +    # Look for a list of .h/.c files that matches the condition above
-> +    parse_file_list = utils.recursive_find_file(settings.xen_dir, r'.*\.[ch]$',
-> +                                                grep_action)
-> +
-> +    for entry in parse_file_list:
-> +        file = entry["file"]
-> +        bkp_file = file + ".safparse"
-> +        if os.path.isfile(bkp_file):
-> +            raise ParseTagPhaseError(
-> +                "Found {}, please check the integrity of {}"
-> +                    .format(bkp_file,file)
-> +                )
-> +        os.rename(file, bkp_file)
-> +        time_bkp_file = os.stat(bkp_file)
-> +        # Create <file> from <file>.safparse but with the Xen tag parsed
-> +        tag_database.substitute_tags(settings.analysis_tool, bkp_file, entry,
-> +                                     subs_list)
-> +        # Set timestamp for file equal to bkp_file, so that if the file is
-> +        # modified during the process by the user, we can catch it
-> +        os.utime(file, (time_bkp_file.st_atime, time_bkp_file.st_mtime))
-> +
-> +
-> +def build_xen():
-> +    try:
-> +        subprocess.run(
-> +            "make -C {} {} build"
+> +def get_make_vars():
+> +    global xen_cc
+> +    invoke_make = utils.invoke_command(
+> +            "make -C {} {} export-variable-CC"
 > +                .format(settings.xen_dir, settings.make_forward_args),
-> +            shell=True, check=True
+> +            True, GetMakeVarsPhaseError,
+> +            "Error occured retrieving make vars:\n{}"
 > +        )
-> +    except (subprocess.CalledProcessError, subprocess.SubprocessError)  as e:
-> +        excp = BuildPhaseError(
-> +                "Build error occured when running:\n{}".format(e.cmd)
-> +            )
-> +        excp.errorcode = e.returncode if hasattr(e, 'returncode') else 1
-> +        raise excp
+> +
+> +    cc_var_regex = re.search('^CC=(.*)$', invoke_make, flags=re.M)
+> +    if cc_var_regex:
+> +        xen_cc = cc_var_regex.group(1)
+> +
+> +    if xen_cc == "":
+> +        raise GetMakeVarsPhaseError("CC variable not found in Xen make output")
+> +
+> +
+> +def __generate_suppression_list(out_file):
+> +    # The following lambda function will return a file if it contains lines with
+> +    # a comment containing "cppcheck-suppress[*]" on a single line.
+> +    grep_action = lambda x: utils.grep(x,
+> +                    r'^[ \t]*/\* cppcheck-suppress\[(.*)\] \*/$')
+> +    # Look for a list of .h files that matches the condition above
+> +    headers = utils.recursive_find_file(settings.xen_dir, r'.*\.h$',
+> +                                        grep_action)
+> +
+> +    try:
+> +        with open(out_file, "wt") as supplist_file:
+> +            # Add this rule to skip every finding in the autogenerated
+> +            # header for cppcheck
+> +            supplist_file.write("*:*generated/compiler-def.h\n")
+> +
+> +            for entry in headers:
+> +                filename = entry["file"]
+> +                try:
+> +                    with open(filename, "rt") as infile:
+> +                        header_content = infile.readlines()
+> +                except OSError as e:
+> +                    raise CppcheckDepsPhaseError(
+> +                            "Issue with reading file {}: {}"
+> +                                .format(filename, e)
+> +                          )
+> +                header_lines_len = len(header_content)
+> +                # line_num in entry will be header_content[line_num-1], here we
+> +                # are going to search the first line after line_num that have
+> +                # anything different from comments or empty line, because the
+> +                # in-code comment suppression is related to that line then.
+> +                for line_num in entry["matches"]:
+> +                    cppcheck_violation_id = ""
+> +                    tmp_line = line_num
+> +                    # look up to which line is referring the comment at
+> +                    # line_num (which would be header_content[tmp_line-1])
+> +                    comment_section = False
+> +                    while tmp_line < header_lines_len:
+> +                        line = header_content[tmp_line]
+> +                        # Matches a line with just optional spaces/tabs and the
+> +                        # start of a comment '/*'
+> +                        comment_line_starts = re.match('^[ \t]*/\*.*$', line)
+> +                        # Matches a line with text and the end of a comment '*/'
+> +                        comment_line_stops = re.match('^.*\*/$', line)
+> +                        if (not comment_section) and comment_line_starts:
+> +                            comment_section = True
+> +                        if (len(line.strip()) != 0) and (not comment_section):
+> +                            cppcheck_violation_id = entry["matches"][line_num][0]
+> +                            break
+> +                        if comment_section and comment_line_stops:
+> +                            comment_section = False
+> +                        tmp_line = tmp_line + 1
+> +
+> +                    if cppcheck_violation_id == "":
+> +                        raise CppcheckDepsPhaseError(
+> +                            "Error matching cppcheck comment in {} at line {}."
+> +                                .format(filename, line_num)
+> +                          )
+> +                    # Write [error id]:[filename]:[line]
+> +                    # tmp_line refers to the array index, so translated to the
+> +                    # file line (that begins with 1) it is tmp_line+1
+> +                    supplist_file.write(
+> +                            "{}:{}:{}\n".format(cppcheck_violation_id, filename,
+> +                                                (tmp_line + 1))
+> +                        )
+> +    except OSError as e:
+> +        raise CppcheckDepsPhaseError("Issue with writing file {}: {}"
+> +                                     .format(out_file, e))
+> +
+> +
+> +def generate_cppcheck_deps():
+> +    global cppcheck_extra_make_args
+> +
+> +    # Compile flags to pass to cppcheck:
+> +    # - include config.h as this is passed directly to the compiler.
+> +    # - define CPPCHECK as we use it to disable or enable some specific part of
+> +    #   the code to solve some cppcheck issues.
+> +    # - explicitely enable some cppcheck checks as we do not want to use "all"
+> +    #   which includes unusedFunction which gives wrong positives as we check
+> +    #   file per file.
+> +    # - Explicitly suppress warnings on compiler-def.h because cppcheck throws
+> +    #   an unmatchedSuppression due to the rule we put in suppression-list.txt
+> +    #   to skip every finding in the file.
+> +    #
+> +    # Compiler defines are in compiler-def.h which is included in config.h
+> +    #
+> +    cppcheck_flags="""
+> +--cppcheck-build-dir={}/{}
+> + --max-ctu-depth=10
+> + --enable=style,information,missingInclude
+> + --template=\'{{file}}({{line}},{{column}}):{{id}}:{{severity}}:{{message}}\'
+> + --relative-paths={}
+> + --inline-suppr
+> + --suppressions-list={}/suppression-list.txt
+> + --suppress='unmatchedSuppression:*generated/compiler-def.h'
+> + --include={}/include/xen/config.h
+> + -DCPPCHECK
+> +""".format(settings.outdir, CPPCHECK_BUILD_DIR, settings.xen_dir,
+> +           settings.outdir, settings.xen_dir)
+> +
+> +    invoke_cppcheck = utils.invoke_command(
+> +            "{} --version".format(settings.cppcheck_binpath),
+> +            True, CppcheckDepsPhaseError,
+> +            "Error occured retrieving cppcheck version:\n{}\n\n{}"
+> +        )
+> +
+> +    version_regex = re.search('^Cppcheck (.*)$', invoke_cppcheck, flags=re.M)
+> +    # Currently, only cppcheck version >= 2.7 is supported, but version 2.8 is
+> +    # known to be broken, please refer to docs/misra/cppcheck.txt
+> +    if (not version_regex) or (not version_regex.group(1).startswith("2.7")):
+> +        raise CppcheckDepsPhaseError(
+> +                "Can't find cppcheck version or version is not 2.7"
+> +              )
+> +
+> +    # If misra option is selected, append misra addon and generate cppcheck
+> +    # files for misra analysis
+> +    if settings.cppcheck_misra:
+> +        cppcheck_flags = cppcheck_flags + " --addon=cppcheck-misra.json"
+> +
+> +        utils.invoke_command(
+> +            "{}/convert_misra_doc.py -i {}/docs/misra/rules.rst"
+> +            " -o {}/cppcheck-misra.txt -j {}/cppcheck-misra.json"
+> +                .format(settings.tools_dir, settings.repo_dir,
+> +                        settings.outdir, settings.outdir),
+> +            False, CppcheckDepsPhaseError,
+> +            "An error occured when running:\n{}"
+> +        )
+> +
+> +    # Generate compiler macros
+> +    os.makedirs("{}/include/generated".format(settings.outdir), exist_ok=True)
+> +    utils.invoke_command(
+> +            "{} -dM -E -o \"{}/include/generated/compiler-def.h\" - < /dev/null"
+> +                .format(xen_cc, settings.outdir),
+> +            False, CppcheckDepsPhaseError,
+> +            "An error occured when running:\n{}"
+> +        )
+> +
+> +    # Generate cppcheck suppression list
+> +    __generate_suppression_list(
+> +        "{}/suppression-list.txt".format(settings.outdir))
+> +
+> +    # Generate cppcheck build folder
+> +    os.makedirs("{}/{}".format(settings.outdir, CPPCHECK_BUILD_DIR),
+> +                exist_ok=True)
+> +
+> +    cppcheck_cc_flags = """--compiler={} --cppcheck-cmd={} {}
+> + --cppcheck-plat={}/cppcheck-plat --ignore-path=tools/
+> + --ignore-path=arch/x86/efi/check.c
+> +""".format(xen_cc, settings.cppcheck_binpath, cppcheck_flags,
+> +           settings.tools_dir)
+> +
+> +    if settings.cppcheck_html:
+> +        cppcheck_cc_flags = cppcheck_cc_flags + " --cppcheck-html"
+> +
+> +    # Generate the extra make argument to pass the cppcheck-cc.sh wrapper as CC
+> +    cppcheck_extra_make_args = "CC=\"{}/cppcheck-cc.sh {} --\"".format(
+> +                                        settings.tools_dir,
+> +                                        cppcheck_cc_flags
+> +                                    ).replace("\n", "")
+> +
+> +
+> +def generate_cppcheck_report():
+> +    # Prepare text report
+> +    # Look for a list of .cppcheck.txt files, those are the txt report
+> +    # fragments
+> +    fragments = utils.recursive_find_file(settings.outdir, r'.*\.cppcheck.txt$')
+> +    text_report_dir = "{}/{}".format(settings.outdir,
+> +                                        CPPCHECK_REPORT_OUTDIR)
+> +    report_filename = "{}/xen-cppcheck.txt".format(text_report_dir)
+> +    os.makedirs(text_report_dir, exist_ok=True)
+> +    try:
+> +        cppcheck_report_utils.cppcheck_merge_txt_fragments(fragments,
+> +                                                           report_filename,
+> +                                                           [settings.xen_dir])
+> +    except cppcheck_report_utils.CppcheckTXTReportError as e:
+> +        raise CppcheckReportPhaseError(e)
+> +
+> +    # If HTML output is requested
+> +    if settings.cppcheck_html:
+> +        # Look for a list of .cppcheck.xml files, those are the XML report
+> +        # fragments
+> +        fragments = utils.recursive_find_file(settings.outdir,
+> +                                              r'.*\.cppcheck.xml$')
+> +        html_report_dir = "{}/{}".format(settings.outdir,
+> +                                         CPPCHECK_HTMLREPORT_OUTDIR)
+> +        xml_filename = "{}/xen-cppcheck.xml".format(html_report_dir)
+> +        os.makedirs(html_report_dir, exist_ok=True)
+> +        try:
+> +            cppcheck_report_utils.cppcheck_merge_xml_fragments(fragments,
+> +                                                               xml_filename,
+> +                                                               settings.xen_dir,
+> +                                                               settings.outdir)
+> +        except cppcheck_report_utils.CppcheckHTMLReportError as e:
+> +            raise CppcheckReportPhaseError(e)
+> +        # Call cppcheck-htmlreport utility to generate the HTML output
+> +        utils.invoke_command(
+> +            "{} --file={} --source-dir={} --report-dir={}/html --title=Xen"
+> +                .format(settings.cppcheck_htmlreport_binpath, xml_filename,
+> +                        settings.xen_dir, html_report_dir),
+> +            False, CppcheckReportPhaseError,
+> +            "Error occured generating Cppcheck HTML report:\n{}"
+> +        )
+> +        # Strip src and obj path from *.html files
+> +        html_files = utils.recursive_find_file(html_report_dir, r'.*\.html$')
+> +        try:
+> +            cppcheck_report_utils.cppcheck_strip_path_html(html_files,
+> +                                                           (settings.xen_dir,
+> +                                                            settings.outdir))
+> +        except cppcheck_report_utils.CppcheckHTMLReportError as e:
+> +            raise CppcheckReportPhaseError(e)
 > +
 > +
 > +def clean_analysis_artifacts():
-> +    safparse_files = utils.recursive_find_file(settings.xen_dir,
-> +                                               r'.*.safparse$')
-> +    for original_file in safparse_files:
-> +        # This commands strips the .safparse extension, leaving <file>
-> +        parsed_file_path = os.path.splitext(original_file)[0]
-> +        mtime_original_file = os.stat(original_file).st_mtime
-> +        mtime_parsed_file = os.stat(parsed_file_path).st_mtime
-> +        if mtime_original_file != mtime_parsed_file:
-> +            return CleanPhaseError(
-> +                    "The file {} was modified during the analysis "
-> +                    "procedure, it is impossible now to restore from the "
-> +                    "content of {}, please handle it manually"
-> +                    .format(parsed_file_path, original_file)
-> +                )
-> +        # Replace <file>.safparse to <file>
-> +        os.replace(original_file, parsed_file_path)
-> diff --git a/xen/scripts/xen_analysis/settings.py b/xen/scripts/xen_analysis/settings.py
+> +    clean_files = ("suppression-list.txt", "cppcheck-misra.txt",
+> +                   "cppcheck-misra.json")
+> +    cppcheck_build_dir = "{}/{}".format(settings.outdir, CPPCHECK_BUILD_DIR)
+> +    if os.path.isdir(cppcheck_build_dir):
+> +        shutil.rmtree(cppcheck_build_dir)
+> +    artifact_files = utils.recursive_find_file(settings.outdir,
+> +                                r'.*\.(?:c\.json|cppcheck\.txt|cppcheck\.xml)$')
+> +    for file in clean_files:
+> +        file = "{}/{}".format(settings.outdir, file)
+> +        if os.path.isfile(file):
+> +            artifact_files.append(file)
+> +    for delfile in artifact_files:
+> +        os.remove(delfile)
+> +
+> +
+> +def clean_reports():
+> +    text_report_dir = "{}/{}".format(settings.outdir,
+> +                                     CPPCHECK_REPORT_OUTDIR)
+> +    html_report_dir = "{}/{}".format(settings.outdir,
+> +                                     CPPCHECK_HTMLREPORT_OUTDIR)
+> +    if os.path.isdir(text_report_dir):
+> +        shutil.rmtree(text_report_dir)
+> +    if os.path.isdir(html_report_dir):
+> +        shutil.rmtree(html_report_dir)
+> diff --git a/xen/scripts/xen_analysis/cppcheck_report_utils.py b/xen/scripts/xen_analysis/cppcheck_report_utils.py
 > new file mode 100644
-> index 000000000000..947dfa2d50af
+> index 000000000000..02440aefdfec
 > --- /dev/null
-> +++ b/xen/scripts/xen_analysis/settings.py
-> @@ -0,0 +1,97 @@
+> +++ b/xen/scripts/xen_analysis/cppcheck_report_utils.py
+> @@ -0,0 +1,130 @@
 > +#!/usr/bin/env python3
 > +
-> +import sys, re, os
+> +import os
+> +from xml.etree import ElementTree
 > +
-> +module_dir = os.path.dirname(os.path.realpath(__file__))
-> +xen_dir = os.path.realpath(module_dir + "/../..")
-> +repo_dir = os.path.realpath(xen_dir + "/..")
-> +tools_dir = os.path.realpath(xen_dir + "/tools")
-> +
-> +step_parse_tags = True
-> +step_build_xen = True
-> +step_clean_analysis = True
-> +
-> +target_build = False
-> +target_clean = False
-> +
-> +analysis_tool = ""
-> +make_forward_args = ""
-> +outdir = xen_dir
-> +
-> +
-> +def help():
-> +    msg="""
-> +Usage: {} [OPTION] ... [-- [make arguments]]
-> +
-> +This script runs the analysis on the Xen codebase.
-> +
-> +Options:
-> +  --build-only    Run only the commands to build Xen with the optional make
-> +                  arguments passed to the script
-> +  --clean-only    Run only the commands to clean the analysis artifacts
-> +  -h, --help      Print this help
-> +  --no-build      Skip the build Xen phase
-> +  --no-clean      Don\'t clean the analysis artifacts on exit
-> +  --run-coverity  Run the analysis for the Coverity tool
-> +  --run-eclair    Run the analysis for the Eclair tool
-> +"""
-> +    print(msg.format(sys.argv[0]))
-> +
-> +
-> +def parse_commandline(argv):
-> +    global analysis_tool
-> +    global make_forward_args
-> +    global outdir
-> +    global step_parse_tags
-> +    global step_build_xen
-> +    global step_clean_analysis
-> +    global target_build
-> +    global target_clean
-> +    forward_to_make = False
-> +    for option in argv:
-> +        if forward_to_make:
-> +            # Intercept outdir
-> +            outdir_regex = re.match("^O=(.*)$", option)
-> +            if outdir_regex:
-> +                outdir = outdir_regex.group(1)
-> +            # Forward any make arguments
-> +            make_forward_args = make_forward_args + " " + option
-> +        elif option == "--build-only":
-> +            target_build = True
-> +        elif option == "--clean-only":
-> +            target_clean = True
-> +        elif (option == "--help") or (option == "-h"):
-> +            help()
-> +            sys.exit(0)
-> +        elif option == "--no-build":
-> +            step_build_xen = False
-> +        elif option == "--no-clean":
-> +            step_clean_analysis = False
-> +        elif (option == "--run-coverity") or (option == "--run-eclair"):
-> +            analysis_tool = option[6:]
-> +        elif option == "--":
-> +            forward_to_make = True
-> +        else:
-> +            print("Invalid option: {}".format(option))
-> +            help()
-> +            sys.exit(1)
-> +
-> +    if target_build and target_clean:
-> +        print("--build-only is not compatible with --clean-only argument.")
-> +        sys.exit(1)
-> +
-> +    if target_clean:
-> +        step_parse_tags = False
-> +        step_build_xen = False
-> +        step_clean_analysis = True
-> +        return
-> +
-> +    if analysis_tool == "":
-> +        print("Please specify one analysis tool.")
-> +        help()
-> +        sys.exit(1)
-> +
-> +    if target_build:
-> +        step_parse_tags = False
-> +        step_build_xen = True
-> +        step_clean_analysis = False
-> diff --git a/xen/scripts/xen_analysis/tag_database.py b/xen/scripts/xen_analysis/tag_database.py
-> new file mode 100644
-> index 000000000000..ca374bbb62dd
-> --- /dev/null
-> +++ b/xen/scripts/xen_analysis/tag_database.py
-> @@ -0,0 +1,109 @@
-> +#!/usr/bin/env python3
-> +
-> +import re, json
-> +
-> +class TagDatabaseError(Exception):
+> +class CppcheckHTMLReportError(Exception):
 > +    pass
 > +
-> +# This is the dictionary for the rules that translates to proprietary comments:
-> +#  - cppcheck: /* cppcheck-suppress[id] */
-> +#  - coverity: /* coverity[id] */
-> +#  - eclair:   /* -E> hide id 1 "" */
-> +# Add entries to support more analyzers
-> +tool_syntax = {
-> +    "cppcheck":"cppcheck-suppress[VID]",
-> +    "coverity":"coverity[VID]",
-> +    "eclair":"-E> hide VID 1 \"\""
+> +class CppcheckTXTReportError(Exception):
+> +    pass
+> +
+> +
+> +def __elements_equal(el1, el2):
+> +    if type(el1) != type(el2): return False
+> +
+> +    if el1.find('location') is None: return False
+> +    if el2.find('location') is None: return False
+> +
+> +    el1_location = str(el1.find('location').attrib)
+> +    el2_location = str(el2.find('location').attrib)
+> +
+> +    if el1_location != el2_location: return False
+> +
+> +    return True
+> +
+> +
+> +def __contain_element(new, lst):
+> +    for elem in lst:
+> +        if __elements_equal(new, elem):
+> +            return True
+> +    return False
+> +
+> +
+> +def __get_xml_root_file(filename):
+> +    try:
+> +        result_xml_root = ElementTree.parse(filename).getroot()
+> +    except ElementTree.ParseError as e:
+> +        raise CppcheckHTMLReportError(
+> +                    "XML parsing error in {}: {}".format(filename, e)
+> +                )
+> +    return result_xml_root
+> +
+> +
+> +def __sanitize_cppcheck_xml_path(xml_tree, src_path, obj_path):
+> +    # Some path are relative to the source tree but some others are generated
+> +    # in the obj tree, for cppcheck when using cppcheck-htmlreport we can pass
+> +    # only one source tree where the files will be fetched if relative path are
+> +    # found. So for every path that does not exists in src tree, we guess it
+> +    # comes from obj tree and we put explicit absolute path to it
+> +    error_item_root = xml_tree.findall("errors")[0]
+> +    for error_item in error_item_root:
+> +        for location_item in error_item.findall("location"):
+> +            path = location_item.attrib["file"]
+> +            new_obj_path = obj_path + "/" + path
+> +            new_src_path = src_path + "/" + path
+> +            if (path[0] != "/") and (not os.path.isfile(new_src_path)) \
+> +               and os.path.isfile(new_obj_path):
+> +                location_item.attrib["file"] = new_obj_path
+> +
+> +
+> +def cppcheck_merge_xml_fragments(fragments_list, out_xml_file, src_path,
+> +                                 obj_path):
+> +
+> +    result_xml = __get_xml_root_file(fragments_list[0])
+> +    insert_point = result_xml.findall("errors")[0]
+> +    for xml_file in fragments_list[1:]:
+> +        xml_root = __get_xml_root_file(xml_file)
+> +        curr_elem_list = list(insert_point)
+> +        new_elem_list = list(xml_root.findall("errors")[0])
+> +        for xml_error_elem in new_elem_list:
+> +            if not __contain_element(xml_error_elem, curr_elem_list):
+> +                insert_point.insert(1, xml_error_elem)
+> +
+> +    if result_xml is None:
+> +        return False
+> +
+> +    __sanitize_cppcheck_xml_path(result_xml, src_path, obj_path)
+> +
+> +    ElementTree.ElementTree(result_xml).write(out_xml_file)
+> +
+> +    return True
+> +
+> +
+> +def cppcheck_merge_txt_fragments(fragments_list, out_txt_file, strip_paths):
+> +    try:
+> +        with open(out_txt_file, "wt") as outfile:
+> +            # Using a set will remove automatically the duplicate lines
+> +            text_report_content = set()
+> +            for file in fragments_list:
+> +                try:
+> +                    with open(file, "rt") as infile:
+> +                        frag_lines = infile.readlines()
+> +                except OSError as e:
+> +                    raise CppcheckTXTReportError(
+> +                            "Issue with reading file {}: {}"
+> +                                .format(file, e)
+> +                            )
+> +                text_report_content.update(frag_lines)
+> +
+> +            # Back to modifiable list
+> +            text_report_content = list(text_report_content)
+> +            # Strip path from report lines
+> +            for i in list(range(0, len(text_report_content))):
+> +                for path in strip_paths:
+> +                    text_report_content[i] = text_report_content[i].replace(
+> +                                                                path + "/", "")
+> +            # Write the final text report
+> +            outfile.writelines(text_report_content)
+> +    except OSError as e:
+> +        raise CppcheckTXTReportError("Issue with writing file {}: {}"
+> +                                            .format(out_txt_file, e))
+> +
+> +
+> +def cppcheck_strip_path_html(html_files, strip_paths):
+> +    for file in html_files:
+> +        try:
+> +            with open(file, "rt") as infile:
+> +                html_lines = infile.readlines()
+> +        except OSError as e:
+> +            raise CppcheckHTMLReportError("Issue with reading file {}: {}"
+> +                                                            .format(file, e))
+> +        for i in list(range(0, len(html_lines))):
+> +            for path in strip_paths:
+> +                html_lines[i] = html_lines[i].replace(path + "/", "")
+> +        try:
+> +            with open(file, "wt") as outfile:
+> +                outfile.writelines(html_lines)
+> +        except OSError as e:
+> +            raise CppcheckHTMLReportError("Issue with writing file {}: {}"
+> +                                                            .format(file, e))
+> diff --git a/xen/scripts/xen_analysis/generic_analysis.py b/xen/scripts/xen_analysis/generic_analysis.py
+> index 0b470c4ecf7d..94122aebace0 100644
+> --- a/xen/scripts/xen_analysis/generic_analysis.py
+> +++ b/xen/scripts/xen_analysis/generic_analysis.py
+> @@ -1,7 +1,7 @@
+>  #!/usr/bin/env python3
+>  
+> -import os, subprocess
+> -from . import settings, utils, tag_database
+> +import os
+> +from . import settings, utils, tag_database, cppcheck_analysis
+>  
+>  class ParseTagPhaseError(Exception):
+>      pass
+> @@ -60,18 +60,13 @@ def parse_xen_tags():
+>  
+>  
+>  def build_xen():
+> -    try:
+> -        subprocess.run(
+> -            "make -C {} {} build"
+> -                .format(settings.xen_dir, settings.make_forward_args),
+> -            shell=True, check=True
+> +    utils.invoke_command(
+> +            "make -C {} {} {} build"
+> +                .format(settings.xen_dir, settings.make_forward_args,
+> +                        cppcheck_analysis.cppcheck_extra_make_args),
+> +            False, BuildPhaseError,
+> +            "Build error occured when running:\n{}"
+>          )
+> -    except (subprocess.CalledProcessError, subprocess.SubprocessError)  as e:
+> -        excp = BuildPhaseError(
+> -                "Build error occured when running:\n{}".format(e.cmd)
+> -            )
+> -        excp.errorcode = e.returncode if hasattr(e, 'returncode') else 1
+> -        raise excp
+
+Any reason why we can't have utils.invoke_command directly in patch #1?
+
+  
+>  def clean_analysis_artifacts():
+> diff --git a/xen/scripts/xen_analysis/settings.py b/xen/scripts/xen_analysis/settings.py
+> index 947dfa2d50af..bd1faafe79a3 100644
+> --- a/xen/scripts/xen_analysis/settings.py
+> +++ b/xen/scripts/xen_analysis/settings.py
+> @@ -7,14 +7,23 @@ xen_dir = os.path.realpath(module_dir + "/../..")
+>  repo_dir = os.path.realpath(xen_dir + "/..")
+>  tools_dir = os.path.realpath(xen_dir + "/tools")
+>  
+> +step_get_make_vars = False
+>  step_parse_tags = True
+> +step_cppcheck_deps = False
+>  step_build_xen = True
+> +step_cppcheck_report = False
+>  step_clean_analysis = True
+> +step_distclean_analysis = False
+>  
+>  target_build = False
+>  target_clean = False
+> +target_distclean = False
+>  
+>  analysis_tool = ""
+> +cppcheck_binpath = "cppcheck"
+> +cppcheck_html = False
+> +cppcheck_htmlreport_binpath = "cppcheck-htmlreport"
+> +cppcheck_misra = False
+>  make_forward_args = ""
+>  outdir = xen_dir
+>  
+> @@ -26,29 +35,47 @@ Usage: {} [OPTION] ... [-- [make arguments]]
+>  This script runs the analysis on the Xen codebase.
+>  
+>  Options:
+> -  --build-only    Run only the commands to build Xen with the optional make
+> -                  arguments passed to the script
+> -  --clean-only    Run only the commands to clean the analysis artifacts
+> -  -h, --help      Print this help
+> -  --no-build      Skip the build Xen phase
+> -  --no-clean      Don\'t clean the analysis artifacts on exit
+> -  --run-coverity  Run the analysis for the Coverity tool
+> -  --run-eclair    Run the analysis for the Eclair tool
+> +  --build-only          Run only the commands to build Xen with the optional
+> +                        make arguments passed to the script
+> +  --clean-only          Run only the commands to clean the analysis artifacts
+> +  --cppcheck-bin=       Path to the cppcheck binary (Default: {})
+> +  --cppcheck-html       Produce an additional HTML output report for Cppcheck
+> +  --cppcheck-html-bin=  Path to the cppcheck-html binary (Default: {})
+> +  --cppcheck-misra      Activate the Cppcheck MISRA analysis
+> +  --distclean           Clean analysis artifacts and reports
+> +  -h, --help            Print this help
+> +  --no-build            Skip the build Xen phase
+> +  --no-clean            Don\'t clean the analysis artifacts on exit
+> +  --run-coverity        Run the analysis for the Coverity tool
+> +  --run-cppcheck        Run the Cppcheck analysis tool on Xen
+> +  --run-eclair          Run the analysis for the Eclair tool
+>  """
+> -    print(msg.format(sys.argv[0]))
+> +    print(msg.format(sys.argv[0], cppcheck_binpath,
+> +                     cppcheck_htmlreport_binpath))
+>  
+>  
+>  def parse_commandline(argv):
+>      global analysis_tool
+> +    global cppcheck_binpath
+> +    global cppcheck_html
+> +    global cppcheck_htmlreport_binpath
+> +    global cppcheck_misra
+>      global make_forward_args
+>      global outdir
+> +    global step_get_make_vars
+>      global step_parse_tags
+> +    global step_cppcheck_deps
+>      global step_build_xen
+> +    global step_cppcheck_report
+>      global step_clean_analysis
+> +    global step_distclean_analysis
+>      global target_build
+>      global target_clean
+> +    global target_distclean
+>      forward_to_make = False
+>      for option in argv:
+> +        args_with_content_regex = re.match(r'^(--[a-z]+[a-z-]*)=(.*)$', option)
+> +
+>          if forward_to_make:
+>              # Intercept outdir
+>              outdir_regex = re.match("^O=(.*)$", option)
+> @@ -60,6 +87,18 @@ def parse_commandline(argv):
+>              target_build = True
+>          elif option == "--clean-only":
+>              target_clean = True
+> +        elif args_with_content_regex and \
+> +             args_with_content_regex.group(1) == "--cppcheck-bin":
+> +            cppcheck_binpath = args_with_content_regex.group(2)
+> +        elif option == "--cppcheck-html":
+> +            cppcheck_html = True
+> +        elif args_with_content_regex and \
+> +             args_with_content_regex.group(1) == "--cppcheck-html-bin":
+> +            cppcheck_htmlreport_binpath = args_with_content_regex.group(2)
+> +        elif option == "--cppcheck-misra":
+> +            cppcheck_misra = True
+> +        elif option == "--distclean":
+> +            target_distclean = True
+>          elif (option == "--help") or (option == "-h"):
+>              help()
+>              sys.exit(0)
+> @@ -69,6 +108,11 @@ def parse_commandline(argv):
+>              step_clean_analysis = False
+>          elif (option == "--run-coverity") or (option == "--run-eclair"):
+>              analysis_tool = option[6:]
+> +        elif (option == "--run-cppcheck"):
+> +            analysis_tool = "cppcheck"
+> +            step_get_make_vars = True
+> +            step_cppcheck_deps = True
+> +            step_cppcheck_report = True
+>          elif option == "--":
+>              forward_to_make = True
+>          else:
+> @@ -76,13 +120,23 @@ def parse_commandline(argv):
+>              help()
+>              sys.exit(1)
+>  
+> -    if target_build and target_clean:
+> -        print("--build-only is not compatible with --clean-only argument.")
+> +    if target_build and (target_clean or target_distclean):
+> +        print("--build-only is not compatible with --clean-only/--distclean "
+> +              "argument.")
+>          sys.exit(1)
+>  
+> +    if target_distclean:
+> +        # Implicit activation of clean target
+> +        target_clean = True
+> +
+> +        step_distclean_analysis = True
+> +
+>      if target_clean:
+> +        step_get_make_vars = False
+>          step_parse_tags = False
+> +        step_cppcheck_deps = False
+>          step_build_xen = False
+> +        step_cppcheck_report = False
+>          step_clean_analysis = True
+>          return
+>  
+> @@ -95,3 +149,4 @@ def parse_commandline(argv):
+>          step_parse_tags = False
+>          step_build_xen = True
+>          step_clean_analysis = False
+> +        step_cppcheck_report = False
+
+I think that target_build should not say anything about
+step_cppcheck_report.
+
+- if one wants to just do a regular build, they can do "make xen"
+- if one is calling xen-analysis.py --cppcheck-html --run-cppcheck
+  --build-only, it means that they want the build done, not the cleaning
+  done, not the tags substitution. If they also add --cppcheck-html and
+  --run-cppcheck, then it means that they also want the cppcheck report
+  produced. --build-only still makes sense because they don't want the
+  cleaning done and don't want the tag substitution.
+
+Does it make sense to you as well?
+
+
+If it does, I think we also need to add a note in the help message from
+xen_analysis because it is not clear. So basically:
+
+<nothing>: tags, build, clean [, cppcheck]
+--no-clean: tags, build [, cppcheck]
+--build-only: build [, cppcheck]
+--no-build: tags
+--clean-only: clean
+
+Did I get it right?
+
+
+
+> diff --git a/xen/scripts/xen_analysis/utils.py b/xen/scripts/xen_analysis/utils.py
+> index a912d812c3df..1193e3f4631e 100644
+> --- a/xen/scripts/xen_analysis/utils.py
+> +++ b/xen/scripts/xen_analysis/utils.py
+> @@ -1,6 +1,6 @@
+>  #!/usr/bin/env python3
+>  
+> -import os, re
+> +import os, re, subprocess
+>  
+>  
+>  def grep(filepath, regex):
+> @@ -35,3 +35,22 @@ def recursive_find_file(path, filename_regex, action = None):
+>                          res.append(out)
+>  
+>      return res
+> +
+> +
+> +def invoke_command(command, needs_output, exeption_type = Exception,
+> +                   exeption_msg = ""):
+> +    try:
+> +        pipe_stdout = subprocess.PIPE if (needs_output == True) else None
+> +        output = subprocess.run(command, shell=True, check=True,
+> +                                stdout=pipe_stdout, stderr=subprocess.STDOUT,
+> +                                encoding='utf8')
+> +    except (subprocess.CalledProcessError, subprocess.SubprocessError) as e:
+> +        if needs_output == True:
+> +            exeption_msg = exeption_msg.format(e.cmd, output.stdout)
+> +        else:
+> +            exeption_msg = exeption_msg.format(e.cmd)
+> +        excp = exeption_type(exeption_msg)
+> +        excp.errorcode = e.returncode if hasattr(e, 'returncode') else 1
+> +        raise excp
+> +
+> +    return output.stdout
+> diff --git a/xen/tools/cppcheck-cc.sh b/xen/tools/cppcheck-cc.sh
+> new file mode 100755
+> index 000000000000..deb3a19918e9
+> --- /dev/null
+> +++ b/xen/tools/cppcheck-cc.sh
+> @@ -0,0 +1,223 @@
+> +#!/usr/bin/env bash
+> +
+> +set -e
+> +
+> +function help() {
+> +    cat <<EOF
+> +Usage: ${0} [OPTION] ... -- <compiler arguments>
+> +
+> +This script is a wrapper for cppcheck that enables it to analyse the files that
+> +are the target for the build, it is used in place of a selected compiler and the
+> +make process will run it on every file that needs to be built.
+> +All the arguments passed to the original compiler are forwarded to it without
+> +modification, furthermore, they are used to improve the cppcheck analysis.
+> +
+> +Options:
+> +  --compiler=       Use this compiler for the build
+> +  --cppcheck-cmd=   Command line for the cppcheck analysis.
+> +  --cppcheck-html   Prepare for cppcheck HTML output
+> +  --cppcheck-plat=  Path to the cppcheck platform folder
+> +  --ignore-path=    This script won't run cppcheck on the files having this
+> +                    path, the compiler will run anyway on them. This argument
+> +                    can be specified multiple times.
+> +  -h, --help        Print this help
+> +EOF
+> +}
+> +
+> +CC_FILE=""
+> +COMPILER=""
+> +CPPCHECK_HTML="n"
+> +CPPCHECK_PLAT_PATH=""
+> +CPPCHECK_TOOL=""
+> +CPPCHECK_TOOL_ARGS=""
+> +FORWARD_FLAGS=""
+> +IGNORE_PATH="n"
+> +IGNORE_PATH_LIST=""
+> +JDB_FILE=""
+> +OBJTREE_PATH=""
+> +
+> +# Variable used for arg parsing
+> +forward_to_cc="n"
+> +sm_tool_args="n"
+> +obj_arg_content="n"
+> +
+> +for OPTION in "$@"
+> +do
+> +    if [ "${forward_to_cc}" = "y" ]; then
+> +        if [[ ${OPTION} == *.c ]]
+> +        then
+> +            CC_FILE="${OPTION}"
+> +        elif [ "${OPTION}" = "-o" ]
+> +        then
+> +            # After -o there is the path to the obj file, flag it
+> +            obj_arg_content="y"
+> +        elif [ "${obj_arg_content}" = "y" ]
+> +        then
+> +            # This must be the path to the obj file, turn off flag and save path
+> +            OBJTREE_PATH="$(dirname "${OPTION}")"
+> +            obj_arg_content="n"
+> +        fi
+> +        # Forward any argument to the compiler
+> +        FORWARD_FLAGS="${FORWARD_FLAGS} ${OPTION}"
+> +        continue
+> +    fi
+> +    case ${OPTION} in
+> +        -h|--help)
+> +            help
+> +            exit 0
+> +            ;;
+> +        --compiler=*)
+> +            COMPILER="${OPTION#*=}"
+> +            sm_tool_args="n"
+> +            ;;
+> +        --cppcheck-cmd=*)
+> +            CPPCHECK_TOOL="${OPTION#*=}"
+> +            sm_tool_args="y"
+> +            ;;
+> +        --cppcheck-html)
+> +            CPPCHECK_HTML="y"
+> +            sm_tool_args="n"
+> +            ;;
+> +        --cppcheck-plat=*)
+> +            CPPCHECK_PLAT_PATH="${OPTION#*=}"
+> +            sm_tool_args="n"
+> +            ;;
+> +        --ignore-path=*)
+> +            IGNORE_PATH_LIST="${IGNORE_PATH_LIST} ${OPTION#*=}"
+> +            sm_tool_args="n"
+> +            ;;
+> +        --)
+> +            forward_to_cc="y"
+> +            sm_tool_args="n"
+> +            ;;
+> +        *)
+> +            if [ "${sm_tool_args}" = "y" ]; then
+> +                CPPCHECK_TOOL_ARGS="${CPPCHECK_TOOL_ARGS} ${OPTION}"
+> +            else
+> +                echo "Invalid option ${OPTION}"
+> +                exit 1
+> +            fi
+> +            ;;
+> +    esac
+> +done
+> +
+> +if [ "${COMPILER}" = "" ]
+> +then
+> +    echo "--compiler arg is mandatory."
+> +    exit 1
+> +fi
+> +
+> +function create_jcd() {
+> +    local line="${1}"
+> +    local arg_num=0
+> +    local same_line=0
+> +
+> +    {
+> +        echo -e -n "[\n"
+
+Everywhere in this bash function: there is no point in passing -n and
+then adding \n at the end. You might as well do this:
+
+echo -e "["
+
+Also, you'll find that in most cases, you don't need -e either, which
+simplifies it to:
+
+echo "["
+
+That's better right? :-)  Of course feel free to use -e when you have
+escape and -n when you don't want \n in the output
+
+
+> +        echo -e -n "    {\n"
+> +        echo -e -n "        \"arguments\": [\n"
+> +
+> +        for arg in ${line}; do
+> +            # This code prevents to put comma in the last element of the list or
+> +            # on sequential lines that are going to be merged
+> +            if [ "${arg_num}" -ne 0 ] && [ "${same_line}" -eq 0 ]
+> +            then
+> +                echo -e -n ",\n"
+> +            fi
+> +            if [ "${same_line}" -ne 0 ]
+> +            then
+> +                echo -e -n "${arg}\""
+> +                same_line=0
+> +            elif [ "${arg}" = "-iquote" ] || [ "${arg}" = "-I" ]
+> +            then
+> +                # cppcheck doesn't understand -iquote, substitute with -I
+> +                echo -e -n "            \"-I"
+> +                same_line=1
+> +            else
+> +                echo -e -n "            \"${arg}\""
+> +            fi
+> +            arg_num=$(( arg_num + 1 ))
+> +        done
+> +        echo -e -n "\n"
+> +        echo -e -n "        ],\n"
+> +        echo -e -n "        \"directory\": \"$(pwd -P)\",\n"
+> +        echo -e -n "        \"file\": \"${CC_FILE}\"\n"
+> +        echo -e -n "    }\n"
+> +        echo -e -n "]\n"
+> +    } > "${JDB_FILE}"
 > +}
 > +
 > +
-> +def get_xen_tag_index_type_regex(tool):
-> +    return r'^SAF-(\d+)-(safe|false-positive-' + tool + ')$'
+> +# Execute compiler with forwarded flags
+> +# Shellcheck complains about missing quotes on FORWARD_FLAGS, but they can't be
+> +# used here
+> +# shellcheck disable=SC2086
+> +${COMPILER} ${FORWARD_FLAGS}
 > +
+> +if [ -n "${CC_FILE}" ];
+> +then
+> +    for path in ${IGNORE_PATH_LIST}
+> +    do
+> +        if [[ ${CC_FILE} == *${path}* ]]
+> +        then
+> +            IGNORE_PATH="y"
+> +            echo "${0}: ${CC_FILE} ignored by --ignore-path matching *${path}*"
+> +        fi
+> +    done
+> +    if [ "${IGNORE_PATH}" = "n" ]
+> +    then
+> +        JDB_FILE="${OBJTREE_PATH}/$(basename "${CC_FILE}".json)"
 > +
-> +def get_xen_tag_comment_regex(tool):
-> +    return r'^[ \t]*/\* +(SAF-\d+-(?:safe|false-positive-' + tool + ')).*\*/$'
+> +        # Prepare the Json Compilation Database for the file
+> +        create_jcd "${COMPILER} ${FORWARD_FLAGS}"
 > +
+> +        out_file="${OBJTREE_PATH}/$(basename "${CC_FILE%.c}".cppcheck.txt)"
 > +
-> +# Returns a data structure containing dictionaries for safe and false-positive-*
-> +# Xen tags, the key is the unique index of the tag and the content is the
-> +# proprietary in-code comment to be used when the tag is found in the codebase
-> +def load_tag_database(tool, input_files, data_struct = None, schema = "safe"):
-> +    ret = data_struct if data_struct is not None else {
-> +        "safe": {},
-> +        "false-positive-" + tool: {}
-> +    }
-> +    database = []
+> +        # Select the right target platform, ARCH is generated from Xen Makefile
+> +        case ${ARCH} in
+> +            arm64)
+> +                # arm64 has efi code compiled with -fshort-wchar
+> +                platform="${CPPCHECK_PLAT_PATH}/arm64-wchar_t2.xml"
+> +                ;;
+> +            arm32)
+> +                # arm32 has no efi code
+> +                platform="${CPPCHECK_PLAT_PATH}/arm32-wchar_t4.xml"
+> +                ;;
+> +            x86_64)
+> +                # x86_64 has efi code compiled with -fshort-wchar
+> +                platform="${CPPCHECK_PLAT_PATH}/x86_64-wchar_t2.xml"
+> +                ;;
+> +            *)
+> +                echo "ARCH: ${ARCH} not expected!"
+> +                exit 1
+> +                ;;
+> +        esac
 > +
-> +    # Open all input files
-> +    for file in input_files:
-> +        try:
-> +            with open(file, "rt") as handle:
-> +                content = json.load(handle)
-> +                database = database + content['content']
-> +        except json.JSONDecodeError as e:
-> +            raise TagDatabaseError("JSON decoding error in file {}: {}"
-> +                                    .format(file, e))
-> +        except Exception as e:
-> +            raise TagDatabaseError("Can't open file {}: {}"
-> +                                    .format(file, e))
+> +        if [ ! -f "${platform}" ]
+> +        then
+> +            echo "${platform} not found!"
+> +            exit 1
+> +        fi
 > +
-> +    for entry in database:
-> +        # If the false-positive schema is used, check the proprietary id in the
-> +        # 'violation-id' field, otherwise rely on the "safe" schema.
-> +        if schema == "false-positive":
-> +            proprietary_id = entry['violation-id']
-> +        elif tool in entry['analyser']:
-> +            proprietary_id = entry['analyser'][tool]
-> +        else:
-> +            proprietary_id = ""
-> +        if proprietary_id != "":
-> +            comment=tool_syntax[tool].replace("VID",proprietary_id)
-> +            # Regex to capture the index of the Xen tag and the schema
-> +            xen_tag = re.compile(get_xen_tag_index_type_regex(tool))\
-> +                            .match(entry["id"])
-> +            if xen_tag and xen_tag.group(1) and xen_tag.group(2):
-> +                # Save in safe or false-positive-* the key {#id: "comment"}
-> +                id_number = int(xen_tag.group(1))
-> +                key = xen_tag.group(2)
-> +                ret[key][id_number] = "/* {} */\n".format(comment)
-> +            else:
-> +                raise TagDatabaseError(
-> +                        "Error in database file, entry {} has unexpected "
-> +                        "format.".format(entry["id"])
-> +                    )
+> +        # Shellcheck complains about missing quotes on CPPCHECK_TOOL_ARGS, but
+> +        # they can't be used here
+> +        # shellcheck disable=SC2086
+> +        ${CPPCHECK_TOOL} ${CPPCHECK_TOOL_ARGS} \
+> +            --project="${JDB_FILE}" \
+> +            --output-file="${out_file}" \
+> +            --platform="${platform}"
 > +
-> +    return ret
-> +
-> +
-> +def substitute_tags(tool, input_file, grep_struct, subs_rules):
-> +    try:
-> +        with open(grep_struct["file"], "wt") as outfile:
-> +
-> +            try:
-> +                with open(input_file, "rt") as infile:
-> +                    parsed_content = infile.readlines()
-> +            except Exception as e:
-> +                raise TagDatabaseError("Issue with reading file {}: {}"
-> +                                       .format(input_file, e))
-> +
-> +            # grep_struct contains the line number where the comments are, the
-> +            # line number starts from 1 but in the array the first line is zero.
-> +            # For every line where there is a Xen tag comment, get the Xen tag
-> +            # that is in the capture group zero, extract from the Xen tag the
-> +            # unique index and the type (safe, false-positive-*) and with those
-> +            # information access the subs_rules dictionary to see if there is
-> +            # a match
-> +            for line_number in grep_struct["matches"]:
-> +                xen_tag = grep_struct["matches"][line_number][0]
-> +                xen_tag_regex_obj = re.compile(
-> +                            get_xen_tag_index_type_regex(tool)).match(xen_tag)
-> +                id_number = int(xen_tag_regex_obj.group(1))
-> +                key = xen_tag_regex_obj.group(2)
-> +                if id_number in subs_rules[key]:
-> +                    parsed_content[line_number-1] = subs_rules[key][id_number]
-> +
-> +            outfile.writelines(parsed_content)
-> +    except Exception as e:
-> +        raise TagDatabaseError("Issue with writing file {}: {}"
-> +                               .format(grep_struct["file"], e))
-> diff --git a/xen/scripts/xen_analysis/utils.py b/xen/scripts/xen_analysis/utils.py
-> new file mode 100644
-> index 000000000000..a912d812c3df
-> --- /dev/null
-> +++ b/xen/scripts/xen_analysis/utils.py
-> @@ -0,0 +1,37 @@
-> +#!/usr/bin/env python3
-> +
-> +import os, re
-> +
-> +
-> +def grep(filepath, regex):
-> +    regObj = re.compile(regex)
-> +    res = { "file": filepath, "matches": {} }
-> +    try:
-> +        with open(filepath, "rt") as f:
-> +            line_number = 1
-> +            for line in f:
-> +                match = regObj.match(line)
-> +                if match:
-> +                    res["matches"][line_number] = match.groups()
-> +                line_number = line_number + 1
-> +    except Exception as e:
-> +        print("WARNING: Can't open {}: {}".format(filepath, e))
-> +
-> +    # Return filename and line matches if there are
-> +    return res if res["matches"] else {}
-> +
-> +
-> +def recursive_find_file(path, filename_regex, action = None):
-> +    filename_reg_obj = re.compile(filename_regex)
-> +    res = []
-> +    for root, dirs, fnames in os.walk(path):
-> +        for fname in fnames:
-> +            if filename_reg_obj.match(fname):
-> +                if action is None:
-> +                    res.append(os.path.join(root, fname))
-> +                else:
-> +                    out = action(os.path.join(root, fname))
-> +                    if out:
-> +                        res.append(out)
-> +
-> +    return res
-> -- 
-> 2.17.1
-> 
+> +        if [ "${CPPCHECK_HTML}" = "y" ]
+> +        then
+> +            # Shellcheck complains about missing quotes on CPPCHECK_TOOL_ARGS,
+> +            # but they can't be used here
+> +            # shellcheck disable=SC2086
+> +            ${CPPCHECK_TOOL} ${CPPCHECK_TOOL_ARGS} \
+> +                --project="${JDB_FILE}" \
+> +                --output-file="${out_file%.txt}.xml" \
+> +                --platform="${platform}" \
+> +                -q \
+> +                --xml
+> +        fi
+> +    fi
+> +fi
+--8323329-215932922-1670288592=:4039--
 
