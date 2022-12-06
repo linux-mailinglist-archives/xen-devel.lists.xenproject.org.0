@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C62A643C53
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 05:35:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454335.711891 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 705F0643C55
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 05:35:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.454336.711902 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Pf6-0006Dg-3g; Tue, 06 Dec 2022 04:34:32 +0000
+	id 1p2Pf8-0006X6-Dc; Tue, 06 Dec 2022 04:34:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454335.711891; Tue, 06 Dec 2022 04:34:32 +0000
+Received: by outflank-mailman (output) from mailman id 454336.711902; Tue, 06 Dec 2022 04:34:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Pf5-0006Aq-U2; Tue, 06 Dec 2022 04:34:31 +0000
-Received: by outflank-mailman (input) for mailman id 454335;
- Tue, 06 Dec 2022 04:34:30 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p2Pf8-0006VG-9m; Tue, 06 Dec 2022 04:34:34 +0000
+Received: by outflank-mailman (input) for mailman id 454336;
+ Tue, 06 Dec 2022 04:34:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7Feu=4E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p2Pf4-00055j-Cj
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 04:34:30 +0000
+ id 1p2Pf6-0005MV-NJ
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 04:34:32 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 44ebb0d0-751f-11ed-8fd2-01056ac49cbb;
- Tue, 06 Dec 2022 05:34:29 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 2C3A432009F5;
- Mon,  5 Dec 2022 23:34:27 -0500 (EST)
+ [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 46925a2f-751f-11ed-91b6-6bf2151ebd3b;
+ Tue, 06 Dec 2022 05:34:31 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 7636E32009ED;
+ Mon,  5 Dec 2022 23:34:29 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 05 Dec 2022 23:34:27 -0500
+ by compute4.internal (MEProxy); Mon, 05 Dec 2022 23:34:30 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Dec 2022 23:34:25 -0500 (EST)
+ 5 Dec 2022 23:34:28 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44ebb0d0-751f-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 46925a2f-751f-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1670301266; x=1670387666; bh=74iR55QTZEIoGrp/SIuOn2UKjLBB0nvCkho
-	9p4QDUpk=; b=kZHF3htozvEjILFcNmghVOiwiPahaARZZQnYB3OuQ/ch06nSado
-	yG6NGCo0bVBBOkqFcYbDNuN8woNHVSIVoJAekDNpejUV4z+p7Tn0MuABYOOto9Lb
-	ciobsBYRt1mrbiqR1gkqKwGWDkzPI6sYnKW2fxGz0YFjE1qYMg8R88hEMeO/qwYc
-	RNegB14AdeJvY/h86+/ILyEPDew23GpOPKHi5l15r6F9KLUBruR0eSY8wkQIfDet
-	eh6x1jJDztvZyR0WrDtoj02rTfehAZZH8MOuili0YEPJDsrT016eaYgpHRP3wXiw
-	nE/IoM+hL/5GHy0wjENcpkvTaoViDzlYByA==
+	1670301269; x=1670387669; bh=78iOTcLznyqVPzoEL9+P1QeIqoDr0D4mDgx
+	uOJLHvyA=; b=mb+ZKJoBLlLQBUZp7OYLSBpBR50HvPmg/rxtbJyjmd41Wsl7290
+	+6ZSXrsjfu4ms8u6jOVsqOa10kWfy6TkRdh/FDFKfPy3WrT6NEDeqMYZbYGanPNS
+	Dcb74+ahLONwoEDI6uhsg4tjiUAPKFLwfIWdTiHw4bE0vvpHtnCKGYCCqWGJGK15
+	MYtjgqDrzoSt2PKNej70oONKCZXIe92Z3vMu7TuTM0ZSMRmgSF/xludl4ZCKxYvM
+	PYK1Yqk9/sC+SK83qnVaFIA8stvLyhMOpUZS2CwmihCooXchGVl87mAoXvn6zm+R
+	PR4nsoojQfnF9tJiW78wYYmptBGTeyG83Kg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1670301266; x=1670387666; bh=74iR55QTZEIoG
-	rp/SIuOn2UKjLBB0nvCkho9p4QDUpk=; b=rzwdaqZhIFWzdkO3L3vAIMiVKkza+
-	PvpV0SK0/QZ98K6juLjx8KgH/WOj2E57lpPvOeMue8fyC4ffDDSo/FTU9je/7oJL
-	0ijXbB36LW+VT1evFWFQZX9hFxnqfJ3O+7mOHsC/z6kIISyqLb41ugTE5T7vt3Aj
-	xKgKmZExEVbAyUDOOQuFfFPBIVJv3fXbanETr4FvE5AQN87g85O5abduXDCnzqfP
-	vGHRDqpGD6m+Zp5vfXnb3VLmEOsBU3525KqxE+M5Uxd2uo1kGtAT063VzdlJY0eR
-	QkwA6uRieCHnvo2fcpNMjDeowdQJcfWwVaqy+WpN4uFjzB+cMM+NmgcGg==
-X-ME-Sender: <xms:UsaOY5hWmEKxfCenBJRCS0FS0XNaVkEnrI92hEnpv4ioEP2PR4fWRw>
-    <xme:UsaOY-CKvyTZeqKx4NmoAF2uKoRwi7otBcCupwBxu3QYxWdien7cC0o5m_Pgi7YXL
-    441SabDblMAbws>
-X-ME-Received: <xmr:UsaOY5G5M_r_XhVYHnM4oJc0OGqwi5GjYY5eZ0dHopl2P90cgj7H4gxh59Rv9qxemP_J1LQDaFbK>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehgdejfecutefuodetggdotefrodftvf
+	:x-sasl-enc; s=fm1; t=1670301269; x=1670387669; bh=78iOTcLznyqVP
+	zoEL9+P1QeIqoDr0D4mDgxuOJLHvyA=; b=OvWfbvRkBEGn+zvGrNGEUNi+eH01S
+	te6mERJm3kOGumqu5wEoLdGSIf5EqF4m6LC58nh6/TproNyCY8NhsSsEzGAG3G/M
+	yMBaWvTDQKYXax7A06t1HVaXkoGdemfw4sHlWDYNSPGIgaXG+u62H7T2m3w0xhH+
+	fAqjL1HD+zOHGfa2bVbiSBEzmIIQA9zLoQ41UuT2j3tB/s1TpymXvZ/WLIrlvcfn
+	Dlr/EOjKDFtqGI4b8uKH8mmIT9uhB2+1OT58xLdifDmuYQ/uRWxkqRsU5W1TyMYl
+	XCs5J9hA+D+p2kPPauLilP0ktGYsaDh2JpLuMeT4Tq4OdQCrbl0L4a7Ig==
+X-ME-Sender: <xms:VMaOY2rH1AwEE-VnUHkNslY8FDc2ydkjxGF9HL-PyQBUQAdjJKci5w>
+    <xme:VMaOY0pAcKtBLEkCin7aTZBTBFVFMalSus8lkHvyjks8N9hsEeF8_NOf4Tut6g0hv
+    Dc3OKTPP5b4_XI>
+X-ME-Received: <xmr:VMaOY7MzJkALhGhOxcmA3eznWHZnrY2LsuPXUVL4bMyOfUEgU1jr6rwJf1HMNwxf7uXiwwVGAIFq>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehgdejgecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
     fjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcu
@@ -80,10 +80,10 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehgdejfecutefuodetggdote
     hffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtnecurf
     grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
     rggsrdgtohhm
-X-ME-Proxy: <xmx:UsaOY-S0TRX7e4NxA86J4vt-XOXV-NNzO5JK8K-jBXoqz5eroHMy-g>
-    <xmx:UsaOY2yhDpldn6uugV00Sj_XFKJ0TmclOD4ysJXKI3sFj_9iNR8XXw>
-    <xmx:UsaOY05fuEg2Pyun5oi5fTO9XUUN_pyClb45fGb-slQJwQmgztOUhg>
-    <xmx:UsaOY9mRqAEq32jfb3HYbzLBLYwY7ehSnGyfJKm5pdOj306lrUSLng>
+X-ME-Proxy: <xmx:VMaOY15Bnsq5befxFIuqqKmX5KnXpDw43wHqJXmo-U0-4JmeQOx0LA>
+    <xmx:VMaOY14NCHdf35SCloh5iEVLvl2xMn3CzoCUhRASoOYDNH1y8-ZBKQ>
+    <xmx:VMaOY1jB_kEnMk3JXfBGkQWrTvrqjk6utgcRfim14Z9xrqr3dsOv5Q>
+    <xmx:VcaOYyvbCrNRTULLimBSdjiu8Ds3b1cFyZW1cCLCZDCXCspk7_wBYw>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -95,54 +95,44 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Wei Liu <wl@xen.org>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Tim Deegan <tim@xen.org>
-Subject: [PATCH 4/8] efi: Avoid hard-coding the various PAT constants
-Date: Mon,  5 Dec 2022 23:33:33 -0500
-Message-Id: <ea32e526153a40837484ba9c64a7d157804b6c27.1670300446.git.demi@invisiblethingslab.com>
+Subject: [PATCH 5/8] x86/mm/shadow: do not open-code PAGE_CACHE_ATTRS
+Date: Mon,  5 Dec 2022 23:33:34 -0500
+Message-Id: <52d04f14daca91597f78f60e3a16cce4069bf32f.1670300446.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1670300446.git.demi@invisiblethingslab.com>
 References: <cover.1670300446.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This makes the code much easier to understand, and avoids problems if
-Xen's PAT ever changes in the future.
+This makes the code easier to understand.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- xen/common/efi/boot.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ xen/arch/x86/mm/shadow/multi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
-index 8e880fe30c7541a202dec3e665300d6549953aa3..260997b251b09dae4b48c1b1db665778e02d760a 100644
---- a/xen/common/efi/boot.c
-+++ b/xen/common/efi/boot.c
-@@ -1746,21 +1746,21 @@ void __init efi_init_memory(void)
-         if ( desc->Attribute & EFI_MEMORY_WB )
-             /* nothing */;
-         else if ( desc->Attribute & EFI_MEMORY_WT )
--            prot |= _PAGE_PWT | MAP_SMALL_PAGES;
-+            prot |= _PAGE_WT | MAP_SMALL_PAGES;
-         else if ( desc->Attribute & EFI_MEMORY_WC )
--            prot |= _PAGE_PAT | MAP_SMALL_PAGES;
-+            prot |= _PAGE_WC | MAP_SMALL_PAGES;
-         else if ( desc->Attribute & (EFI_MEMORY_UC | EFI_MEMORY_UCE) )
--            prot |= _PAGE_PWT | _PAGE_PCD | MAP_SMALL_PAGES;
-+            prot |= _PAGE_UC | MAP_SMALL_PAGES;
-         else if ( efi_bs_revision >= EFI_REVISION(2, 5) &&
-                   (desc->Attribute & EFI_MEMORY_WP) )
--            prot |= _PAGE_PAT | _PAGE_PWT | MAP_SMALL_PAGES;
-+            prot |= _PAGE_WP | MAP_SMALL_PAGES;
-         else
-         {
-             printk(XENLOG_ERR "Unknown cachability for MFNs %#lx-%#lx%s\n",
-                    smfn, emfn - 1, efi_map_uc ? ", assuming UC" : "");
-             if ( !efi_map_uc )
-                 continue;
--            prot |= _PAGE_PWT | _PAGE_PCD | MAP_SMALL_PAGES;
-+            prot |= _PAGE_UC | MAP_SMALL_PAGES;
-         }
+diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
+index 4e94fec3d50cde0e5a26ecb62ff4d00dd00f759d..6bb564b0145285afc93b72a60b7797fcfe8696dc 100644
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -535,7 +535,7 @@ _sh_propagate(struct vcpu *v,
+     if ( guest_nx_enabled(v) )
+         pass_thru_flags |= _PAGE_NX_BIT;
+     if ( level == 1 && !shadow_mode_refcounts(d) && mmio_mfn )
+-        pass_thru_flags |= _PAGE_PAT | _PAGE_PCD | _PAGE_PWT;
++        pass_thru_flags |= PAGE_CACHE_ATTRS;
+     sflags = gflags & pass_thru_flags;
  
-         if ( desc->Attribute & (efi_bs_revision < EFI_REVISION(2, 5)
+     /*
+@@ -548,7 +548,7 @@ _sh_propagate(struct vcpu *v,
+     {
+         int type;
+ 
+-        ASSERT(!(sflags & (_PAGE_PAT | _PAGE_PCD | _PAGE_PWT)));
++        ASSERT(!(sflags & PAGE_CACHE_ATTRS));
+ 
+         /* compute the PAT index for shadow page entry when VT-d is enabled
+          * and device assigned.
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
