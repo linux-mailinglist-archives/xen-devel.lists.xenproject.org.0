@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 705F0643C55
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 05:35:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454336.711902 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 442C5643C4F
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 05:35:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.454337.711914 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Pf8-0006X6-Dc; Tue, 06 Dec 2022 04:34:34 +0000
+	id 1p2PfA-0006sE-OR; Tue, 06 Dec 2022 04:34:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454336.711902; Tue, 06 Dec 2022 04:34:34 +0000
+Received: by outflank-mailman (output) from mailman id 454337.711914; Tue, 06 Dec 2022 04:34:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Pf8-0006VG-9m; Tue, 06 Dec 2022 04:34:34 +0000
-Received: by outflank-mailman (input) for mailman id 454336;
- Tue, 06 Dec 2022 04:34:32 +0000
+	id 1p2PfA-0006of-Jn; Tue, 06 Dec 2022 04:34:36 +0000
+Received: by outflank-mailman (input) for mailman id 454337;
+ Tue, 06 Dec 2022 04:34:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7Feu=4E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p2Pf6-0005MV-NJ
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 04:34:32 +0000
+ id 1p2Pf9-0005MV-37
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 04:34:35 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
  [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 46925a2f-751f-11ed-91b6-6bf2151ebd3b;
- Tue, 06 Dec 2022 05:34:31 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 7636E32009ED;
- Mon,  5 Dec 2022 23:34:29 -0500 (EST)
+ id 4801db77-751f-11ed-91b6-6bf2151ebd3b;
+ Tue, 06 Dec 2022 05:34:34 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id DCE3232009F0;
+ Mon,  5 Dec 2022 23:34:31 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 05 Dec 2022 23:34:30 -0500
+ by compute5.internal (MEProxy); Mon, 05 Dec 2022 23:34:32 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 5 Dec 2022 23:34:28 -0500 (EST)
+ 5 Dec 2022 23:34:30 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,34 +43,34 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 46925a2f-751f-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 4801db77-751f-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm1; t=
-	1670301269; x=1670387669; bh=78iOTcLznyqVPzoEL9+P1QeIqoDr0D4mDgx
-	uOJLHvyA=; b=mb+ZKJoBLlLQBUZp7OYLSBpBR50HvPmg/rxtbJyjmd41Wsl7290
-	+6ZSXrsjfu4ms8u6jOVsqOa10kWfy6TkRdh/FDFKfPy3WrT6NEDeqMYZbYGanPNS
-	Dcb74+ahLONwoEDI6uhsg4tjiUAPKFLwfIWdTiHw4bE0vvpHtnCKGYCCqWGJGK15
-	MYtjgqDrzoSt2PKNej70oONKCZXIe92Z3vMu7TuTM0ZSMRmgSF/xludl4ZCKxYvM
-	PYK1Yqk9/sC+SK83qnVaFIA8stvLyhMOpUZS2CwmihCooXchGVl87mAoXvn6zm+R
-	PR4nsoojQfnF9tJiW78wYYmptBGTeyG83Kg==
+	1670301271; x=1670387671; bh=7lJWDKXrQS1OHkVX4MNh9xF7acm6KU1f8nX
+	60aLC2AY=; b=FXoGyWGbu8ukOOMXW7SDT6Zp4wfM7Wz0PjvmGgudbPZL8WuF2Lk
+	hFNlf/xqUD2RXkc4Ma0T/AX87VFdXudmCg5IEknWURFAYhcS8G5l63kycRCDxTuM
+	sIW5jjKa7TAjhyNPPib6KlYjWIsXJBcVRqqeI9/T6rW8V9oVySKrRXbNitlR+9A9
+	UKgtwICXA2HZVqjaZEfFkWDNFpFegnF179PbWJ1vKioangaVRFZYCBU2aZkshPsI
+	lNZdQDpidWr0b0bpFESSWihvm6+L89cdtnReOclxAAPL5tSBvyJNdMw/7kstC+oW
+	9yz3j7MYRAzh6HI2yO5xU23Znwxaz2mYc6w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1670301269; x=1670387669; bh=78iOTcLznyqVP
-	zoEL9+P1QeIqoDr0D4mDgxuOJLHvyA=; b=OvWfbvRkBEGn+zvGrNGEUNi+eH01S
-	te6mERJm3kOGumqu5wEoLdGSIf5EqF4m6LC58nh6/TproNyCY8NhsSsEzGAG3G/M
-	yMBaWvTDQKYXax7A06t1HVaXkoGdemfw4sHlWDYNSPGIgaXG+u62H7T2m3w0xhH+
-	fAqjL1HD+zOHGfa2bVbiSBEzmIIQA9zLoQ41UuT2j3tB/s1TpymXvZ/WLIrlvcfn
-	Dlr/EOjKDFtqGI4b8uKH8mmIT9uhB2+1OT58xLdifDmuYQ/uRWxkqRsU5W1TyMYl
-	XCs5J9hA+D+p2kPPauLilP0ktGYsaDh2JpLuMeT4Tq4OdQCrbl0L4a7Ig==
-X-ME-Sender: <xms:VMaOY2rH1AwEE-VnUHkNslY8FDc2ydkjxGF9HL-PyQBUQAdjJKci5w>
-    <xme:VMaOY0pAcKtBLEkCin7aTZBTBFVFMalSus8lkHvyjks8N9hsEeF8_NOf4Tut6g0hv
-    Dc3OKTPP5b4_XI>
-X-ME-Received: <xmr:VMaOY7MzJkALhGhOxcmA3eznWHZnrY2LsuPXUVL4bMyOfUEgU1jr6rwJf1HMNwxf7uXiwwVGAIFq>
+	:x-sasl-enc; s=fm1; t=1670301271; x=1670387671; bh=7lJWDKXrQS1OH
+	kVX4MNh9xF7acm6KU1f8nX60aLC2AY=; b=SXcYAt2A2Lw3XEMWMyxyHFgyfSI7O
+	TejRkzGRaY2rMGexP5FqCUGr0Fns4aJ+fk6pwX+V5QTv3V19vi5s+KUqL18DaI+t
+	BEOC4li7JvUR/7ys4pIJFzuloD/ouYnKugI2AnxMj8cLTPgS0MjWCjMBDGjnDgNO
+	YvmsKSRwA5Pobh7383QRh1URp/RileedV0d/lJvsJD75gRPjrABnTwnd4o1EdHnB
+	8L3J99vA2HMvughqN8FloSVwTvc55+3mPk2qjYvh3uhS8xXrOeeLD/rQrCxwYuhj
+	ZHWgUyvvA2a967MAkLmgryj3zvmk/Rmq7tmA3uUxF0u4+/LxqmOyWbxzw==
+X-ME-Sender: <xms:V8aOY02fFj7WBZ9F0akv__sQA6UBxg9GGuJkzzTssJdDlxw1V2u7_g>
+    <xme:V8aOY_Eds6t8R0WK2u16uLnwbA5kXdfgQ2Txf-g3K9zwBqmIgk9uHK02-nbixwEgh
+    LT_4mggg1Lvbm4>
+X-ME-Received: <xmr:V8aOY86dtpdfxPyoGakSQIeV_B7iBi7BH6mJ1srp92yuXc-8uufHqguBlRasSLtN4_iPWiD3Tk7t>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehgdejgecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -80,10 +80,10 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehgdejgecutefuodetggdote
     hffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtnecurf
     grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
     rggsrdgtohhm
-X-ME-Proxy: <xmx:VMaOY15Bnsq5befxFIuqqKmX5KnXpDw43wHqJXmo-U0-4JmeQOx0LA>
-    <xmx:VMaOY14NCHdf35SCloh5iEVLvl2xMn3CzoCUhRASoOYDNH1y8-ZBKQ>
-    <xmx:VMaOY1jB_kEnMk3JXfBGkQWrTvrqjk6utgcRfim14Z9xrqr3dsOv5Q>
-    <xmx:VcaOYyvbCrNRTULLimBSdjiu8Ds3b1cFyZW1cCLCZDCXCspk7_wBYw>
+X-ME-Proxy: <xmx:V8aOY92wUw0ICP1_Gj85rinu0i7Pb6AB7aXy2UiFwl6BTz3rJtQevg>
+    <xmx:V8aOY3GgiMvurMh1YVR1aj7_CC6_9iCOLOT0g-saogfasp9CBUqa4A>
+    <xmx:V8aOY29yZNAvbzSsoV3f_3gjoccZQLqTbwZ0sc37NUrV1aK6khaodg>
+    <xmx:V8aOY85xTqvJTMIxKaDTsyngtUbVccVlwOd-3gilD0V6TAtHXrZjRw>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -95,44 +95,63 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Wei Liu <wl@xen.org>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Tim Deegan <tim@xen.org>
-Subject: [PATCH 5/8] x86/mm/shadow: do not open-code PAGE_CACHE_ATTRS
-Date: Mon,  5 Dec 2022 23:33:34 -0500
-Message-Id: <52d04f14daca91597f78f60e3a16cce4069bf32f.1670300446.git.demi@invisiblethingslab.com>
+Subject: [PATCH 6/8] x86: Derive XEN_MSR_PAT from its individual entries
+Date: Mon,  5 Dec 2022 23:33:35 -0500
+Message-Id: <5ddd32a453b098f277f2d4aa9e044a40183d4bff.1670300446.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1670300446.git.demi@invisiblethingslab.com>
 References: <cover.1670300446.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This makes the code easier to understand.
+This avoids it being a magic constant that is difficult for humans to
+decode.  Use a _Static_assert to check that the old and new values are
+identical.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- xen/arch/x86/mm/shadow/multi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/arch/x86/include/asm/processor.h | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-index 4e94fec3d50cde0e5a26ecb62ff4d00dd00f759d..6bb564b0145285afc93b72a60b7797fcfe8696dc 100644
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -535,7 +535,7 @@ _sh_propagate(struct vcpu *v,
-     if ( guest_nx_enabled(v) )
-         pass_thru_flags |= _PAGE_NX_BIT;
-     if ( level == 1 && !shadow_mode_refcounts(d) && mmio_mfn )
--        pass_thru_flags |= _PAGE_PAT | _PAGE_PCD | _PAGE_PWT;
-+        pass_thru_flags |= PAGE_CACHE_ATTRS;
-     sflags = gflags & pass_thru_flags;
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 8e2816fae9b97bd4e153a30cc3802971fe0355af..64b75e444947c64e2e5eba457deec92a873d7a63 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -92,13 +92,33 @@
+                           X86_EFLAGS_NT|X86_EFLAGS_DF|X86_EFLAGS_IF|    \
+                           X86_EFLAGS_TF)
  
-     /*
-@@ -548,7 +548,7 @@ _sh_propagate(struct vcpu *v,
-     {
-         int type;
++/* Individual entries in IA32_CR_PAT */
++#define MSR_PAT_UC  _AC(0x00, ULL)
++#define MSR_PAT_WC  _AC(0x01, ULL)
++#define MSR_PAT_RESERVED_1  _AC(0x02, ULL)
++#define MSR_PAT_RESERVED_2  _AC(0x03, ULL)
++#define MSR_PAT_WT  _AC(0x04, ULL)
++#define MSR_PAT_WP  _AC(0x05, ULL)
++#define MSR_PAT_WB  _AC(0x06, ULL)
++#define MSR_PAT_UCM _AC(0x07, ULL)
++
+ /*
+  * Host IA32_CR_PAT value to cover all memory types.  This is not the default
+  * MSR_PAT value, and is an ABI with PV guests.
+  */
+-#define XEN_MSR_PAT _AC(0x050100070406, ULL)
++#define XEN_MSR_PAT (MSR_PAT_WB  << 0x00 | \
++                     MSR_PAT_WT  << 0x08 | \
++                     MSR_PAT_UCM << 0x10 | \
++                     MSR_PAT_UC  << 0x18 | \
++                     MSR_PAT_WC  << 0x20 | \
++                     MSR_PAT_WP  << 0x28 | \
++                     MSR_PAT_UC  << 0x30 | \
++                     MSR_PAT_UC  << 0x38 | \
++                     0)
  
--        ASSERT(!(sflags & (_PAGE_PAT | _PAGE_PCD | _PAGE_PWT)));
-+        ASSERT(!(sflags & PAGE_CACHE_ATTRS));
+ #ifndef __ASSEMBLY__
++_Static_assert(XEN_MSR_PAT == 0x050100070406ULL,
++               "wrong XEN_MSR_PAT breaks PV guests");
  
-         /* compute the PAT index for shadow page entry when VT-d is enabled
-          * and device assigned.
+ struct domain;
+ struct vcpu;
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
