@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 73D87644DE6
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 22:23:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455576.713081 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0211D644DEB
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 22:26:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455585.713093 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2fPR-0005GI-FV; Tue, 06 Dec 2022 21:23:25 +0000
+	id 1p2fS8-0005u0-Tz; Tue, 06 Dec 2022 21:26:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455576.713081; Tue, 06 Dec 2022 21:23:25 +0000
+Received: by outflank-mailman (output) from mailman id 455585.713093; Tue, 06 Dec 2022 21:26:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2fPR-0005EX-CO; Tue, 06 Dec 2022 21:23:25 +0000
-Received: by outflank-mailman (input) for mailman id 455576;
- Tue, 06 Dec 2022 21:23:24 +0000
+	id 1p2fS8-0005rF-QL; Tue, 06 Dec 2022 21:26:12 +0000
+Received: by outflank-mailman (input) for mailman id 455585;
+ Tue, 06 Dec 2022 21:26:11 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2fPQ-0005EL-LB; Tue, 06 Dec 2022 21:23:24 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1p2fS6-0005r7-U9
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 21:26:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2fPQ-0002oH-KT; Tue, 06 Dec 2022 21:23:24 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2fPQ-0002cN-5q; Tue, 06 Dec 2022 21:23:24 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p2fPQ-0000QD-55; Tue, 06 Dec 2022 21:23:24 +0000
+ (envelope-from <julien@xen.org>)
+ id 1p2fS5-0002ru-TG; Tue, 06 Dec 2022 21:26:09 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2fS5-0002hB-Kv; Tue, 06 Dec 2022 21:26:09 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,90 +39,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=r/mr6DOjvTyqTG+TFC9lq2srH3NTVH5K3aQSqMQMdfE=; b=R3oH+rbuQvb2Jr7YqYAW4efMWY
-	xQDqyw3qjZd1IQFDvAdngWW9UAxUxgbQKoMCbQVcH6S+4Jfb3N+qj7LsByOEyTDffuRYZ7ERB7JWU
-	DFH95zFlhBfL+u+B+hTni6scNHZZvlswcjUmdGIG2Tb1BseLMQaTaCvOAa+t8Tsc0U/0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175063-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
+	bh=KwzGXX09l4ohziPxc9xX7H0c2GRkqVO1+8OfuSqEMaA=; b=xKugV26xWdvs318YAtoLpHB7mS
+	s5y24q/dwGZWh4lsu887/WaAJv318bp5m6VJ0IW3XLzQUsniWrSU9UfbSUMNGEDK2lFvL+mELmMnw
+	WfNXv+sY2T/mgUEsMbtjZLOeGacJBzbNCLCxQAl1Qb3/bcxkbVlRAVoCHQn+0e+Pam2w=;
+Message-ID: <b2779158-0143-d85e-abd6-6dca97e88517@xen.org>
+Date: Tue, 6 Dec 2022 21:26:07 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175063: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=b926dbcccaa92831dda37576f768ddab9ec8a701
-X-Osstest-Versions-That:
-    xen=a6da84524ceaf24ff997d03407b93f60c12857f3
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 06 Dec 2022 21:23:24 +0000
-
-flight 175063 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175063/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  b926dbcccaa92831dda37576f768ddab9ec8a701
-baseline version:
- xen                  a6da84524ceaf24ff997d03407b93f60c12857f3
-
-Last test of basis   175060  2022-12-06 13:00:26 Z    0 days
-Testing same since   175063  2022-12-06 19:00:28 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Ayan Kumar Halder <ayankuma@amd.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Viresh Kumar <viresh.kumar@linaro.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH 00/19] xen/arm64: Suspend to RAM support for Xen
+From: Julien Grall <julien@xen.org>
+To: Mykyta Poturai <Mykyta_Poturai@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Ian Jackson <iwj@xenproject.org>,
+ Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
+ Dario Faggioli <dfaggioli@suse.com>
+References: <cover.1665128335.git.mykyta_poturai@epam.com>
+ <1af48fce-b234-1f08-3882-8f071893dc3c@xen.org>
+In-Reply-To: <1af48fce-b234-1f08-3882-8f071893dc3c@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 06/12/2022 20:32, Julien Grall wrote:
+> Hi,
+> 
+> On 07/10/2022 14:08, Mykyta Poturai wrote:
+>> This is a series from Mirela Simonovic. Ported to 4.16 and with
+>> added changes suggested here
+>> https://lore.kernel.org/all/CAKPH-NjmaZENb8gT=+FobrAycRF01_--6GuRA2ck9Di5wiudhA@mail.gmail.com
+>>
+>> This series contains support for suspend to RAM (in the following text 
+>> just
+>> 'suspend') for Xen on arm64. The implementation is aligned with the 
+>> design
+>> specification that has been proposed on xen-devel list:
+>> https://lists.xenproject.org/archives/html/xen-devel/2017-12/msg01574.html
+>>
+>> At a high-level the series contains:
+>> 1) Support for suspending guests via virtual PSCI SYSTEM_SUSPEND call
+>> 2) Support for resuming a guest on an interrupt targeted to that guest
+>> 3) Support for suspending Xen after dom0 finalizes the suspend
+>> 4) Support for resuming Xen on an interrupt that is targeted to a guest
+> 
+>  From the previous discussion, there were a few dubious code in 
+> cpu_disable() (e.g. mdelay()). So did you go through the code to confirm 
+> it is fully Arm compliant?
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Another missing pieces is that we don't free anything related to the CPU 
+that is been powered down. But AFAICT, we will end up to allocate the 
+memory again for things like page tables, per-cpu...
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Cheers,
 
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   a6da84524c..b926dbccca  b926dbcccaa92831dda37576f768ddab9ec8a701 -> smoke
+-- 
+Julien Grall
 
