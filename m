@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B803644BB6
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 19:28:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455469.712950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A3E3644BB9
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 19:29:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455475.712961 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2cfM-0000CM-8M; Tue, 06 Dec 2022 18:27:40 +0000
+	id 1p2cgl-0000kV-Ia; Tue, 06 Dec 2022 18:29:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455469.712950; Tue, 06 Dec 2022 18:27:40 +0000
+Received: by outflank-mailman (output) from mailman id 455475.712961; Tue, 06 Dec 2022 18:29:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2cfM-00009a-5W; Tue, 06 Dec 2022 18:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 455469;
- Tue, 06 Dec 2022 18:27:38 +0000
+	id 1p2cgl-0000ik-Fe; Tue, 06 Dec 2022 18:29:07 +0000
+Received: by outflank-mailman (input) for mailman id 455475;
+ Tue, 06 Dec 2022 18:29:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p2cfK-00009U-H2
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 18:27:38 +0000
+ (envelope-from <julien@xen.org>) id 1p2cgk-0000ie-Ud
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 18:29:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p2cfI-00078w-Qe; Tue, 06 Dec 2022 18:27:36 +0000
+ (envelope-from <julien@xen.org>) id 1p2cgk-0007AV-Tp
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 18:29:06 +0000
 Received: from [54.239.6.185] (helo=[192.168.22.87])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p2cfI-0003oc-Ko; Tue, 06 Dec 2022 18:27:36 +0000
+ id 1p2cgk-0003pc-Nb; Tue, 06 Dec 2022 18:29:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,127 +42,151 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=nRVXz0iGu7R9CNf1yC7vJkFqKb2VttHAanboPMO18/s=; b=JDI9LrFkrFXTtRa9a+ofemfQu3
-	UfA58QnFRYOYCAOs2glT/mebLJCbxo2c6xybNoQCHbN9RBxkyuzvt33nIiNLq8SYWdpLWRk2rZjEo
-	ggrJmxMy8zGWTvBPZLkjF5fEnuhP9LkLEicCcWYaeHWaJodB52TgOCbMmHwQ7rHFOlu4=;
-Message-ID: <7a66f7f3-174d-a9ce-ff5a-582de82843fb@xen.org>
-Date: Tue, 6 Dec 2022 18:27:34 +0000
+	bh=xZ/c85VhZG4I31RWWo3ctKQDGsUcpXuZjLnFRhNg5HA=; b=4KZRBnOrOmEclrqou2/FxlE/Tb
+	w2uBbNUEaGaOqbbe0z0MEY5fTOReSVEY5s1On1seYAu5w9n31hcR4QZYeY9u8oPgMLFWXttblTOc5
+	/e/a53EtJ2oGucymm5+o3/DoXK0SIauqQ0hFIAF4QjDgx1x23PLW+uiFvvwtN7KbV0XA=;
+Message-ID: <9987952b-2256-a9f6-8ca7-49c24cf16fe2@xen.org>
+Date: Tue, 6 Dec 2022 18:29:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [PATCH RFC 07/10] domain: map/unmap GADDR based shared guest
- areas
+Subject: Re: [RFC v2 04/12] xen/arm32: head: Remove restriction where to load
+ Xen
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <5a571fd9-b0c2-216e-a444-102397a22ca0@suse.com>
- <f1229a27-f92c-a0dc-928e-1d78b928fdd0@xen.org>
- <c8f79867-42b3-a23f-6fe0-de8b698c6b0c@suse.com>
- <ceb28c2f-d4c6-3190-ea84-d6f7c9acb4ad@xen.org>
- <d8ba56a3-3b3f-788c-620e-823d4e2e38ea@suse.com>
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>,
+ "marco.solieri@minervasys.tech" <marco.solieri@minervasys.tech>,
+ "lucmiccio@gmail.com" <lucmiccio@gmail.com>,
+ "carlo.nonato@minervasys.tech" <carlo.nonato@minervasys.tech>,
+ Julien Grall <jgrall@amazon.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221022150422.17707-1-julien@xen.org>
+ <20221022150422.17707-5-julien@xen.org>
+ <F7ED0618-C95F-45FE-932C-A27D75DC8206@arm.com>
+ <8624949e-6198-1aa3-152f-4294534d6d86@xen.org>
+ <62EDCEBA-B8B6-4869-99A3-3A430BF9D637@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <d8ba56a3-3b3f-788c-620e-823d4e2e38ea@suse.com>
+In-Reply-To: <62EDCEBA-B8B6-4869-99A3-3A430BF9D637@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Jan,
+Hi Luca,
 
-On 29/11/2022 14:02, Jan Beulich wrote:
-> On 29.11.2022 09:40, Julien Grall wrote:
->> On 28/11/2022 10:01, Jan Beulich wrote:
->>> On 24.11.2022 22:29, Julien Grall wrote:
->>>> On 19/10/2022 09:43, Jan Beulich wrote:
->>>>> --- a/xen/common/domain.c
->>>>> +++ b/xen/common/domain.c
->>>>> @@ -1563,7 +1563,82 @@ int map_guest_area(struct vcpu *v, paddr
->>>>>                        struct guest_area *area,
->>>>>                        void (*populate)(void *dst, struct vcpu *v))
->>>>>     {
->>>>> -    return -EOPNOTSUPP;
->>>>> +    struct domain *currd = v->domain;
->>>>> +    void *map = NULL;
->>>>> +    struct page_info *pg = NULL;
->>>>> +    int rc = 0;
->>>>> +
->>>>> +    if ( gaddr )
+On 25/11/2022 15:50, Luca Fancellu wrote:
+> 
+> 
+>> On 17 Nov 2022, at 20:18, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 25/10/2022 12:56, Luca Fancellu wrote:
+>>>> On 22 Oct 2022, at 16:04, Julien Grall <julien@xen.org> wrote:
 >>>>
->>>> 0 is technically a valid (guest) physical address on Arm.
->>>
->>> I guess it is everywhere; it certainly also is on x86. While perhaps a
->>> little unfortunate in ordering, the public header changes coming only
->>> in the following patches was the best way I could think of to split
->>> this work into reasonable size pieces. There the special meaning of 0
->>> is clearly documented. And I don't really see it as a meaningful
->>> limitation to not allow guests to register such areas at address zero.
->> I would expect an OS to allocate the region using the generic physical
->> allocator. This allocator may decide that '0' is a valid address and
->> return it.
->>
->> So I think your approach could potentially complicate the OS
->> implementation. I think it would be better to use an all Fs value as
->> this cannot be valid for this hypercall (we require at least 4-byte
->> alignment).
-> 
-> Valid point, yet my avoiding of an all-Fs value was specifically with
-> compat callers in mind - the values would be different for these and
-> native ones, which would make the check more clumsy (otherwise it
-> could simply be "if ( ~gaddr )").
-
-Ah I forgot about compat. How about converting the 32-bit Fs to a 64-bit 
-Fs in the compat code?
-
-This will avoid to add restriction in the hypercall interface just 
-because of compat.
-
-> 
->>>>> @@ -1573,6 +1648,22 @@ int map_guest_area(struct vcpu *v, paddr
->>>>>      */
->>>>>     void unmap_guest_area(struct vcpu *v, struct guest_area *area)
->>>>>     {
->>>>> +    struct domain *d = v->domain;
->>>>> +    void *map;
->>>>> +    struct page_info *pg;
+>>>> From: Julien Grall <jgrall@amazon.com>
 >>>>
->>>> AFAIU, the assumption is the vCPU should be paused here.
->>>
->>> Yes, as the comment ahead of the function (introduced by an earlier
->>> patch) says.
+>>>> At the moment, bootloaders can load Xen anywhere in memory but the
+>>>> region 2MB - 4MB. While I am not aware of any issue, we have no way
+>>>> to tell the bootloader to avoid that region.
+>>>>
+>>>> In addition to that, in the future, Xen may grow over 2MB if we
+>>>> enable feature like UBSAN or GCOV. To avoid widening the restriction
+>>>> on the load address, it would be better to get rid of it.
+>>>>
+>>>> When the identity mapping is clashing with the Xen runtime mapping,
+>>>> we need an extra indirection to be able to replace the identity
+>>>> mapping with the Xen runtime mapping.
+>>>>
+>>>> Reserve a new memory region that will be used to temporarily map Xen.
+>>>> For convenience, the new area is re-using the same first slot as the
+>>>> domheap which is used for per-cpu temporary mapping after a CPU has
+>>>> booted.
+>>>>
+>>>> Furthermore, directly map boot_second (which cover Xen and more)
+>>>> to the temporary area. This will avoid to allocate an extra page-table
+>>>> for the second-level and will helpful for follow-up patches (we will
+>>>> want to use the fixmap whilst in the temporary mapping).
+>>>>
+>>>> Lastly, some part of the code now needs to know whether the temporary
+>>>> mapping was created. So reserve r12 to store this information.
+>>>>
+>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>>> ----
+>>>>
+>>>>     Changes in v2:
+>>>>         - Patch added
+>>>> ---
+>>> Hi Julien,
+>>> I’m hitting an assert with this one, tested on qemu and fvp:
 >>
->> Ah, I missed that. Thanks!
+>> Thanks for testing the series!
 >>
->>>
->>>> Should we add an ASSERT()?
->>>
->>> I was going from unmap_vcpu_info(), which had the same requirement,
->>> while also only recording it by way of a comment. I certainly could
->>> add an ASSERT(), but besides this being questionable as to the rules
->>> set forth in ./CODING_STYLE I also view assertions of "paused" state
->>> as being of limited use - the entity in question may become unpaused
->>> on the clock cycle after the check was done.
+>>> Xen 4.17-rc
+>>> (XEN) Xen version 4.17-rc (user@hostname) (arm-poky-linux-gnueabi-gcc (GCC) 11.3.0) debug=y Tue Oct 25 10:51:06 UTC 2022
+>>> (XEN) Latest ChangeSet:
+>>> (XEN) build-id: ab143b13f4394ced5331d6ff1cedebdb2ffadc07
+>>> (XEN) Processor: 412fc0f1: "ARM Limited", variant: 0x2, part 0xc0f,rev 0x1
+>>> (XEN) 32-bit Execution:
+>>> (XEN)   Processor Features: 00001131:00011001
+>>> (XEN)     Instruction Sets: AArch32 A32 Thumb Thumb-2 ThumbEE Jazelle
+>>> (XEN)     Extensions: GenericTimer
+>>> (XEN)   Debug Features: 02010555
+>>> (XEN)   Auxiliary Features: 00000000
+>>> (XEN)   Memory Model Features: 10201105 20000000
+>>> (XEN)                          01240000 02102211
+>>> (XEN)   ISA Features: 02101110 13112111 21232041
+>>> (XEN)                 11112131 10011142 00000000
+>>> (XEN) Using SMC Calling Convention v1.0
+>>> (XEN) Using PSCI v0.2
+>>> (XEN) SMP: Allowing 4 CPUs
+>>> (XEN) Generic Timer IRQ: phys=30 hyp=26 virt=27 Freq: 62500 KHz
+>>> (XEN) GICv2m extension register frame:
+>>> (XEN)         gic_v2m_addr=0000000008020000
+>>> (XEN)         gic_v2m_size=0000000000001000
+>>> (XEN)         gic_v2m_spi_base=80
+>>> (XEN)         gic_v2m_num_spis=64
+>>> (XEN) GICv2 initialization:
+>>> (XEN)         gic_dist_addr=0000000008000000
+>>> (XEN)         gic_cpu_addr=0000000008010000
+>>> (XEN)         gic_hyp_addr=0000000008030000
+>>> (XEN)         gic_vcpu_addr=0000000008040000
+>>> (XEN)         gic_maintenance_irq=25
+>>> (XEN) GICv2: 288 lines, 4 cpus (IID 00000000).
+>>> (XEN) XSM Framework v1.0.1 initialized
+>>> (XEN) Initialising XSM SILO mode
+>>> (XEN) Using scheduler: SMP Credit Scheduler rev2 (credit2)
+>>> (XEN) Initializing Credit2 scheduler
+>>> (XEN)  load_precision_shift: 18
+>>> (XEN)  load_window_shift: 30
+>>> (XEN)  underload_balance_tolerance: 0
+>>> (XEN)  overload_balance_tolerance: -3
+>>> (XEN)  runqueues arrangement: socket
+>>> (XEN)  cap enforcement granularity: 10ms
+>>> (XEN) load tracking window length 1073741824 ns
+>>> (XEN) Allocated console ring of 32 KiB.
+>>> (XEN) VFP implementer 0x41 architecture 4 part 0x30 variant 0xf rev 0x0
+>>> (XEN) CPU0: Guest atomics will try 1 times before pausing the domain
+>>> (XEN) Bringing up CPU1
+>>> (XEN) Assertion '!lpae_is_valid(*entry)' failed at arch/arm/domain_page.c:69
 >>
->> That's correct. However, that race you mention is unlikely to happen
->> *every* time. So there are a very high chance the ASSERT() will hit if
->> miscalled.
+>> So this is asserting because, so far, for secondary CPUs, we are copying the content of the CPU0 root table to the secondary CPU root table and then update the entry.
 >>
->>> (But yes, such are no
->>> different from e.g. the fair number of spin_is_locked() checks we
->>> have scattered around, which don't really provide guarantees either.)
->> And that's fine to not provide the full guarantee. You are still
->> probably going to catch 95% (if not more) of the callers that forgot to
->> call it with the spin lock held.
+>> So the entry would logical be valid. This is fine to be valid because the root able is not yet live.
 >>
->> At least for me, those ASSERTs() were super helpful during development
->> in more than a few cases.
+>> I have follow-up patches (not yet sent) where the root table for secondary CPUs would also be live. I probably mistakenly tested with those patches.
+>>
+>> Anyway, the ASSERT() here doesn't make sense in the context of this patch because we are still switching the CPU0 root table. So I will drop the ASSERT() for now.
+>>
+>> I will re-introduce it in a follow-up series.
+>>
+>> Before I send a new version, do you have any comments for the rest of the patches?
 > 
-> Okay, I'll add one then, but in the earlier patch, matching the comment
-> that's introduced there.
+> Hi Julien,
+> 
+> Yes as you pointed out, the assert was not right in that context and it can be removed without issues, I’ve had a look on the serie and the changes looks ok to me, I’ve also tested
+> that it works on arm64 and arm32 using FVP.
 
-Thanks! I still owe you a review for the rest of the series.
+Thanks! I will aim to respin the series this week.
 
 Cheers,
 
