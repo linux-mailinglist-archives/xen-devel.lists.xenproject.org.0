@@ -2,52 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCC40644546
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:05:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454915.712494 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E6AE644549
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:07:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.454920.712507 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2YZV-0000gH-8D; Tue, 06 Dec 2022 14:05:21 +0000
+	id 1p2Yb0-0001EM-MH; Tue, 06 Dec 2022 14:06:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454915.712494; Tue, 06 Dec 2022 14:05:21 +0000
+Received: by outflank-mailman (output) from mailman id 454920.712507; Tue, 06 Dec 2022 14:06:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2YZV-0000dx-5U; Tue, 06 Dec 2022 14:05:21 +0000
-Received: by outflank-mailman (input) for mailman id 454915;
- Tue, 06 Dec 2022 14:05:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p2Yb0-0001Ay-Hx; Tue, 06 Dec 2022 14:06:54 +0000
+Received: by outflank-mailman (input) for mailman id 454920;
+ Tue, 06 Dec 2022 14:06:52 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=WiLW=4E=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p2YZT-0000dq-Kn
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:05:19 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062a.outbound.protection.outlook.com
- [2a01:111:f400:7e88::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f9a71288-756e-11ed-8fd2-01056ac49cbb;
- Tue, 06 Dec 2022 15:05:02 +0100 (CET)
-Received: from MW4PR04CA0219.namprd04.prod.outlook.com (2603:10b6:303:87::14)
- by PH0PR12MB8176.namprd12.prod.outlook.com (2603:10b6:510:290::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 14:05:14 +0000
-Received: from CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:87:cafe::3e) by MW4PR04CA0219.outlook.office365.com
- (2603:10b6:303:87::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Tue, 6 Dec 2022 14:05:14 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT065.mail.protection.outlook.com (10.13.174.62) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.14 via Frontend Transport; Tue, 6 Dec 2022 14:05:13 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 6 Dec
- 2022 08:05:12 -0600
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 6 Dec 2022 08:05:11 -0600
+ <SRS0=d2tL=4E=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1p2Yay-0001Aq-DW
+ for xen-devel@lists.xen.org; Tue, 06 Dec 2022 14:06:52 +0000
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [2607:f8b0:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3a54676b-756f-11ed-91b6-6bf2151ebd3b;
+ Tue, 06 Dec 2022 15:06:51 +0100 (CET)
+Received: by mail-pl1-x62d.google.com with SMTP id b21so13995738plc.9
+ for <xen-devel@lists.xen.org>; Tue, 06 Dec 2022 06:06:50 -0800 (PST)
+Received: from [10.17.77.118] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ h13-20020a170902680d00b00189c62eac37sm6749498plk.32.2022.12.06.06.06.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 06 Dec 2022 06:06:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,128 +44,226 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f9a71288-756e-11ed-8fd2-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ve9Nn3tyWuz92B+iGmIMMWxEggLXjmjx5cYf3efo9W9QDUiX5/gGuw6j8LPBIh/suvnxoasPdzxRS75CtRAHWD35URwNKOeJFInmTCk3Ppdi3aGgK6rApKUmqY7cZXxOVhHeYAcYESw2j0eQen32unW3LQszDTFRJoJnb5iNuUlhveTj+ZmFmr+Np38/nUOZ4l4iYFj3SGzbnjiJGNfsB3L9JenyFQk0kKou172zLR/2vBtQ/z5AY3SDuSbkLpqswEYrqxvo400xKKpAEd0pfaYTF6Oo7GU6p4oYPT5a6BwVn742/fpRODfUpLu/bIkaZKglt4yiEsA9rTbYkE25Kg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OcAUhPy/S5Mr9wVdGuYBDm8qNnl/JIQ5QIVBIN4OJSg=;
- b=GbYnRbhKqu1OjZGN8rYLaLoJc/n2IqORWTrTr3ZNOmKHR63yrclVVvLFDUsC55zeQu2q9iueB+7RXcm4ew6Tma/YdWPFC8pqUpMcVrUo/1ZbvGvUMEiCCWA3l3QNqEpSjO0kPx4gQbPhR1ZLFE/Hv41OOds4OMKFBGcEWna17AiUooxwYDI1vnZQjLsJBiEd4mijbY+F5LT5vWJ6FC597Zdg7kTOQFn25RXCAksjpaybAWo2FMag0qPtz9sGl8ZuYryppwZrSPKaP/W7SuoxOSLSPcUYlHGnHAulfrGUxD2MooW2MNjYQv4u2mSv6dvtPa9/lHexEQFaNJRBDcaMFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OcAUhPy/S5Mr9wVdGuYBDm8qNnl/JIQ5QIVBIN4OJSg=;
- b=rJ1rkXd+zTmtR8NpVXNkh8qdcPtc6TSik+z1Z22RNlI3IDj6hELot4SPWUjouXoGPILMnpNLFxR3QMpdeXakJbLrguhL5i6qeN63hf1jun2MRjsakGMFBBNibhcnAJLsPst1mW5FaQPiWGvVg1IPGUB5R4+fdxlyDlNsLEfCqNo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <4adcb0d7-1f94-231e-9dc2-41dc3b45f949@amd.com>
-Date: Tue, 6 Dec 2022 15:05:10 +0100
+X-Inumbo-ID: 3a54676b-756f-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=fP5xJavYfw+udVxdse618vFGR2H6vGrEn/ZNEsRsWpE=;
+        b=ltxTTIg7eItZRNuUsj3XFlbMXW567ZyrwHYtpYFareAihiRMy39SU/stMFjnqrnKAJ
+         nuhfxOFevWOQGTcVaGv7S++kC6mkeCYqG/LcXtnfrFo/wD3vjbTgSh6ptVmR/YL+KngR
+         5bl9H4w1eIK//hwsTKRwuiJixFo++6BZjtvldDOeke8q2HUCLJH18Y+V9J/vNMfMxUqu
+         KvUEefPHXy+K/maudeR9oDUhJ4MwsNWVqPSjJ0axio5h+ihnkOm9OfKqoprEZ33osl4o
+         YIpoM4hJKcXg340l8owGiPqqKvGhaufHg+B2wAASL62nFj6VUThW++jj1fn0gOcYFGUt
+         L4XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=fP5xJavYfw+udVxdse618vFGR2H6vGrEn/ZNEsRsWpE=;
+        b=iYKxtUR3rAPj3SE6/LO0LZrB47BA89swx2HRa0sJ5NeQmujMgb3hwhf03aNhWUaVYj
+         ZImScADJWKZBYGFUobeMNBAZoWv/eJEIi7ir3qR6VD60X3gihIm4mqa3A5FIgZHHriDV
+         yY8tFKx4w4pvHLxYyM8zgmiZTVyOF7joDMbBMq4iQTxOwahzRLSbLoyux2ctp/EWwTAI
+         EJFLd5Sz7B8/uh9cm9n5tGhGenuukQWK9pLFb5NNXfaltJx38fYtHGgod7jdZiBUcdsm
+         RsW/Ot/Yos7T/NYd6+6VUHzctt0PZe6+h3i3u6nFfr6NuzZK02Dum5l24UPBMUhpUg9v
+         dLBg==
+X-Gm-Message-State: ANoB5pkBK0FTNS0aSglCgVK1rAszibBQL0hqrin8Jau2rYgTbXrPnSSD
+	BUtHDg6y5ToY6VGq1GHVi7s=
+X-Google-Smtp-Source: AA0mqf7jre/E5aj71ikn01xnR3XnQlnYIbCwodJZw4YG1XwBb36m2Qbr5AEStrRD1Pw2SUtWf+YfFg==
+X-Received: by 2002:a17:902:e415:b0:189:e924:e27d with SMTP id m21-20020a170902e41500b00189e924e27dmr4042391ple.167.1670335609164;
+        Tue, 06 Dec 2022 06:06:49 -0800 (PST)
+Message-ID: <4261f3f1-09f6-9d63-b085-a7ae58b242e5@gmail.com>
+Date: Tue, 6 Dec 2022 16:06:30 +0200
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [PATCH] xen: Remove trigraphs from comments
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH V6 1/3] libxl: Add support for generic virtio device
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
+ <alex.bennee@linaro.org>, Stefano Stabellini
+ <stefano.stabellini@xilinx.com>, Mathieu Poirier
+ <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xen.org, Julien Grall
+ <julien@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>
+References: <cover.1667906228.git.viresh.kumar@linaro.org>
+ <f1dc91669df27705c25a1f3018427c2db77b32a6.1667906228.git.viresh.kumar@linaro.org>
+ <6a546552-d71d-a262-5981-8058dc37ae26@gmail.com>
+ <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
-	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
-	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
-	<xen-devel@lists.xenproject.org>
-References: <20221206105932.11855-1-michal.orzel@amd.com>
- <0bfa1b1b-7ae0-03c9-0291-5ce3f6877693@suse.com>
- <92cc2cf3-4c95-1395-be2c-d076fa5d397b@amd.com>
- <cf7f8deb-ec5c-c6ec-ba5b-b7099830fcb9@suse.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <cf7f8deb-ec5c-c6ec-ba5b-b7099830fcb9@suse.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <20221205061518.l2i4kqkzcivpxaxl@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT065:EE_|PH0PR12MB8176:EE_
-X-MS-Office365-Filtering-Correlation-Id: b331c1ec-abf9-4f50-5862-08dad792e577
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	vC6mPvcevBda/D12wjbRY9PPOuzEGSezjw8NoztuCJ7dSZkxj8DLC4gdvYogbsug9hl0xxF1pixjJlELRfYcz9iRDEOEWqn/ya4U+9bszrC2t/iT84OcqB5M/tMlI5dlBpKjNqkPddIF/pUqTVVxqkCE40dZM2aajiK8NyG9gNTrjm27F9MjcecWuC6fWDzFj/MT8D4wkYoT6/GjjLSp3FC9S6ec9uXiw6PGI3g2EGDqM6xGj/Z9ZmLj5CNp9TsnFmOww5ARwf3zJEIYrNHltKTtrEWhxoMObkyb3VCQmtZpz+gZ8q7eGa1dfToBB85sZgRuijxZdiD5xGaPngH0dj1wXBa8kpMEJwr9pQFt1pQRptAecsipRLd9/N1Dp4IPo8PW0oaLctFTxLsQAgI/qV2nOAVHt5w4db7vsBCSNfgOfzmEN6/z+8TJQhoSVUEuO2SHzsHaP5MrgL8Hl92xZXrYRWIe9IyfsLtAJxlGb+4lQCDzYq9izrznc5EmWL9QX2MOrwjVuqcooJKTuL//CYPkoeGwUMrrA4wun49ke9oO1oJT7DTTXdIaVxPPpMqLJzdx6ZVlEHMPDUzH87mUQBxywXShaggCElmBraZlDicQGCvRKOz5fC1EPybmVR/KayKsUOFdWUjZJc5WusufmHVPSXF3ffm9FDSxRPWuUXRpVErxTMqu4g6EzDS/Sz0FLJTj8w+TZaesj1bvF5t5XLAcmAcCT9xwfvV6xblSh3cuPspLI4vgRBl6RnUrb6CgfYFw/Lk6LRQAZnPsS0rTcA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(376002)(396003)(136003)(39860400002)(451199015)(46966006)(36840700001)(40470700004)(41300700001)(2616005)(426003)(47076005)(82310400005)(186003)(82740400003)(5660300002)(8676002)(4326008)(36756003)(86362001)(336012)(83380400001)(70586007)(356005)(81166007)(478600001)(31696002)(40460700003)(40480700001)(54906003)(26005)(6916009)(316002)(53546011)(16576012)(36860700001)(70206006)(2906002)(66899015)(31686004)(44832011)(8936002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 14:05:13.9628
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b331c1ec-abf9-4f50-5862-08dad792e577
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT065.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8176
 
 
 
-On 06/12/2022 14:46, Jan Beulich wrote:
+On 05.12.22 08:15, Viresh Kumar wrote:
+> Hi Oleksandr,
+
+
+Hello Viresh
+
 > 
-> 
-> On 06.12.2022 14:05, Michal Orzel wrote:
->> On 06/12/2022 13:42, Jan Beulich wrote:
->>> On 06.12.2022 11:59, Michal Orzel wrote:
->>>> --- a/xen/include/xen/pci_regs.h
->>>> +++ b/xen/include/xen/pci_regs.h
->>>> @@ -246,13 +246,13 @@
->>>>  #define  PCI_PM_CTRL_STATE_MASK      0x0003  /* Current power state (D0 to D3) */
->>>>  #define  PCI_PM_CTRL_NO_SOFT_RESET   0x0008  /* No reset for D3hot->D0 */
->>>>  #define  PCI_PM_CTRL_PME_ENABLE      0x0100  /* PME pin enable */
->>>> -#define  PCI_PM_CTRL_DATA_SEL_MASK   0x1e00  /* Data select (??) */
->>>> -#define  PCI_PM_CTRL_DATA_SCALE_MASK 0x6000  /* Data scale (??) */
->>>> +#define  PCI_PM_CTRL_DATA_SEL_MASK   0x1e00  /* Data select (?) */
->>>> +#define  PCI_PM_CTRL_DATA_SCALE_MASK 0x6000  /* Data scale (?) */
->>>>  #define  PCI_PM_CTRL_PME_STATUS      0x8000  /* PME pin status */
->>>> -#define PCI_PM_PPB_EXTENSIONS        6       /* PPB support extensions (??) */
->>>> -#define  PCI_PM_PPB_B2_B3    0x40    /* Stop clock when in D3hot (??) */
->>>> -#define  PCI_PM_BPCC_ENABLE  0x80    /* Bus power/clock control enable (??) */
->>>> -#define PCI_PM_DATA_REGISTER 7       /* (??) */
->>>> +#define PCI_PM_PPB_EXTENSIONS        6       /* PPB support extensions (?) */
->>>> +#define  PCI_PM_PPB_B2_B3    0x40    /* Stop clock when in D3hot (?) */
->>>> +#define  PCI_PM_BPCC_ENABLE  0x80    /* Bus power/clock control enable (?) */
->>>> +#define PCI_PM_DATA_REGISTER 7       /* (?) */
->>>>  #define PCI_PM_SIZEOF                8
+> On 02-12-22, 16:52, Oleksandr Tyshchenko wrote:
+>>> This patch adds basic support for configuring and assisting generic
+>>> Virtio backend which could run in any domain.
 >>>
->>> We've inherited all of these from Linux, and I notice Linux still has it
->>> this same way. Ideally Linux would change first, but I'd be okay with a
->>> sentence added to the description clarifying that we knowingly accept
->>> the divergence.
->> This file already diverged and we are not in sync with Linux as well.
+>>> An example of domain configuration for mmio based Virtio I2C device is:
+>>> virtio = ["type=virtio,device22,transport=mmio"]
+>>>
+>>> Also to make this work on Arm, allocate Virtio MMIO params (IRQ and
+>>> memory region) and pass them to the backend. Update guest device-tree as
+>>> well to create a DT node for the Virtio devices.
+>>
+>>
+>> Some NITs regarding the commit description:
+>> 1. Besides making generic things current patch also adds i2c/gpio device
+>> nodes, I would mention that in the description.
+>> 2. I assume current patch is not enough to make this work on Arm, at least
+>> the subsequent patch is needed, I would mention that as well.
+>> 3. I understand where "virtio,device22"/"virtio,device29" came from, but I
+>> think that links to the corresponding device-tree bindings should be
+>> mentioned here (and/or maybe in the code).
 > 
-> Of course - that's the case for the majority of files we've taken from
-> somewhere. But a Linux patch dropping the (??) parts of the comment
-> (perhaps once whoever had put them there convinced themselves that the
-> names of the constants and/or the comments are valid / applicable)
-> would then no longer apply cleanly if we wanted to carry it over.
-> Hence my request for amending the description.
-I'm totally fine to add an extra sentence.
+> Agree to all.
+>   
+>>> +static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
+>>> +                                        uint32_t irq, const char *type,
+>>> +                                        uint32_t backend_domid)
+>>> +{
+>>> +    int res, len = strlen(type);
+>>> +
+>>> +    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
+>>> +    if (res) return res;
+>>> +
+>>> +    /* Add device specific nodes */
+>>> +    if (!strncmp(type, "virtio,device22", len)) {
+>>> +        res = make_virtio_mmio_node_i2c(gc, fdt);
+>>> +        if (res) return res;
+>>> +    } else if (!strncmp(type, "virtio,device29", len)) {
+>>> +        res = make_virtio_mmio_node_gpio(gc, fdt);
+>>> +        if (res) return res;
+>>> +    } else {
+>>> +        LOG(ERROR, "Invalid type for virtio device: %s", type);
+>>> +        return -EINVAL;
+>>> +    }
+>>
+>> I am not sure whether it is the best place to ask, but I will try anyway. So
+>> I assume that with the whole series applied it would be possible to
+>> configure only two specific device types ("22" and "29").
+> 
+> Right.
+> 
+>> But what to do if user, for example, is interested in usual virtio device
+>> (which doesn't require specific device-tree sub node with specific
+>> compatible in it). For these usual virtio devices just calling
+>> make_virtio_mmio_node_common() would be enough.
+>>
+>>
+>> Maybe we should introduce something like type "common" which would mean we
+>> don't need any additional device-tree sub nodes?
+>>
+>> virtio = ["type=common,transport=mmio"]
+> 
+> I am fine with this. Maybe, to keep it aligned with compatibles, we
+> can write it as
+>   
+> virtio = ["type=virtio,device,transport=mmio"]
+> 
+> and document that "virtio,device" type is special and we won't add
+> compatible property to the DT node.
+
+
+Personally I am fine with this.
+
 
 > 
->> Also there is no functional change being made by this patch so it is ok
->> to change Xen and not Linux in this case (which has quite a lot of trigraphs all over the place).
+>>> diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+>>> index 612eacfc7fac..15a32c75c045 100644
+>>> --- a/tools/libs/light/libxl_create.c
+>>> +++ b/tools/libs/light/libxl_create.c
+>>> @@ -1802,6 +1802,11 @@ static void domcreate_launch_dm(libxl__egc *egc, libxl__multidev *multidev,
+>>>                                  &d_config->vkbs[i]);
+>>>            }
+>>> +        for (i = 0; i < d_config->num_virtios; i++) {
+>>> +            libxl__device_add(gc, domid, &libxl__virtio_devtype,
+>>> +                              &d_config->virtios[i]);
+>>> +        }
+>>
+>>
+>> I am wondering whether this is the best place to put this call. This gets
+>> called for LIBXL_DOMAIN_TYPE_PV and LIBXL_DOMAIN_TYPE_PVH (our Arm case),
+>> and not for LIBXL_DOMAIN_TYPE_HVM. Is it what we want?
 > 
-> Based on what criteria are you saying this is ok (unconditionally)?
+> Can you suggest where should I move this ?
 
-I said that it is ok to change Xen and not Linux because this file already diverged,
-so we cannot assume that future backports will apply cleanly. If we change a file
-that did not diverge, then we are required to modify the origin first and then
-do the backport.
 
+I am not 100% sure, but I think if this whole enabling work is supposed 
+to be indeed generic,
+I would move this out of "switch (d_config->c_info.type)" at least.
+
+>   
+>>> +libxl_virtioinfo = Struct("virtioinfo", [
+>>> +    ("backend", string),
+>>> +    ("backend_id", uint32),
+>>> +    ("frontend", string),
+>>> +    ("frontend_id", uint32),
+>>> +    ("devid", libxl_devid),
+>>> +    ("state", integer),
+>>> +    ], dir=DIR_OUT)
+>>
+>> I failed to find where libxl_virtioinfo is used within the series. Why do we
+>> need it?
 > 
-> Jan
+> Looks like leftover that I missed. Will remove it.
+>   
+>>> +static int libxl__virtio_from_xenstore(libxl__gc *gc, const char *libxl_path,
+>>> +                                       libxl_devid devid,
+>>> +                                       libxl_device_virtio *virtio)
+>>> +{
+>>> +    const char *be_path, *fe_path, *tmp;
+>>> +    libxl__device dev;
+>>> +    int rc;
+>>> +
+>>> +    virtio->devid = devid;
+>>> +
+>>> +    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
+>>> +                                  GCSPRINTF("%s/backend", libxl_path),
+>>> +                                  &be_path);
+>>> +    if (rc) goto out;
+>>> +
+>>> +    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
+>>> +                                  GCSPRINTF("%s/frontend", libxl_path),
+>>> +                                  &fe_path);
+>>> +    if (rc) goto out;
+>>
+>> fe_path is not used anywhere down the code even within the series, why do we
+>> need it? Or we just read it to make sure that corresponding entry is present
+>> in Xenstore (some kind of sanity check)?
+> 
+> I copied it from libxl_vkb.c and it isn't using it either. So I assume
+> it is a sanity check, though can be removed if that's what makes
+> sense.
+>   
+>>> +
+>>> +    rc = libxl__backendpath_parse_domid(gc, be_path, &virtio->backend_domid);
+>>> +    if (rc) goto out;
+>>> +
+>>> +    rc = libxl__parse_backend_path(gc, be_path, &dev);
+>>> +    if (rc) goto out;
+>>
+>> The same question for dev variable.
+> 
+> Hmm, this we aren't using at all, which KBD does use it. Maybe we
+> should even call libxl__parse_backend_path() ?
 
-~Michal
+
+ From the code I see that KBD uses "dev.backend_kind" afterwards, so for 
+that purpose it calls libxl__parse_backend_path() to fill in dev's 
+fields, but here we do not need it. I would drop this call together with 
+dev variable.
 
