@@ -2,40 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42BA16445BE
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:34:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.455005.712615 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE8D764460C
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:49:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.455017.712627 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Z1Q-0002RO-Aw; Tue, 06 Dec 2022 14:34:12 +0000
+	id 1p2ZF8-0004KX-KB; Tue, 06 Dec 2022 14:48:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 455005.712615; Tue, 06 Dec 2022 14:34:12 +0000
+Received: by outflank-mailman (output) from mailman id 455017.712627; Tue, 06 Dec 2022 14:48:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Z1Q-0002P6-83; Tue, 06 Dec 2022 14:34:12 +0000
-Received: by outflank-mailman (input) for mailman id 455005;
- Tue, 06 Dec 2022 14:34:10 +0000
+	id 1p2ZF8-0004Hc-FJ; Tue, 06 Dec 2022 14:48:22 +0000
+Received: by outflank-mailman (input) for mailman id 455017;
+ Tue, 06 Dec 2022 14:48:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jFbS=4E=outlook.com=set_pte_at@srs-se1.protection.inumbo.net>)
- id 1p2Z1O-0002P0-Dz
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:34:10 +0000
-Received: from JPN01-OS0-obe.outbound.protection.outlook.com
- (mail-os0jpn01olkn20802.outbound.protection.outlook.com
- [2a01:111:f403:700c::802])
+ <SRS0=WiLW=4E=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p2ZF7-0004HW-BM
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:48:21 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2060b.outbound.protection.outlook.com
+ [2a01:111:f400:7eaa::60b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a51b4d7-7573-11ed-8fd2-01056ac49cbb;
- Tue, 06 Dec 2022 15:34:09 +0100 (CET)
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:152::9)
- by OSZP286MB1967.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:182::12) with
- Microsoft SMTP Server (version=TLS1_2,
+ id 053adf4a-7575-11ed-8fd2-01056ac49cbb;
+ Tue, 06 Dec 2022 15:48:19 +0100 (CET)
+Received: from MW4PR04CA0368.namprd04.prod.outlook.com (2603:10b6:303:81::13)
+ by PH7PR12MB6809.namprd12.prod.outlook.com (2603:10b6:510:1af::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 14:34:00 +0000
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605]) by TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605%5]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
- 14:34:00 +0000
+ 2022 14:48:13 +0000
+Received: from CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:81:cafe::bb) by MW4PR04CA0368.outlook.office365.com
+ (2603:10b6:303:81::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
+ Transport; Tue, 6 Dec 2022 14:48:13 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT016.mail.protection.outlook.com (10.13.175.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5901.14 via Frontend Transport; Tue, 6 Dec 2022 14:48:12 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 6 Dec
+ 2022 08:48:11 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 6 Dec
+ 2022 08:48:10 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 6 Dec 2022 08:48:09 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,133 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a51b4d7-7573-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 053adf4a-7575-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L5Xr7yttFZ6IKWmoDWIHQwulWLcEktykBS6I8Qpbl8ohoPnMJ1I+DYrOm/0vYtkMGoaDqnVFHVcvKSLKTtfg8hZDZVAXu+asmPQETvsPgsaVY7SInYgKNiE5RTQ6kqvF3X7Grk2aIgBemD3mKQTS0C2VHrcZSMtW1xpJyhk6Fin2fv2jrQv9t59OaC1QqoQXu+dkVuIMeUpDWCw/w+rRgqqVZEQXGwe7+rSJYmLJWZRPxssuiPmAojIvhw2WLC5GbJI2x9WzMeHxa9jG2nHrvEGmh8NAVlUTfPy8lUf0CI3dr6mNmmnmM+k9JFZN5t1lksV6uaAF+kYRy12K2dZU7g==
+ b=SCZNoB8n3kwWwc1NFUNzBUd4SrgD8SDX5LEURpHo9E2gcFyMaJStfW7ZOhlhtPq2WaDobCRlwsPlGklUyHClM5kwsSvLWcKK/lleWewLu2KogiUZhcWe1QDoInBFn7sbfeNKPZz1zdaHtq6pHOUly6E1WqHZ6aLjHc5TCcglns7SQf4XzybzYRWVde9+E33/UDRj0jAluHq/zby8S4fSF4annZYHntZD4pDKKetesXDZd0Ipn5jlZZFuReGlJi1W9tAalNir3k2n3MEU812Fa4XUJ4Cb47L3ArZqKXHSAb/4H1FBuR9dW6UCGK62/FuibHeG1jRp7UU4a3PLQ5jSDw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=712H7lgui7y6JKIT38YiTq73OPMRMvLDDcUE25Lr6eo=;
- b=jfWz0NmFUhMsCvzTSd/KEx65x1IrkKWO0Vj2RN1Bt5zpbtesRdJ++FL47Z/jafNjEHlbRP6OHTOADGT74aI0fJjmWPzsPlfqmb4wHbFzR5II1Xx2j28rdPVz7XcGY5QUno6lQ4OFDZ7ZiweMDBcDgHcmXuA8TMlG/xN05dPYFVSZx3hvMt28E7Irqzq6t2ZVAvJH6N9C/xxOCEUdKdy7nTLUUKUiiLhwcYEbmY+F3Xzm2Tpprbm6CvxgWKshZGrQqpsq1/p5I4KGqBFHOfVG94Xby6ibL7F3kSG3omb9rZvBMgXDArUsA2Vnuhj6TbQWvermIipDgyqyOgEopXladQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=YMgsUGZcTH9H1zLR51QtRCIVqYFpPya6BUzh8wnlwzI=;
+ b=jQWzJD/8cz98sAMQCmndnHpHfi/72xNwQQ9hAfGB6RWiV6Mb4inWSGcyiNsnpypF7OHJ0iRoJbrKoilOhesHyrtyvfbjw6m3KDl7hUbP527tz6AwUP8kNQErP1aup91M1auR0gvuY03cDpbeOwSc1hNU08bGZbpaXadrhg9WJwy0ld8dU2Bk8OFl7SrKjJGUA01+3f+F4c5bKq2+BaBWnjhKny+ZJjaT3vQ+Rx107YW2rtgeHms/AsuB+OcMynw2vPC4Yzas+iNSqveiKDaLQqFvz/Lw4u/MkER8RgDMp3/isJ7KPm1Su/QXlcFv4eOlmCv2vKUP4nylpzcfASpDTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=712H7lgui7y6JKIT38YiTq73OPMRMvLDDcUE25Lr6eo=;
- b=EeUMisWfAdi6DvMN0DEAGB0jXZG+5B5xuZDDFsj1NDoxPAdqoZrncQrh5jGZ65MFWjrdOHZoUZwYYK9gGDicmNLAMdZcxrYvU1WhPsLIfzyC7zY+OocrOgiQApkA5/HlUSza+7viB1NGVovldx2vCwQpYFgXLCtQcUp1mxNBX5qWu6TFzaQmnM0cxe0l3EokWlp+Uc89t+94s0L/HZDXFfXb+aK+uUsqNqPhS7za0AL+U0CLtJIuxZodHvFUdiqTnD3TTZZL5KAcfmP3Ck/YvsehyFwyD3ls2e6TGR6mpUBd8n9zhlNjb3AFxYWevDO9jThDQ4u5i/kYs8MkZViI0Q==
-Date: Tue, 6 Dec 2022 22:33:56 +0800
-From: Dawei Li <set_pte_at@outlook.com>
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: johannes@sipsolutions.net, robert.jarzmik@free.fr, jgross@suse.com,
-	sstabellini@kernel.org, oleksandr_tyshchenko@epam.com,
-	roger.pau@citrix.com, srinivas.kandagatla@linaro.org,
-	bgoswami@quicinc.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	christophe.leroy@csgroup.eu, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	xen-devel@lists.xenproject.org, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/6] Make remove() of any bus based driver void returned
-Message-ID:
- <TYCP286MB2323467DEE64E8CE2F8DD212CA1B9@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
-References: <TYCP286MB23234ABCCF40E3FC42FD09A4CA189@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
- <Y44VtN/rmjIU6sDC@kroah.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y44VtN/rmjIU6sDC@kroah.com>
-X-TMN: [8Vq7ns3UEdT1MKuNI1EnmVRTFckh+vr7]
-X-ClientProxiedBy: SG2PR02CA0013.apcprd02.prod.outlook.com
- (2603:1096:3:17::25) To TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:152::9)
-X-Microsoft-Original-Message-ID: <20221206143356.GA176413@wendao-VirtualBox>
+ bh=YMgsUGZcTH9H1zLR51QtRCIVqYFpPya6BUzh8wnlwzI=;
+ b=Fq4uz7thbcKlEM2fLTGdxasYk++6o9jrJHfdJV1CZMHxjg9pGmj5qEuPxUMMbIFLnlaSsFL7lNv9LzDZv9ZO5xBgW11x0dwSgRlVSRjVvs8PSeJPJHE5HCaJDr/PE5AH6//lfv1OLDR+SQIQMVBmDIT0tsuGejzUGaB0pIuzlkA=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>, Wei Liu
+	<wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, Julien Grall
+	<julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2] xen: Remove trigraphs from comments
+Date: Tue, 6 Dec 2022 15:48:06 +0100
+Message-ID: <20221206144806.23139-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCP286MB2323:EE_|OSZP286MB1967:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93999e8e-2faa-414d-67c0-08dad796ea1f
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT016:EE_|PH7PR12MB6809:EE_
+X-MS-Office365-Filtering-Correlation-Id: 083068e9-b53b-47b8-36b1-08dad798e62b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	hSx0dzw/06nyY9YBvPt9lioT3Whlld0i+vanwf0UzirwW0h6UFOgLoS+AtinIVyfRKUUByJp+BsRdrm+r82FOUPRZpYUtncHwXGyD+6BtZGTToT0bU0FvrAZMaWBt/YFuTma/ojojC0AirZQWWukR/Akf1d8C4pJeVOBh4IY4HCSOjwxfdUHGLgLfeqZ3/vMW0xJEbL/eTLuVc1f6alHCOZ6+td3ciQhpZiOfxOEduqKgRD55/n85XXufGi9xeIXSazh+qReon6r109XvtXb2eM4yglxC0PcgI5ytRDJddwaTJ8KIXMJwelfYUnR/Sc4wRfT4OVUbQL8fmdzrYkY4o5gwo5LYITYyrCW3qrrGNIdIB5YEb7H2n0DXGn+inRJKtILNTr7yzManVcULtlgJAAz/pcFd6kyBIcQg8Se6TRkUDryng7x68IOCIe9OHiQeXcdGWgvFMDQRxTD9oSHG4l4QsgYlg197zHzujab7PYrlM6EI7QXXifbh7hhEs556USuj9joxn8i2Kxm6W5Jo+ut0+Mdlv/5jctNfgD14CmFOre6r/hUU1DdJi4xOIosJErFaqNJSoTM57m16Nl4OrwRfxi/oRufap5CtGPxFtv578XC8cZ/f9t1NTKoLYZ6tYng+opO9zn1xvi9m8+ZNA==
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?W4KM73/N0iVboquVZ75JvxrNVpwmX+upDIClAbR/V5uLzWUoVFMgXvCDkYvd?=
- =?us-ascii?Q?KJAp4izY1pXDksrxoHUYwVq5VYISVKLX+XFHXQi7svJ9NHm5+WUHOjsi6Rvd?=
- =?us-ascii?Q?V8rqqicsALu/q2//JLxYNCoR5nNKzJbQjv1mdxPqzHHK+voorHMhn4FETcrE?=
- =?us-ascii?Q?/PJiojtCEW4dWg7NototcYFZuPEEjyPMooAnS026OCqV6PwYO3SDNGbvh3nN?=
- =?us-ascii?Q?90vXySTzMB3z5DFGPhvpEr7dElRUmF+odyRqVT5HZs5Tq/G/YS0ir+JR0JRB?=
- =?us-ascii?Q?aejNuTH02NsxX8sCH7wZ35Y9w0GNehFtSKiMVit33xJ1jyAPuGgUKBz0Uf+R?=
- =?us-ascii?Q?tmWqIY/3MB71nlwGsLXEdbCV7ToB9g6qI+E+g+dTdtYA0kEhArFgYj0jW0j7?=
- =?us-ascii?Q?e8qnHCKJHw2gZdiLZhA8hwCHDzKgbY62iws4X7lnjtfS4P1WbNH+3KEA5QGe?=
- =?us-ascii?Q?UUP5bh0fLZ7Om1AXGQSrzmKdwOL6XLHBKsZETcW0L2nF5u4x8bMWYiNPkL3W?=
- =?us-ascii?Q?Iwq/s7xrwxl3T7OI+v64kmY9TS+fu1w5h8QfMkwg69b1amijG7z4D3t8+Ksn?=
- =?us-ascii?Q?4CaZiGN8SZQgA06722EDZ9hCZCZzzaS6loAOjR6SVzQg+aFhk6pRa+oH3XTt?=
- =?us-ascii?Q?XyG383bFv5hlj9LqvObJbfcV22ihwAuFoKiqYY/tZrM/ug/WSZ4OctiJTX9c?=
- =?us-ascii?Q?pZ2eLStO79n/Yo7BrBF5Juxhyv4I8XluzKfZCe+jKirmCe/Mnu0ErWqMVssG?=
- =?us-ascii?Q?CRLBeaTpXhZ/FmSLAcre89tiu9k7NOjIwl8xpR8vAKHi7xK3pCLylF3pPFt7?=
- =?us-ascii?Q?bJ+gtSiDrr3p0GnSRwvt7wYk47cUH8l54F26CIlpfcu6G5agvaLPNTyruGDR?=
- =?us-ascii?Q?S7ze1MMti5wrVRv2muGqNbT3aZn3j3ohMbfzsHRaJvGOP5Gl6cfZE9ZS2sUA?=
- =?us-ascii?Q?hp+z9aIFa8JnlDpfHXEXHn84IgzD683x2ZlZQ33lyR8vpD+JTMuONvPg2lnR?=
- =?us-ascii?Q?hz8exlgXmb+LOqAqd617ovbwpr13OpMuKkVCXYd6iSOsMLN/P41QCA8ol29U?=
- =?us-ascii?Q?MQBSyazfF++ZEG/vNqTG2zPKEGpBIKorrGDMTvP9TmTv5IWKERONe29/0CXG?=
- =?us-ascii?Q?QyAX5JZHvk7Lbl/a38thFgw48Y98961o17THYmA6oRiTqryBugGT+gpEyjHs?=
- =?us-ascii?Q?fIOe3QxQiBZpbWZPG9Fy4u3t8gAyx3yMKq4JZDRFnyV5ZOjyMzJGvbRtVu+W?=
- =?us-ascii?Q?rYdMtOdwYP4aZlTsdO2Hv9VK7GV8EXX0CF5HEH0TEA=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93999e8e-2faa-414d-67c0-08dad796ea1f
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 14:34:00.2620
+	DLZ5nGal5R2cm0BfFwA3gpvxastLujcXlEOGJflm4e7ibqM7srAFpul8yWMFM5m93ON+hrXrKFEBSVLr6Co25bUuuEayyGP33PjyYUUSJdMAB7fnmo7NLwssUVN5YcuclItBDVJf0dj3eDIXetNsR3Uo4wZMT1ePfRGm0pHzlenyWWcPDs2WRlLzvZgCh6JmIz2xSOoKDqam5ZNRW8U8V+OZSo8KoHI2Yi+kfMsVH+bwRetWZwOUcgN18ehCoSeIZ1mh6acXSrDrwoQI9S7RuKiCro2Q17SztBH9js3DlpclyhhHpqpD4lpNjHFFhJ/7jdwUCYvsZ9zNyJipKQCziF92LiPCvyBeECreQGCaYwFcGadgRrLqv9QgBCsNU8vfkUpBuex1SSMoxzC7EYd6jpFFMg1Ea8/1OAooFQk+6XbfIcEzm2LAcvV0lDuHUgJiMr9UVxpD9pqLCGejA980R3a6r8VTVsBQ1nXxV/9n2UOrnmvFOs3rs/IgYpc6soWyKsG/sVBdxPeJgha5ZjlAnq35QzTsaCnekBdrexi5OQFl1nxYHucwQwoIz0prqP8thlWbP0579D1bIJaEmlXqdoRXjojqQutCWVyIVKonLOCiVyRDfmoAnE+4DBWJ9d0IDqweK3yLb+6XBATIfzBHOfw4XY9TISVMBHD5cJ28Rb4rpJjnihSdAZw4cfOplrPtpzf34OsDZCsqtlQrVAzFjeuIQq6iXaFdYEiW807wrng=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(376002)(136003)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(4326008)(70206006)(6916009)(26005)(40460700003)(2616005)(8676002)(82740400003)(70586007)(478600001)(36860700001)(86362001)(40480700001)(356005)(81166007)(316002)(54906003)(82310400005)(36756003)(6666004)(2906002)(83380400001)(44832011)(336012)(1076003)(8936002)(426003)(41300700001)(47076005)(5660300002)(186003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 14:48:12.1532
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZP286MB1967
+X-MS-Exchange-CrossTenant-Network-Message-Id: 083068e9-b53b-47b8-36b1-08dad798e62b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT016.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6809
 
-On Mon, Dec 05, 2022 at 05:00:52PM +0100, Greg KH wrote:
-> On Mon, Dec 05, 2022 at 11:36:38PM +0800, Dawei Li wrote:
-> > For bus-based driver, device removal is implemented as:
-> > device_remove() => bus->remove() => driver->remove()
-> > 
-> > Driver core needs no feedback from bus driver about the result of
-> > remove callback. In which case, commit fc7a6209d571 ("bus: Make
-> > remove callback return void") forces bus_type::remove be void-returned.
-> > 
-> > Now we have the situation that both 1st & 2nd part of calling chain
-> > are void returned, so it does not make much sense for the last one
-> > (driver->remove) to return non-void to its caller.
-> > 
-> > So the basic idea behind this patchset is making remove() callback of
-> > any bus-based driver to be void returned.
-> > 
-> > This patchset includes changes for drivers below:
-> > 1. hyperv
-> > 2. macio
-> > 3. apr
-> > 4. xen
-> > 5. ac87
-> > 6. soundbus
+MISRA C rule 4.2 states that trigraphs (sequences of two question marks
+followed by a specified third character [=/'()!<>-]) should not be used.
+This applies to both code and comments. Thankfully, we do not use them
+in the code, but still there are some comments where they are
+accidentally used. Fix it.
 
-Hi Greg:
-Thanks for the reviewing.
-> 
-> Then that should be 6 different patchsets going to 6 different
-> subsystems.  No need to make this seems like a unified set of patches at
-> all.
-Right, will fix all the issues for this patchset and resend them in 6
-independent patches.
+With regards to the comments and respective macros in pci_regs.h, these
+were inherited from Linux. Let's knowingly accept the divergence.
 
-Thanks
-      Dawei
+Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+---
+Changes in v2:
+ - use (?!?) for arch-x86_64.h
+ - add a note in commit msg that pci_regs.h originated from Linux and we
+   knowingly accept the divergence
+---
+ xen/arch/x86/x86_emulate/x86_emulate.h |  2 +-
+ xen/include/public/arch-x86_64.h       |  2 +-
+ xen/include/xen/pci_regs.h             | 12 ++++++------
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
-> 
-> > Q: Why not platform drivers?
-> > A: Too many of them.(maybe 4K+)
-> 
-> That will have to be done eventually, right?
-> 
-> thanks,
-> 
-> greg k-h
+diff --git a/xen/arch/x86/x86_emulate/x86_emulate.h b/xen/arch/x86/x86_emulate/x86_emulate.h
+index 4732855c40ed..bb7af967ffee 100644
+--- a/xen/arch/x86/x86_emulate/x86_emulate.h
++++ b/xen/arch/x86/x86_emulate/x86_emulate.h
+@@ -228,7 +228,7 @@ struct x86_emulate_ops
+      * All functions:
+      *  @ctxt:  [IN ] Emulation context info as passed to the emulator.
+      * All memory-access functions:
+-     *  @seg:   [IN ] Segment being dereferenced (specified as x86_seg_??).
++     *  @seg:   [IN ] Segment being dereferenced (specified as x86_seg_?).
+      *  @offset:[IN ] Offset within segment.
+      *  @p_data:[IN ] Pointer to i/o data buffer (length is @bytes)
+      * Read functions:
+diff --git a/xen/include/public/arch-x86_64.h b/xen/include/public/arch-x86_64.h
+index 5db52de69584..acf705f25e7a 100644
+--- a/xen/include/public/arch-x86_64.h
++++ b/xen/include/public/arch-x86_64.h
+@@ -22,5 +22,5 @@
+  * A similar callback occurs if the segment selectors are invalid.
+  * failsafe_address is used as the value of eip.
+  *
+- * On x86_64, event_selector and failsafe_selector are ignored (???).
++ * On x86_64, event_selector and failsafe_selector are ignored (?!?).
+  */
+diff --git a/xen/include/xen/pci_regs.h b/xen/include/xen/pci_regs.h
+index ee8e82be36b4..a90aff1712ba 100644
+--- a/xen/include/xen/pci_regs.h
++++ b/xen/include/xen/pci_regs.h
+@@ -246,13 +246,13 @@
+ #define  PCI_PM_CTRL_STATE_MASK	0x0003	/* Current power state (D0 to D3) */
+ #define  PCI_PM_CTRL_NO_SOFT_RESET	0x0008	/* No reset for D3hot->D0 */
+ #define  PCI_PM_CTRL_PME_ENABLE	0x0100	/* PME pin enable */
+-#define  PCI_PM_CTRL_DATA_SEL_MASK	0x1e00	/* Data select (??) */
+-#define  PCI_PM_CTRL_DATA_SCALE_MASK	0x6000	/* Data scale (??) */
++#define  PCI_PM_CTRL_DATA_SEL_MASK	0x1e00	/* Data select (?) */
++#define  PCI_PM_CTRL_DATA_SCALE_MASK	0x6000	/* Data scale (?) */
+ #define  PCI_PM_CTRL_PME_STATUS	0x8000	/* PME pin status */
+-#define PCI_PM_PPB_EXTENSIONS	6	/* PPB support extensions (??) */
+-#define  PCI_PM_PPB_B2_B3	0x40	/* Stop clock when in D3hot (??) */
+-#define  PCI_PM_BPCC_ENABLE	0x80	/* Bus power/clock control enable (??) */
+-#define PCI_PM_DATA_REGISTER	7	/* (??) */
++#define PCI_PM_PPB_EXTENSIONS	6	/* PPB support extensions (?) */
++#define  PCI_PM_PPB_B2_B3	0x40	/* Stop clock when in D3hot (?) */
++#define  PCI_PM_BPCC_ENABLE	0x80	/* Bus power/clock control enable (?) */
++#define PCI_PM_DATA_REGISTER	7	/* (?) */
+ #define PCI_PM_SIZEOF		8
+ 
+ /* AGP registers */
+-- 
+2.25.1
+
 
