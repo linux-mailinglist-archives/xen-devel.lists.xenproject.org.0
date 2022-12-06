@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86DD664456C
-	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:18:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.454959.712550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BA4D644596
+	for <lists+xen-devel@lfdr.de>; Tue,  6 Dec 2022 15:26:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.454969.712561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Ylr-0004w6-LZ; Tue, 06 Dec 2022 14:18:07 +0000
+	id 1p2Ytq-0006kp-G5; Tue, 06 Dec 2022 14:26:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 454959.712550; Tue, 06 Dec 2022 14:18:07 +0000
+Received: by outflank-mailman (output) from mailman id 454969.712561; Tue, 06 Dec 2022 14:26:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2Ylr-0004tO-IQ; Tue, 06 Dec 2022 14:18:07 +0000
-Received: by outflank-mailman (input) for mailman id 454959;
- Tue, 06 Dec 2022 14:18:05 +0000
+	id 1p2Ytq-0006iE-D1; Tue, 06 Dec 2022 14:26:22 +0000
+Received: by outflank-mailman (input) for mailman id 454969;
+ Tue, 06 Dec 2022 14:26:21 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jFbS=4E=outlook.com=set_pte_at@srs-se1.protection.inumbo.net>)
- id 1p2Ylp-0004tI-4R
- for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:18:05 +0000
-Received: from JPN01-TYC-obe.outbound.protection.outlook.com
- (mail-tycjpn01olkn2082e.outbound.protection.outlook.com
- [2a01:111:f403:7010::82e])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vOWa=4E=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p2Ytp-0006i8-6Y
+ for xen-devel@lists.xenproject.org; Tue, 06 Dec 2022 14:26:21 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on20606.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::606])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ca90bd17-7570-11ed-91b6-6bf2151ebd3b;
- Tue, 06 Dec 2022 15:18:03 +0100 (CET)
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:152::9)
- by TYWP286MB2317.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:13d::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Tue, 6 Dec
- 2022 14:17:57 +0000
-Received: from TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605]) by TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- ([fe80::ff96:9cb6:e047:c605%5]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
- 14:17:57 +0000
+ id f34d8e50-7571-11ed-91b6-6bf2151ebd3b;
+ Tue, 06 Dec 2022 15:26:19 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB8464.eurprd04.prod.outlook.com (2603:10a6:10:2c1::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10; Tue, 6 Dec
+ 2022 14:26:18 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.014; Tue, 6 Dec 2022
+ 14:26:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +47,108 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ca90bd17-7570-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: f34d8e50-7571-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kdaQ7q72Lj2Sg5wreW+FEbshBRAeAtO+XQB/Ib18vIM9i8X8a0PUdtiA75YVvUKtQj49GUXgM7+LRkkT9BlN7+8xPyFZ/a3EIUH6xGkrvKlN/3t+uuWflnQHzQfLiwSdkrNFBj703mERGio0ST7j9KZaEtMYHzvjwLkCVGaQpNIRsasem1YEUgD9IGbFzhAUQenMe14bGE7ysny6pkb793x/e43x4A/0hY5y2zsqwzIrenHFjfq7O/oFvAsP3+XmTLYN5j9lb7/XWJ9KbavIke82hzSo1Li3iP4yFTcC6KDb3clIZjYWaFBM7DcxfVD0SSfQ1lLuuAwloGSUxllJ2Q==
+ b=hWHYAddB+mfpN2LEiD279u5cRnHhYoRPI7Tp2TEzLNtMPcoGcdabd9AXFoF5rDy9d6AuWAwqbZHj2wq212cnYahJyIEgBiF5GqqxOgqVGpmUKQLvGUv9wcP1NgKL72FHXdvv1L09CQC3YEBeZawA912TxkIxKa5XBqu8JZD9+xLE26Kvneu7uAnTkxyQKaVaEVgTaO0gkVwdvwPIb0a7nEReuUMPy6F9q0dFHhFfz42eW6wYYHh3F/VsEdXoKgMA8tKF8xDg0Yt0Z747kOK6HT8uVLRE2Dnx0bQSfzb19N6dgN/7XXml4CJbxCecxGb+9nhAbHCS4BhylhwSfnVHfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JWS56LCTfrTyPjDhEbJz0+BgnjIr9N35uxhEGoU9JFA=;
- b=XQpmyoI3kreYZIiIxHbq6aGhYU5j95aTHj7PuObJUgxh+nRHQZ/mPExDOpK31F/6+27ANjfRfzRjkSagvuqNpmVmQJiLcM3Z+xIJjqhPTqc+ETSkWhA4OohgEbKRCgebfuHznmM84qIT6J+3UZN9YF4qqR3oH2Gf2pGMCUVS0+36++PtVmd7DR4zM8bO+kIH/QZIznWNDVLdLr8hnZcl+UtmUv4fIEE+q+7sMeQ3w4zjD4mLTkuRxcYdwP9FpsppfsRRLWdTBQfDMWwbJ4ui2xqNEPRil72D8dOO4to1CmGpgzgl13RexAxkBAdCH9+Cx5lS8hbzgBjShg10jyAN9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
+ bh=WSlEmWA38sY0/etdzhn0OHg7z6XftIae09vFRbgZHKw=;
+ b=V2CXan0Z7COxjgCsU5amH7YqhQoDIzWRlcTpNZ6Klbr0nHqJY2T0r+dUi0ArapCk4g8pnqd7CJGEqIo5Rc96E2z+Fc68dONyf2A/7m19NWn4xlBKo/04F1Yvrn62Q3rPmLxaa+B+5lRDIB0lg7PiGkqKSa3O/9QppGDPaEKT0vfHRaHQ0qhYyDQOPkQeE0AmytL0hXx5n4+hVkwLgK+/o6CI44e/HT3jGU2vUwOi3c0gD15o5o43GwvM/072cJpvyVrnmTyD1NysLTGrSJB3bSjVWS/TqKjaw2SA3QiMqn1DeCVwfYgALNHp9WQeOavyn21aeolm/4oQTQiYQjU4ow==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JWS56LCTfrTyPjDhEbJz0+BgnjIr9N35uxhEGoU9JFA=;
- b=RFUbxY272nXbQJtnElxW1pstjDKyKxDOIbMQ0aGhNQ7otEp24bueigB1G/iFCa9PKC+cbDW6EG6qXte8G9E1a3PRfW7WC68NPvvSERPB9K7FvFt4mKa+dYbAyzfBHPaBVZdTRwizqF+vjHFjndEqBEaPih7Ifqmir3xtPEoLbjhCTj00SZ/wdydfQWPBDZ4Bx/p6kxxziFbOogzVmSM4f6DmrYlt+VqKCKmszWi5CyotIA8uLSNmlscSdfmaVpIbRL5NgiMPTsjmrUMDfenCiXbzNp20pFeLysUbBr9KSoc6D32/89SjEaqD28LvR1vVMpN9qhbC9D2+YEhqUbjqgQ==
-Date: Tue, 6 Dec 2022 22:17:53 +0800
-From: Dawei Li <set_pte_at@outlook.com>
-To: Wei Liu <wei.liu@kernel.org>
-Cc: gregkh@linuxfoundation.org, johannes@sipsolutions.net,
-	robert.jarzmik@free.fr, jgross@suse.com, sstabellini@kernel.org,
-	oleksandr_tyshchenko@epam.com, roger.pau@citrix.com,
-	srinivas.kandagatla@linaro.org, bgoswami@quicinc.com,
-	mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
-	kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
-	alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
-	xen-devel@lists.xenproject.org, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/6] hyperv: Make remove callback of hyperv driver void
- returned
-Message-ID:
- <TYCP286MB232352B671291649EB81F33BCA1B9@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
-References: <20221205153644.60909-1-set_pte_at@outlook.com>
- <TYCP286MB232373567792ED1AC5E0849FCA189@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
- <Y48pdr9DEmXShhFR@liuwe-devbox-debian-v2>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y48pdr9DEmXShhFR@liuwe-devbox-debian-v2>
-X-TMN: [5AWq+o4mcznM6BkaCRMdDIYjM9WRghia]
-X-ClientProxiedBy: TYCPR01CA0060.jpnprd01.prod.outlook.com
- (2603:1096:405:2::24) To TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:152::9)
-X-Microsoft-Original-Message-ID: <20221206141753.GA176233@wendao-VirtualBox>
+ bh=WSlEmWA38sY0/etdzhn0OHg7z6XftIae09vFRbgZHKw=;
+ b=e8o4sdUVWrF421dfGheEd+asxreGjdViE6TP+5YELBEM4yGwnIKjTS7wOkz8pHvwqmf7echSFVWqfoC0gLzUiZR/3szxM5wPAlpo0ARztze8TiuatOUn/4PVZwBqDDqv/AotDdDWGKg0q4e/YBBR7K5Gx3+80gxZqs/7osnhMvmcvYkccIAejEqenwXXUGLCMop5LKY7R2m6oTGV1IFCpeNrX3l9wzDepa5YkqvYOv+VGmpJDaK1wj90ZspJCcvLg1QOCG810rEPQGu+Lh8TNd7bX6W0LtIsWpmta8VBy7K1h+ihcG/Cz75/13s9nrzJsDCLgd02x1jy08c0ho3ukA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e5833b09-0ce3-b991-111e-07e64dfcc85a@suse.com>
+Date: Tue, 6 Dec 2022 15:26:16 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH 0/3] x86/pv-shim: configuring / building re-arrangements
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0032.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYCP286MB2323:EE_|TYWP286MB2317:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58920e56-fefd-42b5-6f1a-08dad794ab14
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8464:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b8a5bed-26a5-4d4e-aa0a-08dad795d701
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	MUz5EFxAW9Kz9XsG63PupaquIUGIs7wYl7y60YI8UmQDQ9YV4bVoUnanW9J9JoZUm1DhsEzV+9hfosjpVNtk1Ywkwr3gH3oQjhn1NHhLcoKtLgE2r1Iq0VipqEcNZTU6d6aZOBu3DYNc1BvlBW2P5OFOwGADmodkJ2XJmAlJX+5WlFky51TxvVEwW/0KtT/80RH0VCENSzIvSjjgMHu6108jddWx7nOdnejIR4VBVc/bm5B2d3l4TDrFbyViGVRriALl04/CpB/y6IuPV8tKutwMrv7wAWlT2ALtp+/tUk28Mxxig93m2XtmZfaIOQA8nOEv3PlGdEp0sUEBitVrW+zn/q3EEh4orqoQUtb/jsJF8bqgfF1zPOxMQ2oLiPSzbci9d40zheMyJPmQrN8IcIesC6GCQbM3NaRGAtq8yH0DSDJsZlvfAL3uz0QYZsCXG/UbKTjMbIS0z6BiLyWfhjWSuY14doNCFSon5V9W3KvbNLO4e1btYOdCYvQEyNsy0CQ2LoDXeTnIr1SgujSK9IMZ7ip1edCzo33y//5c2CgzhIQ+dt4rX5KNXv5V6D+uOnizsLtgS6ZqhQ/dGzgh8dbX2qSyQcjERjr5cJ+r0O0F68keljywQlTQ8bHn0C/7ayGWZNNXTsKvBVciX7PliQ==
+	148gELDYsCciq/cpsp+JsR2Lcs8VY4jFjbi4LeB62+IG/HKaqsUYGaBjfGTY3jjJH76dE9PzZGEkrtI90y45V14K1cZVv6uqid1ALFCiDBf74hujq3qber3td2qo5iu7uNgaaRrjl9xuQ4Tpv7cRhKxpo/KMPhoPJbUm8dko1tVOpj5Lm5sp66qP5ZMkqgCoGcT4IYbvUSThR1tNFyqf2wrRUhAwy98qQ8ig/LGgLAG3zlAQCT5mGPi4FzQueAzxY61BlyIC6rsLvhEoh8XTDj3CSCGZ6Hhzxf6I7aH0lCQthZcYWcdR4L47x44e939HwrMUITN22ULKBAibf0klB3/wO4FG8Tz/KTRDxoXqrHCXF3qsDA7n3gVw/U94Cojklw2RpBMABsQkgljj4VCKLCuIS6Hool7mWr6luM4DjPUj0bpBfEKkvB+LrNTvwDk7kGh9uj/GSqjiVDOUE922Ze6YXrIzay5Sf92QKaHq6vBjmi4dcg8GEMKxR6tIaCt2BibsnJWoZTYptNzPlV/pkpa8IgbUFCkfrVY1wuyqCLR7HQ8+YCMAPr2gbRFMalYEhPnFA4FLn3Fo/+2omTLHuPoPndp5LcQXpLSIKdOQZyrwBh15E/b37o3leKpC9IIHPbUvKvZUuEce+G1ECSeEAGLc5CeDsoF4jzFcQJ+pLGbfxBfhfUM+Ub7K1mlulu+WrTtnaTa9j+m/dmDoz7nuYrAU2sRyFXnXsqDsXTsCjm4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(136003)(366004)(346002)(376002)(396003)(451199015)(38100700002)(36756003)(86362001)(31696002)(2906002)(41300700001)(5660300002)(4326008)(4744005)(8936002)(83380400001)(8676002)(6486002)(66556008)(478600001)(54906003)(316002)(2616005)(66946007)(66476007)(31686004)(6916009)(6512007)(186003)(6506007)(26005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?M6JwybxQXH6HWJkHpkh0mbuH2znRmgTVfoxoRkaMWkj9xCiThIjLMnPTWrHL?=
- =?us-ascii?Q?ZY3waU6XZvEdDfv4/MhowUtD+kaVCqv6uGq4OD4NBgiwmSvaFcjKxnsLEj/k?=
- =?us-ascii?Q?NZg6uiIWz3S44iZS1o6pL52LjNXlggx287DSGEHw82Y5TuiDovdH1Q299GAb?=
- =?us-ascii?Q?T0okFiNlatolUTvV85ZdsEiiYbRRZvJDxye3XVqbSlNeavTvS8Z3cWdwfTA3?=
- =?us-ascii?Q?j8TtRocTwZUL7xUP7zHgevWTht0Q1beiyhckuVFoYjkvVgirndEN04HvXs8j?=
- =?us-ascii?Q?65tDOUTWIJy7bww/aqOegxKfBCVdwYzViIHOLLYO8OVbauH9+ZAQxqPf+iOY?=
- =?us-ascii?Q?zm6ej6m/A/oz74m3MzeQmAxk0hNo6cZRQPjwXJ3uahTlUJx2l45obUzHXR58?=
- =?us-ascii?Q?K8azt/77lk8LWG4QSq+BMJO0ReJY0awkqev6tEiKQ+/8ilqS/EFcoeF8vu3J?=
- =?us-ascii?Q?sEPTJoocjN8xLbEWo/7eiZGBIIOFwAa7pl1o9MCgslOpwoDRDX9pd7kAiarh?=
- =?us-ascii?Q?/ODgFnsWy8Qh+cmh0fI9B1BVseZyylpyNqI8bNprzuB88GfXm2hyhmMHBUfL?=
- =?us-ascii?Q?WimcWPpnGo4J/Y4//ZMv3+KUlG+57ZHQmfULpYl9fL/pkQkI5ptrHU/Jc13U?=
- =?us-ascii?Q?32PbrhVK81/LOi1Z6AfOONVUESu05GYQS2u9MX93VU0seKdWZSi3WJmUZGf6?=
- =?us-ascii?Q?y1z8QOEzQ0HNjdFVfn4Q3/uSD9fOK4o4C3wvk28CUltiCurHIEBIDiYdB5FB?=
- =?us-ascii?Q?5S2hAd2Smgqdb2vqPCTABm1LrlcJTzUW+s05o6BP188PNGYgJf9pVH5pwp/V?=
- =?us-ascii?Q?UH85+dMNj3cFgveYK/Cz2ZbZF4W6ghteAygcjjvNIGnwBNQcGDrx6SZ6OWN8?=
- =?us-ascii?Q?EUUyisHdTY/5FbEOqsdD5j+/qPObk5JWJ6rB0skgCBdFivROWTTzebbUJz4P?=
- =?us-ascii?Q?FX5Iz7XXa7ENL179LtKFwhQ6tpQ12e1Xi8snNrrpKLyYDx/fE29cj0oWKRIQ?=
- =?us-ascii?Q?Hp+3bhgvkoeuhoRkd2dOupf9+m3ffTIggHstE95+O5OzRr+0MlnoWUGHH1+J?=
- =?us-ascii?Q?29n1uqbwzoAbpJypiKnL5HEEJzu9LHPcURjFS2yrczGe4mQHaO7OeDDXyOqC?=
- =?us-ascii?Q?9cLq3X43s2uECbOQJz1E6wPiNetWNAhn8GBuXumwdKvAY4gYzY8aqOW0LOsX?=
- =?us-ascii?Q?TRl4w/0O1Sc9rC60ExRouyorw7jgaqm4QG2pMHBhDmFa6EKApXeOc3BJgRfF?=
- =?us-ascii?Q?2TLauBO42icbb/sAKxN6pFksIoOvMhXpRKqIiTg2Ig=3D=3D?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58920e56-fefd-42b5-6f1a-08dad794ab14
-X-MS-Exchange-CrossTenant-AuthSource: TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM
+	=?utf-8?B?S2Jybk8vL2lDcmtYUk0reGZMcUhaemRZQStJVjlTRnllUHhBaEltN3F4aDlv?=
+ =?utf-8?B?VFBJUlRFVnFZRDhOSW9rQkpWR2N6MitPVDVtV0R6ZWJIYkR4b2pXRkhhNUVo?=
+ =?utf-8?B?OVNQTG5ncFE2MjJPdFVzNVJJakx4eUVOM2s1YllWL3ZpdHFPcTYvZE9PUDlK?=
+ =?utf-8?B?T0JEL2NHbXRhbWMxYmRWVkRZQzVuK0dDOUFKRE1QU29oZXVzdkVTNUVIODFp?=
+ =?utf-8?B?QU5DUy8zbkZrN3ZFNmxnRys2YytkZ01SbUhOdHZOOUkxbmdWeTU1K2xJTk44?=
+ =?utf-8?B?M2V5NjhqRXV2SFRTZzM4Vi8wQ0FBdThieXZrVlMzL3BDVDNVMG15NngvVlhs?=
+ =?utf-8?B?ZHVqVng3YUhJS096WnppL0ZQeERPa3VMSm5FbTh3ckdHU0dTWEY0R2tFTjZM?=
+ =?utf-8?B?b3ZJMFJzRnlZdDR4MnJjS3FQY2Q1UXFlczh4cUpNWGpNTzQ1bFRQNEJLR0RR?=
+ =?utf-8?B?MSt4c1VxM0UvQkdFWllLOEhGWWxlL3VzVzhMKzd0TzF0R0JWVlhUSzN2NFNT?=
+ =?utf-8?B?UWZuZEhaK1c2bDlVN09GeGFJYXk4WXNBM05aUWNobDErTzRPdEJjT1IrQmpn?=
+ =?utf-8?B?SXlIWCtvamk5TTFGaGhpTUdqUzVXaUJhQmZQKzZGajZCbngveDRZSzlLRWt4?=
+ =?utf-8?B?UElQVmZ0Z0JBakhTbFI3UXBEK1dUZEZrcVF6aUdzNjVWKzlNN3JpWHdJaDhT?=
+ =?utf-8?B?d0dia0F4NmwxWnVDc1RVYmx2eGhLcXlNRjlQRWU5M3JZTlVBNHpoeHdKRFYw?=
+ =?utf-8?B?UDliWW1HeklFeWRBRzBGamN6aDJQdEtuSnBKeUtjZG00SVJCQVZJYlMySWps?=
+ =?utf-8?B?aURLUGlldDcvNGtTdnI0OXA3SFRBcHBJak1kRXN3eFkwTlg2Wit5T3h3TmZW?=
+ =?utf-8?B?QWdacHRNNVkra1hFWFljRlFXNWtYbTZJWXRteDkxU1dzLzlXdTFLNXpZd0l0?=
+ =?utf-8?B?bzlJeUJjN1FnTGlVR0dJVmV4VWgrb2U4VlhFcXBDTHgwdFNDcHVTcTVJZGE1?=
+ =?utf-8?B?ZVZyTjUwQUdWcm00bnVEbVUxRWdzNlVWVndxcHMxb0pCanQ2RDJGdGlGLzFm?=
+ =?utf-8?B?d2FJUmdZZklnemx6Rk1XRXA0RGJEQkljWm1HRFAxT2lTY0ZjOWtwSUwwN3hQ?=
+ =?utf-8?B?RWtlUWtjT3dtSnB0b0poNDdORzM3ZFRlaVVlaDVLMTQyaDJUVUt0WmdQdElH?=
+ =?utf-8?B?TkQ4aDFVa091VnNRcFR2Q0tmVlNUMVNQZFE3QkdCOU96UDZ6S1U4bGNnN3FI?=
+ =?utf-8?B?c1ZRak8xUzVRTVo0d2RoTVZOUEhKOTRLZmJIWHJwK1VyT2J0Q2hycUdOeHRJ?=
+ =?utf-8?B?S3kwdnVnUDVZdkdTYWZ5UFNGSmJwcHVGRW92SmNuNklxMkxUYk9RV1Y4NURn?=
+ =?utf-8?B?MEIrWG1URklVbzJYbUV1cEVadlp5K3FQaHF1aXlsL1FSV1hYRDhaQmVNRy8x?=
+ =?utf-8?B?ekJpTEpuZmIwazE1TWxmU2Znc2VTMXI3Qm1NUUd1bCsyVzZ2K2oyek5nSzJx?=
+ =?utf-8?B?WURkd3JUaFU2d3pDZjU4WGc1U0k1T25XUTA2VU1pSGNhQlRMYXFZSHEzc0Uz?=
+ =?utf-8?B?SzhhMDFKZzhVd3R6OHdZM2Y5eVFuK24wRjdpd0pOVmR6WG95UHBjK3podTM1?=
+ =?utf-8?B?clRpeUNDTlhjdGRUZVN1eVh4Vm5RWnR4R3M4ZUJBZnFDcFNpTVplM0JJdHQy?=
+ =?utf-8?B?TEdPZThzeTBtSmgvQVc2YnRFcDZ1cEFsRFlReGNOMUR0SEdzTkRLVUhScXZh?=
+ =?utf-8?B?eTlHYmgwM1g0WENSU0V6SWY5cDBZaXB5V1Y5U25uV1AyOXgyTXhzOXlUZFUw?=
+ =?utf-8?B?Mm9jUnFjM2Vxd2RUOXB5NjlBWW40UEh3V3F5Wi96ZlBkenNyTmJuTUUydG9m?=
+ =?utf-8?B?TTFEWjMzemVudURLaHZvcFliSTIyb1Z0TDl4ZG1iL2NUWHVwV2w3OXRKWE9D?=
+ =?utf-8?B?V2tSc2lMZ29ZcW51V0p0UlluYmZLRTRXcTNQMjJuMHJlWC9GTk4yZGNGNFZZ?=
+ =?utf-8?B?b2ZyUWQzbzFCajlZa3ZwLzVyZmMwLy9hR2JwZlVTOXFneW1rWnZTK3Z6NTBF?=
+ =?utf-8?B?TUVEZlNScCtiTDQyMnFXT0NEaGZPaWluaTJ5WXd5ZVRvRFJMdmJWdUJHZTdL?=
+ =?utf-8?Q?CYfeInMI4IbDyKaTnP5g9irGv?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b8a5bed-26a5-4d4e-aa0a-08dad795d701
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 14:17:57.2354
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Dec 2022 14:26:18.4905
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB2317
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vdCKlLuNkOd9/r2I11dJo/ZHDacMeSTKBG/kVaJcrkpRVQyAn+rbc4PJw52n5gjqNqehuJl8DGk6V+rLzvdzaw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8464
 
-On Tue, Dec 06, 2022 at 11:37:26AM +0000, Wei Liu wrote:
-> On Mon, Dec 05, 2022 at 11:36:39PM +0800, Dawei Li wrote:
-> > Since commit fc7a6209d571 ("bus: Make remove callback return
-> > void") forces bus_type::remove be void-returned, it doesn't
-> > make much sense for any bus based driver implementing remove
-> > callbalk to return non-void to its caller.
-> > 
-> > This change is for hyperv bus based drivers.
-> > 
-> > Signed-off-by: Dawei Li <set_pte_at@outlook.com>
-> [...]
+The first patch, while being the main piece here, and while fixing a
+bug kind of as a side effect, is partly RFC; see there. The other two
+changes are really minor adjustments for aspects noticed while putting
+together the main change.
 
-Hi Wei:
-Thanks for the review.
+1: common: reduce PV shim footprint
+2: don't even allow enabling GRANT_TABLE
+3: suppress core-parking logic
 
-> > -static int netvsc_remove(struct hv_device *dev)
-> > +static void netvsc_remove(struct hv_device *dev)
-> >  {
-> >  	struct net_device_context *ndev_ctx;
-> >  	struct net_device *vf_netdev, *net;
-> > @@ -2603,7 +2603,6 @@ static int netvsc_remove(struct hv_device *dev)
-> >  	net = hv_get_drvdata(dev);
-> >  	if (net == NULL) {
-> >  		dev_err(&dev->device, "No net device to remove\n");
-> > -		return 0;
-> 
-> This is wrong. You are introducing a NULL pointer dereference.
-Nice catch, will fix it.
-
-> 
-> >  	}
-> >  
-> >  	ndev_ctx = netdev_priv(net);
-> > @@ -2637,7 +2636,6 @@ static int netvsc_remove(struct hv_device *dev)
-> >  
-> >  	free_percpu(ndev_ctx->vf_stats);
-> >  	free_netdev(net);
-> > -	return 0;
-> >  }
-> >  
-> >  static int netvsc_suspend(struct hv_device *dev)
-> > diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-> > index ba64284eaf9f..3a09de70d6ea 100644
-> > --- a/drivers/pci/controller/pci-hyperv.c
-> > +++ b/drivers/pci/controller/pci-hyperv.c
-> > @@ -3756,7 +3756,7 @@ static int hv_pci_bus_exit(struct hv_device *hdev, bool keep_devs)
-> >   *
-> >   * Return: 0 on success, -errno on failure
-> >   */
-> 
-> This comment is no longer needed in the new world.
-> 
-> But, are you sure you're modifying the correct piece of code?
-> 
-> hv_pci_remove is not a hook in the base bus type. It is used in struct
-> hv_driver.
-> 
-> The same comment applies to all other modifications.
-Sorry about the confusion.
-In short, the point of this commit is making remove() of _driver_ void returned.
-
-For bus-based driver, device removal is implemented as:
-1 device_remove() =>
-  2 bus->remove() =>
-    3 driver->remove()
-
-1 is void. 
-For 2, commit fc7a6209d571 ("bus: Make remove callback return void") forces
-bus_type::remove be void-returned, which applies for hv_bus(vmbus) too.
-So it doesn't make sense for 3(driver->remove) to return non-void, in this case it's hv_driver. 
-
-Thanks,
-      Dawei
-
-> 
-> Thanks,
-> Wei.
+Jan
 
