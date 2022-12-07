@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2181964642E
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 23:39:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456681.714466 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B5D646435
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 23:42:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456692.714477 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p333H-0004hE-PC; Wed, 07 Dec 2022 22:38:07 +0000
+	id 1p337M-0006Oz-DC; Wed, 07 Dec 2022 22:42:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456681.714466; Wed, 07 Dec 2022 22:38:07 +0000
+Received: by outflank-mailman (output) from mailman id 456692.714477; Wed, 07 Dec 2022 22:42:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p333H-0004ea-LB; Wed, 07 Dec 2022 22:38:07 +0000
-Received: by outflank-mailman (input) for mailman id 456681;
- Wed, 07 Dec 2022 22:38:05 +0000
+	id 1p337M-0006MS-AV; Wed, 07 Dec 2022 22:42:20 +0000
+Received: by outflank-mailman (input) for mailman id 456692;
+ Wed, 07 Dec 2022 22:42:19 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sV5z=4F=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p333F-0004eU-H1
- for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 22:38:05 +0000
+ id 1p337L-0006MM-KD
+ for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 22:42:19 +0000
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id cfa237b1-767f-11ed-91b6-6bf2151ebd3b;
- Wed, 07 Dec 2022 23:38:04 +0100 (CET)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 2C9DE5C00EE;
- Wed,  7 Dec 2022 17:38:03 -0500 (EST)
+ id 67509cf3-7680-11ed-91b6-6bf2151ebd3b;
+ Wed, 07 Dec 2022 23:42:18 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id C502F5C00EB;
+ Wed,  7 Dec 2022 17:42:17 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 07 Dec 2022 17:38:03 -0500
+ by compute4.internal (MEProxy); Wed, 07 Dec 2022 17:42:17 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Dec 2022 17:38:02 -0500 (EST)
+ 7 Dec 2022 17:42:17 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,127 +43,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cfa237b1-767f-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 67509cf3-7680-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670452683; x=
-	1670539083; bh=5jvlZKAc1GkFb1E2a6lBpTO6lLObZ/xQoHLfWhmhXPg=; b=d
-	QsxjSR2+11JYkS3Iy7CegPEh9x80Tvvfqx0IfV14vQvCGdRh+2WxZs4dnky1R5Eu
-	mre4NYHGerGTvv01YIkNcgvEQH/gGb5o9dmqS+lW3+qHU03s9IWBG30vETRgNNGw
-	OUQFOuCJo8aVmaH5560vmGMFF4Pdd1MAX4OmTKhsAT/cLju0qhlOX5frYGOIeo9l
-	C9aZcRN6RUS3+URxW283bEIzaQmCtJrNyG0L74o1pUnyRCE9gzQxno2b5ZWD+SfE
-	fpCtvIZzqjmFzuKTMGrL8AipNMYjgb+rqPWgMBoMMUVZuz+xzqFj+neM4AZxovZ4
-	3ij0TF2XIEj+1AtbBVUhQ==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm1; t=1670452937; x=
+	1670539337; bh=JXJ/aYg9pvsjAhKHgg6ks0+NTz6WwePXt39oZO6w6UM=; b=i
+	YOXY4iTREWynd/X806trb16t98GsspiUvOasaJxAq6n+6FhaCf8mI8RQVWriRceH
+	76OZwcDISQcJFhqXMITxbYrwguvOR9A0UKXrN6BqUBa8JgjcOG1cF96ObwZinRCc
+	7rLE9uazHn3gx9z3LjoWEb3TZkcyUQzCTBvY9NU8kErywc3rBfw1lHjPqzUt778Y
+	4cWJT3huXJGAWbekOLBkYh/ws0NC2ittCw28rfSBM1ECfMTLKicQdIdmH+Fymj4b
+	j0UlR99uRuibR2zDLzP3EQpQikOQWBM1h1If0TS5EexgtI/jkEKWWFFwRYynZ+88
+	nkl8RlmkycZiqlJZ8qPNQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1670452683; x=1670539083; bh=5jvlZKAc1GkFb1E2a6lBpTO6lLOb
-	Z/xQoHLfWhmhXPg=; b=slqIqjWsx1nlvYe2KIQswdxqC1+OSKisV3C3+6B53r2G
-	5wNhSPLe79CPCDIWBoUr2kLpC+49cCae8Byjy2QxEvJoR8ZaxC8Ob8UkT8D0cnHn
-	6RwJzTmoDyL2Xzjmh5Owgt4HFNbtN4F4iI9cVN6ss/HZPD8ARGFD1TC5JpyjYLDW
-	3FozBivTSzPafHzlrZ39G2pmSBIa7YvItxo9fTcYc/Q6AM5H5BoCwfS3j++ux+wO
-	U6nsLLXtucr3CJvYhI3BmIaCIIf4W9OZbTwdZv1udGpu4GTKsyslV2Iwugy3E8pL
-	OwdS9SawhFNlE2bnAK+IYC+u9cbIPYmvqQEeK+kT8w==
-X-ME-Sender: <xms:yhWRYwIwSLy56s-iD_Zr_ZMap9VHE_LYlUYQML8wQFFYcesVCrOTzA>
-    <xme:yhWRYwJZrEtvD6fxNfeuf_9cb8xx-5GI21PyrVjD8ptvDZ-hJZ6za6Yi53VaJRCoU
-    en50DG682sXXwc>
-X-ME-Received: <xmr:yhWRYwsKktEuzQukg7vMKJUHQSTEURxf0D7dJZvlRC0XvaC89RTbWuXlOH69>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudelgddtudcutefuodetggdotefrodftvf
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1670452937; x=1670539337; bh=JXJ/aYg9pvsjAhKHgg6ks0+NTz6WwePXt39
+	oZO6w6UM=; b=I60NmaJ/xKR5hPA8XdllIUrSEMDori5gBNWDkOTQAYlGt4XD+dt
+	QVYfAtIDd+cyM6qsgACT0vq070MTkVGhAIvSBFJwIzvD/n/RJ4Uyi78fB32Z9dga
+	q3hVEFVe4iomsr9JuvuvP9zl0/MPa9AWA0edxOEPRMAQeiyYqiW+baokIPQncyni
+	gW49VMUoKiPo5n/2NVsomhjymgKopZ75icgZYADhX1S4ogEP+IJU/N36gS/T2Z43
+	h1kNV1fG/roEDUXMLNrDXoyFq0FwKE6uDX1CtZdsQcLLi3vZqLF+K5dhp/9JlpuD
+	lElmGdncePEa4O4H/GKXFag7A1NqC7FXJcw==
+X-ME-Sender: <xms:yRaRYz7FLb6ugTxEuevYVsDPxg4qYXpwKSFlDRG0e8VfdPmW4fLRow>
+    <xme:yRaRY47L0Pl6wNZDSNQbOGCNdyiDA-Pb_9k5009C1sraKZwB9DgMgvEwwdpUNA4xW
+    RAuvnwnsqmEG9w>
+X-ME-Received: <xmr:yRaRY6eXELeC_vY1DWp1aWxj4Pns-BuVqY0M_wa5y1Eov7Rhl0qgbgyfnSr81NMxXPIzeyrrl1gU>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudelgddtfecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehtdehffelieehtdettedtledvuedt
-    keeifefgvdehtdelteffudfhkefhheeiteenucffohhmrghinhepgigvnhhprhhojhgvtg
-    htrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
-    mhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:yhWRY9aUO4G73UY8xe_4o00lWGiYlZHT4LszKRbqnnhKTCbzjxU6Zw>
-    <xmx:yhWRY3ZnopP5BqK7M_3pZlObOisE12M81CXiAEb5U4Q2bGTQia8nAw>
-    <xmx:yhWRY5CtyPr14oCOYfMbSEDxaAadLdvvWySclNIqIAH8RKnOKZ1hMg>
-    <xmx:yxWRY2mtCuHC4w2fz9iGI_Xu664VMmge4R3umy2Ej2jd-K3x4pujxg>
+    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcuofgr
+    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmqeenucggtffrrghtthgvrhhnpeehgeeuhffftdetvdegvdelhfeffeehgeel
+    ueekveeuudfhtdejteefjefgfeehieenucffohhmrghinhepgigvnhhprhhojhgvtghtrd
+    horhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhep
+    uggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:yRaRY0IIKL-tJ3UumReSY_bIf04OQZakHCviQjC-7Rng5iC5WGPUsw>
+    <xmx:yRaRY3KUknD93T_kmihHZ4c0SIg4BI7boYCisssbLUHVjEkv8eALkA>
+    <xmx:yRaRY9w8xtU_WHZsx5YeZyk88lVznze03J1MS8ka-8DBwSvqWu9llw>
+    <xmx:yRaRY_3hzgMylRjc8jSd_pHbGsMntoCKhs36H1SnBHwDpeHz6DCVUw>
 Feedback-ID: iac594737:Fastmail
-Date: Wed, 7 Dec 2022 17:37:58 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ard Biesheuval <ardb@kernel.org>, Henry Wang <Henry.Wang@arm.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2] Use EfiACPIReclaimMemory for ESRT
-Message-ID: <Y5EVyHv2Wg+AjgGE@itl-email>
-References: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
- <678b618d-335a-fc9d-97f2-2c6e0e05ed79@suse.com>
+To: Xen developer discussion <xen-devel@lists.xenproject.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Ard Biesheuval <ardb@kernel.org>,
+	Henry Wang <Henry.Wang@arm.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
+Date: Wed,  7 Dec 2022 17:42:12 -0500
+Message-Id: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MASToXsrZ+jaYO4q"
-Content-Disposition: inline
-In-Reply-To: <678b618d-335a-fc9d-97f2-2c6e0e05ed79@suse.com>
+Content-Transfer-Encoding: 8bit
 
+A previous patch tried to get Linux to use the ESRT under Xen if it is
+in memory of type EfiRuntimeServicesData.  However, EfiRuntimeServices*
+memory needs to be included in the EFI page tables, so it is best to
+minimize the amount of memory of this type.  Since EFI runtime services
+do not need access to the ESRT, EfiACPIReclaimMemory is a better choice.
 
---MASToXsrZ+jaYO4q
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 7 Dec 2022 17:37:58 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Ard Biesheuval <ardb@kernel.org>, Henry Wang <Henry.Wang@arm.com>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v2] Use EfiACPIReclaimMemory for ESRT
+Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg01365.html
+Fixes: dc7da0874ba4 ("EFI: preserve the System Resource Table for dom0")
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+Should this be included in 4.17?  It is a bug fix for a feature new to
+4.17, so I suspect yes, but it is ultimately up to Henry Wang.  The code
+is identical to v2, but I have improved the commit message.
 
-On Wed, Dec 07, 2022 at 11:11:40AM +0100, Jan Beulich wrote:
-> On 07.12.2022 00:27, Demi Marie Obenour wrote:
-> > A previous patch tried to get Linux to use the ESRT under Xen if it is
-> > in memory of type EfiRuntimeServicesData.  However, this turns out to be
-> > a bad idea.  Ard Biesheuvel pointed out that EfiRuntimeServices* memory
-> > winds up fragmenting both the EFI page tables and the direct map, and
-> > that EfiACPIReclaimMemory is a much better choice for this purpose.
-> >=20
-> > Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg0=
-1365.html
-> > Fixes: dc7da0874ba4 ("EFI: preserve the System Resource Table for dom0")
-> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > ---
-> > Should this be included in 4.17?  It is a bug fix for a feature new to
-> > 4.17, so I suspect yes, but it is ultimately up to Henry Wang.
->=20
-> First I was surprised this is numbered v2. But it indeed looks to be a
-> plain re-submission, merely with Henry Cc-ed. You didn't address my
-> comments; you didn't even incorporate the one adjustment where you
-> suggested alternative wording and where I did signal my agreement. All
-> this form of plain re-submission (without any kind of remark in that
-> direction) did is that I spent (wasted) time checking what the earlier
-> variant had, what was requested to be changed, and whether any of the
-> changes were actually carried out.
+ xen/common/efi/boot.c | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
-Whoops, sorry about that.
---=20
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index db0340c8e2628314226c618dda11ede4c62fdf3b..b3de1011ee58a67a82a94da050eb1343f4e37faa 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -601,11 +601,14 @@ static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
+     if ( physical_start > esrt || esrt - physical_start >= len )
+         return 0;
+     /*
+-     * The specification requires EfiBootServicesData, but accept
+-     * EfiRuntimeServicesData, which is a more logical choice.
++     * The specification requires EfiBootServicesData, but also accept
++     * EfiRuntimeServicesData (for compatibility with buggy firmware)
++     * and EfiACPIReclaimMemory (which will contain the tables after
++     * successful kexec).
+      */
+     if ( (desc->Type != EfiRuntimeServicesData) &&
+-         (desc->Type != EfiBootServicesData) )
++         (desc->Type != EfiBootServicesData) &&
++         (desc->Type != EfiACPIReclaimMemory) )
+         return 0;
+     available_len = len - (esrt - physical_start);
+     if ( available_len <= offsetof(EFI_SYSTEM_RESOURCE_TABLE, Entries) )
+@@ -1144,18 +1147,19 @@ static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
+     for ( i = 0; i < info_size; i += mdesc_size )
+     {
+         /*
+-         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
++         * ESRT needs to be moved to memory of type EfiACPIReclaimMemory
+          * so that the memory it is in will not be used for other purposes.
+          */
+         void *new_esrt = NULL;
+-        size_t esrt_size = get_esrt_size(memory_map + i);
++        const EFI_MEMORY_DESCRIPTOR *desc = memory_map + i;
++        size_t esrt_size = get_esrt_size(desc);
+ 
+         if ( !esrt_size )
+             continue;
+-        if ( ((EFI_MEMORY_DESCRIPTOR *)(memory_map + i))->Type ==
+-             EfiRuntimeServicesData )
++        if ( desc->Type == EfiRuntimeServicesData ||
++             desc->Type == EfiACPIReclaimMemory )
+             break; /* ESRT already safe from reuse */
+-        status = efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
++        status = efi_bs->AllocatePool(EfiACPIReclaimMemory, esrt_size,
+                                       &new_esrt);
+         if ( status == EFI_SUCCESS && new_esrt )
+         {
+-- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
-
---MASToXsrZ+jaYO4q
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmORFcgACgkQsoi1X/+c
-IsGWXRAAn7Kz8IA914xqsfiKj4i8+46lTz5U2MGpeItZYB9SWPMF94Mwxvw9W+1r
-mHiX+iKDuznULK2Km+QENzHyiPCu/6QD/iks1oM48mAFSrM9OQLAVAF7hg1yJQ2x
-e8upj1LtLMugdCCvPEMetmUrj8bVqgV+6yxLKXufh0Og9iwFA1VM4gci7LrPNYGp
-ozWgPIa1BrFmxnNriKpG/XZbiMhcYB+PSk3sH4c+vkQ+hBKg7u/Yv7hJ/tnz80P6
-D3T6lfWbDK9mJKwhSDAyUHBgiro2n1OLkVRML3sPLtntt6QVlcp5fr5ziqlJRA0a
-VP57+pb+lEnTuJcl/xC3DnP79Fg/j9uraY+J18zBfKVjBorYnip5+PjmT2UWVnak
-cGvI4AxcXZLos2usdgD3VOxdXX0tlVw0+GmsNBcOMOQfoSC+KCq5KdIGXWznK61o
-XAVqLN5R7Lys4UpbeDMLoKZKNhf3cQWavQZZtKhX5NWX+JQEOjpMp1FqD6x+JSi/
-Ih0iXfA0iSminVQjSQtI7qZCiDmWNdY3+XfJHns1XOtmN+js+mQ1GqJIzbPM5P0G
-jknvSPYitDVv9D7+HYju/6yAMeHSBOqLK19gFkODjenyksqjQSSxVCZZWozPG0g4
-2CmZy9WJ7j2mE4cUSPDTq13l/4eOZBaQT/A9se6HrpFyE+t/taE=
-=udHZ
------END PGP SIGNATURE-----
-
---MASToXsrZ+jaYO4q--
 
