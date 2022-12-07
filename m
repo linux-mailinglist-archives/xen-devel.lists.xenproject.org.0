@@ -2,32 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D490645B3B
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 14:47:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456367.714150 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5AEE645D50
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 16:11:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456392.714171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2uko-00064S-Ce; Wed, 07 Dec 2022 13:46:30 +0000
+	id 1p2w3w-0002G8-Iv; Wed, 07 Dec 2022 15:10:20 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456367.714150; Wed, 07 Dec 2022 13:46:30 +0000
+Received: by outflank-mailman (output) from mailman id 456392.714171; Wed, 07 Dec 2022 15:10:20 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2uko-00061k-9p; Wed, 07 Dec 2022 13:46:30 +0000
-Received: by outflank-mailman (input) for mailman id 456367;
- Wed, 07 Dec 2022 13:46:28 +0000
+	id 1p2w3w-0002DL-Dv; Wed, 07 Dec 2022 15:10:20 +0000
+Received: by outflank-mailman (input) for mailman id 456392;
+ Wed, 07 Dec 2022 15:10:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=efXR=4F=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1p2ukm-00061e-OD
- for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 13:46:28 +0000
-Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
- [2a00:1450:4864:20::634])
+ <SRS0=WFC7=4F=kernel.org=patchwork-bot+netdevbpf@srs-se1.protection.inumbo.net>)
+ id 1p2w3v-0002DF-Dq
+ for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 15:10:19 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8ba25d46-7635-11ed-8fd2-01056ac49cbb;
- Wed, 07 Dec 2022 14:46:26 +0100 (CET)
-Received: by mail-ej1-x634.google.com with SMTP id gh17so14102748ejb.6
- for <xen-devel@lists.xenproject.org>; Wed, 07 Dec 2022 05:46:26 -0800 (PST)
+ id 42709b2e-7641-11ed-8fd2-01056ac49cbb;
+ Wed, 07 Dec 2022 16:10:18 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 38F8FB81E7C;
+ Wed,  7 Dec 2022 15:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D76B8C433D7;
+ Wed,  7 Dec 2022 15:10:15 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ B8BB1C5C7C6; Wed,  7 Dec 2022 15:10:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,70 +48,56 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8ba25d46-7635-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=Qg6rscjarIENb4Y9pQnBfqSpVruaA4pKa5wywW78TI4=;
-        b=MwsUVjDJmC4I5yYHV3kpu4xgCzlCzOFBqxQqhUcHYF0flutztZmp2Ao8JSgL6XZz2c
-         mHIBqvcy7GSh1vrlCBtisgJtOnExtYO/3eAPdgXMUzK8b7VzgL/jacOOE4kUWRxvTdXQ
-         KQffjyuNqWFBQcbiUoYJe7PHxELJ1BrgznpaWEFdsrJKWtmtv6SqeiehdqBFWcLtwLJt
-         Ug9di9bdrmQ6Tv/yi/3AuaNGYaIlXL6Sfij3RMjYRRfjK0Qkc133Y++DVroVKFXEEuol
-         MNa9UocHoAbWsSL9ajSwdoJpPuj57h8iMv9ouOaRWJbpJep4uGMK+nKoT2Diefjig+WU
-         pOfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Qg6rscjarIENb4Y9pQnBfqSpVruaA4pKa5wywW78TI4=;
-        b=TZ1zPKEmCVpcJjMTAMhMQUksB9TjmyxOJ7dp5sKS/+wbdgn3sPFsFU3eVLOluJFZso
-         tAtIW9CbutEqiZv6gBM8Lrzybbfjp1/W5NV+0K/1j3w6pmt1Ug6ZFuUOOgnmC+VUj88r
-         fgtgnVPC1S9aG3oWI7VYiRygqb7Ao0OFhBnki+wXku2JAEcWsPYjRoQxM+5OiiokcEel
-         MOxUC9A56MKYmF0hwMHy6fovyZAjW/SYy3zS7ZG4CfSmGvY3lg4SCxFcbzvBmOY+suWo
-         yYlttpbeu3yhgb0WIWoYkLHLZ3w1zHmmsYSl+vkwoziul+RRmEDH1vGXznSQtJLWHWa9
-         1P5g==
-X-Gm-Message-State: ANoB5plm0hQjNgJ5HQC+ZkkfDgNlPwXjawQYe13EHDvdVzh15QjoAi05
-	hRBKYrX/63Di5o1z4VUZbaJlVz3obADKaxH0DkE=
-X-Google-Smtp-Source: AA0mqf5t0KjwzPyZvRZG7MLQbFpXbjxFzDGeMwNmpXfyClD31KDpdah+3VFvdek87O6hyLYA7X3zt1TVPTTh+UVTHDI=
-X-Received: by 2002:a17:906:ad86:b0:7c0:7e90:ec98 with SMTP id
- la6-20020a170906ad8600b007c07e90ec98mr7717890ejb.537.1670420786209; Wed, 07
- Dec 2022 05:46:26 -0800 (PST)
+X-Inumbo-ID: 42709b2e-7641-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670425815;
+	bh=VHBDCsJSmzg0xhhb4uYdwZabrgTaZtH2k7KBPqAy7fU=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+	b=L/7EY53bN8ofZuRbWsiKukJWr5bA1f+MOCHIHXBdNI53XB8E2muX8UUBwdYecQxzd
+	 q7g1gM+/O0oVwhZBgMM5qj3aa4uB13UHroDhdQVsMK4fjz70UiTD2WeBpaf3VBQk3N
+	 RlXg1SYjjC5ONpkGyhlueN1ClnGlBTku2nuTt2rq3ak2pGCybR+0mAK/14BpXgTq14
+	 zhGLTse//ECOrZ+OIHkrWvM4QDqfFXWhM32QOMph9tq7IR6Qh41SxKnpU0GFXEAS39
+	 M5cWflFEM9LV9ClIvXl544dIfYU9QZpRmXO+/VEToEYNtD6nR/Zy00pjN9YIZ2qJvk
+	 K/Rj9CJ5uztXg==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-References: <20221207072349.28608-1-jgross@suse.com>
-In-Reply-To: <20221207072349.28608-1-jgross@suse.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Wed, 7 Dec 2022 08:46:14 -0500
-Message-ID: <CAKf6xpu5tCeV4P5TUjDiHfupctwYHsnLUGT+TB5Wxgs9riRQ6A@mail.gmail.com>
-Subject: Re: [PATCH] xen/netback: fix build warning
-To: Juergen Gross <jgross@suse.com>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	Wei Liu <wei.liu@kernel.org>, Paul Durrant <paul@xen.org>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, xen-devel@lists.xenproject.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] xen/netback: don't call kfree_skb() under
+ spin_lock_irqsave()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <167042581575.18211.14598449425594429155.git-patchwork-notify@kernel.org>
+Date: Wed, 07 Dec 2022 15:10:15 +0000
+References: <20221205141333.3974565-1-yangyingliang@huawei.com>
+In-Reply-To: <20221205141333.3974565-1-yangyingliang@huawei.com>
+To: Yang Yingliang <yangyingliang@huawei.com>
+Cc: xen-devel@lists.xenproject.org, netdev@vger.kernel.org,
+ wei.liu@kernel.org, paul@xen.org, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, jbeulich@suse.com, jgross@suse.com
 
-On Wed, Dec 7, 2022 at 2:24 AM Juergen Gross <jgross@suse.com> wrote:
->
-> Commit ad7f402ae4f4 ("xen/netback: Ensure protocol headers don't fall in
-> the non-linear area") introduced a (valid) build warning.
->
-> Fix it.
->
-> Fixes: ad7f402ae4f4 ("xen/netback: Ensure protocol headers don't fall in the non-linear area")
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Hello:
 
-Tested-by: Jason Andryuk <jandryuk@gmail.com>
+This patch was applied to netdev/net.git (master)
+by Paolo Abeni <pabeni@redhat.com>:
 
-I applied ad7f402ae4f4 to 5.15.y and 5.4.y and it broke networking
-with my driver domains.  The frontend failed to DHCP an address and it
-didn't look like any packets were getting through.  This patch fixed
-networking with 5.15.y and 5.4.y.
+On Mon, 5 Dec 2022 22:13:33 +0800 you wrote:
+> It is not allowed to call kfree_skb() from hardware interrupt
+> context or with interrupts being disabled. So replace kfree_skb()
+> with dev_kfree_skb_irq() under spin_lock_irqsave().
+> 
+> Fixes: be81992f9086 ("xen/netback: don't queue unlimited number of packages")
+> Signed-off-by: Yang Yingliang <yangyingliang@huawei.com>
+> 
+> [...]
 
-I think the commit message is worth expanding that this is more than
-just a build warning.
+Here is the summary with links:
+  - [net] xen/netback: don't call kfree_skb() under spin_lock_irqsave()
+    https://git.kernel.org/netdev/net/c/9e6246518592
 
-Thanks,
-Jason
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 
