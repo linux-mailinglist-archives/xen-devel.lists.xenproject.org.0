@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A8BF646413
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 23:28:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456672.714455 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2181964642E
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 23:39:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456681.714466 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p32tW-0002yU-QF; Wed, 07 Dec 2022 22:28:02 +0000
+	id 1p333H-0004hE-PC; Wed, 07 Dec 2022 22:38:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456672.714455; Wed, 07 Dec 2022 22:28:02 +0000
+Received: by outflank-mailman (output) from mailman id 456681.714466; Wed, 07 Dec 2022 22:38:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p32tW-0002wH-Ml; Wed, 07 Dec 2022 22:28:02 +0000
-Received: by outflank-mailman (input) for mailman id 456672;
- Wed, 07 Dec 2022 22:28:01 +0000
+	id 1p333H-0004ea-LB; Wed, 07 Dec 2022 22:38:07 +0000
+Received: by outflank-mailman (input) for mailman id 456681;
+ Wed, 07 Dec 2022 22:38:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=CKq1=4F=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p32tV-0002w6-Kk
- for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 22:28:01 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 67c3fa66-767e-11ed-91b6-6bf2151ebd3b;
- Wed, 07 Dec 2022 23:28:00 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 2FFB5B8218D;
- Wed,  7 Dec 2022 22:27:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044E7C433D6;
- Wed,  7 Dec 2022 22:27:56 +0000 (UTC)
+ <SRS0=sV5z=4F=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p333F-0004eU-H1
+ for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 22:38:05 +0000
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cfa237b1-767f-11ed-91b6-6bf2151ebd3b;
+ Wed, 07 Dec 2022 23:38:04 +0100 (CET)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2C9DE5C00EE;
+ Wed,  7 Dec 2022 17:38:03 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Wed, 07 Dec 2022 17:38:03 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 7 Dec 2022 17:38:02 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,242 +43,127 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 67c3fa66-767e-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1670452077;
-	bh=tgPQ2mWMzxgSkGzvglQ1jFn5k21sCkirOeqVwzNCPt0=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=ZWjDzpJOj7W+YxRU22IEsBjo0qVy4F1Y2Rz3j5hbFVxhVqoaOr8ZzQhK69aCYIpae
-	 h3kdSixX4bRhiG2PhvXeVzztwrt7AOi71JRJ7jg2az5I9C7d63Rxhb8SYIW9XsuHjd
-	 uoQrl/xmErz+ZF3NoYuYiF21cxqBvmr17NrddTnN1R7ex4izWkHcSmzcfrZcjIB7bM
-	 d4R4PK1QA8esfT5vb7665Veq/xJA6Pi2UisIbujGw4uqwE7gGZc0uQJJ0AFReBE2Hi
-	 Br3yysEyFaGiDLpdZZHwXAFlthWLp9yqRjw0yQDni1IDiyOeHEBAwGScWE5XB8SB2x
-	 nxdMnxA0nIDOw==
-Date: Wed, 7 Dec 2022 14:27:55 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Henry Wang <Henry.Wang@arm.com>, xen-devel@lists.xenproject.org, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH 1/3] xen/arm: Add memory overlap check for
- bootinfo.reserved_mem
-In-Reply-To: <8e635354-fdf4-a37f-0dba-c4b29063e152@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2212071424060.4039@ubuntu-linux-20-04-desktop>
-References: <20221205025753.2178965-1-Henry.Wang@arm.com> <20221205025753.2178965-2-Henry.Wang@arm.com> <alpine.DEB.2.22.394.2212061716170.4039@ubuntu-linux-20-04-desktop> <8e635354-fdf4-a37f-0dba-c4b29063e152@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: cfa237b1-767f-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670452683; x=
+	1670539083; bh=5jvlZKAc1GkFb1E2a6lBpTO6lLObZ/xQoHLfWhmhXPg=; b=d
+	QsxjSR2+11JYkS3Iy7CegPEh9x80Tvvfqx0IfV14vQvCGdRh+2WxZs4dnky1R5Eu
+	mre4NYHGerGTvv01YIkNcgvEQH/gGb5o9dmqS+lW3+qHU03s9IWBG30vETRgNNGw
+	OUQFOuCJo8aVmaH5560vmGMFF4Pdd1MAX4OmTKhsAT/cLju0qhlOX5frYGOIeo9l
+	C9aZcRN6RUS3+URxW283bEIzaQmCtJrNyG0L74o1pUnyRCE9gzQxno2b5ZWD+SfE
+	fpCtvIZzqjmFzuKTMGrL8AipNMYjgb+rqPWgMBoMMUVZuz+xzqFj+neM4AZxovZ4
+	3ij0TF2XIEj+1AtbBVUhQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1670452683; x=1670539083; bh=5jvlZKAc1GkFb1E2a6lBpTO6lLOb
+	Z/xQoHLfWhmhXPg=; b=slqIqjWsx1nlvYe2KIQswdxqC1+OSKisV3C3+6B53r2G
+	5wNhSPLe79CPCDIWBoUr2kLpC+49cCae8Byjy2QxEvJoR8ZaxC8Ob8UkT8D0cnHn
+	6RwJzTmoDyL2Xzjmh5Owgt4HFNbtN4F4iI9cVN6ss/HZPD8ARGFD1TC5JpyjYLDW
+	3FozBivTSzPafHzlrZ39G2pmSBIa7YvItxo9fTcYc/Q6AM5H5BoCwfS3j++ux+wO
+	U6nsLLXtucr3CJvYhI3BmIaCIIf4W9OZbTwdZv1udGpu4GTKsyslV2Iwugy3E8pL
+	OwdS9SawhFNlE2bnAK+IYC+u9cbIPYmvqQEeK+kT8w==
+X-ME-Sender: <xms:yhWRYwIwSLy56s-iD_Zr_ZMap9VHE_LYlUYQML8wQFFYcesVCrOTzA>
+    <xme:yhWRYwJZrEtvD6fxNfeuf_9cb8xx-5GI21PyrVjD8ptvDZ-hJZ6za6Yi53VaJRCoU
+    en50DG682sXXwc>
+X-ME-Received: <xmr:yhWRYwsKktEuzQukg7vMKJUHQSTEURxf0D7dJZvlRC0XvaC89RTbWuXlOH69>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudelgddtudcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehtdehffelieehtdettedtledvuedt
+    keeifefgvdehtdelteffudfhkefhheeiteenucffohhmrghinhepgigvnhhprhhojhgvtg
+    htrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhho
+    mhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:yhWRY9aUO4G73UY8xe_4o00lWGiYlZHT4LszKRbqnnhKTCbzjxU6Zw>
+    <xmx:yhWRY3ZnopP5BqK7M_3pZlObOisE12M81CXiAEb5U4Q2bGTQia8nAw>
+    <xmx:yhWRY5CtyPr14oCOYfMbSEDxaAadLdvvWySclNIqIAH8RKnOKZ1hMg>
+    <xmx:yxWRY2mtCuHC4w2fz9iGI_Xu664VMmge4R3umy2Ej2jd-K3x4pujxg>
+Feedback-ID: iac594737:Fastmail
+Date: Wed, 7 Dec 2022 17:37:58 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ard Biesheuval <ardb@kernel.org>, Henry Wang <Henry.Wang@arm.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] Use EfiACPIReclaimMemory for ESRT
+Message-ID: <Y5EVyHv2Wg+AjgGE@itl-email>
+References: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
+ <678b618d-335a-fc9d-97f2-2c6e0e05ed79@suse.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-
-On Wed, 7 Dec 2022, Julien Grall wrote:
-> Hi Stefano,
-> 
-> On 07/12/2022 01:37, Stefano Stabellini wrote:
-> > On Mon, 5 Dec 2022, Henry Wang wrote:
-> > > As we are having more and more types of static region, and all of
-> > > these static regions are defined in bootinfo.reserved_mem, it is
-> > > necessary to add the overlap check of reserved memory regions in Xen,
-> > > because such check will help user to identify the misconfiguration in
-> > > the device tree at the early stage of boot time.
-> > > 
-> > > Currently we have 3 types of static region, namely (1) static memory,
-> > > (2) static heap, (3) static shared memory. (1) and (2) are parsed by
-> > > the function `device_tree_get_meminfo()` and (3) is parsed using its
-> > > own logic. Therefore, to unify the checking logic for all of these
-> > > types of static region, this commit firstly introduces a helper
-> > > `check_reserved_regions_overlap()` to check if an input physical
-> > > address range is overlapping with the existing reserved memory regions
-> > > defined in bootinfo. After that, use this helper in
-> > > `device_tree_get_meminfo()` to do the overlap check of (1) and (2)
-> > > and replace the original overlap check of (3) with this new helper.
-> > > 
-> > > Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-> > 
-> > I wonder if the check should only be done #ifdef DEBUG. The idea would
-> > be that a given static configuration should be validated and corrected
-> > before going into production. By the time you go in production, it is
-> > too late to do checks anyway. Especially the panic below.
-> > 
-> > Julien, Bertrand, what do you think about this?
-> 
-> The integrator may be a different person (or even a different company) than
-> the one building Xen.
-> 
-> So I think, the new check shoudl not be protected by CONFIG_DEBUG.
-
-It is almost like we need something else to say "this is really a
-production build, disable all checks, I want it to go fast and be as
-small as possible". Maybe it would be better as a new kconfig option?
-
-In any case, this patch is OK as is.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MASToXsrZ+jaYO4q"
+Content-Disposition: inline
+In-Reply-To: <678b618d-335a-fc9d-97f2-2c6e0e05ed79@suse.com>
 
 
-> That said, any output in bootfd will only printed when earlyprintk is enabled.
-> I think we should consider to support dynamic early printk. Anyway, that's
-> something that doesn't need to be handled in this series.
+--MASToXsrZ+jaYO4q
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 7 Dec 2022 17:37:58 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ard Biesheuval <ardb@kernel.org>, Henry Wang <Henry.Wang@arm.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v2] Use EfiACPIReclaimMemory for ESRT
 
-+1
+On Wed, Dec 07, 2022 at 11:11:40AM +0100, Jan Beulich wrote:
+> On 07.12.2022 00:27, Demi Marie Obenour wrote:
+> > A previous patch tried to get Linux to use the ESRT under Xen if it is
+> > in memory of type EfiRuntimeServicesData.  However, this turns out to be
+> > a bad idea.  Ard Biesheuvel pointed out that EfiRuntimeServices* memory
+> > winds up fragmenting both the EFI page tables and the direct map, and
+> > that EfiACPIReclaimMemory is a much better choice for this purpose.
+> >=20
+> > Link: https://lists.xenproject.org/archives/html/xen-devel/2022-09/msg0=
+1365.html
+> > Fixes: dc7da0874ba4 ("EFI: preserve the System Resource Table for dom0")
+> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > ---
+> > Should this be included in 4.17?  It is a bug fix for a feature new to
+> > 4.17, so I suspect yes, but it is ultimately up to Henry Wang.
+>=20
+> First I was surprised this is numbered v2. But it indeed looks to be a
+> plain re-submission, merely with Henry Cc-ed. You didn't address my
+> comments; you didn't even incorporate the one adjustment where you
+> suggested alternative wording and where I did signal my agreement. All
+> this form of plain re-submission (without any kind of remark in that
+> direction) did is that I spent (wasted) time checking what the earlier
+> variant had, what was requested to be changed, and whether any of the
+> changes were actually carried out.
 
+Whoops, sorry about that.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-> > > ---
-> > >   xen/arch/arm/bootfdt.c           | 13 ++++----
-> > >   xen/arch/arm/include/asm/setup.h |  2 ++
-> > >   xen/arch/arm/setup.c             | 52 ++++++++++++++++++++++++++++++++
-> > >   3 files changed, 60 insertions(+), 7 deletions(-)
-> > > 
-> > > diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
-> > > index 6014c0f852..b31379b9ac 100644
-> > > --- a/xen/arch/arm/bootfdt.c
-> > > +++ b/xen/arch/arm/bootfdt.c
-> > > @@ -91,6 +91,9 @@ static int __init device_tree_get_meminfo(const void
-> > > *fdt, int node,
-> > >       for ( i = 0; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
-> > >       {
-> > >           device_tree_get_reg(&cell, address_cells, size_cells, &start,
-> > > &size);
-> > > +        if ( mem == &bootinfo.reserved_mem &&
-> > > +             check_reserved_regions_overlap(start, size) )
-> > > +            return -EINVAL;
-> > >           /* Some DT may describe empty bank, ignore them */
-> > >           if ( !size )
-> > >               continue;
-> > > @@ -485,7 +488,9 @@ static int __init process_shm_node(const void *fdt,
-> > > int node,
-> > >                   return -EINVAL;
-> > >               }
-> > >   -            if ( (end <= mem->bank[i].start) || (paddr >= bank_end) )
-> > > +            if ( check_reserved_regions_overlap(paddr, size) )
-> > > +                return -EINVAL;
-> > > +            else
-> > >               {
-> > >                   if ( strcmp(shm_id, mem->bank[i].shm_id) != 0 )
-> > >                       continue;
-> > > @@ -496,12 +501,6 @@ static int __init process_shm_node(const void *fdt,
-> > > int node,
-> > >                       return -EINVAL;
-> > >                   }
-> > >               }
-> > > -            else
-> > > -            {
-> > > -                printk("fdt: shared memory region overlap with an
-> > > existing entry %#"PRIpaddr" - %#"PRIpaddr"\n",
-> > > -                        mem->bank[i].start, bank_end);
-> > > -                return -EINVAL;
-> > > -            }
-> > >           }
-> > >       }
-> > >   diff --git a/xen/arch/arm/include/asm/setup.h
-> > > b/xen/arch/arm/include/asm/setup.h
-> > > index fdbf68aadc..6a9f88ecbb 100644
-> > > --- a/xen/arch/arm/include/asm/setup.h
-> > > +++ b/xen/arch/arm/include/asm/setup.h
-> > > @@ -143,6 +143,8 @@ void fw_unreserved_regions(paddr_t s, paddr_t e,
-> > >   size_t boot_fdt_info(const void *fdt, paddr_t paddr);
-> > >   const char *boot_fdt_cmdline(const void *fdt);
-> > >   +int check_reserved_regions_overlap(paddr_t region_start, paddr_t
-> > > region_size);
-> > > +
-> > >   struct bootmodule *add_boot_module(bootmodule_kind kind,
-> > >                                      paddr_t start, paddr_t size, bool
-> > > domU);
-> > >   struct bootmodule *boot_module_find_by_kind(bootmodule_kind kind);
-> > > diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-> > > index 4395640019..94d232605e 100644
-> > > --- a/xen/arch/arm/setup.c
-> > > +++ b/xen/arch/arm/setup.c
-> > > @@ -270,6 +270,42 @@ static void __init dt_unreserved_regions(paddr_t s,
-> > > paddr_t e,
-> > >       cb(s, e);
-> > >   }
-> > >   +static int __init overlap_check(void *bootinfo_type,
-> > > +                                paddr_t region_start, paddr_t region_end)
-> > > +{
-> > > +    unsigned int i, num = 0;
-> > > +    paddr_t bank_start = INVALID_PADDR, bank_end = 0;
-> > > +    char *type_str = "NONAME";
-> > > +
-> > > +    if ( bootinfo_type == &bootinfo.reserved_mem )
-> > > +    {
-> > > +        num = bootinfo.reserved_mem.nr_banks;
-> > > +        type_str = "reserved_mem";
-> > > +    }
-> > > +    else
-> > > +        panic("Invalid bootinfo type passed to overlap check\n");
-> > > +
-> > > +    for ( i = 0; i < num; i++ )
-> > > +    {
-> > > +        if ( bootinfo_type == &bootinfo.reserved_mem )
-> > > +        {
-> > > +            bank_start = bootinfo.reserved_mem.bank[i].start;
-> > > +            bank_end = bank_start + bootinfo.reserved_mem.bank[i].size;
-> > > +        }
-> > > +
-> > > +        if ( region_end <= bank_start || region_start >= bank_end )
-> > > +            continue;
-> > > +        else
-> > > +        {
-> > > +            printk("%s: Region %#"PRIpaddr" - %#"PRIpaddr" overlapping
-> > > with bank[%u] %#"PRIpaddr" - %#"PRIpaddr"\n",
-> > > +                   type_str, region_start, region_end, i, bank_start,
-> > > bank_end);
-> > > +            return -EINVAL;
-> > > +        }
-> > > +    }
-> > > +
-> > > +    return 0;
-> > > +}
-> > 
-> > As much as I dislike MACROs in general I think this function should be
-> > written as a MACRO so that we can write it once for all use cases. The
-> > below in not compiled and not tested, just for explanation purposes.
-> > Look how much simpler the code becomes.
-> 
-> I agree the duplication is not nice. But it is not clear to me why a static
-> inline function cannot be used.
+--MASToXsrZ+jaYO4q
+Content-Type: application/pgp-signature; name="signature.asc"
 
-You mean a macro generating static inline functions?
+-----BEGIN PGP SIGNATURE-----
 
-It cannot be a single static inline function because the bootinfo
-arguments are of three different types, it just happens that all three
-have a "start" and "size" struct member so it works great with a macro,
-but doesn't for a function.
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmORFcgACgkQsoi1X/+c
+IsGWXRAAn7Kz8IA914xqsfiKj4i8+46lTz5U2MGpeItZYB9SWPMF94Mwxvw9W+1r
+mHiX+iKDuznULK2Km+QENzHyiPCu/6QD/iks1oM48mAFSrM9OQLAVAF7hg1yJQ2x
+e8upj1LtLMugdCCvPEMetmUrj8bVqgV+6yxLKXufh0Og9iwFA1VM4gci7LrPNYGp
+ozWgPIa1BrFmxnNriKpG/XZbiMhcYB+PSk3sH4c+vkQ+hBKg7u/Yv7hJ/tnz80P6
+D3T6lfWbDK9mJKwhSDAyUHBgiro2n1OLkVRML3sPLtntt6QVlcp5fr5ziqlJRA0a
+VP57+pb+lEnTuJcl/xC3DnP79Fg/j9uraY+J18zBfKVjBorYnip5+PjmT2UWVnak
+cGvI4AxcXZLos2usdgD3VOxdXX0tlVw0+GmsNBcOMOQfoSC+KCq5KdIGXWznK61o
+XAVqLN5R7Lys4UpbeDMLoKZKNhf3cQWavQZZtKhX5NWX+JQEOjpMp1FqD6x+JSi/
+Ih0iXfA0iSminVQjSQtI7qZCiDmWNdY3+XfJHns1XOtmN+js+mQ1GqJIzbPM5P0G
+jknvSPYitDVv9D7+HYju/6yAMeHSBOqLK19gFkODjenyksqjQSSxVCZZWozPG0g4
+2CmZy9WJ7j2mE4cUSPDTq13l/4eOZBaQT/A9se6HrpFyE+t/taE=
+=udHZ
+-----END PGP SIGNATURE-----
 
-
-> > 
-> > #define overlap_check(bootinfo,     \
-> >                        num,          \
-> >                        region_start, \
-> >                        region_end)   \
-> > ({  \
-> >      unsigned int i, ret; \
-> >      paddr_t bank_start = INVALID_PADDR, bank_end = 0; \
-> >      \
-> >      for ( i = 0; i < num; i++ ) \
-> >      { \
-> >          bank_start = bootinfo->start; \
-> >          bank_end = bank_start + bootinfo->size; \
-> >      \
-> >          if ( region_end <= bank_start || region_start >= bank_end ) \
-> >              continue; \
-> >          else \
-> >          { \
-> >              printk("Region %#"PRIpaddr" - %#"PRIpaddr" overlapping with
-> > bank[%u] %#"PRIpaddr" - %#"PRIpaddr"\n", \
-> >                     region_start, region_end, i, bank_start, bank_end); \
-> >              ret = -EINVAL; \
-> >              break; \
-> >          } \
-> >      } \
-> >      \
-> >      retval = 0; \
-> >      retval;\
-> > })
-> > 
-> > 
-> > And the caller:
-> > 
-> > check_reserved_regions_overlap(&bootinfo.reserved_mem,
-> >                                 bootinfo.reserved_mem.nr_banks,
-> >                                 start, size);
+--MASToXsrZ+jaYO4q--
 
