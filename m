@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5AD1645E4D
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 17:01:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456487.714249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56218645EEB
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 17:29:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456497.714262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2wr4-00067J-DD; Wed, 07 Dec 2022 16:01:06 +0000
+	id 1p2xHX-00017t-HP; Wed, 07 Dec 2022 16:28:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456487.714249; Wed, 07 Dec 2022 16:01:06 +0000
+Received: by outflank-mailman (output) from mailman id 456497.714262; Wed, 07 Dec 2022 16:28:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2wr4-000657-A8; Wed, 07 Dec 2022 16:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 456487;
- Wed, 07 Dec 2022 16:01:04 +0000
+	id 1p2xHX-00015V-Ee; Wed, 07 Dec 2022 16:28:27 +0000
+Received: by outflank-mailman (input) for mailman id 456497;
+ Wed, 07 Dec 2022 16:28:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2wr2-00064x-ME; Wed, 07 Dec 2022 16:01:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1p2xHW-00015P-MS
+ for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 16:28:26 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2wr2-0005G8-Jm; Wed, 07 Dec 2022 16:01:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p2wr1-0004bp-TZ; Wed, 07 Dec 2022 16:01:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p2wr1-0002cB-T7; Wed, 07 Dec 2022 16:01:03 +0000
+ (envelope-from <julien@xen.org>)
+ id 1p2xHV-0005rH-An; Wed, 07 Dec 2022 16:28:25 +0000
+Received: from [15.248.2.156] (helo=[10.24.67.23])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2xHV-0001If-2e; Wed, 07 Dec 2022 16:28:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,166 +39,61 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=x5Q1eMYWLMZjrdiiyzHCGocBXLch5u7qbnKwF5TrU00=; b=TXagNV0MQtTKSDf/70XvEoLoW9
-	KUU9N5SApdPpGsLEGlCBXMyXije+Pl5GMsT/q5+5JBKXTVfxsSoojBCx0xXvgdlEZbhOJ/lddepwu
-	ODaWl9XvFpb8Zi9ZnZ3oz2VYlc4idexk/6gjjh79EVvtjIRsRABJW+rKPGLBQ0FM9TGk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175072-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=JMhRux5lJsxnPEOa8YQAoN5PZrKdrKcrJ8/O4HBN+3Q=; b=i1HBHMLY0snheD3B8a+GtBT/K8
+	yGW/rYf+WdZ5+Qm4kkwzgLWeWI1IUFPsMC8KMD/IHMhSi3//1P7id5JMFfCj1250H7iTxYg6EjGn1
+	g76oHzcwCdC1XmhXwe4sujBp65dOe5afpRe+OtgFj6eJ8Ht8TZLGkdH1zGLaHlnAHLaM=;
+Message-ID: <7cb6475e-0ab4-a7e2-8049-04c66588229f@xen.org>
+Date: Wed, 7 Dec 2022 16:28:22 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175072: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=11b4ff64841efd9724e5c1fce81ec2b5484b8d57
-X-Osstest-Versions-That:
-    xen=b926dbcccaa92831dda37576f768ddab9ec8a701
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 07 Dec 2022 16:01:03 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [XEN][RFC PATCH v4 10/16] asm/smp.h: move cpu related function to
+ asm/cpu.h
+Content-Language: en-US
+To: Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, Luca.Fancellu@arm.com,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20221207061815.7404-1-vikram.garhwal@amd.com>
+ <20221207061815.7404-4-vikram.garhwal@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20221207061815.7404-4-vikram.garhwal@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 175072 xen-unstable-smoke real [real]
-flight 175073 xen-unstable-smoke real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175072/
-http://logs.test-lab.xenproject.org/osstest/logs/175073/
+Hi Vikram,
 
-Regressions :-(
+On 07/12/2022 06:18, Vikram Garhwal wrote:
+> Dynamic programming ops will modify the dt_host and there might be other
+> function which are browsing the dt_host at the same time. To avoid the race
+> conditions, adding rwlock for browsing the dt_host. But adding rwlock in
+> device_tree.h causes following circular dependency:
+>      device_tree.h->rwlock.h->smp.h->asm/smp.h->device_tree.h
+> 
+> Inside arch/arm/include/asm/smp.h, there is one function which needs
+> device_tree.h, moved the cpu related function to a new file:
+> arch/arm/include/asm/cpu.h
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail REGR. vs. 175063
+Given there is only one function, I don't really see the benefits of 
+splitting smp.h and then adding #ifdef CONFIG_ARM in the common code.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+Instead, it would be better if we don't include device_tree.h in the 
+header but in the c files that need to call arch_cpu_init() and forward 
+declare dt_device_node.
 
-version targeted for testing:
- xen                  11b4ff64841efd9724e5c1fce81ec2b5484b8d57
-baseline version:
- xen                  b926dbcccaa92831dda37576f768ddab9ec8a701
+Another potential approach is to move out the percpu_rwlock helpers in a 
+separate header. The advantage with this approach is we would reduce the 
+number of definition included everywhere (there are not many use of the 
+percpu rwlock).
 
-Last test of basis   175063  2022-12-06 19:00:28 Z    0 days
-Testing same since   175072  2022-12-07 12:02:01 Z    0 days    1 attempts
+Cheers,
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Per Bilse <per.bilse@citrix.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 11b4ff64841efd9724e5c1fce81ec2b5484b8d57
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Wed Dec 7 12:18:36 2022 +0100
-
-    x86/platform: protect XENPF_get_dom0_console if CONFIG_VIDEO not set
-    
-    A build failure [1] is observed if CONFIG_VGA (and thus CONFIG_VIDEO) is
-    not set. This is because XENPF_get_dom0_console cmd of platform hypercall
-    makes a call to fill_console_start_info, which is defined in video/vga.c
-    and built only if CONFIG_VGA is set.
-    
-    To fix this issue, protect XENPF_get_dom0_console with CONFIG_VIDEO
-    ifdefery.
-    
-    [1]:
-    ld: prelink.o: in function `do_platform_op':
-    (.text.do_platform_op+0x1a7): undefined reference to `fill_console_start_info'
-    
-    Fixes: 4dd160583c79 ("x86/platform: introduce hypercall to get initial video console settings")
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Acked-by: Jan Beulich <jbeulich@suse.com>
-
-commit a44734df6c24fadbdb001f051cc5580c467caf7d
-Author: Per Bilse <per.bilse@citrix.com>
-Date:   Wed Dec 7 12:17:30 2022 +0100
-
-    ioreq_broadcast(): accept partial broadcast success
-    
-    Avoid incorrectly triggering an error when a broadcast buffered ioreq
-    is not handled by all registered clients, as long as the failure is
-    strictly because the client doesn't handle buffered ioreqs.
-    
-    Signed-off-by: Per Bilse <per.bilse@citrix.com>
-    Reviewed-by: Paul Durrant <paul@xen.org>
-
-commit 51c5b8b9afe9c6c63f6f2a55f467118c40cff976
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Wed Dec 7 12:16:49 2022 +0100
-
-    xen: remove trigraphs from comments
-    
-    MISRA C rule 4.2 states that trigraphs (sequences of two question marks
-    followed by a specified third character [=/'()!<>-]) should not be used.
-    This applies to both code and comments. Thankfully, we do not use them
-    in the code, but still there are some comments where they are
-    accidentally used. Fix it.
-    
-    With regards to the comments and respective macros in pci_regs.h, these
-    were inherited from Linux. Let's knowingly accept the divergence.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 60737ee9c590bea87c190a9421f2c19a41224c4a
-Author: Jan Beulich <jbeulich@suse.com>
-Date:   Wed Dec 7 12:16:08 2022 +0100
-
-    x86/HVM: drop stale check from hvm_load_cpu_msrs()
-    
-    Up until f61685a66903 ("x86: remove defunct init/load/save_msr()
-    hvm_funcs") the check of the _rsvd field served as an error check for
-    the earlier hvm_funcs.save_msr() invocation. With that invocation gone
-    the check makes no sense anymore: It is effectively dead code due to the
-    checking of the field in the earlier loop.
-    
-    While dropping the conditional also eliminate the "err" local variable
-    (using a non-standard name anyway), replaced by suitable new/adjusted
-    "return" statements.
-    
-    Signed-off-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>
-(qemu changes not included)
+-- 
+Julien Grall
 
