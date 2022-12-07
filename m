@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75BA645990
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 13:01:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456242.713991 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC7E6459A6
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 13:14:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456255.714003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2t6w-0000fm-DW; Wed, 07 Dec 2022 12:01:14 +0000
+	id 1p2tJA-0002iw-HC; Wed, 07 Dec 2022 12:13:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456242.713991; Wed, 07 Dec 2022 12:01:14 +0000
+Received: by outflank-mailman (output) from mailman id 456255.714003; Wed, 07 Dec 2022 12:13:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2t6w-0000cx-AU; Wed, 07 Dec 2022 12:01:14 +0000
-Received: by outflank-mailman (input) for mailman id 456242;
- Wed, 07 Dec 2022 12:01:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+KZT=4F=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
- id 1p2t6u-0000cp-NE
- for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 12:01:12 +0000
-Received: from sender4-of-o50.zoho.com (sender4-of-o50.zoho.com
- [136.143.188.50]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d51996dd-7626-11ed-8fd2-01056ac49cbb;
- Wed, 07 Dec 2022 13:01:09 +0100 (CET)
-Received: from [10.10.1.138] (static-72-81-132-2.bltmmd.fios.verizon.net
- [72.81.132.2]) by mx.zohomail.com
- with SMTPS id 1670414462789518.7643685690938;
- Wed, 7 Dec 2022 04:01:02 -0800 (PST)
+	id 1p2tJA-0002h1-EF; Wed, 07 Dec 2022 12:13:52 +0000
+Received: by outflank-mailman (input) for mailman id 456255;
+ Wed, 07 Dec 2022 12:13:51 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1p2tJ9-0002gv-NW
+ for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 12:13:51 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2tJ5-0007nx-Jd; Wed, 07 Dec 2022 12:13:47 +0000
+Received: from 54-240-197-235.amazon.com ([54.240.197.235]
+ helo=[192.168.0.175]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p2tJ5-0005dd-BM; Wed, 07 Dec 2022 12:13:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,76 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d51996dd-7626-11ed-8fd2-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; t=1670414465; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=A7lSo00Ydku8DrTvixBpI/Mj7gCD0rH9I2s46tT0EQu7GwLOXd2ccLr8Mom5r0gsJ4j4jsiNf5wfrmsocipCQhtY/fEoDIlwIZStOSUHlBJtveTrbrbzxbMqEu3NOUI5ktMDbEPweAMGx6cXsca05c66LY4ipgsfJ1G0zn8+Ggs=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1670414465; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
-	bh=5YotxaEBrKiaJvbD4JVHAtO1OLm+J/w+QEp318twkTY=; 
-	b=XaEf+S1LPBfRM/WyyWisxeqp8Hom7/T7hzH5QabvQlv2MSsP6exQWoPHyttupL2X4B56lAtDWF4Zt9lezIM3KLmuxCcRsyO2aGKO569GwMFXISfa1YawD5NkoffeN2kKzlgu06OekJp1/UD6OXtcE8vQHjea9szcUiS0xx6bqTI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=apertussolutions.com;
-	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
-	dmarc=pass header.from=<dpsmith@apertussolutions.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1670414465;
-	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=5YotxaEBrKiaJvbD4JVHAtO1OLm+J/w+QEp318twkTY=;
-	b=ud50v5nTd8eRTdnQVIW5djGQw1OIb9gYcPmSFZTDqZoVkydb9vtyeyu3TR1cmWYC
-	Bk4Na4v4Oe43fAoLoybDq9bC/xwaMyGNZjsREgP10lN4r+dXQId4C1e8sk/OerY8G9Z
-	8l8I1NKbNtMG0xl2FPnYqo32jernWZ592olG9Lvo=
-Message-ID: <42d21770-342b-4279-6ebc-c5be4807362f@apertussolutions.com>
-Date: Wed, 7 Dec 2022 07:01:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=Bt9jBtdA86eEbn44qVhnnA7hAundP3ljTYB7RUh9vOc=; b=lpcYMn6oRfWtqWiWns6DgE1a2k
+	Gtn7E4UTfNhOZvMuvLoNh3s5JidvX1YVGTokuqS0lX7SvGy4T4pwJ8kbAfVbynKYC/tgIFmXsT0cl
+	BLZvT1hEXiVWVDEs7TeTY+08EvmcbrtVS+VcRMr+ohbEqdEuObc7WQOHxE8h9v6VtlaQ=;
+Message-ID: <fe0f90fa-84aa-54b2-1e12-98baff7fcaf7@xen.org>
+Date: Wed, 7 Dec 2022 12:13:45 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: [PATCH] xsm: misra rule 8.4 fix
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [BUG]SMMU-V3 queue need no-cache memory
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
+To: Rahul Singh <Rahul.Singh@arm.com>, sisyphean <sisyphean@zlw.email>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
  Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org
-References: <alpine.DEB.2.22.394.2212061808570.4039@ubuntu-linux-20-04-desktop>
- <e3b7b6e8-55e7-f88e-26d0-7e2052cca1f0@suse.com>
-From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
-In-Reply-To: <e3b7b6e8-55e7-f88e-26d0-7e2052cca1f0@suse.com>
+References: <e1e0e347-6530-7b68-92f7-ef52defa55ac@zlw.email>
+ <75D89B2C-BBE4-419A-80B7-FEE39445ABB2@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <75D89B2C-BBE4-419A-80B7-FEE39445ABB2@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-On 12/7/22 04:47, Jan Beulich wrote:
-> On 07.12.2022 03:12, Stefano Stabellini wrote:
->> Fix two MISRA Issues Rule 8.4 ("A compatible declaration shall be
->> visible when an object or function with external linkage is defined")
->> found by cppcheck affecting xen/xsm/flask/ss/services.c.
+Hi,
+
+I only noticed this e-mail because I was skimming xen-devel. If you want 
+to get our attention, then I would suggest to CC both of us because I 
+(and I guess Stefano) have filter rules so those e-mails land directly 
+in my inbox.
+
+On 07/12/2022 10:24, Rahul Singh wrote:
+>> On 7 Dec 2022, at 2:04 am, sisyphean <sisyphean@zlw.email> wrote:
 >>
->> Fix the first issue by making policydb_loaded_version static
-> 
-> This variable is only ever written to afaics, so perhaps better simply
-> drop it?
-
-I agree, I would ack a patch with this dropped.
-
->> and the
->> second issue by declaring ss_initialized in a proper header.
+>> Hi,
 >>
->> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+>>      I try to run XEN on my ARM board(Sorry, for some commercial reasons, I can't tell you
+>>      on which platform I run XEN)  and enable SMMU-V3, but all cmds in cmdq failed when XEN started.
+>>
+>>      After using the debugger to track debugging, the reason for this problem is that
+>>      the queue in the smmu-v3 driver is not no-cache, so after the function arm_smmu_cmdq_build_cmd
+>>      is executed, the cmd is still in cache.Therefore, the SMMU-V3 hardware cannot obtain the correct cmd
+>>      from the memory for execution.
 > 
-> As to the title: The changes are contained to Flask, so xsm: really
-> is too wide a prefix.
+> Yes you are right as of now we are allocating the memory for cmdqueue via _xzalloc() which is cached
+> memory because of that you are observing the issue. We have tested the Xen SMMUv3 driver on SOC
+> where SMMUv3 HW is in the coherency domain, and because of that we have not encountered this issue.
 > 
->> --- a/xen/xsm/flask/flask_op.c
->> +++ b/xen/xsm/flask/flask_op.c
->> @@ -56,8 +56,6 @@ static int bool_num = 0;
->>   static int *bool_pending_values = NULL;
->>   static int flask_security_make_bools(void);
->>   
->> -extern int ss_initialized;
+> I think In your case SMMUv3 HW is not in the coherency domain. Please confirm from your side if the
+> "dma-coherent” property is not set in DT.
 > 
-> What about the 2nd one in flask/ss/policydb.c?
-> 
-> Jan
+> I think there is no function available as of now to request Xen to allocate memory that is not cached.
 
+You are correct.
 
-dps
+> 
+> @Julien and @Stefano do you have any suggestion on how we can request memory from Xen that is not
+> cached something like dma_alloc_coherent() in Linux.
+
+At the moment all the RAM is mapped cacheable in Xen. So it will require 
+some work to have some memory uncacheable.
+
+There are two options:
+  1) Allocate a pool of memory at boot time that will be mapped with 
+different memory attribute. This means we would need a separate pool and 
+the user will have to size it.
+  2) Modify after the allocation the caching attribute in the memory and 
+then revert back after freeing. The cons is we would end up to shatter 
+superpage. We also can't re-create superpage (yet), but that might be 
+fine if the memory is never freed.
+
+Option two would probably the best. But before going that route I have 
+one question...
+
+ > The temporary solution I use is to execute function clean_dcache every
+ > time cmd is copied to cmdq in function queue_write. But it is obvious
+ > that this will seriously affect the efficiency.
+
+I agree you will see some performance impact in micro-benchmark. But I 
+am not sure about normal use-cases. How often do you expect the command 
+queue to be used?
+
+Also, I am a bit surprised you are seing issue with the command queue 
+but not with the stage-2 page-tables. Does your SMMU support coherent 
+walk but cannot snoop for the command queue?
+
+Cheers,
+
+-- 
+Julien Grall
 
