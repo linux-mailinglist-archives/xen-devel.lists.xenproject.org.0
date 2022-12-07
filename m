@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7956645F12
-	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 17:36:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.456511.714285 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 635E2645F32
+	for <lists+xen-devel@lfdr.de>; Wed,  7 Dec 2022 17:45:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.456520.714296 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2xP3-0003eS-GW; Wed, 07 Dec 2022 16:36:13 +0000
+	id 1p2xY1-0005c1-DV; Wed, 07 Dec 2022 16:45:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 456511.714285; Wed, 07 Dec 2022 16:36:13 +0000
+Received: by outflank-mailman (output) from mailman id 456520.714296; Wed, 07 Dec 2022 16:45:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p2xP3-0003c2-D4; Wed, 07 Dec 2022 16:36:13 +0000
-Received: by outflank-mailman (input) for mailman id 456511;
- Wed, 07 Dec 2022 16:36:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=peuN=4F=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1p2xP1-0003bw-2n
- for xen-devel@lists.xenproject.org; Wed, 07 Dec 2022 16:36:11 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3e975f41-764d-11ed-8fd2-01056ac49cbb;
- Wed, 07 Dec 2022 17:36:07 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id BB99932009EF;
- Wed,  7 Dec 2022 11:36:03 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Wed, 07 Dec 2022 11:36:04 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Dec 2022 11:36:02 -0500 (EST)
+	id 1p2xY1-0005Zx-9U; Wed, 07 Dec 2022 16:45:29 +0000
+Received: by outflank-mailman (input) for mailman id 456520;
+ Wed, 07 Dec 2022 16:45:27 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p2xXz-0005Zm-K0; Wed, 07 Dec 2022 16:45:27 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p2xXz-0006Kr-FU; Wed, 07 Dec 2022 16:45:27 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p2xXz-0005le-5O; Wed, 07 Dec 2022 16:45:27 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p2xXz-00081j-4w; Wed, 07 Dec 2022 16:45:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,155 +42,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3e975f41-764d-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670430963; x=
-	1670517363; bh=axhUXMA34HA+Q1j97/dwkpqUsNJUM/48DcRDMKvPUN4=; b=L
-	2E9c8LkJrg0CNJ8n2mXEHYcRzbJ3/ZHKnwMJ9GyQn/+Y3vuK7MJnnxVyfSdlUxXt
-	iQtaF3Lk5PWMf3nj1SH8k3YZaie6enbRLofb6Eg6mpxPuhX7n4ti51QVoKxUF3Xo
-	qMElbe6FIykKyaNvmLv5VFqiR6t/CYdOF9XyRe275cOrr5tuI9UIji4ipDXxQYQs
-	jTeCnnuU2d7dV7Jsn/dZSLYUifcA7rYUJkOJdN1u6aETERkqazPC0j08mjWIOQSQ
-	H+k0Luzzp+aRwnEFv2bHBw2WRuu+iAtkp8IQAtIlO6zaSGrmuZDtqxtZRMhpINje
-	g21grB005iDSJcMLyTYIg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1670430963; x=1670517363; bh=axhUXMA34HA+Q1j97/dwkpqUsNJU
-	M/48DcRDMKvPUN4=; b=mFearBLiVx53W5gteYjDFezL2WkZKq9QixokEWPLoU/H
-	js6Qxyi+BcmGBJJLGxegSNljyHFsmfzlloE88eJKeCoCCxWZZE5meOmSSE4xOrxK
-	0JTxxsK8PrwjNa9iibx+G0UC5qvOQDV8kpS62dkMKb6EpajOfl1HjSNcgAeQX8oc
-	VzNKD3fyIiVKRT5DGZESzheTpoEbv1lBYgiJK0RHzAne2cO2UnvYXQ6hTayPSvil
-	tn8zMjTl8hhJHw8Mo4jNsmLwRjcc+V30Ihqz4leGq8vl4smuvD9K7CnXxdU8rFGZ
-	VAiuGAVctjYdQKEu63ehgb4do9+GiOlvsiaDmWyf8Q==
-X-ME-Sender: <xms:88CQYxqfAHRYDut-CQ915UxSt-mDf-5FxI2IFicRDOBIKd-vgMTf1g>
-    <xme:88CQYzo2I3NvIA-GDlmhb7hBROnGmO_9P0BQTM4NgwiJoQRoauNvc_fQXPwZP_OrL
-    k1hrRg6XvT2bA>
-X-ME-Received: <xmr:88CQY-OKjuk7NQLoZGmTHh8J-q2nXHtLSCY1kPo35rIQxlIYbOH1jRGz6FNVzeUkcEkl4ozTLeOv9SvjF79dkqaTsIhdpt620Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudekgdeltdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
-    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
-    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
-    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
-    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
-    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:88CQY86AoKqZfEfiRy7-mznXvyXoggUi3vu4QK6vQE1vPQZYBWWZyA>
-    <xmx:88CQYw6wO3gnrL-KBbmr-s09suUzXNJqPdOhgDMRE9VwrGYKSuwt_g>
-    <xmx:88CQY0gmZcPZ1WSVTxzbDemzdJq796ZKJZ_5Ct3LdBf3MRsKyf2xqQ>
-    <xmx:88CQY-SXzVnlH7W4QwzpXfbN12XNL_ATUb8PRvhjc4fw1KCMDXU7_A>
-Feedback-ID: i1568416f:Fastmail
-Date: Wed, 7 Dec 2022 17:35:57 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] vchan-socket-proxy: add reconnect marker support
-Message-ID: <Y5DA7VqkvJ1kvoBj@mail-itl>
-References: <20220905135019.3749982-1-marmarek@invisiblethingslab.com>
- <Y5CvxjkqB2qIKVz3@perard.uk.xensource.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=VBfTHPnDmY2DHSKjfdvULtp1OXQFUp01VFc41GIaXtM=; b=1WId5tNt/0kemDdn0TOjVVCuFg
+	TyrdyPv+s2BTwcEIBXDUQS2hHjshhEMx+umWDJutuEhlj/zk6MYzDUvkLRDelK4ndb/G/T47ltPJz
+	XYJjzRysrImWUyn6ogUluWSaJFPI8kAa6w2MT5A4EC4eQyvMNh+n5IMI+sJb7mmNHBWU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175069-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jgA1g4YBcMUBxEuj"
-Content-Disposition: inline
-In-Reply-To: <Y5CvxjkqB2qIKVz3@perard.uk.xensource.com>
+Subject: [libvirt test] 175069: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=7edea0d27b0aaca29b9c21205ab0acc49bce5139
+X-Osstest-Versions-That:
+    libvirt=7a2034127010598b91fa576f72f330baf50c1085
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 07 Dec 2022 16:45:27 +0000
+
+flight 175069 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175069/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175056
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175056
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 175056
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ libvirt              7edea0d27b0aaca29b9c21205ab0acc49bce5139
+baseline version:
+ libvirt              7a2034127010598b91fa576f72f330baf50c1085
+
+Last test of basis   175056  2022-12-06 04:21:46 Z    1 days
+Testing same since   175069  2022-12-07 04:20:18 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrea Bolognani <abologna@redhat.com>
+  Jim Fehlig <jfehlig@suse.com>
+  Ján Tomko <jtomko@redhat.com>
+  Kristina Hanicova <khanicov@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
---jgA1g4YBcMUBxEuj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 7 Dec 2022 17:35:57 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] vchan-socket-proxy: add reconnect marker support
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Wed, Dec 07, 2022 at 03:22:46PM +0000, Anthony PERARD wrote:
-> On Mon, Sep 05, 2022 at 03:50:18PM +0200, Marek Marczykowski-G=C3=B3recki=
- wrote:
-> > +                reconnect_marker_value =3D atoi(optarg);
->=20
-> atoi() isn't great, if there's garbage it just return 0, which is
-> validated below.
->=20
-> Would there be value here in using strtol() which can detect input
-> error? To at least help with maybe hard to debug issues?
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I'll send v2 with this changed.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> > +                if (reconnect_marker_value < 0 || reconnect_marker_val=
-ue > 255) {
-> > +                    fprintf(stderr, "invalid argument for --reconnect-=
-marker, "
-> > +                                    "must be a number between 0 and 25=
-5\n");
-> > +                    usage(argv);
-> > +                }
-> > +                break;
-> >              case '?':
-> >                  usage(argv);
-> >          }
-> > @@ -509,6 +549,15 @@ int main(int argc, char **argv)
-> >                  ret =3D 1;
-> >                  break;
-> >              }
-> > +            if (reconnect_marker_value !=3D -1) {
-> > +                const char marker_buf[] =3D { reconnect_marker_value };
-> > +
-> > +                if (libxenvchan_write(state.ctrl, marker_buf, sizeof(m=
-arker_buf))
-> > +                        !=3D sizeof(marker_buf)) {
-> > +                    fprintf(stderr, "failed to send reconnect marker\n=
-");
->=20
-> Is this an expected failure? If so, maybe adding "(ignored)" might be
-> valuable to someone reading the logs?
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-No, it isn't, it may mean server is gone or other fatal communication
-error. The break below will terminate the process (after performing
-cleanup).
 
-> > +                    break;
-> > +                }
-> > +            }
-> >              if (data_loop(&state) !=3D 0)
-> >                  break;
-> >              /* don't reconnect if output was stdout */
->=20
->=20
-> Otherwise, the patch looks fine. Even if kept as is:
-> Acked-by: Anthony PERARD <anthony.perard@citrix.com>
->=20
-> Thanks,
->=20
-> --=20
-> Anthony PERARD
+Pushing revision :
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---jgA1g4YBcMUBxEuj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOQwO0ACgkQ24/THMrX
-1yzgGQf9GZ+23jXZ8qdXjug4ekZHOVIF7LJtd19EyzzgMBtE3xjolN9ZL6inTFWg
-2PuGqIpBqIYdT0DxWHYAj13F0/B9xmwBSDchDmz+p5j/ISikWMPyGbCMvGqkoKUH
-EYk+UeQrK/q0hldXuo3LxtaOFtunXZ+p33sxavKpA2qgVMly89fJ84XE0eDLN38Q
-H/LI8UN00iHnQd8vGOHcCikbqMmDAPVcUnai548SH6SoANrDazxM+ndz6H3OG6lC
-P0m/0So5pqVgN8aNVCDL/39jEm0hZ1X5fOcQst0IAXQS1Q01B0J7lKWfVCAWCy5x
-qMeelFuVfivga3WLpB67l7RSKNXM0g==
-=jruy
------END PGP SIGNATURE-----
-
---jgA1g4YBcMUBxEuj--
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   7a20341270..7edea0d27b  7edea0d27b0aaca29b9c21205ab0acc49bce5139 -> xen-tested-master
 
