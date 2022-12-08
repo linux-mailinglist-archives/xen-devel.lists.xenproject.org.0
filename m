@@ -2,35 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49E7164741D
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 17:22:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457342.715235 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CECC664746B
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 17:37:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457361.715245 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3Jep-0002hA-Vw; Thu, 08 Dec 2022 16:21:59 +0000
+	id 1p3JtP-0004s9-FP; Thu, 08 Dec 2022 16:37:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457342.715235; Thu, 08 Dec 2022 16:21:59 +0000
+Received: by outflank-mailman (output) from mailman id 457361.715245; Thu, 08 Dec 2022 16:37:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3Jep-0002df-S9; Thu, 08 Dec 2022 16:21:59 +0000
-Received: by outflank-mailman (input) for mailman id 457342;
- Thu, 08 Dec 2022 16:21:58 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3Jeo-0002dO-0y; Thu, 08 Dec 2022 16:21:58 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3Jen-0005mu-Ue; Thu, 08 Dec 2022 16:21:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3Jen-00030d-LU; Thu, 08 Dec 2022 16:21:57 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p3Jen-0000hP-L0; Thu, 08 Dec 2022 16:21:57 +0000
+	id 1p3JtP-0004pe-Bx; Thu, 08 Dec 2022 16:37:03 +0000
+Received: by outflank-mailman (input) for mailman id 457361;
+ Thu, 08 Dec 2022 16:37:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pN/8=4G=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
+ id 1p3JtN-0004pY-TQ
+ for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 16:37:02 +0000
+Received: from poodle.tulip.relay.mailchannels.net
+ (poodle.tulip.relay.mailchannels.net [23.83.218.249])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86bcb1b4-7716-11ed-91b6-6bf2151ebd3b;
+ Thu, 08 Dec 2022 17:36:58 +0100 (CET)
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id 97D6D3C2986
+ for <xen-devel@lists.xenproject.org>; Thu,  8 Dec 2022 16:36:54 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (unknown [127.0.0.6])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 33DE93C2999
+ for <xen-devel@lists.xenproject.org>; Thu,  8 Dec 2022 16:36:54 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.97.74.32 (trex/6.7.1); Thu, 08 Dec 2022 16:36:54 +0000
+Received: from kmjvbox (c-73-70-108-208.hsd1.ca.comcast.net [73.70.108.208])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: kjlx@templeofstupid.com)
+ by pdx1-sub0-mail-a306.dreamhost.com (Postfix) with ESMTPSA id 4NSfts2D3VzjL
+ for <xen-devel@lists.xenproject.org>; Thu,  8 Dec 2022 08:36:52 -0800 (PST)
+Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
+ id e005f by kmjvbox (DragonFly Mail Agent v0.12);
+ Thu, 08 Dec 2022 08:36:50 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,271 +57,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=IdUYRtnZg7pPEc/NKUyhd9PPVokX8uFFTIjoPGJw8k8=; b=kbNhQdHOG4WbAx0b7Nx0HLreX7
-	/C6KEKxM7GBErd2bJb9b8pCqxdcWGJYP9uCIFq80IbPZUfhyBD/RJXUDQLCK1YOxHVS5p/ZkPsVP1
-	hZtrRdqvnYLpqLIw2WhlNEDW9ezn37tKvXVLpqdOfSLg7V8NqoKyHU7s0tr1pz5+UlZY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175087-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 86bcb1b4-7716-11ed-91b6-6bf2151ebd3b
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1670517414; a=rsa-sha256;
+	cv=none;
+	b=3o/ujEW/sXEhdP/j6nse8IeWOSzxDgigztDMqArsTLaVl5sg8rvURDXSJHnxeJrmOB5rK3
+	viQ0XaH1coQ+c3k1iXYxO+3xHtQXWjQ6U4C2o1KTYuaiswamfIbXtKHp2sf4OtR79umXu3
+	ZXPe/tj7B19250n6ZBdecBfjYh/kBNhHhSxiqGpJ+zuTfA442Ef0v+YdFaJbdIBYjs5E5V
+	GPEvvhLTMUOehneM23W+dueiOjWfqRY3/zEDPNA20gOQnK6NQ3mu/bG7PmMez7sYaa8MMU
+	SxHFMFVtVncW6nV3uGCmPFb2VhJBPZLoRX8pdTgS4ZwLTgzDriPsHMnNYLn6XA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1670517414;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 dkim-signature; bh=bs74ZGYQ9FzRSVBX/TLanMiHEEc4YJIYzYEP749rubo=;
+	b=vpeLPixtILnavoTo+WT2h2ekur2rbWeHCxi+DL8hwkfF7WVxJWwa78XE1xBdFlHNRsUDVK
+	tpdB7PnQQlcjV37Ab38qK34KSUxc/bfYsuaD3aKj1BRfULPfw9X2ywPXDHvflR8mxLxb1v
+	HyefjLTTgrNpR7q9DcecSfQvlyM2ki0EGJENKNEdH5ch9dsUu0hV7W+L3XaKRQtnDGcpDn
+	ERaoBTCNQ8JV74Z+5L9VGCZ2VG2Xu1/uhFjiD415w4yCzCzeC7M439F/BRkYQpsFH2RZsA
+	riJuOU3BxJ+jSatcEr7rG0WMrvO4Fb47HD2Kf7mgR9WkdnFBvfYoRfG8dSho8Q==
+ARC-Authentication-Results: i=1;
+	rspamd-85f95c7974-8lndr;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MailChannels-Auth-Id: dreamhost
+X-Oafish-Lyrical: 649e8ad758912dfb_1670517414435_1412210855
+X-MC-Loop-Signature: 1670517414435:1129904494
+X-MC-Ingress-Time: 1670517414435
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
+	s=dreamhost; t=1670517413;
+	bh=bs74ZGYQ9FzRSVBX/TLanMiHEEc4YJIYzYEP749rubo=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=hESgpD/+OrzvH+6b1U6RKBOLOwJiqCQBT1mxoUxpUs5xzHKC70FZgmMfvPziG+V+t
+	 3eBIu2KxYLoGa8i9QQd0boR7+3sD213cNgI7PAkExFAk+o++TiclVLFHv5RyUUfOsd
+	 k+iXFBHCT0eW5xuSP4bTilUk6Bkr9itiOEoLNz5g=
+Date: Thu, 8 Dec 2022 08:36:50 -0800
+From: Krister Johansen <kjlx@templeofstupid.com>
+To: Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org, Marcelo Tosatti <mtosatti@redhat.com>,
+	Anthony Liguori <aliguori@amazon.com>,
+	David Reaver <me@davidreaver.com>,
+	Brendan Gregg <brendan@intel.com>
+Subject: [PATCH linux-next] x86/xen/time: prefer tsc as clocksource when it
+ is invariant
+Message-ID: <20221208163650.GA3225@templeofstupid.com>
 MIME-Version: 1.0
-Subject: [linux-linus test] 175087: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:guest-start/debian:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:guest-start:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:guest-start:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-thunderx:guest-start:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:debian-hvm-install:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:debian-hvm-install:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:debian-hvm-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:debian-di-install:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:guest-start:fail:allowable
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-pair:guest-start/debian:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=479174d402bcf60789106eedc4def3957c060bad
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 08 Dec 2022 16:21:57 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-flight 175087 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175087/
+Kvm elects to use tsc instead of kvm-clock when it can detect that the
+TSC is invariant.
 
-Regressions :-(
+(As of commit 7539b174aef4 ("x86: kvmguest: use TSC clocksource if
+invariant TSC is exposed")).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-freebsd11-amd64 13 guest-start          fail REGR. vs. 173462
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-credit2  14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-xl-pvhv2-amd 14 guest-start             fail REGR. vs. 173462
- test-amd64-amd64-xl-multivcpu 14 guest-start             fail REGR. vs. 173462
- test-amd64-amd64-xl          14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 173462
- test-amd64-amd64-libvirt     14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-xl-xsm      14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-xl-pvshim   14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-libvirt-xsm 14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-xl-shadow   14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-xl-credit1  14 guest-start              fail REGR. vs. 173462
- test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 173462
- test-amd64-amd64-freebsd12-amd64 13 guest-start          fail REGR. vs. 173462
- test-amd64-amd64-libvirt-pair 25 guest-start/debian      fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-pvhv2-intel 14 guest-start           fail REGR. vs. 173462
- test-amd64-coresched-amd64-xl 14 guest-start             fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-arm64-arm64-xl-thunderx 14 guest-start              fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-debianhvm-amd64 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-qemuu-nested-amd 12 debian-hvm-install  fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-qemuu-nested-intel 12 debian-hvm-install fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 12 debian-hvm-install fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 12 debian-hvm-install fail REGR. vs. 173462
- test-amd64-amd64-libvirt-qcow2 12 debian-di-install      fail REGR. vs. 173462
- test-amd64-amd64-libvirt-raw 12 debian-di-install        fail REGR. vs. 173462
- test-amd64-amd64-pygrub      12 debian-di-install        fail REGR. vs. 173462
- test-amd64-amd64-xl-vhd      12 debian-di-install        fail REGR. vs. 173462
+Notable cloud vendors[1] and performance engineers[2] recommend that Xen
+users preferentially select tsc over xen-clocksource due the performance
+penalty incurred by the latter.  These articles are persuasive and
+tailored to specific use cases.  In order to understand the tradeoffs
+around this choice more fully, this author had to reference the
+documented[3] complexities around the Xen configuration, as well as the
+kernel's clocksource selection algorithm.  Many users may not attempt
+this to correctly configure the right clock source in their guest.
 
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds     14 guest-start              fail REGR. vs. 173462
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+The approach taken in the kvm-clock module spares users this confusion,
+where possible.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-pair        25 guest-start/debian      fail blocked in 173462
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+Both the Intel SDM[4] and the Xen tsc documentation explain that marking
+a tsc as invariant means that it should be considered stable by the OS
+and is elibile to be used as a wall clock source.  The Xen documentation
+further clarifies that this is only reliable on HVM and PVH because PV
+cannot intercept a cpuid instruction.
 
-version targeted for testing:
- linux                479174d402bcf60789106eedc4def3957c060bad
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+In order to obtain better out-of-the-box performance, and reduce the
+need for user tuning, follow kvm's approach and decrease the xen clock
+rating so that tsc is preferable, if it is invariant, stable, and the
+guest is a HVM or PVH domain.
 
-Last test of basis   173462  2022-10-07 18:41:45 Z   61 days
-Failing since        173470  2022-10-08 06:21:34 Z   61 days  122 attempts
-Testing same since   175081  2022-12-07 21:41:51 Z    0 days    2 attempts
+[1] https://aws.amazon.com/premiumsupport/knowledge-center/manage-ec2-linux-clock-source/
+[2] https://www.brendangregg.com/blog/2021-09-26/the-speed-of-time.html
+[3] https://xenbits.xen.org/docs/unstable/man/xen-tscmode.7.html
+[4] Intel 64 and IA-32 Architectures Sofware Developer's Manual Volume
+    3b: System Programming Guide, Part 2, Section 17.17.1, Invariant TSC
 
-------------------------------------------------------------
-1955 people touched revisions under test,
-not listing them all
+Signed-off-by: Krister Johansen <kjlx@templeofstupid.com>
+Code-reviewed-by: David Reaver <me@davidreaver.com>
+---
+ arch/x86/xen/time.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 fail    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
+diff --git a/arch/x86/xen/time.c b/arch/x86/xen/time.c
+index 9ef0a5cca96e..ca78581e4221 100644
+--- a/arch/x86/xen/time.c
++++ b/arch/x86/xen/time.c
+@@ -480,9 +480,22 @@ static void __init xen_time_init(void)
+ 	int cpu = smp_processor_id();
+ 	struct timespec64 tp;
+ 
+-	/* As Dom0 is never moved, no penalty on using TSC there */
+-	if (xen_initial_domain())
++	/*
++	 * As Dom0 is never moved, no penalty on using TSC there.
++	 *
++	 * If the guest has invariant tsc, then set xen_clocksource rating
++	 * below that of the tsc so that the system prefers tsc instead.  This
++	 * check excludes PV domains, because PV is unable to guarantee that the
++	 * guest's cpuid call has been intercepted by the hypervisor.
++	 */
++	if (xen_initial_domain()) {
+ 		xen_clocksource.rating = 275;
++	} else if ((xen_hvm_domain() || xen_pvh_domain()) &&
++	    boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
++	    boot_cpu_has(X86_FEATURE_NONSTOP_TSC) &&
++	    !check_tsc_unstable()) {
++		xen_clocksource.rating = 299;
++	}
+ 
+ 	clocksource_register_hz(&xen_clocksource, NSEC_PER_SEC);
+ 
+-- 
+2.25.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 187808 lines long.)
 
