@@ -2,56 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B08E6472CE
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 16:24:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457230.715116 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 126A3647331
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 16:35:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457239.715128 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3Il3-0005iS-4o; Thu, 08 Dec 2022 15:24:21 +0000
+	id 1p3Iux-0007Vc-46; Thu, 08 Dec 2022 15:34:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457230.715116; Thu, 08 Dec 2022 15:24:21 +0000
+Received: by outflank-mailman (output) from mailman id 457239.715128; Thu, 08 Dec 2022 15:34:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3Il3-0005fa-23; Thu, 08 Dec 2022 15:24:21 +0000
-Received: by outflank-mailman (input) for mailman id 457230;
- Thu, 08 Dec 2022 15:24:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=UkKA=4G=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p3Il1-0005fU-4s
- for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 15:24:19 +0000
-Received: from NAM02-DM3-obe.outbound.protection.outlook.com
- (mail-dm3nam02on20603.outbound.protection.outlook.com
- [2a01:111:f400:7e83::603])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 605d33cd-770c-11ed-8fd2-01056ac49cbb;
- Thu, 08 Dec 2022 16:24:17 +0100 (CET)
-Received: from DS7P222CA0001.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::7) by
- IA0PR12MB8278.namprd12.prod.outlook.com (2603:10b6:208:3dc::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14; Thu, 8 Dec
- 2022 15:24:12 +0000
-Received: from DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::fd) by DS7P222CA0001.outlook.office365.com
- (2603:10b6:8:2e::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.14 via Frontend
- Transport; Thu, 8 Dec 2022 15:24:12 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT012.mail.protection.outlook.com (10.13.173.109) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.16 via Frontend Transport; Thu, 8 Dec 2022 15:24:11 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 8 Dec
- 2022 09:24:11 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 8 Dec
- 2022 09:24:11 -0600
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 8 Dec 2022 09:24:09 -0600
+	id 1p3Iux-0007Tq-0V; Thu, 08 Dec 2022 15:34:35 +0000
+Received: by outflank-mailman (input) for mailman id 457239;
+ Thu, 08 Dec 2022 15:34:33 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=u3z7=4G=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p3Iuv-0007Tk-GB
+ for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 15:34:33 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on0627.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::627])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cf5bfd26-770d-11ed-91b6-6bf2151ebd3b;
+ Thu, 08 Dec 2022 16:34:32 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8231.eurprd04.prod.outlook.com (2603:10a6:20b:3ff::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.11; Thu, 8 Dec
+ 2022 15:34:27 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.014; Thu, 8 Dec 2022
+ 15:34:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,150 +47,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 605d33cd-770c-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: cf5bfd26-770d-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S4XchZZ4AhUgNZgaTsTNixmyILGotraIEp//OFSNDZpqukRDUcuuwi5oJZ0eXZcJpk67kbWlm0OdMIzdOdmRhZUZvMc+ypRg/TwOU7+8bEckyZn3LpRTr4+EYIOmUlGCaVYISH3hXparosAH0QIP/o6Ok9LpuPNkJ5/6j7mWeJHKa5hLG2QB8KhPecRBshbvkx+dHqDSgz2TQgfIpN32AtkCxSFKjC5x3wCaRX+WbJ/U/rbOUpqCsS/v/Wfb3D4/ZdCg1mriZE7G18nqm8Vi55Uf6VPR/+WHKaJxUJtxl3Me4n1n5nrBqpP3DOlS2ih6pFcZamsA+ywH+OYbq9R4Ow==
+ b=b5qdIDoIlwFFLzVXtNIxwdTblizzc4FERZ9lajCpY/JE9MMMzEKjjTgEWcEFrGKQLVUKruVtyK48qmKJgITVLDO2JGK2mqOhwQ3/RONhFHK7h3FfyDHzDI5ZC3nGTbA7zcOgQ8djsUxPLHCij1l8Urc/sNh7yh+DFSmAD6/XV/evksrDhEyD4q4NETUOCxA52e5ZGxkdQFwVvrzVytUjqPVrUd2f3NJyYSvm+GS2oOS/YvEShOXqnU0XMIhudg3G31i0WQ3z53BAB15bdEoIm/ElmXa9qVevHkAWQSDkkqP5E/fYdq2o0voqvWCshthd7VnlufgaxayoBbKfucpITw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/ezzrzS/zkPRbz6lbFhf03w1v7HSxCQYF3B6EOnZgbU=;
- b=oVpR3J7S3L2GMT2LeShf355fJ50Nb1K+l5MRBzb3KdwtkM91eDHORGfOxGRK2ezjPrxkeb4uau4a1TUZu5CA1KPeCsGdUs47Bsl8Y7Jb8Ue2s8fUmgvFa6SfMn4OdyBNOYIESPFezC8ZseL5dBE5AeyPo5yfk+a1miwucjaD7+A1EsUFWPDovHR3rq1gQMF2Pd2wRfhd1Cgyzpk56SXwfky4iVSeASonBu/6A9KjZERZWBhD0gPGdIC2ejMRtaqj1dAVac9R3F38Q7+RGkfWF9xKSACPeLvGu2hKzo1ufgGjDrQIoiLbzXLyOGfKS0/o3IwwLXU68QDxXR6p1dqI3A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=LFjrw/i7rnHF1ifbMIw2RAbjfbMnu8L0QnsRWzAIIYw=;
+ b=AyWTXFoEx3Fltb2nDHdAWATwoSLNXsH1dYCTcf7kpDZZcOwlW/bWBuPyrOTg2No8Tg1aw9tus1Cg0cgQHAlhPvCW9GpjS0RRZG9aAWsx6RGTvypKKU6+fg9v5R1aO0ALe/CScCpybJys2sdEuZBC2wjQatfGS57fFyUdBkRsjl5nXHa+1wIHcBK7ByJadAKc8hXEOwmbouFb3SEV/asqE8cdLZzmM7z4dAeHRNAkCL4NeEHaRWiWLN28Y5bwJUBpNBz0lham4IXzpLrkxMW+QuRpS6hYN3S6/lH0s9zwnW7rnOgIUZhMVRQNbNhDZqE4wcOAxTH1wOcru7sMquComQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/ezzrzS/zkPRbz6lbFhf03w1v7HSxCQYF3B6EOnZgbU=;
- b=tm5XaRDO3owHkVXJmMGjWgKpZG6QLiU3POU5gA9mRsOoBRrxVmGLX7KHlX/HVMokCtCFffkgR4O6Fkf3XjcWutIs34z5+LvPXHauczJn6WdFXcMbAMjH+RVMpfNkolvZwhMpbzWpsvvWMhFECqIlY1Sh4mJEknuml6FR9WbKRD0=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <e8aff19a-4992-9d35-4e78-9e64aec384f9@amd.com>
-Date: Thu, 8 Dec 2022 16:24:09 +0100
-MIME-Version: 1.0
+ bh=LFjrw/i7rnHF1ifbMIw2RAbjfbMnu8L0QnsRWzAIIYw=;
+ b=Dhf8zM0mtj8qCjJaNPMILGoxiaVRJLJ3pEvHdDxHXS2LvwxH2BePFfYhRgMgynEzmkgFxGO3fElrV0AfJ5Qnm/gd8I29T7tdtbs+7bwLxFzbKUjFXXntuDUb7RNuQwWLRKeMGnlK7dojVKB3oLqw7NmqakZ0rzWElQeTQ0rgkg26fFOJrPkLEzpMiHGbE3WVN/A76XGzyQaIN8Mvg1+2LgDjvt2k3HU+ZiIqtziubbVrPPWEIM8vh6fOC/tgK8UhTVWmTKG707rmfVLELHqx0QUuffrkbofhZ1KK1c7DCEBuZqXhtF99dQW2S2qKYHZIQPWNEBgDwj++iIS9/dqUNg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <35f9e529-35b9-0432-8e98-8b0100953856@suse.com>
+Date: Thu, 8 Dec 2022 16:34:25 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: [XEN v1] xen/Arm: Probe the entry point address of an uImage
- correctly
+Subject: Re: [PATCH 1/2] x86/ucode: allow cpu_request_microcode() to skip
+ memory allocation
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Ayan Kumar Halder
-	<ayan.kumar.halder@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefanos@xilinx.com>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, "Oleksandr
- Tyshchenko" <oleksandr_tyshchenko@epam.com>
-References: <20221208124929.55268-1-ayan.kumar.halder@amd.com>
- <1ad3ee8c-991f-6e15-255f-ccc24dd5b84f@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <1ad3ee8c-991f-6e15-255f-ccc24dd5b84f@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Sergey Dyasli <sergey.dyasli@citrix.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20221208132639.29942-1-sergey.dyasli@citrix.com>
+ <c6676171-8cab-dfbc-4b18-d9c724588398@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <c6676171-8cab-dfbc-4b18-d9c724588398@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0150.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT012:EE_|IA0PR12MB8278:EE_
-X-MS-Office365-Filtering-Correlation-Id: e52771fe-81ff-4a97-0610-08dad930424b
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8231:EE_
+X-MS-Office365-Filtering-Correlation-Id: b05f3d94-6a09-4df1-e056-08dad931b0b2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	TalKlu3hImWrtlRUWFp3YZ4iMRb2ovZDocig/XZGSLWGS8f8C7LRQ3dsQjbJCDJkDD5J9vkihu7NbqqcQuZWqZQEv2Bn5d6UtcmZaQ6cOA+sWMcqiBLwqKg+pc3kbV7BwUL9xLKs6iSImbDwHALxzumhWXnG12Vr0DmC1/U0IRdga62CD5TFvv017FTmFKz+RkQblmZCewi7uPIlvbqN9ejKiWRsdpqvc//I9O7aq+Qwosh51V6iXOr5NEav4UWV3QA36p4YraE0DGZbH2Ylis/2OHIZ1VZT16R35NP2AKSMiUQ6Yjqe8C8eeKHVWGAIzNy0SGpzwuFO32SHapoGv3r8LJ5XopcFEaIGftYP9U3m+DrqzC/Xtr5CozZFHBqtmeJelZLHJbdx+y8sZ/u0jYsrs1OCpqXMY2p+Bra5Z6KVs6WNzfV23FLKC/IYf7xNSFlzvpixNoD5Qt1qB5ZDzKFjcmDj06f+pZh2S/qwlXJX46ntppaCErdobobUsEKuKVL/1PZBMiN8Rlqbg05UdHfddcfATKohOEt8hH46TtaDL7u3Uruw6XuerV2jUdD5yzYhTl1btRf6dyxsjx/rfR/g9YA733qbnNa9sgKkeF1DY17vhneO06O4B85zPnk5NBkhbB/uHB0s3MX+s8XUu3h3RXMJXLZNzBqwnZuvJRe3r0xiOnR5sAD2fWPLKi8tlMcywDoCu76hCJRkJgmhJXfz3peWIy+REE2SY2tfonoGmJa4mw+B55+P70irQ6DXOUsP6QHczxFLFeaNN8YLyg==
+	F1Ej91RE5xRB4C8hPaXOXI1/OOotzXHD4pENXLyI6Ae0PCN2rCohkPVgCnxtUAUYVmv1OIjfLNVgzN3NF2BlA2BLvqWfKGA5jY2YLFtAPVyUq5X+9RwVe5s+aglqBGlIBjnfOug/RpKw+1CjcqS5WhiGtc/77AsdEaHLS7bdrqf1gbzFLylZ8dytqz2+Vi1FT7Doc/s4n1O7E1BL01oZzKX2XTzSkhyKa+6hEDQa/URHAoYX0qzv4WcKlqZOCBXUczJ/+QoT6qzu14kJpGExZVHLPt7ng/4NEhfEbeMBvO9yIjpaBo2ebB6Yp1p1pi7fNDzhsbRvx71rrHrReUEl+QSWFdUM02ZMEuP6p60XDqhTdLQlwV+YUCFxyfi4CM0H6UaoBN1JfEGDNXzhOxD+2tX1Fs+GsiceKY3nogSSjK9lMNGZ10eIiWHidbnr8wD0WUD8Yf65f/ZS6s1ZqB51vWTpKWZKJEpOdQg48xxASLWtgL7SIVdwnY98ijqgeBpVV6me3drSPPcMziHPSJc2wCD7kS1aMND+bC4HA0wySIvGCq6wMVDSYoioDBAQYHLe00xVDDR/OXW61dYPbfdshZvFZ14Ajzi+svlJH4StIGdwKFQ0pRIj4M7qvmKHhaiN8rVBQ+C5qD8BbaNENWFAL5V6YAeTCERoon0gwD5KVskxocQLQh9mGH8moOojK1fWN2GCZCY58PFdNnMj8knDWGSEwfHCFiwTr49hUTWQbbk=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(336012)(8676002)(40460700003)(26005)(83380400001)(41300700001)(82310400005)(40480700001)(47076005)(8936002)(186003)(44832011)(2616005)(2906002)(86362001)(4326008)(70586007)(16576012)(70206006)(426003)(5660300002)(54906003)(31696002)(36860700001)(110136005)(36756003)(316002)(356005)(82740400003)(478600001)(31686004)(81166007)(53546011)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 15:24:11.9435
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(346002)(396003)(136003)(376002)(39860400002)(451199015)(36756003)(6506007)(6486002)(31696002)(53546011)(86362001)(478600001)(316002)(66556008)(4326008)(2906002)(110136005)(54906003)(41300700001)(66476007)(8676002)(66946007)(8936002)(6512007)(38100700002)(186003)(2616005)(26005)(83380400001)(5660300002)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?KzhxYXhYcmQvOUtscE5GbzJ2aW1HTDRmT1h2Z09ad0gvMElWdkdMOGNvTzJK?=
+ =?utf-8?B?ODhBN3JZK2dhUlRNdVc5Wk00L29JOEpYcHVDRExjWUpLVDNKTGhWaE4rR2xR?=
+ =?utf-8?B?NkdqUmhKNG1NUjVRUGFVSW15T0tURUJZd1R6aUY3K21OY3JoQ0E2cEEraytB?=
+ =?utf-8?B?QWgyZXdFZVJHc3o4VE9PL3ZpRlpkNzR0MGxuRGpIS2Z2SUNsTWh6Y1NmUzVz?=
+ =?utf-8?B?d09CaUEwcGVLcnZFbGtkY2prc3Z0UWFGYUFNblBVMEJONmhMQm5RemRKeTd3?=
+ =?utf-8?B?d21aamZKVXdEYVFVS0xnLzAzZmN2QTIzYmJIMzVzOEhiRkxteTBwalhYWUlQ?=
+ =?utf-8?B?ZkF1eVNsaVFVcjZyeVcyUmU2cVcyVGdPZHFWV0p2UE5UK1ExUmFNRkZvNWgv?=
+ =?utf-8?B?OFVNMFBKbE9LNm1pNloxWUhMaUJuUGprTDJybi9LdFcwOHBzUkdMdHJ0UEtz?=
+ =?utf-8?B?WnoweFRrdVRsRUk1bDNGdXJZZjQ4ajUxVm5SdHlLMWw5U25zQThwSXBkZW5u?=
+ =?utf-8?B?RXJGSGJmYkorVGRNVk8wSmFJZnV1dGhlUWFDOXJBSWZ2aFArcGRhcGRzMHZk?=
+ =?utf-8?B?cDBkdjh0N1c4cndoNnJGUUFINW1zSGxUaFpwQjBNNU9URnMvb0ZJUW5QNWFC?=
+ =?utf-8?B?ei9mNzZpeUV4L0E4VWtCTUp0MFM3blNMVTJrMDA3RzRoVitjdEpwWTZoRW9R?=
+ =?utf-8?B?bEdVZ2d0WVBVVkh0QUt6UW5rNEZCU1U3WDJKSHQ0Z2hUaGp4S2hDUktYcFRS?=
+ =?utf-8?B?VzJ6dDBJVmNyenJVazlNZW9OTEU5VTBVbFpCcWVNK2dLT200L1QyVlJVVmQx?=
+ =?utf-8?B?SWVGNkYvVWF4YVBDdVRWNzZNYmZSa3VWWEgwT05yZ2lKSlQvVmNaNjk4YnhW?=
+ =?utf-8?B?NGFFM2swYjJHc2NOcWF5N0k5V0ZsSFA3QzAzbjQ4UFVKdnRJOVM3UE93dGZX?=
+ =?utf-8?B?YVVYSUsrZkFUMEE2eHBHSk9ETkhLUWp1blloMDhDNko2ejh1b0tKeUVkeEhZ?=
+ =?utf-8?B?a1VKU0xncHZocHpxeVJURDIwUEp3a1VmcFVzL2dtb0U2d2ZFREdDdXUvNDlJ?=
+ =?utf-8?B?TTlOc0loRU04cktmRktYTEFTNzRySytPclJkUU0xT0RQNS9laHdhSVZudlMy?=
+ =?utf-8?B?aVU1VGJWcHNFem90UXpaSnRsbGc2TVBzN2Mya1lSb29VbU82Szhhc3lwRDVI?=
+ =?utf-8?B?ZTlReHBNU2Y4ZjUvbENVZUpCRW5VS2VLV0VyM2oreHExRTJJR0Q2dHFYSk1m?=
+ =?utf-8?B?dDdpdndpcE4rUmZza2Q3ZFo2by9MU0d2d0IvV3JNdnpSMzVTZWlCNkdpWXFQ?=
+ =?utf-8?B?Y2dIWlZOMkZuUU1DUmpZM2VVVHUzVS83SG0yRy8zbHBnMThBSUZXT1V5b0Nv?=
+ =?utf-8?B?VEc4dUozbjFUSjRmVmJPVnc3SWNjMXFqcFo1QVhSM1IxUVk0VlJXT1ZHVGJi?=
+ =?utf-8?B?T29SeDBpcnVRMXF1b0htV3BGUlJ0QzZFOGw3MmNHZDJ5ZEZIT0NVdmlrWG16?=
+ =?utf-8?B?bmlXYitIUVFGTnN5aU1nb2ZXK2I4Ymxoa2wzUG1TY09GQ1VPQTFQSEhlNURP?=
+ =?utf-8?B?UHZiSnkxVC9sL2h2a3Rvc28wVjNiRWcvNm5rMVkzV2g4S2FiWG1nd3VXT3FY?=
+ =?utf-8?B?Y1lMZ3M2M2dzZ2NqRi92NTJiTEJLOHU3aTBkZkxQOHJFU0hLTDBxWnhwUmI3?=
+ =?utf-8?B?ZS9sQlJ0YnVkWFRIekk2bndwdTQ0VlppcFRoZjhxWHFVZXd1eE9HMDNPMVpv?=
+ =?utf-8?B?Z3hYT3B4aFBwVmdKa2VvbEFPN2tYVFpyMXBwVTl6N2ZxQW1VdUE2WnpkV3RL?=
+ =?utf-8?B?bjZWOWlnTVp2SC9oOWpRN2tLQWhNU2NEVjd5QmdtZmVSYlVjTFBLdXVWaUF3?=
+ =?utf-8?B?amYrVG5tcEN6UFUvdnFpMWZNWldJM1JDekhTWnBwMEthZGxuL2Zua0d1RmM0?=
+ =?utf-8?B?aEhmME5MZHMzT3VlYTVORWRSN05LKzZtdTVhMHJKcnprVjlXMDhqUUZOOHJH?=
+ =?utf-8?B?d3dxb3J0ZzJENVp6Zzk5dTJQYmFkQzFTU0FBME1jQW02UWJNZnBDLzBudDF5?=
+ =?utf-8?B?end5VmFuYzRNZUJJTXFZNG1NbENCaERFR282VXU4dGJtTzVuOTZ6MnMvNXBx?=
+ =?utf-8?Q?z79qtYgvGKcNgBQtX1d6FKted?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b05f3d94-6a09-4df1-e056-08dad931b0b2
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Dec 2022 15:34:26.9202
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e52771fe-81ff-4a97-0610-08dad930424b
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT012.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8278
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9Lo1TZIiuKfr3mCLIApjCfyJX7aGYOMCEAscSVSur8aWEb7v4iynCW8KI7TAZo5fTnJF9GU5u5UOiZFpO6XiYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8231
 
-Hi,
+On 08.12.2022 14:59, Andrew Cooper wrote:
+> On 08/12/2022 13:26, Sergey Dyasli wrote:
+>> @@ -240,20 +240,20 @@ static const struct microcode_patch *nmi_patch = ZERO_BLOCK_PTR;
+>>   * patch is found and an error occurs during the parsing process. Otherwise
+>>   * return NULL.
+>>   */
+>> -static struct microcode_patch *parse_blob(const char *buf, size_t len)
+>> +static const struct microcode_patch *parse_blob(const char *buf, size_t len)
+>>  {
+>>      alternative_vcall(ucode_ops.collect_cpu_info);
+>>  
+>> -    return alternative_call(ucode_ops.cpu_request_microcode, buf, len);
+>> +    return alternative_call(ucode_ops.cpu_request_microcode, buf, len, true);
+>>  }
+>>  
+>> -static void microcode_free_patch(struct microcode_patch *patch)
+>> +static void microcode_free_patch(const struct microcode_patch *patch)
+>>  {
+>> -    xfree(patch);
+>> +    xfree((void *)patch);
+> 
+> This hunk demonstrates why the hook wants to return a non-const
+> pointer.  Keeping it non-const will shrink this patch quite a bit.
 
-On 08/12/2022 14:51, Julien Grall wrote:
-> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> 
-> 
-> Hi,
-> 
-> Title extra NIT: I have seen it multiple time and so far refrain to say
-> it. Please use 'arm' rather than 'Arm'. This is for consistency in the
-> way we name the subsystem in the title.
-> 
-> On 08/12/2022 12:49, Ayan Kumar Halder wrote:
->> Currently, kernel_uimage_probe() does not set info->zimage.start. As a
->> result, it contains the default value (ie 0). This causes,
->> kernel_zimage_place() to treat the binary (contained within uImage) as
->> position independent executable. Thus, it loads it at an incorrect address.
->>
->> The correct approach would be to read "uimage.ep" and set
->> info->zimage.start. This will ensure that the binary is loaded at the
->> correct address.
-> 
-> In non-statically allocated setup, a user doesn't know where the memory
-> for dom0/domU will be allocated.
-> 
-> So I think this was correct to ignore the address. In fact, I am worry
-> that...
-> 
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->>
->> I uncovered this issue while loading Zephyr as a dom0less domU with Xen on
->> R52 FVP. Zephyr builds with static device tree. Thus, the load address is
->> always fixed.
->>
->>   xen/arch/arm/kernel.c | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
->> index 2556a45c38..e4e8c67669 100644
->> --- a/xen/arch/arm/kernel.c
->> +++ b/xen/arch/arm/kernel.c
->> @@ -222,6 +222,8 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->>       if ( len > size - sizeof(uimage) )
->>           return -EINVAL;
->>
->> +    info->zimage.start = be32_to_cpu(uimage.ep);
-> ... this will now ended up to break anyone that may have set an address
-> but didn't care where it should be loaded.
-> 
-> I also understand your use case but now, we have contradictory
-> approaches. I am not entirely sure how we can solve it. We may have to
-> break those users (Cc some folks that may use it). But we should figure
-> out what is the alternative for them.
-> 
-> If we decide to break those users, then this should be documented in the
-> commit message and in docs/misc/arm/booting.txt (which interestingly
-> didn't mention uImage).
-> 
-So the first issue with Zephyr is that it does not support zImage protocol for arm32.
-Volodymyr added support only for Image header for arm64 Zephyr.
-I guess this is why Ayan, willing to boot it on Xen (arm32), decided to add u-boot header.
+Alternatively it demonstrates why xfree() should take const void *,
+just like e.g. unmap_domain_page() or vunmap() already do. We've
+talked about this before, and the argument hasn't changed: Neither
+unmapping nor freeing really alters the contents of the pointed to
+area from the perspective of the caller, as the contents simply
+disappears altogether.
 
-Now, there is also a question about supporting arm64 uImage kernels. In Xen kernel_zimage_place,
-we do:
-#ifdef CONFIG_ARM_64
-    if ( info->type == DOMAIN_64BIT )
-        return info->mem.bank[0].start + info->zimage.text_offset;
-#endif
-
-So if we modify the uImage behavior for arm32, we will break consistency with arm64
-(we would take uImage entry point address into account for arm32 but not for arm64).
-At the moment at least they are in sync.
-
-
-> Cheers,
-> 
-> --
-> Julien Grall
-
-~Michal
+Jan
 
