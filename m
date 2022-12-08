@@ -2,32 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF9156471CD
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 15:30:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457206.715084 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2610C6471E2
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 15:38:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457214.715094 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3HuH-0005He-J0; Thu, 08 Dec 2022 14:29:49 +0000
+	id 1p3I22-00073E-Ah; Thu, 08 Dec 2022 14:37:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457206.715084; Thu, 08 Dec 2022 14:29:49 +0000
+Received: by outflank-mailman (output) from mailman id 457214.715094; Thu, 08 Dec 2022 14:37:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3HuH-0005Ey-Fh; Thu, 08 Dec 2022 14:29:49 +0000
-Received: by outflank-mailman (input) for mailman id 457206;
- Thu, 08 Dec 2022 14:29:47 +0000
+	id 1p3I22-00070b-7h; Thu, 08 Dec 2022 14:37:50 +0000
+Received: by outflank-mailman (input) for mailman id 457214;
+ Thu, 08 Dec 2022 14:37:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=vAIj=4G=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1p3HuF-0005Eo-Fa
- for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 14:29:47 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c3a9cf57-7704-11ed-91b6-6bf2151ebd3b;
- Thu, 08 Dec 2022 15:29:46 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id s5so2012017edc.12
- for <xen-devel@lists.xenproject.org>; Thu, 08 Dec 2022 06:29:46 -0800 (PST)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Nm3U=4G=apertussolutions.com=dpsmith@srs-se1.protection.inumbo.net>)
+ id 1p3I21-00070P-3h
+ for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 14:37:49 +0000
+Received: from sender4-of-o51.zoho.com (sender4-of-o51.zoho.com
+ [136.143.188.51]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e15dc4e3-7705-11ed-91b6-6bf2151ebd3b;
+ Thu, 08 Dec 2022 15:37:47 +0100 (CET)
+Received: from [10.10.1.154] (static-72-81-132-2.bltmmd.fios.verizon.net
+ [72.81.132.2]) by mx.zohomail.com
+ with SMTPS id 1670510259679275.94089091939793;
+ Thu, 8 Dec 2022 06:37:39 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,69 +40,60 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c3a9cf57-7704-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=l0qPeIJOIhjyznECtS8fut53UHjwwwvuJgNhcuFSxik=;
-        b=F4im1xeuNsIHAoynnPnzNqgADfYLPxg7tRqVhDLeAVqg8lRvz4LWnUODB15CjtXFQ/
-         6X3GMxuB5KlR+9x7stEW5jVrOydmBXaLukY8REPLyLC4t3XBjkgIeFnmII+15hPVMgaz
-         2ITnNdt4hKiXbHlgEBmPhaH0SoWkqxVuU8wag=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=l0qPeIJOIhjyznECtS8fut53UHjwwwvuJgNhcuFSxik=;
-        b=oTiG7rU2ZLItt3+r6gY7MLD5/jMC3+STSwyVytwH9CZ0wRs1qMTV7HFdk6VehRGZrg
-         ROxfCGEDfFbbKeL4B5+jb0PbzjYLAIp4wMxJz+8EzQYtbJiWllh2HuiZwxez5ilGf8N3
-         /anJYAfvplQ7rjY77isbAAb6HcIJBFWyv2BjVr+BhuYQaVbw1bW0BdsFFrR7k9GQPoOP
-         s3BeLHMPXmK3MPtezWgsPy8dw7dnEXb8RM6CoZ8VCHhBm78m6ZAMFbUoNCdMaMTf7W/H
-         8OhP7JX1LIdQtwRMH5TyZC1t8mVJMJGzDe8leN0ecYHhfsKi/Vd09YOhZRYalhYxCVMV
-         wmHA==
-X-Gm-Message-State: ANoB5pnUbVVvfL7SVMBu5f4sT0vD3k/gRKWhvSA5HLFHFHeTXzmbe2/G
-	0Im4UUtelADTsf5Vt7hWtPifW3TXEb9/H7C4IL1LnihZGJ2cNAZo
-X-Google-Smtp-Source: AA0mqf40fJB1MHrF64hiQVc6Y8BkQI2b0sc/5v5PSZL8QNXySxooB6l5bmWw/LlA2vVllVMaC+sg5oiMii8e6cYE7MI=
-X-Received: by 2002:aa7:cb96:0:b0:461:bacd:c85d with SMTP id
- r22-20020aa7cb96000000b00461bacdc85dmr40701439edt.278.1670509785826; Thu, 08
- Dec 2022 06:29:45 -0800 (PST)
+X-Inumbo-ID: e15dc4e3-7705-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; t=1670510262; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=CxX50lKZr1EuHEt8z9yIAfyfkobxTEcr2n1wnKuOfIX26fnTKle5HJP+thJIidTvZ3mXPdO/YdExLwOEoevkLFV2NrDc8u98S0WdkvblUZk94nNiN7ZtGQS+uxcFKZjIxq74D/ipPxfxODS1NEBNoRrYrFJHDwH3TiYnghnRbzE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1670510262; h=Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:To; 
+	bh=h28PH3SivYi1nEcbXtVQMxx4cEMNHT5Jco8sKuWi9ZM=; 
+	b=lbZSJn3ZbXQT7Dr6qQ7iTW89k5dZSfiasgytr3h9Oxnnz/cgvMpjRG4ly/0bUMKEzPCD5s7UzO6NMmNjyk/83E5bi2BtsYTUHjth4H4PIxFryioI7kJZJESNLBLn8+NAdEHKpqTg9G2r+u2zPr/y7Z5h6JSCgOuyj602s1+4C3A=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=apertussolutions.com;
+	spf=pass  smtp.mailfrom=dpsmith@apertussolutions.com;
+	dmarc=pass header.from=<dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1670510262;
+	s=zoho; d=apertussolutions.com; i=dpsmith@apertussolutions.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:References:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=h28PH3SivYi1nEcbXtVQMxx4cEMNHT5Jco8sKuWi9ZM=;
+	b=liO636dI6RLQ4/rcy2AdR0wAKh50W6LEdxsYbFyPfd2XNiqwztCyrgpTLEc5cVRC
+	G2BWNLiys37oRX0fUUHD0FSDTuK+VaXjuss7t1/sHxYDAbiyLls2JWk+SHXnQoABtpN
+	8XLm18PFAATluyayLWid6ohbisyZ5qq1AjD6A+N4=
+Message-ID: <27c4329c-4161-d259-58fc-a05e52dd6fe1@apertussolutions.com>
+Date: Thu, 8 Dec 2022 09:37:37 -0500
 MIME-Version: 1.0
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 8 Dec 2022 14:29:35 +0000
-Message-ID: <CA+zSX=Z16e5GufsNscxTEQ0rzrKLUkjqT+0+gegB-4STDWjFKA@mail.gmail.com>
-Subject: Feedback on Xen Summit 2023 options
-To: xen-devel@lists.xenproject.org
-Content-Type: multipart/alternative; boundary="00000000000060fe1105ef51de82"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
+Subject: Re: [PATCH v2] xsm/flask: misra rule 8.4 fix
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org
+Cc: jbeulich@suse.com, michal.orzel@amd.com
+References: <alpine.DEB.2.22.394.2212071519340.4039@ubuntu-linux-20-04-desktop>
+From: "Daniel P. Smith" <dpsmith@apertussolutions.com>
+In-Reply-To: <alpine.DEB.2.22.394.2212071519340.4039@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
---00000000000060fe1105ef51de82
-Content-Type: text/plain; charset="UTF-8"
+On 12/7/22 18:24, Stefano Stabellini wrote:
+> Fix several MISRA Issues Rule 8.4 ("A compatible declaration shall be
+> visible when an object or function with external linkage is defined")
+> found by cppcheck affecting xen/xsm/flask.
+> 
+> - policydb_loaded_version is not declared; removed it because it is
+>    unused
+> - move ss_initialized declaration to xen/xsm/flask/include/conditional.h
+> - #include <conditional.h> (which is
+>    xen/xsm/flask/include/conditional.h) in xen/xsm/flask/ss/policydb.c so
+>    that policydb.c also gets the declaration of ss_initialized
+> - #include <conditional.h> in xen/xsm/flask/ss/services.c to declare
+>    security_*_bools functions that services.c is defining and using
+> 
+> This patch solves all the Rule 8.4 violations found by cppcheck on xsm/
+> 
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> 
 
-Hey all,
-
-Here's a quick poll to get feedback on our current choices for Xen Summit
-2023, some of which have non-standard parameters.
-
-https://cryptpad.fr/form/#/2/form/view/rNLNfq9nWLHN0v7nN3xYygDtk5iMvCkUCQFiM7iEhLA/
-
-The poll will stay open until the next community call, but obviously the
-earlier you can respond the better.
-
-Thanks,
- -George Dunlap
-
---00000000000060fe1105ef51de82
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hey all,<div><br></div><div>Here&#39;s a quick poll to get=
- feedback on our current choices for Xen Summit 2023, some of which have no=
-n-standard parameters.=C2=A0=C2=A0</div><div><br></div><div><div><a href=3D=
-"https://cryptpad.fr/form/#/2/form/view/rNLNfq9nWLHN0v7nN3xYygDtk5iMvCkUCQF=
-iM7iEhLA/">https://cryptpad.fr/form/#/2/form/view/rNLNfq9nWLHN0v7nN3xYygDtk=
-5iMvCkUCQFiM7iEhLA/</a><br></div></div><div><br></div><div><div>The poll wi=
-ll stay open until the next community call, but obviously the earlier you c=
-an respond the better.</div><div><div><br></div></div></div><div>Thanks,</d=
-iv><div>=C2=A0-George Dunlap</div></div>
-
---00000000000060fe1105ef51de82--
+Ack-by: Daniel P. Smith <dpsmith@apertussolutions.com>
 
