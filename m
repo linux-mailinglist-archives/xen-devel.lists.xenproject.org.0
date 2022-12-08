@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 085676474B6
-	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 17:54:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457377.715267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A84C064754E
+	for <lists+xen-devel@lfdr.de>; Thu,  8 Dec 2022 19:06:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457384.715278 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3K9f-0008No-2Y; Thu, 08 Dec 2022 16:53:51 +0000
+	id 1p3LH7-0000mE-AW; Thu, 08 Dec 2022 18:05:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457377.715267; Thu, 08 Dec 2022 16:53:51 +0000
+Received: by outflank-mailman (output) from mailman id 457384.715278; Thu, 08 Dec 2022 18:05:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3K9e-0008M2-Vq; Thu, 08 Dec 2022 16:53:50 +0000
-Received: by outflank-mailman (input) for mailman id 457377;
- Thu, 08 Dec 2022 16:53:50 +0000
+	id 1p3LH7-0000jt-7S; Thu, 08 Dec 2022 18:05:37 +0000
+Received: by outflank-mailman (input) for mailman id 457384;
+ Thu, 08 Dec 2022 18:05:35 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p3K9d-0008Lw-VU
- for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 16:53:50 +0000
+ (envelope-from <julien@xen.org>) id 1p3LH5-0000jl-Qp
+ for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 18:05:35 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p3K9d-0006UQ-SJ
- for xen-devel@lists.xenproject.org; Thu, 08 Dec 2022 16:53:49 +0000
+ (envelope-from <julien@xen.org>)
+ id 1p3LH0-0008Ci-Pa; Thu, 08 Dec 2022 18:05:30 +0000
 Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=[192.168.4.36])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p3K9d-0004H6-Lu; Thu, 08 Dec 2022 16:53:49 +0000
+ id 1p3LH0-0000js-JK; Thu, 08 Dec 2022 18:05:30 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,116 +42,72 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=qtKXtNXapx+Sen/CIUkwxiPWlXUqIvGnc75bgUDTNPs=; b=J4tTmysdBxwhwwPmvG/HMAmcMt
-	0M2dKPjVSNl84BNngfqJV1JvqSuhVWLcO4gHuWxwZ1KUKP8XePio4oQNcoRLrcI3d02e6Eh12fFs9
-	A+kAhcGcW1I+YBPFb3cUiUA6DzxU0mrhxmywdKqNKCMzfMFIcQVEmqo/7uqC5L2w0Gi0=;
-Message-ID: <00ab59fa-d449-255b-bfe3-aaacb87e34dd@xen.org>
-Date: Thu, 8 Dec 2022 16:53:47 +0000
+	bh=j/Z/DqItcAL8GWKE6V5wfBGPMSb7evRy2sHrbM9SOB4=; b=XG88EdDs1hzgArLTuP5m/0PgC1
+	lb2oqdmwtObTpsXx+9EWk9BbIu6kZqmo1vCpJMU/6tSSKSRhuKg3foYZZuB+YdNjCnXhOVEMolmur
+	b8ytjdl4Acdo6yulp5Mn9eglcxN9cyzNTmXhq0Z9lKe8ANJDl00SVKoprkKKBFnb3py8=;
+Message-ID: <5ce98ff4-6b7d-2254-d755-a68fc3ac67b4@xen.org>
+Date: Thu, 8 Dec 2022 18:05:28 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [XEN v1] xen/Arm: Probe the entry point address of an uImage
- correctly
+Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-References: <20221208124929.55268-1-ayan.kumar.halder@amd.com>
- <1ad3ee8c-991f-6e15-255f-ccc24dd5b84f@xen.org>
- <e8aff19a-4992-9d35-4e78-9e64aec384f9@amd.com>
+To: Henry Wang <Henry.Wang@arm.com>, Jan Beulich <jbeulich@suse.com>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Ard Biesheuval <ardb@kernel.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>,
+ Xen developer discussion <xen-devel@lists.xenproject.org>
+References: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
+ <9c1e3cc3-e0b4-6ca5-087b-55117b45db80@suse.com>
+ <AS8PR08MB7991E4EE490EC8B028BB1D2F921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <e8aff19a-4992-9d35-4e78-9e64aec384f9@amd.com>
+In-Reply-To: <AS8PR08MB7991E4EE490EC8B028BB1D2F921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 Hi,
 
-On 08/12/2022 15:24, Michal Orzel wrote:
-> On 08/12/2022 14:51, Julien Grall wrote:
->> Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
+On 08/12/2022 08:53, Henry Wang wrote:
+>> -----Original Message-----
+>> From: Jan Beulich <jbeulich@suse.com>
+>> Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
 >>
->>
->> Hi,
->>
->> Title extra NIT: I have seen it multiple time and so far refrain to say
->> it. Please use 'arm' rather than 'Arm'. This is for consistency in the
->> way we name the subsystem in the title.
->>
->> On 08/12/2022 12:49, Ayan Kumar Halder wrote:
->>> Currently, kernel_uimage_probe() does not set info->zimage.start. As a
->>> result, it contains the default value (ie 0). This causes,
->>> kernel_zimage_place() to treat the binary (contained within uImage) as
->>> position independent executable. Thus, it loads it at an incorrect address.
+>> On 07.12.2022 23:42, Demi Marie Obenour wrote:
+>>> A previous patch tried to get Linux to use the ESRT under Xen if it is
+>>> in memory of type EfiRuntimeServicesData.  However, EfiRuntimeServices*
+>>> memory needs to be included in the EFI page tables, so it is best to
+>>> minimize the amount of memory of this type.  Since EFI runtime services
+>>> do not need access to the ESRT, EfiACPIReclaimMemory is a better choice.
 >>>
->>> The correct approach would be to read "uimage.ep" and set
->>> info->zimage.start. This will ensure that the binary is loaded at the
->>> correct address.
+>>> Link: https://lists.xenproject.org/archives/html/xen-devel/2022-
+>> 09/msg01365.html
+>>> Fixes: dc7da0874ba4 ("EFI: preserve the System Resource Table for dom0")
+>>> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 >>
->> In non-statically allocated setup, a user doesn't know where the memory
->> for dom0/domU will be allocated.
+>> Acked-by: Jan Beulich <jbeulich@suse.com>
 >>
->> So I think this was correct to ignore the address. In fact, I am worry
->> that...
+>>> Should this be included in 4.17?  It is a bug fix for a feature new to
+>>> 4.17, so I suspect yes, but it is ultimately up to Henry Wang.  The code
+>>> is identical to v2, but I have improved the commit message.
 >>
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>
->>> I uncovered this issue while loading Zephyr as a dom0less domU with Xen on
->>> R52 FVP. Zephyr builds with static device tree. Thus, the load address is
->>> always fixed.
->>>
->>>    xen/arch/arm/kernel.c | 2 ++
->>>    1 file changed, 2 insertions(+)
->>>
->>> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
->>> index 2556a45c38..e4e8c67669 100644
->>> --- a/xen/arch/arm/kernel.c
->>> +++ b/xen/arch/arm/kernel.c
->>> @@ -222,6 +222,8 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->>>        if ( len > size - sizeof(uimage) )
->>>            return -EINVAL;
->>>
->>> +    info->zimage.start = be32_to_cpu(uimage.ep);
->> ... this will now ended up to break anyone that may have set an address
->> but didn't care where it should be loaded.
->>
->> I also understand your use case but now, we have contradictory
->> approaches. I am not entirely sure how we can solve it. We may have to
->> break those users (Cc some folks that may use it). But we should figure
->> out what is the alternative for them.
->>
->> If we decide to break those users, then this should be documented in the
->> commit message and in docs/misc/arm/booting.txt (which interestingly
->> didn't mention uImage).
->>
-> So the first issue with Zephyr is that it does not support zImage protocol for arm32.
-> Volodymyr added support only for Image header for arm64 Zephyr.
-> I guess this is why Ayan, willing to boot it on Xen (arm32), decided to add u-boot header.
-
-If that's the only reason, then I would rather prefer if we go with 
-zImage for a few reasons:
-  - The zImage protocol has at least some documentation (not perfect) of 
-the expected state of the memory/registers when jumping to the image.
-  - AFAICT libxl is not (yet) supporting uImage. So this means zephyr 
-cannot be loaded on older Xen releases (not great).
-
-Note this doesn't mean we should not fix Xen for uImage.
-
-> Now, there is also a question about supporting arm64 uImage kernels. In Xen kernel_zimage_place,
-> we do:
-> #ifdef CONFIG_ARM_64
->      if ( info->type == DOMAIN_64BIT )
->          return info->mem.bank[0].start + info->zimage.text_offset;
-> #endif
+>> It may be too late now, looking at the state of the tree. Henry, Julien?
 > 
-> So if we modify the uImage behavior for arm32, we will break consistency with arm64
-> (we would take uImage entry point address into account for arm32 but not for arm64).
-> At the moment at least they are in sync.
+> Like I said in v2, I don't object the change if you would like to include this patch
+> to 4.17, so if you are sure this patch is safe and want to commit it, feel free to add:
+> 
+> Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+> 
+> Since we also need to commit:
+> "[PATCH for-4.17] SUPPORT.md: Define support lifetime" so from my side
+> I am no problem. Julien might have different opinion though, if Julien object
+> the change I would like to respect his opinion and leave this patch uncommitted.
 
-That's a good point. It would be best if the behavior is consistent.
+I have committed it after SUPPORT.md. So if for some reasons we are seen 
+any issues with Osstest, then I can tag the tree without this patch 
+(that said, I would rather prefer if we have staging-4.17 == stable-4.17).
+
+My plan is to prepare the tarball tomorrow.
 
 Cheers,
 
