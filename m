@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A31596482B7
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 14:17:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457891.715839 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D274648357
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 15:05:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457922.715853 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3dEc-0004y2-RE; Fri, 09 Dec 2022 13:16:14 +0000
+	id 1p3dzy-000302-GS; Fri, 09 Dec 2022 14:05:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457891.715839; Fri, 09 Dec 2022 13:16:14 +0000
+Received: by outflank-mailman (output) from mailman id 457922.715853; Fri, 09 Dec 2022 14:05:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3dEc-0004us-O9; Fri, 09 Dec 2022 13:16:14 +0000
-Received: by outflank-mailman (input) for mailman id 457891;
- Fri, 09 Dec 2022 13:16:13 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p3dzy-0002yH-Dn; Fri, 09 Dec 2022 14:05:10 +0000
+Received: by outflank-mailman (input) for mailman id 457922;
+ Fri, 09 Dec 2022 14:05:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=iKBv=4H=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p3dEb-0004um-8e
- for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 13:16:13 +0000
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a204b090-77c3-11ed-8fd2-01056ac49cbb;
- Fri, 09 Dec 2022 14:16:07 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 3A1533200904;
- Fri,  9 Dec 2022 08:16:02 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Fri, 09 Dec 2022 08:16:02 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 9 Dec 2022 08:16:00 -0500 (EST)
+ <SRS0=nv8v=4H=citrix.com=prvs=3352c5006=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1p3dzx-0002yB-8e
+ for xen-devel@lists.xen.org; Fri, 09 Dec 2022 14:05:09 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 7b469067-77ca-11ed-91b6-6bf2151ebd3b;
+ Fri, 09 Dec 2022 15:05:07 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,161 +36,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a204b090-77c3-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670591761; x=
-	1670678161; bh=PhnIp8wmGOYZkwEFgfVpgvNVhWVd57DXr2teMfgswQ8=; b=n
-	4XkcQd+tQNF5QYxMBao3ldeQoRZYFYKBSijBpvILXXastBoClZPa5KnQqrv2Exwb
-	VMs/UURpmhUDIau5J+AvPrsBvDG8tYmQVU9WMl+zDhgwfzIE0Wwo5WuRaU82N7PD
-	G+FTzBKo0U3zYS9HikWI6BjqI4kZ3SwxAW9d/Ol7MxnclT6pVQRy2QXr2Ef25SMd
-	+me/hKKbOIF/U59hQoU0rWa+mUtkT7VTelnVDc0UCVRGR44vZXpGVass+rpk8gUj
-	f57a5o0k5mbwJYFZHN/ujUizMvDeOpNuy03VCPNaH2Og4GaUDxbzlycQyQDUjBUc
-	Y8WjOyrUzfpuC7A3CeNNA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1670591761; x=1670678161; bh=PhnIp8wmGOYZkwEFgfVpgvNVhWVd
-	57DXr2teMfgswQ8=; b=o791l6CAL5ItNg17QQ6+UEWsIhRF9HIr/FWZGrPycniO
-	WVILoEt/4uC3AOc+6ED+Y97PkgwWbKTb04lZGucNkKVIFZLhJRRBZZ+7PEwO1TPA
-	z3ktCP7PI9n/xy/vwk1XB7RsnsE1AH4bjsul5bazIcn0AqiBZYIkcvQpMLx90lUY
-	xb94EBSHR70FUEGXZ3bfielNhkhYRcavJ7wWYe+i6ywrs84TN/go1qqM+/Cwl9aQ
-	IOjEpx7TgD8QN1PjKdebomw9KnM9on3XyWS9KumrusjNftaGa2XAtglkn8yg1p08
-	dwKEIKOVccDM/AkrjowtYH/Q2xWl6eeqFBuLnucNbw==
-X-ME-Sender: <xms:ETWTYylsxiWMMHl0vh1JJhZPHiCSjFD6JP9uL6V377ulQ84Gr_y-sw>
-    <xme:ETWTY53_auYyexk7nJPw1lvrEEuw6eM-Wurm_R0Jeu22ZsHAqds2MHTv-CwA0LQcZ
-    qkV71qA4_VHowY>
-X-ME-Received: <xmr:ETWTYwo8Uv-zU5VhU0VbhtClpaR_wqi1ofMOVJBczL5Fiymgd51g0IShNeZO>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddvgdeglecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
-    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
-    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
-    rggsrdgtohhm
-X-ME-Proxy: <xmx:ETWTY2n4D-Lfqcjljmfe8oPbLcAhjGXqVY5K6fviTiNogjrdKrJuzg>
-    <xmx:ETWTYw3fCuVigBS-gd_A4U6AiKTNRTP_k8XOyQu4SW0fALC_dCsPsw>
-    <xmx:ETWTY9tC6bDbHuy1JNmGNdl3YhKvbQ6k9E9oBbM61b4ZK186sLBbPA>
-    <xmx:ETWTY9wI50IIZk99E3_h3L5YOpByESW95U4-sMLLi5Lk4M6Km-q6GQ>
-Feedback-ID: iac594737:Fastmail
-Date: Fri, 9 Dec 2022 08:15:55 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
-	Jan Beulich <jbeulich@suse.com>
-Cc: Ard Biesheuval <ardb@kernel.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
-Message-ID: <Y5M1D4w44uIddxNn@itl-email>
-References: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
- <9c1e3cc3-e0b4-6ca5-087b-55117b45db80@suse.com>
- <AS8PR08MB7991E4EE490EC8B028BB1D2F921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <5ce98ff4-6b7d-2254-d755-a68fc3ac67b4@xen.org>
- <AS8PR08MB7991A81EEEC33451800CAF97921C9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+X-Inumbo-ID: 7b469067-77ca-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1670594707;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=+apzwZeekKNIH448nSTGPvDEHZyOsinV+UJtOdYphaw=;
+  b=gfxfnDnh9VZZS/XdLsmEQpLOfcUc0NMKfl15UQG8RTsEpgzpuZcsRl3g
+   6bB5XuTaCzC+eiSDjRBht7A8WT2EqWWmF3QU2Aq+KznzZQ4H27OWE8gJU
+   7JozqJn4XrAChu2Po60VKJwFFDwyzOM0u6amlz6b1hJpK+IE2SJkO5Vc1
+   A=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 87949434
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:spcoEaobx+bAdN4APFDaV+OKVDleBmJwYhIvgKrLsJaIsI4StFCzt
+ garIBnSOauDYmunLYhxYYq3/BlXuJ/cxoUxGgBo/ilnE3wVoJuZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpAFc+E0/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06W1wUmAWP6gR5gaEzyhNVvrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXADJSM1ffneaK+rDlVMdhxcV/Be77bIxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFHU/rSn8/x7pX7WzRetFKSo7tx+2XJxRZ9+LPsLMDUapqBQsA9ckOw9
+ j2XozWlWU1y2Nq3kDWX2V6Kirf1gzL5VKQsCaaa0s9zqQjGroAUIEJPDgbqyRWjsWa7Us5fK
+ kEJvDIprLIz+VaDStj7Vge/5nWDu3Y0QMZdHeQ870eW1qPe7gKdB24FZi5AbN0gpIk9QjlC/
+ laNksOvDzFptrCYYXac8L6OqnW1Iyd9BXAGTT8JS00C+daLiIY3gxHUUsd4EIa6i9T0HXf7x
+ DXihC0/hLhVjckP0qig1VTGhTu2od7OVAFdzgfYRGW+9StieZWoIYev7DDz/ftGaYqUUFSFl
+ HwFgNSFqvADC9eKjiPlaPsMBryy57CGLTjVm3ZrHp8o7TPr/GSsFahL/Ct3OEByd8oJZxfue
+ ArXuBhN/9lXPX2jd6gxZJi+Y+w0zK7rGNL5EP/Jb8ZSZYRZcA6B9TtpI0mK0AjFklUokKw5E
+ YeWd4CrF3lyNEh85GPoHaFHi+Ztn31ggzOILXzm8/i5+bjBOTnJU7M5ClnQcM40r6LYiSLFo
+ 9kKYqNm1C5jeOH5ZyDW96saIlYLMWU3CPjKliBHSgKQClE4QT98Upc91ZtkItU4xPoNyo8k6
+ 1nnAidlJEzDaWorwOlgQlRqc/vRUJl2thrX1gR8bA/zixDPjWtChZrzlqfbn5F9rISPLtYuF
+ ZHpnvls5dwRIgkrAxxHMfHAQHVKLXxHfz6mMSu/eyQYdJV9XQHP8dKMVlKxq3FTVHbr7Zpk+
+ OTIOubnrX0rHlUKMSorQKj3kwPZUYY1x4qeoHck0vEMIR6xoeCG2gT6j+MtItFkFPkw7mLy6
+ upiOj9B/bOli9ZsoLH0aVWs89/B/x1WQhALQAE2LN+eaUHnw4ZU6dMZCr7TJ2CHDjicFWfLT
+ bw98swQ+cYvxD5i27eQ2Z4xpU7iz7MDf4Nn8zk=
+IronPort-HdrOrdr: A9a23:OlK+/KuqEoXjsjEt2WMLytxi7skDstV00zEX/kB9WHVpm6yj+v
+ xG/c5rsCMc7Qx6ZJhOo7+90cW7L080lqQFg7X5X43DYOCOggLBQL2KhbGI/9SKIVycygcy78
+ Zdm6gVMqyLMbB55/yKnTVRxbwbsaW6GKPDv5ag8590JzsaD52Jd21Ce36m+ksdfnggObMJUK
+ Cyy+BgvDSadXEefq2AdwI4t7iqnaysqHr+CyR2fiIa1A==
+X-IronPort-AV: E=Sophos;i="5.96,230,1665460800"; 
+   d="scan'208";a="87949434"
+Date: Fri, 9 Dec 2022 14:04:49 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+CC: <xen-devel@lists.xen.org>, Juergen Gross <jgross@suse.com>, Julien Grall
+	<julien@xen.org>, Vincent Guittot <vincent.guittot@linaro.org>,
+	<stratos-dev@op-lists.linaro.org>, Alex =?iso-8859-1?Q?Benn=E9e?=
+	<alex.bennee@linaro.org>, Stefano Stabellini <stefano.stabellini@xilinx.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.com>, Mike Holmes
+	<mike.holmes@linaro.org>, Oleksandr Tyshchenko <olekstysh@gmail.com>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [PATCH V6 2/3] xl: Add support to parse generic virtio device
+Message-ID: <Y5NAgZsG15LuUCd6@perard.uk.xensource.com>
+References: <cover.1667906228.git.viresh.kumar@linaro.org>
+ <73663851c5223b99ed0f23a163a0d44cba0ebe29.1667906228.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="W4bAIgRAj/9KfQGT"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <AS8PR08MB7991A81EEEC33451800CAF97921C9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+In-Reply-To: <73663851c5223b99ed0f23a163a0d44cba0ebe29.1667906228.git.viresh.kumar@linaro.org>
 
+On Tue, Nov 08, 2022 at 04:53:59PM +0530, Viresh Kumar wrote:
+> diff --git a/tools/ocaml/libs/xl/genwrap.py b/tools/ocaml/libs/xl/genwrap.py
+> index 7bf26bdcd831..b188104299b1 100644
+> --- a/tools/ocaml/libs/xl/genwrap.py
+> +++ b/tools/ocaml/libs/xl/genwrap.py
+> @@ -36,6 +36,7 @@ DEVICE_LIST =      [ ("list",           ["ctx", "domid", "t list"]),
+>  functions = { # ( name , [type1,type2,....] )
+>      "device_vfb":     DEVICE_FUNCTIONS,
+>      "device_vkb":     DEVICE_FUNCTIONS,
+> +    "device_virtio":     DEVICE_FUNCTIONS,
+>      "device_disk":    DEVICE_FUNCTIONS + DEVICE_LIST +
+>                        [ ("insert",         ["ctx", "t", "domid", "?async:'a", "unit", "unit"]),
+>                          ("of_vdev",        ["ctx", "domid", "string", "t"]),
+> diff --git a/tools/ocaml/libs/xl/xenlight_stubs.c b/tools/ocaml/libs/xl/xenlight_stubs.c
+> index 45b8af61c74a..8e54f95da7c7 100644
+> --- a/tools/ocaml/libs/xl/xenlight_stubs.c
+> +++ b/tools/ocaml/libs/xl/xenlight_stubs.c
+> @@ -707,6 +707,7 @@ DEVICE_ADDREMOVE(disk)
+>  DEVICE_ADDREMOVE(nic)
+>  DEVICE_ADDREMOVE(vfb)
+>  DEVICE_ADDREMOVE(vkb)
+> +DEVICE_ADDREMOVE(virtio)
+>  DEVICE_ADDREMOVE(pci)
+>  _DEVICE_ADDREMOVE(disk, cdrom, insert)
 
---W4bAIgRAj/9KfQGT
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 9 Dec 2022 08:15:55 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
-	Jan Beulich <jbeulich@suse.com>
-Cc: Ard Biesheuval <ardb@kernel.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	Xen developer discussion <xen-devel@lists.xenproject.org>
-Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
+I don't think these ocaml changes are necessary, because they don't
+build. I'm guessing those adds the ability to hotplug devices which
+virtio device don't have, so function for that are missing.
 
-On Fri, Dec 09, 2022 at 07:37:53AM +0000, Henry Wang wrote:
-> Hi Julien,
->=20
-> > -----Original Message-----
-> > From: Julien Grall <julien@xen.org>
-> > Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
-> >=20
-> > Hi,
-> >=20
-> > >>> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > >>
-> > >> Acked-by: Jan Beulich <jbeulich@suse.com>
-> > >>
-> > >>> Should this be included in 4.17?  It is a bug fix for a feature new=
- to
-> > >>> 4.17, so I suspect yes, but it is ultimately up to Henry Wang.  The=
- code
-> > >>> is identical to v2, but I have improved the commit message.
-> > >>
-> > >> It may be too late now, looking at the state of the tree. Henry, Jul=
-ien?
-> > >
-> > > Like I said in v2, I don't object the change if you would like to inc=
-lude this
-> > patch
-> > > to 4.17, so if you are sure this patch is safe and want to commit it,=
- feel free
-> > to add:
-> > >
-> > > Release-acked-by: Henry Wang <Henry.Wang@arm.com>
-> > >
-> > > Since we also need to commit:
-> > > "[PATCH for-4.17] SUPPORT.md: Define support lifetime" so from my side
-> > > I am no problem. Julien might have different opinion though, if Julien
-> > object
-> > > the change I would like to respect his opinion and leave this patch
-> > uncommitted.
-> >=20
-> > I have committed it after SUPPORT.md. So if for some reasons we are seen
-> > any issues with Osstest, then I can tag the tree without this patch
->=20
-> This is a great solution :)
->=20
-> > (that said, I would rather prefer if we have staging-4.17 =3D=3D stable=
--4.17).
->=20
-> Looks like now staging-4.17 =3D=3D stable-4.17 now, with this patch pushe=
-d.
-> So we are ready to tag.
+> diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> index 1b5381cef033..c6f35c069d2a 100644
+> --- a/tools/xl/xl_parse.c
+> +++ b/tools/xl/xl_parse.c
+> @@ -2309,8 +2390,10 @@ void parse_config_data(const char *config_source,
+>  
+>      d_config->num_vfbs = 0;
+>      d_config->num_vkbs = 0;
+> +    d_config->num_virtios = 0;
+>      d_config->vfbs = NULL;
+>      d_config->vkbs = NULL;
+> +    d_config->virtios = NULL;
 
-And it turns out that I botched the initial patch, sorry.  (I forgot to
-handle the multiboot2 case.)
+These look a bit out of place, I think it would be fine to set
+num_virtios and virtios just before calling parse_virtio_list(), as
+array are usually initialised just before parsing the associated config
+option in parse_config_data().
 
-I understand if it is too late for stable-4.17, but it ought to make
-stable 4.17.1 as it was simply omitted from the initial patch series.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+>      if (!xlu_cfg_get_list (config, "vfb", &cvfbs, 0, 0)) {
+>          while ((buf = xlu_cfg_get_listitem (cvfbs, d_config->num_vfbs)) != NULL) {
+> @@ -2752,6 +2835,7 @@ void parse_config_data(const char *config_source,
+>      }
+>  
+>      parse_vkb_list(config, d_config);
+> +    parse_virtio_list(config, d_config);
+>  
+>      xlu_cfg_get_defbool(config, "xend_suspend_evtchn_compat",
+>                          &c_info->xend_suspend_evtchn_compat, 0);
 
---W4bAIgRAj/9KfQGT
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOTNQ8ACgkQsoi1X/+c
-IsGrRQ//bj415rBPN9LoTW5VUGS448GgOtsCaGLBUnnz8wnU2rFD4oEF12TrNAwT
-vPGi7Pavax9SlVLzSVqD41TtxaLlyMQRBiCknG638U5Bv1uFj04mOwoKvys+Q3xK
-QIBvuX/cPoqwsATvjmr5HEZQ+0fZ8wi7p/VxaSBdqIbbw7MS8vW1+jDA702qwCoK
-MCM51Dx0Wa++wrQdNK4sNsmCHnjHkCet0A96AbwIRnBBLcycPfdCqqBF3zzM8tMM
-KxDjoYU0jVINLXwmI3pcym4gPl8m5Ro5mrVYlMickEtEmjQcuWdQ3ie1UlO33RFk
-WW7UHJRw6RmSbeGtt+O3mCDJQlmbc0wBG8p9nVN25X60XIxaIeDVNoPKg2ZwbfPK
-c22PM4BigGbjAAmksXqUe/SkGz2R0XTvlRl1ox1a8sy9Mnl4ysDTX8NXOmIz3Y6m
-tsV4zcm3pzP9kgL0LC/8CoRxDL40mrkuHGMqB2ren+EHotrR9Dq49Q/cO/r695FZ
-LJutxKJK6YrbUO4a8NXLv5JKZKSCPB024TJIvh4pdsw/yTAstYoO76JduehDrii2
-ljKNtX/gLdM4KpOwlsW3UHlAYNTlt4xlKH9ofxHgxZSGo99Dj2QN8KoNRjDGtVaX
-hmXxJxJzpwfDIhedxgAv9xL3fK2beXdfkaLNhTWpkgxTsSVg0Uw=
-=olSy
------END PGP SIGNATURE-----
-
---W4bAIgRAj/9KfQGT--
+-- 
+Anthony PERARD
 
