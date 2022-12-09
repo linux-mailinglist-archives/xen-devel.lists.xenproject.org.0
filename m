@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01581648201
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 12:59:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457854.715821 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A31596482B7
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 14:17:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457891.715839 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3c1J-0002s6-Ne; Fri, 09 Dec 2022 11:58:25 +0000
+	id 1p3dEc-0004y2-RE; Fri, 09 Dec 2022 13:16:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457854.715821; Fri, 09 Dec 2022 11:58:25 +0000
+Received: by outflank-mailman (output) from mailman id 457891.715839; Fri, 09 Dec 2022 13:16:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3c1J-0002qL-Kq; Fri, 09 Dec 2022 11:58:25 +0000
-Received: by outflank-mailman (input) for mailman id 457854;
- Fri, 09 Dec 2022 11:54:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p3dEc-0004us-O9; Fri, 09 Dec 2022 13:16:14 +0000
+Received: by outflank-mailman (input) for mailman id 457891;
+ Fri, 09 Dec 2022 13:16:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8bpP=4H=linux.intel.com=kai.vehmanen@srs-se1.protection.inumbo.net>)
- id 1p3bx9-0002jv-0V
- for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 11:54:07 +0000
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2b69e80a-77b8-11ed-91b6-6bf2151ebd3b;
- Fri, 09 Dec 2022 12:54:03 +0100 (CET)
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 03:53:59 -0800
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2022 03:53:50 -0800
+ <SRS0=iKBv=4H=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p3dEb-0004um-8e
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 13:16:13 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a204b090-77c3-11ed-8fd2-01056ac49cbb;
+ Fri, 09 Dec 2022 14:16:07 +0100 (CET)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 3A1533200904;
+ Fri,  9 Dec 2022 08:16:02 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Fri, 09 Dec 2022 08:16:02 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 9 Dec 2022 08:16:00 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,102 +43,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2b69e80a-77b8-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1670586843; x=1702122843;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=i6l99AsOk7Ek/fC/JJlzKRTZl8kQmivMJCaJu9pD6WY=;
-  b=VtvPpiRiNwMurUMRXREj+rjJOwRnzUg0Br7x8Lq1pHGIn8G0zydaorkk
-   C4D7q40P+45a9JhZiNTS3KXWcT3DwK2peTjA6kJBijtNshr4rzS9mvw/S
-   tV5vbfDDrYLhZ03oRjVMVdbDbkbaE4mfGlZM2meJlr/K+CDmkix7jh/mg
-   p3okVsW50oZZnfdmfomg+3hVtNTCwQXmFglpcPM85jh5UD0QbrY6Sasqs
-   H1z+Y5TVU8vRnOlwpmIImv1bW9pRtVxZKYZtNEH4e3HbPFHDPwxAPE7bp
-   RYA/cirV2dJ6RZFmjFCF5Pyehi1ahIfwq/fZE0Xi+yTpfa4vo+zYxZsm6
-   Q==;
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="305085940"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; 
-   d="scan'208";a="305085940"
-X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="736191278"
-X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; 
-   d="scan'208";a="736191278"
-Date: Fri, 9 Dec 2022 13:53:31 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Ricardo Ribalda <ribalda@chromium.org>
-cc: Oliver Neukum <oneukum@suse.com>, Juergen Gross <jgross@suse.com>, 
-    Mark Brown <broonie@kernel.org>, 
-    Chromeos Kdump <chromeos-kdump@google.com>, 
-    Daniel Baluta <daniel.baluta@nxp.com>, 
-    Christophe Leroy <christophe.leroy@csgroup.eu>, 
-    Len Brown <len.brown@intel.com>, Ard Biesheuvel <ardb@kernel.org>, 
-    Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
-    "Rafael J. Wysocki" <rafael@kernel.org>, 
-    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
-    Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-    Eric Biederman <ebiederm@xmission.com>, 
-    Dave Hansen <dave.hansen@linux.intel.com>, 
-    Jaroslav Kysela <perex@perex.cz>, Joel Fernandes <joel@joelfernandes.org>, 
-    Liam Girdwood <lgirdwood@gmail.com>, 
-    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-    Pavel Machek <pavel@ucw.cz>, 
-    Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
-    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-    Steven Rostedt <rostedt@goodmis.org>, 
-    "K. Y. Srinivasan" <kys@microsoft.com>, Ingo Molnar <mingo@redhat.com>, 
-    Bjorn Helgaas <bhelgaas@google.com>, Dexuan Cui <decui@microsoft.com>, 
-    Takashi Iwai <tiwai@suse.com>, "H. Peter Anvin" <hpa@zytor.com>, 
-    Bard Liao <yung-chuan.liao@linux.intel.com>, 
-    Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
-    Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, 
-    x86@kernel.org, kexec@lists.infradead.org, 
-    Alsa-devel <alsa-devel@alsa-project.org>, stable@vger.kernel.org, 
-    sound-open-firmware@alsa-project.org, linuxppc-dev@lists.ozlabs.org, 
-    linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, 
-    linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-    linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v8 3/3] ASoC: SOF: Fix deadlock when shutdown a frozen
- userspace
-In-Reply-To: <CANiDSCtm7dCst_atiWk=ZcK_D3=VzvD0+kWXVQr4gEn--JjGkw@mail.gmail.com>
-Message-ID: <alpine.DEB.2.22.394.2212091349310.3532114@eliteleevi.tm.intel.com>
-References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org> <20221127-snd-freeze-v8-3-3bc02d09f2ce@chromium.org> <716e5175-7a44-7ae8-b6bb-10d9807552e6@suse.com> <CANiDSCtwSb50sjn5tM7jJ6W2UpeKzpuzng+RdJuywiC3-j2zdg@mail.gmail.com>
- <d3730d1d-6f92-700a-06c4-0e0a35e270b0@suse.com> <CANiDSCtm7dCst_atiWk=ZcK_D3=VzvD0+kWXVQr4gEn--JjGkw@mail.gmail.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+X-Inumbo-ID: a204b090-77c3-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670591761; x=
+	1670678161; bh=PhnIp8wmGOYZkwEFgfVpgvNVhWVd57DXr2teMfgswQ8=; b=n
+	4XkcQd+tQNF5QYxMBao3ldeQoRZYFYKBSijBpvILXXastBoClZPa5KnQqrv2Exwb
+	VMs/UURpmhUDIau5J+AvPrsBvDG8tYmQVU9WMl+zDhgwfzIE0Wwo5WuRaU82N7PD
+	G+FTzBKo0U3zYS9HikWI6BjqI4kZ3SwxAW9d/Ol7MxnclT6pVQRy2QXr2Ef25SMd
+	+me/hKKbOIF/U59hQoU0rWa+mUtkT7VTelnVDc0UCVRGR44vZXpGVass+rpk8gUj
+	f57a5o0k5mbwJYFZHN/ujUizMvDeOpNuy03VCPNaH2Og4GaUDxbzlycQyQDUjBUc
+	Y8WjOyrUzfpuC7A3CeNNA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1670591761; x=1670678161; bh=PhnIp8wmGOYZkwEFgfVpgvNVhWVd
+	57DXr2teMfgswQ8=; b=o791l6CAL5ItNg17QQ6+UEWsIhRF9HIr/FWZGrPycniO
+	WVILoEt/4uC3AOc+6ED+Y97PkgwWbKTb04lZGucNkKVIFZLhJRRBZZ+7PEwO1TPA
+	z3ktCP7PI9n/xy/vwk1XB7RsnsE1AH4bjsul5bazIcn0AqiBZYIkcvQpMLx90lUY
+	xb94EBSHR70FUEGXZ3bfielNhkhYRcavJ7wWYe+i6ywrs84TN/go1qqM+/Cwl9aQ
+	IOjEpx7TgD8QN1PjKdebomw9KnM9on3XyWS9KumrusjNftaGa2XAtglkn8yg1p08
+	dwKEIKOVccDM/AkrjowtYH/Q2xWl6eeqFBuLnucNbw==
+X-ME-Sender: <xms:ETWTYylsxiWMMHl0vh1JJhZPHiCSjFD6JP9uL6V377ulQ84Gr_y-sw>
+    <xme:ETWTY53_auYyexk7nJPw1lvrEEuw6eM-Wurm_R0Jeu22ZsHAqds2MHTv-CwA0LQcZ
+    qkV71qA4_VHowY>
+X-ME-Received: <xmr:ETWTYwo8Uv-zU5VhU0VbhtClpaR_wqi1ofMOVJBczL5Fiymgd51g0IShNeZO>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddvgdeglecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
+    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+    rggsrdgtohhm
+X-ME-Proxy: <xmx:ETWTY2n4D-Lfqcjljmfe8oPbLcAhjGXqVY5K6fviTiNogjrdKrJuzg>
+    <xmx:ETWTYw3fCuVigBS-gd_A4U6AiKTNRTP_k8XOyQu4SW0fALC_dCsPsw>
+    <xmx:ETWTY9tC6bDbHuy1JNmGNdl3YhKvbQ6k9E9oBbM61b4ZK186sLBbPA>
+    <xmx:ETWTY9wI50IIZk99E3_h3L5YOpByESW95U4-sMLLi5Lk4M6Km-q6GQ>
+Feedback-ID: iac594737:Fastmail
+Date: Fri, 9 Dec 2022 08:15:55 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
+	Jan Beulich <jbeulich@suse.com>
+Cc: Ard Biesheuval <ardb@kernel.org>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
+Message-ID: <Y5M1D4w44uIddxNn@itl-email>
+References: <ce73ae2fa148c5d79a038275b0983d24537e97de.1665458679.git.demi@invisiblethingslab.com>
+ <9c1e3cc3-e0b4-6ca5-087b-55117b45db80@suse.com>
+ <AS8PR08MB7991E4EE490EC8B028BB1D2F921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <5ce98ff4-6b7d-2254-d755-a68fc3ac67b4@xen.org>
+ <AS8PR08MB7991A81EEEC33451800CAF97921C9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="W4bAIgRAj/9KfQGT"
+Content-Disposition: inline
+In-Reply-To: <AS8PR08MB7991A81EEEC33451800CAF97921C9@AS8PR08MB7991.eurprd08.prod.outlook.com>
 
-Hi,
 
-On Thu, 1 Dec 2022, Ricardo Ribalda wrote:
+--W4bAIgRAj/9KfQGT
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 9 Dec 2022 08:15:55 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
+	Jan Beulich <jbeulich@suse.com>
+Cc: Ard Biesheuval <ardb@kernel.org>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Xen developer discussion <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
 
-> On Thu, 1 Dec 2022 at 14:22, 'Oliver Neukum' via Chromeos Kdump <chromeos-kdump@google.com> wrote:
-> >
-> > On 01.12.22 14:03, Ricardo Ribalda wrote:
-> > > This patchset does not modify this behaviour. It simply fixes the
-> > > stall for kexec().
+On Fri, Dec 09, 2022 at 07:37:53AM +0000, Henry Wang wrote:
+> Hi Julien,
+>=20
+> > -----Original Message-----
+> > From: Julien Grall <julien@xen.org>
+> > Subject: Re: [PATCH v3] Use EfiACPIReclaimMemory for ESRT
+> >=20
+> > Hi,
+> >=20
+> > >>> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+> > >>
+> > >> Acked-by: Jan Beulich <jbeulich@suse.com>
+> > >>
+> > >>> Should this be included in 4.17?  It is a bug fix for a feature new=
+ to
+> > >>> 4.17, so I suspect yes, but it is ultimately up to Henry Wang.  The=
+ code
+> > >>> is identical to v2, but I have improved the commit message.
+> > >>
+> > >> It may be too late now, looking at the state of the tree. Henry, Jul=
+ien?
 > > >
-> > > The  patch that introduced the stall:
-> > > 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers
-> > > in .shutdown")
-> >
-> > That patch is problematic. I would go as far as saying that
-> > it needs to be reverted.
-> 
-> It fixes a real issue. We have not had any complaints until we tried
-> to kexec in the platform.
-> I wont recommend reverting it until we have an alternative implementation.
-> 
-> kexec is far less common than suspend/reboot.
+> > > Like I said in v2, I don't object the change if you would like to inc=
+lude this
+> > patch
+> > > to 4.17, so if you are sure this patch is safe and want to commit it,=
+ feel free
+> > to add:
+> > >
+> > > Release-acked-by: Henry Wang <Henry.Wang@arm.com>
+> > >
+> > > Since we also need to commit:
+> > > "[PATCH for-4.17] SUPPORT.md: Define support lifetime" so from my side
+> > > I am no problem. Julien might have different opinion though, if Julien
+> > object
+> > > the change I would like to respect his opinion and leave this patch
+> > uncommitted.
+> >=20
+> > I have committed it after SUPPORT.md. So if for some reasons we are seen
+> > any issues with Osstest, then I can tag the tree without this patch
+>=20
+> This is a great solution :)
+>=20
+> > (that said, I would rather prefer if we have staging-4.17 =3D=3D stable=
+-4.17).
+>=20
+> Looks like now staging-4.17 =3D=3D stable-4.17 now, with this patch pushe=
+d.
+> So we are ready to tag.
 
-I've posted an alternative to ALSA list that reverts the problematic
-patch and fixes the problem (the patch was originally addressing)
-in a different way:
+And it turns out that I botched the initial patch, sorry.  (I forgot to
+handle the multiboot2 case.)
 
-https://mailman.alsa-project.org/pipermail/alsa-devel/2022-December/209776.html
+I understand if it is too late for stable-4.17, but it ought to make
+stable 4.17.1 as it was simply omitted from the initial patch series.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-No changes outside sound/soc/ are needed with this approach.
+--W4bAIgRAj/9KfQGT
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Br, Kai
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOTNQ8ACgkQsoi1X/+c
+IsGrRQ//bj415rBPN9LoTW5VUGS448GgOtsCaGLBUnnz8wnU2rFD4oEF12TrNAwT
+vPGi7Pavax9SlVLzSVqD41TtxaLlyMQRBiCknG638U5Bv1uFj04mOwoKvys+Q3xK
+QIBvuX/cPoqwsATvjmr5HEZQ+0fZ8wi7p/VxaSBdqIbbw7MS8vW1+jDA702qwCoK
+MCM51Dx0Wa++wrQdNK4sNsmCHnjHkCet0A96AbwIRnBBLcycPfdCqqBF3zzM8tMM
+KxDjoYU0jVINLXwmI3pcym4gPl8m5Ro5mrVYlMickEtEmjQcuWdQ3ie1UlO33RFk
+WW7UHJRw6RmSbeGtt+O3mCDJQlmbc0wBG8p9nVN25X60XIxaIeDVNoPKg2ZwbfPK
+c22PM4BigGbjAAmksXqUe/SkGz2R0XTvlRl1ox1a8sy9Mnl4ysDTX8NXOmIz3Y6m
+tsV4zcm3pzP9kgL0LC/8CoRxDL40mrkuHGMqB2ren+EHotrR9Dq49Q/cO/r695FZ
+LJutxKJK6YrbUO4a8NXLv5JKZKSCPB024TJIvh4pdsw/yTAstYoO76JduehDrii2
+ljKNtX/gLdM4KpOwlsW3UHlAYNTlt4xlKH9ofxHgxZSGo99Dj2QN8KoNRjDGtVaX
+hmXxJxJzpwfDIhedxgAv9xL3fK2beXdfkaLNhTWpkgxTsSVg0Uw=
+=olSy
+-----END PGP SIGNATURE-----
+
+--W4bAIgRAj/9KfQGT--
 
