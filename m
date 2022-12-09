@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E070647AEB
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 01:45:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457519.715452 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EAE5647AFF
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 01:53:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457528.715463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3RVy-0007nD-RU; Fri, 09 Dec 2022 00:45:22 +0000
+	id 1p3RdK-00017V-JV; Fri, 09 Dec 2022 00:52:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457519.715452; Fri, 09 Dec 2022 00:45:22 +0000
+Received: by outflank-mailman (output) from mailman id 457528.715463; Fri, 09 Dec 2022 00:52:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3RVy-0007lP-OX; Fri, 09 Dec 2022 00:45:22 +0000
-Received: by outflank-mailman (input) for mailman id 457519;
- Fri, 09 Dec 2022 00:45:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p3RdK-00014Y-GG; Fri, 09 Dec 2022 00:52:58 +0000
+Received: by outflank-mailman (input) for mailman id 457528;
+ Fri, 09 Dec 2022 00:52:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=AAZn=4H=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p3RVw-0007lE-RO
- for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 00:45:20 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c1501768-775a-11ed-8fd2-01056ac49cbb;
- Fri, 09 Dec 2022 01:45:19 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 244CBB825BC;
- Fri,  9 Dec 2022 00:45:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923EDC433D2;
- Fri,  9 Dec 2022 00:45:16 +0000 (UTC)
+ <SRS0=iKBv=4H=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p3RdJ-00014S-3B
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 00:52:57 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id cee85e35-775b-11ed-91b6-6bf2151ebd3b;
+ Fri, 09 Dec 2022 01:52:54 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3AF575C00EA;
+ Thu,  8 Dec 2022 19:52:51 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 08 Dec 2022 19:52:51 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Dec 2022 19:52:50 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,100 +43,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c1501768-775a-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1670546717;
-	bh=q+GeIset5aT1DhBkSlhTiYZWDxqz6Aije4SiRiGG0h8=;
-	h=Date:From:To:cc:Subject:From;
-	b=VEB9qBFOwHikdl1Wdm/vUJRgx4JBdyYJuGfTk4fm4idPJK4WUEypxC0h8LpDxw7t1
-	 CMcaw5gIRP0BYLnxVv3nktbPkekLxyzQU6qqtpP75Ur/7Hw6JiWgmwt7Ykcc3YmK6B
-	 JKWtARgDOtStWc1JU7RcO+EmDHlVKc0o6U6qEMjd1HKl+v5J+PPgBn6ryHdllu5LAK
-	 tNfyf2o+k5Ak1bfdflkRINbpEEvjBNNMhUCi/tww/HdCc38ggN/FBO5WU/BOd7FOEm
-	 5DAHZUUKhqtQDIRW5pd4I4c0ZrbOByKq75hkYSNx4jClsUY0t+3KEXUYw37viz0XEI
-	 rUbr3t0BM4Idw==
-Date: Thu, 8 Dec 2022 16:45:15 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: jbeulich@suse.com, roberto.bagnara@bugseng.com
-cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org, 
-    andrew.cooper3@citrix.com, george.dunlap@citrix.com, julien@xen.org, 
-    roger.pau@citrix.com, burzalodowa@gmail.com, michal.orzel@amd.com
-Subject: MISRA C Rule 20.7 disambiguation
-Message-ID: <alpine.DEB.2.22.394.2212081619310.3075842@ubuntu-linux-20-04-desktop>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: cee85e35-775b-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm1; t=1670547171; x=
+	1670633571; bh=b+mQQGjkJqOEa18OhOwv9drfN9NGE48HmIku6h2VZUE=; b=G
+	MXouadP7+jx9fRs3IONc/k7bwRpY3VDDQAyVBUwRs+v/l+DWlRqWhQ0CRLJLjoUW
+	qNl5KY31mVS23JmS3QyO8HBv6X2oiMz/vVVEhPNNWSwBPcHLnUFmEaop4TwQfR2i
+	QP1oWCpcPujbyY7Xeyowc+Unk3ELdHAphqItnhMYvyzFUfOerDY911mZic2KzBNc
+	B/UVvyhU47BGnDYMIuRive+KR68h0+6EFPzbg9g+TZEdOKQpK8BzZli+diCphiHj
+	MVD+RmriQry7uD6A3CXUwGvVTHbQ30+oYLd3W1qsVmzlpxMM4F4HHVp/3KmIB3jB
+	utYxeiak3Nwtx8gDJ+30w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1670547171; x=1670633571; bh=b+mQQGjkJqOEa18OhOwv9drfN9NGE48HmIk
+	u6h2VZUE=; b=mRG7Xvbm1GEZQjji6B8zhdbzDgBLU8O6Z9f6cA07gPYodOEorem
+	tYwiGtwTfz90x2C0TqprP7Y+isGyDAODjDIIKF3L3nKFo6Tlsymg00cLfFNHHsLz
+	nHxA1GIVPLbnHCNwwVqGFXoUKEZabWkLka+yOiJVn+WnGQR0suDw2J73o9KFa7p0
+	P2P43GjrY4hpMUkz70FACew3Rl5pwLj2Nz1XLxSGhIY2n/02RMXcVatg6sgcDu5l
+	XVEzul4kt64snSQhSbCnEn0lC94wBt13/cMfMJ2mePDw6l5sBL6PfShqqBtbl5xz
+	Z39b4YIGWS3CAj1pkS3GLWZuPGGo/55tHGg==
+X-ME-Sender: <xms:4oaSYwawQVIEgweRYgqX8J0t4o43Z3QG1mT_4kb-Eew7dk0mOtN8Xw>
+    <xme:4oaSY7Zym8tvjLS-ACxtePTMCe4aKdJ0jbayOrrBfuxyiBh-ZuhtTb5cTG_o8yaPT
+    yX5RG-mKyfa4y8>
+X-ME-Received: <xmr:4oaSY6-zZ-XU_GgmWc5sNDH92s0A36lgtNSdanjCq35WgDqLjx0DGBCVfoW7ZChJj9yXmBHwN979>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvddugddvkecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcuofgr
+    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmqeenucggtffrrghtthgvrhhnpedvfeegkedvkefgffegkefhieejtdffkeeh
+    hfelheefjeeutefgleeggfdtveeileenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
+    grmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggs
+    rdgtohhm
+X-ME-Proxy: <xmx:4oaSY6onzoSCBNaUhcDiFlJ1MoYbgOw30MDUCvIny5A0Kwq5wJVIHg>
+    <xmx:4oaSY7pjZfw5EWsnUOBmpc_qvix2VU2BRh4XrfXCbwAGf9kCn-rVGA>
+    <xmx:4oaSY4QuI0sfX0Frn2gXJ3PPVsJeAhgdo5Rw2IiY-tjZO-3d92HERg>
+    <xmx:44aSY8kDIpmpUhRmfnNwaEwcqfpC1yuP1KYmlSEmAh4ouLQQHkKl_w>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] Relocate the ESRT when booting via multiboot2
+Date: Thu,  8 Dec 2022 19:52:46 -0500
+Message-Id: <74145e57307e9b35cbdc296b22241e6f36405f6a.1670546744.git.demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-Hi all,
+This was missed in the initial patchset.
 
-This patch is to start a discussion in regard to rule 20.7 and its
-interpretation. During the last MISRA C call we discussed that "our"
-interpretation of the rule means that the following two cases don't need
-extra parenthesis:
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+I consider this to be a bug fix, and would prefer this to be included in
+the 4.17 release series, even though I understand if this is too late
+for 4.17 itself.
 
-#define M(a, b) func(a, b)
-#define M(a, b) (a) = b
+ xen/arch/x86/efi/efi-boot.h |   2 +
+ xen/common/efi/boot.c       | 134 ++++++++++++++++++------------------
+ 2 files changed, 69 insertions(+), 67 deletions(-)
 
-
-Moreover, MISRA C states that parenthesis should be added when the
-expansion of a MACRO parameters would result in an *expression*.
-
-Expression is the important word. Looking at this *compliant* example
-from the manual:
-
-#define GET_MEMBER( S, M ) ( S ).M
-
-It is compliant because S results in an expression so it needs
-parenthesis, while M does not, so it doesn't need parenthesis.
-
-My understanding is the following:
-- is it possible to pass an expression as a parameter of the MACRO?
-    - if yes -> need parenthesis
-    - if no  -> doesn't need parenthesis
-
-
-As an example, cppcheck reports the following (from xmalloc.h) as
-violation:
-
-#define xmalloc_array(_type, _num) \
-    ((_type *)_xmalloc_array(sizeof(_type), __alignof__(_type), _num))
-
-I think this is a false positive. We have already enstablished that the
-"," operator doesn't require parenthesis, so "_num" is not the problem.
-And there is no way that adding parenthesis to "type" would allow an
-expression to be passed as the type argument.
-
-
-Let's take another example:
-
-#define xzalloc_flex_struct(type, field, nr) \
-    ((type *)_xzalloc(offsetof(type, field[nr]), __alignof__(type)))
-
-"type" is the same as last time. There are 2 other interesting macro
-parameters here: nr and field.
-
-nr could result in an expression, but I don't think it needs
-parenthesis because it is between []? However, we know we have a clear
-exception for the "," operator. We don't have a clear exception for the
-[] operator. Do we need (nr)?
-
-field could result in an expression, so I think it needs parenthesis.
-
-Just to be clear, I'll list all the possible options below.
-
-a) no changes needed, xzalloc_flex_struct is good as is
-b) only "field" needs parenthesis
-c) only "nr" needs parenthesis
-d) both "field" and "nr" need parenthesis
-
-Option d) would look like this:
-
-#define xzalloc_flex_struct(type, field, nr) \
-    ((type *)_xzalloc(offsetof(type, (field)[(nr)]), __alignof__(type)))
-
-What do you guys think?
-
-Cheers,
-
-Stefano
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index 51967f6c3d5cd06b6b50bac06c1b8762cd0f7856..20a42a66dd2b93f3cd2be0230a372767a8763ed5 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -818,6 +818,8 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable
+     if ( gop )
+         efi_set_gop_mode(gop, gop_mode);
+ 
++    efi_relocate_esrt(SystemTable);
++
+     efi_exit_boot(ImageHandle, SystemTable);
+ }
+ 
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 7a97c64884bf55a012cfb8bd7ad56ddfc1e43e66..93939ca61d28717d29aaa0289262c55558dfe944 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -622,6 +622,73 @@ static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
+     return esrt_ptr->FwResourceCount * sizeof(esrt_ptr->Entries[0]);
+ }
+ 
++static EFI_GUID __initdata esrt_guid = EFI_SYSTEM_RESOURCE_TABLE_GUID;
++
++static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
++{
++    EFI_STATUS status;
++    UINTN info_size = 0, map_key, mdesc_size;
++    void *memory_map = NULL;
++    UINT32 ver;
++    unsigned int i;
++
++    for ( ; ; )
++    {
++        status = efi_bs->GetMemoryMap(&info_size, memory_map, &map_key,
++                                      &mdesc_size, &ver);
++        if ( status == EFI_SUCCESS && memory_map != NULL )
++            break;
++        if ( status == EFI_BUFFER_TOO_SMALL || memory_map == NULL )
++        {
++            info_size += 8 * mdesc_size;
++            if ( memory_map != NULL )
++                efi_bs->FreePool(memory_map);
++            memory_map = NULL;
++            status = efi_bs->AllocatePool(EfiLoaderData, info_size, &memory_map);
++            if ( status == EFI_SUCCESS )
++                continue;
++            PrintErr(L"Cannot allocate memory to relocate ESRT\r\n");
++        }
++        else
++            PrintErr(L"Cannot obtain memory map to relocate ESRT\r\n");
++        return;
++    }
++
++    /* Try to obtain the ESRT.  Errors are not fatal. */
++    for ( i = 0; i < info_size; i += mdesc_size )
++    {
++        /*
++         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
++         * so that the memory it is in will not be used for other purposes.
++         */
++        void *new_esrt = NULL;
++        size_t esrt_size = get_esrt_size(memory_map + i);
++
++        if ( !esrt_size )
++            continue;
++        if ( ((EFI_MEMORY_DESCRIPTOR *)(memory_map + i))->Type ==
++             EfiRuntimeServicesData )
++            break; /* ESRT already safe from reuse */
++        status = efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
++                                      &new_esrt);
++        if ( status == EFI_SUCCESS && new_esrt )
++        {
++            memcpy(new_esrt, (void *)esrt, esrt_size);
++            status = efi_bs->InstallConfigurationTable(&esrt_guid, new_esrt);
++            if ( status != EFI_SUCCESS )
++            {
++                PrintErr(L"Cannot install new ESRT\r\n");
++                efi_bs->FreePool(new_esrt);
++            }
++        }
++        else
++            PrintErr(L"Cannot allocate memory for ESRT\r\n");
++        break;
++    }
++
++    efi_bs->FreePool(memory_map);
++}
++
+ /*
+  * Include architecture specific implementation here, which references the
+  * static globals defined above.
+@@ -900,8 +967,6 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
+     return gop_mode;
+ }
+ 
+-static EFI_GUID __initdata esrt_guid = EFI_SYSTEM_RESOURCE_TABLE_GUID;
+-
+ static void __init efi_tables(void)
+ {
+     unsigned int i;
+@@ -1110,71 +1175,6 @@ static void __init efi_set_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop, UINTN gop
+ #define INVALID_VIRTUAL_ADDRESS (0xBAAADUL << \
+                                  (EFI_PAGE_SHIFT + BITS_PER_LONG - 32))
+ 
+-static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
+-{
+-    EFI_STATUS status;
+-    UINTN info_size = 0, map_key, mdesc_size;
+-    void *memory_map = NULL;
+-    UINT32 ver;
+-    unsigned int i;
+-
+-    for ( ; ; )
+-    {
+-        status = efi_bs->GetMemoryMap(&info_size, memory_map, &map_key,
+-                                      &mdesc_size, &ver);
+-        if ( status == EFI_SUCCESS && memory_map != NULL )
+-            break;
+-        if ( status == EFI_BUFFER_TOO_SMALL || memory_map == NULL )
+-        {
+-            info_size += 8 * mdesc_size;
+-            if ( memory_map != NULL )
+-                efi_bs->FreePool(memory_map);
+-            memory_map = NULL;
+-            status = efi_bs->AllocatePool(EfiLoaderData, info_size, &memory_map);
+-            if ( status == EFI_SUCCESS )
+-                continue;
+-            PrintErr(L"Cannot allocate memory to relocate ESRT\r\n");
+-        }
+-        else
+-            PrintErr(L"Cannot obtain memory map to relocate ESRT\r\n");
+-        return;
+-    }
+-
+-    /* Try to obtain the ESRT.  Errors are not fatal. */
+-    for ( i = 0; i < info_size; i += mdesc_size )
+-    {
+-        /*
+-         * ESRT needs to be moved to memory of type EfiRuntimeServicesData
+-         * so that the memory it is in will not be used for other purposes.
+-         */
+-        void *new_esrt = NULL;
+-        size_t esrt_size = get_esrt_size(memory_map + i);
+-
+-        if ( !esrt_size )
+-            continue;
+-        if ( ((EFI_MEMORY_DESCRIPTOR *)(memory_map + i))->Type ==
+-             EfiRuntimeServicesData )
+-            break; /* ESRT already safe from reuse */
+-        status = efi_bs->AllocatePool(EfiRuntimeServicesData, esrt_size,
+-                                      &new_esrt);
+-        if ( status == EFI_SUCCESS && new_esrt )
+-        {
+-            memcpy(new_esrt, (void *)esrt, esrt_size);
+-            status = efi_bs->InstallConfigurationTable(&esrt_guid, new_esrt);
+-            if ( status != EFI_SUCCESS )
+-            {
+-                PrintErr(L"Cannot install new ESRT\r\n");
+-                efi_bs->FreePool(new_esrt);
+-            }
+-        }
+-        else
+-            PrintErr(L"Cannot allocate memory for ESRT\r\n");
+-        break;
+-    }
+-
+-    efi_bs->FreePool(memory_map);
+-}
+-
+ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable)
+ {
+     EFI_STATUS status;
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
