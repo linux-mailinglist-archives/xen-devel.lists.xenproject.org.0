@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1C4E64815B
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 12:11:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457825.715810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01581648201
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 12:59:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457854.715821 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3bGT-0004oR-4p; Fri, 09 Dec 2022 11:10:01 +0000
+	id 1p3c1J-0002s6-Ne; Fri, 09 Dec 2022 11:58:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457825.715810; Fri, 09 Dec 2022 11:10:01 +0000
+Received: by outflank-mailman (output) from mailman id 457854.715821; Fri, 09 Dec 2022 11:58:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3bGT-0004m9-27; Fri, 09 Dec 2022 11:10:01 +0000
-Received: by outflank-mailman (input) for mailman id 457825;
- Fri, 09 Dec 2022 11:09:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3bGR-0004lz-1X; Fri, 09 Dec 2022 11:09:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3bGQ-0007UK-UT; Fri, 09 Dec 2022 11:09:58 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3bGQ-0007Or-JH; Fri, 09 Dec 2022 11:09:58 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p3bGQ-0005HT-Ip; Fri, 09 Dec 2022 11:09:58 +0000
+	id 1p3c1J-0002qL-Kq; Fri, 09 Dec 2022 11:58:25 +0000
+Received: by outflank-mailman (input) for mailman id 457854;
+ Fri, 09 Dec 2022 11:54:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8bpP=4H=linux.intel.com=kai.vehmanen@srs-se1.protection.inumbo.net>)
+ id 1p3bx9-0002jv-0V
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 11:54:07 +0000
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2b69e80a-77b8-11ed-91b6-6bf2151ebd3b;
+ Fri, 09 Dec 2022 12:54:03 +0100 (CET)
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2022 03:53:59 -0800
+Received: from eliteleevi.tm.intel.com ([10.237.54.20])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2022 03:53:50 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +42,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Xn4gz/1K4CB5x6hC+MXNZrLLwnGH5QAaTukPLMgiJhU=; b=udJvvow8zLURSN0waCf25NcXi2
-	AAxMyf9hF2yItECo+V8hBG/ezCHh9zzVFFFdYtlrjpas40gV9Qd3BIBuizA/sm/W2V/1Z7Rs82iN8
-	tlodohtbxTlwBXN2fEIJ0dTshsXlj3QoABE7Ost2cnLRZqRaZMktEa7QJQRGawL0hCmw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175119-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 2b69e80a-77b8-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1670586843; x=1702122843;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=i6l99AsOk7Ek/fC/JJlzKRTZl8kQmivMJCaJu9pD6WY=;
+  b=VtvPpiRiNwMurUMRXREj+rjJOwRnzUg0Br7x8Lq1pHGIn8G0zydaorkk
+   C4D7q40P+45a9JhZiNTS3KXWcT3DwK2peTjA6kJBijtNshr4rzS9mvw/S
+   tV5vbfDDrYLhZ03oRjVMVdbDbkbaE4mfGlZM2meJlr/K+CDmkix7jh/mg
+   p3okVsW50oZZnfdmfomg+3hVtNTCwQXmFglpcPM85jh5UD0QbrY6Sasqs
+   H1z+Y5TVU8vRnOlwpmIImv1bW9pRtVxZKYZtNEH4e3HbPFHDPwxAPE7bp
+   RYA/cirV2dJ6RZFmjFCF5Pyehi1ahIfwq/fZE0Xi+yTpfa4vo+zYxZsm6
+   Q==;
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="305085940"
+X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; 
+   d="scan'208";a="305085940"
+X-IronPort-AV: E=McAfee;i="6500,9779,10555"; a="736191278"
+X-IronPort-AV: E=Sophos;i="5.96,230,1665471600"; 
+   d="scan'208";a="736191278"
+Date: Fri, 9 Dec 2022 13:53:31 +0200 (EET)
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+X-X-Sender: kvehmane@eliteleevi.tm.intel.com
+To: Ricardo Ribalda <ribalda@chromium.org>
+cc: Oliver Neukum <oneukum@suse.com>, Juergen Gross <jgross@suse.com>, 
+    Mark Brown <broonie@kernel.org>, 
+    Chromeos Kdump <chromeos-kdump@google.com>, 
+    Daniel Baluta <daniel.baluta@nxp.com>, 
+    Christophe Leroy <christophe.leroy@csgroup.eu>, 
+    Len Brown <len.brown@intel.com>, Ard Biesheuvel <ardb@kernel.org>, 
+    Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, 
+    "Rafael J. Wysocki" <rafael@kernel.org>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>, 
+    Eric Biederman <ebiederm@xmission.com>, 
+    Dave Hansen <dave.hansen@linux.intel.com>, 
+    Jaroslav Kysela <perex@perex.cz>, Joel Fernandes <joel@joelfernandes.org>, 
+    Liam Girdwood <lgirdwood@gmail.com>, 
+    Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+    Pavel Machek <pavel@ucw.cz>, 
+    Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, 
+    Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+    Steven Rostedt <rostedt@goodmis.org>, 
+    "K. Y. Srinivasan" <kys@microsoft.com>, Ingo Molnar <mingo@redhat.com>, 
+    Bjorn Helgaas <bhelgaas@google.com>, Dexuan Cui <decui@microsoft.com>, 
+    Takashi Iwai <tiwai@suse.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+    Bard Liao <yung-chuan.liao@linux.intel.com>, 
+    Haiyang Zhang <haiyangz@microsoft.com>, Wei Liu <wei.liu@kernel.org>, 
+    Thomas Gleixner <tglx@linutronix.de>, Borislav Petkov <bp@alien8.de>, 
+    x86@kernel.org, kexec@lists.infradead.org, 
+    Alsa-devel <alsa-devel@alsa-project.org>, stable@vger.kernel.org, 
+    sound-open-firmware@alsa-project.org, linuxppc-dev@lists.ozlabs.org, 
+    linux-hyperv@vger.kernel.org, linux-pci@vger.kernel.org, 
+    linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    linux-efi@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v8 3/3] ASoC: SOF: Fix deadlock when shutdown a frozen
+ userspace
+In-Reply-To: <CANiDSCtm7dCst_atiWk=ZcK_D3=VzvD0+kWXVQr4gEn--JjGkw@mail.gmail.com>
+Message-ID: <alpine.DEB.2.22.394.2212091349310.3532114@eliteleevi.tm.intel.com>
+References: <20221127-snd-freeze-v8-0-3bc02d09f2ce@chromium.org> <20221127-snd-freeze-v8-3-3bc02d09f2ce@chromium.org> <716e5175-7a44-7ae8-b6bb-10d9807552e6@suse.com> <CANiDSCtwSb50sjn5tM7jJ6W2UpeKzpuzng+RdJuywiC3-j2zdg@mail.gmail.com>
+ <d3730d1d-6f92-700a-06c4-0e0a35e270b0@suse.com> <CANiDSCtm7dCst_atiWk=ZcK_D3=VzvD0+kWXVQr4gEn--JjGkw@mail.gmail.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
 MIME-Version: 1.0
-Subject: [ovmf test] 175119: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=127e2c531556b968a51e8e2191d6e4580281856a
-X-Osstest-Versions-That:
-    ovmf=54d81d06fc165fcb8eb832acd6a7cf644b029549
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 09 Dec 2022 11:09:58 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 175119 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175119/
+Hi,
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 127e2c531556b968a51e8e2191d6e4580281856a
-baseline version:
- ovmf                 54d81d06fc165fcb8eb832acd6a7cf644b029549
+On Thu, 1 Dec 2022, Ricardo Ribalda wrote:
 
-Last test of basis   175101  2022-12-08 21:43:51 Z    0 days
-Testing same since   175119  2022-12-09 07:10:49 Z    0 days    1 attempts
+> On Thu, 1 Dec 2022 at 14:22, 'Oliver Neukum' via Chromeos Kdump <chromeos-kdump@google.com> wrote:
+> >
+> > On 01.12.22 14:03, Ricardo Ribalda wrote:
+> > > This patchset does not modify this behaviour. It simply fixes the
+> > > stall for kexec().
+> > >
+> > > The  patch that introduced the stall:
+> > > 83bfc7e793b5 ("ASoC: SOF: core: unregister clients and machine drivers
+> > > in .shutdown")
+> >
+> > That patch is problematic. I would go as far as saying that
+> > it needs to be reverted.
+> 
+> It fixes a real issue. We have not had any complaints until we tried
+> to kexec in the platform.
+> I wont recommend reverting it until we have an alternative implementation.
+> 
+> kexec is far less common than suspend/reboot.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ryan Afranji <afranji@google.com>
+I've posted an alternative to ALSA list that reverts the problematic
+patch and fixes the problem (the patch was originally addressing)
+in a different way:
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+https://mailman.alsa-project.org/pipermail/alsa-devel/2022-December/209776.html
 
+No changes outside sound/soc/ are needed with this approach.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   54d81d06fc..127e2c5315  127e2c531556b968a51e8e2191d6e4580281856a -> xen-tested-master
+Br, Kai
 
