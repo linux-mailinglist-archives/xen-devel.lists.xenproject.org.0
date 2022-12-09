@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6EA647FB0
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 09:58:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457702.715675 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 598FE647FD0
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 10:04:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457713.715686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3ZCz-0007u7-Ug; Fri, 09 Dec 2022 08:58:17 +0000
+	id 1p3ZIu-0001Er-Kt; Fri, 09 Dec 2022 09:04:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457702.715675; Fri, 09 Dec 2022 08:58:17 +0000
+Received: by outflank-mailman (output) from mailman id 457713.715686; Fri, 09 Dec 2022 09:04:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3ZCz-0007rF-Rl; Fri, 09 Dec 2022 08:58:17 +0000
-Received: by outflank-mailman (input) for mailman id 457702;
- Fri, 09 Dec 2022 08:58:17 +0000
+	id 1p3ZIu-0001BQ-Hc; Fri, 09 Dec 2022 09:04:24 +0000
+Received: by outflank-mailman (input) for mailman id 457713;
+ Fri, 09 Dec 2022 09:04:23 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=wVCj=4H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p3ZCy-0007r9-SX
- for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 08:58:17 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2062b.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::62b])
+ id 1p3ZIs-0001BK-Uh
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 09:04:22 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20624.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::624])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9d8da0ae-779f-11ed-8fd2-01056ac49cbb;
- Fri, 09 Dec 2022 09:58:15 +0100 (CET)
+ id 780cec6c-77a0-11ed-8fd2-01056ac49cbb;
+ Fri, 09 Dec 2022 10:04:21 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBAPR04MB7352.eurprd04.prod.outlook.com (2603:10a6:10:1a8::14)
+ by PAXPR04MB8374.eurprd04.prod.outlook.com (2603:10a6:102:1bd::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10; Fri, 9 Dec
- 2022 08:58:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Fri, 9 Dec
+ 2022 09:04:19 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.014; Fri, 9 Dec 2022
- 08:58:10 +0000
+ 09:04:19 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,218 +47,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9d8da0ae-779f-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 780cec6c-77a0-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XTytbm4n/IQHghy6zM2T/iUkJ3tLMF+wmjTRfymWNZlpT3YJDUIgSyf6YghXujXivOGEakf7EOXqJoeWD5Ty8qEM2E9FpwkSbSOEWyo9mhHZEFnlDyCvTEPzmcpBHSrkJMBWGuXiBPcwvqNu13xsVwkI3++GmdAkLvll5M3JZRaLToOYCrDIUAtQxSusis7xq5B7SmtdyPL8JmLa6AIUGZEFeIpIFtEmO3Kb7CoQoXYVvPrVzrfjn0ZOGXe+dlnGLABURCyEAymrTnTG6LwAzy2pwOjCfvpMb4INtWAAuIB67g1IuyuCSpZYR/gd4aXpxsHUGd3SdAiYw5UM/9YxQw==
+ b=Kuwrxz+0D01L1x10kYHDWwTu1miBKPFJ6S45OqVZ9c0tPBwD3VYgHJ2NEHyzYp6xcVqIRmLrhI8Aa2o2b58BndHFaDFUUewQ7SeK8Hit/yzUPTHhR/PZN1xDSgzK5DsIZ+vL0/9m9nczNmww06bRjI6bMMX1sy1tLcdTiufzjXLuLWtFFAqOWIPXNxYag+H+ttfhV3aesoMRqmgwOsoUQqa9JhxbhUhxsKvea8xsRrZ16AvrMspFaBryMRPTYFzrPiT4ZaBSTHVRDrAfn08O4Eol3Gf30ps8N9Yse+eOKtrl/0AOfsJ7BSa/8hBR78UhqhqYzitbdwlaQ69cQ+JvrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YFkS52ridadVxbHme1pKmW2X2R6e4btA1Hn+FJ6AETg=;
- b=VW1j688EUEiXAboL7oLuNXGebqlXlqY9mAzypdwJbO9rR0s17/jYelwZ/Jn1k0E6Lh8Es7eZAdLj5YTk9gffs9FhtkErVXTkdOOngttpwmoaxvMZWHRoMZOjShjxjUqG++wFCBa0XKGbUJ/b00J2kZyt7A/zVk9cAO14ZCOlET8KbRhQUARTHQDajEX4s4CmamNUGsGigHNorVjTNhXOuoZwoSRh321sSBMQRwxuwpHjSZTC8IwGL2JmRF7u0JcE/kydCawuf7JcpgEsQFH5BvJVmCcTI9TWoTPxFy3I/YxcOmupDBtXADCKKMvzsnUNISxOT/zJHolQ/l4JwL8ADQ==
+ bh=1ZTMm8FnIb7IyS1Qz5SW8sEglnaz/WvcoZ5DWb/SS20=;
+ b=CM5EiifIOcAwkeu0NpTRjMGwMx9zleaAFx/1f35nlUa6047uMbtVTyEJVQ6j1JSJQTK4mpHAQfzUNmTti9mBauJPl+kL+PrH7WU6HRFH5PPMGjJBIo/hyJu/aUh5bd2NZ/Drb7AN2qssTylFV17M9H53zVUzaEvh12+IRTvdbW9rYKH5ZO5ayPAU3Xxo4qJNgMn7C6gVUvGJVGgJXiD3dszBbLYN0ZZ9lFyOaPvWWq2mwzvzAEh/VkgIL25gbz79ykHjavcgJyu3UTbBcLc7Np3od/duNve4Lcdw26a/+XWRNPbG/OU/nlOQg+/FFg9ruhQyvaNuVIWRd5c+Bjr4Iw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YFkS52ridadVxbHme1pKmW2X2R6e4btA1Hn+FJ6AETg=;
- b=LHd5vea7DyfotteWw2sO68S/pP0w6w7Boy8++Jx60SUz6oUY36dRUZW/ry63YX0HanWlgFAD9Dg6PNiUpIJ8AWK2DNjdY31S0rUNY+E91qXpqqR22cgpVgL0mMoARC7vRJJkaPnLja8bENz2t5SlWEsKd53jjj7WUYQV1ye6Vc4D/VP0IdxqoIC8s4nu2/p6g32utlbt+ZoWfAbOcwFhZexcKn1jb2sDyyOoX/axi9BM0FeE9ZOF0XBsQqoxcs7v/5uwod3fc3BnTt4vFnRxZVsGoI/zzK5vdFdEylANvuQNPCsEiCbK7f8FUMreEjr1gjBhWCbj+cHIX2oJceGd9Q==
+ bh=1ZTMm8FnIb7IyS1Qz5SW8sEglnaz/WvcoZ5DWb/SS20=;
+ b=cu0q/UoSAmuPDhweMs0IS8i06es7nAIs2CnAs14pQVX/LJhNhZhjC+UQbgo+pbZs+npL1fTODUdNkMyzsFg/D5kG9IA9o93B2rKGJu8R78nEt4dSkyZ6VqLY8Y34wwjE6O1Uw4f+nWUVuHzSre2u0P7MI3QADoLGnT6kNjBP6U8DodX7HSggevdNG+8IVQ46UYnpgy4kkTYOaAoMMDoX2sRi7dRGfmhJ/1WNz1dpG7eCEV6VI3l3YnUoTFHqvjHOtTJoJQjUzifs9mLXWMOTuSxyujmn9Z626rtbbT45i/jrc5VZvkzAdgNSTk+ygo9MYpR8E1uDy7CW2FTuxVtphQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <eb35b7bf-3a49-4faa-3ea6-a6076f032fd6@suse.com>
-Date: Fri, 9 Dec 2022 09:58:08 +0100
+Message-ID: <ddb12b37-fef4-b603-6a8a-ed474757c5b4@suse.com>
+Date: Fri, 9 Dec 2022 10:04:17 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: MISRA C Rule 20.7 disambiguation
+Subject: Re: [PATCH] xen/arm: efi-boot misra rule 4.1 fix
 Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, andrew.cooper3@citrix.com,
- george.dunlap@citrix.com, julien@xen.org, roger.pau@citrix.com,
- burzalodowa@gmail.com, michal.orzel@amd.com, roberto.bagnara@bugseng.com
-References: <alpine.DEB.2.22.394.2212081619310.3075842@ubuntu-linux-20-04-desktop>
+Cc: Volodymyr_Babchuk@epam.com, xen-devel@lists.xenproject.org,
+ julien@xen.org, bertrand.marquis@arm.com
+References: <alpine.DEB.2.22.394.2212081538310.2965472@ubuntu-linux-20-04-desktop>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <alpine.DEB.2.22.394.2212081619310.3075842@ubuntu-linux-20-04-desktop>
+In-Reply-To: <alpine.DEB.2.22.394.2212081538310.2965472@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0082.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0165.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBAPR04MB7352:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8e910dd-8b8d-4798-824a-08dad9c37f23
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8374:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d1118b4-7e1c-4934-eccb-08dad9c45ae5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	+IexkYMOJYlI9QXZgsGD2ygsfRheBYminw2r49fiHGF6V2Q2QYdsR9qgS0DJ4V43NL+eQfqvQK90L1/bAKDr0VVMN0+AK80K8pDOdHPC7tSCNC+7kyPvEYsU47zuc8BnQEI+PEot3y+jyD3AD5hVE9Wh+dJMb4fd4cpGUxa2JFQD+aP4sUM1lon56l6kU1ktA8QgLigVgbUObVzHO54cp9eYAJxHqVqDknjlEpPKb+x0Boi3FHaoA06Jzs3TSI6WSFxCDUjhd71plwFu/eFQ5/qU55cNrbXX5hr5fOhDTUoxajUyLa2t1nK+2cmf5/0WwAnUchEjVMO5Maz4nmBy72rwzhV5OvkHzZPqRqd4+TOtO+l6qLhin2muSzXMquNcM81EUxrvRQKg/kMNng28yJ/+EyCWef6aynhENiq1Go4CTAMNtk/GIRdM/1CXbdKUi1bMuE117h2droekVcN+hCQmF4y4UsPdUCw9upknt5OZwtS1VOKcxET/z8cfSCKZfdPlKT2Qd5I5BkA1txAAqT4jiFDzztitcnHBW3L61uUgt7hIfOH+2Ql1QoyVNk4QHljAMBGKWW/l5soMQrfj2jfmjEEsOp7/wl2/xyZu/tPTj8DwAbWWbbbKqVoEARyZ61DUF4JHONtyi1AEC/EpMgr6gEwIR5pBPLxQRPh5YRM7sZLjsp/uZMOHvOg6z5O2Jj9Eq4zeb5RrvQEhVmOEaSlF+iOPs44xf6imAfXZ3PQ=
+	G8yBjYBvDAs9YB8/T67fYBZ2z79BjRQ20wZV/bHB6cLRya/mFDlkmLHDmFEH8v6YeD7+HBITVYPYT1weWsfyk8cIu25IitiQQvI71uCg2l0K2ZXaRIR+PVihPa1ptad7vNeOqZ+92HaZL1hkhvRPn4AV8S8yW1neDnIWk+HuhRdqRV/GyhapPKu19MBJ3TldEarClIm9QUtu2qn8X/5D/ENuNy6Ml/xfoRQyR4x0ZtJM7rqcP5KkN2mjeLpb/1qp+rNuMt3kmPQpE/ZAO8QardtrtF3dBzSAe0SDer2EIghg19lP4Yia7WtCq2xEVa564OTsU+CxOfcmArhIJrYkHyV1qsiZQ0JMBt7KS5VwSZ+2Oi2NWTlj2jy3ytphBO5IwRK1i7FmspJxRJezI0Wl+msld36MM55OSRQdi1kOArp3ByQlspbpeLBJBexAaYy8j+8ajCoVS3qIgxwibKQtnjSEOHzqrHA8Wg+z+fHLDXbjIHje8Z0NZ3DGSdhx+N3zyfkkeT2MRcEZbKiXFasFt0ohYHhLLl3RHglgZIrm4GkJCtDV15QNmEECdq4639pkxmGEQ0/NOX1WE/Ylf/ZrFDfbdMs3wKsrTeg1rMdevk9s5yF9ujmnysLrfHUDEx9FBJFvAPbr38w2d+A8sc4LUbz14tjVw3dQ8k1t3SSf9UpKCLVpNgE6LbUcGlcjGhhu95GhY4W0m9EO1YtiXHhw5zRyB+jKEkjsJsbQl/hM07s=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(136003)(376002)(346002)(396003)(366004)(451199015)(2906002)(5660300002)(31686004)(41300700001)(478600001)(6512007)(26005)(186003)(83380400001)(66946007)(66476007)(66556008)(36756003)(8676002)(8936002)(4326008)(38100700002)(316002)(86362001)(31696002)(6916009)(2616005)(6486002)(6506007)(53546011)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(366004)(136003)(346002)(39860400002)(396003)(451199015)(478600001)(6486002)(6506007)(86362001)(26005)(31686004)(6512007)(31696002)(53546011)(6916009)(316002)(38100700002)(4326008)(66476007)(8676002)(41300700001)(66946007)(66556008)(36756003)(186003)(83380400001)(8936002)(5660300002)(2616005)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MEZXTjQyWGYvRXVwRDllVUtpT1QwaDQ4RnB4ZjVtSytHWU5sS3VvOWQ3akE3?=
- =?utf-8?B?ejYxZDl3OW14Q1Q3UDQ4Vksrb2MzdEw2Qjk2cVFScWNwQ0xueGFDeUJrNjcy?=
- =?utf-8?B?amxzd1MyeG45WG5JS3lyakZMQ1J5K09BUG5hYVdDa05ZZmpjSTNHUWdRVFBn?=
- =?utf-8?B?MnNDVk1LWU5qWjduZVNXelNRV2dVNklhTDZBMW1ialMwTFNQWVpOa2E3ZmZv?=
- =?utf-8?B?ZE0vQko3aHdpbkFEWkYyNDRxN1pVa0s0V3VIOU8rQUJ3WFRGZHZIR1Nuek1J?=
- =?utf-8?B?aFJXcU84SXQxeDNlNE81T21kNlBzZVdkc0xmUnoxRjE2dE1Gc0RqaGwvWHlt?=
- =?utf-8?B?RDVrb2FOU3ZGbkQvMGRCNkx0N0RPc3lYOEo2aVdhTm1jZnJBNHZoQ256MElX?=
- =?utf-8?B?U0lTM25VdVVudnF6QmsxZkNUUGVhRGdQbjNVb2IvU2M3S1JFbkNyUUNIZjNw?=
- =?utf-8?B?UFdNTG1iNHQwR2FMelU2VmFjajlQVHVIMndubVlEeU80bEIyVWdRbnUvNkhu?=
- =?utf-8?B?Rk80dEhCVkUyajJOOXRqZGtycTA4WGtHbEJsNTQ4T3RuMzRWNW5tYnlQcTRK?=
- =?utf-8?B?TzdraGpubmdIZlluSmpSM0Y0TEY4Y095dVgwellTa3dOdTNQU3U1ZUJ1TklH?=
- =?utf-8?B?V3RIeHNUM3lER1ZBWkFoOFZCT3dnQUdSR29RVUhqYlVxMFlvRk1aeHVqZHNQ?=
- =?utf-8?B?NFU2bm4rZW9mZWdrcG9XZ0RneGpFYkNwVzdldTR0NDR2WDdDZ3pZaWxxdFNC?=
- =?utf-8?B?Vjh6a2xublFHQUZoSVJqelhsa0Z3b3JZdFR0UzU4ZUlDcFdhWnNvVE9DQkpD?=
- =?utf-8?B?dlZmbFVocldzRE0vTmVaeWJSaC9JWGxrWXZVWmgwcEUyOUNtajNGNXdJZTQr?=
- =?utf-8?B?TVkzTnFPekZzR2J4QjRwK2dBWmdrckNNMXMzanVaeVhsYXVCaW1pM2NEV09i?=
- =?utf-8?B?bFN0S0V3ZXgrclJma282SG41dUdWcCs1TVdUTEY3QWxFUGZPVkVuNitWMHhn?=
- =?utf-8?B?UnMwcjBRQ0VQMzg3bmZxRkJTL2hWUkIwQ2ZzWk81b3pNbThnd2lQb1J1N1pv?=
- =?utf-8?B?dng2VGJObmZMUW9jaWVieFBNa2Npc3hpL2ZuUzlFTTQ4V3lPdmpnR1d3MUdM?=
- =?utf-8?B?NG5LOUVXdEt0N1FCc0pLUWRSM2R2OFNVQmhVSDcvbExodXB0bEJqTmwyTSsr?=
- =?utf-8?B?di82bmYrTDhYblF5WWdzUnpPSGJtOVo1RFhqcUhPbUFLNjJ1b3luUUE3Ylgw?=
- =?utf-8?B?L3B5ckVUbVFhZXpGQlRIcEtNd3N6SmVFTlZVNmp4UVp3K1RlTFFxa0p4aDZl?=
- =?utf-8?B?bWJpRFloNGhXTEdZNVM0aWhNcVdPUWNnbWtveTRBRi9rNWlvNko3WXJiWkJR?=
- =?utf-8?B?ZlluQStPVnNxZStmbEFzOFcyUzJYVnRJbk0rb0FMUkltb3Zkc2loTHUzODZj?=
- =?utf-8?B?V05tckU0Sjd4dWdMNzdxVHE1S3NyUEx2bS9jZUtKTEhPR2xISzJCbFBlcGFx?=
- =?utf-8?B?TVcwWFM0L0RhT2I1MzQyZDR4azNuSVI4N3lWbDZ2VUdzN3NiWWU3a1puQk51?=
- =?utf-8?B?MEQ3SWpGOVUwNXZQUDJjNXNJNzBRZm1ZYmRBUkRMU1NGN0xuRFhMOXVNeDhh?=
- =?utf-8?B?QWFHR0VCMndVbklFRitHZnFwVEVOTXBTM3lRelFnSlFDVGlhWndka0tQbVpK?=
- =?utf-8?B?SmEyME1jK09pYjJpbFNTRHBoRlcwSGl1T2EwNTJsdWRoeVV3MUVrRVd1QU8w?=
- =?utf-8?B?ZTBhK2JHTGhCMGF6SmNwbFFSNnBHMHFTaEZSdWQ4T2VwNlZJbUZUcnlwVk94?=
- =?utf-8?B?bWJBbkNHREZ3dHYwTjZzejJPZlErN2FIdGRrWjc4RjVPUDVIaUYwQ2V6N25w?=
- =?utf-8?B?YXE2MUp1MVdVVWJtSWZYQzZYZW9naktXY1hFVThBUFp3c05FSmxyTVBzZFl5?=
- =?utf-8?B?UDM4WGhnNXFRSVpKT2RnSkpTOENWRGRQOVZLVlMyRjFZeGxwNGxMOFMxUTBB?=
- =?utf-8?B?THVzNlZCM2IvbktxY3dNUjcyWDBhKzVTR0dnMHJlSkwycXFSOWtGM3U3OW4w?=
- =?utf-8?B?Ukl5SWpRK0RxaVlSS0wrSXcveU9EOTlWTmM1c28xUWwrT3pNTHlaMElPWm5X?=
- =?utf-8?Q?b2UWADshW5bt/oAdTwd3cB8Tc?=
+	=?utf-8?B?SFNKUFlVYUg0ZlJRc3ZVblJCUGRFaHBiWDlTOGxCcytJcXYzZW82TktwcEdi?=
+ =?utf-8?B?aDF1Qk1pa2k5Y1VwcDZ1bUVzSC8vdnJQOEhrR2tSMklUalhXT2dQRllHTjVK?=
+ =?utf-8?B?ZzV2S0hJM3N6MFZOZjZCaXJzQmFrZEdpcDhHMVd0TEVSZ3ZBZnhKeGRaSGsw?=
+ =?utf-8?B?MklNanVhWVZPOVJqL2svdkRoenBxWnEyejByV0tmTmFFMmtYeGp1WU1iSUNw?=
+ =?utf-8?B?MjY2YmM4cFF1R2RsRy9MRFFZOW5iN25DaklqR0paYk41Uys5TzV5eURsM1Bj?=
+ =?utf-8?B?ZXVyVzBNOE92SytSOFBobWM1Wm5ObW5waUV2bUxmSFY0bjJnR0pZQ2VrWEhj?=
+ =?utf-8?B?a0tMaFZNUC9Vam5Cckl1cTA2bm9jdzMrSm5ud3NQQkpMNUd1OHI1VklXZjJ5?=
+ =?utf-8?B?Y3laV1pnV0huelN4NG5yY01lWkFSdFdnWkJvUW5YK0tDcm5kMEF3VTRtNE9O?=
+ =?utf-8?B?Ty9XNVVMT2hwQ0ZpMlExYmY4V0JnK2pRZ0lSS1dzVkFJU0I0Nk1kS0FYSk1C?=
+ =?utf-8?B?Z3lpTTFJL242Y3ZGdkZaVnlHdlRWcU96cU1LOXVJZmdKdnc3QjJnR0xIUXc3?=
+ =?utf-8?B?dllHVDEzdlJsOENjbHV5dTFpTWd0TjRWSGJ2VmFYRVdtTk5aWm9UZ05KVWRN?=
+ =?utf-8?B?WWRXaUZwYnQzR0NhSUVENzhMTnVsbDhaMmVkamFtMFlWRS8vKzJCSXp1UFZW?=
+ =?utf-8?B?ellTRWNPUzVmWkczTVYxQzRxbUNaaTNaTmQxS2pNSk9Nek43T0ZSWmFia3lW?=
+ =?utf-8?B?ekZ5ampsdkhOaTQ2RkFBSjZjRElheW1lUmdZamtXN1hDSTZIeWpxazZsWTJF?=
+ =?utf-8?B?a0k5WndQdTBHUzJBcVkvbC9YKzhPOVBUQWtudG5DQS8zUk5KdkxSTnVIR1RT?=
+ =?utf-8?B?M2xrZkZIL0R2QnIzdTVQNitUUUpnUTIzNmhYbUpJdHJ4ZXoxcFZFZE1YTFBU?=
+ =?utf-8?B?U1U1eUQyVzZwaUFTRnQ2cmtyVURMYjUwbmZYUk4vaUVDZG9aektub3lIbnRF?=
+ =?utf-8?B?dzBUUENOZ0tDOWM1ZUNjSklaQmlYTVlmc3hmZzkySHNYUytQSFFiblJkQTND?=
+ =?utf-8?B?SFFYQW9OY25HNFFsM2NqM2lRcHc3c3Z0dWFFVnRCYjl4UzJXOGYzQ0hHc0FP?=
+ =?utf-8?B?MVR5ZloxRWVBVEJOSUcrb0QwOHpXZ1B1M09tSzBheUV3WUtDWlVKM0xpZmxD?=
+ =?utf-8?B?RWM3YlE0SUVVTkVRbXMrQW90SjE4UWRxS1pHS2xSUHdLQ0lHbkNMektrQVNG?=
+ =?utf-8?B?VVlKK1pMYm1ZaFE3LzRWOUdUOHFiVWdsNnFNMVR4TitQUG94aXphaTFXUjhT?=
+ =?utf-8?B?Y0dENllmSFMrVE9CbjJ1Y1NTRzNJTnFWZTY4SnYrS01wTXc1LzJsMkp1SHVy?=
+ =?utf-8?B?OThNOUZlTWFDRC9GRDExRldMa3k0bGRTWG81VEVORVhESmoxZG9vM3ZTVWJ0?=
+ =?utf-8?B?K09LZmxuclBBK1c3WkVsTURMMHMwZks0TTBpdU5TWGRoNEQrZzZ1VkNDNnFG?=
+ =?utf-8?B?bEJZcGVWTWJmRk80VFVvSnpxN1llV1pTTkhVTk92K3l5cys1TWxvZ1lHTXVa?=
+ =?utf-8?B?Y1N1Q3BuV3hjM0hnbzV4TkVTcUlvL3pIZkNScWNPdTFkTUZMQjlDeWZDQ2h2?=
+ =?utf-8?B?T2lJTDJNa0IxNkd2Y1p1emRiZ0RzVE9lZjV2OFBJTVhvdkVxN1o0Wkd3UkN6?=
+ =?utf-8?B?RWd6Ym5mQ0xkTThSYzluTldZZ2M3RHdRVExsQmN6TVhybnZXK3hJODd2RDh2?=
+ =?utf-8?B?NUxKcjk3TklrUXRKTkxvZEhYRlBIYmxrUXltUjRvVC9HTEZqWU5UWmh6aWZ5?=
+ =?utf-8?B?d29rV0g1N3I3MEZkY3c4VjZ2YkRqdGlGV0lLcEFzWXMwdkk5aG5jN3BBclE2?=
+ =?utf-8?B?VytHQUdwd3ozblZIT2ZEWExzbVFnS1dqNnY3YjZqNjBKcUNON3owNGVydHRx?=
+ =?utf-8?B?Wmg0NnE0dVhkWDhLemhQaVUwSEozTVNzV2xVdTBYZjNPcFZoQ2tBd1lsSEZ3?=
+ =?utf-8?B?RnlncTIwT3RDWlRyL0dsS1B0bFE4MklLWTJMMmNCa3A5ekprcjJ5Sm1MaHhn?=
+ =?utf-8?B?aHI5QkxnTlliUmg4MEV6cFVZY2NIcWFzcjdUYTBLWjhodkNWNTltdXVTWHQ4?=
+ =?utf-8?Q?ltwqZYup3pgptdOReJ6Kw4gvc?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8e910dd-8b8d-4798-824a-08dad9c37f23
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d1118b4-7e1c-4934-eccb-08dad9c45ae5
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 08:58:10.2948
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Dec 2022 09:04:18.9744
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pZsHegdJ6QZ1GiaIacD8b3jU2Gtskhat4/CefyqJlRAmV6WIkJDHsuWKEHUBCL1zztoO5um7uumfH667/hyb/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7352
+X-MS-Exchange-CrossTenant-UserPrincipalName: WsVoMXMjWdIinlKP+ePjpCNaPRViRkijCqlAIJvp8VJUxK8lqPWULD0an21mnIPNp94Uj0wa9zFJZNSLU5M9yA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8374
 
-On 09.12.2022 01:45, Stefano Stabellini wrote:
-> This patch is to start a discussion in regard to rule 20.7 and its
-> interpretation. During the last MISRA C call we discussed that "our"> interpretation of the rule means that the following two cases don't need
-> extra parenthesis:
+On 09.12.2022 01:41, Stefano Stabellini wrote:
+> We have 3 violations of MISRA C Rule 4.1 ("Octal and hexadecimal escape
+> sequences shall be terminated") in xen/arch/arm/efi/efi-boot.h. Fix
+> them.
 > 
-> #define M(a, b) func(a, b)
-> #define M(a, b) (a) = b
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 
-I'm puzzled by the latter. Iirc there was discussion on whether the LHS
-of an assignment needs parentheses, but I don't think there was any
-question about the RHS wanting them, irrespective of the facts that only
-comma expressions have lower precedence than assignment ones and that
-evaluation goes right to left anyway.
-
-One aspect speaking for parentheses even on the LHS is that an expression
-(rather than an lvalue) passed as macro argument then uniformly becomes
-invalid, i.e. not just
-
-	M(x + y, z)
-
-would be rejected by the compiler, but also
-
-	M(x = y, z)
-
-.
-
-> Moreover, MISRA C states that parenthesis should be added when the
-> expansion of a MACRO parameters would result in an *expression*.
-> 
-> Expression is the important word. Looking at this *compliant* example
-> from the manual:
-> 
-> #define GET_MEMBER( S, M ) ( S ).M
-> 
-> It is compliant because S results in an expression so it needs
-> parenthesis, while M does not, so it doesn't need parenthesis.
-> 
-> My understanding is the following:
-> - is it possible to pass an expression as a parameter of the MACRO?
->     - if yes -> need parenthesis
->     - if no  -> doesn't need parenthesis
-> 
-> 
-> As an example, cppcheck reports the following (from xmalloc.h) as
-> violation:
-> 
-> #define xmalloc_array(_type, _num) \
->     ((_type *)_xmalloc_array(sizeof(_type), __alignof__(_type), _num))
-> 
-> I think this is a false positive. We have already enstablished that the
-> "," operator doesn't require parenthesis, so "_num" is not the problem.
-> And there is no way that adding parenthesis to "type" would allow an
-> expression to be passed as the type argument.
-
-"Allow" (here and elsewhere) is probably not a good word. You can pass
-_anything_ to a macro. The question is whether the macro expansion
-would yield something sensible. And another question is whether with
-parentheses added the result actually still compiles when the macro is
-used as intended. The 2nd aspect is relevant here - you cannot add
-parentheses like this: ((_type)*) - this isn't a well formed cast
-anymore, and the compiler will complain. _If_ this is what cppcheck is
-complaining about, then this imo is a pretty clear bug in the tool.
-
-> Let's take another example:
-> 
-> #define xzalloc_flex_struct(type, field, nr) \
->     ((type *)_xzalloc(offsetof(type, field[nr]), __alignof__(type)))
-> 
-> "type" is the same as last time. There are 2 other interesting macro
-> parameters here: nr and field.
-> 
-> nr could result in an expression, but I don't think it needs
-> parenthesis because it is between []? However, we know we have a clear
-> exception for the "," operator. We don't have a clear exception for the
-> [] operator. Do we need (nr)?
-
-The question of whether parentheses are needed clearly need to be based
-on whether without parentheses anything that looks sensible on the surface
-can be mistaken for other than what was meant. I think [] simply are
-another form of parenthesization, even if these are commonly called square
-bracket (not parentheses). For this to be mistaken, a macro argument would
-need to be passed which first has a ] and then a [. This clearly doesn't
-look sensible even when just very briefly looking at it. Plus the same
-issue would exist with parentheses: You could also undermine the proper
-use of parentheses in the macro by passing a macro argument which first
-has ) and then (. IOW - adding parentheses here adds no value, and hence
-is merely clutter.
-
-> field could result in an expression, so I think it needs parenthesis.
-
-No, field (and intentionally named that way) is a struct member indicator.
-Neither p->(field) nor s.(field) are syntactically valid. There simply
-cannot be parentheses here, so the same conclusion as near the top applies.
-
-> Just to be clear, I'll list all the possible options below.
-> 
-> a) no changes needed, xzalloc_flex_struct is good as is
-
-This is it, and not surprisingly: This construct was introduced not that
-long ago, when we already paid close attention to parenthesization needs.
+While I certainly agree, I wonder if you don't want to correct style
+(missing blank line after every one of these declarations) as well as
+data placement (all three should imo be static __initconst) at the
+same time.
 
 Jan
 
-> b) only "field" needs parenthesis
-> c) only "nr" needs parenthesis
-> d) both "field" and "nr" need parenthesis
+> --- a/xen/arch/arm/efi/efi-boot.h
+> +++ b/xen/arch/arm/efi/efi-boot.h
+> @@ -542,7 +542,7 @@ static void __init efi_arch_handle_module(const struct file *file,
+>  
+>      if ( file == &ramdisk )
+>      {
+> -        char ramdisk_compat[] = "multiboot,ramdisk\0multiboot,module";
+> +        char ramdisk_compat[] = "multiboot,ramdisk\0" "multiboot,module";
+>          node = fdt_add_subnode(fdt, chosen, "ramdisk");
+>          if ( node < 0 )
+>              blexit(L"Unable to add ramdisk FDT node.");
+> @@ -555,7 +555,7 @@ static void __init efi_arch_handle_module(const struct file *file,
+>      }
+>      else if ( file == &xsm )
+>      {
+> -        char xsm_compat[] = "xen,xsm-policy\0multiboot,module";
+> +        char xsm_compat[] = "xen,xsm-policy\0" "multiboot,module";
+>          node = fdt_add_subnode(fdt, chosen, "xsm");
+>          if ( node < 0 )
+>              blexit(L"Unable to add xsm FDT node.");
+> @@ -568,7 +568,7 @@ static void __init efi_arch_handle_module(const struct file *file,
+>      }
+>      else if ( file == &kernel )
+>      {
+> -        char kernel_compat[] = "multiboot,kernel\0multiboot,module";
+> +        char kernel_compat[] = "multiboot,kernel\0" "multiboot,module";
+>          node = fdt_add_subnode(fdt, chosen, "kernel");
+>          if ( node < 0 )
+>              blexit(L"Unable to add dom0 FDT node.");
 > 
-> Option d) would look like this:
-> 
-> #define xzalloc_flex_struct(type, field, nr) \
->     ((type *)_xzalloc(offsetof(type, (field)[(nr)]), __alignof__(type)))
-> 
-> What do you guys think?
-> 
-> Cheers,
-> 
-> Stefano
 
 
