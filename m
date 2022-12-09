@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B156664871F
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 17:59:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.458112.715981 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D59A1648720
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 17:59:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.458122.715992 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3gi4-0004Wt-VD; Fri, 09 Dec 2022 16:58:52 +0000
+	id 1p3gii-00052E-7X; Fri, 09 Dec 2022 16:59:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 458112.715981; Fri, 09 Dec 2022 16:58:52 +0000
+Received: by outflank-mailman (output) from mailman id 458122.715992; Fri, 09 Dec 2022 16:59:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3gi4-0004UC-Rn; Fri, 09 Dec 2022 16:58:52 +0000
-Received: by outflank-mailman (input) for mailman id 458112;
- Fri, 09 Dec 2022 16:54:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p3gii-0004zw-4L; Fri, 09 Dec 2022 16:59:32 +0000
+Received: by outflank-mailman (input) for mailman id 458122;
+ Fri, 09 Dec 2022 16:59:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=YXUj=4H=tibco.com=rlagerwall@srs-se1.protection.inumbo.net>)
- id 1p3geG-0004PJ-1G
- for xen-devel@lists.xen.org; Fri, 09 Dec 2022 16:54:56 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 33b6dba6-77e2-11ed-91b6-6bf2151ebd3b;
- Fri, 09 Dec 2022 17:54:55 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id h12so5779711wrv.10
- for <xen-devel@lists.xen.org>; Fri, 09 Dec 2022 08:54:53 -0800 (PST)
+ <SRS0=nv8v=4H=citrix.com=prvs=3352c5006=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1p3gif-0004rD-W9
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 16:59:30 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d6c35152-77e2-11ed-8fd2-01056ac49cbb;
+ Fri, 09 Dec 2022 17:59:28 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,171 +36,125 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33b6dba6-77e2-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=hiNiRveniIWTlNkwBA6N2LNiLksGBI1cCad1zUOeWnE=;
-        b=WOsgh38z6j7gFDAceqkxkSW6O6ZuyNPfjglT8VR1hJKCMHp2iR9rJ36L5TD2uKpCDz
-         UbJeJDRfLK/Tff/ADrBnRbDwXXNgHd+4aHGp7Cu1gjpfR51lnPqqPfxjuZ/vdXQJLtxq
-         zgzRr8DDnEPqDZ4sgH6SR7Y4HeZqh3IAz45Hg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hiNiRveniIWTlNkwBA6N2LNiLksGBI1cCad1zUOeWnE=;
-        b=2RA8PE2TdV6FcnhEOetNwhHmqLGpQ4rEs01G8yUQl8b5SVkYViQ4xEOk/oCshYGHd/
-         CSfkCKsZIZMqyKfkw0d+vmZ0LuDI4icchFhssPz9FhNq/PtpVwk5uba4fV7uRNahLhR1
-         VE9vW/nGImUruGZOtzIgY0G+uhEnVeoHUFkarOJ8Y+tzVvC5B661TBKoTgO7bnnrXrzg
-         MQvEresZ/ZFeWMi99PaWFDeYPdvAJjGXgl2LtOxRFb2TQ5wEgbVE2qhUjkZ7H1x5EX1B
-         8H9QVcHiqfjQ0hvKrlKjJFJ50HhprXWaMSkbWPK33432joZs1ahNuOkPJduq9pRht1yT
-         ptMA==
-X-Gm-Message-State: ANoB5pk7JpJinw60dn1P/jZ2xzEEcQ+97Vw33hk/mqPIxJuBxctuZgPu
-	/OzsgUXDeSudUMpSFiqvXiSu/mWAD/3aTo0INW0D
-X-Google-Smtp-Source: AA0mqf7C3IMgsXlgkMbT3SaqvkqMqsDa3dsKnjbCPyBzbfny337eZqsvVJkqMH6sfdgXpakEtCYPD6Azh09KKf1ozkk=
-X-Received: by 2002:a5d:6243:0:b0:236:6b05:a8be with SMTP id
- m3-20020a5d6243000000b002366b05a8bemr55657657wrv.346.1670604892899; Fri, 09
- Dec 2022 08:54:52 -0800 (PST)
+X-Inumbo-ID: d6c35152-77e2-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1670605168;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=htIAO2coBShrEeIUMq+vM/qAykLaw22tkEuGWRwZTjg=;
+  b=HkuOIWE12TkCeuK1PfHlNWQNaVgqHRuUxYyZ+gSwo30vfIOIgHofWfid
+   uc7L85LdrbsyAjywd3ulyXN4Z3UC7tOSTVa0wQv1zW26rbwlvL7PR040X
+   RHjLHq1TtQgm9gl8f5XHb1EZ0eJhtFef84EM/h5TJ1Q6o0gTAjr35Zx8U
+   Y=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 87123243
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:oA+OhKAunKPpPBVW/8njw5YqxClBgxIJ4kV8jS/XYbTApGwi0GcEy
+ GcaC2jQafuMZzT8fY13bt60p0gC65DcydNlQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtcpvlDs15K6o4WlA7wRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwoOxFJn9Dq
+ OIieRchbRGxqKG5mJuKc7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2o0BPjDS0Qn1lM/AZQinOCulz/nfidRsl69rqsr+WnDigd21dABNfKFJYXQHp8JxS50o
+ ErGvFuhGC4CHea89giBtVWRhvORoC3SDdd6+LqQqacx3Qz7KnYoIDkLXlL9j/C/gUO6X893I
+ lYRvCEpqMAa60iDXtT7GRqirxasvBEGXMFLO/Yn8wzLwa3Riy6bG2wFQzhpeNEg8sgsSlQCy
+ F6KhdrsQzNmqr2KQHa1/7KY6zi1PEA9PWIEICMJUwYBy93iu50oyALCSM55F6y4hcGzHiv/q
+ xiRtzQ3jbgXic8N1o248ErBjjbqoYLGJjPZ/S2OADjjtFkgItf4Ocr4sjA38MqsMq7DRGumo
+ nVZhfLPy8wNDKOi1yPVadQ0SeTBC+m+DBXQhltmHp8E/jur+mK+cY043AySNHuFIe5fJ2a3P
+ Ra7VRd5ocYKYSD0NfMfj5eZUZxC8ET2KTjyuhk4hPJqa4M5SgKI9ToGiaW4jzG0yxhEfU3S1
+ P6mnSeQ4ZQyU/wPINmeHb11PVoXKscWmwvuqWjTlUjP7FZnTCf9pU05GFWPdPsly6iPvR/Y9
+ d1SX+PTlUoHDbeiPnGGq9VKRbzvEZTcLcmnw/G7i8bZelY2cI3fI6C5LUwdl3xNwP0Oy7agE
+ oCVUU5E0lvv7UAr2i3TAk2PnIjHBM4lxVpiZHxEALpd8yR7CWpZxPtFJsRfkHhO3LAL8MOYu
+ NFfIJ3QWaUSGmuak9nfBLGkxLFfmN2QrVrmF0KYjPIXJPaMmyShFgfYQzbS
+IronPort-HdrOrdr: A9a23:D4J0v6/RtLQuJ9h5YZZuk+AcI+orL9Y04lQ7vn2ZKSY5TiX4rb
+ HKoB1/73XJYVkqN03I9ervBEDiewK/yXcW2+ks1N6ZNWGLhILBFupfBODZsl7d8kPFl9K01c
+ 1bAtJD4N+bNykGsS4tijPIb+rJw7O8gd+Vbf+19QYIcenzAZsQlzuQDGygYypLbTgDP7UVPr
+ yG6PFKojKxEE5nFfhSVhE+Lo7+T8SgruOeXSI7
+X-IronPort-AV: E=Sophos;i="5.96,230,1665460800"; 
+   d="scan'208";a="87123243"
+Date: Fri, 9 Dec 2022 16:59:18 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Vikram Garhwal <vikram.garhwal@amd.com>
+CC: <xen-devel@lists.xenproject.org>, <sstabellini@kernel.org>,
+	<julien@xen.org>, <Luca.Fancellu@arm.com>, Wei Liu <wl@xen.org>, Juergen
+ Gross <jgross@suse.com>
+Subject: Re: [XEN][RFC PATCH v4 15/16] tools/libs/light: Implement new libxl
+ functions for device tree overlay ops
+Message-ID: <Y5NpZiWZOssDwX5Z@perard.uk.xensource.com>
+References: <20221207061815.7404-1-vikram.garhwal@amd.com>
+ <20221207061815.7404-9-vikram.garhwal@amd.com>
 MIME-Version: 1.0
-References: <E1p2ZhW-0005Xe-FG@xenbits.xenproject.org> <mafs0lenhlwcv.fsf@dev-dsk-ptyadav-1c-37607b33.eu-west-1.amazon.com>
- <e22fcdce-f029-de46-81a6-60f5ffc9c9a2@suse.com>
-In-Reply-To: <e22fcdce-f029-de46-81a6-60f5ffc9c9a2@suse.com>
-From: Ross Lagerwall <ross.lagerwall@cloud.com>
-Date: Fri, 9 Dec 2022 16:54:41 +0000
-Message-ID: <CAG7k0EpOz=X8AFw-wE-0OEA98_w77PNmVg_AE-R8mc7sBcsr9w@mail.gmail.com>
-Subject: Re: Xen Security Advisory 424 v1 (CVE-2022-42328,CVE-2022-42329) -
- Guests can trigger deadlock in Linux netback driver
-To: Juergen Gross <jgross@suse.com>
-Cc: Pratyush Yadav <ptyadav@amazon.de>, "Xen.org security team" <security@xen.org>, xen-announce@lists.xen.org, 
-	xen-devel@lists.xen.org, xen-users@lists.xen.org, 
-	oss-security@lists.openwall.com, 
-	"Xen.org security team" <security-team-members@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221207061815.7404-9-vikram.garhwal@amd.com>
 
-On Thu, Dec 8, 2022 at 4:13 PM Juergen Gross <jgross@suse.com> wrote:
->
-> On 08.12.22 16:59, Pratyush Yadav wrote:
-> >
-> > Hi,
-> >
-> > I noticed one interesting thing about this patch but I'm not familiar
-> > enough with the driver to say for sure what the right thing is.
-> >
-> > On Tue, Dec 06 2022, Xen.org security team wrote:
-> >
-> > [...]
-> >>
-> >>  From cfdf8fd81845734b6152b4617746c1127ec52228 Mon Sep 17 00:00:00 2001
-> >> From: Juergen Gross <jgross@suse.com>
-> >> Date: Tue, 6 Dec 2022 08:54:24 +0100
-> >> Subject: [PATCH] xen/netback: don't call kfree_skb() with interrupts disabled
-> >>
-> >> It is not allowed to call kfree_skb() from hardware interrupt
-> >> context or with interrupts being disabled. So remove kfree_skb()
-> >> from the spin_lock_irqsave() section and use the already existing
-> >> "drop" label in xenvif_start_xmit() for dropping the SKB. At the
-> >> same time replace the dev_kfree_skb() call there with a call of
-> >> dev_kfree_skb_any(), as xenvif_start_xmit() can be called with
-> >> disabled interrupts.
-> >>
-> >> This is XSA-424 / CVE-2022-42328 / CVE-2022-42329.
-> >>
-> >> Fixes: be81992f9086 ("xen/netback: don't queue unlimited number of packages")
-> >> Reported-by: Yang Yingliang <yangyingliang@huawei.com>
-> >> Signed-off-by: Juergen Gross <jgross@suse.com>
-> >> Reviewed-by: Jan Beulich <jbeulich@suse.com>
-> >> ---
-> >>   drivers/net/xen-netback/common.h    | 2 +-
-> >>   drivers/net/xen-netback/interface.c | 6 ++++--
-> >>   drivers/net/xen-netback/rx.c        | 8 +++++---
-> >>   3 files changed, 10 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/drivers/net/xen-netback/common.h b/drivers/net/xen-netback/common.h
-> >> index 1545cbee77a4..3dbfc8a6924e 100644
-> >> --- a/drivers/net/xen-netback/common.h
-> >> +++ b/drivers/net/xen-netback/common.h
-> >> @@ -386,7 +386,7 @@ int xenvif_dealloc_kthread(void *data);
-> >>   irqreturn_t xenvif_ctrl_irq_fn(int irq, void *data);
-> >>
-> >>   bool xenvif_have_rx_work(struct xenvif_queue *queue, bool test_kthread);
-> >> -void xenvif_rx_queue_tail(struct xenvif_queue *queue, struct sk_buff *skb);
-> >> +bool xenvif_rx_queue_tail(struct xenvif_queue *queue, struct sk_buff *skb);
-> >>
-> >>   void xenvif_carrier_on(struct xenvif *vif);
-> >>
-> >> diff --git a/drivers/net/xen-netback/interface.c b/drivers/net/xen-netback/interface.c
-> >> index 650fa180220f..f3f2c07423a6 100644
-> >> --- a/drivers/net/xen-netback/interface.c
-> >> +++ b/drivers/net/xen-netback/interface.c
-> >> @@ -254,14 +254,16 @@ xenvif_start_xmit(struct sk_buff *skb, struct net_device *dev)
-> >>      if (vif->hash.alg == XEN_NETIF_CTRL_HASH_ALGORITHM_NONE)
-> >>              skb_clear_hash(skb);
-> >>
-> >> -    xenvif_rx_queue_tail(queue, skb);
-> >> +    if (!xenvif_rx_queue_tail(queue, skb))
-> >> +            goto drop;
-> >> +
-> >>      xenvif_kick_thread(queue);
-> >>
-> >>      return NETDEV_TX_OK;
-> >>
-> >>    drop:
-> >>      vif->dev->stats.tx_dropped++;
-> >
-> > Now tx_dropped is incremented on packet drop...
-> >
-> >> -    dev_kfree_skb(skb);
-> >> +    dev_kfree_skb_any(skb);
-> >>      return NETDEV_TX_OK;
-> >>   }
-> >>
-> >> diff --git a/drivers/net/xen-netback/rx.c b/drivers/net/xen-netback/rx.c
-> >> index 932762177110..0ba754ebc5ba 100644
-> >> --- a/drivers/net/xen-netback/rx.c
-> >> +++ b/drivers/net/xen-netback/rx.c
-> >> @@ -82,9 +82,10 @@ static bool xenvif_rx_ring_slots_available(struct xenvif_queue *queue)
-> >>      return false;
-> >>   }
-> >>
-> >> -void xenvif_rx_queue_tail(struct xenvif_queue *queue, struct sk_buff *skb)
-> >> +bool xenvif_rx_queue_tail(struct xenvif_queue *queue, struct sk_buff *skb)
-> >>   {
-> >>      unsigned long flags;
-> >> +    bool ret = true;
-> >>
-> >>      spin_lock_irqsave(&queue->rx_queue.lock, flags);
-> >>
-> >> @@ -92,8 +93,7 @@ void xenvif_rx_queue_tail(struct xenvif_queue *queue, struct sk_buff *skb)
-> >>              struct net_device *dev = queue->vif->dev;
-> >>
-> >>              netif_tx_stop_queue(netdev_get_tx_queue(dev, queue->id));
-> >> -            kfree_skb(skb);
-> >> -            queue->vif->dev->stats.rx_dropped++;
-> >
-> > ... but earlier rx_dropped was incremented.
-> >
-> > Which one is actually correct? This line was added by be81992f9086b
-> > ("xen/netback: don't queue unlimited number of packages"), which was the
-> > fix for XSA-392. I think incrementing tx_dropped is the right thing to
-> > do, as was done before XSA-392 but it would be nice if someone else
-> > takes a look at this as well.
->
-> Yes, I think the XSA-392 patch was wrong in this regard.
->
+On Tue, Dec 06, 2022 at 10:18:14PM -0800, Vikram Garhwal wrote:
+> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
+> index 2321a648a5..82fc7ce6b9 100644
+> --- a/tools/include/libxl.h
+> +++ b/tools/include/libxl.h
+> @@ -245,6 +245,11 @@
+>   */
+>  #define LIBXL_HAVE_DEVICETREE_PASSTHROUGH 1
+>  
+> +/**
+> + * This means Device Tree Overlay is supported.
+> + */
+> +#define LIBXL_HAVE_DT_OVERLAY 1
+> +
+>  /*
+>   * libxl_domain_build_info has device_model_user to specify the user to
+>   * run the device model with. See docs/misc/qemu-deprivilege.txt.
+> @@ -2448,6 +2453,9 @@ libxl_device_pci *libxl_device_pci_list(libxl_ctx *ctx, uint32_t domid,
+>                                          int *num);
+>  void libxl_device_pci_list_free(libxl_device_pci* list, int num);
+>  
+> +int libxl_dt_overlay(libxl_ctx *ctx, void *overlay,
+> +                     uint32_t overlay_size, uint8_t overlay_op);
+> +
 
-Netback calls this rx (to-guest) traffic so rx_dropped seems better. On the
-other hand, the networking stack thinks of this as tx since the packet is going
-from the networking stack to the NIC driver...
+Could you guard both the LIBXL_HAVE_* macro and this prototype with "#if
+arm"? Since the dt_overlay operation to libxl built on arm.
 
-Regardless, it is currently inconsistent since to-guest traffic increments
-tx_dropped if it is dropped because the rx queue len is too long but it
-increments rx_dropped if those same packets are dropped when they expire in the
-rx queue.
+>  /*
+>   * Turns the current process into a backend device service daemon
+>   * for a driver domain.
+> diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+> index 374be1cfab..2fde58246e 100644
+> --- a/tools/libs/light/Makefile
+> +++ b/tools/libs/light/Makefile
+> @@ -111,6 +111,9 @@ OBJS-y += _libxl_types.o
+>  OBJS-y += libxl_flask.o
+>  OBJS-y += _libxl_types_internal.o
+>  
+> +# Device tree overlay is enabled only for ARM architecture.
+> +OBJS-$(CONFIG_ARM) += libxl_dt_overlay.o
+> +
+>  ifeq ($(CONFIG_LIBNL),y)
+>  CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
+>  endif
+> diff --git a/tools/libs/light/libxl_dt_overlay.c b/tools/libs/light/libxl_dt_overlay.c
+> new file mode 100644
+> index 0000000000..38cab880a0
+> --- /dev/null
+> +++ b/tools/libs/light/libxl_dt_overlay.c
+> +#include "libxl_osdeps.h" /* must come before any other headers */
+> +#include "libxl_internal.h"
+> +#include <libfdt.h>
+> +#include <xenguest.h>
+> +#include <xenctrl.h>
 
-I also see that the tx path (from-guest) doesn't increment any dropped counters
-when it drops a packet.
+Don't you need just xenctrl.h and not xenguest.h? (They both already are
+libxl_internal.h so I'm not sure if xenguest.h is needed., but
+xc_dt_overlay() is in xenctrl.h)
 
-Ross
+
+Thanks,
+
+-- 
+Anthony PERARD
 
