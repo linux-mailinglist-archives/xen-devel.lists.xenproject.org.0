@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0792647C9E
-	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 04:47:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.457585.715534 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86270647D19
+	for <lists+xen-devel@lfdr.de>; Fri,  9 Dec 2022 05:55:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.457598.715553 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3UM5-0005uP-2I; Fri, 09 Dec 2022 03:47:21 +0000
+	id 1p3VPF-0006zU-0X; Fri, 09 Dec 2022 04:54:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 457585.715534; Fri, 09 Dec 2022 03:47:21 +0000
+Received: by outflank-mailman (output) from mailman id 457598.715553; Fri, 09 Dec 2022 04:54:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p3UM4-0005sc-VX; Fri, 09 Dec 2022 03:47:20 +0000
-Received: by outflank-mailman (input) for mailman id 457585;
- Fri, 09 Dec 2022 03:47:19 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1p3VPE-0006wI-UA; Fri, 09 Dec 2022 04:54:40 +0000
+Received: by outflank-mailman (input) for mailman id 457598;
+ Fri, 09 Dec 2022 04:54:40 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3UM3-0005sS-7p; Fri, 09 Dec 2022 03:47:19 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3UM3-0004Jj-2s; Fri, 09 Dec 2022 03:47:19 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p3UM2-0005DZ-R2; Fri, 09 Dec 2022 03:47:18 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p3UM2-0005fI-Qb; Fri, 09 Dec 2022 03:47:18 +0000
+ (envelope-from <SRS0=q9WF=4H=kernel.org=saeed@srs-se1.protection.inumbo.net>)
+ id 1p3VPE-0006wC-6y
+ for xen-devel@lists.xenproject.org; Fri, 09 Dec 2022 04:54:40 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org
+ [2604:1380:40e1:4800::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 946cf3d2-777d-11ed-91b6-6bf2151ebd3b;
+ Fri, 09 Dec 2022 05:54:38 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 7EC3ECE2898;
+ Fri,  9 Dec 2022 04:54:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4DDC433D2;
+ Fri,  9 Dec 2022 04:54:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +44,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZTt12kGUGhIdevsFM7xdbo2wWTUpxsBCuodjp4ddG/0=; b=s8PuXQfEieGV/xP75d4Lg1OmF5
-	lcn/Rz1R5XDHEd4cnxmxHNbgymNW/DHwREKKhnASV+n3r4i1GEf2Hkbgsqwnl0I/GqfRhiGwkgGmL
-	Ku2X8kwsOCLG2NHakX6LIuxdmzJ03nYeorkQiPhYwAgkMPTlpvvUaVgR95b25rG7UNDA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175101-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 946cf3d2-777d-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670561673;
+	bh=rSB5y5gfDM3Ow36b0u0/C60y2e6oDZ7NLUrrP88Fvw8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=kpi3f9V9c4bdztR9nKSHWOL7zKOIZAXYwTHtMpKKT9o3KR5YV5pYfEzxZ1bRPWZiW
+	 xG78z0gPVMFgG++Kxgi1Ic7IbwUHNPufvT88q+LIS/fiF4tQi+Mn3HEGsLR7XQxJj6
+	 edvJXJNDzp6fmSWq3dRUk/yHn9RBvPdqO1b3V4B5E7AqN/TGfGodFWR5wnZDTkdsen
+	 SXJefYARubHiyglRodLXiqJNo0MACwaBFAxYzh1oE0kCNifGP0qtNwQM9fVFFD1puR
+	 3mttmyLek4N8hrvlRrgkAGDWO0EPcWZx+09tXEBNDCHEv1TO+gYCm6a5V3M6Drngir
+	 EseWRJJroxj7A==
+Date: Thu, 8 Dec 2022 20:54:32 -0800
+From: Saeed Mahameed <saeed@kernel.org>
+To: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
+Cc: wei.liu@kernel.org, paul@xen.org, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	ast@kernel.org, daniel@iogearbox.net, hawk@kernel.org,
+	john.fastabend@gmail.com, xen-devel@lists.xenproject.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org, Abaci Robot <abaci@linux.alibaba.com>
+Subject: Re: [PATCH] xen-netback: Remove set but unused variable 'pending_idx'
+Message-ID: <Y5K/iE9oa3PIrsQx@x130>
+References: <20221209034036.37280-1-jiapeng.chong@linux.alibaba.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 175101: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=54d81d06fc165fcb8eb832acd6a7cf644b029549
-X-Osstest-Versions-That:
-    ovmf=8a485e4bb8b5c5a800d6b3e1b8fa80fe27afb274
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 09 Dec 2022 03:47:18 +0000
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20221209034036.37280-1-jiapeng.chong@linux.alibaba.com>
 
-flight 175101 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175101/
+On 09 Dec 11:40, Jiapeng Chong wrote:
+>Variable pending_idx is not effectively used in the function, so delete
+>it.
+>
+>drivers/net/xen-netback/netback.c:886:7: warning: variable ‘pending_idx’ set but not used.
+>
+>Link: https://bugzilla.openanolis.cn/show_bug.cgi?id=3399
+>Reported-by: Abaci Robot <abaci@linux.alibaba.com>
+>Signed-off-by: Jiapeng Chong <jiapeng.chong@linux.alibaba.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 54d81d06fc165fcb8eb832acd6a7cf644b029549
-baseline version:
- ovmf                 8a485e4bb8b5c5a800d6b3e1b8fa80fe27afb274
+Reviewed-by: Saeed Mahameed <saeed@kernel.org>
 
-Last test of basis   175093  2022-12-08 16:12:26 Z    0 days
-Testing same since   175101  2022-12-08 21:43:51 Z    0 days    1 attempts
+Please mark your patch clearly with [PATCH net-next] or 
+[PATCH net] if it's a bug fix. 
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
+Thanks for the patch.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   8a485e4bb8..54d81d06fc  54d81d06fc165fcb8eb832acd6a7cf644b029549 -> xen-tested-master
 
