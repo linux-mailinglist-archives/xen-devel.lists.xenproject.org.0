@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 128B864968A
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Dec 2022 22:37:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.458985.716674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AFC26496DA
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Dec 2022 23:52:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459003.716686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4U10-0004XU-3o; Sun, 11 Dec 2022 21:37:42 +0000
+	id 1p4VAF-0004vx-KL; Sun, 11 Dec 2022 22:51:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 458985.716674; Sun, 11 Dec 2022 21:37:42 +0000
+Received: by outflank-mailman (output) from mailman id 459003.716686; Sun, 11 Dec 2022 22:51:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4U10-0004VC-16; Sun, 11 Dec 2022 21:37:42 +0000
-Received: by outflank-mailman (input) for mailman id 458985;
- Sun, 11 Dec 2022 21:37:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1p4VAF-0004tv-GS; Sun, 11 Dec 2022 22:51:19 +0000
+Received: by outflank-mailman (input) for mailman id 459003;
+ Sun, 11 Dec 2022 22:51:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p4U0y-0004V2-V8; Sun, 11 Dec 2022 21:37:40 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p4U0y-0005Cu-Sc; Sun, 11 Dec 2022 21:37:40 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p4U0y-0004ct-Aw; Sun, 11 Dec 2022 21:37:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p4U0y-0003yk-AT; Sun, 11 Dec 2022 21:37:40 +0000
+ (envelope-from <SRS0=LXCR=4J=google.com=elver@srs-se1.protection.inumbo.net>)
+ id 1p4VAE-0004tp-3F
+ for xen-devel@lists.xenproject.org; Sun, 11 Dec 2022 22:51:18 +0000
+Received: from mail-yb1-xb2b.google.com (mail-yb1-xb2b.google.com
+ [2607:f8b0:4864:20::b2b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 519f32e4-79a6-11ed-91b6-6bf2151ebd3b;
+ Sun, 11 Dec 2022 23:51:16 +0100 (CET)
+Received: by mail-yb1-xb2b.google.com with SMTP id d131so11692129ybh.4
+ for <xen-devel@lists.xenproject.org>; Sun, 11 Dec 2022 14:51:16 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,217 +39,115 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=P2L9kWCfezRaG2u7oZUw8SWIxxYRr6wfXstWW0z2OzY=; b=NHWuIdhPXSMFOPSHV3Vfxl+z+y
-	FADtxHmlemNt5iyzfBkwekudelQRn5lZiQI1oRS2QQuIzQHIVTVzNJoEWErEBkIPJBlFeGZtPVoX6
-	RpOSQlsSqBqfXWVdpU/nHw+nqfNfvKq/ypj8kg/6B9+eq54HUpu2aIP9domg10MasnQM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175146-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 519f32e4-79a6-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ku9FczodgVi7IuURoZl4bCpnlwjQxOtO2oc27QuDGyE=;
+        b=ACD0EiTEhuBswlt+yiGgP3k7Ttadxr8sqXiPlGCoREiQuz45asKJ573lLI6JtQv3cM
+         lx7KUh/XgDcjACi5ftUs4vIkWwJUV9COdkZefxkHF/mxpdy51U3eCl5FVe4AYrUilhMV
+         YQ/k9u7vQk8SO84K3vfA7Yx2R5J37M9cWkZ1NFY7szeMOeaDSkbBeGFua8GOzK8Szj4a
+         eYyf6a+9L6t3BEsUNbs0hqEXy/oCEDbU0DKkIxGZ4on5rvPo12HfsILrajgIBS3Xhir2
+         MkLpk53mM2xUuayOqWHwMglTAkJ8M8bA8vkmFkQnkK7lJE2Rj1tMWSZmVjf99Ens0D+P
+         0N+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Ku9FczodgVi7IuURoZl4bCpnlwjQxOtO2oc27QuDGyE=;
+        b=v17cEDtQCRkVPOrSIO7tdqz7CfxMpCSUkZ6ofto1Lp0ED2f/JIpqOBSYsR9TBYmfdy
+         KY3lryyyDxNbaYDGg3kaYFy7DFjovBwjTf89+dCIIpiXqePPoqNg0QtoOx7S3KhhWqku
+         wHzAZ0utIaO54JYDXwxNzAleuQf7Zmf68Fvg8p8rzvDC09om8Ky7Q++ojDqd1eyJr7Pc
+         BkVre2knAoLDjOYgxscSjcdcELOvR6Hw89kvU+QZiMcR8ciYL2jeEOHUXDK48+7SNQs/
+         ABW/DeISxy2kACf4ox20qnbI3kdFmBymOmwBVPddiDllvwrP9F5xuPx0/kK3ASkx2S9D
+         qjNA==
+X-Gm-Message-State: ANoB5pmF7ZVmXWrJO7fY63CSwdBHmJ1RnenbxTlKzKTiUV5LrOZkXFti
+	N7EDlBJbSQnhSut78YyTMhk1RBoSbkT4L3l3saH/Yw==
+X-Google-Smtp-Source: AA0mqf5+LGx2dq1qboz7bkbiTwtT3jf85VwB2cJHC3EPqhsIyPTYSs/7r2T10sR9nduWt+8CM1NdJNIcrrN8XkCIXcs=
+X-Received: by 2002:a25:2b41:0:b0:70b:87d5:4a73 with SMTP id
+ r62-20020a252b41000000b0070b87d54a73mr4987665ybr.584.1670799075296; Sun, 11
+ Dec 2022 14:51:15 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-linus test] 175146: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=4cee37b3a4e68c42b867c87a6218e11bc571ba66
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 11 Dec 2022 21:37:40 +0000
+References: <c18bc798-f484-ad66-fbb0-15192a74f8e3@suse.com> <Y5ZM3HCnTcLvP2vy@itl-email>
+In-Reply-To: <Y5ZM3HCnTcLvP2vy@itl-email>
+From: Marco Elver <elver@google.com>
+Date: Sun, 11 Dec 2022 23:50:39 +0100
+Message-ID: <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
+Subject: Re: kfence_protect_page() writing L1TF vulnerable PTE
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Juergen Gross <jgross@suse.com>, Alexander Potapenko <glider@google.com>, 
+	kasan-dev <kasan-dev@googlegroups.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 175146 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175146/
+On Sun, 11 Dec 2022 at 22:34, Demi Marie Obenour
+<demi@invisiblethingslab.com> wrote:
+> On Sun, Dec 11, 2022 at 01:15:06PM +0100, Juergen Gross wrote:
+> > During tests with QubesOS a problem was found which seemed to be related
+> > to kfence_protect_page() writing a L1TF vulnerable page table entry [1].
+> >
+> > Looking into the function I'm seeing:
+> >
+> >       set_pte(pte, __pte(pte_val(*pte) & ~_PAGE_PRESENT));
+> >
+> > I don't think this can be correct, as keeping the PFN unmodified and
+> > just removing the _PAGE_PRESENT bit is wrong regarding L1TF.
+> >
+> > There should be at least the highest PFN bit set in order to be L1TF
+> > safe.
 
-Regressions :-(
+Could you elaborate what we want to be safe from?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+KFENCE is only for kernel memory, i.e. slab allocations. The
+page-protection mechanism is used to detect memory safety bugs in the
+Linux kernel. The page protection does not prevent or mitigate any
+such bugs because KFENCE only samples sl[au]b allocations. Normal slab
+allocations never change the page protection bits; KFENCE merely uses
+them to receive a page fault, upon which we determine either a
+use-after-free or out-of-bounds access. After a bug is detected,
+KFENCE unprotects the page so that the kernel can proceed "as normal"
+given that's the state of things if it had been a normal sl[au]b
+allocation.
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+https://docs.kernel.org/dev-tools/kfence.html
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+From [1] I see: "If an instruction accesses a virtual address for
+which the relevant page table entry (PTE) has the Present bit cleared
+or other reserved bits set, then speculative execution ignores the
+invalid PTE and loads the referenced data if it is present in the
+Level 1 Data Cache, as if the page referenced by the address bits in
+the PTE was still present and accessible."
 
-version targeted for testing:
- linux                4cee37b3a4e68c42b867c87a6218e11bc571ba66
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+[1] https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/l1tf.html
 
-Last test of basis   173462  2022-10-07 18:41:45 Z   65 days
-Failing since        173470  2022-10-08 06:21:34 Z   64 days  129 attempts
-Testing same since   175145  2022-12-11 02:59:47 Z    0 days    2 attempts
+This is perfectly fine in the context of KFENCE, as stated above, the
+page protection is merely used to detect out-of-bounds and
+use-after-free bugs of sampled slab allocations. KFENCE does not
+mitigate nor prevent such bugs, because it samples allocations, i.e.
+most allocations are still serviced by sl[au]b.
 
-------------------------------------------------------------
-1994 people touched revisions under test,
-not listing them all
+How can we teach whatever is complaining about L1TF on that KFENCE PTE
+modification that KFENCE does not use page protection to stop anyone
+from accessing that memory?
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
+> >
+> > Juergen
+> >
+> > [1]: https://github.com/QubesOS/qubes-issues/issues/7935
+>
+> Does that mean that Linux with kfence enabled is vulnerable to L1TF?  Or
+> are these pages ones that are not in any userspace page tables?  If the
+> former, then this is a security vulnerability in Linux and must be
+> fixed.  If the latter, then the two options I can think of are to revert
+> whatever change caused kfence to produce L1TF-vulnerable PTEs, or to
+> disable kfence when running paravirtualized under Xen.
 
+See above - it's for kernel memory only, and the page protection is
+only to detect bugs of _sampled_ slab allocations.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 192113 lines long.)
+Thanks,
+-- Marco
 
