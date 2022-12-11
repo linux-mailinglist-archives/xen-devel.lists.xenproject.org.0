@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F1DF64954B
-	for <lists+xen-devel@lfdr.de>; Sun, 11 Dec 2022 18:24:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.458953.716641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C5564957D
+	for <lists+xen-devel@lfdr.de>; Sun, 11 Dec 2022 19:01:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.458963.716653 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4Q3v-0001Xd-5f; Sun, 11 Dec 2022 17:24:27 +0000
+	id 1p4QcU-0006K9-VM; Sun, 11 Dec 2022 18:00:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 458953.716641; Sun, 11 Dec 2022 17:24:27 +0000
+Received: by outflank-mailman (output) from mailman id 458963.716653; Sun, 11 Dec 2022 18:00:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4Q3v-0001V6-2f; Sun, 11 Dec 2022 17:24:27 +0000
-Received: by outflank-mailman (input) for mailman id 458953;
- Sun, 11 Dec 2022 17:24:26 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p4Q3u-0001V0-9L
- for xen-devel@lists.xenproject.org; Sun, 11 Dec 2022 17:24:26 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p4Q3t-0007kE-RL; Sun, 11 Dec 2022 17:24:25 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p4Q3t-0006xx-Mi; Sun, 11 Dec 2022 17:24:25 +0000
+	id 1p4QcU-0006IC-SK; Sun, 11 Dec 2022 18:00:10 +0000
+Received: by outflank-mailman (input) for mailman id 458963;
+ Sun, 11 Dec 2022 18:00:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=97oD=4J=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1p4QcS-0006I3-OM
+ for xen-devel@lists.xenproject.org; Sun, 11 Dec 2022 18:00:09 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a50482a0-797d-11ed-8fd2-01056ac49cbb;
+ Sun, 11 Dec 2022 19:00:07 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2D6215C00B1;
+ Sun, 11 Dec 2022 13:00:06 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Sun, 11 Dec 2022 13:00:06 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 11 Dec 2022 13:00:04 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,107 +43,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=U3lvsE9dP4Nh9hapVj2EzyYqzOvhzo5QJqy/j97y7XU=; b=Ptsh7mBYShYEuMAuUVjZhTvlNZ
-	SWQCJhdDJOUWmUQxgXnsOTCrpcJ0v/syioziVTjtYE8ofxzNm8/6egJ17Z1mEDP/8Ou7NDqUt+Bpy
-	eZGI3SSTafefZQIee7EGf0i5xfVPJeSAkLZ6obZTCN7vk3AycfKxqP+uraK9PenwT+/s=;
-Message-ID: <edb48cd8-85fc-bcee-f9f1-993b33d74178@xen.org>
-Date: Sun, 11 Dec 2022 17:24:23 +0000
+X-Inumbo-ID: a50482a0-797d-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm1; t=
+	1670781606; x=1670868006; bh=9/o//YpAd6bPNnp2ez44OcRIJkNkCRCgVpa
+	pd+ho7Ao=; b=aB5HB6mUPJs2uf7aEqlH7AYmwLVBW/G8rBmRAhqsKIQAH38SEHM
+	K0KC2ztPs2RxcWL3E4V0F6bJ/mJ6xIysLOJaIVnpvQ2HOqvCeM6Jlzo0ZWEYhddr
+	KevfSWtTHya9NLy/Z7icTbODRS5ycft7xPEFJTHeZkVJAADGcY/Qxudgc/8z4b7F
+	7rEjB/3Rypt8BNCwMJv2XJqYOVju1QxegkMHxzAezrzVG/W7A8N6cesbdvMNmaok
+	rw1FzYsQNrPY5wRj2MFGTN5iUE0n32Ec5vObwWUCzLCXh7MZiHshbmhzdbbtTzHT
+	T1oXFWtx3tEQ/MMk8jPcZLiPqd7Rljq6eHA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1670781606; x=1670868006; bh=9/o//YpAd6bPN
+	np2ez44OcRIJkNkCRCgVpapd+ho7Ao=; b=v/VJCdlO+J+u3+32D3XYQyf+sye62
+	BSbsfDAelrSiTMK0Per6d9uwgIFwwGSUNfDzweOOeDhRjSAAgeANl+Kc5N2AwdYX
+	gxzNE/6m3t954wwCX4N1lY2WEL8uEq90945CrcAHmFb0u9noDxMfziELc7zY9JKV
+	/8q/EXDZytV6bewAJjdolMngFQNdX6k8Mf72GoOR/Jb4mqF5KpH1Q1z/j6SNl96G
+	QbWrY3LNtagzhZi62fVjVmzK7YUAhaUNQL5arycUux4rszH91UcrftnYlchlbkt8
+	NpVkHnm8/s8BWJefGL53MmfKFWGsiAg+AwIFDvL8Zt2xBpqA18mBg41Qg==
+X-ME-Sender: <xms:pRqWYxz4cKfSLS1myd2cJetXNNJ4cKDBbEWSRS-Ewml4aIkUWpmwAA>
+    <xme:pRqWYxToyBPlF1gf0C4eh9JnTt3Xw6KHUzIq9kYGD6NTWiOWI4191RgXjRhaV9vgd
+    9kXqPxeLwVk8g>
+X-ME-Received: <xmr:pRqWY7Ug3S4QMa5RWxlUQONdDYNQWjK-qjUV4KOqaqgeP6yLnSBgacuAF6Qh90xCLkR_bfJXAl_B29gYx30agmxg29skj4Bq2pf4Uq_KfI2_SYCkR6s>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdeigddutdekucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelkefh
+    udelteelleelteetveeffeetffekteetjeehlefggeekleeghefhtdehvdenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:pRqWYzj3SAE9LiVEmPGNzdm9LThv7zxtLvu8mfz3NsbnOF_t-zS3uw>
+    <xmx:pRqWYzBXEc6FHWJlCkINIs-zjZAGr1uXgm-7CKlh2EsHe1mCLhB74w>
+    <xmx:pRqWY8Lb3dKbt6HhhX_rbY3N_rf-5obEEzrIcx2uRpXr0Egir5FCwg>
+    <xmx:phqWY2MaHnxD6Gxp34hOy58sLZ6eOh8ljwJsHKzgBYFCigiC7egugw>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>,
+	Juergen Gross <jgross@suse.com>
+Subject: [PATCH] libxl: abort on memory allocation errors
+Date: Sun, 11 Dec 2022 18:59:49 +0100
+Message-Id: <20221211175949.2193629-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [PATCH 1/4] xen/dmalloc: Introduce dmalloc() APIs
-To: Andrew Cooper <andrew.cooper3@citrix.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <JBeulich@suse.com>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <20201223163442.8840-1-andrew.cooper3@citrix.com>
- <20201223163442.8840-2-andrew.cooper3@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20201223163442.8840-2-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+Use abort() instead of just _exit() in libxl__alloc_failed(). This
+is more friendly for debugging, as it will trap into debugger,
+systemd-coredump will collect coredump/backtrace etc. It's much more
+useful than just "libxl: FATAL ERROR: memory allocation failure (...)"
+message without context where it actually failed.
 
-On 23/12/2020 16:34, Andrew Cooper wrote:
-> Wrappers for xmalloc() and friends, which track allocations tied to a specific
-> domain.
-> 
-> Check for any leaked memory at domain destruction time.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Roger Pau Monné <roger.pau@citrix.com>
-> CC: Wei Liu <wl@xen.org>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-> CC: Tamas K Lengyel <tamas@tklengyel.com>
-> 
-> RFC:
->   * This probably wants to be less fatal in release builds
->   * In an ideal world, we'd also want to count the total number of bytes
->     allocated from the xmalloc heap, which would be interesting to print in the
->     'q' debugkey.  However, that data is fairly invasive to obtain.
->   * More complicated logic could track the origins of each allocation, and be
->     able to identify which one(s) leaked.
-> ---
->   xen/common/Makefile       |  1 +
->   xen/common/dmalloc.c      | 19 +++++++++++++++++++
->   xen/common/domain.c       |  6 ++++++
->   xen/include/xen/dmalloc.h | 29 +++++++++++++++++++++++++++++
->   xen/include/xen/sched.h   |  2 ++
->   5 files changed, 57 insertions(+)
->   create mode 100644 xen/common/dmalloc.c
->   create mode 100644 xen/include/xen/dmalloc.h
-> 
-> diff --git a/xen/common/Makefile b/xen/common/Makefile
-> index 7a4e652b57..c5d9c23fd1 100644
-> --- a/xen/common/Makefile
-> +++ b/xen/common/Makefile
-> @@ -5,6 +5,7 @@ obj-$(CONFIG_CORE_PARKING) += core_parking.o
->   obj-y += cpu.o
->   obj-$(CONFIG_DEBUG_TRACE) += debugtrace.o
->   obj-$(CONFIG_HAS_DEVICE_TREE) += device_tree.o
-> +obj-y += dmalloc.o
->   obj-y += domain.o
->   obj-y += event_2l.o
->   obj-y += event_channel.o
-> diff --git a/xen/common/dmalloc.c b/xen/common/dmalloc.c
-> new file mode 100644
-> index 0000000000..e3a0e546c2
-> --- /dev/null
-> +++ b/xen/common/dmalloc.c
-> @@ -0,0 +1,19 @@
-> +#include <xen/dmalloc.h>
-> +#include <xen/sched.h>
-> +#include <xen/xmalloc.h>
-> +
-> +void dfree(struct domain *d, void *ptr)
-> +{
-> +    atomic_dec(&d->dalloc_heap);
-> +    xfree(ptr);
-> +}
-> +
-> +void *_dzalloc(struct domain *d, size_t size, size_t align)
-> +{
-> +    void *ptr = _xmalloc(size, align);
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+---
+ tools/libs/light/libxl_internal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The 'z' in _dzalloc() implies the memory will want to be zeroed. But 
-here you are using _xmalloc().
-
-This also explains the "memory leak" you reported. By switching to 
-"_xzalloc()" and the problem disappears (at least on my setup).
-
-Cheers,
-
+diff --git a/tools/libs/light/libxl_internal.c b/tools/libs/light/libxl_internal.c
+index 86556b6113b0..c95624933ffc 100644
+--- a/tools/libs/light/libxl_internal.c
++++ b/tools/libs/light/libxl_internal.c
+@@ -36,7 +36,7 @@ void libxl__alloc_failed(libxl_ctx *ctx, const char *func,
+     }
+ 
+     fflush(stderr);
+-    _exit(-1);
++    abort();
+ #undef M_NSIZE
+ #undef M_SIZE
+ #undef M
 -- 
-Julien Grall
+2.37.3
+
 
