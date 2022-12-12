@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB53F64989E
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 06:20:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459039.716708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C0726498CB
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 07:00:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459059.716730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4bEK-0004Mz-Lr; Mon, 12 Dec 2022 05:19:56 +0000
+	id 1p4br0-0001HT-2J; Mon, 12 Dec 2022 05:59:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459039.716708; Mon, 12 Dec 2022 05:19:56 +0000
+Received: by outflank-mailman (output) from mailman id 459059.716730; Mon, 12 Dec 2022 05:59:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4bEK-0004LE-IG; Mon, 12 Dec 2022 05:19:56 +0000
-Received: by outflank-mailman (input) for mailman id 459039;
- Mon, 12 Dec 2022 05:19:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/A98=4K=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1p4bEJ-0004L8-7Y
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 05:19:55 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9b970a2c-79dc-11ed-91b6-6bf2151ebd3b;
- Mon, 12 Dec 2022 06:19:53 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8A0971FE19;
- Mon, 12 Dec 2022 05:19:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E1A51376E;
- Mon, 12 Dec 2022 05:19:52 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id vyWiEfi5lmOZQwAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 12 Dec 2022 05:19:52 +0000
+	id 1p4bqz-0001Ek-VU; Mon, 12 Dec 2022 05:59:53 +0000
+Received: by outflank-mailman (input) for mailman id 459059;
+ Mon, 12 Dec 2022 05:59:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=zalI=4K=zlw.email=sisyphean@srs-se1.protection.inumbo.net>)
+ id 1p4bqy-0001Eb-21
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 05:59:53 +0000
+Received: from mail.zlw.email (unknown [112.49.95.49])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 29451767-79e2-11ed-8fd2-01056ac49cbb;
+ Mon, 12 Dec 2022 06:59:47 +0100 (CET)
+Received: from localhost (unknown [127.0.0.1])
+ by mail.zlw.email (Postfix) with ESMTP id 2E9C0174161;
+ Mon, 12 Dec 2022 06:00:00 +0000 (UTC)
+Received: from mail.zlw.email ([127.0.0.1])
+ by localhost (mail.zlw.email [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 5wFCEGbdjmc0; Mon, 12 Dec 2022 13:59:55 +0800 (CST)
+Received: from [192.168.66.233] (OpenWrt.lan [192.168.66.1])
+ by mail.zlw.email (Postfix) with ESMTPSA id 3050C173BFD;
+ Mon, 12 Dec 2022 13:59:55 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,245 +45,383 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9b970a2c-79dc-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1670822392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=xz5nnj3XD0YHenNz9nlFHXnTFZaUk+RI1pDMWcsUNJk=;
-	b=NkcSmmucqKVnO7vJFzNpW5C/vdqmc7gLeuDhvM0oNqsjFMLXlG8LXJztgZe5fzv7LChWhG
-	KO9xP8/UuF4NnjUQd8xRa5IXvNe0S874UlriJHidvrQOWH2ESR6D2qdgK1og/xTxxpo8v5
-	WtCCJSRG8ZTyyt6EgHkZrxhJEwElur4=
-Message-ID: <c250b8f5-bce5-da43-ae11-e5355141ea3c@suse.com>
-Date: Mon, 12 Dec 2022 06:19:51 +0100
+X-Inumbo-ID: 29451767-79e2-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zlw.email; h=
+	in-reply-to:from:from:references:to:content-language:subject
+	:subject:user-agent:mime-version:date:date:message-id
+	:content-type:content-type; s=dkim; t=1670824795; x=1673416796;
+	 bh=3iJAT9mEMpl/tOLUEg1sRfP85jeYQy6CU25idGQmavg=; b=FR4OinYCeF6M
+	UB8OEDOeG8uS4vYig5XdphwlYtedgXLSLy02UUwoWWaWaok0f8TNztFoiMgk6LTK
+	X+2f/9Fml69Ls7oz/tBARkvFeWSogGPQfWMmrDfTgkq2AmCK/wMH5fhsmLUkuH0K
+	JmU5u2PjA9DCi9BDXSXLkqDFJt09gww=
+X-Virus-Scanned: amavisd-new at zlw.email
+Content-Type: multipart/alternative;
+ boundary="------------twmZYvIWUWAfqTa7A2RDV568"
+Message-ID: <75bbfc8c-b89f-9478-63af-c37fda0ad3c0@zlw.email>
+Date: Mon, 12 Dec 2022 13:49:07 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.0
-Subject: Re: kfence_protect_page() writing L1TF vulnerable PTE
+ Thunderbird/102.5.1
+Subject: Re: [BUG]Add PCIE devie to SMMUv3 fail
 Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>,
- kasan-dev <kasan-dev@googlegroups.com>,
- Xen development discussion <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-References: <c18bc798-f484-ad66-fbb0-15192a74f8e3@suse.com>
- <Y5ZM3HCnTcLvP2vy@itl-email>
- <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
- <Y5azcFUxAWuEVicY@itl-email>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <Y5azcFUxAWuEVicY@itl-email>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------TDjy6sZearJP8RKYq0xs4s9P"
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <793eb471-e68b-c3ff-52e8-20d77252c0bf@zlw.email>
+ <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
+From: sisyphean <sisyphean@zlw.email>
+In-Reply-To: <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------TDjy6sZearJP8RKYq0xs4s9P
-Content-Type: multipart/mixed; boundary="------------jmu50pFsK3nFV6dYJ1cupCTv";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Marco Elver <elver@google.com>
-Cc: Alexander Potapenko <glider@google.com>,
- kasan-dev <kasan-dev@googlegroups.com>,
- Xen development discussion <xen-devel@lists.xenproject.org>,
- =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
-Message-ID: <c250b8f5-bce5-da43-ae11-e5355141ea3c@suse.com>
-Subject: Re: kfence_protect_page() writing L1TF vulnerable PTE
-References: <c18bc798-f484-ad66-fbb0-15192a74f8e3@suse.com>
- <Y5ZM3HCnTcLvP2vy@itl-email>
- <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
- <Y5azcFUxAWuEVicY@itl-email>
-In-Reply-To: <Y5azcFUxAWuEVicY@itl-email>
-
---------------jmu50pFsK3nFV6dYJ1cupCTv
-Content-Type: multipart/mixed; boundary="------------oZhaDNPkkcoxk2G0lwcWLKjd"
-
---------------oZhaDNPkkcoxk2G0lwcWLKjd
+This is a multi-part message in MIME format.
+--------------twmZYvIWUWAfqTa7A2RDV568
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMTIuMTIuMjIgMDU6NTUsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gLS0tLS1C
-RUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQ0KPiBIYXNoOiBTSEE1MTINCj4gDQo+IC0g
-LS0tLS1CRUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQ0KPiBIYXNoOiBTSEE1MTINCj4g
-DQo+IE9uIFN1biwgRGVjIDExLCAyMDIyIGF0IDExOjUwOjM5UE0gKzAxMDAsIE1hcmNvIEVs
-dmVyIHdyb3RlOg0KPj4gT24gU3VuLCAxMSBEZWMgMjAyMiBhdCAyMjozNCwgRGVtaSBNYXJp
-ZSBPYmVub3VyDQo+PiA8ZGVtaUBpbnZpc2libGV0aGluZ3NsYWIuY29tPiB3cm90ZToNCj4+
-PiBPbiBTdW4sIERlYyAxMSwgMjAyMiBhdCAwMToxNTowNlBNICswMTAwLCBKdWVyZ2VuIEdy
-b3NzIHdyb3RlOg0KPj4+PiBEdXJpbmcgdGVzdHMgd2l0aCBRdWJlc09TIGEgcHJvYmxlbSB3
-YXMgZm91bmQgd2hpY2ggc2VlbWVkIHRvIGJlIHJlbGF0ZWQNCj4+Pj4gdG8ga2ZlbmNlX3By
-b3RlY3RfcGFnZSgpIHdyaXRpbmcgYSBMMVRGIHZ1bG5lcmFibGUgcGFnZSB0YWJsZSBlbnRy
-eSBbMV0uDQo+Pj4+DQo+Pj4+IExvb2tpbmcgaW50byB0aGUgZnVuY3Rpb24gSSdtIHNlZWlu
-ZzoNCj4+Pj4NCj4+Pj4gICAgICAgIHNldF9wdGUocHRlLCBfX3B0ZShwdGVfdmFsKCpwdGUp
-ICYgfl9QQUdFX1BSRVNFTlQpKTsNCj4+Pj4NCj4+Pj4gSSBkb24ndCB0aGluayB0aGlzIGNh
-biBiZSBjb3JyZWN0LCBhcyBrZWVwaW5nIHRoZSBQRk4gdW5tb2RpZmllZCBhbmQNCj4+Pj4g
-anVzdCByZW1vdmluZyB0aGUgX1BBR0VfUFJFU0VOVCBiaXQgaXMgd3JvbmcgcmVnYXJkaW5n
-IEwxVEYuDQo+Pj4+DQo+Pj4+IFRoZXJlIHNob3VsZCBiZSBhdCBsZWFzdCB0aGUgaGlnaGVz
-dCBQRk4gYml0IHNldCBpbiBvcmRlciB0byBiZSBMMVRGDQo+Pj4+IHNhZmUuDQo+IA0KPj4g
-Q291bGQgeW91IGVsYWJvcmF0ZSB3aGF0IHdlIHdhbnQgdG8gYmUgc2FmZSBmcm9tPw0KPiAN
-Cj4gVGhlIHByb2JsZW0gaXMgbm90IExpbnV44oCZcyBzYWZldHksIGJ1dCBYZW7igJlzLiAg
-VG8gcHJldmVudCBQViBndWVzdHMgZnJvbQ0KPiBhcmJpdHJhcmlseSByZWFkaW5nIGFuZCB3
-cml0aW5nIG1lbW9yeSwgYWxsIHVwZGF0ZXMgdG8gUFYgZ3Vlc3QgcGFnZQ0KPiB0YWJsZXMg
-bXVzdCBiZSBkb25lIHZpYSBoeXBlcmNhbGxzLiAgVGhpcyBhbGxvd3MgWGVuIHRvIGVuc3Vy
-ZSB0aGF0IGENCj4gZ3Vlc3QgY2FuIG9ubHkgcmVhZCBmcm9tIGl0cyBvd24gbWVtb3J5IGFu
-ZCB0aGF0IHBhZ2VzIHVzZWQgZm9yIHBhZ2UNCj4gdGFibGVzIG9yIHNlZ21lbnQgZGVzY3Jp
-cHRvcnMgYXJlIG5vdCBtYXBwZWQgd3JpdGFibGUuDQo+IA0KPj4gS0ZFTkNFIGlzIG9ubHkg
-Zm9yIGtlcm5lbCBtZW1vcnksIGkuZS4gc2xhYiBhbGxvY2F0aW9ucy4gVGhlDQo+PiBwYWdl
-LXByb3RlY3Rpb24gbWVjaGFuaXNtIGlzIHVzZWQgdG8gZGV0ZWN0IG1lbW9yeSBzYWZldHkg
-YnVncyBpbiB0aGUNCj4+IExpbnV4IGtlcm5lbC4gVGhlIHBhZ2UgcHJvdGVjdGlvbiBkb2Vz
-IG5vdCBwcmV2ZW50IG9yIG1pdGlnYXRlIGFueQ0KPj4gc3VjaCBidWdzIGJlY2F1c2UgS0ZF
-TkNFIG9ubHkgc2FtcGxlcyBzbFthdV1iIGFsbG9jYXRpb25zLiBOb3JtYWwgc2xhYg0KPj4g
-YWxsb2NhdGlvbnMgbmV2ZXIgY2hhbmdlIHRoZSBwYWdlIHByb3RlY3Rpb24gYml0czsgS0ZF
-TkNFIG1lcmVseSB1c2VzDQo+PiB0aGVtIHRvIHJlY2VpdmUgYSBwYWdlIGZhdWx0LCB1cG9u
-IHdoaWNoIHdlIGRldGVybWluZSBlaXRoZXIgYQ0KPj4gdXNlLWFmdGVyLWZyZWUgb3Igb3V0
-LW9mLWJvdW5kcyBhY2Nlc3MuIEFmdGVyIGEgYnVnIGlzIGRldGVjdGVkLA0KPj4gS0ZFTkNF
-IHVucHJvdGVjdHMgdGhlIHBhZ2Ugc28gdGhhdCB0aGUga2VybmVsIGNhbiBwcm9jZWVkICJh
-cyBub3JtYWwiDQo+PiBnaXZlbiB0aGF0J3MgdGhlIHN0YXRlIG9mIHRoaW5ncyBpZiBpdCBo
-YWQgYmVlbiBhIG5vcm1hbCBzbFthdV1iDQo+PiBhbGxvY2F0aW9uLg0KPiANCj4+IGh0dHBz
-Oi8vZG9jcy5rZXJuZWwub3JnL2Rldi10b29scy9rZmVuY2UuaHRtbA0KPiANCj4+ICBGcm9t
-IFsxXSBJIHNlZTogIklmIGFuIGluc3RydWN0aW9uIGFjY2Vzc2VzIGEgdmlydHVhbCBhZGRy
-ZXNzIGZvcg0KPj4gd2hpY2ggdGhlIHJlbGV2YW50IHBhZ2UgdGFibGUgZW50cnkgKFBURSkg
-aGFzIHRoZSBQcmVzZW50IGJpdCBjbGVhcmVkDQo+PiBvciBvdGhlciByZXNlcnZlZCBiaXRz
-IHNldCwgdGhlbiBzcGVjdWxhdGl2ZSBleGVjdXRpb24gaWdub3JlcyB0aGUNCj4+IGludmFs
-aWQgUFRFIGFuZCBsb2FkcyB0aGUgcmVmZXJlbmNlZCBkYXRhIGlmIGl0IGlzIHByZXNlbnQg
-aW4gdGhlDQo+PiBMZXZlbCAxIERhdGEgQ2FjaGUsIGFzIGlmIHRoZSBwYWdlIHJlZmVyZW5j
-ZWQgYnkgdGhlIGFkZHJlc3MgYml0cyBpbg0KPj4gdGhlIFBURSB3YXMgc3RpbGwgcHJlc2Vu
-dCBhbmQgYWNjZXNzaWJsZS4iDQo+IA0KPj4gWzFdIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcv
-ZG9jL2h0bWwvbGF0ZXN0L2FkbWluLWd1aWRlL2h3LXZ1bG4vbDF0Zi5odG1sDQo+IA0KPj4g
-VGhpcyBpcyBwZXJmZWN0bHkgZmluZSBpbiB0aGUgY29udGV4dCBvZiBLRkVOQ0UsIGFzIHN0
-YXRlZCBhYm92ZSwgdGhlDQo+PiBwYWdlIHByb3RlY3Rpb24gaXMgbWVyZWx5IHVzZWQgdG8g
-ZGV0ZWN0IG91dC1vZi1ib3VuZHMgYW5kDQo+PiB1c2UtYWZ0ZXItZnJlZSBidWdzIG9mIHNh
-bXBsZWQgc2xhYiBhbGxvY2F0aW9ucy4gS0ZFTkNFIGRvZXMgbm90DQo+PiBtaXRpZ2F0ZSBu
-b3IgcHJldmVudCBzdWNoIGJ1Z3MsIGJlY2F1c2UgaXQgc2FtcGxlcyBhbGxvY2F0aW9ucywg
-aS5lLg0KPj4gbW9zdCBhbGxvY2F0aW9ucyBhcmUgc3RpbGwgc2VydmljZWQgYnkgc2xbYXVd
-Yi4NCj4gDQo+IEl0IGlzIG5vdCBmaW5lIHdoZW4gcnVubmluZyBwYXJhdmlydHVhbGl6ZWQg
-dW5kZXIgWGVuLCB0aG91Z2guICBYZW4NCj4gc3RyaWN0bHkgdmFsaWRhdGVzIHRoYXQgcHJl
-c2VudCBQVEVzIHBvaW50IGludG8gYSBndWVzdOKAmXMgb3duIG1lbW9yeSwNCj4gYnV0IChp
-biB0aGUgYWJzZW5jZSBvZiBMMVRGKSBhbGxvd3Mgbm90LXByZXNlbnQgUFRFcyB0byBoYXZl
-IGFueSB2YWx1ZS4NCj4gSG93ZXZlciwgTDFURiBtZWFucyB0aGF0IGRvaW5nIHNvIHdvdWxk
-IGFsbG93IGEgUFYgZ3Vlc3QgdG8gbGVhayBtZW1vcnkNCj4gZnJvbSBYZW4gb3Igb3RoZXIg
-Z3Vlc3RzISAgVGhlcmVmb3JlLCBYZW4gcmVxdWlyZXMgdGhhdCBub3QtcHJlc2VudCBQVEVz
-DQo+IGJlIEwxVEYtc2FmZSwgZW5zdXJpbmcgdGhhdCBQViBndWVzdHMgY2Fubm90IHVzZSBM
-MVRGIHRvIG9idGFpbiBtZW1vcnkNCj4gZnJvbSBvdGhlciBndWVzdHMgb3IgdGhlIGh5cGVy
-dmlzb3IuDQo+IA0KPiBJZiBhIGd1ZXN0IGNyZWF0ZXMgYW4gTDFURi12dWxuZXJhYmxlIFBU
-RSwgWGVu4oCZcyBiZWhhdmlvciBkZXBlbmRzIG9uDQo+IHdoZXRoZXIgaXQgaGFzIGJlZW4g
-Y29tcGlsZWQgd2l0aCBzaGFkb3cgcGFnaW5nIHN1cHBvcnQuICBJZiBpdCBoYXMsIFhlbg0K
-PiB3aWxsIHRyYW5zaXRpb24gdGhlIGd1ZXN0IHRvIHNoYWRvdyBwYWdpbmcgbW9kZS4gIFRo
-aXMgd29ya3MsIGJ1dCBjb21lcw0KPiBhdCBhIHNpZ25pZmljYW50IHBlcmZvcm1hbmNlIGhp
-dCwgc28geW91IGRvbuKAmXQgd2FudCB0aGF0LiAgSWYgc2hhZG93DQo+IHBhZ2luZyBoYXMg
-YmVlbiBkaXNhYmxlZCBhdCBjb21waWxlIHRpbWUsIGFzIGlzIHRoZSBjYXNlIGluIFF1YmVz
-LCBYZW4NCj4gc2ltcGx5IGNyYXNoZXMgdGhlIGd1ZXN0Lg0KPiANCj4gZG9tMCBpcyBleGVt
-cHRlZCBmcm9tIHRoZXNlIGNoZWNrcyBieSBkZWZhdWx0LCBiZWNhdXNlIHRoZSBkb20wIGtl
-cm5lbA0KPiBpcyBjb25zaWRlcmVkIHRydXN0ZWQuICBIb3dldmVyLCB0aGlzIGNhbiBiZSBj
-aGFuZ2VkIGJ5IGEgWGVuDQo+IGNvbW1hbmQtbGluZSBvcHRpb24sIHNvIGl0IGlzIG5vdCB0
-byBiZSByZWxpZWQgb24uDQo+IA0KPj4gSG93IGNhbiB3ZSB0ZWFjaCB3aGF0ZXZlciBpcyBj
-b21wbGFpbmluZyBhYm91dCBMMVRGIG9uIHRoYXQgS0ZFTkNFIFBURQ0KPj4gbW9kaWZpY2F0
-aW9uIHRoYXQgS0ZFTkNFIGRvZXMgbm90IHVzZSBwYWdlIHByb3RlY3Rpb24gdG8gc3RvcCBh
-bnlvbmUNCj4+IGZyb20gYWNjZXNzaW5nIHRoYXQgbWVtb3J5Pw0KPiANCj4gV2l0aCBjdXJy
-ZW50IFhlbiwgeW91IGNhbuKAmXQuICBBbnkgbm90LXByZXNlbnQgUFRFIG11c3QgYmUgTDFU
-Ri1zYWZlIG9uDQo+IEwxVEYtdnVsbmVyYWJsZSBoYXJkd2FyZSwgYW5kIEkgYW0gbm90IGF3
-YXJlIG9mIGFueSB3YXkgdG8gYXNrIFhlbiBpZiBpdA0KPiBjb25zaWRlcnMgdGhlIGhhcmR3
-YXJlIHZ1bG5lcmFibGUgdG8gTDFURi4gIFRoZXJlZm9yZSwgS0ZFTkNFIHdvdWxkIG5lZWQN
-Cj4gdG8gZWl0aGVyIG5vdCBnZW5lcmF0ZSBMMVRGLXZ1bG5lcmFibGUgbm90LXByZXNlbnQg
-UFRFcywgb3INCj4gYXV0b21hdGljYWxseSBkaXNhYmxlIGl0c2VsZiB3aGVuIHJ1bm5pbmcg
-aW4gWGVuIFBWIG1vZGUuDQo+IA0KPiBJbiB0aGVvcnksIGl0IG91Z2h0IHRvIGJlIHNhZmUg
-Zm9yIFhlbiB0byBpbnN0ZWFkIHRyZWF0IG5vdC1wcmVzZW50DQo+IEwxVEYtdnVsbmVyYWJs
-ZSBQVEVzIGFzIGlmIHRoZXkgd2VyZSBwcmVzZW50LCBhbmQgYXBwbHkgdGhlIHNhbWUNCj4g
-dmFsaWRhdGlvbiB0aGF0IGl0IGRvZXMgZm9yIHByZXNlbnQgUFRFcy4gIEhvd2V2ZXIsIHRo
-ZSBQViBtZW1vcnkNCj4gbWFuYWdlbWVudCBjb2RlIGhhcyBiZWVuIGludm9sdmVkIGluIHNl
-dmVyYWwgZmF0YWwsIHJlbGlhYmx5IGV4cGxvaXRhYmxlDQo+IFBWIGd1ZXN0IGVzY2FwZSB2
-dWxuZXJhYmlsaXRpZXMsIGFuZCBJIHdvdWxkIHJhdGhlciBub3QgbWFrZSBpdCBhbnkgbW9y
-ZQ0KPiBjb21wbGV4IHRoYW4gaXQgYWxyZWFkeSBpcy4NCg0KVHJlYXRpbmcgbm9uLXByZXNl
-bnQgUFRFcyBsaWtlIHByZXNlbnQgb25lcyBoYXMgYSBtYWpvciBkcmF3YmFjazogaXQNCnJl
-cXVpcmVzIHRvIGtlZXAgdHJhY2sgb2YgYWxsIHBhZ2UgZnJhbWVzIGJlaW5nIHBvdGVudGlh
-bGx5IHJlZmVyZW5jZWQsDQppbmR1Y2luZyBhIG1ham9yIHBlcmZvcm1hbmNlIGhpdCBmb3Ig
-dGhlICJyZWd1bGFyIiBjYXNlLiBNZW1vcnkgYmFsbG9vbmluZw0Kd291bGQgYmUgYSBsb3Qg
-bW9yZSBjb21wbGljYXRlZCBkdWUgdG8gdGhhdC4NCg0KPiBBIG11Y2ggYmV0dGVyIHNvbHV0
-aW9uIHdvdWxkIGJlIGZvciBLRkVOQ0UgdG8gdXNlIFBURSBpbnZlcnNpb24ganVzdA0KPiBs
-aWtlIHRoZSByZXN0IG9mIHRoZSBrZXJuZWwgZG9lcy4gIFRoaXMgc29sdmVzIHRoZSBwcm9i
-bGVtDQo+IHVuY29uZGl0aW9uYWxseSwgYW5kIGF2b2lkcyBuZWVkaW5nIFhlbiBQViBzcGVj
-aWZpYyBjb2RlLiAgSSBoYXZlIGENCj4gcGF0Y2ggdGhhdCBkaXNhYmxlcyBLRkVOQ0Ugb24g
-WGVuIFBWLCBidXQgSSB3b3VsZCBtdWNoIHJhdGhlciBzZWUgS0ZFTkNFDQo+IGZpeGVkLCB3
-aGljaCBpcyB3aHkgSSBoYXZlIG5vdCBzdWJtaXR0ZWQgdGhlIHBhdGNoLg0KDQpJIGNhbiBz
-dXBwbHkgYSBrZXJuZWwgcGF0Y2ggZm9yIGRvaW5nIHRoZSBQRk4gaW52ZXJzaW9uIGluIHRo
-ZSBQVEUuDQoNCg0KSnVlcmdlbg0K
---------------oZhaDNPkkcoxk2G0lwcWLKjd
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+在 2022/12/9 17:50, Rahul Singh 写道:
+> Hi Sisyphean,
+>
+> > On 9 Dec 2022, at 6:15 am, sisyphean <sisyphean@zlw.email> wrote:
+> >
+> > Hi,
+> >
+> > I try to run XEN on my ARM board(Sorry, for some commercial reasons, 
+> I can't tell you
+> > on which platform I run XEN)  and add PCIE device passthrough to 
+> DomU.But an error
+> > occurred while adding the PCIE device to SMMUv3.
+>
+> PCI passthrough support is not fully upstream to Xen on ARM. We have 
+> working
+> PCI passthrough branch that you can use to test it.
+>
+> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough
+>
+> >
+> > Through reading the code and tracing debugging, the error is found 
+> in the function
+> > arm_smmu_add_device, which will obtain and determine whether the 
+> fwspec of the
+> > device to be added to SMMU exists.But for the XEN of arm, the fwspec 
+> of the device is
+> > created and added by judging whether the iommu field exists in the 
+> device node when
+> > XEN parses the device tree.However, the PCIE device does not appear 
+> in the device tree,
+> > so there will be no fwspec for all PCIE devices. When attempting to 
+> add a PCIE device to
+> > SMMU, a ENODEV error will be returned.
+>
+> As of now Xen doesn’t support to add PCI device to IOMMU on ARM.
+> >
+> > In addition, the code at xen/drivers/passthrough/pci.c also verifies 
+> the above view.
+> > For PCIE devices, pdev is alloc in function pci_add_device by 
+> alloc_pdev.However,
+> > the function alloc_pdev does not create and add fwspec to the PCIE 
+> device.Therefore,
+> > when function pci_add_device executes to iommu_add_device,it will 
+> get the error
+> > return of ENODEV.
+> >
+> > How can I resolve the above errors?
+>
+> If you want to test the PCI passthrough please follow below steps.
+>
+> Xen setup:
+>     • A checkout of the “integration/pci-passthrough” branch from the  
+> gitlab 
+> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough
+>     • Pass iommu=yes  and pci-passthrough=on to Xen command line to 
+> enable PCI passthrough.
+>
+>  Linux Kernel setup:
+>
+>     • Some changes are required for the kernel to work with PCI 
+> passthrough. First are some configuration options, enable them in 
+> kernel config.
+>          CONFIG_XEN=y
+>          CONFIG_XEN_BACKEND=y
+>          CONFIG_XEN_PCIDEV_BACKEND=y
+>     • Then a patch needs to be applied for enabling the pciback 
+> driver. Patch is attached in this email.
+>
+> Using PCI passthrough:
+>
+>     • In order to pass a device to a guest, you first need its PCI 
+> address(SBDF). You can either get it from a bare-metal
+>       Linux running on the platform or by having pciutils installed 
+> (if you are using a yocto-based dom0 or have apt available), which 
+> provides lspci.
+>
+>      For example, let's pass one ethernet interface to the guest. 
+> Running lspci gives us this output (truncated) :
+>        0000:00:00.0 Host bridge: Ampere Computing, LLC Device e100
+>        0000:00:01.0 PCI bridge: Ampere Computing, LLC Device e101 (rev 04)
+>        0000:01:00.0 Ethernet controller: Intel Corporation Ethernet 
+> Controller X710/X557-AT 10GBASE-T (rev 01)
+>                [...]
+>
+>      We will pass one of the ethernet from the PCI network card : 
+> 0000:01:00.0 .
+>
+>     • Add the following line to the guest configuration file :
+>           pci = ['0000:01:00.0']
+>
+>     • Run the following command before starting the guest :
+>            xl pci-assignable-add 0000:01:00.0
+>     • Start the guest. The network interface should appear as 00:00.0  
+> in the guest and be usable.
+>
+> Please let me know if you need more info.
+>
+>
+>
+> Regards,
+> Rahul
+>
+Thank you for your reply.
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+After setting XEN and kernel as above, I tried the following two methods 
+to add a PCIE device passthrough:
 
---------------oZhaDNPkkcoxk2G0lwcWLKjd--
+1. According to your suggestion, use the command xl pci-assignable-add 
+0002:21:00.0 to set in the Dom0. But in function
+iommu_do_pci_domctl,  after device_assigned is called, ENODEV error is 
+obtained.
 
---------------jmu50pFsK3nFV6dYJ1cupCTv--
+2. Add xen-pciback.hide=(0002:21:00.0) to dom0-bootargs in the device 
+tree, I encountered the same problem as before
+when initializing the kernel. In function pci_add_device, PCIE devices 
+cannot be added to SMMUv3.
 
---------------TDjy6sZearJP8RKYq0xs4s9P
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+The kernel version I use is 5.10. Does this have an impact?
 
------BEGIN PGP SIGNATURE-----
+In addition, an error was encountered after XEN enabling ITS:
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmOWufcFAwAAAAAACgkQsN6d1ii/Ey+H
-jQgAg7nHsWFzaEfFwDmTTypBIAuAAPfDYyBHkexDtDZtX7CdAndNjjhgKxeCRoMkPrpkK1o06Bin
-ppU/wpU6cnEzadUU7Vb2HqL+Y5mk7FsjTHYm33f/1w+ceeufd9o+FRlGJSM1mKR/c3rr1VWI4Z/B
-+hjWdwO8KU/AvTySTqx+BzCTVcUgyca37cJXsf/0wrUzMV82cLcmq6aPPNrw948gYjvoplxugisn
-lL0gp3FdZr79m7LaRLJkUWuTEPOixY+uFcJkY2dqGCAVws6DF3rdav8gxFWJ0Onlb69ffj+Um7CY
-T4jinfTPN9eBYjY9YTIPqAs+JDTFDrbs+Od51md/nw==
-=2sp0
------END PGP SIGNATURE-----
+In function gicv3_cpu_init, gicv3_its_setup_collection return 
+-ETIMEDOUT. This problem was solved after I made the
+following changes:
 
---------------TDjy6sZearJP8RKYq0xs4s9P--
+diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+index 9558bad..a12c0d1 100644
+--- a/xen/arch/arm/gic-v3-its.c
++++ b/xen/arch/arm/gic-v3-its.c
+@@ -118,11 +118,11 @@ static int its_send_command(struct host_its 
+*hw_its, const void *its_cmd)
+      }
+
+      memcpy(hw_its->cmd_buf + writep, its_cmd, ITS_CMD_SIZE);
+-    if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
++    // if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
+          clean_and_invalidate_dcache_va_range(hw_its->cmd_buf + writep,
+                                               ITS_CMD_SIZE);
+-    else
+-        dsb(ishst);
++    // else
++    //     dsb(ishst);
+
+      writep = (writep + ITS_CMD_SIZE) % ITS_CMD_QUEUE_SZ;
+      writeq_relaxed(writep & BUFPTR_MASK, hw_its->its_base + GITS_CWRITER);
+
+Cheers,
+
+--
+Sisyphean
+
+--------------twmZYvIWUWAfqTa7A2RDV568
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hi,<br>
+    </p>
+    <div class="moz-cite-prefix">在 2022/12/9 17:50, Rahul Singh 写道:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText">Hi Sisyphean,<br>
+              <br>
+              &gt; On 9 Dec 2022, at 6:15 am, sisyphean
+              <a class="moz-txt-link-rfc2396E" href="mailto:sisyphean@zlw.email">&lt;sisyphean@zlw.email&gt;</a> wrote:<br>
+              &gt; <br>
+              &gt; Hi,<br>
+              &gt; <br>
+              &gt; I try to run XEN on my ARM board(Sorry, for some
+              commercial reasons, I can't tell you<br>
+              &gt; on which platform I run XEN)  and add PCIE device
+              passthrough to DomU.But an error<br>
+              &gt; occurred while adding the PCIE device to SMMUv3.<br>
+              <br>
+              PCI passthrough support is not fully upstream to Xen on
+              ARM. We have working<br>
+              PCI passthrough branch that you can use to test it. <br>
+              <br>
+              <a
+href="https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough"
+                moz-do-not-send="true" class="moz-txt-link-freetext">https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough</a><br>
+              <br>
+              &gt; <br>
+              &gt; Through reading the code and tracing debugging, the
+              error is found in the function<br>
+              &gt; arm_smmu_add_device, which will obtain and determine
+              whether the fwspec of the<br>
+              &gt; device to be added to SMMU exists.But for the XEN of
+              arm, the fwspec of the device is<br>
+              &gt; created and added by judging whether the iommu field
+              exists in the device node when<br>
+              &gt; XEN parses the device tree.However, the PCIE device
+              does not appear in the device tree,<br>
+              &gt; so there will be no fwspec for all PCIE devices. When
+              attempting to add a PCIE device to<br>
+              &gt; SMMU, a ENODEV error will be returned.<br>
+              <br>
+              As of now Xen doesn’t support to add PCI device to IOMMU
+              on ARM. <br>
+              &gt; <br>
+              &gt; In addition, the code at
+              xen/drivers/passthrough/pci.c also verifies the above
+              view.<br>
+              &gt; For PCIE devices, pdev is alloc in function
+              pci_add_device by alloc_pdev.However,<br>
+              &gt; the function alloc_pdev does not create and add
+              fwspec to the PCIE device.Therefore,<br>
+              &gt; when function pci_add_device executes to
+              iommu_add_device,it will get the error<br>
+              &gt; return of ENODEV.<br>
+              &gt; <br>
+              &gt; How can I resolve the above errors?<br>
+              <br>
+              If you want to test the PCI passthrough please follow
+              below steps.<br>
+              <br>
+              Xen setup:<br>
+                  • A checkout of the “integration/pci-passthrough”
+              branch from the  gitlab <a
+href="https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough"
+                moz-do-not-send="true" class="moz-txt-link-freetext">
+https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough</a><br>
+                  • Pass iommu=yes  and pci-passthrough=on to Xen
+              command line to enable PCI passthrough.<br>
+              <br>
+               Linux Kernel setup:<br>
+               <br>
+                  • Some changes are required for the kernel to work
+              with PCI passthrough. First are some configuration
+              options, enable them in kernel config.<br>
+                       CONFIG_XEN=y<br>
+                       CONFIG_XEN_BACKEND=y<br>
+                       CONFIG_XEN_PCIDEV_BACKEND=y<br>
+                  • Then a patch needs to be applied for enabling the
+              pciback driver. Patch is attached in this email.<br>
+               <br>
+              Using PCI passthrough:<br>
+               <br>
+                  • In order to pass a device to a guest, you first need
+              its PCI address(SBDF). You can either get it from a
+              bare-metal<br>
+                    Linux running on the platform or by having pciutils 
+              installed (if you are using a yocto-based dom0 or have apt
+              available), which provides lspci.<br>
+               <br>
+                   For example, let's pass one ethernet interface to the
+              guest. Running lspci gives us this output (truncated) :<br>
+                     0000:00:00.0 Host bridge: Ampere Computing, LLC
+              Device e100<br>
+                     0000:00:01.0 PCI bridge: Ampere Computing, LLC
+              Device e101 (rev 04)<br>
+                     0000:01:00.0 Ethernet controller: Intel Corporation
+              Ethernet Controller X710/X557-AT 10GBASE-T (rev 01)<br>
+                             [...]<br>
+               <br>
+                   We will pass one of the ethernet from the PCI network
+              card : 0000:01:00.0 .<br>
+               <br>
+                  • Add the following line to the guest configuration
+              file :<br>
+                        pci = ['0000:01:00.0']<br>
+               <br>
+                  • Run the following command before starting the guest
+              :<br>
+                         xl pci-assignable-add 0000:01:00.0<br>
+                  • Start the guest. The network interface should appear
+              as 00:00.0  in the guest and be usable.<br>
+               <br>
+              Please let me know if you need more info.<br>
+              <br>
+            </div>
+          </span></font></div>
+      <div class="BodyFragment"><font size="2"><span
+            style="font-size:11pt;">
+            <div class="PlainText"><br>
+              <br>
+              Regards,<br>
+              Rahul<br>
+              <br>
+            </div>
+          </span></font></div>
+    </blockquote>
+    <p><font size="2">Thank you for your reply.</font></p>
+    <p><font size="2">After setting XEN and kernel as above, I tried the
+        following two methods to add a PCIE device passthrough:</font></p>
+    <p><font size="2">1. According to your suggestion, use the command
+        xl pci-assignable-add 0002:21:00.0 to set in the Dom0. But in
+        function<br>
+        iommu_do_pci_domctl,  after device_assigned is called, ENODEV
+        error is obtained.<br>
+      </font></p>
+    <p><font size="2">2. Add xen-pciback.hide=(0002:21:00.0) to
+        dom0-bootargs in the device tree, I encountered the same problem
+        as before <br>
+        when initializing the kernel. In function pci_add_device, PCIE
+        devices cannot be added to SMMUv3.<br>
+      </font></p>
+    <p><font size="2">The kernel version I use is 5.10. Does this have
+        an impact?<br>
+      </font></p>
+    <p><font size="2">In addition, an error was encountered after XEN
+        enabling ITS:</font></p>
+    <p><font size="2">In function gicv3_cpu_init,
+        gicv3_its_setup_collection return -ETIMEDOUT. This problem was
+        solved after I made the<br>
+        following changes:</font></p>
+    <p><font size="2">diff --git a/xen/arch/arm/gic-v3-its.c
+        b/xen/arch/arm/gic-v3-its.c<br>
+        index 9558bad..a12c0d1 100644<br>
+        --- a/xen/arch/arm/gic-v3-its.c<br>
+        +++ b/xen/arch/arm/gic-v3-its.c<br>
+        @@ -118,11 +118,11 @@ static int its_send_command(struct
+        host_its *hw_its, const void *its_cmd)<br>
+             }<br>
+         <br>
+             memcpy(hw_its-&gt;cmd_buf + writep, its_cmd, ITS_CMD_SIZE);<br>
+        -    if ( hw_its-&gt;flags &amp; HOST_ITS_FLUSH_CMD_QUEUE )<br>
+        +    // if ( hw_its-&gt;flags &amp; HOST_ITS_FLUSH_CMD_QUEUE )<br>
+                 clean_and_invalidate_dcache_va_range(hw_its-&gt;cmd_buf
+        + writep,<br>
+                                                      ITS_CMD_SIZE);<br>
+        -    else<br>
+        -        dsb(ishst);<br>
+        +    // else<br>
+        +    //     dsb(ishst);<br>
+         <br>
+             writep = (writep + ITS_CMD_SIZE) % ITS_CMD_QUEUE_SZ;<br>
+             writeq_relaxed(writep &amp; BUFPTR_MASK,
+        hw_its-&gt;its_base + GITS_CWRITER);<br>
+      </font></p>
+    <p><font size="2">Cheers,</font></p>
+    <p><font size="2">--<br>
+        Sisyphean<br>
+      </font></p>
+  </body>
+</html>
+
+--------------twmZYvIWUWAfqTa7A2RDV568--
 
