@@ -2,50 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBCEF64A480
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 16:57:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459760.717535 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9AF364A483
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 17:01:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459770.717544 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4lBV-0007RW-Co; Mon, 12 Dec 2022 15:57:41 +0000
+	id 1p4lEX-0000z7-RY; Mon, 12 Dec 2022 16:00:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459760.717535; Mon, 12 Dec 2022 15:57:41 +0000
+Received: by outflank-mailman (output) from mailman id 459770.717544; Mon, 12 Dec 2022 16:00:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4lBV-0007O4-A1; Mon, 12 Dec 2022 15:57:41 +0000
-Received: by outflank-mailman (input) for mailman id 459760;
- Mon, 12 Dec 2022 15:57:40 +0000
+	id 1p4lEX-0000xB-OS; Mon, 12 Dec 2022 16:00:49 +0000
+Received: by outflank-mailman (input) for mailman id 459770;
+ Mon, 12 Dec 2022 16:00:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=2bIl=4K=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
- id 1p4lBU-0007C5-BV
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 15:57:40 +0000
-Received: from boar.tulip.relay.mailchannels.net
- (boar.tulip.relay.mailchannels.net [23.83.218.250])
+ <SRS0=Sjdt=4K=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
+ id 1p4lEW-0000x3-GT
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 16:00:48 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on2078.outbound.protection.outlook.com [40.107.212.78])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b172d9a8-7a35-11ed-91b6-6bf2151ebd3b;
- Mon, 12 Dec 2022 16:57:37 +0100 (CET)
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 2151850232B
- for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 15:57:34 +0000 (UTC)
-Received: from pdx1-sub0-mail-a306.dreamhost.com (unknown [127.0.0.6])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id 943FB501B6F
- for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 15:57:33 +0000 (UTC)
-Received: from pdx1-sub0-mail-a306.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.116.179.114 (trex/6.7.1); Mon, 12 Dec 2022 15:57:33 +0000
-Received: from kmjvbox (c-73-70-108-208.hsd1.ca.comcast.net [73.70.108.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: kjlx@templeofstupid.com)
- by pdx1-sub0-mail-a306.dreamhost.com (Postfix) with ESMTPSA id 4NW5qd1RSDzMB
- for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 07:57:33 -0800 (PST)
-Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
- id e0062 by kmjvbox (DragonFly Mail Agent v0.12);
- Mon, 12 Dec 2022 07:57:30 -0800
+ id 23745ced-7a36-11ed-91b6-6bf2151ebd3b;
+ Mon, 12 Dec 2022 17:00:46 +0100 (CET)
+Received: from DM6PR17CA0016.namprd17.prod.outlook.com (2603:10b6:5:1b3::29)
+ by DM8PR12MB5462.namprd12.prod.outlook.com (2603:10b6:8:24::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Mon, 12 Dec
+ 2022 16:00:42 +0000
+Received: from DM6NAM11FT071.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1b3:cafe::66) by DM6PR17CA0016.outlook.office365.com
+ (2603:10b6:5:1b3::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.10 via Frontend
+ Transport; Mon, 12 Dec 2022 16:00:42 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT071.mail.protection.outlook.com (10.13.173.48) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5901.21 via Frontend Transport; Mon, 12 Dec 2022 16:00:41 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 12 Dec
+ 2022 10:00:40 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 12 Dec
+ 2022 10:00:34 -0600
+Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 12 Dec 2022 10:00:33 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,93 +62,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b172d9a8-7a35-11ed-91b6-6bf2151ebd3b
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1670860653; a=rsa-sha256;
-	cv=none;
-	b=tWoS8cOiby/UrMpJ4a0xfDZdsZm38Mx+ox2Ckus5yY4J+OgyBKWGEbjs+Hl0i5NCQP3vcv
-	wJZUO+5YjWW3khYxh6/BlBYhFuOYFR+h1VMNxb1e0h/Z2SsHYHG2ufd4PmrsmRBZBnndX0
-	bIksv3fa5s4ePLXcpCFoCO18dvWfoM/U/5T0YANAWpgveaBBP7Af8BoozhGYMopXjIfz0y
-	7/Ig+HObZQK34Lhx/hogsSFrQPBUzQR8PWLH9nOhdXQl8e72p1j+b1kLyCGQ2lKO+Fjjry
-	2TM+1a2bOaTGsVkoGY4HvLW7SVk71cDkz6e/WC6R7hTclNui/hx//rt5xuIKUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1670860653;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=4T/zjG3plJ8sYfo5jMTvgYHcxH66poUD8cr6GG0LDRs=;
-	b=ncpLvPS2no8tViamLPErH9Noqu+S3jTZGO5DsE8WJ+JuEgd/nL8GNaRHZ4CjTyL0Elo7cu
-	lCc6UU9xpiTExlm9u6clpurfvrpp0D564LSjBmYUUVu0DR+eeJ1b2tk09NsNc6UsaXMo+g
-	G5+0FHLO1UBuPoCGq7FuTSi900Hxkhhzuh/cnLU5UuX8ydIQ627xDWbfFXryh6kmHhlf5q
-	1/rI/8qUdBzoTxuzMZ0K9gimvw4IsaIMOlXLtxp3mCJwRsRQyjDsXYHoF1nD5hGA9d9zrD
-	ewR19A43F/m5XFkPRovRPMTVe+uw3JaUcDRrmLu43Bdez4Gxi3nbt97kc5w78Q==
-ARC-Authentication-Results: i=1;
-	rspamd-85f95c7974-lnmpm;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MailChannels-Auth-Id: dreamhost
-X-Slimy-Lettuce: 7d15233452a542f3_1670860653833_4237009608
-X-MC-Loop-Signature: 1670860653833:1414107649
-X-MC-Ingress-Time: 1670860653833
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
-	s=dreamhost; t=1670860653;
-	bh=4T/zjG3plJ8sYfo5jMTvgYHcxH66poUD8cr6GG0LDRs=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=rS8AOfUvj/sxhB7y5MxG4vuS1Im8fpddc7fDN9zqGwS/Hy3RJorODqyuEGQRNj3BX
-	 bHuBPDgEDT/gv6BsAXfXPiSPCghIHIsAMHF5lYfJra4TDj+bYh8aRxjozA7oTQWx40
-	 FkPCBexZrraP8wgdo6ATStyICAChgaw92WElM4wA=
-Date: Mon, 12 Dec 2022 07:57:30 -0800
-From: Krister Johansen <kjlx@templeofstupid.com>
-To: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Krister Johansen <kjlx@templeofstupid.com>,
-	Juergen Gross <jgross@suse.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
-	linux-kernel@vger.kernel.org, Marcelo Tosatti <mtosatti@redhat.com>,
-	Anthony Liguori <aliguori@amazon.com>,
-	David Reaver <me@davidreaver.com>,
-	Brendan Gregg <brendan@intel.com>
-Subject: Re: [PATCH linux-next] x86/xen/time: prefer tsc as clocksource when
- it is invariant
-Message-ID: <20221212155730.GA1973@templeofstupid.com>
-References: <20221208163650.GA3225@templeofstupid.com>
- <1e6c1b08-d573-fba9-61fd-d40a74427d46@oracle.com>
+X-Inumbo-ID: 23745ced-7a36-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iHhKskPEFEnNNQiCKIOUjgNNN+tdHBEG2NIH4gtMZD3NxaTaeYnD3ojOAiTihu67oYYdctHPhV6nR9rpEknXkkLvtBFh7FyLAHtLde/NKqnADWSo5lnc2JluRes+ZczWz4BcAHZqzBsiW/y2g3fCXo9/Zq9TES9hQdWEkjd20ovaKU/4IFg8DnV0IwoTrv83wkNEn28ne1pmcbAbloJ5zU+QN/ffpGVBS/aC7JSqyX9DR//SoYZCfRq5l+qZcbBtcedoWFV4i/RvOndKLl2/0rsfUwk1JgU1WadrccXSy5ofEakprT0nS0OaUynXlI1Lwc9RbA33YkkmEtqqPDx6qQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cwR3TvcwiCf5uSnerTtdKAUsWBq8IxQW7OLe1vZOurE=;
+ b=AfEsFFt6Q+6TAHnH7Ex4wnmoZlWZU0wGs8UX5t8sQtPO2tyCyC9+D/ixzJJzywFqBGLuBM3+1saJ4m4NNOhrbvc4IfsWf58MG4+cxZ9PCPxC89AgO6ifaaUoDF+fNjqDuOt6/BoZ2OvVmCoONTTKg7P7ZRx0xzrFF9gTKJb/xORKRxtfyiSUFv8wNLgBI9i5gfQY1v/O+pjz83j1JUV1EtKihSPc3OfrERX2lTSvXpmlSa0rEAUQTudi55FW6V8anqMJvhEi/AcbYqGYyIScLJvueQGnAU2eiu4Ywehb2nXDGxKuIcjV+qEaFJhFfGhIZ07+w6ddn5nZMG/naheM0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cwR3TvcwiCf5uSnerTtdKAUsWBq8IxQW7OLe1vZOurE=;
+ b=fIHN0DE9Bj4za66ap+cYQOwiM2xkDjMuI+83NZPi8gUKaiR30N3ygnxbSj4NGYxgXFl69Bw0i7sU2hIcclvFqV851iPu8iONn1MaHVAWPpZqCXbFlmAUbCtZGLpaZSoHdWFWBSBDZbJPnPTrkUmqq6AIvqgrlUpJWeZ0NRbKiuc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Stewart Hildebrand <stewart.hildebrand@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH] xen/arm: smmuv3: remove unused function
+Date: Mon, 12 Dec 2022 11:00:31 -0500
+Message-ID: <20221212160031.31590-1-stewart.hildebrand@amd.com>
+X-Mailer: git-send-email 2.38.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1e6c1b08-d573-fba9-61fd-d40a74427d46@oracle.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT071:EE_|DM8PR12MB5462:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d88866c-feab-4cf0-a5c5-08dadc5a053a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	ecBFuaoJdPs9jSuP4ZsD4Q+6dwDK90Uc7jdQv0khpbA/MoWc2k4dBmHs9w77Tn5TYoODiD2h2ALszOcuScjGdQATJOr6eWS2r+dDp7/I8l1hXRoWhAazVzAreOcduHynfbm859dkPm2jQ6zun4wf3aH8o1K77oLoq/y+59fi0kchGfT5Zapu+MpTG1ok16tj4BNajUkQ2tWrf9kKSSUuyQg5+VGL5rg6o0+cUDtcBjDDnjNR/MjgItU6zwoYU6Lu2wPH//eFpCh61aY6ZVCbwf1BYu9pia6aU42fM670w9LWcbYhZXQJDT0XaE6w+ytKjIcBF0AxZk7U3Xld88LYQu1tIXjm3Zqwe0kknFX/FSJHJnyAEZ1v5+8OTQaIuyMn4dlthHW+NxKcDBl9R91A9BE07dFcyQHvOHm24N5g875AE5xu8fkLsZ9qXIgpCjyP00IRwE3mzvSQFLxRQt5l/8fJfAy2/IP6/lWCakvvxICkIdvnlXOPoDmUYVsumJ8z7CB52SnHJ9+BVZYlsLgNLdkC0ffSZ9S0Z6G5s2hJ0neHG05Z31kBqxuOgL6SB4hri1EQUbSk2JG8ZfaMIewPhZV6s9+rNdIKGKi8pz1EQqZ2rKUF4v1swcgiSqZsYE0Tc6ripVLYF8Amhq+tyySgcvlw8funEwgIuQAm/Uwjccmw9tBHlnpvzG/05BNF0kEn6kNT5mdvI36w5h7kmb++M/dsnjBNCBMhKCF4RIfERvY=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199015)(36840700001)(40470700004)(46966006)(2906002)(81166007)(82740400003)(44832011)(356005)(40480700001)(26005)(70586007)(8936002)(36756003)(36860700001)(41300700001)(8676002)(70206006)(82310400005)(86362001)(5660300002)(6916009)(54906003)(316002)(4326008)(336012)(478600001)(426003)(40460700003)(1076003)(186003)(83380400001)(47076005)(2616005)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 16:00:41.8464
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d88866c-feab-4cf0-a5c5-08dadc5a053a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT071.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR12MB5462
 
-On Fri, Dec 09, 2022 at 02:32:15PM -0500, Boris Ostrovsky wrote:
-> 
-> On 12/8/22 11:36 AM, Krister Johansen wrote:
-> > +	/*
-> > +	 * As Dom0 is never moved, no penalty on using TSC there.
-> > +	 *
-> > +	 * If the guest has invariant tsc, then set xen_clocksource rating
-> > +	 * below that of the tsc so that the system prefers tsc instead.  This
-> > +	 * check excludes PV domains, because PV is unable to guarantee that the
-> > +	 * guest's cpuid call has been intercepted by the hypervisor.
-> > +	 */
-> > +	if (xen_initial_domain()) {
-> >   		xen_clocksource.rating = 275;
-> > +	} else if ((xen_hvm_domain() || xen_pvh_domain()) &&
-> > +	    boot_cpu_has(X86_FEATURE_CONSTANT_TSC) &&
-> > +	    boot_cpu_has(X86_FEATURE_NONSTOP_TSC) &&
-> > +	    !check_tsc_unstable()) {
-> > +		xen_clocksource.rating = 299;
-> > +	}
-> 
-> 
-> What if RDTSC is intercepted?
+When building with clang 12 and CONFIG_ARM_SMMU_V3=y, we observe the
+following build error:
 
-Right, thanks.  I'll send out an updated patch here shortly that
-attempts to address this by examining the cpuid information to determine
-if the tsc is being emulated.
+drivers/passthrough/arm/smmu-v3.c:1408:20: error: unused function 'arm_smmu_disable_pasid' [-Werror,-Wunused-function]
+static inline void arm_smmu_disable_pasid(struct arm_smmu_master *master) { }
+                   ^
 
--K
+Remove the function.
+
+Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
+---
+There is also a definition of arm_smmu_disable_pasid() just above,
+guarded by #ifdef CONFIG_PCI_ATS. Should this one be removed too? It
+might be nice to keep this definition for ease of backporting patches
+from Linux, but if we ever plan on supporting PCI_ATS in Xen this may
+need to be re-visited.
+
+This is a candidate for backport to 4.17, 4.16, and possibly 4.15,
+although 4.15 has other issues with clang 12.
+---
+ xen/drivers/passthrough/arm/smmu-v3.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
+index 9c9f4630090e..f54d85cb4b70 100644
+--- a/xen/drivers/passthrough/arm/smmu-v3.c
++++ b/xen/drivers/passthrough/arm/smmu-v3.c
+@@ -1404,8 +1404,6 @@ static inline int arm_smmu_enable_pasid(struct arm_smmu_master *master)
+ {
+ 	return 0;
+ }
+-
+-static inline void arm_smmu_disable_pasid(struct arm_smmu_master *master) { }
+ #endif /* CONFIG_PCI_ATS */
+ 
+ static void arm_smmu_detach_dev(struct arm_smmu_master *master)
+-- 
+2.38.2
+
 
