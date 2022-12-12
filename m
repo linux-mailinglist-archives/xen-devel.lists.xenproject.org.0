@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 149BC64AAB5
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 23:59:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459977.717767 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4588664AB86
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 00:24:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459987.717779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4rkW-0001vO-5u; Mon, 12 Dec 2022 22:58:16 +0000
+	id 1p4s8a-0005fk-3f; Mon, 12 Dec 2022 23:23:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459977.717767; Mon, 12 Dec 2022 22:58:16 +0000
+Received: by outflank-mailman (output) from mailman id 459987.717779; Mon, 12 Dec 2022 23:23:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4rkW-0001si-3E; Mon, 12 Dec 2022 22:58:16 +0000
-Received: by outflank-mailman (input) for mailman id 459977;
- Mon, 12 Dec 2022 22:58:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PhXI=4K=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p4rkU-0001sc-Pk
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 22:58:15 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 73466cf4-7a70-11ed-8fd2-01056ac49cbb;
- Mon, 12 Dec 2022 23:58:12 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 6F0B95C0180;
- Mon, 12 Dec 2022 17:58:10 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 12 Dec 2022 17:58:10 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 12 Dec 2022 17:58:09 -0500 (EST)
+	id 1p4s8a-0005di-05; Mon, 12 Dec 2022 23:23:08 +0000
+Received: by outflank-mailman (input) for mailman id 459987;
+ Mon, 12 Dec 2022 23:23:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p4s8Y-0005dY-B4; Mon, 12 Dec 2022 23:23:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p4s8Y-0004yt-8W; Mon, 12 Dec 2022 23:23:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p4s8X-0005Uc-RP; Mon, 12 Dec 2022 23:23:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p4s8X-0006gw-Qp; Mon, 12 Dec 2022 23:23:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,138 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73466cf4-7a70-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670885890; x=
-	1670972290; bh=oLwm2dssxrwsdrFJechFNbbN6Ajsqr37GspcafJEHGI=; b=m
-	3Xo/y/yrZMaaIeGEJXHt5zcHRuexuVylfAyFeNxTSH7f5PlB3myzLpLlgJVz26AZ
-	pUliv0JM0bQJvT802OBZzziHUtM7jgm/ftQojlhi2Xwu9EH4hBDmBRf4CaXJwlIG
-	db/Ejv0C8XcgMI6SoIswFEs8Kp1sBj1EQRgaGpImNg9Vs0j4/m+n0MV67Eb7FkTC
-	rKpgY3LctyVjZXvQllWIrfY6HmAE5qTabpMr4/+0QdkfbYVD0bmAQG5TE8ejfRqk
-	VJqfmpOUcHcYbyHlbzNa6tgKmVgRYH9w3Mb/obRt9692x/Mizo3o/O7IvIqG64Za
-	kkeNC6YE9L5jPcBFN7Cdg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1670885890; x=1670972290; bh=oLwm2dssxrwsdrFJechFNbbN6Ajs
-	qr37GspcafJEHGI=; b=e7FXx1yeCcvOG5V19MLL38Qro3yzz6RdfgEbQyqEG5Wc
-	n3OIbyn7OEoSt68dqhYvqwuRt1Q39BWteCnx8OpYgkvhsm8Q7+ABVHZCslwW1ClP
-	7rRLnPysP2/gE4n0vWYZhY/za54Rmo4Xr6QfYlBu4VjidXfrU6NHmtKDbsThu2Jy
-	zJBxZwsvUPBV/tgrmfJ5W6AFV+vVQPMriNHZUKG8FqgMbpKPQ/lecS9O4/lHApsQ
-	TA+GizQD+Xq+JnXLQUnCW5FgPkOGqu4vYOP9BnHumCPy54iPPiZyxCQMDyz4gSvW
-	KionUAjyWbDlCSqWmDK1VxpEr2KRvnP+iPuFXOoNpQ==
-X-ME-Sender: <xms:ArKXY5ai66yhcw_4y_mLyE1ISl5qwRW9ooYrNYBqy3qasPfFMDGbPg>
-    <xme:ArKXYwYapZKP4_Dw-2TcJsbQBjGbW3Mu5QSOU6XooF-ZNt_eV1zVu_frPk9FEvNzK
-    V6WhrF-rUufBxw>
-X-ME-Received: <xmr:ArKXY7_Qle4XUsJE4-QqDLD8RkTcReSv3EiKnuPVc5x5MqyxDBmLduwJIQO3>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdelgddthecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
-    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
-    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
-    rggsrdgtohhm
-X-ME-Proxy: <xmx:ArKXY3rnTIYctyj_ELzs8nDm_H_xUUkR0fRm754D8gX7wgR9ue2HBQ>
-    <xmx:ArKXY0rvcbMR84y-0f7-uvHRSBcZrL034k3lyecX7OaYZe4u1bH8gw>
-    <xmx:ArKXY9T6nQmFd0OobJTbBlzFwdjdKjNkw2ro2BZNOuxVdEHyYFHHUg>
-    <xmx:ArKXY_Vmcy5OgDue35lL_FjRnmfS9lKLCPlPGPgW7j7yf7RnpgTOJQ>
-Feedback-ID: iac594737:Fastmail
-Date: Mon, 12 Dec 2022 17:58:05 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] Relocate the ESRT when booting via multiboot2
-Message-ID: <Y5ex/9OBFZ3hdBx/@itl-email>
-References: <74145e57307e9b35cbdc296b22241e6f36405f6a.1670546744.git.demi@invisiblethingslab.com>
- <e4dfe73a-a0ff-54c4-054d-2044de1e546a@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=63MHnKpVPhi0EuCf6NI3TaJ4bwJta3KZLdQLi3Nsp5g=; b=ZIQrg7wNtRSZb62ygsb0z7NAm8
+	jfnyjwLxKVtmdiAJVSR11xKxJRt6Nm8aQkmoAKUVloo/d7pAVIHAtboeQNQMYVMixD9AKC1eOtMnJ
+	GTEhZug8/8kv7uXCwS6yZjJJdP23UBBJPhE+c/qwBjdtaTx60OUEIc/dDF3U24slSGIs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175153-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Q/kQ6JmqdbhO6GPW"
-Content-Disposition: inline
-In-Reply-To: <e4dfe73a-a0ff-54c4-054d-2044de1e546a@suse.com>
+Subject: [linux-linus test] 175153: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=830b3c68c1fb1e9176028d02ef86f3cf76aa2476
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 12 Dec 2022 23:23:05 +0000
+
+flight 175153 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175153/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+
+version targeted for testing:
+ linux                830b3c68c1fb1e9176028d02ef86f3cf76aa2476
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z   66 days
+Failing since        173470  2022-10-08 06:21:34 Z   65 days  132 attempts
+Testing same since   175150  2022-12-12 05:55:51 Z    0 days    2 attempts
+
+------------------------------------------------------------
+1995 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
 
---Q/kQ6JmqdbhO6GPW
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Dec 2022 17:58:05 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] Relocate the ESRT when booting via multiboot2
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Mon, Dec 12, 2022 at 04:19:21PM +0100, Jan Beulich wrote:
-> On 09.12.2022 01:52, Demi Marie Obenour wrote:
-> > This was missed in the initial patchset.
-> >=20
-> > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
->=20
-> It looks as if, besides ...
->=20
-> > --- a/xen/arch/x86/efi/efi-boot.h
-> > +++ b/xen/arch/x86/efi/efi-boot.h
-> > @@ -818,6 +818,8 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle, =
-EFI_SYSTEM_TABLE *SystemTable
-> >      if ( gop )
-> >          efi_set_gop_mode(gop, gop_mode);
-> > =20
-> > +    efi_relocate_esrt(SystemTable);
-> > +
-> >      efi_exit_boot(ImageHandle, SystemTable);
-> >  }
-> > =20
->=20
-> ... this core piece, the rest is merely pure code movement, with the goal
-> of avoiding a forward declaration. If such is the case, please say so in
-> your description. I'll add a sentence to this effect when committing, so
-> the remark if for future patches. Provided of course it is true (i.e. I'm
-> not overlooking any tiny change) - please confirm.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-It is indeed just code movement.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Thanks!  Do you want me to submit a separate patch for backporting to
-4.17, or do you plan on doing that?
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
 
---Q/kQ6JmqdbhO6GPW
-Content-Type: application/pgp-signature; name="signature.asc"
+Not pushing.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOXsf8ACgkQsoi1X/+c
-IsH0pw/+OK94ML0txCrONMxG0ZPBnrRIJCPIdRpD5g2O+Qq3w+BKrz5m0jF2TNuc
-KjXyhjWWr4moX5vGdJAdXmuOzKY3XM5afmBT836mCvDawhOEJ1ohhwV1xZE59byc
-QRBHQe+h69ab0xnUMKKa0V3bm6hHZ8DBmODDj3KRVyqiwXSI0ATXsMp+S0UYb+kM
-wrqR5dzlgPTSggmDCR+PLXUoLeTisckxIF4QOCqEIUrdlAIq8b9UWL7AfU/pP9Lk
-Hcqjmy8BOIkOg0P2y2yU0GBYRdMrGRSgfi9iO26Tfz26KxCwj2SplIjwevZ3op0B
-oq/MUiYs8rtykAz1ImP/7WwxqFUveWFBjOEJmjljK2G5nHu2LdPmpoZNOvGEGxTw
-caXMs0LT4PiNIXxgqtuM8gy86NHuBC1Qc6dv+x1/rxaqr7MKpDpdMUDZGmVJG2+k
-iaPRB182pBe3q/n8c9LGC8r3AUqkNgh8xsf3axAb5X5SLJxtzZKZiNNnqYZMOn4r
-N1isxiETyDsbjajpVpozmiixcEmFN7UaYusIsq2AyHA09gWwe1FHiaWxlWEhZq0G
-TApCTO7UL+385oQXSpxgbTbMBbNK3jUiqiBFTvkwFdivlE5HpZJ1Jo6CagQSGXQ+
-gkx7g0L9FysPWf+XhW3G0GuyVYv7OSmPZfdaawM4eeNoUFLOHlo=
-=8+Y1
------END PGP SIGNATURE-----
-
---Q/kQ6JmqdbhO6GPW--
+(No revision log; it would be 192152 lines long.)
 
