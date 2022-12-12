@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B87E9649ECA
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 13:34:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459594.717362 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 600D0649EDA
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 13:35:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459603.717374 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4i0x-0000aE-DC; Mon, 12 Dec 2022 12:34:35 +0000
+	id 1p4i1v-0001BN-MG; Mon, 12 Dec 2022 12:35:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459594.717362; Mon, 12 Dec 2022 12:34:35 +0000
+Received: by outflank-mailman (output) from mailman id 459603.717374; Mon, 12 Dec 2022 12:35:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4i0x-0000Xt-9Y; Mon, 12 Dec 2022 12:34:35 +0000
-Received: by outflank-mailman (input) for mailman id 459594;
- Mon, 12 Dec 2022 12:34:33 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p4i1v-000193-IT; Mon, 12 Dec 2022 12:35:35 +0000
+Received: by outflank-mailman (input) for mailman id 459603;
+ Mon, 12 Dec 2022 12:35:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Y5Rs=4K=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1p4i0v-0000WF-R9
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 12:34:33 +0000
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [2a00:1450:4864:20::62f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 549becf3-7a19-11ed-91b6-6bf2151ebd3b;
- Mon, 12 Dec 2022 13:34:33 +0100 (CET)
-Received: by mail-ej1-x62f.google.com with SMTP id kw15so27540165ejc.10
- for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 04:34:33 -0800 (PST)
+ id 1p4i1t-00018t-Ku
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 12:35:33 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 781d23ab-7a19-11ed-8fd2-01056ac49cbb;
+ Mon, 12 Dec 2022 13:35:32 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id s5so12594747edc.12
+ for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 04:35:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +39,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 549becf3-7a19-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 781d23ab-7a19-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=cloud.com; s=cloud;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0WaRvma689prLQIUm+1mBKnqJrWz+zGeBkSIxcD+nm4=;
-        b=R7/6BEAG6oWWNN/ncZGj+G4eEvlHYP0m1nWOYusTjo8CpGeTcB9xy67doJ2giK58Hp
-         OtZANVCwi5UaLgn/XlD0eC7r7hJCTIpiCNjVCA3ntvtm8rMkaXrLJtrpVnTofrt9xlKD
-         ZeCtPGDOD6RQjsdocveXcx3gq7xhfhgKFtjho=
+        bh=gz7y2Rq8puYUY5t5y0Bdu7+/Oox1vtHfpSL6HUSlTDY=;
+        b=BUfuKkKCDLM0Kbo0nN5qVDYM/Tvr/yhWn/uMUmL2VTEXTUnyTYKmBQUZaFvzkbUG0V
+         bm2Cs+e+Jy8iQibaqo4uYxfnPRKdhSew4S4ucqnSAxGtDz0GdnVD3z5kjWjt+WMPOd8k
+         3uJpZdGwP0T6Oww290/9SQM7qWkk0zUynZ5y4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=0WaRvma689prLQIUm+1mBKnqJrWz+zGeBkSIxcD+nm4=;
-        b=5+EK1yuy1brdGXZh4x12NS5MNTfBv4+ZUGpF4w5NlSQ/JFlH3hOH6SwKD1gVDHt0VG
-         36l8EAUVjt99qtDoY3HLB6Opzmv8Q9TzYWTC6tGRT51NiMfZOD0c1PYRX+KO4RKO2WFh
-         TQTbK5+tVfASoSUjg1P15SQme23Bfth3WKESf40CKg/qJ3SZ1HLFImE/M64NX/di5lKu
-         TnuprN4ytq8vLDdxB9L9v3BAGrR0xhpjT60aHrlJvqDw8VQBbnGCzCEp0zJ6Rw3yHieT
-         UqjWooG0HZGl7QjFKpWIiFbJz1psgfHAOEfdu7guNbAfo3Rxb+p+cipPNBjQ538LlvUV
-         w+4Q==
-X-Gm-Message-State: ANoB5pky7CkJJ7QmbuNvrsIYalJi1tOsTTjGwiVVYhmQFj+9Bhulzxq2
-	n0ekiA43a6FY5dDZLyfpK5Z4Jhfoy51ug9oFXNv/Bw==
-X-Google-Smtp-Source: AA0mqf78V85c3mOGydGI2hP/dz+c27jSE2Yz5I5QKGUZ4ncroTMW48FrOeIbXTVPY9I/hKneJYMdZ98rsdElwCkwidE=
-X-Received: by 2002:a17:906:970a:b0:7c1:266a:73e with SMTP id
- k10-20020a170906970a00b007c1266a073emr4139709ejx.179.1670848472821; Mon, 12
- Dec 2022 04:34:32 -0800 (PST)
+        bh=gz7y2Rq8puYUY5t5y0Bdu7+/Oox1vtHfpSL6HUSlTDY=;
+        b=gYHdU4PwQTm1vZNzC1LNQBiF8C5MSJzpx+NxOJFfi4M6ZzFTwZ7GRzr/gMjwSFqsQR
+         oT2aJ27hAWekzvw58eIiAd9pi62Ugi+/itSlcYolfcW5LoLg0pLuC0lFBM20kzAnzREB
+         ZbBKFjtbZ9qedd3dUbGMytCYxQXPO0jEbPcw6Ay5i1TGlnywNcDHvIYQw4f0zy/otvk9
+         f8AqmxusbMkAM3JPv8MvQfJKbUXTr2r3qTe1qFM4YSXscypptJieqsGou1j/8ZH8G48K
+         su8Fv7QDK21KWAAlKzIuujIzW7U9LdP3gJVh4ZpxK+sXKNW0q6xVFSw+kPT/1+iwFrUd
+         SQKQ==
+X-Gm-Message-State: ANoB5pkumVqnrKssR1PIeZw0w7NuHd4Hl5ItYYskRTHUoge/bp/UEBqX
+	REFCohPziGKcasriEzl1qt3nUP2jA+gXGwsN94fWNA==
+X-Google-Smtp-Source: AA0mqf7OBF52hUUX9HymMLlcIwQHdiahNuKGVg8hXAQHL7TPxygbKNHyY5ukErDT2gNPoOA8dLD7O4HmDqMU6VfGUIU=
+X-Received: by 2002:aa7:d556:0:b0:45c:6467:94e2 with SMTP id
+ u22-20020aa7d556000000b0045c646794e2mr84450803edr.295.1670848532387; Mon, 12
+ Dec 2022 04:35:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20221212093410.36289-1-julien@xen.org> <20221212093410.36289-7-julien@xen.org>
-In-Reply-To: <20221212093410.36289-7-julien@xen.org>
+References: <20221212093410.36289-1-julien@xen.org> <20221212093410.36289-8-julien@xen.org>
+In-Reply-To: <20221212093410.36289-8-julien@xen.org>
 From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 12 Dec 2022 12:34:22 +0000
-Message-ID: <CA+zSX=aozbVbW0H_YhCvT_7JVmAR5yhK1qNb6ZH_p5gxhxBedQ@mail.gmail.com>
-Subject: Re: [PATCH 6/8] docs/process: branching-checklist: Remove section
- about the cambridge colo
+Date: Mon, 12 Dec 2022 12:35:21 +0000
+Message-ID: <CA+zSX=YQJe7pkwh9v5s7_tZJdpg8sNDik_R4zeoNrgO06zxTiw@mail.gmail.com>
+Subject: Re: [PATCH 7/8] docs/proces: branching-checklist: Update the section
+ "add to patchbot"
 To: Julien Grall <julien@xen.org>
 Cc: xen-devel@lists.xenproject.org, Henry.Wang@arm.com, 
 	Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
 	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: multipart/alternative; boundary="000000000000b244fa05efa0b910"
+Content-Type: multipart/alternative; boundary="0000000000003f2e6405efa0bdd6"
 
---000000000000b244fa05efa0b910
+--0000000000003f2e6405efa0bdd6
 Content-Type: text/plain; charset="UTF-8"
 
 On Mon, Dec 12, 2022 at 9:34 AM Julien Grall <julien@xen.org> wrote:
 
 > From: Julien Grall <jgrall@amazon.com>
 >
-> The cambridge colo was internal to Citrix (now Cloud) and hasn't been used
-> by the community for a while.
->
-> So remove the section.
+> Make clear the patchbot is accessible from the user "xen" on xenbits.
 >
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
 >
 
-Acked-by: George Dunlap <george.dunlap@cloud.com>
+Acked-by: George Dunlap <george.dunlap@citrix.com>
 
---000000000000b244fa05efa0b910
+--0000000000003f2e6405efa0bdd6
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
@@ -110,16 +107,13 @@ ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Julien Gr=
 all &lt;<a href=3D"mailto:jgrall@amazon.com" target=3D"_blank">jgrall@amazo=
 n.com</a>&gt;<br>
 <br>
-The cambridge colo was internal to Citrix (now Cloud) and hasn&#39;t been u=
-sed<br>
-by the community for a while.<br>
-<br>
-So remove the section.<br>
+Make clear the patchbot is accessible from the user &quot;xen&quot; on xenb=
+its.<br>
 <br>
 Signed-off-by: Julien Grall &lt;<a href=3D"mailto:jgrall@amazon.com" target=
 =3D"_blank">jgrall@amazon.com</a>&gt;<br></blockquote><div><br></div><div>A=
-cked-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com">georg=
-e.dunlap@cloud.com</a>&gt;</div><div><br></div></div></div>
+cked-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@citrix.com">geor=
+ge.dunlap@citrix.com</a>&gt;</div><div><br></div></div></div>
 
---000000000000b244fa05efa0b910--
+--0000000000003f2e6405efa0bdd6--
 
