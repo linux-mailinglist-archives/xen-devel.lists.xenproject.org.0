@@ -2,36 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65418649885
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 05:56:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459030.716696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB53F64989E
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 06:20:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459039.716708 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4aqP-0001LF-Q1; Mon, 12 Dec 2022 04:55:13 +0000
+	id 1p4bEK-0004Mz-Lr; Mon, 12 Dec 2022 05:19:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459030.716696; Mon, 12 Dec 2022 04:55:13 +0000
+Received: by outflank-mailman (output) from mailman id 459039.716708; Mon, 12 Dec 2022 05:19:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4aqP-0001JP-JY; Mon, 12 Dec 2022 04:55:13 +0000
-Received: by outflank-mailman (input) for mailman id 459030;
- Mon, 12 Dec 2022 04:55:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=PhXI=4K=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p4aqN-0001Hu-6j
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 04:55:11 +0000
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24b2d22b-79d9-11ed-8fd2-01056ac49cbb;
- Mon, 12 Dec 2022 05:55:07 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 35E0932008FA;
- Sun, 11 Dec 2022 23:55:03 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 11 Dec 2022 23:55:03 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 11 Dec 2022 23:55:02 -0500 (EST)
+	id 1p4bEK-0004LE-IG; Mon, 12 Dec 2022 05:19:56 +0000
+Received: by outflank-mailman (input) for mailman id 459039;
+ Mon, 12 Dec 2022 05:19:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=/A98=4K=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1p4bEJ-0004L8-7Y
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 05:19:55 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9b970a2c-79dc-11ed-91b6-6bf2151ebd3b;
+ Mon, 12 Dec 2022 06:19:53 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 8A0971FE19;
+ Mon, 12 Dec 2022 05:19:52 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E1A51376E;
+ Mon, 12 Dec 2022 05:19:52 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id vyWiEfi5lmOZQwAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 12 Dec 2022 05:19:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,225 +51,245 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b2d22b-79d9-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm1; t=1670820902; x=1670907302; bh=/fhhuNHSw9
-	AVcLNazlLsxWzz1tsOBeVmZMRVG4LPq0o=; b=pMhY8wnslbqLJ0WUkRqig4Z7Xo
-	8vJ/ohx2mt48CdZRj7cOqlbHSM2KTiEqw/HJQdYQMFt0nMhPro/5muEC9L68MNiM
-	6NEkbQrs3QmxfjS6UB3Fid4LiWz0sNWAOUiMgaOvVi+CPFTj2VNXqEKemkrLS7dh
-	5W8XX2uQJmBg6vMLYJhF/3WFCiPeTiQgaXwkg4g5VmuX9mmgYdss2YXuB79aFA9w
-	KDO1fiWUq60FTaHi7e72KQXkOs14ohyubV5oKYVIH38MJJ1/xCwHSHVobk1cTHl+
-	JK11iKYyrWCp52GBpEfxTuUZ29BPKsyofAV9/1FKl8453jrt2BczdRWoQNWA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1670820902; x=
-	1670907302; bh=/fhhuNHSw9AVcLNazlLsxWzz1tsOBeVmZMRVG4LPq0o=; b=X
-	BeU2CBA+jpllJaDmiKLTFGdj/sQeJjNoV0wTtXXietnZ1kSCiJPhOOCiygbzIs9u
-	1XuVa0fHf11zAlX/LtJzCgCG6zVTJR/SwDI5yPKlooMTKda+jwHwNIFIznbxqUgN
-	Gbg+rVAgxcQ0IAzAQx7yPEE4pW8KGOMgXhXuI9/PbZPbwVItRk5wY+wgMc7bVBrJ
-	EalkXa59ofHxEdMC/wDUMHik1h38DJd/wQVQecXq1juy8JgdHpHlE6IOAb5aQmZ5
-	oEPss4JcYuU20MS9QkLHPXqfHhjE3Sa8NYgJGQ0bhsGMKLByKMoE+4lfDs+E39jL
-	g2dZHWfULDADqb9A4pEmQ==
-X-ME-Sender: <xms:JrSWY64mizyAnnLG0UqXDbPpe5ApUi5_wnPS-zyFZ4Ho4xKDz0cT1A>
-    <xme:JrSWYz7oXaDYIqqbpGb57TrX8o8qB2faIwTmpCWHkrIMuwKDQ8qlVCjfmUIGUB42P
-    5pMRfmIb9fUHxE>
-X-ME-Received: <xmr:JrSWY5fuK3sbxtp-gvxHaPxhO_Ne2Aty7UfTaTMGhyXxtTgxInPUf_RBwf5Y>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrvdejgdejiecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtgfgjsehtqhertddttdejnecuhfhrohhmpeffvghmihcu
-    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejudfgieeviedtgfdvheejueefkeef
-    tdetffejfeduteehhfetuedtieffvdejffenucffohhmrghinhepkhgvrhhnvghlrdhorh
-    hgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggv
-    mhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:JrSWY3KsJxTJPYAyrWLlJmtt9_0jmAz5fTYbKIdYAwTd3pKk7-vPNw>
-    <xmx:JrSWY-KcLkuKcnhY2IizoIGyF7mZOzAuL3Z4nya1hGOsMVBSuvwAnQ>
-    <xmx:JrSWY4x0CgGC4jvxwPwpgeKe1lS-i0DZQSHDPQKctFJyAnX0o1WQ1A>
-    <xmx:JrSWY61foFJPSAB_Y0OSh52C_mGFCjhzv15iDrJ8qcTrOvvPJXWqXQ>
-Feedback-ID: iac594737:Fastmail
-Date: Sun, 11 Dec 2022 23:55:00 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Marco Elver <elver@google.com>
-Cc: Juergen Gross <jgross@suse.com>,
-	Alexander Potapenko <glider@google.com>,
-	kasan-dev <kasan-dev@googlegroups.com>,
-	Xen development discussion <xen-devel@lists.xenproject.org>,
-	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+X-Inumbo-ID: 9b970a2c-79dc-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1670822392; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=xz5nnj3XD0YHenNz9nlFHXnTFZaUk+RI1pDMWcsUNJk=;
+	b=NkcSmmucqKVnO7vJFzNpW5C/vdqmc7gLeuDhvM0oNqsjFMLXlG8LXJztgZe5fzv7LChWhG
+	KO9xP8/UuF4NnjUQd8xRa5IXvNe0S874UlriJHidvrQOWH2ESR6D2qdgK1og/xTxxpo8v5
+	WtCCJSRG8ZTyyt6EgHkZrxhJEwElur4=
+Message-ID: <c250b8f5-bce5-da43-ae11-e5355141ea3c@suse.com>
+Date: Mon, 12 Dec 2022 06:19:51 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.0
 Subject: Re: kfence_protect_page() writing L1TF vulnerable PTE
-Message-ID: <Y5azcFUxAWuEVicY@itl-email>
+Content-Language: en-US
+To: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Marco Elver <elver@google.com>
+Cc: Alexander Potapenko <glider@google.com>,
+ kasan-dev <kasan-dev@googlegroups.com>,
+ Xen development discussion <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
 References: <c18bc798-f484-ad66-fbb0-15192a74f8e3@suse.com>
  <Y5ZM3HCnTcLvP2vy@itl-email>
  <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; x-action=pgp-signed
+ <Y5azcFUxAWuEVicY@itl-email>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <Y5azcFUxAWuEVicY@itl-email>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------TDjy6sZearJP8RKYq0xs4s9P"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------TDjy6sZearJP8RKYq0xs4s9P
+Content-Type: multipart/mixed; boundary="------------jmu50pFsK3nFV6dYJ1cupCTv";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Marco Elver <elver@google.com>
+Cc: Alexander Potapenko <glider@google.com>,
+ kasan-dev <kasan-dev@googlegroups.com>,
+ Xen development discussion <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?= <marmarek@invisiblethingslab.com>
+Message-ID: <c250b8f5-bce5-da43-ae11-e5355141ea3c@suse.com>
+Subject: Re: kfence_protect_page() writing L1TF vulnerable PTE
+References: <c18bc798-f484-ad66-fbb0-15192a74f8e3@suse.com>
+ <Y5ZM3HCnTcLvP2vy@itl-email>
+ <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
+ <Y5azcFUxAWuEVicY@itl-email>
+In-Reply-To: <Y5azcFUxAWuEVicY@itl-email>
+
+--------------jmu50pFsK3nFV6dYJ1cupCTv
+Content-Type: multipart/mixed; boundary="------------oZhaDNPkkcoxk2G0lwcWLKjd"
+
+--------------oZhaDNPkkcoxk2G0lwcWLKjd
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+T24gMTIuMTIuMjIgMDU6NTUsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gLS0tLS1C
+RUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQ0KPiBIYXNoOiBTSEE1MTINCj4gDQo+IC0g
+LS0tLS1CRUdJTiBQR1AgU0lHTkVEIE1FU1NBR0UtLS0tLQ0KPiBIYXNoOiBTSEE1MTINCj4g
+DQo+IE9uIFN1biwgRGVjIDExLCAyMDIyIGF0IDExOjUwOjM5UE0gKzAxMDAsIE1hcmNvIEVs
+dmVyIHdyb3RlOg0KPj4gT24gU3VuLCAxMSBEZWMgMjAyMiBhdCAyMjozNCwgRGVtaSBNYXJp
+ZSBPYmVub3VyDQo+PiA8ZGVtaUBpbnZpc2libGV0aGluZ3NsYWIuY29tPiB3cm90ZToNCj4+
+PiBPbiBTdW4sIERlYyAxMSwgMjAyMiBhdCAwMToxNTowNlBNICswMTAwLCBKdWVyZ2VuIEdy
+b3NzIHdyb3RlOg0KPj4+PiBEdXJpbmcgdGVzdHMgd2l0aCBRdWJlc09TIGEgcHJvYmxlbSB3
+YXMgZm91bmQgd2hpY2ggc2VlbWVkIHRvIGJlIHJlbGF0ZWQNCj4+Pj4gdG8ga2ZlbmNlX3By
+b3RlY3RfcGFnZSgpIHdyaXRpbmcgYSBMMVRGIHZ1bG5lcmFibGUgcGFnZSB0YWJsZSBlbnRy
+eSBbMV0uDQo+Pj4+DQo+Pj4+IExvb2tpbmcgaW50byB0aGUgZnVuY3Rpb24gSSdtIHNlZWlu
+ZzoNCj4+Pj4NCj4+Pj4gICAgICAgIHNldF9wdGUocHRlLCBfX3B0ZShwdGVfdmFsKCpwdGUp
+ICYgfl9QQUdFX1BSRVNFTlQpKTsNCj4+Pj4NCj4+Pj4gSSBkb24ndCB0aGluayB0aGlzIGNh
+biBiZSBjb3JyZWN0LCBhcyBrZWVwaW5nIHRoZSBQRk4gdW5tb2RpZmllZCBhbmQNCj4+Pj4g
+anVzdCByZW1vdmluZyB0aGUgX1BBR0VfUFJFU0VOVCBiaXQgaXMgd3JvbmcgcmVnYXJkaW5n
+IEwxVEYuDQo+Pj4+DQo+Pj4+IFRoZXJlIHNob3VsZCBiZSBhdCBsZWFzdCB0aGUgaGlnaGVz
+dCBQRk4gYml0IHNldCBpbiBvcmRlciB0byBiZSBMMVRGDQo+Pj4+IHNhZmUuDQo+IA0KPj4g
+Q291bGQgeW91IGVsYWJvcmF0ZSB3aGF0IHdlIHdhbnQgdG8gYmUgc2FmZSBmcm9tPw0KPiAN
+Cj4gVGhlIHByb2JsZW0gaXMgbm90IExpbnV44oCZcyBzYWZldHksIGJ1dCBYZW7igJlzLiAg
+VG8gcHJldmVudCBQViBndWVzdHMgZnJvbQ0KPiBhcmJpdHJhcmlseSByZWFkaW5nIGFuZCB3
+cml0aW5nIG1lbW9yeSwgYWxsIHVwZGF0ZXMgdG8gUFYgZ3Vlc3QgcGFnZQ0KPiB0YWJsZXMg
+bXVzdCBiZSBkb25lIHZpYSBoeXBlcmNhbGxzLiAgVGhpcyBhbGxvd3MgWGVuIHRvIGVuc3Vy
+ZSB0aGF0IGENCj4gZ3Vlc3QgY2FuIG9ubHkgcmVhZCBmcm9tIGl0cyBvd24gbWVtb3J5IGFu
+ZCB0aGF0IHBhZ2VzIHVzZWQgZm9yIHBhZ2UNCj4gdGFibGVzIG9yIHNlZ21lbnQgZGVzY3Jp
+cHRvcnMgYXJlIG5vdCBtYXBwZWQgd3JpdGFibGUuDQo+IA0KPj4gS0ZFTkNFIGlzIG9ubHkg
+Zm9yIGtlcm5lbCBtZW1vcnksIGkuZS4gc2xhYiBhbGxvY2F0aW9ucy4gVGhlDQo+PiBwYWdl
+LXByb3RlY3Rpb24gbWVjaGFuaXNtIGlzIHVzZWQgdG8gZGV0ZWN0IG1lbW9yeSBzYWZldHkg
+YnVncyBpbiB0aGUNCj4+IExpbnV4IGtlcm5lbC4gVGhlIHBhZ2UgcHJvdGVjdGlvbiBkb2Vz
+IG5vdCBwcmV2ZW50IG9yIG1pdGlnYXRlIGFueQ0KPj4gc3VjaCBidWdzIGJlY2F1c2UgS0ZF
+TkNFIG9ubHkgc2FtcGxlcyBzbFthdV1iIGFsbG9jYXRpb25zLiBOb3JtYWwgc2xhYg0KPj4g
+YWxsb2NhdGlvbnMgbmV2ZXIgY2hhbmdlIHRoZSBwYWdlIHByb3RlY3Rpb24gYml0czsgS0ZF
+TkNFIG1lcmVseSB1c2VzDQo+PiB0aGVtIHRvIHJlY2VpdmUgYSBwYWdlIGZhdWx0LCB1cG9u
+IHdoaWNoIHdlIGRldGVybWluZSBlaXRoZXIgYQ0KPj4gdXNlLWFmdGVyLWZyZWUgb3Igb3V0
+LW9mLWJvdW5kcyBhY2Nlc3MuIEFmdGVyIGEgYnVnIGlzIGRldGVjdGVkLA0KPj4gS0ZFTkNF
+IHVucHJvdGVjdHMgdGhlIHBhZ2Ugc28gdGhhdCB0aGUga2VybmVsIGNhbiBwcm9jZWVkICJh
+cyBub3JtYWwiDQo+PiBnaXZlbiB0aGF0J3MgdGhlIHN0YXRlIG9mIHRoaW5ncyBpZiBpdCBo
+YWQgYmVlbiBhIG5vcm1hbCBzbFthdV1iDQo+PiBhbGxvY2F0aW9uLg0KPiANCj4+IGh0dHBz
+Oi8vZG9jcy5rZXJuZWwub3JnL2Rldi10b29scy9rZmVuY2UuaHRtbA0KPiANCj4+ICBGcm9t
+IFsxXSBJIHNlZTogIklmIGFuIGluc3RydWN0aW9uIGFjY2Vzc2VzIGEgdmlydHVhbCBhZGRy
+ZXNzIGZvcg0KPj4gd2hpY2ggdGhlIHJlbGV2YW50IHBhZ2UgdGFibGUgZW50cnkgKFBURSkg
+aGFzIHRoZSBQcmVzZW50IGJpdCBjbGVhcmVkDQo+PiBvciBvdGhlciByZXNlcnZlZCBiaXRz
+IHNldCwgdGhlbiBzcGVjdWxhdGl2ZSBleGVjdXRpb24gaWdub3JlcyB0aGUNCj4+IGludmFs
+aWQgUFRFIGFuZCBsb2FkcyB0aGUgcmVmZXJlbmNlZCBkYXRhIGlmIGl0IGlzIHByZXNlbnQg
+aW4gdGhlDQo+PiBMZXZlbCAxIERhdGEgQ2FjaGUsIGFzIGlmIHRoZSBwYWdlIHJlZmVyZW5j
+ZWQgYnkgdGhlIGFkZHJlc3MgYml0cyBpbg0KPj4gdGhlIFBURSB3YXMgc3RpbGwgcHJlc2Vu
+dCBhbmQgYWNjZXNzaWJsZS4iDQo+IA0KPj4gWzFdIGh0dHBzOi8vd3d3Lmtlcm5lbC5vcmcv
+ZG9jL2h0bWwvbGF0ZXN0L2FkbWluLWd1aWRlL2h3LXZ1bG4vbDF0Zi5odG1sDQo+IA0KPj4g
+VGhpcyBpcyBwZXJmZWN0bHkgZmluZSBpbiB0aGUgY29udGV4dCBvZiBLRkVOQ0UsIGFzIHN0
+YXRlZCBhYm92ZSwgdGhlDQo+PiBwYWdlIHByb3RlY3Rpb24gaXMgbWVyZWx5IHVzZWQgdG8g
+ZGV0ZWN0IG91dC1vZi1ib3VuZHMgYW5kDQo+PiB1c2UtYWZ0ZXItZnJlZSBidWdzIG9mIHNh
+bXBsZWQgc2xhYiBhbGxvY2F0aW9ucy4gS0ZFTkNFIGRvZXMgbm90DQo+PiBtaXRpZ2F0ZSBu
+b3IgcHJldmVudCBzdWNoIGJ1Z3MsIGJlY2F1c2UgaXQgc2FtcGxlcyBhbGxvY2F0aW9ucywg
+aS5lLg0KPj4gbW9zdCBhbGxvY2F0aW9ucyBhcmUgc3RpbGwgc2VydmljZWQgYnkgc2xbYXVd
+Yi4NCj4gDQo+IEl0IGlzIG5vdCBmaW5lIHdoZW4gcnVubmluZyBwYXJhdmlydHVhbGl6ZWQg
+dW5kZXIgWGVuLCB0aG91Z2guICBYZW4NCj4gc3RyaWN0bHkgdmFsaWRhdGVzIHRoYXQgcHJl
+c2VudCBQVEVzIHBvaW50IGludG8gYSBndWVzdOKAmXMgb3duIG1lbW9yeSwNCj4gYnV0IChp
+biB0aGUgYWJzZW5jZSBvZiBMMVRGKSBhbGxvd3Mgbm90LXByZXNlbnQgUFRFcyB0byBoYXZl
+IGFueSB2YWx1ZS4NCj4gSG93ZXZlciwgTDFURiBtZWFucyB0aGF0IGRvaW5nIHNvIHdvdWxk
+IGFsbG93IGEgUFYgZ3Vlc3QgdG8gbGVhayBtZW1vcnkNCj4gZnJvbSBYZW4gb3Igb3RoZXIg
+Z3Vlc3RzISAgVGhlcmVmb3JlLCBYZW4gcmVxdWlyZXMgdGhhdCBub3QtcHJlc2VudCBQVEVz
+DQo+IGJlIEwxVEYtc2FmZSwgZW5zdXJpbmcgdGhhdCBQViBndWVzdHMgY2Fubm90IHVzZSBM
+MVRGIHRvIG9idGFpbiBtZW1vcnkNCj4gZnJvbSBvdGhlciBndWVzdHMgb3IgdGhlIGh5cGVy
+dmlzb3IuDQo+IA0KPiBJZiBhIGd1ZXN0IGNyZWF0ZXMgYW4gTDFURi12dWxuZXJhYmxlIFBU
+RSwgWGVu4oCZcyBiZWhhdmlvciBkZXBlbmRzIG9uDQo+IHdoZXRoZXIgaXQgaGFzIGJlZW4g
+Y29tcGlsZWQgd2l0aCBzaGFkb3cgcGFnaW5nIHN1cHBvcnQuICBJZiBpdCBoYXMsIFhlbg0K
+PiB3aWxsIHRyYW5zaXRpb24gdGhlIGd1ZXN0IHRvIHNoYWRvdyBwYWdpbmcgbW9kZS4gIFRo
+aXMgd29ya3MsIGJ1dCBjb21lcw0KPiBhdCBhIHNpZ25pZmljYW50IHBlcmZvcm1hbmNlIGhp
+dCwgc28geW91IGRvbuKAmXQgd2FudCB0aGF0LiAgSWYgc2hhZG93DQo+IHBhZ2luZyBoYXMg
+YmVlbiBkaXNhYmxlZCBhdCBjb21waWxlIHRpbWUsIGFzIGlzIHRoZSBjYXNlIGluIFF1YmVz
+LCBYZW4NCj4gc2ltcGx5IGNyYXNoZXMgdGhlIGd1ZXN0Lg0KPiANCj4gZG9tMCBpcyBleGVt
+cHRlZCBmcm9tIHRoZXNlIGNoZWNrcyBieSBkZWZhdWx0LCBiZWNhdXNlIHRoZSBkb20wIGtl
+cm5lbA0KPiBpcyBjb25zaWRlcmVkIHRydXN0ZWQuICBIb3dldmVyLCB0aGlzIGNhbiBiZSBj
+aGFuZ2VkIGJ5IGEgWGVuDQo+IGNvbW1hbmQtbGluZSBvcHRpb24sIHNvIGl0IGlzIG5vdCB0
+byBiZSByZWxpZWQgb24uDQo+IA0KPj4gSG93IGNhbiB3ZSB0ZWFjaCB3aGF0ZXZlciBpcyBj
+b21wbGFpbmluZyBhYm91dCBMMVRGIG9uIHRoYXQgS0ZFTkNFIFBURQ0KPj4gbW9kaWZpY2F0
+aW9uIHRoYXQgS0ZFTkNFIGRvZXMgbm90IHVzZSBwYWdlIHByb3RlY3Rpb24gdG8gc3RvcCBh
+bnlvbmUNCj4+IGZyb20gYWNjZXNzaW5nIHRoYXQgbWVtb3J5Pw0KPiANCj4gV2l0aCBjdXJy
+ZW50IFhlbiwgeW91IGNhbuKAmXQuICBBbnkgbm90LXByZXNlbnQgUFRFIG11c3QgYmUgTDFU
+Ri1zYWZlIG9uDQo+IEwxVEYtdnVsbmVyYWJsZSBoYXJkd2FyZSwgYW5kIEkgYW0gbm90IGF3
+YXJlIG9mIGFueSB3YXkgdG8gYXNrIFhlbiBpZiBpdA0KPiBjb25zaWRlcnMgdGhlIGhhcmR3
+YXJlIHZ1bG5lcmFibGUgdG8gTDFURi4gIFRoZXJlZm9yZSwgS0ZFTkNFIHdvdWxkIG5lZWQN
+Cj4gdG8gZWl0aGVyIG5vdCBnZW5lcmF0ZSBMMVRGLXZ1bG5lcmFibGUgbm90LXByZXNlbnQg
+UFRFcywgb3INCj4gYXV0b21hdGljYWxseSBkaXNhYmxlIGl0c2VsZiB3aGVuIHJ1bm5pbmcg
+aW4gWGVuIFBWIG1vZGUuDQo+IA0KPiBJbiB0aGVvcnksIGl0IG91Z2h0IHRvIGJlIHNhZmUg
+Zm9yIFhlbiB0byBpbnN0ZWFkIHRyZWF0IG5vdC1wcmVzZW50DQo+IEwxVEYtdnVsbmVyYWJs
+ZSBQVEVzIGFzIGlmIHRoZXkgd2VyZSBwcmVzZW50LCBhbmQgYXBwbHkgdGhlIHNhbWUNCj4g
+dmFsaWRhdGlvbiB0aGF0IGl0IGRvZXMgZm9yIHByZXNlbnQgUFRFcy4gIEhvd2V2ZXIsIHRo
+ZSBQViBtZW1vcnkNCj4gbWFuYWdlbWVudCBjb2RlIGhhcyBiZWVuIGludm9sdmVkIGluIHNl
+dmVyYWwgZmF0YWwsIHJlbGlhYmx5IGV4cGxvaXRhYmxlDQo+IFBWIGd1ZXN0IGVzY2FwZSB2
+dWxuZXJhYmlsaXRpZXMsIGFuZCBJIHdvdWxkIHJhdGhlciBub3QgbWFrZSBpdCBhbnkgbW9y
+ZQ0KPiBjb21wbGV4IHRoYW4gaXQgYWxyZWFkeSBpcy4NCg0KVHJlYXRpbmcgbm9uLXByZXNl
+bnQgUFRFcyBsaWtlIHByZXNlbnQgb25lcyBoYXMgYSBtYWpvciBkcmF3YmFjazogaXQNCnJl
+cXVpcmVzIHRvIGtlZXAgdHJhY2sgb2YgYWxsIHBhZ2UgZnJhbWVzIGJlaW5nIHBvdGVudGlh
+bGx5IHJlZmVyZW5jZWQsDQppbmR1Y2luZyBhIG1ham9yIHBlcmZvcm1hbmNlIGhpdCBmb3Ig
+dGhlICJyZWd1bGFyIiBjYXNlLiBNZW1vcnkgYmFsbG9vbmluZw0Kd291bGQgYmUgYSBsb3Qg
+bW9yZSBjb21wbGljYXRlZCBkdWUgdG8gdGhhdC4NCg0KPiBBIG11Y2ggYmV0dGVyIHNvbHV0
+aW9uIHdvdWxkIGJlIGZvciBLRkVOQ0UgdG8gdXNlIFBURSBpbnZlcnNpb24ganVzdA0KPiBs
+aWtlIHRoZSByZXN0IG9mIHRoZSBrZXJuZWwgZG9lcy4gIFRoaXMgc29sdmVzIHRoZSBwcm9i
+bGVtDQo+IHVuY29uZGl0aW9uYWxseSwgYW5kIGF2b2lkcyBuZWVkaW5nIFhlbiBQViBzcGVj
+aWZpYyBjb2RlLiAgSSBoYXZlIGENCj4gcGF0Y2ggdGhhdCBkaXNhYmxlcyBLRkVOQ0Ugb24g
+WGVuIFBWLCBidXQgSSB3b3VsZCBtdWNoIHJhdGhlciBzZWUgS0ZFTkNFDQo+IGZpeGVkLCB3
+aGljaCBpcyB3aHkgSSBoYXZlIG5vdCBzdWJtaXR0ZWQgdGhlIHBhdGNoLg0KDQpJIGNhbiBz
+dXBwbHkgYSBrZXJuZWwgcGF0Y2ggZm9yIGRvaW5nIHRoZSBQRk4gaW52ZXJzaW9uIGluIHRo
+ZSBQVEUuDQoNCg0KSnVlcmdlbg0K
+--------------oZhaDNPkkcoxk2G0lwcWLKjd
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
 Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CANpmjNPZwtmMvAOk7rn9U=sWTre7+o93yB_0idkVCvJky6mptA@mail.gmail.com>
 
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-- -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-- - -----BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA512
+--------------oZhaDNPkkcoxk2G0lwcWLKjd--
 
-On Sun, Dec 11, 2022 at 11:50:39PM +0100, Marco Elver wrote:
-> On Sun, 11 Dec 2022 at 22:34, Demi Marie Obenour
-> <demi@invisiblethingslab.com> wrote:
-> > On Sun, Dec 11, 2022 at 01:15:06PM +0100, Juergen Gross wrote:
-> > > During tests with QubesOS a problem was found which seemed to be rela=
-ted
-> > > to kfence_protect_page() writing a L1TF vulnerable page table entry [=
-1].
-> > >
-> > > Looking into the function I'm seeing:
-> > >
-> > >       set_pte(pte, __pte(pte_val(*pte) & ~_PAGE_PRESENT));
-> > >
-> > > I don't think this can be correct, as keeping the PFN unmodified and
-> > > just removing the _PAGE_PRESENT bit is wrong regarding L1TF.
-> > >
-> > > There should be at least the highest PFN bit set in order to be L1TF
-> > > safe.
->=20
-> Could you elaborate what we want to be safe from?
+--------------jmu50pFsK3nFV6dYJ1cupCTv--
 
-The problem is not Linux=E2=80=99s safety, but Xen=E2=80=99s.  To prevent P=
-V guests from
-arbitrarily reading and writing memory, all updates to PV guest page
-tables must be done via hypercalls.  This allows Xen to ensure that a
-guest can only read from its own memory and that pages used for page
-tables or segment descriptors are not mapped writable.
+--------------TDjy6sZearJP8RKYq0xs4s9P
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-> KFENCE is only for kernel memory, i.e. slab allocations. The
-> page-protection mechanism is used to detect memory safety bugs in the
-> Linux kernel. The page protection does not prevent or mitigate any
-> such bugs because KFENCE only samples sl[au]b allocations. Normal slab
-> allocations never change the page protection bits; KFENCE merely uses
-> them to receive a page fault, upon which we determine either a
-> use-after-free or out-of-bounds access. After a bug is detected,
-> KFENCE unprotects the page so that the kernel can proceed "as normal"
-> given that's the state of things if it had been a normal sl[au]b
-> allocation.
->=20
-> https://docs.kernel.org/dev-tools/kfence.html
->=20
-> From [1] I see: "If an instruction accesses a virtual address for
-> which the relevant page table entry (PTE) has the Present bit cleared
-> or other reserved bits set, then speculative execution ignores the
-> invalid PTE and loads the referenced data if it is present in the
-> Level 1 Data Cache, as if the page referenced by the address bits in
-> the PTE was still present and accessible."
->=20
-> [1] https://www.kernel.org/doc/html/latest/admin-guide/hw-vuln/l1tf.html
->=20
-> This is perfectly fine in the context of KFENCE, as stated above, the
-> page protection is merely used to detect out-of-bounds and
-> use-after-free bugs of sampled slab allocations. KFENCE does not
-> mitigate nor prevent such bugs, because it samples allocations, i.e.
-> most allocations are still serviced by sl[au]b.
-
-It is not fine when running paravirtualized under Xen, though.  Xen
-strictly validates that present PTEs point into a guest=E2=80=99s own memor=
-y,
-but (in the absence of L1TF) allows not-present PTEs to have any value.
-However, L1TF means that doing so would allow a PV guest to leak memory
-=66rom Xen or other guests!  Therefore, Xen requires that not-present PTEs
-be L1TF-safe, ensuring that PV guests cannot use L1TF to obtain memory
-=66rom other guests or the hypervisor.
-
-If a guest creates an L1TF-vulnerable PTE, Xen=E2=80=99s behavior depends on
-whether it has been compiled with shadow paging support.  If it has, Xen
-will transition the guest to shadow paging mode.  This works, but comes
-at a significant performance hit, so you don=E2=80=99t want that.  If shadow
-paging has been disabled at compile time, as is the case in Qubes, Xen
-simply crashes the guest.
-
-dom0 is exempted from these checks by default, because the dom0 kernel
-is considered trusted.  However, this can be changed by a Xen
-command-line option, so it is not to be relied on.
-
-> How can we teach whatever is complaining about L1TF on that KFENCE PTE
-> modification that KFENCE does not use page protection to stop anyone
-> from accessing that memory?
-
-With current Xen, you can=E2=80=99t.  Any not-present PTE must be L1TF-safe=
- on
-L1TF-vulnerable hardware, and I am not aware of any way to ask Xen if it
-considers the hardware vulnerable to L1TF.  Therefore, KFENCE would need
-to either not generate L1TF-vulnerable not-present PTEs, or
-automatically disable itself when running in Xen PV mode.
-
-In theory, it ought to be safe for Xen to instead treat not-present
-L1TF-vulnerable PTEs as if they were present, and apply the same
-validation that it does for present PTEs.  However, the PV memory
-management code has been involved in several fatal, reliably exploitable
-PV guest escape vulnerabilities, and I would rather not make it any more
-complex than it already is.
-
-A much better solution would be for KFENCE to use PTE inversion just
-like the rest of the kernel does.  This solves the problem
-unconditionally, and avoids needing Xen PV specific code.  I have a
-patch that disables KFENCE on Xen PV, but I would much rather see KFENCE
-fixed, which is why I have not submitted the patch.
-- - - --=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-- - -----BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOWs28ACgkQsoi1X/+c
-IsEvBQ/+MLAfhKAxmMAto9jII+4SIq6vXHvhNJfC+qyMPCToTI1QLiwGLOAXM7uk
-nrnFh+eA9Tx1iYJyP6jZpKqWHFLtXNIh+QE+6gag1rMYjCeJyl6Y0bgmxw7EgJ4t
-uACncw+N72CopWu9Yg2YNH9wahX7EX4/q+3FA2xzsYd/XgXOEVEF9h3vgnzDOVTJ
-02/Q4c4P/YH+I0aLkD3lamwdBTeE2f+5h+kDFxib/qu1lHLVbC9Lx45/T2dUoWVa
-K3uRPAzwwLQcxB1Q8wGHKj7ziEwygqKRoD8QYwMU67OdB0UsTQ+f5hH8JUgevm8V
-po0T/cQDaAnJi0y9jcjUd4eyeOHZmbzjro+YAqOgkGGhs+TJwhU5VuDHD26z+0g3
-dRaunQ7YFWrEFbeAmV0hK39x40nRdR42YRj6Q/uYhZcaORDeG+e5FshyeUesQfDW
-B9r5Lvl6/V0ldgPHL/AyGFI/fZBUJhju3QyXNLML1xrv19j24Ku+bhKDjxSrHYlJ
-nvxYo6zFhMkgRxTYNIrZUA70Xn3wDtJwFKGlKNmWRy4Hjfxy2tyIQnp00j+MDseY
-fftXjlAPxm0am3lYHlp4u3L5hK1aY0l0mCdGjjP7geeEKK9f2Q009uTeywavOkAB
-bAKQ9VNWrj7SlRhbK86sHi0zYTvNN+tF9/x32jUu1lSz+jyMfLM=3D
-=3D3TnU
-- - -----END PGP SIGNATURE-----
-- -----BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOWs/wACgkQsoi1X/+c
-IsGDew/8DrvkeG5llY9Q9NFXfBPCNeu5WfK2Sbll892izQAl0l+JILKHG7AQqsRf
-/avO3U5US64acEsL2PqugK1BDDYPK097WNJtV3/nb6IUL+A3UrMtq3a6bqCWMULY
-FaCTqAe9ESYLS2NA4rqcqsCvGcR0PYM8fALqq+xHUr102rXyo+jGoOxCh6emuImg
-UittOmEhslRtIJtiDgUHgQkff8xBllztVE1MaDeMIEO2D+uvKWD+7SYli+O3USAj
-lNKlVPzHAwQnUs9AP++FVz0yVzcoyXcIsi14oFxSHR+EqqacxvtG60iWKcU6I8nr
-zySMyjlN8rZcq/QpukYFAPkJL63m1zefHBWeLFzNcv5Mrar0L4cWpM+jLZyh/fJE
-JQ2YuDt8Z5mhrs8KQJBdf96QSgOgkreMQ6IWNnPGiAwIW85wwsU1iJa8AjIEe8PN
-t4EleqLqsgn9nihBreJZ77f/xKAWKK/VN6FOXGOuFZO/FrvPpP0KAHQpRugMmDZk
-NOGJKcWfruAZ11HQTFK1qelLg0n2SBSzw5KxKyxntazvx80W+FzwwzJJz2T3z06g
-58sCdyXqrzhSv55pfTX94suX+w3pqcwJID/XMjelPtvcVtvosugHmaCEKTHEX5zo
-QKZRoHELiOymXsy7kSP8NMpiuyfrjAsYFY2NGbTS5Mb6+ApHT2s=3D
-=3DgX1O
-- -----END PGP SIGNATURE-----
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOWtCMACgkQsoi1X/+c
-IsGPlQ//QaynWUjFxss7xGDDU3adTawbb5KHgxcaHQKsUCgDMqOYZ6wIm6VeiBgJ
-OxX14wucGTKVYN0JSMqn1UpJgxVmMtwMTXMuIjz+oTdd3Ab/cQejqGV2ZiiW/KWH
-Hq3jWqoqXL9R0sMmGmeq2Kyi1+XL78KhWZIkJ4eEKYhRdLIG9/q27EeH3ppdH6Kt
-AamU0Bq1aatOW3+Y6C+FPjsLrHP16vWZInaoy+UqE0E7B4VcAC2wPcPVbwbF7SJc
-KP4YaE3W95Zvl7TWxtOWWzZzKP3A6waiyY289+Kf7Xgs2rQOgNnQuR5JEGqxABwZ
-LfbATY1uT9akgf62IevmGj3694ZPLVfgqr3d7057QfMCZLjAG5ZioIzCe7drCZ+3
-91zM0+ykWYIqanab327lpduOkHHSJC0P1Jvzx4yxqo1PvgqhEHhp3jcXS6amCm9e
-l4RVmAVm+UujZ1vbrTG7PcJgb5jbrtLKInhmYiiXGgS1zhxsty/MUCiy5YgjD5n1
-vl+8/8/kiI4el/hjbqUbDjjItDmHn9kVZHfY5G1dT6lHZkNk6NI93IB6EcxZx1af
-fNoxR904M7Y53yUI1sJpdeOhEsNHUeV5dgqbJxwTxKRuDNu4E89FDvRr3YMSbusk
-7nU6+DVJaWRn05lq0lT2HsU401ECx383Pr5/lmvHCRdNuEOTwyo=3D
-=3DjVTg
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmOWufcFAwAAAAAACgkQsN6d1ii/Ey+H
+jQgAg7nHsWFzaEfFwDmTTypBIAuAAPfDYyBHkexDtDZtX7CdAndNjjhgKxeCRoMkPrpkK1o06Bin
+ppU/wpU6cnEzadUU7Vb2HqL+Y5mk7FsjTHYm33f/1w+ceeufd9o+FRlGJSM1mKR/c3rr1VWI4Z/B
++hjWdwO8KU/AvTySTqx+BzCTVcUgyca37cJXsf/0wrUzMV82cLcmq6aPPNrw948gYjvoplxugisn
+lL0gp3FdZr79m7LaRLJkUWuTEPOixY+uFcJkY2dqGCAVws6DF3rdav8gxFWJ0Onlb69ffj+Um7CY
+T4jinfTPN9eBYjY9YTIPqAs+JDTFDrbs+Od51md/nw==
+=2sp0
 -----END PGP SIGNATURE-----
+
+--------------TDjy6sZearJP8RKYq0xs4s9P--
 
