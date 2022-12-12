@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AE95649E76
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 13:12:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459560.717318 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14B0A649E77
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 13:12:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459561.717329 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4hf3-0004Rh-TZ; Mon, 12 Dec 2022 12:11:57 +0000
+	id 1p4hf7-0004jF-6f; Mon, 12 Dec 2022 12:12:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459560.717318; Mon, 12 Dec 2022 12:11:57 +0000
+Received: by outflank-mailman (output) from mailman id 459561.717329; Mon, 12 Dec 2022 12:12:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4hf3-0004Pd-Qr; Mon, 12 Dec 2022 12:11:57 +0000
-Received: by outflank-mailman (input) for mailman id 459560;
- Mon, 12 Dec 2022 12:11:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p4hf7-0004gP-3Z; Mon, 12 Dec 2022 12:12:01 +0000
+Received: by outflank-mailman (input) for mailman id 459561;
+ Mon, 12 Dec 2022 12:12:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Y5Rs=4K=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1p4hf1-00049X-Fl
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 12:11:55 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2adf1ac6-7a16-11ed-91b6-6bf2151ebd3b;
- Mon, 12 Dec 2022 13:11:54 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id tz12so4750986ejc.9
- for <xen-devel@lists.xenproject.org>; Mon, 12 Dec 2022 04:11:54 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1p4hf6-0004g1-6h
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 12:12:00 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p4hf5-0004oE-Fr; Mon, 12 Dec 2022 12:11:59 +0000
+Received: from [54.239.6.188] (helo=[192.168.19.227])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p4hf5-0008KT-6s; Mon, 12 Dec 2022 12:11:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,88 +39,55 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2adf1ac6-7a16-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=QTj5PzSAD8ckcRZ5fkls/1kVA1Ib8uFdBQua4sbDGc0=;
-        b=lpGySwIVfWOQDVC40Ozx5QYQGg30VcvjckLu5lGqop1adiz9oTF82vP+yuS6X3cVK7
-         /kaAiezR7edFOtV7pCF3HiNoObq2mDD+EV7nWYlUKyqAXVBVjHbx1yJupHJP9oUP4AiN
-         uQ0FLEeOBtvrUNl7HTa0QRVCW5JQ5K7j0HOe8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QTj5PzSAD8ckcRZ5fkls/1kVA1Ib8uFdBQua4sbDGc0=;
-        b=Yqh6WDRck3ZZDjhwXwnt1pEjkg4+YyPCk51g0FCSZl5lE5mo6pGEYciv3D0kqJCMUc
-         /iqUB4tdbEVjmImK90MEv4dyVFUKaW9QN9C7Mb0eAqiaS5bFQ28hLLWy3+uvJ4FtIIAI
-         1Tbmj1ofEee+p/4OVZX0aM8W+oZOQ5e0tcmcb1ciY/WecVnXnmNpWmZn30idi+2/l0HZ
-         SMkhcboTIgOpV5XcKx48gfoHpQxgjPD0jICE+MGZmJVKvvmkeMIG335lUokRykWbcNdc
-         /v9Snl8YMCp7RZOYqvketjuvVKk4/VgBmRvYkIEMlbpeAE+m59y2wUkmX+a9SmN7FW+5
-         gV/Q==
-X-Gm-Message-State: ANoB5pmRbRVv0lEOLmChGag3uQAh1RqLD1Yme13yKOoTUXbVleJk/Aj4
-	cmoX6XDmrcbXxgkksR7+MZOn+qCuovaOwTEPpW+SBw==
-X-Google-Smtp-Source: AA0mqf7RSszhd0tbKpk/IcF1Z1aBwT1jXVlZURgSui0pTj8O0btjg4BTSjB7P55OGaQMmUb3R6PbH/tJPaQYeQXxFeg=
-X-Received: by 2002:a17:906:970a:b0:7c1:266a:73e with SMTP id
- k10-20020a170906970a00b007c1266a073emr4134112ejx.179.1670847114274; Mon, 12
- Dec 2022 04:11:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=vqyUqugs7hQA9paiVAho9Ln7KE7hNXBld2RYWuLIbVo=; b=MG+5jtWIJ6ll4KhXngRQgHHHv0
+	te83jc/Zp/qKB3VUN9+islNaZTWbxjfAvELT0J9Gi0G9Zp24hJiMWxXBOm4G/VvdHw4Yb5aYTqH3m
+	SpeHBJs8lELCUYDCaF5h06sMeZNiMLze/wfypYK1joEm3trOss3mrOTGmQeAhjFRT+QE=;
+Message-ID: <64c11d87-454c-54bf-1036-f77318190e75@xen.org>
+Date: Mon, 12 Dec 2022 12:11:57 +0000
 MIME-Version: 1.0
-References: <20221212093410.36289-1-julien@xen.org> <20221212093410.36289-4-julien@xen.org>
-In-Reply-To: <20221212093410.36289-4-julien@xen.org>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Mon, 12 Dec 2022 12:11:43 +0000
-Message-ID: <CA+zSX=ZyOKDLN3_9_0T3CRf_yEoCpQjzY+nR7SJkrmK+2gNJcw@mail.gmail.com>
-Subject: Re: [PATCH 3/8] docs/process: branching-checklist: Remove reference
- to root
-To: Julien Grall <julien@xen.org>
-Cc: xen-devel@lists.xenproject.org, Henry.Wang@arm.com, 
-	Julien Grall <jgrall@amazon.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
-Content-Type: multipart/alternative; boundary="000000000000b8810d05efa068ac"
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH 08/20] tools/xenstore: add hashlist for finding struct
+ domain by domid
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20221101152842.4257-1-jgross@suse.com>
+ <20221101152842.4257-9-jgross@suse.com>
+ <b0380217-09ff-1fa8-b6b3-1bc98766114b@xen.org>
+ <f3657164-2f8e-0cab-7273-d31f10556a38@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <f3657164-2f8e-0cab-7273-d31f10556a38@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
---000000000000b8810d05efa068ac
-Content-Type: text/plain; charset="UTF-8"
+Hi Juergen,
 
-On Mon, Dec 12, 2022 at 9:34 AM Julien Grall <julien@xen.org> wrote:
+On 12/12/2022 12:08, Juergen Gross wrote:
+> On 01.12.22 22:34, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 01/11/2022 15:28, Juergen Gross wrote:
+>>> @@ -341,49 +339,56 @@ static bool get_domain_info(unsigned int domid, 
+>>> xc_dominfo_t *dominfo)
+>>>              dominfo->domid == domid;
+>>>   }
+>>> -void check_domains(void)
+>>> +static int check_domain(void *k, void *v, void *arg)
+>>
+>> Looking at this callback, shouldn't 'k' be const? If not, wouldn't 
+>> this mean a caller could potentially mess up with the hashtable?
+> 
+> I have modified the previous patch to make k const. I hope you are
+> fine with me having kept your "Reviewed-by:".
 
-> From: Julien Grall <jgrall@amazon.com>
->
-> The steps to generate the documentation for the new branch requires
-> to ssh as root and then su to run with the user xendocs.
->
-> The release technician may not (and should not) have access to root.
-> So update the step to directly ssh as xendocs.
->
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
->
+Yes I am fine with that.
 
-Acked-by: George Dunlap <george.dunlap@cloud.com>
+Cheers,
 
---000000000000b8810d05efa068ac
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Dec 12, 2022 at 9:34 AM Julie=
-n Grall &lt;<a href=3D"mailto:julien@xen.org">julien@xen.org</a>&gt; wrote:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">From: Julien Gr=
-all &lt;<a href=3D"mailto:jgrall@amazon.com" target=3D"_blank">jgrall@amazo=
-n.com</a>&gt;<br>
-<br>
-The steps to generate the documentation for the new branch requires<br>
-to ssh as root and then su to run with the user xendocs.<br>
-<br>
-The release technician may not (and should not) have access to root.<br>
-So update the step to directly ssh as xendocs.<br>
-<br>
-Signed-off-by: Julien Grall &lt;<a href=3D"mailto:jgrall@amazon.com" target=
-=3D"_blank">jgrall@amazon.com</a>&gt;<br></blockquote><div><br></div><div>A=
-cked-by: George Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com">georg=
-e.dunlap@cloud.com</a>&gt;</div><div><br></div></div></div>
-
---000000000000b8810d05efa068ac--
+-- 
+Julien Grall
 
