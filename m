@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E04B7649B76
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 10:55:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459248.716930 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 287FF649B78
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 10:55:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459250.716941 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4fWh-0002RE-Do; Mon, 12 Dec 2022 09:55:11 +0000
+	id 1p4fWx-0002qS-OP; Mon, 12 Dec 2022 09:55:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459248.716930; Mon, 12 Dec 2022 09:55:11 +0000
+Received: by outflank-mailman (output) from mailman id 459250.716941; Mon, 12 Dec 2022 09:55:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4fWh-0002OW-At; Mon, 12 Dec 2022 09:55:11 +0000
-Received: by outflank-mailman (input) for mailman id 459248;
- Mon, 12 Dec 2022 09:55:10 +0000
+	id 1p4fWx-0002oR-LI; Mon, 12 Dec 2022 09:55:27 +0000
+Received: by outflank-mailman (input) for mailman id 459250;
+ Mon, 12 Dec 2022 09:55:26 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p4fWg-0002OQ-6H
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 09:55:10 +0000
+ (envelope-from <julien@xen.org>) id 1p4fWw-0002mq-Nb
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 09:55:26 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p4fWf-0001Qc-Pu; Mon, 12 Dec 2022 09:55:09 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ id 1p4fWw-0001RL-G5; Mon, 12 Dec 2022 09:55:26 +0000
+Received: from 54-240-197-224.amazon.com ([54.240.197.224]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p4fWf-0001lP-EP; Mon, 12 Dec 2022 09:55:09 +0000
+ id 1p4fWw-0001lz-8B; Mon, 12 Dec 2022 09:55:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	Message-Id:Date:Subject:Cc:To:From;
-	bh=UBM5+MelmvU1WiyBwdDTmufwAhslCftnA+r1K3UrpHg=; b=Kf3FIH4cgkaIMwFCSXKG4FS0Tv
-	lTQWEfcCsFU0b79LTsuTtrv1t0j/0oPq55HU7NgkX24inP0TC+a/IoyUsBHWsScbkEtYde6/67te0
-	XYWoElPmwCQ1fNSB1e1wxJVFToJZCeLDTRquZK5yCriUHspczxY6/Ab3ZjZs98Wmft40=;
+	bh=UBM5+MelmvU1WiyBwdDTmufwAhslCftnA+r1K3UrpHg=; b=FLOkBcBqz62GKuDlPu+v7X+FdT
+	mAKG49ryhF4qfPbZVRMGAFZNOGlAGsCIpJIm4yEmUzE3p1AH9hTGYNS7EH9xkItx6OKBcff5O2/Pp
+	mJTLPgHxyp4sEKgyc8Wa9arblAUevW4ltg+Q1nBKyCgtYPF/UNKUZQKTuz4wbXmennT0=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: michal.orzel@amd.com,
@@ -56,8 +56,8 @@ Cc: michal.orzel@amd.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 Subject: [PATCH v3 00/18] xen/arm: Don't switch TTBR while the MMU is on
-Date: Mon, 12 Dec 2022 09:54:48 +0000
-Message-Id: <20221212095506.52522-1-julien@xen.org>
+Date: Mon, 12 Dec 2022 09:55:05 +0000
+Message-Id: <20221212095523.52683-1-julien@xen.org>
 X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
