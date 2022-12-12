@@ -2,29 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCEFD64A582
-	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 18:06:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.459881.717666 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A7BD64A78B
+	for <lists+xen-devel@lfdr.de>; Mon, 12 Dec 2022 19:50:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.459896.717678 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4mFz-0006Qc-AO; Mon, 12 Dec 2022 17:06:23 +0000
+	id 1p4nrP-0001z3-Lf; Mon, 12 Dec 2022 18:49:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 459881.717666; Mon, 12 Dec 2022 17:06:23 +0000
+Received: by outflank-mailman (output) from mailman id 459896.717678; Mon, 12 Dec 2022 18:49:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4mFz-0006ON-6o; Mon, 12 Dec 2022 17:06:23 +0000
-Received: by outflank-mailman (input) for mailman id 459881;
- Mon, 12 Dec 2022 17:06:22 +0000
+	id 1p4nrP-0001vc-IO; Mon, 12 Dec 2022 18:49:07 +0000
+Received: by outflank-mailman (input) for mailman id 459896;
+ Mon, 12 Dec 2022 18:49:05 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NYNi=4K=citrix.com=prvs=3386b37d0=Per.Bilse@srs-se1.protection.inumbo.net>)
- id 1p4mFx-0006Me-VP
- for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 17:06:21 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a95a57c-7a3f-11ed-91b6-6bf2151ebd3b;
- Mon, 12 Dec 2022 18:06:19 +0100 (CET)
+ <SRS0=iB2P=4K=oracle.com=boris.ostrovsky@srs-se1.protection.inumbo.net>)
+ id 1p4nrN-0001vW-9g
+ for xen-devel@lists.xenproject.org; Mon, 12 Dec 2022 18:49:05 +0000
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a4fa0d14-7a4d-11ed-91b6-6bf2151ebd3b;
+ Mon, 12 Dec 2022 19:49:03 +0100 (CET)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BCGwrDj002656; Mon, 12 Dec 2022 18:48:32 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3mcjnsuj2w-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 12 Dec 2022 18:48:31 +0000
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 2BCISLKe033022; Mon, 12 Dec 2022 18:48:30 GMT
+Received: from nam04-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam04lp2046.outbound.protection.outlook.com [104.47.74.46])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3mcgjb0ab5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 12 Dec 2022 18:48:30 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com (2603:10b6:208:321::10)
+ by CY8PR10MB6753.namprd10.prod.outlook.com (2603:10b6:930:94::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Mon, 12 Dec
+ 2022 18:48:28 +0000
+Received: from BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::909f:fa34:2dac:11c5]) by BLAPR10MB5009.namprd10.prod.outlook.com
+ ([fe80::909f:fa34:2dac:11c5%7]) with mapi id 15.20.5880.019; Mon, 12 Dec 2022
+ 18:48:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,209 +63,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a95a57c-7a3f-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1670864779;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=sMPzjY9YCDiCSf18nv+XYdrNotL4tPcjoEGZ13RJQys=;
-  b=S+nqZ1eux+s7x3j5L79lWBmKg3X1kHY1X6PWE19IMl2XK7o5IhOvycXk
-   hKmMycvIkiaxWHFIKxbffHS8sJdpUsUDYkXinAWX10oEP9oLeXvPWt+eq
-   CjndMTLM3lwgUkyRQQL1S6G+buhSuUsYuDkJqIHj7NZIxGEMU8Cg0uEYE
-   w=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 87954350
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:rm/1iKBo8za6zBVW//7jw5YqxClBgxIJ4kV8jS/XYbTApGx33mNSz
- jQaWWiDa/aNZzT9KIh3aI/g/RxT75+DzNZmQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFtcpvlDs15K6o4WlB5ARkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw0eRRIUhgp
- PsiBTlVVkGPpPnu8Ym+Vbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2o0BPjDS0Qn1lM/MJ8k2s2pgmLyWzZZtEiUtew85G27IAlZgOe8bYaOJ4TiqcN9mHyyl
- H7/wk/FMhhdCfC2yWre0W29mbqa9c/8cN1LT+DpnhJwu3WI3XAaAhASUVq9oNG6h1S4VtYZL
- FYbkgIpqaUx70WtQsPKQwyjoHWEsxgfXPJdC+Q/rgqKz8L88wufQ2QJUDNFQNgnr9MtAywn0
- EeTmNHkDiApt6eaIVqZ97GJvXaxNDITIGsqeyAJV00G7sPlrYV1iQjAJv5hH7SylcbdAizrz
- naBqy1WulkIpZdVjePhpwmB2m/y4MiSJuIo2unJdkmnyCNQSt+iXaGhsWCK4dVbdLeiS0bU6
- RDohPOixOwJCJiMkgmET+MMAKyl6p65DdHMvbJ8N8J/rmrwohZPaagVuWgjfxkxbq7obBezO
- CfuVRVtCIi/1ZdARYt+eMqPBssj1sAM/vy1B6mPPrKijnWcHTJrHR2Ch2bKhAgBc2B2y8nT3
- Kt3lu7yZUv28Yw9kFKLqx41iNfHPBwWy2LJXozcxB+6y7eYb3P9Ye5bbwPRPrtksvPf8FS9H
- zNj2yyikkU3bQEDSnOPrd57wa4ichDX+qwaW+QIL7Xec2KK6UkqCuPLwKNJRmCWt/09qws8x
- VnkAhUw4AOm1RX6xfCiNigLhEXHAcwu8hrW/EUEYT6V5pTUSdz/tPtOK8VsI+hPGS4K5accc
- sTpsv6oWpxnIgkrMRxHBXUhhOSOrCiWuD8=
-IronPort-HdrOrdr: A9a23:FB7TDqp+xM8KxmKDlMMcfy0aV5rzeYIsimQD101hICG9JPbo8f
- xGUs516faUskdzZJhOo7u90cW7K080lqQU3WByB9mftVLdyQyVxehZhOPfKlvbdhEWndQ96U
- 4PScRDIey1N1Rgksbx7C6/DZINxNGG9YqshevY0h5WPGVXgw4L1XYBNu42eHcGITWvpPACZf
- ih2vY=
-X-IronPort-AV: E=Sophos;i="5.96,239,1665460800"; 
-   d="scan'208";a="87954350"
-From: Per Bilse <per.bilse@citrix.com>
-To: <linux-kernel@vger.kernel.org>
-CC: Per Bilse <per.bilse@citrix.com>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, "moderated list:XEN HYPERVISOR INTERFACE"
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH v2] drivers/xen/hypervisor: Expose Xen SIF flags to userspace
-Date: Mon, 12 Dec 2022 17:06:05 +0000
-Message-ID: <20221212170605.28192-1-per.bilse@citrix.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: a4fa0d14-7a4d-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=message-id : date :
+ to : cc : references : from : subject : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=corp-2022-7-12;
+ bh=k4h51/WRXTtFsJMSStpAC86JVO2KTQ5d8/KBnNwLiW4=;
+ b=z60wzJRGrJEZHiI8Gm3XS1kRCU5s3SnCE2u+9K1yjq2a06FDrn5DXq5TQ2kc6H+/fxYP
+ sURdAgIGSQmMYtE0qL87QsaVx+pIp1KOpwG28VobP52EhpEUyQLMNzrT0nDmqpobLAhT
+ LNlX9cY/GFk5JCHGfkB4l28Bl5Klg3UVcx9b+tbkxsWViI3XemwG9HRl2ZyQO5bgbZ7k
+ YRQcTnFzollmdRM+wnBg0BRWOzQq682HHcSIlbvX1j9auH6yrD94Gsf6mOHm1HPVaKKa
+ F+JLpgLZWqp/RdhZK9I9PBvsbfTsQZVQScbXCZ84FDHce+5zcax4M+GsUolB4vN7qliP VQ== 
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ePINLr+FRab7KhNLVUok7fN/OAnNQ723rIzGt+ArWnC81gCULLCTOwYH0z027m4Nn2GH/V+cykqdRZ2S6CoeWNR5ZiOPNA5jsAoBhXPe74h2afbB+X2+T89AheuK4AhGr1EYhP6F7v1XuEg2yGzNkocExxako+zGBPgu/DFvURmKNn3e/VYz/lwLPTGsiJMpLEBPl5sS/9dtMEgWiABJjjxB02e7i6gShBiXIoENwWMvHQCxo1UN5wa+qVzCTTA5D3RNawJ0DUonbi0bqdy/2RCT1UidKcLrIjwTHX2MKczX1nqrsgJ38shl0oCoXbNhkdhlNB7b0mzv4jvt9HXQtA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=k4h51/WRXTtFsJMSStpAC86JVO2KTQ5d8/KBnNwLiW4=;
+ b=QcX5zG+sEDjcjHWThwtFNxUz+4MD7qlM6XnRWFKmdRdNvyFkiNjXFuVlB6wMgXJW99LzKqNuRRwQk9DPpjrq2kc/AIueC3R95+R85Nz+vmGMOzO2tNSdYTelEzxYYxPki+nynREvI6PfqxJTUVJ7wFg4dXIQpwulGQFSEkgNuhAqMv0HYefyAeXQzlmkUFWdeMfXo3v0Nd9XULYoKt8nM0iDCCZxvs4RasS3b82em0gtY9SWrccge6479SOlJT40id7DPCIxNvp6k+LlnQPgvusXw4q8g5uXw3dY0220xzbxZaihF1n3b7JG14c35tJz1MigJ+R76vWxE/ehQy/WOA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k4h51/WRXTtFsJMSStpAC86JVO2KTQ5d8/KBnNwLiW4=;
+ b=AFOIE3ETYz6+dhEr2isNlhCOOibvDgFw5oSYRlSGOXbhjgdVv+77p14vPt8+Ozmjg8i/hEHqtZBko77qKf/xQXATZ88t5rIewT1oZjIwkWujLVRcGQ5YT1sux9CS1TJCRVrT0K/04UNNcsciQWE+qQkb71Qs9XlICz2jSclf0fU=
+Message-ID: <d1a2b785-edc7-b7da-d2f2-123d1555022e@oracle.com>
+Date: Mon, 12 Dec 2022 13:48:24 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Content-Language: en-US
+To: Krister Johansen <kjlx@templeofstupid.com>,
+        Juergen Gross <jgross@suse.com>
+Cc: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+        Borislav Petkov <bp@alien8.de>,
+        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+        "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+        linux-kernel@vger.kernel.org, Marcelo Tosatti <mtosatti@redhat.com>,
+        Anthony Liguori
+ <aliguori@amazon.com>,
+        David Reaver <me@davidreaver.com>, Brendan Gregg <brendan@intel.com>
+References: <20221208163650.GA3225@templeofstupid.com>
+ <1e6c1b08-d573-fba9-61fd-d40a74427d46@oracle.com>
+ <20221212155730.GA1973@templeofstupid.com>
+ <20221212160524.GB1973@templeofstupid.com>
+From: Boris Ostrovsky <boris.ostrovsky@oracle.com>
+Subject: Re: [PATCH linux-next v2] x86/xen/time: prefer tsc as clocksource
+ when it is invariant
+In-Reply-To: <20221212160524.GB1973@templeofstupid.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DM6PR11CA0059.namprd11.prod.outlook.com
+ (2603:10b6:5:14c::36) To BLAPR10MB5009.namprd10.prod.outlook.com
+ (2603:10b6:208:321::10)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BLAPR10MB5009:EE_|CY8PR10MB6753:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84100975-8376-44e5-f3aa-08dadc717567
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	X+FoiIVyEX9bZswzAqaARpAnpseKtBvCMYhZyc3XySaHiQBmf2TMLecAtc9QKt6f0s3Ugy8huQku120UvYLaCLKhaUV5XVWegRQ69QgATiDn2UneM2liZUeGA9dSrSsBXHTRD0uF1vFHv0Fd5fPkvqiDp8jhrKfyAftL/tH8RgSFp22b9xHWKOFxyAfxYXM331sczbdV91v8YRwe6fVZH2GQfOrfuZFDCrUVIYv4fuuONXZW5UD51sOj+/YJB15fQElwVXZxGicKjOUgtUE2um3Jhxa7vjGPnUiOm8oQsCo27yPJxvAdyWd5M7zIFAztXO37XiCGGAUAZ9dOKP55az7KTW+J4Utt2WKJd3sbUGzk6qcVGbPSFbZUBvieCibb27cDCxaOjmQ+tLq3kUgn5uyCgS3ZJTVgSHATh1RGlQeQ7H39o3evtOXBzAeirj5aVvp2wn9XTwNb06Dh/vnObmcRuNTt4lF47dGon5qWrvPXL6emnmfGa17aEFnxlI3Pdi+krHTD49CjhZKon4alJcb8KKDeMV7LsmrOVwOYXp8X4Xkew+6R5aK7jRcc4Wl2R0S/KHiYixRzV+J9nvU6NZtZ9J6C1pRKQMKtjli033GRb8ur/mSMB0Q7t0j/Ch5xLBtFamxjq8s4KgUkeIEZ9XMVUC80BiKoegPHUmH1fYV5isxjxKw9vsYbsIeTSOhYVuEPh6kjWE87I7344uPtMuYa59yiC/onbvLl3L1yWcU=
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BLAPR10MB5009.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(376002)(366004)(39860400002)(346002)(451199015)(2906002)(31686004)(44832011)(38100700002)(31696002)(54906003)(26005)(36756003)(53546011)(6512007)(86362001)(6666004)(6506007)(7416002)(316002)(5660300002)(8936002)(110136005)(41300700001)(66946007)(4326008)(66476007)(66556008)(8676002)(478600001)(6486002)(186003)(83380400001)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?utf-8?B?THJRZnZJT3cyVUc3dlNHU2JqSHg0bXJ2d2VyOFVmeXhrWWNxVXM5bkhyRWVJ?=
+ =?utf-8?B?L08reDN4Sk5pMW04WEpzcFlvc2NBUHVvWW1QWWp5ZWJpVXBHZWwzVXdBN1kx?=
+ =?utf-8?B?a3lidmNOd0YvTlBNVHlNVUxxQzVkeFVaWURMMXE1T0NTSGNUdnV1cnBZNEJ4?=
+ =?utf-8?B?dkx5WVkyVG5jaTgvd3hkVTkvbFVkZGFsWURqc0FEVk5WdmdnOW0zODVia21z?=
+ =?utf-8?B?emIxNUZNc2c5NHp4RXE1WEtpaE1Za2F6eVJOQjZ2RXFSK0M3cUNXSWdZV1M3?=
+ =?utf-8?B?QU9hUkZsMlRQSjgyZTRnUDFsTnNvRk5nYmFKaEd6NlMrY0dYWllhM05YUFNO?=
+ =?utf-8?B?cFpVc1FTYnJLVmNKYlJLbVd0YmtWMGhsNEdEOGdtdXZoUDk4T1FiMEpacDhm?=
+ =?utf-8?B?cTVtNUhRcWpwczBpUHQydWdESFhxNHNzSGJuRkJzcU5Zc0hHMkFlQ21NVjZz?=
+ =?utf-8?B?dDlHTnZvV3A1QzRlL1RVZElibTgvUlRDWXNFVXpZVnVCMFZJdVlWVk9YRzV4?=
+ =?utf-8?B?WVh0ckF4aU5ldEZlMld3K1RGa2hBSTlCL3JqNjhlZEY1bXVmLzR5QVN2UExx?=
+ =?utf-8?B?NGFFQUtRNE1XRlB3dytEK1FPSk5NdW9KeEdlUGtaelU0aEpSWXpzSE9taVNB?=
+ =?utf-8?B?VlNPUDhITU90VGdVbWY3MUtTdElVVWpweklXTFpQVS94MmV1dXBSbElEdWZZ?=
+ =?utf-8?B?SWI2WEVOSm1mT3JTSXptTzkrMml4OFVZSVRGa0svbzBsMHNvNGJmTEFHeGJF?=
+ =?utf-8?B?THpEbVM5MFJlb0sya3Y5c0FvSVp1cnNlN1BpVVlBQ01EZlpIK3lqN09JVEVC?=
+ =?utf-8?B?d004YjZXbC9iQWwwaVg4Z1hjWXNWOWFYMEw1V3FneXh3OWJZVzhTZTMxMjQ2?=
+ =?utf-8?B?aHQzUEFRaHE0dGc2TldJU3U2QUliYzZMMUFaV0pMbmlabnBzaHdmRTdQTEMz?=
+ =?utf-8?B?dWd2OGdJZzBHUEt0SExxczJRWDAyb0lYNUFRMlFxVGcxNnBmU25Fbk9OMmZZ?=
+ =?utf-8?B?cVgvQWlMN09vRDlxUU5pK1FaZ0Vxd2h1SFFNVFZDOWRkQTIySjhmLzIzem5j?=
+ =?utf-8?B?ODNOREdTZUxWd093MTR3YVRvaWt4QjU0elZiY2pBd0Fwc0wrY2J4UG9FYURH?=
+ =?utf-8?B?Y3ZRanM0T1JIUGN5dE5RbEYzdWlaYnlCSnRkNkovNWZ2c3hRei9ZTDVvSHdU?=
+ =?utf-8?B?TkpzL01EcHljTmE5cVp5bjNHOWdxOXYzTGMwTkY3QmhoZmNYRlVzV2lEckFv?=
+ =?utf-8?B?NUE5NG04czlDSWV1dUdQY3lieHhtRW1LamRLWVFLeXJaRWhLUWlDQ2RwME9M?=
+ =?utf-8?B?Y0NmTWFFZmRhdE43emh3THpPWm1SU3Y4T00vUFFoMTkzZm9ySkJFMmlZdnR0?=
+ =?utf-8?B?UHU0RlV3aFZrU0Z1aUU0YlhSaHltN0xQV3NTajljdUJPM1RVY0lOdFM2N3B5?=
+ =?utf-8?B?dkZCS2N2YXgzZnJXNG8yaGppYkxTa2JoKzlyVytKc3IxWFdmSWQzd3FydzBJ?=
+ =?utf-8?B?bjVDeUdJdEIrbUNRSDRXNzE4ZEZTNmJvTU9vVDFwblhZbUp3cmVRUGxnbG9w?=
+ =?utf-8?B?amJKSnU4a1lLbUhQUkJ1VVdITXlhWnh3VG81aDBFVFRLVmgxOVdETUwycFNU?=
+ =?utf-8?B?d0NzRkFBVUdyVGJOd0JhQy9HOE5MNWJjZndXeXVRem5uWHNoU1I4b2JpK0Zy?=
+ =?utf-8?B?a29GSjEwU0xjdnhvaldTa2VETk9oeTZwNkZtMStiQUFPNTBwT3NiQlhUUUlz?=
+ =?utf-8?B?VnM3RXpyaVNuMVdmeUhuMjI1ZnBxS1NZd21PcW5HeDkrT2p3R0tBMlJVekVF?=
+ =?utf-8?B?ekxVSWsxYkJCZVROYlE4dTlVUTMwcThPY2ozZjE5NUFtdUdhS0lJSGVyNDZQ?=
+ =?utf-8?B?VFVBa2JteW1lWHliaGFPcUhKU05Wd0J0VjRXNTNpdkFlbkc2WGUwcHFTcHho?=
+ =?utf-8?B?eXZjc240ZzgvblExUjk0WWRwVlUwZUJPOEFoa1gxTzdoVlRiMlRqdG9BQlFV?=
+ =?utf-8?B?RTN2RzY4Y1VGdXZ5dXI4dm5RanFnUUpiRmNva3I5d0tFUUpsMlZ6M0NndmE1?=
+ =?utf-8?B?WDhLSnpBd3JvaU1uS2VZY1Ird3Ruc2ZvOGJYWE01aVRnY1FrTDRQbk9qUjlL?=
+ =?utf-8?B?VG43bWVMYzNTK0hWVExqNmh5UWhGWXJ0RjZRTlNZTkY2OFdDNUF0NlBvcFli?=
+ =?utf-8?B?a0E9PQ==?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84100975-8376-44e5-f3aa-08dadc717567
+X-MS-Exchange-CrossTenant-AuthSource: BLAPR10MB5009.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Dec 2022 18:48:28.7695
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5TeVxGkWYFhgPCDxC7QYP3Ke1Upzp2/6qWKN4RKd/YG5tN4FkX+6aZQPEcFqbkBkmbvorVZy5RSPyUZY5qUCZQ+UlEweg6TM2tvoqQD8f2c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR10MB6753
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-12_02,2022-12-12_02,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 mlxlogscore=999 phishscore=0 mlxscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2210170000
+ definitions=main-2212120169
+X-Proofpoint-GUID: plJxmSLFR9HAg5GUYqYHJllH1GMBh8fc
+X-Proofpoint-ORIG-GUID: plJxmSLFR9HAg5GUYqYHJllH1GMBh8fc
 
-/proc/xen is a legacy pseudo filesystem which predates Xen support
-getting merged into Linux.  It has largely been replaced with more
-normal locations for data (/sys/hypervisor/ for info, /dev/xen/ for
-user devices).  We want to compile xenfs support out of the dom0 kernel.
 
-There is one item which only exists in /proc/xen, namely
-/proc/xen/capabilities with "control_d" being the signal of "you're in
-the control domain".  This ultimately comes from the SIF flags provided
-at VM start.
+On 12/12/22 11:05 AM, Krister Johansen wrote:
+>
+> diff --git a/arch/x86/include/asm/xen/cpuid.h b/arch/x86/include/asm/xen/cpuid.h
+> index 6daa9b0c8d11..d9d7432481e9 100644
+> --- a/arch/x86/include/asm/xen/cpuid.h
+> +++ b/arch/x86/include/asm/xen/cpuid.h
+> @@ -88,6 +88,12 @@
+>    *             EDX: shift amount for tsc->ns conversion
+>    * Sub-leaf 2: EAX: host tsc frequency in kHz
+>    */
+> +#define XEN_CPUID_TSC_EMULATED       (1u << 0)
+> +#define XEN_CPUID_HOST_TSC_RELIABLE  (1u << 1)
+> +#define XEN_CPUID_RDTSCP_INSTR_AVAIL (1u << 2)
+> +#define XEN_CPUID_TSC_MODE_DEFAULT   (0)
+> +#define XEN_CPUID_TSC_MODE_EMULATE   (1u)
+> +#define XEN_CPUID_TSC_MODE_NOEMULATE (2u)
 
-This patch exposes all SIF flags in /sys/hypervisor/start_flags/ as
-boolean files, one for each bit, returning '1' if set, '0' otherwise.
-Two known flags, 'privileged' and 'initdomain', are explicitly named,
-and all remaining flags can be accessed via generically named files,
-as suggested by Andrew Cooper.
 
-Signed-off-by: Per Bilse <per.bilse@citrix.com>
----
-v2: minor fix to layout, incorporate suggestions from Juergen Gross
----
- Documentation/ABI/stable/sysfs-hypervisor-xen | 13 ++++
- drivers/xen/sys-hypervisor.c                  | 69 +++++++++++++++++--
- 2 files changed, 78 insertions(+), 4 deletions(-)
+This file is a copy of Xen public interface so this change should go to Xen first.
 
-diff --git a/Documentation/ABI/stable/sysfs-hypervisor-xen b/Documentation/ABI/stable/sysfs-hypervisor-xen
-index 748593c64568..dbc5eccce8ea 100644
---- a/Documentation/ABI/stable/sysfs-hypervisor-xen
-+++ b/Documentation/ABI/stable/sysfs-hypervisor-xen
-@@ -120,3 +120,16 @@ Contact:	xen-devel@lists.xenproject.org
- Description:	If running under Xen:
- 		The Xen version is in the format <major>.<minor><extra>
- 		This is the <minor> part of it.
-+
-+What:		/sys/hypervisor/start_flags/*
-+Date:		December 2022
-+KernelVersion:	6.1.0
-+Contact:	xen-devel@lists.xenproject.org
-+Description:	If running under Xen:
-+		All bits in Xen's start-flags are represented as
-+		boolean files, returning '1' if set, '0' otherwise.
-+		This takes the place of the defunct /proc/xen/capabilities,
-+		which would contain "control_d" on dom0, and be empty
-+		otherwise.  This flag is now exposed as "initdomain" in
-+		addition to the "privileged" flag; all other possible flags
-+		are accessible as "unknownXX".
-diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
-index fcb0792f090e..f5460b34ae6f 100644
---- a/drivers/xen/sys-hypervisor.c
-+++ b/drivers/xen/sys-hypervisor.c
-@@ -31,7 +31,10 @@ struct hyp_sysfs_attr {
- 	struct attribute attr;
- 	ssize_t (*show)(struct hyp_sysfs_attr *, char *);
- 	ssize_t (*store)(struct hyp_sysfs_attr *, const char *, size_t);
--	void *hyp_attr_data;
-+	union {
-+		void *hyp_attr_data;
-+		unsigned long hyp_attr_value;
-+	};
- };
- 
- static ssize_t type_show(struct hyp_sysfs_attr *attr, char *buffer)
-@@ -399,6 +402,60 @@ static int __init xen_sysfs_properties_init(void)
- 	return sysfs_create_group(hypervisor_kobj, &xen_properties_group);
- }
- 
-+#define FLAG_UNAME "unknown"
-+#define FLAG_UNAME_FMT FLAG_UNAME "%02u"
-+#define FLAG_UNAME_MAX sizeof(FLAG_UNAME "XX")
-+#define FLAG_COUNT (sizeof(xen_start_flags) * BITS_PER_BYTE)
-+static_assert(sizeof(xen_start_flags) 
-+		<= sizeof_field(struct hyp_sysfs_attr, hyp_attr_value));
-+
-+static ssize_t flag_show(struct hyp_sysfs_attr *attr, char *buffer)
-+{
-+	char *p = buffer;
-+
-+	*p++ = '0' + ((xen_start_flags & attr->hyp_attr_value) != 0);
-+	*p++ = '\n';
-+	return p - buffer; 
-+}
-+
-+#define FLAG_NODE(flag, node)				\
-+	[ilog2(flag)] = {				\
-+		.attr = { .name = #node, .mode = 0444 },\
-+		.show = flag_show,			\
-+		.hyp_attr_value = flag			\
-+	}
-+
-+/*
-+ * Add new, known flags here.  No other changes are required, but
-+ * note that each known flag wastes one entry in flag_unames[].
-+ * The code/complexity machinations to avoid this isn't worth it
-+ * for a few entries, but keep it in mind.
-+ */
-+static struct hyp_sysfs_attr flag_attrs[FLAG_COUNT] = {
-+	FLAG_NODE(SIF_PRIVILEGED, privileged),
-+	FLAG_NODE(SIF_INITDOMAIN, initdomain)
-+};
-+static struct attribute_group xen_flags_group = {
-+	.name = "start_flags",
-+	.attrs = (struct attribute *[FLAG_COUNT + 1]){}
-+};
-+static char flag_unames[FLAG_COUNT][FLAG_UNAME_MAX];
-+
-+static int __init xen_sysfs_flags_init(void)
-+{
-+	for (unsigned fnum = 0; fnum != FLAG_COUNT; fnum++) {
-+		if (likely(flag_attrs[fnum].attr.name == NULL)) {
-+			sprintf(flag_unames[fnum], FLAG_UNAME_FMT, fnum);
-+			flag_attrs[fnum].attr.name = flag_unames[fnum];
-+			flag_attrs[fnum].attr.mode = 0444;
-+			flag_attrs[fnum].show = flag_show;
-+			flag_attrs[fnum].hyp_attr_value = 1 << fnum;
-+		}
-+		xen_flags_group.attrs[fnum] = &flag_attrs[fnum].attr;
-+	}
-+	return sysfs_create_group(hypervisor_kobj, &xen_flags_group);
-+}
-+
- #ifdef CONFIG_XEN_HAVE_VPMU
- struct pmu_mode {
- 	const char *name;
-@@ -539,18 +596,22 @@ static int __init hyper_sysfs_init(void)
- 	ret = xen_sysfs_properties_init();
- 	if (ret)
- 		goto prop_out;
-+	ret = xen_sysfs_flags_init();
-+	if (ret)
-+		goto flags_out;
- #ifdef CONFIG_XEN_HAVE_VPMU
- 	if (xen_initial_domain()) {
- 		ret = xen_sysfs_pmu_init();
- 		if (ret) {
--			sysfs_remove_group(hypervisor_kobj,
--					   &xen_properties_group);
--			goto prop_out;
-+			sysfs_remove_group(hypervisor_kobj, &xen_flags_group);
-+			goto flags_out;
- 		}
- 	}
- #endif
- 	goto out;
- 
-+flags_out:
-+	sysfs_remove_group(hypervisor_kobj, &xen_properties_group);
- prop_out:
- 	sysfs_remove_file(hypervisor_kobj, &uuid_attr.attr);
- uuid_out:
--- 
-2.31.1
+
+>   
+> +static int __init xen_tsc_safe_clocksource(void)
+> +{
+> +	u32 eax, ebx, ecx, edx;
+> +
+> +	if (!(xen_hvm_domain() || xen_pvh_domain()))
+> +		return 0;
+> +
+> +	if (!(boot_cpu_has(X86_FEATURE_CONSTANT_TSC)))
+> +		return 0;
+> +
+> +	if (!(boot_cpu_has(X86_FEATURE_NONSTOP_TSC)))
+> +		return 0;
+> +
+> +	if (check_tsc_unstable())
+> +		return 0;
+> +
+> +	cpuid(xen_cpuid_base() + 3, &eax, &ebx, &ecx, &edx);
+> +
+> +	if (eax & XEN_CPUID_TSC_EMULATED)
+> +		return 0;
+> +
+> +	if (ebx != XEN_CPUID_TSC_MODE_NOEMULATE)
+> +		return 0;
+
+
+Why is the last test needed?
+
+
+-boris
 
 
