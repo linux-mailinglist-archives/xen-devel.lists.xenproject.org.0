@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 326F564BE55
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 22:26:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461205.719267 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB3D464BE7A
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 22:34:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461223.719289 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5Cmr-0002D9-5D; Tue, 13 Dec 2022 21:26:05 +0000
+	id 1p5Cu7-0004MA-An; Tue, 13 Dec 2022 21:33:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461205.719267; Tue, 13 Dec 2022 21:26:05 +0000
+Received: by outflank-mailman (output) from mailman id 461223.719289; Tue, 13 Dec 2022 21:33:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5Cmr-0002BN-2M; Tue, 13 Dec 2022 21:26:05 +0000
-Received: by outflank-mailman (input) for mailman id 461205;
- Tue, 13 Dec 2022 21:26:03 +0000
+	id 1p5Cu7-0004JR-7Y; Tue, 13 Dec 2022 21:33:35 +0000
+Received: by outflank-mailman (input) for mailman id 461223;
+ Tue, 13 Dec 2022 21:33:34 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5Cmp-0002BH-IO
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 21:26:03 +0000
+ (envelope-from <julien@xen.org>) id 1p5Cu6-0004JI-Ej
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 21:33:34 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5Cmp-0003pK-AC; Tue, 13 Dec 2022 21:26:03 +0000
+ id 1p5Cu4-0003yU-Pw; Tue, 13 Dec 2022 21:33:32 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5Cmp-0000rx-50; Tue, 13 Dec 2022 21:26:03 +0000
+ id 1p5Cu4-00019X-KQ; Tue, 13 Dec 2022 21:33:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,46 +40,147 @@ Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=25l2B35j46qJmV7lPA7q0BErmY5UTjh3TAmgDCYDTvs=; b=k3pzeoE9CoLccilntGhiiejtw4
-	+U8YBGCRZgC2Ax2NDyVKkPkqbw/g/8i8O6PCr2a+T/P9heOqBQEJjSnc8PXr1mDduXs8OxPznXSXj
-	BZkng9kwedPgnf+KjSQGmRRIkcmISmPVpg4eetJyqz0KRX+Z5pSb3qPE+zSZtj8UGn9U=;
-Message-ID: <11fcdadd-66e3-9d90-e1da-124c12f5b9e3@xen.org>
-Date: Tue, 13 Dec 2022 21:26:01 +0000
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=zTMSA0dtXC8KYRK8UH5JTkv6dzXdAUVSGj7cFc7qE7Q=; b=6gup2+I0nchs7/C6RyVZx5taWc
+	tZoIQoPOedN9HDS5B5zmiqumgRjYX8QGBwNDU5ePQeu/XRrQBfhV0gcDTflf9n2QP3HIiAkw6+7IF
+	LcD1fDD8dKG92grEWNEgiGJN15FvutJmPQBoQ71tjXkdbVaetwV/gu9oS6L2Qf+d+l5U=;
+Message-ID: <02637a10-c223-99d6-f06a-ece62a42e151@xen.org>
+Date: Tue, 13 Dec 2022 21:33:30 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [XEN v5 11/11] xen/Arm: GICv3: Enable GICv3 for AArch32
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefanos@xilinx.com, Volodymyr_Babchuk@epam.com,
- bertrand.marquis@arm.com, michal.orzel@amd.com, jgrall@amazon.com,
- burzalodowa@gmail.com
-References: <20221205132637.26775-1-ayan.kumar.halder@amd.com>
- <20221205132637.26775-12-ayan.kumar.halder@amd.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <volodymyr_babchuk@epam.com>
+References: <471bd202-7bf0-81be-e8a5-780ea5975a70@suse.com>
+ <670b7017-4a6e-fa9e-9d65-65013bd4ad80@suse.com>
+ <520abcb0-0edd-bb09-f3a2-bb3d96c569b3@xen.org>
+ <76e1edfd-07d8-1d02-788b-bd9e6beb49fd@suse.com>
+ <3911cb46-e691-5539-b2d5-04de1a119329@xen.org>
+ <d1805f03-2f74-7595-03d7-8fe69c275413@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221205132637.26775-12-ayan.kumar.halder@amd.com>
+Subject: Re: [PATCH 2/2] NUMA: replace phys_to_nid()
+In-Reply-To: <d1805f03-2f74-7595-03d7-8fe69c275413@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Jan,
 
-On 05/12/2022 13:26, Ayan Kumar Halder wrote:
-> One can now use GICv3 on AArch32 systems. However, ITS is not supported.
-> The reason being currently we are trying to validate GICv3 on an AArch32_v8R
-> system. Refer ARM DDI 0568A.c ID110520, B1.3.1,
-> "A Generic Interrupt Controller (GIC) implemented with an Armv8-R PE must not
-> implement LPI support."
+On 13/12/2022 14:08, Jan Beulich wrote:
+> On 13.12.2022 14:48, Julien Grall wrote:
+>> On 13/12/2022 12:46, Jan Beulich wrote:
+>>> On 13.12.2022 13:06, Julien Grall wrote:
+>>>> On 13/12/2022 11:38, Jan Beulich wrote:
+>>>>> All callers convert frame numbers (perhaps in turn derived from struct
+>>>>> page_info pointers) to an address, just for the function to convert it
+>>>>> back to a frame number (as the first step of paddr_to_pdx()). Replace
+>>>>> the function by mfn_to_nid() plus a page_to_nid() wrapper macro. Replace
+>>>>> call sites by the respectively most suitable one.
+>>>>>
+>>>>> While there also introduce a !NUMA stub, eliminating the need for Arm
+>>>>> (and potentially other ports) to carry one individually.
+>>>>>
+>>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>>> ---
+>>>>> At the top of free_heap_pages() mfn_to_nid() could also be used, since
+>>>>> the MFN is calculated immediately ahead. The choice of using
+>>>>> page_to_nid() (for now at least) was with the earlier patch's RFC in
+>>>>> mind, addressing of which may require to make mfn_to_nid() do weaker
+>>>>> checking than page_to_nid().
+>>>>
+>>>> I haven't looked in details at the previous patch. However, I don't like
+>>>> the idea of making mfn_to_nid() do weaker checking because this could
+>>>> easily confuse the reader/developper.
+>>>>
+>>>> If you want to use weaker check, then it would be better if a separate
+>>>> helper is provided with a name reflecting its purpose.
+>>>
+>>> Well, the purpose then still is the very same conversion, so the name
+>>> is quite appropriate. I don't view mfn_to_nid_bug_dont_look_very_closely()
+>>> (exaggerating) as very sensible a name.
+>>
+>> I understand they are both doing the same conversion. But the checks
+>> will be different. With your proposal, we are now going to say if the
+>> caller is "buggy" then use mfn_to_nid() if not then you can use any.
+>>
+>> I think this is wrong to hide the "bug" just because the name is longer.
+>> In fact, it means that any non-buggy caller will still have relaxed
+>> check. The risk if we are going to introduce more "buggy" caller in the
+>> future.
 > 
-> By default GICv3 is disabled on AArch32 and enabled on AArch64.
+> While I, too, have taken your perspective as one possible one, I've
+> also been considering a slightly different perspective: page_to_nid()
+> implies the caller to have a struct page_info *, which in turn implies
+> you pass in something identifying valid memory (which hence should have
+> a valid node ID associated with it). mfn_to_nid(), otoh, has nothing
+> to pre-qualify (see patch 1's RFC remark as to mfn_valid() not being
+> sufficient). Hence less rigid checking there can make sense (and you'll
+> notice that mfn_to_nid() was also used quite sparingly in the course of
+> the conversion.)
 > 
-> Updated SUPPORT.md to state that GICv3 on Arm32 is not security supported.
+>> So from my perspective there are only two acceptable solutions:
+>>     1. Provide a different helper that will be used for just "buggy"
+>> caller. This will make super clear that the helper should only be used
+>> in very limited circumstances.
+>>     2. Fix the "buggy" callers.
+>>
+>>   From your previous e-mails, it wasn't clear whether 2) is possible. So
+>> that's leave us only with 1).
 > 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> The buggy callers are the ones touched by patch 1; see (again) the RFC
+> remark there for limitations of that approach.
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+Even with what you wrote above, I still think that relaxing the check 
+for everyone is wrong. Anyway, this patch is not changing the helper. So 
+I will wait and see a formal proposal.
+
+> 
+>>>>> --- a/xen/common/numa.c
+>>>>> +++ b/xen/common/numa.c
+>>>>> @@ -671,15 +671,15 @@ static void cf_check dump_numa(unsigned
+>>>>>     
+>>>>>         for_each_online_node ( i )
+>>>>>         {
+>>>>> -        paddr_t pa = pfn_to_paddr(node_start_pfn(i) + 1);
+>>>>> +        mfn_t mfn = _mfn(node_start_pfn(i) + 1);
+>>>>>     
+>>>>>             printk("NODE%u start->%lu size->%lu free->%lu\n",
+>>>>>                    i, node_start_pfn(i), node_spanned_pages(i),
+>>>>>                    avail_node_heap_pages(i));
+>>>>> -        /* Sanity check phys_to_nid() */
+>>>>> -        if ( phys_to_nid(pa) != i )
+>>>>> -            printk("phys_to_nid(%"PRIpaddr") -> %d should be %u\n",
+>>>>> -                   pa, phys_to_nid(pa), i);
+>>>>> +        /* Sanity check mfn_to_nid() */
+>>>>> +        if ( node_spanned_pages(i) && mfn_to_nid(mfn) != i )
+>>>>
+>>>>
+>>>>    From the commit message, I would have expected that we would only
+>>>> replace phys_to_nid() with either mfn_to_nid() or page_to_nid().
+>>>> However, here you added node_spanned_pages(). Can you explain why?
+>>>
+>>> Oh, indeed, I meant to say a word on this but then forgot. This
+>>> simply is because the adding of 1 to the start PFN (which by
+>>> itself is imo a little funny) makes it so that the printk()
+>>> inside the conditional would be certain to be called for an
+>>> empty (e.g. CPU-only) node.
+>>
+>> Ok. I think this wants to be a separate patch as this sounds like bug
+>> and we should avoid mixing code conversion with bug fix.
+> 
+> Yet then this is only in a debug key handler. (Else I would have made
+> it a separate patch, yes.)
+
+IMO, the fact it is a debug key handler doesn't matter. While I am 
+generally OK if we do minor swapin patch modifying the behavior. I think 
+the other way around is quite confusing. And therefore, I would rather 
+prefer the split unless another maintainer thinks otherwise.
 
 Cheers,
 
