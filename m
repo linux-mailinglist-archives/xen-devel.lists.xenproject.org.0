@@ -2,51 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10C0F64B2BA
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 10:51:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460356.718253 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BC6264B2CF
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 10:54:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460362.718265 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p51w4-00054d-98; Tue, 13 Dec 2022 09:50:52 +0000
+	id 1p51zF-0005h0-Na; Tue, 13 Dec 2022 09:54:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460356.718253; Tue, 13 Dec 2022 09:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 460362.718265; Tue, 13 Dec 2022 09:54:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p51w4-00051w-6O; Tue, 13 Dec 2022 09:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 460356;
- Tue, 13 Dec 2022 09:50:50 +0000
+	id 1p51zF-0005ek-Kp; Tue, 13 Dec 2022 09:54:09 +0000
+Received: by outflank-mailman (input) for mailman id 460362;
+ Tue, 13 Dec 2022 09:54:08 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Nvb8=4L=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p51w2-00051o-Ga
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 09:50:50 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7Djt=4L=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1p51zE-0005eN-7f
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 09:54:08 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9ede5dab-7acb-11ed-91b6-6bf2151ebd3b;
- Tue, 13 Dec 2022 10:50:48 +0100 (CET)
-Received: from MW2PR16CA0042.namprd16.prod.outlook.com (2603:10b6:907:1::19)
- by DS0PR12MB7582.namprd12.prod.outlook.com (2603:10b6:8:13c::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
- 2022 09:50:44 +0000
-Received: from CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
- (2603:10b6:907:1:cafe::17) by MW2PR16CA0042.outlook.office365.com
- (2603:10b6:907:1::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8 via Frontend
- Transport; Tue, 13 Dec 2022 09:50:44 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT110.mail.protection.outlook.com (10.13.175.125) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5901.21 via Frontend Transport; Tue, 13 Dec 2022 09:50:43 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 13 Dec
- 2022 03:50:42 -0600
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 13 Dec 2022 03:50:41 -0600
+ id 1571ffd4-7acc-11ed-91b6-6bf2151ebd3b;
+ Tue, 13 Dec 2022 10:54:07 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id CA3F81FE0B;
+ Tue, 13 Dec 2022 09:54:06 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A584D138F9;
+ Tue, 13 Dec 2022 09:54:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id U+aMJr5LmGNFUAAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 13 Dec 2022 09:54:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,194 +51,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9ede5dab-7acb-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fJXUCYDK0P1vMFZPmIYAI3eTN2uMARr5G/4m5vBr6E/6cJFh/U7tChERqTHojb5dlaoU5ggQdfgbXaqYwPyLBXK0XlsaFUExgAD00OjzEcvGzwugO1yUsNI8ylu77A/wiXE5qLr7HBwca34WBtfalEV13HlWePVj9KL2K/lCffvMCzp8VZxsWOjdDgtSK1qoQK1hJ7eQ4PHtFaezU+oxe7bhKRaERS/Nypsdjf+dsC0mlL5XfMD7eyYmCcM2scb1cbNtpKFNXl1ZrUZEGjL0HaPyqgemJzymNcLBr3pxQzgyanvrmmQGtezKrDnuKpuQsd1+eTYUl4IaIe1hLI9DYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BpGYpQLpiYNG4IMYJmZTzr5C+lGyRr8TzkKCHh9njpc=;
- b=FlyrbCDgoF3IWVxFIVLv+Ti1dLLWz6KRQv5ZLPqfXZJrl3kPMkoFpRY5Wi4YecHEU/RTkOTt/JxgS/JnysaGBVsbhR7x0xK9EIIOYt2JEsV8JxSv4ddaOetTk8zdsNGxMxIpn2iDRaBScB3AlflprgnY4Wo9haBPn63cI46d6GlRdJuzqgMOBTiLKCK5KdxYVTb8giluG4x+qOj8wEE26+k+e7QYkq2nqcPJqEO9DJUPgYWoeTwwHTxaiD9Q06JQaJuHXgn0giThwpXGWADttCXA2by3reQmlYfNupH8q6enNbTqIeZ7FyP+8fP/BJWwKqEC8WwSNa6LKL7N20AYzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BpGYpQLpiYNG4IMYJmZTzr5C+lGyRr8TzkKCHh9njpc=;
- b=UaS0qdW4FYcoMazcoefrEh836fI2lGXAiRRoTfJw9b9QzYgsiCRwBtiDwCFWTxL4P/VdLumb4exnp/++iQrur9gc9aNLlmEX1pHLwS/98pu01mZyEG5XwQn+BINP7cQqfu4wzDJt407Ji2Rm7+Nqu9IHpjLxzKJ+ay2iBXUp5QA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <4eecd73b-df8b-bbdb-b9ce-0d4ae720f8f6@amd.com>
-Date: Tue, 13 Dec 2022 10:50:40 +0100
+X-Inumbo-ID: 1571ffd4-7acc-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1670925246; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/a1K4N0hh9cznFFXMy6xA20fHOnTYTkrUHnpzqubU54=;
+	b=G/ZraK19iPOgZSsYQbRbcDwjQVK8OnGM+BBa8FWeMSovOThdoyf05wIAYLPpsfRu6VIhuD
+	bVHOwdpC/TyMD/nkp9bR0L7RhJE0D1CECyJvbVETP+BaP4xqqvgDFOwpDiu10XX0LWe4iP
+	kT9ZcobQxNhkHi6OJ7QbQA8Hh/uk6Rs=
+Message-ID: <0dd9932b-356b-7201-d017-41dd061c6b44@suse.com>
+Date: Tue, 13 Dec 2022 10:54:06 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: [PATCH v3 01/18] xen/arm64: flushtlb: Reduce scope of barrier for
- local TLB flush
+Subject: Re: [PATCH 11/20] tools/xenstore: move changed domain handling
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
-CC: <Luca.Fancellu@arm.com>, Julien Grall <jgrall@amazon.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221212095523.52683-1-julien@xen.org>
- <20221212095523.52683-2-julien@xen.org>
- <650bc040-63a9-8950-e2ff-6829c9a452a8@amd.com>
- <a45d9304-0db3-930b-7ebd-1ae1dafabac8@xen.org>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <a45d9304-0db3-930b-7ebd-1ae1dafabac8@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT110:EE_|DS0PR12MB7582:EE_
-X-MS-Office365-Filtering-Correlation-Id: d6f0924d-d9f1-46ec-4652-08dadcef80af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	+KlIBHgjHN14RE4uzN6iMhJXz72klzjC90n9mfweIWcx+QAjMm8aWJtILgYYtQvfK4KInHX8p8go1wJyuqF835+agcigX0n2v8LYZgV0cUAFRE9Yfy6GvLGfjlR0whcMtM0PZ+TOh81P1HBVV7iKT8DURG618VCmXACuZJldN22jIt+8eEJJ30uapnlTtbIQZI+5FXayJxMpFKySusHgoSBYS4VXD61aEUgIfXz40ahWQksZrcR3OirMj6WwOqD+ZKba6Ru9mnVP3kog17u0ww7sYuFBbLMMeSQHJzstDKGPX9F16Z5n6j50bEB9OwUeVL1+GiFwDvlarHjnOLvA9/K4cnnG/tfj+EBFO7qzOpvRyRD2tORorbVJ4orwhl/S6rZGqOdOopis1zyor3K2tGYmlyKLKmjVke9w5HHJl/HrzWLwMDVXZcK/qI0TD1YfS/2ZnQLaFPg0k0seUmft90p7iRNTKvQUVEJZU6SxJzEcH1p1QqAzGjWr9BUvtaNfPOvtFfbAETTf2xoYYvfoAsyDBsnRDSfZfL+IBdYq4OLuMkaiTHiqHgNcpxlBIy0Tvgs6l+a8rj6iGjeNi1KU3ERDxWt7qC0yMJta0GGgee/nsBv/bzQVBBbQq6CCs3iuKoqfWImvlL10wGeZQKcEQ5DFUuUjho5ZkUvd1vSsWfyLelctYqQwfWhDUARdgAZ4/Ith34tQe97N4qnfMz8zuyZDXB1lC0qPdlYHj7K6g20krvUKae/1a5qaWqQpmEIk4m7Vszj7zuJZbmyeF0qTGA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199015)(36840700001)(46966006)(40470700004)(81166007)(82740400003)(356005)(36860700001)(31696002)(40480700001)(41300700001)(82310400005)(86362001)(40460700003)(8936002)(478600001)(4326008)(426003)(186003)(70586007)(8676002)(110136005)(70206006)(2906002)(83380400001)(54906003)(47076005)(316002)(26005)(2616005)(53546011)(44832011)(336012)(16576012)(5660300002)(31686004)(36756003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 09:50:43.9048
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d6f0924d-d9f1-46ec-4652-08dadcef80af
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT110.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7582
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20221101152842.4257-1-jgross@suse.com>
+ <20221101152842.4257-12-jgross@suse.com>
+ <6bad7b3c-eaa2-d342-a7f2-d265bdefd54a@xen.org>
+ <e2aa2c60-5d4f-06ca-153e-cdb422aa084d@suse.com>
+ <81985efe-7335-770c-c411-55c88db26a75@xen.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <81985efe-7335-770c-c411-55c88db26a75@xen.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------J00SrWioZKjMZDGMXtoANtbC"
 
-Hi Julien,
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------J00SrWioZKjMZDGMXtoANtbC
+Content-Type: multipart/mixed; boundary="------------eEjgJAtHEBNk8GUGvVImFVjW";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <0dd9932b-356b-7201-d017-41dd061c6b44@suse.com>
+Subject: Re: [PATCH 11/20] tools/xenstore: move changed domain handling
+References: <20221101152842.4257-1-jgross@suse.com>
+ <20221101152842.4257-12-jgross@suse.com>
+ <6bad7b3c-eaa2-d342-a7f2-d265bdefd54a@xen.org>
+ <e2aa2c60-5d4f-06ca-153e-cdb422aa084d@suse.com>
+ <81985efe-7335-770c-c411-55c88db26a75@xen.org>
+In-Reply-To: <81985efe-7335-770c-c411-55c88db26a75@xen.org>
 
-On 13/12/2022 10:45, Julien Grall wrote:
-> 
-> 
-> On 13/12/2022 09:11, Michal Orzel wrote:
->> Hi Julien,
-> 
-> Hi Michal,
-> 
->> On 12/12/2022 10:55, Julien Grall wrote:
->>>
->>>
->>> From: Julien Grall <jgrall@amazon.com>
->>>
->>> Per D5-4929 in ARM DDI 0487H.a:
->>> "A DSB NSH is sufficient to ensure completion of TLB maintenance
->>>   instructions that apply to a single PE. A DSB ISH is sufficient to
->>>   ensure completion of TLB maintenance instructions that apply to PEs
->>>   in the same Inner Shareable domain.
->>> "
->>>
->>> This means barrier after local TLB flushes could be reduced to
->>> non-shareable.
->>>
->>> Note that the scope of the barrier in the workaround has not been
->>> changed because Linux v6.1-rc8 is also using 'ish' and I couldn't
->>> find anything in the Neoverse N1 suggesting that a 'nsh' would
->>> be sufficient.
->>>
->>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>
->>> ---
->>>
->>>      I have used an older version of the Arm Arm because the explanation
->>>      in the latest (ARM DDI 0487I.a) is less obvious. I reckon the paragraph
->>>      about DSB in D8.13.8 is missing the shareability. But this is implied
->>>      in B2.3.11:
->>>
->>>      "If the required access types of the DSB is reads and writes, the
->>>       following instructions issued by PEe before the DSB are complete for
->>>       the required shareability domain:
->>>
->>>       [...]
->>>
->>>       — All TLB maintenance instructions.
->>>      "
->>>
->>>      Changes in v3:
->>>          - Patch added
->>> ---
->>>   xen/arch/arm/include/asm/arm64/flushtlb.h | 27 ++++++++++++++---------
->>>   1 file changed, 16 insertions(+), 11 deletions(-)
->>>
->>> diff --git a/xen/arch/arm/include/asm/arm64/flushtlb.h b/xen/arch/arm/include/asm/arm64/flushtlb.h
->>> index 7c5431518741..39d429ace552 100644
->>> --- a/xen/arch/arm/include/asm/arm64/flushtlb.h
->>> +++ b/xen/arch/arm/include/asm/arm64/flushtlb.h
->>> @@ -12,8 +12,9 @@
->>>    * ARM64_WORKAROUND_REPEAT_TLBI:
->> Before this line, in the same comment, we state DSB ISHST. This should also be changed
->> to reflect the change done by this patch.
-> 
-> This is on purpose. I decided to keep the sequence as-is and instead add
-> a paragraph explaining that 'nsh' is sufficient for local TLB flushes.
-> 
->>
->>>    * Modification of the translation table for a virtual address might lead to
->>>    * read-after-read ordering violation.
->>> - * The workaround repeats TLBI+DSB operation for all the TLB flush operations.
->>> - * While this is stricly not necessary, we don't want to take any risk.
->>> + * The workaround repeats TLBI+DSB ISH operation for all the TLB flush
->>> + * operations. While this is stricly not necessary, we don't want to
->> s/stricly/strictly/
->>
->>> + * take any risk.
->>>    *
->>>    * For Xen page-tables the ISB will discard any instructions fetched
->>>    * from the old mappings.
->>> @@ -21,38 +22,42 @@
->>>    * For the Stage-2 page-tables the ISB ensures the completion of the DSB
->>>    * (and therefore the TLB invalidation) before continuing. So we know
->>>    * the TLBs cannot contain an entry for a mapping we may have removed.
->>> + *
->>> + * Note that for local TLB flush, using non-shareable (nsh) is sufficient
->>> + * (see D5-4929 in ARM DDI 0487H.a). Althougth, the memory barrier in
->> s/Althougth/Although/
->>
->>> + * for the workaround is left as inner-shareable to match with Linux.
->> So for the workaround we stay with DSB ISH. But ...
->>
->>>    */
->>> -#define TLB_HELPER(name, tlbop)                  \
->>> +#define TLB_HELPER(name, tlbop, sh)              \
->>>   static inline void name(void)                    \
->>>   {                                                \
->>>       asm volatile(                                \
->>> -        "dsb  ishst;"                            \
->>> +        "dsb  "  # sh  "st;"                     \
->>>           "tlbi "  # tlbop  ";"                    \
->>>           ALTERNATIVE(                             \
->>>               "nop; nop;",                         \
->>> -            "dsb  ish;"                          \
->>> +            "dsb  "  # sh  ";"                   \
->> ... you do not adhere to this.
-> 
-> This is a leftover from my previous approach. I will drop it.
-> 
-> [...]
-> 
->>
->> With the remarks fixed:
->> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
-> 
-> I am not planning to fix the first remark. Please let me know if your
-> Reviewed-by tag stands.
-I'm ok with it so you can keep my tag.
+--------------eEjgJAtHEBNk8GUGvVImFVjW
+Content-Type: multipart/mixed; boundary="------------xgDkKHKwjEtXi7sbY0G40XMB"
 
-> 
-> Cheers,
-> 
-> --
-> Julien Grall
+--------------xgDkKHKwjEtXi7sbY0G40XMB
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-~Michal
+T24gMTMuMTIuMjIgMTA6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDEzLzEyLzIwMjIgMDY6NTMsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
+biAwMS4xMi4yMiAyMjo1OCwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIEp1ZXJnZW4s
+DQo+Pj4NCj4+PiBPbiAwMS8xMS8yMDIyIDE1OjI4LCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
+Pj4+PiDCoCBzdGF0aWMgYm9vbCBjaGVja19pbmRleGVzKFhFTlNUT1JFX1JJTkdfSURYIGNv
+bnMsIFhFTlNUT1JFX1JJTkdfSURYIHByb2QpDQo+Pj4+IEBAIC00OTIsOCArNTA0LDEyIEBA
+IHN0YXRpYyBzdHJ1Y3QgZG9tYWluIA0KPj4+PiAqZmluZF9vcl9hbGxvY19leGlzdGluZ19k
+b21haW4odW5zaWduZWQgaW50IGRvbWlkKQ0KPj4+PiDCoMKgwqDCoMKgIHhjX2RvbWluZm9f
+dCBkb21pbmZvOw0KPj4+PiDCoMKgwqDCoMKgIGRvbWFpbiA9IGZpbmRfZG9tYWluX3N0cnVj
+dChkb21pZCk7DQo+Pj4+IC3CoMKgwqAgaWYgKCFkb21haW4gJiYgZ2V0X2RvbWFpbl9pbmZv
+KGRvbWlkLCAmZG9taW5mbykpDQo+Pj4+IC3CoMKgwqDCoMKgwqDCoCBkb21haW4gPSBhbGxv
+Y19kb21haW4oTlVMTCwgZG9taWQpOw0KPj4+PiArwqDCoMKgIGlmICghZG9tYWluKSB7DQo+
+Pj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoIWdldF9kb21haW5faW5mbyhkb21pZCwgJmRvbWlu
+Zm8pKQ0KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBlcnJubyA9IEVOT0VOVDsNCj4+
+Pj4gK8KgwqDCoMKgwqDCoMKgIGVsc2UNCj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
+ZG9tYWluID0gYWxsb2NfZG9tYWluKE5VTEwsIGRvbWlkKTsNCj4+Pj4gK8KgwqDCoCB9DQo+
+Pj4NCj4+PiBJIGRvbid0IHVuZGVyc3RhbmQgaG93IHRoaXMgY2hhbmdlIGlzIHJlbGF0ZWQg
+dG8gdGhpcyBjb21taXQuDQo+Pg0KPj4gSXQgaXMgZGlyZWN0bHkgcmVsYXRlZCB0byB0aGUg
+aHVuayBiZWxvdy4gUmV0dXJuaW5nIGVycm5vIGluDQo+PiBhY2NfYWRkX2RvbV9uYmVudHJ5
+KCkgcmVxdWlyZXMgaXQgdG8gYmUgc2V0IGNvcnJlY3RseSBpbg0KPj4gZmluZF9vcl9hbGxv
+Y19leGlzdGluZ19kb21haW4oKS4NCj4+DQo+PiBJJ2xsIGFkZCBhIHJlbWFyayBpbiB0aGUg
+Y29tbWl0IG1lc3NhZ2UuDQo+Pg0KPj4+DQo+Pj4gWy4uLl0NCj4+Pg0KPj4+PiAraW50IGFj
+Y19hZGRfZG9tX25iZW50cnkoY29uc3Qgdm9pZCAqY3R4LCBzdHJ1Y3QgbGlzdF9oZWFkICpo
+ZWFkLCBpbnQgdmFsLA0KPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1bnNpZ25lZCBp
+bnQgZG9taWQpDQo+Pj4+ICt7DQo+Pj4+ICvCoMKgwqAgc3RydWN0IGNoYW5nZWRfZG9tYWlu
+ICpjZDsNCj4+Pj4gKw0KPj4+PiArwqDCoMKgIGNkID0gYWNjX2dldF9jaGFuZ2VkX2RvbWFp
+bihjdHgsIGhlYWQsIGRvbWlkKTsNCj4+Pj4gK8KgwqDCoCBpZiAoIWNkKQ0KPj4+PiArwqDC
+oMKgwqDCoMKgwqAgcmV0dXJuIGVycm5vOw0KPj4+PiArDQo+Pj4+ICvCoMKgwqAgY2QtPm5i
+ZW50cnkgKz0gdmFsOw0KPj4+DQo+Pj4gQXMgYSBmdXR1cmUgaW1wcm92ZW1lbnQsIGl0IHdv
+dWxkIGJlIHdvcnRoIGNvbnNpZGVyaW5nIHRvIGNoZWNrIGZvciANCj4+PiB1bmRlcmZsb3cv
+b3ZlcmZsb3cuDQo+Pg0KPj4gRG8geW91IHJlYWxseSB0aGluayB3ZSBuZWVkIHRvIG1ha2Ug
+c3VyZSBub3QgdG8gYWRkL3JlbW92ZSBtb3JlIHRoYW4NCj4+IDIgYmlsbGlvbiBub2RlcyBv
+d25lZCBieSBhIHNpbmdsZSBkb21haW4/DQo+IE5vIGFuZCB0aGF0J3Mgbm90IG15IHBvaW50
+LiBJZiB5b3UgbG9vayBhdCBkb21haW5fZW50cnlfZml4KCkgd2UgaGF2ZSBhbiANCj4gYXNz
+ZXJ0KCkgdG8gY2hlY2sgaWYgdGhlIHN1bSBpcyBzdGlsbCBvdmVyIDAuDQo+IA0KPiBUaGlz
+IGFzc2VydCgpIHdhcyBhY3R1YWxseSB0cmlnZ2VyZWQgYSBmZXcgdGltZXMgd2hpbGUgdGVz
+dGluZyB0aGUgcHJldmlvdXMgWFNBcyANCj4gYmF0Y2guIFNvIEkgdGhpbmsgaXQgd291bGQg
+YmUgd29ydGggdG8gY2FycnkgYSBzaW1pbGFyIGNoZWNrIChtYXliZSBub3QgYW4gDQo+IGFz
+c2VydCgpKSBqdXN0IGluIGNhc2Ugd2UgbWVzcyB1cCB3aXRoIGFjY291bnRpbmcgaW4gdGhl
+IGZ1dHVyZS4NCg0KUGF0Y2ggMiBvZiB0aGUgMm5kIHNlcmllcyBkb2VzIHRoYXQgYWxyZWFk
+eS4NCg0KDQpKdWVyZ2VuDQo=
+--------------xgDkKHKwjEtXi7sbY0G40XMB
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
+
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
+
+--------------xgDkKHKwjEtXi7sbY0G40XMB--
+
+--------------eEjgJAtHEBNk8GUGvVImFVjW--
+
+--------------J00SrWioZKjMZDGMXtoANtbC
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmOYS74FAwAAAAAACgkQsN6d1ii/Ey+R
+0wf/Shp81pS4IoqRhVXr4fUWOljYElMPTXb7N2dYSb13yWGmfqQcMigKpPOI6C+OhWuTlsdxcAwT
+KOcqqTDqW8Z2bRselDhaXl1UqN43tmcYIXwjJeGYybHw46gpF4GcToirNzZepC6FjR8AwkSs1eZ/
+kjCJ101wMbNv+1xEMNQZwnslOUvFvvvqqWYep99sgfQdgJFFuMNLBMt9XBdbnpm3iuGU0eqcrAOW
+diWx0YM3/a4lHxMvWGDvwRKdveYhAxqUBQWkPLBtv4S6bfy+nLIJpkMd9loyFphmTb17ACnXbqn4
+Og0rv/rYvJ0tO6kopu7RDhAjnFpA0sqNWD6LMKdyog==
+=lCYA
+-----END PGP SIGNATURE-----
+
+--------------J00SrWioZKjMZDGMXtoANtbC--
 
