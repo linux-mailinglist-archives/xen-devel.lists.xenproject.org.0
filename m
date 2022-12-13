@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0372A64C019
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 00:01:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461456.719543 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D8B564C03A
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 00:06:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461464.719565 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5EGn-000333-WF; Tue, 13 Dec 2022 23:01:06 +0000
+	id 1p5ELg-000483-R2; Tue, 13 Dec 2022 23:06:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461456.719543; Tue, 13 Dec 2022 23:01:05 +0000
+Received: by outflank-mailman (output) from mailman id 461464.719565; Tue, 13 Dec 2022 23:06:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5EGn-000300-SX; Tue, 13 Dec 2022 23:01:05 +0000
-Received: by outflank-mailman (input) for mailman id 461456;
- Tue, 13 Dec 2022 23:01:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5EGl-0002zq-JE
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 23:01:03 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5EGl-00061B-7K; Tue, 13 Dec 2022 23:01:03 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5EGl-0004OQ-0v; Tue, 13 Dec 2022 23:01:03 +0000
+	id 1p5ELg-00045K-Mc; Tue, 13 Dec 2022 23:06:08 +0000
+Received: by outflank-mailman (input) for mailman id 461464;
+ Tue, 13 Dec 2022 23:06:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mJcE=4L=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p5ELf-00044C-QY
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 23:06:07 +0000
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b6f84edd-7b3a-11ed-8fd2-01056ac49cbb;
+ Wed, 14 Dec 2022 00:06:03 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 35419320079B;
+ Tue, 13 Dec 2022 18:06:01 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Tue, 13 Dec 2022 18:06:01 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 13 Dec 2022 18:06:00 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,165 +43,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5iJa+5WTYXSRmeHJJsAJNHl5tiuJAE11GRxeprfRpWQ=; b=DBNinOxF3MBfPShAfXEs5A25c7
-	b3UP1SBQlcFHnXzZXWuAUtdcPSrFYusTuoVJMMdmjzP4W8DUiKvs5W3WgsWFJcqHZNgbN3umBn2KD
-	Y3JzvfV98j1sxOOuzJT3Oi+7nsXnkMjTwMW6cqq4m5vTgvjWoxt6/zmc2lqqRqNz1D3M=;
-Message-ID: <523c5e55-4c34-f67b-1d00-f54b01c609c2@xen.org>
-Date: Tue, 13 Dec 2022 23:01:01 +0000
+X-Inumbo-ID: b6f84edd-7b3a-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:sender:subject:subject:to:to; s=fm1; t=1670972760; x=
+	1671059160; bh=l9in6W1y9JfHnZdCgIaroaKvCryg4beZ3lAXpT8+2CM=; b=T
+	QA3mIgoKHz1RzItf4sf2YefE8oDeKJPyJbAjZ15Ot1Lg5FZpQgaIK/jS6JEEN8gy
+	xhc6hsx6AcI0Mx85/MCoDD/BGf3/fBwttSzwYSAwAvB76/tcLwMGGI7TsMKAQIh0
+	BUJ1pEedljk0vVlzQBkn5rDHgx+cJca4GsUfzB0cVO1hgHmuQqTATQywZxZDixys
+	65/dFLTPmsr/rwdzLo/7LAhZVLoCUzAx4id9QiUtIc1vXnm0ocm3silYojCnD847
+	fn4q3dIdFIG29MStDvJGGyODeij4dEXQjRBC9P4+Jqj7BAD8Sra/3llry3xiNmRJ
+	B/iIZva06EXGLKoQCwEdA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1670972760; x=1671059160; bh=l9in6W1y9JfHnZdCgIaroaKvCryg4beZ3lA
+	XpT8+2CM=; b=PWiaqJurpSo8d5WZdNQaNvRayLFMrVUnWENi2+f9JRTU/ZW1I0d
+	qrsHJMb7PDQ3mVTLDwuNdImkadPM37+spVx/4KIYu0BTi7KBOCGZ746KpSdAJOD4
+	dBvZKvQ6zxH9MqbjIkztUoOzZVYZCGNZFjkRWgscPbhvxqWuCqcKuQxpEeky31LZ
+	cLwlNMkzhs/wQ9G3+/d66YlgUGsUvoIsNqSJVcH33oJEQ/E8UcnVqH17BT+ef+4a
+	Si4KEUsRvI4jHHXrhqmdL86d4MzRhbvj1ePP8us5pCokn08MU5HKTZqOEv3DFRs4
+	EgFt4lumSD882mrpiu8YMcCBsmaWLm3v2Sw==
+X-ME-Sender: <xms:WAWZYx-ezqaldiSXd5QFDxSjWG7g1UvwpLP6T6HqFKUMSwCIoqlQZA>
+    <xme:WAWZY1tJk5ZWWTSXTwjOqmVcxW1tjsCsMIRzB-boO93JBNoUdBBIjqt807N_nTDVR
+    -gcv6YWRI3nPW0>
+X-ME-Received: <xmr:WAWZY_BV4vHCn2cfsdVUh5qTeAE-DZ5KZ6jcVEzqhnq1HIzpHLhR66EBZTVYZ805EtUibYzZxNn8>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfedvgddtfecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcuofgr
+    rhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrg
+    gsrdgtohhmqeenucggtffrrghtthgvrhhnpedvfeegkedvkefgffegkefhieejtdffkeeh
+    hfelheefjeeutefgleeggfdtveeileenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
+    grmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhlrggs
+    rdgtohhm
+X-ME-Proxy: <xmx:WAWZY1ejt_TSNWTFos7haUK0ZfbsC7j1wrhZkBOQ98S2RysViY7RyQ>
+    <xmx:WAWZY2N6aHEIC9pFzNhRqM6Zmaj64MxDTsHZdnTLv0CPch7M-bDZGQ>
+    <xmx:WAWZY3mqm1VpjeMJIy7-v-UA0DitnjLtQDQXG_FbPAbmxqamunCzPw>
+    <xmx:WAWZY40iCVoMg43791EA5Epnp8V-bVoJnrqsINEmbBMBo0NGDLXNSA>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] efi: Relocate the ESRT when booting via multiboot2
+Date: Tue, 13 Dec 2022 18:03:20 -0500
+Message-Id: <a7336c832b0276a1bc7692c537cc14f6e70d65a4.1670972544.git.demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [PATCH v3 18/18] xen/arm64: mm: Rework switch_ttbr()
-To: Stefano Stabellini <sstabellini@kernel.org>
-Cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com,
- Luca.Fancellu@arm.com, Julien Grall <jgrall@amazon.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20221212095523.52683-1-julien@xen.org>
- <20221212095523.52683-19-julien@xen.org>
- <alpine.DEB.2.22.394.2212121748560.3075842@ubuntu-linux-20-04-desktop>
- <aa82a916-5c2b-83eb-328d-ac234eabc77c@xen.org>
- <alpine.DEB.2.22.394.2212131456450.315094@ubuntu-linux-20-04-desktop>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <alpine.DEB.2.22.394.2212131456450.315094@ubuntu-linux-20-04-desktop>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Stefano,
+This was missed in the initial patchset.
 
-On 13/12/2022 22:56, Stefano Stabellini wrote:
-> On Tue, 13 Dec 2022, Julien Grall wrote:
->> Hi Stefano,
->>
->> On 13/12/2022 02:00, Stefano Stabellini wrote:
->>> On Mon, 12 Dec 2022, Julien Grall wrote:
->>>> From: Julien Grall <jgrall@amazon.com>
->>>>
->>>> At the moment, switch_ttbr() is switching the TTBR whilst the MMU is
->>>> still on.
->>>>
->>>> Switching TTBR is like replacing existing mappings with new ones. So
->>>> we need to follow the break-before-make sequence.
->>>>
->>>> In this case, it means the MMU needs to be switched off while the
->>>> TTBR is updated. In order to disable the MMU, we need to first
->>>> jump to an identity mapping.
->>>>
->>>> Rename switch_ttbr() to switch_ttbr_id() and create an helper on
->>>> top to temporary map the identity mapping and call switch_ttbr()
->>>> via the identity address.
->>>>
->>>> switch_ttbr_id() is now reworked to temporarily turn off the MMU
->>>> before updating the TTBR.
->>>>
->>>> We also need to make sure the helper switch_ttbr() is part of the
->>>> identity mapping. So move _end_boot past it.
->>>>
->>>> The arm32 code will use a different approach. So this issue is for now
->>>> only resolved on arm64.
->>>>
->>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>
->>> This patch looks overall good to me, aside from the few minor comments
->>> below. I would love for someone else, maybe from ARM, reviewing steps
->>> 1-6 making sure they are the right sequence.
->>>
->>>
->>>> ---
->>>>
->>>>       Changes in v2:
->>>>           - Remove the arm32 changes. This will be addressed differently
->>>>           - Re-instate the instruct cache flush. This is not strictly
->>>>             necessary but kept it for safety.
->>>>           - Use "dsb ish"  rather than "dsb sy".
->>>>
->>>>       TODO:
->>>>           * Handle the case where the runtime Xen is loaded at a different
->>>>             position for cache coloring. This will be dealt separately.
->>>> ---
->>>>    xen/arch/arm/arm64/head.S     | 50 +++++++++++++++++++++++------------
->>>>    xen/arch/arm/arm64/mm.c       | 39 +++++++++++++++++++++++++++
->>>>    xen/arch/arm/include/asm/mm.h |  2 ++
->>>>    xen/arch/arm/mm.c             | 14 +++++-----
->>>>    4 files changed, 82 insertions(+), 23 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
->>>> index 663f5813b12e..1f69864492b6 100644
->>>> --- a/xen/arch/arm/arm64/head.S
->>>> +++ b/xen/arch/arm/arm64/head.S
->>>> @@ -816,30 +816,46 @@ ENDPROC(fail)
->>>>     * Switch TTBR
->>>>     *
->>>>     * x0    ttbr
->>>> - *
->>>> - * TODO: This code does not comply with break-before-make.
->>>>     */
->>>> -ENTRY(switch_ttbr)
->>>> -        dsb   sy                     /* Ensure the flushes happen before
->>>> -                                      * continuing */
->>>> -        isb                          /* Ensure synchronization with
->>>> previous
->>>> -                                      * changes to text */
->>>> -        tlbi   alle2                 /* Flush hypervisor TLB */
->>>> -        ic     iallu                 /* Flush I-cache */
->>>> -        dsb    sy                    /* Ensure completion of TLB flush */
->>>> +ENTRY(switch_ttbr_id)
->>>> +        /* 1) Ensure any previous read/write have completed */
->>>> +        dsb    ish
->>>> +        isb
->>>> +
->>>> +        /* 2) Turn off MMU */
->>>> +        mrs    x1, SCTLR_EL2
->>>> +        bic    x1, x1, #SCTLR_Axx_ELx_M
->>>
->>> do we need a "dsb   sy" here? we have in enable_mmu
->>
->> Hmmm... The explanation of the dsb + isb in enable_mmu makes no sense. The isb
->> doesn't flush the I-cache, it just flushes the pipeline.
->>
->> For the dsb, I am not convinced it is necessary because we already have the
->> 'dsb nsh' above and in any case the barrier seems to be too strong.
->>
->> I guess that will be another patch... (probably at a lower priority).
->>
->> Now back to your question of the 'dsb' here. There is already a 'dsb ish'
->> above. So memory access before turning off the MMU should be completed.
->> Also...
->>
->>>
->>>
->>>> +        msr    SCTLR_EL2, x1
->>>> +        isb
->>
->> ... this isb will ensure the completion of SCTLR before the TLBs are flushed
->> before. And there should be no memory access (or than instructions here). So I
->> don't think the a dsb is needed.
->>
->> Would you mind to explain why you think there is one needed?
-> 
-> I am not at all sure whether it is needed or not, I was just noticing
-> that we have the "dsb sy" in enable_mmu and here we don't.
-> 
-> Thinking about it, the only reason for the additional dsb would be to
-> make sure that the two operations:
-> 
->    mrs    x1, SCTLR_EL2
->    bic    x1, x1, #SCTLR_Axx_ELx_M
-> 
-> are completed before disabling the MMU:
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+ xen/arch/x86/efi/efi-boot.h |   2 +
+ xen/common/efi/boot.c       | 136 ++++++++++++++++++------------------
+ 2 files changed, 70 insertions(+), 68 deletions(-)
 
-That's not what a 'dsb' is for. It is used for memory ordering there are 
-are no memory access involved here.
-
-If you want the operations to be completed, then this would be an 'isb'. 
-Yet, this would not be necessary here as the next instruction cannot be 
-re-ordered because of the register dependency.
-
-Cheers,
-
+diff --git a/xen/arch/x86/efi/efi-boot.h b/xen/arch/x86/efi/efi-boot.h
+index abfc7ab0f31511e2c1ee402a09ac533d260444b2..a9a2991d6462dec9cea695c8b912b72df26bd511 100644
+--- a/xen/arch/x86/efi/efi-boot.h
++++ b/xen/arch/x86/efi/efi-boot.h
+@@ -825,6 +825,8 @@ void __init efi_multiboot2(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable
+     if ( gop )
+         efi_set_gop_mode(gop, gop_mode);
+ 
++    efi_relocate_esrt(SystemTable);
++
+     efi_exit_boot(ImageHandle, SystemTable, true);
+ }
+ 
+diff --git a/xen/common/efi/boot.c b/xen/common/efi/boot.c
+index 32ae6b43bb53448421c908819cda552757157c1f..ea5f010df1c5ce40fb67a91fdbfe28f40865252c 100644
+--- a/xen/common/efi/boot.c
++++ b/xen/common/efi/boot.c
+@@ -625,6 +625,74 @@ static size_t __init get_esrt_size(const EFI_MEMORY_DESCRIPTOR *desc)
+     return esrt_ptr->FwResourceCount * sizeof(esrt_ptr->Entries[0]);
+ }
+ 
++static EFI_GUID __initdata esrt_guid = EFI_SYSTEM_RESOURCE_TABLE_GUID;
++
++static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
++{
++    EFI_STATUS status;
++    UINTN info_size = 0, map_key, mdesc_size;
++    void *memory_map = NULL;
++    UINT32 ver;
++    unsigned int i;
++
++    for ( ; ; )
++    {
++        status = efi_bs->GetMemoryMap(&info_size, memory_map, &map_key,
++                                      &mdesc_size, &ver);
++        if ( status == EFI_SUCCESS && memory_map != NULL )
++            break;
++        if ( status == EFI_BUFFER_TOO_SMALL || memory_map == NULL )
++        {
++            info_size += 8 * mdesc_size;
++            if ( memory_map != NULL )
++                efi_bs->FreePool(memory_map);
++            memory_map = NULL;
++            status = efi_bs->AllocatePool(EfiLoaderData, info_size, &memory_map);
++            if ( status == EFI_SUCCESS )
++                continue;
++            PrintErr(L"Cannot allocate memory to relocate ESRT\r\n");
++        }
++        else
++            PrintErr(L"Cannot obtain memory map to relocate ESRT\r\n");
++        return;
++    }
++
++    /* Try to obtain the ESRT.  Errors are not fatal. */
++    for ( i = 0; i < info_size; i += mdesc_size )
++    {
++        /*
++         * ESRT needs to be moved to memory of type EfiACPIReclaimMemory
++         * so that the memory it is in will not be used for other purposes.
++         */
++        void *new_esrt = NULL;
++        const EFI_MEMORY_DESCRIPTOR *desc = memory_map + i;
++        size_t esrt_size = get_esrt_size(desc);
++
++        if ( !esrt_size )
++            continue;
++        if ( desc->Type == EfiRuntimeServicesData ||
++             desc->Type == EfiACPIReclaimMemory )
++            break; /* ESRT already safe from reuse */
++        status = efi_bs->AllocatePool(EfiACPIReclaimMemory, esrt_size,
++                                      &new_esrt);
++        if ( status == EFI_SUCCESS && new_esrt )
++        {
++            memcpy(new_esrt, (void *)esrt, esrt_size);
++            status = efi_bs->InstallConfigurationTable(&esrt_guid, new_esrt);
++            if ( status != EFI_SUCCESS )
++            {
++                PrintErr(L"Cannot install new ESRT\r\n");
++                efi_bs->FreePool(new_esrt);
++            }
++        }
++        else
++            PrintErr(L"Cannot allocate memory for ESRT\r\n");
++        break;
++    }
++
++    efi_bs->FreePool(memory_map);
++}
++
+ /*
+  * Include architecture specific implementation here, which references the
+  * static globals defined above.
+@@ -903,8 +971,6 @@ static UINTN __init efi_find_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop,
+     return gop_mode;
+ }
+ 
+-static EFI_GUID __initdata esrt_guid = EFI_SYSTEM_RESOURCE_TABLE_GUID;
+-
+ static void __init efi_tables(void)
+ {
+     unsigned int i;
+@@ -1113,72 +1179,6 @@ static void __init efi_set_gop_mode(EFI_GRAPHICS_OUTPUT_PROTOCOL *gop, UINTN gop
+ #define INVALID_VIRTUAL_ADDRESS (0xBAAADUL << \
+                                  (EFI_PAGE_SHIFT + BITS_PER_LONG - 32))
+ 
+-static void __init efi_relocate_esrt(EFI_SYSTEM_TABLE *SystemTable)
+-{
+-    EFI_STATUS status;
+-    UINTN info_size = 0, map_key, mdesc_size;
+-    void *memory_map = NULL;
+-    UINT32 ver;
+-    unsigned int i;
+-
+-    for ( ; ; )
+-    {
+-        status = efi_bs->GetMemoryMap(&info_size, memory_map, &map_key,
+-                                      &mdesc_size, &ver);
+-        if ( status == EFI_SUCCESS && memory_map != NULL )
+-            break;
+-        if ( status == EFI_BUFFER_TOO_SMALL || memory_map == NULL )
+-        {
+-            info_size += 8 * mdesc_size;
+-            if ( memory_map != NULL )
+-                efi_bs->FreePool(memory_map);
+-            memory_map = NULL;
+-            status = efi_bs->AllocatePool(EfiLoaderData, info_size, &memory_map);
+-            if ( status == EFI_SUCCESS )
+-                continue;
+-            PrintErr(L"Cannot allocate memory to relocate ESRT\r\n");
+-        }
+-        else
+-            PrintErr(L"Cannot obtain memory map to relocate ESRT\r\n");
+-        return;
+-    }
+-
+-    /* Try to obtain the ESRT.  Errors are not fatal. */
+-    for ( i = 0; i < info_size; i += mdesc_size )
+-    {
+-        /*
+-         * ESRT needs to be moved to memory of type EfiACPIReclaimMemory
+-         * so that the memory it is in will not be used for other purposes.
+-         */
+-        void *new_esrt = NULL;
+-        const EFI_MEMORY_DESCRIPTOR *desc = memory_map + i;
+-        size_t esrt_size = get_esrt_size(desc);
+-
+-        if ( !esrt_size )
+-            continue;
+-        if ( desc->Type == EfiRuntimeServicesData ||
+-             desc->Type == EfiACPIReclaimMemory )
+-            break; /* ESRT already safe from reuse */
+-        status = efi_bs->AllocatePool(EfiACPIReclaimMemory, esrt_size,
+-                                      &new_esrt);
+-        if ( status == EFI_SUCCESS && new_esrt )
+-        {
+-            memcpy(new_esrt, (void *)esrt, esrt_size);
+-            status = efi_bs->InstallConfigurationTable(&esrt_guid, new_esrt);
+-            if ( status != EFI_SUCCESS )
+-            {
+-                PrintErr(L"Cannot install new ESRT\r\n");
+-                efi_bs->FreePool(new_esrt);
+-            }
+-        }
+-        else
+-            PrintErr(L"Cannot allocate memory for ESRT\r\n");
+-        break;
+-    }
+-
+-    efi_bs->FreePool(memory_map);
+-}
+-
+ static void __init efi_exit_boot(EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable, bool exit_boot_services)
+ {
+     EFI_STATUS status;
 -- 
-Julien Grall
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
