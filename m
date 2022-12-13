@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03E1C64B303
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 11:11:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460408.718320 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FC0864B2FC
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 11:09:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460392.718310 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p52Fk-0002SQ-Ch; Tue, 13 Dec 2022 10:11:12 +0000
+	id 1p52Dh-0000X3-Sw; Tue, 13 Dec 2022 10:09:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460408.718320; Tue, 13 Dec 2022 10:11:12 +0000
+Received: by outflank-mailman (output) from mailman id 460392.718310; Tue, 13 Dec 2022 10:09:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p52Fk-0002PW-9e; Tue, 13 Dec 2022 10:11:12 +0000
-Received: by outflank-mailman (input) for mailman id 460408;
- Tue, 13 Dec 2022 10:11:10 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p52Dh-0000TA-Oy; Tue, 13 Dec 2022 10:09:05 +0000
+Received: by outflank-mailman (input) for mailman id 460392;
+ Tue, 13 Dec 2022 10:09:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TlCu=4L=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1p52Fi-0002PB-5S
- for xen-devel@lists.xen.org; Tue, 13 Dec 2022 10:11:10 +0000
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [2607:f8b0:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2940d26c-7ace-11ed-91b6-6bf2151ebd3b;
- Tue, 13 Dec 2022 11:10:41 +0100 (CET)
-Received: by mail-pg1-x52f.google.com with SMTP id 62so10069553pgb.13
- for <xen-devel@lists.xen.org>; Tue, 13 Dec 2022 02:10:15 -0800 (PST)
+ id 1p52Df-0008Kk-UF
+ for xen-devel@lists.xen.org; Tue, 13 Dec 2022 10:09:04 +0000
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [2607:f8b0:4864:20::1035])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8300234d-7acd-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 11:04:21 +0100 (CET)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ e7-20020a17090a77c700b00216928a3917so2996126pjs.4
+ for <xen-devel@lists.xen.org>; Tue, 13 Dec 2022 02:09:03 -0800 (PST)
 Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
- q18-20020aa79832000000b005745635c5b5sm7319649pfl.183.2022.12.13.02.08.57
+ je19-20020a170903265300b00186b3c3e2dasm8022658plb.155.2022.12.13.02.09.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Dec 2022 02:08:58 -0800 (PST)
+ Tue, 13 Dec 2022 02:09:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2940d26c-7ace-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 8300234d-7acd-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vXqoRJdEJYKdn1X+SDtx30T59nlBol+wjpDAJ9IO1pU=;
-        b=aE7AlhS8CgiEtCGbMGnU/ptP0rTc82SENRGLfLbOy4cE3BNmEMTvP3xN2bM1/+QBGF
-         JTvhcik719IsAk1k7kAoWvQSlIpPeUWl//gy3+BB7G0LLYBi2pKjEA/BffcrGpwKDMGT
-         5qdKhnSBTJVQAq1biGJjQ/Y8oG085gWBVVslABKQ36kR93ro3e39/RUExL/hqLnIx83K
-         cfx3bXtW6vDrTF1lPulqjtBClPLmYiA2WpgEE5tDXBiOTIb9rZ9lO4mBt5W1R+xlvcDo
-         3q0Kp/arsZB67mVU466ddIO0XoUIQuYM6ppJMNu5SidTfQUwaKiCXRa8lyax/dV5PO9s
-         JfNg==
+        bh=+7t/bITPAutPCDFaVHnpGALOK3FXJdmGHlDPnk3jI8E=;
+        b=T6ILUYBJz8OYkA6h7aQqiHbdX/YufqnqVpUSrm46+PeL+wKskAseHPC9SD1qxUVjUU
+         5P8voGXKEmyspxViIvC3nb9bLhzYmy9Iu2fiFJLkC9C6cj1clKZKP2z5wuBNTgztltoP
+         HmqQVP5yZhsIRSuVNu72NGAqtaBXoG1UE6AXG5HAfeweGRIs0suXf+SafE2qyAQfSX+X
+         /Vu1ZTNxQtHtIS4FM2B1mSStascJbxis73+wlu7qiUX+9LDBOy8zwVAusslltRNnHYQJ
+         gFwxWFbkVdsACxyWMaBbRVPqQCxw45xXk1SHs0Mys1vOBICCfgSq9pvV+C/ebAKVxkca
+         CS/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=vXqoRJdEJYKdn1X+SDtx30T59nlBol+wjpDAJ9IO1pU=;
-        b=RQRRP4KxI4rq/4D5fra+DZuI0kbiFKaxKUaxHI/DzdKGeDXCvXs+SdmQE/6EPpv752
-         WI77hGV9+esp07jc0beIesSLKTq2WylzW+VvebiK/9a9FQm2vwQan15UC2vkU0yi8eJ9
-         hLbJu2ycef4O+jPKH1Vjtu4QwNLJ+nJC4Y3BLYmBEiuYOtAc8Wce/xi2wLn5vS/KK5YS
-         wOicU7RMC9GpLJcYrOLSQ8hhnb7m+EpOKX9mI+viwZ7R3hBtXijbzwU3pyVDJ8nshRzP
-         o4GRfypELP8pD2cCe/8fnRMaau/+bfVoB1tTXlIYhMEzCoF4CoEAtisGkAX08tddG3t1
-         vPOQ==
-X-Gm-Message-State: ANoB5plUngysryhGJdl9EnET4jwPaiemOERjA2VCxKdGFs3Sa3zIwr6s
-	fDOMprs0V9M5Vq8sgw9idII+a/lkt7ajNuUx
-X-Google-Smtp-Source: AA0mqf7+39FAJZsI44hx/oCohVMvUC0nXhz3ahrFNjHR+3KrnEo/vp4OPA64ktQeWDAzTCHTsEqMmg==
-X-Received: by 2002:a62:870d:0:b0:576:f02e:d0ef with SMTP id i13-20020a62870d000000b00576f02ed0efmr18610880pfe.4.1670926138720;
-        Tue, 13 Dec 2022 02:08:58 -0800 (PST)
+        bh=+7t/bITPAutPCDFaVHnpGALOK3FXJdmGHlDPnk3jI8E=;
+        b=vCLkqD0IYHRdbbtomKfVsF0NqV7mRBeg+SJ2AFYMlw/PkDgXREQna8yffVRZRKHtMJ
+         8Q97I1pMvzC8UseLn2yWtZJHayKGQuoRXgHg+AIZbdGz7jw79vGZQUw2X9ECJUN0WqfG
+         h+YsCkdiB9X05EMW87XpSpu7/OXeUNIAv0Zh3dzCUGu+zPcCTly4xP9kBY4hbFj3U+tB
+         fNc2VuJMEgXw0bZe3A4kvNFuqLVXGv+OJOPHeQGHO3IjB/TZrTwRue20miGYdd8vp0Xg
+         yoYdTEn//Kqpx+S05Qp6g0/02HJj373GOfRmwe1/MCEJyUaGTlCL3YUqyYwL2y2qXnqO
+         6CdA==
+X-Gm-Message-State: ANoB5pkrX0HPypHpI6lQ7w5EUTGDBwIZ0aRARhD2+N+FVFiHXAKQJE0O
+	z6+OvDPqaAnJL8bI+DCrhrBzXWtp9HwDAK4S
+X-Google-Smtp-Source: AA0mqf7l+e1nb0jNYgH2yyzVnU1MdvImLWlvmag1vywWbAq22hfdLiuB2CN9FgOjV3n0e+SaULmc3A==
+X-Received: by 2002:a17:903:2448:b0:189:f277:3830 with SMTP id l8-20020a170903244800b00189f2773830mr29937549pls.68.1670926141782;
+        Tue, 13 Dec 2022 02:09:01 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: xen-devel@lists.xen.org,
 	Juergen Gross <jgross@suse.com>,
@@ -87,124 +88,68 @@ Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Mike Holmes <mike.holmes@linaro.org>,
 	Oleksandr Tyshchenko <olekstysh@gmail.com>,
 	Wei Liu <wl@xen.org>
-Subject: [PATCH V9 2/3] xl: Add support to parse generic virtio device
-Date: Tue, 13 Dec 2022 15:38:47 +0530
-Message-Id: <9822fd35c2b072da0fcdc37fc029c67d5543c716.1670925998.git.viresh.kumar@linaro.org>
+Subject: [PATCH V9 3/3] docs: Add documentation for generic virtio devices
+Date: Tue, 13 Dec 2022 15:38:48 +0530
+Message-Id: <a0eb1c6d571cc3ed9ca7dd71dabe3aba6e69100c.1670925998.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
 In-Reply-To: <cover.1670925998.git.viresh.kumar@linaro.org>
 References: <cover.1670925998.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch adds basic support for parsing generic Virtio backend.
+This patch updates xl.cfg man page with details of generic Virtio device
+related information.
 
-An example of domain configuration for mmio based Virtio I2C device is:
-virtio = ["type=virtio,device22,transport=mmio"]
-
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
 Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
 ---
- tools/xl/xl_parse.c | 81 +++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ docs/man/xl.cfg.5.pod.in | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-index 644ab8f8fd36..853e9f357a1a 100644
---- a/tools/xl/xl_parse.c
-+++ b/tools/xl/xl_parse.c
-@@ -1208,6 +1208,83 @@ static void parse_vkb_list(const XLU_Config *config,
-     if (rc) exit(EXIT_FAILURE);
- }
+diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+index ec444fb2ba79..024bceeb61b2 100644
+--- a/docs/man/xl.cfg.5.pod.in
++++ b/docs/man/xl.cfg.5.pod.in
+@@ -1585,6 +1585,39 @@ Set maximum height for pointer device.
  
-+static int parse_virtio_config(libxl_device_virtio *virtio, char *token)
-+{
-+    char *oparg;
-+    int rc;
-+
-+    if (MATCH_OPTION("backend", token, oparg)) {
-+        virtio->backend_domname = strdup(oparg);
-+    } else if (MATCH_OPTION("type", token, oparg)) {
-+        virtio->type = strdup(oparg);
-+    } else if (MATCH_OPTION("transport", token, oparg)) {
-+        rc = libxl_virtio_transport_from_string(oparg, &virtio->transport);
-+        if (rc) return rc;
-+    } else {
-+        fprintf(stderr, "Unknown string \"%s\" in virtio spec\n", token);
-+        return -1;
-+    }
-+
-+    return 0;
-+}
-+
-+static void parse_virtio_list(const XLU_Config *config,
-+                              libxl_domain_config *d_config)
-+{
-+    XLU_ConfigList *virtios;
-+    const char *item;
-+    char *buf = NULL, *oparg, *str = NULL;
-+    int rc;
-+
-+    if (!xlu_cfg_get_list (config, "virtio", &virtios, 0, 0)) {
-+        int entry = 0;
-+        while ((item = xlu_cfg_get_listitem(virtios, entry)) != NULL) {
-+            libxl_device_virtio *virtio;
-+            char *p;
-+
-+            virtio = ARRAY_EXTEND_INIT(d_config->virtios, d_config->num_virtios,
-+                                       libxl_device_virtio_init);
-+
-+            buf = strdup(item);
-+
-+            p = strtok(buf, ",");
-+            while (p != NULL)
-+            {
-+                while (*p == ' ') p++;
-+
-+                // Type may contain a comma, do special handling.
-+                if (MATCH_OPTION("type", p, oparg)) {
-+                    if (!strncmp(oparg, "virtio", strlen("virtio"))) {
-+                        char *p2 = strtok(NULL, ",");
-+                        str = malloc(strlen(p) + strlen(p2) + 2);
-+
-+                        strcpy(str, p);
-+                        strcat(str, ",");
-+                        strcat(str, p2);
-+                        p = str;
-+                    }
-+                }
-+
-+                rc = parse_virtio_config(virtio, p);
-+                if (rc) goto out;
-+
-+                free(str);
-+                str = NULL;
-+                p = strtok(NULL, ",");
-+            }
-+
-+            entry++;
-+            free(buf);
-+        }
-+    }
-+
-+    return;
-+
-+out:
-+    free(buf);
-+    if (rc) exit(EXIT_FAILURE);
-+}
-+
- void parse_config_data(const char *config_source,
-                        const char *config_data,
-                        int config_len,
-@@ -2753,6 +2830,10 @@ void parse_config_data(const char *config_source,
+ =back
  
-     parse_vkb_list(config, d_config);
- 
-+    d_config->virtios = NULL;
-+    d_config->num_virtios = 0;
-+    parse_virtio_list(config, d_config);
++=item B<virtio=[ "VIRTIO_DEVICE_STRING", "VIRTIO_DEVICE_STRING", ...]>
 +
-     xlu_cfg_get_defbool(config, "xend_suspend_evtchn_compat",
-                         &c_info->xend_suspend_evtchn_compat, 0);
++Specifies the Virtio devices to be provided to the guest.
++
++Each B<VIRTIO_DEVICE_STRING> is a comma-separated list of C<KEY=VALUE> settings
++from the following list. As a special case, a single comma is allowed in the
++VALUE of the "type" KEY, where the VALUE is set with "virtio,device<N>".
++
++=over 4
++
++=item B<backend=domain-id>
++
++Specifies the backend domain name or id, defaults to dom0.
++
++=item B<type=STRING>
++
++Specifies the compatible string for the specific Virtio device. The same will be
++written in the Device Tree compatible property of the Virtio device. For
++example, "type=virtio,device22" for the I2C device, whose device-tree binding is
++present here:
++
++L<https://www.kernel.org/doc/Documentation/devicetree/bindings/i2c/i2c-virtio.yaml>
++
++For generic virtio devices, where we don't need to set special or compatible
++properties in the Device Tree, the type field must be set to "virtio,device".
++
++=item B<transport=STRING>
++
++Specifies the transport mechanism for the Virtio device, only "mmio" is
++supported for now.
++
++=back
++
+ =item B<tee="STRING">
  
+ B<Arm only.> Set TEE type for the guest. TEE is a Trusted Execution
 -- 
 2.31.1.272.g89b43f80a514
 
