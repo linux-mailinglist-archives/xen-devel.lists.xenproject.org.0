@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6118364BE26
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 21:56:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461156.719201 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9002664BE3F
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 22:16:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461166.719212 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5CJI-0003oH-Ku; Tue, 13 Dec 2022 20:55:32 +0000
+	id 1p5Cd0-0006fp-9X; Tue, 13 Dec 2022 21:15:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461156.719201; Tue, 13 Dec 2022 20:55:32 +0000
+Received: by outflank-mailman (output) from mailman id 461166.719212; Tue, 13 Dec 2022 21:15:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5CJI-0003lh-Hj; Tue, 13 Dec 2022 20:55:32 +0000
-Received: by outflank-mailman (input) for mailman id 461156;
- Tue, 13 Dec 2022 20:55:31 +0000
+	id 1p5Cd0-0006dM-6G; Tue, 13 Dec 2022 21:15:54 +0000
+Received: by outflank-mailman (input) for mailman id 461166;
+ Tue, 13 Dec 2022 21:15:52 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5CJH-0003lb-Bu
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 20:55:31 +0000
+ (envelope-from <julien@xen.org>) id 1p5Ccy-0006dG-UD
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 21:15:52 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5CJG-00035e-SH; Tue, 13 Dec 2022 20:55:30 +0000
+ id 1p5Ccy-0003So-D7; Tue, 13 Dec 2022 21:15:52 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5CJG-00085K-MV; Tue, 13 Dec 2022 20:55:30 +0000
+ id 1p5Ccy-0000Y9-6u; Tue, 13 Dec 2022 21:15:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=7ZWRSN+wWP8i4lrKdOuMjSki1Ve9CeXCg2rOUgdKsrQ=; b=yYS7PTrt7EoQctSWvHOutK/H2f
-	hyIUVKdTU65+7CPd80SvVA6Izd8qf6MPyTfYkr99x9RDVIyqpC+QlpiOdimpmx15aRozyRJR7zwPG
-	FsBdRacqNsp1OUm6W1OaxRRKUJN/F6U10JQj0V22rS1IHYrp0Bv6MJJKRrj58cATR2xU=;
-Message-ID: <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org>
-Date: Tue, 13 Dec 2022 20:55:28 +0000
+	bh=gjPsJ9WyooZ2dnLJb3vM2kvOmfn14KMOFW08ryIjlUQ=; b=01aLj2cAAuUGy/fbM7h4iWA1BU
+	KdGrQZREC1Fleq1eIqYPfVq1uoPMFHJwrxs1phMt82JaQbQnDOisTJ/oYGX96udOBy8qmVjt+7/XU
+	yAoM9rtXE9PG0I78jK1ygi5s9UaNSknnRuAzkrS/DBHK8GkSXsRkB5+9ZdvXrLMMIM5Q=;
+Message-ID: <c8f9e15a-81d1-ef8c-0baf-1758e7d89eee@xen.org>
+Date: Tue, 13 Dec 2022 21:15:49 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
@@ -63,170 +63,143 @@ Cc: "Brookes, Scott" <sbrookes@RiversideResearch.org>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
 References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <BN0P110MB1642CCC518921DC7F2BB3BB3CFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
-In-Reply-To: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+Subject: Re: [RFC 3/4] Add xen superpage splitting support to arm
+In-Reply-To: <BN0P110MB1642CCC518921DC7F2BB3BB3CFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi,
 
+On 13/12/2022 19:54, Smith, Jackson wrote:
+> Updates xen_pt_update_entry function from xen/arch/arm/mm.c to
+> automatically split superpages as needed.
+Your signed-off-by is missing.
 
-On 13/12/2022 19:48, Smith, Jackson wrote:
-> Hi Xen Developers,
-
-Hi Jackson,
-
-Thanks for sharing the prototype with the community. Some 
-questions/remarks below.
-
-> My team at Riverside Research is currently spending IRAD funding
-> to prototype next-generation secure hypervisor design ideas
-> on Xen. In particular, we are prototyping the idea of Virtual
-> Memory Fuses for Software Enclaves, as described in this paper:
-> https://www.nspw.org/papers/2020/nspw2020-brookes.pdf. Note that
-> that paper talks about OS/Process while we have implemented the idea
-> for Hypervisor/VM.
+> ---
+>   xen/arch/arm/mm.c | 91 +++++++++++++++++++++++++++++++++++++++++++++++--------
+>   1 file changed, 78 insertions(+), 13 deletions(-)
 > 
-> Our goal is to emulate something akin to Intel SGX or AMD SEV,
-> but using only existing virtual memory features common in all
-> processors. The basic idea is not to map guest memory into the
-> hypervisor so that a compromised hypervisor cannot compromise
-> (e.g. read/write) the guest. This idea has been proposed before,
-> however, Virtual Memory Fuses go one step further; they delete the
-> hypervisor's mappings to its own page tables, essentially locking
-> the virtual memory configuration for the lifetime of the system. This
-> creates what we call "Software Enclaves", ensuring that an adversary
-> with arbitrary code execution in the hypervisor STILL cannot read/write
-> guest memory.
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 6301752..91b9c2b 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -753,8 +753,78 @@ static int create_xen_table(lpae_t *entry)
+>   }
+>   
+>   #define XEN_TABLE_MAP_FAILED 0
+> -#define XEN_TABLE_SUPER_PAGE 1
+> -#define XEN_TABLE_NORMAL_PAGE 2
+> +#define XEN_TABLE_NORMAL_PAGE 1
+> +
+> +/* More or less taken from p2m_split_superpage, without the p2m stuff */
+> +static bool xen_split_superpage(lpae_t *entry, unsigned int level,
+> +                                unsigned int target, const unsigned int *offsets)
+> +{
+> +    struct page_info *page;
+> +    lpae_t pte, *table;
+> +    unsigned int i;
+> +    bool rv = true;
+> +
+> +    mfn_t mfn = lpae_get_mfn(*entry);
+> +    unsigned int next_level = level + 1;
+> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
+> +
+> +    ASSERT(level < target);
+> +    ASSERT(lpae_is_superpage(*entry, level));
+> +
+> +    page = alloc_domheap_page(NULL, 0);
+Page-table may be allocated from the boot allocator. So you want to use 
+create_xen_table().
 
-I am confused, if the attacker is able to execute arbitrary code, then 
-what prevent them to write code to map/unmap the page?
+> +    if ( !page )
+> +        return false;
+> +
+> +    table = __map_domain_page(page);
 
-Skimming through the paper (pages 5-6), it looks like you would need to 
-implement extra defense in Xen to be able to prevent map/unmap a page.
+You want to use xen_map_table().
 
-> 
-> With this technique, we protect the integrity and confidentiality of
-> guest memory. However, a compromised hypervisor can still read/write
-> register state during traps, or refuse to schedule a guest, denying
-> service. We also recognize that because this technique precludes
-> modifying Xen's page tables after startup, it may not be compatible
-> with all of Xen's potential use cases. On the other hand, there are
-> some uses cases (in particular statically defined embedded systems)
-> where our technique could be adopted with minimal friction.
+> +
+> +    /*
+> +     * We are either splitting a first level 1G page into 512 second level
+> +     * 2M pages, or a second level 2M page into 512 third level 4K pages.
+> +     */
+> +    for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++ )
+> +    {
+> +        lpae_t *new_entry = table + i;
+> +
+> +        /*
+> +         * Use the content of the superpage entry and override
+> +         * the necessary fields. So the correct permission are kept.
+> +         */
+> +        pte = *entry;
+> +        lpae_set_mfn(pte, mfn_add(mfn, i << level_order));
+> +
+> +        /*
+> +         * First and second level pages set walk.table = 0, but third
+> +         * level entries set walk.table = 1.
+> +         */
+> +        pte.walk.table = (next_level == 3);
+> +
+> +        write_pte(new_entry, pte);
+> +    }
+> +
+> +    /*
+> +     * Shatter superpage in the page to the level we want to make the
+> +     * changes.
+> +     * This is done outside the loop to avoid checking the offset to
+> +     * know whether the entry should be shattered for every entry.
+> +     */
+> +    if ( next_level != target )
+> +        rv = xen_split_superpage(table + offsets[next_level],
+> +                                 level + 1, target, offsets);
+> +
+> +    clean_dcache_va_range(table, PAGE_SIZE);
 
- From what you wrote, this sounds very much like the project Citrix and 
-Amazon worked on called "Secret-free hypervisor" with a twist. In your 
-case, you want to prevent the hypervisor to map/unmap the guest memory.
+Cleaning the cache is not necessary. This is done in the P2M case 
+because it is shared with the IOMMU which may not support coherent access.
 
-You can find some details in [1]. The code is x86 only, but I don't see 
-any major blocker to port it on arm64.
+> +    unmap_domain_page(table);
 
-> 
-> With this in mind our goal is to work with the Xen community to
-> upstream this work as an optional feature. At this point, we have
-> a prototype implementation of VMF on Xen (the contents of this RFC
-> patch series) that supports dom0less guests on arm 64. By sharing
-> our prototype, we hope to socialize our idea, gauge interest, and
-> hopefully gain useful feedback as we work toward upstreaming.
-> 
-> ** IMPLEMENTATION **
-> In our current setup we have a static configuration with dom0 and
-> one or two domUs. Soon after boot, Dom0 issues a hypercall through
-> the xenctrl interface to blow the fuse for the domU. In the future,
-> we could also add code to support blowing the fuse automatically on
-> startup, before any domains are un-paused.
-> 
-> Our Xen/arm64 prototype creates Software Enclaves in two steps,
-> represented by these two functions defined in xen/vmf.h:
-> void vmf_unmap_guest(struct domain *d);
-> void vmf_lock_xen_pgtables(void);
-> 
-> In the first, the Xen removes mappings to the guest(s) On arm64, Xen
-> keeps a reference to all of guest memory in the directmap. Right now,
-> we simply walk all of the guest second stage tables and remove them
-> from the directmap, although there is probably a more elegant method
-> for this.
+This would be xen_map
 
-IIUC, you first map all the RAM and then remove the pages. What you 
-could do instead is to map only the memory required for Xen use. The 
-rest would be left unmapped.
+> +
+> +    /*
+> +     * Generate the entry for this new table we created,
+> +     * and write it back in place of the superpage entry.
+> +     */
 
-This would be similar to what we are doing on arm32. We have a split 
-heap. Only the xenheap is mapped. The pages from the domheap will be 
-mapped ondemand.
+I am afraid this is not compliant with the Arm Arm. If you want to 
+update valid entry (e.g. shattering a superpage), then you need to 
+follow the break-before-make sequence. This means that:
+   1. Replace the valid entry with an entry with an invalid one
+   2. Flush the TLBs
+   3. Write the new entry
 
-Another approach, would be to have a single heap where pages used by Xen 
-are mapped in the page-tables when allocated (this is what secret-free 
-hypervisor is doing is).
+Those steps will make your code compliant but it also means that a 
+virtual address will be temporarily invalid so you could take a fault in 
+the middle of your split if your stack or the table was part of the 
+region. The same could happen for the other running CPUs but this is 
+less problematic as they could spin on the page-table lock.
 
-If you don't map to keep the page-tables around, then it sounds like you 
-want the first approach.
+This is the main reason why we never implemented super-page shattering 
+for the hypervisor.
 
-> 
-> Second, the Xen removes mappings to its own page tables.
-> On arm64, this also involves manipulating the directmap. One challenge
-> here is that as we start to unmap our tables from the directmap,
-> we can't use the directmap to walk them. Our solution here is also
-> bit less elegant, we temporarily insert a recursive mapping and use
-> that to remove page table entries.
+So I would rather prefer if we can avoid shattering (I have made some 
+suggestion in the cover letter). If we really need to shatter, then we 
+should make sure this is only used in very limited use case by 
+introducing a flag. So the caller will be reponsible to acknowledge it 
+doesn't modify a region that may be used by itself or another CPU.
 
-See above.
+> +    pte = mfn_to_xen_entry(page_to_mfn(page), MT_NORMAL);
+> +    pte.pt.table = 1;
+> +    write_pte(entry, pte);
+> +    clean_dcache(*entry);
 
-> 
-> ** LIMITATIONS and other closing thoughts **
-> The current Xen code has obviously been implemented under the
-> assumption that new pages can be mapped, and that guest virtual
-> addresses can be read, so this technique will break some Xen
-> features. However, in the general case
-
-Can you clarify your definition of "general case"? From my PoV, it is a 
-lot more common to have guest with PV emulated device rather than with 
-device attached. So it will be mandatory to access part of the memory 
-(e.g. grant table).
-
-> (in particular for static
-> workloads where the number of guest's is not changed after boot)
-
-That very much depend on how you configure your guest. If they have 
-device assigned then possibly yes. Otherwise see above.
-
-> Finally, our initial testing suggests that Xen never reads guest memory
-> (in a static, non-dom0-enchanced configuration), but have not really
-> explored this thoroughly.
-> We know at least these things work:
-> 	Dom0less virtual serial terminal
-> 	Domain scheduling
-> We are aware that these things currently depend on accessible guest
-> memory:
-> 	Some hypercalls take guest pointers as arguments
-
-There are not many hypercalls that don't take guest pointers.
-
-> 	Virtualized MMIO on arm needs to decode certain load/store
-> 	instructions
-
-On Arm, this can be avoided of the guest OS is not using such 
-instruction. In fact they were only added to cater "broken" guest OS.
-
-Also, this will probably be a lot more difficult on x86 as, AFAIK, there 
-is no instruction syndrome. So you will need to decode the instruction 
-in order to emulate the access.
-
-> 
-> It's likely that other Xen features require guest memory access.
-
-For Arm, guest memory access is also needed when using the GICv3 ITS 
-and/or second-level SMMU (still in RFC).
-
-For x86, if you don't want to access the guest memory, then you may need 
-to restrict to PVH as for HVM we need to emulate some devices in QEMU. 
-That said, I am not sure PVH is even feasible.
+Ditto about the cache cleaning.
 
 Cheers,
-
-[1] 
-https://www.youtube.com/watch?v=RKJOwIkCnB4&list=PLYyw7IQjL-zFYmEoZEYswoVuXrHvXAWxj&index=5
 
 -- 
 Julien Grall
