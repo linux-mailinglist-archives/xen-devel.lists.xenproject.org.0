@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2B6F64C036
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 00:06:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461463.719553 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D5BD64C042
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 00:08:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461480.719576 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5ELT-0003nR-HF; Tue, 13 Dec 2022 23:05:55 +0000
+	id 1p5ENU-0004vt-6n; Tue, 13 Dec 2022 23:08:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461463.719553; Tue, 13 Dec 2022 23:05:55 +0000
+Received: by outflank-mailman (output) from mailman id 461480.719576; Tue, 13 Dec 2022 23:08:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5ELT-0003lL-EV; Tue, 13 Dec 2022 23:05:55 +0000
-Received: by outflank-mailman (input) for mailman id 461463;
- Tue, 13 Dec 2022 23:05:54 +0000
+	id 1p5ENU-0004u4-2e; Tue, 13 Dec 2022 23:08:00 +0000
+Received: by outflank-mailman (input) for mailman id 461480;
+ Tue, 13 Dec 2022 23:07:58 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5ELS-0003lF-K6
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 23:05:54 +0000
+ (envelope-from <julien@xen.org>) id 1p5ENS-0004tw-7e
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 23:07:58 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5ELQ-00066D-8M; Tue, 13 Dec 2022 23:05:52 +0000
+ id 1p5ENR-00069y-Kf; Tue, 13 Dec 2022 23:07:57 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p5ELQ-0004bH-2W; Tue, 13 Dec 2022 23:05:52 +0000
+ id 1p5ENR-0004iQ-Fa; Tue, 13 Dec 2022 23:07:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,15 +42,15 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=0QsfKQ+pjRM5GbdxX0yFfXBfTml6diznF3ClEYq9GmU=; b=mqgPc0Za90mqOTtcBGr1DBdMHX
-	lqBwS1/hpfgf/vXRRpHtBBfQvxrdjlJ1LkQi4/ef/oRZ4LcIu3YrSasW06cYjvzeOl0QnltLdsFIZ
-	zkyXlR1cxN2FvPqLNZsZJasCyz/SCktO3XEdcBE0Prz9LP7FOWn2HLjbYm9AE1/sCc0Q=;
-Message-ID: <901d2088-49e7-634f-f55b-e4ea2e706fed@xen.org>
-Date: Tue, 13 Dec 2022 23:05:49 +0000
+	bh=DdR432rU1drkysnE7/E+qi6MeP6q9kiJU/Opxjz1jgE=; b=nwV0m6uWsUzfTHTFMFc7CPHSV8
+	SE54i3lMZc6VVmiQH+YhzH9lnQZwCF3WYbt06wf76LyWaUDmy3Oxrle78XJ9LONiZzCAF8sMqp+H/
+	grlTRGCsqRrQi2jBmiZXBtL8qzjjSkmdDH7VdtHXmW6U6DqoNaAOIWL2xRyXY+O6il1s=;
+Message-ID: <dd6a05d5-5c3d-7a65-9951-b9c0aabadc81@xen.org>
+Date: Tue, 13 Dec 2022 23:07:55 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
+Subject: Re: [RFC 3/4] Add xen superpage splitting support to arm
 To: Demi Marie Obenour <demi@invisiblethingslab.com>,
  "Smith, Jackson" <rsmith@riversideresearch.org>
 Cc: "Brookes, Scott" <sbrookes@riversideresearch.org>,
@@ -64,69 +64,144 @@ Cc: "Brookes, Scott" <sbrookes@riversideresearch.org>,
  "Daniel P. Smith" <dpsmith@apertussolutions.com>,
  "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
 References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
- <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org> <Y5j7KQ9g5Yb/ufn+@itl-email>
+ <BN0P110MB1642CCC518921DC7F2BB3BB3CFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <c8f9e15a-81d1-ef8c-0baf-1758e7d89eee@xen.org> <Y5j5/qinMwxizxMc@itl-email>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <Y5j7KQ9g5Yb/ufn+@itl-email>
+In-Reply-To: <Y5j5/qinMwxizxMc@itl-email>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 Hi Demi,
 
-On 13/12/2022 22:22, Demi Marie Obenour wrote:
-> On Tue, Dec 13, 2022 at 08:55:28PM +0000, Julien Grall wrote:
->> On 13/12/2022 19:48, Smith, Jackson wrote:
->>> Hi Xen Developers,
+On 13/12/2022 22:17, Demi Marie Obenour wrote:
+> On Tue, Dec 13, 2022 at 09:15:49PM +0000, Julien Grall wrote:
+>> Hi,
 >>
->> Hi Jackson,
+>> On 13/12/2022 19:54, Smith, Jackson wrote:
+>>> Updates xen_pt_update_entry function from xen/arch/arm/mm.c to
+>>> automatically split superpages as needed.
+>> Your signed-off-by is missing.
 >>
->> Thanks for sharing the prototype with the community. Some questions/remarks
->> below.
+>>> ---
+>>>    xen/arch/arm/mm.c | 91 +++++++++++++++++++++++++++++++++++++++++++++++--------
+>>>    1 file changed, 78 insertions(+), 13 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>>> index 6301752..91b9c2b 100644
+>>> --- a/xen/arch/arm/mm.c
+>>> +++ b/xen/arch/arm/mm.c
+>>> @@ -753,8 +753,78 @@ static int create_xen_table(lpae_t *entry)
+>>>    }
+>>>    #define XEN_TABLE_MAP_FAILED 0
+>>> -#define XEN_TABLE_SUPER_PAGE 1
+>>> -#define XEN_TABLE_NORMAL_PAGE 2
+>>> +#define XEN_TABLE_NORMAL_PAGE 1
+>>> +
+>>> +/* More or less taken from p2m_split_superpage, without the p2m stuff */
+>>> +static bool xen_split_superpage(lpae_t *entry, unsigned int level,
+>>> +                                unsigned int target, const unsigned int *offsets)
+>>> +{
+>>> +    struct page_info *page;
+>>> +    lpae_t pte, *table;
+>>> +    unsigned int i;
+>>> +    bool rv = true;
+>>> +
+>>> +    mfn_t mfn = lpae_get_mfn(*entry);
+>>> +    unsigned int next_level = level + 1;
+>>> +    unsigned int level_order = XEN_PT_LEVEL_ORDER(next_level);
+>>> +
+>>> +    ASSERT(level < target);
+>>> +    ASSERT(lpae_is_superpage(*entry, level));
+>>> +
+>>> +    page = alloc_domheap_page(NULL, 0);
+>> Page-table may be allocated from the boot allocator. So you want to use
+>> create_xen_table().
+>>
+>>> +    if ( !page )
+>>> +        return false;
+>>> +
+>>> +    table = __map_domain_page(page);
+>>
+>> You want to use xen_map_table().
+>>
+>>> +
+>>> +    /*
+>>> +     * We are either splitting a first level 1G page into 512 second level
+>>> +     * 2M pages, or a second level 2M page into 512 third level 4K pages.
+>>> +     */
+>>> +    for ( i = 0; i < XEN_PT_LPAE_ENTRIES; i++ )
+>>> +    {
+>>> +        lpae_t *new_entry = table + i;
+>>> +
+>>> +        /*
+>>> +         * Use the content of the superpage entry and override
+>>> +         * the necessary fields. So the correct permission are kept.
+>>> +         */
+>>> +        pte = *entry;
+>>> +        lpae_set_mfn(pte, mfn_add(mfn, i << level_order));
+>>> +
+>>> +        /*
+>>> +         * First and second level pages set walk.table = 0, but third
+>>> +         * level entries set walk.table = 1.
+>>> +         */
+>>> +        pte.walk.table = (next_level == 3);
+>>> +
+>>> +        write_pte(new_entry, pte);
+>>> +    }
+>>> +
+>>> +    /*
+>>> +     * Shatter superpage in the page to the level we want to make the
+>>> +     * changes.
+>>> +     * This is done outside the loop to avoid checking the offset to
+>>> +     * know whether the entry should be shattered for every entry.
+>>> +     */
+>>> +    if ( next_level != target )
+>>> +        rv = xen_split_superpage(table + offsets[next_level],
+>>> +                                 level + 1, target, offsets);
+>>> +
+>>> +    clean_dcache_va_range(table, PAGE_SIZE);
+>>
+>> Cleaning the cache is not necessary. This is done in the P2M case because it
+>> is shared with the IOMMU which may not support coherent access.
+>>
+>>> +    unmap_domain_page(table);
+>>
+>> This would be xen_map
+>>
+>>> +
+>>> +    /*
+>>> +     * Generate the entry for this new table we created,
+>>> +     * and write it back in place of the superpage entry.
+>>> +     */
+>>
+>> I am afraid this is not compliant with the Arm Arm. If you want to update
+>> valid entry (e.g. shattering a superpage), then you need to follow the
+>> break-before-make sequence. This means that:
+>>    1. Replace the valid entry with an entry with an invalid one
+>>    2. Flush the TLBs
+>>    3. Write the new entry
+>>
+>> Those steps will make your code compliant but it also means that a virtual
+>> address will be temporarily invalid so you could take a fault in the middle
+>> of your split if your stack or the table was part of the region. The same
+>> could happen for the other running CPUs but this is less problematic as they
+>> could spin on the page-table lock.
 > 
-> [snip]
-> 
->>> With this technique, we protect the integrity and confidentiality of
->>> guest memory. However, a compromised hypervisor can still read/write
->>> register state during traps, or refuse to schedule a guest, denying
->>> service. We also recognize that because this technique precludes
->>> modifying Xen's page tables after startup, it may not be compatible
->>> with all of Xen's potential use cases. On the other hand, there are
->>> some uses cases (in particular statically defined embedded systems)
->>> where our technique could be adopted with minimal friction.
->>
->>  From what you wrote, this sounds very much like the project Citrix and
->> Amazon worked on called "Secret-free hypervisor" with a twist. In your case,
->> you want to prevent the hypervisor to map/unmap the guest memory.
->>
->> You can find some details in [1]. The code is x86 only, but I don't see any
->> major blocker to port it on arm64.
-> 
-> Is there any way the secret-free hypervisor code could be upstreamed?
-This has been in my todo list for more than year but didn't yet find 
-anyone to finish the work.
+> Could this be worked around by writing the critical section in
+> assembler? 
 
-I need to have a look how much left the original work it is left to do. 
-Would you be interested to contribute?
+Everything is feasible. Is this worth it? I don't think so. There are 
+way we can avoid the shattering at first by simply not mapping all the RAM.
 
-> My understanding is that it would enable guests to use SMT without
-> risking the host, which would be amazing.
-> 
->>> 	Virtualized MMIO on arm needs to decode certain load/store
->>> 	instructions
->>
->> On Arm, this can be avoided of the guest OS is not using such instruction.
->> In fact they were only added to cater "broken" guest OS.
->>
->> Also, this will probably be a lot more difficult on x86 as, AFAIK, there is
->> no instruction syndrome. So you will need to decode the instruction in order
->> to emulate the access.
-> 
-> Is requiring the guest to emulate such instructions itself an option?
-> μXen, SEV-SNP, and TDX all do this.
+> The assembler code would never access the stack and would
+> run with interrupts disabled.  There could also be BUG() checks for
+> attempting to shatter a PTE that was needed to access the PTE in
+> question, though I suspect one can work around this with a temporary
+> PTE.  That said, shattering large pages requires allocating memory,
+> which might fail.  What happens if the allocation does fail?
 
-
-I am not very familiar with this. So a few questions:
-  * Does this mean the OS needs to be modified?
-  * What happen for emulated device?
+If this is only done during boot, then I would argue you will want to 
+crash Xen.
 
 Cheers,
 
