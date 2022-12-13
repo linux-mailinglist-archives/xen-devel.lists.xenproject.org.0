@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC0864B2FC
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 11:09:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460392.718310 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D259C64B304
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 11:14:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460424.718331 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p52Dh-0000X3-Sw; Tue, 13 Dec 2022 10:09:05 +0000
+	id 1p52I2-000387-Rr; Tue, 13 Dec 2022 10:13:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460392.718310; Tue, 13 Dec 2022 10:09:05 +0000
+Received: by outflank-mailman (output) from mailman id 460424.718331; Tue, 13 Dec 2022 10:13:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p52Dh-0000TA-Oy; Tue, 13 Dec 2022 10:09:05 +0000
-Received: by outflank-mailman (input) for mailman id 460392;
- Tue, 13 Dec 2022 10:09:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TlCu=4L=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1p52Df-0008Kk-UF
- for xen-devel@lists.xen.org; Tue, 13 Dec 2022 10:09:04 +0000
-Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
- [2607:f8b0:4864:20::1035])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8300234d-7acd-11ed-8fd2-01056ac49cbb;
- Tue, 13 Dec 2022 11:04:21 +0100 (CET)
-Received: by mail-pj1-x1035.google.com with SMTP id
- e7-20020a17090a77c700b00216928a3917so2996126pjs.4
- for <xen-devel@lists.xen.org>; Tue, 13 Dec 2022 02:09:03 -0800 (PST)
-Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
- je19-20020a170903265300b00186b3c3e2dasm8022658plb.155.2022.12.13.02.09.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Dec 2022 02:09:01 -0800 (PST)
+	id 1p52I2-00035R-OQ; Tue, 13 Dec 2022 10:13:34 +0000
+Received: by outflank-mailman (input) for mailman id 460424;
+ Tue, 13 Dec 2022 10:13:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1p52I1-00035L-Gf
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 10:13:33 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p52I0-0003aq-Ol; Tue, 13 Dec 2022 10:13:32 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.2.179]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1p52I0-0002Wy-Ir; Tue, 13 Dec 2022 10:13:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,113 +39,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8300234d-7acd-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+7t/bITPAutPCDFaVHnpGALOK3FXJdmGHlDPnk3jI8E=;
-        b=T6ILUYBJz8OYkA6h7aQqiHbdX/YufqnqVpUSrm46+PeL+wKskAseHPC9SD1qxUVjUU
-         5P8voGXKEmyspxViIvC3nb9bLhzYmy9Iu2fiFJLkC9C6cj1clKZKP2z5wuBNTgztltoP
-         HmqQVP5yZhsIRSuVNu72NGAqtaBXoG1UE6AXG5HAfeweGRIs0suXf+SafE2qyAQfSX+X
-         /Vu1ZTNxQtHtIS4FM2B1mSStascJbxis73+wlu7qiUX+9LDBOy8zwVAusslltRNnHYQJ
-         gFwxWFbkVdsACxyWMaBbRVPqQCxw45xXk1SHs0Mys1vOBICCfgSq9pvV+C/ebAKVxkca
-         CS/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+7t/bITPAutPCDFaVHnpGALOK3FXJdmGHlDPnk3jI8E=;
-        b=vCLkqD0IYHRdbbtomKfVsF0NqV7mRBeg+SJ2AFYMlw/PkDgXREQna8yffVRZRKHtMJ
-         8Q97I1pMvzC8UseLn2yWtZJHayKGQuoRXgHg+AIZbdGz7jw79vGZQUw2X9ECJUN0WqfG
-         h+YsCkdiB9X05EMW87XpSpu7/OXeUNIAv0Zh3dzCUGu+zPcCTly4xP9kBY4hbFj3U+tB
-         fNc2VuJMEgXw0bZe3A4kvNFuqLVXGv+OJOPHeQGHO3IjB/TZrTwRue20miGYdd8vp0Xg
-         yoYdTEn//Kqpx+S05Qp6g0/02HJj373GOfRmwe1/MCEJyUaGTlCL3YUqyYwL2y2qXnqO
-         6CdA==
-X-Gm-Message-State: ANoB5pkrX0HPypHpI6lQ7w5EUTGDBwIZ0aRARhD2+N+FVFiHXAKQJE0O
-	z6+OvDPqaAnJL8bI+DCrhrBzXWtp9HwDAK4S
-X-Google-Smtp-Source: AA0mqf7l+e1nb0jNYgH2yyzVnU1MdvImLWlvmag1vywWbAq22hfdLiuB2CN9FgOjV3n0e+SaULmc3A==
-X-Received: by 2002:a17:903:2448:b0:189:f277:3830 with SMTP id l8-20020a170903244800b00189f2773830mr29937549pls.68.1670926141782;
-        Tue, 13 Dec 2022 02:09:01 -0800 (PST)
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: xen-devel@lists.xen.org,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	stratos-dev@op-lists.linaro.org,
-	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Stefano Stabellini <stefano.stabellini@xilinx.com>,
-	Mathieu Poirier <mathieu.poirier@linaro.com>,
-	Mike Holmes <mike.holmes@linaro.org>,
-	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH V9 3/3] docs: Add documentation for generic virtio devices
-Date: Tue, 13 Dec 2022 15:38:48 +0530
-Message-Id: <a0eb1c6d571cc3ed9ca7dd71dabe3aba6e69100c.1670925998.git.viresh.kumar@linaro.org>
-X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
-In-Reply-To: <cover.1670925998.git.viresh.kumar@linaro.org>
-References: <cover.1670925998.git.viresh.kumar@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=XUq9awQrE4nu+LgTbPCtSN6BsQ7c/e5iCJR4gwtx3Vk=; b=GUTYF7lOthjnfNsavdU8hh5XiR
+	rbPXL/mWbOLUaMCOKl5nY1sa8hJBaYRfDvTxb4UHxI47YeGTRdXgtNUHgg53B6pE8nXheTj6duaVE
+	Hz5IOW9FpSLpzUv85pvgeUtkgeBq7Rs56R/tylBAo91RG5DtWyuqsGGV2RkdnzQOgnOU=;
+Message-ID: <d802fa56-ca43-8542-5ade-1e396e34b8e2@xen.org>
+Date: Tue, 13 Dec 2022 10:13:30 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.5.1
+Subject: Re: [PATCH 11/20] tools/xenstore: move changed domain handling
+Content-Language: en-US
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20221101152842.4257-1-jgross@suse.com>
+ <20221101152842.4257-12-jgross@suse.com>
+ <6bad7b3c-eaa2-d342-a7f2-d265bdefd54a@xen.org>
+ <e2aa2c60-5d4f-06ca-153e-cdb422aa084d@suse.com>
+ <81985efe-7335-770c-c411-55c88db26a75@xen.org>
+ <0dd9932b-356b-7201-d017-41dd061c6b44@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <0dd9932b-356b-7201-d017-41dd061c6b44@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-This patch updates xl.cfg man page with details of generic Virtio device
-related information.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
----
- docs/man/xl.cfg.5.pod.in | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
 
-diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-index ec444fb2ba79..024bceeb61b2 100644
---- a/docs/man/xl.cfg.5.pod.in
-+++ b/docs/man/xl.cfg.5.pod.in
-@@ -1585,6 +1585,39 @@ Set maximum height for pointer device.
- 
- =back
- 
-+=item B<virtio=[ "VIRTIO_DEVICE_STRING", "VIRTIO_DEVICE_STRING", ...]>
-+
-+Specifies the Virtio devices to be provided to the guest.
-+
-+Each B<VIRTIO_DEVICE_STRING> is a comma-separated list of C<KEY=VALUE> settings
-+from the following list. As a special case, a single comma is allowed in the
-+VALUE of the "type" KEY, where the VALUE is set with "virtio,device<N>".
-+
-+=over 4
-+
-+=item B<backend=domain-id>
-+
-+Specifies the backend domain name or id, defaults to dom0.
-+
-+=item B<type=STRING>
-+
-+Specifies the compatible string for the specific Virtio device. The same will be
-+written in the Device Tree compatible property of the Virtio device. For
-+example, "type=virtio,device22" for the I2C device, whose device-tree binding is
-+present here:
-+
-+L<https://www.kernel.org/doc/Documentation/devicetree/bindings/i2c/i2c-virtio.yaml>
-+
-+For generic virtio devices, where we don't need to set special or compatible
-+properties in the Device Tree, the type field must be set to "virtio,device".
-+
-+=item B<transport=STRING>
-+
-+Specifies the transport mechanism for the Virtio device, only "mmio" is
-+supported for now.
-+
-+=back
-+
- =item B<tee="STRING">
- 
- B<Arm only.> Set TEE type for the guest. TEE is a Trusted Execution
+On 13/12/2022 09:54, Juergen Gross wrote:
+> On 13.12.22 10:35, Julien Grall wrote:
+>> Hi Juergen,
+>>
+>> On 13/12/2022 06:53, Juergen Gross wrote:
+>>> On 01.12.22 22:58, Julien Grall wrote:
+>>>> Hi Juergen,
+>>>>
+>>>> On 01/11/2022 15:28, Juergen Gross wrote:
+>>>>>   static bool check_indexes(XENSTORE_RING_IDX cons, 
+>>>>> XENSTORE_RING_IDX prod)
+>>>>> @@ -492,8 +504,12 @@ static struct domain 
+>>>>> *find_or_alloc_existing_domain(unsigned int domid)
+>>>>>       xc_dominfo_t dominfo;
+>>>>>       domain = find_domain_struct(domid);
+>>>>> -    if (!domain && get_domain_info(domid, &dominfo))
+>>>>> -        domain = alloc_domain(NULL, domid);
+>>>>> +    if (!domain) {
+>>>>> +        if (!get_domain_info(domid, &dominfo))
+>>>>> +            errno = ENOENT;
+>>>>> +        else
+>>>>> +            domain = alloc_domain(NULL, domid);
+>>>>> +    }
+>>>>
+>>>> I don't understand how this change is related to this commit.
+>>>
+>>> It is directly related to the hunk below. Returning errno in
+>>> acc_add_dom_nbentry() requires it to be set correctly in
+>>> find_or_alloc_existing_domain().
+>>>
+>>> I'll add a remark in the commit message.
+>>>
+>>>>
+>>>> [...]
+>>>>
+>>>>> +int acc_add_dom_nbentry(const void *ctx, struct list_head *head, 
+>>>>> int val,
+>>>>> +            unsigned int domid)
+>>>>> +{
+>>>>> +    struct changed_domain *cd;
+>>>>> +
+>>>>> +    cd = acc_get_changed_domain(ctx, head, domid);
+>>>>> +    if (!cd)
+>>>>> +        return errno;
+>>>>> +
+>>>>> +    cd->nbentry += val;
+>>>>
+>>>> As a future improvement, it would be worth considering to check for 
+>>>> underflow/overflow.
+>>>
+>>> Do you really think we need to make sure not to add/remove more than
+>>> 2 billion nodes owned by a single domain?
+>> No and that's not my point. If you look at domain_entry_fix() we have 
+>> an assert() to check if the sum is still over 0.
+>>
+>> This assert() was actually triggered a few times while testing the 
+>> previous XSAs batch. So I think it would be worth to carry a similar 
+>> check (maybe not an assert()) just in case we mess up with accounting 
+>> in the future.
+> 
+> Patch 2 of the 2nd series does that already.
+
+Ok. I will have a look.
+
+Cheers,
+
 -- 
-2.31.1.272.g89b43f80a514
-
+Julien Grall
 
