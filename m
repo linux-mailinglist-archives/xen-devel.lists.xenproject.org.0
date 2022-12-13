@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6109C64B91A
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 17:01:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460724.718718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04BB564B91E
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 17:01:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460728.718730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p57iM-0002Zt-Nz; Tue, 13 Dec 2022 16:01:06 +0000
+	id 1p57iU-00033I-3c; Tue, 13 Dec 2022 16:01:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460724.718718; Tue, 13 Dec 2022 16:01:06 +0000
+Received: by outflank-mailman (output) from mailman id 460728.718730; Tue, 13 Dec 2022 16:01:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p57iM-0002X9-Ix; Tue, 13 Dec 2022 16:01:06 +0000
-Received: by outflank-mailman (input) for mailman id 460724;
- Tue, 13 Dec 2022 16:01:05 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p57iT-0002zr-Tm; Tue, 13 Dec 2022 16:01:13 +0000
+Received: by outflank-mailman (input) for mailman id 460728;
+ Tue, 13 Dec 2022 16:01:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=7Djt=4L=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1p57iL-0001dt-Er
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 16:01:05 +0000
+ id 1p57iR-0001ta-M4
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 16:01:11 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59050102-7aff-11ed-91b6-6bf2151ebd3b;
- Tue, 13 Dec 2022 17:01:04 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5c5dd08d-7aff-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 17:01:10 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A4B97229F7;
- Tue, 13 Dec 2022 16:01:04 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 3D78621AEB;
+ Tue, 13 Dec 2022 16:01:10 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 667AA138EE;
- Tue, 13 Dec 2022 16:01:04 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 126DF138EE;
+ Tue, 13 Dec 2022 16:01:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id O354F8ChmGN/KQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 13 Dec 2022 16:01:04 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id dnYyA8ahmGOTKQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 13 Dec 2022 16:01:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,57 +51,57 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59050102-7aff-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 5c5dd08d-7aff-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1670947264; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1670947270; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=dpNYpi1fxBC/eShrKdLUi9ljmxvtfrqIkoCQUMZbd3o=;
-	b=PhusaDShad9p4mo6QMQs+X6+BxpEW3T6WJFICeyxj/WHkXwDW5EatTLBM2mtatHw/YxuDp
-	sjeYoj6De02s3kqqmY5/p84I+vOCMRdhciyYMRDPI3vfqPhR1LWhu/pFtKxUVvg5jf+DEF
-	03uQFTK/bKnl09XDDW8wBetKjY/rg7w=
+	bh=ryi6cpb7BKe6PnGwXvBdTnm0HFWHWSERp75CSqVgKRY=;
+	b=j7OBQOE0S7Myf69+kqS9ueBkolTn5whgOPeiQNe8+KXYEyqdUdNbEBVOPQ1yDgB+JjPlwG
+	wyxeHYqw4J/+XJgPWY2mfJ8Ab5dPQjQSi5eO1pOaG09q/jB3Fg2+W3gTle9khzNlAmQXxL
+	XAXtfFtQOwfZz39ma5OE4iAWBB7M2zg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v2 03/19] tools/xenstore: preserve errno across corrupt()
-Date: Tue, 13 Dec 2022 17:00:29 +0100
-Message-Id: <20221213160045.28170-4-jgross@suse.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v2 04/19] tools/xenstore: remove all watches when a domain has stopped
+Date: Tue, 13 Dec 2022 17:00:30 +0100
+Message-Id: <20221213160045.28170-5-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20221213160045.28170-1-jgross@suse.com>
 References: <20221213160045.28170-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Let corrupt() preserve errno in order to be able to simplify error
-handling in future.
-
-This is rather easy as the errno value when entering corrupt() is
-saved already.
+When a domain has been released by Xen tools, remove all its
+registered watches. This avoids sending watch events to the dead domain
+when all the nodes related to it are being removed by the Xen tools.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/xenstore/xenstored_core.c | 2 ++
- 1 file changed, 2 insertions(+)
+V2:
+- move call to do_release() (Julien Grall)
+---
+ tools/xenstore/xenstored_domain.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index d48208ecfe..8c2cca62b7 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -2549,6 +2549,8 @@ void corrupt(struct connection *conn, const char *fmt, ...)
- 	talloc_free(str);
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index aa86892fed..e669c89e94 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -740,6 +740,9 @@ int do_release(const void *ctx, struct connection *conn,
+ 	if (IS_ERR(domain))
+ 		return -PTR_ERR(domain);
  
- 	check_store();
++	/* Avoid triggering watch events when the domain's nodes are deleted. */
++	conn_delete_all_watches(domain->conn);
 +
-+	errno = saved_errno;
- }
+ 	talloc_free(domain->conn);
  
- #ifndef NO_SOCKETS
+ 	send_ack(conn, XS_RELEASE);
 -- 
 2.35.3
 
