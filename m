@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0748664BF3C
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 23:18:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461256.719324 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AD7064BF4A
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 23:22:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461266.719339 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5Das-0002hv-4o; Tue, 13 Dec 2022 22:17:46 +0000
+	id 1p5Dfc-00047k-OL; Tue, 13 Dec 2022 22:22:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461256.719324; Tue, 13 Dec 2022 22:17:46 +0000
+Received: by outflank-mailman (output) from mailman id 461266.719339; Tue, 13 Dec 2022 22:22:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5Das-0002fE-22; Tue, 13 Dec 2022 22:17:46 +0000
-Received: by outflank-mailman (input) for mailman id 461256;
- Tue, 13 Dec 2022 22:17:44 +0000
+	id 1p5Dfc-00044j-Kz; Tue, 13 Dec 2022 22:22:40 +0000
+Received: by outflank-mailman (input) for mailman id 461266;
+ Tue, 13 Dec 2022 22:22:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mJcE=4L=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p5Dap-0002f7-RF
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 22:17:44 +0000
+ id 1p5Dfc-00044d-1R
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 22:22:40 +0000
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f4ca84aa-7b33-11ed-8fd2-01056ac49cbb;
- Tue, 13 Dec 2022 23:17:41 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id F060E32005B5;
- Tue, 13 Dec 2022 17:17:37 -0500 (EST)
+ id a6655dac-7b34-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 23:22:38 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 96EF132003C0;
+ Tue, 13 Dec 2022 17:22:36 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Tue, 13 Dec 2022 17:17:38 -0500
+ by compute4.internal (MEProxy); Tue, 13 Dec 2022 17:22:37 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 13 Dec 2022 17:17:36 -0500 (EST)
+ 13 Dec 2022 17:22:34 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,49 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f4ca84aa-7b33-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: a6655dac-7b34-11ed-8fd2-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670969857; x=
-	1671056257; bh=Kup6ZQkTZkd625cYDAS1Nqee6DmzrAAqp7YEQ0GQpA4=; b=E
-	EBm9ThhrI+oDQT5QmTzETc+mxHOwwQ0yv6yNEUC/ld/vpzKpq5mzqT4aS87QKqsA
-	R/LRB2cXkhaNlLV5GiyR7EdVKyEBJf3uOvpeCjDXoxkJWanbMfzpjvx+WKuIsai8
-	zzIl0SVvgt5rC/btCihsiKbRq08fXGIPd9hjcaBLYT2iT+yUxU7+Ehseki+scF+w
-	AdZ3mSOcIRDI5v6eTicH3KifHUIvdk/8pEZdVCq3oFoM+/EDQpXeYVLBPYb5dijf
-	9DF9FnqqT7sleOGObdWYHwuw0IG7IBp6L3/aak7jYjj8LJompRyBLTJDyje73BtK
-	ZDFcNha3f4GoIzZfUycBA==
+	:reply-to:sender:subject:subject:to:to; s=fm1; t=1670970156; x=
+	1671056556; bh=XnBVA0h1DUnwb9MFZ4Gxd4oEQ3gITguNU9qteIZbzqw=; b=V
+	DemX/jxOFeRB+oQwc2RVyW7aHDuklaNaQ3anESoZUK3658OaAcPIm1FvMQMxiX1/
+	VltIcfxs0pZ0t3qRzWWctNZFkb6OUdNu0oSNf1AiFBeNvaaoYvSnfssRbe2qJW4o
+	DU2DX5hcHMKiT417AW/FfQ9ZOkRzVtQy/1OSLh//P3mn0kskjVmdyNBw+Zc0OaO0
+	wtzfW8xLFnj2G2g/hZRlZZ7H7IaHR/irzpJHrlPE1Q2gckiCspJq+Akm+Bt4nSUh
+	ORvdXOLHOA1yySAsjP5F4BlS2lAt2VJYGiostFgp58NygcRj+s/0YioaB2ezBqrn
+	H85p4WQBDe9oVeZMAGmjg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
 	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
 	:mime-version:references:reply-to:sender:subject:subject:to:to
 	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1670969857; x=1671056257; bh=Kup6ZQkTZkd625cYDAS1Nqee6Dmz
-	rAAqp7YEQ0GQpA4=; b=Xpz/IytRi2UfyIoYL52jI7wwEaPHyXRMdL3//WBo5lt9
-	Tq3fcrrp0BbhwFZpRSixKM9PQQRDR7y9L3K6KHF4NfVvymc8b8b7zCzLPaqWOwRJ
-	Mv68pJ40iUNZGQclDRGndB6MZ3FJkzJaht6EMsbLUTNTej5MW8er+LGu/BkfBLhC
-	P8Jmqj/13Uaqxxb1ssFcjF1AKuQKhjv8P8DY9sCsOTuug893o6oXTI0Z7HQA2I7z
-	1U5P31cCZQG0/kvj41y6lZ59c+1oZ6RUfMnbKWIaS9lQWOhFSaE0RirnFz0YsrCi
-	XAjM51JhVmGfsPm9VDFRqzvcVq76vR6KX2jbus5WUw==
-X-ME-Sender: <xms:AfqYY0IqKNFuuRWN91UwStq0kxbI9lpG62X0dDR2XMyz-tF16Z0sXg>
-    <xme:AfqYY0Jm35xDCJbP5hD2oSwbGf0uFnLFLACu3c-R8JWwWyUWsh5cEwlLZuktYvJu7
-    LAZGVKmeRQrLTs>
-X-ME-Received: <xmr:AfqYY0suNvmysDpQuX_1pe-6K2r9JjY56iztvRsD6BhrygsMPt07tZ5mcuyD>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfedugdekhecutefuodetggdotefrodftvf
+	fm2; t=1670970156; x=1671056556; bh=XnBVA0h1DUnwb9MFZ4Gxd4oEQ3gI
+	TguNU9qteIZbzqw=; b=Sx/oYsY2fznTH/A0DWdTuyPgMkLeMxqiUw0FIiRATTmv
+	j98zZOY0qYem+TSvKsXEnUC/jDKLKe73Mwj0OlFVeWjV56KXK/5rjnoUTORn/BR/
+	rNPJ9THE75ujnRQC6/llCxlwhkWVykrxfhoeTzjjrKwVKzjz/Cp2wcWEjYiPyq7B
+	f10MCj0xPSbuoBZ7huANHBgTOQkpBWyL/Deh6/Txh7G+5g64GCdPAQgXHyt96E9F
+	NdrbOsCz9vte0R1ASfGHHKQK8hETRI8tr1HEWXVHYVYLMemPIyAkr/msmGEsBWl9
+	cUjwj3oBNcmS5w5NyY9+EujgqChujFEabC2TZ3MMBA==
+X-ME-Sender: <xms:K_uYY9r6ZoNQ4_cYXEM5KdnNYeZH8OqkYcQAN9dNmOyg8TeCVwEIBw>
+    <xme:K_uYY_rGJg0QCmF3GBE-s5FmfFagv3ogpRx0dEEPb7SPzP_S0c6CWrWnHihFKGjmz
+    sOQ6ypI7hQkV3I>
+X-ME-Received: <xmr:K_uYY6OsH6JyP2r0nwYjH2Q4eiy_QE47yESaw4D3V1qV59nl2GCk-APfV0cY>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfedugdekiecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
     ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
-    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffegfffg
+    uddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtnecurf
     grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
     rggsrdgtohhm
-X-ME-Proxy: <xmx:AfqYYxaEsMVDvOWZRe-2BHaYd3lw6pITs33uh8lMu2Eob8ZiU6BH9A>
-    <xmx:AfqYY7bFX9fbKiZtEhPUWaxJxDHB2mZHHc2aVUlyS2QB4XoWUXVHFA>
-    <xmx:AfqYY9BOF1h8wfeCXNt_piFKkAe_IyonfVoeln1JYY5AQMewi455qg>
-    <xmx:AfqYY1nW5snyYPd4PqE46ajjfVKPbcJHsYKy5WtFokdZp3J5T6iFKQ>
+X-ME-Proxy: <xmx:K_uYY45fvkGXg0waSPIXDQ7K3D2hd6WoTj6Ri1nQ8KfXgSFOA-Dafg>
+    <xmx:K_uYY84HFH9AqVjJtpAT3pjWOmoa4ZakMISOludugyGYpfvq_LFtxw>
+    <xmx:K_uYYwgDWXEISo_MQMtgXVzAUjj637jXE7_RN1Qr2lAZGPTB2qtoZQ>
+    <xmx:LPuYY9F_gtcgVz-6k0uVDA35LIJ7QY2ZHDV7jowkqyJ81bDImrIQ5A>
 Feedback-ID: iac594737:Fastmail
-Date: Tue, 13 Dec 2022 17:17:32 -0500
+Date: Tue, 13 Dec 2022 17:22:32 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Julien Grall <julien@xen.org>,
 	"Smith, Jackson" <rsmith@riversideresearch.org>
@@ -99,23 +99,22 @@ Cc: "Brookes, Scott" <sbrookes@riversideresearch.org>,
 	George Dunlap <george.dunlap@citrix.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	"christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
-Subject: Re: [RFC 3/4] Add xen superpage splitting support to arm
-Message-ID: <Y5j5/qinMwxizxMc@itl-email>
+Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
+Message-ID: <Y5j7KQ9g5Yb/ufn+@itl-email>
 References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
- <BN0P110MB1642CCC518921DC7F2BB3BB3CFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
- <c8f9e15a-81d1-ef8c-0baf-1758e7d89eee@xen.org>
+ <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+Z+BkJtS1zxzekW8"
+	protocol="application/pgp-signature"; boundary="zIRSLsV3K51aFaBD"
 Content-Disposition: inline
-In-Reply-To: <c8f9e15a-81d1-ef8c-0baf-1758e7d89eee@xen.org>
+In-Reply-To: <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org>
 
 
---+Z+BkJtS1zxzekW8
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--zIRSLsV3K51aFaBD
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Dec 2022 17:17:32 -0500
+Date: Tue, 13 Dec 2022 17:22:32 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Julien Grall <julien@xen.org>,
 	"Smith, Jackson" <rsmith@riversideresearch.org>
@@ -129,160 +128,80 @@ Cc: "Brookes, Scott" <sbrookes@riversideresearch.org>,
 	George Dunlap <george.dunlap@citrix.com>,
 	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
 	"christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
-Subject: Re: [RFC 3/4] Add xen superpage splitting support to arm
+Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
 
-On Tue, Dec 13, 2022 at 09:15:49PM +0000, Julien Grall wrote:
-> Hi,
+On Tue, Dec 13, 2022 at 08:55:28PM +0000, Julien Grall wrote:
+> On 13/12/2022 19:48, Smith, Jackson wrote:
+> > Hi Xen Developers,
 >=20
-> On 13/12/2022 19:54, Smith, Jackson wrote:
-> > Updates xen_pt_update_entry function from xen/arch/arm/mm.c to
-> > automatically split superpages as needed.
-> Your signed-off-by is missing.
+> Hi Jackson,
 >=20
-> > ---
-> >   xen/arch/arm/mm.c | 91 ++++++++++++++++++++++++++++++++++++++++++++++=
-+--------
-> >   1 file changed, 78 insertions(+), 13 deletions(-)
-> >=20
-> > diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> > index 6301752..91b9c2b 100644
-> > --- a/xen/arch/arm/mm.c
-> > +++ b/xen/arch/arm/mm.c
-> > @@ -753,8 +753,78 @@ static int create_xen_table(lpae_t *entry)
-> >   }
-> >   #define XEN_TABLE_MAP_FAILED 0
-> > -#define XEN_TABLE_SUPER_PAGE 1
-> > -#define XEN_TABLE_NORMAL_PAGE 2
-> > +#define XEN_TABLE_NORMAL_PAGE 1
-> > +
-> > +/* More or less taken from p2m_split_superpage, without the p2m stuff =
-*/
-> > +static bool xen_split_superpage(lpae_t *entry, unsigned int level,
-> > +                                unsigned int target, const unsigned in=
-t *offsets)
-> > +{
-> > +    struct page_info *page;
-> > +    lpae_t pte, *table;
-> > +    unsigned int i;
-> > +    bool rv =3D true;
-> > +
-> > +    mfn_t mfn =3D lpae_get_mfn(*entry);
-> > +    unsigned int next_level =3D level + 1;
-> > +    unsigned int level_order =3D XEN_PT_LEVEL_ORDER(next_level);
-> > +
-> > +    ASSERT(level < target);
-> > +    ASSERT(lpae_is_superpage(*entry, level));
-> > +
-> > +    page =3D alloc_domheap_page(NULL, 0);
-> Page-table may be allocated from the boot allocator. So you want to use
-> create_xen_table().
->=20
-> > +    if ( !page )
-> > +        return false;
-> > +
-> > +    table =3D __map_domain_page(page);
->=20
-> You want to use xen_map_table().
->=20
-> > +
-> > +    /*
-> > +     * We are either splitting a first level 1G page into 512 second l=
-evel
-> > +     * 2M pages, or a second level 2M page into 512 third level 4K pag=
-es.
-> > +     */
-> > +    for ( i =3D 0; i < XEN_PT_LPAE_ENTRIES; i++ )
-> > +    {
-> > +        lpae_t *new_entry =3D table + i;
-> > +
-> > +        /*
-> > +         * Use the content of the superpage entry and override
-> > +         * the necessary fields. So the correct permission are kept.
-> > +         */
-> > +        pte =3D *entry;
-> > +        lpae_set_mfn(pte, mfn_add(mfn, i << level_order));
-> > +
-> > +        /*
-> > +         * First and second level pages set walk.table =3D 0, but third
-> > +         * level entries set walk.table =3D 1.
-> > +         */
-> > +        pte.walk.table =3D (next_level =3D=3D 3);
-> > +
-> > +        write_pte(new_entry, pte);
-> > +    }
-> > +
-> > +    /*
-> > +     * Shatter superpage in the page to the level we want to make the
-> > +     * changes.
-> > +     * This is done outside the loop to avoid checking the offset to
-> > +     * know whether the entry should be shattered for every entry.
-> > +     */
-> > +    if ( next_level !=3D target )
-> > +        rv =3D xen_split_superpage(table + offsets[next_level],
-> > +                                 level + 1, target, offsets);
-> > +
-> > +    clean_dcache_va_range(table, PAGE_SIZE);
->=20
-> Cleaning the cache is not necessary. This is done in the P2M case because=
- it
-> is shared with the IOMMU which may not support coherent access.
->=20
-> > +    unmap_domain_page(table);
->=20
-> This would be xen_map
->=20
-> > +
-> > +    /*
-> > +     * Generate the entry for this new table we created,
-> > +     * and write it back in place of the superpage entry.
-> > +     */
->=20
-> I am afraid this is not compliant with the Arm Arm. If you want to update
-> valid entry (e.g. shattering a superpage), then you need to follow the
-> break-before-make sequence. This means that:
->   1. Replace the valid entry with an entry with an invalid one
->   2. Flush the TLBs
->   3. Write the new entry
->=20
-> Those steps will make your code compliant but it also means that a virtual
-> address will be temporarily invalid so you could take a fault in the midd=
-le
-> of your split if your stack or the table was part of the region. The same
-> could happen for the other running CPUs but this is less problematic as t=
-hey
-> could spin on the page-table lock.
+> Thanks for sharing the prototype with the community. Some questions/remar=
+ks
+> below.
 
-Could this be worked around by writing the critical section in
-assembler?  The assembler code would never access the stack and would
-run with interrupts disabled.  There could also be BUG() checks for
-attempting to shatter a PTE that was needed to access the PTE in
-question, though I suspect one can work around this with a temporary
-PTE.  That said, shattering large pages requires allocating memory,
-which might fail.  What happens if the allocation does fail?
+[snip]
+
+> > With this technique, we protect the integrity and confidentiality of
+> > guest memory. However, a compromised hypervisor can still read/write
+> > register state during traps, or refuse to schedule a guest, denying
+> > service. We also recognize that because this technique precludes
+> > modifying Xen's page tables after startup, it may not be compatible
+> > with all of Xen's potential use cases. On the other hand, there are
+> > some uses cases (in particular statically defined embedded systems)
+> > where our technique could be adopted with minimal friction.
+>=20
+> From what you wrote, this sounds very much like the project Citrix and
+> Amazon worked on called "Secret-free hypervisor" with a twist. In your ca=
+se,
+> you want to prevent the hypervisor to map/unmap the guest memory.
+>=20
+> You can find some details in [1]. The code is x86 only, but I don't see a=
+ny
+> major blocker to port it on arm64.
+
+Is there any way the secret-free hypervisor code could be upstreamed?
+My understanding is that it would enable guests to use SMT without
+risking the host, which would be amazing.
+
+> > 	Virtualized MMIO on arm needs to decode certain load/store
+> > 	instructions
+>=20
+> On Arm, this can be avoided of the guest OS is not using such instruction.
+> In fact they were only added to cater "broken" guest OS.
+>=20
+> Also, this will probably be a lot more difficult on x86 as, AFAIK, there =
+is
+> no instruction syndrome. So you will need to decode the instruction in or=
+der
+> to emulate the access.
+
+Is requiring the guest to emulate such instructions itself an option?
+=CE=BCXen, SEV-SNP, and TDX all do this.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---+Z+BkJtS1zxzekW8
+--zIRSLsV3K51aFaBD
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOY+f0ACgkQsoi1X/+c
-IsHCqw/+Na5l85XXjIzHuwXgL+m8+Tnspco4ZurXSW26wGmUWHJZLNqXtLqmj0pM
-Mji2qQdcm4dmL2FUYNebMVbZa4RJ2prSf6usP0QCFfGTgfD6DyYHghxMeY9bP7DJ
-ZMXoQ43589xzGh8QxQrt4ejs19VCfL+dcRw7iqSGr2dH4fuKSZbzONPG0U7hyIAO
-sD21f97b7X184kUl/rC0bwYzGhIHEeAx5aQRpV/wTqYK6ZnvSbJtWYWmZEs9HH8F
-vJ67Wpcy11aSczetPXH6VeGR5+9IaOB77zm29Ah7tX8R2Y9kM1BTdhCX0SegQ4dJ
-HBGchuL+6AJYwgrfeVY65piE5T887qsdF8uZFQdBgORP8Y+U71iSWU2HVGDZymHX
-Cw8orwsl0plhu6m01mtg82IaB4XVUPOQ1BInsjeToOTi9nSPcY7b2kfEU9pdOF05
-aIZLtAA4/4k85fEfYQzoRC+nOjI+B1Cl/dt6zJK+D3vx3m1Rvo14ztBbR5MUqz0Q
-u6Yt0NnBkptoLKWlWtSpesSYKcDHK58RGIY5mxzBlrtxQ9EbkR2u56EX7b73vmgL
-PIgjkmxpp6Qo92AqIt8kGkivk0FpBrRUhjm2bGCbpFpnXl+cn81TvNOG5K7v2dP0
-uxC3JAVIdzrmKoUZAxqg9jPKn17hgsa6GnSu8Qmyd7ROlTyVow8=
-=/gI1
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOY+ygACgkQsoi1X/+c
+IsGT/Q/+NL531LE5Pgxvxpc98/qW0WKIyefcqJl/mVyV0yFYncb6qwyAXM6g6NnL
+V+pYrLsXKAH6R3FjgISVRdpDGzAUo/kRMVHWoYeP+uykWdsN/yWhFXtGWcyETHAV
+oy3KgBxm+WlJiXNtN+Z1lFFAzMrTCtDV2HMeWJDs8Uur6B4bxkP2srwgU+Bz/i5h
+BC/afejv3OYVfQDkvuZOTBi/xBs0NRrVnEJXfnlJJswOJ+f6EvHp2gn32qVoRqMV
+N+5Fq9HmalYK5uR6ub5LgQLqCW1Cx17YbG4s22PJt3N7wVq24AGBz3P/eCj94dNJ
+rhAUQv7NYGNlELqAVudkVsSCGmNRT62rU3X8cMhDtYpTFbpD1in2Sle7f4yYrry3
+VYm9HtZ6ONSZ1B08zcAsdIatUJ1MFYQ4BL1jp1x7bDsai0U2nnEVWYI/FkQ1emBr
+3nc9uOPkm6daSnikqB2SMOm9vV0duOTBC1DoxUz6fWT641hsBZoxxavhHuC/Mvyh
+ncv5BRvsSena0HVf8ndyKvZGpB6vJqyl11M8sVqClwkm51HcT4neejO3ZAhvF0pS
+U2JL6HI5hhp3ZIl0wNzK8rxIaWWOrq0OHwo3rPPUXWDOr+uoq7tfEe/qLukZKUh2
+N2UhWx8uWE+eZXb1DBjqMGehCgHCRIC46JaT2IAG/TQwWzmwlMQ=
+=hcFn
 -----END PGP SIGNATURE-----
 
---+Z+BkJtS1zxzekW8--
+--zIRSLsV3K51aFaBD--
 
