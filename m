@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34D9564B9D3
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 17:33:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460896.718944 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82F7264BA84
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 18:03:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460938.718966 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p58Cr-0000wV-SL; Tue, 13 Dec 2022 16:32:37 +0000
+	id 1p58gJ-0006ES-JY; Tue, 13 Dec 2022 17:03:03 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460896.718944; Tue, 13 Dec 2022 16:32:37 +0000
+Received: by outflank-mailman (output) from mailman id 460938.718966; Tue, 13 Dec 2022 17:03:03 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p58Cr-0000uT-Mx; Tue, 13 Dec 2022 16:32:37 +0000
-Received: by outflank-mailman (input) for mailman id 460896;
- Tue, 13 Dec 2022 16:32:36 +0000
+	id 1p58gJ-0006DD-FS; Tue, 13 Dec 2022 17:03:03 +0000
+Received: by outflank-mailman (input) for mailman id 460938;
+ Tue, 13 Dec 2022 17:03:02 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mGeL=4L=citrix.com=prvs=339e21e18=roger.pau@srs-se1.protection.inumbo.net>)
- id 1p58Cp-0008Sb-VQ
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 16:32:36 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bddf442b-7b03-11ed-8fd2-01056ac49cbb;
- Tue, 13 Dec 2022 17:32:33 +0100 (CET)
-Received: from mail-dm6nam11lp2169.outbound.protection.outlook.com (HELO
- NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.169])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 13 Dec 2022 11:32:30 -0500
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com (2603:10b6:a03:395::11)
- by CO3PR03MB6791.namprd03.prod.outlook.com (2603:10b6:303:175::17)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=F6Pn=4L=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p58gI-0005xu-Cy
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 17:03:02 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2081.outbound.protection.outlook.com [40.107.21.81])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff98daca-7b07-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 18:03:00 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8783.eurprd04.prod.outlook.com (2603:10a6:102:20e::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
- 2022 16:32:26 +0000
-Received: from SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::740b:4e0a:7de4:5ab1]) by SJ0PR03MB6360.namprd03.prod.outlook.com
- ([fe80::740b:4e0a:7de4:5ab1%9]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
- 16:32:26 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Tue, 13 Dec
+ 2022 17:02:58 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
+ 17:02:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,409 +46,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bddf442b-7b03-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1670949153;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=sMuxSnFpNQrAkbbLtQpLS0YoQ8ak+oc74VRZ4eqVs+c=;
-  b=g4/VOi0DJm2RfEvNLG9UkpoIfM/rA1pJsrdVACFNcw91dfq3STde5kFS
-   HB53k4vZq3iXpk16lLGlEt6TdOppXG/0cz6zVmML5PvpYheJSEIFJNTFi
-   3WPUXtsEnmBDueSZY2fw82Ci0GwDERY0OPOqxA3j2CYiNhTvBY21/z8rO
-   I=;
-X-IronPort-RemoteIP: 104.47.57.169
-X-IronPort-MID: 88555885
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:e3M/Iaubevy4kw3wfLubK0HIzefnVKtfMUV32f8akzHdYApBsoF/q
- tZmKW/TOPqIN2vxco9za4638k8OvMLWyN5mGgJk+SBnES4W+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg0HVU/IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj5lv0gnRkPaoR5QWHzCFPZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwN2EfSgCJm/2Pm7+cVeA9v8sEFMbqBdZK0p1g5Wmx4fcOZ7nmGvyPyfoGmTA6i4ZJAOrUY
- NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0osj/60bou9lt+iHK25mm6Co
- W3L5SLhCwwyP92D0zuVtHmrg4cjmAurCN9PSe3oq5aGhnXUxFIIFAM2XGKH/6GHtFa7BfsDG
- WY9r39GQa8asRbDosPGdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOtsU7WDgr3
- V+hhM7yCHpkt7j9YXCA8raZqxuiNC5TKnUNDQcfVhcM6dTnpIA1jzrMQ8xlHarzicf6cRnvx
- xiaoS54gK8c5eYJyqP9+1nEijCto5HhTwgp6wGRVWWghit6aZCkYcq06FHdxfdGMIudCFKGu
- RA5d9O26ekPCdSBkXKLSeBURbWxva/bYXvbnEJlGIQn+3K14Xm/cItM4TZ4YkB0LsIDfjyva
- 0jW0e9M2KJu0LKRRfcfS+qM5w4ClMAMyfyNuijoU+dz
-IronPort-HdrOrdr: A9a23:GDlBVKEzl45v1kSNpLqENMeALOsnbusQ8zAXPiFKOGdom6mj/P
- xG88506faZslsssTIb6LS90dC7IE80rKQU3WBzB8bBYOCFghrREGgK1+KLqQEIfReOk9K1vp
- 0OT0ERMrHN5BdB/KHHCaSDYrAd6cjC2pqBwc3Zy25pTQlsYa0l1QFkEQyWe3cGJzWuQaBJba
- ah2g==
-X-IronPort-AV: E=Sophos;i="5.96,241,1665460800"; 
-   d="scan'208";a="88555885"
+X-Inumbo-ID: ff98daca-7b07-11ed-8fd2-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gAaWQ9K/uLG4tD/iYgsrQ6QAXsPeXvJO7XKGD/9zYaeu5hPRFfja7NacxtYXfZUyJerEGSRnCsHHMw+mqaBz0KNcN5D+KjIKW6ep31e49uTUw+PwOEj6dHTiRyYGyC7lMr8YhE5B6W+7x1eIFlUeW2use6IhFyDLcvPAVaphNTyZwhihxdzd5MquBL6Tn4lOuytKxAAyzoCgZfOdVIc8WF0XCtJjOvNUuV8JZWU/HQyx0rxi6Oj2MpWgtGUJTFjswSZl/hPESebtiU/el4Pz7YfA6cOFIFJW14U9XykL0z2Gduj1bq0fbTHbc86Li3Vh5Z8gOeo3ic1lZHzb+06XLg==
+ b=DOcy0X4scPSfzOGnEeWz3Hm4ejvsz2qHYua6F+El4ZV4RJdc4aY/4dsZj0CR44siGBzJ0o1uNcPdn7CWcLEs4MdAIixnIRi1fompKb+gRGEimFnSxRFXTa3o9Jtp+TpO5u252pVmmo3iHq0fcnabibCk64lroL4lylZlWq1jSGbEJK+1McfiwyQIL3mKT6k+Nd5KKp0B8sg3oWWr0e5O9+3qm1YNGpk+QKDR40rtGuXaYdJAI5pxsLi1hBkc3t2nGqvGfzLNutY2lU/cUv/fedQBy+ut1O9iPwBBlkkn7J7VnLmigDYjWEPawYT4ndt4fYEG9qZcJW94B0WJD9O98g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Rd68Qyv0Xcs0YjD78x9OxU/cmhG5hpGT4Fa+ZPnIUaU=;
- b=FrJbQs3UHdNOdSrWScuDO1/hkvJSyt6xANtwlMfevjlvMQvX/MWVGAoAsVfysiEJK2AqLDvIpAFO3kNTLTajlOOav61MtqjbrbXRglGLkc308OiKmGgLcvFIOladNBkpMaQcLNiORe3FhykwpP//W3HSgPZQm6bBJPcvWzVIr7kOICJV/bzBzrnfPppnXB32x0OS8yJQGkzlY6beyJ1ivkNqA/BmogwTCCHgGY4F1Bi15UEdLIYK9smPHnbAOBg1JKp2oQgROEKWDek2xB23/GM3rhjdCYxfH2Q64MIkyzYVkR+Ksml/pSKWH+G7XsKPJUiRJ5qaaRnPEVELP/Oguw==
+ bh=tCM7S0P3p1mzg3sbyO5EYEk6eyDEULRwMujHuRSaYMY=;
+ b=ZL0K9ewv6wzwboibBBiv/gqV8K3krZ431fHEI3kcQ703ZY7/1Fr2owJKvhERZDQ8lCGkL587XGktNOv4WX/sf9WPS2ZFHAMTr+dyqIwcT7PzutV5fZXQzowTcI6wGK0CmE4eOCHQllZTFZx4HgLFFsip5cKAr07FoHOSIZGAMMAs/TTuVzIiujOGNyyawIhUCOde0aZ5jnwKjVbbSi9ZvBlxs+0xFfO9sWvmcumHlAROfD0hhs56N+WwCqKSGpaePZxy0S0cxjUCg4ssvVikCNZxLOL3TJPxLtNzVoF2FqHk547p95CU2hRLqyGa1Cinqy/ZVT4Cf6rgQrsL5yeDHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rd68Qyv0Xcs0YjD78x9OxU/cmhG5hpGT4Fa+ZPnIUaU=;
- b=BHY4FmENRs/YCV6kdSpCjmp7wWLVTFp3MOowaiBWwmLiJIMxFUkjI9U4mGzt+olBGU6MWHhZiIY9Ml6sKjYK3QTzvPvPHSGFNiScJt4xdGNbMn/PkPKKdRcBDWie24r4tbcgwnNezh2THZXE34762JZFYUrXtS6eI3SeYvdyUtE=
+ bh=tCM7S0P3p1mzg3sbyO5EYEk6eyDEULRwMujHuRSaYMY=;
+ b=XIkcwVTUQX51IybLCxzRYyESZCJChRIceFwvJS4cOWKxdjX69ZKQpVSUZu/3W2V2XgDvJy3VRGCeoqBTgb0EDaSD2zBjkGU1LQ4fhL3Y1vmnGoB5bKvcc5ocv37GuMMXGrM+UuMJBgMN0OYjG2vwGToFzZPli19D75LmGStaWfiRcOzaCpr9Tpp+rqqUQSCuPvlCphipvDAmDkYPHY1iu8lq0ystfh9k/ZQowF1gadq8tgdDyn+/dFRGzGA9EfHNDrQo8SVhz9zAOfQQL9RBBUWJzo0wRfSYLDyV42LuSkSMyaCV6P0mJdYvPJmpTHV3djV9YeRfGm5Xk2a/uboUow==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-From: Roger Pau Monne <roger.pau@citrix.com>
-To: xen-devel@lists.xenproject.org
-Cc: Roger Pau Monne <roger.pau@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Wei Liu <wl@xen.org>,
-	Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>
-Subject: [PATCH v4 3/3] x86/vmx: implement Notify VM Exit
-Date: Tue, 13 Dec 2022 17:31:04 +0100
-Message-Id: <20221213163104.19066-4-roger.pau@citrix.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20221213163104.19066-1-roger.pau@citrix.com>
-References: <20221213163104.19066-1-roger.pau@citrix.com>
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <283a8095-3046-3324-3e8a-8671dc1ee8e7@suse.com>
+Date: Tue, 13 Dec 2022 18:02:55 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [RFC PATCH v2 1/2] xen/memory : Add a stats_table resource type
+Content-Language: en-US
+To: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+References: <cover.1665138677.git.matias.vara@vates.fr>
+ <af6032c9f5863b7e6fb183a0a197407ec92bb067.1665138677.git.matias.vara@vates.fr>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <af6032c9f5863b7e6fb183a0a197407ec92bb067.1665138677.git.matias.vara@vates.fr>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0146.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:9::14) To SJ0PR03MB6360.namprd03.prod.outlook.com
- (2603:10b6:a03:395::11)
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0164.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a2::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6360:EE_|CO3PR03MB6791:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c00f314-15d2-4509-cab1-08dadd279ea8
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8783:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79271ac1-d19d-4635-2309-08dadd2be240
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9uX97OJgu2pA8uMKGN7UlFn6B9aSnaZ4OZWYUb3iRE7Z7wYWTn+4jQVUL/BPjAsyENURFBaQ2jZFBMuIggwkvi3WGKngvk1fV44Jm916vNpCjCxCPoGFhAJGZ2fVqLroOLw0wqfSPzdmNQp1n/z5OChdSiZsSCTg7Qxb4Zk84d8RnCeGj+wfAQfKvqklamtxM9fT/wcWzkEz/tng37tTFcLUSxjubMHYzqWGGbYVlsG5MXvkIVXf53AIr6ifngw+gG3ZO6VqsflcSgKd2IdnU8ET3eVqOcCHTgmqON3DlZK55Ftv8y07NKo/4C3SVQ8qx7yiKWqA/tlhHYK63/fDEzrPJah4Y9edr8Q5s+rB/4Tf8bbCppnzg0qYZJ9TzvvEGUGZ4cjfsIrEFiF0plFnD/gIrqPI3MMjr+s6C5RvWl3xRYGqIG60OgfdhCEbtUpS8NC2FTW1cAzL0Bs3jesrNUvUiH5regbtMw4wWB7UXDEKNjrOHNVGy8aSjb2khIgWbPL9H8HECh/QcJ8EXUVD0v4QKCJzpPuobPElHZh5pFBgHX0v0Hmk9kk6F2uI7Fjiqv5DL9cr3jhxZPn/26wGLopHgJmweiOY/bhYpCBr1DGJjzc5wRqEH79woPIoI5Ox0mWypQ8L9mZkwnG2UZ75Qw==
+	j42aIQ2CvJ3zdKrlNSnUmSaGS/5hdjeW1wKpZ6F5CHDzTczQHJD6N0W08xE/zZfHtlDiwQLBnGROcaDmCHcYuHj8i8e7BUhgKYj3/IjrEUZQMHfqVHucR7xyITJ/dquaiiWGTY0yT3PT6kHNhgQrrTTNyqDxrJkCKdkogza4GiyDrzMG4BN47Lcm905I9nebtA3X996zy+7H1fvZe0nar7Njc7BS5bAuG5Y0Axb9UPibKCNJweNE6ju/LKsIV7++rOCvnx9WMPHzgejhD1ndr+57DSqXiHTCEixZo5ru9MUoBOZnH3evjGl2ZaCn9pCk+91J8fD86dcwcnnBKpFnFEUD5b2hQJQh1aALuQr9IYj6x8TWqzcxcPGLOHvyNvoPH00TjSfpRTXy9n5/M3euOX4W6j1TYRD5TM6PbHVnBmBeim7ApNQx1oLQJGOC3PDd/XMASrrP0nX1Fojo+C9R4gYB380sJz66C2PBIV2TcoLyAfsv1sjWhM0Z+82d/BH/Emk6PPNkxfPESdo7mya2DEd9OtdPa9sMgZ8WTX/nDwxQssqp4rsuwMyamcHiSlJ3WU0AZ0hK4z2b6JeVFl5r3N95nxi0LPEWeDSdUtJxZckNXGGvtSA2Rsz3QuyF/njqV1spPUU+e2iK/BPEpZXFZbZHPcwEEVZrpJOW3EU1wZeY87wsQSDWqFKR3B98OV57JLd+1N4/gjoN5ItM7YQ9Jfl+la/JxtdAFZLgKwISPak=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB6360.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(39860400002)(396003)(366004)(136003)(451199015)(38100700002)(7416002)(82960400001)(5660300002)(86362001)(478600001)(2906002)(6486002)(41300700001)(6666004)(83380400001)(66946007)(6916009)(6506007)(66476007)(316002)(8936002)(4326008)(54906003)(186003)(6512007)(26005)(1076003)(8676002)(66556008)(2616005)(36756003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(366004)(396003)(39860400002)(346002)(376002)(451199015)(36756003)(478600001)(41300700001)(66946007)(2906002)(38100700002)(5660300002)(86362001)(6486002)(31696002)(53546011)(31686004)(2616005)(66476007)(6916009)(54906003)(316002)(8676002)(66556008)(4326008)(6512007)(186003)(6506007)(8936002)(26005)(83380400001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b0wxRUc2bHJYLzcwNnJqcjdWMUdiRXhWRXhsbW9vdVhyQVJIL01kYjBKQzZI?=
- =?utf-8?B?QUd2a3FpQW5obnhVb0R6TFNjd0prRHRmODRkRFluQzhleXFrR1N5azE3QTFa?=
- =?utf-8?B?UjhBbXE0NE1mZ0d3aXFicXBKYXhIcHhyUG9OV1RhM1ZPRDVqNXJyUGVidEdr?=
- =?utf-8?B?d1dYVk1xRndaWTI2aS9aVTJXVlJ4Yml5eGI5VFJJc3dIY0NBY1E3ZGs0RHgw?=
- =?utf-8?B?bHo3N1VROGFkNUlEMGdHa0lZRG9PMExSbWNIMlFXTzdlaEhYS2p1eGdBZTdX?=
- =?utf-8?B?ajNMeGY1TUlIV2pIQXZSRnlsaHZ2MmdwejlQMU5ZUmp4U2VHRDNneERNRGtQ?=
- =?utf-8?B?SWpHemtFclZtR0FxVE1vNjlXWlNXNlYrSGtvRG8zUGJmSjlxZ0pabVRaTVhE?=
- =?utf-8?B?S0JPMHNwNEplVE8vWVBESDNKWThDc2REUVlPTm0rbzZJeGhtSnZGREUvTHdi?=
- =?utf-8?B?VDhpZnUrMzNZZUM5TVhITkw5MlVJaVNuS2lGR1BEb1JuK1ZkbjR0U2NOZDNQ?=
- =?utf-8?B?RTRlYmUyZ3FCTjlMUUNGYjhTSkw1ajYrTlg3eVZ2YVlFTnV4WVMzZ1c4a1M3?=
- =?utf-8?B?ak90TXVVR2VyT0Z4N2NsZlpWd3hMWGZHRUtHQkhQY0dLbGNtYnlScGpNK29w?=
- =?utf-8?B?VktabUVONjhhZ3RDbHhGWTdJMHMxOVJBK25Bc0kyVU5Ud2htYWdKSUk4TEVN?=
- =?utf-8?B?UDlGbGh6WW5XOGVpTmoxNDFSS0ZFeGhmN2lRNTFNMnZrU2xDb2QzMUJiSDF2?=
- =?utf-8?B?L0gydmxWV1JmeFM3amt2UW9keHpLQWU2ZFZCWWhNYkpjQm93b0x1dncrM3pp?=
- =?utf-8?B?OXhZOCtpZnJTOC9kdWFFS2lYQlNheWtrQ3FIUWtOMm8yeURyK0JhbENmVkJq?=
- =?utf-8?B?alhKTSs0NkkrSThSOXRXUVhXMzBiV0ZpS3RyZEF4YWxtN3puTmtuOGlSeDI1?=
- =?utf-8?B?YkhUcmRJcGcxbVB5aHkvdnR3N29xR0dxa3BxTzJvMGNHbWx4ZE5pQ1NLaTcx?=
- =?utf-8?B?cXpDRWxjM0NNM1h6V1hNY0Y2WXNmUVRMVmNJajFjWWYyb04xWFV1TFF4V1BN?=
- =?utf-8?B?UU5Wem55dHpHT0plVHlPQ01jTGo2TW5GL2hkeFpxR1NuYTZrQ21ORU9JcXdO?=
- =?utf-8?B?Y001elltc2RWaGhzZXpGR29LT1UveHlYQmlYeHl6YmU0UENueWI0dzdyUG85?=
- =?utf-8?B?OE9zKzR1ZUhaOWZHeTN0cWJSUm9XRHI2YWNJVTlleXdXU2dlQXhmcUVwaDds?=
- =?utf-8?B?Q080WmpWQTl2dG1hcmV6WlUvbEdnWVluOWpxRjVVeTI2c2EzcU5JRE13WDFZ?=
- =?utf-8?B?dGhobGVpemJEV3Bta1M1cVZZSStId0hRbHAydGJSYlZoaGFNcmw1ZWhyWVcr?=
- =?utf-8?B?R2xSaUdJa1dWVG1Eam9SMi9FakVlK0RiaUdNSTdmREFsbFRJQUNybjBjV0Vo?=
- =?utf-8?B?bGxzaEFjT0pTTHI4ZFdqRVNPdDQzM3VMaktzeGpXSHVFZFRIa3lkUmJwZFF5?=
- =?utf-8?B?eENyRjRDMklJNHplK0lyWjA5RXUxb24wdEhVMkQyUE5yYUNrTkJPKzhkSEZs?=
- =?utf-8?B?RTVjVDV3T1l2Zkg4eWtiYnFqZDlyZ3BjelBabktVVG5aOG4rUEhEYTQzaEdq?=
- =?utf-8?B?WXVCaE9HczNIWlZjYUxlVW5kU2RuK01PUHlteG1FdFR6MDUybHE4aEV5STRY?=
- =?utf-8?B?N3F1V3VmQ291d0cyZFJrN1o0a1NIbXpCdmNnQkR6VUlOL2xQYXBUTmtiSWlN?=
- =?utf-8?B?T3I4VzQzODZjZTNhcE9kWjJmQjhDSVNTNVlzZXRLa0VoSnBvNmE1a3oxaUpj?=
- =?utf-8?B?Q0psN3VmTEpOc2x4VThaWU5obHRQR2lXdnJBZ29qTmxxN2VPWFp3dWNlRTJm?=
- =?utf-8?B?MXREd0JwZFVSZ2p3TkJQb3BJT0JKdDZ4NVhaRzhKTjU4TlpJUDhpL1FrL3JU?=
- =?utf-8?B?MTUxOU9TbWFnVTFKUGZzSnVzeDN4TkMvazY2akViWGxpZmw2NnRvZTdIR2dO?=
- =?utf-8?B?U3A3S1JlSFF5dU8wMTFFSlRzSzlGM0FidFNnMllLUUxlbDFIL2V6ejBEUEd6?=
- =?utf-8?B?eDM2YlpFR09LSFFDZkdoLzBFSWtqZW5vdlZhVEtFbjkyL1FIOGFTZmZHanR0?=
- =?utf-8?B?UmgzZ0JJYVFXcVBSZXYzRXNVMkxuT2h1WUxIclg0QjEyMktyK21DaU1ITXNB?=
- =?utf-8?B?QlE9PQ==?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c00f314-15d2-4509-cab1-08dadd279ea8
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6360.namprd03.prod.outlook.com
+	=?utf-8?B?L2RhVUdrMDlzaFBrcFlFS2l0eTM3VXdGNXhrZWdKNTdNQUpIK0RSRHBad2xN?=
+ =?utf-8?B?dmdRZlVoUWVZNGRQak1MNnVpZ2RkZUo3a2dPWE1RdUtib1VKRk9LK2tXSHhG?=
+ =?utf-8?B?SmVycmx3cjNlbVVDeVFieW5sRWR5TzNrMnowKzhqS01HbUgrakI2ekxTV29t?=
+ =?utf-8?B?Y25IV2FWR0dhTWdFd3gwZzgwdU5RdTJHQXVOazhKaTBQd2E3NTdIT0h5a3dI?=
+ =?utf-8?B?MUNTODhSRHQwVUx1TEpvMmc0d04ydGR4TjdwZmwveWJubWVFREg1VGt2Z2Ja?=
+ =?utf-8?B?TngyRnhoQm9iODFHUVJ3Q1JhK1FpZGRBRXBQcUFGenM3YXZqYTFWeWVKZkw2?=
+ =?utf-8?B?SURhbkNXNnBzWEI5aWZhY2hDdDFJdVU2TjR0T25Mc0wxLytPTU0xUjJJUzB3?=
+ =?utf-8?B?ZVp6NXZwUXFzK0ZMZGZYWkZ6K1BjK1JnWGhMdnZZaTJoWTd6Z3Awc1RKSDlp?=
+ =?utf-8?B?a00xZzJZd0cxTXdDTllMM3pzVUZhOGkyUEJQcXh5OFAvT2RrUWROdVJBaDJC?=
+ =?utf-8?B?N3ZYV1BaYjJPaDMvZEtFa1A4ZnIxcDgraWhaRTBXUDdwWElHZmovV1Fodlc1?=
+ =?utf-8?B?QldCeWpJSzdaZnFYUTJOSVBTa2cyeFM4eE4wNGtZaXBMWHZlbVcreXhHT3U1?=
+ =?utf-8?B?KzZOclg5YVViSmNKL2ZMRFdka0x3R1A0TndxNXh1SmpwUzFxcWp3V1ViZ0d6?=
+ =?utf-8?B?QjkrM21IZHlwcG55YW9mZUdEMUEzMTVybnZhV2lhMjZYb2c0dlJzTmFqZXZo?=
+ =?utf-8?B?QjFmUzhpeW42VHdidTZmdFFMUWZQNVBtMWRkV3prKytKc1QrZURkWCtSRFht?=
+ =?utf-8?B?Q05tQi9Od3JxNElIZ1VMQUZKazZJWERPcDhsTGxyb0w3MUVhYjNOdDY0V2li?=
+ =?utf-8?B?Y2p4L0RWQUhBYnhiNWw2VUdSVnRBSHg2S1IyS3BLT1lFcC9OV2VFcTY2U0pH?=
+ =?utf-8?B?TG8rVmdudmZBOFJrSTJ5V3NjVGkyRkIrSHB4UUJnM2pQT1ZvQkRoUm82eXU2?=
+ =?utf-8?B?anlnZ2lRelNjTFVvZXd5QmR6VkNheUJvQjhaRktTTk5sRlVWN2FZN0s0bUk3?=
+ =?utf-8?B?UkN5MFJnNnJ1S3V1K28wc1UzOGs5REhWMVF4MFo3ZWpSUTI5eDZybGxQbGRN?=
+ =?utf-8?B?Zzc1VW1UYmVUdlVHZlQvWmV2YjdHVVhzTkZ5QzlsSkdDTDExZ3J0ajR4V2FM?=
+ =?utf-8?B?SjBFZi8xOEJVWEVhSnZjT2FuQzJsOXBkK0RlYmxlaVZRWWJma0FRS3ZxVU12?=
+ =?utf-8?B?Ujg1R05ONERab09JSGZ1SzVycVBXM2FVU0JNSDdzUER0dWx3cHNKZHVRTks2?=
+ =?utf-8?B?RU82c0ZBOTNuRzNPOE13dFFZU1dUbU1zL2JqYWVPMUVjYW5SRUFNZTAvSUlo?=
+ =?utf-8?B?QXFxWkhXM1BTOVFuNEN3S1VyZ3Fua2QwYWVlTU1qcnM4M05Ec1RNYysrSEdx?=
+ =?utf-8?B?a2dCN0IrQ2k4WlJGVGY2K29hKzdqYWdzNWpnbjZHc1VFcHNPNVJ6ZVI2NVFN?=
+ =?utf-8?B?UXJJUHFHTUttZk00M3RlMW84SXVUMjdlS2Vzc04wVk5FZngvREJOUzc0bUR6?=
+ =?utf-8?B?QWNXamJSUnlwZHA3bW9kRUNSeEFHU0Z0R2lOUk93SHhMKzBlWmpGQUdPdXZs?=
+ =?utf-8?B?TkJwSUZPSWdpRHlrUmY0R1dWV1RPaUF5dnBCSnhiVEhqNE9XMi80L1JwOG5r?=
+ =?utf-8?B?eDhuZFV3OG5yL0ZkaStnbzJDUDJaTmR4ZXAxWDlUSVdHVE05cEVEaHdjUXU1?=
+ =?utf-8?B?eURUeHU5dUUzSUtKbzhBd0N5c21DRmdFWEVydEZtQ1p6ajZyWVd1UlIvdFJ3?=
+ =?utf-8?B?ZDhIOStVenNYM3BsT3VCc0VXNkM3azFQbExsQmlLcVRvNXBCbDd1RzZEN2RF?=
+ =?utf-8?B?aFgzMnAyc1kxMGJxY2VOM3Z1blZUM1JoaDZHNExyeWdvZUVTZGZ2eFdEK3l6?=
+ =?utf-8?B?U1hqMU5wSWhCbWdiSHgxR0F5SzVGTXVSYldrVzRyTTA0L0ViZzNjbjlZcE9M?=
+ =?utf-8?B?UHI3dGlGN1RWZ3ozQ2dBV1FjZ1VUTWlRa2JWR3lhT1JIUExaVjN0Szljb1No?=
+ =?utf-8?B?Vkk5UTBzSXkvSjFPUWZmdzlLSGZJVUcvbWRMTlk1Wm5YSno3bm5OeUd3alN0?=
+ =?utf-8?Q?6SmtBloM9M0VAJ3o2+48f4UM7?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79271ac1-d19d-4635-2309-08dadd2be240
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 16:32:26.4327
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 17:02:57.6782
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: akwhcQSgkspBXIBb49+xI/k3y5c6/HsDwGcegpE/B8qbyHuoyc5SHKsOqEgqnMIPmKFadMnPPD9L2E0AiO5qGg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO3PR03MB6791
+X-MS-Exchange-CrossTenant-UserPrincipalName: nIVzlvhYIMwMCNjr5Y1t+s/011+PI7cZcpIV87ZpoFOB8IRLqZx7OpkORygoLnVChNnCeFEh/YeufgTAJGTcgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8783
 
-Under certain conditions guests can get the CPU stuck in an unbounded
-loop without the possibility of an interrupt window to occur on
-instruction boundary.  This was the case with the scenarios described
-in XSA-156.
+On 07.10.2022 14:39, Matias Ezequiel Vara Larsen wrote:
+> This commit proposes a new mechanism to query the RUNSTATE_running counter for
+> a given vcpu from a dom0 userspace application. This commit proposes to expose
+> that counter by using the acquire_resource interface. The current mechanism
+> relies on the XEN_DOMCTL_getvcpuinfo and holds a single global domctl_lock for
+> the entire hypercall; and iterate over every vcpu in the system for every
+> update thus impacting operations that share that lock.
+> 
+> This commit proposes to expose vcpu RUNSTATE_running via the
+> xenforeignmemory interface thus preventing to issue the hypercall and holding
+> the lock. For that purpose, a new resource type named stats_table is added. The
+> first frame of this resource stores per-vcpu counters. The frame has one entry
+> of type struct vcpu_stats per vcpu. The allocation of this frame only happens
+> if the resource is requested. The frame is released after the domain is
+> destroyed.
+> 
+> Note that the updating of this counter is in a hot path, thus, in this commit,
+> copying only happens if it is specifically required.
+> 
+> Note that the exposed structure is extensible in two ways. First, the structure
+> vcpu_stats can be extended with new per-vcpu counters while it fits in a frame.
 
-Make use of the Notify VM Exit mechanism, that will trigger a VM Exit
-if no interrupt window occurs for a specified amount of time.  Note
-that using the Notify VM Exit avoids having to trap #AC and #DB
-exceptions, as Xen is guaranteed to get a VM Exit even if the guest
-puts the CPU in a loop without an interrupt window, as such disable
-the intercepts if the feature is available and enabled.
+I'm afraid I don't see how this is "extensible". I would recommend that
+you outline for yourself how a change would look like to actually add
+such a 2nd counter. While doing that keep in mind that whatever changes
+you make may not break existing consumers.
 
-Setting the notify VM exit window to 0 is safe because there's a
-threshold added by the hardware in order to have a sane window value.
+It's also not clear what you mean with "fits in a frame": struct
+shared_vcpustatspage is a container for an array with a single element.
+I may guess (looking at just the public interface) that this really is
+meant to be a flexible array (and hence should be marked as such - see
+other uses of XEN_FLEX_ARRAY_DIM in the public headers). Yet if that's
+the case, then a single page already won't suffice for a domain with
+sufficiently many vCPU-s.
 
-Note the handling of EXIT_REASON_NOTIFY in the nested virtualization
-case is passed to L0, and hence a nested guest being able to trigger a
-notify VM exit with an invalid context would be able to crash the L1
-hypervisor (by L0 destroying the domain).  Since we don't expose VM
-Notify support to L1 it should already enable the required
-protections in order to prevent VM Notify from triggering in the first
-place.
+> Second, new frames can be added in case new counters are required.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Kevin Tian <kevin.tian@intel.com>
----
-Changes since v3:
- - Handle the exit reason in nvmx_n2_vmexit_handler().
- - Use unlikely.
- - Expand commit message.
+Are you talking of "new counters" here which aren't "new per-vcpu
+counters"? Or else what's the difference from the 1st way?
 
-Changes since v2:
- - Move up the logic to set the exception bitmap in construct_vmcs().
- - Change perfcounter description.
+> --- a/xen/arch/x86/hvm/hvm.c
+> +++ b/xen/arch/x86/hvm/hvm.c
+> @@ -741,6 +741,8 @@ void hvm_domain_relinquish_resources(struct domain *d)
+>  
+>      ioreq_server_destroy_all(d);
+>  
+> +    stats_free_vcpu_mfn(d);
 
-Changes since v1:
- - Properly update debug state when using notify VM exit.
- - Reword commit message.
----
- docs/misc/xen-command-line.pandoc       | 11 +++++++++
- xen/arch/x86/hvm/vmx/vmcs.c             | 17 +++++++++++++
- xen/arch/x86/hvm/vmx/vmx.c              | 32 +++++++++++++++++++++++--
- xen/arch/x86/hvm/vmx/vvmx.c             |  1 +
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |  4 ++++
- xen/arch/x86/include/asm/hvm/vmx/vmx.h  |  6 +++++
- xen/arch/x86/include/asm/perfc_defn.h   |  3 ++-
- 7 files changed, 71 insertions(+), 3 deletions(-)
+How come this lives here? Surely this new feature should be not only
+guest-type independent, but also arch-agnostic? Clearly you putting
+the new data in struct domain (and not struct arch_domain or yet
+deeper in the hierarchy) indicates you may have been meaning to make
+it so.
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index b7ee97be76..923910f553 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -2636,6 +2636,17 @@ guest will notify Xen that it has failed to acquire a spinlock.
- <major>, <minor> and <build> must be integers. The values will be
- encoded in guest CPUID 0x40000002 if viridian enlightenments are enabled.
- 
-+### vm-notify-window (Intel)
-+> `= <integer>`
-+
-+> Default: `0`
-+
-+Specify the value of the VM Notify window used to detect locked VMs. Set to -1
-+to disable the feature.  Value is in units of crystal clock cycles.
-+
-+Note the hardware might add a threshold to the provided value in order to make
-+it safe, and hence using 0 is fine.
-+
- ### vpid (Intel)
- > `= <boolean>`
- 
-diff --git a/xen/arch/x86/hvm/vmx/vmcs.c b/xen/arch/x86/hvm/vmx/vmcs.c
-index a0d5e8d6ab..3d7c471a3f 100644
---- a/xen/arch/x86/hvm/vmx/vmcs.c
-+++ b/xen/arch/x86/hvm/vmx/vmcs.c
-@@ -67,6 +67,9 @@ integer_param("ple_gap", ple_gap);
- static unsigned int __read_mostly ple_window = 4096;
- integer_param("ple_window", ple_window);
- 
-+static unsigned int __ro_after_init vm_notify_window;
-+integer_param("vm-notify-window", vm_notify_window);
-+
- static bool __read_mostly opt_ept_pml = true;
- static s8 __read_mostly opt_ept_ad = -1;
- int8_t __read_mostly opt_ept_exec_sp = -1;
-@@ -210,6 +213,7 @@ static void __init vmx_display_features(void)
-     P(cpu_has_vmx_pml, "Page Modification Logging");
-     P(cpu_has_vmx_tsc_scaling, "TSC Scaling");
-     P(cpu_has_vmx_bus_lock_detection, "Bus Lock Detection");
-+    P(cpu_has_vmx_notify_vm_exiting, "Notify VM Exit");
- #undef P
- 
-     if ( !printed )
-@@ -329,6 +333,8 @@ static int vmx_init_vmcs_config(bool bsp)
-             opt |= SECONDARY_EXEC_UNRESTRICTED_GUEST;
-         if ( opt_ept_pml )
-             opt |= SECONDARY_EXEC_ENABLE_PML;
-+        if ( vm_notify_window != ~0u )
-+            opt |= SECONDARY_EXEC_NOTIFY_VM_EXITING;
- 
-         /*
-          * "APIC Register Virtualization" and "Virtual Interrupt Delivery"
-@@ -1290,6 +1296,17 @@ static int construct_vmcs(struct vcpu *v)
-     v->arch.hvm.vmx.exception_bitmap = HVM_TRAP_MASK
-               | (paging_mode_hap(d) ? 0 : (1U << TRAP_page_fault))
-               | (v->arch.fully_eager_fpu ? 0 : (1U << TRAP_no_device));
-+    if ( cpu_has_vmx_notify_vm_exiting )
-+    {
-+        __vmwrite(NOTIFY_WINDOW, vm_notify_window);
-+        /*
-+         * Disable #AC and #DB interception: by using VM Notify Xen is
-+         * guaranteed to get a VM exit even if the guest manages to lock the
-+         * CPU.
-+         */
-+        v->arch.hvm.vmx.exception_bitmap &= ~((1U << TRAP_debug) |
-+                                              (1U << TRAP_alignment_check));
-+    }
-     vmx_update_exception_bitmap(v);
- 
-     v->arch.hvm.guest_cr[0] = X86_CR0_PE | X86_CR0_ET;
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index dabf4a3552..b11578777a 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -1428,10 +1428,19 @@ static void cf_check vmx_update_host_cr3(struct vcpu *v)
- 
- void vmx_update_debug_state(struct vcpu *v)
- {
-+    unsigned int mask = 1u << TRAP_int3;
-+
-+    if ( !cpu_has_monitor_trap_flag && cpu_has_vmx_notify_vm_exiting )
-+        /*
-+         * Only allow toggling TRAP_debug if notify VM exit is enabled, as
-+         * unconditionally setting TRAP_debug is part of the XSA-156 fix.
-+         */
-+        mask |= 1u << TRAP_debug;
-+
-     if ( v->arch.hvm.debug_state_latch )
--        v->arch.hvm.vmx.exception_bitmap |= 1U << TRAP_int3;
-+        v->arch.hvm.vmx.exception_bitmap |= mask;
-     else
--        v->arch.hvm.vmx.exception_bitmap &= ~(1U << TRAP_int3);
-+        v->arch.hvm.vmx.exception_bitmap &= ~mask;
- 
-     vmx_vmcs_enter(v);
-     vmx_update_exception_bitmap(v);
-@@ -4180,6 +4189,9 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-         switch ( vector )
-         {
-         case TRAP_debug:
-+            if ( cpu_has_monitor_trap_flag && cpu_has_vmx_notify_vm_exiting )
-+                goto exit_and_crash;
-+
-             /*
-              * Updates DR6 where debugger can peek (See 3B 23.2.1,
-              * Table 23-1, "Exit Qualification for Debug Exceptions").
-@@ -4619,6 +4631,22 @@ void vmx_vmexit_handler(struct cpu_user_regs *regs)
-          */
-         break;
- 
-+    case EXIT_REASON_NOTIFY:
-+        __vmread(EXIT_QUALIFICATION, &exit_qualification);
-+
-+        if ( unlikely(exit_qualification & NOTIFY_VM_CONTEXT_INVALID) )
-+        {
-+            perfc_incr(vmnotify_crash);
-+            gprintk(XENLOG_ERR, "invalid VM context after notify vmexit\n");
-+            domain_crash(v->domain);
-+            break;
-+        }
-+
-+        if ( unlikely(exit_qualification & INTR_INFO_NMI_UNBLOCKED_BY_IRET) )
-+            undo_nmis_unblocked_by_iret();
-+
-+        break;
-+
-     case EXIT_REASON_VMX_PREEMPTION_TIMER_EXPIRED:
-     case EXIT_REASON_INVPCID:
-     /* fall through */
-diff --git a/xen/arch/x86/hvm/vmx/vvmx.c b/xen/arch/x86/hvm/vmx/vvmx.c
-index 2095c1e612..f8fe8d0c14 100644
---- a/xen/arch/x86/hvm/vmx/vvmx.c
-+++ b/xen/arch/x86/hvm/vmx/vvmx.c
-@@ -2487,6 +2487,7 @@ int nvmx_n2_vmexit_handler(struct cpu_user_regs *regs,
-     case EXIT_REASON_EPT_MISCONFIG:
-     case EXIT_REASON_EXTERNAL_INTERRUPT:
-     case EXIT_REASON_BUS_LOCK:
-+    case EXIT_REASON_NOTIFY:
-         /* pass to L0 handler */
-         break;
-     case VMX_EXIT_REASONS_FAILED_VMENTRY:
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-index f3df5113d4..78404e42b3 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmcs.h
-@@ -268,6 +268,7 @@ extern u32 vmx_vmentry_control;
- #define SECONDARY_EXEC_XSAVES                   0x00100000
- #define SECONDARY_EXEC_TSC_SCALING              0x02000000
- #define SECONDARY_EXEC_BUS_LOCK_DETECTION       0x40000000
-+#define SECONDARY_EXEC_NOTIFY_VM_EXITING        0x80000000
- extern u32 vmx_secondary_exec_control;
- 
- #define VMX_EPT_EXEC_ONLY_SUPPORTED                         0x00000001
-@@ -349,6 +350,8 @@ extern u64 vmx_ept_vpid_cap;
-     (vmx_secondary_exec_control & SECONDARY_EXEC_TSC_SCALING)
- #define cpu_has_vmx_bus_lock_detection \
-     (vmx_secondary_exec_control & SECONDARY_EXEC_BUS_LOCK_DETECTION)
-+#define cpu_has_vmx_notify_vm_exiting \
-+    (vmx_secondary_exec_control & SECONDARY_EXEC_NOTIFY_VM_EXITING)
- 
- #define VMCS_RID_TYPE_MASK              0x80000000
- 
-@@ -456,6 +459,7 @@ enum vmcs_field {
-     SECONDARY_VM_EXEC_CONTROL       = 0x0000401e,
-     PLE_GAP                         = 0x00004020,
-     PLE_WINDOW                      = 0x00004022,
-+    NOTIFY_WINDOW                   = 0x00004024,
-     VM_INSTRUCTION_ERROR            = 0x00004400,
-     VM_EXIT_REASON                  = 0x00004402,
-     VM_EXIT_INTR_INFO               = 0x00004404,
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index eae39365aa..8e1e42ac47 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -221,6 +221,7 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
- #define EXIT_REASON_XSAVES              63
- #define EXIT_REASON_XRSTORS             64
- #define EXIT_REASON_BUS_LOCK            74
-+#define EXIT_REASON_NOTIFY              75
- /* Remember to also update VMX_PERF_EXIT_REASON_SIZE! */
- 
- /*
-@@ -236,6 +237,11 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
- #define INTR_INFO_VALID_MASK            0x80000000      /* 31 */
- #define INTR_INFO_RESVD_BITS_MASK       0x7ffff000
- 
-+/*
-+ * Exit Qualifications for NOTIFY VM EXIT
-+ */
-+#define NOTIFY_VM_CONTEXT_INVALID       1u
-+
- /*
-  * Exit Qualifications for MOV for Control Register Access
-  */
-diff --git a/xen/arch/x86/include/asm/perfc_defn.h b/xen/arch/x86/include/asm/perfc_defn.h
-index 6fce21e85a..487e20dc97 100644
---- a/xen/arch/x86/include/asm/perfc_defn.h
-+++ b/xen/arch/x86/include/asm/perfc_defn.h
-@@ -6,7 +6,7 @@ PERFCOUNTER_ARRAY(exceptions,           "exceptions", 32)
- 
- #ifdef CONFIG_HVM
- 
--#define VMX_PERF_EXIT_REASON_SIZE 75
-+#define VMX_PERF_EXIT_REASON_SIZE 76
- #define VMEXIT_NPF_PERFC 143
- #define SVM_PERF_EXIT_REASON_SIZE (VMEXIT_NPF_PERFC + 1)
- PERFCOUNTER_ARRAY(vmexits,              "vmexits",
-@@ -129,5 +129,6 @@ PERFCOUNTER(iommu_pt_shatters,    "IOMMU page table shatters")
- PERFCOUNTER(iommu_pt_coalesces,   "IOMMU page table coalesces")
- 
- PERFCOUNTER(buslock, "Bus Locks Detected")
-+PERFCOUNTER(vmnotify_crash, "domain crashes by Notify VM Exit")
- 
- /*#endif*/ /* __XEN_PERFC_DEFN_H__ */
--- 
-2.39.0
+> --- a/xen/common/memory.c
+> +++ b/xen/common/memory.c
+> @@ -1078,6 +1078,12 @@ unsigned int ioreq_server_max_frames(const struct domain *d)
+>      return nr;
+>  }
+>  
+> +unsigned int stats_table_max_frames(const struct domain *d)
+> +{
+> +    /* One frame per 512 vcpus. */
+> +    return 1;
+> +}
 
+As alluded to earlier already - 1 isn't going to be suitable for
+arbitrary size domains. (Yes, HVM domains are presently limited to
+128 vCPU-s, but as per above this shouldn't be a HVM-only feature.)
+
+> @@ -1162,6 +1171,88 @@ static int acquire_vmtrace_buf(
+>      return nr_frames;
+>  }
+>  
+> +void stats_free_vcpu_mfn(struct domain * d)
+> +{
+> +    struct page_info *pg = d->vcpustats_page.pg;
+> +
+> +    if ( !pg )
+> +        return;
+> +
+> +    d->vcpustats_page.pg = NULL;
+> +
+> +    if ( d->vcpustats_page.va )
+> +        unmap_domain_page_global(d->vcpustats_page.va);
+> +
+> +    d->vcpustats_page.va = NULL;
+
+We ought to gain UNMAP_DOMAIN_PAGE_GLOBAL() for purposes like this one,
+paralleling UNMAP_DOMAIN_PAGE().
+
+> +    put_page_alloc_ref(pg);
+> +    put_page_and_type(pg);
+> +}
+> +
+> +static int stats_vcpu_alloc_mfn(struct domain *d)
+> +{
+> +    struct page_info *pg;
+> +
+> +    pg = alloc_domheap_page(d, MEMF_no_refcount);
+> +
+> +    if ( !pg )
+> +        return -ENOMEM;
+> +
+> +    if ( !get_page_and_type(pg, d, PGT_writable_page) ) {
+
+Style: Brace placement (more elsewhere).
+
+> +        put_page_alloc_ref(pg);
+
+This is not allowed when what you may put is the last reference.
+See other examples we have in the tree.
+
+> +        return -ENODATA;
+> +    }
+> +
+> +    d->vcpustats_page.va = __map_domain_page_global(pg);
+> +    if ( !d->vcpustats_page.va )
+> +        goto fail;
+> +
+> +    d->vcpustats_page.pg = pg;
+> +    clear_page(d->vcpustats_page.va);
+
+I guess this should happen before you globally announce the
+address.
+
+> +    return 1;
+
+Functions returning -errno on error want to return 0 on success,
+unless e.g. multiple success indicators are needed.
+
+> +fail:
+
+Style: Label indentation.
+
+> +    put_page_alloc_ref(pg);
+> +    put_page_and_type(pg);
+> +
+> +    return -ENOMEM;
+> +}
+> +
+> +static int acquire_stats_table(struct domain *d,
+> +                                unsigned int id,
+> +                                unsigned int frame,
+> +                                unsigned int nr_frames,
+> +                                xen_pfn_t mfn_list[])
+
+Style: Indentation.
+
+> +{
+> +    mfn_t mfn;
+> +    int rc;
+> +    unsigned int i;
+> +
+> +    if ( !d )
+> +        return -ENOENT;
+> +
+> +    for ( i = 0; i < nr_frames; i++ )
+> +    {
+> +        switch ( i )
+> +        {
+> +        case XENMEM_resource_stats_frame_vcpustats:
+
+Isn't this supposed to be indexed by "id" (which presently you ignore
+altogether, which can't be right)?
+
+> --- a/xen/common/sched/core.c
+> +++ b/xen/common/sched/core.c
+> @@ -264,6 +264,8 @@ static inline void vcpu_runstate_change(
+>  {
+>      s_time_t delta;
+>      struct sched_unit *unit = v->sched_unit;
+> +    shared_vcpustatspage_t * vcpustats_va;
+
+Style: Stray blank (more elsewhere).
+
+> @@ -287,6 +289,20 @@ static inline void vcpu_runstate_change(
+>      }
+>  
+>      v->runstate.state = new_state;
+> +
+> +    vcpustats_va = (shared_vcpustatspage_t*)d->vcpustats_page.va;
+
+There should be no need for a cast here.
+
+> +    if ( vcpustats_va )
+> +    {
+> +	vcpustats_va->vcpu_info[v->vcpu_id].version =
+
+Style: Hard tab.
+
+> +	    version_update_begin(vcpustats_va->vcpu_info[v->vcpu_id].version);
+> +        smp_wmb();
+> +        memcpy(&vcpustats_va->vcpu_info[v->vcpu_id].runstate_running_time,
+> +               &v->runstate.time[RUNSTATE_running],
+> +               sizeof(v->runstate.time[RUNSTATE_running]));
+
+Why memcpy() and not a plain assignment?
+
+> +        smp_wmb();
+> +        vcpustats_va->vcpu_info[v->vcpu_id].version =
+> +            version_update_end(vcpustats_va->vcpu_info[v->vcpu_id].version);
+> +    }
+
+Overall latching &vcpustats_va->vcpu_info[v->vcpu_id] into a helper
+variable would likely help readability quite a bit.
+
+> --- a/xen/include/public/vcpu.h
+> +++ b/xen/include/public/vcpu.h
+> @@ -235,6 +235,22 @@ struct vcpu_register_time_memory_area {
+>  typedef struct vcpu_register_time_memory_area vcpu_register_time_memory_area_t;
+>  DEFINE_XEN_GUEST_HANDLE(vcpu_register_time_memory_area_t);
+>  
+> +struct vcpu_stats{
+
+Style: Missing blank.
+
+> +    /* If the least-significant bit of the version number is set then an update
+
+Style: Comment layout.
+
+Jan
 
