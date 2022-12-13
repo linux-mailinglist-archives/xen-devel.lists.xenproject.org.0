@@ -2,36 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B238464AC7F
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 01:33:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460000.717790 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DC7D64AC8C
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 01:41:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460011.717800 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4tD2-0006jC-MO; Tue, 13 Dec 2022 00:31:48 +0000
+	id 1p4tMW-0008Up-Mb; Tue, 13 Dec 2022 00:41:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460000.717790; Tue, 13 Dec 2022 00:31:48 +0000
+Received: by outflank-mailman (output) from mailman id 460011.717800; Tue, 13 Dec 2022 00:41:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4tD2-0006hN-Ih; Tue, 13 Dec 2022 00:31:48 +0000
-Received: by outflank-mailman (input) for mailman id 460000;
- Tue, 13 Dec 2022 00:31:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p4tMW-0008Sd-Jx; Tue, 13 Dec 2022 00:41:36 +0000
+Received: by outflank-mailman (input) for mailman id 460011;
+ Tue, 13 Dec 2022 00:41:35 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TuKI=4L=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p4tD0-0006hH-G4
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 00:31:46 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 84a4ee53-7a7d-11ed-8fd2-01056ac49cbb;
- Tue, 13 Dec 2022 01:31:44 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id D033E6125F;
- Tue, 13 Dec 2022 00:31:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C80FC433D2;
- Tue, 13 Dec 2022 00:31:41 +0000 (UTC)
+ <SRS0=unTl=4L=zlw.email=sisyphean@srs-se1.protection.inumbo.net>)
+ id 1p4tMU-0008SX-UY
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 00:41:35 +0000
+Received: from mail.zlw.email (unknown [112.49.95.49])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id de4507f1-7a7e-11ed-91b6-6bf2151ebd3b;
+ Tue, 13 Dec 2022 01:41:32 +0100 (CET)
+Received: from localhost (unknown [127.0.0.1])
+ by mail.zlw.email (Postfix) with ESMTP id EC015174161;
+ Tue, 13 Dec 2022 00:41:45 +0000 (UTC)
+Received: from mail.zlw.email ([127.0.0.1])
+ by localhost (mail.zlw.email [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Pnm1MAVpsklM; Tue, 13 Dec 2022 08:41:43 +0800 (CST)
+Received: from [192.168.66.233] (OpenWrt.lan [192.168.66.1])
+ by mail.zlw.email (Postfix) with ESMTPSA id 82D73173F34;
+ Tue, 13 Dec 2022 08:41:42 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,218 +45,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 84a4ee53-7a7d-11ed-8fd2-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1670891502;
-	bh=IVm2reqsYyOHXVBsb40bFinYDBHIWbHiv1CGabuXfAI=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=Wo1SrzXgFcNXgazlnhyntTS3G6yhhMPiH6G0W9z6uxK7GYrpNwQyqfV7lK7ixZsMq
-	 KOthGpgoyM/l6FtZCWirEbbC67jaC4SL1Q3GvyU6Ot3Bl54LsfeZuNFbYjNAu4ZAqD
-	 +8uxJXAzgMPwLn3CNMhz1G7uEGetC1k3ge6gNz+7qnN8dlyuwT68FOSy/knY1W9ZTq
-	 fu40duUtY97CJ7JMOqJyrIfcGW5uNWJWV0xZwONsAglTlTlPLbjCXkAsH5dYJ6zS+C
-	 aU1koizrLlrw75JGG0oX6+y3dMhVqUWHlLAIFvdtb9UbYwelT+0CixYsNTDdycwb6/
-	 B009AUrJ28JqA==
-Date: Mon, 12 Dec 2022 16:31:39 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Julien Grall <julien@xen.org>
-cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
-    Luca.Fancellu@arm.com, Julien Grall <jgrall@amazon.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Bertrand Marquis <bertrand.marquis@arm.com>, 
-    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v3 06/18] xen/arm32: head: Replace "ldr rX, =<label>"
- with "mov_w rX, <label>"
-In-Reply-To: <20221212095523.52683-7-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2212121631330.3075842@ubuntu-linux-20-04-desktop>
-References: <20221212095523.52683-1-julien@xen.org> <20221212095523.52683-7-julien@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: de4507f1-7a7e-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zlw.email; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:references:to:content-language:subject:subject
+	:user-agent:mime-version:date:date:message-id; s=dkim; t=
+	1670892103; x=1673484104; bh=9ppe57Cy4N/beW2jJ1rZXIEp+DX7nvoB+or
+	WJ0OI+qg=; b=kyZgyEGMKtLYoPE1TTo16wsaJIRVbuw+WpCYsuo8zRR9f9UXt2g
+	0Szv3sX+VOG2AOyJAM9LIZlckrM99nLg/to8swGHaQ0q65kLpn/9Asf8eCjumoLl
+	iOg7apHkS+NW+fkys6kkOD+8aX31bYvV135RKA8hZ0uDq2zAkXjJyJkg=
+X-Virus-Scanned: amavisd-new at zlw.email
+Message-ID: <757ac91b-150d-53fe-751b-7f42ec447f15@zlw.email>
+Date: Tue, 13 Dec 2022 08:41:32 +0800
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [BUG]Add PCIE devie to SMMUv3 fail
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>
+References: <793eb471-e68b-c3ff-52e8-20d77252c0bf@zlw.email>
+ <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
+ <75bbfc8c-b89f-9478-63af-c37fda0ad3c0@zlw.email>
+ <e7766518-275c-1030-e8c0-51a5787a9985@xen.org>
+From: sisyphean <sisyphean@zlw.email>
+In-Reply-To: <e7766518-275c-1030-e8c0-51a5787a9985@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 12 Dec 2022, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
-> 
-> "ldr rX, =<label>" is used to load a value from the literal pool. This
-> implies a memory access.
-> 
-> This can be avoided by using the macro mov_w which encode the value in
-> the immediate of two instructions.
-> 
-> So replace all "ldr rX, =<label>" with "mov_w rX, <label>".
-> 
-> No functional changes intended.
-> 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+Hi,
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
-> ---
-> 
->     Changes in v3:
->         * Patch added
-> ---
->  xen/arch/arm/arm32/head.S | 38 +++++++++++++++++++-------------------
->  1 file changed, 19 insertions(+), 19 deletions(-)
-> 
-> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
-> index a558c2a6876e..ce680be91be1 100644
-> --- a/xen/arch/arm/arm32/head.S
-> +++ b/xen/arch/arm/arm32/head.S
-> @@ -62,7 +62,7 @@
->  .endm
->  
->  .macro load_paddr rb, sym
-> -        ldr   \rb, =\sym
-> +        mov_w \rb, \sym
->          add   \rb, \rb, r10
->  .endm
->  
-> @@ -149,7 +149,7 @@ past_zImage:
->          mov   r8, r2                 /* r8 := DTB base address */
->  
->          /* Find out where we are */
-> -        ldr   r0, =start
-> +        mov_w r0, start
->          adr   r9, start              /* r9  := paddr (start) */
->          sub   r10, r9, r0            /* r10 := phys-offset */
->  
-> @@ -170,7 +170,7 @@ past_zImage:
->          bl    enable_mmu
->  
->          /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
-> -        ldr   r0, =primary_switched
-> +        mov_w r0, primary_switched
->          mov   pc, r0
->  primary_switched:
->          /*
-> @@ -190,7 +190,7 @@ primary_switched:
->          /* Setup the arguments for start_xen and jump to C world */
->          mov   r0, r10                /* r0 := Physical offset */
->          mov   r1, r8                 /* r1 := paddr(FDT) */
-> -        ldr   r2, =start_xen
-> +        mov_w r2, start_xen
->          b     launch
->  ENDPROC(start)
->  
-> @@ -198,7 +198,7 @@ GLOBAL(init_secondary)
->          cpsid aif                    /* Disable all interrupts */
->  
->          /* Find out where we are */
-> -        ldr   r0, =start
-> +        mov_w r0, start
->          adr   r9, start              /* r9  := paddr (start) */
->          sub   r10, r9, r0            /* r10 := phys-offset */
->  
-> @@ -227,7 +227,7 @@ GLOBAL(init_secondary)
->  
->  
->          /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
-> -        ldr   r0, =secondary_switched
-> +        mov_w r0, secondary_switched
->          mov   pc, r0
->  secondary_switched:
->          /*
-> @@ -236,7 +236,7 @@ secondary_switched:
->           *
->           * XXX: This is not compliant with the Arm Arm.
->           */
-> -        ldr   r4, =init_ttbr         /* VA of HTTBR value stashed by CPU 0 */
-> +        mov_w r4, init_ttbr          /* VA of HTTBR value stashed by CPU 0 */
->          ldrd  r4, r5, [r4]           /* Actual value */
->          dsb
->          mcrr  CP64(r4, r5, HTTBR)
-> @@ -254,7 +254,7 @@ secondary_switched:
->  #endif
->          PRINT("- Ready -\r\n")
->          /* Jump to C world */
-> -        ldr   r2, =start_secondary
-> +        mov_w r2, start_secondary
->          b     launch
->  ENDPROC(init_secondary)
->  
-> @@ -297,8 +297,8 @@ ENDPROC(check_cpu_mode)
->   */
->  zero_bss:
->          PRINT("- Zero BSS -\r\n")
-> -        ldr   r0, =__bss_start       /* r0 := vaddr(__bss_start) */
-> -        ldr   r1, =__bss_end         /* r1 := vaddr(__bss_start) */
-> +        mov_w r0, __bss_start        /* r0 := vaddr(__bss_start) */
-> +        mov_w r1, __bss_end          /* r1 := vaddr(__bss_start) */
->  
->          mov   r2, #0
->  1:      str   r2, [r0], #4
-> @@ -330,8 +330,8 @@ cpu_init:
->  
->  cpu_init_done:
->          /* Set up memory attribute type tables */
-> -        ldr   r0, =MAIR0VAL
-> -        ldr   r1, =MAIR1VAL
-> +        mov_w r0, MAIR0VAL
-> +        mov_w r1,MAIR1VAL
->          mcr   CP32(r0, HMAIR0)
->          mcr   CP32(r1, HMAIR1)
->  
-> @@ -341,10 +341,10 @@ cpu_init_done:
->           * PT walks are write-back, write-allocate in both cache levels,
->           * Full 32-bit address space goes through this table.
->           */
-> -        ldr   r0, =(TCR_RES1|TCR_SH0_IS|TCR_ORGN0_WBWA|TCR_IRGN0_WBWA|TCR_T0SZ(0))
-> +        mov_w r0, (TCR_RES1|TCR_SH0_IS|TCR_ORGN0_WBWA|TCR_IRGN0_WBWA|TCR_T0SZ(0))
->          mcr   CP32(r0, HTCR)
->  
-> -        ldr   r0, =HSCTLR_SET
-> +        mov_w r0, HSCTLR_SET
->          mcr   CP32(r0, HSCTLR)
->          isb
->  
-> @@ -452,7 +452,7 @@ ENDPROC(cpu_init)
->   */
->  create_page_tables:
->          /* Prepare the page-tables for mapping Xen */
-> -        ldr   r0, =XEN_VIRT_START
-> +        mov_w r0, XEN_VIRT_START
->          create_table_entry boot_pgtable, boot_second, r0, 1
->          create_table_entry boot_second, boot_third, r0, 2
->  
-> @@ -576,7 +576,7 @@ remove_identity_mapping:
->          cmp   r1, #XEN_FIRST_SLOT
->          beq   1f
->          /* It is not in slot 0, remove the entry */
-> -        ldr   r0, =boot_pgtable      /* r0 := root table */
-> +        mov_w r0, boot_pgtable       /* r0 := root table */
->          lsl   r1, r1, #3             /* r1 := Slot offset */
->          strd  r2, r3, [r0, r1]
->          b     identity_mapping_removed
-> @@ -590,7 +590,7 @@ remove_identity_mapping:
->          cmp   r1, #XEN_SECOND_SLOT
->          beq   identity_mapping_removed
->          /* It is not in slot 1, remove the entry */
-> -        ldr   r0, =boot_second       /* r0 := second table */
-> +        mov_w r0, boot_second        /* r0 := second table */
->          lsl   r1, r1, #3             /* r1 := Slot offset */
->          strd  r2, r3, [r0, r1]
->  
-> @@ -620,7 +620,7 @@ ENDPROC(remove_identity_mapping)
->  setup_fixmap:
->  #if defined(CONFIG_EARLY_PRINTK)
->          /* Add UART to the fixmap table */
-> -        ldr   r0, =EARLY_UART_VIRTUAL_ADDRESS
-> +        mov_w r0, EARLY_UART_VIRTUAL_ADDRESS
->          create_mapping_entry xen_fixmap, r0, r11, type=PT_DEV_L3
->  #endif
->          /* Map fixmap into boot_second */
-> @@ -643,7 +643,7 @@ ENDPROC(setup_fixmap)
->   * Clobbers r3
->   */
->  launch:
-> -        ldr   r3, =init_data
-> +        mov_w r3, init_data
->          add   r3, #INITINFO_stack    /* Find the boot-time stack */
->          ldr   sp, [r3]
->          add   sp, #STACK_SIZE        /* (which grows down from the top). */
-> -- 
-> 2.38.1
-> 
+在 2022/12/12 18:05, Julien Grall 写道:
+>
+> On 12/12/2022 05:49, sisyphean wrote:
+>> Hi,
+>
+> Hi,
+Sorry for my negligence, I will add a cc to all subsequent emails.
+> When submitting a bug report for Arm, can you please CC the Arm 
+> maintainers?
+>
+>> 在 2022/12/9 17:50, Rahul Singh 写道:
+>> After setting XEN and kernel as above, I tried the following two 
+>> methods to add a PCIE device passthrough:
+>>
+>> 1. According to your suggestion, use the command xl 
+>> pci-assignable-add 0002:21:00.0 to set in the Dom0. But in function
+>> iommu_do_pci_domctl,  after device_assigned is called, ENODEV error 
+>> is obtained.
+>>
+>> 2. Add xen-pciback.hide=(0002:21:00.0) to dom0-bootargs in the device 
+>> tree, I encountered the same problem as before
+>> when initializing the kernel. In function pci_add_device, PCIE 
+>> devices cannot be added to SMMUv3.
+>>
+>> The kernel version I use is 5.10. Does this have an impact?
+>>
+>> In addition, an error was encountered after XEN enabling ITS:
+>>
+>> In function gicv3_cpu_init, gicv3_its_setup_collection return 
+>> -ETIMEDOUT. This problem was solved after I made the
+>> following changes:
+>>
+>> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
+>> index 9558bad..a12c0d1 100644
+>> --- a/xen/arch/arm/gic-v3-its.c
+>> +++ b/xen/arch/arm/gic-v3-its.c
+>> @@ -118,11 +118,11 @@ static int its_send_command(struct host_its 
+>> *hw_its, const void *its_cmd)
+>>       }
+>>
+>>       memcpy(hw_its->cmd_buf + writep, its_cmd, ITS_CMD_SIZE);
+>> -    if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
+>> +    // if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
+>
+> This is suggesting that the logic in its_map_cbaser() doesn't detect 
+> the command queue is uncacheable.
+>
+> Looking at the code, Xen will write the register with the shareability 
+> it wants and then read back to confirm the ITS "accept it". If it 
+> didn't accept, then we will use uncacheable.
+>
+Function its_map_cbaser() is called twice, and the reg values read by 
+readq_relaxed(cbasereg)
+are 0xB8000000EBD004FF and 0xB8000000EBC004FF respectively
+> Can you print the value read from the ITS in its_map_cbaser()?
+>
+> Cheers,
+>
+Cheers,
 
