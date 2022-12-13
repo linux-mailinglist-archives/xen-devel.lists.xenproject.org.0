@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DC7D64AC8C
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 01:41:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460011.717800 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9D8264AC96
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 01:47:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460020.717812 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4tMW-0008Up-Mb; Tue, 13 Dec 2022 00:41:36 +0000
+	id 1p4tRa-0000rB-B0; Tue, 13 Dec 2022 00:46:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460011.717800; Tue, 13 Dec 2022 00:41:36 +0000
+Received: by outflank-mailman (output) from mailman id 460020.717812; Tue, 13 Dec 2022 00:46:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p4tMW-0008Sd-Jx; Tue, 13 Dec 2022 00:41:36 +0000
-Received: by outflank-mailman (input) for mailman id 460011;
- Tue, 13 Dec 2022 00:41:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p4tRa-0000np-8B; Tue, 13 Dec 2022 00:46:50 +0000
+Received: by outflank-mailman (input) for mailman id 460020;
+ Tue, 13 Dec 2022 00:46:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=unTl=4L=zlw.email=sisyphean@srs-se1.protection.inumbo.net>)
- id 1p4tMU-0008SX-UY
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 00:41:35 +0000
-Received: from mail.zlw.email (unknown [112.49.95.49])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id de4507f1-7a7e-11ed-91b6-6bf2151ebd3b;
- Tue, 13 Dec 2022 01:41:32 +0100 (CET)
-Received: from localhost (unknown [127.0.0.1])
- by mail.zlw.email (Postfix) with ESMTP id EC015174161;
- Tue, 13 Dec 2022 00:41:45 +0000 (UTC)
-Received: from mail.zlw.email ([127.0.0.1])
- by localhost (mail.zlw.email [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Pnm1MAVpsklM; Tue, 13 Dec 2022 08:41:43 +0800 (CST)
-Received: from [192.168.66.233] (OpenWrt.lan [192.168.66.1])
- by mail.zlw.email (Postfix) with ESMTPSA id 82D73173F34;
- Tue, 13 Dec 2022 08:41:42 +0800 (CST)
+ <SRS0=TuKI=4L=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p4tRZ-0000nj-8Q
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 00:46:49 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [2604:1380:4641:c500::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9f26ed08-7a7f-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 01:46:48 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5B773612C5;
+ Tue, 13 Dec 2022 00:46:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8E2EC433EF;
+ Tue, 13 Dec 2022 00:46:44 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,95 +44,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: de4507f1-7a7e-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zlw.email; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:references:to:content-language:subject:subject
-	:user-agent:mime-version:date:date:message-id; s=dkim; t=
-	1670892103; x=1673484104; bh=9ppe57Cy4N/beW2jJ1rZXIEp+DX7nvoB+or
-	WJ0OI+qg=; b=kyZgyEGMKtLYoPE1TTo16wsaJIRVbuw+WpCYsuo8zRR9f9UXt2g
-	0Szv3sX+VOG2AOyJAM9LIZlckrM99nLg/to8swGHaQ0q65kLpn/9Asf8eCjumoLl
-	iOg7apHkS+NW+fkys6kkOD+8aX31bYvV135RKA8hZ0uDq2zAkXjJyJkg=
-X-Virus-Scanned: amavisd-new at zlw.email
-Message-ID: <757ac91b-150d-53fe-751b-7f42ec447f15@zlw.email>
-Date: Tue, 13 Dec 2022 08:41:32 +0800
+X-Inumbo-ID: 9f26ed08-7a7f-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1670892405;
+	bh=XXT8Pba0qoutG85To85Sk8VlBcTPK73rdEClmyJ2swU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=hVEYRWHNcbMLDxHFMWpJE/O15yg5xwtVwtx0Xnb71lIrSs2Zwrp7QdLQ3jrbmsLKZ
+	 itiwfOFYp6hn0ql0+XMtfqY3VMAZ9iDq1Ob64/a2XuJGPcCxON0EpVwDZ+cp6Li8dj
+	 8SZu6G9UYfUEnJXPSNUWygXWo2Yj52tivaBOQhYcl6n50MzkBQyEIRQQtq0FgoUVqT
+	 V2C0U5FxNkAwlbh7Hh347fY7sjnTcnx5zFTOmc2aeK7p/oBhfTOpIts/h1BLzHUBBP
+	 L6LmV9VRLc+LWu4cmFCWGxBi8PMMlYI9RigDLkzQnS6TsKIFuIU2ZJEoEXE4HvKOwG
+	 LqGYgPTm+NhXw==
+Date: Mon, 12 Dec 2022 16:46:43 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: xen-devel@lists.xenproject.org, michal.orzel@amd.com, 
+    Luca.Fancellu@arm.com, Julien Grall <jgrall@amazon.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH v3 07/18] xen/arm32: head: Jump to the runtime mapping
+ in enable_mmu()
+In-Reply-To: <20221212095523.52683-8-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2212121646370.3075842@ubuntu-linux-20-04-desktop>
+References: <20221212095523.52683-1-julien@xen.org> <20221212095523.52683-8-julien@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [BUG]Add PCIE devie to SMMUv3 fail
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>, Rahul Singh <Rahul.Singh@arm.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>
-References: <793eb471-e68b-c3ff-52e8-20d77252c0bf@zlw.email>
- <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
- <75bbfc8c-b89f-9478-63af-c37fda0ad3c0@zlw.email>
- <e7766518-275c-1030-e8c0-51a5787a9985@xen.org>
-From: sisyphean <sisyphean@zlw.email>
-In-Reply-To: <e7766518-275c-1030-e8c0-51a5787a9985@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Hi,
+On Mon, 12 Dec 2022, Julien Grall wrote:
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> At the moment, enable_mmu() will return to an address in the 1:1 mapping
+> and each path is responsible to switch to the runtime mapping.
+> 
+> In a follow-up patch, the behavior to switch to the runtime mapping
+> will become more complex. So to avoid more code/comment duplication,
+> move the switch in enable_mmu().
+> 
+> Lastly, take the opportunity to replace load from literal pool with
+> mov_w.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-在 2022/12/12 18:05, Julien Grall 写道:
->
-> On 12/12/2022 05:49, sisyphean wrote:
->> Hi,
->
-> Hi,
-Sorry for my negligence, I will add a cc to all subsequent emails.
-> When submitting a bug report for Arm, can you please CC the Arm 
-> maintainers?
->
->> 在 2022/12/9 17:50, Rahul Singh 写道:
->> After setting XEN and kernel as above, I tried the following two 
->> methods to add a PCIE device passthrough:
->>
->> 1. According to your suggestion, use the command xl 
->> pci-assignable-add 0002:21:00.0 to set in the Dom0. But in function
->> iommu_do_pci_domctl,  after device_assigned is called, ENODEV error 
->> is obtained.
->>
->> 2. Add xen-pciback.hide=(0002:21:00.0) to dom0-bootargs in the device 
->> tree, I encountered the same problem as before
->> when initializing the kernel. In function pci_add_device, PCIE 
->> devices cannot be added to SMMUv3.
->>
->> The kernel version I use is 5.10. Does this have an impact?
->>
->> In addition, an error was encountered after XEN enabling ITS:
->>
->> In function gicv3_cpu_init, gicv3_its_setup_collection return 
->> -ETIMEDOUT. This problem was solved after I made the
->> following changes:
->>
->> diff --git a/xen/arch/arm/gic-v3-its.c b/xen/arch/arm/gic-v3-its.c
->> index 9558bad..a12c0d1 100644
->> --- a/xen/arch/arm/gic-v3-its.c
->> +++ b/xen/arch/arm/gic-v3-its.c
->> @@ -118,11 +118,11 @@ static int its_send_command(struct host_its 
->> *hw_its, const void *its_cmd)
->>       }
->>
->>       memcpy(hw_its->cmd_buf + writep, its_cmd, ITS_CMD_SIZE);
->> -    if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
->> +    // if ( hw_its->flags & HOST_ITS_FLUSH_CMD_QUEUE )
->
-> This is suggesting that the logic in its_map_cbaser() doesn't detect 
-> the command queue is uncacheable.
->
-> Looking at the code, Xen will write the register with the shareability 
-> it wants and then read back to confirm the ITS "accept it". If it 
-> didn't accept, then we will use uncacheable.
->
-Function its_map_cbaser() is called twice, and the reg values read by 
-readq_relaxed(cbasereg)
-are 0xB8000000EBD004FF and 0xB8000000EBC004FF respectively
-> Can you print the value read from the ITS in its_map_cbaser()?
->
-> Cheers,
->
-Cheers,
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+> ---
+>     Changes in v3:
+>         - Fix typo in the commit message
+> 
+>     Changes in v2:
+>         - Patch added
+> ---
+>  xen/arch/arm/arm32/head.S | 50 +++++++++++++++++++++++----------------
+>  1 file changed, 30 insertions(+), 20 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+> index ce680be91be1..40c1d7502007 100644
+> --- a/xen/arch/arm/arm32/head.S
+> +++ b/xen/arch/arm/arm32/head.S
+> @@ -167,19 +167,11 @@ past_zImage:
+>          bl    check_cpu_mode
+>          bl    cpu_init
+>          bl    create_page_tables
+> -        bl    enable_mmu
+>  
+> -        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+> -        mov_w r0, primary_switched
+> -        mov   pc, r0
+> +        /* Address in the runtime mapping to jump to after the MMU is enabled */
+> +        mov_w lr, primary_switched
+> +        b     enable_mmu
+>  primary_switched:
+> -        /*
+> -         * The 1:1 map may clash with other parts of the Xen virtual memory
+> -         * layout. As it is not used anymore, remove it completely to
+> -         * avoid having to worry about replacing existing mapping
+> -         * afterwards.
+> -         */
+> -        bl    remove_identity_mapping
+>          bl    setup_fixmap
+>  #ifdef CONFIG_EARLY_PRINTK
+>          /* Use a virtual address to access the UART. */
+> @@ -223,12 +215,10 @@ GLOBAL(init_secondary)
+>          bl    check_cpu_mode
+>          bl    cpu_init
+>          bl    create_page_tables
+> -        bl    enable_mmu
+>  
+> -
+> -        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+> -        mov_w r0, secondary_switched
+> -        mov   pc, r0
+> +        /* Address in the runtime mapping to jump to after the MMU is enabled */
+> +        mov_w lr, secondary_switched
+> +        b     enable_mmu
+>  secondary_switched:
+>          /*
+>           * Non-boot CPUs need to move on to the proper pagetables, which were
+> @@ -523,9 +513,12 @@ virtphys_clash:
+>  ENDPROC(create_page_tables)
+>  
+>  /*
+> - * Turn on the Data Cache and the MMU. The function will return on the 1:1
+> - * mapping. In other word, the caller is responsible to switch to the runtime
+> - * mapping.
+> + * Turn on the Data Cache and the MMU. The function will return
+> + * to the virtual address provided in LR (e.g. the runtime mapping).
+> + *
+> + * Inputs:
+> + *   r9 : paddr(start)
+> + *   lr : Virtual address to return to
+>   *
+>   * Clobbers r0 - r3
+>   */
+> @@ -551,7 +544,24 @@ enable_mmu:
+>          dsb                          /* Flush PTE writes and finish reads */
+>          mcr   CP32(r0, HSCTLR)       /* now paging is enabled */
+>          isb                          /* Now, flush the icache */
+> -        mov   pc, lr
+> +
+> +        /*
+> +         * The MMU is turned on and we are in the 1:1 mapping. Switch
+> +         * to the runtime mapping.
+> +         */
+> +        mov_w r0, 1f
+> +        mov   pc, r0
+> +1:
+> +        /*
+> +         * The 1:1 map may clash with other parts of the Xen virtual memory
+> +         * layout. As it is not used anymore, remove it completely to
+> +         * avoid having to worry about replacing existing mapping
+> +         * afterwards.
+> +         *
+> +         * On return this will jump to the virtual address requested by
+> +         * the caller.
+> +         */
+> +        b     remove_identity_mapping
+>  ENDPROC(enable_mmu)
+>  
+>  /*
+> -- 
+> 2.38.1
+> 
 
