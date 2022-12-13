@@ -2,39 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D77A64B450
-	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 12:38:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.460567.718502 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA39664B45B
+	for <lists+xen-devel@lfdr.de>; Tue, 13 Dec 2022 12:42:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.460576.718513 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p53cD-0004D6-Sl; Tue, 13 Dec 2022 11:38:29 +0000
+	id 1p53fJ-0005iF-En; Tue, 13 Dec 2022 11:41:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 460567.718502; Tue, 13 Dec 2022 11:38:29 +0000
+Received: by outflank-mailman (output) from mailman id 460576.718513; Tue, 13 Dec 2022 11:41:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p53cD-0004BK-PU; Tue, 13 Dec 2022 11:38:29 +0000
-Received: by outflank-mailman (input) for mailman id 460567;
- Tue, 13 Dec 2022 11:38:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=F6Pn=4L=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p53cC-0004BE-Bt
- for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 11:38:28 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2045.outbound.protection.outlook.com [40.107.7.45])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a89e90cb-7ada-11ed-91b6-6bf2151ebd3b;
- Tue, 13 Dec 2022 12:38:27 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM7PR04MB6773.eurprd04.prod.outlook.com (2603:10a6:20b:dc::14)
+	id 1p53fJ-0005fr-Bp; Tue, 13 Dec 2022 11:41:41 +0000
+Received: by outflank-mailman (input) for mailman id 460576;
+ Tue, 13 Dec 2022 11:41:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=v/kW=4L=oracle.com=daniel.kiper@srs-se1.protection.inumbo.net>)
+ id 1p53fH-0005fj-Pl
+ for xen-devel@lists.xenproject.org; Tue, 13 Dec 2022 11:41:39 +0000
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 71b6c71e-7ada-11ed-8fd2-01056ac49cbb;
+ Tue, 13 Dec 2022 12:36:56 +0100 (CET)
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 2BDBddhe011560; Tue, 13 Dec 2022 11:41:32 GMT
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3mcgw2d5d8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 13 Dec 2022 11:41:32 +0000
+Received: from pps.filterd
+ (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
+ with ESMTP id 2BDBZF6C031776; Tue, 13 Dec 2022 11:41:31 GMT
+Received: from nam12-bn8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12lp2168.outbound.protection.outlook.com [104.47.55.168])
+ by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3mcgj5h5vm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 13 Dec 2022 11:41:31 +0000
+Received: from BN0PR10MB4822.namprd10.prod.outlook.com (2603:10b6:408:124::13)
+ by CH0PR10MB5386.namprd10.prod.outlook.com (2603:10b6:610:dd::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.8; Tue, 13 Dec
- 2022 11:38:24 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
- 11:38:24 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19; Tue, 13 Dec
+ 2022 11:41:29 +0000
+Received: from BN0PR10MB4822.namprd10.prod.outlook.com
+ ([fe80::8781:9b5f:7205:b8b7]) by BN0PR10MB4822.namprd10.prod.outlook.com
+ ([fe80::8781:9b5f:7205:b8b7%9]) with mapi id 15.20.5880.019; Tue, 13 Dec 2022
+ 11:41:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,344 +63,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a89e90cb-7ada-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 71b6c71e-7ada-11ed-8fd2-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=date : from : to : cc
+ : subject : message-id : references : content-type :
+ content-transfer-encoding : in-reply-to : mime-version; s=corp-2022-7-12;
+ bh=IiiwiamCcb4dBLyurtu9zcRiozYQjwfAOYRDpKAaKhM=;
+ b=j1R5p37ayTK6aJT1rvGcxNpXW4gKerGOGfFpSHiG8RbewCFkjiC5iw17RjdGyyvrO85R
+ jtUBhBz1s9cIVBiSsX6FhYTAJyuuf23U/V/xfIjN48w9m6lAfS2EXKDLu7Nwg9a3HsVK
+ AcizmxvnVP7J61RexP4Q4XUsmT3n6Rvj5uko6NJA2e+MkpbJw+6cATsSrhMg0Qu8Zjii
+ Jrnn6I8vydCie23a8icvEMJFKKsSbI5ExoIVk2DMrEP5FTAUFCWuAfp0mnKsVNXenEsO
+ mwfuCRtLWiRKPpxGqSvt5AMyq/vyAVWKi2T0SO0CJabKCRo15IjHGECrgrebAMzjZVKo 6A== 
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LA0D0LxmkAf+yF3cRNmCoCHyzlkaPKqJajBO8dhpqQoSZihGVGi9KR5IXfMxda2Y+tE8zt/dD4Rt7dIOt+6vCA3rxqbDQ7T6U1DQtgmqpPDAf+cf1NJ7tRBypBwvC22CUkansP3Q3Cu5mz9HiylDTbPZa3RTepj5AzA5UpT4YB4V01ch/6pw3TlKBMXXAAc5K0HFl7bySuh0EUYlHhEeP/5LQsgqqu4KllZ9EhmoV6kkOPZ7WRXifaw9XUHH2KJLU/O6fHrYDbG/54l2GzoYMYJDVrc6ZrRkMBJzQyfxuoiJJVmXBFFyG2YCe67psGsUEf00kmN4vCnYSH3g6O2hcw==
+ b=Sj1373DqWI6gKFAK4M/Fv1QJiyU1Y8QddQD4jNu9Z9ehxW6uSLi8AMa8Ri2Cxq01zHjqM1imO6qFXHhj9JBE354tJN5tI1lQrsF45tq9xFgOpqneMUhLHMgj6CWKgkgdBC3aqcPz9+aVuf69dgff4flM6GyN2ShOZkb1+VrJ6GrFucZoA++PLHZTjgk6UpVAqx/flyJHf9cIgvlmYb8DgqsneS4VEwoP0cSFkjTvPQK1IFEwLBoYuznrq3DG1bh0ggvADjD4A2DXw1mKATUXPBZos1ao9dPpYOb/z6IPUxlvNro6wSOwotXVVC4w8bJkQZQW02Dl/ACrq7lvonnXWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2fKU73ItCQMSb+9aoT7onl24CYSr8frLerEBargv7u8=;
- b=h+YsQEDPYV3gG8zrouq8E37Q3ASRzFGj0KsyF7rFwqA0E2HEjoaBCJupFFmBh1kvGnoolxt3RbOwvsj6LATmYkzoA9ecD2v7PdYt+qxKL9rTGPpJit1Ti31ssAL5OvG7CZVSpg8rrshRJbPUyp62zof2X2nZa+NCDwxtOmUd4nQOilBCSiE8zO5u8PfCdz0aRwPCBPT/qjZd0ki1T9VHtX+/XCG4nIWFTK7mSX9sbVDThNklzFZIHyjuJiqTeVxpPsi2lqKukXz2cAGWlmn0eJ3H4RtcawCQ4KxBCchhHtKp5qLLIpGEO41YtNdcNRA3EmfnS7eBtgkWch96FkB7Cw==
+ bh=+uLSL5o0yzU34w/gGEHsG5WDd52rKFwHfr9/R3xuo4o=;
+ b=QitmXza7EJC8V24ZmvxIL0a+wT0m6/LkBf+8rfhPKWSKCc8gNCr9cIr7E05BGr20Eu6pKH2Krw0Rsz/8Bjuklw5TSPskqjjOXPDW0otvZlXGQh4pqojgJaFSqwAHJQRcYVDXhtOy/BoDRriSztLAo66eBUxBIL88IVr2UPmgcuuxnEi957fMVLA2WG2qkxUgrpWOQASKaI9Mo9/mwHeA9ewAEZFrCtS+X22W/glOKjlmBFnSmXrV+8vuH2TbqWykey1kaokB5DYYlzO6guE2tZ3Ju6dl6mIgMou0giY6F3/Kivac6lRxAscSWmCtWZ8oFX9AaV+j7gSKo6Y0tA5czg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2fKU73ItCQMSb+9aoT7onl24CYSr8frLerEBargv7u8=;
- b=oVlhHI6GZ8s99s3Z5w/lhE3Xl4TA0Q67nHrKjTxWN0UDuhoTpd0jikCa9uoSiNTjiN/DAtOSx8xYngBfQw1zWTg3FI5/8txIDy/PddZ2gcrBIrjbT3UHSI3DYJ3oCUe8736VdRqReNYny+cJ8zqZnZkBDAlxGrkgo0tscb8ejO80ZuyhiVP3texo8LKjH+7LjIKPfYWGoqXWPTmgINHn6AFRQJYVP1s/Lx7TKOJCkHshVrMYcSa0T09cslHGScwpdaIIklotf6tFzaevmUUc0irMCZ4O6gK+rHoGTIxI7XI7FvcJOwLZc5RXYQ0Bw38GzdjvACjQslS6m7Zrg6s4WA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <670b7017-4a6e-fa9e-9d65-65013bd4ad80@suse.com>
-Date: Tue, 13 Dec 2022 12:38:22 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: [PATCH 2/2] NUMA: replace phys_to_nid()
-Content-Language: en-US
-From: Jan Beulich <jbeulich@suse.com>
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-References: <471bd202-7bf0-81be-e8a5-780ea5975a70@suse.com>
-In-Reply-To: <471bd202-7bf0-81be-e8a5-780ea5975a70@suse.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0139.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ bh=+uLSL5o0yzU34w/gGEHsG5WDd52rKFwHfr9/R3xuo4o=;
+ b=XW4pKHP2Wrodtah89UoyqxYCOtbcJExgUgMK3LickLE7HybX8MuVWszxG5D/1+AQ+NAkn0IZfyCVbOHBPUQbQCARSgWJXU2trBj8j4OJm9R+7Gujy+EbmZDd7AF2Zp/8n3CbWkMNb8FLeYoUF4dOu1FRDEytRwujnZzYIWpkaUk=
+Date: Tue, 13 Dec 2022 12:41:22 +0100
+From: Daniel Kiper <daniel.kiper@oracle.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Roger Pau Monne <roger.pau@citrix.com>, marmarek@invisiblethingslab.com,
+        Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+        xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/5] multiboot2: parse console= option when setting GOP
+ mode
+Message-ID: <Y5hk4m7HE6n9Tr9H@tomti.i.net-space.pl>
+References: <20221123154525.63068-1-roger.pau@citrix.com>
+ <20221123154525.63068-5-roger.pau@citrix.com>
+ <8f7e0393-8c0f-a924-7cee-25b9fca6f739@suse.com>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <8f7e0393-8c0f-a924-7cee-25b9fca6f739@suse.com>
+X-ClientProxiedBy: BE0P281CA0021.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:14::8) To BN0PR10MB4822.namprd10.prod.outlook.com
+ (2603:10b6:408:124::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6773:EE_
-X-MS-Office365-Filtering-Correlation-Id: e2e5c921-9d92-4a71-c6a3-08dadcfe8b42
+X-MS-TrafficTypeDiagnostic: BN0PR10MB4822:EE_|CH0PR10MB5386:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62971276-ad38-46d4-5355-08dadcfef94c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	4na9XTIPMtTlX9vSVrveEyO49QjKIJpTgCOD2IBT1ppehiI2tiDh/GBooHKmawJ+2jVYTsr1Prg4JJPY52nT9oRF1hu+u1w4WpPzVCjJgPW+Y+ZsIkoyq0RvlAEgYCgh0SQPSZjQlkjauEHwB8yH4FInvZdeD3m1gr3+z1VJFKySFAjJcGExAzICzbNJh9kbAv4OL+5Btj/QWROkL2yU3IySUN77JA+tGWxcNMuqZkg07BxY1yR/ZEh2j4YcMv1lsYujZRDhRDfihetqofnBm1BSZXbTWBOGNPZw6fnHi3FW8u5pcF9H4WH6KGXVY96+J8bwQ4KSpBQ35evZ/lU3S2AX+5Fk8onrqUQD1LMPLVjAa6lz9cxGwFZ/oMwVmqB9boUv1pV6acsPtbsK2tWYzYIiBHW4LGjEDTRKltuSdToc46cE4+Ed+k0xi5YzUegaGcKXO6D1HFEJpjOaxqlct+cMlrGg75BYleoYExP9H7GgKlMWjvvgF1Nf+cJtM9K1wOdz5SBVkUuDYuYQn78BCexN6S9Vjl382l/QAl0lQW4UaCZVNpScNElnXR27j2nJB0bf2Id7k/1W+uPnfH9594QwPjlG1Reo9M/hDKjbz0vzS8a2KD/Grt8++V01Q0+mUN44M7DQCWJYSiNNO8o1wZiZFCXoyXJjyTWs0a0RdIRbSulU+STNSM6FYuZnZ0u4BiaFjtCyE/u9oLkIP1/1S0qa6GZ0aoUMZA53SJNFkgQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(346002)(39860400002)(396003)(366004)(136003)(451199015)(38100700002)(31696002)(6486002)(86362001)(5660300002)(478600001)(66946007)(2906002)(41300700001)(66556008)(4326008)(8676002)(316002)(83380400001)(6506007)(186003)(26005)(8936002)(6512007)(66476007)(2616005)(31686004)(54906003)(6916009)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam-Message-Info: 
+	VwqZLvZ7tTxxBspHhx5TTasbuRIpNuQPJisiPuloz9tFdMTQPexBURtgBNKNm9vnJYd0vPcbU6iz4sgE/f6EfcwNcIFtbsLAtsU6bsC6swr103/gaFMtZ8kZS8+ZP9pDiVKxs8rw0r9ayPES4syCPp1Px7li23SjsifILU8dO9ydurUK98ZVowaSZ3cUTQEpAzxCPuA4IoLxYRand0bIVC35P2pd/txZv160EjBn56hs2jzMhRaLiO4f/R/YjSFc2cAdZDVcut3u9eFwnJqS3P9A+vq1SO103cRlDFirFBb/TjJhQ9fv8A3BMdxW5eTt1jynKdC3ooTAWBdXhQECA6KpfpFB2u63Lk4fBgzWidwqTpFXNOVHJDq6X6PAVPGZWM84TqBMHUH+UGfVEjJGc7bnOHU4O2eCsddvEywQntfd7Z+U5VGRC74CPdY3jJ/92r9G/6S2BUSHHO2E/ItNxgd3i/8HdyNb1M2gnQD8bhhD/rksL6kmhxFbvd0WVdAB8Duh/CmbpzI4GxhFzg8leFru55QFahfyp/0rc3BZpPVAjV4m3/vO90sTeyL9Q8ZPXT8y0WnVgYNgEx1maL/TK56ECHoK99SIvvD2RQpt5W/wGj57VS6M3ZbxAtZdKBcfMLFpSxlInxHtHlR2MmVNQw==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN0PR10MB4822.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(376002)(39860400002)(346002)(366004)(136003)(451199015)(2906002)(44832011)(38100700002)(26005)(8676002)(6512007)(41300700001)(6666004)(66556008)(6506007)(53546011)(9686003)(54906003)(6916009)(316002)(5660300002)(66476007)(4326008)(8936002)(86362001)(6486002)(478600001)(66946007)(186003)(83380400001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUdOaTh5TnJBdEVIbGFZQ0V3ZkJtZXZrdVM5bVluYWpKb04zNmxiRXdMK2da?=
- =?utf-8?B?VFZHZ2xkVTVMMFdyU24xelVIWHNkWG15QkdCVzV0aklZb0R4WVJxRXJTRFpv?=
- =?utf-8?B?aFVoWmdVQmN1RkduVFA0aC9SUm5HMis3WTNOV25wRExnNTBWNW5TekkzWmZi?=
- =?utf-8?B?S1RIK3lCK3JyV3dRMjB0WDhiU3dUdVo0WlUxMUJWUDZOMmFjT2lWdTVCckFn?=
- =?utf-8?B?eHVYS1lZTnRzMllTU1NCc0FPaEFsOVR2MThYNXRCMWdOK2lGZUlETVZIK1Rj?=
- =?utf-8?B?Q1h2Q3VoYkJKTVpaN2R4U21IMXgxV2E0Wjdha1R0bHd3QUowREt2OEh2U0hY?=
- =?utf-8?B?c21LMjE2REJhc2RwQzNKSGFHWDczR1Z1ZE1Sck1BaFgrZE5TRTcvcXZyMWFJ?=
- =?utf-8?B?MEJTRUxxNEZSYVhtQmw5RGlKUEtVMlNEUXRBZEZ3UCtkcWJQSDlhTkxUQkhB?=
- =?utf-8?B?Y210Szg3WDNrb3VBVkFSV3hQV1dsczRrYkNnRzMya0lsOXRPQThjWjVGRklJ?=
- =?utf-8?B?SWdkdjEvL0tzM1ZndGtrbzBRcTR0M1l3VHp3c3d1bisvOC8va2RkUWlMbEl1?=
- =?utf-8?B?cmlRTWMxcmFhYXZQRUpYU0FxUU8wZ0Z4UEhUd1Vrb09kTkE4amZTT3dNc3ps?=
- =?utf-8?B?RDBRenBaR1dXZVdQN3JCT1REZXIySTNkMHU4UjZ0dTFlN1Z3Y2xkZnN3aXJr?=
- =?utf-8?B?RytRZ0hMRDh1akFTSS9JWktpMGl2V2NWQVdKS3c1eDdOalZUTi9RTWZpSUpM?=
- =?utf-8?B?WHlyVk1yd0J4NUNmZmxwbU5nZHJyc1lrZFdaOC9SRVd6TW4wNkpSUGVEVmZm?=
- =?utf-8?B?eUJCQkVTWisyRStqVzEyMTFZazFHNFJWd0t3TDBxbHY5K2licmNScVFuMDBY?=
- =?utf-8?B?c29vZ3lLTWVmUXZmU1BGTHZIT3VzMXc2ZDZ3WjJ5NnpEbnhTME9pMERmTlpI?=
- =?utf-8?B?VDV6WklENVlyVE5vczFJbDlSemYrVWN6WUNVRHYyM3ltOTBnWDJFdm1INEF6?=
- =?utf-8?B?M294UnpRcm5wcnhqbjcvSUtMN1Z5STVGNnVxVnphdHZuK3BTSFVsZnR3Y1FP?=
- =?utf-8?B?TzJKa2ZJbFdGUmxkbllRWEdaajd0RVQ0aVlaQzl6cFRwcXVYVno0eFVVT2hB?=
- =?utf-8?B?YUZLZWMzUUZPQWxsVHRkbEhqWG5nc25yMzgvUEJOR0VNcVZsLzhvY1RIbTAx?=
- =?utf-8?B?d1RiVHRFaHIrb3k3REI3a2x3TUZGbGEzV3J3WmVIeU0vM3lOUERpdXkyQXhz?=
- =?utf-8?B?bGxReUxmOUd0Tk5MZ1RLMEJmd3IxOG9RTEFzSU1BZ3hNaTAxTWZyREhSQUYv?=
- =?utf-8?B?NUZ4MFovSDFnUW5STmpNRnN5emxsVlU5MXZ0NVVWeExSaTRQdmF0bm81bEVZ?=
- =?utf-8?B?OFJzT0xFVjZzVk1DaVpVeHF0TmRwaEpGZmtxcWJZNWQ2OG1sb24xa0ZjN2FP?=
- =?utf-8?B?dFVSTGFyczNNL1VwaXdrdFZKL3RyMXZ6UDQ0d2NXeko2UHNLVGV5MDEzYmU1?=
- =?utf-8?B?Y2tPZ1I4bFFodHhGYlR6SC9PUGprbE5RRVhqSjcxVk1hZUxSeVZOSzBncm1p?=
- =?utf-8?B?RlRiaDFOV2pxTDBsY3p0YllsYUNOMDF0RlZ5M3dhNU41bjlXcHBkb1M5aUlx?=
- =?utf-8?B?QWJhK21EN010U1grV0htV1pJNHRmWTJQYkEzVThtS0FXdVdUYXZaN2gyTU9X?=
- =?utf-8?B?L2NXQWdyZThjM3Rxa09aMlBaSE5wdDRqaSt6bXNwbTlCSFFFWEVjbVlYWkpw?=
- =?utf-8?B?ZzhIaUFEOHJEMkdMR0tMcUdubkNSNXZ4ZEtER0ZKRHM1eXdMMStNV3ZVa2xO?=
- =?utf-8?B?NFZaV09xb0NzS2MvYlF6azRvVUxST3BVcnhxTG9IMWJjWlRYTkNNVGg4VExD?=
- =?utf-8?B?dk1ESUJCd3FoNmdNeTRSOElOSWlUalBYNVhNakE4K0w3ak80NzNSaUpIY093?=
- =?utf-8?B?Z2R2UXI2VnQvN3VVbnJNMDk1T1ZweCtZVXNuZEh1L0dkcGxPVzVrdFBkSGgx?=
- =?utf-8?B?ZnoySW5lSElway8vbUR6WnpHbk5EdnduL01Td2FsK2M3TTNkazl5djF2S1RH?=
- =?utf-8?B?MTZycnNQalFkdzByRGdyUnJhcTJIUzlhY09tUTIrTkpLMElKa3I2c0k3NTVj?=
- =?utf-8?Q?uHuCQkzu8YbwW2Mj1NtWbhgZV?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2e5c921-9d92-4a71-c6a3-08dadcfe8b42
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: 
+	=?iso-8859-1?Q?yNI3K/3mTjjfZZpVs+2Mn7LU6jtMoKCJLKWMIKF0Q7WDNGgiQti/IEinK9?=
+ =?iso-8859-1?Q?XZ0sPvKO7DmBynfxOiA3Ll5YYQHCdMVtT/RqvrqsePKHVYCysYdL86jz+o?=
+ =?iso-8859-1?Q?n/DXQiOb02RQjduKc9PudHhziUjrBukwzUXTBRnLqFVidnOowdZP7gGwBD?=
+ =?iso-8859-1?Q?TKBGuaZP+rBTHPX6fC3Pmk198goduG9qVivcqqbUVrlqHFaaxUC2FtYJng?=
+ =?iso-8859-1?Q?beBUsWXwk8wQ5slL5/2EmdaKF5CHiK+310JXPPLjwcrjVh5wp4kOCxonBE?=
+ =?iso-8859-1?Q?V5kiGFizQKKNu8wGI1/lpUj8CmxzEbxsMoEJfoCdP9nAR8DJQby8JqQZdz?=
+ =?iso-8859-1?Q?AGqitr4/9j1KwhbFOY38OeJjYpOaUBTEOj+s76gbFeZt3oznHwsxGvE0Dq?=
+ =?iso-8859-1?Q?tEybpL0Z/pPSPyCcWnkAb12FuTJio9w8X9WIL5N8iXp54kSVKdd1M6kB7M?=
+ =?iso-8859-1?Q?S1z6KEVHazT97xP3mNtMLG//Judd9ntjX07vpp4ISLNsDcU3fiVGQEvazp?=
+ =?iso-8859-1?Q?kPz146njlSH0puYZfSzdTiBLcGEpUG6vusCmvBY7KZtANO3V1MlMupkShd?=
+ =?iso-8859-1?Q?knPpzOfIJ74cX9uaTv6QqCfGqfN+4H8V+S+9cACYVITMNkv9WHNJ6lMvSC?=
+ =?iso-8859-1?Q?Kbz6B9XZCrRU/H3dXceg7CX6NgpYJ1Heymomk10p/8SlJAQ7I9tMcQuLoS?=
+ =?iso-8859-1?Q?CQ2JsDqcEbETIeuWTavrCGN2lOnUjuOx1s866GJgjENVC2coOGkwE3dv8E?=
+ =?iso-8859-1?Q?GPCMw9tSFWWXOt/L5ngZZZP8zxquk3+PF5qmt25ZVKPeWd7ArSuNo2OivX?=
+ =?iso-8859-1?Q?cy92mxzixr8I+ra2R0ckHCbe1PJTnuJ/HVjpssUaSRc7Ijkhb110nwgc50?=
+ =?iso-8859-1?Q?aluZHGzw9sBmVTvte3mQDlRVJeQMHICkz6RCzKKbLbP+nHCtlTJSrnjKs9?=
+ =?iso-8859-1?Q?nvyjKGODJk0rlNNBM4f1wig/LuygX6Xi7DiJPSD7ojZPffdXDiCaDzeujb?=
+ =?iso-8859-1?Q?+tRMhg0dEIEG0GPphENm0s8sEcXJ7n4JVt3hXgXK7pqxEnp264U8E/QP9z?=
+ =?iso-8859-1?Q?510n29SznYCQoGdFw1RgUR6un0Bfelq2TIh/GaCzObDEQxRic2Xnf1cg1m?=
+ =?iso-8859-1?Q?JgUfB62jCp1/JI1Gr/bZ78LyOo5sBhXvxARqBTyDa1lkYJzAuwQMvj209r?=
+ =?iso-8859-1?Q?+P0g9i98UUxmazkkgG1NCXloKvQZeMozVkN7smzeWtsVnMpTFLv/lCvYoI?=
+ =?iso-8859-1?Q?04CUkJVKY4BC0xp0yntwc0tjDa4M2NEQgKgJNXEDdGl9uDSg/d71oAmHkf?=
+ =?iso-8859-1?Q?/UyBauGKD9wg7j3tKgPY6bab1ky2Ca1ngU5N6Z9rP7wiAJXPBIYIREf94G?=
+ =?iso-8859-1?Q?9neoukeDvE9oW0rJ7Gr2oT4kLWoaObPwLu3eWAGbLjp1S46h7ttytO/s7i?=
+ =?iso-8859-1?Q?uFZ6e6ITwukF4QZVIa0iGxXCTg3x9T7r6QFyCETxLYY2r4eoQ9LuC5x4AW?=
+ =?iso-8859-1?Q?MR5Jct00ygHoA8EOAtdjEZXu39dO1Rwlu1gzCkzXs2NqGHIkYAdr+Dqgbv?=
+ =?iso-8859-1?Q?+tHn6UrwjHiFtxZ4IUXBPhn695Zn46Z0/GpJhNSADH6ZrvbytOxXVGfsZg?=
+ =?iso-8859-1?Q?QC5B6kF42INZMQNh/aiJDmTwlyvRlB9j295uYgLjPHU3vMFwbbF1qdAQ?=
+ =?iso-8859-1?Q?=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62971276-ad38-46d4-5355-08dadcfef94c
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR10MB4822.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 11:38:24.3809
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Dec 2022 11:41:29.1022
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6cCeR+a6vioXWRsXuMuLZbgpv5D8icjQ8jmW2a3eV1PNFEvr4mHNilgJC1/2VFWzOPksGINT0BQEgV52gDo57w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6773
+X-MS-Exchange-CrossTenant-UserPrincipalName: FNDvOkEWm6xN+EoQUDfAXHS5524Q7SqI+gQIP0geHnBNkAfQRYBmG/rmfIPmjqe9E4rpxzmkBEs2btV8h3ssUw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB5386
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.205,Aquarius:18.0.923,Hydra:6.0.545,FMLib:17.11.122.1
+ definitions=2022-12-13_03,2022-12-13_01,2022-06-22_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0 spamscore=0
+ mlxlogscore=924 adultscore=0 malwarescore=0 phishscore=0 bulkscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2210170000 definitions=main-2212130103
+X-Proofpoint-ORIG-GUID: BEtBnZhvN8Qcx1puRV4edxexwauOGRwu
+X-Proofpoint-GUID: BEtBnZhvN8Qcx1puRV4edxexwauOGRwu
 
-All callers convert frame numbers (perhaps in turn derived from struct
-page_info pointers) to an address, just for the function to convert it
-back to a frame number (as the first step of paddr_to_pdx()). Replace
-the function by mfn_to_nid() plus a page_to_nid() wrapper macro. Replace
-call sites by the respectively most suitable one.
+Sorry for late reply...
 
-While there also introduce a !NUMA stub, eliminating the need for Arm
-(and potentially other ports) to carry one individually.
+On Mon, Dec 05, 2022 at 04:10:28PM +0100, Jan Beulich wrote:
+> On 23.11.2022 16:45, Roger Pau Monne wrote:
+> > Only set the GOP mode if vga is selected in the console option,
+> > otherwise just fetch the information from the current mode in order to
+> > make it available to dom0.
+> >
+> > Introduce support for passing the command line to the efi_multiboot2()
+> > helper, and parse the console= option if present.
+> >
+> > Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+> > ---
+> > I'm unsure why the parsing of the multiboot2 tags is done in assembly,
+> > it could very well be done in efi_multiboot2() in C, but I don't want
+> > to switch that code now.
+>
+> I guess that's mainly mirroring the non-EFI boot path, where the amount
+> of work needed to eventually enter C land is quite a bit larger?
+> Anything beyond that Daniel may want to point out.
 
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-At the top of free_heap_pages() mfn_to_nid() could also be used, since
-the MFN is calculated immediately ahead. The choice of using
-page_to_nid() (for now at least) was with the earlier patch's RFC in
-mind, addressing of which may require to make mfn_to_nid() do weaker
-checking than page_to_nid().
+Yeah, you are right, its mainly mirroring the non-EFI boot path and it
+evolved from that code. However, if you want to move it to C go for it...
 
---- a/xen/arch/arm/include/asm/numa.h
-+++ b/xen/arch/arm/include/asm/numa.h
-@@ -11,11 +11,6 @@ typedef u8 nodeid_t;
- #define cpu_to_node(cpu) 0
- #define node_to_cpumask(node)   (cpu_online_map)
- 
--static inline __attribute__((pure)) nodeid_t phys_to_nid(paddr_t addr)
--{
--    return 0;
--}
--
- /*
-  * TODO: make first_valid_mfn static when NUMA is supported on Arm, this
-  * is required because the dummy helpers are using it.
---- a/xen/arch/x86/mm/p2m-pod.c
-+++ b/xen/arch/x86/mm/p2m-pod.c
-@@ -492,7 +492,7 @@ p2m_pod_offline_or_broken_replace(struct
- {
-     struct domain *d;
-     struct p2m_domain *p2m;
--    nodeid_t node = phys_to_nid(page_to_maddr(p));
-+    nodeid_t node = page_to_nid(p);
- 
-     if ( !(d = page_get_owner(p)) || !(p2m = p2m_get_hostp2m(d)) )
-         return;
---- a/xen/arch/x86/x86_64/mm.c
-+++ b/xen/arch/x86/x86_64/mm.c
-@@ -565,7 +565,7 @@ void __init paging_init(void)
-                 if ( n == CNT )
-                     ++holes;
-                 else if ( k == holes )
--                    memflags = MEMF_node(phys_to_nid(mfn_to_maddr(mfn)));
-+                    memflags = MEMF_node(mfn_to_nid(mfn));
-             }
-             if ( k == holes )
-             {
-@@ -600,7 +600,7 @@ void __init paging_init(void)
-             mfn = _mfn(MFN(i) + n * PDX_GROUP_COUNT);
-             if ( mfn_valid(mfn) )
-             {
--                memflags = MEMF_node(phys_to_nid(mfn_to_maddr(mfn)));
-+                memflags = MEMF_node(mfn_to_nid(mfn));
-                 break;
-             }
-         }
-@@ -677,7 +677,7 @@ void __init paging_init(void)
-             mfn = _mfn(MFN(i) + n * PDX_GROUP_COUNT);
-             if ( mfn_valid(mfn) )
-             {
--                memflags = MEMF_node(phys_to_nid(mfn_to_maddr(mfn)));
-+                memflags = MEMF_node(mfn_to_nid(mfn));
-                 break;
-             }
-         }
---- a/xen/common/numa.c
-+++ b/xen/common/numa.c
-@@ -671,15 +671,15 @@ static void cf_check dump_numa(unsigned
- 
-     for_each_online_node ( i )
-     {
--        paddr_t pa = pfn_to_paddr(node_start_pfn(i) + 1);
-+        mfn_t mfn = _mfn(node_start_pfn(i) + 1);
- 
-         printk("NODE%u start->%lu size->%lu free->%lu\n",
-                i, node_start_pfn(i), node_spanned_pages(i),
-                avail_node_heap_pages(i));
--        /* Sanity check phys_to_nid() */
--        if ( phys_to_nid(pa) != i )
--            printk("phys_to_nid(%"PRIpaddr") -> %d should be %u\n",
--                   pa, phys_to_nid(pa), i);
-+        /* Sanity check mfn_to_nid() */
-+        if ( node_spanned_pages(i) && mfn_to_nid(mfn) != i )
-+            printk("mfn_to_nid(%"PRI_mfn") -> %d should be %u\n",
-+                   mfn_x(mfn), mfn_to_nid(mfn), i);
-     }
- 
-     j = cpumask_first(&cpu_online_map);
-@@ -721,7 +721,7 @@ static void cf_check dump_numa(unsigned
-         spin_lock(&d->page_alloc_lock);
-         page_list_for_each ( page, &d->page_list )
-         {
--            i = phys_to_nid(page_to_maddr(page));
-+            i = page_to_nid(page);
-             page_num_node[i]++;
-         }
-         spin_unlock(&d->page_alloc_lock);
---- a/xen/common/page_alloc.c
-+++ b/xen/common/page_alloc.c
-@@ -971,7 +971,7 @@ static struct page_info *alloc_heap_page
-         return NULL;
-     }
- 
--    node = phys_to_nid(page_to_maddr(pg));
-+    node = page_to_nid(pg);
-     zone = page_to_zone(pg);
-     buddy_order = PFN_ORDER(pg);
- 
-@@ -1078,7 +1078,7 @@ static struct page_info *alloc_heap_page
- /* Remove any offlined page in the buddy pointed to by head. */
- static int reserve_offlined_page(struct page_info *head)
- {
--    unsigned int node = phys_to_nid(page_to_maddr(head));
-+    unsigned int node = page_to_nid(head);
-     int zone = page_to_zone(head), i, head_order = PFN_ORDER(head), count = 0;
-     struct page_info *cur_head;
-     unsigned int cur_order, first_dirty;
-@@ -1443,7 +1443,7 @@ static void free_heap_pages(
- {
-     unsigned long mask;
-     mfn_t mfn = page_to_mfn(pg);
--    unsigned int i, node = phys_to_nid(mfn_to_maddr(mfn));
-+    unsigned int i, node = page_to_nid(pg);
-     unsigned int zone = page_to_zone(pg);
-     bool pg_offlined = false;
- 
-@@ -1487,7 +1487,7 @@ static void free_heap_pages(
-                  !page_state_is(predecessor, free) ||
-                  (predecessor->count_info & PGC_static) ||
-                  (PFN_ORDER(predecessor) != order) ||
--                 (phys_to_nid(page_to_maddr(predecessor)) != node) )
-+                 (page_to_nid(predecessor) != node) )
-                 break;
- 
-             check_and_stop_scrub(predecessor);
-@@ -1511,7 +1511,7 @@ static void free_heap_pages(
-                  !page_state_is(successor, free) ||
-                  (successor->count_info & PGC_static) ||
-                  (PFN_ORDER(successor) != order) ||
--                 (phys_to_nid(page_to_maddr(successor)) != node) )
-+                 (page_to_nid(successor) != node) )
-                 break;
- 
-             check_and_stop_scrub(successor);
-@@ -1574,7 +1574,7 @@ static unsigned long mark_page_offline(s
- static int reserve_heap_page(struct page_info *pg)
- {
-     struct page_info *head = NULL;
--    unsigned int i, node = phys_to_nid(page_to_maddr(pg));
-+    unsigned int i, node = page_to_nid(pg);
-     unsigned int zone = page_to_zone(pg);
- 
-     for ( i = 0; i <= MAX_ORDER; i++ )
-@@ -1794,7 +1794,7 @@ static void _init_heap_pages(const struc
-                              bool need_scrub)
- {
-     unsigned long s, e;
--    unsigned int nid = phys_to_nid(page_to_maddr(pg));
-+    unsigned int nid = page_to_nid(pg);
- 
-     s = mfn_x(page_to_mfn(pg));
-     e = mfn_x(mfn_add(page_to_mfn(pg + nr_pages - 1), 1));
-@@ -1869,7 +1869,7 @@ static void init_heap_pages(
- #ifdef CONFIG_SEPARATE_XENHEAP
-         unsigned int zone = page_to_zone(pg);
- #endif
--        unsigned int nid = phys_to_nid(page_to_maddr(pg));
-+        unsigned int nid = page_to_nid(pg);
-         unsigned long left = nr_pages - i;
-         unsigned long contig_pages;
- 
-@@ -1893,7 +1893,7 @@ static void init_heap_pages(
-                 break;
- #endif
- 
--            if ( nid != (phys_to_nid(page_to_maddr(pg + contig_pages))) )
-+            if ( nid != (page_to_nid(pg + contig_pages)) )
-                 break;
-         }
- 
-@@ -1934,7 +1934,7 @@ void __init end_boot_allocator(void)
-     {
-         struct bootmem_region *r = &bootmem_region_list[i];
-         if ( (r->s < r->e) &&
--             (phys_to_nid(pfn_to_paddr(r->s)) == cpu_to_node(0)) )
-+             (mfn_to_nid(_mfn(r->s)) == cpu_to_node(0)) )
-         {
-             init_heap_pages(mfn_to_page(_mfn(r->s)), r->e - r->s);
-             r->e = r->s;
---- a/xen/include/xen/numa.h
-+++ b/xen/include/xen/numa.h
-@@ -1,6 +1,7 @@
- #ifndef _XEN_NUMA_H
- #define _XEN_NUMA_H
- 
-+#include <xen/mm-frame.h>
- #include <asm/numa.h>
- 
- #define NUMA_NO_NODE     0xFF
-@@ -68,12 +69,15 @@ struct node_data {
- 
- extern struct node_data node_data[];
- 
--static inline nodeid_t __attribute_pure__ phys_to_nid(paddr_t addr)
-+static inline nodeid_t __attribute_pure__ mfn_to_nid(mfn_t mfn)
- {
-     nodeid_t nid;
--    ASSERT((paddr_to_pdx(addr) >> memnode_shift) < memnodemapsize);
--    nid = memnodemap[paddr_to_pdx(addr) >> memnode_shift];
-+    unsigned long pdx = mfn_to_pdx(mfn);
-+
-+    ASSERT((pdx >> memnode_shift) < memnodemapsize);
-+    nid = memnodemap[pdx >> memnode_shift];
-     ASSERT(nid < MAX_NUMNODES && node_data[nid].node_spanned_pages);
-+
-     return nid;
- }
- 
-@@ -102,6 +106,15 @@ extern bool numa_update_node_memblks(nod
-                                      paddr_t start, paddr_t size, bool hotplug);
- extern void numa_set_processor_nodes_parsed(nodeid_t node);
- 
-+#else
-+
-+static inline nodeid_t __attribute_pure__ mfn_to_nid(mfn_t mfn)
-+{
-+    return 0;
-+}
-+
- #endif
- 
-+#define page_to_nid(pg) mfn_to_nid(page_to_mfn(pg))
-+
- #endif /* _XEN_NUMA_H */
-
+Daniel
 
