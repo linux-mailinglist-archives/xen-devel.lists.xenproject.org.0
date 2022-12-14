@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A3364C376
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 06:20:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461678.719808 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF96A64C377
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 06:20:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461679.719820 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5KBM-0001se-Mf; Wed, 14 Dec 2022 05:19:52 +0000
+	id 1p5KBO-00028d-Uu; Wed, 14 Dec 2022 05:19:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461678.719808; Wed, 14 Dec 2022 05:19:52 +0000
+Received: by outflank-mailman (output) from mailman id 461679.719820; Wed, 14 Dec 2022 05:19:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5KBM-0001qD-Jp; Wed, 14 Dec 2022 05:19:52 +0000
-Received: by outflank-mailman (input) for mailman id 461678;
- Wed, 14 Dec 2022 05:19:50 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p5KBO-00026H-Qe; Wed, 14 Dec 2022 05:19:54 +0000
+Received: by outflank-mailman (input) for mailman id 461679;
+ Wed, 14 Dec 2022 05:19:53 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XtkE=4M=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1p5KBK-0001q7-Qg
- for xen-devel@lists.xen.org; Wed, 14 Dec 2022 05:19:50 +0000
-Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
- [2607:f8b0:4864:20::1031])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id edb919ce-7b6e-11ed-8fd2-01056ac49cbb;
- Wed, 14 Dec 2022 06:19:49 +0100 (CET)
-Received: by mail-pj1-x1031.google.com with SMTP id
- b13-20020a17090a5a0d00b0021906102d05so5865576pjd.5
- for <xen-devel@lists.xen.org>; Tue, 13 Dec 2022 21:19:49 -0800 (PST)
+ id 1p5KBN-00023h-PK
+ for xen-devel@lists.xen.org; Wed, 14 Dec 2022 05:19:53 +0000
+Received: from mail-pl1-x62f.google.com (mail-pl1-x62f.google.com
+ [2607:f8b0:4864:20::62f])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ef871dfe-7b6e-11ed-91b6-6bf2151ebd3b;
+ Wed, 14 Dec 2022 06:19:52 +0100 (CET)
+Received: by mail-pl1-x62f.google.com with SMTP id x2so901119plb.13
+ for <xen-devel@lists.xen.org>; Tue, 13 Dec 2022 21:19:52 -0800 (PST)
 Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
- 3-20020a17090a08c300b0021937b2118bsm395935pjn.54.2022.12.13.21.19.46
+ g12-20020aa79dcc000000b0057a9b146592sm772871pfq.186.2022.12.13.21.19.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Dec 2022 21:19:46 -0800 (PST)
+ Tue, 13 Dec 2022 21:19:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,35 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: edb919ce-7b6e-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: ef871dfe-7b6e-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=k9S/I5H56OQfUtRRUB+uh1kRSu48OPEPKhm4BNOTasE=;
-        b=FVIMjHJEap/07K1ESAvavwHEl5dK5kB2XpHslc/awSoiNXKs37VzUHISOmjRKJ1nQB
-         X7iQwenOKxGTe8qn6b7Lsy6f24jLQvzo10qhhNPSW62eatbpXstLzN1r/gWTktjS1h1P
-         lbTa2YC4D3mXKpYxk4/Mb5ZGW0hNW4rdknTgW/juKEwPUxGhiGCIODSA+DlU+F3XcABs
-         Z6gDubR5phHt5FlhjgES9aWmpB35zXD0KtweN/RBRUmgoZ0Wm1oUfLqXWCtCxpyv8IWJ
-         XSa0ZnNMcJ4stMfM28rDgLD47DOaUdvGMz/5enoburENJaeirX/dJqaOtxfsgxP5nPJY
-         cC9w==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=9pNNo2wAa9SBYQflEdFOWHayo9Jk6WnxOmcU3FXbm+k=;
+        b=vPBidiMsSs1V/c1JcHhGBAUmkAKkVLDnyfoGTj0ec5mpDO6LrXlL5eC5Wud+QTNUSc
+         +A8wJ1UKMKgO9l/8LBZJuvKSVJbYv6jjSWQewcfbOjVJZwKNq+k7c9k9VMg81IGgdj0C
+         UzXyurN0I+mJOQBI7R1AYLc+wZPmDPvw3CtlEgDGuhiwaOyOGNwqT+kQpqiSeINVKqOv
+         6J3yiNLoPjY7sDcyOXyCdU7E9I39ukyWZDhxXP3r5J1hmaJFMQJOqaVZ+i6gB0b5LAUf
+         m58nRlboeJOMzr6uDtaDxRiya0/YigErLtk9QOGu5xmLeq4OazlmNgcNoa9754ZYzit9
+         qLXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=k9S/I5H56OQfUtRRUB+uh1kRSu48OPEPKhm4BNOTasE=;
-        b=4jsh0dvlx+UmOHkXTFGR9/dHABVLXKQBIr5KrPQBbHakNJJ6wgG+4Hsos8TcgKMRV4
-         1NTSv3O1dddqIKaD+r1i48sN0yYr/ssw9PhdtNVqLsZAsa4zcVJfMq3gItaErgD1DZi8
-         aG2mG2fnMb/vyCD+4fWCIFphh46+XrdDAUtUDyMGzSydEM5piNaGuXvq2xud4IMkyMHR
-         4HaRYYSuHD6Zo4Ccg4yIzCNbqYRvbHNmmnFUFak/KMmE6GZmYrr0BFsfq21mqNqMXGXG
-         TnDYxe5qOVFxp1u7yq43FDth2vjC8c8IDE06uDAKqV2M6eP0FX3ElP806Ths9LtzkG1r
-         eJIw==
-X-Gm-Message-State: ANoB5pmTKyfGIH9/8R/h63kRxlGwtF3qEeolIdoDg1ySgYRY1gK2zmUe
-	sf/8Gp4ODLJ1buFB7PWt2rgjMUbdBW6E/zwD
-X-Google-Smtp-Source: AA0mqf6P1nJKn8c3Ys2Jse0scUjnMOELsQioU6D5lAv/hgsGdIoRvBu5qRoLyyDDEmELm6bGpL30tA==
-X-Received: by 2002:a17:90a:17e8:b0:21a:2306:a9bc with SMTP id q95-20020a17090a17e800b0021a2306a9bcmr23173134pja.7.1670995187682;
-        Tue, 13 Dec 2022 21:19:47 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=9pNNo2wAa9SBYQflEdFOWHayo9Jk6WnxOmcU3FXbm+k=;
+        b=4hwvTG6815BQ9ZkMlpRv4XNqwWnHjZnL6qCOyx26ehLmb4b2eJpx65uItyCY5WnLlI
+         ZgmgWrKYlLYAUIfax4AyLizSowMFDvXUZ+I7X2vdyFp5HVYAwSn9ERA8iEfjU43wTrVk
+         IjqCf65NH/C0AO0iMZ7/b7WSXf9+gzgaW5g1tq7WAVnMBPjPPim7wFPwKubBe+l212mb
+         4gMh+JpMYkmsNXJxRhnkmNP/AgNwaaYV6TcjIsMc0ON/WBxOQAjgxAnaNVApUT9DnUIy
+         lXATJjZGgG25GB2uZZnwgkmjahfKLxAsjr6Tgk0D35ztzE3785x3SWNy4viY/o5JQqdH
+         RDEg==
+X-Gm-Message-State: ANoB5pl+2ylqQUNgW/i/0xV0aTzXzancMVVVy1UR40ujoUouPOygdukj
+	Mu6zRdN9VXVgN1HnfUfZgV554+rftQiuPXbG
+X-Google-Smtp-Source: AA0mqf4IKF0BB9KlNsFy27Ln0zN6iHwhFMRIlRM4gMmaAbVwAc08amCXJV5zQ21cMS2+SkUHI33BzA==
+X-Received: by 2002:a05:6a21:1589:b0:a7:9e22:8cc5 with SMTP id nr9-20020a056a21158900b000a79e228cc5mr23150716pzb.29.1670995190699;
+        Tue, 13 Dec 2022 21:19:50 -0800 (PST)
 From: Viresh Kumar <viresh.kumar@linaro.org>
 To: xen-devel@lists.xen.org,
 	Juergen Gross <jgross@suse.com>,
@@ -86,103 +86,40 @@ Cc: Viresh Kumar <viresh.kumar@linaro.org>,
 	Mathieu Poirier <mathieu.poirier@linaro.com>,
 	Mike Holmes <mike.holmes@linaro.org>,
 	Oleksandr Tyshchenko <olekstysh@gmail.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH V10 0/3] toolstack support for generic virtio devices on Arm
-Date: Wed, 14 Dec 2022 10:49:39 +0530
-Message-Id: <cover.1670994930.git.viresh.kumar@linaro.org>
+	Wei Liu <wl@xen.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Subject: [PATCH V10 1/3] libxl: Add support for generic virtio device
+Date: Wed, 14 Dec 2022 10:49:40 +0530
+Message-Id: <c8a547d357870a4aec350ac6f2ab258e81fcb7f7.1670994930.git.viresh.kumar@linaro.org>
 X-Mailer: git-send-email 2.31.1.272.g89b43f80a514
+In-Reply-To: <cover.1670994930.git.viresh.kumar@linaro.org>
+References: <cover.1670994930.git.viresh.kumar@linaro.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+This patch adds basic support for configuring and assisting generic
+Virtio backends, which could run in any domain.
 
-This patchset adds toolstack support for I2C, GPIO and generic virtio devices.
-This is inspired from the work done by Oleksandr for the Disk device.
+An example of domain configuration for mmio based Virtio I2C device is:
+virtio = ["type=virtio,device22,transport=mmio"]
 
-This is developed as part of Linaro's Project Stratos, where we are working
-towards Hypervisor agnostic Rust based backends [1].
+To make this work on Arm, allocate Virtio MMIO params (IRQ and memory
+region) and pass them to the backend and update guest device-tree to
+create a DT node for the Virtio devices.
 
-This is based of Xen's master branch.
+Add special support for I2C and GPIO devices, which require the
+"compatible" DT property to be set, among other device specific
+properties. Support for generic virtio devices is also added, which just
+need a MMIO node but not any special DT properties, for such devices the
+user needs to pass "virtio,device" in the "type" string.
 
-V9->V10:
-- Swap I2C/GPIO compatible strings, they were wrongly added earlier.
-- Arrange tags in timely order and add new ones.
+The parsing of generic virtio device configurations will be done in a
+separate commit.
 
-V8->V9:
-- Drop changes to tools/ocaml/libs/xl/genwrap.py file.
-- Replace GPIO with I2C in a comment.
-- Add Reviewed-by tags.
-
-V7->V8:
-- Use macros for compatible string names.
-- Use strcmp() instead of strncmp() at several places.
-- Rename "virtio,devices" to "virtio,device" in commit log.
-- Remove extra call to fdt_end_node().
-- Disallow "unknown" in xenstore transport.
-- Use libxl__strdup().
-- Update documentation.
-- Remove DEVICE_ADDREMOVE(virtio).
-
-V6->V7:
-- Support generic virtio devices too. They are passed with type=virtio,device,
-  and we only create the MMIO DT node for them.
-- Add links to DT bindings of I2C and GPIO, in code and documentation.
-- Call libxl__device_add() for all hypervisor types.
-- Add (0, "UNKNOWN") for libxl_virtio_transport.
-- Removed libxl_virtio_backend and libxl_virtioinfo, as they were unused.
-- Remove unnecessary stuff from libxl__virtio_from_xenstore() and add support
-  for type and transport.
-- Add backend=domid in documentation and replace compatible with type.
-- Improved commit logs.
-
-V5->V6:
-- The cleanup patches are sent separately [2].
-- We don't add I2C or GPIO specific device changes anymore, rather we create
-  generic "virtio" devices. The "type" of a virtio devices helps us identify the
-  right device, and create an entry in the DT node. The same can be used for all
-  Virtio devices now.
-- Update man page xl.cfg.
-
-V4->V5:
-- Fixed indentation at few places.
-- Removed/added blank lines.
-- Added few comments.
-- Added review tags from Oleksandr.
-- Rebased over latest staging branch.
-
-V3->V4:
-- Update virtio_enabled independently of all devices, so we don't miss setting
-  it to true.
-
-- Add iommu handling for i2c/gpio and move it as part of
-  make_virtio_mmio_node_common(), which gets backend_domid parameter as a
-  result.
-
-V2->V3:
-- Rebased over latest tree and made changes according to changes in Oleksandr's
-  patches from sometime back.
-- Minor cleanups.
-
-V1->V2:
-- Patches 3/6 and 4/6 are new.
-- Patches 5/6 and 6/6 updated based on the above two patches.
-- Added link to the bindings for I2C and GPIO.
-- Rebased over latest master branch.
-
-
-Thanks.
-
---
-Viresh
-
-[1] https://lore.kernel.org/xen-devel/20220414092358.kepxbmnrtycz7mhe@vireshk-i7/
-
-Viresh Kumar (3):
-  libxl: Add support for generic virtio device
-  xl: Add support to parse generic virtio device
-  docs: Add documentation for generic virtio devices
-
- docs/man/xl.cfg.5.pod.in                  |  33 +++++
+Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
  tools/libs/light/Makefile                 |   1 +
  tools/libs/light/libxl_arm.c              | 100 +++++++++++++++
  tools/libs/light/libxl_create.c           |   4 +
@@ -190,10 +127,390 @@ Viresh Kumar (3):
  tools/libs/light/libxl_types.idl          |  18 +++
  tools/libs/light/libxl_types_internal.idl |   1 +
  tools/libs/light/libxl_virtio.c           | 144 ++++++++++++++++++++++
- tools/xl/xl_parse.c                       |  81 ++++++++++++
- 9 files changed, 388 insertions(+)
+ 7 files changed, 274 insertions(+)
  create mode 100644 tools/libs/light/libxl_virtio.c
 
+diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
+index 374be1cfab25..4fddcc6f51d7 100644
+--- a/tools/libs/light/Makefile
++++ b/tools/libs/light/Makefile
+@@ -106,6 +106,7 @@ OBJS-y += libxl_vdispl.o
+ OBJS-y += libxl_pvcalls.o
+ OBJS-y += libxl_vsnd.o
+ OBJS-y += libxl_vkb.o
++OBJS-y += libxl_virtio.o
+ OBJS-y += libxl_genid.o
+ OBJS-y += _libxl_types.o
+ OBJS-y += libxl_flask.o
+diff --git a/tools/libs/light/libxl_arm.c b/tools/libs/light/libxl_arm.c
+index fa3d61f1e882..ddc7b2a15975 100644
+--- a/tools/libs/light/libxl_arm.c
++++ b/tools/libs/light/libxl_arm.c
+@@ -113,6 +113,19 @@ int libxl__arch_domain_prepare_config(libxl__gc *gc,
+         }
+     }
+ 
++    for (i = 0; i < d_config->num_virtios; i++) {
++        libxl_device_virtio *virtio = &d_config->virtios[i];
++
++        if (virtio->transport != LIBXL_VIRTIO_TRANSPORT_MMIO)
++            continue;
++
++        rc = alloc_virtio_mmio_params(gc, &virtio->base, &virtio->irq,
++                                      &virtio_mmio_base, &virtio_mmio_irq);
++
++        if (rc)
++            return rc;
++    }
++
+     /*
+      * Every virtio-mmio device uses one emulated SPI. If Virtio devices are
+      * present, make sure that we allocate enough SPIs for them.
+@@ -956,6 +969,79 @@ static int make_virtio_mmio_node(libxl__gc *gc, void *fdt, uint64_t base,
+     return fdt_end_node(fdt);
+ }
+ 
++/*
++ * The DT bindings for I2C device are present here:
++ *
++ * https://www.kernel.org/doc/Documentation/devicetree/bindings/i2c/i2c-virtio.yaml
++ */
++static int make_virtio_mmio_node_i2c(libxl__gc *gc, void *fdt)
++{
++    int res;
++
++    res = fdt_begin_node(fdt, "i2c");
++    if (res) return res;
++
++    res = fdt_property_compat(gc, fdt, 1, VIRTIO_DEVICE_TYPE_I2C);
++    if (res) return res;
++
++    return fdt_end_node(fdt);
++}
++
++/*
++ * The DT bindings for GPIO device are present here:
++ *
++ * https://www.kernel.org/doc/Documentation/devicetree/bindings/gpio/gpio-virtio.yaml
++ */
++static int make_virtio_mmio_node_gpio(libxl__gc *gc, void *fdt)
++{
++    int res;
++
++    res = fdt_begin_node(fdt, "gpio");
++    if (res) return res;
++
++    res = fdt_property_compat(gc, fdt, 1, VIRTIO_DEVICE_TYPE_GPIO);
++    if (res) return res;
++
++    res = fdt_property(fdt, "gpio-controller", NULL, 0);
++    if (res) return res;
++
++    res = fdt_property_cell(fdt, "#gpio-cells", 2);
++    if (res) return res;
++
++    res = fdt_property(fdt, "interrupt-controller", NULL, 0);
++    if (res) return res;
++
++    res = fdt_property_cell(fdt, "#interrupt-cells", 2);
++    if (res) return res;
++
++    return fdt_end_node(fdt);
++}
++
++static int make_virtio_mmio_node_device(libxl__gc *gc, void *fdt, uint64_t base,
++                                        uint32_t irq, const char *type,
++                                        uint32_t backend_domid)
++{
++    int res;
++
++    res = make_virtio_mmio_node_common(gc, fdt, base, irq, backend_domid);
++    if (res) return res;
++
++    /* Add device specific nodes */
++    if (!strcmp(type, VIRTIO_DEVICE_TYPE_I2C)) {
++        res = make_virtio_mmio_node_i2c(gc, fdt);
++        if (res) return res;
++    } else if (!strcmp(type, VIRTIO_DEVICE_TYPE_GPIO)) {
++        res = make_virtio_mmio_node_gpio(gc, fdt);
++        if (res) return res;
++    } else if (strcmp(type, VIRTIO_DEVICE_TYPE_GENERIC)) {
++        /* Doesn't match generic virtio device */
++        LOG(ERROR, "Invalid type for virtio device: %s", type);
++        return -EINVAL;
++    }
++
++    return fdt_end_node(fdt);
++}
++
+ static const struct arch_info *get_arch_info(libxl__gc *gc,
+                                              const struct xc_dom_image *dom)
+ {
+@@ -1277,6 +1363,20 @@ static int libxl__prepare_dtb(libxl__gc *gc, libxl_domain_config *d_config,
+             }
+         }
+ 
++        for (i = 0; i < d_config->num_virtios; i++) {
++            libxl_device_virtio *virtio = &d_config->virtios[i];
++
++            if (virtio->transport != LIBXL_VIRTIO_TRANSPORT_MMIO)
++                continue;
++
++            if (virtio->backend_domid != LIBXL_TOOLSTACK_DOMID)
++                iommu_needed = true;
++
++            FDT( make_virtio_mmio_node_device(gc, fdt, virtio->base,
++                                              virtio->irq, virtio->type,
++                                              virtio->backend_domid) );
++        }
++
+         /*
+          * The iommu node should be created only once for all virtio-mmio
+          * devices.
+diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+index 612eacfc7fac..beec3f6b6fec 100644
+--- a/tools/libs/light/libxl_create.c
++++ b/tools/libs/light/libxl_create.c
+@@ -1752,6 +1752,10 @@ static void domcreate_launch_dm(libxl__egc *egc, libxl__multidev *multidev,
+         libxl__device_add(gc, domid, &libxl__pvcallsif_devtype,
+                           &d_config->pvcallsifs[i]);
+ 
++    for (i = 0; i < d_config->num_virtios; i++)
++        libxl__device_add(gc, domid, &libxl__virtio_devtype,
++                          &d_config->virtios[i]);
++
+     switch (d_config->c_info.type) {
+     case LIBXL_DOMAIN_TYPE_HVM:
+     {
+diff --git a/tools/libs/light/libxl_internal.h b/tools/libs/light/libxl_internal.h
+index a7c447c10e5f..0dc8b8f210cb 100644
+--- a/tools/libs/light/libxl_internal.h
++++ b/tools/libs/light/libxl_internal.h
+@@ -166,6 +166,11 @@
+ /* Convert pfn to physical address space. */
+ #define pfn_to_paddr(x) ((uint64_t)(x) << XC_PAGE_SHIFT)
+ 
++/* Virtio device types */
++#define VIRTIO_DEVICE_TYPE_GENERIC   "virtio,device"
++#define VIRTIO_DEVICE_TYPE_I2C       "virtio,device22"
++#define VIRTIO_DEVICE_TYPE_GPIO      "virtio,device29"
++
+ /* logging */
+ _hidden void libxl__logv(libxl_ctx *ctx, xentoollog_level msglevel, int errnoval,
+              const char *file /* may be 0 */, int line /* ignored if !file */,
+@@ -4003,6 +4008,7 @@ static inline int *libxl__device_type_get_num(
+ 
+ extern const libxl__device_type libxl__vfb_devtype;
+ extern const libxl__device_type libxl__vkb_devtype;
++extern const libxl__device_type libxl__virtio_devtype;
+ extern const libxl__device_type libxl__disk_devtype;
+ extern const libxl__device_type libxl__nic_devtype;
+ extern const libxl__device_type libxl__vtpm_devtype;
+diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+index 9e3d33cb5a59..0cfad8508dbd 100644
+--- a/tools/libs/light/libxl_types.idl
++++ b/tools/libs/light/libxl_types.idl
+@@ -278,6 +278,11 @@ libxl_vkb_backend = Enumeration("vkb_backend", [
+     (2, "LINUX")
+     ])
+ 
++libxl_virtio_transport = Enumeration("virtio_transport", [
++    (0, "UNKNOWN"),
++    (1, "MMIO"),
++    ])
++
+ libxl_passthrough = Enumeration("passthrough", [
+     (0, "default"),
+     (1, "disabled"),
+@@ -703,6 +708,18 @@ libxl_device_vkb = Struct("device_vkb", [
+     ("multi_touch_num_contacts", uint32)
+     ])
+ 
++libxl_device_virtio = Struct("device_virtio", [
++    ("backend_domid", libxl_domid),
++    ("backend_domname", string),
++    ("type", string),
++    ("transport", libxl_virtio_transport),
++    ("devid", libxl_devid),
++    # Note that virtio-mmio parameters (irq and base) are for internal
++    # use by libxl and can't be modified.
++    ("irq", uint32),
++    ("base", uint64)
++    ])
++
+ libxl_device_disk = Struct("device_disk", [
+     ("backend_domid", libxl_domid),
+     ("backend_domname", string),
+@@ -980,6 +997,7 @@ libxl_domain_config = Struct("domain_config", [
+     ("dtdevs", Array(libxl_device_dtdev, "num_dtdevs")),
+     ("vfbs", Array(libxl_device_vfb, "num_vfbs")),
+     ("vkbs", Array(libxl_device_vkb, "num_vkbs")),
++    ("virtios", Array(libxl_device_virtio, "num_virtios")),
+     ("vtpms", Array(libxl_device_vtpm, "num_vtpms")),
+     ("p9s", Array(libxl_device_p9, "num_p9s")),
+     ("pvcallsifs", Array(libxl_device_pvcallsif, "num_pvcallsifs")),
+diff --git a/tools/libs/light/libxl_types_internal.idl b/tools/libs/light/libxl_types_internal.idl
+index fb0f4f23d7c2..e24288f1a59e 100644
+--- a/tools/libs/light/libxl_types_internal.idl
++++ b/tools/libs/light/libxl_types_internal.idl
+@@ -33,6 +33,7 @@ libxl__device_kind = Enumeration("device_kind", [
+     (15, "VSND"),
+     (16, "VINPUT"),
+     (17, "VIRTIO_DISK"),
++    (18, "VIRTIO"),
+     ])
+ 
+ libxl__console_backend = Enumeration("console_backend", [
+diff --git a/tools/libs/light/libxl_virtio.c b/tools/libs/light/libxl_virtio.c
+new file mode 100644
+index 000000000000..6a38def2faf5
+--- /dev/null
++++ b/tools/libs/light/libxl_virtio.c
+@@ -0,0 +1,144 @@
++/*
++ * Copyright (C) 2022 Linaro Ltd.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published
++ * by the Free Software Foundation; version 2.1 only. with the special
++ * exception on linking described in file LICENSE.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ */
++
++#include "libxl_internal.h"
++
++static int libxl__device_virtio_setdefault(libxl__gc *gc, uint32_t domid,
++                                           libxl_device_virtio *virtio,
++                                           bool hotplug)
++{
++    return libxl__resolve_domid(gc, virtio->backend_domname,
++                                &virtio->backend_domid);
++}
++
++static int libxl__device_from_virtio(libxl__gc *gc, uint32_t domid,
++                                     libxl_device_virtio *virtio,
++                                     libxl__device *device)
++{
++    device->backend_devid   = virtio->devid;
++    device->backend_domid   = virtio->backend_domid;
++    device->devid           = virtio->devid;
++    device->domid           = domid;
++
++    device->backend_kind    = LIBXL__DEVICE_KIND_VIRTIO;
++    device->kind            = LIBXL__DEVICE_KIND_VIRTIO;
++
++    return 0;
++}
++
++static int libxl__set_xenstore_virtio(libxl__gc *gc, uint32_t domid,
++                                      libxl_device_virtio *virtio,
++                                      flexarray_t *back, flexarray_t *front,
++                                      flexarray_t *ro_front)
++{
++    const char *transport = libxl_virtio_transport_to_string(virtio->transport);
++
++    flexarray_append_pair(back, "irq", GCSPRINTF("%u", virtio->irq));
++    flexarray_append_pair(back, "base", GCSPRINTF("%lu", virtio->base));
++    flexarray_append_pair(back, "type", GCSPRINTF("%s", virtio->type));
++    flexarray_append_pair(back, "transport", GCSPRINTF("%s", transport));
++
++    flexarray_append_pair(front, "irq", GCSPRINTF("%u", virtio->irq));
++    flexarray_append_pair(front, "base", GCSPRINTF("%lu", virtio->base));
++    flexarray_append_pair(front, "type", GCSPRINTF("%s", virtio->type));
++    flexarray_append_pair(front, "transport", GCSPRINTF("%s", transport));
++
++    return 0;
++}
++
++static int libxl__virtio_from_xenstore(libxl__gc *gc, const char *libxl_path,
++                                       libxl_devid devid,
++                                       libxl_device_virtio *virtio)
++{
++    const char *be_path, *tmp = NULL;
++    int rc;
++
++    virtio->devid = devid;
++
++    rc = libxl__xs_read_mandatory(gc, XBT_NULL,
++                                  GCSPRINTF("%s/backend", libxl_path),
++                                  &be_path);
++    if (rc) goto out;
++
++    rc = libxl__backendpath_parse_domid(gc, be_path, &virtio->backend_domid);
++    if (rc) goto out;
++
++    rc = libxl__xs_read_checked(gc, XBT_NULL,
++				GCSPRINTF("%s/irq", be_path), &tmp);
++    if (rc) goto out;
++
++    if (tmp) {
++        virtio->irq = strtoul(tmp, NULL, 0);
++    }
++
++    tmp = NULL;
++    rc = libxl__xs_read_checked(gc, XBT_NULL,
++				GCSPRINTF("%s/base", be_path), &tmp);
++    if (rc) goto out;
++
++    if (tmp) {
++        virtio->base = strtoul(tmp, NULL, 0);
++    }
++
++    tmp = NULL;
++    rc = libxl__xs_read_checked(gc, XBT_NULL,
++				GCSPRINTF("%s/transport", be_path), &tmp);
++    if (rc) goto out;
++
++    if (tmp) {
++        if (!strcmp(tmp, "mmio")) {
++            virtio->transport = LIBXL_VIRTIO_TRANSPORT_MMIO;
++        } else {
++            return ERROR_INVAL;
++        }
++    }
++
++    tmp = NULL;
++    rc = libxl__xs_read_checked(gc, XBT_NULL,
++				GCSPRINTF("%s/type", be_path), &tmp);
++    if (rc) goto out;
++
++    if (tmp) {
++        int len = sizeof(VIRTIO_DEVICE_TYPE_GENERIC) - 1;
++
++        if (!strncmp(tmp, VIRTIO_DEVICE_TYPE_GENERIC, len)) {
++            virtio->type = libxl__strdup(NOGC, tmp);
++        } else {
++            return ERROR_INVAL;
++        }
++    }
++
++out:
++    return rc;
++}
++
++static LIBXL_DEFINE_UPDATE_DEVID(virtio)
++
++#define libxl__add_virtios NULL
++#define libxl_device_virtio_compare NULL
++
++DEFINE_DEVICE_TYPE_STRUCT(virtio, VIRTIO, virtios,
++    .set_xenstore_config = (device_set_xenstore_config_fn_t)
++                           libxl__set_xenstore_virtio,
++    .from_xenstore = (device_from_xenstore_fn_t)libxl__virtio_from_xenstore,
++    .skip_attach = 1
++);
++
++/*
++ * Local variables:
++ * mode: C
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.31.1.272.g89b43f80a514
 
