@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29DAA64C2B0
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 04:17:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461578.719708 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AF7F64C2B9
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 04:22:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461605.719723 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5IGj-0006Nl-Ow; Wed, 14 Dec 2022 03:17:17 +0000
+	id 1p5ILl-0000FO-CS; Wed, 14 Dec 2022 03:22:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461578.719708; Wed, 14 Dec 2022 03:17:17 +0000
+Received: by outflank-mailman (output) from mailman id 461605.719723; Wed, 14 Dec 2022 03:22:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5IGj-0006KN-Ky; Wed, 14 Dec 2022 03:17:17 +0000
-Received: by outflank-mailman (input) for mailman id 461578;
- Wed, 14 Dec 2022 03:17:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p5ILl-0000Br-9g; Wed, 14 Dec 2022 03:22:29 +0000
+Received: by outflank-mailman (input) for mailman id 461605;
+ Wed, 14 Dec 2022 03:22:27 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LNGa=4M=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1p5IGh-0005ka-Qf
- for xen-devel@lists.xenproject.org; Wed, 14 Dec 2022 03:17:15 +0000
+ id 1p5ILj-0000BL-1C
+ for xen-devel@lists.xenproject.org; Wed, 14 Dec 2022 03:22:27 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id cea565f4-7b5d-11ed-8fd2-01056ac49cbb;
- Wed, 14 Dec 2022 04:17:15 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 88033e6c-7b5e-11ed-91b6-6bf2151ebd3b;
+ Wed, 14 Dec 2022 04:22:26 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E46EFFEC;
- Tue, 13 Dec 2022 19:17:54 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D6FC1FEC;
+ Tue, 13 Dec 2022 19:23:05 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 41B633F73B;
- Tue, 13 Dec 2022 19:17:12 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 32C883F73B;
+ Tue, 13 Dec 2022 19:22:22 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: cea565f4-7b5d-11ed-8fd2-01056ac49cbb
+X-Inumbo-ID: 88033e6c-7b5e-11ed-91b6-6bf2151ebd3b
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -51,78 +51,137 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Julien Grall <julien@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v2 3/3] xen/arm: Extend the memory overlap check to include EfiACPIReclaimMemory
-Date: Wed, 14 Dec 2022 11:16:54 +0800
-Message-Id: <20221214031654.2815589-4-Henry.Wang@arm.com>
+Subject: [PATCH v2] xen/arm: Reduce redundant clear root pages when teardown p2m
+Date: Wed, 14 Dec 2022 11:22:12 +0800
+Message-Id: <20221214032212.2816658-1-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20221214031654.2815589-1-Henry.Wang@arm.com>
-References: <20221214031654.2815589-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Similarly as the static regions and boot modules, memory regions with
-EfiACPIReclaimMemory type (defined in bootinfo.acpi if CONFIG_ACPI is
-enabled) should also not be overlapping with memory regions in
-bootinfo.reserved_mem and bootinfo.modules.
+Currently, p2m for a domain will be teardown from two paths:
+(1) The normal path when a domain is destroyed.
+(2) The arch_domain_destroy() in the failure path of domain creation.
 
-Therefore, this commit reuses the `meminfo_overlap_check()` to further
-extends the check in function `check_reserved_regions_overlap()` so that
-memory regions in bootinfo.acpi are included. If any error occurs in the
-extended `check_reserved_regions_overlap()`, the `meminfo_add_bank()`
-defined in `efi-boot.h` will return early.
+When tearing down p2m from (1), the part to clear and clean the root
+is only needed to do once rather than for every call of p2m_teardown().
+If the p2m teardown is from (2), the clear and clean of the root
+is unnecessary because the domain is not scheduled.
+
+Therefore, this patch introduces a helper `p2m_clear_root_pages()` to
+do the clear and clean of the root, and move this logic outside of
+p2m_teardown(). With this movement, the `page_list_empty(&p2m->pages)`
+check can be dropped.
 
 Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 ---
 v1 -> v2:
-1. Rebase on top of patch #1 and #2.
+1. Introduce a new PROGRESS for p2m_clear_root_pages() to avoid
+   multiple calling when p2m_teardown() is preempted.
+2. Move p2m_force_tlb_flush_sync() to p2m_clear_root_pages().
 ---
- xen/arch/arm/efi/efi-boot.h | 10 ++++++++--
- xen/arch/arm/setup.c        |  6 ++++++
- 2 files changed, 14 insertions(+), 2 deletions(-)
+ xen/arch/arm/domain.c          | 12 ++++++++++++
+ xen/arch/arm/include/asm/p2m.h |  1 +
+ xen/arch/arm/p2m.c             | 34 ++++++++++++++--------------------
+ 3 files changed, 27 insertions(+), 20 deletions(-)
 
-diff --git a/xen/arch/arm/efi/efi-boot.h b/xen/arch/arm/efi/efi-boot.h
-index 43a836c3a7..6121ba1f2f 100644
---- a/xen/arch/arm/efi/efi-boot.h
-+++ b/xen/arch/arm/efi/efi-boot.h
-@@ -161,13 +161,19 @@ static bool __init meminfo_add_bank(struct meminfo *mem,
-                                     EFI_MEMORY_DESCRIPTOR *desc)
- {
-     struct membank *bank;
-+    paddr_t start = desc->PhysicalStart;
-+    paddr_t size = desc->NumberOfPages * EFI_PAGE_SIZE;
+diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+index 99577adb6c..961dab9166 100644
+--- a/xen/arch/arm/domain.c
++++ b/xen/arch/arm/domain.c
+@@ -959,6 +959,7 @@ enum {
+     PROG_xen,
+     PROG_page,
+     PROG_mapping,
++    PROG_p2m_root,
+     PROG_p2m,
+     PROG_p2m_pool,
+     PROG_done,
+@@ -1021,6 +1022,17 @@ int domain_relinquish_resources(struct domain *d)
+         if ( ret )
+             return ret;
  
-     if ( mem->nr_banks >= NR_MEM_BANKS )
-         return false;
-+#ifdef CONFIG_ACPI
-+    if ( check_reserved_regions_overlap(start, size) )
-+        return false;
-+#endif
- 
-     bank = &mem->bank[mem->nr_banks];
--    bank->start = desc->PhysicalStart;
--    bank->size = desc->NumberOfPages * EFI_PAGE_SIZE;
-+    bank->start = start;
-+    bank->size = size;
- 
-     mem->nr_banks++;
- 
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index ba0152f868..a0cb2dd588 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -342,6 +342,12 @@ int __init check_reserved_regions_overlap(paddr_t region_start,
-                                    region_start, region_end) )
-         return -EINVAL;
- 
-+#ifdef CONFIG_ACPI
-+    /* Check if input region is overlapping with ACPI EfiACPIReclaimMemory */
-+    if ( meminfo_overlap_check(&bootinfo.acpi, region_start, region_end) )
-+        return -EINVAL;
-+#endif
++    PROGRESS(p2m_root):
++        /*
++         * We are about to free the intermediate page-tables, so clear the
++         * root to prevent any walk to use them.
++         * The domain will not be scheduled anymore, so in theory we should
++         * not need to flush the TLBs. Do it for safety purpose.
++         * Note that all the devices have already been de-assigned. So we don't
++         * need to flush the IOMMU TLB here.
++         */
++        p2m_clear_root_pages(&d->arch.p2m);
 +
-     return 0;
+     PROGRESS(p2m):
+         ret = p2m_teardown(d, true);
+         if ( ret )
+diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+index 91df922e1c..bf5183e53a 100644
+--- a/xen/arch/arm/include/asm/p2m.h
++++ b/xen/arch/arm/include/asm/p2m.h
+@@ -281,6 +281,7 @@ int p2m_set_entry(struct p2m_domain *p2m,
+ 
+ bool p2m_resolve_translation_fault(struct domain *d, gfn_t gfn);
+ 
++void p2m_clear_root_pages(struct p2m_domain *p2m);
+ void p2m_invalidate_root(struct p2m_domain *p2m);
+ 
+ /*
+diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+index 948f199d84..7de7d822e9 100644
+--- a/xen/arch/arm/p2m.c
++++ b/xen/arch/arm/p2m.c
+@@ -1314,6 +1314,20 @@ static void p2m_invalidate_table(struct p2m_domain *p2m, mfn_t mfn)
+     p2m->need_flush = true;
  }
  
++void p2m_clear_root_pages(struct p2m_domain *p2m)
++{
++    unsigned int i;
++
++    p2m_write_lock(p2m);
++
++    for ( i = 0; i < P2M_ROOT_PAGES; i++ )
++        clear_and_clean_page(p2m->root + i);
++
++    p2m_force_tlb_flush_sync(p2m);
++
++    p2m_write_unlock(p2m);
++}
++
+ /*
+  * Invalidate all entries in the root page-tables. This is
+  * useful to get fault on entry and do an action.
+@@ -1698,30 +1712,10 @@ int p2m_teardown(struct domain *d, bool allow_preemption)
+     struct p2m_domain *p2m = p2m_get_hostp2m(d);
+     unsigned long count = 0;
+     struct page_info *pg;
+-    unsigned int i;
+     int rc = 0;
+ 
+-    if ( page_list_empty(&p2m->pages) )
+-        return 0;
+-
+     p2m_write_lock(p2m);
+ 
+-    /*
+-     * We are about to free the intermediate page-tables, so clear the
+-     * root to prevent any walk to use them.
+-     */
+-    for ( i = 0; i < P2M_ROOT_PAGES; i++ )
+-        clear_and_clean_page(p2m->root + i);
+-
+-    /*
+-     * The domain will not be scheduled anymore, so in theory we should
+-     * not need to flush the TLBs. Do it for safety purpose.
+-     *
+-     * Note that all the devices have already been de-assigned. So we don't
+-     * need to flush the IOMMU TLB here.
+-     */
+-    p2m_force_tlb_flush_sync(p2m);
+-
+     while ( (pg = page_list_remove_head(&p2m->pages)) )
+     {
+         p2m_free_page(p2m->domain, pg);
 -- 
 2.25.1
 
