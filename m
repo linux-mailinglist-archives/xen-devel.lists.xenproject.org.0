@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5802164C56B
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 10:01:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.461832.719987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDEDA64C58E
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 10:09:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.461846.719999 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5NdV-0004SB-JT; Wed, 14 Dec 2022 09:01:09 +0000
+	id 1p5NlY-0005RO-J5; Wed, 14 Dec 2022 09:09:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 461832.719987; Wed, 14 Dec 2022 09:01:09 +0000
+Received: by outflank-mailman (output) from mailman id 461846.719999; Wed, 14 Dec 2022 09:09:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5NdV-0004ON-Fa; Wed, 14 Dec 2022 09:01:09 +0000
-Received: by outflank-mailman (input) for mailman id 461832;
- Wed, 14 Dec 2022 09:01:07 +0000
+	id 1p5NlY-0005O3-GI; Wed, 14 Dec 2022 09:09:28 +0000
+Received: by outflank-mailman (input) for mailman id 461846;
+ Wed, 14 Dec 2022 09:09:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q88x=4M=citrix.com=prvs=340486590=lin.liu@srs-se1.protection.inumbo.net>)
- id 1p5NdS-0004OH-ML
- for xen-devel@lists.xenproject.org; Wed, 14 Dec 2022 09:01:07 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4acccdc-7b8d-11ed-91b6-6bf2151ebd3b;
- Wed, 14 Dec 2022 10:01:02 +0100 (CET)
-Received: from mail-mw2nam04lp2176.outbound.protection.outlook.com (HELO
- NAM04-MW2-obe.outbound.protection.outlook.com) ([104.47.73.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 14 Dec 2022 04:00:50 -0500
-Received: from SJ0PR03MB5405.namprd03.prod.outlook.com (2603:10b6:a03:286::9)
- by PH0PR03MB5861.namprd03.prod.outlook.com (2603:10b6:510:3a::23)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=dEbZ=4M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p5NlX-0005Nx-4M
+ for xen-devel@lists.xen.org; Wed, 14 Dec 2022 09:09:27 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2056.outbound.protection.outlook.com [40.107.22.56])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0199b1c0-7b8f-11ed-91b6-6bf2151ebd3b;
+ Wed, 14 Dec 2022 10:09:25 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM0PR04MB7185.eurprd04.prod.outlook.com (2603:10a6:208:19d::24)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Wed, 14 Dec
- 2022 09:00:40 +0000
-Received: from SJ0PR03MB5405.namprd03.prod.outlook.com
- ([fe80::c828:7473:2c2d:e91d]) by SJ0PR03MB5405.namprd03.prod.outlook.com
- ([fe80::c828:7473:2c2d:e91d%7]) with mapi id 15.20.5880.019; Wed, 14 Dec 2022
- 09:00:40 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.11; Wed, 14 Dec
+ 2022 09:09:24 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5880.019; Wed, 14 Dec 2022
+ 09:09:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,1047 +46,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4acccdc-7b8d-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671008462;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:mime-version;
-  bh=wTg6JCRa/pciIgm9N2EzDTRmDKRl6qFw6f/+hfXlLOI=;
-  b=KH0DWZ5Blc9GuSYulj+5kltE+NzK2Lh8vHpda1/qFceAOPOQwJVfS05s
-   +kt0mcciqkbpL2iivbMlIxJIo4iShztxU/McO6AKRd+/5fV2r6uCl66Fo
-   cT52ht3731GJ2jCn4TFjaRunxMkbzaZ4kUJW/hIo5HKU0EnAWvNXDfuc8
-   s=;
-X-IronPort-RemoteIP: 104.47.73.176
-X-IronPort-MID: 87271278
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:DSEqCasQDznVk0lfTRMLtSJonOfnVLRfMUV32f8akzHdYApBsoF/q
- tZmKTyAaPbfMGD1ctF3atu1oElV6peEn4NqTlZs/ng1RCwU+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg0HVU/IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj5lv0gnRkPaoR5QWHyyFMZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwKzAvUBqCl72M3a/lEesvvZotE9fiI9ZK0p1g5Wmx4fcOZ7nmG/mPwOACmTA6i4ZJAOrUY
- NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0oui/60b4S9lt+iHK25mm6cp
- 2SA+2XkKhobKMae2XyO9XfEaurnzXyhB9tIS+3QGvhCrASM/EMsOkMqbnCAjv7hrn6ceMBZN
- BlBksYphe1onKCxdfHiUhz+q36JuDYVQd8WGOo/gCmdx6yR7wuHC2wsSj9adMdgpMIwXSYt1
- FKCg5XuHzMHmLuZYXuH8/GfqjbaESofIHIGZCQEZRAY+NSlq4Y25jrQSv5zHajzicf6cRny3
- jSLoS4Wl7gVy8kR2M2T5kvbijihopzISA8d5QjNWG+hqARja+aYi5eA7FHa6bNFM9yfR1zZ4
- HwcwZHBsqYJEI2HkzGLTKMVBra16v2ZMTrax1lyA50m8Dfr8HmmFWxN3AxDyI5SGp5sUVfUj
- IX74F05CEN7VJdyUZJKXg==
-IronPort-HdrOrdr: A9a23:7LdQ8qiv7t92aIBAParZmUWWLnBQX5913DAbv31ZSRFFG/Fw9v
- re6cjzsCWe5gr5N0tBpTn+Atj9fZqxz/9ICOoqTMSftXfdyQmVxehZhOOJ/9SKIVycygcy79
- YET0B0YOeAcmST5azBjDVReLwbr+VuP8qT6Nv2/jNVaUVPVokl1gF+D2+gYz9LrMstP+tGKH
- JZjPA31wZJvB4sH7WG7wI+Loz+juyOrovifRkFQzY/8WC1/EqVwY+/KQGcwhAdFxhSwbIumF
- K17jDR1+GYqvSmzR2Z8GfW4/1t6bzc4+oGPtWIls8WbhPzjQqyDb4RPYGqjXQOueSy71Rvqv
- ngyi1QR/hb2jfqZ2Sophmo4QX6zzo0zHfnxTaj8ADeiP28fis+F81Cwb1UaQHY7U1IhqAH7J
- 52
-X-IronPort-AV: E=Sophos;i="5.96,243,1665460800"; 
-   d="scan'208,217";a="87271278"
+X-Inumbo-ID: 0199b1c0-7b8f-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dejUn/tulM4OCDXCVYbgyUTTbQNy3CADTSMLd7yy5R01BmCnRAYgesld3+6doPdBHv1JvLLKHGP8Cd6gC+KUUGnKPpF5yEUqbeCW+8V7bNqWNgHI6dsS0Tvpl03Q5qo8RXebn4Zok4mNNpBmeY/64KeO569rUEcqsFDtB1sZPjQ2jbyrTs5HTFiOvpq80/owlyIWaM9yzwS8NuT07Scb4SN+EjfmXOR9ZRayppEHGwzl1jmBJG+Z0YYQfnX8R4jotTTOdxwPJPud5eWZeXD9uIGATdONOG0w4/pfHdIY6+ji2XIg2y7uCvLkJ2co6dOdq7sZ6JYrygOfc6sdp2KgqA==
+ b=Y38XZjczS4W/ks7xVsjr3tcUZGdBJ/PxpLoecZ0oYTDQ5y1oPa3mYd5BGO/OeT2f4xoSkdkVgZipixWErXBUPAivgEZHhHncUSqGIWK4VdcyYFcAzwxp/yS+S0aEl5qcb3t7J0oZ1GJeYti162srHCeUva7WDsOcCktYQS6GkHx1Fy2JhRWyQbd3zt6w6FU5PvSoRYa8OAx4UuCUhz3PdhccfA50ZoJ/aGa9WuG1DR5+wRFvGVLKD47Ly5Xr468w8ytoBpLnXrjsiGReR0d4em9c0lAtfqxL0GBRy+TJocUlRqb0HAZB3RblM139szCdw2rkyNQypJ5jCpe/fhlz4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ByagYlcFB4roTrhEfZnCzeiNY86VPPsmoKYSmyI/mEY=;
- b=d7yZFVdimv7MBargvG0EevjxZkOWCBwpg+d2X8LNCRKB7VEK5zjednfFjOhEIsMwn88PGMvJaH+R7uNAHPaDBCr+WIBo8tEKHWmYhJTfkw10gunlE76NrFIJVS3JaH6Yfq67CATZwBgH2u/7HONtP7ixJeN2sNfupr+AUXYStLLeUHq+X+nUiLuaeqj5ZsMmsgOAAJeN/fVnPv7yviPRwWQIJKWbNImhPklfUunLC4CSkCWxnCDu+IHflBDyk3HqCez9FpCgS7P+po9bhw1/Xi+sMNteQ5zGqG7u+nIIBqIitog+gOZdDc7mQdkCtoAcSx00OFKfuMEquOKTTTFqeQ==
+ bh=IS4SLI/aYBwcqNtkEeoDT6szLWznrVlJ2qNED8YZLhY=;
+ b=QKoDybMBdwFHU5DMwwUE0HoYJuVcAz3NU7QHQgl0jzdgc9ZEcO/1Qj6+5rWiGPUbWE8hRLfFP9dfkNGTsIwt+sQu6mJyMUYcZyg7ut0Tee79kUoEXMNGmB3KYN5V4Yj0JcTjLseNZn/HdJ7IBmu/jJ3U6lN/U2FJCnUIyPkoo/7Ac1EC3NP/4pGFkjhulXj+xU/iTc/Shly4nprqbe6m5Ou2QQvnElj730USMppv9MJ6ZLNJD4CpqlRtzmLayLeQIqzyxkEuCfhdgxbYpXEAPMe6F8KZJdiq4hVimAN3UgKoYYbjA9fJtf7LR7oWXfdmJHhXQ0Z0N3yX3n5fwR6s/w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ByagYlcFB4roTrhEfZnCzeiNY86VPPsmoKYSmyI/mEY=;
- b=ePVQXxuHCy0BARiB94ze9GfBeiQztRim5Y8FSDqOaaM2syBVu6WUQKzjQok+3yi2zT3jDJ5p81nMgsApXKtbbYBLBIfltKEpp8xor6nL0azbxBOv3XfgIhOxuseP1LqSRfrQeh5Xq3T3Bq/9Vt4tvI2b2IM4GRcPqcIWzlVZ2k8=
-From: =?gb2312?B?TGluIExpdSCjqMH1wdajqQ==?= <lin.liu@citrix.com>
-To: Wei Chen <wei.chen@arm.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: "nd@arm.com" <nd@arm.com>, Wei Chen <wei.chen@arm.com>, Jan Beulich
-	<jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>, Roger Pau
- Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, George Dunlap
-	<George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>
-Subject: Re: [PATCH v9 0/6] Device tree based NUMA support for Arm - Part#2
-Thread-Topic: [PATCH v9 0/6] Device tree based NUMA support for Arm - Part#2
-Thread-Index: AQHY+zr26xpL2OkKokmVDlMaE15KnK5tPmaV
-Date: Wed, 14 Dec 2022 09:00:40 +0000
-Message-ID:
- <SJ0PR03MB5405FBAFC3B531CD150E6C599DE09@SJ0PR03MB5405.namprd03.prod.outlook.com>
-References: <20221118104508.768274-1-wei.chen@arm.com>
-In-Reply-To: <20221118104508.768274-1-wei.chen@arm.com>
-Accept-Language: zh-CN, en-US
+ bh=IS4SLI/aYBwcqNtkEeoDT6szLWznrVlJ2qNED8YZLhY=;
+ b=yPEce5vpTBfR2wXGAeABGFRik/y1d4XofLs23u50BaSDpTYMvqTwZ2PXDUZCTX7PLXJSIGp5g2oNbepoGCt9aR/PW2CTQD2SRMeIdpxpugYxtpLomuBR7XfLp8fmzN5zR5h4ifAGzNgs9pXlVESqvFN4wSdm1HnX7IKbie1vh0OV250zguulQjb2XF06wl9j73nMjqeFOBywsujohrLykl08h8XOG5hk6ZWLJF65lHIM6Rh9aDVqOTH4DicRxW6llFzifw/RBKpgiI7kwtO2aE/yuvVDrXYnB8gysCzdxLUj+zbzQSIfd1dlswLM3UDZqwxFPZ7oA7EaMxEZYwKfvw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <f7f24676-b251-a7d0-b169-8229704c9f8c@suse.com>
+Date: Wed, 14 Dec 2022 10:09:21 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH V10 0/3] toolstack support for generic virtio devices on
+ Arm
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR03MB5405:EE_|PH0PR03MB5861:EE_
-x-ms-office365-filtering-correlation-id: f25a8fb0-094c-4f98-9af6-08daddb1acdd
-x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- Q4786ndGh064JFJAZf08JqlTt3yhoBT6bIPsneiiE9S7MEZVBsLRaA/TlUWtCY3IITcKt7PMEZRbCToOoOHrRUyoV8nZZeD221kY+XXXQy+wt242Nnliz3FSNcm6BmDw7A1n3cs5hjLuZ02r29qdvztP6t2e6YRhhXe4FpGv6dOX5ckrfXSAZXz4RrDV43mr+K5lDWl0K8iALm/UwUdP+4VAvxVQ/AalAbRCDa6TV+lCXi+VzTljjBO8LE9SjizwJRD4EnEmrdrW4Bn6B5sQlIjvWZRUsmA8lMS2/7wLagbDmoJrFZRx0HYLBFGbU6Fxjf3eIactULDG2OYyfY7NItU30npcxKzrBbiul+0a1vwH3rd9QtAXZvT4eHiNU/dZ0sSqafJNdTEvY/IDTNEOaA01w6nbMMtXc++Oxi1nxwOUkaXVj5GRYVEqxD8M40sVy/Z/x/8tbS4SOIiX7GmNL8277ceOr50treDIgJDm4y0jH+8lgI0kDYWuHUhhZs3qz4LEEuz6mMz1q1gOVrh2a+4ML3TkPAZzakl047llYdMkmiuLLF6bPv5xRmdgX24e6E5LPJMfPFaj4VpXfI+moExCa+lnvT4Zs1inC80QfHwKjZMRV2G4O0Zj88IleByYc/ZinK1gj5Cu1c5aUm00HNEYdEpHAa/pYl9zZjdHcST2EBRTrSA116GTy3RiRGupaxcjVbAMSML0KM/NlYpdxTNcsim5J4Ab1Xr27Ike3bEYFMpNEpUXmOw6jPcz9SKUldSsLTOxDzmt0SRE9g54Fw==
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR03MB5405.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(366004)(346002)(136003)(396003)(376002)(451199015)(8936002)(52536014)(41300700001)(38070700005)(85182001)(38100700002)(316002)(54906003)(91956017)(4326008)(76116006)(66946007)(66556008)(8676002)(64756008)(66446008)(66476007)(166002)(33656002)(55016003)(82960400001)(110136005)(83380400001)(7416002)(30864003)(86362001)(5660300002)(122000001)(2906002)(4001150100001)(186003)(26005)(45080400002)(478600001)(9686003)(6506007)(7696005)(71200400001)(53546011)(966005);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?gb2312?B?dDBPcmh2ckpJZWVycFhkQm5uc0V3TjRNcTBYelFRb0VIQVpmSGtQcCthaEJp?=
- =?gb2312?B?bzhkSWFXbFlYNkIrMEY3ekZveThjcEltTWw1YjUxMGozVWM5YmxuNHF2YVB3?=
- =?gb2312?B?MW4wR3JFczZiUnZWeVFpdlM1bWNZQ2pxYmpoM2RuL0k2YWdrS1ZjN2FXQ2hp?=
- =?gb2312?B?dlZSeEVPblo2UGw4bUh5US9oUitJOUdGL2I0dmViSkxobldDM1FBT1BuNXh6?=
- =?gb2312?B?eTVIcjUvTm5Xd0pkdlg4UmJEZXB0NVRTTkk4dXRVV3V2NjY1RUJjTzZGRFFa?=
- =?gb2312?B?Z1RPdlQ4QWNIaEE5SHRNTzVuTnlKWTJwck5XbjJ3T3RKTThXendIaVpYQWJE?=
- =?gb2312?B?d2J2d3gwb2gwNjJZUjl0VXV0blR4ZEdOWFVZZWRoWUMva0hHR2xvaHlnaHVT?=
- =?gb2312?B?L0VnV2hpd0Z6TUt2UGYyV0FNOVV0Wmc4Vlo4WjlWNmpWZWNGU3dGcWV4UThM?=
- =?gb2312?B?TWVQb3NXcUFxNy9aRDRaZUw0WGxGVjBVN2Rqb0IveHNsMzBGa09KcW9IQkhz?=
- =?gb2312?B?dWV4SVkwWG9MRmRrbVlTWlU1VGhuNVdBTTVMYTJFZ01pMmlqWEpkL2hlQ0V5?=
- =?gb2312?B?aHdvSG02a1RLcGZwVXZZcS9wTHZ6ZWVNS09Qckh4UXBZMFJ1MWxCaWdJR1R6?=
- =?gb2312?B?WkU4K3hPdVhCV3dkbkJBMVkyTWp0a1oyK0pGMW5FaFpBWG82Q3FjODZrdzRv?=
- =?gb2312?B?MEpLNTk5YXM5ckc3azhtSjJseFRGUkNKRVFiMTJjZUw0UTRZRmkrWFFmR2Vi?=
- =?gb2312?B?UmJMNnV2M1lVekhvWVhDaDBLV29CaEcyYkg5MCtQL0ovSUZvdjJZNHdxeE14?=
- =?gb2312?B?djlybXN3ZmVpU2lzRytDRGJxM0hFM3J1VmttQlE5d1Z1bzMveVdFWDkwdXQz?=
- =?gb2312?B?c1ZmaG1zMEg2OUptSUlWYzFUS05oaDdkZ1I5b2hQSEJQWVdRck9YWGtkQmJq?=
- =?gb2312?B?OUM5YWZtYW1lbHRqRTdDYklDNXVCdkw1RjN2NkJFUlB0MzVuNmhFdVJESm5x?=
- =?gb2312?B?dTU4WnVlMVFBbmlpcXpQQVJtMXJnZ0ZTbkE3UzdvVVFkdmMvL0p3Qy9JTVBR?=
- =?gb2312?B?QVRlbWd5REJPRyt0SXRoZVpqQzlzazV1bkZnYUtsOUtIYWVuTkRtZEo3cjdJ?=
- =?gb2312?B?Q2hvUytnVTZqb1BuNUdLbXorUHFFRnVtd0hHY2JscjF3UlN3L3NNb2Y1K3NC?=
- =?gb2312?B?Q2owQUlSRHJBeWJVYkdYUTJYaDJvUUZpa2I3dUhmVVAyb2t5OTI5dkgraEZI?=
- =?gb2312?B?WjRLdkgxMlBBbHlQc2NZeGJYeXdFS3YyS2c1eTNXbVdJY0tLVE9mbkpzRmxo?=
- =?gb2312?B?RGJlM3FCaVZuNzJ2c212Y1NxQ01mUTRzNko0cTlEZjhQZkNYZFUrUzBBcUxQ?=
- =?gb2312?B?UkNpTlJsanozVHBORm5Jb3RYNmRIbnpYbmFNOFVEYnpoMjNPc0RmUmxPcHNR?=
- =?gb2312?B?U1BsUXdhQ2plNHgyVHRrYlNpYjVQVVo1emxwNkM3cXNwVEpxaFVNcW5JalFL?=
- =?gb2312?B?LzJGVHdTbDV4TEtnOHZ3amJ0NDR3RVhZYkVXZ2VhRS9zQ1RBZklpYWVuMUxl?=
- =?gb2312?B?VkZOQ2EranBneDNmeWFCdzRhRFd0WE4ybTVkamxYWUpRSXlReDVXWHBKTFdS?=
- =?gb2312?B?OVJCamlRRzVLRHBYUUlMVmppRGhyOCtrWEJDWHlDQkMrNEY0Ry9RSU1sL1RP?=
- =?gb2312?B?a21nUFdOQUMxWnMxK3YvM2dLTUVGOElZRncxb0lZT2JnWHo4UytiVU5sMnZB?=
- =?gb2312?B?bjM5TDdmMWloYjVPUER4UnZNeUpDRyt5eTFpd1ZjMG5Tc3J1Qm9zaTU5Y3lU?=
- =?gb2312?B?NVJQbjJrR21lZjI0VzhZSU15bzdqY1d1dmtFa21yZis4M1VRY1oyZGtOa1Vs?=
- =?gb2312?B?d0Y2RFlldTFmckJFdExGVmJkZTlUY1lCN2xvbWpobklQQmg5Vk5qV2FzVjdX?=
- =?gb2312?B?dGpNNVhXZzhRbGhLS1hGNWZDWTRNSVRsalc3VDB0cWpPU2RVd2ZoeEViWmRv?=
- =?gb2312?B?Qms2M1BMZG0xM2dZb04yRWs3MmxFendnT1pkeThkSHpmOFRvdlJRU2I2anRO?=
- =?gb2312?B?b21jTndoQnk2aE9kTmx5ZnNoekk5eWUvcVJMcWVwTm9vbDN4VTV0LzUyaDNj?=
- =?gb2312?Q?/+mw9NZm7lS42DKDGzUg9Hcj2?=
-Content-Type: multipart/alternative;
-	boundary="_000_SJ0PR03MB5405FBAFC3B531CD150E6C599DE09SJ0PR03MB5405namp_"
+To: Viresh Kumar <viresh.kumar@linaro.org>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Cc: Vincent Guittot <vincent.guittot@linaro.org>,
+ stratos-dev@op-lists.linaro.org, =?UTF-8?Q?Alex_Benn=c3=a9e?=
+ <alex.bennee@linaro.org>, Stefano Stabellini
+ <stefano.stabellini@xilinx.com>, Mathieu Poirier
+ <mathieu.poirier@linaro.com>, Mike Holmes <mike.holmes@linaro.org>,
+ Wei Liu <wl@xen.org>, xen-devel@lists.xen.org,
+ Juergen Gross <jgross@suse.com>, Julien Grall <julien@xen.org>
+References: <cover.1670994930.git.viresh.kumar@linaro.org>
+ <47096c1c-4b03-2e3d-c28b-c8920b7d31f9@suse.com>
+ <20221214083456.4w6raz7wop3ajtve@vireshk-i7>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20221214083456.4w6raz7wop3ajtve@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0052.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:48::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB7185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d647a58-a142-4b97-2946-08daddb2e4a9
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	gB1LttCGBFKw8I5/aSCbj7f8Bj3v5w0BsYMu+0UInvGLv1wifdCK1jt0EMQEXNvkWBEG2QvaRQuZdK/9G14BKDurPKPe+5gIX/fKPoapTA66cNa64v1Q12DFMvo8kdj2MqZ7ajMNQ015HfrKoX2SktCw24KlLa07RlP1lH+5HT5c4BOT/WI+0nJqe7y8jo+oTItScQLqJGWoKSK618O/pb5VByuYreNnCWI5VPBiM6zyogqn89D1YJyX6+lCq8vZllcjdtP7vYL3RwGPMWe6LqJXczk1NM6BcZJcEZ4yyk9oon7ZHkN/boVjUVnDmJ9vP2DjkzJWmA9fCxsAeqAqTJXPe+VrEbc5bfrzLZg/eNy0gUxCIlryTXkmkg+57FnH45GeVwxznUn84seKou0KbxiJKIEezuWjZfMQNF5Vx4SaVU4+qKehzy4k+SPMrs8WGp+JlieyRqxevNhOU9xTs4QnAjWMBYuIe58rgfSL1PFhHt1mILcu4SwN6z5BP1fE5ZAg4tHIM+mjNmze0gjUJHP6of0Emvq0b+3yVFFH07NDQ0VXFiKphBaMEOnihRDLEBObjOMcnv0sxNKgmG46F6VuAzK2w1mZ85l/zCmMAXuxvaqR4UnpnGLdu1Zepk3hpqi4olTe6+GRoDF24+H8QQ64qIy+ERoMjhHpLBxJDORkTlDL2G+JL1IsItH4Tg1HhKUOisKOVXSHCZE6RSGXs0eAW8t0TILOYpFFQVBOGczygOV/JKyCsL/SUnSCa1T+
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(366004)(376002)(346002)(136003)(451199015)(31686004)(31696002)(86362001)(2616005)(83380400001)(110136005)(316002)(54906003)(36756003)(38100700002)(186003)(6506007)(53546011)(26005)(6512007)(7416002)(2906002)(478600001)(6486002)(8936002)(41300700001)(5660300002)(8676002)(4326008)(66556008)(66946007)(66476007)(41533002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UmZXOUpFNnNRWEdHNjRLUGx1eUFHQkxwMlZIcVdLUG9nUFV6YW5qamVsNmNa?=
+ =?utf-8?B?akwzbDRWN3Jmei9DVWlTUWhtelN1S0FFbHFPamtDME5iN3RkMXZTTWNQbkhy?=
+ =?utf-8?B?TlJ2N29PaGEzb25FT3VjVkFDaHR6ZlM2K2hTVGNURXUxQ29oSkU0VEJkU2tl?=
+ =?utf-8?B?d1gzdk1yWjZIaUQ1ZmtLMUFsbm9zcEYvVXU5SmsxZWp5ZGROQWdrUWRRTC9U?=
+ =?utf-8?B?cWo4ZHplL2k5UVArVGxpY2JQbzR4SS9wQU5oelJHb3p2TURpQWx4SHdhZEw0?=
+ =?utf-8?B?c1E0dEZkVFRhNUp4VFNzbWU2N3E1WGxiVUY2TjF2Yi96bkROK1p2UFJGR3Q0?=
+ =?utf-8?B?UEw1SjhqUDNHRkNqTzRWNDA5WDBmaVliV1BPMHg1anBUQ204bjVwb0pXWnRX?=
+ =?utf-8?B?Yit1VGNzTHRwOTNheW5TQ2pURENPaGloNS9lZXpMbXM4d0ZraHI0K0U3OFM2?=
+ =?utf-8?B?NTJPY2xMdExzdG9wMWp1eWFOT1Z5VlJRK1huRjBVUTE4MEFGMEJaclVtOHc4?=
+ =?utf-8?B?WFhRZTR5b0NkeHdmWXc0dGxuN0JzLzVzWlZjZjBNOXpLdHBMa0VSZ1FyZ05i?=
+ =?utf-8?B?NXp6dVY4R3hRMUU0UGQ0dVNVeEU5SlNsQVV5Vnl6b2tpaDVjOHdXc1lMK013?=
+ =?utf-8?B?c2QxcXhOb0xOZDc5S3pYR2dyRityUHRsc3hBVFR6Qnp6UUNqbkNLY3pCdlJY?=
+ =?utf-8?B?Y1d3VExMK1ZNbzBNQUlScUNJZjU4WThrUUhPQ3VqTS90L3RJbFBnczdBcGxU?=
+ =?utf-8?B?Tmt0RFZtWE1kNVJ0OFBzZWNWZ1RwTVdVOHhwUkRIWFhUSVZNSVdOWU13UGRo?=
+ =?utf-8?B?VVVubEVZVnNVYmE4OU01OURGeXBTb05iUWVNakgvdDhZOFJlMEZqaG0vaWo2?=
+ =?utf-8?B?U0NvYnNkVXdvdHFZVWk4WlFFNW1jUjUzaGNwdGdISFJ4QUtlRnJ1amZ2VS9o?=
+ =?utf-8?B?SExac3dFcW84QTUvZFdHNS9ucmNGS2Ixeit2Ykh4QjZncnp0MEg2bDMxK3ZB?=
+ =?utf-8?B?Z3JUd2UycU82QS91c1M3WEV4ckh5NFV2WGlkUVBLSlB1TmRJUXd0RlBYUlRK?=
+ =?utf-8?B?dmNadXExTXNpWFpLUm5OMGJ1QUx4MDI5ZWNKekRzcUJMRElONXBVNVM5SzJk?=
+ =?utf-8?B?ZTRhYWJaN0J0a1BucVJQWlFsTm52dWpBeUJVV3NyWUdIUW1PUEhBUTZueVFs?=
+ =?utf-8?B?MFcxTC95aDlqN3JKV0lmVm50dlBDbTRDMVI3QWQxNXR2SlFDeHIvWFU2b3dn?=
+ =?utf-8?B?Wi9ZQ0dZUkRVNkpFVThTdDFTcWJwWDlSM0lMSVFHSHN3TWl4Y2JUZXNRUWpk?=
+ =?utf-8?B?RS9sNmVrT1lVS2prdFlhYzFJZitaKy9TNGNSYlFkeXlUbkg5d1JHdXdWenRM?=
+ =?utf-8?B?WUxtNDdkQk12VGRYYmY3ZzAwRXNHYzFRVkhMTlV2dVUwQnFVUW1oV1M4UWFY?=
+ =?utf-8?B?TlZyUXRreC9nN29Rd0lZaE96K01qUm9oSVNzTGVKTDExZ3Ryc1NJR3k0ZEdV?=
+ =?utf-8?B?c2tPMHVqQlBuYkRLOFAyQ0FyWXluamQ3SUZ5UStzR0N3eE8zUTM1VTFIdFBR?=
+ =?utf-8?B?Qi9zTFhqa0RqTnpGWnJRbnRXSnZzdnowTHRBR0R2Z1R1N2Jwb2NIQXZTN0tv?=
+ =?utf-8?B?eGxCVDFGR09FWmFSL3AvQlhEdDlTU3ZHL2lWbm5oSUpkRlVFaFhCUFByTzJS?=
+ =?utf-8?B?T3p5SDhNK1BnZGpwSkw1SG1obENJU0NnZHBwbDdnQ3JyL0wxczlVb0FWeXBk?=
+ =?utf-8?B?Zm8yUDFORXFWaHBSeFhxQThoNlB1Y0Y2eEJXZ01Cb2RnOFZYL3U0YVB4VzJP?=
+ =?utf-8?B?VEVTU2dNQU8yVGpLb1l3bm9sTXZ2aUI2NW13aWJucEtaM041NlNIUUZGRGxs?=
+ =?utf-8?B?YWdES3V5Yk1pUmxtTXJLMDdEeWJxTnJhZlpYT2MzMnBCY1EvREdqNFpkK25N?=
+ =?utf-8?B?VGVqczJ5akhlVjR6M2ZFUTVrVWo3MmRYencxRnh1Smo0WFRxUW8zYU9vL0VV?=
+ =?utf-8?B?eCtIVzcyRXFkWTRtbDhMNmZaaEJqRk50bjF4bXU1b2ZxdEY4UW5DbE9zeFhB?=
+ =?utf-8?B?UWxoWDJoZGt2K3ozcjJETGljSExxd2tldTZmQ0VFTFowSHh1Uzd0Z1RsMEFT?=
+ =?utf-8?Q?Kyx1StdN4gyero4ToBdHy5U5s?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d647a58-a142-4b97-2946-08daddb2e4a9
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB5405.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f25a8fb0-094c-4f98-9af6-08daddb1acdd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2022 09:00:40.5188
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 09:09:23.8898
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Cb1iy6xT5piJmBNJuc4dAMeO9ke2jcsjL040vYRWNF9ppxnInQ5//nDd7rSFenk5Htz33PZeW9sRUKnFMHugGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB5861
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CGwzX91Lv/eGZ4+WwdfZUBWQfNrqTRYh1EpbPnGE+jBc4VK/ql1EXpnq39MFtgLCFtG8gFOFNLiKxwObyEiRLA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7185
 
---_000_SJ0PR03MB5405FBAFC3B531CD150E6C599DE09SJ0PR03MB5405namp_
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+On 14.12.2022 09:34, Viresh Kumar wrote:
+> On 14-12-22, 09:21, Jan Beulich wrote:
+>> On 14.12.2022 06:19, Viresh Kumar wrote:
+>>> This patchset adds toolstack support for I2C, GPIO and generic virtio devices.
+>>> This is inspired from the work done by Oleksandr for the Disk device.
+>>>
+>>> This is developed as part of Linaro's Project Stratos, where we are working
+>>> towards Hypervisor agnostic Rust based backends [1].
+>>>
+>>> This is based of Xen's master branch.
+>>>
+>>> V9->V10:
+>>> - Swap I2C/GPIO compatible strings, they were wrongly added earlier.
+>>> - Arrange tags in timely order and add new ones.
+>>
+>> The affected patch surely needed all tags to be dropped which weren't
+>> explicitly indicated to remain valid across the bug fix.
+> 
+> Hmm, since it was a very small change (only fixed the compatible
+> strings) I thought it would be okay to carry the tags and rather harsh
+> to the reviewers to drop them, since they invested a lot of time
+> reviewing these. Though I do get what you are suggesting here.
+> 
+> Should I ask Oleksandr / Anthony to provide their tags for patch 1/3
+> again ?
 
-SGkgV2VpLA0KT3VyIGludGVybmFsIHJlZ3Jlc3Npb24gdGVzdGluZyBkZXRlY3RlZCBhIHBhbmlj
-IHJlY2VudGx5Lg0KQ291bGQgeW91IHBsZWFzZSBoZWxwIHRvIHZlcmlmeSB3aGV0aGVyIGl0IGlz
-IGludHJvZHVjZWQgYnkgdGhlc2UgcGF0Y2ggc2VyaWVzPw0KDQpUaGFua3MgZm9yIHlvdXIgaGVs
-cCENCkJlc3QgUmVnYXJkcyENCkxpbg0KDQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4p
-IFswMDAwMDAzODE3MGI5YjA0XSBTeXN0ZW0gUkFNOiA0OTEzOU1CICg1MDMxODQyOGtCKQ0KWzIw
-MjItMTItMTMgMDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzgxZjFlYWE4OF0gTlVNQTogTm9k
-ZSAxIFBYTSAyIFswMDAwMDAwMDAwMDAwMDAwLCAwMDAwMDAwMGJmZmZmZmZmXQ0KWzIwMjItMTIt
-MTMgMDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzgyMDIyM2Y3Y10gTlVNQTogTm9kZSAxIFBY
-TSAyIFswMDAwMDAwMTAwMDAwMDAwLCAwMDAwMDAwNjNmZmZmZmZmXQ0KWzIwMjItMTItMTMgMDA6
-Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzgyMTI1ZGIyYV0gTlVNQTogTm9kZSAwIFBYTSAxIFsw
-MDAwMDAwNjQwMDAwMDAwLCAwMDAwMDAwYzNmZmZmZmZmXQ0KWzIwMjItMTItMTMgMDA6Mjk6MjUg
-VVRDXSAoWEVOKSBbMDAwMDAwMzgyMjI5NmI0YV0gTlVNQTogVXNpbmcgMTggZm9yIHRoZSBoYXNo
-IHNoaWZ0DQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODM4YmM5NGU2
-XSBEb21haW4gaGVhcCBpbml0aWFsaXNlZCBETUEgd2lkdGggMzIgYml0cw0KWzIwMjItMTItMTMg
-MDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzgzOWQzYmM2ZF0gQXNzZXJ0aW9uICduaWQgPCBN
-QVhfTlVNTk9ERVMgJiYgbm9kZV9kYXRhW25pZF0ubm9kZV9zcGFubmVkX3BhZ2VzJyBmYWlsZWQg
-YXQgLi4vaW5jbHVkZS94ZW4vbnVtYS5oOjc2DQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChY
-RU4pIFswMDAwMDAzODNiNmMxMjdhXSAtLS0tWyBYZW4tNC4xOC4wLTEwLjM2LWQgIHg4Nl82NCAg
-ZGVidWc9eSAgTm90IHRhaW50ZWQgXS0tLS0NClsyMDIyLTEyLTEzIDAwOjI5OjI1IFVUQ10gKFhF
-TikgWzAwMDAwMDM4M2M3Zjg4YWRdIENQVTogICAgMA0KWzIwMjItMTItMTMgMDA6Mjk6MjUgVVRD
-XSAoWEVOKSBbMDAwMDAwMzgzY2YxOGQzZl0gUklQOiAgICBlMDA4Ols8ZmZmZjgyZDA0MDQ1NmU0
-Mz5dIHBhZ2luZ19pbml0KzB4MWNkLzB4OTI2DQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChY
-RU4pIFswMDAwMDAzODNkZmI2ODExXSBSRkxBR1M6IDAwMDAwMDAwMDAwMTAwODYgICBDT05URVhU
-OiBoeXBlcnZpc29yDQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODNl
-ZTI5MzZkXSByYXg6IDAwMDAwMDAwMDAwMDAwZmYgICByYng6IDAwMDAwMDAwMDA2M2Y4MDAgICBy
-Y3g6IDAwMDAwMDAwMDAwMDAwMTINClsyMDIyLTEyLTEzIDAwOjI5OjI1IFVUQ10gKFhFTikgWzAw
-MDAwMDM4NDAxMjZmOGRdIHJkeDogZmZmZjgyZDA0MDM5ZDA0MCAgIHJzaTogMDAwMDAwMDAwMDAw
-MDBmZiAgIHJkaTogZmZmZjgyODAwMDYwMDAwMA0KWzIwMjItMTItMTMgMDA6Mjk6MjUgVVRDXSAo
-WEVOKSBbMDAwMDAwMzg0MTQyNmYxN10gcmJwOiBmZmZmODJkMDQwNDZmZGI4ICAgcnNwOiBmZmZm
-ODJkMDQwNDZmZDM4ICAgcjg6ICBmZmZmODI4MDAwNDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToy
-NSBVVENdIChYRU4pIFswMDAwMDAzODQyNzI0OTQ1XSByOTogIDAwMDAwMDAwMDAwMDAwMDAgICBy
-MTA6IDAwMDAwMDAwMDAwMDAwMDAgICByMTE6IDAwMDAwMGZmZmZmZmZmZmYNClsyMDIyLTEyLTEz
-IDAwOjI5OjI1IFVUQ10gKFhFTikgWzAwMDAwMDM4NDNhMjNiMGRdIHIxMjogZmZmZjgyODAwMDQw
-MDAwMCAgIHIxMzogZmZmZjgyZDA0MDRlMjAwMCAgIHIxNDogMDAwMDAwMDdjN2ZmZmZmZg0KWzIw
-MjItMTItMTMgMDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzg0NGQyMjJmN10gcjE1OiBmZmZm
-ODMwMDAwMDAwMDAwICAgY3IwOiAwMDAwMDAwMDgwMDUwMDMzICAgY3I0OiAwMDAwMDAwMDAwMDAw
-MGEwDQpbMjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODQ2MDIyM2RhXSBj
-cjM6IDAwMDAwMDAwYmVlZTIwMDAgICBjcjI6IDAwMDAwMDAwMDAwMDAwMDANClsyMDIyLTEyLTEz
-IDAwOjI5OjI1IFVUQ10gKFhFTikgWzAwMDAwMDM4NDZlNjBhNWFdIGZzYjogMDAwMDAwMDAwMDAw
-MDAwMCAgIGdzYjogMDAwMDAwMDAwMDAwMDAwMCAgIGdzczogMDAwMDAwMDAwMDAwMDAwMA0KWzIw
-MjItMTItMTMgMDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzg0ODE1ZmY5N10gZHM6IDAwMDAg
-ICBlczogMDAwMCAgIGZzOiAwMDAwICAgZ3M6IDAwMDAgICBzczogMDAwMCAgIGNzOiBlMDA4DQpb
-MjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODQ5MzJlZmU5XSBYZW4gY29k
-ZSBhcm91bmQ0NTZlNDM+IChwYWdpbmdfaW5pdCsweDFjZC8weDkyNik6DQpbMjAyMi0xMi0xMyAw
-MDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODRhNDk3OGQwXSAgMDAgZTkgMjIgMDMgMDAgMDAg
-MGYgMGIgPDBmPiAwYiA0YyA4YiA2NSBiOCA0OSBjMSBlYyAwMyBiYiAwMCAwMCAwMCAwMCA0Yw0K
-WzIwMjItMTItMTMgMDA6Mjk6MjUgVVRDXSAoWEVOKSBbMDAwMDAwMzg0Yjg5M2JkMl0gWGVuIHN0
-YWNrIHRyYWNlIGZyb20gcnNwPWZmZmY4MmQwNDA0NmZkMzg6DQpbMjAyMi0xMi0xMyAwMDoyOToy
-NSBVVENdIChYRU4pIFswMDAwMDAzODRjNjNiMzk3XSAgICAwMDAwMDAwMDA2MjAwMDAwIDAwMDAw
-MDAwMDAwMDAwMDAgZmZmZjgzMGMzNjc0MDAwMCAwMDAwMDAwMDAwMDAwMDMxDQpbMjAyMi0xMi0x
-MyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODRkOTZkMDdmXSAgICBmZmZmODAwMDAwNDAw
-MDAwIGZmZmY4MzBjMzY3MzYwMDAgMDAwMjAwMDA0MDRlNTljMCAwMDAwMDAwMDAwNDAwMDAwDQpb
-MjAyMi0xMi0xMyAwMDoyOToyNSBVVENdIChYRU4pIFswMDAwMDAzODRlYzllOWJmXSAgICBmZmZm
-ODMwYzM2NzM2MDE4IDAwMDAwMDAwMDAwMDAwMDMgMDAwMDAwMDAwMGMzNjczNiAwMDAwMDAwMDAw
-YzNmZmZmDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODRmZmNlYzdm
-XSAgICAwMDAwMDAwMDAwMDA3N2UwIDAwMDAwMDAwMDAwMDAwMDIgMDAwMDAwMDAwMDgwMDE2MyBm
-ZmZmODMwMDAwMDg3ZmIwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAz
-ODUxMzAxMTg5XSAgICBmZmZmODJkMDQwNDZmZWU4IGZmZmY4MmQwNDA0NWJjOTcgMDA0NzdiMDAw
-MDAwMDAwMCBmZmZmODMwMDAwMDg3ZjEwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4p
-IFswMDAwMDAzODUyNjMxZjRhXSAgICAwMDAwMDAwMDAwYzQwMDAwIDAwMDAwMDAwMDFhNDBmZmYg
-ZmZmZjgyZDA0MDQ2ZmVmOCAwMDAwMDAwMDAxYTQwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBV
-VENdIChYRU4pIFswMDAwMDAzODUzOTYzZjg5XSAgICAwMDAwMDAwMDAwMTAwMDAwIDAwMDAwMDAw
-MDAwMDAwMDAgMDAwMDAwMDAwMDAwMDFmZiBmZmZmODMwMDAwMDg3ZmIwDQpbMjAyMi0xMi0xMyAw
-MDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODU0Yzk1NjRhXSAgICBmZmZmODMwYzM2NzM4MDAw
-IGZmZmY4MzAwMDAwODdmMDEgMDAwMDAwMDEwMDAwMDAwMCBmZmZmODMwMDAwMDg3ZmIwDQpbMjAy
-Mi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODU1ZmM2YTQ3XSAgICBmZmZmODMw
-MDAwMDg3YzEwIGZmZmY4MzAwMDAwODdmMTAgMDA0NDA3NGQwMDQ2ZmU2YyAwMDQ0MGQxYjAwMDg3
-ZmEyDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODU3MzYyNjdhXSAg
-ICA2ODJkMGQxYzAwNDQwNGJmIDAwNDQwZDE5MDAwMDAwMDAgMDA0NmZlOTgwMDA4N2ZhOCAwMDA4
-N2ZhODAwNDQwN2MzDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODU4
-Njk1MDQ5XSAgICAwMDAwMDAwNDAwNDQwZDE1IDAwNDZmZWIwMDAwODdmMDEgMDAwMDAwMDgwMDAw
-MDAwMCAwMDAwMDAwMTAwMDAwMDZlDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFsw
-MDAwMDAzODU5OWM1ZDJmXSAgICAwMDAwMDAwMDAwMDAwMDAzIDAwMDAwMDAwMDAwMDAyZjggZmZm
-ZjgyZDA0MDYyOTAwMCBmZmZmODJkMDQwNTI5MDAwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENd
-IChYRU4pIFswMDAwMDAzODVhY2Y3OWFlXSAgICAwMDAwMDAwMDAwMDAwMDAyIDAwMDAwMDAwMDAw
-MDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoy
-OToyNiBVVENdIChYRU4pIFswMDAwMDAzODVjMDI4ZTE3XSAgICAwMDAwMDAwMDAwMDAwMDAwIDAw
-MDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCBmZmZmODJkMDQwMjA0MzQ0DQpbMjAyMi0x
-Mi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODVkMzVhOGM1XSAgICAwMDAwMDAwMDAw
-MDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAw
-DQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODVlNjhiZWZjXSAgICAw
-MDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAw
-MDAwMDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODVmOWJj
-Y2QyXSAgICAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAw
-MCAwMDAwMDAwMDAwMDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAw
-MDAzODYwY2VmMDA1XSAgICAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAw
-MDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChY
-RU4pIFswMDAwMDAzODYyMDFmOTdmXSAgICAwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAw
-MDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwDQpbMjAyMi0xMi0xMyAwMDoyOToy
-NiBVVENdIChYRU4pIFswMDAwMDAzODYzMzUxYTlmXSAgICAwMDAwMDAwMDAwMDAwMDAwIDAwMDAw
-MDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwDQpbMjAyMi0xMi0x
-MyAwMDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODY0NjgyYTlhXSBYZW4gY2FsbCB0cmFjZToN
-ClsyMDIyLTEyLTEzIDAwOjI5OjI2IFVUQ10gKFhFTikgWzAwMDAwMDM4NjRlZDIzZGZdICAgIFs8
-ZmZmZjgyZDA0MDQ1NmU0Mz5dIFIgcGFnaW5nX2luaXQrMHgxY2QvMHg5MjYNClsyMDIyLTEyLTEz
-IDAwOjI5OjI2IFVUQ10gKFhFTikgWzAwMDAwMDM4NjVkZGJiNGRdICAgIFs8ZmZmZjgyZDA0MDQ1
-YmM5Nz5dIEYgX19zdGFydF94ZW4rMHgxOWY3LzB4MjczOA0KWzIwMjItMTItMTMgMDA6Mjk6MjYg
-VVRDXSAoWEVOKSBbMDAwMDAwMzg2NmQ0YjZiN10gICAgWzxmZmZmODJkMDQwMjA0MzQ0Pl0gRiBf
-X2hpZ2hfc3RhcnQrMHg5NC8weGEwDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFsw
-MDAwMDAzODY3YzIyOGI0XQ0KWzIwMjItMTItMTMgMDA6Mjk6MjYgVVRDXSAoWEVOKSBbMDAwMDAw
-Mzg2ODE3OWU5N10NClsyMDIyLTEyLTEzIDAwOjI5OjI2IFVUQ10gKFhFTikgWzAwMDAwMDM4Njg2
-ZDE5YjddICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioNClsyMDIyLTEy
-LTEzIDAwOjI5OjI2IFVUQ10gKFhFTikgWzAwMDAwMDM4Njk0MTMyNDVdIFBhbmljIG9uIENQVSAw
-Og0KWzIwMjItMTItMTMgMDA6Mjk6MjYgVVRDXSAoWEVOKSBbMDAwMDAwMzg2OWM2Mzk2N10gQXNz
-ZXJ0aW9uICduaWQgPCBNQVhfTlVNTk9ERVMgJiYgbm9kZV9kYXRhW25pZF0ubm9kZV9zcGFubmVk
-X3BhZ2VzJyBmYWlsZWQgYXQgLi4vaW5jbHVkZS94ZW4vbnVtYS5oOjc2DQpbMjAyMi0xMi0xMyAw
-MDoyOToyNiBVVENdIChYRU4pIFswMDAwMDAzODZiNWU5NzMzXSAqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqDQpbMjAyMi0xMi0xMyAwMDoyOToyNiBVVENdIChYRU4pIFsw
-MDAwMDAzODZjMzJhOTJiXQ0KWzIwMjItMTItMTMgMDA6Mjk6MjYgVVRDXSAoWEVOKSBbMDAwMDAw
-Mzg2Yzg4MjU3NF0gUmVib290IGluIGZpdmUgc2Vjb25kcy4uLg0KDQoNCg0KRnJvbTogWGVuLWRl
-dmVsIDx4ZW4tZGV2ZWwtYm91bmNlc0BsaXN0cy54ZW5wcm9qZWN0Lm9yZz4gb24gYmVoYWxmIG9m
-IFdlaSBDaGVuIDx3ZWkuY2hlbkBhcm0uY29tPg0KRGF0ZTogRnJpZGF5LCBOb3ZlbWJlciAxOCwg
-MjAyMiBhdCA2OjQ2IFBNDQpUbzogeGVuLWRldmVsQGxpc3RzLnhlbnByb2plY3Qub3JnIDx4ZW4t
-ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmc+DQpDYzogbmRAYXJtLmNvbSA8bmRAYXJtLmNvbT4s
-IFdlaSBDaGVuIDx3ZWkuY2hlbkBhcm0uY29tPiwgSmFuIEJldWxpY2ggPGpiZXVsaWNoQHN1c2Uu
-Y29tPiwgQW5kcmV3IENvb3BlciA8QW5kcmV3LkNvb3BlcjNAY2l0cml4LmNvbT4sIFJvZ2VyIFBh
-dSBNb25uZSA8cm9nZXIucGF1QGNpdHJpeC5jb20+LCBXZWkgTGl1IDx3bEB4ZW4ub3JnPiwgR2Vv
-cmdlIER1bmxhcCA8R2VvcmdlLkR1bmxhcEBjaXRyaXguY29tPiwgSnVsaWVuIEdyYWxsIDxqdWxp
-ZW5AeGVuLm9yZz4sIFN0ZWZhbm8gU3RhYmVsbGluaSA8c3N0YWJlbGxpbmlAa2VybmVsLm9yZz4N
-ClN1YmplY3Q6IFtQQVRDSCB2OSAwLzZdIERldmljZSB0cmVlIGJhc2VkIE5VTUEgc3VwcG9ydCBm
-b3IgQXJtIC0gUGFydCMyDQooVGhlIEFybSBkZXZpY2UgdHJlZSBiYXNlZCBOVU1BIHN1cHBvcnQg
-cGF0Y2ggc2V0IGNvbnRhaW5zIDM1DQpwYXRjaGVzLiBJbiBvcmRlciB0byBtYWtlIHN0dWZmIGVh
-c2llciBmb3IgcmV2aWV3ZXJzLCBJIHNwbGl0DQp0aGVtIGludG8gMyBwYXJ0czoNCjEuIFByZXBh
-cmF0aW9uLiBJIGhhdmUgcmUtc29ydGVkIHRoZSBwYXRjaCBzZXJpZXMuIEFuZCBtb3ZlZA0KICAg
-aW5kZXBlbmRlbnQgcGF0Y2hlcyB0byB0aGUgaGVhZCBvZiB0aGUgc2VyaWVzIC0gbWVyZ2VkIGlu
-IFsxXQ0KMi4gTW92ZSBnZW5lcmljYWxseSB1c2FibGUgY29kZSBmcm9tIHg4NiB0byBjb21tb24g
-LSB0aGlzIHNlcmllcy4NCjMuIEFkZCBuZXcgY29kZSB0byBzdXBwb3J0IEFybS4NCg0KVGhpcyBz
-ZXJpZXMgb25seSBjb250YWlucyB0aGUgc2Vjb25kIHBhcnQgcGF0Y2hlcy4gQXMgdGhlIHdob2xl
-IE5VTUENCnNlcmllcyBoYXMgYmVlbiByZXZpZXdlZCBmb3IgMSByb3VuZCBpbiBbMl0sIHNvIHRo
-aXMgc2VyaWVzIHdvdWxkDQpiZSB2OSkNCg0KWGVuIG1lbW9yeSBhbGxvY2F0aW9uIGFuZCBzY2hl
-ZHVsZXIgbW9kdWxlcyBhcmUgTlVNQSBhd2FyZS4NCkJ1dCBhY3R1YWxseSwgb24geDg2IGhhcyBp
-bXBsZW1lbnRlZCB0aGUgYXJjaGl0ZWN0dXJlIEFQSXMNCnRvIHN1cHBvcnQgTlVNQS4gQXJtIHdh
-cyBwcm92aWRpbmcgYSBzZXQgb2YgZmFrZSBhcmNoaXRlY3R1cmUNCkFQSXMgdG8gbWFrZSBpdCBj
-b21wYXRpYmxlIHdpdGggTlVNQSBhd2FyZWQgbWVtb3J5IGFsbG9jYXRpb24NCmFuZCBzY2hlZHVs
-ZXIuDQoNCkFybSBzeXN0ZW0gd2FzIHdvcmtpbmcgd2VsbCBhcyBhIHNpbmdsZSBub2RlIE5VTUEg
-c3lzdGVtIHdpdGgNCnRoZXNlIGZha2UgQVBJcywgYmVjYXVzZSB3ZSBkaWRuJ3QgaGF2ZSBtdWx0
-aXBsZSBub2RlcyBOVU1BDQpzeXN0ZW0gb24gQXJtLiBCdXQgaW4gcmVjZW50IHllYXJzLCBtb3Jl
-IGFuZCBtb3JlIEFybSBkZXZpY2VzDQpzdXBwb3J0IG11bHRpcGxlIG5vZGVzIE5VTUEgc3lzdGVt
-Lg0KDQpTbyBub3cgd2UgaGF2ZSBhIG5ldyBwcm9ibGVtLiBXaGVuIFhlbiBpcyBydW5uaW5nIG9u
-IHRoZXNlIEFybQ0KZGV2aWNlcywgWGVuIHN0aWxsIHRyZWF0IHRoZW0gYXMgc2luZ2xlIG5vZGUg
-U01QIHN5c3RlbXMuIFRoZQ0KTlVNQSBhZmZpbml0eSBjYXBhYmlsaXR5IG9mIFhlbiBtZW1vcnkg
-YWxsb2NhdGlvbiBhbmQgc2NoZWR1bGVyDQpiZWNvbWVzIG1lYW5pbmdsZXNzLiBCZWNhdXNlIHRo
-ZXkgcmVseSBvbiBpbnB1dCBkYXRhIHRoYXQgZG9lcw0Kbm90IHJlZmxlY3QgcmVhbCBOVU1BIGxh
-eW91dC4NCg0KWGVuIHN0aWxsIHRoaW5rIHRoZSBhY2Nlc3MgdGltZSBmb3IgYWxsIG9mIHRoZSBt
-ZW1vcnkgaXMgdGhlDQpzYW1lIGZvciBhbGwgQ1BVcy4gSG93ZXZlciwgWGVuIG1heSBhbGxvY2F0
-ZSBtZW1vcnkgdG8gYSBWTQ0KZnJvbSBkaWZmZXJlbnQgTlVNQSBub2RlcyB3aXRoIGRpZmZlcmVu
-dCBhY2Nlc3Mgc3BlZWRzLiBUaGlzDQpkaWZmZXJlbmNlIGNhbiBiZSBhbXBsaWZpZWQgaW4gd29y
-a2xvYWRzIGluc2lkZSBWTSwgY2F1c2luZw0KcGVyZm9ybWFuY2UgaW5zdGFiaWxpdHkgYW5kIHRp
-bWVvdXRzLg0KDQpTbyBpbiB0aGlzIHBhdGNoIHNlcmllcywgd2UgaW1wbGVtZW50IGEgc2V0IG9m
-IE5VTUEgQVBJIHRvIHVzZQ0KZGV2aWNlIHRyZWUgdG8gZGVzY3JpYmUgdGhlIE5VTUEgbGF5b3V0
-LiBXZSByZXVzZSBtb3N0IG9mIHRoZQ0KY29kZSBvZiB4ODYgTlVNQSB0byBjcmVhdGUgYW5kIG1h
-aW50YWluIHRoZSBtYXBwaW5nIGJldHdlZW4NCm1lbW9yeSBhbmQgQ1BVLCBjcmVhdGUgdGhlIG1h
-dHJpeCBiZXR3ZWVuIGFueSB0d28gTlVNQSBub2Rlcy4NCkV4Y2VwdCBBQ1BJIGFuZCBzb21lIHg4
-NiBzcGVjaWZpZWQgY29kZSwgd2UgaGF2ZSBtb3ZlZCBvdGhlcg0KY29kZSB0byBjb21tb24uIElu
-IG5leHQgc3RhZ2UsIHdoZW4gd2UgaW1wbGVtZW50IEFDUEkgYmFzZWQNCk5VTUEgZm9yIEFybTY0
-LCB3ZSBtYXkgbW92ZSB0aGUgQUNQSSBOVU1BIGNvZGUgdG8gY29tbW9uIHRvbywNCmJ1dCBpbiBj
-dXJyZW50IHN0YWdlLCB3ZSBrZWVwIGl0IGFzIHg4NiBvbmx5Lg0KDQpUaGlzIHBhdGNoIHNlcmly
-ZXMgaGFzIGJlZW4gdGVzdGVkIGFuZCBib290ZWQgd2VsbCBvbiBvbmUNCkFybTY0IE5VTUEgbWFj
-aGluZSBhbmQgb25lIEhQRSB4ODYgTlVNQSBtYWNoaW5lLg0KDQpbMV0gaHR0cHM6Ly9uYW0wNC5z
-YWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMu
-eGVucHJvamVjdC5vcmclMkZhcmNoaXZlcyUyRmh0bWwlMkZ4ZW4tZGV2ZWwlMkYyMDIyLTA2JTJG
-bXNnMDA0OTkuaHRtbCZhbXA7ZGF0YT0wNSU3QzAxJTdDbGluLmxpdSU0MGNpdHJpeC5jb20lN0Nh
-NjU4MTc2NjNmZDM0NTlhMGMzNjA4ZGFjOTUyMTY1NCU3QzMzNTgzNmRlNDJlZjQzYTJiMTQ1MzQ4
-YzJlZTljYTViJTdDMCU3QzAlN0M2MzgwNDM2NTE2NzUzNTY1NjglN0NVbmtub3duJTdDVFdGcGJH
-WnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENKQlRpSTZJazFoYVd3
-aUxDSlhWQ0k2TW4wJTNEJTdDMzAwMCU3QyU3QyU3QyZhbXA7c2RhdGE9YW1sdCUyRkNWUkVINlBE
-eXN2akVYNm90QzA2S0JMRm5jRHlPRWVOeDQ2V01zJTNEJmFtcDtyZXNlcnZlZD0wDQpbMl0gaHR0
-cHM6Ly9uYW0wNC5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNB
-JTJGJTJGbGlzdHMueGVucHJvamVjdC5vcmclMkZhcmNoaXZlcyUyRmh0bWwlMkZ4ZW4tZGV2ZWwl
-MkYyMDIxLTA5JTJGbXNnMDE5MDMuaHRtbCZhbXA7ZGF0YT0wNSU3QzAxJTdDbGluLmxpdSU0MGNp
-dHJpeC5jb20lN0NhNjU4MTc2NjNmZDM0NTlhMGMzNjA4ZGFjOTUyMTY1NCU3QzMzNTgzNmRlNDJl
-ZjQzYTJiMTQ1MzQ4YzJlZTljYTViJTdDMCU3QzAlN0M2MzgwNDM2NTE2NzUzNTY1NjglN0NVbmtu
-b3duJTdDVFdGcGJHWnNiM2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTENK
-QlRpSTZJazFoYVd3aUxDSlhWQ0k2TW4wJTNEJTdDMzAwMCU3QyU3QyU3QyZhbXA7c2RhdGE9cDcl
-MkZyNlh0YWI5Uk1LSUZlSkRFTWFqJTJCYlN6Tnp0QkM0S1Z6WnExVElsSnclM0QmYW1wO3Jlc2Vy
-dmVkPTANCg0KLS0tDQp2OCAtPnY5Og0KIDEuIFJlbW92ZSBpbmNvcnJlY3QgZGVzY3JpcHRpb24g
-aW4gcGF0Y2gjNSdzIGNvbW1pdCBsb2cuDQogMi4gQWRkIGNvZGUgY29tbWVudHMgZm9yIHRoZSBw
-bGFjZXMgdG8gc2V0IG51bWFfZndfbmlkX25hbWUuDQp2NyAtPiB2ODoNCiAxLiBDaGFuZ2UgIm9m
-IHNoaWZ0IHRvbyBzbWFsbCIgdG8gIm9yIHNoaWZ0IHRvbyBzbWFsbCIuDQogMi4gQWRkIG51bWFf
-ZndfbmlkX25hbWUgc2V0dGluZyBpbiBzcmF0X3BhcnNlX3JlZ2lvbnMgYWZ0ZXINCiAgICBhY3Bp
-X3RhYmxlX3BhcnNlIHN1Y2NlZWRlZC4NCnY2IC0+IHY3Og0KIDEuIFJlc3RvcmUgJWQgZm9yIG5v
-ZGVpZF90IGluIGR1bXBfbnVtYS4NCiAyLiBVc2Ugc2l6ZW9mKHBhZ2VfbnVtX25vZGUpIGZvciBw
-YWdlX251bV9ub2RlIHNpemUgaW4gbWVtc2V0Lg0KIDMuIEFkZCBkZXNjcmlwdGlvbiBmb3IgdXNp
-bmcgbWluKFBBRERSX0JJVFMsIEJJVFNfUEVSX0xPTkcgLSAxKQ0KICAgIHRvIGNhbGN1bGF0ZSB0
-aGUgc2hpZnQgd2hlbiBvbmx5IG9uZSBub2RlIGlzIGluIHRoZSBzeXN0ZW0uDQogNC4gVXNlICVw
-ZCBmb3IgZG9tYWluIHByaW50IGluIGR1bXBfbnVtYS4NCiA1LiBBZGQgX19pbml0IGZvciBhcmNo
-X251bWFfdW5hdmFpbGFibGUuDQogNi4gVXNlIF9fcm9fYWZ0ZXJfaW5pdCBmb3IgbWVtX2hvdHBs
-dWcuDQogNy4gVXNlICI/Pz8iIGluc3RlYWQgb2YgIk5PTkFNRSIgZm9yIHVuc2V0IG51bWFfZndf
-bmlkX25hbWUuDQogOC4gRml4IGNvZGUtc3R5bGUuDQp2NSAtPiB2NjoNCiAxLiBSZXZlcnQgYXJj
-aF9udW1hX2Jyb2tlbiB0byBhcmNoX251bWFfZGlzYWJsZWQsIGFzIGFjcGlfbnVtYQ0KICAgIGNh
-biBiZSBzZXQgdG8gLTEgYnkgdXNlcnMuIFNvIGFjcGlfbnVtYSA8IDAgZG9lcyBub3QgbWVhbg0K
-ICAgIGEgYnJva2VuIGZpcm13YXJlLg0KIDIuIFJlcGxhY2UgbnVtYV9zY2FuX25vZGUgdG8gbnVt
-YV9wcm9jZXNzX25vZGVzIGluIGNvbW1pdCBsb2cuDQogMy4gTGltaXQgdGhlIHNjb3BlIG9mIHBh
-Z2VfbnVtX25vZGUsIHZudW1hIGFuZCBwYWdlIG9mIG51bWFfc2V0dXANCiAgICBmdW5jdGlvbi4N
-CiA0LiBVc2UgbWVtc2V0IHRvIGluaXQgcGFnZV9udW1fbm9kZSBpbnN0ZWFkIG9mIGZvcl9lYWNo
-X29ubGluZV9ub2RlLg0KIDUuIFVzZSAldSBpbnN0ZWFkIG9mICVkIGZvciBub2RlaWRfdCBhbmQg
-aiBpbiBudW1hX3NldHVwIHByaW50DQogICAgbWVzc2FnZXMuDQogNi4gVXNlIG1pbihQQUREUl9C
-SVRTLCBCSVRTX1BFUl9MT05HIC0gMSkgdG8gY2FsY3VsYXRlIHRoZSBzaGlmdA0KICAgIHdoZW4g
-b25seSBvbmUgbm9kZSBpcyBpbiB0aGUgc3lzdGVtLg0KIDcuIERyb3AgdGhlIG1hcmNvOiBub2Rl
-X3RvX2ZpcnN0X2NwdShub2RlKQ0KIDguIFVzZSBhcmNoX251bWFfdW5hdmFpbGFibGUgdG8gcmVw
-bGFjZSBhcmNoX251bWFfZGlzYWJsZWQgZm9yDQogICAgYWNwaV9udW1hIDw9IDAuDQogOS4gUmVt
-b3ZlIEtjb25maWcgZm9yIEhBU19OVU1BX05PREVfRldJRC4NCjEwLiBVc2UgbnVtYV9md19uaWRf
-bmFtZSBmb3IgTlVNQSBpbXBsZW1lbnRhdGlvbiB0byBzZXQgdGhlaXIgZncNCiAgICBOVU1BIG5v
-ZGUgbmFtZSBmb3IgcHJpbnQgbWVzc2FnZXMuDQoNCnY0IC0+IHY1Og0KIDEuIFVzZSBhcmNoX251
-bWFfYnJva2VuIGluc3RlYWQgb2YgYXJjaF9udW1hX2Rpc2FibGVkIGZvcg0KICAgIGFjcGlfbnVt
-YSA8IDAgY2hlY2suIEJlY2F1c2UgYXJjaF9udW1hX2Rpc2FibGVkIG1pZ2h0DQogICAgaW5jbHVk
-ZSBhY3BpX251bWEgPCAwIChpbml0IGZhaWxlZCkgYW5kIGFjcGlfbnVtYSA9PSAwDQogICAgKG5v
-IGRhdGEgb3IgZGF0YSBubyBpbml0KSBjYXNlcy4NCiAyLiBVc2Ugbm9kZWlkX3QgaW5zdGVhZCBv
-ZiB1aW50OF90IGZvciBtZW1ub2RlbWFwLg0KIDMuIFJlc3RvcmUgdG8gdXNlIHR5cGVvZigqbWVt
-bm9kZW1hcCkgZm9yIF9tZW1ub2RlbWFwLCB0aGlzIHdpbGwgYXZvaWQgdGhlDQogICAgZnVydGhl
-ciBhZGp1c3RtZW50cyBmb3IgX21lbW5vZGVtYXAncyB0eXBlLg0KIDQuIFVzZSBfX3JvX2FmdGVy
-X2luaXQgZm9yIG51bWFfb2ZmLg0KIDUuIFVzZSBwb2ludGVyLXRvLWNvbnN0IGZvciBwcm9wZXIg
-ZnVuY3Rpb24gcGFyYW1ldGVycy4NCiA2LiBVc2UgdW5zaWduZWQgaW50IGZvciB2YXJpYWJsZXMg
-dGhhdCBhcmUgbm90IHJlYWx5IHVzZWQgZm9yIG5vZGUgSUQuDQogNy4gRml4IGNvZGUgY29tbWVu
-dHMgY29kZS1zdHlsZSBhbmQgYWRqdXN0IHRoZSBsZW5ndGguDQogOC4gRml4IGNvZGUtc3R5bGVz
-Lg0KIDkuIFJlbmFtZSBudW1hX3NjYW5fbm9kZXMgdG8gbnVtYV9wcm9jZXNzX25vZGVzLg0KMTAu
-IERlZmVyIGludHJvZHVjZSBhcmNoX251bWFfZGlzYWJsZWQgZm9yIGFjcGlfbnVtYSA8PSAwLiBB
-bmQgcmVtb3ZlDQogICAgdGhlIHBhcmFtdGVyIGluaXRfYXNfZGlzYWJsZSBvZiBhcmNoX251bWFf
-ZGlzYWJsZWQuDQoxMS4gRml4IHR5cG8gImV4cGFuZHNpb24iLg0KMTIuIEZpeCBJbmRlbnRhdGlv
-biBmb3IgbDF0Zl9zYWZlX21hZGRyLg0KMTMuIFJlbW92ZSBkb3VibGUgYmxhbmsgbGluZXMuDQox
-NC4gQWRkIGEgc3BhY2UgYmV0d2VlbiBmb3JfZWFjaF9ub2RlX21hc2sgYW5kICcoJy4NCiAgICBB
-ZGQgYSBzcGFjZSBwYWdlX2xpc3RfZm9yX2VhY2ggYW5kICcoJy4NCjE1LiBVc2UgYm9vbCBmb3Ig
-bm9kZXNfY292ZXJfbWVtb3J5IHJldHVybiB2YWx1ZS4NCjE2LiBVc2UgYSBwbGFpbiAiaW50IHJl
-dCIgdG8gcmVjb3JkIGNvbXB1dGVfaGFzaF9zaGlmdCByZXR1cm4gdmFsdWUuDQoxNy4gQWRkIGEg
-YmxhbmsgbGluZSBiZWZvcmUgdGhlIGZ1bmN0aW9uJ3MgbWFpbiAicmV0dXJuIi4NCjE4LiBBZGQg
-bmV3IEtjb25maWcgb3B0aW9uIEhBU19OVU1BX05PREVfRldJRCB0byBjb21tb24vS2NvbmZpZy4N
-Cg0KdjMgLT4gdjQ6DQogMS4gQWRkIGluaXRfYXNfZGlzYWJsZSBhcyBhcmNoX251bWFfZGlzYWJs
-ZWQgcGFyYW1ldGVyIGluIHRoZSBwYXRjaGUNCiAgICB3aGVyZSB1c2UgaXQuDQogMi4gRHJvcCB1
-bm5lY2Vzc2FyeSAiZWxzZSIgZnJvbSBhcmNoX251bWFfc2V0dXAsIGFuZCBmaXggaXRzDQogICBp
-bmRlbnRhdGlvbi4NCiAzLiBSZXN0b3JlIGNvbXB1dGVfaGFzaF9zaGlmdCdzIHJldHVybiB2YWx1
-ZSB0byBpbnQuDQogNC4gUmVtb3ZlIHVubmVjZXNzYXJ5IHBhcmVudGhlc2VzIGZvciBtYWNyb3Mu
-DQogNS4gVXNlIHVuc2lnbmVkIGludCBmb3IgcHJvcGVyIHZhcmlhYmxlcy4NCiA2LiBGaXggc29t
-ZSBjb2RlLXN0eWxlLg0KIDcuIE1vdmUgYXJjaF9nZXRfcmFtX3JhbmdlIGZ1bmN0aW9uIGNvbW1l
-bnQgdG8gaGVhZGVyIGZpbGUuDQogOC4gVXNlIGJvb2wgZm9yIGZvdW5kLCBhbmQgYWRkIGEgbmV3
-ICJlcnIiIGZvciB0aGUgcmV0dXJuDQogICAgdmFsdWUgb2YgYXJjaF9nZXRfcmFtX3JhbmdlLg0K
-IDkuIFVzZSAtRU5PREFUQSBpbnN0ZWFkIG9mIC1FSU5WQUwgZm9yIG5vbi1SQU0gdHlwZSByYW5n
-ZXMuDQoxMC4gVXNlIGJvb2wgYXMgcmV0dXJuIHZhbHVlIGZvciBmdW5jdGlvbnMgdGhhdCBvbmx5
-IHJldHVybg0KICAgIDAvMSBvciAwLy1FSU5WQUwuDQoxMS4gTW92ZSBtZW1faG90cGx1ZyB0byBh
-IHByb3BlciBwbGFjZSBpbiBtbS5oDQoxMi4gUmVtb3ZlIHVzZWxlc3MgInNpemUiIGluIG51bWFf
-c2Nhbl9ub2Rlcy4NCjEzLiBBZGQgQ09ORklHX0hBU19OVU1BX05PREVfRldJRCB0byBnYXRlIHBy
-aW50IHRoZSBtYXBwaW5nDQogICAgYmV0d2VlbiBub2RlIGlkIGFuZCBhcmNoaXRlY3R1cmFsIG5v
-ZGUgaWQgKGZ3IG5vZGUgaWQpLg0KDQp2MiAtPiB2MzoNCiAxLiBEcm9wIGVudW1lcmF0aW9uIG9m
-IG51bWEgc3RhdHVzLg0KIDIuIFVzZSBoZWxwZXJzIHRvIGdldC91cGRhdGUgYWNwaV9udW1hLg0K
-IDMuIEluc2VydCBzcGFjZXMgYW1vbmcgcGFyYW1ldGVycyBvZiBzdHJuY21wIGluIG51bWFfc2V0
-dXAuDQogNC4gRHJvcCBoZWxwZXJzIHRvIGFjY2VzcyBtZW1faG90cGx1Zy4gRXhwb3J0IG1lbV9o
-b3RwbHVnIGZvciBhbGwgYXJjaC4NCiA1LiBSZW1vdmUgYWNwaS5oIGZyb20gY29tbW9uL251bWEu
-Yy4NCiA2LiBSZW5hbWUgYWNwaV9zY2FuX25vZGVzIHRvIG51bWFfc2Nhbl9ub2Rlcy4NCiA3LiBS
-ZXBsYWNlIHU4IGJ5IHVpbnQ4X3QgZm9yIG1lbW5vZGVtYXAuDQogOC4gVXNlIHVuc2lnbmVkIGlu
-dCBmb3IgbWVtbm9kZV9zaGlmdCBhbmQgYWRqdXN0IHJlbGF0ZWQgZnVuY3Rpb25zDQogICAgKGNv
-bXB1dGVfaGFzaF9zaGlmdCwgcG9wdWxhdGVfbWVtbm9kZW1hcCkgdG8gdXNlIGNvcnJlY3QgdHlw
-ZXMgZm9yDQogICAgcmV0dXJuIHZhbHVlcyBvciBwYXJhbWV0ZXJzLg0KIDkuIFVzZSBub2RlaWRf
-dCBmb3Igbm9kZWlkIGFuZCBub2RlIG51bWJlcnMuDQoxMC4gVXNlIF9fcmVhZF9tb3N0bHkgYW5k
-IF9fcm9fYWZ0ZXJfaW5pdCBmb3IgYXBwcm9wcmlhdGUgdmFyaWFibGVzLg0KMTEuIEFkanVzdCB0
-aGUgX19yZWFkX21vc3RseSBhbmQgX19pbml0ZGF0YSBsb2NhdGlvbiBmb3Igc29tZSB2YXJpYWJs
-ZXMuDQoxMi4gQ29udmVydCBmcm9tIHBsYWluIGludCB0byB1bnNpZ25lZCBmb3IgY3B1aWQgYW5k
-IG90aGVyIHByb3Blcg0KMTMuIFJlbW92ZSB1bm5lY2Vzc2FyeSBjaGFuZ2UgaXRlbXMgaW4gaGlz
-dG9yeS4NCjE0LiBSZW5hbWUgYXJjaF9nZXRfbWVtb3J5X21hcCB0byBhcmNoX2dldF9yYW1fcmFu
-Z2UuDQoxNS4gVXNlIC1FTk9FTlQgaW5zdGVhZCBvZiAtRU5PREVWIHRvIGluZGljYXRlIGVuZCBv
-ZiBtZW1vcnkgbWFwLg0KMTYuIEFkZCBkZXNjcmlwdGlvbiB0byBjb2RlIGNvbW1lbnQgdGhhdCBh
-cmNoX2dldF9yYW1fcmFuZ2UgcmV0dXJucw0KICAgIFJBTSByYW5nZSBpbiBbc3RhcnQsIGVuZCkg
-Zm9ybWF0Lg0KMTcuIFJlbmFtZSBiYWRfc3JhdCB0byBudW1hX2Z3X2JhZC4NCjE4LiBSZW5hbWUg
-bm9kZV90b19weG0gdG8gbnVtYV9ub2RlX3RvX2FyY2hfbmlkLg0KMTkuIE1lcmdlIHBhdGNoIzcg
-YW5kICM4IGludG8gcGF0Y2gjNi4NCjIwLiBNb3ZlIE5SX05PREVfTUVNQkxLUyBmcm9tIHg4Ni9h
-Y3BpLmggdG8gY29tbW9uL251bWEuaA0KMjIuIFVzZSAyLTY0IGZvciBub2RlIHJhbmdlLg0KDQp2
-MSAtPiB2MjoNCiAxLiBSZWZpbmUgdGhlIGNvbW1pdCBtZXNzYWdlcyBvZiBzZXZlcmFsIHBhdGNo
-ZXMuDQogMi4gTWVyZ2UgdjEgcGF0Y2gjOSwxMCBpbnRvIG9uZSBwYXRjaC4gSW50cm9kdWNlIHRo
-ZSBuZXcgZnVuY3Rpb25zDQogICAgaW4gdGhlIHNhbWUgcGF0Y2ggdGhhdCB0aGlzIHBhdGNoIHdp
-bGwgYmUgdXNlZCBmaXJzdCB0aW1lLg0KIDMuIEZvbGQgaWYgKCBlbmQgPiBtZW1faG90cGx1ZyAp
-IHRvIG1lbV9ob3RwbHVnX3VwZGF0ZV9ib3VuZGFyeSwNCiAgICBpbiB0aGlzIGNhc2UsIHdlIGNh
-biBkcm9wIG1lbV9ob3RwbHVnX2JvdW5kYXJ5Lg0KIDQuIFJlbW92ZSBmd19udW1hLCB1c2UgZW51
-bWVyYXRpb24gdG8gcmVwbGFjZSBudW1hX29mZiBhbmQgYWNwaV9udW1hLg0KIDUuIENvcnJlY3Qg
-cmV0dXJuIHZhbHVlIG9mIHNyYXRfZGlzYWJsZWQuDQogNi4gSW50cm9kdWNlIG51bWFfZW5hYmxl
-ZF93aXRoX2Zpcm13YXJlLg0KIDcuIFJlZmluZSB0aGUganVzdGlmaWNhdGlvbiBvZiB1c2luZyAh
-bm9kZV9kYXRhW25pZF0ubm9kZV9zcGFubmVkX3BhZ2VzLg0KIDguIFVzZSBBU1NFUlQgdG8gcmVw
-bGFjZSBWSVJUVUFMX0JVR19PTiBpbiBwaHlzX3RvX25pZC4NCiA5LiBBZGp1c3QgdGhlIGNvbmRp
-dGlvbmFsIGV4cHJlc3MgZm9yIEFTU0VSVC4NCjEwLiBNb3ZlIE1BWF9OVU1OT0RFUyBmcm9tIHhl
-bi9udW1hLmggdG8gYXNtL251bWEuaCBmb3IgeDg2Lg0KMTEuIFVzZSBjb25kaXRpb25hbCBtYWNy
-byB0byBnYXRlIE1BWF9OVU1OT0RFUyBmb3Igb3RoZXIgYXJjaGl0ZWN0dXJlcy4NCjEyLiBVc2Ug
-YXJjaF9nZXRfbWVtb3J5X21hcCB0byByZXBsYWNlIGFyY2hfZ2V0X21lbW9yeV9iYW5rX3Jhbmdl
-DQogICAgYW5kIGFyY2hfZ2V0X21lbW9yeV9iYW5rX251bWJlci4NCjEzLiBSZW1vdmUgdGhlICFz
-dGFydCB8fCAhZW5kIGNoZWNrLCBiZWNhdXNlIGNhbGxlciBndWFyYW50ZWUNCiAgICB0aGVzZSB0
-d28gcG9pbnRlcnMgd2lsbCBub3QgYmUgTlVMTC4NCjE0LiBBZGQgY29kZSBjb21tZW50IGZvciBu
-dW1hX3VwZGF0ZV9ub2RlX21lbWJsa3MgdG8gZXhwbGFpbjoNCiAgICBBc3N1bWVzIGFsbCBtZW1v
-cnkgcmVnaW9ucyBiZWxvbmdpbmcgdG8gYSBzaW5nbGUgbm9kZQ0KICAgIGFyZSBpbiBvbmUgY2h1
-bmsuIEhvbGVzIGJldHdlZW4gdGhlbSB3aWxsIGJlIGluY2x1ZGVkDQogICAgaW4gdGhlIG5vZGUu
-DQoxNS4gTWVyZ2UgdGhpcyBzaW5nbGUgcGF0Y2ggaW5zdGVhZCBvZiBzZXJ2YWwgcGF0Y2hlcyB0
-byBtb3ZlDQogICAgeDg2IFNSQVQgY29kZSB0byBjb21tb24uDQoxNi4gRXhwb3J0IG5vZGVfdG9f
-cHhtIHRvIGtlZXAgcHhtIGluZm9ybWF0aW9uIGluIE5VTUEgc2Nhbg0KICAgIG5vZGVzIGVycm9y
-IG1lc3NhZ2VzLg0KMTcuIENoYW5nZSB0aGUgY29kZSBzdHlsZSB0byB0YXJnZXQgZmlsZSdzIFhl
-biBjb2RlLXN0eWxlLg0KMTguIEFkanVzdCBzb21lIF9faW5pdCBhbmQgX19pbml0ZGF0YSBmb3Ig
-c29tZSBmdW5jdGlvbnMgYW5kDQogICAgdmFyaWFibGVzLg0KMTkuIFJlcGxhY2UgQ09ORklHX0FD
-UElfTlVNQSBieSBDT05GSUdfTlVNQS4gUmVwbGFjZSAiU1JBVCIgdGV4dHMuDQoyMC4gVHVybiBu
-dW1hX3NjYW5fbm9kZXMgdG8gc3RhdGljLg0KMjEuIENoYW5nZSBOUl9OVU1BX05PREVTIHVwcGVy
-IGJvdW5kIGZyb20gNDA5NSB0byAyNTUuDQoNCldlaSBDaGVuICg2KToNCiAgeGVuL3g4NjogUHJv
-dmlkZSBoZWxwZXJzIGZvciBjb21tb24gY29kZSB0byBhY2Nlc3MgYWNwaV9udW1hDQogIHhlbi94
-ODY6IG1vdmUgZ2VuZXJpY2FsbHkgdXNhYmxlIE5VTUEgY29kZSBmcm9tIHg4NiB0byBjb21tb24N
-CiAgeGVuL3g4NjogVXNlIEFTU0VSVCBpbnN0ZWFkIG9mIFZJUlRVQUxfQlVHX09OIGZvciBwaHlz
-X3RvX25pZA0KICB4ZW4veDg2OiB1c2UgYXJjaF9nZXRfcmFtX3JhbmdlIHRvIGdldCBpbmZvcm1h
-dGlvbiBmcm9tIEU4MjAgbWFwDQogIHhlbi94ODY6IG1vdmUgTlVNQSBwcm9jZXNzIG5vZGVzIG5v
-ZGVzIGNvZGUgZnJvbSB4ODYgdG8gY29tbW9uDQogIHhlbjogaW50cm9kdWNlIGEgS2NvbmZpZyBv
-cHRpb24gdG8gY29uZmlndXJlIE5VTUEgbm9kZXMgbnVtYmVyDQoNCiB4ZW4vYXJjaC9LY29uZmln
-ICAgICAgICAgICAgICAgICB8ICAxMSArDQogeGVuL2FyY2gveDg2L2luY2x1ZGUvYXNtL2FjcGku
-aCAgfCAgIDIgLQ0KIHhlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9tbS5oICAgIHwgICAyIC0NCiB4
-ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vbnVtYS5oICB8ICA2MSArLS0NCiB4ZW4vYXJjaC94ODYv
-aW5jbHVkZS9hc20vc2V0dXAuaCB8ICAgMSAtDQogeGVuL2FyY2gveDg2L21tLmMgICAgICAgICAg
-ICAgICAgfCAgIDIgLQ0KIHhlbi9hcmNoL3g4Ni9udW1hLmMgICAgICAgICAgICAgIHwgNDQxICst
-LS0tLS0tLS0tLS0tLS0tDQogeGVuL2FyY2gveDg2L3NtcGJvb3QuYyAgICAgICAgICAgfCAgIDIg
-Ky0NCiB4ZW4vYXJjaC94ODYvc3JhdC5jICAgICAgICAgICAgICB8IDMzNyArKy0tLS0tLS0tLS0t
-DQogeGVuL2NvbW1vbi9NYWtlZmlsZSAgICAgICAgICAgICAgfCAgIDEgKw0KIHhlbi9jb21tb24v
-bnVtYS5jICAgICAgICAgICAgICAgIHwgODAzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysNCiB4ZW4vY29tbW9uL3BhZ2VfYWxsb2MuYyAgICAgICAgICB8ICAgMiArDQogeGVuL2luY2x1
-ZGUveGVuL21tLmggICAgICAgICAgICAgfCAgIDIgKw0KIHhlbi9pbmNsdWRlL3hlbi9udW1hLmgg
-ICAgICAgICAgIHwgIDk2ICsrKy0NCiAxNCBmaWxlcyBjaGFuZ2VkLCA5NjQgaW5zZXJ0aW9ucygr
-KSwgNzk5IGRlbGV0aW9ucygtKQ0KIGNyZWF0ZSBtb2RlIDEwMDY0NCB4ZW4vY29tbW9uL251bWEu
-Yw0KDQotLQ0KMi4yNS4xDQoNCg==
+Let's simply wait for them to confirm their tags.
 
---_000_SJ0PR03MB5405FBAFC3B531CD150E6C599DE09SJ0PR03MB5405namp_
-Content-Type: text/html; charset="gb2312"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dgb2312">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	font-size:10.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"en-CN" link=3D"blue" vlink=3D"purple" style=3D"word-wrap:brea=
-k-word">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Hi W=
-ei,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Our =
-internal regression testing detected a panic recently.<o:p></o:p></span></p=
->
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Coul=
-d you please help to verify whether it is introduced by these patch series?=
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt"><o:p=
->&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Than=
-ks for your help!<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Best=
- Regards!<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">Lin =
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt"><o:p=
->&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [00000038170b9b04] System RAM: 49139MB (5031842=
-8kB)<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000381f1eaa88] NUMA: Node 1 PXM 2 [00000000=
-00000000, 00000000bfffffff]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003820223f7c] NUMA: Node 1 PXM 2 [00000001=
-00000000, 000000063fffffff]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000382125db2a] NUMA: Node 0 PXM 1 [00000006=
-40000000, 0000000c3fffffff]<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003822296b4a] NUMA: Using 18 for the hash =
-shift<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003838bc94e6] Domain heap initialised DMA =
-width 32 bits<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003839d3bc6d] Assertion 'nid &lt; MAX_NUMN=
-ODES &amp;&amp; node_data[nid].node_spanned_pages' failed at ../include/xen=
-/numa.h:76<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000383b6c127a] ----[ Xen-4.18.0-10.36-d&nbs=
-p; x86_64&nbsp; debug=3Dy&nbsp; Not tainted ]----<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000383c7f88ad] CPU:&nbsp;&nbsp;&nbsp; 0<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000383cf18d3f] RIP:&nbsp;&nbsp;&nbsp; e008:=
-[&lt;ffff82d040456e43&gt;] paging_init+0x1cd/0x926<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000383dfb6811] RFLAGS: 0000000000010086&nbs=
-p;&nbsp; CONTEXT: hypervisor<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000383ee2936d] rax: 00000000000000ff&nbsp;&=
-nbsp; rbx: 000000000063f800&nbsp;&nbsp; rcx: 0000000000000012<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003840126f8d] rdx: ffff82d04039d040&nbsp;&=
-nbsp; rsi: 00000000000000ff&nbsp;&nbsp; rdi: ffff828000600000<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003841426f17] rbp: ffff82d04046fdb8&nbsp;&=
-nbsp; rsp: ffff82d04046fd38&nbsp;&nbsp; r8:&nbsp; ffff828000400000<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003842724945] r9:&nbsp; 0000000000000000&n=
-bsp;&nbsp; r10: 0000000000000000&nbsp;&nbsp; r11: 000000ffffffffff<o:p></o:=
-p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003843a23b0d] r12: ffff828000400000&nbsp;&=
-nbsp; r13: ffff82d0404e2000&nbsp;&nbsp; r14: 00000007c7ffffff<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003844d222f7] r15: ffff830000000000&nbsp;&=
-nbsp; cr0: 0000000080050033&nbsp;&nbsp; cr4: 00000000000000a0<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [00000038460223da] cr3: 00000000beee2000&nbsp;&=
-nbsp; cr2: 0000000000000000<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [0000003846e60a5a] fsb: 0000000000000000&nbsp;&=
-nbsp; gsb: 0000000000000000&nbsp;&nbsp; gss: 0000000000000000<o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384815ff97] ds: 0000&nbsp;&nbsp; es: 000=
-0 &nbsp;&nbsp;fs: 0000&nbsp;&nbsp; gs: 0000&nbsp;&nbsp; ss: 0000&nbsp;&nbsp=
-; cs: e008<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384932efe9] Xen code around456e43&gt; (p=
-aging_init+0x1cd/0x926):<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384a4978d0]&nbsp; 00 e9 22 03 00 00 0f 0=
-b &lt;0f&gt; 0b 4c 8b 65 b8 49 c1 ec 03 bb 00 00 00 00 4c<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384b893bd2] Xen stack trace from rsp=3Df=
-fff82d04046fd38:<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384c63b397]&nbsp;&nbsp;&nbsp; 0000000006=
-200000 0000000000000000 ffff830c36740000 0000000000000031<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384d96d07f]&nbsp;&nbsp;&nbsp; ffff800000=
-400000 ffff830c36736000 00020000404e59c0 0000000000400000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:25 UTC] (XEN) [000000384ec9e9bf]&nbsp;&nbsp;&nbsp; ffff830c36=
-736018 0000000000000003 0000000000c36736 0000000000c3ffff<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000384ffcec7f]&nbsp;&nbsp;&nbsp; 0000000000=
-0077e0 0000000000000002 0000000000800163 ffff830000087fb0<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003851301189]&nbsp;&nbsp;&nbsp; ffff82d040=
-46fee8 ffff82d04045bc97 00477b0000000000 ffff830000087f10<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003852631f4a]&nbsp;&nbsp;&nbsp; 0000000000=
-c40000 0000000001a40fff ffff82d04046fef8 0000000001a40000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003853963f89]&nbsp;&nbsp;&nbsp; 0000000000=
-100000 0000000000000000 00000000000001ff ffff830000087fb0<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003854c9564a]&nbsp;&nbsp;&nbsp; ffff830c36=
-738000 ffff830000087f01 0000000100000000 ffff830000087fb0<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003855fc6a47]&nbsp;&nbsp;&nbsp; ffff830000=
-087c10 ffff830000087f10 0044074d0046fe6c 00440d1b00087fa2<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385736267a]&nbsp;&nbsp;&nbsp; 682d0d1c00=
-4404bf 00440d1900000000 0046fe9800087fa8 00087fa8004407c3<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003858695049]&nbsp;&nbsp;&nbsp; 0000000400=
-440d15 0046feb000087f01 0000000800000000 000000010000006e<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [00000038599c5d2f]&nbsp;&nbsp;&nbsp; 0000000000=
-000003 00000000000002f8 ffff82d040629000 ffff82d040529000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385acf79ae]&nbsp;&nbsp;&nbsp; 0000000000=
-000002 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385c028e17]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 ffff82d040204344<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385d35a8c5]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385e68befc]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000385f9bccd2]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003860cef005]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000386201f97f]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003863351a9f]&nbsp;&nbsp;&nbsp; 0000000000=
-000000 0000000000000000 0000000000000000 0000000000000000<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003864682a9a] Xen call trace:<o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003864ed23df]&nbsp;&nbsp;&nbsp; [&lt;ffff8=
-2d040456e43&gt;] R paging_init+0x1cd/0x926<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003865ddbb4d]&nbsp;&nbsp;&nbsp; [&lt;ffff8=
-2d04045bc97&gt;] F __start_xen+0x19f7/0x2738<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003866d4b6b7]&nbsp;&nbsp;&nbsp; [&lt;ffff8=
-2d040204344&gt;] F __high_start+0x94/0xa0<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003867c228b4]
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003868179e97]
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [00000038686d19b7] ****************************=
-************<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003869413245] Panic on CPU 0:<o:p></o:p></=
-span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [0000003869c63967] Assertion 'nid &lt; MAX_NUMN=
-ODES &amp;&amp; node_data[nid].node_spanned_pages' failed at ../include/xen=
-/numa.h:76<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000386b5e9733] ****************************=
-************<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000386c32a92b]
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:11.0pt">[202=
-2-12-13 00:29:26 UTC] (XEN) [000000386c882574] Reboot in five seconds...<o:=
-p></o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
-span></p>
-<div style=3D"border:none;border-top:solid #B5C4DF 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><b><span style=3D"fon=
-t-size:12.0pt;color:black">From:
-</span></b><span style=3D"font-size:12.0pt;color:black">Xen-devel &lt;xen-d=
-evel-bounces@lists.xenproject.org&gt; on behalf of Wei Chen &lt;wei.chen@ar=
-m.com&gt;<br>
-<b>Date: </b>Friday, November 18, 2022 at 6:46 PM<br>
-<b>To: </b>xen-devel@lists.xenproject.org &lt;xen-devel@lists.xenproject.or=
-g&gt;<br>
-<b>Cc: </b>nd@arm.com &lt;nd@arm.com&gt;, Wei Chen &lt;wei.chen@arm.com&gt;=
-, Jan Beulich &lt;jbeulich@suse.com&gt;, Andrew Cooper &lt;Andrew.Cooper3@c=
-itrix.com&gt;, Roger Pau Monne &lt;roger.pau@citrix.com&gt;, Wei Liu &lt;wl=
-@xen.org&gt;, George Dunlap &lt;George.Dunlap@citrix.com&gt;, Julien Grall
- &lt;julien@xen.org&gt;, Stefano Stabellini &lt;sstabellini@kernel.org&gt;<=
-br>
-<b>Subject: </b>[PATCH v9 0/6] Device tree based NUMA support for Arm - Par=
-t#2<o:p></o:p></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span style=3D"font-s=
-ize:11.0pt">(The Arm device tree based NUMA support patch set contains 35<b=
-r>
-patches. In order to make stuff easier for reviewers, I split<br>
-them into 3 parts:<br>
-1. Preparation. I have re-sorted the patch series. And moved<br>
-&nbsp;&nbsp; independent patches to the head of the series - merged in [1]<=
-br>
-2. Move generically usable code from x86 to common - this series.<br>
-3. Add new code to support Arm.<br>
-<br>
-This series only contains the second part patches. As the whole NUMA<br>
-series has been reviewed for 1 round in [2], so this series would<br>
-be v9)<br>
-<br>
-Xen memory allocation and scheduler modules are NUMA aware.<br>
-But actually, on x86 has implemented the architecture APIs<br>
-to support NUMA. Arm was providing a set of fake architecture<br>
-APIs to make it compatible with NUMA awared memory allocation<br>
-and scheduler.<br>
-<br>
-Arm system was working well as a single node NUMA system with<br>
-these fake APIs, because we didn't have multiple nodes NUMA<br>
-system on Arm. But in recent years, more and more Arm devices<br>
-support multiple nodes NUMA system.<br>
-<br>
-So now we have a new problem. When Xen is running on these Arm<br>
-devices, Xen still treat them as single node SMP systems. The<br>
-NUMA affinity capability of Xen memory allocation and scheduler<br>
-becomes meaningless. Because they rely on input data that does<br>
-not reflect real NUMA layout.<br>
-<br>
-Xen still think the access time for all of the memory is the<br>
-same for all CPUs. However, Xen may allocate memory to a VM<br>
-from different NUMA nodes with different access speeds. This<br>
-difference can be amplified in workloads inside VM, causing<br>
-performance instability and timeouts.<br>
-<br>
-So in this patch series, we implement a set of NUMA API to use<br>
-device tree to describe the NUMA layout. We reuse most of the<br>
-code of x86 NUMA to create and maintain the mapping between<br>
-memory and CPU, create the matrix between any two NUMA nodes.<br>
-Except ACPI and some x86 specified code, we have moved other<br>
-code to common. In next stage, when we implement ACPI based<br>
-NUMA for Arm64, we may move the ACPI NUMA code to common too,<br>
-but in current stage, we keep it as x86 only.<br>
-<br>
-This patch serires has been tested and booted well on one<br>
-Arm64 NUMA machine and one HPE x86 NUMA machine.<br>
-<br>
-[1] <a href=3D"https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%=
-3A%2F%2Flists.xenproject.org%2Farchives%2Fhtml%2Fxen-devel%2F2022-06%2Fmsg0=
-0499.html&amp;amp;data=3D05%7C01%7Clin.liu%40citrix.com%7Ca65817663fd3459a0=
-c3608dac9521654%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C63804365167535=
-6568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik=
-1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3Damlt%2FCVREH6PDysvjEX6=
-otC06KBLFncDyOEeNx46WMs%3D&amp;amp;reserved=3D0">
-https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.x=
-enproject.org%2Farchives%2Fhtml%2Fxen-devel%2F2022-06%2Fmsg00499.html&amp;a=
-mp;data=3D05%7C01%7Clin.liu%40citrix.com%7Ca65817663fd3459a0c3608dac9521654=
-%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C638043651675356568%7CUnknown%=
-7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6M=
-n0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3Damlt%2FCVREH6PDysvjEX6otC06KBLFncDyOE=
-eNx46WMs%3D&amp;amp;reserved=3D0</a><br>
-[2] <a href=3D"https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%=
-3A%2F%2Flists.xenproject.org%2Farchives%2Fhtml%2Fxen-devel%2F2021-09%2Fmsg0=
-1903.html&amp;amp;data=3D05%7C01%7Clin.liu%40citrix.com%7Ca65817663fd3459a0=
-c3608dac9521654%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C63804365167535=
-6568%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik=
-1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3Dp7%2Fr6Xtab9RMKIFeJDEM=
-aj%2BbSzNztBC4KVzZq1TIlJw%3D&amp;amp;reserved=3D0">
-https://nam04.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.x=
-enproject.org%2Farchives%2Fhtml%2Fxen-devel%2F2021-09%2Fmsg01903.html&amp;a=
-mp;data=3D05%7C01%7Clin.liu%40citrix.com%7Ca65817663fd3459a0c3608dac9521654=
-%7C335836de42ef43a2b145348c2ee9ca5b%7C0%7C0%7C638043651675356568%7CUnknown%=
-7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6M=
-n0%3D%7C3000%7C%7C%7C&amp;amp;sdata=3Dp7%2Fr6Xtab9RMKIFeJDEMaj%2BbSzNztBC4K=
-VzZq1TIlJw%3D&amp;amp;reserved=3D0</a><br>
-<br>
----<br>
-v8 -&gt;v9:<br>
-&nbsp;1. Remove incorrect description in patch#5's commit log.<br>
-&nbsp;2. Add code comments for the places to set numa_fw_nid_name.<br>
-v7 -&gt; v8:<br>
-&nbsp;1. Change &quot;of shift too small&quot; to &quot;or shift too small&=
-quot;.<br>
-&nbsp;2. Add numa_fw_nid_name setting in srat_parse_regions after<br>
-&nbsp;&nbsp;&nbsp; acpi_table_parse succeeded.<br>
-v6 -&gt; v7:<br>
-&nbsp;1. Restore %d for nodeid_t in dump_numa.<br>
-&nbsp;2. Use sizeof(page_num_node) for page_num_node size in memset.<br>
-&nbsp;3. Add description for using min(PADDR_BITS, BITS_PER_LONG - 1)<br>
-&nbsp;&nbsp;&nbsp; to calculate the shift when only one node is in the syst=
-em.<br>
-&nbsp;4. Use %pd for domain print in dump_numa.<br>
-&nbsp;5. Add __init for arch_numa_unavailable.<br>
-&nbsp;6. Use __ro_after_init for mem_hotplug.<br>
-&nbsp;7. Use &quot;???&quot; instead of &quot;NONAME&quot; for unset numa_f=
-w_nid_name.<br>
-&nbsp;8. Fix code-style.<br>
-v5 -&gt; v6:<br>
-&nbsp;1. Revert arch_numa_broken to arch_numa_disabled, as acpi_numa<br>
-&nbsp;&nbsp;&nbsp; can be set to -1 by users. So acpi_numa &lt; 0 does not =
-mean<br>
-&nbsp;&nbsp;&nbsp; a broken firmware.<br>
-&nbsp;2. Replace numa_scan_node to numa_process_nodes in commit log.<br>
-&nbsp;3. Limit the scope of page_num_node, vnuma and page of numa_setup<br>
-&nbsp;&nbsp;&nbsp; function.<br>
-&nbsp;4. Use memset to init page_num_node instead of for_each_online_node.<=
-br>
-&nbsp;5. Use %u instead of %d for nodeid_t and j in numa_setup print<br>
-&nbsp;&nbsp;&nbsp; messages.<br>
-&nbsp;6. Use min(PADDR_BITS, BITS_PER_LONG - 1) to calculate the shift<br>
-&nbsp;&nbsp;&nbsp; when only one node is in the system.<br>
-&nbsp;7. Drop the marco: node_to_first_cpu(node)<br>
-&nbsp;8. Use arch_numa_unavailable to replace arch_numa_disabled for<br>
-&nbsp;&nbsp;&nbsp; acpi_numa &lt;=3D 0.<br>
-&nbsp;9. Remove Kconfig for HAS_NUMA_NODE_FWID.<br>
-10. Use numa_fw_nid_name for NUMA implementation to set their fw<br>
-&nbsp;&nbsp;&nbsp; NUMA node name for print messages.<br>
-<br>
-v4 -&gt; v5:<br>
-&nbsp;1. Use arch_numa_broken instead of arch_numa_disabled for<br>
-&nbsp;&nbsp;&nbsp; acpi_numa &lt; 0 check. Because arch_numa_disabled might=
-<br>
-&nbsp;&nbsp;&nbsp; include acpi_numa &lt; 0 (init failed) and acpi_numa =3D=
-=3D 0<br>
-&nbsp;&nbsp;&nbsp; (no data or data no init) cases.<br>
-&nbsp;2. Use nodeid_t instead of uint8_t for memnodemap.<br>
-&nbsp;3. Restore to use typeof(*memnodemap) for _memnodemap, this will avoi=
-d the<br>
-&nbsp;&nbsp;&nbsp; further adjustments for _memnodemap's type.<br>
-&nbsp;4. Use __ro_after_init for numa_off.<br>
-&nbsp;5. Use pointer-to-const for proper function parameters.<br>
-&nbsp;6. Use unsigned int for variables that are not realy used for node ID=
-.<br>
-&nbsp;7. Fix code comments code-style and adjust the length.<br>
-&nbsp;8. Fix code-styles.<br>
-&nbsp;9. Rename numa_scan_nodes to numa_process_nodes.<br>
-10. Defer introduce arch_numa_disabled for acpi_numa &lt;=3D 0. And remove<=
-br>
-&nbsp;&nbsp;&nbsp; the paramter init_as_disable of arch_numa_disabled.<br>
-11. Fix typo &quot;expandsion&quot;.<br>
-12. Fix Indentation for l1tf_safe_maddr.<br>
-13. Remove double blank lines.<br>
-14. Add a space between for_each_node_mask and '('.<br>
-&nbsp;&nbsp;&nbsp; Add a space page_list_for_each and '('.<br>
-15. Use bool for nodes_cover_memory return value.<br>
-16. Use a plain &quot;int ret&quot; to record compute_hash_shift return val=
-ue.<br>
-17. Add a blank line before the function's main &quot;return&quot;.<br>
-18. Add new Kconfig option HAS_NUMA_NODE_FWID to common/Kconfig.<br>
-<br>
-v3 -&gt; v4:<br>
-&nbsp;1. Add init_as_disable as arch_numa_disabled parameter in the patche<=
-br>
-&nbsp;&nbsp;&nbsp; where use it.<br>
-&nbsp;2. Drop unnecessary &quot;else&quot; from arch_numa_setup, and fix it=
-s<br>
-&nbsp;&nbsp; indentation.<br>
-&nbsp;3. Restore compute_hash_shift's return value to int.<br>
-&nbsp;4. Remove unnecessary parentheses for macros.<br>
-&nbsp;5. Use unsigned int for proper variables.<br>
-&nbsp;6. Fix some code-style.<br>
-&nbsp;7. Move arch_get_ram_range function comment to header file.<br>
-&nbsp;8. Use bool for found, and add a new &quot;err&quot; for the return<b=
-r>
-&nbsp;&nbsp;&nbsp; value of arch_get_ram_range.<br>
-&nbsp;9. Use -ENODATA instead of -EINVAL for non-RAM type ranges.<br>
-10. Use bool as return value for functions that only return<br>
-&nbsp;&nbsp;&nbsp; 0/1 or 0/-EINVAL.<br>
-11. Move mem_hotplug to a proper place in mm.h<br>
-12. Remove useless &quot;size&quot; in numa_scan_nodes.<br>
-13. Add CONFIG_HAS_NUMA_NODE_FWID to gate print the mapping<br>
-&nbsp;&nbsp;&nbsp; between node id and architectural node id (fw node id).<=
-br>
-<br>
-v2 -&gt; v3:<br>
-&nbsp;1. Drop enumeration of numa status.<br>
-&nbsp;2. Use helpers to get/update acpi_numa.<br>
-&nbsp;3. Insert spaces among parameters of strncmp in numa_setup.<br>
-&nbsp;4. Drop helpers to access mem_hotplug. Export mem_hotplug for all arc=
-h.<br>
-&nbsp;5. Remove acpi.h from common/numa.c.<br>
-&nbsp;6. Rename acpi_scan_nodes to numa_scan_nodes.<br>
-&nbsp;7. Replace u8 by uint8_t for memnodemap.<br>
-&nbsp;8. Use unsigned int for memnode_shift and adjust related functions<br=
->
-&nbsp;&nbsp;&nbsp; (compute_hash_shift, populate_memnodemap) to use correct=
- types for<br>
-&nbsp;&nbsp;&nbsp; return values or parameters.<br>
-&nbsp;9. Use nodeid_t for nodeid and node numbers.<br>
-10. Use __read_mostly and __ro_after_init for appropriate variables.<br>
-11. Adjust the __read_mostly and __initdata location for some variables.<br=
->
-12. Convert from plain int to unsigned for cpuid and other proper <br>
-13. Remove unnecessary change items in history.<br>
-14. Rename arch_get_memory_map to arch_get_ram_range.<br>
-15. Use -ENOENT instead of -ENODEV to indicate end of memory map.<br>
-16. Add description to code comment that arch_get_ram_range returns<br>
-&nbsp;&nbsp;&nbsp; RAM range in [start, end) format.<br>
-17. Rename bad_srat to numa_fw_bad.<br>
-18. Rename node_to_pxm to numa_node_to_arch_nid.<br>
-19. Merge patch#7 and #8 into patch#6.<br>
-20. Move NR_NODE_MEMBLKS from x86/acpi.h to common/numa.h<br>
-22. Use 2-64 for node range.<br>
-<br>
-v1 -&gt; v2:<br>
-&nbsp;1. Refine the commit messages of several patches.<br>
-&nbsp;2. Merge v1 patch#9,10 into one patch. Introduce the new functions<br=
->
-&nbsp;&nbsp;&nbsp; in the same patch that this patch will be used first tim=
-e.<br>
-&nbsp;3. Fold if ( end &gt; mem_hotplug ) to mem_hotplug_update_boundary,<b=
-r>
-&nbsp;&nbsp;&nbsp; in this case, we can drop mem_hotplug_boundary.<br>
-&nbsp;4. Remove fw_numa, use enumeration to replace numa_off and acpi_numa.=
-<br>
-&nbsp;5. Correct return value of srat_disabled.<br>
-&nbsp;6. Introduce numa_enabled_with_firmware.<br>
-&nbsp;7. Refine the justification of using !node_data[nid].node_spanned_pag=
-es.<br>
-&nbsp;8. Use ASSERT to replace VIRTUAL_BUG_ON in phys_to_nid.<br>
-&nbsp;9. Adjust the conditional express for ASSERT.<br>
-10. Move MAX_NUMNODES from xen/numa.h to asm/numa.h for x86.<br>
-11. Use conditional macro to gate MAX_NUMNODES for other architectures.<br>
-12. Use arch_get_memory_map to replace arch_get_memory_bank_range<br>
-&nbsp;&nbsp;&nbsp; and arch_get_memory_bank_number.<br>
-13. Remove the !start || !end check, because caller guarantee<br>
-&nbsp;&nbsp;&nbsp; these two pointers will not be NULL.<br>
-14. Add code comment for numa_update_node_memblks to explain:<br>
-&nbsp;&nbsp;&nbsp; Assumes all memory regions belonging to a single node<br=
->
-&nbsp;&nbsp;&nbsp; are in one chunk. Holes between them will be included<br=
->
-&nbsp;&nbsp;&nbsp; in the node.<br>
-15. Merge this single patch instead of serval patches to move<br>
-&nbsp;&nbsp;&nbsp; x86 SRAT code to common.<br>
-16. Export node_to_pxm to keep pxm information in NUMA scan<br>
-&nbsp;&nbsp;&nbsp; nodes error messages.<br>
-17. Change the code style to target file's Xen code-style.<br>
-18. Adjust some __init and __initdata for some functions and<br>
-&nbsp;&nbsp;&nbsp; variables.<br>
-19. Replace CONFIG_ACPI_NUMA by CONFIG_NUMA. Replace &quot;SRAT&quot; texts=
-.<br>
-20. Turn numa_scan_nodes to static.<br>
-21. Change NR_NUMA_NODES upper bound from 4095 to 255.<br>
-<br>
-Wei Chen (6):<br>
-&nbsp; xen/x86: Provide helpers for common code to access acpi_numa<br>
-&nbsp; xen/x86: move generically usable NUMA code from x86 to common<br>
-&nbsp; xen/x86: Use ASSERT instead of VIRTUAL_BUG_ON for phys_to_nid<br>
-&nbsp; xen/x86: use arch_get_ram_range to get information from E820 map<br>
-&nbsp; xen/x86: move NUMA process nodes nodes code from x86 to common<br>
-&nbsp; xen: introduce a Kconfig option to configure NUMA nodes number<br>
-<br>
-&nbsp;xen/arch/Kconfig&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 11 +<br>
-&nbsp;xen/arch/x86/include/asm/acpi.h&nbsp; |&nbsp;&nbsp; 2 -<br>
-&nbsp;xen/arch/x86/include/asm/mm.h&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 -<br>
-&nbsp;xen/arch/x86/include/asm/numa.h&nbsp; |&nbsp; 61 +--<br>
-&nbsp;xen/arch/x86/include/asm/setup.h |&nbsp;&nbsp; 1 -<br>
-&nbsp;xen/arch/x86/mm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 -<br>
-&nbsp;xen/arch/x86/numa.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 441 +----------------<br>
-&nbsp;xen/arch/x86/smpboot.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +-<br>
-&nbsp;xen/arch/x86/srat.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; | 337 ++-----------<br>
-&nbsp;xen/common/Makefile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 +<br>
-&nbsp;xen/common/numa.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 803 ++++++++++++++++++++++++++++++=
-+<br>
-&nbsp;xen/common/page_alloc.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp; |&nbsp;&nbsp; 2 +<br>
-&nbsp;xen/include/xen/mm.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 2 +<br>
-&nbsp;xen/include/xen/numa.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; |&nbsp; 96 +++-<br>
-&nbsp;14 files changed, 964 insertions(+), 799 deletions(-)<br>
-&nbsp;create mode 100644 xen/common/numa.c<br>
-<br>
--- <br>
-2.25.1<br>
-<br>
-<o:p></o:p></span></p>
-</div>
-</div>
-</body>
-</html>
-
---_000_SJ0PR03MB5405FBAFC3B531CD150E6C599DE09SJ0PR03MB5405namp_--
+Jan
 
