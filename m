@@ -2,35 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE86C64CCAA
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 15:50:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.462314.720485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E88464CCCD
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 16:02:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.462329.720502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5T5S-00065G-Kl; Wed, 14 Dec 2022 14:50:22 +0000
+	id 1p5TGk-00080a-QW; Wed, 14 Dec 2022 15:02:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 462314.720485; Wed, 14 Dec 2022 14:50:22 +0000
+Received: by outflank-mailman (output) from mailman id 462329.720502; Wed, 14 Dec 2022 15:02:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5T5S-00063V-He; Wed, 14 Dec 2022 14:50:22 +0000
-Received: by outflank-mailman (input) for mailman id 462314;
- Wed, 14 Dec 2022 14:50:21 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5T5R-00063L-Nt; Wed, 14 Dec 2022 14:50:21 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5T5R-0003jO-M3; Wed, 14 Dec 2022 14:50:21 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5T5R-0003wE-6h; Wed, 14 Dec 2022 14:50:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5T5R-0003IY-6E; Wed, 14 Dec 2022 14:50:21 +0000
+	id 1p5TGk-0007y9-MQ; Wed, 14 Dec 2022 15:02:02 +0000
+Received: by outflank-mailman (input) for mailman id 462329;
+ Wed, 14 Dec 2022 15:02:02 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=2C/v=4M=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1p5TGj-0007y3-UP
+ for xen-devel@lists.xen.org; Wed, 14 Dec 2022 15:02:02 +0000
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [2607:f8b0:4864:20::1029])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4283f505-7bc0-11ed-91b6-6bf2151ebd3b;
+ Wed, 14 Dec 2022 16:02:00 +0100 (CET)
+Received: by mail-pj1-x1029.google.com with SMTP id u5so7194821pjy.5
+ for <xen-devel@lists.xen.org>; Wed, 14 Dec 2022 07:02:00 -0800 (PST)
+Received: from [10.17.77.104] (ll-22.209.223.85.sovam.net.ua. [85.223.209.22])
+ by smtp.gmail.com with ESMTPSA id
+ u18-20020a170903125200b001897916be2bsm1967396plh.268.2022.12.14.07.01.54
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 14 Dec 2022 07:01:58 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=9m6Vp5wGdClFfitZ4bptMQIcJ5dtAPaihA63G2Iyngk=; b=jGQXxA+mOzGcdxnryA2s+nUiKl
-	UU2Ex7kQx5hG5ttMOW9l/n/B5h5jhrjsd9XcNIVI6kBOyMDJs94rpAsHIPAUZvKrDunQw+D6ouDWK
-	DGYizT1jyKg7WGONrZ9KadknkMKFczbLWlZLMs9i+M+LHaFdsr87qq+Dgg/7Ep7lXxFw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175191-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 4283f505-7bc0-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=FkB8QBBXb8tMdOFML7d7eFNmZSeKWieQBEul+3uhvd0=;
+        b=lZWNFg4GDox2W+G81y21rs42PO1TV5hSt5d87BZ6NdhQ2m9/Cj3UunQBS8YZZgrrQA
+         dnuTVl9qdc7klWkHIvN1OGUfBeQkhjZROUPDrZMtEvRePuNXs7k55xnyRbmSZ2hlg8/T
+         ENSRcZY9EC5tcXueREUOlgXjDh30iJS/SDcyVJeE2qAFWvPDehKFO0XYJn2nuyRd6u7E
+         tKxC8nFg6/5Qwf5meNs8ra+5tHRyy4KSzjqTL5jVKZvEdyut36RCHMpQVlrl1f4RPV/9
+         6ADofY6mE/ACDb8guzW1+PBDxMYE2LCO/3jTiDwNe0hz1wSCJisWpfvB3jkbAF1iVZso
+         oeVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=FkB8QBBXb8tMdOFML7d7eFNmZSeKWieQBEul+3uhvd0=;
+        b=baG7Ce6swUzV2P7AmrjGs0TdBcK8d+Vhsv9lSZGdFD7f6yhSROkI8OxU4WJJQRMcbn
+         lY8YUCuuVScesFRPCMn7mEVzJ3NBwWae5OgtzELX+V28oqN07DSNyJ8dyKrN3bnHeOo4
+         CzTTc4jsiejnqJMcRbIKCTh/WdPU7IGVpZrmpMZKNee7aA76QwsKMIPM2djOHfNCqlfx
+         S6JM9gtUIgCxXkZjtsRGl4qzsOJmJyBLRfoAFp9zgkwd3VcuKNAIqHycEUy6IqevlDqT
+         DrpVF/gMGcye8oqpYICGYHQ8y6ZKDP5ZDVbRsPAb/BLjKWYTnSMKiSM4f7+Cp132q/lg
+         CPhw==
+X-Gm-Message-State: ANoB5pm0hELJ2jZ/rBONbfK14JV7FBAHb1dDXWJI7c/+76Ob9zFGee1r
+	akaqA2hIREK7Sr9JQlo5xZo=
+X-Google-Smtp-Source: AA0mqf51dE1GMFmotbfkODve6SFky8sDj+mhLbj3b4J1onZWdhzOhii14b45dSwUwzBzQlvlWCVfcQ==
+X-Received: by 2002:a17:902:768b:b0:186:865c:ea17 with SMTP id m11-20020a170902768b00b00186865cea17mr24325384pll.38.1671030119171;
+        Wed, 14 Dec 2022 07:01:59 -0800 (PST)
+Message-ID: <f4ba541c-d089-28af-c80b-dcb0fa87a9d7@gmail.com>
+Date: Wed, 14 Dec 2022 17:01:49 +0200
 MIME-Version: 1.0
-Subject: [libvirt test] 175191: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=5ef2582646eb98af208ce37355f82bdef39931fa
-X-Osstest-Versions-That:
-    libvirt=03a25597f19cfd8e0e00aaa0cfd45940c916f896
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 14 Dec 2022 14:50:21 +0000
-
-flight 175191 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175191/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175162
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 175162
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175162
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              5ef2582646eb98af208ce37355f82bdef39931fa
-baseline version:
- libvirt              03a25597f19cfd8e0e00aaa0cfd45940c916f896
-
-Last test of basis   175162  2022-12-13 04:18:53 Z    1 days
-Testing same since   175191  2022-12-14 04:18:52 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Daniel P. Berrangé <berrange@redhat.com>
-  Jan Tomko <jtomko@redhat.com>
-  Ján Tomko <jtomko@redhat.com>
-  Kristina Hanicova <khanicov@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-  김인수 <simmon@nplob.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: Virtio-disk updates for latest Xen ?
+To: Viresh Kumar <viresh.kumar@linaro.org>
+Cc: =?UTF-8?Q?Alex_Benn=c3=a9e?= <alex.bennee@linaro.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>, Juergen Gross
+ <jgross@suse.com>, xen-devel@lists.xen.org
+References: <CAKohpo=u7qp4URjRRAMM4xEytmZoKZAJOZLw4v0HTk13BrK-fw@mail.gmail.com>
+ <CAPD2p-kfhaygmNNutUdk-mApR7z1YDSTYCEhtLgLsXi+-wbv8A@mail.gmail.com>
+ <20221207002138.qulrlav3z3heozk4@vireshk-i7>
+ <20221207035918.amzgrybqub632dyc@vireshk-i7>
+Content-Language: en-US
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+In-Reply-To: <20221207035918.amzgrybqub632dyc@vireshk-i7>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 07.12.22 05:59, Viresh Kumar wrote:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hello Viresh
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+First of all, sorry for the late response.
+The second, thank you for the investigation.
 
 
-Pushing revision :
+> On 07-12-22, 05:51, Viresh Kumar wrote:
+>> I am not sure how to get this working, as there is no finalizing event
+>> for the directory. Maybe our design is broken from the start and we
+>> need to do it properly in some recommended way ?
+> 
+> For now this is what I have done to make it work:
+> 
+> diff --git a/xs_dev.c b/xs_dev.c
+> index a6c8403cfe84..4643394a52a2 100755
+> --- a/xs_dev.c
+> +++ b/xs_dev.c
+> @@ -413,20 +413,7 @@ static int xenstore_get_fe_domid(struct xs_dev *dev)
+>   
+>   static int xenstore_poll_be_watch(struct xs_dev *dev)
+>   {
+> -    unsigned int num;
+> -    char **vec;
+> -    int rc = 0;
+> -
+> -    vec = xs_read_watch(dev->xsh, &num);
+> -    if (!vec)
+> -        return -1;
+> -
+> -    if (!strcmp(vec[XS_WATCH_PATH], dev->path))
+> -        rc = xenstore_get_fe_domid(dev);
+> -
+> -    free(vec);
+> -
+> -    return rc;
+> +    return xenstore_get_fe_domid(dev);
+>   }
+> 
+> This rns xenstore_get_fe_domid() for each event in the path
+> "backend/virtio", and in my case it passes with the second event
+> itself, which came for "backend/virtio/1/0" and this code doesn't run
+> after that.
+> 
+> Note that I have tested this with my rust counterpart which received a
+> similar change, I didn't test virtio-disk directly.
 
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   03a25597f1..5ef2582646  5ef2582646eb98af208ce37355f82bdef39931fa -> xen-tested-master
+
+Today I had a chance to check virtio-disk on my H/W using new Xen branch 
+which does include Juergen's series with commit 3a96013a3e17 
+("tools/xenstore: reduce number of watch events").
+
+Very interesting, but I didn't manage to reproduce an issue the similar 
+to what you had already faced with the rust counterparts before (caused 
+by the lack of Xenstore watches?). Note that I didn't debug what exactly 
+events I had got during guest creation/destruction, I just made sure 
+that backend worked as before. I checked that by running the backend in 
+Dom0 and DomD and performed a couple of guest power cycles (reboot, 
+destroy/create).
+
+If you could provide the debug patch which you seem to use to print 
+incoming events which you described in previous email, I think I would 
+be able to re-check the situation at my side more deeper.
 
