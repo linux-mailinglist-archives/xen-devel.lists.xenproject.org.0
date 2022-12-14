@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2102764CBD3
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 15:07:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.462281.720449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1A8A64CC17
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 15:24:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.462292.720460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5SOm-0006gm-MW; Wed, 14 Dec 2022 14:06:16 +0000
+	id 1p5SfP-00019F-7Q; Wed, 14 Dec 2022 14:23:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 462281.720449; Wed, 14 Dec 2022 14:06:16 +0000
+Received: by outflank-mailman (output) from mailman id 462292.720460; Wed, 14 Dec 2022 14:23:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5SOm-0006dm-Is; Wed, 14 Dec 2022 14:06:16 +0000
-Received: by outflank-mailman (input) for mailman id 462281;
- Wed, 14 Dec 2022 14:06:14 +0000
+	id 1p5SfP-00017P-4D; Wed, 14 Dec 2022 14:23:27 +0000
+Received: by outflank-mailman (input) for mailman id 462292;
+ Wed, 14 Dec 2022 14:23:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5SOk-0006dg-Rt
- for xen-devel@lists.xenproject.org; Wed, 14 Dec 2022 14:06:14 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5SfN-00016w-M0; Wed, 14 Dec 2022 14:23:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5SOi-00020w-GG; Wed, 14 Dec 2022 14:06:12 +0000
-Received: from 54-240-197-239.amazon.com ([54.240.197.239] helo=[192.168.3.68])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5SOi-0007Yl-7n; Wed, 14 Dec 2022 14:06:12 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5SfN-0002Vt-GU; Wed, 14 Dec 2022 14:23:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5SfN-0002jX-4o; Wed, 14 Dec 2022 14:23:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5SfN-0004Gm-3E; Wed, 14 Dec 2022 14:23:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +42,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=NQmmUEVqnaEVHtjmWZ3bVrGGtwdmOoI/sc4Wt9EdboU=; b=41CyXtVhq5atZojHtD9YTnFyZI
-	szqZi73iMh0OaPDoLjjkRnybd4hkGfSEIhHGh3U1cSZScjL68HSHNg615sXDAk4+BZiVd4yHH4g5k
-	dTd59qdJ+O4AFrco1fsECZD9T7k1NxACPc8IfseO/yeZRmZLM6KR9DuE835AVO5//lfs=;
-Message-ID: <37c9f4c7-34f6-c53e-dd0b-6d9d8c844097@xen.org>
-Date: Wed, 14 Dec 2022 14:06:09 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
-Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- "Smith, Jackson" <rsmith@riversideresearch.org>
-Cc: "Brookes, Scott" <sbrookes@riversideresearch.org>,
- Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
- "jbeulich@suse.com" <jbeulich@suse.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- "Daniel P. Smith" <dpsmith@apertussolutions.com>,
- "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
-References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
- <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org> <Y5j7KQ9g5Yb/ufn+@itl-email>
- <901d2088-49e7-634f-f55b-e4ea2e706fed@xen.org>
-In-Reply-To: <901d2088-49e7-634f-f55b-e4ea2e706fed@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=mbJICmZEJZ6D4WRM4gDfVdZ8fyEu93wtjWYh1yNCmpc=; b=NYIuPBODaTZW7d1Z+vuA3kMqYn
+	0gJYA4bJtaPZBPEWhmQS0GYbpZlEcqNaGT15EhBYHtJghQbeNOA4pouHwawGXSsBCc+BNKtgipiu+
+	l1TpLUcum7AhUQekxZ8BoMCBmLr6UujRCoRAWDUdI5KbVOq7ufiAyOf3+iwh3ativLBw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175199-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 175199: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=549b042943a57b748ce80070d1174e4ff5b8ef0b
+X-Osstest-Versions-That:
+    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 14 Dec 2022 14:23:25 +0000
 
-Hi,
+flight 175199 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175199/
 
-On 13/12/2022 23:05, Julien Grall wrote: > On 13/12/2022 22:22, Demi 
-Marie Obenour wrote:
->> On Tue, Dec 13, 2022 at 08:55:28PM +0000, Julien Grall wrote:
->>> On 13/12/2022 19:48, Smith, Jackson wrote:
->>>> Hi Xen Developers,
->>>
->>> Hi Jackson,
->>>
->>> Thanks for sharing the prototype with the community. Some 
->>> questions/remarks
->>> below.
->>
->> [snip]
->>
->>>> With this technique, we protect the integrity and confidentiality of
->>>> guest memory. However, a compromised hypervisor can still read/write
->>>> register state during traps, or refuse to schedule a guest, denying
->>>> service. We also recognize that because this technique precludes
->>>> modifying Xen's page tables after startup, it may not be compatible
->>>> with all of Xen's potential use cases. On the other hand, there are
->>>> some uses cases (in particular statically defined embedded systems)
->>>> where our technique could be adopted with minimal friction.
->>>
->>>  From what you wrote, this sounds very much like the project Citrix and
->>> Amazon worked on called "Secret-free hypervisor" with a twist. In 
->>> your case,
->>> you want to prevent the hypervisor to map/unmap the guest memory.
->>>
->>> You can find some details in [1]. The code is x86 only, but I don't 
->>> see any
->>> major blocker to port it on arm64.
->>
->> Is there any way the secret-free hypervisor code could be upstreamed?
-> This has been in my todo list for more than year but didn't yet find 
-> anyone to finish the work.
-> 
-> I need to have a look how much left the original work it is left to do. 
+Regressions :-(
 
-I have looked at the series. It looks like there are only 16 patches 
-left to be reviewed.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                   6 xen-build                fail REGR. vs. 175173
 
-They are two years old but the code hasn't changed too much. So I will 
-look at porting them over the next few days and hopefully I can respin 
-the series before Christmas.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
-Cheers,
--- 
-Julien Grall
+version targeted for testing:
+ xen                  549b042943a57b748ce80070d1174e4ff5b8ef0b
+baseline version:
+ xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+
+Last test of basis   175173  2022-12-13 15:00:27 Z    0 days
+Testing same since   175199  2022-12-14 12:01:52 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Viresh Kumar <viresh.kumar@linaro.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 549b042943a57b748ce80070d1174e4ff5b8ef0b
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Wed Dec 14 12:04:26 2022 +0100
+
+    drivers/char: support up to 1M BAR0 of xhci
+    
+    AMD's XHCI has BAR0 of 1M (compared to 64K on Intel). Map it as a whole
+    (reserving more space in the fixmap). Make fixmap slot conditional on
+    CONFIG_XHCI.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit dd54ea500be80f347402d75f3e4e7061e7db78d2
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:38 2022 +0100
+
+    docs: add documentation for generic virtio devices
+    
+    This patch updates xl.cfg man page with details of generic Virtio device
+    related information.
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+commit 953efa0b7b188458b18e4a727f3b1dfa77eacb61
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:25 2022 +0100
+
+    xl: add support to parse generic virtio device
+    
+    This patch adds basic support for parsing generic Virtio backend.
+    
+    An example of domain configuration for mmio based Virtio I2C device is:
+    virtio = ["type=virtio,device22,transport=mmio"]
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit 43ba5202e2eebd350161a8db674bf928c3e6f859
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:09 2022 +0100
+
+    libxl: add support for generic virtio device
+    
+    This patch adds basic support for configuring and assisting generic
+    Virtio backends, which could run in any domain.
+    
+    An example of domain configuration for mmio based Virtio I2C device is:
+    virtio = ["type=virtio,device22,transport=mmio"]
+    
+    To make this work on Arm, allocate Virtio MMIO params (IRQ and memory
+    region) and pass them to the backend and update guest device-tree to
+    create a DT node for the Virtio devices.
+    
+    Add special support for I2C and GPIO devices, which require the
+    "compatible" DT property to be set, among other device specific
+    properties. Support for generic virtio devices is also added, which just
+    need a MMIO node but not any special DT properties, for such devices the
+    user needs to pass "virtio,device" in the "type" string.
+    
+    The parsing of generic virtio device configurations will be done in a
+    separate commit.
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+commit db75092aea988b4be78c8273626f2ee40b4012b8
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:02:21 2022 +0100
+
+    tools/xenstore: enhance hashtable implementation
+    
+    Today it is possible to set a flag when calling hashtable_destroy() in
+    order to specify whether the data associated with the hashtable entries
+    should be freed or not. The keys of the entries will always be freed.
+    
+    Change that by replacing the flag of hashtable_destroy() by two flags
+    for create_hashtable() which will specify whether the data and/or the
+    key of each entry should be freed or not.
+    
+    This will enable users to have the key e.g. as part of the data.
+    
+    Add a new function hashtable_iterate() to call a user specified
+    function for each entry in the hashtable.
+    
+    Add new primes to the primetable in order to support smaller sizes of
+    the hashtable. The primes are selected according to:
+    
+    https://planetmath.org/goodhashtableprimes
+    
+    Update the URL in the source as the old one wasn't correct any longer.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit bb65cbd81caaaaf325d23f63b4c2165960563459
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:02:04 2022 +0100
+
+    tools/xenstore: preserve errno across corrupt()
+    
+    Let corrupt() preserve errno in order to be able to simplify error
+    handling in future.
+    
+    This is rather easy as the errno value when entering corrupt() is
+    saved already.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit 6a0d1914f0b19742436367a0019602992573bd4b
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:01:47 2022 +0100
+
+    tools/xenstore: let tdb_logger() preserve errno
+    
+    tdb_logger() is called by TDB for logging errors. As errno is checked
+    often after doing the logging, tdb_logger() should preserve errno.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit 8d7acf3f7d8d2555c78421dced45bc49f79ae806
+Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+Date:   Wed Dec 14 12:00:35 2022 +0100
+
+    EFI: relocate the ESRT when booting via multiboot2
+    
+    This was missed in the initial patchset.
+    
+    Move efi_relocate_esrt() up to avoid adding a forward declaration.
+    
+    Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
