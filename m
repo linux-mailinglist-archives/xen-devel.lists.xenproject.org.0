@@ -2,35 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A8A64CC17
-	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 15:24:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.462292.720460 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B04B64CC1A
+	for <lists+xen-devel@lfdr.de>; Wed, 14 Dec 2022 15:25:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.462303.720471 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5SfP-00019F-7Q; Wed, 14 Dec 2022 14:23:27 +0000
+	id 1p5Sh4-00023F-Ja; Wed, 14 Dec 2022 14:25:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 462292.720460; Wed, 14 Dec 2022 14:23:27 +0000
+Received: by outflank-mailman (output) from mailman id 462303.720471; Wed, 14 Dec 2022 14:25:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5SfP-00017P-4D; Wed, 14 Dec 2022 14:23:27 +0000
-Received: by outflank-mailman (input) for mailman id 462292;
- Wed, 14 Dec 2022 14:23:25 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5SfN-00016w-M0; Wed, 14 Dec 2022 14:23:25 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5SfN-0002Vt-GU; Wed, 14 Dec 2022 14:23:25 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5SfN-0002jX-4o; Wed, 14 Dec 2022 14:23:25 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5SfN-0004Gm-3E; Wed, 14 Dec 2022 14:23:25 +0000
+	id 1p5Sh4-00021T-GL; Wed, 14 Dec 2022 14:25:10 +0000
+Received: by outflank-mailman (input) for mailman id 462303;
+ Wed, 14 Dec 2022 14:25:08 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=RNn6=4M=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p5Sh2-00021N-Ku
+ for xen-devel@lists.xenproject.org; Wed, 14 Dec 2022 14:25:08 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1b4dfa8c-7bbb-11ed-8fd2-01056ac49cbb;
+ Wed, 14 Dec 2022 15:25:07 +0100 (CET)
+Received: from BL0PR02CA0133.namprd02.prod.outlook.com (2603:10b6:208:35::38)
+ by CH3PR12MB8305.namprd12.prod.outlook.com (2603:10b6:610:12e::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Wed, 14 Dec
+ 2022 14:25:04 +0000
+Received: from BL02EPF0000C405.namprd05.prod.outlook.com
+ (2603:10b6:208:35:cafe::f4) by BL0PR02CA0133.outlook.office365.com
+ (2603:10b6:208:35::38) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.19 via Frontend
+ Transport; Wed, 14 Dec 2022 14:25:04 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF0000C405.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.8 via Frontend Transport; Wed, 14 Dec 2022 14:25:04 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 08:25:03 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 14 Dec
+ 2022 08:24:55 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 14 Dec 2022 08:24:54 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,227 +62,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mbJICmZEJZ6D4WRM4gDfVdZ8fyEu93wtjWYh1yNCmpc=; b=NYIuPBODaTZW7d1Z+vuA3kMqYn
-	0gJYA4bJtaPZBPEWhmQS0GYbpZlEcqNaGT15EhBYHtJghQbeNOA4pouHwawGXSsBCc+BNKtgipiu+
-	l1TpLUcum7AhUQekxZ8BoMCBmLr6UujRCoRAWDUdI5KbVOq7ufiAyOf3+iwh3ativLBw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175199-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 1b4dfa8c-7bbb-11ed-8fd2-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FRH/j4oFBLyXnD/qELhnEXEwIvNooFbanKgRbYE/1iqulMlSCAZs6bf7vbSoyOi5+1pTfJ1FHjieSwxoCpJ3zqw7DTc5JIgGG/O7Krxk2vZgj48xJYC25JJ0SdBqnltChzp1hW60ErwdtUuLq/Z7yBqNB7kepRseMyiYIYTPmJtSqwEjLGXI43JLXjto9GRFG6gYRhkszZuOuhT/Im5iZGTsbQe9NV1/ubc5sNYElgAG4/xkmzELZ01R8bNpzSHWv82YnScQp7MGnnbVBk2nSHEJxHvk9jIOL5nK0mvUDD+5WUrELHSgxMVU+HQpMRl3ckCvNMRylAxE3QOivOY6Fw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rViC0E6/8AxUopNptHfoO3R1Lvi/izGcKZXYR4IMSb0=;
+ b=axzh4JPx9QXNx/yLZxDcZYfJei8K5ujkFYc3j/2LtCodFlAZBTrW2Mv6vOzeF+8Yo+tbETh2+NiHCGVCEwQ4U/9g+IXZv304TKwEFs/VbE60wrHQUQwjyIWTD99NlQtqt6cpHYYj7XfWvyOVoyiKPreU5Evs4oWQoxDJyRv1koKiSlr9XbiwhmkQO7rwi0U2r7cjDde5zhuWqA03+wKRkxQ8l5ZTM0INOzoB7WidKrXSipfrUwbbtwc1cUjKEHh44i4Sm6SYacXRNeADbRkLLLP8zoW9bcwNwj2Jr/o5qTwyw+u1znT46cJo67hukcjeiec4CG6ttzKgqcR4QrxvfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rViC0E6/8AxUopNptHfoO3R1Lvi/izGcKZXYR4IMSb0=;
+ b=tgO42psWPLbY/1VOZC4ohs58W7pxOksLrh+Ogh7xQCXiOcYZWzX47Gp6/f6WLy9VQG24RpUdcF4m73m2jz+3t1yx1c2hYXmQiAW0Raszi5WZA14QrceZ24RfRfhxTwxCoU4WBI2fNRmxTQg9Qfk+EpPTMR1QsUJvqHKnv4Jg5ZE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <95e9eff5-038d-923f-1afe-4f2d72bde5b3@amd.com>
+Date: Wed, 14 Dec 2022 15:24:53 +0100
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175199: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=549b042943a57b748ce80070d1174e4ff5b8ef0b
-X-Osstest-Versions-That:
-    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 14 Dec 2022 14:23:25 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+Subject: Re: [PATCH v3 08/18] xen/arm32: head: Introduce an helper to flush
+ the TLBs
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, Julien Grall <jgrall@amazon.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221212095523.52683-1-julien@xen.org>
+ <20221212095523.52683-9-julien@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <20221212095523.52683-9-julien@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C405:EE_|CH3PR12MB8305:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8b5c7c2f-ec02-4416-6da5-08dadddefe24
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	A1MFb8kz21DrfwPrctEGGTH57hXSKHi+bS01DfdDQsONNa/k5RSl0ReJqpeBxxVQ5FRIIT1ydzcDYJbIFty3MHek1/+U5loc6lP0mWBzYzzoJWT63OPutMAb8kuVXLnVCDOloOqAMkybPiflzZ9ImHA//sGyYGMttW9TNbwDD/dpahGtQVU5InJyM8JjLAZvAj/00iOOGQOMkkPwvpvkHYzWrLaBpwXhjw8fFW60ylo2qSnvddq3uF8sKOz+fCM2lnibF2XgJW3cA/B5XNn7wjUlW1mTxarML0boiNh1eGXSdHMqh4XWpfoEqOe6s08Eo/ogOYbdvJXYbwTvedWVXnyjL5qcxa1vR1DMdiYtKgaiLz7cQVXZnK5WKsXsyM1gf3p6wCC1yohjId/PFZJHfmyLslOKS7PVHTY1a4UUUb3/TgBJVM/jsCozOdiNS0CvYMvkG1WeFym9+BHGMvzDWXD1kF7nrP08XcTkN3Q0QNR3o1bZoSxNX7xdRZQboA48ZdVM41bLdJUtJ9GSlOhLglcOPyxpuBGtbLwlDkU958DOcoGZPbe1egOrj8W5t6yKOAgbbBw8qsY9Noec1K7FPSf1ktopj72xkm471rSuwp10ydDlY3n9F8oOV2hXJEjTNC5qzCdUMWPaEu0HOQwpo359W8BcNXRAvg23cNv0cGQCfuRjhymwIzOJT5U0F0eYNoezHyCpTKdUzORyUKx0UXhZTq4nyfh3okktK1kdHVL/VSPJnlmCoDK3mjq/b1Mrv3SfD29z0bjGyWJZ+4C2ew==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(136003)(376002)(346002)(451199015)(40470700004)(36840700001)(46966006)(36860700001)(82310400005)(336012)(2616005)(47076005)(86362001)(426003)(31696002)(40480700001)(83380400001)(40460700003)(36756003)(356005)(82740400003)(81166007)(31686004)(44832011)(2906002)(316002)(16576012)(8936002)(41300700001)(70586007)(70206006)(5660300002)(8676002)(4326008)(478600001)(53546011)(186003)(26005)(110136005)(54906003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Dec 2022 14:25:04.2156
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b5c7c2f-ec02-4416-6da5-08dadddefe24
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0000C405.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8305
 
-flight 175199 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175199/
+Hi Julien,
 
-Regressions :-(
+On 12/12/2022 10:55, Julien Grall wrote:
+> 
+> 
+> From: Julien Grall <jgrall@amazon.com>
+> 
+> The sequence for flushing the TLBs is 4 instruction long and often
+> requires an explanation how it works.
+> 
+> So create an helper and use it in the boot code (switch_ttbr() is left
+Here and in title: s/an helper/a helper/
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 175173
+> alone for now).
+Could you explain why?
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+> 
+> Note that in secondary_switched, we were also flushing the instruction
+> cache and branch predictor. Neither of them was necessary because:
+>     * We are only supporting IVIPT cache on arm32, so the instruction
+>       cache flush is only necessary when executable code is modified.
+>       None of the boot code is doing that.
+>     * The instruction cache is not invalidated and misprediction is not
+>       a problem at boot.
+> 
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
 
-version targeted for testing:
- xen                  549b042943a57b748ce80070d1174e4ff5b8ef0b
-baseline version:
- xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+Apart from that, the patch is good, so:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
-Last test of basis   175173  2022-12-13 15:00:27 Z    0 days
-Testing same since   175199  2022-12-14 12:01:52 Z    0 days    1 attempts
+> 
+> ---
+>     Changes in v3:
+>         * Fix typo
+>         * Update the documentation
+>         * Rename the argument from tmp1 to tmp
+> ---
+>  xen/arch/arm/arm32/head.S | 30 +++++++++++++++++-------------
+>  1 file changed, 17 insertions(+), 13 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+> index 40c1d7502007..315abbbaebec 100644
+> --- a/xen/arch/arm/arm32/head.S
+> +++ b/xen/arch/arm/arm32/head.S
+> @@ -66,6 +66,20 @@
+>          add   \rb, \rb, r10
+>  .endm
+> 
+> +/*
+> + * Flush local TLBs
+> + *
+> + * @tmp:    Scratch register
+As you are respinning a series anyway, could you add just one space after @tmp:?
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Demi Marie Obenour <demi@invisiblethingslab.com>
-  Juergen Gross <jgross@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Viresh Kumar <viresh.kumar@linaro.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 549b042943a57b748ce80070d1174e4ff5b8ef0b
-Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Date:   Wed Dec 14 12:04:26 2022 +0100
-
-    drivers/char: support up to 1M BAR0 of xhci
-    
-    AMD's XHCI has BAR0 of 1M (compared to 64K on Intel). Map it as a whole
-    (reserving more space in the fixmap). Make fixmap slot conditional on
-    CONFIG_XHCI.
-    
-    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit dd54ea500be80f347402d75f3e4e7061e7db78d2
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:38 2022 +0100
-
-    docs: add documentation for generic virtio devices
-    
-    This patch updates xl.cfg man page with details of generic Virtio device
-    related information.
-    
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-commit 953efa0b7b188458b18e4a727f3b1dfa77eacb61
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:25 2022 +0100
-
-    xl: add support to parse generic virtio device
-    
-    This patch adds basic support for parsing generic Virtio backend.
-    
-    An example of domain configuration for mmio based Virtio I2C device is:
-    virtio = ["type=virtio,device22,transport=mmio"]
-    
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-
-commit 43ba5202e2eebd350161a8db674bf928c3e6f859
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:09 2022 +0100
-
-    libxl: add support for generic virtio device
-    
-    This patch adds basic support for configuring and assisting generic
-    Virtio backends, which could run in any domain.
-    
-    An example of domain configuration for mmio based Virtio I2C device is:
-    virtio = ["type=virtio,device22,transport=mmio"]
-    
-    To make this work on Arm, allocate Virtio MMIO params (IRQ and memory
-    region) and pass them to the backend and update guest device-tree to
-    create a DT node for the Virtio devices.
-    
-    Add special support for I2C and GPIO devices, which require the
-    "compatible" DT property to be set, among other device specific
-    properties. Support for generic virtio devices is also added, which just
-    need a MMIO node but not any special DT properties, for such devices the
-    user needs to pass "virtio,device" in the "type" string.
-    
-    The parsing of generic virtio device configurations will be done in a
-    separate commit.
-    
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-
-commit db75092aea988b4be78c8273626f2ee40b4012b8
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:02:21 2022 +0100
-
-    tools/xenstore: enhance hashtable implementation
-    
-    Today it is possible to set a flag when calling hashtable_destroy() in
-    order to specify whether the data associated with the hashtable entries
-    should be freed or not. The keys of the entries will always be freed.
-    
-    Change that by replacing the flag of hashtable_destroy() by two flags
-    for create_hashtable() which will specify whether the data and/or the
-    key of each entry should be freed or not.
-    
-    This will enable users to have the key e.g. as part of the data.
-    
-    Add a new function hashtable_iterate() to call a user specified
-    function for each entry in the hashtable.
-    
-    Add new primes to the primetable in order to support smaller sizes of
-    the hashtable. The primes are selected according to:
-    
-    https://planetmath.org/goodhashtableprimes
-    
-    Update the URL in the source as the old one wasn't correct any longer.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-commit bb65cbd81caaaaf325d23f63b4c2165960563459
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:02:04 2022 +0100
-
-    tools/xenstore: preserve errno across corrupt()
-    
-    Let corrupt() preserve errno in order to be able to simplify error
-    handling in future.
-    
-    This is rather easy as the errno value when entering corrupt() is
-    saved already.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-commit 6a0d1914f0b19742436367a0019602992573bd4b
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:01:47 2022 +0100
-
-    tools/xenstore: let tdb_logger() preserve errno
-    
-    tdb_logger() is called by TDB for logging errors. As errno is checked
-    often after doing the logging, tdb_logger() should preserve errno.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-
-commit 8d7acf3f7d8d2555c78421dced45bc49f79ae806
-Author: Demi Marie Obenour <demi@invisiblethingslab.com>
-Date:   Wed Dec 14 12:00:35 2022 +0100
-
-    EFI: relocate the ESRT when booting via multiboot2
-    
-    This was missed in the initial patchset.
-    
-    Move efi_relocate_esrt() up to avoid adding a forward declaration.
-    
-    Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+~Michal
 
