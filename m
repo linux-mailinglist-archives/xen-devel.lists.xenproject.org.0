@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EAF864E4C4
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 00:46:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463932.722237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4A364E4DD
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 00:58:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463943.722252 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5xu8-00083g-6b; Thu, 15 Dec 2022 23:44:44 +0000
+	id 1p5y7A-0001Hi-KX; Thu, 15 Dec 2022 23:58:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463932.722237; Thu, 15 Dec 2022 23:44:44 +0000
+Received: by outflank-mailman (output) from mailman id 463943.722252; Thu, 15 Dec 2022 23:58:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5xu8-00080D-32; Thu, 15 Dec 2022 23:44:44 +0000
-Received: by outflank-mailman (input) for mailman id 463932;
- Thu, 15 Dec 2022 23:44:42 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5xu6-000803-Mk; Thu, 15 Dec 2022 23:44:42 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5xu6-0001LH-KP; Thu, 15 Dec 2022 23:44:42 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5xu6-0000ta-AU; Thu, 15 Dec 2022 23:44:42 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5xu6-00066x-86; Thu, 15 Dec 2022 23:44:42 +0000
+	id 1p5y7A-0001Do-Gd; Thu, 15 Dec 2022 23:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 463943;
+ Thu, 15 Dec 2022 23:58:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t+b5=4N=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p5y78-0001Aq-Rl
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 23:58:10 +0000
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51097160-7cd4-11ed-91b6-6bf2151ebd3b;
+ Fri, 16 Dec 2022 00:58:08 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 463AB320090D;
+ Thu, 15 Dec 2022 18:58:03 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Thu, 15 Dec 2022 18:58:04 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Dec 2022 18:58:02 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,95 +43,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=BdsooQbYcZ+kx8Gj0FhJsaiWaC9vW4V5UuKvfweoOAA=; b=18GdniqMZcfUrWHlHbHFt8t9LZ
-	PRvMb+/DM4/DVhNNmte7u6vdVv9PiiYqpZfWVw01U6rFmCLQh4uROKOsEA2JJYhXGfl+FsfE3uVd0
-	u59wz5BfjtThbdHd85q805h9j2kzLlSpGlzdMMjStTWVX8+F/vNsTHssCAIui7fAOFc8=;
+X-Inumbo-ID: 51097160-7cd4-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1671148682; x=1671235082; bh=cvJovTwCt41fzIOTdCiPdt8ExuQVj5dKqG0
+	zaU3tXpI=; b=F9r+QW1COyhmTZoUVsfkLdNNZiBCzgF2RkeZf5KtJsv63PNDrJ0
+	P7KEqFpV5WT01E3pguVFHl9y9n1frGJ9Z/c1uidG1tiWgfQUDKq897EslXuL+m0/
+	rJ3oXDWIZLlX/afh6mwOUvu//EdYf2YZCnk36W2nAOVVNlin+ODZNaesC7ZZ+h2Y
+	fmntJ8izrOEuMqxs1hU5FBp2/8tXpisxu0PohH0mCIcjOukZDezLErsG5GRiqJNn
+	IsX3VQfym1JgASS1tp59oP25vi1XwQ3U/pyTzx/YeK4ddWyAr40hGqIdJl6nq5fc
+	IfatsVWdfE9tDWKdyfnohnKoWeuVj4IPULw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+	:x-sasl-enc; s=fm2; t=1671148682; x=1671235082; bh=cvJovTwCt41fz
+	IOTdCiPdt8ExuQVj5dKqG0zaU3tXpI=; b=FImOtPflN3sL3hxSo95k4fRxUr/WV
+	LyYxmEZZQgnZaEwZcRpPl0nJtrreDd8QsXK3Cb+V5YXtHzDJn0Dsduhc0DLdNKwT
+	UwpD1d/9OonSALctqXY9zLv7rKvIfAdPDYZZgTw6PDodFB8XR8yNFeibki3RSyf1
+	ZT68X1To7dQTGVMqE7nxNa1CC7+QSFvNhsDeZNimTLr5507CD6mDjlBUoGEBUxNp
+	CLOMfYikpuoUrFarTXUIuJfdVn0tdZ+v+36Zkl8u3CQ9gROFil7ROkdzpzlFzcpJ
+	lueRBd+7ddY1VsYq8lPb4VD8JG0s8hLuncicezMOuyQIeHEt9Ce/4n0IA==
+X-ME-Sender: <xms:irSbY40KdVYxh-b9Y9mRpgVMpIEMnQxSpvrwilUqiX2j5Jhxg69zJQ>
+    <xme:irSbYzFIQj8aORHCFCYU-MMPI1sdikYMJ4v9r1Cqg83tak7aym-AxpaCfYK4VwSU5
+    w2xZ-Solff6ObE>
+X-ME-Received: <xmr:irSbYw4boX5j_MhS3PjdVglwWzuQ4ZKcszBQLXLTs927ht7fZ28l41NvvDp_OliZsFHXhff8VW-5>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeigddugecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepffgvmhhiucfo
+    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+    grsgdrtghomheqnecuggftrfgrthhtvghrnhephfeggfeiiedtieejgedutdekgfetgeeh
+    heegteekvefhfefgudehtdevleegueegnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
+    sgdrtghomh
+X-ME-Proxy: <xmx:irSbYx2FsgIgkS9WKFiyNG_ihnWxoGDsujejCB2P9irRYDbB2WDYZg>
+    <xmx:irSbY7F_mqILVQum0KpfBd7_Jf1pSbD1p9-vmorNROD9_dNLXBuGqg>
+    <xmx:irSbY68AlMBSm-YsF-aZZJ8rnCek6Q4wmhfANjBmoY2WA6qgDu-5MQ>
+    <xmx:irSbYxbjJCNA29u9UHlWk4lMXibg1XYAAYIhjA2ZSILY575s5Y_ygA>
+Feedback-ID: iac594737:Fastmail
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175292-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Tim Deegan <tim@xen.org>
+Subject: [PATCH v4 00/10] Make PAT handling less brittle
+Date: Thu, 15 Dec 2022 18:57:42 -0500
+Message-Id: <cover.1671139149.git.demi@invisiblethingslab.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175292: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=c8aaebccc8e8fb5d90080e664202b0011ce4d0bd
-X-Osstest-Versions-That:
-    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Dec 2022 23:44:42 +0000
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-flight 175292 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175292/
+While working on Qubes OS Marek found out that there were some PAT hacks
+in the Linux i195 driver.  I decided to make Xen use Linux’s PAT to see
+if it solved the graphics glitches that were observed; it did.  This
+required a substantial amount of preliminary work that is useful even
+without using Linux’s PAT.
 
-Failures :-/ but no regressions.
+Patches 1 through 9 are the preliminary work and I would like them to be
+accepted into upstream Xen.  Patch 9 does break ABI by rejecting the
+unused PAT entries, but this will only impact buggy PV guests and can be
+disabled with a Xen command-line option.  Patch 10 actually switches to
+Linux’s PAT and is NOT intended to be merged (at least for now) as it
+would at a minimum break migration of PV guests from hosts that do not
+have the patch.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+This patch series is shorter than v3 as two of the patches have already
+been accepted into staging.  Only patches 9 and 10 actually change Xen’s
+observable behavior.  Patches 1, 2, and 7 are prerequisites, and patches
+3 through 6 are cleanups.  Patch 8 makes changing the PAT much less
+error-prone, as problems with the PAT or with the associated _PAGE_*
+constants will be detected at compile time.
 
-version targeted for testing:
- xen                  c8aaebccc8e8fb5d90080e664202b0011ce4d0bd
-baseline version:
- xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+Demi Marie Obenour (10):
+  x86: Add memory type constants
+  x86/mm: Avoid hard-coding PAT in get_page_from_l1e()
+  x86: Replace PAT_* with X86_MT_*
+  x86: Replace MTRR_* constants with X86_MT_* constants
+  x86: Replace EPT_EMT_* constants with X86_MT_*
+  x86: Remove MEMORY_NUM_TYPES and NO_HARDCODE_MEM_TYPE
+  x86: Derive XEN_MSR_PAT from its individual entries
+  x86/mm: make code robust to future PAT changes
+  x86/mm: Reject invalid cacheability in PV guests by default
+  x86: Use Linux's PAT
 
-Last test of basis   175173  2022-12-13 15:00:27 Z    2 days
-Failing since        175199  2022-12-14 12:01:52 Z    1 days   16 attempts
-Testing same since   175292  2022-12-15 20:00:29 Z    0 days    1 attempts
+ xen/arch/x86/cpu/mtrr/generic.c         |  10 +--
+ xen/arch/x86/cpu/mtrr/main.c            |  26 +++---
+ xen/arch/x86/e820.c                     |   4 +-
+ xen/arch/x86/hvm/hvm.c                  |  12 +--
+ xen/arch/x86/hvm/mtrr.c                 | 100 ++++++++++++------------
+ xen/arch/x86/hvm/vmx/vmcs.c             |   2 +-
+ xen/arch/x86/hvm/vmx/vmx.c              |  18 ++---
+ xen/arch/x86/include/asm/hvm/vmx/vmcs.h |   2 +-
+ xen/arch/x86/include/asm/hvm/vmx/vmx.h  |   9 ---
+ xen/arch/x86/include/asm/mtrr.h         |  22 +-----
+ xen/arch/x86/include/asm/page.h         |   4 +-
+ xen/arch/x86/include/asm/processor.h    |  19 ++++-
+ xen/arch/x86/include/asm/x86-defns.h    |  11 +++
+ xen/arch/x86/mm.c                       |  84 ++++++++++++++++++--
+ xen/arch/x86/mm/hap/nested_ept.c        |   4 +-
+ xen/arch/x86/mm/p2m-ept.c               |  51 ++++++------
+ xen/arch/x86/mm/shadow/multi.c          |   8 +-
+ 17 files changed, 227 insertions(+), 159 deletions(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Demi Marie Obenour <demi@invisiblethingslab.com>
-  Jan Beulich <jbeulich@suse.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-  Viresh Kumar <viresh.kumar@linaro.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/xen.git
-   630dc3798e..c8aaebccc8  c8aaebccc8e8fb5d90080e664202b0011ce4d0bd -> smoke
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
