@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8691364DE0E
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 16:49:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463556.721766 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9856464DE26
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 17:02:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463566.721777 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5qTn-0000E2-GG; Thu, 15 Dec 2022 15:49:03 +0000
+	id 1p5qfO-0003NE-Lt; Thu, 15 Dec 2022 16:01:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463556.721766; Thu, 15 Dec 2022 15:49:03 +0000
+Received: by outflank-mailman (output) from mailman id 463566.721777; Thu, 15 Dec 2022 16:01:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5qTn-0000CB-D0; Thu, 15 Dec 2022 15:49:03 +0000
-Received: by outflank-mailman (input) for mailman id 463556;
- Thu, 15 Dec 2022 15:49:02 +0000
+	id 1p5qfO-0003LP-J5; Thu, 15 Dec 2022 16:01:02 +0000
+Received: by outflank-mailman (input) for mailman id 463566;
+ Thu, 15 Dec 2022 16:01:00 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=g8Eh=4N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p5qTm-0000C5-Co
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 15:49:02 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2046.outbound.protection.outlook.com [40.107.20.46])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fe632952-7c8f-11ed-91b6-6bf2151ebd3b;
- Thu, 15 Dec 2022 16:49:01 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM0PR04MB6820.eurprd04.prod.outlook.com (2603:10a6:208:188::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Thu, 15 Dec
- 2022 15:48:59 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5924.011; Thu, 15 Dec 2022
- 15:48:59 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=t+b5=4N=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1p5qfM-0003LJ-0m
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 16:01:00 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a8133c2f-7c91-11ed-91b6-6bf2151ebd3b;
+ Thu, 15 Dec 2022 17:00:58 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 99B7E5C0178;
+ Thu, 15 Dec 2022 11:00:54 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Thu, 15 Dec 2022 11:00:54 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Dec 2022 11:00:52 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,193 +43,161 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fe632952-7c8f-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LG3PK6kZfii/MBi20hIx8sDbTB+WJLQnVQsDKnXhQuuR+5MfVqAyJnC+ZRJUxZ7QIoIbXmpGreUY9yZXYHQwqk2o1Vj5BxntHe7cUttIa10WwlF/4HOXj558EPs84fTMFf/AqPLvujmmaLTh48i0uybvpc6ulXj+oV2YFSPU9Rob8M9Li0XuzrX+JIxnrFFSGM1/GyriYdMVRBNq7x7EKGBHAHIBq71ZLQmM/qTXY69zcwFp4SnKmbrwxlbwZ1whmRoUxt/QamD8lR05ohUeCzE9Od8YfYk4K4SA1SSMoI7zA9HdPoa/g7bWA/jsBsRpkqcJ6g1O/NwKyBaXsyFf7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oceKss5hYKN711vmcuhTmnFPfZW+sexdiFHWqOCkPjA=;
- b=EDTh96nFl2ckikhnodLh7suscdu54kx6YkCDYJEJM4EDnqYbI4DNWW5yLTBWAKRYiQ0hm4823iFdiAlZ6csESuK7dGH7hIWLW2dX/xvTZjOaV7q7IZd5iEg06EyC2MF3KFvrxrKMxQtBrAVgJI/GKxRKYRLDfRGQQzW6xX7BuXnEUw9Fm/vAuuEoa6ZGOiYzw9ehDB5oZ7y9dlXplpGduOwm+0NsiQ9jyAwDRxnrquptWeAjNigRtarwrPfrf/F7baRneT1vHdJaLEkeHBR+cfmtn0o1+sHBbtS3eA9hmro63YaWSNzjZPZbc7xNs6ZWgHji/VfccJAC7iS2vuRsLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oceKss5hYKN711vmcuhTmnFPfZW+sexdiFHWqOCkPjA=;
- b=geBvcXzSgTMgFvGIoDmQzusODSuLhbDqk6IcD7Pzt8NYbQaV+vqwd7njgsdGRVAO7fjZT+OLB49MuoglLW8gYo80Dvsj1ZffzjutTaMfK6QtSPGwerhFKOYtNzQLyuKR3vQFnAWeERbN9YgJXy+yrKivKXcvr7NqRG7d4L/eFFCq22HJ56ciqhl/yhocfuvlrDGQWkX8ztJ9U421gsI3HQYiCST4g1CY6tc6Us0iKjXeiN2W3UAYV3o4dO0yV8GKj772/Q52DI7l8vx4e8fyqFFJ7xvmk/+capPGr948RhIne0y4Xu/2dHCBJTL+O1aIxImfeYEC3+JfdpY8J7gGig==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
-Date: Thu, 15 Dec 2022 16:48:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [XTF-ARM] tests: Hypercall xen_version testing
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>
-Cc: sstabellini@kernel.org, xen-devel@lists.xenproject.org
-References: <20221215152511.10194-1-michal.orzel@amd.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20221215152511.10194-1-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0117.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: a8133c2f-7c91-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1671120054; x=
+	1671206454; bh=awrZmvGiO2KkUVwWue86Sg88k66hu6jNS6XpevL9ZT4=; b=Q
+	OY2Nhi9cWNqXVyEZTQHblyfgCbjYTWdAikPH9QjlGhWVDXThBA5hsHQ9eCqFedlZ
+	c2IqU6MdtwRY+Wc4qZ6M64sUCNBashntNTqMalvxPc45fQJByhaOn+cue7PUXriJ
+	B245+0O/tiHVrICze4+orgVG4Xvdr5Krf7iLuzt/i+IwUmy+lY5b4F23B9vwV0+q
+	WWtkEqZeo6Yf9AmIA0/4iY0gzuAJIF1I32x7YF12vAsI6w1tNah1BPuXz5TAv23t
+	47jcRzzwV+hqdxA2JYk2FCJSo15KN3U2gZmPcEFzv743mGkHfFn4LLYpFWlx33tv
+	8cJmxEdbBwEmdxWyOUmTw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm2; t=1671120054; x=1671206454; bh=awrZmvGiO2KkUVwWue86Sg88k66h
+	u6jNS6XpevL9ZT4=; b=NjVpZnMgHskM+deQ1g6T0hJM8vgRx1gziCUtFn39O3lx
+	uDrp7TfAVQb7GNyVsLltHky3nhHe2NY6OpZNrLzg22dE5L8EDnA3v7pxqa7R8ozq
+	3H9eZGDzTWiWHj1Cp4LJiTMIlMMR9lP7MQ5j854o1Jgmn5oGHC1kn7bUTCrwXi3O
+	M/OwzJoofVrYpAzsoOu9eveMvTrW67XeLaomaQ2SBygIfu4t1z3vslzE/IYZodxi
+	9/SnjqRTNPZzEkpa5uaIKktymcKVVGqj51+0DCtaOfMyOmNnl79MySUUWV+QWnOL
+	CA3U3Vjqo72lPZ/aEYTdStOW9YC7HSQX+hb+1cT2GA==
+X-ME-Sender: <xms:tESbY3GSxb1X8gvvFX9NKy4H9Cd9T52PWqJ9pEZs92mPA_NyB4tL_Q>
+    <xme:tESbY0X80pRJnOgdqUq8Lov04uyD3A4akXbDVg1t24Rjhs13wLntx_fErifYtgYCk
+    6RMFJAyyeeV-wY>
+X-ME-Received: <xmr:tESbY5K_d0kuDa_Fm-q0nqElOk7wR87K4GnAI8ILpvvWHq7WVE3kvbWY52FW>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeehgdekudcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
+    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+    rggsrdgtohhm
+X-ME-Proxy: <xmx:tUSbY1EplVl0AO6EirSm6DTefwbN58aRU63qFfvPT1jMVutXKZev2w>
+    <xmx:tUSbY9UhkbijCz1cZRpCv-MYwfnoTGjEBxeQU-4ZIU80C-QH0w-xtA>
+    <xmx:tUSbYwNic2EOjL1KME6-cHsY_OS7u1ml8VfGcm2oWPa69wHk8TUClA>
+    <xmx:tkSbY8EhOJES_7mXju5BxlrSkW13ihNJBzoBI5yEJV22IBve5NmbAg>
+Feedback-ID: iac594737:Fastmail
+Date: Thu, 15 Dec 2022 11:00:48 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 01/12] x86/mm: Avoid hard-coding PAT in
+ get_page_from_l1e()
+Message-ID: <Y5tEsuvxE4j0I86T@itl-email>
+References: <cover.1671057808.git.demi@invisiblethingslab.com>
+ <6a0d969d0aade0258e108009ef33ad5d2663e969.1671057808.git.demi@invisiblethingslab.com>
+ <a44afad2-4b63-a830-1ed9-2bd87e8aecde@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB6820:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0fe9d852-5cc2-4c07-2991-08dadeb3e197
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	0B28NhFZEiRsqHAFWUyE9bFDsCgMAzRo3OJfaCsZyj5Am2ir+aL7wTOL7tIP2jT8b0SrA4fIsYq2DrhQ21IfdlU6XE07uOKisB+3yTIxExheCbRjj7Rl1DIO5Gjzl4xSpeEzv9NjuyE/VxYXQzF265NpqR4s42CI3OMSeTbF611R2IKrTXlOxkmq4JQlw8BWW0FNnkt8gI9vqPRSsbUpJ8+JnfedBdv7TxFK726F/ohPsPMuZ+DrrMWe+FJYIHFRN4iBtF9sPC9gfXIn6/2yz+AKmlF3/cBCv6bAwx7VbZJ4hQEtgTULcLkOglrkK+8EwvZTq4o2eWt9EooeomC3lf+2c3F0edRAQIqct+aGNHxOSHsk7cLnk90OJ6o0At8F9gXYiq2J7CfLg0gyngvk9i/DBtkDjOSQWVM3aVpIwgjncz3K/T5RMc7JlIFhkGTMCdcTp3cpgTMg8MmiR1qeu52cNowHhSqbCd9TUJ/qbiEF26YTZfGm+yldrvW87yUsBfV4Y9l8Tn47iCobSZLEpe96pk3DkyywEo8D2kd/fxDkEXRVCaUaBipUmdNvVDNe+O/C0TdhG5yFFARLbF77Ub6jW4MB2FoPGO9sR+diUfMYvHbtZsKa8QzxSb3PQxbdf6DVB8OMLTLN/tnKiLldmBTJkibzfBLnQLVPElCRZMOAtxVUEfSRjkbLrKDXy6Af5+5KFOxDt/lsnuRS5BQqfquVRtGst9ItLP8c1rLsLCY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(366004)(396003)(346002)(376002)(136003)(451199015)(2616005)(31686004)(83380400001)(86362001)(31696002)(478600001)(316002)(6916009)(36756003)(38100700002)(53546011)(6506007)(6512007)(26005)(186003)(2906002)(6486002)(66946007)(4326008)(8936002)(41300700001)(5660300002)(8676002)(66556008)(66476007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZFpNVlowaVRUWWRzUXhCOHJycytxTzAwU1RtQnlKcTFEbmdFcVA0T3ltbkFM?=
- =?utf-8?B?RFo5TEY0bE9EK1hhSjlyc05nV3NuSGdCcStGbFc0dHY2L1BCVHE1NUZhYUQ2?=
- =?utf-8?B?K1IycU1RdUprcHJWUzhhN1FOanBEeEJZL0RPSTF4Q1h2NXFUdWRRdDlkU1lI?=
- =?utf-8?B?NHo2RzgwdVJGQ2pQU29YbDI4dHJSS1JFQmw5Z3cyeFJ5WmJTTTA5TFZCaWRK?=
- =?utf-8?B?end4MGF0akNqcmtXbzNmK1ZHVUllR1BFQVk4QkJXQnJDaUc1OWNDWFJGNS96?=
- =?utf-8?B?YWFMYTByZmhOZHFkSzJUSkduQnUvVS9Qc0ZEVUkxRFcxQ2hsV3lqVEhSTEM2?=
- =?utf-8?B?NzQwYWdvMVFWeHNCdFgxNStnTG5hYURxOElXTGZsUC92TC8yYThGUnV0VWlr?=
- =?utf-8?B?VnhOV21Bc0w2QndYdXZsYWJIV1RHRUdNbEg1dkdObnQyRnFwWkQ2QkFMVzNt?=
- =?utf-8?B?KzZ0Q0hnSElnU081VStpaVppd3pvOG91bGNyTnJCOEZpWFo4aXdnV0xQeDdH?=
- =?utf-8?B?VVF3dG14c3JZSUtkT0pFU1dXMFZ3TXBwMUJac3p4Sm5zSjR3eHdmN2JwL0Va?=
- =?utf-8?B?cjJWY21BTlo4NGFUVnFHS29zUWtlZDJDdU1CYmZ1VkdSMmNxRlNkRHhpTUty?=
- =?utf-8?B?Ty9GRys4T3ExWjIyeGE3OUs4VmVybmJqV0hxdEhQOTNOSEFIYVFYQ0VYSnhi?=
- =?utf-8?B?aEJTSGN3MUJDbWgxcGJBYjJTWFV1a2ZIMFlvdzJ6WVpJYTRDbWtMclVwMHRQ?=
- =?utf-8?B?VkJINXkvMWVXc3RxVmtSNzZ0Q25zcllEZVhSQ2hQOW1Paks4OENjTDZiK1dv?=
- =?utf-8?B?aS8wbUlXd3gzRnY2TUZ6bHd1ZnlERHJQWGpTZHdLb0hPL3Z5N1BUaFN6a1Ru?=
- =?utf-8?B?WUdoSldEdVludHdBN2VidDZ3d1JnVllxcnU0bmxVRFkwSnUwLzF2YzJFQ011?=
- =?utf-8?B?WGE1REljaVFMbUQzSC9PaDNGakQwZEQyWnY3bjVyelF1cC9rVHd6NHlRWk1j?=
- =?utf-8?B?UUVXemdlTjhXYXBuZjdEQlAwZ2J0enFEeExHWG4vUDlLbGhUMjdMSStJYTJI?=
- =?utf-8?B?STNLbmVobm04aU1XSXlaZ2w4QzVYc1RRTEJaMEUzTm9KanVFVnlRRTRvZjNZ?=
- =?utf-8?B?dW9PL2N2bVhzemd4ZFZYSjN5OGNVVUc5MjdNREJDUWdxM09vUnNNSVk2Slpz?=
- =?utf-8?B?SmM4R0VUTmcySjVPZjVqbmNNaXZNWExITC9SYi9BSnBKQmY4elIvZWxLTGEw?=
- =?utf-8?B?b1R0alF2dUJHT2dNdC9Ic0RYUllyTXM2Sm83dTJHd09lSzJaZmJPQkpDWVVW?=
- =?utf-8?B?SmhEQ0hZSjBZZk5iT1l5djFhd1pmMGdUa0Z4SkFlMjRXaEo3NjQzTHF3c0hO?=
- =?utf-8?B?RUJWQVNJVWUzOExiN2hQQ3NYZ3VyWVpVd1hyVUVrcVR1NlJPbUhvQ0srdFUr?=
- =?utf-8?B?K1R4dndoalhTTlQ3bTNYT1ZkZXZTNTV1Uk91VmV6SFFGMkErK01UZ08zOGFy?=
- =?utf-8?B?aFdQdTcrL2pNL3RxanFDT1JZVk4rT09LUVRnNkF5SGxhTU5scWpTZ0V6Q2lY?=
- =?utf-8?B?eHB2Qm9MUHpQVVFaY2RteXpHT3h3Q3hISlg1UHZxOG1BYXRwSXlyQXhBN1oz?=
- =?utf-8?B?TjVpdEUxeE05WUhrYlJyS0lIdHlIZ3Fwa2xRY0pIaHB0Ni9BaEU2aEcyR2pp?=
- =?utf-8?B?VVl6MXRIVGRHZ0hIc2x3am5lSXQ5WHA0bko0RkdIcVF2dW93TWZIeFgwL0g0?=
- =?utf-8?B?a1dUUDNZWjkwOFZxMGtNendnbEN1ZnhxS2tPQW1zSnRsUXg2SE9KTU1zM2Jy?=
- =?utf-8?B?aFBNSml6MHcwWU9OMUk4blhGRFA4VmZuQ2tudzJiUWJMYy9EdVhycFIxQ2ov?=
- =?utf-8?B?MjNqV2ZHSDR3dWtaRDhlTGJJMkJkdjA1Y1d5THRQbjFYYjhpWUJOSUpKMlVu?=
- =?utf-8?B?YngxODJiQW5DM2d5SDZKSWlMRVlWa1g2cFpxVFNIdE9EYmF3OCttSFhOa2FH?=
- =?utf-8?B?eWdIZ2tvUU9veTRqMHFSYmpqemlaS2dxRXZPYzNlYm1KZU4zTFhueDBNekVX?=
- =?utf-8?B?SmFSZTNNN29rcktQWE5kbE1wQUZnK2JOd0tWeWU5ZWlVVkpUbG1QREpINE5Y?=
- =?utf-8?Q?2dC9NhGEpNQhH+MqSbVrgh2KK?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fe9d852-5cc2-4c07-2991-08dadeb3e197
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 15:48:59.3357
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MhTr5xX0ZeBKqnmrmy+z/1osCVbP+kARz9IpWH2qaE1ga7HoRZh4T5w2buTP98n/hWYlTMkNeZUZzebLDjPzbA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6820
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4A7ZhUqlpk9A9BBA"
+Content-Disposition: inline
+In-Reply-To: <a44afad2-4b63-a830-1ed9-2bd87e8aecde@suse.com>
 
-On 15.12.2022 16:25, Michal Orzel wrote:
-> Add a new test hyp-xen-version to perform functional testing of
-> xen_version hypercall. Check the following commands (more can be added
-> later on):
->  - XENVER_version,
->  - XENVER_extraversion,
->  - XENVER_compile_info,
->  - XENVER_changeset
->  - XENVER_get_features,
->  - passing invalid command.
-> 
-> For now, enable this test only for arm64.
 
-What's wrong with exposing this uniformly?
+--4A7ZhUqlpk9A9BBA
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 15 Dec 2022 11:00:48 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v3 01/12] x86/mm: Avoid hard-coding PAT in
+ get_page_from_l1e()
 
-> --- /dev/null
-> +++ b/tests/hyp-xen-version/main.c
-> @@ -0,0 +1,105 @@
-> +/**
-> + * @file tests/hyp-xen-version/main.c
-> + * @ref test-hyp-xen-version
-> + *
-> + * @page test-hyp-xen-version Hypercall xen_version
-> + *
-> + * Functional testing of xen_version hypercall.
-> + *
-> + * @see tests/hyp-xen-version/main.c
-> + */
-> +#include <xtf.h>
-> +
-> +const char test_title[] = "Hypercall xen_version testing";
-> +
-> +#define INVALID_CMD -1
-> +
-> +void test_main(void)
-> +{
-> +    int ret;
-> +
-> +    printk("Checking XENVER_version:\n");
-> +    {
-> +        /*
-> +        * Version is returned directly in format: ((major << 16) | minor),
-> +        * so no need to check the return value for an error.
-> +        */
-> +        ret = hypercall_xen_version(XENVER_version, NULL);
-> +        printk(" version: %u.%u\n", ret >> 16, ret & 0xFFFF);
-> +    }
-> +
-> +    printk("Checking XENVER_extraversion:\n");
-> +    {
-> +        xen_extraversion_t xen_ev;
-> +        memset(&xen_ev, 0, sizeof(xen_ev));
-> +
-> +        ret = hypercall_xen_version(XENVER_extraversion, xen_ev);
-> +        if ( ret < 0 )
-> +            return xtf_error("Error %d\n", ret);
+On Thu, Dec 15, 2022 at 09:46:41AM +0100, Jan Beulich wrote:
+> On 15.12.2022 00:11, Demi Marie Obenour wrote:
+> > get_page_from_l1e() relied on Xen's choice of PAT, which is brittle in
+> > the face of future PAT changes.  Use the proper _PAGE_* constants
+> > instead.  Also, treat the two unused cases as if they are cacheable, as
+> > future changes may make them cacheable.
+>=20
+> This still does not cover ...
+>=20
+> > --- a/xen/arch/x86/mm.c
+> > +++ b/xen/arch/x86/mm.c
+> > @@ -959,14 +959,19 @@ get_page_from_l1e(
+> >              flip =3D _PAGE_RW;
+> >          }
+> > =20
+> > +        /* Force cacheable memtypes to UC */
+> >          switch ( l1f & PAGE_CACHE_ATTRS )
+> >          {
+> > -        case 0: /* WB */
+> > -            flip |=3D _PAGE_PWT | _PAGE_PCD;
+> > +        case _PAGE_UC:
+> > +        case _PAGE_UCM:
+> > +        case _PAGE_WC:
+> > +            /* not cached */
+> >              break;
+> > -        case _PAGE_PWT: /* WT */
+> > -        case _PAGE_PWT | _PAGE_PAT: /* WP */
+> > -            flip |=3D _PAGE_PCD | (l1f & _PAGE_PAT);
+> > +        case _PAGE_WB:
+> > +        case _PAGE_WT:
+> > +        case _PAGE_WP:
+> > +        default:
+> > +            flip |=3D (l1f & PAGE_CACHE_ATTRS) ^ _PAGE_UC;
+> >              break;
+>=20
+> ... the three cases here assuming certain properties wrt the flipping of
+> _PAGE_UC. As said before - going from one kind of assumption to another
+> _may_ be a good thing to do, but needs justifying as actually being an
+> improvement. Alternatively such assumptions could be checked by suitable
+> BUILD_BUG_ON(), which then at the same serve as documentation thereof.
+>=20
+> Jan
 
-This, ...
+I think I understand your point now: this still assumes that the two
+unused types are not UCM or WC, but this is not documented anywhere.  I
+will move this to after the patch that introduces the X86_MT_* flags,
+which will allow me to switch on (XEN_MSR_PAT >> pte_flags_to_cacheattr(l1f=
+))
+instead without having to change the code again in a subsequent patch.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-> +        printk(" extraversion: %s\n", xen_ev);
-> +    }
-> +
-> +    printk("Checking XENVER_compile_info:\n");
-> +    {
-> +        xen_compile_info_t xen_ci;
-> +        memset(&xen_ci, 0, sizeof(xen_ci));
-> +
-> +        ret = hypercall_xen_version(XENVER_compile_info, &xen_ci);
-> +        if ( ret < 0 )
-> +            return xtf_error("Error %d\n", ret);
+--4A7ZhUqlpk9A9BBA
+Content-Type: application/pgp-signature; name="signature.asc"
 
-... this, and ...
+-----BEGIN PGP SIGNATURE-----
 
-> +        printk(" compiler:       %s\n", xen_ci.compiler);
-> +        printk(" compile_by:     %s\n", xen_ci.compile_by);
-> +        printk(" compile_domain: %s\n", xen_ci.compile_domain);
-> +        printk(" compile_date:   %s\n", xen_ci.compile_date);
-> +    }
-> +
-> +    printk("Checking XENVER_changeset:\n");
-> +    {
-> +        xen_changeset_info_t xen_cs;
-> +        memset(&xen_cs, 0, sizeof(xen_cs));
-> +
-> +        ret = hypercall_xen_version(XENVER_changeset, &xen_cs);
-> +        if ( ret < 0 )
-> +            return xtf_error("Error %d\n", ret);
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmObRLIACgkQsoi1X/+c
+IsEIERAAlIUdu37WHwu/d7aZnYe2mDgSm7CtWLKgFA/2OFDBPYnh/tiS8EzNLY/3
+Ur2GPGVvkEjcNX/Qbtafa+wJrpq4sG+YpbYnGm+dkGzwVYWdMIQ1Wswi8h0zVdhj
+yTEqRufJa0ATpsQQ3ZnixGTepTUwWti+3MbD0LiRAo5NBuZkJKet3kkOqlbjBVqy
+MoO64RSz4OSBJ6byMiWsgAe5rI8V5/68oKghCzc4aAB5weLyzLgDJpJ2sRrmIvdq
+sz3JEOliiz2v0FNYOU4BK+0zvSvZLMO/LNeF8jboTDxE4kfOYI5xlfLCQfER039c
+m4CLs0AxW1S9q5KVg2pETy+k2QU81flURhB2QZI4iF2MnBmakgPWjsgQU5WI71Oh
+m0t0UN5RpbY67SAdwuYvOxurJ7OD3CHZHxjbvE7DlzeSKMbNhED7YSkP4LeeyB4w
++du6jag2UxsZ/LN2+rDIkkWA7MK0zhwBHYzqBzCmZaQB83mrTzaKn0iqMKWCpxOD
+Y6Ky35zXKLHUTO3jbsV6BqLEjZgXorDxMrKJTe5t4cdXxvPPklJGy5CCgrh9r3Pm
+GaE5J9vsnlxDOKasPnquG+wVAWHHiSm24r0UgDtkxpCZyzAJ4Dn+kEpBAgKSjkTW
+nwg3AGGtidy48vf6NLXIAl2+9TBExEB5bgepGbW4Wyic11fWkSY=
+=/ZrJ
+-----END PGP SIGNATURE-----
 
-... this can fail because of XSM denying access. (Others can of course
-also fail for this reason, but here possible failure is kind of
-"intended" - see the dummy xsm_xen_version() handling.) Therefore I
-would like to suggest that you also special case getting back -EPERM,
-resulting in e.g. just a warning instead of an error.
-
-Jan
+--4A7ZhUqlpk9A9BBA--
 
