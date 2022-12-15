@@ -2,51 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64E0D64E1D4
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 20:33:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463755.722046 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0544D64E1D5
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 20:33:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463757.722059 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5tyi-0007Yt-4D; Thu, 15 Dec 2022 19:33:12 +0000
+	id 1p5tyl-0007wU-MM; Thu, 15 Dec 2022 19:33:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463755.722046; Thu, 15 Dec 2022 19:33:12 +0000
+Received: by outflank-mailman (output) from mailman id 463757.722059; Thu, 15 Dec 2022 19:33:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5tyi-0007X9-1N; Thu, 15 Dec 2022 19:33:12 +0000
-Received: by outflank-mailman (input) for mailman id 463755;
- Thu, 15 Dec 2022 19:33:10 +0000
+	id 1p5tyl-0007sY-Cm; Thu, 15 Dec 2022 19:33:15 +0000
+Received: by outflank-mailman (input) for mailman id 463757;
+ Thu, 15 Dec 2022 19:33:13 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BWk7=4N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1p5tyg-0006KU-IG
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 19:33:10 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2080.outbound.protection.outlook.com [40.107.92.80])
+ id 1p5tyj-0006KU-Dg
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 19:33:13 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4dc8bd46-7caf-11ed-8fd3-01056ac49cbb;
- Thu, 15 Dec 2022 20:33:09 +0100 (CET)
-Received: from DM6PR13CA0068.namprd13.prod.outlook.com (2603:10b6:5:134::45)
- by CH0PR12MB5300.namprd12.prod.outlook.com (2603:10b6:610:d7::22) with
+ id 4f6c91e9-7caf-11ed-8fd3-01056ac49cbb;
+ Thu, 15 Dec 2022 20:33:12 +0100 (CET)
+Received: from DM6PR06CA0089.namprd06.prod.outlook.com (2603:10b6:5:336::22)
+ by IA0PR12MB7700.namprd12.prod.outlook.com (2603:10b6:208:430::20) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Thu, 15 Dec
- 2022 19:33:06 +0000
-Received: from DS1PEPF0000E645.namprd02.prod.outlook.com
- (2603:10b6:5:134:cafe::2) by DM6PR13CA0068.outlook.office365.com
- (2603:10b6:5:134::45) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 19:33:08 +0000
+Received: from DM6NAM11FT115.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:336:cafe::c6) by DM6PR06CA0089.outlook.office365.com
+ (2603:10b6:5:336::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Thu, 15 Dec 2022 19:33:06 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E645.mail.protection.outlook.com (10.167.17.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.8 via Frontend Transport; Thu, 15 Dec 2022 19:33:05 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ Transport; Thu, 15 Dec 2022 19:33:08 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT115.mail.protection.outlook.com (10.13.173.33) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.12 via Frontend Transport; Thu, 15 Dec 2022 19:33:08 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 13:33:05 -0600
+ 2022 13:33:08 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
+ 2022 11:33:07 -0800
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 15 Dec 2022 13:33:03 -0600
+ via Frontend Transport; Thu, 15 Dec 2022 13:33:06 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,36 +62,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4dc8bd46-7caf-11ed-8fd3-01056ac49cbb
+X-Inumbo-ID: 4f6c91e9-7caf-11ed-8fd3-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nlM4cxQLfveT1rLygMd3K8Sj3cPltpuN/HPlMjnpts0qqsFkBmBt0Yp+23bh0c8qoP6vey2d7n7a166dOIwC1LkRS1Ly39IHc8fiXDQx+AP4r4XP1135TeinWZ1KeTGBxgKmG46Uv8063CeWB3+ASZfSZxqeWI38XaWKvSm2H/3xI2bmWGQZlKauvo1b6wyUbp4MGSIvSGMD2st5xTYbHa2O0HfKXX0x2H3L4R85bgz5rZr5LJ6acP+fOwCBbBb/ghQV18OMHetEHS0j8DEW3oOlal1RejEpH+m9rp9XkeV2kIj26xRjWKWrO7lXW6qUkv2HfHJRFE01rtWJ0Gjj+g==
+ b=l2CbNcTkHHroQ412Y+DjHJ6ZfeiaVQOwgLAwOX4xgS8Dmfmu8/Q1M21nbRu/s6iDO4b96LFspdflhc5esq0G4Nl1XMZqb2lrH1G9chlxf0bVM7gO/7CUJAl5Rb7HvopnK5b4jVCboKv7vWSpRhac+D24FAtc5Tyjr/AqESll6zDtJQJDftPYDHpTon0Sw5ouC77y/SjVTVGRE2KWTuoN9sfxxsbFyAy9YPIJsFkLle20qEayJp63dsaClaDODI67zJpmLx/bKoJlkNDhn0sXU2nMPjkhERoY0+9RxGDFoOPWYpsa4xhUBUhetFb3bTM8UoPxw1II+EOctub6WaySrQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sXUF4c1Lukzt7sJNL7fbo/yzZzcxYKrF0RRegx1oLLY=;
- b=ZwkfA+h49DaLDMWYOlMqzy7whUxpkO2wfK/N04dyYbmyPSmJ/2YzK2Ni6SpO/VTqJky+ZwroJKVRLeGNxX5eSzU+HqtxTs4RKQrR32tWqsg+EetRMe3wCK41FxxhTc14PqIX6f+98y/ZfmU8iY3fzJlta2tqbV/yLMQy4RNgmnmtEbUala9fuHJUdwotjcBxx9AOuSOCTwRL+Hy4Ukn+2AJYRlJ7YvTQ11842rr5v0DChfKGfb5Ntw77Vo0tnd1k1jYkZGrSZavzQ3kGMx7dLNF4g2sC8wnpEa94XFaEgl8yR8W1dFYNhM5YsoJywA4+fFBoSYPoXyL9EWYckJavDg==
+ bh=0qkW8svLr8Mc6M3M8zGUIB1kFr46uVAUu0xQ2OTvK9k=;
+ b=BAg95cLIQ9esNbRE1aG3NPfzeI4g73hP6A1yyjAYq3QgoJrYJHQjb4BuOL1IMNlOUdmnvkCSbb28VCUYtBjryfoNFRknvvXVwulgw3FnbBzSSg/5RXhT15kEr5TqqMuyW8zoDxQjTYMhaO7J2hsCQzg3ZhjJGSVzUBW0rrQnw1lAPUes+vRnt6VdpX4LdO0PvgwPWi2uLg49vuCqXGmyNYYAcWQe+c1y9WnwysOt8UWVxUod8gw4w58fghVIJk4iKnM7koYWRQkQfTeMJObSV2Fq5ZEa7qbJpTX8d2AV2cy5fS4SCrOH4zC8i5YwMuQKgEMrHeOIMl0mDTQ2AMFyzQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sXUF4c1Lukzt7sJNL7fbo/yzZzcxYKrF0RRegx1oLLY=;
- b=g2ELtZu8gIv2LPXFqAE7F/RPfdjAjDzdzh9XSe/iD9zxxvCsJAXIHqQ49/8HnudsA0gg1dlZqTiwnzfPkXoC0Mqx9GrBx4gRuaH0pK0Ugn2JDvdUMghZdsh0numbeq08k7I24+/Op+nV0n0NG8ZMxcLpUHwcIHqQExSSDcajbsE=
+ bh=0qkW8svLr8Mc6M3M8zGUIB1kFr46uVAUu0xQ2OTvK9k=;
+ b=Aj12EsXrQGmXuWjeBblO/d2GGA0yHwyHwFyDyXHwVZQU2v+jApo9kUGOCwAJWTMQRxZp+BG5vEAY+5uLchYzK4I5fYtcfncUVzVDFQt5cyAUkDG4sD0OEfGDjyNTC0EPH38iGwX2bS99eLueTiGDFo5m91bG0uGcfh3bNWhIVnI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v1 5/9] xen/arm: Use 'PRIpaddr' to display 'paddr_t' variable
-Date: Thu, 15 Dec 2022 19:32:41 +0000
-Message-ID: <20221215193245.48314-6-ayan.kumar.halder@amd.com>
+Subject: [XEN v1 6/9] xen/arm: Use 'u64' to represent 'unsigned long long'
+Date: Thu, 15 Dec 2022 19:32:42 +0000
+Message-ID: <20221215193245.48314-7-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
 References: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
@@ -95,84 +99,53 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E645:EE_|CH0PR12MB5300:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb2d1935-5f7d-4a7c-9f4a-08daded33067
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT115:EE_|IA0PR12MB7700:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9dc1ff5-ce67-438d-fa59-08daded33216
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	PsCFjAqXsuhOr2cOdhzmxp2ZqI/Zsx0AD7tYk2OldYxnfdff5JmtThzxAS+yMwnYV9zczCkhLDJ5uMivhvEw20hmwVY/BpASKhMef90vY5zTLiW4hjAqTF3ytvPVDEz94XnuPm7OxwwyONCuhmEM7KDGZetUHlwjfKPTlbnIACu/MUobp/H9pxSpWpp3Kao2QGjh14kepN+FJMPDmqDrOwcXWiWGL1NZnGGqBtVdZx8PTrDPxMZp8YjfnJEBFsXIydfm5ujVaGxjF5Lq9YhUPyZiCWyCW5ak7kjGUT52MqDj4IbjSqyU9NxnrUVfV3BM4ZYK+njxkohvDTlGRmGdgBX1fCx1vS3DISF1we4TWIdvr+gBS3UcguRdOgvt6PBVxtGjGQjjaMeu/lt2F1YaxGNFLTwdLZl3OQqIWASHYuCEnfIvoqnZEWsPslAAG4ftCNPBw6JGVMlPirqjizCj1b8973SRWgOZLDihoNHgbsuV4faS7or9iiLk75ASe7SLnhTxCe8SzYYY6nC3sGidVrC+CZybomU/DcW3uDmfa3k8PfsJhNNiBQ9LsPRfzgQoda0nA7zOSrI55dWaGjQ5m9vRV7h5e40SMdjwixBSWvHdPIDD92MRXaJ2OJ8j6aUPHuiHt2hk3ODmlfsaiA0z5uumWsa9RUrxKyYHpOyg8V/0Dw7nd+9OPU3e0eYcixj708gRJmxGdyAwtsb2q4P4CsAJHvRJyyZCZe1kTTRfBtM=
+	hcI8wzITBlIYSsQbueLKolg6oqmYV27f0+Sr74em5i1+1P5cKtAOmjznWtO1EftXHZxKq/FiXce7TLTdaDCiPpaM+AVf+iubHSV6mO5j9f/O3OgpHwT/zmXpPN/YHzci0S+mRu1prf7WyEf2Hh0MK+ARpcVfSz5CMb5aEzvPsiY5K7C+ADHxyCC0V/boFIBX6nFnPiJZ1ZLa6rMsLd7BzcDvgY9RJn6JGMRbLJ5ZtCETcwxjD7TM5FiiJk5UXBCdU2svo+Q6dhCpqRK4De3rJf3fcalhrCzYNQ07ZdmTbR53AEL4tJ6D3DC6cazlk+SAekY6LUVj4xZo1ZmE+EYqFVTdwqPwtCEZRJIc4B435C0Ea17U5qqIGI7vumbVPHS22PHWIVudPqu9yULKXXPu702MyZypOR08TBpL10+zFPjF0LcX4yxDG04gSFlT3Wij/+a4yDe63VY+B6Jq50p3t4uEcPqHDBaEKzjdJCgWuM39xu8r6jSBgN+bCilEcph6YXciSPnz6iVTnj6hE2O+fUBLCSdWirx6SkHU+s92SHEYxWrB8FTewFnPbDEtjcrsjoIty9UcWRvZatJajKuQVWsNb9O0ozZBBi/n1YiBabUefJE7ax58/PwMYl0mQ+kEM0PNmy5A/mQ51PBDa/0V1JAhe/0aS67Xr+c41hnltNxytOLm1iRtCM0gU8/5hBVIVvqZ+6OteQ/x7xYHR12lIXLeVFBISVkFw0/2xqA/nmvNU6J0iGzDfdI6YEDCb7HjzWDelFgwKGpPoxYAuPv+7Q==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(136003)(39860400002)(346002)(451199015)(46966006)(40470700004)(36840700001)(36756003)(82310400005)(8676002)(86362001)(2906002)(26005)(336012)(186003)(40480700001)(478600001)(41300700001)(2616005)(4326008)(70586007)(1076003)(103116003)(5660300002)(426003)(47076005)(8936002)(83380400001)(40460700003)(70206006)(6916009)(6666004)(54906003)(316002)(81166007)(82740400003)(36860700001)(356005)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(39860400002)(376002)(346002)(451199015)(46966006)(40470700004)(36840700001)(82310400005)(36756003)(2906002)(26005)(8676002)(70586007)(186003)(40480700001)(70206006)(41300700001)(478600001)(336012)(2616005)(86362001)(1076003)(103116003)(4326008)(47076005)(426003)(8936002)(83380400001)(40460700003)(5660300002)(4744005)(6666004)(6916009)(54906003)(316002)(36860700001)(82740400003)(81166007)(356005)(223183001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 19:33:05.7128
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 19:33:08.5397
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb2d1935-5f7d-4a7c-9f4a-08daded33067
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9dc1ff5-ce67-438d-fa59-08daded33216
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0000E645.namprd02.prod.outlook.com
+	DM6NAM11FT115.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB5300
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7700
 
-One should use 'PRIpaddr' to display 'paddr_t' variables.
-This may either be PRIx32 or PRIx64 depending of the type of architecture.
+bankbase, banksize and bankend are used to hold values of type
+'unsigned long long'. Thus, one should use 'u64' instead of 'paddr_t'
+(which may be either u64 or u32 depending on the architecture).
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
- xen/arch/arm/domain_build.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ xen/arch/arm/domain_build.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index 1bb97cd337..c537514a52 100644
+index c537514a52..e968b9812d 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -1325,7 +1325,7 @@ static int __init make_memory_node(const struct domain *d,
-     dt_dprintk("Create memory node\n");
+@@ -1741,9 +1741,9 @@ static int __init find_domU_holes(const struct kernel_info *kinfo,
+                                   struct meminfo *ext_regions)
+ {
+     unsigned int i;
+-    paddr_t bankend;
+-    const paddr_t bankbase[] = GUEST_RAM_BANK_BASES;
+-    const paddr_t banksize[] = GUEST_RAM_BANK_SIZES;
++    uint64_t bankend;
++    const uint64_t bankbase[] = GUEST_RAM_BANK_BASES;
++    const uint64_t banksize[] = GUEST_RAM_BANK_SIZES;
+     int res = -ENOENT;
  
-     /* ePAPR 3.4 */
--    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
-+    snprintf(buf, sizeof(buf), "memory@%"PRIpaddr, mem->bank[i].start);
-     res = fdt_begin_node(fdt, buf);
-     if ( res )
-         return res;
-@@ -1393,7 +1393,7 @@ static int __init make_shm_memory_node(const struct domain *d,
-         __be32 *cells;
-         unsigned int len = (addrcells + sizecells) * sizeof(__be32);
- 
--        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
-+        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIpaddr, mem->bank[i].start);
-         res = fdt_begin_node(fdt, buf);
-         if ( res )
-             return res;
-@@ -2739,7 +2739,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
-     /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
-     char buf[38];
- 
--    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-+    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
-              vgic_dist_base(&d->arch.vgic));
-     res = fdt_begin_node(fdt, buf);
-     if ( res )
-@@ -2795,7 +2795,7 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
-     char buf[38];
-     unsigned int i, len = 0;
- 
--    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-+    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
-              vgic_dist_base(&d->arch.vgic));
- 
-     res = fdt_begin_node(fdt, buf);
-@@ -2881,7 +2881,7 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
-     /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
-     char buf[27];
- 
--    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
-+    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIpaddr, d->arch.vpl011.base_addr);
-     res = fdt_begin_node(fdt, buf);
-     if ( res )
-         return res;
+     for ( i = 0; i < GUEST_RAM_BANKS; i++ )
 -- 
 2.17.1
 
