@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA4A364E4DD
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 00:58:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463943.722252 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBC6C64E4DC
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 00:58:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463942.722247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5y7A-0001Hi-KX; Thu, 15 Dec 2022 23:58:12 +0000
+	id 1p5y7A-0001Dp-Ck; Thu, 15 Dec 2022 23:58:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463943.722252; Thu, 15 Dec 2022 23:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 463942.722247; Thu, 15 Dec 2022 23:58:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5y7A-0001Do-Gd; Thu, 15 Dec 2022 23:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 463943;
- Thu, 15 Dec 2022 23:58:11 +0000
+	id 1p5y7A-0001B7-9N; Thu, 15 Dec 2022 23:58:12 +0000
+Received: by outflank-mailman (input) for mailman id 463942;
+ Thu, 15 Dec 2022 23:58:10 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=t+b5=4N=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p5y78-0001Aq-Rl
+ id 1p5y78-0001Aq-3U
  for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 23:58:10 +0000
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 51097160-7cd4-11ed-91b6-6bf2151ebd3b;
+ id 51fa24a7-7cd4-11ed-91b6-6bf2151ebd3b;
  Fri, 16 Dec 2022 00:58:08 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 463AB320090D;
- Thu, 15 Dec 2022 18:58:03 -0500 (EST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 98039320092E;
+ Thu, 15 Dec 2022 18:58:05 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 15 Dec 2022 18:58:04 -0500
+ by compute3.internal (MEProxy); Thu, 15 Dec 2022 18:58:06 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 15 Dec 2022 18:58:02 -0500 (EST)
+ 15 Dec 2022 18:58:04 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,47 +43,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 51097160-7cd4-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 51fa24a7-7cd4-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:message-id
-	:mime-version:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1671148682; x=1671235082; bh=cvJovTwCt41fzIOTdCiPdt8ExuQVj5dKqG0
-	zaU3tXpI=; b=F9r+QW1COyhmTZoUVsfkLdNNZiBCzgF2RkeZf5KtJsv63PNDrJ0
-	P7KEqFpV5WT01E3pguVFHl9y9n1frGJ9Z/c1uidG1tiWgfQUDKq897EslXuL+m0/
-	rJ3oXDWIZLlX/afh6mwOUvu//EdYf2YZCnk36W2nAOVVNlin+ODZNaesC7ZZ+h2Y
-	fmntJ8izrOEuMqxs1hU5FBp2/8tXpisxu0PohH0mCIcjOukZDezLErsG5GRiqJNn
-	IsX3VQfym1JgASS1tp59oP25vi1XwQ3U/pyTzx/YeK4ddWyAr40hGqIdJl6nq5fc
-	IfatsVWdfE9tDWKdyfnohnKoWeuVj4IPULw==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
+	1671148685; x=1671235085; bh=OqxRQgedI1lUNXYrN3Idtsly6m9/XwYk1xQ
+	JUvCAU3w=; b=qtCDg/XAZjbK1qyQ45A8qy4GEhWpquznmr08pS1Cp2enFSg4RKO
+	SFAeHMP64vRn2xENZCOQo7jLdZMNL0EC2FHtCLemMaRe6z5mEaXywVuQjMqVgj2e
+	rafRwrjRGaYuelAZHVVDZtGv3oDcJNO5P7CHL1DrpGATBcEhSRy9NQ0M0K9ViALi
+	4bHakB2twrGGLuPssKEslfB0cKMfMtzE6gvH3sergE+tADSlmJJNqlsheJTAURwp
+	ccstUAPOVJ5ctLcFwqKxv49PAw9i54K6CYTp2d3tpLZpxUXw/CmOAg+CXVI+gGD8
+	Al3BxQQk9savKMfU9tQ419NfDE7JyYuQoXQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:sender:subject
+	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1671148682; x=1671235082; bh=cvJovTwCt41fz
-	IOTdCiPdt8ExuQVj5dKqG0zaU3tXpI=; b=FImOtPflN3sL3hxSo95k4fRxUr/WV
-	LyYxmEZZQgnZaEwZcRpPl0nJtrreDd8QsXK3Cb+V5YXtHzDJn0Dsduhc0DLdNKwT
-	UwpD1d/9OonSALctqXY9zLv7rKvIfAdPDYZZgTw6PDodFB8XR8yNFeibki3RSyf1
-	ZT68X1To7dQTGVMqE7nxNa1CC7+QSFvNhsDeZNimTLr5507CD6mDjlBUoGEBUxNp
-	CLOMfYikpuoUrFarTXUIuJfdVn0tdZ+v+36Zkl8u3CQ9gROFil7ROkdzpzlFzcpJ
-	lueRBd+7ddY1VsYq8lPb4VD8JG0s8hLuncicezMOuyQIeHEt9Ce/4n0IA==
-X-ME-Sender: <xms:irSbY40KdVYxh-b9Y9mRpgVMpIEMnQxSpvrwilUqiX2j5Jhxg69zJQ>
-    <xme:irSbYzFIQj8aORHCFCYU-MMPI1sdikYMJ4v9r1Cqg83tak7aym-AxpaCfYK4VwSU5
-    w2xZ-Solff6ObE>
-X-ME-Received: <xmr:irSbYw4boX5j_MhS3PjdVglwWzuQ4ZKcszBQLXLTs927ht7fZ28l41NvvDp_OliZsFHXhff8VW-5>
+	:x-sasl-enc; s=fm2; t=1671148685; x=1671235085; bh=OqxRQgedI1lUN
+	XYrN3Idtsly6m9/XwYk1xQJUvCAU3w=; b=FxdYMSDdrz22AIMURH9AdJQMJsHs0
+	Q7QzNQmnJ34+EV2xp9xjQR38Y6HA/LES7lm4lripvfY4qbuF/lvYRuwmJM8UcJlz
+	BuM5dZvjGg4ILMx+aEixZ0UIqgEPZJl6A+ebUzEQS7ijNFSClQj8whA2PWTxJsEj
+	bokSNO2yedp1Bx2L6/LI/GQYl2UCfzjYMLQ9SqflI9ChUnTKLSQp06q2GMoJFTnI
+	5eiiHepeHrqv/EtRhv2e+BkXYAQPWS1Ng9AQrvXd4e/pmf2YU9m6b3gQczaRsOI6
+	7yM3gqQPNByYvtZnkNq11XocMCB6JMKkHTovnwkhPaSo6w9gsE/EXmx9g==
+X-ME-Sender: <xms:jbSbYxDLElVX7DBFrfZvk1kXzj5jm7bbYeKBO5OMWpbNmtYTh9xlOg>
+    <xme:jbSbY_jxJnYSmQkyK3_vzC0-PiVMWVmFv5loF2MihE9FD0MxCWt08KJd0vgqkJ1uw
+    pgIW8MefxSF39Y>
+X-ME-Received: <xmr:jbSbY8ku-mMFseuVfazoarWKnGpDGka8nJNbXVPldHc2OUdlgXrznDYU8aI20EbimhAFc8SVB41J>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeigddugecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepffgvmhhiucfo
-    rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
-    grsgdrtghomheqnecuggftrfgrthhtvghrnhephfeggfeiiedtieejgedutdekgfetgeeh
-    heegteekvefhfefgudehtdevleegueegnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
-    hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
-    sgdrtghomh
-X-ME-Proxy: <xmx:irSbYx2FsgIgkS9WKFiyNG_ihnWxoGDsujejCB2P9irRYDbB2WDYZg>
-    <xmx:irSbY7F_mqILVQum0KpfBd7_Jf1pSbD1p9-vmorNROD9_dNLXBuGqg>
-    <xmx:irSbY68AlMBSm-YsF-aZZJ8rnCek6Q4wmhfANjBmoY2WA6qgDu-5MQ>
-    <xmx:irSbYxbjJCNA29u9UHlWk4lMXibg1XYAAYIhjA2ZSILY575s5Y_ygA>
+    fjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcu
+    ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefghefg
+    hffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtnecurf
+    grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+    rggsrdgtohhm
+X-ME-Proxy: <xmx:jbSbY7ztvQsr0M3rhuXN4SGV8FO_q-CWkYY_NUgKlX7xVaTfWn93WQ>
+    <xmx:jbSbY2TlCBFGr97pvrDeZFwfOeMeQ5Y-5sJKpy9P9CMOSm4k6kf_4g>
+    <xmx:jbSbY-Yf-O_U07zhzO3-pOAwSzE0XjbtaGzmS-upq3NvF5BOnhEdDA>
+    <xmx:jbSbY5FbpiHytMAMSyp5xJThCmo2FwDZUUGB_QZ3fl4v6AptSG7WEA>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -97,66 +97,53 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Tim Deegan <tim@xen.org>
-Subject: [PATCH v4 00/10] Make PAT handling less brittle
-Date: Thu, 15 Dec 2022 18:57:42 -0500
-Message-Id: <cover.1671139149.git.demi@invisiblethingslab.com>
+Subject: [PATCH v4 01/10] x86: Add memory type constants
+Date: Thu, 15 Dec 2022 18:57:43 -0500
+Message-Id: <6d1135e58cbc12f47d144252d6e80c3a6f76a5f7.1671139149.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.38.1
+In-Reply-To: <cover.1671139149.git.demi@invisiblethingslab.com>
+References: <cover.1671139149.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-While working on Qubes OS Marek found out that there were some PAT hacks
-in the Linux i195 driver.  I decided to make Xen use Linux’s PAT to see
-if it solved the graphics glitches that were observed; it did.  This
-required a substantial amount of preliminary work that is useful even
-without using Linux’s PAT.
+These are not currently used, so there is no functional change.  Future
+patches will use these constants.
 
-Patches 1 through 9 are the preliminary work and I would like them to be
-accepted into upstream Xen.  Patch 9 does break ABI by rejecting the
-unused PAT entries, but this will only impact buggy PV guests and can be
-disabled with a Xen command-line option.  Patch 10 actually switches to
-Linux’s PAT and is NOT intended to be merged (at least for now) as it
-would at a minimum break migration of PV guests from hosts that do not
-have the patch.
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+---
+Changes since v3:
+- Name the reserved values X86_MT_RSVD_2 and X86_MT_RSVD_3, to
+  match the architectural values of 0x02 and 0x03.
 
-This patch series is shorter than v3 as two of the patches have already
-been accepted into staging.  Only patches 9 and 10 actually change Xen’s
-observable behavior.  Patches 1, 2, and 7 are prerequisites, and patches
-3 through 6 are cleanups.  Patch 8 makes changing the PAT much less
-error-prone, as problems with the PAT or with the associated _PAGE_*
-constants will be detected at compile time.
+Changes since v2:
 
-Demi Marie Obenour (10):
-  x86: Add memory type constants
-  x86/mm: Avoid hard-coding PAT in get_page_from_l1e()
-  x86: Replace PAT_* with X86_MT_*
-  x86: Replace MTRR_* constants with X86_MT_* constants
-  x86: Replace EPT_EMT_* constants with X86_MT_*
-  x86: Remove MEMORY_NUM_TYPES and NO_HARDCODE_MEM_TYPE
-  x86: Derive XEN_MSR_PAT from its individual entries
-  x86/mm: make code robust to future PAT changes
-  x86/mm: Reject invalid cacheability in PV guests by default
-  x86: Use Linux's PAT
+- Avoid using _AC where not required.
+- Define reserved memory types inline
+---
+ xen/arch/x86/include/asm/x86-defns.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
- xen/arch/x86/cpu/mtrr/generic.c         |  10 +--
- xen/arch/x86/cpu/mtrr/main.c            |  26 +++---
- xen/arch/x86/e820.c                     |   4 +-
- xen/arch/x86/hvm/hvm.c                  |  12 +--
- xen/arch/x86/hvm/mtrr.c                 | 100 ++++++++++++------------
- xen/arch/x86/hvm/vmx/vmcs.c             |   2 +-
- xen/arch/x86/hvm/vmx/vmx.c              |  18 ++---
- xen/arch/x86/include/asm/hvm/vmx/vmcs.h |   2 +-
- xen/arch/x86/include/asm/hvm/vmx/vmx.h  |   9 ---
- xen/arch/x86/include/asm/mtrr.h         |  22 +-----
- xen/arch/x86/include/asm/page.h         |   4 +-
- xen/arch/x86/include/asm/processor.h    |  19 ++++-
- xen/arch/x86/include/asm/x86-defns.h    |  11 +++
- xen/arch/x86/mm.c                       |  84 ++++++++++++++++++--
- xen/arch/x86/mm/hap/nested_ept.c        |   4 +-
- xen/arch/x86/mm/p2m-ept.c               |  51 ++++++------
- xen/arch/x86/mm/shadow/multi.c          |   8 +-
- 17 files changed, 227 insertions(+), 159 deletions(-)
-
+diff --git a/xen/arch/x86/include/asm/x86-defns.h b/xen/arch/x86/include/asm/x86-defns.h
+index 28628807cb9897cf6fa8e266f71f5f220813984d..42b5f382d438d21ac97b6438e8c810c7b964cf6d 100644
+--- a/xen/arch/x86/include/asm/x86-defns.h
++++ b/xen/arch/x86/include/asm/x86-defns.h
+@@ -153,4 +153,15 @@
+      (1u << X86_EXC_AC) | (1u << X86_EXC_CP) |                      \
+      (1u << X86_EXC_VC) | (1u << X86_EXC_SX))
+ 
++/* Memory types */
++#define X86_MT_UC     0x00 /* uncachable */
++#define X86_MT_WC     0x01 /* write-combined */
++#define X86_MT_RSVD_2 0x02 /* reserved */
++#define X86_MT_RSVD_3 0x03 /* reserved */
++#define X86_MT_WT     0x04 /* write-through */
++#define X86_MT_WP     0x05 /* write-protect */
++#define X86_MT_WB     0x06 /* write-back */
++#define X86_MT_UCM    0x07 /* UC- */
++#define X86_NUM_MT    0x08
++
+ #endif	/* __XEN_X86_DEFNS_H__ */
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
