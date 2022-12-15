@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE5A364D5AB
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 04:47:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463016.721107 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0294B64D5D3
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 05:23:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463032.721134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5fD4-0003Gt-EP; Thu, 15 Dec 2022 03:47:02 +0000
+	id 1p5fl7-0000WZ-9U; Thu, 15 Dec 2022 04:22:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463016.721107; Thu, 15 Dec 2022 03:47:02 +0000
+Received: by outflank-mailman (output) from mailman id 463032.721134; Thu, 15 Dec 2022 04:22:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5fD4-0003Dp-AZ; Thu, 15 Dec 2022 03:47:02 +0000
-Received: by outflank-mailman (input) for mailman id 463016;
- Thu, 15 Dec 2022 03:47:00 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5fD2-0003Df-HY; Thu, 15 Dec 2022 03:47:00 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5fD2-0005PN-F4; Thu, 15 Dec 2022 03:47:00 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5fD2-0006m6-3J; Thu, 15 Dec 2022 03:47:00 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5fD2-0007d5-2s; Thu, 15 Dec 2022 03:47:00 +0000
+	id 1p5fl7-0000Tj-50; Thu, 15 Dec 2022 04:22:13 +0000
+Received: by outflank-mailman (input) for mailman id 463032;
+ Thu, 15 Dec 2022 04:22:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=8lTo=4N=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
+ id 1p5fl5-0000Td-Mf
+ for xen-devel@lists.xen.org; Thu, 15 Dec 2022 04:22:11 +0000
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [2607:f8b0:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0a0fd971-7c30-11ed-91b6-6bf2151ebd3b;
+ Thu, 15 Dec 2022 05:22:09 +0100 (CET)
+Received: by mail-pl1-x633.google.com with SMTP id n4so1935753plp.1
+ for <xen-devel@lists.xen.org>; Wed, 14 Dec 2022 20:22:09 -0800 (PST)
+Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
+ i31-20020a63221f000000b004792ff8ab61sm563959pgi.80.2022.12.14.20.22.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 14 Dec 2022 20:22:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,275 +43,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=XgbsOfoXZfBaGFoe8CcyG0AaW8VOu+kZMg8whRfJ18Y=; b=tmOjPBo9B10zKxBwtTJ0QVn2Te
-	4n7E99HieLO3+ULpaGvEaBzePMo64c0OqQV2llGQI3yXoW9wIENg1uoP4LqYvzUeInbBkGomabbZS
-	zvmrxJiMPKyrWVKEVi9wpWahCAqYjvZHwHxTAyOYbmy1eS4SMBlg+2qScWzx2YpyVmm8=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175235-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 0a0fd971-7c30-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=QrqU72PGZgGOXQe0f/sy6mdR2E3gLTJqWCYdUGHEf9E=;
+        b=TaoSGEEe5G5+ojji/LPo5kfxZVzYkStkNATwfAgeNz6VPVnOpZ4CVMueqW7fP+PIxg
+         AgmZxXjAD7YGgDo2q0YsQDQ26az1tBiQgL5B2gTejeE/Ooi0ZXiaj81v5n2i333PTqRT
+         XnAJH4j7SszcNrcla5ESQVu7ptbEsLlcjkJmQne1+QrxIxiRIASW6SdVajnv0fI1UDjx
+         9xOrIzCqZLm1/csFWd5apHh080Bece5RrMWxhNSDFwCMynMH84wxUsgWRVh9ej4C0qGF
+         xvVAcNIiyYUmIRUvH/6RHr8OHcPc1X/DaOX5coomE7//lPdYzyPxTqIr/O6ZrL35ZRPR
+         PoSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QrqU72PGZgGOXQe0f/sy6mdR2E3gLTJqWCYdUGHEf9E=;
+        b=hXSwbibkGx9SN33gF0e1qmNpskZfFnEKNfmJpiKJStJeXKO+QJHWboQbdxDtsR4PIz
+         d//L9q0Cz6Mb20Uc/l2VsuKnloh4hDDE5ghAlCwzH4IHLgOUhZ+pTQ3jsSHaTE0jdd1T
+         VKg4JYtwCM3Hj9ViLk7Fc2lg+Zo6f6+DCTqQe6VzsbYERRJQbcakS4f5hyCqouy2aRog
+         LHrVZpQGE+Yms4F4BSUdjyUFTQjVus1H0qLxUq6dsL7F0MxneOq8p4V8SlQ0poeGQ2TB
+         iOCEYPhjb7ahJ/twHWyPFjS+XXFdMet05SH/lYw7RK8rE1z/UV728OHxk0Ha81LWuQrz
+         7uLQ==
+X-Gm-Message-State: ANoB5pl+w65ghmJ0Q8xBS99Dpd5kzF4gvXutiZ+uEichXuzM/Hpd7ssG
+	nlvlkDr4rOfbpxJo7ax9Mts5Ug==
+X-Google-Smtp-Source: AA0mqf5uf5J2Bn83yiphpjZ+4LrnnWTImqjaEMsHjZ1PxSLQAy51LsYTYfWflPDrpgNWE53R9e50uQ==
+X-Received: by 2002:a05:6a20:54a5:b0:aa:3e5f:88ab with SMTP id i37-20020a056a2054a500b000aa3e5f88abmr37822235pzk.54.1671078128170;
+        Wed, 14 Dec 2022 20:22:08 -0800 (PST)
+Date: Thu, 15 Dec 2022 09:52:05 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Oleksandr Tyshchenko <olekstysh@gmail.com>
+Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Juergen Gross <jgross@suse.com>, xen-devel@lists.xen.org
+Subject: Re: Virtio-disk updates for latest Xen ?
+Message-ID: <20221215042205.y5565f7rv6asmsw5@vireshk-i7>
+References: <CAKohpo=u7qp4URjRRAMM4xEytmZoKZAJOZLw4v0HTk13BrK-fw@mail.gmail.com>
+ <CAPD2p-kfhaygmNNutUdk-mApR7z1YDSTYCEhtLgLsXi+-wbv8A@mail.gmail.com>
+ <20221207002138.qulrlav3z3heozk4@vireshk-i7>
+ <20221207035918.amzgrybqub632dyc@vireshk-i7>
+ <f4ba541c-d089-28af-c80b-dcb0fa87a9d7@gmail.com>
 MIME-Version: 1.0
-Subject: [ovmf test] 175235: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=44fc90eb0ea7299abc79577db55aa6257b46b7ae
-X-Osstest-Versions-That:
-    ovmf=d103840cfb559c28831c2635b916d60118f671cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Dec 2022 03:47:00 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <f4ba541c-d089-28af-c80b-dcb0fa87a9d7@gmail.com>
 
-flight 175235 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175235/
+On 14-12-22, 17:01, Oleksandr Tyshchenko wrote:
+> Today I had a chance to check virtio-disk on my H/W using new Xen branch
+> which does include Juergen's series with commit 3a96013a3e17
+> ("tools/xenstore: reduce number of watch events").
+> 
+> Very interesting, but I didn't manage to reproduce an issue the similar to
+> what you had already faced with the rust counterparts before (caused by the
+> lack of Xenstore watches?). Note that I didn't debug what exactly events I
+> had got during guest creation/destruction, I just made sure that backend
+> worked as before. I checked that by running the backend in Dom0 and DomD and
+> performed a couple of guest power cycles (reboot, destroy/create).
+> 
+> If you could provide the debug patch which you seem to use to print incoming
+> events which you described in previous email, I think I would be able to
+> re-check the situation at my side more deeper.
 
-Regressions :-(
+This should be enough to see the new changes I believe.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+diff --git a/xs_dev.c b/xs_dev.c
+index a6c8403cfe84..8525c6512299 100755
+--- a/xs_dev.c
++++ b/xs_dev.c
+@@ -421,6 +421,8 @@ static int xenstore_poll_be_watch(struct xs_dev *dev)
+     if (!vec)
+         return -1;
+ 
++    printf("%s: %s\n", vec[XS_WATCH_PATH], dev->path);
++
+     if (!strcmp(vec[XS_WATCH_PATH], dev->path))
+         rc = xenstore_get_fe_domid(dev);
 
-version targeted for testing:
- ovmf                 44fc90eb0ea7299abc79577db55aa6257b46b7ae
-baseline version:
- ovmf                 d103840cfb559c28831c2635b916d60118f671cc
-
-Last test of basis   175202  2022-12-14 13:42:59 Z    0 days
-Failing since        175214  2022-12-14 18:42:16 Z    0 days    4 attempts
-Testing same since   175235  2022-12-15 02:00:48 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ard Biesheuvel <ardb@kernel.org>
-  devel@edk2.groups.io <devel@edk2.groups.io>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jeshua Smith <jeshuas@nvidia.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 44fc90eb0ea7299abc79577db55aa6257b46b7ae
-Author: devel@edk2.groups.io <devel@edk2.groups.io>
-Date:   Wed Nov 30 15:02:15 2022 -0800
-
-    UnitTestFrameworkPkg/UnitTestLib: Print expected Status on ASSERT fail
-    
-    Update the UnitTestAssertStatusEqual error message to print out the
-    expected value in addition to the seen value.
-    
-    Signed-off-by: Jeshua Smith <jeshuas@nvidia.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Michael D Kinney <michael.d.kinney@intel.com>
-
-commit cda98df16228970dcf9a4ce2af5368219711b4b0
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:09 2022 +0100
-
-    OvmfPkg/QemuFwCfgLib: remove mQemuFwCfgSupported + mQemuFwCfgDmaSupported
-    
-    Remove global variables, store the state in PlatformInfoHob instead.
-    Probing for fw_cfg happens on first use, at library initialization
-    time the Hob might not be present yet.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 81bbc1452c972218f071cd4a8f5899df974b1dae
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:08 2022 +0100
-
-    OvmfPkg/QemuFwCfgLib: rewrite fw_cfg probe
-    
-    Move the code to a new QemuFwCfgProbe() function.  Use direct Io*() calls
-    instead of indirect QemuFwCfg*() calls to make sure we don't get
-    recursive calls.  Also simplify CC guest detection.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit e59747bd8246135faeecc18879d62db66a6acfc2
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:07 2022 +0100
-
-    OvmfPkg/DebugLibIoPort: use Rom version for PEI
-    
-    This variant does not use global variables.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit f6a196c7eb34affff0cfe1864e126953096885e1
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:06 2022 +0100
-
-    OvmfPkg/PlatformPei: remove mFeatureControlValue
-    
-    Use PlatformInfoHob->FeatureControlValue instead.
-    OnMpServicesAvailable() will find PlatformInfoHob using
-    GetFirstGuidHob() and pass a pointer to the WriteFeatureControl
-    callback.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 862614e2544997c848fab7388733774ae0ea92d8
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:05 2022 +0100
-
-    OvmfPkg/PlatformPei: remove mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable.  Let
-    BuildPlatformInfoHob() allocate and return PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 4bc2c748516e5c4a8bb86093cd5e1b80a9f35c0f
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:04 2022 +0100
-
-    OvmfPkg/PlatformPei: Verification: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in S3Verification() and
-    Q35BoardVerification() functions.  Pass a pointer to the PlatformInfoHob
-    instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 7dbb8a24d1a3403f85d959bc1234b9f4a92bfbf0
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:03 2022 +0100
-
-    OvmfPkg/PlatformPei: NoExec: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in NoexecDxeInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit cc6efda7770b8cabea3ae8c6054d47c4a8e229c3
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:02 2022 +0100
-
-    OvmfPkg/PlatformPei: MemTypeInfo: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in MemTypeInfoInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 27874a382c38a95d3ab613eebd35c152ca9b3897
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:01 2022 +0100
-
-    OvmfPkg/PlatformPei: PeiMemory: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in PublishPeiMemory()
-    and GetPeiMemoryCap() functions.  Pass a pointer to the PlatformInfoHob
-    instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 00743d144bc5b643e9323ad66f16cb48cf338705
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:00 2022 +0100
-
-    OvmfPkg/PlatformPei Q35 SMM helpers: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in
-    Q35TsegMbytesInitialization() and
-    Q35SmramAtDefaultSmbaseInitialization() ) functions.
-    Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 9d9d15b42a5e13bb18729da0f608c629aa274e80
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:09:59 2022 +0100
-
-    OvmfPkg/PlatformPei: PeiFv: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in PeiFvInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 78c373f2a5273af00b23b55d3e8c41583310cfb6
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:09:58 2022 +0100
-
-    OvmfPkg/PlatformPei: AmdSev: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in AmdSevInitialize()
-    and AmdSevEsInitialize() functions.  Pass a pointer to the
-    PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 916825b84f23b691dcce09a57625fb8fcb0cbb48
-Author: Jeff Brasen <jbrasen@nvidia.com>
-Date:   Tue Nov 15 11:01:06 2022 -0700
-
-    DynamicTablesPkg: SSDT _LPI revision is incorrect
-    
-    _LPI Revision should be 0 per the ACPI 6.5 specification.
-    "The revision number of the _LPI object. Current revision is 0."
-    
-    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
-    Reviewed-by: Pierre Gondois <pierre.gondois@arm.com>
-    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+-- 
+viresh
 
