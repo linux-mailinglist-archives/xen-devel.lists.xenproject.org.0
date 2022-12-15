@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 014A564D842
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 10:08:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463212.721359 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C60864D850
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 10:11:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463220.721370 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5kDR-0000no-42; Thu, 15 Dec 2022 09:07:45 +0000
+	id 1p5kH0-00029x-KT; Thu, 15 Dec 2022 09:11:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463212.721359; Thu, 15 Dec 2022 09:07:45 +0000
+Received: by outflank-mailman (output) from mailman id 463220.721370; Thu, 15 Dec 2022 09:11:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5kDR-0000kv-0j; Thu, 15 Dec 2022 09:07:45 +0000
-Received: by outflank-mailman (input) for mailman id 463212;
- Thu, 15 Dec 2022 09:07:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=urv3=4N=zlw.email=sisyphean@srs-se1.protection.inumbo.net>)
- id 1p5kDP-0000kY-IN
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 09:07:44 +0000
-Received: from mail.zlw.email (unknown [103.181.164.111])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e103c30f-7c57-11ed-8fd3-01056ac49cbb;
- Thu, 15 Dec 2022 10:07:29 +0100 (CET)
-Received: from localhost (unknown [127.0.0.1])
- by mail.zlw.email (Postfix) with ESMTP id 5F25217418D;
- Thu, 15 Dec 2022 08:54:03 +0000 (UTC)
-Received: from mail.zlw.email ([127.0.0.1])
- by localhost (mail.zlw.email [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id pNwBmBeCmr3A; Thu, 15 Dec 2022 16:53:56 +0800 (CST)
-Received: from [192.168.66.233] (OpenWrt.lan [192.168.66.1])
- by mail.zlw.email (Postfix) with ESMTPSA id 16090174169;
- Thu, 15 Dec 2022 16:53:55 +0800 (CST)
+	id 1p5kH0-00027F-HY; Thu, 15 Dec 2022 09:11:26 +0000
+Received: by outflank-mailman (input) for mailman id 463220;
+ Thu, 15 Dec 2022 09:11:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5kGz-000271-8N; Thu, 15 Dec 2022 09:11:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5kGz-0005YD-5i; Thu, 15 Dec 2022 09:11:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5kGy-0000oj-VX; Thu, 15 Dec 2022 09:11:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5kGy-0006vq-V8; Thu, 15 Dec 2022 09:11:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,290 +42,357 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e103c30f-7c57-11ed-8fd3-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zlw.email; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:references:to:from:from:content-language:subject:subject
-	:user-agent:mime-version:date:date:message-id; s=dkim; t=
-	1671094436; x=1673686437; bh=LAmFLWL2+J47QqwNLN9TlGRmD9avZwU31UB
-	4TOH7iX4=; b=GoHzPkXQEQRtzAKsJPs1hCYrTBoLjiJtC/oF/wPTAlqi5hvGGRx
-	moCzDELotoqYqA3zQUEV5jZSr9tCR9jcjY8AavPgKn4nAY3Wqr60yRg2N8fy9neW
-	DbZrjea8xXf9JZV82JW7xqkPVvIN7VkRm0feH5QLu5RUkkvnbfYOpuEY=
-X-Virus-Scanned: amavisd-new at zlw.email
-Message-ID: <3e124fa6-84ba-d507-82d9-8e8a5aa74c73@zlw.email>
-Date: Thu, 15 Dec 2022 16:53:23 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-Subject: Re: [BUG]Add PCIE devie to SMMUv3 fail
-Content-Language: en-US
-From: sisyphean <sisyphean@zlw.email>
-To: Rahul Singh <Rahul.Singh@arm.com>
-Cc: Julien Grall <julien@xen.org>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>
-References: <793eb471-e68b-c3ff-52e8-20d77252c0bf@zlw.email>
- <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
- <75bbfc8c-b89f-9478-63af-c37fda0ad3c0@zlw.email>
- <5BCFEC7E-85B6-4464-A2B1-EA08C6E2EB20@arm.com>
- <340463d2-528e-848f-0ec2-a4cc7ba04399@zlw.email>
- <9478D04C-9BD6-44C1-ADBD-EAA688897811@arm.com>
- <d0f62d31-5673-e804-6e38-6e552989f249@zlw.email>
-In-Reply-To: <d0f62d31-5673-e804-6e38-6e552989f249@zlw.email>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZK7/kOQkjZZjhIxOlHQJ9Q+lxnTLX4eOirnYQRzBoeY=; b=ftJVMkWxbkFM8iK8RmudRQZwHZ
+	dBw7CIvYKQjq98N08IUlX6WbZOejMea7Ia2kO74ZfjpuERQNXiOXyKR1tQ7P7ms4gqrudyxywBn+w
+	nlzlvE87AkoippZioLzaMQ4pAZZa0SCfodmhu/hVhHzSuCff7ynCQQa0MyRKk1zRPQMs=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175257-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 175257: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=01c0d3c0d508b8c1b41fd58e2ec565b40ea000ca
+X-Osstest-Versions-That:
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Dec 2022 09:11:24 +0000
 
-Hi,
+flight 175257 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175257/
 
-在 2022/12/15 09:30, sisyphean 写道:
-> Hi,
->
-> 在 2022/12/14 21:05, Rahul Singh 写道:
->> Hi Sisphean,
->>
->>> On 13 Dec 2022, at 1:18 am, sisyphean <sisyphean@zlw.email> wrote:
->>>
->>> Hi,
->>>
->>> 在 2022/12/13 00:30, Rahul Singh 写道:
->>>> Hi Sisyphean,
->>>>
->>>>> On 12 Dec 2022, at 5:49 am, sisyphean <sisyphean@zlw.email> wrote:
->>>>>
->>>>> Hi,
->>>>> 在 2022/12/9 17:50, Rahul Singh 写道:
->>>>>> Hi Sisyphean,
->>>>>>
->>>>>>> On 9 Dec 2022, at 6:15 am, sisyphean <sisyphean@zlw.email> wrote:
->>>>>>>
->>>>>>> Hi,
->>>>>>>
->>>>>>> I try to run XEN on my ARM board(Sorry, for some commercial 
->>>>>>> reasons, I can't tell you
->>>>>>> on which platform I run XEN)  and add PCIE device passthrough to 
->>>>>>> DomU.But an error
->>>>>>> occurred while adding the PCIE device to SMMUv3.
->>>>>> PCI passthrough support is not fully upstream to Xen on ARM. We 
->>>>>> have working
->>>>>> PCI passthrough branch that you can use to test it.
->>>>>>
->>>>>> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough 
->>>>>>
->>>>>>
->>>>>>> Through reading the code and tracing debugging, the error is 
->>>>>>> found in the function
->>>>>>> arm_smmu_add_device, which will obtain and determine whether the 
->>>>>>> fwspec of the
->>>>>>> device to be added to SMMU exists.But for the XEN of arm, the 
->>>>>>> fwspec of the device is
->>>>>>> created and added by judging whether the iommu field exists in 
->>>>>>> the device node when
->>>>>>> XEN parses the device tree.However, the PCIE device does not 
->>>>>>> appear in the device tree,
->>>>>>> so there will be no fwspec for all PCIE devices. When attempting 
->>>>>>> to add a PCIE device to
->>>>>>> SMMU, a ENODEV error will be returned.
->>>>>> As of now Xen doesn’t support to add PCI device to IOMMU on ARM.
->>>>>>> In addition, the code at xen/drivers/passthrough/pci.c also 
->>>>>>> verifies the above view.
->>>>>>> For PCIE devices, pdev is alloc in function pci_add_device by 
->>>>>>> alloc_pdev.However,
->>>>>>> the function alloc_pdev does not create and add fwspec to the 
->>>>>>> PCIE device.Therefore,
->>>>>>> when function pci_add_device executes to iommu_add_device,it 
->>>>>>> will get the error
->>>>>>> return of ENODEV.
->>>>>>>
->>>>>>> How can I resolve the above errors?
->>>>>> If you want to test the PCI passthrough please follow below steps.
->>>>>>
->>>>>> Xen setup:
->>>>>>      • A checkout of the “integration/pci-passthrough” branch 
->>>>>> from the  gitlab 
->>>>>> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough
->>>>>>      • Pass iommu=yes  and pci-passthrough=on to Xen command line 
->>>>>> to enable PCI passthrough.
->>>>>>
->>>>>>   Linux Kernel setup:
->>>>>>        • Some changes are required for the kernel to work with 
->>>>>> PCI passthrough. First are some configuration options, enable 
->>>>>> them in kernel config.
->>>>>>           CONFIG_XEN=y
->>>>>>           CONFIG_XEN_BACKEND=y
->>>>>>           CONFIG_XEN_PCIDEV_BACKEND=y
->>>>>>      • Then a patch needs to be applied for enabling the pciback 
->>>>>> driver. Patch is attached in this email.
->>>>>>   Using PCI passthrough:
->>>>>>        • In order to pass a device to a guest, you first need its 
->>>>>> PCI address(SBDF). You can either get it from a bare-metal
->>>>>>        Linux running on the platform or by having pciutils  
->>>>>> installed (if you are using a yocto-based dom0 or have apt 
->>>>>> available), which provides lspci.
->>>>>>         For example, let's pass one ethernet interface to the 
->>>>>> guest. Running lspci gives us this output (truncated) :
->>>>>>         0000:00:00.0 Host bridge: Ampere Computing, LLC Device e100
->>>>>>         0000:00:01.0 PCI bridge: Ampere Computing, LLC Device 
->>>>>> e101 (rev 04)
->>>>>>         0000:01:00.0 Ethernet controller: Intel Corporation 
->>>>>> Ethernet Controller X710/X557-AT 10GBASE-T (rev 01)
->>>>>>                 [...]
->>>>>>         We will pass one of the ethernet from the PCI network 
->>>>>> card : 0000:01:00.0 .
->>>>>>        • Add the following line to the guest configuration file :
->>>>>>            pci = ['0000:01:00.0']
->>>>>>        • Run the following command before starting the guest :
->>>>>>             xl pci-assignable-add 0000:01:00.0
->>>>>>      • Start the guest. The network interface should appear as 
->>>>>> 00:00.0  in the guest and be usable.
->>>>>>   Please let me know if you need more info.
->>>>>>
->>>>>>
->>>>>>
->>>>>> Regards,
->>>>>> Rahul
->>>>>>
->>>>> Thank you for your reply.
->>>>> After setting XEN and kernel as above, I tried the following two 
->>>>> methods to add a PCIE device passthrough:
->>>>> 1. According to your suggestion, use the command xl 
->>>>> pci-assignable-add 0002:21:00.0 to set in the Dom0. But in function
->>>>> iommu_do_pci_domctl,  after device_assigned is called, ENODEV 
->>>>> error is obtained.
->>>>> 2. Add xen-pciback.hide=(0002:21:00.0) to dom0-bootargs in the 
->>>>> device tree, I encountered the same problem as before
->>>>> when initializing the kernel. In function pci_add_device, PCIE 
->>>>> devices cannot be added to SMMUv3.
->>>> It is hard to find what is happening without logs. Could you please 
->>>> share the Xen and Linux boot logs so that I can
->>>> check what is the root cause of this issue.
->>>>
->>>>> The kernel version I use is 5.10. Does this have an impact?
->>>> I am using the Linux version 5.15.44 but I don’t think is because 
->>>> of Linux.
->>>>
->>>> Regards,
->>>> Rahul
->>> The attachment is a log file. I have to delete some content that may 
->>> involve commercial. Please forgive me.
->>>
->>> In addition, I have forgotten to tell you a very important 
->>> information. The PCIE controller used on my board
->>> is DesignWare. I referred to the code of ECAM under XEN and added 
->>> some support related to DesignWare
->>> (DBI space mapping and PCIE read/write).
->>>
-> The kernel.log file is from Dom0 boot. The PCIE device I trying to 
-> assign to domU is working fine in dom0.
->> What I understood from the logs is you shared the logs for domU boot. 
->> Could you please confirm that dom0 booted
->> fine with the PCI passthrough branch and the PCI device you trying to 
->> assign to domU is working fine in dom0.
->>
->> In that case we can confirm that code you added to support DesignWare 
->> PCIE controller is fine.
->>
->>> In addition, if needed ,I can pre initialized PCIE controller in the 
->>> uboot stage, so  I can scan the PCIE device
->>> in the uboot command line.
->
->
-The reason for Data Abort is that the DomU uses the PCIE driver of the 
-ecam instead of the PCIE frontend.
-At present, PCIE frontend only supports x86. I'll try to migrate to ARM.
+Regressions :-(
 
-> In order to verify my previous conjecture (there is no fwspec for the 
-> PCIE device,
-> which makes it impossible to passthrough), I used the following code 
-> to test.
-> The result is that the PCIE device can passthrough to the DomU, but 
-> the DomU kernel
-> appears Data Abort when trying to read the PCIE device. This may be 
-> because I directly add
-> the fwspec of the PCIE controller to the PCIE device, which leads to 
-> memory mapping problems.
->
-> diff --git a/xen/drivers/passthrough/device_tree.c 
-> b/xen/drivers/passthrough/device_tree.c
-> index 98f2aa0..28283d2 100644
-> --- a/xen/drivers/passthrough/device_tree.c
-> +++ b/xen/drivers/passthrough/device_tree.c
-> @@ -127,6 +127,7 @@ int iommu_release_dt_devices(struct domain *d)
->      return 0;
->  }
->
-> +struct device *smmu_dev_for_test;
->  int iommu_add_dt_device(struct dt_device_node *np)
->  {
->      const struct iommu_ops *ops = iommu_get_ops();
-> @@ -167,7 +168,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
->          rc = iommu_fwspec_init(dev, &iommu_spec.np->dev);
->          if ( rc )
->              break;
-> -
-> +        else
-> +            smmu_dev_for_test = &iommu_spec.np->dev;
->          /*
->           * Provide DT IOMMU specifier which describes the IOMMU master
->           * interfaces of that device (device IDs, etc) to the driver.
->
->
-> diff --git a/xen/drivers/passthrough/pci.c 
-> b/xen/drivers/passthrough/pci.c
-> index da4ecda..cf8a099 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -1316,6 +1316,8 @@ static int __init setup_dump_pcidevs(void)
->  }
->  __initcall(setup_dump_pcidevs);
->
-> +extern int iommu_fwspec_init(struct device *dev, struct device 
-> *iommu_dev);
-> +extern struct device *smmu_dev_for_test;;
->  static int iommu_add_device(struct pci_dev *pdev)
->  {
->      const struct domain_iommu *hd;
-> @@ -1331,6 +1333,10 @@ static int iommu_add_device(struct pci_dev *pdev)
->      if ( !is_iommu_enabled(pdev->domain) )
->          return 0;
->
-> +    if (pdev->bus != 0x20)
-> +    {
-> +        iommu_fwspec_init(pci_to_dev(pdev), smmu_dev_for_test);
-> +    }
->      rc = hd->platform_ops->add_device(pdev->devfn, pci_to_dev(pdev));
->      if ( rc || !pdev->phantom_stride )
->          return rc;
-> @@ -1401,6 +1407,7 @@ static int device_assigned(u16 seg, u8 bus, u8 
-> devfn)
->
->      ASSERT(pcidevs_locked());
->      pdev = pci_get_pdev(seg, bus, devfn);
-> +    printk("%s:%p,%p,%p\n",__FUNCTION__, pdev->domain, 
-> hardware_domain, dom_io);
->
->      if ( !pdev )
->          rc = -ENODEV;
->
-> I will test the use of pci-passthrough  branch to verify the PCIE 
-> passthrough function
->
->> Yes, we can try that and use the below branch to check if it works. 
->> Below branch supports to add PCI device
->>   during Xen boot as compared to previous branch where Linux inform 
->> Xen to add PCI devices.
->>
->> You need to add "pci-scan=on” in Xen command line to add PCI devices 
->> during Xen boot.
->>
->> https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc/-/tree/poc/pci-passthrough 
->>
->>
->> Regards,
->> Rahul
->
-> Cheers,
-> -- 
-> Sisyphean
->
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+
+version targeted for testing:
+ ovmf                 01c0d3c0d508b8c1b41fd58e2ec565b40ea000ca
+baseline version:
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
+
+Last test of basis   175202  2022-12-14 13:42:59 Z    0 days
+Failing since        175214  2022-12-14 18:42:16 Z    0 days    6 attempts
+Testing same since   175244  2022-12-15 04:18:39 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 01c0d3c0d508b8c1b41fd58e2ec565b40ea000ca
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:19 2022 +0800
+
+    OvmfPkg/SecTpmMeasurementLib: Fix the mapping error of PCR and RTMR index
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
+    
+    TDVF has the feature to do RTMR measurement in SEC phase. In the same time
+    it builds a GUID hob which carries the hash value of the measurement so
+    that in DXE phase a td event can be created based on this GUID Hob. There
+    is a mapping error between TPM PCR index and RTMR index according to UEFI
+    2.10. That PCR6 is missing in the mapping. This patch fixes this issue.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit fb91d6cbd0cff704586c4cadbef870acef9c52ef
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:18 2022 +0800
+
+    OvmfPkg/TdTcg2Dxe: Fix the mapping error between PCR index and MR index
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
+    
+    According to UEFI Spec 2.10 it is supposed to return the mapping from PCR
+    index to CC MR index:
+    //
+    // In the current version, we use the below mapping for TDX:
+    //
+    // TPM PCR Index | CC Measurement Register Index | TDX-measurement register
+    // -----------------------------------------------------------------------
+    // 0             |   0                           |   MRTD
+    // 1, 7          |   1                           |   RTMR[0]
+    // 2~6           |   2                           |   RTMR[1]
+    // 8~15          |   3                           |   RTMR[2]
+    
+    In the current implementation TdMapPcrToMrIndex returns the index of RTMR,
+    not the MR index.
+    
+    After fix the spec unconsistent, other related codes are updated
+    accordingly.
+    1) The index of event log uses the input MrIndex.
+    2) MrIndex is decreated by 1 before it is sent for RTMR extending.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Reported-by: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit 19f7c63ea978c5a4ef9345b9bf4995dcd48fa328
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:17 2022 +0800
+
+    OvmfPkg/TdTcg2Dxe: Fix incorrect protocol and structure version
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4184
+    
+    According to the Uefi spec 2.10 Section 38.2.2.
+    EFI_CC_MEASUREMENT_PROTOCOL.GetCapability, the minor version of
+    StructureVersion and ProtocolVersion should be 0.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Reported-by: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit 44fc90eb0ea7299abc79577db55aa6257b46b7ae
+Author: devel@edk2.groups.io <devel@edk2.groups.io>
+Date:   Wed Nov 30 15:02:15 2022 -0800
+
+    UnitTestFrameworkPkg/UnitTestLib: Print expected Status on ASSERT fail
+    
+    Update the UnitTestAssertStatusEqual error message to print out the
+    expected value in addition to the seen value.
+    
+    Signed-off-by: Jeshua Smith <jeshuas@nvidia.com>
+    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
+    Reviewed-by: Michael D Kinney <michael.d.kinney@intel.com>
+
+commit cda98df16228970dcf9a4ce2af5368219711b4b0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:09 2022 +0100
+
+    OvmfPkg/QemuFwCfgLib: remove mQemuFwCfgSupported + mQemuFwCfgDmaSupported
+    
+    Remove global variables, store the state in PlatformInfoHob instead.
+    Probing for fw_cfg happens on first use, at library initialization
+    time the Hob might not be present yet.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 81bbc1452c972218f071cd4a8f5899df974b1dae
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:08 2022 +0100
+
+    OvmfPkg/QemuFwCfgLib: rewrite fw_cfg probe
+    
+    Move the code to a new QemuFwCfgProbe() function.  Use direct Io*() calls
+    instead of indirect QemuFwCfg*() calls to make sure we don't get
+    recursive calls.  Also simplify CC guest detection.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit e59747bd8246135faeecc18879d62db66a6acfc2
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:07 2022 +0100
+
+    OvmfPkg/DebugLibIoPort: use Rom version for PEI
+    
+    This variant does not use global variables.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit f6a196c7eb34affff0cfe1864e126953096885e1
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:06 2022 +0100
+
+    OvmfPkg/PlatformPei: remove mFeatureControlValue
+    
+    Use PlatformInfoHob->FeatureControlValue instead.
+    OnMpServicesAvailable() will find PlatformInfoHob using
+    GetFirstGuidHob() and pass a pointer to the WriteFeatureControl
+    callback.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 862614e2544997c848fab7388733774ae0ea92d8
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:05 2022 +0100
+
+    OvmfPkg/PlatformPei: remove mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable.  Let
+    BuildPlatformInfoHob() allocate and return PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 4bc2c748516e5c4a8bb86093cd5e1b80a9f35c0f
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:04 2022 +0100
+
+    OvmfPkg/PlatformPei: Verification: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in S3Verification() and
+    Q35BoardVerification() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 7dbb8a24d1a3403f85d959bc1234b9f4a92bfbf0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:03 2022 +0100
+
+    OvmfPkg/PlatformPei: NoExec: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in NoexecDxeInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit cc6efda7770b8cabea3ae8c6054d47c4a8e229c3
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:02 2022 +0100
+
+    OvmfPkg/PlatformPei: MemTypeInfo: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in MemTypeInfoInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 27874a382c38a95d3ab613eebd35c152ca9b3897
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:01 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiMemory: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PublishPeiMemory()
+    and GetPeiMemoryCap() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 00743d144bc5b643e9323ad66f16cb48cf338705
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:00 2022 +0100
+
+    OvmfPkg/PlatformPei Q35 SMM helpers: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in
+    Q35TsegMbytesInitialization() and
+    Q35SmramAtDefaultSmbaseInitialization() ) functions.
+    Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 9d9d15b42a5e13bb18729da0f608c629aa274e80
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:59 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiFv: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PeiFvInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 78c373f2a5273af00b23b55d3e8c41583310cfb6
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:58 2022 +0100
+
+    OvmfPkg/PlatformPei: AmdSev: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in AmdSevInitialize()
+    and AmdSevEsInitialize() functions.  Pass a pointer to the
+    PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 916825b84f23b691dcce09a57625fb8fcb0cbb48
+Author: Jeff Brasen <jbrasen@nvidia.com>
+Date:   Tue Nov 15 11:01:06 2022 -0700
+
+    DynamicTablesPkg: SSDT _LPI revision is incorrect
+    
+    _LPI Revision should be 0 per the ACPI 6.5 specification.
+    "The revision number of the _LPI object. Current revision is 0."
+    
+    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
+    Reviewed-by: Pierre Gondois <pierre.gondois@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
 
