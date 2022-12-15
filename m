@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3897664E1D1
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 20:33:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463748.722002 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D90064E1D2
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 20:33:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463749.722014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5tyV-0006ND-R5; Thu, 15 Dec 2022 19:32:59 +0000
+	id 1p5tyY-0006d2-4C; Thu, 15 Dec 2022 19:33:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463748.722002; Thu, 15 Dec 2022 19:32:59 +0000
+Received: by outflank-mailman (output) from mailman id 463749.722014; Thu, 15 Dec 2022 19:33:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5tyV-0006Ka-Nw; Thu, 15 Dec 2022 19:32:59 +0000
-Received: by outflank-mailman (input) for mailman id 463748;
- Thu, 15 Dec 2022 19:32:58 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p5tyY-0006aE-0p; Thu, 15 Dec 2022 19:33:02 +0000
+Received: by outflank-mailman (input) for mailman id 463749;
+ Thu, 15 Dec 2022 19:33:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BWk7=4N=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1p5tyU-0006KU-3F
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 19:32:58 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2040.outbound.protection.outlook.com [40.107.236.40])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45cf781d-7caf-11ed-8fd3-01056ac49cbb;
- Thu, 15 Dec 2022 20:32:56 +0100 (CET)
-Received: from DS7PR03CA0254.namprd03.prod.outlook.com (2603:10b6:5:3b3::19)
- by BL3PR12MB6523.namprd12.prod.outlook.com (2603:10b6:208:3bf::15) with
+ id 1p5tyW-0006TA-Ep
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 19:33:00 +0000
+Received: from NAM02-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam02on2064.outbound.protection.outlook.com [40.107.95.64])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 47a32604-7caf-11ed-91b6-6bf2151ebd3b;
+ Thu, 15 Dec 2022 20:32:59 +0100 (CET)
+Received: from DM6PR13CA0043.namprd13.prod.outlook.com (2603:10b6:5:134::20)
+ by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11; Thu, 15 Dec
- 2022 19:32:52 +0000
-Received: from DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:3b3:cafe::e7) by DS7PR03CA0254.outlook.office365.com
- (2603:10b6:5:3b3::19) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 19:32:56 +0000
+Received: from DM6NAM11FT085.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:134:cafe::8d) by DM6PR13CA0043.outlook.office365.com
+ (2603:10b6:5:134::20) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Thu, 15 Dec 2022 19:32:52 +0000
+ Transport; Thu, 15 Dec 2022 19:32:56 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT017.mail.protection.outlook.com (10.13.172.145) with Microsoft SMTP
+ DM6NAM11FT085.mail.protection.outlook.com (10.13.172.236) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.12 via Frontend Transport; Thu, 15 Dec 2022 19:32:52 +0000
+ 15.20.5924.12 via Frontend Transport; Thu, 15 Dec 2022 19:32:55 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 13:32:51 -0600
+ 2022 13:32:54 -0600
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Thu, 15 Dec 2022 13:32:50 -0600
+ via Frontend Transport; Thu, 15 Dec 2022 13:32:53 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,22 +58,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45cf781d-7caf-11ed-8fd3-01056ac49cbb
+X-Inumbo-ID: 47a32604-7caf-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dq2TwASc3+cW3sfM+peayYzbs0oNA+1u7pvUN33tVE4eMv57a15HkZgF2I/w8XriKORVDMfKH1tzflvQKXUjYaQFwWwc2GXgpvWBwOUz3F+PzgRnNgi2IFU3BOM8jWu4x06lVgbpookPglovtjy1qQ25LeKXtpA+H2An+oZ/UVPGbSTh8P7Cc3kJkCAPO7+/esfNBxAzCTQlzBnXY5rZhBSD58CY4GWg1XUKS6yvhbRW0UV9g7xKhjVyDFUOVh2O6sxk+FNwvA3XySGMxdsHE9Z5ugHYYdAGLF8+qA+UBbV8uh1warvEBoNPlXZ5tvQvGVgUltk/s0JQRBXCAJBrDg==
+ b=MB72qYGX0z8zAK5BKc6lYzbOauNVyB4HLwaWHkrWI4sP5zQqYcAqrr2G6QpXdbCw8QQcK11+JLIYIVLht5S4qFvZXwcBT/LSKyHA7QYAIgJ/kH+4XTH4jLyC3KTgf59lkY6N9Xyt5d34XuKvzZw+olesWJN9pu1Agdt0w/HkFodzSDdQPLNeSjzi1Z5upIAlqVRu8nD3u7GG0cbHy7DsUehYyADngQWnI4qvd0am/T2rFY+wK8UVo4SqBzL+ASWCE0oF5AUR6VR/Fepqez0euPFSKm6hQUOWJJKHozIOgn88CubBlqXuwPfhO6kLgxnSve9hDLG+HEEZb+6MCVgIdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L5zcmeRFz8lDxQOJjYxclv81XepsraOXmyBCIc/D3dI=;
- b=gKk4+5wDPSr2BbGc1o8qALpQLBSRSVktlgBCQUxpXWRIdLUvO7C2XoqLZEaXEyZ9kj+xNvxcWZ2fikU4M/C5BTKBVoxR2FL2yuuRX1Zc5CMxB1omFTQ9eOQQgVTOBBm+6L+RdcEQxhTJsFiqQdqx5jbcu1z3mOrW6kmcHWI/BLuf4Fjd1o7Jt46/GpOF/mzUXulMvMAL2MAoLlJDg3B1hqcb6iNQcqPr7XUoCvznmMLGAsGOzxZ5zoM5lZUUnA2INcv87qrdPcT75tBZrWtGNpzOGZxMGJJxvVteJNUbcoi+Q23TZf5D+Oz2daE4DN9X535xPf5uEtPyO26wUi3Bfg==
+ bh=4lvaSkI20lY6fb8u8ypyUkJA8QI8c03TjbZy9rbq1Zw=;
+ b=QONe4YKqJ7+hrRpLZMzQPWfo+MRnRZznHuDpf5WkD0fU8FyKPfVyxJyPMzpKSDg14lR0+ENY9c6JdJkYRoy4vnX15NdQbu5oLEQ3sP9z1cqSR7/LUgF355BQ9NRhAYWekCzz7pFZoRo9cd/nuffBq6xUfkoOGN8Bye+WW/7B6ENy1TpkbHqusvD1+SPo6Nrv7FwaQ6fVRfXDfttpL/B6bSR96OPaThVjFtatUwgRqVBJLwQynTxMPA1NTxxrFrTgOqsAnCVjaPDML0YVN9pzMhxD4enSYyuV81TnKXYHJ9+LYHhNTtNhO4gYPoLm3FkP7MiFRs31hBS3N7zMLKeRDg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L5zcmeRFz8lDxQOJjYxclv81XepsraOXmyBCIc/D3dI=;
- b=Cex+NMHcTDWzOYY49C/UBCvteryuOU0boh3aBb5+w6oJnYF1pH2hiE/AG/gk+Srum1aebD5fMe7E8FKSoIJJ2BtZGa3miz/ccupfQwjeWnFrnJBaFFELjXYu4e7eQV/WuARIc+3adCP/VhnFapGUZO9xGWVbnmtdZHIkK9Tp20k=
+ bh=4lvaSkI20lY6fb8u8ypyUkJA8QI8c03TjbZy9rbq1Zw=;
+ b=L5HIAnZKUfVXbdQYCV/mtmKY2rvwh78BMLD8fvgF1hkTcEGDNybue0xj9PQbbZ5SNFVwq87kaKxrGY+Lnmu5paUUM6DN9ZiuIoc+KON6Wye6duYW9mnn3Vkn75STTQM7xiJoqCengzym+2d3AEwgvUm/ECWLuseueyo+bqU1DFw=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,97 +85,80 @@ To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v1 0/9] Add support for 32 bit physical address
-Date: Thu, 15 Dec 2022 19:32:36 +0000
-Message-ID: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
+Subject: [XEN v1 1/9] xen/arm: Remove the extra assignment
+Date: Thu, 15 Dec 2022 19:32:37 +0000
+Message-ID: <20221215193245.48314-2-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
+References: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT017:EE_|BL3PR12MB6523:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4a61f454-f967-4f60-fabc-08daded32847
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT085:EE_|IA1PR12MB6258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5053bf64-eb79-47d8-e273-08daded32a45
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NqEr8O6oWIH/K8pcayZNrFcAAo2Y0iK8vEqSeqzHb7UIU6DFSXmxI879XiUeI1sUN/MzEBNz07F0hEiQUG0Ok4lzF6PyCdJq6iOS4VpKVCNrEFaKP4iG+4WkDc3GWIFkD7K9izU9tXY9ff6efPNK6blnxiMwMJFUJbVnXrONXP4RHPpKWR0ObwVN0ia5Jc5H2NB0eTo5dhf2dMyRKEPDD34KZkz61GBe+p4LiGhxOjpjHDJyOENl/yFUUlaxudWlCPXkoYfAcv7ManZnhHWU/wYaEot6LV5slYtrkMyIzXu7rm/LFvcBc+ul1QMl3ei4QTOr/7tAT++/NIc7RaJEcSTuwXbIL+1uB/uRVaIDr2b5sBWUG+ia2CAJvW6cfTCgP+6OrFnJxVBeXzkb95ypUx6ib247JWE394pszermiU5HCqZpZsJDJhDCtXZjITGqLAkOu17u2Kf5CEiE42jQhZwYsdASWSrvWcM5P7bGGE4Rrk/LQMi47AvXAw+E/925Um9jlATSy1gHl3bD0uPa5ZFGT9/HUZ01BVAluHDxn+63JYIGYzTLV3V4dRXhl8NlHBWHuJYVpFBUJaSFYgUOpwPe6A/HI9pCF8+c2QhXkQccLKOLNb2UZLk43Opjd0j5oC1jVW3Ns3dVifmR6CdN2DI+R+ltmILpH8XSyaH2HB+06XOi2oB1imS4MgvEw91QAVFMB3t16B+AFRQGIU4jgF9aAW9+SRC1pjbnPvlbY7JJMOB1Qqai5IqQ3jx6JaowzhhLBYqCFpdlZm7f6vGMfySFhyJOpBfgKFEJOrHEfCagCI8lIkG2t1om5v55LLig
+	DR7h29BeJ/qnZ7MilG79gedhoFf4Y8+a/fEO5eeUtJGE40ZV6pHYJ5y+pcxgtwgzxsNz00d+Y7TVXRneaE8cGerjONSobpNzwxUSu9Sh/KhqTE7DAwfxltI0nB1z93jX0hvVGN73ujLpxiycfYWCZs2baKqu3eBWUc5IqxhT+AJsdY+SyCUlBNf2q7P5dW02JK2bQjv8VojBLIFfS3wMfi2tURrH8VP9Pwk3xVh4gA5r13BqOIZdRPIRbfBjvGYWW6MlNOloqzIKgzTFpuyRFPWFEtoJxp5dASykMyDl8pKzwvayl1iKhmbm7+iaKZJ95AeZZC2L8MJ5D7hBDAKu+RQOdEtl8/tqnC1gmqyCP2eEpPOhBQDxvuesVPCRAlBe1OKp0VyQYBmDjD99Ltwgf8pWrJKcxNR8bvhqdLpQ4yO75Dsk6M0fQZT9nn63yDaJTve73sMhp5QG8azI0Ix0kYkWjT+Ai2r7TwtCpw6P5kvBgnoQ8hBtd1wD4KWZLcJ/Ul65nmqKze7fKzsYq5wSGzvO49imJcYIssWT3bns2yrdqqLYZBEDLasYKUyIR1vUsE9D3Vcf7B70z07ZGtJrFKrBDsSHDqDg1+BFShNi8GMaDaYmqBtk5vGJshi1G0hzwHNPSOID+ZQEFvoUEY7uCuyzB8hEUOUmmk183EJBJNJYMuNSe9iE+z1ZAM//n5X8eYh8KH7cU/oOA8PoDOgWtfELga9fI/tV9n3qFarmpt8=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(426003)(2906002)(40480700001)(1076003)(2616005)(336012)(36860700001)(478600001)(6666004)(966005)(6916009)(26005)(70206006)(54906003)(70586007)(8676002)(4326008)(186003)(5660300002)(356005)(8936002)(41300700001)(40460700003)(81166007)(83380400001)(36756003)(82310400005)(316002)(47076005)(103116003)(86362001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(39860400002)(136003)(396003)(346002)(451199015)(36840700001)(46966006)(40470700004)(82310400005)(40460700003)(2906002)(356005)(316002)(103116003)(40480700001)(70206006)(83380400001)(36756003)(8676002)(2616005)(4326008)(82740400003)(6916009)(26005)(70586007)(1076003)(54906003)(186003)(81166007)(478600001)(426003)(8936002)(6666004)(86362001)(336012)(47076005)(41300700001)(5660300002)(36860700001)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 19:32:52.0836
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 19:32:55.4254
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4a61f454-f967-4f60-fabc-08daded32847
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5053bf64-eb79-47d8-e273-08daded32a45
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT085.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6523
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
 
-Hi,
+As "io_size" and "uart->io_size" are both u64, so there will be no truncation.
+Thus, one can remove the ASSERT() and extra assignment.
 
-Please have a look at https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg01465.html
-for the context.
+In an earlier commit (7c1de0038895),
+"ns16550.io_size" was u32 and "io_size" was u64. Thus, the ASSERT() was needed
+to check if the values are the same.
+However, in a later commit (c9f8e0aee507),
+"ns16550.io_size" was changed to u64. Thus, the ASSERT() became redundant.
 
-The benefits of using 32 bit physical addresses are as follows :-
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
 
-1. It helps to use Xen on platforms (for eg R52) which supports 32 bit
-physical addresses and has no support for large page address extension.
-On 32 bit MPU systems which supports flat-mapping (for eg R52), it helps
-to translate 32 bit VA into 32 bit PA.
+ xen/drivers/char/ns16550.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-2. It also helps in code optimization when the underlying platform does not
-use large page address extension.
-
-
-The following points are to be noted :-
-1. Device tree always use u64 for address and size. The caller needs to
-translate between u64 and u32 (when 32 bit physical addressing is used).
-2. Currently, we have enabled this option for Arm_32 as the MMU for Arm_64
-uses 48 bit physical addressing.
-3. https://lists.xenproject.org/archives/html/xen-devel/2022-12/msg00117.html
-has been added to this series.
-
-Ayan Kumar Halder (9):
-  xen/arm: Remove the extra assignment
-  xen/arm: Define translate_dt_address_size() for the translation
-    between u64 and paddr_t
-  xen/arm: Always use 'u64' instead of 'paddr_t' for address and size in
-    DT
-  xen/arm: Use translate_dt_address_size() to translate between device
-    tree addr/size and paddr_t
-  xen/arm: Use 'PRIpaddr' to display 'paddr_t' variable
-  xen/arm: Use 'u64' to represent 'unsigned long long'
-  xen/arm: Restrict zeroeth_table_offset for ARM_64
-  xen/arm: Other adaptations required to support 32bit paddr
-  xen/arm: Introduce ARM_PA_32 to support 32 bit physical address
-
- xen/arch/arm/Kconfig                 |  9 ++++
- xen/arch/arm/bootfdt.c               | 22 +++++----
- xen/arch/arm/domain_build.c          | 69 ++++++++++++++++++++--------
- xen/arch/arm/gic-v2.c                | 39 ++++++++++++----
- xen/arch/arm/gic-v3.c                | 33 +++++++++++--
- xen/arch/arm/guest_walk.c            |  2 +
- xen/arch/arm/include/asm/lpae.h      | 10 ++++
- xen/arch/arm/include/asm/page-bits.h |  2 +
- xen/arch/arm/include/asm/platform.h  | 26 +++++++++++
- xen/arch/arm/include/asm/types.h     |  7 +++
- xen/arch/arm/mm.c                    |  6 ++-
- xen/arch/arm/platforms/brcm.c        |  9 +++-
- xen/arch/arm/platforms/exynos5.c     | 48 +++++++++++++------
- xen/arch/arm/platforms/sunxi.c       | 11 ++++-
- xen/arch/arm/setup.c                 | 18 +++++++-
- xen/drivers/char/exynos4210-uart.c   | 10 +++-
- xen/drivers/char/ns16550.c           | 16 ++++---
- xen/drivers/char/omap-uart.c         | 10 +++-
- xen/drivers/char/pl011.c             | 10 +++-
- xen/drivers/char/scif-uart.c         | 10 +++-
- xen/drivers/passthrough/arm/smmu.c   | 18 ++++++--
- xen/include/xen/serial.h             |  2 +-
- 22 files changed, 305 insertions(+), 82 deletions(-)
-
+diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
+index 01a05c9aa8..58d0ccd889 100644
+--- a/xen/drivers/char/ns16550.c
++++ b/xen/drivers/char/ns16550.c
+@@ -1747,7 +1747,6 @@ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
+     struct ns16550 *uart;
+     int res;
+     u32 reg_shift, reg_width;
+-    u64 io_size;
+ 
+     uart = &ns16550_com[0];
+ 
+@@ -1758,14 +1757,10 @@ static int __init ns16550_uart_dt_init(struct dt_device_node *dev,
+     uart->parity    = UART_PARITY_NONE;
+     uart->stop_bits = 1;
+ 
+-    res = dt_device_get_address(dev, 0, &uart->io_base, &io_size);
++    res = dt_device_get_address(dev, 0, &uart->io_base, &uart->io_size);
+     if ( res )
+         return res;
+ 
+-    uart->io_size = io_size;
+-
+-    ASSERT(uart->io_size == io_size); /* Detect truncation */
+-
+     res = dt_property_read_u32(dev, "reg-shift", &reg_shift);
+     if ( !res )
+         uart->reg_shift = 0;
 -- 
 2.17.1
 
