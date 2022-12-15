@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BC3764DC96
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 14:58:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463433.721605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ED3664DC9C
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 14:58:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463437.721617 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5okX-0004HU-S0; Thu, 15 Dec 2022 13:58:13 +0000
+	id 1p5okp-0004jM-5O; Thu, 15 Dec 2022 13:58:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463433.721605; Thu, 15 Dec 2022 13:58:13 +0000
+Received: by outflank-mailman (output) from mailman id 463437.721617; Thu, 15 Dec 2022 13:58:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5okX-0004Fh-P9; Thu, 15 Dec 2022 13:58:13 +0000
-Received: by outflank-mailman (input) for mailman id 463433;
- Thu, 15 Dec 2022 13:58:11 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5okV-0004F6-MZ; Thu, 15 Dec 2022 13:58:11 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5okV-0003o4-Lr; Thu, 15 Dec 2022 13:58:11 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5okV-00051g-CW; Thu, 15 Dec 2022 13:58:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5okV-00054c-C4; Thu, 15 Dec 2022 13:58:11 +0000
+	id 1p5okp-0004gF-1V; Thu, 15 Dec 2022 13:58:31 +0000
+Received: by outflank-mailman (input) for mailman id 463437;
+ Thu, 15 Dec 2022 13:58:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=sQug=4N=citrix.com=prvs=341112f0b=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1p5okn-0004Y6-73
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 13:58:29 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8c17a077-7c80-11ed-91b6-6bf2151ebd3b;
+ Thu, 15 Dec 2022 14:58:28 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,95 +36,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5IQ37ZK8df38NX+vjMtpQsn+D5UN1oaAYy4zhHZOcaE=; b=QQ4P291fj+BpK6mLwfLwEdmlnP
-	MkntTLt84Ri64GTrSYEhGTJrrXFHmWy8GKo5Bhvri/UD9qc2ocR0v1QtTMlzqaawwiRtXMyLPkl4B
-	wWgpXHFIU0O52JYQ+hNzBgV1lmH8SZpbTNPH4nfr79JYfu8op5CvQVnpOM3jWPU7+QLE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175272-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8c17a077-7c80-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1671112708;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Iy3wqSszruMtIFzyZkL9309ypW8PeGzxBiemXBA8rgQ=;
+  b=UZ8LzD9cLBp7aO8m7T4kGm6bed30qUrxNKtzQh9mH6p0IMmw3kQ4ehFW
+   Tqgu5dzRSNAaoEJY+X9yHe5weEWQnwaCKRnzYZOgXEIJR2oE7lBXwnWc9
+   CwsV0CXAwlUAc9vmcW29HwZvKeruMW6y1LIYOZXNj3U3gFsTKYuTtrLZ/
+   0=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 91035621
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:IE5SEahIW7KfvAIn8Xcx+9NfX161WxAKZh0ujC45NGQN5FlHY01je
+ htvCmyGO62Na2XzLoh/bY3g9B8D6J7UydMyTgc9/ytgRi4b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWs0N8klgZmP6oS5gaDzyV94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQ8Ey1cbwqAgd7uze+2V9tji+ksb8n0adZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJagx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQthfB/
+ jmboT6gav0cHNCt7Dig1XaLv+uVzXryX94iLr+2yMc/1TV/wURMUUZLBDNXu8KRjVWlR99EN
+ wkd9i8vq4Ai+UqzVN7/Uhak5nmesXY0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
+ neXnsnkHjwps6CQQGi18raSpCm1fy8PIgcqZzIATAYDy8nupsc0lB2nczp4OPfr1JuvQ2i2m
+ m3U6nhl71kOsSIV/4GA4AHGmTGqmsDEEwMo1Arac23m7hwsMeZJeLeUwVTc6P9BKqOQQV+Ao
+ GUIlqCi0QweMX2evHfTGbtQRdlF897AaWSB2gA3Q/HN4hz3oxaekZZsDCaSzauDGuINYnfXb
+ UDaomu9D7cDbSLxPcebj29cYvnGLJQM9/y/Dpg4jfIUOPCdkTNrGwkwDXN8J0i3zCARfVgXY
+ P93i/qEA3cAErhAxzGrXeob2rJD7nlgmjqLGcqlkkX9j+D2iJuppVEtagPmggcRtfPsneko2
+ 4wHa5viJ+t3DoUSnRU7AaZMdAtXfBDX9Lj9qtBNd/7rH+aVMDhJNhMl+pt4I9YNt/0Mxo/1E
+ oSVBhcwJKzX2SeWdm1nqxlLNNvSYHqIhSlmYnd2YA/xhCdLjETGxP53SqbbtIIPrIRLpcOYh
+ dFcEylcKpyjkgj6xgk=
+IronPort-HdrOrdr: A9a23:yb/RcaA82ExBgHnlHejpsceALOsnbusQ8zAXPiFKOGlom6mj/K
+ 6TdZsgtSMc9wxhJE3I9ergBEDiewKuyXcK2/hyAV7KZmCP0ldAR7sSjrcKrQeQfhEX/YZmpN
+ hdm8AVMrHN5TMRt6nHCMbTKbsd6ejCyYTtodr3i05qSwQCUdAT0++6YDzrbHGfgGN9dOoE/F
+ /33Ls3m9PaQwVyUu2LQkMdWvTFpZnijYuOW29+OzcXrDOWiC+u6vrQDxic034lIk5y6IZny3
+ HBjwv6ooKqt/3T8G6660bjq65OncfnyJ9kGsuBkaEuW1PRozftXp1lR7qB+AoUjYiUmS4Xue
+ iJmQ4kI8Nwr0ncZX64ujzk3wWI6kdU11bSjWWAhGflo4jHSCkhC8xH7LgpCCfk1w==
+X-IronPort-AV: E=Sophos;i="5.96,247,1665460800"; 
+   d="scan'208";a="91035621"
+Date: Thu, 15 Dec 2022 13:58:16 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Viresh Kumar <viresh.kumar@linaro.org>
+CC: Julien Grall <julien@xen.org>, osstest service owner
+	<osstest-admin@xenproject.org>, <xen-devel@lists.xenproject.org>
+Subject: Re: [xen-unstable-smoke test] 175226: regressions - FAIL
+Message-ID: <Y5sn+FgartHoFgnu@perard.uk.xensource.com>
+References: <osstest-175226-mainreport@xen.org>
+ <aab5f13a-782b-cb4f-ac8d-321f865c8281@xen.org>
+ <20221215133303.hlgm2hkzge3jh6zr@vireshk-i7>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175272: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=88168c418c3bde7d51797e7cf875d528a8aa0eb1
-X-Osstest-Versions-That:
-    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Dec 2022 13:58:11 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20221215133303.hlgm2hkzge3jh6zr@vireshk-i7>
 
-flight 175272 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175272/
+On Thu, Dec 15, 2022 at 07:03:03PM +0530, Viresh Kumar wrote:
+> On 15-12-22, 08:34, Julien Grall wrote:
+> > This build breakage was introduced by "libxl: add support for generic virtio
+> > device". %lu will likely want to be switched to PRIx64.
+> > 
+> > Viresh, we need to unblock OSStest (our CI) as soon as possible. So can you
+> > look at it and confirm the rest of the tools build on arm32?
+> 
+> I am trying 32 bit build for the first time today and still haven't
+> got it fully working. I have sent a patch though which shall fix
+> this issue, will keep on getting the 32 bit build up and running.
 
-Regressions :-(
+You could just use our containers (that Gitlab CI uses) and run
+something like that:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 175173
+    CONTAINER=registry.gitlab.com/xen-project/xen/debian:unstable-i386 automation/scripts/containerize env XEN_TARGET_ARCH=x86_32 debug=n CC=gcc CXX=g++ automation/scripts/build
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+That would be something similar to what Gitlab CI is running.
+And to get a shell:
+    CONTAINER=registry.gitlab.com/xen-project/xen/debian:unstable-i386 automation/scripts/containerize
 
-version targeted for testing:
- xen                  88168c418c3bde7d51797e7cf875d528a8aa0eb1
-baseline version:
- xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+Cheers,
 
-Last test of basis   175173  2022-12-13 15:00:27 Z    1 days
-Failing since        175199  2022-12-14 12:01:52 Z    1 days   12 attempts
-Testing same since   175272  2022-12-15 12:03:24 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Demi Marie Obenour <demi@invisiblethingslab.com>
-  Juergen Gross <jgross@suse.com>
-  Julien Grall <jgrall@amazon.com>
-  Julien Grall <julien@xen.org>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-  Viresh Kumar <viresh.kumar@linaro.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  fail    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 431 lines long.)
+-- 
+Anthony PERARD
 
