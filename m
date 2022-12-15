@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CDC564DF66
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 18:12:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463629.721864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 187F464DF68
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 18:12:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463634.721874 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5rm9-0007yU-PD; Thu, 15 Dec 2022 17:12:05 +0000
+	id 1p5rmH-0008LC-1v; Thu, 15 Dec 2022 17:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463629.721864; Thu, 15 Dec 2022 17:12:05 +0000
+Received: by outflank-mailman (output) from mailman id 463634.721874; Thu, 15 Dec 2022 17:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5rm9-0007ux-M9; Thu, 15 Dec 2022 17:12:05 +0000
-Received: by outflank-mailman (input) for mailman id 463629;
- Thu, 15 Dec 2022 17:12:04 +0000
+	id 1p5rmG-0008IL-Uy; Thu, 15 Dec 2022 17:12:12 +0000
+Received: by outflank-mailman (input) for mailman id 463634;
+ Thu, 15 Dec 2022 17:12:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Vu2t=4N=citrix.com=prvs=3415489ca=jennifer.herbert@srs-se1.protection.inumbo.net>)
- id 1p5rm8-0007rI-7f
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 17:12:04 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95efed3e-7c9b-11ed-8fd3-01056ac49cbb;
- Thu, 15 Dec 2022 18:12:01 +0100 (CET)
+ id 1p5rmF-0007rI-AW
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 17:12:11 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9aae069b-7c9b-11ed-8fd3-01056ac49cbb;
+ Thu, 15 Dec 2022 18:12:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,53 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95efed3e-7c9b-11ed-8fd3-01056ac49cbb
+X-Inumbo-ID: 9aae069b-7c9b-11ed-8fd3-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671124322;
+  d=citrix.com; s=securemail; t=1671124329;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=QpNE7L2uaNTmHw5dmmRErah9AeqgxX3aSlOHFvQjjvM=;
-  b=Y3sdtpQxYFMryRTbOWXVZvfDA8Y6IX6FPtzz9vxV9qZ1CnJpgZgte0aA
-   LT9DYXNFoeWAvfsuOiZy22rroMA9h+fnuWMfhDSDiQdS+GpX4u/8zJ9Ku
-   vL2/Yx5n4a65W36rEYU4vzeqZBsN144TNKtRytivTcdsREPysstYBKiiQ
-   o=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=Iz134rqvwTvscS9CWxWtMb5PUbEKwnQkr/UCyWzFbGs=;
+  b=cwler39l1zu+KGJymcTlH13sXrQdTWMwrwtAxgABZ58N1OUppi0H0PWV
+   PdLnGhvZ8uL8t11PHYHaCZxHvkcW9J1iX280UKlvfwrD1UBhKrHhU+vZh
+   hquos4FJgsY8Fa/cBkn8eNPXCIXHpySX7/3mcNm8FAtP+CXCxAbepKLOU
+   A=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 87563912
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 88593916
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:TAL14KJBxQIuwu1sFE+Rw5UlxSXFcZb7ZxGr2PjKsXjdYENS1DJRy
- mcaDWiAPK3cZTGketolPoS/9E0PusOAzNdrTABlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpJrfPdwP9TlK6q4mlB5AVjPa0jUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4tJGxj8
- +ZFEwkERTaajv6xw+ikSdVV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
- oxANGQpPE+ojx5nYz/7DLo8keGuh3fyaXtYpUifqLAry2PS0BZwwP7mN9+9ltmiFZoIwB3J/
- ziuE2LRU0w4aPDY8Ti++yyCvdWe2iihXthDG+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
- 00P5jFovaU07FasTNT2Q1u/unHslgEYc8pdFas98g7l4qje7hudB2MEZiVcc9Fgv8gzLQHGz
- XfQwYmvX2Y29uTIFzTNrd94sA9eJwBPCGIvYzVZdjIMyP/6qZ00jUjQTepaRfvdYsLOJRn8x
- DWDrS4bjroVjNIW26jTwW0rkw5AtbCSEFdru1y/snaNq1ogOdX7P9DABU3zt64oEWqPcrWWU
- JHoceC65ftGM5yCnTflrA4lTODwvKbt3NExbDdS83gdG9aFoSbLkWN4umsWyKJV3iEsJ1fUj
- Lf741852XOqFCLCgVVLS4ywEd826qPrCM7oUPvZBvIXPMcoLFPdonw/PxDKt4wIrKTKuftnU
- Xt8WZ/8ZUv29Iw9lGbmLwvj+eFDKt8CKZP7GsmgkkXPPUu2b3+JU7YVWGZinchghJ5oVD79q
- o4FX+PTkkU3bQELSnWPmWLlBQxQfCdT6FGfg5A/S9Nv1SI5Qjh7U6SNmu9Jlk4Mt/09q9okN
- 0qVAidwoGcTT1WdQelWQhiPsI/SYKs=
-IronPort-HdrOrdr: A9a23:7oB8v6F6v+YGFEsNpLqEyseALOsnbusQ8zAXPiFKOHlom6mj/a
- 2TdZsguSMc5Ax/ZJhYo6HmBEDiewK/yXcW2+ks1N6ZNWHbUQ2TQr2KhrGSoAEIdReeygdr79
- YFT0EvMrbN5IBB/LzHCdODYq4dKQS8gcaVbDvlvgxQpN9RGtxdB2gQMHfjLnFL
+IronPort-Data: A9a23:NDUmsqB1d1zGmhVW/zvjw5YqxClBgxIJ4kV8jS/XYbTApDtx1j0Am
+ jMdXG6Bb6uNZjSmeNhxPovj90IFu8ODndI3QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtcpvlDs15K6o4WlB4wRjDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwwb40KjkSz
+ 9IjBi0/UDqjoO2G27uVY7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2o0BPjDS0Qn1lM/Cp84muami2O5czBCol+PuYI84nTJzRw327/oWDbQUozaGJQOzx/Gz
+ o7A103YPz0rHd6S8ziErHuBgdGSogykAo1HQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFabujYMVtwWFPc1gCmPwKfJ5weSBkAfUyVMLtchsacLqScCj
+ wHT2YmzXHo27ePTGSn1GqqoQS2aAnBWBjdeXwE/YxY33fPDh44DlRvhZ4M2eEKqteHdFTb1y
+ jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
+ JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD3271k5JAVdoKiN2bGKuOGphsRNMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QRO8AtLlHarXswPyZ8OlwBdmB2ycnT3
+ r/CIa6R4YsyU/w7nFJauc9DuVPU+szO7TyKHs2qp/hW+bGfeGSUWd843KimN4gEAFe/iFyNq
+ b53bpLaoyizpcWiOkE7B6ZPdwFVRZX6bLiqw/FqmhmrfVA/Qjl6V6SNqV7jEqQ895loei7z1
+ inVcidlJJDX3xUr9S3ihqhfVY7S
+IronPort-HdrOrdr: A9a23:Czgwdqyz2Y+KN4Jj1TaRKrPwEr1zdoMgy1knxilNoHtuH/Bw9v
+ rDoB1/73XJYVkqOU3I9erwWpVoa0msjKKdmLNhW4tKPzOHhILLFu9fBOLZqlXd8kvFh4lgPM
+ xbAstD4bPLYmSTtqzBkWyF+twbsb26GfCT7tvj8w==
 X-IronPort-AV: E=Sophos;i="5.96,248,1665460800"; 
-   d="scan'208";a="87563912"
+   d="scan'208";a="88593916"
 From: Jennifer Herbert <jennifer.herbert@citrix.com>
 To: <jennifer.herbert@citrix.com>
 CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
 	<xen-devel@lists.xenproject.org>
-Subject: [PATCH v2 1/2] acpi: Make TPM version configurable.
-Date: Thu, 15 Dec 2022 17:09:33 +0000
-Message-ID: <20221215170934.123889-2-jennifer.herbert@citrix.com>
+Subject: [PATCH v2 2/2] acpi: Add TPM2 interface definition.
+Date: Thu, 15 Dec 2022 17:09:34 +0000
+Message-ID: <20221215170934.123889-3-jennifer.herbert@citrix.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20221215170934.123889-1-jennifer.herbert@citrix.com>
 References: <0548fa97-5384-94e4-7329-b019e60555f4@citrix.com>
@@ -91,171 +91,229 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 
-This patch makes the TPM version, for which the ACPI library probes, configurable.
-If acpi_config.tpm_verison is set to 1, it indicates that 1.2 (TCPA) should be probed.
-I have also added to hvmloader an option to allow setting this new config, which can
-be triggered by setting the platform/tpm_verion xenstore key.
+This patch introduces an optional TPM 2 interface definition to the ACPI table,
+which is to be used as part of a vTPM 2 implementation.
 
 Signed-off-by: Jennifer Herbert <jennifer.herbert@citrix.com>
 ---
- docs/misc/xenstore-paths.pandoc |  8 ++++
- tools/firmware/hvmloader/util.c | 13 ++++++-
- tools/libacpi/build.c           | 68 ++++++++++++++++++---------------
- tools/libacpi/libacpi.h         |  4 +-
- 4 files changed, 59 insertions(+), 34 deletions(-)
+ tools/firmware/hvmloader/config.h |  1 +
+ tools/firmware/hvmloader/util.c   |  7 ++++++
+ tools/libacpi/Makefile            |  2 +-
+ tools/libacpi/acpi2_0.h           | 26 ++++++++++++++++++++++
+ tools/libacpi/build.c             | 35 ++++++++++++++++++++++++++++++
+ tools/libacpi/libacpi.h           |  1 +
+ tools/libacpi/ssdt_tpm2.asl       | 36 +++++++++++++++++++++++++++++++
+ 7 files changed, 107 insertions(+), 1 deletion(-)
+ create mode 100644 tools/libacpi/ssdt_tpm2.asl
 
-diff --git a/docs/misc/xenstore-paths.pandoc b/docs/misc/xenstore-paths.pandoc
-index 5cd5c8a3b9..7270b46721 100644
---- a/docs/misc/xenstore-paths.pandoc
-+++ b/docs/misc/xenstore-paths.pandoc
-@@ -269,6 +269,14 @@ at the guest physical address in HVM_PARAM_VM_GENERATION_ID_ADDR.
- See Microsoft's "Virtual Machine Generation ID" specification for the
- circumstances where the generation ID needs to be changed.
+diff --git a/tools/firmware/hvmloader/config.h b/tools/firmware/hvmloader/config.h
+index c82adf6dc5..4dec7195f0 100644
+--- a/tools/firmware/hvmloader/config.h
++++ b/tools/firmware/hvmloader/config.h
+@@ -56,6 +56,7 @@ extern uint8_t ioapic_version;
+ #define PCI_ISA_IRQ_MASK    0x0c20U /* ISA IRQs 5,10,11 are PCI connected */
  
-+
-+#### ~/platform/tpm_version = INTEGER [HVM,INTERNAL]
-+
-+The TPM version to be probed for.
-+
-+A value of 1 indicates to probe for TPM 1.2. If unset, or an
-+invalid version, then no TPM is probed.
-+
- ### Frontend device paths
+ #define ACPI_TIS_HDR_ADDRESS 0xFED40F00UL
++#define ACPI_CRB_HDR_ADDRESS 0xFED40034UL
  
- Paravirtual device frontends are generally specified by their own
+ extern uint32_t pci_mem_start;
+ extern const uint32_t pci_mem_end;
 diff --git a/tools/firmware/hvmloader/util.c b/tools/firmware/hvmloader/util.c
-index 581b35e5cf..87bc2d677f 100644
+index 87bc2d677f..6e5d3609b9 100644
 --- a/tools/firmware/hvmloader/util.c
 +++ b/tools/firmware/hvmloader/util.c
-@@ -994,13 +994,22 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
-     if ( !strncmp(xenstore_read("platform/acpi_laptop_slate", "0"), "1", 1)  )
-         config->table_flags |= ACPI_HAS_SSDT_LAPTOP_SLATE;
- 
--    config->table_flags |= (ACPI_HAS_TCPA | ACPI_HAS_IOAPIC |
-+    config->table_flags |= (ACPI_HAS_TPM | ACPI_HAS_IOAPIC |
-                             ACPI_HAS_WAET | ACPI_HAS_PMTIMER |
-                             ACPI_HAS_BUTTONS | ACPI_HAS_VGA |
-                             ACPI_HAS_8042 | ACPI_HAS_CMOS_RTC);
-     config->acpi_revision = 4;
- 
--    config->tis_hdr = (uint16_t *)ACPI_TIS_HDR_ADDRESS;
-+    s = xenstore_read("platform/tpm_version", "0");
-+    config->tpm_version = strtoll(s, NULL, 0);
-+
-+    switch( config->tpm_version )
-+    {
-+    case 1:
+@@ -1009,6 +1009,13 @@ void hvmloader_acpi_build_tables(struct acpi_config *config,
+         config->table_flags |= ACPI_HAS_TPM;
+         config->tis_hdr = (uint16_t *)ACPI_TIS_HDR_ADDRESS;
+         break;
++    case 2:
 +        config->table_flags |= ACPI_HAS_TPM;
-+        config->tis_hdr = (uint16_t *)ACPI_TIS_HDR_ADDRESS;
++        config->crb_hdr = (uint16_t *)ACPI_CRB_HDR_ADDRESS;
++
++        mem_hole_populate_ram(TPM_LOG_AREA_ADDRESS >> PAGE_SHIFT, TPM_LOG_SIZE >> PAGE_SHIFT);
++        memset((void *)(TPM_LOG_AREA_ADDRESS), 0, TPM_LOG_SIZE);
 +        break;
-+    }
+     }
  
      config->numa.nr_vmemranges = nr_vmemranges;
-     config->numa.nr_vnodes = nr_vnodes;
+diff --git a/tools/libacpi/Makefile b/tools/libacpi/Makefile
+index 60860eaa00..125f29fb54 100644
+--- a/tools/libacpi/Makefile
++++ b/tools/libacpi/Makefile
+@@ -25,7 +25,7 @@ C_SRC-$(CONFIG_X86) = dsdt_anycpu.c dsdt_15cpu.c dsdt_anycpu_qemu_xen.c dsdt_pvh
+ C_SRC-$(CONFIG_ARM_64) = dsdt_anycpu_arm.c
+ DSDT_FILES ?= $(C_SRC-y)
+ C_SRC = $(addprefix $(ACPI_BUILD_DIR)/, $(DSDT_FILES))
+-H_SRC = $(addprefix $(ACPI_BUILD_DIR)/, ssdt_s3.h ssdt_s4.h ssdt_pm.h ssdt_tpm.h ssdt_laptop_slate.h)
++H_SRC = $(addprefix $(ACPI_BUILD_DIR)/, ssdt_s3.h ssdt_s4.h ssdt_pm.h ssdt_tpm.h ssdt_tpm2.h ssdt_laptop_slate.h)
+ 
+ MKDSDT_CFLAGS-$(CONFIG_ARM_64) = -DCONFIG_ARM_64
+ MKDSDT_CFLAGS-$(CONFIG_X86) = -DCONFIG_X86
+diff --git a/tools/libacpi/acpi2_0.h b/tools/libacpi/acpi2_0.h
+index 2619ba32db..f4eb4d715b 100644
+--- a/tools/libacpi/acpi2_0.h
++++ b/tools/libacpi/acpi2_0.h
+@@ -121,6 +121,30 @@ struct acpi_20_tcpa {
+ };
+ #define ACPI_2_0_TCPA_LAML_SIZE (64*1024)
+ 
++/*
++ * TPM2
++ */
++struct acpi_20_tpm2 {
++    struct acpi_header header;
++    uint16_t platform_class;
++    uint16_t reserved;
++    uint64_t control_area_address;
++    uint32_t start_method;
++    uint8_t start_method_params[12];
++    uint32_t log_area_minimum_length;
++    uint64_t log_area_start_address;
++};
++#define TPM2_ACPI_CLASS_CLIENT      0
++#define TPM2_START_METHOD_CRB       7
++
++#define TPM_CRB_ADDR_BASE           0xFED40000
++#define TPM_CRB_ADDR_CTRL           (TPM_CRB_ADDR_BASE + 0x40)
++
++#define TPM_LOG_AREA_ADDRESS        0xFED50000
++
++#define TPM_LOG_AREA_MINIMUM_SIZE   (64 << 10)
++#define TPM_LOG_SIZE                (64 << 10)
++
+ /*
+  * Fixed ACPI Description Table Structure (FADT) in ACPI 1.0.
+  */
+@@ -431,6 +455,7 @@ struct acpi_20_slit {
+ #define ACPI_2_0_RSDT_SIGNATURE ASCII32('R','S','D','T')
+ #define ACPI_2_0_XSDT_SIGNATURE ASCII32('X','S','D','T')
+ #define ACPI_2_0_TCPA_SIGNATURE ASCII32('T','C','P','A')
++#define ACPI_2_0_TPM2_SIGNATURE ASCII32('T','P','M','2')
+ #define ACPI_2_0_HPET_SIGNATURE ASCII32('H','P','E','T')
+ #define ACPI_2_0_WAET_SIGNATURE ASCII32('W','A','E','T')
+ #define ACPI_2_0_SRAT_SIGNATURE ASCII32('S','R','A','T')
+@@ -444,6 +469,7 @@ struct acpi_20_slit {
+ #define ACPI_2_0_RSDT_REVISION 0x01
+ #define ACPI_2_0_XSDT_REVISION 0x01
+ #define ACPI_2_0_TCPA_REVISION 0x02
++#define ACPI_2_0_TPM2_REVISION 0x04
+ #define ACPI_2_0_HPET_REVISION 0x01
+ #define ACPI_2_0_WAET_REVISION 0x01
+ #define ACPI_1_0_FADT_REVISION 0x01
 diff --git a/tools/libacpi/build.c b/tools/libacpi/build.c
-index fe2db66a62..d313ccd8cf 100644
+index d313ccd8cf..d4f25a68d2 100644
 --- a/tools/libacpi/build.c
 +++ b/tools/libacpi/build.c
-@@ -409,38 +409,46 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
-         memcpy(ssdt, ssdt_laptop_slate, sizeof(ssdt_laptop_slate));
-         table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
-     }
--
--    /* TPM TCPA and SSDT. */
--    if ( (config->table_flags & ACPI_HAS_TCPA) &&
--         (config->tis_hdr[0] != 0 && config->tis_hdr[0] != 0xffff) &&
--         (config->tis_hdr[1] != 0 && config->tis_hdr[1] != 0xffff) )
-+    /* TPM and SSDT. */
-+    if (config->table_flags & ACPI_HAS_TPM)
-     {
--        ssdt = ctxt->mem_ops.alloc(ctxt, sizeof(ssdt_tpm), 16);
--        if (!ssdt) return -1;
--        memcpy(ssdt, ssdt_tpm, sizeof(ssdt_tpm));
--        table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
--
--        tcpa = ctxt->mem_ops.alloc(ctxt, sizeof(struct acpi_20_tcpa), 16);
--        if (!tcpa) return -1;
--        memset(tcpa, 0, sizeof(*tcpa));
--        table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, tcpa);
--
--        tcpa->header.signature = ACPI_2_0_TCPA_SIGNATURE;
--        tcpa->header.length    = sizeof(*tcpa);
--        tcpa->header.revision  = ACPI_2_0_TCPA_REVISION;
--        fixed_strcpy(tcpa->header.oem_id, ACPI_OEM_ID);
--        fixed_strcpy(tcpa->header.oem_table_id, ACPI_OEM_TABLE_ID);
--        tcpa->header.oem_revision = ACPI_OEM_REVISION;
--        tcpa->header.creator_id   = ACPI_CREATOR_ID;
--        tcpa->header.creator_revision = ACPI_CREATOR_REVISION;
--        if ( (lasa = ctxt->mem_ops.alloc(ctxt, ACPI_2_0_TCPA_LAML_SIZE, 16)) != NULL )
-+        switch (config->tpm_version)
-         {
--            tcpa->lasa = ctxt->mem_ops.v2p(ctxt, lasa);
--            tcpa->laml = ACPI_2_0_TCPA_LAML_SIZE;
--            memset(lasa, 0, tcpa->laml);
--            set_checksum(tcpa,
--                         offsetof(struct acpi_header, checksum),
--                         tcpa->header.length);
-+        case 1:
-+            if (!config->tis_hdr ||
-+                config->tis_hdr[0] == 0 || config->tis_hdr[0] == 0xffff ||
-+                config->tis_hdr[1] == 0 || config->tis_hdr[1] == 0xffff)
+@@ -19,6 +19,7 @@
+ #include "ssdt_s3.h"
+ #include "ssdt_s4.h"
+ #include "ssdt_tpm.h"
++#include "ssdt_tpm2.h"
+ #include "ssdt_pm.h"
+ #include "ssdt_laptop_slate.h"
+ #include <xen/hvm/hvm_info_table.h>
+@@ -352,6 +353,7 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
+     struct acpi_20_tcpa *tcpa;
+     unsigned char *ssdt;
+     void *lasa;
++    struct acpi_20_tpm2 *tpm2;
+ 
+     /* MADT. */
+     if ( (config->hvminfo->nr_vcpus > 1) || config->hvminfo->apic_mode )
+@@ -449,6 +451,39 @@ static int construct_secondary_tables(struct acpi_ctxt *ctxt,
+                              tcpa->header.length);
+             }
+             break;
++
++        case 2:
++            if (!config->crb_hdr ||
++                config->crb_hdr[0] == 0 || config->crb_hdr[0] == 0xffff)
 +                break;
 +
-+            ssdt = ctxt->mem_ops.alloc(ctxt, sizeof(ssdt_tpm), 16);
++            ssdt = ctxt->mem_ops.alloc(ctxt, sizeof(ssdt_tpm2), 16);
 +            if (!ssdt) return -1;
-+            memcpy(ssdt, ssdt_tpm, sizeof(ssdt_tpm));
++            memcpy(ssdt, ssdt_tpm2, sizeof(ssdt_tpm2));
 +            table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, ssdt);
 +
-+            tcpa = ctxt->mem_ops.alloc(ctxt, sizeof(struct acpi_20_tcpa), 16);
-+            if (!tcpa) return -1;
-+            memset(tcpa, 0, sizeof(*tcpa));
-+            table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, tcpa);
++            tpm2 = ctxt->mem_ops.alloc(ctxt, sizeof(struct acpi_20_tpm2), 16);
++            if (!tpm2) return -1;
++            memset(tpm2, 0, sizeof(*tpm2));
++            table_ptrs[nr_tables++] = ctxt->mem_ops.v2p(ctxt, tpm2);
 +
-+            tcpa->header.signature = ACPI_2_0_TCPA_SIGNATURE;
-+            tcpa->header.length    = sizeof(*tcpa);
-+            tcpa->header.revision  = ACPI_2_0_TCPA_REVISION;
-+            fixed_strcpy(tcpa->header.oem_id, ACPI_OEM_ID);
-+            fixed_strcpy(tcpa->header.oem_table_id, ACPI_OEM_TABLE_ID);
-+            tcpa->header.oem_revision = ACPI_OEM_REVISION;
-+            tcpa->header.creator_id   = ACPI_CREATOR_ID;
-+            tcpa->header.creator_revision = ACPI_CREATOR_REVISION;
++            tpm2->header.signature = ACPI_2_0_TPM2_SIGNATURE;
++            tpm2->header.length    = sizeof(*tpm2);
++            tpm2->header.revision  = ACPI_2_0_TPM2_REVISION;
++            fixed_strcpy(tpm2->header.oem_id, ACPI_OEM_ID);
++            fixed_strcpy(tpm2->header.oem_table_id, ACPI_OEM_TABLE_ID);
++            tpm2->header.oem_revision = ACPI_OEM_REVISION;
++            tpm2->header.creator_id   = ACPI_CREATOR_ID;
++            tpm2->header.creator_revision = ACPI_CREATOR_REVISION;
++            tpm2->platform_class = TPM2_ACPI_CLASS_CLIENT;
++            tpm2->control_area_address = TPM_CRB_ADDR_CTRL;
++            tpm2->start_method = TPM2_START_METHOD_CRB;
++            tpm2->log_area_minimum_length = TPM_LOG_AREA_MINIMUM_SIZE;
++            tpm2->log_area_start_address = TPM_LOG_AREA_ADDRESS;
 +
-+            if ( (lasa = ctxt->mem_ops.alloc(ctxt, ACPI_2_0_TCPA_LAML_SIZE, 16)) != NULL )
-+            {
-+                tcpa->lasa = ctxt->mem_ops.v2p(ctxt, lasa);
-+                tcpa->laml = ACPI_2_0_TCPA_LAML_SIZE;
-+                memset(lasa, 0, tcpa->laml);
-+                set_checksum(tcpa,
-+                             offsetof(struct acpi_header, checksum),
-+                             tcpa->header.length);
-+            }
-+            break;
++            set_checksum(tpm2,
++                         offsetof(struct acpi_header, checksum),
++                         tpm2->header.length);
          }
      }
  
 diff --git a/tools/libacpi/libacpi.h b/tools/libacpi/libacpi.h
-index a2efd23b0b..9143616130 100644
+index 9143616130..b5d08ff09b 100644
 --- a/tools/libacpi/libacpi.h
 +++ b/tools/libacpi/libacpi.h
-@@ -27,7 +27,7 @@
- #define ACPI_HAS_SSDT_PM           (1<<4)
- #define ACPI_HAS_SSDT_S3           (1<<5)
- #define ACPI_HAS_SSDT_S4           (1<<6)
--#define ACPI_HAS_TCPA              (1<<7)
-+#define ACPI_HAS_TPM               (1<<7)
- #define ACPI_HAS_IOAPIC            (1<<8)
- #define ACPI_HAS_WAET              (1<<9)
- #define ACPI_HAS_PMTIMER           (1<<10)
-@@ -78,8 +78,8 @@ struct acpi_config {
-     struct acpi_numa numa;
-     const struct hvm_info_table *hvminfo;
+@@ -80,6 +80,7 @@ struct acpi_config {
  
-+    uint8_t tpm_version;
+     uint8_t tpm_version;
      const uint16_t *tis_hdr;
--
++    const uint16_t *crb_hdr;
      /*
       * Address where acpi_info should be placed.
       * This must match the OperationRegion(BIOS, SystemMemory, ....)
+diff --git a/tools/libacpi/ssdt_tpm2.asl b/tools/libacpi/ssdt_tpm2.asl
+new file mode 100644
+index 0000000000..1801c338df
+--- /dev/null
++++ b/tools/libacpi/ssdt_tpm2.asl
+@@ -0,0 +1,36 @@
++/*
++ * ssdt_tpm2.asl
++ *
++ * Copyright (c) 2018-2022, Citrix Systems, Inc.
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU Lesser General Public License as published
++ * by the Free Software Foundation; version 2.1 only. with the special
++ * exception on linking described in file LICENSE.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU Lesser General Public License for more details.
++ */
++
++/* SSDT for TPM CRB Interface for Xen with Qemu device model. */
++
++DefinitionBlock ("SSDT_TPM2.aml", "SSDT", 2, "Xen", "HVM", 0)
++{
++    Device (TPM)
++    {
++        Name (_HID, "MSFT0101" /* TPM 2.0 Security Device */)  // _HID: Hardware ID
++        Name (_CRS, ResourceTemplate ()  // _CRS: Current Resource Settings
++        {
++            Memory32Fixed (ReadWrite,
++                0xFED40000,         // Address Base
++                0x00001000,         // Address Length
++                )
++        })
++        Method (_STA, 0, NotSerialized)  // _STA: Status
++        {
++            Return (0x0F)
++        }
++    }
++}
 -- 
 2.31.1
 
