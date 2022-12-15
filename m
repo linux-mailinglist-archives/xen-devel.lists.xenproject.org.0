@@ -2,55 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F4064D818
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 09:56:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463196.721341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 014A564D842
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 10:08:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463212.721359 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5k20-0007C4-RU; Thu, 15 Dec 2022 08:55:56 +0000
+	id 1p5kDR-0000no-42; Thu, 15 Dec 2022 09:07:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463196.721341; Thu, 15 Dec 2022 08:55:56 +0000
+Received: by outflank-mailman (output) from mailman id 463212.721359; Thu, 15 Dec 2022 09:07:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5k20-0007AI-Ok; Thu, 15 Dec 2022 08:55:56 +0000
-Received: by outflank-mailman (input) for mailman id 463196;
- Thu, 15 Dec 2022 08:55:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p5kDR-0000kv-0j; Thu, 15 Dec 2022 09:07:45 +0000
+Received: by outflank-mailman (input) for mailman id 463212;
+ Thu, 15 Dec 2022 09:07:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GeMf=4N=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p5k1y-0007AA-UY
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 08:55:55 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4718ef43-7c56-11ed-91b6-6bf2151ebd3b;
- Thu, 15 Dec 2022 09:55:53 +0100 (CET)
-Received: from MW4P223CA0030.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::35)
- by CH3PR12MB7689.namprd12.prod.outlook.com (2603:10b6:610:14d::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Thu, 15 Dec
- 2022 08:55:50 +0000
-Received: from CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::b1) by MW4P223CA0030.outlook.office365.com
- (2603:10b6:303:80::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.11 via Frontend
- Transport; Thu, 15 Dec 2022 08:55:50 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1NAM11FT037.mail.protection.outlook.com (10.13.174.91) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.12 via Frontend Transport; Thu, 15 Dec 2022 08:55:49 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 02:55:48 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 00:55:48 -0800
-Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 15 Dec 2022 02:55:46 -0600
+ <SRS0=urv3=4N=zlw.email=sisyphean@srs-se1.protection.inumbo.net>)
+ id 1p5kDP-0000kY-IN
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 09:07:44 +0000
+Received: from mail.zlw.email (unknown [103.181.164.111])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id e103c30f-7c57-11ed-8fd3-01056ac49cbb;
+ Thu, 15 Dec 2022 10:07:29 +0100 (CET)
+Received: from localhost (unknown [127.0.0.1])
+ by mail.zlw.email (Postfix) with ESMTP id 5F25217418D;
+ Thu, 15 Dec 2022 08:54:03 +0000 (UTC)
+Received: from mail.zlw.email ([127.0.0.1])
+ by localhost (mail.zlw.email [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id pNwBmBeCmr3A; Thu, 15 Dec 2022 16:53:56 +0800 (CST)
+Received: from [192.168.66.233] (OpenWrt.lan [192.168.66.1])
+ by mail.zlw.email (Postfix) with ESMTPSA id 16090174169;
+ Thu, 15 Dec 2022 16:53:55 +0800 (CST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,125 +45,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4718ef43-7c56-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FPtZcMH2vFFxY526wMtEbfSNNm6poCNO3QSgnuVpI0Q1vCWwaH9Q1u71uxVMotJlJWPqJx95/8OMsCMhsc4e3Mextn9l7CnyJMJhA8PY/V6LpItYXR8sbrRMWqi/IwTUa8hzDAXUonZLuD4TUcQuE24/NkobodJox51eyrWsqdCJJ/WCMz1EeR8PPpHRbLO5WB2Cc+noW7H7pGyu4nFyhT9osG86SIhuzcI943fIVQFi93NmFg4JPiblmeeFxmACXNaS9aUBiLe8iU8HPIVZfCMNfYVVbzVelkkAmiVzUK/jboSv6DAfeQmCc51HuIJWPw9a42ml7RSAjyMQ0Nb9Lw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vQ0Eaer3Bmldlr3d3CHXwBIs/+Amb/IDvR2dzsQ2gQ4=;
- b=oUV2chC/f3SEbifCcSSb+BrAxNmseQywX3QsoNMSiQS0HWdgD/Aj8mCDV0V8q9gZrS/8LI4t3ybME94/KGS27ZU2PHUKO5VDWQXVf+OS2J/Goa4JcBaO9nqdibkanpgYrXc2PIvj+DvjRfhqTGTCk8Lx58xtHuWFJ4zRbverN2753TzwKIOWcK3fzvmG7RFUlbi0IvO0gb30IBtiqt/bRUVhfuDj35VtCVQ3q1j7heeR/3hH983l42iGs3NaswlpCOqPOV8Xceblk5aqXbTPikqFbF9BO6g8q4l3r/DaxRxWcRqhi8+iO3Oz8OJiRUFYrUY8Tl6RfCfv6oVn19nDrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vQ0Eaer3Bmldlr3d3CHXwBIs/+Amb/IDvR2dzsQ2gQ4=;
- b=Ma6T88/5AEU1VaDetO3UbiWKhEQCe3PwXidZ9KzTA28SVRlbtrHB1JlpRhKCCRkeDGaU4UTEEzFWcsp21VD3x0EGiGXeJUQl65RZ+tG6BlG0FN9rLi1oWWu23VJpWnlgCeIoLq7TtmxfhzNU5vs0tKr2HHpMcqpbyT8v/o1p5TA=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <2bab3307-1e0a-0a61-8a0e-52c832346515@amd.com>
-Date: Thu, 15 Dec 2022 09:55:46 +0100
+X-Inumbo-ID: e103c30f-7c57-11ed-8fd3-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zlw.email; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:references:to:from:from:content-language:subject:subject
+	:user-agent:mime-version:date:date:message-id; s=dkim; t=
+	1671094436; x=1673686437; bh=LAmFLWL2+J47QqwNLN9TlGRmD9avZwU31UB
+	4TOH7iX4=; b=GoHzPkXQEQRtzAKsJPs1hCYrTBoLjiJtC/oF/wPTAlqi5hvGGRx
+	moCzDELotoqYqA3zQUEV5jZSr9tCR9jcjY8AavPgKn4nAY3Wqr60yRg2N8fy9neW
+	DbZrjea8xXf9JZV82JW7xqkPVvIN7VkRm0feH5QLu5RUkkvnbfYOpuEY=
+X-Virus-Scanned: amavisd-new at zlw.email
+Message-ID: <3e124fa6-84ba-d507-82d9-8e8a5aa74c73@zlw.email>
+Date: Thu, 15 Dec 2022 16:53:23 +0800
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.5.1
-Subject: Re: [xen-unstable-smoke test] 175226: regressions - FAIL
-To: Julien Grall <julien@xen.org>, osstest service owner
-	<osstest-admin@xenproject.org>, <xen-devel@lists.xenproject.org>, "Viresh
- Kumar" <viresh.kumar@linaro.org>
-CC: Anthony PERARD <anthony.perard@citrix.com>
-References: <osstest-175226-mainreport@xen.org>
- <aab5f13a-782b-cb4f-ac8d-321f865c8281@xen.org>
+Subject: Re: [BUG]Add PCIE devie to SMMUv3 fail
 Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <aab5f13a-782b-cb4f-ac8d-321f865c8281@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT037:EE_|CH3PR12MB7689:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73b5420d-3042-45ca-430c-08dade7a29b6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	u/F1v7rfYPZ97d9o6YlHezoTDQwPh6Shx7vS2V7J0mCo7cnDwYsFQZlMsGIVcTEwyPIdOr/qhsWX2UHowssu8CcolvIZxS0hi+oZeEnb7Bslj2UrxFnslHPEfbhNH66ipSE7zCOn0JMY0xNei5gPIh311oZ5C38iltyHYcJOzqhLojT55+SRzBgzr3oG7zwkI6xIzkgxCqPnmF3Lr6FnbHpEXr+q0oWC+01abiOUNAZE0v8P4VKO6JyUhUbbNZLMNRy7PFBMnr24UcVSlqsgLzw4s5JJHkHOPhJ+ZLpYkse+ddWBX+St0E+t9rY8aHCevOiIhnJ/b4aUUxUMiZ1EFDY3kTf9JlOYqubmgU0cIO5fDvr5kT/V4p+qG+ntY0w49XEPVM3CvMWIulC6nlhJqW5Qvd5MkVIt1QCRxxOlzAxYiH4IQs+evjhbU4bhZb9dFukxfb/SMY1X0fYbvEbpOfibYdZPDNCBSaoi1iItu7e/7bBn5ZwX6tdgPS2dSPCG5JBmVp3Gyvqw4WnUuLVPCbX6LERbO0Tph6ksQ1Il4O7qOwJxkoS6bQsvduAGG5Md3HvMuvqkLsl9eTY0G1t8trn/zn5pRD2tDZpB36GtpSR58I8S29WAUiTlwlcaeFJ1Hii5OTKJOcXdsIgcFgHGqpAnI6jZah42U6W4yYLmItt7hz/8QPOnyGvinSvrcbFlf7v2Pq81hVO85mPwK1YVMrLzQtO6AtkPdoE6CxSjRwApWHOW9iJfyeitPXANNwmcRMqsQZ4AAsR2/0mRWPefErYQ8i93Ol0XFBDG82FLark=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(39860400002)(136003)(396003)(451199015)(40470700004)(36840700001)(46966006)(44832011)(16576012)(316002)(356005)(83380400001)(40460700003)(110136005)(426003)(47076005)(8936002)(36756003)(336012)(41300700001)(5660300002)(81166007)(70586007)(70206006)(2616005)(4326008)(8676002)(82740400003)(966005)(478600001)(82310400005)(186003)(45080400002)(31696002)(86362001)(31686004)(36860700001)(2906002)(53546011)(26005)(40480700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 08:55:49.1971
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73b5420d-3042-45ca-430c-08dade7a29b6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7689
+From: sisyphean <sisyphean@zlw.email>
+To: Rahul Singh <Rahul.Singh@arm.com>
+Cc: Julien Grall <julien@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>
+References: <793eb471-e68b-c3ff-52e8-20d77252c0bf@zlw.email>
+ <A9FCD688-3CA2-484A-ADC1-F1235F18890F@arm.com>
+ <75bbfc8c-b89f-9478-63af-c37fda0ad3c0@zlw.email>
+ <5BCFEC7E-85B6-4464-A2B1-EA08C6E2EB20@arm.com>
+ <340463d2-528e-848f-0ec2-a4cc7ba04399@zlw.email>
+ <9478D04C-9BD6-44C1-ADBD-EAA688897811@arm.com>
+ <d0f62d31-5673-e804-6e38-6e552989f249@zlw.email>
+In-Reply-To: <d0f62d31-5673-e804-6e38-6e552989f249@zlw.email>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi,
 
-
-On 15/12/2022 09:34, Julien Grall wrote:
-> 
-> 
+在 2022/12/15 09:30, sisyphean 写道:
 > Hi,
-> 
-> On 15/12/2022 01:41, osstest service owner wrote:
->> flight 175226 xen-unstable-smoke real [real]
->> https://nam11.safelinks.protection.outlook.com/?url=http%3A%2F%2Flogs.test-lab.xenproject.org%2Fosstest%2Flogs%2F175226%2F&data=05%7C01%7Cmichal.orzel%40amd.com%7Cb8049c55691342b50a6608dade773f6f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638066901002944667%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=GVUWKlOkecaJRZTcUqovWnc8WggDc4VokO%2BMKvHk9Qk%3D&reserved=0
+>
+> 在 2022/12/14 21:05, Rahul Singh 写道:
+>> Hi Sisphean,
 >>
->> Regressions :-(
+>>> On 13 Dec 2022, at 1:18 am, sisyphean <sisyphean@zlw.email> wrote:
+>>>
+>>> Hi,
+>>>
+>>> 在 2022/12/13 00:30, Rahul Singh 写道:
+>>>> Hi Sisyphean,
+>>>>
+>>>>> On 12 Dec 2022, at 5:49 am, sisyphean <sisyphean@zlw.email> wrote:
+>>>>>
+>>>>> Hi,
+>>>>> 在 2022/12/9 17:50, Rahul Singh 写道:
+>>>>>> Hi Sisyphean,
+>>>>>>
+>>>>>>> On 9 Dec 2022, at 6:15 am, sisyphean <sisyphean@zlw.email> wrote:
+>>>>>>>
+>>>>>>> Hi,
+>>>>>>>
+>>>>>>> I try to run XEN on my ARM board(Sorry, for some commercial 
+>>>>>>> reasons, I can't tell you
+>>>>>>> on which platform I run XEN)  and add PCIE device passthrough to 
+>>>>>>> DomU.But an error
+>>>>>>> occurred while adding the PCIE device to SMMUv3.
+>>>>>> PCI passthrough support is not fully upstream to Xen on ARM. We 
+>>>>>> have working
+>>>>>> PCI passthrough branch that you can use to test it.
+>>>>>>
+>>>>>> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough 
+>>>>>>
+>>>>>>
+>>>>>>> Through reading the code and tracing debugging, the error is 
+>>>>>>> found in the function
+>>>>>>> arm_smmu_add_device, which will obtain and determine whether the 
+>>>>>>> fwspec of the
+>>>>>>> device to be added to SMMU exists.But for the XEN of arm, the 
+>>>>>>> fwspec of the device is
+>>>>>>> created and added by judging whether the iommu field exists in 
+>>>>>>> the device node when
+>>>>>>> XEN parses the device tree.However, the PCIE device does not 
+>>>>>>> appear in the device tree,
+>>>>>>> so there will be no fwspec for all PCIE devices. When attempting 
+>>>>>>> to add a PCIE device to
+>>>>>>> SMMU, a ENODEV error will be returned.
+>>>>>> As of now Xen doesn’t support to add PCI device to IOMMU on ARM.
+>>>>>>> In addition, the code at xen/drivers/passthrough/pci.c also 
+>>>>>>> verifies the above view.
+>>>>>>> For PCIE devices, pdev is alloc in function pci_add_device by 
+>>>>>>> alloc_pdev.However,
+>>>>>>> the function alloc_pdev does not create and add fwspec to the 
+>>>>>>> PCIE device.Therefore,
+>>>>>>> when function pci_add_device executes to iommu_add_device,it 
+>>>>>>> will get the error
+>>>>>>> return of ENODEV.
+>>>>>>>
+>>>>>>> How can I resolve the above errors?
+>>>>>> If you want to test the PCI passthrough please follow below steps.
+>>>>>>
+>>>>>> Xen setup:
+>>>>>>      • A checkout of the “integration/pci-passthrough” branch 
+>>>>>> from the  gitlab 
+>>>>>> https://gitlab.com/xen-project/fusa/xen-integration/-/commits/integration/pci-passthrough
+>>>>>>      • Pass iommu=yes  and pci-passthrough=on to Xen command line 
+>>>>>> to enable PCI passthrough.
+>>>>>>
+>>>>>>   Linux Kernel setup:
+>>>>>>        • Some changes are required for the kernel to work with 
+>>>>>> PCI passthrough. First are some configuration options, enable 
+>>>>>> them in kernel config.
+>>>>>>           CONFIG_XEN=y
+>>>>>>           CONFIG_XEN_BACKEND=y
+>>>>>>           CONFIG_XEN_PCIDEV_BACKEND=y
+>>>>>>      • Then a patch needs to be applied for enabling the pciback 
+>>>>>> driver. Patch is attached in this email.
+>>>>>>   Using PCI passthrough:
+>>>>>>        • In order to pass a device to a guest, you first need its 
+>>>>>> PCI address(SBDF). You can either get it from a bare-metal
+>>>>>>        Linux running on the platform or by having pciutils  
+>>>>>> installed (if you are using a yocto-based dom0 or have apt 
+>>>>>> available), which provides lspci.
+>>>>>>         For example, let's pass one ethernet interface to the 
+>>>>>> guest. Running lspci gives us this output (truncated) :
+>>>>>>         0000:00:00.0 Host bridge: Ampere Computing, LLC Device e100
+>>>>>>         0000:00:01.0 PCI bridge: Ampere Computing, LLC Device 
+>>>>>> e101 (rev 04)
+>>>>>>         0000:01:00.0 Ethernet controller: Intel Corporation 
+>>>>>> Ethernet Controller X710/X557-AT 10GBASE-T (rev 01)
+>>>>>>                 [...]
+>>>>>>         We will pass one of the ethernet from the PCI network 
+>>>>>> card : 0000:01:00.0 .
+>>>>>>        • Add the following line to the guest configuration file :
+>>>>>>            pci = ['0000:01:00.0']
+>>>>>>        • Run the following command before starting the guest :
+>>>>>>             xl pci-assignable-add 0000:01:00.0
+>>>>>>      • Start the guest. The network interface should appear as 
+>>>>>> 00:00.0  in the guest and be usable.
+>>>>>>   Please let me know if you need more info.
+>>>>>>
+>>>>>>
+>>>>>>
+>>>>>> Regards,
+>>>>>> Rahul
+>>>>>>
+>>>>> Thank you for your reply.
+>>>>> After setting XEN and kernel as above, I tried the following two 
+>>>>> methods to add a PCIE device passthrough:
+>>>>> 1. According to your suggestion, use the command xl 
+>>>>> pci-assignable-add 0002:21:00.0 to set in the Dom0. But in function
+>>>>> iommu_do_pci_domctl,  after device_assigned is called, ENODEV 
+>>>>> error is obtained.
+>>>>> 2. Add xen-pciback.hide=(0002:21:00.0) to dom0-bootargs in the 
+>>>>> device tree, I encountered the same problem as before
+>>>>> when initializing the kernel. In function pci_add_device, PCIE 
+>>>>> devices cannot be added to SMMUv3.
+>>>> It is hard to find what is happening without logs. Could you please 
+>>>> share the Xen and Linux boot logs so that I can
+>>>> check what is the root cause of this issue.
+>>>>
+>>>>> The kernel version I use is 5.10. Does this have an impact?
+>>>> I am using the Linux version 5.15.44 but I don’t think is because 
+>>>> of Linux.
+>>>>
+>>>> Regards,
+>>>> Rahul
+>>> The attachment is a log file. I have to delete some content that may 
+>>> involve commercial. Please forgive me.
+>>>
+>>> In addition, I have forgotten to tell you a very important 
+>>> information. The PCIE controller used on my board
+>>> is DesignWare. I referred to the code of ECAM under XEN and added 
+>>> some support related to DesignWare
+>>> (DBI space mapping and PCIE read/write).
+>>>
+> The kernel.log file is from Dom0 boot. The PCIE device I trying to 
+> assign to domU is working fine in dom0.
+>> What I understood from the logs is you shared the logs for domU boot. 
+>> Could you please confirm that dom0 booted
+>> fine with the PCI passthrough branch and the PCI device you trying to 
+>> assign to domU is working fine in dom0.
 >>
->> Tests which did not succeed and are blocking,
->> including tests which could not be run:
->>   build-armhf                   6 xen-build                fail REGR. vs. 175173
-> 
-> armhf/xen/tools/libs/light/../../../tools/config.h  -c -o libxl_genid.o
-> libxl_genid.c
-> In file included from libxl_virtio.c:15:
-> libxl_virtio.c: In function 'libxl__set_xenstore_virtio':
-> libxl_internal.h:4388:51: error: format '%lu' expects argument of type
-> 'long unsigned int', but argument 3 has type 'uint64_t' {aka 'long long
-> unsigned int'} [-Werror=format=]
->   #define GCSPRINTF(fmt, ...) (libxl__sprintf((gc), (fmt), __VA_ARGS__))
->                                                     ^~~~~
-> libxl_virtio.c:48:41: note: in expansion of macro 'GCSPRINTF'
->       flexarray_append_pair(back, "base", GCSPRINTF("%lu", virtio->base));
->                                           ^~~~~~~~~
-> libxl_internal.h:4388:51: error: format '%lu' expects argument of type
-> 'long unsigned int', but argument 3 has type 'uint64_t' {aka 'long long
-> unsigned int'} [-Werror=format=]
->   #define GCSPRINTF(fmt, ...) (libxl__sprintf((gc), (fmt), __VA_ARGS__))
->                                                     ^~~~~
-> libxl_virtio.c:53:42: note: in expansion of macro 'GCSPRINTF'
->       flexarray_append_pair(front, "base", GCSPRINTF("%lu", virtio->base));
->                                            ^~~~~~~~~
-> cc1: all warnings being treated as errors
-> make[5]: ***
-> [/home/osstest/build.175251.build-armhf/xen/tools/libs/light/../../../tools/Rules.mk:188:
-> libxl_virtio.o] Error 1
-> 
-> 
-> This build breakage was introduced by "libxl: add support for generic
-> virtio device". %lu will likely want to be switched to PRIx64.
-> 
-> Viresh, we need to unblock OSStest (our CI) as soon as possible. So can
-> you look at it and confirm the rest of the tools build on arm32?
-The failure is also observed on all the x86_32 builds:
-https://gitlab.com/xen-project/xen/-/pipelines/722195904
+>> In that case we can confirm that code you added to support DesignWare 
+>> PCIE controller is fine.
+>>
+>>> In addition, if needed ,I can pre initialized PCIE controller in the 
+>>> uboot stage, so  I can scan the PCIE device
+>>> in the uboot command line.
+>
+>
+The reason for Data Abort is that the DomU uses the PCIE driver of the 
+ecam instead of the PCIE frontend.
+At present, PCIE frontend only supports x86. I'll try to migrate to ARM.
 
-> 
+> In order to verify my previous conjecture (there is no fwspec for the 
+> PCIE device,
+> which makes it impossible to passthrough), I used the following code 
+> to test.
+> The result is that the PCIE device can passthrough to the DomU, but 
+> the DomU kernel
+> appears Data Abort when trying to read the PCIE device. This may be 
+> because I directly add
+> the fwspec of the PCIE controller to the PCIE device, which leads to 
+> memory mapping problems.
+>
+> diff --git a/xen/drivers/passthrough/device_tree.c 
+> b/xen/drivers/passthrough/device_tree.c
+> index 98f2aa0..28283d2 100644
+> --- a/xen/drivers/passthrough/device_tree.c
+> +++ b/xen/drivers/passthrough/device_tree.c
+> @@ -127,6 +127,7 @@ int iommu_release_dt_devices(struct domain *d)
+>      return 0;
+>  }
+>
+> +struct device *smmu_dev_for_test;
+>  int iommu_add_dt_device(struct dt_device_node *np)
+>  {
+>      const struct iommu_ops *ops = iommu_get_ops();
+> @@ -167,7 +168,8 @@ int iommu_add_dt_device(struct dt_device_node *np)
+>          rc = iommu_fwspec_init(dev, &iommu_spec.np->dev);
+>          if ( rc )
+>              break;
+> -
+> +        else
+> +            smmu_dev_for_test = &iommu_spec.np->dev;
+>          /*
+>           * Provide DT IOMMU specifier which describes the IOMMU master
+>           * interfaces of that device (device IDs, etc) to the driver.
+>
+>
+> diff --git a/xen/drivers/passthrough/pci.c 
+> b/xen/drivers/passthrough/pci.c
+> index da4ecda..cf8a099 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -1316,6 +1316,8 @@ static int __init setup_dump_pcidevs(void)
+>  }
+>  __initcall(setup_dump_pcidevs);
+>
+> +extern int iommu_fwspec_init(struct device *dev, struct device 
+> *iommu_dev);
+> +extern struct device *smmu_dev_for_test;;
+>  static int iommu_add_device(struct pci_dev *pdev)
+>  {
+>      const struct domain_iommu *hd;
+> @@ -1331,6 +1333,10 @@ static int iommu_add_device(struct pci_dev *pdev)
+>      if ( !is_iommu_enabled(pdev->domain) )
+>          return 0;
+>
+> +    if (pdev->bus != 0x20)
+> +    {
+> +        iommu_fwspec_init(pci_to_dev(pdev), smmu_dev_for_test);
+> +    }
+>      rc = hd->platform_ops->add_device(pdev->devfn, pci_to_dev(pdev));
+>      if ( rc || !pdev->phantom_stride )
+>          return rc;
+> @@ -1401,6 +1407,7 @@ static int device_assigned(u16 seg, u8 bus, u8 
+> devfn)
+>
+>      ASSERT(pcidevs_locked());
+>      pdev = pci_get_pdev(seg, bus, devfn);
+> +    printk("%s:%p,%p,%p\n",__FUNCTION__, pdev->domain, 
+> hardware_domain, dom_io);
+>
+>      if ( !pdev )
+>          rc = -ENODEV;
+>
+> I will test the use of pci-passthrough  branch to verify the PCIE 
+> passthrough function
+>
+>> Yes, we can try that and use the below branch to check if it works. 
+>> Below branch supports to add PCI device
+>>   during Xen boot as compared to previous branch where Linux inform 
+>> Xen to add PCI devices.
+>>
+>> You need to add "pci-scan=on” in Xen command line to add PCI devices 
+>> during Xen boot.
+>>
+>> https://gitlab.com/xen-project/people/bmarquis/xen-arm-poc/-/tree/poc/pci-passthrough 
+>>
+>>
+>> Regards,
+>> Rahul
+>
 > Cheers,
-> 
-> --
-> Julien Grall
-> 
-
-~Michal
+> -- 
+> Sisyphean
+>
 
