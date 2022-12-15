@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0294B64D5D3
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 05:23:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463032.721134 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B370964D63B
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 06:41:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463045.721152 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5fl7-0000WZ-9U; Thu, 15 Dec 2022 04:22:13 +0000
+	id 1p5gyl-0002GR-Tt; Thu, 15 Dec 2022 05:40:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463032.721134; Thu, 15 Dec 2022 04:22:13 +0000
+Received: by outflank-mailman (output) from mailman id 463045.721152; Thu, 15 Dec 2022 05:40:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5fl7-0000Tj-50; Thu, 15 Dec 2022 04:22:13 +0000
-Received: by outflank-mailman (input) for mailman id 463032;
- Thu, 15 Dec 2022 04:22:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8lTo=4N=linaro.org=viresh.kumar@srs-se1.protection.inumbo.net>)
- id 1p5fl5-0000Td-Mf
- for xen-devel@lists.xen.org; Thu, 15 Dec 2022 04:22:11 +0000
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [2607:f8b0:4864:20::633])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0a0fd971-7c30-11ed-91b6-6bf2151ebd3b;
- Thu, 15 Dec 2022 05:22:09 +0100 (CET)
-Received: by mail-pl1-x633.google.com with SMTP id n4so1935753plp.1
- for <xen-devel@lists.xen.org>; Wed, 14 Dec 2022 20:22:09 -0800 (PST)
-Received: from localhost ([122.172.87.149]) by smtp.gmail.com with ESMTPSA id
- i31-20020a63221f000000b004792ff8ab61sm563959pgi.80.2022.12.14.20.22.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 14 Dec 2022 20:22:07 -0800 (PST)
+	id 1p5gyl-0002E4-Qc; Thu, 15 Dec 2022 05:40:23 +0000
+Received: by outflank-mailman (input) for mailman id 463045;
+ Thu, 15 Dec 2022 05:40:22 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5gyk-0002Du-UO; Thu, 15 Dec 2022 05:40:22 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5gyk-00006f-QO; Thu, 15 Dec 2022 05:40:22 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5gyk-0003Lf-EP; Thu, 15 Dec 2022 05:40:22 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5gyk-0004kz-Dv; Thu, 15 Dec 2022 05:40:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,85 +42,227 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a0fd971-7c30-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=QrqU72PGZgGOXQe0f/sy6mdR2E3gLTJqWCYdUGHEf9E=;
-        b=TaoSGEEe5G5+ojji/LPo5kfxZVzYkStkNATwfAgeNz6VPVnOpZ4CVMueqW7fP+PIxg
-         AgmZxXjAD7YGgDo2q0YsQDQ26az1tBiQgL5B2gTejeE/Ooi0ZXiaj81v5n2i333PTqRT
-         XnAJH4j7SszcNrcla5ESQVu7ptbEsLlcjkJmQne1+QrxIxiRIASW6SdVajnv0fI1UDjx
-         9xOrIzCqZLm1/csFWd5apHh080Bece5RrMWxhNSDFwCMynMH84wxUsgWRVh9ej4C0qGF
-         xvVAcNIiyYUmIRUvH/6RHr8OHcPc1X/DaOX5coomE7//lPdYzyPxTqIr/O6ZrL35ZRPR
-         PoSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=QrqU72PGZgGOXQe0f/sy6mdR2E3gLTJqWCYdUGHEf9E=;
-        b=hXSwbibkGx9SN33gF0e1qmNpskZfFnEKNfmJpiKJStJeXKO+QJHWboQbdxDtsR4PIz
-         d//L9q0Cz6Mb20Uc/l2VsuKnloh4hDDE5ghAlCwzH4IHLgOUhZ+pTQ3jsSHaTE0jdd1T
-         VKg4JYtwCM3Hj9ViLk7Fc2lg+Zo6f6+DCTqQe6VzsbYERRJQbcakS4f5hyCqouy2aRog
-         LHrVZpQGE+Yms4F4BSUdjyUFTQjVus1H0qLxUq6dsL7F0MxneOq8p4V8SlQ0poeGQ2TB
-         iOCEYPhjb7ahJ/twHWyPFjS+XXFdMet05SH/lYw7RK8rE1z/UV728OHxk0Ha81LWuQrz
-         7uLQ==
-X-Gm-Message-State: ANoB5pl+w65ghmJ0Q8xBS99Dpd5kzF4gvXutiZ+uEichXuzM/Hpd7ssG
-	nlvlkDr4rOfbpxJo7ax9Mts5Ug==
-X-Google-Smtp-Source: AA0mqf5uf5J2Bn83yiphpjZ+4LrnnWTImqjaEMsHjZ1PxSLQAy51LsYTYfWflPDrpgNWE53R9e50uQ==
-X-Received: by 2002:a05:6a20:54a5:b0:aa:3e5f:88ab with SMTP id i37-20020a056a2054a500b000aa3e5f88abmr37822235pzk.54.1671078128170;
-        Wed, 14 Dec 2022 20:22:08 -0800 (PST)
-Date: Thu, 15 Dec 2022 09:52:05 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>
-Cc: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Juergen Gross <jgross@suse.com>, xen-devel@lists.xen.org
-Subject: Re: Virtio-disk updates for latest Xen ?
-Message-ID: <20221215042205.y5565f7rv6asmsw5@vireshk-i7>
-References: <CAKohpo=u7qp4URjRRAMM4xEytmZoKZAJOZLw4v0HTk13BrK-fw@mail.gmail.com>
- <CAPD2p-kfhaygmNNutUdk-mApR7z1YDSTYCEhtLgLsXi+-wbv8A@mail.gmail.com>
- <20221207002138.qulrlav3z3heozk4@vireshk-i7>
- <20221207035918.amzgrybqub632dyc@vireshk-i7>
- <f4ba541c-d089-28af-c80b-dcb0fa87a9d7@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=zu+fjjsPsIAdZR+OeItgMwIbd8llY1pzPn2ijnOTmE4=; b=2fadTG9YATFHIAMH/TTi4yloF+
+	8MV2L08ZhF+zjFQ8mJ03lxjkpwl1mLX2IyMcr3OVJOBIAd0nEDn5lazoAeATnH0oMn8BBtD87ZIZD
+	l75/9K6FnFOPkRQrT6HoS/pxEg9nk13JDBOI+K1W+9TfusApN5AdtbfxB32rUx0AL3BA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175242-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f4ba541c-d089-28af-c80b-dcb0fa87a9d7@gmail.com>
+Subject: [xen-unstable-smoke test] 175242: regressions - FAIL
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=549b042943a57b748ce80070d1174e4ff5b8ef0b
+X-Osstest-Versions-That:
+    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Dec 2022 05:40:22 +0000
 
-On 14-12-22, 17:01, Oleksandr Tyshchenko wrote:
-> Today I had a chance to check virtio-disk on my H/W using new Xen branch
-> which does include Juergen's series with commit 3a96013a3e17
-> ("tools/xenstore: reduce number of watch events").
-> 
-> Very interesting, but I didn't manage to reproduce an issue the similar to
-> what you had already faced with the rust counterparts before (caused by the
-> lack of Xenstore watches?). Note that I didn't debug what exactly events I
-> had got during guest creation/destruction, I just made sure that backend
-> worked as before. I checked that by running the backend in Dom0 and DomD and
-> performed a couple of guest power cycles (reboot, destroy/create).
-> 
-> If you could provide the debug patch which you seem to use to print incoming
-> events which you described in previous email, I think I would be able to
-> re-check the situation at my side more deeper.
+flight 175242 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175242/
 
-This should be enough to see the new changes I believe.
+Regressions :-(
 
-diff --git a/xs_dev.c b/xs_dev.c
-index a6c8403cfe84..8525c6512299 100755
---- a/xs_dev.c
-+++ b/xs_dev.c
-@@ -421,6 +421,8 @@ static int xenstore_poll_be_watch(struct xs_dev *dev)
-     if (!vec)
-         return -1;
- 
-+    printf("%s: %s\n", vec[XS_WATCH_PATH], dev->path);
-+
-     if (!strcmp(vec[XS_WATCH_PATH], dev->path))
-         rc = xenstore_get_fe_domid(dev);
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                   6 xen-build                fail REGR. vs. 175173
 
--- 
-viresh
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  549b042943a57b748ce80070d1174e4ff5b8ef0b
+baseline version:
+ xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+
+Last test of basis   175173  2022-12-13 15:00:27 Z    1 days
+Testing same since   175199  2022-12-14 12:01:52 Z    0 days    8 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Juergen Gross <jgross@suse.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Viresh Kumar <viresh.kumar@linaro.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 549b042943a57b748ce80070d1174e4ff5b8ef0b
+Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Date:   Wed Dec 14 12:04:26 2022 +0100
+
+    drivers/char: support up to 1M BAR0 of xhci
+    
+    AMD's XHCI has BAR0 of 1M (compared to 64K on Intel). Map it as a whole
+    (reserving more space in the fixmap). Make fixmap slot conditional on
+    CONFIG_XHCI.
+    
+    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit dd54ea500be80f347402d75f3e4e7061e7db78d2
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:38 2022 +0100
+
+    docs: add documentation for generic virtio devices
+    
+    This patch updates xl.cfg man page with details of generic Virtio device
+    related information.
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+commit 953efa0b7b188458b18e4a727f3b1dfa77eacb61
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:25 2022 +0100
+
+    xl: add support to parse generic virtio device
+    
+    This patch adds basic support for parsing generic Virtio backend.
+    
+    An example of domain configuration for mmio based Virtio I2C device is:
+    virtio = ["type=virtio,device22,transport=mmio"]
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+
+commit 43ba5202e2eebd350161a8db674bf928c3e6f859
+Author: Viresh Kumar <viresh.kumar@linaro.org>
+Date:   Wed Dec 14 12:03:09 2022 +0100
+
+    libxl: add support for generic virtio device
+    
+    This patch adds basic support for configuring and assisting generic
+    Virtio backends, which could run in any domain.
+    
+    An example of domain configuration for mmio based Virtio I2C device is:
+    virtio = ["type=virtio,device22,transport=mmio"]
+    
+    To make this work on Arm, allocate Virtio MMIO params (IRQ and memory
+    region) and pass them to the backend and update guest device-tree to
+    create a DT node for the Virtio devices.
+    
+    Add special support for I2C and GPIO devices, which require the
+    "compatible" DT property to be set, among other device specific
+    properties. Support for generic virtio devices is also added, which just
+    need a MMIO node but not any special DT properties, for such devices the
+    user needs to pass "virtio,device" in the "type" string.
+    
+    The parsing of generic virtio device configurations will be done in a
+    separate commit.
+    
+    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
+    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+
+commit db75092aea988b4be78c8273626f2ee40b4012b8
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:02:21 2022 +0100
+
+    tools/xenstore: enhance hashtable implementation
+    
+    Today it is possible to set a flag when calling hashtable_destroy() in
+    order to specify whether the data associated with the hashtable entries
+    should be freed or not. The keys of the entries will always be freed.
+    
+    Change that by replacing the flag of hashtable_destroy() by two flags
+    for create_hashtable() which will specify whether the data and/or the
+    key of each entry should be freed or not.
+    
+    This will enable users to have the key e.g. as part of the data.
+    
+    Add a new function hashtable_iterate() to call a user specified
+    function for each entry in the hashtable.
+    
+    Add new primes to the primetable in order to support smaller sizes of
+    the hashtable. The primes are selected according to:
+    
+    https://planetmath.org/goodhashtableprimes
+    
+    Update the URL in the source as the old one wasn't correct any longer.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit bb65cbd81caaaaf325d23f63b4c2165960563459
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:02:04 2022 +0100
+
+    tools/xenstore: preserve errno across corrupt()
+    
+    Let corrupt() preserve errno in order to be able to simplify error
+    handling in future.
+    
+    This is rather easy as the errno value when entering corrupt() is
+    saved already.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit 6a0d1914f0b19742436367a0019602992573bd4b
+Author: Juergen Gross <jgross@suse.com>
+Date:   Wed Dec 14 12:01:47 2022 +0100
+
+    tools/xenstore: let tdb_logger() preserve errno
+    
+    tdb_logger() is called by TDB for logging errors. As errno is checked
+    often after doing the logging, tdb_logger() should preserve errno.
+    
+    Signed-off-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+
+commit 8d7acf3f7d8d2555c78421dced45bc49f79ae806
+Author: Demi Marie Obenour <demi@invisiblethingslab.com>
+Date:   Wed Dec 14 12:00:35 2022 +0100
+
+    EFI: relocate the ESRT when booting via multiboot2
+    
+    This was missed in the initial patchset.
+    
+    Move efi_relocate_esrt() up to avoid adding a forward declaration.
+    
+    Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+(qemu changes not included)
 
