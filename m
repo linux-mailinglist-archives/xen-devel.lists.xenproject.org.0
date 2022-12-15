@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5042364D5A4
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 04:38:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463005.721096 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5A364D5AB
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 04:47:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463016.721107 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5f4m-0001UX-If; Thu, 15 Dec 2022 03:38:28 +0000
+	id 1p5fD4-0003Gt-EP; Thu, 15 Dec 2022 03:47:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463005.721096; Thu, 15 Dec 2022 03:38:28 +0000
+Received: by outflank-mailman (output) from mailman id 463016.721107; Thu, 15 Dec 2022 03:47:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5f4m-0001SO-FS; Thu, 15 Dec 2022 03:38:28 +0000
-Received: by outflank-mailman (input) for mailman id 463005;
- Thu, 15 Dec 2022 03:38:26 +0000
+	id 1p5fD4-0003Dp-AZ; Thu, 15 Dec 2022 03:47:02 +0000
+Received: by outflank-mailman (input) for mailman id 463016;
+ Thu, 15 Dec 2022 03:47:00 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5f4k-0001SE-KJ; Thu, 15 Dec 2022 03:38:26 +0000
+ id 1p5fD2-0003Df-HY; Thu, 15 Dec 2022 03:47:00 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5f4k-00055l-7k; Thu, 15 Dec 2022 03:38:26 +0000
+ id 1p5fD2-0005PN-F4; Thu, 15 Dec 2022 03:47:00 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5f4j-0006aj-T2; Thu, 15 Dec 2022 03:38:25 +0000
+ id 1p5fD2-0006m6-3J; Thu, 15 Dec 2022 03:47:00 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5f4j-0001NX-SV; Thu, 15 Dec 2022 03:38:25 +0000
+ id 1p5fD2-0007d5-2s; Thu, 15 Dec 2022 03:47:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,67 +45,64 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=aaDyv5l72HJt5dDFiHRXnZvng6IH1KzvlgUudjeg4XM=; b=vqoYQ+7m1UBouuS6v1MZGSiOPT
-	jZtaqzN1sxp0nI/LIoQ4hosiCaF/MMxOS9ygdbISErZ0Qrbn/4FpgCYkjQrYPvPCIKd87KkRCF/iX
-	OXg354j/7eoPvy2Z3KDHw/htWfiFAv0YTLq8AZ/UMZvR1jhK2PwVlm/kxYYrOR1inX7U=;
+	bh=XgbsOfoXZfBaGFoe8CcyG0AaW8VOu+kZMg8whRfJ18Y=; b=tmOjPBo9B10zKxBwtTJ0QVn2Te
+	4n7E99HieLO3+ULpaGvEaBzePMo64c0OqQV2llGQI3yXoW9wIENg1uoP4LqYvzUeInbBkGomabbZS
+	zvmrxJiMPKyrWVKEVi9wpWahCAqYjvZHwHxTAyOYbmy1eS4SMBlg+2qScWzx2YpyVmm8=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175236-mainreport@xen.org>
+Message-ID: <osstest-175235-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175236: regressions - FAIL
+Subject: [ovmf test] 175235: regressions - FAIL
 X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
 X-Osstest-Versions-This:
-    xen=549b042943a57b748ce80070d1174e4ff5b8ef0b
+    ovmf=44fc90eb0ea7299abc79577db55aa6257b46b7ae
 X-Osstest-Versions-That:
-    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 15 Dec 2022 03:38:25 +0000
+Date: Thu, 15 Dec 2022 03:47:00 +0000
 
-flight 175236 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175236/
+flight 175235 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175235/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- build-armhf                   6 xen-build                fail REGR. vs. 175173
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
 
 version targeted for testing:
- xen                  549b042943a57b748ce80070d1174e4ff5b8ef0b
+ ovmf                 44fc90eb0ea7299abc79577db55aa6257b46b7ae
 baseline version:
- xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
 
-Last test of basis   175173  2022-12-13 15:00:27 Z    1 days
-Testing same since   175199  2022-12-14 12:01:52 Z    0 days    7 attempts
+Last test of basis   175202  2022-12-14 13:42:59 Z    0 days
+Failing since        175214  2022-12-14 18:42:16 Z    0 days    4 attempts
+Testing same since   175235  2022-12-15 02:00:48 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Demi Marie Obenour <demi@invisiblethingslab.com>
-  Juergen Gross <jgross@suse.com>
-  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-  Viresh Kumar <viresh.kumar@linaro.org>
+  Ard Biesheuvel <ardb@kernel.org>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
 jobs:
- build-arm64-xsm                                              pass    
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
  build-amd64                                                  pass    
- build-armhf                                                  fail    
+ build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
 ------------------------------------------------------------
@@ -127,142 +124,193 @@ Test harness code can be found at
 Not pushing.
 
 ------------------------------------------------------------
-commit 549b042943a57b748ce80070d1174e4ff5b8ef0b
-Author: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-Date:   Wed Dec 14 12:04:26 2022 +0100
+commit 44fc90eb0ea7299abc79577db55aa6257b46b7ae
+Author: devel@edk2.groups.io <devel@edk2.groups.io>
+Date:   Wed Nov 30 15:02:15 2022 -0800
 
-    drivers/char: support up to 1M BAR0 of xhci
+    UnitTestFrameworkPkg/UnitTestLib: Print expected Status on ASSERT fail
     
-    AMD's XHCI has BAR0 of 1M (compared to 64K on Intel). Map it as a whole
-    (reserving more space in the fixmap). Make fixmap slot conditional on
-    CONFIG_XHCI.
+    Update the UnitTestAssertStatusEqual error message to print out the
+    expected value in addition to the seen value.
     
-    Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Signed-off-by: Jeshua Smith <jeshuas@nvidia.com>
+    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
+    Reviewed-by: Michael D Kinney <michael.d.kinney@intel.com>
 
-commit dd54ea500be80f347402d75f3e4e7061e7db78d2
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:38 2022 +0100
+commit cda98df16228970dcf9a4ce2af5368219711b4b0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:09 2022 +0100
 
-    docs: add documentation for generic virtio devices
+    OvmfPkg/QemuFwCfgLib: remove mQemuFwCfgSupported + mQemuFwCfgDmaSupported
     
-    This patch updates xl.cfg man page with details of generic Virtio device
-    related information.
+    Remove global variables, store the state in PlatformInfoHob instead.
+    Probing for fw_cfg happens on first use, at library initialization
+    time the Hob might not be present yet.
     
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit 953efa0b7b188458b18e4a727f3b1dfa77eacb61
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:25 2022 +0100
+commit 81bbc1452c972218f071cd4a8f5899df974b1dae
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:08 2022 +0100
 
-    xl: add support to parse generic virtio device
+    OvmfPkg/QemuFwCfgLib: rewrite fw_cfg probe
     
-    This patch adds basic support for parsing generic Virtio backend.
+    Move the code to a new QemuFwCfgProbe() function.  Use direct Io*() calls
+    instead of indirect QemuFwCfg*() calls to make sure we don't get
+    recursive calls.  Also simplify CC guest detection.
     
-    An example of domain configuration for mmio based Virtio I2C device is:
-    virtio = ["type=virtio,device22,transport=mmio"]
-    
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit 43ba5202e2eebd350161a8db674bf928c3e6f859
-Author: Viresh Kumar <viresh.kumar@linaro.org>
-Date:   Wed Dec 14 12:03:09 2022 +0100
+commit e59747bd8246135faeecc18879d62db66a6acfc2
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:07 2022 +0100
 
-    libxl: add support for generic virtio device
+    OvmfPkg/DebugLibIoPort: use Rom version for PEI
     
-    This patch adds basic support for configuring and assisting generic
-    Virtio backends, which could run in any domain.
+    This variant does not use global variables.
     
-    An example of domain configuration for mmio based Virtio I2C device is:
-    virtio = ["type=virtio,device22,transport=mmio"]
-    
-    To make this work on Arm, allocate Virtio MMIO params (IRQ and memory
-    region) and pass them to the backend and update guest device-tree to
-    create a DT node for the Virtio devices.
-    
-    Add special support for I2C and GPIO devices, which require the
-    "compatible" DT property to be set, among other device specific
-    properties. Support for generic virtio devices is also added, which just
-    need a MMIO node but not any special DT properties, for such devices the
-    user needs to pass "virtio,device" in the "type" string.
-    
-    The parsing of generic virtio device configurations will be done in a
-    separate commit.
-    
-    Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-    Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
-    Reviewed-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit db75092aea988b4be78c8273626f2ee40b4012b8
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:02:21 2022 +0100
+commit f6a196c7eb34affff0cfe1864e126953096885e1
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:06 2022 +0100
 
-    tools/xenstore: enhance hashtable implementation
+    OvmfPkg/PlatformPei: remove mFeatureControlValue
     
-    Today it is possible to set a flag when calling hashtable_destroy() in
-    order to specify whether the data associated with the hashtable entries
-    should be freed or not. The keys of the entries will always be freed.
+    Use PlatformInfoHob->FeatureControlValue instead.
+    OnMpServicesAvailable() will find PlatformInfoHob using
+    GetFirstGuidHob() and pass a pointer to the WriteFeatureControl
+    callback.
     
-    Change that by replacing the flag of hashtable_destroy() by two flags
-    for create_hashtable() which will specify whether the data and/or the
-    key of each entry should be freed or not.
-    
-    This will enable users to have the key e.g. as part of the data.
-    
-    Add a new function hashtable_iterate() to call a user specified
-    function for each entry in the hashtable.
-    
-    Add new primes to the primetable in order to support smaller sizes of
-    the hashtable. The primes are selected according to:
-    
-    https://planetmath.org/goodhashtableprimes
-    
-    Update the URL in the source as the old one wasn't correct any longer.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit bb65cbd81caaaaf325d23f63b4c2165960563459
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:02:04 2022 +0100
+commit 862614e2544997c848fab7388733774ae0ea92d8
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:05 2022 +0100
 
-    tools/xenstore: preserve errno across corrupt()
+    OvmfPkg/PlatformPei: remove mPlatformInfoHob
     
-    Let corrupt() preserve errno in order to be able to simplify error
-    handling in future.
+    Stop using the mPlatformInfoHob global variable.  Let
+    BuildPlatformInfoHob() allocate and return PlatformInfoHob instead.
     
-    This is rather easy as the errno value when entering corrupt() is
-    saved already.
-    
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit 6a0d1914f0b19742436367a0019602992573bd4b
-Author: Juergen Gross <jgross@suse.com>
-Date:   Wed Dec 14 12:01:47 2022 +0100
+commit 4bc2c748516e5c4a8bb86093cd5e1b80a9f35c0f
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:04 2022 +0100
 
-    tools/xenstore: let tdb_logger() preserve errno
+    OvmfPkg/PlatformPei: Verification: stop using mPlatformInfoHob
     
-    tdb_logger() is called by TDB for logging errors. As errno is checked
-    often after doing the logging, tdb_logger() should preserve errno.
+    Stop using the mPlatformInfoHob global variable in S3Verification() and
+    Q35BoardVerification() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
     
-    Signed-off-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
 
-commit 8d7acf3f7d8d2555c78421dced45bc49f79ae806
-Author: Demi Marie Obenour <demi@invisiblethingslab.com>
-Date:   Wed Dec 14 12:00:35 2022 +0100
+commit 7dbb8a24d1a3403f85d959bc1234b9f4a92bfbf0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:03 2022 +0100
 
-    EFI: relocate the ESRT when booting via multiboot2
+    OvmfPkg/PlatformPei: NoExec: stop using mPlatformInfoHob
     
-    This was missed in the initial patchset.
+    Stop using the mPlatformInfoHob global variable in NoexecDxeInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
     
-    Move efi_relocate_esrt() up to avoid adding a forward declaration.
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit cc6efda7770b8cabea3ae8c6054d47c4a8e229c3
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:02 2022 +0100
+
+    OvmfPkg/PlatformPei: MemTypeInfo: stop using mPlatformInfoHob
     
-    Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(qemu changes not included)
+    Stop using the mPlatformInfoHob global variable in MemTypeInfoInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 27874a382c38a95d3ab613eebd35c152ca9b3897
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:01 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiMemory: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PublishPeiMemory()
+    and GetPeiMemoryCap() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 00743d144bc5b643e9323ad66f16cb48cf338705
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:00 2022 +0100
+
+    OvmfPkg/PlatformPei Q35 SMM helpers: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in
+    Q35TsegMbytesInitialization() and
+    Q35SmramAtDefaultSmbaseInitialization() ) functions.
+    Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 9d9d15b42a5e13bb18729da0f608c629aa274e80
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:59 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiFv: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PeiFvInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 78c373f2a5273af00b23b55d3e8c41583310cfb6
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:58 2022 +0100
+
+    OvmfPkg/PlatformPei: AmdSev: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in AmdSevInitialize()
+    and AmdSevEsInitialize() functions.  Pass a pointer to the
+    PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 916825b84f23b691dcce09a57625fb8fcb0cbb48
+Author: Jeff Brasen <jbrasen@nvidia.com>
+Date:   Tue Nov 15 11:01:06 2022 -0700
+
+    DynamicTablesPkg: SSDT _LPI revision is incorrect
+    
+    _LPI Revision should be 0 per the ACPI 6.5 specification.
+    "The revision number of the _LPI object. Current revision is 0."
+    
+    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
+    Reviewed-by: Pierre Gondois <pierre.gondois@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
 
