@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F36C64E39E
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 23:08:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463920.722213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EAF864E4C4
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 00:46:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463932.722237 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5wOn-0006BV-2y; Thu, 15 Dec 2022 22:08:17 +0000
+	id 1p5xu8-00083g-6b; Thu, 15 Dec 2022 23:44:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463920.722213; Thu, 15 Dec 2022 22:08:17 +0000
+Received: by outflank-mailman (output) from mailman id 463932.722237; Thu, 15 Dec 2022 23:44:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5wOm-00068o-Vg; Thu, 15 Dec 2022 22:08:16 +0000
-Received: by outflank-mailman (input) for mailman id 463920;
- Thu, 15 Dec 2022 22:08:15 +0000
+	id 1p5xu8-00080D-32; Thu, 15 Dec 2022 23:44:44 +0000
+Received: by outflank-mailman (input) for mailman id 463932;
+ Thu, 15 Dec 2022 23:44:42 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p5wOl-00068i-G7
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 22:08:15 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5xu6-000803-Mk; Thu, 15 Dec 2022 23:44:42 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5wOk-0007la-Vt; Thu, 15 Dec 2022 22:08:14 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p5wOk-0005xo-Ky; Thu, 15 Dec 2022 22:08:14 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5xu6-0001LH-KP; Thu, 15 Dec 2022 23:44:42 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5xu6-0000ta-AU; Thu, 15 Dec 2022 23:44:42 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p5xu6-00066x-86; Thu, 15 Dec 2022 23:44:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +42,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=km8HMaf+h/G4giMciMUYyrczOwZGRlbTrGWh24VKxUE=; b=6jQZZbybZoihbku2nDPWaMkAys
-	8HuJiiuQY7RNr4ki9TPabvnC5h6YUG6fN46fQA0Q0yaKXVHuLPtEsb+1tjoU9DW/9UVKJYZerRbkn
-	Des/zvB4/9KS9bGri/2Jqlxv4TMNk8JMl1LjrA0wlehkIsH8G7JQbCscOyWZLWVuZqoc=;
-Message-ID: <1d39868b-bafb-bce7-c8bb-1c4a3ea48398@xen.org>
-Date: Thu, 15 Dec 2022 22:08:12 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BdsooQbYcZ+kx8Gj0FhJsaiWaC9vW4V5UuKvfweoOAA=; b=18GdniqMZcfUrWHlHbHFt8t9LZ
+	PRvMb+/DM4/DVhNNmte7u6vdVv9PiiYqpZfWVw01U6rFmCLQh4uROKOsEA2JJYhXGfl+FsfE3uVd0
+	u59wz5BfjtThbdHd85q805h9j2kzLlSpGlzdMMjStTWVX8+F/vNsTHssCAIui7fAOFc8=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175292-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [XEN v1 7/9] xen/arm: Restrict zeroeth_table_offset for ARM_64
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
- <20221215193245.48314-8-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20221215193245.48314-8-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [xen-unstable-smoke test] 175292: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=c8aaebccc8e8fb5d90080e664202b0011ce4d0bd
+X-Osstest-Versions-That:
+    xen=630dc3798e1d0d1b95f7be8b176563eb40e866e5
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 15 Dec 2022 23:44:42 +0000
 
-Hi,
+flight 175292 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175292/
 
-On 15/12/2022 19:32, Ayan Kumar Halder wrote:
-> zeroeth_table_offset is not accessed for ARM_32.
+Failures :-/ but no regressions.
 
-Right, but what is the problem with keep it? With your proposal we need 
-to duplicate the macro DECLARE_OFFSETS() which is not great.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
 
-So you want to provide a more compelling reason to have the duplication.
+version targeted for testing:
+ xen                  c8aaebccc8e8fb5d90080e664202b0011ce4d0bd
+baseline version:
+ xen                  630dc3798e1d0d1b95f7be8b176563eb40e866e5
 
-> This is a left over of the following commit
+Last test of basis   175173  2022-12-13 15:00:27 Z    2 days
+Failing since        175199  2022-12-14 12:01:52 Z    1 days   16 attempts
+Testing same since   175292  2022-12-15 20:00:29 Z    0 days    1 attempts
 
-I am not sure why you are saying this is a left-over.
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Demi Marie Obenour <demi@invisiblethingslab.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Julien Grall <julien@xen.org>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+  Viresh Kumar <viresh.kumar@linaro.org>
 
-DECLARE_OFFSETS was introduced in 2019 so...
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-> 
-> "
-> commit 5fa6e9abfb11
-> Author: Ian Campbell <ian.campbell@citrix.com>
-> Date:   Thu Sep 18 01:09:48 2014 +0100
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-... 5 years after there.
+Pushing revision :
 
-> 
->      xen: arm: Implement variable levels in dump_pt_walk
-> "
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->   xen/arch/arm/include/asm/lpae.h | 10 ++++++++++
->   xen/arch/arm/mm.c               |  4 ++++
->   2 files changed, 14 insertions(+)
-> 
-> diff --git a/xen/arch/arm/include/asm/lpae.h b/xen/arch/arm/include/asm/lpae.h
-> index 3fdd5d0de2..35769debf9 100644
-> --- a/xen/arch/arm/include/asm/lpae.h
-> +++ b/xen/arch/arm/include/asm/lpae.h
-> @@ -161,6 +161,7 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->   #define lpae_set_mfn(pte, mfn)  ((pte).walk.base = mfn_x(mfn))
->   
->   /* Generate an array @var containing the offset for each level from @addr */
-> +#ifdef CONFIG_ARM_64
->   #define DECLARE_OFFSETS(var, addr)          \
->       const unsigned int var[4] = {           \
->           zeroeth_table_offset(addr),         \
-> @@ -168,6 +169,15 @@ static inline bool lpae_is_superpage(lpae_t pte, unsigned int level)
->           second_table_offset(addr),          \
->           third_table_offset(addr)            \
->       }
-> +#else
-> +#define DECLARE_OFFSETS(var, addr)          \
-> +    const unsigned int var[4] = {           \
-> +        0,                                  \
-> +        first_table_offset(addr),           \
-> +        second_table_offset(addr),          \
-> +        third_table_offset(addr)            \
-> +    }
-> +#endif
->   
->   /*
->    * Standard entry type that we'll use to build Xen's own pagetables.
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index 630175276f..be939fb106 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -184,7 +184,11 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
->       static const char *level_strs[4] = { "0TH", "1ST", "2ND", "3RD" };
->       const mfn_t root_mfn = maddr_to_mfn(ttbr);
->       const unsigned int offsets[4] = {
-> +#ifdef CONFIG_ARM_64
->           zeroeth_table_offset(addr),
-> +#else
-> +        0,
-> +#endif
->           first_table_offset(addr),
->           second_table_offset(addr),
->           third_table_offset(addr)
-
-Please use DECLARE_OFFSETS() here.
-
-Cheers,
-
--- 
-Julien Grall
+To xenbits.xen.org:/home/xen/git/xen.git
+   630dc3798e..c8aaebccc8  c8aaebccc8e8fb5d90080e664202b0011ce4d0bd -> smoke
 
