@@ -2,55 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A4864E30E
-	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 22:27:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.463884.722169 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8173C64E34F
+	for <lists+xen-devel@lfdr.de>; Thu, 15 Dec 2022 22:38:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.463892.722180 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5vkP-0008Ng-3r; Thu, 15 Dec 2022 21:26:33 +0000
+	id 1p5vvr-0001VH-5e; Thu, 15 Dec 2022 21:38:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 463884.722169; Thu, 15 Dec 2022 21:26:33 +0000
+Received: by outflank-mailman (output) from mailman id 463892.722180; Thu, 15 Dec 2022 21:38:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5vkP-0008LP-0B; Thu, 15 Dec 2022 21:26:33 +0000
-Received: by outflank-mailman (input) for mailman id 463884;
- Thu, 15 Dec 2022 21:26:31 +0000
+	id 1p5vvr-0001TJ-2Z; Thu, 15 Dec 2022 21:38:23 +0000
+Received: by outflank-mailman (input) for mailman id 463892;
+ Thu, 15 Dec 2022 21:38:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q86o=4N=amd.com=Stewart.Hildebrand@srs-se1.protection.inumbo.net>)
- id 1p5vkM-0008LI-VQ
- for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 21:26:31 +0000
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2069.outbound.protection.outlook.com [40.107.94.69])
+ <SRS0=+fpb=4N=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p5vvp-0001TA-Dy
+ for xen-devel@lists.xenproject.org; Thu, 15 Dec 2022 21:38:21 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 22172d7d-7cbf-11ed-8fd3-01056ac49cbb;
- Thu, 15 Dec 2022 22:26:28 +0100 (CET)
-Received: from DS7PR03CA0100.namprd03.prod.outlook.com (2603:10b6:5:3b7::15)
- by IA0PR12MB8325.namprd12.prod.outlook.com (2603:10b6:208:407::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Thu, 15 Dec
- 2022 21:26:24 +0000
-Received: from DS1PEPF0000E642.namprd02.prod.outlook.com
- (2603:10b6:5:3b7:cafe::43) by DS7PR03CA0100.outlook.office365.com
- (2603:10b6:5:3b7::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Thu, 15 Dec 2022 21:26:24 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DS1PEPF0000E642.mail.protection.outlook.com (10.167.17.198) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.8 via Frontend Transport; Thu, 15 Dec 2022 21:26:23 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 15:26:23 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 15 Dec
- 2022 15:26:22 -0600
-Received: from ubuntu.mshome.net (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Thu, 15 Dec 2022 15:26:20 -0600
+ id cadb3f15-7cc0-11ed-8fd3-01056ac49cbb;
+ Thu, 15 Dec 2022 22:38:20 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6370AB81CAE;
+ Thu, 15 Dec 2022 21:38:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27268C433D2;
+ Thu, 15 Dec 2022 21:38:17 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,114 +44,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 22172d7d-7cbf-11ed-8fd3-01056ac49cbb
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aiP6j3KmeuQBWChrnEtj1rWSN+G2gjyk5OV87vaRyRoGctXjrLqtoLAqmyprM2ijW0UHBTBqIUWWuftoovuY5CwR6FeA8cwDxg+/+1naGl8ACsYuoN5Ehm7HvAQMLJQbMSKt6P2hgcolVqmAM5VG7NFZ65UBzfCDyNmBDlAgQsVazivnkxN1ffj4SY9IoujRpqMYfQAu5utVUWYxassy2nLynNsuYGD4BMHyL9981L1duf7x0KRGYYwQX9Wt49z0PrjFH3fRcoFAMJtGPGCB9Zlx0dT1WULRAnLQB/CT10IK5zvVy+KYBAVqpv8efUXMI6OcD2Plisd493BudOVcoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ljuQWQEtTPReGihcK1oLWIA2nnJYgm6prEGP32L0Pmg=;
- b=J6ObvvrVJz2AxdpaTne+5Af5wv+gRbDG+Fx4CODnaE0gk5O6OgdBopGPf6yWRcKjRiCQrN65QnebVB4Z63e4VAUmVdZGhJP3HLzsAi1lbZbwZozSs5Kz1eYLVizHh+8r51GOVdt9SKUnvhqIN207PgxBZ7jXvsHvcbFnUf9rZRjxcdRE8sQODKG18hYi/9Y3c6OzINvazuossCICsz5NXi4cY4GZrIeemrGliumEPkGnImllc5RvQMcQ6efmyPZXBHm3UhA+Nb1OdVgO17+CdTq3mK9tPiD+MzN8Ru1LPSCzWC0inIkz0evrG1mKvaFUih1dezTQXzN1wFB/1TQUxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ljuQWQEtTPReGihcK1oLWIA2nnJYgm6prEGP32L0Pmg=;
- b=XZbR79SSjXxeQ+55ntkHTeStY8hI6s6X9aZ1LK+Uz+qtymwfzgbPbwY0zYy3yRM85MoRL+ZE/TggPRF2Aocy3zKGr8oRLr93N2aLcX9nYEhS0gK3vdpwuhpbY4gLRy9PSXutiMTz3kbZtPwMmYXl1dNWqTZbPGq6bOEhkdc9UoI=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Stewart Hildebrand <stewart.hildebrand@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Stewart Hildebrand <stewart.hildebrand@amd.com>, Bertrand Marquis
-	<bertrand.marquis@arm.com>, Rahul Singh <rahul.singh@arm.com>, "Stefano
- Stabellini" <sstabellini@kernel.org>, Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v3] xen/arm: smmuv3: mark arm_smmu_disable_pasid __maybe_unused
-Date: Thu, 15 Dec 2022 16:26:19 -0500
-Message-ID: <20221215212619.78686-1-stewart.hildebrand@amd.com>
-X-Mailer: git-send-email 2.39.0
+X-Inumbo-ID: cadb3f15-7cc0-11ed-8fd3-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1671140298;
+	bh=4PjhiSJ0cTwANbh+MCsiUb8qAu4KCIKTWftPX7NTVL8=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=O6GQ8o/fI+BhdQLaOZf7AArzGInr5nd96cGQiowoCgnZ6eW3PqNNfmz5haKQVDtAL
+	 9TMacXa4IA5+diwnwdX4yc6Hq2zo+DoxDIewecF4LzspGITS8nXJsU3nz0PgPk8TCJ
+	 8EWv3n0B7WFY8P+YaWMPhMJ/FC9SWOPqsVB/IysyH5covTTsubYnA+Vu1gOBV/TDRc
+	 DVpKoZ2eHH1mRTsB2Pfj/W0MW19b9z27ZFAbDtdrpLtlriOGco+pzyX6e2OHKm2CXA
+	 OMLHO43JzNS/JnVmksFWZfKkZtZ32YwGO1wHmLjv/NFxL493CzI8wJoKiVKdjyThKm
+	 Uxvc1We7oKtiw==
+Date: Thu, 15 Dec 2022 13:38:15 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, 
+    Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: Re: [PATCH] xen/arm: Allow to set grant table related limits for
+ dom0less domUs
+In-Reply-To: <20221214130833.543-1-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2212151335020.315094@ubuntu-linux-20-04-desktop>
+References: <20221214130833.543-1-michal.orzel@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF0000E642:EE_|IA0PR12MB8325:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5646c02-2b89-438e-3ff9-08dadee30449
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	tjpdDUPO11BCjeKkfs9pvRLLsy4Jcd0C3A7kWr86kRoIsP5dCBhBGEUXlbAE8Cjjx4HM8XEOB7+wHqZubjUFJYXqlI80F+h7MhJheOwEa0CdJviHkGy6Josx1h8WWMp+QmM+Af0wU7QIA5QyNTIkiEljvbVdA84/bkEquuNspTU0/Wx0bi5xsln0POmmdiGjTUX2QR3fsNlFUG/rUEStk96HnPFPpi+D2/k+TgY5O4vPFHe24lNt9NTL/gheSXjbuBkI4h1OFvo98GRs3W9pw1VOqzt0pxYRTQJvWmiRgQnmLeNa8bWxhcimILu+0yagUfe6tYbqTbaTVW9mprzrqTd9JhvYlx7HVod/KG/A3FM6BH3DgSW1zmnmijEX6A3VpvgFXuR4P5E7FwLcG6k43hiOjSJesPiwzsyfZ1Lcw8ZAzVPYlfZJLTmGP2Q74DrGuL8V9uUPvVFycJrKtUQGDViir72hwiRkkOqbWQOSaATJaq0LvhkrTndu9fIQYEXBgpHLjH64GhdtHebuXmeSZfI9omU6PvoilJsBktfSvHe5qMNSTzjGSESnjRcpY/UzOi9Ek264pbqbEtQ8MUeIqw1nzJ2R6lMdfhjesEMPzN9kFBGxLrDQqexY+QtY8mI5+MPFb9pvZl7OgQsgco6A0qeU8HtM5OH4FAYwcdIM3FFrHFkyqUTkEP7e0bNBHJvG+FUoeyH8JbCW4o9bqsO3R7xmub+olClcKVJSQsTko6c=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:CA;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(396003)(346002)(39860400002)(136003)(451199015)(40470700004)(46966006)(36840700001)(8676002)(8936002)(4326008)(1076003)(2616005)(36860700001)(70586007)(2906002)(70206006)(36756003)(356005)(82310400005)(186003)(81166007)(26005)(6916009)(44832011)(54906003)(40460700003)(83380400001)(316002)(336012)(40480700001)(5660300002)(47076005)(478600001)(86362001)(82740400003)(41300700001)(426003)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Dec 2022 21:26:23.6417
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5646c02-2b89-438e-3ff9-08dadee30449
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS1PEPF0000E642.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8325
+Content-Type: text/plain; charset=US-ASCII
 
-When building with clang 12 and CONFIG_ARM_SMMU_V3=y, we observe the
-following build error:
+On Wed, 14 Dec 2022, Michal Orzel wrote:
+> At the moment, for dom0less domUs, we do not have a way to specify
+> per domain grant table related limits (unlike when using xl), namely
+> max version, max number of grant frames, max number of maptrack frames.
+> This means that such domains always use the values specified by the Xen
+> command line parameters or their default values if unspecified.
+> 
+> In order to have more control over dom0less domUs, introduce the
+> following device-tree properties that can be set under domUs nodes:
+>  - max_grant_version to set the maximum grant table version the domain
+>    is allowed to use,
+>  - max_grant_frames to set the maximum number of grant frames the domain
+>    is allowed to have,
+>  - max_maptrack_frames to set the maximum number of grant maptrack frames
+>    the domain is allowed to have.
+> 
+> Update documentation accordingly.
+> 
+> Note that the sanity checks regarding the passed values are already
+> there in grant_table_init() resulting in panic in case of errors,
+> therefore no need to repeat them in create_domUs().
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+>  docs/misc/arm/device-tree/booting.txt | 21 +++++++++++++++++++++
+>  xen/arch/arm/domain_build.c           | 11 ++++++++++-
+>  2 files changed, 31 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
+> index 87eaa3e25491..3879340b5e0a 100644
+> --- a/docs/misc/arm/device-tree/booting.txt
+> +++ b/docs/misc/arm/device-tree/booting.txt
+> @@ -223,6 +223,27 @@ with the following properties:
+>      the default size of domain P2M pool, i.e. 1MB per guest vCPU plus 4KB
+>      per MB of guest RAM plus 512KB for guest extended regions.
+>  
+> +- max_grant_version
+> +
+> +    Optional. A 32-bit integer specifying the maximum grant table version
+> +    the domain is allowed to use (valid values are 1 or 2). If this property
+> +    is missing, the value specified by Xen command line parameter gnttab=max-ver
+> +    (or its default value if unspecified, i.e. 1) is used.
+> +
+> +- max_grant_frames
+> +
+> +    Optional. A 32-bit integer specifying the maximum number of grant frames
+> +    the domain is allowed to have. If this property is missing, the value
+> +    specified by Xen command line parameter gnttab_max_frames (or its default
+> +    value if unspecified, i.e. 64) is used.
+> +
+> +- max_maptrack_frames
+> +
+> +    Optional. A 32-bit integer specifying the maximum number of grant maptrack
+> +    frames the domain is allowed to have. If this property is missing, the
+> +    value specified by Xen command line parameter gnttab_max_maptrack_frames
+> +    (or its default value if unspecified, i.e. 1024) is used.
+> +
+>  Under the "xen,domain" compatible node, one or more sub-nodes are present
+>  for the DomU kernel and ramdisk.
+>  
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index bef5e905a73c..29b2f3e1faa2 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -3871,7 +3871,7 @@ void __init create_domUs(void)
+>              .max_maptrack_frames = -1,
+>              .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
+>          };
+> -        unsigned int flags = 0U;
+> +        unsigned int flags = 0U, val;
 
-drivers/passthrough/arm/smmu-v3.c:1408:20: error: unused function 'arm_smmu_disable_pasid' [-Werror,-Wunused-function]
-static inline void arm_smmu_disable_pasid(struct arm_smmu_master *master) { }
-                   ^
+val should be uint32_t
 
-arm_smmu_disable_pasid is not currently called from anywhere in Xen, but
-it is inside a section of code guarded by CONFIG_PCI_ATS, which may be
-helpful in the future if the PASID feature is to be implemented. Add the
-attribute __maybe_unused to the function.
 
-Signed-off-by: Stewart Hildebrand <stewart.hildebrand@amd.com>
-Reviewed-by: Rahul Singh <rahul.singh@arm.com>
----
-v2->v3:
-Place __maybe_unused after "void" and add newline after __maybe_unused
-Add Rahul's R-b
+>          if ( !dt_device_is_compatible(node, "xen,domain") )
+>              continue;
+> @@ -3940,6 +3940,15 @@ void __init create_domUs(void)
+>              d_cfg.cpupool_id = pool_id;
+>          }
+>  
+> +        if ( dt_property_read_u32(node, "max_grant_version", &val) )
+> +            d_cfg.grant_opts = XEN_DOMCTL_GRANT_version(val);
+> +
+> +        if ( dt_property_read_u32(node, "max_grant_frames", &val) )
+> +            d_cfg.max_grant_frames = val;
+> +
+> +        if ( dt_property_read_u32(node, "max_maptrack_frames", &val) )
+> +            d_cfg.max_maptrack_frames = val;
 
-v1->v2:
-Add __maybe_unused attribute instead of removing
----
- xen/drivers/passthrough/arm/smmu-v3.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+We need to be careful here because max_grant_frames and
+max_maptrack_frames are defined as int32_t (signed):
 
-diff --git a/xen/drivers/passthrough/arm/smmu-v3.c b/xen/drivers/passthrough/arm/smmu-v3.c
-index 9c9f4630090e..d58c5cd0bf77 100644
---- a/xen/drivers/passthrough/arm/smmu-v3.c
-+++ b/xen/drivers/passthrough/arm/smmu-v3.c
-@@ -1376,7 +1376,8 @@ static int arm_smmu_enable_pasid(struct arm_smmu_master *master)
- 	return 0;
- }
- 
--static void arm_smmu_disable_pasid(struct arm_smmu_master *master)
-+static void __maybe_unused
-+arm_smmu_disable_pasid(struct arm_smmu_master *master)
- {
- 	struct pci_dev *pdev;
- 
-@@ -1405,7 +1406,8 @@ static inline int arm_smmu_enable_pasid(struct arm_smmu_master *master)
- 	return 0;
- }
- 
--static inline void arm_smmu_disable_pasid(struct arm_smmu_master *master) { }
-+static inline void __maybe_unused
-+arm_smmu_disable_pasid(struct arm_smmu_master *master) { }
- #endif /* CONFIG_PCI_ATS */
- 
- static void arm_smmu_detach_dev(struct arm_smmu_master *master)
--- 
-2.39.0
+    int32_t max_grant_frames;
+    int32_t max_maptrack_frames;
 
+I think we should have a check to make sure we don't cause an overflow.
+For instance:
+
+if ( val >= INT32_MAX ) {
+    error;
+}
+d_cfg.max_grant_frames = val;
 
