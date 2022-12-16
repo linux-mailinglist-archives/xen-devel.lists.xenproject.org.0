@@ -2,55 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37F5164E8A0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 10:31:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464258.722598 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F8CD64E8A1
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 10:32:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464265.722609 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6736-0005Xl-VG; Fri, 16 Dec 2022 09:30:36 +0000
+	id 1p674N-00065y-8t; Fri, 16 Dec 2022 09:31:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464258.722598; Fri, 16 Dec 2022 09:30:36 +0000
+Received: by outflank-mailman (output) from mailman id 464265.722609; Fri, 16 Dec 2022 09:31:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6736-0005VG-Rg; Fri, 16 Dec 2022 09:30:36 +0000
-Received: by outflank-mailman (input) for mailman id 464258;
- Fri, 16 Dec 2022 09:30:34 +0000
+	id 1p674N-00063N-5G; Fri, 16 Dec 2022 09:31:55 +0000
+Received: by outflank-mailman (input) for mailman id 464265;
+ Fri, 16 Dec 2022 09:31:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PP9E=4O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p6734-0005VA-Hv
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 09:30:34 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ id 1p674M-00062y-J2
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 09:31:54 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 490f5f17-7d24-11ed-91b6-6bf2151ebd3b;
- Fri, 16 Dec 2022 10:30:32 +0100 (CET)
-Received: from DS7P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::24) by
- DS7PR12MB5885.namprd12.prod.outlook.com (2603:10b6:8:78::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5880.19; Fri, 16 Dec 2022 09:30:29 +0000
-Received: from DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
- (2603:10b6:8:2e:cafe::ca) by DS7P222CA0007.outlook.office365.com
- (2603:10b6:8:2e::24) with Microsoft SMTP Server (version=TLS1_2,
+ id 7887f28e-7d24-11ed-91b6-6bf2151ebd3b;
+ Fri, 16 Dec 2022 10:31:53 +0100 (CET)
+Received: from DS7PR03CA0185.namprd03.prod.outlook.com (2603:10b6:5:3b6::10)
+ by IA1PR12MB8405.namprd12.prod.outlook.com (2603:10b6:208:3d8::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15; Fri, 16 Dec
+ 2022 09:31:49 +0000
+Received: from DS1PEPF0000E64E.namprd02.prod.outlook.com
+ (2603:10b6:5:3b6:cafe::e7) by DS7PR03CA0185.outlook.office365.com
+ (2603:10b6:5:3b6::10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15 via Frontend
- Transport; Fri, 16 Dec 2022 09:30:29 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT074.mail.protection.outlook.com (10.13.173.203) with Microsoft SMTP
+ Transport; Fri, 16 Dec 2022 09:31:48 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0000E64E.mail.protection.outlook.com (10.167.18.4) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.15 via Frontend Transport; Fri, 16 Dec 2022 09:30:29 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5924.8 via Frontend Transport; Fri, 16 Dec 2022 09:31:48 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
- 2022 03:30:27 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ 2022 03:31:48 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
- 2022 01:30:16 -0800
+ 2022 01:31:48 -0800
 Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 16 Dec 2022 03:30:15 -0600
+ Transport; Fri, 16 Dec 2022 03:31:47 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,181 +62,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 490f5f17-7d24-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 7887f28e-7d24-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QY3tboN7fz8DV5qt3OWtHQH6XTQ1X5YdMcjfdyaGdd7rUhycD+1Pm1YIqfQ25P7HxNFI9bmdHMWsQQT/Fpa7WPDrlEPBtFYS3WFKq049sIfH/RoAud9gqtY7FYrNKru0kN1bZbJrGk8qVAHyDPzNuahV5p10K7AjQHjlApYFVnribKK4OSVIbjaM/CZ56GXzG6zSPPlU6Z3pJtqrokK7wS/2UUXvvp22sq1lgrEYazS7GZGp/JXbu9/222748B7vZefGv9p/d1Yhq727wjv9Sz+fK3Q2QnvWuoHsqlj/+2WSxbfAMNTlhd2fszXGi9zcqp/C9t2DDHOfaYYABcaH4Q==
+ b=OWuQXnZGXHx/Y6vv0f4CBmr87rKYNyZmhJhjTUpK8C6DyDNE8umBkzux96mYtsdzjX0ZwSxohmwSY1jxTeTEoXMI9bHUJfQpW3hCneV02dq+58u7eJcR6NT5l8lNS4pzbdnoTQjRTOpl11qKhBrECX1iRbAacW4dia8GYi4nw2Lf6suO3D2SnRhICJwyXo6J6UbBpTKvXW25+KxPyy9teC3pVcOi+kPQQfxVXHMPaAqw27k9Vw66xZ1C1oggA7lEaa1Cup6RRB56jAZSHVCuqdQJMiWudurIBtJsstdY6IQ1fsvCuw6W5JbJEoIFvjlZ3W02IfkJqFx7OiJ4VApbTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=20TEK8Yja4dovbT41oQYdC3wJuGtpe9t9FoV9SK5oeA=;
- b=KDAWj800XPm3hmYysfZMXiFLCcOEVO2CSjLuGq2AaY637bPsaDZHu7k9d3jx8eA9y4uv9p0D0/TN+ylkuQgPCUU1xtbxqRbL5OSOENi2Sk9fvgC45j6mrUSvdcPYGiExA0GBGjYAfS1DxpFo1rP9r9FkxL5pExeLs97V2C8Jl0efih2FxaClzHyZDAVJYQF9PAAl2WzFfVQswhKmud/kQDnsjVLvs93yJopaT8/fFe/nH0zjSTUQqgKpdvwqiquUYu4LFCQDpcmaczM8ECX6/HtRQpP8oObXleYmrNpreKYOJB/kJxJh5CytK0kPh0CrAjYEWkvkRVzF0jXXpAp+4w==
+ bh=fidLWj+lVO2NuRNu/kgRIIV8xUQWIjGeR3sqB4FgImY=;
+ b=oKIi7qqVfHW5yDV8hc8pMpzNzpKKJ6AUkuSt+FJ26Qw+38TwX/dYR505IhXGD/D0QVfsiUR5X3IRTx2tdDbLtfbC3852nks2m0vtlOFjvxDpmriXI3N36YoTkK7CPNUdz8OSjdxBA754tLRr9JD5S4fnL088nSNO+RP9InS/T1joS2q2wqaFUKldilDGk5Pp52Rj48l6nhY2dVU4AgUfn64ZVi5pZl31tGAMXpK8fA3IZXPiBcv+zoW2P3x7nPBZVh+rMTREJ5zOXdAzrlmTv9B1Rm06/Nz4XDLk54kjm2+DmOvVFO7Xago2wss0mjwyBxgUHqYNvjiRUAkhxvhSIA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=20TEK8Yja4dovbT41oQYdC3wJuGtpe9t9FoV9SK5oeA=;
- b=wdNJZf9eFEo+UAo0GwBpzKiKsgBqZiGs8LQdIdRrdBDsSgKtnh50Ogbhzl2ieXq64p9GtAfoWlfrvux9IB6S06flw66JEkCtlof1+y0GjmQDSrsu4DajSdd10gZy4cXO63q8C/ZduW3jEQnhVNssomuwrYctrbYxZmT+1SmGuy8=
+ bh=fidLWj+lVO2NuRNu/kgRIIV8xUQWIjGeR3sqB4FgImY=;
+ b=m9wMmcGn8z/MM3H3Iprp5OGZuriCpqcNmwoBW473crgps1Xveog0vog4YWal9OzzMMlvLFiwNadondMzmXkWmFZi462Ha0+XzgnYu+GbRk4UPH+pOWsLFvvAtcUNCRGLLh/h0XE3Zur8HJ2ST0gxpPgelZx9nJs1yNkfWv4Baxo=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <235eaf7f-5b59-e8de-8657-ce9d202365c1@amd.com>
-Date: Fri, 16 Dec 2022 10:30:15 +0100
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <d5449314-4289-46bd-8d98-f54063fbf5a3@amd.com>
+Date: Fri, 16 Dec 2022 10:31:46 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [XTF-ARM] tests: Hypercall xen_version testing
+Subject: Re: [PATCH 1/2] automation: Add support for using XTF for arm64
+ testing
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-CC: <sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>
-References: <20221215152511.10194-1-michal.orzel@amd.com>
- <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
+References: <20221215152538.10266-1-michal.orzel@amd.com>
+ <20221215152538.10266-2-michal.orzel@amd.com>
+ <alpine.DEB.2.22.394.2212151303150.315094@ubuntu-linux-20-04-desktop>
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
+In-Reply-To: <alpine.DEB.2.22.394.2212151303150.315094@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT074:EE_|DS7PR12MB5885:EE_
-X-MS-Office365-Filtering-Correlation-Id: db64824f-5df8-44c2-13cf-08dadf482c38
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000E64E:EE_|IA1PR12MB8405:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2304492-37f3-43d3-2f7f-08dadf485b55
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	9f7YnSzxiUMUXnK2XL0/uH4BCyJAAgKUMMlVt5EIUo/poiFepOjcWdM2+w4+Zeyb0kyyRTIO3V23gqfwF2GpQAZ0j1t9xY38VQFMAhA+2CbW0EfZMSWT/9MmShoz1a16eOV1TMO4wQ/kCIVV7TXWD3aSqGw5k8uSuYmzbpff9zi86QkIxt6uwvyFvGcEO33g4hu6iV5g5mFdcIFg7GfNkER/WBHKfpN8KUeb/28H4VbfL/DYrMGEmI1HLidumJze8DXi0QCbzZNVOn24VwBBh2d+MqvQT9cs3A6RV60T1IdLQp189HCzLdZiJOPfRYbtbIHj9+MNikjXjUi+oJ8E0WFPV5vgJiaWFdavzGoEn05uWXZ0ZUIhzW7MJDcl2N4jDHDv9BCuJmS8cTJa/7WJo231ZcmpbikaI+yIkB/g+PMnzR1h+qIkNUgOmxc8aoWsYWOAtamaECQtBnyjgNCWhzLLrReeOB7Omq1qJIN8OZPvRZkQ+Gcq8Gonz9pZSLo4NkzREt13iVC0YZUYawoVmbFxY74w9ff2wInjYbiNmjjPr5DF59Oi9RI8cp7rPu/4LcsW4r0t6WOno77WJgS2BC4JzGrChrL89ZUfYMKcxO+hnInUKZ7VVJyq1kJZjkKBTWnjFyza64WcuCh0JWe/SoeTgu7CjuUmN2Yin68fVbZxxG3Du9HoS4McL8mhXGw4oxxFuZtRYyosG1uePB/96PnlWE4QabdZ+Cu0jAnGXTyZnEqWz+YaMXcf1l0ffmf2jUHFq73itVoCC3Cnco8VZA==
+	2VANDQZoYvu7ecA8idEsr23fF+mjxVjH1locx8Sj1vN43TOjhQAbQaQv8h6+5cUnqz2p8JGGWz+hl95CTlI6mjMfjDSsQUmqRBU5OEDpZHsiJtFm9kHuaoMBABUx96H8hwy/cDhhOyBfJF94+ThX6avYHawM0pXLHU2eJOk4CWtFKRU9ubns1ptFslKdcvPR9RMJAsSiDmofi3T+xFIKuBqHiWx/3UgoP+iuEe9wKpKys8rGHo+SvC531Rw5FmxJQQfDctUgKo0bNySVOlk5T7aTFKSk76OSzh1kEIcYl2ClMkp6jc9MSAxBUJAZb7VIxf0rpjLKUSUCRIpSY9O/3wPoxGTAispWYJAehOeY6fiNy2sN7W0j6/aJlnyCbwCUFmz8OMCAb5Eih3nxA6yh1rRpuICr79OcncQVc0F4Zbk3QQFZHh8s9HQBDD/XmWq+k5OOa2Wc9hBqNje5TvkRJnOkxdGjT4y2eKnZcdtVD8DTyHTtd+XFbPuSoc12EVMcgJ48hKzm19elUBMdiyXtXRXG1k2SrP+c12bvx3uW2X5vbkgcbanSDgG1N82grrd5jQqPV68Bmo3Jt56xDrZhV3igFGmZl7KPn6nP09jOtrvhHodd2bV3RMd9gqqS7hJ70vEz9GEF6KOvNKSLxsD0NS5U0ZFlweFbkCaKze2T8cScf+hIM28oxE91WGE93zSXKNe9ovurIzxlLmdNczXDPuuk8wLMIsD1XqLN0UpS09+9KYj/aB9fYp8fRPVraNjtatILdtKI0ZxBCnCNDGd9y1DOU76Zkaw+7hlxSATITibLb3rJCQ6GW/IejAGzqoTJbGtT3wNCQtAiVCJfs5inggU0+ObPGXvlODiJFq46cEA=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(8676002)(5660300002)(8936002)(70586007)(36756003)(4326008)(53546011)(41300700001)(186003)(70206006)(26005)(478600001)(16576012)(82310400005)(47076005)(316002)(83380400001)(54906003)(6916009)(2616005)(426003)(40460700003)(82740400003)(336012)(31696002)(86362001)(31686004)(40480700001)(356005)(81166007)(44832011)(36860700001)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(39860400002)(396003)(136003)(376002)(451199015)(36840700001)(40470700004)(46966006)(82740400003)(31686004)(36860700001)(70206006)(41300700001)(70586007)(8676002)(82310400005)(5660300002)(4326008)(356005)(44832011)(81166007)(478600001)(40460700003)(83380400001)(966005)(6916009)(316002)(36756003)(54906003)(47076005)(426003)(2906002)(16576012)(53546011)(186003)(26005)(8936002)(86362001)(31696002)(40480700001)(2616005)(45080400002)(336012)(21314003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 09:30:29.8077
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 09:31:48.8514
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db64824f-5df8-44c2-13cf-08dadf482c38
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2304492-37f3-43d3-2f7f-08dadf485b55
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
+	DS1PEPF0000E64E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5885
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8405
 
-Hi Jan,
+Hi Stefano,
 
-Thanks for the feedback.
-
-On 15/12/2022 16:48, Jan Beulich wrote:
+On 15/12/2022 22:05, Stefano Stabellini wrote:
 > 
 > 
-> On 15.12.2022 16:25, Michal Orzel wrote:
->> Add a new test hyp-xen-version to perform functional testing of
->> xen_version hypercall. Check the following commands (more can be added
->> later on):
->>  - XENVER_version,
->>  - XENVER_extraversion,
->>  - XENVER_compile_info,
->>  - XENVER_changeset
->>  - XENVER_get_features,
->>  - passing invalid command.
+> On Thu, 15 Dec 2022, Michal Orzel wrote:
+>> Introduce support for using XTF on Arm to perform low-level testing.
+>> For the purpose of the CI testing, let's use the fork [1] from upstream
+>> XTF with implemented support for arm64 (the upstream XTF only supports
+>> x86).
 >>
->> For now, enable this test only for arm64.
-> 
-> What's wrong with exposing this uniformly?
-There is nothing wrong. I can remove the ARCH restriction.
-
-> 
+>> Add a new script under automation/scripts to be used by the CI XTF test
+>> jobs to perform the following tasks:
+>>  - Compiling XTF,
+>>  - Creating dom0 rootfs,
+>>  - Generating u-boot script using ImageBuilder,
+>>  - Running Xen with Linux as dom0 and XTF as a dom0less domU using Qemu,
+>>  - Checking test result.
+>>
+>> The script takes the name of the XTF test to run as a first parameter.
+>>
+>> [1] https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Ffusa%2Fxtf.git&data=05%7C01%7Cmichal.orzel%40amd.com%7C92d389df450446d2916608dadee01c9d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638067351382726466%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=WSQJe1s9%2B67c%2FxvYu3OP9Hr1ZZXWSpjXNnCbIwbw2OU%3D&reserved=0 (branch xtf-arm)
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>>  automation/scripts/qemu-xtf-dom0less-arm64.sh | 97 +++++++++++++++++++
+>>  1 file changed, 97 insertions(+)
+>>  create mode 100755 automation/scripts/qemu-xtf-dom0less-arm64.sh
+>>
+>> diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
+>> new file mode 100755
+>> index 000000000000..321d1abc543b
 >> --- /dev/null
->> +++ b/tests/hyp-xen-version/main.c
->> @@ -0,0 +1,105 @@
->> +/**
->> + * @file tests/hyp-xen-version/main.c
->> + * @ref test-hyp-xen-version
->> + *
->> + * @page test-hyp-xen-version Hypercall xen_version
->> + *
->> + * Functional testing of xen_version hypercall.
->> + *
->> + * @see tests/hyp-xen-version/main.c
->> + */
->> +#include <xtf.h>
+>> +++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
+>> @@ -0,0 +1,97 @@
+>> +#!/bin/bash
 >> +
->> +const char test_title[] = "Hypercall xen_version testing";
+>> +set -ex
 >> +
->> +#define INVALID_CMD -1
+>> +# Name of the XTF test
+>> +xtf_test=$1
 >> +
->> +void test_main(void)
->> +{
->> +    int ret;
+>> +# Message returned by XTF in case of success
+>> +passed="Test result: SUCCESS"
 >> +
->> +    printk("Checking XENVER_version:\n");
->> +    {
->> +        /*
->> +        * Version is returned directly in format: ((major << 16) | minor),
->> +        * so no need to check the return value for an error.
->> +        */
->> +        ret = hypercall_xen_version(XENVER_version, NULL);
->> +        printk(" version: %u.%u\n", ret >> 16, ret & 0xFFFF);
->> +    }
+>> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
+>> +curl -fsSLO https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fqemu%2Fqemu%2Fraw%2Fv5.2.0%2Fpc-bios%2Fefi-virtio.rom&data=05%7C01%7Cmichal.orzel%40amd.com%7C92d389df450446d2916608dadee01c9d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638067351382726466%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=f9gY1ubTk0NssPcr38A5BUuFzdrIAm8rJXsuMNuGXYs%3D&reserved=0
+>> +./binaries/qemu-system-aarch64 \
+>> +   -machine virtualization=true \
+>> +   -cpu cortex-a57 -machine type=virt \
+>> +   -m 2048 -smp 2 -display none \
+>> +   -machine dumpdtb=binaries/virt-gicv2.dtb
 >> +
->> +    printk("Checking XENVER_extraversion:\n");
->> +    {
->> +        xen_extraversion_t xen_ev;
->> +        memset(&xen_ev, 0, sizeof(xen_ev));
+>> +# XXX disable pl061 to avoid Linux crash
+>> +fdtput binaries/virt-gicv2.dtb -p -t s /pl061@9030000 status disabled
 >> +
->> +        ret = hypercall_xen_version(XENVER_extraversion, xen_ev);
->> +        if ( ret < 0 )
->> +            return xtf_error("Error %d\n", ret);
+>> +# XTF
+>> +# Build a single XTF test passed as a first parameter to the script.
+>> +# Build XTF with GICv2 support to match Qemu configuration and with SBSA UART
+>> +# support, so that the test will use an emulated UART for printing messages.
+>> +# This will allow us to run the test on both debug and non-debug Xen builds.
+>> +rm -rf xtf
+>> +git clone https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgitlab.com%2Fxen-project%2Ffusa%2Fxtf.git&data=05%7C01%7Cmichal.orzel%40amd.com%7C92d389df450446d2916608dadee01c9d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C638067351382726466%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=WSQJe1s9%2B67c%2FxvYu3OP9Hr1ZZXWSpjXNnCbIwbw2OU%3D&reserved=0 -b xtf-arm
+>> +make -C xtf TESTS=tests/${xtf_test} CONFIG_SBSA_UART=y CONFIG_GICV2=y -j$(nproc)
+>> +cp xtf/tests/${xtf_test}/test-mmu64le-${xtf_test} binaries/xtf-test
+>> +
+>> +# DOM0 rootfs
 > 
-> This, ...
-> 
->> +        printk(" extraversion: %s\n", xen_ev);
->> +    }
->> +
->> +    printk("Checking XENVER_compile_info:\n");
->> +    {
->> +        xen_compile_info_t xen_ci;
->> +        memset(&xen_ci, 0, sizeof(xen_ci));
->> +
->> +        ret = hypercall_xen_version(XENVER_compile_info, &xen_ci);
->> +        if ( ret < 0 )
->> +            return xtf_error("Error %d\n", ret);
-> 
-> ... this, and ...
-> 
->> +        printk(" compiler:       %s\n", xen_ci.compiler);
->> +        printk(" compile_by:     %s\n", xen_ci.compile_by);
->> +        printk(" compile_domain: %s\n", xen_ci.compile_domain);
->> +        printk(" compile_date:   %s\n", xen_ci.compile_date);
->> +    }
->> +
->> +    printk("Checking XENVER_changeset:\n");
->> +    {
->> +        xen_changeset_info_t xen_cs;
->> +        memset(&xen_cs, 0, sizeof(xen_cs));
->> +
->> +        ret = hypercall_xen_version(XENVER_changeset, &xen_cs);
->> +        if ( ret < 0 )
->> +            return xtf_error("Error %d\n", ret);
-> 
-> ... this can fail because of XSM denying access. (Others can of course
-> also fail for this reason, but here possible failure is kind of
-> "intended" - see the dummy xsm_xen_version() handling.) Therefore I
-> would like to suggest that you also special case getting back -EPERM,
-> resulting in e.g. just a warning instead of an error.
-When writing a test I did make sure to check xsm_xen_version *for the operations that I covered*
-and my understanding is as follows:
-For XENVER_version and XENVER_get_features, it returns 0 so deny is false.
-For other commands I test, xsm_default_action is called with XSM_HOOK which returns 0 as well.
-So AFAICT nothing can result in setting deny to true.
-But even in case of setting deny to true, it would just result in copying "<denied>" into
-the respective buffer. It would not alter the hypercall return value.
-
-The only command causing the return value to be -EPERM in case deny is set to true is XENVER_build_id
-which I did not covered in my test.
-
-> 
-> Jan
+> Given that we don't actually need dom0 for anything, maybe we could only
+> run xtf as the only domU guest without dom0 (pure dom0less
+> configuration)?
+This is what I thought at the beginning. It definitely makes sense because at the moment
+we do not test pure dom0less configuration. I will do this in v2.
 
 ~Michal
 
