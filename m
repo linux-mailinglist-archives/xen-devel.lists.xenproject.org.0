@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7569264E5B2
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 02:37:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464063.722390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63D8964E5C0
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 02:46:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464076.722402 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5zen-0008QN-MY; Fri, 16 Dec 2022 01:37:01 +0000
+	id 1p5zni-0001dw-KI; Fri, 16 Dec 2022 01:46:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464063.722390; Fri, 16 Dec 2022 01:37:01 +0000
+Received: by outflank-mailman (output) from mailman id 464076.722402; Fri, 16 Dec 2022 01:46:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5zen-0008Ob-Gp; Fri, 16 Dec 2022 01:37:01 +0000
-Received: by outflank-mailman (input) for mailman id 464063;
- Fri, 16 Dec 2022 01:36:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zel-0008ON-PN; Fri, 16 Dec 2022 01:36:59 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zel-0002u2-Mp; Fri, 16 Dec 2022 01:36:59 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zel-0007e7-4n; Fri, 16 Dec 2022 01:36:59 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zel-0001f2-4L; Fri, 16 Dec 2022 01:36:59 +0000
+	id 1p5zni-0001ay-HL; Fri, 16 Dec 2022 01:46:14 +0000
+Received: by outflank-mailman (input) for mailman id 464076;
+ Fri, 16 Dec 2022 01:46:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=12d2=4O=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1p5znh-0001as-1c
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 01:46:13 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6aa6970f-7ce3-11ed-91b6-6bf2151ebd3b;
+ Fri, 16 Dec 2022 02:46:11 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 4ACC561FDA;
+ Fri, 16 Dec 2022 01:46:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0400DC433EF;
+ Fri, 16 Dec 2022 01:46:07 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,383 +43,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gKdmWpoiXBFQpOMcAUuZ0r+orMehynCof+bbdpf6w3o=; b=RQ0F9N80QUiPkED3wmnBSCs68Z
-	9P99KQtFKzh6jC59PE/ACnuGv47r1X+KSNrzBlCn7jXkwjjOxRUUziSeYwhzT9RwibektUuqMnh7n
-	beG0QdwH3Rlg6I+Qj6Yk1V6A5DOAda3V1sT0+xUFg8Uf9jVALVQiYqekcGalTD0rUNew=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175273-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6aa6970f-7ce3-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1671155169;
+	bh=nJZYq9zNX+m5SrV+P9uWlUfA368yTaQ75XzFx2XBssY=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=bJm0M6/cYUAX3d4sVj/Z5NzIsa5Qc4Zwfl/o4zGxW1IWyA5G3ASMOeEA1BcIaRT8i
+	 UYQ5CqSB69/Ho82WljxPgANYd20lj4jFEyPLnPIkmjXUp5tMVNsIL4rvcqOvL8Nquj
+	 5JDqaUeTIT4L+tLCAZYDoq+P2sLOozK9kwtwQmzMmlxO4fO+eXA5Gf40WSQvZo65EB
+	 p9YnLgIe0VdJzsAziKGpK28DxgxoB+qoJeZiWLv+m0AFdRmIZeoxdzgxcK9ejaqTpT
+	 GTWK/7X62SWc40kkv/LFQOLPigU7CpCUYYfBHa3cwFYXdShbfzHBRp68Ygglyd7m5q
+	 V+30x+1dbM97g==
+Date: Thu, 15 Dec 2022 17:46:06 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Julien Grall <julien@xen.org>
+cc: "Smith, Jackson" <rsmith@RiversideResearch.org>, 
+    "Brookes, Scott" <sbrookes@RiversideResearch.org>, 
+    Xen-devel <xen-devel@lists.xenproject.org>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>, 
+    "jbeulich@suse.com" <jbeulich@suse.com>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    George Dunlap <george.dunlap@citrix.com>, 
+    "demi@invisiblethingslab.com" <demi@invisiblethingslab.com>, 
+    "Daniel P. Smith" <dpsmith@apertussolutions.com>, 
+    "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
+Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
+In-Reply-To: <513d0cc3-a305-5029-32f7-67993ae83c55@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2212151725090.315094@ubuntu-linux-20-04-desktop>
+References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM> <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org> <BN0P110MB1642A6DCBD15780CD8767B8CCFE19@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <513d0cc3-a305-5029-32f7-67993ae83c55@xen.org>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [ovmf test] 175273: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=3e3f5bb21c0a2c1368c43713cf7f4b51097259af
-X-Osstest-Versions-That:
-    ovmf=d103840cfb559c28831c2635b916d60118f671cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Dec 2022 01:36:59 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 175273 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175273/
+On Thu, 15 Dec 2022, Julien Grall wrote:
+> > > On 13/12/2022 19:48, Smith, Jackson wrote:
+> > > > Hi Xen Developers,
+> > > 
+> > > Hi Jackson,
+> > > 
+> > > Thanks for sharing the prototype with the community. Some
+> > > questions/remarks below.
+> > > 
+> > > > My team at Riverside Research is currently spending IRAD funding to
+> > > > prototype next-generation secure hypervisor design ideas on Xen. In
+> > > > particular, we are prototyping the idea of Virtual Memory Fuses for
+> > > > Software Enclaves, as described in this paper:
+> > > > https://www.nspw.org/papers/2020/nspw2020-brookes.pdf. Note
+> > > that that
+> > > > paper talks about OS/Process while we have implemented the idea
+> > > for
+> > > > Hypervisor/VM.
+> > > > 
+> > > > Our goal is to emulate something akin to Intel SGX or AMD SEV, but
+> > > > using only existing virtual memory features common in all
+> > processors.
+> > > > The basic idea is not to map guest memory into the hypervisor so
+> > > that
+> > > > a compromised hypervisor cannot compromise (e.g. read/write) the
+> > > > guest. This idea has been proposed before, however, Virtual Memory
+> > > > Fuses go one step further; they delete the hypervisor's mappings to
+> > > > its own page tables, essentially locking the virtual memory
+> > > > configuration for the lifetime of the system. This creates what we
+> > > > call "Software Enclaves", ensuring that an adversary with arbitrary
+> > > > code execution in the hypervisor STILL cannot read/write guest
+> > > memory.
+> > > 
+> > > I am confused, if the attacker is able to execute arbitrary code, then
+> > > what prevent them to write code to map/unmap the page?
+> > > 
+> > > Skimming through the paper (pages 5-6), it looks like you would need
+> > > to implement extra defense in Xen to be able to prevent map/unmap a
+> > > page.
+> > > 
+> > 
+> > The key piece is deleting all virtual mappings to Xen's page table
+> > structures. From the paper (4.4.1 last paragraph), "Because all memory
+> > accesses operate through the MMU, even page table memory needs
+> > corresponding page table entries in order to be written to." Without a
+> > virtual mapping to the page table, no code can modify the page table
+> > because it cannot read or write the table. Therefore the mappings to the
+> > guest cannot be restored even with arbitrary code execution.
+>
+> I don't think this is sufficient. Even if the page-tables not part of the
+> virtual mapping, an attacker could still modify TTBR0_EL2 (that's a system
+> register hold a host physical address). So, with a bit more work, you can gain
+> access to everything (see more below).
+> 
+> AFAICT, this problem is pointed out in the paper (section 4.4.1):
+> 
+> "The remaining attack vector. Unfortunately, deleting the page
+> table mappings does not stop the kernel from creating an entirely
+> new page table with the necessary mappings and switching to it
+> as the active context. Although this would be very difficult for
+> an attacker, switching to a new context with a carefully crafted
+> new page table structure could compromise the VMFE."
+> 
+> I believe this will be easier to do it in Xen because the virtual layout is
+> not very complex.
+> 
+> It would be a matter of inserting a new entry in the root table you control. A
+> rough sequence would be:
+>    1) Allocate a page
+>    2) Prepare the page to act as a root (e.g. mapping of your code...)
+>    3) Map the "existing" root as a writable.
+>    4) Update TTBR0_EL2 to point to your new root
+>    5) Add a mapping in the "old" root
+>    6) Switch to the old root
+> 
+> So can you outline how you plan to prevent/mitigate it?
 
-Regressions :-(
+[...]
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+> > Yes, we are familiar with the "secret-free hypervisor" work. As you
+> > point out, both our work and the secret-free hypervisor remove the
+> > directmap region to mitigate the risk of leaking sensitive guest
+> > secrets. However, our work is slightly different because it additionally
+> > prevents attackers from tricking Xen into remapping a guest.
+> 
+> I understand your goal, but I don't think this is achieved (see above). You
+> would need an entity to prevent write to TTBR0_EL2 in order to fully protect
+> it.
 
-version targeted for testing:
- ovmf                 3e3f5bb21c0a2c1368c43713cf7f4b51097259af
-baseline version:
- ovmf                 d103840cfb559c28831c2635b916d60118f671cc
+Without a way to stop Xen from reading/writing TTBR0_EL2, we cannot
+claim that the guest's secrets are 100% safe.
 
-Last test of basis   175202  2022-12-14 13:42:59 Z    1 days
-Failing since        175214  2022-12-14 18:42:16 Z    1 days    8 attempts
-Testing same since   175263  2022-12-15 09:40:40 Z    0 days    2 attempts
+But the attacker would have to follow the sequence you outlines above to
+change Xen's pagetables and remap guest memory before accessing it. It
+is an additional obstacle for attackers that want to steal other guests'
+secrets. The size of the code that the attacker would need to inject in
+Xen would need to be bigger and more complex.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Dunlap <acdunlap@google.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  devel@edk2.groups.io <devel@edk2.groups.io>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jeshua Smith <jeshuas@nvidia.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 3e3f5bb21c0a2c1368c43713cf7f4b51097259af
-Author: Adam Dunlap <acdunlap@google.com>
-Date:   Sat Dec 10 05:04:16 2022 +0800
-
-    OvmfPkg/PlatformPei: Validate SEC's GHCB page
-    
-    When running under SEV-ES, a page of shared memory is allocated for the
-    GHCB during the SEC phase at address 0x809000. This page of memory is
-    eventually passed to the OS as EfiConventionalMemory. When running
-    SEV-SNP, this page is not PVALIDATE'd in the RMP table, meaning that if
-    the guest OS tries to access the page, it will think that the host has
-    voilated the security guarantees and will likely crash.
-    
-    This patch validates this page immediately after EDK2 switches to using
-    the GHCB page allocated for the PEI phase.
-    
-    This was tested by writing a UEFI application that reads to and writes
-    from one byte of each page of memory and checks to see if a #VC
-    exception is generated indicating that the page was not validated.
-    
-    Fixes: 6995a1b79bab ("OvmfPkg: Create a GHCB page for use during Sec phase")
-    
-    Signed-off-by: Adam Dunlap <acdunlap@google.com>
-    Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
-
-commit 01c0d3c0d508b8c1b41fd58e2ec565b40ea000ca
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Dec 14 15:14:19 2022 +0800
-
-    OvmfPkg/SecTpmMeasurementLib: Fix the mapping error of PCR and RTMR index
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
-    
-    TDVF has the feature to do RTMR measurement in SEC phase. In the same time
-    it builds a GUID hob which carries the hash value of the measurement so
-    that in DXE phase a td event can be created based on this GUID Hob. There
-    is a mapping error between TPM PCR index and RTMR index according to UEFI
-    2.10. That PCR6 is missing in the mapping. This patch fixes this issue.
-    
-    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
-    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
-    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
-    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
-    Cc: Arti Gupta <ARGU@microsoft.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit fb91d6cbd0cff704586c4cadbef870acef9c52ef
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Dec 14 15:14:18 2022 +0800
-
-    OvmfPkg/TdTcg2Dxe: Fix the mapping error between PCR index and MR index
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
-    
-    According to UEFI Spec 2.10 it is supposed to return the mapping from PCR
-    index to CC MR index:
-    //
-    // In the current version, we use the below mapping for TDX:
-    //
-    // TPM PCR Index | CC Measurement Register Index | TDX-measurement register
-    // -----------------------------------------------------------------------
-    // 0             |   0                           |   MRTD
-    // 1, 7          |   1                           |   RTMR[0]
-    // 2~6           |   2                           |   RTMR[1]
-    // 8~15          |   3                           |   RTMR[2]
-    
-    In the current implementation TdMapPcrToMrIndex returns the index of RTMR,
-    not the MR index.
-    
-    After fix the spec unconsistent, other related codes are updated
-    accordingly.
-    1) The index of event log uses the input MrIndex.
-    2) MrIndex is decreated by 1 before it is sent for RTMR extending.
-    
-    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
-    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
-    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
-    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
-    Cc: Arti Gupta <ARGU@microsoft.com>
-    Reported-by: Arti Gupta <ARGU@microsoft.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit 19f7c63ea978c5a4ef9345b9bf4995dcd48fa328
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Dec 14 15:14:17 2022 +0800
-
-    OvmfPkg/TdTcg2Dxe: Fix incorrect protocol and structure version
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4184
-    
-    According to the Uefi spec 2.10 Section 38.2.2.
-    EFI_CC_MEASUREMENT_PROTOCOL.GetCapability, the minor version of
-    StructureVersion and ProtocolVersion should be 0.
-    
-    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
-    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
-    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
-    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
-    Cc: Arti Gupta <ARGU@microsoft.com>
-    Reported-by: Arti Gupta <ARGU@microsoft.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
-
-commit 44fc90eb0ea7299abc79577db55aa6257b46b7ae
-Author: devel@edk2.groups.io <devel@edk2.groups.io>
-Date:   Wed Nov 30 15:02:15 2022 -0800
-
-    UnitTestFrameworkPkg/UnitTestLib: Print expected Status on ASSERT fail
-    
-    Update the UnitTestAssertStatusEqual error message to print out the
-    expected value in addition to the seen value.
-    
-    Signed-off-by: Jeshua Smith <jeshuas@nvidia.com>
-    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
-    Reviewed-by: Michael D Kinney <michael.d.kinney@intel.com>
-
-commit cda98df16228970dcf9a4ce2af5368219711b4b0
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:09 2022 +0100
-
-    OvmfPkg/QemuFwCfgLib: remove mQemuFwCfgSupported + mQemuFwCfgDmaSupported
-    
-    Remove global variables, store the state in PlatformInfoHob instead.
-    Probing for fw_cfg happens on first use, at library initialization
-    time the Hob might not be present yet.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 81bbc1452c972218f071cd4a8f5899df974b1dae
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:08 2022 +0100
-
-    OvmfPkg/QemuFwCfgLib: rewrite fw_cfg probe
-    
-    Move the code to a new QemuFwCfgProbe() function.  Use direct Io*() calls
-    instead of indirect QemuFwCfg*() calls to make sure we don't get
-    recursive calls.  Also simplify CC guest detection.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit e59747bd8246135faeecc18879d62db66a6acfc2
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:07 2022 +0100
-
-    OvmfPkg/DebugLibIoPort: use Rom version for PEI
-    
-    This variant does not use global variables.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit f6a196c7eb34affff0cfe1864e126953096885e1
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:06 2022 +0100
-
-    OvmfPkg/PlatformPei: remove mFeatureControlValue
-    
-    Use PlatformInfoHob->FeatureControlValue instead.
-    OnMpServicesAvailable() will find PlatformInfoHob using
-    GetFirstGuidHob() and pass a pointer to the WriteFeatureControl
-    callback.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 862614e2544997c848fab7388733774ae0ea92d8
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:05 2022 +0100
-
-    OvmfPkg/PlatformPei: remove mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable.  Let
-    BuildPlatformInfoHob() allocate and return PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 4bc2c748516e5c4a8bb86093cd5e1b80a9f35c0f
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:04 2022 +0100
-
-    OvmfPkg/PlatformPei: Verification: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in S3Verification() and
-    Q35BoardVerification() functions.  Pass a pointer to the PlatformInfoHob
-    instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 7dbb8a24d1a3403f85d959bc1234b9f4a92bfbf0
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:03 2022 +0100
-
-    OvmfPkg/PlatformPei: NoExec: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in NoexecDxeInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit cc6efda7770b8cabea3ae8c6054d47c4a8e229c3
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:02 2022 +0100
-
-    OvmfPkg/PlatformPei: MemTypeInfo: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in MemTypeInfoInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 27874a382c38a95d3ab613eebd35c152ca9b3897
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:01 2022 +0100
-
-    OvmfPkg/PlatformPei: PeiMemory: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in PublishPeiMemory()
-    and GetPeiMemoryCap() functions.  Pass a pointer to the PlatformInfoHob
-    instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 00743d144bc5b643e9323ad66f16cb48cf338705
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:10:00 2022 +0100
-
-    OvmfPkg/PlatformPei Q35 SMM helpers: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in
-    Q35TsegMbytesInitialization() and
-    Q35SmramAtDefaultSmbaseInitialization() ) functions.
-    Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 9d9d15b42a5e13bb18729da0f608c629aa274e80
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:09:59 2022 +0100
-
-    OvmfPkg/PlatformPei: PeiFv: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in PeiFvInitialization()
-    function.  Pass a pointer to the PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 78c373f2a5273af00b23b55d3e8c41583310cfb6
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Fri Dec 2 14:09:58 2022 +0100
-
-    OvmfPkg/PlatformPei: AmdSev: stop using mPlatformInfoHob
-    
-    Stop using the mPlatformInfoHob global variable in AmdSevInitialize()
-    and AmdSevEsInitialize() functions.  Pass a pointer to the
-    PlatformInfoHob instead.
-    
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
-    Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
-commit 916825b84f23b691dcce09a57625fb8fcb0cbb48
-Author: Jeff Brasen <jbrasen@nvidia.com>
-Date:   Tue Nov 15 11:01:06 2022 -0700
-
-    DynamicTablesPkg: SSDT _LPI revision is incorrect
-    
-    _LPI Revision should be 0 per the ACPI 6.5 specification.
-    "The revision number of the _LPI object. Current revision is 0."
-    
-    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
-    Reviewed-by: Pierre Gondois <pierre.gondois@arm.com>
-    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
+Every little helps :-)
 
