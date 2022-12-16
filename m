@@ -2,39 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B7E664E9C4
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 11:50:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464363.722739 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C79C464E9CB
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 11:54:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464374.722753 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p68Hs-0002YN-J6; Fri, 16 Dec 2022 10:49:56 +0000
+	id 1p68Lg-00041z-3o; Fri, 16 Dec 2022 10:53:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464363.722739; Fri, 16 Dec 2022 10:49:56 +0000
+Received: by outflank-mailman (output) from mailman id 464374.722753; Fri, 16 Dec 2022 10:53:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p68Hs-0002Vs-FI; Fri, 16 Dec 2022 10:49:56 +0000
-Received: by outflank-mailman (input) for mailman id 464363;
- Fri, 16 Dec 2022 10:49:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p68Lg-0003zu-0M; Fri, 16 Dec 2022 10:53:52 +0000
+Received: by outflank-mailman (input) for mailman id 464374;
+ Fri, 16 Dec 2022 10:53:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HtZB=4O=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1p68Hq-00020N-VG
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 10:49:55 +0000
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5eb50e4e-7d2f-11ed-91b6-6bf2151ebd3b;
- Fri, 16 Dec 2022 11:49:53 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DS7PR12MB5744.namprd12.prod.outlook.com (2603:10b6:8:73::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15; Fri, 16 Dec
- 2022 10:49:48 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c%5]) with mapi id 15.20.5880.018; Fri, 16 Dec 2022
- 10:49:48 +0000
+ <SRS0=PP9E=4O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1p68Le-0003zo-Mo
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 10:53:50 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id cbc55ecb-7d2f-11ed-8fd4-01056ac49cbb;
+ Fri, 16 Dec 2022 11:52:56 +0100 (CET)
+Received: from BN9PR03CA0477.namprd03.prod.outlook.com (2603:10b6:408:139::32)
+ by IA1PR12MB6305.namprd12.prod.outlook.com (2603:10b6:208:3e7::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
+ 2022 10:53:44 +0000
+Received: from BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:139:cafe::ef) by BN9PR03CA0477.outlook.office365.com
+ (2603:10b6:408:139::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15 via Frontend
+ Transport; Fri, 16 Dec 2022 10:53:44 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT050.mail.protection.outlook.com (10.13.177.5) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.5924.15 via Frontend Transport; Fri, 16 Dec 2022 10:53:44 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
+ 2022 04:53:44 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
+ 2022 04:53:44 -0600
+Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 16 Dec 2022 04:53:43 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,209 +62,176 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5eb50e4e-7d2f-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: cbc55ecb-7d2f-11ed-8fd4-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TPN5gsqZ234Tb/xd+5xhfrkoH9tkxOPNrWBPi7JetoGpXDxJMD6pjhC7H4sNl/ijDCx4/MJvwaGzkraKr1uT1gCIS0aQEGrwlmZCbEdL0sQZ6gzFHPbkPAs5v6QAvw1DEu8V+VckFNWgOinSydOLg39wjKZydmW8TN5K+mg4EjdUZraMPioNMWChodA3dzoaXGESYYO8znch1gP0GSDXAPhCJp1b402mA/F2xTE6isgiCeNKzT93u8N6zXN3mNdHu5R3gRwCAM3ICxh9MOWicc+VXFNdD5FSQLhnzmybdU7lY/xT0a9IFVFXPVm3Lj08cxgMnBcq/E9g1G4RJ3rsUg==
+ b=RNDUPN9/swBpdOxB3TcZW9lbKftkoHXSbJxPbAjP2+6Gbv/+t9EFNxG0LbGm8zBM/XvnRPY9hfYaKXAMRg8OTg/m3MGUAFCe3D/5pl6DohErpDNWZyidDtzmY+NTFfIs5ejjlEXANziPSwkLrkoP2ER2PdMFl1hBBapxGG6MwVT1I93fkHqTguSQhkF8hataosLXtiwyYeJITfDbUjgN0WfEyVPo0VIp+lbVm56dnb5fwUOQt5AkKNMaYA1HoK0QAjCnrIG5ZhLKz870pAACcqyNNBr99K+wmJSiIKwI26BNEPl0eb6o7wZmXTM4+hdrl1Rb1psclkFUSyjVhF9Eig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s8CHa+UHSPef6p9ZK91LClSezTyxzVEQ7UDVSErmdKg=;
- b=Ccpa8KEDtFiWXPZ78cfnREIGPpIIXicEuckKw7jFT5imjFKS2+pAPP59IKjLtZwO+VvaLWvOc3p9Hy+EorULY8A5s0d2SyszBIN71QpFuwjfhC85Mau0i0k4/MQ4ZWZJYCFqurtczV3g1n4HbiB9RStlMl93OuCak+xe0y2h4flC8WQaA5xuhnf6Zcllcc8Vpnc8CNMFl91LctY6FZQyAbqmTCHwwPiumm3dAB8LhFBQBe3BrEoLDAmYJIW/y2vCBBMMgrJgz8yVkqQFfpCjnhfZPaqRmtoWFLOKl5DvhJ6DnL47uP8Ph5rY2uHBdK6KRgw9NonRIln+xiwQwjgh0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=zrG+Ru6g+bZ2ek+EHqZeGnz+8LnPzwUMgEKAmA+DmQU=;
+ b=bZHTVaqaF7hKXuPgQVwBKhP6hV0uL1p4jYb9SHSn1Aas5umm2fBEEQR8Ki9un/Z4mrjfMiMB2HjCk/yPHUkhkmPhqCiQAPJdxCtVF2JsvI0UpU13vTEgllIXmWD+4M5o/YmNtxEFQNqcGj/IcgIITj3BZFjDYwqiB56+y2ZWJaQnXp8QU0Uzy0hZLhOPv+7zZIrfurmj33A2WQkkY/BZIL7A31MJiokX61hQYMlZCS0TmX7IE5bmujdE/yBxeJnXapJjPLBp93ZbKZmhXa52Ts4d8W4tDH/9knJvEylw/YB/9qegX7J6k23XnZ8CmUjHNiIr/uSdp2qA5NQTr02ihQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s8CHa+UHSPef6p9ZK91LClSezTyxzVEQ7UDVSErmdKg=;
- b=eOjSfdZnw1VPFMCLQXtP1yhqhtGtBdOt6w+NN/yVyy1LRWheNWw0xVSQRC/+Ne8oedREloafN/hFXFhhT5dBNBao0ltk25s4PTS0j0C9zRAV6qPiOTXKQcdcqeiyYJ/YdAAt2nQxxef2PV908GXYf8Lx+ZNypZmlyEgAbta55yk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <1739c415-d1e6-efad-774e-5a49c9f28a09@amd.com>
-Date: Fri, 16 Dec 2022 10:49:42 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.5.1
-Subject: Re: [XEN v1 3/9] xen/arm: Always use 'u64' instead of 'paddr_t' for
- address and size in DT
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
- <20221215193245.48314-4-ayan.kumar.halder@amd.com>
- <c63310d5-e699-3f6c-15a9-eec314cb179c@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <c63310d5-e699-3f6c-15a9-eec314cb179c@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO2P265CA0271.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:a1::19) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ bh=zrG+Ru6g+bZ2ek+EHqZeGnz+8LnPzwUMgEKAmA+DmQU=;
+ b=Qk550pj7hWb39WZ1DI2xHLc4I/eR/+s0w0NQGeqp2+UHF/PBuAF0mRb/2yxZK34SquoAPjCr+hrMHM4eEo1Zli0EMz3p9Dcq8KjzFrI5YavSzpSBDXy9XCRvCuqKZ1PIODW6+I/mXsYCNs9ydewnPJ1MK2c4OBu5zm2bviIyAuo=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <22696c5b-f9cf-fddd-77aa-79f1c28f1cd9@amd.com>
+Date: Fri, 16 Dec 2022 11:53:42 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [XTF-ARM] tests: Hypercall xen_version testing
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: <sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>
+References: <20221215152511.10194-1-michal.orzel@amd.com>
+ <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
+ <235eaf7f-5b59-e8de-8657-ce9d202365c1@amd.com>
+ <219f3764-dade-7ef5-fbd7-fa9d2ae20d8c@suse.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <219f3764-dade-7ef5-fbd7-fa9d2ae20d8c@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DS7PR12MB5744:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4d62ff26-6849-4e84-7b8d-08dadf534074
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT050:EE_|IA1PR12MB6305:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1d4bfb7b-66f8-4e47-ca2d-08dadf53cd63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	NZiNhEiv8FcU5TL4bb+9F9qtBVSGbKQJsYjIay7meFXUb00HPQenx7L5lLU7wVImfsMf6zAnS0yQqfkf2gAl5EafQksgIb8nS+JJzrptu/XyqEcJD5CRbhQMO5w1oU/TKNKfz95q8e3f7uUHkIp7Ezo+GYKG7wSJAAVJ/wIMX8Z38r64roFaHdVulknUH0F+8RMRlXTSCvtC2JSA5H0phj+Twxa/ZBq4VhNRX3+USiiwXa85UHdhBlqMXdOadSmuwgjB4oANEVhSLVd2MJqbrTzfdvbAvtPWq6+xWmS+yjvP6HU3oSoKnhhZDwz2AWIZfSZCu9ZrH8GKFKdSPti54Oo/eAsrVE/+QgtI7obNTl/HL6BEsMj/wWxA1yqHU+YaskGpPrYHP240ysEAUYASAreGvp/K23vda58UD5m8TXGS3GrZheuF6OITUAe4MjxxKBWWe3GIhOFcVlwgMR5Z17WoqdAolIt8R06PDPAKm1wk8U0qf6Q6NQxcn2ZY8R09BP0rNVrT94ibpdS9H97fWe0dlVV8hI+/UBne6LzDcuzp5fGF58dXwY0hPBQhjAzM/XilpoyVv3SDUhJsaaxbfZeTSA/2sQz+IRyIooU6U/OwjXlFS0z/KWLSGFlWyhG8AZ1Otjq5ppfLYM+jdxrrrARyF//h2JRxL+QzEZUF+K/qWj3krPMVUtG2+7oXSNYzJIlggit4td+i/2ZEBbqr6yDFJ4yOIrFkld8GFMZzdfQ=
+	rBAseJZXZEi9PP76MWxzNVxuCV7mmw9P4p1g2t1/du4HodcrQDz3s6R9bBDKGEIJqSc19cTNakiqD7w/sDAJZTU241MBCZ0vwiWKij2PNCFQgK1v2cvPGQEWOxSJN/ZeXTAvWJOecC/zZhL1pXxsmjHwzp9hzz44cIb+5O4w9sksi+XBUbge7aQMhvBv/HDZ3EYU3apgK2xRQoIl7ljWQq7MBY0w+YRenCIMsXC9qeG9QjVzvJFZ1im4QX7gP7uOJVi3VwYe0X+aZZQjgVenZAtAEITo7VEBYUnKfyd7YvICNKYH+Cmjuwt5TB5Wxl0eX7o5gjJ5KcI9X5hYTruvfhBIINUTRriScZnM+mbUTKMSJfpPj3SOaaYBqvKsqBOqxVCDhmvc5O3o2D7wdgJHDCHn4jjRhPuKNmT/DkFu029V7pV6CIGGCCF/SRg2+neOjJWprzTIUcZebsyXj4yUJsSbvLeZY4N7TmhAWVBbWp1vjvxjZOdlZf7v6ao+kF0w/g1oPrHtMassD0Qwavlg/AykSoWTMaNWKAgvRaGO74sjlRMO5M+Ea8EpfkrFdgYfE0qLmcE0aGl2cCaS9mejz4+T7vAnHJXALFdEhgzJOB22vlBjJtN4/gdN6U4q6Qz9VwCiGJ/V2gMSyHzqiYcHLyR23LacNMcphEIp4CAqIlWb3Z/bSrGrUel9ZAbnOtPQhUfqbCftLG8DiI0t0+SQj6iwuMYF0xPumwOiY4cWW+4qfVs1I9VJpeXz5aoeROwZE9/ar0KrwEHrSELMHzvL4A==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(346002)(376002)(366004)(136003)(451199015)(31686004)(2906002)(5660300002)(110136005)(316002)(8936002)(4326008)(8676002)(66476007)(66556008)(66946007)(36756003)(41300700001)(478600001)(6486002)(31696002)(186003)(26005)(6506007)(6512007)(53546011)(2616005)(38100700002)(83380400001)(6666004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RWc3M1dadzFUcm51bkZ4aEszM2VmU29kRUZiNnB5My8rOXpZZWh4R0pGbXVN?=
- =?utf-8?B?TCt1V1M1OXBvejFtVkRoREhlYS9rRi9oQWVhUUFaZyszeERadXBuV1pRenI1?=
- =?utf-8?B?NXN6dEtqZFBQUXhjMDgwVmFoRCs3U0MwTGpRRVgvMGx3dE11aEtHazhCYWFV?=
- =?utf-8?B?SzRpMFo0T3E0WTdwSnZORndiRXRZSjNBVzFKZzI4eE1rSUlDU2I1YmZhWklR?=
- =?utf-8?B?elVFRElwTzJUMVUxZUVweHpFdFNHUDFwUjU1RHhkVE9vZFNzbDRwQ051bi8z?=
- =?utf-8?B?WElqd2FqR3ViMDl6L21sSHZmdVNUUCtSS25CWDhxTHBHeGphcmpLdEJsRkJX?=
- =?utf-8?B?SzdYNjhhS3JJUFJod0ZVNHJMakJ2SURXWmF6M0sxaHZIRkErTGtaZXlFakFT?=
- =?utf-8?B?TVg2S0llVzErczZiTUV3WHdFU3EvUEpvV3JneWlKRFR4Yjd1Y2QrbFZRZTZE?=
- =?utf-8?B?N1FiSHl0c1d1UU5wK2Fzb3hRMXkvSnhha0RXeGljcnJENnFraWcwWEJpbXNJ?=
- =?utf-8?B?V0Q2S2wwU2Y2WXpDWjNQNU9UNUQ4emwwZXEvVGYyQXlZMW9kcnZnS0I2T2g2?=
- =?utf-8?B?ejkzWStPTnRJZktIWHlWVDJZM2RGWi82VGc5clg1ZWU0NXhhMWdQdGorQnlW?=
- =?utf-8?B?LzVTRHhvWDJRRDhqc2hUOWFzSVRhMHV3cU9Kb25KWXpjV25HRGxSd0xZRWtX?=
- =?utf-8?B?K0NSaGNGcWVXRHk4NlZCSTVIc1U4c3lwMGJmOGZlR2o2eklCMHNVWHduRnRl?=
- =?utf-8?B?Zi9mWFdYUnIyQVJRWW1GUTRoNVBlejJCZFoxeFJESFJjZUlpUjVyM0hkeFdm?=
- =?utf-8?B?cGdVVzUyTGkyQ2FvYnJIcWpWT1BEVXFVL25pK1hHT1hUOEpHSzEvaFVtTWxo?=
- =?utf-8?B?Y3lNeGM0ODZRVTdIVWRTdnFSYTlVRVowNnJFY0l5YzFsdFRDbENsYmgydWVk?=
- =?utf-8?B?VXRuYSsrRmhCdXIwLzF5eVNtc25hekh0LzhGMTVETDdGR296YnU5T20reFN0?=
- =?utf-8?B?NGJUa2RRNFUxbFZOWFgyRXBPb2Y1THpvNTdHdVlmektHV253K2E2NDRXN0pS?=
- =?utf-8?B?SFRQSEFCQURDZVVHNUUzQ3h5MitsTHY1U01DRFhtbW8zRzlOOWZpRWwrb3Bn?=
- =?utf-8?B?U2tkRE5ZbEdWWTQxRSt5M2hLTCtINUt1cW9aYkYvbjdzd2FWVkQrZnBJcGpI?=
- =?utf-8?B?eE5Ea3JISW5nT29QZ1hxNG9YT2F6eUtTL0Nnd0ZhYkNUamNpV3hWL05URDh1?=
- =?utf-8?B?dHpFMnRqeE5yZTc3a01TaGU5V01JR1BQbERjWGt0OURiVGF3K0oyR1NjdEdv?=
- =?utf-8?B?dStUenlXMk9wSDdrdnpPUzdhbDlvK3hrbXFyQUZzWGFjS3RqU3ZaOWpqczI5?=
- =?utf-8?B?ZW5VeURuMWpxYWJXYTJjM2pEdExteFlJaEFhckdNbkIrWCtuT2orQUdwam9S?=
- =?utf-8?B?am1jNHhsOEZ5dXBQakxhMXdZM2gremlwMGx1WkNkZGZ3bEl1K0xOL2hsaXhD?=
- =?utf-8?B?S2NaSk15Y1lvOVNlQzkvbVVmZlR3ZExIUjY4ZGpjdUhUb0hJdlNDelFGZ2Ir?=
- =?utf-8?B?M1NpNVdJTWlNOXdLMjF5bEpOeW5QNjB0a2ZCRXRuZmlycE1BZldJQ3N1bkly?=
- =?utf-8?B?RDBGTURqTmE3Znlwa0NYYUtucGNSSGhXaTJoa1I2N2ZlZnBzd1NrSmNXa3BD?=
- =?utf-8?B?WE93OUFjdVZvWkhTOHNXc1U2enB2MTlwU0RwSGNsZkk2RnFTWmdtMGd2Yjlz?=
- =?utf-8?B?MWlvaFpIK0tjSnQ0blZtNHRGMUxySXdKQVUrLzlVUjN3Smo2enMzOEQwUDFy?=
- =?utf-8?B?aUd3MFgxVUFKb0tSeFpnSjJvREdNUjl3bzRkNXAyeVpsUG5qRWh3NWJLa3py?=
- =?utf-8?B?SENQcjRXYXZhTjJBajhXTGkxSVcvK2FqTExNbjU1UzRjSFZibXdFZkM4SEZ0?=
- =?utf-8?B?bGg5Rk1FbjNiKzlTTVVpWklKSXlla1VLVXN2M3hTN0dNMGkrMkxlVjUydVZj?=
- =?utf-8?B?dUV6cENMbVFBeXdUZ3pwSlhleWk4bmIvbEg4a2tHaUNPOFlCcENoSjRHM0tI?=
- =?utf-8?B?bHg2ZFNnVml3NUh5NGlWL1dHYzdsNXJubkh1UjhkQ1NxajNrRnI3TURQMWU0?=
- =?utf-8?Q?0piwNPks36XmFcrMo/djsL04Y?=
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(396003)(39860400002)(346002)(451199015)(36840700001)(40470700004)(46966006)(40460700003)(36756003)(31686004)(70206006)(16576012)(70586007)(4326008)(6916009)(44832011)(40480700001)(8676002)(36860700001)(2906002)(54906003)(316002)(82740400003)(81166007)(31696002)(86362001)(356005)(83380400001)(2616005)(186003)(26005)(53546011)(336012)(5660300002)(8936002)(41300700001)(82310400005)(426003)(478600001)(47076005)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4d62ff26-6849-4e84-7b8d-08dadf534074
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 10:49:48.5345
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 10:53:44.7026
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1d4bfb7b-66f8-4e47-ca2d-08dadf53cd63
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m+KR3S/iz2epUXsVdv5zDlY6PceLNTyGF2joXOViCtkQbCSvCHRfnsGRWj9Wu2LJz2qgDts+GdihfBgE3wrrhA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5744
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6305
 
 
-On 16/12/2022 09:57, Julien Grall wrote:
-> Hi,
-Hi Julien,
->
-> This patch is actually a good example to demonstrate the extra amount 
-> of boiler plate required to use your new boiler.
->
-> On 15/12/2022 19:32, Ayan Kumar Halder wrote:
->> device_tree_get_reg(), dt_next_cell() uses u64 for address and size.
->> Thus, the caller needs to be fixed to pass u64 values and then invoke
->> translate_dt_address_size() to do the translation between u64 and 
->> paddr_t.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->>   xen/arch/arm/bootfdt.c | 22 ++++++++++++++--------
->>   1 file changed, 14 insertions(+), 8 deletions(-)
->>
->> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
->> index 0085c28d74..835bb5feb9 100644
->> --- a/xen/arch/arm/bootfdt.c
->> +++ b/xen/arch/arm/bootfdt.c
->> @@ -14,6 +14,7 @@
->>   #include <xen/libfdt/libfdt.h>
->>   #include <xen/sort.h>
->>   #include <xsm/xsm.h>
->> +#include <asm/platform.h>
->>   #include <asm/setup.h>
->>     static bool __init device_tree_node_matches(const void *fdt, int 
->> node,
->> @@ -68,7 +69,7 @@ static int __init device_tree_get_meminfo(const 
->> void *fdt, int node,
->>       unsigned int i, banks;
->>       const __be32 *cell;
->>       u32 reg_cells = address_cells + size_cells;
->> -    paddr_t start, size;
->> +    u64 start, size;
->>       struct meminfo *mem = data;
->>         if ( address_cells < 1 || size_cells < 1 )
->> @@ -219,7 +220,7 @@ static void __init process_multiboot_node(const 
->> void *fdt, int node,
->>       const struct fdt_property *prop;
->>       const __be32 *cell;
->>       bootmodule_kind kind;
->> -    paddr_t start, size;
->> +    u64 start, size;
->>       int len;
->>       /* sizeof("/chosen/") + DT_MAX_NAME + '/' + DT_MAX_NAME + '/0' 
->> => 92 */
->>       char path[92];
->> @@ -379,7 +380,8 @@ static int __init process_shm_node(const void 
->> *fdt, int node,
->>   {
->>       const struct fdt_property *prop, *prop_id, *prop_role;
->>       const __be32 *cell;
->> -    paddr_t paddr, gaddr, size;
->> +    paddr_t paddr = 0, gaddr = 0, size = 0;
->
-> For a first 0 is a valid address. So we should not use is as 
-> initialization.
->
->> +    u64 dt_paddr, dt_gaddr, dt_size;
->>       struct meminfo *mem = &bootinfo.reserved_mem;
->>       unsigned int i;
->>       int len;
->> @@ -443,10 +445,14 @@ static int __init process_shm_node(const void 
->> *fdt, int node,
->>       }
->>         cell = (const __be32 *)prop->data;
->> -    device_tree_get_reg(&cell, address_cells, address_cells, &paddr, 
->> &gaddr);
->> -    size = dt_next_cell(size_cells, &cell);
->> +    device_tree_get_reg(&cell, address_cells, address_cells, &dt_paddr,
->> +                        &dt_gaddr);
->> +    translate_dt_address_size(&dt_paddr, &dt_gaddr, &paddr, &gaddr
-> If we function return a value, then this should be checked. If not, 
-> then it should be explained.
->
-> In this case, it is not clear to me who is checking the conversion was 
-> successful.
-Sorry, I missed this. The caller should have checked for the return 
-value and "return -EINVAL" for the conversion error.
 
-I am in two minds.
+On 16/12/2022 11:21, Jan Beulich wrote:
+> 
+> 
+> On 16.12.2022 10:30, Michal Orzel wrote:
+>> On 15/12/2022 16:48, Jan Beulich wrote:
+>>> On 15.12.2022 16:25, Michal Orzel wrote:
+>>>> --- /dev/null
+>>>> +++ b/tests/hyp-xen-version/main.c
+>>>> @@ -0,0 +1,105 @@
+>>>> +/**
+>>>> + * @file tests/hyp-xen-version/main.c
+>>>> + * @ref test-hyp-xen-version
+>>>> + *
+>>>> + * @page test-hyp-xen-version Hypercall xen_version
+>>>> + *
+>>>> + * Functional testing of xen_version hypercall.
+>>>> + *
+>>>> + * @see tests/hyp-xen-version/main.c
+>>>> + */
+>>>> +#include <xtf.h>
+>>>> +
+>>>> +const char test_title[] = "Hypercall xen_version testing";
+>>>> +
+>>>> +#define INVALID_CMD -1
+>>>> +
+>>>> +void test_main(void)
+>>>> +{
+>>>> +    int ret;
+>>>> +
+>>>> +    printk("Checking XENVER_version:\n");
+>>>> +    {
+>>>> +        /*
+>>>> +        * Version is returned directly in format: ((major << 16) | minor),
+>>>> +        * so no need to check the return value for an error.
+>>>> +        */
+>>>> +        ret = hypercall_xen_version(XENVER_version, NULL);
+>>>> +        printk(" version: %u.%u\n", ret >> 16, ret & 0xFFFF);
+>>>> +    }
+>>>> +
+>>>> +    printk("Checking XENVER_extraversion:\n");
+>>>> +    {
+>>>> +        xen_extraversion_t xen_ev;
+>>>> +        memset(&xen_ev, 0, sizeof(xen_ev));
+>>>> +
+>>>> +        ret = hypercall_xen_version(XENVER_extraversion, xen_ev);
+>>>> +        if ( ret < 0 )
+>>>> +            return xtf_error("Error %d\n", ret);
+>>>
+>>> This, ...
+>>>
+>>>> +        printk(" extraversion: %s\n", xen_ev);
+>>>> +    }
+>>>> +
+>>>> +    printk("Checking XENVER_compile_info:\n");
+>>>> +    {
+>>>> +        xen_compile_info_t xen_ci;
+>>>> +        memset(&xen_ci, 0, sizeof(xen_ci));
+>>>> +
+>>>> +        ret = hypercall_xen_version(XENVER_compile_info, &xen_ci);
+>>>> +        if ( ret < 0 )
+>>>> +            return xtf_error("Error %d\n", ret);
+>>>
+>>> ... this, and ...
+>>>
+>>>> +        printk(" compiler:       %s\n", xen_ci.compiler);
+>>>> +        printk(" compile_by:     %s\n", xen_ci.compile_by);
+>>>> +        printk(" compile_domain: %s\n", xen_ci.compile_domain);
+>>>> +        printk(" compile_date:   %s\n", xen_ci.compile_date);
+>>>> +    }
+>>>> +
+>>>> +    printk("Checking XENVER_changeset:\n");
+>>>> +    {
+>>>> +        xen_changeset_info_t xen_cs;
+>>>> +        memset(&xen_cs, 0, sizeof(xen_cs));
+>>>> +
+>>>> +        ret = hypercall_xen_version(XENVER_changeset, &xen_cs);
+>>>> +        if ( ret < 0 )
+>>>> +            return xtf_error("Error %d\n", ret);
+>>>
+>>> ... this can fail because of XSM denying access. (Others can of course
+>>> also fail for this reason, but here possible failure is kind of
+>>> "intended" - see the dummy xsm_xen_version() handling.) Therefore I
+>>> would like to suggest that you also special case getting back -EPERM,
+>>> resulting in e.g. just a warning instead of an error.
+>> When writing a test I did make sure to check xsm_xen_version *for the operations that I covered*
+>> and my understanding is as follows:
+>> For XENVER_version and XENVER_get_features, it returns 0 so deny is false.
+>> For other commands I test, xsm_default_action is called with XSM_HOOK which returns 0 as well.
+>> So AFAICT nothing can result in setting deny to true.
+>> But even in case of setting deny to true, it would just result in copying "<denied>" into
+>> the respective buffer. It would not alter the hypercall return value.
+> 
+> For dummy itself all is fine; arrangements there suggest to me though
+> that the intention was that an actual Flask policy may be written such
+> that some of these might actually be refused. My recollection actually
+> is that when the distinction for the sub-ops was introduced, quite a
+> bit of discussion happened as to what may or may not be (optionally
+> or uniformly) be rejected.
+Ok but in any case, in the current xen_version implementation, it will just
+result in storing "<denied>". No -EPERM will be returned. So do you think it
+would make sense to add handling for it in the test even though it cannot be
+triggered?
 
-I am thinking that instead of returing error from 
-translate_dt_address_size(), the function can invoke panic() when it 
-detects incorrect address/size.
+> 
+> Jan
 
-Any errors related to incorrect address/size (ie providing 64 bit for 
-PA_32) should be treated as fatal. But I do not see any precedent for 
-this (ie libfdt does not panic for an error).
+~Michal
 
-We could return an error from translate_dt_address_size() as we are 
-doing today. It means that the errors need to be checked by all the 
-callers (which adds extra code).
-
-- Ayan
-
->
-> Overall, I think this will increase the amount of code. So before 
-> doing the modification, I think we need to agree on whether this is 
-> worth it to check the device-tree values.
->
-> Cheers,
->
 
