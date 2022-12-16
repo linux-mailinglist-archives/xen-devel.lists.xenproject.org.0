@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D22CB64F0EA
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 19:26:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464884.723430 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7DC364F0ED
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 19:26:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464887.723463 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6FP3-0007Bv-2m; Fri, 16 Dec 2022 18:25:49 +0000
+	id 1p6FP7-00081i-1d; Fri, 16 Dec 2022 18:25:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464884.723430; Fri, 16 Dec 2022 18:25:49 +0000
+Received: by outflank-mailman (output) from mailman id 464887.723463; Fri, 16 Dec 2022 18:25:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6FP2-00079J-W3; Fri, 16 Dec 2022 18:25:48 +0000
-Received: by outflank-mailman (input) for mailman id 464884;
- Fri, 16 Dec 2022 18:25:47 +0000
+	id 1p6FP6-0007z3-Tz; Fri, 16 Dec 2022 18:25:52 +0000
+Received: by outflank-mailman (input) for mailman id 464887;
+ Fri, 16 Dec 2022 18:25:52 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CdjE=4O=citrix.com=prvs=342889366=edvin.torok@srs-se1.protection.inumbo.net>)
- id 1p6FP1-0006tv-7I
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 18:25:47 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0d08c929-7d6f-11ed-8fd4-01056ac49cbb;
- Fri, 16 Dec 2022 19:25:44 +0100 (CET)
+ id 1p6FP5-0006tv-SB
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 18:25:51 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0fdb66a4-7d6f-11ed-8fd4-01056ac49cbb;
+ Fri, 16 Dec 2022 19:25:50 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,179 +36,136 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0d08c929-7d6f-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: 0fdb66a4-7d6f-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671215144;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=g4p5R9xtV45SffUqomxDtezBVesWLTVPg0ts1Qe1yj4=;
-  b=SBBM9u6RTX/jVga/MIPCsEsa/21uOsQSxPCX8TJ1YTXc4EmlPrKf7rhQ
-   LVzRe13rgtNhEYAdb5S8OqKMlo9PdAWSw77T0h5bO9//3zBDMt/Nok8KY
-   l7rMFcssRZDOe0py3KobZgWKVuvWfkuWDHVN+/dSlT2pPzZkXwUAfdpdC
-   E=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  d=citrix.com; s=securemail; t=1671215150;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=+qiRt7qXMDUW2Lh6zGZ8vuFNvacsvAkkokWySMsWC7A=;
+  b=MlXIkRtkk+HlJBqMHfcKJuu2PQME9AXGK/KQUXEi0im9swv3LYI2Gxm2
+   aMasSZ3SJYpxiLDwYGmef7uKXcIbmfzFFmSETvBqnbF8mK3M/9/5B9rIx
+   DC9mgyGBt1TbrL02RSiuiwQNuzY0T9mbX964C+7ULoKBTUiDYeTca3XuJ
+   4=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 88806404
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
+X-MesageID: 88310837
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:zPj6MKqN9QV137olXYOHQu6/bCFeBmLbZRIvgKrLsJaIsI4StFCzt
- garIBnTPv/fYGWhfI8ibonnpkhSv8SAz9BgQVBury42RnwS9puZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpAFc+E0/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06W1wUmAWP6gR5gaEzidNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAClQY0yErcKr+qi2YcxLl+s9I8/uBapK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFHU/rSn8/x7pX7WzBUtlOT47Yw+W/Q5AdwzKLsIJzefdniqcB9zhbI/
- jyapziR7hcyBYSQ4iObq0uWme7BpR3SQdseRYbi6as/6LGU7jNKU0BHPbehmtGmjmauVtQZL
- FYbkgIssKwz+UqDXtT7GRqirxaspQUAUtBdF+k77gClyafO5QudQG8eQVZpeNEg8cM7WzEu/
- luIhM/yQyxitqWPTnCQ/avSqim9UQAZJHEPTTUJRgwE55/kuo5bphDFQ8tnEaW1psboAjy2y
- DePxBXSnJ1K05RNjf/iuwma3XT8/fAlUzLZ+C3OA2/56SlZebS/aqeNzkn08/lGKb+wGwzpU
- Gc/p+CS6+UHDJeonSOLQfkQELzB28tpIAEwknY0QcB/qm3FF2qLONkJvWogfBsB3tMsI2eBX
- aPFhe9GCHa/1lOOZLQ/XY++At9CIUPIRYW8DaC8gjajj/FMmO67EMNGPxb4M4PFyhJEfUQD1
- XCzL66R4Y4yU/gP8dZPb751PUUX7i4/33jPYpvw0g6q17GTDFbMF+hcaQHfN7FptP/ayOkwz
- zq4H5LaoyizrcWkOnWHmWLtBQ5iwYcH6WDe9JUMK7/rzvtOE2A9Ef7BqY7NiKQ895m5Ytzgp
- ynnMmcBkQqXuJEyAVnSApyVQO+1DMkXQLNSFXBEAGtELFB/OdfysftCKcRnFVTlncQ6pcNJo
- zA+U53oKpxypv7volzxsbGVQFReSSmW
-IronPort-HdrOrdr: A9a23:9FDtm6NiOblQ1MBcTyb155DYdb4zR+YMi2TDiHoddfUFSKalfp
- 6V98jzjSWE7gr5K0tQ4OxoWZPwNk80kKQY3WB/B8bHYOCLggqVxeJZnP3fKl/bakrDH4dmvM
- 8OHZSWY+eAbmSS+PyKhTVQZOxQouVvnprJuc7ui1NWCS16YaBp6Al0TiyBFFdteQVADZ0lUL
- KB+8tuvVObCDwqR/X+IkNAc/nIptXNmp6jSwUBHQQb5A6Hii7twKLmEiKfwgwVX1p0sPwfGC
- n+4kbED5eYwr2GIyznpiDuBlNt6ZXcI+54dYGxYw4uW3TRY0iTFcRcsva5zUgISamUmS0XeZ
- /30l4d1o1ImgnsV3Dwrh331wb61jEyr3fk1F+DmHPm5df0XTQgFqN69PBkmzbimjodVetHod
- F29nPcs4ASAQLLnSz76dSNXxZ2llCsqX5nleIIlXRQXYYXdbcU9OUkjTdoOYZFGDi/5JEsEe
- FoAs2Z7PFKcUmCZ3ScumV02tSjUnk6Ax/DSEkfvc6e1SRQgRlCvj4l7d1amm1F+IM2SpFC6e
- iBOqN0lKtWRstTdq55DPdpe7rHNoUMe2OzDIu/GyWZKEhcAQOxl3fe2sRI2N2X
+IronPort-Data: A9a23:qwA7UqkziJDBIjBuiCGJES3o5gyPJkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIYUTvSO6vbZGfye41xaN7g9BsF6JDVzIRqGVFl+X89ESMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7aqaVA8w5ARkP6kR5QGGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ ecZaw4yYzacvbqZzKO+aeNRupx5Dta+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsfYT/7C7pn9AusrnTzbTxe7k6Sv600y2PS0BZwwP7mN9+9ltmiFZUOxx7I/
+ T2uE2LRKUFKG+CkzHm823eJn+rkhn2ge65JC+jtnhJtqALKnTFCYPEMbnOrrP/8hkOgVtZ3L
+ 00P5jFovaU07FasTNT2Q1u/unHslhIVRdd4CeAx7wCJjK3O7G6xGWwsXjNHLts8u6cLqScCj
+ wHT2YmzXHo27ePTGSn1GqqoQS2aIilWE1APQzA+FSQJ8tzAqrwP1kjtUYM2eEKqteHdFTb1y
+ jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
+ JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD3271k5JAVdoKiN2bGKuOGphsRNMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QRO8ErJVbWrHkyOyZ8OlwBd2B1wckC1
+ WqzK57wXR7294w5pNZJewvt+eBynX1vrY8ibZv60w6mwdKjiI29EN843K+1Rrlhtsus+VyFm
+ +uzwuPWk32zpsWiOHiImWPSRHhWRUUG6Wfe95QGK7Pff1Q5SAnMyZb5mNscRmCspIwN/s+gw
+ 513chYwJIbX7ZEfFTi3Vw==
+IronPort-HdrOrdr: A9a23:Jks78aN+eyJ06MBcTiajsMiBIKoaSvp037B87TEWdfU1SKOlfq
+ WV9sjzuiWZtN98YgBapTnEAtj5fZq+z/BICOsqTNCftVLdyQmVxehZhOPfKn/bak7DH4hmpM
+ JdmsNFeaTN5DZB4PrS0U2RDtNl+MWK7KyJqI7lvg1QZDAvQ7xk5x1iCg6dVml/RAwDIZYiDp
+ KT6o5mqlObGEg/X4CSG3wMRfLCr9qOsJrnZFo6HBYh8gGFkDOv7/rbHnGjviv3XVt0sNMfGD
+ j++DDE2g==
 X-IronPort-AV: E=Sophos;i="5.96,249,1665460800"; 
-   d="scan'208";a="88806404"
+   d="scan'208";a="88310837"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, "Christian
- Lindig" <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
-	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
- Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
- Stabellini" <sstabellini@kernel.org>
-Subject: [PATCH v4 00/11] OCaml fixes
-Date: Fri, 16 Dec 2022 18:25:09 +0000
-Message-ID: <cover.1671214525.git.edwin.torok@cloud.com>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Christian
+ Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v4 01/11] tools/ocaml/libs/{xb, mmap}: use Data_abstract_val wrapper
+Date: Fri, 16 Dec 2022 18:25:10 +0000
+Message-ID: <4eb53994bcc3548e8da6e8ab9c50acf822b85702.1671214525.git.edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cover.1671214525.git.edwin.torok@cloud.com>
+References: <cover.1671214525.git.edwin.torok@cloud.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-From: Edwin Török <edwin.torok@cloud.com>
+This is not strictly necessary since it is essentially a no-op
+currently: a cast to void* and value*, even in OCaml 5.0.
 
-Various OCaml fixes, some of which got Acked already.
+However it does make it clearer that what we have here is not a regular
+OCaml value, but one allocated with Abstract_tag or Custom_tag,
+and follows the example from the manual more closely:
+https://v2.ocaml.org/manual/intfc.html#ss:c-outside-head
 
-Note: the Data_abstract_val got Acked but not yet commited because we thought
-there might be a better way with finalizers/etc.
-It is not possible to use finalizers here but there is a new followup patch in
-this series that detects use-after-free and raises an exception without
-trigerring undefined behaviour or crashes (see 'xb: check for unmapped ring').
+It also makes it clearer that these modules have been reviewed for
+compat with OCaml 5.0.
 
-The formatting patch was controversial during the 4.17 freeze, but master is
-open now, and both the maintainer and myself agree with it,
-so I think we should be able to do it now.
-I've split it up into 2: add the formatting rules, and the actual formatting,
-so that it is easier to redo the formatting patch when this gets backported.
+We cannot use OCaml finalizers here, because we want control over when to unmap
+these pages from remote domains.
+A follow-up commit will add use-after-free detection instead.
 
-I think we should just commit it rather than worry that there might be more
-bugfixes to come after and attempt to rebase the bugfixes without the
-formatting patch (introducing bugs in the process), especially that one of the
-patches not yet posted to fix use of enter/leave changes quite a significant
-part of all C stubs, and I don't have a way of developing those patches without
-the formatting patch.
+No functional change.
 
-The rest are various bugfixes to the C bindings, and I have more to send
-after I've tested them
-(almost all uses of enter/leave blocking section are
-wrong because they access OCaml values in non-safe ways with _H,
-but the GC may have already moved them which would cause a crash,
-that changes a lot of bindings and needs more testing before sending out,
-and I've got a few more OCaml 5 fixes too).
+Signed-off-by: Edwin Török <edvin.torok@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
+---
+Reason for inclusion in 4.17:
+- make code follow best practice for upcoming OCaml 5.0 compiler (already in beta)
 
-Edwin Török (11):
-  tools/ocaml/libs/{xb, mmap}: use Data_abstract_val wrapper
-  tools/ocaml/xenstored/Makefile: use ocamldep -sort for linking order
-  CODING_STYLE(tools/ocaml): add 'make format' and remove tabs
-  tools/ocaml: run "make format"
-  CODING-STYLE(tools/ocaml): add .editorconfig to clarify indentation
-    uses spaces
-  tools/ocaml: add .clang-format
-  fixup! tools/ocaml/xenctrl: OCaml 5 support, fix use-after-free
-  tools/ocaml/libs/mmap: mark mmap/munmap as blocking and raise
-    Unix_error on failure
-  tools/ocaml/libs/xb: check for unmapped ring before accessing it
-  tools/ocaml/xenstored: validate config file before live update
-  tools/ocaml/libs/xb: drop Xs_ring.write
+Changes since v2:
+- add Acked-by line
 
- .editorconfig                                 |   20 +
- tools/ocaml/.clang-format                     |    9 +
- tools/ocaml/Makefile                          |    5 +
- tools/ocaml/libs/eventchn/xeneventchn_stubs.c |  194 +-
- tools/ocaml/libs/mmap/mmap_stubs.h            |    8 +-
- tools/ocaml/libs/mmap/xenmmap.ml              |    2 +-
- tools/ocaml/libs/mmap/xenmmap.mli             |    4 +-
- tools/ocaml/libs/mmap/xenmmap_stubs.c         |  123 +-
- tools/ocaml/libs/xb/op.ml                     |   76 +-
- tools/ocaml/libs/xb/packet.ml                 |   30 +-
- tools/ocaml/libs/xb/partial.ml                |   48 +-
- tools/ocaml/libs/xb/xb.ml                     |  416 ++--
- tools/ocaml/libs/xb/xb.mli                    |  106 +-
- tools/ocaml/libs/xb/xenbus_stubs.c            |   50 +-
- tools/ocaml/libs/xb/xs_ring.ml                |   31 +-
- tools/ocaml/libs/xb/xs_ring_stubs.c           |  221 +-
- tools/ocaml/libs/xc/xenctrl.ml                |  326 +--
- tools/ocaml/libs/xc/xenctrl.mli               |   12 +-
- tools/ocaml/libs/xc/xenctrl_stubs.c           | 1556 ++++++-------
- tools/ocaml/libs/xentoollog/caml_xentoollog.h |    6 +-
- .../ocaml/libs/xentoollog/xentoollog_stubs.c  |  196 +-
- tools/ocaml/libs/xl/xenlight_stubs.c          | 2022 ++++++++---------
- tools/ocaml/libs/xs/queueop.ml                |   48 +-
- tools/ocaml/libs/xs/xs.ml                     |  220 +-
- tools/ocaml/libs/xs/xs.mli                    |   46 +-
- tools/ocaml/libs/xs/xsraw.ml                  |  300 +--
- tools/ocaml/libs/xs/xst.ml                    |   76 +-
- tools/ocaml/libs/xs/xst.mli                   |   20 +-
- tools/ocaml/test/dmesg.ml                     |   26 +-
- tools/ocaml/test/list_domains.ml              |    4 +-
- tools/ocaml/test/raise_exception.ml           |    4 +-
- tools/ocaml/test/xtl.ml                       |   28 +-
- tools/ocaml/xenstored/Makefile                |    6 +-
- tools/ocaml/xenstored/config.ml               |  156 +-
- tools/ocaml/xenstored/connection.ml           |  578 ++---
- tools/ocaml/xenstored/connections.ml          |  294 +--
- tools/ocaml/xenstored/disk.ml                 |  218 +-
- tools/ocaml/xenstored/domain.ml               |  116 +-
- tools/ocaml/xenstored/domains.ml              |  298 +--
- tools/ocaml/xenstored/event.ml                |   28 +-
- tools/ocaml/xenstored/history.ml              |   62 +-
- tools/ocaml/xenstored/logging.ml              |  478 ++--
- tools/ocaml/xenstored/packet.ml               |   20 +-
- tools/ocaml/xenstored/parse_arg.ml            |  132 +-
- tools/ocaml/xenstored/perms.ml                |  216 +-
- tools/ocaml/xenstored/poll.ml                 |   68 +-
- tools/ocaml/xenstored/poll.mli                |    4 +-
- tools/ocaml/xenstored/process.ml              | 1210 +++++-----
- tools/ocaml/xenstored/quota.ml                |   74 +-
- tools/ocaml/xenstored/select_stubs.c          |   62 +-
- tools/ocaml/xenstored/stdext.ml               |  190 +-
- tools/ocaml/xenstored/store.ml                |  752 +++---
- tools/ocaml/xenstored/symbol.ml               |    2 +-
- tools/ocaml/xenstored/syslog.ml               |   48 +-
- tools/ocaml/xenstored/syslog_stubs.c          |   68 +-
- tools/ocaml/xenstored/systemd_stubs.c         |   10 +-
- tools/ocaml/xenstored/transaction.ml          |  352 +--
- tools/ocaml/xenstored/trie.ml                 |  222 +-
- tools/ocaml/xenstored/trie.mli                |   22 +-
- tools/ocaml/xenstored/utils.ml                |  146 +-
- tools/ocaml/xenstored/xenstored.ml            |  987 ++++----
- 61 files changed, 6569 insertions(+), 6483 deletions(-)
- create mode 100644 .editorconfig
- create mode 100644 tools/ocaml/.clang-format
+Changes since v3:
+- mention that use-after-free is fixed in another commit, and we cannot use
+  finalizers here
+---
+ tools/ocaml/libs/mmap/mmap_stubs.h    | 4 ++++
+ tools/ocaml/libs/mmap/xenmmap_stubs.c | 2 +-
+ tools/ocaml/libs/xb/xs_ring_stubs.c   | 2 +-
+ 3 files changed, 6 insertions(+), 2 deletions(-)
 
---
+diff --git a/tools/ocaml/libs/mmap/mmap_stubs.h b/tools/ocaml/libs/mmap/mmap_stubs.h
+index 65e4239890..66f18d4406 100644
+--- a/tools/ocaml/libs/mmap/mmap_stubs.h
++++ b/tools/ocaml/libs/mmap/mmap_stubs.h
+@@ -30,4 +30,8 @@ struct mmap_interface
+ 	int len;
+ };
+ 
++#ifndef Data_abstract_val
++#define Data_abstract_val(x) ((void*)(value*)(x))
++#endif
++
+ #endif
+diff --git a/tools/ocaml/libs/mmap/xenmmap_stubs.c b/tools/ocaml/libs/mmap/xenmmap_stubs.c
+index e2ce088e25..141dedb78c 100644
+--- a/tools/ocaml/libs/mmap/xenmmap_stubs.c
++++ b/tools/ocaml/libs/mmap/xenmmap_stubs.c
+@@ -28,7 +28,7 @@
+ #include <caml/fail.h>
+ #include <caml/callback.h>
+ 
+-#define Intf_val(a) ((struct mmap_interface *) a)
++#define Intf_val(a) ((struct mmap_interface *) Data_abstract_val(a))
+ 
+ static int mmap_interface_init(struct mmap_interface *intf,
+                                int fd, int pflag, int mflag,
+diff --git a/tools/ocaml/libs/xb/xs_ring_stubs.c b/tools/ocaml/libs/xb/xs_ring_stubs.c
+index 7a91fdee75..cc9114029f 100644
+--- a/tools/ocaml/libs/xb/xs_ring_stubs.c
++++ b/tools/ocaml/libs/xb/xs_ring_stubs.c
+@@ -35,7 +35,7 @@
+ #include <sys/mman.h>
+ #include "mmap_stubs.h"
+ 
+-#define GET_C_STRUCT(a) ((struct mmap_interface *) a)
++#define GET_C_STRUCT(a) ((struct mmap_interface *) Data_abstract_val(a))
+ 
+ /*
+  * Bytes_val has been introduced by Ocaml 4.06.1. So define our own version
+-- 
 2.34.1
 
 
