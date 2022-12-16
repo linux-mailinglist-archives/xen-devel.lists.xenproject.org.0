@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FA0664EA06
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 12:13:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464391.722775 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FFEE64EAB3
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 12:36:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464402.722792 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p68eK-00077f-0H; Fri, 16 Dec 2022 11:13:08 +0000
+	id 1p690h-0001MH-Tp; Fri, 16 Dec 2022 11:36:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464391.722775; Fri, 16 Dec 2022 11:13:07 +0000
+Received: by outflank-mailman (output) from mailman id 464402.722792; Fri, 16 Dec 2022 11:36:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p68eJ-00074x-Sk; Fri, 16 Dec 2022 11:13:07 +0000
-Received: by outflank-mailman (input) for mailman id 464391;
- Fri, 16 Dec 2022 11:13:07 +0000
+	id 1p690h-0001Je-Qn; Fri, 16 Dec 2022 11:36:15 +0000
+Received: by outflank-mailman (input) for mailman id 464402;
+ Fri, 16 Dec 2022 11:36:14 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p68eJ-00074n-A1
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 11:13:07 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p690g-0001JU-QE; Fri, 16 Dec 2022 11:36:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p68eI-0001CO-Uv; Fri, 16 Dec 2022 11:13:06 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.4.243]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p68eI-0003ZC-Oi; Fri, 16 Dec 2022 11:13:06 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p690g-0001m9-Ne; Fri, 16 Dec 2022 11:36:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p690g-0005At-Dp; Fri, 16 Dec 2022 11:36:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p690g-0007nq-DJ; Fri, 16 Dec 2022 11:36:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,164 +42,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
-	References:Cc:To:From:Subject:MIME-Version:Date:Message-ID;
-	bh=vExX+w1ZtDF+N0Gp5RydI0hrA2lKpCLkkJISJJyIOT0=; b=HR+6Y6Mpy7gHxzo6o7egVzwdJj
-	yG4qQUt9abDQWezYBzYBfDE9jTOhh+7V9j60voGsRdpC1oel6yyDxgFIY3V33L6XzqgIM1gLSPTcf
-	gzv+Znhi4/MK2WQnso9DouPr+peiuee/r0zcrf4+3Wr5n8A8i9e0s1OqXiGo3Np3gT2M=;
-Message-ID: <865f4fcf-1c78-8b84-7ba4-a3c62718b3c3@xen.org>
-Date: Fri, 16 Dec 2022 11:13:05 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.0
-Subject: Re: [XEN v1 3/9] xen/arm: Always use 'u64' instead of 'paddr_t' for
- address and size in DT
-Content-Language: en-US
-From: Julien Grall <julien@xen.org>
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221215193245.48314-1-ayan.kumar.halder@amd.com>
- <20221215193245.48314-4-ayan.kumar.halder@amd.com>
- <c63310d5-e699-3f6c-15a9-eec314cb179c@xen.org>
- <1739c415-d1e6-efad-774e-5a49c9f28a09@amd.com>
- <d00c5a32-b0c2-980b-d9b9-06a4aa8db1f1@xen.org>
-In-Reply-To: <d00c5a32-b0c2-980b-d9b9-06a4aa8db1f1@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OHNfL/KAwIMyKTbWJOGL01k/9rX/6cDXxUmkIMMLT1A=; b=6SiHCiagnfg2qyrTnci7/yEYWz
+	0iL0Mqm8uBCLEjC7a50DOD8aUwpdYx56DjgkXLfH1pnaU3BuN3aMl8tZfXa30vjgmHttHVtvCX+uv
+	4+PMNN0YdIN01jOCPIJ1d+7TVZcyQpVat0BCuh4SlkyNFeGyu4LH0ZpYh1XTvURxUgw4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175311-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 175311: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=e254c71e9eaee6b14eba65e89e906576f3f1abc7
+X-Osstest-Versions-That:
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 16 Dec 2022 11:36:14 +0000
+
+flight 175311 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175311/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+
+version targeted for testing:
+ ovmf                 e254c71e9eaee6b14eba65e89e906576f3f1abc7
+baseline version:
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
+
+Last test of basis   175202  2022-12-14 13:42:59 Z    1 days
+Failing since        175214  2022-12-14 18:42:16 Z    1 days   10 attempts
+Testing same since   175311  2022-12-16 07:46:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Adam Dunlap <acdunlap@google.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Dov Murik <dovmurik@linux.ibm.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Jiaqi Gao <jiaqi.gao@intel.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 16/12/2022 11:12, Julien Grall wrote:
-> 
-> 
-> On 16/12/2022 10:49, Ayan Kumar Halder wrote:
->>
->> On 16/12/2022 09:57, Julien Grall wrote:
->>> Hi,
->> Hi Julien,
->>>
->>> This patch is actually a good example to demonstrate the extra amount 
->>> of boiler plate required to use your new boiler.
->>>
->>> On 15/12/2022 19:32, Ayan Kumar Halder wrote:
->>>> device_tree_get_reg(), dt_next_cell() uses u64 for address and size.
->>>> Thus, the caller needs to be fixed to pass u64 values and then invoke
->>>> translate_dt_address_size() to do the translation between u64 and 
->>>> paddr_t.
->>>>
->>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>> ---
->>>>   xen/arch/arm/bootfdt.c | 22 ++++++++++++++--------
->>>>   1 file changed, 14 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
->>>> index 0085c28d74..835bb5feb9 100644
->>>> --- a/xen/arch/arm/bootfdt.c
->>>> +++ b/xen/arch/arm/bootfdt.c
->>>> @@ -14,6 +14,7 @@
->>>>   #include <xen/libfdt/libfdt.h>
->>>>   #include <xen/sort.h>
->>>>   #include <xsm/xsm.h>
->>>> +#include <asm/platform.h>
->>>>   #include <asm/setup.h>
->>>>     static bool __init device_tree_node_matches(const void *fdt, int 
->>>> node,
->>>> @@ -68,7 +69,7 @@ static int __init device_tree_get_meminfo(const 
->>>> void *fdt, int node,
->>>>       unsigned int i, banks;
->>>>       const __be32 *cell;
->>>>       u32 reg_cells = address_cells + size_cells;
->>>> -    paddr_t start, size;
->>>> +    u64 start, size;
->>>>       struct meminfo *mem = data;
->>>>         if ( address_cells < 1 || size_cells < 1 )
->>>> @@ -219,7 +220,7 @@ static void __init process_multiboot_node(const 
->>>> void *fdt, int node,
->>>>       const struct fdt_property *prop;
->>>>       const __be32 *cell;
->>>>       bootmodule_kind kind;
->>>> -    paddr_t start, size;
->>>> +    u64 start, size;
->>>>       int len;
->>>>       /* sizeof("/chosen/") + DT_MAX_NAME + '/' + DT_MAX_NAME + '/0' 
->>>> => 92 */
->>>>       char path[92];
->>>> @@ -379,7 +380,8 @@ static int __init process_shm_node(const void 
->>>> *fdt, int node,
->>>>   {
->>>>       const struct fdt_property *prop, *prop_id, *prop_role;
->>>>       const __be32 *cell;
->>>> -    paddr_t paddr, gaddr, size;
->>>> +    paddr_t paddr = 0, gaddr = 0, size = 0;
->>>
->>> For a first 0 is a valid address. So we should not use is as 
->>> initialization.
->>>
->>>> +    u64 dt_paddr, dt_gaddr, dt_size;
->>>>       struct meminfo *mem = &bootinfo.reserved_mem;
->>>>       unsigned int i;
->>>>       int len;
->>>> @@ -443,10 +445,14 @@ static int __init process_shm_node(const void 
->>>> *fdt, int node,
->>>>       }
->>>>         cell = (const __be32 *)prop->data;
->>>> -    device_tree_get_reg(&cell, address_cells, address_cells, 
->>>> &paddr, &gaddr);
->>>> -    size = dt_next_cell(size_cells, &cell);
->>>> +    device_tree_get_reg(&cell, address_cells, address_cells, 
->>>> &dt_paddr,
->>>> +                        &dt_gaddr);
->>>> +    translate_dt_address_size(&dt_paddr, &dt_gaddr, &paddr, &gaddr
->>> If we function return a value, then this should be checked. If not, 
->>> then it should be explained.
->>>
->>> In this case, it is not clear to me who is checking the conversion 
->>> was successful.
->> Sorry, I missed this. The caller should have checked for the return 
->> value and "return -EINVAL" for the conversion error.
->>
->> I am in two minds.
->>
->> I am thinking that instead of returing error from 
->> translate_dt_address_size(), the function can invoke panic() when it 
->> detects incorrect address/size.
-> 
-> panic() is not an option if the function can be used after boot. But 
-> even if the use were restricted to boot ...
-> 
->>
->> Any errors related to incorrect address/size (ie providing 64 bit for 
->> PA_32) should be treated as fatal. 
-> 
-> ... translate_dt_address_size() is too generic to make this decision. 
-> This is up to the caller to decide whether it is fine to ignore or crash.
-> 
->> But I do not see any precedent for this (ie libfdt does not panic for 
->> an error).
-> 
-> The same reasoning applies here.
-> 
->>
->> We could return an error from translate_dt_address_size() as we are 
->> doing today. It means that the errors need to be checked by all the 
->> callers (which adds extra code).
-> 
-> Another option is the one I mentioned before. Don't check the truncation 
-> because that's not Xen job to very all the Device-Tree (in particular if 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-s/very/verify/
+Not pushing.
 
-I only noticed it after sending (sorry).
-
-> this is intrusive).
-> 
-> Cheers,
-> 
-
--- 
-Julien Grall
+(No revision log; it would be 365 lines long.)
 
