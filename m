@@ -2,55 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66A6064E84D
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 09:50:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464209.722588 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37F5164E8A0
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 10:31:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464258.722598 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p66P9-0008Ts-Bd; Fri, 16 Dec 2022 08:49:19 +0000
+	id 1p6736-0005Xl-VG; Fri, 16 Dec 2022 09:30:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464209.722588; Fri, 16 Dec 2022 08:49:19 +0000
+Received: by outflank-mailman (output) from mailman id 464258.722598; Fri, 16 Dec 2022 09:30:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p66P9-0008QS-7j; Fri, 16 Dec 2022 08:49:19 +0000
-Received: by outflank-mailman (input) for mailman id 464209;
- Fri, 16 Dec 2022 08:49:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p6736-0005VG-Rg; Fri, 16 Dec 2022 09:30:36 +0000
+Received: by outflank-mailman (input) for mailman id 464258;
+ Fri, 16 Dec 2022 09:30:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=PP9E=4O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1p66P7-0008QM-6u
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 08:49:17 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 83ca0edb-7d1e-11ed-8fd3-01056ac49cbb;
- Fri, 16 Dec 2022 09:49:14 +0100 (CET)
-Received: from BN9PR03CA0120.namprd03.prod.outlook.com (2603:10b6:408:fd::35)
- by BL1PR12MB5063.namprd12.prod.outlook.com (2603:10b6:208:31a::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
- 2022 08:49:11 +0000
-Received: from BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:fd:cafe::3a) by BN9PR03CA0120.outlook.office365.com
- (2603:10b6:408:fd::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12 via Frontend
- Transport; Fri, 16 Dec 2022 08:49:11 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- BN8NAM11FT044.mail.protection.outlook.com (10.13.177.219) with Microsoft SMTP
+ id 1p6734-0005VA-Hv
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 09:30:34 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 490f5f17-7d24-11ed-91b6-6bf2151ebd3b;
+ Fri, 16 Dec 2022 10:30:32 +0100 (CET)
+Received: from DS7P222CA0007.NAMP222.PROD.OUTLOOK.COM (2603:10b6:8:2e::24) by
+ DS7PR12MB5885.namprd12.prod.outlook.com (2603:10b6:8:78::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.5880.19; Fri, 16 Dec 2022 09:30:29 +0000
+Received: from DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:8:2e:cafe::ca) by DS7P222CA0007.outlook.office365.com
+ (2603:10b6:8:2e::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.15 via Frontend
+ Transport; Fri, 16 Dec 2022 09:30:29 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT074.mail.protection.outlook.com (10.13.173.203) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.5924.15 via Frontend Transport; Fri, 16 Dec 2022 08:49:10 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.5924.15 via Frontend Transport; Fri, 16 Dec 2022 09:30:29 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
- 2022 02:49:10 -0600
+ 2022 03:30:27 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
  (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 16 Dec
- 2022 00:49:10 -0800
+ 2022 01:30:16 -0800
 Received: from [10.71.193.33] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 16 Dec 2022 02:49:08 -0600
+ Transport; Fri, 16 Dec 2022 03:30:15 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,194 +62,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 83ca0edb-7d1e-11ed-8fd3-01056ac49cbb
+X-Inumbo-ID: 490f5f17-7d24-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iVloj9ve4VOF3H/eXz6ApSibnf/PKanTY+VQ+PgaDIgV690uv2/orjARehov1YpUpI1IISjSJCcMlHwnxL644BoZKTZazRqGqeHEgOsrmtYhr/AMe9CHOEDjjSCXSMv4oIwlLAjKRlkMplMUrtXlsMI/2xo8pBFoS950doUXoPCyS/nsUCP2sLSBt/TiHAAifnxgYA3ICCgFOIiIiGMEKxCN+5ova1Bc6Vgw1AGtpCDKAdVwxTq9ihiUoPlntR7+PgmEPylkc22EmfuNB29rv5Lbb6Oq4pwxjFONzzSa5DP4wiSSJXKN/DY3sXCSBKaNHdc/lugh68gOWz3cXifMrQ==
+ b=QY3tboN7fz8DV5qt3OWtHQH6XTQ1X5YdMcjfdyaGdd7rUhycD+1Pm1YIqfQ25P7HxNFI9bmdHMWsQQT/Fpa7WPDrlEPBtFYS3WFKq049sIfH/RoAud9gqtY7FYrNKru0kN1bZbJrGk8qVAHyDPzNuahV5p10K7AjQHjlApYFVnribKK4OSVIbjaM/CZ56GXzG6zSPPlU6Z3pJtqrokK7wS/2UUXvvp22sq1lgrEYazS7GZGp/JXbu9/222748B7vZefGv9p/d1Yhq727wjv9Sz+fK3Q2QnvWuoHsqlj/+2WSxbfAMNTlhd2fszXGi9zcqp/C9t2DDHOfaYYABcaH4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IfpWM+bPEAeOjFmUQEZfHK53UeNgZ64B7Cs+Fv8PyBM=;
- b=Ff9cDVQM14P1r4MFhSkNhCvyMrTXPrPCYUmisuARGjSzOq0gswM43F5qaJuCf8NsEZY6ykfZxrtDOxI+uMmXNcV6rDHE4Qml2l4jUzmJg+I9FmnsSZajP9+m41OIQ9OVhtESGmPrvZRQylQCvKI5UXorpsKBQ4asrL2nLsnTFm0LQtV4fN5/Xo29Yo8edCxM3CZjZJKl2yU3AWvz9XxVFai2KtpLkgdih7eOzog4NSs06iweVYaEv5ybIhCwuliSHv7OMwutJAck6F3XVB24Z4RV8OjhW8H7B+cUE1ii08FGStBpCb756UHKd43LAMPDkhvnav2mMd8JB0Lc0tylcw==
+ bh=20TEK8Yja4dovbT41oQYdC3wJuGtpe9t9FoV9SK5oeA=;
+ b=KDAWj800XPm3hmYysfZMXiFLCcOEVO2CSjLuGq2AaY637bPsaDZHu7k9d3jx8eA9y4uv9p0D0/TN+ylkuQgPCUU1xtbxqRbL5OSOENi2Sk9fvgC45j6mrUSvdcPYGiExA0GBGjYAfS1DxpFo1rP9r9FkxL5pExeLs97V2C8Jl0efih2FxaClzHyZDAVJYQF9PAAl2WzFfVQswhKmud/kQDnsjVLvs93yJopaT8/fFe/nH0zjSTUQqgKpdvwqiquUYu4LFCQDpcmaczM8ECX6/HtRQpP8oObXleYmrNpreKYOJB/kJxJh5CytK0kPh0CrAjYEWkvkRVzF0jXXpAp+4w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IfpWM+bPEAeOjFmUQEZfHK53UeNgZ64B7Cs+Fv8PyBM=;
- b=HEHImrT1ugKf/YkrRHVNzNS86136kVOaGKmAB5BT8WFFA73XDbdopJ0mo63RZCOBqzfkw1b8I8aNxfdR5+IDwscuoxunm8Y4h3oZusBsgkUmZVus69Ngp3ZbEdOf/x0Hm+BKE2oxpr1hoyuA+x6lldYPcWwhgay16ClyIjLBSxA=
+ bh=20TEK8Yja4dovbT41oQYdC3wJuGtpe9t9FoV9SK5oeA=;
+ b=wdNJZf9eFEo+UAo0GwBpzKiKsgBqZiGs8LQdIdRrdBDsSgKtnh50Ogbhzl2ieXq64p9GtAfoWlfrvux9IB6S06flw66JEkCtlof1+y0GjmQDSrsu4DajSdd10gZy4cXO63q8C/ZduW3jEQnhVNssomuwrYctrbYxZmT+1SmGuy8=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-Message-ID: <ac21d0f7-0441-8da8-6370-b9fd9ae159b7@amd.com>
-Date: Fri, 16 Dec 2022 09:49:08 +0100
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <235eaf7f-5b59-e8de-8657-ce9d202365c1@amd.com>
+Date: Fri, 16 Dec 2022 10:30:15 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH] xen/arm: Allow to set grant table related limits for
- dom0less domUs
-To: Stefano Stabellini <sstabellini@kernel.org>
-CC: <xen-devel@lists.xenproject.org>, Julien Grall <julien@xen.org>, "Bertrand
- Marquis" <bertrand.marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-References: <20221214130833.543-1-michal.orzel@amd.com>
- <alpine.DEB.2.22.394.2212151335020.315094@ubuntu-linux-20-04-desktop>
+Subject: Re: [XTF-ARM] tests: Hypercall xen_version testing
 Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>
+CC: <sstabellini@kernel.org>, <xen-devel@lists.xenproject.org>
+References: <20221215152511.10194-1-michal.orzel@amd.com>
+ <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <alpine.DEB.2.22.394.2212151335020.315094@ubuntu-linux-20-04-desktop>
+In-Reply-To: <58a87888-e839-8a5d-0e7f-7520e5e2c78a@suse.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT044:EE_|BL1PR12MB5063:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4167145-f06c-4ea5-cdb3-08dadf4266b3
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT074:EE_|DS7PR12MB5885:EE_
+X-MS-Office365-Filtering-Correlation-Id: db64824f-5df8-44c2-13cf-08dadf482c38
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	mrLfMNQF9/Gz991P86QcMqG9V8+BBqDw2oHpl3VSyaz90QHAh/XYb16K2RXBf3YDbfiVOyChIthy1mflpmigQbEhxp4S5Km/4PYaJVqpSpZBysbDu8eA0lclJxbVf9O4AcYim3j6cSKCGdl283GPbIndA5Mhmgf8czLAd5C26aYwOSbrNPFaWxJuy6SIza6s+GuXH0NUTud2gYAq39dLfgxx94hfXqhkSAbLMGTC2W7TxhlbpIqrx8z0dAK4kuIReEbbhxYANPeBEFhwvMHctIpeIhAJv/D6j7y6kbEiaipB++ca7UqFpmD4/Lk+xwfg3qGEeiTKnB4QH2oIWB48oieDEgUWfGIHXjxaVLgPqDBp/vCFVki/leV1y9jEOpvLoCqWoJYtWRsmCumM0eg8y+69xD8Zdz3kJSijqbHfHmAVzoZWQF40IXPTB4+errUq1zPL5Kg7zc5oxaoBYcfOzNt2HAFpe5sdyAQh534qeWQ0niDWhfIiB4HR7OrjS6RP6wCen02UCEz7BaSJvCBu2wsdZ22kkCS398uFr4XXD/ljx3uHOx8F+z1XAOuwjlra2hj0yAEWtv/8xfu74KPT15j0m8HQqGTh7xTu82ZdtFmNVuWs59SzKC786KrM4CboiF6Exr+lKMagEVPhq1sb8lLCzQHUs84yPvoDKIIsKDnX55eTCw0vtGxJEtORIuyvrXZbVCwFlP1ThaKnLBCoHhcn0DWWyKDZ1e7XiL/SOCbWYXxTj94hf35xHRUdZbw/fkxhDwRQD0EtzWV2iSK2Lmbj2GV+NzIqUSI+slMViYU=
+	9f7YnSzxiUMUXnK2XL0/uH4BCyJAAgKUMMlVt5EIUo/poiFepOjcWdM2+w4+Zeyb0kyyRTIO3V23gqfwF2GpQAZ0j1t9xY38VQFMAhA+2CbW0EfZMSWT/9MmShoz1a16eOV1TMO4wQ/kCIVV7TXWD3aSqGw5k8uSuYmzbpff9zi86QkIxt6uwvyFvGcEO33g4hu6iV5g5mFdcIFg7GfNkER/WBHKfpN8KUeb/28H4VbfL/DYrMGEmI1HLidumJze8DXi0QCbzZNVOn24VwBBh2d+MqvQT9cs3A6RV60T1IdLQp189HCzLdZiJOPfRYbtbIHj9+MNikjXjUi+oJ8E0WFPV5vgJiaWFdavzGoEn05uWXZ0ZUIhzW7MJDcl2N4jDHDv9BCuJmS8cTJa/7WJo231ZcmpbikaI+yIkB/g+PMnzR1h+qIkNUgOmxc8aoWsYWOAtamaECQtBnyjgNCWhzLLrReeOB7Omq1qJIN8OZPvRZkQ+Gcq8Gonz9pZSLo4NkzREt13iVC0YZUYawoVmbFxY74w9ff2wInjYbiNmjjPr5DF59Oi9RI8cp7rPu/4LcsW4r0t6WOno77WJgS2BC4JzGrChrL89ZUfYMKcxO+hnInUKZ7VVJyq1kJZjkKBTWnjFyza64WcuCh0JWe/SoeTgu7CjuUmN2Yin68fVbZxxG3Du9HoS4McL8mhXGw4oxxFuZtRYyosG1uePB/96PnlWE4QabdZ+Cu0jAnGXTyZnEqWz+YaMXcf1l0ffmf2jUHFq73itVoCC3Cnco8VZA==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(39860400002)(376002)(136003)(451199015)(40470700004)(46966006)(36840700001)(5660300002)(44832011)(47076005)(31696002)(40480700001)(41300700001)(336012)(83380400001)(8936002)(426003)(86362001)(82740400003)(82310400005)(40460700003)(356005)(81166007)(2906002)(36860700001)(36756003)(26005)(53546011)(186003)(478600001)(31686004)(8676002)(4326008)(54906003)(70206006)(70586007)(316002)(16576012)(2616005)(6916009)(32563001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199015)(46966006)(36840700001)(40470700004)(8676002)(5660300002)(8936002)(70586007)(36756003)(4326008)(53546011)(41300700001)(186003)(70206006)(26005)(478600001)(16576012)(82310400005)(47076005)(316002)(83380400001)(54906003)(6916009)(2616005)(426003)(40460700003)(82740400003)(336012)(31696002)(86362001)(31686004)(40480700001)(356005)(81166007)(44832011)(36860700001)(2906002)(43740500002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 08:49:10.9929
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Dec 2022 09:30:29.8077
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4167145-f06c-4ea5-cdb3-08dadf4266b3
+X-MS-Exchange-CrossTenant-Network-Message-Id: db64824f-5df8-44c2-13cf-08dadf482c38
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT044.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT074.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5063
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5885
 
-Hi Stefano,
+Hi Jan,
 
-On 15/12/2022 22:38, Stefano Stabellini wrote:
+Thanks for the feedback.
+
+On 15/12/2022 16:48, Jan Beulich wrote:
 > 
 > 
-> On Wed, 14 Dec 2022, Michal Orzel wrote:
->> At the moment, for dom0less domUs, we do not have a way to specify
->> per domain grant table related limits (unlike when using xl), namely
->> max version, max number of grant frames, max number of maptrack frames.
->> This means that such domains always use the values specified by the Xen
->> command line parameters or their default values if unspecified.
+> On 15.12.2022 16:25, Michal Orzel wrote:
+>> Add a new test hyp-xen-version to perform functional testing of
+>> xen_version hypercall. Check the following commands (more can be added
+>> later on):
+>>  - XENVER_version,
+>>  - XENVER_extraversion,
+>>  - XENVER_compile_info,
+>>  - XENVER_changeset
+>>  - XENVER_get_features,
+>>  - passing invalid command.
 >>
->> In order to have more control over dom0less domUs, introduce the
->> following device-tree properties that can be set under domUs nodes:
->>  - max_grant_version to set the maximum grant table version the domain
->>    is allowed to use,
->>  - max_grant_frames to set the maximum number of grant frames the domain
->>    is allowed to have,
->>  - max_maptrack_frames to set the maximum number of grant maptrack frames
->>    the domain is allowed to have.
->>
->> Update documentation accordingly.
->>
->> Note that the sanity checks regarding the passed values are already
->> there in grant_table_init() resulting in panic in case of errors,
->> therefore no need to repeat them in create_domUs().
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->> ---
->>  docs/misc/arm/device-tree/booting.txt | 21 +++++++++++++++++++++
->>  xen/arch/arm/domain_build.c           | 11 ++++++++++-
->>  2 files changed, 31 insertions(+), 1 deletion(-)
->>
->> diff --git a/docs/misc/arm/device-tree/booting.txt b/docs/misc/arm/device-tree/booting.txt
->> index 87eaa3e25491..3879340b5e0a 100644
->> --- a/docs/misc/arm/device-tree/booting.txt
->> +++ b/docs/misc/arm/device-tree/booting.txt
->> @@ -223,6 +223,27 @@ with the following properties:
->>      the default size of domain P2M pool, i.e. 1MB per guest vCPU plus 4KB
->>      per MB of guest RAM plus 512KB for guest extended regions.
->>
->> +- max_grant_version
->> +
->> +    Optional. A 32-bit integer specifying the maximum grant table version
->> +    the domain is allowed to use (valid values are 1 or 2). If this property
->> +    is missing, the value specified by Xen command line parameter gnttab=max-ver
->> +    (or its default value if unspecified, i.e. 1) is used.
->> +
->> +- max_grant_frames
->> +
->> +    Optional. A 32-bit integer specifying the maximum number of grant frames
->> +    the domain is allowed to have. If this property is missing, the value
->> +    specified by Xen command line parameter gnttab_max_frames (or its default
->> +    value if unspecified, i.e. 64) is used.
->> +
->> +- max_maptrack_frames
->> +
->> +    Optional. A 32-bit integer specifying the maximum number of grant maptrack
->> +    frames the domain is allowed to have. If this property is missing, the
->> +    value specified by Xen command line parameter gnttab_max_maptrack_frames
->> +    (or its default value if unspecified, i.e. 1024) is used.
->> +
->>  Under the "xen,domain" compatible node, one or more sub-nodes are present
->>  for the DomU kernel and ramdisk.
->>
->> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
->> index bef5e905a73c..29b2f3e1faa2 100644
->> --- a/xen/arch/arm/domain_build.c
->> +++ b/xen/arch/arm/domain_build.c
->> @@ -3871,7 +3871,7 @@ void __init create_domUs(void)
->>              .max_maptrack_frames = -1,
->>              .grant_opts = XEN_DOMCTL_GRANT_version(opt_gnttab_max_version),
->>          };
->> -        unsigned int flags = 0U;
->> +        unsigned int flags = 0U, val;
+>> For now, enable this test only for arm64.
 > 
-> val should be uint32_t
-ok
+> What's wrong with exposing this uniformly?
+There is nothing wrong. I can remove the ARCH restriction.
 
 > 
-> 
->>          if ( !dt_device_is_compatible(node, "xen,domain") )
->>              continue;
->> @@ -3940,6 +3940,15 @@ void __init create_domUs(void)
->>              d_cfg.cpupool_id = pool_id;
->>          }
->>
->> +        if ( dt_property_read_u32(node, "max_grant_version", &val) )
->> +            d_cfg.grant_opts = XEN_DOMCTL_GRANT_version(val);
+>> --- /dev/null
+>> +++ b/tests/hyp-xen-version/main.c
+>> @@ -0,0 +1,105 @@
+>> +/**
+>> + * @file tests/hyp-xen-version/main.c
+>> + * @ref test-hyp-xen-version
+>> + *
+>> + * @page test-hyp-xen-version Hypercall xen_version
+>> + *
+>> + * Functional testing of xen_version hypercall.
+>> + *
+>> + * @see tests/hyp-xen-version/main.c
+>> + */
+>> +#include <xtf.h>
 >> +
->> +        if ( dt_property_read_u32(node, "max_grant_frames", &val) )
->> +            d_cfg.max_grant_frames = val;
+>> +const char test_title[] = "Hypercall xen_version testing";
 >> +
->> +        if ( dt_property_read_u32(node, "max_maptrack_frames", &val) )
->> +            d_cfg.max_maptrack_frames = val;
+>> +#define INVALID_CMD -1
+>> +
+>> +void test_main(void)
+>> +{
+>> +    int ret;
+>> +
+>> +    printk("Checking XENVER_version:\n");
+>> +    {
+>> +        /*
+>> +        * Version is returned directly in format: ((major << 16) | minor),
+>> +        * so no need to check the return value for an error.
+>> +        */
+>> +        ret = hypercall_xen_version(XENVER_version, NULL);
+>> +        printk(" version: %u.%u\n", ret >> 16, ret & 0xFFFF);
+>> +    }
+>> +
+>> +    printk("Checking XENVER_extraversion:\n");
+>> +    {
+>> +        xen_extraversion_t xen_ev;
+>> +        memset(&xen_ev, 0, sizeof(xen_ev));
+>> +
+>> +        ret = hypercall_xen_version(XENVER_extraversion, xen_ev);
+>> +        if ( ret < 0 )
+>> +            return xtf_error("Error %d\n", ret);
 > 
-> We need to be careful here because max_grant_frames and
-> max_maptrack_frames are defined as int32_t (signed):
+> This, ...
 > 
->     int32_t max_grant_frames;
->     int32_t max_maptrack_frames;
+>> +        printk(" extraversion: %s\n", xen_ev);
+>> +    }
+>> +
+>> +    printk("Checking XENVER_compile_info:\n");
+>> +    {
+>> +        xen_compile_info_t xen_ci;
+>> +        memset(&xen_ci, 0, sizeof(xen_ci));
+>> +
+>> +        ret = hypercall_xen_version(XENVER_compile_info, &xen_ci);
+>> +        if ( ret < 0 )
+>> +            return xtf_error("Error %d\n", ret);
 > 
-> I think we should have a check to make sure we don't cause an overflow.
-> For instance:
+> ... this, and ...
 > 
-> if ( val >= INT32_MAX ) {
->     error;
-> }
-> d_cfg.max_grant_frames = val;
+>> +        printk(" compiler:       %s\n", xen_ci.compiler);
+>> +        printk(" compile_by:     %s\n", xen_ci.compile_by);
+>> +        printk(" compile_domain: %s\n", xen_ci.compile_domain);
+>> +        printk(" compile_date:   %s\n", xen_ci.compile_date);
+>> +    }
+>> +
+>> +    printk("Checking XENVER_changeset:\n");
+>> +    {
+>> +        xen_changeset_info_t xen_cs;
+>> +        memset(&xen_cs, 0, sizeof(xen_cs));
+>> +
+>> +        ret = hypercall_xen_version(XENVER_changeset, &xen_cs);
+>> +        if ( ret < 0 )
+>> +            return xtf_error("Error %d\n", ret);
+> 
+> ... this can fail because of XSM denying access. (Others can of course
+> also fail for this reason, but here possible failure is kind of
+> "intended" - see the dummy xsm_xen_version() handling.) Therefore I
+> would like to suggest that you also special case getting back -EPERM,
+> resulting in e.g. just a warning instead of an error.
+When writing a test I did make sure to check xsm_xen_version *for the operations that I covered*
+and my understanding is as follows:
+For XENVER_version and XENVER_get_features, it returns 0 so deny is false.
+For other commands I test, xsm_default_action is called with XSM_HOOK which returns 0 as well.
+So AFAICT nothing can result in setting deny to true.
+But even in case of setting deny to true, it would just result in copying "<denied>" into
+the respective buffer. It would not alter the hypercall return value.
 
-Is following ok for you?
+The only command causing the return value to be -EPERM in case deny is set to true is XENVER_build_id
+which I did not covered in my test.
 
-if ( dt_property_read_u32(node, "max_grant_frames", &val) )
-{
-    if ( val > INT32_MAX )
-        panic("max_grant_frames (%"PRIu32") overflow\n", val);
-    d_cfg.max_grant_frames = val;
-}
-
-if ( dt_property_read_u32(node, "max_maptrack_frames", &val) )
-{
-    if ( val > INT32_MAX )
-        panic("max_maptrack_frames (%"PRIu32") overflow\n", val);
-    d_cfg.max_maptrack_frames = val;
-}
+> 
+> Jan
 
 ~Michal
 
