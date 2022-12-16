@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 794B664F0F0
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 19:26:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464888.723475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69C0B64F0EC
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 19:26:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464883.723420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6FPB-0008PL-BJ; Fri, 16 Dec 2022 18:25:57 +0000
+	id 1p6FP1-0006wb-RI; Fri, 16 Dec 2022 18:25:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464888.723475; Fri, 16 Dec 2022 18:25:57 +0000
+Received: by outflank-mailman (output) from mailman id 464883.723420; Fri, 16 Dec 2022 18:25:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6FPB-0008MI-7j; Fri, 16 Dec 2022 18:25:57 +0000
-Received: by outflank-mailman (input) for mailman id 464888;
- Fri, 16 Dec 2022 18:25:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p6FP1-0006u6-Nr; Fri, 16 Dec 2022 18:25:47 +0000
+Received: by outflank-mailman (input) for mailman id 464883;
+ Fri, 16 Dec 2022 18:25:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=CdjE=4O=citrix.com=prvs=342889366=edvin.torok@srs-se1.protection.inumbo.net>)
- id 1p6FP9-0008JE-LL
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 18:25:55 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 12969fd6-7d6f-11ed-91b6-6bf2151ebd3b;
- Fri, 16 Dec 2022 19:25:54 +0100 (CET)
+ id 1p6FP0-0006tv-Ep
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 18:25:46 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0cacc7ac-7d6f-11ed-8fd4-01056ac49cbb;
+ Fri, 16 Dec 2022 19:25:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,56 +36,54 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 12969fd6-7d6f-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 0cacc7ac-7d6f-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671215154;
+  d=citrix.com; s=securemail; t=1671215144;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=pkx+gUPbV7RhTA8lMVSEQj8qou0HNc5ehSj2n3VmU4U=;
-  b=aL3oKlGV2aUXZJP0cm771zHVKp+EHH4Xnt8njYXTpvgRjBOOdUTc4jn/
-   cWpF4SmhALE+vWqHNnxZtzErcCj4J50AZHsxMosDdPy5DAXIth946yMld
-   Jdj04WzKaP1PEW0geNSdd1h2cev/z3LPboRZqz82+twUXocJ95IQe2Yym
-   E=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=SK6xSKqseYAyljVhQuyH2yP+rYs8EJtjkFWvFQgviSY=;
+  b=cZe3nr4fy40GAQc2XOkQykNfjSzEfS1tMT/4b/Z63lNHcgK10Z8eEYpK
+   +KyHf82OhCftcy+a0ul58YTB1EKBxpcj5UQbfdS2Vt58JW5Xcvk5mLxvw
+   E6mRH7CcxL4LhW9bPG5cmm+mBGfW/S/i7R5oJ8GKx/zwFqBjUgNLJgu8e
+   o=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 91288385
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-MesageID: 88800464
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:6ZjQqKPytWnkEOHvrR2Vl8FynXyQoLVcMsEvi/4bfWQNrUpzgmEAy
- zcdW23VaP7camf1KI10a4vloB5X6J7Un95nGQto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQA+KmU4YoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvzrRC9H5qyo4mpC5wJmP5ingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0vdzOWISq
- tcWFDQccCCEvL/u+rKjZuY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w/N3wsYDUWUrsTIJ8yguauwGX4aTpbgFmUubA28y7YywkZPL3FYYOPKozRFZg9ckCwv
- FDf4UrzLTAgCdGm9CO6ynfzl8LWgnauMG4VPOLhraM76LGJ/UQMDDUGWF39puO24ma8Ud9CL
- 00f+gI1sLM/skesS7HVTxC+5XKJoBMYc95RCPEhrhGAzLLO5ASUDXRCSSROAPQkqcs3SDoCx
- lKP2dTzClRHq6aJQHiQ8rOVqzKaOiUPK2IGIygeQmM4D8LL+d9pyEiVF5A6TfDz3oad9SzML
- y6ivSwGhOlMpsA307SlzVf83mqWpoDlQVtgjunIZV6N4gR8bY+jQoWn71nH8PpNRLqkokm9U
- GsswJbHsr1XZX2ZvGnUGbhWQun1jxqQGGeE6WODCaXN4NhEF5SLWYlLqA9zK05yWirvUW+4O
- RSD0e+9CXI6AZdLUUOVS9jpYyjJ5fK6fTgAahwzRoQmX3SJXFXblByCnGbJt4wXrGAikLskJ
- bCQetu2AHARBMxPlWTpHr5HgOZ6lnhimws/oKwXKDz+gdKjiIO9E+9ZYDNikMhnhE97nOkl2
- 4kGbJbbo/mueOb/fjPW4eYuwaMidBAG6WTNg5UPLIare1M2cFzN/teNmdvNjaQ5xfUK/goJl
- 1nhMnJlJK3X2SWWdFjWNy48ONsCn/9X9BoGAMDlBn7ws1BLXGplxP53m0cfFVX/yNFe8A==
-IronPort-HdrOrdr: A9a23:lEDr6qh5QXh6sPpeooaslsXzt3BQXj0ji2hC6mlwRA09TyXPrb
- HJoB1773DJYVMqMk3I9urtBEDtewKmyXcx2/hoAV7AZmfbUQmTXeZfBNDZsl/d8kTFn4ZgPO
- VbAstD4bvLfD1HZK3BkXCF+rgbreWvweSBmOKb92tgUQ1LRshbnn1EIzfeOlByTBNdBZI/UL
- 6V5s8Cgza7Y3wYYoCaCxA+PtTrlpniiZfvewQHDxlizAGPiHeU87b8CRCTwxcZVHduzN4ZkV
- QsnWTCl8GeWqGAoSPh6w==
+IronPort-Data: A9a23:eD6EAa8M3DOeBEqwWNGHDrUDjn6TJUtcMsCJ2f8bNWPcYEJGY0x3x
+ mNKDGCOOffbYGGgL9wgPtixph8DvMTdnNNgHgRrrCs8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
+ 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKucYHsZqTZMEE8JkQhkl/MynrlmiN24BxLlk
+ d7pqojUNUTNNwRcawr40Ire7kIx1BjOkGlA5AZnP6kV5AW2e0Q9V/rzG4ngdxMUfaEMdgKKb
+ 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
+ 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDklC6
+ 6VGch8OaCml2cSf0LaGGvkro9kaeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
+ ZBDMHw2MUqGM0Yn1lQ/UfrSmM+limf+dXtEr0iSpoI84nTJzRw327/oWDbQUozaFZ0NwhjEz
+ o7A13bYWTwGFNW28Dii/nOyvOGVrCOqfLtHQdVU8dY12QbOlwT/EiY+RVa95PW0lEO6c9ZeM
+ FAPvDojq7Ao806mRcW7WAe3yFaItwARc8BdGOo77EeK0KW8yxmdLngJSHhGctNOiSMtbWV0j
+ BnTxYqvXGEx9u3OIZ6AyluKhT+sYHZPAmwEXAlaayIV5+SzsMYWkyuaG76PD5WJptHyHDjxx
+ RWDoy4/m6gfgKY36kmrwbzUq2ny/8aUF2bZ8i2SBzv4tV0hOOZJcqTysTDmAeB8wJF1p7Vrl
+ FwNgICg4e8HFvlhfwTdEbxWTNlFCxtoWQAwYGKD/bF7r1xBGFb5J+i8BQ2Sw283WvvogRezP
+ CfuVfp5vfe/xkeCY65teJ6WAM8316XmHtmNfqmKMYMXOMkoJV/foH8GiausM4fFyRhErE3CE
+ c3DLZbE4YgyV8yLMwZat89CiOR2l0jSNEvYRIzhzgTP7FZtTCf9dFvxC3PXNrpRxPrd8G3oH
+ yN3a5PiJ+N3DLevPUE6MOc7cTg3EJTMLcyu+pEKKrPdfVoO9aNII6a5/I7NsrdNx8x9/tokN
+ FnnMqOE4DITXUH6FDg=
+IronPort-HdrOrdr: A9a23:dyk33q81/gVqBaMH6zpuk+A/I+orL9Y04lQ7vn2ZHyYlFPBw9v
+ rAoB1/73XJYVkqNE3I9erwQ5VoBEmsjaKdgrN+AV7BZniAhILyFvAB0WKK+VSJJ8S9zJ8/6U
+ 4HSdkaNDSaNykCsS+V2mSFOudl6MSDtJi1ifvT71oFd3ARV4hQqy9lDw6ACE1/Q01jDZo9UL
+ 6R/NBOqTblWXl/VKWGL0hAd/XHr8fQlJrgJToPBxti1RKHiimh4qP7FR/d/hp2aVNyKblLyx
+ mgr+Wo3M6ej80=
 X-IronPort-AV: E=Sophos;i="5.96,249,1665460800"; 
-   d="scan'208";a="91288385"
+   d="scan'208";a="88800464"
 From: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>
 To: <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, Stefano
- Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Christian Lindig
-	<christian.lindig@citrix.com>
-Subject: [PATCH v4 05/11] CODING-STYLE(tools/ocaml): add .editorconfig to clarify indentation uses spaces
-Date: Fri, 16 Dec 2022 18:25:14 +0000
-Message-ID: <bc7f3ab700525288938b84c9fbcc0f4ac6bd804c.1671214525.git.edwin.torok@cloud.com>
+CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edvin.torok@citrix.com>, Christian
+ Lindig <christian.lindig@citrix.com>, David Scott <dave@recoil.org>, Wei Liu
+	<wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v4 06/11] tools/ocaml: add .clang-format
+Date: Fri, 16 Dec 2022 18:25:15 +0000
+Message-ID: <a3af11ec979d7559ba8db2d185bd51454858739d.1671214525.git.edwin.torok@cloud.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <cover.1671214525.git.edwin.torok@cloud.com>
 References: <cover.1671214525.git.edwin.torok@cloud.com>
@@ -93,67 +91,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-Add an .editorconfig to make it easier to keep patches compatible with
-Xen's coding style, and to reemphasize what Xen's coding style is.
+Add a .clang-format configuration that tries to match CODING_STYLE where
+possible.
 
-I thought that Xen demands tabs rather than spaces (which is more
-difficult with OCaml because indentation tools use spaces,
-and the use of tabs requires changing editor settings),
-however CODING-STYLE says it is spaces.
+I was not able to express the special casing of braces after 'do'
+though, this can only be controlled generally for all control
+statements.
+It is imperfect, but should be better than the existing bindings, which
+do not follow Xen coding style.
 
-Document this explicitly by adding a .editorconfig file (see editorconfig.org),
-which is an editor agnostic format for specifying basic style properties like
-indentation, either with native support in editors or via plugins.
+Add this to tools/ocaml first because:
+* there are relatively few C files here, and it is a good place to start with
+* it'd be useful to make these follow Xen's CODING_STYLE
+(which they currently do not because they use tabs for example)
+* they change relatively infrequently, so shouldn't cause issues with
+  backporting security fixes (could either backport the reindentation
+  patch too, or use git cherry-pick with `-Xignore-space-change`)
 
-It is safer than modelines because it only supports controlling a
-restricted set of editor properties and not arbitrary commands as Vim
-modelines would have, and works with editors other than Vim too.
-(Vim has a deny list for modeline sandboxing, which is error-prone
-because every time a new command gets added it needs to be added to the
-deny list, which has been the source of a few CVEs in the past
-and I disable Vim modelines everywhere as a precaution).
-
-This file is added as a convenience for those who might have an editor
-that supports it, and its presence should have no impact on those that
-do not (want to) use it.
-It also won't cause re-indentation of existing files when edited, only
-newly added lines would follow the convention.
+Does not yet reformat any code.
 
 No functional change.
 
 Signed-off-by: Edwin Török <edvin.torok@citrix.com>
-Cc: Christian Lindig <christian.lindig@citrix.com>
+Acked-by: Christian Lindig <christian.lindig@citrix.com>
 ---
- .editorconfig | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
- create mode 100644 .editorconfig
+Changes since v1:
+* change commit title to reflect this is for OCaml subtree only
+* don't mention stdint.h here, that may be fixed in a different way elsewhere
+* add Acked-by line
+---
+ tools/ocaml/.clang-format | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+ create mode 100644 tools/ocaml/.clang-format
 
-diff --git a/.editorconfig b/.editorconfig
+diff --git a/tools/ocaml/.clang-format b/tools/ocaml/.clang-format
 new file mode 100644
-index 0000000000..cb2f27c581
+index 0000000000..7ff88ee043
 --- /dev/null
-+++ b/.editorconfig
-@@ -0,0 +1,20 @@
-+# See ./CODING_STYLE
-+root = true
++++ b/tools/ocaml/.clang-format
+@@ -0,0 +1,9 @@
++BasedOnStyle: GNU
++IndentWidth: 4
 +
-+[*]
-+end_of_line = lf
-+indent_style = space
-+charset = utf-8
-+max_line_length = 79
-+trim_trailing_whitespace = true
-+insert_final_newline = true
-+
-+# Makefiles must use tabs, otherwise they don't work
-+[{Makefile,*.mk,Makefile.rules}]
-+indent_style = tabs
-+
-+[*.{c,h}]
-+indent_size = 4
-+
-+[*.{ml,mli}]
-+indent_size = 2
++# override GNU to match Xen ../../CODING_STYLE more closely
++AlwaysBreakAfterDefinitionReturnType: None
++AlwaysBreakAfterReturnType: None
++SpacesInConditionalStatement: true
++SpaceBeforeParens: ControlStatements
++BreakBeforeBraces: Allman
 -- 
 2.34.1
 
