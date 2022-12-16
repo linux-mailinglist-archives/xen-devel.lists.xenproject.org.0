@@ -2,33 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 088B364EAD7
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 12:49:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464427.722848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C63D964EAD5
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 12:49:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464428.722852 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p69D7-0004Mr-Ba; Fri, 16 Dec 2022 11:49:05 +0000
+	id 1p69D7-0004R2-Pd; Fri, 16 Dec 2022 11:49:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464427.722848; Fri, 16 Dec 2022 11:49:05 +0000
+Received: by outflank-mailman (output) from mailman id 464428.722852; Fri, 16 Dec 2022 11:49:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p69D7-0004JZ-4W; Fri, 16 Dec 2022 11:49:05 +0000
-Received: by outflank-mailman (input) for mailman id 464427;
- Fri, 16 Dec 2022 11:49:02 +0000
+	id 1p69D7-0004Mg-G3; Fri, 16 Dec 2022 11:49:05 +0000
+Received: by outflank-mailman (input) for mailman id 464428;
+ Fri, 16 Dec 2022 11:49:04 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p69D4-000442-S3
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 11:49:02 +0000
+ (envelope-from <julien@xen.org>) id 1p69D6-0004IQ-1V
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 11:49:04 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p69D4-0002DR-KG; Fri, 16 Dec 2022 11:49:02 +0000
+ id 1p69D5-0002Dj-RC; Fri, 16 Dec 2022 11:49:03 +0000
 Received: from 54-240-197-232.amazon.com ([54.240.197.232]
  helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
  by xenbits.xenproject.org with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1p69D4-0004sN-B6; Fri, 16 Dec 2022 11:49:02 +0000
+ id 1p69D5-0004sN-Je; Fri, 16 Dec 2022 11:49:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,9 +43,9 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:References:
 	In-Reply-To:Message-Id:Date:Subject:Cc:To:From;
-	bh=E2zSWaWXXVlSavKpNugaiSnQ/IiR0BYoL62Rayvr/MY=; b=hKNcTKSNOrOaCq5PJc51xa0GS0
-	7Z2F/tvGmQk737a6n+KjVlBXyrhVnOGfdgSVgQcX38/YimhTrbQlJEYqXoJ5mj8PtGFkckLYkOIj5
-	PSYkSyi0xhPCap+6jsN0Iu5iVOgSimT7ZiDWjmuJS4k1QGzJtrbo4+AKBSySghMl8mU0=;
+	bh=ZLdocJInFCY/LVnGw1j5HFKUJpFld4Nm6D1TB3zFoFs=; b=kpUoDQTpOqZ2oeUr+0YruDlA5R
+	+9X+I0qjhfLukkQQwY8weaTAUl2Nl3fQGJ/YKVV/I3ZlZyl+1nxWkn3fLTr/G6T++f27r113LV0au
+	nZHlDrqQQUXHfrnkzyPOGxy/WpLSpu5Qh+pYRcl7gixXkluuHZ4DDeZz4ybaJ9tFWa/M=;
 From: Julien Grall <julien@xen.org>
 To: xen-devel@lists.xenproject.org
 Cc: julien@xen.org,
@@ -56,9 +56,9 @@ Cc: julien@xen.org,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH 03/22] acpi: vmap pages in acpi_os_alloc_memory
-Date: Fri, 16 Dec 2022 11:48:34 +0000
-Message-Id: <20221216114853.8227-4-julien@xen.org>
+Subject: [PATCH 04/22] xen/numa: vmap the pages for memnodemap
+Date: Fri, 16 Dec 2022 11:48:35 +0000
+Message-Id: <20221216114853.8227-5-julien@xen.org>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <20221216114853.8227-1-julien@xen.org>
 References: <20221216114853.8227-1-julien@xen.org>
@@ -67,86 +67,45 @@ Content-Transfer-Encoding: 8bit
 
 From: Hongyan Xia <hongyxia@amazon.com>
 
-Also, introduce a wrapper around vmap that maps a contiguous range for
-boot allocations. Unfortunately, the new helper cannot be a static inline
-because the dependences are a mess. We would need to re-include
-asm/page.h (was removed in aa4b9d1ee653 "include: don't use asm/page.h
-from common headers") and it doesn't look to be enough anymore
-because bits from asm/cpufeature.h is used in the definition of PAGE_NX.
+This avoids the assumption that there is a direct map and boot pages
+fall inside the direct map.
+
+Clean up the variables so that mfn actually stores a type-safe mfn.
 
 Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 Signed-off-by: Julien Grall <jgrall@amazon.com>
 
 ----
 
-    Changes since Hongyan's version:
-        * Rename vmap_boot_pages() to vmap_contig_pages()
-        * Move the new helper in vmap.c to avoid compilation issue
-        * Don't use __pa() to translate the virtual address
+    Changes compare to Hongyan's version:
+        * The function modified was moved to common code. So rebase it
+        * vmap_boot_pages() was renamed to vmap_contig_pages()
 ---
- xen/common/vmap.c      |  5 +++++
- xen/drivers/acpi/osl.c | 13 +++++++++++--
- xen/include/xen/vmap.h |  2 ++
- 3 files changed, 18 insertions(+), 2 deletions(-)
+ xen/common/numa.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/xen/common/vmap.c b/xen/common/vmap.c
-index 1340c7c6faf6..78f051a67682 100644
---- a/xen/common/vmap.c
-+++ b/xen/common/vmap.c
-@@ -244,6 +244,11 @@ void *vmap(const mfn_t *mfn, unsigned int nr)
-     return __vmap(mfn, 1, nr, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
- }
- 
-+void *vmap_contig_pages(mfn_t mfn, unsigned int nr_pages)
-+{
-+    return __vmap(&mfn, nr_pages, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
-+}
-+
- void vunmap(const void *va)
+diff --git a/xen/common/numa.c b/xen/common/numa.c
+index 4948b21fbe66..2040b3d974e5 100644
+--- a/xen/common/numa.c
++++ b/xen/common/numa.c
+@@ -424,13 +424,13 @@ static int __init populate_memnodemap(const struct node *nodes,
+ static int __init allocate_cachealigned_memnodemap(void)
  {
-     unsigned long addr = (unsigned long)va;
-diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
-index 389505f78666..44a9719b0dcf 100644
---- a/xen/drivers/acpi/osl.c
-+++ b/xen/drivers/acpi/osl.c
-@@ -221,7 +221,11 @@ void *__init acpi_os_alloc_memory(size_t sz)
- 	void *ptr;
+     unsigned long size = PFN_UP(memnodemapsize * sizeof(*memnodemap));
+-    unsigned long mfn = mfn_x(alloc_boot_pages(size, 1));
++    mfn_t mfn = alloc_boot_pages(size, 1);
  
- 	if (system_state == SYS_STATE_early_boot)
--		return mfn_to_virt(mfn_x(alloc_boot_pages(PFN_UP(sz), 1)));
-+	{
-+		mfn_t mfn = alloc_boot_pages(PFN_UP(sz), 1);
-+
-+		return vmap_contig_pages(mfn, PFN_UP(sz));
-+	}
+-    memnodemap = mfn_to_virt(mfn);
+-    mfn <<= PAGE_SHIFT;
++    memnodemap = vmap_contig_pages(mfn, size);
++    BUG_ON(!memnodemap);
+     size <<= PAGE_SHIFT;
+     printk(KERN_DEBUG "NUMA: Allocated memnodemap from %lx - %lx\n",
+-           mfn, mfn + size);
++           mfn_to_maddr(mfn), mfn_to_maddr(mfn) + size);
+     memnodemapsize = size / sizeof(*memnodemap);
  
- 	ptr = xmalloc_bytes(sz);
- 	ASSERT(!ptr || is_xmalloc_memory(ptr));
-@@ -246,5 +250,10 @@ void __init acpi_os_free_memory(void *ptr)
- 	if (is_xmalloc_memory(ptr))
- 		xfree(ptr);
- 	else if (ptr && system_state == SYS_STATE_early_boot)
--		init_boot_pages(__pa(ptr), __pa(ptr) + PAGE_SIZE);
-+	{
-+		paddr_t addr = mfn_to_maddr(vmap_to_mfn(ptr));
-+
-+		vunmap(ptr);
-+		init_boot_pages(addr, addr + PAGE_SIZE);
-+	}
- }
-diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-index b0f7632e8985..3c06c7c3ba30 100644
---- a/xen/include/xen/vmap.h
-+++ b/xen/include/xen/vmap.h
-@@ -23,6 +23,8 @@ void *vmalloc_xen(size_t size);
- void *vzalloc(size_t size);
- void vfree(void *va);
- 
-+void *vmap_contig_pages(mfn_t mfn, unsigned int nr_pages);
-+
- void __iomem *ioremap(paddr_t, size_t);
- 
- static inline void iounmap(void __iomem *va)
+     return 0;
 -- 
 2.38.1
 
