@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4E6664E5A6
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 02:34:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.464053.722380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7569264E5B2
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 02:37:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.464063.722390 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5zal-0007lq-3z; Fri, 16 Dec 2022 01:32:51 +0000
+	id 1p5zen-0008QN-MY; Fri, 16 Dec 2022 01:37:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 464053.722380; Fri, 16 Dec 2022 01:32:51 +0000
+Received: by outflank-mailman (output) from mailman id 464063.722390; Fri, 16 Dec 2022 01:37:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p5zak-0007lG-W9; Fri, 16 Dec 2022 01:32:50 +0000
-Received: by outflank-mailman (input) for mailman id 464053;
- Fri, 16 Dec 2022 01:32:49 +0000
+	id 1p5zen-0008Ob-Gp; Fri, 16 Dec 2022 01:37:01 +0000
+Received: by outflank-mailman (input) for mailman id 464063;
+ Fri, 16 Dec 2022 01:36:59 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zaj-0007l6-OI; Fri, 16 Dec 2022 01:32:49 +0000
+ id 1p5zel-0008ON-PN; Fri, 16 Dec 2022 01:36:59 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zaj-0002pG-Li; Fri, 16 Dec 2022 01:32:49 +0000
+ id 1p5zel-0002u2-Mp; Fri, 16 Dec 2022 01:36:59 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zaj-0007UD-0c; Fri, 16 Dec 2022 01:32:49 +0000
+ id 1p5zel-0007e7-4n; Fri, 16 Dec 2022 01:36:59 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p5zai-0005pg-WE; Fri, 16 Dec 2022 01:32:49 +0000
+ id 1p5zel-0001f2-4L; Fri, 16 Dec 2022 01:36:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,219 +45,67 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Vkcq8b193ij5fbwlHpDXppjg+FHHd/toDhxselRdyvo=; b=Txal2mAojIjbQuptmanfy+QomM
-	1HfBIvzK4CMopGWi2Qu4N08tYLk+tpop4NjHfyX27M7RqV5JbgZljVYHSdb8B3h4pdo+kclmTJIjp
-	FA27jAL+cR2Iu6at7RUszkSpaGCLD9XMlksZDku+iXxDm62/MM3twKJFWRKX9Zucf7t8=;
+	bh=gKdmWpoiXBFQpOMcAUuZ0r+orMehynCof+bbdpf6w3o=; b=RQ0F9N80QUiPkED3wmnBSCs68Z
+	9P99KQtFKzh6jC59PE/ACnuGv47r1X+KSNrzBlCn7jXkwjjOxRUUziSeYwhzT9RwibektUuqMnh7n
+	beG0QdwH3Rlg6I+Qj6Yk1V6A5DOAda3V1sT0+xUFg8Uf9jVALVQiYqekcGalTD0rUNew=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175270-mainreport@xen.org>
+Message-ID: <osstest-175273-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [linux-linus test] 175270: regressions - FAIL
+Subject: [ovmf test] 175273: regressions - FAIL
 X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
 X-Osstest-Versions-This:
-    linux=041fae9c105ae342a4245cf1e0dc56a23fbb9d3c
+    ovmf=3e3f5bb21c0a2c1368c43713cf7f4b51097259af
 X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 16 Dec 2022 01:32:48 +0000
+Date: Fri, 16 Dec 2022 01:36:59 +0000
 
-flight 175270 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175270/
+flight 175273 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175273/
 
 Regressions :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
- test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 173462
- test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 173462
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 173462
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 173462
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 173462
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
-
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
 
 version targeted for testing:
- linux                041fae9c105ae342a4245cf1e0dc56a23fbb9d3c
+ ovmf                 3e3f5bb21c0a2c1368c43713cf7f4b51097259af
 baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
 
-Last test of basis   173462  2022-10-07 18:41:45 Z   69 days
-Failing since        173470  2022-10-08 06:21:34 Z   68 days  139 attempts
-Testing same since   175233  2022-12-15 02:01:49 Z    0 days    2 attempts
+Last test of basis   175202  2022-12-14 13:42:59 Z    1 days
+Failing since        175214  2022-12-14 18:42:16 Z    1 days    8 attempts
+Testing same since   175263  2022-12-15 09:40:40 Z    0 days    2 attempts
 
 ------------------------------------------------------------
-2993 people touched revisions under test,
-not listing them all
+People who touched revisions under test:
+  Adam Dunlap <acdunlap@google.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
 jobs:
  build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
  build-i386-xsm                                               pass    
  build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
  build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
  build-i386-libvirt                                           pass    
  build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
  build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
 ------------------------------------------------------------
@@ -278,5 +126,299 @@ Test harness code can be found at
 
 Not pushing.
 
-(No revision log; it would be 419051 lines long.)
+------------------------------------------------------------
+commit 3e3f5bb21c0a2c1368c43713cf7f4b51097259af
+Author: Adam Dunlap <acdunlap@google.com>
+Date:   Sat Dec 10 05:04:16 2022 +0800
+
+    OvmfPkg/PlatformPei: Validate SEC's GHCB page
+    
+    When running under SEV-ES, a page of shared memory is allocated for the
+    GHCB during the SEC phase at address 0x809000. This page of memory is
+    eventually passed to the OS as EfiConventionalMemory. When running
+    SEV-SNP, this page is not PVALIDATE'd in the RMP table, meaning that if
+    the guest OS tries to access the page, it will think that the host has
+    voilated the security guarantees and will likely crash.
+    
+    This patch validates this page immediately after EDK2 switches to using
+    the GHCB page allocated for the PEI phase.
+    
+    This was tested by writing a UEFI application that reads to and writes
+    from one byte of each page of memory and checks to see if a #VC
+    exception is generated indicating that the page was not validated.
+    
+    Fixes: 6995a1b79bab ("OvmfPkg: Create a GHCB page for use during Sec phase")
+    
+    Signed-off-by: Adam Dunlap <acdunlap@google.com>
+    Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+
+commit 01c0d3c0d508b8c1b41fd58e2ec565b40ea000ca
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:19 2022 +0800
+
+    OvmfPkg/SecTpmMeasurementLib: Fix the mapping error of PCR and RTMR index
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
+    
+    TDVF has the feature to do RTMR measurement in SEC phase. In the same time
+    it builds a GUID hob which carries the hash value of the measurement so
+    that in DXE phase a td event can be created based on this GUID Hob. There
+    is a mapping error between TPM PCR index and RTMR index according to UEFI
+    2.10. That PCR6 is missing in the mapping. This patch fixes this issue.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit fb91d6cbd0cff704586c4cadbef870acef9c52ef
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:18 2022 +0800
+
+    OvmfPkg/TdTcg2Dxe: Fix the mapping error between PCR index and MR index
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4179
+    
+    According to UEFI Spec 2.10 it is supposed to return the mapping from PCR
+    index to CC MR index:
+    //
+    // In the current version, we use the below mapping for TDX:
+    //
+    // TPM PCR Index | CC Measurement Register Index | TDX-measurement register
+    // -----------------------------------------------------------------------
+    // 0             |   0                           |   MRTD
+    // 1, 7          |   1                           |   RTMR[0]
+    // 2~6           |   2                           |   RTMR[1]
+    // 8~15          |   3                           |   RTMR[2]
+    
+    In the current implementation TdMapPcrToMrIndex returns the index of RTMR,
+    not the MR index.
+    
+    After fix the spec unconsistent, other related codes are updated
+    accordingly.
+    1) The index of event log uses the input MrIndex.
+    2) MrIndex is decreated by 1 before it is sent for RTMR extending.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Reported-by: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit 19f7c63ea978c5a4ef9345b9bf4995dcd48fa328
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Dec 14 15:14:17 2022 +0800
+
+    OvmfPkg/TdTcg2Dxe: Fix incorrect protocol and structure version
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4184
+    
+    According to the Uefi spec 2.10 Section 38.2.2.
+    EFI_CC_MEASUREMENT_PROTOCOL.GetCapability, the minor version of
+    StructureVersion and ProtocolVersion should be 0.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com> [ruleof2]
+    Cc: James Bottomley <jejb@linux.ibm.com> [jejb]
+    Cc: Jiewen Yao <jiewen.yao@intel.com> [jyao1]
+    Cc: Tom Lendacky <thomas.lendacky@amd.com> [tlendacky]
+    Cc: Arti Gupta <ARGU@microsoft.com>
+    Reported-by: Arti Gupta <ARGU@microsoft.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+
+commit 44fc90eb0ea7299abc79577db55aa6257b46b7ae
+Author: devel@edk2.groups.io <devel@edk2.groups.io>
+Date:   Wed Nov 30 15:02:15 2022 -0800
+
+    UnitTestFrameworkPkg/UnitTestLib: Print expected Status on ASSERT fail
+    
+    Update the UnitTestAssertStatusEqual error message to print out the
+    expected value in addition to the seen value.
+    
+    Signed-off-by: Jeshua Smith <jeshuas@nvidia.com>
+    Reviewed-by: Michael Kubacki <michael.kubacki@microsoft.com>
+    Reviewed-by: Michael D Kinney <michael.d.kinney@intel.com>
+
+commit cda98df16228970dcf9a4ce2af5368219711b4b0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:09 2022 +0100
+
+    OvmfPkg/QemuFwCfgLib: remove mQemuFwCfgSupported + mQemuFwCfgDmaSupported
+    
+    Remove global variables, store the state in PlatformInfoHob instead.
+    Probing for fw_cfg happens on first use, at library initialization
+    time the Hob might not be present yet.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 81bbc1452c972218f071cd4a8f5899df974b1dae
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:08 2022 +0100
+
+    OvmfPkg/QemuFwCfgLib: rewrite fw_cfg probe
+    
+    Move the code to a new QemuFwCfgProbe() function.  Use direct Io*() calls
+    instead of indirect QemuFwCfg*() calls to make sure we don't get
+    recursive calls.  Also simplify CC guest detection.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit e59747bd8246135faeecc18879d62db66a6acfc2
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:07 2022 +0100
+
+    OvmfPkg/DebugLibIoPort: use Rom version for PEI
+    
+    This variant does not use global variables.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit f6a196c7eb34affff0cfe1864e126953096885e1
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:06 2022 +0100
+
+    OvmfPkg/PlatformPei: remove mFeatureControlValue
+    
+    Use PlatformInfoHob->FeatureControlValue instead.
+    OnMpServicesAvailable() will find PlatformInfoHob using
+    GetFirstGuidHob() and pass a pointer to the WriteFeatureControl
+    callback.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 862614e2544997c848fab7388733774ae0ea92d8
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:05 2022 +0100
+
+    OvmfPkg/PlatformPei: remove mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable.  Let
+    BuildPlatformInfoHob() allocate and return PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 4bc2c748516e5c4a8bb86093cd5e1b80a9f35c0f
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:04 2022 +0100
+
+    OvmfPkg/PlatformPei: Verification: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in S3Verification() and
+    Q35BoardVerification() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 7dbb8a24d1a3403f85d959bc1234b9f4a92bfbf0
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:03 2022 +0100
+
+    OvmfPkg/PlatformPei: NoExec: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in NoexecDxeInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit cc6efda7770b8cabea3ae8c6054d47c4a8e229c3
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:02 2022 +0100
+
+    OvmfPkg/PlatformPei: MemTypeInfo: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in MemTypeInfoInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 27874a382c38a95d3ab613eebd35c152ca9b3897
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:01 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiMemory: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PublishPeiMemory()
+    and GetPeiMemoryCap() functions.  Pass a pointer to the PlatformInfoHob
+    instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 00743d144bc5b643e9323ad66f16cb48cf338705
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:10:00 2022 +0100
+
+    OvmfPkg/PlatformPei Q35 SMM helpers: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in
+    Q35TsegMbytesInitialization() and
+    Q35SmramAtDefaultSmbaseInitialization() ) functions.
+    Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 9d9d15b42a5e13bb18729da0f608c629aa274e80
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:59 2022 +0100
+
+    OvmfPkg/PlatformPei: PeiFv: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in PeiFvInitialization()
+    function.  Pass a pointer to the PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 78c373f2a5273af00b23b55d3e8c41583310cfb6
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Fri Dec 2 14:09:58 2022 +0100
+
+    OvmfPkg/PlatformPei: AmdSev: stop using mPlatformInfoHob
+    
+    Stop using the mPlatformInfoHob global variable in AmdSevInitialize()
+    and AmdSevEsInitialize() functions.  Pass a pointer to the
+    PlatformInfoHob instead.
+    
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Tested-by: Tom Lendacky <thomas.lendacky@amd.com>
+    Acked-by: Ard Biesheuvel <ardb@kernel.org>
+
+commit 916825b84f23b691dcce09a57625fb8fcb0cbb48
+Author: Jeff Brasen <jbrasen@nvidia.com>
+Date:   Tue Nov 15 11:01:06 2022 -0700
+
+    DynamicTablesPkg: SSDT _LPI revision is incorrect
+    
+    _LPI Revision should be 0 per the ACPI 6.5 specification.
+    "The revision number of the _LPI object. Current revision is 0."
+    
+    Signed-off-by: Jeff Brasen <jbrasen@nvidia.com>
+    Reviewed-by: Pierre Gondois <pierre.gondois@arm.com>
+    Reviewed-by: Sami Mujawar <sami.mujawar@arm.com>
 
