@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6FA664F2C7
-	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 21:55:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.465029.723600 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23E9464F3C1
+	for <lists+xen-devel@lfdr.de>; Fri, 16 Dec 2022 23:11:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.465044.723622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6HiV-0005uD-VO; Fri, 16 Dec 2022 20:54:03 +0000
+	id 1p6Itz-0005c7-Va; Fri, 16 Dec 2022 22:09:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 465029.723600; Fri, 16 Dec 2022 20:54:03 +0000
+Received: by outflank-mailman (output) from mailman id 465044.723622; Fri, 16 Dec 2022 22:09:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6HiV-0005sQ-SM; Fri, 16 Dec 2022 20:54:03 +0000
-Received: by outflank-mailman (input) for mailman id 465029;
- Fri, 16 Dec 2022 20:54:02 +0000
+	id 1p6Itz-0005ZL-So; Fri, 16 Dec 2022 22:09:59 +0000
+Received: by outflank-mailman (input) for mailman id 465044;
+ Fri, 16 Dec 2022 22:09:59 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Zr/=4O=citrix.com=prvs=342bb51ac=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1p6HiU-0005s1-I4
- for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 20:54:02 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2a6bd0a-7d83-11ed-8fd4-01056ac49cbb;
- Fri, 16 Dec 2022 21:54:00 +0100 (CET)
-Received: from mail-dm6nam10lp2101.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.101])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 16 Dec 2022 15:53:55 -0500
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by SJ0PR03MB6986.namprd03.prod.outlook.com (2603:10b6:a03:436::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.12; Fri, 16 Dec
- 2022 20:53:49 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::c679:226f:52fa:4c19]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::c679:226f:52fa:4c19%6]) with mapi id 15.20.5880.019; Fri, 16 Dec 2022
- 20:53:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=pR09=4O=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1p6Itz-0005ZF-58
+ for xen-devel@lists.xenproject.org; Fri, 16 Dec 2022 22:09:59 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6019c3bd-7d8e-11ed-8fd4-01056ac49cbb;
+ Fri, 16 Dec 2022 23:09:57 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id tz12so9261936ejc.9
+ for <xen-devel@lists.xenproject.org>; Fri, 16 Dec 2022 14:09:57 -0800 (PST)
+Received: from localhost.localdomain ([185.126.107.38])
+ by smtp.gmail.com with ESMTPSA id
+ q13-20020a1709064c8d00b007c0c91eae04sm1296517eju.151.2022.12.16.14.09.53
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 16 Dec 2022 14:09:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,210 +44,482 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2a6bd0a-7d83-11ed-8fd4-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671224040;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=/EBsvEOI499PfXBw7JeJBv/KuSyaexr/+L/6wbzMUCk=;
-  b=S87dCJ8EEAQkc2b+Zl4LznrbmuAqXPvJRqHDlwC2NdzmT+qvwXz16ElE
-   0ZpXmWvSbEEn0+b/GGRM5rKRV1XPhbwMzhar8MetswOIVgzZXER2iwLR9
-   OyNEX30jt2RsM62eIgV8NIUZj6sqM2FVS5Jn4pdABx04DnwHiI0X64D0s
-   4=;
-X-IronPort-RemoteIP: 104.47.58.101
-X-IronPort-MID: 88825952
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:BaJDZaODoa+qTvDvrR1klsFynXyQoLVcMsEvi/4bfWQNrUpxgTMOy
- mNJWGHXP/3ZZmX9eN0lbN++80gEscXSyN9jSAto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQA+KmU4YoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvzrRC9H5qyo4mpC5wJmPpingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0tpUGUIVz
- eBDFDkIMCusrvydz++JWOY506zPLOGzVG8ekldJ6GiBSNoDH9XESaiM4sJE1jAtgMwIBezZe
- 8cSdTtoalLHfgFLPVAUTpk5mY9EhFGmK2Ee9A3T+PpxujCKpOBy+OGF3N79U9qGX8hK2G2fo
- XrL5T/RCRAGLt2PjzGC9xpAg8efzXOhBdNPTtVU8NYtjVnD6nQoBSEodgWbnfyQ0w2GZspmf
- hl8Fi0G6PJaGFaQZtv3UgC8oXWElgUBQNcWGOo/gCmSzoLE7gDfAXILJhZRZdpjuMIoSDgC0
- l6Sg8ivFTFpqKeSS3+W6vGTtzzaESQYKG4qZCkaTBAE6d3uvIEyiB3USt9pVqWyi7XI9SrYx
- jmLqG0ygusVhMtSj6Gjpwmf2nSru4TDSRMz6kPPRGW54whlZYmjIYu19Vzc6vUGJ4GcJrWcg
- EU5dwGlxLhmJfmweOalGY3hwJnBCy65DQDh
-IronPort-HdrOrdr: A9a23:htlh/Kl78Rf8LfhvCKaG6Pxi6W7pDfN1iWdD5ihNYBxZY6Wkfp
- +V8cjzhCWftN9OYhodcIi7SdK9qXO1z+8X3WGIVY3SEDUOy1HYVr2KirGSjAEIeheOu9K1sJ
- 0NT0EQMqyWMbEXt6fHCUyDYq4dKbq8ge6VbIXlvhFQpGhRAskOgTuRSDzra3GeLzM2Z6bRYa
- Dsgvav0ADQHEj/AP7aOlA1G8z44/HbnpPvZhALQzQ97hOVsD+u4LnmVzCFwxY3SVp0sPcf2F
- mAtza8yrSosvm9xBOZ/XTU9Y5qlNzozcYGLNCQi/ISNi7nhm+TFcdcsvy5zXIISdOUmRIXee
- r30lAd1gNImjXsl1SO0F7QMs/boW8TAjHZuAelaDDY0LHErXoBerZ8bMRiA1rkAgMbza9BOO
- gg5RPni7NHSRzHhyjz/N7OSlVjkVe1u2MrlaoJg2VYSpZ2Us4YkWWxxjImLH4sJlON1GkcKp
- gmMOjMoPJNNV+KZXHQuWdihNSqQ3QoBx+DBkwPoNac3TRalG1wixJw/r1Uol4QsJYmD5VU7e
- XNNapl0LlIU88NdKp4QOMMW9G+BGDBSQ/FdGiSPVPkHqcaPG+lke+93JwloOWxPJAYxpo7n5
- rMFFteqG4pYkrrTdaD2ZVamyq9N1lVnQ6dvv22y6IJyYEUHoCbQBFrYGpe4/eIsrEYHtDRXe
- q1NdZfH+LjRFGebLp04w==
-X-IronPort-AV: E=Sophos;i="5.96,251,1665460800"; 
-   d="scan'208";a="88825952"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VzsFmoTqNHzNXE+AmuyfL1xoMxYu3llHkUgegnOcFhdUzT/GtIsHNJ5Se5Cl7KFabMzUy8oLSPxFon2RlWXsfU+0abFM1lqKL9tarDv+SBkkCqqpBK5zMQ6JCFPTBwp06zg1kQ09hBJr3TnzRLtYy16zn+a24wJi+B6sNjVdpM2yIq3IVDqezh6S96QOz1NtxgUBCnD399hjTENmsxIk78KDYdjzZpXOC4nRIuBsIqHSU0ROqRvPq8HZZpuZpiE/HbNhC/Vu65VFG2Sxe+rMk+QzZY8UaYRvZ9x5lQ+LLJiHXbBBLSueuow3pTnSDdRYMkTnma2qRvlhN5Mzn7r0QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/EBsvEOI499PfXBw7JeJBv/KuSyaexr/+L/6wbzMUCk=;
- b=P+s0L3sAeuVVUH1xUkT3whorTfWS/tVdeo4s01jEoJKuEbKH25X4VFMxh4njUuym8bpi6qnE2WPhnPefoIAlO4YDKzWk6aFkm7yKjPVU39vVWx7y1jQtlYx/Ra3SyGjqywW/LquGj1n9CXmuniFkmSf+io7E9+S7TowzIhim9eTe8jkdZUnM2dwtcxWBkWliVZZDEcB4luLfT5ejHEPi8ABG3JwxL8U/MEryXExSSNhAvdDjg2D7/s7T0ZNWHIdMFU5i88sXyscvpg479LZ4Li32DZmZdupCburjbFK1PV10RBIs+6FTxPeS4uDYYVgdGWbHa3xY/6WabSn6lP50hQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
+X-Inumbo-ID: 6019c3bd-7d8e-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/EBsvEOI499PfXBw7JeJBv/KuSyaexr/+L/6wbzMUCk=;
- b=EmjJn0ihrm2oFZZFemDC8GKJDE4f/uAQf+MRyfSo4jdbq2b8Ey3E0wnfnAs/0BR2ZkxTzlTTMlCmGNgxe+O+Dn17dIB/CtBBNNiR3DoPtsvpX3cnfZ+E32b+9bB1W/+UNRzWGfHYzdfEI4o72xPsnGkS5R6GvENKVaiKgDKSBDM=
-From: Andrew Cooper <Andrew.Cooper3@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>, Edwin Torok <edvin.torok@citrix.com>
-CC: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Xen-devel
-	<xen-devel@lists.xenproject.org>, Demi Marie Obenour
-	<demi@invisiblethingslab.com>
-Subject: Re: [PATCH] x86/hvm: Improve hvm_set_guest_pat() code generation
- again
-Thread-Topic: [PATCH] x86/hvm: Improve hvm_set_guest_pat() code generation
- again
-Thread-Index: AQHYrL5RUAHVMa/wUEmdRSJMkDgnS62oK2YAgMmcG4A=
-Date: Fri, 16 Dec 2022 20:53:49 +0000
-Message-ID: <77198021-f45c-9d75-c1da-5022d3ca99a2@citrix.com>
-References: <20220810133655.18040-1-andrew.cooper3@citrix.com>
- <74d0425a-a206-2bcb-50d6-e5bb4c5e2bf3@suse.com>
-In-Reply-To: <74d0425a-a206-2bcb-50d6-e5bb4c5e2bf3@suse.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BYAPR03MB3623:EE_|SJ0PR03MB6986:EE_
-x-ms-office365-filtering-correlation-id: f3541d1d-d26a-4961-115e-08dadfa7a20a
-x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info:
- 3fetXiDFY7ubYgwfyNmMVULQqK1Kn2rvFLzJ6C6526IYPpE0UQ5Dt1w8oiP4apad6jCsrs0dEVn1FrtJhpZhk/05hzO2KhxtuT8VImx4Ju7O0ZfAr6NUgDZ/ReCwnqTxFb1Vu6bVRXl4dRw1W9tqnrV1uFRJ3Ylc2eUb7nE8h/BOv+N7YeZsgc4a+UbAQuGpe9l7bMd5FeApVNJb4ulC9jcA3x64eixv0RCOMnxClT8RS/+FPv4VCSAwBBMiRRntHU6jVS8R+90Q15BJ4nwvx2MxoR+5Ee0u3DWAwi1dfqr/waM58DlxMG8Ykusbjrbxp7n+GTjHCcGNZvpnH2rUJSz+GX4v9oPMNfDZq6CbOAMd5DQrc9xBkAraBKy7Jscx2l87HevYkKmS/tjo/fvjGNYoGIzfZk12bG1yq1no/OZTXT5os26piPXeW1Zs8CtUhQZVQ5HADgaGCETqvb0Oav53eyJelVcRJs9KVyH3zqtQ6QEBl4Ww+GAbN5B9pR3jOQitkrEy1HkHT+9ai5+3V7QODW3n//iu1Ee5oDzTjrHJkdus0PlF4hLSD3L4Ab8I2XYKuWBVAx7QyMj1WH5hUMsBoM4b1v7dHilhUBS4iHVJswvBJD4bXmWDwhsBM1JPAgTGTCArRM0yvhKO/ygCCPXH6Ihivfr2j9sdUuYHfWDzSAM1abtcSHrkC0jb/DMMG2HQSqa6ay+XdgxWxqbstKApsAt+2+KGz1rKF7WFiaq4FY7Gya5Opxp9Pvb3C4y7U4p73CIBml5QTvIwuM2cgV/2Y2sFRXMi9uKuFSk+RPk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(376002)(396003)(136003)(39860400002)(366004)(451199015)(122000001)(38070700005)(82960400001)(38100700002)(36756003)(31696002)(86362001)(71200400001)(54906003)(66574015)(6506007)(110136005)(53546011)(6636002)(186003)(26005)(6486002)(966005)(6512007)(316002)(2616005)(478600001)(4326008)(8936002)(31686004)(8676002)(2906002)(5660300002)(66556008)(66446008)(66476007)(66946007)(64756008)(91956017)(76116006)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bTdxQkVMTE5iVHZYMWdHSmI2Q1dDM1NubDRoZTNhWHQ0S1RzVno4cTZoV1Bw?=
- =?utf-8?B?cDJPRjFMY0VMdVJscTZRVXREWUc5T3pRZlRqQ09qeC8vdXhGYjJ1T0wwL2pr?=
- =?utf-8?B?VEtBcE1OcEprdzBqa0NFTHlFTWx3UTJLSHZ2K0t1QVA5RXhsWUZ4aWY3R05W?=
- =?utf-8?B?c1pPVFFXdk84VlJuZGxzUU1KS1hjQVNvSUR0dnFJTVRwdDFqcVhtdGNybVRq?=
- =?utf-8?B?NGFzTEtiRUVqOWYyNlNuNnMxZGNCRitMNTd3MWtaV0VqSjJWTnZaOGljemU3?=
- =?utf-8?B?Rk5JdFd5WWxEdFRBSmgvcHU4QVoxeXN3aVZ6TkFYWEtTbHo5QTMzTVA0WmNr?=
- =?utf-8?B?cmhPcWZNWkFCUUg2b2lJalZUbjdwWjFGT1ArUG4vNVNMdWJIRU1mUHdXaE56?=
- =?utf-8?B?emhGTVVsVXpGc1IyU1BvRDVaTmN5SmNMenFqK1NPcU9iSGlucU9LZjFESmh5?=
- =?utf-8?B?ZHVXQjRwS3E4SFhlQkUyK25OYkZVT1lUWDQ4MGMxTHZnbldISlBoSEdWMVVX?=
- =?utf-8?B?UjZqeUdCZ2JGUXRpNkU3MXluWDhhaC8zQ3A0Q3dkSFdzQW5yVVpTR01yRlAw?=
- =?utf-8?B?MU5RRERIZGdsRHlmamQzV1V3NmdjdVFqSjhTdG96S1hhYmVwd3E2RklFY0hv?=
- =?utf-8?B?KzdITTEySnR5N2ZyeE85QXNtWGNJeDVBeE9ObjRsRWtUYUtsS0VtTkh5WjBC?=
- =?utf-8?B?dmNZWk1BVk12WEViRU9YNk9kOGFxUjBXb2pqOEhmTFdseXZycVFmM0h0YUdF?=
- =?utf-8?B?S1pJeU5lSDgvYTgxYlhaeGh5NGVuY1JqL3FaenNGemxPdTgreUdJYVhncEQw?=
- =?utf-8?B?UzN6UFEzWVIxclJ1ME56MUdhVTVabkhwTGwwOU1iL3p6QTFMNzI2dkd0WG1u?=
- =?utf-8?B?czU1akRwVWd4K25rUVhoN3FJeGx3ZkFxekQzZENiN3ZLRmROdHFoUko4OHl3?=
- =?utf-8?B?WjkzV29QYnROL3UrenpxSDNMZDE5cm5EamszK0d6dVkrTTJlL3VoMnIzN2xy?=
- =?utf-8?B?UUppY0F3b2ZvU094YzRLaGlubDNMTWdSSWxRS1NIQklKeU1GckJHSUhsT1F2?=
- =?utf-8?B?L3VteStPL1FIOVltTmMxckNUSWVWeXBtd0VQL3dGblZWL0xXRGt2NzAzWnc4?=
- =?utf-8?B?QnFlcWFOSGFaRUVPYkFSNEZkSEkyb29vRGhPQnUrTkVlR0JKK1h3U2RCRWoz?=
- =?utf-8?B?M0NidkFjNEpzdzFHdVp6L0FFcWVUMDkvVHVpZmtKY2JNcHJ0eXpSSlpSWWFR?=
- =?utf-8?B?WDA5bGRwWE1HTGFYZTRiZnRyQmtmUVNnVjhwcEwxM0tYdmFjSFpkRFFBU3BB?=
- =?utf-8?B?bFZOWWgyc2J1RFgzc3UzK2N6bkpJTlVXWjlMamZ5MU95SUc4MG1FVHoyUllu?=
- =?utf-8?B?RE56QlpOUDlOUzNURmNOcFdjNXIwUVJtNjdGT1ZUb0NFZFFJYTZiVU9zbWRR?=
- =?utf-8?B?b01NdC94djBhb3F4S0RnclBiNEFqU1cwWUZrTERmYndkTFBuMVFLYlREdzVB?=
- =?utf-8?B?dDJqWXVLaTUwb0RRcVQ1dDhNcHgwZnQvRGZoUE42Wm9IMEREY0Q0d0hROWFZ?=
- =?utf-8?B?VmFkWE1XQ3pEWFoxUVNrcHozS2xYcFgvb1Y5NWU4UG52MG1CMjVSdS9uTS9s?=
- =?utf-8?B?S1ZUYkNYbEwxMXMwZUkxbzUvemR5dStRMEtyN3puZ0VoOWRGM05DbFBJa1Vs?=
- =?utf-8?B?anpVbzhoRkRZMjRWd0t5TEh2aHA2cW1ETUVFT1BUVkNPSEVzUTNxdHZuTFV6?=
- =?utf-8?B?NmFmdmU1bnVvZENMdW9zNENGa2Q2TkRqMzVCUEF2VE4vN2J4NWxwS2F6bVIx?=
- =?utf-8?B?RXBOQmhyekFpNWlrcGNDVVgxNkFSSGQ4UkVxdE9kb3UzZXdUUjgrdTZrdVp5?=
- =?utf-8?B?T1dZK1RzNWZEdUduWE9sZjFLcDA4b2tpcFBNMlVEcU9hN2JzZ0tTQUpKN2xW?=
- =?utf-8?B?SFU4UWcyWXZLN1JLUE5DeHdyYjZwL3BjTnZMNUhYaHZSSlNRNGZKK1ZZeVJG?=
- =?utf-8?B?L05yMFU1L3NDU00xaEJpRFp5Uy9VTDROVEgveHMrMEdYcC8xdVR0cFlYem5m?=
- =?utf-8?B?RlozcXloUWU4QlNkRnVzV0VnRCtFVHNmdllLaitaOFMwMDB4VU5TVFN1WmM4?=
- =?utf-8?Q?46J5YNZIDLr9iGO13fUc8aj9u?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <06C09F47E49F3F46AF38298890B4F405@namprd03.prod.outlook.com>
-Content-Transfer-Encoding: base64
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=hMhMRrfCiDM1fa0HiJyQk7ZTpXu21fxE4Buljrx0cVk=;
+        b=DGLIfMzFgbhCx8U0gJrnLdVfr6vNqJCmLKwwCgB/06+RjJ9EESzom6iuwGgZ2o9/14
+         osuE1WRoEHQu5Dh12YDE5HQ+barQFHzPHyO4/l8QPyZaKK77fHJ+vTOTm8wpkiGacuLO
+         BlmDKiwIWHUvNeYSu8Um/BHC44CmHP6wYhBlwsiYa+5PHfemAF6zQknYV6YIQaQPaHKh
+         p2Dh6KPAYwSIt7318nhrD6hOgNMwEV6Cq0dLRWiMZ9doy4AdmoelCTY4HSrneWZrqmew
+         eAAi92v+8//SYf/sihDMqYO8B/mx2LyRfM+N/+r0EaNbWx1OWSdg1ppTqA7oMjCM4z5q
+         s9Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hMhMRrfCiDM1fa0HiJyQk7ZTpXu21fxE4Buljrx0cVk=;
+        b=CsX9pGeYW/1Ep2JzYOEaqQCWxEWzWODuBxl5WbCoNsT+lPiZkmzwPhW+kLYM2LOtPw
+         Dbn1FJKsBK2ExUrLG9OrYAh0uxNHDIOA0R2+UF6AkjP5qQcBnifVZu3Icx4unR9E/lBE
+         NSkyRHAtEhEUG+s8W41WfFY0wRYvfVxmGnfNsfhVAC5MtY2ytJqnytPdSqQyGvG4moUS
+         XPBhyhfu51ebwcksgCkGRM/EVYRtVR2i/JB3hgFrIagKqX/7mI8HY+8pEs4hCPXfitVY
+         RKlZmhp+o8wL8M147+ewg4xw1YXLDUWtqZ70Ple/S6iL/RDxZyZGZwsS3SVLInD0N291
+         +Utw==
+X-Gm-Message-State: ANoB5pkqI0y/XTr9Dev6a9k1SnD+x/mBIvnrfO3TdBKpuUQBj3gGu3fa
+	TTLUdbJLCg7KSNuYJPvXj4+k6Q==
+X-Google-Smtp-Source: AA0mqf4a7Q3VCzE8QqtlWCGCn+zcencuGtFvSPP8yFnBq4T2GBvrcWHojWn9FkNcy2XZwJiMkC/WkA==
+X-Received: by 2002:a17:906:434f:b0:7ae:7ea:c76b with SMTP id z15-20020a170906434f00b007ae07eac76bmr18674080ejm.32.1671228596623;
+        Fri, 16 Dec 2022 14:09:56 -0800 (PST)
+From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
+To: qemu-devel@nongnu.org
+Cc: David Hildenbrand <david@redhat.com>,
+	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
+	xen-devel@lists.xenproject.org,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	haxm-team@intel.com,
+	=?UTF-8?q?Alex=20Benn=C3=A9e?= <alex.bennee@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	kvm@vger.kernel.org,
+	Wenchao Wang <wenchao.wang@intel.com>,
+	=?UTF-8?q?Daniel=20P=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
+	Roman Bolshakov <r.bolshakov@yadro.com>,
+	qemu-arm@nongnu.org,
+	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
+	Cameron Esfahani <dirty@apple.com>,
+	Kamil Rytarowski <kamil@netbsd.org>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Paul Durrant <paul@xen.org>,
+	Reinoud Zandijk <reinoud@netbsd.org>,
+	Yanan Wang <wangyanan55@huawei.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Sunil Muthuswamy <sunilmut@microsoft.com>,
+	Peter Xu <peterx@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Thomas Huth <thuth@redhat.com>
+Subject: [PATCH] exec: Rename NEED_CPU_H -> CONFIG_TARGET
+Date: Fri, 16 Dec 2022 23:09:51 +0100
+Message-Id: <20221216220951.7597-1-philmd@linaro.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3541d1d-d26a-4961-115e-08dadfa7a20a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Dec 2022 20:53:49.7135
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LCKZwCJ/veLe+ADYmxPSKaj41NOlw0q8eifIzcafIk9S8FKmKmlvk7Kl9P7r8w0TgGHE89Ykb7zDS7huoqxzV7CM7506IXzexgAPrkaM3uM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6986
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-T24gMTAvMDgvMjAyMiAzOjA2IHBtLCBKYW4gQmV1bGljaCB3cm90ZToNCj4gT24gMTAuMDguMjAy
-MiAxNTozNiwgQW5kcmV3IENvb3BlciB3cm90ZToNCj4+IEZyb206IEVkd2luIFTDtnLDtmsgPGVk
-dmluLnRvcm9rQGNpdHJpeC5jb20+DQo+Pg0KPj4gRm9sbG93aW5nIG9uIGZyb20gY3NldCA5Y2Uw
-YTVlMjA3ZjMgKCJ4ODYvaHZtOiBJbXByb3ZlIGh2bV9zZXRfZ3Vlc3RfcGF0KCkNCj4+IGNvZGUg
-Z2VuZXJhdGlvbiIpLCBhbmQgdGhlIGRpc2NvdmVyeSB0aGF0IENsYW5nL0xMVk0gbWFrZXMgc29t
-ZSBlc3BlY2lhbGx5DQo+PiBkaXNhc3Ryb3VzIGNvZGUgZ2VuZXJhdGlvbiBmb3IgdGhlIGxvb3Ag
-YXQgLU8yDQo+Pg0KPj4gICBodHRwczovL2dpdGh1Yi5jb20vbGx2bS9sbHZtLXByb2plY3QvaXNz
-dWVzLzU0NjQ0DQo+Pg0KPj4gRWR2aW4gZGVjaWRlZCB0byByZW1vdmUgdGhlIGxvb3AgZW50aXJl
-bHkgYnkgZnVsbHkgdmVjdG9yaXNpbmcgaXQuICBUaGlzIGlzDQo+PiBzdWJzdGFudGlhbGx5IG1v
-cmUgZWZmaWNpZW50IHRoYW4gdGhlIGxvb3AsIGFuZCByYXRoZXIgaGFyZGVyIGZvciBhIHR5cGlj
-YWwNCj4+IGNvbXBpbGVyIHRvIG1lc3MgdXAuDQo+Pg0KPj4gU2lnbmVkLW9mZi1ieTogRWR3aW4g
-VMO2csO2ayA8ZWR2aW4udG9yb2tAY2l0cml4LmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJl
-dyBDb29wZXIgPGFuZHJldy5jb29wZXIzQGNpdHJpeC5jb20+DQo+IFRoZSBtYWluIGRvd25zaWRl
-IGJlaW5nIHRoYXQgY2hhbmdpbmcgdGhlIGNvZGUgdG8gZml0IGluIGEgbmV3IFBBVA0KPiB0eXBl
-IHdpbGwgbm93IGJlIGhhcmRlci4NCg0KV2hlbiB3YXMgdGhlIGxhc3QgUEFUIHR5cGUgY2hhbmdl
-Pw0KDQpUcmljayBxdWVzdGlvbi7CoCBOZXZlciwgYmVjYXVzZSBQQVQgaGFzbid0IGNoYW5nZWQg
-c2luY2UgaXQgd2FzDQppbnRyb2R1Y2VkIDI0IHllYXJzIGFnbyBpbiB0aGUgUGVudGl1bSBJSUku
-DQoNCkkgcmVhbGx5IGRvbid0IHRoaW5rIHdlJ3JlIGluIGRhbmdlciBvZiBuZWVkaW5nIHRvIGNo
-YW5nZSB0aGlzIGxvZ2ljLg0KDQo+IEkgd29uZGVyIGluIHBhcnRpY3VsYXIgd2hldGhlciB3aXRo
-IHRoYXQNCj4gaW4gbWluZCBpdCB3b3VsZG4ndCBiZSBiZXR0ZXIgdG8gZXhwcmVzcyB0aGUgY2hl
-Y2sgbm90IGluIHRlcm1zIG9mDQo+IHJlbGF0aW9ucywgYnV0IGluIHRlcm1zIG9mIHNldCAvIGNs
-ZWFyIGJpdHMgKCJiaXRzIDMtNyBjbGVhciBBTkQNCj4gKGJpdCAyIHNldCBPUiBiaXQgMSBjbGVh
-cikiKS4gVGhlIGNvZGUga2luZCBvZiBkb2VzIHNvIGFscmVhZHksIGJ1dA0KPiB0aGUgdmFyaWFi
-bGUgbmFtZXMgZG9uJ3QgcmVmbGVjdCB0aGF0IChhbmQgd291bGQgaGVuY2UgbmVlZCB0bw0KPiBj
-aGFuZ2UgaW4gc3VjaCBhbiBldmVudCkuDQoNClRoYXQgd291bGQgcmVkdWNlZCBjbGFyaXR5Lg0K
-DQpUaGUgYml0cyBiZWluZyBzZXQgb3IgY2xlYXJlZCBhcmUgdHJpdmlhbCBmb3IgYW55IGRldmVs
-b3BlciwgZ2l2ZW4gdGhlDQpwYXJ0aWN1bGFybHkgYmFzaWMgUkhTIGV4cHJlc3Npb25zLg0KDQpU
-aGUgY29uc3RhbnQgbmFtZXMgYXJlIHdoYXQgcmVsYXRlIHRoZSBiaXQgcGF0dGVybnMgdG8gdGhl
-IGRlc2NyaXB0aW9uDQpvZiB0aGUgcHJvYmxlbS4NCg0KPj4gLS0tIGEveGVuL2FyY2gveDg2L2h2
-bS9odm0uYw0KPj4gKysrIGIveGVuL2FyY2gveDg2L2h2bS9odm0uYw0KPj4gQEAgLTMwMiwyNCAr
-MzAyLDQzIEBAIHZvaWQgaHZtX2dldF9ndWVzdF9wYXQoc3RydWN0IHZjcHUgKnYsIHU2NCAqZ3Vl
-c3RfcGF0KQ0KPj4gICAgICAgICAgKmd1ZXN0X3BhdCA9IHYtPmFyY2guaHZtLnBhdF9jcjsNCj4+
-ICB9DQo+PiAgDQo+PiAtaW50IGh2bV9zZXRfZ3Vlc3RfcGF0KHN0cnVjdCB2Y3B1ICp2LCB1aW50
-NjRfdCBndWVzdF9wYXQpDQo+PiArLyoNCj4+ICsgKiBNU1JfUEFUIHRha2VzIDggdW5pZm9ybSBm
-aWVsZHMsIGVhY2ggb2Ygd2hpY2ggbXVzdCBiZSBhIHZhbGlkIGFyY2hpdGVjdHVyYWwNCj4+ICsg
-KiBtZW1vcnkgdHlwZSAoMCwgMSwgNC03KS4gIFRoaXMgaXMgYSBmdWxseSB2ZWN0b3Jpc2VkIGZv
-cm0gb2YgdGhlDQo+PiArICogOC1pdGVyYXRpb24gbG9vcCBvdmVyIGJ5dGVzIGxvb2tpbmcgZm9y
-IFBBVF9UWVBFXyogY29uc3RhbnRzLg0KPiBXaGlsZSBncmVwLWluZyBmb3IgUEFUX1RZUEVfIHdp
-bGwgaGl0IHRoaXMgbGluZSwgSSB0aGluayB3ZSB3YW50DQo+IGV2ZXJ5IGluZGl2aWR1YWwgdHlw
-ZSB0byBhbHNvIGJlIGZvdW5kIGhlcmUgd2hlbiBncmVwLWluZyBmb3Igb25lLg0KPiBUaGUgYWN0
-dWFsIHZhbHVlcyBhcmVuJ3QgZ29pbmcgdG8gY2hhbmdlLCBidXQgcGVyaGFwcyB0aGUgYmVhc3QN
-Cj4gd2F5IHRvIGRvIHNvIHdvdWxkIHN0aWxsIGJlIGJ5IHdheSBvZiBCVUlMRF9CVUdfT04oKXMu
-DQoNCldoeT/CoCBXaGF0IGRvZXMgdGhhdCBzb2x2ZSBvciBpbXByb3ZlPw0KDQoicGF0IiBpcyB0
-aGUgdGhpbmcgcGVvcGxlIGFyZSBnb2luZyB0byBiZSBsb29raW5nIGZvciBpZiB0aGV5J3JlDQph
-Y3R1YWxseSB0cnlpbmcgdG8gZmluZCB0aGlzIGxvZ2ljLg0KDQooQW5kIEkgYnJpbmcgdGhpcyBw
-YXRjaCB1cCBzcGVjaWZpY2FsbHkgYWZ0ZXIgcmV2aWV3aW5nIERlbWkncyBzZXJpZXMsDQp3aGVy
-ZSBQQVRfVFlQRV8qIGNoYW5nZXMgdG8gWDg2X01UXyogYnV0ICJwYXQiIGlzIHN0aWxsIHRoZSB1
-c2VmdWwNCnNlYXJjaCB0ZXJtIElNTy4pDQoNCj4NCj4+ICsgKi8NCj4+ICtzdGF0aWMgYm9vbCBw
-YXRfdmFsaWQodWludDY0X3QgdmFsKQ0KPj4gIHsNCj4+IC0gICAgdW5zaWduZWQgaW50IGk7DQo+
-PiAtICAgIHVpbnQ2NF90IHRtcDsNCj4+ICsgICAgLyogWWllbGRzIGEgbm9uLXplcm8gdmFsdWUg
-aW4gYW55IGxhbmUgd2hpY2ggaGFkIHZhbHVlIGdyZWF0ZXIgdGhhbiA3LiAqLw0KPj4gKyAgICB1
-aW50NjRfdCBhbnlfZ3RfNyAgID0gIHZhbCAmIDB4ZjhmOGY4ZjhmOGY4ZjhmODsNCj4gVGhpcyBh
-bmQgdGhlIG90aGVyIGNvbnN0YW50IHdhbnQgdG8gZ2FpbiBVTCBzdWZmaXhlcy4NCg0KRml4ZWQu
-DQoNCj4gKFdoaWxlIEknbQ0KPiBvcGVuIHRvIGJlIGNvbnZpbmNlZCBvdGhlcndpc2Ugb24gdGhl
-IGVhcmxpZXIgdHdvIHBvaW50cywgdGhpcyBvbmUNCj4gSSdtIGdvaW5nIHRvIGluc2lzdCBvbi4g
-WWV0IGluIGNhc2UgaXQgd291bGQgZW5kIHVwIGJlaW5nIHRoZSBvbmx5DQo+IGNoYW5nZSBpbiBu
-ZWVkIG9mIG1ha2luZywgaXQgY291bGQgb2YgY291cnNlIGJlIGRvbmUgd2hpbGUNCj4gY29tbWl0
-dGluZy4pDQoNCkkndmUgdHdlYWtlZCB0aGUgZ3JhbW1hciBhIGJpdCwgYnV0IEkgZG9uJ3QgdGhp
-bmsgdGhlIG90aGVyIGNoYW5nZXMNCndvdWxkIGJlIGFuIGltcHJvdmVtZW50Lg0KDQp+QW5kcmV3
-DQo=
+'NEED_CPU_H' guard target-specific code; it is defined by meson
+altogether with the 'CONFIG_TARGET' definition. Since the latter
+name is more meaningful, directly use it.
+
+Inspired-by: Peter Maydell <peter.maydell@linaro.org>
+Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
+---
+Based-on: <20221216220738.7355-1-philmd@linaro.org>
+  sysemu/kvm: Header cleanups around "cpu.h"
+Based-on: <20221216220158.6317-1-philmd@linaro.org>
+  target/i386: Header cleanups around "cpu.h"
+---
+ include/disas/disas.h         | 2 +-
+ include/exec/cpu-defs.h       | 2 +-
+ include/exec/gdbstub.h        | 4 ++--
+ include/exec/helper-head.h    | 4 ++--
+ include/exec/memop.h          | 6 +++---
+ include/exec/memory.h         | 4 ++--
+ include/hw/core/cpu.h         | 4 ++--
+ include/hw/core/tcg-cpu-ops.h | 4 ++--
+ include/qemu/osdep.h          | 4 ++--
+ include/sysemu/hax.h          | 4 ++--
+ include/sysemu/hvf.h          | 4 ++--
+ include/sysemu/kvm.h          | 8 ++++----
+ include/sysemu/nvmm.h         | 4 ++--
+ include/sysemu/whpx.h         | 4 ++--
+ include/sysemu/xen.h          | 4 ++--
+ meson.build                   | 6 ++----
+ scripts/analyze-inclusions    | 6 +++---
+ target/arm/kvm-consts.h       | 2 +-
+ 18 files changed, 37 insertions(+), 39 deletions(-)
+
+diff --git a/include/disas/disas.h b/include/disas/disas.h
+index d363e95ede..1f6706a374 100644
+--- a/include/disas/disas.h
++++ b/include/disas/disas.h
+@@ -3,7 +3,7 @@
+ 
+ #include "exec/hwaddr.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #include "cpu.h"
+ 
+ /* Disassemble this for me please... (debugging). */
+diff --git a/include/exec/cpu-defs.h b/include/exec/cpu-defs.h
+index 21309cf567..9775634ff6 100644
+--- a/include/exec/cpu-defs.h
++++ b/include/exec/cpu-defs.h
+@@ -19,7 +19,7 @@
+ #ifndef CPU_DEFS_H
+ #define CPU_DEFS_H
+ 
+-#ifndef NEED_CPU_H
++#ifndef CONFIG_TARGET
+ #error cpu.h included from common code
+ #endif
+ 
+diff --git a/include/exec/gdbstub.h b/include/exec/gdbstub.h
+index f667014888..49f63d3c50 100644
+--- a/include/exec/gdbstub.h
++++ b/include/exec/gdbstub.h
+@@ -71,7 +71,7 @@ struct gdb_timeval {
+   uint64_t tv_usec;   /* microsecond */
+ } QEMU_PACKED;
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #include "cpu.h"
+ 
+ typedef void (*gdb_syscall_complete_cb)(CPUState *cpu, uint64_t ret, int err);
+@@ -214,7 +214,7 @@ static inline uint8_t * gdb_get_reg_ptr(GByteArray *buf, int len)
+ #define ldtul_p(addr) ldl_p(addr)
+ #endif
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ /**
+  * gdbserver_start: start the gdb server
+diff --git a/include/exec/helper-head.h b/include/exec/helper-head.h
+index e242fed46e..584b120312 100644
+--- a/include/exec/helper-head.h
++++ b/include/exec/helper-head.h
+@@ -49,7 +49,7 @@
+ #define dh_ctype_noreturn G_NORETURN void
+ #define dh_ctype(t) dh_ctype_##t
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ # ifdef TARGET_LONG_BITS
+ #  if TARGET_LONG_BITS == 32
+ #   define dh_alias_tl i32
+@@ -63,7 +63,7 @@
+ # define dh_alias_env ptr
+ # define dh_ctype_env CPUArchState *
+ # define dh_typecode_env dh_typecode_ptr
+-#endif
++#endif /* CONFIG_TARGET */
+ 
+ /* We can't use glue() here because it falls foul of C preprocessor
+    recursive expansion rules.  */
+diff --git a/include/exec/memop.h b/include/exec/memop.h
+index 25d027434a..ebf6c5f69d 100644
+--- a/include/exec/memop.h
++++ b/include/exec/memop.h
+@@ -35,7 +35,7 @@ typedef enum MemOp {
+     MO_LE    = 0,
+     MO_BE    = MO_BSWAP,
+ #endif
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #if TARGET_BIG_ENDIAN
+     MO_TE    = MO_BE,
+ #else
+@@ -65,7 +65,7 @@ typedef enum MemOp {
+      */
+     MO_ASHIFT = 5,
+     MO_AMASK = 0x7 << MO_ASHIFT,
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #ifdef TARGET_ALIGNED_ONLY
+     MO_ALIGN = 0,
+     MO_UNALN = MO_AMASK,
+@@ -107,7 +107,7 @@ typedef enum MemOp {
+     MO_BESL  = MO_BE | MO_SL,
+     MO_BESQ  = MO_BE | MO_SQ,
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+     MO_TEUW  = MO_TE | MO_UW,
+     MO_TEUL  = MO_TE | MO_UL,
+     MO_TEUQ  = MO_TE | MO_UQ,
+diff --git a/include/exec/memory.h b/include/exec/memory.h
+index c37ffdbcd1..2d1fd6e475 100644
+--- a/include/exec/memory.h
++++ b/include/exec/memory.h
+@@ -2938,7 +2938,7 @@ address_space_write_cached(MemoryRegionCache *cache, hwaddr addr,
+ MemTxResult address_space_set(AddressSpace *as, hwaddr addr,
+                               uint8_t c, hwaddr len, MemTxAttrs attrs);
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ /* enum device_endian to MemOp.  */
+ static inline MemOp devend_memop(enum device_endian end)
+ {
+@@ -2956,7 +2956,7 @@ static inline MemOp devend_memop(enum device_endian end)
+     return (end == non_host_endianness) ? MO_BSWAP : 0;
+ #endif
+ }
+-#endif
++#endif /* CONFIG_TARGET */
+ 
+ /*
+  * Inhibit technologies that require discarding of pages in RAM blocks, e.g.,
+diff --git a/include/hw/core/cpu.h b/include/hw/core/cpu.h
+index bc3229ae13..5ab6244bc8 100644
+--- a/include/hw/core/cpu.h
++++ b/include/hw/core/cpu.h
+@@ -1044,7 +1044,7 @@ bool target_words_bigendian(void);
+ 
+ void page_size_init(void);
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ 
+ #ifdef CONFIG_SOFTMMU
+ 
+@@ -1059,7 +1059,7 @@ extern const VMStateDescription vmstate_cpu_common;
+ }
+ #endif /* CONFIG_SOFTMMU */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ #define UNASSIGNED_CPU_INDEX -1
+ #define UNASSIGNED_CLUSTER_INDEX -1
+diff --git a/include/hw/core/tcg-cpu-ops.h b/include/hw/core/tcg-cpu-ops.h
+index 20e3c0ffbb..3cd9b5718a 100644
+--- a/include/hw/core/tcg-cpu-ops.h
++++ b/include/hw/core/tcg-cpu-ops.h
+@@ -49,7 +49,7 @@ struct TCGCPUOps {
+     /** @debug_excp_handler: Callback for handling debug exceptions */
+     void (*debug_excp_handler)(CPUState *cpu);
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #if defined(CONFIG_USER_ONLY) && defined(TARGET_I386)
+     /**
+      * @fake_user_interrupt: Callback for 'fake exception' handling.
+@@ -171,7 +171,7 @@ struct TCGCPUOps {
+     void (*record_sigbus)(CPUState *cpu, vaddr addr,
+                           MMUAccessType access_type, uintptr_t ra);
+ #endif /* CONFIG_SOFTMMU */
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ };
+ 
+diff --git a/include/qemu/osdep.h b/include/qemu/osdep.h
+index b9c4307779..d5eccf1a97 100644
+--- a/include/qemu/osdep.h
++++ b/include/qemu/osdep.h
+@@ -28,11 +28,11 @@
+ #define QEMU_OSDEP_H
+ 
+ #include "config-host.h"
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #include CONFIG_TARGET
+ #else
+ #include "exec/poison.h"
+-#endif
++#endif /* CONFIG_TARGET */
+ 
+ /*
+  * HOST_WORDS_BIGENDIAN was replaced with HOST_BIG_ENDIAN. Prevent it from
+diff --git a/include/sysemu/hax.h b/include/sysemu/hax.h
+index bf8f99a824..90994e2773 100644
+--- a/include/sysemu/hax.h
++++ b/include/sysemu/hax.h
+@@ -24,11 +24,11 @@
+ 
+ int hax_sync_vcpus(void);
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ # ifdef CONFIG_HAX
+ #  define CONFIG_HAX_IS_POSSIBLE
+ # endif
+-#else /* !NEED_CPU_H */
++#else /* !CONFIG_TARGET */
+ # define CONFIG_HAX_IS_POSSIBLE
+ #endif
+ 
+diff --git a/include/sysemu/hvf.h b/include/sysemu/hvf.h
+index bb70082e45..6873193ebd 100644
+--- a/include/sysemu/hvf.h
++++ b/include/sysemu/hvf.h
+@@ -16,7 +16,7 @@
+ #include "qemu/accel.h"
+ #include "qom/object.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ 
+ #ifdef CONFIG_HVF
+ uint32_t hvf_get_supported_cpuid(uint32_t func, uint32_t idx,
+@@ -28,7 +28,7 @@ extern bool hvf_allowed;
+ #define hvf_get_supported_cpuid(func, idx, reg) 0
+ #endif /* !CONFIG_HVF */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ #define TYPE_HVF_ACCEL ACCEL_CLASS_NAME("hvf")
+ 
+diff --git a/include/sysemu/kvm.h b/include/sysemu/kvm.h
+index a53d6dab49..9e85db41ca 100644
+--- a/include/sysemu/kvm.h
++++ b/include/sysemu/kvm.h
+@@ -20,14 +20,14 @@
+ #include "qemu/accel.h"
+ #include "qom/object.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ # ifdef CONFIG_KVM
+ #  include <linux/kvm.h>
+ #  define CONFIG_KVM_IS_POSSIBLE
+ # endif
+ #else
+ # define CONFIG_KVM_IS_POSSIBLE
+-#endif
++#endif /* CONFIG_TARGET */
+ 
+ #ifdef CONFIG_KVM_IS_POSSIBLE
+ 
+@@ -407,7 +407,7 @@ void kvm_get_apic_state(DeviceState *d, struct kvm_lapic_state *kapic);
+ struct kvm_guest_debug;
+ struct kvm_debug_exit_arch;
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #include "cpu.h"
+ 
+ struct kvm_sw_breakpoint {
+@@ -443,7 +443,7 @@ uint64_t kvm_arch_get_supported_msr_feature(KVMState *s, uint32_t index);
+ int kvm_physical_memory_addr_from_host(KVMState *s, void *ram_addr,
+                                        hwaddr *phys_addr);
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ int kvm_check_extension(KVMState *s, unsigned int extension);
+ 
+diff --git a/include/sysemu/nvmm.h b/include/sysemu/nvmm.h
+index 833670fccb..bfd97729cf 100644
+--- a/include/sysemu/nvmm.h
++++ b/include/sysemu/nvmm.h
+@@ -10,7 +10,7 @@
+ #ifndef QEMU_NVMM_H
+ #define QEMU_NVMM_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ 
+ #ifdef CONFIG_NVMM
+ 
+@@ -22,6 +22,6 @@ int nvmm_enabled(void);
+ 
+ #endif /* CONFIG_NVMM */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ #endif /* QEMU_NVMM_H */
+diff --git a/include/sysemu/whpx.h b/include/sysemu/whpx.h
+index 2889fa2278..452377a81e 100644
+--- a/include/sysemu/whpx.h
++++ b/include/sysemu/whpx.h
+@@ -13,7 +13,7 @@
+ #ifndef QEMU_WHPX_H
+ #define QEMU_WHPX_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ 
+ #ifdef CONFIG_WHPX
+ 
+@@ -27,6 +27,6 @@ bool whpx_apic_in_platform(void);
+ 
+ #endif /* CONFIG_WHPX */
+ 
+-#endif /* NEED_CPU_H */
++#endif /* CONFIG_TARGET */
+ 
+ #endif /* QEMU_WHPX_H */
+diff --git a/include/sysemu/xen.h b/include/sysemu/xen.h
+index 0ca25697e4..72483dd584 100644
+--- a/include/sysemu/xen.h
++++ b/include/sysemu/xen.h
+@@ -10,13 +10,13 @@
+ 
+ #include "exec/cpu-common.h"
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ # ifdef CONFIG_XEN
+ #  define CONFIG_XEN_IS_POSSIBLE
+ # endif
+ #else
+ # define CONFIG_XEN_IS_POSSIBLE
+-#endif
++#endif /* CONFIG_TARGET */
+ 
+ #ifdef CONFIG_XEN_IS_POSSIBLE
+ 
+diff --git a/meson.build b/meson.build
+index 5c6b5a1c75..2fe437d54d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3204,8 +3204,7 @@ foreach d, list : target_modules
+           config_target = config_target_mak[target]
+           config_target += config_host
+           target_inc = [include_directories('target' / config_target['TARGET_BASE_ARCH'])]
+-          c_args = ['-DNEED_CPU_H',
+-                    '-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
++          c_args = ['-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
+                     '-DCONFIG_DEVICES="@0@-config-devices.h"'.format(target)]
+           target_module_ss = module_ss.apply(config_target, strict: false)
+           if target_module_ss.sources() != []
+@@ -3384,8 +3383,7 @@ foreach target : target_dirs
+   target_base_arch = config_target['TARGET_BASE_ARCH']
+   arch_srcs = [config_target_h[target]]
+   arch_deps = []
+-  c_args = ['-DNEED_CPU_H',
+-            '-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
++  c_args = ['-DCONFIG_TARGET="@0@-config-target.h"'.format(target),
+             '-DCONFIG_DEVICES="@0@-config-devices.h"'.format(target)]
+   link_args = emulator_link_args
+ 
+diff --git a/scripts/analyze-inclusions b/scripts/analyze-inclusions
+index 45c821de32..67d19bc00d 100644
+--- a/scripts/analyze-inclusions
++++ b/scripts/analyze-inclusions
+@@ -92,7 +92,7 @@ echo trace/generated-tracers.h:
+ analyze -include ../include/qemu/osdep.h trace/generated-tracers.h
+ 
+ echo target/i386/cpu.h:
+-analyze -DNEED_CPU_H -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../target/i386/cpu.h
++analyze -DCONFIG_TARGET -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../target/i386/cpu.h
+ 
+-echo hw/hw.h + NEED_CPU_H:
+-analyze -DNEED_CPU_H -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../include/hw/hw.h
++echo hw/hw.h + CONFIG_TARGET:
++analyze -DCONFIG_TARGET -I../target/i386 -Ii386-softmmu -include ../include/qemu/osdep.h ../include/hw/hw.h
+diff --git a/target/arm/kvm-consts.h b/target/arm/kvm-consts.h
+index 09967ec5e6..690d32ff2b 100644
+--- a/target/arm/kvm-consts.h
++++ b/target/arm/kvm-consts.h
+@@ -14,7 +14,7 @@
+ #ifndef ARM_KVM_CONSTS_H
+ #define ARM_KVM_CONSTS_H
+ 
+-#ifdef NEED_CPU_H
++#ifdef CONFIG_TARGET
+ #ifdef CONFIG_KVM
+ #include <linux/kvm.h>
+ #include <linux/psci.h>
+-- 
+2.38.1
+
 
