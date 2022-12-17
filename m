@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F08F64FAE0
-	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 16:53:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.465314.723969 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD7C64FB5B
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 18:40:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.465327.723987 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6ZUw-000205-5k; Sat, 17 Dec 2022 15:53:14 +0000
+	id 1p6b97-0004Fl-Sc; Sat, 17 Dec 2022 17:38:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 465314.723969; Sat, 17 Dec 2022 15:53:14 +0000
+Received: by outflank-mailman (output) from mailman id 465327.723987; Sat, 17 Dec 2022 17:38:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6ZUw-0001yE-35; Sat, 17 Dec 2022 15:53:14 +0000
-Received: by outflank-mailman (input) for mailman id 465314;
- Sat, 17 Dec 2022 15:53:12 +0000
+	id 1p6b97-0004Cd-PQ; Sat, 17 Dec 2022 17:38:49 +0000
+Received: by outflank-mailman (input) for mailman id 465327;
+ Sat, 17 Dec 2022 17:38:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p6ZUu-0001y6-Iy
- for xen-devel@lists.xenproject.org; Sat, 17 Dec 2022 15:53:12 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p6b95-0004CT-Pf; Sat, 17 Dec 2022 17:38:47 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p6ZUt-0000eC-MK; Sat, 17 Dec 2022 15:53:11 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p6ZUt-0001xz-Fq; Sat, 17 Dec 2022 15:53:11 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p6b95-0003xy-OY; Sat, 17 Dec 2022 17:38:47 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p6b95-0006tv-AN; Sat, 17 Dec 2022 17:38:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p6b95-0005hN-9t; Sat, 17 Dec 2022 17:38:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,111 +42,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=TIOHSW/sI/bOW3uJfurFdY8Z5d7tAJ7IirRUjKcZ/Lg=; b=jS4yawNUFYqswHlDq6S7+GTFHF
-	mqJ09sYjCvM5KMUiasKxZtlpZt+pjQthZSa5/rJWlmcVkNq9URAXgu/fc+ATt+XxLejtpgP1CFGS0
-	8NZzOdrrWzgeT0MxVAc39qtra0l6/vXhv7005Jt77CO07FhkEbibPDJu0c5h1lNNlCTI=;
-Message-ID: <92e35f8b-72d9-e55f-9218-3f21742c14c6@xen.org>
-Date: Sat, 17 Dec 2022 15:53:09 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=Sgx1OKoFOxX+ny2Xr/2RTx6j8QQEMA7YNe7dUoAROzQ=; b=qodsnnCb4a+yNyFExZlmHeMJ2q
+	wWatV2G6R/0BmJ0pD1fuVWKdwx3hZUXACRLzPpFQtdfQ4zVsD9sqv8fswPgD8wLbL/tKA7EyiGxFj
+	9YtwjtU01OoUpd+K2kITgHDpGFV1Lob2eGZN4cL9zIb1tKD1TYTTVT6NxNnesekgfXhA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175367-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.0
-To: Jan Beulich <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tamas K Lengyel <tamas@tklengyel.com>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <f1745e62-8a46-e9af-6a79-592a5402a5f4@suse.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH RFC 10/10] common: convert vCPU info area registration
-In-Reply-To: <f1745e62-8a46-e9af-6a79-592a5402a5f4@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 175367: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=316e6df435af81f8281150bb04b3dd5a304d9c92
+X-Osstest-Versions-That:
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 17 Dec 2022 17:38:47 +0000
 
-Hi,
+flight 175367 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175367/
 
-On 19/10/2022 08:45, Jan Beulich wrote:
-> Switch to using map_guest_area(). Noteworthy differences from
-> map_vcpu_info():
-> - remote vCPU-s are paused rather than checked for being down (which in
->    principle can change right after the check),
-> - the domain lock is taken for a much smaller region,
-> - areas could now be registered more than once, if we want this,
-> - as a corner case registering the area at GFN 0 offset 0 is no longer
->    possible (this is considered an invalid de-registration request).
-> 
-> Note that this eliminates a bug in copy_vcpu_settings(): The function
-> did allocate a new page regardless of the GFN already having a mapping,
-> thus in particular breaking the case of two vCPU-s having their info
-> areas on the same page.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
-> ---
-> RFC: While the "no re-registration" check is retained, it is now racy.
->       If we really think it needs retaining _and_ properly enforcing,
->       then locking will be needed, but I don't think we can hold the
->       domain lock around a call to map_guest_area(), first and foremost
->       because of its use of vcpu_pause().
+Regressions :-(
 
-function like evtchn_2l_unmask() may access vcpu_info that is not the 
-current one.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
 
-So I believe the check needs to be reatined and properly enforced. 
-Otherwise, the old structure may still be used for a short time even if 
-it has been freed.
+version targeted for testing:
+ ovmf                 316e6df435af81f8281150bb04b3dd5a304d9c92
+baseline version:
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
 
-> 
-> RFC: Is the GFN 0 offset 0 behavioral change deemed acceptable?
+Last test of basis   175202  2022-12-14 13:42:59 Z    3 days
+Failing since        175214  2022-12-14 18:42:16 Z    2 days   17 attempts
+Testing same since   175338  2022-12-16 22:40:53 Z    0 days    5 attempts
 
-I would say n  (See the previous discussion for more details).
+------------------------------------------------------------
+People who touched revisions under test:
+  Adam Dunlap <acdunlap@google.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Dov Murik <dovmurik@linux.ibm.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Jiaqi Gao <jiaqi.gao@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
 
-> 
-> RFC: To have just a single instance of casts to vcpu_info_t *,
->       introducing a macro (or inline function if header dependencies
->       permit) might be nice. However, the only sensible identifier for it
->       would imo be vcpu_info(). Yet we already have a macro of that name.
->       With some trickery it might be possible to overload the macro
->       (making the "field" argument optional), but this may not be
->       desirable for other reasons (it could e.g. be deemed confusing).
-
-You might be able to reduce the number of cast by using local variables.
-
-But it is not entirely clear why we can't use the existing vcpu_info() 
-in many of the cases. For instance...
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-> 
-> --- a/xen/arch/x86/include/asm/shared.h
-> +++ b/xen/arch/x86/include/asm/shared.h
-> @@ -27,16 +27,16 @@ static inline void arch_set_##field(stru
->   static inline type arch_get_##field(const struct vcpu *v)       \
->   {                                                               \
->       return !has_32bit_shinfo(v->domain) ?                       \
-> -           v->vcpu_info->native.arch.field :                    \
-> -           v->vcpu_info->compat.arch.field;                     \
-> +           ((const vcpu_info_t *)v->vcpu_info_area.map)->native.arch.field : \
-> +           ((const vcpu_info_t *)v->vcpu_info_area.map)->compat.arch.field;  \
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-... here.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->   }                                                               \
->   static inline void arch_set_##field(struct vcpu *v,             \
->                                       type val)                   \
->   {                                                               \
->       if ( !has_32bit_shinfo(v->domain) )                         \
-> -        v->vcpu_info->native.arch.field = val;                  \
-> +        ((vcpu_info_t *)v->vcpu_info_area.map)->native.arch.field = val; \
->       else                                                        \
-> -        v->vcpu_info->compat.arch.field = val;                  \
-> +        ((vcpu_info_t *)v->vcpu_info_area.map)->compat.arch.field = val; \
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Not pushing.
+
+(No revision log; it would be 459 lines long.)
 
