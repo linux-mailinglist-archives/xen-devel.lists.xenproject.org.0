@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A5C164F668
-	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 01:42:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.465110.723704 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60FB64F66E
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 01:42:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.465118.723714 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6LGg-0008Tn-Eg; Sat, 17 Dec 2022 00:41:34 +0000
+	id 1p6LHh-0000aI-Nz; Sat, 17 Dec 2022 00:42:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 465110.723704; Sat, 17 Dec 2022 00:41:34 +0000
+Received: by outflank-mailman (output) from mailman id 465118.723714; Sat, 17 Dec 2022 00:42:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6LGg-0008RG-C4; Sat, 17 Dec 2022 00:41:34 +0000
-Received: by outflank-mailman (input) for mailman id 465110;
- Sat, 17 Dec 2022 00:41:32 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p6LHh-0000Xk-LJ; Sat, 17 Dec 2022 00:42:37 +0000
+Received: by outflank-mailman (input) for mailman id 465118;
+ Sat, 17 Dec 2022 00:42:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/B0D=4P=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1p6LGe-0008R8-Tq
- for xen-devel@lists.xenproject.org; Sat, 17 Dec 2022 00:41:32 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8c0c0670-7da3-11ed-8fd4-01056ac49cbb;
- Sat, 17 Dec 2022 01:41:31 +0100 (CET)
+ id 1p6LHg-0000Xa-AM
+ for xen-devel@lists.xenproject.org; Sat, 17 Dec 2022 00:42:36 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b1f64ca7-7da3-11ed-91b6-6bf2151ebd3b;
+ Sat, 17 Dec 2022 01:42:34 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id A2CECCE1E7D;
- Sat, 17 Dec 2022 00:41:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3860DC433EF;
- Sat, 17 Dec 2022 00:41:23 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 35F56622DC;
+ Sat, 17 Dec 2022 00:42:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B5BC433EF;
+ Sat, 17 Dec 2022 00:42:31 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,48 +43,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8c0c0670-7da3-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: b1f64ca7-7da3-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1671237683;
-	bh=dtdUIF91M/GxuGLfJncc0xQmhLzN754tNhXLmmzDoXE=;
+	s=k20201202; t=1671237752;
+	bh=txrVQmYOSs/Ctu0dZVPjN+hTTiJ/oAoHeSr02ZL1RGU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=pNFkrtDyjgslZ02/5pLtQO+V9K5iBZLydGAsVdUD+TtSQXzuZ12zRMSx6H4NMyXo9
-	 hrZ/PRVHwq4fOJzW3sTvE6Fz5fiZaCiBgaIS3XXg4Rv9r9VepTa/Ma3iiPV03w9GYZ
-	 7oePRLZOtTUiQAa5aakduCz1/6AwAfmjlYr2y5rqgy1Xxr2UthjWZ54RQHhicL0Nh0
-	 AC55+e7N7pBveOmr96zFLxL7bJkGBEQLQaRsm7dyl1lJjXokQX6sR5RzL+ccNOp3kq
-	 6Q+fb8m3NZyTwYMOPCeaMYo96u1UjG/Ign17sogRwnRB4jaoXd0xtHH21JD0W1ym4A
-	 kZy6PJJFTdzGA==
-Date: Fri, 16 Dec 2022 16:41:21 -0800 (PST)
+	b=piirMocI9h1m/NLCwit896tz73e/Hjlzukxbu7ESTBRcsSSSqcemoJwFSJW0EDorD
+	 cdDUcs+PoaWX//Og/e7uez0lEJ+mYv1+B3E2nJDSLoL8FTprF9u0PnGrVztokQMjDN
+	 JRAa7099TbYf+yQv8GFrtDqZQqFXCzTu5ui68QKyBVg32Bdirg0yQpUEZERhdEX1wM
+	 MjTVgIsezH3n14DG8WfvIi1D2PxiZnXXae2xinNA28Ajwyer0n/SzfeTgmJS/s7oXw
+	 SWKNml7jr3DKbCHLkqLN3YfgGz8+THiIy8RmWBb85SN78ZBsaf2lyQzdTnbZVAtAoA
+	 2XGdabuCjYYjQ==
+Date: Fri, 16 Dec 2022 16:42:30 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Michal Orzel <michal.orzel@amd.com>
 cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
     Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2 1/2] automation: Add support for using XTF for arm64
- testing
-In-Reply-To: <20221216133012.19927-2-michal.orzel@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2212161641140.315094@ubuntu-linux-20-04-desktop>
-References: <20221216133012.19927-1-michal.orzel@amd.com> <20221216133012.19927-2-michal.orzel@amd.com>
+Subject: Re: [PATCH v2 2/2] automation: Add test jobs to run XTF hypercall
+ xen_version test
+In-Reply-To: <20221216133012.19927-3-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2212161642240.315094@ubuntu-linux-20-04-desktop>
+References: <20221216133012.19927-1-michal.orzel@amd.com> <20221216133012.19927-3-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Fri, 16 Dec 2022, Michal Orzel wrote:
-> Introduce support for using XTF on Arm to perform low-level testing.
-> For the purpose of the CI testing, let's use the fork [1] from upstream
-> XTF with implemented support for arm64 (the upstream XTF only supports
-> x86).
-> 
-> Add a new script under automation/scripts to be used by the CI XTF test
-> jobs to perform the following tasks:
->  - Compiling XTF,
->  - Generating u-boot script using ImageBuilder,
->  - Running Xen with XTF as domU in pure dom0less configuration using Qemu,
->  - Checking test result.
-> 
-> The script takes the name of the XTF test to run as a first parameter.
-> 
-> [1] https://gitlab.com/xen-project/fusa/xtf.git (branch xtf-arm)
+> Add test jobs in both debug and non-debug versions to run hyp-xen-version
+> XTF test as a dom0less domU on arm64. The purpose of this test is to
+> validate the functional behavior of xen_version hypercall.
 > 
 > Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
@@ -93,86 +81,39 @@ Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 > ---
 > Changes in v2:
->  - run XTF in pure dom0less configuration
+>  - as we are going to run XTF in pure dom0less configuration, specify only
+>    the need for Xen and Qemu
 > ---
->  automation/scripts/qemu-xtf-dom0less-arm64.sh | 68 +++++++++++++++++++
->  1 file changed, 68 insertions(+)
->  create mode 100755 automation/scripts/qemu-xtf-dom0less-arm64.sh
+>  automation/gitlab-ci/test.yaml | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
 > 
-> diff --git a/automation/scripts/qemu-xtf-dom0less-arm64.sh b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> new file mode 100755
-> index 000000000000..3ec9cf74e129
-> --- /dev/null
-> +++ b/automation/scripts/qemu-xtf-dom0less-arm64.sh
-> @@ -0,0 +1,68 @@
-> +#!/bin/bash
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index 2d57f4feb74a..afd80adfe17c 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -165,6 +165,22 @@ qemu-smoke-dom0less-arm64-gcc-debug-boot-cpupools:
+>      - *arm64-test-needs
+>      - alpine-3.12-gcc-debug-arm64-boot-cpupools
+>  
+> +qemu-xtf-dom0less-arm64-gcc-hyp-xen-version:
+> +  extends: .qemu-arm64
+> +  script:
+> +    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - alpine-3.12-gcc-arm64
+> +    - qemu-system-aarch64-6.0.0-arm64-export
 > +
-> +set -ex
+> +qemu-xtf-dom0less-arm64-gcc-debug-hyp-xen-version:
+> +  extends: .qemu-arm64
+> +  script:
+> +    - ./automation/scripts/qemu-xtf-dom0less-arm64.sh hyp-xen-version 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - alpine-3.12-gcc-debug-arm64
+> +    - qemu-system-aarch64-6.0.0-arm64-export
 > +
-> +# Name of the XTF test
-> +xtf_test=$1
-> +
-> +# Message returned by XTF in case of success
-> +passed="Test result: SUCCESS"
-> +
-> +# XXX QEMU looks for "efi-virtio.rom" even if it is unneeded
-> +curl -fsSLO https://github.com/qemu/qemu/raw/v5.2.0/pc-bios/efi-virtio.rom
-> +./binaries/qemu-system-aarch64 \
-> +   -machine virtualization=true \
-> +   -cpu cortex-a57 -machine type=virt \
-> +   -m 2048 -smp 2 -display none \
-> +   -machine dumpdtb=binaries/virt-gicv2.dtb
-> +
-> +# XTF
-> +# Build a single XTF test passed as a first parameter to the script.
-> +# Build XTF with GICv2 support to match Qemu configuration and with SBSA UART
-> +# support, so that the test will use an emulated UART for printing messages.
-> +# This will allow us to run the test on both debug and non-debug Xen builds.
-> +rm -rf xtf
-> +git clone https://gitlab.com/xen-project/fusa/xtf.git -b xtf-arm
-> +make -C xtf TESTS=tests/${xtf_test} CONFIG_SBSA_UART=y CONFIG_GICV2=y -j$(nproc)
-> +cp xtf/tests/${xtf_test}/test-mmu64le-${xtf_test} binaries/xtf-test
-> +
-> +# ImageBuilder
-> +echo 'MEMORY_START="0x40000000"
-> +MEMORY_END="0xC0000000"
-> +
-> +XEN="xen"
-> +DEVICE_TREE="virt-gicv2.dtb"
-> +
-> +XEN_CMD="console=dtuart"
-> +
-> +DOMU_KERNEL[0]="xtf-test"
-> +DOMU_MEM[0]="128"
-> +
-> +NUM_DOMUS=1
-> +
-> +LOAD_CMD="tftpb"
-> +UBOOT_SOURCE="boot.source"
-> +UBOOT_SCRIPT="boot.scr"' > binaries/config
-> +
-> +rm -rf imagebuilder
-> +git clone https://gitlab.com/ViryaOS/imagebuilder
-> +bash imagebuilder/scripts/uboot-script-gen -t tftp -d binaries/ -c binaries/config
-> +
-> +# Run the test
-> +rm -f smoke.serial
-> +set +e
-> +echo "  virtio scan; dhcp; tftpb 0x40000000 boot.scr; source 0x40000000"| \
-> +timeout -k 1 120 \
-> +./binaries/qemu-system-aarch64 \
-> +    -machine virtualization=true \
-> +    -cpu cortex-a57 -machine type=virt \
-> +    -m 2048 -monitor none -serial stdio \
-> +    -smp 2 \
-> +    -no-reboot \
-> +    -device virtio-net-pci,netdev=n0 \
-> +    -netdev user,id=n0,tftp=binaries \
-> +    -bios /usr/lib/u-boot/qemu_arm64/u-boot.bin |& tee smoke.serial
-> +
-> +set -e
-> +(grep -q "${passed}" smoke.serial) || exit 1
-> +exit 0
+>  qemu-smoke-dom0-arm32-gcc:
+>    extends: .qemu-arm32
+>    script:
 > -- 
 > 2.25.1
 > 
