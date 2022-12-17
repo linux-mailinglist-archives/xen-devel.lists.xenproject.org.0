@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAD7C64FB5B
-	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 18:40:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.465327.723987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2FE64FB74
+	for <lists+xen-devel@lfdr.de>; Sat, 17 Dec 2022 18:59:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.465341.724002 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6b97-0004Fl-Sc; Sat, 17 Dec 2022 17:38:49 +0000
+	id 1p6bSm-0006nV-O8; Sat, 17 Dec 2022 17:59:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 465327.723987; Sat, 17 Dec 2022 17:38:49 +0000
+Received: by outflank-mailman (output) from mailman id 465341.724002; Sat, 17 Dec 2022 17:59:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p6b97-0004Cd-PQ; Sat, 17 Dec 2022 17:38:49 +0000
-Received: by outflank-mailman (input) for mailman id 465327;
- Sat, 17 Dec 2022 17:38:47 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1p6bSm-0006k4-KW; Sat, 17 Dec 2022 17:59:08 +0000
+Received: by outflank-mailman (input) for mailman id 465341;
+ Sat, 17 Dec 2022 17:59:07 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p6b95-0004CT-Pf; Sat, 17 Dec 2022 17:38:47 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p6b95-0003xy-OY; Sat, 17 Dec 2022 17:38:47 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p6b95-0006tv-AN; Sat, 17 Dec 2022 17:38:47 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p6b95-0005hN-9t; Sat, 17 Dec 2022 17:38:47 +0000
+ (envelope-from <SRS0=1nnt=4P=neowutran.ovh=xen@srs-se1.protection.inumbo.net>)
+ id 1p6bSl-0006jy-I0
+ for xen-devel@lists.xenproject.org; Sat, 17 Dec 2022 17:59:07 +0000
+Received: from neowutran.ovh (vps-eb112777.vps.ovh.net [51.83.40.211])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7f74988e-7e34-11ed-8fd4-01056ac49cbb;
+ Sat, 17 Dec 2022 18:59:06 +0100 (CET)
+Received: from localhost.localdomain (82-65-208-184.subs.proxad.net
+ [82.65.208.184])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (No client certificate requested)
+ by neowutran.ovh (Postfix) with ESMTPSA id DF59660BCE;
+ Sat, 17 Dec 2022 17:43:55 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,93 +43,68 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=Sgx1OKoFOxX+ny2Xr/2RTx6j8QQEMA7YNe7dUoAROzQ=; b=qodsnnCb4a+yNyFExZlmHeMJ2q
-	wWatV2G6R/0BmJ0pD1fuVWKdwx3hZUXACRLzPpFQtdfQ4zVsD9sqv8fswPgD8wLbL/tKA7EyiGxFj
-	9YtwjtU01OoUpd+K2kITgHDpGFV1Lob2eGZN4cL9zIb1tKD1TYTTVT6NxNnesekgfXhA=;
+X-Inumbo-ID: 7f74988e-7e34-11ed-8fd4-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=neowutran.ovh;
+	s=my-selector-name; t=1671299036;
+	bh=ScL+wM/r2vV7V3L6+5UAoO4L6OG34lleNzEkgMi2sEE=;
+	h=From:To:Cc:Subject:Date;
+	b=FxroflgekMr6WzByZ9sHoKq0bxc385HZi3FOLmxt4BZiPZ1xik00icFllTFXezu+g
+	 ZWB/nV4wEwwyOfMDCKsNWsYpX0t3fFmXyYP679nvmpMAr89A0cASPjfGC0Xuka90/6
+	 OpeoZSP/elMBAb2TqeJhpZXhSeun1vRrPNg1xwCexf8EMzm8BZrnMttB9seKVJ9ceE
+	 8U4LSPPHUSx/jstGyYYJP9YAsHUs22aUWnuhb+BZWESxO78m3YHosb+v1j4vO2ocZN
+	 /33SHlWXzJbcMwtcfjo4fM0zhVh6SGN5FwLXR8nnulh1QfI09bI2fGTTSplTIVs1X8
+	 JoHsXJWjvIIgTJ3gjvvDrYGqDbQ41ZduZHsYvRBLlz/VYga4MTyItNKZXB3e86xAJq
+	 GVyWAj/A/pn6EB5Jea6Ie34RBEO1BggYF0WZfwvq6xKgJBmCjkUepNYdxmpXZJwByK
+	 UloI/qnJUzJIVl3VRNCKLecK28b/GLZQFGpduDNKnzqqtEkcsp0GG8F1r1A9pg22aG
+	 7Ycw0ZU2wBkZ9SJOSheId5rwmY7qmIyhPxr6ErM9Up6QpuM66MugwbahNErjpsOuYY
+	 m9cQVlCmQNLwCRYq8601hfbH8GKwW947rQh6Ue/OoeLnws4hr9SPANNNrgbD+lLcri
+	 0FnFsqsTvSCtAaOEDA/VjHaM=
+From: Neowutran <xen@neowutran.ovh>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175367-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: Neowutran <xen@neowutran.ovh>,
+	Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: [Patch v1] Bug fix - Integer overflow when cpu frequency > u32 max value.
+Date: Sat, 17 Dec 2022 18:42:05 +0100
+Message-Id: <c1535eba0bba6fc1b91f975f434af0929d9d7c96.1671298923.git.git@neowutran.ovh>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Subject: [ovmf test] 175367: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
-X-Osstest-Versions-This:
-    ovmf=316e6df435af81f8281150bb04b3dd5a304d9c92
-X-Osstest-Versions-That:
-    ovmf=d103840cfb559c28831c2635b916d60118f671cc
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 17 Dec 2022 17:38:47 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 175367 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175367/
+xen/arch/x86/time.c: Bug fix - Integer overflow when cpu frequency > u32 max value.
 
-Regressions :-(
+What is was trying to do: I was trying to install QubesOS on my new computer
+(AMD zen4 processor). Guest VM were unusably slow / unusable.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
- test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+What is the issue: The cpu frequency reported is wrong for linux guest in HVM
+and PVH mode, and it cause issue with the TSC clocksource (for example).
 
-version targeted for testing:
- ovmf                 316e6df435af81f8281150bb04b3dd5a304d9c92
-baseline version:
- ovmf                 d103840cfb559c28831c2635b916d60118f671cc
+Why this patch solved my issue:
+The root cause it that "d->arch.tsc_khz" is a unsigned integer storing
+the cpu frequency in khz. It get multiplied by 1000, so if the cpu frequency
+is over ~4,294 Mhz (u32 max value), then it overflow.
+I am solving the issue by adding an explicit cast to u64 to avoid the overflow.
 
-Last test of basis   175202  2022-12-14 13:42:59 Z    3 days
-Failing since        175214  2022-12-14 18:42:16 Z    2 days   17 attempts
-Testing same since   175338  2022-12-16 22:40:53 Z    0 days    5 attempts
+---
+ xen/arch/x86/time.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Adam Dunlap <acdunlap@google.com>
-  Ard Biesheuvel <ardb@kernel.org>
-  devel@edk2.groups.io <devel@edk2.groups.io>
-  Dov Murik <dovmurik@linux.ibm.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jeff Brasen <jbrasen@nvidia.com>
-  Jeshua Smith <jeshuas@nvidia.com>
-  Jiaqi Gao <jiaqi.gao@intel.com>
-  Michael Kubacki <michael.kubacki@microsoft.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-  Sebastien Boeuf <sebastien.boeuf@intel.com>
-  Tom Lendacky <thomas.lendacky@amd.com>
+diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+index b01acd390d..7c77ec8902 100644
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -2585,7 +2585,7 @@ int tsc_set_info(struct domain *d,
+     case TSC_MODE_ALWAYS_EMULATE:
+         d->arch.vtsc_offset = get_s_time() - elapsed_nsec;
+         d->arch.tsc_khz = gtsc_khz ?: cpu_khz;
+-        set_time_scale(&d->arch.vtsc_to_ns, d->arch.tsc_khz * 1000);
++        set_time_scale(&d->arch.vtsc_to_ns, (u64)d->arch.tsc_khz * 1000);
+ 
+         /*
+          * In default mode use native TSC if the host has safe TSC and
+-- 
+2.38.1
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 459 lines long.)
 
