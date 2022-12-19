@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6D37650DB8
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 15:46:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466151.725012 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 785FD650DB7
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 15:46:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466152.725023 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOt-0006zn-11; Mon, 19 Dec 2022 14:45:55 +0000
+	id 1p7HOu-0007GK-8n; Mon, 19 Dec 2022 14:45:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466151.725012; Mon, 19 Dec 2022 14:45:54 +0000
+Received: by outflank-mailman (output) from mailman id 466152.725023; Mon, 19 Dec 2022 14:45:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOs-0006xx-Sv; Mon, 19 Dec 2022 14:45:54 +0000
-Received: by outflank-mailman (input) for mailman id 466151;
- Mon, 19 Dec 2022 14:45:52 +0000
+	id 1p7HOu-0007Dm-4y; Mon, 19 Dec 2022 14:45:56 +0000
+Received: by outflank-mailman (input) for mailman id 466152;
+ Mon, 19 Dec 2022 14:45:54 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EUwz=4R=citrix.com=prvs=345b0463a=sergey.dyasli@srs-se1.protection.inumbo.net>)
- id 1p7HOq-0006ib-R0
- for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 14:45:52 +0000
+ id 1p7HOs-0006ib-0K
+ for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 14:45:54 +0000
 Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
  [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d5766f8f-7fab-11ed-8fd4-01056ac49cbb;
- Mon, 19 Dec 2022 15:45:51 +0100 (CET)
+ id d6170f21-7fab-11ed-8fd4-01056ac49cbb;
+ Mon, 19 Dec 2022 15:45:52 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,145 +36,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d5766f8f-7fab-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: d6170f21-7fab-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671461151;
+  d=citrix.com; s=securemail; t=1671461152;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=tY/MEDglgrazRqF99q4UwNqEkL3kZa1LwaEItI2pDeg=;
-  b=dGg9Cst2G05SwZjr7+SNx/2bo+Knlg0kLLESSQItL0NHYSLiim35qhV3
-   hsUXXhxzYjjkpZMt6xKgVpQLB8RsYB60XDSlbPh8srBkoT7CgPQt2iRnA
-   2j4DgTBi5d8QqN/1Ksl1Ys4ph9AzqaWGvM3upO0hgavHJ/Eezgsyts+u9
-   E=;
+  bh=ZYFxkj9X/U5+jpRj/Koq1z+I/rVSV2S71DiPtKUVOes=;
+  b=FMK3ysi78ky7KbqQX5s+Y8jTEmip5jckgGd6u5oik0OJMdV1mvGl+P5G
+   6HrtfW4S+pSqKEUQRRdJlW2A/Z+Fbfr6D0iHV0rSeKGWYT13eVYqFtRyc
+   U8gn0S7oee2X+agTA0wjcgHnpxhdoh32bthA8nmZ4pS0ZogSQnHf+L4y0
+   U=;
 Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 88063312
+X-MesageID: 88063314
 X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:lVx05KM/9LAI38LvrR2Sl8FynXyQoLVcMsEvi/4bfWQNrUp0hjAPy
- WVMUWzUM/bfZGCne4onPIi3pkgAuZfVm9FqTgto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQA+KmU4YoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvzrRC9H5qyo4mpC5w1mPJingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0u1+OXMe6
- qdIERFOVRPZpNro3p+7Q/Y506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w/N3wsYDUWUrsTIIkzhuillz/zYjRDrFO9rqsr+WnDigd21dABNfKFKoTUHp4MxC50o
- Erh1nvmWzo7LeWw0DqM4FGrq7+XnS3SDdd6+LqQqacx3Qz7KnYoIB8LUVq2p9Gph0j4XMhQQ
- 2QP4TYnp6U28E2tT/H+Uge+rXrCuQQTM/JPF8Uq5QfLzbDbiy6JC25BQjNfZdgOsM4tWSdsx
- lKPh8nuBzFkrPuSU3313rWeoC62OCMVBXQffiJCRgwAi+QPu6lq0EiJFIw6Vvfo0JulQlkc3
- gxmsgA1jo0B3dFQh5yavmvE2RGU+IbkTgcqs1C/sn2e0it1Y4usZoqN4Ffd7OpdIIvxcmRtr
- EToiODFsrlQUMjleDilBbxUQer3v6rt3Cj02wYHInU3y9i6F5dPl6h06So2GkpmO91sldTBM
- B6K4lM5CHO+0RKXgU5Lj2CZUZ9CIUvIT46NuhXogj1mPPBMmPevpn0GWKJp9zmFfLIQua8+I
- 4yHVs2nEGwXD69qpBLvGbhEiu97nX5glTKCLXwe8/hA+ePCDEN5tJ9faAfeBgzHxPjsTPrpH
- yZ3aJLRlkQ3vBzWaSjL648DRW03wYwALcmu8aR/L7fTSjeK7Ul9U5c9N5t9Id0690mU/8+Ul
- kyAtrhwkwGu2CKZdVjXMhiOqtrHBP5CkJ7yBgR0VX7A5pTpSd3HAHs3H3fvQYQayQ==
-IronPort-HdrOrdr: A9a23:IZa4062dfX7Md9esiEJ2OwqjBI0kLtp133Aq2lEZdPWaSL3gqy
- nOpoVi6faQslwssR4b6LW90cW7MBHhHNtOkOos1NSZPTUO2lHYSL2KhLGKq1bd8m/FltK1vp
- 0QFJSWZueAa2SSTvyX3OB7KbsdKRW8n5xATN2x80tQ
+IronPort-Data: A9a23:JyxMPq2X4Rnh5D/ZIvbD5dxxkn2cJEfYwER7XKvMYLTBsI5bpzJUz
+ mscC2iBbvuIYjb2edEja96zp00AsZ+DzIdnG1ZvpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
+ J9OAjXkBJppJpMJjk71atANlVEliefTAOK5ULSfUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
+ tq3qMDEULOf82cc3lk8tuTS9nuDgNyo4GlC5wZnNKgS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
+ 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
+ OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfCmh25
+ 6wHc2A0T1O4hLiV+OylZ+llmZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
+ ZNfMGcxKkSbC/FMEg5/5JYWh+qyiXTuNTFJoUmRpII84nTJzRw327/oWDbQUozaHZsOxR/Ez
+ o7A1yPQKTwXO+3E8z2cyl2Kpe2Xxi7Fe51HQdVU8dY12QbOlwT/EiY+Sl+TsfS/zEmkVLp3O
+ 0ESvyYjs6U23EiqVcXmGQ21pmaeuRwRUMYWFPc1gCmPwKfJ5weSBkAfUyVMLtchsacLqScCj
+ wHT2YmzXHo27ePTGSn1GqqoQS2aMiEtPz8dPn89bEg+4IPAmN8toxLGUYM2eEKqteHdFTb1y
+ jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
+ JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD3272k5JAVdoKiN2bGKuOGphsRNMRS
+ BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QRO8MhJFTZonE/NCZ8OlwBd2B1zckC1
+ WqzK57wXR7294w8pNZJewvt+eBynX1vrY8ibZv60w6mwdKjWZJhcp9caAHmRrlgvMu5TPD9r
+ 4432z2il08OD4UTo0D/reYuELz9BSNgVM2p9ZAKK7brz8gPMDhJNsI9CIgJI+RN95m5XM+Tl
+ p1hcie0EGbCuEA=
+IronPort-HdrOrdr: A9a23:Gj/bcKooFfZUkV+h5TxMcmkaV5oUeYIsimQD101hICG9vPbo7v
+ xG/c5rrSMc7Qx6ZJhOo6HkBEDtewK/yXcx2/hzAV7AZmjbUQmTXeVfBOLZqlWKJ8S9zI5gPM
+ xbAs9D4bPLfD5HZAXBjDVQ0exM/DBKys+VbC7loUtQcQ==
 X-IronPort-AV: E=Sophos;i="5.96,255,1665460800"; 
-   d="scan'208";a="88063312"
+   d="scan'208";a="88063314"
 From: Sergey Dyasli <sergey.dyasli@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Sergey Dyasli
-	<sergey.dyasli@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Julien
- Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 1/3] xen/multiboot: add proper struct definitions to typedefs
-Date: Mon, 19 Dec 2022 14:45:31 +0000
-Message-ID: <20221219144533.19836-2-sergey.dyasli@citrix.com>
+	<sergey.dyasli@citrix.com>
+Subject: [PATCH v2 2/3] x86/ucode: allow cpu_request_microcode() to skip memory allocation
+Date: Mon, 19 Dec 2022 14:45:32 +0000
+Message-ID: <20221219144533.19836-3-sergey.dyasli@citrix.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221219144533.19836-1-sergey.dyasli@citrix.com>
 References: <20221219144533.19836-1-sergey.dyasli@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-This allows to use them for forward declaration in other headers.
+This is a preparatory step in order to do earlier microcode loading on
+the boot CPU when the domain heap has not been initialized yet and
+xmalloc still unavailable.
+
+Add make_copy argument which will allow to load microcode directly from
+the blob bypassing microcode_cache.
 
 Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
 
 ---
-CC: George Dunlap <george.dunlap@citrix.com>
-CC: Julien Grall <julien@xen.org>
-CC: Stefano Stabellini <sstabellini@kernel.org>
-
 v1 --> v2:
-- New patch
+- Don't add extra consts
 ---
- xen/include/xen/multiboot.h | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ xen/arch/x86/cpu/microcode/amd.c     | 13 +++++++++----
+ xen/arch/x86/cpu/microcode/core.c    |  2 +-
+ xen/arch/x86/cpu/microcode/intel.c   | 13 +++++++++----
+ xen/arch/x86/cpu/microcode/private.h | 15 +++++++++++----
+ 4 files changed, 30 insertions(+), 13 deletions(-)
 
-diff --git a/xen/include/xen/multiboot.h b/xen/include/xen/multiboot.h
-index d1b43e1183..a541bdf8a8 100644
---- a/xen/include/xen/multiboot.h
-+++ b/xen/include/xen/multiboot.h
-@@ -46,23 +46,25 @@
- #ifndef __ASSEMBLY__
+diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
+index 8195707ee1..4b097187a0 100644
+--- a/xen/arch/x86/cpu/microcode/amd.c
++++ b/xen/arch/x86/cpu/microcode/amd.c
+@@ -300,7 +300,7 @@ static int scan_equiv_cpu_table(const struct container_equiv_table *et)
+ }
  
- /* The symbol table for a.out.  */
--typedef struct {
-+struct aout_symbol_table {
-     u32 tabsize;
-     u32 strsize;
-     u32 addr;
-     u32 reserved;
--} aout_symbol_table_t;
-+};
-+typedef struct aout_symbol_table aout_symbol_table_t;
+ static struct microcode_patch *cf_check cpu_request_microcode(
+-    const void *buf, size_t size)
++    const void *buf, size_t size, bool make_copy)
+ {
+     const struct microcode_patch *saved = NULL;
+     struct microcode_patch *patch = NULL;
+@@ -411,9 +411,14 @@ static struct microcode_patch *cf_check cpu_request_microcode(
  
- /* The section header table for ELF.  */
--typedef struct {
-+struct elf_section_header_table{
-     u32 num;
-     u32 size;
-     u32 addr;
-     u32 shndx;
--} elf_section_header_table_t;
-+};
-+typedef struct elf_section_header_table elf_section_header_table_t;
+     if ( saved )
+     {
+-        patch = xmemdup_bytes(saved, saved_size);
+-        if ( !patch )
+-            error = -ENOMEM;
++        if ( make_copy )
++        {
++            patch = xmemdup_bytes(saved, saved_size);
++            if ( !patch )
++                error = -ENOMEM;
++        }
++        else
++            patch = (struct microcode_patch *)saved;
+     }
  
- /* The Multiboot information.  */
--typedef struct {
-+struct multiboot_info {
-     u32 flags;
+     if ( error && !patch )
+diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
+index 452a7ca773..85c05e480d 100644
+--- a/xen/arch/x86/cpu/microcode/core.c
++++ b/xen/arch/x86/cpu/microcode/core.c
+@@ -244,7 +244,7 @@ static struct microcode_patch *parse_blob(const char *buf, size_t len)
+ {
+     alternative_vcall(ucode_ops.collect_cpu_info);
  
-     /* Valid if flags sets MBI_MEMLIMITS */
-@@ -101,26 +103,29 @@ typedef struct {
+-    return alternative_call(ucode_ops.cpu_request_microcode, buf, len);
++    return alternative_call(ucode_ops.cpu_request_microcode, buf, len, true);
+ }
  
-     /* Valid if flags sets MBI_APM */
-     u32 apm_table;
--} multiboot_info_t;
-+};
-+typedef struct multiboot_info multiboot_info_t;
+ static void microcode_free_patch(struct microcode_patch *patch)
+diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
+index f5ba6d76d7..f7fec4b4ed 100644
+--- a/xen/arch/x86/cpu/microcode/intel.c
++++ b/xen/arch/x86/cpu/microcode/intel.c
+@@ -324,7 +324,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
+ }
  
- /* The module structure.  */
--typedef struct {
-+struct module {
-     u32 mod_start;
-     u32 mod_end;
-     u32 string;
-     u32 reserved;
--} module_t;
-+};
-+typedef struct module module_t;
+ static struct microcode_patch *cf_check cpu_request_microcode(
+-    const void *buf, size_t size)
++    const void *buf, size_t size, bool make_copy)
+ {
+     int error = 0;
+     const struct microcode_patch *saved = NULL;
+@@ -364,10 +364,15 @@ static struct microcode_patch *cf_check cpu_request_microcode(
  
- /* The memory map. Be careful that the offset 0 is base_addr_low
-    but no size.  */
--typedef struct {
-+struct memory_map {
-     u32 size;
-     u32 base_addr_low;
-     u32 base_addr_high;
-     u32 length_low;
-     u32 length_high;
-     u32 type;
--} memory_map_t;
-+};
-+typedef struct memory_map memory_map_t;
+     if ( saved )
+     {
+-        patch = xmemdup_bytes(saved, get_totalsize(saved));
++        if ( make_copy )
++        {
++            patch = xmemdup_bytes(saved, get_totalsize(saved));
  
+-        if ( !patch )
+-            error = -ENOMEM;
++            if ( !patch )
++                error = -ENOMEM;
++        }
++        else
++            patch = (struct microcode_patch *)saved;
+     }
  
- #endif /* __ASSEMBLY__ */
+     if ( error && !patch )
+diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
+index c085a10268..58c5dffd7b 100644
+--- a/xen/arch/x86/cpu/microcode/private.h
++++ b/xen/arch/x86/cpu/microcode/private.h
+@@ -23,15 +23,22 @@ struct microcode_ops {
+      * older that what is running in the CPU.  This is a feature, to better
+      * cope with corner cases from buggy firmware.)
+      *
+-     * If one is found, allocate and return a struct microcode_patch
+-     * encapsulating the appropriate microcode patch.  Does not alias the
+-     * original buffer.  Must be suitable to be freed with a single xfree().
++     * If one is found, behaviour depends on the make_copy argument:
++     *
++     *     true: allocate and return a struct microcode_patch encapsulating
++     *           the appropriate microcode patch.  Does not alias the original
++     *           buffer.  Must be suitable to be freed with a single xfree().
++     *
++     *    false: return a pointer to the patch within the original buffer.
++     *           This is useful for early microcode loading when xmalloc might
++     *           not be available yet.
+      *
+      * If one is not found, (nothing matches the current CPU), return NULL.
+      * Also may return ERR_PTR(-err), e.g. bad container, out of memory.
+      */
+     struct microcode_patch *(*cpu_request_microcode)(const void *buf,
+-                                                     size_t size);
++                                                     size_t size,
++                                                     bool make_copy);
+ 
+     /*
+      * Obtain microcode-relevant details for the current CPU.  Results in
 -- 
 2.17.1
 
