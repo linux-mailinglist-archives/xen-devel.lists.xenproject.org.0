@@ -2,41 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DADF4650CA6
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 14:31:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466102.724945 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7466B650CAD
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 14:33:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466110.724956 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7GE3-0005cN-6w; Mon, 19 Dec 2022 13:30:39 +0000
+	id 1p7GGO-0006Cd-Ko; Mon, 19 Dec 2022 13:33:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466102.724945; Mon, 19 Dec 2022 13:30:39 +0000
+Received: by outflank-mailman (output) from mailman id 466110.724956; Mon, 19 Dec 2022 13:33:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7GE3-0005Z8-3z; Mon, 19 Dec 2022 13:30:39 +0000
-Received: by outflank-mailman (input) for mailman id 466102;
- Mon, 19 Dec 2022 13:30:37 +0000
+	id 1p7GGO-0006A4-Hd; Mon, 19 Dec 2022 13:33:04 +0000
+Received: by outflank-mailman (input) for mailman id 466110;
+ Mon, 19 Dec 2022 13:33:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TuS/=4R=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1p7GE1-0005Z2-Nj
- for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 13:30:37 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=S2HB=4R=tibco.com=etorok@srs-se1.protection.inumbo.net>)
+ id 1p7GGN-00069s-Bc
+ for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 13:33:03 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4cc9effd-7fa1-11ed-8fd4-01056ac49cbb;
- Mon, 19 Dec 2022 14:30:27 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- h8-20020a1c2108000000b003d1efd60b65so8853493wmh.0
- for <xen-devel@lists.xenproject.org>; Mon, 19 Dec 2022 05:30:36 -0800 (PST)
-Received: from zen.linaroharston ([185.81.254.11])
- by smtp.gmail.com with ESMTPSA id
- p13-20020a05600c1d8d00b003d01b84e9b2sm12572845wms.27.2022.12.19.05.30.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Dec 2022 05:30:35 -0800 (PST)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 4B5B21FFB7;
- Mon, 19 Dec 2022 13:30:35 +0000 (GMT)
+ id a3a3f2b0-7fa1-11ed-8fd4-01056ac49cbb;
+ Mon, 19 Dec 2022 14:32:53 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id ay40so6420663wmb.2
+ for <xen-devel@lists.xenproject.org>; Mon, 19 Dec 2022 05:33:02 -0800 (PST)
+Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
+ [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
+ y12-20020adffa4c000000b002258235bda3sm9982551wrr.61.2022.12.19.05.33.01
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 19 Dec 2022 05:33:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,123 +44,96 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4cc9effd-7fa1-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: a3a3f2b0-7fa1-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
+        d=cloud.com; s=cloud;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UlPLPpl56U/bXAj2k5gLxsEbWsnUhmMHwa6ZL+b6GYc=;
-        b=sISDUqyFevk+LKCQngSXmeQKP3X6KbLF9UiUup/BQPFP5NC/yG3CR2rtOV5AOlrRoz
-         2NfhmGDJoymDeeU1OuNOCpcggembl3ODt/QiQGGxbWuD/2pVml7c7KZ4wcA8LLW+JGWI
-         uNjHl3n4pNy8D4ihyteytl8+69GSgm2PimiHPH/3Dhk1NKjGom5nfQLzIZuV+OzjGP2k
-         jpXnXUVnsKZ7Oje/Id0pqtFQ7NNeB+07P8sRkq1HHfcQfQ9ukAgRd17X3UqndU7FS95c
-         m3vltdF3Xuipy7lAKI1qsmZxs6EsFTU2PplX5F6sIoVEA79Qk4nKfcCMSoeAEdyNxLhH
-         EyFg==
+        bh=hyqBFqrtmlfxIHvmtBOqZBB+aaAVvAnC/1WGsPr5f64=;
+        b=Bd3q0uQQcCrQfzu9lU8bWzwcwB9U4o+RnAdzJjm/wKLZOrISoe+fLS6gxQ6/7cUrY5
+         xQRomUkMotvmW3o7kzhkM0c/j5q1nnW+hxnIdLU9plVz8CsXf+PHRtkAgh+f756wrVMk
+         Vp63zi1ThZS6BjjnUydKwL75GODzgYzuYc/SU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=UlPLPpl56U/bXAj2k5gLxsEbWsnUhmMHwa6ZL+b6GYc=;
-        b=2ByP+T7z3ocJ9q3PW7WjHz8SHey7udLTbi1IDjWkmyCLfKxUcgCg5bIkGlaggeI7rQ
-         dFuWArkXQFw4CSSgOTN3uc1VVR2XqV7jwpbTKsP23gjRISgZ8bn8AvKRbFi9H1us9op4
-         311rufMzCGqL3pQHdBq3iE/9gjhQRnI0LXlHxKuzf41gefENh5jHFowBQlm0RRVfYWK3
-         KR9GAbq9s1TI/o25LEBrB8TOowerw1EGB6+H+YqJpFF1ihOVZCiklFzCEXelOLCTs3XX
-         fajY4I7lK7bHDYQzlY7nahUPS04UU/FAq792AIVlUQRWtv4LFg2yq4RIt4O469O+alUq
-         CFFw==
-X-Gm-Message-State: ANoB5plHP6+wYxasHw8zNtxyBiv03G+QZw6k5LoXLBegUfu6LL3PmpFR
-	pS8/XsF2Gluzav/vgu8rZcb00g==
-X-Google-Smtp-Source: AA0mqf4Xdip+r7skuBy7lODHoTWA5Ki9oHZGfFRdiMDNpcuRv0VJmJpUY1Fyf6w4t7SHLDm6OrJjiw==
-X-Received: by 2002:a05:600c:1e26:b0:3d2:2043:9cb7 with SMTP id ay38-20020a05600c1e2600b003d220439cb7mr25133115wmb.5.1671456636123;
-        Mon, 19 Dec 2022 05:30:36 -0800 (PST)
-References: <20221202030003.11441-1-vikram.garhwal@amd.com>
- <20221202030003.11441-11-vikram.garhwal@amd.com>
- <871qphc0p3.fsf@linaro.org> <ade61d47-f8c0-09cc-1a44-faaaff87d76a@amd.com>
- <alpine.DEB.2.22.394.2212021429220.4039@ubuntu-linux-20-04-desktop>
- <d87025d8-b653-d80e-22c0-05f052447706@xen.org>
-User-agent: mu4e 1.9.7; emacs 29.0.60
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Julien Grall <julien@xen.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Vikram Garhwal
- <vikram.garhwal@amd.com>, qemu-dev@xilinx.com, stefano.stabellini@amd.com,
- xen-devel@lists.xenproject.org, Peter Maydell <peter.maydell@linaro.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>, "open list:All patches CC
- here" <qemu-devel@nongnu.org>
-Subject: Re: [QEMU][PATCH v2 10/11] hw/arm: introduce xenpv machine
-Date: Mon, 19 Dec 2022 13:28:46 +0000
-In-reply-to: <d87025d8-b653-d80e-22c0-05f052447706@xen.org>
-Message-ID: <87bknzldvo.fsf@linaro.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=hyqBFqrtmlfxIHvmtBOqZBB+aaAVvAnC/1WGsPr5f64=;
+        b=f5P21NtMejl/sotb7lSJsrefe4jJbGvyS6KLvwN1BI1vlDoMR+BuBdgvofF7e6lrAG
+         0dkN/ak2Prz5dqXQROnJHlmvIRN8bUWjEWwqcmYnZx1JbuaQ/TAU49HtgsCRbWjrlrPj
+         ZLvEfdEeFCRKHHHPOQ9dCoYaJRVy2Tnnojup5iHfXFG315ZCwa383ZW1DE8+gDjFlGMe
+         z4f4ivmaq4vGpy3fJXmijb0z4VjB83EhJnZp0BnXd/bDXScnl7rtIzlDMFcpD+tDt2Q8
+         7qqmpCLCsW0quZN8pP7RXNpzpoFXkERZPnfCuqqtt/Gm0JOm5+97rPAo4yvt6RyMtUY/
+         HKmg==
+X-Gm-Message-State: ANoB5pkepl+MEy1xZF2iT3PBzIMVxdJE/KawcNwbpjOq0704UZ5WOPML
+	YrvaEc5CV75/ab3TGr0kT+SgXw==
+X-Google-Smtp-Source: AA0mqf4sQodQR34lFKzuw3jB0bs2vNrIqw435DUm50XvXbLP9Dahm7SdD9F6r90Omnpjk0QDP916uQ==
+X-Received: by 2002:a7b:ce84:0:b0:3c6:e63e:24e with SMTP id q4-20020a7bce84000000b003c6e63e024emr32647826wmj.37.1671456781921;
+        Mon, 19 Dec 2022 05:33:01 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.200.110.1.12\))
+Subject: Re: [PATCH v4 03/11] CODING_STYLE(tools/ocaml): add 'make format' and
+ remove tabs
+From: Edwin Torok <edwin.torok@cloud.com>
+In-Reply-To: <Y6BQhAs0ZgRqJ3//@perard.uk.xensource.com>
+Date: Mon, 19 Dec 2022 13:32:51 +0000
+Cc: =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edvin.torok@citrix.com>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ David Scott <dave@recoil.org>,
+ Wei Liu <wl@xen.org>,
+ Christian Lindig <christian.lindig@citrix.com>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <9056A016-609C-4AD8-B989-868E81763B85@cloud.com>
+References: <cover.1671214525.git.edwin.torok@cloud.com>
+ <81d621cea5975fdd9698992b968dcd7528c637af.1671214525.git.edwin.torok@cloud.com>
+ <Y6BQhAs0ZgRqJ3//@perard.uk.xensource.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+X-Mailer: Apple Mail (2.3731.200.110.1.12)
 
 
-Julien Grall <julien@xen.org> writes:
 
-> Hi,
->
-> On 02/12/2022 22:36, Stefano Stabellini wrote:
->>> Do you know what Xen version your build env has?
->> I think Alex is just building against upstream Xen. GUEST_TPM_BASE
->> is
->> not defined there yet. I think we would need to introduce in
->> xen_common.h something like:
->> #ifndef GUEST_TPM_BASE
->> #define GUEST_TPM_BASE 0x0c000000
->> #endif
->
-> I think this would be a big mistake to add the two lines above in QEMU.
->
-> Libxl is responsible for creating the domain and generating the
-> firwmare tables. Any mismatch of values will be a real pain to debug.
->
-> Even if...
->
->> We already have similar code in xen_common.h for other things.
->> Also, it
->> would be best to get GUEST_TPM_BASE defined upstream in Xen first.
->
-> ... we introduce upstream first, the guest layout is not part of the
-> stable ABI and therefore could change from release to release.
->
->>=20
->>> Another way to fix this(as Julien suggested) is by setting this GUEST_T=
-PM_BASE
->>> value via a property or something and user can set it via command line.
->>>
->>> @sstabellini@kernel.org, do you think of any other fix?
->> Setting the TPM address from the command line is nice and preferable
->> to
->> hardcoding the value in xen_common.h. It comes with the challenge that
->> it is not very scalable (imagine we have a dozen emulated devices) but
->> for now it is fine and a good way to start if you can arrange it.
->
-> It is not clear which one you think is not scalable. If this is the
-> command line option approach, then I think this is unrealistic to ask
-> every user to rebuild there QEMU just because the guest layout has
-> changed.
->
-> Today the rebuild may only be necessary when switching to a new
-> release. But in the future we may imagine a per-domain layout (e.g.
-> for legacy purpose). So you will now need to request the user to have
-> one QEMU built per domain.
+> On 19 Dec 2022, at 11:52, Anthony PERARD <anthony.perard@citrix.com> =
+wrote:
+>=20
+> On Fri, Dec 16, 2022 at 06:25:12PM +0000, Edwin T=C3=B6r=C3=B6k wrote:
+>> + git ls-files '*.c' '*.h' | xargs -n1 sed -ie 's/\t/    /g'
+>=20
+> Seen as there's a patch adding .clang-format, what the point of this
+> command?
 
-I agree if this is something that can change it needs to be configured
-from the command line or somehow otherwise gleaned from the source of
-truth. Isn't this information available via XenStore? Isn't that what
-Viresh has to do for all the VirtIO devices he's adding to libxl?
+The diff to change tabs to spaces (and the equivalent one from =
+ocp-indent) can be proven
+to introduce 0 changes by looking at the diff with ignore-whitespace.
+Proving the same with ocamlformat or clang-format is more difficult (and =
+in particular if you keep rebasing commits from after the reformat =
+commit to before it
+you risk losing the change if you don't redo the format commit =
+correctly).
 
-A default value for the option could be done I guess.
+So I intended to do this gradually: first get indentation to be =
+consistent, and then get formatting to be consistent later once
+the former has been accepted and committed.
 
->
-> How is that scalable?
->
-> Cheers,
+>=20
+> "-ie" means to ask sed to change file in-place an keep a copy of the
+> original file with "e" as suffix. So please replace that by "-i~" or
+> "-i -e" or just "-i", with the first one create a "~" backup, the last
+> two not creating a backup at all and probably what you wanted. ("-e" =
+is
+> optional as there's only a single command)
+>=20
+
+Thanks for pointing it out, what I wanted is 'sed -i -e', and you can =
+usually merge multiple single char flags into a single one,
+except that is not the case for -i, and I keep making this mistake.
+
+.PHONY: format
+format:
+	git ls-files '*.ml' '*.mli' | xargs -n1 ocp-indent -i
+	git ls-files '*.c' '*.h' | xargs -n1 sed -i 's/\t/    /g'
 
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+--Edwin=
 
