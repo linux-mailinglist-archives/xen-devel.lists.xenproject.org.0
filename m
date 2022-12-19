@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 785FD650DB7
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 15:46:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466152.725023 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CE0650DB9
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 15:46:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466153.725030 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOu-0007GK-8n; Mon, 19 Dec 2022 14:45:56 +0000
+	id 1p7HOu-0007Nr-NR; Mon, 19 Dec 2022 14:45:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466152.725023; Mon, 19 Dec 2022 14:45:56 +0000
+Received: by outflank-mailman (output) from mailman id 466153.725030; Mon, 19 Dec 2022 14:45:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOu-0007Dm-4y; Mon, 19 Dec 2022 14:45:56 +0000
-Received: by outflank-mailman (input) for mailman id 466152;
+	id 1p7HOu-0007GM-GP; Mon, 19 Dec 2022 14:45:56 +0000
+Received: by outflank-mailman (input) for mailman id 466153;
  Mon, 19 Dec 2022 14:45:54 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=EUwz=4R=citrix.com=prvs=345b0463a=sergey.dyasli@srs-se1.protection.inumbo.net>)
- id 1p7HOs-0006ib-0K
+ id 1p7HOs-0006vj-Nl
  for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 14:45:54 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d6170f21-7fab-11ed-8fd4-01056ac49cbb;
- Mon, 19 Dec 2022 15:45:52 +0100 (CET)
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d56f9108-7fab-11ed-91b6-6bf2151ebd3b;
+ Mon, 19 Dec 2022 15:45:53 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,185 +36,275 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d6170f21-7fab-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: d56f9108-7fab-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671461152;
+  d=citrix.com; s=securemail; t=1671461153;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version;
-  bh=ZYFxkj9X/U5+jpRj/Koq1z+I/rVSV2S71DiPtKUVOes=;
-  b=FMK3ysi78ky7KbqQX5s+Y8jTEmip5jckgGd6u5oik0OJMdV1mvGl+P5G
-   6HrtfW4S+pSqKEUQRRdJlW2A/Z+Fbfr6D0iHV0rSeKGWYT13eVYqFtRyc
-   U8gn0S7oee2X+agTA0wjcgHnpxhdoh32bthA8nmZ4pS0ZogSQnHf+L4y0
-   U=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=WR4cdLn2iHdj6dKeKFSaHSmFlU5WqS0U7np8w7Q1nAI=;
+  b=Jrp8d/bL2gepys9MftxUMVe6Ahp/lpKCkqoR3pJpSybQEYBlZCYok36q
+   s4icvkW4WEIEfBeIMlg4QUOfA5GFBjv1zpgTNyT9WyvGwg1ZW/iFMSk05
+   /nHlNCKVJ8jNhk4u1/8uQ+f+CHv+KOpF7LxFgIZ34dGWrX9nslUa6CDKM
+   s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 88063314
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-MesageID: 88612821
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.83
 X-Policy: $RELAYED
-IronPort-Data: A9a23:JyxMPq2X4Rnh5D/ZIvbD5dxxkn2cJEfYwER7XKvMYLTBsI5bpzJUz
- mscC2iBbvuIYjb2edEja96zp00AsZ+DzIdnG1ZvpC1hF35El5HIVI+TRqvS04F+DeWYFR46s
- J9OAjXkBJppJpMJjk71atANlVEliefTAOK5ULSfUsxIbVcMYD87jh5+kPIOjIdtgNyoayuAo
- tq3qMDEULOf82cc3lk8tuTS9nuDgNyo4GlC5wZnNKgS1LPjvyJ94Kw3dPnZw0TQGuG4LsbiL
- 87fwbew+H/u/htFIrtJRZ6iLyXm6paLVeS/oiI+t5qK23CulQRrukoPD9IOaF8/ttm8t4sZJ
- OOhF3CHYVxB0qXkwIzxWvTDes10FfUuFLTveRBTvSEPpqFvnrSFL/hGVSkL0YMkFulfCmh25
- 6wHc2A0T1O4hLiV+OylZ+llmZF2RCXrFNt3VnBIyDjYCbAtQIzZQrWM7thdtNsyrpkQR7CEP
- ZNfMGcxKkSbC/FMEg5/5JYWh+qyiXTuNTFJoUmRpII84nTJzRw327/oWDbQUozaHZsOxR/Ez
- o7A1yPQKTwXO+3E8z2cyl2Kpe2Xxi7Fe51HQdVU8dY12QbOlwT/EiY+Sl+TsfS/zEmkVLp3O
- 0ESvyYjs6U23EiqVcXmGQ21pmaeuRwRUMYWFPc1gCmPwKfJ5weSBkAfUyVMLtchsacLqScCj
- wHT2YmzXHo27ePTGSn1GqqoQS2aMiEtPz8dPn89bEg+4IPAmN8toxLGUYM2eEKqteHdFTb1y
- jGMiSExgbQPkMIGv5mGEUD7byGE/caQEFNsjunDdif8t14iOtb5D2C9wQKDhcusOrp1WbVoU
- JIsv8GFpN4DApiW/MBmaLVcRer5jxpp3dC1vLKOI3XD3272k5JAVdoKiN2bGKuOGphsRNMRS
- BWP0T69HbcKVJdQUYd5YpiqF+MhxrX6GNLuW5j8N4QRO8MhJFTZonE/NCZ8OlwBd2B1zckC1
- WqzK57wXR7294w8pNZJewvt+eBynX1vrY8ibZv60w6mwdKjWZJhcp9caAHmRrlgvMu5TPD9r
- 4432z2il08OD4UTo0D/reYuELz9BSNgVM2p9ZAKK7brz8gPMDhJNsI9CIgJI+RN95m5XM+Tl
- p1hcie0EGbCuEA=
-IronPort-HdrOrdr: A9a23:Gj/bcKooFfZUkV+h5TxMcmkaV5oUeYIsimQD101hICG9vPbo7v
- xG/c5rrSMc7Qx6ZJhOo6HkBEDtewK/yXcx2/hzAV7AZmjbUQmTXeVfBOLZqlWKJ8S9zI5gPM
- xbAs9D4bPLfD5HZAXBjDVQ0exM/DBKys+VbC7loUtQcQ==
+IronPort-Data: A9a23:ZFVFgaiVwCythS0ICPpLECeqX161bxAKZh0ujC45NGQN5FlHY01je
+ htvXj+BO/aJNjajc4p1bomw8hwAvMXUn94wHFZoqy48ECkb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWs0N8klgZmP6oS5gaPzyB94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQxDxwGZT7eu9iP/6uiesxw2p0PKO7CadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJagx/5JEWxY9EglHkfidXpUPTqbs++GzS5AdwzKLsIJzefdniqcB9zhbG/
+ ziWpT2R7hcyBuCU9WC7+HKWwe7TnnrEBK1VTI/7+as/6LGU7jNKU0BHPbehmtGmjmauVtQZL
+ FYbkgIsp6Uv8E2gTvHmQga15nWDu3Y0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
+ mJlhPuwW2Yp6ufMDyvAqPHE9lteJBT5M0crQgMPRiVY3+Pan5gqvjfTEo9PFImc24id9S7L/
+ xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodt7xc7WXg
+ JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF5yLJ9s4DNJWfh0B3iM4ldjBP
+ ifuVft5vsM7AZdTRfYfj3iNI8or17P8Mt/uS+rZaNFDCrAoKlDep3E+PhDOjzG8+KTJrU3YE
+ c7HGftA8F5AUfg3pNZIb7x1PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYo43K+1Rrlhtsus+VyFm
+ +uzwuPWk32zpsWiOHiImWPSRHhWRUUG6Wfe8JcGK7Hdflc7QAnMyZb5mNscRmCspIwN/s+gw
+ 513chYwJIbX7ZEfFTi3Vw==
+IronPort-HdrOrdr: A9a23:lUfSF65l5mrtIWgtRQPXwPfXdLJyesId70hD6qm+c20tTiX4rb
+ HXoB1/73XJYVkqKRQdcLy7Scu9qDbnhP1ICOoqXItKPjOW3FdARbsKheDfKn/bexEWndQtsp
+ uIHZIObuEYzmIXsS852mSF+hobr+VvOZrHudvj
 X-IronPort-AV: E=Sophos;i="5.96,255,1665460800"; 
-   d="scan'208";a="88063314"
+   d="scan'208";a="88612821"
 From: Sergey Dyasli <sergey.dyasli@citrix.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
 	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
 	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Sergey Dyasli
 	<sergey.dyasli@citrix.com>
-Subject: [PATCH v2 2/3] x86/ucode: allow cpu_request_microcode() to skip memory allocation
-Date: Mon, 19 Dec 2022 14:45:32 +0000
-Message-ID: <20221219144533.19836-3-sergey.dyasli@citrix.com>
+Subject: [PATCH v2 3/3] x86/ucode: load microcode earlier on boot CPU
+Date: Mon, 19 Dec 2022 14:45:33 +0000
+Message-ID: <20221219144533.19836-4-sergey.dyasli@citrix.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20221219144533.19836-1-sergey.dyasli@citrix.com>
 References: <20221219144533.19836-1-sergey.dyasli@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 
-This is a preparatory step in order to do earlier microcode loading on
-the boot CPU when the domain heap has not been initialized yet and
-xmalloc still unavailable.
+Call early_microcode_init() straight after multiboot modules become
+accessible. Modify it to load the ucode directly from the blob bypassing
+populating microcode_cache because xmalloc is still not available at
+that point during Xen boot.
 
-Add make_copy argument which will allow to load microcode directly from
-the blob bypassing microcode_cache.
+Introduce early_microcode_init_cache() for populating microcode_cache.
+It needs to rescan the modules in order to find the new virtual address
+of the ucode blob because it changes during the boot process, e.g.
+from 0x00000000010802fc to 0xffff83204dac52fc.
+
+While at it, drop alternative_vcall() from early_microcode_init() since
+it's not useful in an __init fuction.
 
 Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
 
 ---
 v1 --> v2:
-- Don't add extra consts
+- Don't call microcode_grab_module() the second time, use
+  microcode_scan_module() instead
+- Use forward declaration of struct multiboot_info
+- Don't use alternative calls
+- Rename early_microcode_update_cache() to early_update_cache() and
+  move it around a bit
 ---
- xen/arch/x86/cpu/microcode/amd.c     | 13 +++++++++----
- xen/arch/x86/cpu/microcode/core.c    |  2 +-
- xen/arch/x86/cpu/microcode/intel.c   | 13 +++++++++----
- xen/arch/x86/cpu/microcode/private.h | 15 +++++++++++----
- 4 files changed, 30 insertions(+), 13 deletions(-)
+ xen/arch/x86/cpu/microcode/core.c    | 66 +++++++++++++++++++++++-----
+ xen/arch/x86/include/asm/microcode.h |  7 ++-
+ xen/arch/x86/include/asm/setup.h     |  3 --
+ xen/arch/x86/setup.c                 | 10 +++--
+ 4 files changed, 68 insertions(+), 18 deletions(-)
 
-diff --git a/xen/arch/x86/cpu/microcode/amd.c b/xen/arch/x86/cpu/microcode/amd.c
-index 8195707ee1..4b097187a0 100644
---- a/xen/arch/x86/cpu/microcode/amd.c
-+++ b/xen/arch/x86/cpu/microcode/amd.c
-@@ -300,7 +300,7 @@ static int scan_equiv_cpu_table(const struct container_equiv_table *et)
- }
- 
- static struct microcode_patch *cf_check cpu_request_microcode(
--    const void *buf, size_t size)
-+    const void *buf, size_t size, bool make_copy)
- {
-     const struct microcode_patch *saved = NULL;
-     struct microcode_patch *patch = NULL;
-@@ -411,9 +411,14 @@ static struct microcode_patch *cf_check cpu_request_microcode(
- 
-     if ( saved )
-     {
--        patch = xmemdup_bytes(saved, saved_size);
--        if ( !patch )
--            error = -ENOMEM;
-+        if ( make_copy )
-+        {
-+            patch = xmemdup_bytes(saved, saved_size);
-+            if ( !patch )
-+                error = -ENOMEM;
-+        }
-+        else
-+            patch = (struct microcode_patch *)saved;
-     }
- 
-     if ( error && !patch )
 diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 452a7ca773..85c05e480d 100644
+index 85c05e480d..04b5d346ab 100644
 --- a/xen/arch/x86/cpu/microcode/core.c
 +++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -244,7 +244,7 @@ static struct microcode_patch *parse_blob(const char *buf, size_t len)
+@@ -27,6 +27,7 @@
+ #include <xen/err.h>
+ #include <xen/guest_access.h>
+ #include <xen/init.h>
++#include <xen/multiboot.h>
+ #include <xen/param.h>
+ #include <xen/spinlock.h>
+ #include <xen/stop_machine.h>
+@@ -198,7 +199,8 @@ void __init microcode_scan_module(
+         bootstrap_map(NULL);
+     }
+ }
+-void __init microcode_grab_module(
++
++static void __init microcode_grab_module(
+     unsigned long *module_map,
+     const multiboot_info_t *mbi)
  {
-     alternative_vcall(ucode_ops.collect_cpu_info);
- 
--    return alternative_call(ucode_ops.cpu_request_microcode, buf, len);
-+    return alternative_call(ucode_ops.cpu_request_microcode, buf, len, true);
+@@ -732,10 +734,54 @@ int microcode_update_one(void)
+     return microcode_update_cpu(NULL);
  }
  
- static void microcode_free_patch(struct microcode_patch *patch)
-diff --git a/xen/arch/x86/cpu/microcode/intel.c b/xen/arch/x86/cpu/microcode/intel.c
-index f5ba6d76d7..f7fec4b4ed 100644
---- a/xen/arch/x86/cpu/microcode/intel.c
-+++ b/xen/arch/x86/cpu/microcode/intel.c
-@@ -324,7 +324,7 @@ static int cf_check apply_microcode(const struct microcode_patch *patch)
- }
- 
- static struct microcode_patch *cf_check cpu_request_microcode(
--    const void *buf, size_t size)
-+    const void *buf, size_t size, bool make_copy)
++static int __init early_update_cache(const void *data, size_t len)
++{
++    int rc = 0;
++    struct microcode_patch *patch;
++
++    if ( !data )
++        return -ENOMEM;
++
++    patch = parse_blob(data, len);
++    if ( IS_ERR(patch) )
++    {
++        printk(XENLOG_WARNING "Parsing microcode blob error %ld\n",
++               PTR_ERR(patch));
++        return PTR_ERR(patch);
++    }
++
++    if ( !patch )
++        return -ENOENT;
++
++    spin_lock(&microcode_mutex);
++    rc = microcode_update_cache(patch);
++    spin_unlock(&microcode_mutex);
++    ASSERT(rc);
++
++    return rc;
++}
++
++int __init early_microcode_init_cache(unsigned long *module_map,
++                                      const struct multiboot_info *mbi)
++{
++    int rc = 0;
++
++    if ( ucode_scan )
++        /* Need to rescan the modules because they might have been relocated */
++        microcode_scan_module(module_map, mbi);
++
++    if ( ucode_mod.mod_end )
++        rc = early_update_cache(bootstrap_map(&ucode_mod),
++                                ucode_mod.mod_end);
++    else if ( ucode_blob.size )
++        rc = early_update_cache(ucode_blob.data, ucode_blob.size);
++
++    return rc;
++}
++
+ /* BSP calls this function to parse ucode blob and then apply an update. */
+ static int __init early_microcode_update_cpu(void)
  {
-     int error = 0;
-     const struct microcode_patch *saved = NULL;
-@@ -364,10 +364,15 @@ static struct microcode_patch *cf_check cpu_request_microcode(
+-    int rc = 0;
+     const void *data = NULL;
+     size_t len;
+     struct microcode_patch *patch;
+@@ -754,7 +800,7 @@ static int __init early_microcode_update_cpu(void)
+     if ( !data )
+         return -ENOMEM;
  
-     if ( saved )
+-    patch = parse_blob(data, len);
++    patch = ucode_ops.cpu_request_microcode(data, len, false);
+     if ( IS_ERR(patch) )
      {
--        patch = xmemdup_bytes(saved, get_totalsize(saved));
-+        if ( make_copy )
-+        {
-+            patch = xmemdup_bytes(saved, get_totalsize(saved));
+         printk(XENLOG_WARNING "Parsing microcode blob error %ld\n",
+@@ -765,15 +811,11 @@ static int __init early_microcode_update_cpu(void)
+     if ( !patch )
+         return -ENOENT;
  
--        if ( !patch )
--            error = -ENOMEM;
-+            if ( !patch )
-+                error = -ENOMEM;
-+        }
-+        else
-+            patch = (struct microcode_patch *)saved;
+-    spin_lock(&microcode_mutex);
+-    rc = microcode_update_cache(patch);
+-    spin_unlock(&microcode_mutex);
+-    ASSERT(rc);
+-
+-    return microcode_update_one();
++    return microcode_update_cpu(patch);
+ }
+ 
+-int __init early_microcode_init(void)
++int __init early_microcode_init(unsigned long *module_map,
++                                const struct multiboot_info *mbi)
+ {
+     const struct cpuinfo_x86 *c = &boot_cpu_data;
+     int rc = 0;
+@@ -797,7 +839,9 @@ int __init early_microcode_init(void)
+         return -ENODEV;
      }
  
-     if ( error && !patch )
-diff --git a/xen/arch/x86/cpu/microcode/private.h b/xen/arch/x86/cpu/microcode/private.h
-index c085a10268..58c5dffd7b 100644
---- a/xen/arch/x86/cpu/microcode/private.h
-+++ b/xen/arch/x86/cpu/microcode/private.h
-@@ -23,15 +23,22 @@ struct microcode_ops {
-      * older that what is running in the CPU.  This is a feature, to better
-      * cope with corner cases from buggy firmware.)
-      *
--     * If one is found, allocate and return a struct microcode_patch
--     * encapsulating the appropriate microcode patch.  Does not alias the
--     * original buffer.  Must be suitable to be freed with a single xfree().
-+     * If one is found, behaviour depends on the make_copy argument:
-+     *
-+     *     true: allocate and return a struct microcode_patch encapsulating
-+     *           the appropriate microcode patch.  Does not alias the original
-+     *           buffer.  Must be suitable to be freed with a single xfree().
-+     *
-+     *    false: return a pointer to the patch within the original buffer.
-+     *           This is useful for early microcode loading when xmalloc might
-+     *           not be available yet.
-      *
-      * If one is not found, (nothing matches the current CPU), return NULL.
-      * Also may return ERR_PTR(-err), e.g. bad container, out of memory.
-      */
-     struct microcode_patch *(*cpu_request_microcode)(const void *buf,
--                                                     size_t size);
-+                                                     size_t size,
-+                                                     bool make_copy);
+-    alternative_vcall(ucode_ops.collect_cpu_info);
++    microcode_grab_module(module_map, mbi);
++
++    ucode_ops.collect_cpu_info();
  
-     /*
-      * Obtain microcode-relevant details for the current CPU.  Results in
+     if ( ucode_mod.mod_end || ucode_blob.size )
+         rc = early_microcode_update_cpu();
+diff --git a/xen/arch/x86/include/asm/microcode.h b/xen/arch/x86/include/asm/microcode.h
+index 3b0234e9fa..170481d257 100644
+--- a/xen/arch/x86/include/asm/microcode.h
++++ b/xen/arch/x86/include/asm/microcode.h
+@@ -6,6 +6,8 @@
+ 
+ #include <public/xen.h>
+ 
++struct multiboot_info;
++
+ struct cpu_signature {
+     /* CPU signature (CPUID.1.EAX). */
+     unsigned int sig;
+@@ -21,7 +23,10 @@ DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
+ 
+ void microcode_set_module(unsigned int idx);
+ int microcode_update(XEN_GUEST_HANDLE(const_void), unsigned long len);
+-int early_microcode_init(void);
++int early_microcode_init(unsigned long *module_map,
++                         const struct multiboot_info *mbi);
++int early_microcode_init_cache(unsigned long *module_map,
++                               const struct multiboot_info *mbi);
+ int microcode_update_one(void);
+ 
+ #endif /* ASM_X86__MICROCODE_H */
+diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
+index ae470ea12f..ae0dd3915a 100644
+--- a/xen/arch/x86/include/asm/setup.h
++++ b/xen/arch/x86/include/asm/setup.h
+@@ -44,9 +44,6 @@ void *bootstrap_map(const module_t *mod);
+ 
+ int xen_in_range(unsigned long mfn);
+ 
+-void microcode_grab_module(
+-    unsigned long *, const multiboot_info_t *);
+-
+ extern uint8_t kbd_shift_flags;
+ 
+ #ifdef NDEBUG
+diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+index 6bb5bc7c84..2d7c815e0a 100644
+--- a/xen/arch/x86/setup.c
++++ b/xen/arch/x86/setup.c
+@@ -1178,6 +1178,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+         mod[i].reserved = 0;
+     }
+ 
++    /*
++     * TODO: load ucode earlier once multiboot modules become accessible
++     * at an earlier stage.
++     */
++    early_microcode_init(module_map, mbi);
++
+     if ( xen_phys_start )
+     {
+         relocated = true;
+@@ -1762,11 +1768,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+ 
+     init_IRQ();
+ 
+-    microcode_grab_module(module_map, mbi);
+-
+     timer_init();
+ 
+-    early_microcode_init();
++    early_microcode_init_cache(module_map, mbi);
+ 
+     tsx_init(); /* Needs microcode.  May change HLE/RTM feature bits. */
+ 
 -- 
 2.17.1
 
