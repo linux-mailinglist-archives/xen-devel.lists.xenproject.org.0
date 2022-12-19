@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79BBE650E84
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 16:19:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466203.725067 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5027650E85
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 16:20:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466213.725078 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7Hur-0004nQ-Eo; Mon, 19 Dec 2022 15:18:57 +0000
+	id 1p7HwH-00067v-Ol; Mon, 19 Dec 2022 15:20:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466203.725067; Mon, 19 Dec 2022 15:18:57 +0000
+Received: by outflank-mailman (output) from mailman id 466213.725078; Mon, 19 Dec 2022 15:20:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7Hur-0004kf-BZ; Mon, 19 Dec 2022 15:18:57 +0000
-Received: by outflank-mailman (input) for mailman id 466203;
- Mon, 19 Dec 2022 15:11:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=KaZ1=4R=alefbet.net=tristan.israel@srs-se1.protection.inumbo.net>)
- id 1p7HnO-0004cH-3R
- for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 15:11:14 +0000
-Received: from relay9-d.mail.gandi.net (relay9-d.mail.gandi.net
- [217.70.183.199]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 5c4f36e0-7faf-11ed-8fd4-01056ac49cbb;
- Mon, 19 Dec 2022 16:11:06 +0100 (CET)
-Received: (Authenticated sender: tristan@tibsys.com)
- by mail.gandi.net (Postfix) with ESMTPSA id 54F58FF809
- for <xen-devel@lists.xenproject.org>; Mon, 19 Dec 2022 15:11:04 +0000 (UTC)
+	id 1p7HwH-00064v-LL; Mon, 19 Dec 2022 15:20:25 +0000
+Received: by outflank-mailman (input) for mailman id 466213;
+ Mon, 19 Dec 2022 15:20:24 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7HwG-00064e-9N; Mon, 19 Dec 2022 15:20:24 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7HwG-0002Mp-8I; Mon, 19 Dec 2022 15:20:24 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7HwF-0000u6-S9; Mon, 19 Dec 2022 15:20:23 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7HwF-0007Mx-Pz; Mon, 19 Dec 2022 15:20:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,74 +42,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5c4f36e0-7faf-11ed-8fd4-01056ac49cbb
-From: tristan.israel@alefbet.net
-Content-Type: multipart/alternative;
-	boundary="Apple-Mail=_AF449565-4DF7-487C-B595-E33F950136CB"
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.200.110.1.12\))
-Subject: Using 9P between domains
-Message-Id: <04E47D37-6F76-4371-A5E2-E29633143865@alefbet.net>
-Date: Mon, 19 Dec 2022 16:10:54 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=HK3c7kxvVMkrUKHE8m1zjhsi805vd8vvcjLfbPLGbTA=; b=YuWiLu2cPq++gg1M4/P7CTIBT0
+	e2nq5+7uXTRw9XKGCNDM0bm+EAde5oTh/25uEZ9oXnI1oSHMHOvF7A9wbI+I2LJRK7NbzHqxdoIbM
+	NioebVIMU4KQayeJTc0rBx5hC4aK/sYc9O3khawSAu/Ah9NPXgQYBnzvt/KnCcChxacA=;
 To: xen-devel@lists.xenproject.org
-X-Mailer: Apple Mail (2.3731.200.110.1.12)
+Message-ID: <osstest-175406-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 175406: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=da5092e7d6ed4714b5dc63ed2cd7f6c93dd6efd4
+X-Osstest-Versions-That:
+    xen=12b593ca0d61ef884c2f2de15ed36b4900fc92b2
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 19 Dec 2022 15:20:23 +0000
+
+flight 175406 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175406/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  da5092e7d6ed4714b5dc63ed2cd7f6c93dd6efd4
+baseline version:
+ xen                  12b593ca0d61ef884c2f2de15ed36b4900fc92b2
+
+Last test of basis   175343  2022-12-17 00:05:24 Z    2 days
+Testing same since   175406  2022-12-19 11:03:50 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Neowutran <xen@neowutran.ovh>
+  Roger Pau Monné <roger.pau@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
---Apple-Mail=_AF449565-4DF7-487C-B595-E33F950136CB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain;
-	charset=utf-8
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Good morning,
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I=E2=80=99m trying to configure 2 domains : =C2=AB front =C2=BB and =C2=AB=
- back =C2=BB. The =C2=AB back =C2=BB contains a filesystem which I want =
-to
-partially share with the =C2=AB front =C2=BB.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-The =C2=AB front =C2=BB and =C2=AB back =C2=BB are PV under Debian 11.
-
-I am using the following configuration in the front :=20
-p9 =3D [ =E2=80=99tag=3Dtest,security_model=3Dnone,path=3D/var/lib,backend=
-=3Dback=E2=80=99 ]
-
-When I am on the =C2=AB front =C2=BB I do the following :
-# modprobe 9pnet_xen
-
-I get the following error in dmesg : "9pfs: probe of 9pfs-0 failed with =
-error -2"
-
-Can someone help me with the configuration of this? Is there any web =
-page which can *really* help?
-
-Thank you!
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
---Apple-Mail=_AF449565-4DF7-487C-B595-E33F950136CB
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html;
-	charset=utf-8
+Pushing revision :
 
-<html><head><meta http-equiv=3D"content-type" content=3D"text/html; =
-charset=3Dutf-8"></head><body style=3D"overflow-wrap: break-word; =
--webkit-nbsp-mode: space; line-break: after-white-space;"><div>Good =
-morning,</div><div><br></div><div>I=E2=80=99m trying to configure 2 =
-domains : =C2=AB&nbsp;front&nbsp;=C2=BB and =C2=AB&nbsp;back&nbsp;=C2=BB. =
-The =C2=AB&nbsp;back&nbsp;=C2=BB contains a filesystem which I want =
-to</div><div>partially share with the =
-=C2=AB&nbsp;front&nbsp;=C2=BB.</div><div><br></div><div>The =
-=C2=AB&nbsp;front&nbsp;=C2=BB and =C2=AB&nbsp;back&nbsp;=C2=BB are PV =
-under Debian 11.</div><div><br></div><div>I am using the following =
-configuration in the front :&nbsp;</div><div>p9 =3D [ =
-=E2=80=99tag=3Dtest,security_model=3Dnone,path=3D/var/lib,backend=3Dback=E2=
-=80=99 ]</div><div><br></div><div>When I am on the =C2=AB&nbsp;front&nbsp;=
-=C2=BB I do the following :</div><div># modprobe =
-9pnet_xen</div><div><br></div><div>I get the following error in dmesg : =
-"9pfs: probe of 9pfs-0 failed with error =
--2"</div><div><br></div><div>Can someone help me with the configuration =
-of this? Is there any web page which can *really* =
-help?</div><div><br></div><div>Thank you!</div><div><div><br></div>
-</div>
-</body></html>=
-
---Apple-Mail=_AF449565-4DF7-487C-B595-E33F950136CB--
+To xenbits.xen.org:/home/xen/git/xen.git
+   12b593ca0d..da5092e7d6  da5092e7d6ed4714b5dc63ed2cd7f6c93dd6efd4 -> smoke
 
