@@ -2,29 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39CE0650DB9
-	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 15:46:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466153.725030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 563D7650E35
+	for <lists+xen-devel@lfdr.de>; Mon, 19 Dec 2022 16:02:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466195.725056 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOu-0007Nr-NR; Mon, 19 Dec 2022 14:45:56 +0000
+	id 1p7HeW-00039T-Vp; Mon, 19 Dec 2022 15:02:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466153.725030; Mon, 19 Dec 2022 14:45:56 +0000
+Received: by outflank-mailman (output) from mailman id 466195.725056; Mon, 19 Dec 2022 15:02:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7HOu-0007GM-GP; Mon, 19 Dec 2022 14:45:56 +0000
-Received: by outflank-mailman (input) for mailman id 466153;
- Mon, 19 Dec 2022 14:45:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EUwz=4R=citrix.com=prvs=345b0463a=sergey.dyasli@srs-se1.protection.inumbo.net>)
- id 1p7HOs-0006vj-Nl
- for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 14:45:54 +0000
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d56f9108-7fab-11ed-91b6-6bf2151ebd3b;
- Mon, 19 Dec 2022 15:45:53 +0100 (CET)
+	id 1p7HeW-00037T-Rb; Mon, 19 Dec 2022 15:02:04 +0000
+Received: by outflank-mailman (input) for mailman id 466195;
+ Mon, 19 Dec 2022 15:02:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=eGu8=4R=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1p7HeW-00037N-1W
+ for xen-devel@lists.xenproject.org; Mon, 19 Dec 2022 15:02:04 +0000
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-db3eur04on2040.outbound.protection.outlook.com [40.107.6.40])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 17f82f2e-7fae-11ed-8fd4-01056ac49cbb;
+ Mon, 19 Dec 2022 16:02:02 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8134.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Mon, 19 Dec
+ 2022 15:02:00 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5924.016; Mon, 19 Dec 2022
+ 15:02:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,276 +46,183 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d56f9108-7fab-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1671461153;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version;
-  bh=WR4cdLn2iHdj6dKeKFSaHSmFlU5WqS0U7np8w7Q1nAI=;
-  b=Jrp8d/bL2gepys9MftxUMVe6Ahp/lpKCkqoR3pJpSybQEYBlZCYok36q
-   s4icvkW4WEIEfBeIMlg4QUOfA5GFBjv1zpgTNyT9WyvGwg1ZW/iFMSk05
-   /nHlNCKVJ8jNhk4u1/8uQ+f+CHv+KOpF7LxFgIZ34dGWrX9nslUa6CDKM
-   s=;
-Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 88612821
-X-Ironport-Server: esa6.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:ZFVFgaiVwCythS0ICPpLECeqX161bxAKZh0ujC45NGQN5FlHY01je
- htvXj+BO/aJNjajc4p1bomw8hwAvMXUn94wHFZoqy48ECkb9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWs0N8klgZmP6oS5gaPzyB94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQxDxwGZT7eu9iP/6uiesxw2p0PKO7CadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJagx/5JEWxY9EglHkfidXpUPTqbs++GzS5AdwzKLsIJzefdniqcB9zhbG/
- ziWpT2R7hcyBuCU9WC7+HKWwe7TnnrEBK1VTI/7+as/6LGU7jNKU0BHPbehmtGmjmauVtQZL
- FYbkgIsp6Uv8E2gTvHmQga15nWDu3Y0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
- mJlhPuwW2Yp6ufMDyvAqPHE9lteJBT5M0crQgMPRiVY3+Pan5gqvjfTEo9PFImc24id9S7L/
- xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodt7xc7WXg
- JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF5yLJ9s4DNJWfh0B3iM4ldjBP
- ifuVft5vsM7AZdTRfYfj3iNI8or17P8Mt/uS+rZaNFDCrAoKlDep3E+PhDOjzG8+KTJrU3YE
- c7HGftA8F5AUfg3pNZIb7x1PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYo43K+1Rrlhtsus+VyFm
- +uzwuPWk32zpsWiOHiImWPSRHhWRUUG6Wfe8JcGK7Hdflc7QAnMyZb5mNscRmCspIwN/s+gw
- 513chYwJIbX7ZEfFTi3Vw==
-IronPort-HdrOrdr: A9a23:lUfSF65l5mrtIWgtRQPXwPfXdLJyesId70hD6qm+c20tTiX4rb
- HXoB1/73XJYVkqKRQdcLy7Scu9qDbnhP1ICOoqXItKPjOW3FdARbsKheDfKn/bexEWndQtsp
- uIHZIObuEYzmIXsS852mSF+hobr+VvOZrHudvj
-X-IronPort-AV: E=Sophos;i="5.96,255,1665460800"; 
-   d="scan'208";a="88612821"
-From: Sergey Dyasli <sergey.dyasli@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Sergey Dyasli
-	<sergey.dyasli@citrix.com>
-Subject: [PATCH v2 3/3] x86/ucode: load microcode earlier on boot CPU
-Date: Mon, 19 Dec 2022 14:45:33 +0000
-Message-ID: <20221219144533.19836-4-sergey.dyasli@citrix.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20221219144533.19836-1-sergey.dyasli@citrix.com>
-References: <20221219144533.19836-1-sergey.dyasli@citrix.com>
+X-Inumbo-ID: 17f82f2e-7fae-11ed-8fd4-01056ac49cbb
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=LQ8EYyTBXCTzMHy+VB9TYLzevQe+N37pZUD50ny1du46wXCEwrR+pQOdrChvw73AZmCwy/h8Seg+gJFgAmm0JZc5bg1MkjiBoJ5B24dMvdrkBXFCxuINenTjN+9e16aBJ6+QPj59iAMvzBq32owjH6zkRFiwFhxE8mMEb1RNidiZCF6MdzDHoaX0O0Hpkjd8XqfmYzyqa4shtRrTii4+IvEjAH6be/jvKoSb6MqkC3MKuzAMsSfAMfQgWySZoS5CSQQJ4B2cRrl4TlrAn9x4MwF0sriVz650jgo3iUTTMNEyHLwmvua11C6keY7PV1HsXHt+2C2um7ImGVpqE3GKZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WlcFXuq1g/XlJtfiZffwTl43JILP6Xj6tBc7eakquRY=;
+ b=lguJcK1j9yxBy/ZVIJ4wGGApYGtF4IdVy1vWYJCBR6QfHAyOdGvtOxPASrO/RKE3yYkOhsg1yOw1h2fopBFctA7w9WVyFDae5ANI74OwSG6q5Z5X+52iXOJiueR5fY1ifRtOdrpIkWi6CdLQuT/aSuHUTN0ZzPhZ79vhVQ6sdyXGjPQ5HgK9U5ONsz43MzK7Ma/pWZzmIHjD3jh8NPAehXpmRJdNZvMPb/MfUB+u4xq7APkwrNU0dMCTsiK+7jW16UmFVAZhWJIMFb7k7wCqXLWk60jCqp13ApR0qOrHFUbKi4Ap7NNMO0uvc/W8a32r20UGe8Iucr8z7CAwIBSHaw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WlcFXuq1g/XlJtfiZffwTl43JILP6Xj6tBc7eakquRY=;
+ b=KuYt1kjYsyNeI9YIz9dByqA3/Tj0K8zcwNSEWxqj4gc77qlYqJx955i+78Wr63BKAsZG8LLsFFoBzi9r8gcHxuXsJ0zdE3u0/BS2dHnLfvG7p4oij/x2hTjwXC8Txy1fLJ8Yx19giFUi6F1Uk8zBHi53JQH48trYvtRqW8m8Ou3plOMukttsLC/fqYt0dgtoC+3ur989NbGJC632YG/aCX/+2R4gFFM+6A3Ew5+dvCr6mqa8kVDVmNQT+Vs+N0Bc8s3m/m6c0H+hbuAyW303c/I0p+DGfiMuosYmcR2QheTbC6DYgedpwCoLnrtqRYVW1m9dxVOtX3SxX9RDlGny8A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <e87503e1-992f-28d6-cfa5-e0882541a12b@suse.com>
+Date: Mon, 19 Dec 2022 16:01:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH RFC 10/10] common: convert vCPU info area registration
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tamas K Lengyel <tamas@tklengyel.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
+ <f1745e62-8a46-e9af-6a79-592a5402a5f4@suse.com>
+ <92e35f8b-72d9-e55f-9218-3f21742c14c6@xen.org>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <92e35f8b-72d9-e55f-9218-3f21742c14c6@xen.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0120.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8134:EE_
+X-MS-Office365-Filtering-Correlation-Id: b3c2c7bb-95cd-47ce-6476-08dae1d1fb1d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	XXKygtfSTAteKZEZRjstbGVlfymC9ywRYqvA8ty75Y0OKxZ56uf0Z3DAvsRvnOPNmvLTDlOe8pls4YjqnrmUblRH4zwLim4eJMEyloGkAfWxeH+dD8QhMF4fAOe1lBlHtDQceI1IKXkpG91COY4XThnnuMJOVzZKcqbAazdHB9bxhssuv2806r7Ff/gy4wCHz0z2KfubG5Hpd5BHfGBUlW0KQj3WyEVNBzaiJhKWoq04RjZe6+o1PgxPhAnolR+aSWX1D3kdE+vizQ7jhxL4eWirF3Vmzs8GBPfYp7UGxvtzitdUexsa/LuPIz8Uy7KsaSneVsFyCrb2zDN1Iifsu7siFbfx/mQ8tiCijnuqKAfqA1WdJvPHnQxxs4tzIoXH02Lbrv9DL+WAPOwKm9Opp9rSA8Jm+sOvoG5IEOV7+3k0jvJzPxzMKdew1mY0osOiGOf9U47aYcdbLI4DcYxktyJ4zUCjX9FdXPactwVGtKQEM078dfLNE4GH8HE0McsZTnt5GwYj1jvFsTWDxOE3+9RYSUv6pOwacTekTxPc97PTFgm0a34aONcpMZGMdaujXQIQkXHCIpNbsRIFhH+f29+7WQL3OETJy3CaITmAjMVM9ei3bfcnDGixka6kt0nTJEE7phl4Av04k6+22zHEhfN+YaVKbRkuXjE4BxwKZHXKHcPi0wBP0KeQ0ia/TicEFqrg77BgU0USQIhfTQAeeO1oBr9T2i+rd7ObXM3dJyo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(39860400002)(396003)(366004)(136003)(346002)(451199015)(31696002)(86362001)(478600001)(2906002)(6506007)(6486002)(53546011)(31686004)(6512007)(26005)(6916009)(54906003)(83380400001)(186003)(2616005)(66476007)(8676002)(66556008)(5660300002)(4326008)(66946007)(38100700002)(36756003)(8936002)(316002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cW8ydTRpT0g1QkZSYXJGTnBkYzc2RW02VGRXWnhNLzVyTkx5MGxUSGFNdSs5?=
+ =?utf-8?B?U3dVVDB5SE1MSys1TWYyTC9xeDE3QUpWUS9TUmwwOUc2ajF4a1ZVMHhza2tP?=
+ =?utf-8?B?Sk9rNnVweGdLVUFha2xDcnVMUDd3M0FPU1V5MjJvbFRFWEtUZlZrVzRwQS9t?=
+ =?utf-8?B?S0Q5Umt3Y0hWdUxldC9TUHE4cHdFZDlueEhML0NveFArT2RMcDFPWmc2Z2Yx?=
+ =?utf-8?B?ZzBaQzF0a2VNUFZ4UVZ1a3ZsczlGNG13SVlYWTdrQi9jN3NTa2ZLbTNoeGhD?=
+ =?utf-8?B?MUJLaTVCdnpMT0VBc3lMTktrS1VrenNSTUdHZXRUVHpkR0QrYW5EQjBsN0ho?=
+ =?utf-8?B?aTNqdDJPb3QxVUtPOXgxQ0F4ZlhPVG1ZRUdaSnBCWDBPUUNNZ2haNnl1Y1lS?=
+ =?utf-8?B?b3MzUkRnbXQzL3NVUzQ2clJGRjd0cXJlMk16cTB5WFVWbGVaR3Rxc2JicEt5?=
+ =?utf-8?B?Z1VOczhGL3pLOVFQU3BhdHFFMm1CVmNoeXhtSEY3Z0hvdUNUdHRVdGxWS3Vv?=
+ =?utf-8?B?M1VVSk8yeU03cHNHeGRrWjhiUjBrS2VQdGJsOFRQbk12cDlzSWwxU1FtT3ky?=
+ =?utf-8?B?VHNTWi9iTlk2NHh2VURWVUFmd3VhL1NYdHY0eFlLZHVWdTl2aUdWa0swdHF0?=
+ =?utf-8?B?Tkk5UXJ1T2xpcWc0K2Y4SE8yZHRaMnhWZDVtbmFVeldQUEcybkF0TFljV3ow?=
+ =?utf-8?B?S3hKZTJ3clJvclVsSmJaODhGV2lBaUkrQjQvV1RtZjhObUtzbGMyS0Z5L3Vx?=
+ =?utf-8?B?TzNLckNaTGNLUytCZFFQWTJ3N202bUtPa2dQQWs5b1ZqQkVCbVY2cDlucWVU?=
+ =?utf-8?B?RjVrVjVaVURxT1VmNkQ1SEh2QnBUem5LdXhEcTRPVmswekZ5T3AzQnBvUWp4?=
+ =?utf-8?B?V1hDamM2TnBhRklBdEs5OU9ybTBCK0NmMHZJM09VVnNHQ0NNSTdpaXJmcWJ3?=
+ =?utf-8?B?MXIzQTRNRHFCZ3RPL0o2VXVrVHVDODY1bDgzUllrU1BuOUdoekhFZHY4ckRE?=
+ =?utf-8?B?V0F2OGI4aXphODJuMlNkazRzRDdJelZPb2N4QWI1ZVd2K2J0Vi96MXBoZVRK?=
+ =?utf-8?B?LzVtdUpsLzdKUXBIdHptVFd2U3ErV1oydlpYd203eTdvcFBsVzZoOE5QNWFV?=
+ =?utf-8?B?MGZwancrbG1jR3NROTNvaW1VME9KRGhUU09jT1JuMXExWnM5b3cxTVg1WHZM?=
+ =?utf-8?B?Smp2WFkvL0IwN00xaXJtN2FaYzhLS0cxNDhFNm92d2NOWlE5b0swcG1mUE4v?=
+ =?utf-8?B?ZGRFdjVSWHZxM0RRR1hKMEVGVW5KVXI1MGFzeCtGWU44NFlMeTlQQXhGVVNp?=
+ =?utf-8?B?MWE5Ry8vWDdMZTlPUmVQbmx6TFVPWCtNRWxtZ2NzcmI5NjIxbWNwUmtBTmo4?=
+ =?utf-8?B?ZWZYQ21yYVgrY3VtbnpqdW4rTTdaZ1BJNG00dndjRWV4YldBZnVEWFdHZWx1?=
+ =?utf-8?B?QjVudy9qcFRaWTQreXVvaU0yOG03OVFRN0RpcTdrcVI5blFVdWFSUXBWajBZ?=
+ =?utf-8?B?Qm9HdFFtKzlPaEVtamFCOXE0OC9hMnVvUks3NU1ISXUwd1ZYVk40YUNZcjJQ?=
+ =?utf-8?B?U0VjTmd1TjBNS3A5R2ZyQnMyQjF5T3F5WkNQWDl0Ky8zNkVxR2xvdE1qcElP?=
+ =?utf-8?B?VGU4WHJXSk93bTNGaDN5M0pPZ0l1WU1FTTJxOGdDNGFhaGN4TU5kMFk1NmZO?=
+ =?utf-8?B?aVJiaGJlbnltZUc1QUFVMXZRMDEzbmZVYXlBZ2ludkQ5YS8vRWZ2UUhuYzdi?=
+ =?utf-8?B?RThXUzhHOW1xQTlDYTdYR3BDNG5MdDdjSHN3UEpGMVJOZkptdEdXanBPejZ6?=
+ =?utf-8?B?ZFVNNDVTWWhHNTdWRlREcG5YZDcza0xtTVdZb3FRSEtwdjBBM0g4UDBlZUhJ?=
+ =?utf-8?B?Yzl2alZMWGVMWUVYZUF2V3FOdkdwYUFDd1ZSUVBhRUphcHlLbDR3MGwrTG9G?=
+ =?utf-8?B?Z3YvT3ZXZ1RDZTZaS0lYajR4M29WQ0xvWFNlT20vQTgyOUdUZDl6Y0htVy9S?=
+ =?utf-8?B?ZlNON3RBNXAwMnJ1cmluVjZ3b25ZQzl3dHI1Z2huSXpVem5LQWUwQVFacjJy?=
+ =?utf-8?B?NzFKTkMvSjdQNEFnS3ZLNmpMUVBnVEpGVEJma205R1hKVmV4bHA1SlZ0dGJI?=
+ =?utf-8?Q?Rj1ERnefs2dL9KZt/kPA+oyEn?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3c2c7bb-95cd-47ce-6476-08dae1d1fb1d
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Dec 2022 15:02:00.4705
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: rttWha6owp2rBacOqndCoV7m6LXnOToRJLjl2pzKsUNIfUGhuSx27vlgEvwK07gTThvCpR+BZGSxkOVL4bEh3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8134
 
-Call early_microcode_init() straight after multiboot modules become
-accessible. Modify it to load the ucode directly from the blob bypassing
-populating microcode_cache because xmalloc is still not available at
-that point during Xen boot.
+On 17.12.2022 16:53, Julien Grall wrote:
+> On 19/10/2022 08:45, Jan Beulich wrote:
+>> Switch to using map_guest_area(). Noteworthy differences from
+>> map_vcpu_info():
+>> - remote vCPU-s are paused rather than checked for being down (which in
+>>    principle can change right after the check),
+>> - the domain lock is taken for a much smaller region,
+>> - areas could now be registered more than once, if we want this,
+>> - as a corner case registering the area at GFN 0 offset 0 is no longer
+>>    possible (this is considered an invalid de-registration request).
+>>
+>> Note that this eliminates a bug in copy_vcpu_settings(): The function
+>> did allocate a new page regardless of the GFN already having a mapping,
+>> thus in particular breaking the case of two vCPU-s having their info
+>> areas on the same page.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> ---
+>> RFC: While the "no re-registration" check is retained, it is now racy.
+>>       If we really think it needs retaining _and_ properly enforcing,
+>>       then locking will be needed, but I don't think we can hold the
+>>       domain lock around a call to map_guest_area(), first and foremost
+>>       because of its use of vcpu_pause().
+> 
+> function like evtchn_2l_unmask() may access vcpu_info that is not the 
+> current one.
+> 
+> So I believe the check needs to be reatined and properly enforced. 
+> Otherwise, the old structure may still be used for a short time even if 
+> it has been freed.
 
-Introduce early_microcode_init_cache() for populating microcode_cache.
-It needs to rescan the modules in order to find the new virtual address
-of the ucode blob because it changes during the boot process, e.g.
-from 0x00000000010802fc to 0xffff83204dac52fc.
+Good point, I'll try to come up with something suitable.
 
-While at it, drop alternative_vcall() from early_microcode_init() since
-it's not useful in an __init fuction.
+>> RFC: Is the GFN 0 offset 0 behavioral change deemed acceptable?
+> 
+> I would say n  (See the previous discussion for more details).
 
-Signed-off-by: Sergey Dyasli <sergey.dyasli@citrix.com>
+Of course - with 0 going to be replaced in map_guest_area(), the check
+there needs to be adjusted accordingly. And ~0 was already invalid to
+pass in here, due to the alignment check.
 
----
-v1 --> v2:
-- Don't call microcode_grab_module() the second time, use
-  microcode_scan_module() instead
-- Use forward declaration of struct multiboot_info
-- Don't use alternative calls
-- Rename early_microcode_update_cache() to early_update_cache() and
-  move it around a bit
----
- xen/arch/x86/cpu/microcode/core.c    | 66 +++++++++++++++++++++++-----
- xen/arch/x86/include/asm/microcode.h |  7 ++-
- xen/arch/x86/include/asm/setup.h     |  3 --
- xen/arch/x86/setup.c                 | 10 +++--
- 4 files changed, 68 insertions(+), 18 deletions(-)
+>> RFC: To have just a single instance of casts to vcpu_info_t *,
+>>       introducing a macro (or inline function if header dependencies
+>>       permit) might be nice. However, the only sensible identifier for it
+>>       would imo be vcpu_info(). Yet we already have a macro of that name.
+>>       With some trickery it might be possible to overload the macro
+>>       (making the "field" argument optional), but this may not be
+>>       desirable for other reasons (it could e.g. be deemed confusing).
+> 
+> You might be able to reduce the number of cast by using local variables.
+> 
+> But it is not entirely clear why we can't use the existing vcpu_info() 
+> in many of the cases. For instance...
+> 
+> 
+>>
+>> --- a/xen/arch/x86/include/asm/shared.h
+>> +++ b/xen/arch/x86/include/asm/shared.h
+>> @@ -27,16 +27,16 @@ static inline void arch_set_##field(stru
+>>   static inline type arch_get_##field(const struct vcpu *v)       \
+>>   {                                                               \
+>>       return !has_32bit_shinfo(v->domain) ?                       \
+>> -           v->vcpu_info->native.arch.field :                    \
+>> -           v->vcpu_info->compat.arch.field;                     \
+>> +           ((const vcpu_info_t *)v->vcpu_info_area.map)->native.arch.field : \
+>> +           ((const vcpu_info_t *)v->vcpu_info_area.map)->compat.arch.field;  \
+> 
+> ... here.
 
-diff --git a/xen/arch/x86/cpu/microcode/core.c b/xen/arch/x86/cpu/microcode/core.c
-index 85c05e480d..04b5d346ab 100644
---- a/xen/arch/x86/cpu/microcode/core.c
-+++ b/xen/arch/x86/cpu/microcode/core.c
-@@ -27,6 +27,7 @@
- #include <xen/err.h>
- #include <xen/guest_access.h>
- #include <xen/init.h>
-+#include <xen/multiboot.h>
- #include <xen/param.h>
- #include <xen/spinlock.h>
- #include <xen/stop_machine.h>
-@@ -198,7 +199,8 @@ void __init microcode_scan_module(
-         bootstrap_map(NULL);
-     }
- }
--void __init microcode_grab_module(
-+
-+static void __init microcode_grab_module(
-     unsigned long *module_map,
-     const multiboot_info_t *mbi)
- {
-@@ -732,10 +734,54 @@ int microcode_update_one(void)
-     return microcode_update_cpu(NULL);
- }
- 
-+static int __init early_update_cache(const void *data, size_t len)
-+{
-+    int rc = 0;
-+    struct microcode_patch *patch;
-+
-+    if ( !data )
-+        return -ENOMEM;
-+
-+    patch = parse_blob(data, len);
-+    if ( IS_ERR(patch) )
-+    {
-+        printk(XENLOG_WARNING "Parsing microcode blob error %ld\n",
-+               PTR_ERR(patch));
-+        return PTR_ERR(patch);
-+    }
-+
-+    if ( !patch )
-+        return -ENOENT;
-+
-+    spin_lock(&microcode_mutex);
-+    rc = microcode_update_cache(patch);
-+    spin_unlock(&microcode_mutex);
-+    ASSERT(rc);
-+
-+    return rc;
-+}
-+
-+int __init early_microcode_init_cache(unsigned long *module_map,
-+                                      const struct multiboot_info *mbi)
-+{
-+    int rc = 0;
-+
-+    if ( ucode_scan )
-+        /* Need to rescan the modules because they might have been relocated */
-+        microcode_scan_module(module_map, mbi);
-+
-+    if ( ucode_mod.mod_end )
-+        rc = early_update_cache(bootstrap_map(&ucode_mod),
-+                                ucode_mod.mod_end);
-+    else if ( ucode_blob.size )
-+        rc = early_update_cache(ucode_blob.data, ucode_blob.size);
-+
-+    return rc;
-+}
-+
- /* BSP calls this function to parse ucode blob and then apply an update. */
- static int __init early_microcode_update_cpu(void)
- {
--    int rc = 0;
-     const void *data = NULL;
-     size_t len;
-     struct microcode_patch *patch;
-@@ -754,7 +800,7 @@ static int __init early_microcode_update_cpu(void)
-     if ( !data )
-         return -ENOMEM;
- 
--    patch = parse_blob(data, len);
-+    patch = ucode_ops.cpu_request_microcode(data, len, false);
-     if ( IS_ERR(patch) )
-     {
-         printk(XENLOG_WARNING "Parsing microcode blob error %ld\n",
-@@ -765,15 +811,11 @@ static int __init early_microcode_update_cpu(void)
-     if ( !patch )
-         return -ENOENT;
- 
--    spin_lock(&microcode_mutex);
--    rc = microcode_update_cache(patch);
--    spin_unlock(&microcode_mutex);
--    ASSERT(rc);
--
--    return microcode_update_one();
-+    return microcode_update_cpu(patch);
- }
- 
--int __init early_microcode_init(void)
-+int __init early_microcode_init(unsigned long *module_map,
-+                                const struct multiboot_info *mbi)
- {
-     const struct cpuinfo_x86 *c = &boot_cpu_data;
-     int rc = 0;
-@@ -797,7 +839,9 @@ int __init early_microcode_init(void)
-         return -ENODEV;
-     }
- 
--    alternative_vcall(ucode_ops.collect_cpu_info);
-+    microcode_grab_module(module_map, mbi);
-+
-+    ucode_ops.collect_cpu_info();
- 
-     if ( ucode_mod.mod_end || ucode_blob.size )
-         rc = early_microcode_update_cpu();
-diff --git a/xen/arch/x86/include/asm/microcode.h b/xen/arch/x86/include/asm/microcode.h
-index 3b0234e9fa..170481d257 100644
---- a/xen/arch/x86/include/asm/microcode.h
-+++ b/xen/arch/x86/include/asm/microcode.h
-@@ -6,6 +6,8 @@
- 
- #include <public/xen.h>
- 
-+struct multiboot_info;
-+
- struct cpu_signature {
-     /* CPU signature (CPUID.1.EAX). */
-     unsigned int sig;
-@@ -21,7 +23,10 @@ DECLARE_PER_CPU(struct cpu_signature, cpu_sig);
- 
- void microcode_set_module(unsigned int idx);
- int microcode_update(XEN_GUEST_HANDLE(const_void), unsigned long len);
--int early_microcode_init(void);
-+int early_microcode_init(unsigned long *module_map,
-+                         const struct multiboot_info *mbi);
-+int early_microcode_init_cache(unsigned long *module_map,
-+                               const struct multiboot_info *mbi);
- int microcode_update_one(void);
- 
- #endif /* ASM_X86__MICROCODE_H */
-diff --git a/xen/arch/x86/include/asm/setup.h b/xen/arch/x86/include/asm/setup.h
-index ae470ea12f..ae0dd3915a 100644
---- a/xen/arch/x86/include/asm/setup.h
-+++ b/xen/arch/x86/include/asm/setup.h
-@@ -44,9 +44,6 @@ void *bootstrap_map(const module_t *mod);
- 
- int xen_in_range(unsigned long mfn);
- 
--void microcode_grab_module(
--    unsigned long *, const multiboot_info_t *);
--
- extern uint8_t kbd_shift_flags;
- 
- #ifdef NDEBUG
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 6bb5bc7c84..2d7c815e0a 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1178,6 +1178,12 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-         mod[i].reserved = 0;
-     }
- 
-+    /*
-+     * TODO: load ucode earlier once multiboot modules become accessible
-+     * at an earlier stage.
-+     */
-+    early_microcode_init(module_map, mbi);
-+
-     if ( xen_phys_start )
-     {
-         relocated = true;
-@@ -1762,11 +1768,9 @@ void __init noreturn __start_xen(unsigned long mbi_p)
- 
-     init_IRQ();
- 
--    microcode_grab_module(module_map, mbi);
--
-     timer_init();
- 
--    early_microcode_init();
-+    early_microcode_init_cache(module_map, mbi);
- 
-     tsx_init(); /* Needs microcode.  May change HLE/RTM feature bits. */
- 
--- 
-2.17.1
+vcpu_info() has a property which gets in the way of using the macro
+here. Since __vcpu_info() wants to return something which can also
+be used as lvalue, the 2nd and 3rd operands of the conditional
+operator need to resolve to the same pointer type. Hence the smaller
+(compat) type is the only one which is safe to use. See the comment
+next to __shared_info()'s definition (which is the one __vcpu_info()'s
+refers to).
 
+Jan
 
