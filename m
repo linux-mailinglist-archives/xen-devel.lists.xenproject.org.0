@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D559651780
+	by mail.lfdr.de (Postfix) with ESMTPS id 914E0651782
 	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 02:10:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466404.725342 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.466407.725353 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7R9U-0006HA-Be; Tue, 20 Dec 2022 01:10:40 +0000
+	id 1p7R9X-0006jv-37; Tue, 20 Dec 2022 01:10:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466404.725342; Tue, 20 Dec 2022 01:10:40 +0000
+Received: by outflank-mailman (output) from mailman id 466407.725353; Tue, 20 Dec 2022 01:10:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7R9U-0006DZ-7h; Tue, 20 Dec 2022 01:10:40 +0000
-Received: by outflank-mailman (input) for mailman id 466404;
- Tue, 20 Dec 2022 01:10:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p7R9W-0006dv-Vf; Tue, 20 Dec 2022 01:10:42 +0000
+Received: by outflank-mailman (input) for mailman id 466407;
+ Tue, 20 Dec 2022 01:10:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tFeQ=4S=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p7R9S-0004iO-9d
- for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 01:10:38 +0000
+ id 1p7R9V-0004T7-AB
+ for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 01:10:41 +0000
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1c000886-8003-11ed-91b6-6bf2151ebd3b;
- Tue, 20 Dec 2022 02:10:37 +0100 (CET)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id E4B963200920;
- Mon, 19 Dec 2022 20:10:34 -0500 (EST)
+ [64.147.123.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 1d57d520-8003-11ed-8fd4-01056ac49cbb;
+ Tue, 20 Dec 2022 02:10:39 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 35F233200916;
+ Mon, 19 Dec 2022 20:10:37 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Mon, 19 Dec 2022 20:10:35 -0500
+ by compute5.internal (MEProxy); Mon, 19 Dec 2022 20:10:38 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 19 Dec 2022 20:10:33 -0500 (EST)
+ 19 Dec 2022 20:10:36 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,47 +43,47 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1c000886-8003-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 1d57d520-8003-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1671498634; x=1671585034; bh=ZFVd1zipbDmyuM5p7z7I6kIgLQvhgJ+UDrK
-	byLqFiao=; b=uIn3JRZh+wE8wl0bAnlNSxLWynzbB/S5/vfgKn89TTu7J428rcb
-	r7jYay3VCc3p9h909ZWHe1c26nbsrLeM3rIqHOiWlhhPSQDzvcVEo5/9eajKe+e8
-	0vV3nqh5WNDr7EV7h4jfGyw0eqfgGh4z4Y9ScQ4wW3vC7MLT896aFTWCzRwscdf3
-	nIDJwNxzivuhpAcz6fPaqauhlsE0qxe9xZ9LBrw6DfLwmsht/BQtmah08WmSSn1W
-	yUv0tlV40PRJbfjZy1SWUuEFthWSSZXTBw5Zc2lAPks3wPWRkbO1onaszAH3XEoe
-	dhBmuj+rxMg+NQrzFPulsznNoa+voZ7PCbg==
+	1671498636; x=1671585036; bh=mmWwiUKIb7PKGWRCiRecDTE1zKV4JKWsn7i
+	luc16UuM=; b=mStWYdgNQql7gh33QrtSnuD/GPYeOwdy0tQoWGDcdM6j8JOX3+O
+	wFrhh2RJsswfyPbKucVAtlyhKp60sujLAgav30AFFhFuY6iGA8+S8fcNcCxjZtzu
+	iDn7g7/4nxj74a4IZz0xvtNPwjsvyFfXOvNR/JmzOJoz1STbXFmEkPLAOzyYtZ5B
+	OWBY2mKi9St0jWTrM+GoXonuDOOkxNdJPHVvq4Irt+oBqARn0Xr5rDP4TTDXlrK2
+	D4d0rvbjY/mYnHPGb5aBrcZ//UJHD12usFf6QZTPsIUyF3oabjSezIGhnpvp4BFb
+	Pd8nCxhGddDJnP0foFn5zis+R0yUUyJruBw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1671498634; x=1671585034; bh=ZFVd1zipbDmyu
-	M5p7z7I6kIgLQvhgJ+UDrKbyLqFiao=; b=DDpCTCT5d0Acst/Kd2JqpA8/+2WKO
-	mPKwax/l8HA7rkaiv3Gb/UgU0oO0ctNmsmo0vMyrS4NX6z8Qjridl1sOomqozglf
-	h5JopvMDpH/myu32XMbQIh16qYXxHrxNsybzWn8JIRByZ8uZXPx49uWx6pZukvSM
-	ip87LWtoKjUP5dMdMkHDF+SJpO07eB6cfqteCQRz95t8MSyzSzxo7gMQrRd+QRCl
-	fXf3JbiPuEOnU2+dtjCjU74dmfBmVnweLnhi1qtY3IpFclfSrn5VuWRgeI6aOwg/
-	kPXM0eqsHn9lSxd/0flVR6UDrXwTKEvOixqBnmk0O+uXGKd9RMlb/hPGQ==
-X-ME-Sender: <xms:iguhY8MQfd_l0p-4IUGWRyfRW80d2J48aGV02YIa14_PqlQ5mw1rTw>
-    <xme:iguhYy9xCVuqJrd5mxjZJLjHuRXRl0xEJfXnx8wdJ_rTZGkg1pta-hHfQHIHUihUE
-    bEjWdZYcTk8WVo>
-X-ME-Received: <xmr:iguhYzTDaU-a1yBTZ0kkfsLmeUnNHctkhnmjxI5T31xQfe155gDX-ZEqmg1UAHD5gg8T7F5bwdRD>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeeggdefvdcutefuodetggdotefrodftvf
+	:x-sasl-enc; s=fm2; t=1671498636; x=1671585036; bh=mmWwiUKIb7PKG
+	WRCiRecDTE1zKV4JKWsn7iluc16UuM=; b=p9ek3Qdd5Fn/9SP4cGDijKonsSSYW
+	BcCcQqcBuzN61DKYq+1onW4EIJYULeM3pPMXjmYY4aW3kIzkbhbyTA0tpBRqiAxE
+	Emu2FLtBhzL8pjwzzrX770LdDZkajM0edELRcqHJZa2toxGAZ1e/JHhfTjhrx9zB
+	GM9CmI4e08aelshDzaBt7zzLXMEtWO41zTHgH161l9CGSVl4QG5+cLmdVLrEdtHO
+	+R+WuGbaYTEkPARpiREbAkRWYySqsk2qpcLQDKiNjgoKj1aW3xaOLRuhQuGn/k/b
+	br9/TzswYMH4adK5BAkf7Ufl9uG0NKCjrAi4P2jQuHytBCrLPnGRfIaWg==
+X-ME-Sender: <xms:jAuhY0GJFbu7AiRJHodM7xQODWMPvKETldBzm4FJ0PcfMuVv31OBgQ>
+    <xme:jAuhY9XyXS-bLhUGFRmcn_LQ27F8yORSfU9aBFRAM_cJ52eR0bLOKcnwFjPlJThVh
+    -8UEX95ngeaWJA>
+X-ME-Received: <xmr:jAuhY-Ia6BxExfWlw7iQ5QKxghilCXgewMdMIwqhxwpL_DFxDXweG3916FkTNVVILJG4noQtcUTR>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrgeeggdefudcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
     fjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcu
     ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
     hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefghefg
-    hffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtnecurf
+    hffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedvnecurf
     grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
     rggsrdgtohhm
-X-ME-Proxy: <xmx:iguhY0tBPCaZANuR59cL4EJn-OcaWL2OhxHoj1GmMvJ5HBUTMNLwig>
-    <xmx:iguhY0fzuOG6yfiaZTm6uww5_Ah1mdLYN-EpCaLkf_fHYLtr8RIWew>
-    <xmx:iguhY437q57RMB35dq9wfl9LqOuwwnEpLkFutdYfsAp--T8Jb-Tztg>
-    <xmx:iguhY7zgnyiTpSzbhccJJcQRT98CPp4QeQNemlCS7KZqxEWc1YJdMQ>
+X-ME-Proxy: <xmx:jAuhY2HqNeDcGsIph6fJsh4bqKmpVYgB5wQX6yWwJKhsC_FvhMJ0ew>
+    <xmx:jAuhY6W1N1OP3j20QgK2W2bp09GkxkuJ8srpKeXBmPSymP_Ge5eXBA>
+    <xmx:jAuhY5Mx7YaycXtVWY4csf-laxYuY4-ozWUKfeF70wg8QXrVwb5KXg>
+    <xmx:jAuhY-p_O03wVttqCOzW_g4gu22wsLcdbaDjtMLjQ-_unSqWLELAoQ>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -97,115 +97,72 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Kevin Tian <kevin.tian@intel.com>,
 	George Dunlap <george.dunlap@citrix.com>,
 	Tim Deegan <tim@xen.org>
-Subject: [PATCH v5 06/10] x86: Remove MEMORY_NUM_TYPES and NO_HARDCODE_MEM_TYPE
-Date: Mon, 19 Dec 2022 20:07:08 -0500
-Message-Id: <8516b1a8da8ea536e65653e998e7c79d98cb53b4.1671497984.git.demi@invisiblethingslab.com>
+Subject: [PATCH v5 07/10] x86: Derive XEN_MSR_PAT from its individual entries
+Date: Mon, 19 Dec 2022 20:07:09 -0500
+Message-Id: <3f38d913e270fed69a336d08d689ac9268cc54c2.1671497984.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1671497984.git.demi@invisiblethingslab.com>
 References: <cover.1671497984.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-No functional change intended.
+This avoids it being a magic constant that is difficult for humans to
+decode.  Use BUILD_BUG_ON to check that the old and new values are
+identical.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
 ---
-This patch is optional.  Subsequent patches should not depend on it.
-
-Changes since v2:
-
-- Keep MTRR_NUM_TYPES and adjust commit message accordingly
+Changes since v4:
+- Explain that changing XEN_MSR_PAT breaks guests that rely on the API
+  in xen.h instead of reading the PAT from Xen.
 ---
- xen/arch/x86/hvm/mtrr.c         | 18 +++++++++---------
- xen/arch/x86/include/asm/mtrr.h |  2 --
- xen/arch/x86/mm/shadow/multi.c  |  2 +-
- 3 files changed, 10 insertions(+), 12 deletions(-)
+ xen/arch/x86/include/asm/processor.h |  9 ++++++++-
+ xen/arch/x86/mm.c                    | 11 +++++++++++
+ 2 files changed, 19 insertions(+), 1 deletion(-)
 
-diff --git a/xen/arch/x86/hvm/mtrr.c b/xen/arch/x86/hvm/mtrr.c
-index 093103f6c768cf64f880d1b20e1c14f5918c1250..05e978041d62fd0d559462de181a04bef8a5bca9 100644
---- a/xen/arch/x86/hvm/mtrr.c
-+++ b/xen/arch/x86/hvm/mtrr.c
-@@ -38,7 +38,7 @@ static const uint8_t pat_entry_2_pte_flags[8] = {
- 
- /* Effective mm type lookup table, according to MTRR and PAT. */
- static const uint8_t mm_type_tbl[MTRR_NUM_TYPES][X86_NUM_MT] = {
--#define RS MEMORY_NUM_TYPES
-+#define RS MTRR_NUM_TYPES
- #define UC X86_MT_UC
- #define WB X86_MT_WB
- #define WC X86_MT_WC
-@@ -66,9 +66,9 @@ static const uint8_t mm_type_tbl[MTRR_NUM_TYPES][X86_NUM_MT] = {
-  * Reverse lookup table, to find a pat type according to MTRR and effective
-  * memory type. This table is dynamically generated.
+diff --git a/xen/arch/x86/include/asm/processor.h b/xen/arch/x86/include/asm/processor.h
+index 8e2816fae9b97bd4e153a30cc3802971fe0355af..60b902060914584957db8afa5c7c1e6abdad4d13 100644
+--- a/xen/arch/x86/include/asm/processor.h
++++ b/xen/arch/x86/include/asm/processor.h
+@@ -96,7 +96,14 @@
+  * Host IA32_CR_PAT value to cover all memory types.  This is not the default
+  * MSR_PAT value, and is an ABI with PV guests.
   */
--static uint8_t __read_mostly mtrr_epat_tbl[MTRR_NUM_TYPES][MEMORY_NUM_TYPES] =
--    { [0 ... MTRR_NUM_TYPES-1] =
--        { [0 ... MEMORY_NUM_TYPES-1] = INVALID_MEM_TYPE }
-+static uint8_t __read_mostly mtrr_epat_tbl[MTRR_NUM_TYPES][MTRR_NUM_TYPES] =
-+    { [0 ... MTRR_NUM_TYPES - 1] =
-+        { [0 ... MTRR_NUM_TYPES - 1] = INVALID_MEM_TYPE }
-     };
+-#define XEN_MSR_PAT _AC(0x050100070406, ULL)
++#define XEN_MSR_PAT ((_AC(X86_MT_WB,  ULL) << 0x00) | \
++                     (_AC(X86_MT_WT,  ULL) << 0x08) | \
++                     (_AC(X86_MT_UCM, ULL) << 0x10) | \
++                     (_AC(X86_MT_UC,  ULL) << 0x18) | \
++                     (_AC(X86_MT_WC,  ULL) << 0x20) | \
++                     (_AC(X86_MT_WP,  ULL) << 0x28) | \
++                     (_AC(X86_MT_UC,  ULL) << 0x30) | \
++                     (_AC(X86_MT_UC,  ULL) << 0x38))
  
- /* Lookup table for PAT entry of a given PAT value in host PAT. */
-@@ -85,7 +85,7 @@ static int __init cf_check hvm_mtrr_pat_init(void)
-         {
-             unsigned int tmp = mm_type_tbl[i][j];
+ #ifndef __ASSEMBLY__
  
--            if ( tmp < MEMORY_NUM_TYPES )
-+            if ( tmp < MTRR_NUM_TYPES )
-                 mtrr_epat_tbl[i][tmp] = j;
-         }
-     }
-@@ -317,11 +317,11 @@ static uint8_t effective_mm_type(struct mtrr_state *m,
-                                  uint8_t gmtrr_mtype)
- {
-     uint8_t mtrr_mtype, pat_value;
--   
-+
-     /* if get_pat_flags() gives a dedicated MTRR type,
-      * just use it
--     */ 
--    if ( gmtrr_mtype == NO_HARDCODE_MEM_TYPE )
+diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+index dba6c77ef2f7ed7fcb7f7e526583ccadd35e62cc..b40a575b61418ea1137299e68b64f7efd9efeced 100644
+--- a/xen/arch/x86/mm.c
++++ b/xen/arch/x86/mm.c
+@@ -6352,6 +6352,17 @@ unsigned long get_upper_mfn_bound(void)
+     return min(max_mfn, 1UL << (paddr_bits - PAGE_SHIFT)) - 1;
+ }
+ 
++static void __init __maybe_unused build_assertions(void)
++{
++    /*
++     * If this trips, any guest that blindly rely on the public API in xen.h
++     * (instead of reading the PAT from Xen, as Linux 3.19+ does) will be
++     * broken.  Furthermore, live migration of PV guests between Xen versions
++     * using different PATs will not work.
 +     */
-+    if ( gmtrr_mtype == MTRR_NUM_TYPES )
-         mtrr_mtype = mtrr_get_type(m, gpa, 0);
-     else
-         mtrr_mtype = gmtrr_mtype;
-@@ -346,7 +346,7 @@ uint32_t get_pat_flags(struct vcpu *v,
-     /* 1. Get the effective memory type of guest physical address,
-      * with the pair of guest MTRR and PAT
-      */
--    guest_eff_mm_type = effective_mm_type(g, pat, gpaddr, 
-+    guest_eff_mm_type = effective_mm_type(g, pat, gpaddr,
-                                           gl1e_flags, gmtrr_mtype);
-     /* 2. Get the memory type of host physical address, with MTRR */
-     shadow_mtrr_type = mtrr_get_type(&mtrr_state, spaddr, 0);
-diff --git a/xen/arch/x86/include/asm/mtrr.h b/xen/arch/x86/include/asm/mtrr.h
-index e4f6ca6048334b2094a1836cc2f298453641232f..4b7f840a965954cc4b59698327a37e47026893a4 100644
---- a/xen/arch/x86/include/asm/mtrr.h
-+++ b/xen/arch/x86/include/asm/mtrr.h
-@@ -4,8 +4,6 @@
- #include <xen/mm.h>
- 
- #define MTRR_NUM_TYPES       X86_MT_UCM
--#define MEMORY_NUM_TYPES     MTRR_NUM_TYPES
--#define NO_HARDCODE_MEM_TYPE MTRR_NUM_TYPES
- 
- #define NORMAL_CACHE_MODE          0
- #define NO_FILL_CACHE_MODE         2
-diff --git a/xen/arch/x86/mm/shadow/multi.c b/xen/arch/x86/mm/shadow/multi.c
-index f5f7ff021bd9e057c5b6f6329de7acb5ef05d58f..1faf9940db6b0afefc5977c00c00fb6a39cd27d2 100644
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -578,7 +578,7 @@ _sh_propagate(struct vcpu *v,
-                             gflags,
-                             gfn_to_paddr(target_gfn),
-                             mfn_to_maddr(target_mfn),
--                            NO_HARDCODE_MEM_TYPE);
-+                            MTRR_NUM_TYPES);
-             }
-     }
- 
++    BUILD_BUG_ON(XEN_MSR_PAT != 0x050100070406ULL);
++}
++
+ /*
+  * Local variables:
+  * mode: C
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
