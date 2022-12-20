@@ -2,32 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 063F8651C90
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 09:48:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466582.725485 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF1F651C9D
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 09:51:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466592.725496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7YIg-0000MJ-0v; Tue, 20 Dec 2022 08:48:38 +0000
+	id 1p7YLE-0001nr-Ju; Tue, 20 Dec 2022 08:51:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466582.725485; Tue, 20 Dec 2022 08:48:37 +0000
+Received: by outflank-mailman (output) from mailman id 466592.725496; Tue, 20 Dec 2022 08:51:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7YIf-0000J7-Tp; Tue, 20 Dec 2022 08:48:37 +0000
-Received: by outflank-mailman (input) for mailman id 466582;
- Tue, 20 Dec 2022 08:48:36 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1p7YIe-0000J1-8N
- for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 08:48:36 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p7YIb-0002lH-Ms; Tue, 20 Dec 2022 08:48:33 +0000
-Received: from 54-240-197-234.amazon.com ([54.240.197.234]
- helo=[192.168.6.189]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1p7YIb-0006GZ-Gf; Tue, 20 Dec 2022 08:48:33 +0000
+	id 1p7YLE-0001kc-Gh; Tue, 20 Dec 2022 08:51:16 +0000
+Received: by outflank-mailman (input) for mailman id 466592;
+ Tue, 20 Dec 2022 08:51:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TAHQ=4S=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1p7YLD-0001kP-3g
+ for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 08:51:15 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTP
+ id 74dad16e-8043-11ed-8fd4-01056ac49cbb;
+ Tue, 20 Dec 2022 09:51:13 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E4E22F4;
+ Tue, 20 Dec 2022 00:51:53 -0800 (PST)
+Received: from e125770.cambridge.arm.com (e125770.cambridge.arm.com
+ [10.1.195.16])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 117D43F71A;
+ Tue, 20 Dec 2022 00:51:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,72 +43,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=/iHWZExXT7yJ3ujxJIlwbxC6vKUlkup+NGKcMyfIknY=; b=P3S08UieD6oPrn1/RtNHC6Mn6a
-	uPhL+1ptUB8MfrruiWyC8YEjgN/IkHoX6mCQbdxjCofnIVHuv1IIvqbU9SzjOp7ZGQKYoPgFbub4m
-	G6gFdjUB30QRaCpkVXvwhccfG71rWZ5BF0J2RRgXPGmahEc+FKSmav210WVpEtqkzm7g=;
-Message-ID: <f633b729-e422-9fd3-a635-b8617eb6bfb2@xen.org>
-Date: Tue, 20 Dec 2022 08:48:31 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.0
-Subject: Re: [PATCH RFC 04/10] domain: update GADDR based runstate guest area
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <22422a1c-1cfa-95d0-c1fa-99150a8f2a32@suse.com>
- <33a84c2a-0c94-a62d-3754-4a61aa951c83@xen.org>
- <417c72f4-e9a0-e3cc-1c36-544967d73e34@suse.com>
- <45781a58-61cb-bc8c-c18d-35d054b4b06c@xen.org>
- <a9779d15-2f53-87c1-c4c4-745ac709430a@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <a9779d15-2f53-87c1-c4c4-745ac709430a@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Inumbo-ID: 74dad16e-8043-11ed-8fd4-01056ac49cbb
+From: Luca Fancellu <luca.fancellu@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [RFC PATCH 00/18] cppcheck rule 20.7 fixes
+Date: Tue, 20 Dec 2022 08:50:42 +0000
+Message-Id: <20221220085100.22848-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.17.1
 
-Hi Jan,
+In this serie there are some fixes for the rule 20.7, mainly violation found by
+cppcheck, most of them are false positive but some of them can be fixed.
 
-On 20/12/2022 08:45, Jan Beulich wrote:
-> On 20.12.2022 09:40, Julien Grall wrote:
->> On 19/12/2022 12:48, Jan Beulich wrote:
->>> On 16.12.2022 13:26, Julien Grall wrote:
->>>> On 19/10/2022 08:41, Jan Beulich wrote:
->>>>> RFC: HVM guests (on x86) can change bitness and hence layout (and size!
->>>>>         and alignment) of the runstate area. I don't think it is an option
->>>>>         to require 32-bit code to pass a range such that even the 64-bit
->>>>>         layout wouldn't cross a page boundary (and be suitably aligned). I
->>>>>         also don't see any other good solution, so for now a crude approach
->>>>>         with an extra boolean is used (using has_32bit_shinfo() isn't race
->>>>>         free and could hence lead to overrunning the mapped space).
->>>>
->>>> I think the extra check for 32-bit code to pass the check for 64-bit
->>>> layout would be better.
->>>
->>> I'm afraid I can't derive from your reply what it is you actually want.
->>
->> I think for 32-bit call, we also want to check the address provide will
->> also pass the 64-bit check (i.e. if used as a 64-bit layout, the area
->> would not cross a page boundary and be suitably aligned).
-> 
-> But that's specifically what I say I don't think is an option. First and
-> foremost because of the implication on 32-bit callers: They're need to
-> use magic to get hold of the size of the 64-bit variant of the struct.
+The analysed build is arm64, to reproduce the reports here the command:
 
-I understand that. But I am not aware of any other (simple) approach 
-where you could have race free code.
+./xen/scripts/xen-analysis.py --cppcheck-misra --run-cppcheck -- CROSS_COMPILE="aarch64-linux-gnu-" XEN_TARGET_ARCH="arm64" O=/path/to/artifacts_folder
 
-So between a non-race free code and exposing the restriction to the 
-guest, I would chose the latter.
+Luca Fancellu (18):
+  arm: cppcheck: misra rule 20.7 deviations for alternative.h
+  arm: cppcheck: misra rule 20.7 deviation on processor.h
+  arm: cppcheck: misra rule 20.7 deviation on asm_defns.h
+  arm: cppcheck: misra rule 20.7 deviation on config.h
+  arm: cppcheck: fix misra rule 20.7 on arm/include/asm/string.h
+  public: cppcheck: misra rule 20.7 on public/arch-arm.h
+  xen: cppcheck: misra rule 20.7 deviation on compiler.h
+  xen: cppcheck: misra rule 20.7 deviation on init.h
+  xen: cppcheck: misra rule 20.7 deviation on kconfig.h
+  xen: cppcheck: misra rule 20.7 deviation on types.h
+  xen: cppcheck: misra rule 20.7 deviation on xmalloc.h
+  arm: cppcheck: misra rule 20.7 deviation on asm/arm64/sysregs.h
+  public/x86: cppcheck: misra rule 20.7 deviation on hvm/save.h
+  public/x86: cppcheck: misra rule 20.7 deviation on xen-x86_32.h
+  public/x86: cppcheck: misra rule 20.7 deviation on xen-x86_64.h
+  public/x86: cppcheck: misra rule 20.7 deviation on arch-x86/xen.h
+  public: misra rule 20.7 deviation on errno.h
+  public: misra rule 20.7 deviation on memory.h
 
-Cheers,
+ docs/misra/false-positive-cppcheck.json    | 21 +++++++++++++++++++++
+ xen/arch/arm/include/asm/alternative.h     |  2 ++
+ xen/arch/arm/include/asm/arm64/processor.h |  2 +-
+ xen/arch/arm/include/asm/arm64/sysregs.h   |  2 +-
+ xen/arch/arm/include/asm/asm_defns.h       |  2 ++
+ xen/arch/arm/include/asm/config.h          |  4 ++++
+ xen/arch/arm/include/asm/string.h          |  2 +-
+ xen/include/public/arch-arm.h              |  4 +++-
+ xen/include/public/arch-x86/hvm/save.h     |  1 +
+ xen/include/public/arch-x86/xen-x86_32.h   |  5 ++++-
+ xen/include/public/arch-x86/xen-x86_64.h   |  3 +++
+ xen/include/public/arch-x86/xen.h          |  3 ++-
+ xen/include/public/errno.h                 |  2 +-
+ xen/include/public/memory.h                |  2 +-
+ xen/include/xen/compiler.h                 |  1 +
+ xen/include/xen/init.h                     |  7 ++++---
+ xen/include/xen/kconfig.h                  |  1 +
+ xen/include/xen/types.h                    |  1 +
+ xen/include/xen/xmalloc.h                  |  6 ++++++
+ 19 files changed, 60 insertions(+), 11 deletions(-)
 
 -- 
-Julien Grall
+2.17.1
+
 
