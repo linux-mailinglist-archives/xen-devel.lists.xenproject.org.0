@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21541651F2A
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 11:45:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.466965.725946 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89D49651F76
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 12:10:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.466975.725958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7a7E-0002fC-Sl; Tue, 20 Dec 2022 10:44:56 +0000
+	id 1p7aV8-0005Lm-Vr; Tue, 20 Dec 2022 11:09:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 466965.725946; Tue, 20 Dec 2022 10:44:56 +0000
+Received: by outflank-mailman (output) from mailman id 466975.725958; Tue, 20 Dec 2022 11:09:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7a7E-0002cK-PO; Tue, 20 Dec 2022 10:44:56 +0000
-Received: by outflank-mailman (input) for mailman id 466965;
- Tue, 20 Dec 2022 10:44:55 +0000
+	id 1p7aV8-0005K1-T6; Tue, 20 Dec 2022 11:09:38 +0000
+Received: by outflank-mailman (input) for mailman id 466975;
+ Tue, 20 Dec 2022 11:09:37 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gzLQ=4S=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1p7a7D-0002cB-1w
- for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 10:44:55 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2051.outbound.protection.outlook.com [40.107.93.51])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 554f424f-8053-11ed-8fd4-01056ac49cbb;
- Tue, 20 Dec 2022 11:44:53 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by PH8PR12MB6841.namprd12.prod.outlook.com (2603:10b6:510:1c8::21)
+ <SRS0=+pxk=4S=citrix.com=prvs=3460f7db1=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1p7aV7-0005Jv-K6
+ for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 11:09:37 +0000
+Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
+ [216.71.145.155]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c781d455-8056-11ed-8fd4-01056ac49cbb;
+ Tue, 20 Dec 2022 12:09:35 +0100 (CET)
+Received: from mail-mw2nam12lp2048.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.48])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 20 Dec 2022 06:09:31 -0500
+Received: from BN7PR03MB3618.namprd03.prod.outlook.com (2603:10b6:406:c3::27)
+ by SJ0PR03MB6951.namprd03.prod.outlook.com (2603:10b6:a03:419::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Tue, 20 Dec
- 2022 10:44:49 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c%5]) with mapi id 15.20.5924.016; Tue, 20 Dec 2022
- 10:44:49 +0000
+ 2022 11:09:27 +0000
+Received: from BN7PR03MB3618.namprd03.prod.outlook.com
+ ([fe80::5c96:fc3a:9d36:4a2e]) by BN7PR03MB3618.namprd03.prod.outlook.com
+ ([fe80::5c96:fc3a:9d36:4a2e%4]) with mapi id 15.20.5924.016; Tue, 20 Dec 2022
+ 11:09:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,273 +49,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 554f424f-8053-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: c781d455-8056-11ed-8fd4-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1671534575;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=Z0FkCiCsOFFuToE+3vYNKkCy8RMf3fGNsQ3NJ2FMVc8=;
+  b=Q8uLLoWXuyQIVRngxzUaQrUm0O46GN6oTWiurYTaQ98pyImnwbuqiq7s
+   lSnBYz78zK+ASgwTKhq6OuZlo958NSr+CweI0I8y3LfSzOeOtjXtroBJ7
+   j0siLghbUNRsd3ViOJxXpcC5DIJI6aGCBCFueNPLYooLa5ZGGPHKU6QbQ
+   s=;
+X-IronPort-RemoteIP: 104.47.66.48
+X-IronPort-MID: 89278979
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:PGuv7KCWTLprqhVW/xHiw5YqxClBgxIJ4kV8jS/XYbTApGgmhDVSy
+ 2tMCmiGPKqLMGH2eNojPoTnpkkPuZSAzIAxQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtcpvlDs15K6o4WlC5gRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/PZ2Aj927
+ cYkFm4ucBK9g8myzIy4Y7w57igjBJGD0II3nFhFlGucKMl8BJfJTuPN+MNS2yo2ioZWB/HCa
+ sEFaD1pKhPdfxlIPVRRA5U79AuqriCnL3sE9xTL++xrswA/zyQouFTpGPPTdsaHWoN+mUGAq
+ 3id12/4HgsbJJqUzj/tHneE1r6VwnOqB9N6+LuQ+cRwgwyU7TAoSyJNBQehhOHgj1e5VIcKQ
+ 6AT0m90xUQoz2ShU8PvVhm/rHmbtzYTXtNRF6sx7wTl4rrZ5UOVC3YJShZFacc6r4kmSDoyz
+ FiLktj1Qzt1v9W9S3iQ67OVpjOaIjUOICkJYipsZRQBy8nupsc0lB2nczp4OKu8j9mwHC6qx
+ TmP9XI6n+9L0Z5N0Lin91fahT7qvoLOUgM++gTQWCSi8x99Y4mmIYev7DA38Mp9EWpQdXHZ1
+ FBspiRUxLtm4U2l/MBVfNgwIQ==
+IronPort-HdrOrdr: A9a23:SAYlWa0UjH7fcCiwQEB54gqjBEQkLtp133Aq2lEZdPU0SKGlfg
+ 6V/MjztCWE7gr5PUtLpTnuAsa9qB/nm6KdpLNhX4tKPzOW31dATrsSjrcKqgeIc0HDH6xmpM
+ JdmsBFY+EYZmIK6foSjjPYLz4hquP3j5xBh43lvglQpdcBUdAQ0+97YDzrYnGfXGN9dOME/A
+ L33Ls7m9KnE05nFviTNz0+cMXogcbEr57iaQ5uPW9a1OHf5QnYk4ITCnKjr20jbw8=
+X-IronPort-AV: E=Sophos;i="5.96,259,1665460800"; 
+   d="scan'208";a="89278979"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lrVjlKKxgGIOPI/Ppi+WdVBpYlkFTaLeSkWUc7YpTtvQc82WuOWfeH0oOGZNsZnzvJ/P91Z7hWFskPWQZ25Iszrvo2cee7jjpNZQOflQi+nKg2oa1KnTPn7zhwxF50Wg6oLBqKzQn2DyhC5mpJNT9LIPO/5iIz94HfGoaz9aP/+EwgCdGo5VEmYjesF58G6wbqq+2tLg0NpQi35l5jZs+iKv5ZusDPqqsUtyLy3OzvI/zKL2k9kZmUTMwy1ohiZf17845pZYpctZfR9HNTFxuBeaDjXo63Cxwu85UgxGDZ6GpaLB0K0FNFGbCli9kDf2jT72EH0hGgX9kz7Qu3SuSA==
+ b=X4qN8wZWhU0H8WQIcihaJ3lGHZGAxYSysCHYzvI7ISgMQr+vT3bxIUvcSDEeOhmAybsuALF8OpT8mMB0cnCOLw3UxlzvBE9DgQRgcIDZqKHbIdkAweUQphLh7Wx/abYBJ7oVxi58o1OjFFEGT005v7fPYV5zmMPCcr8TBgr81xS5WIqXzcK1xyBsOfJHtSMf+yQIpeW60i9j7w72Orzyt2VEdGB8TTW7ok6AR1FQSliyJG4fT7T9cAdzQagZqLttAIbOZuXTPz8RhUJRr5thghYV4oWovU/PJpd7WW1+GI8jA5bk3TF+I/D7rhrNP3YOoOD0+pRk8A1Qn6VHRourvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=alVjjCBc9Qbj9Eq3dvwKscZeevP39Zs8u574WBatGL0=;
- b=C4n7LrJ9oYoWWv4llwF52L10f3HlYu9C0w/P9idToGhTmGtnOkVEe26UqdwhekIHYUz04ZiaGi/LRfWME3JHO4vB/LWeJom4TkSlE9u3nVjzfgUHqFh+NcEmdrjdcxejNXBb/LFLzzrETcB0YGLgK9OlcjGSU8XzM4AnUnqLU37INRWHK6GT21I5znxu4EtQs/C7W81jB+2DALCFL4QLxrsoV0j6ro0S5PzYA4tTmUdH4LM7mOK8nNDIQWpDSPjWGmw45yU6PnTsqq5/8cawGWjWFpIs+wFbupp6sQ0vzuHZWHSXT4sTaPnQsYQWm0FnfINg6SFjJaRyM/VZjXWyZw==
+ bh=Z0FkCiCsOFFuToE+3vYNKkCy8RMf3fGNsQ3NJ2FMVc8=;
+ b=DsA8cv+NfmDxRYxB0XC59ovo51bQpcvn13HzL513cKC/GKSON9lPeBMYC51cdwDGZgDimpYHa1cRbPQYJmCO26AkvgkKR42yeIC1hhepVsQF5uxpi9YoDfH6fqgrLEfXJUgcJzEI2neBJkhnuPVEWui0Rp7fPmcybrShSJkiWPg78YSkCbQcad4HYqW6GX3FaPlvUxjkdsbcQCYsv4XqH6kFGqU/pjRzrZBcf+Qzb5bFASHBg/1thFzm96hn6lXpvk0PocV9+ZV2vc6zKJn2HURyMK0RAHI9u68kejEP3OGcixODFJurQCpAQCNd0uLxTO3wE2GmMI1Tn5oXFZIu9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=alVjjCBc9Qbj9Eq3dvwKscZeevP39Zs8u574WBatGL0=;
- b=aWWIYs8Y/8JbO1338fqyZEzlbsAu9OyaTZnkEyv1enhYvPWw3283LzDZZiuUXKxf2XpkVGPoBbEDjJNhIWdQmWLkTR0Zz5AnjfnN43S3mzakWL1ASrC0yH+l1yxeMXcPYxivGefLqEcy+FOMZN2JpKm6aGC8Wvwfav2zTBq703g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <e2101505-ef3e-59f7-be2c-351ca9363249@amd.com>
-Date: Tue, 20 Dec 2022 10:44:42 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.0
-Subject: Re: [XEN v3] xen/arm: Probe the entry point address of an uImage
- correctly
-To: Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20221217193801.19485-1-ayan.kumar.halder@amd.com>
- <75635251-5f51-fbe0-28be-a99480541116@amd.com>
- <6e2b1f97-3e72-34b9-8faa-f00e79587b39@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <6e2b1f97-3e72-34b9-8faa-f00e79587b39@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P123CA0376.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18e::21) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ bh=Z0FkCiCsOFFuToE+3vYNKkCy8RMf3fGNsQ3NJ2FMVc8=;
+ b=Ru5NnfKndvGx99hYXN/exgJ0nSrNIDgrl6cQL/zYzyZYzmNJzy56GZ2RtNKbRXB5RXE089+VIi74pjX1a+kc2Qt7XKKCuipOKEyB+fTKV8XLamyKmCG4UGXhMUaH6xa9MfqfCkskyMLDbyyTXVv20xMrmGlOW5x/9wY6Z5xGXg0=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Jan Beulich <jbeulich@suse.com>, Roger Pau Monne <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [RFC 5/7] x86/iommu: the code addressing CVE-2011-1898 is VT-d
+ specific
+Thread-Topic: [RFC 5/7] x86/iommu: the code addressing CVE-2011-1898 is VT-d
+ specific
+Thread-Index: AQHZE3QhgtEjjj3o3UG9yEmVkUBhi652oCIA
+Date: Tue, 20 Dec 2022 11:09:27 +0000
+Message-ID: <5a78ab9f-ce3a-a4f5-9768-725bd9f8a745@citrix.com>
+References: <20221219063456.2017996-1-burzalodowa@gmail.com>
+ <20221219063456.2017996-6-burzalodowa@gmail.com>
+In-Reply-To: <20221219063456.2017996-6-burzalodowa@gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PR03MB3618:EE_|SJ0PR03MB6951:EE_
+x-ms-office365-filtering-correlation-id: 5b7adbbe-40c3-4833-3774-08dae27aa903
+x-ld-processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ 6QRiAFihIB/u+zNUmdYwW122as/vOE7cTPiuossUwCqm/nUs2/C/R3QTCZoUcp8y1oKqmk/AWpRCOUV1K6Kbi0s2PctP3baxRVE1JLnTBTqxn19TcQ819qMJ4PqenrnYPe+RKYTEcQXjE1jeHxJv1TEekuLhqnQGxtIzBp89cbIYeiWwQV69Jff57s+WJb/3ggg8wvH0R3I6IGRQMINqZn1ILkEj7k+aMcdCLnkaE1H/yxChAstgrpw5O0YdeQqsTkADrLHI2nRMpr0Z5fYSJ1xu2juDNqvGcqjxUIMvRA2uhev27xYEWEm+f8UE0AG3NIaHJs/RvDS1hvYLeYN1pGCB5OejP+sSxWMSnnDpU0YgL4IzqAjln1soSjqHaevf74JqRoJO8XK/ywOapR3SZg2Viwx0OqoezudsMM3WZJRWAtgff5fSdRsBS0J5lOMNbvrUsL84goYPVnBcBWNQg3OMZj9rjXi3vVhw7huA3zrKbn5tftfUQHKjD9o1apN0o+qygFa11ZpKoMel1wfLocdsJX7mO4zex2U2oyUqgrYShnEyJMweA5pqQHs2nZ2+jH7XfIlk4A4ZGlkcQQ/kl+RMPwpBHg1beH3xXSgotmaZvMDiRtZH/apaRLsyMj5+EqYvZISMg5U2fhSX3VL3qpbsR8Jr+JKoQhdlt9LmA96k3FJuGYONXn2T7aQlPBSPfgNClRjnjpeH54C94PRq+dI4myVl6HEg5GcmP6ds4dMZ4ud0NcrpncGxWzCZHi1xu6q0L06QBkv2xiqdIGY23w==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BN7PR03MB3618.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(376002)(136003)(396003)(346002)(366004)(39860400002)(451199015)(53546011)(6506007)(71200400001)(2906002)(478600001)(6486002)(31686004)(26005)(54906003)(110136005)(36756003)(91956017)(76116006)(2616005)(66946007)(316002)(41300700001)(8936002)(186003)(8676002)(6512007)(64756008)(83380400001)(66476007)(66556008)(122000001)(82960400001)(38100700002)(4326008)(5660300002)(86362001)(66446008)(38070700005)(31696002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?VHFqWGwxMGlUUTBGM3U1OTBYL05DQkFFc3hyZXBXQmFmTEVCemhsb3NocHJP?=
+ =?utf-8?B?ZFdQOGswdG8yS1BPclQzbnI5WTM4akV1eGc2VWIrY2dFbHVSUUFUcHltek4z?=
+ =?utf-8?B?S1BGUGhiYUNXb2k4MHJSS3NvRS8rcXEzVm1aQithM2txV3ZzSlNDUmNaNTA1?=
+ =?utf-8?B?dE1BVXJaaytVckRmM1NscHhTRi9pSzlTUVhLdkRGZjMzdGVQTTZTd2dCY2Vi?=
+ =?utf-8?B?cm5ycisrSUthQzhoQ3oxaXNEN21BUUpRcmduemg3N0FsdTFYSzdDKzlGTXZt?=
+ =?utf-8?B?V09YcHRhcGl0ZGJjZitSTHk2RVBRVnFIK2tjcXNOTlJ1c0srWEdZcUllQUk1?=
+ =?utf-8?B?eDYwNWtqUndFOGhwbk1DY1J4WWVCZTZqemlrRnNDLzJ5WFV1MGtMZ3dNYlBz?=
+ =?utf-8?B?UXFwYTJCMXlNbUNDdnRJWWhjbFJvTXRZZ2xWNjV1dUhxRUcwRUhTUjFpSjY2?=
+ =?utf-8?B?MHB1RDJFYVJWMjlZQ1J0eDNWQU9EUStZY2VXNVZKcVI5VTZJM3BMb3JsZndt?=
+ =?utf-8?B?SUY4TUZUd2lMZk4rVEZ0QjJXYkhJMGplamlwb0FnalVRbFRXZHRwWE11d3Ay?=
+ =?utf-8?B?TDEwdzhWSmQ0cjBjekU2Wmx5aFduQlRxNk90WHpqSDlhQnNiQi84bmhKdDEx?=
+ =?utf-8?B?SnBIdWdiaEsvOEVHRTYvR3lweG90bU1aU3FEdnhTVXJOOTBLeGlSeXpZWENK?=
+ =?utf-8?B?QzYyK2xRYU9qZnVqZmRwdWJ5YlNybEUwUlVFT3RQMytTajBBNk9rWG1XSC9l?=
+ =?utf-8?B?WXZBNGp3Qmx3em9SNkpaR29RenRtOVJ2RmFVVkxpblpNL2NuRDdEdXFtN3Nm?=
+ =?utf-8?B?LzRJM1psbW1nY2R1d2hnZHUzRFZrUHg4aVNrOE16UWpvc2d0MUkxMlhOb0hI?=
+ =?utf-8?B?cTFGWkVpWU1uUG0vODJYZFJQeTBhcExwdWt3NUYzQzkrdUkvNWpYSkZHQnhR?=
+ =?utf-8?B?NkVocm9zblJyQjVoQnRNQmpmUlVUMHFxU0RBb0VONGd4dm1LR1JoUWowNmk1?=
+ =?utf-8?B?WExsRHYvUU9qN2JaUzE5dThFZDlFMlNEbDdTVWVqbEtZL2EwNVhMU2F2cmZW?=
+ =?utf-8?B?eFh2MnlKcWppM1lVNHpCZS8vdjBaUnZwNjQ4WWJPd0lCNFNUbWtnMml1TjVj?=
+ =?utf-8?B?NURlQmkwUEg3aEtTakN4QkE3M0RmWVNGbGxxeHE0UDVWblJXTmQ1OGRGUytJ?=
+ =?utf-8?B?OExUL1FCOG5QRS9acGNmK00ycW5YalJDNVlQaUR4d3N4SDJvNGFmUmVnemlQ?=
+ =?utf-8?B?YUNSYnR3NHQzV2ZBdFhUWVFGOEJuUUhuQ3MwUWVkZThpOEppQk9rbmVOb0t1?=
+ =?utf-8?B?Tld4TmxPdXZuOWhOSXZ3V3Jua3NKSGp3cHNDOXZHUEZtUGE4WWRPRlc1Ujln?=
+ =?utf-8?B?OXNhVndsSndSaGhVRUQ5ZE96VzlSZ3RyYTd6eFdtSFBpMVNhQVdMK1Y4bFY0?=
+ =?utf-8?B?dk5GWGthUmRjUjUwNHlMNmVvZHBlU0JQYTcvd3IwTmtnZFhYWUVKenQzNnZ6?=
+ =?utf-8?B?SHhyWGpJWjBTNEExdlJ4Q29MUmV4U1prVnF4ZDRJMXo1TVZOUURySDd6MVhX?=
+ =?utf-8?B?TFU2S014Y05mOFJmUFpEMzJodHJkbmRuTGNCYUl5STVPTktLcTZOcG9DQldU?=
+ =?utf-8?B?OGZYU1F2TzZ0RkEvZVFCc2lzTTNJT1p4dDBaekIxQzRQSUVoS2FXQ2MxNHds?=
+ =?utf-8?B?SWZFUjBSbi9OZ0s4MG04QVR1amxYN0ZML0dEa1JSTGdjY3VQZEM4dTlYZmJq?=
+ =?utf-8?B?OTNEWjR5TElSeElhVzRRN1NKek1USFZVK3cwOWlGelhVbEQybkdCczA0RGJH?=
+ =?utf-8?B?MllzMlFMQlZFT0xpcm9nWE1jcklQeEJ0c0txVitEZTVFUlZ0S0YvQlIyNFYx?=
+ =?utf-8?B?VUhlNUQzRndESzlSK0xmdFdUOTExejNGelQwM2FmNTRQelZ4eUovbXoyMnQr?=
+ =?utf-8?B?ekVBM0lMK0ZxWXVBWTFJelRBamZLY2pYMFRiQXdLRzR2QmJ6ZHhRVGd2L0tP?=
+ =?utf-8?B?SGV4YkhXVE1CQzZER29XYUZxTDFna2lvY2RiajltMk0yM1VtbndNUzAySnBw?=
+ =?utf-8?B?NzVqL1VhZlV5NVJES1FpVktjWWdBTFJkNXFOMld1K2tlMFh3Q2JGeXdKSWhq?=
+ =?utf-8?Q?fCyr7cS7HtXcRhxLsm1QycA4e?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <A9C7392AE08EDB469026E5EC92B67DFB@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|PH8PR12MB6841:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dbefa49-48b2-49a1-9bec-08dae2773792
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	07eV8rXy5VPW5fdleuch4CzaQrct1fZGqFsXVguhQBqF3EP9l6reEMbx8ZW51gjtcKdv6AItaSVgobvf4GlcY7rMKxpJKD4T1KtkMDbcOsJmdp10sFZak5FtO8MfdYgAvXYUs3ljv4p/ToAq9jNvpmm8GAXqOQEIbwI6oA9/D67VfR91tfDYaoNJcLuA/PXIu0cFkh+e4wreuAn8CFf+fmIBnPuFSlqQ35byI3kr9qBO6WJ3IBW/CG3wDrPHy1ck7E2wb+0ecWHrtyZHGHdRMbqjc4p8cwfZ/dNKcarcwp7xRYMTUR/Xcaz/sA6EHV79ISog/wCvP9rcG7qIjYc2XeR4VBskZ6FDiWKRVl2WuBiXSZBVVRIoL2bhRy6Bdb6PdBYhfKBzrzsYrjgThN9LZ2AnyML1F0LToo95JZ/tgfgaoYXR1HrovvrC3IjnrOBbnWJINo8eyueZ5QcGbV9QwiWkFiWoZjL6GqtMbVlNm/tnKVaPbcE59jCrKj4MkW+SPEfzRp7o8OSf5oAfgV8QBu3lO/82It2U4uf509FvXE4W9vFDTXjKaI6Yo2aPmaTScQ+029pfkpQHOCoIDGoXCIC6WD/2xrB5nzdUtUviONDF3YE3/y0FVOl79Itlz2MVIvEct6aXPcqzyRqHLt8UA0FwUzjM+xJfm5zc1agtgBG9K3v8gYkIBS/ohrUSUBRkf+X5616v1IIu6B2etcVQm/eVFZkvzMMUK7ZRULUDNcd695l3ml3Xh0L6ibHkkpbkTznuPKocQbqJ4S87wumubXjEqIdcF18TZDQ6g6KEEZc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(136003)(396003)(346002)(376002)(366004)(451199015)(31686004)(38100700002)(2906002)(41300700001)(36756003)(316002)(26005)(6512007)(186003)(31696002)(5660300002)(83380400001)(4326008)(478600001)(8676002)(66946007)(2616005)(6506007)(66476007)(66556008)(110136005)(6486002)(8936002)(6666004)(966005)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?KzBKd3d6cW0xZVYvUFZoVVpDZHpONnV1YklQM1VoTG00b2RMTUkwVFV3Qk9q?=
- =?utf-8?B?QllDZEpMVGw1UTFraXY1R1VLTjZ5cnU2MFYrR2hzT3h0MERUbU5jU3daVDdn?=
- =?utf-8?B?RVJReDZpTHExWEFrSmNHOVp3NnZPd2V0Q3UySVEwYk9ibXgxN05maCs5K1BM?=
- =?utf-8?B?bFpGOTZwV1pXT1VIN041K2VRN1JFQjJ4WUtmQ1N6YUpIQ0NUeXhTamhxZmpR?=
- =?utf-8?B?UlhEVnhqc2FEYlQwVU1TOTFRS2dsN3AxY3hKdTJqR3hMdytoNzc0LzhkT3Vu?=
- =?utf-8?B?aSttcmZsbCt1ZlZNT2NGLzQ4Z3p5RjczUDFQZ2llWTFubGdRVWRldXhENlFm?=
- =?utf-8?B?TW1HbHFNVHFneEo4NGZwd3BZcFVpRjRhYVA0QmxHT1kwanVNNW1GUjdBWkQ1?=
- =?utf-8?B?akluMVZqMkY5aDQ4dFhQb3RLMkJPR2M1Ym5FWTlGOG9uVWhLUkZFUm5TWjlL?=
- =?utf-8?B?OUVHM0RxQmhqVWVjSXFnUGVBTmNYRVdrUDhsWFZQMmFIRDJsd1owa2hib29E?=
- =?utf-8?B?dVJ5eU51TXowQWNSTGhIZDJjbGloY1dqVjhnNkVYMXRLRjhTRzE4L0Npd3Ra?=
- =?utf-8?B?YmQ3djVsQmFud0RtTlhubWw1WU44ajlYZVorZnRDNWJTbEprQWxudzY2OEtR?=
- =?utf-8?B?RU9Hb1FtNWtUWVhsN3h2ZEFRRGxkTkc2N2lPZ1gwQ0YyTWFCREx1TEpWMlFT?=
- =?utf-8?B?QlFXZVoyamhyVjIrUUFKbGRqdnFGTzg4ZFdtU2VDajBhSVUrQ05VTGxsRGtG?=
- =?utf-8?B?VU5SdDE1cDhFWTdtQWFsSEx1eGpURFEvY1ZvMDd0VHhOd3Z3UVVsNE1XMmdF?=
- =?utf-8?B?WUlUblZCWGFxVUlRd21mdzQ0aG40RG4yWmRSajVsTS9PdER1aGV3YloxV3hT?=
- =?utf-8?B?bzJrZ0pwOFNUWUZ1UzVuWVdEdjBmdkFna1pMcVJ5Z3RUV2pWc0FhT2tweEZk?=
- =?utf-8?B?TjlGL0F2emRLUytjTS9TUW5VdkkvTGNpQktjbm5DS09zTGVBajRibC9oWStJ?=
- =?utf-8?B?ZGFsdlRzWFFFYVdoT0M0RTVjUU42Y3UxY29Ba29wOEJ3M3g1bTA4MlJPY0tT?=
- =?utf-8?B?d3BhL2h5NEFaTllwTW80ckpVYUN6UkhlWklLNlY2SWxQK3VKUVo4TVlpSDJu?=
- =?utf-8?B?aEtYVHNrT0N5Y1MwQ0RMdEZRRW1xZHpDOHRLWlpGSzZWM04ybCsxZDlBUkg2?=
- =?utf-8?B?UTlUVnZSRTVINndVK3pLM1dLeFRpMjNhMHpNRzRQRDVmYzljaGZtazh4OU5M?=
- =?utf-8?B?THljUDhMbjNpOU5wSzVDMjVsT1NJT0FMUjAxVHFJUW5BeFFLT0dqMlVzM1hF?=
- =?utf-8?B?T2xxV3FDaXJnZ0J6TVN5d2gwTDNqMmRjdXZrczF5aW9EUStiQlFNZFB0c2E0?=
- =?utf-8?B?NGc1L0VxUE1ITEJTd0lxQzZ5WXVVa1NjcytTOG9IV3VQTjZzbGlWUDE4a0hR?=
- =?utf-8?B?d2hwdXlFMzdzY2hUdEkvVU9yajEzaWZBV3liTDI2Y2hiZnBTbW1qMlU5Wm5D?=
- =?utf-8?B?N0VjNm00WEVCcElUcjZKeEFreWIwdnYvOHZUeTBlbDdvTWNPQThESnAxWUQx?=
- =?utf-8?B?S1ZKb3hHY3FOUThZUkNKNTlSclRYYXZOMHQxWDloSFYvb0JVNkNmYUlURFhW?=
- =?utf-8?B?WlloV2RkTEpuSjZHaUV0UWVNcW9CZTdPN2g2MXhkRzR2TnB5Qy9yVkZvTGpW?=
- =?utf-8?B?T3VVL1VvdndmTFVTSVBBUjNzV0FGSURxM3ZlNFhSTTVpc29aT2Q3R1BKMUhU?=
- =?utf-8?B?QlpycktsM1pQcytYY2NJcXVRVmVxNHRHL3RyNnFrNVhLSG9JcXd4TDZWRjF0?=
- =?utf-8?B?VmpSTnpjaWM4d3JPWGxlTGk0dE43YS9MSnlKNC9LdUZqemtudmJJQW9KNHNp?=
- =?utf-8?B?ckpXT1lJSXlZV0NHaThCRjM0bGpnT2lkTVUyN25QUVp2b0ZGUHR0NnpJMyti?=
- =?utf-8?B?ZlFNWHExWm5vd1FOYnlsYVJVRHZTb1lTYTBnYnE0YnRTSFJOSktMT3dtenlk?=
- =?utf-8?B?SllpYVBTUzREVlZrVGNtYVVTbUgxR1UxaDlTbVFoUGlaTVFFUC9laHF5RERy?=
- =?utf-8?B?ejhLUnJ6cVFPUlArYmJnVnBOWVhMc2JXbURBdXhDakpMMkdaeC9ZeEdnaFc5?=
- =?utf-8?Q?OVsSFm6rUyhRnd7W26FIB9cSY?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dbefa49-48b2-49a1-9bec-08dae2773792
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-OriginatorOrg: citrix.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Dec 2022 10:44:48.9874
+X-MS-Exchange-CrossTenant-AuthSource: BN7PR03MB3618.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b7adbbe-40c3-4833-3774-08dae27aa903
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Dec 2022 11:09:27.5481
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QK97uFO0UgwDmNjSl4pj/4A1pNzGkPojFT12EVUtrheKg8i7/nJi3J3mnJ7jGoZ8l6D0zXZvbVaFj/38Ldnquw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6841
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: q7Yi0/kJT0FB58A06p98i47T6hQfB6xVPX5GErLqacKZneot4g1tTZmMh/5haHcecfgWy2UZe8t3OZ1Hhtb2PxuMZZklxSaqQFi/BMExTPw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6951
 
-Hi Julien/Michal,
-
-On 20/12/2022 10:05, Julien Grall wrote:
-> On 20/12/2022 09:44, Michal Orzel wrote:
->> Hi Ayan,
->>
->> On 17/12/2022 20:38, Ayan Kumar Halder wrote:
->>> Currently, kernel_uimage_probe() does not set info->zimage.start. As a
->>> result, it contains the default value (ie 0). This causes,
->>> kernel_zimage_place() to treat the binary (contained within uImage) as
->>> position independent executable. Thus, it loads it at an incorrect 
->>> address.
->>>
->>> The correct approach would be to read "uimage.ep" and set
->>> info->zimage.start. This will ensure that the binary is loaded at the
->>> correct address. Also, it checks that the load address and entry 
->>> address
->>> are the same. The reason being we currently support non compressed 
->>> images
->>> for uImage header. And as seen in uboot sources(image_decomp(), case
->>> IH_COMP_NONE), load address and entry address can be the same.
->>>
->>> This behavior is applicable for both arm and arm64 platforms.
->>>
->>> Earlier for arm32 and arm64 platforms, Xen was ignoring the entry point
->>> address set in the uImage header. With this commit, Xen will use the
->>> kernel entry point address as specified in the header. This makes the
->>> behavior of Xen consistent with uboot for uimage headers.
->>>
->>> Users who want to use Xen with statically partitioned domains, can
->>> provide the fixed non zero load address for the dom0/domU kernel.
->>>
->>> A deviation from uboot behaviour is that we consider load address == 
->>> 0x0,
->>> to denote that the image supports position independent execution. This
->>> is to make the behavior consistent across uImage and zImage.
->>>
->>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>> ---
->>>
->>> Changes from v1 :-
->>> 1. Added a check to ensure load address and entry address are the same.
->>> 2. Considered load address == 0x0 as position independent execution.
->>> 3. Ensured that the uImage header interpretation is consistent across
->>> arm32 and arm64.
->>>
->>> v2 :-
->>> 1. Mentioned the change in existing behavior in booting.txt.
->>> 2. Updated booting.txt with a new section to document "Booting Guests".
->>>
->>>   docs/misc/arm/booting.txt         | 21 +++++++++++++++++++++
->>>   xen/arch/arm/include/asm/kernel.h |  2 +-
->>>   xen/arch/arm/kernel.c             | 27 ++++++++++++++++++++++++++-
->>>   3 files changed, 48 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
->>> index 3e0c03e065..01b12b49a5 100644
->>> --- a/docs/misc/arm/booting.txt
->>> +++ b/docs/misc/arm/booting.txt
->>> @@ -23,6 +23,24 @@ The exceptions to this on 32-bit ARM are as follows:
->>>     There are no exception on 64-bit ARM.
->>>   +Booting Guests
->>> +--------------
->>> +
->>> +Xen supports the legacy image protocol[3], zImage protocol for 
->>> 32-bit ARM
->> uImage is not a protocol. It is just a header with no other 
->> information \wrt
->> boot requirements.
->>
->>> +Linux[1] and Image protocol defined for ARM64[2].
->>> +
->>> +Earlier for legacy image protocol, Xen ignored the load address and 
->>> entry
->>> +point specified in the header. This has now changed.
->>> +
->>> +Now, it loads the image at the load address provided in the header.
->>> +For now, it supports images where load address is same as entry point.
->> Would be beneficial to add explanation why load address must be equal 
->> to start address.
-Answered below.
->>
->>> +
->>> +A deviation from uboot is that, Xen treats "load address == 0x0" as
->>> +position independent execution. Thus, Xen will load such an image 
->>> at an
->>> +address it considers appropriate.
->>> +
->>> +Users who want to use Xen with statically partitioned domains, can 
->>> provide
->>> +the fixed non zero load address for the dom0/domU kernel.
->>
->> I think this section is missing a note that in case of not PIE, a 
->> load/start address
->> specified by the user in a header must be within the memory region 
->> allocated by Xen.
->>
->>>     Firmware/bootloader requirements
->>>   --------------------------------
->>> @@ -39,3 +57,6 @@ Latest version: 
->>> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/t
->>>     [2] linux/Documentation/arm64/booting.rst
->>>   Latest version: 
->>> http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arm64/booting.rst
->>> +
->>> +[3] legacy format header
->>> +Latest version: 
->>> https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
->>> diff --git a/xen/arch/arm/include/asm/kernel.h 
->>> b/xen/arch/arm/include/asm/kernel.h
->>> index 5bb30c3f2f..4617cdc83b 100644
->>> --- a/xen/arch/arm/include/asm/kernel.h
->>> +++ b/xen/arch/arm/include/asm/kernel.h
->>> @@ -72,7 +72,7 @@ struct kernel_info {
->>>   #ifdef CONFIG_ARM_64
->>>               paddr_t text_offset; /* 64-bit Image only */
->>>   #endif
->>> -            paddr_t start; /* 32-bit zImage only */
->>> +            paddr_t start; /* Must be 0 for 64-bit Image */
->>>           } zimage;
->>>       };
->>>   };
->>> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
->>> index 23b840ea9e..e9c18993ef 100644
->>> --- a/xen/arch/arm/kernel.c
->>> +++ b/xen/arch/arm/kernel.c
->>> @@ -127,7 +127,7 @@ static paddr_t __init kernel_zimage_place(struct 
->>> kernel_info *info)
->>>       paddr_t load_addr;
->>>     #ifdef CONFIG_ARM_64
->>> -    if ( info->type == DOMAIN_64BIT )
->>> +    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
->>>           return info->mem.bank[0].start + info->zimage.text_offset;
->>>   #endif
->>>   @@ -223,6 +223,31 @@ static int __init kernel_uimage_probe(struct 
->>> kernel_info *info,
->>>       if ( len > size - sizeof(uimage) )
->>>           return -EINVAL;
->>>   +    info->zimage.start = be32_to_cpu(uimage.ep);
->>> +
->>> +    /*
->>> +     * Currently, we support uImage headers for uncompressed images 
->>> only.
->>> +     * Thus, it is valid for the load address and start address to 
->>> be the
->>> +     * same. This is consistent with the uboot behavior (Refer
->>> +     * "case IH_COMP_NONE" in image_decomp().
->> Please make it clear that you are referring to uboot function.
->
-> Could we avoid to mention the u-boot function? The reason I am asking 
-> is the code is in a different repo and the function name can easily 
-> change without us noticing (so the comment would rot).
->
-> Is the behavior documented somewhere in U-boot (or online)? If not, 
-> what's the guarantee that it will not change?
-
-I could not find any documentation which states this. I found this from 
-the following in uboot source code.
-
-https://source.denx.de/u-boot/u-boot/-/blob/master/boot/image.c#L458
-
-AFAIU when kernel_uimage_probe() get invoked, the image has already been 
-decompressed. So, I added this as a limitation.
-
-I will remove the limitation if it does not look correct.
-
-- Ayan
-
->
-> Cheers,
->
+T24gMTkvMTIvMjAyMiA2OjM0IGFtLCBYZW5pYSBSYWdpYWRha291IHdyb3RlOg0KPiBUaGUgdmFy
+aWFibGUgdW50cnVzdGVkX21zaSBpbmRpY2F0ZXMgd2hldGhlciB0aGUgc3lzdGVtIGlzIHZ1bG5l
+cmFibGUgdG8NCj4gQ1ZFLTIwMTEtMTg5OC4gVGhpcyB2dWxuZXJhYmxpdHkgaXMgVlQtZCBzcGVj
+aWZpYy4NCj4gUGxhY2UgdGhlIGNvZGUgdGhhdCBhZGRyZXNzZXMgdGhlIGlzc3VlIHVuZGVyIENP
+TkZJR19JTlRFTF9WVEQuDQo+DQo+IE5vIGZ1bmN0aW9uYWwgY2hhbmdlIGludGVuZGVkLg0KPg0K
+PiBTaWduZWQtb2ZmLWJ5OiBYZW5pYSBSYWdpYWRha291IDxidXJ6YWxvZG93YUBnbWFpbC5jb20+
+DQoNCkFjdHVhbGx5LCB0aGlzIHZhcmlhYmxlIGlzIHByZXR0eSBib2d1cy7CoCBJIHRoaW5rIEkn
+ZCBsaWtlIHRvIGRlbGV0ZSBpdA0KZW50aXJlbHkuDQoNClRoZXJlIGFyZSBzeXN0ZW1zIHdpdGgg
+bm8gSU9NTVUgYXQgYWxsLCBhbmQgd2UgY2VydGFpbmx5IHVzZWQgdG8gbGV0IFBWDQpQYXNzdGhy
+b3VnaCBnbyBhaGVhZC7CoCAoTm90IHN1cmUgd2UgZG8gYW55IG1vcmUuKQ0KDQpUaGVyZSBhcmUg
+c3lzdGVtcyB3aXRoIERNQSByZW1hcHBpbmcgb25seSwgYnV0IG5vIGludGVycnVwdCByZW1hcHBp
+bmcuwqANClRoZXNlIGFyZSBrbm93biBpbnNlY3VyZS7CoCBJJ20gaG9uZXN0bHkgbm90IGNvbnZp
+bmNlZCB0aGF0IGFuIElTUiByZWFkDQphbmQgY3Jhc2ggaXMgdXNlZnVsIHdoZW4gdGhlIHVzZXIg
+aGFzIGFscmVhZHkgY29uc3RydWN0ZWQgYW4NCmtub3duLXVuc2FmZSBjb25maWd1cmF0aW9uLCBi
+ZWNhdXNlIGEgbWFsaWNpb3VzIGd1ZXN0IGluIHRoYXQgY2FzZSBjYW4NCnN0aWxsIGZ1bGx5IG1l
+c3Mgd2l0aCBkb20wIGJ5IHNlbmRpbmcgdmVjdG9ycyBvdGhlciB0aGFuIDB4ODAgYW5kIDB4ODIu
+DQoNCkluIHBhcnRpY3VsYXIsIHRoaXMgb3B0aW9uIGRvZXMgbm90IGdldCBhY3RpdmF0ZWQgb24g
+QU1EIHdoZW4gdGhlIHVzZXINCmVsZWN0cyB0byBkaXNhYmxlIGludGVycnVwdCByZW1hcHBpbmcs
+IGFuZCBJJ20gZGlzaW5jbGluZWQgdG8gd2lyZSBpdCB1cA0KaW4gdGhhdCBjYXNlIHRvby4NCg0K
+fkFuZHJldw0KDQpQLlMuIEl0IG9jY3VycyB0byBtZSB0aGF0IEZSRUQgb2Jzb2xldGVzIHRoZSBu
+ZWVkIGZvciB0aGlzIGFueXdheSwNCnNlZWluZyBhcyBpdCBkb2VzIHByb3Blcmx5IGRpc3Rpbmd1
+aXNoIHRoZSBzb3VyY2Ugb2YgYW4gZXZlbnQuDQo=
 
