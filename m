@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7D906527DB
-	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 21:28:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.467352.726409 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A4B0652800
+	for <lists+xen-devel@lfdr.de>; Tue, 20 Dec 2022 21:40:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.467360.726420 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7jDS-00012k-Nw; Tue, 20 Dec 2022 20:27:58 +0000
+	id 1p7jOx-0002cW-Ps; Tue, 20 Dec 2022 20:39:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 467352.726409; Tue, 20 Dec 2022 20:27:58 +0000
+Received: by outflank-mailman (output) from mailman id 467360.726420; Tue, 20 Dec 2022 20:39:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7jDS-00010h-Kl; Tue, 20 Dec 2022 20:27:58 +0000
-Received: by outflank-mailman (input) for mailman id 467352;
- Tue, 20 Dec 2022 20:27:57 +0000
+	id 1p7jOx-0002ZJ-NC; Tue, 20 Dec 2022 20:39:51 +0000
+Received: by outflank-mailman (input) for mailman id 467360;
+ Tue, 20 Dec 2022 20:39:50 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=LdMQ=4S=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1p7jDR-0000yx-3L
- for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 20:27:57 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
+ id 1p7jOw-0002ZD-9O
+ for xen-devel@lists.xenproject.org; Tue, 20 Dec 2022 20:39:50 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c97e0094-80a4-11ed-91b6-6bf2151ebd3b;
- Tue, 20 Dec 2022 21:27:56 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id u19so31985406ejm.8
- for <xen-devel@lists.xenproject.org>; Tue, 20 Dec 2022 12:27:56 -0800 (PST)
-Received: from [192.168.1.93] (adsl-211.109.242.226.tellas.gr.
- [109.242.226.211]) by smtp.gmail.com with ESMTPSA id
- g17-20020a17090604d100b007c0f5d6f754sm6117593eja.79.2022.12.20.12.27.53
+ id 7238a313-80a6-11ed-91b6-6bf2151ebd3b;
+ Tue, 20 Dec 2022 21:39:48 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id a16so19221126edb.9
+ for <xen-devel@lists.xenproject.org>; Tue, 20 Dec 2022 12:39:48 -0800 (PST)
+Received: from [192.168.1.93] (adsl-139.109.242.138.tellas.gr.
+ [109.242.138.139]) by smtp.gmail.com with ESMTPSA id
+ z1-20020a1709063a0100b00780982d77d1sm6113916eje.154.2022.12.20.12.39.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 20 Dec 2022 12:27:55 -0800 (PST)
+ Tue, 20 Dec 2022 12:39:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,120 +44,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c97e0094-80a4-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 7238a313-80a6-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=BRGzXTbyDFiqOpSxpiONb8b1lMKJfDQswXioRfIVaes=;
-        b=IZFQtl3SI50pNij8f7CAIHOeeD0stSgPkdUfjSxa2Kxmcv4L7QkSTHSAbkMKwUXPc4
-         X8t28jEI/tHsrdjhKv6IcuW4RTx4p8gb49/NpflFzhh/XJtn5jMa6WFHrnmu/MubaIqM
-         LDIhxHkCNm3LYGFMFqm7pqK4E3+azGhOIj/z6jvz6oNlnz8seA4zu8YzrUU5Nr/kVnVu
-         2E6nObA0YXh90K/hxu/f1io8PWxvELHHx8QFWwjF3ij/bnrlEtE/DL+N0WfTD2QcskkL
-         v4u3u5Lf6yRyl8PQyeZawtbv2J7wq7UoId5EC0Kv7UTNt7/f5AY+1DWeejXA4vsDA6wX
-         UsTg==
+        bh=KjJ7uMP7eIamctIsWG+Yk0O37QW7sAhIw8pT8Xgx72c=;
+        b=NgITedsQHRu3/K2wqodtFxIVZvgjpFEwc1+Q1IIaZof5Z9Ty4h384lom1cmtGYjA2t
+         /h2AzmChidYtS8v6MS/QHdQ10rxkFA9/uRw2CYsdR7HVD3HHm5C4/1TwdkJjefqQ66Cz
+         V/BLU6SNLdcLODP1YQpHJDsyZiGxec3MpwaDFrFPAUYF9YjW2RqSfReQLJ/MS2o/M+IA
+         qRHBGCDmzfaCTUmb68CHgyRYH3DesB3A+5uGleo09ezYbfNDTetVUko3PWghHbHfQrp3
+         u8+mVju/BxgEzTIsVG4SHgEpA8vBK10B0eBn7Vc3Ux0zKGLpMoI3DlzowIWv8Drdulxf
+         fK4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=BRGzXTbyDFiqOpSxpiONb8b1lMKJfDQswXioRfIVaes=;
-        b=6vh7cPbD+gCp9KGAsuJVljiaQxQZMZLgpYhxdUFtqkk1Vuh5GzkBfCRi5JXuC+/hSA
-         3Ln2PkoXyoqTiyWgx3rY4Gpmkq0Tc5jV95XJPEQyYNELhY+KcrqtW3/4ytqq5nlyWczh
-         21Jhs5I0J/1tt2zkaLAqqIm+9ucuc2vpdoi1sI4vC79CpNhwgiY43xPgo2CvuPYnJCSV
-         zdW8KmFcLiTrBEqnOIQvIN9r5VFfJZdWKq8bnyw/HuMgQD5fGzhRldPT5MXAaSoEcaPQ
-         Nk7pQI2XFk5TMIqoYMauLiOR9jRD+cEnJ7Ve1RhuamFihkLVeXrM8XvTtr6/fv3ZEYSd
-         ce3g==
-X-Gm-Message-State: AFqh2kp5BUAiNt1tJ/tauPNN6Yewn/OdMiVi47mGSpx/+ahgLDcUlxsq
-	NdS01j/ncOMnvvXZh1OeQUJxQO7vssA=
-X-Google-Smtp-Source: AMrXdXtE3avQc6Ybm+6IKG8+Vmw5XpLRU01qI8goj0/ejQRUFCkAK4O7OTzWUSIP4Q+WE5azy56dbQ==
-X-Received: by 2002:a17:906:3bc2:b0:7fd:ecee:c8ba with SMTP id v2-20020a1709063bc200b007fdeceec8bamr14975009ejf.42.1671568075485;
-        Tue, 20 Dec 2022 12:27:55 -0800 (PST)
-Message-ID: <15c3c5bd-6229-d070-ebe0-ce4c6d827f1b@gmail.com>
-Date: Tue, 20 Dec 2022 22:27:53 +0200
+        bh=KjJ7uMP7eIamctIsWG+Yk0O37QW7sAhIw8pT8Xgx72c=;
+        b=KIC1CzzC5uC12EfrCMtR8EmFHeKOFA8ymQP9pGYEdO8Q7oNthZJ7kxHYeD9R/bVJGO
+         ogeCOoypMeJolB8luBIRrG0QJ6J3G3sr0eJzWjCdf1+LhvOlHBzcS9lS33bJM2HnNdy2
+         gHRbmtkgyRPla9+4wGDZzplJ9HYw8RXSbvyPSBbGWrZkPNCwqDnskDA8DFtPapbdV4Ke
+         slirCZUO1AloNJLs23Dc3qc01zrPL9wWzQ4h8aPE0yJeAPcrzlnwK/d/HSpVhCGmGwzZ
+         J2BWYa+z9TngaCGsAV+EkgNrNnNmtuhczzUDml/oVj1AsGwCHag/hyqGDOtVb8vER1xa
+         nanQ==
+X-Gm-Message-State: ANoB5pl7aijLkBY2gqMrJuz36pmBeC1Rx8j9fKSpKAkGPPOG0es+4YOb
+	+OckfBcSbx7z0+Fv8HahTpo=
+X-Google-Smtp-Source: AA0mqf6l8NKDA0gl4xS0dLy7CGpsSI3swH7DybYPhD/pgEKURSSWLKc93VD5royDWEKOnsztQWzIXA==
+X-Received: by 2002:a50:eb01:0:b0:46f:9507:36bc with SMTP id y1-20020a50eb01000000b0046f950736bcmr51284199edp.16.1671568788333;
+        Tue, 20 Dec 2022 12:39:48 -0800 (PST)
+Message-ID: <936f9395-c551-9277-0b9b-975ffb566ecd@gmail.com>
+Date: Tue, 20 Dec 2022 22:39:45 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
 Subject: Re: [RFC 0/7] Proposal to make x86 IOMMU driver support configurable
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: Paul Durrant <paul@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, George Dunlap <George.Dunlap@citrix.com>,
+ Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+ Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- George Dunlap <George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>
 References: <20221219063456.2017996-1-burzalodowa@gmail.com>
  <4b45cde3-52e1-15ae-7b6a-84c0d5141cc9@citrix.com>
+ <6966791d-23d5-2613-da53-044b1621e3b5@suse.com>
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <4b45cde3-52e1-15ae-7b6a-84c0d5141cc9@citrix.com>
+In-Reply-To: <6966791d-23d5-2613-da53-044b1621e3b5@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
 
-On 12/19/22 20:28, Andrew Cooper wrote:
-> On 19/12/2022 6:34 am, Xenia Ragiadakou wrote:
->> This series aims to provide a means to render the iommu driver support for x86
->> configurable. Currently, irrespectively of the target platform, both AMD and
->> Intel iommu drivers are built. This is the case because the existent Kconfig
->> infrastructure does not provide any facilities for finer-grained configuration.
+On 12/20/22 12:09, Jan Beulich wrote:
+> On 19.12.2022 19:28, Andrew Cooper wrote:
+>> IOMMUs are more tricky still.  They are (for most intents and purposes)
+>> mandatory on systems with >254 CPUs.  We could in principle start
+>> supporting asymmetric IRQ routing on large systems, but Xen doesn't
+>> currently and it would be a lot work that's definitely not high on the
+>> priority list.  At a minimum, this will need expressing in the Kconfig
+>> help text.
 >>
->> The series adds two new Kconfig options, AMD_IOMMU and INTEL_VTD, that can be
->> used to generate a tailored iommu configuration for a given platform.
->>
->> This series will be part of a broader effort to separate platform specific
->> code and it is sent as an RFC to gather feedback regarding the way the
->> separation should be performed.
+>> We need to decide whether it is sensible to allow users to turn off
+>> IOMMU support.  It probably is, because you could trivially do this by
+>> selecting CONFIG_INTEL only, and booting the result on an AMD system.
 > 
-> Hello,
-> 
-> Thanks for the series.
-> 
->  From discussions in the past, we do want CONFIG_INTEL/AMD/etc and we do
-> want these to be selectable and available for randconfig to test.
-> 
-> Some sub-features are more complicated, because e.g. Centaur have CPUs
-> with a VT-x implementation.  This will need expressing in whatever
-> Kconfig scheme we end up with.
+> One other thing Andrew and I have been talking about: We probably do
+> not want to tie the IOMMU vendor control to CPU vendor one. IOW we'd
+> like to be able to e.g. build a hypervisor supporting Intel (only) as
+> the CPU vendor, but at the same time having support for an AMD IOMMU.
 > 
 
-What about having configuration per cpu vendor, per virtualization 
-technology and per IOMMU technology? I mean sth like [CPU_AMD, 
-CPU_HYGON, CPU_INTEL, CPU_SHANGHAI, CPU_CENTAUR], [AMD_SVM, INTEL_VMX] 
-and [AMD_IOMMU, INTEL_IOMMU], respectively?
+I totally understand. I am not aiming to tie the AMD/INTEL IOMMU support 
+to any particular CPU vendor.
 
-> IOMMUs are more tricky still.  They are (for most intents and purposes)
-> mandatory on systems with >254 CPUs.  We could in principle start
-> supporting asymmetric IRQ routing on large systems, but Xen doesn't
-> currently and it would be a lot work that's definitely not high on the
-> priority list.  At a minimum, this will need expressing in the Kconfig
-> help text.
->
-
-Ok.
-
-> We need to decide whether it is sensible to allow users to turn off
-> IOMMU support.  It probably is, because you could trivially do this by
-> selecting CONFIG_INTEL only, and booting the result on an AMD system.
+>> For the names, I don't think AMD_IOMMU vs INTEL_VTD is a sensible.
+>> Probably wants to be INTEL_IOMMU to match.
+> 
+> Or simply VTD, covering the case than some other vendor comes up with a
+> clone. But of course we have that same issue with "AMD" and Hygon ...
 > 
 
-I cannot understand. I guess that if the code for the target system is 
-disabled, Xen won't boot ... hopefully :).
+I prefer INTEL_IOMMU over VTD, I think.
 
-If users are not allowed to turn off the IOMMU support, it can be always 
-enabled unconditionally via Kconfig select based on the virtualization 
-technology or other.
-
-> 
-> For the names, I don't think AMD_IOMMU vs INTEL_VTD is a sensible.
-> Probably wants to be INTEL_IOMMU to match.
-> 
-
-Ok.
-
-> ~Andrew
+> Jan
 
 -- 
 Xenia
