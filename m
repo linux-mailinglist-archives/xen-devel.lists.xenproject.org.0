@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19E15652F77
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 11:29:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.467778.726826 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4089A652FCB
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 11:47:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.467787.726838 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7wLH-0006Yb-25; Wed, 21 Dec 2022 10:28:55 +0000
+	id 1p7wcq-0000U9-Iv; Wed, 21 Dec 2022 10:47:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 467778.726826; Wed, 21 Dec 2022 10:28:55 +0000
+Received: by outflank-mailman (output) from mailman id 467787.726838; Wed, 21 Dec 2022 10:47:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7wLG-0006WS-Vh; Wed, 21 Dec 2022 10:28:54 +0000
-Received: by outflank-mailman (input) for mailman id 467778;
- Wed, 21 Dec 2022 10:28:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eskD=4T=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1p7wLF-0006WM-VM
- for xen-devel@lists.xenproject.org; Wed, 21 Dec 2022 10:28:54 +0000
-Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
- [2a00:1450:4864:20::632])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 441494fc-811a-11ed-91b6-6bf2151ebd3b;
- Wed, 21 Dec 2022 11:28:53 +0100 (CET)
-Received: by mail-ej1-x632.google.com with SMTP id x22so35677677ejs.11
- for <xen-devel@lists.xenproject.org>; Wed, 21 Dec 2022 02:28:53 -0800 (PST)
-Received: from [192.168.1.93] (adsl-43.109.242.137.tellas.gr. [109.242.137.43])
- by smtp.gmail.com with ESMTPSA id
- j2-20020a170906410200b007ae693cd265sm6882890ejk.150.2022.12.21.02.28.51
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Dec 2022 02:28:52 -0800 (PST)
+	id 1p7wcq-0000SO-Fg; Wed, 21 Dec 2022 10:47:04 +0000
+Received: by outflank-mailman (input) for mailman id 467787;
+ Wed, 21 Dec 2022 10:47:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7wcp-0000SE-Du; Wed, 21 Dec 2022 10:47:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7wcp-0007g4-CN; Wed, 21 Dec 2022 10:47:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7wcp-0006Ji-1h; Wed, 21 Dec 2022 10:47:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p7wcp-0006pA-1F; Wed, 21 Dec 2022 10:47:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,95 +42,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 441494fc-811a-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=warbBCcxKJrML3Lz4B4jYoBcKHZoebVfHUWZ7OpLkeU=;
-        b=IlOjqJhwBhLJ/zYyu+aMeF/Clfj6LGmu4Tqw2CGesgHHVYJSm125ofOKzI3EHMhd9O
-         MPcKGVojhH7KkbN9OEw8QzKOknPr/Vi2Slou1/zyAX/oPaDQhiQen4Gp97KwAlCXbZrt
-         FlxfA8EaD3Y85JR8b8syWnzOgsnjP6LLi0s3FEIOlkkFxo8srJHTnd6s1laeyOhDMvT8
-         JnDEJEJUl5wXh5JZd4JbMG+SoYYJeyqGB3cqWfmx2HWpBIU9Hx4eypUK67AxColoRut6
-         3VpNLxvcOIowICt5uRjOTqdOXvfX9B2TLnjdiAG/tU+Dfc5ehu0+jEnDcz/aO8jSzoQS
-         K41A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=warbBCcxKJrML3Lz4B4jYoBcKHZoebVfHUWZ7OpLkeU=;
-        b=49sn7kC2PTLJcfo26NEuqTCo1EvqmyqIseFHQ3PWnBbswOxrhWWhuuKPa2yd7iQDf7
-         MCGEAPjeFpzR2ERZ1POS9j5WOLqWYJipY4/vmDjwOpchjGNnjWmNBTC+3I06IzMy2+/S
-         V3SkyQkqXlTnSrbxz9Xb/B1RjXeL4Uo0hvKTzXd149lFin05Vs/mCeB3s+Bw4nzq3AF1
-         pFfg1uLe4eHWbN4WRBvnlNPa3QhXigjoa68iXKh8k/EQKYOGr0rkRN9oFB/SPsNd14Yg
-         gYmbWh9wwEyw0+1JV9/Dx3ui2XQO2TKNF2mVsCAnmeh08VyitryYela29jcmS3pVPuo+
-         XP/A==
-X-Gm-Message-State: AFqh2koPMQMTmjci/IkbsiRVgg6AfvuTFGsMe4/PM29nyUnHarKs35P2
-	CZ6TxlHAtmY5ujMYUBf7YqY=
-X-Google-Smtp-Source: AMrXdXvWAEduLALsgj3EftYVoK4bMaqtfbNlOiBBVjTfzvOrCP8KMbPIq2/m4dHi8KAfNJRrlRKyZA==
-X-Received: by 2002:a17:906:4894:b0:7c0:beee:2f06 with SMTP id v20-20020a170906489400b007c0beee2f06mr934165ejq.52.1671618532581;
-        Wed, 21 Dec 2022 02:28:52 -0800 (PST)
-Message-ID: <192b2825-4133-96d1-e091-4b99cab0eeba@gmail.com>
-Date: Wed, 21 Dec 2022 12:28:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ya0Z8wAnkdXNLSXfS2b4snVEfA3Ll5/cTX55r9FUMcw=; b=SgUpeauIOxlKx5JvBaZDZaDjpT
+	hFnj2HVdjjoTQwtq64vweUb9Xy52jftY6TV8QJhehx4BkLmCOd3rQLc4pbpLQtdWlpp2YUWbOOQYi
+	6ufaYP9aX0Tk+3IdDZFwWmrma1UQMABR+8yg5MxKDJewjqUbBn8gPveaz3GkImdbUUl0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175438-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [RFC 1/7] x86/iommu: make AMD-Vi and Intel VT-d support
- configurable
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org,
- Andrew Cooper <andrew.cooper3@citrix.com>
-References: <20221219063456.2017996-1-burzalodowa@gmail.com>
- <20221219063456.2017996-2-burzalodowa@gmail.com>
- <79748e9b-c2c4-a8bf-f7b5-3405debb3c00@suse.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <79748e9b-c2c4-a8bf-f7b5-3405debb3c00@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 175438: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:debian-hvm-install:fail:regression
+X-Osstest-Versions-This:
+    ovmf=451521ccbcaa45de27fbcd2565cb363fd05e3661
+X-Osstest-Versions-That:
+    ovmf=d103840cfb559c28831c2635b916d60118f671cc
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 21 Dec 2022 10:47:03 +0000
+
+flight 175438 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175438/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-i386-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+ test-amd64-amd64-xl-qemuu-ovmf-amd64 12 debian-hvm-install fail REGR. vs. 175202
+
+version targeted for testing:
+ ovmf                 451521ccbcaa45de27fbcd2565cb363fd05e3661
+baseline version:
+ ovmf                 d103840cfb559c28831c2635b916d60118f671cc
+
+Last test of basis   175202  2022-12-14 13:42:59 Z    6 days
+Failing since        175214  2022-12-14 18:42:16 Z    6 days   40 attempts
+Testing same since   175438  2022-12-21 08:14:00 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@amd.com>
+  Adam Dunlap <acdunlap@google.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Chun-Yi Lee <jlee@suse.com>
+  Chun-Yi Lee <joeyli.kernel@gmail.com>
+  devel@edk2.groups.io <devel@edk2.groups.io>
+  Dov Murik <dovmurik@linux.ibm.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  jdzhang <jdzhang@kunluntech.com.cn>
+  Jeff Brasen <jbrasen@nvidia.com>
+  Jeshua Smith <jeshuas@nvidia.com>
+  Jian J Wang <jian.j.wang@intel.com>
+  Jiaqi Gao <jiaqi.gao@intel.com>
+  Jiewen Yao <Jiewen.yao@intel.com>
+  Judah Vang <judah.vang@intel.com>
+  Kavya <k.kavyax.sravanthi@intel.com>
+  Kuo, Ted <ted.kuo@intel.com>
+  MarsX Lin <marsx.lin@intel.com>
+  Matt DeVillier <matt.devillier@gmail.com>
+  Michael D Kinney <michael.d.kinney@intel.com>
+  Michael Kubacki <michael.kubacki@microsoft.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Nishant C Mistry <nishant.c.mistry@intel.com>
+  Ray Ni <ray.ni@intel.com>
+  Rebecca Cran <quic_rcran@quicinc.com>
+  Rebecca Cran <rebecca@quicinc.com>
+  Sean Rhodes <sean@starlabs.systems>
+  Sebastien Boeuf <sebastien.boeuf@intel.com>
+  Ted Kuo <ted.kuo@intel.com>
+  Tom Lendacky <thomas.lendacky@amd.com>
+  Xie, Yuanhao <yuanhao.xie@intel.com>
+  Yuanhao Xie <yuanhao.xie@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          fail    
 
 
-On 12/21/22 09:51, Jan Beulich wrote:
-> On 19.12.2022 07:34, Xenia Ragiadakou wrote:
->> --- a/xen/drivers/passthrough/Kconfig
->> +++ b/xen/drivers/passthrough/Kconfig
->> @@ -37,6 +37,22 @@ config IPMMU_VMSA
->>   
->>   endif
->>   
->> +config AMD_IOMMU
->> +	bool "AMD IOMMU"
->> +	depends on X86
->> +	default y
->> +	---help---
->> +	  Enables I/O virtualization on platforms that implement the
->> +	  AMD I/O Virtualization Technology (IOMMU).
->> +
->> +config INTEL_VTD
->> +	bool "Intel VT-d"
->> +	depends on X86
->> +	default y
->> +	---help---
->> +	  Enables I/O virtualization on platforms that implement the
->> +	  Intel Virtualization Technology for Directed I/O (Intel VT-d).
-> 
-> One more thing Andrew and I have been talking about: As he has mentioned
-> elsewhere, IOMMU support is needed to boot systems with more than 254
-> CPUs (depending on APIC ID layout the boundary may actually be lower).
-> Hence it needs to at least be considered to make the prompts here (to
-> be precise: in the much later patch adding the prompts) dependent on
-> EXPERT, to prevent people from unknowingly building a non-functioning
-> (on some systems) hypervisor.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I will mention it in help as Andrew suggested and I will make it visible 
-only if EXPERT.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-> 
-> Jan
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
--- 
-Xenia
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 1162 lines long.)
 
