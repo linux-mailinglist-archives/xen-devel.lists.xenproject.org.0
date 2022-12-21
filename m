@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2534465300D
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 12:10:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.467798.726848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B102653010
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 12:13:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.467809.726859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7wyz-0002z4-D2; Wed, 21 Dec 2022 11:09:57 +0000
+	id 1p7x27-0004QZ-Up; Wed, 21 Dec 2022 11:13:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 467798.726848; Wed, 21 Dec 2022 11:09:57 +0000
+Received: by outflank-mailman (output) from mailman id 467809.726859; Wed, 21 Dec 2022 11:13:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7wyz-0002wV-9t; Wed, 21 Dec 2022 11:09:57 +0000
-Received: by outflank-mailman (input) for mailman id 467798;
- Wed, 21 Dec 2022 11:09:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p7x27-0004OI-Rl; Wed, 21 Dec 2022 11:13:11 +0000
+Received: by outflank-mailman (input) for mailman id 467809;
+ Wed, 21 Dec 2022 11:13:10 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=eskD=4T=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1p7wyx-0002wP-PW
- for xen-devel@lists.xenproject.org; Wed, 21 Dec 2022 11:09:55 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff5f6f51-811f-11ed-8fd4-01056ac49cbb;
- Wed, 21 Dec 2022 12:09:54 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id jo4so27069606ejb.7
- for <xen-devel@lists.xenproject.org>; Wed, 21 Dec 2022 03:09:54 -0800 (PST)
+ id 1p7x26-0004OA-5Y
+ for xen-devel@lists.xenproject.org; Wed, 21 Dec 2022 11:13:10 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 733069a6-8120-11ed-91b6-6bf2151ebd3b;
+ Wed, 21 Dec 2022 12:13:09 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id d20so21591155edn.0
+ for <xen-devel@lists.xenproject.org>; Wed, 21 Dec 2022 03:13:09 -0800 (PST)
 Received: from [192.168.1.93] (adsl-43.109.242.137.tellas.gr. [109.242.137.43])
  by smtp.gmail.com with ESMTPSA id
- kw4-20020a170907770400b007adaca75bd0sm7101932ejc.179.2022.12.21.03.09.52
+ s2-20020a05640217c200b004615e1bbaf4sm6906225edy.87.2022.12.21.03.13.07
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Dec 2022 03:09:53 -0800 (PST)
+ Wed, 21 Dec 2022 03:13:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,88 +44,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff5f6f51-811f-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: 733069a6-8120-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=lz7V62ob0W7ULFZR9Dt+uA/3bqsdmMb7IEf6Uj2oFO0=;
-        b=iqNu7rEQ3RAu3XoUp1zeT04UvlfQU/PR+WyOz9yIkuyDlZIv035MW7ki8Ce0idPeaW
-         t4AKUObyoH0+eSWa7swujbVG0XJBqJ4rBpnE3XuSxv9FA1ZSj1+HxBOzxkEs0dqatdH+
-         uPA1gvc6eXuwi5y6Jgg+hg0/R5yOLXP0vBKVcs/mqrF5BhsozrJc6IhYz8n4sHctrB3i
-         D8wVj9gYsae2xzLnP7S6uNCd6CzJU/hgfkvwaneIbK9CzqPqa6d56snjTPtm6gX6lxTu
-         P8IvMa3Ov/X3uVh/cwL8jlHztd9PNKMovQ19GYMD4sX3+EUM0S8nfhj/1EGiaXUZoFcU
-         xVaA==
+        bh=eZTottXbuBRQRn2JFle5OtEqEzV8iy+IZc9nH5vfma8=;
+        b=Tugr9ncYHIKcrTpRpoVHskub/r4x0R9hoiHEQRJylkqgxYlavKQLvFhngALT0Z8mlR
+         ZctuiC8SS7PLauBUSamW/AsbG4rCwHo1EMWmBngXAkajCDNuBZIZiYLMaYCKga4dRSZB
+         S7j73k+RujMVdRT6Urx9pTksCRpB/iwGpZcrSM6FntNfF1pzqVaknhL+EEkR9fjGFKKv
+         gIKUrOkCTvSCpcRKNKEPehmX/fedkj9OU+fPgtLLnaA/RvgOaZqqGGK5Np32imIiaM4B
+         cCFZWiTrLioCCxeNbbFtlEGHDYeumZupt9LNqjBYwZp4BW4nSZUtzBxd7SgcoyZtbG1D
+         NWXA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lz7V62ob0W7ULFZR9Dt+uA/3bqsdmMb7IEf6Uj2oFO0=;
-        b=Xdl3t86DJz3/5+eSKUZvUXx9NaOQWIYByh97bR6Y1crKE52LJ2P+1dP6ykBG0GzWSx
-         r954fa4dKiu7OMBl5toKkD/VaXJQJXMI51jnlxaqgtA3yafaCFFy/0Ls57ZhTLy75VPw
-         iLB6QlM90rKjwzMz3Gxp4aFxMrK60enLghqEdn907Tkjy4pgA0uVxErR7w0N0vdK/dbN
-         61tVkLpNa8dHnzjG2SLeW48H6MrfMwop2AJT4tJoEE622cT7wyIqiASIxwfaLIoLaDv1
-         5wAm2O9WJojeb+3pb86MSbat/AExYA4xs0rRsAoDKjY61jnZbE91/pxNflBk+uDUh3cS
-         sNsg==
-X-Gm-Message-State: AFqh2kq88fzDmTW2IOgyXNod6CVQY5PKBrBayV78AupGlPU3VVJaBycG
-	t+fiZ/cMBXnEoK4Nxvhma3w=
-X-Google-Smtp-Source: AMrXdXsmiKO28F72bT4pxjHkdRyB2gUkZchePhrSIZqm4jztUc47FHMNCnqoOdEBkgj2O7m12sWCTQ==
-X-Received: by 2002:a17:906:7747:b0:840:604:1da1 with SMTP id o7-20020a170906774700b0084006041da1mr505092ejn.61.1671620994308;
-        Wed, 21 Dec 2022 03:09:54 -0800 (PST)
-Message-ID: <30a7a4c5-4a5c-7610-e535-98cf8d95fc72@gmail.com>
-Date: Wed, 21 Dec 2022 13:09:52 +0200
+        bh=eZTottXbuBRQRn2JFle5OtEqEzV8iy+IZc9nH5vfma8=;
+        b=0jJx9kSDH57tZIcY8uexF6eTAqhWlMlYgfd2EK5I391N/3UChl9ucbgcYCcQGIPcys
+         L2E5aNbmSe1lVfaqFOhRnBhqZSWpmPO/5qJRSiKODig1qN1fMgHhM4Iwq0XXwcDy02lY
+         U3addkpiaPvI5M7+chfE2x9w63+7je6IsRF5krNxcVYI/0SAzeeIei26PpfKRFrFz9+0
+         lu1ap90saYM4IFNUx4Ujc0HCoGiNX+XkxEEzAJL8tqfzGKeHAzhjLj+l23vdbc9172zp
+         kqzvIfbm1ZkYgr024HzvI+YyHEBrGE5N0jhGo4cP8fBTt0WpjMhJiR614KgM9LGQHZkm
+         kTsw==
+X-Gm-Message-State: AFqh2koa521uf1AEW2nX5dp7R6MVVfOZMoUDGIz79IvWSjZQ+xSZ/if7
+	I363i1K5g+ecC/erkNv4ysE=
+X-Google-Smtp-Source: AMrXdXvjnhTBRDCR7ecHdV2yX5GwhXFIFzDIaqbmnCFHEm1OL+2/EOGYevzbCzb70QjmJYXyKn1u5Q==
+X-Received: by 2002:a05:6402:38d:b0:46f:b2df:4e0b with SMTP id o13-20020a056402038d00b0046fb2df4e0bmr1111687edv.14.1671621188665;
+        Wed, 21 Dec 2022 03:13:08 -0800 (PST)
+Message-ID: <e3d3a49a-0ca6-6b99-985f-15511070f251@gmail.com>
+Date: Wed, 21 Dec 2022 13:13:06 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.4.2
-Subject: Re: [RFC 6/7] x86/iommu: call pi_update_irte through an hvm_function
- callback
+Subject: Re: [RFC 7/7] x86/dpci: move hvm_dpci_isairq_eoi() to generic HVM
+ code
 Content-Language: en-US
 To: Jan Beulich <jbeulich@suse.com>
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
+Cc: Paul Durrant <paul@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>, xen-devel@lists.xenproject.org
+ <wl@xen.org>, Kevin Tian <kevin.tian@intel.com>,
+ xen-devel@lists.xenproject.org
 References: <20221219063456.2017996-1-burzalodowa@gmail.com>
- <20221219063456.2017996-7-burzalodowa@gmail.com>
- <d7f12b04-1077-cfc9-25a9-0eba37dde753@suse.com>
+ <20221219063456.2017996-8-burzalodowa@gmail.com>
+ <f9d36ae1-2363-1276-2747-737823d2f51b@suse.com>
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <d7f12b04-1077-cfc9-25a9-0eba37dde753@suse.com>
+In-Reply-To: <f9d36ae1-2363-1276-2747-737823d2f51b@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 
-On 12/21/22 12:13, Jan Beulich wrote:
+On 12/21/22 12:19, Jan Beulich wrote:
 > On 19.12.2022 07:34, Xenia Ragiadakou wrote:
->> @@ -774,6 +779,16 @@ static inline void hvm_set_nonreg_state(struct vcpu *v,
->>           alternative_vcall(hvm_funcs.set_nonreg_state, v, nrs);
->>   }
->>   
->> +static inline int hvm_pi_update_irte(const struct vcpu *v,
->> +                                     const struct pirq *pirq, uint8_t gvec)
+>> The function hvm_dpci_isairq_eoi() has no dependencies on VT-d driver code
+>> and can be moved from xen/drivers/passthrough/vtd/x86/hvm.c to
+>> xen/drivers/passthrough/x86/hvm.c.
+>>
+>> Remove the now empty xen/drivers/passthrough/vtd/x86/hvm.c.
+>>
+>> Since the funcion is hvm specific, move its declaration from xen/iommu.h
+>> to asm/hvm/io.h.
 > 
-> Why "int" as return type when both call sites ignore the return value?
-
-Because the original function returned int. I 'm not sure though why the 
-returned value is ignored.
-
+> While everything else looks good here, I question this part: The function
+> is both HVM- and IOMMU-specific. However, by moving the definition ...
 > 
->> @@ -893,6 +908,13 @@ static inline void hvm_set_reg(struct vcpu *v, unsigned int reg, uint64_t val)
->>       ASSERT_UNREACHABLE();
->>   }
->>   
->> +static inline int hvm_pi_update_irte(const struct vcpu *v,
->> +                                     const struct pirq *pirq, uint8_t gvec)
->> +{
->> +    ASSERT_UNREACHABLE();
->> +    return -EOPNOTSUPP;
->> +}
+>> No functional change intended.
+>>
+>> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+>> ---
+>>
+>> I was not sure how to handle the copyright. I assume that I have to
+>> retain the copyright of Weidong Han <weidong.han@intel.com>, right?
+>>
+>>   xen/arch/x86/include/asm/hvm/io.h        |  1 +
+>>   xen/drivers/passthrough/vtd/x86/Makefile |  1 -
+>>   xen/drivers/passthrough/vtd/x86/hvm.c    | 64 ------------------------
+>>   xen/drivers/passthrough/x86/hvm.c        | 42 ++++++++++++++++
 > 
-> I don't think you need this stub - both callers live in a file which
-> is built only for HVM=y anyway.
+> ... here, you don't need a declaration anymore anyway - the function can
+> simply become static then, as its only caller lives in this very file.
 
-That's true. I will remove it.
+I will change it to static.
+
+Regarding the copyright, shall I add the copyright of Weidong Han 
+<weidong.han@intel.com>, that was in the deleted file?
 
 > 
 > Jan
