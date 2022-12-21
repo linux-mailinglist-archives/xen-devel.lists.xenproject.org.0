@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE5656531A9
-	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 14:26:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.467890.726948 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC9366531B2
+	for <lists+xen-devel@lfdr.de>; Wed, 21 Dec 2022 14:26:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.467897.726958 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7z6f-0004OY-Bz; Wed, 21 Dec 2022 13:26:01 +0000
+	id 1p7z7K-00051E-PZ; Wed, 21 Dec 2022 13:26:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 467890.726948; Wed, 21 Dec 2022 13:26:01 +0000
+Received: by outflank-mailman (output) from mailman id 467897.726958; Wed, 21 Dec 2022 13:26:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p7z6f-0004Ly-8t; Wed, 21 Dec 2022 13:26:01 +0000
-Received: by outflank-mailman (input) for mailman id 467890;
- Wed, 21 Dec 2022 13:25:59 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p7z7K-0004ye-Mq; Wed, 21 Dec 2022 13:26:42 +0000
+Received: by outflank-mailman (input) for mailman id 467897;
+ Wed, 21 Dec 2022 13:26:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=GA0H=4T=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p7z6d-0003Di-16
- for xen-devel@lists.xenproject.org; Wed, 21 Dec 2022 13:25:59 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2079.outbound.protection.outlook.com [40.107.247.79])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 008fbdc5-8133-11ed-91b6-6bf2151ebd3b;
- Wed, 21 Dec 2022 14:25:57 +0100 (CET)
+ id 1p7z7I-0004I8-Pw
+ for xen-devel@lists.xenproject.org; Wed, 21 Dec 2022 13:26:41 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2054.outbound.protection.outlook.com [40.107.20.54])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 19bfbfdf-8133-11ed-8fd4-01056ac49cbb;
+ Wed, 21 Dec 2022 14:26:39 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8214.eurprd04.prod.outlook.com (2603:10a6:20b:3b0::9)
+ by DU2PR04MB8582.eurprd04.prod.outlook.com (2603:10a6:10:2d9::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Wed, 21 Dec
- 2022 13:25:56 +0000
+ 2022 13:26:35 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::4da2:ea8b:e71e:b8d8%4]) with mapi id 15.20.5924.016; Wed, 21 Dec 2022
- 13:25:56 +0000
+ 13:26:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,28 +46,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 008fbdc5-8133-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 19bfbfdf-8133-11ed-8fd4-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JwL6Df3YszTBwlGv1OlA0hSp4q0z+MRE9/YqhmKZs6TXuFk/OdguBj1OL+ZgyTbx/RScA695xZpzgTqAebhBnQK/jFVnbCZWu1CuyQBjozP4q0tv3oTrAl94Td41OkcS9VTRFAmntoawAigysQUIoLM0FnH4SqwuU+JIY1g/A6MC+B6/5umF9YYmqAXgYJilIaH9+L8w3KqDb9V0zxVxfbUTxnkwrXiqOyJ4F7LcYG93KWGy+XLBL+nMYZ+MEMGKOjDfjYrnd0ddZ+xHRufXapkR5woTUgR3CiSqBJEgcqMWAJF3g2riXcaIE/vo9r2S57sPRXMaTiag2ofKAHKqOg==
+ b=BqUoZ67qtEQOON11Ly4g4gWSBcXDwioQWHBlLtsSaZAQ3SGW3U+PzfMdTyVpbsRYfKyDdLCsEwOj8dEcuHV6gatjPxw851XyjhUVLovOiRXNT4uLpCK0YZNhPbj14+3J+PdMgTkrmEsO0XyQzoGzjQBZCtISNYmMKB8ewAQM7kUxxQVUknY9G/TgrcpHc3dp4l0//l52UHJ9SRvduw/k+LWdl7pSU9OpbK/sIGzAEj6wEboPIqIxDDp7IkQ0B1eF1LqzMdTCVbZZmSosdmOqepoSGOadH8tEGBDyj/Ykm4OTP/7fb1VUiEcUrRHsNNdXd9hJY3/zzernfzmgMlqK0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rldcuhOARHmNVJ4bzrBkzU00bPLVpOspDoSIIfszq5Y=;
- b=cm4xxDUprR0GNH954Gz7SeIsiE+gKtQIkA67oz9UC2dpcgisbWcJGp051B1b3Px1cTfv3q8SQmYgqYtjExgVIr0cTJfoY+Krspz5McJsXN9+72BR2k+VPxZYhA2cmydDfVijjvjm2tDXcF+f6TFi0Dm5u1M+ZTzztXV/QL5uucUq8zneylFYRGPkdOoMIpwUJv6Mu7sc7zB2gDxUUIWmb2cmrcPbmQa22ENxQgJK8TEGtK0WrhlhRJDf5h21g+FVKS9WiPZe5NFmDPALfpZCsNolC4VQ5+qODOTPy6DiNArdg+XYFyBgdO24PUJdRFfFZox0kK0PEQDaD9riblq+Zw==
+ bh=r07Xy42pMGGEVQDplutw+NfWm8QrmcB72FHciyULsR0=;
+ b=gPltjaS1/SHfHAcoXV7SgxGLRGislKlp31HVKYoJtADDMJznspPNa5akUuoF6TK3D/y2DvTMJwL/wHVsYQmTblKi6eDvJrCSZ0Rj4dEjLPeabaOYCXPa6xuXV9S8RWdmjWQW4NGjNJFIh4tmdLkoyrII+X2jnuDRwito3NO4WCYR5MfW96I0KqZz8mgGsX6F+HQ+K2BeJNnovAEGK5s+Deq/sov/xfcO5UnFS13u2urbLIPkaUJ/wcrsoghumC0Fs4Xrtu5CJW6g7JKehKsOEyHcwtUvOogmr7NHCiEKOJXHYvguc0pwot2zK0Oo1o55T52GMXTYYlxKaEO41mRN9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rldcuhOARHmNVJ4bzrBkzU00bPLVpOspDoSIIfszq5Y=;
- b=CAXnM6HXdxR+HsV0AFUmPlv56Vs446+uKNFUuvMJYGYMHTyJ/i6m7zvyFQqU+sDmG9+9f5J3HRZ07m8+A525M845q8bEN9ApEUeVvzAeZqi3G7x74ny+Ozs0TNbGKh2woaKXeLaREBcKJozCy/huq32/LdCjDdcCa2wNTkXxc+nDrGkd8Wq6jIa+qnTfM8/pp9pOJH1jS83e4ypGqgIY04RqdVn1P+yxMM6zgez3Ef0+gKfxVt1ynIbYfCG6Jbw65RiBz01FYRFJp9B8TO6w/Q3014/kC2szxSin3ykaREgsHzLe5Qvpd1Pb9xWhQcyd3AhsLSpDwCVwE0yptY9nGw==
+ bh=r07Xy42pMGGEVQDplutw+NfWm8QrmcB72FHciyULsR0=;
+ b=mgQAh+eHNV09xflz6SG+P1eaGCBTtujN7xSKVYKTVuqTgfU6Z0wsi/4DqGgYLmq8aUn/OmXOS9tGoUhZoPoA2QFNHM8Z4Jk0/JJqC/DTkvb0McuNBgGPofeVJ6ESyUY+C3xyV7RpZPqihjy0TA1MvM80FtJHC0boxiD9+rpNLnesYl+jbT4x/Q3FDl7CWSQcNJCe9BREv37tKxz93I7ZQhIhb/hr4YNQWakPAOxvZmoEQrdLceHGjS0YLdHjtNhgesAOis3GIUAwpOKE+TR013M2hSGojAs/aUpcqp/Kqk2VgqXYlI1O8G3NlvggAK2qrbR2orb2Dn/IgjER+0hWtw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <bee2d51f-534e-f6e2-6385-70f8597eac1e@suse.com>
-Date: Wed, 21 Dec 2022 14:25:55 +0100
+Message-ID: <584a986e-08ea-d064-9447-ed23c6e39721@suse.com>
+Date: Wed, 21 Dec 2022 14:26:34 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: [PATCH 3/8] x86/paging: move update_paging_modes() hook
+Subject: [PATCH 4/8] x86/paging: move and conditionalize flush_tlb() hook
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -78,89 +78,97 @@ References: <f7d2c856-bf75-503b-ad96-02d25c63a2f6@suse.com>
 In-Reply-To: <f7d2c856-bf75-503b-ad96-02d25c63a2f6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0064.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:49::8) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0204.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a5::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ba18161-67f4-4766-ff8f-08dae356e44d
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8582:EE_
+X-MS-Office365-Filtering-Correlation-Id: f49f167a-0c38-4e81-9cd2-08dae356fbbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	jvm8ZuL2nffqZFD8YXA+47EEtExRGfXTs9JlbW1qDfrgUDmfqo+ml0U8nMxCyBupy2FJQwHQ9jmsdZtt+gkwHNY0J6wLm+QWTTOrlfUKPjSPXqHWfVcJ9izlaUzk4LJSBU01iWiRJPABusssv6TG+uGXWwv2d6MZRqeed9gVuz1E62GzflhkUbakZMV4hx6Xk/tO+eKEBps0LWwYW11AQ4O7kMn4vX1qloEGspKFLjIYGi71VcSfnhOlQWTcoc8Od0ta83Mf5MxJRHjT/Cf2Ru1Hv0KbdCaVpQj/BRaeAW/dhJdB+WYSYqrot3j8Nb29NmdZMKBh7ci7E5vh5eMMKPYuf58v7m5WBqbCgwUKX0d1FrMVVDXwmdHka5tc5oWOAwbD6JHCUY+mjAjC4FbRHOUyOTokOYO2TI65jSX3J/2IVXG0O8Sjtm5Bb8AfPl7VgQHb+elI6W6L09s6bbhHu18oI7s5i5FkOYjS9MUHH3SbAGWPfIBJaON/wOjtTGfZlAIbdcFXCnMDPH8ZJmkukBiWVef+8Jco4XLRX8wYcKh4SRu8UihDBqnszA6mNBMzdaeAwi9TRjab1LIyl8CClLZWzv9J5VZXThke6029e/nuWTDAhJHSsM1n472VzeotnuicRsPewAu0rbu3bNZ2xDObEh1/8u0Oa7AE7KUiVqVJcGmqSzj7eyJVK4PBOON5kW/X58/K7KW1tpQ4524zXq0gTJDudu70kTx/JHws+Ok=
+	LN79KCfHRqYQKkt34XcYtPV2dokir+tnsskLmurLicJyN8H4Hh0xQyOx1gN16D5rAjIXEL94P29+4MBaoiTYt/kGXtdHRaY+7nk9MfMbL5e+G8Wlle/2sLdWlz43ZVzPM60emVC310t2XcxPL9BqVMbMFdHp+9BwR8SzNO0OQONtBuhUMSL6AOqpy74rwkadxuG6ToylihJMWqjXODystPnxE+Lcr3PI1io8UeNNEE9vBuXH84CwwVYRMxhE6i0veNt5gz+4blRyUL1XR8cX8Orb0BC+xmtla/RO+mQvjY6aWJUGz8iInxxKWZVzqf/oJMQh1RtrYA5VUekQPVmr0CkzXop3LRBdui3p8fspRnAd6NQ7+HEzuVtW8lOUoSH0NPrue2ll/TWjuiV10sC9wgpr3WScPCbG+JMTCWRk2SK+b9DGGLtYIO00eWNsD+chHRGcvl687nMuxFwqcaC0QuCllpHtpvtm7Ptc/ueaiNGu6jVXF1tbgP1o6+Qwkplvu1Qv2hSUHDafWkt86vxqmBECiZah7Qt+C0gi0Zw+MsoIS76ybVzwDTjJQP+Hx+P+KguFf6SXjPmaX1koBzNF+d3F1HQlZrQhuEQEM0FX7l+UluQ0eIoLGEIiOaZGbe2v3cvl72ySys037PJy05J4MEkLm1ZB8+rt0drxdbLrjHGv+0+qcDADfyFN/vYagPLqqu6veDWz3G5r11pL87KeCW6x4J8lcGltW+33bNtt6dk=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(346002)(39860400002)(366004)(136003)(376002)(451199015)(186003)(38100700002)(8936002)(36756003)(83380400001)(6486002)(6506007)(2906002)(15650500001)(41300700001)(54906003)(478600001)(6512007)(26005)(6916009)(66476007)(4326008)(5660300002)(86362001)(31686004)(8676002)(31696002)(66946007)(2616005)(66556008)(316002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(39860400002)(376002)(136003)(396003)(346002)(451199015)(83380400001)(86362001)(31696002)(2616005)(38100700002)(36756003)(478600001)(26005)(186003)(6506007)(6486002)(6512007)(66946007)(66476007)(5660300002)(8676002)(4326008)(66899015)(316002)(6916009)(31686004)(8936002)(66556008)(41300700001)(2906002)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MVRnaWpDUDEvUTdCNnFjWW5QeDBMeU1XcURQTEdHME51Tm5ac2JMUjBLWEVq?=
- =?utf-8?B?emdGYnRsaDlTSkttOWdMVCtPOHEwUnRkQWZjWGIvbTltMTVtcHZ4RjlLb3N5?=
- =?utf-8?B?cGczRkNXalM0SW9McktRUEJmYmk4dDNuaUs1Skx4VXUxWGZsVm5VNU41T0dC?=
- =?utf-8?B?OW95MkhleERhcENBMWM4WVIxL3ZHL1pFVUl6dlFQNDYvSUM2bmJpY003Qlor?=
- =?utf-8?B?QXplbzBYdS85NG9tQVIxWnZNWEg3RHJmOTl5N2hXWDJuV09ER2VOVkJQNkJM?=
- =?utf-8?B?TW0rcERTYXFRN005ZGEzREtRVC8yQUpBakhhTDVaUldraUZZUmxORXloQzlK?=
- =?utf-8?B?K3lzc1pmdFNrRGM3eXQwY2RySm5RbkhMdmpUcnRqYy9PdjcweTJFeis2cnZL?=
- =?utf-8?B?ckVJR1AzZkdtdmRpVDNsNkNpaDN0WXMwWW9naHpJNkVNNGw5aXU1Y29yK2ZS?=
- =?utf-8?B?VVUzZmRCa1pBRUpZdUN3QmFVWE5RWXhrMlFFOFV3d0tjbmhuMit4UUREc0hW?=
- =?utf-8?B?NVo4dlM0Uk9OVXMrbEJsckZPQytyWVBQTzJWOTRPSHAxU2FlSVFIdzNQZWw5?=
- =?utf-8?B?VEMvYzdXbUl3clB1alZ3MGtRaEthOFkwZEdOVDcvMDl5UFpDZlJWQmhzdGha?=
- =?utf-8?B?U2R6eCt2aGlic3JtSnR1azFpQUZjNFYzTTNLVlBQdUsxU0V4WjZ4TWZIalg0?=
- =?utf-8?B?M2xIRDhZNktQUE5xV3BTYmd0WGpiM2c3STlCUEZhbEIrN0VDcFhrNFhRUHVK?=
- =?utf-8?B?czA1dFppajRLb2luczJiSkRpNy8vNmlXTkFSVnJBekUzOVpHVHNGVDdWV2Rz?=
- =?utf-8?B?NzZBczlSalBUcGpjOTVEWHVxekpQdWFqOVhGSGsySDdRLzNpdmxjWEgvWFk0?=
- =?utf-8?B?TlZzTnRsb3lOZy9udnlOQTlKbDZLeEo4U1hvS3c3QkxyZGpUWlRkblFWSjdD?=
- =?utf-8?B?cU9adDBIWW1kemsrRitmWUtPMGU1ZTNpNW1GdURJWXNQVEhNL21IQWxoeHRM?=
- =?utf-8?B?dVYzaExZSnFsekN4SWpwdDVXUUlXM01pWEE0bVdkSElsZVhjVG1NQ21FeGxN?=
- =?utf-8?B?VzRlM1NDN0tWdjJjU2ZUSHA4L0pkVnpaOXJQZGo2OXg2TitrT1FNOHc3NW1S?=
- =?utf-8?B?TzNFeVB4SytJSzJvUFJZazFUSk9xaFRianQvMi9sZ3BUV1NXbXdhWDQyWXRy?=
- =?utf-8?B?VXhqaW1NNHpGRHJwRlBINmVuTnhLVk9XTWFEMVhJSEdXN1BUbXZBeklCWG1I?=
- =?utf-8?B?L1lSWlpWNjY2TlozMzRaQ0ROTjV1UVlFQzhYMHNzbVAxQUNVaTZGM0pTODdO?=
- =?utf-8?B?c2Q3L2t4QXBUWTRlTnFlK0Y5UWsxekxDQnpGYm9ZbFZPQjllWk11VFNMZnVl?=
- =?utf-8?B?R01GRnFMeUtVM1NXNFFiZlRodW9oQ0FlZVhocnFXZWM5U1VvN3dxd2hSZlFN?=
- =?utf-8?B?dldnY3FFdzJzVmFML2Y2NzFiZEgwRENRN01MeGFrdHduWXpHUitUR3FKdU85?=
- =?utf-8?B?RmNuVThDVzJQcVBMcU00SlE5RnNlVk0wRk5FQVhaOEpZc1pOUXZaZ0syallL?=
- =?utf-8?B?ZDQyZ2NxdTdjTWt3enM0S05zZExTOC9KNDhHNUZvcmsyU3Z5dVlDZzBHaEFk?=
- =?utf-8?B?OVI4R2ZJT25NSUpaZGJpd3FBZ0JSeDU1NXNvc3IvSkVIMDhFckJ4SDRsTG8x?=
- =?utf-8?B?Rzlqd0UwTG1NdHJzTFpTZE1HWkw1YVJtenBJbS9Qdm5kdnRlemR6VlZTb3Jr?=
- =?utf-8?B?R1ZrSXlXK2IzUW9RWVpZUWFkM1FQeG5KcHo5enJqVStBQ3JmSDZ3KzFQaW9j?=
- =?utf-8?B?MkZQakw5NHFLdFBTNTNBbVo4VldkajB6NU5SU1M0MEYvWGtBeUF6cEhDQUFC?=
- =?utf-8?B?cFhXM3hHRndSb3pLSzluRzI4SmZVZzk0cFpFV3UrK1h5WVpya2c0bFZ5bnZ6?=
- =?utf-8?B?eERpNm5CYk9LRGJDbG1ZSGgvTnRJdjNaWG5kNGk1TEJPbnpwN3N3WURwNHFZ?=
- =?utf-8?B?YXJFSDhkMFFqd0xzcEM0Ny9JQlhxeU5UdU1icnN1WTREcndISGx0UTBXcGFs?=
- =?utf-8?B?Nk9tYzRjVjhRMTVzSWpkbHozZ1ljNE5yK0prZVhET3grbkg1MTVXR0hyU0JI?=
- =?utf-8?Q?2T3eYGjrs9SQH8IAcOU05xN+6?=
+	=?utf-8?B?Z01sWTZPL0dWMlIrZFl0a3h3TmdVbytEL0NvSy84OWhwczMvZmNBaWhnN2ZP?=
+ =?utf-8?B?c3RMczQzU3ZrUDZ6OW9jRnp4cmQyV0x3Z3BOSDVYWlJETWNQTjFMVG96L1g3?=
+ =?utf-8?B?NXlHWHFublNiRFFwdFgvc2t5dGhUZG44NHJRNmlENmdUWjNYVDJqY2NYMlBq?=
+ =?utf-8?B?cUw4eXdOREdrb2dGOVJLdVZGMHBNeHIwZ2orWmtGMHpCU3h5cVFvckQ5ZWg4?=
+ =?utf-8?B?cmdMTDZJVG1uWUZNcS9mVnZGWnBZam1nVkR3V0JaaUVOb2gycVNSdGIrRWM1?=
+ =?utf-8?B?MnMwOXl0dG5nMW9jZk9RTWpaK1ltU2hFR1gyc2V0bzVNcDg1MzdQOWdRdWE2?=
+ =?utf-8?B?K2xDNURoTS9XOUsvQ1RqYTludXVJQWVSTjhhRUFqZUFkZHQzekEzVFFnT2JH?=
+ =?utf-8?B?LzZSYkhkNkc5OWhNa2dSb2MrbmYxOVE0b0tMQXJoNU83UEpmR0plN0ZJRXNO?=
+ =?utf-8?B?L0hDbWY0ZmZEQzN3Ky9lZlBDcjh2ZStKNUhkM2N4KzdzY3FGQnhmeEtBUjZJ?=
+ =?utf-8?B?cGZDOU94Z0RnUVZHQXhyRlRwa20vckJITWt3M0huU3VZd2t5aDluQWNTZkov?=
+ =?utf-8?B?WEF5WmZLMFlJenZJcCtHLzNnNjA2cGE4cFFuVzh1YVhhdnZSV2t1K2ZjSU1D?=
+ =?utf-8?B?ZnF2LzdFUmczZHJsRUswdkoxa2FmSC9oY3c5dWswVCtZUlhQUGtWaVhaaGZ4?=
+ =?utf-8?B?dTE2QVg1WTBzaHBZSVhBMjZnNnNuRHdvUE9pNWh0QUgrenJlZ0ovV0owcHp0?=
+ =?utf-8?B?YTVnbGYvYm9SM2hRRVlSOUdmMndGcXhibjllY09xRGRjSHh6R045dlM4c2s0?=
+ =?utf-8?B?SUFISDdGSlU0enpzQmdROXNhRStWYmZab1N1UlhibGFzeC9DbEdqTWVHUkZw?=
+ =?utf-8?B?SVVIN2dVSldTb1JCeVJhc1Z4czV1TWFWaFRoQkFxMjZYQmZySWxQeGUrelZz?=
+ =?utf-8?B?dTJtN0VGcGpRMDRFSENVRkY2ZTVMWTh2cE5abjNiU3J0bTJIS0JqaXJvTENz?=
+ =?utf-8?B?TDUrRjNzUnArbDNCR3lnSzU0V2M5aXdwa1dRcDF1UUt0N2NxdzZ6ZkNUVjFG?=
+ =?utf-8?B?QlpXZ2YyWCt6c0dNSzlHR0QvOXY4ZVNwRVNLM2Yzd1pOV2VQY3AzaVNtOWlu?=
+ =?utf-8?B?UWVBd0s2MFRFMUROaVY0ajMzbVA3Z253S3dpbDA2MEhMQnR3ZUtqdUY5V1gv?=
+ =?utf-8?B?a1MwMzdvcDQ3aVhTd25tUUNhMExlUHl0a3g4Rmx2WXFKbHk3bzhvUERXOVIw?=
+ =?utf-8?B?V1pvMllaaUErVU9hOGlTcUtJOHhQaXF2Y3hDbWZ2RzQzZVZpMXFvMHZacTJm?=
+ =?utf-8?B?WlV1Y2ZlK0tmV2JlTGFQQXEzRlBYVmp0K0czaWtyMFU0bjRyK0lCTDFnNzlJ?=
+ =?utf-8?B?a0h4djhmRmVsQnZ4UmczUVNqWkdrcUgxaElYQ2VwWWlUVytSalpLRk1XUjhO?=
+ =?utf-8?B?UmEwZGk2VXpjWlFmOHVLdmJwaHl5MXJjMmdqOUFIZnBKOWlmWlVBNHl5ZTN2?=
+ =?utf-8?B?ajRoUml1cytXMW5sMG12aW5ybWtGZk9NU0pERjRpY0VxdDArdE9JZXJ5QkhY?=
+ =?utf-8?B?QjB2djRGMW05SllqVEpoM0Zia2dTRmJYRHJTQzNzT0RQQTZrOFJ2a1RYazAy?=
+ =?utf-8?B?cFpJeXVEeEJCTERGMzVoS2ZwdkRYWkF6eHNoZ3g1YkRsMGFURXplNEpDb0JS?=
+ =?utf-8?B?NXJXbTBuaTNVTHlxcUZ2Mzk4aXFpMEVNZG5oeHA2enhrNmYxd1U3MEhjbWZk?=
+ =?utf-8?B?TysxSzhyQmpGcGFHSEhkSUlmTHVWWlBqZk0xeGdMMGFHMXp1R1NHMHErSHlo?=
+ =?utf-8?B?elJlK0kxRHU2alB4dXByQ21WSHBaRGZ2MFRvR3NRYWxHK3BLR0ZOSHVxOHBR?=
+ =?utf-8?B?SGc5RzI4QzRmWVlXSS82aFFXdExiU1ZOWVVyVldXdEQzd0tPeXcwVHFOZ1BH?=
+ =?utf-8?B?YXRrUjVuOEFOWFNQeVZGZkNvWEZ0RVp6MWNnelFrdTN3aXhjeE04RzVIV25Q?=
+ =?utf-8?B?RGQrSUh2eWF2Z00ySW9kWmlKU2hLa2lSNlV2UTRTazV5Q0VndHE0a0ZtSld6?=
+ =?utf-8?B?RXEvekpMN1BxWWVYVlJGKzMzaEdlZEEzMUJPemxRNkxyL1prRnUxWVk4OU1M?=
+ =?utf-8?Q?3j4MuTxNetE1AvTJXPCVwMCx8?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ba18161-67f4-4766-ff8f-08dae356e44d
+X-MS-Exchange-CrossTenant-Network-Message-Id: f49f167a-0c38-4e81-9cd2-08dae356fbbe
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 13:25:56.4605
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Dec 2022 13:26:35.7393
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3sBkT6E3xT3gwuhXurq8ZZGOo2VqsoruiISx6YYQB7nRXtLXBgNtkoR6myceQ/M7i5iznwKTTFu3wgC9+pAHJA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8214
+X-MS-Exchange-CrossTenant-UserPrincipalName: /ssBx8hmaHvfkmcAHSUOFJZ+9jZGGTDA5Z9tLxG866td7caX28oDoWlmv1WC7bAGKHSwzGioBSVGMeJRs4qnIg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8582
 
 The hook isn't mode dependent, hence it's misplaced in struct
 paging_mode. (Or alternatively I see no reason why the alloc_page() and
 free_page() hooks don't also live there.) Move it to struct
 paging_domain.
 
-While there rename the hook and HAP's as well as shadow's hook functions
-to use singular; I never understood why plural was used. (Renaming in
-particular the wrapper would be touching quite a lot of other code.)
+The hook also is used for HVM guests only, so make respective pieces
+conditional upon CONFIG_HVM.
+
+While there also add __must_check to the hook declaration, as it's
+imperative that callers deal with getting back "false".
+
+While moving the shadow implementation, introduce a "curr" local
+variable.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
 --- a/xen/arch/x86/include/asm/domain.h
 +++ b/xen/arch/x86/include/asm/domain.h
-@@ -235,6 +235,8 @@ struct paging_domain {
-      * (used by p2m and log-dirty code for their tries) */
-     struct page_info * (*alloc_page)(struct domain *d);
+@@ -237,6 +237,11 @@ struct paging_domain {
      void (*free_page)(struct domain *d, struct page_info *pg);
+ 
+     void (*update_paging_mode)(struct vcpu *v);
 +
-+    void (*update_paging_mode)(struct vcpu *v);
++#ifdef CONFIG_HVM
++    /* Flush selected vCPUs TLBs.  NULL for all. */
++    bool __must_check (*flush_tlb)(const unsigned long *vcpu_bitmap);
++#endif
  };
  
  struct paging_vcpu {
@@ -170,182 +178,241 @@ Signed-off-by: Jan Beulich <jbeulich@suse.com>
  #endif
      void          (*update_cr3            )(struct vcpu *v, int do_locking,
                                              bool noflush);
--    void          (*update_paging_modes   )(struct vcpu *v);
-     bool          (*flush_tlb             )(const unsigned long *vcpu_bitmap);
+-    bool          (*flush_tlb             )(const unsigned long *vcpu_bitmap);
  
      unsigned int guest_levels;
-@@ -316,7 +315,7 @@ static inline void paging_update_cr3(str
-  * has changed, and when bringing up a VCPU for the first time. */
- static inline void paging_update_paging_modes(struct vcpu *v)
- {
--    paging_get_hostmode(v)->update_paging_modes(v);
-+    v->domain->arch.paging.update_paging_mode(v);
+ 
+@@ -300,6 +299,12 @@ static inline unsigned long paging_ga_to
+         page_order);
  }
  
- #ifdef CONFIG_PV
++/* Flush selected vCPUs TLBs.  NULL for all. */
++static inline bool paging_flush_tlb(const unsigned long *vcpu_bitmap)
++{
++    return current->domain->arch.paging.flush_tlb(vcpu_bitmap);
++}
++
+ #endif /* CONFIG_HVM */
+ 
+ /* Update all the things that are derived from the guest's CR3.
+@@ -408,12 +413,6 @@ static always_inline unsigned int paging
+     return bits;
+ }
+ 
+-/* Flush selected vCPUs TLBs.  NULL for all. */
+-static inline bool paging_flush_tlb(const unsigned long *vcpu_bitmap)
+-{
+-    return paging_get_hostmode(current)->flush_tlb(vcpu_bitmap);
+-}
+-
+ #endif /* XEN_PAGING_H */
+ 
+ /*
 --- a/xen/arch/x86/mm/hap/hap.c
 +++ b/xen/arch/x86/mm/hap/hap.c
-@@ -443,6 +443,9 @@ static void hap_destroy_monitor_table(st
+@@ -445,6 +445,7 @@ static void hap_destroy_monitor_table(st
  /************************************************/
- /*          HAP DOMAIN LEVEL FUNCTIONS          */
- /************************************************/
-+
-+static void cf_check hap_update_paging_mode(struct vcpu *v);
-+
+ 
+ static void cf_check hap_update_paging_mode(struct vcpu *v);
++static bool cf_check flush_tlb(const unsigned long *vcpu_bitmap);
+ 
  void hap_domain_init(struct domain *d)
  {
-     static const struct log_dirty_ops hap_ops = {
-@@ -453,6 +456,8 @@ void hap_domain_init(struct domain *d)
- 
-     /* Use HAP logdirty mechanism. */
+@@ -458,6 +459,7 @@ void hap_domain_init(struct domain *d)
      paging_log_dirty_init(d, &hap_ops);
-+
-+    d->arch.paging.update_paging_mode = hap_update_paging_mode;
+ 
+     d->arch.paging.update_paging_mode = hap_update_paging_mode;
++    d->arch.paging.flush_tlb          = flush_tlb;
  }
  
  /* return 0 for success, -errno for failure */
-@@ -772,7 +777,7 @@ hap_paging_get_mode(struct vcpu *v)
-                                       &hap_paging_protected_mode);
- }
- 
--static void cf_check hap_update_paging_modes(struct vcpu *v)
-+static void cf_check hap_update_paging_mode(struct vcpu *v)
- {
-     struct domain *d = v->domain;
-     unsigned long cr3_gfn = v->arch.hvm.guest_cr[3] >> PAGE_SHIFT;
-@@ -842,7 +847,6 @@ static const struct paging_mode hap_pagi
+@@ -847,7 +849,6 @@ static const struct paging_mode hap_pagi
      .gva_to_gfn             = hap_gva_to_gfn_real_mode,
      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_real_mode,
      .update_cr3             = hap_update_cr3,
--    .update_paging_modes    = hap_update_paging_modes,
-     .flush_tlb              = flush_tlb,
+-    .flush_tlb              = flush_tlb,
      .guest_levels           = 1
  };
-@@ -853,7 +857,6 @@ static const struct paging_mode hap_pagi
+ 
+@@ -857,7 +858,6 @@ static const struct paging_mode hap_pagi
      .gva_to_gfn             = hap_gva_to_gfn_2_levels,
      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_2_levels,
      .update_cr3             = hap_update_cr3,
--    .update_paging_modes    = hap_update_paging_modes,
-     .flush_tlb              = flush_tlb,
+-    .flush_tlb              = flush_tlb,
      .guest_levels           = 2
  };
-@@ -864,7 +867,6 @@ static const struct paging_mode hap_pagi
+ 
+@@ -867,7 +867,6 @@ static const struct paging_mode hap_pagi
      .gva_to_gfn             = hap_gva_to_gfn_3_levels,
      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_3_levels,
      .update_cr3             = hap_update_cr3,
--    .update_paging_modes    = hap_update_paging_modes,
-     .flush_tlb              = flush_tlb,
+-    .flush_tlb              = flush_tlb,
      .guest_levels           = 3
  };
-@@ -875,7 +877,6 @@ static const struct paging_mode hap_pagi
+ 
+@@ -877,7 +876,6 @@ static const struct paging_mode hap_pagi
      .gva_to_gfn             = hap_gva_to_gfn_4_levels,
      .p2m_ga_to_gfn          = hap_p2m_ga_to_gfn_4_levels,
      .update_cr3             = hap_update_cr3,
--    .update_paging_modes    = hap_update_paging_modes,
-     .flush_tlb              = flush_tlb,
+-    .flush_tlb              = flush_tlb,
      .guest_levels           = 4
  };
+ 
 --- a/xen/arch/x86/mm/shadow/common.c
 +++ b/xen/arch/x86/mm/shadow/common.c
-@@ -45,6 +45,8 @@ static int cf_check sh_enable_log_dirty(
- static int cf_check sh_disable_log_dirty(struct domain *);
- static void cf_check sh_clean_dirty_bitmap(struct domain *);
- 
-+static void cf_check shadow_update_paging_mode(struct vcpu *);
-+
- /* Set up the shadow-specific parts of a domain struct at start of day.
-  * Called for every domain from arch_domain_create() */
- int shadow_domain_init(struct domain *d)
-@@ -60,6 +62,8 @@ int shadow_domain_init(struct domain *d)
-     /* Use shadow pagetables for log-dirty support */
-     paging_log_dirty_init(d, &sh_ops);
- 
-+    d->arch.paging.update_paging_mode = shadow_update_paging_mode;
-+
- #if (SHADOW_OPTIMIZATIONS & SHOPT_OUT_OF_SYNC)
+@@ -68,6 +68,7 @@ int shadow_domain_init(struct domain *d)
      d->arch.paging.shadow.oos_active = 0;
  #endif
-@@ -2558,7 +2562,12 @@ static void sh_update_paging_modes(struc
-     v->arch.paging.mode->update_cr3(v, 0, false);
+ #ifdef CONFIG_HVM
++    d->arch.paging.flush_tlb = shadow_flush_tlb;
+     d->arch.paging.shadow.pagetable_dying_op = 0;
+ #endif
+ 
+@@ -3134,66 +3135,6 @@ static void cf_check sh_clean_dirty_bitm
+     paging_unlock(d);
  }
  
--void cf_check shadow_update_paging_modes(struct vcpu *v)
-+/*
-+ * Update all the things that are derived from the guest's CR0/CR3/CR4.
-+ * Called to initialize paging structures if the paging mode has changed,
-+ * and when bringing up a VCPU for the first time.
-+ */
-+static void cf_check shadow_update_paging_mode(struct vcpu *v)
+-
+-static bool flush_vcpu(const struct vcpu *v, const unsigned long *vcpu_bitmap)
+-{
+-    return !vcpu_bitmap || test_bit(v->vcpu_id, vcpu_bitmap);
+-}
+-
+-/* Flush TLB of selected vCPUs.  NULL for all. */
+-bool cf_check shadow_flush_tlb(const unsigned long *vcpu_bitmap)
+-{
+-    static DEFINE_PER_CPU(cpumask_t, flush_cpumask);
+-    cpumask_t *mask = &this_cpu(flush_cpumask);
+-    struct domain *d = current->domain;
+-    struct vcpu *v;
+-
+-    /* Avoid deadlock if more than one vcpu tries this at the same time. */
+-    if ( !spin_trylock(&d->hypercall_deadlock_mutex) )
+-        return false;
+-
+-    /* Pause all other vcpus. */
+-    for_each_vcpu ( d, v )
+-        if ( v != current && flush_vcpu(v, vcpu_bitmap) )
+-            vcpu_pause_nosync(v);
+-
+-    /* Now that all VCPUs are signalled to deschedule, we wait... */
+-    for_each_vcpu ( d, v )
+-        if ( v != current && flush_vcpu(v, vcpu_bitmap) )
+-            while ( !vcpu_runnable(v) && v->is_running )
+-                cpu_relax();
+-
+-    /* All other vcpus are paused, safe to unlock now. */
+-    spin_unlock(&d->hypercall_deadlock_mutex);
+-
+-    cpumask_clear(mask);
+-
+-    /* Flush paging-mode soft state (e.g., va->gfn cache; PAE PDPE cache). */
+-    for_each_vcpu ( d, v )
+-    {
+-        unsigned int cpu;
+-
+-        if ( !flush_vcpu(v, vcpu_bitmap) )
+-            continue;
+-
+-        paging_update_cr3(v, false);
+-
+-        cpu = read_atomic(&v->dirty_cpu);
+-        if ( is_vcpu_dirty_cpu(cpu) )
+-            __cpumask_set_cpu(cpu, mask);
+-    }
+-
+-    /* Flush TLBs on all CPUs with dirty vcpu state. */
+-    guest_flush_tlb_mask(d, mask);
+-
+-    /* Done. */
+-    for_each_vcpu ( d, v )
+-        if ( v != current && flush_vcpu(v, vcpu_bitmap) )
+-            vcpu_unpause(v);
+-
+-    return true;
+-}
+-
+ /**************************************************************************/
+ /* Shadow-control XEN_DOMCTL dispatcher */
+ 
+--- a/xen/arch/x86/mm/shadow/hvm.c
++++ b/xen/arch/x86/mm/shadow/hvm.c
+@@ -688,6 +688,66 @@ static void sh_emulate_unmap_dest(struct
+     atomic_inc(&v->domain->arch.paging.shadow.gtable_dirty_version);
+ }
+ 
++static bool flush_vcpu(const struct vcpu *v, const unsigned long *vcpu_bitmap)
++{
++    return !vcpu_bitmap || test_bit(v->vcpu_id, vcpu_bitmap);
++}
++
++/* Flush TLB of selected vCPUs.  NULL for all. */
++bool cf_check shadow_flush_tlb(const unsigned long *vcpu_bitmap)
++{
++    static DEFINE_PER_CPU(cpumask_t, flush_cpumask);
++    cpumask_t *mask = &this_cpu(flush_cpumask);
++    const struct vcpu *curr = current;
++    struct domain *d = curr->domain;
++    struct vcpu *v;
++
++    /* Avoid deadlock if more than one vcpu tries this at the same time. */
++    if ( !spin_trylock(&d->hypercall_deadlock_mutex) )
++        return false;
++
++    /* Pause all other vcpus. */
++    for_each_vcpu ( d, v )
++        if ( v != curr && flush_vcpu(v, vcpu_bitmap) )
++            vcpu_pause_nosync(v);
++
++    /* Now that all VCPUs are signalled to deschedule, we wait... */
++    for_each_vcpu ( d, v )
++        if ( v != curr && flush_vcpu(v, vcpu_bitmap) )
++            while ( !vcpu_runnable(v) && v->is_running )
++                cpu_relax();
++
++    /* All other vcpus are paused, safe to unlock now. */
++    spin_unlock(&d->hypercall_deadlock_mutex);
++
++    cpumask_clear(mask);
++
++    /* Flush paging-mode soft state (e.g., va->gfn cache; PAE PDPE cache). */
++    for_each_vcpu ( d, v )
++    {
++        unsigned int cpu;
++
++        if ( !flush_vcpu(v, vcpu_bitmap) )
++            continue;
++
++        paging_update_cr3(v, false);
++
++        cpu = read_atomic(&v->dirty_cpu);
++        if ( is_vcpu_dirty_cpu(cpu) )
++            __cpumask_set_cpu(cpu, mask);
++    }
++
++    /* Flush TLBs on all CPUs with dirty vcpu state. */
++    guest_flush_tlb_mask(d, mask);
++
++    /* Done. */
++    for_each_vcpu ( d, v )
++        if ( v != curr && flush_vcpu(v, vcpu_bitmap) )
++            vcpu_unpause(v);
++
++    return true;
++}
++
+ mfn_t sh_make_monitor_table(const struct vcpu *v, unsigned int shadow_levels)
  {
-     paging_lock(v->domain);
-     sh_update_paging_modes(v);
+     struct domain *d = v->domain;
 --- a/xen/arch/x86/mm/shadow/multi.c
 +++ b/xen/arch/x86/mm/shadow/multi.c
 @@ -4198,7 +4198,6 @@ const struct paging_mode sh_paging_mode
      .gva_to_gfn                    = sh_gva_to_gfn,
  #endif
      .update_cr3                    = sh_update_cr3,
--    .update_paging_modes           = shadow_update_paging_modes,
-     .flush_tlb                     = shadow_flush_tlb,
+-    .flush_tlb                     = shadow_flush_tlb,
      .guest_levels                  = GUEST_PAGING_LEVELS,
      .shadow.detach_old_tables      = sh_detach_old_tables,
---- a/xen/arch/x86/mm/shadow/none.c
-+++ b/xen/arch/x86/mm/shadow/none.c
-@@ -18,6 +18,11 @@ static void cf_check _clean_dirty_bitmap
-     ASSERT(is_pv_domain(d));
- }
- 
-+static void cf_check _update_paging_mode(struct vcpu *v)
-+{
-+    ASSERT_UNREACHABLE();
-+}
-+
- int shadow_domain_init(struct domain *d)
- {
-     static const struct log_dirty_ops sh_none_ops = {
-@@ -27,6 +32,9 @@ int shadow_domain_init(struct domain *d)
-     };
- 
-     paging_log_dirty_init(d, &sh_none_ops);
-+
-+    d->arch.paging.update_paging_mode = _update_paging_mode;
-+
-     return is_hvm_domain(d) ? -EOPNOTSUPP : 0;
- }
- 
-@@ -57,11 +65,6 @@ static void cf_check _update_cr3(struct
-     ASSERT_UNREACHABLE();
- }
- 
--static void cf_check _update_paging_modes(struct vcpu *v)
--{
--    ASSERT_UNREACHABLE();
--}
--
- static const struct paging_mode sh_paging_none = {
-     .page_fault                    = _page_fault,
-     .invlpg                        = _invlpg,
-@@ -69,7 +72,6 @@ static const struct paging_mode sh_pagin
-     .gva_to_gfn                    = _gva_to_gfn,
- #endif
-     .update_cr3                    = _update_cr3,
--    .update_paging_modes           = _update_paging_modes,
- };
- 
- void shadow_vcpu_init(struct vcpu *v)
---- a/xen/arch/x86/mm/shadow/private.h
-+++ b/xen/arch/x86/mm/shadow/private.h
-@@ -426,11 +426,6 @@ void cf_check sh_write_guest_entry(
- intpte_t cf_check sh_cmpxchg_guest_entry(
-     struct vcpu *v, intpte_t *p, intpte_t old, intpte_t new, mfn_t gmfn);
- 
--/* Update all the things that are derived from the guest's CR0/CR3/CR4.
-- * Called to initialize paging structures if the paging mode
-- * has changed, and when bringing up a VCPU for the first time. */
--void cf_check shadow_update_paging_modes(struct vcpu *v);
--
- /* Unhook the non-Xen mappings in this top-level shadow mfn.
-  * With user_only == 1, unhooks only the user-mode mappings. */
- void shadow_unhook_mappings(struct domain *d, mfn_t smfn, int user_only);
+ #ifdef CONFIG_PV
 
 
