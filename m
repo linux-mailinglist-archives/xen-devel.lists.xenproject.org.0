@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1C24654366
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 15:54:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.468545.727663 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C33E5654458
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 16:30:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.468560.727674 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8MwU-0001Z5-Lv; Thu, 22 Dec 2022 14:53:06 +0000
+	id 1p8NVO-0005Da-Ho; Thu, 22 Dec 2022 15:29:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 468545.727663; Thu, 22 Dec 2022 14:53:06 +0000
+Received: by outflank-mailman (output) from mailman id 468560.727674; Thu, 22 Dec 2022 15:29:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8MwU-0001Wq-Il; Thu, 22 Dec 2022 14:53:06 +0000
-Received: by outflank-mailman (input) for mailman id 468545;
- Thu, 22 Dec 2022 14:53:04 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p8MwS-0001Wg-Ab; Thu, 22 Dec 2022 14:53:04 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p8MwS-0007On-80; Thu, 22 Dec 2022 14:53:04 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p8MwR-0002lg-O6; Thu, 22 Dec 2022 14:53:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p8MwR-0005m6-Ne; Thu, 22 Dec 2022 14:53:03 +0000
+	id 1p8NVO-0005B9-EP; Thu, 22 Dec 2022 15:29:10 +0000
+Received: by outflank-mailman (input) for mailman id 468560;
+ Thu, 22 Dec 2022 15:29:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=XT/F=4U=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
+ id 1p8NVN-0005B1-HW
+ for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 15:29:09 +0000
+Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
+ [2a00:1450:4864:20::530])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5ff14006-820d-11ed-91b6-6bf2151ebd3b;
+ Thu, 22 Dec 2022 16:29:07 +0100 (CET)
+Received: by mail-ed1-x530.google.com with SMTP id r26so3371376edc.10
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Dec 2022 07:29:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,394 +39,486 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=7hSehhs1UdQ0aTaxeliFxemTZ0PNqmJFlfus8EWRyjE=; b=AApeqxcmFjoPbI+WMoOmEnunBY
-	NMZKmSO7g0YTOiKb+4xj+k362vUiVd178tfX20GUHlhm7VI40Du2nxtFT+ROVkT0jNyI98QIOkfjU
-	nizozf1V1tV1AtG+qIXA85C7diILLEoOVp8/L3YcyzMTa3X+kUWwgHuvWxg5dnmFnoMw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175445-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 5ff14006-820d-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=JpwE5gAYmj25iRUUytDECz5m6MR4PAtooA0uhdFuniM=;
+        b=RgAwp1qEPfe5n+jBz3yTDom2pP1IHh1UCJiiP2A6gDzaZgBYjr6818MiXbiECpm15Q
+         SdSVjHyciy0IYgeGBVm2SYCJE2ecdh+c2nv+MfbBXA/rVfSi8JhqBhuUo7AOeLiRYuo6
+         9eFZvwWVdFCu2l/yqttjd3a0OIuedbDh6zUAikGC89SK9l+SnJ5jUeD04xp/wceHvP+x
+         oF/VYGwO7fKa0RX7AiMk5xp6RfyJL9RFFaMlUb4E+2e+/i0uC2Ikksv4GsBpvnyNSrFC
+         kgpWu2iHRcCdHcUpcURGfxyvNBIR/K9TNDoK8W4VntGQ2Muek2d8YKkFrDZyD2Lky1FJ
+         I0ow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=JpwE5gAYmj25iRUUytDECz5m6MR4PAtooA0uhdFuniM=;
+        b=3mMnJSHmNyDSh6ptNtH1bwQ06XNfb5CsdELHPTsYM8kkH2bjZNl3SUBR6rcS8/utAz
+         /Mygsn7ENteQTdFfJVX7Dn6jq3mZfRSzfLfjh+nrdCy+rJWn9SRSY5fxBZvFrAmIsC6U
+         HuYtllGumVIzlZ+Hpwlhrb5hlzzQM3CUjzo4RtIt9pxJLzjjYYbBJgqdP9VVBsb/3hQV
+         AzJ/cpr7sGbMH9u1YTXC8/rdWX9V22gTAsvv5l6DFDr07IOw+i1C2sbB1DWUMWB8mKUM
+         A+RdZifzWklRYauyJsXqoZY8o8WZFBPNskTwwdWEX5ImfAX7pyjEWvV0VBJ5648Qx6w+
+         Y2vw==
+X-Gm-Message-State: AFqh2kp/G8nq/V+rP649Xr07b8LcFQrd8c8nhRcnU7NnEK6UtG9w31rS
+	yST1dy3mA+XhoKu6B/e6tPLCAjMbk3JiNXUpF758EA==
+X-Google-Smtp-Source: AMrXdXsJwWU4HcZ0ttkKio4JaHJJSbPZOGjAHbTHYFDgTO/cM2PWqEi4xGlaisMMKBC3wfqhJbTK8DZ1ojrqQYw89Hk=
+X-Received: by 2002:aa7:cd08:0:b0:46b:d3b3:669f with SMTP id
+ b8-20020aa7cd08000000b0046bd3b3669fmr600122edw.414.1671722947063; Thu, 22 Dec
+ 2022 07:29:07 -0800 (PST)
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 175445: FAIL
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl-credit2:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl-qemuu-ovmf-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-pair:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-credit2:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemuu-ovmf-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-i386-examine:host-install:broken:heisenbug
-    linux-5.4:test-amd64-i386-pair:host-install/dst_host(7):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start:fail:heisenbug
-    linux-5.4:test-arm64-arm64-examine:reboot:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-vhd:guest-start:fail:heisenbug
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=851c2b5fb7936d54e1147f76f88e2675f9f82b52
-X-Osstest-Versions-That:
-    linux=66bb2e2b24ce52819a7070d3a3255726cb946b69
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 22 Dec 2022 14:53:03 +0000
+References: <20221022155120.7000-1-carlo.nonato@minervasys.tech>
+ <20221022155120.7000-5-carlo.nonato@minervasys.tech> <Y3+MDElm8YQ7/2nS@perard.uk.xensource.com>
+In-Reply-To: <Y3+MDElm8YQ7/2nS@perard.uk.xensource.com>
+From: Carlo Nonato <carlo.nonato@minervasys.tech>
+Date: Thu, 22 Dec 2022 16:28:56 +0100
+Message-ID: <CAG+AhRUfdnwCYkXw3TR=XrQOWQFt4FTdEsGvcE5kyAmwEyAaeg@mail.gmail.com>
+Subject: Re: [PATCH v3 4/9] tools/xl: add support for cache coloring configuration
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, marco.solieri@unimore.it, 
+	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, Wei Liu <wl@xen.org>, 
+	Juergen Gross <jgross@suse.com>, Marco Solieri <marco.solieri@minervasys.tech>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 175445 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175445/
+Hi Anthony,
 
-Failures and problems with tests :-(
+On Thu, Nov 24, 2022 at 4:21 PM Anthony PERARD
+<anthony.perard@citrix.com> wrote:
+>
+> On Sat, Oct 22, 2022 at 05:51:15PM +0200, Carlo Nonato wrote:
+> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> > index b2901e04cf..5f53cec8bf 100644
+> > --- a/docs/man/xl.cfg.5.pod.in
+> > +++ b/docs/man/xl.cfg.5.pod.in
+> > @@ -2880,6 +2880,16 @@ Currently, only the "sbsa_uart" model is supported for ARM.
+> >
+> >  =back
+> >
+> > +=over 4
+> > +
+> > +=item B<colors=[ "COLORS_RANGE", "COLORS_RANGE", ...]>
+>
+> Instead of COLORS_RANGE, maybe NUMBER_RANGE? Or just RANGE?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemut-debianhvm-amd64    <job status>     broken in 175407
- test-amd64-amd64-xl-credit2     <job status>                 broken  in 175407
- test-amd64-i386-qemuu-rhel6hvm-intel    <job status>          broken in 175407
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow <job status> broken in 175433
- test-amd64-amd64-xl-qemuu-debianhvm-amd64    <job status>     broken in 175433
- test-amd64-amd64-xl             <job status>                 broken  in 175433
- test-amd64-amd64-xl-qemuu-ovmf-amd64    <job status>          broken in 175433
- test-amd64-i386-pair            <job status>                 broken  in 175433
- test-amd64-i386-xl-qemuu-ws16-amd64    <job status>           broken in 175433
+RANGE seems good.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-qemuu-rhel6hvm-intel 5 host-install(5) broken in 175407 pass in 175445
- test-amd64-amd64-xl-credit2  5 host-install(5) broken in 175407 pass in 175445
- test-amd64-amd64-xl-qemut-debianhvm-amd64 5 host-install(5) broken in 175407 pass in 175445
- test-amd64-amd64-xl          5 host-install(5) broken in 175433 pass in 175445
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 5 host-install(5) broken in 175433 pass in 175445
- test-amd64-amd64-xl-qemuu-ovmf-amd64 5 host-install(5) broken in 175433 pass in 175445
- test-amd64-i386-xl-qemuu-ws16-amd64 5 host-install(5) broken in 175433 pass in 175445
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 5 host-install(5) broken in 175433 pass in 175445
- test-amd64-i386-examine       5 host-install   broken in 175433 pass in 175445
- test-amd64-i386-pair 7 host-install/dst_host(7) broken in 175433 pass in 175445
- test-armhf-armhf-xl-multivcpu 14 guest-start     fail in 175407 pass in 175445
- test-armhf-armhf-xl-credit1 18 guest-start/debian.repeat fail in 175433 pass in 175407
- test-armhf-armhf-xl-rtds     14 guest-start      fail in 175433 pass in 175445
- test-arm64-arm64-examine      8 reboot                     fail pass in 175433
- test-armhf-armhf-xl          18 guest-start/debian.repeat  fail pass in 175433
- test-armhf-armhf-xl-credit1  14 guest-start                fail pass in 175433
- test-armhf-armhf-xl-vhd      13 guest-start                fail pass in 175433
+> > +Specify the LLC color configuration for the guest. B<COLORS_RANGE> can be either
+> > +a single color value or a hypen-separated closed interval of colors
+> > +(such as "0-4").
+>
+> Does "yellow-blue" works? Or "red-violet", to have a rainbow? :-)
+>
+> So, "colors" as the name of a new configuration option isn't going to
+> work. To me, that would refer to VM managment, like maybe help to
+> categorise VM in some kind of tools, and not a part of the configuration
+> of the domain.
+>
+> Could you invent a name that is more specific? Maybe "cache_colors" or
+> something, or "vcpu_cache_colors".
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 175197
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail in 175407 like 175197
- test-armhf-armhf-xl-vhd     14 migrate-support-check fail in 175433 never pass
- test-armhf-armhf-xl-vhd 15 saverestore-support-check fail in 175433 never pass
- test-armhf-armhf-xl-credit1 15 migrate-support-check fail in 175433 never pass
- test-armhf-armhf-xl-credit1 16 saverestore-support-check fail in 175433 never pass
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175197
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175197
- test-armhf-armhf-xl-multivcpu 18 guest-start/debian.repeat    fail like 175197
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175197
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175197
- test-armhf-armhf-xl-credit2  18 guest-start/debian.repeat    fail  like 175197
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 175197
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175197
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175197
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175197
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175197
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175197
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175197
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175197
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+What about llc_colors? LLC stands for Last Level Cache and I'm trying to use
+it everywhere else since it's what is really implemented (not any cache is
+colored, just the last level) and it's shorter than cache_colors.
 
-version targeted for testing:
- linux                851c2b5fb7936d54e1147f76f88e2675f9f82b52
-baseline version:
- linux                66bb2e2b24ce52819a7070d3a3255726cb946b69
+> > +=back
+> > +
+> >  =head3 x86
+> >
+> >  =over 4
+> > diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+> > index b9dd2deedf..94c511912c 100644
+> > --- a/tools/libs/light/libxl_create.c
+> > +++ b/tools/libs/light/libxl_create.c
+> > @@ -615,6 +615,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+> >      struct xs_permissions rwperm[1];
+> >      struct xs_permissions noperm[1];
+> >      xs_transaction_t t = 0;
+> > +    DECLARE_HYPERCALL_BUFFER(unsigned int, colors);
+> >
+> >      /* convenience aliases */
+> >      libxl_domain_create_info *info = &d_config->c_info;
+> > @@ -676,6 +677,16 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+> >              goto out;
+> >          }
+> >
+> > +        if (d_config->b_info.num_colors) {
+> > +            size_t bytes = sizeof(unsigned int) * d_config->b_info.num_colors;
+> > +            colors = xc_hypercall_buffer_alloc(ctx->xch, colors, bytes);
+>
+> Hypercall stuff is normally done in another library, libxenctrl (or
+> maybe others like libxenguest). Is there a reason to do that here?
 
-Last test of basis   175197  2022-12-14 10:43:17 Z    8 days
-Testing same since   175407  2022-12-19 11:42:26 Z    3 days    4 attempts
+I moved this in xc_domain_create().
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alexei Starovoitov <ast@kernel.org>
-  Andrew Morton <akpm@linux-foundation.org>
-  Baolin Wang <baolin.wang@linux.alibaba.com>
-  Charles Keepax <ckeepax@opensource.cirrus.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Heiko Schocher <hs@denx.de>
-  Hulk Robot <hulkrobot@huawei.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jialiang Wang <wangjialiang0806@163.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Linus Walleij <linus.walleij@linaro.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lorenzo Colitti <lorenzo@google.com>
-  Maciej Żenczykowski <maze@google.com>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Mark Brown <broonie@kernel.org>
-  Ming Lei <ming.lei@redhat.com>
-  Paul E. McKenney <paulmck@kernel.org>
-  Ricardo Ribalda <ribalda@chromium.org>
-  Samuel Mendoza-Jonas <samjonas@amazon.com>
-  Sasha Levin <sashal@kernel.org>
-  Shiwei Cui <cuishw@inspur.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Simon Horman <simon.horman@corigine.com>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Yasushi SHOJI <yashi@spacecubics.com>
-  Yasushi SHOJI <yasushi.shoji@gmail.com>
+> > +            memcpy(colors, d_config->b_info.colors, bytes);
+> > +            set_xen_guest_handle(create.arch.colors, colors);
+> > +            create.arch.num_colors = d_config->b_info.num_colors;
+> > +            create.arch.from_guest = 1;
+>
+> "arch" stuff is better dealt with in libxl__arch_domain_prepare_config().
+> (unless it isn't arch specific in the next revision of the series)
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          fail    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      fail    
- test-amd64-i386-xl-vhd                                       pass    
+Yes, removing arch specific parts is the current way of implementing it.
+
+> > +            LOG(DEBUG, "Setup %u domain colors", d_config->b_info.num_colors);
+>
+>
+>
+> > +        }
+> > +
+> >          for (;;) {
+> >              uint32_t local_domid;
+> >              bool recent;
+> > @@ -922,6 +933,7 @@ retry_transaction:
+> >      rc = 0;
+> >   out:
+> >      if (t) xs_transaction_end(ctx->xsh, t, 1);
+> > +    if (colors) xc_hypercall_buffer_free(ctx->xch, colors);
+> >      return rc;
+> >  }
+> >
+> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> > index d634f304cd..642173af1a 100644
+> > --- a/tools/libs/light/libxl_types.idl
+> > +++ b/tools/libs/light/libxl_types.idl
+> > @@ -557,6 +557,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >      ("ioports",          Array(libxl_ioport_range, "num_ioports")),
+> >      ("irqs",             Array(uint32, "num_irqs")),
+> >      ("iomem",            Array(libxl_iomem_range, "num_iomem")),
+> > +    ("colors",           Array(uint32, "num_colors")),
+>
+> So the colors is added to arch specific config in
+> xen_domctl_createdomain, maybe we should do the same here and move it to
+> the "arch_arm" struct. Or if that is declared common in hypervisor, then
+> it is file to leave it here.
+
+Yes, it will be declared in common.
+
+> Also, "colors" needs to be rename to something more specific.
+>
+> >      ("claim_mode",        libxl_defbool),
+> >      ("event_channels",   uint32),
+> >      ("kernel",           string),
+> > diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> > index 1b5381cef0..e6b2c7acff 100644
+> > --- a/tools/xl/xl_parse.c
+> > +++ b/tools/xl/xl_parse.c
+> > @@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
+> >      XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
+> >                     *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
+> >      XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
+> > -                   *mca_caps;
+> > -    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
+> > +                   *mca_caps, *colors;
+> > +    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps,
+> > +        num_colors;
+>
+> Please, add a new lines instead of increasing the number of declared
+> variable on a single line.
+>
+> >      int pci_power_mgmt = 0;
+> >      int pci_msitranslate = 0;
+> >      int pci_permissive = 0;
+> > @@ -1370,6 +1371,53 @@ void parse_config_data(const char *config_source,
+> >      if (!xlu_cfg_get_long (config, "maxmem", &l, 0))
+> >          b_info->max_memkb = l * 1024;
+> >
+> > +    if (!xlu_cfg_get_list(config, "colors", &colors, &num_colors, 0)) {
+> > +        int k, p, cur_index = 0;
+> > +
+> > +        b_info->num_colors = 0;
+> > +        /* Get number of colors based on ranges */
+> > +        for (i = 0; i < num_colors; i++) {
+> > +            uint32_t start = 0, end = 0;
+> > +
+> > +            buf = xlu_cfg_get_listitem(colors, i);
+> > +            if (!buf) {
+> > +                fprintf(stderr,
+> > +                    "xl: Unable to get element %d in colors range list\n", i);
+> > +                exit(1);
+> > +            }
+> > +
+> > +            if (sscanf(buf, "%u-%u", &start, &end) != 2) {
+> > +                if (sscanf(buf, "%u", &start) != 1) {
+>
+> I think you want %"SCNu32" instead of %u as both start and end are
+> uint32_t.
+
+Ok.
+
+> > +                    fprintf(stderr, "xl: Invalid color range: %s\n", buf);
+> > +                    exit(1);
+> > +                }
+> > +                end = start;
+> > +            }
+> > +            else if (start > end) {
+>
+> Can you put the "else" on the same line as "}" ?
+
+Yep.
+
+> > +                fprintf(stderr,
+> > +                        "xl: Start color is greater than end color: %s\n", buf);
+> > +                exit(1);
+> > +            }
+> > +
+> > +            /* Check for overlaps */
+> > +            for (k = start; k <= end; k++) {
+> > +                for (p = 0; p < b_info->num_colors; p++) {
+> > +                    if (b_info->colors[p] == k) {
+> > +                        fprintf(stderr, "xl: Overlapped ranges not allowed\n");
+>
+> Why is that an issue? Could overlap just been ignored?
+
+That requirement comes from the hypervisor. It assumes a sorted array without
+repeated elements for simplicity. The hypervisor checks that again indeed
+(it does that in v4, at least) so yes, it's a bit useless. I'll drop this.
+
+> > +                        exit(1);
+> > +                    }
+> > +                }
+> > +            }
+> > +
+> > +            b_info->num_colors += (end - start) + 1;
+> > +            b_info->colors = (uint32_t *)realloc(b_info->colors,
+> > +                                sizeof(*b_info->colors) * b_info->num_colors);
+> > +
+> > +            for (k = start; k <= end; k++)
+> > +                b_info->colors[cur_index++] = k;
+>
+> This `b_info->colors` feels like it could be a bitmap like for "vcpus"
+> or other config that deal with ranges.
+>
+> libxl has plenty of functions to deal with bitmap that xl can use,
+> starting with libxl_bitmap_alloc(), maybe it would make dealing with
+> cache color easier, like no need to check for overlaps, but there
+> doesn't seems to be a function to deal with a growing bitmap so one
+> would have to find the highest cache value before allocating the bitmap
+> are deal with realloc.
+>
+> I guess using bitmap or not kind of depend of the interface with the
+> hypervisor, if it take a list of number, then a list of number is fine
+> here too.
+
+I discarded bitmaps because it's not that easy to iterate over the index of
+set bits and because they imposed, in the way we used them, a fixed number
+of colors. At that time I wasn't really thinking of having a dynamic bitmap.
+For now I will leave things as they are (using plain arrays) because it
+would require other changes in the hypervisor, but this can be something
+to do in the future, at least just for the passage of data between toolstack
+and Xen.
+
+> Thanks,
+>
+> --
+> Anthony PERARD
+
+Thank
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow broken
-broken-job test-amd64-amd64-xl-qemuu-debianhvm-amd64 broken
-broken-job test-amd64-amd64-xl broken
-broken-job test-amd64-amd64-xl-qemuu-ovmf-amd64 broken
-broken-job test-amd64-i386-pair broken
-broken-job test-amd64-i386-xl-qemuu-ws16-amd64 broken
-broken-job test-amd64-amd64-xl-qemut-debianhvm-amd64 broken
-broken-job test-amd64-amd64-xl-credit2 broken
-broken-job test-amd64-i386-xl-qemuu-ws16-amd64 broken
-broken-job test-amd64-i386-qemuu-rhel6hvm-intel broken
-
-Not pushing.
-
-(No revision log; it would be 410 lines long.)
+On Thu, Nov 24, 2022 at 4:21 PM Anthony PERARD
+<anthony.perard@citrix.com> wrote:
+>
+> On Sat, Oct 22, 2022 at 05:51:15PM +0200, Carlo Nonato wrote:
+> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
+> > index b2901e04cf..5f53cec8bf 100644
+> > --- a/docs/man/xl.cfg.5.pod.in
+> > +++ b/docs/man/xl.cfg.5.pod.in
+> > @@ -2880,6 +2880,16 @@ Currently, only the "sbsa_uart" model is supported for ARM.
+> >
+> >  =back
+> >
+> > +=over 4
+> > +
+> > +=item B<colors=[ "COLORS_RANGE", "COLORS_RANGE", ...]>
+>
+> Instead of COLORS_RANGE, maybe NUMBER_RANGE? Or just RANGE?
+>
+> > +Specify the LLC color configuration for the guest. B<COLORS_RANGE> can be either
+> > +a single color value or a hypen-separated closed interval of colors
+> > +(such as "0-4").
+>
+> Does "yellow-blue" works? Or "red-violet", to have a rainbow? :-)
+>
+> So, "colors" as the name of a new configuration option isn't going to
+> work. To me, that would refer to VM managment, like maybe help to
+> categorise VM in some kind of tools, and not a part of the configuration
+> of the domain.
+>
+> Could you invent a name that is more specific? Maybe "cache_colors" or
+> something, or "vcpu_cache_colors".
+>
+> > +=back
+> > +
+> >  =head3 x86
+> >
+> >  =over 4
+> > diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
+> > index b9dd2deedf..94c511912c 100644
+> > --- a/tools/libs/light/libxl_create.c
+> > +++ b/tools/libs/light/libxl_create.c
+> > @@ -615,6 +615,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+> >      struct xs_permissions rwperm[1];
+> >      struct xs_permissions noperm[1];
+> >      xs_transaction_t t = 0;
+> > +    DECLARE_HYPERCALL_BUFFER(unsigned int, colors);
+> >
+> >      /* convenience aliases */
+> >      libxl_domain_create_info *info = &d_config->c_info;
+> > @@ -676,6 +677,16 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
+> >              goto out;
+> >          }
+> >
+> > +        if (d_config->b_info.num_colors) {
+> > +            size_t bytes = sizeof(unsigned int) * d_config->b_info.num_colors;
+> > +            colors = xc_hypercall_buffer_alloc(ctx->xch, colors, bytes);
+>
+> Hypercall stuff is normally done in another library, libxenctrl (or
+> maybe others like libxenguest). Is there a reason to do that here?
+>
+> > +            memcpy(colors, d_config->b_info.colors, bytes);
+> > +            set_xen_guest_handle(create.arch.colors, colors);
+> > +            create.arch.num_colors = d_config->b_info.num_colors;
+> > +            create.arch.from_guest = 1;
+>
+> "arch" stuff is better dealt with in libxl__arch_domain_prepare_config().
+> (unless it isn't arch specific in the next revision of the series)
+>
+> > +            LOG(DEBUG, "Setup %u domain colors", d_config->b_info.num_colors);
+>
+>
+>
+> > +        }
+> > +
+> >          for (;;) {
+> >              uint32_t local_domid;
+> >              bool recent;
+> > @@ -922,6 +933,7 @@ retry_transaction:
+> >      rc = 0;
+> >   out:
+> >      if (t) xs_transaction_end(ctx->xsh, t, 1);
+> > +    if (colors) xc_hypercall_buffer_free(ctx->xch, colors);
+> >      return rc;
+> >  }
+> >
+> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
+> > index d634f304cd..642173af1a 100644
+> > --- a/tools/libs/light/libxl_types.idl
+> > +++ b/tools/libs/light/libxl_types.idl
+> > @@ -557,6 +557,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
+> >      ("ioports",          Array(libxl_ioport_range, "num_ioports")),
+> >      ("irqs",             Array(uint32, "num_irqs")),
+> >      ("iomem",            Array(libxl_iomem_range, "num_iomem")),
+> > +    ("colors",           Array(uint32, "num_colors")),
+>
+> So the colors is added to arch specific config in
+> xen_domctl_createdomain, maybe we should do the same here and move it to
+> the "arch_arm" struct. Or if that is declared common in hypervisor, then
+> it is file to leave it here.
+>
+> Also, "colors" needs to be rename to something more specific.
+>
+> >      ("claim_mode",        libxl_defbool),
+> >      ("event_channels",   uint32),
+> >      ("kernel",           string),
+> > diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
+> > index 1b5381cef0..e6b2c7acff 100644
+> > --- a/tools/xl/xl_parse.c
+> > +++ b/tools/xl/xl_parse.c
+> > @@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
+> >      XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
+> >                     *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
+> >      XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
+> > -                   *mca_caps;
+> > -    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
+> > +                   *mca_caps, *colors;
+> > +    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps,
+> > +        num_colors;
+>
+> Please, add a new lines instead of increasing the number of declared
+> variable on a single line.
+>
+> >      int pci_power_mgmt = 0;
+> >      int pci_msitranslate = 0;
+> >      int pci_permissive = 0;
+> > @@ -1370,6 +1371,53 @@ void parse_config_data(const char *config_source,
+> >      if (!xlu_cfg_get_long (config, "maxmem", &l, 0))
+> >          b_info->max_memkb = l * 1024;
+> >
+> > +    if (!xlu_cfg_get_list(config, "colors", &colors, &num_colors, 0)) {
+> > +        int k, p, cur_index = 0;
+> > +
+> > +        b_info->num_colors = 0;
+> > +        /* Get number of colors based on ranges */
+> > +        for (i = 0; i < num_colors; i++) {
+> > +            uint32_t start = 0, end = 0;
+> > +
+> > +            buf = xlu_cfg_get_listitem(colors, i);
+> > +            if (!buf) {
+> > +                fprintf(stderr,
+> > +                    "xl: Unable to get element %d in colors range list\n", i);
+> > +                exit(1);
+> > +            }
+> > +
+> > +            if (sscanf(buf, "%u-%u", &start, &end) != 2) {
+> > +                if (sscanf(buf, "%u", &start) != 1) {
+>
+> I think you want %"SCNu32" instead of %u as both start and end are
+> uint32_t.
+>
+> > +                    fprintf(stderr, "xl: Invalid color range: %s\n", buf);
+> > +                    exit(1);
+> > +                }
+> > +                end = start;
+> > +            }
+> > +            else if (start > end) {
+>
+> Can you put the "else" on the same line as "}" ?
+> > +                fprintf(stderr,
+> > +                        "xl: Start color is greater than end color: %s\n", buf);
+> > +                exit(1);
+> > +            }
+> > +
+> > +            /* Check for overlaps */
+> > +            for (k = start; k <= end; k++) {
+> > +                for (p = 0; p < b_info->num_colors; p++) {
+> > +                    if (b_info->colors[p] == k) {
+> > +                        fprintf(stderr, "xl: Overlapped ranges not allowed\n");
+>
+> Why is that an issue? Could overlap just been ignored?
+>
+> > +                        exit(1);
+> > +                    }
+> > +                }
+> > +            }
+> > +
+> > +            b_info->num_colors += (end - start) + 1;
+> > +            b_info->colors = (uint32_t *)realloc(b_info->colors,
+> > +                                sizeof(*b_info->colors) * b_info->num_colors);
+> > +
+> > +            for (k = start; k <= end; k++)
+> > +                b_info->colors[cur_index++] = k;
+>
+> This `b_info->colors` feels like it could be a bitmap like for "vcpus"
+> or other config that deal with ranges.
+>
+> libxl has plenty of functions to deal with bitmap that xl can use,
+> starting with libxl_bitmap_alloc(), maybe it would make dealing with
+> cache color easier, like no need to check for overlaps, but there
+> doesn't seems to be a function to deal with a growing bitmap so one
+> would have to find the highest cache value before allocating the bitmap
+> are deal with realloc.
+>
+> I guess using bitmap or not kind of depend of the interface with the
+> hypervisor, if it take a list of number, then a list of number is fine
+> here too.
+>
+>
+> Thanks,
+>
+> --
+> Anthony PERARD
 
