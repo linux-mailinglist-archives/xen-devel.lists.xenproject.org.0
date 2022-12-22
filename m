@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E686653CBB
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 09:01:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.468267.727322 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85240653CFC
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 09:27:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.468275.727332 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8GVg-0003XP-7K; Thu, 22 Dec 2022 08:01:00 +0000
+	id 1p8Gv1-00062E-8N; Thu, 22 Dec 2022 08:27:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 468267.727322; Thu, 22 Dec 2022 08:01:00 +0000
+Received: by outflank-mailman (output) from mailman id 468275.727332; Thu, 22 Dec 2022 08:27:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8GVg-0003VL-4E; Thu, 22 Dec 2022 08:01:00 +0000
-Received: by outflank-mailman (input) for mailman id 468267;
- Thu, 22 Dec 2022 08:00:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p8Gv1-00060E-5R; Thu, 22 Dec 2022 08:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 468275;
+ Thu, 22 Dec 2022 08:27:10 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLdZ=4U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1p8GVe-0003VF-Tl
- for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 08:00:58 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2082.outbound.protection.outlook.com [40.107.7.82])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c48a222c-81ce-11ed-91b6-6bf2151ebd3b;
- Thu, 22 Dec 2022 09:00:58 +0100 (CET)
+ id 1p8Guz-000608-Us
+ for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 08:27:09 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2058.outbound.protection.outlook.com [40.107.105.58])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6c834846-81d2-11ed-8fd4-01056ac49cbb;
+ Thu, 22 Dec 2022 09:27:08 +0100 (CET)
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com (2603:10a6:20b:fa::20)
- by AS8PR04MB8327.eurprd04.prod.outlook.com (2603:10a6:20b:3f1::19)
+ by VI1PR04MB7136.eurprd04.prod.outlook.com (2603:10a6:800:122::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5924.16; Thu, 22 Dec
- 2022 08:00:55 +0000
+ 2022 08:27:06 +0000
 Received: from AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::8084:fa5b:fe3a:fa24]) by AM6PR04MB6551.eurprd04.prod.outlook.com
  ([fe80::8084:fa5b:fe3a:fa24%4]) with mapi id 15.20.5924.016; Thu, 22 Dec 2022
- 08:00:55 +0000
+ 08:27:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,147 +46,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c48a222c-81ce-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 6c834846-81d2-11ed-8fd4-01056ac49cbb
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=im0bveffg29x4aaS/kPA8TVe+j4NcBH6wHVFZNbQT3D1EesPan0/Xs+hQPr9V3HM9yLpDgI1SA/klbwIW1BRRLhrGU2bbsHtrnIEJhL8JXrp8UVuhZn3OBJyirkOrp68Y31smoTzlQlBpPLpeg/25zPMWTA/ZyEbg3KTAUiiihrTXIJk5a/ljH6xAK4r2Fg0EIIwDDGEE2xE5BbYFpJMdbIRPhpszV+AfJ+3dz46gEv+uE+/SeZF/gszNC6jFS24yTgH++e5XVSC2rG/iEOov41763urlEHEvZj3XhaTp9K3eIr0coMdeogmQu28Tb8VxTYagPnSmDjY+nJgwjkzoQ==
+ b=KFuDR7fMaYkzoo8yt3k/BG3fOa5aNLLkRb6tcseQaV1Q2TZpWuS/4kwGAk1FNOxiyZ2y+azchT45gstYNBY1mfkVKNLO4oQb9Amj0zR5/dIrvlRYcwUNwIWBNQByJk6K9rlXs7rFrd26mWv8cCFZLs9eXSvg6XoSiJoLgH9//d1CM/yDhs1pXkhe7ELqODORK5JNJ4vAi0kXjxMvRqcrbPgGWmhFZ4g3XBIHbWv9uDzd8gnvAFLMPTZJdTIIPKs4lXwvcIyY9xpdOlm6FM0r2eSq2robjpxQqjRQ5+HkU85g9hFOP3kvJxznqnh2LVpedNLMmh7kdsASXpeJilgWAA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X1i7SGGYZ564QuV3+nObXpaN8KfW1hu3y+spkbArGEc=;
- b=LOK1ywUVuKoAxAu+hGXZAg+U+4m9x6xwYf1qaZQ+dUS0+WpywCM2cxyNUATjY1HqcDGsKf0Yoa2yzDSfh58vfdvQT2Fb1EBlvv/2gueLwKmMYstb2zFpJ0EVdi9SQEWej+T+cefTOJR+9O1t2A7jwPgafcyToKC9c1yHl4OATu+C0y8j2JJ4i2WZihAjWnmarE81Sx/ncHJpEXCqlEnFWzsWrYhW5A8druFqm01SOZZLHDgkdZm4lavEJ4+LaDOPeyxhLeiDi7yjOsKoDRil4m3vYIF6tjKRvcrli4GIWUrDDSybAVKot/OKMAN2/Zi3AoingOGlbtRRxUrpkwx1cQ==
+ bh=W+ndfufsbCvvr6VDuB9yDWu7QNF6veOi+RYiSRjzuxo=;
+ b=aE2NYeoza6d6/6tiT0KiAyoM2CJNFDr8He7SqQEAaznxn34ijTNsWw+Pocz7G4fVUPnYXQ4jyu3+1simYeCimuaSMMJgHj7CiYUqqP4BQrlQg00X/NLuXnbMyX2QnIaxQgxgR1HLpa7+NQKIFOSTZzdtKUnKct2acGDzi+IxPQjNwsyJPwPWsDVBXwduPuYjTe6P2k3CnGcHLrbmdnoy8NtdzSt7WAFnn+IuwPdf47xn42SzJxNWui2pQ0KNB73YS8b2sP1toQ8OhBtC0HYo3jCe2DTjvLqWlqHjYOqAQNfQ9o82LDBTsm7/tIGnu1I/aTH9dSqgmBimu3WnKW1uYQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X1i7SGGYZ564QuV3+nObXpaN8KfW1hu3y+spkbArGEc=;
- b=TGvkA5gj05ZmWV8cOHkkqGDQeB93wVvTQQtpc6Bdz5ygzBUH/vklXjqKOEoinT/rrnmBBYuwe22nLnkZRSggakjoASVz74s4w2z++sNmO2rOXYRUpma1KAbYs0jGffYAE39RByfAMjlsxy/15hc2y3HkSPF1ES2Of1m1VCpCeOz7RFDcLnglX6jNzrumR1ga9dDV7uHqPwdrtJkjDgr5YBdlTeCrdn3V8Y4Rvsc/pPT3EZcjOkvShvciIGSZ+HBgGy5lJxXchgcjrjuVUqwRQW5W0olvVoThewuULSFijRiayY2NORIpZuHTxY804HoXCCc/dYeZrNGjUZgoLJ1Ebw==
+ bh=W+ndfufsbCvvr6VDuB9yDWu7QNF6veOi+RYiSRjzuxo=;
+ b=zfXjx+WPLibnqgQcI+mRWpvLA4pSKBQpLIqNEYjuY+PlOxSi89EPvMQJAiClWKuFVuhtLABlRCEBggB0zZNvVtN1HAYiwBuGEYveZscC3zX7iux4S78VLXa2dcY/oz9ws5D3Q15sOku8V7MQwxrz3rf6tVhX3XTX+CyRCkm/7yLA4Ot+KoVOUk+Kcy7Bh26w1TcukBHWDfgA4f+N+yKKkDBQkyI67QsD8/T7TqN6B5CX50phS8ApVfRmoK77W5N6T74hmrPzsKuhIRT4DHjy36H3pE+hzfbgGPKKiEFzz9CDIJR1pgAtuggXfg4pYPTEVXyTJEKiUGxSRCTd4pli4Q==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <96b5613f-144d-29ea-9e17-515509c16300@suse.com>
-Date: Thu, 22 Dec 2022 09:00:54 +0100
+Message-ID: <8f4e57e6-bbc6-0773-b422-62d5a367ad7c@suse.com>
+Date: Thu, 22 Dec 2022 09:27:05 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.0
-Subject: Re: [PATCH 3/8] x86/paging: move update_paging_modes() hook
+Subject: Re: [PATCH 6/8] x86/shadow: adjust and move sh_type_to_size[]
 Content-Language: en-US
 To: Andrew Cooper <Andrew.Cooper3@citrix.com>
 Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
  George Dunlap <George.Dunlap@citrix.com>, "Tim (Xen.org)" <tim@xen.org>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 References: <f7d2c856-bf75-503b-ad96-02d25c63a2f6@suse.com>
- <bee2d51f-534e-f6e2-6385-70f8597eac1e@suse.com>
- <de5343ab-9083-360f-3d7b-8bf84a70732d@citrix.com>
+ <e142f7f8-1184-a65e-0f50-0b01ec7fad55@suse.com>
+ <04350e03-25f3-df4c-8b1a-486d531eeda7@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <de5343ab-9083-360f-3d7b-8bf84a70732d@citrix.com>
+In-Reply-To: <04350e03-25f3-df4c-8b1a-486d531eeda7@citrix.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0199.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::16) To AM6PR04MB6551.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0107.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a3::17) To AM6PR04MB6551.eurprd04.prod.outlook.com
  (2603:10a6:20b:fa::20)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|AS8PR04MB8327:EE_
-X-MS-Office365-Filtering-Correlation-Id: 031f24c2-22b3-46e2-5ba5-08dae3f2a76d
+X-MS-TrafficTypeDiagnostic: AM6PR04MB6551:EE_|VI1PR04MB7136:EE_
+X-MS-Office365-Filtering-Correlation-Id: fff57d28-edbf-4ed3-e445-08dae3f64fca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	5Cqjnmc7lD9Dw1e7QW/qk7BajfBZVEgXqWm20ErmBqA4gPVZ9aNuw4xIi/TcuqUa/AkaDNi4shHnXBKSy49MmYPtuZXXBNHlUDuytcQXJCl5qUQ6JCSnPNNjMt8JcNuLyFD0vjS/0WNG+TUC7IsKzgvgRAERTPwTml1FekBqdgS/0reHj+1bI+MnA/6L7VcNAPWR5PUeNED6399+eNQtZr9eMK8Ihns0ahtk9vUpwZGM7esA+8GS54GYwQIP4AtCl6SE9oCb7g4EK8frVmNZlv5fv3LDk5xSMnwJPOMw6ON1KFBodQrips32zrpmxR0wsCkzYHrZFcazWf/RfwO98Bo6ub8p3ACIs8PBQxdPbbG88nATaWB8QT/U17AOcReLVeV2btCmvdGAjA7/LpmD6xdsQKweowbGj8U9AD6gRnMQsn/SGj7Zf2hYAbbWJ4rhdfdYsFH02LEb2LBdpWCkAGl5BywYTrbp/K5QKpMewI0HqMo+Nfp40XPzP+RIvfid1jOk2bw3fVl1S2r3pQB9MyBm/qO62okwMnuOTggqeuA3Hppc8crlhYhy+/zuZrGirGEPeaUfPGCjzZXXV0H3r+yjyJfFhb85QhKxhvIwgIG5WWFreB+nGQuxxZgjoaA+xv/e4CwYvZeAdNGxE4N/DuW70S5oepvpvvcCxyY8z/Ie0jmWp90qvxW0w8DcBOO5IVne7fXJxv4OUKEo2zoV+S6xv12j7MhiNU7MI0W1aCE=
+	rXULhC/H4aSDprEt1m0MF1a5IDOrNDSnQFobO8RdNbX7Cq4nYtYReUsrgBKWVBYsJmU66KbhOBremLUimCStmSRsqElBqQOGT4vaklwLGzqdqXRGibF4RSVGZoGStbHWVVBXmVTOFiyqJGZMgZObxuvX6EoFhDcmshR8JDvHdwoc5zl8gFcbTtwADpkFI+cMqFzKfkuMOz6v13e1bgaf/D6k/eKue+u1xx1e7dyRpokDN/8YcO2yI5SedF9G0oMlOuquwCsUMS//gM2moH0umOZkvEzsRXDii+C4FSBi+n4TBQYSrQrJrRjaBqgsIRZpG7aPOeGHXqj14IPCenI8MXAcxk1V+8ZuqOwXdXmgEImqx6D+YKvYwZSX+BaQs/6eEFFeCytulovuK+YCHkqVOVUrsrNaYDIkK6r2oFSvHcYouSNuSz2KPtlFYdnrsOa01cUkXrypC+WqButPq/QtCdeVYdEEh/4y17yukjXhKDFqF4gn1DN3/F3+tbU9cHQozyGWRY89izMxaseqaALXBvIj6oIJZSJ0mPPYU/y6v9fE2M++Zqp4bFxTmUgpHsdMJkXWja2f8bXkMdpF49nUNdkZTeCua08+Tovt4EDMv5At+MBnREwxGBwMc+yOw8d2Wf8F0od3lRMmKouERia+Y/CQJSSp7fixCwwu9CmHAvELK9IN8Xiku3xIKbeEHJTmCqyUkk46TCTgYHkGHjpOZNlD1/C12kR4cSUkJt03v6A=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(376002)(366004)(396003)(346002)(136003)(451199015)(36756003)(2906002)(38100700002)(5660300002)(41300700001)(8936002)(15650500001)(83380400001)(86362001)(31696002)(54906003)(66476007)(6916009)(316002)(31686004)(66556008)(8676002)(6506007)(4326008)(6486002)(186003)(6512007)(66946007)(26005)(2616005)(478600001)(53546011)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR04MB6551.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(136003)(396003)(376002)(39860400002)(346002)(451199015)(31696002)(83380400001)(86362001)(38100700002)(2906002)(41300700001)(5660300002)(8936002)(6506007)(4326008)(6486002)(478600001)(2616005)(53546011)(186003)(26005)(66946007)(6512007)(66476007)(54906003)(316002)(6916009)(8676002)(66556008)(31686004)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K1R0eFI2TU14Y0RIU1ZuTmVad3pOdGVzaEVmM2RnTEdyRUZ5VVFCRDNDM1Fh?=
- =?utf-8?B?VUN5WGxaM0h1bFgrMmZHbjlkaTlQUk5xU1lEZ3Iyb2xDaVRuMnh3RFQ0WGVY?=
- =?utf-8?B?aWV6RHhSTk02ZlJwSWplb0c4eCt4RXd6ZlRScDZtYllVaVkyZEFLNGpHZTFG?=
- =?utf-8?B?SkZ5MFRJc1lrbjY0a2dFOHp5eEp5VVF1WXRmK0dwYmgyZGNDRE14NVh5RkpJ?=
- =?utf-8?B?TXFnZGpqM2dyV2RWaG1KQThvTUIxdUQvTzltUTNHdXhySTFsWk04aHBiRS8x?=
- =?utf-8?B?RmNwS0FvanNvTzA0RlM1L3VJNWk1RVJ1bWpMUituWWZoa2NTK1piTHVlblAy?=
- =?utf-8?B?a3pZUVg0YWFIZThSN2xXYXdIc29oQzN5RC9SbjllNTFVNXpOcmxKZW5WSlJ3?=
- =?utf-8?B?ZXRyRE8wQmtQOEFsbWdNWlFsVXE4QzNqMXZCV0hOalpzQWRsekpDeTZFY0ov?=
- =?utf-8?B?NTJ3WSswcS9pNDM0dS8xN3BKa0orZm4yK1ltcU5OV1FTKzJFcjRZaFVrWUJP?=
- =?utf-8?B?U29Cbm1jWHdYbEIwTFFKRFhCNWdwczZqcFAzTTJLc2VQWlg5UXh5bXBRajRh?=
- =?utf-8?B?ejVrOXhMekNEd3hLSXRBSjhlZUk1NFhVUDNUNXZOVWpaQ29yVGlaTVNmS3BR?=
- =?utf-8?B?TkN1dzN1dHNDbzBBa3A2TnVFWlJBMjRxL0lyVm5MaWFBVTlKejM1UUt4UWRj?=
- =?utf-8?B?Y1o0dVlsNU1lejVFUlhTR01MWGt5THlYWUVDYVZ5TW05ZXRhSEF4ZHBTRzRM?=
- =?utf-8?B?ckNRN2s3R1M3VnN2OWVWUjBETnIwdXI1T2ZYV1MyaS9xMlZxM1FhQ2FoQ2ZM?=
- =?utf-8?B?Q0lEVTI1dHhZY3J2eDBkOWhWdVhwZGdvL0FqLzEvWU1KSEdrNnhablZ5ZkZS?=
- =?utf-8?B?ZkpaeHFINmxaNm45QzYzcTB5R3BoNW1HV1p0cHQ1M2Q2UWpJZElJdUdOTDY2?=
- =?utf-8?B?Sm9WeXZPTzFTclNYcDFJNnFsbndiWTZKdE82YndNcDlmVCtoZzl6eHlVZGg3?=
- =?utf-8?B?Z2p6RzU5d3YwRGJpcVBDRi82bU9DS2RRRmdzQjM1OUNiVEsweHkvRm1VS1dW?=
- =?utf-8?B?WURmWHlpTHM1aDVHdXl5VngyY3V3aVJ5M1QyN3ZVaUVjOEd5YmxWNGM1dEcv?=
- =?utf-8?B?b3Ryclk5Y3ZZejBSSUNuclA4Yi9FUEMzaXA2Y2srcnRyeXBnRVAyZjVUYWkz?=
- =?utf-8?B?VDVuVXNlNUZPVUhvT0ZWYVBLLy9WMndia3hQZDVybExRRTY4QmxIdzJucXI2?=
- =?utf-8?B?enB2Sm14ZHNscHA3dmpLZ0VKM0pnVXdiYjRYZDlvSlVHQnFBdGxHc2RvdC9y?=
- =?utf-8?B?L0dDSVlSSjlhbHJ4VWd1djdTajlid1dtRWVFNVlLNDlHN2tlRmVnaDZlOENs?=
- =?utf-8?B?OEVFVkFwMzV1SmRkeTc2bHdibmtLbThONmgwZ2h2MTg4VjY5WDd1MDV3NzNQ?=
- =?utf-8?B?dWtTZmF1dEtWS0MrTjQ5ME9PRmYzdUFFdXNMTUp2WjNXbFVkcDRTblk5MUxp?=
- =?utf-8?B?NjVnZnYrTDYzamJibGhIaXJRNDQrWDF1ZW5HVTdVL1RZckF4Zy9yclIyczdw?=
- =?utf-8?B?ZWpiNHJEUWpIeTl6a1JUSDFKYU50NTRLd1ZxVm81c29Mei9tc0hoajNVeGxw?=
- =?utf-8?B?RVhTZzkrRjF3VWRMNjVINEkxSHQ3dmVuWmk4Zmo5bnRHU2ZYSmdyRnlCeG1z?=
- =?utf-8?B?RWF3NVZ3TVlTcmZzcE5aSjBPcm5WTjdtVkJEVnpZS245SU83WkhWOGpnMmt4?=
- =?utf-8?B?VFcwaVQxS0tuRWdTZW5EYnJ5VTdzZGRkY0lrUW8yb1VmNUZFV0hvSVlFTFMr?=
- =?utf-8?B?U0V2NlIrc2k3d2NXVHo1RGMvenFJMytSWFJyc3pId0FMSXpHb2cvd0ZrT1Q0?=
- =?utf-8?B?dXdBUmRRNlRjRS9ScWhxZzJRbmNMRHhaUmprSzVCeU1SblV5S05VNzZaQXdV?=
- =?utf-8?B?aWk1QUpEdmttWHFYL082c1dkb0QxaVJqUFZ6MmZ6MDhOeUpPeGo2M2k0d3I0?=
- =?utf-8?B?SmFQNzRTZGFjcEdqZmNOTFh4Rk53UGh5V2d6eEcvazJSa3hrNC9BYzhhcFd1?=
- =?utf-8?B?cS9VQ1QrVEovNGFMQzRwRHYyTlkyNlJJUzI4T2xNUVFQbUNlQXZpTEE3UFpT?=
- =?utf-8?Q?+IhFVcIzNYA6uveyYWdhk5lfv?=
+	=?utf-8?B?QkZBOVRsRlQ2RWFZdXVrYVZxR2tPcDBsbm1CbzE4R21lMnVGOFVaMmF6YjY2?=
+ =?utf-8?B?TjM4Zk41TzRSdzAwV2xQNm5KMHo3VGZLbDV5eXRubTl1UDU1cTZpdXI2ZnZD?=
+ =?utf-8?B?OGYxMFlXZk55d2ZnQ0NTK0lZdzBuY2pZLzBtdnZ2UXVLREFra3c0RmRneW1k?=
+ =?utf-8?B?ZDU0alljNG5sMlRCSnNrRThJQ0o3aXFJTzY0QlJNNkxZdjlycFFwZ1RWUXlS?=
+ =?utf-8?B?L2dtVFROc2MwWTJsZDc3QWNsNVpYbWwyZnF1QjlWdTUySzNlZWpHUmNBU0Rw?=
+ =?utf-8?B?NHZDZWt6MXNYQUdWcFh3ZU1rVEczaklMTXRnNmZWN012NStFWW5PYVlLSXZ6?=
+ =?utf-8?B?VFhMQlhPZlh0NDYvcUtXVDUxMTN6WHJha1F2UVdYS0FPUE5mWHY3bllVTGpl?=
+ =?utf-8?B?Z3VlckpoOEM3N1J4MExlQm9PN2QyekNlNUZmakh5dkJsUzJKVCt3NEkwdmxE?=
+ =?utf-8?B?VTZhbkJqVCtrSFpWeVM5clRVUkZCWDZ3dkRZMzQzU1NGZmVCclAveVNKZGJJ?=
+ =?utf-8?B?TDNyYjZsMW1uR2VEZzVYMDM3V0owRUw0SGZ0Slg1UzJNc2FBUmY4aVBHa3Q4?=
+ =?utf-8?B?OFE2QTBtYlRoNHp0dk9FRzRlTHBmeDBtMmVCeitHZkpISElZYTNURU5tOFJl?=
+ =?utf-8?B?R0pkRWhENFRlRzY2R05yYTVBUzMyY0dYNGNFUnJ3QmtEbTRpMnNxL3BsTUZZ?=
+ =?utf-8?B?NXRPczJTUGQzaXZwYXF0TzROSTdQM3NodkxGL0RDZmpJU3VQYmJWVTloZFdS?=
+ =?utf-8?B?UU05SjRjWlo1dmhWTWIwbFREZ28zK290bis0YUpCemZGVWErUzkxRGRUcVB1?=
+ =?utf-8?B?c0JyTEswaGVGNzZkRFhlK2pIYlRsbUc1MDRsUGc2QVdvTWJpMU5KWTNTbTE3?=
+ =?utf-8?B?MjdGdEswSndhVm9mdXI5UXZKekdqTzlSSW9tT1FGTzJmeDFPWGQ2cDZDZnZZ?=
+ =?utf-8?B?Z21SWk9JK05iOCswc1RqaG1XNjRmTldDNVM3bVQ5dTE4d2VaRmduSCtRUzVh?=
+ =?utf-8?B?YitUU2RqN0tjU0Rtak9VWWVZbmxYRXVNbHMxbGw0VnBKRTJrNHNNL3lmVDdZ?=
+ =?utf-8?B?TjdlczZjaTlWMXVFYk1ZaEdMZGxqdzlhQXpzS2pmVXN6L1dPYWZncW14NGZh?=
+ =?utf-8?B?SHkxdjF2eXUxdS82MUo1U3NpTHY5S1NaaHkxdCtFUDBXeTJhYVVrNzBBZ0Qx?=
+ =?utf-8?B?QjV1NmJkVklPZ0xBTldiaE1BRHFSQ2xnY2Y5czRObjFpTDVWSXZLWmhHNFhI?=
+ =?utf-8?B?V3haRU41TEE3SXcxMDI3dllBUjZNeXZ0VXdvQkxvakNZMHpLUEdVMFEyalNy?=
+ =?utf-8?B?TU0rSmlKSnNIeERKM1dkMTdCcmsxbEdnaGV5dmwybE1vc1lkSExhd2FQSFBw?=
+ =?utf-8?B?cEsyQUlvc2dYa1F5dlEvK3YxdG4ydWpVVDI5eiszQmRHNWZyNnFuRHVOUjY0?=
+ =?utf-8?B?a1o5Wm50TWpjRUhDOWUvOWlWSWpkdVNOanYwcHhkRDZ3VFJYLyszaTBOeTNa?=
+ =?utf-8?B?TTREckJEWG1kU2JMQTFLaHhocVFTMzkxQkovMjl3ellobHpuemxGNkZoSUxR?=
+ =?utf-8?B?RXVudjNzVGNSWTE2SHllY202ZnpSZTZHc2NKUll4WEhia2Y3RGNKZ0wzZTNE?=
+ =?utf-8?B?b2RSK2RzSnoybDdTK3UrSUJEcXprQ3dDMmFMZWp6SHFUTXRQcnBhVnkyWjVj?=
+ =?utf-8?B?TWJZRi9vTVhuTWRScnpLRFVONWtVZGdNeC93RHY3WWVzc201VU1PZVk4NUVW?=
+ =?utf-8?B?azhYYTFoNDNzcXp6eU5mNE5EOXZIT1FQSnBnZm9GbkNMMGRIalpzdGtmWVVt?=
+ =?utf-8?B?ZDVZZmJPSWZuWGtoN0FkdWM2TjEzUCtvVDJMSjdZaEdwUGY3OE1RTndtbDVY?=
+ =?utf-8?B?NGFwR1BQWE50UHdaL016UmlqSk80bWc1KzVBZ1BjdStOK290U0JzOFc1MUVJ?=
+ =?utf-8?B?MjBzTm5QNmY0dlJjeGFlNmJDMnNWOEo3bmxpVlZyeVBWL2VhMDRhYmhGQklF?=
+ =?utf-8?B?aEFOWUEzZ1RrQ1JOWXlvVjEySFVNRnRGRGdublh1VXFLYnlDazFjZVc5N2VS?=
+ =?utf-8?B?WkhUQnRVaGdCUVlIZjVTVDJuQ2xiWUkrL05icWhkRW0yWXM1MmsrdEhQWmlj?=
+ =?utf-8?Q?GbaXnV8yXZyOg3fbbEhoXVfnv?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 031f24c2-22b3-46e2-5ba5-08dae3f2a76d
+X-MS-Exchange-CrossTenant-Network-Message-Id: fff57d28-edbf-4ed3-e445-08dae3f64fca
 X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB6551.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 08:00:55.8305
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Dec 2022 08:27:06.7909
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cOuHPHVUIq8+8q6UVpJbrCbvr22gOelHz0UUO5BeBIwiOJpHMIbG2QwSBWvk3hltEVw+aVfh6aax3vxczQ7itQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8327
+X-MS-Exchange-CrossTenant-UserPrincipalName: UiIpMwyOri6HxhtmdSZdJVRjdqxFDY1Wd35MHXX2XawijRC2sYUTl29efom4t3bR41DloPK/YYxtHZhhRy8dnQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7136
 
-On 21.12.2022 18:43, Andrew Cooper wrote:
-> On 21/12/2022 1:25 pm, Jan Beulich wrote:
->> The hook isn't mode dependent, hence it's misplaced in struct
->> paging_mode. (Or alternatively I see no reason why the alloc_page() and
->> free_page() hooks don't also live there.) Move it to struct
->> paging_domain.
+On 21.12.2022 19:58, Andrew Cooper wrote:
+> On 21/12/2022 1:27 pm, Jan Beulich wrote:
+>> Drop the SH_type_none entry - there are no allocation attempts with
+>> this type, and there also shouldn't be any. Adjust the shadow_size()
+>> alternative path to match that change. Also generalize two related
+>> assertions.
 >>
->> While there rename the hook and HAP's as well as shadow's hook functions
->> to use singular; I never understood why plural was used. (Renaming in
->> particular the wrapper would be touching quite a lot of other code.)
+>> While there move the entire table and the respective part of the comment
+>> there to hvm.c, resulting in one less #ifdef. In the course of the
+>> movement switch to using designated initializers.
+>>
+>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > 
-> There are always two modes; Xen's, and the guest's.
-> 
-> This was probably more visible back in the 32-bit days, but remnants of
-> it are still around with the fact that struct vcpu needs to be below the
-> 4G boundary for the PDPTRs for when the guest isn't in Long Mode.
-> 
-> HAP also hides it fairly well given the uniformity of EPT/NPT (and
-> always 4 levels in a 64-bit Xen), but I suspect it will become more
-> visible again when we start supporting LA57.
+> Reviewed-by: Andrew Cooper <andrew.cooper3@citrix.com>, although ...
 
-So does this boil down to a request to undo the rename? Or undo it just
-for shadow code (as the HAP function really does only one thing)? As to
-LA57, I'm not convinced it'll become more visible again then, but of
-course without actually doing that work it's all hand-waving anyway.
+Thanks.
 
->> --- a/xen/arch/x86/mm/shadow/none.c
->> +++ b/xen/arch/x86/mm/shadow/none.c
->> @@ -27,6 +32,9 @@ int shadow_domain_init(struct domain *d)
->>      };
+>> --- a/xen/arch/x86/mm/shadow/hvm.c
+>> +++ b/xen/arch/x86/mm/shadow/hvm.c
+>> @@ -33,6 +33,37 @@
 >>  
->>      paging_log_dirty_init(d, &sh_none_ops);
->> +
->> +    d->arch.paging.update_paging_mode = _update_paging_mode;
->> +
->>      return is_hvm_domain(d) ? -EOPNOTSUPP : 0;
+>>  #include "private.h"
+>>  
+>> +/*
+>> + * This table shows the allocation behaviour of the different modes:
+>> + *
+>> + * Xen paging      64b  64b  64b
+>> + * Guest paging    32b  pae  64b
+>> + * PV or HVM       HVM  HVM   *
+>> + * Shadow paging   pae  pae  64b
+>> + *
+>> + * sl1 size         8k   4k   4k
+>> + * sl2 size        16k   4k   4k
+>> + * sl3 size         -    -    4k
+>> + * sl4 size         -    -    4k
+>> + */
+>> +const uint8_t sh_type_to_size[] = {
+>> +    [SH_type_l1_32_shadow]   = 2,
+>> +    [SH_type_fl1_32_shadow]  = 2,
+>> +    [SH_type_l2_32_shadow]   = 4,
+>> +    [SH_type_l1_pae_shadow]  = 1,
+>> +    [SH_type_fl1_pae_shadow] = 1,
+>> +    [SH_type_l2_pae_shadow]  = 1,
+>> +    [SH_type_l1_64_shadow]   = 1,
+>> +    [SH_type_fl1_64_shadow]  = 1,
+>> +    [SH_type_l2_64_shadow]   = 1,
+>> +    [SH_type_l2h_64_shadow]  = 1,
+>> +    [SH_type_l3_64_shadow]   = 1,
+>> +    [SH_type_l4_64_shadow]   = 1,
+>> +    [SH_type_p2m_table]      = 1,
+>> +    [SH_type_monitor_table]  = 1,
+>> +    [SH_type_oos_snapshot]   = 1,
 > 
-> I know you haven't changed the logic here, but this hook looks broken. 
-> Why do we fail it right at the end for HVM domains?
+> ... this feels like it's wanting to turn into a (1 + ...) expression.  I
+> can't see anything that prevents us from reordering the SH_type
+> constants, but
+> 
+> 1 + (idx == 1 /* l1 */ || idx == /* fl1 */) + 2 * (idx == 3 /* l2 */);
+> 
+> doesn't obviously simplify further.
 
-It's been a long time, but I guess my thinking back then was that it's
-better to put in place pointers which other code may rely on being non-
-NULL.
+But that would then undermine the cases where the function returns 0,
+which the two (generalized in this change) assertions actually check
+for not having got back. This would also become relevant for the l2h
+slot, which - if not right here (see the respective remark) - will
+become zero in a subsequent patch when !PV32.
 
 Jan
 
