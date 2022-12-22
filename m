@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A16DB654891
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 23:32:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.468695.727895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F00CB65488F
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 23:32:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.468696.727899 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8U6k-0003pX-GT; Thu, 22 Dec 2022 22:32:10 +0000
+	id 1p8U6k-0003x6-Q6; Thu, 22 Dec 2022 22:32:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 468695.727895; Thu, 22 Dec 2022 22:32:10 +0000
+Received: by outflank-mailman (output) from mailman id 468696.727899; Thu, 22 Dec 2022 22:32:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8U6k-0003hT-94; Thu, 22 Dec 2022 22:32:10 +0000
-Received: by outflank-mailman (input) for mailman id 468695;
- Thu, 22 Dec 2022 22:32:08 +0000
+	id 1p8U6k-0003po-Jl; Thu, 22 Dec 2022 22:32:10 +0000
+Received: by outflank-mailman (input) for mailman id 468696;
+ Thu, 22 Dec 2022 22:32:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s9VX=4U=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p8U6i-0003ch-KI
- for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 22:32:08 +0000
+ id 1p8U6j-0003ch-1g
+ for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 22:32:09 +0000
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7543d582-8248-11ed-8fd4-01056ac49cbb;
+ id 75c10f6f-8248-11ed-8fd4-01056ac49cbb;
  Thu, 22 Dec 2022 23:32:04 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 5B9335C00C2;
- Thu, 22 Dec 2022 17:32:03 -0500 (EST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2E8C25C00B4;
+ Thu, 22 Dec 2022 17:32:04 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 22 Dec 2022 17:32:03 -0500
+ by compute4.internal (MEProxy); Thu, 22 Dec 2022 17:32:04 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Dec 2022 17:32:02 -0500 (EST)
+ 22 Dec 2022 17:32:03 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,47 +43,48 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7543d582-8248-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: 75c10f6f-8248-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm2; t=
-	1671748323; x=1671834723; bh=0nRr0i7/1Be3waop69DyVG4xMKlizVzYIQX
-	QdZSs51s=; b=QWqG5LU14CB3fBZ8e/nMgyGfh4Imy407zcYrUfzC+pBe+sBydqA
-	TTurJzo0KMgDUjWvz5gxgzD63tY2+c89VTA28vAmtqUSquCSRMEJoYYSLDzQ5tbf
-	kkOpEK9xwDuHd4dr437omHjL137aS3LW3NzGJomjRujSX+RaOw/pYa4yCk0oideK
-	hmPk8PN6HDpMoVnVAJXK4wM7JlU6B3nzoUBNaEMcZKu+eCFd05/yJ00qHp3h8tfa
-	ox1tgDfc/VOkQrUl6MtkZabpb89NyJfA1Bvk89lhwRLIXaBFYb3RNcOLyN3mFL95
-	kPyC8Z5NkYcgxbrRju8X6inGbzYxRZkTBRg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm2; t=1671748323; x=1671834723; bh=0nRr0i7/1Be3w
-	aop69DyVG4xMKlizVzYIQXQdZSs51s=; b=VZZfJRpfMiOI0d1skqasFEgxQg9AD
-	0g+7pPPkD2KkHQPqCR+ZMgPG+7nO3nVjaNqvnzoY6gOhkDOgPGPII4bqBp5JRAOu
-	U3BNW7WnLThLvp4V1TBIlarTZ1+hx3OAlO0qwGyGuRYlE9QSw5YM2kA8S++Bib8U
-	NEYpkoABGeflH6vwCDYjRNH5IrBsfUoabRh56DCpt76oTzl6LyXnzbxJCd0/PeIH
-	lzbaiApa7RtqAYv161+LRA/F4nHWmWDOZYm4ptkTwY44BR7DV1aX/loVvl6oqw0w
-	G4lnE3llAqruSXLfV96N1esgLsqx7gwkArRWeO49VM1Q/nBiYwY93/P0A==
-X-ME-Sender: <xms:49qkYyzSvEy68-SfTYdECuEy_YqoOXj_J5yLK2SP6x-nK4jEJFcMRg>
-    <xme:49qkY-Qgv4E3DY8oMNcWuZz8ulaBgOnH5bQ86aw6Q83kA2EY-tht8SMxkRV-_m69x
-    tBi5_y5eQmONg4>
-X-ME-Received: <xmr:49qkY0UxfvfYwOQmVIFTQAgXegigKxD1SPxT6DrISW_jSJZ6NhKdxeEpbMas3B2oBXXFIFZjuDZt>
+	:subject:to:to; s=fm2; t=1671748324; x=1671834724; bh=fT0Z3+eeo9
+	6n0/JAYUaHTtOcrsYp5CyVIPq9wgQhDIc=; b=ETfPuXBXhPoqGmpfPCKjDF037W
+	/36r9T54OE7tKKn3PVsyzVvE7OVNR9zfBT2kFMbK6Z6+XJeg2KmkiV99JeZLGdL0
+	32w5MhyX5Ap1WdRYCEegsd5hHSE6DKk4B4eUC7JQu8hC0RWTL2qd27Jwug4RW4lb
+	ZjYMXyWKIAEs0WIVrBcDB+8fkf9cOVlH+XM3D24wNTGdRw5dMas5+PQA6GPANh8I
+	lDEGNK+V7pTusg2Fwy+pCCOFkgOIoKN+/WTz3W77D1qXhDibeCfS5gq6j7qVlZy3
+	315GijRh5ieUQM/hhmEBQ5qpgSrE+i1k6QESiovLl7YNXEvWnDNNl/cwZKzA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1671748324; x=
+	1671834724; bh=fT0Z3+eeo96n0/JAYUaHTtOcrsYp5CyVIPq9wgQhDIc=; b=X
+	9lZy4FShFs0Uya4r95r1XzycYPqHXWxof8BIHQZlCGaGZ4mRBIZFsEkka+7p93HO
+	zy7hocws79htKhJUE5OGCOq3cnWuEQZ34dJD6frXqhhC/jPP1KNuL/rLfW3vWUYn
+	oOw0e2Zd9l6SNTaD/s8uHYs6yCfs6+Tc79b9cadIRXJ3hvV0LbVuzNUIt55hgd6q
+	GG8nn8/25WF1cIS2zvitifny//zKZcEzl2fT2Afd9oMgRzTRyELJ6vv8Ywcej/BU
+	7eEG9APo0AkARsUrOJjGOEsh43mjTnF2808NXhRXmA4OwfOgnsIJNu1C3Q7V234P
+	OWVj6H84sY3o/gq7Pea3g==
+X-ME-Sender: <xms:49qkYxdm-n8liaAzYZMjw0jMQgYdZxDzhuZPAoFeUovhXhE-hcVaSQ>
+    <xme:49qkY_M9gMxh7MuUhpGp59ORbrMEGCTHexx64jvwvF32h96-TJwy4rCtT91gQWPHo
+    mRqeeMfYm8_fYc>
+X-ME-Received: <xmr:49qkY6gKpxfNK0IXsAIvMTtl4ncNBOSOBntn0_xZs5GFrOfjrSK3eLA3scYpB4Y-X6dnEuuITrxc>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrhedtgdduieefucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeffjefggfeugeduvedvjeekgfeh
-    gffhhfffjeetkeelueefffetfffhtdduheetnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:49qkY4hkfkdKvh1-PZDFCe9WcoaMf9UAhOajFYhT1sy4unCLGb0X8Q>
-    <xmx:49qkY0DCxtiy8ezGMMqLfwadF9FxuvbCk3LNWimJIvsAWCF--X4DAQ>
-    <xmx:49qkY5LRDPNeBzjems5vO07JNi2n9VkGOGJ8yLktQXiaXAo2d22UdA>
-    <xmx:49qkY20a81wlMW0kTIXzE2h-2KNn--PDOavr21mTl77meEBPwyXUrg>
+    cujfgurhephffvvefufffkofgjfhggtgfgsehtkeertdertdejnecuhfhrohhmpeffvghm
+    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeludekleeljeekveekfeeghfff
+    gedvieegleeigeejffefieeviedvjeegveetieenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:5NqkY6_lde0no-KA0rH9j3iQTH5y_J6eRjiaqs0vrmYqPNrU8x_p0A>
+    <xmx:5NqkY9vJJcNpVeo7LzATcD2PgYaloFgUXDnYyFSjFz4IDiHqVKpqmg>
+    <xmx:5NqkY5FQPIus0HSpGO-GRsm3UAkJW80SbkKe-zTrC2fVCa6x-AFgsQ>
+    <xmx:5NqkYxh_OQFDv48zhuICc4IXY2_aqL-hj7Vezd7ODQDBJMS1IxoiBg>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -95,126 +96,142 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Wei Liu <wl@xen.org>,
 	Tim Deegan <tim@xen.org>,
 	George Dunlap <george.dunlap@citrix.com>
-Subject: [PATCH v6 3/5] x86/mm: make code robust to future PAT changes
-Date: Thu, 22 Dec 2022 17:31:48 -0500
-Message-Id: <00505454afa89b759122008852502a5ef7b1b1ee.1671744225.git.demi@invisiblethingslab.com>
+Subject: [PATCH v6 4/5] x86/mm: Reject invalid cacheability in PV guests by default
+Date: Thu, 22 Dec 2022 17:31:49 -0500
+Message-Id: <2236399f561d348937f2ff7777fe47ad4236dbda.1671744225.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1671744225.git.demi@invisiblethingslab.com>
 References: <cover.1671744225.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-It may be desirable to change Xen's PAT for various reasons.  This
-requires changes to several _PAGE_* macros as well.  Add static
-assertions to check that XEN_MSR_PAT is consistent with the _PAGE_*
-macros, and that _PAGE_WB is 0 as required by Linux.
+Setting cacheability flags that are not ones specified by Xen is a bug
+in the guest.  By default, return -EINVAL if a guests attempts to do
+this.  The invalid-cacheability= Xen command-line flag allows the
+administrator to allow such attempts or to produce
 
+Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
 Changes since v5:
-- Remove unhelpful comment.
-- Move a BUILD_BUG_ON.
-- Use fewer hardcoded constants in PTE_FLAGS_TO_CACHEATTR.
-- Fix coding style.
+- Make parameters static and __ro_after_init.
+- Replace boolean parameter allow_invalid_cacheability with string
+  parameter invalid-cacheability.
+- Move parameter definitions to near where they are used.
+- Add documentation.
 
 Changes since v4:
-- Add lots of comments explaining what the various BUILD_BUG_ON()s mean.
+- Remove pointless BUILD_BUG_ON().
+- Add comment explaining why an exception is being injected.
 
 Changes since v3:
-- Refactor some macros
-- Avoid including a string literal in BUILD_BUG_ON
+- Add Andrew Cooper’s Suggested-by
 ---
- xen/arch/x86/mm.c | 70 +++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ docs/misc/xen-command-line.pandoc | 11 ++++++
+ xen/arch/x86/mm.c                 | 60 ++++++++++++++++++++++++++++++-
+ 2 files changed, 70 insertions(+), 1 deletion(-)
 
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index 424b12cfb27d6ade2ec63eacb8afe5df82465451..0230a7bc17cbd4362a42ea64cea695f31f5e0f86 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -1417,6 +1417,17 @@ detection of systems known to misbehave upon accesses to that port.
+ ### idle_latency_factor (x86)
+ > `= <integer>`
+ 
++### invalid-cacheability (x86)
++> `= allow | deny | trap`
++
++> Default: `deny` in release builds, otherwise `trap`
++
++Specify what happens when a PV guest tries to use one of the reserved entries in
++the PAT.  `deny` causes the attempt to be rejected with -EINVAL, `allow` allows
++the attempt, and `trap` causes a general protection fault to be raised.
++Currently, the reserved entries are marked as uncacheable in Xen's PAT, but this
++will change if new memory types are added, so guests must not rely on it.
++
+ ### ioapic_ack (x86)
+ > `= old | new`
+ 
 diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-index 3558ca215b02a517d55d75329d645ae5905424e4..65ba0f58ed8c26ac0343528303851739981c03bd 100644
+index 65ba0f58ed8c26ac0343528303851739981c03bd..bacfb776d688f68dcbf79d83723fff329b75fd18 100644
 --- a/xen/arch/x86/mm.c
 +++ b/xen/arch/x86/mm.c
-@@ -6352,6 +6352,11 @@ unsigned long get_upper_mfn_bound(void)
-     return min(max_mfn, 1UL << (paddr_bits - PAGE_SHIFT)) - 1;
+@@ -1324,6 +1324,37 @@ static int put_page_from_l4e(l4_pgentry_t l4e, mfn_t l4mfn, unsigned int flags)
+     return put_pt_page(l4e_get_page(l4e), mfn_to_page(l4mfn), flags);
  }
  
++enum {
++    INVALID_CACHEABILITY_ALLOW,
++    INVALID_CACHEABILITY_DENY,
++    INVALID_CACHEABILITY_TRAP,
++};
 +
-+/*
-+ * A bunch of static assertions to check that the XEN_MSR_PAT is valid
-+ * and consistent with the _PAGE_* macros, and that _PAGE_WB is zero.
-+ */
- static void __init __maybe_unused build_assertions(void)
++#ifdef NDEBUG
++#define INVALID_CACHEABILITY_DEFAULT INVALID_CACHEABILITY_DENY
++#else
++#define INVALID_CACHEABILITY_DEFAULT INVALID_CACHEABILITY_TRAP
++#endif
++
++static __ro_after_init uint8_t invalid_cacheability =
++    INVALID_CACHEABILITY_DEFAULT;
++
++static int __init cf_check set_invalid_cacheability(const char *str)
++{
++    if (strcmp("allow", str) == 0)
++        invalid_cacheability = INVALID_CACHEABILITY_ALLOW;
++    else if (strcmp("deny", str) == 0)
++        invalid_cacheability = INVALID_CACHEABILITY_DENY;
++    else if (strcmp("trap", str) == 0)
++        invalid_cacheability = INVALID_CACHEABILITY_TRAP;
++    else
++        return -EINVAL;
++
++    return 0;
++}
++
++custom_param("invalid-cacheability", set_invalid_cacheability);
++
+ static int promote_l1_table(struct page_info *page)
  {
-     /*
-@@ -6361,6 +6366,71 @@ static void __init __maybe_unused build_assertions(void)
-      * using different PATs will not work.
-      */
-     BUILD_BUG_ON(XEN_MSR_PAT != 0x050100070406ULL);
+     struct domain *d = page_get_owner(page);
+@@ -1343,7 +1374,34 @@ static int promote_l1_table(struct page_info *page)
+         }
+         else
+         {
+-            switch ( ret = get_page_from_l1e(pl1e[i], d, d) )
++            l1_pgentry_t l1e = pl1e[i];
 +
-+    /*
-+     * _PAGE_WB must be zero for several reasons, not least because Linux
-+     * PV guests assume it.
-+     */
-+    BUILD_BUG_ON(_PAGE_WB);
++            if ( invalid_cacheability != INVALID_CACHEABILITY_ALLOW )
++            {
++                switch ( l1e.l1 & PAGE_CACHE_ATTRS )
++                {
++                case _PAGE_WB:
++                case _PAGE_UC:
++                case _PAGE_UCM:
++                case _PAGE_WC:
++                case _PAGE_WT:
++                case _PAGE_WP:
++                    break;
++                default:
++                    /*
++                     * If we get here, a PV guest tried to use one of the
++                     * reserved values in Xen's PAT.  This indicates a bug
++                     * in the guest.  If requested by the user, inject #GP
++                     * to cause the guest to log a stack trace.
++                     */
++                    if ( invalid_cacheability == INVALID_CACHEABILITY_TRAP )
++                        pv_inject_hw_exception(TRAP_gp_fault, 0);
++                    ret = -EINVAL;
++                    goto fail;
++                }
++            }
 +
-+#define PAT_ENTRY(v)                                                           \
-+    (BUILD_BUG_ON_ZERO(((v) < 0) || ((v) > 7)) +                               \
-+     (0xFF & (XEN_MSR_PAT >> (8 * (v)))))
-+
-+    /* Validate at compile-time that v is a valid value for a PAT entry */
-+#define CHECK_PAT_ENTRY_VALUE(v)                                               \
-+    BUILD_BUG_ON((v) < 0 || (v) > 7 ||                                         \
-+                 (v) == X86_MT_RSVD_2 || (v) == X86_MT_RSVD_3)
-+
-+    /* Validate at compile-time that PAT entry v is valid */
-+#define CHECK_PAT_ENTRY(v) CHECK_PAT_ENTRY_VALUE(PAT_ENTRY(v))
-+
-+    /*
-+     * If one of these trips, the corresponding entry in XEN_MSR_PAT is invalid.
-+     * This would cause Xen to crash (with #GP) at startup.
-+     */
-+    CHECK_PAT_ENTRY(0);
-+    CHECK_PAT_ENTRY(1);
-+    CHECK_PAT_ENTRY(2);
-+    CHECK_PAT_ENTRY(3);
-+    CHECK_PAT_ENTRY(4);
-+    CHECK_PAT_ENTRY(5);
-+    CHECK_PAT_ENTRY(6);
-+    CHECK_PAT_ENTRY(7);
-+
-+#undef CHECK_PAT_ENTRY
-+#undef CHECK_PAT_ENTRY_VALUE
-+
-+    /* Macro version of pte_flags_to_cacheattr(), for use in BUILD_BUG_ON()s */
-+#define PTE_FLAGS_TO_CACHEATTR(pte_value)                                      \
-+    ((((pte_value) & _PAGE_PAT) >> 5) |                                        \
-+     (((pte_value) & (_PAGE_PCD | _PAGE_PWT)) >> 3))
-+
-+    /* Check that a PAT-related _PAGE_* macro is correct */
-+#define CHECK_PAGE_VALUE(page_value) do {                                      \
-+    /* Check that the _PAGE_* macros only use bits from PAGE_CACHE_ATTRS */    \
-+    BUILD_BUG_ON(((_PAGE_ ## page_value) & PAGE_CACHE_ATTRS) !=                \
-+                 (_PAGE_ ## page_value));                                      \
-+    /* Check that the _PAGE_* are consistent with XEN_MSR_PAT */               \
-+    BUILD_BUG_ON(PAT_ENTRY(PTE_FLAGS_TO_CACHEATTR(_PAGE_ ## page_value)) !=    \
-+                 (X86_MT_ ## page_value));                                     \
-+} while ( false )
-+
-+    /*
-+     * If one of these trips, the corresponding _PAGE_* macro is inconsistent
-+     * with XEN_MSR_PAT.  This would cause Xen to use incorrect cacheability
-+     * flags, with results that are unknown and possibly harmful.
-+     */
-+    CHECK_PAGE_VALUE(WT);
-+    CHECK_PAGE_VALUE(WB);
-+    CHECK_PAGE_VALUE(WC);
-+    CHECK_PAGE_VALUE(UC);
-+    CHECK_PAGE_VALUE(UCM);
-+    CHECK_PAGE_VALUE(WP);
-+
-+#undef CHECK_PAGE_VALUE
-+#undef PAGE_FLAGS_TO_CACHEATTR
-+#undef PAT_ENTRY
- }
- 
- /*
++            switch ( ret = get_page_from_l1e(l1e, d, d) )
+             {
+             default:
+                 goto fail;
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
