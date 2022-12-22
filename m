@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C33E5654458
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 16:30:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.468560.727674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED0E654524
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 17:27:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.468570.727686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8NVO-0005Da-Ho; Thu, 22 Dec 2022 15:29:10 +0000
+	id 1p8OOy-0003dC-Qf; Thu, 22 Dec 2022 16:26:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 468560.727674; Thu, 22 Dec 2022 15:29:10 +0000
+Received: by outflank-mailman (output) from mailman id 468570.727686; Thu, 22 Dec 2022 16:26:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8NVO-0005B9-EP; Thu, 22 Dec 2022 15:29:10 +0000
-Received: by outflank-mailman (input) for mailman id 468560;
- Thu, 22 Dec 2022 15:29:09 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1p8OOy-0003Zu-NI; Thu, 22 Dec 2022 16:26:36 +0000
+Received: by outflank-mailman (input) for mailman id 468570;
+ Thu, 22 Dec 2022 16:26:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=XT/F=4U=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1p8NVN-0005B1-HW
- for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 15:29:09 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ff14006-820d-11ed-91b6-6bf2151ebd3b;
- Thu, 22 Dec 2022 16:29:07 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id r26so3371376edc.10
- for <xen-devel@lists.xenproject.org>; Thu, 22 Dec 2022 07:29:07 -0800 (PST)
+ id 1p8OOw-0003Zo-S2
+ for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 16:26:34 +0000
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [2a00:1450:4864:20::532])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5eed4545-8215-11ed-8fd4-01056ac49cbb;
+ Thu, 22 Dec 2022 17:26:21 +0100 (CET)
+Received: by mail-ed1-x532.google.com with SMTP id m19so3613230edj.8
+ for <xen-devel@lists.xenproject.org>; Thu, 22 Dec 2022 08:26:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,486 +39,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ff14006-820d-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 5eed4545-8215-11ed-8fd4-01056ac49cbb
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=JpwE5gAYmj25iRUUytDECz5m6MR4PAtooA0uhdFuniM=;
-        b=RgAwp1qEPfe5n+jBz3yTDom2pP1IHh1UCJiiP2A6gDzaZgBYjr6818MiXbiECpm15Q
-         SdSVjHyciy0IYgeGBVm2SYCJE2ecdh+c2nv+MfbBXA/rVfSi8JhqBhuUo7AOeLiRYuo6
-         9eFZvwWVdFCu2l/yqttjd3a0OIuedbDh6zUAikGC89SK9l+SnJ5jUeD04xp/wceHvP+x
-         oF/VYGwO7fKa0RX7AiMk5xp6RfyJL9RFFaMlUb4E+2e+/i0uC2Ikksv4GsBpvnyNSrFC
-         kgpWu2iHRcCdHcUpcURGfxyvNBIR/K9TNDoK8W4VntGQ2Muek2d8YKkFrDZyD2Lky1FJ
-         I0ow==
+        bh=iq67OOd4GB12XumvXMWdfq1c8+nhWDTdLvSG9nmb+Wg=;
+        b=hef6koV9ac5g9cO0USpCc5qAdmqD3dzgxtXQ40ZlVPwiNux6+vYeqXHrPOWTOXF+NI
+         0n8jLBHUpJJ9/i6jR1JhKLuhFB1iVAbQ1ckGXWaQQpN1ZSRuTQOoJxWsro5Mwl7oOs+H
+         yOLIZxwdTui8B57vypjK2pO/s+lBVjdnQEHHrvJZrOaFHs4s01sGR/y6UGiUKiy+RZFt
+         Ln4GIKBvbgiQwPpwcA0XShkaxDlwDN65AnJcQXLvrNLbfL7DbP+3ZAALnAm2NVrNJmea
+         LA8TQr0RzBQyEX6aP03IOaMC17Tp/Ee8LKyrt0cnXHl0kB3LkuHm3AskrPycbO2rhDhb
+         7pNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=JpwE5gAYmj25iRUUytDECz5m6MR4PAtooA0uhdFuniM=;
-        b=3mMnJSHmNyDSh6ptNtH1bwQ06XNfb5CsdELHPTsYM8kkH2bjZNl3SUBR6rcS8/utAz
-         /Mygsn7ENteQTdFfJVX7Dn6jq3mZfRSzfLfjh+nrdCy+rJWn9SRSY5fxBZvFrAmIsC6U
-         HuYtllGumVIzlZ+Hpwlhrb5hlzzQM3CUjzo4RtIt9pxJLzjjYYbBJgqdP9VVBsb/3hQV
-         AzJ/cpr7sGbMH9u1YTXC8/rdWX9V22gTAsvv5l6DFDr07IOw+i1C2sbB1DWUMWB8mKUM
-         A+RdZifzWklRYauyJsXqoZY8o8WZFBPNskTwwdWEX5ImfAX7pyjEWvV0VBJ5648Qx6w+
-         Y2vw==
-X-Gm-Message-State: AFqh2kp/G8nq/V+rP649Xr07b8LcFQrd8c8nhRcnU7NnEK6UtG9w31rS
-	yST1dy3mA+XhoKu6B/e6tPLCAjMbk3JiNXUpF758EA==
-X-Google-Smtp-Source: AMrXdXsJwWU4HcZ0ttkKio4JaHJJSbPZOGjAHbTHYFDgTO/cM2PWqEi4xGlaisMMKBC3wfqhJbTK8DZ1ojrqQYw89Hk=
-X-Received: by 2002:aa7:cd08:0:b0:46b:d3b3:669f with SMTP id
- b8-20020aa7cd08000000b0046bd3b3669fmr600122edw.414.1671722947063; Thu, 22 Dec
- 2022 07:29:07 -0800 (PST)
+        bh=iq67OOd4GB12XumvXMWdfq1c8+nhWDTdLvSG9nmb+Wg=;
+        b=KWBsplHhEs6x3MLmT1S84jK+No+qeZspDsREAH70XZPJG0nw5lIWs9RkaL00MH1SU1
+         xxXgt3Kpxu0x8ZQpYtumXB5ZhlDlR6PBmSc11CJJdEuLsl8mCGYR/PeDJS5GudSxiMam
+         NbV/UxgrQOJQoh+n38N0WRdfAMKKGcFWbnmO3s7X61pDfO3HZria9EY6QOkgNOnLhWXA
+         31fWgvtI3ApbjTVuzAgsGdryoqwqaW9VBTUeDXf4G8+uesf3jj4qxkOwqfSdlALRo3Gk
+         fN4b3lYHukMCHBqnK1e0E4Bnek4wQlmPLjs3kNA7tJk0ndJws9Q83MBrIcOa8dJJ2mnr
+         UL4g==
+X-Gm-Message-State: AFqh2kqUKzwe7uy6DZmj9GN4pDsyMWiO9fTtONlwvr9/Zuz2+26BMyw3
+	R/HvmnqWD7dmePnQzWv0fge+fPWQ4hvFJGmeKTpKxQ==
+X-Google-Smtp-Source: AMrXdXsQ/BJzbLk0JpDNmIAyA0rKn99xok4DWenRVqAoG+gE/RszXghzp2ftz4J7ylG8xOMq/mR5M6zCMTw41S1toko=
+X-Received: by 2002:a05:6402:d72:b0:475:de4a:3740 with SMTP id
+ ec50-20020a0564020d7200b00475de4a3740mr574925edb.117.1671726392638; Thu, 22
+ Dec 2022 08:26:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20221022155120.7000-1-carlo.nonato@minervasys.tech>
- <20221022155120.7000-5-carlo.nonato@minervasys.tech> <Y3+MDElm8YQ7/2nS@perard.uk.xensource.com>
-In-Reply-To: <Y3+MDElm8YQ7/2nS@perard.uk.xensource.com>
+References: <20221022160837.8497-1-carlo.nonato@minervasys.tech> <13a149a3-9b7c-bb8b-afed-2805000e9c48@suse.com>
+In-Reply-To: <13a149a3-9b7c-bb8b-afed-2805000e9c48@suse.com>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 22 Dec 2022 16:28:56 +0100
-Message-ID: <CAG+AhRUfdnwCYkXw3TR=XrQOWQFt4FTdEsGvcE5kyAmwEyAaeg@mail.gmail.com>
-Subject: Re: [PATCH v3 4/9] tools/xl: add support for cache coloring configuration
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, marco.solieri@unimore.it, 
-	andrea.bastoni@minervasys.tech, lucmiccio@gmail.com, Wei Liu <wl@xen.org>, 
-	Juergen Gross <jgross@suse.com>, Marco Solieri <marco.solieri@minervasys.tech>
+Date: Thu, 22 Dec 2022 17:26:21 +0100
+Message-ID: <CAG+AhRXPwBFkAjxe6HHWqzEcaM7QRsKLvQqJAA4GfDqnrj8gqA@mail.gmail.com>
+Subject: Re: [RFC PATCH] xen/common: cache colored buddy allocator for domains
+To: Jan Beulich <jbeulich@suse.com>
+Cc: marco.solieri@unimore.it, andrea.bastoni@minervasys.tech, 
+	lucmiccio@gmail.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Anthony,
+Hi Jan
 
-On Thu, Nov 24, 2022 at 4:21 PM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
+On Wed, Dec 7, 2022 at 12:52 PM Jan Beulich <jbeulich@suse.com> wrote:
 >
-> On Sat, Oct 22, 2022 at 05:51:15PM +0200, Carlo Nonato wrote:
-> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> > index b2901e04cf..5f53cec8bf 100644
-> > --- a/docs/man/xl.cfg.5.pod.in
-> > +++ b/docs/man/xl.cfg.5.pod.in
-> > @@ -2880,6 +2880,16 @@ Currently, only the "sbsa_uart" model is supported for ARM.
+> On 22.10.2022 18:08, Carlo Nonato wrote:
+> > This commit replaces the colored allocator for domains with a simple buddy
+> > allocator indexed also by colors, so that it can allocate pages based on
+> > some coloring configuration.
 > >
-> >  =back
+> > It applies on top of Arm cache coloring (v3) as sent to the mailing list.
 > >
-> > +=over 4
-> > +
-> > +=item B<colors=[ "COLORS_RANGE", "COLORS_RANGE", ...]>
+> > This has two benefits:
+> >  - order can now be greater than 0 if the color config contains a
+> >    sufficient number of adjacent colors starting from an order aligned
+> >    one;
 >
-> Instead of COLORS_RANGE, maybe NUMBER_RANGE? Or just RANGE?
+> But still not large enough to reach the order needed for large page
+> mappings, aiui?
 
-RANGE seems good.
+Yeah, but that's because it's difficult, AFAIK, to have a platform with that
+number of colors (e.g. level-2 mappings requires 512 adjacent colors, so a
+32 MiB cache).
 
-> > +Specify the LLC color configuration for the guest. B<COLORS_RANGE> can be either
-> > +a single color value or a hypen-separated closed interval of colors
-> > +(such as "0-4").
->
-> Does "yellow-blue" works? Or "red-violet", to have a rainbow? :-)
->
-> So, "colors" as the name of a new configuration option isn't going to
-> work. To me, that would refer to VM managment, like maybe help to
-> categorise VM in some kind of tools, and not a part of the configuration
-> of the domain.
->
-> Could you invent a name that is more specific? Maybe "cache_colors" or
-> something, or "vcpu_cache_colors".
+Using large pages should be possible only when all colors are selected for a
+domain, but this implementation isn't that smart. The maximum order is
+determined only by the number of colors of the platform
+(e.g. 32 colors := order 5).
+Anyway the colored allocator is useless if a domain can use all colors, so
+in that situation I would switch to the normal buddy.
 
-What about llc_colors? LLC stands for Last Level Cache and I'm trying to use
-it everywhere else since it's what is really implemented (not any cache is
-colored, just the last level) and it's shorter than cache_colors.
-
-> > +=back
-> > +
-> >  =head3 x86
+> >  - same benefits of the normal buddy: constant time alloc and free
+> >    (constant with respect to the number of pages, not for the number of
+> >    colors);
 > >
-> >  =over 4
-> > diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-> > index b9dd2deedf..94c511912c 100644
-> > --- a/tools/libs/light/libxl_create.c
-> > +++ b/tools/libs/light/libxl_create.c
-> > @@ -615,6 +615,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-> >      struct xs_permissions rwperm[1];
-> >      struct xs_permissions noperm[1];
-> >      xs_transaction_t t = 0;
-> > +    DECLARE_HYPERCALL_BUFFER(unsigned int, colors);
-> >
-> >      /* convenience aliases */
-> >      libxl_domain_create_info *info = &d_config->c_info;
-> > @@ -676,6 +677,16 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-> >              goto out;
-> >          }
-> >
-> > +        if (d_config->b_info.num_colors) {
-> > +            size_t bytes = sizeof(unsigned int) * d_config->b_info.num_colors;
-> > +            colors = xc_hypercall_buffer_alloc(ctx->xch, colors, bytes);
+> > But also one "big" cons:
+> >  - given the way Xen queries the allocator, it can only serve larger pages
+> >    first and only when a domain runs out of those, it can go with the smaller
+> >    ones. Let's say that domain 0 has 31 colors out of 32 total (0-30 out of
+> >    0-31). The order-4 pages (0-15) are allocated first and then the order-3
+> >    (16-23, since 0-7 and 8-15 are all already allocated), and then order-2
+> >    and so on. The result is... the domain practically uses only one half of
+> >    the colors that it should.
 >
-> Hypercall stuff is normally done in another library, libxenctrl (or
-> maybe others like libxenguest). Is there a reason to do that here?
+> What's unclear to me is how big of a con this is, i.e. how reasonable it is
+> for someone to configure a domain to use all except one of the colors (and
+> not, say, half of them).
 
-I moved this in xc_domain_create().
+Well that was just an extreme example, but many configurations are affected.
+Basically the best configuration is one that is "aligned" to a power of 2
+(e.g. 0-3, 4-7, 16-31). Everything else that "mixes" powers of 2 (e.g. 0-5,
+4-9, 16-18) will see this behavior where bigger chunks are preferred and it
+practically makes the domain use less of its cache partitions.
 
-> > +            memcpy(colors, d_config->b_info.colors, bytes);
-> > +            set_xen_guest_handle(create.arch.colors, colors);
-> > +            create.arch.num_colors = d_config->b_info.num_colors;
-> > +            create.arch.from_guest = 1;
->
-> "arch" stuff is better dealt with in libxl__arch_domain_prepare_config().
-> (unless it isn't arch specific in the next revision of the series)
+The user could be warned about this in the docs, but it would also require
+extensive testing to see if there are any other drawbacks.
 
-Yes, removing arch specific parts is the current way of implementing it.
+> Jan
 
-> > +            LOG(DEBUG, "Setup %u domain colors", d_config->b_info.num_colors);
->
->
->
-> > +        }
-> > +
-> >          for (;;) {
-> >              uint32_t local_domid;
-> >              bool recent;
-> > @@ -922,6 +933,7 @@ retry_transaction:
-> >      rc = 0;
-> >   out:
-> >      if (t) xs_transaction_end(ctx->xsh, t, 1);
-> > +    if (colors) xc_hypercall_buffer_free(ctx->xch, colors);
-> >      return rc;
-> >  }
-> >
-> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> > index d634f304cd..642173af1a 100644
-> > --- a/tools/libs/light/libxl_types.idl
-> > +++ b/tools/libs/light/libxl_types.idl
-> > @@ -557,6 +557,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-> >      ("ioports",          Array(libxl_ioport_range, "num_ioports")),
-> >      ("irqs",             Array(uint32, "num_irqs")),
-> >      ("iomem",            Array(libxl_iomem_range, "num_iomem")),
-> > +    ("colors",           Array(uint32, "num_colors")),
->
-> So the colors is added to arch specific config in
-> xen_domctl_createdomain, maybe we should do the same here and move it to
-> the "arch_arm" struct. Or if that is declared common in hypervisor, then
-> it is file to leave it here.
+Thanks.
 
-Yes, it will be declared in common.
-
-> Also, "colors" needs to be rename to something more specific.
->
-> >      ("claim_mode",        libxl_defbool),
-> >      ("event_channels",   uint32),
-> >      ("kernel",           string),
-> > diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> > index 1b5381cef0..e6b2c7acff 100644
-> > --- a/tools/xl/xl_parse.c
-> > +++ b/tools/xl/xl_parse.c
-> > @@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
-> >      XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
-> >                     *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
-> >      XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
-> > -                   *mca_caps;
-> > -    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
-> > +                   *mca_caps, *colors;
-> > +    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps,
-> > +        num_colors;
->
-> Please, add a new lines instead of increasing the number of declared
-> variable on a single line.
->
-> >      int pci_power_mgmt = 0;
-> >      int pci_msitranslate = 0;
-> >      int pci_permissive = 0;
-> > @@ -1370,6 +1371,53 @@ void parse_config_data(const char *config_source,
-> >      if (!xlu_cfg_get_long (config, "maxmem", &l, 0))
-> >          b_info->max_memkb = l * 1024;
-> >
-> > +    if (!xlu_cfg_get_list(config, "colors", &colors, &num_colors, 0)) {
-> > +        int k, p, cur_index = 0;
-> > +
-> > +        b_info->num_colors = 0;
-> > +        /* Get number of colors based on ranges */
-> > +        for (i = 0; i < num_colors; i++) {
-> > +            uint32_t start = 0, end = 0;
-> > +
-> > +            buf = xlu_cfg_get_listitem(colors, i);
-> > +            if (!buf) {
-> > +                fprintf(stderr,
-> > +                    "xl: Unable to get element %d in colors range list\n", i);
-> > +                exit(1);
-> > +            }
-> > +
-> > +            if (sscanf(buf, "%u-%u", &start, &end) != 2) {
-> > +                if (sscanf(buf, "%u", &start) != 1) {
->
-> I think you want %"SCNu32" instead of %u as both start and end are
-> uint32_t.
-
-Ok.
-
-> > +                    fprintf(stderr, "xl: Invalid color range: %s\n", buf);
-> > +                    exit(1);
-> > +                }
-> > +                end = start;
-> > +            }
-> > +            else if (start > end) {
->
-> Can you put the "else" on the same line as "}" ?
-
-Yep.
-
-> > +                fprintf(stderr,
-> > +                        "xl: Start color is greater than end color: %s\n", buf);
-> > +                exit(1);
-> > +            }
-> > +
-> > +            /* Check for overlaps */
-> > +            for (k = start; k <= end; k++) {
-> > +                for (p = 0; p < b_info->num_colors; p++) {
-> > +                    if (b_info->colors[p] == k) {
-> > +                        fprintf(stderr, "xl: Overlapped ranges not allowed\n");
->
-> Why is that an issue? Could overlap just been ignored?
-
-That requirement comes from the hypervisor. It assumes a sorted array without
-repeated elements for simplicity. The hypervisor checks that again indeed
-(it does that in v4, at least) so yes, it's a bit useless. I'll drop this.
-
-> > +                        exit(1);
-> > +                    }
-> > +                }
-> > +            }
-> > +
-> > +            b_info->num_colors += (end - start) + 1;
-> > +            b_info->colors = (uint32_t *)realloc(b_info->colors,
-> > +                                sizeof(*b_info->colors) * b_info->num_colors);
-> > +
-> > +            for (k = start; k <= end; k++)
-> > +                b_info->colors[cur_index++] = k;
->
-> This `b_info->colors` feels like it could be a bitmap like for "vcpus"
-> or other config that deal with ranges.
->
-> libxl has plenty of functions to deal with bitmap that xl can use,
-> starting with libxl_bitmap_alloc(), maybe it would make dealing with
-> cache color easier, like no need to check for overlaps, but there
-> doesn't seems to be a function to deal with a growing bitmap so one
-> would have to find the highest cache value before allocating the bitmap
-> are deal with realloc.
->
-> I guess using bitmap or not kind of depend of the interface with the
-> hypervisor, if it take a list of number, then a list of number is fine
-> here too.
-
-I discarded bitmaps because it's not that easy to iterate over the index of
-set bits and because they imposed, in the way we used them, a fixed number
-of colors. At that time I wasn't really thinking of having a dynamic bitmap.
-For now I will leave things as they are (using plain arrays) because it
-would require other changes in the hypervisor, but this can be something
-to do in the future, at least just for the passage of data between toolstack
-and Xen.
-
-> Thanks,
->
-> --
-> Anthony PERARD
-
-Thank
-
-
-On Thu, Nov 24, 2022 at 4:21 PM Anthony PERARD
-<anthony.perard@citrix.com> wrote:
->
-> On Sat, Oct 22, 2022 at 05:51:15PM +0200, Carlo Nonato wrote:
-> > diff --git a/docs/man/xl.cfg.5.pod.in b/docs/man/xl.cfg.5.pod.in
-> > index b2901e04cf..5f53cec8bf 100644
-> > --- a/docs/man/xl.cfg.5.pod.in
-> > +++ b/docs/man/xl.cfg.5.pod.in
-> > @@ -2880,6 +2880,16 @@ Currently, only the "sbsa_uart" model is supported for ARM.
-> >
-> >  =back
-> >
-> > +=over 4
-> > +
-> > +=item B<colors=[ "COLORS_RANGE", "COLORS_RANGE", ...]>
->
-> Instead of COLORS_RANGE, maybe NUMBER_RANGE? Or just RANGE?
->
-> > +Specify the LLC color configuration for the guest. B<COLORS_RANGE> can be either
-> > +a single color value or a hypen-separated closed interval of colors
-> > +(such as "0-4").
->
-> Does "yellow-blue" works? Or "red-violet", to have a rainbow? :-)
->
-> So, "colors" as the name of a new configuration option isn't going to
-> work. To me, that would refer to VM managment, like maybe help to
-> categorise VM in some kind of tools, and not a part of the configuration
-> of the domain.
->
-> Could you invent a name that is more specific? Maybe "cache_colors" or
-> something, or "vcpu_cache_colors".
->
-> > +=back
-> > +
-> >  =head3 x86
-> >
-> >  =over 4
-> > diff --git a/tools/libs/light/libxl_create.c b/tools/libs/light/libxl_create.c
-> > index b9dd2deedf..94c511912c 100644
-> > --- a/tools/libs/light/libxl_create.c
-> > +++ b/tools/libs/light/libxl_create.c
-> > @@ -615,6 +615,7 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-> >      struct xs_permissions rwperm[1];
-> >      struct xs_permissions noperm[1];
-> >      xs_transaction_t t = 0;
-> > +    DECLARE_HYPERCALL_BUFFER(unsigned int, colors);
-> >
-> >      /* convenience aliases */
-> >      libxl_domain_create_info *info = &d_config->c_info;
-> > @@ -676,6 +677,16 @@ int libxl__domain_make(libxl__gc *gc, libxl_domain_config *d_config,
-> >              goto out;
-> >          }
-> >
-> > +        if (d_config->b_info.num_colors) {
-> > +            size_t bytes = sizeof(unsigned int) * d_config->b_info.num_colors;
-> > +            colors = xc_hypercall_buffer_alloc(ctx->xch, colors, bytes);
->
-> Hypercall stuff is normally done in another library, libxenctrl (or
-> maybe others like libxenguest). Is there a reason to do that here?
->
-> > +            memcpy(colors, d_config->b_info.colors, bytes);
-> > +            set_xen_guest_handle(create.arch.colors, colors);
-> > +            create.arch.num_colors = d_config->b_info.num_colors;
-> > +            create.arch.from_guest = 1;
->
-> "arch" stuff is better dealt with in libxl__arch_domain_prepare_config().
-> (unless it isn't arch specific in the next revision of the series)
->
-> > +            LOG(DEBUG, "Setup %u domain colors", d_config->b_info.num_colors);
->
->
->
-> > +        }
-> > +
-> >          for (;;) {
-> >              uint32_t local_domid;
-> >              bool recent;
-> > @@ -922,6 +933,7 @@ retry_transaction:
-> >      rc = 0;
-> >   out:
-> >      if (t) xs_transaction_end(ctx->xsh, t, 1);
-> > +    if (colors) xc_hypercall_buffer_free(ctx->xch, colors);
-> >      return rc;
-> >  }
-> >
-> > diff --git a/tools/libs/light/libxl_types.idl b/tools/libs/light/libxl_types.idl
-> > index d634f304cd..642173af1a 100644
-> > --- a/tools/libs/light/libxl_types.idl
-> > +++ b/tools/libs/light/libxl_types.idl
-> > @@ -557,6 +557,7 @@ libxl_domain_build_info = Struct("domain_build_info",[
-> >      ("ioports",          Array(libxl_ioport_range, "num_ioports")),
-> >      ("irqs",             Array(uint32, "num_irqs")),
-> >      ("iomem",            Array(libxl_iomem_range, "num_iomem")),
-> > +    ("colors",           Array(uint32, "num_colors")),
->
-> So the colors is added to arch specific config in
-> xen_domctl_createdomain, maybe we should do the same here and move it to
-> the "arch_arm" struct. Or if that is declared common in hypervisor, then
-> it is file to leave it here.
->
-> Also, "colors" needs to be rename to something more specific.
->
-> >      ("claim_mode",        libxl_defbool),
-> >      ("event_channels",   uint32),
-> >      ("kernel",           string),
-> > diff --git a/tools/xl/xl_parse.c b/tools/xl/xl_parse.c
-> > index 1b5381cef0..e6b2c7acff 100644
-> > --- a/tools/xl/xl_parse.c
-> > +++ b/tools/xl/xl_parse.c
-> > @@ -1220,8 +1220,9 @@ void parse_config_data(const char *config_source,
-> >      XLU_ConfigList *cpus, *vbds, *nics, *pcis, *cvfbs, *cpuids, *vtpms,
-> >                     *usbctrls, *usbdevs, *p9devs, *vdispls, *pvcallsifs_devs;
-> >      XLU_ConfigList *channels, *ioports, *irqs, *iomem, *viridian, *dtdevs,
-> > -                   *mca_caps;
-> > -    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps;
-> > +                   *mca_caps, *colors;
-> > +    int num_ioports, num_irqs, num_iomem, num_cpus, num_viridian, num_mca_caps,
-> > +        num_colors;
->
-> Please, add a new lines instead of increasing the number of declared
-> variable on a single line.
->
-> >      int pci_power_mgmt = 0;
-> >      int pci_msitranslate = 0;
-> >      int pci_permissive = 0;
-> > @@ -1370,6 +1371,53 @@ void parse_config_data(const char *config_source,
-> >      if (!xlu_cfg_get_long (config, "maxmem", &l, 0))
-> >          b_info->max_memkb = l * 1024;
-> >
-> > +    if (!xlu_cfg_get_list(config, "colors", &colors, &num_colors, 0)) {
-> > +        int k, p, cur_index = 0;
-> > +
-> > +        b_info->num_colors = 0;
-> > +        /* Get number of colors based on ranges */
-> > +        for (i = 0; i < num_colors; i++) {
-> > +            uint32_t start = 0, end = 0;
-> > +
-> > +            buf = xlu_cfg_get_listitem(colors, i);
-> > +            if (!buf) {
-> > +                fprintf(stderr,
-> > +                    "xl: Unable to get element %d in colors range list\n", i);
-> > +                exit(1);
-> > +            }
-> > +
-> > +            if (sscanf(buf, "%u-%u", &start, &end) != 2) {
-> > +                if (sscanf(buf, "%u", &start) != 1) {
->
-> I think you want %"SCNu32" instead of %u as both start and end are
-> uint32_t.
->
-> > +                    fprintf(stderr, "xl: Invalid color range: %s\n", buf);
-> > +                    exit(1);
-> > +                }
-> > +                end = start;
-> > +            }
-> > +            else if (start > end) {
->
-> Can you put the "else" on the same line as "}" ?
-> > +                fprintf(stderr,
-> > +                        "xl: Start color is greater than end color: %s\n", buf);
-> > +                exit(1);
-> > +            }
-> > +
-> > +            /* Check for overlaps */
-> > +            for (k = start; k <= end; k++) {
-> > +                for (p = 0; p < b_info->num_colors; p++) {
-> > +                    if (b_info->colors[p] == k) {
-> > +                        fprintf(stderr, "xl: Overlapped ranges not allowed\n");
->
-> Why is that an issue? Could overlap just been ignored?
->
-> > +                        exit(1);
-> > +                    }
-> > +                }
-> > +            }
-> > +
-> > +            b_info->num_colors += (end - start) + 1;
-> > +            b_info->colors = (uint32_t *)realloc(b_info->colors,
-> > +                                sizeof(*b_info->colors) * b_info->num_colors);
-> > +
-> > +            for (k = start; k <= end; k++)
-> > +                b_info->colors[cur_index++] = k;
->
-> This `b_info->colors` feels like it could be a bitmap like for "vcpus"
-> or other config that deal with ranges.
->
-> libxl has plenty of functions to deal with bitmap that xl can use,
-> starting with libxl_bitmap_alloc(), maybe it would make dealing with
-> cache color easier, like no need to check for overlaps, but there
-> doesn't seems to be a function to deal with a growing bitmap so one
-> would have to find the highest cache value before allocating the bitmap
-> are deal with realloc.
->
-> I guess using bitmap or not kind of depend of the interface with the
-> hypervisor, if it take a list of number, then a list of number is fine
-> here too.
->
->
-> Thanks,
->
-> --
-> Anthony PERARD
+- Carlo Nonato
 
