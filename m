@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA58653DCC
-	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 10:59:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.468394.727487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B89E653DD0
+	for <lists+xen-devel@lfdr.de>; Thu, 22 Dec 2022 11:01:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.468404.727499 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8ILN-0005kE-Be; Thu, 22 Dec 2022 09:58:29 +0000
+	id 1p8INd-0007Ho-SU; Thu, 22 Dec 2022 10:00:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 468394.727487; Thu, 22 Dec 2022 09:58:29 +0000
+Received: by outflank-mailman (output) from mailman id 468404.727499; Thu, 22 Dec 2022 10:00:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p8ILN-0005iQ-7M; Thu, 22 Dec 2022 09:58:29 +0000
-Received: by outflank-mailman (input) for mailman id 468394;
- Thu, 22 Dec 2022 09:58:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1p8INd-0007EN-P3; Thu, 22 Dec 2022 10:00:49 +0000
+Received: by outflank-mailman (input) for mailman id 468404;
+ Thu, 22 Dec 2022 10:00:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=s9VX=4U=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1p8ILL-0005i4-R9
- for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 09:58:27 +0000
+ id 1p8INc-0007EH-DI
+ for xen-devel@lists.xenproject.org; Thu, 22 Dec 2022 10:00:48 +0000
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ce950d3-81df-11ed-8fd4-01056ac49cbb;
- Thu, 22 Dec 2022 10:58:26 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 7E16F3200931;
- Thu, 22 Dec 2022 04:58:24 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 22 Dec 2022 04:58:25 -0500
+ [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 811d512b-81df-11ed-91b6-6bf2151ebd3b;
+ Thu, 22 Dec 2022 11:00:47 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 1E2D43200063;
+ Thu, 22 Dec 2022 05:00:45 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Thu, 22 Dec 2022 05:00:45 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 22 Dec 2022 04:58:23 -0500 (EST)
+ 22 Dec 2022 05:00:43 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,49 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ce950d3-81df-11ed-8fd4-01056ac49cbb
+X-Inumbo-ID: 811d512b-81df-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1671703104; x=
-	1671789504; bh=vIsANOh8A7Pi5td2jYaouv7GsdBldfAzc3JwYRzGP8s=; b=a
-	gJk0YWl8tSRpfPdKjpbfX/v4ZPQwcoyYyD3GB1ImvKUALKpsXLEUYWmQS+i1/mMj
-	Fds7Tx6g/x2b+dhKEBDhlLo2c9BRLXpt+GcixbjknteecyhMYqypzwebH3a/SXRI
-	Q68aideCiJa3JbQ4ebN7SIlKLnODY96J5qbayuIIui+So9LtpZ1cfqGspFtzYpBi
-	A2UaRofeDOEkDH09/rhft6toUJP0mLuaLscdCHrUvNlKckMxXfyKvsH6Dadf1j/q
-	ZoziTfxA8Q4esjE9Jtyct1D9Uj1pm1VzLtwpmimnD4riHMCNWT8gzySLNtEoGj8u
-	OnV+VFxN00EOvHVzrI4lg==
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1671703244; x=
+	1671789644; bh=+w3WSY0c/uMG1tHSVcU8TJZR3ot/GHWuEknsItEmruE=; b=M
+	1DP4aFw8pMRTeiVe7KzDeZw+tBTJ1z7vnxO2MAJ2ll5UvwSJDeQP7eHfFNUR8719
+	L5ttrEr3NpvC5saHbGcAmG84/SHTmpSqT8ZtX/iqUmnIe8K1myzj1yP702oEZuPp
+	BkgyYi5lXUF1GsCIhOAAG6vlmKe+wbV3dfCtNXWTYNvb9dxeTEzlFFZ0kqLaAEPi
+	0If0bAhDoe6W1SER/ztXAAaIeJBGcQkiifVTiBzx53rEpAydfr1y+PVnoA8kdesv
+	ZPziZbp/Lk721DuK5WtOw1UX8bTOOoFlcG7eiAmSiU0ZOuPJ0Vg/ZLikxeYhl0Em
+	w909htdWIaYWOSKaEW6Kw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
 	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
 	:mime-version:references:reply-to:sender:subject:subject:to:to
 	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1671703104; x=1671789504; bh=vIsANOh8A7Pi5td2jYaouv7GsdBl
-	dfAzc3JwYRzGP8s=; b=M4KrQWSshHuZb9lf8hgzxdXFeWSLkU9zBluiSxfBW9Og
-	nxqj+CO5zSqR8qm/j3YYALWh5hvLZmg5/nFEzQ7VGSYWLK8SrMAvhZDeYFc2iJ8d
-	BUtmu0DmpJ1wRPMeNZYrVXf2+xj3JgemfpX+A0M+z+ZUiPgisQB/qnGcJK0bmxeA
-	3YS/3TdxYj69C04R/Zk90Bgf9sa+OGrMusG6gRGs0/Vhbqg1R4HONzSpdzmtthiJ
-	18gELmHBJ74AWtZTMQj2rPGRGeJUYXC/rn4RfZhzbbj28QDdVYWD5/Zz/c7hgBKZ
-	Bf8+xu4I7lC/zs+75+U6GaS/OaKkZdn1+7EboAJH4A==
-X-ME-Sender: <xms:PyqkY6Hl-lotRQx737C4BTPfIROHZ2Mswc3gOX6hqN8YqSeyUjUloQ>
-    <xme:PyqkY7WHhL3ad2kVaIqgvd32WDYv98_nUA9hG--yvEuyyGUOAAiHI69KHo62aPj8P
-    vSdFVAtTjnMmdo>
-X-ME-Received: <xmr:PyqkY0K-lssCMaExrVOFQWVS6JmIUtUoaX1VDr7tFIM1PRSA4u1EcDRN5ssP>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrhedtgddtlecutefuodetggdotefrodftvf
+	fm2; t=1671703244; x=1671789644; bh=+w3WSY0c/uMG1tHSVcU8TJZR3ot/
+	GHWuEknsItEmruE=; b=T6rojTKgd46AliecfXhKe7lPGBhKtBLI0HXyFV+JvWX0
+	oEdX37fOk59g/BvdaXrkRAyjBpttS9+YdQCGcWOKwOYI4/Wx2neLihN5A5IwL6J8
+	vzqWKijB4iYJNFVxNvMPgArhqb9hbeUnG3E6/Vzdb3U5S0mU/xfmZCyL/avx5nfR
+	9Yl9hzJezlAwvmzvO+v0w97yPB0Odeso+n2GJE5QdYTDtUJ1wiMrEYol40LUzO+y
+	IG0PvtTU31MAH+2GfKeEG4Uw8K5aNYi9JmldE/KG6hGkeLkWhNUL74yKA2F3CIHV
+	en9pIRnLF1tATTMu+aC9i6lMyN449Om/KsddKJ9wJg==
+X-ME-Sender: <xms:zCqkY5IjxgH1sGUtlEBwZELOhl9-Kk8C2JqVku4cy2_MTkL-goRLTw>
+    <xme:zCqkY1Jt4HOtx8B3bXS37FWcDu-e7MfpdkpuZLbXxBrzxN0ZhPYpC-d9c8o_VYsrq
+    V2TKPAHOoaIGvI>
+X-ME-Received: <xmr:zCqkYxuQvtNH6FbggIsdl4K27gHqzg85QaywOeeKgPi4nRi3YvRQ2DMAhegr>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrhedtgddutdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghmihcu
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghmihcu
     ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffejgeej
-    geffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtnecurf
+    hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffegfffg
+    uddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtnecurf
     grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
     rggsrdgtohhm
-X-ME-Proxy: <xmx:QCqkY0G62QOiWt_E-NUE6dvDJHPmi6NcRDhyCJDZ1j00n1RymAAGRA>
-    <xmx:QCqkYwV4Oo8yvkhSf4nods55AkLRKigHL5p8vn8dlKUICBt3NZYTDg>
-    <xmx:QCqkY3M0PP9Fq1WZBz8CwEvoZQMp1neILxD2LCB4vKO83cj03iq28g>
-    <xmx:QCqkYzFpI3iCu6lGsA5rtQEW9dbdN8ITT_3Yn-NjJRCKl0rS_K0Cpw>
+X-ME-Proxy: <xmx:zCqkY6YJY-UC_lCKTWIOc51Xo8UFJgcRsl-_8jZs8dKVhlZ4Pgy3pw>
+    <xmx:zCqkYwYEIrv4ULwimHCdZ5oM7AqyUn1I2ACXOLz833kr6lOoqyzASw>
+    <xmx:zCqkY-C2h6cgOGSiEKC-tDU1ASdGJ5odk7sKNMSWnRGk8i9zGBdKsw>
+    <xmx:zCqkYw7wZ2hfF7DCqrzhPPd9F6RJYpXleJYGGv8dxu4MwQy0mE4p1Q>
 Feedback-ID: iac594737:Fastmail
-Date: Thu, 22 Dec 2022 04:58:20 -0500
+Date: Thu, 22 Dec 2022 05:00:40 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
@@ -95,25 +95,25 @@ Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com
 	Kevin Tian <kevin.tian@intel.com>,
 	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 02/10] x86/mm: Avoid hard-coding PAT in
- get_page_from_l1e()
-Message-ID: <Y6QqPWAwKRBXDOOT@itl-email>
+Subject: Re: [PATCH v5 08/10] x86/mm: make code robust to future PAT changes
+Message-ID: <Y6QqyTzD4FpPtiqH@itl-email>
 References: <cover.1671497984.git.demi@invisiblethingslab.com>
- <0026e56a0c91cb0dde9fe19200f473d720a9a950.1671497984.git.demi@invisiblethingslab.com>
- <98839620-d058-5088-da3d-4d200d70b003@suse.com>
- <b033f8bd-3f5d-b4a7-5197-8d098546b25b@suse.com>
+ <a8920eef3254cbf470a0d35a887dbaf0e4907a6d.1671497984.git.demi@invisiblethingslab.com>
+ <06dff83a-b120-a2b4-c61f-7864935d4c3e@suse.com>
+ <Y6QodBfEc828o988@itl-email>
+ <700e86ac-7efc-9d6d-43dd-a06bb541a1fb@suse.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="QiIKifiey0D8jw9w"
+	protocol="application/pgp-signature"; boundary="kDiZFmu2A0PiXt8a"
 Content-Disposition: inline
-In-Reply-To: <b033f8bd-3f5d-b4a7-5197-8d098546b25b@suse.com>
+In-Reply-To: <700e86ac-7efc-9d6d-43dd-a06bb541a1fb@suse.com>
 
 
---QiIKifiey0D8jw9w
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--kDiZFmu2A0PiXt8a
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 22 Dec 2022 04:58:20 -0500
+Date: Thu, 22 Dec 2022 05:00:40 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jan Beulich <jbeulich@suse.com>
 Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
@@ -123,118 +123,105 @@ Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com
 	Kevin Tian <kevin.tian@intel.com>,
 	George Dunlap <george.dunlap@citrix.com>, Tim Deegan <tim@xen.org>,
 	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v5 02/10] x86/mm: Avoid hard-coding PAT in
- get_page_from_l1e()
+Subject: Re: [PATCH v5 08/10] x86/mm: make code robust to future PAT changes
 
-On Thu, Dec 22, 2022 at 10:51:08AM +0100, Jan Beulich wrote:
-> On 20.12.2022 09:19, Jan Beulich wrote:
-> > On 20.12.2022 02:07, Demi Marie Obenour wrote:
-> >> get_page_from_l1e() relied on Xen's choice of PAT, which is brittle in
-> >> the face of future PAT changes.  Instead, compute the actual cacheabil=
-ity
-> >> used by the CPU and switch on that, as this will work no matter what P=
-AT
-> >> Xen uses.
+On Thu, Dec 22, 2022 at 10:54:48AM +0100, Jan Beulich wrote:
+> On 22.12.2022 10:50, Demi Marie Obenour wrote:
+> > On Thu, Dec 22, 2022 at 10:35:08AM +0100, Jan Beulich wrote:
+> >> On 20.12.2022 02:07, Demi Marie Obenour wrote:
+> >>> --- a/xen/arch/x86/mm.c
+> >>> +++ b/xen/arch/x86/mm.c
+> >>> @@ -6352,6 +6352,11 @@ unsigned long get_upper_mfn_bound(void)
+> >>>      return min(max_mfn, 1UL << (paddr_bits - PAGE_SHIFT)) - 1;
+> >>>  }
+> >>> =20
+> >>> +
+> >>> +/*
+> >>> + * A bunch of static assertions to check that the XEN_MSR_PAT is val=
+id
+> >>> + * and consistent with the _PAGE_* macros, and that _PAGE_WB is zero.
+> >>> + */
+> >>>  static void __init __maybe_unused build_assertions(void)
+> >>>  {
+> >>>      /*
+> >>> @@ -6361,6 +6366,72 @@ static void __init __maybe_unused build_assert=
+ions(void)
+> >>>       * using different PATs will not work.
+> >>>       */
+> >>>      BUILD_BUG_ON(XEN_MSR_PAT !=3D 0x050100070406ULL);
+> >>> +
+> >>> +    /*
+> >>> +     * _PAGE_WB must be zero for several reasons, not least because =
+Linux
+> >>> +     * assumes it.
+> >>> +     */
+> >>> +    BUILD_BUG_ON(_PAGE_WB);
 > >>
-> >> No functional change intended.  This code is itself questionable and m=
-ay
-> >> be removed in the future, but removing it would be an observable
-> >> behavior change and so is out of scope for this patch series.
-> >>
-> >> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> >> ---
-> >> Changes since v4:
-> >> - Do not add new pte_flags_to_cacheability() helper, as this code may =
-be
-> >>   removed in the near future and so adding a new helper for it is a bad
-> >>   idea.
-> >> - Do not BUG() in the event of an unexpected cacheability.  This cannot
-> >>   happen, but it is simpler to force such types to UC than to prove th=
-at
-> >>   the BUG() is not reachable.
-> >>
-> >> Changes since v3:
-> >> - Compute and use the actual cacheability as seen by the processor.
-> >>
-> >> Changes since v2:
-> >> - Improve commit message.
-> >> ---
-> >>  xen/arch/x86/mm.c | 14 ++++++++------
-> >>  1 file changed, 8 insertions(+), 6 deletions(-)
-> >>
-> >> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
-> >> index 78b1972e4170cacccc9c37c6e64e76e66a7da87f..dba6c77ef2f7ed7fcb7f7e=
-526583ccadd35e62cc 100644
-> >> --- a/xen/arch/x86/mm.c
-> >> +++ b/xen/arch/x86/mm.c
-> >> @@ -959,14 +959,16 @@ get_page_from_l1e(
-> >>              flip =3D _PAGE_RW;
-> >>          }
-> >> =20
-> >> -        switch ( l1f & PAGE_CACHE_ATTRS )
-> >> +        switch ( 0xFF & (XEN_MSR_PAT >> (8 * pte_flags_to_cacheattr(l=
-1f))) )
-> >>          {
-> >> -        case 0: /* WB */
-> >> -            flip |=3D _PAGE_PWT | _PAGE_PCD;
-> >> +        case X86_MT_UC:
-> >> +        case X86_MT_UCM:
-> >> +        case X86_MT_WC:
-> >> +            /* not cacheable */
-> >>              break;
-> >> -        case _PAGE_PWT: /* WT */
-> >> -        case _PAGE_PWT | _PAGE_PAT: /* WP */
-> >> -            flip |=3D _PAGE_PCD | (l1f & _PAGE_PAT);
-> >> +        default:
-> >> +            /* cacheable */
-> >> +            flip |=3D ((l1f & PAGE_CACHE_ATTRS) ^ _PAGE_UC);
-> >>              break;
+> >> Strictly speaking this is a requirement only for PV guests. We may not
+> >> want to go as far as putting "#ifdef CONFIG_PV" around it, but at least
+> >> the code comment (and then also the part of the description referring
+> >> to this) will imo want to say so.
 > >=20
-> > In v4 the comment here was "cacheable, force to UC". The latter aspect =
-is
-> > quite relevant (and iirc also what Andrew had asked for to have as a
-> > comment). But with this now being the default case, the comment (in eit=
-her
-> > this or the earlier form) would become stale. A forward compatible way =
-of
-> > wording this would e.g. be "force any other type to UC". With an adjust=
-ment
-> > along these lines (which I think could be done while committing)
-> > Reviewed-by: Jan Beulich <jbeulich@suse.com>
+> > Does Xen itself depend on this?
 >=20
-> If you had replied signaling your consent (and perhaps the preferred by y=
-ou
-> wording), I would have committed this. Now it's going to be v6 afaic ...
->=20
-> Jan
+> With the wording in the description I was going from the assumption that
+> you have audited code and found that we properly use _PAGE_* constants
+> everywhere.
 
-Sorry about that.  "potentially cacheable, force to UC" is the wording
-I have planned for v6, along with "not cacheable, allow" in the other
-case.  Feel free to go ahead and commit if you want.
+There could be other hard-coded uses of magic numbers I haven=E2=80=99t fou=
+nd,
+and _PAGE_WB is currently zero so I would be quite surpised if no code
+in Xen omits it.  Linux also has a BUILD_BUG_ON() to check the same
+thing.
+
+> >>> +} while (0)
+> >>> +
+> >>> +    /*
+> >>> +     * If one of these trips, the corresponding _PAGE_* macro is inc=
+onsistent
+> >>> +     * with XEN_MSR_PAT.  This would cause Xen to use incorrect cach=
+eability
+> >>> +     * flags, with results that are undefined and probably harmful.
+> >>
+> >> Why "undefined"? They may be wrong / broken, but the result is still w=
+ell-
+> >> defined afaict.
+> >=20
+> > =E2=80=9Cundefined=E2=80=9D is meant as =E2=80=9Cone has violated a cor=
+e assumption that
+> > higher-level stuff depends on, so things can go arbitrarily wrong,
+> > including e.g. corrupting memory or data=E2=80=9D.  Is this accurate?  =
+Should I
+> > drop the dependent clause, or do you have a suggestion for something
+> > better?
+>=20
+> s/undefined/unknown/ ?
+
+Will fix in v6.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---QiIKifiey0D8jw9w
+--kDiZFmu2A0PiXt8a
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOkKj0ACgkQsoi1X/+c
-IsGStRAAoyyENEx0AuL7ebkJ8Lmtdm06zwG6hfumHUqTNIRqvrvfTNiNk34WQc1M
-vK032s+MJjcNtizWSHp6+9p4Zaj0IGvfU4+FpBiKuONgiCnS6F6ZQN7JVMwKaXBp
-nYZLYnKu4QCZn2ET3ROGetA4ZW7coOaMIF/+lrc57ecXtAPsdsftTNWR//qAyEFG
-DFhuAHI00Y/1LUW09x++yIRcZShUGLEyW2oyjmeZDryNHKGRozZaOa/xtfrUXYBd
-TW/CSy7th4MwZHmDnT8E1IDXiIp+7envyFeMC9qM83YPQY1HzR8Fa5/zXXdDQbo2
-I5ICzebwm9ntfThoMi7nQ9lyYt/vQReLepqYK2zJh/ADxrf1aTwg9rME+l/8k45h
-M3gLYbIJOOK5rGfYGwi0cVIne9qpft3SyXsG9MJ9++MGNc0FnP36jcuL45o4SzZg
-1iouXe7FO5BA2ZiKJ5wqoUjLSB2Si/vAtR89J8wh3nqoHL6bE80RBfvV/aBjQPeW
-CwUizcJwwWX9L/hrdPsey5+BbrjrZNIlciOG8JdF8D7eSoroRlzG4UASNrSVc5rs
-GhQUeHEcjUJNE4SybJoivGSGda8U9W9cR3fZN6vborQv/ZcpSJ02lThLFlTXPRqA
-JHQZvBRtCR5ez3HrGMZwxYJ4+QLeUCA7Ino/d3F/HA87oasbyRg=
-=G5Y4
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmOkKskACgkQsoi1X/+c
+IsGFuw/7BD2/akwUPE7gydadNlnI9Ejs9zgE/0C7emD81MXoUQd2/+d2hidDHVer
+4wNRfXpvBKSsq9AhxeaH8vIUDQUa3/16dXDyWdRbijJzYs6LhUpC+1bN7GSnTo1Q
+nlCRTipz9ihC/H+25RkMy4BRixHpPhw8dRP9Z8gXsf6DOxNQ6IzmFlDP2JOwcTLi
+ZAAzZ0qIc6YMvPkGqVNZVilY0muypjTrxNdLBp9LDx5AOUyT7djhRqt4JqneE962
+VAY/K6qqu1K/DBALaFurGasAwmJ+z67blPb80FbwLDr1mAkG/Y1YVexFdVEZVARs
+He2bUP8zu9DnRgT9kk1C28Jb030W410zXwrFyv+u1bgmFk8Rtvgxi5DQDy0lGiAx
+gUWRb7Exgl0Ly+ZykRL3OuNLT8l1AqAEq2LcdneB+dSKMiRlwpcrw+ogUkjqtnU4
+/GEq5hs46hMLl1d4ldAouKXOgc1gkphPusZH7+W/cNuZ+SOi5hLfq23suylVqUw+
+eHlAFB4owMwVjV5fDP1uh0AVP3ER3lFJMR7GPMy8J5pLKTARYWnHFiFVXvmlQPQu
+yME8hSBBpKQHwr0ef8xm//v2VMF6tW/T/TWexDuPff5uOC6g2DC/ww1dAhFmVq5a
+j9s2c+3AGGSzCvChDUKcuZBGntW9KdJT0kd1Oam/nDrqJh9DkR0=
+=KxSV
 -----END PGP SIGNATURE-----
 
---QiIKifiey0D8jw9w--
+--kDiZFmu2A0PiXt8a--
 
