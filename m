@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0150F656758
-	for <lists+xen-devel@lfdr.de>; Tue, 27 Dec 2022 06:24:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.469307.728696 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 507F6656514
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Dec 2022 22:04:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.469309.728663 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pA2Qy-0000kX-Ul; Tue, 27 Dec 2022 05:23:28 +0000
+	id 1p9uce-0008M4-S1; Mon, 26 Dec 2022 21:03:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 469307.728696; Tue, 27 Dec 2022 05:23:28 +0000
+Received: by outflank-mailman (output) from mailman id 469309.728663; Mon, 26 Dec 2022 21:03:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pA2Qy-0000hF-Qp; Tue, 27 Dec 2022 05:23:28 +0000
-Received: by outflank-mailman (input) for mailman id 469307;
- Mon, 26 Dec 2022 19:58:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=gpDW=4Y=gmail.com=andrzejhochul1990@srs-se1.protection.inumbo.net>)
- id 1p9tcJ-0001hk-Pf
- for xen-devel@lists.xen.org; Mon, 26 Dec 2022 19:58:36 +0000
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [2a00:1450:4864:20::542])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac1aca4b-8557-11ed-91b6-6bf2151ebd3b;
- Mon, 26 Dec 2022 20:58:33 +0100 (CET)
-Received: by mail-ed1-x542.google.com with SMTP id l29so9501019edj.7
- for <xen-devel@lists.xen.org>; Mon, 26 Dec 2022 11:58:31 -0800 (PST)
+	id 1p9uce-0008Ii-P8; Mon, 26 Dec 2022 21:03:00 +0000
+Received: by outflank-mailman (input) for mailman id 469309;
+ Mon, 26 Dec 2022 21:02:59 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p9ucd-0008IY-TP; Mon, 26 Dec 2022 21:02:59 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p9ucd-0007wn-OH; Mon, 26 Dec 2022 21:02:59 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1p9ucd-00025K-54; Mon, 26 Dec 2022 21:02:59 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1p9ucd-0000Zv-4d; Mon, 26 Dec 2022 21:02:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,526 +42,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ac1aca4b-8557-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=YhT0wZgtYkRY0xJNVj5i4pw2O4qOe0HKSMyJxgnhxhE=;
-        b=MPBk/6p1Qw5Fc50IM6U55PQBo5oHaV4h7rIvKZ51gMgGu2jvTFOawpVN6UEso+ITqn
-         nk0+wcK3ym/sHxSv1d98zN4zv2WQv4IFS4V40MG4fVf8BXpbtNfeWXGjILTa9lnm6zFS
-         NnTIv4GL67iA6Ysrp3vJCvRgYTB6k2qYC6/oRuJM0e2B7yb8PFormVH3vcwcstNU7A5U
-         ACgONGvP46VpvemGWHdAhKyuZIl8k+JXIGEu3kGvc9iD4DhQPXYNyf0VhQk/TI+8Cowk
-         5S5gtyPueWtMeHKuah30P60TrkmFUUII0ZtqXE4tee1UUYP6ddSenEYSEcuXkSL/KjzZ
-         MpWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=YhT0wZgtYkRY0xJNVj5i4pw2O4qOe0HKSMyJxgnhxhE=;
-        b=kaXmsyKqXfTEv3eAz0BONo9PGLmOWS6yPgMXtmPnwD8GR3CLRNQHSl1EB/iq+z3UIv
-         gQ2QK0KA1HzG4TzqYLJwhV6c0fRZWSl//KBMzme8iT1D8kAt2qiVgUgIlroFCJirk9Cc
-         le+9CkTdl1DGKR5h80biDVRw0HIhz32X7n/78tmFVHXp0B3L4IrW6GY93s1KAJTv3tIj
-         1Uqlb0AF3rj2XqJzfdvxPwtLyg1hgGtCHIrh9CzMVeUkkDne+hvEFCYIyLsi9OIgR1sA
-         PFI9TXmWNFjoYW5TPOCJut9u6sJSVloWbvi+XcmBgXbP8YfADz1l4vzePMVfk4rq9NX6
-         E8Sw==
-X-Gm-Message-State: AFqh2kr6EHLMIvajhrqwayngKyoDt46r+S+5fASg2e3eCxM2yNFsYvE1
-	LfDvIxc82iO97wBlWCz9Tg4L81o1ArA2uyyjH+/0qSnnZKZaKQ==
-X-Google-Smtp-Source: AMrXdXtj9tDh+lYak8lDcakAKHIUClrpTRrGuAh1OFhT4yQqd6m/Mc86fdSXTn+wSbMw4QtjWvJrOw2T9yuklEDCXyw=
-X-Received: by 2002:a50:ee0d:0:b0:462:2c1c:8791 with SMTP id
- g13-20020a50ee0d000000b004622c1c8791mr1782259eds.29.1672084710806; Mon, 26
- Dec 2022 11:58:30 -0800 (PST)
-MIME-Version: 1.0
-From: Andrzej Hochul <andrzejhochul1990@gmail.com>
-Date: Mon, 26 Dec 2022 20:58:18 +0100
-Message-ID: <CANeVx3RNrtAaRpNArWuTA5j1J0RufWzPHh2kUE12FVC3Gt6Mew@mail.gmail.com>
-Subject: [BUG] Error compiling whlist compiling stubdom (xen 4.17)
-To: xen-devel@lists.xen.org
-Content-Type: multipart/alternative; boundary="00000000000038d92f05f0c08f77"
-
---00000000000038d92f05f0c08f77
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=/pIg/3Q2vbBYFJhD+5pQDStbsBN4vlDiW9CLimtrt38=; b=pTF+PB5JRti707r+wJSZXGH14C
+	knqDhWLnR4rjKoRCfIlytrVQ0l8rBIORb3J+Agi977GWWT+wgPsu6lDtFlqt+yiT67xAmpvYac2DM
+	XOFLngz483EdCJO5P9T4QPF+dkkt4mZWvwiYCVh51A9MBfMBjBNUXZsste/NJi6Gl0LY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175498-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 175498: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=1b929c02afd37871d5afb9d498426f83432e71c2
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 26 Dec 2022 21:02:59 +0000
 
-I find it appropriate to foremention that the stubdom feature is not
-necessary to me at the moment.
-However since when provided with "some" dependencies said feature is
-automatically enabled by ./configure script. Yes the compilation works fine
-with --disable-stubdom, however if my eyes didn't play tricks one me before
-mentioned switch is not present in --help print.
-[root@localhost xen]# uname -r
-6.1.1-arch1-1
-[code]
-Libraries have been installed in:
-   /home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/lib
+flight 175498 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175498/
 
-If you ever happen to want to link against installed libraries
-in a given directory, LIBDIR, you must either use libtool, and
-specify the full pathname of the library, or use the `-LLIBDIR'
-flag during linking and do at least one of the following:
-   - add LIBDIR to the `LD_RUN_PATH' environment variable
-     during linking
-   - use the `-Wl,--rpath -Wl,LIBDIR' linker flag
-   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+Regressions :-(
 
-See any operating system documentation about shared libraries for
-more information, such as the ld(1) and ld.so(8) manual pages.
-----------------------------------------------------------------------
-test -z
-"/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de"
-|| mkdir -p -- .
-"/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de"
- /usr/bin/install -c -m 644 'gmp.h'
-'/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de/gmp.h'
-test -z
-"/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de"
-|| mkdir -p -- .
-"/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de"
-make  install-data-hook
-make[7]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 173462
+ test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 173462
+ test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 173462
+ test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 173462
+ test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 173462
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 173462
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 173462
+ test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
 
-+-------------------------------------------------------------+
-| CAUTION:                                                    |
-|                                                             |
-| If you have not already run "make check", then we strongly  |
-| recommend you do so.                                        |
-|                                                             |
-| GMP has been carefully tested by its authors, but compilers |
-| are all too often released with serious bugs.  GMP tends to |
-| explore interesting corners in compilers and has hit bugs   |
-| on quite a few occasions.                                   |
-|                                                             |
-+-------------------------------------------------------------+
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-make[7]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
-make[6]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
-make[5]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
-make[4]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
-make[3]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64'
-( cd tpm_emulator-x86_64/build && make VERBOSE=3D1 tpm_crypto tpm  )
-make[3]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-/usr/bin/cmake -S/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
--B/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build
---check-build-system CMakeFiles/Makefile.cmake 0
-make  -f CMakeFiles/Makefile2 tpm_crypto
-make[4]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-/usr/bin/cmake -S/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
--B/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build
---check-build-system CMakeFiles/Makefile.cmake 0
-/usr/bin/cmake -E cmake_progress_start
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/CMakeFiles 6
-make  -f CMakeFiles/Makefile2 crypto/CMakeFiles/tpm_crypto.dir/all
-make[5]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make  -f crypto/CMakeFiles/tpm_crypto.dir/build.make
-crypto/CMakeFiles/tpm_crypto.dir/depend
-make[6]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-cd /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build &&
-/usr/bin/cmake -E cmake_depends "Unix Makefiles"
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto/CMakeF=
-iles/tpm_crypto.dir/DependInfo.cmake
---color=3D
-make[6]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make  -f crypto/CMakeFiles/tpm_crypto.dir/build.make
-crypto/CMakeFiles/tpm_crypto.dir/build
-make[6]: Wej=C5=9Bcie do katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-[ 16%] Building C object crypto/CMakeFiles/tpm_crypto.dir/hmac.o
-cd /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto &&
-/usr/bin/gcc  -I/opt/local/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build -std=3Dc99
--DTPM_NO_EXTERN -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include -D__MINIOS__
--DHAVE_LIBC -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../tools/include  -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86 -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86/x86_64 -U
-__linux__ -U __FreeBSD__ -U __sun__ -nostdinc -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/includ=
-e
--isystem /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include/ipv4
--I/home/pk/Pobrane/xen-4.17.0/stubdom/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/../xen/include -mno-red-zone -O1
--fno-omit-frame-pointer -O1 -fno-omit-frame-pointer  -m64 -mno-red-zone
--fno-reorder-blocks -fno-asynchronous-unwind-tables -m64 -DBUILD_ID
--fno-strict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes
--Wdeclaration-after-statement -Wno-unused-but-set-variable
--Wno-unused-local-typedefs   -fno-pie -fno-stack-protector -fno-exceptions
--fno-asynchronous-unwind-tables -Wno-declaration-after-statement   -Wall
--Werror -Wextra -Wno-unused-parameter -Wpointer-arith -Wcast-align
--Wwrite-strings -MD -MT crypto/CMakeFiles/tpm_crypto.dir/hmac.o -MF
-CMakeFiles/tpm_crypto.dir/hmac.o.d -o CMakeFiles/tpm_crypto.dir/hmac.o -c
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/hmac.c
-[ 33%] Building C object crypto/CMakeFiles/tpm_crypto.dir/rc4.o
-cd /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto &&
-/usr/bin/gcc  -I/opt/local/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build -std=3Dc99
--DTPM_NO_EXTERN -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include -D__MINIOS__
--DHAVE_LIBC -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../tools/include  -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86 -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86/x86_64 -U
-__linux__ -U __FreeBSD__ -U __sun__ -nostdinc -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/includ=
-e
--isystem /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include/ipv4
--I/home/pk/Pobrane/xen-4.17.0/stubdom/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/../xen/include -mno-red-zone -O1
--fno-omit-frame-pointer -O1 -fno-omit-frame-pointer  -m64 -mno-red-zone
--fno-reorder-blocks -fno-asynchronous-unwind-tables -m64 -DBUILD_ID
--fno-strict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes
--Wdeclaration-after-statement -Wno-unused-but-set-variable
--Wno-unused-local-typedefs   -fno-pie -fno-stack-protector -fno-exceptions
--fno-asynchronous-unwind-tables -Wno-declaration-after-statement   -Wall
--Werror -Wextra -Wno-unused-parameter -Wpointer-arith -Wcast-align
--Wwrite-strings -MD -MT crypto/CMakeFiles/tpm_crypto.dir/rc4.o -MF
-CMakeFiles/tpm_crypto.dir/rc4.o.d -o CMakeFiles/tpm_crypto.dir/rc4.o -c
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rc4.c
-[ 50%] Building C object crypto/CMakeFiles/tpm_crypto.dir/rsa.o
-cd /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto &&
-/usr/bin/gcc  -I/opt/local/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build -std=3Dc99
--DTPM_NO_EXTERN -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include -D__MINIOS__
--DHAVE_LIBC -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../tools/include  -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86 -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86/x86_64 -U
-__linux__ -U __FreeBSD__ -U __sun__ -nostdinc -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix
--isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/includ=
-e
--isystem /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include -isystem
-/home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include/ipv4
--I/home/pk/Pobrane/xen-4.17.0/stubdom/include
--I/home/pk/Pobrane/xen-4.17.0/stubdom/../xen/include -mno-red-zone -O1
--fno-omit-frame-pointer -O1 -fno-omit-frame-pointer  -m64 -mno-red-zone
--fno-reorder-blocks -fno-asynchronous-unwind-tables -m64 -DBUILD_ID
--fno-strict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes
--Wdeclaration-after-statement -Wno-unused-but-set-variable
--Wno-unused-local-typedefs   -fno-pie -fno-stack-protector -fno-exceptions
--fno-asynchronous-unwind-tables -Wno-declaration-after-statement   -Wall
--Werror -Wextra -Wno-unused-parameter -Wpointer-arith -Wcast-align
--Wwrite-strings -MD -MT crypto/CMakeFiles/tpm_crypto.dir/rsa.o -MF
-CMakeFiles/tpm_crypto.dir/rsa.o.d -o CMakeFiles/tpm_crypto.dir/rsa.o -c
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c: In
-function =E2=80=98rsa_private=E2=80=99:
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:7:
-error: the comparison will always evaluate as =E2=80=98true=E2=80=99 for th=
-e address of =E2=80=98p=E2=80=99
-will never be NULL [-Werror=3Daddress]
-   56 |   if (!key->p || !key->q || !key->u) {
-      |       ^
-In file included from
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:17:
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.h:28:12:
-note: =E2=80=98p=E2=80=99 declared here
-   28 |   tpm_bn_t p;
-      |            ^
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:18:
-error: the comparison will always evaluate as =E2=80=98true=E2=80=99 for th=
-e address of =E2=80=98q=E2=80=99
-will never be NULL [-Werror=3Daddress]
-   56 |   if (!key->p || !key->q || !key->u) {
-      |                  ^
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.h:29:12:
-note: =E2=80=98q=E2=80=99 declared here
-   29 |   tpm_bn_t q;
-      |            ^
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:29:
-error: the comparison will always evaluate as =E2=80=98true=E2=80=99 for th=
-e address of =E2=80=98u=E2=80=99
-will never be NULL [-Werror=3Daddress]
-   56 |   if (!key->p || !key->q || !key->u) {
-      |                             ^
-/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.h:30:12:
-note: =E2=80=98u=E2=80=99 declared here
-   30 |   tpm_bn_t u;
-      |            ^
-cc1: all warnings being treated as errors
-make[6]: *** [crypto/CMakeFiles/tpm_crypto.dir/build.make:104:
-crypto/CMakeFiles/tpm_crypto.dir/rsa.o] B=C5=82=C4=85d 1
-make[6]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make[5]: *** [CMakeFiles/Makefile2:259:
-crypto/CMakeFiles/tpm_crypto.dir/all] B=C5=82=C4=85d 2
-make[5]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make[4]: *** [CMakeFiles/Makefile2:266:
-crypto/CMakeFiles/tpm_crypto.dir/rule] B=C5=82=C4=85d 2
-make[4]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make[3]: *** [Makefile:215: tpm_crypto] B=C5=82=C4=85d 2
-make[3]: Opuszczenie katalogu
-'/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build'
-make[2]: *** [Makefile:250: cross-root-x86_64/x86_64-xen-elf/lib/libtpm.a]
-B=C5=82=C4=85d 2
-make[2]: Opuszczenie katalogu '/home/pk/Pobrane/xen-4.17.0/stubdom'
-make[1]: *** [Makefile:151: install-stubdom] B=C5=82=C4=85d 2
-make[1]: Opuszczenie katalogu '/home/pk/Pobrane/xen-4.17.0'
-make: *** [Makefile:183: world] B=C5=82=C4=85d 2
-[pk@localhost xen-4.17.0]$
-[/code]
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-I am not sure, if this perhaps could be easily "fixed" or overcame by not
-setting the treat warnings as errors flag, but I don't know how to do it
-with configure files .
+version targeted for testing:
+ linux                1b929c02afd37871d5afb9d498426f83432e71c2
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-Thanks
+Last test of basis   173462  2022-10-07 18:41:45 Z   80 days
+Failing since        173470  2022-10-08 06:21:34 Z   79 days  160 attempts
+Testing same since   175496  2022-12-26 02:42:28 Z    0 days    2 attempts
 
-PomyloneKodowanie
+------------------------------------------------------------
+3244 people touched revisions under test,
+not listing them all
 
---00000000000038d92f05f0c08f77
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-<div dir=3D"ltr">I find it appropriate=C2=A0to foremention that the stubdom=
- feature is not necessary to me at the moment.<div>However since when provi=
-ded with &quot;some&quot; dependencies said=C2=A0feature is automatically e=
-nabled by ./configure script. Yes the compilation works fine with --disable=
--stubdom, however if my eyes didn&#39;t=C2=A0play tricks one me before ment=
-ioned switch is not present in --help print.</div><div>[root@localhost xen]=
-# uname -r<br>6.1.1-arch1-1<br></div><div>[code]</div><div>Libraries have b=
-een installed in:<br>=C2=A0 =C2=A0/home/pk/Pobrane/xen-4.17.0/stubdom/cross=
--root-x86_64/x86_64-xen-elf/lib<br><br>If you ever happen to want to link a=
-gainst installed libraries<br>in a given directory, LIBDIR, you must either=
- use libtool, and<br>specify the full pathname of the library, or use the `=
--LLIBDIR&#39;<br>flag during linking and do at least one of the following:<=
-br>=C2=A0 =C2=A0- add LIBDIR to the `LD_RUN_PATH&#39; environment variable<=
-br>=C2=A0 =C2=A0 =C2=A0during linking<br>=C2=A0 =C2=A0- use the `-Wl,--rpat=
-h -Wl,LIBDIR&#39; linker flag<br>=C2=A0 =C2=A0- have your system administra=
-tor add LIBDIR to `/etc/ld.so.conf&#39;<br><br>See any operating system doc=
-umentation about shared libraries for<br>more information, such as the ld(1=
-) and ld.so(8) manual pages.<br>-------------------------------------------=
----------------------------<br>test -z &quot;/home/pk/Pobrane/xen-4.17.0/st=
-ubdom/cross-root-x86_64/x86_64-xen-elf/include&quot; || mkdir -p -- . &quot=
-;/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/inclu=
-de&quot;<br>=C2=A0/usr/bin/install -c -m 644 &#39;gmp.h&#39; &#39;/home/pk/=
-Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/include/gmp.h&#=
-39;<br>test -z &quot;/home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_64/=
-x86_64-xen-elf/include&quot; || mkdir -p -- . &quot;/home/pk/Pobrane/xen-4.=
-17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/include&quot;<br>make =C2=A0i=
-nstall-data-hook<br>make[7]: Wej=C5=9Bcie do katalogu &#39;/home/pk/Pobrane=
-/xen-4.17.0/stubdom/gmp-x86_64&#39;<br><br>+-------------------------------=
-------------------------------+<br>| CAUTION: =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0|<br>| =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 |=
-<br>| If you have not already run &quot;make check&quot;, then we strongly =
-=C2=A0|<br>| recommend you do so. =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0|<br>| =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 |<br>| GMP has been carefully tested by its authors, b=
-ut compilers |<br>| are all too often released with serious bugs.=C2=A0 GMP=
- tends to |<br>| explore interesting corners in compilers and has hit bugs =
-=C2=A0 |<br>| on quite a few occasions. =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 |<br>| =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 |<br>+-------------------------------------------------------------+=
-<br><br>make[7]: Opuszczenie katalogu &#39;/home/pk/Pobrane/xen-4.17.0/stub=
-dom/gmp-x86_64&#39;<br>make[6]: Opuszczenie katalogu &#39;/home/pk/Pobrane/=
-xen-4.17.0/stubdom/gmp-x86_64&#39;<br>make[5]: Opuszczenie katalogu &#39;/h=
-ome/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64&#39;<br>make[4]: Opuszczenie k=
-atalogu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64&#39;<br>make[3]=
-: Opuszczenie katalogu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/gmp-x86_64&=
-#39;<br>( cd tpm_emulator-x86_64/build &amp;&amp; make VERBOSE=3D1 tpm_cryp=
-to tpm =C2=A0)<br>make[3]: Wej=C5=9Bcie do katalogu &#39;/home/pk/Pobrane/x=
-en-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<br>/usr/bin/cmake -S/home/=
-pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64 -B/home/pk/Pobrane/xen-4.=
-17.0/stubdom/tpm_emulator-x86_64/build --check-build-system CMakeFiles/Make=
-file.cmake 0<br>make =C2=A0-f CMakeFiles/Makefile2 tpm_crypto<br>make[4]: W=
-ej=C5=9Bcie do katalogu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulat=
-or-x86_64/build&#39;<br>/usr/bin/cmake -S/home/pk/Pobrane/xen-4.17.0/stubdo=
-m/tpm_emulator-x86_64 -B/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x8=
-6_64/build --check-build-system CMakeFiles/Makefile.cmake 0<br>/usr/bin/cma=
-ke -E cmake_progress_start /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator=
--x86_64/build/CMakeFiles 6<br>make =C2=A0-f CMakeFiles/Makefile2 crypto/CMa=
-keFiles/tpm_crypto.dir/all<br>make[5]: Wej=C5=9Bcie do katalogu &#39;/home/=
-pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<br>make =C2=A0=
--f crypto/CMakeFiles/tpm_crypto.dir/build.make crypto/CMakeFiles/tpm_crypto=
-.dir/depend<br>make[6]: Wej=C5=9Bcie do katalogu &#39;/home/pk/Pobrane/xen-=
-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<br>cd /home/pk/Pobrane/xen-4.=
-17.0/stubdom/tpm_emulator-x86_64/build &amp;&amp; /usr/bin/cmake -E cmake_d=
-epends &quot;Unix Makefiles&quot; /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_e=
-mulator-x86_64 /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/cryp=
-to /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build /home/pk/P=
-obrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto /home/pk/Pobrane=
-/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto/CMakeFiles/tpm_crypto.=
-dir/DependInfo.cmake --color=3D<br>make[6]: Opuszczenie katalogu &#39;/home=
-/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<br>make =C2=
-=A0-f crypto/CMakeFiles/tpm_crypto.dir/build.make crypto/CMakeFiles/tpm_cry=
-pto.dir/build<br>make[6]: Wej=C5=9Bcie do katalogu &#39;/home/pk/Pobrane/xe=
-n-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<br>[ 16%] Building C object=
- crypto/CMakeFiles/tpm_crypto.dir/hmac.o<br>cd /home/pk/Pobrane/xen-4.17.0/=
-stubdom/tpm_emulator-x86_64/build/crypto &amp;&amp; /usr/bin/gcc =C2=A0-I/o=
-pt/local/include -I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64 =
--I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build -std=3Dc99 =
--DTPM_NO_EXTERN -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini=
--os/include -D__MINIOS__ -DHAVE_LIBC -isystem /home/pk/Pobrane/xen-4.17.0/s=
-tubdom/../extras/mini-os/include/posix -isystem /home/pk/Pobrane/xen-4.17.0=
-/stubdom/../tools/include =C2=A0-isystem /home/pk/Pobrane/xen-4.17.0/stubdo=
-m/../extras/mini-os/include/x86 -isystem /home/pk/Pobrane/xen-4.17.0/stubdo=
-m/../extras/mini-os/include/x86/x86_64 -U __linux__ -U __FreeBSD__ -U __sun=
-__ -nostdinc -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os=
-/include/posix -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/cross-root-x86_=
-64/x86_64-xen-elf/include -isystem /usr/lib/gcc/x86_64-pc-linux-gnu/12.2.0/=
-include -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/includ=
-e -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86_64/src/include/ipv4=
- -I/home/pk/Pobrane/xen-4.17.0/stubdom/include -I/home/pk/Pobrane/xen-4.17.=
-0/stubdom/../xen/include -mno-red-zone -O1 -fno-omit-frame-pointer -O1 -fno=
--omit-frame-pointer =C2=A0-m64 -mno-red-zone -fno-reorder-blocks -fno-async=
-hronous-unwind-tables -m64 -DBUILD_ID -fno-strict-aliasing -std=3Dgnu99 -Wa=
-ll -Wstrict-prototypes -Wdeclaration-after-statement -Wno-unused-but-set-va=
-riable -Wno-unused-local-typedefs =C2=A0 -fno-pie -fno-stack-protector -fno=
--exceptions -fno-asynchronous-unwind-tables -Wno-declaration-after-statemen=
-t =C2=A0 -Wall -Werror -Wextra -Wno-unused-parameter -Wpointer-arith -Wcast=
--align -Wwrite-strings -MD -MT crypto/CMakeFiles/tpm_crypto.dir/hmac.o -MF =
-CMakeFiles/tpm_crypto.dir/hmac.o.d -o CMakeFiles/tpm_crypto.dir/hmac.o -c /=
-home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/hmac.c<br>[ 3=
-3%] Building C object crypto/CMakeFiles/tpm_crypto.dir/rc4.o<br>cd /home/pk=
-/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypto &amp;&amp; /us=
-r/bin/gcc =C2=A0-I/opt/local/include -I/home/pk/Pobrane/xen-4.17.0/stubdom/=
-tpm_emulator-x86_64 -I/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_=
-64/build -std=3Dc99 -DTPM_NO_EXTERN -isystem /home/pk/Pobrane/xen-4.17.0/st=
-ubdom/../extras/mini-os/include -D__MINIOS__ -DHAVE_LIBC -isystem /home/pk/=
-Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix -isystem /home/p=
-k/Pobrane/xen-4.17.0/stubdom/../tools/include =C2=A0-isystem /home/pk/Pobra=
-ne/xen-4.17.0/stubdom/../extras/mini-os/include/x86 -isystem /home/pk/Pobra=
-ne/xen-4.17.0/stubdom/../extras/mini-os/include/x86/x86_64 -U __linux__ -U =
-__FreeBSD__ -U __sun__ -nostdinc -isystem /home/pk/Pobrane/xen-4.17.0/stubd=
-om/../extras/mini-os/include/posix -isystem /home/pk/Pobrane/xen-4.17.0/stu=
-bdom/cross-root-x86_64/x86_64-xen-elf/include -isystem /usr/lib/gcc/x86_64-=
-pc-linux-gnu/12.2.0/include -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/lw=
-ip-x86_64/src/include -isystem /home/pk/Pobrane/xen-4.17.0/stubdom/lwip-x86=
-_64/src/include/ipv4 -I/home/pk/Pobrane/xen-4.17.0/stubdom/include -I/home/=
-pk/Pobrane/xen-4.17.0/stubdom/../xen/include -mno-red-zone -O1 -fno-omit-fr=
-ame-pointer -O1 -fno-omit-frame-pointer =C2=A0-m64 -mno-red-zone -fno-reord=
-er-blocks -fno-asynchronous-unwind-tables -m64 -DBUILD_ID -fno-strict-alias=
-ing -std=3Dgnu99 -Wall -Wstrict-prototypes -Wdeclaration-after-statement -W=
-no-unused-but-set-variable -Wno-unused-local-typedefs =C2=A0 -fno-pie -fno-=
-stack-protector -fno-exceptions -fno-asynchronous-unwind-tables -Wno-declar=
-ation-after-statement =C2=A0 -Wall -Werror -Wextra -Wno-unused-parameter -W=
-pointer-arith -Wcast-align -Wwrite-strings -MD -MT crypto/CMakeFiles/tpm_cr=
-ypto.dir/rc4.o -MF CMakeFiles/tpm_crypto.dir/rc4.o.d -o CMakeFiles/tpm_cryp=
-to.dir/rc4.o -c /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/cry=
-pto/rc4.c<br>[ 50%] Building C object crypto/CMakeFiles/tpm_crypto.dir/rsa.=
-o<br>cd /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build/crypt=
-o &amp;&amp; /usr/bin/gcc =C2=A0-I/opt/local/include -I/home/pk/Pobrane/xen=
--4.17.0/stubdom/tpm_emulator-x86_64 -I/home/pk/Pobrane/xen-4.17.0/stubdom/t=
-pm_emulator-x86_64/build -std=3Dc99 -DTPM_NO_EXTERN -isystem /home/pk/Pobra=
-ne/xen-4.17.0/stubdom/../extras/mini-os/include -D__MINIOS__ -DHAVE_LIBC -i=
-system /home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/posix =
--isystem /home/pk/Pobrane/xen-4.17.0/stubdom/../tools/include =C2=A0-isyste=
-m /home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86 -isyste=
-m /home/pk/Pobrane/xen-4.17.0/stubdom/../extras/mini-os/include/x86/x86_64 =
--U __linux__ -U __FreeBSD__ -U __sun__ -nostdinc -isystem /home/pk/Pobrane/=
-xen-4.17.0/stubdom/../extras/mini-os/include/posix -isystem /home/pk/Pobran=
-e/xen-4.17.0/stubdom/cross-root-x86_64/x86_64-xen-elf/include -isystem /usr=
-/lib/gcc/x86_64-pc-linux-gnu/12.2.0/include -isystem /home/pk/Pobrane/xen-4=
-.17.0/stubdom/lwip-x86_64/src/include -isystem /home/pk/Pobrane/xen-4.17.0/=
-stubdom/lwip-x86_64/src/include/ipv4 -I/home/pk/Pobrane/xen-4.17.0/stubdom/=
-include -I/home/pk/Pobrane/xen-4.17.0/stubdom/../xen/include -mno-red-zone =
--O1 -fno-omit-frame-pointer -O1 -fno-omit-frame-pointer =C2=A0-m64 -mno-red=
--zone -fno-reorder-blocks -fno-asynchronous-unwind-tables -m64 -DBUILD_ID -=
-fno-strict-aliasing -std=3Dgnu99 -Wall -Wstrict-prototypes -Wdeclaration-af=
-ter-statement -Wno-unused-but-set-variable -Wno-unused-local-typedefs =C2=
-=A0 -fno-pie -fno-stack-protector -fno-exceptions -fno-asynchronous-unwind-=
-tables -Wno-declaration-after-statement =C2=A0 -Wall -Werror -Wextra -Wno-u=
-nused-parameter -Wpointer-arith -Wcast-align -Wwrite-strings -MD -MT crypto=
-/CMakeFiles/tpm_crypto.dir/rsa.o -MF CMakeFiles/tpm_crypto.dir/rsa.o.d -o C=
-MakeFiles/tpm_crypto.dir/rsa.o -c /home/pk/Pobrane/xen-4.17.0/stubdom/tpm_e=
-mulator-x86_64/crypto/rsa.c<br>/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emul=
-ator-x86_64/crypto/rsa.c: In function =E2=80=98rsa_private=E2=80=99:<br>/ho=
-me/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:7: err=
-or: the comparison will always evaluate as =E2=80=98true=E2=80=99 for the a=
-ddress of =E2=80=98p=E2=80=99 will never be NULL [-Werror=3Daddress]<br>=C2=
-=A0 =C2=A056 | =C2=A0 if (!key-&gt;p || !key-&gt;q || !key-&gt;u) {<br>=C2=
-=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 ^<br>In file included from /home/p=
-k/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:17:<br>/home/=
-pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.h:28:12: note:=
- =E2=80=98p=E2=80=99 declared here<br>=C2=A0 =C2=A028 | =C2=A0 tpm_bn_t p;<=
-br>=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>/ho=
-me/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.c:56:18: er=
-ror: the comparison will always evaluate as =E2=80=98true=E2=80=99 for the =
-address of =E2=80=98q=E2=80=99 will never be NULL [-Werror=3Daddress]<br>=
-=C2=A0 =C2=A056 | =C2=A0 if (!key-&gt;p || !key-&gt;q || !key-&gt;u) {<br>=
-=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0^<br>/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/cryp=
-to/rsa.h:29:12: note: =E2=80=98q=E2=80=99 declared here<br>=C2=A0 =C2=A029 =
-| =C2=A0 tpm_bn_t q;<br>=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0^<br>/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/c=
-rypto/rsa.c:56:29: error: the comparison will always evaluate as =E2=80=98t=
-rue=E2=80=99 for the address of =E2=80=98u=E2=80=99 will never be NULL [-We=
-rror=3Daddress]<br>=C2=A0 =C2=A056 | =C2=A0 if (!key-&gt;p || !key-&gt;q ||=
- !key-&gt;u) {<br>=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^<br>/home/=
-pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/crypto/rsa.h:30:12: note:=
- =E2=80=98u=E2=80=99 declared here<br>=C2=A0 =C2=A030 | =C2=A0 tpm_bn_t u;<=
-br>=C2=A0 =C2=A0 =C2=A0 | =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0^<br>cc1=
-: all warnings being treated as errors<br>make[6]: *** [crypto/CMakeFiles/t=
-pm_crypto.dir/build.make:104: crypto/CMakeFiles/tpm_crypto.dir/rsa.o] B=C5=
-=82=C4=85d 1<br>make[6]: Opuszczenie katalogu &#39;/home/pk/Pobrane/xen-4.1=
-7.0/stubdom/tpm_emulator-x86_64/build&#39;<br>make[5]: *** [CMakeFiles/Make=
-file2:259: crypto/CMakeFiles/tpm_crypto.dir/all] B=C5=82=C4=85d 2<br>make[5=
-]: Opuszczenie katalogu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulat=
-or-x86_64/build&#39;<br>make[4]: *** [CMakeFiles/Makefile2:266: crypto/CMak=
-eFiles/tpm_crypto.dir/rule] B=C5=82=C4=85d 2<br>make[4]: Opuszczenie katalo=
-gu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86_64/build&#39;<=
-br>make[3]: *** [Makefile:215: tpm_crypto] B=C5=82=C4=85d 2<br>make[3]: Opu=
-szczenie katalogu &#39;/home/pk/Pobrane/xen-4.17.0/stubdom/tpm_emulator-x86=
-_64/build&#39;<br>make[2]: *** [Makefile:250: cross-root-x86_64/x86_64-xen-=
-elf/lib/libtpm.a] B=C5=82=C4=85d 2<br>make[2]: Opuszczenie katalogu &#39;/h=
-ome/pk/Pobrane/xen-4.17.0/stubdom&#39;<br>make[1]: *** [Makefile:151: insta=
-ll-stubdom] B=C5=82=C4=85d 2<br>make[1]: Opuszczenie katalogu &#39;/home/pk=
-/Pobrane/xen-4.17.0&#39;<br>make: *** [Makefile:183: world] B=C5=82=C4=85d =
-2<br>[pk@localhost xen-4.17.0]$</div><div>[/code]</div><div><br></div><div>=
-I am not sure, if this perhaps could be easily &quot;fixed&quot; or overcam=
-e by not setting the treat warnings as errors flag, but I don&#39;t know ho=
-w to do it with configure files .</div><div><br></div><div>Thanks</div><div=
-><br></div><div>PomyloneKodowanie</div><div>=C2=A0<br></div></div>
 
---00000000000038d92f05f0c08f77--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 494152 lines long.)
 
