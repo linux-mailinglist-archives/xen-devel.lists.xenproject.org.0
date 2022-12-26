@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5379D656101
-	for <lists+xen-devel@lfdr.de>; Mon, 26 Dec 2022 09:01:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.469264.728618 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1636865621C
+	for <lists+xen-devel@lfdr.de>; Mon, 26 Dec 2022 12:15:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.469275.728629 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p9iPH-00051g-Qq; Mon, 26 Dec 2022 08:00:23 +0000
+	id 1p9lQq-0007GR-GE; Mon, 26 Dec 2022 11:14:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 469264.728618; Mon, 26 Dec 2022 08:00:23 +0000
+Received: by outflank-mailman (output) from mailman id 469275.728629; Mon, 26 Dec 2022 11:14:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1p9iPH-0004zs-NJ; Mon, 26 Dec 2022 08:00:23 +0000
-Received: by outflank-mailman (input) for mailman id 469264;
- Mon, 26 Dec 2022 08:00:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p9iPG-0004wm-Bh; Mon, 26 Dec 2022 08:00:22 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p9iPG-0006qO-7d; Mon, 26 Dec 2022 08:00:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1p9iPF-00067i-Mm; Mon, 26 Dec 2022 08:00:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1p9iPF-0007GH-K7; Mon, 26 Dec 2022 08:00:21 +0000
+	id 1p9lQq-0007Dt-Da; Mon, 26 Dec 2022 11:14:12 +0000
+Received: by outflank-mailman (input) for mailman id 469275;
+ Mon, 26 Dec 2022 11:14:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=T6Sp=4Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1p9lQo-0007Dn-V1
+ for xen-devel@lists.xenproject.org; Mon, 26 Dec 2022 11:14:11 +0000
+Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
+ [2a00:1450:4864:20::136])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6a1ef314-850e-11ed-8fd4-01056ac49cbb;
+ Mon, 26 Dec 2022 12:14:09 +0100 (CET)
+Received: by mail-lf1-x136.google.com with SMTP id 1so15588536lfz.4
+ for <xen-devel@lists.xenproject.org>; Mon, 26 Dec 2022 03:14:07 -0800 (PST)
+Received: from 2a02.2378.104b.7439.ip.kyivstar.net
+ ([2a02:2378:104b:7439:bef4:5f:98f5:beea])
+ by smtp.gmail.com with ESMTPSA id
+ y26-20020a0565123f1a00b00494603953b6sm1764562lfa.6.2022.12.26.03.14.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Dec 2022 03:14:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,304 +45,498 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bJ8WAFDycPTWCT981F7FwvCJOv35rrgwBtN36EnewAo=; b=1uqB6x23qRUJ769UfJ0jbf9+Iq
-	1sFj/1B+B7EsVAWK8qEw1uTyy14qOkIcAK3IEhGDcfYQTPrptjxg4xSyKNL6QsvTJgRzIFhEh02Zs
-	2B2UnSut7/b76RJpwOOtFQkKwRTfyBS3vVmby4LMAmBFrCCgFn4WrSJ3XbBQGao9Xgmw=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175495-mainreport@xen.org>
+X-Inumbo-ID: 6a1ef314-850e-11ed-8fd4-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=z28nug8gZ0u7AA8p92zZ9yeGRdKVMNwxMy6m1c5r7Qg=;
+        b=CEgcyEymsl/XfQUHhuG1AD//oHxvGezElXDc7JJ8d6HyzGoT7H6L2vA+RXGqwVTapU
+         ZdY24WQo5evWPXmcBcCzyg9bYIhrdP/qEdzTpInJ/rfmImdbQ9r11k1wjxpK6dG8T38A
+         jVffNLDn7rWzXa7KviLBbBo920ih16Qsko4B4r0BKBdUn73WDdhicB66i0+XonxxqU1+
+         8aCbuBvqIsr+/kxi5pbfaUDK5BAuyv4CyLxiF+YG8Hf+/Pmr6yRAXLoORHgcdzhGdbDl
+         vaKLAiEmocKY+ujXrzH7Qv80FXdQU9/TcMVsu2JelKFeVUZK60gk7BdXfO8SHFx9BBNn
+         AxVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=z28nug8gZ0u7AA8p92zZ9yeGRdKVMNwxMy6m1c5r7Qg=;
+        b=nK9ufCUn9UjXBSroX+oG4BN8C74CjyIBohWNzHJ2u/y8SDVg5IYRtkvWjL0OJh8K7w
+         WBjCjOZDvO5Kc1cmiIEc58wU3Py79y2zPCDg/l2X2D+1w3FfCqAY28yqrmSVtTNQlVBD
+         I2I0W15yYSojN518+Ym65GPmiLi3C4EL+pByLbFOcBz5AMGfonavfEKOaBHYYhf0pZkC
+         XLNLk7t/JGqoonrgiG84SahCT/unKStBpllg8Y+86DENSKxMYjgy+K/fC3VlW3A6a508
+         jeUr/9vBe6kgbmhH4w1kKNL1vAthfvcnvpVBYPA825MFNZfswxhxODj/JOT4CQl5uAqQ
+         t+eg==
+X-Gm-Message-State: AFqh2kpRAUj5G4HwG1uvZKhLWFyDrEEtaegW1KFofKWiWuT8CyHrdlBx
+	BzbhCkpQ3EYnOTuc6r1zdSg=
+X-Google-Smtp-Source: AMrXdXsGHXQHDLWOUB5k8CeDSMxNXrE5Vx05pwdoJiVAtvBdjDI2xQCECD23EOJ0vm0Tt8f+wFbT1g==
+X-Received: by 2002:ac2:4898:0:b0:4b3:d6e1:26bb with SMTP id x24-20020ac24898000000b004b3d6e126bbmr4744048lfc.29.1672053246856;
+        Mon, 26 Dec 2022 03:14:06 -0800 (PST)
+Message-ID: <43d726761900ba3d8b4919fc29fe7cb1991ac656.camel@gmail.com>
+Subject: Re: [XEN PATCH v1 1/4] arch/riscv: initial RISC-V support to
+ build/run minimal Xen
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
+ <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>, Anthony
+ PERARD <anthony.perard@citrix.com>
+Date: Mon, 26 Dec 2022 13:14:04 +0200
+In-Reply-To: <3343c927-0f27-e285-5b6e-281c61939bb4@xen.org>
+References: <cover.1671789736.git.oleksii.kurochko@gmail.com>
+	 <5d5ec5fbd8787ed8f86bf84a5ac291d07a20b307.1671789736.git.oleksii.kurochko@gmail.com>
+	 <3343c927-0f27-e285-5b6e-281c61939bb4@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.1 (3.46.1-1.fc37) 
 MIME-Version: 1.0
-Subject: [xen-unstable test] 175495: tolerable FAIL
-X-Osstest-Failures:
-    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    xen-unstable:test-amd64-i386-xl-vhd:guest-start/debian.repeat:fail:heisenbug
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=84ece04e7f11fe30c2f83753d72f481610357ed0
-X-Osstest-Versions-That:
-    xen=84ece04e7f11fe30c2f83753d72f481610357ed0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 26 Dec 2022 08:00:21 +0000
 
-flight 175495 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175495/
+Hi Julien,
 
-Failures :-/ but no regressions.
+Thanks for your comments.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail in 175489 pass in 175495
- test-amd64-i386-xl-vhd       21 guest-start/debian.repeat  fail pass in 175489
+On Fri, 2022-12-23 at 13:50 +0000, Julien Grall wrote:
+> Hi Oleksii,
+>=20
+> + Anthony for the Makefile changes.
+>=20
+> On 23/12/2022 11:16, Oleksii Kurochko wrote:
+> > The patch provides a minimal amount of changes to start
+> > build and run minimal Xen binary at GitLab CI&CD that will
+> > allow continuous checking of the build status of RISC-V Xen.
+> >=20
+> > RISC-V Xen can be built by the following instructions:
+> > =C2=A0=C2=A0 $ CONTAINER=3Driscv64 ./automation/scripts/containerize \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 make XEN_TARGET_ARCH=3Driscv=
+64 tiny64_defconfig
+> > =C2=A0=C2=A0 $ CONTAINER=3Driscv64 ./automation/scripts/containerize \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 make XEN_TARGET_ARCH=3Driscv=
+64 -C xen build
+> >=20
+> > RISC-V Xen can be run as:
+> > =C2=A0=C2=A0 $ qemu-system-riscv64 -M virt -smp 1 -nographic -m 2g \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -kernel xen/xen
+> >=20
+> > To run in debug mode should be done the following instructions:
+> > =C2=A0 $ qemu-system-riscv64 -M virt -smp 1 -nographic -m 2g \
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 -kernel xen/xen -s -S
+> > =C2=A0 # In separate terminal:
+> > =C2=A0 $ riscv64-buildroot-linux-gnu-gdb
+> > =C2=A0 $ target remote :1234
+> > =C2=A0 $ add-symbol-file <xen_src>/xen/xen-syms 0x80200000
+> > =C2=A0 $ hb *0x80200000
+> > =C2=A0 $ c # it should stop at instruction j 0x80200000 <start>
+> >=20
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > ---
+> > =C2=A0 xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 30 +++++++++++++
+> > =C2=A0 xen/arch/riscv/arch.mk=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 10 +++++
+> > =C2=A0 xen/arch/riscv/include/asm/config.h | 26 ++++++++++-
+> > =C2=A0 xen/arch/riscv/include/asm/types.h=C2=A0 | 11 +++++
+> > =C2=A0 xen/arch/riscv/riscv64/Makefile=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
+2 +-
+> > =C2=A0 xen/arch/riscv/riscv64/head.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 2 +-
+> > =C2=A0 xen/arch/riscv/xen.lds.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 69
+> > +++++++++++++++++++++++++++++
+> > =C2=A0 7 files changed, 147 insertions(+), 3 deletions(-)
+> > =C2=A0 create mode 100644 xen/arch/riscv/include/asm/types.h
+> > =C2=A0 create mode 100644 xen/arch/riscv/xen.lds.S
+> >=20
+> > diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> > index 942e4ffbc1..893dd19ea6 100644
+> > --- a/xen/arch/riscv/Makefile
+> > +++ b/xen/arch/riscv/Makefile
+> > @@ -1,2 +1,32 @@
+> > +obj-$(CONFIG_RISCV_64) +=3D riscv64/
+> > +
+> > +$(TARGET): $(TARGET)-syms
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(OBJCOPY) -O binary -S $< $=
+@
+> > +
+> > +$(TARGET)-syms: $(objtree)/prelink.o $(obj)/xen.lds
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(LD) $(XEN_LDFLAGS) -T $(ob=
+j)/xen.lds -N $< \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0$(SYMBOLS_DUMMY_OBJ) -o $(@D)/.$(@F).0
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(NM) -pa --format=3Dsysv $(=
+@D)/.$(@F).0 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0| $(objtree)/tools/symbols $(all_symbols) --sysv --
+> > sort >$(@D)/.$(@F).0.S
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(MAKE) $(build)=3D$(@D) $(@=
+D)/.$(@F).0.o
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(LD) $(XEN_LDFLAGS) -T $(ob=
+j)/xen.lds -N $< \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0$(@D)/.$(@F).0.o -o $(@D)/.$(@F).1
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(NM) -pa --format=3Dsysv $(=
+@D)/.$(@F).1 \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0| $(objtree)/tools/symbols $(all_symbols) --sysv --
+> > sort >$(@D)/.$(@F).1.S
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(MAKE) $(build)=3D$(@D) $(@=
+D)/.$(@F).1.o
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(LD) $(XEN_LDFLAGS) -T $(ob=
+j)/xen.lds -N $<
+> > $(build_id_linker) \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0$(@D)/.$(@F).1.o -o $@
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(NM) -pa --format=3Dsysv $(=
+@D)/$(@F) \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0| $(objtree)/tools/symbols --all-symbols --xensyms
+> > --sysv --sort \
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0>$(@D)/$(@F).map
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0rm -f $(@D)/.$(@F).[0-9]*
+> > +
+> > +$(obj)/xen.lds: $(src)/xen.lds.S FORCE
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0 $(call if_changed_dep,cpp_lds_S)
+> > +
+> > +.PHONY: clean
+> > +clean::
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0rm -f $(objtree)/.xen-syms.[=
+0-9]*
+>=20
+> Any reason to not use the variable clean-files as this is done for
+> the=20
+> other architectures?
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175489
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175489
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175489
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175489
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175489
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175489
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175489
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 175489
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175489
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175489
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175489
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175489
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+There is no reason not use the variable clean-files. I missed the
+vairable clean-files so the patch will be updated to use the
+variable clean-files instead of the variable clean.
 
-version targeted for testing:
- xen                  84ece04e7f11fe30c2f83753d72f481610357ed0
-baseline version:
- xen                  84ece04e7f11fe30c2f83753d72f481610357ed0
+>=20
+> > +
+> > =C2=A0 .PHONY: include
+> > =C2=A0 include:
+> > diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> > index ae8fe9dec7..9292b72718 100644
+> > --- a/xen/arch/riscv/arch.mk
+> > +++ b/xen/arch/riscv/arch.mk
+> > @@ -11,3 +11,13 @@ riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 :=3D
+> > $(riscv-march-y)c
+> > =C2=A0 # -mcmodel=3Dmedlow would force Xen into the lower half.
+> > =C2=A0=20
+> > =C2=A0 CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -mcmodel=3D=
+medany
+> > +
+> > +# TODO: Drop override and SYMBOLS_DUMMY_OBJ when more
+> > +# of the build is working
+> > +override ALL_OBJS-y =3D arch/$(TARGET_ARCH)/built_in.o
+> > +override ALL_LIBS-y =3D
+> > +ifneq ($(wildcard $(objtree)/common/symbols-dummy.o),)
+> > +SYMBOLS_DUMMY_OBJ=3D$(objtree)/common/symbols-dummy.o
+> > +else
+> > +SYMBOLS_DUMMY_OBJ=3D
+> > +endif
+>=20
+> Why do you need the ifneq here?
 
-Last test of basis   175495  2022-12-26 01:53:37 Z    0 days
-Testing same since                          (not found)         0 attempts
+The only reason for the ifneq here is to skip common
+stuff from the build of minimal RISC-V Xen binary as it
+requires pushing from the start a big amount of headers and function
+stubs which at least will lead to a huge patch and complicate a code
+review.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  pass    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  pass    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     pass    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       fail    
+It is possible to remove <common/symbols-dummy.o> from xen-syms
+target in <xen/arch/riscv/Makefile> but an intention here was
+to remain processing of xen-syms target similar to the original
+one and it is the second reason why the ifneq was introduced and
+added the comment "TODO: Drop ... SYMBOLS_DUMMY_OBJ when more
+of the build is working".
 
+>=20
+> > diff --git a/xen/arch/riscv/include/asm/config.h
+> > b/xen/arch/riscv/include/asm/config.h
+> > index e2ae21de61..756607a4a2 100644
+> > --- a/xen/arch/riscv/include/asm/config.h
+> > +++ b/xen/arch/riscv/include/asm/config.h
+> > @@ -28,7 +28,7 @@
+> > =C2=A0=20
+> > =C2=A0 /* Linkage for RISCV */
+> > =C2=A0 #ifdef __ASSEMBLY__
+> > -#define ALIGN .align 2
+> > +#define ALIGN .align 4
+>=20
+> Can you explain in the commit message why you need to change this?
+> But=20
+> ideally, this change should be part of a separate one.
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+ALIGN was changed to equal the implementation-enforced instruction
+address alignment (4-bytes), in order to ensure that entry points are
+properly aligned.
+If to be honest I haven't verified that and took these changes from
+the initial patch series pushed by Bobby Eshleman.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+>=20
+> > =C2=A0=20
+> > =C2=A0 #define ENTRY(name)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > =C2=A0=C2=A0=C2=A0 .globl name;=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0 \
+> > @@ -36,6 +36,30 @@
+> > =C2=A0=C2=A0=C2=A0 name:
+> > =C2=A0 #endif
+> > =C2=A0=20
+> > +/*
+> > + * Definition of XEN_VIRT_START should look like:
+> > + *=C2=A0=C2=A0 define XEN_VIRT_START _AT(vaddr_t,0x00200000)
+> > + * It requires including of additional headers which
+> > + * will increase an amount of files unnecessary for
+> > + * minimal RISC-V Xen build so set value of
+> > + * XEN_VIRT_START explicitly.
+> > + *
+> > + * TODO: change it to _AT(vaddr_t,0x00200000) when
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 necessary header will be pushed=
+.
+>=20
+> The address here doesn't match the one below. I know this is an
+> example=20
+> but this is fairly confusing.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+This was done only as an example.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>=20
+> > + */
+> > +#define XEN_VIRT_START=C2=A0 0x80200000
+>=20
+> I think you at least want to use _AT(unsigned long, ...) here to make
+> clear this value should be interpreted as an unsigned value.
+>=20
+> You could even define vaddr_t now as you introduce a dummy types.h
+> below.
 
+It makes sense to push the definition of vaddr_t and use <xen/const.h>
+to be able to use _AT() macros.
 
-Published tested tree is already up to date.
+Probably it would be nice to introduce others from types.h from the
+start, wouldn't it? Or would it be better to leave the patch minimal
+and introduce only types necessary for vaddr_t?
 
+>=20
+> > +/*
+> > + * PAGE_SIZE is defined in <{asm,xen}/page-*.h> but to
+> > + * remove unnecessary headers for minimal
+> > + * build headers it will be better to set PAGE_SIZE
+> > + * explicitly.
+>=20
+> TBH, I think this is a shortcut that is unnecessary and will only=20
+> introduce extra churn in the future (for instance, you will need to=20
+> modify the include in xen.lds.S).
+>=20
+> But I am not the maintainer, so I will leave that decision to them=20
+> whether this is acceptable.
+
+I didn't get what you mean by a shortcut here.
+
+The idea was to introduce PAGE_SIZE in the config.h directly for now
+to keep build of RISC-V Xen minimal as much as possible otherwise
+it would be required to push dummy <asm/page-bits.h> to get only one
+needed definition of PAGE_SIZE to have buildable Xen.
+Thereby it was decided to define PAGE_SIZE directly in <asm/config.h>
+and remove it after all definitions from <{asm,xen}/page-*.h> will be
+needed.
+
+>=20
+> > + *
+> > + * TODO: remove it when <asm/page-*.h> will be needed
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 defintion of PAGE_SIZE should b=
+e remove from
+>=20
+> s/defintion/definition/
+
+Thanks for finding the typo. Will update it in the next version of
+the patch.
+
+>=20
+> > + *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 this header.
+> > + */
+> > +#define PAGE_SIZE=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4096 > +
+> > =C2=A0 #endif /* __RISCV_CONFIG_H__ */
+> > =C2=A0 /*
+> > =C2=A0=C2=A0 * Local variables:
+> > diff --git a/xen/arch/riscv/include/asm/types.h
+> > b/xen/arch/riscv/include/asm/types.h
+> > new file mode 100644
+> > index 0000000000..afbca6b15c
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/include/asm/types.h
+> > @@ -0,0 +1,11 @@
+> > +#ifndef __TYPES_H__
+> > +#define __TYPES_H__
+> > +
+> > +/*
+> > + *
+> > + * asm/types.h is required for xen-syms.S file which
+> > + * is produced by tools/symbols.
+> > + *
+> > + */
+> > +
+> > +#endif
+> > diff --git a/xen/arch/riscv/riscv64/Makefile
+> > b/xen/arch/riscv/riscv64/Makefile
+> > index 15a4a65f66..3340058c08 100644
+> > --- a/xen/arch/riscv/riscv64/Makefile
+> > +++ b/xen/arch/riscv/riscv64/Makefile
+> > @@ -1 +1 @@
+> > -extra-y +=3D head.o
+> > +obj-y +=3D head.o
+>=20
+> This changes want to be explained. So does...
+
+RISC-V 64 would be supported now and minimal build is built
+now only obj-y stuff.
+
+>=20
+> > diff --git a/xen/arch/riscv/riscv64/head.S
+> > b/xen/arch/riscv/riscv64/head.S
+> > index 0dbc27ba75..0330b29c01 100644
+> > --- a/xen/arch/riscv/riscv64/head.S
+> > +++ b/xen/arch/riscv/riscv64/head.S
+> > @@ -1,6 +1,6 @@
+> > =C2=A0 #include <asm/config.h>
+> > =C2=A0=20
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .text
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .section .text.header, "ax"=
+, %progbits
+>=20
+> ... AFAICT this is to match the recent change in the build system.
+
+I am not sure that I get you here but it was done to make 'start'
+instructions to be the first instructions that will be executed and
+to make 'start' symbol to be the first in xen-syms.map file otherwise
+gdb shows that Xen starts from the wrong instructions, fails to find
+correct source file and goes crazy.
+
+>=20
+> > =C2=A0=20
+> > =C2=A0 ENTRY(start)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 j=C2=A0 start
+> > diff --git a/xen/arch/riscv/xen.lds.S b/xen/arch/riscv/xen.lds.S
+> > new file mode 100644
+> > index 0000000000..60628b3856
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/xen.lds.S
+> > @@ -0,0 +1,69 @@
+> > +#include <xen/xen.lds.h>
+> > +
+> > +#undef ENTRY
+> > +#undef ALIGN
+> > +
+> > +OUTPUT_ARCH(riscv)
+> > +ENTRY(start)
+> > +
+> > +PHDRS
+> > +{
+> > +=C2=A0 text PT_LOAD ;
+> > +#if defined(BUILD_ID)
+> > +=C2=A0 note PT_NOTE ;
+> > +#endif
+> > +}
+> > +
+> > +SECTIONS
+> > +{
+> > +=C2=A0 . =3D XEN_VIRT_START;
+> > +=C2=A0 _start =3D .;
+> > +=C2=A0 .text : {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _stext =3D .;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.text.header)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.text)
+>=20
+> You are missing some sections here such as .text.cold,
+> .text.unlikely...
+>=20
+> I understand they are probably not used yet. But it will avoid any
+> nasty=20
+> surprise if they are forgotten.
+
+They were skipped because they aren't use for now. Will add it in
+the next version of the patch.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.gnu.warning)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _etext =3D .;
+> > +=C2=A0 } :text
+> > +
+> > +=C2=A0=C2=A0=C2=A0 . =3D ALIGN(PAGE_SIZE);
+> > +=C2=A0 .rodata : {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 _srodata =3D .;
+>=20
+> You introduce _srodata but I can't find the matching _erodata.
+
+My fault. Thanks. Will add it in the the next version of the patch.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.rodata)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.rodata.*)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.data.rel.ro)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.data.rel.ro.*)
+> > +=C2=A0 } :text
+> > +
+> > +#if defined(BUILD_ID)
+> > +=C2=A0 . =3D ALIGN(4);
+> > +=C2=A0 .note.gnu.build-id : {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __note_gnu_build_id_start =3D .;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.note.gnu.build-id)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __note_gnu_build_id_end =3D .;
+> > +=C2=A0 } :note :text
+> > +#endif
+> > +
+> > +=C2=A0 . =3D ALIGN(PAGE_SIZE);
+> > +=C2=A0 .data : { /* Data */
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.data .data.*)
+>=20
+> It would be better if you introduce .data.read_mostly right now
+> separately.
+>=20
+> You also want *.data.page_aligned in .data.
+>=20
+> Lastly you are missing CONSTRUCTORS
+
+I will add offred sections and CONSTUCTORS in the next version of
+the patch
+
+>=20
+> > +=C2=A0 } :text
+> > +
+>=20
+> I am assuming you are going to add .init.* afterwards?
+>=20
+> > +=C2=A0 . =3D ALIGN(PAGE_SIZE);
+> > +=C2=A0 .bss : {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __bss_start =3D .;
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 *(.bss .bss.*)
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 . =3D ALIGN(POINTER_ALIGN);
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 __bss_end =3D .;
+>=20
+> Same as .data, I would recommend to properly populate it.
+
+Do you mean to add .bss.stack_aligned, .bss.page_aligned, .bss.percpu*?
+One of the reasons they were skipped is they aren't used now and one
+more reason if to believe xen.lds.S file from ARM
+.bss.percpu.read_mostly should be aligned by SMP_CACHE_BYTES which
+requires dummy <asm/cache.h> (or not ?) which will increase the patch
+with unneeded stuff for now.=20
+
+>=20
+> Cheers,
+>=20
+
+Best regards,
+ Oleksii
 
