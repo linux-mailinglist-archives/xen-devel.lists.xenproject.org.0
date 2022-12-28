@@ -2,32 +2,49 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22A3D6572E1
-	for <lists+xen-devel@lfdr.de>; Wed, 28 Dec 2022 05:56:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.469447.728820 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87CD26572F5
+	for <lists+xen-devel@lfdr.de>; Wed, 28 Dec 2022 06:34:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.469454.728831 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pAOTZ-0000RE-OK; Wed, 28 Dec 2022 04:55:37 +0000
+	id 1pAP41-00050b-JA; Wed, 28 Dec 2022 05:33:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 469447.728820; Wed, 28 Dec 2022 04:55:37 +0000
+Received: by outflank-mailman (output) from mailman id 469454.728831; Wed, 28 Dec 2022 05:33:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pAOTZ-0000Or-LZ; Wed, 28 Dec 2022 04:55:37 +0000
-Received: by outflank-mailman (input) for mailman id 469447;
- Wed, 28 Dec 2022 04:55:36 +0000
+	id 1pAP41-0004yR-GO; Wed, 28 Dec 2022 05:33:17 +0000
+Received: by outflank-mailman (input) for mailman id 469454;
+ Wed, 28 Dec 2022 05:21:11 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8Lbo=42=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
- id 1pAOTY-0000Ol-0C
- for xen-devel@lists.xenproject.org; Wed, 28 Dec 2022 04:55:36 +0000
-Received: from mail-vk1-xa32.google.com (mail-vk1-xa32.google.com
- [2607:f8b0:4864:20::a32])
+ <SRS0=Siob=42=opensource.wdc.com=prvs=354542e4c=alistair.francis@srs-se1.protection.inumbo.net>)
+ id 1pAOsJ-000418-1x
+ for xen-devel@lists.xenproject.org; Wed, 28 Dec 2022 05:21:11 +0000
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dcd01e16-866b-11ed-8fd4-01056ac49cbb;
- Wed, 28 Dec 2022 05:55:35 +0100 (CET)
-Received: by mail-vk1-xa32.google.com with SMTP id i84so120508vke.7
- for <xen-devel@lists.xenproject.org>; Tue, 27 Dec 2022 20:55:34 -0800 (PST)
+ id 6a6b9845-866f-11ed-8fd4-01056ac49cbb;
+ Wed, 28 Dec 2022 06:21:02 +0100 (CET)
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 28 Dec 2022 13:20:59 +0800
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 27 Dec 2022 20:39:05 -0800
+Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
+ by uls-op-cesaip01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 27 Dec 2022 21:21:00 -0800
+Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Nhfxl2cm8z1RwtC
+ for <xen-devel@lists.xenproject.org>; Tue, 27 Dec 2022 21:20:59 -0800 (PST)
+Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
+ by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
+ port 10026)
+ with ESMTP id MNGdOAOUF-w6 for <xen-devel@lists.xenproject.org>;
+ Tue, 27 Dec 2022 21:20:58 -0800 (PST)
+Received: from toolbox.wdc.com (unknown [10.225.167.13])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Nhfxg69Wdz1RvLy;
+ Tue, 27 Dec 2022 21:20:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,148 +56,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dcd01e16-866b-11ed-8fd4-01056ac49cbb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=xyaZqgnWEWqsnaCpRBxvnVywkzHqhPIlI8PTDj6813g=;
-        b=j7xeOOMvgyTtIyjH5sqOW389Q5kpJ1a+j7HyEWd9sOJzusc+f7kskdlLdIeZAc8T7r
-         btQqTKMYl7ztZ0A0hq3JStpkqi2GKjGcP0bWgNPPBGie5jFn3JuiJ9TPDjd8nzOWqntc
-         V0KHnBW8AsgJLhGOCuED+LWqesFOpWEhfLuyrHWMx5/kwEBNYe5UsakbUhhtjAfZ+zj0
-         183Jo2uncR7hcSTcBxO+tJOdAa5DyWoADYW/l2DUsdGxvJyJyxGGF+lRwrNrnMY2poAC
-         T5NIqS6hDk9K3m5fzWRAt1FjyVlee9Ii37xmP53emyWcSZYsIWeQZs+LpWXc6aT7Pvj9
-         Emjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xyaZqgnWEWqsnaCpRBxvnVywkzHqhPIlI8PTDj6813g=;
-        b=Ej0ArRZBmvWr1mc2RjA1xRdXzrmxlVYRm4bWRQEIQGm+75sR5eLwjIf5e/Ye0d6pcp
-         UM9BdmOo077oaL1w3KTXpejPLddhfV4kglaj+T6Tq6465iJ67KUFn+sc1yAM6NEDYdmL
-         IQ9PeE0IAmT9metcFxNt4fTkxGhZrV1nx32lEzikCPqcDT/YWueoYopmHWGpX3dXgyDa
-         yjVCtd7nbLrtaf3X92ZzbssSya0x0LbeR0jCVWpYbkf22cZH6U7TNXR+HXY8JxuuVc8s
-         dSiuZVBZMjNxUb80mtvmvEF7ceUNJXpuJyHZq2/T7xCkllyu0od7BWlbLMXSyeXWEI+g
-         C2CA==
-X-Gm-Message-State: AFqh2kpqFX/E/yfEZkjXfWBR3JmluH28Zws/Ql4BM+zIB7hHUwR+rODc
-	A2lSiRWgkPBFQotddYRWHL+w3/3qkJsZu3atMDM=
-X-Google-Smtp-Source: AMrXdXuKbF6Mtrvj6Q6Uk/TyUzH0HKLL1Fobur6v2W+w/pStaOm0JjS+E6RuaWTk3xaoLzKCUbi75QwMt0dP5TTTW7E=
-X-Received: by 2002:a1f:ab86:0:b0:3d5:5f93:53f with SMTP id
- u128-20020a1fab86000000b003d55f93053fmr887543vke.7.1672203333783; Tue, 27 Dec
- 2022 20:55:33 -0800 (PST)
+X-Inumbo-ID: 6a6b9845-866f-11ed-8fd4-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
+  t=1672204862; x=1703740862;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=250uAQsDV16o/PqwGfmk5JGUTH9YnirGcQ3w6ZQnE8w=;
+  b=cJAdCXiHzQtvwYMc5jkfbp7J7j+mJgZZePxHfgkr1r8Lzd23cKfYU4ZV
+   0L1B5/6yJWJB4gz0LK0e9wbhQQNecFOOTouhyjm3+E6SEG1R0NdLW3XrY
+   yejltxWnHoMn9FUaXXc/7oG7HqRROooHU+o6YFMfgXjopBjIaUxPxy8V3
+   jmNUKvae/OVQ21zFT3kdDAvUC+5p4HrVvxCcKBvqgUj8dGgNo4Ah6C2H4
+   HB6DBkgpL6TEGQrG4o5BTH7qbZbiETTChoi13/iCogRHUczqbamwTxOHR
+   9YdY+FCmkKwuzVOmV9GmR40VKlsVa/XP0Z8tEorHq2tPkkPh4FIYYDouv
+   w==;
+X-IronPort-AV: E=Sophos;i="5.96,280,1665417600"; 
+   d="scan'208";a="331619909"
+IronPort-SDR: JzNqxlhlN6tR3WCOu6/EIJXGTSwIZBSSj9Na8fTilzNdl84PPhhR5MSRvXWVd+Ma+xM8/+0TZ3
+ biHi6dkx1Re+5Z8rDqD4QPdy/+XAzxxVHpJHoIJQAGgNB0QyOXbI+CuWteYu3UoC6erdbsO3by
+ LvaD+rGwpKQrV+Jxyo8IGz+7fE7Ff2VN9prdUWN/z/GRQI2gXgrB6xnoEAVmGlpFR0QIxdCtGi
+ OJLqEE5ZXKTt80VwuQWxubmAc+VrzgTP5L+in24B8sg1+DaBQMpd8b7++e1XkIuH/Q7E9TXcN1
+ mgs=
+IronPort-SDR: 1JPXX0mbwmAVcAhhxc8/Sb5iyOZAvN/xD7STLfhKWpq8H1BNAmcRglGJSbI78YkbIyMB59WUa+
+ jRrFlsaf2Mp5NyLQ+yDxK6jiewGRDtbAUewWBtghl1BkDC/nrXz26I+aLJpbiDcplMWO+bRdtu
+ aLBn2kK8S6/hQ7E75NyLMk1rult1kbLSi5GIBRj4kjKKh7w4iA92pJkVNie/aXXtUX2JHsxyvG
+ sFI6iVAoMOsKdPm9qTjEHLCPCwF11S9u1NS2BKMLJeFBlt5KKNHcJxl/SK5gY8+iY3xEV0gVXX
+ d9Y=
+WDCIronportException: Internal
+Authentication-Results: usg-ed-osssrv.wdc.com (amavisd-new); dkim=pass
+	reason="pass (just generated, assumed good)"
+	header.d=opensource.wdc.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=
+	opensource.wdc.com; h=content-transfer-encoding:mime-version
+	:x-mailer:message-id:date:subject:to:from; s=dkim; t=1672204858;
+	 x=1674796859; bh=250uAQsDV16o/PqwGfmk5JGUTH9YnirGcQ3w6ZQnE8w=; b=
+	sSfPZZMOQ4ds6fZBjsvTM6PTirmil34mrffUhFCcMKAoJ9Jl5NIn8Tcm9uGY5/Vd
+	Tk1lN839VSxoT+SMKqCQ1PfKU3BCvqcdxXn+dL1GlowUBoQn1kDjjJDI/LMkBONj
+	JPVRNtCnRyU+JuqRrHBrNALlmE2rMJY3+aGA+SgXpyGF8Fguvhib90+MC5kqAE0I
+	cLOuV7YmnG37p2/vfOavi4FsHSCq/OzfhrArPyf8vbCN4ojbBvjLN46uOybaXrS1
+	Nd0wmSNCwn1o6BPokAYyLpuXMI6plGVNs9g4N/i7XEF/YGoa5k7geOYijpQrp8Ak
+	jn6tGFMX2PKLO2jyWjiSNw==
+X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
+From: Alistair Francis <alistair.francis@opensource.wdc.com>
+To: xen-devel@lists.xenproject.org
+Cc: bobbyeshleman@gmail.com,
+	ayankuma@amd.com,
+	Andrew.Cooper3@citrix.com,
+	alistair23@gmail.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH] xen: define PADDR_BITS for riscv
+Date: Wed, 28 Dec 2022 15:20:18 +1000
+Message-Id: <20221228052018.730671-1-alistair.francis@opensource.wdc.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-References: <cover.1671789736.git.oleksii.kurochko@gmail.com> <c16097445ce25700b3464d3813c7cbc69d998dd7.1671789736.git.oleksii.kurochko@gmail.com>
-In-Reply-To: <c16097445ce25700b3464d3813c7cbc69d998dd7.1671789736.git.oleksii.kurochko@gmail.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Wed, 28 Dec 2022 14:55:07 +1000
-Message-ID: <CAKmqyKP4=-m2+PK2v+tTsSRPFkV8z=aQSJQqAZsOSw2WELNR5A@mail.gmail.com>
-Subject: Re: [XEN PATCH v1 4/4] automation: add RISC-V 64 cross-build tests
- for Xen
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
-	Doug Goldstein <cardoe@cardoe.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Dec 23, 2022 at 9:17 PM Oleksii Kurochko
-<oleksii.kurochko@gmail.com> wrote:
->
-> Add build jobs to cross-compile Xen-only for RISC-V 64.
->
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+From: Alistair Francis <alistair.francis@wdc.com>
 
-Acked-by: Alistair Francis <alistair.francis@wdc.com>
+Define PADDR_BITS and PAGE_SHIFT for the RISC-V 64-bit architecture.
 
-Alistair
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+---
+ xen/arch/riscv/include/asm/page-bits.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+ create mode 100644 xen/arch/riscv/include/asm/page-bits.h
 
-> ---
->  automation/gitlab-ci/build.yaml | 43 +++++++++++++++++++++++++++++++++
->  automation/scripts/build        |  4 +--
->  2 files changed, 45 insertions(+), 2 deletions(-)
->
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index 93d9ff69a9..d97b2aa788 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -172,6 +172,33 @@
->    variables:
->      <<: *gcc
->
-> +.riscv64-cross-build-tmpl:
-> +  <<: *build
-> +  variables:
-> +    XEN_TARGET_ARCH: riscv64
-> +  tags:
-> +    - x86_64
-> +
-> +.riscv64-cross-build:
-> +  extends: .riscv64-cross-build-tmpl
-> +  variables:
-> +    debug: n
-> +
-> +.riscv64-cross-build-debug:
-> +  extends: .riscv64-cross-build-tmpl
-> +  variables:
-> +    debug: y
-> +
-> +.gcc-riscv64-cross-build:
-> +  extends: .riscv64-cross-build
-> +  variables:
-> +    <<: *gcc
-> +
-> +.gcc-riscv64-cross-build-debug:
-> +  extends: .riscv64-cross-build-debug
-> +  variables:
-> +    <<: *gcc
-> +
->  # Jobs below this line
->
->  archlinux-gcc:
-> @@ -615,6 +642,19 @@ alpine-3.12-gcc-debug-arm64-boot-cpupools:
->      EXTRA_XEN_CONFIG: |
->        CONFIG_BOOT_TIME_CPUPOOLS=y
->
-> +# RISC-V 64 cross-build
-> +riscv64-cross-gcc:
-> +  extends: .gcc-riscv64-cross-build
-> +  variables:
-> +    CONTAINER: archlinux:riscv64
-> +    KBUILD_DEFCONFIG: tiny64_defconfig
-> +
-> +riscv64-cross-gcc-debug:
-> +  extends: .gcc-riscv64-cross-build-debug
-> +  variables:
-> +    CONTAINER: archlinux:riscv64
-> +    KBUILD_DEFCONFIG: tiny64_defconfig
-> +
->  ## Test artifacts common
->
->  .test-jobs-artifact-common:
-> @@ -690,3 +730,6 @@ kernel-5.10.74-export:
->        - binaries/bzImage
->    tags:
->      - x86_64
-> +
-> +# # RISC-V 64 test artificats
-> +# # TODO: add RISC-V 64 test artitifacts
-> diff --git a/automation/scripts/build b/automation/scripts/build
-> index 026f480e76..d0632a2bd5 100755
-> --- a/automation/scripts/build
-> +++ b/automation/scripts/build
-> @@ -34,8 +34,8 @@ fi
->  # to exit early -- bash is invoked with -e.
->  cp xen/.config xen-config
->
-> -# arm32 only cross-compiles the hypervisor
-> -if [[ "${XEN_TARGET_ARCH}" = "arm32" ]]; then
-> +# arm32 & riscv64 only cross-compiles the hypervisor
-> +if [[ "${XEN_TARGET_ARCH}" = "arm32" ]] || [[ "${XEN_TARGET_ARCH}" = "riscv64" ]]; then
->      hypervisor_only="y"
->  fi
->
-> --
-> 2.38.1
->
->
+diff --git a/xen/arch/riscv/include/asm/page-bits.h b/xen/arch/riscv/incl=
+ude/asm/page-bits.h
+new file mode 100644
+index 0000000000..d7bd7be098
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/page-bits.h
+@@ -0,0 +1,7 @@
++#ifndef __RISCV_PAGE_SHIFT_H__
++#define __RISCV_PAGE_SHIFT_H__
++
++#define PAGE_SHIFT              12 /* 4 KiB Pages */
++#define PADDR_BITS              56 /* 44-bit PPN */
++
++#endif /* __RISCV_PAGE_SHIFT_H__ */
+--=20
+2.38.1
+
 
