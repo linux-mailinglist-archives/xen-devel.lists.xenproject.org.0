@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FCD2658A39
-	for <lists+xen-devel@lfdr.de>; Thu, 29 Dec 2022 09:12:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.469644.729034 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A262F658A4A
+	for <lists+xen-devel@lfdr.de>; Thu, 29 Dec 2022 09:14:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.469651.729045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pAo0h-0001mt-Pq; Thu, 29 Dec 2022 08:11:31 +0000
+	id 1pAo2x-0002Mz-52; Thu, 29 Dec 2022 08:13:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 469644.729034; Thu, 29 Dec 2022 08:11:31 +0000
+Received: by outflank-mailman (output) from mailman id 469651.729045; Thu, 29 Dec 2022 08:13:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pAo0h-0001km-M1; Thu, 29 Dec 2022 08:11:31 +0000
-Received: by outflank-mailman (input) for mailman id 469644;
- Thu, 29 Dec 2022 08:11:29 +0000
+	id 1pAo2x-0002Kp-1u; Thu, 29 Dec 2022 08:13:51 +0000
+Received: by outflank-mailman (input) for mailman id 469651;
+ Thu, 29 Dec 2022 08:13:49 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=huHg=43=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pAo0f-0001kg-R3
- for xen-devel@lists.xenproject.org; Thu, 29 Dec 2022 08:11:29 +0000
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [2a00:1450:4864:20::431])
+ id 1pAo2v-0002Kd-Db
+ for xen-devel@lists.xenproject.org; Thu, 29 Dec 2022 08:13:49 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 65470cc4-8750-11ed-91b6-6bf2151ebd3b;
- Thu, 29 Dec 2022 09:11:28 +0100 (CET)
-Received: by mail-wr1-x431.google.com with SMTP id w1so4639254wrt.8
- for <xen-devel@lists.xenproject.org>; Thu, 29 Dec 2022 00:11:28 -0800 (PST)
+ id b899f8e6-8750-11ed-91b6-6bf2151ebd3b;
+ Thu, 29 Dec 2022 09:13:48 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ k26-20020a05600c1c9a00b003d972646a7dso9589163wms.5
+ for <xen-devel@lists.xenproject.org>; Thu, 29 Dec 2022 00:13:48 -0800 (PST)
 Received: from [192.168.0.145] ([195.234.76.149])
  by smtp.gmail.com with ESMTPSA id
- u13-20020a5d468d000000b00275970a85f4sm15089200wrq.74.2022.12.29.00.11.26
+ m22-20020a05600c161600b003cfa622a18asm26771900wmn.3.2022.12.29.00.13.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Dec 2022 00:11:27 -0800 (PST)
+ Thu, 29 Dec 2022 00:13:47 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +45,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 65470cc4-8750-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: b899f8e6-8750-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=rRkw30Hjx2YfokI5B+W3DTvMqHqCDLpYHbeuHRHE5To=;
-        b=Q+vQ68txPQn8STwCJhN3Dt9k+2ZXcHLmoqmZX4+ZSjMtSmERgt3IZjMHrg0EfEaN28
-         +/Lsgn4tQn9v1a46k/y8oxQxQNFhGMohl0yK8SMry14yRizTIiuAdiuNQjhoUG/WC8TT
-         KTWRc1BU1RJcNebWH2vLk8g/Z0rchWqHR0tnMz8wsyZfyBL0bxRcByK8aZHat9v21O9Y
-         bb0Gn7ojAanwo4ljW75grfq1ApwnqfjUGg8ssFsLnYy5XO/LcVL7wLoajoESCFyBsUw5
-         LDyt0e/aSKYISnS09prPI7mdjmE7fMf/9DR1EkvdS42bgY2PCHdvFQx8bE85WXgYgtw/
-         bGVA==
+        bh=dTkvZKoxQz0bzD4v0mZCkEzByc+bKG0W26iPxWsn9Qs=;
+        b=O080TurVg9A0F+Q383YdHqpgIz177lXAY7Iy6FnCCXsHFRK97rCUTfqQJ+jZqKhCKi
+         orvQEqAUiu7cok0BqPkcuSFkdYgGdaPp4bVW12M30fjGyK64wpkMXr9FSC8C2Ie+xSnP
+         1rotXsGztziXBO72Ba6aQ6hTKTFbJazVeyuxJsilk6h9fle4LOl5qzaMAE9rAuHovkPK
+         h7Xht/2Sgr3TPpWs50Xj+cH/Gu4An60V+8E99Pp6IV+noNDcUxWapyoQUVCy/vBrz1gi
+         KKvJMjGRVSL1yq+bL26rmAGxBlNcDL55FUN/2MrabqihIoyJMHE/UndGzkJYWdt8h2st
+         tKWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=rRkw30Hjx2YfokI5B+W3DTvMqHqCDLpYHbeuHRHE5To=;
-        b=wwn4gMsegG0fcTBrlrjHNomNvwdspsihXMu/mpAxUARzYVdTpwRTQUjdKklQaPNvux
-         2tlCQFSNlOaCSHparbugosBw1Ttos2pzeMuBJDFnyUHaTZLn1ogmdKjrl1MUKqjPrlfV
-         ZEv55dS1/MSvXQbsipRFeyFbCZbqxblaPXe/GrrrtMbisFs9Jmt2K9ArAavLxatn8EVL
-         jbGxf7tdyXOSiQ6H31PiUDubMHXyBuF5XtWe/pLnWuv5MT16qkhDvlm3Uh6pjSMipo2V
-         PCICMb8UDlIEoj8Tx7syklCTJ8rlKJAcGIMNlcNTsU38NTIsPTz7gWaxp51Q521V+txD
-         T8rg==
-X-Gm-Message-State: AFqh2kofofaiNQwWvKArcwDjM+NRPETjYdoO/OWMemHRCP0m/eQK553R
-	B5Xf1MVErEDhP3v82XtaOu4=
-X-Google-Smtp-Source: AMrXdXsgn8eNToAKXRU/Wo5owzVG4e2RKBnJZZLqaIqnA0mZ2Yq29KMeFSlVsjJ/ZLw0/CBq0z92ZQ==
-X-Received: by 2002:a5d:4403:0:b0:268:f9de:d551 with SMTP id z3-20020a5d4403000000b00268f9ded551mr17993844wrq.40.1672301488099;
-        Thu, 29 Dec 2022 00:11:28 -0800 (PST)
-Message-ID: <bd9ac5481578ce7ac557973815df47c358e006d0.camel@gmail.com>
-Subject: Re: [XEN PATCH v1 1/4] arch/riscv: initial RISC-V support to
- build/run minimal Xen
+        bh=dTkvZKoxQz0bzD4v0mZCkEzByc+bKG0W26iPxWsn9Qs=;
+        b=49PvI49DOoP5/UNjYzIoi9VEGlnXF0zw9ykHlCp8c7Ypx9NA4Lm+SJLRFhGD9KDcrP
+         amvt2LXlGssqbC+V0RC+mAI24gNmKCbw0YcwTdljozOU1lSQPCoUfbkNYprgbydXUtHE
+         6r8+BZv7aKt8Oy/u3wZt1NjyPIZAT0U0KjLYCKcZjxOEESFrx3ImBPWviREhOvzvGKc3
+         L6gz3nJBwL2lt6YTDLNnn9Zgy0DgKv/KbkAeNgg/0O7lcFzrKhstFqZ7Yhf3tZCCAkxI
+         hEs5o7acJ1F7H/B5qnyZvLcWahmfElw7I/k4okQtycynp1bwvrrPmjgXTZctLmX8pjg4
+         pMDw==
+X-Gm-Message-State: AFqh2kq/jQ2OpBKtf65fI9Cu0UGRWbnmNZj2WwWoPkhMRb9X2txL82Dz
+	+PE4Jh+dNQTulS62T3yVE/A=
+X-Google-Smtp-Source: AMrXdXtn6DpYJ0g6EQv18GD+VWoxe3MGBAqwB9oI0HC3X//sOT2IfxM9MgRKOzmQ+tjiZYDpp7c38Q==
+X-Received: by 2002:a05:600c:21d9:b0:3d0:8d48:2993 with SMTP id x25-20020a05600c21d900b003d08d482993mr19238893wmj.36.1672301627983;
+        Thu, 29 Dec 2022 00:13:47 -0800 (PST)
+Message-ID: <661c2a359f5bc409821b16802e596ace90b67abe.camel@gmail.com>
+Subject: Re: [XEN PATCH v1 2/4] automation: add cross-compiler support for
+ the build script
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>, Alistair Francis
-	 <alistair23@gmail.com>
-Cc: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
- <xen-devel@lists.xenproject.org>, Stefano Stabellini
- <sstabellini@kernel.org>,  Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, Anthony
- Perard <anthony.perard@citrix.com>
-Date: Thu, 29 Dec 2022 10:11:26 +0200
-In-Reply-To: <0a60dc57-080f-4210-d9f8-4688308cc5f5@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+	"xen-devel@lists.xenproject.org"
+	 <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
+	 <gianluca@rivosinc.com>, Doug Goldstein <cardoe@cardoe.com>
+Date: Thu, 29 Dec 2022 10:13:46 +0200
+In-Reply-To: <8f8c26d5-934d-0dd1-1d51-b04e134fcf6e@citrix.com>
 References: <cover.1671789736.git.oleksii.kurochko@gmail.com>
-	 <5d5ec5fbd8787ed8f86bf84a5ac291d07a20b307.1671789736.git.oleksii.kurochko@gmail.com>
-	 <3343c927-0f27-e285-5b6e-281c61939bb4@xen.org>
-	 <43d726761900ba3d8b4919fc29fe7cb1991ac656.camel@gmail.com>
-	 <CAKmqyKMmW7rRXymMD6dNeLTLbUaSwO5nw=hJTk_xNvsZ3pg7jA@mail.gmail.com>
-	 <0a60dc57-080f-4210-d9f8-4688308cc5f5@citrix.com>
+	 <3c926f637c4738bd14db10e8fe8f72a6eae2dfd4.1671789736.git.oleksii.kurochko@gmail.com>
+	 <8f8c26d5-934d-0dd1-1d51-b04e134fcf6e@citrix.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.1 (3.46.1-1.fc37) 
 MIME-Version: 1.0
 
-On Wed, 2022-12-28 at 19:01 +0000, Andrew Cooper wrote:
-> On 28/12/2022 4:51 am, Alistair Francis wrote:
-> > On Mon, Dec 26, 2022 at 9:14 PM Oleksii
-> > <oleksii.kurochko@gmail.com> wrote:
-> > > On Fri, 2022-12-23 at 13:50 +0000, Julien Grall wrote:
-> > > > On 23/12/2022 11:16, Oleksii Kurochko wrote:
-> > > > > +  . =3D ALIGN(PAGE_SIZE);
-> > > > > +  .bss : {
-> > > > > +       __bss_start =3D .;
-> > > > > +       *(.bss .bss.*)
-> > > > > +       . =3D ALIGN(POINTER_ALIGN);
-> > > > > +       __bss_end =3D .;
-> > > > Same as .data, I would recommend to properly populate it.
-> > > Do you mean to add .bss.stack_aligned, .bss.page_aligned,
-> > > .bss.percpu*?
-> > > One of the reasons they were skipped is they aren't used now and
-> > > one
-> > > more reason if to believe xen.lds.S file from ARM
-> > > .bss.percpu.read_mostly should be aligned by SMP_CACHE_BYTES
-> > > which
-> > > requires dummy <asm/cache.h> (or not ?) which will increase the
-> > > patch
-> > > with unneeded stuff for now.
-> > I think we should aim to get the linker file sorted right from the
-> > start. Otherwise someone is going to hit a nasty bug at some point
-> > in
-> > the future.
+On Wed, 2022-12-28 at 23:24 +0000, Andrew Cooper wrote:
+> On 23/12/2022 11:16 am, Oleksii Kurochko wrote:
+> > diff --git a/automation/scripts/build b/automation/scripts/build
+> > index a593419063..026f480e76 100755
+> > --- a/automation/scripts/build
+> > +++ b/automation/scripts/build
+> > @@ -2,12 +2,12 @@
+> > =20
+> >  test -f /etc/os-release && cat "$_"
+> > =20
+> > -$CC --version
+> > +${CROSS_COMPILE}${CC} --version
+> > =20
+> >  # Express the compiler version as an integer.  e.g. GCC 4.9.2 =3D>
+> > 0x040902
+> >  cc-ver()
+> >  {
+> > -    $CC -dumpversion | awk -F. '{ printf "0x%02x%02x%02x", $1, $2,
+> > $3 }'
+> > +    ${CROSS_COMPILE}${CC} -dumpversion | awk -F. '{ printf
+> > "0x%02x%02x%02x", $1, $2, $3 }'
+> >  }
+> > =20
+> >  # random config or default config
+> > @@ -66,7 +66,7 @@ if ! type python3 || python3 -c "import sys; res
+> > =3D sys.version_info < (3, 5); ex
+> >  fi
+> > =20
+> >  # SeaBIOS requires GCC 4.6 or later
+> > -if [[ "${CC}" =3D=3D "gcc" && `cc-ver` -lt 0x040600 ]]; then
+> > +if [[ "${CROSS_COMPILE}${CC}" =3D=3D "gcc" && `cc-ver` -lt 0x040600
+> > ]]; then
 >=20
-> What needs to happen is actually for Xen to start using a common
-> linker
-> script, rather than a per-arch linker script.
->=20
-
-Do you expect to see common linker script as a part of this patch
-series?
-
-> The vast majority of the linker script is not architecture specific
-> to
-> begin with, and the rest is easy to parametrise.
+> This change won't work, because it's no longer a plain "gcc".
 >=20
 
-I reworked xen.lds.S file.
+If look at tests on GitLab CI&CD these changes don't break anything.
 
-I took xen.lds.S from ARM as a basis and
-remove all arch specific sections such as *(.proc.info), *(.ex_table),
-*(.ex_table.pre), *(.altinstructions), *(.teemediator.info),
-*(.adev.info), *(.dev.info), *(.arch.info), *(.bug_frames.*).
+> Also, prepreding CROSS_COMPILE isn't compatible with LLVM toolchains,
+> but that's not something you've made any worse with your change (just
+> more obvious).
+>=20
 
-So it would be possible to use xen.lds.S as a common linker script.
+CROSS_COMPILE isn't use with LLVM toolchain. I mean that in case of
+LLVM toolchain CROSS_COMPILE would be equal to empty string plus
+CC=3Dclang or something similar.
 
-> But in the short term, it's more important to get something working
-> and
-> properly into CI, rather than to block this change waiting for
-> feature
-> parity with a whole load of features not currently used.
->
+> We probably want a stanza near the top which sets
+> CC=3D"${CROSS_COMPILE}${CC}" which can be adjusted to support LLVM in
+> due
+> course, and we'll need to detect GCC using --version | grep as its
+> done
+> elsewhere.
+>=20
+> But the other logic wants reworking too so we don't play around with
+> bits of the tools build when we're doing a hypervisor-only build
+> anyway...
+>=20
+
+I think that I can get rid of CROSS_COMPILE variable at all and use
+CC=3Driscv64-linux-gnu-gcc direcly for RISC-V 64 targers in build.yaml.
+Would this be a better solution?
+
 > ~Andrew
 
 ~Oleksii
