@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F112B659FA9
-	for <lists+xen-devel@lfdr.de>; Sat, 31 Dec 2022 01:31:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.469951.729408 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC5C465A2CE
+	for <lists+xen-devel@lfdr.de>; Sat, 31 Dec 2022 06:56:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.469976.729430 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pBPlY-0001lZ-RJ; Sat, 31 Dec 2022 00:30:24 +0000
+	id 1pBUq3-0002Hv-Oy; Sat, 31 Dec 2022 05:55:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 469951.729408; Sat, 31 Dec 2022 00:30:24 +0000
+Received: by outflank-mailman (output) from mailman id 469976.729430; Sat, 31 Dec 2022 05:55:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pBPlY-0001im-My; Sat, 31 Dec 2022 00:30:24 +0000
-Received: by outflank-mailman (input) for mailman id 469951;
- Sat, 31 Dec 2022 00:30:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=cPaP=45=citrix.com=prvs=3576bb3e1=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pBPlX-0001TX-4y
- for xen-devel@lists.xenproject.org; Sat, 31 Dec 2022 00:30:23 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4db5038e-88a2-11ed-91b6-6bf2151ebd3b;
- Sat, 31 Dec 2022 01:30:20 +0100 (CET)
+	id 1pBUq3-0002Ev-JV; Sat, 31 Dec 2022 05:55:23 +0000
+Received: by outflank-mailman (input) for mailman id 469976;
+ Sat, 31 Dec 2022 05:55:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pBUq1-0002El-HR; Sat, 31 Dec 2022 05:55:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pBUq1-0004QL-Ej; Sat, 31 Dec 2022 05:55:21 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pBUq0-0006h9-RV; Sat, 31 Dec 2022 05:55:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pBUq0-0001YZ-Qr; Sat, 31 Dec 2022 05:55:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,244 +42,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4db5038e-88a2-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1672446620;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=OgocD+ObouQq8QNH5GDFFIUKa/VfXCi8dkLMnUgQGhc=;
-  b=b8LtxGuw0+VGReQ+AV4hYdCMs+TJzlgTF/GyotjqpgD/R7Mbbc3WPIux
-   5leYJ/uTiN60WbtLjN3bmBMB9syQlfDhbkr6GcEvRLC/72uj9Vg7L0Esy
-   mXYJKd2+EP0oDN0DQH26+ZyvgTelQi1tWdxxduXlO22W5pXQ3WgZG7ewB
-   k=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 90645874
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:eE0waKMgBvY1NFjvrR2rl8FynXyQoLVcMsEvi/4bfWQNrUojgjQHx
- mQWCjuCP/rYZ2X9KYp+Oo3l9R8O7JbWydY2Swto+SlhQUwRpJueD7x1DKtS0wC6dZSfER09v
- 63yTvGacajYm1eF/k/F3oDJ9CU6jufQA+KmU4YoAwgpLSd8UiAtlBl/rOAwh49skLCRDhiE/
- Nj/uKUzAnf8s9JPGj9SuvzrRC9H5qyo4mpC5QRmOZingXeF/5UrJMNHTU2OByOQrrl8RoaSW
- +vFxbelyWLVlz9F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq/0Te5p0TJvsEAXq7vh3S9zxHJ
- HehgrTrIeshFvWkdO3wyHC0GQkmVUFN0OevzXRSLaV/ZqAJGpfh66wGMa04AWEX0utWWWpRp
- fUFEgocTwzcofyxxK6jFfY506zPLOGzVG8eknRpzDWfBvc6W5HTBa7N4Le03h9p2JoIR6yHI
- ZNEN3w/N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9K4TUGZgFwRrwS
- mTu1DiiIB8wG+Ok7zej72OngM7EoCXaV9dHfFG/3qEz2wDCroAJMzUJUXOrrP//jVSxM/pPJ
- kpR9icwoKwa8E2wUsK7TxC+uGSDvBMXR5xXCeJSwCOnx7fQ4g2ZLnMZVTMHY9sj3PLaXhRzi
- AXPxYmwQ2Uy7vvFEhpx64t4sxu/GHAeMj8LeBU+XCoZvP/9p4Uvlk3QG4ML/LGOsvX5HjT5w
- javpSc4hqkOgcNj65hX7WwrkBr3+MGXE1ddChH/Gzv8s1gnPNLNi5mAswCz0BpWEGqOorBtV
- lAgktPW0u0BBIrleMelELRUR+HBCxpo3VThbb9T83sJrW/FF52LJ9o4DNRCyKBBbK45lcfBO
- hO7hO+ozMY70IGWRaF2eZmtLM8h0LLtE9/oPtiNMIUUPsIsLlPXrHszDaJ144wKuBF2+ZzTx
- L/BKZr8ZZrkIf8PIMWKqxc1juZwm3FWKZL7TpHn1RW3uYejiIquYe5dajOmN7lphJ5oVS2Jq
- 76zwePWkUQAOAA/CwGLmbMuwacidylqXsCq8ZIGL4Zu4GNOQQkcNhMY+pt5E6QNokifvr6gE
- q2VMqOA9GfCuA==
-IronPort-HdrOrdr: A9a23:xkUxF6wxsB1ktMO6h/tJKrPwEr1zdoMgy1knxilNoHtuH/Bw9v
- rDoB1/73XJYVkqOU3I9erwWpVoa0msjKKdmLNhW4tKPzOHhILLFu9fBOLZqlXd8kvFh4lgPM
- xbAstD4bPLYmSTtqzBkWyF+twbsb26GfCT7tvj8w==
-X-IronPort-AV: E=Sophos;i="5.96,288,1665460800"; 
-   d="scan'208";a="90645874"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] x86/shskt: Disable CET-SS on parts succeptable to fractured updates
-Date: Sat, 31 Dec 2022 00:30:07 +0000
-Message-ID: <20221231003007.26916-3-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.11.0
-In-Reply-To: <20221231003007.26916-1-andrew.cooper3@citrix.com>
-References: <20221231003007.26916-1-andrew.cooper3@citrix.com>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=+pJ7+jDvE+We+488JBnddbnLnQWyEJHOC95ISKABVMY=; b=2MMaY0bcPZjRD24qinAHuqyirp
+	dJYaOKQrkifDiowlH+5dY4wKKpKmH1sMCvnFtAlNU2CPj9H23lVVv6sb83+IEMUaRqBKZhk520VuC
+	A4hUAYyWZKNh/WGOPGrzmOHn/LKNw4ynZICSuuODYq4Dc0SnT2Ww9KIY4GVFMQVEWXhY=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175532-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 175532: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
+    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
+    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
+    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c8451c141e07a8d05693f6c8d0e418fbb4b68bb7
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 31 Dec 2022 05:55:20 +0000
 
-Refer to Intel SDM Rev 70 (Dec 2022), Vol3 17.2.3 "Supervisor Shadow Stack
-Token".
+flight 175532 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175532/
 
-Architecturally, an event delivery which starts in CPL>3 and switches shadow
-stack will first validate the Supervisor Shstk Token and set the busy bit,
-then pushes LIP/CS/SSP.  One example of this is an NMI interrupting Xen.
+Regressions :-(
 
-Some CPUs suffer from an issue called fracturing, whereby a fault/vmexit/etc
-between setting the busy bit and completing the event injection renders the
-action non-restartable, because when it comes time to restart, the busy bit is
-found to be already set.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 173462
+ test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 173462
+ test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 173462
+ test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 173462
+ test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 173462
+ test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 173462
+ test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
 
-This is far more easily encountered under virt, yet it is not the fault of the
-hypervisor, nor the fault of the guest kernel.  The fault lies somewhere
-between the architectural specification, and the uarch behaviour.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-Intel have allocated CPUID.7[1].ecx[18] CET_SSS to enumerate that supervisor
-shadow stacks are safe to use.  Because of how Xen lays out its shadow stacks,
-fracturing is not expected to be a problem on native.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-Detect this case on boot and default to not using shstk if virtualised.
-Specifying `cet=shstk` on the command line will override this heurstic and
-enable shadow stacks irrespective.
+version targeted for testing:
+ linux                c8451c141e07a8d05693f6c8d0e418fbb4b68bb7
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
+Last test of basis   173462  2022-10-07 18:41:45 Z   84 days
+Failing since        173470  2022-10-08 06:21:34 Z   83 days  172 attempts
+Testing same since   175532  2022-12-30 20:43:08 Z    0 days    1 attempts
 
-I've got a query out with AMD, but so far it is only Intel CPUs known to be
-impacted.
+------------------------------------------------------------
+3252 people touched revisions under test,
+not listing them all
 
-This ideally wants backporting to Xen 4.14.  I have no idea how likely it is
-to need to backport the prerequisite patch for new feature words, but we've
-already had to do that once for security patches...
----
- docs/misc/xen-command-line.pandoc           |  7 +++++-
- tools/libs/light/libxl_cpuid.c              |  2 ++
- tools/misc/xen-cpuid.c                      |  1 +
- xen/arch/x86/cpu/common.c                   | 11 +++++++--
- xen/arch/x86/setup.c                        | 37 ++++++++++++++++++++++++++---
- xen/include/public/arch-x86/cpufeatureset.h |  1 +
- 6 files changed, 53 insertions(+), 6 deletions(-)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          fail    
+ test-amd64-coresched-amd64-xl                                fail    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      fail    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              fail    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             fail    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                fail    
+ test-amd64-amd64-xl-credit1                                  fail    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  fail    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
+ test-amd64-amd64-examine                                     fail    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          fail    
+ test-amd64-amd64-xl-pvhv2-intel                              fail    
+ test-amd64-amd64-dom0pvh-xl-intel                            fail    
+ test-amd64-amd64-libvirt                                     fail    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                fail    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        fail    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-amd64-xl-pvshim                                   fail    
+ test-amd64-amd64-pygrub                                      fail    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 fail    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     fail    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
+ test-amd64-amd64-xl-shadow                                   fail    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                fail    
+ test-amd64-amd64-xl-vhd                                      fail    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
-index 923910f553c5..19d4d815bdee 100644
---- a/docs/misc/xen-command-line.pandoc
-+++ b/docs/misc/xen-command-line.pandoc
-@@ -287,10 +287,15 @@ can be maintained with the pv-shim mechanism.
-     protection.
- 
-     The option is available when `CONFIG_XEN_SHSTK` is compiled in, and
--    defaults to `true` on hardware supporting CET-SS.  Specifying
-+    generally defaults to `true` on hardware supporting CET-SS.  Specifying
-     `cet=no-shstk` will cause Xen not to use Shadow Stacks even when support
-     is available in hardware.
- 
-+    Some hardware suffers from an issue known as Supervisor Shadow Stack
-+    Fracturing.  On such hardware, Xen will default to not using Shadow Stacks
-+    when virtualised.  Specifying `cet=shstk` will override this heuristic and
-+    enable Shadow Stacks unilaterally.
-+
- *   The `ibt=` boolean controls whether Xen uses Indirect Branch Tracking for
-     its own protection.
- 
-diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpuid.c
-index 2aa23225f42c..d97a2f3338bc 100644
---- a/tools/libs/light/libxl_cpuid.c
-+++ b/tools/libs/light/libxl_cpuid.c
-@@ -235,6 +235,8 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list *cpuid, const char* str)
-         {"fsrs",         0x00000007,  1, CPUID_REG_EAX, 11,  1},
-         {"fsrcs",        0x00000007,  1, CPUID_REG_EAX, 12,  1},
- 
-+        {"cet-sss",      0x00000007,  1, CPUID_REG_EDX, 18,  1},
-+
-         {"intel-psfd",   0x00000007,  2, CPUID_REG_EDX,  0,  1},
-         {"mcdt-no",      0x00000007,  2, CPUID_REG_EDX,  5,  1},
- 
-diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-index 0091a11a67bc..ea33b587665d 100644
---- a/tools/misc/xen-cpuid.c
-+++ b/tools/misc/xen-cpuid.c
-@@ -208,6 +208,7 @@ static const char *const str_7c1[32] =
- 
- static const char *const str_7d1[32] =
- {
-+    [18] = "cet-sss",
- };
- 
- static const char *const str_7d2[32] =
-diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
-index b3fcf4680f3a..d962f384a995 100644
---- a/xen/arch/x86/cpu/common.c
-+++ b/xen/arch/x86/cpu/common.c
-@@ -346,11 +346,18 @@ void __init early_cpu_init(void)
- 	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
- 	       c->x86_model, c->x86_model, c->x86_mask, eax);
- 
--	if (c->cpuid_level >= 7)
--		cpuid_count(7, 0, &eax, &ebx,
-+	if (c->cpuid_level >= 7) {
-+		uint32_t max_subleaf;
-+
-+		cpuid_count(7, 0, &max_subleaf, &ebx,
- 			    &c->x86_capability[FEATURESET_7c0],
- 			    &c->x86_capability[FEATURESET_7d0]);
- 
-+                if (max_subleaf >= 1)
-+			cpuid_count(7, 1, &eax, &ebx, &ecx,
-+				    &c->x86_capability[FEATURESET_7d1]);
-+        }
-+
- 	eax = cpuid_eax(0x80000000);
- 	if ((eax >> 16) == 0x8000 && eax >= 0x80000008) {
- 		ebx = eax >= 0x8000001f ? cpuid_ebx(0x8000001f) : 0;
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 566422600d94..e052b7b748fa 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -96,7 +96,7 @@ size_param("highmem-start", highmem_start);
- #endif
- 
- #ifdef CONFIG_XEN_SHSTK
--static bool __initdata opt_xen_shstk = true;
-+static int8_t __initdata opt_xen_shstk = -1;
- #else
- #define opt_xen_shstk false
- #endif
-@@ -1101,9 +1101,40 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-     /* Choose shadow stack early, to set infrastructure up appropriately. */
-     if ( opt_xen_shstk && boot_cpu_has(X86_FEATURE_CET_SS) )
-     {
--        printk("Enabling Supervisor Shadow Stacks\n");
-+        /*
-+         * Some CPUs suffer from Shadow Stack Fracturing, an issue whereby a
-+         * fault/VMExit/etc between setting a Supervisor Busy bit and the
-+         * event delivery completing renders the operation non-restartable.
-+         * On restart, event delivery will find the Busy bit already set.
-+         *
-+         * This is a problem on native, but outside of synthetic cases, only
-+         * with #MC against a stack access (in which case we're dead anyway).
-+         * It is a much bigger problem under virt, because we can VMExit for a
-+         * number of legitimate reasons and tickle this bug.
-+         *
-+         * CPUs with this addressed enumerate CET-SSS to indicate that
-+         * supervisor shadow stacks are now safe to use.
-+         */
-+        bool cpu_has_bug_shstk_fracture =
-+            boot_cpu_data.x86_vendor == X86_VENDOR_INTEL &&
-+            !boot_cpu_has(X86_FEATURE_CET_SSS);
-+
-+        /*
-+         * On native, assume that Xen won't be impacted by shstk fracturing
-+         * problems.  Under virt, be more conservative and disable shstk by
-+         * default.
-+         */
-+        if ( opt_xen_shstk == -1 )
-+            opt_xen_shstk =
-+                cpu_has_hypervisor ? !cpu_has_bug_shstk_fracture
-+                                   : true;
-+
-+        if ( opt_xen_shstk )
-+        {
-+            printk("Enabling Supervisor Shadow Stacks\n");
- 
--        setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
-+            setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
-+        }
-     }
- 
-     if ( opt_xen_ibt && boot_cpu_has(X86_FEATURE_CET_IBT) )
-diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/public/arch-x86/cpufeatureset.h
-index 7a896f0e2d92..f6a46f62a549 100644
---- a/xen/include/public/arch-x86/cpufeatureset.h
-+++ b/xen/include/public/arch-x86/cpufeatureset.h
-@@ -290,6 +290,7 @@ XEN_CPUFEATURE(INTEL_PPIN,         12*32+ 0) /*   Protected Processor Inventory
- 
- /* Intel-defined CPU features, CPUID level 0x00000007:1.ecx, word 14 */
- /* Intel-defined CPU features, CPUID level 0x00000007:1.edx, word 15 */
-+XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow Stacks safe to use */
- 
- /* Intel-defined CPU features, CPUID level 0x00000007:2.edx, word 13 */
- XEN_CPUFEATURE(INTEL_PSFD,         13*32+ 0) /*A  MSR_SPEC_CTRL.PSFD */
--- 
-2.11.0
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 496156 lines long.)
 
