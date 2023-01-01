@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD5A65AA45
-	for <lists+xen-devel@lfdr.de>; Sun,  1 Jan 2023 16:01:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470113.729550 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70CA565AA4F
+	for <lists+xen-devel@lfdr.de>; Sun,  1 Jan 2023 16:11:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470121.729561 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pBzpm-0001DM-LG; Sun, 01 Jan 2023 15:01:10 +0000
+	id 1pBzzP-0001ui-ID; Sun, 01 Jan 2023 15:11:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470113.729550; Sun, 01 Jan 2023 15:01:10 +0000
+Received: by outflank-mailman (output) from mailman id 470121.729561; Sun, 01 Jan 2023 15:11:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pBzpm-0001A0-IY; Sun, 01 Jan 2023 15:01:10 +0000
-Received: by outflank-mailman (input) for mailman id 470113;
- Sun, 01 Jan 2023 15:01:09 +0000
+	id 1pBzzP-0001rw-FS; Sun, 01 Jan 2023 15:11:07 +0000
+Received: by outflank-mailman (input) for mailman id 470121;
+ Sun, 01 Jan 2023 15:11:06 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=11tG=46=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pBzpk-00019u-T3
- for xen-devel@lists.xenproject.org; Sun, 01 Jan 2023 15:01:09 +0000
+ id 1pBzzO-0001rq-BO
+ for xen-devel@lists.xenproject.org; Sun, 01 Jan 2023 15:11:06 +0000
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1bc8970d-89e5-11ed-91b6-6bf2151ebd3b;
- Sun, 01 Jan 2023 16:01:04 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id F206132002FB;
- Sun,  1 Jan 2023 10:01:00 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 01 Jan 2023 10:01:01 -0500
+ id 82214e8a-89e6-11ed-91b6-6bf2151ebd3b;
+ Sun, 01 Jan 2023 16:11:04 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.west.internal (Postfix) with ESMTP id 312C632005CA;
+ Sun,  1 Jan 2023 10:11:02 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Sun, 01 Jan 2023 10:11:02 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Jan 2023 10:00:56 -0500 (EST)
+ 1 Jan 2023 10:10:58 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,35 +43,35 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1bc8970d-89e5-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 82214e8a-89e6-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm2; t=1672585260; x=
-	1672671660; bh=X7obdlIu9PYYeP+uZsieZNOt5OQU6gNv6h9CZLugzpQ=; b=E
-	jOj39WEP4Ya9aiY5z1cNiMq59QPtZ5lSR1Fz7SKlt/qt480vfBRKFNEsItcGF31z
-	BU9TxV7WbMyICR1unSeS/EACE/cV4CkVGKmHxAQWPQeZqIVykcGmOLgi57amXdpA
-	hYNs3+cg8apMBM3kmtfgliJnO/TPJWxlOceYhila7CL26JMa674XNe1lB5XRtXSs
-	OA2CDb1iEJDlc4iy5BKyqRCd8PN9zqRusraZLrrWv0L1xVK/KdY5tpcHZ4J5/Pzy
-	DZi6Rta6MuDFvxgS3okcA/x9VHSlxSeKK3JY2RDpDUAtZyXzYHC9XAiYS3uqrXh2
-	9APFOUzMNRTeuDviBzx5g==
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1672585861; x=
+	1672672261; bh=0iWt9Z2gLbDLmZ3Gl405zz+RiInR67FHrOISNpK+eQo=; b=z
+	BE/218ltPLi/9QKJiPs+yXwfWBknaWGX3MqAinvoJJK2pbeU37HGeHnLyTRJ4Mc/
+	H3vIg+vnQDlkjCZvcG1TFmM+0TUOhw7WCItZwWxZXMnJLczT+Fs5s8rVoEdbVSGO
+	17wHZcNCbzn13vsk3C2GPnzskL4B6WxvE8X80xeA7MJsyZSZPPhIETZ0rAku42WZ
+	UOc4cOnegc49vvJaTV+Hhy3GzwK5MrLUXAlWfcZOlAKPY/tNushsSZhljg+qaaZ8
+	OOjKxJzRm8OPUOf0OWb3R1fIVqXBFy7PuQ6PMn+e8jEIt2BROFHjhzG+4Tgm8Eg2
+	GbvNAykWufPc2fJXvoANA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
 	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
 	:mime-version:references:reply-to:sender:subject:subject:to:to
 	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm2; t=1672585260; x=1672671660; bh=X7obdlIu9PYYeP+uZsieZNOt5OQU
-	6gNv6h9CZLugzpQ=; b=hSQokPzcSPcDKmZporw7m5E0UIGhIkehrm/AiA/nRecW
-	oTaPm4r0UO5v8lfTGNmnLcRHmhzvzXl9Uh41y8MxCPSl3LUTI4XILY4SPUBI30z9
-	3qyBV/j438ksvWRxF+IHVKraC7LO/CM1k+SxxmC7MZfHYRMm3s2foaeZqFSw11jk
-	tVemo1wsIflh/bYCJ10aG3CshRnyZSk1R6IzPD6HAb6/mjjGR4NLAYxdWV/Kzfnk
-	679LbJbNkwzWVTVjG1GyjK7VO36NOIITTNMp48BCKPqPyKn4gW1Fm0NA5SsIfMuk
-	7ICNLmMG/rd+9cBev1+4lKf2ZL+l24DBxq4uz4dM6A==
-X-ME-Sender: <xms:LKCxY8WZqMc2eGTAPIOT4YF24c2IkasVNbfuWpMyHsbcyY3yFX4VRQ>
-    <xme:LKCxYwmTglwkrGYKGcwCDa0_t6gojO7koEqeIf5hsfFGRr4C-NK0BCK_zIpUuBhGM
-    fJcDTMD6MEIZg>
-X-ME-Received: <xmr:LKCxYwYJXwVddni7u8DHbOuOx2qrpdJgqWNeOTeE5nMruTFsx4_sq4rdE7nK>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrjedtgdeijecutefuodetggdotefrodftvf
+	fm2; t=1672585861; x=1672672261; bh=0iWt9Z2gLbDLmZ3Gl405zz+RiInR
+	67FHrOISNpK+eQo=; b=EpwVUp3YbqvO8XdwOIEzmq+pCZx/oo7PHCZB66fCSJBE
+	106S2UdR21RO4LhV16Q4xYCMLyq8X5PEoJCS9N/C6rZKSyW3mpGIP79szDkWQAFi
+	jHj1s01lUfKfIalMHi1o2zQU0LQI6VbRjHbrUtcMy6N40j1DKqfE7IzAy8+AhwZG
+	NMBHYvpGY0NyHaDyYDrDILS221SdY3tAp+sw3bEOyBX7ye6naQvQ+DXF7NnXFotx
+	ocsPfBxTdPkcKzP5cCSU/VhvbnBHx/Ctbm9o5QEy9HUnBxawFckgANTrU+IHQgg5
+	aNimGPKLI4Y0xkoxkZ7WPlMY3CgMLM57JiRverxifw==
+X-ME-Sender: <xms:haKxY0Z6jaUgamoyy8wz-dhEpWTViKO97OdpLgoipJkxCZ90s53B8g>
+    <xme:haKxY_YPlk1xGh9T6x35_XfmJo5Z-LZNtQnIhSeWgOyY2OAun1LUzwF-0IVIP_dKi
+    ztozlyLXp9vag>
+X-ME-Received: <xmr:haKxY-8nZN3i8KBXJWaQt9LqUsqiY0Avf8aLuh8YY3FInWvxNEcy91c6ozlr>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrjedtgdejtdcutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
     fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
@@ -80,112 +80,291 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrjedtgdeijecutefuodetggdote
     teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
     htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
     ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:LKCxY7Wn_XWyX3gE5b8sZ4RA-VihSeZM6x7vNcErCLKL181wpoJOMA>
-    <xmx:LKCxY2nKzO6SVRp9WwNcehUFwoGk-kcjU0m_51bcvtFYId6uxIbc-g>
-    <xmx:LKCxYwchv9L1yvysLFR5F2_hpBY9JRfE7MSfn9-QOyKqWb60vynorQ>
-    <xmx:LKCxY7xbFS_xzW0r2fYjLCHfNJMoa2EVnN0IlE-I88mXOVYJuYe3rw>
+X-ME-Proxy: <xmx:haKxY-omvZaoNXPy_P5P4Wk2m6o2KISTD9HFVmwcWjTIYAi6mzcUIA>
+    <xmx:haKxY_qReycYgXhkupw-4BXj1GH9WfT3k42x4CpGiLP0_tapneisPg>
+    <xmx:haKxY8RfIrRNnuODvqkg2Jp_5USI1meikcN33m7FEOSiwZJSd2oluw>
+    <xmx:haKxY20khfJYZ_-y77YRo-2qHWXx0G3cgjPZ8NcrEgAG8wRD7tSeMA>
 Feedback-ID: i1568416f:Fastmail
-Date: Sun, 1 Jan 2023 16:00:50 +0100
+Date: Sun, 1 Jan 2023 16:10:54 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Jan Beulich <JBeulich@suse.com>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] x86/cpuid: Infrastructure for leaves 7:1{ecx,edx}
-Message-ID: <Y7GgJJ5wyds83Uwn@mail-itl>
+Subject: Re: [PATCH 2/2] x86/shskt: Disable CET-SS on parts succeptable to
+ fractured updates
+Message-ID: <Y7GifofUaQ8u8ugr@mail-itl>
 References: <20221231003007.26916-1-andrew.cooper3@citrix.com>
- <20221231003007.26916-2-andrew.cooper3@citrix.com>
+ <20221231003007.26916-3-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="tMAtNi7zpm7M/yTn"
+	protocol="application/pgp-signature"; boundary="+a2V8WRjif75DJuw"
 Content-Disposition: inline
-In-Reply-To: <20221231003007.26916-2-andrew.cooper3@citrix.com>
+In-Reply-To: <20221231003007.26916-3-andrew.cooper3@citrix.com>
 
 
---tMAtNi7zpm7M/yTn
+--+a2V8WRjif75DJuw
 Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 1 Jan 2023 16:00:50 +0100
+Date: Sun, 1 Jan 2023 16:10:54 +0100
 From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 Cc: Xen-devel <xen-devel@lists.xenproject.org>,
 	Jan Beulich <JBeulich@suse.com>,
 	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: Re: [PATCH 1/2] x86/cpuid: Infrastructure for leaves 7:1{ecx,edx}
+Subject: Re: [PATCH 2/2] x86/shskt: Disable CET-SS on parts succeptable to
+ fractured updates
 
-On Sat, Dec 31, 2022 at 12:30:06AM +0000, Andrew Cooper wrote:
-> We don't actually need ecx yet, but adding it in now will reduce the amou=
-nt to
-> which leaf 7 is out of order in a featureset.
+On Sat, Dec 31, 2022 at 12:30:07AM +0000, Andrew Cooper wrote:
+> Refer to Intel SDM Rev 70 (Dec 2022), Vol3 17.2.3 "Supervisor Shadow Stack
+> Token".
 >=20
-> cpufeatureset.h remains in leaf architectrual order for the sanity of any=
-one
-> trying to locate where to insert new rows.
+> Architecturally, an event delivery which starts in CPL>3 and switches sha=
+dow
+> stack will first validate the Supervisor Shstk Token and set the busy bit,
+> then pushes LIP/CS/SSP.  One example of this is an NMI interrupting Xen.
+>=20
+> Some CPUs suffer from an issue called fracturing, whereby a fault/vmexit/=
+etc
+> between setting the busy bit and completing the event injection renders t=
+he
+> action non-restartable, because when it comes time to restart, the busy b=
+it is
+> found to be already set.
+>=20
+> This is far more easily encountered under virt, yet it is not the fault o=
+f the
+> hypervisor, nor the fault of the guest kernel.  The fault lies somewhere
+> between the architectural specification, and the uarch behaviour.
+>=20
+> Intel have allocated CPUID.7[1].ecx[18] CET_SSS to enumerate that supervi=
+sor
+> shadow stacks are safe to use.  Because of how Xen lays out its shadow st=
+acks,
+> fracturing is not expected to be a problem on native.
+>=20
+> Detect this case on boot and default to not using shstk if virtualised.
+> Specifying `cet=3Dshstk` on the command line will override this heurstic =
+and
+> enable shadow stacks irrespective.
 >=20
 > Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 > ---
 > CC: Jan Beulich <JBeulich@suse.com>
 > CC: Roger Pau Monn=C3=A9 <roger.pau@citrix.com>
 > CC: Wei Liu <wl@xen.org>
-> ---
->  tools/misc/xen-cpuid.c                      | 10 ++++++++++
->  xen/arch/x86/cpu/common.c                   |  3 ++-
->  xen/include/public/arch-x86/cpufeatureset.h |  3 +++
->  xen/include/xen/lib/x86/cpuid.h             | 15 ++++++++++++++-
->  4 files changed, 29 insertions(+), 2 deletions(-)
 >=20
+> I've got a query out with AMD, but so far it is only Intel CPUs known to =
+be
+> impacted.
+>=20
+> This ideally wants backporting to Xen 4.14.  I have no idea how likely it=
+ is
+> to need to backport the prerequisite patch for new feature words, but we'=
+ve
+> already had to do that once for security patches...
+> ---
+>  docs/misc/xen-command-line.pandoc           |  7 +++++-
+>  tools/libs/light/libxl_cpuid.c              |  2 ++
+>  tools/misc/xen-cpuid.c                      |  1 +
+>  xen/arch/x86/cpu/common.c                   | 11 +++++++--
+>  xen/arch/x86/setup.c                        | 37 +++++++++++++++++++++++=
++++---
+>  xen/include/public/arch-x86/cpufeatureset.h |  1 +
+>  6 files changed, 53 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-li=
+ne.pandoc
+> index 923910f553c5..19d4d815bdee 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -287,10 +287,15 @@ can be maintained with the pv-shim mechanism.
+>      protection.
+> =20
+>      The option is available when `CONFIG_XEN_SHSTK` is compiled in, and
+> -    defaults to `true` on hardware supporting CET-SS.  Specifying
+> +    generally defaults to `true` on hardware supporting CET-SS.  Specify=
+ing
+>      `cet=3Dno-shstk` will cause Xen not to use Shadow Stacks even when s=
+upport
+>      is available in hardware.
+> =20
+> +    Some hardware suffers from an issue known as Supervisor Shadow Stack
+> +    Fracturing.  On such hardware, Xen will default to not using Shadow =
+Stacks
+> +    when virtualised.  Specifying `cet=3Dshstk` will override this heuri=
+stic and
+> +    enable Shadow Stacks unilaterally.
+> +
+>  *   The `ibt=3D` boolean controls whether Xen uses Indirect Branch Track=
+ing for
+>      its own protection.
+> =20
+> diff --git a/tools/libs/light/libxl_cpuid.c b/tools/libs/light/libxl_cpui=
+d.c
+> index 2aa23225f42c..d97a2f3338bc 100644
+> --- a/tools/libs/light/libxl_cpuid.c
+> +++ b/tools/libs/light/libxl_cpuid.c
+> @@ -235,6 +235,8 @@ int libxl_cpuid_parse_config(libxl_cpuid_policy_list =
+*cpuid, const char* str)
+>          {"fsrs",         0x00000007,  1, CPUID_REG_EAX, 11,  1},
+>          {"fsrcs",        0x00000007,  1, CPUID_REG_EAX, 12,  1},
+> =20
+> +        {"cet-sss",      0x00000007,  1, CPUID_REG_EDX, 18,  1},
+> +
+>          {"intel-psfd",   0x00000007,  2, CPUID_REG_EDX,  0,  1},
+>          {"mcdt-no",      0x00000007,  2, CPUID_REG_EDX,  5,  1},
+> =20
 > diff --git a/tools/misc/xen-cpuid.c b/tools/misc/xen-cpuid.c
-> index d5833e9ce879..0091a11a67bc 100644
+> index 0091a11a67bc..ea33b587665d 100644
 > --- a/tools/misc/xen-cpuid.c
 > +++ b/tools/misc/xen-cpuid.c
-> @@ -202,6 +202,14 @@ static const char *const str_7b1[32] =3D
->      [ 0] =3D "ppin",
+> @@ -208,6 +208,7 @@ static const char *const str_7c1[32] =3D
+> =20
+>  static const char *const str_7d1[32] =3D
+>  {
+> +    [18] =3D "cet-sss",
 >  };
 > =20
-> +static const char *const str_7c1[32] =3D
-> +{
-> +};
-> +
-> +static const char *const str_7d1[32] =3D
-> +{
-> +};
-> +
 >  static const char *const str_7d2[32] =3D
->  {
->      [ 0] =3D "intel-psfd",
-> @@ -229,6 +237,8 @@ static const struct {
->      { "0x80000021.eax",  "e21a", str_e21a },
->      { "0x00000007:1.ebx", "7b1", str_7b1 },
->      { "0x00000007:2.edx", "7d2", str_7d2 },
-> +    { "0x00000007:1.ecx", "7b1", str_7c1 },
-> +    { "0x00000007:1.edx", "7b1", str_7d1 },
+> diff --git a/xen/arch/x86/cpu/common.c b/xen/arch/x86/cpu/common.c
+> index b3fcf4680f3a..d962f384a995 100644
+> --- a/xen/arch/x86/cpu/common.c
+> +++ b/xen/arch/x86/cpu/common.c
+> @@ -346,11 +346,18 @@ void __init early_cpu_init(void)
+>  	       x86_cpuid_vendor_to_str(c->x86_vendor), c->x86, c->x86,
+>  	       c->x86_model, c->x86_model, c->x86_mask, eax);
+> =20
+> -	if (c->cpuid_level >=3D 7)
+> -		cpuid_count(7, 0, &eax, &ebx,
+> +	if (c->cpuid_level >=3D 7) {
+> +		uint32_t max_subleaf;
+> +
+> +		cpuid_count(7, 0, &max_subleaf, &ebx,
+>  			    &c->x86_capability[FEATURESET_7c0],
+>  			    &c->x86_capability[FEATURESET_7d0]);
+> =20
+> +                if (max_subleaf >=3D 1)
 
-"7c1" and "7d1" ?
+tabs vs spaces ...
 
+Is this file imported from Linux? It uses tabs for indentation, contrary
+to the rest of the Xen code base.
 
+> +			cpuid_count(7, 1, &eax, &ebx, &ecx,
+> +				    &c->x86_capability[FEATURESET_7d1]);
+> +        }
+> +
+>  	eax =3D cpuid_eax(0x80000000);
+>  	if ((eax >> 16) =3D=3D 0x8000 && eax >=3D 0x80000008) {
+>  		ebx =3D eax >=3D 0x8000001f ? cpuid_ebx(0x8000001f) : 0;
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 566422600d94..e052b7b748fa 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -96,7 +96,7 @@ size_param("highmem-start", highmem_start);
+>  #endif
+> =20
+>  #ifdef CONFIG_XEN_SHSTK
+> -static bool __initdata opt_xen_shstk =3D true;
+> +static int8_t __initdata opt_xen_shstk =3D -1;
+>  #else
+>  #define opt_xen_shstk false
+>  #endif
+> @@ -1101,9 +1101,40 @@ void __init noreturn __start_xen(unsigned long mbi=
+_p)
+>      /* Choose shadow stack early, to set infrastructure up appropriately=
+=2E */
+>      if ( opt_xen_shstk && boot_cpu_has(X86_FEATURE_CET_SS) )
+>      {
+> -        printk("Enabling Supervisor Shadow Stacks\n");
+> +        /*
+> +         * Some CPUs suffer from Shadow Stack Fracturing, an issue where=
+by a
+> +         * fault/VMExit/etc between setting a Supervisor Busy bit and the
+> +         * event delivery completing renders the operation non-restartab=
+le.
+> +         * On restart, event delivery will find the Busy bit already set.
+> +         *
+> +         * This is a problem on native, but outside of synthetic cases, =
+only
+> +         * with #MC against a stack access (in which case we're dead any=
+way).
+> +         * It is a much bigger problem under virt, because we can VMExit=
+ for a
+> +         * number of legitimate reasons and tickle this bug.
+> +         *
+> +         * CPUs with this addressed enumerate CET-SSS to indicate that
+> +         * supervisor shadow stacks are now safe to use.
+> +         */
+> +        bool cpu_has_bug_shstk_fracture =3D
+> +            boot_cpu_data.x86_vendor =3D=3D X86_VENDOR_INTEL &&
+> +            !boot_cpu_has(X86_FEATURE_CET_SSS);
+> +
+> +        /*
+> +         * On native, assume that Xen won't be impacted by shstk fractur=
+ing
+> +         * problems.  Under virt, be more conservative and disable shstk=
+ by
+> +         * default.
+> +         */
+> +        if ( opt_xen_shstk =3D=3D -1 )
+> +            opt_xen_shstk =3D
+> +                cpu_has_hypervisor ? !cpu_has_bug_shstk_fracture
+> +                                   : true;
+> +
+> +        if ( opt_xen_shstk )
+> +        {
+> +            printk("Enabling Supervisor Shadow Stacks\n");
+> =20
+> -        setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
+> +            setup_force_cpu_cap(X86_FEATURE_XEN_SHSTK);
+> +        }
+>      }
+> =20
+>      if ( opt_xen_ibt && boot_cpu_has(X86_FEATURE_CET_IBT) )
+> diff --git a/xen/include/public/arch-x86/cpufeatureset.h b/xen/include/pu=
+blic/arch-x86/cpufeatureset.h
+> index 7a896f0e2d92..f6a46f62a549 100644
+> --- a/xen/include/public/arch-x86/cpufeatureset.h
+> +++ b/xen/include/public/arch-x86/cpufeatureset.h
+> @@ -290,6 +290,7 @@ XEN_CPUFEATURE(INTEL_PPIN,         12*32+ 0) /*   Pro=
+tected Processor Inventory
+> =20
+>  /* Intel-defined CPU features, CPUID level 0x00000007:1.ecx, word 14 */
+>  /* Intel-defined CPU features, CPUID level 0x00000007:1.edx, word 15 */
+> +XEN_CPUFEATURE(CET_SSS,            15*32+18) /*   CET Supervisor Shadow =
+Stacks safe to use */
+> =20
+>  /* Intel-defined CPU features, CPUID level 0x00000007:2.edx, word 13 */
+>  XEN_CPUFEATURE(INTEL_PSFD,         13*32+ 0) /*A  MSR_SPEC_CTRL.PSFD */
+> --=20
+> 2.11.0
+>=20
+>=20
 
 --=20
 Best Regards,
 Marek Marczykowski-G=C3=B3recki
 Invisible Things Lab
 
---tMAtNi7zpm7M/yTn
+--+a2V8WRjif75DJuw
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOxoCQACgkQ24/THMrX
-1ywWTggAlO6Y2XPzgM/eZh8mSyzx8sApwoYd3Qa8kz/xV1Kj3HSX4kI6tL7z+RMH
-yXC6bideqATvzFRzTWWzgQ+3nwiSi/EFe0H3W4EeKy1En2SBjpVNeZDjeLk+uPj4
-1cbbv61BDcBd196DLrMG71L0UTJYe+RnJPOwGPtp/gSgzy2/zqAHfsj7707qOJOe
-QnqxuZeP7D42+cHJ6ot8e31x7ScCL4V0Aa0LOR7svmBPHm1bPNjpjgguELfdGYQC
-UjmJgrAUHIL+00S4r488PeL22YuLnX3PkW8YqNjtB1awLyiOuKtSZxO9sDr5rGPy
-onuMim5IYhj9HkxrTWhak1vI0xxvyg==
-=W6fD
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmOxon4ACgkQ24/THMrX
+1yzQ8Af/eDRIjmUkuoE9Oc63KDRB5WB+pCi8hFiwWELOfAkGpWiUVjqVtTCwIoba
+lZaKVgTb1tNX5FSk7BOEzngH09zATAEk4b61ZVldAq/3LLuiW2YGMAZDRDf5al7l
+pkMxoy+Tk9Ze+bEhawl2dC0FXzWgTXkVEUWd12AtFtImLcF8Gx4UILI8/USzi5Om
+V1UPMppQlI4+d9MvPw47jwnLniWqxb0235ZRQPUqZkGM10HJCtwzN1H2tXD3TgzP
+ANxNDptb+oEHqP4HDi5OyDanjm+ht4ARJVwq5nBJ4Rua/zYg/PK+GgxBEyFRMACe
+Q8m577inn76kaVNmQbPx7mgkWLCGTw==
+=zDH5
 -----END PGP SIGNATURE-----
 
---tMAtNi7zpm7M/yTn--
+--+a2V8WRjif75DJuw--
 
