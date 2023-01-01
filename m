@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5547365AC84
-	for <lists+xen-devel@lfdr.de>; Mon,  2 Jan 2023 00:45:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470173.729617 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C92265AC88
+	for <lists+xen-devel@lfdr.de>; Mon,  2 Jan 2023 00:52:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470181.729628 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pC80E-0004NT-OX; Sun, 01 Jan 2023 23:44:30 +0000
+	id 1pC87u-00051l-IA; Sun, 01 Jan 2023 23:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470173.729617; Sun, 01 Jan 2023 23:44:30 +0000
+Received: by outflank-mailman (output) from mailman id 470181.729628; Sun, 01 Jan 2023 23:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pC80E-0004LF-Lq; Sun, 01 Jan 2023 23:44:30 +0000
-Received: by outflank-mailman (input) for mailman id 470173;
- Sun, 01 Jan 2023 23:44:29 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pC87u-0004zH-FG; Sun, 01 Jan 2023 23:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 470181;
+ Sun, 01 Jan 2023 23:52:24 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pC80D-0004L0-8t; Sun, 01 Jan 2023 23:44:29 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pC80D-0005rA-42; Sun, 01 Jan 2023 23:44:29 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pC80C-0008J0-OU; Sun, 01 Jan 2023 23:44:28 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pC80C-00069A-O0; Sun, 01 Jan 2023 23:44:28 +0000
+ (envelope-from <SRS0=Fqzy=46=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pC87s-0004zB-9r
+ for xen-devel@lists.xenproject.org; Sun, 01 Jan 2023 23:52:24 +0000
+Received: from sonic309-21.consmr.mail.gq1.yahoo.com
+ (sonic309-21.consmr.mail.gq1.yahoo.com [98.137.65.147])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 539a5eb8-8a2f-11ed-8fd4-01056ac49cbb;
+ Mon, 02 Jan 2023 00:52:20 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic309.consmr.mail.gq1.yahoo.com with HTTP; Sun, 1 Jan 2023 23:52:18 +0000
+Received: by hermes--production-bf1-5458f64d4-46wzk (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 0bf49e87fc25c8372e7b6d686a48fa29; 
+ Sun, 01 Jan 2023 23:52:15 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,362 +42,331 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mmBCoMmO4KdCmFKGY6qOl7bSwXyhWULMUV1Ly7Vhv64=; b=uh68dHggqlTd5rzzXEKraHlvBC
-	Uo/ki57Uup4j6sN54l9FGAuNeDNLqg9IaJUlhSPGbWn+VaLWMiEbWb/BVmGT182kBvnrh+T5zOzVi
-	F+vLHfzO9rmgEGerNHStCFWJ6hMvcG4xF1LIomJ6WBVv/HBzNH84lBdmzY1zEqkLqcwk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175545-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 539a5eb8-8a2f-11ed-8fd4-01056ac49cbb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1672617138; bh=skwhbHUkGjznop/QWhj7GG069Cfw1vyGWz5DAdkodwY=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=IEJMj5MNCJUJhzkSMnO2XnVNisG1L6mJlpp0C5gDVnxeviRF0kqvnRwxfJmLj+hC0QFBlbTcbeKhkqEkIp226t/XKrDoSsN3wDu5VrIXb2cUvH5a2Vcwyj8SgX05o06G9WgTnCGWI0B3TzLuSxxZwk5tlLxj2MD8skG8zP1PDa8RCqZpkemmac+B+Wu9oRwhBsYgBuhau0Vw0ts8RUB30xaVWBpukpOAHkMH7iXfYHs9kjWtitKFueQ/8ky0r1vX3pPMPTpu/lVuNMi4J9tT9ePilvZ0qBWVgrn6omTTOXDvowMCx2KPRenG/K1y8Lf/G56IZ06fgbJ16W2s9SgJgw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1672617138; bh=Gm5Qal8G0/XjlI2GzUDH3lY8DeAqXwfGdjCP6FAlAGr=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=MLkLtG3fDe+9QkP7XrKUzDF3W5oo2DKdXEroHJibxjdodo3SkQwi9xe91r3zpalxKtTnTLCsR+r65qUkbkr98KJ8X7z/Ihs3hS4QMmqQgG+QAn6LIQPfJLm0CztXzNlBqnbbyr5A0IPaLjuN/vgxzM5ZZc5oV1ESWBf9bQB3I5j2AcAy7HKX/2yeBZjTE8xJtQNuWk4Moc5uleMlu0icTC6mTuG4L1bQxquvoitgpY3kZb06+ebAmMIInFu6wCY0qK0FU/+NatbUhzO52O5uIdDmHSdc6GhJx+a3Q9arQjH7zgdrMFhrrbg0RHcToW7bso8tZlF6vSAM41le0Ju2tw==
+X-YMail-OSG: XFe56mIVM1mvJtN9hySqOXDspxB_hs1PSyXIqthm1uK3iEFtNgI8dO.eX7Sh1E.
+ BJ1_4tOtjK7lE71x5m91dWrNder9ITw6LQQNWL1ZRh04Rkz6C9T5ZqdVzBRxGBUO8c9Bq5OBVHaG
+ v1nSCCYiBvXZen7Tv4KLZnEkZQfTBQ56Sk6eauPerh5Qh3wFR8eIJy4VHTPQjKljBFJ1S3.HIvC0
+ b6s4BfbDPWb5lQOLQ0veeAFWE6MCM9Jd8OTyofW4JOrT4E8yOAOoqwNfGm2sq_29hUFkBE9DYiuy
+ lepBR2MhcdMxJnXb4lJT6.GksxAcUKXabYXr8bzIGIIon6iWsmO9iKcB4pYR_9D_O1Gvkj4ZJRcy
+ cDxMQpvv657LI3SbOKsg3JkWEqkEjqxZvUDH8ZiGK0dXagy4DMkS3vdjlilpNp_nLUiolcyuTKjR
+ Y.MixgwpfhXp_AAumgfU_Wt5_LdAQuY6dz1jmDqz7XFt4y1XAhI39LsesNVCeVjhDT7hAAso5DrZ
+ jThaK6f8.d9wUCLgv91C37kWGpliHOrOhgEDf7NQoC8hpdmTMWxuuQ4YkDTVbHDojewOHVZ6Tidt
+ nUuANYHH1_OODqyUi5XlPs3BWwgt9f50ROmoarNuiVMUTqPhPeBL21V4bNFbNh2Br_bMNezBPGfo
+ iJ.mb7harPCtknUJmAZVDADeOVLSmEhJ7P_cjMha5vUTRID7Z9eNaTY6WYDVG_8mLAC7EM31Betd
+ KBTnqzCuvyBBviOTMg0Ieq3Na_mST1fyuSMFsWOufN2D38tWNjPB8EUZ4Je8JsFfwZ8gMHIcKNFv
+ kJwQFHUd80S7N5SIN3HQ739GVfL1PcYJhkH23wWlQiS6zYglydDMBMNzXkA4aY7KB0oz2mMZok9x
+ xiEnT66vM84_PW8FEFb9mG5eE.ZIYZXSDjG8lktttqJU_cZGuCGracGLXxPAfd6rwvkEh9fQMTDU
+ Q0T2XlpvVv749C1piJ2RvV1uoLbXh5rWDdM8xln.BSf_hl88FPrx8Ro5WYTfU5MNVcT5vJ33dkh3
+ ARL1pbX12SKD5bCvTfpUqTEEpBP2XF0w34jJ.9__K.7LYyVUv66eh3n3Tqtr3xemxj0CB4bGYNJe
+ LpPmOAvJ3HESwAQxkmjlI0F2VtJIH3vl8vWAhpLvKFJvHUzp9jciS7SZ6HdaMejHVhyEVseJ_A8B
+ ppi9ZzQ5dEgSHrpzptAWizANlnRW8sFB_lNZfKtYIDoWGtqA0d0YFCFtmhQlYmLtdvj1VoWoROeX
+ 2EWeSOGJMCW8HssHVG10qjOo6aVTmbdk6pfrjMJAzDPxDMwyhIev5OwnUpqlttBLrPi5oeDQ_HTA
+ xARzA5.jBSaMan00X944tSUVHqLS_h_Qi0SnVfpTEAfnXTWH6.gRT2DUJVSXWNEo_MRnipuHUzIi
+ PFze2H6K7kSxQIhFbynzFyZqFFHPbl5lWk3Dw703uq9c5z1kMBEAJuPFNDCFw.JiEjBQSdN0pwxH
+ OQNJLL85254cqjFaWLNEzFkbCy1UGOXCsVX3fancVFLTjtR5yjetxo6kEaECVnec4TVSR80ZUMHG
+ JY_t3GYE45lNfss1WXhoGd2etO9YphpQH01cWD4_XyNvFDu0hsyLtSGt._P1XizvV29ldZggSh5d
+ O7hR4CUw3k4mUbXjf8_yEu8ijJfc1cp7UZZNO.3ya4msXawCH3DBAKxlHTkJh.WLSginWznIhOcI
+ UAOnPePzjkVSUjsydCp3iKI51t54.BnU16MbcaR6dPlwIF4KJ91nOD8H4oKqDBDNX5fq8.rDWfzR
+ 2Wxq7NqKa8Mg5i32Kpy_ICSx0qC0w0WJkkQDx59YmEiF7Zv0KsSjCJCUTn55VDmvV2Bk7dhhwuLE
+ _AB6CseM_XTMQc65VW213Z8kD_6FD7ehL_00xRmHyWG6ejN.AqbKiucoRuprKE4fqbcGk0EWskfQ
+ DYa8EqRUdEu1r9aXvjauffxqzHIp.OH9VzYQeFP8Ub7I_qKK_69Z74XKm_8HYjacNW8l8aSSKXaG
+ P9TyD90AxMZkzfkRRbhyS7uyxQXuj_44oeTnkt7feAv_CopWlh8TzDqe05DUl4dD5G2An16DHqE0
+ M_tVkAgDQ4MdWGLGjsbRNWCGUI46gXip2VrPMSirQpEU9Ggrkk8k2OZQGSCGd7b4342UFBG3R.xk
+ DnEkFEFc1s3sfbz1tc20FUwoa6AMmpMV3REHRpT6towzQjbYC_E8w0KE4fEcz.W2cTrtHROSK.db
+ VoKP19swTfj0-
+X-Sonic-MF: <brchuckz@aim.com>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+To: qemu-devel@nongnu.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Richard Henderson <richard.henderson@linaro.org>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	xen-devel@lists.xenproject.org
+Subject: [PATCH v6] xen/pt: reserve PCI slot 2 for Intel igd-passthru
+Date: Sun,  1 Jan 2023 18:52:03 -0500
+Message-Id: <830263507e8f1a24a94f81909d5102c4b204e938.1672615492.git.brchuckz@aol.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Subject: [linux-5.4 test] 175545: FAIL
-X-Osstest-Failures:
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:<job status>:broken:regression
-    linux-5.4:test-amd64-amd64-xl-credit2:<job status>:broken:regression
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-i386-qemuu-rhel6hvm-intel:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-credit2:host-install(5):broken:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemut-debianhvm-amd64:host-install(5):broken:heisenbug
-    linux-5.4:test-armhf-armhf-xl-multivcpu:guest-start:fail:heisenbug
-    linux-5.4:test-amd64-i386-pair:xen-install/dst_host:fail:heisenbug
-    linux-5.4:test-armhf-armhf-xl-credit1:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    linux-5.4:test-amd64-amd64-libvirt-vhd:guest-start/debian.repeat:fail:heisenbug
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:debian-hvm-install:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start.2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:guest-start/debian.repeat:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-5.4:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-seattle:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-arndale:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit1:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-multivcpu:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-credit2:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-rtds:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-vhd:saverestore-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-5.4:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=851c2b5fb7936d54e1147f76f88e2675f9f82b52
-X-Osstest-Versions-That:
-    linux=66bb2e2b24ce52819a7070d3a3255726cb946b69
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 01 Jan 2023 23:44:28 +0000
+Content-Transfer-Encoding: 8bit
+References: <830263507e8f1a24a94f81909d5102c4b204e938.1672615492.git.brchuckz.ref@aol.com>
 
-flight 175545 linux-5.4 real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175545/
+Intel specifies that the Intel IGD must occupy slot 2 on the PCI bus,
+as noted in docs/igd-assign.txt in the Qemu source code.
 
-Failures and problems with tests :-(
+Currently, when the xl toolstack is used to configure a Xen HVM guest with
+Intel IGD passthrough to the guest with the Qemu upstream device model,
+a Qemu emulated PCI device will occupy slot 2 and the Intel IGD will occupy
+a different slot. This problem often prevents the guest from booting.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-xl-qemut-debianhvm-amd64    <job status>     broken in 175407
- test-amd64-i386-xl-qemuu-ws16-amd64    <job status>           broken in 175407
- test-amd64-i386-qemuu-rhel6hvm-intel    <job status>          broken in 175407
- test-amd64-amd64-xl-credit2     <job status>                 broken  in 175407
+The only available workaround is not good: Configure Xen HVM guests to use
+the old and no longer maintained Qemu traditional device model available
+from xenbits.xen.org which does reserve slot 2 for the Intel IGD.
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-qemuu-ws16-amd64 5 host-install(5) broken in 175407 pass in 175545
- test-amd64-i386-qemuu-rhel6hvm-intel 5 host-install(5) broken in 175407 pass in 175545
- test-amd64-amd64-xl-credit2  5 host-install(5) broken in 175407 pass in 175545
- test-amd64-amd64-xl-qemut-debianhvm-amd64 5 host-install(5) broken in 175407 pass in 175545
- test-armhf-armhf-xl-multivcpu 14 guest-start     fail in 175407 pass in 175545
- test-amd64-i386-pair     11 xen-install/dst_host fail in 175543 pass in 175545
- test-armhf-armhf-xl-credit1  18 guest-start/debian.repeat  fail pass in 175407
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 175543
- test-amd64-amd64-libvirt-vhd 19 guest-start/debian.repeat  fail pass in 175543
+To implement this feature in the Qemu upstream device model for Xen HVM
+guests, introduce the following new functions, types, and macros:
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check fail blocked in 175197
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm 12 debian-hvm-install fail in 175407 like 175197
- test-armhf-armhf-xl-rtds     19 guest-start.2 fail in 175543 blocked in 175197
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175197
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175197
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175197
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175197
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175197
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175197
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175197
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175197
- test-armhf-armhf-xl-credit2  18 guest-start/debian.repeat    fail  like 175197
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175197
- test-armhf-armhf-xl-rtds     18 guest-start/debian.repeat    fail  like 175197
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175197
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175197
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-arm64-arm64-xl-seattle  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-seattle  16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-arndale  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-arndale  16 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-multivcpu 15 migrate-support-check        fail  never pass
- test-armhf-armhf-xl-multivcpu 16 saverestore-support-check    fail  never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-credit2  15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-credit2  16 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-xl-rtds     15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-rtds     16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-vhd      14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-vhd      15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+* XEN_PT_DEVICE_CLASS declaration, based on the existing TYPE_XEN_PT_DEVICE
+* XEN_PT_DEVICE_GET_CLASS macro helper function for XEN_PT_DEVICE_CLASS
+* typedef XenPTQdevRealize function pointer
+* XEN_PCI_IGD_SLOT_MASK, the value of slot_reserved_mask to reserve slot 2
+* xen_igd_reserve_slot and xen_igd_clear_slot functions
 
-version targeted for testing:
- linux                851c2b5fb7936d54e1147f76f88e2675f9f82b52
-baseline version:
- linux                66bb2e2b24ce52819a7070d3a3255726cb946b69
+The new xen_igd_reserve_slot function uses the existing slot_reserved_mask
+member of PCIBus to reserve PCI slot 2 for Xen HVM guests configured using
+the xl toolstack with the gfx_passthru option enabled, which sets the
+igd-passthru=on option to Qemu for the Xen HVM machine type.
 
-Last test of basis   175197  2022-12-14 10:43:17 Z   18 days
-Testing same since   175407  2022-12-19 11:42:26 Z   13 days   32 attempts
+The new xen_igd_reserve_slot function also needs to be implemented in
+hw/xen/xen_pt_stub.c to prevent FTBFS during the link stage for the case
+when Qemu is configured with --enable-xen and --disable-xen-pci-passthrough,
+in which case it does nothing.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Alexei Starovoitov <ast@kernel.org>
-  Andrew Morton <akpm@linux-foundation.org>
-  Baolin Wang <baolin.wang@linux.alibaba.com>
-  Charles Keepax <ckeepax@opensource.cirrus.com>
-  Florian Fainelli <f.fainelli@gmail.com>
-  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-  Guenter Roeck <linux@roeck-us.net>
-  Heiko Schocher <hs@denx.de>
-  Hulk Robot <hulkrobot@huawei.com>
-  Jakub Kicinski <kuba@kernel.org>
-  Jialiang Wang <wangjialiang0806@163.com>
-  Jon Hunter <jonathanh@nvidia.com>
-  Linus Walleij <linus.walleij@linaro.org>
-  Linux Kernel Functional Testing <lkft@linaro.org>
-  Lorenzo Colitti <lorenzo@google.com>
-  Maciej Żenczykowski <maze@google.com>
-  Marc Kleine-Budde <mkl@pengutronix.de>
-  Mark Brown <broonie@kernel.org>
-  Ming Lei <ming.lei@redhat.com>
-  Paul E. McKenney <paulmck@kernel.org>
-  Ricardo Ribalda <ribalda@chromium.org>
-  Samuel Mendoza-Jonas <samjonas@amazon.com>
-  Sasha Levin <sashal@kernel.org>
-  Shiwei Cui <cuishw@inspur.com>
-  Shuah Khan <skhan@linuxfoundation.org>
-  Simon Horman <simon.horman@corigine.com>
-  Sudip Mukherjee <sudip.mukherjee@codethink.co.uk>
-  Yasushi SHOJI <yashi@spacecubics.com>
-  Yasushi SHOJI <yasushi.shoji@gmail.com>
+The new xen_igd_clear_slot function overrides qdev->realize of the parent
+PCI device class to enable the Intel IGD to occupy slot 2 on the PCI bus
+since slot 2 was reserved by xen_igd_reserve_slot when the PCI bus was
+created in hw/i386/pc_piix.c for the case when igd-passthru=on.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  pass    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     pass    
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                pass    
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 fail    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      pass    
- test-amd64-i386-xl-vhd                                       pass    
+Move the call to xen_host_pci_device_get, and the associated error
+handling, from xen_pt_realize to the new xen_igd_clear_slot function to
+initialize the device class and vendor values which enables the checks for
+the Intel IGD to succeed. The verification that the host device is an
+Intel IGD to be passed through is done by checking the domain, bus, slot,
+and function values as well as by checking that gfx_passthru is enabled,
+the device class is VGA, and the device vendor in Intel.
 
+Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+---
+Notes that might be helpful to reviewers of patched code in hw/xen:
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+The new functions and types are based on recommendations from Qemu docs:
+https://qemu.readthedocs.io/en/latest/devel/qom.html
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Notes that might be helpful to reviewers of patched code in hw/i386:
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+The small patch to hw/i386/pc_piix.c is protected by CONFIG_XEN so it does
+not affect builds that do not have CONFIG_XEN defined.
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+xen_igd_gfx_pt_enabled() in the patched hw/i386/pc_piix.c file is an
+existing function that is only true when Qemu is built with
+xen-pci-passthrough enabled and the administrator has configured the Xen
+HVM guest with Qemu's igd-passthru=on option.
 
-broken-job test-amd64-amd64-xl-qemut-debianhvm-amd64 broken
-broken-job test-amd64-i386-xl-qemuu-ws16-amd64 broken
-broken-job test-amd64-i386-qemuu-rhel6hvm-intel broken
-broken-job test-amd64-amd64-xl-credit2 broken
+v2: Remove From: <email address> tag at top of commit message
 
-Not pushing.
+v3: Changed the test for the Intel IGD in xen_igd_clear_slot:
 
-(No revision log; it would be 410 lines long.)
+    if (is_igd_vga_passthrough(&s->real_device) &&
+        (s->real_device.vendor_id == PCI_VENDOR_ID_INTEL)) {
+
+    is changed to
+
+    if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
+        && (s->hostaddr.function == 0)) {
+
+    I hoped that I could use the test in v2, since it matches the
+    other tests for the Intel IGD in Qemu and Xen, but those tests
+    do not work because the necessary data structures are not set with
+    their values yet. So instead use the test that the administrator
+    has enabled gfx_passthru and the device address on the host is
+    02.0. This test does detect the Intel IGD correctly.
+
+v4: Use brchuckz@aol.com instead of brchuckz@netscape.net for the author's
+    email address to match the address used by the same author in commits
+    be9c61da and c0e86b76
+    
+    Change variable for XEN_PT_DEVICE_CLASS: xptc changed to xpdc
+
+v5: The patch of xen_pt.c was re-worked to allow a more consistent test
+    for the Intel IGD that uses the same criteria as in other places.
+    This involved moving the call to xen_host_pci_device_get from
+    xen_pt_realize to xen_igd_clear_slot and updating the checks for the
+    Intel IGD in xen_igd_clear_slot:
+    
+    if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
+        && (s->hostaddr.function == 0)) {
+
+    is changed to
+
+    if (is_igd_vga_passthrough(&s->real_device) &&
+        s->real_device.domain == 0 && s->real_device.bus == 0 &&
+        s->real_device.dev == 2 && s->real_device.func == 0 &&
+        s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
+
+    Added an explanation for the move of xen_host_pci_device_get from
+    xen_pt_realize to xen_igd_clear_slot to the commit message.
+
+    Rebase.
+
+v6: Fix logging by removing these lines from the move from xen_pt_realize
+    to xen_igd_clear_slot that was done in v5:
+
+    XEN_PT_LOG(d, "Assigning real physical device %02x:%02x.%d"
+               " to devfn 0x%x\n",
+               s->hostaddr.bus, s->hostaddr.slot, s->hostaddr.function,
+               s->dev.devfn);
+
+    This log needs to be in xen_pt_realize because s->dev.devfn is not
+    set yet in xen_igd_clear_slot.
+
+    Sorry for the extra noise.
+
+ hw/i386/pc_piix.c    |  3 +++
+ hw/xen/xen_pt.c      | 46 +++++++++++++++++++++++++++++++++++---------
+ hw/xen/xen_pt.h      | 16 +++++++++++++++
+ hw/xen/xen_pt_stub.c |  4 ++++
+ 4 files changed, 60 insertions(+), 9 deletions(-)
+
+diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+index b48047f50c..bc5efa4f59 100644
+--- a/hw/i386/pc_piix.c
++++ b/hw/i386/pc_piix.c
+@@ -405,6 +405,9 @@ static void pc_xen_hvm_init(MachineState *machine)
+     }
+ 
+     pc_xen_hvm_init_pci(machine);
++    if (xen_igd_gfx_pt_enabled()) {
++        xen_igd_reserve_slot(pcms->bus);
++    }
+     pci_create_simple(pcms->bus, -1, "xen-platform");
+ }
+ #endif
+diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
+index 0ec7e52183..7fae1e7a6f 100644
+--- a/hw/xen/xen_pt.c
++++ b/hw/xen/xen_pt.c
+@@ -780,15 +780,6 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
+                s->hostaddr.bus, s->hostaddr.slot, s->hostaddr.function,
+                s->dev.devfn);
+ 
+-    xen_host_pci_device_get(&s->real_device,
+-                            s->hostaddr.domain, s->hostaddr.bus,
+-                            s->hostaddr.slot, s->hostaddr.function,
+-                            errp);
+-    if (*errp) {
+-        error_append_hint(errp, "Failed to \"open\" the real pci device");
+-        return;
+-    }
+-
+     s->is_virtfn = s->real_device.is_virtfn;
+     if (s->is_virtfn) {
+         XEN_PT_LOG(d, "%04x:%02x:%02x.%d is a SR-IOV Virtual Function\n",
+@@ -950,11 +941,47 @@ static void xen_pci_passthrough_instance_init(Object *obj)
+     PCI_DEVICE(obj)->cap_present |= QEMU_PCI_CAP_EXPRESS;
+ }
+ 
++void xen_igd_reserve_slot(PCIBus *pci_bus)
++{
++    XEN_PT_LOG(0, "Reserving PCI slot 2 for IGD\n");
++    pci_bus->slot_reserved_mask |= XEN_PCI_IGD_SLOT_MASK;
++}
++
++static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
++{
++    ERRP_GUARD();
++    PCIDevice *pci_dev = (PCIDevice *)qdev;
++    XenPCIPassthroughState *s = XEN_PT_DEVICE(pci_dev);
++    XenPTDeviceClass *xpdc = XEN_PT_DEVICE_GET_CLASS(s);
++    PCIBus *pci_bus = pci_get_bus(pci_dev);
++
++    xen_host_pci_device_get(&s->real_device,
++                            s->hostaddr.domain, s->hostaddr.bus,
++                            s->hostaddr.slot, s->hostaddr.function,
++                            errp);
++    if (*errp) {
++        error_append_hint(errp, "Failed to \"open\" the real pci device");
++        return;
++    }
++
++    if (is_igd_vga_passthrough(&s->real_device) &&
++        s->real_device.domain == 0 && s->real_device.bus == 0 &&
++        s->real_device.dev == 2 && s->real_device.func == 0 &&
++        s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
++        pci_bus->slot_reserved_mask &= ~XEN_PCI_IGD_SLOT_MASK;
++        XEN_PT_LOG(pci_dev, "Intel IGD found, using slot 2\n");
++    }
++    xpdc->pci_qdev_realize(qdev, errp);
++}
++
+ static void xen_pci_passthrough_class_init(ObjectClass *klass, void *data)
+ {
+     DeviceClass *dc = DEVICE_CLASS(klass);
+     PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
+ 
++    XenPTDeviceClass *xpdc = XEN_PT_DEVICE_CLASS(klass);
++    xpdc->pci_qdev_realize = dc->realize;
++    dc->realize = xen_igd_clear_slot;
+     k->realize = xen_pt_realize;
+     k->exit = xen_pt_unregister_device;
+     k->config_read = xen_pt_pci_read_config;
+@@ -977,6 +1004,7 @@ static const TypeInfo xen_pci_passthrough_info = {
+     .instance_size = sizeof(XenPCIPassthroughState),
+     .instance_finalize = xen_pci_passthrough_finalize,
+     .class_init = xen_pci_passthrough_class_init,
++    .class_size = sizeof(XenPTDeviceClass),
+     .instance_init = xen_pci_passthrough_instance_init,
+     .interfaces = (InterfaceInfo[]) {
+         { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
+index e7c4316a7d..40b31b5263 100644
+--- a/hw/xen/xen_pt.h
++++ b/hw/xen/xen_pt.h
+@@ -3,6 +3,7 @@
+ 
+ #include "hw/xen/xen_common.h"
+ #include "hw/pci/pci.h"
++#include "hw/pci/pci_bus.h"
+ #include "xen-host-pci-device.h"
+ #include "qom/object.h"
+ 
+@@ -41,7 +42,20 @@ typedef struct XenPTReg XenPTReg;
+ #define TYPE_XEN_PT_DEVICE "xen-pci-passthrough"
+ OBJECT_DECLARE_SIMPLE_TYPE(XenPCIPassthroughState, XEN_PT_DEVICE)
+ 
++#define XEN_PT_DEVICE_CLASS(klass) \
++    OBJECT_CLASS_CHECK(XenPTDeviceClass, klass, TYPE_XEN_PT_DEVICE)
++#define XEN_PT_DEVICE_GET_CLASS(obj) \
++    OBJECT_GET_CLASS(XenPTDeviceClass, obj, TYPE_XEN_PT_DEVICE)
++
++typedef void (*XenPTQdevRealize)(DeviceState *qdev, Error **errp);
++
++typedef struct XenPTDeviceClass {
++    PCIDeviceClass parent_class;
++    XenPTQdevRealize pci_qdev_realize;
++} XenPTDeviceClass;
++
+ uint32_t igd_read_opregion(XenPCIPassthroughState *s);
++void xen_igd_reserve_slot(PCIBus *pci_bus);
+ void igd_write_opregion(XenPCIPassthroughState *s, uint32_t val);
+ void xen_igd_passthrough_isa_bridge_create(XenPCIPassthroughState *s,
+                                            XenHostPCIDevice *dev);
+@@ -76,6 +90,8 @@ typedef int (*xen_pt_conf_byte_read)
+ 
+ #define XEN_PCI_INTEL_OPREGION 0xfc
+ 
++#define XEN_PCI_IGD_SLOT_MASK 0x4UL /* Intel IGD slot_reserved_mask */
++
+ typedef enum {
+     XEN_PT_GRP_TYPE_HARDWIRED = 0,  /* 0 Hardwired reg group */
+     XEN_PT_GRP_TYPE_EMU,            /* emul reg group */
+diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
+index 2d8cac8d54..5c108446a8 100644
+--- a/hw/xen/xen_pt_stub.c
++++ b/hw/xen/xen_pt_stub.c
+@@ -20,3 +20,7 @@ void xen_igd_gfx_pt_set(bool value, Error **errp)
+         error_setg(errp, "Xen PCI passthrough support not built in");
+     }
+ }
++
++void xen_igd_reserve_slot(PCIBus *pci_bus)
++{
++}
+-- 
+2.39.0
+
 
