@@ -2,29 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C46365C067
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jan 2023 14:03:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470615.730167 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D30265C0AB
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jan 2023 14:17:52 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470621.730177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCgwH-0007pL-5K; Tue, 03 Jan 2023 13:02:45 +0000
+	id 1pChAW-0000wo-Db; Tue, 03 Jan 2023 13:17:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470615.730167; Tue, 03 Jan 2023 13:02:45 +0000
+Received: by outflank-mailman (output) from mailman id 470621.730177; Tue, 03 Jan 2023 13:17:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCgwH-0007md-2C; Tue, 03 Jan 2023 13:02:45 +0000
-Received: by outflank-mailman (input) for mailman id 470615;
- Tue, 03 Jan 2023 13:02:43 +0000
+	id 1pChAW-0000uF-Az; Tue, 03 Jan 2023 13:17:28 +0000
+Received: by outflank-mailman (input) for mailman id 470621;
+ Tue, 03 Jan 2023 13:17:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hIZ3=5A=citrix.com=prvs=3603a684f=Per.Bilse@srs-se1.protection.inumbo.net>)
- id 1pCgwF-0007l1-8g
- for xen-devel@lists.xenproject.org; Tue, 03 Jan 2023 13:02:43 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e58a8ef3-8b66-11ed-b8d0-410ff93cb8f0;
- Tue, 03 Jan 2023 14:02:39 +0100 (CET)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=20m7=5A=linaro.org=philmd@srs-se1.protection.inumbo.net>)
+ id 1pChAV-0000u9-He
+ for xen-devel@lists.xenproject.org; Tue, 03 Jan 2023 13:17:27 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f673d0b5-8b68-11ed-b8d0-410ff93cb8f0;
+ Tue, 03 Jan 2023 14:17:24 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ p1-20020a05600c1d8100b003d8c9b191e0so23054738wms.4
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jan 2023 05:17:24 -0800 (PST)
+Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
+ r17-20020a05600c425100b003cffd3c3d6csm40171333wmm.12.2023.01.03.05.17.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 03 Jan 2023 05:17:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,211 +44,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e58a8ef3-8b66-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1672750959;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=q3pBHOUVWnIYdWgJPflbM7j5UuiigUvRijYwk8CcALY=;
-  b=Y+L66T8d29bwOBvqTqhebby2KXA8TbrA2Y4g3o0Z66L2hJ23k4uujweF
-   Clcb2od2n8Ab5buAbi4v1N0oPCrH0J5JWjh05/yUmE6aZaLKERtUVfcVc
-   9zUcMK6uh9qqF5O4RLyDbiyKedfeo1VNJ0lAVH/fO/3OE8r1mqliSB4gr
-   8=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 89911226
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.83
-X-Policy: $RELAYED
-IronPort-Data: A9a23:D7kuqKjbAIKAlgz3YuoRr//OX161qBAKZh0ujC45NGQN5FlHY01je
- htvWWmGM/iCN2XxedBxad+/o0xTusfSnIBnQFZs+HwwFCob9cadCdqndUqhZCn6wu8v7q5Ex
- 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
- cKai8DEMRqu1iUc3lg8sspvkzsy+qWs0N8klgZmP6sT5QeFzyN94K83fsldEVOpGuG4IcbiL
- wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
- OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
- tQ6cmo0RCGJodirg/WHFdhIgYcFFsDCadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
- pRDL2A1NVKZPkMJagx/5JEWxY9EglHHficeglORvqcf6GnP1g1hlrPqNbI5f/TaFJQMxxzC+
- Aoq+UypAi88bv6RzgDcrHGC2bCUoSChB6ANQejQGvlC3wTImz175ActfUCgvfCzh0q6WtReA
- 08Z4Cwjqe417kPDZt75Uh6jqXiIpCkASsFQGO037gKK4qfM6gPfDW8BJhZRZdpjuMIoSDgC0
- l6Sg8ivFTFpqKeSS3+W6vGTtzzaESwUK3ISICwJVw0I5/H9r4wpyBHCVNBuFOiylNKdMTP/2
- TeRtwAlmq4ey8UM0s2GEUvv2mz24MKTF0hsu1uRDjnNAh5FiJCNRdby0HLq59B6McXecgawm
- H9HvfKXxbVbZX2SrxClTOIIFbCvwv+KNjzAnFJid6UcGySRF22LJt4JvmwnTKt9GoNdIGKyP
- heP0e9EzMULVEZGe5ObdG5Y5y4C6aH7XeroWfnPBjalSsggLVTXlM2CiKP54owMrKTOuftjU
- Xt4WZz2ZZr/NUiA5GTeegvl+eV3rh3SPEuKLXwB8zyp0KCFeFmeQqofPV2FY4gRtf3b+luFr
- 4oBa5bVkH2ztdEShQGOqOYuwa0idyBnVfgaVeQNHgJ8HuaWMD54UKKAqV/QU4dkg75Uho/1w
- 51JYWcBkACXrSSeeW23hoVLNOuHsWBX8ShqYkTB/D+AhxAeXGpYxP1PLMZvJOJ6rLELIDwdZ
- 6BtRvhsy89nElzvkwnxp7GmxGC+XHxHXT6zAhc=
-IronPort-HdrOrdr: A9a23:Va8EVat2YcnzdA9hxSrePiDE7skDzdV00zEX/kB9WHVpmwKj9v
- xG+85rsyMc6QxhP03I/OrrBEDuex7hHPJOjbX5eI3SPzUPVgOTXf1fBMjZskDd8xSXzJ8j6U
- 4YSdkBNDSTNzhHZLfBkW2F+o0bsaC6GcmT7I+0854ud3AJV0gH1WhE422gYyhLrWd9a6bRPa
- Dsl/Zvln6PeWk3cs/+PXUMRe7Fzue77q7OUFopBwMH9ALLtj+j6Kf7Hx+Ety1uKA9n8PMN8X
- Xljwe83amos+i6xhjAk0ff4o9bgsGJ8KoyOOW8zuYUNxTxgUKTaINtV6bqhkFMnN2S
-X-IronPort-AV: E=Sophos;i="5.96,297,1665460800"; 
-   d="scan'208";a="89911226"
-From: Per Bilse <per.bilse@citrix.com>
-To: <linux-kernel@vger.kernel.org>
-CC: Per Bilse <per.bilse@citrix.com>, Juergen Gross <jgross@suse.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko
-	<oleksandr_tyshchenko@epam.com>, "moderated list:XEN HYPERVISOR INTERFACE"
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH v3] drivers/xen/hypervisor: Expose Xen SIF flags to userspace
-Date: Tue, 3 Jan 2023 13:02:13 +0000
-Message-ID: <20230103130213.2129753-1-per.bilse@citrix.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: f673d0b5-8b68-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+6FCYc7IsbLXUkXo08SQ4GUWBR9iGC2Xzf9FolVUtRo=;
+        b=n/56VD4IRMp0yuUVG73jhVPdUgXayuZx4giEfUZ8VLgAAnbQZeIuIvQcokB2wptb6k
+         roMl4LNuBykQy/MpusQOu0PMAW1zy6KpNMcCebcpS9DCuAqDne0+v68abElKm/+c9PGX
+         5deJomEDWCynXEAQCe2GxPFbAKq3knf/Q0Vi2APEhmyoBGnSpcnvaiXifXNt7MFWuLtI
+         CYdI4jO0cRMmDBNHyzsDW6aehiMZJ7lHGoG9Mw1g3tBw2z61ryhoGk+Eml41wavMKgNr
+         3jQc0/MkoQeBHxtCrcfilhHCmnRLxA8ZrtYjJvD3vWgTfxcPoCHF0jAIAEkIpPZNbsBN
+         AdAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+6FCYc7IsbLXUkXo08SQ4GUWBR9iGC2Xzf9FolVUtRo=;
+        b=DIgZrvcbTihimYS6Pc/U3JE+nIRpF4Cyp7Qs+KLLG0IegroKrqKw80gzRDYiJaYwbM
+         kzjd9Pzn865w5K0BlWo29hijZ0dPchQtS1yPlZl2Z5Kwg8XBFpIm1ePUqjeRg0Q/t211
+         3lTDKkP4GrMftcqmSyXrzTtkee+VgOLscLcRVaR7sOElR7m2jX5ay0gBg5jwSAD/cpeZ
+         jp0j91xrhXeKgDdNFoMtDv7ihed3rXsjPAJBcR7hyoa7Fti+9ir+XcraLFcGi/xxBeG8
+         Gou/OOlwwAQ00c6KU4mZnr6r+ZuEweQmqugD6cM7kFPk6L+EFfq5uECH5YPhAF4xkicM
+         CHew==
+X-Gm-Message-State: AFqh2kobLcBRJp5YBSA9+KTFBrM2X7a4gkbGOvt/bA0mniOqg8XBJlE7
+	WZmY02M4mWDXmJFvbHePXPJHbA==
+X-Google-Smtp-Source: AMrXdXtKrBI9NGgAUmqiWfEI2RGlGcbNiSC2hdExF6pkPz5b4Eg0tXIw6L8+2KPWlNKYtW4NbzL5LQ==
+X-Received: by 2002:a05:600c:4255:b0:3d3:3d34:5d63 with SMTP id r21-20020a05600c425500b003d33d345d63mr32744520wmm.8.1672751844305;
+        Tue, 03 Jan 2023 05:17:24 -0800 (PST)
+Message-ID: <0de699a7-98b8-e320-da4d-678d0f594213@linaro.org>
+Date: Tue, 3 Jan 2023 14:17:22 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+Content-Language: en-US
+To: Chuck Zmudzinski <brchuckz@aol.com>, Bernhard Beschow
+ <shentey@gmail.com>, qemu-devel@nongnu.org
+Cc: Paul Durrant <paul@xen.org>, Marcel Apfelbaum
+ <marcel.apfelbaum@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost
+ <eduardo@habkost.net>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>
+References: <20230102213504.14646-1-shentey@gmail.com>
+ <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com>
+From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+In-Reply-To: <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-/proc/xen is a legacy pseudo filesystem which predates Xen support
-getting merged into Linux.  It has largely been replaced with more
-normal locations for data (/sys/hypervisor/ for info, /dev/xen/ for
-user devices).  We want to compile xenfs support out of the dom0 kernel.
+Hi Chuck,
 
-There is one item which only exists in /proc/xen, namely
-/proc/xen/capabilities with "control_d" being the signal of "you're in
-the control domain".  This ultimately comes from the SIF flags provided
-at VM start.
+On 3/1/23 04:15, Chuck Zmudzinski wrote:
+> On 1/2/23 4:34 PM, Bernhard Beschow wrote:
+>> This series first renders TYPE_PIIX3_XEN_DEVICE redundant and finally removes
+>> it. The motivation is to 1/ decouple PIIX from Xen and 2/ to make Xen in the PC
+>> machine agnostic to the precise southbridge being used. 2/ will become
+>> particularily interesting once PIIX4 becomes usable in the PC machine, avoiding
+>> the "Frankenstein" use of PIIX4_ACPI in PIIX3.
+>>
+>> Testing done:
+>> None, because I don't know how to conduct this properly :(
+>>
+>> Based-on: <20221221170003.2929-1-shentey@gmail.com>
+>>            "[PATCH v4 00/30] Consolidate PIIX south bridges"
 
-This patch exposes all SIF flags in /sys/hypervisor/start_flags/ as
-boolean files, one for each bit, returning '1' if set, '0' otherwise.
-Two known flags, 'privileged' and 'initdomain', are explicitly named,
-and all remaining flags can be accessed via generically named files,
-as suggested by Andrew Cooper.
+This series is based on a previous series:
+https://lore.kernel.org/qemu-devel/20221221170003.2929-1-shentey@gmail.com/
+(which itself also is).
 
-Signed-off-by: Per Bilse <per.bilse@citrix.com>
----
-v2: minor fix to layout, incorporate suggestions from Juergen Gross
-v3: update assumed availability in documentation
----
- Documentation/ABI/stable/sysfs-hypervisor-xen | 13 ++++
- drivers/xen/sys-hypervisor.c                  | 69 +++++++++++++++++--
- 2 files changed, 78 insertions(+), 4 deletions(-)
+>> Bernhard Beschow (6):
+>>    include/hw/xen/xen: Make xen_piix3_set_irq() generic and rename it
+>>    hw/isa/piix: Reuse piix3_realize() in piix3_xen_realize()
+>>    hw/isa/piix: Wire up Xen PCI IRQ handling outside of PIIX3
+>>    hw/isa/piix: Avoid Xen-specific variant of piix_write_config()
+>>    hw/isa/piix: Resolve redundant k->config_write assignments
+>>    hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
+>>
+>>   hw/i386/pc_piix.c             | 34 ++++++++++++++++--
+>>   hw/i386/xen/xen-hvm.c         |  9 +++--
+>>   hw/isa/piix.c                 | 66 +----------------------------------
+> 
+> This file does not exist on the Qemu master branch.
+> But hw/isa/piix3.c and hw/isa/piix4.c do exist.
+> 
+> I tried renaming it from piix.c to piix3.c in the patch, but
+> the patch set still does not apply cleanly on my tree.
+> 
+> Is this patch set re-based against something other than
+> the current master Qemu branch?
+> 
+> I have a system that is suitable for testing this patch set, but
+> I need guidance on how to apply it to the Qemu source tree.
 
-diff --git a/Documentation/ABI/stable/sysfs-hypervisor-xen b/Documentation/ABI/stable/sysfs-hypervisor-xen
-index 748593c64568..be9ca9981bb1 100644
---- a/Documentation/ABI/stable/sysfs-hypervisor-xen
-+++ b/Documentation/ABI/stable/sysfs-hypervisor-xen
-@@ -120,3 +120,16 @@ Contact:	xen-devel@lists.xenproject.org
- Description:	If running under Xen:
- 		The Xen version is in the format <major>.<minor><extra>
- 		This is the <minor> part of it.
-+
-+What:		/sys/hypervisor/start_flags/*
-+Date:		March 2023
-+KernelVersion:	6.3.0
-+Contact:	xen-devel@lists.xenproject.org
-+Description:	If running under Xen:
-+		All bits in Xen's start-flags are represented as
-+		boolean files, returning '1' if set, '0' otherwise.
-+		This takes the place of the defunct /proc/xen/capabilities,
-+		which would contain "control_d" on dom0, and be empty
-+		otherwise.  This flag is now exposed as "initdomain" in
-+		addition to the "privileged" flag; all other possible flags
-+		are accessible as "unknownXX".
-diff --git a/drivers/xen/sys-hypervisor.c b/drivers/xen/sys-hypervisor.c
-index fcb0792f090e..f5460b34ae6f 100644
---- a/drivers/xen/sys-hypervisor.c
-+++ b/drivers/xen/sys-hypervisor.c
-@@ -31,7 +31,10 @@ struct hyp_sysfs_attr {
- 	struct attribute attr;
- 	ssize_t (*show)(struct hyp_sysfs_attr *, char *);
- 	ssize_t (*store)(struct hyp_sysfs_attr *, const char *, size_t);
--	void *hyp_attr_data;
-+	union {
-+		void *hyp_attr_data;
-+		unsigned long hyp_attr_value;
-+	};
- };
- 
- static ssize_t type_show(struct hyp_sysfs_attr *attr, char *buffer)
-@@ -399,6 +402,60 @@ static int __init xen_sysfs_properties_init(void)
- 	return sysfs_create_group(hypervisor_kobj, &xen_properties_group);
- }
- 
-+#define FLAG_UNAME "unknown"
-+#define FLAG_UNAME_FMT FLAG_UNAME "%02u"
-+#define FLAG_UNAME_MAX sizeof(FLAG_UNAME "XX")
-+#define FLAG_COUNT (sizeof(xen_start_flags) * BITS_PER_BYTE)
-+static_assert(sizeof(xen_start_flags) 
-+		<= sizeof_field(struct hyp_sysfs_attr, hyp_attr_value));
-+
-+static ssize_t flag_show(struct hyp_sysfs_attr *attr, char *buffer)
-+{
-+	char *p = buffer;
-+
-+	*p++ = '0' + ((xen_start_flags & attr->hyp_attr_value) != 0);
-+	*p++ = '\n';
-+	return p - buffer; 
-+}
-+
-+#define FLAG_NODE(flag, node)				\
-+	[ilog2(flag)] = {				\
-+		.attr = { .name = #node, .mode = 0444 },\
-+		.show = flag_show,			\
-+		.hyp_attr_value = flag			\
-+	}
-+
-+/*
-+ * Add new, known flags here.  No other changes are required, but
-+ * note that each known flag wastes one entry in flag_unames[].
-+ * The code/complexity machinations to avoid this isn't worth it
-+ * for a few entries, but keep it in mind.
-+ */
-+static struct hyp_sysfs_attr flag_attrs[FLAG_COUNT] = {
-+	FLAG_NODE(SIF_PRIVILEGED, privileged),
-+	FLAG_NODE(SIF_INITDOMAIN, initdomain)
-+};
-+static struct attribute_group xen_flags_group = {
-+	.name = "start_flags",
-+	.attrs = (struct attribute *[FLAG_COUNT + 1]){}
-+};
-+static char flag_unames[FLAG_COUNT][FLAG_UNAME_MAX];
-+
-+static int __init xen_sysfs_flags_init(void)
-+{
-+	for (unsigned fnum = 0; fnum != FLAG_COUNT; fnum++) {
-+		if (likely(flag_attrs[fnum].attr.name == NULL)) {
-+			sprintf(flag_unames[fnum], FLAG_UNAME_FMT, fnum);
-+			flag_attrs[fnum].attr.name = flag_unames[fnum];
-+			flag_attrs[fnum].attr.mode = 0444;
-+			flag_attrs[fnum].show = flag_show;
-+			flag_attrs[fnum].hyp_attr_value = 1 << fnum;
-+		}
-+		xen_flags_group.attrs[fnum] = &flag_attrs[fnum].attr;
-+	}
-+	return sysfs_create_group(hypervisor_kobj, &xen_flags_group);
-+}
-+
- #ifdef CONFIG_XEN_HAVE_VPMU
- struct pmu_mode {
- 	const char *name;
-@@ -539,18 +596,22 @@ static int __init hyper_sysfs_init(void)
- 	ret = xen_sysfs_properties_init();
- 	if (ret)
- 		goto prop_out;
-+	ret = xen_sysfs_flags_init();
-+	if (ret)
-+		goto flags_out;
- #ifdef CONFIG_XEN_HAVE_VPMU
- 	if (xen_initial_domain()) {
- 		ret = xen_sysfs_pmu_init();
- 		if (ret) {
--			sysfs_remove_group(hypervisor_kobj,
--					   &xen_properties_group);
--			goto prop_out;
-+			sysfs_remove_group(hypervisor_kobj, &xen_flags_group);
-+			goto flags_out;
- 		}
- 	}
- #endif
- 	goto out;
- 
-+flags_out:
-+	sysfs_remove_group(hypervisor_kobj, &xen_properties_group);
- prop_out:
- 	sysfs_remove_file(hypervisor_kobj, &uuid_attr.attr);
- uuid_out:
--- 
-2.31.1
+You can ask Bernhard to publish a branch with the full work,
+or apply each series locally. I use the b4 tool for that:
+https://b4.docs.kernel.org/en/latest/installing.html
 
+i.e.:
+
+$ git checkout -b shentey_work
+$ b4 am 20221120150550.63059-1-shentey@gmail.com
+$ git am 
+./v2_20221120_shentey_decouple_intx_to_lnkx_routing_from_south_bridges.mbx
+$ b4 am 20221221170003.2929-1-shentey@gmail.com
+$ git am 
+./v4_20221221_shentey_this_series_consolidates_the_implementations_of_the_piix3_and_piix4_south.mbx
+$ b4 am 20230102213504.14646-1-shentey@gmail.com
+$ git am ./20230102_shentey_resolve_type_piix3_xen_device.mbx
+
+Now the branch 'shentey_work' contains all the patches and you can test.
+
+Regards,
+
+Phil.
 
