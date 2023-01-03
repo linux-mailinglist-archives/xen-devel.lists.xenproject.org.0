@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D30265C0AB
-	for <lists+xen-devel@lfdr.de>; Tue,  3 Jan 2023 14:17:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470621.730177 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11ACA65C0B2
+	for <lists+xen-devel@lfdr.de>; Tue,  3 Jan 2023 14:20:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470629.730189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pChAW-0000wo-Db; Tue, 03 Jan 2023 13:17:28 +0000
+	id 1pChDO-0002LL-SY; Tue, 03 Jan 2023 13:20:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470621.730177; Tue, 03 Jan 2023 13:17:28 +0000
+Received: by outflank-mailman (output) from mailman id 470629.730189; Tue, 03 Jan 2023 13:20:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pChAW-0000uF-Az; Tue, 03 Jan 2023 13:17:28 +0000
-Received: by outflank-mailman (input) for mailman id 470621;
- Tue, 03 Jan 2023 13:17:27 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pChDO-0002Id-Ob; Tue, 03 Jan 2023 13:20:26 +0000
+Received: by outflank-mailman (input) for mailman id 470629;
+ Tue, 03 Jan 2023 13:20:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=20m7=5A=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pChAV-0000u9-He
- for xen-devel@lists.xenproject.org; Tue, 03 Jan 2023 13:17:27 +0000
-Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
- [2a00:1450:4864:20::329])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f673d0b5-8b68-11ed-b8d0-410ff93cb8f0;
- Tue, 03 Jan 2023 14:17:24 +0100 (CET)
-Received: by mail-wm1-x329.google.com with SMTP id
- p1-20020a05600c1d8100b003d8c9b191e0so23054738wms.4
- for <xen-devel@lists.xenproject.org>; Tue, 03 Jan 2023 05:17:24 -0800 (PST)
+ id 1pChDN-0002IX-5Y
+ for xen-devel@lists.xenproject.org; Tue, 03 Jan 2023 13:20:25 +0000
+Received: from mail-wm1-x32c.google.com (mail-wm1-x32c.google.com
+ [2a00:1450:4864:20::32c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 616f84da-8b69-11ed-91b6-6bf2151ebd3b;
+ Tue, 03 Jan 2023 14:20:24 +0100 (CET)
+Received: by mail-wm1-x32c.google.com with SMTP id ja17so22623180wmb.3
+ for <xen-devel@lists.xenproject.org>; Tue, 03 Jan 2023 05:20:24 -0800 (PST)
 Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
- r17-20020a05600c425100b003cffd3c3d6csm40171333wmm.12.2023.01.03.05.17.22
+ q185-20020a1c43c2000000b003cff309807esm48256372wma.23.2023.01.03.05.20.22
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Jan 2023 05:17:23 -0800 (PST)
+ Tue, 03 Jan 2023 05:20:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,45 +43,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f673d0b5-8b68-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 616f84da-8b69-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=+6FCYc7IsbLXUkXo08SQ4GUWBR9iGC2Xzf9FolVUtRo=;
-        b=n/56VD4IRMp0yuUVG73jhVPdUgXayuZx4giEfUZ8VLgAAnbQZeIuIvQcokB2wptb6k
-         roMl4LNuBykQy/MpusQOu0PMAW1zy6KpNMcCebcpS9DCuAqDne0+v68abElKm/+c9PGX
-         5deJomEDWCynXEAQCe2GxPFbAKq3knf/Q0Vi2APEhmyoBGnSpcnvaiXifXNt7MFWuLtI
-         CYdI4jO0cRMmDBNHyzsDW6aehiMZJ7lHGoG9Mw1g3tBw2z61ryhoGk+Eml41wavMKgNr
-         3jQc0/MkoQeBHxtCrcfilhHCmnRLxA8ZrtYjJvD3vWgTfxcPoCHF0jAIAEkIpPZNbsBN
-         AdAA==
+        bh=ZAwOz3kc/9RSBo9h8xa3JZTDJQ2pKeCHHfYRBL5M+SY=;
+        b=w6BTCvFONQCYPX0/nZZCMv4rr29dPxkv98CNXiyLTNiTsQbTli7oCIEorcdwzVRc3Q
+         ge3kqsR5GujjPB0TW7Pfp2NU83khk8s3NXWX8wKRV1tIJK8gp6OTTXxCAVEi8dGmp2iE
+         lSDbp3a/SWK5od1MJsS6FD+hXAzD4sSwQ9gd/VTBqX31dHDmzyczIf3WwfGAFeCnsVtd
+         R4W7sbNJr0jZ+6X6duvmxscybWitengU3/4qw/6wfZC1vSF4TxAx4LbtKYfauDhMGWc8
+         9qdRLb6hF7Co+q3ij/HqSwp9UpU0jJhxmDYqusP9482jSljfGackybhTGEO4GzTJm0cC
+         xn+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=+6FCYc7IsbLXUkXo08SQ4GUWBR9iGC2Xzf9FolVUtRo=;
-        b=DIgZrvcbTihimYS6Pc/U3JE+nIRpF4Cyp7Qs+KLLG0IegroKrqKw80gzRDYiJaYwbM
-         kzjd9Pzn865w5K0BlWo29hijZ0dPchQtS1yPlZl2Z5Kwg8XBFpIm1ePUqjeRg0Q/t211
-         3lTDKkP4GrMftcqmSyXrzTtkee+VgOLscLcRVaR7sOElR7m2jX5ay0gBg5jwSAD/cpeZ
-         jp0j91xrhXeKgDdNFoMtDv7ihed3rXsjPAJBcR7hyoa7Fti+9ir+XcraLFcGi/xxBeG8
-         Gou/OOlwwAQ00c6KU4mZnr6r+ZuEweQmqugD6cM7kFPk6L+EFfq5uECH5YPhAF4xkicM
-         CHew==
-X-Gm-Message-State: AFqh2kobLcBRJp5YBSA9+KTFBrM2X7a4gkbGOvt/bA0mniOqg8XBJlE7
-	WZmY02M4mWDXmJFvbHePXPJHbA==
-X-Google-Smtp-Source: AMrXdXtKrBI9NGgAUmqiWfEI2RGlGcbNiSC2hdExF6pkPz5b4Eg0tXIw6L8+2KPWlNKYtW4NbzL5LQ==
-X-Received: by 2002:a05:600c:4255:b0:3d3:3d34:5d63 with SMTP id r21-20020a05600c425500b003d33d345d63mr32744520wmm.8.1672751844305;
-        Tue, 03 Jan 2023 05:17:24 -0800 (PST)
-Message-ID: <0de699a7-98b8-e320-da4d-678d0f594213@linaro.org>
-Date: Tue, 3 Jan 2023 14:17:22 +0100
+        bh=ZAwOz3kc/9RSBo9h8xa3JZTDJQ2pKeCHHfYRBL5M+SY=;
+        b=g4tzIF+wBHSb2rkIIkUuzkRi/5nMTEK5FYv2VhsSav6YIafagvYA0dLATUOShueGz7
+         x1/pCExsNbiUVyDiXe8noIkGHBHx7arSrTgXfUi5KRX1wAmCehV+caAuIlMISE/yiCHH
+         +b/9+2UKFiFuII+bMltACNaZgzi76065eToucQcsjWnOfi9mWlVluVlHKEGz48gfgftM
+         yhW9qSU2zUQ+g+1xWmOIM9jBKREbFTim6CrLSjQNS/4ftWdY1ciN7+Cr4r07lqzx93G7
+         MX9A8yIS05SN2qXuEhq+n73WB0m0131KSl32EIbHj/18wtsac9s+mZeed34e1awd4efx
+         m5Pw==
+X-Gm-Message-State: AFqh2kocusvibBb0AVE61QJs8coaPUmbugD7WSYgtsrySj0USqzY2nkG
+	ZdAe8RA6PWscx/WU1+6OjuZPJg==
+X-Google-Smtp-Source: AMrXdXujUu1mK5FhNhKF64/Kjpk2KVHVVnvRRQsbR6qSJmMKeYk3xlYQ4gde/xnsingH5Bey5hXL1A==
+X-Received: by 2002:a05:600c:22cc:b0:3d1:bd81:b1b1 with SMTP id 12-20020a05600c22cc00b003d1bd81b1b1mr30316821wmg.18.1672752023907;
+        Tue, 03 Jan 2023 05:20:23 -0800 (PST)
+Message-ID: <cdfe29e9-327b-476b-3343-92216874075a@linaro.org>
+Date: Tue, 3 Jan 2023 14:20:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+Subject: Re: [PATCH 5/6] hw/isa/piix: Resolve redundant k->config_write
+ assignments
 Content-Language: en-US
-To: Chuck Zmudzinski <brchuckz@aol.com>, Bernhard Beschow
- <shentey@gmail.com>, qemu-devel@nongnu.org
+To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org
 Cc: Paul Durrant <paul@xen.org>, Marcel Apfelbaum
  <marcel.apfelbaum@gmail.com>, "Michael S. Tsirkin" <mst@redhat.com>,
  Stefano Stabellini <sstabellini@kernel.org>,
@@ -93,75 +92,22 @@ Cc: Paul Durrant <paul@xen.org>, Marcel Apfelbaum
  Paolo Bonzini <pbonzini@redhat.com>,
  Richard Henderson <richard.henderson@linaro.org>
 References: <20230102213504.14646-1-shentey@gmail.com>
- <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com>
+ <20230102213504.14646-6-shentey@gmail.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-In-Reply-To: <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com>
+In-Reply-To: <20230102213504.14646-6-shentey@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi Chuck,
-
-On 3/1/23 04:15, Chuck Zmudzinski wrote:
-> On 1/2/23 4:34 PM, Bernhard Beschow wrote:
->> This series first renders TYPE_PIIX3_XEN_DEVICE redundant and finally removes
->> it. The motivation is to 1/ decouple PIIX from Xen and 2/ to make Xen in the PC
->> machine agnostic to the precise southbridge being used. 2/ will become
->> particularily interesting once PIIX4 becomes usable in the PC machine, avoiding
->> the "Frankenstein" use of PIIX4_ACPI in PIIX3.
->>
->> Testing done:
->> None, because I don't know how to conduct this properly :(
->>
->> Based-on: <20221221170003.2929-1-shentey@gmail.com>
->>            "[PATCH v4 00/30] Consolidate PIIX south bridges"
-
-This series is based on a previous series:
-https://lore.kernel.org/qemu-devel/20221221170003.2929-1-shentey@gmail.com/
-(which itself also is).
-
->> Bernhard Beschow (6):
->>    include/hw/xen/xen: Make xen_piix3_set_irq() generic and rename it
->>    hw/isa/piix: Reuse piix3_realize() in piix3_xen_realize()
->>    hw/isa/piix: Wire up Xen PCI IRQ handling outside of PIIX3
->>    hw/isa/piix: Avoid Xen-specific variant of piix_write_config()
->>    hw/isa/piix: Resolve redundant k->config_write assignments
->>    hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
->>
->>   hw/i386/pc_piix.c             | 34 ++++++++++++++++--
->>   hw/i386/xen/xen-hvm.c         |  9 +++--
->>   hw/isa/piix.c                 | 66 +----------------------------------
+On 2/1/23 22:35, Bernhard Beschow wrote:
+> The previous patch unified handling of piix_write_config() accross all
+> PIIX device models which allows for assigning k->config_write once in the
+> base class.
 > 
-> This file does not exist on the Qemu master branch.
-> But hw/isa/piix3.c and hw/isa/piix4.c do exist.
-> 
-> I tried renaming it from piix.c to piix3.c in the patch, but
-> the patch set still does not apply cleanly on my tree.
-> 
-> Is this patch set re-based against something other than
-> the current master Qemu branch?
-> 
-> I have a system that is suitable for testing this patch set, but
-> I need guidance on how to apply it to the Qemu source tree.
+> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+> ---
+>   hw/isa/piix.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 
-You can ask Bernhard to publish a branch with the full work,
-or apply each series locally. I use the b4 tool for that:
-https://b4.docs.kernel.org/en/latest/installing.html
+Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
-i.e.:
-
-$ git checkout -b shentey_work
-$ b4 am 20221120150550.63059-1-shentey@gmail.com
-$ git am 
-./v2_20221120_shentey_decouple_intx_to_lnkx_routing_from_south_bridges.mbx
-$ b4 am 20221221170003.2929-1-shentey@gmail.com
-$ git am 
-./v4_20221221_shentey_this_series_consolidates_the_implementations_of_the_piix3_and_piix4_south.mbx
-$ b4 am 20230102213504.14646-1-shentey@gmail.com
-$ git am ./20230102_shentey_resolve_type_piix3_xen_device.mbx
-
-Now the branch 'shentey_work' contains all the patches and you can test.
-
-Regards,
-
-Phil.
 
