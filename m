@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 628B465CBAA
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 02:55:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470913.730585 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4752C65CD18
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 07:30:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470922.730596 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCszj-0005jj-JR; Wed, 04 Jan 2023 01:55:07 +0000
+	id 1pCxH2-0008A1-3l; Wed, 04 Jan 2023 06:29:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470913.730585; Wed, 04 Jan 2023 01:55:07 +0000
+Received: by outflank-mailman (output) from mailman id 470922.730596; Wed, 04 Jan 2023 06:29:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCszj-0005gK-Gm; Wed, 04 Jan 2023 01:55:07 +0000
-Received: by outflank-mailman (input) for mailman id 470913;
- Wed, 04 Jan 2023 01:55:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=eMRm=5B=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pCszi-0005gE-B7
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 01:55:06 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ced283a4-8bd2-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 02:55:04 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 758B4B810C0;
- Wed,  4 Jan 2023 01:55:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2607BC433D2;
- Wed,  4 Jan 2023 01:55:02 +0000 (UTC)
+	id 1pCxH2-000888-0L; Wed, 04 Jan 2023 06:29:16 +0000
+Received: by outflank-mailman (input) for mailman id 470922;
+ Wed, 04 Jan 2023 06:29:14 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pCxH0-00087y-6X; Wed, 04 Jan 2023 06:29:14 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pCxH0-0004WC-4n; Wed, 04 Jan 2023 06:29:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pCxGz-00022C-Ie; Wed, 04 Jan 2023 06:29:13 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pCxGz-0003xp-Fq; Wed, 04 Jan 2023 06:29:13 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,112 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ced283a4-8bd2-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1672797303;
-	bh=ffuO8QeritqlgaKdGOBoioav+yKqzjNsb4dskCyqBb8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=L7hAeJKvvlPDYcxVj3sFPfF86oYhORzOJwl/Me2JplsVNNK+fGuKtYuubuxIS/k8i
-	 mRJ84ngqn4rsvTjpomeuxiwEAvBVEkAatTxiQEj2huX4lqQ3eNBX8JgBDR3zrIlbia
-	 Uz/9QpPJYxvM1cRNTbKFlSqmzk4s72uqBjnvC47G8C27alJO8hrp9noAvlJxTBcDeB
-	 JEgGoodtyh3lQ452D8o2xRbd0vXB+fEoddymctdsQEtMcFuBfC1X9Qb72STOhQA44v
-	 3byRAO+YADkzuTkL9rjr9dodVLY//Wr+2Id+tkBIIYXcdWUNZPnMS4xDBKnThe8kVX
-	 EYw4oYLQwetvA==
-Date: Tue, 3 Jan 2023 17:55:00 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Anthony Perard <anthony.perard@citrix.com>, 
-    Michal Orzel <michal.orzel@amd.com>, 
-    Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Subject: Re: [PATCH 4/6] CI: Express HYPERVISOR_ONLY in build.yml
-In-Reply-To: <5d3ed12e-3c01-5ea8-8d41-4a199fdf92b7@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2301031754550.4079@ubuntu-linux-20-04-desktop>
-References: <20221230003848.3241-1-andrew.cooper3@citrix.com> <20221230003848.3241-5-andrew.cooper3@citrix.com> <alpine.DEB.2.22.394.2301031713530.4079@ubuntu-linux-20-04-desktop> <34e692e3-ef76-a43e-ec4f-a7c1ed2d094f@citrix.com>
- <alpine.DEB.2.22.394.2301031733410.4079@ubuntu-linux-20-04-desktop> <4f9a9927-c287-b40e-e4b0-653e69dbc1bb@citrix.com> <alpine.DEB.2.22.394.2301031748140.4079@ubuntu-linux-20-04-desktop> <5d3ed12e-3c01-5ea8-8d41-4a199fdf92b7@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=yBqAwBtZh4rt+py5r6h+d+4HmZXNp1GHJ2AzfZUrLNc=; b=Q1QvNqnpX41IHQKkcdxnFaz9FH
+	HqtndwwgcDWQzUos2HZAqPSep1NpUBLCEG08UBS8rUbjqqpcyb7vqP/SM9eVrOjj0dBoRF8xxK4im
+	5Src9v2NBrPDlF0sqZ9lXmcBUjHaGg+N4+0W8iyZgQTFIPveD5hd7cdrItVacOYGSSUw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175563-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Subject: [ovmf test] 175563: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=89c5d90003d9c54d03d3e85bd305718e9c29a213
+X-Osstest-Versions-That:
+    ovmf=b670700ddf5eb1dd958d60eb4f2a51e0636206f9
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 04 Jan 2023 06:29:13 +0000
 
-On Wed, 4 Jan 2023, Andrew Cooper wrote:
-> On 04/01/2023 1:48 am, Stefano Stabellini wrote:
-> > On Wed, 4 Jan 2023, Andrew Cooper wrote:
-> >> On 04/01/2023 1:36 am, Stefano Stabellini wrote:
-> >>> On Wed, 4 Jan 2023, Andrew Cooper wrote:
-> >>>> On 04/01/2023 1:15 am, Stefano Stabellini wrote:
-> >>>>> On Fri, 30 Dec 2022, Andrew Cooper wrote:
-> >>>>>
-> >>>>>> Whether to build only Xen, or everything, is a property of container,
-> >>>>>> toolchain and/or testcase.  It is not a property of XEN_TARGET_ARCH.
-> >>>>>>
-> >>>>>> Capitalise HYPERVISOR_ONLY and have it set by the debian-unstable-gcc-arm32-*
-> >>>>>> testcases at the point that arm32 get matched with a container that can only
-> >>>>>> build Xen.
-> >>>>>>
-> >>>>>> For simplicity, retain the RANDCONFIG -> HYPERVISOR_ONLY implication.
-> >>>>>>
-> >>>>>> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> >>>>>> ---
-> >>>>>> CC: Doug Goldstein <cardoe@cardoe.com>
-> >>>>>> CC: Stefano Stabellini <sstabellini@kernel.org>
-> >>>>>> CC: Anthony PERARD <anthony.perard@citrix.com>
-> >>>>>> CC: Michal Orzel <michal.orzel@amd.com>
-> >>>>>> CC: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> >>>>>> ---
-> >>>>>>  automation/gitlab-ci/build.yaml |  2 ++
-> >>>>>>  automation/scripts/build        | 11 ++++-------
-> >>>>>>  2 files changed, 6 insertions(+), 7 deletions(-)
-> >>>>>>
-> >>>>>> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> >>>>>> index 93d9ff69a9f2..e6a9357de3ef 100644
-> >>>>>> --- a/automation/gitlab-ci/build.yaml
-> >>>>>> +++ b/automation/gitlab-ci/build.yaml
-> >>>>>> @@ -516,11 +516,13 @@ debian-unstable-gcc-arm32:
-> >>>>>>    extends: .gcc-arm32-cross-build
-> >>>>>>    variables:
-> >>>>>>      CONTAINER: debian:unstable-arm32-gcc
-> >>>>>> +    HYPERVISOR_ONLY: y
-> >>>>>>  
-> >>>>>>  debian-unstable-gcc-arm32-debug:
-> >>>>>>    extends: .gcc-arm32-cross-build-debug
-> >>>>>>    variables:
-> >>>>>>      CONTAINER: debian:unstable-arm32-gcc
-> >>>>>> +    HYPERVISOR_ONLY: y
-> >>>>> can you move the setting of HYPERVISOR_ONLY to .arm32-cross-build-tmpl ?
-> >>>> Not really - that's the point I'm trying to make in the commit message.
-> >>>>
-> >>>>> I think that makes the most sense because .arm32-cross-build-tmpl is the
-> >>>>> one setting XEN_TARGET_ARCH and also the x86_64 tag.
-> >>>> It's not about x86_64; its about the container.
-> >>>>
-> >>>> Whether we can build just Xen, or everything, solely depends on the
-> >>>> contents in debian:unstable-arm32-gcc
-> >>>>
-> >>>> If we wanted to, we could update unstable-arm32-gcc's dockerfile to
-> >>>> install the arm32 cross user libs, and drop this HYPERVISOR_ONLY
-> >>>> restriction.
-> >>> If it is a property of the container, shouldn't HYPERVISOR_ONLY be set
-> >>> every time the debian:unstable-arm32-gcc container is used? Including
-> >>> debian-unstable-gcc-arm32-randconfig and
-> >>> debian-unstable-gcc-arm32-debug-randconfig?
-> >>>
-> >>> I realize that the other 2 jobs are randconfigs so HYPERVISOR_ONLY gets
-> >>> set anyway. But if HYPERVISOR_ONLY is a property of the specific
-> >>> container, then I think it would be best to be consistent and set
-> >>> HYPERVISOR_ONLY everywhere debian:unstable-arm32-gcc is used.
-> >>>
-> >>> E.g. one day we could just randconfigs to build also the tools with a
-> >>> simple change to the build script and otherwise we would need to
-> >>> remember to also add the HYPERVISOR_ONLY tag for the other 2 jobs using
-> >>> debian:unstable-arm32-gcc.
-> >> Ok, so we want 4 HYPERVISOR_ONLY's in total, one for each instance of
-> >> CONTAINER: debian:unstable-arm32-gcc ?
-> > yeah
-> 
-> Can I take that as an R-by/A-by then?
+flight 175563 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175563/
 
-yep
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 89c5d90003d9c54d03d3e85bd305718e9c29a213
+baseline version:
+ ovmf                 b670700ddf5eb1dd958d60eb4f2a51e0636206f9
+
+Last test of basis   175558  2023-01-03 06:41:58 Z    0 days
+Testing same since   175563  2023-01-04 02:10:49 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gua Guo <gua.guo@intel.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   b670700ddf..89c5d90003  89c5d90003d9c54d03d3e85bd305718e9c29a213 -> xen-tested-master
 
