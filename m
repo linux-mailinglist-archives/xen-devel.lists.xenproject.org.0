@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0972265DAB4
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 17:49:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471336.731151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B79665DAB8
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 17:49:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471340.731162 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD6wj-0003zD-Dm; Wed, 04 Jan 2023 16:48:57 +0000
+	id 1pD6xW-0004UE-NL; Wed, 04 Jan 2023 16:49:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471336.731151; Wed, 04 Jan 2023 16:48:57 +0000
+Received: by outflank-mailman (output) from mailman id 471340.731162; Wed, 04 Jan 2023 16:49:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD6wj-0003wo-B0; Wed, 04 Jan 2023 16:48:57 +0000
-Received: by outflank-mailman (input) for mailman id 471336;
- Wed, 04 Jan 2023 16:48:56 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pD6xW-0004SH-K9; Wed, 04 Jan 2023 16:49:46 +0000
+Received: by outflank-mailman (input) for mailman id 471340;
+ Wed, 04 Jan 2023 16:49:45 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+XhT=5B=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pD6wi-0003wi-6i
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 16:48:56 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2075.outbound.protection.outlook.com [40.107.22.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id acc592db-8c4f-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 17:48:54 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 16:48:53 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 16:48:53 +0000
+ (envelope-from <SRS0=aavW=5B=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pD6xV-0004Pt-4w
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 16:49:45 +0000
+Received: from sonic301-22.consmr.mail.gq1.yahoo.com
+ (sonic301-22.consmr.mail.gq1.yahoo.com [98.137.64.148])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id c87c342d-8c4f-11ed-b8d0-410ff93cb8f0;
+ Wed, 04 Jan 2023 17:49:42 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Wed, 4 Jan 2023 16:49:40 +0000
+Received: by hermes--production-ne1-7b69748c4d-9jjs9 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID f78b14bbe46129161d3132f677ac1e69; 
+ Wed, 04 Jan 2023 16:49:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,116 +42,197 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acc592db-8c4f-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KByuMl3EQA2boIbd/IEpUu2zIs2s5DUsfCcF+o2bffxPD8rlQ/yqNoyAK83ENLldmgWtc9x09upKadJBgasG2Yye3BIRaOWzofK2mO5byltKjZt9+PFVrkKaVIpMEf9Rfhm5oM9kirG+o6eQfBun5dCBOZ3QMyq5od9uhEMI+lRe9ANn292/oeV0EXWlousEXVpGwAr+GGwaUFzuKFUHVe4G7WDg1kCD5Zp1+8LO0lCV5R+cE0mtPKalBHm3a49GffkMTiApM7fgM/1Ea507SuM7FLrcpYrwPRkIzFZtqmY7bhgB0BMF8XyUyzsfqPMC/0MJTXGuW0UinJlD80/Akg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9xAmverj9++5UlRNO3QmIsOYSyc2TLNT0B7BkJv09qQ=;
- b=DqYwGhYsK/kAqChvuQVFRTEAIFQO/H8wASIzW+9eJ078bv/PZXL45TMdlvKqe0jgPEBugKm5RQyDoJlg8lpiMK3dI8KqE4TXrFhzmFkOCsrWb6dQsYAqckbGJLXzJmcCdwKowiBjRYLkCsg5/A1C2jIISoLW2dGIjEFqO6Oqt0yE7qvK7BFiNs0HgRznnxxfurj4zpKYSZIAwLd2xXpu1XEgIalmowcKchLu8fgv3t/Ke8h6wWozAHD4Fj5qGXW076/PfGVu9rlqAdJLlVrmqHV5/7clMPwm3jSfAGMTg8/avXeAV8pfUpkox8QZ/YWUf3jCLf5MX/QQtI2aj67YmQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9xAmverj9++5UlRNO3QmIsOYSyc2TLNT0B7BkJv09qQ=;
- b=s+2KXcIBjLaSUvUoKlBik02Oty7Ci9zfOE7IkVcA5+QCrMHDkVfvK7dawnkjCmRttT81jcakwVLAo285bwbhjfP2Eh32uyKdHsPWCIOC64hMTzBw1vwZhJkebjgzRpYTE+BBW2FF9k7D4pFRpYwiBRiBpUWd3wy1n8HD0POcJNR9qsw7AHNMrmUO6t+okVcX3/DMPvJejbLNdwGpEDBhFUbVn8ko8HoSmQXvlirHGOtPxw5LC/1uat9qDmd+84HsSv1J7sRylI3GkQlINbvJBVUP63FOR4y7tWwsIdWMLDL11dR/HyNc13G2U9W1ybP1mskBDGNZ25C64Az4KJW5VA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <23360b49-5e64-4b8b-49b1-214a26d9fd47@suse.com>
-Date: Wed, 4 Jan 2023 17:48:51 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/4] xen/version: Drop compat/kernel.c
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230103200943.5801-1-andrew.cooper3@citrix.com>
- <20230103200943.5801-3-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230103200943.5801-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0135.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9e::19) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: c87c342d-8c4f-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1672850980; bh=Uv0BocHD5tWIg18/jevfjehh7q0MhSFzY8Dyf/BXAg4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JbYYbvz87wXyfJVL0rGXDO37O81ZJSJ75kAmtjzrQ8Ux9WcdgKZsXRjVDE82L/aPd1WGXiR9qkCsQz9ZrvZl2dIBRSW0vkZ7DgrPIf9QKBlVI8syU8XFKJEZZlpxAa5X0bPQggQTuizc2seXsDYMGtOA4BGWvnI26ovQwe1AeIfmaLl0mi6SgPTBxmkuK6g+kE2F9O2OV6ajfslItuTza09LBG7KEgjzwYKrBQjU+I6USPYXWWAYa6DKK0lOgfhRMtlxgllUx4vdRLk4RDzF9/toB46ZKQcob4ejgV5qs9MHu9CGsaIigmrYMonQ/2vDNNxUWwmojvDd0+4bOI94Kg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1672850980; bh=FxzOEnvBptL07rvzdDlcQCWQrhGrukvipEJHtDDzfWh=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=OYvHrPLvawpjH0CokBSNIhIygYnWUO1JQgVPCJuD2o9U5nkXiL2AvCIRQzOqEWEkzheTfey8a0nxHhDTULI0JbX8xhWnEbwkBsjXsFwz0vHT0bADsWynNcbVJyTuEsKWG3up47pilbtGN3mZ4M4I/udFDcmG/lOVQ8gpyLYY1qygxYoBTdcgUgqLtzImaa7FZcTXyNwPOArSqa5fWqqiCkfAi8oaRTNKQacYHG7ZmT88eb0DN4C5NbxiOXDixu1t2whaI8+OttmzhLU/rQNvzSPyV9jyBkyv39Aa/PSnHwFTFHo7CHFV+mCFqR96afdNwGrwIzp63lbhk/WxGGPRtQ==
+X-YMail-OSG: Y.cY9QQVM1n12rN8bHGsI27Q8vksmGZnxhR.qASFPFpFz2aPufAc26szN7uy8RZ
+ RlDLbliSLZ7kWm4a4GWBe.arjJy3fAzPrAp6W4LcLnaEshl3OvFtMBItLq5XfNpgwyV48QJ7F042
+ TztH6BRKJG5RwIRzv0GTaOcB96LaltnABc0xhcY32V5DuOYKbvSGRKnjNkL6MChfOjgmMYyR9GYM
+ aEod0xGcSVcD6P.b_Cq35fmQWjzay2iPdmYNFDjIFzQxpOGgc5peFNt8QeRwZy3AphQ0QXOxCM2.
+ V2M_M1TjOYfavoJeIQoa4VSwg4LbkvaHO7JQRpwplTlapPrTITZuvSlHo__C6T85_np.XiLaKDsL
+ qp5GB2GUYoYvxuyMwwyaGrYmzlHBR.6.m7gf8WWyH9LEF_xhvNn.pMb2dpb7OLN0CacdXsmpnvX3
+ 3uDcCXJHHgPEIU.AKvv5_HtBFPpPVXPajjHYBEWChZv71bAjrFf6aqpsTdVlO8NXI7ncZSnN3.w4
+ TFCksh7.OyDy8crk5oDN89TOTxoP2_xqmWG2U0glQ8wnroq3KdOtL2uj0n5wFPCS74aL6KCbzhLZ
+ AHNovKeCGqqnSRuAVX1tDwzvyYQpO0mSk07Uv.ncGAXZAxCbgpqALa2KCYm6LLR4jdjvRQfZSx68
+ NHOfxrwHW72xRro.H1mskH_5gfRa4k1jF4cNZwP4ZbwBX4khm_s4nwXfnLxwjFGkSR61YVRf2F.N
+ Wo60cRmmCMjI2gdrXxyAxFi5NuLg0EJnILFyaI3.gwE0e6EljA4ldjinI1w_9CJPODaeJm_3rFpD
+ gCBWFpCq.J6X4yvV1wbAoZUBkcWsDbJQ_HPC1skYB2JmNGoi88rqAwFUCKDKCubfrGSAiFfB8xtg
+ kPbPwol7Nc5wF7eLQ1KZ_am1Ne7dbW_61i3hNGV8vXC_iO_Xuo2yBbdwMR_HMbxvF08S6PWXRg7K
+ L.4fPq5N1pD_B9qFkwaPc5jQmg.68_bsdAsvxuxTJDGHp.MfnwSUZiW1MqF.dW6K5yn8FjSpMfAs
+ 2vF3Xx2DCI7MHBP02J4wbZhXmFgnC9yk_gj.kHiLJwK5nKFkn9nnpf02uDpEwYCK5VYhu9gx09fv
+ 6N4Qc5g4OwCZX2W.7eArebedl1d.5SthtaAT3XIs3Q9aWF8hvE.udbekuB2nXSHlacZhuiRcxPCJ
+ 3LQSh0FNb23omeCPlkHfVV2zjBj.4fJ0PXqUYDvgV2nnb2VqLhXOL6b6KugV0abri7na7y5wfKIB
+ ZAa.k5NibC0RGO70bMCIXF2Z8WdcFQ_NKAeTbAO.vBpJH40fVdfhKDfuqZI2BwsE8ppEp3fGzxvw
+ YvZpwZmbIH13FCODp8IyZBMxew9nINe2WIecckS86mKq_U3tYg_TRJ8xO5w4uvWABxYGFHZwplhZ
+ p3zCf49QZifHg8juo_QlZnmM5XDuh.tCKQhxiiOSWJDHgvORE2MXq288bJrvSwofCkmTeaHWU.R9
+ A_0SkxYj1mmEWfdQ2_mGTjmeWo8JWntBJAg28X6PcPRiveOSeqCffG8alu4kQK314kH1vjm2ByJb
+ ZKIqKUBNecy6wPEqAyeFBb.WHGda9RFtBzmiHRQM8nmfNQQL6luszjA7tTOFDlldFugucL.qS0o0
+ mIzz85Mkc2FvdTMBI1EAFHb9T4aOuy22ViEKRQjkoIFparniZB5ooS2Iyhon3FMkLXB8I5F2AB6Z
+ 46KhYPCfz.clEFl3sY0kB8TWRuraitYtXA5aTEYr5oyByVNZG.0XtZi8UP3Qax0uLwUfXOw20d_c
+ gaq3LbSXwtUc.lqyU1hU.j.BtJiER4.mF2WZkEzQQvlExvd935oOg7I1HUnmH01oIhoDvCEPQOb.
+ MlfiPKcuKlqIAydWmacz.2hjxeRc9OUQIb16B2JiaIXbZJkWS1HPgmALR7jbS_AWENbuesxSm7m0
+ cIk4wSgcJJQ6ApgfVa_xq089uNrI4jIb7JAY3vcRMqaQ8V3s3slPU9dBmbhvLAqm8QEkJ9tyanTF
+ RFUGMJNrVvqPp.9Q8phM0bkn8KN9r62uBqWeQUFC7qZ7ARUL4XTUYmm7_bLNQdTKF8QagMqc0jnR
+ kAVtwoWxZuKmRPYqkcYYwljTm_JeKD9Zo9ETYP1IHnHC3tR8eiq9OCEJe.0J.y7ZFO6DKiQGvSox
+ ZO9.h7igNXcBNlBnXxHNiV54wfYs0l1lL0YEklgs6LX263sMaj50wnKLJBeB7cmyalcLzDt3agpV
+ JyG.EzTBq0U6wvqy3gf5josIr
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <da0528c8-7260-a1cb-7e6f-3d93493b060d@aol.com>
+Date: Wed, 4 Jan 2023 11:49:34 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b5083e4-d739-4c70-c622-08daee739009
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5hy1+vjpu7iK4XuFizmCeIIzj4pYaDqku8oNIiJwqnWelWWhufmQWQRcuGMe4JlrsN4785+WAwV4T8kqrQTKpOD3PENhNWTpmF7ZA6UqM25dekpeXN9cnAthXxqExi5m2OkVpSIAeGJZVVboWPIW79gV8WDwfRGHZF6hy//9FEDukOmDrTRnaoVNaQCtItmS2xfCegvcVpYxUK5OdobcOB+t1UM25+2X3kFJ4R2NGp+rygdBrrSxRn5hn4CZEuXOFFoaQlVaS0Xa67KM2gwT+bPBatxCRCTFq5LgfEy+SYFht12NjdvLmfX3OND3379zOmO0HiB7MiFKuQxbmOCXvb0UV9pEIpPkRK6eaji7jpsRWxioiMPwNlyy6L17v0nDBhjAVPZ6JbCcwOA0CuGqWVyzo0dDigEGDSa6he2yFrSIx3+PZgSIDgnvXWR8U9EcL9/v4YWmrUfvIomt2htGitin8rYP0EW7NegzTUckDn6I2EN67UB2buWBLDenSmwve8vVhgXhLWuQ7V74wEhU9j0WFSLRF0aM7mBd1MIgK1mjEVd1KObC++p7cqUG2vGjMtGGeBB3ZDAtSVKcY6ebdjA491EWsEeGn5kwXuB3rvR2pJnFkbEWPirX8TjynUkV14zlCm5NMEDZF3jzR+D0yAQrhVcYsuqywDvAKJ9ll3PrBe+kpimH4HgaoJSI1SURC0nZ32dkTjYgum/salSGyNnRV7x29h/tk4UjaxGy7pk=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(346002)(396003)(39860400002)(136003)(376002)(451199015)(36756003)(8936002)(5660300002)(4744005)(38100700002)(2906002)(41300700001)(83380400001)(86362001)(31696002)(66556008)(6916009)(54906003)(66946007)(31686004)(6486002)(53546011)(478600001)(6506007)(4326008)(316002)(66476007)(8676002)(6512007)(26005)(2616005)(186003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RUVEK2Y5SmxOcndTWkdlemRFRDByeHpsemZpa1dyd2UzTjIxYUE0Z0NiRm1i?=
- =?utf-8?B?RGsvSkxDbUJwVG1GTk9mZE9BUWRKYUdtNGpEOWFYQ1RhcCtiY3FPMHhpT2dU?=
- =?utf-8?B?SEE2cVVZTXZhajB3bytWK3VLbEZjNXJHNTU0UkJWODZ1UjlCZE1YZnNYQ0hN?=
- =?utf-8?B?NGhFeHkwb1NTTGMwLzFOWEhmUjBGb2NybVV3YXZzNS9sKzRVTGM4OVFjWCtv?=
- =?utf-8?B?Y2NvVFhoeXNHdXEvTC9nTmEzNlBvTXhJRmRjcGdUcm5WUkF0OEJPOGpyS2Ro?=
- =?utf-8?B?QTZOakdIL1RDUGZTZ3dIT3V4NXo0cnNYTnZ0WXZGTTQ3QTVjakhQS05WWldi?=
- =?utf-8?B?MWZ5c0k4eW4rK0FrUjRrZ2pOYVZGaXBXcWRDUUoyamlCUlJ0eWpjb3ZPNXZh?=
- =?utf-8?B?ak10NGxGQ29kYUFmeDYzNEFremxLK3lwWitvYnJwYkY5N09nckhTTTRNaVVZ?=
- =?utf-8?B?d1lEVWhENC9taTFyY0ZSSFJsa2VtR2IxQ3kvbUd1TWJ5aklhazBvVzhrR0s0?=
- =?utf-8?B?b2VrVlV2UjIyVVZkQWlubXlRcnJ4SFlWSFlNMk5PbjRXQ2RTUTh4L3VVSjRF?=
- =?utf-8?B?ZjNQNUFqdTZHVUhnMVdYeUUrOE5rbkd0bkZtNnI1RjN2QTZ5TmhsRUFtTUVB?=
- =?utf-8?B?U2xEcHVVRHZ4SzJMNlVaVC90L2ViZFE4VzNvcXMvekNXKzRPb2lMREI4V0Vj?=
- =?utf-8?B?RGF3am10NUJDYk1xeUF4cUgwK3o4R1d4RlZxcmNFQ1NxRmR0SHBRT0FBUGc3?=
- =?utf-8?B?Z3dCczNtRThRSm5pVXo5dzloK2ZNQzEraW10VkhCMHFLU3phbkpRc0RkY1Zs?=
- =?utf-8?B?V2VvL3pDTTRESmZndU5yYnlNbHczV3FJRmtMM0RiU1VaRzNURmRvZ0t6RmJV?=
- =?utf-8?B?b21BaGNSM1EwRG0rMFdNZWJhWlFCMzN6VFdzUFhsR2x0VkZ0dm93M0pFcnh2?=
- =?utf-8?B?S0JKc3FrT2F1SWNJeVdPc1l6clpyTitkbFlzWDA4OUdqSHV2NURnR1U3OTI0?=
- =?utf-8?B?L3FWZlpEYThMWG82bzAzMS82TUJMQWQvTUE5T0xma08xTnFkcGs4L0hhNEdi?=
- =?utf-8?B?V2pyVkkrdVpXd204a2VBdGxFcUs4cFBEOFV5WEYwYk9KcXdSV3lKbHhidFFD?=
- =?utf-8?B?RkFSUEpRYmhlMzBxdFh3R0J5ZEw5Y2tZRS9lY3ZOYS8yaGhrNDFpdlNUL3ZO?=
- =?utf-8?B?di9CcW8xREdRWTduVWhvNUFONnR0Ulk1dHYvS3UxTjhUTXFlQS9ZeFJQckJ2?=
- =?utf-8?B?U0V1bUVNTkRMVW9nb1F3R1E2SDI0OHlBMjRVa1AxUUk1R0ZSTEhaNk1rMDBK?=
- =?utf-8?B?QUk5ZERhT3k1NEQzdGR0cVV4d2dMYm9sN0djTDI5cWFoRDNRdmJleUV0RlI1?=
- =?utf-8?B?Ty82SEhFRVFYaDF6QnpZYzNOWEdPVG93Z3E5SzkxQzFMUUNTbEI3L0FQVHcv?=
- =?utf-8?B?eExJSWprSExQVGwxcGtXOG9rKzRRb2NZdlBwcmt0Y0ZGaDEyR2VMNWhOMmJj?=
- =?utf-8?B?K2ZvU3FScU0yVTRJZmZtam1JT0VPd2dlQUpCYnBTUDNLazNFZlZ5NzNiZktI?=
- =?utf-8?B?TWZVK2p2TS9xRTJJTVMvWGFQQVc4K1ZqYzhPYWRsWHdwcXB2VVltRS8yVDVT?=
- =?utf-8?B?SFJiczdaVGdrUC9BZEFOUlVVZk13aUdHeUJsYS92MVYreFdMRkh2a2pWVGQ2?=
- =?utf-8?B?SEJQaktyNVVKWlJiRGI3ZFM5ejJTUmlrTGhycXo5M1RsSW1BdVhDQS8yL0Vi?=
- =?utf-8?B?Q2k4NC8vSGppSlVpREJOWXc3K2lTUnB1QVdPSDgvQzgrdTRvdnJxalgycmYx?=
- =?utf-8?B?SUNnZmNEWlF2MmFMTERWZk9zUXdBMW1MQ3lOODM2K2lXR2Z3ZmhBTSt2QVB6?=
- =?utf-8?B?U3dpYUkzaXZxTlByM3hIZ05XWG9qRk1SYmo3QVN3cmRhdFpST3BuaWdUM3Vt?=
- =?utf-8?B?R2xGVS9JbWd5MFhqNDd4SVRBMno0Qm0zVVVPR01XNHNTMnIrWFJpNjVCWitH?=
- =?utf-8?B?Njh2YlphM3NUQ3l4VmdTWUlyT1BuZ1JpWS9EME5nK25iMHk5UWJrd21hWTFy?=
- =?utf-8?B?LzkwTkVMbG1pMHhXQUVnUmNYUWUxUldla3RhNkJZNk1PQkJuNlNxODZrbUVi?=
- =?utf-8?Q?HqaLFb+XJyVg9d/IWcxrtkLU9?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b5083e4-d739-4c70-c622-08daee739009
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 16:48:53.4524
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ezlwZD1NIfHo2xTeGxqdap1K6p/6QpPPeyXkoNXve+2G+1sh+1ak9IBGgjUoVLQk1U2BX+e7XHj7nad0cP84tA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9351
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+Content-Language: en-US
+To: Bernhard Beschow <shentey@gmail.com>,
+ =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
+Cc: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost
+ <eduardo@habkost.net>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>
+References: <20230102213504.14646-1-shentey@gmail.com>
+ <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com>
+ <0de699a7-98b8-e320-da4d-678d0f594213@linaro.org>
+ <CAG4p6K7hcJ-47GvsEvmuBmdwP2LsEC4WLkw_t6ZfwhqakYUEyQ@mail.gmail.com>
+ <aed4f2c1-83f7-163a-fb44-f284376668dc@aol.com>
+ <AB058B2A-406E-487B-A1BA-74416C310B7A@gmail.com>
+ <00094755-ca61-372d-0bcf-540fe2798f5c@aol.com>
+ <7E657325-705A-47EA-A334-0B59DF0DF772@gmail.com>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+In-Reply-To: <7E657325-705A-47EA-A334-0B59DF0DF772@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20982 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 03.01.2023 21:09, Andrew Cooper wrote:
-> --- a/xen/include/xlat.lst
-> +++ b/xen/include/xlat.lst
-> @@ -169,6 +169,9 @@
->  !	vcpu_runstate_info		vcpu.h
->  ?	vcpu_set_periodic_timer		vcpu.h
->  !	vcpu_set_singleshot_timer	vcpu.h
-> +?	compile_info                    version.h
-> +?	feature_info                    version.h
-> +?	build_id                        version.h
+On 1/4/23 11:12 AM, Bernhard Beschow wrote:
+> 
+> 
+> Am 4. Januar 2023 13:11:16 UTC schrieb Chuck Zmudzinski <brchuckz@aol.com>:
+>>On 1/4/2023 7:13 AM, Bernhard Beschow wrote:
+>>> Am 4. Januar 2023 08:18:59 UTC schrieb Chuck Zmudzinski <brchuckz@aol.com>:
+>>> >On 1/3/2023 8:38 AM, Bernhard Beschow wrote:
+>>> >>
+>>> >>
+>>> >> On Tue, Jan 3, 2023 at 2:17 PM Philippe Mathieu-Daudé <philmd@linaro.org> wrote:
+>>> >>
+>>> >>     Hi Chuck,
+>>> >>
+>>> >>     On 3/1/23 04:15, Chuck Zmudzinski wrote:
+>>> >>     > On 1/2/23 4:34 PM, Bernhard Beschow wrote:
+>>> >>     >> This series first renders TYPE_PIIX3_XEN_DEVICE redundant and finally removes
+>>> >>     >> it. The motivation is to 1/ decouple PIIX from Xen and 2/ to make Xen in the PC
+>>> >>     >> machine agnostic to the precise southbridge being used. 2/ will become
+>>> >>     >> particularily interesting once PIIX4 becomes usable in the PC machine, avoiding
+>>> >>     >> the "Frankenstein" use of PIIX4_ACPI in PIIX3.
+>>> >>     >>
+>>> >>     >> Testing done:
+>>> >>     >> None, because I don't know how to conduct this properly :(
+>>> >>     >>
+>>> >>     >> Based-on: <20221221170003.2929-1-shentey@gmail.com>
+>>> >>     >>            "[PATCH v4 00/30] Consolidate PIIX south bridges"
+>>> >>
+>>> >>     This series is based on a previous series:
+>>> >>     https://lore.kernel.org/qemu-devel/20221221170003.2929-1-shentey@gmail.com/
+>>> >>     (which itself also is).
+>>> >>
+>>> >>     >> Bernhard Beschow (6):
+>>> >>     >>    include/hw/xen/xen: Make xen_piix3_set_irq() generic and rename it
+>>> >>     >>    hw/isa/piix: Reuse piix3_realize() in piix3_xen_realize()
+>>> >>     >>    hw/isa/piix: Wire up Xen PCI IRQ handling outside of PIIX3
+>>> >>     >>    hw/isa/piix: Avoid Xen-specific variant of piix_write_config()
+>>> >>     >>    hw/isa/piix: Resolve redundant k->config_write assignments
+>>> >>     >>    hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
+>>> >>     >>
+>>> >>     >>   hw/i386/pc_piix.c             | 34 ++++++++++++++++--
+>>> >>     >>   hw/i386/xen/xen-hvm.c         |  9 +++--
+>>> >>     >>   hw/isa/piix.c                 | 66 +----------------------------------
+>>> >>     >
+>>> >>     > This file does not exist on the Qemu master branch.
+>>> >>     > But hw/isa/piix3.c and hw/isa/piix4.c do exist.
+>>> >>     >
+>>> >>     > I tried renaming it from piix.c to piix3.c in the patch, but
+>>> >>     > the patch set still does not apply cleanly on my tree.
+>>> >>     >
+>>> >>     > Is this patch set re-based against something other than
+>>> >>     > the current master Qemu branch?
+>>> >>     >
+>>> >>     > I have a system that is suitable for testing this patch set, but
+>>> >>     > I need guidance on how to apply it to the Qemu source tree.
+>>> >>
+>>> >>     You can ask Bernhard to publish a branch with the full work,
+>>> >>
+>>> >>
+>>> >> Hi Chuck,
+>>> >>
+>>> >> ... or just visit https://patchew.org/QEMU/20230102213504.14646-1-shentey@gmail.com/ . There you'll find a git tag with a complete history and all instructions!
+>>> >>
+>>> >> Thanks for giving my series a test ride!
+>>> >>
+>>> >> Best regards,
+>>> >> Bernhard
+>>> >>
+>>> >>     or apply each series locally. I use the b4 tool for that:
+>>> >>     https://b4.docs.kernel.org/en/latest/installing.html
+>>> >>
+>>> >>     i.e.:
+>>> >>
+>>> >>     $ git checkout -b shentey_work
+>>> >>     $ b4 am 20221120150550.63059-1-shentey@gmail.com
+>>> >>     $ git am
+>>> >>     ./v2_20221120_shentey_decouple_intx_to_lnkx_routing_from_south_bridges.mbx
+>>> >>     $ b4 am 20221221170003.2929-1-shentey@gmail.com
+>>> >>     $ git am
+>>> >>     ./v4_20221221_shentey_this_series_consolidates_the_implementations_of_the_piix3_and_piix4_south.mbx
+>>> >>     $ b4 am 20230102213504.14646-1-shentey@gmail.com
+>>> >>     $ git am ./20230102_shentey_resolve_type_piix3_xen_device.mbx
+>>> >>
+>>> >>     Now the branch 'shentey_work' contains all the patches and you can test.
+>>> >>
+>>> >>     Regards,
+>>> >>
+>>> >>     Phil.
+>>> >>
+>>> >
+>>> >Hi Phil and Bernard,
+>>> >
+>>> >I tried applying these 3 patch series on top of the current qemu
+>>> >master branch.
+>>> >
+>>> >Unfortunately, I saw a regression, so I can't give a tested-by tag yet.
+>>>
+>>> Hi Chuck,
+>>>
+>>> Thanks for your valuable test report! I think the culprit may be commit https://lists.nongnu.org/archive/html/qemu-devel/2023-01/msg00102.html where now 128 PIRQs are considered rather than four. I'll revisit my series and will prepare a v2 in the next days. I think there is no need for further testing v1.
+>>>
+>>> Thanks,
+>>> Bernhard
+>>
+>>Hi Bernhard,
+>>
+>>Thanks for letting me know I do not need to test v1 further. I agree the
+>>symptoms are that it is an IRQ problem - it looks like IRQs associated with
+>>the emulated usb tablet device are not making it to the guest with the
+>>patched v1 piix device on xen.
+> 
+> All PCI IRQs were routed to PCI slot 0. This should be fixed in v2 now.
+> 
+>>I will be looking for your v2 in coming days and try it out also!
+> 
+> Thank you! Here it is: https://patchew.org/QEMU/20230104144437.27479-1-shentey@gmail.com/
 
-Oh, btw, another minor request: Can you please sort these by name (as
-secondary criteria after the name of the containing header)?
+That fixed it! I added my Tested-by tag to the last patch of v2:
 
-Thanks, Jan
+[PATCH v2 6/6] hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
+
+AFAICT, v2 is is ready to go!
+
+Best regards,
+
+Chuck
 
