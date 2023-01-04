@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 568D165CE95
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 09:45:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470988.730723 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6801565CE92
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 09:45:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.470989.730728 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCzOg-0001gm-Ey; Wed, 04 Jan 2023 08:45:18 +0000
+	id 1pCzOg-0001m1-RT; Wed, 04 Jan 2023 08:45:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470988.730723; Wed, 04 Jan 2023 08:45:18 +0000
+Received: by outflank-mailman (output) from mailman id 470989.730728; Wed, 04 Jan 2023 08:45:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCzOg-0001dC-7h; Wed, 04 Jan 2023 08:45:18 +0000
-Received: by outflank-mailman (input) for mailman id 470988;
- Wed, 04 Jan 2023 08:45:15 +0000
+	id 1pCzOg-0001fz-Jc; Wed, 04 Jan 2023 08:45:18 +0000
+Received: by outflank-mailman (input) for mailman id 470989;
+ Wed, 04 Jan 2023 08:45:16 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YfqB=5B=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pCzOd-0008Pe-LM
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 08:45:15 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
+ id 1pCzOe-0008Pe-KN
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 08:45:16 +0000
+Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
+ [2a00:1450:4864:20::62e])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1b7c2fdb-8c0c-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 09:45:14 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id qk9so80720802ejc.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 00:45:14 -0800 (PST)
+ id 1c29c3f9-8c0c-11ed-91b6-6bf2151ebd3b;
+ Wed, 04 Jan 2023 09:45:15 +0100 (CET)
+Received: by mail-ej1-x62e.google.com with SMTP id kw15so80791873ejc.10
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 00:45:15 -0800 (PST)
 Received: from uni.router.wind (adsl-57.109.242.233.tellas.gr.
  [109.242.233.57]) by smtp.googlemail.com with ESMTPSA id
- k22-20020a170906129600b007c10fe64c5dsm15016382ejb.86.2023.01.04.00.45.12
+ k22-20020a170906129600b007c10fe64c5dsm15016382ejb.86.2023.01.04.00.45.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jan 2023 00:45:13 -0800 (PST)
+ Wed, 04 Jan 2023 00:45:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,67 +44,58 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1b7c2fdb-8c0c-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 1c29c3f9-8c0c-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Tj9i4k4Po7JyYtPs55wgOJc0qUd+pVBAioCcKA5YDiY=;
-        b=Zk+2/cbxitpP46T2xli3DDei5RXHSwU29gjuLZrqJIo5izrT20VbUgQPqJsoEFGTOc
-         /W5fc3wv67hCfpm1t12Ko8J8tL1OoAck5uYCQR2rHRD+Y7bobdryX37MXLcS0wGOBinj
-         sfmXg6ZATbhiMJUVaOAjzB9CpCFUWM4eatisjFSKochHLue/OZd2USvw144OzRzASLmc
-         A2+LucMoBQ8V32eCE2nvpI01CKlieGkI7D71enXT+XQSZ/53iB11tE64UfHLtQlA7w9P
-         Pv/+P/8KodQeSpU4MNasky3A6OTEwPnzfs1DPhQrLWke0TvD005GLTE4soIPyEHXtF97
-         E+DA==
+        bh=tqo5/tDlicPu5mCxcbh6Z6IjcPc3BV3fslYWB3OSArs=;
+        b=LePRpHzDhHQjRWbDbuAHMYF8Ya6h/Nu3+/MhJyIyz06QAqOF1EVetuhx8mCgZMC887
+         kH7P9lgSIwn4eWBO93tmf01OzBKP4dDKVIzeOr/DpfVmuLWgRGIvYMUtgTa7YisgLZgP
+         hn4oemUODuBnAQ5fxvN+mIWNSILJQwDbX1t+FNyMouEeOdIpJlDG/9kQdAlAsx80UlJL
+         jTl1vRnFgs+K9AUDdy5LxW2dtzxuLLDtfPFyv45+htKGvvluZ6coAPK+sH8X0xLuVXjg
+         UdP7pHR2LaOY4Om4f1/aSV5nvuxO0okrXOk2pJ/uSDKf7tvvuqVZZc3JdHrSVpAS7xzL
+         yl4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Tj9i4k4Po7JyYtPs55wgOJc0qUd+pVBAioCcKA5YDiY=;
-        b=R0D6QB90BGTKCxztadvHO2ADWox0M1pWIPjXtjNWIchfPIt9FWvajgtw9xU0JQZ4Px
-         OWktcbtMchdfpmvxslO4NNsY090AgXLbs2XF049xAdPNSr+xKU9f++3MvXKRPrL6c6gk
-         wCg16qd11ztWbwmDdeothjsD09wEywfKqWpZlln8+gtCJN5elwsBc/nG5VfdXwefzQZH
-         DzQGK9rOsFmgtswFT83LB6cOtiO0UIs2EzaBM6boOgCspDVfA642RF09eDhrEfbStIiu
-         IXBfKZBwpEck/0+QNAn1fOvA7fsZug1T0EK4SIfbrsfZfwyIUiyqgDDj9G4vDjo7ybiN
-         O3eQ==
-X-Gm-Message-State: AFqh2koJAwLtcnLCK288w7AWUjct14CWVQp/mukFLpBCutfiP/GkcsHM
-	C8j5CBlel7B9l7SDCZ0mhCb8HPda4SY=
-X-Google-Smtp-Source: AMrXdXvYf/Q/hqROtjcI4p728EDt17GV1HrYpbRwl8Wf778r0ZHaKQAZ6Auylm8M+YkwBNQ7HdOJYg==
-X-Received: by 2002:a17:906:a186:b0:82d:e2a6:4b0d with SMTP id s6-20020a170906a18600b0082de2a64b0dmr40816443ejy.18.1672821914148;
-        Wed, 04 Jan 2023 00:45:14 -0800 (PST)
+        bh=tqo5/tDlicPu5mCxcbh6Z6IjcPc3BV3fslYWB3OSArs=;
+        b=3RCtZm2Kzdh1cL0CLDS7L1jN/eOCXAthuVTJlyTy8YpW94x+Lv/8IhDYau+gKUpocY
+         55oTEfZMEcTYPRFx8aIqs5uZXWTN387uWzzBqQAyoJHAS3kk73L26WwIgdRnFwyXjBDS
+         WQ2ndI9cOlM+isgbM7/GODZzKnd7Coiufs/emP8KyvNZG6YTI5FOYavD23X8ZCp7m/Bf
+         WxUU6hixUDLhcKx0z2xB7cBrCZCqtXjzyuuj87LVZPovlAdZsCU8NUDaN+bqCP4pQkqY
+         VBJYl4Nv5vWBVDp442llz3ZWej40bvJK3NG+QAfCUxRi0TrEHI5Up8uO8JJHKph4Mij3
+         cJFA==
+X-Gm-Message-State: AFqh2kqCh9TZv7AtNxZ8VZf5kWsFO883dmNqY96J8zpgvDz72Sb1G/IO
+	87pQ5//ssTfCd6fGx5mB5bgLX3BXKzc=
+X-Google-Smtp-Source: AMrXdXs5y3cNVYlCIU2x42F91fpieCpDGRWVHMwTv5YUoJffv5zEYYp91gCsYfg7Tg8x1q5qUj4dZw==
+X-Received: by 2002:a17:907:cb85:b0:7c0:f216:cc14 with SMTP id un5-20020a170907cb8500b007c0f216cc14mr40673315ejc.11.1672821915341;
+        Wed, 04 Jan 2023 00:45:15 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jun Nakajima <jun.nakajima@intel.com>,
-	Kevin Tian <kevin.tian@intel.com>,
+Cc: Kevin Tian <kevin.tian@intel.com>,
 	Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	Paul Durrant <paul@xen.org>
-Subject: [PATCH v2 6/8] x86/iommu: call pi_update_irte through an hvm_function callback
-Date: Wed,  4 Jan 2023 10:45:00 +0200
-Message-Id: <20230104084502.61734-7-burzalodowa@gmail.com>
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 7/8] x86/dpci: move hvm_dpci_isairq_eoi() to generic HVM code
+Date: Wed,  4 Jan 2023 10:45:01 +0200
+Message-Id: <20230104084502.61734-8-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230104084502.61734-1-burzalodowa@gmail.com>
 References: <20230104084502.61734-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Posted interrupt support in Xen is currently implemented only for the
-Intel platforms. Instead of calling directly pi_update_irte() from the
-common hvm code, add a pi_update_irte callback to the hvm_function_table.
-Then, create a wrapper function hvm_pi_update_irte() to be used by the
-common hvm code.
+The function hvm_dpci_isairq_eoi() has no dependencies on VT-d driver code
+and can be moved from xen/drivers/passthrough/vtd/x86/hvm.c to
+xen/drivers/passthrough/x86/hvm.c, along with the corresponding copyrights.
 
-In the pi_update_irte callback prototype, pass the vcpu as first parameter
-instead of the posted-interrupt descriptor that is platform specific, and
-remove the const qualifier from the parameter gvec since it is not needed
-and because it does not compile with the alternative code patching in use.
+Remove the now empty xen/drivers/passthrough/vtd/x86/hvm.c.
 
-Move the declaration of pi_update_irte() from asm/iommu.h to asm/hvm/vmx/vmx.h
-since it is hvm and Intel specific.
+Since the funcion is used only in this file, declare it static.
 
 No functional change intended.
 
@@ -112,143 +103,167 @@ Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
 
 Changes in v2:
-  - remove the definition of hvm_pi_update_irte() for !CONFIG_HVM
-  - replace CONFIG_INTEL_VTD with CONFIG_INTEL_IOMMU
+  - update the copyright
+  - declare hvm_dpci_isairq_eoi() static
 
- xen/arch/x86/hvm/vmx/vmx.c             | 10 ++++++++++
- xen/arch/x86/include/asm/hvm/hvm.h     | 15 +++++++++++++++
- xen/arch/x86/include/asm/hvm/vmx/vmx.h | 11 +++++++++++
- xen/arch/x86/include/asm/iommu.h       |  3 ---
- xen/drivers/passthrough/x86/hvm.c      |  5 ++---
- 5 files changed, 38 insertions(+), 6 deletions(-)
+ xen/drivers/passthrough/vtd/x86/Makefile |  1 -
+ xen/drivers/passthrough/vtd/x86/hvm.c    | 64 ------------------------
+ xen/drivers/passthrough/x86/hvm.c        | 43 ++++++++++++++++
+ xen/include/xen/iommu.h                  |  1 -
+ 4 files changed, 43 insertions(+), 66 deletions(-)
+ delete mode 100644 xen/drivers/passthrough/vtd/x86/hvm.c
 
-diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-index 43a4865d1c..cb6b325e41 100644
---- a/xen/arch/x86/hvm/vmx/vmx.c
-+++ b/xen/arch/x86/hvm/vmx/vmx.c
-@@ -2143,6 +2143,14 @@ static bool cf_check vmx_test_pir(const struct vcpu *v, uint8_t vec)
-     return pi_test_pir(vec, &v->arch.hvm.vmx.pi_desc);
- }
- 
-+static int cf_check vmx_pi_update_irte(const struct vcpu *v,
-+                                       const struct pirq *pirq, uint8_t gvec)
-+{
-+    const struct pi_desc *pi_desc = v ? &v->arch.hvm.vmx.pi_desc : NULL;
-+
-+    return pi_update_irte(pi_desc, pirq, gvec);
-+}
-+
- static void cf_check vmx_handle_eoi(uint8_t vector, int isr)
- {
-     uint8_t old_svi = set_svi(isr);
-@@ -2591,6 +2599,8 @@ static struct hvm_function_table __initdata_cf_clobber vmx_function_table = {
-     .tsc_scaling = {
-         .max_ratio = VMX_TSC_MULTIPLIER_MAX,
-     },
-+
-+    .pi_update_irte = vmx_pi_update_irte,
- };
- 
- /* Handle VT-d posted-interrupt when VCPU is blocked. */
-diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-index 93254651f2..b3fe0663f9 100644
---- a/xen/arch/x86/include/asm/hvm/hvm.h
-+++ b/xen/arch/x86/include/asm/hvm/hvm.h
-@@ -28,6 +28,8 @@
- #include <asm/x86_emulate.h>
- #include <asm/hvm/asid.h>
- 
-+struct pirq; /* needed by pi_update_irte */
-+
- #ifdef CONFIG_HVM_FEP
- /* Permit use of the Forced Emulation Prefix in HVM guests */
- extern bool_t opt_hvm_fep;
-@@ -250,6 +252,9 @@ struct hvm_function_table {
-         /* Architecture function to setup TSC scaling ratio */
-         void (*setup)(struct vcpu *v);
-     } tsc_scaling;
-+
-+    int (*pi_update_irte)(const struct vcpu *v,
-+                          const struct pirq *pirq, uint8_t gvec);
- };
- 
- extern struct hvm_function_table hvm_funcs;
-@@ -774,6 +779,16 @@ static inline void hvm_set_nonreg_state(struct vcpu *v,
-         alternative_vcall(hvm_funcs.set_nonreg_state, v, nrs);
- }
- 
-+static inline int hvm_pi_update_irte(const struct vcpu *v,
-+                                     const struct pirq *pirq, uint8_t gvec)
-+{
-+    if ( hvm_funcs.pi_update_irte )
-+        return alternative_call(hvm_funcs.pi_update_irte, v, pirq, gvec);
-+
-+    return -EOPNOTSUPP;
-+}
-+
-+
- #else  /* CONFIG_HVM */
- 
- #define hvm_enabled false
-diff --git a/xen/arch/x86/include/asm/hvm/vmx/vmx.h b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-index 96a9f07ca5..e827fece07 100644
---- a/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-+++ b/xen/arch/x86/include/asm/hvm/vmx/vmx.h
-@@ -146,6 +146,17 @@ static inline void pi_clear_sn(struct pi_desc *pi_desc)
-     clear_bit(POSTED_INTR_SN, &pi_desc->control);
- }
- 
-+#ifdef CONFIG_INTEL_IOMMU
-+int pi_update_irte(const struct pi_desc *pi_desc,
-+                   const struct pirq *pirq, const uint8_t gvec);
-+#else
-+static inline int pi_update_irte(const struct pi_desc *pi_desc,
-+                                 const struct pirq *pirq, const uint8_t gvec)
-+{
-+    return -EOPNOTSUPP;
-+}
-+#endif
-+
- /*
-  * Exit Reasons
-  */
-diff --git a/xen/arch/x86/include/asm/iommu.h b/xen/arch/x86/include/asm/iommu.h
-index fb5fe4e1bf..b432790d24 100644
---- a/xen/arch/x86/include/asm/iommu.h
-+++ b/xen/arch/x86/include/asm/iommu.h
-@@ -131,9 +131,6 @@ void iommu_identity_map_teardown(struct domain *d);
- extern bool untrusted_msi;
- #endif
- 
--int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
--                   const uint8_t gvec);
+diff --git a/xen/drivers/passthrough/vtd/x86/Makefile b/xen/drivers/passthrough/vtd/x86/Makefile
+index 4ef00a4c5b..fe20a0b019 100644
+--- a/xen/drivers/passthrough/vtd/x86/Makefile
++++ b/xen/drivers/passthrough/vtd/x86/Makefile
+@@ -1,3 +1,2 @@
+ obj-y += ats.o
+-obj-$(CONFIG_HVM) += hvm.o
+ obj-y += vtd.o
+diff --git a/xen/drivers/passthrough/vtd/x86/hvm.c b/xen/drivers/passthrough/vtd/x86/hvm.c
+deleted file mode 100644
+index bc776cf7da..0000000000
+--- a/xen/drivers/passthrough/vtd/x86/hvm.c
++++ /dev/null
+@@ -1,64 +0,0 @@
+-/*
+- * Copyright (c) 2008, Intel Corporation.
+- *
+- * This program is free software; you can redistribute it and/or modify it
+- * under the terms and conditions of the GNU General Public License,
+- * version 2, as published by the Free Software Foundation.
+- *
+- * This program is distributed in the hope it will be useful, but WITHOUT
+- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+- * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+- * more details.
+- *
+- * You should have received a copy of the GNU General Public License along with
+- * this program; If not, see <http://www.gnu.org/licenses/>.
+- *
+- * Copyright (C) Allen Kay <allen.m.kay@intel.com>
+- * Copyright (C) Weidong Han <weidong.han@intel.com>
+- */
 -
- extern bool iommu_non_coherent, iommu_superpages;
- 
- static inline void iommu_sync_cache(const void *addr, unsigned int size)
+-#include <xen/iommu.h>
+-#include <xen/irq.h>
+-#include <xen/sched.h>
+-
+-static int cf_check _hvm_dpci_isairq_eoi(
+-    struct domain *d, struct hvm_pirq_dpci *pirq_dpci, void *arg)
+-{
+-    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
+-    unsigned int isairq = (long)arg;
+-    const struct dev_intx_gsi_link *digl;
+-
+-    list_for_each_entry ( digl, &pirq_dpci->digl_list, list )
+-    {
+-        unsigned int link = hvm_pci_intx_link(digl->device, digl->intx);
+-
+-        if ( hvm_irq->pci_link.route[link] == isairq )
+-        {
+-            hvm_pci_intx_deassert(d, digl->device, digl->intx);
+-            if ( --pirq_dpci->pending == 0 )
+-                pirq_guest_eoi(dpci_pirq(pirq_dpci));
+-        }
+-    }
+-
+-    return 0;
+-}
+-
+-void hvm_dpci_isairq_eoi(struct domain *d, unsigned int isairq)
+-{
+-    struct hvm_irq_dpci *dpci = NULL;
+-
+-    ASSERT(isairq < NR_ISAIRQS);
+-    if ( !is_iommu_enabled(d) )
+-        return;
+-
+-    write_lock(&d->event_lock);
+-
+-    dpci = domain_get_irq_dpci(d);
+-
+-    if ( dpci && test_bit(isairq, dpci->isairq_map) )
+-    {
+-        /* Multiple mirq may be mapped to one isa irq */
+-        pt_pirq_iterate(d, _hvm_dpci_isairq_eoi, (void *)(long)isairq);
+-    }
+-    write_unlock(&d->event_lock);
+-}
 diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-index a16e0e5344..e720461a14 100644
+index e720461a14..5043ecab9c 100644
 --- a/xen/drivers/passthrough/x86/hvm.c
 +++ b/xen/drivers/passthrough/x86/hvm.c
-@@ -381,8 +381,7 @@ int pt_irq_create_bind(
+@@ -14,6 +14,7 @@
+  * this program; If not, see <http://www.gnu.org/licenses/>.
+  *
+  * Copyright (C) Allen Kay <allen.m.kay@intel.com>
++ * Copyright (C) Weidong Han <weidong.han@intel.com>
+  * Copyright (C) Xiaohui Xin <xiaohui.xin@intel.com>
+  */
  
-         /* Use interrupt posting if it is supported. */
-         if ( iommu_intpost )
--            pi_update_irte(vcpu ? &vcpu->arch.hvm.vmx.pi_desc : NULL,
--                           info, pirq_dpci->gmsi.gvec);
-+            hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi.gvec);
+@@ -924,6 +925,48 @@ static void hvm_gsi_eoi(struct domain *d, unsigned int gsi)
+     hvm_pirq_eoi(pirq);
+ }
  
-         if ( pt_irq_bind->u.msi.gflags & XEN_DOMCTL_VMSI_X86_UNMASKED )
-         {
-@@ -672,7 +671,7 @@ int pt_irq_destroy_bind(
-             what = "bogus";
-     }
-     else if ( pirq_dpci && pirq_dpci->gmsi.posted )
--        pi_update_irte(NULL, pirq, 0);
-+        hvm_pi_update_irte(NULL, pirq, 0);
++static int cf_check _hvm_dpci_isairq_eoi(
++    struct domain *d, struct hvm_pirq_dpci *pirq_dpci, void *arg)
++{
++    struct hvm_irq *hvm_irq = hvm_domain_irq(d);
++    unsigned int isairq = (long)arg;
++    const struct dev_intx_gsi_link *digl;
++
++    list_for_each_entry ( digl, &pirq_dpci->digl_list, list )
++    {
++        unsigned int link = hvm_pci_intx_link(digl->device, digl->intx);
++
++        if ( hvm_irq->pci_link.route[link] == isairq )
++        {
++            hvm_pci_intx_deassert(d, digl->device, digl->intx);
++            if ( --pirq_dpci->pending == 0 )
++                pirq_guest_eoi(dpci_pirq(pirq_dpci));
++        }
++    }
++
++    return 0;
++}
++
++static void hvm_dpci_isairq_eoi(struct domain *d, unsigned int isairq)
++{
++    struct hvm_irq_dpci *dpci = NULL;
++
++    ASSERT(isairq < NR_ISAIRQS);
++    if ( !is_iommu_enabled(d) )
++        return;
++
++    write_lock(&d->event_lock);
++
++    dpci = domain_get_irq_dpci(d);
++
++    if ( dpci && test_bit(isairq, dpci->isairq_map) )
++    {
++        /* Multiple mirq may be mapped to one isa irq */
++        pt_pirq_iterate(d, _hvm_dpci_isairq_eoi, (void *)(long)isairq);
++    }
++    write_unlock(&d->event_lock);
++}
++
+ void hvm_dpci_eoi(struct domain *d, unsigned int guest_gsi)
+ {
+     const struct hvm_irq_dpci *hvm_irq_dpci;
+diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
+index aa924541d5..f08bc2a4a5 100644
+--- a/xen/include/xen/iommu.h
++++ b/xen/include/xen/iommu.h
+@@ -200,7 +200,6 @@ int hvm_do_IRQ_dpci(struct domain *, struct pirq *);
+ int pt_irq_create_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
+ int pt_irq_destroy_bind(struct domain *, const struct xen_domctl_bind_pt_irq *);
  
-     if ( pirq_dpci && (pirq_dpci->flags & HVM_IRQ_DPCI_MAPPED) &&
-          list_empty(&pirq_dpci->digl_list) )
+-void hvm_dpci_isairq_eoi(struct domain *d, unsigned int isairq);
+ struct hvm_irq_dpci *domain_get_irq_dpci(const struct domain *);
+ void free_hvm_irq_dpci(struct hvm_irq_dpci *dpci);
+ 
 -- 
 2.37.2
 
