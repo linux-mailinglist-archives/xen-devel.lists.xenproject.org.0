@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CF065D777
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 16:45:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471282.731074 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 271F365D838
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 17:13:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471289.731085 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5wr-0002Hi-1S; Wed, 04 Jan 2023 15:45:01 +0000
+	id 1pD6NX-00064a-7L; Wed, 04 Jan 2023 16:12:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471282.731074; Wed, 04 Jan 2023 15:45:01 +0000
+Received: by outflank-mailman (output) from mailman id 471289.731085; Wed, 04 Jan 2023 16:12:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5wq-0002En-Un; Wed, 04 Jan 2023 15:45:00 +0000
-Received: by outflank-mailman (input) for mailman id 471282;
- Wed, 04 Jan 2023 15:44:59 +0000
+	id 1pD6NX-00061s-3Z; Wed, 04 Jan 2023 16:12:35 +0000
+Received: by outflank-mailman (input) for mailman id 471289;
+ Wed, 04 Jan 2023 16:12:34 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+XhT=5B=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pD5wp-0002EU-B3
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 15:44:59 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2040.outbound.protection.outlook.com [40.107.20.40])
+ (envelope-from <SRS0=bCSi=5B=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1pD6NW-00061k-JW
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 16:12:34 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bdd70812-8c46-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 16:44:58 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8377.eurprd04.prod.outlook.com (2603:10a6:10:25c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 15:44:55 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 15:44:55 +0000
+ id 9869fabb-8c4a-11ed-91b6-6bf2151ebd3b;
+ Wed, 04 Jan 2023 17:12:33 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id ud5so83878412ejc.4
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 08:12:33 -0800 (PST)
+Received: from ?IPv6:::1?
+ (p200300faaf0bb2008108eedf25879029.dip0.t-ipconnect.de.
+ [2003:fa:af0b:b200:8108:eedf:2587:9029])
+ by smtp.gmail.com with ESMTPSA id
+ lj2-20020a170906f9c200b007a4e02e32ffsm15454154ejb.60.2023.01.04.08.12.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Jan 2023 08:12:32 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,166 +46,276 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bdd70812-8c46-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nu30EW1cGTSvrNgzZhfYOoggD+Q16sa+nRBET+DscSiBrlVEj7EaxbMowo72pZ1koFBhLX8FSup4UObLUdTOoPQH/eOJ0ko9dxE39yr4ZI5KnCQrWb+c4rajegqX/G7Ril+AKSFEnTkSq4kON3HVg++Z5aUdFDoV0ioe5sGmnknLlkwaTRqxVGLkpafs4Q6a+5F0yQaaqRIpl3q4kMhxxV/5k+0axfCWWRO0iFdO8v4bLcz9M8+f0C2QfHLc4yV4daR6dl7Bl6xhB7I7TAp/WQuXoq/8dNZ+vecBAmTleun0h3vxTkYZh+aIYIHfGmQRX2ljoIXZyWz12QwT/BFkUg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ekUmmCLjTlbJSqa3zB70oJ7pL5kMKDCfK5iJNx+FSQY=;
- b=TgpaWhfQrk2wD0u43wvsOTE4hyOLx9Ndm7jDs60xO6lHUNnoZKlKXdSwNj873NF++P6m0ZbfyrW8jh4oj3NzX0Ob/Tj1HRExpvEz9EY6TEBm0N6yFczxKh3pO+gHyqXbTakMlxLWj799JGDtAdxKw3D2+bb2BGObq18bXBDE42mbmLD0UNCJ6VIn9VM6GakPWGJaQVExBblAQxkLYpCVWKtTIUocdA4Iyn8E1biMc/avmFEOFP7lVdDTuHLXGW8LacSjBxl061NLmyftiUV4atMfK/ZMI+ybKpG5YOzBnm8G0FPLtERldB0rR6eW4zPXhvX2WGwMW9kFjASehf9IJA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ekUmmCLjTlbJSqa3zB70oJ7pL5kMKDCfK5iJNx+FSQY=;
- b=e+boEKtCGHJnMzoVsJ2p9qAvkmJLdEPKLyRYjEvkT+Uw/1VG6o8TqUjv8tjOXHIwkVfzMqDYHFW27mHjkRDEtmZBM7i98/K7lb8L7Sg5Q1j29FB3IKesZpHkOlNzuwRfn4x0pnTk99QyPGlIRYo75Ut3TORB2UTjFB9N6F5lg7KkNIHPDnu911gON3su+RzHOttfE0ya08F+0vv/zdgQjb5W4/Tq8zwg+kQxW5f8R3dBuPZrPSyN1AxIlde53xYpdYj1XggEisr2fzKJO8n+wNE6JSjUcJPbT1m8/j1KkzKfCpKqFhyobu8Ka8cpt+G+Zsp3PprxvZwAjjMSV4QYNA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a225c263-dda1-8109-3dcc-ff7111f277fe@suse.com>
-Date: Wed, 4 Jan 2023 16:44:54 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/2] x86/shskt: Disable CET-SS on parts susceptible to
- fractured updates
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230104111146.2094-1-andrew.cooper3@citrix.com>
- <20230104111146.2094-3-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230104111146.2094-3-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0080.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1e::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 9869fabb-8c4a-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=govlnVA/VYqvVYKVSZE+CubqtU9g2EyfrdDcVjmMz6Y=;
+        b=hk0Ny9eqmlchaMtYq7vYJnD2Xmrs4Tdbt0M/fiPj9+Csj1z3CNL44oGwDKK7yRjdRv
+         1GdpucAx2w2stB9XA7MInVGx4tWEX53dQDzTKfVvI8RD94sYVc9V3XySjo5UpSkEklwC
+         +CHaz0G97T/v2UggrwM4/Q/JJ/92B3hhQmSQNduXZ0astWp1XVfTMeWdTeDmV1hPxwf4
+         NqCdGLvOcxw5C16GR0why6KidTYpZEWceNhodGD75yk/jbINnVgg4DFew3nfk410nY0X
+         0exWpyG1wsR6uA9qu1lmrXlrntfKKHI87YrgZmVEyzgYnUF0kOEAWU0acaw4J/zZaj+n
+         RyTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=govlnVA/VYqvVYKVSZE+CubqtU9g2EyfrdDcVjmMz6Y=;
+        b=KBB0iShlqRZWDZGlsEFMHP9QGhGoSmI5/2+0c0UJaDtQ1K7E0Rwk6GKyVMzw3GTg6o
+         XKenFBD9kfUNbkzaIN3MnMMrnmPdc0P+wT0AEQTr0WSCHsNmiE2iiUHWX0Evru3ikbeI
+         KMx0BIRF5q9TlGIz+ihmAivtMo0cIOSgu5ky2h2wngdoF3pCkcwJrZg5or7YjwfYnRLo
+         Ww5lNSsLJbnvZRlNPmxLpBIY3he4tZzRFh5FhFBuHiY5VqYj8O5+PVX6EMBVpsUqYHi+
+         ndMMvInhcukopKHF0ElCv4KRxj8R8YkDynLHh+3zBivqHj0l8OCaf8It2KsCAdwtbOkw
+         uXJQ==
+X-Gm-Message-State: AFqh2kp9vVjqKQ6YooqwnEooM1Cs9ukJdFqHM1AyMZg96sOyk5z/nT3W
+	hS4niovAl3hDtD8U9OUrKRg=
+X-Google-Smtp-Source: AMrXdXtr3CdYAVbyb1GO2YeoRc3JJBajOiJ++PsT7D527I82IhxNk6hCymLzpQxg4HAA+IfNwMnr1Q==
+X-Received: by 2002:a17:907:b684:b0:7c0:a99c:485c with SMTP id vm4-20020a170907b68400b007c0a99c485cmr45324433ejc.68.1672848752666;
+        Wed, 04 Jan 2023 08:12:32 -0800 (PST)
+Date: Wed, 04 Jan 2023 16:12:27 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: Chuck Zmudzinski <brchuckz@aol.com>,
+ =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>
+CC: qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ Aurelien Jarno <aurelien@aurel32.net>, Eduardo Habkost <eduardo@habkost.net>,
+ xen-devel@lists.xenproject.org,
+ =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>
+Subject: Re: [PATCH 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+In-Reply-To: <00094755-ca61-372d-0bcf-540fe2798f5c@aol.com>
+References: <20230102213504.14646-1-shentey@gmail.com> <bd4daee7-09df-4bfa-3b96-713690be9f4e@aol.com> <0de699a7-98b8-e320-da4d-678d0f594213@linaro.org> <CAG4p6K7hcJ-47GvsEvmuBmdwP2LsEC4WLkw_t6ZfwhqakYUEyQ@mail.gmail.com> <aed4f2c1-83f7-163a-fb44-f284376668dc@aol.com> <AB058B2A-406E-487B-A1BA-74416C310B7A@gmail.com> <00094755-ca61-372d-0bcf-540fe2798f5c@aol.com>
+Message-ID: <7E657325-705A-47EA-A334-0B59DF0DF772@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8377:EE_
-X-MS-Office365-Filtering-Correlation-Id: 691ad437-f119-46ae-78d4-08daee6aa093
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	nUzd5OJUrLBZxc8nhI+DVNAs97ImunS1agOQyZ+e5V7VC/ypEfFJQIsokslFIuHOCZh8OKpZNChk6lRcqroO9ac2hzmF+9VxNQo1B+WDSijM4qTN+dKE7sYHSbyeSj/WioL7SZjYPl22pGw+Hi47r/CcKWIuceEOpdFXqyw0bfMIzOeoOKT+9bYNP2ZyJ4dl9oKfxXFKa1RE5OxTVoK0lnHPR3ml+MMw4TGMZ08U3zQHAZYt2e5y22zxxk0LXdsBC+pWNtY5lX21Mg/za5969inqwy0UwMjcPZD6NR6UYjIbG9tHuc1c6S5bEWWgcffMjK8qGkTD8+mVBsA5qCXiXBuKI2JOEB8tuYwOcg7/lD4IaMx8N2JtqIyCQp0LIOmlZqpv1UjIt1dCjYK6cEzjg7w21Vwmg04/9mZtfUFMqKF30mymcxKCrERp6eqXYTiSHQIlSDgZNEh5FLGVBazHahL/4tn0bAYzUSBA5Nyik+s4Uo0pTJ+jumIU+lD0iGAKAC6GfyiAJWsXfvVxCgj3jmf0r2a6P9q1FXuwytDuQClIFOi2c0eOUb/P0av8cD898WCTe3D4Np28hpxjVBgNsKoA4Q/N18e5WnmRb+UR11G95IpKsoDTBZEEZGW7ivwTgLbQbCuAWqsShcv/b9I6co6D+Bx5SwngYYALmpO1bEE99FT7sMv5obytfj0j0dHNGjIOqzpVGGCRszgAnKeHDghTza7T7QVT/lwQuoV1950=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(346002)(376002)(39860400002)(366004)(451199015)(83380400001)(5660300002)(8936002)(36756003)(6916009)(316002)(54906003)(8676002)(4326008)(66946007)(66556008)(66476007)(2616005)(15650500001)(2906002)(31686004)(66899015)(6506007)(86362001)(31696002)(6512007)(186003)(478600001)(6486002)(53546011)(26005)(38100700002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UXZaZEdxbDVUaHZDWm1WTjNvVFErOWFYbFBuRmpGK2FHZUtyZVZiMGdZcEhu?=
- =?utf-8?B?REFtVkd2NWxSU0JiSXRNb2RNVTEzSEZBUHpoTmVCZHJNT21qaHozUUNlMlZl?=
- =?utf-8?B?cHRJTFU5WEtVNWZjNTA1dFhFMlBEUkdMZnhheldWUzBPdnQ1NXJOaUdmQ3dn?=
- =?utf-8?B?NVhoWDlzck9rMmFwNlZzTnAxU2pETWhlakJ0dHVLV2lVdkdZaGNRRjFoZFRX?=
- =?utf-8?B?WWcxYWFDc3FWcWRBNTQ1eW5EOXp0TTJNRC9zSlFMSXpvWDNwNHdtWEVZNDZR?=
- =?utf-8?B?M3lab3MwdlB5UnFWVWU3NXhOVVNqY1NpUFBtakYzRHgrVm9QL0haTGIwOVB5?=
- =?utf-8?B?Z1d6aGJuSGFGd0VGSjVzQWhOVUV1NmVnYzBrTUEyQ3FyWFMrczFab3hWL0NT?=
- =?utf-8?B?RTFmb2xOUzIrSkJRMkhzWFRoUjNsY2FiK21JQ2JvRGs5UlZyVS9sUDZqRU8r?=
- =?utf-8?B?MlNQRitnT0NrbkN6MDM3dlB0TDVnM0x1amFsNDM5QkVGSFE4TkpzL0xka3lt?=
- =?utf-8?B?NUJvdndCb0VFakJzWnF3NWl6cmg2QS91WTZjZFJ3NjQ5akNJVnQ5eVNjK2h4?=
- =?utf-8?B?Q1pRSFdlaUxucjNVanIrQnN3Z3ZpQjE4UVBvMHBsTGRBTnZsMklpOEJkZ0F0?=
- =?utf-8?B?YituWWlRd2dBVTFGc083OXNXbHpndkJ5a0VzNkR5d3V2eU81bTNtZ3VTdUdq?=
- =?utf-8?B?b2FiTFY2NTFoQzRRVytrTG1OVXYvbkVGZmtsRm5oSVNsRStaNkpaVU5YRHhx?=
- =?utf-8?B?ZFRROEFzTVA2d3hrRWYwamdSTFl4VU1Rc0hPSHlHZGNJMWJXN1owZUtncWs2?=
- =?utf-8?B?NWlxdXUvUHIzWHRjYnVKWHE5V3ExMm1RRnUwTzZPa29XNE5KSmgrOXNrRm1J?=
- =?utf-8?B?QzdRRXpQdElJZDhucllydytZMm9veTQwak5zd3YwL1ZqK240OFRIeE9QcU1O?=
- =?utf-8?B?b2F0R1dEYlJ6L0IyakdIbW5DK0dmdld0QWVjRXp6OTkxWDZML25DS20vWTRY?=
- =?utf-8?B?dVEzNy9RdjJoMUNTSHl3d2xaVURaOU1nbXhDaWs4VlFES1RQZEFCZkd1dFVL?=
- =?utf-8?B?L1BUbmdSWVU3RjhXMFBZVUxNRjZUNy9wRFo1NG80ZFlBajBxUU1BT0lBWG8w?=
- =?utf-8?B?cFZOQTgxdldSRW9qSU1Ta2hwYmpiWXBWTVJDWjZOa0NsZVZ6bDQ5NkNIRjRN?=
- =?utf-8?B?NHdXSXZyWlBnM3pkMmFjc1pmOVRmZEZGTDlaMmJzRUhCKzNKOVZUeXFaVTRt?=
- =?utf-8?B?ME1QZGpkSlpxUDk2L2t4YlVvMzZ2Mmw3d2R3Q29tbEsxaURvQ3VrNmxFTURj?=
- =?utf-8?B?bFR5djdPWS9mZTRjT3NGYXJkK0RqeTVrT2pJY1FkOFVIMEx3Zm0zSkNvK2dQ?=
- =?utf-8?B?cUNMakRnbWI5MTVUSDgvelprWStWdFBiaTdaVS9DVnpNMlZFT0pVcHhveXVZ?=
- =?utf-8?B?YU4vek90b1NLRmg2bzZpQlU5WjdjVkI4d0hQVndjV0RyajhidVRiL1RTRk93?=
- =?utf-8?B?ZjJ3cEZRYWdnc1hKYVpmWXhDYkI2dDd6Syt1UmdFeld5ZXRUL0lEK2NYdGZp?=
- =?utf-8?B?dlUyRnNxUGRXSkRQWWR3dHVZdVI4bEx4b09jSXpuQk9pWVNUcyttNDhzY0dI?=
- =?utf-8?B?VGlHaC9CQjM4cHorOEZtRGFlNEFNbFI4RUJXaHduTUErazgvOHIxTCtjMlpD?=
- =?utf-8?B?RkYxNzhqajNnRXBXUEpKMXYwMC9ubnB1Z21iak9VZXFpbnphQkpWSnRpUERB?=
- =?utf-8?B?RU5WSmEreWFLTDRYcWl2bEhWMXBEbmwrdHNXVjFvRUsxZFp1TTRXY04vc3Zu?=
- =?utf-8?B?QWp6MSsvdVQ4MVVkd1FiYUNBUVY5UzAwK1NqT3NlbkhvbDFlZHNXOHJsR1ZM?=
- =?utf-8?B?YWVaNVg5WEFpalJDTWFOeUlyV2R1WS9oMnVIdmlyb0prTDBjSTdFeHB0Zzdy?=
- =?utf-8?B?SDBabnhxY1BVME8zWmhJUFNhaGRwTXYwRVhJbUlQQkY0OFRDUy9YZzd6Wnpo?=
- =?utf-8?B?R2RSK2IzZVBmQmsvblFHSURUN21FS0cyVXVsWDdrcmoxZy83SlRHNFJSSTRx?=
- =?utf-8?B?VnJscE9qR2hNQXNQWUgwNy9PU3hlNWJlbnhOVCtUY2s4b0JCR25La3p5MkhB?=
- =?utf-8?Q?g8Ejr9oLTJhWlqPscocAEom0a?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 691ad437-f119-46ae-78d4-08daee6aa093
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 15:44:55.5559
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OaPlvKH3LnzB24JRc8qlxECr4rB4TF48FA0D4g/7cxUerATsOIzw1uh5ho/AeCGzRbAmF2ppB3p/VAkWnkKBnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8377
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 04.01.2023 12:11, Andrew Cooper wrote:
-> Refer to Intel SDM Rev 70 (Dec 2022), Vol3 17.2.3 "Supervisor Shadow Stack
-> Token".
-> 
-> Architecturally, an event delivery which starts in CPL<3 and switches shadow
-> stack will first validate the Supervisor Shadow Stack Token (setting the busy
-> bit), then pushes CS/LIP/SSP.  One example of this is an NMI interrupting Xen.
-> 
-> Some CPUs suffer from an issue called fracturing, whereby a fault/vmexit/etc
-> between setting the busy bit and completing the event injection renders the
-> action non-restartable, because when it comes time to restart, the busy bit is
-> found to be already set.
-> 
-> This is far more easily encountered under virt, yet it is not the fault of the
-> hypervisor, nor the fault of the guest kernel.  The fault lies somewhere
-> between the architectural specification, and the uarch behaviour.
-> 
-> Intel have allocated CPUID.7[1].ecx[18] CET_SSS to enumerate that supervisor
-> shadow stacks are safe to use.  Because of how Xen lays out its shadow stacks,
-> fracturing is not expected to be a problem on native.
 
-IOW that's the "contained in an aligned 32-byte region" constraint which we
-meet, aiui.
 
-> Detect this case on boot and default to not using shstk if virtualised.
-> Specifying `cet=shstk` on the command line will override this heuristic and
-> enable shadow stacks irrespective.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Am 4=2E Januar 2023 13:11:16 UTC schrieb Chuck Zmudzinski <brchuckz@aol=2E=
+com>:
+>On 1/4/2023 7:13 AM, Bernhard Beschow wrote:
+>> Am 4=2E Januar 2023 08:18:59 UTC schrieb Chuck Zmudzinski <brchuckz@aol=
+=2Ecom>:
+>> >On 1/3/2023 8:38 AM, Bernhard Beschow wrote:
+>> >>
+>> >>
+>> >> On Tue, Jan 3, 2023 at 2:17 PM Philippe Mathieu-Daud=C3=A9 <philmd@l=
+inaro=2Eorg> wrote:
+>> >>
+>> >>     Hi Chuck,
+>> >>
+>> >>     On 3/1/23 04:15, Chuck Zmudzinski wrote:
+>> >>     > On 1/2/23 4:34=E2=80=AFPM, Bernhard Beschow wrote:
+>> >>     >> This series first renders TYPE_PIIX3_XEN_DEVICE redundant and=
+ finally removes
+>> >>     >> it=2E The motivation is to 1/ decouple PIIX from Xen and 2/ t=
+o make Xen in the PC
+>> >>     >> machine agnostic to the precise southbridge being used=2E 2/ =
+will become
+>> >>     >> particularily interesting once PIIX4 becomes usable in the PC=
+ machine, avoiding
+>> >>     >> the "Frankenstein" use of PIIX4_ACPI in PIIX3=2E
+>> >>     >>
+>> >>     >> Testing done:
+>> >>     >> None, because I don't know how to conduct this properly :(
+>> >>     >>
+>> >>     >> Based-on: <20221221170003=2E2929-1-shentey@gmail=2Ecom>
+>> >>     >>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 "[PATCH v4 00/30] Co=
+nsolidate PIIX south bridges"
+>> >>
+>> >>     This series is based on a previous series:
+>> >>     https://lore=2Ekernel=2Eorg/qemu-devel/20221221170003=2E2929-1-s=
+hentey@gmail=2Ecom/
+>> >>     (which itself also is)=2E
+>> >>
+>> >>     >> Bernhard Beschow (6):
+>> >>     >>=C2=A0 =C2=A0 include/hw/xen/xen: Make xen_piix3_set_irq() gen=
+eric and rename it
+>> >>     >>=C2=A0 =C2=A0 hw/isa/piix: Reuse piix3_realize() in piix3_xen_=
+realize()
+>> >>     >>=C2=A0 =C2=A0 hw/isa/piix: Wire up Xen PCI IRQ handling outsid=
+e of PIIX3
+>> >>     >>=C2=A0 =C2=A0 hw/isa/piix: Avoid Xen-specific variant of piix_=
+write_config()
+>> >>     >>=C2=A0 =C2=A0 hw/isa/piix: Resolve redundant k->config_write a=
+ssignments
+>> >>     >>=C2=A0 =C2=A0 hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DE=
+VICE
+>> >>     >>
+>> >>     >>=C2=A0 =C2=A0hw/i386/pc_piix=2Ec=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0| 34 ++++++++++++++++--
+>> >>     >>=C2=A0 =C2=A0hw/i386/xen/xen-hvm=2Ec=C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 9 +++--
+>> >>     >>=C2=A0 =C2=A0hw/isa/piix=2Ec=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0| 66 +----------------------------------
+>> >>     >
+>> >>     > This file does not exist on the Qemu master branch=2E
+>> >>     > But hw/isa/piix3=2Ec and hw/isa/piix4=2Ec do exist=2E
+>> >>     >
+>> >>     > I tried renaming it from piix=2Ec to piix3=2Ec in the patch, b=
+ut
+>> >>     > the patch set still does not apply cleanly on my tree=2E
+>> >>     >
+>> >>     > Is this patch set re-based against something other than
+>> >>     > the current master Qemu branch?
+>> >>     >
+>> >>     > I have a system that is suitable for testing this patch set, b=
+ut
+>> >>     > I need guidance on how to apply it to the Qemu source tree=2E
+>> >>
+>> >>     You can ask Bernhard to publish a branch with the full work,
+>> >>
+>> >>
+>> >> Hi Chuck,
+>> >>
+>> >> =2E=2E=2E or just visit https://patchew=2Eorg/QEMU/20230102213504=2E=
+14646-1-shentey@gmail=2Ecom/ =2E There you'll find a git tag with a complet=
+e history and all instructions!
+>> >>
+>> >> Thanks for giving my series a test ride!
+>> >>
+>> >> Best regards,
+>> >> Bernhard
+>> >>
+>> >>     or apply each series locally=2E I use the b4 tool for that:
+>> >>     https://b4=2Edocs=2Ekernel=2Eorg/en/latest/installing=2Ehtml
+>> >>
+>> >>     i=2Ee=2E:
+>> >>
+>> >>     $ git checkout -b shentey_work
+>> >>     $ b4 am 20221120150550=2E63059-1-shentey@gmail=2Ecom
+>> >>     $ git am
+>> >>     =2E/v2_20221120_shentey_decouple_intx_to_lnkx_routing_from_south=
+_bridges=2Embx
+>> >>     $ b4 am 20221221170003=2E2929-1-shentey@gmail=2Ecom
+>> >>     $ git am
+>> >>     =2E/v4_20221221_shentey_this_series_consolidates_the_implementat=
+ions_of_the_piix3_and_piix4_south=2Embx
+>> >>     $ b4 am 20230102213504=2E14646-1-shentey@gmail=2Ecom
+>> >>     $ git am =2E/20230102_shentey_resolve_type_piix3_xen_device=2Emb=
+x
+>> >>
+>> >>     Now the branch 'shentey_work' contains all the patches and you c=
+an test=2E
+>> >>
+>> >>     Regards,
+>> >>
+>> >>     Phil=2E
+>> >>
+>> >
+>> >Hi Phil and Bernard,
+>> >
+>> >I tried applying these 3 patch series on top of the current qemu
+>> >master branch=2E
+>> >
+>> >Unfortunately, I saw a regression, so I can't give a tested-by tag yet=
+=2E
+>>
+>> Hi Chuck,
+>>
+>> Thanks for your valuable test report! I think the culprit may be commit=
+ https://lists=2Enongnu=2Eorg/archive/html/qemu-devel/2023-01/msg00102=2Eht=
+ml where now 128 PIRQs are considered rather than four=2E I'll revisit my s=
+eries and will prepare a v2 in the next days=2E I think there is no need fo=
+r further testing v1=2E
+>>
+>> Thanks,
+>> Bernhard
+>
+>Hi Bernhard,
+>
+>Thanks for letting me know I do not need to test v1 further=2E I agree th=
+e
+>symptoms are that it is an IRQ problem - it looks like IRQs associated wi=
+th
+>the emulated usb tablet device are not making it to the guest with the
+>patched v1 piix device on xen=2E
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-with one nit (below).
+All PCI IRQs were routed to PCI slot 0=2E This should be fixed in v2 now=
+=2E
 
-> This ideally wants backporting to Xen 4.14.  I have no idea how likely it is
-> to need to backport the prerequisite patch for new feature words, but we've
-> already had to do that once for security patches.  OTOH, I have no idea how
-> easy it is to trigger in non-synthetic cases.
+>I will be looking for your v2 in coming days and try it out also!
 
-Plus: How likely is it that Xen actually is used virtualized in production?
-For the moment I don't see any reason to backport to branches in security-
-only maintenance mode. I'm not even sure it needs backporting at all.
+Thank you! Here it is: https://patchew=2Eorg/QEMU/20230104144437=2E27479-1=
+-shentey@gmail=2Ecom/
 
-> @@ -1099,11 +1095,45 @@ void __init noreturn __start_xen(unsigned long mbi_p)
->      early_cpu_init();
->  
->      /* Choose shadow stack early, to set infrastructure up appropriately. */
-> -    if ( opt_xen_shstk && boot_cpu_has(X86_FEATURE_CET_SS) )
-> +    if ( !boot_cpu_has(X86_FEATURE_CET_SS) )
-> +        opt_xen_shstk = 0;
-> +
-> +    if ( opt_xen_shstk )
->      {
-> -        printk("Enabling Supervisor Shadow Stacks\n");
-> +        /*
-> +         * Some CPUs suffer from Shadow Stack Fracturing, an issue whereby a
-> +         * fault/VMExit/etc between setting a Supervisor Busy bit and the
-> +         * event delivery completing renders the operation non-restartable.
-> +         * On restart, event delivery will find the Busy bit already set.
-> +         *
-> +         * This is a problem on bare metal, but outside of synthetic cases or
-> +         * a very badly timed #MC, it's not believed to problem.  It is a much
+Best regards,
+Bernhard
 
-Nit: "... to be a problem."
-
-Jan
+>
+>Best regards,
+>
+>Chuck
+>
+>>
+>> >
+>> >Here are the details of the testing I did so far:
+>> >
+>> >Xen only needs one target, the i386-softmmu target which creates
+>> >the qemu-system-i386 binary that Xen uses for its device model=2E
+>> >That target compiled and linked with no problems with these 3
+>> >patch series applied on top of qemu master=2E I didn't try building
+>> >any other targets=2E
+>> >
+>> >My tests used the xenfv machine type with the xen platform
+>> >pci device, which is ordinarily called a xen hvm guest with xen
+>> >paravirtualized network and block device drivers=2E It is based on the
+>> >i440fx machine type and so emulates piix3=2E I tested the xen
+>> >hvm guests with two different configurations as described below=2E
+>> >
+>> >I tested both Linux and Windows guests, with mixed results=2E With the
+>> >current Qemu master (commit 222059a0fccf4 without the 3 patch
+>> >series applied), all tested guest configurations work normally for bot=
+h
+>> >Linux and Windows guests=2E
+>> >
+>> >With these 3 patch series applied on top of the qemu master branch,
+>> >which tries to consolidate piix3 and piix4 and resolve the xen piix3
+>> >device that my guests use, I unfortunately got a regression=2E
+>> >
+>> >The regression occurred with a configuration that uses the qemu
+>> >bochs stdvga graphics device with a vnc display, and the qemu
+>> >usb-tablet device to emulate the mouse and keyboard=2E After applying
+>> >the 3 patch series, the emulated mouse is not working at all for Linux
+>> >guests=2E It works for Windows guests, but the mouse pointer in the
+>> >guest does not follow the mouse pointer in the vnc window as closely
+>> >as it does without the 3 patch series=2E So this is the bad news of a
+>> >regression introduced somewhere in these 3 patch series=2E
+>> >
+>> >The good news is that by using guests in a configuration that does
+>> >not use the qemu usb-tablet device or the bochs stdvga device but
+>> >instead uses a real passed through usb3 controller with a real usb
+>> >mouse and a real usb keyboard connected, and also the real sound
+>> >card and vga device passed through and a 1920x1080 HDMI monitor,
+>> >there is no regression introduced by the 3 patch series and both Linux
+>> >and Windows guests in that configuration work perfectly=2E
+>> >
+>> >My next test will be to test Bernhard's published git tag without
+>> >trying to merge the 3 patch series into master and see if that also
+>> >has the regression=2E I also will double check that I didn't make
+>> >any mistakes in merging the 3 patch series by creating the shentey_wor=
+k
+>> >branch with b4 and git as Phil described and compare that to my
+>> >working tree=2E
+>> >
+>> >I also will try testing only the first series, then the first series a=
+nd the
+>> >second series, to try to determine in which of the 3 series the regres=
+sion
+>> >is introduced=2E
+>> >
+>> >Best regards,
+>> >
+>> >Chuck
+>
 
