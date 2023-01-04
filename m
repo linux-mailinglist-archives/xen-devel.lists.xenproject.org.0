@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83ADA65D74E
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 16:36:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471274.731063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88CF065D777
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 16:45:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471282.731074 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5no-0000kO-1k; Wed, 04 Jan 2023 15:35:40 +0000
+	id 1pD5wr-0002Hi-1S; Wed, 04 Jan 2023 15:45:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471274.731063; Wed, 04 Jan 2023 15:35:40 +0000
+Received: by outflank-mailman (output) from mailman id 471282.731074; Wed, 04 Jan 2023 15:45:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5nn-0000hd-Uv; Wed, 04 Jan 2023 15:35:39 +0000
-Received: by outflank-mailman (input) for mailman id 471274;
- Wed, 04 Jan 2023 15:35:38 +0000
+	id 1pD5wq-0002En-Un; Wed, 04 Jan 2023 15:45:00 +0000
+Received: by outflank-mailman (input) for mailman id 471282;
+ Wed, 04 Jan 2023 15:44:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=G5yt=5B=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pD5nm-0000hX-K4
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 15:35:38 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
+ (envelope-from <SRS0=+XhT=5B=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pD5wp-0002EU-B3
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 15:44:59 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2040.outbound.protection.outlook.com [40.107.20.40])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6f69a975-8c45-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 16:35:36 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id d17so13632402wrs.2
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 07:35:36 -0800 (PST)
-Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
- bt15-20020a056000080f00b00297dcfdc90fsm9758428wrb.24.2023.01.04.07.35.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jan 2023 07:35:36 -0800 (PST)
+ id bdd70812-8c46-11ed-91b6-6bf2151ebd3b;
+ Wed, 04 Jan 2023 16:44:58 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DB9PR04MB8377.eurprd04.prod.outlook.com (2603:10a6:10:25c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
+ 2023 15:44:55 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
+ 15:44:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,191 +46,166 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6f69a975-8c45-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qKfYp56DzEdln6bw+epRjXvgWK4+5r5Y+0Le7rGeP9o=;
-        b=uUvu3TZZ6cU7XFsjBFeKFFSqBvz1X0ROcGMGdM4mLTlVoVeGwEz9o6k2bGbmQIg4om
-         TzVOHY6Cc2lGZTwx1Jj931bRdVCLmTaRi4NoaiXpD5LbwGwC5p5EbIjsbQz/Fl5chbHt
-         qwMRsbZtZebWs3sWytVS2FNwfYSGFEmenYR03MWPelgo93c5N9u/OtlHARpd+iCZPoxT
-         HZ5YaVoZSL8s59ak8bCLBbh4Iq6DjtCsnsjdSBN7D015K8yzoJN7xivoNYasnE06Lgaj
-         9nJr7AZ1SEXoTAuMxBDbxJyCxj8CTZoJKcaS2AoX+xRNQ3SuZqcYI8rj691I/weGzwsL
-         /Rmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=qKfYp56DzEdln6bw+epRjXvgWK4+5r5Y+0Le7rGeP9o=;
-        b=6GeLvfNmc+Yl+Y0EdLLWhCLf60sMuUjyAGn11iyVN4qqLd0de7MpU9L9eImxEd+1R1
-         PXaq2MOnN3dMNRT5fu8EFyXkaG6w/ZLPpVerY6etXoJGFlQ4X8neClvPvV9mN/3eDrnZ
-         TeGqFdC7fZ4Ie7ZrF7I6s1EBTVrVVTcWMmTcFgSv3JnWbtjmrkPFxxxbfGgoUJodGj90
-         1HFciqGYd6cDxldYcHxHvKpOfPHdGh6Fx2EFZok/oDP8CNyu7eMDrCMulNTBQeyQpdNH
-         PSbuhU3yJu8gtBMEpq05di6AlhJuSFqRs5k2GsN8aYoujv9FGS0RQB6nliAUnV7AG6JJ
-         g0tg==
-X-Gm-Message-State: AFqh2ko7mARTSnNbNfS0x4iyGcXn63Vzo7KRJQAG4crVxQTPGXbW4Arq
-	Jaiw1ptyngYKH4H6nQEbX7pEdA==
-X-Google-Smtp-Source: AMrXdXtY6RzOZmuFEL1JagfUdSvbatncLArmeYUWzIWeXgc02Qt4gc26aWsY4X0BGqOTYR424X5PZQ==
-X-Received: by 2002:adf:de8a:0:b0:266:3709:5ce3 with SMTP id w10-20020adfde8a000000b0026637095ce3mr28787116wrl.0.1672846536505;
-        Wed, 04 Jan 2023 07:35:36 -0800 (PST)
-Message-ID: <1c2e0780-e5fb-1321-0d84-b0591db9fec7@linaro.org>
-Date: Wed, 4 Jan 2023 16:35:33 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 6/6] hw/isa/piix: Resolve redundant
- TYPE_PIIX3_XEN_DEVICE
+X-Inumbo-ID: bdd70812-8c46-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=nu30EW1cGTSvrNgzZhfYOoggD+Q16sa+nRBET+DscSiBrlVEj7EaxbMowo72pZ1koFBhLX8FSup4UObLUdTOoPQH/eOJ0ko9dxE39yr4ZI5KnCQrWb+c4rajegqX/G7Ril+AKSFEnTkSq4kON3HVg++Z5aUdFDoV0ioe5sGmnknLlkwaTRqxVGLkpafs4Q6a+5F0yQaaqRIpl3q4kMhxxV/5k+0axfCWWRO0iFdO8v4bLcz9M8+f0C2QfHLc4yV4daR6dl7Bl6xhB7I7TAp/WQuXoq/8dNZ+vecBAmTleun0h3vxTkYZh+aIYIHfGmQRX2ljoIXZyWz12QwT/BFkUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ekUmmCLjTlbJSqa3zB70oJ7pL5kMKDCfK5iJNx+FSQY=;
+ b=TgpaWhfQrk2wD0u43wvsOTE4hyOLx9Ndm7jDs60xO6lHUNnoZKlKXdSwNj873NF++P6m0ZbfyrW8jh4oj3NzX0Ob/Tj1HRExpvEz9EY6TEBm0N6yFczxKh3pO+gHyqXbTakMlxLWj799JGDtAdxKw3D2+bb2BGObq18bXBDE42mbmLD0UNCJ6VIn9VM6GakPWGJaQVExBblAQxkLYpCVWKtTIUocdA4Iyn8E1biMc/avmFEOFP7lVdDTuHLXGW8LacSjBxl061NLmyftiUV4atMfK/ZMI+ybKpG5YOzBnm8G0FPLtERldB0rR6eW4zPXhvX2WGwMW9kFjASehf9IJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ekUmmCLjTlbJSqa3zB70oJ7pL5kMKDCfK5iJNx+FSQY=;
+ b=e+boEKtCGHJnMzoVsJ2p9qAvkmJLdEPKLyRYjEvkT+Uw/1VG6o8TqUjv8tjOXHIwkVfzMqDYHFW27mHjkRDEtmZBM7i98/K7lb8L7Sg5Q1j29FB3IKesZpHkOlNzuwRfn4x0pnTk99QyPGlIRYo75Ut3TORB2UTjFB9N6F5lg7KkNIHPDnu911gON3su+RzHOttfE0ya08F+0vv/zdgQjb5W4/Tq8zwg+kQxW5f8R3dBuPZrPSyN1AxIlde53xYpdYj1XggEisr2fzKJO8n+wNE6JSjUcJPbT1m8/j1KkzKfCpKqFhyobu8Ka8cpt+G+Zsp3PprxvZwAjjMSV4QYNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <a225c263-dda1-8109-3dcc-ff7111f277fe@suse.com>
+Date: Wed, 4 Jan 2023 16:44:54 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 2/2] x86/shskt: Disable CET-SS on parts susceptible to
+ fractured updates
 Content-Language: en-US
-To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org,
- Markus Armbruster <armbru@redhat.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>, Chuck Zmudzinski <brchuckz@aol.com>,
- Thomas Huth <thuth@redhat.com>
-References: <20230104144437.27479-1-shentey@gmail.com>
- <20230104144437.27479-7-shentey@gmail.com>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-In-Reply-To: <20230104144437.27479-7-shentey@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230104111146.2094-1-andrew.cooper3@citrix.com>
+ <20230104111146.2094-3-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230104111146.2094-3-andrew.cooper3@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0080.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1e::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8377:EE_
+X-MS-Office365-Filtering-Correlation-Id: 691ad437-f119-46ae-78d4-08daee6aa093
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	nUzd5OJUrLBZxc8nhI+DVNAs97ImunS1agOQyZ+e5V7VC/ypEfFJQIsokslFIuHOCZh8OKpZNChk6lRcqroO9ac2hzmF+9VxNQo1B+WDSijM4qTN+dKE7sYHSbyeSj/WioL7SZjYPl22pGw+Hi47r/CcKWIuceEOpdFXqyw0bfMIzOeoOKT+9bYNP2ZyJ4dl9oKfxXFKa1RE5OxTVoK0lnHPR3ml+MMw4TGMZ08U3zQHAZYt2e5y22zxxk0LXdsBC+pWNtY5lX21Mg/za5969inqwy0UwMjcPZD6NR6UYjIbG9tHuc1c6S5bEWWgcffMjK8qGkTD8+mVBsA5qCXiXBuKI2JOEB8tuYwOcg7/lD4IaMx8N2JtqIyCQp0LIOmlZqpv1UjIt1dCjYK6cEzjg7w21Vwmg04/9mZtfUFMqKF30mymcxKCrERp6eqXYTiSHQIlSDgZNEh5FLGVBazHahL/4tn0bAYzUSBA5Nyik+s4Uo0pTJ+jumIU+lD0iGAKAC6GfyiAJWsXfvVxCgj3jmf0r2a6P9q1FXuwytDuQClIFOi2c0eOUb/P0av8cD898WCTe3D4Np28hpxjVBgNsKoA4Q/N18e5WnmRb+UR11G95IpKsoDTBZEEZGW7ivwTgLbQbCuAWqsShcv/b9I6co6D+Bx5SwngYYALmpO1bEE99FT7sMv5obytfj0j0dHNGjIOqzpVGGCRszgAnKeHDghTza7T7QVT/lwQuoV1950=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(396003)(346002)(376002)(39860400002)(366004)(451199015)(83380400001)(5660300002)(8936002)(36756003)(6916009)(316002)(54906003)(8676002)(4326008)(66946007)(66556008)(66476007)(2616005)(15650500001)(2906002)(31686004)(66899015)(6506007)(86362001)(31696002)(6512007)(186003)(478600001)(6486002)(53546011)(26005)(38100700002)(41300700001)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UXZaZEdxbDVUaHZDWm1WTjNvVFErOWFYbFBuRmpGK2FHZUtyZVZiMGdZcEhu?=
+ =?utf-8?B?REFtVkd2NWxSU0JiSXRNb2RNVTEzSEZBUHpoTmVCZHJNT21qaHozUUNlMlZl?=
+ =?utf-8?B?cHRJTFU5WEtVNWZjNTA1dFhFMlBEUkdMZnhheldWUzBPdnQ1NXJOaUdmQ3dn?=
+ =?utf-8?B?NVhoWDlzck9rMmFwNlZzTnAxU2pETWhlakJ0dHVLV2lVdkdZaGNRRjFoZFRX?=
+ =?utf-8?B?WWcxYWFDc3FWcWRBNTQ1eW5EOXp0TTJNRC9zSlFMSXpvWDNwNHdtWEVZNDZR?=
+ =?utf-8?B?M3lab3MwdlB5UnFWVWU3NXhOVVNqY1NpUFBtakYzRHgrVm9QL0haTGIwOVB5?=
+ =?utf-8?B?Z1d6aGJuSGFGd0VGSjVzQWhOVUV1NmVnYzBrTUEyQ3FyWFMrczFab3hWL0NT?=
+ =?utf-8?B?RTFmb2xOUzIrSkJRMkhzWFRoUjNsY2FiK21JQ2JvRGs5UlZyVS9sUDZqRU8r?=
+ =?utf-8?B?MlNQRitnT0NrbkN6MDM3dlB0TDVnM0x1amFsNDM5QkVGSFE4TkpzL0xka3lt?=
+ =?utf-8?B?NUJvdndCb0VFakJzWnF3NWl6cmg2QS91WTZjZFJ3NjQ5akNJVnQ5eVNjK2h4?=
+ =?utf-8?B?Q1pRSFdlaUxucjNVanIrQnN3Z3ZpQjE4UVBvMHBsTGRBTnZsMklpOEJkZ0F0?=
+ =?utf-8?B?YituWWlRd2dBVTFGc083OXNXbHpndkJ5a0VzNkR5d3V2eU81bTNtZ3VTdUdq?=
+ =?utf-8?B?b2FiTFY2NTFoQzRRVytrTG1OVXYvbkVGZmtsRm5oSVNsRStaNkpaVU5YRHhx?=
+ =?utf-8?B?ZFRROEFzTVA2d3hrRWYwamdSTFl4VU1Rc0hPSHlHZGNJMWJXN1owZUtncWs2?=
+ =?utf-8?B?NWlxdXUvUHIzWHRjYnVKWHE5V3ExMm1RRnUwTzZPa29XNE5KSmgrOXNrRm1J?=
+ =?utf-8?B?QzdRRXpQdElJZDhucllydytZMm9veTQwak5zd3YwL1ZqK240OFRIeE9QcU1O?=
+ =?utf-8?B?b2F0R1dEYlJ6L0IyakdIbW5DK0dmdld0QWVjRXp6OTkxWDZML25DS20vWTRY?=
+ =?utf-8?B?dVEzNy9RdjJoMUNTSHl3d2xaVURaOU1nbXhDaWs4VlFES1RQZEFCZkd1dFVL?=
+ =?utf-8?B?L1BUbmdSWVU3RjhXMFBZVUxNRjZUNy9wRFo1NG80ZFlBajBxUU1BT0lBWG8w?=
+ =?utf-8?B?cFZOQTgxdldSRW9qSU1Ta2hwYmpiWXBWTVJDWjZOa0NsZVZ6bDQ5NkNIRjRN?=
+ =?utf-8?B?NHdXSXZyWlBnM3pkMmFjc1pmOVRmZEZGTDlaMmJzRUhCKzNKOVZUeXFaVTRt?=
+ =?utf-8?B?ME1QZGpkSlpxUDk2L2t4YlVvMzZ2Mmw3d2R3Q29tbEsxaURvQ3VrNmxFTURj?=
+ =?utf-8?B?bFR5djdPWS9mZTRjT3NGYXJkK0RqeTVrT2pJY1FkOFVIMEx3Zm0zSkNvK2dQ?=
+ =?utf-8?B?cUNMakRnbWI5MTVUSDgvelprWStWdFBiaTdaVS9DVnpNMlZFT0pVcHhveXVZ?=
+ =?utf-8?B?YU4vek90b1NLRmg2bzZpQlU5WjdjVkI4d0hQVndjV0RyajhidVRiL1RTRk93?=
+ =?utf-8?B?ZjJ3cEZRYWdnc1hKYVpmWXhDYkI2dDd6Syt1UmdFeld5ZXRUL0lEK2NYdGZp?=
+ =?utf-8?B?dlUyRnNxUGRXSkRQWWR3dHVZdVI4bEx4b09jSXpuQk9pWVNUcyttNDhzY0dI?=
+ =?utf-8?B?VGlHaC9CQjM4cHorOEZtRGFlNEFNbFI4RUJXaHduTUErazgvOHIxTCtjMlpD?=
+ =?utf-8?B?RkYxNzhqajNnRXBXUEpKMXYwMC9ubnB1Z21iak9VZXFpbnphQkpWSnRpUERB?=
+ =?utf-8?B?RU5WSmEreWFLTDRYcWl2bEhWMXBEbmwrdHNXVjFvRUsxZFp1TTRXY04vc3Zu?=
+ =?utf-8?B?QWp6MSsvdVQ4MVVkd1FiYUNBUVY5UzAwK1NqT3NlbkhvbDFlZHNXOHJsR1ZM?=
+ =?utf-8?B?YWVaNVg5WEFpalJDTWFOeUlyV2R1WS9oMnVIdmlyb0prTDBjSTdFeHB0Zzdy?=
+ =?utf-8?B?SDBabnhxY1BVME8zWmhJUFNhaGRwTXYwRVhJbUlQQkY0OFRDUy9YZzd6Wnpo?=
+ =?utf-8?B?R2RSK2IzZVBmQmsvblFHSURUN21FS0cyVXVsWDdrcmoxZy83SlRHNFJSSTRx?=
+ =?utf-8?B?VnJscE9qR2hNQXNQWUgwNy9PU3hlNWJlbnhOVCtUY2s4b0JCR25La3p5MkhB?=
+ =?utf-8?Q?g8Ejr9oLTJhWlqPscocAEom0a?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 691ad437-f119-46ae-78d4-08daee6aa093
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 15:44:55.5559
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OaPlvKH3LnzB24JRc8qlxECr4rB4TF48FA0D4g/7cxUerATsOIzw1uh5ho/AeCGzRbAmF2ppB3p/VAkWnkKBnw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8377
 
-+Markus/Thomas
-
-On 4/1/23 15:44, Bernhard Beschow wrote:
-> During the last patches, TYPE_PIIX3_XEN_DEVICE turned into a clone of
-> TYPE_PIIX3_DEVICE. Remove this redundancy.
+On 04.01.2023 12:11, Andrew Cooper wrote:
+> Refer to Intel SDM Rev 70 (Dec 2022), Vol3 17.2.3 "Supervisor Shadow Stack
+> Token".
 > 
-> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
-> ---
->   hw/i386/pc_piix.c             |  4 +---
->   hw/isa/piix.c                 | 20 --------------------
->   include/hw/southbridge/piix.h |  1 -
->   3 files changed, 1 insertion(+), 24 deletions(-)
+> Architecturally, an event delivery which starts in CPL<3 and switches shadow
+> stack will first validate the Supervisor Shadow Stack Token (setting the busy
+> bit), then pushes CS/LIP/SSP.  One example of this is an NMI interrupting Xen.
 > 
-> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-> index 5738d9cdca..6b8de3d59d 100644
-> --- a/hw/i386/pc_piix.c
-> +++ b/hw/i386/pc_piix.c
-> @@ -235,8 +235,6 @@ static void pc_init1(MachineState *machine,
->       if (pcmc->pci_enabled) {
->           DeviceState *dev;
->           PCIDevice *pci_dev;
-> -        const char *type = xen_enabled() ? TYPE_PIIX3_XEN_DEVICE
-> -                                         : TYPE_PIIX3_DEVICE;
->           int i;
->   
->           pci_bus = i440fx_init(pci_type,
-> @@ -250,7 +248,7 @@ static void pc_init1(MachineState *machine,
->                                          : pci_slot_get_pirq);
->           pcms->bus = pci_bus;
->   
-> -        pci_dev = pci_new_multifunction(-1, true, type);
-> +        pci_dev = pci_new_multifunction(-1, true, TYPE_PIIX3_DEVICE);
->           object_property_set_bool(OBJECT(pci_dev), "has-usb",
->                                    machine_usb(machine), &error_abort);
->           object_property_set_bool(OBJECT(pci_dev), "has-acpi",
-> diff --git a/hw/isa/piix.c b/hw/isa/piix.c
-> index 98e9b12661..e4587352c9 100644
-> --- a/hw/isa/piix.c
-> +++ b/hw/isa/piix.c
-> @@ -33,7 +33,6 @@
->   #include "hw/qdev-properties.h"
->   #include "hw/ide/piix.h"
->   #include "hw/isa/isa.h"
-> -#include "hw/xen/xen.h"
->   #include "sysemu/runstate.h"
->   #include "migration/vmstate.h"
->   #include "hw/acpi/acpi_aml_interface.h"
-> @@ -465,24 +464,6 @@ static const TypeInfo piix3_info = {
->       .class_init    = piix3_class_init,
->   };
->   
-> -static void piix3_xen_class_init(ObjectClass *klass, void *data)
-> -{
-> -    DeviceClass *dc = DEVICE_CLASS(klass);
-> -    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
-> -
-> -    k->realize = piix3_realize;
-> -    /* 82371SB PIIX3 PCI-to-ISA bridge (Step A1) */
-> -    k->device_id = PCI_DEVICE_ID_INTEL_82371SB_0;
-> -    dc->vmsd = &vmstate_piix3;
+> Some CPUs suffer from an issue called fracturing, whereby a fault/vmexit/etc
+> between setting the busy bit and completing the event injection renders the
+> action non-restartable, because when it comes time to restart, the busy bit is
+> found to be already set.
+> 
+> This is far more easily encountered under virt, yet it is not the fault of the
+> hypervisor, nor the fault of the guest kernel.  The fault lies somewhere
+> between the architectural specification, and the uarch behaviour.
+> 
+> Intel have allocated CPUID.7[1].ecx[18] CET_SSS to enumerate that supervisor
+> shadow stacks are safe to use.  Because of how Xen lays out its shadow stacks,
+> fracturing is not expected to be a problem on native.
 
-IIUC, since this device is user-creatable, we can't simply remove it
-without going thru the deprecation process. Alternatively we could
-add a type alias:
+IOW that's the "contained in an aligned 32-byte region" constraint which we
+meet, aiui.
 
--- >8 --
-diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
-index 4b0ef65780..d94f7ea369 100644
---- a/softmmu/qdev-monitor.c
-+++ b/softmmu/qdev-monitor.c
-@@ -64,6 +64,7 @@ typedef struct QDevAlias
-                                QEMU_ARCH_LOONGARCH)
-  #define QEMU_ARCH_VIRTIO_CCW (QEMU_ARCH_S390X)
-  #define QEMU_ARCH_VIRTIO_MMIO (QEMU_ARCH_M68K)
-+#define QEMU_ARCH_XEN (QEMU_ARCH_ARM | QEMU_ARCH_I386)
+> Detect this case on boot and default to not using shstk if virtualised.
+> Specifying `cet=shstk` on the command line will override this heuristic and
+> enable shadow stacks irrespective.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-  /* Please keep this table sorted by typename. */
-  static const QDevAlias qdev_alias_table[] = {
-@@ -111,6 +112,7 @@ static const QDevAlias qdev_alias_table[] = {
-      { "virtio-tablet-device", "virtio-tablet", QEMU_ARCH_VIRTIO_MMIO },
-      { "virtio-tablet-ccw", "virtio-tablet", QEMU_ARCH_VIRTIO_CCW },
-      { "virtio-tablet-pci", "virtio-tablet", QEMU_ARCH_VIRTIO_PCI },
-+    { "PIIX3", "PIIX3-xen", QEMU_ARCH_XEN },
-      { }
-  };
----
+Reviewed-by: Jan Beulich <jbeulich@suse.com>
+with one nit (below).
 
-But I'm not sure due to this comment from commit ee46d8a503
-(2011-12-22 15:24:20 -0600):
+> This ideally wants backporting to Xen 4.14.  I have no idea how likely it is
+> to need to backport the prerequisite patch for new feature words, but we've
+> already had to do that once for security patches.  OTOH, I have no idea how
+> easy it is to trigger in non-synthetic cases.
 
-47) /*
-48)  * Aliases were a bad idea from the start.  Let's keep them
-49)  * from spreading further.
-50)  */
+Plus: How likely is it that Xen actually is used virtualized in production?
+For the moment I don't see any reason to backport to branches in security-
+only maintenance mode. I'm not even sure it needs backporting at all.
 
-Maybe using qdev_alias_table[] during device deprecation is
-acceptable?
+> @@ -1099,11 +1095,45 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>      early_cpu_init();
+>  
+>      /* Choose shadow stack early, to set infrastructure up appropriately. */
+> -    if ( opt_xen_shstk && boot_cpu_has(X86_FEATURE_CET_SS) )
+> +    if ( !boot_cpu_has(X86_FEATURE_CET_SS) )
+> +        opt_xen_shstk = 0;
+> +
+> +    if ( opt_xen_shstk )
+>      {
+> -        printk("Enabling Supervisor Shadow Stacks\n");
+> +        /*
+> +         * Some CPUs suffer from Shadow Stack Fracturing, an issue whereby a
+> +         * fault/VMExit/etc between setting a Supervisor Busy bit and the
+> +         * event delivery completing renders the operation non-restartable.
+> +         * On restart, event delivery will find the Busy bit already set.
+> +         *
+> +         * This is a problem on bare metal, but outside of synthetic cases or
+> +         * a very badly timed #MC, it's not believed to problem.  It is a much
 
-> -}
-> -
-> -static const TypeInfo piix3_xen_info = {
-> -    .name          = TYPE_PIIX3_XEN_DEVICE,
-> -    .parent        = TYPE_PIIX_PCI_DEVICE,
-> -    .instance_init = piix3_init,
-> -    .class_init    = piix3_xen_class_init,
-> -};
-> -
->   static void piix4_realize(PCIDevice *dev, Error **errp)
->   {
->       ERRP_GUARD();
-> @@ -534,7 +515,6 @@ static void piix3_register_types(void)
->   {
->       type_register_static(&piix_pci_type_info);
->       type_register_static(&piix3_info);
-> -    type_register_static(&piix3_xen_info);
->       type_register_static(&piix4_info);
->   }
->   
-> diff --git a/include/hw/southbridge/piix.h b/include/hw/southbridge/piix.h
-> index 65ad8569da..b1fc94a742 100644
-> --- a/include/hw/southbridge/piix.h
-> +++ b/include/hw/southbridge/piix.h
-> @@ -77,7 +77,6 @@ struct PIIXState {
->   OBJECT_DECLARE_SIMPLE_TYPE(PIIXState, PIIX_PCI_DEVICE)
->   
->   #define TYPE_PIIX3_DEVICE "PIIX3"
-> -#define TYPE_PIIX3_XEN_DEVICE "PIIX3-xen"
->   #define TYPE_PIIX4_PCI_DEVICE "piix4-isa"
->   
->   #endif
+Nit: "... to be a problem."
 
+Jan
 
