@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 153FE65DAE9
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 18:04:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471359.731184 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18CBC65DBB2
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 18:55:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471368.731194 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD7Bt-0007YG-CT; Wed, 04 Jan 2023 17:04:37 +0000
+	id 1pD7yA-0004Pv-3u; Wed, 04 Jan 2023 17:54:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471359.731184; Wed, 04 Jan 2023 17:04:37 +0000
+Received: by outflank-mailman (output) from mailman id 471368.731194; Wed, 04 Jan 2023 17:54:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD7Bt-0007W3-8V; Wed, 04 Jan 2023 17:04:37 +0000
-Received: by outflank-mailman (input) for mailman id 471359;
- Wed, 04 Jan 2023 17:04:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pD7yA-0004Nj-1G; Wed, 04 Jan 2023 17:54:30 +0000
+Received: by outflank-mailman (input) for mailman id 471368;
+ Wed, 04 Jan 2023 17:54:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+XhT=5B=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pD7Bs-0007Vx-0y
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 17:04:36 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on2089.outbound.protection.outlook.com [40.107.14.89])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dc43f200-8c51-11ed-b8d0-410ff93cb8f0;
- Wed, 04 Jan 2023 18:04:33 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB9676.eurprd04.prod.outlook.com (2603:10a6:10:308::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Wed, 4 Jan
- 2023 17:04:31 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Wed, 4 Jan 2023
- 17:04:31 +0000
+ (envelope-from <SRS0=aavW=5B=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pD7y9-0004NY-6N
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 17:54:29 +0000
+Received: from sonic316-54.consmr.mail.gq1.yahoo.com
+ (sonic316-54.consmr.mail.gq1.yahoo.com [98.137.69.30])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d3ac3425-8c58-11ed-91b6-6bf2151ebd3b;
+ Wed, 04 Jan 2023 18:54:27 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic316.consmr.mail.gq1.yahoo.com with HTTP; Wed, 4 Jan 2023 17:54:24 +0000
+Received: by hermes--production-ne1-7b69748c4d-brw6v (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 3b6e3b6717f2ad0d4df9645e096a3d43; 
+ Wed, 04 Jan 2023 17:54:18 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,232 +42,215 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dc43f200-8c51-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XPyu6UHebCGyvPMdGlvnMEOnCDrvTE0VjL6ZB9MToYvCOMmiOr8T4r296TNmDVAdTo9yq4wNhBQZCNuNlHRbevMjX6FWpYGIK9G11Ent188TDy2cLu61byLLjJ/oGb5HBMiDgUI6EXWowexnIf1EMzoe3twddbIpK+RGQUJ1+xaJiFZKQ1mBZ9cWlZWllbX6LTzPCt7CmMLgrdtoLdkdbP0eDUJQzaXq0qNIXMr7J5ec9i0i9Bodt6CMnFJVhihdhF3OpHyWaeWWr4GChZpyUjCI4kL+U2nTqDX5aBqeBw+uFjw2ZFwFp+HdpnSbdR77JUeMLjXx0Iklfk5PsTmgPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cTxVePJt05zGmcAekCz40ZmvpoevLyoOtQJxIKsCzm8=;
- b=E0vNktuH22uBUt5578eWUBpsB0n8QttkP2ZI/s84JPB0tDgQNN7H4mMyEoazdaeoRWnVQB/7SWMXsqFvqlE9SnlIgdco5a1UI71dfAT4xaHJN3wpNr+PykVnlM0Ob8GG3I2VQ+wce+vf2SKOX0QR7rj1lXqiAMpwXA/BX8/Adso9gFDObWL5EVVkiwPu66uaEk1wFHZLZptN5Zx1o60yXQIBRCMex8JcYR7kQFzpdFeIj4V3m89EkmBxO5aKvLroKeO55nHsaZuwW2ptXoFGSMTKszXwku59qhUO01YaDeGcqzvVUA+WQ462PgVsBcRfeOuMbaQdQcDI4G+ir63FGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cTxVePJt05zGmcAekCz40ZmvpoevLyoOtQJxIKsCzm8=;
- b=Sny63Sz/PpvfUFjXIIbGh1AoyCy2k0tXOXKfrniijkccUmGotk7lY4wQnx001USzfLHohpUxTvXPCdZWpfEK/qmvFpL2cWeKaSBkEOf+aMKfyD7mpxUPUfSjmEgmzN7bRRSFyBpCOAq7lIQQWt74+zwiwtrHU0JCK4wWVttRtAVf3VSV5/mK4MZi+LdRAsTsM7Edt3W6B2u1ybymH50iRZsb1+oXA+iExVCuAJ5uiyQbjGamYhXDJCyshQ/GEbE2jgBoBM5d7njKuZRG7II//YHTpqqgAFWZv5FRNXhssiDnYd6D8YQTFiIQE49D1f5IYjsCYsqyTsMV0AlP9VOxOg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a0cb9c83-dc4d-5f03-0f65-3756fadfde0b@suse.com>
-Date: Wed, 4 Jan 2023 18:04:29 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 4/4] xen/version: Introduce non-truncating XENVER_* subops
-Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230103200943.5801-1-andrew.cooper3@citrix.com>
- <20230103200943.5801-5-andrew.cooper3@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230103200943.5801-5-andrew.cooper3@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0092.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a9::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: d3ac3425-8c58-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1672854864; bh=62GrjcKcrjn6pGet/GNWyEnuI3H5ZMFveZgVFAY9fi4=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=XgcKO9mT2A5OpXMzNhTUWfEVZQeb3tZpsZi6pH8142PKactCJPOqzFwC0JdfDSsrPVx9PQymQO2Vh+y7/UH+fEjfmlLKfiAu6FO/nWGw/xlbSoj960yeTTZp7A5FPRNpovMsbZ5DMnAhrky90cR5W4IlqfThLdFaYNaozPbcoTRlgHPjeqNNffswzGk0pMkcfMBRfsEtngRVONq+24PF1eRHOaNp35sUXo43D4INbIR70r8t/imIFmavvVMR4xY6Hbdt8pLJY7E8Yz7IhW1r6gjpN5MpUZuR6Kp76gHXskt7q1FIkUEAM0PqM4t6KAnR2w7Mj/g2kPee4gwt0cnfmg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1672854864; bh=hyoo4l5eYpZvZ37UDueVbgUvGgA7cb6c0wte2v6dAvd=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=LG2pMM13WGB66ytLaHr4OMlZA6Q2xRxDMSI4tEm6m/QLPGf3KWl9aSdO6B+2iLAuRbkU9Qx2LfjJY/8/lRLASAu8JQFel5gVTpQFLj1G1mRHxBHnukHWJSsaq4aAkPqrYEFeiN2zLnqcyFeEd9idjxfpz/eHxcp1yRwJUGQoJ2XWJBos9DdWysPxRgsZd+kSL+QfjONrMI+8Ivpz+wdrnw+REdozZ7IFHh+FoXHKbUqG39ZhXwTWH9ppsQF8iyRY8G8MD9EMr5OeG2ByLJwQGomyoWm4BHracWAqiISBcvH2eKjfwYkxIGFi+TlUuvJ7dmBypjQsdHlkPG94h9TPug==
+X-YMail-OSG: hsgtjjMVM1kYbV.iYsvv_79.2anRl0pBtsppgVsWfzACkf34ams5kiyUUKtRAeR
+ ZixpwMNisCWUZvqF3TyOuVRefxOjsMsVG_RWa0zr.A3jfIPAy6LYMBU3SbmOsSetaUSZfTM6v1X4
+ MgjLyLoEu0MKqtTLBfk3Mb1Tg9yCa8HMuZtjK0eFZo3Mk4G8lUvWuDUhRMNLTPl7wAHj2W_YNqCa
+ DOuVBUxMB8zVAtPSaSAZK4YnATYpBNYnwcrtbBrxLjSzu98wnxVVxOiKcEFisouTnxYS3qqjWXFi
+ xyQoDB39mTkmGwRJ9DA.0Xz6rbntkl2Xx_jLQWy4dEvs2FBA8yNved08SQdsL7H7BVHE7amdURLN
+ YLxKXvzdKyAmYknKoP6O_BZfNW0UFhzNz8GydVOQr2I5S8cWQSdyxX5XTW2f62mcLlY8_3dg4zIK
+ K43e8sDu18HJberC7t2eM7SW9lQOuXnimfxTY4QgiyooPabhE11pNi9XO2QeA1Fgi6Pqi7EOvmFi
+ mIcDAOd8L97.T5YfvC0ugCDemxEn7_rGWb2WVzW2JvgfEkMVlkK0kN3auayrzM_de0ynRY8GUjgh
+ f.B8ZT.lCBxYSofNU4RJGVxId19GMonO5zj2ex0h7iJOSOtjPlBz1D17MY46RD15f3ihdrAU5z5r
+ rOFdOiPq.FpngnAgSArFxIvOyO6Fm9qJ8QdPiGNw4R25XNm9_m1_05VgRGpeo.f5FX3WLHgv22C7
+ ihX6yHXQDiNbEEktd1H_tcwJCVsRx_9PEG6QlXtX7uH8Yo3yQm77_ihbcDQ0jEMOMrJOqahMNzE5
+ 97KMP74VxteFthVugEqkr1UBTwbri99BzYKP5n1vLOCkazOaT6umA8pkuVbHE_jYW9RsjxoYizbW
+ IBxG_usnYLBdA3.nBOjj4QpNmEVYaChv924thTD4OE47hI9ODDOETxR9PCLNe42GkBD3tJ8QGmsD
+ A2ikhYE1_VqIPZcb6cSwK5Ju08oPEnUdK7S.viVcEiJzhFgT0DNh9xEqxEChtVOLnKOL5JqUImja
+ eG3gTSGs_gY3C6.DfiWH4PhPZ0tfD6C7jgztZxzvORVtcnjjC2Oi.ZJAimFA6HSQvX5DS2c0Aag6
+ 1qiaH0EoSmd3O_AIch.ecUX4UnmUqNuey8UuXuvHUmo40DeVc9q14QDfWVgLT8fSKekjsWjeds90
+ xoPCfKuQHXTaIxIhT3B9d5SR4.HlobPoSyeYQENmQrzDArxZiBsEpt10eRNIlmQ1.yR4vOoyCYwF
+ EBIXU6X3QcOH.oPzJry9pykHkgOotSI5bfIUXz764ICdaAp2MSaBzjS.Jx.6NbUOqb.2z3kLduQs
+ Qv0Tl.J3N4sWJiAlDd01j2A5dbpHND4nrKhCQj2zP1r.pi27izYq9Vkfexeo77IzxvfZ4VA3BMcm
+ Kh1GwULZI04NKkPev4MSk9bpDL98aaoBY.OxfR3PnkG_fMLboLMujQIXDTCdu3D7grrrg58o97xo
+ grE5Wwofk3j1.28IqBgz4EXC_7ceS8VMre8tRwQfI7DDV8VqYZBFOf.wVCbI6ok9hzhbokZh3wvf
+ rTx2KRB0qNFLxlqfONlbUDh9DevOY8X5ltG5bRwqxEYA.ljbxS.aJWlxPpsNbxMDNeVLkr9xwz9Q
+ ux9oFJSLl.uSV6.9xg7YwBtsH3jG65TrQtsR1P5wot.HH4pfCc4Anad7jv7jLykk9ZbivX_Rn5Hx
+ 4D2oolxJ002G18kAveulzNST1m5DdF_gdYQvitTLsjnBgZbjHw_Q4gI50Yb5Yv9SkgILQuk0OnUz
+ xoR3J1E3xssxbZ2FCUcRAotd7r87C9PMXZ88M4nV_mxStQqaRbgm9nK4VxsJZERkmJvLKBklJFDx
+ wy1X3M_.PklRG2hjjQnYpcJPM4tHOo.nZtwzi1dV9PDFkLMZN3x58gCHE.N4T2aR7M57J0Gm79SJ
+ uyJmBphuyjttwYRbLzxRkguIhn3fMzhbg35si.8S8OeQRTa3gP2ro8KiN5qHp31caZCLV8m37C58
+ 5uU_6twcwnml9ok4uFaIWbW_sAHXW6SbcmdRE1z5i.U07PDLMghN5AV8LeKeKtsCnod2UGM9dP89
+ 9VCFtLto5buHFjzgkrS6.hp42mK2GN57tJS6ueY8q9LnmLR2o4AEUBpOAyQLZoyW5ccqWqaqgf_x
+ XmDsl4SyxxsQmirGp0WRtPg0rtTCGNtxh28zkJ3JR0B8pG.wLhyECqc8Aid.LPydCoFdLOqgY0U3
+ WkGJGa41Fz3kqygvv07ja9Qk-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <f596a7c1-10d0-3743-fe0b-d42003cf7440@aol.com>
+Date: Wed, 4 Jan 2023 12:54:16 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB9676:EE_
-X-MS-Office365-Filtering-Correlation-Id: a85aab11-6941-48cd-78aa-08daee75bee8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	MMUfiKKMjf9g2sg6L3bMGYcH8OxT3stgJaBjqVMQslzvgzAJZdrKe3lvUo9MpKSyJEl49dAEq8JGq2PGtu4PQedWJqJICa70+ymQ2xWtQzuYWUu0SEDHKaKsYBBMzkPLhSMwjfSubnljX/wPZqq5dSayrAQkHpGUBQ3E5k2fUKbg3bWdH1mSYV/pq2XMJhtkDe0brdz7wSmpiJSyJxPqHqprp4EYW72qF4rrxzALnNr5xU2rBL4JWcyEsug1dUadbT0ky/YB3fTuI6HGRSazU+j62nWeBCDzo5BAM3Uv+97d2yYxplAUPLEVlWTZ5MHgBqR05E1jtKN5sKnHufZOgV77dqpamsEAcKMgQgBac69XTADbGozjC4Jmb5LaIHyo1AKCyvfldYXZMtrUrGC2/CKlOIveg05nKWUBOOvguwOLMFSZrhmmauO9T+NYQn0qygj6/xkIMYkoFaas6cZeYQOMSd/kinZOXnbhNEVf0z7Lmc+MVp37SEQQrrwIxiudRCiSp/1NDZKGYlmjlkSNdI5VgWdrdtBBzeG1qcDpDqJi9mG4XpjvrHhdisCPNvLLsytjlW6mLBrESg5gIZZ4HhxZv870DdvQBZTljdP9I2j+PsmfzoBenXSUlYmiR9d3y+7MtuJTleeTjyqIIiNsELMIChKaJQoCKK5Hkx0OxTPRvGpzjS1oe0XTB8xaScvLng4MkIELXZq33ppesTGD4wxcMOoWvQU7fcVWpRfFuK8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(366004)(396003)(136003)(376002)(451199015)(5660300002)(2906002)(8936002)(41300700001)(4326008)(478600001)(316002)(8676002)(66899015)(54906003)(66476007)(66946007)(6916009)(66556008)(6486002)(31686004)(6512007)(26005)(6506007)(83380400001)(186003)(38100700002)(53546011)(2616005)(31696002)(86362001)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZTNTNlBmLzE1cTVvSDcvZ0ExTVFUN0dCc0p0NEhRSUErNVVkSkJGemsvamFM?=
- =?utf-8?B?WUhlSFVUeWhQamlUclFBeDBPWGhPZ1BlWlJvS3hSTXZnUFAvTFNiN3FrTVhh?=
- =?utf-8?B?eS9aZHNEbzUyQk1FbzRBMExtSkVxRCtES1JsYURGSStlR1ZkclByY0syeG9n?=
- =?utf-8?B?RlNxVlpLdWxrdnlNMTRteWdHaHlFR05ZQlBLU2xJWDdBMFA0SHpYb0l6d0l6?=
- =?utf-8?B?U3paamQzS3BHN3hXU2VpWVJMbU45ME1qQlZzYzFXbDVTT2hVenBVLzZobnZT?=
- =?utf-8?B?NFp4SE1CMXAzaWdTeFM0MGJjK0tVVGNmMS9tclJ4dUdwQnF6aFVqazNvS1lP?=
- =?utf-8?B?bkQ2c0dwRjhyYkxqWitjZG5BTVJsQ1VVbFFxMHZYUVAwVEZmT1daeGFzeWZw?=
- =?utf-8?B?UVFJNFZTUFlCbktDMzNndDRoTDUvM3grQ29ZbVE0ZGYxMWpPdWhpb3V0YjVx?=
- =?utf-8?B?WjJFTjFIdFN0ZGdUdzBjOG4wQ2NYcGxUOHk0amp5M2d1eVR0Y0FNbVozNDlN?=
- =?utf-8?B?OGQzbHlrNmFpRFltRHFjSTFQRWhXUnFEQjRrbHhyNDVibmVOYUlJMkpueThV?=
- =?utf-8?B?Mno0V2NoS2VCQmNtclEzajlCNjNzNUU1MW4xdXpkcVY0a0Y0ZXp3ZEx1Y1ZD?=
- =?utf-8?B?bEdJTnJFUDFHdDNkQytOdFFFUHNpanUvWGtTR1J0dzZESWI1eGNzVWMzcml5?=
- =?utf-8?B?MnBPSWxNWHVNaStnVVZuNVorSStWcUJUeW1HTjJkaVMzZzQ3VkJhTkw4aUJv?=
- =?utf-8?B?ZFU5V2EvT3BReEdkTFJHOUhkckUvUy9YbU54MmI3K2o5RzVWSmVhUFg0dW00?=
- =?utf-8?B?ZEVPTm9rN3R2d2Q4OCtIMmZiQjVUVFRMNzZuNEJrenBzT0dwK3FOaHRWNHVB?=
- =?utf-8?B?emN6akp2UHFVK1lKSFpJUHVMMTFqYzRzb0NidFUveWlrSk53UW4yVnhWajRy?=
- =?utf-8?B?Uy80em9jRGtyZld3NTBIYUx4RTdLMDRxQi9abVh4MXFObjhSS2Y2Ylc2U3Z5?=
- =?utf-8?B?YWFtb2J3QVI3MnFIL3dZYjlLN1prWjg3cGlOblZQTFpmOFlON08ybnVVTC9u?=
- =?utf-8?B?SDU1dnpvSzdrUWNCMXRLTDUxU21heVVZWFF1aFFqVDBvSEY4c3NBdk9IbGxy?=
- =?utf-8?B?RUh3OUVYajVzTytlMGtOSkhVeDJsa24zcS9RZWU1elhJcytmTTU1MDlPWWEx?=
- =?utf-8?B?MWNic3VpUXRVb25GT2F0K0p5S3JWNGpyZ05SWGdNWDJhdGpNamJQUVhBSVU4?=
- =?utf-8?B?d2V2R3hieTBZUjBFU2t0aGszQzZOSkZMTjN0eHBESWIxN1lVMXJxTzdZV3FD?=
- =?utf-8?B?dng2UUtNYXhoRWlUKzNhMTIxSDUyK1ZDSWlQZTVVa2xNSnBoQkk5c1dzZWdI?=
- =?utf-8?B?alUwcmdpemFyakxtQ0VwQ1hNNEpFVXh2ekMrNjgvZXFoY2JweTlxdmhEVTN5?=
- =?utf-8?B?QVJkUjVkSGZndUs3OVBweG1qRVd3bGV3cFBtZUVKbWt5azdlU3B4SGtyKzZp?=
- =?utf-8?B?OUZKM1ZSa284UWphVXBuZm9PUXQ2Q1ptRGhlaGlrR3JhZ3FJUU1iN0N1V1pZ?=
- =?utf-8?B?Y2U4WjZ2NW5QN2NVSW9lY3lqWmZWOGx2cXdCM2dCNGVCQzRLZEl5KzNPQVFz?=
- =?utf-8?B?ZE9iVTdpQlB4ZUs1T3Q0cUdwM0c0NWtRWmtDd04xT01tR0dxNW4wRjhKTFRs?=
- =?utf-8?B?MGlMbzNyTEVuQ0Z1dGxsM1N0UXZmdFVneE02eTBWVStyU2VYYTBsWHpZbTdX?=
- =?utf-8?B?ZnBORFJKOVQxRmh0NkIxVjNxdXlkdnM3ZVFTOU1FQjBqTUJVSHJtdTFmb1M1?=
- =?utf-8?B?SXRjdUlZb2xJRjF6UFVxdStaZkxzbkE1OVFkTTRITkpXWGVnQmNOdmVjYlVn?=
- =?utf-8?B?ei9aeEJuRVVVeUVSTFp1V1JOdEtpQlhlSGhwN1c2RGNlaGJOdEczNDcvbDlw?=
- =?utf-8?B?WndpWFA1MFNaU2xaVzVmaDc2NHR2U0tWdkNIWUJ4ZWc1eEFycnJoelN1SmRk?=
- =?utf-8?B?cHA3cXRycGg5a1dydVplRTErcWZtL3RJRTNoSmJCOHJnbkdsRENMNTlsZUJk?=
- =?utf-8?B?dVZmbEFCQlRDMCtwblptTFV1Q2tsRnE4R3ZQSHl5YWZ0SkZlNnIxeEd4c3o3?=
- =?utf-8?Q?zoGubOIaoj2w0WvhHd56dG1lD?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a85aab11-6941-48cd-78aa-08daee75bee8
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jan 2023 17:04:31.0493
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CMyhFq+BNHT8TirD4HgWUM2NNjbHyskQCtgpKWnsKSIgananpBHJGmQI9igVr68rrpBrXxceWKE5iJ0Y2vT+rw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9676
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 6/6] hw/isa/piix: Resolve redundant
+ TYPE_PIIX3_XEN_DEVICE
+Content-Language: en-US
+To: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>,
+ Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org,
+ Markus Armbruster <armbru@redhat.com>
+Cc: Richard Henderson <richard.henderson@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ =?UTF-8?Q?Herv=c3=a9_Poussineau?= <hpoussin@reactos.org>,
+ Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>, Thomas Huth <thuth@redhat.com>
+References: <20230104144437.27479-1-shentey@gmail.com>
+ <20230104144437.27479-7-shentey@gmail.com>
+ <1c2e0780-e5fb-1321-0d84-b0591db9fec7@linaro.org>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+In-Reply-To: <1c2e0780-e5fb-1321-0d84-b0591db9fec7@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20982 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 03.01.2023 21:09, Andrew Cooper wrote:
-> Recently in XenServer, we have encountered problems caused by both
-> XENVER_extraversion and XENVER_commandline having fixed bounds.
+On 1/4/23 10:35 AM, Philippe Mathieu-Daudé wrote:
+> +Markus/Thomas
 > 
-> More than just the invariant size, the APIs/ABIs also broken by typedef-ing an
-> array, and using an unqualified 'char' which has implementation-specific
-> signed-ness.
+> On 4/1/23 15:44, Bernhard Beschow wrote:
+>> During the last patches, TYPE_PIIX3_XEN_DEVICE turned into a clone of
+>> TYPE_PIIX3_DEVICE. Remove this redundancy.
+>> 
+>> Signed-off-by: Bernhard Beschow <shentey@gmail.com>
+>> ---
+>>   hw/i386/pc_piix.c             |  4 +---
+>>   hw/isa/piix.c                 | 20 --------------------
+>>   include/hw/southbridge/piix.h |  1 -
+>>   3 files changed, 1 insertion(+), 24 deletions(-)
+>> 
+>> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+>> index 5738d9cdca..6b8de3d59d 100644
+>> --- a/hw/i386/pc_piix.c
+>> +++ b/hw/i386/pc_piix.c
+>> @@ -235,8 +235,6 @@ static void pc_init1(MachineState *machine,
+>>       if (pcmc->pci_enabled) {
+>>           DeviceState *dev;
+>>           PCIDevice *pci_dev;
+>> -        const char *type = xen_enabled() ? TYPE_PIIX3_XEN_DEVICE
+>> -                                         : TYPE_PIIX3_DEVICE;
+>>           int i;
+>>   
+>>           pci_bus = i440fx_init(pci_type,
+>> @@ -250,7 +248,7 @@ static void pc_init1(MachineState *machine,
+>>                                          : pci_slot_get_pirq);
+>>           pcms->bus = pci_bus;
+>>   
+>> -        pci_dev = pci_new_multifunction(-1, true, type);
+>> +        pci_dev = pci_new_multifunction(-1, true, TYPE_PIIX3_DEVICE);
+>>           object_property_set_bool(OBJECT(pci_dev), "has-usb",
+>>                                    machine_usb(machine), &error_abort);
+>>           object_property_set_bool(OBJECT(pci_dev), "has-acpi",
+>> diff --git a/hw/isa/piix.c b/hw/isa/piix.c
+>> index 98e9b12661..e4587352c9 100644
+>> --- a/hw/isa/piix.c
+>> +++ b/hw/isa/piix.c
+>> @@ -33,7 +33,6 @@
+>>   #include "hw/qdev-properties.h"
+>>   #include "hw/ide/piix.h"
+>>   #include "hw/isa/isa.h"
+>> -#include "hw/xen/xen.h"
+>>   #include "sysemu/runstate.h"
+>>   #include "migration/vmstate.h"
+>>   #include "hw/acpi/acpi_aml_interface.h"
+>> @@ -465,24 +464,6 @@ static const TypeInfo piix3_info = {
+>>       .class_init    = piix3_class_init,
+>>   };
+>>   
+>> -static void piix3_xen_class_init(ObjectClass *klass, void *data)
+>> -{
+>> -    DeviceClass *dc = DEVICE_CLASS(klass);
+>> -    PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
+>> -
+>> -    k->realize = piix3_realize;
+>> -    /* 82371SB PIIX3 PCI-to-ISA bridge (Step A1) */
+>> -    k->device_id = PCI_DEVICE_ID_INTEL_82371SB_0;
+>> -    dc->vmsd = &vmstate_piix3;
+> 
+> IIUC, since this device is user-creatable, we can't simply remove it
+> without going thru the deprecation process. Alternatively we could
+> add a type alias:
+> 
+> -- >8 --
+> diff --git a/softmmu/qdev-monitor.c b/softmmu/qdev-monitor.c
+> index 4b0ef65780..d94f7ea369 100644
+> --- a/softmmu/qdev-monitor.c
+> +++ b/softmmu/qdev-monitor.c
+> @@ -64,6 +64,7 @@ typedef struct QDevAlias
+>                                 QEMU_ARCH_LOONGARCH)
+>   #define QEMU_ARCH_VIRTIO_CCW (QEMU_ARCH_S390X)
+>   #define QEMU_ARCH_VIRTIO_MMIO (QEMU_ARCH_M68K)
+> +#define QEMU_ARCH_XEN (QEMU_ARCH_ARM | QEMU_ARCH_I386)
+> 
+>   /* Please keep this table sorted by typename. */
+>   static const QDevAlias qdev_alias_table[] = {
+> @@ -111,6 +112,7 @@ static const QDevAlias qdev_alias_table[] = {
+>       { "virtio-tablet-device", "virtio-tablet", QEMU_ARCH_VIRTIO_MMIO },
+>       { "virtio-tablet-ccw", "virtio-tablet", QEMU_ARCH_VIRTIO_CCW },
+>       { "virtio-tablet-pci", "virtio-tablet", QEMU_ARCH_VIRTIO_PCI },
+> +    { "PIIX3", "PIIX3-xen", QEMU_ARCH_XEN },
 
-Which is fine as long as only ASCII is returned. If non-ASCII can be returned,
-I agree "unsigned char" is better, but then we also need to spell out what
-encoding the strings use (UTF-8 presumably).
+Hi Bernhard,
 
-> API/ABI wise, XENVER_build_id could be merged into xenver_varstring_op(), but
-> the internal infrastructure is awkward.
+Can you comment if this should be:
 
-I guess build-id also doesn't fit the rest because of not returning strings,
-but indeed an array of bytes. You also couldn't use strlen() on the array.
++    { "PIIX", "PIIX3-xen", QEMU_ARCH_XEN },
 
-> @@ -469,6 +470,66 @@ static int __init cf_check param_init(void)
->  __initcall(param_init);
->  #endif
->  
-> +static long xenver_varstring_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
-> +{
-> +    const char *str = NULL;
-> +    size_t sz = 0;
-> +    union {
-> +        xen_capabilities_info_t info;
-> +    } u;
-> +    struct xen_var_string user_str;
-> +
-> +    switch ( cmd )
-> +    {
-> +    case XENVER_extraversion2:
-> +        str = xen_extra_version();
-> +        break;
-> +
-> +    case XENVER_changeset2:
-> +        str = xen_changeset();
-> +        break;
-> +
-> +    case XENVER_commandline2:
-> +        str = saved_cmdline;
-> +        break;
-> +
-> +    case XENVER_capabilities2:
-> +        memset(u.info, 0, sizeof(u.info));
-> +        arch_get_xen_caps(&u.info);
-> +        str = u.info;
-> +        break;
-> +
-> +    default:
-> +        ASSERT_UNREACHABLE();
-> +        break;
-> +    }
-> +
-> +    if ( !str ||
-> +         !(sz = strlen(str)) )
-> +        return -ENODATA; /* failsafe */
+instead? IIUC, the patch series also removed PIIX3 and PIIX4 and
+replaced them with PIIX. Or am I not understanding correctly?
 
-Is this really appropriate for e.g. an empty command line?
+Best regards,
 
-> +    if ( sz > INT32_MAX )
-> +        return -E2BIG; /* Compat guests.  2G ought to be plenty. */
+Chuck
 
-While the comment here and in the public header mention compat guests,
-the check is uniform. What's the deal?
 
-> +    if ( guest_handle_is_null(arg) ) /* Length request */
-> +        return sz;
-> +
-> +    if ( copy_from_guest(&user_str, arg, 1) )
-> +        return -EFAULT;
-> +
-> +    if ( user_str.len == 0 )
-> +        return -EINVAL;
-> +
-> +    if ( sz > user_str.len )
-> +        return -ENOBUFS;
-> +
-> +    if ( copy_to_guest_offset(arg, offsetof(struct xen_var_string, buf),
-> +                              str, sz) )
-> +        return -EFAULT;
-
-Not inserting a nul terminator is going to make this slightly awkward to
-use.
-
-> @@ -103,6 +126,35 @@ struct xen_build_id {
->  };
->  typedef struct xen_build_id xen_build_id_t;
->  
-> +/*
-> + * Container for an arbitrary variable length string.
-> + */
-> +struct xen_var_string {
-> +    uint32_t len;                          /* IN:  size of buf[] in bytes. */
-> +    unsigned char buf[XEN_FLEX_ARRAY_DIM]; /* OUT: requested data.         */
-> +};
-> +typedef struct xen_var_string xen_var_string_t;
-> +
-> +/*
-> + * arg == xenver_string_t
-
-Nit: xen_var_string_t (also again in the following text).
-
-> + * Equivalent to the original ops, but with a non-truncating API/ABI.
-> + *
-> + * Passing arg == NULL is a request for size.  The returned size does not
-> + * include a NUL terminator, and has a practical upper limit of INT32_MAX for
-> + * 32bit guests.  This is expected to be plenty for the purpose.
-
-As said above, the limit applies to all guests, which the wording here
-doesn't suggest.
-
-Jan
-
-> + * Otherwise, the input xenver_string_t provides the size of the following
-> + * buffer.  Xen will fill the buffer, and return the number of bytes written
-> + * (e.g. if the input buffer was longer than necessary).
-> + *
-> + * These hypercalls can fail, in which case they'll return -XEN_Exx.
-> + */
-> +#define XENVER_extraversion2 11
-> +#define XENVER_capabilities2 12
-> +#define XENVER_changeset2    13
-> +#define XENVER_commandline2  14
-> +
->  #endif /* __XEN_PUBLIC_VERSION_H__ */
->  
->  /*
+>       { }
+>   };
+> ---
+> 
+> But I'm not sure due to this comment from commit ee46d8a503
+> (2011-12-22 15:24:20 -0600):
+> 
+> 47) /*
+> 48)  * Aliases were a bad idea from the start.  Let's keep them
+> 49)  * from spreading further.
+> 50)  */
+> 
+> Maybe using qdev_alias_table[] during device deprecation is
+> acceptable?
+> 
+>> -}
+>> -
+>> -static const TypeInfo piix3_xen_info = {
+>> -    .name          = TYPE_PIIX3_XEN_DEVICE,
+>> -    .parent        = TYPE_PIIX_PCI_DEVICE,
+>> -    .instance_init = piix3_init,
+>> -    .class_init    = piix3_xen_class_init,
+>> -};
+>> -
+>>   static void piix4_realize(PCIDevice *dev, Error **errp)
+>>   {
+>>       ERRP_GUARD();
+>> @@ -534,7 +515,6 @@ static void piix3_register_types(void)
+>>   {
+>>       type_register_static(&piix_pci_type_info);
+>>       type_register_static(&piix3_info);
+>> -    type_register_static(&piix3_xen_info);
+>>       type_register_static(&piix4_info);
+>>   }
+>>   
+>> diff --git a/include/hw/southbridge/piix.h b/include/hw/southbridge/piix.h
+>> index 65ad8569da..b1fc94a742 100644
+>> --- a/include/hw/southbridge/piix.h
+>> +++ b/include/hw/southbridge/piix.h
+>> @@ -77,7 +77,6 @@ struct PIIXState {
+>>   OBJECT_DECLARE_SIMPLE_TYPE(PIIXState, PIIX_PCI_DEVICE)
+>>   
+>>   #define TYPE_PIIX3_DEVICE "PIIX3"
+>> -#define TYPE_PIIX3_XEN_DEVICE "PIIX3-xen"
+>>   #define TYPE_PIIX4_PCI_DEVICE "piix4-isa"
+>>   
+>>   #endif
+> 
 
 
