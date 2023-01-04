@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C021965D729
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 16:19:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471260.731040 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1952665D72B
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 16:19:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471263.731052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5Xk-0006FC-Bo; Wed, 04 Jan 2023 15:19:04 +0000
+	id 1pD5Y4-0006gX-KH; Wed, 04 Jan 2023 15:19:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471260.731040; Wed, 04 Jan 2023 15:19:04 +0000
+Received: by outflank-mailman (output) from mailman id 471263.731052; Wed, 04 Jan 2023 15:19:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pD5Xk-0006Cv-8k; Wed, 04 Jan 2023 15:19:04 +0000
-Received: by outflank-mailman (input) for mailman id 471260;
- Wed, 04 Jan 2023 15:19:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pD5Y4-0006dQ-Gr; Wed, 04 Jan 2023 15:19:24 +0000
+Received: by outflank-mailman (input) for mailman id 471263;
+ Wed, 04 Jan 2023 15:19:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=G5yt=5B=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pD5Xj-0006Cp-8h
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 15:19:03 +0000
-Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
- [2a00:1450:4864:20::32e])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1e7f6673-8c43-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 16:19:02 +0100 (CET)
-Received: by mail-wm1-x32e.google.com with SMTP id
- p1-20020a05600c1d8100b003d8c9b191e0so26704581wms.4
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 07:19:02 -0800 (PST)
+ id 1pD5Y3-0006bu-Oi
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 15:19:23 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2a278203-8c43-11ed-b8d0-410ff93cb8f0;
+ Wed, 04 Jan 2023 16:19:21 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id ja17so25823465wmb.3
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 07:19:21 -0800 (PST)
 Received: from [192.168.30.216] ([81.0.6.76]) by smtp.gmail.com with ESMTPSA id
- 6-20020a05600c024600b003cfd0bd8c0asm44453781wmj.30.2023.01.04.07.19.00
+ r9-20020a05600c35c900b003d6b71c0c92sm69512254wmq.45.2023.01.04.07.19.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jan 2023 07:19:01 -0800 (PST)
+ Wed, 04 Jan 2023 07:19:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,43 +43,43 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1e7f6673-8c43-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 2a278203-8c43-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=ppHjajXu00sfHG3gYewiMMYX9m68H41AIgp8I+UXRqY=;
-        b=UC2d663kGMVSshGb3omgRSAw0Ledaea0D1mgz5XDzXkbSgMftbWdaODs4OZmZOZBoh
-         FyMvchGQ+037Hv9r0gY2rD51/ne2FMsPDuiE3Zr9tDtd+GSwonagjkiT7goqZzl2Gh+U
-         W4ctjpskbLJNK16iOyLNAxtSD8TykO7UWVx0+q05zFYM+chKLMn8WWzPXDTOREDFoFoX
-         ai1PC9EBJ+Nyq85ZUfyieR+RVa63WqYZX6+4bmFIFPCpfBkXyscUWiRMXh36EpIKeSMd
-         SKarwbnDmbMBH9wuFC0txM58BjgBz9sYihOWquggB5SiYOaAcSqkst3g2R31OfWxnwCT
-         tISQ==
+        bh=kPTejbbi0VjrwZB3qm0I8/+jmgejs37VoikSC1jaUtQ=;
+        b=AhDzPHiSag5hRqrsTQN2J0vuhBPs6nWR14Nx5/y7Eg0iKnIDoPZPGkD9b4OwiPoR9u
+         wS9wgHnq7Ei4czHMLFTstFMhCH94/k12Ehtc4wRjzriD1k8WsGRQyUCzc9gTaImXQNhg
+         qqwLwDiOkCUBdgQqahpfsNY3lfYZgilLFDbpu6SFuL6zxpz8oBVLVMJmVO5lg5HEE2Hi
+         Ia9CuCDCBhGADcfj6+Qjr7uK7SoThYMhM1JnGu6XtSq0Bw/hj8L7MbItaxiQLEynibq4
+         koSFvychnjqJrUvLRBcE+yuFr4jJChIxAVVfzEg7fULMcQxwxiYsWLpaMam1a5HJWq0h
+         A+Hg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to
          :content-language:subject:user-agent:mime-version:date:message-id
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=ppHjajXu00sfHG3gYewiMMYX9m68H41AIgp8I+UXRqY=;
-        b=lEdKjYJOc7ks5opfm5A+glUuT2bZWlLgGwAi+Xr8z6Gnf8fFgeHVYTlMMthk9hW+mT
-         5p/Fg2h1bbhnirKy00MlO2wnx6hh5D5Q4tWuDQao2vYwgftW+htNtzT5PaOhZ5OOWBZe
-         aKu6xhBhG12g67lWDMvIS9aUic6L2xQWswvXYusSdqxuqmj5X8XzuOcfp/Zv4ilXotje
-         hn52WPPVdllQj0mqruwUdfYJICI2gLSWOp0QLd0Q5K/w66q9xsVPE2Z+JaRPjiqqwiaV
-         pe2sAwl+8aZu0k6H+3RhMqa01jKWgMmgXhjAJSDzIuy0BZZA+Y12ofiDx7pZhUG7wfX0
-         dl4g==
-X-Gm-Message-State: AFqh2krWRvTaYyTjQU6Hr5W6dWhcme5YsV/dHW+3Jc9QYWn3uaRCGGbr
-	Qdzh23zkMrdy86MqsajrSW8onw==
-X-Google-Smtp-Source: AMrXdXs4D+lia01lWxYpxoqiFcHhQKZtcCTZ221KZh9cuBly4YiKqjSpq4+CbaUrUFzi9gJI4l5cIg==
-X-Received: by 2002:a05:600c:3844:b0:3d3:4406:8a3a with SMTP id s4-20020a05600c384400b003d344068a3amr41590590wmr.30.1672845541824;
-        Wed, 04 Jan 2023 07:19:01 -0800 (PST)
-Message-ID: <90e7dc87-e2a1-90ae-1002-6f98abe2224e@linaro.org>
-Date: Wed, 4 Jan 2023 16:18:59 +0100
+        bh=kPTejbbi0VjrwZB3qm0I8/+jmgejs37VoikSC1jaUtQ=;
+        b=TFDJiTY4wth89+k86/hJLASTAgvNVw56P+wX+8ma5fPaX9tH+2XsJjPy9g667Qr5C4
+         +tIpnrGPg1yDgZxDn3wMYExNn0S2avpJTiMziIFWHPUFy8XgSmgPu+i6aU0FQMvYWDr1
+         HdB8MOpQQ0kF8/8iLWpqHH7Fx4gfOqcHkNe89VJbbHnkD8nYLHYJPr5U4YX7eumEDmYr
+         ONtLfW4oBqjxnIBYEZjKH2ScuGQUXd1ivwegWqDhQY7NZkpWgn/DjcrKomtGC0qru22X
+         qK3OmGhxAFCKBi7DMxE61JD1C5GE76yMSeWomITh7r8XWgxRPs6iF4+RIvKhukfSbRUq
+         5Uyg==
+X-Gm-Message-State: AFqh2krF8pxrTbO3mxcnoNAdPWP+CDVkzyK3tK5qMg1r+isG/AEseW81
+	XvseS2eeOiM8beTQ0716ABGbyg==
+X-Google-Smtp-Source: AMrXdXur2qtX7wLHbl0tKH2b2is4RZ/VKSr2T4aG8FJIBb61gSsVoK18AtRN6qbV2HSt2GDGU9Bh7A==
+X-Received: by 2002:a05:600c:4d25:b0:3d2:27ba:dde0 with SMTP id u37-20020a05600c4d2500b003d227badde0mr34776131wmp.33.1672845561368;
+        Wed, 04 Jan 2023 07:19:21 -0800 (PST)
+Message-ID: <265c7231-31a0-09a5-2b39-57e0d610661f@linaro.org>
+Date: Wed, 4 Jan 2023 16:19:19 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 3/6] hw/isa/piix: Wire up Xen PCI IRQ handling outside
- of PIIX3
+Subject: Re: [PATCH v2 5/6] hw/isa/piix: Resolve redundant k->config_write
+ assignments
 Content-Language: en-US
 To: Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org
 Cc: Richard Henderson <richard.henderson@linaro.org>,
@@ -92,23 +91,21 @@ Cc: Richard Henderson <richard.henderson@linaro.org>,
  "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
  Eduardo Habkost <eduardo@habkost.net>, Chuck Zmudzinski <brchuckz@aol.com>
 References: <20230104144437.27479-1-shentey@gmail.com>
- <20230104144437.27479-4-shentey@gmail.com>
+ <20230104144437.27479-6-shentey@gmail.com>
 From: =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?= <philmd@linaro.org>
-In-Reply-To: <20230104144437.27479-4-shentey@gmail.com>
+In-Reply-To: <20230104144437.27479-6-shentey@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 4/1/23 15:44, Bernhard Beschow wrote:
-> xen_intx_set_irq() doesn't depend on PIIX state. In order to resolve
-> TYPE_PIIX3_XEN_DEVICE and in order to make Xen agnostic about the
-> precise south bridge being used, set up Xen's PCI IRQ handling of PIIX3
-> in the board.
+> The previous patch unified handling of piix_write_config() accross all
+> PIIX device models which allows for assigning k->config_write once in the
+> base class.
 > 
 > Signed-off-by: Bernhard Beschow <shentey@gmail.com>
 > ---
->   hw/i386/pc_piix.c | 12 ++++++++++++
->   hw/isa/piix.c     | 24 +-----------------------
->   2 files changed, 13 insertions(+), 23 deletions(-)
+>   hw/isa/piix.c | 4 +---
+>   1 file changed, 1 insertion(+), 3 deletions(-)
 
 Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
 
