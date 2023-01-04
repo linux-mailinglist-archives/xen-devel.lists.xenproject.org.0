@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11FEA65CE8F
+	by mail.lfdr.de (Postfix) with ESMTPS id 1874565CE90
 	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 09:45:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.470985.730690 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.470986.730700 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCzOc-0000mI-0p; Wed, 04 Jan 2023 08:45:14 +0000
+	id 1pCzOd-00014m-CT; Wed, 04 Jan 2023 08:45:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 470985.730690; Wed, 04 Jan 2023 08:45:13 +0000
+Received: by outflank-mailman (output) from mailman id 470986.730700; Wed, 04 Jan 2023 08:45:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pCzOb-0000k7-SS; Wed, 04 Jan 2023 08:45:13 +0000
-Received: by outflank-mailman (input) for mailman id 470985;
- Wed, 04 Jan 2023 08:45:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pCzOd-00010r-7s; Wed, 04 Jan 2023 08:45:15 +0000
+Received: by outflank-mailman (input) for mailman id 470986;
+ Wed, 04 Jan 2023 08:45:14 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=YfqB=5B=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pCzOZ-0008Pe-JT
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 08:45:11 +0000
-Received: from mail-ed1-x530.google.com (mail-ed1-x530.google.com
- [2a00:1450:4864:20::530])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 192bf692-8c0c-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 09:45:10 +0100 (CET)
-Received: by mail-ed1-x530.google.com with SMTP id m21so47531507edc.3
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 00:45:10 -0800 (PST)
+ id 1pCzOc-0008Pf-0S
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 08:45:14 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 19fa257a-8c0c-11ed-b8d0-410ff93cb8f0;
+ Wed, 04 Jan 2023 09:45:12 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id u19so80869654ejm.8
+ for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 00:45:12 -0800 (PST)
 Received: from uni.router.wind (adsl-57.109.242.233.tellas.gr.
  [109.242.233.57]) by smtp.googlemail.com with ESMTPSA id
- k22-20020a170906129600b007c10fe64c5dsm15016382ejb.86.2023.01.04.00.45.09
+ k22-20020a170906129600b007c10fe64c5dsm15016382ejb.86.2023.01.04.00.45.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Jan 2023 00:45:10 -0800 (PST)
+ Wed, 04 Jan 2023 00:45:11 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,51 +44,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 192bf692-8c0c-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 19fa257a-8c0c-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FErdG0bpTyu0YrAGq/30Jx78fTnJ4dyc3jWhGGqv2No=;
-        b=qcSJvgIbcIVR8siwzqOdvogq8s0VHZTvIkzMO4poTEVOg2oi34sCvhNjBA68pbp6/c
-         oDYUTImvkzAXzSsv4EEunLBJSB5/Z1RyCpcVyeiopQGkcdFGFVHZOIQGvy4sPsP7dzQ7
-         oIjr6PInSK5S792qgowN7s9Nkot8vOLo43qTK9FDBWi/p05O6Sex6mx/DpXc0G/1riCB
-         Slw9YvtQRRQm5uxl1zVVddLMM4fWRYsLvX3Dqrbfvy5BG0D4uCCT+B3EL2tg1dlI3Hx9
-         shVf/l3/rsEHRL14qYRlbC1YAXccLTqlnn6aSv/rlynLQEkp0ECG/O04YL+r6mhV7TeT
-         WcIw==
+        bh=mdM0GT8K2NEubn6wx1wh2HmFlgRPGL3ox7yjkbP2cHM=;
+        b=IlyAPSqkdHW7+9UwD5gXGVtDULbpYhhfd0Gx3yvhyrN1hcnLLYpk/M8pLuZh3YGQA5
+         RsVx5uaz+bOugElYhIBMhtGc3tqbn9YBkmVDrxuCMqWWX/W5oNuPk6DW0mfx8vmvL3HF
+         ENubWWJaVNiyKeqpPIwwuejdwmsFxhgpxr1B0qOLb/mJ/yQinsTqM9N5w7duefO33xzh
+         CxrIrX8vsDWj7A9Pvq8nOW5W7QBLF+SVPuTuHzx+86VaMLDiZtwdhK3Musr1DWA3roXi
+         SaRmbzkQydU5DN5adQlyaJo10MX9fRjb3UDxkTH2wFOytbtjR6qE6Ebm4ZmQd2sZty00
+         eE/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=FErdG0bpTyu0YrAGq/30Jx78fTnJ4dyc3jWhGGqv2No=;
-        b=WOXSfMjdP0o+diG+ChXXCFPZIz8E98QnYd46Ekcgy/JOTg1iGbPf91eKm3klAI5ifB
-         ZwNOJn3cwxN16wtrStztJbRo7edBRKia0fuST+TVe5aqw3JQR2dcCjJ30VJvvcKSnRoq
-         c4LDxjps/sIqsyXWA5e2voivb9OdWNve6haPaTmZVGsy2qkSBZuTBPjBa4ItnskIWfmE
-         /YtPPSgn6Cok1iYcCJ3qDRvdMgofQBaTmMprUv/HNeGqAhYi5gzrfuCnCIHjLLYG32O+
-         Ukg2ZoHrttBUVw+j1RaGFXxw5X7Q3+17spA2TGAyy8SEJDaMFjpGIG8DLK3BSTcJqWCD
-         JbmQ==
-X-Gm-Message-State: AFqh2koky4frLRCSOM61evC5KJjBts9OYBCs7yosFiloSr9rXpO/MpKl
-	Tgbiylzf3xsKwt8/Nty7nsRP5p2A9bY=
-X-Google-Smtp-Source: AMrXdXtrV1AIwj0GTEIapqRqGaPwRkP//LOEvC89r7CXGAfVOJlmo1Xm/ZybUic50a87TCyZTzoBpQ==
-X-Received: by 2002:a05:6402:1119:b0:472:46bf:fb3c with SMTP id u25-20020a056402111900b0047246bffb3cmr39919587edv.35.1672821910348;
-        Wed, 04 Jan 2023 00:45:10 -0800 (PST)
+        bh=mdM0GT8K2NEubn6wx1wh2HmFlgRPGL3ox7yjkbP2cHM=;
+        b=ujVkcSyvyXqPUEzNnTKz9NEDyz6evmAWdfIEWrtANAzNhQa+VFsLYIoN81nofZI6hO
+         J9yPis4/OgPsLufkJFyLb8MMX/WTpu4KZX6q6PqcvQBsPHS9G8ApWIu3bFNlNh9aBcMd
+         fpD75xnB0RWP9aD43mDdwSopD5WtKV3ZmHYIV0M8AsCMYzj1EeM+bySilgzzN7SznPnK
+         qFmtD3DAsPVBdvNn9Q28pdP6jYvVofAaBCc8FTsp66rShvPRnHBfgeHrPDc8q+F0mTQ1
+         mkWNhLyq0c/Ku47e60sy5pQHjEeAVaxuhwAflQrUH/5/94/ASkOcTrN4MPvxXW5kbWYm
+         o7rA==
+X-Gm-Message-State: AFqh2krDHKuaSvEMjWKXTJOVpOfbxAE0OgnG+FAVj0A6RLn67shxDH7h
+	Lr6frMdaxd8qZBJkYusiGnKOga9DAT8=
+X-Google-Smtp-Source: AMrXdXsZZgpByDZtDx+HjsyiTiwAs0G3noW3D/xTiatDsGRWMUyXQVuGvHA8kTWk4IDuO3qsJCn9ZA==
+X-Received: by 2002:a17:907:20b0:b0:7d3:8159:f361 with SMTP id pw16-20020a17090720b000b007d38159f361mr40554936ejb.36.1672821911636;
+        Wed, 04 Jan 2023 00:45:11 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
-	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: [PATCH v2 3/8] x86/iommu: iommu_igfx, iommu_qinval and iommu_snoop are VT-d specific
-Date: Wed,  4 Jan 2023 10:44:57 +0200
-Message-Id: <20230104084502.61734-4-burzalodowa@gmail.com>
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 4/8] x86/acpi: separate AMD-Vi and VT-d specific functions
+Date: Wed,  4 Jan 2023 10:44:58 +0200
+Message-Id: <20230104084502.61734-5-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230104084502.61734-1-burzalodowa@gmail.com>
 References: <20230104084502.61734-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use CONFIG_INTEL_IOMMU to guard their usage in common code.
+The functions acpi_dmar_init() and acpi_dmar_zap/reinstate() are
+VT-d specific while the function acpi_ivrs_init() is AMD-Vi specific.
+To eliminate dead code, they need to be guarded under CONFIG_INTEL_IOMMU
+and CONFIG_AMD_IOMMU, respectively.
+
+Instead of adding #ifdef guards around the function calls, implement them
+as empty static inline functions.
+
+Take the opportunity to move the declarations of acpi_dmar_zap/reinstate() to
+the arch specific header.
 
 No functional change intended.
 
@@ -98,48 +111,51 @@ Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 Changes in v2:
   - replace CONFIG_INTEL_VTD with CONFIG_INTEL_IOMMU
 
- xen/drivers/passthrough/iommu.c | 4 +++-
- xen/include/xen/iommu.h         | 6 +++++-
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ xen/arch/x86/include/asm/acpi.h | 14 ++++++++++++++
+ xen/include/xen/acpi.h          |  3 ---
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
-index 998dfaf20d..a2c67a17cd 100644
---- a/xen/drivers/passthrough/iommu.c
-+++ b/xen/drivers/passthrough/iommu.c
-@@ -82,11 +82,13 @@ static int __init cf_check parse_iommu_param(const char *s)
-         else if ( ss == s + 23 && !strncmp(s, "quarantine=scratch-page", 23) )
-             iommu_quarantine = IOMMU_quarantine_scratch_page;
- #endif
--#ifdef CONFIG_X86
-+#ifdef CONFIG_INTEL_IOMMU
-         else if ( (val = parse_boolean("igfx", s, ss)) >= 0 )
-             iommu_igfx = val;
-         else if ( (val = parse_boolean("qinval", s, ss)) >= 0 )
-             iommu_qinval = val;
-+#endif
-+#ifdef CONFIG_X86
-         else if ( (val = parse_boolean("superpages", s, ss)) >= 0 )
-             iommu_superpages = val;
- #endif
-diff --git a/xen/include/xen/iommu.h b/xen/include/xen/iommu.h
-index 4f22fc1bed..aa924541d5 100644
---- a/xen/include/xen/iommu.h
-+++ b/xen/include/xen/iommu.h
-@@ -74,9 +74,13 @@ extern enum __packed iommu_intremap {
-    iommu_intremap_restricted,
-    iommu_intremap_full,
- } iommu_intremap;
--extern bool iommu_igfx, iommu_qinval, iommu_snoop;
- #else
- # define iommu_intremap false
-+#endif
+diff --git a/xen/arch/x86/include/asm/acpi.h b/xen/arch/x86/include/asm/acpi.h
+index c453450a74..ca8529a7c8 100644
+--- a/xen/arch/x86/include/asm/acpi.h
++++ b/xen/arch/x86/include/asm/acpi.h
+@@ -140,8 +140,22 @@ extern u32 pmtmr_ioport;
+ extern unsigned int pmtmr_width;
+ 
+ void acpi_iommu_init(void);
 +
 +#ifdef CONFIG_INTEL_IOMMU
-+extern bool iommu_igfx, iommu_qinval, iommu_snoop;
+ int acpi_dmar_init(void);
++void acpi_dmar_zap(void);
++void acpi_dmar_reinstate(void);
 +#else
- # define iommu_snoop false
- #endif
++static inline int acpi_dmar_init(void) { return -ENODEV; }
++static inline void acpi_dmar_zap(void) {}
++static inline void acpi_dmar_reinstate(void) {}
++#endif
++
++#ifdef CONFIG_AMD_IOMMU
+ int acpi_ivrs_init(void);
++#else
++static inline int acpi_ivrs_init(void) { return -ENODEV; }
++#endif
  
+ void acpi_mmcfg_init(void);
+ 
+diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
+index 1b9c75e68f..82b24a5ef0 100644
+--- a/xen/include/xen/acpi.h
++++ b/xen/include/xen/acpi.h
+@@ -206,9 +206,6 @@ static inline int acpi_get_pxm(acpi_handle handle)
+ 
+ void acpi_reboot(void);
+ 
+-void acpi_dmar_zap(void);
+-void acpi_dmar_reinstate(void);
+-
+ #endif /* __ASSEMBLY__ */
+ 
+ #endif /*_LINUX_ACPI_H*/
 -- 
 2.37.2
 
