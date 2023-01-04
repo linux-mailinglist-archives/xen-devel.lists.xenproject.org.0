@@ -2,39 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F9C865DDCB
-	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 21:45:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471484.731344 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B222965DDD5
+	for <lists+xen-devel@lfdr.de>; Wed,  4 Jan 2023 21:48:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471492.731355 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDAd3-00038A-Le; Wed, 04 Jan 2023 20:44:53 +0000
+	id 1pDAfp-0003ke-40; Wed, 04 Jan 2023 20:47:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471484.731344; Wed, 04 Jan 2023 20:44:53 +0000
+Received: by outflank-mailman (output) from mailman id 471492.731355; Wed, 04 Jan 2023 20:47:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDAd3-00035U-Ij; Wed, 04 Jan 2023 20:44:53 +0000
-Received: by outflank-mailman (input) for mailman id 471484;
- Wed, 04 Jan 2023 20:44:51 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pDAfp-0003i0-08; Wed, 04 Jan 2023 20:47:45 +0000
+Received: by outflank-mailman (input) for mailman id 471492;
+ Wed, 04 Jan 2023 20:47:43 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=bCSi=5B=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1pDAd1-00035O-M2
- for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 20:44:51 +0000
-Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
- [2a00:1450:4864:20::529])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a2371365-8c70-11ed-91b6-6bf2151ebd3b;
- Wed, 04 Jan 2023 21:44:50 +0100 (CET)
-Received: by mail-ed1-x529.google.com with SMTP id u28so45464790edd.10
- for <xen-devel@lists.xenproject.org>; Wed, 04 Jan 2023 12:44:50 -0800 (PST)
-Received: from ?IPv6:::1?
- (p200300faaf0bb2008108eedf25879029.dip0.t-ipconnect.de.
- [2003:fa:af0b:b200:8108:eedf:2587:9029])
- by smtp.gmail.com with ESMTPSA id
- i5-20020a05640200c500b00463c5c32c6esm15153884edu.89.2023.01.04.12.44.49
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 Jan 2023 12:44:49 -0800 (PST)
+ (envelope-from <SRS0=aavW=5B=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pDAfn-0003h6-5o
+ for xen-devel@lists.xenproject.org; Wed, 04 Jan 2023 20:47:43 +0000
+Received: from sonic313-20.consmr.mail.gq1.yahoo.com
+ (sonic313-20.consmr.mail.gq1.yahoo.com [98.137.65.83])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 067ed089-8c71-11ed-b8d0-410ff93cb8f0;
+ Wed, 04 Jan 2023 21:47:39 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic313.consmr.mail.gq1.yahoo.com with HTTP; Wed, 4 Jan 2023 20:47:38 +0000
+Received: by hermes--production-ne1-7b69748c4d-dzr9v (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 6c878df3bbaf9935a45a9609953ac48f; 
+ Wed, 04 Jan 2023 20:47:36 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,220 +42,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2371365-8c70-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gbV63gD9zn2fwjFvmF2ZygodMpZQcbM7tsdfwBcVKcw=;
-        b=JoTrbyhvGJhx35lyAEl4uafzDehZJtSZL96Yt/G8GZyAM9VW+8CK7S+MgS6Jl360Z2
-         uedFsPbWc2WBAqkRE5QrwUKI2LMmP9tIxJ+bOHpq6YZQfHu9tuLCcruvkj4euj8HY3k5
-         cotEGIqV8sKqrfsO8VBrzHh8imH2bd9RoDXYgPe51OCGe3pSM+e6G1zU3N0zrBgpFTug
-         vx8kd6S47Lj9jZ2rsEWEFSn7stp1xHEW9lyOZqgt+XC0OHufB57DzOhvUhNHv03pCM55
-         EW/P/y2yrem3oCCItMjDKhUO3Hg0OO7PMDXqR7mQZvo3eqKlYvPOQ1YyocbnL18EKJiR
-         K+hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gbV63gD9zn2fwjFvmF2ZygodMpZQcbM7tsdfwBcVKcw=;
-        b=hDspIl/xQ5h8ScskmOwGo/gqLsAM/zsw48LIS+7xlIur54BpjFEhJpBk7T/dNtYK4J
-         30Y4hHr76LaMdlA70TA5tdWxmT18KFKe0ia7QqqOyU9hJ3NJa7GE5xYCFEjgRkXd++J0
-         1Y10Sbo6kgduqUsbWbiTWOyw2x5Muj1s/LRRqv+XpjIv4ZxMfYwgE5Yux6IojzNC7FLh
-         LO7eoD0dQfqKiPFt5Hc47J7TdFYZm1NDC7cJt9pzivwh6WtFpDv72IXuKM51SR//8bsc
-         VpbkJI37DQWkFE2cTlg9a+8JGr4NFqL/9DoybyP+Tr/vp1g9C8QldRKeXY4fXti4i0KM
-         TSSA==
-X-Gm-Message-State: AFqh2kqHCLDWkteorhHeIsNig/rPL0ffNqG96EZF8CKRHQaekSMoyuvB
-	SR+5Dfbx0Aj+zxxFcbhFh+U=
-X-Google-Smtp-Source: AMrXdXvoh5ORGxbIS7Ab4BCz07HsM9Kyaok5VbIDwUkQO0I/bxoGzMUn3yMRwqi70ndk6P6pYenC4Q==
-X-Received: by 2002:a05:6402:551b:b0:46a:732e:fd29 with SMTP id fi27-20020a056402551b00b0046a732efd29mr44634692edb.42.1672865090026;
-        Wed, 04 Jan 2023 12:44:50 -0800 (PST)
-Date: Wed, 04 Jan 2023 20:44:44 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>,
- =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
- qemu-devel@nongnu.org, Markus Armbruster <armbru@redhat.com>
-CC: Richard Henderson <richard.henderson@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Anthony Perard <anthony.perard@citrix.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Eduardo Habkost <eduardo@habkost.net>, Thomas Huth <thuth@redhat.com>
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_6/6=5D_hw/isa/piix=3A_Res?= =?US-ASCII?Q?olve_redundant_TYPE=5FPIIX3=5FXEN=5FDEVICE?=
-In-Reply-To: <f596a7c1-10d0-3743-fe0b-d42003cf7440@aol.com>
-References: <20230104144437.27479-1-shentey@gmail.com> <20230104144437.27479-7-shentey@gmail.com> <1c2e0780-e5fb-1321-0d84-b0591db9fec7@linaro.org> <f596a7c1-10d0-3743-fe0b-d42003cf7440@aol.com>
-Message-ID: <E3E983F2-0FB3-4F6B-B2D6-ABE7E021228E@gmail.com>
+X-Inumbo-ID: 067ed089-8c71-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1672865258; bh=FLlL0Znq3MYflQbaAlbZMfah9YnKAAkzhkPNyAmAnYo=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=KDH9WaiS1KXgbWghoV4HnCmF93QGXWTOT5fr1SC5F1PRK63KybA8DKCIatPU9lvgXB5fECISUamfzaznjzPoaSGwk32CH9Q/sXq6QZ4u/p178Hb+TheLkuH3y5Eh4ZeYLoIf7tY3WwgnuFZGIOGbekxrCde8M8AthD6yIVcq+Y0R20CIq+GqjvpTKwCcAiQmWNMfdun+ns2bStujuVdYes/p0gZCjudYwfyuZcdDLwELdcw/ldP3zApkHjVf/DI+y3NmWlz0pW9Fq4Bj2EX+3l68vpnXeBzxrGVebntQV7t6iYrK86tHd8hJXEEpYiOY3wnGPRIy3MSwVk3pGQRrWw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1672865258; bh=rd+9VNkpX9KRPfP3h2G2X5n3Ypj1rGC/lgX+KO7N4xX=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=QZn8SdyWbKB5DsSdTquVTHtaQCBvr5bbql460GmW0MIv5m6dYeh2QlegS5yQaVnQhBFgWLUXG4IIpJlOpGcFDCZOADIdMyyLBPBtUIkMm+3jBsVKv5ovu2XdUexK+lwflNbL4mmM9edHZrI9L8Ulno61Xh3M2W5eDK01DYow8oeDfABCAIZ4ohH3Ly8V4jKFh/eLdyvrvgSmxHkqt+1uEEVMPoXKgvOKnP75/cDQ6gIDh/jDhY5XRwv801OtWgXbVTBdfkLduWJnLvPLjC+WvpVrGwh8I3zZ8DR8vfVd6zM41FMEA7x0E8o6VBU0bfvjLKfYIURrg8Fs0Yz+QBC1xw==
+X-YMail-OSG: LU2heVoVM1mhE8eq57Zy8wqFpUouWpl3R3PBRRyFH2OhAFZxA_bJWQsbDI8Zd.d
+ YG6.etuKO9F4mTUG1tyW5WzJb7591qppMYk.kN5cpy.8CHNUaT4dSWvWrVRXOFNmbO7nXYM_3oP3
+ ObfBvM9TiX5GwJrRg89JHTyI6HlI4UqJjjJms1XYn9st39csae5XUTi2KGfcCtInq6no_FH13vRs
+ Q0juuEt9sGQnTib1QOg4mYWP1T9JCP97ytEvj8o16ugbFi37jKc42xYuvsEJFuNBC.tXOES7HFDk
+ 7TXfcwttj2D3HVla6Npx2tmTvFmmgwjIS4zB5eGStweda0bi5vnmIRJZQ2tJTb7yqzkIp2GJvi07
+ but27yb3x4mF.zb5XnKh8QiaJilk4b0xQOlzFKGIaBCnCpLe1EFWiK2MD4gYveC1MzzM1Xuws1d2
+ U1H.atPcAwcFE8hjPHYgeX3H4coQpmL1qoAagYreLbXYEzllSwGFHSh37Ukcb4ofhl5h5bBgq9hY
+ IU4bXFlkdBamVTF2zxEdAgXz5p9EFB2ck9qoSzYWJYm_daQnuvIAI5VvI80HsUlJq8B3Uq2IxV2c
+ xrU6__HcLnKTjOs4o_LSQQp2yWJL7k4XCjXQpc9v5KQkNv2h.JihzpvtQXSTi0nZh1BDmnHYVW4F
+ AXCE1SM7xZhx2WPRljxLumhKidHoYXz.puvV4BWC0FNfWhnC4sGp8x6Cg9cYMy5TJwemHcuFRbci
+ JGgoVAWH0p31bLaBx5h12Q6qJD1.inYVYqXbOy80HqAyCKAkMmepM8xDPAUxgcPhZL.BJXMVv4sc
+ MN8QXrkF9H0Ge8uOo7sa8RwkiVIfLaIGHUQxmmLwlt6lRKYbLOG4cgtLvkVjRU1WZaf6WWUclgR_
+ VCE.4iXaCenI37KZkcz6LEOdcxoNzOYnaKuBS4an09m.923cHkgYZH9cETrkecl9rntoySsmvlxR
+ HuVn1AeF5eAB8ccfn5vqiKnVQRXz7IXb4MuioChbyOQkNOVX9_omJKi3zx3P9.WZDLh9GJavIRJ6
+ Yp36TIwtdMCkNZEekkF0yZf632CkP97JXvWg8tc6_QXRAbwekb8ZlxfMQD1IBQPvhcT89dXSmCfG
+ e2y__WrCIe8MA5wNvFBrElyLswyO6CYx7QOeC0kWSwMgOIvD_duV7tFxVJNcwXwwB6jqKRBu_mkU
+ ptrAxrGpXv5_FkjtnpaE5MicyVhzNx7e1YBiOEbiVv8DcIbhM.Re4oeK0vD2lBL.M7vzD_vi1jxW
+ Q0r7reRUj9qX9cxHsbvGShsoT8DH8.L7qOUrgp2m8CMK.y.Z_L_5rIcrRtjmWs3tnhmNwLjm70TI
+ bPZCoLbyN71aOn5gUzZ3idvAHCsryMIkPcPHFQR4VuwXm1Z4ZcGCEyxGOMUikZEA6maMSDeHlWEc
+ ODbhWXdF6PvPluKyIClMbvSg7V5OTFhqf7Gby6j5bshhH6Qy7LQFZ_yxb14m.bZQraDaiaQXWk6f
+ r1Y2PAOy3QbCO2sLqd64LcDxF16J709lLsCuS5W6qsr.PDR2z90FeKnxLLd6_Koqf9QMfma8e5HP
+ H8rerCx.mIwS8uSw3BRnNREfsJFyftcYwmVxmPN3IA8UZH2v4_FO0b2QMWVwSZXl4MOH_xRZ5MNY
+ 1UC61lX04HGgM_EFhqCwTnlWZO7eYHMszUnHfLYFKdfurLca25Ocm_wVr4RipRVnMrTsCcLKWXfI
+ 4F6OLlMqYGoup9.etjjLkwYJz0rpr_slMbxO4_T.gRe6HGtycAdrLKe01BSyEPg2ubjDj3ithbYA
+ VQWmxmjsQFlmN7Zh3e1qpEIDnbD8_EjvibzE2c.lkToSQ8MFdLQijyRQtrGo.yHDvDk5Yqz.X3pe
+ _drORI2z9qBD3oFL19GYqZFaNUtV.L42KEG0E3GqLQ_7edyE_7OpK78ovSqnBr2YyyOt22iyxfi3
+ hnObSSy9yNZtke6Jb3d.GbdwNdYDtig_vfZJR93V4FsOXWRh4A2Qf10bx1OjW0avm7NhHnlU_KLa
+ A1kzF7Bokp0HQSQvCH9DvBvKEtkaS4.R1brVE6PFf_jmqs1iqB_mFt3uPgXsfw3VXPcvYDN20R.D
+ V0hv7guo1bOLFM_n6_oWQdkrrf5EVTEKKnr1TSrcwREO5tBwhq7e.1ta5TIrBaNgo9GER6XlSJxj
+ cwXgESSoc8hsmwjwbmvJF26yywagzD4O4BGZOOa4k6rxNvAEcPMy6UXupjtULeWRHaurh4TeBEtL
+ cua_DBwyZl8H4z74nTt4-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <b2ce641b-73ad-f3a2-dc9d-1ccfdd1ee8d8@aol.com>
+Date: Wed, 4 Jan 2023 15:47:34 -0500
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v6] xen/pt: reserve PCI slot 2 for Intel igd-passthru
+Content-Language: en-US
+To: Alex Williamson <alex.williamson@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org
+References: <830263507e8f1a24a94f81909d5102c4b204e938.1672615492.git.brchuckz.ref@aol.com>
+ <830263507e8f1a24a94f81909d5102c4b204e938.1672615492.git.brchuckz@aol.com>
+ <20230102124605-mutt-send-email-mst@kernel.org>
+ <c21e933f-0539-9ffb-b2f8-f8e1a279b16f@netscape.net>
+ <20230103081456.1d676b8e.alex.williamson@redhat.com>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+In-Reply-To: <20230103081456.1d676b8e.alex.williamson@redhat.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20982 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
+On 1/3/23 10:14 AM, Alex Williamson wrote:
 
+> 
+> It's necessary to configure the assigned IGD at slot 2 to make it
+> functional, yes, but I don't really understand this notion of
+> "reserving" slot 2.  If something occupies address 00:02.0 in the
+> config, it's the user's or management tool's responsibility to move it
+> to make this configuration functional.  Why does QEMU need to play a
+> part in reserving this bus address.  IGD devices are not generally
+> hot-pluggable either, so it doesn't seem we need to reserve an address
+> in case an IGD device is added dynamically later.
 
-Am 4=2E Januar 2023 17:54:16 UTC schrieb Chuck Zmudzinski <brchuckz@aol=2E=
-com>:
->On 1/4/23 10:35=E2=80=AFAM, Philippe Mathieu-Daud=C3=A9 wrote:
->> +Markus/Thomas
->>=20
->> On 4/1/23 15:44, Bernhard Beschow wrote:
->>> During the last patches, TYPE_PIIX3_XEN_DEVICE turned into a clone of
->>> TYPE_PIIX3_DEVICE=2E Remove this redundancy=2E
->>>=20
->>> Signed-off-by: Bernhard Beschow <shentey@gmail=2Ecom>
->>> ---
->>>   hw/i386/pc_piix=2Ec             |  4 +---
->>>   hw/isa/piix=2Ec                 | 20 --------------------
->>>   include/hw/southbridge/piix=2Eh |  1 -
->>>   3 files changed, 1 insertion(+), 24 deletions(-)
->>>=20
->>> diff --git a/hw/i386/pc_piix=2Ec b/hw/i386/pc_piix=2Ec
->>> index 5738d9cdca=2E=2E6b8de3d59d 100644
->>> --- a/hw/i386/pc_piix=2Ec
->>> +++ b/hw/i386/pc_piix=2Ec
->>> @@ -235,8 +235,6 @@ static void pc_init1(MachineState *machine,
->>>       if (pcmc->pci_enabled) {
->>>           DeviceState *dev;
->>>           PCIDevice *pci_dev;
->>> -        const char *type =3D xen_enabled() ? TYPE_PIIX3_XEN_DEVICE
->>> -                                         : TYPE_PIIX3_DEVICE;
->>>           int i;
->>>  =20
->>>           pci_bus =3D i440fx_init(pci_type,
->>> @@ -250,7 +248,7 @@ static void pc_init1(MachineState *machine,
->>>                                          : pci_slot_get_pirq);
->>>           pcms->bus =3D pci_bus;
->>>  =20
->>> -        pci_dev =3D pci_new_multifunction(-1, true, type);
->>> +        pci_dev =3D pci_new_multifunction(-1, true, TYPE_PIIX3_DEVICE=
-);
->>>           object_property_set_bool(OBJECT(pci_dev), "has-usb",
->>>                                    machine_usb(machine), &error_abort)=
-;
->>>           object_property_set_bool(OBJECT(pci_dev), "has-acpi",
->>> diff --git a/hw/isa/piix=2Ec b/hw/isa/piix=2Ec
->>> index 98e9b12661=2E=2Ee4587352c9 100644
->>> --- a/hw/isa/piix=2Ec
->>> +++ b/hw/isa/piix=2Ec
->>> @@ -33,7 +33,6 @@
->>>   #include "hw/qdev-properties=2Eh"
->>>   #include "hw/ide/piix=2Eh"
->>>   #include "hw/isa/isa=2Eh"
->>> -#include "hw/xen/xen=2Eh"
->>>   #include "sysemu/runstate=2Eh"
->>>   #include "migration/vmstate=2Eh"
->>>   #include "hw/acpi/acpi_aml_interface=2Eh"
->>> @@ -465,24 +464,6 @@ static const TypeInfo piix3_info =3D {
->>>       =2Eclass_init    =3D piix3_class_init,
->>>   };
->>>  =20
->>> -static void piix3_xen_class_init(ObjectClass *klass, void *data)
->>> -{
->>> -    DeviceClass *dc =3D DEVICE_CLASS(klass);
->>> -    PCIDeviceClass *k =3D PCI_DEVICE_CLASS(klass);
->>> -
->>> -    k->realize =3D piix3_realize;
->>> -    /* 82371SB PIIX3 PCI-to-ISA bridge (Step A1) */
->>> -    k->device_id =3D PCI_DEVICE_ID_INTEL_82371SB_0;
->>> -    dc->vmsd =3D &vmstate_piix3;
->>=20
->> IIUC, since this device is user-creatable, we can't simply remove it
->> without going thru the deprecation process=2E Alternatively we could
->> add a type alias:
->>=20
->> -- >8 --
->> diff --git a/softmmu/qdev-monitor=2Ec b/softmmu/qdev-monitor=2Ec
->> index 4b0ef65780=2E=2Ed94f7ea369 100644
->> --- a/softmmu/qdev-monitor=2Ec
->> +++ b/softmmu/qdev-monitor=2Ec
->> @@ -64,6 +64,7 @@ typedef struct QDevAlias
->>                                 QEMU_ARCH_LOONGARCH)
->>   #define QEMU_ARCH_VIRTIO_CCW (QEMU_ARCH_S390X)
->>   #define QEMU_ARCH_VIRTIO_MMIO (QEMU_ARCH_M68K)
->> +#define QEMU_ARCH_XEN (QEMU_ARCH_ARM | QEMU_ARCH_I386)
->>=20
->>   /* Please keep this table sorted by typename=2E */
->>   static const QDevAlias qdev_alias_table[] =3D {
->> @@ -111,6 +112,7 @@ static const QDevAlias qdev_alias_table[] =3D {
->>       { "virtio-tablet-device", "virtio-tablet", QEMU_ARCH_VIRTIO_MMIO =
-},
->>       { "virtio-tablet-ccw", "virtio-tablet", QEMU_ARCH_VIRTIO_CCW },
->>       { "virtio-tablet-pci", "virtio-tablet", QEMU_ARCH_VIRTIO_PCI },
->> +    { "PIIX3", "PIIX3-xen", QEMU_ARCH_XEN },
->
->Hi Bernhard,
->
->Can you comment if this should be:
->
->+    { "PIIX", "PIIX3-xen", QEMU_ARCH_XEN },
->
->instead? IIUC, the patch series also removed PIIX3 and PIIX4 and
->replaced them with PIIX=2E Or am I not understanding correctly?
+The capability to reserve a bus address for a quirky device need not
+be limited to the case of hotplugged or dynamically added devices. The
+igd is a quirky device, and its presence in an emulated system like
+qemu requires special handling. The slot_reserved_mask member of PCIBus
+is also well-suited to the case of quirky device like Intel the igd that
+needs to be at slot 2. Just because it is not dynamically added later
+does not change the fact that it needs special handling at its initial
+configuration when the guest is being created.
 
-PIIX3 is correct=2E The PIIX consolidation is just about sharing code betw=
-een the PIIX3 and PIIX4 south bridges and should not cause any user or gues=
-t observable differences=2E
+>  
 
-Best regards,
-Bernhard
+Here's the problem that answers Michael's question why this patch is
+specific to xen:
 
->
->Best regards,
->
->Chuck
->
->
->>       { }
->>   };
->> ---
->>=20
->> But I'm not sure due to this comment from commit ee46d8a503
->> (2011-12-22 15:24:20 -0600):
->>=20
->> 47) /*
->> 48)  * Aliases were a bad idea from the start=2E  Let's keep them
->> 49)  * from spreading further=2E
->> 50)  */
->>=20
->> Maybe using qdev_alias_table[] during device deprecation is
->> acceptable?
->>=20
->>> -}
->>> -
->>> -static const TypeInfo piix3_xen_info =3D {
->>> -    =2Ename          =3D TYPE_PIIX3_XEN_DEVICE,
->>> -    =2Eparent        =3D TYPE_PIIX_PCI_DEVICE,
->>> -    =2Einstance_init =3D piix3_init,
->>> -    =2Eclass_init    =3D piix3_xen_class_init,
->>> -};
->>> -
->>>   static void piix4_realize(PCIDevice *dev, Error **errp)
->>>   {
->>>       ERRP_GUARD();
->>> @@ -534,7 +515,6 @@ static void piix3_register_types(void)
->>>   {
->>>       type_register_static(&piix_pci_type_info);
->>>       type_register_static(&piix3_info);
->>> -    type_register_static(&piix3_xen_info);
->>>       type_register_static(&piix4_info);
->>>   }
->>>  =20
->>> diff --git a/include/hw/southbridge/piix=2Eh b/include/hw/southbridge/=
-piix=2Eh
->>> index 65ad8569da=2E=2Eb1fc94a742 100644
->>> --- a/include/hw/southbridge/piix=2Eh
->>> +++ b/include/hw/southbridge/piix=2Eh
->>> @@ -77,7 +77,6 @@ struct PIIXState {
->>>   OBJECT_DECLARE_SIMPLE_TYPE(PIIXState, PIIX_PCI_DEVICE)
->>>  =20
->>>   #define TYPE_PIIX3_DEVICE "PIIX3"
->>> -#define TYPE_PIIX3_XEN_DEVICE "PIIX3-xen"
->>>   #define TYPE_PIIX4_PCI_DEVICE "piix4-isa"
->>>  =20
->>>   #endif
->>=20
->
+---snip---
+#ifdef CONFIG_XEN
+
+...
+
+static void pc_xen_hvm_init(MachineState *machine)
+{
+    PCMachineState *pcms = PC_MACHINE(machine);
+
+    if (!xen_enabled()) {
+        error_report("xenfv machine requires the xen accelerator");
+        exit(1);
+    }
+
+    pc_xen_hvm_init_pci(machine);
+    pci_create_simple(pcms->bus, -1, "xen-platform");
+}
+#endif
+---snip---
+
+This code is from hw/i386/pc_piix.c. Note the call to
+pci_create_simple to create the xen platform pci device,
+which has -1 as the second argument. That -1 tells
+pci_create_simple to autoconfigure the pci bdf address.
+
+It is *hard-coded* that way. That means no toolstack or
+management tool can change it. And what is hard-coded here
+is that the xen platform device will occupy slot 2, preventing
+the Intel igd or any other device from occupying slot 2.
+
+So, even if xen developers wanted to create a version of the
+libxl that is flexible enough to allow the xen platform device
+to be at a different slot, they could not without patching
+qemu to at least change that -1 to an initialization variable
+that can be read from a qemu command line option that libxl
+could configure.
+
+So, why not just accept this patch as the best way to deal
+with a xen-specific problem and fix it in a way that uses
+the xen/libxl philosophy of autoconfiguring things as much as
+possible except in cases of quirky devices like the Intel igd
+in which case the existing slot_reserved_mask member of PCIBus
+is very useful to accommodate the quirky igd device?
+
+IMHO, trying to impose the kvm/libvirt philosophy of having
+a very configurable toolstack on the xen/xenlight philosophy
+of autoconfiguring things that can be autoconfigured and
+using higher-level configuration options like igd-passthrough=on
+to tweak how autoconfiguration is done in a way that is compatible
+with quirky devices like the Intel igd is like trying to put
+a square peg into a round hole. Actually, qemu with its qom is
+able to accommodate both approaches to the design of a toolstack,
+and each vendor or project that depends on qemu should be free to
+use the approach it prefers.
+
+Just my two cents, FWIW.
+
+Kind regards,
+
+Chuck
 
