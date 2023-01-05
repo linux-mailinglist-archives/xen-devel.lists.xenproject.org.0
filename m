@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321DF65E881
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jan 2023 11:00:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.471777.731770 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66C2365E8AE
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jan 2023 11:12:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.471785.731779 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDN2V-0006pB-FG; Thu, 05 Jan 2023 09:59:59 +0000
+	id 1pDNEL-0000vk-NF; Thu, 05 Jan 2023 10:12:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 471777.731770; Thu, 05 Jan 2023 09:59:59 +0000
+Received: by outflank-mailman (output) from mailman id 471785.731779; Thu, 05 Jan 2023 10:12:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDN2V-0006lm-BG; Thu, 05 Jan 2023 09:59:59 +0000
-Received: by outflank-mailman (input) for mailman id 471777;
- Thu, 05 Jan 2023 09:59:58 +0000
+	id 1pDNEL-0000sS-KU; Thu, 05 Jan 2023 10:12:13 +0000
+Received: by outflank-mailman (input) for mailman id 471785;
+ Thu, 05 Jan 2023 10:12:12 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=GSs2=5C=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pDN2U-0006lg-12
- for xen-devel@lists.xenproject.org; Thu, 05 Jan 2023 09:59:58 +0000
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=lIpW=5C=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pDNEK-0000sM-5k
+ for xen-devel@lists.xenproject.org; Thu, 05 Jan 2023 10:12:12 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on2059.outbound.protection.outlook.com [40.107.8.59])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b39c3a16-8cdf-11ed-b8d0-410ff93cb8f0;
- Thu, 05 Jan 2023 10:59:54 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by PH0PR12MB7981.namprd12.prod.outlook.com (2603:10b6:510:26c::13)
+ id 6a31f8f5-8ce1-11ed-b8d0-410ff93cb8f0;
+ Thu, 05 Jan 2023 11:12:10 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8359.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
- 2023 09:59:52 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::9856:da7:1ff1:d55c%5]) with mapi id 15.20.5944.019; Thu, 5 Jan 2023
- 09:59:52 +0000
+ 2023 10:12:07 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Thu, 5 Jan 2023
+ 10:12:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,162 +46,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b39c3a16-8cdf-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 6a31f8f5-8ce1-11ed-b8d0-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nsVTOw4vHJEFa7Uz+G6Nx/OkRvX/htpyZ2C4dcMKZcw9w1hhcg2h9T0X1D5FyOcHtlzmepZY0y4XFNepiTfg4zzppTdO3zcw2MO7XqklyH6XFbdAHqAQq8TpJAsPSjf39pL6YnbVAJIaR/kJwzPOjXRmYERBbdC4azJoAs7eavbWEnZLcWFTj//ShRPtdHMWaKXBxZ30mhd8WmVaeUYEr7fQOBEfxUFzcOIg6WEPFrPUQVXYFR0dQtVcHSEe90wMbnANEyMMsJ+4bmdC4p7ZInd6W1P2myAT/W5qH+t+GsgjxU9o3zqFnk0dk1VJ6gGN8PeoWvrKu8XAOcyIz3nYfw==
+ b=ZVLcHCyk2/JLnkCZGKicwOdU4frcid+8BrB5gWY7rJ1LPM5XcWK6Q7leASIKtRc22iSWjUL1iHL1jtGkk7d6+sxmxaFay5PHP+TN8R/W5vtzsmQ5VzeSv94jlr2N4qXNqAz5sh38V10HZwBTK2OG4NX/3n7JCVYxrkLVCWFjbwBl0uJKAqeGdzTujndXTB2GjIiOwCYf/Xl9Hw0CPF3CjuMFlJC4J1wwglSi1RzWQvfC8aEWbJad01I/Kr1EvkHOiMtKj3LSINHdHtr2fS35V+hc//kxBoS44Y9/uP9ovt6qnrkxi/YbZ07tNQ6e4do+Nghm1Z081BffOITlydYRUQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jlfi8Xu69UjMjxtpqFoHVECk8dVZwxh51RO7VwTAM48=;
- b=TLmNfUTQuLWX7EhxfwEH95orLp/iaAY7w0apawK0ZkdQh68PX2GPdATL9swzssEmKpxg/snldHvv/Xrw1I9kdhL3hOh9pzmS5U04kPj+Zz1rWeEK16qgKmEssMwasZ+hSr53KvfGL1Gbv5bKrfQNiU1Cp+3FvSLg6ry/90JUoSNTQrvCQbOz+0pW/HtFFZIc9234gSUxcw1cxTobWpiA/5SrsN7rDjUMH3Ip2y+FAN16kR7HT2G6DlPHL6gyObW9ssFSYajsTVWTgCx3DD4dsgcITxTfAWGMxsCongdXDpnAF145p3mTgHyCpKu+zS5SiHhXVjd0WjEdFJrFZHQLzA==
+ bh=1RJywEcRfnPvZxYe9Fm8SQ3wBZj+5X3Tbq3pifAWXgM=;
+ b=QQ/6VforayYyTv8IJdLgKHVa2KiJ8zKZ5jeYzuB3kltOJKWwYDJIiVv6WNmE4f1HPvvWRRr/67m7q2GDBvDiSx2b0ZtztqAHOOYccVvK3ZVEEZDS1Z3VdXqpvR4KCfl6RZ6uj+9w/RyUblsdO/TLQauPEATJuznt0znvbOS4pGzi4CodCt327J2I1lamsP13xDcO9QypGR9na+0o9FUCBy//PUgM2Kc3igp6rAAscdCzaxG6PhRQSbIw7MqZGQ5YmTybYWebXixl+ufmiPvjnrT/DrOdL0DKtRsJrH8qprjcyEZhRWcXQkZlg63+8IXXdRtRJgKLmIWrGXvThLPKEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jlfi8Xu69UjMjxtpqFoHVECk8dVZwxh51RO7VwTAM48=;
- b=pVEqIUntoznkKqsbVSPlQVsaOhdUA6SKcecfwgvt79X65QsBpUf0YLqHJiYhKocOfKGF/g6vt79uBRAJ1n70N9V+R1RrgtvJlPM6kjOYJsc/4ltyQZrILqj0Tdh9hA9O3DGp8EGJexy8tHOXJCFqb62wvrR4/5x9fi7azgSvzAE=
+ bh=1RJywEcRfnPvZxYe9Fm8SQ3wBZj+5X3Tbq3pifAWXgM=;
+ b=277lANii0BjzasAhf3UwxAut5Z5PpkkyQxpVz4d6XM/GOj2W9FZm5anliZxYvF3eqC7LXOFDiDHr/CqjBIg2x+7yb1Ks6vXYdvWlU0UoTlIg9Lzi2L8Ym/SdXKtDQqAIUd/nnM2xH0yAZg0s1S+WEL1unDUAuGD7135pHjU1XnqPi+nHLGHJhPnGTdI5j2LuoWb+cEwN87fVJBG3GkoQ7pO88HQPMsUmcEUMAKeAyw9ZX0sPX5XtP+lrRQmeNpnXvHlzYCMbLLF1QFUf63GRTr8A5DbzFR7WYsTNhhayVwqZnTyWUX7PPoVxl3SRPWIZdQRp5rFjt8YWBH1OPnBmxw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <29460d07-cd43-7415-7125-6ed01f3c2920@amd.com>
-Date: Thu, 5 Jan 2023 09:59:47 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2] xen/arm: Add 0x prefix when printing memory size in
- construct_domU
-To: xen-devel@lists.xenproject.org
-References: <20230103102519.26224-1-michal.orzel@amd.com>
- <alpine.DEB.2.22.394.2301041546230.4079@ubuntu-linux-20-04-desktop>
- <1264e5cc-1960-95d3-5ecb-d6f23d194aa4@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <1264e5cc-1960-95d3-5ecb-d6f23d194aa4@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO6P265CA0027.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2ff::13) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <15dd4897-d87b-9a0d-fc99-551a1b4be04d@suse.com>
+Date: Thu, 5 Jan 2023 11:12:06 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Content-Language: en-US
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v2] hvmloader: use memory type constants
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0031.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1c::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|PH0PR12MB7981:EE_
-X-MS-Office365-Filtering-Correlation-Id: 60671af0-5172-4eef-b952-08daef0396fc
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2ddca258-141c-4210-c54c-08daef054d46
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	U4+Gu5nLXaIGuEav96iRWDJwNL5AQ9JLlm/T5mCm5Yli8ZdDtzRvmr5y2YY4RHE0SrFSaSnB9pkDusHlxe6vMQ+aFJ5WhAsW8xLFfrW3WVQE1RAYSjndSOTaN4c6SWFsOYMYIi1B8FsrCr5IEyr3V74+U+Mhp4ujQo1KpqqIEoseexUl8EDVtm6qRkG8OjVzkYNpWYardoYr7+ueY3u1HWDGh/0BgeB6B2BVnKyxnVRjmrZfflwlpp4IBWVeK0G3l+iDSBrTUFVMV9DtHxlKB3hpFltJ5CHez/o9gvA1s9g7zgGLT+jc30dlRmwZVBaRLhrVQt4l4ZnOWJY53Vz0+BcVGW4lrz/I7SPpHAa/h2+SfwOu14R/rwCBDlif1sn4+bAT4wCuYkYwaQ77182+ISQYlant9HijqzhuzGmW7s9B3Zm2eKXkbwwlVJyWYCtY+Tp7sgyjQoZtR3PNvKckrFbCglVDAHItddMPgUDIwMQLAkjifyMSTVuRS/BaPXSJ9+81hAylqQHm+1aIoRHhGnltUe5ESI24QnunluqMQ2dtUGHkEKRi3KU++U9KkQvSOtYAPjKC1heBa/+UdcBD52a9OYkfCuchxbIqJ42P8FBGNwgt0jSx9QiOaIcExnqBClnGgvdLk6+8O+ZiXvIjv2tlzUP0meRdd7yfFjJfkGT2IcFyyWiNDXygCo7iYsGmcDPnN0Zs3EUZRw6e6I4ETq9C3Ousf4ibji32yLB0KDk=
+	VIUCT+qyONgTkqH1UG8F1KO1P5AcgGQpMBOkQnuyCcpG2/2GERw67BsAZkAC6qDNi7LM8K4b5bSZSQiAlfxNnWRXq4kOBkj8jwxw/n0rLKT62uOmJ2T8OHiN35+U1h9Q+xaI2Is4MabKvHhwlbzjw0AMrYgTjMKmeDGqsmvCxk2pYLDrzWJQ1e60roW/kVNIjEDVs6ic+exwY9jvFWUNNDJ4KGsRwyjMuwJCRgBATpcz3aArX13Qk1gy1m1Raud4YFZJMbJeildIm2ivu+x3sf3OxZ7d99qos3Lpc2d6BePkNp3Dlg5FkLzZbiyPjZkWKGnTBC1MooJUDxRDmLNXfeYGN6azmN0EEtS6yenGCFxDYdkM1xguP1elPLFvfZeshj9OUArlTniOKE7ahVinxintzOgh0Z4VUkN04B5yMLG0I0MwTi1hA3aM+Tb3Na7uEjLr9vGbfVAHq5Q6bL+oMGNJogKvDh3x/ODnMVjU3JWwLEdwQXXWPht2CSY8uacNe9iuRGfBzpHhEPV4Wr3I5VxG5IL/rjhd/3zVedhMC4BnYX4wAYB6rYiOSEIuX602NYsgRtBNzRpOZmMHsw46vkigybs2zJTVTCZ7oNs+NrugklJd9ac0TX5L5XD3Tfuza7rhLs325OK3qB/Bv4babq0Yzr1CimKh9UklE3NXocgTZUnlD6j2gSYWKWH2MdCq3W796q+DC9XOyXohDcszJU7onSuDZIj7m7YfcVWFfUY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(39860400002)(366004)(396003)(376002)(451199015)(53546011)(66476007)(66946007)(66556008)(41300700001)(6666004)(6506007)(8676002)(316002)(2906002)(6916009)(26005)(31696002)(186003)(31686004)(83380400001)(478600001)(6486002)(6512007)(38100700002)(8936002)(36756003)(5660300002)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(346002)(376002)(39860400002)(396003)(366004)(451199015)(38100700002)(31696002)(316002)(54906003)(66946007)(6486002)(2906002)(66476007)(66556008)(5660300002)(8676002)(4326008)(6916009)(41300700001)(8936002)(2616005)(478600001)(186003)(6512007)(6506007)(26005)(86362001)(31686004)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SmlqNnVsZXYrSnBEcTdjdzV1VE45TlpwRW1PanBVd3liekV2Rm9aWmJuVitS?=
- =?utf-8?B?LzNhbjBXR1ZSNVFKNGVsTC9yT1lqck5YcTZUb2toenhrbURON3FLUDNZUEkz?=
- =?utf-8?B?YWtlN3Vjd0dNQlM1L0p6S2Yzd2pHa1IxS0JWWWpGMDFDZ2t1aDFoa2tVODU0?=
- =?utf-8?B?TXVDSEdSbmVXWHRZcy83czdjNXllV3pPUlpVMTVRdllEc1BGbzVPYTl0S1JZ?=
- =?utf-8?B?OFA5SjNrTTBncDBWVThQZ1B1Z1BzdEhvTUlQNnZQSDVsL2dtYzVVaENRdnNm?=
- =?utf-8?B?SVJxR28rZy95ZTJCdGE3eGY0Q01sTnhHOUkrZWFEZndBR3gzT3ZqR0t5bmVN?=
- =?utf-8?B?cTA3Skg2NmhPRzZDTlB4ZldqZ0hROTNyK0FuT00wdlFoMTEwc0F1MEpaSDRr?=
- =?utf-8?B?eW94SytBSFBmbXd2R1pXb2hPYzJ5bG5vMXdWWkJkOWJERXZldW14c1ZTV0ZG?=
- =?utf-8?B?R3JVMDk1c0hMc0pURnZHVWRZNUFkZldjRkNreG0zbUtSTGxhRWlkVm5VNmxW?=
- =?utf-8?B?dFB5MlNHYzVnVXZyMFp0eDc2OU5QUkVzeGZwQ0VSMGUrWnpmV3ZuTlltaXFk?=
- =?utf-8?B?dXhxb2J2N1BXTnpZQVlOOC9KMW9KWGpneVJwYnVVRDhRZU40K0xPSUIreVBj?=
- =?utf-8?B?NHorcml6ei9kOFpNRCsvZmlDSHZERUIvTy9UUHRYMFRXaitFL21mckdiWmlF?=
- =?utf-8?B?L0tQMzdqZXJ6ZzgwdEd0NWpVZ1NmYjBNc0FkVko3QTJLdlRXS2xVMnY0aDIv?=
- =?utf-8?B?NGdZdlN5cXRKOG9weDBqNUlCWkdWQnkwYTRVVC9Zd3hVUzBpd0ROcWxmSTho?=
- =?utf-8?B?YnpIVjJxNjVjZlZjMVUrZHhDYk55cm5VU0gwL3VldzlIV0pGditKK3B2RWtn?=
- =?utf-8?B?aUJ0Z3JENEQ3L2NtQ0tBZ2VOdTV2SmJvNGk4VURORms5QWhlYUk5S3dHaFh2?=
- =?utf-8?B?OGV1YlVyc25PR3NIOW1Ca290ZFkrTGRiSi93WjBxZXdkV08xaDZ2NGViRDFU?=
- =?utf-8?B?dEQvRmYyRTlwTlhBMFlFN1V2WVpydlNvTlBBUHJVeFFpbkhhSmVsOHlKNExt?=
- =?utf-8?B?Wk80T3lQSFp0N2pWbU9VM09JWk1mb3RBVUxWdml1M0RqNW96WTF4cko1MzNN?=
- =?utf-8?B?UkVoVSsxNFlVSHlwdlpjMmR2T0lxNmFDQlVMRVJBa28ySUE0TDZNN3k2bkI3?=
- =?utf-8?B?ZVdudHJxTGFJeksrWGk2MFdZa2lqaTRaN0hzMWl1NGdqbDVPM3pwV1ZsNEth?=
- =?utf-8?B?di9aMExzZzgzRE45d1BDZ0dFS0FBYTZLcHoyQ2pRbHhUbGRqZ2lOUjR6Q0RK?=
- =?utf-8?B?SVFNRUNXU1hVckoweUw4OTdjMldFa3FwTUFiOXFLbjZLWmJEN1l1QUhzNHdJ?=
- =?utf-8?B?TmpjUzE5VENRc3RPZUFZNXFmZXluQnIzR1ZrZXB1NFR1Uk9RNjlmLzVGckRr?=
- =?utf-8?B?dDdZemxGRlRCUzE3dk1QQTFXNzlWZHYwQUNsQTZSRmpKYU1Ta3RxS1FuRG51?=
- =?utf-8?B?Nm5NU2orazZXQnhxZENZL2oyQUtGeDIwYU56WWdIVGtsbkRHT0ptaCtDWmRG?=
- =?utf-8?B?dmNOcHhSeVBBTFBrWk5qdUtuOEpGemVNSjArL3NLZ1p5M1krbCtxYWVzZFk5?=
- =?utf-8?B?R21rQVlKWlY2U3V0aVNSdVZXeWJSNDRhNXFnRUhKUGRWekFNVkt3Si90aS9k?=
- =?utf-8?B?dmhYQm9jcTdseStSNHJRUU9BeU5aTWhSK1hSNTMwWXZCYUF3SUk1N1lseko4?=
- =?utf-8?B?dWl6M2VZT05qek9KRjF4bUpFbzJwWnhyb0dtNldYSitiMHZ1aFMwbUdDalQ3?=
- =?utf-8?B?b2N2SVp2NXhkWm9UWFB3dHFJVlhkemdJQnJNS0dhSGljUHJnQkRHeHkyc0VN?=
- =?utf-8?B?eU5QUUEyRks2dTIvK0ZJTjkvTE9MMDJnOURuSnVGclRlb1hpY1JzTkcvdDhS?=
- =?utf-8?B?MkZsQnJLSVg4TU5QTEdGWUdVV29KajVSa1FCbGxKTkcxeUlrWGpiemswQ0w5?=
- =?utf-8?B?TFQ2bEsxcU1YelFKalg1Z09admZuMkltYjhqUnpLZHQvdFdzR1Rkb1RvSFRJ?=
- =?utf-8?B?ODVyTWZLaHd1ZmU2Z0ZMVDUydTdISEdhSzdFRDk2ZUIrRVFZWkcxRGhwMXox?=
- =?utf-8?Q?zTPCD2FhxYdybkkSqlIXSZm15?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 60671af0-5172-4eef-b952-08daef0396fc
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+	=?utf-8?B?cEp3dm40K0JuaGI0UHFrWUFqNGNQY05leFZKQ3U3TFRaL1hkMS91bllxUEY5?=
+ =?utf-8?B?MExiOWdaTklTVDJDRkJ4TElvOVB2c1VhOG8rNDRyNVhjdURvVE80d3JoMlN6?=
+ =?utf-8?B?MlBYdXNHRWJyOXlNMlE0ZEJjMC9rcXQxWUhmVG00dXhRR0NoM1FKSEdLUXBM?=
+ =?utf-8?B?SUQ2cHIzbzBhMzJ6TlVWTFRRa3V6Z1p6UkpZU3JoQlJkN2NIaWdGQnlCZ0pE?=
+ =?utf-8?B?MC9RSlc4N2dDTjBFMTFvSjVDMkNEd2R6OVlVQ0p6OEJ5Zk9BcjVUUkVUVGln?=
+ =?utf-8?B?aXRjNThzZDlzZ3lzQ0orRXl6a1ptR2ZSdnVJaFErcU9ESVdSNWl1OFpHZzNT?=
+ =?utf-8?B?TXAzSGs1UmtWRHhRcjRrbm1SRWM3T2NBTXFjZUV0cE9WU3NEUGhVekkzUHBS?=
+ =?utf-8?B?ZnJyTEt3ekFMZlVVWVlyT1VscUV1QzBGd3hqc05JSlBWQTUwZmpuZC9OZHh3?=
+ =?utf-8?B?eDlZZkFLbTU5RGx1eFJSRkltNVpFdDRaQmhRK1pMKzFyaVl3RWwwN3VIZ3JE?=
+ =?utf-8?B?Uk01NjlNWFF3REltR1hWREVEem1aLzkxQlVpSjY0R3k5ZldJZVFoU1JzUkh1?=
+ =?utf-8?B?bWZac0tQcjBxVFZhd2ZIbit6cVVPTlB4ek95RXp0S05VeGhRNTdvZktWZk5G?=
+ =?utf-8?B?TFR3L1RQNmhCaTEvOElpZ25mWWtnVzRZSGlyWFFzbkJYUmxGZnMrVXdld1Rw?=
+ =?utf-8?B?djIrQWs1VTVPTnZVRGc3cHlZb1d5S3B3KzByZENRdWFrZzk1SkxzZ0xuR1o5?=
+ =?utf-8?B?Tjdjd1pUZ1hBNzcrUktRVmJIMU8xTTYvWDNJWmlXK2VxbkJNVlhtTEl5QUl3?=
+ =?utf-8?B?SllDNUk2d3dyR2FyTElKYlQ0Zy9pd0ExMkxkRllDd3JZTFJETnR4dk84cHJv?=
+ =?utf-8?B?NWZGdFJaSVh2SmZYVStZdlJ1Y296NmRISitESFd3U3RTZVlwQnk1K1pEdnlX?=
+ =?utf-8?B?UW55WnVzUzIyb1UwNUJDcWUyNndWSkZCZFpCRnpKUW1rK0ZnVGZ1OHovNXJs?=
+ =?utf-8?B?eTAzcVZWRnFHRGVpa0pLZU5sb25OQkpyMlBHZ01qTUIvZWoyMWM3cThsOE9Q?=
+ =?utf-8?B?dFEvMUJsZXhWN01EaDY5cU8rVnBScXNmY2QwUVRhSXhJTVJsa3R0amdZNWNn?=
+ =?utf-8?B?Y2hhS2pDL09wZjhjdkRVNm5NL0xkangrdmlwUFZ2bXg4WWREWUJUQWNud3JQ?=
+ =?utf-8?B?TE5xK0JHWTRjdUJZQXEwQ245bDZnSHdvaWFXeVBRb0JmRnhLdDUzdjdTNUhi?=
+ =?utf-8?B?OUdUUW9TTkh5WkVHQ2x1c21jODJFS3luM25KNlYrMzZpdjNVRFV4MUlsM1Zj?=
+ =?utf-8?B?UERwcnJ4TGMvZnpMVWFpNExCZnZFM2dpa0lLUnBMRit1azRDei92L0hmTUdI?=
+ =?utf-8?B?ZVlYaVE2bENrMXZXYnQzRDFDbmszbkE3dGo2SnV1djAzbktHSGhHUFhHeU0r?=
+ =?utf-8?B?cXJLeERnSFkwRVI1dUFFQUk4VWt3WDZOUzcvc1JuRTFKUXZnRmcwaGpNbXFO?=
+ =?utf-8?B?c2xWdWppRE5IeW5DWkhBS3RseG5TUDhpSml4WUdTWDRJRkRZTXJUWnNUc1BE?=
+ =?utf-8?B?U1VyVTFIc0FKSGRjQlNQZ1ZtczFkaFlzSWs0aXFoM2JPcXdNOElOYnczR3Bv?=
+ =?utf-8?B?QXJkakxHSzRoK3dBb3lJbHA5UVJsUGc0TWZEKzNBMG9PRFh4MXl6eDQ1Qkxp?=
+ =?utf-8?B?ZHljc0hZNy9lZjBvMHRvVkNiYzA2bzErcjFnSGZaeUZ2aHNwYitoaEZ2SjBX?=
+ =?utf-8?B?MUtnRFNHZ1dmY1oxeXBLbCtKME10VTVnZ1N0TUZ5N05WdlRqQTFVMEk2NDNS?=
+ =?utf-8?B?bkU0Ry8zakdzQ0pRMS9hTDNUSGc5dDBncU1aZ0Z5ZkJldDJuQ0xRMllxLzVX?=
+ =?utf-8?B?ek1qb0lHM3BMMmRwMER1UGlvTTkwRDVIMVpXUldWOVd1VUZ2ZEhYN05iUnJB?=
+ =?utf-8?B?ZVlLTWtxMEFGcTJiUDVsOVdvTmNXMDhVRmFaODA2U1ZTR0xLZGJ5K2hhU29k?=
+ =?utf-8?B?MDB3M1o5RFFhK1BZeDNjNjlXNEpUS0VuMTVpMGphb2tTRGRRZjlnQjdDZVZr?=
+ =?utf-8?B?RmFsTUF0UDdGVnJ6MHlsR01Yekwyd1BNbXFGQ2xkNGpSOGEvS2RhaDVFVjR3?=
+ =?utf-8?Q?YrJ8YMlic8RXz4pSvMwqsYLOI?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ddca258-141c-4210-c54c-08daef054d46
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 09:59:52.5462
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 10:12:07.8111
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9nSbIm7CBpnYpx+Czi4GWGKvVAlPjD2pDf4SClN9Gfr6J7J7q68+CnrCCkNeRCvn1NdInQpTrZU/icojQKmVFg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7981
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6swL7whTXVbPMkhnwUbrgVPJ7C59HAo6O6DCuQBXYNFKyeQQ9OTDHVwE/62gEx/XZWd56PTQMiE6taXmq4FLFA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8359
 
-Hi Julien,
+Now that we have them available in a header which is okay to use from
+hvmloader sources, do away with respective literal numbers and silent
+assumptions.
 
-I have a clarification.
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+v2: Use simpler BCST() macro.
 
-On 05/01/2023 09:26, Julien Grall wrote:
-> CAUTION: This message has originated from an External Source. Please 
-> use proper judgment and caution when opening attachments, clicking 
-> links, or responding to this email.
->
->
-> Hi Stefano,
->
-> On 04/01/2023 23:47, Stefano Stabellini wrote:
->> On Tue, 3 Jan 2023, Michal Orzel wrote:
->>> Printing memory size in hex without 0x prefix can be misleading, so
->>> add it. Also, take the opportunity to adhere to 80 chars line length
->>> limit by moving the printk arguments to the next line.
->>>
->>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
->>> ---
->>> Changes in v2:
->>>   - was: "Print memory size in decimal in construct_domU"
->>>   - stick to hex but add a 0x prefix
->>>   - adhere to 80 chars line length limit
->>
->> Honestly I prefer decimal but also hex is fine.
->
-> decimal is perfect for very small values, but as we print the amount in
-> KB it will become a big mess. Here some examples (decimal first, then
-> hexadecimal):
->
->   512MB: 524288 vs 0x80000
->   555MB: 568320 vs 0x8ac00
->   1GB: 1048576 vs 0x100000
->   512GB: 536870912 vs 0x20000000
->   1TB: 1073741824 vs 0x40000000
->
-> For power of two values, you might be able to find your way with
-> decimal. It is more difficult for non power of two unless you have a
-> calculator in hand.
->
-> The other option I suggested in v1 is to print the amount in KB/GB/MB.
-> Would that be better?
->
-> That said, to be honest, I am not entirely sure why we are actually
-> printing in KB. It would seems strange that someone would create a guest
-> with memory not aligned to 1MB.
-
-For RTOS (Zephyr and FreeRTOS), it should be possible for guests to have 
-memory less than 1 MB, isn't it ?
-
-- Ayan
-
->
-> So I would consider to check the size is 1MB-aligned and then print the
-> value in KB. This will remove one order of magnitude and make the value
-> more readable in decimal.
->
-> Cheers,
->
-> -- 
-> Julien Grall
->
+--- a/tools/firmware/hvmloader/cacheattr.c
++++ b/tools/firmware/hvmloader/cacheattr.c
+@@ -22,6 +22,8 @@
+ #include "util.h"
+ #include "config.h"
+ 
++#include <xen/asm/x86-defns.h>
++
+ #define MSR_MTRRphysBase(reg) (0x200 + 2 * (reg))
+ #define MSR_MTRRphysMask(reg) (0x200 + 2 * (reg) + 1)
+ #define MSR_MTRRcap          0x00fe
+@@ -71,23 +73,28 @@ void cacheattr_init(void)
+ 
+     addr_mask = ((1ull << phys_bits) - 1) & ~((1ull << 12) - 1);
+     mtrr_cap = rdmsr(MSR_MTRRcap);
+-    mtrr_def = (1u << 11) | 6; /* E, default type WB */
++    mtrr_def = (1u << 11) | X86_MT_WB; /* E, default type WB */
+ 
+     /* Fixed-range MTRRs supported? */
+     if ( mtrr_cap & (1u << 8) )
+     {
++#define BCST(mt) ((mt) * 0x0101010101010101ULL)
+         /* 0x00000-0x9ffff: Write Back (WB) */
+-        content = 0x0606060606060606ull;
++        content = BCST(X86_MT_WB);
+         wrmsr(MSR_MTRRfix64K_00000, content);
+         wrmsr(MSR_MTRRfix16K_80000, content);
++
+         /* 0xa0000-0xbffff: Write Combining (WC) */
+         if ( mtrr_cap & (1u << 10) ) /* WC supported? */
+-            content = 0x0101010101010101ull;
++            content = BCST(X86_MT_WC);
+         wrmsr(MSR_MTRRfix16K_A0000, content);
++
+         /* 0xc0000-0xfffff: Write Back (WB) */
+-        content = 0x0606060606060606ull;
++        content = BCST(X86_MT_WB);
+         for ( i = 0; i < 8; i++ )
+             wrmsr(MSR_MTRRfix4K_C0000 + i, content);
++#undef BCST
++
+         mtrr_def |= 1u << 10; /* FE */
+         printf("fixed MTRRs ... ");
+     }
+@@ -106,7 +113,7 @@ void cacheattr_init(void)
+             while ( ((base + size) < base) || ((base + size) > pci_mem_end) )
+                 size >>= 1;
+ 
+-            wrmsr(MSR_MTRRphysBase(i), base);
++            wrmsr(MSR_MTRRphysBase(i), base | X86_MT_UC);
+             wrmsr(MSR_MTRRphysMask(i), (~(size - 1) & addr_mask) | (1u << 11));
+ 
+             base += size;
+@@ -121,7 +128,7 @@ void cacheattr_init(void)
+             while ( (base + size < base) || (base + size > pci_hi_mem_end) )
+                 size >>= 1;
+ 
+-            wrmsr(MSR_MTRRphysBase(i), base);
++            wrmsr(MSR_MTRRphysBase(i), base | X86_MT_UC);
+             wrmsr(MSR_MTRRphysMask(i), (~(size - 1) & addr_mask) | (1u << 11));
+ 
+             base += size;
 
