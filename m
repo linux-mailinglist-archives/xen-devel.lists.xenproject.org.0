@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02F2A65F0BC
-	for <lists+xen-devel@lfdr.de>; Thu,  5 Jan 2023 17:04:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.472013.732099 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D46765F0C1
+	for <lists+xen-devel@lfdr.de>; Thu,  5 Jan 2023 17:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.472017.732110 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDSj0-0003kT-F9; Thu, 05 Jan 2023 16:04:14 +0000
+	id 1pDSjS-0004Ai-OP; Thu, 05 Jan 2023 16:04:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 472013.732099; Thu, 05 Jan 2023 16:04:14 +0000
+Received: by outflank-mailman (output) from mailman id 472017.732110; Thu, 05 Jan 2023 16:04:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDSj0-0003hZ-C0; Thu, 05 Jan 2023 16:04:14 +0000
-Received: by outflank-mailman (input) for mailman id 472013;
- Thu, 05 Jan 2023 16:04:12 +0000
+	id 1pDSjS-00048T-Kh; Thu, 05 Jan 2023 16:04:42 +0000
+Received: by outflank-mailman (input) for mailman id 472017;
+ Thu, 05 Jan 2023 16:04:40 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=lIpW=5C=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pDSiy-0003hT-GS
- for xen-devel@lists.xenproject.org; Thu, 05 Jan 2023 16:04:12 +0000
+ id 1pDSjQ-0003hT-Bx
+ for xen-devel@lists.xenproject.org; Thu, 05 Jan 2023 16:04:40 +0000
 Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2085.outbound.protection.outlook.com [40.107.241.85])
+ (mail-vi1eur02on2059.outbound.protection.outlook.com [40.107.241.59])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 97d2e2b6-8d12-11ed-91b6-6bf2151ebd3b;
- Thu, 05 Jan 2023 17:04:11 +0100 (CET)
+ id a844ed62-8d12-11ed-91b6-6bf2151ebd3b;
+ Thu, 05 Jan 2023 17:04:39 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by PA4PR04MB8046.eurprd04.prod.outlook.com (2603:10a6:102:ba::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Thu, 5 Jan
- 2023 16:04:10 +0000
+ 2023 16:04:38 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Thu, 5 Jan 2023
- 16:04:10 +0000
+ 16:04:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,29 +46,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 97d2e2b6-8d12-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: a844ed62-8d12-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Xr++NsNdGlT6TtWx6/n2fQDVYMbGG7WnSMBPz5KHSmGDF9QPtDETIPnA+CjBMH4oPBWT2bwfWX4suSbXeGIypOwZCQRpTh1AompNiWRAlvR3hIiY0nJ6hTmozX01k/WZA6eOtK75QCrBTeKQR+G1WaHokMXzv0nXtNRfUHLzLajaYJfDUasD8xfrsGU7MFRG3/BJ9VBHUTxL2ixjbZZ2EnZb7G1bYkJODXyMMoBjDClEwluN71Ga3FRwXt5oxS0IRdnWM/ugNIysCEu5Rdy/khqVLzO7lWhksIzdRGFzZ/+e/VN1Gehli+018mZsv3P2TtkPaY38eJzZbIkw8YXx4w==
+ b=XmgGKirqO97aW2lzSqCXpaIMGF3eF+gzlXSdDILsRUTRy53Ts+dmTcDoA2bJ/bAnU3z2nlZx2jmznhmU7AK84CybI9T70vXkmie0xgGRut+p6DfJhXVCyNYQYEVyKncF4fIt8u+2ttL2Rt1EihkvWd3GGx9kPusq43eeLKp0iGlEQieUBy6eMtNNcrfy9F/eH/fsGSm0nMo2FGTGENBE2b+OxRjzPauOtWUvDUv2nwbiGW1lw5CAZxcSjIlBYvw/AlMKs0j9DkWWvutTSqko6nE4ozkU8m34mOZ+zTvaq8EjkGeY+cj1tUDHxFx5fGGOifCFF8EsRMH7JJjjEMw3hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tiwgHbCRXYI+56kwUcOCgcEtwg3HWt+T1yYbvqBjdYM=;
- b=LcDpJmTakRzhrmgRdUK6CYYQUe0Rpt+3dW/0+TdMvxGSu5wItFqSnWTvbFLKR4YBDH+/JywaQUpwL9yhMcnLvWM/D5C0zA2YEDGLw5fY/zeBJaEVxpNejZnxLn4w6Jb601ayQPlXmww48lJ/pgMbM5mRfQSt5gOHzYXyaObjKhmGfZjdUFATmi4zgh1eQ/oWwBXca9YnX/MtE58FQs8z5x4RM+1kLU9rpQ2nKQ0Ud1rVQICgmbyBefN9mQX5W96KKsYtEVKVaFnXZDiRS3JYnAZXMz3oHl1/RxrogIen7ZkcMsa3CECnCh0Qr6OJ7nX81OaF8klNdkZfUL2ewxuwag==
+ bh=MJaoeutQLbYPzxfYQUitLAuxg6Tn53bDvw1b7Tq+keI=;
+ b=PMQyKOvRZKzmstJbOfx7xQT76V22aS/cbEfpwt/kZXbC5BmTLEYAc79ZZqUOjWrv949KUVYamDLCZibCj39TvC/WNHS2UOf5dE6NrJxRuUzculrwq5V0Pa1RirGIo/zvLa6v+m16Xf0LFGFQZjeI9ZoxpvgmBoNCvv10TGr6RbyXKidJPEm0lfvI6ZBP/CHf4z/x5qW8/33ABw7evNPnq/beGfRsRt5ax0Fvmm669kJQ63QRXyebQj9Y1+2PiZK1ZnhktMBwc+n3Q1wtJ70myb1H5bsoe7PzSS8m85hWVaP3t+VtN2WMxP6B+ovqZ8DcmC3JIhL1V5wcoe+VwiV/Tg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tiwgHbCRXYI+56kwUcOCgcEtwg3HWt+T1yYbvqBjdYM=;
- b=NAkNqr3ZTsQ6QsEjVhcI8ueY+7QrN4VUuvFkAFkIBTqeEiP8EK3GFw+kTVoxokZpp3tcgyQ50rlfowHZT2mHmtJ8bO7cwH0+ZvuRqrS/xNDtOH1pKNpb5As/6l6bz9hxEvnMpGV1XSQAr78B20FqnpeYx9qqTgpMjjxd3sx2wYsWM7tt7XicuathzWeoFk3oyXJWGEYNilzhN7Lp5fiK6nVattSg4Ms4s2y7LgUMitJsfCqLLjh17w6MDqRdI+R/7eEFeh1uVpTEcYZEbkqzXPXorlJbcP7cEdugdfQdxDp6vfhcavgfjh4WiZC5HA4/cdAoh38HmJwfxWfWYyMTpw==
+ bh=MJaoeutQLbYPzxfYQUitLAuxg6Tn53bDvw1b7Tq+keI=;
+ b=Q8YlPobdSJaKnb4lppkjZ0CgQtxuyIXFDSEXkUhMrUEhDLLZALOxc29Ls+Wyt7uyBEdo6xMI6/C+77pbJHzMLDb6O62IYm3YgHWrplzBI+YnAXef5+bCGgAuRWsuFI65PsoCw/jGZC9Bm/ORLYAVCiQCMUwBwGdJViIYwAgkvuprRDgbe176GqqoXkFyfZZnsS1YVgkJ5LV7t4DU7ndRgY7mGY1ANrRq9H1xZsAJkVM3UO6rBaWRhrh3TBKC7WhhWlgm5IsK+omMpMVUVqINWG9z68+PpmEgOnb2hUg+4OaVDpHDsfmXXYPEUxxxuJBB+4Aaff8VLOwUgldlwb8Xjg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <76cc0b4a-27ca-21b7-841f-315f31833762@suse.com>
-Date: Thu, 5 Jan 2023 17:04:08 +0100
+Message-ID: <ca3e0c70-ae80-4c21-97f7-36525229074b@suse.com>
+Date: Thu, 5 Jan 2023 17:04:36 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: [PATCH 05/11] x86/shadow: move bogus HVM checks in
- sh_pagetable_dying()
+Subject: [PATCH 06/11] x86/shadow: drop a few uses of mfn_valid()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -79,113 +78,217 @@ References: <074dc3bb-6057-4f61-d516-d0fe3551165c@suse.com>
 In-Reply-To: <074dc3bb-6057-4f61-d516-d0fe3551165c@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FRYP281CA0003.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::13)
+X-ClientProxiedBy: FRYP281CA0002.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::12)
  To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB8046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2ad15354-d748-4b28-5a12-08daef367af6
+X-MS-Office365-Filtering-Correlation-Id: 15b6a024-c967-437e-adc4-08daef368beb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	oYfdVss4Qr69VnO87usxY+HEyw1UMO6LfKX7cL5QHL01Mt22PQlDL5/zr1VOP8m1OrKHXDzroJIOagvtHhs5VJshZ9zWSssQg8wJwZGSQftieXSqaXPiyqP5iFbKoxFKDMnugdqNysq0ufCb6z23gJhGZQ/ACGXSCmvnosYxC7LHTT/v5eVGacB0fGH7hQU7mZscidMDPnLVNxMjPp1o5TXjuAH9zYz0ZiwZdUxYaQLj3jpAH55VHpviJqWUZ/Pvd+ZWyAFsCa5XOtvNj7ZeQfA5VCJfF5BGJ0J3lOzwMAyY+IHhW9v1FhSvh9MZRZMajp4UAdrdhnIp0EszcdOAZiAc7pB0ZeLiOp5Y+1Bp2ucVv6AU3Y+AYW0pOmDOuga94WxnnOMxxbYsE9g6CJEQYswex1lqIg2icEE27CQR2kyYAW+IDv5Qt++uedbM21KfOkcyVUIub6qjbAf6/ddZtYqD/nDB1qxHZR65Xkh3AgeLR0WZ+RsGO1F+Kd5LdEsWzQGtNBiE+u3g6pgdgyaVm3Ahl8R0oa9oVXrKnNyiOXXU8haTqfJoTwyceF3PXyReiWQPWt4FHhhCSxSxdJRkIZlCj8JqvqSKR/QqG0C6JP4QOKuYcEYlHv7QoxVk6QXiFJcli4eT3ZWzLZ5clpiVFL6G5oUFms8D7bmZJej8ORwu7IjmR7IKs3QBUTKBi+E+qF1RSt3RQ6vhA1UH/prX8PXLBvvwziV9e+3XaIN3KlU=
+	XbhDPUSuADkRhwC6IzYXEToveZgcb20lXMisLZ+GMM3jSAMmAniv17a7NvzsDci67mEPC+Zzq5fi47TEnsLI3RWN2RHqlXBAEWYUITFOOldngtRs5IfrJ/IemNBFosSmXyimqXnN7HOnePDVVU7GFovd9Dgi0l1ZtG2LeSc5QD+j/6AcvV+3MqbTMrHs06dEduNxprJcZQ542I/L3MRu5WOlEkyPYA/AzYZIouvSgV0ILSvi6QjsfFlSJDhXx4vlOMOqsZsuDkMHQ4AIYYRtMkihj18fKgrvLP240VyRwhXnE45g5oL+Jgvfnrlbg4kTSauyLo/zeMQcPFw88V0G8fE2j72r4OdNbSsMIr5L5JP7IvkzTFDHNMg77cG5FWKIJ2bha14z3QtGKUup7zj8ZpBCERjqCXeFE0sXp6A/10J+Jo8bJ0AwICNUnP+WFcJQysYpxL71uLY2wIUU7VWjFhAbGyujcraQjdUNulTKpDcNO7274wQqr52wnNec4VxFkVw4qaBGSXduUaNjyzHb8uO/fGWMspsCFrn8i+u17kRjJzuo86muPb5nMY0UVgyZq9/lW2gwGv+yD6+kX+VP6ITn+tDDQr46au/SUqgRsbpJyfG1BEJIgeWkUcs1pG95UHkfl/S+3wJtRXNALCxZKzwtAqBRpbU9OsDr2r997pmYHyXqf/IX484ATxnq8nSkAhRaPH7SyRr27BQvT4RLov5L9ocdKSGepiaGwyeYN20=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(396003)(346002)(366004)(39860400002)(451199015)(38100700002)(6506007)(316002)(83380400001)(31696002)(4326008)(86362001)(66476007)(66946007)(5660300002)(8676002)(2906002)(66556008)(41300700001)(8936002)(6512007)(26005)(186003)(2616005)(6916009)(54906003)(478600001)(6486002)(31686004)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(136003)(376002)(396003)(346002)(366004)(39860400002)(451199015)(38100700002)(6506007)(316002)(31696002)(4326008)(86362001)(66476007)(66946007)(5660300002)(8676002)(2906002)(66556008)(41300700001)(8936002)(6512007)(26005)(186003)(2616005)(6916009)(54906003)(478600001)(6486002)(31686004)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RnFhWjJXUGdxZlNaaUlpcldMNkoxeDlveWwzRmgvaCtHTUwxUStzMHZISmRX?=
- =?utf-8?B?d0JabDZKaU5sZldrOW9Bck9aVTR1UHZ1Z3RuZG0xM0FrVGdoeDdsalZJb3Fm?=
- =?utf-8?B?WFpLaThBVTdMbVBMTTF0Q1hwMnRzSkhQR0NGbGordmNVbWQxQ0xRN1VRSUFw?=
- =?utf-8?B?Nm9ZQnR1bVJza1k5RWJNQXdhQklhMDVOZ25sREpEU29zaDhNZTcyNytKUU94?=
- =?utf-8?B?WVp4NjM1aEZPRlAwQ1QraStXOFdRVEsvUmFtOWt4eXk3aFdoMGg1SllxbUE5?=
- =?utf-8?B?aG5yb3RlM293bFpPc3o2WENPVVJNT2d1YTdxS2Y1YWd6bHhPbjFVNENlMlNX?=
- =?utf-8?B?UktJVEI5WUcwb0x2ZGRISFZiMXozQy9zbC9LSWFsWmhXQ29PS1M1UUFjUFY4?=
- =?utf-8?B?TzZIM3JVbG9qV2YwU3FXOStZS2s4M2tMdStmYlh3VDUzNnFsWWFJY0txYXlk?=
- =?utf-8?B?VWZobVdUbkJTRUdUNE02UDlHaDR4Z2ViWUZpbVpYNndTRFVkN08vYjVtYlBl?=
- =?utf-8?B?anJPdnh5LzYxdHRVU2VNbzFQdE4yR3RZNnlVMFZtdnNqTXhhM1lCd21LTnNM?=
- =?utf-8?B?bUozelNDNEFzWUlaQlNuU1lTaVptNnp3aUljNWsxZ0xpVVdxdm9ZdC81R3lC?=
- =?utf-8?B?YnpvMzYyZHpBbTV0bFUxR2lvYmYybHMwbmhyTkJud2tUTG8ybUpyM1pLeGcz?=
- =?utf-8?B?eG52QWlaTk9kYVRsRTI5L2JyaGhKL3FNZUMySDA1SE0weURNYUdNTDdqeHV3?=
- =?utf-8?B?VVVSSEQwKytISWt2djdNQzNnV1doaUdQRThlOGRBTjdRK1l5TGdVMlpNYk5W?=
- =?utf-8?B?WEVuMU9wQzlkRDJvMU1WNnloQkdpNmVpVWM4WG1UbmVPK1AxYzVCQS9PVGw4?=
- =?utf-8?B?MEJndjhqTWFSYTN2cWhCdEFnNFRUcU1HZURmVlVmSGN0TWZISCtJK2g3Ukhz?=
- =?utf-8?B?TmtTKy9vNjR2UWVaSld0SVUzc2QvUXJTV3JTWkhCaWNEa2hzVkw3UTFCYllD?=
- =?utf-8?B?NHB0elJHbmEwd1Z1bjlodGpZbDNodko5MG1iM2tGSUt5bk95YlVuZmx4bzZJ?=
- =?utf-8?B?ZzV4cW9HbHgvMVBlSnIxVmdnSjI3K3FLUG5qTEhDa1IzZGJUT01qaFA0bjM4?=
- =?utf-8?B?YzZlM25DUGRwS2ROL29VOGkwc1BrMTk5Sjc5WnExSkFCOEpjVEFiUkF0ZXE1?=
- =?utf-8?B?NFRRM0FCUDhLQkZ5RFJpbXJvdHJEdm5VdUh3V3czU240REM0OXV1ZU11SWg1?=
- =?utf-8?B?TVpoSEEvMTc0bGhOWjdJTXdPemRENkxJMFg1azhxRDhTdWxycktuMVNJSEdZ?=
- =?utf-8?B?T3ViTGxJTXVFWVQya0pSdDRRSGl0bmw2Y2pzYklaSmc3dUt3bU93a0I1ZmFt?=
- =?utf-8?B?Ry9JT0d1eWlpSExkbnc5eHVjWjkwL0QrdjFOc2x2QXVrME9NeWs1a0Vjb2d1?=
- =?utf-8?B?RE1HallIbjU1RXB3SHVRWVNNRkhZQTlpQUEvNjlQbHBnblpMeEU5cEZKRUwr?=
- =?utf-8?B?ZnpFMldiazBDeGxzKzlIRnpBdnhzVytmSGxhblQxYUdLSWErelBJYXJWaFFM?=
- =?utf-8?B?azZldVY1bkxCZlZxdkU3aHpYRWt1bENYWjJhczY3UFR5MEtFVDlxZkZGOWdy?=
- =?utf-8?B?ZEladDYvRXBodXRrT1huNFd1MTNEYzU5aUkwYUM1dGxsUmJxdVRwK0JBSk5n?=
- =?utf-8?B?cHg3MUY4SGRVMkdkaDlZQThtKzFXbVhBL2FIaC9qcnl4RFBaS3ZOMUlzeEp5?=
- =?utf-8?B?dm9HTG9VMlNlQXFWU3d2V0hBTVh3YzgraFAxRUJUMnpodWpPcVNBVGd1M25U?=
- =?utf-8?B?aGRiOUlpdlNCamhlVDBrY3R6UVp2K2d1bFd2UTBrcC8vRlhlRUNhTytVNlYv?=
- =?utf-8?B?T0l6N0hrTks4NzhJSDVOaFJMQnhqd09NL2lVM3JxSjZHeXRvQjA0L01iZnpz?=
- =?utf-8?B?MVNvZGMxQ0NjODJvQ3dZUlZzaldiNWs0VTZSYW9WL1JIeERPMWs4S1dvR2FW?=
- =?utf-8?B?V1hZTFMybGx1WmxLT0t4Ti8vNk5FVGlHY04zaUs0MFlGN3NZc1Rtemc0MVJP?=
- =?utf-8?B?QlBCTXdncnJHb3NLbWk0dzZQNG4zdE1yR3BjL0FlR3FreWo5ektUaWRCSEVh?=
- =?utf-8?Q?Yg4FF3Svc/nM8Gbgn54ejbmmZ?=
+	=?utf-8?B?YjhjUlVUSDB0dW9LVE1FTUlwYm1TNm91Z1RLa3JWRmkxRm5YYUNqWWNxdWxv?=
+ =?utf-8?B?VmoxMWwxeUMyUkVnUm01YVV4MEdaUW9TV0M3S2xSOGtqZ05ncDhOdmhkMTFm?=
+ =?utf-8?B?dm1GelpCVENjeWlSUitWeHZUWExhR2phWldqRm03VkZLTHNkUEFUYTRjRzNI?=
+ =?utf-8?B?WmxDY0haS1d0T3BsYzlQSElCcGJVY00reXhFMC9YK3QybnlrQURIR3VoMXN4?=
+ =?utf-8?B?WkJRU21FTWMxRkVFZGZCUUlpNmUyZldXemVzTC9zMGdZT0dhMzVBWjdON3F5?=
+ =?utf-8?B?UExvRXd1YUcxejRjS1pmVXVseVlzQ1NiRUJSdU12c2lpL2RLU1JGWU05cVdk?=
+ =?utf-8?B?Q290d2xPUUVYemo4VThnNWNUeVQyU2FJcmpqWHY5L01sbTZxcEZnOFAvNVRp?=
+ =?utf-8?B?R09IVWRKa09Pb25RUWlGV1pSNkRNdmQ2Qkd1RTFDOVdCczR0S2YwSzFoVFRj?=
+ =?utf-8?B?eWJBck1ZV3FvNFVxMCt0cFJMdmVYdC9NVG5XMmp5S0lKMTR5QVB6djJyMVpN?=
+ =?utf-8?B?ankzUEhGemZlTk1ydldWWGRNVFpIMlBHOU8zVGFDdzRYRG1SeUp3OHlHRVBZ?=
+ =?utf-8?B?ZFBvQk9lSDQ1RWNUaDhGNzMyTnB1VlZsVm94dHQrcHpXemFZUGo4VHEyOFRR?=
+ =?utf-8?B?M1Q0bnRhdHEvUVRDaFgvMk93ODh4WmMxM0g2YXhsdWp4ajJKZTErVk1JRTNH?=
+ =?utf-8?B?L1IxSDI3VkxkdjJtTThqWkZqaGlaS3FIamI4UGc5emQ5R3IzdEcyTnpJUno0?=
+ =?utf-8?B?WDJmai95RDlBd3cvVGduOUlJU1pWTUErR2VHYVZXb3BhVGJBWTZSWlFCV1dk?=
+ =?utf-8?B?MFV0NkpsUlg3bnhjTm8vSkFmbE5Rd0M3bUw2bVNOa3dTdTVHUjhnS2IyaVQ4?=
+ =?utf-8?B?c29TN0psT0E4eHpzYkZhcWl2WnFDd1pON291OVlSaTl1SkdjMEMzaVR2LzBJ?=
+ =?utf-8?B?V1hHRTBjNHcvMjNhbWYzL2RBSTh2VnZNRUhpYmpWL05HQVl0V1Nxb0k5R1Rm?=
+ =?utf-8?B?NHc4WjZoUGhnQWlnTytpYWNaKzdwQnFPVFMrb1dnaFlIYW9LSnBheHdpclRH?=
+ =?utf-8?B?cEtxeEp3SHMzZkVtekdmdGFoNDcrVkY2aEZJYUJzTzNGZVhJSDQ4UFN2RGlS?=
+ =?utf-8?B?ZFlVSFdJRWNwMkRkRVUreSsyRkUvbTlsYWNEUDZqbFVyUTE4VkRLUVhGYmhC?=
+ =?utf-8?B?SE53dUZQS29vbDNrcUVYQlNQTG5yeXZiWkF2bmQ0SHlwZGcyUDRaWkFtcWVr?=
+ =?utf-8?B?d1h5Mmx2cjljU0pSKzA0VFhtRWhMVExDV0tLeE1XVTkwdytLL3hDaThtQm9m?=
+ =?utf-8?B?Y3BBb1pUVVVKOXN1djgzNHNDUy9IRnI3a2gwRDVnOTBqUkVoRklGTVNOeHN5?=
+ =?utf-8?B?SmVnVlNhV0Q5Tms1K0hKQVRwL3JwQ21Lc0cwL3dTeWFxWkwvanFuMzJHbGNG?=
+ =?utf-8?B?bGF1dUpBZlJiamFRUkFXVHE1MHdkdTZpV0x0WmRQODJSTjJacEMraTQybGhS?=
+ =?utf-8?B?UWJsRmd6SzFtMm0yNDdtckpiODBlZzQwTjFFR01HM2hRcTZtZ1ZxZEJiQ2ZN?=
+ =?utf-8?B?MnFvYTBBYUpqNGthVHE3aDV6cUlpTGpjQjBwY2tzMHpxMGhiZGtzRFRVRktY?=
+ =?utf-8?B?d3FGNkZvZUM5QjZHbWdLSERlQ1N1Qnp6Z1BaUm5rdnNNUTNiUkxTcmwrQ0JX?=
+ =?utf-8?B?Y0NrMS9rUkdaaXFXNzNndnJCSSt0T3pwQjNMamN2eU5DelRKSlhSZHUyNFB6?=
+ =?utf-8?B?RGlwbEppZ0wvZHNHM3RrUysycFNMK3hmbldoREt2dTBkaG81NWF1dUpCMGwz?=
+ =?utf-8?B?Wm5MazU1QkpSbHZmQk1IWUZ6d24wREI1SVoza3A2UzRDQUk2RG5wLzA3SHF0?=
+ =?utf-8?B?eXpETWVXVGZpZ3ZBWmhCcDV0SFkzS2U1WUtqMEVZMmdGZTE1dlRPQk5jRWJh?=
+ =?utf-8?B?c1cxVUpZY21NSzZUT3R6YnJqQlRiUkRwOUkyM1ZHRkhzT2hiTWwxOWRwT0RL?=
+ =?utf-8?B?dG9IQWVVbHNsN1hVdWFNM0hkS2QycVpnL2V2cTB2K0lYR3ZJdG9DVFhad0tH?=
+ =?utf-8?B?WXJ0TzlWN1ZJY2d5ZDZUWmhQRVpLem9TMVFybWF0MHJmbUE5bm9pOS91clFv?=
+ =?utf-8?Q?gMS60a4htwmvqQ0o4mrqRwHNZ?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2ad15354-d748-4b28-5a12-08daef367af6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15b6a024-c967-437e-adc4-08daef368beb
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 16:04:09.9084
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jan 2023 16:04:38.2034
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vTjYqBoyreX/HEhw3Arn7DPnliwAhjDiE6xN38Kxx3c/YlAgml3JHhNnV0QlXADvtvFKRxHymfFrEBeHvvuoPA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ARPHIyL5U0VA9mm0aThyC45AGojNQUrsmdoH6T6X0+YXij7vXFKOyiVmsx4gZnZ4J7lGFRveNRWRUu9+sXXUQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB8046
 
-Perhaps these should have been dropped right in 2fb2dee1ac62 ("x86/mm:
-pagetable_dying() is HVM-only"). Convert both to assertions, noting that
-in particular the one in the 3-level variant of the function comes too
-late anyway - first thing there we access the HVM part of a union.
+v->arch.paging.shadow.shadow_table[], v->arch.paging.shadow.oos[],
+v->arch.paging.shadow.oos_{snapshot[],fixup[].smfn[]} as well as the
+hash table are all only ever written with valid MFNs or INVALID_MFN.
+Avoid the somewhat expensive mfn_valid() when checking MFNs coming from
+these arrays.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
+---
+There are many more uses which can likely be replaced, but I think we're
+better off doing this in piecemeal fashion.
 
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -171,7 +171,7 @@ static void sh_oos_audit(struct domain *
+         for ( idx = 0; idx < SHADOW_OOS_PAGES; idx++ )
+         {
+             mfn_t *oos = v->arch.paging.shadow.oos;
+-            if ( !mfn_valid(oos[idx]) )
++            if ( mfn_eq(oos[idx], INVALID_MFN) )
+                 continue;
+ 
+             expected_idx = mfn_x(oos[idx]) % SHADOW_OOS_PAGES;
+@@ -327,8 +327,7 @@ void oos_fixup_add(struct domain *d, mfn
+             int i;
+             for ( i = 0; i < SHADOW_OOS_FIXUPS; i++ )
+             {
+-                if ( mfn_valid(oos_fixup[idx].smfn[i])
+-                     && mfn_eq(oos_fixup[idx].smfn[i], smfn)
++                if ( mfn_eq(oos_fixup[idx].smfn[i], smfn)
+                      && (oos_fixup[idx].off[i] == off) )
+                     return;
+             }
+@@ -461,7 +460,7 @@ static void oos_hash_add(struct vcpu *v,
+     idx = mfn_x(gmfn) % SHADOW_OOS_PAGES;
+     oidx = idx;
+ 
+-    if ( mfn_valid(oos[idx])
++    if ( !mfn_eq(oos[idx], INVALID_MFN)
+          && (mfn_x(oos[idx]) % SHADOW_OOS_PAGES) == idx )
+     {
+         /* Punt the current occupant into the next slot */
+@@ -470,8 +469,8 @@ static void oos_hash_add(struct vcpu *v,
+         swap = 1;
+         idx = (idx + 1) % SHADOW_OOS_PAGES;
+     }
+-    if ( mfn_valid(oos[idx]) )
+-   {
++    if ( !mfn_eq(oos[idx], INVALID_MFN) )
++    {
+         /* Crush the current occupant. */
+         _sh_resync(v, oos[idx], &oos_fixup[idx], oos_snapshot[idx]);
+         perfc_incr(shadow_unsync_evict);
+@@ -607,7 +606,7 @@ void sh_resync_all(struct vcpu *v, int s
+ 
+     /* First: resync all of this vcpu's oos pages */
+     for ( idx = 0; idx < SHADOW_OOS_PAGES; idx++ )
+-        if ( mfn_valid(oos[idx]) )
++        if ( !mfn_eq(oos[idx], INVALID_MFN) )
+         {
+             /* Write-protect and sync contents */
+             _sh_resync(v, oos[idx], &oos_fixup[idx], oos_snapshot[idx]);
+@@ -630,7 +629,7 @@ void sh_resync_all(struct vcpu *v, int s
+ 
+         for ( idx = 0; idx < SHADOW_OOS_PAGES; idx++ )
+         {
+-            if ( !mfn_valid(oos[idx]) )
++            if ( mfn_eq(oos[idx], INVALID_MFN) )
+                 continue;
+ 
+             if ( skip )
+@@ -2187,7 +2186,7 @@ void sh_remove_shadows(struct domain *d,
+          !(pg->shadow_flags & (1 << t)) )                               \
+         break;                                                          \
+     smfn = shadow_hash_lookup(d, mfn_x(gmfn), t);                       \
+-    if ( unlikely(!mfn_valid(smfn)) )                                   \
++    if ( unlikely(mfn_eq(smfn, INVALID_MFN)) )                          \
+     {                                                                   \
+         printk(XENLOG_G_ERR "gmfn %"PRI_mfn" has flags %#x"             \
+                " but no type-%#x shadow\n",                             \
+@@ -2755,7 +2754,7 @@ void shadow_teardown(struct domain *d, b
+             int i;
+             mfn_t *oos_snapshot = v->arch.paging.shadow.oos_snapshot;
+             for ( i = 0; i < SHADOW_OOS_PAGES; i++ )
+-                if ( mfn_valid(oos_snapshot[i]) )
++                if ( !mfn_eq(oos_snapshot[i], INVALID_MFN) )
+                 {
+                     shadow_free(d, oos_snapshot[i]);
+                     oos_snapshot[i] = INVALID_MFN;
+@@ -2938,7 +2937,7 @@ static int shadow_one_bit_disable(struct
+                 int i;
+                 mfn_t *oos_snapshot = v->arch.paging.shadow.oos_snapshot;
+                 for ( i = 0; i < SHADOW_OOS_PAGES; i++ )
+-                    if ( mfn_valid(oos_snapshot[i]) )
++                    if ( !mfn_eq(oos_snapshot[i], INVALID_MFN) )
+                     {
+                         shadow_free(d, oos_snapshot[i]);
+                         oos_snapshot[i] = INVALID_MFN;
 --- a/xen/arch/x86/mm/shadow/multi.c
 +++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -3780,6 +3780,8 @@ static void cf_check sh_pagetable_dying(
-     unsigned long l3gfn;
-     mfn_t l3mfn;
+@@ -110,7 +110,7 @@ get_fl1_shadow_status(struct domain *d,
+ /* Look for FL1 shadows in the hash table */
+ {
+     mfn_t smfn = shadow_hash_lookup(d, gfn_x(gfn), SH_type_fl1_shadow);
+-    ASSERT(!mfn_valid(smfn) || mfn_to_page(smfn)->u.sh.head);
++    ASSERT(mfn_eq(smfn, INVALID_MFN) || mfn_to_page(smfn)->u.sh.head);
+     return smfn;
+ }
  
-+    ASSERT(is_hvm_domain(d));
-+
-     gcr3 = v->arch.hvm.guest_cr[3];
-     /* fast path: the pagetable belongs to the current context */
-     if ( gcr3 == gpa )
-@@ -3822,7 +3824,7 @@ static void cf_check sh_pagetable_dying(
+@@ -2680,7 +2680,7 @@ static int cf_check sh_page_fault(
+                 mfn_t smfn = pagetable_get_mfn(
+                                  v->arch.paging.shadow.shadow_table[i]);
+ 
+-                if ( mfn_valid(smfn) && (mfn_x(smfn) != 0) )
++                if ( mfn_x(smfn) )
+                 {
+                     used |= (mfn_to_page(smfn)->v.sh.back == mfn_x(gmfn));
+ 
+@@ -3824,7 +3824,7 @@ static void cf_check sh_pagetable_dying(
                     : shadow_hash_lookup(d, mfn_x(gmfn), SH_type_l2_pae_shadow);
          }
  
--        if ( mfn_valid(smfn) && is_hvm_domain(d) )
-+        if ( mfn_valid(smfn) )
+-        if ( mfn_valid(smfn) )
++        if ( !mfn_eq(smfn, INVALID_MFN) )
          {
              gmfn = _mfn(mfn_to_page(smfn)->v.sh.back);
              mfn_to_page(gmfn)->pagetable_dying = true;
-@@ -3854,6 +3856,8 @@ static void cf_check sh_pagetable_dying(
-     mfn_t smfn, gmfn;
-     p2m_type_t p2mt;
- 
-+    ASSERT(is_hvm_domain(d));
-+
-     gmfn = get_gfn_query(d, _gfn(gpa >> PAGE_SHIFT), &p2mt);
-     paging_lock(d);
- 
-@@ -3863,7 +3867,7 @@ static void cf_check sh_pagetable_dying(
+@@ -3867,7 +3867,7 @@ static void cf_check sh_pagetable_dying(
      smfn = shadow_hash_lookup(d, mfn_x(gmfn), SH_type_l4_64_shadow);
  #endif
  
--    if ( mfn_valid(smfn) && is_hvm_domain(d) )
-+    if ( mfn_valid(smfn) )
+-    if ( mfn_valid(smfn) )
++    if ( !mfn_eq(smfn, INVALID_MFN) )
      {
          mfn_to_page(gmfn)->pagetable_dying = true;
          shadow_unhook_mappings(d, smfn, 1/* user pages only */);
+--- a/xen/arch/x86/mm/shadow/private.h
++++ b/xen/arch/x86/mm/shadow/private.h
+@@ -770,8 +770,10 @@ get_shadow_status(struct domain *d, mfn_
+ /* Look for shadows in the hash table */
+ {
+     mfn_t smfn = shadow_hash_lookup(d, mfn_x(gmfn), shadow_type);
+-    ASSERT(!mfn_valid(smfn) || mfn_to_page(smfn)->u.sh.head);
++
++    ASSERT(mfn_eq(smfn, INVALID_MFN) || mfn_to_page(smfn)->u.sh.head);
+     perfc_incr(shadow_get_shadow_status);
++
+     return smfn;
+ }
+ 
 
 
