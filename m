@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F04365FEF6
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jan 2023 11:29:42 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.472396.732597 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADC3865FEF9
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jan 2023 11:30:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.472403.732608 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDjxL-0002A4-No; Fri, 06 Jan 2023 10:28:11 +0000
+	id 1pDjzA-000358-35; Fri, 06 Jan 2023 10:30:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 472396.732597; Fri, 06 Jan 2023 10:28:11 +0000
+Received: by outflank-mailman (output) from mailman id 472403.732608; Fri, 06 Jan 2023 10:30:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDjxL-00026q-K6; Fri, 06 Jan 2023 10:28:11 +0000
-Received: by outflank-mailman (input) for mailman id 472396;
- Fri, 06 Jan 2023 10:28:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QRQJ=5D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pDjxK-00026k-2A
- for xen-devel@lists.xenproject.org; Fri, 06 Jan 2023 10:28:10 +0000
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [2a00:1450:4864:20::12d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ceb701eb-8dac-11ed-b8d0-410ff93cb8f0;
- Fri, 06 Jan 2023 11:28:06 +0100 (CET)
-Received: by mail-lf1-x12d.google.com with SMTP id g13so1387619lfv.7
- for <xen-devel@lists.xenproject.org>; Fri, 06 Jan 2023 02:28:06 -0800 (PST)
-Received: from fedora.. ([195.234.76.149]) by smtp.gmail.com with ESMTPSA id
- g1-20020a056512118100b004b5732080d1sm107093lfr.150.2023.01.06.02.28.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Jan 2023 02:28:04 -0800 (PST)
+	id 1pDjz9-00031s-VQ; Fri, 06 Jan 2023 10:30:03 +0000
+Received: by outflank-mailman (input) for mailman id 472403;
+ Fri, 06 Jan 2023 10:30:01 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pDjz7-0002dy-MU; Fri, 06 Jan 2023 10:30:01 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pDjz7-0003fn-K7; Fri, 06 Jan 2023 10:30:01 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pDjz7-0004Rf-Ao; Fri, 06 Jan 2023 10:30:01 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pDjz7-0008IM-AJ; Fri, 06 Jan 2023 10:30:01 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,88 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ceb701eb-8dac-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NweUbldW38duLDKXCcl5QGEb3HNDCi1J7bPtOMrCqec=;
-        b=OeezEwoj7ine/gcxcZW1zzNRA7i8wpct49Nd4JgA4zr1yDpClhm9WNCrqzM+fTYpY5
-         BNSu6Kxo2+EK2QAdtoYNG9S7uYhtQTa+FChFBfW/ikhXKZK7DB9NzjEOG+fBFMYeowIS
-         78l5EXV1QmB4iNaKD+2AwQq88rk1Tjfn+ukOiSq7yLDzoXehu1CTssFu5qt6n6WjrGqS
-         q6YQAt2rG7SzZIM31jJQnsQtxnUru8UqJ+IOpNsLGzc2eABHlB0lta1ErjcbrVQ2769x
-         VDJYDI6ntRFKLBWzhN8MzmhsK3HD99AEsHDMAUi/gvOKx++8NABafbb+xqAEgjw1Sn36
-         3U2A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NweUbldW38duLDKXCcl5QGEb3HNDCi1J7bPtOMrCqec=;
-        b=CpZwv2Cp8/WwXSceqgLKEqeB2mXXtn2tQ3a9Z5lqv20LrolI41YHLzFPzn9PU25Hnd
-         jscpR84ei4S0sD+XOH6rHiElrvySZFhoEYkuVxshSXLw6yRBVoWlg+K/VN8RGCfRGv1F
-         j1QolQ8op++fP4u+eKNe72p/SJES2+A7pv3QJprk2k0hLl6BwvHICSpt1KO4CFZhIWhb
-         pG4Wr3u2PCXxawb/U75LBzQMi1JagupsP3AAo0SVAkBmS3ps7JGc+GXb8V9SXv/gx1pa
-         dqYxDnQfESTRi3HvWn+1ED9IQNyHxiaep2cBynWMUdE6X5nELf1Qyj8wHKVg4V/pbYF6
-         JMyQ==
-X-Gm-Message-State: AFqh2ko2LySfzEZy8rirIwxAMy+Hazpi0NGamnFdJPY+gjFZ9GgbVm+v
-	ygfQ2Erm7ypVMr469JWy0k4clDIYsPokdjLG
-X-Google-Smtp-Source: AMrXdXs2EFiit5RARTsnthGpvKYH7U73IESbrbaV/NAHQICGUs6kEHu9To4eM5uoRA4Tco6rDK5GBA==
-X-Received: by 2002:ac2:558f:0:b0:4cc:597b:583e with SMTP id v15-20020ac2558f000000b004cc597b583emr1634692lfg.55.1673000885346;
-        Fri, 06 Jan 2023 02:28:05 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=psVmlWnKebrLqwSydI25TOhJ0s5wtPmbJuzCuPgU4KA=; b=Ep3QxLWgXKXnj6NFcPLyrB3fRh
+	dPM0hxdtvthUuiyQpLn7P8xZX4x8RQpNLbF4oxnK73LOQk7sqZO4w7eoZ4salWuf1Z2n6vGDtqI8p
+	cAwkFoZuyxYpXQUg+RnaGwsnSrqQ1QjptFi41SMVGSYKli+Uy3V7EaDb9rsAVLyayRZ8=;
 To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Gianluca Guida <gianluca@rivosinc.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH] automation: temporarily disable CONFIG_COVERAGE for RISC-V randconfig jobs
-Date: Fri,  6 Jan 2023 12:28:01 +0200
-Message-Id: <5f47cd290a5f173655d7dace7f61384e1f32c8c1.1673000881.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.38.1
-MIME-Version: 1.0
+Message-ID: <osstest-175597-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [libvirt test] 175597: tolerable all pass - PUSHED
+X-Osstest-Failures:
+    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=6cd2b4e101cc0b60c6db83f763a08daea67ad6eb
+X-Osstest-Versions-That:
+    libvirt=78b3400e50ee0ba01575749728aae9c79d9d116b
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 06 Jan 2023 10:30:01 +0000
 
-As common isn't built for RISC-V architecture now, accordingly,
-common/coverage (where __gconv_* function are defined) isn't built either
-but randconfig may decide to enable CONFIG_COVERAGE which will lead to
-the following compilation error:
+flight 175597 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175597/
 
-riscv64-linux-gnu-ld: prelink.o: in function `.L0 ':
-arch/riscv/early_printk.c:(.text+0x18):
-    undefined reference to `__gcov_init'
-riscv64-linux-gnu-ld: arch/riscv/early_printk.c:(.text+0x40):
-    undefined reference to `__gcov_exit'
+Failures :-/ but no regressions.
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- automation/gitlab-ci/build.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175577
+ test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 175577
+ test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175577
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 6784974619..a292f0fb18 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -667,6 +667,8 @@ riscv64-cross-gcc-randconfig:
-     CONTAINER: archlinux:riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     RANDCONFIG: y
-+    EXTRA_FIXED_RANDCONFIG:
-+      CONFIG_COVERAGE=n
- 
- riscv64-cross-gcc-debug-randconfig:
-   extends: .gcc-riscv64-cross-build-debug
-@@ -674,6 +676,8 @@ riscv64-cross-gcc-debug-randconfig:
-     CONTAINER: archlinux:riscv64
-     KBUILD_DEFCONFIG: tiny64_defconfig
-     RANDCONFIG: y
-+    EXTRA_FIXED_RANDCONFIG:
-+      CONFIG_COVERAGE=n
- 
- ## Test artifacts common
- 
--- 
-2.38.1
+version targeted for testing:
+ libvirt              6cd2b4e101cc0b60c6db83f763a08daea67ad6eb
+baseline version:
+ libvirt              78b3400e50ee0ba01575749728aae9c79d9d116b
 
+Last test of basis   175577  2023-01-05 04:18:49 Z    1 days
+Testing same since   175597  2023-01-06 04:20:37 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     pass    
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 pass    
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   78b3400e50..6cd2b4e101  6cd2b4e101cc0b60c6db83f763a08daea67ad6eb -> xen-tested-master
 
