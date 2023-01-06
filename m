@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B96765FBA7
-	for <lists+xen-devel@lfdr.de>; Fri,  6 Jan 2023 08:02:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.472320.732501 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0814B65FBBE
+	for <lists+xen-devel@lfdr.de>; Fri,  6 Jan 2023 08:12:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.472329.732511 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDgio-0003Pf-E5; Fri, 06 Jan 2023 07:00:58 +0000
+	id 1pDgtC-0004wA-Dq; Fri, 06 Jan 2023 07:11:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 472320.732501; Fri, 06 Jan 2023 07:00:58 +0000
+Received: by outflank-mailman (output) from mailman id 472329.732511; Fri, 06 Jan 2023 07:11:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pDgio-0003N3-Af; Fri, 06 Jan 2023 07:00:58 +0000
-Received: by outflank-mailman (input) for mailman id 472320;
- Fri, 06 Jan 2023 07:00:57 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pDgtC-0004td-Af; Fri, 06 Jan 2023 07:11:42 +0000
+Received: by outflank-mailman (input) for mailman id 472329;
+ Fri, 06 Jan 2023 07:11:41 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pDgin-0003Mt-77; Fri, 06 Jan 2023 07:00:57 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pDgin-0006bv-4Y; Fri, 06 Jan 2023 07:00:57 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pDgim-0005zf-M8; Fri, 06 Jan 2023 07:00:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pDgim-0005DV-Ll; Fri, 06 Jan 2023 07:00:56 +0000
+ (envelope-from <SRS0=Ggnj=5D=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pDgtB-0004tT-7F
+ for xen-devel@lists.xenproject.org; Fri, 06 Jan 2023 07:11:41 +0000
+Received: from EUR03-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur03on2041.outbound.protection.outlook.com [40.107.103.41])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5d49113e-8d91-11ed-91b6-6bf2151ebd3b;
+ Fri, 06 Jan 2023 08:11:39 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8976.eurprd04.prod.outlook.com (2603:10a6:102:20f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5944.19; Fri, 6 Jan
+ 2023 07:11:37 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5944.019; Fri, 6 Jan 2023
+ 07:11:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,283 +46,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=bEKZQki7r8t/zqa36d89r+HNXOS2sar3ggG0+GjEMoE=; b=aqkMBI43hyCuijasrvUrGP1wXA
-	ZlX83deHclFf9bKlEF0GfLGB8viBSXq+xn9wG9QMu3Ms0tg3ezNF5gmOgujjeZNlSh970d9jc/Mmt
-	WChHswkntypJlvunTIttMnvzD+rd8nHVbP/IK6G2hl/lTl2MxSxmcFM3JDOvv3VSoiSQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175591-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 5d49113e-8d91-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oTO/hX2NnU0CaFQ1rnRN2JHB8m6wntDKLv4VxP7WfR2Ms4ooXiUib3yWR7mQJEvDV5ZoSFwXnK/SG2kmnkbHzyRBy30Vbfa35N1jpo5vMApc+K/HJsOZGJxilu3BCy4fpoPH4+gXQxnEwIlAsMjcF+qPMTGCA58ahDMczSupMwvI0hODX2+yPLuZ7ooQgx7jkKJtyVOQlDo8sK8qVhrEFSTeF/1R6Yg93DGFmSpBGSqDrfcJw1d76up8UKKAU0BAr5l8Zx2qGgwkOO5/x5JYB4lK48roL8HA7rIGbpzmAzUQkzz8ZLRgdiKlTyNLmXG0oc7dgRqniWFivkv4jkziEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Dp/SB8FHsc/pkJeDx9F8rMb9yST6AkHe9p8Ch4PCHkc=;
+ b=nCZf8kPTPLb6VlMmePmX6Vlebf0nWDgWVjFdTt7I+n8s7posmeO1hmCcVw/IYeadXnwFKAxAOLBdQSENoPDPhC2Sax9fahrE0eUTg9BDVN3OqPDdFj0Goi36mihpWhmOTTIQGhEaHGMVlRWKCWTCUq3pswyYd8QQvvOgi2qMff5SZfkvihRxZIchSP5QDz0gf6XpbGnGO9YDICmYnmzmPIRywb38ow1X9ocrn9wKHNim/NE5ccNJvgEBMjhqDMRKCqgIFQp4GsIMe3bLykZYe9adYdy5K2f46YEq/YkDV/AZEfXXu47YXE1iAsVmuwHNIxZOzUuUdKh9yC4CfZkrJg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Dp/SB8FHsc/pkJeDx9F8rMb9yST6AkHe9p8Ch4PCHkc=;
+ b=2QuCnoSdN3kvDepH/R+VdMtQmnLBl8p3cMOjg1OpFMmlIoVLSNqkwvomdJHTmc5WjMjeDUrNYghAVJVOs9FY+qa/DvZz9ChtINDZfqqAdsWAJatRN/y/0yFlGL8+OuV0PGBNjbjJrDe52KfI+/nNzXhB8+/zoUg1v0GSu/kRRMx1TZyf+pF7xBmdnGAdrafG8sEzOdotn+tNQV4w6myeMDW+SVbIsNN8P5Ja+c9TVuTAow5ftS+KU8isK8HraIoWHgu4KbvcFeHtAXFFi3xjwNmAuVXD+djHjG8z/weP31DR7Tjc00TJImPEkFJxIPnhx2hngF3qKu9KYjUA/z/ymw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <0869534b-4481-d3d1-2afc-09560844d9d5@suse.com>
+Date: Fri, 6 Jan 2023 08:11:35 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v6 4/5] x86/mm: Reject invalid cacheability in PV guests
+ by default
+Content-Language: en-US
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+ <marmarek@invisiblethingslab.com>, Roger Pau Monne <roger.pau@citrix.com>,
+ Wei Liu <wl@xen.org>, "Tim (Xen.org)" <tim@xen.org>,
+ George Dunlap <George.Dunlap@citrix.com>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <cover.1671744225.git.demi@invisiblethingslab.com>
+ <2236399f561d348937f2ff7777fe47ad4236dbda.1671744225.git.demi@invisiblethingslab.com>
+ <c6223295-c4f9-8fa8-7635-80d48094190f@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <c6223295-c4f9-8fa8-7635-80d48094190f@citrix.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0129.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::17) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Subject: [linux-linus test] 175591: regressions - FAIL
-X-Osstest-Failures:
-    linux-linus:test-amd64-amd64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-intel:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/src_host:fail:regression
-    linux-linus:test-amd64-amd64-pair:xen-boot/dst_host:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-intel:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-bios:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-dom0pvh-xl-amd:guest-start:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvhv2-amd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd12-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine-uefi:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-freebsd11-amd64:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-pygrub:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-shadow:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-pvshim:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl-qemuu-ovmf-amd64:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-examine:reboot:fail:regression
-    linux-linus:test-amd64-coresched-amd64-xl:xen-boot:fail:regression
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-amd64-amd64-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=41c03ba9beea760bd2d2ac9250b09a2e192da2dc
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 06 Jan 2023 07:00:56 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 79b9a312-a0d2-49dd-bc05-08daefb53ff2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	HffHmHG3QUyYvttGBY2irtzuM5ced7UXhSmTV3vBy9eXsWy4WrOUfgwOzUDSlls5rTHNCqhvCf70ltkFr15bUO8RlhTmothzLY7uBMhqCzJMxh//c3RqB90qpghirRU9ML3YLUTX63TGlfIraOH3u0c8tLCRZnml6ikH4tZ4dC+TNWQWjoHtlIzqhr3h0tN7WjSQgHoSFGXFiaxS5BvHRwaxA4LKOScFnJbH8p6xTyS2c6Z76Qu/EbggqFN2SN60zNdnnjLemUMx81dUlLILpuc/3o/xgvUlJOxccWQGds/Wyb8Mwhk3GV7GaypdQYrWyJmQNyarpmLRyiieJlS6OJ/lo8BTWkH7508qNdfEYkQPaz9vWOpOMfqPckDop7rGyW5rNLinJX+MiMcEiQNFKNAbdWdyiPzozZ67BILx+FgSALWqoXpcM2p3uyPj2lbdWT/UqW4bCZ4SQJGjp0K3J4r7/KUI1r1SrISOgt0s5Qz0SFL4mW67G2HS9XWsVBlPHXScCIGMpqnp2siB6MoCjhZf+GPikhJfdUXcaIhgAQmhLFMbWIPC+2GarTxaS0cxq4fGoWlvR8MQQeR6ihUjFC3KXUyPw6Q3euIdnsMkR7SFPPx5WAfFuXVklklFMqIMWoYFZAzgeuExlcZN7n+voCko/H7W+gd9FKQxi6rjuu/GpwhiSxb++LjDyqfdYzVCSQnUYpQYw06LAu7N0/CADnbJWW36Zgwr7Jdjm5h3L7c=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(346002)(39860400002)(396003)(136003)(376002)(451199015)(83380400001)(2616005)(86362001)(31696002)(38100700002)(36756003)(54906003)(316002)(2906002)(8936002)(41300700001)(66556008)(4326008)(66946007)(8676002)(53546011)(6512007)(26005)(66476007)(478600001)(186003)(6486002)(31686004)(5660300002)(6916009)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Z3RiZnFSbUFBMTB3SHkvbkdqelluQ0VGVDZmQmJoUE01WGxXNms3ZFNXZHpO?=
+ =?utf-8?B?eHFIU3U2L2NXTjBzN0EwRU9BMXAxMlhsbHpyNS96ZFE2dkF4M2hIWkNDVC9s?=
+ =?utf-8?B?Y0oySitWaW1JUGlCcTNlOXhVM21nRFhNTDIzTE1VSnUrTnNNMlN2cTRKUlpO?=
+ =?utf-8?B?SHErTWpkTGxvOGRtczBHZTJlL05qUTBES1VCZGt4Y2srTVJwUktENE9rVlBj?=
+ =?utf-8?B?RDNCSDdtYzN2U2k5dUdvdG9ETXFnODBjS0srcFhPY3Rrem54cDFRZlljQk5Y?=
+ =?utf-8?B?cnpLZEk1U1RENXJvdVlXbHAxbi9WTXdWMDVoemVVeUtRTnJWWTNEZUVyTG80?=
+ =?utf-8?B?OTdiRVRXRW1ia0JhYXF0aktQbWl2cTc5aVpCK0xhVnk1ZXQ0dFVPQlB5RkhX?=
+ =?utf-8?B?ZExUN25ZeFRGZHBNMjJCRUxqS25DNUVNK1ZIbnJBNUxiTUNpQk5wTVRreEM4?=
+ =?utf-8?B?TVd2NDJWYitadDk5S0tSUWVuM0ZJNUo5akx0bTFTN2FEOFpOcUpQMDlhWG5F?=
+ =?utf-8?B?MldXWkJmVTQ1SS9vRzg2Qm5vOGVZNXcxU21KWFlneldGZnBnU0g5WWN3Z0d4?=
+ =?utf-8?B?RWJ3d29sRXJZbkFoSGoxdENyeis3dXZjS2JINUFUQXpta3hmRGowOThRT2J2?=
+ =?utf-8?B?MmpsMjFSVlNQWXZuMEMwQ0hOdDRpUUJHcFVLWTJiZDZTRzRlTDByYTlzRGo5?=
+ =?utf-8?B?SDJ2ek4zeGw2N0ZKZlhxUnIvcVY0QXlOL081Z2l4SkNDVUVldkRmUVpZeU91?=
+ =?utf-8?B?bTkyVUhzLzZSdXc5cGFVMXhROWxTa1hHdjJGT1RHdDJCUWZxYzg2UGVtci9k?=
+ =?utf-8?B?cGduVjhSbVRFNklTdGpPcGVOcVZFU2IyaWNybkIzUUQyeUtMT1Y4TTdHOGFv?=
+ =?utf-8?B?ZnNGcHBnV0VIUkhOT0tWdVh0N1BJTDBOUkt4bEsxbWJsc0ZBd0tPZnUyK01w?=
+ =?utf-8?B?UU9peHU5SXNYYTBkRnpxby85aTMwYXpGV0E2OVhBYTB0L2pzQUU2ZVZDYzhX?=
+ =?utf-8?B?eVVKOVVWTG9oUHFSNFEraDN3WVlpSzFCbVFpRmxEdlRMb2JrUkV0eDVaekFO?=
+ =?utf-8?B?Q0dWaXFhT1RNd2duaG8yTEZLeHI0T05LZnBQUndWai9XcUxSWFFrb1czYWF0?=
+ =?utf-8?B?OXBFMktaUE80OVA5b3JKTUhSeGZZRGdyU0ovOXFTMVQxemJFVGRPVVV2RGZJ?=
+ =?utf-8?B?TGxIUHNYb1BWYWZmNkkxanJNTVA2TDdyVTZNMGFwNnBJSnhpTFdtOGNWVkxH?=
+ =?utf-8?B?SlJ5bC80UTVwVXNUbEJJUXNZQkZRTk81alVYRGhUR1pCeHR2OTExV2pnNDVn?=
+ =?utf-8?B?UDJ3SS94VlljWHpSYkFsUnlGV1IvcWFMeUtUdnhpZkQ2dzU5UWFacVQyazhL?=
+ =?utf-8?B?UDJoR3o3MnNKS3ZJR0E4N1lGYWVWWXBaMG0yTWdtWkRVbWovMXNPaHZxaUNF?=
+ =?utf-8?B?eDRSWTJyTlAvaUtpMkxMc0hycEpNY2dSalB0b29xM3QwRWRKYTBGbWp6K0Zh?=
+ =?utf-8?B?cE1nOXdKVVJ2c0pabmUvRU94RklRZDBHaVE4RHN0N2E3aU43b0dTdHRPV242?=
+ =?utf-8?B?WGFDQ0ZsRmEzVGVuSHBrb0ppTnA3RVdJbi9rdzczNFlHc3FFTTlSdkxraTI2?=
+ =?utf-8?B?R2kwaUZ2OXJMZlpYNDJrdmgxdGg1U29hZEY5QW12WmxRRFdNN3BBN2FadWIw?=
+ =?utf-8?B?T09DUGswRlhZTzJDVXVGRmVUQXFmQXRpSWpyd2h4clVrWUlkdndpdjZPZGdx?=
+ =?utf-8?B?SlVkQnQ0QUhxczNFMk4zVDN6UnRsYWRveTNBc0tmeGxYTmNiemY3RWZKdGk3?=
+ =?utf-8?B?cExsSVZOS2VJOVRRcTZ6Slp4RzRGbGVGeFJPS0JYTVMwMHdabW5wdGhiM0dy?=
+ =?utf-8?B?ak9kdVhJWkpTMjBwRDNneUVOM2o2K0tNdVB1TnFFb1hTalhsYTZoLzhncCtm?=
+ =?utf-8?B?SkZMVnYwOG8wdXpmMVpXN1dLVUVPelE1bzBYcnZ4cmpreUNjTVEyYVJ1MFBz?=
+ =?utf-8?B?MktzSzE1R1RRcWRraXpOMkRxeTIxa1cvZitTREtmYnJvdFVhUlNYTEt0eVN5?=
+ =?utf-8?B?TEh0M1BhRnVqS1Z5M2ZuNUNqTWxDTkk1dUdxSUJHVFpGbFlXT2tNb3ZtbWU3?=
+ =?utf-8?Q?a24DWZVbFQAGTcK+rpU7DTZWX?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79b9a312-a0d2-49dd-bc05-08daefb53ff2
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jan 2023 07:11:36.9056
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DVQd4rDxEdi6rGYpskdP6bYcAmzaB0VKxB1XC0IXVuRmOxNo9VUAjzm/RmmYyCMrIax3A2YlL4yT+cPwgjCUuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8976
 
-flight 175591 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175591/
+On 05.01.2023 21:28, Andrew Cooper wrote:
+> On 22/12/2022 10:31 pm, Demi Marie Obenour wrote:
+>> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+>> index 424b12cfb27d6ade2ec63eacb8afe5df82465451..0230a7bc17cbd4362a42ea64cea695f31f5e0f86 100644
+>> --- a/docs/misc/xen-command-line.pandoc
+>> +++ b/docs/misc/xen-command-line.pandoc
+>> @@ -1417,6 +1417,17 @@ detection of systems known to misbehave upon accesses to that port.
+>>  ### idle_latency_factor (x86)
+>>  > `= <integer>`
+>>  
+>> +### invalid-cacheability (x86)
+>> +> `= allow | deny | trap`
+>> +
+>> +> Default: `deny` in release builds, otherwise `trap`
+>> +
+>> +Specify what happens when a PV guest tries to use one of the reserved entries in
+>> +the PAT.  `deny` causes the attempt to be rejected with -EINVAL, `allow` allows
+>> +the attempt, and `trap` causes a general protection fault to be raised.
+>> +Currently, the reserved entries are marked as uncacheable in Xen's PAT, but this
+>> +will change if new memory types are added, so guests must not rely on it.
+>> +
+> 
+> This wants to be scoped under "pv", and not a top-level option.  Current
+> parsing is at the top of xen/arch/x86/pv/domain.c
+> 
+> How about `pv={no-}oob-pat`, and parse it into the opt_pv_oob_pat boolean ?
+> 
+> There really is no need to distinguish between deny and trap.  IMO,
+> injecting #GP unilaterally is fine (to a guest expecting the hypercall
+> to succeed, -EINVAL vs #GP makes no difference, but #GP is far more
+> useful to a human trying to debug issues here), but I could be talked
+> into putting that behind a CONFIG_DEBUG if other feel strongly.
 
-Regressions :-(
+What is or is not useful to guests is guesswork. They might be "handling"
+failure with BUG(), in which case they'd still see a backtrace. So to me,
+as previously said, injecting #GP in the case here can only reasonably be
+a debugging aid (and hence be dependent upon DEBUG).
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-amd64-amd64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-amd64-amd64-libvirt-pair 12 xen-boot/src_host       fail REGR. vs. 173462
- test-amd64-amd64-libvirt-pair 13 xen-boot/dst_host       fail REGR. vs. 173462
- test-amd64-amd64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-qemuu-nested-intel  8 xen-boot          fail REGR. vs. 173462
- test-amd64-amd64-dom0pvh-xl-intel 14 guest-start         fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-pair        12 xen-boot/src_host        fail REGR. vs. 173462
- test-amd64-amd64-pair        13 xen-boot/dst_host        fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-xl-pvhv2-intel  8 xen-boot              fail REGR. vs. 173462
- test-amd64-amd64-examine-bios  8 reboot                  fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-win7-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-win7-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-dom0pvh-xl-amd 14 guest-start           fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  8 xen-boot fail REGR. vs. 173462
- test-amd64-amd64-qemuu-nested-amd  8 xen-boot            fail REGR. vs. 173462
- test-amd64-amd64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-pvhv2-amd  8 xen-boot                fail REGR. vs. 173462
- test-amd64-amd64-freebsd12-amd64  8 xen-boot             fail REGR. vs. 173462
- test-amd64-amd64-examine-uefi  8 reboot                  fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-ws16-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-xl-qemut-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
- test-amd64-amd64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-freebsd11-amd64  8 xen-boot             fail REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-pygrub       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-shadow    8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-pvshim    8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  8 xen-boot    fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow 8 xen-boot fail REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
- test-amd64-amd64-xl-qemuu-ovmf-amd64  8 xen-boot         fail REGR. vs. 173462
- test-amd64-amd64-xl           8 xen-boot                 fail REGR. vs. 173462
- test-amd64-amd64-examine      8 reboot                   fail REGR. vs. 173462
- test-amd64-coresched-amd64-xl  8 xen-boot                fail REGR. vs. 173462
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 8 xen-boot fail REGR. vs. 173462
- test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
-
-Regressions which are regarded as allowable (not blocking):
- test-amd64-amd64-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
- test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
-
-version targeted for testing:
- linux                41c03ba9beea760bd2d2ac9250b09a2e192da2dc
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-
-Last test of basis   173462  2022-10-07 18:41:45 Z   90 days
-Failing since        173470  2022-10-08 06:21:34 Z   90 days  187 attempts
-Testing same since   175579  2023-01-05 04:57:31 Z    1 days    2 attempts
-
-------------------------------------------------------------
-3265 people touched revisions under test,
-not listing them all
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          fail    
- test-amd64-coresched-amd64-xl                                fail    
- test-arm64-arm64-xl                                          fail    
- test-armhf-armhf-xl                                          fail    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        fail    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-libvirt-xsm                                 fail    
- test-arm64-arm64-libvirt-xsm                                 fail    
- test-amd64-amd64-xl-xsm                                      fail    
- test-arm64-arm64-xl-xsm                                      fail    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                fail    
- test-amd64-amd64-dom0pvh-xl-amd                              fail    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    fail    
- test-amd64-amd64-freebsd11-amd64                             fail    
- test-amd64-amd64-freebsd12-amd64                             fail    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         fail    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  fail    
- test-amd64-amd64-examine-bios                                fail    
- test-amd64-amd64-xl-credit1                                  fail    
- test-arm64-arm64-xl-credit1                                  fail    
- test-armhf-armhf-xl-credit1                                  fail    
- test-amd64-amd64-xl-credit2                                  fail    
- test-arm64-arm64-xl-credit2                                  fail    
- test-armhf-armhf-xl-credit2                                  fail    
- test-armhf-armhf-xl-cubietruck                               pass    
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        fail    
- test-amd64-amd64-examine                                     fail    
- test-arm64-arm64-examine                                     fail    
- test-armhf-armhf-examine                                     fail    
- test-amd64-amd64-qemuu-nested-intel                          fail    
- test-amd64-amd64-xl-pvhv2-intel                              fail    
- test-amd64-amd64-dom0pvh-xl-intel                            fail    
- test-amd64-amd64-libvirt                                     fail    
- test-armhf-armhf-libvirt                                     fail    
- test-amd64-amd64-xl-multivcpu                                fail    
- test-armhf-armhf-xl-multivcpu                                fail    
- test-amd64-amd64-pair                                        fail    
- test-amd64-amd64-libvirt-pair                                fail    
- test-amd64-amd64-xl-pvshim                                   fail    
- test-amd64-amd64-pygrub                                      fail    
- test-amd64-amd64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               fail    
- test-amd64-amd64-libvirt-raw                                 fail    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 fail    
- test-amd64-amd64-xl-rtds                                     fail    
- test-armhf-armhf-xl-rtds                                     fail    
- test-arm64-arm64-xl-seattle                                  fail    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             fail    
- test-amd64-amd64-xl-shadow                                   fail    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                fail    
- test-amd64-amd64-xl-vhd                                      fail    
- test-arm64-arm64-xl-vhd                                      fail    
- test-armhf-armhf-xl-vhd                                      fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-(No revision log; it would be 498271 lines long.)
+Jan
 
