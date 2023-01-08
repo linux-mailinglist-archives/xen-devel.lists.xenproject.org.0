@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EA37661672
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Jan 2023 17:15:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.473190.733690 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D45196616AF
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Jan 2023 17:31:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.473198.733702 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEYKM-0007u7-Il; Sun, 08 Jan 2023 16:15:18 +0000
+	id 1pEYYy-0001nE-RF; Sun, 08 Jan 2023 16:30:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 473190.733690; Sun, 08 Jan 2023 16:15:18 +0000
+Received: by outflank-mailman (output) from mailman id 473198.733702; Sun, 08 Jan 2023 16:30:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEYKM-0007s3-Fz; Sun, 08 Jan 2023 16:15:18 +0000
-Received: by outflank-mailman (input) for mailman id 473190;
- Sun, 08 Jan 2023 16:15:16 +0000
+	id 1pEYYy-0001lH-OQ; Sun, 08 Jan 2023 16:30:24 +0000
+Received: by outflank-mailman (input) for mailman id 473198;
+ Sun, 08 Jan 2023 16:30:23 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pEYKK-0007rx-Li
- for xen-devel@lists.xenproject.org; Sun, 08 Jan 2023 16:15:16 +0000
+ (envelope-from <julien@xen.org>) id 1pEYYx-0001lB-7b
+ for xen-devel@lists.xenproject.org; Sun, 08 Jan 2023 16:30:23 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pEYKI-0002wD-B7; Sun, 08 Jan 2023 16:15:14 +0000
+ id 1pEYYu-0003KX-74; Sun, 08 Jan 2023 16:30:20 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pEYKI-00048z-4P; Sun, 08 Jan 2023 16:15:14 +0000
+ id 1pEYYu-0004dP-09; Sun, 08 Jan 2023 16:30:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,122 +42,140 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=GmJ/zyeoEhIUHgdbR+I4UZJePj+rfIrAL48WhbxkeSM=; b=YC8sprd7xd+Z8RbQAxqCRoy4Xq
-	leyu1wzrZhxoUx8sEQ4sfJn2JH5cknpVxYb1+/BpTRcV2QzQsVf56mBo9C8+vgTEn0jEVe1PTq/KM
-	Y1kE4w1pYiD/KVpLF5GFUb2o9QYLfSBmlqp0Aa9ixynOhxeN9qwAcz8/8nLxP9rovoNw=;
-Message-ID: <611b0857-155a-a50b-5996-ce735ebce22d@xen.org>
-Date: Sun, 8 Jan 2023 16:15:12 +0000
+	bh=VqVrJAhAwMQZyArxthFYx4Bi7j19mKF+UQf2Vp0behw=; b=wyBgwnw1ukLAB2drrYM1VA2lQk
+	fUiUHCf0C+5mDIzder8uOpk0YCHZyQbuhU781JBLgJcKQZXF/LBlJp7UPH1bQ4CrpliKw6Ey8JApk
+	vAY9ZOuj0SyAbVbMWvdGSyzyd1NFXr1LoDANwQJANlArhatBwoF+M1QMeRp9HVjIeVLs=;
+Message-ID: <7b0435dd-bf2b-fa26-daba-7dec43f9c88e@xen.org>
+Date: Sun, 8 Jan 2023 16:30:17 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Stefano Stabellini <sstabellini@kernel.org>
-Cc: Henry Wang <Henry.Wang@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <20221014080917.14980-1-Henry.Wang@arm.com>
- <a947e0b4-8f76-cea6-893f-abf30ff95e0d@xen.org>
- <AS8PR08MB7991FD5994497D812FE3AE2E92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <9d5ab09e-650f-118d-0233-d7988f1504f1@xen.org>
- <AS8PR08MB799170627B34BD2627CE3092921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <e6643bfc-5bdf-f685-1b68-b28d341071c1@xen.org>
- <alpine.DEB.2.22.394.2212091409020.3075842@ubuntu-linux-20-04-desktop>
- <A52E1C09-40F1-416C-A085-2F2320EE69EA@arm.com>
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ "Smith, Jackson" <rsmith@riversideresearch.org>,
+ "Brookes, Scott" <sbrookes@riversideresearch.org>,
+ Xen-devel <xen-devel@lists.xenproject.org>,
+ "bertrand.marquis@arm.com" <bertrand.marquis@arm.com>,
+ "jbeulich@suse.com" <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ "Daniel P. Smith" <dpsmith@apertussolutions.com>,
+ "christopher.w.clark@gmail.com" <christopher.w.clark@gmail.com>
+References: <BN0P110MB1642835E0DE845205B5EA59CCFE39@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <b7a367d4-a9df-0733-5a11-6ba11043c6b5@xen.org>
+ <BN0P110MB1642A6DCBD15780CD8767B8CCFE19@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <513d0cc3-a305-5029-32f7-67993ae83c55@xen.org>
+ <alpine.DEB.2.22.394.2212151725090.315094@ubuntu-linux-20-04-desktop>
+ <7a7a7156-138d-a53c-fb65-a210e14bd8c1@xen.org>
+ <BN0P110MB16429FF1A9FF3507A684C5B2CFEA9@BN0P110MB1642.NAMP110.PROD.OUTLOOK.COM>
+ <Y6I3oqYdTKa/57I/@itl-email>
+ <alpine.DEB.2.22.394.2212211639070.4079@ubuntu-linux-20-04-desktop>
+ <af62bf3c-1046-3ed2-8662-e79375fe4794@xen.org>
+ <alpine.DEB.2.22.394.2212221109220.4079@ubuntu-linux-20-04-desktop>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 mapping in
- arch_domain_create()
-In-Reply-To: <A52E1C09-40F1-416C-A085-2F2320EE69EA@arm.com>
+Subject: Re: [RFC 0/4] Adding Virtual Memory Fuses to Xen
+In-Reply-To: <alpine.DEB.2.22.394.2212221109220.4079@ubuntu-linux-20-04-desktop>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Bertrand,
+Hi Stefano,
 
-On 03/01/2023 12:34, Bertrand Marquis wrote:
-> Hi,
-> 
-> Sorry for the delay but I have very limited access to my mails right now.
-> 
->> On 9 Dec 2022, at 23:11, Stefano Stabellini <sstabellini@kernel.org 
->> <mailto:sstabellini@kernel.org>> wrote:
+On 22/12/2022 21:28, Stefano Stabellini wrote:
+> On Thu, 22 Dec 2022, Julien Grall wrote:
+>>> What other hypervisors might or might not do should not be a factor in
+>>> this discussion and it would be best to leave it aside.
 >>
->> On Fri, 9 Dec 2022, Julien Grall wrote:
->>> Hi Henry,
->>>
->>> On 08/12/2022 03:06, Henry Wang wrote:
->>>> I am trying to work on the follow-up improvements about the Arm P2M 
->>>> code,
->>>> and while trying to address the comment below, I noticed there was an
->>>> unfinished
->>>> discussion between me and Julien which I would like to continue and here
->>>> opinions from all of you (if possible).
->>>>
->>>>> -----Original Message-----
->>>>> From: Julien Grall <julien@xen.org <mailto:julien@xen.org>>
->>>>> Subject: Re: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 
->>>>> mapping in
->>>>> arch_domain_create()
->>>>>>> I also noticed that relinquish_p2m_mapping() is not called. This
->>>>>>> should
->>>>>>> be fine for us because arch_domain_create() should never create a
->>>>>>> mapping that requires p2m_put_l3_page() to be called.
->>>>
->>>> For the background of the discussion, this was about the failure path of
->>>> arch_domain_create(), where we only call p2m_final_teardown() which does
->>>> not call relinquish_p2m_mapping()...
->>> So all this mess with the P2M is necessary because we are mapping the 
->>> GICv2
->>> CPU interface in arch_domain_create(). I think we should consider to 
->>> defer the
->>> mapping to later.
->>>
->>> Other than it makes the code simpler, it also means we could also the 
->>> P2M root
->>> on the same numa node the domain is going to run (those information 
->>> are passed
->>> later on).
->>>
->>> There is a couple of options:
->>> 1. Introduce a new hypercall to finish the initialization of a domain 
->>> (e.g.
->>> allocating the P2M and map the GICv2 CPU interface). This option was 
->>> briefly
->>> discussed with Jan (see [2])./
->>> 2. Allocate the P2M when populate the P2M pool and defer the GICv2 CPU
->>> interface mapping until the first access (similar to how with deal 
->>> with MMIO
->>> access for ACPI).
->>>
->>> I find the second option is neater but it has the drawback that it 
->>> requires on
->>> more trap to the hypervisor and we can't report any mapping failure 
->>> (which
->>> should not happen if the P2M was correctly sized). So I am leaning 
->>> towards
->>> option 2.
->>>
->>> Any opinions?
+>> To be honest, Demi has a point. At the moment, VMF is a very niche use-case
+>> (see more below). So you would end up to use less than 10% of the normal Xen
+>> on Arm code. A lot of people will likely wonder why using Xen in this case?
+> 
+> [...]
+> 
+>>>   From an AMD/Xilinx point of view, most of our customers using Xen in
+>>> productions today don't use any hypercalls in one or more of their VMs.
+>> This suggests a mix of guests are running (some using hypercalls and other
+>> not). It would not be possible if you were using VMF.
+> 
+> It is true that the current limitations are very restrictive.
+> 
+> In embedded, we have a few pure static partitioning deployments where no
+> hypercalls are required (Linux is using hypercalls today but it could do
+> without), so maybe VMF could be enabled, but admittedly in those cases
+> the main focus today is safety and fault tolerance, rather than
+> confidential computing.
+> 
+> 
+>>> Xen is great for these use-cases and it is rather common in embedded.
+>>> It is certainly a different configuration from what most are come to
+>>> expect from Xen on the server/desktop x86 side. There is no question
+>>> that guests without hypercalls are important for Xen on ARM. >
+>>> As a Xen community we have a long history and strong interest in making
+>>> Xen more secure and also, more recently, safer (in the ISO 26262
+>>> safety-certification sense). The VMF work is very well aligned with both
+>>> of these efforts and any additional burder to attackers is certainly
+>>> good for Xen.
 >>
->> Option 1 is not great due to the extra hypercall. But I worry that
->> option 2 might make things harder for safety because the
->> mapping/initialization becomes "dynamic". I don't know if this is a
->> valid concern.
+>> I agree that we have a strong focus on making Xen more secure. However, we
+>> also need to look at the use cases for it. As it stands, there will no:
+>>    - IOREQ use (don't think about emulating TPM)
+>>    - GICv3 ITS
+>>    - stage-1 SMMUv3
+>>    - decoding of instructions when there is no syndrome
+>>    - hypercalls (including event channels)
+>>    - dom0
 >>
->> I would love to hear Bertrand's thoughts about it. Putting him in To:
+>> That's a lot of Xen features that can't be used. Effectively you will make Xen
+>> more "secure" for a very few users.
 > 
-> How option 1 would work for dom0less ?
+> Among these, the main problems affecting AMD/Xilinx users today would be:
+> - decoding of instructions
+> - hypercalls, especially event channels
+> 
+> Decoding of instructions would affect all our deployments. For
+> hypercalls, even in static partitioning deployments, sometimes event
+> channels are used for VM-to-VM notifications.
+> 
+> 
+>>> Now the question is what changes are necessary and how to make them to
+>>> the codebase. And if it turns out that some of the changes are not
+>>> applicable or too complex to accept, the decision will be made purely
+>>> from a code maintenance point of view and will have nothing to do with
+>>> VMs making no hypercalls being unimportant (i.e. if we don't accept one
+>>> or more patches is not going to have anything to do with the use-case
+>>> being unimportant or what other hypervisors might or might not do).
+>> I disagree, I think this is also about use cases. On the paper VMF look very
+>> great, but so far it still has a big flaw (the TTBR can be changed) and it
+>> would restrict a lot what you can do.
+> 
+> We would need to be very clear in the commit messages and documentation
+> that with the current version of VMF we do *not* achieve confidential
+> computing and we do *not* offer protections comparable to AMD SEV. It is
+> still possible for Xen to access guest data, it is just a bit harder.
+> 
+>  From an implementation perspective, if we can find a way to implement it
+> that would be easy to maintain, then it might still be worth it. It
+> would probably take only a small amount of changes on top of the "Remove
+> the directmap" series to make it so "map_domain_page" doesn't work
+> anymore after boot.
 
-Xen would call the function directly. Effectively, this would the same 
-as all the other "hypercalls" we are using to build a dom0less domain.
+None of the callers of map_domain_page() expect the function to fais. So 
+some treewide changes will be needed in order to deal with 
+map_domain_page() not working. This is not something I am willing to 
+accept if the only user is VMF (at the moment I can't think of any other).
+
+So instead, we would need to come up with a way where map_domain_page() 
+will never be called at runtime when VMF is in use (maybe by compiling 
+out some code?). I haven't really looked in details to say whether 
+that's feasiable.
 
 > 
-> Option 2 would make safety more challenging but not impossible (we have 
-> a lot of other use cases where we cannot map everything on boot).
-> 
-> I would vote for option 2 as I think we will not certify gicv2 and it is 
-> not adding an other hyper call.
+> That might be worth exploring if you and Jackson agree?
 
-It sounds like option 2 is the preferred way for now. Henry, can you 
-have a look?
+I am OK to continue explore it because I think some bits will be still 
+useful for the general use. As for the full solution, I will wait and 
+see the results before deciding whether this is something that I would 
+be happy to merge/maintain.
 
 Cheers,
 
