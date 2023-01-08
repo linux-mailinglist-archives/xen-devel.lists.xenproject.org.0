@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E20566166B
-	for <lists+xen-devel@lfdr.de>; Sun,  8 Jan 2023 17:07:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.473183.733680 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EA37661672
+	for <lists+xen-devel@lfdr.de>; Sun,  8 Jan 2023 17:15:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.473190.733690 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEYCM-0006Qr-Pz; Sun, 08 Jan 2023 16:07:02 +0000
+	id 1pEYKM-0007u7-Il; Sun, 08 Jan 2023 16:15:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 473183.733680; Sun, 08 Jan 2023 16:07:02 +0000
+Received: by outflank-mailman (output) from mailman id 473190.733690; Sun, 08 Jan 2023 16:15:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEYCM-0006Oq-MN; Sun, 08 Jan 2023 16:07:02 +0000
-Received: by outflank-mailman (input) for mailman id 473183;
- Sun, 08 Jan 2023 16:07:01 +0000
+	id 1pEYKM-0007s3-Fz; Sun, 08 Jan 2023 16:15:18 +0000
+Received: by outflank-mailman (input) for mailman id 473190;
+ Sun, 08 Jan 2023 16:15:16 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pEYCL-0006Ok-MQ
- for xen-devel@lists.xenproject.org; Sun, 08 Jan 2023 16:07:01 +0000
+ (envelope-from <julien@xen.org>) id 1pEYKK-0007rx-Li
+ for xen-devel@lists.xenproject.org; Sun, 08 Jan 2023 16:15:16 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pEYCL-0002oi-AO; Sun, 08 Jan 2023 16:07:01 +0000
+ id 1pEYKI-0002wD-B7; Sun, 08 Jan 2023 16:15:14 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pEYCL-0003go-42; Sun, 08 Jan 2023 16:07:01 +0000
+ id 1pEYKI-00048z-4P; Sun, 08 Jan 2023 16:15:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,261 +42,122 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=lLRsBB8Nv9xfhlmusdMdDlR0vRlqvO+R9Os1teUNfd0=; b=5wgzVLwFES9dTOFu3lJnIuiKzG
-	LXRpr0o5mf228VhcGUiIpChjRph8QpFsvZf30LCPs0csfPdxIA544AKUl2NXD3xZ6eUzoMXduKxLQ
-	pK2k+BzvpqTXB8+uWqG475hSiB6bPV8A8qHIqNfjISyJMEt/nTvws6H5E3DTwoD0A0Cs=;
-Message-ID: <e26768b7-99f7-f4e4-6ae5-094d17e1594a@xen.org>
-Date: Sun, 8 Jan 2023 16:06:59 +0000
+	bh=GmJ/zyeoEhIUHgdbR+I4UZJePj+rfIrAL48WhbxkeSM=; b=YC8sprd7xd+Z8RbQAxqCRoy4Xq
+	leyu1wzrZhxoUx8sEQ4sfJn2JH5cknpVxYb1+/BpTRcV2QzQsVf56mBo9C8+vgTEn0jEVe1PTq/KM
+	Y1kE4w1pYiD/KVpLF5GFUb2o9QYLfSBmlqp0Aa9ixynOhxeN9qwAcz8/8nLxP9rovoNw=;
+Message-ID: <611b0857-155a-a50b-5996-ce735ebce22d@xen.org>
+Date: Sun, 8 Jan 2023 16:15:12 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, michal.orzel@amd.com,
- Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
-References: <20221221185300.5309-1-ayan.kumar.halder@amd.com>
+To: Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+Cc: Henry Wang <Henry.Wang@arm.com>, Wei Chen <Wei.Chen@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20221014080917.14980-1-Henry.Wang@arm.com>
+ <a947e0b4-8f76-cea6-893f-abf30ff95e0d@xen.org>
+ <AS8PR08MB7991FD5994497D812FE3AE2E92249@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <9d5ab09e-650f-118d-0233-d7988f1504f1@xen.org>
+ <AS8PR08MB799170627B34BD2627CE3092921D9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <e6643bfc-5bdf-f685-1b68-b28d341071c1@xen.org>
+ <alpine.DEB.2.22.394.2212091409020.3075842@ubuntu-linux-20-04-desktop>
+ <A52E1C09-40F1-416C-A085-2F2320EE69EA@arm.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [XEN v4] xen/arm: Probe the load/entry point address of an uImage
- correctly
-In-Reply-To: <20221221185300.5309-1-ayan.kumar.halder@amd.com>
+Subject: Re: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 mapping in
+ arch_domain_create()
+In-Reply-To: <A52E1C09-40F1-416C-A085-2F2320EE69EA@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Ayan,
+Hi Bertrand,
 
-On 21/12/2022 18:53, Ayan Kumar Halder wrote:
-> Currently, kernel_uimage_probe() does not read the load/entry point address
-> set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-> causes, kernel_zimage_place() to treat the binary (contained within uImage)
-> as position independent executable. Thus, it loads it at an incorrect
-> address.
+On 03/01/2023 12:34, Bertrand Marquis wrote:
+> Hi,
 > 
-> The correct approach would be to read "uimage.load" and set
-> info->zimage.start. This will ensure that the binary is loaded at the
-> correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-> address).
+> Sorry for the delay but I have very limited access to my mails right now.
 > 
-> If user provides load address (ie "uimage.load") as 0x0, then the image is
-> treated as position independent executable. Xen can load such an image at
-> any address it considers appropriate. A position independent executable
-> cannot have a fixed entry point address.
+>> On 9 Dec 2022, at 23:11, Stefano Stabellini <sstabellini@kernel.org 
+>> <mailto:sstabellini@kernel.org>> wrote:
+>>
+>> On Fri, 9 Dec 2022, Julien Grall wrote:
+>>> Hi Henry,
+>>>
+>>> On 08/12/2022 03:06, Henry Wang wrote:
+>>>> I am trying to work on the follow-up improvements about the Arm P2M 
+>>>> code,
+>>>> and while trying to address the comment below, I noticed there was an
+>>>> unfinished
+>>>> discussion between me and Julien which I would like to continue and here
+>>>> opinions from all of you (if possible).
+>>>>
+>>>>> -----Original Message-----
+>>>>> From: Julien Grall <julien@xen.org <mailto:julien@xen.org>>
+>>>>> Subject: Re: [PATCH v2] xen/arm: p2m: Populate pages for GICv2 
+>>>>> mapping in
+>>>>> arch_domain_create()
+>>>>>>> I also noticed that relinquish_p2m_mapping() is not called. This
+>>>>>>> should
+>>>>>>> be fine for us because arch_domain_create() should never create a
+>>>>>>> mapping that requires p2m_put_l3_page() to be called.
+>>>>
+>>>> For the background of the discussion, this was about the failure path of
+>>>> arch_domain_create(), where we only call p2m_final_teardown() which does
+>>>> not call relinquish_p2m_mapping()...
+>>> So all this mess with the P2M is necessary because we are mapping the 
+>>> GICv2
+>>> CPU interface in arch_domain_create(). I think we should consider to 
+>>> defer the
+>>> mapping to later.
+>>>
+>>> Other than it makes the code simpler, it also means we could also the 
+>>> P2M root
+>>> on the same numa node the domain is going to run (those information 
+>>> are passed
+>>> later on).
+>>>
+>>> There is a couple of options:
+>>> 1. Introduce a new hypercall to finish the initialization of a domain 
+>>> (e.g.
+>>> allocating the P2M and map the GICv2 CPU interface). This option was 
+>>> briefly
+>>> discussed with Jan (see [2])./
+>>> 2. Allocate the P2M when populate the P2M pool and defer the GICv2 CPU
+>>> interface mapping until the first access (similar to how with deal 
+>>> with MMIO
+>>> access for ACPI).
+>>>
+>>> I find the second option is neater but it has the drawback that it 
+>>> requires on
+>>> more trap to the hypervisor and we can't report any mapping failure 
+>>> (which
+>>> should not happen if the P2M was correctly sized). So I am leaning 
+>>> towards
+>>> option 2.
+>>>
+>>> Any opinions?
+>>
+>> Option 1 is not great due to the extra hypercall. But I worry that
+>> option 2 might make things harder for safety because the
+>> mapping/initialization becomes "dynamic". I don't know if this is a
+>> valid concern.
+>>
+>> I would love to hear Bertrand's thoughts about it. Putting him in To:
 > 
-> This behavior is applicable for both arm32 and arm64 platforms.
-> 
-> Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-> point address set in the uImage header. With this commit, Xen will use them.
-> This makes the behavior of Xen consistent with uboot for uimage headers.
+> How option 1 would work for dom0less ?
 
-The changes look good to me (with a few of comments below). That said, 
-before acking the code, I would like an existing user of uImage (maybe 
-EPAM or Arm?) to confirm they are happy with the change.
+Xen would call the function directly. Effectively, this would the same 
+as all the other "hypercalls" we are using to build a dom0less domain.
 
 > 
-> Users who want to use Xen with statically partitioned domains, can provide
-> non zero load address and entry address for the dom0/domU kernel. It is
-> required that the load and entry address provided must be within the memory
-> region allocated by Xen.
+> Option 2 would make safety more challenging but not impossible (we have 
+> a lot of other use cases where we cannot map everything on boot).
 > 
-> A deviation from uboot behaviour is that we consider load address == 0x0,
-> to denote that the image supports position independent execution. This
-> is to make the behavior consistent across uImage and zImage.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changes from v1 :-
-> 1. Added a check to ensure load address and entry address are the same.
-> 2. Considered load address == 0x0 as position independent execution.
-> 3. Ensured that the uImage header interpretation is consistent across
-> arm32 and arm64.
-> 
-> v2 :-
-> 1. Mentioned the change in existing behavior in booting.txt.
-> 2. Updated booting.txt with a new section to document "Booting Guests".
-> 
-> v3 :-
-> 1. Removed the constraint that the entry point should be same as the load
-> address. Thus, Xen uses both the load address and entry point to determine
-> where the image is to be copied and the start address.
-> 2. Updated documentation to denote that load address and start address
-> should be within the memory region allocated by Xen.
-> 3. Added constraint that user cannot provide entry point for a position
-> independent executable (PIE) image.
-> 
->   docs/misc/arm/booting.txt         | 26 ++++++++++++++++++
->   xen/arch/arm/include/asm/kernel.h |  2 +-
->   xen/arch/arm/kernel.c             | 45 ++++++++++++++++++++++++++++---
->   3 files changed, 69 insertions(+), 4 deletions(-)
-> 
-> diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
-> index 3e0c03e065..12339dfecb 100644
-> --- a/docs/misc/arm/booting.txt
-> +++ b/docs/misc/arm/booting.txt
-> @@ -23,6 +23,28 @@ The exceptions to this on 32-bit ARM are as follows:
->   
->   There are no exception on 64-bit ARM.
->   
-> +Booting Guests
-> +--------------
-> +
-> +Xen supports the legacy image header[3], zImage protocol for 32-bit
-> +ARM Linux[1] and Image protocol defined for ARM64[2].
-> +
-> +Earlier for legacy image protocol, Xen ignored the load address and
+> I would vote for option 2 as I think we will not certify gicv2 and it is 
+> not adding an other hyper call.
 
-We should explicitly say when the change was introduced. So please 
-replace "Earlier" with "Until Xen 4.17...". The rest of the sentence may 
-be reworded.
-
-> +entry point specified in the header. This has now changed.
-> +
-> +Now, it loads the image at the load address provided in the header.
-> +And the entry point is used as the kernel start address.
-> +
-> +A deviation from uboot is that, Xen treats "load address == 0x0" as
-> +position independent execution (PIE). Thus, Xen will load such an image
-> +at an address it considers appropriate. Also, user cannot specify the
-> +entry point of a PIE image since the start address cennot be
-> +predetermined.
-> +
-> +Users who want to use Xen with statically partitioned domains, can provide
-> +the fixed non zero load address and start address for the dom0/domU kernel.
-> +The load address and start address specified by the user in the header must
-> +be within the memory region allocated by Xen.
->   
->   Firmware/bootloader requirements
->   --------------------------------
-> @@ -39,3 +61,7 @@ Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/t
->   
->   [2] linux/Documentation/arm64/booting.rst
->   Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arm64/booting.rst
-> +
-> +[3] legacy format header
-> +Latest version: https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
-> +https://linux.die.net/man/1/mkimage
-> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-> index 5bb30c3f2f..4617cdc83b 100644
-> --- a/xen/arch/arm/include/asm/kernel.h
-> +++ b/xen/arch/arm/include/asm/kernel.h
-> @@ -72,7 +72,7 @@ struct kernel_info {
->   #ifdef CONFIG_ARM_64
->               paddr_t text_offset; /* 64-bit Image only */
->   #endif
-> -            paddr_t start; /* 32-bit zImage only */
-> +            paddr_t start; /* Must be 0 for 64-bit Image */
->           } zimage;
->       };
->   };
-> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-> index 23b840ea9e..58b3db0aa4 100644
-> --- a/xen/arch/arm/kernel.c
-> +++ b/xen/arch/arm/kernel.c
-> @@ -127,7 +127,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
->       paddr_t load_addr;
->   
->   #ifdef CONFIG_ARM_64
-> -    if ( info->type == DOMAIN_64BIT )
-> +    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
->           return info->mem.bank[0].start + info->zimage.text_offset;
->   #endif
->   
-> @@ -162,7 +162,12 @@ static void __init kernel_zimage_load(struct kernel_info *info)
->       void *kernel;
->       int rc;
->   
-> -    info->entry = load_addr;
-> +    /*
-> +     * If the image does not have a fixed entry point, then use the load
-> +     * address as the entry point.
-> +     */
-> +    if ( info->entry == 0 )
-> +        info->entry = load_addr;
->   
->       place_modules(info, load_addr, load_addr + len);
->   
-> @@ -223,10 +228,35 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->       if ( len > size - sizeof(uimage) )
->           return -EINVAL;
->   
-> +    info->zimage.start = be32_to_cpu(uimage.load);
-> +    info->entry = be32_to_cpu(uimage.ep);
-> +
-> +    /*
-> +     * While uboot considers 0x0 to be a valid load/start address, for Xen
-> +     * to mantain parity with zimage, we consider 0x0 to denote position
-
-s/mantain/maintain/
-s/zimage/zImage/
-
-> +     * independent image. That means Xen is free to load such an image at
-> +     * any valid address.
-> +     * Thus, we will print an appropriate message.
-
-NIT: No need to say you will print a message.
-
-> +     */
-> +    if ( info->zimage.start == 0 )
-> +        printk(XENLOG_INFO
-> +               "No load address provided. Xen will decide where to load it.\n");
-
-NIT: I would consider to add a else and printing the requested load 
-address and entry point.
-
-> +
-> +    /*
-> +     * If the image supports position independent execution, then user cannot
-> +     * provide an entry point as Xen will load such an image at any appropriate
-> +     * memory address. Thus, we need to return error.
-> +     */
-> +    if ( (info->zimage.start == 0) && (info->entry != 0) )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "Entry point cannot be non zero for PIE image.\n");
-> +        return -EINVAL;
-> +    }
-> +
->       info->zimage.kernel_addr = addr + sizeof(uimage);
->       info->zimage.len = len;
->   
-> -    info->entry = info->zimage.start;
->       info->load = kernel_zimage_load;
->   
->   #ifdef CONFIG_ARM_64
-> @@ -366,6 +396,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
->       info->zimage.kernel_addr = addr;
->       info->zimage.len = end - start;
->       info->zimage.text_offset = zimage.text_offset;
-> +    info->zimage.start = 0;
->   
->       info->load = kernel_zimage_load;
->   
-> @@ -436,6 +467,14 @@ int __init kernel_probe(struct kernel_info *info,
->       u64 kernel_addr, initrd_addr, dtb_addr, size;
->       int rc;
->   
-> +    /* We need to initialize start to 0. This field may be populated during
-
-Coding style:
-
-/*
-  * Foo
-  * Bar
-  */
-
-> +     * kernel_xxx_probe() if the image has a fixed entry point (for eg
-
-s/eg/e.g./
-
-> +     * uimage.ep).
-> +     * We will use this to determine if the image has a fixed entry point or
-> +     * the load address should be used as the start address.
-> +     */
-> +    info->entry = 0;
-> +
->       /* domain is NULL only for the hardware domain */
->       if ( domain == NULL )
->       {
+It sounds like option 2 is the preferred way for now. Henry, can you 
+have a look?
 
 Cheers,
 
