@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 543CF662A6A
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 16:47:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.473753.734565 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C92E1662A69
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 16:47:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.473754.734569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEuMm-0003Uu-G6; Mon, 09 Jan 2023 15:47:16 +0000
+	id 1pEuMm-0003YM-RC; Mon, 09 Jan 2023 15:47:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 473753.734565; Mon, 09 Jan 2023 15:47:16 +0000
+Received: by outflank-mailman (output) from mailman id 473754.734569; Mon, 09 Jan 2023 15:47:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEuMm-0003Or-5h; Mon, 09 Jan 2023 15:47:16 +0000
-Received: by outflank-mailman (input) for mailman id 473753;
+	id 1pEuMm-0003Ut-Fq; Mon, 09 Jan 2023 15:47:16 +0000
+Received: by outflank-mailman (input) for mailman id 473754;
  Mon, 09 Jan 2023 15:47:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=GnCm=5G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pEuMk-0001Ok-UG
+ id 1pEuMl-0002mL-C1
  for xen-devel@lists.xenproject.org; Mon, 09 Jan 2023 15:47:15 +0000
-Received: from mail-ej1-x62e.google.com (mail-ej1-x62e.google.com
- [2a00:1450:4864:20::62e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e24e44e0-9034-11ed-b8d0-410ff93cb8f0;
- Mon, 09 Jan 2023 16:47:12 +0100 (CET)
-Received: by mail-ej1-x62e.google.com with SMTP id qk9so21190192ejc.3
- for <xen-devel@lists.xenproject.org>; Mon, 09 Jan 2023 07:47:13 -0800 (PST)
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e35c2200-9034-11ed-91b6-6bf2151ebd3b;
+ Mon, 09 Jan 2023 16:47:14 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id tz12so21150288ejc.9
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Jan 2023 07:47:14 -0800 (PST)
 Received: from 2a02.2378.102e.bce5.ip.kyivstar.net
  ([2a02:2378:102e:bce5:dfc0:9312:b994:6b21])
  by smtp.gmail.com with ESMTPSA id
- 22-20020a170906311600b0082535e2da13sm3851561ejx.6.2023.01.09.07.47.11
+ 22-20020a170906311600b0082535e2da13sm3851561ejx.6.2023.01.09.07.47.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Jan 2023 07:47:12 -0800 (PST)
+ Mon, 09 Jan 2023 07:47:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e24e44e0-9034-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: e35c2200-9034-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=fIal1kdq10TTB4IAGmI/j0NwEpx7kAoI5BB7eBhw2c4=;
-        b=X6IzhvtXWr5L9CiA8iGBX4kCz93hvBhLwnP8ZtqJPSMr76fMAiVYmZ3vg8QaDnCgvr
-         bzwQrLc6TMtZ/rCzBEcamajk03RWeXoiecRRdaQr6BEVq3QVGvSmZ3MlC0e+BqMEXQ7D
-         T3ddrQktmO/+w4+jQGLGio6IxcQVEM0hiT1o2QhyTMbxG3FPcUJvpUhCOiiiZ1nmG2zy
-         bWsy+dUeI8em63dtTOkABTf/0UGzBUa4PbGPuqqMPH8LUaRugXDXzCjoX2PE26OrEKSj
-         JJrl2u/i6PzGKJf7mUVVvJtbgD75uTEaqsktxMjEgNXnnnV3vZceIWP0OvdthFtZUK+2
-         +LYA==
+        bh=h4Pz1P177MM0Pgd5YIF5gjJ+E47uWjB6mT+S1Msdqus=;
+        b=mvHWZ/Po8AsyALfPQ85VY4fsnq1mIOxUKh2/XXSLd3JqbaJ92Olup/1digm91cv0gC
+         dZd2m45lB+qnUO7N3+Gpcrwsi95TSD6CfQv+6Ep4f/qviDGTQatchaK9RnzN856UYvTM
+         Xt3Mj9juPPGHHILnnAtGCP8COymH5VVhJ5vR+FaxO23lgxlb0ZhBbDxMpsGg+HQ8x8Jb
+         9+eRg3CdQNLj+QUXl5SAPitFz6YudBRxknhEgxm+FQZ1VmDACgnkUpj2St8/xlCyAkNY
+         KFyWSRmajDq/RxQ3gGmnBhn4XwCHuPqHZJppN41GxpyEbmKR7LPEYAlt3AAe4shjRGEU
+         sTEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=fIal1kdq10TTB4IAGmI/j0NwEpx7kAoI5BB7eBhw2c4=;
-        b=7WHJDpAeOZNYZgFBgcO2Ydv7njRYvGPPJSxFo6KwTfzCSiRZkk5IJCd3XawluLW62k
-         sQbZXDk3wSiJlz4G6XrwUhJY+TUVhFwo7fc6cygYAqy5aBBigi7oarrOYH7V7j0C65g0
-         RtE+afdI2tqnGWvJz7lqx4jzy3XPB0WIOMm905b82uunhuiQ7xyAy71dz8lOobbOcYbF
-         k6+cfQAQ+FbmPKIqXbf219Z8lyvccXKssLaUMbnFaTNCN40oWMm8VG5XHY1aFybdxhlR
-         uz7IWUuhd/2hdG3TgvJ8e4oCn57RIKY5MpycTAFF5JN8pPM6/eJuQwre1vedPNSTgNnC
-         34EA==
-X-Gm-Message-State: AFqh2kppSZQifeejXVtBRYlcnubmeDriv9urXX878EWBIaldsb2QSY5K
-	US5CYU3zDW8VkI759ReQt6EekzcLzDObng==
-X-Google-Smtp-Source: AMrXdXsjwJwsKL7IqSx/UEmA78Tx6k+7Bgr/10WtTZ8nfNqziQbzWADBp4e3VxAIHznhJt2Cos4E5A==
-X-Received: by 2002:a17:906:4892:b0:84d:489b:f1b1 with SMTP id v18-20020a170906489200b0084d489bf1b1mr3172007ejq.75.1673279232532;
-        Mon, 09 Jan 2023 07:47:12 -0800 (PST)
+        bh=h4Pz1P177MM0Pgd5YIF5gjJ+E47uWjB6mT+S1Msdqus=;
+        b=iI1MeWRHQbc1qwod58ewcEhSs6J8rq82oCNWKkw/ENJ2y6Rwoa3JyW31UTcaQxDXDy
+         8AMCXrOXbHJUFoIWL0ozGf5enYlSxRHoRbLJN/MJkipxusm6Gp1nW21gZZ5tpcc7kIZd
+         +gM8eCzorMTV1/DyV1A7edcfvUXmuR9FxZdOZ/shCOrAWderQUtKz9BE1ftOH92qTjLq
+         Kp9TKSP5sciIywWKVhbxjiYP180GSANmdA2Q759+G5I2xnhDsrq1VE0cjkVEPBYaAXzV
+         jgZ2TIJKqUSkFtJY03MfksGe9ChQ5rtGdCImvMaiDSn31dh8ByHujq47yF+3jkZvnuhp
+         7XBg==
+X-Gm-Message-State: AFqh2kp6LlHRyk3/FPa0cdH00+IrQKFw32TaWLSBt7SGCYcecRAA61sf
+	/GZjhIEYnFE3mX97rx0lOPmMaie2U9kR6Q==
+X-Google-Smtp-Source: AMrXdXuPy+TC91tuEc1UgylA0Yqd8RJGvEiIih4KUnWHYbKwDvuGdEfAw/R1yhKsNCju7XVZMT5xYg==
+X-Received: by 2002:a17:907:c007:b0:7ad:f165:70c2 with SMTP id ss7-20020a170907c00700b007adf16570c2mr77178927ejc.27.1673279233938;
+        Mon, 09 Jan 2023 07:47:13 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
@@ -83,59 +83,97 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Gianluca Guida <gianluca@rivosinc.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v2 7/8] xen/riscv: print hello message from C env
-Date: Mon,  9 Jan 2023 17:46:54 +0200
-Message-Id: <837bb553a539713d4aa15bb169142018bf508afe.1673278109.git.oleksii.kurochko@gmail.com>
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v2 8/8] automation: add RISC-V smoke test
+Date: Mon,  9 Jan 2023 17:46:55 +0200
+Message-Id: <494c2fd1e046de20c2fa24be3989cc6adde8fdbe.1673278109.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1673278109.git.oleksii.kurochko@gmail.com>
 References: <cover.1673278109.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+Add check if there is a message 'Hello from C env' presents
+in log file to be sure that stack is set and C part of early printk
+is working.
+
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/riscv64/head.S |  4 +---
- xen/arch/riscv/setup.c        | 12 ++++++++++++
- 2 files changed, 13 insertions(+), 3 deletions(-)
+Changes in V2:
+    - Move changes in the dockerfile to separate patch and  send it to
+      mailing list separately:
+        [PATCH] automation: add qemu-system-riscv to riscv64.dockerfile
+    - Update test.yaml to wire up smoke test
+---
+ automation/gitlab-ci/test.yaml           | 20 ++++++++++++++++++++
+ automation/scripts/qemu-smoke-riscv64.sh | 20 ++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
+ create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
 
-diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
-index c1f33a1934..d444dd8aad 100644
---- a/xen/arch/riscv/riscv64/head.S
-+++ b/xen/arch/riscv/riscv64/head.S
-@@ -5,6 +5,4 @@ ENTRY(start)
-         li      t0, STACK_SIZE
-         add     sp, sp, t0
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index afd80adfe1..64f47a0ab9 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -54,6 +54,19 @@
+   tags:
+     - x86_64
  
--_start_hang:
--        wfi
--        j       _start_hang
-+        tail    start_xen
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 41ef4912bd..586060c7e5 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -1,6 +1,18 @@
- #include <xen/init.h>
- #include <xen/compile.h>
++.qemu-riscv64:
++  extends: .test-jobs-common
++  variables:
++    CONTAINER: archlinux:riscv64
++    LOGFILE: qemu-smoke-riscv64.log
++  artifacts:
++    paths:
++      - smoke.serial
++      - '*.log'
++    when: always
++  tags:
++    - x86_64
++
+ .yocto-test:
+   extends: .test-jobs-common
+   script:
+@@ -234,6 +247,13 @@ qemu-smoke-x86-64-clang-pvh:
+   needs:
+     - debian-unstable-clang-debug
  
-+#include <asm/early_printk.h>
++qemu-smoke-riscv64-gcc:
++  extends: .qemu-riscv64
++  script:
++    - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
++  needs:
++    - riscv64-cross-gcc
 +
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-     __aligned(STACK_SIZE);
+ # Yocto test jobs
+ yocto-qemuarm64:
+   extends: .yocto-test-arm64
+diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+new file mode 100755
+index 0000000000..e0f06360bc
+--- /dev/null
++++ b/automation/scripts/qemu-smoke-riscv64.sh
+@@ -0,0 +1,20 @@
++#!/bin/bash
 +
-+void __init noreturn start_xen(void)
-+{
-+    early_printk("Hello from C env\n");
++set -ex
 +
-+    for ( ;; )
-+        asm volatile ("wfi");
++# Run the test
++rm -f smoke.serial
++set +e
 +
-+    unreachable();
-+}
++timeout -k 1 2 \
++qemu-system-riscv64 \
++    -M virt \
++    -smp 1 \
++    -nographic \
++    -m 2g \
++    -kernel binaries/xen \
++    |& tee smoke.serial
++
++set -e
++(grep -q "Hello from C env" smoke.serial) || exit 1
++exit 0
 -- 
 2.38.1
 
