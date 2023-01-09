@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0F6C662B3F
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 17:30:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.473864.734693 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 261FD662B4D
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 17:33:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.473871.734705 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEv2l-0000EE-9J; Mon, 09 Jan 2023 16:30:39 +0000
+	id 1pEv5R-0000uF-Pt; Mon, 09 Jan 2023 16:33:25 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 473864.734693; Mon, 09 Jan 2023 16:30:39 +0000
+Received: by outflank-mailman (output) from mailman id 473871.734705; Mon, 09 Jan 2023 16:33:25 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEv2l-0000AQ-6F; Mon, 09 Jan 2023 16:30:39 +0000
-Received: by outflank-mailman (input) for mailman id 473864;
- Mon, 09 Jan 2023 16:30:37 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pEv5R-0000rQ-Mj; Mon, 09 Jan 2023 16:33:25 +0000
+Received: by outflank-mailman (input) for mailman id 473871;
+ Mon, 09 Jan 2023 16:33:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=f6do=5G=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pEv2j-0000AJ-8L
- for xen-devel@lists.xenproject.org; Mon, 09 Jan 2023 16:30:37 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2088.outbound.protection.outlook.com [40.107.20.88])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f1bc7c91-903a-11ed-91b6-6bf2151ebd3b;
- Mon, 09 Jan 2023 17:30:36 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8882.eurprd04.prod.outlook.com (2603:10a6:20b:42d::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Mon, 9 Jan
- 2023 16:30:34 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5986.018; Mon, 9 Jan 2023
- 16:30:33 +0000
+ (envelope-from <SRS0=0yl/=5G=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1pEv5P-0000rI-OO
+ for xen-devel@lists.xenproject.org; Mon, 09 Jan 2023 16:33:23 +0000
+Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
+ [2a00:1450:4864:20::52a])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 54a76ad2-903b-11ed-b8d0-410ff93cb8f0;
+ Mon, 09 Jan 2023 17:33:21 +0100 (CET)
+Received: by mail-ed1-x52a.google.com with SMTP id s5so13318235edc.12
+ for <xen-devel@lists.xenproject.org>; Mon, 09 Jan 2023 08:33:21 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,162 +39,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f1bc7c91-903a-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P08qqfpkV3nR2yLxeo2XiTX3EaTtPuUaTcZvOnfdakfF1TDN9MWn2flYaMXEQIMRVCK2GurN5tnFxcRJ3Is9lOqP9RwxL3ZjbfjfkDueRoo4nnFDPzwoKY/m84NNQRd45qvVL9q/uWNtk6sXw4q+JqLurJFUkbvoFW3yqznsCfXWMFr5OeXTKUqBhVudlNIXttNuxJASFoYriEaoYZwSbNRbvqm/uK6SB9DrKD6DzDxPEI662cSav/cCqZc0Z6wabJ3lZ4Q1g9CpJB1TjPl0N0F8oU43gLINPkCk2ks1ynXIS1F1EDKIK7kCTTtUjuQ+XgIUwZ9cneiyaJxk12Xytw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VgMU/SgV6KX0g0UGb94kr9WJ66aNKxszDwcL6jaddWQ=;
- b=FszD5OIaCx1xFPdMxglqcygRyVkvtpM0CzZzosp1ot8qsZhy9vTN2e+Ae+V7hyQDqSHafr3ntNXbhGUSFq0e6+v0J4NaDZKKQMwMciZuH+9s1y7LFpONvX8zKtmydwvJjdHXrQnBUzPnIN1NoLA8+oqas/N5akwoDngc44Fek+ItQ+trCY5e0gnq1/ZSeaaoA8XoiYatvMQ6PvK7O5ckcprrw388/8rI121gJEHSN5VB0180EXsdZ4agO7CVBfUGcpGwEqoVaRz/hHsr/WSGK/eNrWhEmUHSqxXDNFmPiGQGcKLMh3nlKMIqaQxXSvdFxQmc2I3emQm/FTXhOGIskQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VgMU/SgV6KX0g0UGb94kr9WJ66aNKxszDwcL6jaddWQ=;
- b=ENKrlq++bOWJaC/Wl58fYWYUu3Wu9R/XP/Q/aaFr5PDlFRBiM+vPkCbJ/HTI5rPhb5mkFgkyYSpbpI06Zr3byrjZe5MNC/JncpkSdD8pTDRgRG4bQjedHaAFHBTt2F+d9dY34YqBs1KPnX8w7FKp8EydwOax6oz0I0ShaTSKdK3nPW5eqYuab6Zl6zlxKkpareOa2VhYH4jcPIP0KTK4dd7qUw9OSv6ym2yBgTAgPB02wOm3c0EnLk+80TATSY1FMxrlilMO45VxoQ7frsrCyj0g4TkV/XhVgXOkIhqgKpq9pxu6knpNz7JPKWvfh5Zc6q5wRonsc4ccd6y715oESg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <caa35078-7b53-4936-a8d1-42bdf72df4d8@suse.com>
-Date: Mon, 9 Jan 2023 17:30:21 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 2/6] x86/prot-key: Split PKRU infrastructure out of
- asm/processor.h
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20211216095421.12871-1-andrew.cooper3@citrix.com>
- <20211216095421.12871-3-andrew.cooper3@citrix.com>
- <427dc257-b318-de55-7126-0446264401f8@suse.com>
- <b7c7d431-e7d5-9dd5-a33c-c61e53c42acc@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <b7c7d431-e7d5-9dd5-a33c-c61e53c42acc@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0002.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 54a76ad2-903b-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Zpopwb8KrQWBXzBjPf9ZHOHK5nNkCWT6pVvIG4FyUoE=;
+        b=H8Pl71SJ5f7aqxRvGqq/bFEXF26SjbnF6m0XUI83tTieEDfb2mVzv82XW7Jwq2VU1T
+         AdZPo7+FlMGmXWouyOEkYlD3xoq9Hd/9G/UANGMK8KrqQSdk0UyCBCdPR7KoVJasdVgk
+         VoR3myf1srd7KCnIiLrTn41YPcEpPB9qWLEBE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Zpopwb8KrQWBXzBjPf9ZHOHK5nNkCWT6pVvIG4FyUoE=;
+        b=bbWcy3aUMC2a3xmsD4AZ0G17j6EyCZsN/lTYBSH8mbkEM62xFonJZZKiXlXyvq0ciH
+         asIlIbJAoqTHLnQqICMuDf1yo/FFAtDexJt21t6MnvLeWQ5Qe59tHtzq6YMIhYQsNs35
+         9KPtqLawerZrDGzKi2rNkeVS2sbPT7ctZ6Zwbd9ZdUf0IYJfNIL5UwI+g+Zci8kz60Fp
+         izisgsF9Jj1TcT3BgH5QE0vP9f4x3lZMAoMOhgyG3lL40Yie1NESgUr6UHsQ8u1IHP1q
+         esgaEv8dQ0tZLzLMEGwfJq+IX5JWcDVUp+TSflUpkZm2A1H1w6Gwst1s4tDSnl+/yyp2
+         cZdw==
+X-Gm-Message-State: AFqh2kp/Fl4La6flcsnAivaRH4Uzbukw8l6GzikPAKL7mj6lf8RMVpdq
+	2f28+cypffcZPOyRMACZJqcdyNWURts4Hu6ARuIu1g==
+X-Google-Smtp-Source: AMrXdXvC+aTYlGOLRuOjXHLpOfr0ey/W1GaCHKISSZRkiLP8yi/g2FsVydgIYKsenZ88MxmOw+CGpf+WKp1Muj6PfPw=
+X-Received: by 2002:a05:6402:78f:b0:499:9dfa:4388 with SMTP id
+ d15-20020a056402078f00b004999dfa4388mr656297edy.106.1673282001371; Mon, 09
+ Jan 2023 08:33:21 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8882:EE_
-X-MS-Office365-Filtering-Correlation-Id: 986730dc-34ef-4064-0ba9-08daf25ed4a7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	t2xMNLbuWQAsK5GJPk9m3ApsT/QG3Xxs8AAdEzqigA3jQD6oLjVjGhAwNeJtdffzMrwzk7SF7sl3j2qhht+ax8TriouXhoBszY73QaRX4zQtTOXH+XDuYsEq/RWnLQgkQzjqIFNdCxbdiLaEURfsVmXI/bpF338sVOIUpkML9c1nyQfed7HfP38F+hO3MPQLIyVgK6TxmG6xgvmx3cMmhVVQd5jXFl44ZXb60AMhzZP83jUzbgzV5R3VdOSPvdcZX/c+ywktzPWEUKaRxj5w3tOFdnBhZvwjYQ3thZE4cQkP66MJ/PzOs6tefF3X+Rbx0tTZLuxbM9OMwsI21UhGtEQmMwjZo+o6in/6RD5FaWxM0w7P4OgdV6YN7vQzTKLwJu+dNtFWEsaC2USUhYL1Hw8ez8z1rtyOSClSElUH73etAiLa8VelnSCDHJLzIewlSw/Osy0xN70VE6pvv8JiprsTCwTM4gQWH0nEtHt9cB73/VkGd4ddYcoltvWEKC61LaZKIsdHayA+mczjAa2ukngHLeK7mgw4Mbtrwg5bpJtMfhfQD3NTvs7sZNGlDDNhd2jJP0yGEEsnY81m2SgVTND2VMbOXRcpTGzvLTZHJfz7gqC4U4tUakYGSVvf637EayuEABttL2DiG+rRpEFXud9tiVmtSVptB4mDlDpG9eQ4ydaVqoWU5Lv15Lh6zW8XsYXcnInp5MQSMmR+2vY5ms1K7JI1jd7M2QmMqewu1Suar5ufMFpwHcG2es4T4JrPx5A0xhND/F0j8Ftzkh1vO3YiUUFML4g2qcQPGqcePpI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(366004)(39860400002)(376002)(136003)(396003)(451199015)(8936002)(2906002)(5660300002)(41300700001)(66556008)(4326008)(6916009)(8676002)(66476007)(316002)(66946007)(54906003)(186003)(26005)(6512007)(2616005)(38100700002)(31686004)(86362001)(83380400001)(36756003)(31696002)(478600001)(6486002)(6506007)(53546011)(6666004)(2004002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SFA0WGZlRDZmaE5sdFRPOUlpZmtoNlNSZ0lFQk5sL0lLWnFNakR1WEpFd2ky?=
- =?utf-8?B?TzB2Yk1rTEt6a2liRWVvTnpIL0k2STRjWmVDcGtzYnJ6dXRhaklFYmpMdE81?=
- =?utf-8?B?TTRyV1B2OWtaRVRPczdkc0pta3ZxaGtjMUZOSVYzY1hqY0QxaEZGNmI4YVVX?=
- =?utf-8?B?VlJaTmwrR1AwSVdlZExzTUN6bmhvSU5ub2RkU1dETUhiUVdYbVlyM3Nod1Mv?=
- =?utf-8?B?akpNUjRhZWpUbnViUlM4czB2Rk1oeDd6TzRteTQ1UEVqb0lDSFg4SGhXREsv?=
- =?utf-8?B?SytKTENlSHU4elI5YXYxSWl5R09FeG5QWGhlSTRUKzFZbkszZU4rcmE4M0FZ?=
- =?utf-8?B?dnNXTkgrcWxSZVhxczU3Tk1FKzlFYUVsK0lLb2ppU3ZMRExIQURlQ3BDSG00?=
- =?utf-8?B?RHFBNnBRTHlqaWJWMUtvN1JYSllTYzd4UTFNWFdORmpnN2FhSnNSblJTNmk1?=
- =?utf-8?B?NEJTbHNzYmswNFlHblFzVW1UUmdmYjZ4cTFvRVRhUktITU4vOHJzWWVlUzVM?=
- =?utf-8?B?TDh6dExabHhKSFlBc1grMXJCeHZVRmE2dVgrTzV0bUhqdG5iY2RmK1pTKzNp?=
- =?utf-8?B?YXc3dVpldjk4TlA1akhGbzRja0l4QXUvWVRBcUdHcjIxNTNsYjJwanl3RStw?=
- =?utf-8?B?YXQ2YVBKNjVpZmk4dzRmb0Rnb1dGYUtldGMzUUVBeElJTFJqQW16ekJFTlJy?=
- =?utf-8?B?SXIvZFlqWmNKWmd2bktPV1lEOUdYS3J2N1pqL3B0MUF2T3JUd2Y3aDZwbWxx?=
- =?utf-8?B?V3hldXo0WWs4NlprQ25URS9SMGdUTDVtcS9YaUw5VVBSVWJTZFFnZmljV1RZ?=
- =?utf-8?B?dzk4MU9vL0hiTk52ejlZZTM0YlVGRDJOMWJ6MW85eG8rcG8vcW9pT2hiQkNa?=
- =?utf-8?B?YWxDandnV0h6Z2RtTjM0Snp3QmpkOEQwQTUxK05tWjhnM0x4b21HTHY1SUlr?=
- =?utf-8?B?c3BjZCtqQ0NwQnhONFlDVWQ3SEJydTVrZVNZeDQ1Ynpoc1VLeTJiZVVyQlJl?=
- =?utf-8?B?UDgxeTF3cEVLRTZPUG9zK1NCczFnTHNlN3lTblFvUVNCY0pnVktuaXgyREpU?=
- =?utf-8?B?c2NodEJnemo4dWs3UG5BRWUzNytVcnZzR2tFakdSa3VzTFVNa2IybEtqNnBP?=
- =?utf-8?B?cEZNdHhwVlc2VlZvN0VjQWlqc0NlaVJTRWh5czhxM3pkV2E4Mm5iMHNmYi9K?=
- =?utf-8?B?dk43Yms3R0dyZEkrWUhEMXdDV0pveVlwcjVYMjdnQ3ozZHZCNEoxMStQbGNw?=
- =?utf-8?B?Mi96cHNka2hTSXcwc3dTMS9ValI1YmR0UElOTnBTTkN5YUxkRGhRaTZxdTVE?=
- =?utf-8?B?cHl6SW1McFVrMFE5MzM1Z3ZPTndZenJ0M3hKWGRUL3Y1Z3VqVFZ2cDNyenVI?=
- =?utf-8?B?WEdXYWdrcnltK3ZnNUh6aklDQW10Qzc1M21SQUZneWQ0NGZwbEVFRjJWT0l6?=
- =?utf-8?B?MzFCSll1TUhrc3JyR1l3Um5idXVMZ2pqbGF5WXBQM3lkUnpqU1dRRTA0TGxt?=
- =?utf-8?B?MGZvczdUb3Q3VkMyZjl2R044Z25wTXo0UzBaY2RCMFc2TktzQjE2VXZscS8w?=
- =?utf-8?B?VE1zc3J2a1RMTEEzMHZWNlZHL2srR0cwRHBrRmN5L2RrMEFNR0NxN1ZJUUdG?=
- =?utf-8?B?WVFEdlgvV1ozMEJEcXB1T1I5Yko2NGExSHRmc0trQzZuVFVvRnkydEQwL3FD?=
- =?utf-8?B?UlZsZVFNRFY0Q1Q1WDFKTUVIS1NCYXJ6c1pZQlpBVzJFcjczVWhFZ3lUa3pE?=
- =?utf-8?B?YUtDMWxacmk5S3lqZkFuTmVYdkJPdytqbGxBTmZtVGs4UU9TVitGREErbUpW?=
- =?utf-8?B?R2hjeWlKT0tWRm9FZUpsVytrNTlxTU1TU2U1RzJ2R2NtcU5wSFdCcE1RQTVo?=
- =?utf-8?B?cTZFdHdMNllHUmcxU2dOQ3l6UkFGaXEwK1ZMeG4wTHZ1azc0QVRkTGUwN3dN?=
- =?utf-8?B?QllSU3NNZmwya1hDbmdCRWU0L0N5ZVpvNUlrbDBtQlo3YXd2VXhRZ2Q4ckor?=
- =?utf-8?B?dDdYK1U4WHRqUVQrRDNLdnVHOEJiOEdhRVg5cEJ5enFCL3pRcWhKNmMyeUlQ?=
- =?utf-8?B?eHRRRFozekUzNkpwUHVITHdaWVlsd0RBdjFldXdKVGl2TnMvcmhab0czZWRl?=
- =?utf-8?Q?Eah3Gblf1m+M4KCovhHT73+TQ?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 986730dc-34ef-4064-0ba9-08daf25ed4a7
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jan 2023 16:30:33.7098
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +L2lHc1DcyLzi6F0nb0S1soPtBkBkT1rFKLfWnRzpzLDo5QPqa5TdoBaKxUO1kK0RrvR0XQtDOeubbO02OEMrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8882
+References: <20221208104924.76637-1-george.dunlap@cloud.com>
+ <9b8cace3-1593-8400-0633-da04f12b9849@xen.org> <CA+zSX=Z=fX+BPHqxNVTiNipkBWdWPf+g0H6vetHoSy3vtN0shQ@mail.gmail.com>
+In-Reply-To: <CA+zSX=Z=fX+BPHqxNVTiNipkBWdWPf+g0H6vetHoSy3vtN0shQ@mail.gmail.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 9 Jan 2023 16:33:10 +0000
+Message-ID: <CA+zSX=aeqLkS-dXj+eQMiO931MqwDO5vwdpvX9cumHoLrEsqEw@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Clarify check-in requirements for
+ mixed-author patches
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, George Dunlap <george.dunlap@citrix.com>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>
+Content-Type: multipart/alternative; boundary="0000000000004d14cc05f1d75381"
 
-On 09.01.2023 15:57, Andrew Cooper wrote:
-> On 21/12/2021 11:28 am, Jan Beulich wrote:
->> On 16.12.2021 10:54, Andrew Cooper wrote:
->>> --- /dev/null
->>> +++ b/xen/arch/x86/include/asm/prot-key.h
->>> @@ -0,0 +1,45 @@
->>> +/******************************************************************************
->>> + * arch/x86/include/asm/spec_ctrl.h
->>> + *
->>> + * This program is free software; you can redistribute it and/or modify
->>> + * it under the terms of the GNU General Public License as published by
->>> + * the Free Software Foundation; either version 2 of the License, or
->>> + * (at your option) any later version.
->>> + *
->>> + * This program is distributed in the hope that it will be useful,
->>> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
->>> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
->>> + * GNU General Public License for more details.
->>> + *
->>> + * You should have received a copy of the GNU General Public License
->>> + * along with this program; If not, see <http://www.gnu.org/licenses/>.
->>> + *
->>> + * Copyright (c) 2021 Citrix Systems Ltd.
->>> + */
->>> +#ifndef ASM_PROT_KEY_H
->>> +#define ASM_PROT_KEY_H
->>> +
->>> +#include <xen/types.h>
->>> +
->>> +#define PKEY_AD 1 /* Access Disable */
->>> +#define PKEY_WD 2 /* Write Disable */
->>> +
->>> +#define PKEY_WIDTH 2 /* Two bits per protection key */
->>> +
->>> +static inline uint32_t rdpkru(void)
->>> +{
->>> +    uint32_t pkru;
->> I agree this wants to be uint32_t (i.e. unlike the original function),
->> but I don't see why the function's return type needs to be, the more
->> that the sole caller also uses unsigned int for the variable to store
->> the result in.
-> 
-> This is thinnest-possible wrapper around an instruction which
-> architecturally returns exactly 32 bits of data.
-> 
-> It is literally the example that CODING_STYLE uses to demonstrate when
-> fixed width types should be used.
+--0000000000004d14cc05f1d75381
+Content-Type: text/plain; charset="UTF-8"
 
-I don't read it like that, but I guess we're simply drawing the line in
-different places (and agreeing on one place would be nice). To me using
-uint32_t for a variable accessed by an asm() is what is meant. But that
-then (to me) doesn't extend to the function return type here.
+On Thu, Dec 8, 2022 at 2:26 PM George Dunlap <george.dunlap@cloud.com>
+wrote:
 
-But no, I don't mean to block this change just because of this aspect.
-We've got many far worse uses of types, which bother me more. It merely
-would be nice if new code (regardless of the contributor) ended up all
-consistent in this regard.
+>
+>
+> On Thu, Dec 8, 2022 at 1:58 PM Julien Grall <julien@xen.org> wrote:
+>
+>> Hi George,
+>>
+>> On 08/12/2022 10:49, George Dunlap wrote:
+>> > From: George Dunlap <george.dunlap@citrix.com>
+>> >
+>> > There was a question raised recently about the requriements for
+>>
+>> Typo: s/requriements/requirements/
+>
+> ...
+>
+>> Typo: s/non-maintiners/maintainers/
+>>
+>
+> Thanks, I've changed these locally.
+>
+>
+>> Acked-by: Julien Grall <jgrall@amazon.com>
+>>
+>
+> Great, thanks.
+>
 
-Jan
+This has now been checked in.
+
+ -George
+
+--0000000000004d14cc05f1d75381
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 8, 2022 at 2:26 PM George=
+ Dunlap &lt;<a href=3D"mailto:george.dunlap@cloud.com">george.dunlap@cloud.=
+com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
+in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
+x"><div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quot=
+e"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Dec 8, 2022 at 1:58 PM Jul=
+ien Grall &lt;<a href=3D"mailto:julien@xen.org" target=3D"_blank">julien@xe=
+n.org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"ma=
+rgin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:=
+1ex">Hi George,<br>
+<br>
+On 08/12/2022 10:49, George Dunlap wrote:<br>
+&gt; From: George Dunlap &lt;<a href=3D"mailto:george.dunlap@citrix.com" ta=
+rget=3D"_blank">george.dunlap@citrix.com</a>&gt;<br>
+&gt; <br>
+&gt; There was a question raised recently about the requriements for<br>
+<br>
+Typo: s/requriements/requirements/</blockquote><div>...=C2=A0</div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">
+Typo: s/non-maintiners/maintainers/<br></blockquote><div><br></div><div>Tha=
+nks, I&#39;ve changed these locally.</div><div>=C2=A0</div><blockquote clas=
+s=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid r=
+gb(204,204,204);padding-left:1ex">
+Acked-by: Julien Grall &lt;<a href=3D"mailto:jgrall@amazon.com" target=3D"_=
+blank">jgrall@amazon.com</a>&gt;<br></blockquote><div><br></div><div>Great,=
+ thanks.</div></div></div></blockquote><div><br></div><div>This has now bee=
+n checked in.</div><div><br></div><div>=C2=A0-George</div><div><br></div><b=
+lockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-le=
+ft:1px solid rgb(204,204,204);padding-left:1ex">
+</blockquote></div></div>
+
+--0000000000004d14cc05f1d75381--
 
