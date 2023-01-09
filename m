@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3348662AC8
-	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 17:05:57 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.473815.734610 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A0ED662AD1
+	for <lists+xen-devel@lfdr.de>; Mon,  9 Jan 2023 17:07:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.473822.734622 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEueX-0001ki-MT; Mon, 09 Jan 2023 16:05:37 +0000
+	id 1pEug0-0002Jc-1S; Mon, 09 Jan 2023 16:07:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 473815.734610; Mon, 09 Jan 2023 16:05:37 +0000
+Received: by outflank-mailman (output) from mailman id 473822.734622; Mon, 09 Jan 2023 16:07:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pEueX-0001i7-Jp; Mon, 09 Jan 2023 16:05:37 +0000
-Received: by outflank-mailman (input) for mailman id 473815;
- Mon, 09 Jan 2023 16:05:37 +0000
+	id 1pEufz-0002Hj-V5; Mon, 09 Jan 2023 16:07:07 +0000
+Received: by outflank-mailman (input) for mailman id 473822;
+ Mon, 09 Jan 2023 16:07:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pEueX-0001hx-0v; Mon, 09 Jan 2023 16:05:37 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pEufz-0002Hd-Cm
+ for xen-devel@lists.xenproject.org; Mon, 09 Jan 2023 16:07:07 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pEueW-00029Y-Vp; Mon, 09 Jan 2023 16:05:37 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pEueW-00082M-H7; Mon, 09 Jan 2023 16:05:36 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pEueW-0001fP-Gf; Mon, 09 Jan 2023 16:05:36 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pEufy-0002B3-RV; Mon, 09 Jan 2023 16:07:06 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.1.158]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pEufy-0000ri-L0; Mon, 09 Jan 2023 16:07:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,151 +39,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=hzMp4kf7ewhiebxZJhujzGBOUE6QnW3wQl+VrAby+2o=; b=jS04LdynFfKl9FzZzZjaX4fFNw
-	K5COQZ5C6gN7CLpt0rTR/6DNf1JPDVK/4dVzefGxpgXGHqnqXIVnXthflafThAvf8CU3b++eJbZ3R
-	UqKoGTCZqm5unTCnXFeQiyu0jQhVx26akMk4qDqqDzfQ7t0hy6vex7Ee+kntr0Aq+Mnk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175638-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=h+ucAGSqSnprEn74b8uqbOL5dKAdNpX+IN8afJ1FO9c=; b=rQYsFLllnDmUOWkyS6M08PcLTT
+	KiUlNT4fZvPc99ntVY93Siwn7yVKf4BaiLHhEUn5YxYM90N95lDOL8oRlNgPIbjq0hy9Qpqj3NEpM
+	6nDXSs+Oq4CBxj/Mmzo0d8Wb2YvhPLTzaBzUCG8dh4uBpVJOlsyTZ8nbvptyJ2QObKA4=;
+Message-ID: <215518b9-7ced-26bb-b64d-5cbae11342bd@xen.org>
+Date: Mon, 9 Jan 2023 16:07:04 +0000
 MIME-Version: 1.0
-Subject: [libvirt test] 175638: tolerable FAIL - PUSHED
-X-Osstest-Failures:
-    libvirt:test-arm64-arm64-libvirt-qcow2:guest-start/debian.repeat:fail:heisenbug
-    libvirt:test-arm64-arm64-libvirt-raw:guest-start/debian.repeat:fail:heisenbug
-    libvirt:test-armhf-armhf-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=ffd286ac6f25374d16f4eaa7ff64e30c77541b41
-X-Osstest-Versions-That:
-    libvirt=7050dad5f92010720cc8e8b7d5c37eaad7696c5e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 09 Jan 2023 16:05:36 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v2 6/8] xen/riscv: introduce early_printk basic stuff
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+ xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Bobby Eshleman <bobby.eshleman@gmail.com>
+References: <cover.1673278109.git.oleksii.kurochko@gmail.com>
+ <527727b2c9e26e6ef7714fe9a3fbe580caf1ae13.1673278109.git.oleksii.kurochko@gmail.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <527727b2c9e26e6ef7714fe9a3fbe580caf1ae13.1673278109.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-flight 175638 libvirt real [real]
-flight 175645 libvirt real-retest [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175638/
-http://logs.test-lab.xenproject.org/osstest/logs/175645/
+Hi,
 
-Failures :-/ but no regressions.
+On 09/01/2023 15:46, Oleksii Kurochko wrote:
+> The patch introduces a basic stuff of early_printk functionality
+> which will be enough to print 'hello from C environment".
+> early_printk() function was changed in comparison with original as
+> common isn't being built now so there is no vscnprintf.
+> 
+> Because printk() relies on a serial driver (like the ns16550 driver)
+> and drivers require working virtual memory (ioremap()) there is not
+> print functionality early in Xen boot.
+> 
+> This commit adds early printk implementation built on the putc SBI call.
+> 
+> As sbi_console_putchar() is being already planned for deprecation
+> it is used temporary now and will be removed or reworked after
+> real uart will be ready.
+> 
+> Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-libvirt-qcow2 17 guest-start/debian.repeat fail pass in 175645-retest
- test-arm64-arm64-libvirt-raw 17 guest-start/debian.repeat fail pass in 175645-retest
+ From the previous discussion, I was under the impression you agreed 
+that the code was mainly written by Bobby. And indeed you put him as the 
+first signed-off.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-libvirt     16 saverestore-support-check    fail  like 175615
- test-armhf-armhf-libvirt-qcow2 15 saverestore-support-check   fail like 175615
- test-armhf-armhf-libvirt-raw 15 saverestore-support-check    fail  like 175615
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-armhf-armhf-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-armhf-armhf-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-armhf-armhf-libvirt-raw 14 migrate-support-check        fail   never pass
+So you want to also add a From tag right at the top of the patch so when 
+we commit it, the author tag will be Bobby.
 
-version targeted for testing:
- libvirt              ffd286ac6f25374d16f4eaa7ff64e30c77541b41
-baseline version:
- libvirt              7050dad5f92010720cc8e8b7d5c37eaad7696c5e
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> ---
+> Changes in V2:
+>      - add license to early_printk.c
+>      - add signed-off-by Bobby
+>      - add RISCV_32 to Kconfig.debug to EARLY_PRINTK config
+>      - update commit message
+>      - order the files alphabetically in Makefile
+> ---
+>   xen/arch/riscv/Kconfig.debug              |  7 +++++
+>   xen/arch/riscv/Makefile                   |  1 +
+>   xen/arch/riscv/early_printk.c             | 33 +++++++++++++++++++++++
+>   xen/arch/riscv/include/asm/early_printk.h | 12 +++++++++
+>   4 files changed, 53 insertions(+)
+>   create mode 100644 xen/arch/riscv/early_printk.c
+>   create mode 100644 xen/arch/riscv/include/asm/early_printk.h
+> 
+> diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debug
+> index e69de29bb2..6ba0bd1e5a 100644
+> --- a/xen/arch/riscv/Kconfig.debug
+> +++ b/xen/arch/riscv/Kconfig.debug
+> @@ -0,0 +1,7 @@
+> +config EARLY_PRINTK
+> +    bool "Enable early printk config"
+> +    default DEBUG
+> +    depends on RISCV_64 || RISCV_32
+> +    help
+> +
+> +      Enables early printk debug messages
+> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> index fd916e1004..1a4f1a6015 100644
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -1,3 +1,4 @@
+> +obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
+>   obj-$(CONFIG_RISCV_64) += riscv64/
+>   obj-y += sbi.o
+>   obj-y += setup.o
+> diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
+> new file mode 100644
+> index 0000000000..88da5169ed
+> --- /dev/null
+> +++ b/xen/arch/riscv/early_printk.c
+> @@ -0,0 +1,33 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * RISC-V early printk using SBI
+> + *
+> + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
+> + */
+> +#include <asm/sbi.h>
+> +#include <asm/early_printk.h>
+> +
+> +/*
+> + * TODO:
+> + *   sbi_console_putchar is already planned for deprication
 
-Last test of basis   175615  2023-01-07 04:18:53 Z    2 days
-Testing same since   175638  2023-01-09 04:18:55 Z    0 days    1 attempts
+s/deprication/deprecation/
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiang Jiacheng <jiangjiacheng@huawei.com>
-  Ján Tomko <jtomko@redhat.com>
+> + *   so it should be reworked to use UART directly.
+> +*/
+> +void early_puts(const char *s, size_t nr)
+> +{
+> +    while ( nr-- > 0 )
+> +    {
+> +        if (*s == '\n')
+> +            sbi_console_putchar('\r');
+> +        sbi_console_putchar(*s);
+> +        s++;
+> +    }
+> +}
+> +
+> +void early_printk(const char *str)
+> +{
+> +    while (*str)
+> +    {
+> +        early_puts(str, 1);
+> +        str++;
+> +    }
+> +}
+> diff --git a/xen/arch/riscv/include/asm/early_printk.h b/xen/arch/riscv/include/asm/early_printk.h
+> new file mode 100644
+> index 0000000000..05106e160d
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/early_printk.h
+> @@ -0,0 +1,12 @@
+> +#ifndef __EARLY_PRINTK_H__
+> +#define __EARLY_PRINTK_H__
+> +
+> +#include <xen/early_printk.h>
+> +
+> +#ifdef CONFIG_EARLY_PRINTK
+> +void early_printk(const char *str);
+> +#else
+> +static inline void early_printk(const char *s) {};
+> +#endif
+> +
+> +#endif /* __EARLY_PRINTK_H__ */
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     pass    
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               fail    
- test-armhf-armhf-libvirt-qcow2                               pass    
- test-arm64-arm64-libvirt-raw                                 fail    
- test-armhf-armhf-libvirt-raw                                 pass    
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+Cheers,
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/libvirt.git
-   7050dad5f9..ffd286ac6f  ffd286ac6f25374d16f4eaa7ff64e30c77541b41 -> xen-tested-master
+-- 
+Julien Grall
 
