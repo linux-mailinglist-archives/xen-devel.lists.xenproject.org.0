@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 539F8663608
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 01:07:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.474160.735152 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B90B466361B
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 01:18:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.474166.735163 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF2B0-0003lB-V7; Tue, 10 Jan 2023 00:07:38 +0000
+	id 1pF2Kg-0005Ei-Tb; Tue, 10 Jan 2023 00:17:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 474160.735152; Tue, 10 Jan 2023 00:07:38 +0000
+Received: by outflank-mailman (output) from mailman id 474166.735163; Tue, 10 Jan 2023 00:17:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF2B0-0003i8-SG; Tue, 10 Jan 2023 00:07:38 +0000
-Received: by outflank-mailman (input) for mailman id 474160;
- Tue, 10 Jan 2023 00:07:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pF2Kg-0005Cy-Q5; Tue, 10 Jan 2023 00:17:38 +0000
+Received: by outflank-mailman (input) for mailman id 474166;
+ Tue, 10 Jan 2023 00:17:37 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=tiyo=5H=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1pF2Az-0003i2-Tu
- for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 00:07:37 +0000
-Received: from sonic306-21.consmr.mail.gq1.yahoo.com
- (sonic306-21.consmr.mail.gq1.yahoo.com [98.137.68.84])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c804ffd0-907a-11ed-b8d0-410ff93cb8f0;
- Tue, 10 Jan 2023 01:07:35 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.gq1.yahoo.com with HTTP; Tue, 10 Jan 2023 00:07:32 +0000
-Received: by hermes--production-ne1-7b69748c4d-pm9xv (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 3690a7ed7136d7d2ab4095291adae14f; 
- Tue, 10 Jan 2023 00:07:27 +0000 (UTC)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pF2Kf-0005Co-L8; Tue, 10 Jan 2023 00:17:37 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pF2Kf-0005v7-I8; Tue, 10 Jan 2023 00:17:37 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pF2Kf-0004Rx-6A; Tue, 10 Jan 2023 00:17:37 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pF2Kf-0003EC-5l; Tue, 10 Jan 2023 00:17:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,125 +42,361 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c804ffd0-907a-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1673309252; bh=TjWRQ3XDQ9v5XBbBlXFg/nqc2AKrVM/5dbL4mDfhkpE=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=JfA1QQc4IuZWn2q/0AwE8zlAE1hfXOHaXiKe8imLX/Ytrn4nLV2TMHnnMkwQdVJW5c5/zbVtxlJQtkCxzG2sE5Jv63uwlrk3/DuZF98BZAJvAAwEAbECmD/4YPsk8ksSaZHtDPIPFzbv5Twlt9GiZR0A1iOMElk5nd9SC1XiicMc06sGIcj9DdM/njYUzgbx4/8D8OL3nT9JPPp/o3YbFuxUcsTFX7oKyXe7AZL39bL7gRx+Xl5YhUbV6sQFPPCdovcfKeAiBd2ZAO8sCaMa7JgVz/M8RG5/3qn5GibUavkMR88dJQVZuk/I7Y33+R9qOwk20NItOngS612jnt2hZw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1673309252; bh=nFCRAALOdJVOepdExywB8v7RnknYNQlGAfr1ya85Pc8=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=DSa7JwuwBkLV6l00NXnOyIr44e+lEFFZ8a4P3EMPcMpGbInWVh77BgrFCaoAKEQiIeumScpMUVSlL+m8o0vzX2l4XtU4ZCemJoddMwgFC6djS842HQZpleoBgK1cPj0fgjQUCIDNEHVPpHYxFHDkVpeBUEIXdoiPFu0bGnPRDRwCQ9Uhh9viyqyaz8d/b2LZExDKRyRTHf4LhYgLe88Zi6w8vF9r9V4uBAHouqDhzrGdArUobuFaBX/JScII3k22xm0k8TeEegABB0npmvB2Z0lBN7ttY+dj75tqxOo7Wt8xP/1Dj/+aUEjuqmEatQ7zuvBTrj/6UcxCojqd5ZvD2w==
-X-YMail-OSG: 6VYIDtwVM1lfvejDjOPjsXuG7.vU5smWRTykHeFd1cl8ReMGrrANGFkQ1BAxjVH
- 1bmhLyTI23B2OvNGBNdzClwcTSbq5g5BK8wpNw0ReoobjaK23Yi6EZ5AH6fXHMkRYUibFhbFMGGY
- S_Jv9bwoILhVVL1_UedMVme6K0YIKKNJ3KOnZvJrE8zugxX5twB9SNmuMBBIf8L32Jq6scwnA8Vc
- ET4UbAI5w5BEwEwQh4T91be9hIoopXyHVVC51ywi.Co0QZAgiCgzPACF.vtwJqq2tEP9GNGJLnnQ
- h7IRRoV1jLxSltR7ZY8KzjotWQ1SUydMzRhrQTMktfRGCCRswUckkDwMikB9OSPO9a3TwWlButHI
- J.nVbxJoN50G6uKn0uh_nQGGQ0RsONEfwe73zLB2Qy7_k3TdKaGGZ02GrCGGo5mj0eZqWe48qwjY
- aVtqElY0zrQGgbFIIDbt1BIkQ0p1oFcmUvJ2YvdGteM0CDSfV7qYxX2IH6e_1sIDDi1l0DBUkrP4
- nBZKV5Yfh3gWN4WbhTHJLJYc1l4LNrawQei8sFxkg3RqcHbUcXKjYfwSEGAWM86hzGyPBk9gwbfx
- qkI1hky9OSx1AHZNfRbq9Yhh_WkAhv1dQS4sRnC8xtYyTBtN3RljIsLXEN76.Zf.xJHvfR3Rkapj
- .o_YcXt7xA5ahkHKfwsAXdAzouBd.SRka1_URRhHbavUF_Kv5xILxDcbV.N2r9rTo7ZZelz8Yth1
- wi2Of8JsXEsyh5BRfK5bfh.puxWUtTxOVSqRg1dvQszXTBfHiggtPQM03yRnV44IIvwVZqXzdVQO
- kYXjM_T4RMFGeHMXmW2HavEMrmDgevuEPqZH5LViLh5ZAMY4.kys6GmaO3elB4ZkrWmK.1pnh4EC
- ekORxTg6OH9let0ZfG5NMX.1dZcTFLNMupDNwa89axi8DHTCzhrc_alYTVpr8wD.ObKFflQdNZcR
- a0WW5wjvrACPbphsOhgBWqFpO2MDTllyU7.Unnfo1EmZ0qbJCqkYUXjRa1Qn4oS8dFU9j9gKjQWB
- pVtPkJ55_46j41PiaGXI8hLD7MQczSzYawx3XKA9fBf8fv1Q9QypKqFaORsz1hJPRbMDgVee9hBC
- FVpM2WsEVYY.gEnWD_tCa2se1Bv2kw9s4u5pc3X3VOzfLHN8EI8fXd_4I6pvs1jqHy4UqduZ7W6Y
- EOwoTERAeBhMAi051Vm3FM9oIDWFDy9Dw6DYGY3qnmGYCdsRIQdzbT1XvbKOdFrUuc8btwPIwytn
- jlnDBpsqRRk89DbsytuzVgVovCn2T5xbuaFdKKq8ra1BWsAhT.8gp3T6wmsgDbhoWgpUOszyGsId
- w3m5YJ_zUzAYHrzRKtBZbVMRoOGwREe0.h_57gSWA9tlcoiRWl_.XFr2jG0i9FF59p0oGrBMXp.B
- HTRFVYQfgSP9nE4KGiK64bpifTypcvpIMN0nD2YhMp2QzP8DvjZT3HO1i4pYXTM4ghbg2q6S_tL.
- _mvqeyyzwtZkOpV8Gg6tjHLIF6ITZxVVGcCmKnGXBK.VnJuAWs4b1eQwKBTdbBqT4BQUgxuJvGxX
- 1H8VQGsivLP.sq6Qk6DTMSSY4tO58QVRH_RMY1gm_iAdI8SIWeTwAkyU9DW.CN4AFKfL5NtffD0O
- j5RfFM_EE5DcnBjXqX.1nzLCQ_zGaSIHKYVRidoy8yifpdtNUzDv9.aS35ns_ktZ9dWizsur0Zem
- A.X28ii3y1r4egEJMQzur5yEp9WV0X704yiEb_8dp4aetjyWIKHmYdkQ0G0ZEAYSEjd9oJr5FOLP
- UJPd5NXTUNJ3RHG9V1jSRP38MOaFJOpAlSW_Po08.w8skQvkqCGgHEgVPL7GOPGl8RK.1KyBXFKT
- VznE9kIYac06bU77TZw2lVBMbvgLr7Nik8i2gTGjHTdCGA4nEiAbEq2fgyJ7pUkI60vOWrkUkKnM
- XtoCA2u_gmdX4Z3OTH0NFHAPjOStYiLwLNhbcVTOPcQn45FNffbSQMEs87YVIXCf3qDwr8fGTxzo
- ifJmNovycWkzV3RSTHRSM3MSsWDulkSVOqffSJ6Tz6a7_7m9g_V1f62FPh_nJ37oK6AOGlWaagYw
- ZsZtzTTGan7lhspITmnfZXjsqpsObHpbbFlukcDSgx9aML2ep4cYPU03GQtg71mfMpi_vI50IG9A
- OQLuCG_xlVgELCjCf22DM4Ys.XTXb2cxVOqkD8tqBGNVlYA_HKlB_wNgTmktAm2gjnZ.r2OQql9s
- qtlHn1sTQsw--
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <024b9ab9-4204-aebb-9f89-95cbabdfe868@aol.com>
-Date: Mon, 9 Jan 2023 19:07:25 -0500
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v7] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org
-References: <8349506149de6d81b0762f17623552c248439e93.1673297742.git.brchuckz.ref@aol.com>
- <8349506149de6d81b0762f17623552c248439e93.1673297742.git.brchuckz@aol.com>
- <20230109172738-mutt-send-email-mst@kernel.org>
- <8c2531a8-ce99-7593-99f8-222076fe6bd6@aol.com>
- <20230109183413-mutt-send-email-mst@kernel.org>
-From: Chuck Zmudzinski <brchuckz@aol.com>
-In-Reply-To: <20230109183413-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=P3PEUlpPfGYvhrI+5O2g3+h8o+ytp3+GaGAYrHXmpZY=; b=m8VqvhTocGQVFIZEBpzBjcDnC8
+	CyXMZJqKpwPXyPgnloJht/A7L4EZCIng5ZDY0LiTHw8xlomsAPku2Mvnu0JvpHz5HKV1JXJhZ5YvF
+	YfUayoztU4HjFxMLs4jxi9tnVyqzAe1NI/KRpos+NQY/4Nv79U/vlkAMqHg0Zt4TxZ60=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175664-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.20982 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+MIME-Version: 1.0
+Subject: [qemu-mainline test] 175664: regressions - FAIL
+X-Osstest-Failures:
+    qemu-mainline:build-amd64-xsm:xen-build:fail:regression
+    qemu-mainline:build-amd64:xen-build:fail:regression
+    qemu-mainline:build-i386:xen-build:fail:regression
+    qemu-mainline:build-arm64-xsm:xen-build:fail:regression
+    qemu-mainline:build-i386-xsm:xen-build:fail:regression
+    qemu-mainline:build-arm64:xen-build:fail:regression
+    qemu-mainline:build-armhf:xen-build:fail:regression
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-i386:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-freebsd10-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-coresched-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-rtds:build-check(1):blocked:nonblocking
+    qemu-mainline:build-arm64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict:build-check(1):blocked:nonblocking
+    qemu-mainline:build-i386-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-dom0pvh-xl-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qcow2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pair:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-pygrub:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd11-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-freebsd12-amd64:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-pvhv2-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-multivcpu:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-credit2:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-qemuu-rhel6hvm-intel:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:build-check(1):blocked:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    qemuu=aa96ab7c9df59c615ca82b49c9062819e0a1c287
+X-Osstest-Versions-That:
+    qemuu=0ab12aa32462817f0a53fa6f6ce4baf664ef1713
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 10 Jan 2023 00:17:37 +0000
 
-On 1/9/23 6:35 PM, Michael S. Tsirkin wrote:
-> On Mon, Jan 09, 2023 at 06:28:44PM -0500, Chuck Zmudzinski wrote:
->> On 1/9/23 5:33 PM, Michael S. Tsirkin wrote:
->> > On Mon, Jan 09, 2023 at 04:55:42PM -0500, Chuck Zmudzinski wrote:
->> >> Intel specifies that the Intel IGD must occupy slot 2 on the PCI bus,
->> >> as noted in docs/igd-assign.txt in the Qemu source code.
->> >> 
->> >> Currently, when the xl toolstack is used to configure a Xen HVM guest with
->> >> Intel IGD passthrough to the guest with the Qemu upstream device model,
->> >> a Qemu emulated PCI device will occupy slot 2 and the Intel IGD will occupy
->> >> a different slot. This problem often prevents the guest from booting.
->> >> 
->> >> The only available workaround is not good: Configure Xen HVM guests to use
->> >> the old and no longer maintained Qemu traditional device model available
->> >> from xenbits.xen.org which does reserve slot 2 for the Intel IGD.
->> >> 
->> >> To implement this feature in the Qemu upstream device model for Xen HVM
->> >> guests, introduce the following new functions, types, and macros:
->> >> 
->> >> * XEN_PT_DEVICE_CLASS declaration, based on the existing TYPE_XEN_PT_DEVICE
->> >> * XEN_PT_DEVICE_GET_CLASS macro helper function for XEN_PT_DEVICE_CLASS
->> >> * typedef XenPTQdevRealize function pointer
->> >> * XEN_PCI_IGD_SLOT_MASK, the value of slot_reserved_mask to reserve slot 2
->> >> * xen_igd_reserve_slot and xen_igd_clear_slot functions
->> >> 
->> >> The new xen_igd_reserve_slot function uses the existing slot_reserved_mask
->> >> member of PCIBus to reserve PCI slot 2 for Xen HVM guests configured using
->> >> the xl toolstack with the gfx_passthru option enabled, which sets the
->> >> igd-passthru=on option to Qemu for the Xen HVM machine type.
->> > 
->> > I don't like how slot_reserved_mask is set initially then cleared on
->> > device realize.
->> > To me this looks like a fragile hack. I suggest one of the following
->> > 1. adding a new mask
->> > "slot-manual-mask" or some such blocking auto-allocation of a given
->> > slot without blocking its use if address is specified on command line.
->> > 2. adding a special property that overrides slot_reserved_mask
->> > for a given device.
->> > 
->> > both need changes in pci core but look like something generally
->> > useful.
->> 
->> I was hoping to not need to touch pci core but I understand it would be
->> better for this patch to not affect machines that are manually configured
->> on the command line.
->> 
->> However, keep in mind that this patch will only actually reserve the slot
->> initially for xen hvm machines (machine type "xenfv") that also are configured
->> with the qemu igd-passthru=on option which, AFAIK, only applies to machines
->> witn accel=xen. It will not affect kvm users at all. So I don't think this patch
->> will break many machines out there that manually specify the pci slots. The
->> only machines it could affect are machines configured for igd-passthru on xen.
->> This patch also does *not* reserve the slot initially for "xenfv" machines that
->> are not configured with igd passthrough which I am sure is the vast majority
->> of all the xen virtual machines out in the wild.
-> 
-> I'm just saying that adding a capability that is generally useful
-> as opposed to xen specific means less technical debt.
-> 
+flight 175664 qemu-mainline real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175664/
 
-I agree with that.
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175623
+ build-amd64                   6 xen-build                fail REGR. vs. 175623
+ build-i386                    6 xen-build                fail REGR. vs. 175623
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 175623
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175623
+ build-arm64                   6 xen-build                fail REGR. vs. 175623
+ build-armhf                   6 xen-build                fail REGR. vs. 175623
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1)  blocked n/a
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)      blocked n/a
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-win7-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-qemuu-ws16-amd64  1 build-check(1)              blocked n/a
+ test-amd64-i386-xl-shadow     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-vhd        1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-xsm        1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-amd  1 build-check(1)               blocked n/a
+ test-amd64-i386-pair          1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-xsm   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-raw   1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-i386-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-i386-libvirt       1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-i386  1 build-check(1)               blocked  n/a
+ test-amd64-i386-freebsd10-amd64  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-i386-xl  1 build-check(1)               blocked  n/a
+ test-amd64-coresched-amd64-xl  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-xsm       1 build-check(1)               blocked  n/a
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-shadow    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-rtds      1 build-check(1)               blocked  n/a
+ build-arm64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ws16-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-win7-amd64  1 build-check(1)             blocked n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict 1 build-check(1) blocked n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm  1 build-check(1)     blocked n/a
+ test-amd64-amd64-dom0pvh-xl-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow  1 build-check(1) blocked n/a
+ test-amd64-amd64-dom0pvh-xl-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-pair  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 1 build-check(1) blocked n/a
+ test-amd64-amd64-xl-qcow2     1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-vhd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvshim    1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pair         1 build-check(1)               blocked  n/a
+ test-amd64-amd64-pygrub       1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-pvhv2-intel  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-freebsd11-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-qemuu-freebsd12-amd64  1 build-check(1)           blocked n/a
+ test-amd64-amd64-xl-pvhv2-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-amd  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-qemuu-nested-intel  1 build-check(1)              blocked n/a
+ test-amd64-amd64-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-amd64-i386-qemuu-rhel6hvm-intel  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl            1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-pvshim     1 build-check(1)               blocked  n/a
+ test-amd64-i386-xl-qemuu-debianhvm-amd64  1 build-check(1)         blocked n/a
+
+version targeted for testing:
+ qemuu                aa96ab7c9df59c615ca82b49c9062819e0a1c287
+baseline version:
+ qemuu                0ab12aa32462817f0a53fa6f6ce4baf664ef1713
+
+Last test of basis   175623  2023-01-07 23:09:00 Z    2 days
+Failing since        175627  2023-01-08 14:40:14 Z    1 days    7 attempts
+Testing same since   175654  2023-01-09 18:08:58 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Bernhard Beschow <shentey@gmail.com>
+  Christian Borntraeger <borntraeger@linux.ibm.com>
+  Cindy Lu <lulu@redhat.com>
+  Dongli Zhang <dongli.zhang@oracle.com>
+  Eugenio Pérez <eperezma@redhat.com>
+  Greg Kurz <groug@kaod.org>
+  Guoyi Tu <tugy@chinatelecom.cn>
+  Hyman Huang(黄勇) <huangy81@chinatelecom.cn>
+  Igor Mammedov <imammedo@redhat.com>
+  Jason Wang <jasowang@redhat.com>
+  Jonathan Cameron <Jonathan.Cameron@huawei.com>
+  Kai Huang <kai.huang@intel.com>
+  Laszlo Ersek <lersek@redhat.com>
+  Lei Xiang <leixiang@kylinos.cn>
+  leixiang <leixiang@kylinos.cn>
+  Liuxiangdong <liuxiangdong5@huawei.com>
+  Longpeng <longpeng2@huawei.com>
+  Lubomir Rintel <lkundrak@v3.sk>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Markus Armbruster <armbru@redhat.com>
+  Michael S. Tsirkin <mst@redhat.com>
+  Nikita Ivanov <nivanov@cloudlinux.com>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Thomas Huth <thuth@redhat.com>
+  Yanan Wang <wangyanan55@huawei.com>
+  Yicong Yang <yangyicong@hisilicon.com>
+  Zeng Chi <zengchi@kylinos.cn>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-arm64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-arm64                                                  fail    
+ build-armhf                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-arm64-libvirt                                          blocked 
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          blocked 
+ test-amd64-coresched-amd64-xl                                blocked 
+ test-arm64-arm64-xl                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-i386-xl                                           blocked 
+ test-amd64-coresched-i386-xl                                 blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           blocked 
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  blocked 
+ test-amd64-amd64-libvirt-xsm                                 blocked 
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  blocked 
+ test-amd64-amd64-xl-xsm                                      blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-i386-xl-xsm                                       blocked 
+ test-amd64-amd64-qemuu-nested-amd                            blocked 
+ test-amd64-amd64-xl-pvhv2-amd                                blocked 
+ test-amd64-i386-qemuu-rhel6hvm-amd                           blocked 
+ test-amd64-amd64-dom0pvh-xl-amd                              blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     blocked 
+ test-amd64-i386-freebsd10-amd64                              blocked 
+ test-amd64-amd64-qemuu-freebsd11-amd64                       blocked 
+ test-amd64-amd64-qemuu-freebsd12-amd64                       blocked 
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-win7-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-win7-amd64                          blocked 
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ws16-amd64                          blocked 
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-xl-credit1                                  blocked 
+ test-arm64-arm64-xl-credit1                                  blocked 
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  blocked 
+ test-arm64-arm64-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-cubietruck                               blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        blocked 
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         blocked 
+ test-amd64-i386-freebsd10-i386                               blocked 
+ test-amd64-amd64-qemuu-nested-intel                          blocked 
+ test-amd64-amd64-xl-pvhv2-intel                              blocked 
+ test-amd64-i386-qemuu-rhel6hvm-intel                         blocked 
+ test-amd64-amd64-dom0pvh-xl-intel                            blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      blocked 
+ test-amd64-amd64-xl-multivcpu                                blocked 
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        blocked 
+ test-amd64-i386-pair                                         blocked 
+ test-amd64-amd64-libvirt-pair                                blocked 
+ test-amd64-i386-libvirt-pair                                 blocked 
+ test-amd64-amd64-xl-pvshim                                   blocked 
+ test-amd64-i386-xl-pvshim                                    blocked 
+ test-amd64-amd64-pygrub                                      blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-xl-qcow2                                    blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  blocked 
+ test-amd64-amd64-xl-rtds                                     blocked 
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-arm64-arm64-xl-seattle                                  blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             blocked 
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              blocked 
+ test-amd64-amd64-xl-shadow                                   blocked 
+ test-amd64-i386-xl-shadow                                    blocked 
+ test-arm64-arm64-xl-thunderx                                 blocked 
+ test-amd64-amd64-libvirt-vhd                                 blocked 
+ test-arm64-arm64-xl-vhd                                      blocked 
+ test-armhf-armhf-xl-vhd                                      blocked 
+ test-amd64-i386-xl-vhd                                       blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 2556 lines long.)
 
