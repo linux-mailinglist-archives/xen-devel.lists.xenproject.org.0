@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17E09663ADB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 09:22:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.474407.735567 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 158F2663B10
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 09:29:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.474414.735579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF9tS-0001Li-AU; Tue, 10 Jan 2023 08:22:02 +0000
+	id 1pFA0V-00026U-6R; Tue, 10 Jan 2023 08:29:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 474407.735567; Tue, 10 Jan 2023 08:22:02 +0000
+Received: by outflank-mailman (output) from mailman id 474414.735579; Tue, 10 Jan 2023 08:29:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF9tS-0001JS-7k; Tue, 10 Jan 2023 08:22:02 +0000
-Received: by outflank-mailman (input) for mailman id 474407;
- Tue, 10 Jan 2023 08:22:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pFA0V-00023c-2l; Tue, 10 Jan 2023 08:29:19 +0000
+Received: by outflank-mailman (input) for mailman id 474414;
+ Tue, 10 Jan 2023 08:29:17 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Ek+I=5H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pF9tR-0001JM-5b
- for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 08:22:01 +0000
-Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
- [2a00:1450:4864:20::52f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id daac699d-90bf-11ed-91b6-6bf2151ebd3b;
- Tue, 10 Jan 2023 09:22:00 +0100 (CET)
-Received: by mail-ed1-x52f.google.com with SMTP id v30so16348322edb.9
- for <xen-devel@lists.xenproject.org>; Tue, 10 Jan 2023 00:22:00 -0800 (PST)
+ id 1pFA0T-00023U-Lz
+ for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 08:29:17 +0000
+Received: from mail-ej1-x632.google.com (mail-ej1-x632.google.com
+ [2a00:1450:4864:20::632])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id de2bb332-90c0-11ed-b8d0-410ff93cb8f0;
+ Tue, 10 Jan 2023 09:29:15 +0100 (CET)
+Received: by mail-ej1-x632.google.com with SMTP id cf18so20261186ejb.5
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jan 2023 00:29:15 -0800 (PST)
 Received: from 2a02.2378.1014.d6d9.ip.kyivstar.net
  ([2a02:2378:1014:d6d9:98bb:6889:a785:5d8c])
  by smtp.gmail.com with ESMTPSA id
- en6-20020a056402528600b00499b3d09bd2sm2474641edb.91.2023.01.10.00.21.58
+ y19-20020a1709060a9300b0084debc351b3sm1401014ejf.20.2023.01.10.00.29.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Jan 2023 00:21:59 -0800 (PST)
+ Tue, 10 Jan 2023 00:29:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,39 +45,38 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: daac699d-90bf-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: de2bb332-90c0-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=AprDi40x/B80KDuPx8u+X/GyU8Jo6blaRoC7zSOcKw4=;
-        b=h5YpWVidwuM0qgPb2qCMupmtLX9SXIs+I2Nf9bvovkS390D6Y3AIQrUWJwonaxQC65
-         FOA26Ujm1yE91LWK+m6aU1cNLmm0gvags3JuDk1CTUkOs2heBbFNYpOFqhz3W92FBmPX
-         2MHz23+OUQ7rDgDRzw5a6MestAjubiEdatGdgXqNiqvrq1CldkJr8DV9LhjJ2ShIJRGk
-         eFgWHtZ5n9OLWbuVlk+0GF+CK7yGhgJ4wDV27M7Ii96PbJWV06J/8nbw4nJU804Ns6OP
-         /QBoOu8yNRyEBYsfRoFKzrSPNwLnFhp5J28U0MNg+NXygR1TIK3ULkITzsODQEK0k4Wk
-         Kz9g==
+        bh=PbwEnvP28IXrNyfma1R9wMCLoHMIHS4QeFEg6V+6yGo=;
+        b=HwwzIy2qZCXgfhG6Zms6XS2miKZBCfF+vA5UbZQe6jrpYzPELMhVCS2S9/5t/GSikF
+         YNr8RWmA/SEfq6phnuEtsmczXXi6VG7qnnbRodVUYjiGO9OQOx3s64MA49Nua4P10vrc
+         3NZSdoGpebwIaMOiayIjProyULY4jlnBhEoEq5MbjhrzLrqiSd42fM720v5IG7paulZ3
+         4+3pIPtX8f9z/TpcVu0DYLelq2J9aKan5WgqgcKRLbO7UuUZ+yoivn8/PSy0wmcGTC9i
+         Osq4chsk4lG8mK+MkFckl4cq2xcn/Gl21PBTCX5/rrLoJxTZbRqn1bV4C/DAfsCQQmav
+         9ykA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=AprDi40x/B80KDuPx8u+X/GyU8Jo6blaRoC7zSOcKw4=;
-        b=s/i7a5vxAF4QqdH2g9HK4UkqZplVWaQnQmMg2dcolGUbWqhH2LJmEWRUJ70zPrfnJd
-         DyeSifx/zGoLp0XEe0wZPaQTi/nNt3054a3EkjroUq35rtJoAxOI3sTNQ/RKzZr5yrf3
-         tv828j4jDPatfO12hiShGHPbG7r/5/t6WRKyRBeFc5BlIpJoLEWuMqpRRCqKb5aE+MI+
-         9KpElr1IKk/W5Ftz9h3yirbpBgq8C2DlKOeZyo/jh0uU/PVzfSsZYbfYF2JVaKFPd2fg
-         bfCnoPw8QPNSptDQ63kY94ZUy1rykIRxq7U3uk8c0228RFmhobEZddViUMOtDIKqTr6q
-         5k4Q==
-X-Gm-Message-State: AFqh2kpmgl1Om7xTEDCT4ScGkYrMvFQsP9MyfcsaXHv5R3euO3aSx6dh
-	ug1Zn0Fb+o9uiWZ45yYgpuw=
-X-Google-Smtp-Source: AMrXdXstGyqSI4HjuPwNOAdTiabyj0wqZZms2KkgU/NzSPCAxyYERHCUnD7LRVoAo0o49mb5WUtpWw==
-X-Received: by 2002:aa7:db8d:0:b0:45c:835c:3679 with SMTP id u13-20020aa7db8d000000b0045c835c3679mr58769549edt.2.1673338919802;
-        Tue, 10 Jan 2023 00:21:59 -0800 (PST)
-Message-ID: <eb2c4ad53e596e633f1d59de05db9fa9630f28ac.camel@gmail.com>
-Subject: Re: [PATCH v2 4/8] xen/riscv: introduce sbi call to putchar to
- console
+        bh=PbwEnvP28IXrNyfma1R9wMCLoHMIHS4QeFEg6V+6yGo=;
+        b=GqmyAfgxYxcWvhqbkw4dHDD+rYxV86vVUtCFfic1o7WHjesuSRZgjR10tZq9tQhRqN
+         5Gkgy3/fv4fCK4JcWaelDK1qkvJ7PqQZXSs58uPCPDybdxWVMmtHKRn4ZSZVljDSH6/v
+         HkRCQ+t4zbT7hw7Z3+2StE/LEZpFaE228TV2RM17hoxr+6dlknQ/nNqQD9NfwxLGCp+y
+         GcRjLcWgTEgkspw8NG8lbvyXYPsLjfYOT3gV5mHArM5GeGIUBDj3oTfW/F1Pn8uKwNgW
+         VfOd/wIuKJz7ZKl8vwZEDeF+csSoWflCKE5FUr96rik3qj6kGqi7HExYSgtKPuJQILr5
+         FqFA==
+X-Gm-Message-State: AFqh2krRW2T/OdHRECHUg1STQc/AuqRTeYE0T/gL+3GVaR9E0cKgVZvW
+	6OhBG01k0wKmYtsM4hcBCU0=
+X-Google-Smtp-Source: AMrXdXscl0HAHCTAtCsYQF87Oc/mdzKLVYF1+arZzHCjbrD7bhBYyixaaxHPTwrSVEe7Qjngd4Fjag==
+X-Received: by 2002:a17:906:700f:b0:7c0:b79c:7d5f with SMTP id n15-20020a170906700f00b007c0b79c7d5fmr74184064ejj.68.1673339355096;
+        Tue, 10 Jan 2023 00:29:15 -0800 (PST)
+Message-ID: <13d7161756f1eb4cd359f2fb7694eb398814235b.camel@gmail.com>
+Subject: Re: [PATCH v2 3/8] xen/riscv: introduce stack stuff
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
@@ -85,87 +84,115 @@ Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
  Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
  <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
  Connor Davis <connojdavis@gmail.com>
-Date: Tue, 10 Jan 2023 10:21:57 +0200
-In-Reply-To: <7990322c-639b-38d4-ff6c-221988532c33@xen.org>
+Date: Tue, 10 Jan 2023 10:29:13 +0200
+In-Reply-To: <e5ecc23f-4d4b-fa21-bd71-68cefcde644f@xen.org>
 References: <cover.1673278109.git.oleksii.kurochko@gmail.com>
-	 <9b85a963db538e4735a9f99fc9090ad79508cb2c.1673278109.git.oleksii.kurochko@gmail.com>
-	 <7990322c-639b-38d4-ff6c-221988532c33@xen.org>
+	 <b253e61bebbc029c94b89389d81643f9587200b7.1673278109.git.oleksii.kurochko@gmail.com>
+	 <e5ecc23f-4d4b-fa21-bd71-68cefcde644f@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.1 (3.46.1-1.fc37) 
 MIME-Version: 1.0
 
-Hi,
-
-On Mon, 2023-01-09 at 16:03 +0000, Julien Grall wrote:
+On Mon, 2023-01-09 at 16:11 +0000, Julien Grall wrote:
 > Hi,
 >=20
 > On 09/01/2023 15:46, Oleksii Kurochko wrote:
-> > The patch introduce sbi_putchar() SBI call which is necessary
-> > to implement initial early_printk
+> > The patch introduces and sets up a stack in order to go to C
+> > environment
 > >=20
 > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>=20
+> It looks like the comments from Andrew were missed.
+>=20
+I will double check which one.
+Thanks.
 > > ---
 > > Changes in V2:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 - add an explanatory comment about sbi_console=
-_putchar()
-> > function.
-> > =C2=A0=C2=A0=C2=A0=C2=A0 - order the files alphabetically in Makefile
+> > =C2=A0=C2=A0=C2=A0=C2=A0 - introduce STACK_SIZE define.
+> > =C2=A0=C2=A0=C2=A0=C2=A0 - use consistent padding between instruction m=
+nemonic and
+> > operand(s)
 > > ---
 > > =C2=A0 xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 1 +
-> > =C2=A0 xen/arch/riscv/include/asm/sbi.h | 34 ++++++++++++++++++++++++
-> > =C2=A0 xen/arch/riscv/sbi.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 44
-> > ++++++++++++++++++++++++++++++++
-> > =C2=A0 3 files changed, 79 insertions(+)
-> > =C2=A0 create mode 100644 xen/arch/riscv/include/asm/sbi.h
-> > =C2=A0 create mode 100644 xen/arch/riscv/sbi.c
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 1 +
+> > =C2=A0 xen/arch/riscv/include/asm/config.h | 2 ++
+> > =C2=A0 xen/arch/riscv/riscv64/head.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 | 8 +++++++-
+> > =C2=A0 xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 ++++++
+> > =C2=A0 4 files changed, 16 insertions(+), 1 deletion(-)
+> > =C2=A0 create mode 100644 xen/arch/riscv/setup.c
 > >=20
 > > diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> > index 5a67a3f493..fd916e1004 100644
+> > index 248f2cbb3e..5a67a3f493 100644
 > > --- a/xen/arch/riscv/Makefile
 > > +++ b/xen/arch/riscv/Makefile
 > > @@ -1,4 +1,5 @@
 > > =C2=A0 obj-$(CONFIG_RISCV_64) +=3D riscv64/
-> > +obj-y +=3D sbi.o
-> > =C2=A0 obj-y +=3D setup.o
+> > +obj-y +=3D setup.o
 > > =C2=A0=20
 > > =C2=A0 $(TARGET): $(TARGET)-syms
-> > diff --git a/xen/arch/riscv/include/asm/sbi.h
-> > b/xen/arch/riscv/include/asm/sbi.h
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0$(OBJCOPY) -O binary -S=
+ $< $@
+> > diff --git a/xen/arch/riscv/include/asm/config.h
+> > b/xen/arch/riscv/include/asm/config.h
+> > index 0370f865f3..bdd2237f01 100644
+> > --- a/xen/arch/riscv/include/asm/config.h
+> > +++ b/xen/arch/riscv/include/asm/config.h
+> > @@ -43,6 +43,8 @@
+> > =C2=A0=20
+> > =C2=A0 #define SMP_CACHE_BYTES (1 << 6)
+> > =C2=A0=20
+> > +#define STACK_SIZE (PAGE_SIZE)
+> > +
+> > =C2=A0 #endif /* __RISCV_CONFIG_H__ */
+> > =C2=A0 /*
+> > =C2=A0=C2=A0 * Local variables:
+> > diff --git a/xen/arch/riscv/riscv64/head.S
+> > b/xen/arch/riscv/riscv64/head.S
+> > index 990edb70a0..c1f33a1934 100644
+> > --- a/xen/arch/riscv/riscv64/head.S
+> > +++ b/xen/arch/riscv/riscv64/head.S
+> > @@ -1,4 +1,10 @@
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .section .text.h=
+eader, "ax", %progbits
+> > =C2=A0=20
+> > =C2=A0 ENTRY(start)
+> > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 j=C2=A0 start
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 la=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 sp, cpu0_boot_stack
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 li=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 t0, STACK_SIZE
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 add=C2=A0=C2=A0=C2=A0=C2=A0=
+ sp, sp, t0
+> > +
+> > +_start_hang:
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 wfi
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 j=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 _start_hang
+> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
 > > new file mode 100644
-> > index 0000000000..34b53f8eaf
+> > index 0000000000..41ef4912bd
 > > --- /dev/null
-> > +++ b/xen/arch/riscv/include/asm/sbi.h
-> > @@ -0,0 +1,34 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-or-later) */
-> > +/*
-> > + * Copyright (c) 2021 Vates SAS.
-> > + *
-> > + * Taken from xvisor, modified by Bobby Eshleman
-> > (bobby.eshleman@gmail.com).
-> Hmmm... I missed this one in v1. Is this mostly code from Bobby? If
-> so,=20
-> please update the commit message accordingly.
+> > +++ b/xen/arch/riscv/setup.c
+> > @@ -0,0 +1,6 @@
+> > +#include <xen/init.h>
+> > +#include <xen/compile.h>
 >=20
-> FAOD, this comment applies for any future code you take from anyone.
-> I=20
-> will try to remember to mention it but please take pro-active action
-> to=20
-> check/mention where the code is coming from.
+> Why do you need to include <xen/compile.h>?
 >=20
-Sure, I will try to be more attentive next time.
-
-Probably it is out of scope a little bit but could you please share
-with me a link or clarify in which cases I have to add Copytrigt(c) or
-should I add a new comment with "Modfied by Oleksii ... ", or it is not
-necessary at all? Maybe have I to put some other information related to
-copyrigts?
-
-Thanks in advance.
-
+It is needed to use __aligned define which looks better then
+__attribute__((__aligned__(SOMETHING)))=20
+> In any case, please order the include alphabetically. I haven't look
+> at=20
+Thanks. I didn't now that headers should be in alphabetic order too.
+> the rest of the series. But please go through the series and check
+> that=20
+> generic comments (like this one) are addressed everywhere.
+>=20
 > Cheers,
 >=20
 ~Oleksii
+
 
