@@ -2,39 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1969E66456E
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 16:58:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.474799.736159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 479B16645FF
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 17:26:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.474806.736170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFH0b-0005lp-KW; Tue, 10 Jan 2023 15:57:53 +0000
+	id 1pFHRQ-0001Ep-Ou; Tue, 10 Jan 2023 16:25:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 474799.736159; Tue, 10 Jan 2023 15:57:53 +0000
+Received: by outflank-mailman (output) from mailman id 474806.736170; Tue, 10 Jan 2023 16:25:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFH0b-0005jI-Hg; Tue, 10 Jan 2023 15:57:53 +0000
-Received: by outflank-mailman (input) for mailman id 474799;
- Tue, 10 Jan 2023 15:57:52 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=+HTt=5H=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pFH0a-0005jC-4R
- for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 15:57:52 +0000
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on2042.outbound.protection.outlook.com [40.107.6.42])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 88c1b9a9-90ff-11ed-91b6-6bf2151ebd3b;
- Tue, 10 Jan 2023 16:57:50 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8147.eurprd04.prod.outlook.com (2603:10a6:20b:3e0::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Tue, 10 Jan
- 2023 15:57:49 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.5986.018; Tue, 10 Jan 2023
- 15:57:49 +0000
+	id 1pFHRQ-0001C0-Lr; Tue, 10 Jan 2023 16:25:36 +0000
+Received: by outflank-mailman (input) for mailman id 474806;
+ Tue, 10 Jan 2023 16:25:34 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Ek+I=5H=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pFHRO-0001Bu-KF
+ for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 16:25:34 +0000
+Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
+ [2a00:1450:4864:20::629])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 675bf3d7-9103-11ed-b8d0-410ff93cb8f0;
+ Tue, 10 Jan 2023 17:25:32 +0100 (CET)
+Received: by mail-ej1-x629.google.com with SMTP id tz12so30093187ejc.9
+ for <xen-devel@lists.xenproject.org>; Tue, 10 Jan 2023 08:25:32 -0800 (PST)
+Received: from 2a02.2378.1019.479a.ip.kyivstar.net
+ ([2a02:2378:1019:479a:6357:b59e:a085:4bb7])
+ by smtp.gmail.com with ESMTPSA id
+ gn19-20020a1709070d1300b00816edcb4e59sm5124252ejc.146.2023.01.10.08.25.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Jan 2023 08:25:31 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,179 +45,148 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 88c1b9a9-90ff-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dq1wicav9BQVE8MDHlBgk+XxmNZ+eu75xmWxHjw3bqat/FgSb771DBkZLItnHYfUHZ9MRZO137dkqBggJUtswsJmpYqHkEhv53LIcjrvtB2ReIGeXr35OHSEIzOtHjQbGoeDOInCO8KY6mrnurmZsJDs+qFNxJPPaQj4qUAe47zwubG3sakqOCP0qmHFBQGOxQIDQETArHmbR5jjjxkXORCNw79f4F3cBVog62M8BtzmpGVjuiUi4yEMsSg9MPQ6uB15l6JC02NTFggoWaYPuy7qMB8pa5hvL5hW7TDhrIC+cDNd4+I59q7r21q8Zy6M4o0kEoabHGPb8GzH+yFozg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gaQPbytk+9sWancaNFfbsyIA0wu03ZervPJ+QZzmKQY=;
- b=EdKxGGJ1aKpQEhepsQ1+TNtPvyvjXpr96wk4uSRxYVYFpLKIVa2yMymmrwYilTev996+608phBAqa4Vyfz/OfJPBwmZ+2lV7ULLoM6EA6u8SgVYSUvq0CNDrWMt4Hz9YCfkhtMwQkc9qmfqCfsssmazauSeYabLOQ/SXLPYTRhTL8XlNVu+dZT902dxHaommDRHbQMDwqawC9/8Z9Nis4tHTmEP8rt9tJ0ObMdQrnE1yH7Eh/v5joet0gdpP1MJ4cge0gxM9Hh/BXRNPPjOk0fnjLH7Bw4f03NoQRrEIFWfGcInac80E5ibA6GC6ttJS99IVAIzHxtEGbUVELk6nJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gaQPbytk+9sWancaNFfbsyIA0wu03ZervPJ+QZzmKQY=;
- b=oVA2rLnhOHIuZj+yj+XGluUOKZPtNAwDb/j1iCRmKAFt64DUMAKDtx82igfwW09VrIsNFyzEBsogiiqFa2FBllnlvjgVRKrCzsbElJJJloPtf+G0q++9G7gjtBZ5Mo5WpcEK5fVG+fy0k6O2lAAyFzSVoE60FNDvaBhEpaTnYJBuJUeAVWotzGE7Zk/6dD2zqRgqehNHiyOUAOn3FfhEE4PctH2o3ui2cXrAIeXSrgTogiP0x2g+1kWqHPZuHU1kuxkOe0dlhz9NtH4Q0FRzBx3drI7H+hNMryST9YdhQ3+BsOc/kr1PV9EhS1BCJsHC+rReW+RzhE/sg/nxVlzXhQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2420503a-48d3-f975-beea-7e37e4ecd04a@suse.com>
-Date: Tue, 10 Jan 2023 16:57:47 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v3 5/6] xen/riscv: introduce early_printk basic stuff
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bobby Eshleman <bobby.eshleman@gmail.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1673362493.git.oleksii.kurochko@gmail.com>
- <25cd3586fa51980279f25a82eed5ded1622bc212.1673362493.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <25cd3586fa51980279f25a82eed5ded1622bc212.1673362493.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0005.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 675bf3d7-9103-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=wlw7+zZsV9HauSQ/SQ7cPTLqSUwEPYqT2Dxcx8+og0U=;
+        b=hb4Foy4vLmPXkGwIKWaQt/tC6ky+ux0Q1UhIGphk0mSolL2r/AzmOfmSfRJsyIcyfu
+         XHuNLHUuUeu4PFdfQol+mSln9HSNpDJCquRVXeIDW+SIgElApSyT+IuL6p/E8TKm4I7S
+         cYIGgaFN4+ILVIzHDs2NmhYXOyP1R2grnPgvZL5seSLfpaseqrT+jgER2Z/zCs9sUdXf
+         NhaMuVZiXdAy2I+gm/vh1m0R1LioLiOCb9/HQ8l6/ZVhEZaHFQpM4+r++fhdOOy8x6pf
+         7DooVt+qOxTN+KbWZ3MkhSAaIPQTJK3sNQ70kn8GHWb9bnEUJ3t17eNR4Cq7TrDqYrc5
+         BpOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=wlw7+zZsV9HauSQ/SQ7cPTLqSUwEPYqT2Dxcx8+og0U=;
+        b=oWBVGhB8szmk1/PnwavCvR7jj2ZX2HOYNGsfBPMcxH+IA+2uwwwMZfblzLyM1eIhoB
+         Mw3U9jWKGDi3DzKRG5RfWEArogjGl6y+WBwDR8I11EON5DCoQxVvBxqum758kTDX1AjI
+         rWOkXQ8X85naU2kG4plmZrJ35Yn279o+v6JYjpEapsu4KWnerY39gf/5Ils0aoct7+4G
+         iNKE5/Rzo3EFhL6HunKMO+2F5WJwVD39Zd0yArl+3Cva3p/yv8qITQGejiTtO0S8nGk3
+         ZZxFbTFMqOmDZZ64FWZWSUKje1H1jS1gwVlLbAfhjwcNpLNxE2S7dqFTAvb8xHP8v57V
+         2v7Q==
+X-Gm-Message-State: AFqh2kp/s9u7ylFxkXeG/FFAhHc80ZczGuTSLEbdlsMFlv5fjHPHSTWd
+	C1K90YsW9uQxgI3Pv5+Sat+oWnU2E3TjNQ==
+X-Google-Smtp-Source: AMrXdXuyPgoH9gFzS8SK3KK4mYnl0Z/eZqsMjUP2WjuoFP+9PXyOZrzw8qmLceDgTUJyKQWVgFDdhQ==
+X-Received: by 2002:a17:906:3084:b0:7c1:5ee1:4c57 with SMTP id 4-20020a170906308400b007c15ee14c57mr56274536ejv.8.1673367931694;
+        Tue, 10 Jan 2023 08:25:31 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH] automation: rename RISCV_64 container and jobs
+Date: Tue, 10 Jan 2023 18:25:23 +0200
+Message-Id: <cea2d287fd65033d8631bf9905ad00652bf11035.1673367923.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8147:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87ef407a-9da6-423a-7c6d-08daf3236be5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	WOPOGoK+8yPcRUxCc2IoUZA5ghrOoK2EK7kbsdyGiyyjuWXBSel1Kiz8ApN6G0d1bGBCNBCbExKAhdAfhdLc/25OxEGUp6+OC/frMkQ02vM+wvF8XTHKQZHV3iaWmm/M96CwTmPVPHpVL8T8e4OCLbXL1ILkQTIUm4XGsN7eTtaXOKpVOD/tkOmXWItqvaZPd2NUFSeCUUy9uhqg8IdDp84BxZwtywpR96o5dFdAXwiiXqLLvdE1HYL44x3sZMAp4xeNG06bNmyEBir6C2uNOuPBBbRKuzLWyFJ6jHdRYgMTIMfCElj7Bp33O4JfqPFu8nrWGvjEcSCtBshcsAkA0ZZOE9mytIg7Tcm3j3EtAPa2HjRBD2lmsftWmDe1C1EHBAxiYyzpKdGaWsea7Jj9yTTteGXYl+R9msC/k+jBmIeAXiKicazxLYYtjo701r4iQr85id3Z4T7i++QIdSwgisTlNElRwFglOTHCA8PPNsxxZrGWD7B9GcIiNZ4h2dsZsjzUhj6SnguUM4ak5CqkDToDB3q1tF4WuvAM3I1X9DCSQ+yuw/aUlfHqR3xMVNqLawBgPqAQKV981EYJzqAlOGp3+FOx5quRq+iVVX3UrEvaomxMwuYioP4Cyyhc7rtQU3DKkJZdFW63kEuLOGCD5Zv8OAWBLxMJrDo7Rfgl78sogQJIip41MOyiTNmtGM0/R3FxvN9zonS/KUproDxlhq8VRM1cJBMH/g9Eih287gQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(366004)(39860400002)(396003)(376002)(136003)(451199015)(8936002)(2906002)(5660300002)(41300700001)(7416002)(4326008)(316002)(6916009)(8676002)(66556008)(66476007)(66946007)(54906003)(26005)(6512007)(2616005)(38100700002)(31686004)(86362001)(186003)(31696002)(36756003)(53546011)(478600001)(6506007)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dnMzQnJaNTRUcWlPVHozbUw0VFdJS1ZBSFRjVmNpN2w0VFhTZWdIeVZJWnQv?=
- =?utf-8?B?UVBXcmlLNXVya3VoT2tvbEpQaGVvTHVqUjYyRDFhZEI0bmZIeHhYRE8xYjFn?=
- =?utf-8?B?R0Y4SFBqK3BNRHltMHcrMUhDMERjZERwUzNtY1IzcGxnbzRUci85NkVneXpm?=
- =?utf-8?B?V0oxL1ErbXU5eFBpWnVCMUVGZGpHMlJaSnpJSmY2cEQ1d01YWkdFZ0lBckFX?=
- =?utf-8?B?R0llbytnT1J0cGFKM3l1N1VWZzJTOGgwWGpobFIwZ2kwSnZrTHFnUnIzZlkz?=
- =?utf-8?B?dFd2YjdjZ1hOWHA4UGVPNUJvaE9aZEduVldQNmRnYi9scC9rd0dyVUtIMmE4?=
- =?utf-8?B?Mk5nWlhCOGdGSEZYbUwydGhxMVlPcUE0Q1RiZXdxaGEwWHRrN25TMVVsKzBo?=
- =?utf-8?B?bEdKMW9xWkJhV28yMFY3cUhmL1JhdkpVY0xWWm9nUkRjWFRhaUdjc091N1hj?=
- =?utf-8?B?Mkt5N1ZIT0hOZ004eDhXR1QzUFFUSi9KWlpZdTlPQVhHZkZST3pWbVU2aUo2?=
- =?utf-8?B?YWd0RE51VU50ckhUK29VcFNTbnFIeER3ZjhUZEh2Nk9zWHk0SHlKWmZFbnc5?=
- =?utf-8?B?Nm4rWjgxUFpaWjFBNXAxVm1UMEtDTnpOSGNxWUNueGZFWWw0NVpYZllobW5w?=
- =?utf-8?B?K1dNdTdZYTZ1TnZ0YVJhekRKbk1sQ0pVdTZDRXgvdm5Celovem93cG9pM3BO?=
- =?utf-8?B?TG4vVldHZlg1VXJFZGVIMHJIcERLNEJhby9NMlVvMVE1eWtWbHZpTkdKZUd4?=
- =?utf-8?B?d29sblg1Um5yMFJ5SmxPMnJhMHhvSlhsWUttMnRGYXR6amM2S2VhZlpkRXJC?=
- =?utf-8?B?bG9ZanhYclFQcDFRU0pHUE9ML1RIcGxmYlE4N3h4S2ZsditMeHNUcWZFa1Na?=
- =?utf-8?B?ZjRLaGVoaGEwZ0MzcUVkK0VJK0pDNWx1QStCVjhJUzRFK08xanhoZVJMUkVO?=
- =?utf-8?B?RWVHVGwvUVdlSnpNVXNHMk12bGZNMlFNb3M5NGtyNmllMnRNMEFidVF5ektX?=
- =?utf-8?B?ZnFQYWNYYlpiQzc3NTR3VWJIYkNnZ3Q5dmZ1Uzc0eTJXKzBQYnVQTWNMcUhv?=
- =?utf-8?B?VUZiNHQ0ZWFGM2QxVUZrSDBFWmVpa1pLSHo5VStOOUkxOXMzZzZ2VjE0d0dw?=
- =?utf-8?B?OUczOTJDNUgyYVNlc2ZTUHZoYXFSc1krMkVCNUJPQnpUcHJIK2JBcEp5RTRM?=
- =?utf-8?B?WUR5MXFhZUpPdTA4N2ZkN3hSUXlkN0FoYXhuMnA5VndtVG5UdWVIWGV0UHpK?=
- =?utf-8?B?dlpjbHI4cmRrMk1YTmFtOEYzY3BIMy9OMm5rNE1EWW9RZTJsN1ZFRVRidEdy?=
- =?utf-8?B?L09ReDMxZU9uc045L2RPODNLdzVML1dwMGVnTkNTTExzWlhkSzUzQjdnZTlX?=
- =?utf-8?B?eTE0Ui9lQ3N6b2pIZU9sTUpCTlJlTG5FUWdKTjlQTExJcVVPS0E4TDFqSWZn?=
- =?utf-8?B?YUVSM1VEcUExK3k0VE81WjFtbzk4VFlYSVh6dGpTdmZjSXNBenZoQ2NvNVNy?=
- =?utf-8?B?SjFFdmhKc0pGaWxpYzZzWkhCNjBWYXJCR0t3cFVjdVdSTnFxUFA4UE51K3pO?=
- =?utf-8?B?RVU4YUFLSnlrUHoxYVdEWm4weDFmdUJtaHNBNVo0K1g5ZjY2bFpaaUcycXNp?=
- =?utf-8?B?WWRVYTFUc0Z5dGl6dFhhejIvRktFa0xhWGNzRy8ybmI1RjVxamU1eUZBYkNa?=
- =?utf-8?B?VnFUK0g3NDRCbjlGNFY3a3kvTzR6RjZpSVBWc1E5R0JPbGg2WElJQll2Ui9U?=
- =?utf-8?B?QmF6U0srdENkOVNKYURac1N1emVvNDlNbGp6dGJ0cklvNVlwQVhaeEhSSjVH?=
- =?utf-8?B?WTY2WElIeGVVc0hheDZhTDgxbmpVRy9CQ0YvVGNwNDNKZEFnVnc4WDIzTjlt?=
- =?utf-8?B?azFTNmwvMFdxU1Jza3FhdVhQa1Q5dUsvU2M3Ukp1ZVRDd1k0RXd2bTF1dzJq?=
- =?utf-8?B?TDI0UjRFOEdqWXlxS3duMFhyL0lWQVFEb04xZ3dHUkozUVk5dWs5STVQUlR0?=
- =?utf-8?B?LzA5OVdXOHJ3R1ErSzRkV1F6MkhnR29nZ1RRVmRwN1A3S0RwaC8xNEZXdk5u?=
- =?utf-8?B?U05nQmxvTzJ6QzB6Q0JMcXpFWENjMWhCU1pWMkgwYmxZdkdxOE03VTN3YzY3?=
- =?utf-8?Q?0e6TNHFTY/ILhMJ/4nhgryQGd?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ef407a-9da6-423a-7c6d-08daf3236be5
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jan 2023 15:57:49.0484
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HrSlNZrl38slOoNVqoKRr67fwLjtL0onONaMsS7rwIjc29p3D2RZ+zAQGJWwWMkEDUNvy+NARnzYA2H8OWROhg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8147
+Content-Transfer-Encoding: 8bit
 
-On 10.01.2023 16:17, Oleksii Kurochko wrote:
-> --- a/xen/arch/riscv/Kconfig.debug
-> +++ b/xen/arch/riscv/Kconfig.debug
-> @@ -0,0 +1,7 @@
-> +config EARLY_PRINTK
-> +    bool "Enable early printk"
-> +    default DEBUG
-> +    depends on RISCV_64 || RISCV_32
+All RISCV_64-related stuff was renamed to be consistent with
+ARM (arm32 is cross build as RISCV_64).
 
-You're in a RISC-V-specific Kconfig - do you really need this line?
+The patch is based on the following patch series:
+[PATCH *] Basic early_printk and smoke test implementation
 
-> --- /dev/null
-> +++ b/xen/arch/riscv/early_printk.c
-> @@ -0,0 +1,33 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * RISC-V early printk using SBI
-> + *
-> + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
-> + */
-> +#include <asm/early_printk.h>
-> +#include <asm/sbi.h>
-> +
-> +/*
-> + * TODO:
-> + *   sbi_console_putchar is already planned for deprecation
-> + *   so it should be reworked to use UART directly.
-> +*/
-> +void early_puts(const char *s, size_t nr)
-> +{
-> +    while ( nr-- > 0 )
-> +    {
-> +        if (*s == '\n')
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+---
+ ...v64.dockerfile => current-riscv64.dockerfile} |  0
+ automation/gitlab-ci/build.yaml                  | 16 ++++++++--------
+ automation/gitlab-ci/test.yaml                   |  4 ++--
+ automation/scripts/containerize                  |  2 +-
+ 4 files changed, 11 insertions(+), 11 deletions(-)
+ rename automation/build/archlinux/{riscv64.dockerfile => current-riscv64.dockerfile} (100%)
 
-Nit (style): Missing blanks.
+diff --git a/automation/build/archlinux/riscv64.dockerfile b/automation/build/archlinux/current-riscv64.dockerfile
+similarity index 100%
+rename from automation/build/archlinux/riscv64.dockerfile
+rename to automation/build/archlinux/current-riscv64.dockerfile
+diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+index 6784974619..7ccd153375 100644
+--- a/automation/gitlab-ci/build.yaml
++++ b/automation/gitlab-ci/build.yaml
+@@ -647,31 +647,31 @@ alpine-3.12-gcc-debug-arm64-boot-cpupools:
+       CONFIG_BOOT_TIME_CPUPOOLS=y
+ 
+ # RISC-V 64 cross-build
+-riscv64-cross-gcc:
++archlinux-current-gcc-riscv64:
+   extends: .gcc-riscv64-cross-build
+   variables:
+-    CONTAINER: archlinux:riscv64
++    CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     HYPERVISOR_ONLY: y
+ 
+-riscv64-cross-gcc-debug:
++archlinux-current-gcc-riscv64-debug:
+   extends: .gcc-riscv64-cross-build-debug
+   variables:
+-    CONTAINER: archlinux:riscv64
++    CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     HYPERVISOR_ONLY: y
+ 
+-riscv64-cross-gcc-randconfig:
++archlinux-current-gcc-riscv64-randconfig:
+   extends: .gcc-riscv64-cross-build
+   variables:
+-    CONTAINER: archlinux:riscv64
++    CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     RANDCONFIG: y
+ 
+-riscv64-cross-gcc-debug-randconfig:
++archlinux-current-gcc-riscv64-debug-randconfig:
+   extends: .gcc-riscv64-cross-build-debug
+   variables:
+-    CONTAINER: archlinux:riscv64
++    CONTAINER: archlinux:current-riscv64
+     KBUILD_DEFCONFIG: tiny64_defconfig
+     RANDCONFIG: y
+ 
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index 64f47a0ab9..4ca3e54862 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -57,7 +57,7 @@
+ .qemu-riscv64:
+   extends: .test-jobs-common
+   variables:
+-    CONTAINER: archlinux:riscv64
++    CONTAINER: archlinux:current-riscv64
+     LOGFILE: qemu-smoke-riscv64.log
+   artifacts:
+     paths:
+@@ -252,7 +252,7 @@ qemu-smoke-riscv64-gcc:
+   script:
+     - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
+   needs:
+-    - riscv64-cross-gcc
++    - archlinux-current-gcc-riscv64
+ 
+ # Yocto test jobs
+ yocto-qemuarm64:
+diff --git a/automation/scripts/containerize b/automation/scripts/containerize
+index 0f4645c4cc..9e508918bf 100755
+--- a/automation/scripts/containerize
++++ b/automation/scripts/containerize
+@@ -27,7 +27,7 @@ case "_${CONTAINER}" in
+     _alpine) CONTAINER="${BASE}/alpine:3.12" ;;
+     _alpine-arm64v8) CONTAINER="${BASE}/alpine:3.12-arm64v8" ;;
+     _archlinux|_arch) CONTAINER="${BASE}/archlinux:current" ;;
+-    _riscv64) CONTAINER="${BASE}/archlinux:riscv64" ;;
++    _riscv64) CONTAINER="${BASE}/archlinux:current-riscv64" ;;
+     _centos7) CONTAINER="${BASE}/centos:7" ;;
+     _centos72) CONTAINER="${BASE}/centos:7.2" ;;
+     _fedora) CONTAINER="${BASE}/fedora:29";;
+-- 
+2.38.1
 
-> +            sbi_console_putchar('\r');
-> +        sbi_console_putchar(*s);
-> +        s++;
-> +    }
-> +}
-> +
-> +void early_printk(const char *str)
-> +{
-> +    while (*str)
-
-Again.
-
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -1,12 +1,16 @@
->  #include <xen/compile.h>
->  #include <xen/init.h>
->  
-> +#include <asm/early_printk.h>
-> +
->  /* Xen stack for bringing up the first CPU. */
->  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
->      __aligned(STACK_SIZE);
->  
->  void __init noreturn start_xen(void)
->  {
-> +    early_printk("Hello from C env\n");
-> +
->      for ( ;; )
->          asm volatile ("wfi");
-
-While this is only context here, it affects an earlier patch in the
-series; this wants to be
-
-    for ( ; ; )
-        asm volatile ( "wfi" );
-
-Jan
 
