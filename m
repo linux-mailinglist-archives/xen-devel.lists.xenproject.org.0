@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0584D663A77
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 09:07:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.474363.735491 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83772663A7D
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 09:07:57 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.474369.735502 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF9ex-0003tY-E9; Tue, 10 Jan 2023 08:07:03 +0000
+	id 1pF9fZ-0004SZ-R2; Tue, 10 Jan 2023 08:07:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 474363.735491; Tue, 10 Jan 2023 08:07:03 +0000
+Received: by outflank-mailman (output) from mailman id 474369.735502; Tue, 10 Jan 2023 08:07:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF9ex-0003qX-Ag; Tue, 10 Jan 2023 08:07:03 +0000
-Received: by outflank-mailman (input) for mailman id 474363;
- Tue, 10 Jan 2023 08:07:01 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pF9fZ-0004Qk-Na; Tue, 10 Jan 2023 08:07:41 +0000
+Received: by outflank-mailman (input) for mailman id 474369;
+ Tue, 10 Jan 2023 08:07:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=TLW0=5H=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pF9ev-0003qN-OP
- for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 08:07:01 +0000
+ id 1pF9fY-0004IQ-Cn
+ for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 08:07:40 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c272e00a-90bd-11ed-91b6-6bf2151ebd3b;
- Tue, 10 Jan 2023 09:07:00 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d8637e25-90bd-11ed-b8d0-410ff93cb8f0;
+ Tue, 10 Jan 2023 09:07:38 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E669438644;
- Tue, 10 Jan 2023 08:06:59 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A68AB4D6EE;
+ Tue, 10 Jan 2023 08:07:36 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42E641358A;
- Tue, 10 Jan 2023 08:06:59 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 374CE1358A;
+ Tue, 10 Jan 2023 08:07:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OCfgDqMcvWP8BQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 10 Jan 2023 08:06:59 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id LNETDMgcvWNKBgAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 10 Jan 2023 08:07:36 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +51,70 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c272e00a-90bd-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: d8637e25-90bd-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1673338019; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1673338056; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=zFXGBYfEGk+Jg1p3t9ncmeM1OkJ5SOgglsWjtD+4D3E=;
-	b=MU0PDUFJ2NOK1/QtTmhG08jj+/hc3DiAuRHDHTX1+NVJc1guSrtQvC8BVMTDUdfLTtyHGF
-	6APJegbUQMpu/JSlQUeDOXjwRXvediBWLPQiIOxWIiWdsx/2uu14gNsCvHo9CWNCj9U567
-	FAJqat2f5hJEHt/USBs7CM7dZZ25UOc=
-Message-ID: <76596dba-efb7-eab1-bca9-60ab67823ade@suse.com>
-Date: Tue, 10 Jan 2023 09:06:58 +0100
+	bh=xohioAh1kapJutPJWQnyJIvtrut+K4fCdUNvyrvvEps=;
+	b=F/1x9PdCXjPQpN04iGPzwZgJ9ewZMUL6Am2p+uO7S6oRkx1yxxHLC2OkN2nirzqHxJ/eiO
+	lkmdc9OI/RFJP8wF1UH6d3f1vS4dNjAaB2KDnNinVFybpOkVE9FUHcIiTtwx/x5UwgvwJP
+	3X8qReklSQNoZijRLpF81364vnxmPVA=
+Message-ID: <8a2abe27-361a-aab1-60fe-00a3cc8684ff@suse.com>
+Date: Tue, 10 Jan 2023 09:07:35 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v2] hvc/xen: lock console list traversal
+Subject: Re: [PATCH v2] xen: make remove callback of xen driver void returned
 Content-Language: en-US
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich
- <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, linuxppc-dev@lists.ozlabs.org
-References: <20221130163611.14686-1-roger.pau@citrix.com>
+To: Dawei Li <set_pte_at@outlook.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: roger.pau@citrix.com, peterhuewe@gmx.de,
+ oleksandr_andrushchenko@epam.com, airlied@gmail.com,
+ dmitry.torokhov@gmail.com, wei.liu@kernel.org, bhelgaas@google.com,
+ jejb@linux.ibm.com, gregkh@linuxfoundation.org, ericvh@gmail.com,
+ tiwai@suse.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+References: <TYCP286MB23238119AB4DF190997075C9CAE39@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221130163611.14686-1-roger.pau@citrix.com>
+In-Reply-To: <TYCP286MB23238119AB4DF190997075C9CAE39@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------6nQNq6G02bf1dW0c6lDPjjkY"
+ boundary="------------0lgsG4DjM2bogqj9tDjcsDeD"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------6nQNq6G02bf1dW0c6lDPjjkY
-Content-Type: multipart/mixed; boundary="------------Kb0uGwizoLvibEvRPqCzPKl8";
+--------------0lgsG4DjM2bogqj9tDjcsDeD
+Content-Type: multipart/mixed; boundary="------------r84Y64pzyXf8LsYbXQjpT04r";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Roger Pau Monne <roger.pau@citrix.com>, linux-kernel@vger.kernel.org
-Cc: xen-devel@lists.xenproject.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Boris Ostrovsky <boris.ostrovsky@oracle.com>, Jan Beulich
- <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, linuxppc-dev@lists.ozlabs.org
-Message-ID: <76596dba-efb7-eab1-bca9-60ab67823ade@suse.com>
-Subject: Re: [PATCH v2] hvc/xen: lock console list traversal
-References: <20221130163611.14686-1-roger.pau@citrix.com>
-In-Reply-To: <20221130163611.14686-1-roger.pau@citrix.com>
+To: Dawei Li <set_pte_at@outlook.com>, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com
+Cc: roger.pau@citrix.com, peterhuewe@gmx.de,
+ oleksandr_andrushchenko@epam.com, airlied@gmail.com,
+ dmitry.torokhov@gmail.com, wei.liu@kernel.org, bhelgaas@google.com,
+ jejb@linux.ibm.com, gregkh@linuxfoundation.org, ericvh@gmail.com,
+ tiwai@suse.com, xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
+Message-ID: <8a2abe27-361a-aab1-60fe-00a3cc8684ff@suse.com>
+Subject: Re: [PATCH v2] xen: make remove callback of xen driver void returned
+References: <TYCP286MB23238119AB4DF190997075C9CAE39@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
+In-Reply-To: <TYCP286MB23238119AB4DF190997075C9CAE39@TYCP286MB2323.JPNP286.PROD.OUTLOOK.COM>
 
---------------Kb0uGwizoLvibEvRPqCzPKl8
-Content-Type: multipart/mixed; boundary="------------gP0Ef10fixcPW6kf2HHiGOoT"
+--------------r84Y64pzyXf8LsYbXQjpT04r
+Content-Type: multipart/mixed; boundary="------------BJxvnO001IhyRZyK5BKNLhzp"
 
---------------gP0Ef10fixcPW6kf2HHiGOoT
+--------------BJxvnO001IhyRZyK5BKNLhzp
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMzAuMTEuMjIgMTc6MzYsIFJvZ2VyIFBhdSBNb25uZSB3cm90ZToNCj4gVGhlIGN1cnJl
-bnRseSBsb2NrbGVzcyBhY2Nlc3MgdG8gdGhlIHhlbiBjb25zb2xlIGxpc3QgaW4NCj4gdnRl
-cm1ub190b194ZW5jb25zKCkgaXMgaW5jb3JyZWN0LCBhcyBhZGRpdGlvbnMgYW5kIHJlbW92
-YWxzIGZyb20gdGhlDQo+IGxpc3QgY2FuIGhhcHBlbiBhbnl0aW1lLCBhbmQgYXMgc3VjaCB0
-aGUgdHJhdmVyc2FsIG9mIHRoZSBsaXN0IHRvIGdldA0KPiB0aGUgcHJpdmF0ZSBjb25zb2xl
-IGRhdGEgZm9yIGEgZ2l2ZW4gdGVybW5vIG5lZWRzIHRvIGhhcHBlbiB3aXRoIHRoZQ0KPiBs
-b2NrIGhlbGQuICBOb3RlIHVzZXJzIHRoYXQgbW9kaWZ5IHRoZSBsaXN0IGFscmVhZHkgZG8g
-c28gd2l0aCB0aGUNCj4gbG9jayB0YWtlbi4NCj4gDQo+IEFkanVzdCBjdXJyZW50IGxvY2sg
-dGFrZXJzIHRvIHVzZSB0aGUgX2lycXtzYXZlLHJlc3RvcmV9IGhlbHBlcnMsDQo+IHNpbmNl
-IHRoZSBjb250ZXh0IGluIHdoaWNoIHZ0ZXJtbm9fdG9feGVuY29ucygpIGlzIGNhbGxlZCBj
-YW4gaGF2ZQ0KPiBpbnRlcnJ1cHRzIGRpc2FibGVkLiAgVXNlIHRoZSBfaXJxe3NhdmUscmVz
-dG9yZX0gc2V0IG9mIGhlbHBlcnMgdG8NCj4gc3dpdGNoIHRoZSBjdXJyZW50IGNhbGxlcnMg
-dG8gZGlzYWJsZSBpbnRlcnJ1cHRzIGluIHRoZSBsb2NrZWQgcmVnaW9uLg0KPiBJIGhhdmVu
-J3QgY2hlY2tlZCBpZiBleGlzdGluZyB1c2VycyBjb3VsZCBpbnN0ZWFkIHVzZSB0aGUgX2ly
-cQ0KPiB2YXJpYW50LCBhcyBJIHRoaW5rIGl0J3Mgc2FmZXIgdG8gdXNlIF9pcnF7c2F2ZSxy
-ZXN0b3JlfSB1cGZyb250Lg0KPiANCj4gV2hpbGUgdGhlcmUgc3dpdGNoIGZyb20gdXNpbmcg
-bGlzdF9mb3JfZWFjaF9lbnRyeV9zYWZlIHRvDQo+IGxpc3RfZm9yX2VhY2hfZW50cnk6IHRo
-ZSBjdXJyZW50IGVudHJ5IGN1cnNvciB3b24ndCBiZSByZW1vdmVkIGFzDQo+IHBhcnQgb2Yg
-dGhlIGNvZGUgaW4gdGhlIGxvb3AgYm9keSwgc28gdXNpbmcgdGhlIF9zYWZlIHZhcmlhbnQg
-aXMNCj4gcG9pbnRsZXNzLg0KPiANCj4gRml4ZXM6IDAyZTE5ZjljN2NhYyAoJ2h2Y194ZW46
-IGltcGxlbWVudCBtdWx0aWNvbnNvbGUgc3VwcG9ydCcpDQo+IFNpZ25lZC1vZmYtYnk6IFJv
-Z2VyIFBhdSBNb25uw6kgPHJvZ2VyLnBhdUBjaXRyaXguY29tPg0KDQpQdXNoZWQgdG8geGVu
-L3RpcC5naXQgZm9yLWxpbnVzLTYuMg0KDQoNCkp1ZXJnZW4NCg0K
---------------gP0Ef10fixcPW6kf2HHiGOoT
+T24gMTMuMTIuMjIgMTY6NDYsIERhd2VpIExpIHdyb3RlOg0KPiBTaW5jZSBjb21taXQgZmM3
+YTYyMDlkNTcxICgiYnVzOiBNYWtlIHJlbW92ZSBjYWxsYmFjayByZXR1cm4gdm9pZCIpDQo+
+IGZvcmNlcyBidXNfdHlwZTo6cmVtb3ZlIGJlIHZvaWQtcmV0dXJuZWQsIGl0IGRvZXNuJ3Qg
+bWFrZSBtdWNoIHNlbnNlIGZvcg0KPiBhbnkgYnVzIGJhc2VkIGRyaXZlciBpbXBsZW1lbnRp
+bmcgcmVtb3ZlIGNhbGxiYWxrIHRvIHJldHVybiBub24tdm9pZCB0bw0KPiBpdHMgY2FsbGVy
+Lg0KPiANCj4gVGhpcyBjaGFuZ2UgaXMgZm9yIHhlbiBidXMgYmFzZWQgZHJpdmVycy4NCj4g
+DQo+IEFja2VkLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+IFNpZ25l
+ZC1vZmYtYnk6IERhd2VpIExpIDxzZXRfcHRlX2F0QG91dGxvb2suY29tPg0KDQpQdXNoZWQg
+dG8geGVuL3RpcC5naXQgZm9yLWxpbnVzLTYuMg0KDQoNCkp1ZXJnZW4NCg0K
+--------------BJxvnO001IhyRZyK5BKNLhzp
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -186,25 +172,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------gP0Ef10fixcPW6kf2HHiGOoT--
+--------------BJxvnO001IhyRZyK5BKNLhzp--
 
---------------Kb0uGwizoLvibEvRPqCzPKl8--
+--------------r84Y64pzyXf8LsYbXQjpT04r--
 
---------------6nQNq6G02bf1dW0c6lDPjjkY
+--------------0lgsG4DjM2bogqj9tDjcsDeD
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmO9HKIFAwAAAAAACgkQsN6d1ii/Ey+t
-twf/SCL+Qbrvyi0dgYX3s8xBkFvBU9UzEaa6MxDE1aev/pt1IndKUcFrciE11V00rdeqb+jb/PbR
-K5b1n843/V+EbAEFfAIV9K9LCH9YiDFqUJ49yKQEL58vieL2FVD4OvZTWuKTgeTwu1kPrD4O4m7V
-UVhWsedPcHGFHWvLs3e8oujnke1Jhj2lfD5DqGWdht1X/4te+j6Owzy3JO69M3FYVRZYzn+72qv/
-NON65BQg2FuDujwdzvDP4Vvsqz684JxVc3qi9bI9JH7VJH1FbwApJ1mQKU5xmWx24MxfAPgNEajB
-uaJ48m4NrF4BTw4QmhmEQ4vlGS2Ilb4GalWyksQypA==
-=E2fh
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmO9HMcFAwAAAAAACgkQsN6d1ii/Ey+f
+1wf+K+5GUrDsbaaoBFao/iA/yd9cCF6PTSRa8C28Z0Xu+s5K30n0thAK7JjyRMZJmzbemu4XZVA6
+OxCGIQdrkLTmgoGRTZjdYbFhz7C4ByTAEqkgk72umn3WZEqthOfZY1EE2Imd1beYJzeLfjM6U32h
+DuUK14cuf7PbMVfAxpMgPvk+awBFO7fjD5gdNRpAE/F1eseawanTnJSeD5AVm4MRJCwnQr9/8xWA
+M0lm0kk3xCfAu1tlqV2XXuAXF8pZCdXr6/heuDpg2UwwakevfI3rHCsGO85anJ1vWiWJR+5N3hrz
+8f7fsLu5VuBRJPVziQO8zwQUNBXYTCjlBj7/Ba8lJQ==
+=VY/4
 -----END PGP SIGNATURE-----
 
---------------6nQNq6G02bf1dW0c6lDPjjkY--
+--------------0lgsG4DjM2bogqj9tDjcsDeD--
 
