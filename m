@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DDE46636DB
-	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 02:47:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.474193.735213 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2E5766371C
+	for <lists+xen-devel@lfdr.de>; Tue, 10 Jan 2023 03:12:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.474203.735227 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF3iS-0005Gu-W2; Tue, 10 Jan 2023 01:46:16 +0000
+	id 1pF46w-0000am-0I; Tue, 10 Jan 2023 02:11:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 474193.735213; Tue, 10 Jan 2023 01:46:16 +0000
+Received: by outflank-mailman (output) from mailman id 474203.735227; Tue, 10 Jan 2023 02:11:33 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pF3iS-0005FD-Or; Tue, 10 Jan 2023 01:46:16 +0000
-Received: by outflank-mailman (input) for mailman id 474193;
- Tue, 10 Jan 2023 01:46:15 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pF46v-0000YA-TH; Tue, 10 Jan 2023 02:11:33 +0000
+Received: by outflank-mailman (input) for mailman id 474203;
+ Tue, 10 Jan 2023 02:11:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pF3iR-0005F3-Bf; Tue, 10 Jan 2023 01:46:15 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pF3iR-0006OO-6p; Tue, 10 Jan 2023 01:46:15 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pF3iQ-0007LJ-S9; Tue, 10 Jan 2023 01:46:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pF3iQ-0002zg-Qv; Tue, 10 Jan 2023 01:46:14 +0000
+ (envelope-from <SRS0=tiyo=5H=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pF46u-0000Y4-M4
+ for xen-devel@lists.xenproject.org; Tue, 10 Jan 2023 02:11:33 +0000
+Received: from sonic301-20.consmr.mail.gq1.yahoo.com
+ (sonic301-20.consmr.mail.gq1.yahoo.com [98.137.64.146])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 16f7ee39-908c-11ed-b8d0-410ff93cb8f0;
+ Tue, 10 Jan 2023 03:11:28 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic301.consmr.mail.gq1.yahoo.com with HTTP; Tue, 10 Jan 2023 02:11:26 +0000
+Received: by hermes--production-ne1-7b69748c4d-55l5b (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 1a4c1345234cf01d6eb27377ae8cdc42; 
+ Tue, 10 Jan 2023 02:11:24 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,965 +42,400 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
-	bh=2f+4UnnW2L0E78oK3XKT0P04CWg/J3/IH9hbTWv20yI=; b=MiN2pKzuTq2+sH4gBx8527trrI
-	DM39To0e/IUKgmiqZno2FHRxQc9D/RYMKeIDgC4fthtaM0a0HbyGG6rKIDyQWraTfPLHOxroQQhUP
-	vaRLa1Zy5ysRHGHEO7YMmO/JdCGgklgd2YHMwOWOHWibyRP6FFjE0dkJznw5sP6Z4TeQ=;
-To: xen-devel@lists.xenproject.org
-Subject: [qemu-mainline bisection] complete build-i386-xsm
-Message-Id: <E1pF3iQ-0002zg-Qv@osstest.test-lab.xenproject.org>
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 10 Jan 2023 01:46:14 +0000
+X-Inumbo-ID: 16f7ee39-908c-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1673316686; bh=7QkjhmpzJKIE7K6fWXoMGD50xZfWbV2q4lJFRzYCwz0=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=SuLJXzBIvmaPGU4/7UAInN4vmpHqidslwU5vGr7BJuTDvpCKjL6cX8sJXjoaWJVGxDdmCXy/u/QbJdcSYcdE33YlmY7BQ8jSkc/ZlustiOhIWkFbZU1Eim3Jjl9rL4ymJGsCOWZcPBS6wjB/w41M35etW+FsxjiVo/LyOqNQU/nS1Hz7RdlFWt96AutEDO+qs9+tR9cYehmf4IbQSNJF1Ue0UQsnSgtma04JkA3M1DzOKk+4kwZXipyqcNGKXxY0gCgupoGlqM+oGOBtg3OzNwy5it6VjnLfYGP6VI1KHuCcP7jTo1NpBIz/jTfW/lPz+w6EtT5JYE3y/RQxM1d4CA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1673316686; bh=BEwSlhJwTePxyg+41CHEKfeAHlvHKT5e4gskjlhJiWo=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=tdViyb53ly9roW7VuHUEy1/nFSww5xxl0KSqu2lcpHoyCSihfPiwqJR4QmHo2f5gcpfDFV2B552T1th/p7TfAZzILCYWwABU7uETysYp8LZcX6RvY0TUIhs0Iuvtti5Ig7jN18OLKTxlrFAt9yc++e1KOEETlo8iOVI/WfKzKvw4LAv29pS+IhBt+RcMNAxWIJZ1/P2yVUEuPFOyTF5wZ3xvU7QKXqFq3AM9lpEJp6r9HWKW3+/CWSVD13LtTaV1D81WnDpFAB8KRgxAVoViwvbIKhCMlXkGekcoK2N6tBmNucm/Kz90msUYQMZQghCIjqL+2+5NtjZPkbibueQT2g==
+X-YMail-OSG: 35CxZAcVM1lZMUWXJQtaooaptdpLsLjLj53wxdUyWpdCaRGmP17swB4qW3yzr8e
+ Zv4OIHGnnd6LoDqqAhWFR0Xu9ENP7gGOzqLgzYwP5B8EXSqNv2QOP6u3JDbAAp8uqwq3Hg9LNXED
+ f868PiHt_xX0QPD9R5O4FmqgttXZfG_bqgkm.gSA5LkSpjjtJA8eqmrQ9Cbvn8c81J0PajooDjlo
+ U_bOuXqA_ueQ805CP9zjAH6LZHAOiPjQeGL9W67wWIFbPXm1Kw6HfNDM_1vcCRBr15oFTP.jUhwJ
+ weO360hKMsxZzrcobIcDyGK6ZJliNOY8kcMi3v8Dwm3bP8gfTYjm9AbGbR5RClC469HKhAOoPqQR
+ 4Mfo9w27xaw0.zzxtQKcBFi0qA396ge6H1U6F099Q6Vqk3JDKjZ8X3q0SYvttCyyDboprbEJSDka
+ QAarVhhm9iVAKL9cKLGnYcjA6tVQ4.Vk3am2WJfOH7jH7e0NdjClA6e3Mo2by3EflMOdO2_qFWo_
+ 9ZCiPiHpLau9IUfEoqv1zWGHi3N3dA0Rwov.rEVsbvwTwTO0gAo7dmwQ0tp8dxppVOysXJYleFBK
+ d0Q7tLw0xtVWDJuL.TVUQA7kswt0I2dOkiKiG54RbdiaNkwbdIg.JUu8JjhgeaG72AovByODBz03
+ SezF8Q4TNwWWgpTu.m7LFIr7r8huOOQOABbknBRt_40YQ_2WguFf9blnpTxvGsV9e.VnrvBOXHBH
+ w4PcyKnhBq1R23MszMGALFx0dM2LJvT0ay2Th6D3iJ_UfbzilQrcKakoEku0oi7iK1qrJUPImYvo
+ vxZK2Z9I2KHNEpnvRrs.7jybiZudOJbO.yic9NzwGqp9DUODd46Es5X23gyVfUWKt2hHj.YF9Kaq
+ Txyk2.EchmKgwf9Kjts59OlabKAlRlqky_UIQTkFu7hvaqNDpz3RGW_7RbHe.Jj5kjkCt5U6RjhN
+ nkcMFcOSt9c66BiUz2at3ByeUtA4jVLyfvMzIW4NB5dbVpKOGelXZt_i3OuHLBYfBc4fteBhd4n8
+ kQfdkd1Q2ux.CpO2viGblbbdaQHyt4KkVYcs85GeUt4eMfPje796NKl0BMmsppAn9JYbtQnNPRHI
+ R4FlXuy23wiytu..du88BIQp_nzEmSGbTI6U_BU_lLy4bZBYoqZoC.zO4gEUV7wITS_40KeB_Vfp
+ k7K_cDREhmv5Ak.RPjNHwHGJb0uLPThEy8632FddBdHpO5ZufwubOoXfsa2qtS9QPvb0JlCZDix1
+ srAPwhB0Q3oRvYvUfIMRGVyFlJw055MGZvt.eqR0UZbxKCkf5kfSytnhk0cCsSbcj1z2AhB2j0FF
+ 0mfjOco3g9809lTqJ47ygeW8jLv6YiyBbttOZBcFYj4YDmNuMbYFXh8s0pzkGp3FkmlVZpRU5.ru
+ 5HlD2cCZHvsrlrZh5jZ72vgvEZeN3CMJi_MsjCusSiFVxBp5323wsvHDg9UW5iWIRPiQugMI.naT
+ MVYbXsHnGms7KiHjPmwBYA.zwVurIExq6J4w4qdnMcQ_xh8e9g.0oL7p4IblHEsC09Q7xzQcLALW
+ 8XZRRikQFINTpx3c.tGXJOwcPX64MwgTkvuOmE7w1CSPBOvMvmHBaieS6DcL6lsj2q53fALkq_07
+ dASPThG56DoGobRvy5TC5x67jyGqEClXdStEPKXqDJGpPjpEirgc3ZiZPuYrHceFZ9_bRzBlPhf1
+ 880SF7LZ2BjoHCy3mTdA6KMzA_7OENHJnolN6hw4CrqfsKI2a1BN_y2F_vYINQDcRc7asMCMZ7Kc
+ GwgXG_51YmviGOMGiBFc2nFtIM__TkLZxJLXpClhdKBzAdOWt3B5.GECz4Sc2TI5h82kElOPx6i7
+ ssPuRg7OK6iWF05hNtmO.8aStctDIarZ8._R5x0Ca5m.6RJXdEbAkhzcDAHDjhqOfltAB3V11UPd
+ sxjHiZ4m6yUekcB1nrcZZ2JTjDuAAnLh33XZE1alQomssOdQ0xnmbEzIJHxRBMEbNbW79Gd56rjl
+ TW2FLzilRBMebGLaVqO0YQpQSwvp9We1aby8DATbG0gyjW.2uXMCYNe0eLpAsigj.8TL_OuiJupo
+ VyDjk.1iEyiGttOySsKDGSJm_p6_.W.6LRlNo1RbbrgZXsNfHfhwBGZdjRjoze68L8OCNniUhMVI
+ .jWtauilMJQWRDP4iKtdcbyhdUyAjVxad6D0tMj0iQaZXM3JvBa7PmVjs3SHRnhTkZrKyNQ8_5Kn
+ 2uHpJzDJWROk-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <1542de4a-3b42-0ca4-777a-ce01f75b5532@aol.com>
+Date: Mon, 9 Jan 2023 21:11:22 -0500
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v7] xen/pt: reserve PCI slot 2 for Intel igd-passthru
+Content-Language: en-US
+From: Chuck Zmudzinski <brchuckz@aol.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>
+Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org
+References: <8349506149de6d81b0762f17623552c248439e93.1673297742.git.brchuckz.ref@aol.com>
+ <8349506149de6d81b0762f17623552c248439e93.1673297742.git.brchuckz@aol.com>
+ <20230109183132-mutt-send-email-mst@kernel.org>
+ <aacffaa2-1e86-1392-8302-484248b893c4@aol.com>
+In-Reply-To: <aacffaa2-1e86-1392-8302-484248b893c4@aol.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.20982 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-branch xen-unstable
-xenbranch xen-unstable
-job build-i386-xsm
-testid xen-build
+On 1/9/2023 7:05 PM, Chuck Zmudzinski wrote:
+> On 1/9/23 6:33 PM, Michael S. Tsirkin wrote:
+> > On Mon, Jan 09, 2023 at 04:55:42PM -0500, Chuck Zmudzinski wrote:
+> >> Intel specifies that the Intel IGD must occupy slot 2 on the PCI bus,
+> >> as noted in docs/igd-assign.txt in the Qemu source code.
+> >> 
+> >> Currently, when the xl toolstack is used to configure a Xen HVM guest with
+> >> Intel IGD passthrough to the guest with the Qemu upstream device model,
+> >> a Qemu emulated PCI device will occupy slot 2 and the Intel IGD will occupy
+> >> a different slot. This problem often prevents the guest from booting.
+> >> 
+> >> The only available workaround is not good: Configure Xen HVM guests to use
+> >> the old and no longer maintained Qemu traditional device model available
+> >> from xenbits.xen.org which does reserve slot 2 for the Intel IGD.
+> >> 
+> >> To implement this feature in the Qemu upstream device model for Xen HVM
+> >> guests, introduce the following new functions, types, and macros:
+> >> 
+> >> * XEN_PT_DEVICE_CLASS declaration, based on the existing TYPE_XEN_PT_DEVICE
+> >> * XEN_PT_DEVICE_GET_CLASS macro helper function for XEN_PT_DEVICE_CLASS
+> >> * typedef XenPTQdevRealize function pointer
+> >> * XEN_PCI_IGD_SLOT_MASK, the value of slot_reserved_mask to reserve slot 2
+> >> * xen_igd_reserve_slot and xen_igd_clear_slot functions
+> >> 
+> >> The new xen_igd_reserve_slot function uses the existing slot_reserved_mask
+> >> member of PCIBus to reserve PCI slot 2 for Xen HVM guests configured using
+> >> the xl toolstack with the gfx_passthru option enabled, which sets the
+> >> igd-passthru=on option to Qemu for the Xen HVM machine type.
+> >> 
+> >> The new xen_igd_reserve_slot function also needs to be implemented in
+> >> hw/xen/xen_pt_stub.c to prevent FTBFS during the link stage for the case
+> >> when Qemu is configured with --enable-xen and --disable-xen-pci-passthrough,
+> >> in which case it does nothing.
+> >> 
+> >> The new xen_igd_clear_slot function overrides qdev->realize of the parent
+> >> PCI device class to enable the Intel IGD to occupy slot 2 on the PCI bus
+> >> since slot 2 was reserved by xen_igd_reserve_slot when the PCI bus was
+> >> created in hw/i386/pc_piix.c for the case when igd-passthru=on.
+> >> 
+> >> Move the call to xen_host_pci_device_get, and the associated error
+> >> handling, from xen_pt_realize to the new xen_igd_clear_slot function to
+> >> initialize the device class and vendor values which enables the checks for
+> >> the Intel IGD to succeed. The verification that the host device is an
+> >> Intel IGD to be passed through is done by checking the domain, bus, slot,
+> >> and function values as well as by checking that gfx_passthru is enabled,
+> >> the device class is VGA, and the device vendor in Intel.
+> >> 
+> >> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
+> >> ---
+> >> Notes that might be helpful to reviewers of patched code in hw/xen:
+> >> 
+> >> The new functions and types are based on recommendations from Qemu docs:
+> >> https://qemu.readthedocs.io/en/latest/devel/qom.html
+> >> 
+> >> Notes that might be helpful to reviewers of patched code in hw/i386:
+> >> 
+> >> The small patch to hw/i386/pc_piix.c is protected by CONFIG_XEN so it does
+> >> not affect builds that do not have CONFIG_XEN defined.
+> > 
+> > I'm not sure how you can claim that.
+>
+> I mean the small patch to pc_piix.c in this patch sits
+> between an "#ifdef CONFIG_XEN" and the corresponding
+> "#endif" so the preprocessor will exclude it when CONFIG_XEN
+> is not defined. In other words, my patch is part of the
+> xen-specific code in pc_piix.c. Or am I missing something?
+>
+>
+> > 
+> > ...
+> > 
+> >> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
+> >> index b48047f50c..34a9736b5e 100644
+> >> --- a/hw/i386/pc_piix.c
+> >> +++ b/hw/i386/pc_piix.c
+> >> @@ -32,6 +32,7 @@
+> >>  #include "hw/i386/pc.h"
+> >>  #include "hw/i386/apic.h"
+> >>  #include "hw/pci-host/i440fx.h"
+> >> +#include "hw/rtc/mc146818rtc.h"
+> >>  #include "hw/southbridge/piix.h"
+> >>  #include "hw/display/ramfb.h"
+> >>  #include "hw/firmware/smbios.h"
+> >> @@ -40,16 +41,16 @@
+> >>  #include "hw/usb.h"
+> >>  #include "net/net.h"
+> >>  #include "hw/ide/pci.h"
+> >> -#include "hw/ide/piix.h"
+> >>  #include "hw/irq.h"
+> >>  #include "sysemu/kvm.h"
+> >>  #include "hw/kvm/clock.h"
+> >>  #include "hw/sysbus.h"
+> >> +#include "hw/i2c/i2c.h"
+> >>  #include "hw/i2c/smbus_eeprom.h"
+> >>  #include "hw/xen/xen-x86.h"
+> >> +#include "hw/xen/xen.h"
+> >>  #include "exec/memory.h"
+> >>  #include "hw/acpi/acpi.h"
+> >> -#include "hw/acpi/piix4.h"
+> >>  #include "qapi/error.h"
+> >>  #include "qemu/error-report.h"
+> >>  #include "sysemu/xen.h"
+> >> @@ -66,6 +67,7 @@
+> >>  #include "kvm/kvm-cpu.h"
+> >>  
+> >>  #define MAX_IDE_BUS 2
+> >> +#define XEN_IOAPIC_NUM_PIRQS 128ULL
+> >>  
+> >>  #ifdef CONFIG_IDE_ISA
+> >>  static const int ide_iobase[MAX_IDE_BUS] = { 0x1f0, 0x170 };
+> >> @@ -73,6 +75,32 @@ static const int ide_iobase2[MAX_IDE_BUS] = { 0x3f6, 0x376 };
+> >>  static const int ide_irq[MAX_IDE_BUS] = { 14, 15 };
+> >>  #endif
+> >>  
+> >> +/*
+> >> + * Return the global irq number corresponding to a given device irq
+> >> + * pin. We could also use the bus number to have a more precise mapping.
+> >> + */
+> >> +static int pci_slot_get_pirq(PCIDevice *pci_dev, int pci_intx)
+> >> +{
+> >> +    int slot_addend;
+> >> +    slot_addend = PCI_SLOT(pci_dev->devfn) - 1;
+> >> +    return (pci_intx + slot_addend) & 3;
+> >> +}
+> >> +
+> >> +static void piix_intx_routing_notifier_xen(PCIDevice *dev)
+> >> +{
+> >> +    int i;
+> >> +
+> >> +    /* Scan for updates to PCI link routes (0x60-0x63). */
+> >> +    for (i = 0; i < PIIX_NUM_PIRQS; i++) {
+> >> +        uint8_t v = dev->config_read(dev, PIIX_PIRQCA + i, 1);
+> >> +        if (v & 0x80) {
+> >> +            v = 0;
+> >> +        }
+> >> +        v &= 0xf;
+> >> +        xen_set_pci_link_route(i, v);
+> >> +    }
+> >> +}
+> >> +
+> >>  /* PC hardware initialisation */
+> >>  static void pc_init1(MachineState *machine,
+> >>                       const char *host_type, const char *pci_type)
+> >> @@ -84,7 +112,7 @@ static void pc_init1(MachineState *machine,
+> >>      MemoryRegion *system_io = get_system_io();
+> >>      PCIBus *pci_bus;
+> >>      ISABus *isa_bus;
+> >> -    int piix3_devfn = -1;
+> >> +    Object *piix4_pm;
+> >>      qemu_irq smi_irq;
+> >>      GSIState *gsi_state;
+> >>      BusState *idebus[MAX_IDE_BUS];
+> >> @@ -205,10 +233,9 @@ static void pc_init1(MachineState *machine,
+> >>      gsi_state = pc_gsi_create(&x86ms->gsi, pcmc->pci_enabled);
+> >>  
+> >>      if (pcmc->pci_enabled) {
+> >> -        PIIX3State *piix3;
+> >> +        DeviceState *dev;
+> >>          PCIDevice *pci_dev;
+> >> -        const char *type = xen_enabled() ? TYPE_PIIX3_XEN_DEVICE
+> >> -                                         : TYPE_PIIX3_DEVICE;
+> >> +        int i;
+> >>  
+> >>          pci_bus = i440fx_init(pci_type,
+> >>                                i440fx_host,
+> >> @@ -216,21 +243,65 @@ static void pc_init1(MachineState *machine,
+> >>                                x86ms->below_4g_mem_size,
+> >>                                x86ms->above_4g_mem_size,
+> >>                                pci_memory, ram_memory);
+> >> +        pci_bus_map_irqs(pci_bus,
+> >> +                         xen_enabled() ? xen_pci_slot_get_pirq
+> >> +                                       : pci_slot_get_pirq);
+> >>          pcms->bus = pci_bus;
+> >>  
+> >> -        pci_dev = pci_create_simple_multifunction(pci_bus, -1, true, type);
+> >> -        piix3 = PIIX3_PCI_DEVICE(pci_dev);
+> >> -        piix3->pic = x86ms->gsi;
+> >> -        piix3_devfn = piix3->dev.devfn;
+> >> -        isa_bus = ISA_BUS(qdev_get_child_bus(DEVICE(piix3), "isa.0"));
+> >> +        pci_dev = pci_new_multifunction(-1, true, TYPE_PIIX3_DEVICE);
+> >> +        object_property_set_bool(OBJECT(pci_dev), "has-usb",
+> >> +                                 machine_usb(machine), &error_abort);
+> >> +        object_property_set_bool(OBJECT(pci_dev), "has-acpi",
+> >> +                                 x86_machine_is_acpi_enabled(x86ms),
+> >> +                                 &error_abort);
+> >> +        qdev_prop_set_uint32(DEVICE(pci_dev), "smb_io_base", 0xb100);
+> >> +        object_property_set_bool(OBJECT(pci_dev), "smm-enabled",
+> >> +                                 x86_machine_is_smm_enabled(x86ms),
+> >> +                                 &error_abort);
+> >> +        pci_realize_and_unref(pci_dev, pci_bus, &error_fatal);
+> >> +
+> >> +        if (xen_enabled()) {
+> >> +            pci_device_set_intx_routing_notifier(
+> >> +                        pci_dev, piix_intx_routing_notifier_xen);
+> >> +
+> >> +            /*
+> >> +             * Xen supports additional interrupt routes from the PCI devices to
+> >> +             * the IOAPIC: the four pins of each PCI device on the bus are also
+> >> +             * connected to the IOAPIC directly.
+> >> +             * These additional routes can be discovered through ACPI.
+> >> +             */
+> >> +            pci_bus_irqs(pci_bus, xen_intx_set_irq, pci_dev,
+> >> +                         XEN_IOAPIC_NUM_PIRQS);
+> >> +        }
+> >> +
+> >> +        dev = DEVICE(object_resolve_path_component(OBJECT(pci_dev), "pic"));
+> >> +        for (i = 0; i < ISA_NUM_IRQS; i++) {
+> >> +            qdev_connect_gpio_out(dev, i, x86ms->gsi[i]);
+> >> +        }
+> >> +        isa_bus = ISA_BUS(qdev_get_child_bus(DEVICE(pci_dev), "isa.0"));
+> >> +        rtc_state = ISA_DEVICE(object_resolve_path_component(OBJECT(pci_dev),
+> >> +                                                             "rtc"));
+> >> +        piix4_pm = object_resolve_path_component(OBJECT(pci_dev), "pm");
+> >> +        dev = DEVICE(object_resolve_path_component(OBJECT(pci_dev), "ide"));
+> >> +        pci_ide_create_devs(PCI_DEVICE(dev));
+> >> +        idebus[0] = qdev_get_child_bus(dev, "ide.0");
+> >> +        idebus[1] = qdev_get_child_bus(dev, "ide.1");
+> >>      } else {
+> >>          pci_bus = NULL;
+> >> +        piix4_pm = NULL;
+> >>          isa_bus = isa_bus_new(NULL, get_system_memory(), system_io,
+> >>                                &error_abort);
+> >> +        isa_bus_irqs(isa_bus, x86ms->gsi);
+> >> +
+> >> +        rtc_state = isa_new(TYPE_MC146818_RTC);
+> >> +        qdev_prop_set_int32(DEVICE(rtc_state), "base_year", 2000);
+> >> +        isa_realize_and_unref(rtc_state, isa_bus, &error_fatal);
+> >> +
+> >>          i8257_dma_init(isa_bus, 0);
+> >>          pcms->hpet_enabled = false;
+> >> +        idebus[0] = NULL;
+> >> +        idebus[1] = NULL;
+> >>      }
+> >> -    isa_bus_irqs(isa_bus, x86ms->gsi);
+> >>  
+> >>      if (x86ms->pic == ON_OFF_AUTO_ON || x86ms->pic == ON_OFF_AUTO_AUTO) {
+> >>          pc_i8259_create(isa_bus, gsi_state->i8259_irq);
+> >> @@ -252,18 +323,12 @@ static void pc_init1(MachineState *machine,
+> >>      }
+> >>  
+> >>      /* init basic PC hardware */
+> >> -    pc_basic_device_init(pcms, isa_bus, x86ms->gsi, &rtc_state, true,
+> >> +    pc_basic_device_init(pcms, isa_bus, x86ms->gsi, rtc_state, true,
+> >>                           0x4);
+> >>  
+> >>      pc_nic_init(pcmc, isa_bus, pci_bus);
+> >>  
+> >>      if (pcmc->pci_enabled) {
+> >> -        PCIDevice *dev;
+> >> -
+> >> -        dev = pci_create_simple(pci_bus, piix3_devfn + 1, TYPE_PIIX3_IDE);
+> >> -        pci_ide_create_devs(dev);
+> >> -        idebus[0] = qdev_get_child_bus(&dev->qdev, "ide.0");
+> >> -        idebus[1] = qdev_get_child_bus(&dev->qdev, "ide.1");
+> >>          pc_cmos_init(pcms, idebus[0], idebus[1], rtc_state);
+> >>      }
+> >>  #ifdef CONFIG_IDE_ISA
+> >> @@ -289,21 +354,9 @@ static void pc_init1(MachineState *machine,
+> >>      }
+> >>  #endif
+> >>  
+> >> -    if (pcmc->pci_enabled && machine_usb(machine)) {
+> >> -        pci_create_simple(pci_bus, piix3_devfn + 2, "piix3-usb-uhci");
+> >> -    }
+> >> -
+> >> -    if (pcmc->pci_enabled && x86_machine_is_acpi_enabled(X86_MACHINE(pcms))) {
+> >> -        PCIDevice *piix4_pm;
+> >> -
+> >> +    if (piix4_pm) {
+> >>          smi_irq = qemu_allocate_irq(pc_acpi_smi_interrupt, first_cpu, 0);
+> >> -        piix4_pm = pci_new(piix3_devfn + 3, TYPE_PIIX4_PM);
+> >> -        qdev_prop_set_uint32(DEVICE(piix4_pm), "smb_io_base", 0xb100);
+> >> -        qdev_prop_set_bit(DEVICE(piix4_pm), "smm-enabled",
+> >> -                          x86_machine_is_smm_enabled(x86ms));
+> >> -        pci_realize_and_unref(piix4_pm, pci_bus, &error_fatal);
+> >>  
+> >> -        qdev_connect_gpio_out(DEVICE(piix4_pm), 0, x86ms->gsi[9]);
+> >>          qdev_connect_gpio_out_named(DEVICE(piix4_pm), "smi-irq", 0, smi_irq);
+> >>          pcms->smbus = I2C_BUS(qdev_get_child_bus(DEVICE(piix4_pm), "i2c"));
+> >>          /* TODO: Populate SPD eeprom data.  */
+> >> @@ -315,7 +368,7 @@ static void pc_init1(MachineState *machine,
+> >>                                   object_property_allow_set_link,
+> >>                                   OBJ_PROP_LINK_STRONG);
+> >>          object_property_set_link(OBJECT(machine), PC_MACHINE_ACPI_DEVICE_PROP,
+> >> -                                 OBJECT(piix4_pm), &error_abort);
+> >> +                                 piix4_pm, &error_abort);
+> >>      }
+> >>  
+> >>      if (machine->nvdimms_state->is_enabled) {
+> >> @@ -405,6 +458,9 @@ static void pc_xen_hvm_init(MachineState *machine)
+> >>      }
+> >>  
+> >>      pc_xen_hvm_init_pci(machine);
+> >> +    if (xen_igd_gfx_pt_enabled()) {
+> >> +        xen_igd_reserve_slot(pcms->bus);
+> >> +    }
 
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
+These are the three lines from my patch that are added to
+pc_piix.c. IIUC, this diff is showing the differences in pc_piix.c
+without and with CONFIG_XEN defined. If so, then the fact that
+the lines in my patch are added when CONFIG_XEN is defined
+means they are not included as part of the build when CONFIG_XEN
+is not defined. That is how I can claim that my small patch to
+pc_piix.c does not affect builds without CONFIG_XEN defined.
 
-*** Found and reproduced problem changeset ***
+I also think the rest of the files touched by my patch are only included
+by the meson build system with the --enable-xen an option to configure.
+So the entire patch is xen-specific and can easily be eliminated from
+any build with the --disable-xen configure option.
 
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  3d83b78285d6e96636130f7d449fd02e2d4deee0
-  Bug not present: 528d9f33cad5245c1099d77084c78bb2244d5143
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/175675/
+Kind regards,
 
+Chuck
 
-  commit 3d83b78285d6e96636130f7d449fd02e2d4deee0
-  Merge: 528d9f33ca fb418b51b7
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Sun Jan 8 14:27:40 2023 +0000
-  
-      Merge tag 'for-upstream' of https://gitlab.com/bonzini/qemu into staging
-      
-      * Atomic memslot updates for KVM (Emanuele, David)
-      * Always send errors to logfile when daemonized (Greg)
-      * Add support for IDE CompactFlash card (Lubomir)
-      * First round of build system cleanups (myself)
-      * First round of feature removals (myself)
-      * Reduce "qemu/accel.h" inclusion (Philippe)
-      
-      # gpg: Signature made Thu 05 Jan 2023 23:51:09 GMT
-      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
-      # gpg:                issuer "pbonzini@redhat.com"
-      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
-      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
-      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
-      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
-      
-      * tag 'for-upstream' of https://gitlab.com/bonzini/qemu: (24 commits)
-        i386: SGX: remove deprecated member of SGXInfo
-        target/i386: Add SGX aex-notify and EDECCSSA support
-        util: remove support -chardev tty and -chardev parport
-        util: remove support for hex numbers with a scaling suffix
-        KVM: remove support for kernel-irqchip=off
-        docs: do not talk about past removal as happening in the future
-        meson: accept relative symlinks in "meson introspect --installed" data
-        meson: cleanup compiler detection
-        meson: support meson 0.64 -Doptimization=plain
-        configure: test all warnings
-        tests/qapi-schema: remove Meson workaround
-        meson: cleanup dummy-cpus.c rules
-        meson: tweak hardening options for Windows
-        configure: remove backwards-compatibility and obsolete options
-        configure: preserve qemu-ga variables
-        configure: cleanup $cpu tests
-        configure: remove dead function
-        configure: remove useless write_c_skeleton
-        ide: Add "ide-cf" driver, a CompactFlash card
-        ide: Add 8-bit data mode
-        ...
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit fb418b51b7b43c34873f4b9af3da7031b7452115
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 11:02:48 2022 +0100
-  
-      i386: SGX: remove deprecated member of SGXInfo
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit d45f24fe7525d8a8aaa4ca6d9d214dc41819caa5
-  Author: Kai Huang <kai.huang@intel.com>
-  Date:   Wed Nov 9 15:48:34 2022 +1300
-  
-      target/i386: Add SGX aex-notify and EDECCSSA support
-      
-      The new SGX Asynchronous Exit (AEX) notification mechanism (AEX-notify)
-      allows one enclave to receive a notification in the ERESUME after the
-      enclave exit due to an AEX.  EDECCSSA is a new SGX user leaf function
-      (ENCLU[EDECCSSA]) to facilitate the AEX notification handling.
-      
-      Whether the hardware supports to create enclave with AEX-notify support
-      is enumerated via CPUID.(EAX=0x12,ECX=0x1):EAX[10].  The new EDECCSSA
-      user leaf function is enumerated via CPUID.(EAX=0x12,ECX=0x0):EAX[11].
-      
-      Add support to allow to expose the new SGX AEX-notify feature and the
-      new EDECCSSA user leaf function to KVM guest.
-      
-      Link: https://lore.kernel.org/lkml/166760360549.4906.809756297092548496.tip-bot2@tip-bot2/
-      Link: https://lore.kernel.org/lkml/166760360934.4906.2427175408052308969.tip-bot2@tip-bot2/
-      Reviewed-by: Yang Zhong <yang.zhong@linux.intel.com>
-      Signed-off-by: Kai Huang <kai.huang@intel.com>
-      Message-Id: <20221109024834.172705-1-kai.huang@intel.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6f9f630836df355b9ca3f4641e6b7be71f6af076
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:56:53 2022 +0100
-  
-      util: remove support -chardev tty and -chardev parport
-      
-      These were deprecated in 6.0 and can now be removed.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 8b902e3d2309595567e4957b96e971c4f3ca455e
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:50:05 2022 +0100
-  
-      util: remove support for hex numbers with a scaling suffix
-      
-      This was deprecated in 6.0 and can now be removed.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit eaaaf8abdc9a9f3493f2cb6a751660dff3f9db57
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:39:32 2022 +0100
-  
-      KVM: remove support for kernel-irqchip=off
-      
-      -machine kernel-irqchip=off is broken for many guest OSes; kernel-irqchip=split
-      is the replacement that works, so remove the deprecated support for the former.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9d3f8b3247795ae8f482700bbbace04b04421d5b
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 11:05:20 2022 +0100
-  
-      docs: do not talk about past removal as happening in the future
-      
-      KVM guest support on 32-bit Arm hosts *has* been removed, so rephrase
-      the sentence describing it.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f32eb0021a85efaca97f69b0e9201737562a8e4f
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Dec 14 13:25:00 2022 +0100
-  
-      meson: accept relative symlinks in "meson introspect --installed" data
-      
-      When installing shared libraries, as is the case for libvfio-user.so,
-      Meson will include relative symbolic links in the output of
-      "meson introspect --installed":
-      
-        {
-          "libvfio-user.so": "/usr/local/lib64/libvfio-user.so",
-          ...
-        }
-      
-      In the case of scripts/symlink-install-tree.py, this will
-      be a symbolic link to a symbolic link but, in any case, there is
-      no issue in creating it.
-      
-      Cc: qemu-stable@nongnu.org
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e51340243687a2cd7ffcf0d6e2de030bed4b8720
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 14:15:06 2022 +0200
-  
-      meson: cleanup compiler detection
-      
-      Detect all compilers at the beginning of meson.build, and store
-      the available languages in an array.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6a97f3939240977e66e90862419911666956a76a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Nov 2 13:07:23 2022 +0100
-  
-      meson: support meson 0.64 -Doptimization=plain
-      
-      In Meson 0.64, the optimization built-in option now accepts the "plain" value,
-      which will not set any optimization flags.  While QEMU does not check the
-      contents of the option and therefore does not suffer any ill effect
-      from the new value, it uses get_option to print the optimization flags
-      in the summary.  Clean the code up to remove duplication, and check for
-      -Doptimization=plain at the same time.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit ca9b5c2ebf1aca87677a24c208bf3d0345c0b1aa
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 14:21:22 2022 +0200
-  
-      configure: test all warnings
-      
-      Some warnings are hardcoded in QEMU_CFLAGS and not tested.  There is
-      no particular reason to single out these five, as many more -W flags are
-      present on all the supported compilers.  For homogeneity when moving
-      the detection to meson, make them use the same warn_flags infrastructure.
-      
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 7bef93ff064f540e24a36a31263ae3db2d06b3d2
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Dec 14 12:29:11 2022 +0100
-  
-      tests/qapi-schema: remove Meson workaround
-      
-      The referenced issue has been fixed since version 0.61, so remove the
-      workaround.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9c9b85d705abdcce0b63f9182d8140dd67bd13fb
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Jul 22 10:43:00 2021 +0200
-  
-      meson: cleanup dummy-cpus.c rules
-      
-      Now that qtest is available on all targets including Windows, dummy-cpus.c
-      is included unconditionally in the build.  It also does not need to be
-      compiled per-target.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 2d73fa74728dccde5cc29c4e56b4d781e4ead7c4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Nov 2 13:03:51 2022 +0100
-  
-      meson: tweak hardening options for Windows
-      
-      meson.build has been enabling ASLR _only_ for debug builds since
-      commit d2147e04f95f ("configure: move Windows flags detection to meson",
-      2022-05-07); instead it was supposed to disable it for debug builds.
-      
-      However, the flag has been enabled for DLLs upstream for roughly 2
-      years (https://sourceware.org/bugzilla/show_bug.cgi?id=19011), and
-      also by some distros including Debian for 6 years even
-      (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=836365).
-      
-      Enable it unconditionally; we can fix the reversed logic of commit
-      d2147e04f95f later if there are any reports, but for now just
-      enable the hardening.
-      
-      Also add -Wl,--high-entropy-va, which also controls ASLR.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 10229ec3b0ff77c4894cefa312c21e65a761dcde
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 18 10:17:46 2022 +0200
-  
-      configure: remove backwards-compatibility and obsolete options
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 954ed68f9934a3e08f904acb93ce168505995e95
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 11:35:17 2022 +0200
-  
-      configure: preserve qemu-ga variables
-      
-      Ensure that qemu-ga variables set at configure time are kept
-      later when the script is rerun.  For preserve_env to work,
-      the variables need to be empty so move the default values
-      to config-host.mak generation.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f9c77801f4992fae99392ccbb60596dfa1fcf04a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 15:27:03 2022 +0200
-  
-      configure: cleanup $cpu tests
-      
-      $cpu is derived from preprocessor defines rather than uname these days,
-      so do not bother using isainfo on Solaris.  Likewise do not recognize
-      BeOS's uname -m output.
-      
-      Keep the other, less OS-specific canonicalizations for the benefit
-      of people using --cpu.
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 91cd485a6dcbc8210666d19146fe73b8664f0418
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 18 10:17:25 2022 +0200
-  
-      configure: remove dead function
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit c5634e822416e71e00f08f55a521362d8d21264d
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 20 14:20:06 2022 +0200
-  
-      configure: remove useless write_c_skeleton
-      
-      This is not needed ever since QEMU stopped detecting -liberty; this
-      happened with the Meson switch but it is quite likely that the
-      library was not really necessary years before.
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit cec79db38df72ce74d0296b831e90547111bc13c
-  Author: Lubomir Rintel <lkundrak@v3.sk>
-  Date:   Wed Nov 30 13:03:19 2022 +0100
-  
-      ide: Add "ide-cf" driver, a CompactFlash card
-      
-      This allows attaching IDE_CFATA device to an IDE bus. Behaves like a
-      CompactFlash card in True IDE mode.
-      
-      Tested with:
-      
-        qemu-system-i386 \$
-          -device driver=ide-cf,drive=cf,bus=ide.0 \$
-          -drive id=cf,index=0,format=raw,if=none,file=cf.img
-      
-      Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
-      Message-Id: <20221130120319.706885-1-lkundrak@v3.sk>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 1ea17d228e582b1cfbf6f61e9da5fafef4063be8
-  Author: Lubomir Rintel <lkundrak@v3.sk>
-  Date:   Wed Nov 30 13:02:38 2022 +0100
-  
-      ide: Add 8-bit data mode
-      
-      CompactFlash uses features 0x01 and 0x81 to enable/disable 8-bit data
-      path. Implement them.
-      
-      Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
-      Message-Id: <20221130120238.706717-1-lkundrak@v3.sk>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9b063b7ea697d796914b3651d15c3457b7b1135c
-  Author: Greg Kurz <groug@kaod.org>
-  Date:   Tue Nov 8 15:00:32 2022 +0100
-  
-      util/log: Always send errors to logfile when daemonized
-      
-      When QEMU is started with `-daemonize`, all stdio descriptors get
-      redirected to `/dev/null`. This basically means that anything
-      printed with error_report() and friends is lost.
-      
-      Current logging code allows to redirect to a file with `-D` but
-      this requires to enable some logging item with `-d` as well to
-      be functional.
-      
-      Relax the check on the log flags when QEMU is daemonized, so that
-      other users of stderr can benefit from the redirection, without the
-      need to enable unwanted debug logs. Previous behaviour is retained
-      for the non-daemonized case. The logic is unrolled as an `if` for
-      better readability. The qemu_log_level and log_per_thread globals
-      reflect the state we want to transition to at this point : use
-      them instead of the intermediary locals for correctness.
-      
-      qemu_set_log_internal() is adapted to open a per-thread log file
-      when '-d tid' is passed. This is done by hijacking qemu_try_lock()
-      which seems simpler that refactoring the code.
-      
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221108140032.1460307-3-groug@kaod.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 59bde2137445b63c822720d069d91d38190c6540
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Nov 8 15:00:31 2022 +0100
-  
-      util/log: do not close and reopen log files when flags are turned off
-      
-      log_append makes sure that if you turn off the logging (which clears
-      log_flags and makes need_to_open_file false) the old log is not
-      overwritten.  The usecase is that if you remove or move the file
-      QEMU will not keep writing to the old file.  However, this is
-      not always the desited behavior, in particular having log_append==1
-      after changing the file name makes little sense.
-      
-      When qemu_set_log_internal is called from the logfile monitor
-      command, filename must be non-NULL and therefore changed_name must
-      be true.  Therefore, the only case where the file is closed and
-      need_to_open_file == false is indeed when log_flags becomes
-      zero.  In this case, just flush the file and do not bother
-      closing it, thus faking the same append behavior as previously.
-      
-      The behavioral change is that changing the logfile twice, for
-      example log1 -> log2 -> log1, will cause log1 to be overwritten.
-      This can simply be documented, since it is not a particularly
-      surprising behavior.
-      
-      Suggested-by: Alex Bennée <alex.bennee@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-      Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-      Reviewed-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221025092119.236224-1-pbonzini@redhat.com>
-      [groug: nullify global_file before actually closing the file]
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221108140032.1460307-2-groug@kaod.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit cc6ff741123216550997b12cdd991beeed47bd0d
-  Author: Philippe Mathieu-Daudé <philmd@linaro.org>
-  Date:   Wed Nov 30 14:56:41 2022 +0100
-  
-      hw: Reduce "qemu/accel.h" inclusion
-      
-      Move "qemu/accel.h" include from the heavily included
-      "hw/boards.h" to hw/core/machine.c, the single file using
-      the AccelState definition.
-      
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Reviewed-by: Fabiano Rosas <farosas@suse.de>
-      Message-Id: <20221130135641.85328-3-philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3d277871f39d4de42f56b7b0cef5721e525b2d31
-  Author: Philippe Mathieu-Daudé <philmd@linaro.org>
-  Date:   Wed Nov 30 14:56:40 2022 +0100
-  
-      typedefs: Forward-declare AccelState
-      
-      Forward-declare AccelState in "qemu/typedefs.h" so structures
-      using a reference of it (like MachineState in "hw/boards.h")
-      don't have to include "qemu/accel.h".
-      
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Reviewed-by: Fabiano Rosas <farosas@suse.de>
-      Message-Id: <20221130135641.85328-2-philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-
-For bisection revision-tuple graph see:
-   http://logs.test-lab.xenproject.org/osstest/results/bisect/qemu-mainline/build-i386-xsm.xen-build.html
-Revision IDs in each graph node refer, respectively, to the Trees above.
-
-----------------------------------------
-Running cs-bisection-step --graph-out=/home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build --summary-out=tmp/175675.bisection-summary --basis-template=175623 --blessings=real,real-bisect,real-retry qemu-mainline build-i386-xsm xen-build
-Searching for failure / basis pass:
- 175664 fail [host=nobling1] / 175637 ok.
-Failure / basis pass flights: 175664 / 175637
-(tree with no url: minios)
-Tree: ovmf git://xenbits.xen.org/osstest/ovmf.git
-Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
-Tree: qemuu git://git.qemu.org/qemu.git
-Tree: seabios git://xenbits.xen.org/osstest/seabios.git
-Tree: xen git://xenbits.xen.org/xen.git
-Latest 33a3408fbbf988aaa8ecc6e721cf83e3ae810e54 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aa96ab7c9df59c615ca82b49c9062819e0a1c287 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
-Basis pass d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 528d9f33cad5245c1099d77084c78bb2244d5143 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
-Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/osstest/ovmf.git#d8d829b89dababf763ab33b8cdd852b2830db3cf-33a3408fbbf988aaa8ecc6e721cf83e3ae810e54 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://git.qemu.org/qemu.git#528d9f33cad5245c1099d77084c78bb2244d5143-aa96ab7c9df59c615ca82b49c9062819e0a1c287 git://xenbits.xen.org/osstest/seabios.git#645a64b4911d7cadf5749d7375544fc2384e70ba-645\
- a64b4911d7cadf5749d7375544fc2384e70ba git://xenbits.xen.org/xen.git#2b21cbbb339fb14414f357a6683b1df74c36fda2-2b21cbbb339fb14414f357a6683b1df74c36fda2
-Loaded 14998 nodes in revision graph
-Searching for test results:
- 175627 [host=albana1]
- 175637 pass d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 528d9f33cad5245c1099d77084c78bb2244d5143 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175643 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3d83b78285d6e96636130f7d449fd02e2d4deee0 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175647 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 d6271b657286de80260413684a1f2a63f44ea17b 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175654 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aa96ab7c9df59c615ca82b49c9062819e0a1c287 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175668 pass d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 528d9f33cad5245c1099d77084c78bb2244d5143 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175669 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aa96ab7c9df59c615ca82b49c9062819e0a1c287 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175664 fail 33a3408fbbf988aaa8ecc6e721cf83e3ae810e54 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aa96ab7c9df59c615ca82b49c9062819e0a1c287 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175670 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3d83b78285d6e96636130f7d449fd02e2d4deee0 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175673 fail 33a3408fbbf988aaa8ecc6e721cf83e3ae810e54 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 aa96ab7c9df59c615ca82b49c9062819e0a1c287 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175674 pass d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 528d9f33cad5245c1099d77084c78bb2244d5143 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
- 175675 fail d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 3d83b78285d6e96636130f7d449fd02e2d4deee0 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
-Searching for interesting versions
- Result found: flight 175637 (pass), for basis pass
- Result found: flight 175654 (fail), for basis failure (at ancestor ~4)
- Repro found: flight 175668 (pass), for basis pass
- Repro found: flight 175673 (fail), for basis failure
- 0 revisions at d8d829b89dababf763ab33b8cdd852b2830db3cf 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 528d9f33cad5245c1099d77084c78bb2244d5143 645a64b4911d7cadf5749d7375544fc2384e70ba 2b21cbbb339fb14414f357a6683b1df74c36fda2
-No revisions left to test, checking graph state.
- Result found: flight 175637 (pass), for last pass
- Result found: flight 175643 (fail), for first failure
- Repro found: flight 175668 (pass), for last pass
- Repro found: flight 175670 (fail), for first failure
- Repro found: flight 175674 (pass), for last pass
- Repro found: flight 175675 (fail), for first failure
-
-*** Found and reproduced problem changeset ***
-
-  Bug is in tree:  qemuu git://git.qemu.org/qemu.git
-  Bug introduced:  3d83b78285d6e96636130f7d449fd02e2d4deee0
-  Bug not present: 528d9f33cad5245c1099d77084c78bb2244d5143
-  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/175675/
-
-
-  commit 3d83b78285d6e96636130f7d449fd02e2d4deee0
-  Merge: 528d9f33ca fb418b51b7
-  Author: Peter Maydell <peter.maydell@linaro.org>
-  Date:   Sun Jan 8 14:27:40 2023 +0000
-  
-      Merge tag 'for-upstream' of https://gitlab.com/bonzini/qemu into staging
-      
-      * Atomic memslot updates for KVM (Emanuele, David)
-      * Always send errors to logfile when daemonized (Greg)
-      * Add support for IDE CompactFlash card (Lubomir)
-      * First round of build system cleanups (myself)
-      * First round of feature removals (myself)
-      * Reduce "qemu/accel.h" inclusion (Philippe)
-      
-      # gpg: Signature made Thu 05 Jan 2023 23:51:09 GMT
-      # gpg:                using RSA key F13338574B662389866C7682BFFBD25F78C7AE83
-      # gpg:                issuer "pbonzini@redhat.com"
-      # gpg: Good signature from "Paolo Bonzini <bonzini@gnu.org>" [full]
-      # gpg:                 aka "Paolo Bonzini <pbonzini@redhat.com>" [full]
-      # Primary key fingerprint: 46F5 9FBD 57D6 12E7 BFD4  E2F7 7E15 100C CD36 69B1
-      #      Subkey fingerprint: F133 3857 4B66 2389 866C  7682 BFFB D25F 78C7 AE83
-      
-      * tag 'for-upstream' of https://gitlab.com/bonzini/qemu: (24 commits)
-        i386: SGX: remove deprecated member of SGXInfo
-        target/i386: Add SGX aex-notify and EDECCSSA support
-        util: remove support -chardev tty and -chardev parport
-        util: remove support for hex numbers with a scaling suffix
-        KVM: remove support for kernel-irqchip=off
-        docs: do not talk about past removal as happening in the future
-        meson: accept relative symlinks in "meson introspect --installed" data
-        meson: cleanup compiler detection
-        meson: support meson 0.64 -Doptimization=plain
-        configure: test all warnings
-        tests/qapi-schema: remove Meson workaround
-        meson: cleanup dummy-cpus.c rules
-        meson: tweak hardening options for Windows
-        configure: remove backwards-compatibility and obsolete options
-        configure: preserve qemu-ga variables
-        configure: cleanup $cpu tests
-        configure: remove dead function
-        configure: remove useless write_c_skeleton
-        ide: Add "ide-cf" driver, a CompactFlash card
-        ide: Add 8-bit data mode
-        ...
-      
-      Signed-off-by: Peter Maydell <peter.maydell@linaro.org>
-  
-  commit fb418b51b7b43c34873f4b9af3da7031b7452115
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 11:02:48 2022 +0100
-  
-      i386: SGX: remove deprecated member of SGXInfo
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit d45f24fe7525d8a8aaa4ca6d9d214dc41819caa5
-  Author: Kai Huang <kai.huang@intel.com>
-  Date:   Wed Nov 9 15:48:34 2022 +1300
-  
-      target/i386: Add SGX aex-notify and EDECCSSA support
-      
-      The new SGX Asynchronous Exit (AEX) notification mechanism (AEX-notify)
-      allows one enclave to receive a notification in the ERESUME after the
-      enclave exit due to an AEX.  EDECCSSA is a new SGX user leaf function
-      (ENCLU[EDECCSSA]) to facilitate the AEX notification handling.
-      
-      Whether the hardware supports to create enclave with AEX-notify support
-      is enumerated via CPUID.(EAX=0x12,ECX=0x1):EAX[10].  The new EDECCSSA
-      user leaf function is enumerated via CPUID.(EAX=0x12,ECX=0x0):EAX[11].
-      
-      Add support to allow to expose the new SGX AEX-notify feature and the
-      new EDECCSSA user leaf function to KVM guest.
-      
-      Link: https://lore.kernel.org/lkml/166760360549.4906.809756297092548496.tip-bot2@tip-bot2/
-      Link: https://lore.kernel.org/lkml/166760360934.4906.2427175408052308969.tip-bot2@tip-bot2/
-      Reviewed-by: Yang Zhong <yang.zhong@linux.intel.com>
-      Signed-off-by: Kai Huang <kai.huang@intel.com>
-      Message-Id: <20221109024834.172705-1-kai.huang@intel.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6f9f630836df355b9ca3f4641e6b7be71f6af076
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:56:53 2022 +0100
-  
-      util: remove support -chardev tty and -chardev parport
-      
-      These were deprecated in 6.0 and can now be removed.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 8b902e3d2309595567e4957b96e971c4f3ca455e
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:50:05 2022 +0100
-  
-      util: remove support for hex numbers with a scaling suffix
-      
-      This was deprecated in 6.0 and can now be removed.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit eaaaf8abdc9a9f3493f2cb6a751660dff3f9db57
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 10:39:32 2022 +0100
-  
-      KVM: remove support for kernel-irqchip=off
-      
-      -machine kernel-irqchip=off is broken for many guest OSes; kernel-irqchip=split
-      is the replacement that works, so remove the deprecated support for the former.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9d3f8b3247795ae8f482700bbbace04b04421d5b
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Fri Dec 16 11:05:20 2022 +0100
-  
-      docs: do not talk about past removal as happening in the future
-      
-      KVM guest support on 32-bit Arm hosts *has* been removed, so rephrase
-      the sentence describing it.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f32eb0021a85efaca97f69b0e9201737562a8e4f
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Dec 14 13:25:00 2022 +0100
-  
-      meson: accept relative symlinks in "meson introspect --installed" data
-      
-      When installing shared libraries, as is the case for libvfio-user.so,
-      Meson will include relative symbolic links in the output of
-      "meson introspect --installed":
-      
-        {
-          "libvfio-user.so": "/usr/local/lib64/libvfio-user.so",
-          ...
-        }
-      
-      In the case of scripts/symlink-install-tree.py, this will
-      be a symbolic link to a symbolic link but, in any case, there is
-      no issue in creating it.
-      
-      Cc: qemu-stable@nongnu.org
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit e51340243687a2cd7ffcf0d6e2de030bed4b8720
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 14:15:06 2022 +0200
-  
-      meson: cleanup compiler detection
-      
-      Detect all compilers at the beginning of meson.build, and store
-      the available languages in an array.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 6a97f3939240977e66e90862419911666956a76a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Nov 2 13:07:23 2022 +0100
-  
-      meson: support meson 0.64 -Doptimization=plain
-      
-      In Meson 0.64, the optimization built-in option now accepts the "plain" value,
-      which will not set any optimization flags.  While QEMU does not check the
-      contents of the option and therefore does not suffer any ill effect
-      from the new value, it uses get_option to print the optimization flags
-      in the summary.  Clean the code up to remove duplication, and check for
-      -Doptimization=plain at the same time.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit ca9b5c2ebf1aca87677a24c208bf3d0345c0b1aa
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 14:21:22 2022 +0200
-  
-      configure: test all warnings
-      
-      Some warnings are hardcoded in QEMU_CFLAGS and not tested.  There is
-      no particular reason to single out these five, as many more -W flags are
-      present on all the supported compilers.  For homogeneity when moving
-      the detection to meson, make them use the same warn_flags infrastructure.
-      
-      Reviewed-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 7bef93ff064f540e24a36a31263ae3db2d06b3d2
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Dec 14 12:29:11 2022 +0100
-  
-      tests/qapi-schema: remove Meson workaround
-      
-      The referenced issue has been fixed since version 0.61, so remove the
-      workaround.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9c9b85d705abdcce0b63f9182d8140dd67bd13fb
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Jul 22 10:43:00 2021 +0200
-  
-      meson: cleanup dummy-cpus.c rules
-      
-      Now that qtest is available on all targets including Windows, dummy-cpus.c
-      is included unconditionally in the build.  It also does not need to be
-      compiled per-target.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 2d73fa74728dccde5cc29c4e56b4d781e4ead7c4
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Nov 2 13:03:51 2022 +0100
-  
-      meson: tweak hardening options for Windows
-      
-      meson.build has been enabling ASLR _only_ for debug builds since
-      commit d2147e04f95f ("configure: move Windows flags detection to meson",
-      2022-05-07); instead it was supposed to disable it for debug builds.
-      
-      However, the flag has been enabled for DLLs upstream for roughly 2
-      years (https://sourceware.org/bugzilla/show_bug.cgi?id=19011), and
-      also by some distros including Debian for 6 years even
-      (https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=836365).
-      
-      Enable it unconditionally; we can fix the reversed logic of commit
-      d2147e04f95f later if there are any reports, but for now just
-      enable the hardening.
-      
-      Also add -Wl,--high-entropy-va, which also controls ASLR.
-      
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 10229ec3b0ff77c4894cefa312c21e65a761dcde
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 18 10:17:46 2022 +0200
-  
-      configure: remove backwards-compatibility and obsolete options
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 954ed68f9934a3e08f904acb93ce168505995e95
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 11:35:17 2022 +0200
-  
-      configure: preserve qemu-ga variables
-      
-      Ensure that qemu-ga variables set at configure time are kept
-      later when the script is rerun.  For preserve_env to work,
-      the variables need to be empty so move the default values
-      to config-host.mak generation.
-      
-      Reviewed-by: Marc-André Lureau <marcandre.lureau@redhat.com>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit f9c77801f4992fae99392ccbb60596dfa1fcf04a
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Wed Oct 12 15:27:03 2022 +0200
-  
-      configure: cleanup $cpu tests
-      
-      $cpu is derived from preprocessor defines rather than uname these days,
-      so do not bother using isainfo on Solaris.  Likewise do not recognize
-      BeOS's uname -m output.
-      
-      Keep the other, less OS-specific canonicalizations for the benefit
-      of people using --cpu.
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 91cd485a6dcbc8210666d19146fe73b8664f0418
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Oct 18 10:17:25 2022 +0200
-  
-      configure: remove dead function
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit c5634e822416e71e00f08f55a521362d8d21264d
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Thu Oct 20 14:20:06 2022 +0200
-  
-      configure: remove useless write_c_skeleton
-      
-      This is not needed ever since QEMU stopped detecting -liberty; this
-      happened with the Meson switch but it is quite likely that the
-      library was not really necessary years before.
-      
-      Reviewed-by: Peter Maydell <peter.maydell@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit cec79db38df72ce74d0296b831e90547111bc13c
-  Author: Lubomir Rintel <lkundrak@v3.sk>
-  Date:   Wed Nov 30 13:03:19 2022 +0100
-  
-      ide: Add "ide-cf" driver, a CompactFlash card
-      
-      This allows attaching IDE_CFATA device to an IDE bus. Behaves like a
-      CompactFlash card in True IDE mode.
-      
-      Tested with:
-      
-        qemu-system-i386 \$
-          -device driver=ide-cf,drive=cf,bus=ide.0 \$
-          -drive id=cf,index=0,format=raw,if=none,file=cf.img
-      
-      Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
-      Message-Id: <20221130120319.706885-1-lkundrak@v3.sk>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 1ea17d228e582b1cfbf6f61e9da5fafef4063be8
-  Author: Lubomir Rintel <lkundrak@v3.sk>
-  Date:   Wed Nov 30 13:02:38 2022 +0100
-  
-      ide: Add 8-bit data mode
-      
-      CompactFlash uses features 0x01 and 0x81 to enable/disable 8-bit data
-      path. Implement them.
-      
-      Signed-off-by: Lubomir Rintel <lkundrak@v3.sk>
-      Message-Id: <20221130120238.706717-1-lkundrak@v3.sk>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 9b063b7ea697d796914b3651d15c3457b7b1135c
-  Author: Greg Kurz <groug@kaod.org>
-  Date:   Tue Nov 8 15:00:32 2022 +0100
-  
-      util/log: Always send errors to logfile when daemonized
-      
-      When QEMU is started with `-daemonize`, all stdio descriptors get
-      redirected to `/dev/null`. This basically means that anything
-      printed with error_report() and friends is lost.
-      
-      Current logging code allows to redirect to a file with `-D` but
-      this requires to enable some logging item with `-d` as well to
-      be functional.
-      
-      Relax the check on the log flags when QEMU is daemonized, so that
-      other users of stderr can benefit from the redirection, without the
-      need to enable unwanted debug logs. Previous behaviour is retained
-      for the non-daemonized case. The logic is unrolled as an `if` for
-      better readability. The qemu_log_level and log_per_thread globals
-      reflect the state we want to transition to at this point : use
-      them instead of the intermediary locals for correctness.
-      
-      qemu_set_log_internal() is adapted to open a per-thread log file
-      when '-d tid' is passed. This is done by hijacking qemu_try_lock()
-      which seems simpler that refactoring the code.
-      
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221108140032.1460307-3-groug@kaod.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 59bde2137445b63c822720d069d91d38190c6540
-  Author: Paolo Bonzini <pbonzini@redhat.com>
-  Date:   Tue Nov 8 15:00:31 2022 +0100
-  
-      util/log: do not close and reopen log files when flags are turned off
-      
-      log_append makes sure that if you turn off the logging (which clears
-      log_flags and makes need_to_open_file false) the old log is not
-      overwritten.  The usecase is that if you remove or move the file
-      QEMU will not keep writing to the old file.  However, this is
-      not always the desited behavior, in particular having log_append==1
-      after changing the file name makes little sense.
-      
-      When qemu_set_log_internal is called from the logfile monitor
-      command, filename must be non-NULL and therefore changed_name must
-      be true.  Therefore, the only case where the file is closed and
-      need_to_open_file == false is indeed when log_flags becomes
-      zero.  In this case, just flush the file and do not bother
-      closing it, thus faking the same append behavior as previously.
-      
-      The behavioral change is that changing the logfile twice, for
-      example log1 -> log2 -> log1, will cause log1 to be overwritten.
-      This can simply be documented, since it is not a particularly
-      surprising behavior.
-      
-      Suggested-by: Alex Bennée <alex.bennee@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-      Reviewed-by: Richard Henderson <richard.henderson@linaro.org>
-      Reviewed-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221025092119.236224-1-pbonzini@redhat.com>
-      [groug: nullify global_file before actually closing the file]
-      Signed-off-by: Greg Kurz <groug@kaod.org>
-      Message-Id: <20221108140032.1460307-2-groug@kaod.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit cc6ff741123216550997b12cdd991beeed47bd0d
-  Author: Philippe Mathieu-Daudé <philmd@linaro.org>
-  Date:   Wed Nov 30 14:56:41 2022 +0100
-  
-      hw: Reduce "qemu/accel.h" inclusion
-      
-      Move "qemu/accel.h" include from the heavily included
-      "hw/boards.h" to hw/core/machine.c, the single file using
-      the AccelState definition.
-      
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Reviewed-by: Fabiano Rosas <farosas@suse.de>
-      Message-Id: <20221130135641.85328-3-philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-  
-  commit 3d277871f39d4de42f56b7b0cef5721e525b2d31
-  Author: Philippe Mathieu-Daudé <philmd@linaro.org>
-  Date:   Wed Nov 30 14:56:40 2022 +0100
-  
-      typedefs: Forward-declare AccelState
-      
-      Forward-declare AccelState in "qemu/typedefs.h" so structures
-      using a reference of it (like MachineState in "hw/boards.h")
-      don't have to include "qemu/accel.h".
-      
-      Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
-      Reviewed-by: Fabiano Rosas <farosas@suse.de>
-      Message-Id: <20221130135641.85328-2-philmd@linaro.org>
-      Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-
-Revision graph left in /home/logs/results/bisect/qemu-mainline/build-i386-xsm.xen-build.{dot,ps,png,html,svg}.
-----------------------------------------
-175675: tolerable ALL FAIL
-
-flight 175675 qemu-mainline real-bisect [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175675/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed,
-including tests which could not be run:
- build-i386-xsm                6 xen-build               fail baseline untested
-
-
-jobs:
- build-i386-xsm                                               fail    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> >>      pci_create_simple(pcms->bus, -1, "xen-platform");
+> >>  }
+> >>  #endif
+> >> @@ -441,6 +497,11 @@ static void pc_i440fx_8_0_machine_options(MachineClass *m)
+> >>      pc_i440fx_machine_options(m);
+> >>      m->alias = "pc";
+> >>      m->is_default = true;
+> >> +#ifdef CONFIG_MICROVM_DEFAULT
+> >> +    m->is_default = false;
+> >> +#else
+> >> +    m->is_default = true;
+> >> +#endif
+> >>  }
+> >>  
+> >>  DEFINE_I440FX_MACHINE(v8_0, "pc-i440fx-8.0", NULL,
+> > 
+> > 
+> > Lots of changes here not guarded by CONFIG_XEN.
+> > 
+>
+> What diff is this? How is my patch related to it?
+>
 
 
