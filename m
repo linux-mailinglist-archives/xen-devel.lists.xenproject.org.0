@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39A76665D0C
-	for <lists+xen-devel@lfdr.de>; Wed, 11 Jan 2023 14:52:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.475318.736967 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EFCD665D0E
+	for <lists+xen-devel@lfdr.de>; Wed, 11 Jan 2023 14:52:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.475325.736977 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFbVf-00035I-RI; Wed, 11 Jan 2023 13:51:19 +0000
+	id 1pFbWn-0003f3-9z; Wed, 11 Jan 2023 13:52:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 475318.736967; Wed, 11 Jan 2023 13:51:19 +0000
+Received: by outflank-mailman (output) from mailman id 475325.736977; Wed, 11 Jan 2023 13:52:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFbVf-000332-OJ; Wed, 11 Jan 2023 13:51:19 +0000
-Received: by outflank-mailman (input) for mailman id 475318;
- Wed, 11 Jan 2023 13:51:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pFbWn-0003dC-6r; Wed, 11 Jan 2023 13:52:29 +0000
+Received: by outflank-mailman (input) for mailman id 475325;
+ Wed, 11 Jan 2023 13:52:28 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=1UMm=5I=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pFbVe-00032w-SC
- for xen-devel@lists.xenproject.org; Wed, 11 Jan 2023 13:51:18 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2077.outbound.protection.outlook.com [40.107.241.77])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0498bb00-91b7-11ed-91b6-6bf2151ebd3b;
- Wed, 11 Jan 2023 14:51:16 +0100 (CET)
+ id 1pFbWl-0003d2-Vu
+ for xen-devel@lists.xenproject.org; Wed, 11 Jan 2023 13:52:27 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2081.outbound.protection.outlook.com [40.107.13.81])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2db852a9-91b7-11ed-b8d0-410ff93cb8f0;
+ Wed, 11 Jan 2023 14:52:25 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBAPR04MB7352.eurprd04.prod.outlook.com (2603:10a6:10:1a8::14)
+ by DU2PR04MB8551.eurprd04.prod.outlook.com (2603:10a6:10:2d6::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Wed, 11 Jan
- 2023 13:51:13 +0000
+ 2023 13:52:24 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Wed, 11 Jan 2023
- 13:51:13 +0000
+ 13:52:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,119 +46,237 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0498bb00-91b7-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 2db852a9-91b7-11ed-b8d0-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ehFA9beu3wI7dZRUgk2FXcAMUMID6fFgaInH/T0KRL9m9q194mJvYEXO53QposM+tS2dV+ovYWCpeQH3kp6ID6uLnLyQ5HbhswhyG7b1D07iRWFk6lHT4f7Aqq67b67wdRivwyilE88AQ/9gcY04ezMhDKfgtOakvcqm7Q7259Zqe/2fkNiWJ2MBbRMuuMFxugcZgmKZSwdlnOojZzBZxDKbo72gwGJItg5IgaF/7djSyG/2BPtirIFvYyUWMiwKOrSP3y9J26WNIQ1HFBkCSQ9HWrPf2PBSStJeR2xt1ijkzZYMLmnpxGjrbNvXuOg5yFDhU0fJcXYGHuYcwm4S4A==
+ b=PnJXs/RCFzWvUfIZrzXsIUTiCGrHr6jla1sdXi42MvSxY3MQAvpBGTIER/bnW4Hi5ytmrbHEpHM50/qAl7LaQzNhto4LVcKMd41+EiCKXZ0I4rQfOHZhgYeccEboBEY459Cj7O1DKpKIyYP4VcyQ9cYzaChZ4sLmwWbtl8dbvru+GrOlGNpvpX4QzQiJJjiw9uD7m1+mbr/1tVcpb7hj0k2L14e9KaQRpuIvDFS/CqYH5VuZ38QnhyHRQQOvk3JRHS1kg5RQJRKzWw8nf6wG7WI+e1mKEAHoq/egIo5JhAXz+UmIN+RmtLitzn8ysfMkP0g313xyZ9eWHSiS1L59xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ILA0dFecrQ4kY+XxLhjKokOnovJsHmRJvxl1dDrFEto=;
- b=YKD78oWLtyUPLaEDNPVHMmYse60pk3FR2fwDmVTrNkf5TlZ+t7JNPFKy9ki0/DC73yavQoZqx6RrM04IumXrcWFUcxcJ7ZY+PKYsSl0bi16YIe5A/99zh4yyMHkQ0To1WX/uJgEmvDMayTH3o8Q5Qoz5SewRvF7HBbE0B/fFlc/ddiksuF97eXTMn3x0FVaso6pddm7gAvIIcIv72sx/XC0tmkH293tmLgBHWPJHA7nbgZTyKegqfxIdzzaiGVDRvSzbrNUKkENhAhcThRE+3PdpQmGmaqHpgupMjMKeTusTHXv2T8zaOQc2Qdk1yUVrw3sIISzMqmi6jtYoFesZjQ==
+ bh=KK/uRlwbYcJhgv6CUBJFcIfHjTvH5M/RQaJchWkIy70=;
+ b=MBCyyS5Ey085RxPJypzjAQCj2Yb0n/K4ZU6ceMTQFiXncVyeZhSiJdrioXyqjpzimOtdRLoWje5xaxE/cEiRwg3vPJTVlBSmN7xlZ/4fjFcDGeMJ701mEduSMVEHN6afcv67s6e2/rVHByDrK2MCXKwXkXv+HJgSR2vKbeJGKbobLIeoNXCsUoiVh5XiXr//78XWscH9VXMkiPBAwWf+H74k/egUrtU7R52DtOz67SGxR4CWHd9aeskIm7gGZaRQnbREj6/IRxD0BwFiVLuQYexTed5VIu2636UX04qRktdpPHbWsJ4QdCSGdNfDHybxYHdKrxLz6XJJeibbvOh+1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ILA0dFecrQ4kY+XxLhjKokOnovJsHmRJvxl1dDrFEto=;
- b=tTvqcj6J30POYLQoKIElakEDxoCJ8yc1QYJ2z2ckqqwvIVi3c0Y/pxGlcjxp3oRPl5GVwwC9N19q2q937mJGK6npiWxRsG20+GkGtZ81Y3ovuNucBOYyi+6uf/B7ZEM47+Du/WKgT6qzt4fkFXtNJ4Leta4KblL1cHu1S+omSrC+sxbfeHSmgivYtYkBdsCGLM041aQF9tQQJiz2e5FGXapYlz7XbT1YdzMEJepimZXLtePskwDwtWZZGKJL21PjqSTuI1K3+Xll/KKMNYDgFd/yv0Wo6k+nwtT5BNS2GpTisuNYWLKQYB/KiF9bWf63RvAmZlP0jYEjQeeFBJ+wKg==
+ bh=KK/uRlwbYcJhgv6CUBJFcIfHjTvH5M/RQaJchWkIy70=;
+ b=zTZ3dJEnc4LIasDhgH0+ZFcgb088WgxZGxR1ih5Ddihv/4ynuTkzfMQOdNgtwMbwx+JPt1OWrPZS+B/3ES0zCAiZtSwLGtliXWkj47uK+tS0PyiiaSFqgGaiH0WUlzKijD8R+fDYHz7PjmkO5QbpOZmUStqPKGypaBrLJUzmr+VIDvo5ETjXJkPPxOxvs/r0+vqANr2/frYRF3m1S8P2rPH9zYsJaRs7xr3TzDxzxeQzqei7kVTt8qffp1ZUh3DOWzTxxan3sVmJ38v4BLvUWoscdzVGrgppVC4Kp1iZnC49dMUEdklIXQ/ZMGfPhurLjMvMB6icqWnO6oQh0cQgRA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
-Date: Wed, 11 Jan 2023 14:51:11 +0100
+Message-ID: <d91b5315-a5bb-a6ee-c9bb-58974c733a4e@suse.com>
+Date: Wed, 11 Jan 2023 14:52:22 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
+Subject: [PATCH v2 1/9] x86/shadow: replace sh_reset_l3_up_pointers()
+Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH v2 0/9] x86/shadow: misc tidying
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
  =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
  Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
-Content-Language: en-US
+References: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
+In-Reply-To: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0050.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0063.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBAPR04MB7352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 860045e7-638c-45f0-b423-08daf3dae759
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8551:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfc66c8c-e5ab-4393-7521-08daf3db113f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Kt2YvQvDn+8szyiGFtv0hDU16mJfdkPI/ohTB/p2Qi+svxCrcCiqidUznA1JK7wUQgrqfpJS6JUAejatqBn9v0kA6RiFSMZZdGH28EyCMF72k7pG6Y4yen1o6psFZWPASVL9geyteQ8UE0sDcFjK80wkm2YBbhR6bC1G1LUbn4XmxSMgPvKByUVQ2gnn9SntakTExHVSH5XUcpD52MoV7lWEfrpO0qw+fMf76Ag9/KjpZWhl1qOwWhprg1Bi61rnKzzMvnfMtJhn7whZ4PD4UmUn6gQUbvaHvfbNXkGxKIfenrjsL6k4eP3Wm5sSSfAg21wxEu3dwezmVxbD8VijKOEKfyiFdDKDWMjwUU8qXAnNWQTq6tEQnIZMJ9orUIoH8etQ9Ftb/ASCpvvxpiF7jcx7TmWSRXhuvc4YBGidcbwuibl8J23FXQ5nCM1jvmCAvQJArzK1lyanPhkN1D/NyhmymVD+Zb/fUKA0OMIimaqRutr6E79bN42hjQaI0/BHodepp5yzUhXOwMDkp9Q3ECn+SlvyVjETps8oIFOWvw8TjO/LHCpP9/E0KNeNf6938kida6nqfQejWBMPmp4LKTf6fi+JhxK4WM4bVwomlqxMJBJJGfgcKzMyfp+fuiE0BD2KDs0qucXhn1aLyl1GP/QDfIWzOq0WOL+v60DWr7adboffpo3EFCh3Dt3dF2pK3zomZlxPhYRp4/Rg310ALtoSvRutDnO5Qf9T66gE/TA=
+	FAg/V3ol1FxL1GfqhAbdhCjB4B35KZL+j52JNj0TaLBgflCBP1Ix6ERrGgelSlRmnY8H5o/yYVhoKj4FW5QojGsNNNvTgzGZaBscoGuXgSCxZP+qwKL435daBOGcGHMb+fDX1OUg6P/82nvpqBKorVY3LZ1hyvSSTjW6pyeHrzhSr4YYeZtvZzkjZU3dVKlulV2tmzaovBPOjJRbtuD3CnqCVpuMe8up2X5ysjx9Ma36M26CSp5IMShlPVl2QZ8UHjxDPnT5Yu/Ua1jZwLUTL0utjr3poNDaF6gMh3PBpZb/mhbz1SQrCoUoQu3ZQ4yQabXqT9+1Ex4gwnMFSyndmXAbba53thJVAzeD7vLX39toVUH8pW0qbLcpLUEiGUswEP9R+xqAOa0lZPSG9BU74jvemnnJqARFTSylDbDU0a5Ww0gA2ndUOnmm8e/Z1Zboam5xBn2OT+r9rFdIKLkHV758IlvaHTW6IOEqO9R4RkjLwEhZm+6XGV2hm56eSNtl+8+xhBAXGE4+kDVNBqz87unFy+y4EvUaL32JhWExqKy/4n0qqO2lNOZyMTA51x6jboqhwS2qynHgzPoBOj/XkjliuzxGjrZBTm3dwLbTGHKa+ZyH/mjcqmhQDA94vGFRkQnN4F4OLmksR7X3ygeZi9miopC3g/3a2HHCrnjCX5iWrzBgndXcl0UPQLqMBr8BZLJGGYpMsxdxhxwz/gHy5T+g+l0aFF5rLBA3ehcW/vA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(346002)(136003)(366004)(396003)(376002)(451199015)(8676002)(83380400001)(31696002)(38100700002)(2906002)(4326008)(5660300002)(4744005)(8936002)(6916009)(66946007)(66476007)(186003)(6486002)(41300700001)(6512007)(26005)(6506007)(2616005)(54906003)(478600001)(316002)(66556008)(86362001)(31686004)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(366004)(376002)(136003)(396003)(451199015)(8936002)(2906002)(5660300002)(41300700001)(316002)(4326008)(66556008)(8676002)(6916009)(66476007)(66946007)(54906003)(26005)(6512007)(38100700002)(2616005)(31686004)(86362001)(186003)(31696002)(83380400001)(36756003)(6506007)(478600001)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dWNPUFpoM2hwbEtyNlJlekNUVWttd2p6cXdxMTFNNzBsYUthdW04ZW9BUjFp?=
- =?utf-8?B?a09vQjhxOTNGcGcvRS9UNlEwR0ZFU1RVYjZoTFZYYkNsRmszdlJJall5K0R1?=
- =?utf-8?B?RkwvdFloMFI0Z1E2akNwZlFUM1V3Uyt3a2hvMS91dFNSVnQ2VGdlaFE1Rk9J?=
- =?utf-8?B?VWhtOCt4SEFYelFLZ3E2aTNxODE3aCtsaHVPN0tNVjdpSHdGcjI4MHpsUXRy?=
- =?utf-8?B?RHRlclBrVnRBS1dNQzBrN0t3WmpDNHJQL2podHJVb1dGcnd5QUw2ZEVDSFMw?=
- =?utf-8?B?Q1BiVWdrTnJGdU5McXB1WmVHNmhxeHpXMnBzeWJUNU1tUUpmWTdmL2YxSVRs?=
- =?utf-8?B?Tjc0VW54d3VIS1ZlMVhGREFyMkU2TnhTZ3VSUHM4ZEJncVJ2MlFuM0JSK0Uv?=
- =?utf-8?B?M1NNQXphNVYzZE5wWUp4My9CaENFTlpsNFlTZTROQm53T25iWXJaRzBZZG91?=
- =?utf-8?B?OXBmcHdITk9Kb1Y2T3UrUHEydUl4NzJVYmhLTXFFVHo0UGsvV2hjOEpUZzJN?=
- =?utf-8?B?R3ZrenpmUWQxZDl0eXpNUzhJWDc4UUE0NXNmYUNpODFVU1RoSXVSSFA5UWV4?=
- =?utf-8?B?QnBXdE9aREpmNjFXTXhNdG9QU1FwS3pBblQ1K3lNVEQyTUM1TFFJTjlML08w?=
- =?utf-8?B?ZWszRGs5Z0J2cGc0bmI1SC9vNnRDMDJPUCtzbitqNkxxSFh5ekZESXRld2Fz?=
- =?utf-8?B?QWpwTnVqdmxzam9WODRiS1BKbS9kdjRtTmdWMkhxVG55M2FnZnpoWEcrdE1O?=
- =?utf-8?B?Z3d1Z0JDeUFnTktUOUlMU3RZelpEbWpHeHJPZms0cFBhYXFYd0lKZ3ZPNnlG?=
- =?utf-8?B?eWNUeXRlcTNpK0xBNVVTaWNRV1pXNXBKMFNKa0N4bTFZSllyUEdidG03YWxH?=
- =?utf-8?B?ejdtODNMN3MyTExROWtKUlhSZ2h2V3FSZUNSb3pwbFVxNXNMMFZacER3ZlNy?=
- =?utf-8?B?WUMvbkNBZVhXQ0o3SldaNm03SDNXNlEydk9YNTViYm5LdC9NdC9ZbmJuMUVP?=
- =?utf-8?B?VnZ1RlZhRFRYb0wvSWcvL3pSNkV3ZU1hMlJPOTZyMmpXbW5DVTlvVU56ZGl5?=
- =?utf-8?B?UTdYTUxWNnh2Q3Y4UGNEVWY4b0o0amFBSmdNOVlrSmxiMWh3N2QzeGt2em5J?=
- =?utf-8?B?Q2ZuVmdZT3o0WlBpUHdpaE5BOU5NM1lMMlo0eDBWVGcyY2dYbzNyZ1ZxRnJU?=
- =?utf-8?B?ZzZ2M1NWanpJOTlmWXNGenFXc0hqT3BLcnFJS003NmhqbS9ObUFNai9PTFVM?=
- =?utf-8?B?YVlhV3BQSXlYc1l3T0p4NDVtbkNrTkk0OFFjVnNBdFpVUjl0dE56VGFFVXVL?=
- =?utf-8?B?cUNqMXJucjE4VlFPSVQzRzZwOGliWmg1bmxJUnRTVjFqSHVCQThiWUNsNndz?=
- =?utf-8?B?a0o1dWltTkIxZkhqWkNzNE1WdzFycUFIWlQxbDMzV1JGcjFXLzg4bFhNT0pQ?=
- =?utf-8?B?bGZXMVFkUlV1UG4rODE0TnNCak1XQkxwT1J1eXczbmZEeUlnZk1XSmtNenZT?=
- =?utf-8?B?MXNzWXRmSmZweU9sd2diYmNYN0JlSlVmSEJrK2ZBdTVFb3VDa3ZQUE1nY2R2?=
- =?utf-8?B?MytFQnBFSGxjUlAzK0padnE3Q0h5UkYyQUN3cjVuZ0RZbjhycWd6R0Zucm56?=
- =?utf-8?B?S3hQMkxnT1JVenRFYzNib25hc0R1aklmWlk2aS9BRm5sVEV4QkpnMER1L0gx?=
- =?utf-8?B?bkQyaGpWbWtOcG9aWCtYeURIY2JrT2puOVN2M0JKMGNCRkZiSm1QMmlFZ2RE?=
- =?utf-8?B?aFdzNkJGRklURW1zUlBQWm9RTWM3c0M5L2J3dEUxOCtGM3ZlZlVnSGNvOWJT?=
- =?utf-8?B?OWErY2NlM0Fuc2c4eWNPRjczUHVVNjkvRU5Rbm9qTksrTW4wUXdiUUxZa1J1?=
- =?utf-8?B?bmhNUUlrdU1ZaGs1UE42aVB2TDRHcUZWM09JbkV5czloRnYxN1FudlI1d3RN?=
- =?utf-8?B?Q2p3cWU0VDhXOGdWdXpJT1YwT2tnak42RjE1MFZHYkxLYlVmQjZJaG4vbi9v?=
- =?utf-8?B?ZEpRYUtEeldKNlhjZ1Y3Q3RBSzVUUUVhWDY5VU9RVGFOelhjV2taSE1YeFQr?=
- =?utf-8?B?cHYzQWZLZ3Q3eXdFSmI0WWgvZU9GZXZBWUExNDhCM1lSUWxJRy9zQnR0WklN?=
- =?utf-8?Q?L3YaIxosS2geUayKPQlo7mAiY?=
+	=?utf-8?B?ZG1mZ2ZNQVpSbTZxbUhqalNhK1hrTi9wZHlPSG5xZjlUV0xBeFhMb3JtdG5I?=
+ =?utf-8?B?cTZta0gzUkhCb3JMeTViL1BueFc3bjQrdzZRU1dkanBTQkxpY0FvbDMvT2hn?=
+ =?utf-8?B?QkxSTllCWkc0MU83YjY5RVRFSWdPeitZZGp3c1VEVm5tbkoveVpZNUpkVElX?=
+ =?utf-8?B?OGVOOFhJQnAzMStMN1hwc1JYeVhnaFpjUGh3cVJxQ1VJbzd0Y2lHVTZTSkdC?=
+ =?utf-8?B?L3BPUWVHMVhFdHE4MzUrcWFCcUM2aUFtMUdFeVhqSmE5NGFxK29WR0IreXM0?=
+ =?utf-8?B?MDJ2RU93TUsreHp4Q1ZncGc4K01EWWdUQ0NUdFlaRW4zMVBHUVRwTndHZldR?=
+ =?utf-8?B?YjVveDZyQWdJUWFwWThWM20vU2NKV3prUlhHRmxUWXpCZXZDUVRPdDZocTY4?=
+ =?utf-8?B?cTFFdUg4aVg0MGhRNU1QSkhzR00xREdPUjZpR1JjenFjREFzKzA5V2Z6bVd1?=
+ =?utf-8?B?VnFWb0dNUjVKMXVVbTlLdVJvUXVRWXo5dVdvN00rRGRrell0eDVNMU9YUVoz?=
+ =?utf-8?B?N2lXZlArRktJUXMrU204R0RNbWRoRmxieG0wK2VWekZKSHkrYmptL1pwM0ZM?=
+ =?utf-8?B?YUhkaE9zbEpGajlCSTVkbnFSSUoweGpaTFUvTldSUGFHUWJadzFweUREemRw?=
+ =?utf-8?B?SlA4YXpSQVJtcGtZNk5wOHF2RmR4enVEZ05HdGxVM1pnaFlPUXZ1Q3dqQ3Va?=
+ =?utf-8?B?d0Rod2VWc1AzQUZ1QU0wQWl3eURZbU1YMUlQb3NtMStNSmlocThEZGRaTzlV?=
+ =?utf-8?B?SW5qTzQ4dGl0NktyZDZlWnBwVUR6eHJab2gxSXV2WlYyN2FHQlRscDFoZUNF?=
+ =?utf-8?B?K0VZQmcvQmZycjJRQkM0R2pUOVJicEloS001SStyU21uMTlydVJFOWEvK3NF?=
+ =?utf-8?B?UTNwbTRPd3hRaWdWa2xvemJaeUJHdVN1Mm52V0ZaS3ZHa3JyQ0JqUkNzL3gv?=
+ =?utf-8?B?aHo1OE9sOEVHb2MyNUxQb1I4cUxlZ2cxRkR0UWxwUXpZSXVFZDhqd1FkOUhY?=
+ =?utf-8?B?bitwaWVJbFRRWEI0WlJYVXVRTVcvbFExQkk0ZVpRWHFTZ1UyMU1UeENCK1h3?=
+ =?utf-8?B?UG0yQ0dvSm92MFpsc0g1cFpkMG8rdWVYcllJSFVwKzJpVFN6QkxOSHF0OEJM?=
+ =?utf-8?B?UzlKdU1WRjFFWmUvVVJncG9oYmVPZUx0Uk1qbFdtWjRXRUJyTlQrWEFuc3lh?=
+ =?utf-8?B?bjdQZ2U4RzNwVXdIa2IxVUQxOTZOL01aMTZoOHRhTnJsVDlnOUVFdXJpR0hM?=
+ =?utf-8?B?MG8zYWd2bkFCNnZMNktadlFNNnR4UDVKbXdGemJWcmdPNkFva01xQTBpTm9M?=
+ =?utf-8?B?TFZpUTl4SDRtU05RTU12b3Y3bWk5WGtSa1VzZG9SeDhVMituRFFMeGFZWW5O?=
+ =?utf-8?B?SGF2ZmJGYkxPeU1WUW9yY1lQUEFUVzhTampsL3FwZ3o5cDhhaG5JWlBITDBX?=
+ =?utf-8?B?TEl2TVFOUWNiOFc2N09DdGxNVjFzemg3bFl1OUhjZmNtbXN3RzJsUVhYeXRn?=
+ =?utf-8?B?QWNZcHY3ZXpUVCtDREs4QVQzNHhkd3lyRFB1VGROemtWU2VsWHRJSlE4b2xs?=
+ =?utf-8?B?aGUvbEVBOGdnbllZY1ptVzVlSk1GUTM0NXNVQVRHZENFVUF4cERYRXVINXN4?=
+ =?utf-8?B?OFo2Tm5YWmVld2JUcUFnVm5PUE1rNjZscitDNkNpT3RmVzgyQUdUdTh6QTA5?=
+ =?utf-8?B?Tjh5SDVKZG90Y3NkOUJWR0k5YytaRlRTdnlEa3JIRm9hbHN3VHpEUTM3c04w?=
+ =?utf-8?B?b1FnckkzazdzWEd6a21IdXM4Nms5RHFBeWl6cHNWM2V0enY3OGtxUlo0YnRO?=
+ =?utf-8?B?VnIzUmM2b0N6a0ora0xBSXpta2hDNGFqTnBOaTNYakdkdGJ5R3MyMWFlZVBW?=
+ =?utf-8?B?UFlURVZuak4xRkF2bXpLdVFUemdSTUs2SjcrNG0wTkp4RzdUeWNmaXM1MDRH?=
+ =?utf-8?B?QStjYUpHakVleW1NTWxxamt4eGE5RERDZTB1clgzVkFiVlJuZnB6UU1XRkpj?=
+ =?utf-8?B?OVl4OEViMDdqblc0aFZOZWNDTFZwcEE4WW14UWlDblhwR0k1TDhWSDJYQm1p?=
+ =?utf-8?B?Z3JRdndaV1p1bHZta2FmNW5DcUx5MkJRbStoQ0pHb3NDU2lIRjZsZXA1UzBP?=
+ =?utf-8?Q?r7K6LbkkbedpDlsGwErrqgxUj?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 860045e7-638c-45f0-b423-08daf3dae759
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfc66c8c-e5ab-4393-7521-08daf3db113f
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 13:51:13.7275
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jan 2023 13:52:24.0355
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6Ew2zOJpg+hVd2QZJ1gxeJehLbYzl5A1S7TWQyhu/+5Pz/4lWIZ4eNqrs+4r1K/OWEC1dnglGVKzv/n/P7h51A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR04MB7352
+X-MS-Exchange-CrossTenant-UserPrincipalName: /U09tZ0oVetiutgyIdihm2DyfKHPO/w6U5ml9c+X/+ZicL/95qDaPBMkt1HZ0THp0BBZ33yXwVlA5/KkecZJYQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8551
 
-... or so I hope. The main observation was that we still have both
-hash_vcpu_for_each() and hash_domain_for_each(), where the latter was
-introduced in 2014/15 to replace the former. Only some eight years
-later we can now complete this conversion. Everything else addresses
-other things noticed along the road.
+Rather than doing a separate hash walk (and then even using the vCPU
+variant, which is to go away), do the up-pointer-clearing right in
+sh_unpin(), as an alternative to the (now further limited) enlisting on
+a "free floating" list fragment. This utilizes the fact that such list
+fragments are traversed only for multi-page shadows (in shadow_free()).
+Furthermore sh_terminate_list() is a safe guard only anyway, which isn't
+in use in the common case (it actually does anything only for BIGMEM
+configurations).
 
-Note that patch 8 conflicts contextually but not functionally with
-patches 3 and 4 from "x86/mm: address aspects noticed during XSA-410
-work".
+Signed-off-by: Jan Beulich <jbeulich@suse.com>
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-1: replace sh_reset_l3_up_pointers()
-2: drop hash_vcpu_foreach()
-3: rename hash_domain_foreach()
-4: drop a few uses of mfn_valid()
-5: L2H shadow type is PV32-only
-6: x86/shadow: re-work 4-level SHADOW_FOREACH_L2E()
-7: reduce effort of hash calculation
-8: call sh_detach_old_tables() directly
-9: harden shadow_size()
+--- a/xen/arch/x86/include/asm/domain.h
++++ b/xen/arch/x86/include/asm/domain.h
+@@ -116,6 +116,9 @@ struct shadow_domain {
+     /* OOS */
+     bool_t oos_active;
+ 
++    /* Domain is in the process of leaving SHOPT_LINUX_L3_TOPLEVEL mode. */
++    bool unpinning_l3;
++
+ #ifdef CONFIG_HVM
+     /* Has this domain ever used HVMOP_pagetable_dying? */
+     bool_t pagetable_dying_op;
+--- a/xen/arch/x86/mm/shadow/common.c
++++ b/xen/arch/x86/mm/shadow/common.c
+@@ -2302,29 +2302,6 @@ void shadow_prepare_page_type_change(str
+ 
+ /**************************************************************************/
+ 
+-/* Reset the up-pointers of every L3 shadow to 0.
+- * This is called when l3 shadows stop being pinnable, to clear out all
+- * the list-head bits so the up-pointer field is properly inititalised. */
+-static int cf_check sh_clear_up_pointer(
+-    struct vcpu *v, mfn_t smfn, mfn_t unused)
+-{
+-    mfn_to_page(smfn)->up = 0;
+-    return 0;
+-}
+-
+-void sh_reset_l3_up_pointers(struct vcpu *v)
+-{
+-    static const hash_vcpu_callback_t callbacks[SH_type_unused] = {
+-        [SH_type_l3_64_shadow] = sh_clear_up_pointer,
+-    };
+-
+-    HASH_CALLBACKS_CHECK(SHF_L3_64);
+-    hash_vcpu_foreach(v, SHF_L3_64, callbacks, INVALID_MFN);
+-}
+-
+-
+-/**************************************************************************/
+-
+ static void sh_update_paging_modes(struct vcpu *v)
+ {
+     struct domain *d = v->domain;
+--- a/xen/arch/x86/mm/shadow/multi.c
++++ b/xen/arch/x86/mm/shadow/multi.c
+@@ -960,6 +960,8 @@ sh_make_shadow(struct vcpu *v, mfn_t gmf
+         }
+         if ( l4count > 2 * d->max_vcpus )
+         {
++            d->arch.paging.shadow.unpinning_l3 = true;
++
+             /* Unpin all the pinned l3 tables, and don't pin any more. */
+             page_list_for_each_safe(sp, t, &d->arch.paging.shadow.pinned_shadows)
+             {
+@@ -967,7 +969,8 @@ sh_make_shadow(struct vcpu *v, mfn_t gmf
+                     sh_unpin(d, page_to_mfn(sp));
+             }
+             d->arch.paging.shadow.opt_flags &= ~SHOPT_LINUX_L3_TOPLEVEL;
+-            sh_reset_l3_up_pointers(v);
++
++            d->arch.paging.shadow.unpinning_l3 = false;
+         }
+     }
+ #endif
+--- a/xen/arch/x86/mm/shadow/private.h
++++ b/xen/arch/x86/mm/shadow/private.h
+@@ -497,11 +497,6 @@ void shadow_blow_tables(struct domain *d
+  */
+ int sh_remove_all_mappings(struct domain *d, mfn_t gmfn, gfn_t gfn);
+ 
+-/* Reset the up-pointers of every L3 shadow to 0.
+- * This is called when l3 shadows stop being pinnable, to clear out all
+- * the list-head bits so the up-pointer field is properly inititalised. */
+-void sh_reset_l3_up_pointers(struct vcpu *v);
+-
+ /******************************************************************************
+  * Flags used in the return value of the shadow_set_lXe() functions...
+  */
+@@ -721,7 +716,7 @@ static inline void sh_unpin(struct domai
+ {
+     struct page_list_head tmp_list, *pin_list;
+     struct page_info *sp, *next;
+-    unsigned int i, head_type;
++    unsigned int i, head_type, sz;
+ 
+     ASSERT(mfn_valid(smfn));
+     sp = mfn_to_page(smfn);
+@@ -733,20 +728,30 @@ static inline void sh_unpin(struct domai
+         return;
+     sp->u.sh.pinned = 0;
+ 
+-    /* Cut the sub-list out of the list of pinned shadows,
+-     * stitching it back into a list fragment of its own. */
++    sz = shadow_size(head_type);
++
++    /*
++     * Cut the sub-list out of the list of pinned shadows, stitching
++     * multi-page shadows back into a list fragment of their own.
++     */
+     pin_list = &d->arch.paging.shadow.pinned_shadows;
+     INIT_PAGE_LIST_HEAD(&tmp_list);
+-    for ( i = 0; i < shadow_size(head_type); i++ )
++    for ( i = 0; i < sz; i++ )
+     {
+         ASSERT(sp->u.sh.type == head_type);
+         ASSERT(!i || !sp->u.sh.head);
+         next = page_list_next(sp, pin_list);
+         page_list_del(sp, pin_list);
+-        page_list_add_tail(sp, &tmp_list);
++        if ( sz > 1 )
++            page_list_add_tail(sp, &tmp_list);
++        else if ( head_type == SH_type_l3_64_shadow &&
++                  d->arch.paging.shadow.unpinning_l3 )
++            sp->up = 0;
+         sp = next;
+     }
+-    sh_terminate_list(&tmp_list);
++
++    if ( sz > 1 )
++        sh_terminate_list(&tmp_list);
+ 
+     sh_put_ref(d, smfn, 0);
+ }
 
-Jan
 
