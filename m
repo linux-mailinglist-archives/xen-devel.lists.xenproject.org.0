@@ -2,39 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51A7A666DEC
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jan 2023 10:18:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.475902.737795 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8707B666E21
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jan 2023 10:28:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.475908.737805 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFtid-0004zU-DV; Thu, 12 Jan 2023 09:17:55 +0000
+	id 1pFtsA-0006Va-BS; Thu, 12 Jan 2023 09:27:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 475902.737795; Thu, 12 Jan 2023 09:17:55 +0000
+Received: by outflank-mailman (output) from mailman id 475908.737805; Thu, 12 Jan 2023 09:27:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pFtid-0004wR-An; Thu, 12 Jan 2023 09:17:55 +0000
-Received: by outflank-mailman (input) for mailman id 475902;
- Thu, 12 Jan 2023 09:17:53 +0000
+	id 1pFtsA-0006TE-8V; Thu, 12 Jan 2023 09:27:46 +0000
+Received: by outflank-mailman (input) for mailman id 475908;
+ Thu, 12 Jan 2023 09:27:44 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Lmgi=5J=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pFtib-0004wL-LD
- for xen-devel@lists.xenproject.org; Thu, 12 Jan 2023 09:17:53 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2086.outbound.protection.outlook.com [40.107.247.86])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fcf42ad4-9259-11ed-b8d0-410ff93cb8f0;
- Thu, 12 Jan 2023 10:17:51 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB9572.eurprd04.prod.outlook.com (2603:10a6:102:24f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Thu, 12 Jan
- 2023 09:17:49 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Thu, 12 Jan 2023
- 09:17:49 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=e0AC=5J=citrix.com=prvs=3691819c0=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pFts8-0006T8-Pv
+ for xen-devel@lists.xenproject.org; Thu, 12 Jan 2023 09:27:44 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5bac784e-925b-11ed-b8d0-410ff93cb8f0;
+ Thu, 12 Jan 2023 10:27:41 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,161 +36,120 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fcf42ad4-9259-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Jy+oa6BwyNonTn+EQbtnnvjI+/E/m1RPpYTRYt6gFnixa5VQS/rs2yVL7hcMkWXT0lvkrEXZP+m9dUVlnhm2o7J5Z12fSjet91bdt2OI3309qBcIpzqPd3TXf03Z9tRA1nFCXfxOkaBNaJXDVgfwanx496eX6sCRZn+FovQb6bIM4s4VrFQqZ4HF+B7RhgcNVxE4C10CUw/TttAf8r+0Q8tYz0YLn9PK0kXGeiq0tOOijpMm6GnnlcEIuZ/G/nT3MvmM3cWQ5V3RnEEvRnICIjakbbGKhhq4xz0+qYml8oUaaffBD1zB7L5Xx1jK2V3yjC/nBkztfE+Jw7z5dSC5ZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rcCUI5uWmX3KBPnNjDCJtytod74+7velJJnLKEUL42Y=;
- b=DLfvGMCPDMAd8rRKJybtkvjpXNAHYZH5iztKw67/tktcHCLAy7swa8xV0B/Rrf22nznWZbtVZ+C2HCnCzBrSHozcCyEzAhdQzKu2igtKdG4dneuoBHLy4h0u3+/hMy34ruTU9kvlOlHOOTHXuky8VaanuUruaDgYcaUSZVqohuuuy57WvQuneTxh475/BenumxU8qtIS/JkCPWT6MqviJqUwKjam2XjRX60x3NKYz2YQIBse/SHgo8OWGuM4DaeyEyKE602BuQvmJBjR2eNzmtcAwXSX6OgDGcdpzdRIN3QRlUtuqnJkNf3FIBcVftJ3Ij61zja5QvG7URaBO29hZg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rcCUI5uWmX3KBPnNjDCJtytod74+7velJJnLKEUL42Y=;
- b=BMyok6OSAjEc5Z5VUw24mYIL/Sn80If2h/URnC2DSMbEVgFVYu+j32C/qe6hzTL7+EMlXB7dr7HioGbrj9y7AgI25GOI0PacVlumrXxBUv1V+s60Gzo/Vj7L4LfpukCWhPClAbpcVfacY4b3vNoBFvvc4WFbuR7PR5dmC57ANYuJcJENn+QORzd6OtCL2ThvlwLvK3GxEwRa+HDfRz9/GKCgU8q8her3YROAXn9bq+nBPnMKENVFKr/7HKJk8KSJxIa8wBaKtVUbLf5sqlj+c64BgOnPwbsS3wW6gqQvW1npnR4oQkg+RjhZ9Z7HKVQMGxbLmAin8svlRtfRTurriA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <992a28e1-bfcd-97ef-b3d5-c7341846b3ad@suse.com>
-Date: Thu, 12 Jan 2023 10:17:47 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Anthony Perard <anthony.perard@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-Subject: [PATCH] include/compat: produce stubs for headers not otherwise
- generated
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0114.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 5bac784e-925b-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1673515661;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=U6/b6flkA/56yqLn16cctaKGuKYvZiCEN8j0e9zxTs0=;
+  b=WBOGQibCVaMX2mvYt2+s6AmVEw/VOnKsGXT2rrQFHvTC3zcmoK5atbb0
+   fFieBSUfa67v/4LDqZRTsF01DMnCcW4LmHMj3Lt9ORq0iFwsgtj9iJEzN
+   PlV2Pleh5sWcqxjV6RE0xJo7s7tTdAyAin3KlxGMN+jzam45VpsXKv8bO
+   w=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 92692561
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.83
+X-Policy: $RELAYED
+IronPort-Data: A9a23:ED6DNaAPnDhObRVW/xTjw5YqxClBgxIJ4kV8jS/XYbTApGl00WQDn
+ zQYXmGDOPjYYDfyKdwgaYXi/EkFvsCHn4RrQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtcpvlDs15K6p4GpB5ARnDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/+hlIUJo0
+ 9UhMTUPQS6S2u2H5r+eVbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2o0BPjDS0Qn1lM/AZQinOCulz/nfidRsl69rqsr+WnDigd21dABNfKEIILbH5gLxy50o
+ ErP9DrnEi8QNOa99gKU6WCqp8GIoRnCDdd6+LqQqacx3Qz7KnYoIAISfUu2p7++kEHWc8JSL
+ QkY9zQjqYA29Ve3VZ/tUhugunmGsxUAHd1KHIUS8xqRw6DZ5wKYAGksTTNbbtEi8sgsSlQC1
+ FWEgtfoDjxHq6CORDSW8bL8hTGvPSkYK0cSaClCShEKi+QPu6lq0EiJFIw6Vvfo0JulQlkc3
+ gxmsgA7iaczrugt/pyi+FLovSPxqanvQysqs1C/sn2e0it1Y4usZoqN4Ffd7OpdIIvxcmRtr
+ EToiODFsrlQUMjleDilBbxUQer3v6rt3Cj02wYHInU3y9i6F5dPl6h06So2GkpmO91sldTBM
+ B6K4lM5CHO+0RKXgU5Lj2CZUZ9CIUvIT46NuhXogj1mPPBMmPevpn0GWKJp9zmFfLIQua8+I
+ 4yHVs2nEGwXD69qpBLvGbhGiuB2mHBjmj2DLXwe8/hA+ePADEN5tJ9faAfeBgzHxP7sTPrpH
+ yZ3aJLRlkQ3vBzWaSjL648DRW3m3lBiba0aX/d/L7bZSiI/QTFJNhMk6e95E2CTt/gPx7igE
+ 7DUchMw9WcTclWceVXaMCA7M+K/NXu9xFpiVRER0Z+T8yBLSe6SAG03LvPboZFPGDRf8MNJ
+IronPort-HdrOrdr: A9a23:8CNqCKjwWbA2GHwT0/PUpT4t8XBQXuAji2hC6mlwRA09TyX4ra
+ yTdZEgviMc5wx/ZJhNo7690dC7MBXhHPxOgbX5TI3CYOCOggLBRuxfBODZsl7d8kPFh4pg/J
+ YlX69iCMDhSXhW5PyKhzVQyuxQouVvJprY4Nvj8w==
+X-IronPort-AV: E=Sophos;i="5.96,319,1665460800"; 
+   d="scan'208";a="92692561"
+Date: Thu, 12 Jan 2023 09:27:34 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Andrew Cooper <Andrew.Cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano Stabellini
+	<sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Subject: Re: [Multiple reverts] [RFC PATCH] build: include/compat: figure out
+ which other compat headers are needed
+Message-ID: <Y7/Shv1qyi0jgrai@perard.uk.xensource.com>
+References: <20230111181703.30991-1-anthony.perard@citrix.com>
+ <5c7ffbe4-3c19-d748-9489-9a256faebb7a@citrix.com>
+ <750ad2e8-a5be-d9c0-846e-41bb64c195fe@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9572:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28c53f94-59c5-49db-e374-08daf47de018
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	bkCjyLoWUYJ+f9HxL2Nmi7u8kGYnyjO1uljzf8vbM3AsRvYGnfGgTngF+PzHwFROLsaayFzBFZ7H9FhIQG73ofNmGrh567a1fP7C7DBbta4Mo50WlSssoKpnruLyww2lYGT86Wj4H+RMKtSgsPGs7QD2eBqoW1OX+s052atZL35EE85OMmpIiztxHuT6VqTF9/HAnUCy3b2dV4Ud4mSelZF4Lxqu8n21WD/46MrIHAcvOEY1+4E1HDctV+fpJj5ULycbCSWyIOfrhewKANIzRAyMsMKnQ6HrUmyCbx+OXFrnsLOwzuJY5BiF7+hRLQ6b2zuFvTIx372RIsy3BnWwhR9EOLzvYOQT1InXqd7/dXLC1V9Jib8VIzzyO4musjgPF93s0bV3FJxWwA6jPfFFJH4Z4aRBJ+PQGa1DT6wyND5GnTplrBLhj5kgEG8PXzSjDmgk5ziSnldhqOFzJTtmenB6Gsv4Vigi1tU3ahJomfqqif+33Mk7Xaba0nqSfUM95w+OLptDGDgwu4aBaFFIzqKvyvvpEenMGoZyI1QIIouDXdCZqXal244BtUAaOl+vejznOFUWfbMpYVXdrLEB7rruGmaWtp2QGJHB1z51rTAq77noU5eugAWDzAqwxnaPL0sMYvMQEm2PPLcVee2GSHRQGs1F3HTRwGCZi1y7PFOPMrWKU+hofgS6K6YJQ85AXjDYGky1X2xoSFKyD0FssUz4LQrLON3wCPdLHn70LuJEC8Qo9K3sc9PSQIMxej85I54ruALFnvQJVS4kkTagjw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(346002)(396003)(366004)(376002)(136003)(451199015)(2906002)(31696002)(38100700002)(66556008)(8676002)(86362001)(6916009)(8936002)(5660300002)(66946007)(4326008)(66476007)(26005)(41300700001)(6512007)(186003)(2616005)(316002)(6486002)(54906003)(478600001)(6506007)(36756003)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N2QwTXprcVYyN1FUZjNXcHVhbHdwbVJhTjZkUWdDR3o0OUVISVhtTWtib0Rr?=
- =?utf-8?B?M3FXeGpscGZDK3JTSE1VbGdCZEg5MnMyTjVYSEFSbGdaZ3QwQU9LbnpaMnhv?=
- =?utf-8?B?aGIxT2dFS0tyS1Z5NktKdnZZdFdTcG9BbVlqZDRlQkhONGVWdnUvVmZTY29P?=
- =?utf-8?B?WkdMYmpURXFYSCtHVjNCa1NERTRDTkllcFlPU1BqbzdXUDJPVm1CelFkdGN0?=
- =?utf-8?B?eDdEdElCQk4xOXIxNXlncTJtOVdDbUVScFArYUN1eFZEdU9SS3dIbm1ra0oy?=
- =?utf-8?B?Nk5McFZjS2Y2N01SU2JRL0lLdzkyQ2FxMW9LREhqT0VyYUlGb3ZqRnJ1Y245?=
- =?utf-8?B?NG9NQVd2b01CVHJHdGJaZEYvM1p0ZmdMMVgxKzh6aE5XZmdycWdiaWZ3U1ZO?=
- =?utf-8?B?a3FjWnk4OTFCUXhtalRORk1aTHZ0NVVCcG1wRlJNRVNSRlN5SUhObGxVY2lp?=
- =?utf-8?B?clN3Y1RmUHRXSFN6dmMrZ1krUm02a3RyYlNwMU1pbytqY2dOVURKVmtUenIr?=
- =?utf-8?B?YVBmUVJZb0EzSDN3aEwrNnZVSnBjVnQxS2VQODNqakwvbTV5NzJpVDcvZkpP?=
- =?utf-8?B?RGJtSkRvMUdrZEhKbzJya1YwNUs5aXVuQ0d5UFdxclFsVkhVVVRWUHV4enNN?=
- =?utf-8?B?bVBReHBlQk5OWHc4emlGWEppaVc5RXZJaExqL3FjZXplSU85aW9CcGgzWkxl?=
- =?utf-8?B?bTZpNFZjbXhCMXo2Q3BlQVJaakMwSGxkdkNpc2pDTUtmVmZDRzRKcTFUU2hy?=
- =?utf-8?B?MCszaVJEclpjMGJIV0NPbGptRDJjSkpSNjMwRnVvWnRlWC9RWThYK0M3bTNX?=
- =?utf-8?B?dHZHemZmY2lveTBWQlBwZS8wSEdRb25WaHFmMndRQWFsSGdSVzJlSHg3MzlR?=
- =?utf-8?B?eDRoZktDaTV1NmRlRGU3aE1qUUZiOTgySVJleWJ4NklqWE5xTnV4QVdrTHk4?=
- =?utf-8?B?NW9XVnR3RVNRZDZvTjNxZmQ3bmRwRnZRR3cxTzM2NU9KbWZZcERIZGpkOCtj?=
- =?utf-8?B?RDdaR295bEMwUWlZZ3pheWIvNk5aV1ZkaEFmUkFXVkNJemJ4U2p2d2hZSDhM?=
- =?utf-8?B?amo3Mm1FNldzL2YzUjlpOWo1YnNrekdGaDZsZ1BuQiszVFRMWnJTbjhLM28y?=
- =?utf-8?B?VjgyTS9CMHNGcEFKZ0RyeFJ5YVRXVE1HMWI1ZG1VUDdkaGxnenh3aHZuUi9u?=
- =?utf-8?B?czk4d1YrZU5vVTh6WW5Ic2R0bUxDVjZRVGc0U0N5aE5Hc2tHbnJ6NkZhc25U?=
- =?utf-8?B?U1JKS0lIb2pGMFZiMDdZbmdEZ2grOFZxN1hZUlc4VjArNmlWL2NFb1dhaGZ5?=
- =?utf-8?B?Y28zZk9KWmJFR09weDhqMWRrMmNEanZkRFJrSTFDMklzUUlNdHpGbFlpNHdt?=
- =?utf-8?B?U0p2Y05qNldZU2tNRFNUVTZLZFQzUHR5Sm9SdVptZDJkdHF6OVphMHQvOTJW?=
- =?utf-8?B?MFFQM1BOTEhKZGhRVWlRRGJJSDR6ZURELzU0S0NheXhKaXg2WENESXl6dTZN?=
- =?utf-8?B?dGhycjJSQnpJME84a2YzMVA5Y2QvY01VVG8wTWhYencySThMaWJpRFlpT2sx?=
- =?utf-8?B?UUpyV3RHYTl5R1VmTzZkd1Vxb0RYWmQvT2xuY1JEZGFMeTFqM3NaNGdqeGJz?=
- =?utf-8?B?UExNbks1MWlUeGtUUHllalVZK2xMczVtZDJaUUpUYUsxczlMcXdHbHpXSksr?=
- =?utf-8?B?MUQ2UzVERk52TFMxTUo4a28yaFBlaitOQXY4Z0RxR1cvelpnOStpekRxNFBZ?=
- =?utf-8?B?RHprd1ZMZlhxakpyZGs0dGlPcWNHWTJwZndxd3RQMVVpcXc0UTZSN1JJS0Nn?=
- =?utf-8?B?OG5sMDJtOEhqSXV3cUJZVmxoZzhZUytsN2dhYURvQm1FREVXSjNqeHYxNXVp?=
- =?utf-8?B?VEd5dUY2d3FxOEgzTitkY3g0bWkyQmdJeFd0V3BpV2ptSHF5WkdzV2FMWHBL?=
- =?utf-8?B?WVkzYU1VN3UraHpoemNBa1IrMXBzR2hRVU1tS2hscTZnaWQ2UEJibEE3T2FJ?=
- =?utf-8?B?RXpuSWgrQVFGcWFvR092N3FIM1ZvUm9WczZLa1VrQXFpRmQyLzloeERWM1RV?=
- =?utf-8?B?dElpMW1SQ1JPZG0rR29YMlQrbEtPUWkxUXV1YWc1M1V2bWUwazJ5d0lyN1hx?=
- =?utf-8?Q?h8UX6FKQmIz8HmqTvZs8lxhOt?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28c53f94-59c5-49db-e374-08daf47de018
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2023 09:17:49.7288
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SJiCWsfZ2/oy5AibghUp4jYd+VCWACs5td18jZW/bdWggGlTGDeovqCJ6VmimR7NC7yUErZpcuoij/C0aF9GxA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9572
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <750ad2e8-a5be-d9c0-846e-41bb64c195fe@suse.com>
 
-Public headers can include other public headers. Such interdependencies
-are retained in their compat counterparts. Since some compat headers are
-generated only in certain configurations, the referenced headers still
-need to exist. The lack thereof was observed with hvm/hvm_op.h needing
-trace.h, where generation of the latter depends on TRACEBUFFER=y. Make
-empty stubs in such cases (as generating the extra headers is relatively
-slow and hence better to avoid). Changes to .config and incrementally
-(re-)building is covered by the respective .*.cmd then no longer
-matching the command to be used, resulting in the necessary re-creation
-of the (possibly stub) header.
+On Thu, Jan 12, 2023 at 08:46:23AM +0100, Jan Beulich wrote:
+> On 11.01.2023 23:29, Andrew Cooper wrote:
+> > In file included from arch/x86/hvm/hvm.c:82:
+> > ./include/compat/hvm/hvm_op.h:6:10: fatal error: ../trace.h: No such
+> > file or directory
+> >     6 | #include "../trace.h"
+> >       |          ^~~~~~~~~~~~
+> > compilation terminated.
+> > make[4]: *** [Rules.mk:246: arch/x86/hvm/hvm.o] Error 1
+> > make[3]: *** [Rules.mk:320: arch/x86/hvm] Error 2
+> > make[3]: *** Waiting for unfinished jobs....
+> > 
+> > 
+> > All public headers use "../" relative includes for traversing the
+> > public/ hierarchy.  This cannot feasibly change given our "copy this
+> > into your project" stance, but it means the compat headers have the same
+> > structure under compat/.
+> > 
+> > This include is supposed to be including compat/trace.h but it was
+> > actually picking up x86's asm/trace.h, hence the build failure now that
+> > I've deleted the file.
+> > 
+> > This demonstrates that trying to be clever with -iquote is a mistake. 
+> > Nothing good can possibly come of having the <> and "" include paths
+> > being different.  Therefore we must revert all uses of -iquote.
+> 
+> I'm afraid I can't see the connection between use of -iquote and the bug
+> here.
 
-Reported-by: Andrew Cooper <andrew.cooper3@citrix.com>
-Signed-off-by: Jan Beulich <jbeulich@suse.com>
----
-There may be differing views on which commit this actually fixes, hence
-I'd prefer to omit a Fixes: tag here. The issue was exposed by
-4c5edd2449bc ("xen: Drop $ARCH/trace.h").
+Me neither, -iquote isn't used on that object's command line.
 
---- a/xen/include/Makefile
-+++ b/xen/include/Makefile
-@@ -34,6 +34,8 @@ headers-$(CONFIG_TRACEBUFFER) += compat/
- headers-$(CONFIG_XENOPROF) += compat/xenoprof.h
- headers-$(CONFIG_XSM_FLASK) += compat/xsm/flask_op.h
- 
-+headers-n := $(filter-out $(headers-y),$(headers-n) $(headers-))
-+
- cppflags-y                := -include public/xen-compat.h -DXEN_GENERATING_COMPAT_HEADERS
- cppflags-$(CONFIG_X86)    += -m32
- 
-@@ -43,13 +45,16 @@ public-$(CONFIG_X86) := $(wildcard $(src
- public-$(CONFIG_ARM) := $(wildcard $(srcdir)/public/arch-arm/*.h $(srcdir)/public/arch-arm/*/*.h)
- 
- .PHONY: all
--all: $(addprefix $(obj)/,$(headers-y))
-+all: $(addprefix $(obj)/,$(headers-y) $(headers-n))
- 
- quiet_cmd_compat_h = GEN     $@
- cmd_compat_h = \
-     $(PYTHON) $(srctree)/tools/compat-build-header.py <$< $(patsubst $(obj)/%,%,$@) >>$@.new; \
-     mv -f $@.new $@
- 
-+quiet_cmd_stub_h = GEN     $@
-+cmd_stub_h = echo '/* empty */' >$@
-+
- quiet_cmd_compat_i = CPP     $@
- cmd_compat_i = $(CPP) $(filter-out -Wa$(comma)% -include %/include/xen/config.h,$(XEN_CFLAGS)) $(cppflags-y) -o $@ $<
- 
-@@ -69,6 +74,13 @@ targets += $(headers-y)
- $(obj)/compat/%.h: $(obj)/compat/%.i $(srctree)/tools/compat-build-header.py FORCE
- 	$(call if_changed,compat_h)
- 
-+# Placeholders may be needed in case files in $(headers-y) include files we
-+# don't otherwise generate.  Real dependencies would need spelling out explicitly,
-+# for them to appear in $(headers-y) instead.
-+targets += $(headers-n)
-+$(addprefix $(obj)/,$(headers-n)): FORCE
-+	$(call if_changed,stub_h)
-+
- .PRECIOUS: $(obj)/compat/%.i
- targets += $(patsubst %.h, %.i, $(headers-y))
- $(obj)/compat/%.i: $(obj)/compat/%.c FORCE
+> > But, that isn't the only bug.
+> > 
+> > The real hvm_op.h legitimately includes the real trace.h, therefore the
+> > compat hvm_op.h legitimately includes the compat trace.h too.  But
+> > generation of compat trace.h was made asymmetric because of 2c8fabb223.
+> > 
+> > In hindsight, that's a public ABI breakage.  The current configuration
+> > of this build of the hypervisor has no legitimate bearing on the headers
+> > needing to be installed to /usr/include/xen.
+> > 
+> > Or put another way, it is a breakage to require Xen to have
+> > CONFIG_COMPAT+CONFIG_TRACEBUFFER enabled in the build simply to get the
+> > public API headers generated properly.
+> 
+> There are no public API headers which are generated. The compat headers
+> are generate solely for Xen's internal purposes (and hence there's also
+> no public ABI breakage). Since generation is slow, avoiding to generate
+> ones not needed during the build is helpful.
+
+If only we could do the generation faster:
+    https://lore.kernel.org/xen-devel/20220614162248.40278-5-anthony.perard@citrix.com/
+    patch which takes care of the slower part of the generation (slower
+    at least for some compat headers).
+
+Cheers,
+
+-- 
+Anthony PERARD
 
