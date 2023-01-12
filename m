@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E774667F66
-	for <lists+xen-devel@lfdr.de>; Thu, 12 Jan 2023 20:35:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476375.738510 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 225C1667F6B
+	for <lists+xen-devel@lfdr.de>; Thu, 12 Jan 2023 20:38:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476383.738520 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pG3Lb-0004Di-Fu; Thu, 12 Jan 2023 19:34:47 +0000
+	id 1pG3Os-0004vU-Sk; Thu, 12 Jan 2023 19:38:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476375.738510; Thu, 12 Jan 2023 19:34:47 +0000
+Received: by outflank-mailman (output) from mailman id 476383.738520; Thu, 12 Jan 2023 19:38:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pG3Lb-0004Bw-Be; Thu, 12 Jan 2023 19:34:47 +0000
-Received: by outflank-mailman (input) for mailman id 476375;
- Thu, 12 Jan 2023 19:34:45 +0000
+	id 1pG3Os-0004t0-Q6; Thu, 12 Jan 2023 19:38:10 +0000
+Received: by outflank-mailman (input) for mailman id 476383;
+ Thu, 12 Jan 2023 19:38:09 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pG3LZ-0004Bk-9q; Thu, 12 Jan 2023 19:34:45 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pG3Or-0004su-7H
+ for xen-devel@lists.xenproject.org; Thu, 12 Jan 2023 19:38:09 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pG3LZ-0001SG-8A; Thu, 12 Jan 2023 19:34:45 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pG3LY-0002jp-P6; Thu, 12 Jan 2023 19:34:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pG3LY-0003w8-Od; Thu, 12 Jan 2023 19:34:44 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pG3Oq-0001WR-Oo; Thu, 12 Jan 2023 19:38:08 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.11.96]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pG3Oq-0004nL-G9; Thu, 12 Jan 2023 19:38:08 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +39,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=mV6sAw3XdWSY1/DAS+mLgro4nYv7WoCXYYDUI8+7M2g=; b=wk09nOG9YRrAEUtICOJA7Xq3Dv
-	Z4mjPQTG/UynZXBS+eHtrAzWGBlLD0Vs0ctAB8oPYvbLJ+1hD9c197SPe9M30LkmLt6KNVF2okHTJ
-	/v07R6Vdn7eW+LEfmIeb64+SLxQsOntkpr39IbErZLnJBvGafWPY+DHvG70YTiUjApd4=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175746-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KUTTMef6bEj0+C46UuMyREIKXuTlXvdMNg+BvFhrPCU=; b=bjJay9eDf4n/vXfnbYXMWWgR12
+	GDcx5CWO2UwMagh1I15GwrvNPtEBcVgNUC68moDx9zjhRlS5JXAYjQ/lxqVchgDSeNm5Ql2FUCkdc
+	zGb1HDiyFcW3Qge8zHnPtRBLQUw8Qhk10MmxkDXPTv5Dt5ZOjJVQ52ya7jJUb9IA0Ec4=;
+Message-ID: <f7ae4b88-1dff-3b47-36e4-84fc3c1f80e1@xen.org>
+Date: Thu, 12 Jan 2023 19:38:06 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175746: tolerable all pass - PUSHED
-X-Osstest-Failures:
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=6bec713f871f21c6254a5783c1e39867ea828256
-X-Osstest-Versions-That:
-    xen=661489874e87c0f6e21ac298b039aab9379f6ee0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Thu, 12 Jan 2023 19:34:44 +0000
-
-flight 175746 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175746/
-
-Failures :-/ but no regressions.
-
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  6bec713f871f21c6254a5783c1e39867ea828256
-baseline version:
- xen                  661489874e87c0f6e21ac298b039aab9379f6ee0
-
-Last test of basis   175741  2023-01-12 11:01:58 Z    0 days
-Testing same since   175746  2023-01-12 16:03:41 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jan Beulich <jbeulich@suse.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v3 08/18] xen/arm32: head: Introduce an helper to flush
+ the TLBs
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Luca.Fancellu@arm.com, Julien Grall <jgrall@amazon.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20221212095523.52683-1-julien@xen.org>
+ <20221212095523.52683-9-julien@xen.org>
+ <95e9eff5-038d-923f-1afe-4f2d72bde5b3@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <95e9eff5-038d-923f-1afe-4f2d72bde5b3@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 14/12/2022 14:24, Michal Orzel wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Michal,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> On 12/12/2022 10:55, Julien Grall wrote:
+>>
+>>
+>> From: Julien Grall <jgrall@amazon.com>
+>>
+>> The sequence for flushing the TLBs is 4 instruction long and often
+>> requires an explanation how it works.
+>>
+>> So create an helper and use it in the boot code (switch_ttbr() is left
+> Here and in title: s/an helper/a helper/
 
+Done.
 
-Pushing revision :
+>> alone for now).
+> Could you explain why?
 
-To xenbits.xen.org:/home/xen/git/xen.git
-   661489874e..6bec713f87  6bec713f871f21c6254a5783c1e39867ea828256 -> smoke
+So we need to decide how we expect switch_ttbr(). E.g. if Xen is 
+relocated at a different, should the caller take care of the 
+instruction/branch predictor flush?
+
+I have expanded to "switch_ttbr() is left alone until we decided the 
+semantic of the call".
+
+>>
+>> Note that in secondary_switched, we were also flushing the instruction
+>> cache and branch predictor. Neither of them was necessary because:
+>>      * We are only supporting IVIPT cache on arm32, so the instruction
+>>        cache flush is only necessary when executable code is modified.
+>>        None of the boot code is doing that.
+>>      * The instruction cache is not invalidated and misprediction is not
+>>        a problem at boot.
+>>
+>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> 
+> Apart from that, the patch is good, so:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+Thanks!
+
+> 
+>>
+>> ---
+>>      Changes in v3:
+>>          * Fix typo
+>>          * Update the documentation
+>>          * Rename the argument from tmp1 to tmp
+>> ---
+>>   xen/arch/arm/arm32/head.S | 30 +++++++++++++++++-------------
+>>   1 file changed, 17 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/arm32/head.S b/xen/arch/arm/arm32/head.S
+>> index 40c1d7502007..315abbbaebec 100644
+>> --- a/xen/arch/arm/arm32/head.S
+>> +++ b/xen/arch/arm/arm32/head.S
+>> @@ -66,6 +66,20 @@
+>>           add   \rb, \rb, r10
+>>   .endm
+>>
+>> +/*
+>> + * Flush local TLBs
+>> + *
+>> + * @tmp:    Scratch register
+> As you are respinning a series anyway, could you add just one space after @tmp:?
+
+Ok.
+
+Cheers,
+
+-- 
+Julien Grall
 
