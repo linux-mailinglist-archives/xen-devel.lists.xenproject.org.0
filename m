@@ -2,64 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A51966993F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 14:59:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477362.740051 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8256A669984
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 15:06:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477369.740061 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGKZQ-0008Ms-BB; Fri, 13 Jan 2023 13:58:12 +0000
+	id 1pGKhF-0001Ym-4r; Fri, 13 Jan 2023 14:06:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477362.740051; Fri, 13 Jan 2023 13:58:12 +0000
+Received: by outflank-mailman (output) from mailman id 477369.740061; Fri, 13 Jan 2023 14:06:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGKZQ-0008Jl-8L; Fri, 13 Jan 2023 13:58:12 +0000
-Received: by outflank-mailman (input) for mailman id 477362;
- Fri, 13 Jan 2023 13:58:11 +0000
+	id 1pGKhF-0001Vy-2C; Fri, 13 Jan 2023 14:06:17 +0000
+Received: by outflank-mailman (input) for mailman id 477369;
+ Fri, 13 Jan 2023 14:06:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=irsc=5K=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1pGKZP-0008JK-L8
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 13:58:11 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2053.outbound.protection.outlook.com [40.107.8.53])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O/z9=5K=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pGKhE-0001Vp-4C
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 14:06:16 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4f6524b5-934a-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 14:58:09 +0100 (CET)
-Received: from DB8PR03CA0010.eurprd03.prod.outlook.com (2603:10a6:10:be::23)
- by VE1PR08MB5646.eurprd08.prod.outlook.com (2603:10a6:800:1a9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.19; Fri, 13 Jan
- 2023 13:58:04 +0000
-Received: from DBAEUR03FT029.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:10:be:cafe::10) by DB8PR03CA0010.outlook.office365.com
- (2603:10a6:10:be::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.14 via Frontend
- Transport; Fri, 13 Jan 2023 13:58:04 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT029.mail.protection.outlook.com (100.127.142.181) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 13:58:03 +0000
-Received: ("Tessian outbound b1d3ffe56e73:v132");
- Fri, 13 Jan 2023 13:58:03 +0000
-Received: from 663159713901.1
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 1CC50B1A-AAEB-4ED1-BC6C-E4AFF7F9A264.1; 
- Fri, 13 Jan 2023 13:57:53 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 663159713901.1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 13 Jan 2023 13:57:53 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
- by AS8PR08MB9867.eurprd08.prod.outlook.com (2603:10a6:20b:5ab::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Fri, 13 Jan
- 2023 13:57:50 +0000
-Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::d1d7:166d:6c34:d19e]) by AS8PR08MB7991.eurprd08.prod.outlook.com
- ([fe80::d1d7:166d:6c34:d19e%5]) with mapi id 15.20.5986.018; Fri, 13 Jan 2023
- 13:57:50 +0000
+ id 6f8e0808-934b-11ed-b8d0-410ff93cb8f0;
+ Fri, 13 Jan 2023 15:06:12 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B856E256B8;
+ Fri, 13 Jan 2023 14:06:11 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4F2591358A;
+ Fri, 13 Jan 2023 14:06:11 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id bXH8EVNlwWPnDQAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 13 Jan 2023 14:06:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,120 +51,133 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4f6524b5-934a-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B/GM2z1yhQNqoAab/lYuXdYgVG6mkMHu1optzOZzNL8=;
- b=gnopeH7AD3VjeAl+wWfLAmRF/PrLAwWivDXRvsDIupPcV7yNT05YXTSF+OXgMpMDajHC6kneLNr2yOsodPkONBDhmc3CpijDR05eSQNmonMP8+L+fLQBbiwiyaoZkxTkDE6J7x+jlPWGO71jbtADrEwF7ixmGFqOy70C3z9R4AY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZUmroZoJvpzTOeY4njWlqNRmS6BWAdqN4Lpsf8XNUzM3MfIAK7mX681P8oLQKbCXJf0HMp7sIbhKxkEBKrGiObrCWhfv4DPu1EDHlW+WKrJ0ERCYSVWTRZ8Of3TUCsUrmLZZ/lNrJERpY3YpQWllFsVoByaomCGsK9k/bZfODuFlvNGzNGGXrh9Lqi+th8JQtDsgVxxQrCgUiiOWIwyVYaxZCRtVRfOX2OCrnEGH+cW5ea+ECEmURcsqG/RPOvlp+Pgcfy8SJBeO1thPb9pORvFV2MU543fd/WmyiKPLyBK8dNPpba5CnnZN7/1xmRi4dMY35NMZsGdHzsIv9nJCuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=B/GM2z1yhQNqoAab/lYuXdYgVG6mkMHu1optzOZzNL8=;
- b=OfREyhr203NLFQWKvLHII8CPV1puJDECQEYRdijCsaQNfqboDsIG2E2WVtQ7YrWfcRMIYtybk8/2FZUcuweeUYHQc6UikoskGC7JgEcNzAjMVKJ6jT10p2VQEmlSQSJLgrGlzCQE6erCUac6YlKJOLIp5aEoVImnfq0nETBPa0Ah8tKD+6hy9dSeM0gtE1hiICYr9aZXe0kBhSBz4ojdIY6KyFsqQZzPW8m6Klq0hrx1BOKbEcFUMHfC4YHQGcvuG+5BV+NGNmvlXA3aeFnNBxEghrRWuA1BI3sK/xsaF9fjS/63q4V0mgVOxoAvNDQke68auUI+2WBzNS7HZewDJQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B/GM2z1yhQNqoAab/lYuXdYgVG6mkMHu1optzOZzNL8=;
- b=gnopeH7AD3VjeAl+wWfLAmRF/PrLAwWivDXRvsDIupPcV7yNT05YXTSF+OXgMpMDajHC6kneLNr2yOsodPkONBDhmc3CpijDR05eSQNmonMP8+L+fLQBbiwiyaoZkxTkDE6J7x+jlPWGO71jbtADrEwF7ixmGFqOy70C3z9R4AY=
-From: Henry Wang <Henry.Wang@arm.com>
-To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Luca Fancellu <Luca.Fancellu@arm.com>, Julien Grall <jgrall@amazon.com>,
-	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
-	<Bertrand.Marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: RE: [PATCH v4 05/14] xen/arm: Clean-up the memory layout
-Thread-Topic: [PATCH v4 05/14] xen/arm: Clean-up the memory layout
-Thread-Index: AQHZJzeLCnyOeiX40USI61rJsfnYCK6cQS6g
-Date: Fri, 13 Jan 2023 13:57:50 +0000
-Message-ID:
- <AS8PR08MB7991F693573B0DF694104DD592C29@AS8PR08MB7991.eurprd08.prod.outlook.com>
-References: <20230113101136.479-1-julien@xen.org>
- <20230113101136.479-6-julien@xen.org>
-In-Reply-To: <20230113101136.479-6-julien@xen.org>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 058876024C00A441BEF41B750339BB1A.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AS8PR08MB7991:EE_|AS8PR08MB9867:EE_|DBAEUR03FT029:EE_|VE1PR08MB5646:EE_
-X-MS-Office365-Filtering-Correlation-Id: b41d8795-cf71-4974-6d41-08daf56e30a9
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- fgM6KzmEwM52yYF4j8RgJrvrwa2xWrSJaCAS/NE//l1jeLuRKuHn6nZtSl8PFivJBJ92ZOxh8G6gtAWcUh8DQ3GYqViEPbApc9zGT/UugAX8ONMhECk08cS3flzCiA1YunINNa7/cpIi7KsmsqFZrrdeanKFVXxLfvfm5f287sPU6i1jf5pZaUDay53b0ikMioLVt/i1bwrI+LpQK/1j2VZq5x/VZoK4nGoQ+ByAbGZui5PyBX+VZTENzO7KLAySwB3CMluN9N+T2XKuYilZ0sqyqneDaMxCc3gYffiDiOtJYkfONjxRx98VIOoFO0qtYVL6ZqY2/nJMlo01Stt4qeHVE3GVFLsb5JnuHTQ7rrIQ5ouJC/cSx1M/yjMVt9e5AdYIJCNdD6XOl2iNv42X+/Tpd9zJE9Sap0xfsqIOLPLAyX90mvXJ5dGZhbx62TRkIxPAodGfY9NETaPudft8ePbOBP2fSJ1WWbH+20+eUxSA+RUhKid1se+4sqTNGujq247AGRXsARsXN4IZDggrcYs+fX4r4X00SXk0Eylhn8dOZE85k6Qwidb8njmikKqL7uy2R+c9pffTvop0oISH4Beoz8sxGx5wpKLG/wbIczNHY89adb0tP7InV8QH/Yae/8GFil3jc58S4ScxJk52rl2M/P0xNquwvEjKPGnmTH3t3unHy+WMulJcNOmdgigM3/AYBNnFHhdPIO64tdX+lA==
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(366004)(376002)(39860400002)(136003)(346002)(451199015)(8936002)(66946007)(76116006)(66556008)(4326008)(64756008)(66446008)(86362001)(52536014)(41300700001)(66476007)(8676002)(5660300002)(4744005)(186003)(110136005)(478600001)(26005)(54906003)(2906002)(33656002)(316002)(71200400001)(7696005)(9686003)(55016003)(6506007)(38100700002)(83380400001)(122000001)(38070700005);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 6f8e0808-934b-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1673618771; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=qerTG7yVEdATebY6zaKCk2qNuAQ7K4by6XyL0WSCPFo=;
+	b=mlMz7tpaDKH5ON0g3Sl4mmBovvApom2MngsecURVvLNhBb2UjbPkYxhetfIhGhxNoH0ZBB
+	Z8F0qUptHNhmYOLMOX7rYBaAOAWfUUHinRaV/sD4EEA2d5dDZF+YutajoQc1DwcLPCLOU8
+	TEZAJnoIvy9o4hrjiLIPqIQCjVeXCZk=
+From: Juergen Gross <jgross@suse.com>
+To: linux-kernel@vger.kernel.org,
+	x86@kernel.org,
+	linux-pm@vger.kernel.org
+Cc: Juergen Gross <jgross@suse.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Len Brown <len.brown@intel.com>,
+	Pavel Machek <pavel@ucw.cz>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org,
+	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Subject: [PATCH] x86/acpi: fix suspend with Xen
+Date: Fri, 13 Jan 2023 15:06:10 +0100
+Message-Id: <20230113140610.7132-1-jgross@suse.com>
+X-Mailer: git-send-email 2.35.3
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9867
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT029.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	97997d2e-6f81-41f9-8e6d-08daf56e28b6
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	vyu9pMYpZwFV2NgNcYvXdH/ETAeaDjtU0de713EfG4CJ8JEUqBxy/+ZiahUOWlBUoC/xglKnA8GxD8xX5kd+42G3/skYOJdEXFMG9c/2j/TLW3hY421fR7VBzKcWOn6ZN8nEM+Ni1KV6wZdpbz0YeOmx0mtymCMmHPW8H5L8esyOQGg8kvgX+LsCeWiwtrPT9vByW9pyzruVHCy4b6A+8b52tf9K8CrwScdmB+cK0IICIMgVw7KEUHgCnUY0R5Aki+U3Cvpy955O1y8UY9xWMY77MSWY7M1gJT9jS+kIrWsK2wwS8UikTnh0uSuAzUaE/cPjxEoeI+bzhypYMfpHpED++hcIi/4jeiSZV1e7yLeImmZ3u/p/0CamCfSfI8Q+gxpVW2QpyqTRGYu7kTw9PtO2oBwjhHUQLfZ76ViQ/proRKKOpTRzYq3Q37Ms7QeauVO/0SItlsZrA9JNdg2UOM5vdm6UcL2NN63Q7eUXgmZ5fOgnrGaLKTVDetcrN3n30BCEuExcboKd1F974pugcXUvYsO0+29J62xQYndW7mzsIhwj/5DIHKhIZt5mQvD2Ep+YrdW4VRoRq/12ggUZjGyg4boI0u7yI+qOKlXTMwr+fN8ohhlrWVYzMGnt4sRzIAfDpRczLIYWc4NMtY+kvtL4LJzkpmrrtvHjGVJg23BYNxUieYScnCwdctV4VSkLgbKcqv9iXgTq/Q21Dx8vJA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(396003)(376002)(136003)(346002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(86362001)(82740400003)(2906002)(36860700001)(81166007)(6506007)(40460700003)(47076005)(33656002)(40480700001)(55016003)(82310400005)(110136005)(54906003)(7696005)(316002)(356005)(70206006)(70586007)(4744005)(83380400001)(4326008)(336012)(41300700001)(8676002)(9686003)(8936002)(5660300002)(26005)(52536014)(478600001)(186003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 13:58:03.7807
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b41d8795-cf71-4974-6d41-08daf56e30a9
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT029.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR08MB5646
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Julien,
+Commit f1e525009493 ("x86/boot: Skip realmode init code when running as
+Xen PV guest") missed one code path accessing real_mode_header, leading
+to dereferencing NULL when suspending the system under Xen:
 
-> -----Original Message-----
-> Subject: [PATCH v4 05/14] xen/arm: Clean-up the memory layout
->=20
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> In a follow-up patch, the base address for the common mappings will
-> vary between arm32 and arm64. To avoid any duplication, define
-> every mapping in the common region from the previous one.
->=20
-> Take the opportunity to:
->     * add missing *_SIZE for FIXMAP_VIRT_* and XEN_VIRT_*
->     * switch to MB()/GB() to avoid hexadecimal (easier to read)
->=20
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+    [  348.284004] PM: suspend entry (deep)
+    [  348.289532] Filesystems sync: 0.005 seconds
+    [  348.291545] Freezing user space processes ... (elapsed 0.000 seconds) done.
+    [  348.292457] OOM killer disabled.
+    [  348.292462] Freezing remaining freezable tasks ... (elapsed 0.104 seconds) done.
+    [  348.396612] printk: Suspending console(s) (use no_console_suspend to debug)
+    [  348.749228] PM: suspend devices took 0.352 seconds
+    [  348.769713] ACPI: EC: interrupt blocked
+    [  348.816077] BUG: kernel NULL pointer dereference, address: 000000000000001c
+    [  348.816080] #PF: supervisor read access in kernel mode
+    [  348.816081] #PF: error_code(0x0000) - not-present page
+    [  348.816083] PGD 0 P4D 0
+    [  348.816086] Oops: 0000 [#1] PREEMPT SMP NOPTI
+    [  348.816089] CPU: 0 PID: 6764 Comm: systemd-sleep Not tainted 6.1.3-1.fc32.qubes.x86_64 #1
+    [  348.816092] Hardware name: Star Labs StarBook/StarBook, BIOS 8.01 07/03/2022
+    [  348.816093] RIP: e030:acpi_get_wakeup_address+0xc/0x20
 
-Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+Fix that by adding an indirection for acpi_get_wakeup_address() which
+Xen PV dom0 can use to return a dummy non-zero wakeup address (this
+address won't ever be used, as the real suspend handling is done by the
+hypervisor).
 
-Kind regards,
-Henry
+Fixes: f1e525009493 ("x86/boot: Skip realmode init code when running as Xen PV guest")
+Reported-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+---
+ arch/x86/include/asm/acpi.h  | 2 +-
+ arch/x86/kernel/acpi/sleep.c | 3 ++-
+ include/xen/acpi.h           | 9 +++++++++
+ 3 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
+index 65064d9f7fa6..137259ff8f03 100644
+--- a/arch/x86/include/asm/acpi.h
++++ b/arch/x86/include/asm/acpi.h
+@@ -61,7 +61,7 @@ static inline void acpi_disable_pci(void)
+ extern int (*acpi_suspend_lowlevel)(void);
+ 
+ /* Physical address to resume after wakeup */
+-unsigned long acpi_get_wakeup_address(void);
++extern unsigned long (*acpi_get_wakeup_address)(void);
+ 
+ /*
+  * Check if the CPU can handle C2 and deeper
+diff --git a/arch/x86/kernel/acpi/sleep.c b/arch/x86/kernel/acpi/sleep.c
+index 3b7f4cdbf2e0..1a3cd5e24cd0 100644
+--- a/arch/x86/kernel/acpi/sleep.c
++++ b/arch/x86/kernel/acpi/sleep.c
+@@ -33,10 +33,11 @@ static char temp_stack[4096];
+  * Returns the physical address where the kernel should be resumed after the
+  * system awakes from S3, e.g. for programming into the firmware waking vector.
+  */
+-unsigned long acpi_get_wakeup_address(void)
++static unsigned long x86_acpi_get_wakeup_address(void)
+ {
+ 	return ((unsigned long)(real_mode_header->wakeup_start));
+ }
++unsigned long (*acpi_get_wakeup_address)(void) = x86_acpi_get_wakeup_address;
+ 
+ /**
+  * x86_acpi_enter_sleep_state - enter sleep state
+diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+index b1e11863144d..7e1e5dbfb77c 100644
+--- a/include/xen/acpi.h
++++ b/include/xen/acpi.h
+@@ -56,6 +56,12 @@ static inline int xen_acpi_suspend_lowlevel(void)
+ 	return 0;
+ }
+ 
++static inline unsigned long xen_acpi_get_wakeup_address(void)
++{
++	/* Just return a dummy non-zero value, it will never be used. */
++	return 1;
++}
++
+ static inline void xen_acpi_sleep_register(void)
+ {
+ 	if (xen_initial_domain()) {
+@@ -65,6 +71,9 @@ static inline void xen_acpi_sleep_register(void)
+ 			&xen_acpi_notify_hypervisor_extended_sleep);
+ 
+ 		acpi_suspend_lowlevel = xen_acpi_suspend_lowlevel;
++#ifdef CONFIG_ACPI_SLEEP
++		acpi_get_wakeup_address = xen_acpi_get_wakeup_address;
++#endif
+ 	}
+ }
+ #else
+-- 
+2.35.3
+
 
