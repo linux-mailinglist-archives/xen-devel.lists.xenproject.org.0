@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 443C6669160
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 09:42:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476847.739237 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E2666916C
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 09:45:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476854.739247 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGFdG-0003SU-LH; Fri, 13 Jan 2023 08:41:50 +0000
+	id 1pGFgK-00048k-7q; Fri, 13 Jan 2023 08:45:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476847.739237; Fri, 13 Jan 2023 08:41:50 +0000
+Received: by outflank-mailman (output) from mailman id 476854.739247; Fri, 13 Jan 2023 08:45:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGFdG-0003P3-HQ; Fri, 13 Jan 2023 08:41:50 +0000
-Received: by outflank-mailman (input) for mailman id 476847;
- Fri, 13 Jan 2023 08:41:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pGFgK-00045N-4R; Fri, 13 Jan 2023 08:45:00 +0000
+Received: by outflank-mailman (input) for mailman id 476854;
+ Fri, 13 Jan 2023 08:44:58 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=grKZ=5K=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pGFdF-0003Ov-0p
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 08:41:49 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2051.outbound.protection.outlook.com [40.107.241.51])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1cd22357-931e-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 09:41:46 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DU2PR04MB8965.eurprd04.prod.outlook.com (2603:10a6:10:2e0::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Fri, 13 Jan
- 2023 08:41:43 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Fri, 13 Jan 2023
- 08:41:42 +0000
+ (envelope-from <julien@xen.org>) id 1pGFgI-00045G-0J
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 08:44:58 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pGFgH-0004I7-UF
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 08:44:57 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.6.109]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pGFgH-0001QZ-Nd; Fri, 13 Jan 2023 08:44:57 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,184 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1cd22357-931e-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eBzUvhJ/cTh5erRbmioa7r3g3z58OW4XuRMnKQIsqydkLnUnJY0ZRZfg9n9P73CfNLOIqKenAW/Fgwns2kBYi/loHwnVxbFkRmhkQzlEgkbUvg+rSpfvonNJzAAMUjnJERRE/Y/uaA6IdXuQnBx6WMKGSMryfvOvQvh3r1cZPGoMM4uWel7REc8wgsaxMHieDZ0OePZCMAKNMFhiCgG+DvbsNIPoGLD/AxvyPo9ti34XPHf6LPTVbs6tB3xSmKXZYi1STOYjHm1kMRA6yuY4VzUELdoYSuNJ1/OyI+XptFcdfTWzY3kAsIL2IPKtUZo7c1QOwF3eenJcDhCRw3cmrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F9UyZXk1/Uh5BjNg7NaKvy6tFD19k2rx/NbURI4rtbI=;
- b=d5WA9enZNoY1hrGVcRU46kk5NXXVqRattLUdqWknT2vob8Ko2/KAOkNyLKwDZ3dNiXQ+YdZy/61UtPW2FmZ9cg1lpGEnL9Mp5L7+UXL6oS0oInyDSFmbc6AEy2JlYar1O2qvrBgc2W801EWCLwc2HwncpZHX77/2i55I93vZSMjQT71RHKoH8gZ1WoDXzsJR3OD1qwj8mSUJ4XBqM+PhdxAKJ8ap0buK78JzybI9b7ALyRBV3SZj7sEXiyLKmK+flVKE6c1Sr8yupSggNgfZHkXKYNLE/XP7VFECKi9ZpJFaXccfDGd5aQ9ihFg51TQhfs+pGYpNDJ9GBLKSOrfusw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F9UyZXk1/Uh5BjNg7NaKvy6tFD19k2rx/NbURI4rtbI=;
- b=R58EMZvqB51j2bzU7qz1WqSsraeyR+f/CyuHoPNnZFf1y2ZgAFHJSYF3+1FlWZbDJQROwWFiyO4pyLDrP+KSWdpk09CT1kKCOoLlliR0ymBSlBdjcdoNrobpRxIXuQqxXlgdH3fbrBtlGmDfdn8AqzhMJrfhAkBVsk6y/eivqDX3Pq1NY2JwAh28FMMBPWGBo5uJpIaAQYjX+mQ4futIv3xk4sZR8wywmpTyNSzJ3q6qPBPrmg399z3ZsCLxU9gn/h2+WTBW6zfh1e2lYiWcfPF2LXLC4T0mAZB0Efl2QH+RUgPYvi3RfjMgLgrAB0RIME09E/xwAqJj90+bk0hCVg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <749f6412-ff36-c5bf-8b5d-c866aa47cc39@suse.com>
-Date: Fri, 13 Jan 2023 09:41:40 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 3/8] x86/iommu: iommu_igfx, iommu_qinval and
- iommu_snoop are VT-d specific
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Paul Durrant <paul@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Xenia Ragiadakou <burzalodowa@gmail.com>
-References: <20230104084502.61734-1-burzalodowa@gmail.com>
- <20230104084502.61734-4-burzalodowa@gmail.com>
- <f2d68a4d-b9b3-7700-961d-f6888edfb858@suse.com>
- <f4771b3d-63e8-a44b-bdaf-4e2823f43fb8@gmail.com>
- <4bc3f2f6-9bf4-5810-89e3-526470e72d85@gmail.com>
- <0e21b24e-d715-bd04-f98c-4cdd53f129ee@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <0e21b24e-d715-bd04-f98c-4cdd53f129ee@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0041.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:92::12) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=HsJwZ7pf4f8CxnJAVrHz8BvApRU4m43BBJa5/+ChXho=; b=lLzRmEz8JXaRvjXkhw6KmPjIWK
+	rjsFHVX3ZutcXkFD7SL1WNnqOvq5k3r1m67uINZEjrzi1X/DezVbPC7FzGdUz5hGakvg82n9ujZC4
+	xxUzsD7v/i5oCa54NjQ9G7ENrPf3rMyCnh8f4+xiunBMowIxU0ZlYJUb3FUouRg5lJBk=;
+Message-ID: <f8823ca1-450f-7522-d5db-41f124195ab3@xen.org>
+Date: Fri, 13 Jan 2023 08:44:54 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DU2PR04MB8965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00d6305a-a99d-4686-faf0-08daf541fed0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	QZC6sUcKlP1TdNfPrC4+mhzy1tJllYARZaL/46RH5W/z5eSPqvbZvNoICam3NSDF5ZckmK1X1cAm45aR0+2MVJOMtdion4JB5AtjwG2K19QtAiI1v0kyCs8qEY3xZ0960AT5iN7Q7JjP2DaP2nKUb42sXJrtlPYMigPSSrEmvvk4R+gtqANC2p30+ZjSbqrPGTlKAO9ILF29BWbz81iMXsZcKOEEBO9zanaoBTtY3JKM1W7H4MHwIAYzsLHq4G43if0SS2LbT7GpSalmVTXIEMS92TwWRQ8wGgt6JNVccF2Z+az4u9+wmdRJ/lWE+t/Y7LeECx0K6RJpzZsG9a0Ld3nV4qy9qHtIBvXVmCQJb18WkJgX4ygBjcw6pxntfdUn0uDD1rK6eOWRvd2Zgyfmeqk36VuuQHfmFOK5AxjEtMmeC/KO0s0Z31C4vIpB50L/xBowI5S8T7O0It35EiHHPSm5rT7yua0L2jkKem210kQbghEu3G3c5+nJvgSYqo+k9S/VGfF9ENFSsYzPjof4GkatNye6Z1enckSkc+igY6FhqthzdCmqMRryBZtwSXh/DlcHqGWVI2UfKpwoDHlUtiBcZOejtCRUwSKLBHRy/O7QeyHygGVcML999hY2EAc7QZzvwpCDVIgbRu+mHdsA5HrmdEgkfdiLhbyoGbTUpgjEqbeWsg8IJiGdnQXGvbl1BJSLc1yo84nEBU08b0jfw1KRwzhL1QRL5CId29vVRZo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(376002)(396003)(366004)(136003)(39860400002)(451199015)(83380400001)(38100700002)(86362001)(54906003)(31696002)(6916009)(66946007)(66556008)(4326008)(8676002)(41300700001)(316002)(66476007)(8936002)(2906002)(186003)(6512007)(66899015)(26005)(2616005)(6486002)(5660300002)(478600001)(53546011)(6506007)(31686004)(36756003)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MHJIMEhXQm1RUmlFcDVaWmJxMDljblVCUXBja2RhVXNDZWpxQjB5SmNjdUlh?=
- =?utf-8?B?aGVaRmROWUhYVFB5Z2FLckJsK3JySmRBNnliVEpaT01vblRMNGZwWU5oRjA3?=
- =?utf-8?B?bGdiQ1lJTzZNVHB2YnJyZlEzd01DbGlGbXVkNWJFV2F2NjNVU0pvOVV2bUk3?=
- =?utf-8?B?RmxQdWpDVGwyQUE5NDZTbEljd1dyMjZuNGtWWkRTYUF3UXZNWEZUMit5b1NM?=
- =?utf-8?B?ZjgvemNXQUcvY2kwWkI1UTAvV3RQSWJHcFBUdFJneGJwZFByWlVNYmdVblBv?=
- =?utf-8?B?bHpWeEtIVDFIRHZLanhPNzlkTDhzZmxpTUUrWWdsS0hXUzg5ckNMVzFmWXk5?=
- =?utf-8?B?aW1VZy9OeENZVkFKeXJub1hsYk1ETlJOcFdsN1ZaUkJXazhDZEd6TGhFVXVn?=
- =?utf-8?B?ZnZXT3FVaFdGbEh0T280eG9qbTJIWUwwVEdKMHhzMERkVHV2RDVUaHZnd2NF?=
- =?utf-8?B?MHlxeFNJWjVORnR0WU5adkkxMVBPTVQ4NGhjSWFRU3c0YkFoSUZJT1BWSTBO?=
- =?utf-8?B?dnk1RGxUTzV3L2hFcWJ6NDlnanNwN1F1QjduWW5qbERIV2tWZFFOc3d3OWh1?=
- =?utf-8?B?dC9WTVQ2RHlBTWF1TWN4K2NKU1pDUHVuaE8zNmYvYWlJY1dEeFpyYkNnWnFN?=
- =?utf-8?B?eGZMcUZhcEI5VTRmMWlqVXovS1FmeGN0Vk0xTDlvZzkvN0ZzUGxlcFphQ251?=
- =?utf-8?B?elBUYk1wOXhHeHR4aHB4dlp4NTlKNUlVeWp3dWpjeERYb3lRdGt4ZmZvbXcr?=
- =?utf-8?B?emVYM282dzlyK0JRZytjRUwyVFowTzQzSDluYmxrNWZDY2srMmF6R3FTSnZR?=
- =?utf-8?B?dlNKTUhOYVhVaENVajl4TWdlUm83OU5QMjRnVGVkdkpZVndUM3lMY1lGRFY2?=
- =?utf-8?B?bjI4L1V2elUwYWpIbkZMMklEcUJFK3YyT2NQUk5FRThOODZkdUlZaXNPeXlE?=
- =?utf-8?B?RWVsL2lwY2o3N3pEdWxTQStSOU1laWNsdmJ0WWJtelo3bi9GM3A4MnkrUFJj?=
- =?utf-8?B?Q2tTWnYzZ1l3VUxzSTRURm5pc1JCTHVHRGZFcjZoZDVQRjM0cldxWTJHejht?=
- =?utf-8?B?cnVVRE5zdlkyS2tPeVNEOU5TMnBZSGtXWXVnOGw4MTM1cWdtcWR3eElsakJy?=
- =?utf-8?B?UU0wQUhBelNEM0lXcEFQLzdmQ29BNXRtVXJYRmwxaENWa2o4dWlFRVRTNEow?=
- =?utf-8?B?bnpLcTZHWU8zZTlDVkViSGI2YkZocGRhY3NsTElpRTNKMmpYNXl1dlBOYW0r?=
- =?utf-8?B?aFV4TTAwSkJPRVEyWGYyTTlscFVRRUIvaDM1ZlZuYXlhM1BGN2RLZVdPYzNO?=
- =?utf-8?B?SkpRSnBqMXlSNDBKRFVZdTlCVitkYWpyKzNEZ2ZHQS9mcmZzUEZWT3hFQ1Rp?=
- =?utf-8?B?ZnQ4ZUUwbHM0QnBJYjhkT0UrbzgzNWFHNXZpa0dicnA3YXByNzRZejNUZHI4?=
- =?utf-8?B?K1ZyTERqQi9mR0xyNWVGczRRMmtHcFNmVWtXZXdLSmJ4SzRNaG5BTlE4TEdT?=
- =?utf-8?B?MUw1OWkyWjJpcjV3ZUZHbEV1dTlyQTNnYitsVGFWazA4SnpJa3RuTHBVbUdX?=
- =?utf-8?B?bE9YNHdvY0YwdUZJaWJqSjd1MzRibVl2aGJrdzNKaEk5N1FsL0hjc1pINXpQ?=
- =?utf-8?B?UklEV3ZDTDVKYzlYNy8wZ0NEenEzM0VYeXBETUhrRFFPd1R0U3o4amI1cHov?=
- =?utf-8?B?eTEzcTZVcnRyQjVacThuYXpnQlowTmhCRTVJTnJsNGFKVjBBMGYya3JDemxU?=
- =?utf-8?B?UjVHR0Q5bFdQNndsUlRvZjlTeDJBanhhd2Y1cTFoRUhqeVhmMkd4b0htdFBs?=
- =?utf-8?B?aDlxdTBveStaZ25mbVZrMUlRMFhISDNzOUNGSDNnRmNsY05GUGJnM1V5SzdW?=
- =?utf-8?B?S056RDZEME00aFNlLzl2bnV0MGZzYTQ0ODV3OE5uQ2k3Um1jMi9DcC9KMmhP?=
- =?utf-8?B?SzhMdVgrZmdzT1hPTWtmYndSa0R0TzhZa3FDd0VIS0ZxSCtsRTJ2WWZnSmZR?=
- =?utf-8?B?dm5tT2tGNFZZVVJtU2VFcUZBaURyOURxcFY0aDlGYStqRU5sZXh6ZWJWcU1L?=
- =?utf-8?B?UjdMWjkzdFJNaGdaV1NibXVKY2VYczV1VkNFenorZnh2OExZZFIwSW5OQjht?=
- =?utf-8?Q?e3JmLD22F0VF4ZqtVPi4k6x39?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00d6305a-a99d-4686-faf0-08daf541fed0
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 08:41:42.5634
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qq3ZskQWbN+tgZLeTuxmJjkZBMprfMGzMcLHJE4VH/izqAVckF1fHWgxUplVGxhqOerYZ8Z4ckd51PJRvCKhVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB8965
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [RFC PATCH 0/8] SVE feature for arm guests
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Nick Rosbrook <rosbrookn@gmail.com>, Juergen Gross <jgross@suse.com>
+References: <20230111143826.3224-1-luca.fancellu@arm.com>
+ <3e4ce6c0-9949-1312-f492-913b7dd2cf18@xen.org>
+ <EB12FEDD-F3EC-401A-9648-77D7B28F6750@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <EB12FEDD-F3EC-401A-9648-77D7B28F6750@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 12.01.2023 19:24, Andrew Cooper wrote:
-> On 12/01/2023 3:43 pm, Xenia Ragiadakou wrote:
->>
->> On 1/12/23 13:49, Xenia Ragiadakou wrote:
->>>
->>> On 1/12/23 13:31, Jan Beulich wrote:
->>>> On 04.01.2023 09:44, Xenia Ragiadakou wrote:
->>>>
->>>>> --- a/xen/include/xen/iommu.h
->>>>> +++ b/xen/include/xen/iommu.h
->>>>> @@ -74,9 +74,13 @@ extern enum __packed iommu_intremap {
->>>>>      iommu_intremap_restricted,
->>>>>      iommu_intremap_full,
->>>>>   } iommu_intremap;
->>>>> -extern bool iommu_igfx, iommu_qinval, iommu_snoop;
->>>>>   #else
->>>>>   # define iommu_intremap false
->>>>> +#endif
->>>>> +
->>>>> +#ifdef CONFIG_INTEL_IOMMU
->>>>> +extern bool iommu_igfx, iommu_qinval, iommu_snoop;
->>>>> +#else
->>>>>   # define iommu_snoop false
->>>>>   #endif
->>>>
->>>> Do these declarations really need touching? In patch 2 you didn't move
->>>> amd_iommu_perdev_intremap's either.
->>>
->>> Ok, I will revert this change (as I did in v2 of patch 2) since it is
->>> not needed.
->>
->> Actually, my patch was altering the current behavior by defining
->> iommu_snoop as false when !INTEL_IOMMU.
->>
->> IIUC, there is no control over snoop behavior when using the AMD
->> iommu. Hence, iommu_snoop should evaluate to true for AMD iommu.
->> However, when using the INTEL iommu the user can disable it via the
->> "iommu" param, right?
->>
->> If that's the case then iommu_snoop needs to be moved from vtd/iommu.c
->> to x86/iommu.c and iommu_snoop assignment via iommu param needs to be
->> guarded by CONFIG_INTEL_IOMMU.
->>
-> 
-> Pretty much everything Xen thinks it knows about iommu_snoop is broken.
-> 
-> AMD IOMMUs have had this capability since the outset, but it's the FC
-> bit (Force Coherent).  On Intel, the capability is optional, and
-> typically differs between IOMMUs in the same system.
-> 
-> Treating iommu_snoop as a single global is buggy, because (when
-> available) it's always a per-SBDF control.  It is used to take a TLP and
-> force it to be coherent even when the device was trying to issue a
-> non-coherent access.
-> 
-> Intel systems typically have a dedicated IOMMU for the IGD, which always
-> issues coherent accesses (its memory access happens as an adjunct to the
-> LLC, not as something that communicates with the memory controller
-> directly), so the IOMMU doesn't offer snoop control, and Xen "levels"
-> this down to "the system can't do snoop control".
-> 
-> 
-> Xen is very confused when it comes to cacheability correctness.  I still
-> have a pile of post-XSA-402 work pending, and it needs to start with
-> splitting Xen's idea of "domain can use reduced cacheability" from
-> "domain has a device", and work incrementally from there.
-> 
-> But in terms of snoop_control, it's strictly necessary for the cases
-> where the guest kernel thinks it is using reduced cacheability, but it
-> isn't because of something the hypervisor has done.  But beyond that,
-> forcing snoop behind the back of a guest which is using reduced
-> cacheability is just a waste of performance.
+Hi Luca,
 
-I guess I agree with most/all you say, but that's all orthogonal to
-Xenia's work (and also to the patch I'm about to send to address the
-one issue that I've spotted while reviewing Xenia's patch).
+On 12/01/2023 11:58, Luca Fancellu wrote:
+>> On 11 Jan 2023, at 16:59, Julien Grall <julien@xen.org> wrote:
+>> On 11/01/2023 14:38, Luca Fancellu wrote:
+>>> This serie is introducing the possibility for Dom0 and DomU guests to use
+>>> sve/sve2 instructions.
+>>> SVE feature introduces new instruction and registers to improve performances on
+>>> floating point operations.
+>>> The SVE feature is advertised using the ID_AA64PFR0_EL1 register, SVE field, and
+>>> when available the ID_AA64ZFR0_EL1 register provides additional information
+>>> about the implemented version and other SVE feature.
+>>> New registers added by the SVE feature are Z0-Z31, P0-P15, FFR, ZCR_ELx.
+>>> Z0-Z31 are scalable vector register whose size is implementation defined and
+>>> goes from 128 bits to maximum 2048, the term vector length will be used to refer
+>>> to this quantity.
+>>> P0-P15 are predicate registers and the size is the vector length divided by 8,
+>>> same size is the FFR (First Fault Register).
+>>> ZCR_ELx is a register that can control and restrict the maximum vector length
+>>> used by the <x> exception level and all the lower exception levels, so for
+>>> example EL3 can restrict the vector length usable by EL3,2,1,0.
+>>> The platform has a maximum implemented vector length, so for every value
+>>> written in ZCR register, if this value is above the implemented length, then the
+>>> lower value will be used. The RDVL instruction can be used to check what vector
+>>> length is the HW using after setting ZCR.
+>>> For an SVE guest, the V0-V31 registers are part of the Z0-Z31, so there is no
+>>> need to save them separately, saving Z0-Z31 will save implicitly also V0-V31.
+>>> SVE usage can be trapped using a flag in CPTR_EL2, hence in this serie the
+>>> register is added to the domain state, to be able to trap only the guests that
+>>> are not allowed to use SVE.
+>>> This serie is introducing a command line parameter to enable Dom0 to use SVE and
+>>> to set its maximum vector length that by default is 0 which means the guest is
+>>> not allowed to use SVE. Values from 128 to 2048 mean the guest can use SVE with
+>>> the selected value used as maximum allowed vector length (which could be lower
+>>> if the implemented one is lower).
+>>> For DomUs, an XL parameter with the same way of use is introduced and a dom0less
+>>> DTB binding is created.
+>>> The context switch is the most critical part because there can be big registers
+>>> to be saved, in this serie an easy approach is used and the context is
+>>> saved/restored every time for the guests that are allowed to use SVE.
+>>
+>> This would be OK for an initial approach. But I would be worry to officially support SVE because of the potential large impact on other users.
+>>
+>> What's the long term plan?
+> 
+> Hi Julien,
+> 
+> For the future we can plan some work and decide together how to handle the context switch,
+> we might need some suggestions from you (arm maintainers) to design that part in the best
+> way for functional and security perspective.
+I think SVE will need to be lazily saved/restored. So on context switch, 
+we would tell that the context belongs to the a previous domain. The 
+first time after the current domain tries to access SVE, then we would 
+load it.
 
-Jan
+> 
+> For now we might flag the feature as unsupported, explaining in the Kconfig help that switching
+> between SVE and non-SVE guests, or between SVE guests, might add latency compared to
+> switching between non-SVE guests.
+
+I am OK with that. I actually like the idea to spell it out because that 
+helps us to remember what are the gaps in the code :).
+
+Cheers,
+
+-- 
+Julien Grall
 
