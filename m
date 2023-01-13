@@ -2,55 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C02D26696E4
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 13:25:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477269.739897 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D2B6C6696F1
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 13:28:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477274.739908 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGJ6w-0000Gz-QA; Fri, 13 Jan 2023 12:24:42 +0000
+	id 1pGJA3-0000rR-9s; Fri, 13 Jan 2023 12:27:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477269.739897; Fri, 13 Jan 2023 12:24:42 +0000
+Received: by outflank-mailman (output) from mailman id 477274.739908; Fri, 13 Jan 2023 12:27:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGJ6w-0000EB-NH; Fri, 13 Jan 2023 12:24:42 +0000
-Received: by outflank-mailman (input) for mailman id 477269;
- Fri, 13 Jan 2023 12:24:41 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pGJA3-0000or-56; Fri, 13 Jan 2023 12:27:55 +0000
+Received: by outflank-mailman (input) for mailman id 477274;
+ Fri, 13 Jan 2023 12:27:53 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=xRhM=5K=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pGJ6v-0000E5-2t
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 12:24:41 +0000
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2058.outbound.protection.outlook.com [40.107.244.58])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3ed5d26a-933d-11ed-91b6-6bf2151ebd3b;
- Fri, 13 Jan 2023 13:24:39 +0100 (CET)
-Received: from BN9PR03CA0439.namprd03.prod.outlook.com (2603:10b6:408:113::24)
- by PH0PR12MB5466.namprd12.prod.outlook.com (2603:10b6:510:d7::15)
+ id 1pGJA1-0000oh-Im
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 12:27:53 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2058.outbound.protection.outlook.com [40.107.237.58])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b0eedc29-933d-11ed-b8d0-410ff93cb8f0;
+ Fri, 13 Jan 2023 13:27:50 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by CY8PR12MB8196.namprd12.prod.outlook.com (2603:10b6:930:78::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Fri, 13 Jan
- 2023 12:24:35 +0000
-Received: from BL02EPF0000C404.namprd05.prod.outlook.com
- (2603:10b6:408:113:cafe::3b) by BN9PR03CA0439.outlook.office365.com
- (2603:10b6:408:113::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.14 via Frontend
- Transport; Fri, 13 Jan 2023 12:24:35 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C404.mail.protection.outlook.com (10.167.241.6) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.11 via Frontend Transport; Fri, 13 Jan 2023 12:24:34 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
- 2023 06:24:34 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 13 Jan
- 2023 06:24:34 -0600
-Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
- SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Fri, 13 Jan 2023 06:24:32 -0600
+ 2023 12:27:48 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::a3a7:87d9:60f1:7eb1]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::a3a7:87d9:60f1:7eb1%4]) with mapi id 15.20.5986.018; Fri, 13 Jan 2023
+ 12:27:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,273 +46,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ed5d26a-933d-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: b0eedc29-933d-11ed-b8d0-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IOk49rBzV/B8dOHCxOWgIGR8GJ9SWHSo1t+MyKdenf/U8ePBXSDhoTUC+kbed0XapQlfKVqxmJfuggQShcjwSxIre5kaL0rLJVLcmyuuXzeL1CnxXtFJOS8pMODySYmX4mXZ3vzFyJZKSVPZkWdMUiau1Ez2zLz0Eq4zlFhmBOZc8plZabwAqVeWxU0hu6eSMmfxQ7s+7JAMb88aL5DsG2M7CeaF183r256L9HEU29H+MKwvxiolrYjy4++Hu/loqrCasnQWhSJmY2I7QJYh9UVGSxZCAU5ITXVDcaaXjkOsCPEAijApYi/7L7YIez1jgOXVn4BpmNHoA/x/DogRbg==
+ b=dpFxG4jCr/SKmLuflJBR9stC570YowG1ZQoxv0txNJK2hbBgObxxFQMetCxkx0s8eFmhut1ojz0yTjFLDkPHdGGdrA8BUKLB/R2TiMt8M1hMwxNoePrM7OeI6V85tg6/S8SWJ6BPhsIa1LltGu/5B6GUBniUYvZ8g+n59UbNFhRGIB92tcn1oWf0oBmx32tBYh6aEWU5YeoofZ6jmw1F8vTb2CwL/EyaO00zernFQL363AlANuY9LnJEE8u6/kz0uyDe/FJbMgmiuyk++8+2BGRCQtdz2BolmelBDs2ix5okV79a8mEV5dz/ZEnOb3fD/34ytp2N5c/LYEcBIjbrKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ycEQqwgkzsVZ028ofgUn3qmD37oS/iVNWA6GXMTomSE=;
- b=mfePwy00wIR9LUdjexMh1Ft/E6YEUd9JIgJ7NLK2fR09JNuiPQxCm6Cef9XjC4/Am6ukTwegBi70HtRm36MlULRUPCMwu8kNIzXrsBRGVHkcsKT3fonBp1OLRcQ8dl9rzQ0nhOmDD7udpWVKDwNorsdpbbtS0tawX7zMXyBjS7G/1zrr2iu5MTODKOvEGLcOZdbwc83ZWpGUDMzb6MVx3wjdUra/zK6vFmGuup3S/Inx6nrJ7PTolT72RUYbbERCTCc4x4LS+xGv8klYn3SJuM2xGh1SaB3D2Dg2thTxxJ8nI/IOSg82jikodMImTaplsoEp/rxXdHSB2dk9Cgky5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
+ bh=rsqW6VEFQgcSxHB4O0hC9OpgzP3TyDZ46hREDKuHIuY=;
+ b=WWf4fouXmaovKcSuDABGWj/BcGu5f4W29d37vSf+7ZQcOTsovzqOLzH8hRlOkGjOs8vjDozDHaiTI1G+kAhPUJMJ46bNz4ixx81YDrDKPNUtlc0LPzV/Uhs03xfhj0ddQLvikWDZBE9FwOkwCMbJWTcvj9f/Iqg0PlNBucVq1+DKwXma7GrzjwmA9uGUrWYtNUakNpPGF2Ct9AlYJXcvvxP736kh5PcLTQqqHBU1ZjJxrpZouGdrEco41+sjvaPqaIeqzDyHMyk1ThsSAuanfBbA9mvKa5zmUFHQdgZc1e3mjhjgfjW9iYsLzKkWcAF/cOq9LtpwZ9dUnJQbKVgjjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ycEQqwgkzsVZ028ofgUn3qmD37oS/iVNWA6GXMTomSE=;
- b=xgKy2Q5X0qbW1dPLBXyCHPDbu1mVoInTaq6/5begkVfaP7QulnFc5IFGCmMyiVm9qwZ68Xhk6nZL5OY+kr1IYkhOCetLes9aFTBQ6fDItIfz5cjbqO2w8Y9tA+k2HXnamgkX6nIovSNHPNoaIQcTDCatvUkmBTMgft17qtAIZKc=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
-	<michal.orzel@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN v5] xen/arm: Probe the load/entry point address of an uImage correctly
-Date: Fri, 13 Jan 2023 12:24:23 +0000
-Message-ID: <20230113122423.22902-1-ayan.kumar.halder@amd.com>
-X-Mailer: git-send-email 2.17.1
+ bh=rsqW6VEFQgcSxHB4O0hC9OpgzP3TyDZ46hREDKuHIuY=;
+ b=Zx/X6WnOYVrIN54sYNo9cd6WBoOlxlT0wMjaAqqOkL+nfbDuetJxxsnidmFvIuvGmX3XujvlmCAyjozxlIfD8X1wu0BPM/EajY5nW0XbqQkxtgrwgvgSZDe3/NvcjoW5cuCtvzDePzvwypMkgoaWHsfKcnK489QTq6ODa48K4c8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <52139018-abfe-4083-c955-70d832aa3d1c@amd.com>
+Date: Fri, 13 Jan 2023 12:27:41 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [XEN v4] xen/arm: Probe the load/entry point address of an uImage
+ correctly
+To: Dmytro Firsov <Dmytro_Firsov@epam.com>,
+ Oleksandr Tyshchenko <olekstysh@gmail.com>, Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: "sstabellini@kernel.org" <sstabellini@kernel.org>,
+ "stefano.stabellini@amd.com" <stefano.stabellini@amd.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ "michal.orzel@amd.com" <michal.orzel@amd.com>,
+ Oleksandr Tyshchenko <Oleksandr_Tyshchenko@epam.com>
+References: <20221221185300.5309-1-ayan.kumar.halder@amd.com>
+ <e26768b7-99f7-f4e4-6ae5-094d17e1594a@xen.org>
+ <20b15211-492b-713e-288c-14bd5e137ed7@gmail.com>
+ <ff1aa8c9-34a0-72a3-7a9e-c9a4fee93561@epam.com>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <ff1aa8c9-34a0-72a3-7a9e-c9a4fee93561@epam.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO2P265CA0127.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:9f::19) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C404:EE_|PH0PR12MB5466:EE_
-X-MS-Office365-Filtering-Correlation-Id: fed8d023-0b5c-4773-707e-08daf561216e
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|CY8PR12MB8196:EE_
+X-MS-Office365-Filtering-Correlation-Id: 619c01b0-a6bb-450e-6128-08daf5619453
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	0f+pl7gD4eaMKKhq1rS2nsgP/mPAh5lJnMqQ9BgSuNpQN2bdhBDC6M0GmkX6V+Xi0AsM9P/C5ZT1Q4vqMxizHyTrZIgRC56NZ2cNBWc8a5p15ktJH6h6VrzSqA1IZ86q7GPfhVc3ET6iQN7Arp8ce31v8Uf+HYBp/+nmjaDPIQJymN0DGR37MPvTyVj5G+qNUtXiTPAcdVhFg+pNkNTfwEVtOIJfF62wDqBMY0cBi4PfxCdYbDaDOohE50d75yjvtaOYdmficem2OcUA5oqo209MKNIhA0075iVaVqbEaUwN2IyfpD8ENhKyZxOowaB+cmpNck0xKVSTg41Q+1Cwr5bjc4hwV9AFrL1O7+QQq3tb9agbekX7FFaeflLK8OYpxMf7KiCB7OQBWw0t43+y3SZp4vdGC/GtmE8XbVRcJTdkiHnJq8mIDtds83rx00zbBTX8NnKzq8RwtWEOpWojt8UMBVgicbWhlRa5Yol25Efn2zdQ0p2qLEeaITiFyGTESsLZ1XyUSx25Ona6o3vqJpY2QEpTrNrp6+qiEI6Da8tF/wb+B+o1rtC4kzxK5Qt1I9H0EMuYZbjPRac9fypKYZOp2E7d+9rEqMiy58Kf/tuDHCRhVy0nkc9mUIJJejTGHtAXGROVLvTNG4p0XdLPeZbY1PZ0bg675Cnjoe7eLKs7i+ez5eb6NFxVOIta99buG3TZDxoWNItjZ9T5xWgOBHaWgIfIOiNbqQb83+C0/8VxjTKhcPjSX4EQObosz40jjWXp8Fa3YwRHt8PA9kqLEsG2qT1xAss5CocE5gvcBuV9EXsDmUmowaXPFm01iHMq
+	1C/UCmR1W9JTkTguYN5P2qYPEO2OrVnVCGKNg0UT5afwc1Bqo1yL4IfmBZjljdIjmR3TulrAzQ4sw+CDTxbygFyhV6/6UYYeIKLcAqjVlLcVb3ZAeGSFYteuwqAztOynsfnLdMs5TO2IUiHPtg75ZdsJ5Pv1Z5aRQF+OOYQ1UVGm4pgsr2KVaEW6BWnpb6gadmq22+cViGUaDiyry1gfjJAYhHNhsps1zTEvz0a7/XOt9NOHgOLQ0A2OQwktFmmDtuvAo++T82MKWZHjKUP1ES8U8QouLGEmodCwY/pcZxHMngkABvKW1j4jg9rq/q71IrKrnSzyZ4LTYVgD6nADQ5xrbSRh5FF8+TIED50hfm9PaLtKIP8AMNrHzAzVR7MmrRhqW4ivTOG/cEtUYCOKNd9p/Abe4kkw0zUmuSgVCKhJybL4meSjJZK6Ry9thK2CFvwsaDvsVYGrdFYQob3JxeIpCXe1pXisIXVnpDXUFR2AJbDsmgEtQSnOKcbVOEH5GA3oXEwXSvKij5OLhlbFZDk4iVMzCYRsy1sB7xlRllWz0bJzf1FadeLb1ih97TIIteA3B3sIT3FLGVmjIsUqmOxkCWAz/tdl/9uppP0oqnPm1md7DqT2/ncZa6+bdikYp5ADhed1uHIWJHc4AZI+lGy072wvGBMnqWnh8AAdLA4YU2fYkn68U3ykdskm+qw4apIbSpL0D40BKgWKMbJcyImqOjlX8ACZQqlkmo88uDs=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(36860700001)(82740400003)(6666004)(356005)(81166007)(2906002)(86362001)(966005)(478600001)(2616005)(186003)(103116003)(1076003)(8676002)(40480700001)(316002)(5660300002)(26005)(82310400005)(8936002)(36756003)(83380400001)(70206006)(47076005)(41300700001)(426003)(4326008)(40460700003)(54906003)(70586007)(336012)(6916009)(21314003)(36900700001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(346002)(136003)(376002)(366004)(39860400002)(451199015)(38100700002)(6506007)(6666004)(31686004)(53546011)(2906002)(5660300002)(6486002)(478600001)(2616005)(6512007)(186003)(26005)(316002)(8936002)(36756003)(83380400001)(8676002)(31696002)(41300700001)(110136005)(66556008)(66946007)(54906003)(66476007)(4326008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bmV2Mk5yMjlhZmJ2NUl6Z2lncTh0MnN3SEJjY3ptK3doWEVmMkp2b2QzVnky?=
+ =?utf-8?B?Y2FGUVdMRVozeVVGL3VMNG9sOHA1ZFhQa25zRGZOellRSzM5emx6emt3NmZG?=
+ =?utf-8?B?Si9LaXhwZklPaU9uejNBV2UwZ2tvbXZhaEhnOGltamlMUGs0TVRkVjV4Z0U3?=
+ =?utf-8?B?QnVlUjQ0dkxSYWZCditXZ3U3eFgrb0FKKzlyMWFSazBVUkx3Z0pvb1JkUCt2?=
+ =?utf-8?B?bHJYaXNwc01sNlJsWTZheWN1UUlMQ2hFU2VYaWNGUXBZT1lIaDlIMjk5RmZZ?=
+ =?utf-8?B?dWIzSjNMNmdLMisrdnlpTzFzT3JHdjJCQ0VvbTY3RGdIZVFSWkNoQkNrWWdq?=
+ =?utf-8?B?Ry9TbkpndkNDRmw4Q0M2aFM5NDN3VDVkM1dZbVFYMTc5RE9DaU9SdmVIczlv?=
+ =?utf-8?B?N0dhdFl1d1JqamppdlRXR055SHdZMkpEemNMTDZnYlh2R3hNcTFCenNSVXkw?=
+ =?utf-8?B?M0tXY0MxaVg5a0FmMlRxVzZ6WjNhaWp4dkRQbi9GVlFCbFNUOUZSOWttTzFJ?=
+ =?utf-8?B?TkMyWEY3QjFLZkhxVCtLU0ZlSmtLSDVHVzM5aFhOU1lvR3hUWmV2K2Z0QnZ3?=
+ =?utf-8?B?K0JWcTQ5eDdDQXRSRXRXeFFRMklPN0JoYXZxSkVoVjVUbjUwYXFQdkNqM25q?=
+ =?utf-8?B?N28rQXd3NTFmTnZoVlQzNDFwMEh3cXhaTE52cGFBcThHZmUxT1R4dW1ZSG43?=
+ =?utf-8?B?SkwwNFU1aTAvcHlSN3JRRFRBRWNmQkRsWFpXRmExaVh2L29iWlExendMSUF5?=
+ =?utf-8?B?cXVmZlFSbm54d2FRbzlmb1hSWklTR1Z6cFlDekU4TThQRHFweW9hT3BXSlNM?=
+ =?utf-8?B?bk5Hb3dqT1BGN0tqN0VvSHU5L1VWdlVTMXFnUXl1VWpHWjhHM0hHMTczMmxh?=
+ =?utf-8?B?UVAzWDNNY1JGT1BwUW5DckNXZURBWUpMRDJVTktVTWJPK0RSUnZvblFuci9Y?=
+ =?utf-8?B?bVl6Vnd5a1NERlVueEk1ZXNkemo5NzJoT05yaWxjSjRYQldaaEt0aU45WFdz?=
+ =?utf-8?B?YnkrY05jSjFFMHdWWjNmam93WW9jYk53Q00rbnIxekJUWUNGSUF2ZGx3WXVo?=
+ =?utf-8?B?YjN2L2JkK0dsZTBHcWlQZlJyOVdGY2trbmcxQ0NTMjU1Qmk5ZFM5cVByOUFt?=
+ =?utf-8?B?V1dkVERNMmZhOGNyYkcxc3R3cGt5SDJBazd1RUNVS0tUMmI3OVR1MnUwZ3U1?=
+ =?utf-8?B?QVZQWHk0WEprMERNV0lkby96K0xSQXJlQU1HL2JkVGM4QzRwZFBiZU1jYzlX?=
+ =?utf-8?B?NXJSUGNKQ2FSWVc0TnEyeTByS0hKQXk2RDhqLzhHWjgrS29BSG9nZDhWQWor?=
+ =?utf-8?B?TTJkc1JOY3U4bDRUN3Fqc01pN1ZhZE5ESTdmRlE4S0taQUZ1NUhyc2lIMlNh?=
+ =?utf-8?B?clA4Ry9xZHU5QkpVeVhBR0t3Z3dBSEtWcW41anpQQmpyRms4SkdVV3hGNkhW?=
+ =?utf-8?B?cURKbmYrb1ZJRGM1TU4zMGZZelozenhPbzNUcDFsakVmWTlRYVlIY1oxS0d4?=
+ =?utf-8?B?V1p5dkE2K2RGQ2wzazkxWVJ2VE5tYnV6SFdPOVdCclM1Y0ZnSDVTTW12cXFX?=
+ =?utf-8?B?dk5NRE01ZHZlTDEzdXNTeWxsRzUwZmtENFB2UjJHUVJ5Tmd5eXliem1WQ1Fl?=
+ =?utf-8?B?T21LZlZWV1lLVDUrTG5FUThFUWZEdzBOSnJ1bXRBUkxnL2RGcFRQQ0p4VVI4?=
+ =?utf-8?B?RHo4eDdjR2V2d2p1UE1uNS9UZEN2anJhSkFnVUhzYmt2U2oyd0paQ1Q2M0xG?=
+ =?utf-8?B?emM2SzdkbGNKdE5qNmh2MHB0R3ZXSjhMOU44VmxsK29yZWhZOGt5SWloc0hy?=
+ =?utf-8?B?K1JvT0dZS3ZYQU5MdG1tTFdsL1g2RWNKR3hkY3R0UGlPUDZHNXNVdzVtQ1pL?=
+ =?utf-8?B?ZWdVMlhjNTVJY0tYYnJlZExCeVdKdFp6NHZwYnk2aVFhQjUwOXlLUS9tTWlh?=
+ =?utf-8?B?RXpDd0dtVVF3YVJGN2ZlRTNScE1uWm5FNVRpOTdDQ0VHczBJV0dJQmNWMHlI?=
+ =?utf-8?B?VStDVGVLSmU0MURJZjYweERGSi8vcVZ1SlpiSGpBM1VNZ2h1VUdpZzFGUm1Z?=
+ =?utf-8?B?T09hUzFML0Uzbm9qMDFaRlBXR1pSMHgrMDRYTGRZQVJaRTRZclp5NEFQUDhm?=
+ =?utf-8?Q?Rh4F1iASLdY+AoFWA2iZR5NZV?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 12:24:34.7396
+X-MS-Exchange-CrossTenant-Network-Message-Id: 619c01b0-a6bb-450e-6128-08daf5619453
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 12:27:47.7659
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: fed8d023-0b5c-4773-707e-08daf561216e
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0000C404.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB5466
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: S0Gulg7exijUM77ZV6Ws4zqpMQJnxLPJWObIx8pX7aaHERAvhJn4ITDynpskmWuOwlam79wllG+Xr0Uz2NCMJQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8196
 
-Currently, kernel_uimage_probe() does not read the load/entry point address
-set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-causes, kernel_zimage_place() to treat the binary (contained within uImage)
-as position independent executable. Thus, it loads it at an incorrect
-address.
+Hi All,
 
-The correct approach would be to read "uimage.load" and set
-info->zimage.start. This will ensure that the binary is loaded at the
-correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-address).
+On 10/01/2023 12:30, Dmytro Firsov wrote:
+> On 09.01.23 11:36, Oleksandr Tyshchenko wrote:
+>>
+>> On 08.01.23 18:06, Julien Grall wrote:
+>>
+>> Hello Julien, Ayan, all
+>>
+>>> Hi Ayan,
+>>> ...
+>>> The changes look good to me (with a few of comments below). That
+>>> said, before acking the code, I would like an existing user of uImage
+>>> (maybe EPAM or Arm?) to confirm they are happy with the change.
+>> I have just re-checked current patch in our typical Xen based
+>> environment (no dom0less, Linux in Dom0) and didn't notice issues with
+>> it. But we use zImage for Dom0's kernel, so kernel_uimage_probe() is
+>> not called.
+>>
+>>
+>> I CCed Dmytro Firsov who is playing with Zephyr in Dom0 and *might*
+>> use uImage.
+> Hi Oleksandr, Julien, all
+>
+> Current Xenutils/Zephyr Dom0 setup uses standard format for Zephyr on
+> arm64 which is zImage. Thus uImage changes will not affect me.
 
-If user provides load address (ie "uimage.load") as 0x0, then the image is
-treated as position independent executable. Xen can load such an image at
-any address it considers appropriate. A position independent executable
-cannot have a fixed entry point address.
+Many thanks for the confirmation.
 
-This behavior is applicable for both arm32 and arm64 platforms.
+I have addressed all of Julien's comments and sent out "[XEN v5] 
+xen/arm: Probe the load/entry point address of an uImage correctly".
 
-Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-point address set in the uImage header. With this commit, Xen will use them.
-This makes the behavior of Xen consistent with uboot for uimage headers.
+- Ayan
 
-Users who want to use Xen with statically partitioned domains, can provide
-non zero load address and entry address for the dom0/domU kernel. It is
-required that the load and entry address provided must be within the memory
-region allocated by Xen.
-
-A deviation from uboot behaviour is that we consider load address == 0x0,
-to denote that the image supports position independent execution. This
-is to make the behavior consistent across uImage and zImage.
-
-Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
----
-
-Changes from v1 :-
-1. Added a check to ensure load address and entry address are the same.
-2. Considered load address == 0x0 as position independent execution.
-3. Ensured that the uImage header interpretation is consistent across
-arm32 and arm64.
-
-v2 :-
-1. Mentioned the change in existing behavior in booting.txt.
-2. Updated booting.txt with a new section to document "Booting Guests".
-
-v3 :-
-1. Removed the constraint that the entry point should be same as the load
-address. Thus, Xen uses both the load address and entry point to determine
-where the image is to be copied and the start address.
-2. Updated documentation to denote that load address and start address
-should be within the memory region allocated by Xen.
-3. Added constraint that user cannot provide entry point for a position
-independent executable (PIE) image.
-
-v4 :-
-1. Explicitly mentioned the version in booting.txt from when the uImage
-probing behavior has changed.
-2. Logged the requested load address and entry point parsed from the uImage
-header.
-3. Some style issues.
-
- docs/misc/arm/booting.txt         | 26 ++++++++++++++++
- xen/arch/arm/include/asm/kernel.h |  2 +-
- xen/arch/arm/kernel.c             | 49 +++++++++++++++++++++++++++++--
- 3 files changed, 73 insertions(+), 4 deletions(-)
-
-diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
-index 3e0c03e065..aeb0123e8d 100644
---- a/docs/misc/arm/booting.txt
-+++ b/docs/misc/arm/booting.txt
-@@ -23,6 +23,28 @@ The exceptions to this on 32-bit ARM are as follows:
- 
- There are no exception on 64-bit ARM.
- 
-+Booting Guests
-+--------------
-+
-+Xen supports the legacy image header[3], zImage protocol for 32-bit
-+ARM Linux[1] and Image protocol defined for ARM64[2].
-+
-+Until Xen 4.17, in case of legacy image protocol, Xen ignored the load
-+address and entry point specified in the header. This has now changed.
-+
-+Now, it loads the image at the load address provided in the header.
-+And the entry point is used as the kernel start address.
-+
-+A deviation from uboot is that, Xen treats "load address == 0x0" as
-+position independent execution (PIE). Thus, Xen will load such an image
-+at an address it considers appropriate. Also, user cannot specify the
-+entry point of a PIE image since the start address cennot be
-+predetermined.
-+
-+Users who want to use Xen with statically partitioned domains, can provide
-+the fixed non zero load address and start address for the dom0/domU kernel.
-+The load address and start address specified by the user in the header must
-+be within the memory region allocated by Xen.
- 
- Firmware/bootloader requirements
- --------------------------------
-@@ -39,3 +61,7 @@ Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/t
- 
- [2] linux/Documentation/arm64/booting.rst
- Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arm64/booting.rst
-+
-+[3] legacy format header
-+Latest version: https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
-+https://linux.die.net/man/1/mkimage
-diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-index 5bb30c3f2f..4617cdc83b 100644
---- a/xen/arch/arm/include/asm/kernel.h
-+++ b/xen/arch/arm/include/asm/kernel.h
-@@ -72,7 +72,7 @@ struct kernel_info {
- #ifdef CONFIG_ARM_64
-             paddr_t text_offset; /* 64-bit Image only */
- #endif
--            paddr_t start; /* 32-bit zImage only */
-+            paddr_t start; /* Must be 0 for 64-bit Image */
-         } zimage;
-     };
- };
-diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-index 23b840ea9e..0b7f591857 100644
---- a/xen/arch/arm/kernel.c
-+++ b/xen/arch/arm/kernel.c
-@@ -127,7 +127,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
-     paddr_t load_addr;
- 
- #ifdef CONFIG_ARM_64
--    if ( info->type == DOMAIN_64BIT )
-+    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
-         return info->mem.bank[0].start + info->zimage.text_offset;
- #endif
- 
-@@ -162,7 +162,12 @@ static void __init kernel_zimage_load(struct kernel_info *info)
-     void *kernel;
-     int rc;
- 
--    info->entry = load_addr;
-+    /*
-+     * If the image does not have a fixed entry point, then use the load
-+     * address as the entry point.
-+     */
-+    if ( info->entry == 0 )
-+        info->entry = load_addr;
- 
-     place_modules(info, load_addr, load_addr + len);
- 
-@@ -223,10 +228,38 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
-     if ( len > size - sizeof(uimage) )
-         return -EINVAL;
- 
-+    info->zimage.start = be32_to_cpu(uimage.load);
-+    info->entry = be32_to_cpu(uimage.ep);
-+
-+    /*
-+     * While uboot considers 0x0 to be a valid load/start address, for Xen
-+     * to maintain parity with zImage, we consider 0x0 to denote position
-+     * independent image. That means Xen is free to load such an image at
-+     * any valid address.
-+     */
-+    if ( info->zimage.start == 0 )
-+        printk(XENLOG_INFO
-+               "No load address provided. Xen will decide where to load it.\n");
-+    else
-+        printk(XENLOG_INFO
-+               "Provided load address: %"PRIpaddr" and entry address: %"PRIpaddr"\n",
-+               info->zimage.start, info->entry);
-+
-+    /*
-+     * If the image supports position independent execution, then user cannot
-+     * provide an entry point as Xen will load such an image at any appropriate
-+     * memory address. Thus, we need to return error.
-+     */
-+    if ( (info->zimage.start == 0) && (info->entry != 0) )
-+    {
-+        printk(XENLOG_ERR
-+               "Entry point cannot be non zero for PIE image.\n");
-+        return -EINVAL;
-+    }
-+
-     info->zimage.kernel_addr = addr + sizeof(uimage);
-     info->zimage.len = len;
- 
--    info->entry = info->zimage.start;
-     info->load = kernel_zimage_load;
- 
- #ifdef CONFIG_ARM_64
-@@ -366,6 +399,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
-     info->zimage.kernel_addr = addr;
-     info->zimage.len = end - start;
-     info->zimage.text_offset = zimage.text_offset;
-+    info->zimage.start = 0;
- 
-     info->load = kernel_zimage_load;
- 
-@@ -436,6 +470,15 @@ int __init kernel_probe(struct kernel_info *info,
-     u64 kernel_addr, initrd_addr, dtb_addr, size;
-     int rc;
- 
-+    /*
-+     * We need to initialize start to 0. This field may be populated during
-+     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
-+     * uimage.ep).
-+     * We will use this to determine if the image has a fixed entry point or
-+     * the load address should be used as the start address.
-+     */
-+    info->entry = 0;
-+
-     /* domain is NULL only for the hardware domain */
-     if ( domain == NULL )
-     {
--- 
-2.17.1
-
+>
 
