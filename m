@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D834966923C
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:04:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476891.739312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 261F766924C
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:07:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476897.739324 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGFz2-0000zy-Vx; Fri, 13 Jan 2023 09:04:20 +0000
+	id 1pGG1M-0001Ym-CE; Fri, 13 Jan 2023 09:06:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476891.739312; Fri, 13 Jan 2023 09:04:20 +0000
+Received: by outflank-mailman (output) from mailman id 476897.739324; Fri, 13 Jan 2023 09:06:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGFz2-0000xX-TG; Fri, 13 Jan 2023 09:04:20 +0000
-Received: by outflank-mailman (input) for mailman id 476891;
- Fri, 13 Jan 2023 09:04:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pGG1M-0001X2-9Q; Fri, 13 Jan 2023 09:06:44 +0000
+Received: by outflank-mailman (input) for mailman id 476897;
+ Fri, 13 Jan 2023 09:06:42 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=grKZ=5K=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pGFz1-0000xR-Vr
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:04:19 +0000
-Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on2052.outbound.protection.outlook.com [40.107.247.52])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 42864f57-9321-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 10:04:17 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM7PR04MB6902.eurprd04.prod.outlook.com (2603:10a6:20b:107::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 13 Jan
- 2023 09:04:16 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Fri, 13 Jan 2023
- 09:04:16 +0000
+ (envelope-from <julien@xen.org>) id 1pGG1K-0001Ww-TR
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:06:42 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pGG1J-0004u8-L5; Fri, 13 Jan 2023 09:06:41 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=[192.168.6.109]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pGG1J-0002Po-EF; Fri, 13 Jan 2023 09:06:41 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,124 +39,184 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 42864f57-9321-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=R3Z99oOIQvg+/iWYUa00yVVIpSEWpgjmm+TB0v8EqQKCUpVZSIjFu2dGBcitcJpPG9+lX+4OUh2I338OhFQfP0aooxGgOIVuEIN6q8z5yWCMsCQ08CE0HlA94PGp8+MBElJIEDi1OvCrH+3zS8hTnARAgcgFxv3bFX2z+bti2M/b8esTXO5uWoOLK7nb0hwEM/Bw76s7xTHeQYhGga8Gq81ryfVhq3HlPD7VlQCoutY54HbP5d4Wcms3FTph/elB5KxWa2nzf+0ZPT3OlpAtJw87jBNw2JC1QJdxT7Dan1ElCctXGhGs/sKHQdG5kvi+Idg0TYd9WlWU2n9qk5ymig==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ikpCPRyBnn2PQBXs6zphf8ZMYfTSU9wBgd0hKfIBIVE=;
- b=miLAhXV4kWJ/uqD6Z5WrDDBjm7u/AN+zogL5m4M+g2G1jpNo7at8v8LAe8Y+VqpAQskEPsz4p0MC3AeJGlj1HPDEXi4BEjcgtKpSmxhN60QMFHpHaQ9W8gr7stPgOKyeB4C6hpLYMxX5fDyI11HaaM19axeJZ7Iwefc3o8Y/QR1WNUHGPMiUvBEG9hmCXMCulwfZ2blPAOslWIdzx27irc12+E96U1vFXe2r1dt3C7ZT++qEyHvQKFw9ROuSIu8vOlBjBnNXq9h3W5SyRjJjP3tIA5Bh/sAR3zmJUA4ma/gJWNaRckzjyoVueSXYIOMyDoSzwuE8bgVWOuIPORWPuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ikpCPRyBnn2PQBXs6zphf8ZMYfTSU9wBgd0hKfIBIVE=;
- b=yzwomtxAUiCecr9YolNHIKyXR6YVJ7eUZIQVeDT41/QTD1VefZmnJrXs4p1iX2knX4TbRrUfEFYYzTUpM8JwUDSfJxxrRDicB0QCabUnbIUt1gTBgoHYoow1zqiKIBGFi8z8WqIrc9RA4JSzMP8XlEBczBV7f5hBjU4lPkidyGzPKK3hrDe8JLgcruJca9jyWM0UHTUpLDw1d+q59Zoa0Y+ljsqikOqCgZat4JKUUMfP0IynuS8OQyN8o7LjFBFxy3ZJgmfIXgzSt8PgS58IcSFGyzNprDW5j54g1LbYp/HqAnzv33A133mz7RpUGZQomWRbLQM+3IheagoS/wNElA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <635fb465-9350-70b0-3c99-cbb87bea58d1@suse.com>
-Date: Fri, 13 Jan 2023 10:04:13 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 1/8] x86/boot: Sanitise PKRU on boot
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230110171845.20542-1-andrew.cooper3@citrix.com>
- <20230110171845.20542-2-andrew.cooper3@citrix.com>
- <27d830b1-a32b-1368-3c0e-e5de15da5000@suse.com>
- <fcfe9344-ceac-aa80-404b-55fb7a75fdeb@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <fcfe9344-ceac-aa80-404b-55fb7a75fdeb@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0161.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a2::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=fWx2t2vjKMyHxD03g44wYPIrZcah6J8RTFBmmy80OyA=; b=Wd8DAAT3pfpZVu1BJCIPCD/ESu
+	ammoZJQUlsAKLmvYxBOriIVM16PPEDKdlKjM+Iiq8DFawrfGW6+dglWbu7bz1OtpsrUTzLc2rWWL+
+	mSlVg6gIDo/PyG8eAlwjR1pha5T++rNalfwiyTXIE0BrCVbfmKCxSM0FlQoEyiSIG9Bk=;
+Message-ID: <096b4129-ace6-01b6-85c1-b153d3bc4ada@xen.org>
+Date: Fri, 13 Jan 2023 09:06:38 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6902:EE_
-X-MS-Office365-Filtering-Correlation-Id: 938a1971-08e9-4977-3102-08daf545256e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	faTv1E6/ZC/DhrOwgDxA8a+p3o0XloAW4CeaD8pGxpd4Cx6lYVErYH+1HAEqfFob/aaizSC55486zkXnwS2tD7niqdqfDbYcfiLxv1XLp6QIriHfm9Rzr1coQLewVGOeRhUA1blW1UM8rUU7rMj6EnZ6vG4Y90oRIRtNI1jmJB0dey/oFx4lvs6AFNjka7xwuE2D26sdLy/L9O6UhrJQr+eIY+sxA8dgEBzj9jT74vBphggCLTIuhliadQpvxSA4wExZHUJtRPg136WwG+LD+/ynUaA8AIJhKbRiorxVKbrDWJj6ZUb5MwqA7p6om+h+sG0L5RY2jJEkzD3PRp5P37BhazVsMFj+52lsSvQW6NvBcrJj8P7cIpnd8rricEp7Nf1qFgxvhKoAuh+d/Kfjm15XJO03vBSsoOUwi2Xl6dv8rl9zcgqvG3LUSXw0fQuno/91C249vpct9fwSol4folUilC7A2MAk5TbGJKnXgy1N9h2VToEdjfoDym6TJu6S5Q4oXSrOV4veoBSHgAfNVSAdbxDO/M3pNsv2aL7uPY3aXgoDnx6qTOmSHl89UwIUPWV2JGYhu1QZLRhF3dL6uSil0KukrvsCjpveRFYAsIZRHEB6k61qgMH5ep/UPHosRZ2o8nFFh8t9VBErMBi8JJ8vFXEvF99k1WrZelksCaf5bqQ4fJb5+n3F2lj9GsFJROd6HHoqI1dWVEUvNlZCFgExr2H9ymgMWppy2ljUbtc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(396003)(376002)(366004)(346002)(136003)(451199015)(86362001)(31696002)(54906003)(2616005)(316002)(31686004)(6486002)(8676002)(6916009)(66946007)(66476007)(66556008)(478600001)(26005)(186003)(6512007)(53546011)(6666004)(6506007)(36756003)(38100700002)(41300700001)(4326008)(4744005)(8936002)(2906002)(5660300002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UGlpeXZKaW5rS2VZNktnY29nYlB5TExjRjhZWFVsODAwdkVHbFUvVDFsS1hj?=
- =?utf-8?B?Rmw1UGIybHcwR1crY0p4cWw2Smx0a1FzWUpndTRIa21nbXFDbGN4K0FHbUFB?=
- =?utf-8?B?QWo5MGtQYXIrdHVFMXV0ODNINGk3bUJySmZHR2pmQVVBZExacDdWRVJwN3RO?=
- =?utf-8?B?UmNBRThwczY2Z2NjV240QjNDVUxHS0o4MkF1UGxKMTh2M1Bjamt5R1Q1MCtJ?=
- =?utf-8?B?TjdRWm1pU1dYYW12MXIxUGVWay9BSFp1dGRIQ0VtVmRPM1p0TmU1MS9ZbW5l?=
- =?utf-8?B?dU9MbS9sdC9za0lCbzZJU0M3QkpwWE13cmpGRzN6azkrSnJYQjdoWCtiZ2dt?=
- =?utf-8?B?b29rWFNBcUhoM2Y3S0twbjhZMkFLVkN0MDY0UWEwU0lPRTA0WjEwREhsRlZr?=
- =?utf-8?B?MXFMcDFpU09hUWtDQU5iSGxtay9IQXJtYUwzQTJrNmViSXQrVnlmUzlSOXp5?=
- =?utf-8?B?L0Q0RHNkRE4wNWp6K09Ua0czZUxxNzN0SE83VFY4NFBDak44bC9ZeERmUzZO?=
- =?utf-8?B?MHVLajFVdUhWZzBkZWt0ZlJ2d1h2N08vUUdZQVRlcFJFa2Q3WHF3MkNVZm5h?=
- =?utf-8?B?bFg5cy8vQ2RKUEp6WE5Yb1BKUVNHbVJPY3kyWUZBRGJrd25ZZ0NONXRTVUpS?=
- =?utf-8?B?VEdxSjR0VVlNZ0RDT0NHemJ2QkR5dmVjMzRKRFJXS2VxUXVGRXhURDNNazFQ?=
- =?utf-8?B?dTJ5NGhSbDBXWnAzaVRjS1lWWk9LbWZnL1d6MkVYTVZBNllBZE10V1E1cGsv?=
- =?utf-8?B?cFE3TkNoRUxSRkkyRlU4R0Q0d09qNXpFTFl0eVVTR0VqdDFrVDFlaGl2QUtY?=
- =?utf-8?B?d3RuZWJlSS9Wb0RJSkFtcFNaWFBkSTRqbjRIeXYrdHdBYnoyYTE4SlhQMURn?=
- =?utf-8?B?bmVQU1g4K3UwUjFTd21FSkRVV0c3VG5tYVo5ZzlXdTUwVE9KclBycmtXY053?=
- =?utf-8?B?VVNKYllCSDZ2N1dIVytrbzVqRFlMb3hZL1B5TEJZeDNvaHlSWGJXTnBvTmxC?=
- =?utf-8?B?NGZyblM1OFdKcGp5UFVIcndualBja1NuNmYzM1Yxc09EaTlJTWRmdmRhMHM2?=
- =?utf-8?B?bUVkek5FRlNyd3RiZlZLMnBIUnRDWUxESmM0cVdnU00yRmhHd2hQbmpNU2U5?=
- =?utf-8?B?UHJjZG90a0RsK2pOdGlQTFVrNVlYd1huKzdQUmVoaDdoNzdQdmFFZ3JRaVdN?=
- =?utf-8?B?UmxOczVVRWVOR2ZBb1hLcDJSdXRMbHZaY28vbUNJU3phT3VrTkFWL2RNeXNj?=
- =?utf-8?B?MjdXVVdkVHFPY1dQU1U1cWs5dFoxSjVkZzRGSXB5UjVUekpWTS9PaHp6WnVs?=
- =?utf-8?B?b1RvU082cFkrYkY0MkxnY0gvcHhWUFhVaWthVERFWVpXRWlrQUMrMCt5UTBm?=
- =?utf-8?B?T0k2QVFUYllNc0FZS0VtM2RWc1YzRnllZmo3UTNoZWhNbi9ockY2bGZhekxF?=
- =?utf-8?B?UXdYM29ITlFYbW5ockxVSDU1eHNNOVN2ZFVPUGRBMUZReVdBdU4wYlFxbElB?=
- =?utf-8?B?ZUUxM1hkdFJnTEdrdHpCNzJwYUU5c0ZwM05ZWXpoeFlzZmErTG9YdXdFZTBN?=
- =?utf-8?B?K2NLRXBEOGRST0s5YWNjRDEwR3VEL2Viam5jMmF6ZlNvc3BpNzNxNHA2TFlM?=
- =?utf-8?B?eFEvSEVaNzhPeFVVSURiS0ptOFpscEFEeUE4QzFJU0VIR0xvVFg2d20reXhx?=
- =?utf-8?B?d00yM2JkRXVCQ3dTR3pvb1lkVjJUWXQzSlBXQnp5THdWMHpvelE5dmNkUXVa?=
- =?utf-8?B?QzVkUTZsRUpCdmd0TG9kWTZvL3A2VXFDbk5GUXAzL0xyMFZKUUFhbVdLMjI5?=
- =?utf-8?B?MlQ2Z1pzb2VHUDlqVW8zN1BVTkprbWQwVGdZa09RRFZTNkF6b3RjbnZYbjla?=
- =?utf-8?B?NHRYTlhmVXk0QkhkUCtPdHhPRGE4c3hxNWxHcVNNT3UxeTJJWTlzcWpyZjI0?=
- =?utf-8?B?ZzJJSkk0Q3ZVNUx5aTROYVAxeWp1UHRjd1V5ZVI1QnVGWFpwL3dlK3phNXpO?=
- =?utf-8?B?STlTeDVyWWhQeDZYWkU3UCt3ZFlyNVI2dGFENVUwcjQyQ1FqN0FndXliYVY4?=
- =?utf-8?B?Mm1qZ3BkTEZxZEZsSjJGZmQ2RHdCMWtsYkdyTldTa21wWHZlQ3gyOUppSDVy?=
- =?utf-8?Q?NOAIAF2n90Z7iX1L3rNdMw3uN?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 938a1971-08e9-4977-3102-08daf545256e
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 09:04:15.9779
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wdfp9WTkKFcaZPyjRTrOBkFpx0kVavrIoglAWsSONpPEn88RD2/z7TN/ENDaiIw/4qFGiy9o2Sod4GILdYthFQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6902
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [RFC PATCH 2/8] xen/arm: add sve_vl_bits field to domain
+Content-Language: en-US
+To: Luca Fancellu <Luca.Fancellu@arm.com>
+Cc: Xen-devel <xen-devel@lists.xenproject.org>, Wei Chen <Wei.Chen@arm.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Wei Liu <wl@xen.org>
+References: <20230111143826.3224-1-luca.fancellu@arm.com>
+ <20230111143826.3224-3-luca.fancellu@arm.com>
+ <91b5c7db-ec9b-efa6-f5cf-dc5e8b176db6@xen.org>
+ <9168CB2A-A1F1-43E0-9DAD-BB31AD3979E0@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <9168CB2A-A1F1-43E0-9DAD-BB31AD3979E0@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 12.01.2023 18:07, Andrew Cooper wrote:
-> On 12/01/2023 12:47 pm, Jan Beulich wrote:
->> On 10.01.2023 18:18, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/cpu/common.c
->>> +++ b/xen/arch/x86/cpu/common.c
->>> @@ -936,6 +936,9 @@ void cpu_init(void)
->>>  	write_debugreg(6, X86_DR6_DEFAULT);
->>>  	write_debugreg(7, X86_DR7_DEFAULT);
->>>  
->>> +	if (cpu_has_pku)
->>> +		wrpkru(0);
->> What about the BSP during S3 resume? Shouldn't we play safe there too, just
->> in case?
+Hi Luca,
+
+On 12/01/2023 10:54, Luca Fancellu wrote:
+>> On 11 Jan 2023, at 17:27, Julien Grall <julien@xen.org> wrote:
+>>
+>> Hi Luca,
+>>
+>> On 11/01/2023 14:38, Luca Fancellu wrote:
+>>> Add sve_vl_bits field to arch_domain and xen_arch_domainconfig
+>>> structure, to allow the domain to have an information about the
+>>> SVE feature and the number of SVE register bits that are allowed
+>>> for this domain.
+>>> The field is used also to allow or forbid a domain to use SVE,
+>>> because a value equal to zero means the guest is not allowed to
+>>> use the feature.
+>>> When the guest is allowed to use SVE, the zcr_el2 register is
+>>> updated on context switch to restict the domain on the allowed
+>>> number of bits chosen, this value is the minimum among the chosen
+>>> value and the platform supported value.
+>>> Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
+>>> ---
+>>>   xen/arch/arm/arm64/sve.c             |  9 ++++++
+>>>   xen/arch/arm/domain.c                | 45 ++++++++++++++++++++++++++++
+>>>   xen/arch/arm/include/asm/arm64/sve.h | 12 ++++++++
+>>>   xen/arch/arm/include/asm/domain.h    |  6 ++++
+>>>   xen/include/public/arch-arm.h        |  2 ++
+>>>   xen/include/public/domctl.h          |  2 +-
+>>>   6 files changed, 75 insertions(+), 1 deletion(-)
+>>> diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
+>>> index 326389278292..b7695834f4ba 100644
+>>> --- a/xen/arch/arm/arm64/sve.c
+>>> +++ b/xen/arch/arm/arm64/sve.c
+>>> @@ -6,6 +6,7 @@
+>>>    */
+>>>     #include <xen/types.h>
+>>> +#include <asm/cpufeature.h>
+>>>   #include <asm/arm64/sve.h>
+>>>   #include <asm/arm64/sysregs.h>
+>>>   @@ -36,3 +37,11 @@ register_t vl_to_zcr(uint16_t vl)
+>>>   {
+>>>       return ((vl / SVE_VL_MULTIPLE_VAL) - 1U) & ZCR_ELx_LEN_MASK;
+>>>   }
+>>> +
+>>> +/* Get the system sanitized value for VL in bits */
+>>> +uint16_t get_sys_vl_len(void)
+>>> +{
+>>> +    /* ZCR_ELx len field is ((len+1) * 128) = vector bits length */
+>>> +    return ((system_cpuinfo.zcr64.bits[0] & ZCR_ELx_LEN_MASK) + 1U) *
+>>> +            SVE_VL_MULTIPLE_VAL;
+>>> +}
+>>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+>>> index 8ea3843ea8e8..27f38729302b 100644
+>>> --- a/xen/arch/arm/domain.c
+>>> +++ b/xen/arch/arm/domain.c
+>>> @@ -13,6 +13,7 @@
+>>>   #include <xen/wait.h>
+>>>     #include <asm/alternative.h>
+>>> +#include <asm/arm64/sve.h>
+>>>   #include <asm/cpuerrata.h>
+>>>   #include <asm/cpufeature.h>
+>>>   #include <asm/current.h>
+>>> @@ -183,6 +184,11 @@ static void ctxt_switch_to(struct vcpu *n)
+>>>         WRITE_SYSREG(n->arch.cptr_el2, CPTR_EL2);
+>>>   +#ifdef CONFIG_ARM64_SVE
+>>> +    if ( is_sve_domain(n->domain) )
+>>> +        WRITE_SYSREG(n->arch.zcr_el2, ZCR_EL2);
+>>> +#endif
+>>
+>> I would actually expect that is_sve_domain() returns false when the SVE is not enabled. So can we simply remove the #ifdef?
 > 
-> Out of S3, I think it's reasonable to rely on proper reset values, and
-> for pkru, and any issues of it being "wrong" should be fixed when we
-> reload d0v0's XSAVE state.
+> I was tricked by it too, the arm32 build will fail because it doesn’t know ZCR_EL2
 
-Fair enough:
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+Ok. In which case, I think we should move the call to sve_restore_state().
 
-Jan
+> 
+>>
+>>> +
+>>>       /* VFP */
+>>>       vfp_restore_state(n);
+>>>   @@ -551,6 +557,11 @@ int arch_vcpu_create(struct vcpu *v)
+>>>       v->arch.vmpidr = MPIDR_SMP | vcpuid_to_vaffinity(v->vcpu_id);
+>>>         v->arch.cptr_el2 = get_default_cptr_flags();
+>>> +    if ( is_sve_domain(v->domain) )
+>>> +    {
+>>> +        v->arch.cptr_el2 &= ~HCPTR_CP(8);
+>>> +        v->arch.zcr_el2 = vl_to_zcr(v->domain->arch.sve_vl_bits);
+>>> +    }
+>>>         v->arch.hcr_el2 = get_default_hcr_flags();
+>>>   @@ -595,6 +606,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>>       unsigned int max_vcpus;
+>>>       unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
+>>>       unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
+>>> +    unsigned int sve_vl_bits = config->arch.sve_vl_bits;
+>>>         if ( (config->flags & ~flags_optional) != flags_required )
+>>>       {
+>>> @@ -603,6 +615,36 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
+>>>           return -EINVAL;
+>>>       }
+>>>   +    /* Check feature flags */
+>>> +    if ( sve_vl_bits > 0 ) {
+>>> +        unsigned int zcr_max_bits;
+>>> +
+>>> +        if ( !cpu_has_sve )
+>>> +        {
+>>> +            dprintk(XENLOG_INFO, "SVE is unsupported on this machine.\n");
+>>> +            return -EINVAL;
+>>> +        }
+>>> +        else if ( !is_vl_valid(sve_vl_bits) )
+>>> +        {
+>>> +            dprintk(XENLOG_INFO, "Unsupported SVE vector length (%u)\n",
+>>> +                    sve_vl_bits);
+>>> +            return -EINVAL;
+>>> +        }
+>>> +        /*
+>>> +         * get_sys_vl_len() is the common safe value among all cpus, so if the
+>>> +         * value specified by the user is above that value, use the safe value
+>>> +         * instead.
+>>> +         */
+>>> +        zcr_max_bits = get_sys_vl_len();
+>>> +        if ( sve_vl_bits > zcr_max_bits )
+>>> +        {
+>>> +            config->arch.sve_vl_bits = zcr_max_bits;
+>>> +            dprintk(XENLOG_INFO,
+>>> +                    "SVE vector length lowered to %u, safe value among CPUs\n",
+>>> +                    zcr_max_bits);
+>>> +        }
+>>
+>> I don't think Xen should "downgrade" the value. Instead, this should be the decision from the tools. So we want to find a different way to reproduce the value (Andrew may have some ideas here as he was looking at it).
+> 
+> Can you explain this in more details?
+
+I would extend XEN_SYSCTL_physinfo to return the maximum SVE vecto 
+length supported by the Hardware.
+
+Libxl would then read the value and compare to what the user requested. 
+This would then be up to the toolstack to decide what to do.
+
+> By the tools you mean xl?
+
+I think libxl should do strict checking. If we also want to reduce what 
+the user requested, then this part should be in xl.
+
+> This would be ok for DomUs, but how to do it for Dom0?
+Then we should fail to create dom0 and say the vector-length requested 
+is not supported.
+
+Cheers,
+
+-- 
+Julien Grall
 
