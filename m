@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E67E6688AA
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 01:48:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476456.738641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C6866897F
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 03:20:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476464.738652 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pG8F7-0001VC-45; Fri, 13 Jan 2023 00:48:25 +0000
+	id 1pG9f5-0001fh-Rx; Fri, 13 Jan 2023 02:19:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476456.738641; Fri, 13 Jan 2023 00:48:25 +0000
+Received: by outflank-mailman (output) from mailman id 476464.738652; Fri, 13 Jan 2023 02:19:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pG8F7-0001Sp-1N; Fri, 13 Jan 2023 00:48:25 +0000
-Received: by outflank-mailman (input) for mailman id 476456;
- Fri, 13 Jan 2023 00:48:23 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8zPp=5K=kernel.org=pr-tracker-bot@srs-se1.protection.inumbo.net>)
- id 1pG8F5-0001Sj-R7
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 00:48:23 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fa01f384-92db-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 01:48:21 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0FB8B621EA;
- Fri, 13 Jan 2023 00:48:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 74801C433F0;
- Fri, 13 Jan 2023 00:48:19 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 62452C395D4; Fri, 13 Jan 2023 00:48:19 +0000 (UTC)
+	id 1pG9f5-0001cm-MF; Fri, 13 Jan 2023 02:19:19 +0000
+Received: by outflank-mailman (input) for mailman id 476464;
+ Fri, 13 Jan 2023 02:19:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pG9f4-0001cc-9E; Fri, 13 Jan 2023 02:19:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pG9f4-0002Zs-6I; Fri, 13 Jan 2023 02:19:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pG9f3-0003uW-S8; Fri, 13 Jan 2023 02:19:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pG9f3-0004Nm-Rg; Fri, 13 Jan 2023 02:19:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,43 +42,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fa01f384-92db-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1673570899;
-	bh=FU5yKit5p//SKeorja80X9Jb/gpyvO/lOFikrwDWQv4=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc:From;
-	b=FY5CGGvJ4n5TmKgXhzDzTXmr5RzlbCLO6snnSa02rVHLm1bmG0ruq6HbDlpch9vo0
-	 Hz+km26bAq6gzSeAx2QrOvrYp9UnaLUX62WUBoUWmTFmXXidQcjHH5rIYT2sAwDCBR
-	 xEP2m4WiGtmcaY9VoH2/GH+74OUI6nC0GBY3YT3SexRfeA0H1wxrcXVvzY0wPwYUA7
-	 Hl/w+6OPPrnRalGiSUitC9owv4Pdq2qdXzXAyGPgC8LJ1C58OVAnAmeBkXxNQgXvTJ
-	 /GtMByWvbUZ05liYY4Z2srBJZfD3/BIf80E37LHgvX4aG7XQyveOUOBWbIdwuJaYGh
-	 DA8E/DMq6FnHw==
-Subject: Re: [GIT PULL] xen: branch for v6.2-rc4
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <20230111122501.21815-1-jgross@suse.com>
-References: <20230111122501.21815-1-jgross@suse.com>
-X-PR-Tracked-List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
-X-PR-Tracked-Message-Id: <20230111122501.21815-1-jgross@suse.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.2-rc4-tag
-X-PR-Tracked-Commit-Id: f57034cedeb6e00256313a2a6ee67f974d709b0b
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: bad8c4a850eaf386df681d951e3afc06bf1c7cf8
-Message-Id: <167357089939.28490.16784668804617629143.pr-tracker-bot@kernel.org>
-Date: Fri, 13 Jan 2023 00:48:19 +0000
-To: Juergen Gross <jgross@suse.com>
-Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org, sstabellini@kernel.org
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9G/KpU8ZPBrAx9W0B1V/z+p7xoWczZbnBtCAvEXuwZc=; b=YdG4T2JxmU2IMnin4Vcz+pk3EB
+	3+wjccst8ZgKhdPXyUWxjbLKXI75HtK5KlwQke0J2gjsszcXHbhSmXIfg513NxfBAuD28EnyFQsqz
+	nZwWRGqH6nYxOigizAHBs5K/w3ptakLa9n1lg0xHod5mSiuGHZymkxEo4pqc1b7eLPis=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175748-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 175748: trouble: broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:<job status>:broken:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:host-install(5):broken:regression
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=3edca52ce736297d7fcf293860cd94ef62638052
+X-Osstest-Versions-That:
+    xen=6bec713f871f21c6254a5783c1e39867ea828256
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 13 Jan 2023 02:19:17 +0000
 
-The pull request you sent on Wed, 11 Jan 2023 13:25:01 +0100:
+flight 175748 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175748/
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip.git for-linus-6.2-rc4-tag
+Failures and problems with tests :-(
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/bad8c4a850eaf386df681d951e3afc06bf1c7cf8
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl             <job status>                 broken
+ test-armhf-armhf-xl           5 host-install(5)        broken REGR. vs. 175746
 
-Thank you!
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+version targeted for testing:
+ xen                  3edca52ce736297d7fcf293860cd94ef62638052
+baseline version:
+ xen                  6bec713f871f21c6254a5783c1e39867ea828256
+
+Last test of basis   175746  2023-01-12 16:03:41 Z    0 days
+Testing same since   175748  2023-01-12 20:01:56 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Julien Grall <jgrall@amazon.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          broken  
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job test-armhf-armhf-xl broken
+broken-step test-armhf-armhf-xl host-install(5)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 3edca52ce736297d7fcf293860cd94ef62638052
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 10:58:31 2023 +0000
+
+    x86/vmx: Support for CPUs without model-specific LBR
+    
+    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
+    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
+    later, model_specific_lbr will always be NULL, so we must make changes to
+    avoid reliably hitting the domain_crash().
+    
+    The Arch LBR spec states that CPUs without model-specific LBR implement
+    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
+    
+    Do this for any CPU for which we lack model-specific LBR information.
+    
+    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
+    signal "no model specific LBR" to guests.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 11:42:22 2023 +0000
+
+    x86/vmx: Calculate model-specific LBRs once at start of day
+    
+    There is no point repeating this calculation at runtime, especially as it is
+    in the fallback path of the WRSMR/RDMSR handlers.
+    
+    Move the infrastructure higher in vmx.c to avoid forward declarations,
+    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
+    these are model-specific only.
+    
+    No practical change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit e6ee01ad24b6a1c3b922579964deebb119a90a48
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jan 3 15:08:56 2023 +0000
+
+    xen/version: Drop compat/kernel.c
+    
+    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
+    re-includes kernel.c to recompile xen_version() in a compat form.
+    
+    However, the xen_version hypercall is almost guest-ABI-agnostic; only
+    XENVER_platform_parameters has a compat split.  Handle this locally, and do
+    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
+    that are simply char-arrays in their native and compat form.
+    
+    In particular, this removed the final instances of obfuscation via the DO()
+    macro.
+    
+    No functional change.  Also saves 2k of of .text in the x86 build.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Dec 20 15:51:07 2022 +0000
+
+    public/version: Change xen_feature_info to have a fixed size
+    
+    This is technically an ABI change, but Xen doesn't operate in any environment
+    where "unsigned int" is different to uint32_t, so switch to the explicit form.
+    This avoids the need to derive (identical) compat logic for handling the
+    subop.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
