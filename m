@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E492668B8F
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 06:36:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476642.739120 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1587B668B81
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 06:36:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476605.738984 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGCjy-0000m7-S8; Fri, 13 Jan 2023 05:36:34 +0000
+	id 1pGCjZ-0003Qn-LU; Fri, 13 Jan 2023 05:36:09 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476642.739120; Fri, 13 Jan 2023 05:36:34 +0000
+Received: by outflank-mailman (output) from mailman id 476605.738984; Fri, 13 Jan 2023 05:36:09 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGCjy-0000dE-Gz; Fri, 13 Jan 2023 05:36:34 +0000
-Received: by outflank-mailman (input) for mailman id 476642;
- Fri, 13 Jan 2023 05:36:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pGCjZ-0003N8-Ff; Fri, 13 Jan 2023 05:36:09 +0000
+Received: by outflank-mailman (input) for mailman id 476605;
+ Fri, 13 Jan 2023 05:36:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f25I=5K=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1pGCeX-0005sP-BN
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 05:30:57 +0000
+ id 1pGCeZ-0005sJ-DT
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 05:30:59 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 73673be4-9303-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 06:30:55 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 754da6db-9303-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 06:30:58 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C178BFEC;
- Thu, 12 Jan 2023 21:31:36 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DB5B413D5;
+ Thu, 12 Jan 2023 21:31:39 -0800 (PST)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 0F3863F587;
- Thu, 12 Jan 2023 21:30:51 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2914E3F587;
+ Thu, 12 Jan 2023 21:30:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73673be4-9303-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 754da6db-9303-11ed-91b6-6bf2151ebd3b
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -53,175 +53,192 @@ Cc: wei.chen@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v2 25/40] xen/mpu: map MPU guest memory section before static memory initialization
-Date: Fri, 13 Jan 2023 13:28:58 +0800
-Message-Id: <20230113052914.3845596-26-Penny.Zheng@arm.com>
+Subject: [PATCH v2 26/40] xen/mpu: destroy an existing entry in Xen MPU memory mapping table
+Date: Fri, 13 Jan 2023 13:28:59 +0800
+Message-Id: <20230113052914.3845596-27-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230113052914.3845596-1-Penny.Zheng@arm.com>
 References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Previous commit introduces a new device tree property
-"mpu,guest-memory-section" to define MPU guest memory section, which
-will mitigate the scattering of statically-configured guest RAM.
+This commit expands xen_mpumap_update/xen_mpumap_update_entry to include
+destroying an existing entry.
 
-We only need to set up MPU memory region mapping for MPU guest memory section
-to have access to all guest RAM.
-And this should happen before static memory initialization(init_staticmem_pages())
-
-MPU memory region for MPU guest memory secction gets switched out when
-idle vcpu leaving, to avoid region overlapping if the vcpu enters into guest
-mode later. On the contrary, it gets switched in when idle vcpu entering.
-We introduce a bit in region "region.prlar.sw"(struct pr_t region) to
-indicate this kind of feature.
+We define a new helper "control_xen_mpumap_region_from_index" to enable/disable
+the MPU region based on index. If region is within [0, 31], we could quickly
+disable the MPU region through PRENR_EL2 which provides direct access to the
+PRLAR_EL2.EN bits of EL2 MPU regions.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
- xen/arch/arm/include/asm/arm64/mpu.h | 14 ++++++---
- xen/arch/arm/mm_mpu.c                | 47 +++++++++++++++++++++++++---
- 2 files changed, 53 insertions(+), 8 deletions(-)
+ xen/arch/arm/include/asm/arm64/mpu.h     | 20 ++++++
+ xen/arch/arm/include/asm/arm64/sysregs.h |  3 +
+ xen/arch/arm/mm_mpu.c                    | 77 ++++++++++++++++++++++--
+ 3 files changed, 95 insertions(+), 5 deletions(-)
 
 diff --git a/xen/arch/arm/include/asm/arm64/mpu.h b/xen/arch/arm/include/asm/arm64/mpu.h
-index b85e420a90..0044bbf05d 100644
+index 0044bbf05d..c1dea1c8e9 100644
 --- a/xen/arch/arm/include/asm/arm64/mpu.h
 +++ b/xen/arch/arm/include/asm/arm64/mpu.h
-@@ -45,22 +45,26 @@
-  * [3:4] Execute Never
-  * [5:6] Access Permission
-  * [7]   Region Present
-- * [8]   Boot-only Region
-+ * [8:9] 0b00: Fixed Region; 0b01: Boot-only Region;
-+ *       0b10: Region needs switching out/in during vcpu context switch;
+@@ -16,6 +16,8 @@
   */
- #define _REGION_AI_BIT            0
- #define _REGION_XN_BIT            3
- #define _REGION_AP_BIT            5
- #define _REGION_PRESENT_BIT       7
--#define _REGION_BOOTONLY_BIT      8
-+#define _REGION_TRANSIENT_BIT     8
- #define _REGION_XN                (2U << _REGION_XN_BIT)
- #define _REGION_RO                (2U << _REGION_AP_BIT)
- #define _REGION_PRESENT           (1U << _REGION_PRESENT_BIT)
--#define _REGION_BOOTONLY          (1U << _REGION_BOOTONLY_BIT)
-+#define _REGION_BOOTONLY          (1U << _REGION_TRANSIENT_BIT)
-+#define _REGION_SWITCH            (2U << _REGION_TRANSIENT_BIT)
- #define REGION_AI_MASK(x)         (((x) >> _REGION_AI_BIT) & 0x7U)
- #define REGION_XN_MASK(x)         (((x) >> _REGION_XN_BIT) & 0x3U)
- #define REGION_AP_MASK(x)         (((x) >> _REGION_AP_BIT) & 0x3U)
- #define REGION_RO_MASK(x)         (((x) >> _REGION_AP_BIT) & 0x2U)
- #define REGION_BOOTONLY_MASK(x)   (((x) >> _REGION_BOOTONLY_BIT) & 0x1U)
-+#define REGION_SWITCH_MASK(x)     (((x) >> _REGION_TRANSIENT_BIT) & 0x2U)
-+#define REGION_TRANSIENT_MASK(x)  (((x) >> _REGION_TRANSIENT_BIT) & 0x3U)
+ #define ARM_MAX_MPU_MEMORY_REGIONS 255
  
- /*
-  * _REGION_NORMAL is convenience define. It is not meant to be used
-@@ -73,6 +77,7 @@
++#define MPU_PRENR_BITS    32
++
+ /* Access permission attributes. */
+ /* Read/Write at EL2, No Access at EL1/EL0. */
+ #define AP_RW_EL2 0x0
+@@ -132,6 +134,24 @@ typedef struct {
+     _pr->prlar.reg.en;                                      \
+ })
  
- #define REGION_HYPERVISOR         REGION_HYPERVISOR_RW
- #define REGION_HYPERVISOR_BOOT    (REGION_HYPERVISOR_RW|_REGION_BOOTONLY)
-+#define REGION_HYPERVISOR_SWITCH  (REGION_HYPERVISOR_RW|_REGION_SWITCH)
++/*
++ * Access to get base address of MPU protection region(pr_t).
++ * The base address shall be zero extended.
++ */
++#define pr_get_base(pr) ({                                  \
++    pr_t *_pr = pr;                                         \
++    (uint64_t)_pr->prbar.reg.base << MPU_REGION_SHIFT;      \
++})
++
++/*
++ * Access to get limit address of MPU protection region(pr_t).
++ * The limit address shall be concatenated with 0x3f.
++ */
++#define pr_get_limit(pr) ({                                        \
++    pr_t *_pr = pr;                                                \
++    (uint64_t)((_pr->prlar.reg.limit << MPU_REGION_SHIFT) | 0x3f); \
++})
++
+ #endif /* __ASSEMBLY__ */
  
- #define INVALID_REGION            (~0UL)
+ #endif /* __ARM64_MPU_H__ */
+diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+index aca9bca5b1..c46daf6f69 100644
+--- a/xen/arch/arm/include/asm/arm64/sysregs.h
++++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+@@ -505,6 +505,9 @@
+ /* MPU Type registers encode */
+ #define MPUIR_EL2 S3_4_C0_C0_4
  
-@@ -98,7 +103,8 @@ typedef union {
-         unsigned long ns:1;     /* Not-Secure */
-         unsigned long res:1;    /* Reserved 0 by hardware */
-         unsigned long limit:42; /* Limit Address */
--        unsigned long pad:16;
-+        unsigned long pad:15;
-+        unsigned long sw:1;     /* Region gets switched out/in during vcpu context switch? */
-     } reg;
-     uint64_t bits;
- } prlar_t;
++/* MPU Protection Region Enable Register encode */
++#define PRENR_EL2 S3_4_C6_C1_1
++
+ #endif
+ 
+ /* Access to system registers */
 diff --git a/xen/arch/arm/mm_mpu.c b/xen/arch/arm/mm_mpu.c
-index 7b282be4fb..d2e19e836c 100644
+index d2e19e836c..3a0d110b13 100644
 --- a/xen/arch/arm/mm_mpu.c
 +++ b/xen/arch/arm/mm_mpu.c
-@@ -71,6 +71,10 @@ static paddr_t dtb_paddr;
+@@ -385,6 +385,45 @@ static int mpumap_contain_region(pr_t *mpu, uint64_t nr_regions,
+     return MPUMAP_REGION_FAILED;
+ }
  
- struct page_info *frame_table;
- 
-+static const unsigned int mpu_section_mattr[MSINFO_MAX] = {
-+    REGION_HYPERVISOR_SWITCH,
-+};
++/* Disable or enable EL2 MPU memory region at index #index */
++static void control_mpu_region_from_index(uint64_t index, bool enable)
++{
++    pr_t region;
 +
- /* Write a MPU protection region */
- #define WRITE_PROTECTION_REGION(sel, pr, prbar_el2, prlar_el2) ({       \
-     uint64_t _sel = sel;                                                \
-@@ -414,10 +418,13 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
++    access_protection_region(true, &region, NULL, index);
++    if ( (region_is_valid(&region) && enable) ||
++         (!region_is_valid(&region) && !enable) )
++    {
++        printk(XENLOG_WARNING
++               "mpu: MPU memory region[%lu] is already %s\n", index,
++               enable ? "enabled" : "disabled");
++        return;
++    }
++
++    /*
++     * ARM64v8R provides PRENR_EL2 to have direct access to the
++     * PRLAR_EL2.EN bits of EL2 MPU regions from 0 to 31.
++     */
++    if ( index < MPU_PRENR_BITS )
++    {
++        uint64_t orig, after;
++
++        orig = READ_SYSREG(PRENR_EL2);
++        if ( enable )
++            /* Set respective bit */
++            after = orig | (1UL << index);
++        else
++            /* Clear respective bit */
++            after = orig & (~(1UL << index));
++        WRITE_SYSREG(after, PRENR_EL2);
++    }
++    else
++    {
++        region.prlar.reg.en = enable ? 1 : 0;
++        access_protection_region(false, NULL, (const pr_t*)&region, index);
++    }
++}
++
+ /*
+  * Update an entry at the index @idx.
+  * @base:  base address
+@@ -449,6 +488,30 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
          if ( system_state <= SYS_STATE_active )
-         {
-             /*
--             * If it is a boot-only region (i.e. region for early FDT),
--             * it shall be added from the tail for late init re-organizing
-+             * If it is a transient region, including boot-only region
-+             * (i.e. region for early FDT), and region which needs switching
-+             * in/out during vcpu context switch(i.e. region for guest memory
-+             * section), it shall be added from the tail for late init
-+             * re-organizing
-              */
--            if ( REGION_BOOTONLY_MASK(flags) )
-+            if ( REGION_TRANSIENT_MASK(flags) )
-                 idx = next_transient_region_idx;
-             else
-                 idx = next_fixed_region_idx;
-@@ -427,6 +434,13 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
-         /* Set permission */
-         xen_mpumap[idx].prbar.reg.ap = REGION_AP_MASK(flags);
-         xen_mpumap[idx].prbar.reg.xn = REGION_XN_MASK(flags);
+             update_boot_xen_mpumap_idx(idx);
+     }
++    else
++    {
 +        /*
-+         * Bit sw indicates that region gets switched out when idle vcpu
-+         * leaving hypervisor mode, and region gets switched in when idle vcpu
-+         * entering hypervisor mode.
++         * Currently, we only support destroying a *WHOLE* MPU memory region,
++         * part-region removing is not supported, as in worst case, it will
++         * lead to two fragments in result after destroying.
++         * part-region removing will be introduced only when actual usage
++         * comes.
 +         */
-+        if ( REGION_SWITCH_MASK(flags) )
-+            xen_mpumap[idx].prlar.reg.sw = 1;
++        if ( rc == MPUMAP_REGION_INCLUSIVE )
++        {
++            region_printk("mpu: part-region removing is not supported\n");
++            return -EINVAL;
++        }
++
++        /* We are removing the region */
++        if ( rc != MPUMAP_REGION_FOUND )
++            return -EINVAL;
++
++        control_mpu_region_from_index(idx, false);
++
++        /* Clear the according MPU memory region entry.*/
++        memset(&xen_mpumap[idx], 0, sizeof(pr_t));
++    }
  
-         /* Update and enable the region */
-         access_protection_region(false, NULL, (const pr_t*)(&xen_mpumap[idx]),
-@@ -552,6 +566,29 @@ static void __init setup_staticheap_mappings(void)
+     return 0;
+ }
+@@ -589,6 +652,15 @@ static void __init map_mpu_memory_section_on_boot(enum mpu_section_info type,
      }
  }
  
-+static void __init map_mpu_memory_section_on_boot(enum mpu_section_info type,
-+                                                  unsigned int flags)
++int destroy_xen_mappings(unsigned long s, unsigned long e)
 +{
-+    unsigned int i = 0;
++    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
++    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
++    ASSERT(s <= e);
 +
-+    for ( ; i < mpuinfo.sections[type].nr_banks; i++ )
-+    {
-+        paddr_t start = round_pgup(
-+                        mpuinfo.sections[type].bank[i].start);
-+        paddr_t size = round_pgdown(mpuinfo.sections[type].bank[i].size);
-+
-+        /*
-+         * Map MPU memory section with transient MPU memory region,
-+         * as they are either boot-only, or will be switched out/in
-+         * during vcpu context switch(i.e. guest memory section).
-+         */
-+        if ( map_pages_to_xen(start, maddr_to_mfn(start), size >> PAGE_SHIFT,
-+                              flags) )
-+            panic("mpu: failed to map MPU memory section %s\n",
-+                  mpu_section_info_str[type]);
-+    }
++    return xen_mpumap_update(s, e, 0);
 +}
 +
  /*
   * System RAM is statically partitioned into different functionality
   * section in Device Tree, including static xenheap, guest memory
-@@ -563,7 +600,9 @@ void __init setup_static_mappings(void)
- {
-     setup_staticheap_mappings();
- 
--    /* TODO: guest memory section, device memory section, boot-module section, etc */
-+    for ( uint8_t i = MSINFO_GUEST; i < MSINFO_MAX; i++ )
-+        map_mpu_memory_section_on_boot(i, mpu_section_mattr[i]);
-+    /* TODO: device memory section, boot-module section, etc */
+@@ -656,11 +728,6 @@ void *ioremap(paddr_t pa, size_t len)
+     return NULL;
  }
  
- /* Map a frame table to cover physical addresses ps through pe */
+-int destroy_xen_mappings(unsigned long s, unsigned long e)
+-{
+-    return -ENOSYS;
+-}
+-
+ int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
+ {
+     return -ENOSYS;
 -- 
 2.25.1
 
