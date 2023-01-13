@@ -2,32 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 560716692C3
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:17:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476929.739379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B33BD6692C4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:18:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476935.739389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGGBh-0005Nb-FX; Fri, 13 Jan 2023 09:17:25 +0000
+	id 1pGGCH-0005vA-Oq; Fri, 13 Jan 2023 09:18:01 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476929.739379; Fri, 13 Jan 2023 09:17:25 +0000
+Received: by outflank-mailman (output) from mailman id 476935.739389; Fri, 13 Jan 2023 09:18:01 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGGBh-0005Kv-C7; Fri, 13 Jan 2023 09:17:25 +0000
-Received: by outflank-mailman (input) for mailman id 476929;
- Fri, 13 Jan 2023 09:17:24 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pGGBg-0005Kf-6J
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:17:24 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pGGBe-0005Gz-L1; Fri, 13 Jan 2023 09:17:22 +0000
-Received: from 54-240-197-232.amazon.com ([54.240.197.232]
- helo=[192.168.6.109]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pGGBe-0002v5-Ea; Fri, 13 Jan 2023 09:17:22 +0000
+	id 1pGGCH-0005sw-LX; Fri, 13 Jan 2023 09:18:01 +0000
+Received: by outflank-mailman (input) for mailman id 476935;
+ Fri, 13 Jan 2023 09:18:00 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=TZVY=5K=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1pGGCE-0005mi-Hm
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:18:00 +0000
+Received: from casper.infradead.org (casper.infradead.org
+ [2001:8b0:10b:1236::1])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a6a04bd-9323-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 10:17:57 +0100 (CET)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1pGGCF-005xMC-Ns; Fri, 13 Jan 2023 09:17:59 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 518FB300094;
+ Fri, 13 Jan 2023 10:17:46 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id 088172013A2A1; Fri, 13 Jan 2023 10:17:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,112 +50,63 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=wgdQi0ayQyWcdd8JT7eyCXgDG7VV2ZJGqmkz8o6Fxb4=; b=PL6Iu2N/o8wWMB+b+i+ifYyeqw
-	vorf4vhns6+Q94F5tmkmAXiIALuyp444GSdHOhjKaRP3vD5hCRwauphtEhUhcV4vXAOjNYvd1M9E2
-	tkjqzCV6K2gAEA9nevejoxQWXhHyghakYQHaVj/JJ9XZ0iWnXKxMfKjpe58IlzyFDis8=;
-Message-ID: <85d1bc6b-dda6-c65e-a13b-78ea4baa943f@xen.org>
-Date: Fri, 13 Jan 2023 09:17:20 +0000
+X-Inumbo-ID: 2a6a04bd-9323-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=0yGEeUtjPEYmvw01tTdJaP6xQOH4LDHoqrSGg4IbmmE=; b=b7GY0Fs4Kh53b766Ze4bZu1Jc3
+	sQKmwNr2hglGmJZJeqnF5joOSCDOx/qOi5bgtrJcB8WFpuJ7T/vyAl8+mvecgBYhnxnO8kMgyVhNN
+	v6eGdd6cwqv6aDki48ixTT8FYF5Bo9vWzEsufvVsogSfgELN6F63++l4Tzd22nVG8g1l0pwBPKGUZ
+	A3lGv9kjETaf0T7YYyxcnZmF0zSy4O/IuXY3ykZGulJhVGuYa7iuM6gad8wGL8NJpmfLyHe10Qn53
+	L4tqvf37g6tcW6x7srF1FtAQdXPdGN10AJOJwjFgzHtEJBO5WP16pPTYtGMQSPOZNqUmxfdGlxZpV
+	w393kA+A==;
+Date: Fri, 13 Jan 2023 10:17:45 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Joan Bruguera <joanbrugueram@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	Jan Beulich <jbeulich@suse.com>,
+	Roger Pau Monne <roger.pau@citrix.com>,
+	Kees Cook <keescook@chromium.org>, mark.rutland@arm.com,
+	x86@kernel.org
+Subject: Re: [RFC][PATCH 0/6] x86: Fix suspend vs retbleed=stuff
+Message-ID: <Y8EhucZfQ2IyJtnU@hirez.programming.kicks-ass.net>
+References: <20230112143141.645645775@infradead.org>
+ <20230113073938.1066227-1-joanbrugueram@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 05/22] x86/srat: vmap the pages for acpi_slit
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Hongyan Xia <hongyxia@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org,
- Julien Grall <jgrall@amazon.com>
-References: <20221216114853.8227-1-julien@xen.org>
- <20221216114853.8227-6-julien@xen.org>
- <ca02a313-0fa2-8041-3e8f-d467c3e99fb6@suse.com>
- <965e3faa-472d-9a79-83ca-fef57cda81c5@xen.org>
- <ade9f97d-aa28-bd7e-552c-35bd707bab29@suse.com>
- <a607223f-1cd5-5b32-4d9b-500496745786@xen.org>
- <386a58bc-6d16-475e-ffd5-a3340adbe4b3@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <386a58bc-6d16-475e-ffd5-a3340adbe4b3@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20230113073938.1066227-1-joanbrugueram@gmail.com>
 
-
-
-On 13/01/2023 09:16, Jan Beulich wrote:
-> On 13.01.2023 00:15, Julien Grall wrote:
->> Hi,
->>
->> On 04/01/2023 10:23, Jan Beulich wrote:
->>> On 23.12.2022 12:31, Julien Grall wrote:
->>>> On 20/12/2022 15:30, Jan Beulich wrote:
->>>>> On 16.12.2022 12:48, Julien Grall wrote:
->>>>>> From: Hongyan Xia <hongyxia@amazon.com>
->>>>>>
->>>>>> This avoids the assumption that boot pages are in the direct map.
->>>>>>
->>>>>> Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
->>>>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
->>>>>
->>>>> Reviewed-by: Jan Beulich <jbeulich@suse.com>
->>>>>
->>>>> However, ...
->>>>>
->>>>>> --- a/xen/arch/x86/srat.c
->>>>>> +++ b/xen/arch/x86/srat.c
->>>>>> @@ -139,7 +139,8 @@ void __init acpi_numa_slit_init(struct acpi_table_slit *slit)
->>>>>>     		return;
->>>>>>     	}
->>>>>>     	mfn = alloc_boot_pages(PFN_UP(slit->header.length), 1);
->>>>>> -	acpi_slit = mfn_to_virt(mfn_x(mfn));
->>>>>> +	acpi_slit = vmap_contig_pages(mfn, PFN_UP(slit->header.length));
->>>>>
->>>>> ... with the increased use of vmap space the VA range used will need
->>>>> growing. And that's perhaps better done ahead of time than late.
->>>>
->>>> I will have a look to increase the vmap().
->>>>
->>>>>
->>>>>> +	BUG_ON(!acpi_slit);
->>>>>
->>>>> Similarly relevant for the earlier patch: It would be nice if boot
->>>>> failure for optional things like NUMA data could be avoided.
->>>>
->>>> If you can't map (or allocate the memory), then you are probably in a
->>>> very bad situation because both should really not fail at boot.
->>>>
->>>> So I think this is correct to crash early because the admin will be able
->>>> to look what went wrong. Otherwise, it may be missed in the noise.
->>>
->>> Well, I certainly can see one taking this view. However, at least in
->>> principle allocation (or mapping) may fail _because_ of NUMA issues.
->>
->> Right. I read this as the user will likely want to add "numa=off" on the
->> command line.
->>
->>> At which point it would be better to boot with NUMA support turned off
->> I have to disagree with "better" here. This may work for a user with a
->> handful of hosts. But for large scale setup, you will really want a
->> failure early rather than having a host booting with an expected feature
->> disabled (the NUMA issues may be a broken HW).
->>
->> It is better to fail and then ask the user to specify "numa=off". At
->> least the person made a conscientious decision to turn off the feature.
+On Fri, Jan 13, 2023 at 07:39:38AM +0000, Joan Bruguera wrote:
+> Hi Peter,
 > 
-> Yet how would the observing admin make the connection from the BUG_ON()
-> that triggered and the need to add "numa=off" to the command line,
-> without knowing Xen internals?
+> I tried your patches on both QEMU and my two (real) computers where
+> s2ram with `retbleed=stuff` was failing and they wake up fine now.
 
-I am happy to switch to a panic() that suggests to turn off NUMA.
+Yay \o/
 
+> However, I think some minor reviews are needed:
 > 
->> I am curious to hear the opinion from the others.
+> (1) I got a build error due to a symbol conflict between the
+>     `restore_registers` in `arch/x86/include/asm/suspend_64.h` and the
+>     one in `drivers/gpu/drm/amd/display/dc/gpio/hw_gpio.c`.
 > 
-> So am I.
-> 
-> Jan
+>     (I fixed by renaming the one in `hw_gpio.c`, but it's worth
+>      an `allmodconfig` just in case there's something else)
 
--- 
-Julien Grall
+Urgh, must be my .config for not spotting that, will fix!
+
+> (2) Tracing with QEMU I still see two `sarq $5, %gs:0x1337B33F` before
+>     `%gs` is restored. Those correspond to the calls from
+>     `secondary_startup_64` in `arch/x86/kernel/head_64.S` to
+>     `verify_cpu` and `sev_verify_cbit`.
+>     Those don't cause a crash but look suspicious, are they correct?
+> 
+>     (There are also some `sarq`s in the call to `early_setup_idt` from
+>     `secondary_startup_64`, but `%gs` is restored immediately before)
+
+OK, I'll have a look, thanks!
 
