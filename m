@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 707DB66986C
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 14:25:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477330.739995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80B456698F4
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 14:45:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477337.740008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGK3J-0002bG-J0; Fri, 13 Jan 2023 13:25:01 +0000
+	id 1pGKMP-00052z-Ae; Fri, 13 Jan 2023 13:44:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477330.739995; Fri, 13 Jan 2023 13:25:01 +0000
+Received: by outflank-mailman (output) from mailman id 477337.740008; Fri, 13 Jan 2023 13:44:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGK3J-0002Ym-GH; Fri, 13 Jan 2023 13:25:01 +0000
-Received: by outflank-mailman (input) for mailman id 477330;
- Fri, 13 Jan 2023 13:24:59 +0000
+	id 1pGKMP-0004zn-5a; Fri, 13 Jan 2023 13:44:45 +0000
+Received: by outflank-mailman (input) for mailman id 477337;
+ Fri, 13 Jan 2023 13:44:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=grKZ=5K=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pGK3H-0002Ye-LF
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 13:24:59 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on2084.outbound.protection.outlook.com [40.107.104.84])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id acd5eb07-9345-11ed-91b6-6bf2151ebd3b;
- Fri, 13 Jan 2023 14:24:58 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB7544.eurprd04.prod.outlook.com (2603:10a6:20b:23f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Fri, 13 Jan
- 2023 13:24:56 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Fri, 13 Jan 2023
- 13:24:56 +0000
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LVbI=5K=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1pGKMN-0004zh-M6
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 13:44:43 +0000
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6d29503e-9348-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 14:44:41 +0100 (CET)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id 400CD5C00DB;
+ Fri, 13 Jan 2023 08:44:39 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute2.internal (MEProxy); Fri, 13 Jan 2023 08:44:39 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Jan 2023 08:44:38 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,164 +43,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: acd5eb07-9345-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mQ/OsSvSeKcVk3xGq4ozr6EweZC4+H+72oiXJN/5vNigGgBj5xuXk0D6yCNG/duYe6u2fuKKX43wxEMc9DB7DvlHET4rKApaGTEjbZckXdYO5ninPpJKp+gbDwtfuvcm78nTwV+cc2qGBKGy9kQOH8uvIRJtIMR4oYhRFUj24m/6GZRkYIgwK/SOfuSn6EtYakRVEJs3TzSgnCzuD/rn68V+ZiUAER0vpNnW88UBhNzyc9MbpX8X8PgNqnH8+MWljzSSDhhYk6Utjhqgv8Su3cBvzOd9rRwLY/W1vxbW2s6xMd1IsLDQh9U362krWqMUK1ZZmFOvPU1rEPd3y8flGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KFHJ1kJOlL7Dn84b4K30ZPwmVFgu+GJS4RBX8/8d4bc=;
- b=brYiRyYNt/E6EmKgIe2huISb20tpTI3E4AMkWU/5MbBNmaWjBQoQYW6mbDVUanDw+GfuADIATyKev6UrKzmpQyNB53t/CKY5o2WDw+zeKfztjlJI8592bha11Dprp9NkfnE8EFvYQVEYXoqhS7ConeF2y7djWbvYc+/eyuOin3iCgUL4c3gJu8d1HEMZjIy5HdWRUhH3F+dgAe4sZuK18UZEsasyEY5PLJyDd4LiEFiJluvbvfsKRVE//s8jGi58cjdBbBEaJ1X9tnqM4TQtstS1QDrAmzFFt16+IKOzvxBN/bmcJRJzFbpfrRU/2IWW646Yn8NEMKVs8n/ueSSHOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KFHJ1kJOlL7Dn84b4K30ZPwmVFgu+GJS4RBX8/8d4bc=;
- b=mOyrVe4TqSwKNykUbBsg9aTAIvZT7HMf3tAzxUDVh7bFEGnuuR2mBpx6ybFK5J105ekOlp/hQjxm8GCfxJMYiVR/+SUNgb6CMdtBMQN1IU/BWOELoGksASuVe1wM5bKSHcZ+GwaiIsOJlzNeDQMIxXRgZNQRa9DzTGrDE4yvHF+evsctjhpHagsjglL0OvkliqKz8efCqIQ7VdJXfuaRnQlViPPRG4h2gUpprF7HrHY356MvtRmoFBlQ3hyQFXgmbIy5Yy7Lb3Ju1qtg+xWIvMgSKLZd5n8NXwIc6GRGHdAtuP7JxM6lxPHPNDY+f5wx79pl3lXtX4RdikgmyZ4uog==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <da973e5a-3a1b-3e99-ebf9-e462915eb338@suse.com>
-Date: Fri, 13 Jan 2023 14:24:54 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 1/2] x86/shadow: sanitize iommu_snoop usage
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Paul Durrant <paul@xen.org>
-References: <01756703-efc8-e342-295c-a40a286ad5f1@suse.com>
- <cf0ed06f-4d49-0f73-cfd9-eb49e951048c@suse.com>
- <6596d648-6400-7907-bc21-8074dc244247@gmail.com>
- <88e3ec77-587a-ae68-a634-fed1fa917cd7@suse.com>
- <b76a7834-9868-c5c2-e058-89911a552c80@gmail.com>
- <512d8768-28f6-d9d6-c1cc-18c5fbf2a636@suse.com>
- <4f1d289a-7c3b-c4a1-34bc-1e8bd62a416a@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <4f1d289a-7c3b-c4a1-34bc-1e8bd62a416a@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0030.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1c::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 6d29503e-9348-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1673617479; x=
+	1673703879; bh=0Z133yuNnDBtJv8nz69dJpUcuCn5DG8cpUPCJWQzx8A=; b=z
+	l4553zvD8JYgHFG3wMoYiQQ2JhzeU1uWwpxFdQjm3MCuSGKGkCw1kLXfYU2b9m4a
+	1i81lTazVLPSqKhGyogcWIhBXZ33mrIjV4yd4GJyIVcByGlqqVOJ1sgBuciNA5gP
+	uYM7iauI9KzNJFSaJW9hpVmKk5f0yy4ICNompnsm4np+B80gYh3ydo1EDJjzkI4V
+	JhnP1DjKYWWtkd3mzgxAl7jLzggIJCxMY0dHVpD4pIzqTS54wTJz1qSX43vfJezQ
+	a4d+RH0IXGzmJ9x6a9fVvd0PxkTX0hdLK/q/xCpeiB1Pq42jFSgvewrJ9jQOmoOS
+	J45dPikxQTPjJvBt6uGiQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1673617479; x=1673703879; bh=0Z133yuNnDBtJv8nz69dJpUcuCn5
+	DG8cpUPCJWQzx8A=; b=m4F9K0EXrmeN2vQtWb1amWESEdiE60I8XU7vN0KpEfJT
+	25nElse4vJ0Kk6abAP99IPqrLocNSDkxKpv0T7KzC3iw3frus1uylV6b2AVwZUPj
+	BrWVL2xsMH6fCkD6nUk4w4eqFxiRExGaPPVXxX4elbNbiX6wrBQ/HiGQnZ1XY4tp
+	3FztOBSg8oJElwwOlKXQRIdGht1aDBpypVnH7gRQu+KZOcE4zCNoa2VxiXGI+LD1
+	Q4viKCiz4r8yhlSmIVuirDJ5hE2E3VKisQK+o4RXNQBPD5ATwBg4KoSdUl/9c/v6
+	xg2KITBJ7myEeghEi4lnQMnzNbqJ0S/hRFZmjwg8nQ==
+X-ME-Sender: <xms:R2DBY0I3h9yXTkJlUI97v08oYK-PTd7ODCjB2iGoSc-PnTXbOajZGw>
+    <xme:R2DBY0LvBdb1RV0NLWgtYIfn4OPai_408fi2hqTEYS9i0AMfdIV6tbc8FwYf4W86B
+    -kEL4ohx-3hzg>
+X-ME-Received: <xmr:R2DBY0uDtDlzg7dFypURUO7VGgCNIkiVConBzwFc1NN_2NYhkDwymKN7GGTiubcnHprfYoI16R2_4R7e6QJbHMpGJwQIeOmqrA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleekgdehvdcutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduteev
+    leevffdvteeludeljeeiieeufffhgfdvfeekudeihfehteehkeekfeffieenucffohhmrg
+    hinhepmhgrihhlqdgrrhgthhhivhgvrdgtohhmnecuvehluhhsthgvrhfuihiivgeptden
+    ucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsihgslhgvth
+    hhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:R2DBYxa12BeO9P5CAMlPB2YE70IVMP1oq-Ok-lTtTtd-y3ZtfyfEAQ>
+    <xmx:R2DBY7aighrGYPTUQ3esH7nA8ozd6PmzRb-UddaFmhwN30rhm0eLdQ>
+    <xmx:R2DBY9BnffzYOF5S5KrV8P8n7r19FtsCfflo9hUjbRYMBo5hVSrpDw>
+    <xmx:R2DBY8Ce9ESwC2p7_P9AcGdnECsqObGzd9V5dfYgTnVVrWwS-YgOuw>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 13 Jan 2023 14:44:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, regressions@lists.linux.dev
+Subject: Re: S3 under Xen regression between 6.1.1 and 6.1.3
+Message-ID: <Y8FgQyVvpUXqumvS@mail-itl>
+References: <Y8DIodWQGm99RA+E@mail-itl>
+ <bdea54df-59dc-3d4d-dd0c-8c45403dea24@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7544:EE_
-X-MS-Office365-Filtering-Correlation-Id: 757199bb-1e1a-4e63-f0dd-08daf5699021
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	mX6sdCXF/n+bqh3jb+QlxbRaSc5J7cjCWEPpbZcPqUIaMH70ymJo4vJQw0nLvFNZmPng0py1GeLrJV92JOBbCZxLnuliLwDqOygZfOWMwh1/COoytXHx8OnYbZB9UEUgDLGB5zCjNgmxNITbBFJlI/b2TCKsHx8KPkIWZxl3Un2gTY6OsPUaY7MbQuSB8x2l5TPRZc62Y5AV4wGUba6vwryRoKo7S2cYL1fp/LAySLgsJL28UYcFbaBoXZigqIkolY0MhuzzzXOXL/E+2ySvkBJc73/8owJ/JG8gi4v7A/dEihEpTU74nfYqsar3Pr4iGLGY/LKxlDnx2spCjplQx79333TMFufN/5YG7UgsljVA41u5Q4S8Kqyn2Z2ZnMUKWF6PKKLO0lW5u8YdKHsEIvhKkwj/uBy+1yudGtjOD02kZfcTSyix/QFU58F8fK5Q3N8nDScvCod8PsXrne5+dyK/6jKokrgQzRiq3vvZnuM/dAYfyFGGtZ8pLGRyPoYdcGv05X+cx68qnFO713U/mhSsTbWEs6kYXRb20X4M7maayVRQFxuU+/7EL/GqiIHL7/nSTIZePvd0wqhw/SCJRWHL5pghAUJAbKU+s3eL80ih2PHUjd9ZtcHvgXYH/5dFvHc1IqqoNCrgDS4Odb8vnLM4uML951a91cQ2QMWm6Zk6UGGzGaMwfgBg+foR8pUy2zOWPV9ny3i4WxuN7ec0TFxH1dZ8DbQZ22Ei5xu8ycA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(346002)(136003)(396003)(39860400002)(366004)(451199015)(38100700002)(4326008)(66946007)(8936002)(6916009)(66476007)(66556008)(8676002)(5660300002)(31686004)(86362001)(26005)(2906002)(316002)(54906003)(83380400001)(41300700001)(2616005)(478600001)(6512007)(186003)(53546011)(6486002)(36756003)(6506007)(31696002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RkMvNkdFUC9VQkNvc0hkQUpydWw1Q0RDcTVPL0pqbDVvU0NBZUxXbDkvTjBJ?=
- =?utf-8?B?ak95TkRpNWlSeTNhWFppRkpoWDZ4RVVta1dtbUxzL1RLVWV0ZFphcjdSN2h1?=
- =?utf-8?B?c2lTWDFGMG5vcXBvN0pYWTE4MnBuYTk0RmpQK3A4Z2taZUV4d1o0Z3EveUgr?=
- =?utf-8?B?Smo0NVoyb1JQVENUZjJpN0VDbEhNV0sySGRDVHR3UjF4V21jeHdab2t1cVZp?=
- =?utf-8?B?MFNpVUxhRzJLYWVSSndtWjkram5LdjN3STFBV0lXNjVIZmtrYTdrQkRGQnlw?=
- =?utf-8?B?dDVSZExtZXpWZzhIZDgzU3BHeVljTVpqd0sydVlNY2l5amtCMW5SZzBTVmo2?=
- =?utf-8?B?Rk1RdjNpaU04RGIzZjk1NzNLTG1qRkpCVHpyRkRjOXdzV2lrVTN0ZE1XTjVP?=
- =?utf-8?B?SW9IdzRMQVAzaXp1emZ1ckg1OVlGRFJxRDJla0hhUnRIMzNtanJEcndPbzdV?=
- =?utf-8?B?dVlsQ2JCbUpzVGE3aDZYL3JOdW1OQXdFMzZxSFRoSk45d1IxSW9LK2FPYXQr?=
- =?utf-8?B?VzZ3U0NjSkQ2QmM0TmRVeEtWZWdoNFlYS3VVekQ4bDhZMWRPTVBmNVZ6OHZh?=
- =?utf-8?B?b253VXllb0x4cm8xVXY3dG4xVTBjL0NqbTMycnBvd2pTdVVmYlBuVU03RWV0?=
- =?utf-8?B?c3FMcngvNkhURGM4L1NnMnpRWWFRdU44RnF3TWR4QkRDYk1ZMmNPZVFZYk1a?=
- =?utf-8?B?bUl6NWFCR3grZ2lPMHRhZk45STF4MFlpUHppaitHWkVwREhQeWU5cEZ0RFI4?=
- =?utf-8?B?bnJ1cmtZcis1enozQkVIT0h3Z1Q0S3U3UWJHZFQ4R1k2dmJWTFNqVjd2WS9x?=
- =?utf-8?B?bEd5d2ppZEMrZXl3NHp2WHpYNUUwQmVMWThhZjFmN1hBNU53MGhnRm5YUkRm?=
- =?utf-8?B?ZkZpMHIrRzdWcDhNMlBURk9BM0NTMzlIVDRyWTl4ZDdKMGZWSkNyUllDYUpU?=
- =?utf-8?B?MjNVY042WUczQ3FsdDA2a0dNZ3huclI5ZDZrRDYrRWdvdnFsVkFjem5ZdlZB?=
- =?utf-8?B?RU1vMzZEb05ZY2QwUE51Y0xyY2J3N2lFdHFYM1R3WlBCSW15ZFJVOWZSc0pq?=
- =?utf-8?B?Z1hIcnp1MlRMTk1mR0VmdTdFM2pVdkZxYW9XbTZuQXZVcC95bkV2MTRXdXJU?=
- =?utf-8?B?czh3TlY2RFRURVlKLzZQVXdsYldrNW9MMDh5YXI5OTBYQytkdkNVMUg1enRt?=
- =?utf-8?B?MjBqUnR4YkNEUWMwRTNDaHJydHI0MENYMWU0TFVnc08zQ2hLdmtGeWlQVENl?=
- =?utf-8?B?bzJkNWxaRkxiZ0g2UXh4QXhOd0RaUml5SG16V0VNSnBRR1hYUlRsMzkyM2hP?=
- =?utf-8?B?R0tNVExMZ3JrSTFvNlJ5a1huTDBvNE9SNko5UU9JaThSeWRVd0NpWC9tak5n?=
- =?utf-8?B?ZWpYQXRjWVp5OHU1bWhyVWdNdlFPOVZhY014aEswQ1YvZHRhd01XMTBQRitE?=
- =?utf-8?B?cUQxWDdZTWpOOVcrcElWYmJqRVo4b2RKYjdFWWt4NlMvVm1MeVhZa1F3azE1?=
- =?utf-8?B?YmJtVHFJQVN1OEdzWms4VFBpRWFRMU1OM1l3dVN3MzBQL0R1cU43dFh0MUNR?=
- =?utf-8?B?VXZvb2RjdjA3dzlzTEY2eElSQk1zVi90L3hHQ0hQcHRWY3A2dTJYWk1ZVkk2?=
- =?utf-8?B?SHFVMVhGdHFUSlBJcDFHdzlUZ3N5OXJnOWJOYTVGeTFJd3REMmtsK2xuR21N?=
- =?utf-8?B?OERMcGpZeUpIelZXT1FpUVp3dnBsbHpTSlFhclQ0MERvWDJiYUpqalAvelVz?=
- =?utf-8?B?enhIcStxL1BxUGMybnExeXR3Z0VIRGxxVDlYVDd0VFNONFZzczlTZHZtVlFr?=
- =?utf-8?B?OTZWQ0lEeTZVeHIxcnl4alQrVldvN0xseVFYRkh2Z1hUdTN0U0F6QVFvcWVE?=
- =?utf-8?B?bG5WYmhVbnplcjFmcVgzbGdmaXlvalVtQXZhQUZxaFFtbm5lRC9XUHZhRXV6?=
- =?utf-8?B?SDR2VU5HdjlteFplY000UGJLU05lWVhKcHc2VzlMc1g5SFN6Uk9QKytXUmxU?=
- =?utf-8?B?NXk2cjhjM09nbHBpaTg5SVRGTjlGOHNQNkh1MGQ2VlZqT1JOcDJsajNPYlJ0?=
- =?utf-8?B?K3NNaVNvNStGVHcrSDcxdWFNWmRodks1SWx6ZGpQMWtmRGIyMVlLUWptOEJC?=
- =?utf-8?Q?U9tfDx004xKlaSqslS+7bjlPj?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 757199bb-1e1a-4e63-f0dd-08daf5699021
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 13:24:56.6736
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U3ZcWuGZCKT2ZVsE/qfYsYC5o10C9KuoeiY2+hXhR0zGOmthj3cQrWxeZeDqUegrNXkNGUagKRTVLDS2vvuwEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7544
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="a1z64RtYn87d7j8p"
+Content-Disposition: inline
+In-Reply-To: <bdea54df-59dc-3d4d-dd0c-8c45403dea24@suse.com>
 
-On 13.01.2023 14:07, Xenia Ragiadakou wrote:
-> 
-> On 1/13/23 14:12, Jan Beulich wrote:
->> On 13.01.2023 12:55, Xenia Ragiadakou wrote:
->>> On 1/13/23 11:53, Jan Beulich wrote:
->>>> On 13.01.2023 10:34, Xenia Ragiadakou wrote:
->>>>> On 1/13/23 10:47, Jan Beulich wrote:
->>>>>> --- a/xen/drivers/passthrough/x86/iommu.c
->>>>>> +++ b/xen/drivers/passthrough/x86/iommu.c
->>>>>> @@ -56,6 +56,13 @@ void __init acpi_iommu_init(void)
->>>>>>         if ( !acpi_disabled )
->>>>>>         {
->>>>>>             ret = acpi_dmar_init();
->>>>>> +
->>>>>> +#ifndef iommu_snoop
->>>>>> +        /* A command line override for snoop control affects VT-d only. */
->>>>>> +        if ( ret )
->>>>>> +            iommu_snoop = true;
->>>>>> +#endif
->>>>>> +
->>>>>
->>>>> Why here iommu_snoop is forced when iommu is not enabled?
->>>>> This change is confusing because later on, in iommu_setup, iommu_snoop
->>>>> will be set to false in the case of !iommu_enabled.
->>>>
->>>> Counter question: Why is it being set to false there? I see no reason at
->>>> all. On the same basis as here, I'd actually expect it to be set back to
->>>> true in such a case.Which, however, would be a benign change now that
->>>> all uses of the variable are properly qualified. Which in turn is why I
->>>> thought I'd leave that other place alone.
->>>
->>> I think I got confused... AFAIU with disabled iommu snooping cannot be
->>> enforced i.e iommu_snoop=true translates to snooping is enforced by the
->>> iommu (that's why we need to check that the iommu is enabled for the
->>> guest). So if the iommu is disabled how can iommu_snoop be true?
->>
->> For a non-existent (or disabled) IOMMU the value of this boolean simply
->> is irrelevant. Or to put it in other words, when there's no active
->> IOMMU, it doesn't matter whether it would actually snoop.
-> 
-> The variable iommu_snoop is initialized to true.
-> Also, the above change does not prevent it from being overwritten 
-> through the cmdline iommu param in iommu_setup().
 
-Command line parsing happens earlier (and in parse_iommu_param(), not in
-iommu_setup()). iommu_setup() can further overwrite it on its error path,
-but as said that's benign then.
+--a1z64RtYn87d7j8p
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Jan 2023 14:44:33 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: Juergen Gross <jgross@suse.com>
+Cc: xen-devel <xen-devel@lists.xenproject.org>, regressions@lists.linux.dev
+Subject: Re: S3 under Xen regression between 6.1.1 and 6.1.3
 
-> I m afraid I still cannot understand why the change above is needed.
+On Fri, Jan 13, 2023 at 09:08:35AM +0100, Juergen Gross wrote:
+> On 13.01.23 03:57, Marek Marczykowski-G=C3=B3recki wrote:
+> > Hi,
+> >=20
+> > 6.1.3 as PV dom0 crashes when attempting to suspend. 6.1.1 works. The
+> > crash:
+> >=20
+> >      [  348.284004] PM: suspend entry (deep)
+> >      [  348.289532] Filesystems sync: 0.005 seconds
+> >      [  348.291545] Freezing user space processes ... (elapsed 0.000 se=
+conds) done.
+> >      [  348.292457] OOM killer disabled.
+> >      [  348.292462] Freezing remaining freezable tasks ... (elapsed 0.1=
+04 seconds) done.
+> >      [  348.396612] printk: Suspending console(s) (use no_console_suspe=
+nd to debug)
+> >      [  348.749228] PM: suspend devices took 0.352 seconds
+> >      [  348.769713] ACPI: EC: interrupt blocked
+> >      [  348.816077] BUG: kernel NULL pointer dereference, address: 0000=
+00000000001c
+> >      [  348.816080] #PF: supervisor read access in kernel mode
+> >      [  348.816081] #PF: error_code(0x0000) - not-present page
+> >      [  348.816083] PGD 0 P4D 0
+> >      [  348.816086] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> >      [  348.816089] CPU: 0 PID: 6764 Comm: systemd-sleep Not tainted 6.=
+1.3-1.fc32.qubes.x86_64 #1
+> >      [  348.816092] Hardware name: Star Labs StarBook/StarBook, BIOS 8.=
+01 07/03/2022
+> >      [  348.816093] RIP: e030:acpi_get_wakeup_address+0xc/0x20
+> >      [  348.816100] Code: 44 00 00 48 8b 05 04 a3 82 02 c3 cc cc cc cc =
+cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 0f 1f 44 00 00 48 8b 05 fc 9d =
+82 02 <8b> 40 1c c3 cc cc cc cc 66 66 2e 0f 1f 84 00 00 00 00 00 90 0f 1f
+> >      [  348.816103] RSP: e02b:ffffc90042537d08 EFLAGS: 00010246
+> >      [  348.816105] RAX: 0000000000000000 RBX: 0000000000000003 RCX: 20=
+c49ba5e353f7cf
+> >      [  348.816106] RDX: 000000000000cd19 RSI: 000000000002ee9a RDI: 00=
+2a051ed42d7694
+> >      [  348.816108] RBP: 0000000000000003 R08: ffffc90042537ca0 R09: ff=
+ffffff82c5e468
+> >      [  348.816110] R10: 0000000000007ff0 R11: 0000000000000000 R12: 00=
+00000000000000
+> >      [  348.816111] R13: fffffffffffffff2 R14: ffff88812206e6c0 R15: ff=
+ff88812206e6e0
+> >      [  348.816121] FS:  00007cb49b01eb80(0000) GS:ffff888189400000(000=
+0) knlGS:0000000000000000
+> >      [  348.816123] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >      [  348.816124] CR2: 000000000000001c CR3: 000000012231a000 CR4: 00=
+00000000050660
+> >      [  348.816131] Call Trace:
+> >      [  348.816133]  <TASK>
+> >      [  348.816134]  acpi_pm_prepare+0x1a/0x50
+> >      [  348.816141]  suspend_enter+0x94/0x360
+> >      [  348.816146]  suspend_devices_and_enter+0x198/0x2b0
+> >      [  348.816150]  enter_state+0x18d/0x1f5
+> >      [  348.816155]  pm_suspend.cold+0x20/0x6b
+> >      [  348.816159]  state_store+0x27/0x60
+> >      [  348.816163]  kernfs_fop_write_iter+0x125/0x1c0
+> >      [  348.816169]  new_sync_write+0x105/0x190
+> >      [  348.816176]  vfs_write+0x211/0x2a0
+> >      [  348.816180]  ksys_write+0x67/0xe0
+> >      [  348.816183]  do_syscall_64+0x59/0x90
+> >      [  348.816188]  ? do_syscall_64+0x69/0x90
+> >      [  348.816192]  ? exc_page_fault+0x76/0x170
+> >      [  348.816195]  entry_SYSCALL_64_after_hwframe+0x63/0xcd
+> >      [  348.816200] RIP: 0033:0x7cb49c1412f7
+> >      [  348.816203] Code: 0d 00 f7 d8 64 89 02 48 c7 c0 ff ff ff ff eb =
+b7 0f 1f 00 f3 0f 1e fa 64 8b 04 25 18 00 00 00 85 c0 75 10 b8 01 00 00 00 =
+0f 05 <48> 3d 00 f0 ff ff 77 51 c3 48 83 ec 28 48 89 54 24 18 48 89 74 24
+> >      [  348.816204] RSP: 002b:00007ffc125f63f8 EFLAGS: 00000246 ORIG_RA=
+X: 0000000000000001
+> >      [  348.816206] RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00=
+007cb49c1412f7
+> >      [  348.816208] RDX: 0000000000000004 RSI: 00007ffc125f64e0 RDI: 00=
+00000000000004
+> >      [  348.816209] RBP: 00007ffc125f64e0 R08: 00005c83d772bca0 R09: 00=
+0000000000000d
+> >      [  348.816210] R10: 00005c83d7727eb0 R11: 0000000000000246 R12: 00=
+00000000000004
+> >      [  348.816211] R13: 00005c83d77272d0 R14: 0000000000000004 R15: 00=
+007cb49c213700
+> >      [  348.816213]  </TASK>
+> >      [  348.816214] Modules linked in: loop vfat fat snd_hda_codec_hdmi=
+ snd_sof_pci_intel_tgl snd_sof_intel_hda_common soundwire_intel soundwire_g=
+eneric_allocation soundwire_cadence snd_sof_intel_hda snd_sof_pci snd_sof_x=
+tensa_dsp snd_sof snd_sof_utils snd_soc_hdac_hda snd_hda_ext_core snd_soc_a=
+cpi_intel_match snd_soc_acpi soundwire_bus snd_hda_codec_realtek snd_hda_co=
+dec_generic ledtrig_audio snd_soc_core snd_compress ac97_bus snd_pcm_dmaeng=
+ine snd_hda_intel snd_intel_dspcfg snd_intel_sdw_acpi iTCO_wdt intel_pmc_bx=
+t ee1004 iTCO_vendor_support intel_rapl_msr snd_hda_codec snd_hda_core snd_=
+hwdep snd_seq snd_seq_device iwlwifi snd_pcm pcspkr joydev processor_therma=
+l_device_pci_legacy processor_thermal_device snd_timer snd cfg80211 process=
+or_thermal_rfim i2c_i801 processor_thermal_mbox i2c_smbus idma64 rfkill pro=
+cessor_thermal_rapl soundcore intel_rapl_common int340x_thermal_zone intel_=
+soc_dts_iosf igen6_edac intel_hid intel_pmc_core intel_scu_pltdrv sparse_ke=
+ymap fuse xenfs ip_tables dm_thin_pool
+> >      ic#2 Part1
+> >      [  348.816259]  dm_persistent_data dm_bio_prison dm_crypt i915 crc=
+t10dif_pclmul crc32_pclmul crc32c_intel polyval_clmulni polyval_generic drm=
+_buddy nvme video wmi drm_display_helper nvme_core xhci_pci xhci_pci_renesa=
+s ghash_clmulni_intel hid_multitouch sha512_ssse3 serio_raw nvme_common cec=
+ xhci_hcd ttm i2c_hid_acpi i2c_hid pinctrl_tigerlake xen_acpi_processor xen=
+_privcmd xen_pciback xen_blkback xen_gntalloc xen_gntdev xen_evtchn uinput
+> >      [  348.816281] CR2: 000000000000001c
+> >      [  348.816283] ---[ end trace 0000000000000000 ]---
+> >      [  348.867991] RIP: e030:acpi_get_wakeup_address+0xc/0x20
+> >      [  348.867996] Code: 44 00 00 48 8b 05 04 a3 82 02 c3 cc cc cc cc =
+cc cc cc cc cc cc cc cc cc cc cc cc cc cc cc 0f 1f 44 00 00 48 8b 05 fc 9d =
+82 02 <8b> 40 1c c3 cc cc cc cc 66 66 2e 0f 1f 84 00 00 00 00 00 90 0f 1f
+> >      [  348.867998] RSP: e02b:ffffc90042537d08 EFLAGS: 00010246
+> >      [  348.867999] RAX: 0000000000000000 RBX: 0000000000000003 RCX: 20=
+c49ba5e353f7cf
+> >      [  348.868000] RDX: 000000000000cd19 RSI: 000000000002ee9a RDI: 00=
+2a051ed42d7694
+> >      [  348.868001] RBP: 0000000000000003 R08: ffffc90042537ca0 R09: ff=
+ffffff82c5e468
+> >      [  348.868001] R10: 0000000000007ff0 R11: 0000000000000000 R12: 00=
+00000000000000
+> >      [  348.868002] R13: fffffffffffffff2 R14: ffff88812206e6c0 R15: ff=
+ff88812206e6e0
+> >      [  348.868008] FS:  00007cb49b01eb80(0000) GS:ffff888189400000(000=
+0) knlGS:0000000000000000
+> >      [  348.868009] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> >      [  348.868009] CR2: 000000000000001c CR3: 000000012231a000 CR4: 00=
+00000000050660
+> >      [  348.868014] Kernel panic - not syncing: Fatal exception
+> >      [  348.868031] Kernel Offset: disabled
+> >=20
+> > Looking at git log between those two versions, and the
+> > acpi_get_wakeup_address() function, I suspect it's this change (but I
+> > have _not_ tested it):
+> >=20
+> > commit b1898793777fe10a31c160bb8bc385d6eea640c6
+> > Author: Juergen Gross <jgross@suse.com>
+> > Date:   Wed Nov 23 12:45:23 2022 +0100
+> >=20
+> >      x86/boot: Skip realmode init code when running as Xen PV guest
+> >      [ Upstream commit f1e525009493cbd569e7c8dd7d58157855f8658d ]
+>=20
+> Yes, you are right.
+>=20
+> Could you please test the attached patch? It is for upstream, but I think=
+ it
+> should apply to 6.1.3, too.
 
-When using an AMD IOMMU, with how things work right now the variable ought
-to always be true (hence why I've suggested that when !INTEL_IOMMU, this
-simply become a #define to true). See also Andrew's comments here and/or
-on your patch.
+Yes, this works (you can take it as my T-by), thanks!
 
-Jan
+But, unrelated to this bug, it did get message like in https://www.mail-arc=
+hive.com/xen-devel@lists.xenproject.org/msg107609.html
+(WARNING: CPU: 1 PID: 0 at arch/x86/mm/tlb.c:523 switch_mm_irqs_off+0x230/0=
+x4a0)
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--a1z64RtYn87d7j8p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPBYEMACgkQ24/THMrX
+1yyepAgAgdsyrMMt7iaX4Kyw4pymNgdTRjfqKW6Zceoe/eAINqWrShQhy/d04HBc
+5ilg1AIRDn1+yyUUjxc4aN1LHPy96QGomL/X8cCM7JapbTFS8NlBYW10PQmrgCLf
+ylBbdv9BR9yOJxBA4RDjyGZvl1gTrn5bMPPM9vW3v3UUAiK2AQNwyIdlgSNNIaUK
+pJU7g0aNqPNjpe1S0eZwetfhtDspLk6JOLovCxwLQCy9twkEoPbiGWP5wjuVDSjT
+WJgGLXsg0/N5OgI+0Uj4EfKHYJrLMy3EANL37UeWm7HgvNtTkb4RGQvSKB9Irr4V
+bhAQSwhvXH2IjLvAWXEq8Oll1ocAMQ==
+=7ybj
+-----END PGP SIGNATURE-----
+
+--a1z64RtYn87d7j8p--
 
