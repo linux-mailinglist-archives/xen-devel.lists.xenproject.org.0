@@ -2,42 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BDE06669303
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:33:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476956.739422 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 016F7669311
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 10:35:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476962.739433 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGGR4-00015n-JZ; Fri, 13 Jan 2023 09:33:18 +0000
+	id 1pGGSY-0001fQ-TS; Fri, 13 Jan 2023 09:34:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476956.739422; Fri, 13 Jan 2023 09:33:18 +0000
+Received: by outflank-mailman (output) from mailman id 476962.739433; Fri, 13 Jan 2023 09:34:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGGR4-00013j-Gq; Fri, 13 Jan 2023 09:33:18 +0000
-Received: by outflank-mailman (input) for mailman id 476956;
- Fri, 13 Jan 2023 09:33:17 +0000
+	id 1pGGSY-0001d6-Ql; Fri, 13 Jan 2023 09:34:50 +0000
+Received: by outflank-mailman (input) for mailman id 476962;
+ Fri, 13 Jan 2023 09:34:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NGZF=5K=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
- id 1pGGR3-00013d-1h
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:33:17 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ <SRS0=3K7w=5K=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
+ id 1pGGSW-0001d0-Q7
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 09:34:48 +0000
+Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
+ [2a00:1450:4864:20::635])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4def6a57-9325-11ed-91b6-6bf2151ebd3b;
- Fri, 13 Jan 2023 10:33:15 +0100 (CET)
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com
- [209.85.218.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-144-PhUiYbgXPaKVDQegHcb74Q-1; Fri, 13 Jan 2023 04:33:13 -0500
-Received: by mail-ej1-f71.google.com with SMTP id
- sd1-20020a1709076e0100b00810be49e7afso14985849ejc.22
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jan 2023 01:33:13 -0800 (PST)
-Received: from imammedo.users.ipa.redhat.com (nat-pool-brq-t.redhat.com.
- [213.175.37.10]) by smtp.gmail.com with ESMTPSA id
- a17-20020a170906369100b007c0f2c4cdffsm8257387ejc.44.2023.01.13.01.33.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 13 Jan 2023 01:33:11 -0800 (PST)
+ id 852c210c-9325-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 10:34:47 +0100 (CET)
+Received: by mail-ej1-x635.google.com with SMTP id fy8so50835968ejc.13
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jan 2023 01:34:47 -0800 (PST)
+Received: from [192.168.1.93] (adsl-67.109.242.138.tellas.gr. [109.242.138.67])
+ by smtp.gmail.com with ESMTPSA id
+ ov38-20020a170906fc2600b0084d4733c428sm5870772ejb.88.2023.01.13.01.34.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Jan 2023 01:34:46 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,96 +44,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4def6a57-9325-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673602394;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EGmXSGcryLyMwWBJBAGRPqNc83FeWcTOUw9/1eaT3RA=;
-	b=fnz3gJuqJqcOzEh4EGw3XDs0F+yCs2Hg+zkDZpnGQlO9Rin9cXyIdONpZ46JgJ9KecAIpw
-	SOrb1V0YncpCtxHbsK5wtKQKhzRQUB/jkW9QAmqU9yea9QqBU7z44yRfPImc4/heXETYMU
-	9k/eSkDRSz0lBoEyv5Dpt/KQ6NduaTE=
-X-MC-Unique: PhUiYbgXPaKVDQegHcb74Q-1
+X-Inumbo-ID: 852c210c-9325-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+agMQNymtgBfMwDGibkZkEB7lupOmqeMBhkfaRI7Ro4=;
+        b=e1QOtJbRjfxEFvoY4KnO0q5mrF5qA8udxXmHK2i8t9M4dOP0LQX7VK9l9xdcOf0fD+
+         skKyYdLFKuBzEcYJ4nwliNX+YIGT+LmbBaKlYu5whuxlUdjLT5tegqpuNJfvjtTG7hPx
+         XnO+2FzRnLrwCVksWo58A47lFAQPjYXCi1JCOX4GmWioztMFFa38Px0R1XS6pEccGURu
+         86PlEDwotJc+lZi8Wm8GpafiWb0GaSPHCV435FPE/k0mdQIF2raCo12KZgEB9x2gsF+i
+         xZLYrdB9C2bThrBg4O+LbvLjE7Z46MBeMfypcDVfO74hCGE02r2oim1o5AdBNNQ5JaIK
+         P0Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=EGmXSGcryLyMwWBJBAGRPqNc83FeWcTOUw9/1eaT3RA=;
-        b=yJIrt3mBMcYRxDTT+v6KVW5WLROf6CBHPLfAs310hZ9lxEMyhHk55NJlLEPf3G8DZt
-         reIy2devi7mxN3D66fiSeYaibDTCLkQKqB2e+Qnnxrx6sx25b5CnyssJygc4V/dgvtgF
-         n9+k2AuNbUXjHBOyefwaEXueaT25H0DswN1x6/WVMrgjnNrJZQWbEEuGcPM0V0PeC8YD
-         abI86OvcPRbjh9eWItsyvTB5vFpzEFXWteePmg0jYtMiyEgnlbopxMNk5cLjPzkHLDHO
-         IFqhPKblVV2yso7uez3giVr3Z//V5LdVbvXSZnGeUDnzmYX9qZ3KmxeK8k3Ye/u+KiPo
-         viAw==
-X-Gm-Message-State: AFqh2krAORvoTMaFNeEOnbHDhbokJeR8Zb/2zR5Ro+XhuuRXdvB64+vd
-	ThEtDjuJz5NWokmixD6FZ9CmM8125eUxpjR33SkFjl/0Bths72q1MDQaVWnvaPBXQxRRuKIWKLg
-	DLeQruwkx/szoHbwJ9jtM0F1apiw=
-X-Received: by 2002:a17:906:6d14:b0:7c1:765:9cfc with SMTP id m20-20020a1709066d1400b007c107659cfcmr2434449ejr.34.1673602392309;
-        Fri, 13 Jan 2023 01:33:12 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXvMyiZunNV7hT53Eb0xO5saoqrfpCr+V6WcY8sAbjY0cHEl4y6/dAWivhbcVBq6Aq75LiToFA==
-X-Received: by 2002:a17:906:6d14:b0:7c1:765:9cfc with SMTP id m20-20020a1709066d1400b007c107659cfcmr2434437ejr.34.1673602392137;
-        Fri, 13 Jan 2023 01:33:12 -0800 (PST)
-Date: Fri, 13 Jan 2023 10:33:10 +0100
-From: Igor Mammedov <imammedo@redhat.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Bernhard Beschow
- <shentey@gmail.com>, qemu-devel@nongnu.org, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Eduardo Habkost
- <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <philmd@linaro.org>
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Message-ID: <20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-In-Reply-To: <128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
-	<a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
-	<20230110030331-mutt-send-email-mst@kernel.org>
-	<a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
-	<D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
-	<9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
-	<7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
-	<20230112180314-mutt-send-email-mst@kernel.org>
-	<128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=+agMQNymtgBfMwDGibkZkEB7lupOmqeMBhkfaRI7Ro4=;
+        b=pp0r0zQpW/fuJx3sDdrln0oBQDtue3g+evXMxH6qM/LZTCMfpRurc+BT4yd7cZvO4v
+         D58lRaNuNp+Kp3rKVz7ghBAK+9doZ7yZcwbbGoEAoD/7bEkt79eTh+7OjfYEnpE6JkQ/
+         AOjeFGtIIzEB4rBPybgB5marrGt+HVEm4IgPLQCfVLbR6KSksc7RZrPjUJxfykbAmlg7
+         ASXNedozR7Gv6RwNOF/QvpPJ8qN99yQa+hCcbHCiNsOJQCB/7OeBTkB6c/WOqEeHuKGd
+         bDIM1Y0J+Zal8xBjseV3V6K09GVfX9S6YkZ4isxSToy7Y7ONDsP6SYNvl08uLWkPEfTl
+         Ykqg==
+X-Gm-Message-State: AFqh2krX6nom1NMqjywaWoTLuDLVK7vydmtsCzh5jKePkjCTUqqw5hVx
+	65jauFMuWoDrqoF1IAHmt+A=
+X-Google-Smtp-Source: AMrXdXuOjo1cGolaL56+vHwOmKnnQ9tDwGxUhDqTHAdUMJEPNBcM18KjiJpXT20G0tmUFgXtdPF9BQ==
+X-Received: by 2002:a17:907:a705:b0:7bd:ece7:ae66 with SMTP id vw5-20020a170907a70500b007bdece7ae66mr74161558ejc.34.1673602487151;
+        Fri, 13 Jan 2023 01:34:47 -0800 (PST)
+Message-ID: <6596d648-6400-7907-bc21-8074dc244247@gmail.com>
+Date: Fri, 13 Jan 2023 11:34:45 +0200
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.4.2
+Subject: Re: [PATCH 1/2] x86/shadow: sanitize iommu_snoop usage
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
+References: <01756703-efc8-e342-295c-a40a286ad5f1@suse.com>
+ <cf0ed06f-4d49-0f73-cfd9-eb49e951048c@suse.com>
+From: Xenia Ragiadakou <burzalodowa@gmail.com>
+In-Reply-To: <cf0ed06f-4d49-0f73-cfd9-eb49e951048c@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, 12 Jan 2023 23:14:26 -0500
-Chuck Zmudzinski <brchuckz@aol.com> wrote:
 
-> On 1/12/23 6:03=E2=80=AFPM, Michael S. Tsirkin wrote:
-> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wrote: =20
-> >> I think the change Michael suggests is very minimalistic: Move the if
-> >> condition around xen_igd_reserve_slot() into the function itself and
-> >> always call it there unconditionally -- basically turning three lines
-> >> into one. Since xen_igd_reserve_slot() seems very problem specific,
-> >> Michael further suggests to rename it to something more general. All
-> >> in all no big changes required. =20
-> >=20
-> > yes, exactly.
-> >  =20
->=20
-> OK, got it. I can do that along with the other suggestions.
+On 1/13/23 10:47, Jan Beulich wrote:
+> First of all the variable is meaningful only when an IOMMU is in use for
+> a guest. Qualify the check accordingly, like done elsewhere. Furthermore
+> the controlling command line option is supposed to take effect on VT-d
+> only. Since command line parsing happens before we know whether we're
+> going to use VT-d, force the variable back to set when instead running
+> with AMD IOMMU(s).
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+> ---
+> I was first considering to add the extra check to the outermost
+> enclosing if(), but I guess that would break the (questionable) case of
+> assigning MMIO ranges directly by address. The way it's done now also
+> better fits the existing checks, in particular the ones in p2m-ept.c.
+> 
+> Note that the #ifndef is put there in anticipation of iommu_snoop
+> becoming a #define when !IOMMU_INTEL (see
+> https://lists.xen.org/archives/html/xen-devel/2023-01/msg00103.html
+> and replies).
+> 
+> In _sh_propagate() I'm further puzzled: The iomem_access_permitted()
+> certainly suggests very bad things could happen if it returned false
+> (i.e. in the implicit "else" case). The assumption looks to be that no
+> bad "target_mfn" can make it there. But overall things might end up
+> looking more sane (and being cheaper) when simply using "mmio_mfn"
+> instead.
+> 
+> --- a/xen/arch/x86/mm/shadow/multi.c
+> +++ b/xen/arch/x86/mm/shadow/multi.c
+> @@ -571,7 +571,7 @@ _sh_propagate(struct vcpu *v,
+>                               gfn_to_paddr(target_gfn),
+>                               mfn_to_maddr(target_mfn),
+>                               X86_MT_UC);
+> -                else if ( iommu_snoop )
+> +                else if ( is_iommu_enabled(d) && iommu_snoop )
+>                       sflags |= pat_type_2_pte_flags(X86_MT_WB);
+>                   else
+>                       sflags |= get_pat_flags(v,
+> --- a/xen/drivers/passthrough/x86/iommu.c
+> +++ b/xen/drivers/passthrough/x86/iommu.c
+> @@ -56,6 +56,13 @@ void __init acpi_iommu_init(void)
+>       if ( !acpi_disabled )
+>       {
+>           ret = acpi_dmar_init();
+> +
+> +#ifndef iommu_snoop
+> +        /* A command line override for snoop control affects VT-d only. */
+> +        if ( ret )
+> +            iommu_snoop = true;
+> +#endif
+> +
 
-have you considered instead of reservation, putting a slot check in device =
-model
-and if it's intel igd being passed through, fail at realize time  if it can=
-'t take
-required slot (with a error directing user to fix command line)?
-That could be less complicated than dealing with slot reservations at the c=
-ost of
-being less convenient.
+Why here iommu_snoop is forced when iommu is not enabled?
+This change is confusing because later on, in iommu_setup, iommu_snoop 
+will be set to false in the case of !iommu_enabled.
 
->=20
-> Thanks.
->=20
+>           if ( ret == -ENODEV )
+>               ret = acpi_ivrs_init();
+>       }
+> 
 
+-- 
+Xenia
 
