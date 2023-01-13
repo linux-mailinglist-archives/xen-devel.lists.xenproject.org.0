@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0663E668AB7
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 05:15:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476489.738686 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98679668B51
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 06:30:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476495.738698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGBSi-0006hw-MP; Fri, 13 Jan 2023 04:14:40 +0000
+	id 1pGCdP-0005vo-22; Fri, 13 Jan 2023 05:29:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476489.738686; Fri, 13 Jan 2023 04:14:40 +0000
+Received: by outflank-mailman (output) from mailman id 476495.738698; Fri, 13 Jan 2023 05:29:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGBSi-0006fv-Iq; Fri, 13 Jan 2023 04:14:40 +0000
-Received: by outflank-mailman (input) for mailman id 476489;
- Fri, 13 Jan 2023 04:14:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2WVX=5K=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1pGBSg-0006fn-Ee
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 04:14:39 +0000
-Received: from sonic305-19.consmr.mail.gq1.yahoo.com
- (sonic305-19.consmr.mail.gq1.yahoo.com [98.137.64.82])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c7fbf237-92f8-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 05:14:34 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic305.consmr.mail.gq1.yahoo.com with HTTP; Fri, 13 Jan 2023 04:14:31 +0000
-Received: by hermes--production-ne1-5648bd7666-x5zv9 (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID 90236039d2e62b2abb2e002068f6b7b4; 
- Fri, 13 Jan 2023 04:14:28 +0000 (UTC)
+	id 1pGCdO-0005sQ-Um; Fri, 13 Jan 2023 05:29:46 +0000
+Received: by outflank-mailman (input) for mailman id 476495;
+ Fri, 13 Jan 2023 05:29:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=f25I=5K=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1pGCdM-0005sJ-Vj
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 05:29:45 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 47aff3bf-9303-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 06:29:42 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 21D57FEC;
+ Thu, 12 Jan 2023 21:30:23 -0800 (PST)
+Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
+ [10.169.190.94])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 570693F587;
+ Thu, 12 Jan 2023 21:29:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,85 +43,185 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c7fbf237-92f8-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1673583271; bh=4hASBuEGunDT4zjWth2rvDl2Y4xCmYLJ9R5aycKiqec=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=tONNFQpBv6sDKV/ugSmglztfJJL0yYEkcO0dJcg4BFyP/xJY9NduoRr9Hn34HBoWNnbJbxJvJzsaT6waPYcUHbDFwd1ZqYfdcmQ6HuhbyE4g3Xm1iHjCIf6WzXznonLD6A9PGVBKs7eeYc+jNpRFAEeeqSIU/k6/2+2q/YsGs4RhTx8BPvanyUxqNehnaVvxLPPrlRe02kbt2hYGGB7R0a9+je1pij9eoX8PZoFZ+HkqocB0tB6zUmLq+xMyjHDOH8LxETQC0GSLUhnjYfP5hjbbyf4hqNUrc6zjsMHSSJUPnbVN16BOFi0MA58igCZAuxIe+WvoWscyxoAy1o/8Yw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1673583271; bh=Tv4gbSx1lQwSkmBRYj+8e9bM3qtZfTwV2DimFH6eZWy=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=UlFlx8AdCnY9gXRLo+jltAqKbwiOFsksnU2zXen6M1DCZ686j8CIDK8hck9ltidKZVXRkLIH4zGWTR4mYF92gq7HDcHKyFpJ80W52RZBv1LaXOUbGMdF3m0O5UfaXcsa9ZQL94s23cxFeyY6jCv+qViH2gFbhjuR7/ThJ03xm0iFvYM8BWqqAA8lOQrZvn6rKqekMGenaixoYQsJtctmguxtibHEnvP/kUf7xkermgFlWLR5sno3IFSDQibYgmdjXYxIFZ4yU0PcqiAzJhTV4p3f6+1arbzi7LUQJJ5l/PN6AqyeIaBsDUdmuTTR/LtiGG8yrgTaNt7J1R1OAolE3w==
-X-YMail-OSG: ttEldBMVM1nVeFTo_.eAWkkRTsqhuLa7Om2EKLB_l73WR5n3MGc_a9YbOHmGONy
- E3DkD0H0flRzYy.Sy60BO21eGNYMrQHhiEnxxx7jq8t5kWnX20Sa.WOYI4dzYitvZxqWFfN2tgVu
- ivgRIYummAvragH44oo5jFD.5BRQM4pbHrw.yJmMv_2dkCO_zUjVwwEwSQcBpRVbrCbsLRnaGJQx
- R6d3jnETZBF1n40M2oHkz7rZbr2IGLNyHUlWxGkTWGU4QccvzSQLzqqCCWQgEXavfuMUMnispzMP
- 63knsXk7zhPiFETn9RAHqLzpFpB93hQ.6vJQRwRaMTNjC8_J4SBbo5lHWXwflLidB.yaLT.FLuGg
- TOyCQO.LedKHqqDjsIVIH285OdngrmYwUm06RIwv2m9.KocCCJMlZzTunS_rniJ_A6yWRD7QkRcI
- 4XPxWY3wdIzUvEVXvJn6b7EJdBktenWWUBzjYtBkNFZkGrTTPdMsBH4Yds9csE0ZjAQy5MG3V.nN
- YYz4angnODQTV4aIQAVXKKsE0647PWOEwSZoUUUkgVz3e_QIEavRV2NTB62r9VDLcABa6EhPddrD
- jC11GJxHiLxuYkUqeqgYr8E9QI494gTd1iLPNl48NZ0TrQIIGzko_z.evZYCXZgbv0nv8JxnMKhX
- s0AFYuS5Q1U_xDAnCuinEBk9t2bNIEAjpg9t3FeJnEBGx6SCftNAS2jAaivTCYTs8aCMWu79QXeI
- sm8gfsKrxuD6dRXcmuWFI46B4qOUN_WZhe7KvUtFnN2R_rkfkDCdg4JKlYVvBDBvuKBd9PVUntUK
- EZeeGL77Wu7mm4pVg8BgaKlX88M2ONVCjIRO0i8I4qOVcmsQNMzWHB.B4P3a3N57krzpVLfNLi3n
- bVg_OX6B4yH0sAMj_sX2rr3ncAKOAYukSLaqpVuzYz0fTXovWfFbrmn7dHxXlCP5ge0cXk7_lbV9
- ubU6GPYOGB8NhwOK27gusL7TmKBH2ijhefApbiQuh_T9833DcGRqTyIUG78UrYw9Y.k1AnZZ2n9Z
- LL299tV.os4jWgEpaPA8edPh2yyOaVIUWebUY2rUaKtVbTe6ki9Wtq8jTJ8Yz2gd9x40c8YqqshG
- B6dNeM3HQ6bKxd4tEpOthYSFtrvCb2gNknTtetkTkP_5CDjsajXDZO244f22TRrtOVSw3j2Zbm5F
- m53nFDGhay9HVeAY2N.kUobffp0hH4OYL2oyd7.t72JkOix73iW5Wd8CZT9dLLHk1hpxv0gD7vgE
- We8K_k7zNtkNAE3DhCXp4dySJXaVwlufbdQf4smHnbnVWDP2.b6rZg8Tibl.LJFqgalLKBkDSjEe
- mSi0ic5ugnz_P9VGPDkZkuha4OitXVDoXjLHykZe6RQccZswk17EilxjeYkkzM7g_X5c_GO1l9iw
- gZ4f6CbN8pstqhst94cnWmxp6zJvNdC_TzyRE_Zps71EZArFniuCxz0Y5p6nAP933AQT7CMti.7x
- mVFpH1j0Ug4BkW4j96vN48_6o9jSapVZ0TkTC4fKqSN62JuSrsRQwRpDk6aLVhymuIOWbgoU7v3q
- ZacOVwjoyfJKr7zbuFTmDNNzlII_IVQ.4DF5cLNCc.CI5uj6Z6ZylLNkBUCO1JaAQbtggJjJ7e2W
- Y1r.FeSK20kCmC3b7qhVeAJlpN43o.IJfwYr8eV_ZnT3mt6b.QdoB28_jxpnJbAfA4X3SQRp6qln
- kcOL_FaPXk5v2caniSZEVaJT4TmiHhE8MfEDR.fCAjIj6CK7flzKgctdU8KCV4kC7G5Y4X9IJcLT
- rIhM9XJUi4XKkC0xAldVbz3oNXeZekQgqLS1HjTX9JfaqDn1ZaCr9c1V_rA0UQlRstf8.Vc3GwDL
- CDb9wtYqmvEDJs9k4_6.yHlFoz.D0g54u3bddkhahRDhyefIGUjcVq8tQnb2nj6ewDJ.6diY2jvR
- UP74pcW28nUPp.VveXif76.s.ud56DUw1tv5jvI.75wGbTIGbx4QeX0RDiCd8R.HP1P6IFppe7GW
- sD1.hR7LMdRHxyw_DviAqJaJMSGPjMn079JtlpVhd3i6XjmF5WbZOpqTSF975TXHSeRldBnIacC1
- 0J0zl_d1weRGnWBOPOd_vGWLb8y0qRMneHURuhrHChlpapeFpL4dbnb6WR6suMFGvPPft09FLp6O
- LQ71q1lFRb5Rhd5Lrx1fb_NAxJ1rD.YO5Fm.jWvNxoIheGobmEqjIQwRPND.VF0_6M1TZoqgtgfw
- Jbm9Hbo7t2SHMDfH0jzV8Iw--
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-Date: Thu, 12 Jan 2023 23:14:26 -0500
+X-Inumbo-ID: 47aff3bf-9303-11ed-91b6-6bf2151ebd3b
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com,
+	Penny Zheng <Penny.Zheng@arm.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Julien Grall <julien@xen.org>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Wei Liu <wl@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v2 00/41] xen/arm: Add Armv8-R64 MPU support to Xen - Part#1
+Date: Fri, 13 Jan 2023 13:28:33 +0800
+Message-Id: <20230113052914.3845596-1-Penny.Zheng@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Content-Language: en-US
-To: "Michael S. Tsirkin" <mst@redhat.com>,
- Bernhard Beschow <shentey@gmail.com>
-Cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
- <philmd@linaro.org>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
- <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
- <20230110030331-mutt-send-email-mst@kernel.org>
- <a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
- <D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
- <9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
- <7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
- <20230112180314-mutt-send-email-mst@kernel.org>
-From: Chuck Zmudzinski <brchuckz@aol.com>
-In-Reply-To: <20230112180314-mutt-send-email-mst@kernel.org>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.21062 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On 1/12/23 6:03 PM, Michael S. Tsirkin wrote:
-> On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wrote:
->> I think the change Michael suggests is very minimalistic: Move the if
->> condition around xen_igd_reserve_slot() into the function itself and
->> always call it there unconditionally -- basically turning three lines
->> into one. Since xen_igd_reserve_slot() seems very problem specific,
->> Michael further suggests to rename it to something more general. All
->> in all no big changes required.
-> 
-> yes, exactly.
-> 
+The Armv8-R architecture profile was designed to support use cases
+that have a high sensitivity to deterministic execution. (e.g.
+Fuel Injection, Brake control, Drive trains, Motor control etc)
 
-OK, got it. I can do that along with the other suggestions.
+Arm announced Armv8-R in 2013, it is the latest generation Arm
+architecture targeted at the Real-time profile. It introduces
+virtualization at the highest security level while retaining the
+Protected Memory System Architecture (PMSA) based on a Memory
+Protection Unit (MPU). In 2020, Arm announced Cortex-R82,
+which is the first Arm 64-bit Cortex-R processor based on Armv8-R64.
+The latest Armv8-R64 document can be found [1]. And the features of
+Armv8-R64 architecture:
+  - An exception model that is compatible with the Armv8-A model
+  - Virtualization with support for guest operating systems
+  - PMSA virtualization using MPUs In EL2.
+  - Adds support for the 64-bit A64 instruction set.
+  - Supports up to 48-bit physical addressing.
+  - Supports three Exception Levels (ELs)
+        - Secure EL2 - The Highest Privilege
+        - Secure EL1 - RichOS (MMU) or RTOS (MPU)
+        - Secure EL0 - Application Workloads
+ - Supports only a single Security state - Secure.
+ - MPU in EL1 & EL2 is configurable, MMU in EL1 is configurable.
 
-Thanks.
+These patch series are implementing the Armv8-R64 MPU support
+for Xen, which are based on the discussion of
+"Proposal for Porting Xen to Armv8-R64 - DraftC" [2].
+
+We will implement the Armv8-R64 and MPU support in three stages:
+1. Boot Xen itself to idle thread, do not create any guests on it.
+2. Support to boot MPU and MMU domains on Armv8-R64 Xen.
+3. SMP and other advanced features of Xen support on Armv8-R64.
+
+As we have not implemented guest support in part#1 series of MPU
+support, Xen can not create any guest in boot time. So in this
+patch serie, we provide an extra DNM-commit in the last for users
+to test Xen boot to idle on MPU system.
+
+We will split these patches to several parts, this series is the
+part#1, v1 is in [3], the full PoC can be found in [4]. More software for
+Armv8-R64 can be found in [5];
+
+[1] https://developer.arm.com/documentation/ddi0600/latest
+[2] https://lists.xenproject.org/archives/html/xen-devel/2022-05/msg00643.html
+[3] https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg00289.html
+[4] https://gitlab.com/xen-project/people/weic/xen/-/tree/integration/mpu_v2
+[5] https://armv8r64-refstack.docs.arm.com/en/v5.0/
+
+Penny Zheng (28):
+  xen/mpu: build up start-of-day Xen MPU memory region map
+  xen/mpu: introduce helpers for MPU enablement
+  xen/mpu: introduce unified function setup_early_uart to map early UART
+  xen/arm64: head: Jump to the runtime mapping in enable_mm()
+  xen/arm: introduce setup_mm_mappings
+  xen/mpu: plump virt/maddr/mfn convertion in MPU system
+  xen/mpu: introduce helper access_protection_region
+  xen/mpu: populate a new region in Xen MPU mapping table
+  xen/mpu: plump early_fdt_map in MPU systems
+  xen/arm: move MMU-specific setup_mm to setup_mmu.c
+  xen/mpu: implement MPU version of setup_mm in setup_mpu.c
+  xen/mpu: initialize frametable in MPU system
+  xen/mpu: introduce "mpu,xxx-memory-section"
+  xen/mpu: map MPU guest memory section before static memory
+    initialization
+  xen/mpu: destroy an existing entry in Xen MPU memory mapping table
+  xen/mpu: map device memory resource in MPU system
+  xen/mpu: map boot module section in MPU system
+  xen/mpu: introduce mpu_memory_section_contains for address range check
+  xen/mpu: disable VMAP sub-system for MPU systems
+  xen/mpu: disable FIXMAP in MPU system
+  xen/mpu: implement MPU version of ioremap_xxx
+  xen/mpu: free init memory in MPU system
+  xen/mpu: destroy boot modules and early FDT mapping in MPU system
+  xen/mpu: Use secure hypervisor timer for AArch64v8R
+  xen/mpu: move MMU specific P2M code to p2m_mmu.c
+  xen/mpu: implement setup_virt_paging for MPU system
+  xen/mpu: re-order xen_mpumap in arch_init_finialize
+  xen/mpu: add Kconfig option to enable Armv8-R AArch64 support
+
+Wei Chen (13):
+  xen/arm: remove xen_phys_start and xenheap_phys_end from config.h
+  xen/arm: make ARM_EFI selectable for Arm64
+  xen/arm: adjust Xen TLB helpers for Armv8-R64 PMSA
+  xen/arm: add an option to define Xen start address for Armv8-R
+  xen/arm64: prepare for moving MMU related code from head.S
+  xen/arm64: move MMU related code from head.S to head_mmu.S
+  xen/arm64: add .text.idmap for Xen identity map sections
+  xen/arm: use PA == VA for EARLY_UART_VIRTUAL_ADDRESS on Armv-8R
+  xen/arm: decouple copy_from_paddr with FIXMAP
+  xen/arm: split MMU and MPU config files from config.h
+  xen/arm: move MMU-specific memory management code to mm_mmu.c/mm_mmu.h
+  xen/arm: check mapping status and attributes for MPU copy_from_paddr
+  xen/mpu: make Xen boot to idle on MPU systems(DNM)
+
+ xen/arch/arm/Kconfig                      |   44 +-
+ xen/arch/arm/Makefile                     |   17 +-
+ xen/arch/arm/arm64/Makefile               |    5 +
+ xen/arch/arm/arm64/head.S                 |  466 +----
+ xen/arch/arm/arm64/head_mmu.S             |  399 ++++
+ xen/arch/arm/arm64/head_mpu.S             |  394 ++++
+ xen/arch/arm/bootfdt.c                    |   13 +-
+ xen/arch/arm/domain_build.c               |    4 +
+ xen/arch/arm/include/asm/alternative.h    |   15 +
+ xen/arch/arm/include/asm/arm64/flushtlb.h |   25 +
+ xen/arch/arm/include/asm/arm64/macros.h   |   51 +
+ xen/arch/arm/include/asm/arm64/mpu.h      |  174 ++
+ xen/arch/arm/include/asm/arm64/sysregs.h  |   77 +
+ xen/arch/arm/include/asm/config.h         |  105 +-
+ xen/arch/arm/include/asm/config_mmu.h     |  112 +
+ xen/arch/arm/include/asm/config_mpu.h     |   25 +
+ xen/arch/arm/include/asm/cpregs.h         |    4 +-
+ xen/arch/arm/include/asm/cpuerrata.h      |   12 +
+ xen/arch/arm/include/asm/cpufeature.h     |    7 +
+ xen/arch/arm/include/asm/early_printk.h   |   13 +
+ xen/arch/arm/include/asm/fixmap.h         |   28 +-
+ xen/arch/arm/include/asm/flushtlb.h       |   22 +
+ xen/arch/arm/include/asm/mm.h             |   78 +-
+ xen/arch/arm/include/asm/mm_mmu.h         |   77 +
+ xen/arch/arm/include/asm/mm_mpu.h         |   54 +
+ xen/arch/arm/include/asm/p2m.h            |   27 +-
+ xen/arch/arm/include/asm/p2m_mmu.h        |   28 +
+ xen/arch/arm/include/asm/processor.h      |   13 +
+ xen/arch/arm/include/asm/setup.h          |   39 +
+ xen/arch/arm/kernel.c                     |   31 +-
+ xen/arch/arm/mm.c                         | 1340 +-----------
+ xen/arch/arm/mm_mmu.c                     | 1376 +++++++++++++
+ xen/arch/arm/mm_mpu.c                     | 1056 ++++++++++
+ xen/arch/arm/p2m.c                        | 2282 +--------------------
+ xen/arch/arm/p2m_mmu.c                    | 2257 ++++++++++++++++++++
+ xen/arch/arm/p2m_mpu.c                    |  274 +++
+ xen/arch/arm/platforms/Kconfig            |   16 +-
+ xen/arch/arm/setup.c                      |  394 +---
+ xen/arch/arm/setup_mmu.c                  |  391 ++++
+ xen/arch/arm/setup_mpu.c                  |  208 ++
+ xen/arch/arm/time.c                       |   14 +-
+ xen/arch/arm/traps.c                      |    2 +
+ xen/arch/arm/xen.lds.S                    |   10 +-
+ xen/arch/x86/Kconfig                      |    1 +
+ xen/common/Kconfig                        |    6 +
+ xen/common/Makefile                       |    2 +-
+ xen/include/xen/vmap.h                    |   93 +-
+ 47 files changed, 7500 insertions(+), 4581 deletions(-)
+ create mode 100644 xen/arch/arm/arm64/head_mmu.S
+ create mode 100644 xen/arch/arm/arm64/head_mpu.S
+ create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+ create mode 100644 xen/arch/arm/include/asm/config_mmu.h
+ create mode 100644 xen/arch/arm/include/asm/config_mpu.h
+ create mode 100644 xen/arch/arm/include/asm/mm_mmu.h
+ create mode 100644 xen/arch/arm/include/asm/mm_mpu.h
+ create mode 100644 xen/arch/arm/include/asm/p2m_mmu.h
+ create mode 100644 xen/arch/arm/mm_mmu.c
+ create mode 100644 xen/arch/arm/mm_mpu.c
+ create mode 100644 xen/arch/arm/p2m_mmu.c
+ create mode 100644 xen/arch/arm/p2m_mpu.c
+ create mode 100644 xen/arch/arm/setup_mmu.c
+ create mode 100644 xen/arch/arm/setup_mpu.c
+
+-- 
+2.25.1
+
 
