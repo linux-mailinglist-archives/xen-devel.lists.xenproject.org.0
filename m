@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC05C66A6AF
-	for <lists+xen-devel@lfdr.de>; Sat, 14 Jan 2023 00:09:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477556.740316 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5625766A6AC
+	for <lists+xen-devel@lfdr.de>; Sat, 14 Jan 2023 00:09:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477557.740323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGTAG-0007CQ-Bh; Fri, 13 Jan 2023 23:08:48 +0000
+	id 1pGTAG-0007Jd-Pv; Fri, 13 Jan 2023 23:08:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477556.740316; Fri, 13 Jan 2023 23:08:48 +0000
+Received: by outflank-mailman (output) from mailman id 477557.740323; Fri, 13 Jan 2023 23:08:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGTAG-00079g-8C; Fri, 13 Jan 2023 23:08:48 +0000
-Received: by outflank-mailman (input) for mailman id 477556;
- Fri, 13 Jan 2023 23:08:46 +0000
+	id 1pGTAG-0007CU-Iy; Fri, 13 Jan 2023 23:08:48 +0000
+Received: by outflank-mailman (input) for mailman id 477557;
+ Fri, 13 Jan 2023 23:08:47 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=bX0/=5K=citrix.com=prvs=37021d3d6=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pGTAE-0006f0-Aj
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 23:08:46 +0000
+ id 1pGTAF-0006f0-Nb
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 23:08:47 +0000
 Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
  [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3a792e11-9397-11ed-91b6-6bf2151ebd3b;
- Sat, 14 Jan 2023 00:08:45 +0100 (CET)
+ id 3b387538-9397-11ed-91b6-6bf2151ebd3b;
+ Sat, 14 Jan 2023 00:08:46 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,247 +36,336 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3a792e11-9397-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 3b387538-9397-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1673651326;
+  d=citrix.com; s=securemail; t=1673651327;
   h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RRasjkNoe7Enmu6lqfWgkYl+d2SZ3qpC6O2iTzVGXP8=;
-  b=MdsQVZDSP/WK9hJEdeK4w8UpXEB4V8TvFo2ZhEWiO5PE3rTtpqjzlZQk
-   9k/blNT+K+qe4e5Zel/A4z7eUF3YEkr8XJ+pPgTOH+r3Ic9TtXQUi/5yt
-   fcWaEahhLl2QAs8UY2Ab94+hZsiM/Bad37Rb0oVhzMNW8b3l0TBE8ys2O
-   g=;
+   references:mime-version;
+  bh=RhJxNddOZnuA9cAZ20nrQNAY+XT5cis1ShPg10NhTgQ=;
+  b=ar9kl0ICAkpxo5bHeQ8Whdm+c0Ow8TAH91Mxi/7Sd8q0ABpwWZ6polsz
+   BROa5BPFXCzGJMaZx/LAU0jRaL6RX9KtHQbg/PQSxgDg68fl0B3ZQ5YmJ
+   vX0TNisyji8oWdgUN72yugyouEUXJLmRbbk9nfbyxplbzndwfWWKyaqUl
+   I=;
 Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 92558108
+X-MesageID: 92558110
 X-Ironport-Server: esa2.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:adSghqlVPqX1OGO2gMPF/C/o5gxYJkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xJMWmiDbvrfZzbwfNsibduwo0pXvJaGyt5iS1E/qS0yEiMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7auaVA8w5ARkPqgS5QSGyxH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- dsFMQsiRz6SvbKJg/Wha8Rqh/4EIeC+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglHWdTFCpU3Tjq0w+2XJlyR60aT3McqTcduPLSlQthfC+
- z+Wpjypav0cHIDEyzGqoi/yurHelBnkR4YYEaz7/fE/1TV/wURMUUZLBDNXu8KRiFO6Wt9ZA
- 1wZ/Gwpt6da3FOvZsnwWVu/unHslhQRQcZKGus2rgSE0LPJ4h2xD3IBCDVGbbQOisgyQjA70
- 06TqPngDzdvrb69RGqU8/GfqjbaETMOMWYIaCsATA0Ey9ruuoc+ilTIVNkLOIyfg8DxGDrw6
- yuXtyV4jLIW5eYb2qP+8V3ZjjaEopnSUhVz9gjRRnii7A5yeMiifYPA1LTAxa8edsDDFADH5
- SVa3ZHEt4jiEK1higSqXfw2M5iH9szVD36bm39CGZgb0DmErivLkZ9r3N1uGKt4Gp9aJmS0P
- xGP4lo5CIx7ZyXzM/IuC26lI4FzlPW7S4y4PhzBRoAWCqWdYjNr682HiaS4+2n22HYhnqgkU
- XtwWZb9VC1KYUiLIdffegv87VPI7npkrY8rbcqnpylLKJLHDJJvdZ8LMUGVcscy576erQPe/
- r53bpXVkEsEDL2vOnmOqub/yGzmylBiVfjLRzF/LLbfcmKK5kl8YxMu/V/RU9M8xPkE/gs51
- nq8RlVZ2DLCaY7vcG23hoRYQOq3B/5X9CtrVRHAyH70gxDPl67ztvZAH3b2FJF7nNFeIQlcF
- qdbKp3RX6oXFFwqOV01NPHAkWCrTzzz7SrmAsZvSGFXk0JIL+ARxuLZQw==
-IronPort-HdrOrdr: A9a23:YUNK7qGnqKuFCqYgpLqE5seALOsnbusQ8zAXPiFKJSC9F/byqy
- nAppsmPHPP5gr5OktBpTnwAsi9qBrnnPYejLX5Vo3SPzUO1lHYSb1K3M/PxCDhBj271sM179
- YFT0GmMqyTMWRH
+IronPort-Data: A9a23:R7iNCKLMS5z0TbkDFE+RO5UlxSXFcZb7ZxGr2PjKsXjdYENS12NRz
+ WFJD2+Ca/+DYGrwet9zboS29ksDv5fUxtdmSQdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPcwP9TlK6q4mhA5wVlPawjUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c5QHHh12
+ tU2OQpdUVPEncObxrOBbeRF05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWteGknHTgNRZfr0qYv/Ef6GnP1g1hlrPqNbI5f/TbH5gIzh/B/
+ goq+UzrPzU8O/unkQGUqF2vhPbhgyDkV4cdQejQGvlC3wTImz175ActfVmmpfi0jGauVtQZL
+ FYbkgIxqYAi+UrtScPyNzW0r3KJsQQVc8ZBGO09rgeWw+zb5BjxLmoNSDJbecElnMAzTD0uk
+ FSOmrvBCSR0tbyJSVqU7rqOsS6pIi8RMHMDYikfCwAC5rHLsIw1yx7CUNtnOKq0lcHuXyH9x
+ SiQqyozjKlVitQEv42g5kzOiT+oopnPTyY26x/RU2bj6Rl2DKaHTYG17VnQ7d5bMZ2UCFKGu
+ RA5d9O2tb5US8vXzWrUHbtLRevyjxqYDNHCqXlyBqIO3hq8wS6cPsdKwRx4JX1OP+9RLFcFf
+ 3TvVRNtCI57ZSX1NvIoPd7qUqzG3oC7S427C6m8gs5mJ8EoKVTZpHwGiVu4hTiFraQ6rU0o1
+ X53m+6IBG1SN6loxSHeqww1ge5ynXBWKY8+qPnGI/WbPVm2PiT9pU8tagfmUwzAxPrsTP/p2
+ 9heLdCW7B5UTffzZCLamaZKcw9RcyNnVcGu+5UMHgJmHuaBMDhxY8I9PJt7I9A190irvrqgE
+ o6Btr9wlwOk2CyvxfSiYXF/crL/NauTXlpiVRHAyW2AgiB5Ca72tfd3SnfCVeV/nACV5aIuH
+ qZtlgTpKqgndwkrDBxEM8es9N0/Kkz17e9MVgL8CAUCk1dbb1Sh0rfZksHHrUHi0gLfWRMCn
+ oCd
+IronPort-HdrOrdr: A9a23:0elSxart9ZL3gN78Y++HzcsaV5oleYIsimQD101hICG9E/b1qy
+ nKpp8mPHDP5wr5NEtPpTnjAsm9qALnlKKdiLN5Vd3OYOCMghrKEGgN1/qG/xTQXwH46+5Bxe
+ NBXsFFebnN5IFB/KTH3DU=
 X-IronPort-AV: E=Sophos;i="5.97,215,1669093200"; 
-   d="scan'208";a="92558108"
+   d="scan'208";a="92558110"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>, Stefano Stabellini
-	<sstabellini@kernel.org>, Julien Grall <julien@xen.org>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Bertrand Marquis <bertrand.marquis@arm.com>
-Subject: [PATCH v2 2/5] xen/version: Calculate xen_capabilities_info once at boot
-Date: Fri, 13 Jan 2023 23:08:32 +0000
-Message-ID: <20230113230835.29356-3-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+	<George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall
+	<julien@xen.org>, Daniel De Graaf <dgdegra@tycho.nsa.gov>, Daniel Smith
+	<dpsmith@apertussolutions.com>, Jason Andryuk <jandryuk@gmail.com>
+Subject: [PATCH v2 3/5] xen/version: Introduce non-truncating XENVER_* subops
+Date: Fri, 13 Jan 2023 23:08:33 +0000
+Message-ID: <20230113230835.29356-4-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20230113230835.29356-1-andrew.cooper3@citrix.com>
 References: <20230113230835.29356-1-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The arch_get_xen_caps() infrastructure is horribly inefficient, for something
-that is constant after features have been resolved on boot.
+Recently in XenServer, we have encountered problems caused by both
+XENVER_extraversion and XENVER_commandline having fixed bounds.
 
-Every instance used snprintf() to format constants into a string (which gets
-shorter when %d gets resolved!), which gets double buffered on the stack.
+More than just the invariant size, the APIs/ABIs also broken by typedef-ing an
+array, and using an unqualified 'char' which has implementation-specific
+signed-ness
 
-Switch to using string literals with the "3.0" inserted - these numbers
-haven't changed in 18 years (The Xen 3.0 release was Dec 5th 2005).
+Provide brand new ops, which are capable of expressing variable length
+strings, and mark the older ops as broken.
 
-Use initcalls to format the data into xen_cap_info, which is deliberately not
-of type xen_capabilities_info_t because a 1k array is a silly overhead for
-storing a maximum of 77 chars (the x86 version) and isn't liable to need any
-more space in the forseeable future.
-
-This speeds up the the XENVER_capabilities hypercall, but the purpose of the
-change is to allow us to introduce a better XENVER_* API that doesn't force us
-to put a 1k buffer on the stack.
+This fixes all issues around XENVER_extraversion being longer than 15 chars.
+More work is required to remove other assumptions about XENVER_commandline
+being 1023 chars long.
 
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
+CC: George Dunlap <George.Dunlap@eu.citrix.com>
 CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
 CC: Stefano Stabellini <sstabellini@kernel.org>
+CC: Wei Liu <wl@xen.org>
 CC: Julien Grall <julien@xen.org>
-CC: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-CC: Bertrand Marquis <bertrand.marquis@arm.com>
+CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
+CC: Daniel Smith <dpsmith@apertussolutions.com>
+CC: Jason Andryuk <jandryuk@gmail.com>
 
 v2:
- * New
+ * Remove xen_capabilities_info_t from the stack now that arch_get_xen_caps()
+   has gone.
+ * Use an arbitrary limit check much lower than INT_MAX.
+ * Use "buf" rather than "string" terminology.
+ * Expand the API comment.
 
-If Xen had strncpy(), then the hunk in do_xen_version() could read:
-
-  if ( deny )
-     memset(info, 0, sizeof(info));
-  else
-     strncpy(info, xen_cap_info, sizeof(info));
-
-to avoid double processing the start of the buffer, but given the ABI (must
-write 1k chars into the guest), I cannot see any way of taking info off the
-stack without some kind of strncpy_to_guest() API.
-
-Moving to __initcall() also allows new architectures to not implement this
-API, and I'm going to recommend strongly that they dont.  Its a very dubious
-way of signalling about 3 bits of info to the toolstack, and inefficient to
-use (the toolstack has to do string parsing on the result figure out if
-PV64/PV32/HVM is available).
+Tested by forcing XENVER_extraversion to be 20 chars long, and confirming that
+an untruncated version can be obtained.
 ---
- xen/arch/arm/setup.c        | 19 ++++++-------------
- xen/arch/x86/setup.c        | 31 ++++++++++---------------------
- xen/common/kernel.c         |  3 ++-
- xen/include/xen/hypercall.h |  2 --
- xen/include/xen/version.h   |  2 ++
- 5 files changed, 20 insertions(+), 37 deletions(-)
+ xen/common/kernel.c          | 62 +++++++++++++++++++++++++++++++++++++++++++
+ xen/include/public/version.h | 63 ++++++++++++++++++++++++++++++++++++++++++--
+ xen/include/xlat.lst         |  1 +
+ xen/xsm/flask/hooks.c        |  4 +++
+ 4 files changed, 128 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
-index 1f26f67b90e3..b71b4bc506e0 100644
---- a/xen/arch/arm/setup.c
-+++ b/xen/arch/arm/setup.c
-@@ -1194,24 +1194,17 @@ void __init start_xen(unsigned long boot_phys_offset,
-     switch_stack_and_jump(idle_vcpu[0]->arch.cpu_info, init_done);
- }
- 
--void arch_get_xen_caps(xen_capabilities_info_t *info)
-+static int __init init_xen_cap_info(void)
- {
--    /* Interface name is always xen-3.0-* for Xen-3.x. */
--    int major = 3, minor = 0;
--    char s[32];
--
--    (*info)[0] = '\0';
--
- #ifdef CONFIG_ARM_64
--    snprintf(s, sizeof(s), "xen-%d.%d-aarch64 ", major, minor);
--    safe_strcat(*info, s);
-+    safe_strcat(xen_cap_info, "xen-3.0-aarch64 ");
- #endif
-     if ( cpu_has_aarch32 )
--    {
--        snprintf(s, sizeof(s), "xen-%d.%d-armv7l ", major, minor);
--        safe_strcat(*info, s);
--    }
-+        safe_strcat(xen_cap_info, "xen-3.0-armv7l ");
-+
-+    return 0;
- }
-+__initcall(init_xen_cap_info);
- 
- /*
-  * Local variables:
-diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
-index 566422600d94..f80821469ece 100644
---- a/xen/arch/x86/setup.c
-+++ b/xen/arch/x86/setup.c
-@@ -1956,35 +1956,24 @@ void __init noreturn __start_xen(unsigned long mbi_p)
-     unreachable();
- }
- 
--void arch_get_xen_caps(xen_capabilities_info_t *info)
-+static int __init cf_check init_xen_cap_info(void)
- {
--    /* Interface name is always xen-3.0-* for Xen-3.x. */
--    int major = 3, minor = 0;
--    char s[32];
--
--    (*info)[0] = '\0';
--
-     if ( IS_ENABLED(CONFIG_PV) )
-     {
--        snprintf(s, sizeof(s), "xen-%d.%d-x86_64 ", major, minor);
--        safe_strcat(*info, s);
-+        safe_strcat(xen_cap_info, "xen-3.0-x86_64 ");
- 
-         if ( opt_pv32 )
--        {
--            snprintf(s, sizeof(s), "xen-%d.%d-x86_32p ", major, minor);
--            safe_strcat(*info, s);
--        }
-+            safe_strcat(xen_cap_info, "xen-3.0-x86_32p ");
-     }
-     if ( hvm_enabled )
--    {
--        snprintf(s, sizeof(s), "hvm-%d.%d-x86_32 ", major, minor);
--        safe_strcat(*info, s);
--        snprintf(s, sizeof(s), "hvm-%d.%d-x86_32p ", major, minor);
--        safe_strcat(*info, s);
--        snprintf(s, sizeof(s), "hvm-%d.%d-x86_64 ", major, minor);
--        safe_strcat(*info, s);
--    }
-+        safe_strcat(xen_cap_info,
-+                    "hvm-3.0-x86_32 "
-+                    "hvm-3.0-x86_32p "
-+                    "hvm-3.0-x86_64 ");
-+
-+    return 0;
- }
-+__initcall(init_xen_cap_info);
- 
- int __hwdom_init xen_in_range(unsigned long mfn)
- {
 diff --git a/xen/common/kernel.c b/xen/common/kernel.c
-index f7b1f65f373c..4fa1d6710115 100644
+index 4fa1d6710115..cc5d8247b04d 100644
 --- a/xen/common/kernel.c
 +++ b/xen/common/kernel.c
-@@ -30,6 +30,7 @@ enum system_state system_state = SYS_STATE_early_boot;
+@@ -24,6 +24,7 @@
+ CHECK_build_id;
+ CHECK_compile_info;
+ CHECK_feature_info;
++CHECK_varbuf;
+ #endif
  
- xen_commandline_t saved_cmdline;
- static const char __initconst opt_builtin_cmdline[] = CONFIG_CMDLINE;
-+char __ro_after_init xen_cap_info[128];
+ enum system_state system_state = SYS_STATE_early_boot;
+@@ -470,6 +471,59 @@ static int __init cf_check param_init(void)
+ __initcall(param_init);
+ #endif
  
- static int assign_integer_param(const struct kernel_param *param, uint64_t val)
- {
-@@ -509,7 +510,7 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
- 
-         memset(info, 0, sizeof(info));
-         if ( !deny )
--            arch_get_xen_caps(&info);
-+            safe_strcpy(info, xen_cap_info);
- 
-         if ( copy_to_guest(arg, info, ARRAY_SIZE(info)) )
-             return -EFAULT;
-diff --git a/xen/include/xen/hypercall.h b/xen/include/xen/hypercall.h
-index f307dfb59760..15b6be6ec818 100644
---- a/xen/include/xen/hypercall.h
-+++ b/xen/include/xen/hypercall.h
-@@ -56,6 +56,4 @@ common_vcpu_op(int cmd,
-     struct vcpu *v,
-     XEN_GUEST_HANDLE_PARAM(void) arg);
- 
--void arch_get_xen_caps(xen_capabilities_info_t *info);
--
- #endif /* __XEN_HYPERCALL_H__ */
-diff --git a/xen/include/xen/version.h b/xen/include/xen/version.h
-index 93c58773630c..4856ad1b446d 100644
---- a/xen/include/xen/version.h
-+++ b/xen/include/xen/version.h
-@@ -19,6 +19,8 @@ const char *xen_deny(void);
- const char *xen_build_info(void);
- int xen_build_id(const void **p, unsigned int *len);
- 
-+extern char xen_cap_info[128];
++static long xenver_varbuf_op(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
++{
++    struct xen_varbuf user_str;
++    const char *str = NULL;
++    size_t sz;
 +
- #ifdef BUILD_ID
- void xen_build_init(void);
- int xen_build_id_check(const Elf_Note *n, unsigned int n_sz,
++    switch ( cmd )
++    {
++    case XENVER_extraversion2:
++        str = xen_extra_version();
++        break;
++
++    case XENVER_changeset2:
++        str = xen_changeset();
++        break;
++
++    case XENVER_commandline2:
++        str = saved_cmdline;
++        break;
++
++    case XENVER_capabilities2:
++        str = xen_cap_info;
++        break;
++
++    default:
++        ASSERT_UNREACHABLE();
++        return -ENODATA;
++    }
++
++    sz = strlen(str);
++
++    if ( sz > KB(64) ) /* Arbitrary limit.  Avoid long-running operations. */
++        return -E2BIG;
++
++    if ( guest_handle_is_null(arg) ) /* Length request */
++        return sz;
++
++    if ( copy_from_guest(&user_str, arg, 1) )
++        return -EFAULT;
++
++    if ( user_str.len == 0 )
++        return -EINVAL;
++
++    if ( sz > user_str.len )
++        return -ENOBUFS;
++
++    if ( copy_to_guest_offset(arg, offsetof(struct xen_varbuf, buf),
++                              str, sz) )
++        return -EFAULT;
++
++    return sz;
++}
++
+ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ {
+     bool_t deny = !!xsm_xen_version(XSM_OTHER, cmd);
+@@ -683,6 +737,14 @@ long do_xen_version(int cmd, XEN_GUEST_HANDLE_PARAM(void) arg)
+ 
+         return sz;
+     }
++
++    case XENVER_extraversion2:
++    case XENVER_capabilities2:
++    case XENVER_changeset2:
++    case XENVER_commandline2:
++        if ( deny )
++            return -EPERM;
++        return xenver_varbuf_op(cmd, arg);
+     }
+ 
+     return -ENOSYS;
+diff --git a/xen/include/public/version.h b/xen/include/public/version.h
+index cbc4ef7a46e6..9287b5d3ff50 100644
+--- a/xen/include/public/version.h
++++ b/xen/include/public/version.h
+@@ -19,12 +19,20 @@
+ /* arg == NULL; returns major:minor (16:16). */
+ #define XENVER_version      0
+ 
+-/* arg == xen_extraversion_t. */
++/*
++ * arg == xen_extraversion_t.
++ *
++ * This API/ABI is broken.  Use XENVER_extraversion2 instead.
++ */
+ #define XENVER_extraversion 1
+ typedef char xen_extraversion_t[16];
+ #define XEN_EXTRAVERSION_LEN (sizeof(xen_extraversion_t))
+ 
+-/* arg == xen_compile_info_t. */
++/*
++ * arg == xen_compile_info_t.
++ *
++ * This API/ABI is broken and truncates data.
++ */
+ #define XENVER_compile_info 2
+ struct xen_compile_info {
+     char compiler[64];
+@@ -34,10 +42,20 @@ struct xen_compile_info {
+ };
+ typedef struct xen_compile_info xen_compile_info_t;
+ 
++/*
++ * arg == xen_capabilities_info_t.
++ *
++ * This API/ABI is broken.  Use XENVER_capabilities2 instead.
++ */
+ #define XENVER_capabilities 3
+ typedef char xen_capabilities_info_t[1024];
+ #define XEN_CAPABILITIES_INFO_LEN (sizeof(xen_capabilities_info_t))
+ 
++/*
++ * arg == xen_changeset_info_t.
++ *
++ * This API/ABI is broken.  Use XENVER_changeset2 instead.
++ */
+ #define XENVER_changeset 4
+ typedef char xen_changeset_info_t[64];
+ #define XEN_CHANGESET_INFO_LEN (sizeof(xen_changeset_info_t))
+@@ -95,6 +113,11 @@ typedef struct xen_feature_info xen_feature_info_t;
+  */
+ #define XENVER_guest_handle 8
+ 
++/*
++ * arg == xen_commandline_t.
++ *
++ * This API/ABI is broken.  Use XENVER_commandline2 instead.
++ */
+ #define XENVER_commandline 9
+ typedef char xen_commandline_t[1024];
+ 
+@@ -110,6 +133,42 @@ struct xen_build_id {
+ };
+ typedef struct xen_build_id xen_build_id_t;
+ 
++/*
++ * Container for an arbitrary variable length buffer.
++ */
++struct xen_varbuf {
++    uint32_t len;                          /* IN:  size of buf[] in bytes. */
++    unsigned char buf[XEN_FLEX_ARRAY_DIM]; /* OUT: requested data.         */
++};
++typedef struct xen_varbuf xen_varbuf_t;
++
++/*
++ * arg == xen_varbuf_t
++ *
++ * Equivalent to the original ops, but with a non-truncating API/ABI.
++ *
++ * These hypercalls can fail for a number of reasons.  All callers must handle
++ * -XEN_xxx return values appropriately.
++ *
++ * Passing arg == NULL is a request for size, which will be signalled with a
++ * non-negative return value.  Note: a return size of 0 may be legitimate for
++ * the requested subop.
++ *
++ * Otherwise, the input xen_varbuf_t provides the size of the following
++ * buffer.  Xen will fill the buffer, and return the number of bytes written
++ * (e.g. if the input buffer was longer than necessary).
++ *
++ * Some subops may return binary data.  Some subops may be expected to return
++ * textural data.  These are returned without a NUL terminator, and while the
++ * contents is expected to be ASCII/UTF-8, Xen makes no guarentees to this
++ * effect.  e.g. Xen has no control over the formatting used for the command
++ * line.
++ */
++#define XENVER_extraversion2 11
++#define XENVER_capabilities2 12
++#define XENVER_changeset2    13
++#define XENVER_commandline2  14
++
+ #endif /* __XEN_PUBLIC_VERSION_H__ */
+ 
+ /*
+diff --git a/xen/include/xlat.lst b/xen/include/xlat.lst
+index d601a8a98421..762c8a77fb27 100644
+--- a/xen/include/xlat.lst
++++ b/xen/include/xlat.lst
+@@ -172,6 +172,7 @@
+ ?	build_id                        version.h
+ ?	compile_info                    version.h
+ ?	feature_info                    version.h
++?	varbuf                          version.h
+ ?	xenoprof_init			xenoprof.h
+ ?	xenoprof_passive		xenoprof.h
+ ?	flask_access			xsm/flask_op.h
+diff --git a/xen/xsm/flask/hooks.c b/xen/xsm/flask/hooks.c
+index 78225f68c15c..a671dcd0322e 100644
+--- a/xen/xsm/flask/hooks.c
++++ b/xen/xsm/flask/hooks.c
+@@ -1777,15 +1777,18 @@ static int cf_check flask_xen_version(uint32_t op)
+         /* These sub-ops ignore the permission checks and return data. */
+         return 0;
+     case XENVER_extraversion:
++    case XENVER_extraversion2:
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_EXTRAVERSION, NULL);
+     case XENVER_compile_info:
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_COMPILE_INFO, NULL);
+     case XENVER_capabilities:
++    case XENVER_capabilities2:
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_CAPABILITIES, NULL);
+     case XENVER_changeset:
++    case XENVER_changeset2:
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_CHANGESET, NULL);
+     case XENVER_pagesize:
+@@ -1795,6 +1798,7 @@ static int cf_check flask_xen_version(uint32_t op)
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_GUEST_HANDLE, NULL);
+     case XENVER_commandline:
++    case XENVER_commandline2:
+         return avc_has_perm(dsid, SECINITSID_XEN, SECCLASS_VERSION,
+                             VERSION__XEN_COMMANDLINE, NULL);
+     case XENVER_build_id:
 -- 
 2.11.0
 
