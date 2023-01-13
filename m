@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E30566A525
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 22:32:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477540.740271 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E94A66A63F
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 23:54:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477546.740283 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGReE-0005S1-EN; Fri, 13 Jan 2023 21:31:38 +0000
+	id 1pGSvB-00052o-EI; Fri, 13 Jan 2023 22:53:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477540.740271; Fri, 13 Jan 2023 21:31:38 +0000
+Received: by outflank-mailman (output) from mailman id 477546.740283; Fri, 13 Jan 2023 22:53:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGReE-0005Pn-Aw; Fri, 13 Jan 2023 21:31:38 +0000
-Received: by outflank-mailman (input) for mailman id 477540;
- Fri, 13 Jan 2023 21:31:37 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2WVX=5K=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
- id 1pGReD-0005Pe-5D
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 21:31:37 +0000
-Received: from sonic316-55.consmr.mail.gq1.yahoo.com
- (sonic316-55.consmr.mail.gq1.yahoo.com [98.137.69.31])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a5609782-9389-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 22:31:34 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic316.consmr.mail.gq1.yahoo.com with HTTP; Fri, 13 Jan 2023 21:31:30 +0000
-Received: by hermes--production-ne1-5648bd7666-rmxcl (Yahoo Inc. Hermes SMTP
- Server) with ESMTPA ID a9fd17d81623f8a2df35139df8a71637; 
- Fri, 13 Jan 2023 21:31:29 +0000 (UTC)
+	id 1pGSvB-000507-BO; Fri, 13 Jan 2023 22:53:13 +0000
+Received: by outflank-mailman (input) for mailman id 477546;
+ Fri, 13 Jan 2023 22:53:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LVbI=5K=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1pGSv9-000501-MU
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 22:53:11 +0000
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0aa51f95-9395-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 23:53:08 +0100 (CET)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id 433D95C00B6;
+ Fri, 13 Jan 2023 17:53:05 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Fri, 13 Jan 2023 17:53:05 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 13 Jan 2023 17:53:02 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,124 +43,228 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a5609782-9389-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1673645490; bh=zSS9bg22QrDSgJE/e9kb2PDlrQOOObt1PP1nAHObc1Y=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=pqyKqsArVAcVi1TrG0HJ4FWK3gdVGBK9YNKZdem7dmGoLf8HEfE9kVBIPJaOKbDxikQeCXSsapNXVFY+O1i3m53SK8EdE6LjWgnC1Zm3e2rx7ecCnf5zOginfDO8vt5pjrsQvd7q7YSlUh8Vms/1OYcJqkyLBOPbfhTd97e/WrLv7qokqdTXVJ71RFlB79VmQBect1gqgy703blyyLtd4aZLNvC1YTwbRso+vGFCutPnmjEKM4FD8nWejLS32Pd1NWgxIfxGcp845yyfxtbG1pf7F5gJA/Jkg6kCxqWLeO1ycikifdf2zjp4/ap+k3kSWTziwu3pXDkjqNjGZRbzQw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1673645490; bh=VKGF0VO/0VjR57ED+43hWAQheJ7Aqc6aXborCs1N5YA=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=oH0oU4dcyrx4/8f8pqIDKM9Qg1KDTTMAgCnNvrkcVV8INuX8dnIlEAyxMqAhv1XH9ymocfrVGYE4aJdtTiJjkf51xYK3FmuJ54mWe94gFZriXdBKFIJgFKpuMscS3AMxuTG3mPHm92buOB37fKxYPebvNZQKF6kgZvq1J20o0FhWdAg3ENcT0+uL3qUnySy9HOl00fzTjLMsSJoB0kbUBSQ7VBOfN1PYL2m23QdXpEpkjfQqUiUtamH81LALRDT09ym3ObfY6RU6oARLBj1j+gGjCrgTd8DDgvWzFmdY+eiMuYNoOsOL+QQe2cQJa8uWU1XYUrVK2l5XTx78+oOhSQ==
-X-YMail-OSG: xC1oVbAVM1lS749HRPIGTcqAcF_WTml09OpNX5v1hv7ie2F6eIxLFNG2s.UbZhm
- .5TdgaGXi_J2BPZQz2ahLR0C.SHmnXVzeK7z8ro86RQgSOgvgeDQTotYJLVfX8a8Cbhn8DcbaPBq
- 9nQaP4r8LwekD6vf_ZCm9XSP2pW.phlkggvZprO_e7_V_67DSja92zb2iuQYkaQn0TyRMbJHHMni
- 6J0C2YzSDJyrk1b.JOZpBPFxC32CDUU9v.ebjL3KiiX6n4mmSU2SJYdvtvJ_OZTc7T7jL3ZMcfEg
- R3gsK2rWaQ1LaPO1hzUTk4Sg8ZXMuvb2RzY3Pn31rHghfZ620PadguxbY4vJfPxa11w5a_8h3x_E
- 3NcJVwX4jt3dEpwFXHd5A_QZrUVAeVGWcuzrho7LoJ7zCHIUuVT.2VrwoQCgnjSCvYBq6axbIldT
- 0RENBMdqjyY8DksE9jLSBdOdUaSV16snZlusWreA4clCun.MjRZSi2ZXfG9iI5sjLtRVNqNRFWaN
- p.R8w_2qW0qS32uP74J9EG.O5JoCE7Oy6.4OP_w5owD47XnY5stiQuUNFSKMTccJcFB1iz5mliQ.
- rGZexjlakp3labgBKudZmXoFU1PXyDFIVDIfw.PxAO.3.AICRhzprxcsXN4yYzHuqD.Oofn3FSJe
- vb0Bk0ATPrXZO9lXmAScXhu1qlfqW1yVEEQGFToJQ2THrx.BFQYcWAlKqa3XG1ycKkTkiHU1dFT2
- 0QsDABPw76RjwPcxA4fVb.MF6maYRyDsgFAY1Nw2UUuW_T7m2WxK62L9PP9NdKboQU8ujSdoo1Ug
- 52kpsqeOb9D0EyCGuSQm6rw2xThdLKMSVfDVG23FDYXm96olpsaqT0Q1rNglZFYTlJ2RfzLgZky7
- JOf21Ay7Kn9F9iPoapncy_1PR90Wo7aTZ1hjnoYY3WmUQSHtK.vcAEoDLus9V5XUgBUT1dBoAorj
- TVEbKiOY90rnz3G7zuET4yqpf8iDkTVvVKsVwL9xeIxArCOS3uwJ2.0wvOP2uBvJKjx6U4oghW73
- WzV846QDUGSGpBcOTDFdxhaDpPPlp46wIprxJeGy_ALC4xNx8Suub.iZ2gCTIk2zjeH2lgQVuUYJ
- N0YiBqNiq90R1c6ikIykklF_1DLXJiMYcqvbeW4AduoCy35fTik2nOgL238WTA3X7mos6INsvE6.
- FBMCkPnbtkn6Gn9aHEXSfLzPUxywkNqwfHrLGSvG0E5YlSYqXNx1cNvMI4d5ShJdfhZHAr3vqM40
- sLqIuA3hjl1vOgPkTih7JcdBXlSKFdZZYopeknm3XLZ0rv4hUBL_.q4RhSRb0WjE2jlwLDkO41Ng
- 8b2sFo.IlA6lKK4qlEzjjLpmLA7c1hOW5VqOvYQ64oGKMfh.tOM1giHXvmnPJRSol0b6YZwRPn.y
- Hg2hn8.3EwdD4x4Mim1GfgNPstO6HCvIrENcN5ScgbsScY_4kW3b4svoedD.efW67_48kniRh6cN
- 51LVzw1.tCbm1PYjbhsr3e9_N29sd7usejKUCR53upZ1rxxvFlOfjC9aL571QUI1iE5TrC5SCi6V
- r3g_cnQfHjSf.gMI9L7WfftsstdRs9LLyk9Ow5VqDWfA49FHiOERFcZRXP8Qp.cUa42Lcz9NzWMO
- mTH3YX1aSTBJW2h796FPf460LUGvFiIIQc7GmcUOWXdcA6f_8Yd3JHimtZyqWiJfmbMsZ09pe9SQ
- 0CZWQm_ySINs04qVyEJPQo162lulW.MnRh_iWMcZ3z.zyngR_ubAo_LoL7eGG_G0mrttcYcVDWqa
- qDWMd9Jqj55yS7mHd3MKKY7AqTnzKhFQJar1oVuHFg5pkQr1bBJrTbhim2wgIph3MNsCm.53fiOL
- nnU9_kOGtVS9NUJAgISu_7K5Es42j3owsl_ETBjNTIRm6l_dyBtjrHteZA21AnlO9gF3QAjRwH91
- _YNtXNQUaqttY0InnVpb673ZG4avuPBOz8GtC7QW_cStKySk0m3GvHT.KozyPToyIUr3KlbaWWy2
- 4Yy8_Kqlk_CMYYF2BXggRh9W2RWtsq2rkprWpthrbn0npzqZfKkr6pVjQ2W.nEWZdmRmWNdzn4C7
- VQEt8UoG6Q.oBfpSX75FRIq76F4Q2IlIA.V.8z.FI3eRItQQOeiaOSVgWmk1nMtzWLyqxT7o5Xq0
- XuWnLecQ1nqn0S2F5KSHvOyntFuxV1NFBVTLjyWlE6lOanb2SVSruw6tASR6X4SarkjIaJctKZM0
- Sv84n_u9IOfo-
-X-Sonic-MF: <brchuckz@aim.com>
-Message-ID: <88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
-Date: Fri, 13 Jan 2023 16:31:26 -0500
+X-Inumbo-ID: 0aa51f95-9395-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm2; t=1673650385; x=
+	1673736785; bh=lKCV0ycAY0SFtq1SYJ0F5dfFWAI3C/PKOUtKuY5T64U=; b=O
+	KFd4cQE64z7byI+zm0c8nD+rqAxFmbGCCZ3Vh/GS10spMDBCdu2RoohH4GfizyP7
+	vMHfF9Q3WqmBl2tCCbTlvQDj9C1AU71gp0LMeVLamWIKmQOJVj2WgoTcd2glt9CD
+	NJU93AEM0M81j6mGmV+a78IrElGBu8J+WY2pq9Rph2PggMehhJ6Lxs8XMLC8+1xh
+	dPPhBk46PubiUYUtfMLpaPP2foH7VbmabHbuSpPNeu7qlLnMzTf+BBW3Xn2dtM2u
+	cHgF2KFFaOcui/CsmFJQNBOgoIuHOECmvhFMGxX+AdzcNb0brcCxrcIhfsuGLrL8
+	jVBLMoKogB89F8lLoGumA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1673650385; x=1673736785; bh=lKCV0ycAY0SFtq1SYJ0F5dfFWAI3
+	C/PKOUtKuY5T64U=; b=h7tHLk4So03Ss4ZbzU95hbw5XdcLitSlfxF8xEqBfY3j
+	joqrFC7z74bAP8YAbP5esYISC2yGIU8b1Egx55R5djKpVEJSvNdibHDK/PK9zCGF
+	uOS8o3PHCloegp5m1Ft21Sarose/LPAvAQvydu7FsvL5YMgF3f77vlyV9z95U4vm
+	2L/cmX66SFqzKcEUawqtUm1D1ikbDK+A0pHO88VUEl3q5K9TCjVn8xei29jJOiZa
+	aqdN75PUUdaKyJvuaB6Raic4lKaYE7MtPNxwJP4FMeP+WLad4Rr3GBf1S33e/Eq0
+	88eN3GjPn6Ggd+zIshPGDz8T8T9PfoyZ+f6JrITEyg==
+X-ME-Sender: <xms:0ODBY8DY6RuCSKy1hKs8ei14XotYeEgNfvDM51g94ptZLn5i3BJQNQ>
+    <xme:0ODBY-jlQ5TmHwJi7OFBAhA4mttip_uggmMKVULoKV-TlKfkIkumA4MHMTnCSTYF7
+    Fo9YqvBg-Vb_w>
+X-ME-Received: <xmr:0ODBY_mrtzrdIrJ9DzrMo5QCBskDEtngeyvUB4IrnxQSIPGrbl9NtRMrR6X-EjYvJTmQq547ut3C11F1URb8S6wZWIpb8SA67g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrleelgddtgecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpefgudel
+    teefvefhfeehieetleeihfejhfeludevteetkeevtedtvdegueetfeejudenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:0ODBYyxbJcG7imjuq8Dklu6XNbYfj9boTjfAqr2_DvCLFB5rN_rtKA>
+    <xmx:0ODBYxQepT3qyQlR4yI0nr6pPJ7s4J7b8tINsEXME9CfYWK1N_-OIg>
+    <xmx:0ODBY9ZiqivvK03r8PZFSikxrh3ofaufnbSumwH3KxvqEhXTH6DbzQ>
+    <xmx:0eDBYwLcidQbQg_3PNESAxuO6rWVzK0gKXNvMRH9QqCW17WYpgZuLg>
+Feedback-ID: i1568416f:Fastmail
+Date: Fri, 13 Jan 2023 23:52:59 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, linux-pm@vger.kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Len Brown <len.brown@intel.com>,
+	Pavel Machek <pavel@ucw.cz>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/acpi: fix suspend with Xen
+Message-ID: <Y8Hgy4UHxKqh0T2T@mail-itl>
+References: <20230113140610.7132-1-jgross@suse.com>
+ <CAJZ5v0gP_NUeQimn21tJuUjpMAOW_wFrRe4jstN13So_4_T4QQ@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-To: Igor Mammedov <imammedo@redhat.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>,
- Bernhard Beschow <shentey@gmail.com>, qemu-devel@nongnu.org,
- Stefano Stabellini <sstabellini@kernel.org>,
- Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Paolo Bonzini <pbonzini@redhat.com>,
- Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
- <philmd@linaro.org>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
- <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
- <20230110030331-mutt-send-email-mst@kernel.org>
- <a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
- <D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
- <9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
- <7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
- <20230112180314-mutt-send-email-mst@kernel.org>
- <128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
- <20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-Content-Language: en-US
-From: Chuck Zmudzinski <brchuckz@aol.com>
-In-Reply-To: <20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailer: WebService/1.1.21062 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="4m4xLSz0QPn9icEC"
+Content-Disposition: inline
+In-Reply-To: <CAJZ5v0gP_NUeQimn21tJuUjpMAOW_wFrRe4jstN13So_4_T4QQ@mail.gmail.com>
 
-On 1/13/23 4:33 AM, Igor Mammedov wrote:
-> On Thu, 12 Jan 2023 23:14:26 -0500
-> Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> 
->> On 1/12/23 6:03 PM, Michael S. Tsirkin wrote:
->> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wrote:  
->> >> I think the change Michael suggests is very minimalistic: Move the if
->> >> condition around xen_igd_reserve_slot() into the function itself and
->> >> always call it there unconditionally -- basically turning three lines
->> >> into one. Since xen_igd_reserve_slot() seems very problem specific,
->> >> Michael further suggests to rename it to something more general. All
->> >> in all no big changes required.  
->> > 
->> > yes, exactly.
->> >   
->> 
->> OK, got it. I can do that along with the other suggestions.
-> 
-> have you considered instead of reservation, putting a slot check in device model
-> and if it's intel igd being passed through, fail at realize time  if it can't take
-> required slot (with a error directing user to fix command line)?
 
-Yes, but the core pci code currently already fails at realize time
-with a useful error message if the user tries to use slot 2 for the
-igd, because of the xen platform device which has slot 2. The user
-can fix this without patching qemu, but having the user fix it on
-the command line is not the best way to solve the problem, primarily
-because the user would need to hotplug the xen platform device via a
-command line option instead of having the xen platform device added by
-pc_xen_hvm_init functions almost immediately after creating the pci
-bus, and that delay in adding the xen platform device degrades
-startup performance of the guest.
+--4m4xLSz0QPn9icEC
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 13 Jan 2023 23:52:59 +0100
+From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Juergen Gross <jgross@suse.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, linux-pm@vger.kernel.org,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, Len Brown <len.brown@intel.com>,
+	Pavel Machek <pavel@ucw.cz>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH] x86/acpi: fix suspend with Xen
 
-> That could be less complicated than dealing with slot reservations at the cost of
-> being less convenient.
+On Fri, Jan 13, 2023 at 08:40:15PM +0100, Rafael J. Wysocki wrote:
+> On Fri, Jan 13, 2023 at 3:06 PM Juergen Gross <jgross@suse.com> wrote:
+> >
+> > Commit f1e525009493 ("x86/boot: Skip realmode init code when running as
+> > Xen PV guest") missed one code path accessing real_mode_header, leading
+> > to dereferencing NULL when suspending the system under Xen:
+> >
+> >     [  348.284004] PM: suspend entry (deep)
+> >     [  348.289532] Filesystems sync: 0.005 seconds
+> >     [  348.291545] Freezing user space processes ... (elapsed 0.000 sec=
+onds) done.
+> >     [  348.292457] OOM killer disabled.
+> >     [  348.292462] Freezing remaining freezable tasks ... (elapsed 0.10=
+4 seconds) done.
+> >     [  348.396612] printk: Suspending console(s) (use no_console_suspen=
+d to debug)
+> >     [  348.749228] PM: suspend devices took 0.352 seconds
+> >     [  348.769713] ACPI: EC: interrupt blocked
+> >     [  348.816077] BUG: kernel NULL pointer dereference, address: 00000=
+0000000001c
+> >     [  348.816080] #PF: supervisor read access in kernel mode
+> >     [  348.816081] #PF: error_code(0x0000) - not-present page
+> >     [  348.816083] PGD 0 P4D 0
+> >     [  348.816086] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> >     [  348.816089] CPU: 0 PID: 6764 Comm: systemd-sleep Not tainted 6.1=
+=2E3-1.fc32.qubes.x86_64 #1
+> >     [  348.816092] Hardware name: Star Labs StarBook/StarBook, BIOS 8.0=
+1 07/03/2022
+> >     [  348.816093] RIP: e030:acpi_get_wakeup_address+0xc/0x20
+> >
+> > Fix that by adding an indirection for acpi_get_wakeup_address() which
+> > Xen PV dom0 can use to return a dummy non-zero wakeup address (this
+> > address won't ever be used, as the real suspend handling is done by the
+> > hypervisor).
+>=20
+> How exactly does this help?
 
-And also a cost of reduced startup performance.
+By not accessing calling acpi_get_wakeup_address() (with the patch
+renamed to x86_acpi_get_wakeup_address()) during PV dom0 suspend, which
+otherwise would access not initialized real_mode_header.
 
-However, the performance hit can be prevented by assigning slot
-3 instead of slot 2 for the xen platform device if igd passthrough
-is configured on the command line instead of doing slot reservation,
-but there would still be less convenience and, for libxl users, an
-inability to easily configure the command line so that the igd can
-still have slot 2 without a hacky and error-prone patch to libxl to
-deal with this problem.
+I confirm this patch fixes the issue.
 
-I did post a patch on xen-devel to fix this using libxl, but so far
-it has not yet been reviewed and I mentioned in that patch that the
-approach of patching qemu so qemu reserves slot 2 for the igd is less
-prone to coding errors and is easier to maintain than the patch that
-would be required to implement the fix in libxl.
+> > Fixes: f1e525009493 ("x86/boot: Skip realmode init code when running as=
+ Xen PV guest")
+> > Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingsl=
+ab.com>
+> > Signed-off-by: Juergen Gross <jgross@suse.com>
+> > ---
+> >  arch/x86/include/asm/acpi.h  | 2 +-
+> >  arch/x86/kernel/acpi/sleep.c | 3 ++-
+> >  include/xen/acpi.h           | 9 +++++++++
+> >  3 files changed, 12 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
+> > index 65064d9f7fa6..137259ff8f03 100644
+> > --- a/arch/x86/include/asm/acpi.h
+> > +++ b/arch/x86/include/asm/acpi.h
+> > @@ -61,7 +61,7 @@ static inline void acpi_disable_pci(void)
+> >  extern int (*acpi_suspend_lowlevel)(void);
+> >
+> >  /* Physical address to resume after wakeup */
+> > -unsigned long acpi_get_wakeup_address(void);
+> > +extern unsigned long (*acpi_get_wakeup_address)(void);
+> >
+> >  /*
+> >   * Check if the CPU can handle C2 and deeper
+> > diff --git a/arch/x86/kernel/acpi/sleep.c b/arch/x86/kernel/acpi/sleep.c
+> > index 3b7f4cdbf2e0..1a3cd5e24cd0 100644
+> > --- a/arch/x86/kernel/acpi/sleep.c
+> > +++ b/arch/x86/kernel/acpi/sleep.c
+> > @@ -33,10 +33,11 @@ static char temp_stack[4096];
+> >   * Returns the physical address where the kernel should be resumed aft=
+er the
+> >   * system awakes from S3, e.g. for programming into the firmware wakin=
+g vector.
+> >   */
+> > -unsigned long acpi_get_wakeup_address(void)
+> > +static unsigned long x86_acpi_get_wakeup_address(void)
+> >  {
+> >         return ((unsigned long)(real_mode_header->wakeup_start));
+> >  }
+> > +unsigned long (*acpi_get_wakeup_address)(void) =3D x86_acpi_get_wakeup=
+_address;
+> >
+> >  /**
+> >   * x86_acpi_enter_sleep_state - enter sleep state
+> > diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+> > index b1e11863144d..7e1e5dbfb77c 100644
+> > --- a/include/xen/acpi.h
+> > +++ b/include/xen/acpi.h
+> > @@ -56,6 +56,12 @@ static inline int xen_acpi_suspend_lowlevel(void)
+> >         return 0;
+> >  }
+> >
+> > +static inline unsigned long xen_acpi_get_wakeup_address(void)
+> > +{
+> > +       /* Just return a dummy non-zero value, it will never be used. */
+> > +       return 1;
+> > +}
+> > +
+> >  static inline void xen_acpi_sleep_register(void)
+> >  {
+> >         if (xen_initial_domain()) {
+> > @@ -65,6 +71,9 @@ static inline void xen_acpi_sleep_register(void)
+> >                         &xen_acpi_notify_hypervisor_extended_sleep);
+> >
+> >                 acpi_suspend_lowlevel =3D xen_acpi_suspend_lowlevel;
+> > +#ifdef CONFIG_ACPI_SLEEP
+> > +               acpi_get_wakeup_address =3D xen_acpi_get_wakeup_address;
+> > +#endif
+> >         }
+> >  }
+> >  #else
+> > --
+> > 2.35.3
+> >
+
+--=20
+Best Regards,
+Marek Marczykowski-G=C3=B3recki
+Invisible Things Lab
+
+--4m4xLSz0QPn9icEC
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPB4MsACgkQ24/THMrX
+1yw2swgAk/5GqFX39AKLVH88v8kknH2HL3VTuIzqJY8+1FDQ5c7aWElrJp/WmgGR
+EaqALVjRocUTHRX6/rIyg5l7R3drsEOfNLa8tNd5jlWWXRDwHlrf+eXBTlQZs9zX
+a8mLaFADPonMM4XkiPfQutk/qpklvNf2ijAEfDiwsbODHa28Uzif2ysL2ZlTF2CA
+rVxwY4YY9ndRkaBSR7Y/UCMP5P/f7NtbjD2UPcZVDHl0xNp89geMBuSNVHVEcMXn
+tOivOdQ6IpczX6bCME1R3ewDNud+aFznTPyW9Q+ZQmYPLKXF+nzO1lQR5a/gBxyi
+y1OfQ7J0s3r6JaQYvmF6O7JCgHNQ+A==
+=8flr
+-----END PGP SIGNATURE-----
+
+--4m4xLSz0QPn9icEC--
 
