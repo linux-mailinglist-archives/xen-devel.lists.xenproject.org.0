@@ -2,37 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3D84669025
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 09:10:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476829.739203 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25738669054
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 09:14:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476835.739214 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGF8m-0007PR-KA; Fri, 13 Jan 2023 08:10:20 +0000
+	id 1pGFCR-00082H-6N; Fri, 13 Jan 2023 08:14:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476829.739203; Fri, 13 Jan 2023 08:10:20 +0000
+Received: by outflank-mailman (output) from mailman id 476835.739214; Fri, 13 Jan 2023 08:14:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGF8m-0007MG-FO; Fri, 13 Jan 2023 08:10:20 +0000
-Received: by outflank-mailman (input) for mailman id 476829;
- Fri, 13 Jan 2023 08:10:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3K7w=5K=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pGF8k-0007M6-GO
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 08:10:18 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b70e21f8-9319-11ed-91b6-6bf2151ebd3b;
- Fri, 13 Jan 2023 09:10:17 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id vm8so50474685ejc.2
- for <xen-devel@lists.xenproject.org>; Fri, 13 Jan 2023 00:10:17 -0800 (PST)
-Received: from [192.168.1.93] (adsl-139.109.242.225.tellas.gr.
- [109.242.225.139]) by smtp.gmail.com with ESMTPSA id
- g2-20020a170906538200b0085c3f08081esm3431892ejo.13.2023.01.13.00.10.16
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Jan 2023 00:10:16 -0800 (PST)
+	id 1pGFCR-0007zd-2t; Fri, 13 Jan 2023 08:14:07 +0000
+Received: by outflank-mailman (input) for mailman id 476835;
+ Fri, 13 Jan 2023 08:14:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=O/z9=5K=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pGFCP-0007zX-Lu
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 08:14:05 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 3d6ee2ea-931a-11ed-b8d0-410ff93cb8f0;
+ Fri, 13 Jan 2023 09:14:03 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C6444601CA;
+ Fri, 13 Jan 2023 08:14:02 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7BAEF13918;
+ Fri, 13 Jan 2023 08:14:02 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ChC1HMoSwWMcTgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 13 Jan 2023 08:14:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,111 +51,145 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b70e21f8-9319-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jLVRvKluyxNeRdZUwXoZTpFf6e3KVsHC6MuFrshYUQ0=;
-        b=G6jZ6mSMyAArHIk9Tdtxxg+YG704AD1UGfK5U0JGphQYJM76y2WwU8nc5m4BspUsF6
-         97+f6kArUNV7v1pKh9SIbqSCE6oOxtWgqO0ZXtRbDnpTdu21IHdv2TJ6or/UszF/YmnK
-         JFaK7tkm0D6FJbsBlNPdf/ct+7He99JsXXgewxt29E8na7m4XGTC1CpWI5dkGWR6XewO
-         JFfM6hK4EBCTFEpqahq30L23PEMbEggmft19pd33MWLWSKtQH/bAsXilz5knCkib6o5R
-         RyMkeo0YICUPx/JRwwcHGRWhBWEuIL0S9zP14JNOGEU+Kt6rpZjhqb3gKzJ3FDdMRDtr
-         Gv/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=jLVRvKluyxNeRdZUwXoZTpFf6e3KVsHC6MuFrshYUQ0=;
-        b=P/sbUcdV08FVME/8/pr9f2m5V7JEOQvYJdGaIQ6X9CtgBuofkYbtQ/DME6odKKD8KL
-         qkxvjUUfoN/IhMUYYbPia5y1flar+fspP7EcC6zeO0kDUVvsDLjfmBaJsvsU1Zwxm2S1
-         ESufJihYwZRTMiL0uNTZzeVtFPf42xz+nYdtDhb1VIzviPDoHcIwOlD0E8Kf3HENO8XX
-         s690L1Zp8o4PM7vm/9XwAEKSyQRQPc+VyifRIEqpsPWRHpFQR88YQ5pwX/N/d7t3bYw8
-         KZaejpKYivtnqATG94g2HEthcvfeNe2hQUn/0zkUhhVK2sRXXdg8nh6V34MD75s2nQt0
-         +ioA==
-X-Gm-Message-State: AFqh2kqS1glJTg1JQ+292TrfqFN9OllFUchpgRsnoY94AHKnMGRHg2na
-	0Rp7qVqi4w50+evE1bpPmqA=
-X-Google-Smtp-Source: AMrXdXttuK5yqRd+vPPA3pxoKjyWE0YytZTEfIF+frYYOQiH1tDMfrHNDZrJ2I7iiGeJEqMlqzLwYQ==
-X-Received: by 2002:a17:906:86cc:b0:869:3b49:35c2 with SMTP id j12-20020a17090686cc00b008693b4935c2mr2134775ejy.61.1673597417044;
-        Fri, 13 Jan 2023 00:10:17 -0800 (PST)
-Message-ID: <cf9a8caa-1ebd-b6cb-a1f8-c43fbe5ee381@gmail.com>
-Date: Fri, 13 Jan 2023 10:10:15 +0200
+X-Inumbo-ID: 3d6ee2ea-931a-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1673597642; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C3+MDGHRrGYRh8vwODotk/nPLYTNxff0308LBuGGZfg=;
+	b=RYIeljUuSxnit3GLJZrTuqeePPe+Chmf7EKuF1QvSH4wKzgNSdpOW7xncMxFj3H2HfYNKa
+	5poSrglahhvOdssZhZkmGzR0+Ws2msk3QdJgYfWyPLmhairkZf/z5e7xmVG1XnR1RpqyJe
+	lCFA3RzlYyosLPIn9sjefy0mAL0ZK9E=
+Message-ID: <457cc617-0cd2-fef8-c095-925c3c56c597@suse.com>
+Date: Fri, 13 Jan 2023 09:14:02 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v2 3/8] x86/iommu: iommu_igfx, iommu_qinval and
- iommu_snoop are VT-d specific
+ Thunderbird/102.6.1
+Subject: Re: [RFC][PATCH 1/6] x86/power: De-paravirt restore_processor_state()
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Paul Durrant <paul@xen.org>, =?UTF-8?Q?Roger_Pau_Monn=c3=a9?=
- <roger.pau@citrix.com>, xen-devel@lists.xenproject.org
-References: <20230104084502.61734-1-burzalodowa@gmail.com>
- <20230104084502.61734-4-burzalodowa@gmail.com>
- <f2d68a4d-b9b3-7700-961d-f6888edfb858@suse.com>
- <f4771b3d-63e8-a44b-bdaf-4e2823f43fb8@gmail.com>
- <4bc3f2f6-9bf4-5810-89e3-526470e72d85@gmail.com>
- <d4105a37-e24f-96b6-f0f3-5990768fa8f5@suse.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <d4105a37-e24f-96b6-f0f3-5990768fa8f5@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+ Joan Bruguera <joanbrugueram@gmail.com>
+Cc: linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, Kees Cook <keescook@chromium.org>,
+ mark.rutland@arm.com
+References: <20230112143141.645645775@infradead.org>
+ <20230112143825.584639584@infradead.org>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20230112143825.584639584@infradead.org>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------o7qDRswZ9yx5PFp5BINIokek"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------o7qDRswZ9yx5PFp5BINIokek
+Content-Type: multipart/mixed; boundary="------------0d4qDtsPpoGsM03O4Be40BeT";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+ Joan Bruguera <joanbrugueram@gmail.com>
+Cc: linux-kernel@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+ xen-devel <xen-devel@lists.xenproject.org>, Jan Beulich <jbeulich@suse.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, Kees Cook <keescook@chromium.org>,
+ mark.rutland@arm.com
+Message-ID: <457cc617-0cd2-fef8-c095-925c3c56c597@suse.com>
+Subject: Re: [RFC][PATCH 1/6] x86/power: De-paravirt restore_processor_state()
+References: <20230112143141.645645775@infradead.org>
+ <20230112143825.584639584@infradead.org>
+In-Reply-To: <20230112143825.584639584@infradead.org>
+
+--------------0d4qDtsPpoGsM03O4Be40BeT
+Content-Type: multipart/mixed; boundary="------------9ofMRWg0rFZOPtEySebYEw6A"
+
+--------------9ofMRWg0rFZOPtEySebYEw6A
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: base64
 
+T24gMTIuMDEuMjMgMTU6MzEsIFBldGVyIFppamxzdHJhIHdyb3RlOg0KPiBTaW5jZSBYZW4g
+UFYgZG9lc24ndCB1c2UgcmVzdG9yZV9wcm9jZXNzb3Jfc3RhdGUoKSwgYW5kIHdlJ3JlIGdv
+aW5nIHRvDQo+IGhhdmUgdG8gYXZvaWQgQ0FMTC9SRVQgdW50aWwgYXQgbGVhc3QgR1MgaXMg
+cmVzdG9yZWQsIGRlLXBhcmF2aXJ0IHRoZQ0KPiBlYXN5IGJpdHMuDQo+IA0KPiBTaWduZWQt
+b2ZmLWJ5OiBQZXRlciBaaWpsc3RyYSAoSW50ZWwpIDxwZXRlcnpAaW5mcmFkZWFkLm9yZz4N
+Cg0KUmV2aWV3ZWQtYnk6IEp1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCg0Kd2l0
+aCBvbmUgcmVtYXJrOiBzYXZlX3Byb2Nlc3Nvcl9zdGF0ZSgpIGNvdWxkIGJlIGNoYW5nZWQg
+dGhlIHNhbWUgd2F5Lg0KDQoNCkp1ZXJnZW4NCg0K
+--------------9ofMRWg0rFZOPtEySebYEw6A
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-On 1/12/23 17:53, Jan Beulich wrote:
-> On 12.01.2023 16:43, Xenia Ragiadakou wrote:
->> On 1/12/23 13:49, Xenia Ragiadakou wrote:
->>> On 1/12/23 13:31, Jan Beulich wrote:
->>>> On 04.01.2023 09:44, Xenia Ragiadakou wrote:
->>>>> --- a/xen/include/xen/iommu.h
->>>>> +++ b/xen/include/xen/iommu.h
->>>>> @@ -74,9 +74,13 @@ extern enum __packed iommu_intremap {
->>>>>       iommu_intremap_restricted,
->>>>>       iommu_intremap_full,
->>>>>    } iommu_intremap;
->>>>> -extern bool iommu_igfx, iommu_qinval, iommu_snoop;
->>>>>    #else
->>>>>    # define iommu_intremap false
->>>>> +#endif
->>>>> +
->>>>> +#ifdef CONFIG_INTEL_IOMMU
->>>>> +extern bool iommu_igfx, iommu_qinval, iommu_snoop;
->>>>> +#else
->>>>>    # define iommu_snoop false
->>>>>    #endif
->>>>
->>>> Do these declarations really need touching? In patch 2 you didn't move
->>>> amd_iommu_perdev_intremap's either.
->>>
->>> Ok, I will revert this change (as I did in v2 of patch 2) since it is
->>> not needed.
->>
->> Actually, my patch was altering the current behavior by defining
->> iommu_snoop as false when !INTEL_IOMMU.
->>
->> IIUC, there is no control over snoop behavior when using the AMD iommu.
->> Hence, iommu_snoop should evaluate to true for AMD iommu.
->> However, when using the INTEL iommu the user can disable it via the
->> "iommu" param, right?
-> 
-> That's the intended behavior, yes, but right now we allow the option
-> to also affect behavior on AMD - perhaps wrongly so, as there's one
-> use outside of VT-x and VT-d code. But of course the option is
-> documented to be there for VT-d only, so one can view it as user
-> error if it's used on a non-VT-d system.
-> 
->> If that's the case then iommu_snoop needs to be moved from vtd/iommu.c
->> to x86/iommu.c and iommu_snoop assignment via iommu param needs to be
->> guarded by CONFIG_INTEL_IOMMU.
-> 
-> Or #define to true when !INTEL_IOMMU and keep the variable where it
-> is.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Given the current implementation, if defined to true, it will be true 
-even when !iommu_enabled.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
--- 
-Xenia
+--------------9ofMRWg0rFZOPtEySebYEw6A--
+
+--------------0d4qDtsPpoGsM03O4Be40BeT--
+
+--------------o7qDRswZ9yx5PFp5BINIokek
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPBEsoFAwAAAAAACgkQsN6d1ii/Ey8d
+Rwf/Y2IUCHkCou1Aa3zROg6KibgZdzhOt1vQuoErqYeXj8fSaUY98kFKD0CfwxdJJuAGZDmLu2GW
+iInBABAIMwcuFzkJRbLUEht152ECE85BhIrmLK1fw3uy2jdakIsq7H2u+xVGqWTiJla7JS4/eN+5
+aHUEz6vj6YqUZ53+DZXeJsfZbRj0FsHclUwXmTuhpem9RDkKxYjcPu8VmYmKRVCSlocDfWEF2ydR
+XKJY+aX0OX0ZY2Mk9TWa5F37VsDDdN+tTm2wyupl7hElNpnZ4N6zTVdxebCrwB77DhLOqD6g2mhi
+TUYad6ydXxJLgdef+mTEO3gelc1AjWn/WI3BvHq/Cg==
+=53mK
+-----END PGP SIGNATURE-----
+
+--------------o7qDRswZ9yx5PFp5BINIokek--
 
