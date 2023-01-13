@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22AC6668B7B
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 06:36:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.476586.738950 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCBCB668B7F
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 06:36:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.476606.738991 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGCjK-0001PX-Fb; Fri, 13 Jan 2023 05:35:54 +0000
+	id 1pGCja-0003bc-6q; Fri, 13 Jan 2023 05:36:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 476586.738950; Fri, 13 Jan 2023 05:35:54 +0000
+Received: by outflank-mailman (output) from mailman id 476606.738991; Fri, 13 Jan 2023 05:36:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGCjK-0001L5-AX; Fri, 13 Jan 2023 05:35:54 +0000
-Received: by outflank-mailman (input) for mailman id 476586;
- Fri, 13 Jan 2023 05:35:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pGCjZ-0003Qh-UT; Fri, 13 Jan 2023 05:36:09 +0000
+Received: by outflank-mailman (input) for mailman id 476606;
+ Fri, 13 Jan 2023 05:36:08 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=f25I=5K=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1pGCdw-0005sP-Sc
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 05:30:21 +0000
+ id 1pGCe1-0005sJ-HA
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 05:30:25 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 5d0f1015-9303-11ed-b8d0-410ff93cb8f0;
- Fri, 13 Jan 2023 06:30:17 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 5ee55659-9303-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 06:30:20 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2E44AFEC;
- Thu, 12 Jan 2023 21:30:59 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 48308FEC;
+ Thu, 12 Jan 2023 21:31:02 -0800 (PST)
 Received: from a011292.shanghai.arm.com (a011292.shanghai.arm.com
  [10.169.190.94])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 705B83F587;
- Thu, 12 Jan 2023 21:30:14 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 8A0113F587;
+ Thu, 12 Jan 2023 21:30:17 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d0f1015-9303-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 5ee55659-9303-11ed-91b6-6bf2151ebd3b
 From: Penny Zheng <Penny.Zheng@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: wei.chen@arm.com,
@@ -53,149 +53,131 @@ Cc: wei.chen@arm.com,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
 	Penny Zheng <penny.zheng@arm.com>
-Subject: [PATCH v2 13/40] xen/mpu: introduce unified function setup_early_uart to map early UART
-Date: Fri, 13 Jan 2023 13:28:46 +0800
-Message-Id: <20230113052914.3845596-14-Penny.Zheng@arm.com>
+Subject: [PATCH v2 14/40] xen/arm64: head: Jump to the runtime mapping in enable_mm()
+Date: Fri, 13 Jan 2023 13:28:47 +0800
+Message-Id: <20230113052914.3845596-15-Penny.Zheng@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230113052914.3845596-1-Penny.Zheng@arm.com>
 References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In MMU system, we map the UART in the fixmap (when earlyprintk is used).
-However in MPU system, we map the UART with a transient MPU memory
-region.
+At the moment, on MMU system, enable_mm() will return to an address in
+the 1:1 mapping, then each path is responsible to switch to virtual runtime
+mapping. Then remove_identity_mapping() is called to remove all 1:1 mapping.
 
-So we introduce a new unified function setup_early_uart to replace
-the previous setup_fixmap.
+Since remove_identity_mapping() is not necessary on MPU system, and we also
+avoid creating empty function for MPU system, trying to keep only one codeflow
+in arm64/head.S, we move path switch and remove_identity_mapping() in
+enable_mm() on MMU system.
 
 Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 Signed-off-by: Wei Chen <wei.chen@arm.com>
 ---
- xen/arch/arm/arm64/head.S               |  2 +-
- xen/arch/arm/arm64/head_mmu.S           |  4 +-
- xen/arch/arm/arm64/head_mpu.S           | 52 +++++++++++++++++++++++++
- xen/arch/arm/include/asm/early_printk.h |  1 +
- 4 files changed, 56 insertions(+), 3 deletions(-)
+ xen/arch/arm/arm64/head.S     | 28 +++++++++++++---------------
+ xen/arch/arm/arm64/head_mmu.S | 33 ++++++++++++++++++++++++++++++---
+ 2 files changed, 43 insertions(+), 18 deletions(-)
 
 diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
-index 7f3f973468..a92883319d 100644
+index a92883319d..6358305f03 100644
 --- a/xen/arch/arm/arm64/head.S
 +++ b/xen/arch/arm/arm64/head.S
-@@ -272,7 +272,7 @@ primary_switched:
-          * afterwards.
+@@ -258,20 +258,15 @@ real_start_efi:
+          * and memory regions for MPU systems.
           */
-         bl    remove_identity_mapping
--        bl    setup_fixmap
-+        bl    setup_early_uart
+         bl    prepare_early_mappings
++        /*
++         * Address in the runtime mapping to jump to after the
++         * MMU/MPU is enabled
++         */
++        ldr   lr, =primary_switched
+         /* Turn on MMU or MPU */
+-        bl    enable_mm
++        b    enable_mm
+ 
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   x0, =primary_switched
+-        br    x0
+ primary_switched:
+-        /*
+-         * The 1:1 map may clash with other parts of the Xen virtual memory
+-         * layout. As it is not used anymore, remove it completely to
+-         * avoid having to worry about replacing existing mapping
+-         * afterwards.
+-         */
+-        bl    remove_identity_mapping
+         bl    setup_early_uart
  #ifdef CONFIG_EARLY_PRINTK
          /* Use a virtual address to access the UART. */
-         ldr   x23, =EARLY_UART_VIRTUAL_ADDRESS
+@@ -317,11 +312,14 @@ GLOBAL(init_secondary)
+         bl    check_cpu_mode
+         bl    cpu_init
+         bl    prepare_early_mappings
+-        bl    enable_mm
+ 
+-        /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+-        ldr   x0, =secondary_switched
+-        br    x0
++        /*
++         * Address in the runtime mapping to jump to after the
++         * MMU/MPU is enabled
++         */
++        ldr   lr, =secondary_switched
++        b    enable_mm
++
+ secondary_switched:
+         /*
+          * Non-boot CPUs need to move on to the proper pagetables, which were
 diff --git a/xen/arch/arm/arm64/head_mmu.S b/xen/arch/arm/arm64/head_mmu.S
-index b59c40495f..a19b7c873d 100644
+index a19b7c873d..c9e83bbe2d 100644
 --- a/xen/arch/arm/arm64/head_mmu.S
 +++ b/xen/arch/arm/arm64/head_mmu.S
-@@ -312,7 +312,7 @@ ENDPROC(remove_identity_mapping)
+@@ -211,9 +211,11 @@ virtphys_clash:
+ ENDPROC(prepare_early_mappings)
+ 
+ /*
+- * Turn on the Data Cache and the MMU. The function will return on the 1:1
+- * mapping. In other word, the caller is responsible to switch to the runtime
+- * mapping.
++ * Turn on the Data Cache and the MMU. The function will return
++ * to the virtual address provided in LR (e.g. the runtime mapping).
++ *
++ * Inputs:
++ * lr(x30): Virtual address to return to
   *
   * Clobbers x0 - x3
   */
--ENTRY(setup_fixmap)
-+ENTRY(setup_early_uart)
- #ifdef CONFIG_EARLY_PRINTK
-         /* Add UART to the fixmap table */
-         ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
-@@ -325,7 +325,7 @@ ENTRY(setup_fixmap)
-         dsb   nshst
- 
+@@ -238,6 +240,31 @@ ENTRY(enable_mm)
+         dsb   sy                     /* Flush PTE writes and finish reads */
+         msr   SCTLR_EL2, x0          /* now paging is enabled */
+         isb                          /* Now, flush the icache */
++
++        /*
++         * The MMU is turned on and we are in the 1:1 mapping. Switch
++         * to the runtime mapping.
++         */
++        ldr   x0, =1f
++        br    x0
++1:
++        /*
++         * The 1:1 map may clash with other parts of the Xen virtual memory
++         * layout. As it is not used anymore, remove it completely to
++         * avoid having to worry about replacing existing mapping
++         * afterwards.
++         *
++         * On return this will jump to the virtual address requested by
++         * the caller
++         */
++        b     remove_identity_mapping
++
++        /*
++         * Here might not be reached, as "ret" in remove_identity_mapping
++         * will use the return address in LR in advance. But keep ret here
++         * might be more safe if "ret" in remove_identity_mapping is removed
++         * in future.
++         */
          ret
--ENDPROC(setup_fixmap)
-+ENDPROC(setup_early_uart)
- 
- /* Fail-stop */
- fail:   PRINT("- Boot failed -\r\n")
-diff --git a/xen/arch/arm/arm64/head_mpu.S b/xen/arch/arm/arm64/head_mpu.S
-index e2ac69b0cc..72d1e0863d 100644
---- a/xen/arch/arm/arm64/head_mpu.S
-+++ b/xen/arch/arm/arm64/head_mpu.S
-@@ -18,8 +18,10 @@
- #define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
- #define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
- #define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
-+#define REGION_DEVICE_PRBAR     0x22    /* SH=10 AP=00 XN=10 */
- 
- #define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1 */
-+#define REGION_DEVICE_PRLAR     0x09    /* NS=0 ATTR=100 EN=1 */
- 
- /*
-  * Macro to round up the section address to be PAGE_SIZE aligned
-@@ -334,6 +336,56 @@ ENTRY(enable_mm)
-     ret
  ENDPROC(enable_mm)
- 
-+/*
-+ * Map the early UART with a new transient MPU memory region.
-+ *
-+ * x27: region selector
-+ * x28: prbar
-+ * x29: prlar
-+ *
-+ * Clobbers x0 - x4
-+ *
-+ */
-+ENTRY(setup_early_uart)
-+#ifdef CONFIG_EARLY_PRINTK
-+    /* stack LR as write_pr will be called later like nested function */
-+    mov   x3, lr
-+
-+    /*
-+     * MPU region for early UART is a transient region, since it will be
-+     * replaced by specific device memory layout when FDT gets parsed.
-+     */
-+    load_paddr x0, next_transient_region_idx
-+    ldr   x4, [x0]
-+
-+    ldr   x28, =CONFIG_EARLY_UART_BASE_ADDRESS
-+    and   x28, x28, #MPU_REGION_MASK
-+    mov   x1, #REGION_DEVICE_PRBAR
-+    orr   x28, x28, x1
-+
-+    ldr x29, =(CONFIG_EARLY_UART_BASE_ADDRESS + EARLY_UART_SIZE)
-+    roundup_section x29
-+    /* Limit address is inclusive */
-+    sub   x29, x29, #1
-+    and   x29, x29, #MPU_REGION_MASK
-+    mov   x2, #REGION_DEVICE_PRLAR
-+    orr   x29, x29, x2
-+
-+    mov   x27, x4
-+    bl    write_pr
-+
-+    /* Create a new entry in xen_mpumap for early UART */
-+    create_mpu_entry xen_mpumap, x4, x28, x29, x1, x2
-+
-+    /* Update next_transient_region_idx */
-+    sub   x4, x4, #1
-+    str   x4, [x0]
-+
-+    mov   lr, x3
-+    ret
-+#endif
-+ENDPROC(setup_early_uart)
-+
- /*
-  * Local variables:
-  * mode: ASM
-diff --git a/xen/arch/arm/include/asm/early_printk.h b/xen/arch/arm/include/asm/early_printk.h
-index 44a230853f..d87623e6d5 100644
---- a/xen/arch/arm/include/asm/early_printk.h
-+++ b/xen/arch/arm/include/asm/early_printk.h
-@@ -22,6 +22,7 @@
-  * for EARLY_UART_VIRTUAL_ADDRESS.
-  */
- #define EARLY_UART_VIRTUAL_ADDRESS CONFIG_EARLY_UART_BASE_ADDRESS
-+#define EARLY_UART_SIZE            0x1000
- 
- #else
  
 -- 
 2.25.1
