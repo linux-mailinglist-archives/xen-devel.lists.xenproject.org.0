@@ -2,64 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4539966A145
-	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 18:57:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477513.740249 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D140E66A386
+	for <lists+xen-devel@lfdr.de>; Fri, 13 Jan 2023 20:41:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477529.740260 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGOI3-0000bP-0I; Fri, 13 Jan 2023 17:56:31 +0000
+	id 1pGPug-00034k-HM; Fri, 13 Jan 2023 19:40:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477513.740249; Fri, 13 Jan 2023 17:56:30 +0000
+Received: by outflank-mailman (output) from mailman id 477529.740260; Fri, 13 Jan 2023 19:40:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pGOI2-0000Yl-Ti; Fri, 13 Jan 2023 17:56:30 +0000
-Received: by outflank-mailman (input) for mailman id 477513;
- Fri, 13 Jan 2023 17:56:29 +0000
+	id 1pGPug-000325-ET; Fri, 13 Jan 2023 19:40:30 +0000
+Received: by outflank-mailman (input) for mailman id 477529;
+ Fri, 13 Jan 2023 19:40:29 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=9Kou=5K=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1pGOI1-0000Yf-MM
- for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 17:56:29 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2060.outbound.protection.outlook.com [40.107.241.60])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9a3372fb-936b-11ed-91b6-6bf2151ebd3b;
- Fri, 13 Jan 2023 18:56:27 +0100 (CET)
-Received: from FR0P281CA0129.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:97::15)
- by AS4PR08MB7904.eurprd08.prod.outlook.com (2603:10a6:20b:51f::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Fri, 13 Jan
- 2023 17:56:25 +0000
-Received: from VI1EUR03FT046.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:d10:97:cafe::eb) by FR0P281CA0129.outlook.office365.com
- (2603:10a6:d10:97::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.6 via Frontend
- Transport; Fri, 13 Jan 2023 17:56:25 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- VI1EUR03FT046.mail.protection.outlook.com (100.127.144.113) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.13 via Frontend Transport; Fri, 13 Jan 2023 17:56:24 +0000
-Received: ("Tessian outbound 6e565e48ed4a:v132");
- Fri, 13 Jan 2023 17:56:23 +0000
-Received: from 25bd8c2327b6.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- D158C65D-991A-46B8-96ED-7E9DFBD759AE.1; 
- Fri, 13 Jan 2023 17:56:17 +0000
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 25bd8c2327b6.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Fri, 13 Jan 2023 17:56:17 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by AS2PR08MB8312.eurprd08.prod.outlook.com (2603:10a6:20b:557::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 13 Jan
- 2023 17:56:15 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda%3]) with mapi id 15.20.5986.018; Fri, 13 Jan 2023
- 17:56:14 +0000
+ <SRS0=8P1x=5K=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1pGPuf-00031z-5C
+ for xen-devel@lists.xenproject.org; Fri, 13 Jan 2023 19:40:29 +0000
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 212f2262-937a-11ed-91b6-6bf2151ebd3b;
+ Fri, 13 Jan 2023 20:40:27 +0100 (CET)
+Received: by mail-ej1-f49.google.com with SMTP id ss4so47352118ejb.11
+ for <xen-devel@lists.xenproject.org>; Fri, 13 Jan 2023 11:40:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,116 +38,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a3372fb-936b-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ftqnv430xgPDOb82cDspMu86/q6iSrZZG8X7J02lw+A=;
- b=G97E0oKf89gyXSz7C0ZfVbji1lZRXPdPhkJ/33Ga9Kge3HQAEB5nGnr+t82VU1ddcgaAtj/Cx840V+cLKibYD8nNq95qQxb+aO9XgNPvesUXsIVCSMc8fBnWbjiVR8mqFZKFN3tBGFhkJCOj5H7DQxSm43rCZO07CrrB5QW9Uak=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: aafe227caa084974
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V1e9qv/HAx6E3gthVqM7mIDVgHowF6r/mzPEAYcmu2EEt0YjVpIvJX7xPTs3DIBvCQXwLXFEelvoHvmgySyosM9qQJFQ220CT07FAF0Vf4W3fzVp02rjfNHtuGjjE0tD6mdEo8Qb9knFVch15c4UES6ICEaPvCBfqCqUVaFzy7a9RIcfJ78goZMQ/9CeI1juH5bu2icoD87+qHg1fI8nuiBpViL6GdwjmZlhRGlo5JRnJmq8KsAIHBr9Ln+g91Sml9aScN18yGiWVi//VatdcLu3zMBiHiPK+9NGivsjIX1bS/XncR4WIt0GDPRM02iIS84p9XoSawjErze4Nk3EUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ftqnv430xgPDOb82cDspMu86/q6iSrZZG8X7J02lw+A=;
- b=c0zl0yPcmpcvtJaL4MuNEk3a8YT/IQ07yKukPfmyA+8679sT6J5ouqucUTnIRx+GMgGBOCpqIRT5kfT40K61WZPNOQs/LXhBua410lEpkUWwYm9YyZjE4/pXQtU/X//XODKFyphzwOC832h43hasNejYBQH6NYkc8YFi9yI/fXzODUdQn/jeZHp47VaZkqzDL/QgaPXllOeTmTpToRTEptZSJNuwoIQH14MKQoBi66owwWvO51Sw9R/Apx/1R/MCRPm0893fQtknaGA0sFU1q1gkt2IUcJLcuXW72cTQgoz9fCuawbYLkrPIyvvjORUjmmUIyaXdKsG81pjLZle3sQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ftqnv430xgPDOb82cDspMu86/q6iSrZZG8X7J02lw+A=;
- b=G97E0oKf89gyXSz7C0ZfVbji1lZRXPdPhkJ/33Ga9Kge3HQAEB5nGnr+t82VU1ddcgaAtj/Cx840V+cLKibYD8nNq95qQxb+aO9XgNPvesUXsIVCSMc8fBnWbjiVR8mqFZKFN3tBGFhkJCOj5H7DQxSm43rCZO07CrrB5QW9Uak=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>, Michal Orzel <michal.orzel@amd.com>
-Subject: Re: [PATCH v4 02/14] xen/arm64: flushtlb: Implement the TLBI repeat
- workaround for TLB flush by VA
-Thread-Topic: [PATCH v4 02/14] xen/arm64: flushtlb: Implement the TLBI repeat
- workaround for TLB flush by VA
-Thread-Index: AQHZJzd3IAQCrI1EqUyCJy1AVoViEq6coiuA
-Date: Fri, 13 Jan 2023 17:56:14 +0000
-Message-ID: <C8CAEAFE-50FB-4DBB-8EDC-8AB87920EB06@arm.com>
-References: <20230113101136.479-1-julien@xen.org>
- <20230113101136.479-3-julien@xen.org>
-In-Reply-To: <20230113101136.479-3-julien@xen.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.300.101.1.3)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|AS2PR08MB8312:EE_|VI1EUR03FT046:EE_|AS4PR08MB7904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36861094-4ad7-40d2-c52d-08daf58f7c6f
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- RIyZDSpTRtzIqmjg2tQu4TIWSLwSHFn1HojZn2lcozqlHJ8JBq3VrKY+rAwoLE4ti3DSH6/+QZQHWI9aO2R+71QmgCaWhFRw8JNdIuhjLpWoEv5bD813wVMqGwiCzEn4QmEeQnuDowtAhFHm8tWgowT8j3k82Nq3fMAhsJGQz1prUYT/56CSzEL9+f3q6xLiTtbhSB/ZLOugLI1C63CtL2YPUo5/9BqNi9lDLy4sRVXJlF2EvyWnEOorsSCWUqvjx0rAflmFxhp0LWq1fW+Ode3gSp+H5kCxRliniZh1esHjA9K3PIZkhvkqtoIyd/eswkbDwKYsazRErKuM8EdnQRJ4MpA5s54GIcY63UOK3vv5/SXwlux//Nss0d92Ua7+m/WRHXVlPMMsgoxFdqwjoW4yqKlAvahKqNtJzMBhcqNVe8SoI4/T6+eFtXGK5vlksPK3sgW3FB7Pefswoc+EGuAln2VWJciwvt5vVBkrG/BktETZNAOidytI7hD44V7HzQs1SCUtGpgVgAh2+lZT+BSTFibdKe7s0sLNbsCbKk/AEcNfLUBS4w2iA2FCwH5BkcdLXOzWhnO9MBM6WS6RSLPV6tzHqjpM0U7u5EjMrmQsLAuvJ6UvzEauArLfg6OLsmnUlrZQgyzbYHNOOdcbWmovDDs/WVaR2rSFAQGf4zVW/ndrZqa/DEGt0kLAAAUuNYjFIMaGt2grcjCm3LXUrfOqZhOpxPnGFY162WTOGDw=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(451199015)(8936002)(76116006)(91956017)(66556008)(41300700001)(66476007)(8676002)(66946007)(4326008)(6916009)(66446008)(64756008)(38070700005)(54906003)(6506007)(2906002)(53546011)(316002)(2616005)(36756003)(4744005)(5660300002)(33656002)(71200400001)(86362001)(6486002)(478600001)(186003)(26005)(6512007)(38100700002)(122000001)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <ED224D10F910A54E94D4FE340F015308@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+X-Inumbo-ID: 212f2262-937a-11ed-91b6-6bf2151ebd3b
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=/FynnHHA+adKoY+qySCCuC0I0OWwcsOl+qYyvsB5YSU=;
+        b=T1a+O7QCNB3TcCKYS1nainUZELsbZbCDR0+PDoOjKK2bk+7t6Yt078Fx0n1vTqDafc
+         NO+L22TfIe4cimNeGq432w+HnZQi1CuKn5dHLat+MogtnJXF4QdO1NfqVuYYLjNdRpt8
+         SGttBXEDanx2+m/yWVbGkKxUxdBMLPKAAinIvO41MCoUWXOPsOPZRatmLkgmGi/VvvkV
+         GcG7uLvLD1fGBnSknoVG8e1yT3d/G+rx7JiAB9yKnueww5owrePKLmiWFLhuHUsiQIOI
+         5LCv4dntCNEnMQ5EdGTtRdc74h//rugI+Y1u+GCpQj7GGDkoON4roTNJTUbOKy4mfCiY
+         B9mA==
+X-Gm-Message-State: AFqh2krOFQZrY18Ot6rjfj70FToRHUkZuzzWvWGwLPE8a0mkf6K9zv2O
+	KCBSMjeZ07LxZyNCXEsqyv7A0dBxBwKdSL1YgHE=
+X-Google-Smtp-Source: AMrXdXvn2X6x4HoxAN6K2w1MSEvmKDvbqX2OyOqsOjj0s6TYIEhLLev1mfoqRKdTYIEqIwH2b1rnxH1eGYQbqtwdUl8=
+X-Received: by 2002:a17:907:29c3:b0:84d:4b8e:efc with SMTP id
+ ev3-20020a17090729c300b0084d4b8e0efcmr1445143ejc.390.1673638826641; Fri, 13
+ Jan 2023 11:40:26 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8312
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- VI1EUR03FT046.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	8cea8d3d-2ee7-4ede-be62-08daf58f76b5
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	JBhTdXuuu+07M8qJuSYKixQ8znrKrNpsgd6OYL7DcU5b4UHKIciKEZa7P+iLwyPGzYF/QjeIR5kjNKS18/6zWTckfTHPaOztArYXznrVZPEhOeQYLb3KaT0U+rbBM3oNZGcD6yDJ/pvIwNkLTrDLFzaKopwIJ2IAFpNZ/aBcIyUsqPyJhVuKXNJcL7lw8sZSakChwvDxTPDK5RcC/OCT+Zh+jOn3DVzbsX1VT0Vuf1VdKWLqyc22394B4HlXihiCBYeO+EC6yQNwxkKsLO6P8gyAlm50/fqqADO7jcZkNAYMjHbSGi6DmA20JrqY7ih6UuEwsq/VuDV/rrQvxZOwYJ7Kd296UU6rAic8aP9tCJOJUyKLHkpyqQSHPlJCielSpupwgZHcnIS3CltdCCiqwVSX1rXw1pDeXd6ZLfC9m1XQ6gMFd2ZK+uvVUWfS1IbwtLR0kxuVAW1Yk6K3otMyjzFJAHr8Hl46cmI+JB9DFZn11c+vBCbs6lbK9MfyCwRl/9PpkEK2bhUbIVju3v15+8ba5P8comC85cffMeyi4OGI3yxCKTTAzoO+gpDvVJGV5l+qkR6RJ33nUvGoQ0dvNirtwtECWsOnHQQbZ/jwU0d9ZdXJiookbMTfdUXpbw67Q3K9WKTQP5eMHnYfb6hyB+S4zXJDA4uFN04+kinS0RqoKqdr/j1v4qX+GHtC+yn0xFi6AX1yJWQss+P9ndgQNA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(346002)(136003)(376002)(451199015)(40470700004)(36840700001)(46966006)(86362001)(82310400005)(81166007)(356005)(316002)(40480700001)(33656002)(40460700003)(2616005)(54906003)(8676002)(47076005)(336012)(186003)(26005)(478600001)(6506007)(53546011)(6512007)(6486002)(36860700001)(70206006)(82740400003)(36756003)(70586007)(41300700001)(4326008)(8936002)(4744005)(2906002)(6862004)(5660300002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2023 17:56:24.2081
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36861094-4ad7-40d2-c52d-08daf58f7c6f
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	VI1EUR03FT046.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR08MB7904
+References: <20230113140610.7132-1-jgross@suse.com>
+In-Reply-To: <20230113140610.7132-1-jgross@suse.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Fri, 13 Jan 2023 20:40:15 +0100
+Message-ID: <CAJZ5v0gP_NUeQimn21tJuUjpMAOW_wFrRe4jstN13So_4_T4QQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/acpi: fix suspend with Xen
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org, linux-pm@vger.kernel.org, 
+	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	"Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, Jan 13, 2023 at 3:06 PM Juergen Gross <jgross@suse.com> wrote:
+>
+> Commit f1e525009493 ("x86/boot: Skip realmode init code when running as
+> Xen PV guest") missed one code path accessing real_mode_header, leading
+> to dereferencing NULL when suspending the system under Xen:
+>
+>     [  348.284004] PM: suspend entry (deep)
+>     [  348.289532] Filesystems sync: 0.005 seconds
+>     [  348.291545] Freezing user space processes ... (elapsed 0.000 secon=
+ds) done.
+>     [  348.292457] OOM killer disabled.
+>     [  348.292462] Freezing remaining freezable tasks ... (elapsed 0.104 =
+seconds) done.
+>     [  348.396612] printk: Suspending console(s) (use no_console_suspend =
+to debug)
+>     [  348.749228] PM: suspend devices took 0.352 seconds
+>     [  348.769713] ACPI: EC: interrupt blocked
+>     [  348.816077] BUG: kernel NULL pointer dereference, address: 0000000=
+00000001c
+>     [  348.816080] #PF: supervisor read access in kernel mode
+>     [  348.816081] #PF: error_code(0x0000) - not-present page
+>     [  348.816083] PGD 0 P4D 0
+>     [  348.816086] Oops: 0000 [#1] PREEMPT SMP NOPTI
+>     [  348.816089] CPU: 0 PID: 6764 Comm: systemd-sleep Not tainted 6.1.3=
+-1.fc32.qubes.x86_64 #1
+>     [  348.816092] Hardware name: Star Labs StarBook/StarBook, BIOS 8.01 =
+07/03/2022
+>     [  348.816093] RIP: e030:acpi_get_wakeup_address+0xc/0x20
+>
+> Fix that by adding an indirection for acpi_get_wakeup_address() which
+> Xen PV dom0 can use to return a dummy non-zero wakeup address (this
+> address won't ever be used, as the real suspend handling is done by the
+> hypervisor).
 
+How exactly does this help?
 
-> On 13 Jan 2023, at 10:11, Julien Grall <julien@xen.org> wrote:
->=20
-> From: Julien Grall <jgrall@amazon.com>
->=20
-> Looking at the Neoverse N1 errata document, it is not clear to me
-> why the TLBI repeat workaround is not applied for TLB flush by VA.
->=20
-> The TBL flush by VA helpers are used in flush_xen_tlb_range_va_local()
-> and flush_xen_tlb_range_va(). So if the range size if a fixed size smalle=
-r
-
-NIT: is a fixed size
-
-
+> Fixes: f1e525009493 ("x86/boot: Skip realmode init code when running as X=
+en PV guest")
+> Reported-by: Marek Marczykowski-G=C3=B3recki <marmarek@invisiblethingslab=
+.com>
+> Signed-off-by: Juergen Gross <jgross@suse.com>
+> ---
+>  arch/x86/include/asm/acpi.h  | 2 +-
+>  arch/x86/kernel/acpi/sleep.c | 3 ++-
+>  include/xen/acpi.h           | 9 +++++++++
+>  3 files changed, 12 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
+> index 65064d9f7fa6..137259ff8f03 100644
+> --- a/arch/x86/include/asm/acpi.h
+> +++ b/arch/x86/include/asm/acpi.h
+> @@ -61,7 +61,7 @@ static inline void acpi_disable_pci(void)
+>  extern int (*acpi_suspend_lowlevel)(void);
+>
+>  /* Physical address to resume after wakeup */
+> -unsigned long acpi_get_wakeup_address(void);
+> +extern unsigned long (*acpi_get_wakeup_address)(void);
+>
+>  /*
+>   * Check if the CPU can handle C2 and deeper
+> diff --git a/arch/x86/kernel/acpi/sleep.c b/arch/x86/kernel/acpi/sleep.c
+> index 3b7f4cdbf2e0..1a3cd5e24cd0 100644
+> --- a/arch/x86/kernel/acpi/sleep.c
+> +++ b/arch/x86/kernel/acpi/sleep.c
+> @@ -33,10 +33,11 @@ static char temp_stack[4096];
+>   * Returns the physical address where the kernel should be resumed after=
+ the
+>   * system awakes from S3, e.g. for programming into the firmware waking =
+vector.
+>   */
+> -unsigned long acpi_get_wakeup_address(void)
+> +static unsigned long x86_acpi_get_wakeup_address(void)
+>  {
+>         return ((unsigned long)(real_mode_header->wakeup_start));
+>  }
+> +unsigned long (*acpi_get_wakeup_address)(void) =3D x86_acpi_get_wakeup_a=
+ddress;
+>
+>  /**
+>   * x86_acpi_enter_sleep_state - enter sleep state
+> diff --git a/include/xen/acpi.h b/include/xen/acpi.h
+> index b1e11863144d..7e1e5dbfb77c 100644
+> --- a/include/xen/acpi.h
+> +++ b/include/xen/acpi.h
+> @@ -56,6 +56,12 @@ static inline int xen_acpi_suspend_lowlevel(void)
+>         return 0;
+>  }
+>
+> +static inline unsigned long xen_acpi_get_wakeup_address(void)
+> +{
+> +       /* Just return a dummy non-zero value, it will never be used. */
+> +       return 1;
+> +}
+> +
+>  static inline void xen_acpi_sleep_register(void)
+>  {
+>         if (xen_initial_domain()) {
+> @@ -65,6 +71,9 @@ static inline void xen_acpi_sleep_register(void)
+>                         &xen_acpi_notify_hypervisor_extended_sleep);
+>
+>                 acpi_suspend_lowlevel =3D xen_acpi_suspend_lowlevel;
+> +#ifdef CONFIG_ACPI_SLEEP
+> +               acpi_get_wakeup_address =3D xen_acpi_get_wakeup_address;
+> +#endif
+>         }
+>  }
+>  #else
+> --
+> 2.35.3
+>
 
