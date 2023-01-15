@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E3C66B0A0
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 12:31:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477861.740789 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A551066B0A6
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 12:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477862.740795 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH1ES-0005XS-8r; Sun, 15 Jan 2023 11:31:24 +0000
+	id 1pH1ES-0005gO-Ny; Sun, 15 Jan 2023 11:31:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477861.740789; Sun, 15 Jan 2023 11:31:24 +0000
+Received: by outflank-mailman (output) from mailman id 477862.740795; Sun, 15 Jan 2023 11:31:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH1ER-0005U4-Sc; Sun, 15 Jan 2023 11:31:23 +0000
-Received: by outflank-mailman (input) for mailman id 477861;
+	id 1pH1ES-0005aq-Eg; Sun, 15 Jan 2023 11:31:24 +0000
+Received: by outflank-mailman (input) for mailman id 477862;
  Sun, 15 Jan 2023 11:31:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ytYW=5M=gmail.com=dmitry.semenets@srs-se1.protection.inumbo.net>)
- id 1pH1EP-0004co-R9
- for xen-devel@lists.xenproject.org; Sun, 15 Jan 2023 11:31:21 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2199714c-94c8-11ed-b8d0-410ff93cb8f0;
- Sun, 15 Jan 2023 12:31:19 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id ud5so62065038ejc.4
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 03:31:19 -0800 (PST)
+ id 1pH1EQ-0004ci-BW
+ for xen-devel@lists.xenproject.org; Sun, 15 Jan 2023 11:31:22 +0000
+Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
+ [2a00:1450:4864:20::633])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 22474e46-94c8-11ed-91b6-6bf2151ebd3b;
+ Sun, 15 Jan 2023 12:31:20 +0100 (CET)
+Received: by mail-ej1-x633.google.com with SMTP id cf18so55655629ejb.5
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 03:31:20 -0800 (PST)
 Received: from dsemenets-HP-EliteBook-850-G8-Notebook-PC.. ([91.219.254.73])
  by smtp.gmail.com with ESMTPSA id
- uj42-20020a170907c9aa00b0084d4e612a22sm7459961ejc.67.2023.01.15.03.31.17
+ uj42-20020a170907c9aa00b0084d4e612a22sm7459961ejc.67.2023.01.15.03.31.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 03:31:18 -0800 (PST)
+ Sun, 15 Jan 2023 03:31:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,271 +44,109 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2199714c-94c8-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 22474e46-94c8-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ylOSlAAsRMSF13m/WxnF31oV8wjlQEFnbS1C2vMhAmQ=;
-        b=lNcXXQ3WpawuLh/3f81jyVto3aISNpKmjWDl2wwuXCSiF50o2NMnWn7KtAjgsQrvtn
-         eUxjNtPh3n3a5xm9Ye+1RcPav1lc0xnmNfBlcMaJ1wep8J/4+qWp4g2FJSRLzfo8NIEI
-         LmEDxgjlSF5fv9yuEL8zh52CeWoi94A83N8F690NQpkLQBSxvipQDDShNi1CQSV2GGmK
-         1V+WNt8En85YvYRFqDA9tdMX5oCHvUt+s7xrrjVlcqZ5iz5+D4YSnKlxO/W2EIZF/+YQ
-         M6D0ma60Oc37VMjd0bPATOlvCHiLUI+Htq79FS0jt0Ad84IJYRb+urcLGMxaIaxN4M0v
-         rR6g==
+        bh=RBd+hmBQgXZkrJPkk2A6G6FhZeqNtc7f2zf0tt6B+Y4=;
+        b=A6g4LBmvHkUjz9gzJSTm8njOCHRcxbwKot/vnTJEsRj2KBagbqA4nLR7ENR61+Kv4K
+         ZIaflMDApL5DvuJO865GIau25biBL5Vle+LSr0/P4rFK26j6uZjVEXxKXk7QMVie6doB
+         t4Ope3jJK+eVqWJV9chTrR0/uH6lQFQge1zkxtIGKHib7vofe6zcBuG2xPN9B4rVAc2R
+         uQ8RE/JmllneEKwOVLzxc8/cUL4lYQnrKx4sgs3InX07lSkxZfL9Wrw0FtEwa7v495If
+         Z+Vcc7/ibHupzF0hurL4mpfEbWcWTYny7mz841/j/rEimBsv4tMCJA5SpjDEeZQNUXoq
+         qwfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ylOSlAAsRMSF13m/WxnF31oV8wjlQEFnbS1C2vMhAmQ=;
-        b=wELnWtLn5uInqtjvBe7r0kyB1h89C8DvWO3DAbrk/F/aeWgkNXKDPmexfoIOjfxJa3
-         E90KuVGyifwdZNrvzk6OZcJ4Ac4+nX7rPAaoV7fIM8uVLf3Ki3ovyNF9gM6akpqwZuha
-         z+J6L1AZKAhOgvu1ofc+fx9uNu/YgUYwm1lJOVScprWAE/JuTjMDIt6tc2OyR3E6ciTf
-         zS4Rya5GiTea6wyhQMrVXZ5RcoZtGeg+szCVSvcgmlofZAoRm9snc+58BUdOg34OqrIr
-         m4uidKloeLYbKyBvmTP2yiZSFYltTEZa3wgfTBHt6nZxs2SKz7wkf6ljTKvGHt3gyfpx
-         Va8A==
-X-Gm-Message-State: AFqh2kpg/SSTChQVR+da/R/adXB7IIySBdR3e6VTI9GzYnwTgqrGf2wz
-	4ahdHYkG5So/vTyZGGSELzJ5VZBTvbNtu3Ud
-X-Google-Smtp-Source: AMrXdXt1PVXJzXqXXv1CjLnjGLuod88mQki1Do5dmGNVJqTG1BuQUjE+az8UvXD8viFox25uMpExyQ==
-X-Received: by 2002:a17:907:7657:b0:7ff:727f:65cb with SMTP id kj23-20020a170907765700b007ff727f65cbmr9474933ejc.19.1673782279053;
-        Sun, 15 Jan 2023 03:31:19 -0800 (PST)
+        bh=RBd+hmBQgXZkrJPkk2A6G6FhZeqNtc7f2zf0tt6B+Y4=;
+        b=B+cumoEnK7mJ6mVDrDOJtSlG58sqvfHNR0NB5W9OQPDa53JcnAKMFwHAMlV2CSLUoQ
+         IUxYkd4jj2Vw7jadY3/7k0UxHH/UG+eJi6WF5zW+lZsMwqC2qmtaUtjyUJal4pQQpmAD
+         OtFNuhgfC//rjNbS0sgzv6n3s5AI6CUiVxtayTF2534sjHiVkMWYe0y2sT+bGA55k+Q/
+         UZXF1espRGPvhe5xT0um1almIHXyYvlCAYGAptaIWJit7wSQxJfNywf9gtU667bjEZLC
+         NqgCZhbr4TnpWiWj5LWOp08kLrZrmDLB0A0AppjlD4PySwu5mw9q6ncGS+O86a97O6YA
+         m+pQ==
+X-Gm-Message-State: AFqh2koabTYkHHIohMNP0MCHU9Jrp87IfKm1vcMqs92UamVGpJY2ODXT
+	ol3AlwsnqiDKbDpVfBLVoNDOz4RvGV0QPeqx
+X-Google-Smtp-Source: AMrXdXszUm9sdvZugQmrnDnG84ZBeP8VU310ltdSm5Vq5MqV8JhaKIifUaao3soTTYzNSyY9yBG+jg==
+X-Received: by 2002:a17:906:2813:b0:829:59d5:e661 with SMTP id r19-20020a170906281300b0082959d5e661mr74258838ejc.29.1673782280151;
+        Sun, 15 Jan 2023 03:31:20 -0800 (PST)
 From: Dmytro Semenets <dmitry.semenets@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+Cc: Volodymyr Babchuk <volodymyr_babchuk@epam.com>,
 	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [RFC PATCH v3 04/10] tools/libs/light: pcid: implement list_assignable command
-Date: Sun, 15 Jan 2023 13:31:05 +0200
-Message-Id: <20230115113111.1207605-5-dmitry.semenets@gmail.com>
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [RFC PATCH v3 05/10] tools/light: pci: describe [MAKE|REVERT]_ASSIGNABLE commands
+Date: Sun, 15 Jan 2023 13:31:06 +0200
+Message-Id: <20230115113111.1207605-6-dmitry.semenets@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230115113111.1207605-1-dmitry.semenets@gmail.com>
 References: <20230115113111.1207605-1-dmitry.semenets@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+From: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Signed-off-by: Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>
+Add protocol for two more commands, one to make a PCI device
+assignable, and other - to revert its state back.
+
+Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 ---
- tools/include/pcid.h          | 19 ++++++++++++
- tools/libs/light/libxl_pci.c  | 54 ++++++++++++++++++++++-----------
- tools/libs/light/libxl_pcid.c | 56 ++++++++++++++++++++++++++++++-----
- 3 files changed, 103 insertions(+), 26 deletions(-)
+ tools/include/pcid.h | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
 diff --git a/tools/include/pcid.h b/tools/include/pcid.h
-index 6506b18d25..452bdc11cf 100644
+index 452bdc11cf..118f8105cf 100644
 --- a/tools/include/pcid.h
 +++ b/tools/include/pcid.h
-@@ -79,6 +79,25 @@
- 
- #define PCID_SBDF_FMT           "%04x:%02x:%02x.%01x"
+@@ -98,6 +98,44 @@
+ #define PCID_CMD_LIST_ASSIGNABLE        "list_assignable"
+ #define PCID_MSG_FIELD_DEVICES          "devices"
  
 +/*
 + *******************************************************************************
-+ * List assignable devices
++ * Make device assignable
 + *
-+ * This command lists PCI devices that can be passed through to a guest domain.
++ * This command makes given device assignable by ensuring that OS
++ * will not try to access it.
 + *
 + * Request (see other mandatory fields above):
-+ *  - "cmd" field of the request must be set to "list_assignable".
++ *  - "cmd" field of the request must be set to "make_assignable".
++ *  - "sbdf" SBDF of the device in format defined by PCID_SBDF_FMT.
++ *  - "rebind" = true if daemon needs to save original driver name,
++ *    so device later can be rebound back.
 + *
 + * Response (see other mandatory fields above):
-+ *  - "resp" field of the response must be set to "list_assignable".
-+ * Command specific response data:
-+ * +-------------+--------------+----------------------------------------------+
-+ * | devices     | list         | List of of pci_device objects                |
-+ * +-------------+--------------+----------------------------------------------+
++ *  - "resp" field of the response must be set to "make_assignable".
 + */
-+#define PCID_CMD_LIST_ASSIGNABLE        "list_assignable"
-+#define PCID_MSG_FIELD_DEVICES          "devices"
++#define PCID_CMD_MAKE_ASSIGNABLE        "make_assignable"
++#define PCID_MSG_FIELD_REBIND           "rebind"
++
++/*
++ *******************************************************************************
++ * Revert device from assignable state
++ *
++ * This command reverts effect of "make_assignable" command. Basically,
++ * now device can be used by OS again.
++ *
++ * Request (see other mandatory fields above):
++ *  - "cmd" field of the request must be set to "revert_assignable".
++ *  - "sbdf" SBDF of the device in format defined by PCID_SBDF_FMT.
++ *  - "rebind" = true if daemon needs to rebind device back to it's
++ *    original driver, which name was saved by "make_assignable" command
++ *
++ * Response (see other mandatory fields above):
++ *  - "resp" field of the response must be set to "revert_assignable".
++ */
++#define PCID_CMD_REVERT_ASSIGNABLE      "revert_assignable"
++
 +
  int libxl_pcid_process(libxl_ctx *ctx);
  
  #endif /* PCID_H */
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index b0c6de88ba..321543f5bf 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -29,6 +29,18 @@
- #define PCI_BDF_XSPATH         "%04x-%02x-%02x-%01x"
- #define PCI_PT_QDEV_ID         "pci-pt-%02x_%02x.%01x"
- 
-+static int process_list_assignable(libxl__gc *gc,
-+                                   const libxl__json_object *response,
-+                                   libxl__json_object **result)
-+{
-+    *result = (libxl__json_object *)libxl__json_map_get(PCID_MSG_FIELD_DEVICES,
-+                                                        response, JSON_ARRAY);
-+    if (!*result)
-+        return ERROR_INVAL;
-+
-+    return 0;
-+}
-+
- static int pci_handle_response(libxl__gc *gc,
-                                const libxl__json_object *response,
-                                libxl__json_object **result)
-@@ -68,6 +80,9 @@ static int pci_handle_response(libxl__gc *gc,
-     command_name = command_obj->u.string;
-     LOG(DEBUG, "command: %s", command_name);
- 
-+    if (strcmp(command_name, PCID_CMD_LIST_ASSIGNABLE) == 0)
-+       ret = process_list_assignable(gc, response, result);
-+
-     return ret;
- }
- 
-@@ -124,8 +139,7 @@ static char *pci_prepare_request(libxl__gc *gc, yajl_gen gen, char *cmd,
-     return request;
- }
- 
--struct vchan_info *pci_vchan_get_client(libxl__gc *gc);
--struct vchan_info *pci_vchan_get_client(libxl__gc *gc)
-+static struct vchan_info *pci_vchan_get_client(libxl__gc *gc)
- {
-     struct vchan_info *vchan;
- 
-@@ -147,8 +161,7 @@ out:
-     return vchan;
- }
- 
--void pci_vchan_free(libxl__gc *gc, struct vchan_info *vchan);
--void pci_vchan_free(libxl__gc *gc, struct vchan_info *vchan)
-+static void pci_vchan_free(libxl__gc *gc, struct vchan_info *vchan)
- {
-     vchan_fini_one(gc, vchan->state);
- }
-@@ -561,26 +574,29 @@ libxl_device_pci *libxl_device_pci_assignable_list(libxl_ctx *ctx, int *num)
- {
-     GC_INIT(ctx);
-     libxl_device_pci *pcis = NULL, *new;
--    struct dirent *de;
--    DIR *dir;
-+    struct vchan_info *vchan;
-+    libxl__json_object *result, *dev_obj;
-+    int i;
- 
-     *num = 0;
- 
--    dir = opendir(SYSFS_PCIBACK_DRIVER);
--    if (NULL == dir) {
--        if (errno == ENOENT) {
--            LOG(ERROR, "Looks like pciback driver not loaded");
--        } else {
--            LOGE(ERROR, "Couldn't open %s", SYSFS_PCIBACK_DRIVER);
--        }
-+    vchan = pci_vchan_get_client(gc);
-+    if (!vchan)
-         goto out;
--    }
- 
--    while((de = readdir(dir))) {
-+    result = vchan_send_command(gc, vchan, PCID_CMD_LIST_ASSIGNABLE, NULL);
-+    if (!result)
-+        goto vchan_free;
-+
-+    for (i = 0; (dev_obj = libxl__json_array_get(result, i)); i++) {
-+        const char *sbdf_str = libxl__json_object_get_string(dev_obj);
-         unsigned int dom, bus, dev, func;
--        char *name;
-+        const char *name;
-+
-+        if (!sbdf_str)
-+            continue;
- 
--        if (sscanf(de->d_name, PCI_BDF, &dom, &bus, &dev, &func) != 4)
-+        if (sscanf(sbdf_str, PCID_SBDF_FMT, &dom, &bus, &dev, &func) != 4)
-             continue;
- 
-         new = realloc(pcis, ((*num) + 1) * sizeof(*new));
-@@ -602,7 +618,9 @@ libxl_device_pci *libxl_device_pci_assignable_list(libxl_ctx *ctx, int *num)
-         (*num)++;
-     }
- 
--    closedir(dir);
-+vchan_free:
-+    pci_vchan_free(gc, vchan);
-+
- out:
-     GC_FREE;
-     return pcis;
-diff --git a/tools/libs/light/libxl_pcid.c b/tools/libs/light/libxl_pcid.c
-index 958fe387f9..bab08b72cf 100644
---- a/tools/libs/light/libxl_pcid.c
-+++ b/tools/libs/light/libxl_pcid.c
-@@ -84,6 +84,41 @@ static int make_error_reply(libxl__gc *gc, yajl_gen gen, char *desc,
-     return 0;
- }
- 
-+static int process_list_assignable(libxl__gc *gc, yajl_gen gen,
-+                                   char *command_name,
-+                                   const struct libxl__json_object *request,
-+                                   struct libxl__json_object **response)
-+{
-+    struct dirent *de;
-+    DIR *dir = NULL;
-+
-+    dir = opendir(SYSFS_PCI_DEV);
-+    if (dir == NULL) {
-+        make_error_reply(gc, gen, strerror(errno), command_name);
-+        return ERROR_FAIL;
-+    }
-+
-+    libxl__yajl_gen_asciiz(gen, PCID_MSG_FIELD_DEVICES);
-+
-+    *response = libxl__json_object_alloc(gc, JSON_ARRAY);
-+
-+    while ((de = readdir(dir))) {
-+        unsigned int dom, bus, dev, func;
-+
-+        if (sscanf(de->d_name, PCID_SBDF_FMT, &dom, &bus, &dev, &func) != 4)
-+            continue;
-+
-+        struct libxl__json_object *node =
-+            libxl__json_object_alloc(gc, JSON_STRING);
-+        node->u.string = de->d_name;
-+        flexarray_append((*response)->u.array, node);
-+    }
-+
-+    closedir(dir);
-+
-+    return 0;
-+}
-+
- static int pcid_handle_request(libxl__gc *gc, yajl_gen gen,
-                                const libxl__json_object *request)
- {
-@@ -104,14 +139,19 @@ static int pcid_handle_request(libxl__gc *gc, yajl_gen gen,
- 
-     command_name = command_obj->u.string;
- 
--    /*
--     * This is an unsupported command: make a reply and proceed over
--     * the error path.
--     */
--    ret = make_error_reply(gc, gen, "Unsupported command",
--                           command_name);
--    if (!ret)
--        ret = ERROR_NOTFOUND;
-+    if (strcmp(command_name, PCID_CMD_LIST_ASSIGNABLE) == 0)
-+       ret = process_list_assignable(gc, gen, command_name,
-+                                     request, &command_response);
-+    else {
-+        /*
-+         * This is an unsupported command: make a reply and proceed over
-+         * the error path.
-+         */
-+        ret = make_error_reply(gc, gen, "Unsupported command",
-+                               command_name);
-+        if (!ret)
-+            ret = ERROR_NOTFOUND;
-+    }
- 
-     if (ret) {
-         /*
 -- 
 2.34.1
 
