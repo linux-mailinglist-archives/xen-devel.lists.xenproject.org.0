@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A946D66B0A4
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 12:31:41 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477866.740848 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D17966B0D0
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 12:47:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477928.740871 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH1EY-0007Ej-FT; Sun, 15 Jan 2023 11:31:30 +0000
+	id 1pH1TL-0003i4-HT; Sun, 15 Jan 2023 11:46:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477866.740848; Sun, 15 Jan 2023 11:31:30 +0000
+Received: by outflank-mailman (output) from mailman id 477928.740871; Sun, 15 Jan 2023 11:46:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH1EY-0007Ap-8V; Sun, 15 Jan 2023 11:31:30 +0000
-Received: by outflank-mailman (input) for mailman id 477866;
- Sun, 15 Jan 2023 11:31:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ytYW=5M=gmail.com=dmitry.semenets@srs-se1.protection.inumbo.net>)
- id 1pH1EV-0004ci-3Q
- for xen-devel@lists.xenproject.org; Sun, 15 Jan 2023 11:31:27 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 257c687c-94c8-11ed-91b6-6bf2151ebd3b;
- Sun, 15 Jan 2023 12:31:26 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id bk15so4531706ejb.9
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 03:31:26 -0800 (PST)
-Received: from dsemenets-HP-EliteBook-850-G8-Notebook-PC.. ([91.219.254.73])
- by smtp.gmail.com with ESMTPSA id
- uj42-20020a170907c9aa00b0084d4e612a22sm7459961ejc.67.2023.01.15.03.31.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 03:31:25 -0800 (PST)
+	id 1pH1TL-0003gB-Eb; Sun, 15 Jan 2023 11:46:47 +0000
+Received: by outflank-mailman (input) for mailman id 477928;
+ Sun, 15 Jan 2023 11:46:46 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH1TK-0003g1-86; Sun, 15 Jan 2023 11:46:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH1TK-0003M0-58; Sun, 15 Jan 2023 11:46:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH1TJ-0004Rb-TB; Sun, 15 Jan 2023 11:46:45 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH1TJ-0003lh-Si; Sun, 15 Jan 2023 11:46:45 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,259 +42,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 257c687c-94c8-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=6Di8T7RFkSXJWtJ7IeU06hxU0Lz5Aq6jlmAWzDwNGXI=;
-        b=iweg5CpL5M1YkOuzr2tqeKOpn4QsKSQbE4lPh15fHRb/E+IKHE0gont35IDfqMQ3Xm
-         XEEi5YbTezWUNspnrfixupk/0YXZKwk9Zs6Lu4EAi8fDm0Ui3K710o2P29IO8tQLzSIt
-         h/TtF4V7sgs+s3t4m8vi66Kl9mJIALrEE24zQ3jXym+rnvc6oXEdBJ4Wl0xBPQwfbGV6
-         0c27JUPC4gw94jUI3c+FZMe6UBL3ydJPwARhFwLZ8yWYs+VGTWAYpSiqWN7ObU7hPqYn
-         8lYZdkteljcxSLGijGGgaI5xVAFudZ5o6viwYgOZQWeLoNZ5vwR6WZkasgFR/IpPGnXM
-         /qXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=6Di8T7RFkSXJWtJ7IeU06hxU0Lz5Aq6jlmAWzDwNGXI=;
-        b=sRryGQ0ivXOL70uigOJjg/3B0/pHgMfiB12CXKqGpj5cUHhinL4I1O/yKzmHVYmRB0
-         kmAhEXTiOm76Vxqwzsk+m94M9eetaeDgNSWuM5ifBcgTLIt6HZagSw2Js/sQSuSbynZY
-         SPS+OlklwV4dwVY+TJG9AUSHcDcFVI4KPIzdXfoRAqAm3ZCQ3f6P4zTlbpkbd0ROpt55
-         Ku6WcewNTqsbdIjiafw/4EmTK4iNJUKNCTq/vKk0gl3Z2aEyiiPWEzRo1cCqOd+tC8N9
-         THJgt7MeKT7V2EQxu5GyMXqQJlaflEmffXDXcQcR5VvlwJxbbIFLrO62pmKs6hghuyxC
-         s1Eg==
-X-Gm-Message-State: AFqh2kqWl2q3UT1VsfP+qZJ5YJFGtYYpRKkz31K5zjJYksvv1dGcRmvt
-	g/nsMpOP0MN9D7X181cJ6Sz7xvPwqaLnZG9G
-X-Google-Smtp-Source: AMrXdXvLAVwK3qonUGLjg/wBl1L74Jpy3sI9dIZFYwDnDYGuPwbOjHUZ+FDmnz+U9lCjjOwhNEgR3A==
-X-Received: by 2002:a17:907:4d6:b0:7c0:d6ba:c934 with SMTP id vz22-20020a17090704d600b007c0d6bac934mr8040416ejb.13.1673782285537;
-        Sun, 15 Jan 2023 03:31:25 -0800 (PST)
-From: Dmytro Semenets <dmitry.semenets@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=OqEIzWYU0lDHvvDqwWjKBBSaX5ZUh+PkDv3qcPI7kcs=; b=NVrwGJUK5PRZWEKeV/zZiPY7Vg
+	e+PbwDbnfV42DoGGqaXV/M3rpzG1Kn6PAWhKBLltkQsHGs0rsABNcjmBTQliEu8LT7gFrjXeztf1w
+	72ANrsZobNPzRET4BwcpuNt9FCXOcqg+25fEiq/21zTA4UunXIu6FJxcmz2NeGlBOrBI=;
 To: xen-devel@lists.xenproject.org
-Cc: Dmytro Semenets <dmytro_semenets@epam.com>,
-	Wei Liu <wl@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Subject: [RFC PATCH v3 10/10] tools/libs/light: pcid: implement write_bdf command
-Date: Sun, 15 Jan 2023 13:31:11 +0200
-Message-Id: <20230115113111.1207605-11-dmitry.semenets@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230115113111.1207605-1-dmitry.semenets@gmail.com>
-References: <20230115113111.1207605-1-dmitry.semenets@gmail.com>
-MIME-Version: 1.0
+Message-ID: <osstest-175872-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 175872: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+X-Osstest-Versions-That:
+    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 15 Jan 2023 11:46:45 +0000
 
-From: Dmytro Semenets <dmytro_semenets@epam.com>
+flight 175872 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175872/
 
-Signed-off-by: Dmytro Semenets <dmytro_semenets@epam.com>
----
- tools/include/pcid.h          | 17 +++++++++
- tools/libs/light/libxl_pci.c  | 67 ++++++++++++++++++-----------------
- tools/libs/light/libxl_pcid.c | 38 ++++++++++++++++++++
- 3 files changed, 90 insertions(+), 32 deletions(-)
+Regressions :-(
 
-diff --git a/tools/include/pcid.h b/tools/include/pcid.h
-index 833b6c7f3e..2c1bd0727e 100644
---- a/tools/include/pcid.h
-+++ b/tools/include/pcid.h
-@@ -181,6 +181,23 @@
- #define PCID_RESULT_KEY_IOMEM           "iomem"
- #define PCID_RESULT_KEY_IRQS            "irqs"
- 
-+/*
-+ *******************************************************************************
-+ * Write BDF values to the pciback sysfs path
-+ *
-+ * This command resets PCI device
-+ *
-+ * Request (see other mandatory fields above):
-+ *  - "cmd" field of the request must be set to "write_bdf".
-+ *  - "sbdf" SBDF of the device in format defined by PCID_SBDF_FMT.
-+ *  - "name" name of sysfs file of pciback driver
-+ *
-+ * Response (see other mandatory fields above):
-+ *  - "resp" field of the response must be set to "write_bdf".
-+ */
-+#define PCID_CMD_WRITE_BDF               "write_bdf"
-+#define PCID_MSG_FIELD_NAME              "name"
-+
- /*
-  *******************************************************************************
-  * Reset PCI device
-diff --git a/tools/libs/light/libxl_pci.c b/tools/libs/light/libxl_pci.c
-index 2e7bd2eae5..a9a641829a 100644
---- a/tools/libs/light/libxl_pci.c
-+++ b/tools/libs/light/libxl_pci.c
-@@ -94,6 +94,8 @@ static int pci_handle_response(libxl__gc *gc,
-     else if (strcmp(command_name, PCID_CMD_RESOURCE_LIST) == 0)
-         *result = (libxl__json_object *)libxl__json_map_get(PCID_MSG_FIELD_RESOURCES,
-                 response, JSON_MAP);
-+    else if (strcmp(command_name, PCID_CMD_WRITE_BDF) == 0)
-+        *result = libxl__json_object_alloc(gc, JSON_NULL);
-     return ret;
- }
- 
-@@ -511,33 +513,6 @@ static bool is_pci_in_array(libxl_device_pci *pcis, int num,
-     return i < num;
- }
- 
--/* Write the standard BDF into the sysfs path given by sysfs_path. */
--static int sysfs_write_bdf(libxl__gc *gc, const char * sysfs_path,
--                           libxl_device_pci *pci)
--{
--    int rc, fd;
--    char *buf;
--
--    fd = open(sysfs_path, O_WRONLY);
--    if (fd < 0) {
--        LOGE(ERROR, "Couldn't open %s", sysfs_path);
--        return ERROR_FAIL;
--    }
--
--    buf = GCSPRINTF(PCI_BDF, pci->domain, pci->bus,
--                    pci->dev, pci->func);
--    rc = write(fd, buf, strlen(buf));
--    /* Annoying to have two if's, but we need the errno */
--    if (rc < 0)
--        LOGE(ERROR, "write to %s returned %d", sysfs_path, rc);
--    close(fd);
--
--    if (rc < 0)
--        return ERROR_FAIL;
--
--    return 0;
--}
--
- #define PCI_INFO_PATH "/libxl/pci"
- 
- static char *pci_info_xs_path(libxl__gc *gc, libxl_device_pci *pci,
-@@ -1384,6 +1359,36 @@ static bool pci_supp_legacy_irq(void)
- #endif
- }
- 
-+static int pciback_write_bdf(libxl__gc *gc, char *name, libxl_device_pci *pci)
-+{
-+    struct vchan_info *vchan;
-+    int rc;
-+    libxl__json_object *args, *result;
-+
-+    vchan = pci_vchan_get_client(gc);
-+    if (!vchan) {
-+        rc = ERROR_NOT_READY;
-+        goto out;
-+    }
-+
-+    args = libxl__vchan_start_args(gc);
-+
-+    libxl__vchan_arg_add_string(gc, args, PCID_MSG_FIELD_SBDF,
-+            GCSPRINTF(PCID_SBDF_FMT, pci->domain,
-+                pci->bus, pci->dev, pci->func));
-+    libxl__vchan_arg_add_string(gc, args, PCID_MSG_FIELD_NAME, name);
-+
-+    result = vchan_send_command(gc, vchan, PCID_CMD_WRITE_BDF, args);
-+    if (!result) {
-+        rc = ERROR_FAIL;
-+        goto vchan_free;
-+    }
-+vchan_free:
-+    pci_vchan_free(gc, vchan);
-+out:
-+    return rc;
-+}
-+
- static void pci_add_dm_done(libxl__egc *egc,
-                             pci_add_state *pas,
-                             int rc)
-@@ -1421,8 +1426,9 @@ static void pci_add_dm_done(libxl__egc *egc,
-     libxl__vchan_arg_add_integer(gc, args, PCID_MSG_FIELD_DOMID, domid);
- 
-     result = vchan_send_command(gc, vchan, PCID_CMD_RESOURCE_LIST, args);
-+    pci_vchan_free(gc, vchan);
-     if (!result)
--        goto vchan_free;
-+        goto out;
-     value = libxl__json_map_get(PCID_RESULT_KEY_IOMEM, result, JSON_ARRAY);
- 
-     /* stubdomain is always running by now, even at create time */
-@@ -1483,8 +1489,7 @@ static void pci_add_dm_done(libxl__egc *egc,
- 
-     /* Don't restrict writes to the PCI config space from this VM */
-     if (pci->permissive) {
--        if ( sysfs_write_bdf(gc, SYSFS_PCIBACK_DRIVER"/permissive",
--                             pci) < 0 ) {
-+        if (pciback_write_bdf(gc, "permissive", pci)) {
-             LOGD(ERROR, domainid, "Setting permissive for device");
-             rc = ERROR_FAIL;
-             goto out;
-@@ -1512,8 +1517,6 @@ out_no_irq:
-         rc = libxl__device_pci_add_xenstore(gc, domid, pci, starting);
-     else
-         rc = 0;
--vchan_free:
--    pci_vchan_free(gc, vchan);
- out:
-     libxl__ev_time_deregister(gc, &pas->timeout);
-     libxl__ev_time_deregister(gc, &pas->timeout_retries);
-diff --git a/tools/libs/light/libxl_pcid.c b/tools/libs/light/libxl_pcid.c
-index d968071224..66b433d2bf 100644
---- a/tools/libs/light/libxl_pcid.c
-+++ b/tools/libs/light/libxl_pcid.c
-@@ -257,6 +257,41 @@ static int pciback_dev_is_assigned(libxl__gc *gc, unsigned int domain,
-     return 0;
- }
- 
-+static int process_pciback_write_bdf(libxl__gc *gc, yajl_gen gen,
-+                                   char *command_name,
-+                                   const struct libxl__json_object *request,
-+                                   struct libxl__json_object **response)
-+{
-+    const struct libxl__json_object *json_o;
-+    unsigned int dom, bus, dev, func;
-+    int rc = 0;
-+    const char *name;
-+    char *spath;
-+
-+    json_o = libxl__json_map_get(PCID_MSG_FIELD_SBDF, request, JSON_STRING);
-+    if (!json_o) {
-+        make_error_reply(gc, gen, "No mandatory parameter 'sbdf'", command_name);
-+        return ERROR_FAIL;
-+    }
-+
-+    if (sscanf(libxl__json_object_get_string(json_o), PCID_SBDF_FMT,
-+           &dom, &bus, &dev, &func) != 4) {
-+        make_error_reply(gc, gen, "Can't parse SBDF", command_name);
-+        return ERROR_FAIL;
-+    }
-+
-+    json_o = libxl__json_map_get(PCID_MSG_FIELD_NAME, request, JSON_STRING);
-+    if (!json_o) {
-+        make_error_reply(gc, gen, "No mandatory parameter 'rebind'", command_name);
-+        return ERROR_FAIL;
-+    }
-+
-+    name = libxl__json_object_get_string(json_o);
-+    spath = GCSPRINTF("%s/%s", SYSFS_PCIBACK_DRIVER, name);
-+    LOG(WARN, "sysf_write_bdf(%s, %d, %d, %d, %d)", spath, dom, bus, dev,func);
-+    return rc;
-+}
-+
- #define PCID_INFO_PATH		"pcid"
- #define PCID_BDF_XSPATH         "%04x-%02x-%02x-%01x"
- 
-@@ -746,6 +781,9 @@ static int pcid_handle_request(libxl__gc *gc, yajl_gen gen,
-     else if (strcmp(command_name, PCID_CMD_RESOURCE_LIST) == 0)
-        ret = process_list_resources(gc, gen, command_name,
-                                      request, &command_response);
-+    else if (strcmp(command_name, PCID_CMD_WRITE_BDF) == 0)
-+       ret = process_pciback_write_bdf(gc, gen, command_name,
-+                                     request, &command_response);
-     else {
-         /*
-          * This is an unsupported command: make a reply and proceed over
--- 
-2.34.1
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
+ build-i386                    6 xen-build                fail REGR. vs. 175747
+ build-amd64                   6 xen-build                fail REGR. vs. 175747
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175747
 
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+baseline version:
+ ovmf                 9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+
+Last test of basis   175747  2023-01-12 16:10:44 Z    2 days
+Failing since        175860  2023-01-15 07:11:07 Z    0 days    8 attempts
+Testing same since   175871  2023-01-15 10:40:40 Z    0 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:35 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Return error if installing NotifyProtocol failed
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Installation of gQemuAcpiTableNotifyProtocol may fail. The error code
+    should be returned so that the caller can handle it.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-7-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 66f18fde49c7fe65818db0801cdaf63015e875e5
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:34 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Refactor QemuAcpiTableNotifyProtocol
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 install the QemuAcpiTableNotifyProtocol at a
+    wrong positioin. It should be called before TransferS3ContextToBootScript
+    because TransferS3ContextToBootScript is the last operation in
+    InstallQemuFwCfgTables(). Another error is that we should check the
+    returned value after installing the QemuAcpiTableNotifyProtocol.
+    
+    This patch refactors the installation and error handling of
+    QemuAcpiTableNotifyProtocol in InstallQemuFwCfgTables ().
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-6-min.m.xu@intel.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+
+commit 2ef0ff39e53d2d2af3859b783882eea6f0beda64
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:33 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Add log to show the installed tables
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 wrongly removed the log from InstallQemuFwCfgTables
+    after ACPI tables are successfully installed. This patch add the log
+    back after all operations succeed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-5-min.m.xu@intel.com>
+
+commit 165f1e49361a9a5f5936f2d582641096d0d7a2a2
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:32 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in QemuFwCfgAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mQemuAcpiHandle is not needed for anything, beyond the
+    scope of the InstallQemuFwCfgTables(). So a local variable will
+    suffice for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-4-min.m.xu@intel.com>
+
+commit f81273f7fbb3defbef43313ada8397bbc202a1d0
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:31 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in CloudHvAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mChAcpiHandle is not needed for anything, beyond the
+    scope of the InstallCloudHvTablesTdx (). A local variable (ChAcpiHandle)
+    suffices for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-3-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 43b3ca6b7f626c6dcdc1a347ad8a42d8cf9ea575
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:30 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Remove QEMU_ACPI_TABLE_NOTIFY_PROTOCOL
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The QEMU_ACPI_TABLE_NOTIFY_PROTOCOL structure is superfluous because NULL
+    protocol interfaces have been used in edk2 repeatedly. A protocol instance
+    can exist in the protocol database with a NULL associated interface.
+    Therefore the QEMU_ACPI_TABLE_NOTIFY_PROTOCOL type, the
+    "QemuAcpiTableNotify.h" header, and the "mAcpiNotifyProtocol" global
+    variable can be removed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-2-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit ba08910df1071bf5ade987529d9becb38d14a14a
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Thu Jan 12 23:41:02 2023 +0800
+
+    OvmfPkg: fix OvmfTpmSecurityStub.dsc.inc include
+    
+    TPM support is independent from secure boot support.  Move the TPM
+    include snipped out of the secure boot !if block.
+    
+    Fixes: b47575801e19 ("OvmfPkg: move tcg configuration to dsc and fdf include files")
+    Bugzilla: https://bugzilla.tianocore.org//show_bug.cgi?id=4290
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
 
