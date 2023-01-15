@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D439466B145
-	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 14:32:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.477956.740910 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E84C666B15C
+	for <lists+xen-devel@lfdr.de>; Sun, 15 Jan 2023 15:02:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.477964.740920 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH36S-0007FE-Qy; Sun, 15 Jan 2023 13:31:16 +0000
+	id 1pH3ZB-0002Gb-9v; Sun, 15 Jan 2023 14:00:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 477956.740910; Sun, 15 Jan 2023 13:31:16 +0000
+Received: by outflank-mailman (output) from mailman id 477964.740920; Sun, 15 Jan 2023 14:00:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pH36S-0007D0-Nc; Sun, 15 Jan 2023 13:31:16 +0000
-Received: by outflank-mailman (input) for mailman id 477956;
- Sun, 15 Jan 2023 13:31:15 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=3Jr4=5M=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pH36Q-0007Cu-Uo
- for xen-devel@lists.xenproject.org; Sun, 15 Jan 2023 13:31:15 +0000
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id df3663ce-94d8-11ed-91b6-6bf2151ebd3b;
- Sun, 15 Jan 2023 14:31:11 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 674715C0062;
- Sun, 15 Jan 2023 08:31:09 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Sun, 15 Jan 2023 08:31:09 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Jan 2023 08:31:07 -0500 (EST)
+	id 1pH3ZB-0002Dv-6i; Sun, 15 Jan 2023 14:00:57 +0000
+Received: by outflank-mailman (input) for mailman id 477964;
+ Sun, 15 Jan 2023 14:00:55 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH3Z9-0002Dl-Nb; Sun, 15 Jan 2023 14:00:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH3Z9-0006OV-6t; Sun, 15 Jan 2023 14:00:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH3Z8-0007kw-NX; Sun, 15 Jan 2023 14:00:54 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pH3Z8-0003eM-N7; Sun, 15 Jan 2023 14:00:54 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,296 +42,257 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: df3663ce-94d8-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1673789469; x=
-	1673875869; bh=+SXSZ20hXLrjTTJOPMKMT76P9OAHK56Wb+bD0RGRY6A=; b=h
-	Mi5o70zxeg2tr6OK0LM+gvqj2csyZ0UpZ4YHspmyA61iM5VCRwVYXQ3MhktJfNfi
-	wId881BcTaEc8tkHi20OKscHjQHmgKg2CkDR1pM91KzrnF4++CJ1n71T63iYx8T4
-	oFh98DlbpGbuH9rpKFub4nNGCAa37fyUicuywBNWq7YrRsViYPAoro3LKWKMEu7k
-	nu5/+H7mRS/fSDegBG6pKJkzLjS6seXwWAehRFpwLpCxmRjNcz65+fg/Ri7hX5Ub
-	JUtWZ2OonyTs52+fwy3xyLaSK9osMvMoBPZiYZaNTWU7sIK1YrOUTm8F+odKBRz3
-	8muj+LFVBbciYWXneuAXA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1673789469; x=1673875869; bh=+SXSZ20hXLrjTTJOPMKMT76P9OAH
-	K56Wb+bD0RGRY6A=; b=Y2MK6Hc2dieOOOMhdkaB7k0XCdOQlVPTn4wjwXtFcauE
-	a9v9fvAiKh9R+nCaY3wxpOm3x/jB7VjXuzBB8KQPfn2OXwAgD5K/d2FiPAwKhfvJ
-	hZEK36sPjIxi0/UIsyQEXaTVzJTXoLac99Krw3aru9ZgTs/gwUm4Gs3YswIoFF/e
-	wnJ128ethOM4Zzd5x+yWzI/CC5XOwgvVAx/vldKD2qOOrQG7msbbrIkE6QrNzDeI
-	3kbwhm+POXrK9Py64JdDDMntq9QpvsNCkdNWIgTlYypk71PXrZ4ranD8R8CvgYHv
-	W3YV3hNrLOcOiZnAUSlrepTAz76QSe1/S48t0bPYHA==
-X-ME-Sender: <xms:HADEYwsPHscSFtDF7wFn29G8FWS5IOKXWc3uyGMBE4S9kT44QeKrSw>
-    <xme:HADEY9dlann9Llf38U-VoGzB8WlxOPj5T8Qx20MBsUJL9JEbeKx1j4W6cBP9zYjix
-    B0QiyBFOnun7w>
-X-ME-Received: <xmr:HADEY7zeYJUulTVSizoYiZQ3U-CMn3ERrUIotLqH67Ps6oWEDlAKVekG3ykMIke8bUgO_SRxHEfZ-JY7_JH3BD59HPhVBg9LMg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddtvddgheegucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepueek
-    teetgefggfekudehteegieeljeejieeihfejgeevhfetgffgteeuteetueetnecuffhomh
-    grihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
-    mhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:HADEYzMqj0Ty7WfAMcyZ6RROAUQsyoQqnTNFY6C3wyuXytC9h1brVw>
-    <xmx:HADEYw-OJi7H5ZgptihbzRMBEOqpBrxRXkhb-pO3gnxqAnIfSgpREg>
-    <xmx:HADEY7WSxsIrLmfyhp7VTgQ2yIT3STCwcLcHovaL417im0X9QzmnTg>
-    <xmx:HQDEY7Y93-IVKrVse5pErUp4l2AKFjCZ4Bd5Ng5tGX8_Mm6lz3BDzQ>
-Feedback-ID: i1568416f:Fastmail
-Date: Sun, 15 Jan 2023 14:31:03 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
-Message-ID: <Y8QAF5K4ZLJxzPni@mail-itl>
-References: <20221003112625.972646-1-ardb@kernel.org>
- <20221003112625.972646-6-ardb@kernel.org>
- <Yzr/1s9CbA0CClmt@itl-email>
- <CAMj1kXEXhDXRSnBp8P=urFj8UzzeRtYS9V8Tdt9GSrZTnGRFhA@mail.gmail.com>
- <YzsMYfEwmjHwVheb@itl-email>
- <CAMj1kXHR1FfD+ipG4RtbOezx+s_Jo6JwG4fpT5XUmvoqHTctLA@mail.gmail.com>
- <YzsWAnD7q9qeBoBn@mail-itl>
- <Yzsii72GWWvc5tRD@itl-email>
- <YzsjYHirK+SXUjGl@mail-itl>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=nU4mZa/foIJ+HpTeNf/PiFSoR5fx47cwhz/pGUBbItc=; b=KEkWlJGRSf23WOPN04rvOQHiP1
+	XW9emGl0+zW7uHN4x4UyvrXvC9nkKt/B0/YSgtA/18MdDcWRNBgVr8hYpKuL04w5yGqMlAYylku99
+	VUB4IRzdBLWTU9Q3uRfraiwGNwarsH7WbjZEyyYF6oWPAT8x7tqiRPdwoxm/GqUdjp00=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175877-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="Brnh0jZ4ScsEj+y3"
-Content-Disposition: inline
-In-Reply-To: <YzsjYHirK+SXUjGl@mail-itl>
+Subject: [ovmf test] 175877: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+X-Osstest-Versions-That:
+    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 15 Jan 2023 14:00:54 +0000
+
+flight 175877 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175877/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
+ build-i386                    6 xen-build                fail REGR. vs. 175747
+ build-amd64                   6 xen-build                fail REGR. vs. 175747
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175747
+
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+baseline version:
+ ovmf                 9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+
+Last test of basis   175747  2023-01-12 16:10:44 Z    2 days
+Failing since        175860  2023-01-15 07:11:07 Z    0 days   11 attempts
+Testing same since   175871  2023-01-15 10:40:40 Z    0 days    5 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Gerd Hoffmann <kraxel@redhat.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
 
---Brnh0jZ4ScsEj+y3
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Jan 2023 14:31:03 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Cc: Ard Biesheuvel <ardb@kernel.org>, linux-efi@vger.kernel.org,
-	Xen developer discussion <xen-devel@lists.xenproject.org>,
-	Peter Jones <pjones@redhat.com>, Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-	Kees Cook <keescook@chromium.org>,
-	Anton Vorontsov <anton@enomsg.org>,
-	Colin Cross <ccross@android.com>, Tony Luck <tony.luck@intel.com>
-Subject: Re: [PATCH v2 5/6] efi: xen: Implement memory descriptor lookup
- based on hypercall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On Mon, Oct 03, 2022 at 08:01:03PM +0200, Marek Marczykowski-G=C3=B3recki w=
-rote:
-> On Mon, Oct 03, 2022 at 01:57:14PM -0400, Demi Marie Obenour wrote:
-> > On Mon, Oct 03, 2022 at 07:04:02PM +0200, Marek Marczykowski-G=C3=B3rec=
-ki wrote:
-> > > On Mon, Oct 03, 2022 at 06:37:19PM +0200, Ard Biesheuvel wrote:
-> > > > On Mon, 3 Oct 2022 at 18:23, Demi Marie Obenour
-> > > > <demi@invisiblethingslab.com> wrote:
-> > > > >
-> > > > > On Mon, Oct 03, 2022 at 05:59:52PM +0200, Ard Biesheuvel wrote:
-> > > > > > On Mon, 3 Oct 2022 at 17:29, Demi Marie Obenour
-> > > > > > <demi@invisiblethingslab.com> wrote:
-> > > > > > >
-> > > > > > > On Mon, Oct 03, 2022 at 01:26:24PM +0200, Ard Biesheuvel wrot=
-e:
-> > > > > > > > Xen on x86 boots dom0 in EFI mode but without providing a m=
-emory map.
-> > > > > > > > This means that some sanity checks we would like to perform=
- on
-> > > > > > > > configuration tables or other data structures in memory are=
- not
-> > > > > > > > currently possible. Xen does, however, expose EFI memory de=
-scriptor info
-> > > > > > > > via a Xen hypercall, so let's wire that up instead.
-> > > > > > > >
-> > > > > > > > Co-developed-by: Demi Marie Obenour <demi@invisiblethingsla=
-b.com>
-> > > > > > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.=
-com>
-> > > > > > > > Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> > > > > > > > ---
-> > > > > > > >  drivers/firmware/efi/efi.c |  5 ++-
-> > > > > > > >  drivers/xen/efi.c          | 34 ++++++++++++++++++++
-> > > > > > > >  include/linux/efi.h        |  1 +
-> > > > > > > >  3 files changed, 39 insertions(+), 1 deletion(-)
-> > > > > > > >
-> > > > > > > > diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/=
-efi/efi.c
-> > > > > > > > index 55bd3f4aab28..2c12b1a06481 100644
-> > > > > > > > --- a/drivers/firmware/efi/efi.c
-> > > > > > > > +++ b/drivers/firmware/efi/efi.c
-> > > > > > > > @@ -456,7 +456,7 @@ void __init efi_find_mirror(void)
-> > > > > > > >   * and if so, populate the supplied memory descriptor with=
- the appropriate
-> > > > > > > >   * data.
-> > > > > > > >   */
-> > > > > > > > -int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *=
-out_md)
-> > > > > > > > +int __efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t=
- *out_md)
-> > > > > > > >  {
-> > > > > > > >       efi_memory_desc_t *md;
-> > > > > > > >
-> > > > > > > > @@ -485,6 +485,9 @@ int efi_mem_desc_lookup(u64 phys_addr, =
-efi_memory_desc_t *out_md)
-> > > > > > > >       return -ENOENT;
-> > > > > > > >  }
-> > > > > > > >
-> > > > > > > > +extern int efi_mem_desc_lookup(u64 phys_addr, efi_memory_d=
-esc_t *out_md)
-> > > > > > > > +      __weak __alias(__efi_mem_desc_lookup);
-> > > > > > > > +
-> > > > > > > >  /*
-> > > > > > > >   * Calculate the highest address of an efi memory descript=
-or.
-> > > > > > > >   */
-> > > > > > > > diff --git a/drivers/xen/efi.c b/drivers/xen/efi.c
-> > > > > > > > index d1ff2186ebb4..74f3f6d8cdc8 100644
-> > > > > > > > --- a/drivers/xen/efi.c
-> > > > > > > > +++ b/drivers/xen/efi.c
-> > > > > > > > @@ -26,6 +26,7 @@
-> > > > > > > >
-> > > > > > > >  #include <xen/interface/xen.h>
-> > > > > > > >  #include <xen/interface/platform.h>
-> > > > > > > > +#include <xen/page.h>
-> > > > > > > >  #include <xen/xen.h>
-> > > > > > > >  #include <xen/xen-ops.h>
-> > > > > > > >
-> > > > > > > > @@ -292,3 +293,36 @@ void __init xen_efi_runtime_setup(void)
-> > > > > > > >       efi.get_next_high_mono_count    =3D xen_efi_get_next_=
-high_mono_count;
-> > > > > > > >       efi.reset_system                =3D xen_efi_reset_sys=
-tem;
-> > > > > > > >  }
-> > > > > > > > +
-> > > > > > > > +int efi_mem_desc_lookup(u64 phys_addr, efi_memory_desc_t *=
-out_md)
-> > > > > > > > +{
-> > > > > > > > +     static_assert(XEN_PAGE_SHIFT =3D=3D EFI_PAGE_SHIFT,
-> > > > > > > > +                   "Mismatch between EFI_PAGE_SHIFT and XE=
-N_PAGE_SHIFT");
-> > > > > > > > +     struct xen_platform_op op =3D {
-> > > > > > > > +             .cmd =3D XENPF_firmware_info,
-> > > > > > > > +             .u.firmware_info =3D {
-> > > > > > > > +                     .type =3D XEN_FW_EFI_INFO,
-> > > > > > > > +                     .index =3D XEN_FW_EFI_MEM_INFO,
-> > > > > > > > +                     .u.efi_info.mem.addr =3D phys_addr,
-> > > > > > > > +                     .u.efi_info.mem.size =3D U64_MAX - ph=
-ys_addr,
-> > > > > > > > +             }
-> > > > > > > > +     };
-> > > > > > > > +     union xenpf_efi_info *info =3D &op.u.firmware_info.u.=
-efi_info;
-> > > > > > > > +     int rc;
-> > > > > > > > +
-> > > > > > > > +     if (!efi_enabled(EFI_PARAVIRT) || efi_enabled(EFI_MEM=
-MAP))
-> > > > > > > > +             return __efi_mem_desc_lookup(phys_addr, out_m=
-d);
-> > > > > > > > +
-> > > > > > > > +     rc =3D HYPERVISOR_platform_op(&op);
-> > > > > > > > +     if (rc) {
-> > > > > > > > +             pr_warn("Failed to lookup header 0x%llx in Xe=
-n memory map: error %d\n",
-> > > > > > > > +                     phys_addr, rc);
-> > > > > > > > +     }
-> > > > > > > > +
-> > > > > > > > +     out_md->phys_addr       =3D info->mem.addr;
-> > > > > > >
-> > > > > > > This will be equal to phys_addr, not the actual start of the =
-memory
-> > > > > > > region.
-> > > > > > >
-> > > > > > > > +     out_md->num_pages       =3D info->mem.size >> EFI_PAG=
-E_SHIFT;
-> > > > > > >
-> > > > > > > Similarly, this will be the number of bytes in the memory reg=
-ion
-> > > > > > > after phys_addr, not the total number of bytes in the region.=
-  These two
-> > > > > > > differences mean that this function is not strictly equivalen=
-t to the
-> > > > > > > original efi_mem_desc_lookup().
-> > > > > > >
-> > > > > > > I am not sure if this matters in practice, but I thought you =
-would want
-> > > > > > > to be aware of it.
-> > > > > >
-> > > > > > This is a bit disappointing. Is there no way to obtain this
-> > > > > > information via a Xen hypercall?
-> > > > >
-> > > > > It is possible, but doing so is very complex (it essentially requ=
-ires a
-> > > > > binary search).  This really should be fixed on the Xen side.
-> > > > >
-> > > > > > In any case, it means we'll need to round down phys_addr to pag=
-e size
-> > > > > > at the very least.
-> > > > >
-> > > > > That makes sense.  Are there any callers that will be broken even=
- with
-> > > > > this rounding?
-> > > >=20
-> > > > As far as I can tell, it should work fine. The only thing to double
-> > > > check is whether we are not creating spurious error messages from
-> > > > efi_arch_mem_reserve() this way, but as far as I can tell, that sho=
-uld
-> > > > be fine too.
-> > > >=20
-> > > > Is there anyone at your end that can give this a spin on an actual
-> > > > Xen/x86 system?
-> > >=20
-> > > Demi, if you open a PR with this at
-> > > https://github.com/QubesOS/qubes-linux-kernel/pulls, I can run it
-> > > through our CI - (at least) one of the machines has ESRT table. AFAIR
-> > > your test laptop has it too.
-> >=20
-> > Just this patch or the whole series?
->=20
-> Whole series.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I have tested the series as in
-https://github.com/QubesOS/qubes-linux-kernel/pull/681 and it seems to
-work great.
-Note the series there differs from this thread, and is marked as "v3" - I
-assume (but haven't verified) it has changes requested in this thread
-applied. Demi, can you confirm? If so, you can probably send this v3,
-and feel free to include my Tested-by (unless you make significant
-changes, ofc).
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
---Brnh0jZ4ScsEj+y3
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+Not pushing.
 
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPEABcACgkQ24/THMrX
-1yzidQf/fw6/BjJE0q8FQMmaZtoPGu8ikWosCRW2C8jXxcCr6Mygrhlu7Ddn6RBC
-yBJmyuuvl5xEd3TS5h0Xd6iRE/DEQqIinE+FwLNejsNiQkiGIBDHCEJaFox6B2f4
-NdXMzUYIXdIXarC5rhWIUO75Zbc61+H6MO6iuyEDhHtOlQ7QZTDvBH9/EevPNNeY
-tHQqDhUkz7v9CczneoyqzAFADJXxLueIYD6sBdwEeVlNHMurS41DsLxRNuOV/ADf
-e/3pYFOpvBYBWIj8NXTUoyBrNwU3NtE+Yj6cXbB7UQxSNa6TXc+lmZkntbQawPcQ
-xJKIyGBbO/okzjrADNmJhkggn0OGiA==
-=pAmZ
------END PGP SIGNATURE-----
+------------------------------------------------------------
+commit 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:35 2023 +0800
 
---Brnh0jZ4ScsEj+y3--
+    OvmfPkg/AcpiPlatformDxe: Return error if installing NotifyProtocol failed
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Installation of gQemuAcpiTableNotifyProtocol may fail. The error code
+    should be returned so that the caller can handle it.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-7-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 66f18fde49c7fe65818db0801cdaf63015e875e5
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:34 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Refactor QemuAcpiTableNotifyProtocol
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 install the QemuAcpiTableNotifyProtocol at a
+    wrong positioin. It should be called before TransferS3ContextToBootScript
+    because TransferS3ContextToBootScript is the last operation in
+    InstallQemuFwCfgTables(). Another error is that we should check the
+    returned value after installing the QemuAcpiTableNotifyProtocol.
+    
+    This patch refactors the installation and error handling of
+    QemuAcpiTableNotifyProtocol in InstallQemuFwCfgTables ().
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-6-min.m.xu@intel.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+
+commit 2ef0ff39e53d2d2af3859b783882eea6f0beda64
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:33 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Add log to show the installed tables
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 wrongly removed the log from InstallQemuFwCfgTables
+    after ACPI tables are successfully installed. This patch add the log
+    back after all operations succeed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-5-min.m.xu@intel.com>
+
+commit 165f1e49361a9a5f5936f2d582641096d0d7a2a2
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:32 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in QemuFwCfgAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mQemuAcpiHandle is not needed for anything, beyond the
+    scope of the InstallQemuFwCfgTables(). So a local variable will
+    suffice for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-4-min.m.xu@intel.com>
+
+commit f81273f7fbb3defbef43313ada8397bbc202a1d0
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:31 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in CloudHvAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mChAcpiHandle is not needed for anything, beyond the
+    scope of the InstallCloudHvTablesTdx (). A local variable (ChAcpiHandle)
+    suffices for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-3-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 43b3ca6b7f626c6dcdc1a347ad8a42d8cf9ea575
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:30 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Remove QEMU_ACPI_TABLE_NOTIFY_PROTOCOL
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The QEMU_ACPI_TABLE_NOTIFY_PROTOCOL structure is superfluous because NULL
+    protocol interfaces have been used in edk2 repeatedly. A protocol instance
+    can exist in the protocol database with a NULL associated interface.
+    Therefore the QEMU_ACPI_TABLE_NOTIFY_PROTOCOL type, the
+    "QemuAcpiTableNotify.h" header, and the "mAcpiNotifyProtocol" global
+    variable can be removed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-2-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit ba08910df1071bf5ade987529d9becb38d14a14a
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Thu Jan 12 23:41:02 2023 +0800
+
+    OvmfPkg: fix OvmfTpmSecurityStub.dsc.inc include
+    
+    TPM support is independent from secure boot support.  Move the TPM
+    include snipped out of the secure boot !if block.
+    
+    Fixes: b47575801e19 ("OvmfPkg: move tcg configuration to dsc and fdf include files")
+    Bugzilla: https://bugzilla.tianocore.org//show_bug.cgi?id=4290
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
 
