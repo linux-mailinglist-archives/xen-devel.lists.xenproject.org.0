@@ -2,64 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36A2966B9D9
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 10:07:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478470.741688 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E48E566B9F5
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 10:13:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478476.741698 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHLSS-0007Iu-66; Mon, 16 Jan 2023 09:07:12 +0000
+	id 1pHLYC-0000JR-QR; Mon, 16 Jan 2023 09:13:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478470.741688; Mon, 16 Jan 2023 09:07:12 +0000
+Received: by outflank-mailman (output) from mailman id 478476.741698; Mon, 16 Jan 2023 09:13:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHLSS-0007H3-35; Mon, 16 Jan 2023 09:07:12 +0000
-Received: by outflank-mailman (input) for mailman id 478470;
- Mon, 16 Jan 2023 09:07:11 +0000
+	id 1pHLYC-0000HK-NH; Mon, 16 Jan 2023 09:13:08 +0000
+Received: by outflank-mailman (input) for mailman id 478476;
+ Mon, 16 Jan 2023 09:13:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=E1ZZ=5N=arm.com=Luca.Fancellu@srs-se1.protection.inumbo.net>)
- id 1pHLSR-0007Gx-3E
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 09:07:11 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on2085.outbound.protection.outlook.com [40.107.14.85])
+ <SRS0=jLMM=5N=infradead.org=peterz@srs-se1.protection.inumbo.net>)
+ id 1pHLYB-0000H6-2l
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 09:13:08 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2737d73f-957d-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 10:07:08 +0100 (CET)
-Received: from DB6PR07CA0058.eurprd07.prod.outlook.com (2603:10a6:6:2a::20) by
- AS2PR08MB10034.eurprd08.prod.outlook.com (2603:10a6:20b:64b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Mon, 16 Jan
- 2023 09:07:06 +0000
-Received: from DBAEUR03FT041.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:6:2a:cafe::84) by DB6PR07CA0058.outlook.office365.com
- (2603:10a6:6:2a::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.6 via Frontend
- Transport; Mon, 16 Jan 2023 09:07:06 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT041.mail.protection.outlook.com (100.127.142.233) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6002.13 via Frontend Transport; Mon, 16 Jan 2023 09:07:05 +0000
-Received: ("Tessian outbound 3ad958cd7492:v132");
- Mon, 16 Jan 2023 09:07:05 +0000
-Received: from a35adcd54538.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- C1C9024E-6031-4696-AC70-00F477C47BC0.1; 
- Mon, 16 Jan 2023 09:06:55 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a35adcd54538.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Mon, 16 Jan 2023 09:06:55 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com (2603:10a6:20b:8f::22)
- by PAVPR08MB9038.eurprd08.prod.outlook.com (2603:10a6:102:32d::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Mon, 16 Jan
- 2023 09:06:52 +0000
-Received: from AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda]) by AM6PR08MB3749.eurprd08.prod.outlook.com
- ([fe80::b14f:1c13:afa:4eda%3]) with mapi id 15.20.5986.023; Mon, 16 Jan 2023
- 09:06:52 +0000
+ id f93987ef-957d-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 10:13:03 +0100 (CET)
+Received: from j130084.upc-j.chello.nl ([24.132.130.84]
+ helo=noisy.programming.kicks-ass.net)
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1pHLXi-005Xef-1V; Mon, 16 Jan 2023 09:12:38 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 7754A30030F;
+ Mon, 16 Jan 2023 10:12:44 +0100 (CET)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id C608420A006E1; Mon, 16 Jan 2023 10:12:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,106 +50,50 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2737d73f-957d-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zog7tXTO/VoC0WmG7Bj7yCLW/uq66futVr1cwAL01Lg=;
- b=7N/TLZk227hAe+Wvwky1KqpUVwk434hjbZanbMFZ0RlkfVWkpU9KZCskCiXM2LLSkc9KFSS6ksme9E8DdUW6zQtmV04Fao7zeDb8cv64e6M6SmC4aWu/PG5+0f7V4L6Gdry4KZOGShrJHYf0zJc70M6wnHdqiumj75AfuU/MEjY=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CheckRecipientChecked: true
-X-CR-MTA-CID: b6573d5a856029f0
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OvKKRcvQRWGLFKh48XsNb4WC1+OQp9KwpTzk/uYl56Ef5lcmH+JW6Nm1D9f4mKLzTDZaut5tsoRYmOEfcFjH7RlZafKxiQvw4QOfOtO1G3obso6M9Oiw+aMSGH7x4Hr9WlyOlFlolGHTr8kAS072QJfwwu7+AN2yKBT21Icet4tEACOzwPmB6jWIGYxotl1islS2ImLS73/rBOX/mEkTjDV68Coi292g6bUC94P0B3QTMTBDEOS/E0uOelzL+ieStr3GF/8yAm4nH5vBphfzkYMa3NJBDYqbJgBEsNT0WXGqZrpYT04t8uxy4JWveYjNZhARm++MVXrzGkszHc/tLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zog7tXTO/VoC0WmG7Bj7yCLW/uq66futVr1cwAL01Lg=;
- b=Fy7UqKQuVbCJilY2kDgHeKKB7x8UYK8hi6+UQHN++QOIQS7RADEqDKU4hBCb6x4QfyJsIWHI0GxLdakd3vsdSZeW74FwMGvEOdXXG688KnHUEaLi1av9BEbfUAWYn2ofyPcmfh5GeEcASftGE7IA4wzp8Xqx4CVS3LLFE2wm8nx1ukLDXQsWEyjD1Y7iLEakO/olNNPYeJF2XAqUHcMcg8mLWXqkOyZ15dRi4w1h2vIWePiupLFg4V4uezbB98nD37modU63jnnO0OVWZ+Ge4WVh49WRQiv/vkgCWZqu4XqMkT7+S+buG5IFx9453shDfMAcviBNcJ8Y3gju5HaO5Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zog7tXTO/VoC0WmG7Bj7yCLW/uq66futVr1cwAL01Lg=;
- b=7N/TLZk227hAe+Wvwky1KqpUVwk434hjbZanbMFZ0RlkfVWkpU9KZCskCiXM2LLSkc9KFSS6ksme9E8DdUW6zQtmV04Fao7zeDb8cv64e6M6SmC4aWu/PG5+0f7V4L6Gdry4KZOGShrJHYf0zJc70M6wnHdqiumj75AfuU/MEjY=
-From: Luca Fancellu <Luca.Fancellu@arm.com>
-To: Julien Grall <julien@xen.org>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Julien Grall
-	<jgrall@amazon.com>, Stefano Stabellini <sstabellini@kernel.org>, Bertrand
- Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
-	<Volodymyr_Babchuk@epam.com>
-Subject: Re: [PATCH v4 14/14] xen/arm64: smpboot: Directly switch to the
- runtime page-tables
-Thread-Topic: [PATCH v4 14/14] xen/arm64: smpboot: Directly switch to the
- runtime page-tables
-Thread-Index: AQHZJzoPSgWN5vNZ70iPu83PQrLhuK6cnmWAgAQm2IA=
-Date: Mon, 16 Jan 2023 09:06:51 +0000
-Message-ID: <69C4635C-1C1D-4F00-813B-83DF9E6D825D@arm.com>
-References: <20230113101136.479-1-julien@xen.org>
- <20230113101136.479-15-julien@xen.org>
- <8A0AD684-FB21-46B3-A0C9-DE0BF67030D0@arm.com>
-In-Reply-To: <8A0AD684-FB21-46B3-A0C9-DE0BF67030D0@arm.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-mailer: Apple Mail (2.3731.300.101.1.3)
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM6PR08MB3749:EE_|PAVPR08MB9038:EE_|DBAEUR03FT041:EE_|AS2PR08MB10034:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee22c2b7-b26d-4a8b-bb14-08daf7a10a31
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- 9hgNX8IFEgFUQHJqP09qb/9YoRegdHUvCJ9mlPFTpYc1Abe6whIGvLseh5fZmTz3ZUOM9VYAgW5oZbykJ1ZP/wvhGULOG+bQxtIOSYbdOaFuqek7oxoUpZPtjRxDUy+SsGNlVtG2ezD7xMHkpEQJKG9DUJSsn4jmhqciClM8HWgisNjmrVIaYIkR61KnJJ6P9j0UYS9UDsRKhsXC8QeepLxosBwRBu0PY7akQSeoSBt1jwMrcQKN/+xBDved2cIFAQcyuIcMBZYaP6So2Unm27m35z1o6Zgr2ElGcZcoVQ0zC/MjxxBRaeN8+k9pytbGx5OVxsJfAdXiJIXp8FxrkmCfX5KI51OVJJ0dxynDjFSsUfl9y/k2eBpHhDL82j87VhWpSL7kF8NP0OpEXCt0BqmyD4KVQ4C9zfUMi87kCCdzWrHnvM+FgF2an4KT2bRUaBUY4yIVU/qf5Nx7DJ3L3Ek4ueyocTes6PaIIY6dgKbN6OWnpcfseJSwio591VxEENta/SlMb/RVXkbkD2w6lLYELkunM20ucSiWBp5PKauE5uVTVbBXvL9Shi8e8qc8jPAdzEPrHwtqUES/5A4Oe3MHpKzZF5EnIdOIdIoArg7gNhakb8QaHkX2+VUs6r/Hh3+OMgp5cdG1DJFgHZ4LUqbrRhUWqBHbuCzd8PslcK6V/dMy+w5WokLKV1ZNAeqJGkhxd91uwU1euZGW5t8xq6+qY9AyPCjA5NbcX+QaOAg=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM6PR08MB3749.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(366004)(376002)(396003)(136003)(451199015)(38070700005)(122000001)(2616005)(558084003)(38100700002)(86362001)(6916009)(6486002)(316002)(71200400001)(478600001)(33656002)(54906003)(8676002)(8936002)(66946007)(66556008)(5660300002)(41300700001)(66476007)(4326008)(2906002)(66446008)(76116006)(91956017)(186003)(6506007)(64756008)(26005)(6512007)(36756003)(45980500001);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <EB9A791146A81E42B5C19672046F9CFB@eurprd08.prod.outlook.com>
-Content-Transfer-Encoding: base64
+X-Inumbo-ID: f93987ef-957d-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Kwtryj1HCBFMowhvUsB8ib2dwQrySNMnhO0NS2CkGbQ=; b=fL34W63fUC/XvD2Z3ptNvw8G8a
+	FTOVlIkTnPr/ESjmavB79YyPUbKJbBW9CY2+qWn8xZCQkSzZZrehxK37u2dDt4spOuPEstoggX/+o
+	rbrBLVnCuZQio8BsPRDwYPLHNonYLHwwrDmeFDabsXzr5foisEmnDcbybjJeWMHPPR7Z9DeBOlKwt
+	S1FDmqLc35Kppc7hQWzuT/E2K7rjYlSDiCSiVC7/h4TUkCslR/zdAl7jvV88gStKgxs6Fn8i3+/48
+	soi/xtuHAscLZbFSPhPNUACSXsGgy/slwncXr3F2CiQRIPWmNX3YBGAIL5DAMUhULfAHz6LQJ5366
+	BhK/mVfw==;
+Date: Mon, 16 Jan 2023 10:12:44 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: linux-kernel@vger.kernel.org, x86@kernel.org,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
+	Josh Poimboeuf <jpoimboe@kernel.org>
+Subject: Re: [PATCH 0/2] x86/xen: don't return from xen_pv_play_dead()
+Message-ID: <Y8UVDAgXh/y+B66k@hirez.programming.kicks-ass.net>
+References: <20221125063248.30256-1-jgross@suse.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR08MB9038
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT041.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	a2f7d13a-9729-4ead-fd23-08daf7a101d8
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	eITWi53Wi3jLawltHGGhglIq/0ywB4yeDtdvoBIuChU+Ea4OYjrX+PH/1/VY6xMDp1n+0aAxCarTPw5tqHfgWcW7+KJj0ss+/o0KJel4yF96wZwvNZFsE2EByF3XLKSXX/IlfWgY3E4+ylzvRaUewHqqYkx/P9y9X8VNCeDL25IZOIhpmPx1sw3bHwbaY0R3TaGHatspRZQu8DfOD+XCDeb/3Xfel21SvGdiuLTHTzpzhcXnKYEELlPUdbP2l4AiKH9z0RPwQSuAWM27Gp4+vLSpuCu+taLQ7+naYgbnPxzg0/jcsEeOOxIsOero9vACK0YFO7jcFg74qHoRZf/H5DC17pgWc8sx8ybaJ86vjinkmo5KIe83INYxYU79DrZRlhqBkekCtQoRymn3/uDh5R01g/JZLx1h/BV21QFe+iomlTvmE2M3/uhB5HqEFYbw5XZVFPkl7eSoeVTNVpoVp473rkFJmEpphDF+LzcdL6wKYG5/GtVYW1yEMjyD+pwEqD2dbJx92UvBqRD5APYAXk0e5s/aP+dStUgf6moHvFhGHxIOF/mo4s9Q95cM8fuVe+okh1iYKt0QzB02ZCy96htfNdzms67HUu3rfIGOJtTBXEwJtVJcpp8bUbJVSZz5VsYs+w5Hu5da8cRmq/7eQ17vLqvUwoSGKXSRHOlXHOEUMF872loICE+2PkcayW9YNr6ZjyIN32ic9/MpdHNOQw==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(346002)(376002)(136003)(396003)(451199015)(46966006)(40470700004)(36840700001)(36756003)(33656002)(558084003)(47076005)(82740400003)(5660300002)(41300700001)(2906002)(6862004)(86362001)(8936002)(81166007)(36860700001)(70206006)(82310400005)(336012)(40480700001)(6486002)(54906003)(70586007)(356005)(40460700003)(6506007)(478600001)(8676002)(107886003)(316002)(4326008)(6512007)(26005)(186003)(2616005);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 09:07:05.9016
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee22c2b7-b26d-4a8b-bb14-08daf7a10a31
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT041.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB10034
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20221125063248.30256-1-jgross@suse.com>
 
-DQpIaSBKdWxpZW4sDQoNCj4gDQo+IEnigJl2ZSBsZWZ0IHRoZSBib2FyZHMgdG8gdGVzdCBhbGwg
-bmlnaHQsIHNvIG9uIE1vbmRheSBJIHdpbGwgYmUgMTAwJSBzdXJlIHRoaXMgc2VyaWUNCj4gSXMg
-bm90IGludHJvZHVjaW5nIGFueSBpc3N1ZS4NCg0KVGhlIHNlcmllIHBhc3NlZCB0aGUgb3Zlcm5p
-Z2h0IHRlc3RzIG9uIG5lb3ZlcnNlIGJvYXJkLCByYXNwYmVycnkgcGkgNCwgSnVubyBib2FyZC4N
-Cg0KQ2hlZXJzLA0KTHVjYQ0KDQo=
+On Fri, Nov 25, 2022 at 07:32:46AM +0100, Juergen Gross wrote:
+> All play_dead() functions but xen_pv_play_dead() don't return to the
+> caller.
+> 
+> Adapt xen_pv_play_dead() to behave like the other play_dead() variants.
+> 
+> Juergen Gross (2):
+>   x86/xen: don't let xen_pv_play_dead() return
+>   x86/xen: mark xen_pv_play_dead() as __noreturn
+> 
+>  arch/x86/xen/smp.h      |  2 ++
+>  arch/x86/xen/smp_pv.c   | 17 ++++-------------
+>  arch/x86/xen/xen-head.S |  7 +++++++
+>  tools/objtool/check.c   |  1 +
+>  4 files changed, 14 insertions(+), 13 deletions(-)
+
+Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 
