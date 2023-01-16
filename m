@@ -2,39 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CD366C29A
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:47:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478772.742141 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 275B966C2E1
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:56:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478778.742151 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQlO-00054H-Dd; Mon, 16 Jan 2023 14:47:06 +0000
+	id 1pHQtb-0006X4-8C; Mon, 16 Jan 2023 14:55:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478772.742141; Mon, 16 Jan 2023 14:47:06 +0000
+Received: by outflank-mailman (output) from mailman id 478778.742151; Mon, 16 Jan 2023 14:55:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQlO-00050w-AD; Mon, 16 Jan 2023 14:47:06 +0000
-Received: by outflank-mailman (input) for mailman id 478772;
- Mon, 16 Jan 2023 14:47:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SJiS=5N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pHQlM-00050j-Td
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:47:04 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2057.outbound.protection.outlook.com [40.107.8.57])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a31cef53-95ac-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 15:47:02 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8542.eurprd04.prod.outlook.com (2603:10a6:102:215::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Mon, 16 Jan
- 2023 14:47:00 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Mon, 16 Jan 2023
- 14:47:00 +0000
+	id 1pHQtb-0006VF-4V; Mon, 16 Jan 2023 14:55:35 +0000
+Received: by outflank-mailman (input) for mailman id 478778;
+ Mon, 16 Jan 2023 14:55:34 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=o6RV=5N=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
+ id 1pHQtZ-0006V5-NA
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:55:33 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d2665525-95ad-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 15:55:32 +0100 (CET)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+ [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-245-mKaQAv_TNUGhncv7dQlH_w-1; Mon, 16 Jan 2023 09:55:29 -0500
+Received: by mail-ed1-f69.google.com with SMTP id
+ t17-20020a056402525100b0049e0d2dd9b1so2410535edd.11
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 06:55:29 -0800 (PST)
+Received: from imammedo.users.ipa.redhat.com (nat-pool-brq-t.redhat.com.
+ [213.175.37.10]) by smtp.gmail.com with ESMTPSA id
+ a3-20020aa7cf03000000b0049019b48373sm11543707edy.85.2023.01.16.06.55.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Jan 2023 06:55:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,127 +49,150 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a31cef53-95ac-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ByhlN1XZJjaXb9Ii3Bbd0GoCDb+UdYJWQcsUrB2m0Y1gpA/13WrnHDvQfWuGjD44TaJvAhhrX9mMxeUWR18cTIpgdjRPuy4HUWykxO0aP4BosTb62knpeEWL87BNE3CbjBMKpq5gQZNh93DPfFexHaLyKeWbvlzHBCp6cXSbkeCuuwCnAseQlCuIj7zEmif3YU20jpGpnttk3TxjixV4Lc6CyawPQEljxsKNNbNNfT7lPRfh2qHm0Y76YRPpw998SVn5VjfPQ4SuWZ3yzJsyu+CNJpEyPvhOEHNPEUm/xi+6HqzQnn9um+MeMc004HIT0pj7hItstVJBqvuqINE//w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TMrOgWomrtHAkFNbnbEUN0U7wFQHsLA97H+lySkknj0=;
- b=HHhZ1r8HFmV3SAt5prRb+wv/CQ7DrQYZpKKDkmeIDxKyg/hY9FvG9UkRY3XdqZLOlDW5TtNM6obSNCHCcjIxCBvvNrld20HSkq9nz4/IrcBA2P+povnwFQ/7+8uIiaKsanX7XX0Ae44t24aLq0PDbKT8xALMZzqn1KzxPTwDbbwVtwDfdebVRCvjGUxZF31toP5KfFZpe05hKzjgwwELlbMSGIl3MIKfGeH9kOCkUTciHsGNNzyRg3k+eCPtMp0+xdzZkZ8CWbMdaBP82emhCJJGJCiZXxyCsBgxB2zdTPIucyBxIelPZKAES8POerqay0HG763o5R5DzxIqLDg4tQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TMrOgWomrtHAkFNbnbEUN0U7wFQHsLA97H+lySkknj0=;
- b=E/P/+PVkcxSOwYv9tCCZ824Z/YL+g4U7F23e9cPKZEtR80pnhORvIqjIbhmUO1vpDX8IAf+xLRyVL6JDs9AwuqqdyxMTPe1to3qEj1fbNR3v9VWtVWi/DubxTtihYATXczSUHQOD3QGDQOZ/F8sWFn0Wns4XUFk5JCMee8uc3Ve3ktdBBD0dBtlfqtnFpKqykjqmQWIeagbUgwtmM5nIIO+AepWlbVl7+l9s9SFOLRgu2XO/5b9x06mDRBFE3gzJJhsiAhnt2q2mUWsPhrynMj5OLtupbi5oe/9zAaZR2/6vbUxOsnet0ySpohr/XGqOyFG2qtNgfe72NESPHeXeXg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <a728fa61-eb33-f348-ca72-caec45154889@suse.com>
-Date: Mon, 16 Jan 2023 15:46:59 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2] x86/ucode/AMD: apply the patch early on every logical
- thread
-Content-Language: en-US
-To: Sergey Dyasli <sergey.dyasli@citrix.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, xen-devel@lists.xenproject.org
-References: <20230111142329.4379-1-sergey.dyasli@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230111142329.4379-1-sergey.dyasli@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0130.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:94::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: d2665525-95ad-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1673880930;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=g48LKw/EQzyimcflA0uDUwRnS8dI8OL8jQyceWm5H5M=;
+	b=PughXJ7o8kHmymIdqGuvEVsMHz7v1jxsYtvLoBuvYizxxas0HaC5Exr2ubBjlyBlk6OM0f
+	sJX8PSPTYIMofJ72fOBWZwRKA8y874Sii1J47x0B4Q4alYW1hjFbIeJTjMQmd7LUcmKymW
+	Sd3wMNEjAWGyeMR8mmV3SAMKsmFhm4g=
+X-MC-Unique: mKaQAv_TNUGhncv7dQlH_w-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=g48LKw/EQzyimcflA0uDUwRnS8dI8OL8jQyceWm5H5M=;
+        b=PXZKKWeg1AwNP+SebqVS4UCFm1ow/n+zNAFzNfutmGpVyXTB0l4k8tNExPK1LSPNEA
+         S7iH5BGz95tZj4LeDHTmXblqUaLvIkAbW2TEYPNm/uZtu3+N8tekKMstUY614kM4xpjV
+         eU1o2+VxGi8DCvShrQqoewHI0+KB8W1m6KQhxQ4pH37gPRbsof/waltftJNrBkZGlghC
+         1pYKHHZ8oGErVLkc5EG+w1hN7dNWTlT0Uf91iABXAxI8LUOL+9lyIjyQ4FjfOphWSpUc
+         AbBjjrXssmNtUyK1ZoS+sIIFlo/sNMs74wMLskyfdQl9mFjPd0KOguJdmiHOZ8wlW6mH
+         nKZg==
+X-Gm-Message-State: AFqh2krPMbvpUH+bPddfu5DEhy3krIteKKKrMRYLiRIVgwZE/tP43T0s
+	hzFEIBQxBEbzXiti0F8YNPdTmZfI2uWiBvD1p6SGGclb5g6lRIwEZ3ZWc2gMJsjIbv0s+4yGP/0
+	SMDtyCkRD2TGlsH4+AjbxqJL50kQ=
+X-Received: by 2002:a17:906:8478:b0:84d:373b:39da with SMTP id hx24-20020a170906847800b0084d373b39damr29113664ejc.40.1673880928387;
+        Mon, 16 Jan 2023 06:55:28 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXsse3LgRug+Pp9ZoWtZxmVwLzZ7+mUuv4JYFK2PzosFJrEZ0QAORQ3jcyrTsWEYEH4Absw9GA==
+X-Received: by 2002:a17:906:8478:b0:84d:373b:39da with SMTP id hx24-20020a170906847800b0084d373b39damr29113641ejc.40.1673880928211;
+        Mon, 16 Jan 2023 06:55:28 -0800 (PST)
+Date: Mon, 16 Jan 2023 15:55:26 +0100
+From: Igor Mammedov <imammedo@redhat.com>
+To: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>
+Cc: linux-kernel@vger.kernel.org, amakhalov@vmware.com, ganb@vmware.com,
+ ankitja@vmware.com, bordoloih@vmware.com, keerthanak@vmware.com,
+ blamoreaux@vmware.com, namit@vmware.com, Peter Zijlstra
+ <peterz@infradead.org>, Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar
+ <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, "Rafael J.
+ Wysocki" <rafael.j.wysocki@intel.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, Wyes Karny <wyes.karny@amd.com>, Lewis Caroll
+ <lewis.carroll@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, Juergen
+ Gross <jgross@suse.com>, x86@kernel.org, VMware PV-Drivers Reviewers
+ <pv-drivers@vmware.com>, virtualization@lists.linux-foundation.org,
+ kvm@vger.kernel.org, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] x86/hotplug: Do not put offline vCPUs in mwait idle
+ state
+Message-ID: <20230116155526.05d37ff9@imammedo.users.ipa.redhat.com>
+In-Reply-To: <20230116060134.80259-1-srivatsa@csail.mit.edu>
+References: <20230116060134.80259-1-srivatsa@csail.mit.edu>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8542:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ed70e8d-4fb6-4ac3-623f-08daf7d08661
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	PW146RTT9vgBxpapsyBgnzVrBxQrv+N4a/c8mOqFAArGlJSaQg92I1EJqoDCSYuUFlYGc13ACNwj9b584+tg6tEM5hlXKq2qxPwz8JctoLmX1L0Oz/yVaxmTla1has/bjjlcpFtLx7wq4E4ASNAK3unBbUkscv8aIFx1tPkkDVfU7ZLZAzJve+cZbEYA1EWw0VkgJbs8ncGdH7JHlNMurI76HAnyfTYh2gB9zG5ziljwpc9oo+fXXjb/+lBwzcTs2oLy9eQRdLZHYN8KJBDKoxUInLfFxayq0IpktHF6Z3q9jjT4ccRC/VDKU3rvMVhgcpkikX+8I56jROUdr6C3WC3ksuyUbOKUtvQeBrrzlXu2yZfBHjH4NhwZ2qDsQ+iM98JnfUaNHWDK+c7MFpRtpUQ0DL90zK8H1iE+3SOhnT4JbxoAb1k8/wssR6Qi2ucvYqP5zhp9lzQXGdNK9WsjaFV0y9ZTepo/ZBAycGpu4k5hAj9OjMi7lRuCtGvhnOabx5cPqBsq89tt6J4qkGT0q3AxnwCRj+0RVbeUbxTan01Mkzu/QoEIrPOPn/i3et4ZXbYnGgJ091TTeXXo52Xn2/hURYcL8TSRpQZUhYmCoSpz3xWCFixXpohSOnUg8HhQ5uGK9ikOPA9OIBkHErbbwr1x5sMF7c/7K4e/OPvfTsjxIZ+7ydoPxqT/s/Qkui/m7mAqUYJ/e8L9FAF5krBWemQAQRWtQMB1LteM2NZwa3Y=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(376002)(136003)(396003)(366004)(451199015)(31686004)(66946007)(66556008)(41300700001)(2616005)(66476007)(26005)(186003)(6512007)(53546011)(8676002)(4326008)(6916009)(86362001)(31696002)(36756003)(83380400001)(5660300002)(8936002)(54906003)(478600001)(6506007)(316002)(4744005)(38100700002)(2906002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dUZrL0JqOTZtWklJWGRtY2NxYmJSZlBFa2cyaVcyL2J0cWxnc3RGdHVHT1RL?=
- =?utf-8?B?NXNlZ1I5aWNuTDVjMnlLb2hVYkFQbFV2QzFRUTdWekVUdk9laHBSWnBtSEw3?=
- =?utf-8?B?Ukg2NXBUZDNmQUo0MmR1eG1OcXNYamxZNWttQVJvVHQrdDFPcDBRRXlBVXFO?=
- =?utf-8?B?UFY1UjluUk5vS0ZRZVM0RGNLNW9EcDdCZElnNldCVjVSTVpNVFJVTHZvdWow?=
- =?utf-8?B?VllIS2J1QThXRktsZzI1d0o5NWR3Q1NPM2trcTNMd2lueEFHZ214bDZEM3lM?=
- =?utf-8?B?RHhsYVRaZFdqaGZVSldoSEFlMXZpQVdEZkQ2Si9qUHQ2eTVFdHB4Y2VsVzdp?=
- =?utf-8?B?OTJhdndrcmxEVmtxMHpoT0xTUXpKRmxRME9Tc0UvZHMvaWFQRUhHc0tjS0ZM?=
- =?utf-8?B?WUVwYjhBS05XT2JQR1cwZzY2ZEtkOHV2dU1VZGM0UWdubUZNMDV3bnpYWmVs?=
- =?utf-8?B?NGFEdlRJKy9DejZlNDNnWVd0SWFnOTlBT21oTzhncU8rWTFnWG1XYnNFa2F1?=
- =?utf-8?B?TGFrV2dORUFqMW0ycTZsaENQU25hb0p2Q0kvVStUQ0JPbHdOK3VtUUVzdmRY?=
- =?utf-8?B?NEdZSzlLWm12R3dYRkFTMUJJQ21zQ1hHaGlDVjJsT0gxem5lTXdVSlVPTVBE?=
- =?utf-8?B?RC96aEZHaGwzSnBlV29BbUZ5TGpmNkRCU0VuVnZQNTNyYUdhNy8yQitkc3Vw?=
- =?utf-8?B?ZDNOMTFyZE40bFIvYlhWUmZOVjZtNXhJbi9iMzBDYm1tdTkvNXFUZE1OUVAz?=
- =?utf-8?B?RFdPK24wZ0pIYzBPUWtuREg3U0VKM1dEbkpoRCtDekZkVjVzUUlCRE9SK0N4?=
- =?utf-8?B?a1NtSzF2dHEwdFpZQllHc3JlQVRTYWdLcVk4NFJqd3NxVWc1ZngzdFQvTFdp?=
- =?utf-8?B?N1ZDUEhsRVlpdzBHdWk5cEVrQlJTa0d0dVF3dVE3RnFZS3M0ZXRLOVZNdHhj?=
- =?utf-8?B?bEJxT2dYL2huVExVN3VTR3pObms4TUV4UmkwNHBxY2E2NXN5REpjSDBXV0pm?=
- =?utf-8?B?UStpZ1FHTGk2R20yWFZoMVh2Z2dsU0ZyQWRhdjZubzVLdlNxVi93Q0cvT1BM?=
- =?utf-8?B?MktCNWJYcGE2VGRLenM4UGdreUl2UWVOOE5WMU9FUHNCQ0NEVGVtT3FVNkhE?=
- =?utf-8?B?NHpDS1ZiTkt4elFwNCtJNFZnTDZGVHlVYmRXRWVibnBIcnhzM2VKYm5MQTNX?=
- =?utf-8?B?T25aTWFNdWxGNndwajFpc2MrWVcrQkpnenZ2RCtoMkRXUUdoa0ZFL3EyR0Y4?=
- =?utf-8?B?TlA3REp0R3N0alJGUWkzRS96SkkxMmZEcElNSEtPSUxUMGdNUU1LYUJncmk4?=
- =?utf-8?B?ZDAzZ0tKb1BhamNjVW5QREYvNXRZMDRPVitKS3NxRFB3cTNKRjZFNmVJRjZX?=
- =?utf-8?B?VFIxSnZnUnVRbTZCSmk4b2dROGdEUWxZLzBIb09Gb3JJMHVZNzd6Q2hXWEkz?=
- =?utf-8?B?M0tLV3lTOSt4dFllMEZNeWhHMHV0cHVXVXp3NmZnRHB1NkJRb1lEc1JmYWdU?=
- =?utf-8?B?aXprbzZWa1pnVk41ZW5jN1AxQUZlVjdKVzc4YWNNS3YybGxHZjJyRE5vT1Y0?=
- =?utf-8?B?Z1VwUEk5a0V5b1AwU3hIeFM5YmxHVjR0T3EyTXlibWs1SHQ4SGhsNXlXUWVv?=
- =?utf-8?B?a3UybS82OEVsK3BkWDZZQjRoaWZITlc1aXhBK2tCSG1sd2dlaEt2RW5xaUZH?=
- =?utf-8?B?TDNGMkc1bUdDT1RZQzROMFdSeTlVZVhuNWw3VVBKa1hmbXhCV2JoVFdycFRC?=
- =?utf-8?B?NzFyOUxZUnEzVWx3Zjd1UWJyZTAvOTFxckM2eXFycTNGamxreGlXZ1ZWTHQz?=
- =?utf-8?B?VkZjZWtWdDJQSkNjdXE2SjEyZVRqR21QTThXYUt0RW01Mm5haUNaeVcvc1FJ?=
- =?utf-8?B?cHBRUnlWMHg0RVRWK2hZdUI3WlJXeGNmb3NQTEdIQkVvbG80d3hSSmJxeUts?=
- =?utf-8?B?TmlvZ0tsbEJzdXdLSGZJcThzNEtkYS8yV0Q3djNacEwwdmQ4Tmx4cnBuOG5I?=
- =?utf-8?B?dGpZVmZ2TnNKTWJvVENoRXFpUVhQNnlIN0xUU1MvVXdsOXZ2YmE4OEMrTmVW?=
- =?utf-8?B?TzVKV1dMYTZJZlBJdldHN016OS9lbHdseVorcC9mZWVNNFc4bzRVNzk0VkxQ?=
- =?utf-8?Q?cuKxi/0Ttb51epIjHCudzq42i?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ed70e8d-4fb6-4ac3-623f-08daf7d08661
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 14:47:00.7227
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3Lr7Q7FPJBmYWCi/lOULh1YdaiKZEKAsFw2bnlScJJsZHAMOwThdjbyTLVKWiKn2oPYjGl4FnX3rLVEdD4FQJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8542
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 11.01.2023 15:23, Sergey Dyasli wrote:
-> --- a/xen/arch/x86/cpu/microcode/amd.c
-> +++ b/xen/arch/x86/cpu/microcode/amd.c
-> @@ -176,8 +176,13 @@ static enum microcode_match_result compare_revisions(
->      if ( new_rev > old_rev )
->          return NEW_UCODE;
+On Sun, 15 Jan 2023 22:01:34 -0800
+"Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
+
+> From: "Srivatsa S. Bhat (VMware)" <srivatsa@csail.mit.edu>
+> 
+> Under hypervisors that support mwait passthrough, a vCPU in mwait
+> CPU-idle state remains in guest context (instead of yielding to the
+> hypervisor via VMEXIT), which helps speed up wakeups from idle.
+> 
+> However, this runs into problems with CPU hotplug, because the Linux
+> CPU offline path prefers to put the vCPU-to-be-offlined in mwait
+> state, whenever mwait is available. As a result, since a vCPU in mwait
+> remains in guest context and does not yield to the hypervisor, an
+> offline vCPU *appears* to be 100% busy as viewed from the host, which
+> prevents the hypervisor from running other vCPUs or workloads on the
+> corresponding pCPU. [ Note that such a vCPU is not actually busy
+> spinning though; it remains in mwait idle state in the guest ].
+>
+> Fix this by preventing the use of mwait idle state in the vCPU offline
+> play_dead() path for any hypervisor, even if mwait support is
+> available.
+
+if mwait is enabled, it's very likely guest to have cpuidle
+enabled and using the same mwait as well. So exiting early from
+ mwait_play_dead(), might just punt workflow down:
+  native_play_dead()
+        ...
+        mwait_play_dead();
+        if (cpuidle_play_dead())   <- possible mwait here                                              
+                hlt_play_dead(); 
+
+and it will end up in mwait again and only if that fails
+it will go HLT route and maybe transition to VMM.
+
+Instead of workaround on guest side,
+shouldn't hypervisor force VMEXIT on being uplugged vCPU when it's
+actually hot-unplugging vCPU? (ex: QEMU kicks vCPU out from guest
+context when it is removing vCPU, among other things)
+
+> Suggested-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> Signed-off-by: Srivatsa S. Bhat (VMware) <srivatsa@csail.mit.edu>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Ingo Molnar <mingo@redhat.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Dave Hansen <dave.hansen@linux.intel.com>
+> Cc: "H. Peter Anvin" <hpa@zytor.com>
+> Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> Cc: "Paul E. McKenney" <paulmck@kernel.org>
+> Cc: Wyes Karny <wyes.karny@amd.com>
+> Cc: Lewis Caroll <lewis.carroll@amd.com>
+> Cc: Tom Lendacky <thomas.lendacky@amd.com>
+> Cc: Alexey Makhalov <amakhalov@vmware.com>
+> Cc: Juergen Gross <jgross@suse.com>
+> Cc: x86@kernel.org
+> Cc: VMware PV-Drivers Reviewers <pv-drivers@vmware.com>
+> Cc: virtualization@lists.linux-foundation.org
+> Cc: kvm@vger.kernel.org
+> Cc: xen-devel@lists.xenproject.org
+> ---
+> 
+> v1: https://lore.kernel.org/lkml/165843627080.142207.12667479241667142176.stgit@csail.mit.edu/
+> 
+>  arch/x86/kernel/smpboot.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
+> index 55cad72715d9..125a5d4bfded 100644
+> --- a/arch/x86/kernel/smpboot.c
+> +++ b/arch/x86/kernel/smpboot.c
+> @@ -1763,6 +1763,15 @@ static inline void mwait_play_dead(void)
+>  		return;
+>  	if (!this_cpu_has(X86_FEATURE_CLFLUSH))
+>  		return;
+> +
+> +	/*
+> +	 * Do not use mwait in CPU offline play_dead if running under
+> +	 * any hypervisor, to make sure that the offline vCPU actually
+> +	 * yields to the hypervisor (which may not happen otherwise if
+> +	 * the hypervisor supports mwait passthrough).
+> +	 */
+> +	if (this_cpu_has(X86_FEATURE_HYPERVISOR))
+> +		return;
+>  	if (__this_cpu_read(cpu_info.cpuid_level) < CPUID_MWAIT_LEAF)
+>  		return;
 >  
-> -    if ( opt_ucode_allow_same && new_rev == old_rev )
-> -        return NEW_UCODE;
-> +    if ( new_rev == old_rev )
-> +    {
-> +        if ( opt_ucode_allow_same )
-> +            return NEW_UCODE;
-> +        else
-> +            return SAME_UCODE;
-> +    }
 
-I find this misleading: "same" should not depend on the command line
-option. In fact the command line option should affect only the cases
-where ucode is actually to be loaded; it should not affect cases where
-the check is done merely to know whether the cache needs updating.
-
-With that e.g. microcode_update_helper() should then also be adjusted:
-It shouldn't say merely "newer" when "allow-same" is in effect.
-
-Jan
 
