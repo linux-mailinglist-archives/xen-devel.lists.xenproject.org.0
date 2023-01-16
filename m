@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48B1866B56F
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 02:59:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478247.741340 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6477066B5AD
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 03:43:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478269.741352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHEm9-0003ch-Nl; Mon, 16 Jan 2023 01:59:05 +0000
+	id 1pHFSS-0001Vw-6K; Mon, 16 Jan 2023 02:42:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478247.741340; Mon, 16 Jan 2023 01:59:05 +0000
+Received: by outflank-mailman (output) from mailman id 478269.741352; Mon, 16 Jan 2023 02:42:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHEm9-0003aT-Ki; Mon, 16 Jan 2023 01:59:05 +0000
-Received: by outflank-mailman (input) for mailman id 478247;
- Mon, 16 Jan 2023 01:59:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Wes/=5N=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1pHEm8-0002bj-22
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 01:59:04 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id 597b134c-9541-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 02:59:02 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85C51AD7;
- Sun, 15 Jan 2023 17:59:44 -0800 (PST)
-Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
- [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D86A3F71A;
- Sun, 15 Jan 2023 17:58:59 -0800 (PST)
+	id 1pHFSS-0001U8-3P; Mon, 16 Jan 2023 02:42:48 +0000
+Received: by outflank-mailman (input) for mailman id 478269;
+ Mon, 16 Jan 2023 02:42:47 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHFSQ-0001Ty-UY; Mon, 16 Jan 2023 02:42:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHFSQ-0007Xz-RR; Mon, 16 Jan 2023 02:42:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHFSQ-0000AL-Kh; Mon, 16 Jan 2023 02:42:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHFSQ-00084e-K7; Mon, 16 Jan 2023 02:42:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,99 +42,224 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 597b134c-9541-11ed-91b6-6bf2151ebd3b
-From: Henry Wang <Henry.Wang@arm.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=f/6wYmgdQe8qE8gxICsbudH1le2/bG7cTjQRoKD/Cjw=; b=CPeqjhql4CnjxAonphWReod/xx
+	DjGLsk5Ey3ERtAm3z2afzt5xzoxQx/4THqC1JmX/l2fU0XfhAcWr/YV2W5fk89ieYPr936XxT1r8C
+	gzArjWBT6vkaWiIjI2dbDrJzMxf3cp0GR1U1y6tHOpz3722tVIrLQznv0KMwKqxy+q0Q=;
 To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Wei Chen <wei.chen@arm.com>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH 3/3] xen/arm: Clean-up in p2m_init() and p2m_final_teardown()
-Date: Mon, 16 Jan 2023 09:58:20 +0800
-Message-Id: <20230116015820.1269387-4-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230116015820.1269387-1-Henry.Wang@arm.com>
-References: <20230116015820.1269387-1-Henry.Wang@arm.com>
-MIME-Version: 1.0
+Message-ID: <osstest-175910-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 175910: regressions - trouble: blocked/fail
+X-Osstest-Failures:
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
+    xen-unstable-smoke:build-armhf:xen-build:fail:regression
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+X-Osstest-Versions-That:
+    xen=6bec713f871f21c6254a5783c1e39867ea828256
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 16 Jan 2023 02:42:46 +0000
 
-With the change in previous patch, the initial 16 pages in the P2M
-pool is not necessary anymore. Drop them for code simplification.
+flight 175910 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175910/
 
-Also the call to p2m_teardown() from arch_domain_destroy() is not
-necessary anymore since the movement of the P2M allocation out of
-arch_domain_create(). Drop the code and the above in-code comment
-mentioning it.
+Regressions :-(
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
----
-I am not entirely sure if I should also drop the "TODO" on top of
-the p2m_set_entry(). Because although we are sure there is no
-p2m pages populated in domain_create() stage now, but we are not
-sure if anyone will add more in the future...Any comments?
----
- xen/arch/arm/include/asm/p2m.h |  4 ----
- xen/arch/arm/p2m.c             | 20 +-------------------
- 2 files changed, 1 insertion(+), 23 deletions(-)
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64                   6 xen-build                fail REGR. vs. 175746
+ build-arm64-xsm               6 xen-build                fail REGR. vs. 175746
+ build-armhf                   6 xen-build                fail REGR. vs. 175746
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index bf5183e53a..cf06d3cc21 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -200,10 +200,6 @@ int p2m_init(struct domain *d);
-  *  - p2m_final_teardown() will be called when domain struct is been
-  *    freed. This *cannot* be preempted and therefore one small
-  *    resources should be freed here.
-- *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
-- *  free the P2M when failures happen in the domain creation with P2M pages
-- *  already in use. In this case p2m_teardown() is called non-preemptively and
-- *  p2m_teardown() will always return 0.
-  */
- int p2m_teardown(struct domain *d, bool allow_preemption);
- void p2m_final_teardown(struct domain *d);
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index 7de7d822e9..d41a316d18 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1744,13 +1744,9 @@ void p2m_final_teardown(struct domain *d)
-     /*
-      * No need to call relinquish_p2m_mapping() here because
-      * p2m_final_teardown() is called either after domain_relinquish_resources()
--     * where relinquish_p2m_mapping() has been called, or from failure path of
--     * domain_create()/arch_domain_create() where mappings that require
--     * p2m_put_l3_page() should never be created. For the latter case, also see
--     * comment on top of the p2m_set_entry() for more info.
-+     * where relinquish_p2m_mapping() has been called.
-      */
- 
--    BUG_ON(p2m_teardown(d, false));
-     ASSERT(page_list_empty(&p2m->pages));
- 
-     while ( p2m_teardown_allocation(d) == -ERESTART )
-@@ -1821,20 +1817,6 @@ int p2m_init(struct domain *d)
-     if ( rc )
-         return rc;
- 
--    /*
--     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
--     * when the domain is created. Considering the worst case for page
--     * tables and keep a buffer, populate 16 pages to the P2M pages pool here.
--     * For GICv3, the above-mentioned P2M mapping is not necessary, but since
--     * the allocated 16 pages here would not be lost, hence populate these
--     * pages unconditionally.
--     */
--    spin_lock(&d->arch.paging.lock);
--    rc = p2m_set_allocation(d, 16, NULL);
--    spin_unlock(&d->arch.paging.lock);
--    if ( rc )
--        return rc;
--
-     return 0;
- }
- 
--- 
-2.25.1
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
 
+version targeted for testing:
+ xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+baseline version:
+ xen                  6bec713f871f21c6254a5783c1e39867ea828256
+
+Last test of basis   175746  2023-01-12 16:03:41 Z    3 days
+Failing since        175748  2023-01-12 20:01:56 Z    3 days   14 attempts
+Testing same since   175833  2023-01-14 07:00:25 Z    1 days   12 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              fail    
+ build-amd64                                                  fail    
+ build-armhf                                                  fail    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Jan 3 11:25:19 2023 +0100
+
+    xen/arm: Add 0x prefix when printing memory size in construct_domU
+    
+    Printing memory size in hex without 0x prefix can be misleading, so
+    add it. Also, take the opportunity to adhere to 80 chars line length
+    limit by moving the printk arguments to the next line.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+
+commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Thu Jan 12 22:07:42 2023 +0000
+
+    xen/arm: linker: The identitymap check should cover the whole .text.header
+    
+    At the moment, we are only checking that only some part of .text.header
+    is part of the identity mapping. However, this doesn't take into account
+    the literal pool which will be located at the end of the section.
+    
+    While we could try to avoid using a literal pool, in the near future we
+    will also want to use an identity mapping for switch_ttbr().
+    
+    Not everything in .text.header requires to be part of the identity
+    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
+    check that .text.header is smaller than a page size.
+    
+    With that _end_boot can be removed as it is now unused. Take the
+    opportunity to avoid assuming that a page size is always 4KB in the
+    error message and comment.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Thu Jan 12 22:06:42 2023 +0000
+
+    xen/arm: linker: Indent correctly _stext
+    
+    _stext is indented by one space more compare to the lines. This doesn't
+    seem warrant, so delete the extra space.
+    
+    Signed-off: Julien Grall <jgrall@amazon.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 3edca52ce736297d7fcf293860cd94ef62638052
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 10:58:31 2023 +0000
+
+    x86/vmx: Support for CPUs without model-specific LBR
+    
+    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
+    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
+    later, model_specific_lbr will always be NULL, so we must make changes to
+    avoid reliably hitting the domain_crash().
+    
+    The Arch LBR spec states that CPUs without model-specific LBR implement
+    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
+    
+    Do this for any CPU for which we lack model-specific LBR information.
+    
+    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
+    signal "no model specific LBR" to guests.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 11:42:22 2023 +0000
+
+    x86/vmx: Calculate model-specific LBRs once at start of day
+    
+    There is no point repeating this calculation at runtime, especially as it is
+    in the fallback path of the WRSMR/RDMSR handlers.
+    
+    Move the infrastructure higher in vmx.c to avoid forward declarations,
+    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
+    these are model-specific only.
+    
+    No practical change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit e6ee01ad24b6a1c3b922579964deebb119a90a48
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jan 3 15:08:56 2023 +0000
+
+    xen/version: Drop compat/kernel.c
+    
+    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
+    re-includes kernel.c to recompile xen_version() in a compat form.
+    
+    However, the xen_version hypercall is almost guest-ABI-agnostic; only
+    XENVER_platform_parameters has a compat split.  Handle this locally, and do
+    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
+    that are simply char-arrays in their native and compat form.
+    
+    In particular, this removed the final instances of obfuscation via the DO()
+    macro.
+    
+    No functional change.  Also saves 2k of of .text in the x86 build.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Dec 20 15:51:07 2022 +0000
+
+    public/version: Change xen_feature_info to have a fixed size
+    
+    This is technically an ABI change, but Xen doesn't operate in any environment
+    where "unsigned int" is different to uint32_t, so switch to the explicit form.
+    This avoids the need to derive (identical) compat logic for handling the
+    subop.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
