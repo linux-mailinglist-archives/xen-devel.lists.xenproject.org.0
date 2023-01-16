@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CC5266B86C
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:50:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478391.741557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4118D66B8D6
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 09:11:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478401.741568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHKFo-0000Xs-QO; Mon, 16 Jan 2023 07:50:04 +0000
+	id 1pHKZw-0003wo-Sw; Mon, 16 Jan 2023 08:10:52 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478391.741557; Mon, 16 Jan 2023 07:50:04 +0000
+Received: by outflank-mailman (output) from mailman id 478401.741568; Mon, 16 Jan 2023 08:10:52 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHKFo-0000U3-Mu; Mon, 16 Jan 2023 07:50:04 +0000
-Received: by outflank-mailman (input) for mailman id 478391;
- Mon, 16 Jan 2023 07:50:03 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pHKZw-0003tY-PZ; Mon, 16 Jan 2023 08:10:52 +0000
+Received: by outflank-mailman (input) for mailman id 478401;
+ Mon, 16 Jan 2023 08:10:51 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHKFn-0000KW-R5; Mon, 16 Jan 2023 07:50:03 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHKFn-00076q-NN; Mon, 16 Jan 2023 07:50:03 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHKFn-0006uR-Bq; Mon, 16 Jan 2023 07:50:03 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pHKFn-00032l-BQ; Mon, 16 Jan 2023 07:50:03 +0000
+ (envelope-from <SRS0=SJiS=5N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pHKZu-0003tS-Uc
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 08:10:51 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on2045.outbound.protection.outlook.com [40.107.8.45])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 48faaf59-9575-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 09:10:49 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by DBBPR04MB7740.eurprd04.prod.outlook.com (2603:10a6:10:1ee::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Mon, 16 Jan
+ 2023 08:10:47 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Mon, 16 Jan 2023
+ 08:10:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,307 +46,135 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=utVg0sULFOA3SNtUADr5MUkFgTTnSzd9DAS2BmAlGgI=; b=FYUVsGaoqAPgLWV4RJu5VeAHW3
-	SSg6Uglk1dnePxyIaYg+ZczxOH/h3twe+H1ERhcZXEI93sbRSMMqnKw9n3sU5thsk2G6GT1OiNoY5
-	HSB1WPL2SJdDliqL9yZwHtyPzgk2phCVyF8tUl+YECZnEUfGk5cuzgkhjvDaxzhPS9YI=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175920-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 48faaf59-9575-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XgaQ/59kQf2IXRpU+7IIGheMhmz/iUOMNwE+mH375JsTDbGqZbW4f/N/c5CjSZGxVwPktPX2obrgv1iuAbxSlfOAV5LyTfS3U61PFPL9FcJBjmPFjOg0ROwzhbTmwc9G93BLPTcdhxxgt+IcfM5kUSzwPcgrN/f6cyKMRL9PzrbLLpsP8fSiMCQPGHEKndks9KrooSWOVgPt7bXCW5THbu6FJpsDiEPiKI/1V6F3J+wSYHwhMx81m3n694pJOnLQArTxbAmirfv60w7sAAa/KTSd+FNZ5eRvZCilRabLzZNZOGWg4eRv57h5p9k7Fk0wstD3bZRHI6f6EdNOD2euHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5cJBl3Wdi/i7QE6zNHOjm/kREqiE4r19as+0ZMjILFs=;
+ b=TrNAUf0Wk3cTbnco8mkrxiVBhsNApPKS409g73AYeRWyxztyTKTf4NlywDISgGncpC8ewmzY61ae2XazyN+WsPh4+sZ9w82S22IaRclI3xbA0yNXJ85FSJ2+goFfnfCFBg0OCpK6NYN/3yu6YossPJmrsAuI+G+wa1a0yShVuDbdK1J/uVWjxMY5QBw3NhWtZyckuas580IwwEQVe0ryrFdDVGqploxpnlsfVc3fq9nCgQ1Mq/hs/F+yDULO1q0wDBzt9a/PYrzxAS5AUDt8YGZII9dUwnGMmdXoXmVFysyT7xe5bbRpXXKRhY6FDef+tmvu3E7EkElZ1Pu7cAwRRg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5cJBl3Wdi/i7QE6zNHOjm/kREqiE4r19as+0ZMjILFs=;
+ b=BV8m/waeFKJU4Smmi8c56/YJDTVJdpTJQo519PGtfVFh5AGM8+VYfaoVSN2iSwqO1UDZtqnYXSGIyRgTOtC5gdnNessC6I/ocPUtETzzxHVixZIY+/EO6+Swgvzzi7WtNvYAaJcNA8nhNPzJLCMWsnZUZ96Tj77CN2Ybih3qblP+2uzKNw8mSTrqK30LktMlmucDks6x0WVhg/SiEDIqNGTLSYqS5KqI4iDNg16gm1dNQGA7OrEsNaLfqTeKwnENMxhw+o9aYRzhYbbQJv4++COF+J9EiZGvP24VPrRFtPm/gkDZXkffhw7jXrYgVTi0aokYrdb0aspC/AQQ/y7H8g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <51b4011c-e76b-d134-6ce8-cf72e2fd2040@suse.com>
+Date: Mon, 16 Jan 2023 09:10:46 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [linux-linus test] 175751: regressions - FAIL
+Content-Language: en-US
+From: Jan Beulich <jbeulich@suse.com>
+To: osstest service owner <osstest-admin@xenproject.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <osstest-175751-mainreport@xen.org>
+ <09573105-b441-9099-eda8-cc1e407da67d@suse.com>
+Cc: xen-devel@lists.xenproject.org
+In-Reply-To: <09573105-b441-9099-eda8-cc1e407da67d@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0102.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9c::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Subject: [ovmf test] 175920: regressions - FAIL
-X-Osstest-Failures:
-    ovmf:build-amd64-xsm:xen-build:fail:regression
-    ovmf:build-i386:xen-build:fail:regression
-    ovmf:build-amd64:xen-build:fail:regression
-    ovmf:build-i386-xsm:xen-build:fail:regression
-    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    ovmf=47ab397011b6d1ce4d5805117dc87d9e35f378db
-X-Osstest-Versions-That:
-    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 16 Jan 2023 07:50:03 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBBPR04MB7740:EE_
+X-MS-Office365-Filtering-Correlation-Id: 95542b48-727b-431a-eed2-08daf7992bfb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	8Jd51VVuHlcmDhtZsixCRC/nX8N2vrfuNJ+5Xxoqdle8sTOXgt0EwI8LkG4qRE5JJFmQwbcxNujlkglGW1RWlyFwcBA5YYQoCdyOuiTomo65cQrrLa7eFbMC9mP4TcwUVwa6EYwLDmdrB5lTNYLygylwZ0U6QeSp0VNH+n5a6Nj/xBjg/H7BEFVENxHv/oK8GLUoe3chTaVZ9wHpDAEvKVv2kCwkB4RxiAOeaZCcVWhPcPwYXCYPexw3b9E93O2j3d/Tva2tB4PfQvJnUolyQ7LnfDRVyoQM+3qZHgjnl/qB5LmiuOMiEu+QVtPxHmmWLgBcYWwK/p7+71xyIxYolXiPrMej2BEhTqj2u7/DZ2enJPmrgatpijhvJ8Q29SnpsRwe3AE8MYPMh+CW6a9q9VeI6XQ1NbqdI4cWOuyeRCX0NrlSoLT2rCb5CLrcvsQBnRag2tkpPpokHPUNxaUi8JikJcG1O+Irru2YB5yzOWxwb4IpTWnAYDGMAgEJOpCX+x2DJg2cEiF5YgR2HUscCjCsBJTDd6BkgeBqPrDmgp44LjzawXQ0KHOaY7/BBDWTDXCONrssYEdZPx0P0ytO4MrE+joqEkOUHE0+tbhZaOYyLDbr2bJuMFkwHGsFeCc9yuMwJ15fjUasAfXR9i6spFgY8Cd9eC1qnVQgfWx4XxUkaGfiiyPderoWfYzDpFqx8YoqU0Jgp/LNUlou/MB4W9Yy4Os/xXnqaUN/x0gMOtNOrJ+Wl3xsgN2FSfj6YdjY5gJvQc0RRU0u4HInyIEiFA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(136003)(396003)(376002)(366004)(346002)(451199015)(31686004)(66556008)(41300700001)(2616005)(66476007)(66946007)(6512007)(186003)(26005)(8676002)(4326008)(36756003)(53546011)(86362001)(83380400001)(5660300002)(38100700002)(8936002)(110136005)(31696002)(478600001)(6506007)(316002)(2906002)(966005)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?V0RocUdlYTFqRExmNUVOK2llODlRaG5OU2gzS2FHTm5vTVdEWXhDdTBBQ3VW?=
+ =?utf-8?B?RXB0QkpzdExlOXE3QzZGS0xsZ2J4ZFdlSTJRaklRQ0JoS3FERlByYk1mT2Fk?=
+ =?utf-8?B?N1pPdFBuM0VxZUZjN1IyWVRnQ0ZXclE1MDduLyt2N1B1NzNhdXdPZnpPOTBD?=
+ =?utf-8?B?Wko3QUlOVzVVbFJJcnZocGFvMWE2UTlDTkZFRlNPV1BnQjlHaCtMYVdoaWVH?=
+ =?utf-8?B?OVJHOEJwNERBQ1I5REZKRHBPVXJSaDBRNVFvQ2pucjhFakpVUzZsdE5CTUh0?=
+ =?utf-8?B?U2hFN29BZHE1WXlJNE40ZjFpSHpybHVXZ0RhTHZBcDArRjRsaXBhWG1ETUV4?=
+ =?utf-8?B?d1RuaUxoYU1BK0xLS2JFa2w1bkNmL3c2RkR2b1dXYnVuVnhRdDlMdTEwRUVx?=
+ =?utf-8?B?R3Z0eSs0S3NLVHJvOGdLYkhJM3BPcUtmNGcrY0JCN2tzdUVsazZONTZYUkVq?=
+ =?utf-8?B?L3M2VnFFSXRUdTJsVEdKN3BiZXJCdVBwci8vOWt4NkZObVRRSENtMlBsV2gz?=
+ =?utf-8?B?YVdLdEM2SnFGNzhiUWR4L29kcEQxTG5mSVFqYllQckVGOWFyRlI4UWYrWDV3?=
+ =?utf-8?B?VVBFeHVyWCtxK0FDN2ZJa0huTVMzZ25EK2h0aEV1Ynd4M2l2VTdwSE5uWnNV?=
+ =?utf-8?B?RmxNNU5FZTIzdCtoa3BSVWRBRWViRndZVEdlbFNqQWdFZHFlTCtkYnhZcTFj?=
+ =?utf-8?B?TE84Ry9UREJQRlBNa0JCcGhVTDBTOG5aZWdsM2ZJNGcrZVdSU1FWdFQvcUV2?=
+ =?utf-8?B?WnJkVjFUWUJyVldXcFZERmIvMVhYNlQrdHJIdDY1WjhLN1FCb0JFZE5RMXRx?=
+ =?utf-8?B?U3JBaEsxdlJ0Slhqby9PREV0SnpMU3BtNzlpSTkzcGcweWk5Y2o0UUpzQXM4?=
+ =?utf-8?B?MW1zQVEwdXMxOStISyt2ME04a2p1STJ3Z1ZXUkM3NkJBNnBrcjVBVjk3VXkw?=
+ =?utf-8?B?Q3pUQmlYckR1UDc0eW9LZjV3ZEYzempTZ0FhV2FSY2N1MzFaOUdqL0RQbzA2?=
+ =?utf-8?B?UjFxdlBCZEhMQjJlSk1yU0VEL0lkcmlleFBBWFJLL1NMTXJheXhKWXRZSy9H?=
+ =?utf-8?B?S0lmbVI4WWNFbXQ1S2c1UEZNcmJCRldQWDUyL3NKM0UvaVNKcFJWOFdGQ1hh?=
+ =?utf-8?B?M0w3ZStodUVLTkZMeVJSMHh3S1d1RS9pUDZ0VXhPWVVGR0FrWE5OZWk3STdQ?=
+ =?utf-8?B?dVo4OEpIcFlER2dacENPdTZTdjlPdVF4WG1PUmxiblRncjdGRXlXUXNrT0xY?=
+ =?utf-8?B?ODZUQnQyUnJCSDNkRXBtL2RjQU9NME8wZkVkdllvd3owaVUyejdZQkdtekVy?=
+ =?utf-8?B?RENEeVlXendrYWF1MkFvYldmZnQ3L1RFaFdqWUIzQjdJV0xwcS82Wk1BR2Rq?=
+ =?utf-8?B?RWtWbldDamhhRnhmVTlQZVcyRHZ0clc0aTRWT2NObUNHRXBXWUNTcmtDNU1z?=
+ =?utf-8?B?YUVvbjNHNGJkVDYyZE15SnNRcTY5T0IzRVh6bktjL3drOHhwVk5HeFJKN2xT?=
+ =?utf-8?B?QUg3Q3hGOWczSi9naHpHUlVVL2NQbXBIREtzQ2Y2eEk2R0pXU2x4OGJhdG96?=
+ =?utf-8?B?M3BxOFlrcHRBckF4UkxZZEliWWZqOC9CdnJJbndLZXdCZVZBbGRQcG5qN1Bh?=
+ =?utf-8?B?bkFRTUdzcmJyTmt4SlBBb3pObjcvcFRnRVZKMVVjWEU5dG1LQjdaeE90Z2lU?=
+ =?utf-8?B?Vm5VVkRJRUZNb1ZVem9abm45TlF6K0dXQ0pOVG82WGFGZUt6dTVJNGpaUFpu?=
+ =?utf-8?B?bGIxKzdRcmI1Z2o2enpYdDlQbWFod3gyUG0rdngva1BIR3phSWhVSGZ4NllH?=
+ =?utf-8?B?UDhVMUlOSU1iUmtRdjYydmJ5NzByT1UwQ2tlbUFOSFo3NTUwSUg4UmlZYlJJ?=
+ =?utf-8?B?U0NocXk2UFZpdkt0SGExeXFOZFZKdFU2N1dITVhWcXVEQVZOeDl0cUlvR1cv?=
+ =?utf-8?B?dlhOekdGeWQxZWpsdWZNT1F2cDB0b1NWd1RJcGNnaWVaQkRmdW1VSmFUS3Qy?=
+ =?utf-8?B?c3Zac252MW13OXBYWTVuaVBMZUN1eWtmcURDa21RNEJ0WkhDZXJEaW1lVEd1?=
+ =?utf-8?B?UWdMelZXT2ZVeXgwdW01TXNkZG9Edjl5b2Iwa2pLeDBTTGtjSy82QkNSQmxp?=
+ =?utf-8?Q?k3x5GOieCsCWWohTb9Wpa2Q4U?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95542b48-727b-431a-eed2-08daf7992bfb
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 08:10:47.0865
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: W9fh0VA2+sr+OmlQOoLgwo3JMH9nVoZrUFXy5DtNC07WFWnLk2TZGt5a0FziV99lyMjU/hSoQNaIJjsWSAjiRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7740
 
-flight 175920 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175920/
+On 13.01.2023 12:16, Jan Beulich wrote:
+> On 13.01.2023 12:06, osstest service owner wrote:
+>> flight 175751 linux-linus real [real]
+>> http://logs.test-lab.xenproject.org/osstest/logs/175751/
+>>
+>> Regressions :-(
+>>
+>> Tests which did not succeed and are blocking,
+>> including tests which could not be run:
+>>  build-amd64                   6 xen-build                fail REGR. vs. 173462
+>>  build-amd64-xsm               6 xen-build                fail REGR. vs. 173462
+>>  build-i386-xsm                6 xen-build                fail REGR. vs. 173462
+>>  build-i386                    6 xen-build                fail REGR. vs. 173462
+>>  build-arm64                   6 xen-build                fail REGR. vs. 173462
+>>  build-armhf                   6 xen-build                fail REGR. vs. 173462
+>>  build-arm64-pvops             6 kernel-build             fail REGR. vs. 173462
+> 
+> Looking at just one of the logs I find
+> 
+> /usr/bin/wget -c -O newlib-1.16.0.tar.gz http://xenbits.xen.org/xen-extfiles/newlib-1.16.0.tar.gz
+> --2023-01-13 07:41:15--  http://xenbits.xen.org/xen-extfiles/newlib-1.16.0.tar.gz
+> Resolving cache (cache)... 172.16.148.6
+> Connecting to cache (cache)|172.16.148.6|:3128... failed: Connection refused.
+> make[1]: *** [Makefile:90: newlib-1.16.0.tar.gz] Error 4
+> make[1]: Leaving directory '/home/osstest/build.175751.build-amd64/xen/stubdom'
+> make: *** [Makefile:73: build-stubdom] Error 2
+> 
+> Let's hope this was merely a networking issue and will work again next
+> time round.
 
-Regressions :-(
+Sadly this looks to be permanent - all flights over the weekend have run
+into this failure afaics. Anthony, the other day Andrew suggested you might
+be able to help with such issues in Roger's absence?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
- build-i386                    6 xen-build                fail REGR. vs. 175747
- build-amd64                   6 xen-build                fail REGR. vs. 175747
- build-i386-xsm                6 xen-build                fail REGR. vs. 175747
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- build-i386-libvirt            1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
- test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
-
-version targeted for testing:
- ovmf                 47ab397011b6d1ce4d5805117dc87d9e35f378db
-baseline version:
- ovmf                 9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
-
-Last test of basis   175747  2023-01-12 16:10:44 Z    3 days
-Failing since        175860  2023-01-15 07:11:07 Z    1 days   26 attempts
-Testing same since   175920  2023-01-16 07:10:43 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Abner Chang <abner.chang@amd.com>
-  Gerd Hoffmann <kraxel@redhat.com>
-  Jiangang He <jiangang.he@amd.com>
-  Min M Xu <min.m.xu@intel.com>
-  Min Xu <min.m.xu@intel.com>
-
-jobs:
- build-amd64-xsm                                              fail    
- build-i386-xsm                                               fail    
- build-amd64                                                  fail    
- build-i386                                                   fail    
- build-amd64-libvirt                                          blocked 
- build-i386-libvirt                                           blocked 
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
- test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit 47ab397011b6d1ce4d5805117dc87d9e35f378db
-Author: Abner Chang <abner.chang@amd.com>
-Date:   Wed Jan 11 11:10:08 2023 +0800
-
-    MdeModulePkg/XhciPei: Unlinked XhciPei memory block
-    
-    Unlink the XhciPei memory block when it has been freed.
-    
-    Signed-off-by: Jiangang He <jiangang.he@amd.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
-    Cc: Abner Chang <abner.chang@amd.com>
-    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit be8d6ef3856fac2e64e23847a8f05d37822b1f14
-Author: Abner Chang <abner.chang@amd.com>
-Date:   Wed Jan 11 11:10:07 2023 +0800
-
-    MdeModulePkg/Usb: Read a large number of blocks
-    
-    Changes to allow reading blocks that greater than 65535 sectors.
-    
-    Signed-off-by: Jiangang He <jiangang.he@amd.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
-    Cc: Abner Chang <abner.chang@amd.com>
-    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit 8147fe090fb566f9a1ed8fde24098bbe425026be
-Author: Abner Chang <abner.chang@amd.com>
-Date:   Wed Jan 11 11:10:06 2023 +0800
-
-    MdeModulePkg/Xhci: Initial XHCI DCI slot's Context value
-    
-    Initialize XHCI DCI slot's context entries value.
-    
-    Signed-off-by: Jiangang He <jiangang.he@amd.com>
-    Cc: Hao A Wu <hao.a.wu@intel.com>
-    Cc: Ray Ni <ray.ni@intel.com>
-    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
-    Cc: Abner Chang <abner.chang@amd.com>
-    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
-    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
-
-commit 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:35 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Return error if installing NotifyProtocol failed
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    Installation of gQemuAcpiTableNotifyProtocol may fail. The error code
-    should be returned so that the caller can handle it.
-    
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-7-min.m.xu@intel.com>
-    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
-
-commit 66f18fde49c7fe65818db0801cdaf63015e875e5
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:34 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Refactor QemuAcpiTableNotifyProtocol
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    Commit 9fdc70af6ba8 install the QemuAcpiTableNotifyProtocol at a
-    wrong positioin. It should be called before TransferS3ContextToBootScript
-    because TransferS3ContextToBootScript is the last operation in
-    InstallQemuFwCfgTables(). Another error is that we should check the
-    returned value after installing the QemuAcpiTableNotifyProtocol.
-    
-    This patch refactors the installation and error handling of
-    QemuAcpiTableNotifyProtocol in InstallQemuFwCfgTables ().
-    
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Reported-by: Laszlo Ersek <lersek@redhat.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-6-min.m.xu@intel.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-
-commit 2ef0ff39e53d2d2af3859b783882eea6f0beda64
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:33 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Add log to show the installed tables
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    Commit 9fdc70af6ba8 wrongly removed the log from InstallQemuFwCfgTables
-    after ACPI tables are successfully installed. This patch add the log
-    back after all operations succeed.
-    
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Reported-by: Laszlo Ersek <lersek@redhat.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-5-min.m.xu@intel.com>
-
-commit 165f1e49361a9a5f5936f2d582641096d0d7a2a2
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:32 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Use local variable in QemuFwCfgAcpi.c
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    The handle of mQemuAcpiHandle is not needed for anything, beyond the
-    scope of the InstallQemuFwCfgTables(). So a local variable will
-    suffice for storing the handle.
-    
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Reported-by: Laszlo Ersek <lersek@redhat.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-4-min.m.xu@intel.com>
-
-commit f81273f7fbb3defbef43313ada8397bbc202a1d0
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:31 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Use local variable in CloudHvAcpi.c
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    The handle of mChAcpiHandle is not needed for anything, beyond the
-    scope of the InstallCloudHvTablesTdx (). A local variable (ChAcpiHandle)
-    suffices for storing the handle.
-    
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
-    Reported-by: Laszlo Ersek <lersek@redhat.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-3-min.m.xu@intel.com>
-    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
-
-commit 43b3ca6b7f626c6dcdc1a347ad8a42d8cf9ea575
-Author: Min M Xu <min.m.xu@intel.com>
-Date:   Wed Jan 11 09:22:30 2023 +0800
-
-    OvmfPkg/AcpiPlatformDxe: Remove QEMU_ACPI_TABLE_NOTIFY_PROTOCOL
-    
-    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
-    
-    The QEMU_ACPI_TABLE_NOTIFY_PROTOCOL structure is superfluous because NULL
-    protocol interfaces have been used in edk2 repeatedly. A protocol instance
-    can exist in the protocol database with a NULL associated interface.
-    Therefore the QEMU_ACPI_TABLE_NOTIFY_PROTOCOL type, the
-    "QemuAcpiTableNotify.h" header, and the "mAcpiNotifyProtocol" global
-    variable can be removed.
-    
-    Cc: Laszlo Ersek <lersek@redhat.com>
-    Cc: Erdem Aktas <erdemaktas@google.com>
-    Cc: James Bottomley <jejb@linux.ibm.com>
-    Cc: Jiewen Yao <jiewen.yao@intel.com>
-    Cc: Gerd Hoffmann <kraxel@redhat.com>
-    Cc: Tom Lendacky <thomas.lendacky@amd.com>
-    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
-    Reported-by: Laszlo Ersek <lersek@redhat.com>
-    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
-    Signed-off-by: Min Xu <min.m.xu@intel.com>
-    Message-Id: <20230111012235.189-2-min.m.xu@intel.com>
-    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
-
-commit ba08910df1071bf5ade987529d9becb38d14a14a
-Author: Gerd Hoffmann <kraxel@redhat.com>
-Date:   Thu Jan 12 23:41:02 2023 +0800
-
-    OvmfPkg: fix OvmfTpmSecurityStub.dsc.inc include
-    
-    TPM support is independent from secure boot support.  Move the TPM
-    include snipped out of the secure boot !if block.
-    
-    Fixes: b47575801e19 ("OvmfPkg: move tcg configuration to dsc and fdf include files")
-    Bugzilla: https://bugzilla.tianocore.org//show_bug.cgi?id=4290
-    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
-    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
+Jan
 
