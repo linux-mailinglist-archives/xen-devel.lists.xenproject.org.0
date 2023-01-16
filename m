@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 741A166C6FC
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 17:27:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478854.742304 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3655866C7E3
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 17:35:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478860.742316 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHSK6-0006gQ-6C; Mon, 16 Jan 2023 16:27:02 +0000
+	id 1pHSSA-0008Fi-Vx; Mon, 16 Jan 2023 16:35:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478854.742304; Mon, 16 Jan 2023 16:27:02 +0000
+Received: by outflank-mailman (output) from mailman id 478860.742316; Mon, 16 Jan 2023 16:35:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHSK6-0006e8-3R; Mon, 16 Jan 2023 16:27:02 +0000
-Received: by outflank-mailman (input) for mailman id 478854;
- Mon, 16 Jan 2023 16:27:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pHSK5-0006dr-3k
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 16:27:01 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHSJk-0003W7-Cw; Mon, 16 Jan 2023 16:26:40 +0000
-Received: from 54-240-197-230.amazon.com ([54.240.197.230] helo=[192.168.9.85])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHSJk-0004M5-4d; Mon, 16 Jan 2023 16:26:40 +0000
+	id 1pHSSA-0008Cw-Sl; Mon, 16 Jan 2023 16:35:22 +0000
+Received: by outflank-mailman (input) for mailman id 478860;
+ Mon, 16 Jan 2023 16:35:21 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=PHax=5N=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
+ id 1pHSS9-0008Cp-Ih
+ for xen-devel@lists.xen.org; Mon, 16 Jan 2023 16:35:21 +0000
+Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id c2dbec27-95bb-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 17:35:19 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,59 +36,92 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=q3K9ndZ8QJO7+PVyn77l3AM2xxpKYRfzapTlesiVvrg=; b=KtrBgE4tVLcmHI9PJUYt4kfh7L
-	KUVWltyn4+AYUUbVVEiOoJRVWYtE2TTiaCV7ubtGdqSBdWWr8s9Ia+Yk7lz0ozlAvaFtM1kAWh1V9
-	W1yG9R1aWNMdH0RotDJdxvp1FdL+YspqzreCJcciIh8WqZfwpunE3wXCVFQjy7njxaIc=;
-Message-ID: <b2dd000f-ca63-58f8-94eb-ce200e8ba30b@xen.org>
-Date: Mon, 16 Jan 2023 16:26:37 +0000
+X-Inumbo-ID: c2dbec27-95bb-11ed-91b6-6bf2151ebd3b
+From: Thomas Gleixner <tglx@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1673886917;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y5aBMbxFAFIdStpWd8PjTw92BwcyzNQZ6KDghf5lWME=;
+	b=WcOzXIZhvSGHI4kvKmeXfaaJdxjdle5MVf1vpbxI/AmUPipq+r7qwkITTv//VM9mg2PMc7
+	LJyptKIS3yd4uD1y6XgEyOBdnZINhLk4pwbRiAJcb7tXuvov9dJEQxirB+Wi2tCA8f1eIa
+	h2cO72zuZ79rBMwZaKUf4/SNsPtLgaWlTBOzrBSUW7ykALM+MBfG/QKRYEG1fzOv6vMTSa
+	yJY53J3efC7hTx+lqxx5IvHLGh81f78i2M2JK9nKssO6CgT8pgnSPs0ravGlqLQ+uozKD7
+	9S28aL/s/ATwBDcokK0dTbo+ezQyz5JBswbnBs3R4ZIqdf2rLtC9muKIMPPjcA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1673886917;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y5aBMbxFAFIdStpWd8PjTw92BwcyzNQZ6KDghf5lWME=;
+	b=9t2m2hJfCfUhEd3ewF1n6zPM2zYK0sf7ZNxJnZ3SeXx+vQAZEnM9dxnpLeYBFOWDXJwYSF
+	lbgkBHygutn1QsAw==
+To: David Woodhouse <dwmw2@infradead.org>, LKML
+ <linux-kernel@vger.kernel.org>, Juergen Gross <jgross@suse.com>, xen-devel
+ <xen-devel@lists.xen.org>
+Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>, Will Deacon
+ <will@kernel.org>, linux-pci@vger.kernel.org, Bjorn Helgaas
+ <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Marc
+ Zyngier <maz@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>,
+ Alex
+ Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
+ Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe
+ <logang@deltatee.com>, Ashok Raj <ashok.raj@intel.com>, Jon Mason
+ <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>
+Subject: Re: [patch V3 16/22] genirq/msi: Provide new domain id based
+ interfaces for freeing interrupts
+In-Reply-To: <1901d84f8f999ac6b2f067360f098828cb8c17cf.camel@infradead.org>
+References: <20221124225331.464480443@linutronix.de>
+ <20221124230314.337844751@linutronix.de>
+ <1901d84f8f999ac6b2f067360f098828cb8c17cf.camel@infradead.org>
+Date: Mon, 16 Jan 2023 17:35:16 +0100
+Message-ID: <875yd6o2t7.ffs@tglx>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 3/5] xen/version: Introduce non-truncating XENVER_*
- subops
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Daniel De Graaf <dgdegra@tycho.nsa.gov>,
- Daniel Smith <dpsmith@apertussolutions.com>,
- Jason Andryuk <jandryuk@gmail.com>,
- Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230113230835.29356-1-andrew.cooper3@citrix.com>
- <20230113230835.29356-4-andrew.cooper3@citrix.com>
- <5ebe5337-f84e-12a1-e8a0-92832100946d@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <5ebe5337-f84e-12a1-e8a0-92832100946d@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+David!
 
-On 16/01/2023 16:06, Jan Beulich wrote:
->> --- a/xen/include/public/version.h
->> +++ b/xen/include/public/version.h
->> @@ -19,12 +19,20 @@
->>   /* arg == NULL; returns major:minor (16:16). */
->>   #define XENVER_version      0
->>   
->> -/* arg == xen_extraversion_t. */
->> +/*
->> + * arg == xen_extraversion_t.
->> + *
->> + * This API/ABI is broken.  Use XENVER_extraversion2 instead.
-> 
-> Personally I don't like these "broken" that you're adding. These interfaces
-> simply are the way they are, with certain limitations. We also won't be
-> able to remove the old variants (except in the new ABI), so telling people
-> to avoid them provides us about nothing.
+On Mon, Jan 16 2023 at 09:56, David Woodhouse wrote:
+> On Fri, 2022-11-25 at 00:24 +0100, Thomas Gleixner wrote:
+>> +
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0if (ops->domain_free_irqs)
+>> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0ops->domain_free_irqs(domain, dev);
+>
+> Do you want a call to msi_free_dev_descs(dev) here? In the case where
+> the core code calls ops->domain_alloc_irqs() it *has* allocated the
+> descriptors first... but it's expecting the irqdomain to free them?
 
-+1. This is inline with the comment that I made in v1.
+No. Let me stare at it.
 
-Cheers,
+> However, it's not quite as simple as adding msi_free_dev_descs()...
 
--- 
-Julien Grall
+Correct.
+
+> diff --git a/kernel/irq/msi.c b/kernel/irq/msi.c
+> index 955267bbc2be..812e1ec1a633 100644
+> --- a/kernel/irq/msi.c
+> +++ b/kernel/irq/msi.c
+> @@ -1533,9 +1533,10 @@ static void msi_domain_free_locked(struct device *=
+dev, struct msi_ctrl *ctrl)
+>  	info =3D domain->host_data;
+>  	ops =3D info->ops;
+>=20=20
+> -	if (ops->domain_free_irqs)
+> +	if (ops->domain_free_irqs) {
+>  		ops->domain_free_irqs(domain, dev);
+> -	else
+> +		msi_free_msi_descs(dev);
+
+This is just wrong. I need to taxi my grandson. Will have a look
+afterwards.
+
+Thanks,
+
+        tglx
 
