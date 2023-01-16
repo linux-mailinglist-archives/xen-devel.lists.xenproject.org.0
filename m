@@ -2,37 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB5466BA7D
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 10:35:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478511.741757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 809CE66BAAC
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 10:41:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478516.741768 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHLti-0005fb-3n; Mon, 16 Jan 2023 09:35:22 +0000
+	id 1pHLzI-00078q-Pu; Mon, 16 Jan 2023 09:41:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478511.741757; Mon, 16 Jan 2023 09:35:22 +0000
+Received: by outflank-mailman (output) from mailman id 478516.741768; Mon, 16 Jan 2023 09:41:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHLti-0005dG-0x; Mon, 16 Jan 2023 09:35:22 +0000
-Received: by outflank-mailman (input) for mailman id 478511;
- Mon, 16 Jan 2023 09:35:20 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=W85+=5N=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pHLtg-0005d4-6P
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 09:35:20 +0000
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [2a00:1450:4864:20::535])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 164c2a06-9581-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 10:35:17 +0100 (CET)
-Received: by mail-ed1-x535.google.com with SMTP id s3so1744049edd.4
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 01:35:17 -0800 (PST)
-Received: from [192.168.1.93] (adsl-67.109.242.226.tellas.gr. [109.242.226.67])
- by smtp.gmail.com with ESMTPSA id
- f9-20020a056402068900b0048999d127e0sm11144509edy.86.2023.01.16.01.35.15
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Jan 2023 01:35:16 -0800 (PST)
+	id 1pHLzI-00075f-Mq; Mon, 16 Jan 2023 09:41:08 +0000
+Received: by outflank-mailman (input) for mailman id 478516;
+ Mon, 16 Jan 2023 09:41:07 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=Os5i=5N=arm.com=Wei.Chen@srs-se1.protection.inumbo.net>)
+ id 1pHLzH-00075Z-M2
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 09:41:07 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2057.outbound.protection.outlook.com [40.107.21.57])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id e6181641-9581-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 10:41:06 +0100 (CET)
+Received: from AS9PR06CA0196.eurprd06.prod.outlook.com (2603:10a6:20b:45d::22)
+ by AS8PR08MB5944.eurprd08.prod.outlook.com (2603:10a6:20b:297::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Mon, 16 Jan
+ 2023 09:40:55 +0000
+Received: from AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:45d:cafe::3b) by AS9PR06CA0196.outlook.office365.com
+ (2603:10a6:20b:45d::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
+ Transport; Mon, 16 Jan 2023 09:40:55 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT009.mail.protection.outlook.com (100.127.140.130) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6002.13 via Frontend Transport; Mon, 16 Jan 2023 09:40:54 +0000
+Received: ("Tessian outbound 43b0faad5a68:v132");
+ Mon, 16 Jan 2023 09:40:54 +0000
+Received: from d5c67f4d84b7.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 6969F8D1-AF23-45C0-B46C-96CE31B03AE7.1; 
+ Mon, 16 Jan 2023 09:40:43 +0000
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id d5c67f4d84b7.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Mon, 16 Jan 2023 09:40:43 +0000
+Received: from PAXPR08MB7420.eurprd08.prod.outlook.com (2603:10a6:102:2b9::9)
+ by AS2PR08MB8747.eurprd08.prod.outlook.com (2603:10a6:20b:55f::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Mon, 16 Jan
+ 2023 09:40:40 +0000
+Received: from PAXPR08MB7420.eurprd08.prod.outlook.com
+ ([fe80::72d6:6a74:b637:cc5b]) by PAXPR08MB7420.eurprd08.prod.outlook.com
+ ([fe80::72d6:6a74:b637:cc5b%3]) with mapi id 15.20.5986.023; Mon, 16 Jan 2023
+ 09:40:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,280 +71,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 164c2a06-9581-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=JOhv9z+PNsgnqkOokKHghLvnay2fArMCvGNAfPJKnao=;
-        b=PChpdD92IJQ+8d6cufeKzxfqpp0I5dLfn+gI4KdEYpa3dx+RjcKu2c11Q4w/nSbATb
-         aOaI3Yb4e4/xY6lpJbBnMoUFvgIv9YiULovHLibw0njSgsmFKFq9yW6m4gb2Hk3c8y3/
-         Ex3AwjjxzyjQ/tjIF6MOZN3glZL6WOVfax47PvUNFLm+1CCX+gJ7mZmezebQ28KYuEyA
-         OAEG4IUiyw1fBQcTJ/G27U2b/jzKbAJlCfGKzwNDzvZZjltki0QtJmTImIYHXS34HtSd
-         uNtKnMBYHw/8iv5v/mWC+X71BZWg0eXWFUAlTWPibCarfiWpICvmHu7c1vIguKa3GUgV
-         P08g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JOhv9z+PNsgnqkOokKHghLvnay2fArMCvGNAfPJKnao=;
-        b=BbKajxRaGGWLoutIflE8rXOenxtICVWF15QadG/J3MbKnZ8QF+7O0c4BCXdd2IKLf4
-         deTPhI0EaEubye1SxcRbDxrpIeBgD9Ams9Ug2gSDY3Sx7agQTfn3qspwP1cpkzYnLzLX
-         hUM4y46C4EVht4Sjdz60mxOHNeUr3RljvbRIG0PgETq8nqb7ZkCbzqoFioSjerKc100i
-         LdrW023NBuzB3zRC7QFqZdvWoyh4j5HGU6E8qiw3edOu479fmCppSeP/wkuD8fC2BIHU
-         Ff9wpvMT50pNXrzoOxe+oP7o4mkcCW1F/Bv3moIQTEW+IBXMawUaU5AuqD14sbTPx+Mm
-         6miA==
-X-Gm-Message-State: AFqh2kpdNULJTpjxosTrbWjW+Z8//ZXMt2uPmTkDYLJmYZMZGLJwqlVk
-	IDwhlMTgjwqfI2geljUA12XGqFqHmn4=
-X-Google-Smtp-Source: AMrXdXvGMV9JQ48YEQnPV/Ink7aGPdFyceDrx84IFkS12qSw2FwlCbiEgr9jzZsOLYLnHuHBUPZ7GQ==
-X-Received: by 2002:a05:6402:454:b0:499:376e:6b2b with SMTP id p20-20020a056402045400b00499376e6b2bmr25497135edw.0.1673861716823;
-        Mon, 16 Jan 2023 01:35:16 -0800 (PST)
-Message-ID: <80dc13f9-f193-2def-cce6-93fd519e824f@gmail.com>
-Date: Mon, 16 Jan 2023 11:35:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v3 6/8] x86/iommu: call pi_update_irte through an
- hvm_function callback
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jun Nakajima <jun.nakajima@intel.com>, Kevin Tian <kevin.tian@intel.com>,
- Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Paul Durrant <paul@xen.org>
-References: <20230116070431.905594-1-burzalodowa@gmail.com>
- <20230116070431.905594-7-burzalodowa@gmail.com>
+X-Inumbo-ID: e6181641-9581-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L3P0XiTgynu573SmPp/QcDNdyG9IX1u1LFbgNqKMTuk=;
+ b=WijJ/n6QB3QsEki369209ninq/OelMS3EMwgnS3pjCGktSTFDCZU1LN5kcrCh6E09E/01KKOGvSt1o5hW2TQo7B2Fx7074/+brFELqWK32ST1nsCtMA7Zyl+/hGVoFmPpCOqg6aLmhnr3NbTf6yivtoDtDOlq327aEuaID7eTzI=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CheckRecipientChecked: true
+X-CR-MTA-CID: ad01db07b5d3269f
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=J3cKJAPnltdFeqOexwNHHhz/ONeUhf1TpKDTLaGEuHaOea5CVlp91sMiTO0PK9KHUAF1np96F5wrRBwIfn4hkPc6g49NBdVloQlPUPLKVn7/JUGnk9+6FsX14Xp2vRogt7S7rmBBGFnqvXtMdy1bbVWJZ2xaoMjNi+s/5oRsbIiHiYo7PHDdAFAy6qDFLA8Ox0JDdpGIiTeCGVBRNQcNF/At+Z4AnKkWWAnwAUPO5cMk2YBT20opoaa1ooVkmctStBnRkY+GOHQ/EqKbHFqrimamek4iLCjx69ftUWqSXFIq8EgV6LL5H0RRD9Im+EkwdU2cK/6M27eYkzbRSxD9Bg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L3P0XiTgynu573SmPp/QcDNdyG9IX1u1LFbgNqKMTuk=;
+ b=O5fXeLUxfe98qze6nxd3XiWgkskLKoieuosYgZ71kXkDS2F2SHqiSU6b/689/GZAHWRqjcdmOOIkUezXnTZGBZZN4zysKND+xovi0aMLFPOC0esdRcGJ7jbGAmCg+UKBusHSicVnZipXPZVq11hAKDUUjrWlbU/Xjwocty9iFYLuxe58uGd5GPTqDBj4sMBuFgXDLKxQO93897hoyXuwTapHVqjzyFB/2d6QoNlGoUQ4uViS1oomnKXVIdrlx2V7cpt9WKIuMA1B4FY0a51ByvhJgi31vHpS08l4rY9cPLEC4rK8owa5Misrz4yI/eikeR+nlmJ6QipasC0kGdfOqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L3P0XiTgynu573SmPp/QcDNdyG9IX1u1LFbgNqKMTuk=;
+ b=WijJ/n6QB3QsEki369209ninq/OelMS3EMwgnS3pjCGktSTFDCZU1LN5kcrCh6E09E/01KKOGvSt1o5hW2TQo7B2Fx7074/+brFELqWK32ST1nsCtMA7Zyl+/hGVoFmPpCOqg6aLmhnr3NbTf6yivtoDtDOlq327aEuaID7eTzI=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Message-ID: <1ed674f8-4e69-de96-aca0-c25e589cc998@arm.com>
+Date: Mon, 16 Jan 2023 17:40:25 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.0
+Subject: Re: [PATCH v2 03/17] xen/arm: implement node distance helpers for Arm
 Content-Language: en-US
-In-Reply-To: <20230116070431.905594-7-burzalodowa@gmail.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: nd <nd@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20230110084930.1095203-1-wei.chen@arm.com>
+ <20230110084930.1095203-4-wei.chen@arm.com>
+ <9fd67aa2-0bd5-16a2-1e19-139504c2090f@suse.com>
+ <PAXPR08MB7420A4E3DA252F9F37450EDA9EFD9@PAXPR08MB7420.eurprd08.prod.outlook.com>
+ <ee06b9a7-bfc7-e6f1-f2f6-f73a1fb42d6d@suse.com>
+ <71e806f4-8bd2-dd47-67b9-958bb9061c7b@xen.org>
+From: Wei Chen <Wei.Chen@arm.com>
+In-Reply-To: <71e806f4-8bd2-dd47-67b9-958bb9061c7b@xen.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TYCP286CA0178.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3c6::9) To PAXPR08MB7420.eurprd08.prod.outlook.com
+ (2603:10a6:102:2b9::9)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic:
+	PAXPR08MB7420:EE_|AS2PR08MB8747:EE_|AM7EUR03FT009:EE_|AS8PR08MB5944:EE_
+X-MS-Office365-Filtering-Correlation-Id: d7b48b5b-5e9e-41ca-27e9-08daf7a5c394
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ rSuVt6Hc0ZZs3xQqRZQoxgwFjg+M7f9HGdyS1qMVEeLHYpzTxru1Y3L4/tM/QK8+OzAB8SUt8Cek+5Fzg5fOXBptpdLl4ImASZMb8DWOu4CRdy11HAReWOollprdUoNEy6KuMbrmQZ3xGcHEXiG8G24XLgw+eb+uESzZ8dqv3Zmg0KtOgOBo/yZDrLza8gyEfKBlPvbuz3YZbdSpeQOcnEW/LgNYNpt7ZR/p+rBKuRJsLGFZSiI6dKdF8ouYoUVUENypy9xCAPyp6HNcsWXum0T2Je6/V+d45UgGtBtMdwXgCG3/O56wgPhrV3lxQ91OPp0Y+C2sRAdTxdJjLHfAPWzCmnyK/CzaqZ7aoL88lp4/QWzFUPwlLXLEF1/EIFohlyzUXUoKqLXsuHiV00ehbSvJ+eJhiOGfbYWH/V90ZPfN+fhtMonjqjWb2lUF+sq8y0QdscoFpJMMtNqLIbRUhbCml1ngKYztDyaGDKpP3+pAURSy65ttA5vWOxH9e0iCy6aMYVZLvCh4lOh/ZD+SyOmFbd5VIlWKhesiqklN52erW8YjSTAI/u6S3ncLYQAbtMEdUok5bPXiVALQHjhaeUf1KU98KMPuo9Pi4obFNa1DXIgHJq8G8bfgMDSf8/BRnDMcg6ueLFVHtMquIIU9gehBCK6F/tmAoaf4POqJnDbwmsHN5a3t/gioVBbgFHc3E/FJn5NwIUdNTpBmH57WwMLmorKZXi+dlJ0An58/oGU=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR08MB7420.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(136003)(376002)(346002)(39860400002)(366004)(396003)(451199015)(36756003)(5660300002)(53546011)(6666004)(6506007)(6512007)(186003)(83380400001)(31696002)(86362001)(2616005)(2906002)(26005)(38100700002)(316002)(31686004)(54906003)(110136005)(41300700001)(4326008)(66476007)(66556008)(66946007)(8936002)(8676002)(478600001)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR08MB8747
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	27927cdc-99da-4e9d-4ae0-08daf7a5ba8b
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	Eghg5/Ca4S9YjXr8pyAXAM2vzJwaYdxY6levEHYf4uEd0GDLJVddjfU8qW2sANLj/ibGNSELgHq27OWRaJDZXCKV4pJj2pyWaWdsO9pOctKT0nUNdco4ve1jf2dsDyX4HD45o5yU09vIpCKzaQMpTj6yzYad3G0xCAU0qRr1RL4/m2CG9s/m2zcTFzFcsN4is5j31nJncLcXmKdkALMI9fveEF1LRCEhiv+/15gr6Ic2/TseSKxKL00pZbRMWJTTI3tIh5FB4dsqaTj9gI3THtO/W26tKzYBY7ytf8oxugqmLXbamScfkdZ+Gk7AptR9YMhG5EM+G4S2mxIXqNBDZ0rg/BTMuELiS/CUC68vg0A6pptun7wQYJQNFq8/q21Z+ccwngh7zWtIDHU5K3uBfyc3/AAj0sNdpuwZDdmobonNWquneglWAPLK35z58WJ3tLKiwC7KjprXoBWzcel6FG0BFEjDZbxIZpBKwvwyTHG0XH06CO2EaIUnBVVyN7DjhpdtlafV2AKzOEme/MVg1p2h6HroTi8Ex7WWU5Lka5oo3rHxrLGJTTA58X1YJe5M25lr3fTgDKHY620LW/YnBrBHw6HIWIZBHEvX4xmwMXtcYXp4BOVvHwWmFFF95gd7gB98wUeaV5j9FjLmWmNQs8FBDef+zJ9uWqMEH+51bpLu8PM/YVk3WQ9QKTqY/hsvvddwVxAyC5pNtUoHWMV60HjWU2de/9wp5DuQqxun/rk=
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(376002)(451199015)(46966006)(36840700001)(40470700004)(36860700001)(2906002)(82740400003)(356005)(86362001)(31696002)(81166007)(31686004)(40460700003)(36756003)(47076005)(40480700001)(2616005)(82310400005)(54906003)(110136005)(316002)(5660300002)(70586007)(70206006)(41300700001)(8676002)(6506007)(6666004)(4326008)(6486002)(83380400001)(8936002)(26005)(186003)(53546011)(478600001)(336012)(6512007)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 09:40:54.8652
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7b48b5b-5e9e-41ca-27e9-08daf7a5c394
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT009.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB5944
 
+Hi Julien,
 
-On 1/16/23 09:04, Xenia Ragiadakou wrote:
-> Posted interrupt support in Xen is currently implemented only for the
-> Intel platforms. Instead of calling directly pi_update_irte() from the
-> common hvm code, add a pi_update_irte callback to the hvm_function_table.
-> Then, create a wrapper function hvm_pi_update_irte() to be used by the
-> common hvm code.
+On 2023/1/12 17:47, Julien Grall wrote:
+> Hi,
 > 
-> In the pi_update_irte callback prototype, pass the vcpu as first parameter
-> instead of the posted-interrupt descriptor that is platform specific, and
-> remove the const qualifier from the parameter gvec since it is not needed
-> and because it does not compile with the alternative code patching in use.
+> On 12/01/2023 08:11, Jan Beulich wrote:
+>> On 12.01.2023 07:31, Wei Chen wrote:
+>>>> -----Original Message-----
+>>>> From: Jan Beulich <jbeulich@suse.com>
+>>>> Sent: 2023年1月11日 0:47
+>>>>
+>>>> On 10.01.2023 09:49, Wei Chen wrote:
+>>>>> --- a/xen/arch/arm/include/asm/numa.h
+>>>>> +++ b/xen/arch/arm/include/asm/numa.h
+>>>>> @@ -28,6 +28,20 @@ enum dt_numa_status {
+>>>>>       DT_NUMA_OFF,
+>>>>>   };
+>>>>>
+>>>>> +/*
+>>>>> + * In ACPI spec, 0-9 are the reserved values for node distance,
+>>>>> + * 10 indicates local node distance, 20 indicates remote node
+>>>>> + * distance. Set node distance map in device tree will follow
+>>>>> + * the ACPI's definition.
 > 
-> Since the posted interrupt descriptor is Intel VT-x specific while
-> msi_msg_write_remap_rte is iommu specific, open code pi_update_irte() inside
-> vmx_pi_update_irte() but replace msi_msg_write_remap_rte() with generic
-> iommu_update_ire_from_msi(). That way vmx_pi_update_irte() is not bound to
-> Intel VT-d anymore.
+> Looking at the ACPI spec, I agree that the local node distance is 
+> defined to 10. But I couldn't find any mention of the value 20.
 > 
-> Remove the now unused pi_update_irte() implementation.
+> How is NUMA_REMOTE_DISTANCE is meant to be used? Is this a default 
+> value? If so, maybe we should add "DEFAULT" in the name.
 > 
-> No functional change intended.
-> 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-> ---
-> 
-> Changes in v3:
->    - open code pi_update_irte() in vmx_pi_update_irte() but instead of using
->      the VT-d specific function msi_msg_write_remap_rte() use the generic
->      iommu_update_ire_from_msi()
->    - delete pi_update_irte() from vtd/intremap.c
->    - move the initialization of vmx pi_update_irte stub to start_vmx() and
->      perform it only if iommu_intpost is enabled.
->    - move pi_update_irte right after handle_eoi
-> 
->   xen/arch/x86/hvm/vmx/vmx.c             | 41 ++++++++++++++++++++++++++
->   xen/arch/x86/include/asm/hvm/hvm.h     | 10 +++++++
->   xen/arch/x86/include/asm/iommu.h       |  3 --
->   xen/drivers/passthrough/vtd/intremap.c | 36 ----------------------
->   xen/drivers/passthrough/x86/hvm.c      |  5 ++--
->   5 files changed, 53 insertions(+), 42 deletions(-)
-> 
-> diff --git a/xen/arch/x86/hvm/vmx/vmx.c b/xen/arch/x86/hvm/vmx/vmx.c
-> index 15a07933ee..a5355dbac2 100644
-> --- a/xen/arch/x86/hvm/vmx/vmx.c
-> +++ b/xen/arch/x86/hvm/vmx/vmx.c
-> @@ -396,6 +396,43 @@ void vmx_pi_hooks_deassign(struct domain *d)
->       domain_unpause(d);
->   }
->   
-> +/*
-> + * This function is used to update the IRTE for posted-interrupt
-> + * when guest changes MSI/MSI-X information.
-> + */
-> +static int cf_check vmx_pi_update_irte(const struct vcpu *v,
-> +                                       const struct pirq *pirq, uint8_t gvec)
-> +{
-> +    const struct pi_desc *pi_desc = v ? &v->arch.hvm.vmx.pi_desc : NULL;
-> +    struct irq_desc *desc;
-> +    struct msi_desc *msi_desc;
-> +    int rc;
-> +
-> +    desc = pirq_spin_lock_irq_desc(pirq, NULL);
-> +    if ( !desc )
-> +        return -EINVAL;
-> +
-> +    msi_desc = desc->msi_desc;
-> +    if ( !msi_desc )
-> +    {
-> +        rc = -ENODEV;
-> +        goto unlock_out;
-> +    }
-> +    msi_desc->pi_desc = pi_desc;
-> +    msi_desc->gvec = gvec;
-> +
-> +    spin_unlock_irq(&desc->lock);
-> +
-> +    ASSERT(pcidevs_locked());
-> +
-> +    return iommu_update_ire_from_msi(msi_desc, &msi_desc->msg);
-> +
-> + unlock_out:
-> +    spin_unlock_irq(&desc->lock);
-> +
-> +    return rc;
-> +}
-> +
->   static const struct lbr_info {
->       u32 base, count;
->   } p4_lbr[] = {
-> @@ -2969,8 +3006,12 @@ const struct hvm_function_table * __init start_vmx(void)
->       {
->           alloc_direct_apic_vector(&posted_intr_vector, pi_notification_interrupt);
->           if ( iommu_intpost )
-> +        {
->               alloc_direct_apic_vector(&pi_wakeup_vector, pi_wakeup_interrupt);
->   
-> +            vmx_function_table.pi_update_irte = vmx_pi_update_irte;
-> +        }
-> +
->           vmx_function_table.deliver_posted_intr = vmx_deliver_posted_intr;
->           vmx_function_table.sync_pir_to_irr     = vmx_sync_pir_to_irr;
->           vmx_function_table.test_pir            = vmx_test_pir;
-> diff --git a/xen/arch/x86/include/asm/hvm/hvm.h b/xen/arch/x86/include/asm/hvm/hvm.h
-> index 93254651f2..b1990a047c 100644
-> --- a/xen/arch/x86/include/asm/hvm/hvm.h
-> +++ b/xen/arch/x86/include/asm/hvm/hvm.h
-> @@ -28,6 +28,8 @@
->   #include <asm/x86_emulate.h>
->   #include <asm/hvm/asid.h>
->   
-> +struct pirq; /* needed by pi_update_irte */
-> +
->   #ifdef CONFIG_HVM_FEP
->   /* Permit use of the Forced Emulation Prefix in HVM guests */
->   extern bool_t opt_hvm_fep;
-> @@ -213,6 +215,8 @@ struct hvm_function_table {
->       void (*sync_pir_to_irr)(struct vcpu *v);
->       bool (*test_pir)(const struct vcpu *v, uint8_t vector);
->       void (*handle_eoi)(uint8_t vector, int isr);
-> +    int (*pi_update_irte)(const struct vcpu *v, const struct pirq *pirq,
-> +                          uint8_t gvec);
->   
->       /*Walk nested p2m  */
->       int (*nhvm_hap_walk_L1_p2m)(struct vcpu *v, paddr_t L2_gpa,
-> @@ -774,6 +778,12 @@ static inline void hvm_set_nonreg_state(struct vcpu *v,
->           alternative_vcall(hvm_funcs.set_nonreg_state, v, nrs);
->   }
->   
-> +static inline int hvm_pi_update_irte(const struct vcpu *v,
-> +                                     const struct pirq *pirq, uint8_t gvec)
-> +{
-> +    return alternative_call(hvm_funcs.pi_update_irte, v, pirq, gvec);
-> +}
-> +
->   #else  /* CONFIG_HVM */
->   
->   #define hvm_enabled false
-> diff --git a/xen/arch/x86/include/asm/iommu.h b/xen/arch/x86/include/asm/iommu.h
-> index fc0afe35bf..4794e72cf1 100644
-> --- a/xen/arch/x86/include/asm/iommu.h
-> +++ b/xen/arch/x86/include/asm/iommu.h
-> @@ -129,9 +129,6 @@ void iommu_identity_map_teardown(struct domain *d);
->   
->   extern bool untrusted_msi;
->   
-> -int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
-> -                   const uint8_t gvec);
-> -
->   extern bool iommu_non_coherent, iommu_superpages;
->   
->   static inline void iommu_sync_cache(const void *addr, unsigned int size)
 
-Here, I forgot to remove the #include <asm/hvm/vmx/vmcs.h>. I will fix 
-it in the next version.
+I think you're right, maybe we can rename NUMA_REMOTE_DISTANCE
+to NUMA_DEFAULT_DISTANCE.Different pairs of nodes may have different 
+remote distance values, I can not define one value for them.
 
-> diff --git a/xen/drivers/passthrough/vtd/intremap.c b/xen/drivers/passthrough/vtd/intremap.c
-> index 1512e4866b..b39bc83282 100644
-> --- a/xen/drivers/passthrough/vtd/intremap.c
-> +++ b/xen/drivers/passthrough/vtd/intremap.c
-> @@ -866,39 +866,3 @@ void cf_check intel_iommu_disable_eim(void)
->       for_each_drhd_unit ( drhd )
->           disable_qinval(drhd->iommu);
->   }
-> -
-> -/*
-> - * This function is used to update the IRTE for posted-interrupt
-> - * when guest changes MSI/MSI-X information.
-> - */
-> -int pi_update_irte(const struct pi_desc *pi_desc, const struct pirq *pirq,
-> -    const uint8_t gvec)
-> -{
-> -    struct irq_desc *desc;
-> -    struct msi_desc *msi_desc;
-> -    int rc;
-> -
-> -    desc = pirq_spin_lock_irq_desc(pirq, NULL);
-> -    if ( !desc )
-> -        return -EINVAL;
-> -
-> -    msi_desc = desc->msi_desc;
-> -    if ( !msi_desc )
-> -    {
-> -        rc = -ENODEV;
-> -        goto unlock_out;
-> -    }
-> -    msi_desc->pi_desc = pi_desc;
-> -    msi_desc->gvec = gvec;
-> -
-> -    spin_unlock_irq(&desc->lock);
-> -
-> -    ASSERT(pcidevs_locked());
-> -
-> -    return msi_msg_write_remap_rte(msi_desc, &msi_desc->msg);
-> -
-> - unlock_out:
-> -    spin_unlock_irq(&desc->lock);
-> -
-> -    return rc;
-> -}
-> diff --git a/xen/drivers/passthrough/x86/hvm.c b/xen/drivers/passthrough/x86/hvm.c
-> index a16e0e5344..e720461a14 100644
-> --- a/xen/drivers/passthrough/x86/hvm.c
-> +++ b/xen/drivers/passthrough/x86/hvm.c
-> @@ -381,8 +381,7 @@ int pt_irq_create_bind(
->   
->           /* Use interrupt posting if it is supported. */
->           if ( iommu_intpost )
-> -            pi_update_irte(vcpu ? &vcpu->arch.hvm.vmx.pi_desc : NULL,
-> -                           info, pirq_dpci->gmsi.gvec);
-> +            hvm_pi_update_irte(vcpu, info, pirq_dpci->gmsi.gvec);
->   
->           if ( pt_irq_bind->u.msi.gflags & XEN_DOMCTL_VMSI_X86_UNMASKED )
->           {
-> @@ -672,7 +671,7 @@ int pt_irq_destroy_bind(
->               what = "bogus";
->       }
->       else if ( pirq_dpci && pirq_dpci->gmsi.posted )
-> -        pi_update_irte(NULL, pirq, 0);
-> +        hvm_pi_update_irte(NULL, pirq, 0);
->   
->       if ( pirq_dpci && (pirq_dpci->flags & HVM_IRQ_DPCI_MAPPED) &&
->            list_empty(&pirq_dpci->digl_list) )
+And why use 20 as default value, I have followed the ACPI's logic.
+In ACPI NUMA, when ACPI doesn't provide SLIT table, 20 will be used
+for all nodes default distance.
 
--- 
-Xenia
+>>>>> + */
+>>>>> +#define NUMA_DISTANCE_UDF_MIN   0
+>>>>> +#define NUMA_DISTANCE_UDF_MAX   9
+>>>>> +#define NUMA_LOCAL_DISTANCE     10
+>>>>> +#define NUMA_REMOTE_DISTANCE    20
+>>>>
+>>>> In the absence of a caller of numa_set_distance() it is entirely 
+>>>> unclear
+>>>> whether this tying to ACPI used values is actually appropriate.
+>>>>
+>>>
+>>>  From Kernel's NUMA device tree binding, it seems DT NUMA are reusing
+>>> ACPI used values for distances [1].
+>>
+>> I can't find any mention of ACPI in that doc, so the example values used
+>> there matching ACPI's may also be coincidental. In no event can a Linux
+>> kernel doc serve as DT specification. 
+> 
+> The directory Documentation/devicetree is the de-facto place where all 
+> the bindings are described. This is used by most (to not say all) users.
+> 
+> I vaguely remember there were plan in the past to move the bindings out 
+> of the kernel. But it looks like this has not been done. Yet, they tend 
+> to be reviewed independently from the kernel.
+> 
+> So, as Wei pointed, if we don't follow them then we will not be able to 
+> re-use Device-Tree shipped.
+> 
+>> If values are to match ACPI's, I
+>> expect a DT spec to actually say so.
+> I don't think it is necessary to say that. Bindings are not meant to 
+> change and a developer can rely on the local distance value to not 
+> change with the current bindings.
+> 
+> So IMHO, it is OK to assume that the local distance value is the same 
+> between ACPI and DT. That would definitely simplify the parsing and code.
+> 
+
+Thanks for clarifying this.
+
+Cheers,
+Wei Chen
+
+> Cheers,
+> 
 
