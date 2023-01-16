@@ -2,33 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3408F66BB50
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 11:11:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478528.741787 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D100466BC5A
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 12:00:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478562.741815 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHMS1-0002mv-G0; Mon, 16 Jan 2023 10:10:49 +0000
+	id 1pHND5-0008AM-IP; Mon, 16 Jan 2023 10:59:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478528.741787; Mon, 16 Jan 2023 10:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 478562.741815; Mon, 16 Jan 2023 10:59:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHMS1-0002k0-DF; Mon, 16 Jan 2023 10:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 478528;
- Mon, 16 Jan 2023 10:10:47 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pHND5-000887-EL; Mon, 16 Jan 2023 10:59:27 +0000
+Received: by outflank-mailman (input) for mailman id 478562;
+ Mon, 16 Jan 2023 10:59:25 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N7lT=5N=casper.srs.infradead.org=BATV+fb0b8ce1ba8490165fd5+7085+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pHMRz-0002jp-Tb
- for xen-devel@lists.xen.org; Mon, 16 Jan 2023 10:10:47 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 0a9dc072-9586-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 11:10:45 +0100 (CET)
-Received: from [2001:8b0:10b:5::bb3] (helo=u3832b3a9db3152.ant.amazon.com)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pHMS6-008dPx-1N; Mon, 16 Jan 2023 10:10:54 +0000
+ <SRS0=wx/b=5N=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pHND3-00087z-O1
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 10:59:25 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d58a056a-958c-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 11:59:24 +0100 (CET)
+Received: from BL1PR13CA0112.namprd13.prod.outlook.com (2603:10b6:208:2b9::27)
+ by MW4PR12MB7030.namprd12.prod.outlook.com (2603:10b6:303:20a::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.22; Mon, 16 Jan
+ 2023 10:59:20 +0000
+Received: from BL02EPF000108E8.namprd05.prod.outlook.com
+ (2603:10b6:208:2b9:cafe::12) by BL1PR13CA0112.outlook.office365.com
+ (2603:10b6:208:2b9::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6023.12 via Frontend
+ Transport; Mon, 16 Jan 2023 10:59:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000108E8.mail.protection.outlook.com (10.167.241.201) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.11 via Frontend Transport; Mon, 16 Jan 2023 10:59:19 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 16 Jan
+ 2023 04:59:15 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 16 Jan
+ 2023 04:59:14 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Mon, 16 Jan 2023 04:59:12 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,175 +62,240 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0a9dc072-9586-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=t4xQXvcK8KLqFQdEV6zFme6E23zZ8Zze7iB+3HzU6SY=; b=vmzflYQhgpPtC0KRWE4tnpUWhd
-	g4syYqB56eereaHgWRvKx8zjs0vGmvMUvaxWa3WXUM9ZIUdihA+nX0r2xRj1dbQlQMdH2CE3Lg36D
-	tJSxGHWBhU//EQ8Z3zxahTSlpCU35r2BsF9HTc/zBwGbcunL+xx/OiDgRxgWc3zF2TkmAvMbGPnX2
-	RwHiwJGPMDVbs6/sDAcbWVP3N+0JCEAPliiE3rewmf8rEEXu6Yi+uQQvP6gesEB/JzLe2IZo/TugD
-	iODJGsIWjXyirFDsTFrwj76jCa/t4IWmH29G3NGEH9z6CmFI2to4KsgMayrmlgHdAIY5Oor6B/TZv
-	mxkxj0Jg==;
-Message-ID: <ad1dfa58888f82d7cf6fd1b86d2df3821511cf33.camel@infradead.org>
-Subject: Re: [patch V3 16/22] genirq/msi: Provide new domain id based
- interfaces for freeing interrupts
-From: David Woodhouse <dwmw2@infradead.org>
-To: Thomas Gleixner <tglx@linutronix.de>, LKML
- <linux-kernel@vger.kernel.org>,  Juergen Gross <jgross@suse.com>, xen-devel
- <xen-devel@lists.xen.org>
-Cc: x86@kernel.org, Joerg Roedel <joro@8bytes.org>, Will Deacon
- <will@kernel.org>,  linux-pci@vger.kernel.org, Bjorn Helgaas
- <bhelgaas@google.com>, Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, Marc
- Zyngier <maz@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jason Gunthorpe <jgg@mellanox.com>, Dave Jiang <dave.jiang@intel.com>, Alex
- Williamson <alex.williamson@redhat.com>, Kevin Tian <kevin.tian@intel.com>,
- Dan Williams <dan.j.williams@intel.com>, Logan Gunthorpe
- <logang@deltatee.com>, Ashok Raj <ashok.raj@intel.com>, Jon Mason
- <jdmason@kudzu.us>, Allen Hubbe <allenbh@gmail.com>
-Date: Mon, 16 Jan 2023 10:10:39 +0000
-In-Reply-To: <1901d84f8f999ac6b2f067360f098828cb8c17cf.camel@infradead.org>
-References: <20221124225331.464480443@linutronix.de>
-	 <20221124230314.337844751@linutronix.de>
-	 <1901d84f8f999ac6b2f067360f098828cb8c17cf.camel@infradead.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-5x7AImqvOVRFcwicSHaI"
-User-Agent: Evolution 3.44.4-0ubuntu1 
+X-Inumbo-ID: d58a056a-958c-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V7MAiou62fUiJxVtTN2PkcWnkul2Ykggh7+QG7Cn+O9MWvdiiKjahddizpaT8UHiTh++x92eavbWj3FGuETFxby0o+hIVldf4jLCEiUS7We04qS9+GYQzDzyk51rJjT+cTPHJILZE68b2bob6sRD6VvaEUmELTLMQkwBHEmlqx+tq/uyCHPZv3MrehFDHHf1bQ8lY4mryZF+9/3vn9jGC4KBi0amdDVQs73LGdwG26evKcjR0ADnI/k14EbgLSfvm0SpRF2B1eR3AXFILQLe0dAcbkO4RxEL59LLna+//OcNQCCTmZMaR6qqVTr//tmD8EmOIQ3/hZE6w5omQq/rWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UFeB5rZwRrz5YpTsPxIvIWRzcaS02lWju8Pbex8UaaM=;
+ b=kMTjuinr5epz7/33GU/gWsa/24bnItFu8ahIUQhVhhYbCsuI9JCv2PhljWndyegRzWVf8OfZndZJ8TkUjXjKMBcdC6h9UXRzv0L3QuHAi6jehWBHzvbM1d+b50Z1zMm5BwV7llSRNYv1tW7GJZd8VXKuBqV9H//FR2MNwoAezKfFA2ukqtYLGcLuSaM70jJnRCFBM2lq2uVBHmF4rw1BGek7otCNgWZ2eyOa6kSotu2/KlMap1L2sJ74JtCWaJQrFLEkkcDIaZ9TgLk2RvCsnQa6RxD9ogrAn9I2YqNdjQX7bqtZPwjafVLwlRvZrz16DOEuQqTUcsNoODnC4/DoVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UFeB5rZwRrz5YpTsPxIvIWRzcaS02lWju8Pbex8UaaM=;
+ b=hmY95SmciOcNjhwoeWvVCwJlM1wocXb77r/jpcoYWOYe7w6WUJfwCYL43J7lxoQBhmsQ5Snb6cHc2agWz5KrPXM2crA0btBqRy8MFh5vXI8UlKcbg+clN6qGoIwPLzShN7g21RuPpj7n5eoVaWZhqnaNvxDjBgADb54t1rqzDCc=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <8e4c76f5-2afc-8be0-1c32-9059e7730f77@amd.com>
+Date: Mon, 16 Jan 2023 11:59:07 +0100
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-5x7AImqvOVRFcwicSHaI
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v4 11/14] xen/arm64: Rework the memory layout
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: <Luca.Fancellu@arm.com>, Julien Grall <jgrall@amazon.com>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230113101136.479-1-julien@xen.org>
+ <20230113101136.479-12-julien@xen.org>
+ <72b2be45-d7bc-a94f-1d49-b9fc0b2fd081@amd.com>
+ <54fdf78a-bd46-eae3-f00f-a21738561874@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <54fdf78a-bd46-eae3-f00f-a21738561874@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000108E8:EE_|MW4PR12MB7030:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3cc6becd-79ce-4dd7-2495-08daf7b0b7f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	QqG+MRYBc5y9A2q72eJ7ZNQIWGLVu3p+KscvpvBS5V2D7Zv/1Ku+tTrITU64hFaMjNNHvaLkm5cBsl3opGl6Bktd72ssdpDOxt5dmSK+aJ5VGNj92fEWbAn9qzRGr1iVaaYn5npJHlR3aM2dHp/LTvWVDI+CHpqGjBWMGit5/CsN8t0489dcIv1nSHfn1oQ9btBSNADhe9pyKe9qh7FYbgSWhpBenHJiuLBmJAZEQuEgbaISPnUXkrF1FbTK3Nv1WjhPSUAge0dRL/o8CvoiFCJi9dqRNb1ea5iHFShduZfuzYWHmdQO8ygLb4/L/qXiuBW50wc3GW4n3ZAhSSKiKeKcHXszV5wmWRu572ysPFD8ggTj2tUuJDvoKKao2ZK3jceCkQq1KNufp9qd148rTUrdUsF6upw2RmuORaRPiIVFqqVGwmeyI+4z+MZcpMPCvYKjgqsieE/VfCUR9GKJsxNSe9Z86VHaLaNFtR2Z5dSXlnRQ0yHADK1mscvSS69r48AYsImHHm79q1NUwKpDT9J7pFlMUgZZ5dDUTMN8HQwkdbzLz//XPBUM6gwTpx2OXaRMJIct9dnNvo319la95T2E7DwoYPt6zAHiARhUApEHrmG4iSeGZd/fzw5n3CYawkcO8yn2TLU6TgFckpSmIhiUBzRZXR+GoiOt7eqok9tnFkmyyDoOEqU7gIZiMN9wQBd7k7xu4eXqnZdqcWr0DuJ56AKr5vYNKUQ+V+R1ExXJKOcONuj5rwKW/L9OefASPSFE5hKmjm8JsLw1EfajZQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199015)(36840700001)(40470700004)(46966006)(31686004)(2906002)(44832011)(5660300002)(8936002)(8676002)(86362001)(83380400001)(70206006)(70586007)(4326008)(36756003)(336012)(316002)(110136005)(16576012)(54906003)(41300700001)(40460700003)(26005)(2616005)(31696002)(82310400005)(186003)(53546011)(6666004)(36860700001)(356005)(426003)(47076005)(81166007)(82740400003)(478600001)(40480700001)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 10:59:19.8373
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3cc6becd-79ce-4dd7-2495-08daf7b0b7f1
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF000108E8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7030
 
-On Mon, 2023-01-16 at 09:56 +0000, David Woodhouse wrote:
->=20
-> =C2=A0	msi_for_each_desc(msidesc, &dev->dev, MSI_DESC_ASSOCIATED) {
-> -		for (i =3D 0; i < msidesc->nvec_used; i++)
-> +		for (i =3D 0; i < msidesc->nvec_used; i++) {
-> =C2=A0			xen_destroy_irq(msidesc->irq + i);
-> +			msidesc->irq =3D 0;
-> +		}
-> =C2=A0	}
-> =C2=A0}
-> =C2=A0
+Hi Julien,
 
-Der, setting it to zero wants to be in the msi_for_each_desc() loop and
-*not* in the 'for i' loop of course.
+On 16/01/2023 10:29, Julien Grall wrote:
+> 
+> 
+> On 16/01/2023 08:46, Michal Orzel wrote:
+>> Hi Julien,
+> 
+> Hi Michal,
+> 
+>> On 13/01/2023 11:11, Julien Grall wrote:
+>>>
+>>>
+>>> From: Julien Grall <jgrall@amazon.com>
+>>>
+>>> Xen is currently not fully compliant with the Arm Arm because it will
+>>> switch the TTBR with the MMU on.
+>>>
+>>> In order to be compliant, we need to disable the MMU before
+>>> switching the TTBR. The implication is the page-tables should
+>>> contain an identity mapping of the code switching the TTBR.
+>>>
+>>> In most of the case we expect Xen to be loaded in low memory. I am aware
+>>> of one platform (i.e AMD Seattle) where the memory start above 512GB.
+>>> To give us some slack, consider that Xen may be loaded in the first 2TB
+>>> of the physical address space.
+>>>
+>>> The memory layout is reshuffled to keep the first two slots of the zeroeth
+>> Should be "four slots" instead of "two".
+>>
+>>> level free. Xen will now be loaded at (2TB + 2MB). This requires a slight
+>>> tweak of the boot code because XEN_VIRT_START cannot be used as an
+>>> immediate.
+>>>
+>>> This reshuffle will make trivial to create a 1:1 mapping when Xen is
+>>> loaded below 2TB.
+>>>
+>>> Signed-off-by: Julien Grall <jgrall@amazon.com>
+>>> ----
+>>>      Changes in v4:
+>>>          - Correct the documentation
+>>>          - The start address is 2TB, so slot0 is 4 not 2.
+>>>
+>>>      Changes in v2:
+>>>          - Reword the commit message
+>>>          - Load Xen at 2TB + 2MB
+>>>          - Update the documentation to reflect the new layout
+>>> ---
+>>>   xen/arch/arm/arm64/head.S         |  3 ++-
+>>>   xen/arch/arm/include/asm/config.h | 35 ++++++++++++++++++++-----------
+>>>   xen/arch/arm/mm.c                 | 11 +++++-----
+>>>   3 files changed, 31 insertions(+), 18 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+>>> index 4a3f87117c83..663f5813b12e 100644
+>>> --- a/xen/arch/arm/arm64/head.S
+>>> +++ b/xen/arch/arm/arm64/head.S
+>>> @@ -607,7 +607,8 @@ create_page_tables:
+>>>            * need an additional 1:1 mapping, the virtual mapping will
+>>>            * suffice.
+>>>            */
+>>> -        cmp   x19, #XEN_VIRT_START
+>>> +        ldr   x0, =XEN_VIRT_START
+>>> +        cmp   x19, x0
+>>>           bne   1f
+>>>           ret
+>>>   1:
+>>> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+>>> index 6c1b762e976d..c5d407a7495f 100644
+>>> --- a/xen/arch/arm/include/asm/config.h
+>>> +++ b/xen/arch/arm/include/asm/config.h
+>>> @@ -72,15 +72,12 @@
+>>>   #include <xen/page-size.h>
+>>>
+>>>   /*
+>>> - * Common ARM32 and ARM64 layout:
+>>> + * ARM32 layout:
+>>>    *   0  -   2M   Unmapped
+>>>    *   2M -   4M   Xen text, data, bss
+>>>    *   4M -   6M   Fixmap: special-purpose 4K mapping slots
+>>>    *   6M -  10M   Early boot mapping of FDT
+>>> - *   10M - 12M   Livepatch vmap (if compiled in)
+>>> - *
+>>> - * ARM32 layout:
+>>> - *   0  -  12M   <COMMON>
+>>> + *  10M -  12M   Livepatch vmap (if compiled in)
+>>>    *
+>>>    *  32M - 128M   Frametable: 24 bytes per page for 16GB of RAM
+>>>    * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
+>>> @@ -90,14 +87,22 @@
+>>>    *   2G -   4G   Domheap: on-demand-mapped
+>>>    *
+>>>    * ARM64 layout:
+>>> - * 0x0000000000000000 - 0x0000007fffffffff (512GB, L0 slot [0])
+>>> - *   0  -  12M   <COMMON>
+>>> + * 0x0000000000000000 - 0x00001fffffffffff (2TB, L0 slots [0..3])
+>> End address should be 0x1FFFFFFFFFF (one less f).
+>>
+>>> + *  Reserved to identity map Xen
+>>> + *
+>>> + * 0x0000020000000000 - 0x000028fffffffff (512GB, L0 slot [4]
+>> End address should be 0x27FFFFFFFFF.
+>>
+>>> + *  (Relative offsets)
+>>> + *   0  -   2M   Unmapped
+>>> + *   2M -   4M   Xen text, data, bss
+>>> + *   4M -   6M   Fixmap: special-purpose 4K mapping slots
+>>> + *   6M -  10M   Early boot mapping of FDT
+>>> + *  10M -  12M   Livepatch vmap (if compiled in)
+>>>    *
+>>>    *   1G -   2G   VMAP: ioremap and early_ioremap
+>>>    *
+>>>    *  32G -  64G   Frametable: 24 bytes per page for 5.3TB of RAM
+>>>    *
+>>> - * 0x0000008000000000 - 0x00007fffffffffff (127.5TB, L0 slots [1..255])
+>>> + * 0x0000008000000000 - 0x00007fffffffffff (127.5TB, L0 slots [5..255])
+>> Start address should be 0x28000000000.
+> 
+> I have updated all the addresses.
+Thanks, in that case you can add my:
+Reviewed-by: Michal Orzel <michal.orzel@amd.com>
 
---=-5x7AImqvOVRFcwicSHaI
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+> 
+>>
+>> Not related to this patch:
+>> I took a look at config.h and spotted two things:
+>> 1) DIRECTMAP_SIZE calculation is incorrect. It is defined as (SLOT0_ENTRY_SIZE * (265-256))
+>> but it actually should be (SLOT0_ENTRY_SIZE * (266-256)) i.e. 10 slots and not 9. Due to this
+>> bug we actually support 4.5TB of direct-map and not 5TB.
+> 
+> 
+>>
+>> 2) frametable information
+>> struct page_info is no longer 24B but 56B for arm64 and 32B for arm32.
+> 
+> The values were always wrong. I have an action in my todo list to look
+> at it, but never got the time.
+> 
+> There are two problems with the current values:
+>    1) The size of the frametable is not big enough as you pointed one below.
+>    2) The struct page_info could cross a cache line. We should decide
+> whether we want to increase the size or attempt to reduce it.
+> 
+>   It looks like SUPPORT.md
+>> took this into account when stating that we support 12GB for arm32 and 2TB for arm64. However,
+>> this is also wrong as it does not take into account physical address compression. With PDX that
+>> is enabled by default we could fit tens of TB in 32GB frametable.
+> I don't understand your argument. Yes the PDX can compress, but it will
+> compress non-RAM pages. So while I agree that this could cover tens of
+> TB of physical address space, we will always be able to support a fixed
+> amount of RAM.
+Right.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMTE2MTAxMDM5WjAvBgkqhkiG9w0BCQQxIgQgZUoK6Qjc
-FJ3vfWDL+DPQzvvA4OpPuS6LyfffmyNE83Iwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCz3YrkFXqz5fyBCsrYjQqiT0uCkqJytdr1
-X6Tvydah4fKP6cbMXzfxoDs2LAVkkPzC33Mv7bShrIxUY7nyChD/mgkMxT1gNVeI+YtxLTChW+ox
-x9ianf47vk9fLe86sHe3Lq3hQy9YIP0+XWk6Qmk2rMa4It6KQB83tMgfuxOwHRMtNVo7DZvcTmQt
-DKQPnbOnUkS50FQYSmx/lFvdAb1HRxD+tofXoOKD9sM3KdOO4hKCjgSgWPo0XUSr3BeLBbtiVLVO
-PucGZHpukzPAQhv3brq9LLSFZa2vY86KqocygUrApzUIQLIRzTD6mse+a0ao5Bh/JwSXZU2IDT1u
-O3rBdjXJWndt8RejsQgMXzX2sxh1fd3yVoLxnUFJJdJK5N6mDE54ntJq6T8nOitOiGGpZFbEUfXu
-+Xe2ohwWYDB1HnioD8XWdg/C+nKXRPN91OZy0X0ihlMDtICxay2oAUIGE5ezSiBf25+PEuT9PdqA
-1cgKEfG6/BZZsjnOQ7TM+nPwZUPiomTcFX0nXlwgzrQEdlCQr4CcF5bYop39lyGOFdwp+twtapaT
-qCmfEDACJs6Sr0Ob8Zr8MS6NwLJDY4+7A3Z/y/GDdb7asTnVXGr8eACrPM8+ZAZ/XsGol28o9ut2
-nHkCQ9pVSXsyR5JkKeciNrE4qfLVh6s7eTRkVMc0jgAAAAAAAA==
+> 
+>> I think we want to get rid of
+>> comments like "Frametable: 24 bytes per page for 16GB of RAM" in favor of just "Frametable".
+> 
+> I would rather update the comments because we need a way to explain how
+> we came up with the size.
+> 
+>> This is to because the struct page_info size may change again
+> We could have a BUILD_BUG_ON() confirming the size of the page_info.
+So, apart from fixing a DIRECTMAP_SIZE, I would like to send a patch correcting
+a frametable information in config.h. In this patch I'd take the opportunity
+to add the following in setup_frametable_mappings:
+- BUILD_BUG_ON to check the size of page_info
+For that, I could add a new macro e.g. CONFIG_PAGE_INFO_SIZE in config.h to set it to 56 for arm64
+and 32 for arm32 to avoid ifdefery in a function itself.
+- if ( frametable_size >= FRAMETABLE_SIZE )
+to call a panic "RAM is too big to fit in a frametable area", as we do not have any check at the moment.
 
-
---=-5x7AImqvOVRFcwicSHaI--
+~Michal
 
