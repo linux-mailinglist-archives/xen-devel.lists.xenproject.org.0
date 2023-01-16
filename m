@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81C9966C261
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:39:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478687.742052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B3D666C25D
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:39:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478689.742068 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQeG-0007HP-1p; Mon, 16 Jan 2023 14:39:44 +0000
+	id 1pHQeI-0007e0-PG; Mon, 16 Jan 2023 14:39:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478687.742052; Mon, 16 Jan 2023 14:39:44 +0000
+Received: by outflank-mailman (output) from mailman id 478689.742068; Mon, 16 Jan 2023 14:39:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQeF-0007EP-V9; Mon, 16 Jan 2023 14:39:43 +0000
-Received: by outflank-mailman (input) for mailman id 478687;
- Mon, 16 Jan 2023 14:39:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pHQeI-0007Xz-LI; Mon, 16 Jan 2023 14:39:46 +0000
+Received: by outflank-mailman (input) for mailman id 478689;
+ Mon, 16 Jan 2023 14:39:44 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=fQBk=5N=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pHQeE-0006p7-7J
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:39:42 +0000
-Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
- [2a00:1450:4864:20::430])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9c3b18c8-95ab-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 15:39:41 +0100 (CET)
-Received: by mail-wr1-x430.google.com with SMTP id b5so6514212wrn.0
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 06:39:41 -0800 (PST)
+ id 1pHQeG-0007HD-D8
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:39:44 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9cc0f7fb-95ab-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 15:39:42 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id k8so13185874wrc.9
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 06:39:42 -0800 (PST)
 Received: from localhost.localdomain
  (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
  by smtp.gmail.com with ESMTPSA id
- m13-20020adfe94d000000b002714b3d2348sm26543406wrn.25.2023.01.16.06.39.39
+ m13-20020adfe94d000000b002714b3d2348sm26543406wrn.25.2023.01.16.06.39.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 06:39:40 -0800 (PST)
+ Mon, 16 Jan 2023 06:39:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,35 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c3b18c8-95ab-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 9cc0f7fb-95ab-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=aBZQnz4OW8tkz12qH7i/lg43hEmXqjuUvrMmu6ORg7s=;
-        b=E03jcfzb97n8CNYtCugxiyQBH8BoE+MGGHugTO4YW9E5stDPbiv5+WQHcbclBpFhpX
-         3lqvMtSAooiLKmoZi2bYseizcbk0bpuXvUYkdj1j0Jbqtm/gcaeFbJH7aAFIGKHAlLy0
-         9O1NOYK/JcAopliuS298RT8Cgf4SUxzV0+QdaejlbxKlmS2jAh0iDIPkuVlxqja2V2pS
-         zphEGhy0jXA/5PkX6QbhfCIFYvqBVFdC3Bvv+imMFswtKOdos8hsgpzVUrBZ33x1G5E7
-         kBQKoMQ5WbslBG6bDAGbZDRcEZ5MADIdotW+VZEBx0KVmejNWfOAY6GIdNzkXzdK6XNP
-         E6mg==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=acnYUtdnwYpIYk/Tnrxms/hajM4oUKDgrFUUijudygw=;
+        b=cxG7BbmW5EXJNbhiyxD1yAxapzKZ7gMV68sns7gJQCN7WUJtlGmCflt02xwBi9E0QU
+         XCIqlfgCTJnf4u4w2jNqppDx69EZXTos4ebt4L9RLfOxVmPXm37+o7y4ktUebM1POWh6
+         KC4wk9Y48hgQE831bQnbOTNvib59wbUtidFC+Yacqyi45gxRMuUkoWUXXrkUCgYc3dxY
+         CVs6Nxsl9lR3bgfbjXAf3RQYRa7XzbPOLswZ5Ugfneb7lBKQVNVzzMZ1uVBR2/EMAO41
+         QD7pFAFYZ/6BXKTgxcWSqOgZgjWVhI4etdmBWh5iuBbmDKIH1rcd9hVmIBHlFncraUgP
+         NHMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=aBZQnz4OW8tkz12qH7i/lg43hEmXqjuUvrMmu6ORg7s=;
-        b=wTyn8gDodKYgM4l+R25X5ycskgjM9T6fx2C86RFrldK/jOC3tf194Xx3YcM7XfJR2o
-         GPQP/4VZPnlmWpqpM4ck/e3ySYkFLOJwpZb/XyCdoeLa0ic3I9YebakxfVj83aLzBpIO
-         1KkANwFWki812STatVGG7z6sUb2U6+/d7mHuXAJnFqMYgjRtXssKh08IwPaR2vXg2/xQ
-         +WJo789YPINC63QkbcCII1w0ELEyVFVH9lBaLYRDQiqU+rkLWHEVNFNe9AjaGzxJYyqQ
-         ThL5h5x5x0pd+RdVfaq4nUb3QQPEdLpPl0/TlsiKCP+XmmZJxt8BdUy4sTc/NqKHEhru
-         tFeg==
-X-Gm-Message-State: AFqh2krORt7Ik+px36826QAYsveGyyBTs/O7hAZTZ7XszuFULTNQt/cw
-	sRXRIBZKFuVZaYsyVyCTJvAzk/8DBjGmCQ==
-X-Google-Smtp-Source: AMrXdXsoS07ykbSfghKT2t9ZmXHf738/KZleqti/mvoBBFR32Y5TwSK07k40Yqep2ZxrZRnOpJKm5w==
-X-Received: by 2002:a5d:480f:0:b0:2bd:bc57:3c5b with SMTP id l15-20020a5d480f000000b002bdbc573c5bmr15387306wrq.33.1673879980409;
-        Mon, 16 Jan 2023 06:39:40 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=acnYUtdnwYpIYk/Tnrxms/hajM4oUKDgrFUUijudygw=;
+        b=Arsk2hssVlloOF4NHyut+t9M30sZ3xOrQuxNN4GiDwSI6FdPSLbsQNUJIk4LUIU0yG
+         dN64qWJg2jshCG7DWaShK/IxcLRc58cr4BvUwXlmt1j+Vlp/BmLmL0kZgqbiL1YwqpOV
+         JWD1roRqUQXBpigZn2JN7vev1Jewm9z+6aURUNwcYwQ8u9BAeKia389Jf5PDq8NqJ0TF
+         pCIlPSmZKbWajamDM3t4Xk2p35SQOoTGTKPiMa27geoOMzPfjY8ZF1cBtdNd/sb30yTr
+         Q10zAkrJ4+lW0QyLvQKxMJ9nWh5gk7AR/gcCvcjPWWa3VHjWJPlKq6zcYhBhhzx1GCdQ
+         yCHg==
+X-Gm-Message-State: AFqh2ko5wWDaVU7VfmOmxl0zPEKf5Rc7vFw7pRymxiLbcDAAWaIr80iB
+	JYCeRREueqh92Qe+qqv4so7siOzq20JClQ==
+X-Google-Smtp-Source: AMrXdXvPGgIAD4uUIPtpMwYIG4Gu4t19pJZkcwzDCMxf2+lAo8E2HMSDR2iuZ9/T3wbfqQKphEZZZw==
+X-Received: by 2002:a05:6000:1c09:b0:2bd:eb6b:173a with SMTP id ba9-20020a0560001c0900b002bdeb6b173amr8447699wrb.36.1673879981399;
+        Mon, 16 Jan 2023 06:39:41 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
@@ -84,76 +85,82 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH v4 0/4] The patch series introduces the following:
-Date: Mon, 16 Jan 2023 16:39:28 +0200
-Message-Id: <cover.1673877778.git.oleksii.kurochko@gmail.com>
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v4 1/4] xen/riscv: introduce asm/types.h header file
+Date: Mon, 16 Jan 2023 16:39:29 +0200
+Message-Id: <2ce57f95f8445a4880e0992668a48ffe7c2f9732.1673877778.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
+In-Reply-To: <cover.1673877778.git.oleksii.kurochko@gmail.com>
+References: <cover.1673877778.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V4:
-    - Patches "xen/riscv: introduce dummy asm/init.h" and "xen/riscv: introduce
-      stack stuff" were removed from the patch series as they were merged separately
-      into staging.
-    - Remove "depends on RISCV*" from Kconfig.debug as Kconfig.debug is located
-      in arch specific folder.
-    - fix code style.
-    - Add "ifdef __riscv_cmodel_medany" to early_printk.c.  
+    - Clean up types in <asm/types.h> and remain only necessary.
+      The following types was removed as they are defined in <xen/types.h>:
+      {__|}{u|s}{8|16|32|64}
 ---
 Changes in V3:
-    - Most of "[PATCH v2 7/8] xen/riscv: print hello message from C env"
-      was merged with [PATCH v2 3/6] xen/riscv: introduce stack stuff.
-    - "[PATCH v2 7/8] xen/riscv: print hello message from C env" was
-      merged with "[PATCH v2 6/8] xen/riscv: introduce early_printk basic
-      stuff".
-    - "[PATCH v2 5/8] xen/include: include <asm/types.h> in
-      <xen/early_printk.h>" was removed as it has been already merged to
-      mainline staging.
-    - code style fixes.
+    - Nothing changed
 ---
 Changes in V2:
-    - update commit patches commit messages according to the mailing
-      list comments
-    - Remove unneeded types in <asm/types.h>
-    - Introduce definition of STACK_SIZE
-    - order the files alphabetically in Makefile
-    - Add license to early_printk.c
-    - Add RISCV_32 dependecy to config EARLY_PRINTK in Kconfig.debug
-    - Move dockerfile changes to separate config and sent them as
-      separate patch to mailing list.
-    - Update test.yaml to wire up smoke test
+    - Remove unneeded now types from <asm/types.h>
 ---
-
-
-Bobby Eshleman (1):
-  xen/riscv: introduce sbi call to putchar to console
-
-Oleksii Kurochko (3):
-  xen/riscv: introduce asm/types.h header file
-  xen/riscv: introduce early_printk basic stuff
-  automation: add RISC-V smoke test
-
- automation/gitlab-ci/test.yaml            | 20 ++++++++++
- automation/scripts/qemu-smoke-riscv64.sh  | 20 ++++++++++
- xen/arch/riscv/Kconfig.debug              |  6 +++
- xen/arch/riscv/Makefile                   |  2 +
- xen/arch/riscv/early_printk.c             | 45 +++++++++++++++++++++++
- xen/arch/riscv/include/asm/early_printk.h | 12 ++++++
- xen/arch/riscv/include/asm/sbi.h          | 34 +++++++++++++++++
- xen/arch/riscv/include/asm/types.h        | 43 ++++++++++++++++++++++
- xen/arch/riscv/sbi.c                      | 45 +++++++++++++++++++++++
- xen/arch/riscv/setup.c                    |  6 ++-
- 10 files changed, 232 insertions(+), 1 deletion(-)
- create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
- create mode 100644 xen/arch/riscv/early_printk.c
- create mode 100644 xen/arch/riscv/include/asm/early_printk.h
- create mode 100644 xen/arch/riscv/include/asm/sbi.h
+ xen/arch/riscv/include/asm/types.h | 43 ++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
  create mode 100644 xen/arch/riscv/include/asm/types.h
- create mode 100644 xen/arch/riscv/sbi.c
 
+diff --git a/xen/arch/riscv/include/asm/types.h b/xen/arch/riscv/include/asm/types.h
+new file mode 100644
+index 0000000000..9e55bcf776
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/types.h
+@@ -0,0 +1,43 @@
++#ifndef __RISCV_TYPES_H__
++#define __RISCV_TYPES_H__
++
++#ifndef __ASSEMBLY__
++
++#if defined(CONFIG_RISCV_32)
++typedef unsigned long long u64;
++typedef unsigned int u32;
++typedef u32 vaddr_t;
++#define PRIvaddr PRIx32
++typedef u64 paddr_t;
++#define INVALID_PADDR (~0ULL)
++#define PRIpaddr "016llx"
++typedef u32 register_t;
++#define PRIregister "x"
++#elif defined (CONFIG_RISCV_64)
++typedef unsigned long u64;
++typedef u64 vaddr_t;
++#define PRIvaddr PRIx64
++typedef u64 paddr_t;
++#define INVALID_PADDR (~0UL)
++#define PRIpaddr "016lx"
++typedef u64 register_t;
++#define PRIregister "lx"
++#endif
++
++#if defined(__SIZE_TYPE__)
++typedef __SIZE_TYPE__ size_t;
++#else
++typedef unsigned long size_t;
++#endif
++
++#endif /* __ASSEMBLY__ */
++
++#endif /* __RISCV_TYPES_H__ */
++/*
++ * Local variables:
++ * mode: C
++ * c-file-style: "BSD"
++ * c-basic-offset: 4
++ * indent-tabs-mode: nil
++ * End:
++ */
 -- 
 2.39.0
 
