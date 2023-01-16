@@ -2,39 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E2866C339
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 16:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478794.742183 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7982766C38C
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 16:22:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478799.742195 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHR2Q-0000qg-Mc; Mon, 16 Jan 2023 15:04:42 +0000
+	id 1pHRIr-0003BO-44; Mon, 16 Jan 2023 15:21:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478794.742183; Mon, 16 Jan 2023 15:04:42 +0000
+Received: by outflank-mailman (output) from mailman id 478799.742195; Mon, 16 Jan 2023 15:21:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHR2Q-0000nX-JM; Mon, 16 Jan 2023 15:04:42 +0000
-Received: by outflank-mailman (input) for mailman id 478794;
- Mon, 16 Jan 2023 15:04:40 +0000
+	id 1pHRIr-00039X-1A; Mon, 16 Jan 2023 15:21:41 +0000
+Received: by outflank-mailman (input) for mailman id 478799;
+ Mon, 16 Jan 2023 15:21:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=SJiS=5N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pHR2O-0000nR-L4
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 15:04:40 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2049.outbound.protection.outlook.com [40.107.8.49])
+ id 1pHRIq-00039R-82
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 15:21:40 +0000
+Received: from EUR03-AM7-obe.outbound.protection.outlook.com
+ (mail-am7eur03on2056.outbound.protection.outlook.com [40.107.105.56])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1858bd9e-95af-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 16:04:38 +0100 (CET)
+ id 77c0ee68-95b1-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 16:21:37 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8676.eurprd04.prod.outlook.com (2603:10a6:20b:42b::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Mon, 16 Jan
- 2023 15:04:36 +0000
+ by DB9PR04MB8091.eurprd04.prod.outlook.com (2603:10a6:10:245::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Mon, 16 Jan
+ 2023 15:21:33 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Mon, 16 Jan 2023
- 15:04:36 +0000
+ 15:21:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,146 +46,269 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1858bd9e-95af-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 77c0ee68-95b1-11ed-b8d0-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AfgBewjfoxXJDhKvrz2erMJ+ftkEW2ZFKs0uxWMOAjFa+zZtt8XtjvVo6hXG5exKpmg3eHoOeOy4mOTX2cQi7m1Ap3XkJk4IRscj8kFjIz82bp1oU4VGACHwalBSVAw4wakF044toJN16RRLhCD/3CbOAP1qbQ46pwwuYmcj0K8d/Ux68B+r7WA41H9C1myS+Fh+9gj+V7MTKVN/hlgH5V5o9DaQWslzM9SOsJ5C8JcDfZn8adigtext9uHB42RTtTBOLuJ2E512RvrzrGWEzD/yy4idQpQVCB02zB+plxHrasEOZ3ME4HoXx+JqbP7OiFZV70uDxYf6W5EmAqefiQ==
+ b=IgdYxScOm/IVRxxwqB9ddNzeE7jMkWe2UdxBw0k769iX1Hde3SDuIY2jd5MI//8OqE6rIa34di89SuwDfPT372kkoBe6Gv+uMYnyRTQ4PMis2bzy6qD2ERmyAK4Vc7bjZ+Z+wQdj308ismBBzTYOEt0sRwKgKNTYHew9T/88n7/DOk22HtwPDFciBvsAi2XjD1GBZPinDmJLSkEAB2LQZ05YNwnrMHnHm/qDXVIochCZqQIVfS3NTEC6/ZxVkK7nf0v7uXwzSUlN6oBnvPLuHVu6hUxzHrrvonaCOkbxtEvR8+WNk6OPiEqC0pWPsRgyfu8mFvYnLl3Gnl7WT2lYlQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mFsgRX5bACsixQV9TsmLqP01VelcJnv1dRK4g9WEXdg=;
- b=BQxHYR2LIfmENm8dcpqU3mXk5ubp0XrJrGFZw3zADd49QgJ2KS23bAUeHeDFreWmsVRX6f4Eqj9x4LSJ4PVWuHfg31297tcQv7pkZbaT1DwO9o8jjnM3pDHINH4gTdnRxpN5G4/p5FSkW+b+acjDBkKxs8GxN/8IAJqnYBbPFdNOx/7a+LavhkO5AALC17r0EHMMHv1T1wz7jg6kBZOz1tcX6QdWroa2ILAfHDDo02V7dx4aLdWUWuM4zKJwIO5YR8dd0B5fQ2aQe+36LF7UBs/4vxRyy2bcYGCie/UFmXxzi7laA5i4iLyEv/CtfbvYf5VriEWP39Qx7XQ4ih0nKQ==
+ bh=IxkvyELeO30gwo1hNMwGZ9VENPcTdBnlwf4A6MgvRns=;
+ b=hWHPauMVJohbd9Jl+o77o4/3lLGTv3hbHDqTMv7+rnJspOq1fP22Dx2bS3KAB5iyMWcrO9eI2nnsfsfM6JwZ9hKgZFHMHwIS93sgc2vIJfGLSL/x3Qo9swLHc8RjUAwqZctM77CGPRsrPJZD8EIaw5wq3TEi3OTD4jFZ9eKhhI14fgZLuhZr31aM1jKFhErKHVgaFWNxRfTxJcq4udFqs3xRxm8nAPhSzuMISshdSR12LDMHJJpQDGPGV80X2o+7gZjCthS1l5fentmvtu0Vru6Fe/oqwO9v5N4hx5JL49UvPtBYC4wk1AkZocQFA9LxHJrFKXWlyVMg8jVUhOkmQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mFsgRX5bACsixQV9TsmLqP01VelcJnv1dRK4g9WEXdg=;
- b=Hz3xarsDH0I4fOsqkhFNEP8vIEj3MUHjcXns632QpCLAleZjjbdy6pAhmjHtmv4t8QmLQ/9L0hfrLmxo67sbmznjoc3JNcRL+/55uY5oXdZZixlYPrRTRYtXjnO062Q2ZbI+yHjuXgLqLj5unvlxQ3VYogukGgqWCZMzjOFzSiWX7XIIDRMZsPgBWXlILxf6Eg/T6rsEIJwJHEJR+PGL5joK2oSV5R2aXOBIlhzYfoDrdUGJyZo8pGRHOJ9XKaUZ2sjsmiyLuDh0eW1UfO3JtZVfuZZm0IVu07cFWnyu0DtZuCdF6dHuJZL1z1e1/A4NzaMisXhrWW4doXuSF206CA==
+ bh=IxkvyELeO30gwo1hNMwGZ9VENPcTdBnlwf4A6MgvRns=;
+ b=trgQfJ8eTMOjcc+V81d6M/JF4W/bWTAmDgak50K6NdJgoQzS1Z/+6jaMg+0htETC8jxn2JhaY+FPoHvpNSsPQ0YuP8oDDm4r+VNLPKcgjccAospmwZMdN2TzocojjTIjCCLihc5vUZBcAxU4TQ/Oj7gVwnYh4IsOvYsiKS0wjXjt0kHGwPiC7stbzg+zE63hoHeHPK4x8ww1KzcnGoyd56xnEMLrfaqL4uffGxGzcuAx10ve9VZdWsefkGkPNPHZfCYgbWcEybpwJGPB+CREQWa92ULpKbAHGkh4i0S/nVs0OMuOtmT5Bc0yjvAVl4L98Pc+x47uTxSOBka8LXwYPA==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ac8d8c62-e1f8-a98e-3ead-e1f3f8a55c2d@suse.com>
-Date: Mon, 16 Jan 2023 16:04:34 +0100
+Message-ID: <677cbd89-cbd5-87ef-8e3f-466242fc6012@suse.com>
+Date: Mon, 16 Jan 2023 16:21:12 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v2 5/8] x86/hvm: Context switch MSR_PKRS
+Subject: Re: [PATCH] tools/xen-ucode: print information about currently loaded
+ ucode
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
- Kevin Tian <kevin.tian@intel.com>, Xen-devel <xen-devel@lists.xenproject.org>
-References: <20230110171845.20542-1-andrew.cooper3@citrix.com>
- <20230110171845.20542-6-andrew.cooper3@citrix.com>
- <af2b74b2-8f37-223c-b830-c2bb3bc6d467@suse.com>
- <3ac6a4d6-44db-d248-4440-6e71aa14ad93@citrix.com>
- <adf6f951-a0e5-c167-9739-d8b0a2b4af38@citrix.com>
- <309925fd-1e7b-4541-693a-0296bd22e242@suse.com>
- <a1ffc132-5343-c070-7bda-b3198a1ccc95@citrix.com>
+To: Sergey Dyasli <sergey.dyasli@citrix.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Juergen Gross <jgross@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ xen-devel@lists.xenproject.org
+References: <20230113115630.22264-1-sergey.dyasli@citrix.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <a1ffc132-5343-c070-7bda-b3198a1ccc95@citrix.com>
+In-Reply-To: <20230113115630.22264-1-sergey.dyasli@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0094.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::9) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8676:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1fcff5fe-d8c8-44df-3915-08daf7d2fb81
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8091:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7589c9f6-4171-4cb7-29d6-08daf7d54e3f
+X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	D1dt71g9zeXaB9IRNISBaE3DxvfhvVNr4W7lKbmkn7em0joeR6HEiADYLIUIrgnjwkCB6VfsA/crVrbUpZtLAXW5b9clI6K8/0N8GA5Sd8uHXkP8oMICFhwutM+amE1nMao12Z7k2k4dOiHBgYUhcw+X/kt9+7TEQtmgdoB1vBp45qlcphJ5KsVf+0lxmrVbslVOLGMY9p6s4fkJwyJHxPCEAGgHKFFZ/ohXijBF2VoGQ5lO6Tj8eDMZdxhYyq4MDBR/xs+IGEPJ6TlaI5eJhZ4PPvcwTUpfARlU0YgwRDXWmBRkw/VA7Q7E/AjO4gQPmF9YVXjdm5uayXY2HqZJk0C08ikXT/XzFKqE6WTAEXlUVll+clZASH9umjf9wUD62IdUYPZbwrITJnTp4wjjMQMpEQwbCLQyVub0WYF0owyb8iC560Eo1GdHpnucx2E3OMm0LU+9IMNVlh3vgyUjP8U07CWbItCzJ5aszuysIMYUi3+qlciDwz3j05owZszAxF5iCW1bBtufQdUSZaLb8SkQyewXnGlkuEqIvAEwwN5RT379lrsxir0CWWgCfOlgIss2/qpGNDmo4iO8VOXicTUEVpGhD7h1EIS0GnGRwvsQofx948Y0ZerWE2ZxGRxPskTHRBY3gjFPkWyBtVWrNTYGw8ChzD2SmaE0mY9mPymMwIbLp4L/8Mr26/HYRf+Qo2s++5hotWfiJ8Zsr9woKLs28AxroZ+kCSuRPc+PDnQ=
+	pTa+MZUa/jiAkTysBQiJjamYpjNIUmtaXHYI/mq70Ykqw7VF5U8L7CalTkrVVNq6YJV2wY5n+QgjonllgqKTo1y9tVfYZoSfsBjGf3k+p/DGUYVfUHb05f0hqw/9XqDBscXHQDssI1S1CpRpISyQEV525zAlc8vYCm55wwj3Vww9/a8y08Fb4+2ifb/YDcA+2fD4YWuspnm3lyAbl7fvYwepB4Bi8I+i7T+F8D4gjn5T54xp+6rauJroitLTSTdOANgH6Ql+nPzYnfqwB7qJNZBmmOn1YTr9rcpfYJgtcEFUEZzeLgBTJ97C7P4a+9odkHvO8CaeeY9aLTCO7bmbS2vc7e2kRYUCs2cijWkBcMIV1xrnry5q8gyXJoeK3CAMItfyP9mV9Xu6yAQxudJl7Kj9mnSkdsyOoaaPOuwAwvEKq1jj6MrWxx6ClQ+b538AvTuzFSiD5ut0hXiPUUCv2S+udpjWrjzS9LinCqgGOZyFN5DhvM1njvy6mj4mvccEYvyBrMCkFA6WQUrFfRUS+wO2dufiM9TqEMim6bUzNAbhkZqzJsdpiUisCdbDkmVLolYva1XCIP00HhrnVkMaFrG9ih92JLvxWDl+XcxmN0EXUwQtVfLvB4wnIjWFTcm9l7nVMityL1mx8I/4mgNMKgKDc3l5hu/juVLFwEIj2IMeUThT0EImELboWLvx/i/nKK0s5qq+rf5ss4QSnk+jtUt8/mXYrM8V3tWYp27XOuU=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(39860400002)(376002)(136003)(366004)(396003)(451199015)(36756003)(26005)(6506007)(53546011)(6512007)(186003)(38100700002)(86362001)(31696002)(83380400001)(2616005)(478600001)(6486002)(8936002)(5660300002)(31686004)(66556008)(2906002)(316002)(6916009)(66946007)(8676002)(66476007)(4326008)(41300700001)(54906003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(396003)(366004)(136003)(376002)(39860400002)(451199015)(83380400001)(86362001)(38100700002)(5660300002)(31696002)(6916009)(2906002)(66556008)(8676002)(8936002)(66946007)(66476007)(4326008)(41300700001)(6512007)(6506007)(186003)(26005)(53546011)(2616005)(316002)(54906003)(6486002)(478600001)(6666004)(31686004)(36756003)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UVVvRkhlcGxQdjQ5bFp3TGt0S3g4dk9rT2tjUDR4dHYxSC9RUUg2VXErRTV3?=
- =?utf-8?B?eitHOWF1cXFpUXllNmVweU1oU1g5SUJxb2h3S2h1TXFSOWRweEY1OU5aTCtq?=
- =?utf-8?B?NmdDdmt1Y3hJTERhaW1aekpsNGFxTDd4WUhYU2U0UmgxNlJNMlNPMWtwbmNo?=
- =?utf-8?B?YlF3anEzQUNnNzhMZngrbVB6cloxa3BydkdpVjd1dHB2NWVTcFJPUEZjUjN5?=
- =?utf-8?B?OWhvd3VlSjZvbmMvUno4K1BLSDIyL0M0M0ltcVlqUldLUXJuZjRwZnRzTm4r?=
- =?utf-8?B?VFgrSFozSkNFRXVTT2FLbjdhdlZ3VGg1anpxWS82YTdmSUZmbngwWnIyVXp6?=
- =?utf-8?B?TXRIdXQ1L2ZPR3FiS0pteG40Wm9nUzFhTnB1SWJXdEx3SDhXRFFHc3JDRDVw?=
- =?utf-8?B?UjBmbDF3ZXhCSTNSenhWZE4zMFM3dmwxZjMwOWcyRGhUNDVDQ0hGdWJFcml0?=
- =?utf-8?B?NTg5RWZwdHBmd1pjS0t3VU5KVmY0bndkSWJhZkJObExMRmw3eUZsaDlseTNU?=
- =?utf-8?B?WHBzNmRVeEpnRmdlQWtQZEI0dmptK3FlRTRRbGQ4M0lmdnk1RVM1N055cHVp?=
- =?utf-8?B?ZzQ4azY2SEdOSmVLWmd5UjlmSzh4VEJreGltdi8vVCtBaTBTb3FXejQ1T1RU?=
- =?utf-8?B?VUZwZm5xMnp5OEpBMVBYb0tEU1BuUElFSUp2VEk0OGtMTk5mb0s3Y2xkYlRR?=
- =?utf-8?B?TDJlMFVxNzFqZDl1R2RFNmhQdWRrYWtoMWVkdGdTbVN4OEJqdlRBaEMzRnNJ?=
- =?utf-8?B?OXI2RCt0czkvTTYrMHJLUG9aU2sycFUzV0xkSzNuN2JjbGdFVnJ4aDFLL3lS?=
- =?utf-8?B?SzRnR0ZtUFpWbjZ0czFvZUg3MUxRd3F5KzY5akNRa1JqRlhHU3BEL1FaaDc3?=
- =?utf-8?B?Ui9uMkZOaGRZZUNBY3ZQUDNqRFArTG9qMFk2aUFjNHlFRWRaL0NGdDlUeldO?=
- =?utf-8?B?cUZBbTY1dVZRUExzSENFZ0hWZEVVWU54MkRsODVuLzN6bytDZTFmckNGc0VY?=
- =?utf-8?B?Z0hucjBIalh6Z3M1WTY4V0FzTUtOTi9XOFduRnFVRXNLbEVZMXk3VGlVclZo?=
- =?utf-8?B?d1Z4bGk0ekQ2anh5dFA1R1FvQkhwTmxsOWFMejRrUG56bjNxdEhBWmlKVUJj?=
- =?utf-8?B?OGZiSmt3bmlYdjdCeWdvV25JdUxHU3V3eGJXZEtwRWhGMU5mYXl4NkNJOGpj?=
- =?utf-8?B?S2c0K1JQSW1iODFpOWpPU2gvY2k4bWZ1VThhMWVNWXhrRWNUaGJ0cG9HTmpx?=
- =?utf-8?B?V2J0UnFYTnpKVnVkckFKNWxQWlBqNXIrdGpMb2tSTTcxZ0trK2JZbkR1NGFw?=
- =?utf-8?B?M0t2YWxIN1RLRk9odEhsR25vNVBYYU5yTGlYZTBFV0ZDVlRzZnplcElRNXp3?=
- =?utf-8?B?bzFGcEZiNE1kNnl2c3BCNW9JODU0S0QzY1g5MnVtMVZ0NTk2OWtVVWpYbHFq?=
- =?utf-8?B?VzBzV0lpbFl0ZWJ3NHlVVHFlZDVkeDE2bURCcjZaOWl4SWowUFM3UVJRNkd6?=
- =?utf-8?B?TFhjaW13STMvMFpKSlBCNk54d0ZTanhMeXk2SzRnNnVOck9vU2NCSXhQK3pv?=
- =?utf-8?B?b0VqWk1yY1llTzNWdXpLaCsxRFRaRCtNZDlSUU9sbEVRY2pOS2FCK1JhOGls?=
- =?utf-8?B?aU02QmxjVUlIYW1mRDZrbEJzMUdxVFBWcGRpRE5jN3ErWmlhYU80dGFVK2xW?=
- =?utf-8?B?eGU0ZVVMN2lzdk5DSUhkM1VVVXN0dnhHK1NJSzNXaERjYjY2MXA0RXAxbGNW?=
- =?utf-8?B?Y2JrVDJCdEpLVXV0VTdWcVBZMjNNN0hCcHRYZmd3SnJHNG1HVWlEQ1oyMHZG?=
- =?utf-8?B?UVVuV1hDekZZNUVQT0tZWjY4TTErS2s4NGttRDczdHhSVjF1b08raGhxK09M?=
- =?utf-8?B?QXdSQnFXQVpNMFU1VVhGM3daU3FKUlRMWVRsWERKalhYTkZUcDVKUXB5a1lJ?=
- =?utf-8?B?bDBIa1lJc005SGlYWFBUSkd5eHlEMXRpdFlubHgwTTBNR25hbk51SWRBMnRG?=
- =?utf-8?B?eXVKenRpVi9NMFFLSStQRE9zTjN6TWR3a0IwWldoeWkrMnNvczlhVXJjMS85?=
- =?utf-8?B?c0s4VCtqYndLT3FvY0lVYUtla0N5SDVsU0dDSytKTzZ0NXNhVlZkZGF6WTdl?=
- =?utf-8?Q?JdwnvtKa2OOdg62K4IW3DkD1t?=
+	=?utf-8?B?K1FNbkNsbmRSWnRRZ1c2MTQ0QU1EVTlJVTFTZVZ2alhLZmM4S1ArMkxVNm1B?=
+ =?utf-8?B?QlUwdVpJUkU2UXk3SFRMMmdmb1VUaXB6V2R4QW8rY0I0TWtMMDdldTQxMnRB?=
+ =?utf-8?B?YmtHdW84S3B3TXY3RFZGNnBHVisyS2E0RzVMM0tXWmV6REd0dFhXVzcxRm9y?=
+ =?utf-8?B?YXBwYnFhZ3E0aDFJdlVZc25QTWRNUDQzMkV4d2g0bVd3VGI3MkpsU1pRWVpp?=
+ =?utf-8?B?WGJuczNSNWlWbjhQaTBmYUs1RHZGYjVWV1V0Q0d5RytKY1ZwOEtnQmVQT2hr?=
+ =?utf-8?B?RXl3a3A4eW1HNjJDRU96SHRtUWNqSlRPcUdNU1FaSW9qck5KQldQTlM5WTJ4?=
+ =?utf-8?B?MkVMUjVtMFY1bUVoY25OWUlsemxsNllML1gxbVd6Y1dzMXRIZXdxRjFqMmky?=
+ =?utf-8?B?Q0VWYkppV05LOERNQXVtVFJucUF1R3N3RE1mdWhPVkorL0ZCWTcvUW9TZXVl?=
+ =?utf-8?B?NEs3SDJTQkVlbE5ZWHJqYkh0QjlPRlV0QjErb2wzKy84TTQ4UG1zRGh6enY3?=
+ =?utf-8?B?R1hpWU93ZmlyMTc4RGs4OGpxMThyZUkrZ2Y4L0dkTnNFbUd6ZnlkaHl4a2RW?=
+ =?utf-8?B?bzlsVDExdkVjZlJZSitZTHRzaVpZOHgzNnFQWTdSbGZQWk5TeERYM0Y0ZnFp?=
+ =?utf-8?B?bHFUeEdNNEpHREJaT241eWFMSnlheWFhZk5qWUV3MkZOUHZWeXBZQnhuMDd5?=
+ =?utf-8?B?a2o3NWRha1VVZk9uMVVmazBpdUJWQW1OQjdQWlh6N2dLcGEzZ3NabHJralNY?=
+ =?utf-8?B?UWU5ZzhtYnlZN1ZKVXgra3JiNE5MOGFGaTBCc3V0enFBVGthRlFCNWg1OFRM?=
+ =?utf-8?B?QldHQXJyVXdGNTdoaXdsMW5KYjJ3WEt6Uy9aWXhacERwMzh0dC95Yk1nZGZo?=
+ =?utf-8?B?R1F6V1AyQW5JeHh0R1dHK0IxalVWSWNROUpqZWpPckwyYnJrL1p5RkJGRXNC?=
+ =?utf-8?B?eVUxZnB0OWdDTnZBdGVRWkJCN1VtQlU1MUhKNi9FSCtxR2lSb0R2UE1NbHVW?=
+ =?utf-8?B?WlNrQjFIK1lkRWMvSTRWTnhIMWdJeFFTT084eE83bmNPVXIwMVUzME5QaTds?=
+ =?utf-8?B?d011c1h1Skx6QnZhNXBJL0t3MWF3WmlVTGlsSG1HZ2VqSTdOb2sweFZrU3lw?=
+ =?utf-8?B?WDVHQ3Q1aGt3ZENVQXdkTEJQSWhUbFRzZ09QOW54THdJZldYMm51NGt3NFIz?=
+ =?utf-8?B?Y1NnNit0M3hCSC9DNE93SS9maThjQnpLbGFTQmRSWHh0REtGOFppZEtnNGpj?=
+ =?utf-8?B?UUN5UlNkTFZWU2tpdmRtQkxPMWJabVRHb1RKQWdHM0xyNldUR0d6OHhob1dC?=
+ =?utf-8?B?cDN6N2t1SHlEL2ZaNkQ3L01rS3BZV2s3a0FqUHM5emdZKzBOdHpCRmE0bCsz?=
+ =?utf-8?B?eCsrMUtHcDVlbjNXa3NwUFRoUzUrWkgzUk9JK0I2cDdWcE05czQ1NjFYanJ1?=
+ =?utf-8?B?a0hBa2Q1VkRjaTUrRitQSklsNVVseHFVR3hsdnZnWEpSeVJpL2pjYUdvbnBa?=
+ =?utf-8?B?VVFoUGxhT0Y0UGVZUlFSVXB0NXBlaEFYQ1VCYnpNMVFrR2t3UlRRa2lPZW55?=
+ =?utf-8?B?dUwzcnY4ckZwQ2RzODE1NXNYenFnaytCWFJmYnN1U2Z3TXBHam9nSmdhQzNH?=
+ =?utf-8?B?azdaaU5VaTFKMndSakpudm5EZnpNbVVCNWdEbjJSUFpRMDRjTUZFcE9wVFZX?=
+ =?utf-8?B?eEVyWTgzMFR1cFVlZERwSWFnbUpKblI3WXp5bEo3dnVIeXljSXBObWplZXZN?=
+ =?utf-8?B?OWFUM1U1MVltOThxT014d1J5TVVKaWJHS0RjdVEyRmRNblc5a09YdHplL1Rz?=
+ =?utf-8?B?UWJxbWhqRFhTcGI2OWpSY2xuWlR3SjVnVGptbS9XL01RRzdjRlhYLytRdFlk?=
+ =?utf-8?B?OXdJNldaKytmZUNxMlluOFNrcGRXT2d3UHBlc0l2WTVlNGEvakpiejQ3ekl6?=
+ =?utf-8?B?VUN0eW0vcDFtR29NVmZjRzNEQnVBRzEyQlFqMjlMQS9wRFJoTHB5K2dVUjNq?=
+ =?utf-8?B?ak1MdXBaZFdrL0xqdldSTFpqSDJlUEhBL2J4RDArZ1QxQzhXVjA1NHJDd1M1?=
+ =?utf-8?B?eVJ5eThVOFpHanNWRlVWV3AwTUxuSWVkUWdYSEQ4ZW8zRVpQV2JHRUxDeERm?=
+ =?utf-8?Q?nzvBv3mv4szMB0jSIpcjseCY/?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1fcff5fe-d8c8-44df-3915-08daf7d2fb81
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7589c9f6-4171-4cb7-29d6-08daf7d54e3f
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 15:04:36.2495
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 15:21:14.0922
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ruh5eh/scffdv2aNSQFipAzNzJaKQWDCR1zl9waAF+51CxcSv9bMtltN0bm+63Wv+hUjuJWhkAsX0lCV2+Euag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8676
+X-MS-Exchange-CrossTenant-UserPrincipalName: fTfmEdgiGOMLJvg/IXW6ZLOJqGHatymIlPCPA/34RuJl1KTyP1njMUXGfyymqlxDQvg16AAcSZfv1ohMlVIG6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8091
 
-On 16.01.2023 15:57, Andrew Cooper wrote:
-> On 16/01/2023 2:17 pm, Jan Beulich wrote:
->> On 16.01.2023 14:00, Andrew Cooper wrote:
->>> --- a/xen/arch/x86/acpi/power.c
->>> +++ b/xen/arch/x86/acpi/power.c
->>> @@ -299,6 +299,13 @@ static int enter_state(u32 state)
->>>  
->>>      update_mcu_opt_ctrl();
->>>  
->>> +    /*
->>> +     * Should be before restoring CR4, but that is earlier in asm.  We
->>> rely on
->>> +     * MSR_PKRS actually being 0 out of S3 resume.
->>> +     */
->>> +    if ( cpu_has_pks )
->>> +        wrpkrs_and_cache(0);
->>> +
->>>      /* (re)initialise SYSCALL/SYSENTER state, amongst other things. */
->>>      percpu_traps_init();
->>>  
->>>
->>> I've folded this hunk, to sort out the S3 resume path.
->> The comment is a little misleading imo - it looks to justify that nothing
->> needs doing. Could you add "..., but our cache needs clearing" to clarify
->> why, despite our relying on zero being in the register (which I find
->> problematic, considering that the doc doesn't even spell out reset state),
->> the write is needed?
+On 13.01.2023 12:56, Sergey Dyasli wrote:
+> Currently it's impossible to get CPU's microcode revision after late
+> loading without looking into Xen logs which is not always convenient.
+> Add an option to xen-ucode tool to print the currently loaded ucode
+> version and also print it during usage info.
 > 
-> Xen doesn't actually set CR4.PKS at all (yet).
+> Add a new platform op in order to get the required data from Xen.
+> Print CPU signature and processor flags as well.
 > 
-> I'm just trying to do a reasonable job of leaving Xen in a position
-> where it doesn't explode the instant we want to start using PKS ourselves.
+> Example output:
+>     Intel:
+>     Current CPU signature is: 06-55-04 (raw 0x50654)
+>     Current CPU microcode revision is: 0x2006e05
+>     Current CPU processor flags are: 0x1
 > 
-> S3 resume is out of a full core poweroff.  Registers (which aren't
-> modified by firmware) will have their architectural reset values, and
-> for MSR_PKRS, that's 0.
+>     AMD:
+>     Current CPU signature is: fam19h (raw 0xa00f11)
 
-And where have you found that to be spelled out? It is this lack of
-specification (afaics) which is concerning me.
+So quite a bit less precise information than on Intel in the non-raw
+part. Is there a reason for this?
+
+> --- a/tools/libs/ctrl/xc_misc.c
+> +++ b/tools/libs/ctrl/xc_misc.c
+> @@ -226,6 +226,11 @@ int xc_microcode_update(xc_interface *xch, const void *buf, size_t len)
+>      return ret;
+>  }
+>  
+> +int xc_platform_op(xc_interface *xch, struct xen_platform_op *op)
+> +{
+> +    return do_platform_op(xch, op);
+> +}
+
+Wouldn't it make sense to simply rename do_platform_op()?
+
+> --- a/tools/misc/xen-ucode.c
+> +++ b/tools/misc/xen-ucode.c
+> @@ -12,6 +12,67 @@
+>  #include <fcntl.h>
+>  #include <xenctrl.h>
+>  
+> +static const char *intel_id = "GenuineIntel";
+> +static const char *amd_id   = "AuthenticAMD";
+
+Do these need to be (non-const) pointers, rather than const char[]?
+
+> +void show_curr_cpu(FILE *f)
+> +{
+> +    int ret;
+> +    xc_interface *xch;
+> +    struct xen_platform_op op_cpu = {0}, op_ucode = {0};
+
+Instead of the dummy initializers, can't you make ...
+
+> +    struct xenpf_pcpu_version *cpu_ver = &op_cpu.u.pcpu_version;
+> +    struct xenpf_ucode_version *ucode_ver = &op_ucode.u.ucode_version;
+> +    bool intel = false, amd = false;
+> +
+> +    xch = xc_interface_open(0, 0, 0);
+> +    if ( xch == NULL )
+> +        return;
+> +
+> +    op_cpu.cmd = XENPF_get_cpu_version;
+> +    op_cpu.interface_version = XENPF_INTERFACE_VERSION;
+> +    op_cpu.u.pcpu_version.xen_cpuid = 0;
+
+... this and ...
+
+> +    ret = xc_platform_op(xch, &op_cpu);
+> +    if ( ret )
+> +        return;
+> +
+> +    op_ucode.cmd = XENPF_get_ucode_version;
+> +    op_ucode.interface_version = XENPF_INTERFACE_VERSION;
+> +    op_ucode.u.pcpu_version.xen_cpuid = 0;
+
+... this the initializers?
+
+> @@ -20,11 +81,18 @@ int main(int argc, char *argv[])
+>      struct stat st;
+>      xc_interface *xch;
+>  
+> +    if ( argc >= 2 && !strcmp(argv[1], "show-cpu-info") )
+> +    {
+> +        show_curr_cpu(stdout);
+> +        return 0;
+> +    }
+> +
+>      if ( argc < 2 )
+>      {
+>          fprintf(stderr,
+>                  "xen-ucode: Xen microcode updating tool\n"
+>                  "Usage: %s <microcode blob>\n", argv[0]);
+> +        show_curr_cpu(stderr);
+>          exit(2);
+>      }
+
+Personally I'd find it mode logical if this remained first and you
+inserted your new fragment right afterwards. That way you also don't
+need to check argc twice.
+
+> --- a/xen/arch/x86/platform_hypercall.c
+> +++ b/xen/arch/x86/platform_hypercall.c
+> @@ -640,6 +640,38 @@ ret_t do_platform_op(
+>      }
+>      break;
+>  
+> +    case XENPF_get_ucode_version:
+> +    {
+> +        struct xenpf_ucode_version *ver = &op->u.ucode_version;
+> +
+> +        if ( !get_cpu_maps() )
+> +        {
+> +            ret = -EBUSY;
+> +            break;
+> +        }
+> +
+> +        if ( (ver->xen_cpuid >= nr_cpu_ids) || !cpu_online(ver->xen_cpuid) )
+> +        {
+> +            ver->cpu_signature = 0;
+> +            ver->pf = 0;
+> +            ver->ucode_revision = 0;
+
+Better return -ENOENT in this case?
+
+> +        }
+> +        else
+> +        {
+> +            const struct cpu_signature *sig = &per_cpu(cpu_sig, ver->xen_cpuid);
+> +
+> +            ver->cpu_signature = sig->sig;
+> +            ver->pf = sig->pf;
+> +            ver->ucode_revision = sig->rev;
+
+Here you read what is actually present, which ...
+
+> --- a/xen/include/public/platform.h
+> +++ b/xen/include/public/platform.h
+> @@ -610,6 +610,19 @@ DEFINE_XEN_GUEST_HANDLE(xenpf_symdata_t);
+>  typedef struct dom0_vga_console_info xenpf_dom0_console_t;
+>  DEFINE_XEN_GUEST_HANDLE(xenpf_dom0_console_t);
+>  
+> +#define XENPF_get_ucode_version 65
+> +struct xenpf_ucode_version {
+> +    uint32_t xen_cpuid;       /* IN:  CPU number to get the revision from.  */
+> +                              /*      Return data should be equal among all */
+> +                              /*      the CPUs.                             */
+
+... doesn't necessarily match the promise here. Perhaps weaken the
+"should", or clarify what the conditionsare for this to be the case?
+Also your addition to xen-ucode builds on this, which can easily
+end up misleading when it's not really the case.
+
+> --- a/xen/include/xlat.lst
+> +++ b/xen/include/xlat.lst
+> @@ -157,6 +157,7 @@
+>  ?	xenpf_pcpuinfo			platform.h
+>  ?	xenpf_pcpu_version		platform.h
+>  ?	xenpf_resource_entry		platform.h
+> +?	xenpf_ucode_version		platform.h
+
+You also want to invoke the resulting macro, so that the intended checking
+actually occurs.
 
 Jan
 
