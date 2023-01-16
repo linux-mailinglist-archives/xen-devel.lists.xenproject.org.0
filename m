@@ -2,42 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3B1366C401
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 16:34:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478805.742206 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56DA766C412
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 16:36:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478810.742217 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHRUd-0004lx-9R; Mon, 16 Jan 2023 15:33:51 +0000
+	id 1pHRWv-0005Kj-Lj; Mon, 16 Jan 2023 15:36:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478805.742206; Mon, 16 Jan 2023 15:33:51 +0000
+Received: by outflank-mailman (output) from mailman id 478810.742217; Mon, 16 Jan 2023 15:36:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHRUd-0004jH-64; Mon, 16 Jan 2023 15:33:51 +0000
-Received: by outflank-mailman (input) for mailman id 478805;
- Mon, 16 Jan 2023 15:33:49 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=o6RV=5N=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
- id 1pHRUb-0004jB-Eg
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 15:33:49 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2adebed3-95b3-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 16:33:48 +0100 (CET)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
- [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-28-M1ajViqMNuaHWJycP0l74g-1; Mon, 16 Jan 2023 10:33:45 -0500
-Received: by mail-ej1-f72.google.com with SMTP id
- oz11-20020a1709077d8b00b007c0dd8018b6so19961185ejc.17
- for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 07:33:45 -0800 (PST)
-Received: from imammedo.users.ipa.redhat.com (nat-pool-brq-t.redhat.com.
- [213.175.37.10]) by smtp.gmail.com with ESMTPSA id
- p14-20020a17090653ce00b0085ea718a81bsm6570877ejo.198.2023.01.16.07.33.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 16 Jan 2023 07:33:43 -0800 (PST)
+	id 1pHRWv-0005Ia-IW; Mon, 16 Jan 2023 15:36:13 +0000
+Received: by outflank-mailman (input) for mailman id 478810;
+ Mon, 16 Jan 2023 15:36:11 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=SJiS=5N=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pHRWt-0005IQ-PB
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 15:36:11 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2068.outbound.protection.outlook.com [40.107.22.68])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7fc05366-95b3-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 16:36:09 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8275.eurprd04.prod.outlook.com (2603:10a6:20b:3ec::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Mon, 16 Jan
+ 2023 15:36:08 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Mon, 16 Jan 2023
+ 15:36:07 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,146 +46,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2adebed3-95b3-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673883226;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gfxOU5yee2HwVQ8hW5LGqj0eQl/J5DDe98lmdDg/TjM=;
-	b=Q/F5EO6mH/sqJM6ySRu3E6Pxifbc6mkbbOpqOnaAKq1l2RPbaRVicwF2nMXoCDGL4yVkcn
-	4KqjwB83cCFZAGrbKHDmpBvoYZ+nU+SMY2Xn9E+J8HsQgWCW5KRCgoq9h9Nk3NVvHNMQey
-	zvDw6r0ynbEk1dBu6Vx+dmbK1so0EdM=
-X-MC-Unique: M1ajViqMNuaHWJycP0l74g-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=U1g1zCi+06h/BCDFKfYU8XUNQoM01xY7v+dJwQFuiQw=;
-        b=M3vOr0HoZsNH2JQkFXgXB42Wb3reK8Gc91WuyDTHjU7abFg5dG/veojVaKexAjXuku
-         zLY39jkUFp6W/3tLNcJ9Spmq5BirhtuimVian5qOYLwfbPJMWQkHmNcCH2rvpf608FxN
-         8m752L1n6yB1eJ/LqjvlBiWvysAKCItagSgI50lKzluaos1avVML3hWIJeyDTKNPcyS3
-         bDKpjE7qTDux/ZNRJ+yf4eep3+F2tZw8JtAsVEO5p43ep/4in71mGkG4zIqAwhuyZQwh
-         oDHBclPofjUPfGgCsWkMcFUtoClmFiHbqmLf0adM2LRXA28QtWUhmVbJJJhvH+S6N1A5
-         ClAA==
-X-Gm-Message-State: AFqh2kp6ZTQPqaZHs5419DSzzutw6tCxNGFnmPclk2SSKEYTu9udxsKS
-	qBImL76/Chsy+NoReaIz9LNjPu00n7JJC7De/zRD9NgvJEyXAFwctfNbN3/Vnx7LYZzit4E5w/u
-	EycwXA6TWeRGzkxUpHOmF7Lz4zXk=
-X-Received: by 2002:a17:907:a585:b0:871:3919:cbea with SMTP id vs5-20020a170907a58500b008713919cbeamr2708614ejc.54.1673883224354;
-        Mon, 16 Jan 2023 07:33:44 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXsP1+tXYFUEmlpJRu6mf2xwlR+HRv7sYl+XDTQgxmYtii99ewpWT8Pm9lEk+AysfSPRbqKRIQ==
-X-Received: by 2002:a17:907:a585:b0:871:3919:cbea with SMTP id vs5-20020a170907a58500b008713919cbeamr2708594ejc.54.1673883224151;
-        Mon, 16 Jan 2023 07:33:44 -0800 (PST)
-Date: Mon, 16 Jan 2023 16:33:42 +0100
-From: Igor Mammedov <imammedo@redhat.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Bernhard Beschow
- <shentey@gmail.com>, qemu-devel@nongnu.org, Stefano Stabellini
- <sstabellini@kernel.org>, Anthony Perard <anthony.perard@citrix.com>, Paul
- Durrant <paul@xen.org>, Paolo Bonzini <pbonzini@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Eduardo Habkost
- <eduardo@habkost.net>, Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- xen-devel@lists.xenproject.org, Philippe =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?=
- <philmd@linaro.org>
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Message-ID: <20230116163342.467039a0@imammedo.users.ipa.redhat.com>
-In-Reply-To: <88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
-	<a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
-	<20230110030331-mutt-send-email-mst@kernel.org>
-	<a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
-	<D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
-	<9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
-	<7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
-	<20230112180314-mutt-send-email-mst@kernel.org>
-	<128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-	<20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-	<88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Inumbo-ID: 7fc05366-95b3-11ed-b8d0-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Y1AX1cTqKNkhwHZL7oHFI5HSmsQBgCfchiZRTsnR+1npqbuVUKBSVLv4FvYlp+W7W2w6CHixtmQk78vhAG2Zg5/BubjT1u1sk1pLjjn171MTRmCdyHgmlYMpVg2rBysHiIVgR7rYb2MD421kmWiFpXn8D0nSRj+2y3Mkbe86Je5QjpbhRRCgMB8J1S/IZwrka1UfxEi6Pn1O485TjfqpfVgRVrZXsqsy2W3E5sJSRVWHwXyWFm6ILNTHs8E4fCZDJvZHMRVxfESndFyJtzl5g22wKcIc/kcR0smwLOBoS6c7ehnNUJZDnzX6eMcCaqGykMHilys5QikcgIa+I2EHiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XxdfyaGjzGOJkQF8K0bSOQVeSIu+/NEkdq2y1PSw86o=;
+ b=HMEukcyZG3U1YyDdOBqEX1CuvD3vDUOkHrgDIT0jjoytjPrBm5gjgZ5b2MkhnT6NY6/vHKXVqhg+1XYkkpuL+za7AJa3Wu7TvxlVbCf84HyXKVdG3sSILJvk8RXCKfPaj16yug8uQm1NE/uUvaCNlc/rgoCv8/8CiCGdzgRe+hbTXawraPeDhzDmbOh9TYDq0sBl7ajLzEG8gq76wQac3Qzn48L6FsHzXYdi+uxtFwFtNeviMGqQOjwZ7dujNvjFyjAPhBKhiCADXzW0yIToRRkCJM31WNUyTADqNc7kf87ecNzr94PmDZdkZRQ3ubpFGsSkdogMi0015PWIxB+qCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XxdfyaGjzGOJkQF8K0bSOQVeSIu+/NEkdq2y1PSw86o=;
+ b=3XTEMdXFbn7BSZO+aMoeoRr5OeE9pqnAX8MGIHvQcZM6GfhV6mn8I4RX23bNpyDOQpR92dwJb6++AJuMf72oeUDpVBL30GPuvo6bqMYKjjYMSuhy2m72v8PXCIDmX8p1s1MKvoXZjsV6wADi+3ETgfqyxuwruKptYoScQZ0sH6X2yFJcNN8HgRM7+nXcbcx3jhXSqRBB+1Ncerp1HnP+4ED9wWEzFqCtSbn73oro4+vGdWL6bTT5YdTbEVuEYWBXAMuFDd8VtHtUQFxcN2FwD30Pkg7XyvUYSQdnMChNou3yuGTN4jR+/wuuLTqkhbs0ka1qWdBpfbHgtiDe/Ual9Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <3920b910-35a2-f806-dfa5-eaf44475f83a@suse.com>
+Date: Mon, 16 Jan 2023 16:36:06 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 1/5] xen/version: Drop bogus return values for
+ XENVER_platform_parameters
+Content-Language: en-US
+To: Andrew Cooper <andrew.cooper3@citrix.com>
+Cc: George Dunlap <George.Dunlap@eu.citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ Julien Grall <julien@xen.org>, Xen-devel <xen-devel@lists.xenproject.org>
+References: <20230113230835.29356-1-andrew.cooper3@citrix.com>
+ <20230113230835.29356-2-andrew.cooper3@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <20230113230835.29356-2-andrew.cooper3@citrix.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0104.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a1::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8275:EE_
+X-MS-Office365-Filtering-Correlation-Id: e19de267-516c-4487-8b07-08daf7d762eb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	IbMj0hoxr9IgceQwtL4QchC22ER8gjbIWI7MGqakiM/Cpe8AVNpNPVpFxoTzb1Furgo5u4LQHiAdThaxYzWdx1wjir3fYc33G+1XYpr8ttjFJjPK7lgmFSpNyjM9u+nOieEswDiGUR9UCfo6ubBDcSnPv3SjpR6mCNKuLi+BrzpKsWlhS0jU4utBaoqLc2PeAgTiVH59SiTNef0WydWUORDUsUB65W6+1QHKrEq84NnI2Tle2v02SUaUhkgqKiiR3cZKPlo5sTlV86vAdgguOQqM6QL4qkXq/IukWwfavPk1bQc2mGEB3SwitxR/1NUGduB2q9t1pUvSFRAXlKBZ8VdTe0ZA6Cw4xZFis38O9xBStutWDw2bSETxQCKnrvb8n/fOrX7t071UkEu/ET2Lgy3cctQAmuvsdQBpJRrgUAlhQEr2HYK+Q2Yw69Fd1go8mau1Jl59VoSLUyEgFFZ400ldoREmwsMJBmlYgiDiVLW1ePZTuNXxw++DIZyqDK3IgoHG4i+ITGmfkA275uh+V+Vu6LExSkV6U80EW8GAIjtzxrSezFW7dWYcVNe8Dm5bdVDyZBtbzlEFSgBe2vDUSZf0ynGnrF+2yCTtxJPFblfAqXjQFwrUnB9chG/zAcg/AQmHkxY7lG4Seor013bREzcObIddz+pediqxQoYwSsq6eIlyNHbCnEcDSLK/jLPhHeEtXacSb8huLyF2kA133ADv2MnCOpCeK8Olq0EXfrE=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(396003)(39860400002)(346002)(136003)(366004)(376002)(451199015)(186003)(54906003)(2906002)(26005)(6486002)(6512007)(66476007)(66556008)(66946007)(4326008)(478600001)(6916009)(8676002)(31696002)(41300700001)(86362001)(2616005)(316002)(4744005)(36756003)(8936002)(38100700002)(5660300002)(53546011)(31686004)(6506007)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VnpqaWJuMXdhbldXWHBkcmFxS2loT2xqeFY1cTlieWlJUk02bEp6MzdGK01G?=
+ =?utf-8?B?R05SZWJjK2oyL0ZwRmVRWlFuaVFqZm5xUWNXV2tyMlBEMFFycnpuOGJkRGdM?=
+ =?utf-8?B?eGpDdVYrRElTby9uQVlNT2FVbkJtWVNYYStiMkE4clN3ZEdFTXVpTGo0UUp1?=
+ =?utf-8?B?QlB5UWhaUEp0M21JUEVkM2UyckJIbXhPSTlqSjgyN0FlRkljSUJhTnFpZW9O?=
+ =?utf-8?B?d3pBcC9scVV1a29iS3RrODY3aUxWc3p1L1dDVmFGcEhFY01JTlQ1TFFSZnV6?=
+ =?utf-8?B?VWdMQk10dGxEYkQ3QlArK2hjOUJCRVpHZjl5cU0rdWFrNHZteTdtREVlYUdN?=
+ =?utf-8?B?RCtURTNQamZtMXNSU21td1RoR2NoeWNSWWZpN3RCa2phaFBkdk41N2FabTM5?=
+ =?utf-8?B?UlphTlBnRnMrNDN5ZklsTG5rOTFmaEo1YTV4N3c4b0FNU1gwYmdSWGNTVlVs?=
+ =?utf-8?B?M2xFNjVPVFZ3dk9BUjFFcHpXcTI1eWcxcGt6aXd6c201VW1EcmsyeEgrOTl1?=
+ =?utf-8?B?UFQwTm90T0VKVi9Ed21aVVQ4WE54RTdHY1Iwb0RDVE5IOGswbjg5UnQ4REdE?=
+ =?utf-8?B?bkRXVDhwZ2ZhN2xKdFdLU2hkTUh0TFRVT0w1bVY5M1UyWW1xVUhGVzUxdWZX?=
+ =?utf-8?B?MkQ2NllJUFJOVDJuZDZGRnBNbkNQZmIzMG9peFJUZ2VMZ0VzSjVycmk5ZEh4?=
+ =?utf-8?B?UzlqcVFoT3RwNlU4RHZaSFVLNlp0bmZDMWVnd3ljQ0I5eXhBYUlmUXFSc0x3?=
+ =?utf-8?B?am4yUXFEWGV3NkFhSDQ1OGtoYkI4Q1VRVVh4eDFUUndFNTM5T3JCa3F0ZXlK?=
+ =?utf-8?B?Vk1mYndTaktXUTF6RmZqWXRzazRBV0VWazJsdjJMbnNCNkpuR0JncnFyNTB2?=
+ =?utf-8?B?Zmh0bHlSOE9BQ1M0SlhyWEwrRVFwV0IxSXN1MVd0ZDBUUmFyWm1pTUZHc3Zq?=
+ =?utf-8?B?bXYzUit5azIrRTJsSmpaeFc5ckxpaStkTjdud1dUU1pJQTJmV0krRmJrblhY?=
+ =?utf-8?B?NFd1bk12eDE2QkpWbWFZR0E0cDg3UXV6Vm1vcGoxWkN4NVlwWnM4bFdmK29T?=
+ =?utf-8?B?TXNTdGNMOFZEM0xmQmVZSWtlQXdqVFFkb285QTZUQ0tMYXFiNXN3elptK0xB?=
+ =?utf-8?B?ZmdqMGNVYkZrZXdVdWpEYWJOc1BXTEUyKzBxaGFYRE5BTUI5dDZKdjByV0lo?=
+ =?utf-8?B?blFiUHFEWWloL0RyRk5MUVhXS3FRRVN1OTM2RWpGdkxYWnJhMElVQ21Zdk8z?=
+ =?utf-8?B?c3JaVzB4YzFvRzRJYVIzSEZnWW9vdzhla0UxQWdUY3FscUNQMytlN0VBQWd4?=
+ =?utf-8?B?VlNCc3NibENCV281RDlERW9FbHBPYUtIRHR4WUxXVjJ4T3haK1lMOHhmM2xt?=
+ =?utf-8?B?RHJab1U0Ti9PQXV5RVQ5b05JNTltazc0cVoyYktVL0xUWVFLTlRGeHFVUzd1?=
+ =?utf-8?B?KzZra0hOczhacFFNcmZ1cDFJMDREMGFjYWNESE1KN2NYWS9KUUFxYkl4RUdY?=
+ =?utf-8?B?UHZZSnVmbjJNOFpSVUtiRjRzaVVEck4wVlIzYVQyRVZVS3h3bE5wRHZleGtG?=
+ =?utf-8?B?TUJUcHRNSjB4K3JDaVBSYVVLWFNMS1dJSGFydHVib0hGRXVFYlJ0WFZTMlUr?=
+ =?utf-8?B?RHRXNGhNRVdRZ0xhODNVZk1aYWwwZGRXaVJOVWM5K2FIdFAyMkRFaU92WWk0?=
+ =?utf-8?B?TjBBODNpWmhRKzBoWmlzeHFLYVVsL2V1STM5NlJhRUs2d0NkbW9zTE9ST2gw?=
+ =?utf-8?B?UmtNdGc4MkoyUlUzTTZWZzRIaHRtV25aeFlnMmtFc0xuUTFYVU1meTZRYWkz?=
+ =?utf-8?B?MTc2QjlhN3RHa0oxMXhtQncvTVFab2FLK05HR0ZWcTFZU2IyM1FwcnpQQkJF?=
+ =?utf-8?B?YXNFMUVyeWhFQy8wcStoUVNtMlBMb0h4eXVJREEyczBZdWZvWlZsSzZBZDVx?=
+ =?utf-8?B?ZzN1czNINHJXblJFSUQ5QmpJdE9LTUdlZ21tZEFSUldOczA1eVloa01xQmIy?=
+ =?utf-8?B?ZHJFRDgrVFpsVFNwNkRVbnF6eWcvM0MrOEZUKzZkNWRqdDZYMVBtRm1OOTJD?=
+ =?utf-8?B?NUdDVml0UU1KL1pJRDlKalQ1TDN5dkpXOVl0WXB4MHpPT2pYRWJMOUIxNU13?=
+ =?utf-8?Q?/ZxOuloxOCpX2VeQObnq0zyUp?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e19de267-516c-4487-8b07-08daf7d762eb
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2023 15:36:07.7854
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yhV2m7UhAcRdrUdXoEzXGXI8EG298nPQCmghagOyXQ3taL+pj5rxA3nLiv8l15n+y+3eHZJv4XE1joYPtFRJPA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8275
 
-On Fri, 13 Jan 2023 16:31:26 -0500
-Chuck Zmudzinski <brchuckz@aol.com> wrote:
+On 14.01.2023 00:08, Andrew Cooper wrote:
+> A split in virtual address space is only applicable for x86 PV guests.
+> Furthermore, the information returned for x86 64bit PV guests is wrong.
+> 
+> Explain the problem in version.h, stating the other information that PV guests
+> need to know.
+> 
+> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-> On 1/13/23 4:33=E2=80=AFAM, Igor Mammedov wrote:
-> > On Thu, 12 Jan 2023 23:14:26 -0500
-> > Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> >  =20
-> >> On 1/12/23 6:03=E2=80=AFPM, Michael S. Tsirkin wrote: =20
-> >> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wrote:   =
-=20
-> >> >> I think the change Michael suggests is very minimalistic: Move the =
-if
-> >> >> condition around xen_igd_reserve_slot() into the function itself an=
-d
-> >> >> always call it there unconditionally -- basically turning three lin=
-es
-> >> >> into one. Since xen_igd_reserve_slot() seems very problem specific,
-> >> >> Michael further suggests to rename it to something more general. Al=
-l
-> >> >> in all no big changes required.   =20
-> >> >=20
-> >> > yes, exactly.
-> >> >    =20
-> >>=20
-> >> OK, got it. I can do that along with the other suggestions. =20
-> >=20
-> > have you considered instead of reservation, putting a slot check in dev=
-ice model
-> > and if it's intel igd being passed through, fail at realize time  if it=
- can't take
-> > required slot (with a error directing user to fix command line)? =20
->=20
-> Yes, but the core pci code currently already fails at realize time
-> with a useful error message if the user tries to use slot 2 for the
-> igd, because of the xen platform device which has slot 2. The user
-> can fix this without patching qemu, but having the user fix it on
-> the command line is not the best way to solve the problem, primarily
-> because the user would need to hotplug the xen platform device via a
-> command line option instead of having the xen platform device added by
-> pc_xen_hvm_init functions almost immediately after creating the pci
-> bus, and that delay in adding the xen platform device degrades
-> startup performance of the guest.
->=20
-> > That could be less complicated than dealing with slot reservations at t=
-he cost of
-> > being less convenient. =20
->=20
-> And also a cost of reduced startup performance
+Acked-by: Jan Beulich <jbeulich@suse.com>
 
-Could you clarify how it affects performance (and how much).
-(as I see, setup done at board_init time is roughly the same
-as with '-device foo' CLI options, modulo time needed to parse
-options which should be negligible. and both ways are done before
-guest runs)
+> The only reason this does not get an XSA is because Xen does not have any form
+> of KALSR.
 
-> However, the performance hit can be prevented by assigning slot
-> 3 instead of slot 2 for the xen platform device if igd passthrough
-> is configured on the command line instead of doing slot reservation,
-> but there would still be less convenience and, for libxl users, an
-> inability to easily configure the command line so that the igd can
-> still have slot 2 without a hacky and error-prone patch to libxl to
-> deal with this problem.
-libvirt manages to get it right on management side without quirks on
-QEMU side.
+I continue to question this. I think I did say before that even with KASLR Xen
+would need to constrain itself to the 16 L4 slots that the ABI reserves for
+its purpose. And nothing is being returned about the inner structure of that
+virtual address range.
 
-> I did post a patch on xen-devel to fix this using libxl, but so far
-> it has not yet been reviewed and I mentioned in that patch that the
-> approach of patching qemu so qemu reserves slot 2 for the igd is less
-> prone to coding errors and is easier to maintain than the patch that
-> would be required to implement the fix in libxl.
-
-the patch is not trivial, and adds maintenance on QEMU.
-Though I don't object to it as long as it's constrained to xen only
-code and doesn't spill into generic PCI.
-All I wanted is just point out there are other approach to problem
-(i.e. do force user to user to provide correct configuration instead
-of adding quirks whenever it's possible).
-
+Jan
 
