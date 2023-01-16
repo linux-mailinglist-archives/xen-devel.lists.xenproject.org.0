@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AFD766B86B
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:49:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478386.741547 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CC5266B86C
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:50:20 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478391.741557 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHKEu-0007xQ-GM; Mon, 16 Jan 2023 07:49:08 +0000
+	id 1pHKFo-0000Xs-QO; Mon, 16 Jan 2023 07:50:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478386.741547; Mon, 16 Jan 2023 07:49:08 +0000
+Received: by outflank-mailman (output) from mailman id 478391.741557; Mon, 16 Jan 2023 07:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHKEu-0007vH-Dg; Mon, 16 Jan 2023 07:49:08 +0000
-Received: by outflank-mailman (input) for mailman id 478386;
- Mon, 16 Jan 2023 07:49:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pHKFo-0000U3-Mu; Mon, 16 Jan 2023 07:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 478391;
+ Mon, 16 Jan 2023 07:50:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=OEfv=5N=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pHKEt-0007vB-DP
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 07:49:07 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 3ffbc088-9572-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 08:49:05 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9D36E2214D;
- Mon, 16 Jan 2023 07:49:04 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4E5B3139C2;
- Mon, 16 Jan 2023 07:49:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id b3W6EXABxWPleQAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 16 Jan 2023 07:49:04 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHKFn-0000KW-R5; Mon, 16 Jan 2023 07:50:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHKFn-00076q-NN; Mon, 16 Jan 2023 07:50:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHKFn-0006uR-Bq; Mon, 16 Jan 2023 07:50:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHKFn-00032l-BQ; Mon, 16 Jan 2023 07:50:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,146 +42,307 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3ffbc088-9572-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1673855344; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kI/9n/LxQnfTez/eAqP/SHUYnXorN1nObJCwWRHa0cI=;
-	b=UwqZlIz0oE8CKcGIpoIosgmA+QOss5ViBnHe8aj7ZqSY5FqW0u4WIx3nQXNSyMxwlh9/SE
-	lTawv06K0fmHq0YU8vLNKBoo7YLrnEDgvWrgle78CeJLrKKfhguHWQLbvQltZ70Ur9bCmy
-	Sav9IiyylmGEcoisYLMA9d8PE31DQbU=
-Message-ID: <d0c6363f-d5c9-a53b-5275-e5134b54f09a@suse.com>
-Date: Mon, 16 Jan 2023 08:49:03 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=utVg0sULFOA3SNtUADr5MUkFgTTnSzd9DAS2BmAlGgI=; b=FYUVsGaoqAPgLWV4RJu5VeAHW3
+	SSg6Uglk1dnePxyIaYg+ZczxOH/h3twe+H1ERhcZXEI93sbRSMMqnKw9n3sU5thsk2G6GT1OiNoY5
+	HSB1WPL2SJdDliqL9yZwHtyPzgk2phCVyF8tUl+YECZnEUfGk5cuzgkhjvDaxzhPS9YI=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175920-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH 0/2] x86/xen: don't return from xen_pv_play_dead()
-Content-Language: en-US
-To: linux-kernel@vger.kernel.org, x86@kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-References: <20221125063248.30256-1-jgross@suse.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20221125063248.30256-1-jgross@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------0nAghWXiYBvAaH6RQMQFfUSx"
+Subject: [ovmf test] 175920: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=47ab397011b6d1ce4d5805117dc87d9e35f378db
+X-Osstest-Versions-That:
+    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 16 Jan 2023 07:50:03 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------0nAghWXiYBvAaH6RQMQFfUSx
-Content-Type: multipart/mixed; boundary="------------LWRXFRU1UdBEuI0eEO6d0jPz";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: linux-kernel@vger.kernel.org, x86@kernel.org
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, xen-devel@lists.xenproject.org,
- Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>
-Message-ID: <d0c6363f-d5c9-a53b-5275-e5134b54f09a@suse.com>
-Subject: Re: [PATCH 0/2] x86/xen: don't return from xen_pv_play_dead()
-References: <20221125063248.30256-1-jgross@suse.com>
-In-Reply-To: <20221125063248.30256-1-jgross@suse.com>
+flight 175920 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175920/
 
---------------LWRXFRU1UdBEuI0eEO6d0jPz
-Content-Type: multipart/mixed; boundary="------------yvHPhWTTfK48d68wOsnr01OZ"
+Regressions :-(
 
---------------yvHPhWTTfK48d68wOsnr01OZ
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
+ build-i386                    6 xen-build                fail REGR. vs. 175747
+ build-amd64                   6 xen-build                fail REGR. vs. 175747
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175747
 
-T24gMjUuMTEuMjIgMDc6MzIsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IEFsbCBwbGF5X2Rl
-YWQoKSBmdW5jdGlvbnMgYnV0IHhlbl9wdl9wbGF5X2RlYWQoKSBkb24ndCByZXR1cm4gdG8g
-dGhlDQo+IGNhbGxlci4NCj4gDQo+IEFkYXB0IHhlbl9wdl9wbGF5X2RlYWQoKSB0byBiZWhh
-dmUgbGlrZSB0aGUgb3RoZXIgcGxheV9kZWFkKCkgdmFyaWFudHMuDQo+IA0KPiBKdWVyZ2Vu
-IEdyb3NzICgyKToNCj4gICAgeDg2L3hlbjogZG9uJ3QgbGV0IHhlbl9wdl9wbGF5X2RlYWQo
-KSByZXR1cm4NCj4gICAgeDg2L3hlbjogbWFyayB4ZW5fcHZfcGxheV9kZWFkKCkgYXMgX19u
-b3JldHVybg0KPiANCj4gICBhcmNoL3g4Ni94ZW4vc21wLmggICAgICB8ICAyICsrDQo+ICAg
-YXJjaC94ODYveGVuL3NtcF9wdi5jICAgfCAxNyArKysrLS0tLS0tLS0tLS0tLQ0KPiAgIGFy
-Y2gveDg2L3hlbi94ZW4taGVhZC5TIHwgIDcgKysrKysrKw0KPiAgIHRvb2xzL29ianRvb2wv
-Y2hlY2suYyAgIHwgIDEgKw0KPiAgIDQgZmlsZXMgY2hhbmdlZCwgMTQgaW5zZXJ0aW9ucygr
-KSwgMTMgZGVsZXRpb25zKC0pDQo+IA0KDQpQaW5nPw0KDQoNCkp1ZXJnZW4NCg==
---------------yvHPhWTTfK48d68wOsnr01OZ
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ ovmf                 47ab397011b6d1ce4d5805117dc87d9e35f378db
+baseline version:
+ ovmf                 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
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   175747  2023-01-12 16:10:44 Z    3 days
+Failing since        175860  2023-01-15 07:11:07 Z    1 days   26 attempts
+Testing same since   175920  2023-01-16 07:10:43 Z    0 days    1 attempts
 
---------------yvHPhWTTfK48d68wOsnr01OZ--
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@amd.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiangang He <jiangang.he@amd.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
 
---------------LWRXFRU1UdBEuI0eEO6d0jPz--
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
---------------0nAghWXiYBvAaH6RQMQFfUSx
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPFAW8FAwAAAAAACgkQsN6d1ii/Ey9S
-yQf8DQlfdCE+6vBQ7htRNbdOs0J9iISKLSUh8pakjmjrbRR8z0IA6FDkLcdS+yIbX/wj+jjMJIdq
-0PZsQTswsxJvfWcdd6/gHtWR89kNTc6qNBG2GCRO1PQPeOjOS72woauloN9IIYL6oPJUySyf2P4T
-0WA+pQhjNqdqBaDRY33QZnTJQ836tO/JPyxG80DEqaLAsWnrR2kUtRR3I67L/K0LPECtTzM5vW1Q
-e1pV0s5cLVHZ5/GJagN8WMmBGAChm5hIfgoVLMzrze00WnaVs12aCEpAkPhTEzw3QcPzdq/lNn6t
-Fz0mUwqiKoCy/C/m+PvySYkF54OPw5Ux71IcdYgMMQ==
-=d9PH
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------0nAghWXiYBvAaH6RQMQFfUSx--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 47ab397011b6d1ce4d5805117dc87d9e35f378db
+Author: Abner Chang <abner.chang@amd.com>
+Date:   Wed Jan 11 11:10:08 2023 +0800
+
+    MdeModulePkg/XhciPei: Unlinked XhciPei memory block
+    
+    Unlink the XhciPei memory block when it has been freed.
+    
+    Signed-off-by: Jiangang He <jiangang.he@amd.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
+    Cc: Abner Chang <abner.chang@amd.com>
+    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit be8d6ef3856fac2e64e23847a8f05d37822b1f14
+Author: Abner Chang <abner.chang@amd.com>
+Date:   Wed Jan 11 11:10:07 2023 +0800
+
+    MdeModulePkg/Usb: Read a large number of blocks
+    
+    Changes to allow reading blocks that greater than 65535 sectors.
+    
+    Signed-off-by: Jiangang He <jiangang.he@amd.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
+    Cc: Abner Chang <abner.chang@amd.com>
+    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 8147fe090fb566f9a1ed8fde24098bbe425026be
+Author: Abner Chang <abner.chang@amd.com>
+Date:   Wed Jan 11 11:10:06 2023 +0800
+
+    MdeModulePkg/Xhci: Initial XHCI DCI slot's Context value
+    
+    Initialize XHCI DCI slot's context entries value.
+    
+    Signed-off-by: Jiangang He <jiangang.he@amd.com>
+    Cc: Hao A Wu <hao.a.wu@intel.com>
+    Cc: Ray Ni <ray.ni@intel.com>
+    Cc: Garrett Kirkendall <garrett.kirkendall@amd.com>
+    Cc: Abner Chang <abner.chang@amd.com>
+    Cc: Kuei-Hung Lin <Kuei-Hung.Lin@amd.com>
+    Reviewed-by: Hao A Wu <hao.a.wu@intel.com>
+
+commit 7cd55f300915af8759bdf1687af7e3a7f4d4f13c
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:35 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Return error if installing NotifyProtocol failed
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Installation of gQemuAcpiTableNotifyProtocol may fail. The error code
+    should be returned so that the caller can handle it.
+    
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-7-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 66f18fde49c7fe65818db0801cdaf63015e875e5
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:34 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Refactor QemuAcpiTableNotifyProtocol
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 install the QemuAcpiTableNotifyProtocol at a
+    wrong positioin. It should be called before TransferS3ContextToBootScript
+    because TransferS3ContextToBootScript is the last operation in
+    InstallQemuFwCfgTables(). Another error is that we should check the
+    returned value after installing the QemuAcpiTableNotifyProtocol.
+    
+    This patch refactors the installation and error handling of
+    QemuAcpiTableNotifyProtocol in InstallQemuFwCfgTables ().
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-6-min.m.xu@intel.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+
+commit 2ef0ff39e53d2d2af3859b783882eea6f0beda64
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:33 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Add log to show the installed tables
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    Commit 9fdc70af6ba8 wrongly removed the log from InstallQemuFwCfgTables
+    after ACPI tables are successfully installed. This patch add the log
+    back after all operations succeed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-5-min.m.xu@intel.com>
+
+commit 165f1e49361a9a5f5936f2d582641096d0d7a2a2
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:32 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in QemuFwCfgAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mQemuAcpiHandle is not needed for anything, beyond the
+    scope of the InstallQemuFwCfgTables(). So a local variable will
+    suffice for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-4-min.m.xu@intel.com>
+
+commit f81273f7fbb3defbef43313ada8397bbc202a1d0
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:31 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Use local variable in CloudHvAcpi.c
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The handle of mChAcpiHandle is not needed for anything, beyond the
+    scope of the InstallCloudHvTablesTdx (). A local variable (ChAcpiHandle)
+    suffices for storing the handle.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-3-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit 43b3ca6b7f626c6dcdc1a347ad8a42d8cf9ea575
+Author: Min M Xu <min.m.xu@intel.com>
+Date:   Wed Jan 11 09:22:30 2023 +0800
+
+    OvmfPkg/AcpiPlatformDxe: Remove QEMU_ACPI_TABLE_NOTIFY_PROTOCOL
+    
+    BZ: https://bugzilla.tianocore.org/show_bug.cgi?id=4237
+    
+    The QEMU_ACPI_TABLE_NOTIFY_PROTOCOL structure is superfluous because NULL
+    protocol interfaces have been used in edk2 repeatedly. A protocol instance
+    can exist in the protocol database with a NULL associated interface.
+    Therefore the QEMU_ACPI_TABLE_NOTIFY_PROTOCOL type, the
+    "QemuAcpiTableNotify.h" header, and the "mAcpiNotifyProtocol" global
+    variable can be removed.
+    
+    Cc: Laszlo Ersek <lersek@redhat.com>
+    Cc: Erdem Aktas <erdemaktas@google.com>
+    Cc: James Bottomley <jejb@linux.ibm.com>
+    Cc: Jiewen Yao <jiewen.yao@intel.com>
+    Cc: Gerd Hoffmann <kraxel@redhat.com>
+    Cc: Tom Lendacky <thomas.lendacky@amd.com>
+    Cc: Sebastien Boeuf <sebastien.boeuf@intel.com>
+    Reported-by: Laszlo Ersek <lersek@redhat.com>
+    Reviewed-by: Laszlo Ersek <lersek@redhat.com>
+    Signed-off-by: Min Xu <min.m.xu@intel.com>
+    Message-Id: <20230111012235.189-2-min.m.xu@intel.com>
+    Reviewed-by: Sebastien Boeuf <sebastien.boeuf@intel.com>
+
+commit ba08910df1071bf5ade987529d9becb38d14a14a
+Author: Gerd Hoffmann <kraxel@redhat.com>
+Date:   Thu Jan 12 23:41:02 2023 +0800
+
+    OvmfPkg: fix OvmfTpmSecurityStub.dsc.inc include
+    
+    TPM support is independent from secure boot support.  Move the TPM
+    include snipped out of the secure boot !if block.
+    
+    Fixes: b47575801e19 ("OvmfPkg: move tcg configuration to dsc and fdf include files")
+    Bugzilla: https://bugzilla.tianocore.org//show_bug.cgi?id=4290
+    Signed-off-by: Gerd Hoffmann <kraxel@redhat.com>
+    Reviewed-by: Jiewen Yao <jiewen.yao@intel.com>
 
