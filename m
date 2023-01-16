@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55F2C66B7CC
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:05:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478334.741447 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20EC066B7C9
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:05:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478335.741459 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHJY6-0006vI-D3; Mon, 16 Jan 2023 07:04:54 +0000
+	id 1pHJY9-0007BE-MH; Mon, 16 Jan 2023 07:04:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478334.741447; Mon, 16 Jan 2023 07:04:54 +0000
+Received: by outflank-mailman (output) from mailman id 478335.741459; Mon, 16 Jan 2023 07:04:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHJY6-0006sc-A5; Mon, 16 Jan 2023 07:04:54 +0000
-Received: by outflank-mailman (input) for mailman id 478334;
- Mon, 16 Jan 2023 07:04:53 +0000
+	id 1pHJY9-00077g-J2; Mon, 16 Jan 2023 07:04:57 +0000
+Received: by outflank-mailman (input) for mailman id 478335;
+ Mon, 16 Jan 2023 07:04:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=W85+=5N=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pHJY5-0006sD-6A
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 07:04:53 +0000
-Received: from mail-ej1-x62c.google.com (mail-ej1-x62c.google.com
- [2a00:1450:4864:20::62c])
+ id 1pHJY8-0006sD-22
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 07:04:56 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 11a7d09a-956c-11ed-b8d0-410ff93cb8f0;
- Mon, 16 Jan 2023 08:04:50 +0100 (CET)
-Received: by mail-ej1-x62c.google.com with SMTP id kt14so6927543ejc.3
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 23:04:50 -0800 (PST)
+ id 13e88359-956c-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 08:04:54 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id bk15so8323180ejb.9
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 23:04:54 -0800 (PST)
 Received: from uni.router.wind (adsl-67.109.242.224.tellas.gr.
  [109.242.224.67]) by smtp.googlemail.com with ESMTPSA id
- v15-20020a056402184f00b0046c5baa1f58sm10990824edy.97.2023.01.15.23.04.48
+ v15-20020a056402184f00b0046c5baa1f58sm10990824edy.97.2023.01.15.23.04.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 23:04:49 -0800 (PST)
+ Sun, 15 Jan 2023 23:04:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,97 +44,106 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 11a7d09a-956c-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 13e88359-956c-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mp1FQXXyYfq3zENnQECHsCJiRxZfGT2QDjD6yHefefY=;
-        b=oAVq/hxLg1akUx2ep0FHl8grGRt3pxaXLdhk8rOqWwiMLu/d3aMHwreojG4aLnZr9L
-         8cfVVB6zYgdUq5JuvNMl1KRvz6tbcaB13ZZNsHoTfvn2yKDwkTEcoW2MQ7Hlg29HWblh
-         6x0rpcEdG0lOjJOwFKA2fU2T/Pb4vGjFpwV2A1uUZJu7wah407sLtkt56V9SLUzSB6gl
-         qtoDDC04YlZZPD0SUrc4XaIreDIYPHpgIg9s2aGaKzvsljEa4mpAFvUy/tcqmOgmtuQF
-         EyQIVFESzUsy1z9j1nzSa8Fr9SSyH4oVNaEQ/Mnph6+gtsDOUDF6OUlc71lRc+NntTUX
-         qDug==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=53CNedcl2LpaLrX+og6xiNzpDo61T+Xa5G/+nq0djig=;
+        b=MNH32xpmk7O4JRawfjj/7+WeXgb4/eJew9BrD/cd8foYWnF0gDYh8WQ8C3uRq5AYtk
+         Qfav2j+zCsIOEpVnwniTyBOWWr74Z7+9OtWaUIeq2RjbV7hX9nD5ICoQ75YPwkLu3pJi
+         xJMrTMjPQqBVU/6rloVRHTMKx7nCFUaOl+8h7GJF1dRxLHZ1RHdLZ/HVBcw1AS6+CDKN
+         63cT+jWdAg6jwsdTUL2Yu8RVUOUWauvqPWf/3u9JA6VXHf2Bluryq49fGSuQcYCLwAuM
+         kBdlSya9+z6pR81KUkAWbI3oQjVVv/D+7t/PiNyY4UsB1YsXH24zJbKNtsJmqO4Ffxs4
+         UGog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=mp1FQXXyYfq3zENnQECHsCJiRxZfGT2QDjD6yHefefY=;
-        b=vKZ2JGwNm0FuY8QTGnB8Cd/oBx/BQZaGmfvbeZKuzl4y5gKtR8ZWiZM60qnLhg5SDa
-         N+yOZGHtdUyDXE2leMeYEKc1NBu4T9KkuUqgrG60hnGrpOC+J/DgX2GQYbtPVb+l4kLY
-         vdNfMyie53Tj2DYLNzT3PImjxsFwYwAW9dkcR/+y7b/BJYFxmMQ1xMUxuduWipYHDLbV
-         jaRL1G0uV915YKF+OY52jlzqyysOSdH3xjlIW/4J+q/NOTK1blFod2hHqRXsGZYoJP0Q
-         JTaSAYLI5HM62t/UoEwkVNwV6CoUoOqk8FEWBqcsDL5ovUlXXjwhDAcvX6B2J8jJzCdq
-         5J9Q==
-X-Gm-Message-State: AFqh2kqhDnfSZWSZSaNCnSnhvm+fYI8b8e+7bh9wU7+ENjBxkz6MY36N
-	mToztp9nD6egZlkCBwkC9r7a7Xqji5o=
-X-Google-Smtp-Source: AMrXdXuZY3+bs1/S5WfooYPQKwksVHMtp5PYwH6MbPrMdyoAYnyDoq/kPWQ3bpF8MYzoU4X2mW3+eg==
-X-Received: by 2002:a17:907:8e93:b0:7ae:bfec:74c7 with SMTP id tx19-20020a1709078e9300b007aebfec74c7mr82569866ejc.72.1673852689586;
-        Sun, 15 Jan 2023 23:04:49 -0800 (PST)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=53CNedcl2LpaLrX+og6xiNzpDo61T+Xa5G/+nq0djig=;
+        b=CGyeaM5168WHWwKH1TiKizHBZNfUKN0RQhChrj4A+riRwW94QLx76B/F+iuREbR4b5
+         rZ+Dd3xcF7Om9NoE036Eo/1M0MachzeTx5q7JAzWlB45Fk9XYJ3iQmo2ey0uIIbK1tyS
+         nTES96qETAXFPTvZArgbRsYoe6Bq/9xShM41ZSKgYQUKzxM3vy4nF1vvZI1f2IxX7emo
+         7wV3hSVPstuqNSHC2JJh9TKIRgcWt5g27D85xqbN3F2CjgODo9Wb+S5Yelb8MWkIE1re
+         w39WpXmiisrg3Wp4pjBDm4rGxV7i0XLYVofO/sgucStPR6US50GEM9J9VFtVlZqTgbvV
+         6XKQ==
+X-Gm-Message-State: AFqh2kpw5YsWbDRNMFbCB1iArIvHfGKXlf0/A6a4VoUKHOSRHRlCLxIs
+	CLuYwoMaKx1bUPmNT6oJ1qwOyzvzM7I=
+X-Google-Smtp-Source: AMrXdXvYHQUxlrIBRDsIC5Fy1aNpHLbbszebpSlbeaCjwNkQKFFzRNI23dtm/XQgoBdr9Tuia50AsA==
+X-Received: by 2002:a17:907:1316:b0:863:e08e:2ac3 with SMTP id vj22-20020a170907131600b00863e08e2ac3mr10398478ejb.63.1673852693562;
+        Sun, 15 Jan 2023 23:04:53 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Paul Durrant <paul@xen.org>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Jun Nakajima <jun.nakajima@intel.com>
-Subject: [PATCH v3 0/8] Make x86 IOMMU driver support configurable
-Date: Mon, 16 Jan 2023 09:04:23 +0200
-Message-Id: <20230116070431.905594-1-burzalodowa@gmail.com>
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 1/8] x86/iommu: amd_iommu_perdev_intremap is AMD-Vi specific
+Date: Mon, 16 Jan 2023 09:04:24 +0200
+Message-Id: <20230116070431.905594-2-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
+In-Reply-To: <20230116070431.905594-1-burzalodowa@gmail.com>
+References: <20230116070431.905594-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series aims to provide a means to render the iommu driver support for x86
-configurable. Currently, irrespectively of the target platform, both AMD and
-Intel iommu drivers are built. This is the case because the existent Kconfig
-infrastructure does not provide any facilities for finer-grained configuration.
+Move its definition to the AMD-Vi driver and use CONFIG_AMD_IOMMU
+to guard its usage in common code.
 
-The series adds two new Kconfig options, AMD_IOMMU and INTEL_IOMMU, that can be
-used to generate a tailored iommu configuration for a given platform.
+Take the opportunity to replace bool_t with bool and 1 with true.
 
-This version of the series is rebased on top of the current staging and
-addresses the comments made on version 2.
-Patch "[v2] x86/iommu: introduce AMD-Vi and Intel VT-d Kconfig options"
-is not included in this series because it has been already merged, and patch
-"[v2] x86/iommu: iommu_igfx, iommu_qinval and iommu_snoop are VT-d specific"
-has been splitted up into two separate patches.
+No functional change intended.
 
-Xenia Ragiadakou (8):
-  x86/iommu: amd_iommu_perdev_intremap is AMD-Vi specific
-  x86/iommu: iommu_igfx and iommu_qinval are Intel VT-d specific
-  x86/iommu: snoop control is allowed only by Intel VT-d
-  x86/acpi: separate AMD-Vi and VT-d specific functions
-  x86/iommu: make code addressing CVE-2011-1898 no VT-d specific
-  x86/iommu: call pi_update_irte through an hvm_function callback
-  x86/dpci: move hvm_dpci_isairq_eoi() to generic HVM code
-  x86/iommu: make AMD-Vi and Intel VT-d support configurable
+Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+---
 
- xen/arch/x86/hvm/vmx/vmx.c               | 41 +++++++++++++++
- xen/arch/x86/include/asm/acpi.h          |  6 ++-
- xen/arch/x86/include/asm/hvm/hvm.h       | 10 ++++
- xen/arch/x86/include/asm/iommu.h         |  3 --
- xen/drivers/passthrough/Kconfig          | 22 +++++++-
- xen/drivers/passthrough/amd/iommu_init.c |  2 +
- xen/drivers/passthrough/iommu.c          | 15 +++++-
- xen/drivers/passthrough/vtd/intremap.c   | 36 -------------
- xen/drivers/passthrough/vtd/iommu.c      |  3 --
- xen/drivers/passthrough/vtd/x86/Makefile |  1 -
- xen/drivers/passthrough/vtd/x86/hvm.c    | 64 ------------------------
- xen/drivers/passthrough/x86/hvm.c        | 50 ++++++++++++++++--
- xen/drivers/passthrough/x86/iommu.c      |  5 ++
- xen/include/xen/acpi.h                   |  7 +++
- xen/include/xen/iommu.h                  |  8 ++-
- 15 files changed, 156 insertions(+), 117 deletions(-)
- delete mode 100644 xen/drivers/passthrough/vtd/x86/hvm.c
+Changes in v3:
+  - the second arg of no_config_param() should have been the parameter name,
+    i.e "iommu", and not the boolean suboption "amd-iommu-perdev-intremap"
 
+ xen/drivers/passthrough/amd/iommu_init.c | 2 ++
+ xen/drivers/passthrough/iommu.c          | 5 ++++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/xen/drivers/passthrough/amd/iommu_init.c b/xen/drivers/passthrough/amd/iommu_init.c
+index 1f14aaf49e..9773ccfcb4 100644
+--- a/xen/drivers/passthrough/amd/iommu_init.c
++++ b/xen/drivers/passthrough/amd/iommu_init.c
+@@ -36,6 +36,8 @@ static struct radix_tree_root ivrs_maps;
+ LIST_HEAD_READ_MOSTLY(amd_iommu_head);
+ bool_t iommuv2_enabled;
+ 
++bool __ro_after_init amd_iommu_perdev_intremap = true;
++
+ static bool iommu_has_ht_flag(struct amd_iommu *iommu, u8 mask)
+ {
+     return iommu->ht_flags & mask;
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 5e2a720d29..9d95fb27d0 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -58,7 +58,6 @@ bool __read_mostly iommu_hap_pt_share = true;
+ #endif
+ 
+ bool_t __read_mostly iommu_debug;
+-bool_t __read_mostly amd_iommu_perdev_intremap = 1;
+ 
+ DEFINE_PER_CPU(bool_t, iommu_dont_flush_iotlb);
+ 
+@@ -116,7 +115,11 @@ static int __init cf_check parse_iommu_param(const char *s)
+                 iommu_verbose = 1;
+         }
+         else if ( (val = parse_boolean("amd-iommu-perdev-intremap", s, ss)) >= 0 )
++#ifdef CONFIG_AMD_IOMMU
+             amd_iommu_perdev_intremap = val;
++#else
++            no_config_param("AMD_IOMMU", "iommu", s, ss);
++#endif
+         else if ( (val = parse_boolean("dom0-passthrough", s, ss)) >= 0 )
+             iommu_hwdom_passthrough = val;
+         else if ( (val = parse_boolean("dom0-strict", s, ss)) >= 0 )
 -- 
 2.37.2
 
