@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7E066B7C4
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:05:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478338.741487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C88166B7C8
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 08:05:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478339.741497 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHJYF-0007zS-Ge; Mon, 16 Jan 2023 07:05:03 +0000
+	id 1pHJYI-0008Iw-O4; Mon, 16 Jan 2023 07:05:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478338.741487; Mon, 16 Jan 2023 07:05:03 +0000
+Received: by outflank-mailman (output) from mailman id 478339.741497; Mon, 16 Jan 2023 07:05:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHJYF-0007wq-D3; Mon, 16 Jan 2023 07:05:03 +0000
-Received: by outflank-mailman (input) for mailman id 478338;
- Mon, 16 Jan 2023 07:05:02 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pHJYI-0008I6-Jx; Mon, 16 Jan 2023 07:05:06 +0000
+Received: by outflank-mailman (input) for mailman id 478339;
+ Mon, 16 Jan 2023 07:05:05 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=W85+=5N=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pHJYD-00077f-Vk
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 07:05:02 +0000
+ id 1pHJYH-0006sD-G2
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 07:05:05 +0000
 Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
  [2a00:1450:4864:20::52c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 17fe312e-956c-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 08:05:01 +0100 (CET)
-Received: by mail-ed1-x52c.google.com with SMTP id v30so39457275edb.9
- for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 23:05:01 -0800 (PST)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 19843c94-956c-11ed-b8d0-410ff93cb8f0;
+ Mon, 16 Jan 2023 08:05:03 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id x10so36565834edd.10
+ for <xen-devel@lists.xenproject.org>; Sun, 15 Jan 2023 23:05:03 -0800 (PST)
 Received: from uni.router.wind (adsl-67.109.242.224.tellas.gr.
  [109.242.224.67]) by smtp.googlemail.com with ESMTPSA id
- v15-20020a056402184f00b0046c5baa1f58sm10990824edy.97.2023.01.15.23.04.59
+ v15-20020a056402184f00b0046c5baa1f58sm10990824edy.97.2023.01.15.23.05.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Jan 2023 23:05:00 -0800 (PST)
+ Sun, 15 Jan 2023 23:05:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,65 +44,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 17fe312e-956c-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 19843c94-956c-11ed-b8d0-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=PpFKQyBz/d1EHnJYrbWB9uWY4J6FRm55N2ci72k9mak=;
-        b=fstejPwJ4VDhCtYQDIAR7deIFG0CNd1qnz8sEUjV7iOuZNi9W+tIlxax5FWBDgQchi
-         vl4Kncwjg+M40qUwzCErbWQcWY05Blp5f5b6wwuLPKzstAUfIEihspP86vQz0n05GEWC
-         HSwxPkZwfOzTewVGX6qlB8adj6V3IRPesaTqtqM65B2efVWY1nu59l8Tbq3fVaG6pWhr
-         G36ReBaRw25wXJ5/KGNQS9zmjFo8peHj6YBLHWdpY3zFHJfnX+h4WXoZd80jiyiWmE17
-         zreqbFNUT5Tq//YPa8x8uDHpN2EN3ui7tUdoL3VwAikkoLJ98U04zJXmTY0vRN+1rLkU
-         NGcQ==
+        bh=7dy2BgTNKVXOkcEoPRHI+Qc+RIk111AGiSJu7FgSGxM=;
+        b=JavYjN879rVFqWYTMfx5K7T7u+VhhAZtIXkySIIz3B+qj6EJzd+Nzv34MpCwey9i5M
+         ZZ7w3kI9WnYByK1t1wC3JITstU/8mIyys9/jlHrXaUscW155uUIIQpSSc7eRcd3rnMBi
+         Vu+YyQhjpdDMqB1OwDPuS/ycjiBxIoHu1aqoNPD4W7GjJLGNOzhRwy/54TStKoK6BTMb
+         PLD9fAFgyU8x/jf6YUUPhx6xRw2wo0m/TUFMZNKsx9oHQsXdNUr/H45H2XnegiuzM4jB
+         2cg74rgunfLVgnjCMAyAHW67rYG3GGBvHWxh50h8xs5xnSI8cMTKoSLKFBxSWP2T37Pg
+         AWXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=PpFKQyBz/d1EHnJYrbWB9uWY4J6FRm55N2ci72k9mak=;
-        b=oSJfZJ6vT0FHf3wzf+9MJM2J8MzncoXXPiv5N6FBlzwF15QJ1c11IHiUjgzdyUcb3/
-         ppCyysmfSo+9L6lCXwAIJHHpz8M074A6KTloOifsomayxTFWqm7FXbe7HBpzHjYI449S
-         yucjDBONT3jlotKVsxqDRt0w7dxv2Rztv0/DTqr8WbEtS4SfQVKtjdqyU/BTlxJW8+bm
-         685z8Jz2u/WyZh6TKhxSUrbmwaa3p3zAyVg4NdUmZkxfBvCDVrrQ1rsWIpjSAJcW3YSe
-         iqfLwLSTHFJN/x8vi6BuCaTqqCcYYrM+hUIatfNWQsNdrOcx5y99cNP5RaMsXythjGOQ
-         GMuw==
-X-Gm-Message-State: AFqh2kpyktgq5fepoC71nP0yhbLndfjLS3sherXvZ8Erkdw1OnKWt87H
-	dl/wgs1Z6kV9pBRcUHZlRr8utDb1JyU=
-X-Google-Smtp-Source: AMrXdXuf/XxEfoHGwGw1ENaSPe9IGLDSq5yqMvSGhWEq+9x088+3yFDlog7T3dGMjfvZh4IoOt02Yw==
-X-Received: by 2002:aa7:cb94:0:b0:496:6a20:6b61 with SMTP id r20-20020aa7cb94000000b004966a206b61mr29625347edt.22.1673852700440;
-        Sun, 15 Jan 2023 23:05:00 -0800 (PST)
+        bh=7dy2BgTNKVXOkcEoPRHI+Qc+RIk111AGiSJu7FgSGxM=;
+        b=i/AyL56Wt+aacBTWWt6s+MVQVJo7j8EOK6MQ4r4cKmVIyAXw1F0TkpCjzc3U/fzha9
+         vqgBkYC6lhyFT2HZgO9ypcJf9TZMcUl30kXTrobBzGsixofMEIyvO5u/1l3OzMuiTUHU
+         FuF9PKLE3smDh6JpJCVv6Z6c/nWYcbPY+yd08zNsV68FMlopv0IAU5yvuEjUmreG0VoZ
+         1kVwnM5XRjmKCUCvumuBCBVuirnkADbmyZ9GiDo8YcNuOvxCiH7AY9zJAZ2Mrb6QKjzs
+         vXVThq6ut6MD2T0wlBddGrmY8siYqKZ/oyY0J4C1LLgs2sPAk9oAMT2dkg+JmCOtoNL7
+         ZfwQ==
+X-Gm-Message-State: AFqh2kqFHhZv8xnHpebKtNSJGWV0DUlXvAfSWMGrm1f/bFWmOG5uOIDo
+	C1Rmr/dc1U03bHJdFLOdK4h5rk/V2iY=
+X-Google-Smtp-Source: AMrXdXsD39gY8491njMzdZaxfuDf6M6qULTZ1eY93Aw31t7bwSMmoksTT7XyzW2FArG1yunOZoa3nQ==
+X-Received: by 2002:a05:6402:b55:b0:49d:d8ec:cbd3 with SMTP id bx21-20020a0564020b5500b0049dd8eccbd3mr6984361edb.16.1673852702961;
+        Sun, 15 Jan 2023 23:05:02 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v3 4/8] x86/acpi: separate AMD-Vi and VT-d specific functions
-Date: Mon, 16 Jan 2023 09:04:27 +0200
-Message-Id: <20230116070431.905594-5-burzalodowa@gmail.com>
+Cc: Kevin Tian <kevin.tian@intel.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Paul Durrant <paul@xen.org>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Subject: [PATCH v3 5/8] x86/iommu: make code addressing CVE-2011-1898 no VT-d specific
+Date: Mon, 16 Jan 2023 09:04:28 +0200
+Message-Id: <20230116070431.905594-6-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230116070431.905594-1-burzalodowa@gmail.com>
 References: <20230116070431.905594-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The functions acpi_dmar_init() and acpi_dmar_zap/reinstate() are
-VT-d specific while the function acpi_ivrs_init() is AMD-Vi specific.
-To eliminate dead code, they need to be guarded under CONFIG_INTEL_IOMMU
-and CONFIG_AMD_IOMMU, respectively.
+The variable untrusted_msi indicates whether the system is vulnerable to
+CVE-2011-1898 due to the absence of interrupt remapping  support.
+AMD iommus with interrupt remapping disabled are also exposed.
+Therefore move the definition of the variable to the common x86 iommu code.
 
-Instead of adding #ifdef guards around the function calls, implement them
-as empty static inline functions.
-
-Take the opportunity to move the declaration of acpi_dmar_init from the
-x86 arch-specific header to the common header, since Intel VT-d has been
-also used on IA-64 platforms.
+Also, since the current implementation assumes that only PV guests are prone
+to this attack, take the opportunity to define untrusted_msi only when PV is
+enabled.
 
 No functional change intended.
 
@@ -110,52 +104,44 @@ Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
 
 Changes in v3:
-  - move the declarations of Intel VT-d functions to the common header,
-    because Intel VT-d has been also used on IA-64 platforms, and update
-    the commit log accordingly
+  - change untrusted_msi from being VT-d specific to PV specific and
+    update commit log accordingly
+  - remove unnecessary #ifdef guard from its declaration
 
- xen/arch/x86/include/asm/acpi.h | 6 +++++-
- xen/include/xen/acpi.h          | 7 +++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ xen/drivers/passthrough/vtd/iommu.c | 3 ---
+ xen/drivers/passthrough/x86/iommu.c | 5 +++++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/xen/arch/x86/include/asm/acpi.h b/xen/arch/x86/include/asm/acpi.h
-index c453450a74..6ce79ce465 100644
---- a/xen/arch/x86/include/asm/acpi.h
-+++ b/xen/arch/x86/include/asm/acpi.h
-@@ -140,8 +140,12 @@ extern u32 pmtmr_ioport;
- extern unsigned int pmtmr_width;
+diff --git a/xen/drivers/passthrough/vtd/iommu.c b/xen/drivers/passthrough/vtd/iommu.c
+index 62e143125d..dae2426cb9 100644
+--- a/xen/drivers/passthrough/vtd/iommu.c
++++ b/xen/drivers/passthrough/vtd/iommu.c
+@@ -54,9 +54,6 @@
+                                  ? dom_iommu(d)->arch.vtd.pgd_maddr \
+                                  : (pdev)->arch.vtd.pgd_maddr)
  
- void acpi_iommu_init(void);
--int acpi_dmar_init(void);
+-/* Possible unfiltered LAPIC/MSI messages from untrusted sources? */
+-bool __read_mostly untrusted_msi;
+-
+ bool __read_mostly iommu_igfx = true;
+ bool __read_mostly iommu_qinval = true;
+ #ifndef iommu_snoop
+diff --git a/xen/drivers/passthrough/x86/iommu.c b/xen/drivers/passthrough/x86/iommu.c
+index f671b0f2bb..c5021ea023 100644
+--- a/xen/drivers/passthrough/x86/iommu.c
++++ b/xen/drivers/passthrough/x86/iommu.c
+@@ -36,6 +36,11 @@ bool __initdata iommu_superpages = true;
+ 
+ enum iommu_intremap __read_mostly iommu_intremap = iommu_intremap_full;
+ 
++#ifdef CONFIG_PV
++/* Possible unfiltered LAPIC/MSI messages from untrusted sources? */
++bool __read_mostly untrusted_msi;
++#endif
 +
-+#ifdef CONFIG_AMD_IOMMU
- int acpi_ivrs_init(void);
-+#else
-+static inline int acpi_ivrs_init(void) { return -ENODEV; }
-+#endif
- 
- void acpi_mmcfg_init(void);
- 
-diff --git a/xen/include/xen/acpi.h b/xen/include/xen/acpi.h
-index 1b9c75e68f..352f27f6a7 100644
---- a/xen/include/xen/acpi.h
-+++ b/xen/include/xen/acpi.h
-@@ -206,8 +206,15 @@ static inline int acpi_get_pxm(acpi_handle handle)
- 
- void acpi_reboot(void);
- 
-+#ifdef CONFIG_INTEL_IOMMU
-+int acpi_dmar_init(void);
- void acpi_dmar_zap(void);
- void acpi_dmar_reinstate(void);
-+#else
-+static inline int acpi_dmar_init(void) { return -ENODEV; }
-+static inline void acpi_dmar_zap(void) {}
-+static inline void acpi_dmar_reinstate(void) {}
-+#endif
- 
- #endif /* __ASSEMBLY__ */
- 
+ #ifndef iommu_intpost
+ /*
+  * In the current implementation of VT-d posted interrupts, in some extreme
 -- 
 2.37.2
 
