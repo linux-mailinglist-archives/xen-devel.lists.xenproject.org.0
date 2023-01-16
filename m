@@ -2,43 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9AD566C253
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:38:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478646.741968 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81C9966C261
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:39:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478687.742052 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQcY-0002vw-TT; Mon, 16 Jan 2023 14:37:58 +0000
+	id 1pHQeG-0007HP-1p; Mon, 16 Jan 2023 14:39:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478646.741968; Mon, 16 Jan 2023 14:37:58 +0000
+Received: by outflank-mailman (output) from mailman id 478687.742052; Mon, 16 Jan 2023 14:39:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQcY-0002uA-QB; Mon, 16 Jan 2023 14:37:58 +0000
-Received: by outflank-mailman (input) for mailman id 478646;
- Mon, 16 Jan 2023 14:37:57 +0000
+	id 1pHQeF-0007EP-V9; Mon, 16 Jan 2023 14:39:43 +0000
+Received: by outflank-mailman (input) for mailman id 478687;
+ Mon, 16 Jan 2023 14:39:42 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=jLMM=5N=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1pHQcW-0002Pl-HV
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:37:57 +0000
-Received: from desiato.infradead.org (desiato.infradead.org
- [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
+ <SRS0=fQBk=5N=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pHQeE-0006p7-7J
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:39:42 +0000
+Received: from mail-wr1-x430.google.com (mail-wr1-x430.google.com
+ [2a00:1450:4864:20::430])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5ccb2147-95ab-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 15:37:55 +0100 (CET)
-Received: from j130084.upc-j.chello.nl ([24.132.130.84]
- helo=noisy.programming.kicks-ass.net)
- by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1pHQc8-005csz-1j; Mon, 16 Jan 2023 14:37:33 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 56FD1300C9D;
- Mon, 16 Jan 2023 15:37:39 +0100 (CET)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id C252D20EF0A28; Mon, 16 Jan 2023 15:37:38 +0100 (CET)
+ id 9c3b18c8-95ab-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 15:39:41 +0100 (CET)
+Received: by mail-wr1-x430.google.com with SMTP id b5so6514212wrn.0
+ for <xen-devel@lists.xenproject.org>; Mon, 16 Jan 2023 06:39:41 -0800 (PST)
+Received: from localhost.localdomain
+ (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
+ by smtp.gmail.com with ESMTPSA id
+ m13-20020adfe94d000000b002714b3d2348sm26543406wrn.25.2023.01.16.06.39.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 16 Jan 2023 06:39:40 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,95 +45,116 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5ccb2147-95ab-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
-	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
-	Content-ID:Content-Description:In-Reply-To;
-	bh=w9+PAdJk73UH2Fl3uPAAs4wgk5kyO76VlH+ufUk/PX4=; b=OB3RdkQh/z8SFHj5199h+5XxCG
-	thtkjKdk+ckbxf7Iellx2ZelkT1vO3AvWAgAjOiq8fzpCJwR6AC2SkmBx8R0Lr5PfqM/r3BVOSesf
-	iNTTF8J0Dh6dYSuq81Aos7ogKJWM8VOUSyQK3UNQsqCLKlLOI0+qQzX7Hru0M/PxVUOf8M3fiPwcL
-	XUNEPBzCO1X90Eazd5t/tUXX6nnvwXa2NznHU7elGvs2Vf9jjgratRjuPAlLu2YOjbhnfusCUjccb
-	9glOoHYAYwuO41FGkPxDyw2EqP509qne4J5wYOpjcjdfHCeOJ6BFrHWxncvKtAlQKHBLhyYXy8uSD
-	vFlY2FHg==;
-Message-ID: <20230116143645.948125465@infradead.org>
-User-Agent: quilt/0.66
-Date: Mon, 16 Jan 2023 15:25:40 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: x86@kernel.org,
- Joan Bruguera <joanbrugueram@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
- peterz@infradead.org,
- Juergen Gross <jgross@suse.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- Jan Beulich <jbeulich@suse.com>,
- Roger Pau Monne <roger.pau@citrix.com>,
- Kees Cook <keescook@chromium.org>,
- mark.rutland@arm.com,
- Andrew Cooper <Andrew.Cooper3@citrix.com>,
- =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>,
- "H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v2 7/7] PM / hibernate: Add minimal noinstr annotations
-References: <20230116142533.905102512@infradead.org>
+X-Inumbo-ID: 9c3b18c8-95ab-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=aBZQnz4OW8tkz12qH7i/lg43hEmXqjuUvrMmu6ORg7s=;
+        b=E03jcfzb97n8CNYtCugxiyQBH8BoE+MGGHugTO4YW9E5stDPbiv5+WQHcbclBpFhpX
+         3lqvMtSAooiLKmoZi2bYseizcbk0bpuXvUYkdj1j0Jbqtm/gcaeFbJH7aAFIGKHAlLy0
+         9O1NOYK/JcAopliuS298RT8Cgf4SUxzV0+QdaejlbxKlmS2jAh0iDIPkuVlxqja2V2pS
+         zphEGhy0jXA/5PkX6QbhfCIFYvqBVFdC3Bvv+imMFswtKOdos8hsgpzVUrBZ33x1G5E7
+         kBQKoMQ5WbslBG6bDAGbZDRcEZ5MADIdotW+VZEBx0KVmejNWfOAY6GIdNzkXzdK6XNP
+         E6mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=aBZQnz4OW8tkz12qH7i/lg43hEmXqjuUvrMmu6ORg7s=;
+        b=wTyn8gDodKYgM4l+R25X5ycskgjM9T6fx2C86RFrldK/jOC3tf194Xx3YcM7XfJR2o
+         GPQP/4VZPnlmWpqpM4ck/e3ySYkFLOJwpZb/XyCdoeLa0ic3I9YebakxfVj83aLzBpIO
+         1KkANwFWki812STatVGG7z6sUb2U6+/d7mHuXAJnFqMYgjRtXssKh08IwPaR2vXg2/xQ
+         +WJo789YPINC63QkbcCII1w0ELEyVFVH9lBaLYRDQiqU+rkLWHEVNFNe9AjaGzxJYyqQ
+         ThL5h5x5x0pd+RdVfaq4nUb3QQPEdLpPl0/TlsiKCP+XmmZJxt8BdUy4sTc/NqKHEhru
+         tFeg==
+X-Gm-Message-State: AFqh2krORt7Ik+px36826QAYsveGyyBTs/O7hAZTZ7XszuFULTNQt/cw
+	sRXRIBZKFuVZaYsyVyCTJvAzk/8DBjGmCQ==
+X-Google-Smtp-Source: AMrXdXsoS07ykbSfghKT2t9ZmXHf738/KZleqti/mvoBBFR32Y5TwSK07k40Yqep2ZxrZRnOpJKm5w==
+X-Received: by 2002:a5d:480f:0:b0:2bd:bc57:3c5b with SMTP id l15-20020a5d480f000000b002bdbc573c5bmr15387306wrq.33.1673879980409;
+        Mon, 16 Jan 2023 06:39:40 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v4 0/4] The patch series introduces the following:
+Date: Mon, 16 Jan 2023 16:39:28 +0200
+Message-Id: <cover.1673877778.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-When resuming there must not be any code between swsusp_arch_suspend()
-and restore_processor_state() since the CPU state is ill defined at
-this point in time.
-
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- kernel/power/hibernate.c |   30 +++++++++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 3 deletions(-)
+Changes in V4:
+    - Patches "xen/riscv: introduce dummy asm/init.h" and "xen/riscv: introduce
+      stack stuff" were removed from the patch series as they were merged separately
+      into staging.
+    - Remove "depends on RISCV*" from Kconfig.debug as Kconfig.debug is located
+      in arch specific folder.
+    - fix code style.
+    - Add "ifdef __riscv_cmodel_medany" to early_printk.c.  
+---
+Changes in V3:
+    - Most of "[PATCH v2 7/8] xen/riscv: print hello message from C env"
+      was merged with [PATCH v2 3/6] xen/riscv: introduce stack stuff.
+    - "[PATCH v2 7/8] xen/riscv: print hello message from C env" was
+      merged with "[PATCH v2 6/8] xen/riscv: introduce early_printk basic
+      stuff".
+    - "[PATCH v2 5/8] xen/include: include <asm/types.h> in
+      <xen/early_printk.h>" was removed as it has been already merged to
+      mainline staging.
+    - code style fixes.
+---
+Changes in V2:
+    - update commit patches commit messages according to the mailing
+      list comments
+    - Remove unneeded types in <asm/types.h>
+    - Introduce definition of STACK_SIZE
+    - order the files alphabetically in Makefile
+    - Add license to early_printk.c
+    - Add RISCV_32 dependecy to config EARLY_PRINTK in Kconfig.debug
+    - Move dockerfile changes to separate config and sent them as
+      separate patch to mailing list.
+    - Update test.yaml to wire up smoke test
+---
 
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -280,6 +280,32 @@ __weak int arch_resume_nosmt(void)
- 	return 0;
- }
- 
-+static noinstr int suspend_and_restore(void)
-+{
-+	int error;
-+
-+	/*
-+	 * Strictly speaking swsusp_arch_suspend() should be noinstr too but it
-+	 * is typically written in asm, as such, assume it is good and shut up
-+	 * the validator.
-+	 */
-+	instrumentation_begin();
-+	error = swsusp_arch_suspend();
-+	instrumentation_end();
-+
-+	/*
-+	 * Architecture resume code 'returns' from the swsusp_arch_suspend()
-+	 * call and resumes execution here with some very dodgy machine state.
-+	 *
-+	 * Compiler instrumentation between these two calls (or in
-+	 * restore_processor_state() for that matter) will make life *very*
-+	 * interesting indeed.
-+	 */
-+	restore_processor_state();
-+
-+	return error;
-+}
-+
- /**
-  * create_image - Create a hibernation image.
-  * @platform_mode: Whether or not to use the platform driver.
-@@ -323,9 +349,7 @@ static int create_image(int platform_mod
- 	in_suspend = 1;
- 	save_processor_state();
- 	trace_suspend_resume(TPS("machine_suspend"), PM_EVENT_HIBERNATE, true);
--	error = swsusp_arch_suspend();
--	/* Restore control flow magically appears here */
--	restore_processor_state();
-+	error = suspend_and_restore();
- 	trace_suspend_resume(TPS("machine_suspend"), PM_EVENT_HIBERNATE, false);
- 	if (error)
- 		pr_err("Error %d creating image\n", error);
 
+Bobby Eshleman (1):
+  xen/riscv: introduce sbi call to putchar to console
+
+Oleksii Kurochko (3):
+  xen/riscv: introduce asm/types.h header file
+  xen/riscv: introduce early_printk basic stuff
+  automation: add RISC-V smoke test
+
+ automation/gitlab-ci/test.yaml            | 20 ++++++++++
+ automation/scripts/qemu-smoke-riscv64.sh  | 20 ++++++++++
+ xen/arch/riscv/Kconfig.debug              |  6 +++
+ xen/arch/riscv/Makefile                   |  2 +
+ xen/arch/riscv/early_printk.c             | 45 +++++++++++++++++++++++
+ xen/arch/riscv/include/asm/early_printk.h | 12 ++++++
+ xen/arch/riscv/include/asm/sbi.h          | 34 +++++++++++++++++
+ xen/arch/riscv/include/asm/types.h        | 43 ++++++++++++++++++++++
+ xen/arch/riscv/sbi.c                      | 45 +++++++++++++++++++++++
+ xen/arch/riscv/setup.c                    |  6 ++-
+ 10 files changed, 232 insertions(+), 1 deletion(-)
+ create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
+ create mode 100644 xen/arch/riscv/early_printk.c
+ create mode 100644 xen/arch/riscv/include/asm/early_printk.h
+ create mode 100644 xen/arch/riscv/include/asm/sbi.h
+ create mode 100644 xen/arch/riscv/include/asm/types.h
+ create mode 100644 xen/arch/riscv/sbi.c
+
+-- 
+2.39.0
 
 
