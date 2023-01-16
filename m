@@ -2,43 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 739F766C251
-	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:38:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.478645.741953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9AD566C253
+	for <lists+xen-devel@lfdr.de>; Mon, 16 Jan 2023 15:38:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.478646.741968 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQcX-0002XL-KX; Mon, 16 Jan 2023 14:37:57 +0000
+	id 1pHQcY-0002vw-TT; Mon, 16 Jan 2023 14:37:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 478645.741953; Mon, 16 Jan 2023 14:37:57 +0000
+Received: by outflank-mailman (output) from mailman id 478646.741968; Mon, 16 Jan 2023 14:37:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHQcX-0002Rt-Fv; Mon, 16 Jan 2023 14:37:57 +0000
-Received: by outflank-mailman (input) for mailman id 478645;
- Mon, 16 Jan 2023 14:37:55 +0000
+	id 1pHQcY-0002uA-QB; Mon, 16 Jan 2023 14:37:58 +0000
+Received: by outflank-mailman (input) for mailman id 478646;
+ Mon, 16 Jan 2023 14:37:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=jLMM=5N=infradead.org=peterz@srs-se1.protection.inumbo.net>)
- id 1pHQcV-0002Pl-2i
- for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:37:55 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ id 1pHQcW-0002Pl-HV
+ for xen-devel@lists.xenproject.org; Mon, 16 Jan 2023 14:37:57 +0000
+Received: from desiato.infradead.org (desiato.infradead.org
+ [2001:8b0:10b:1:d65d:64ff:fe57:4e05])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5bd6f224-95ab-11ed-91b6-6bf2151ebd3b;
- Mon, 16 Jan 2023 15:37:53 +0100 (CET)
+ id 5ccb2147-95ab-11ed-91b6-6bf2151ebd3b;
+ Mon, 16 Jan 2023 15:37:55 +0100 (CET)
 Received: from j130084.upc-j.chello.nl ([24.132.130.84]
  helo=noisy.programming.kicks-ass.net)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pHQcU-008oZG-So; Mon, 16 Jan 2023 14:37:55 +0000
+ by desiato.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1pHQc8-005csz-1j; Mon, 16 Jan 2023 14:37:33 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 56119300C50;
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 56FD1300C9D;
  Mon, 16 Jan 2023 15:37:39 +0100 (CET)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 0)
- id BEB6220D304B0; Mon, 16 Jan 2023 15:37:38 +0100 (CET)
+ id C252D20EF0A28; Mon, 16 Jan 2023 15:37:38 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -50,20 +50,20 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5bd6f224-95ab-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 5ccb2147-95ab-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=Content-Type:MIME-Version:References:
+	d=infradead.org; s=desiato.20200630; h=Content-Type:MIME-Version:References:
 	Subject:Cc:To:From:Date:Message-ID:Sender:Reply-To:Content-Transfer-Encoding:
 	Content-ID:Content-Description:In-Reply-To;
-	bh=eW1eJS20PBPNIc/x7hkOEbhV5Z70C96GEP7VlPQr3GE=; b=bkEUaHzN3DU2Ozeq31w4gh/n2o
-	R6F441bq+sbQaHOybPyF32cPvwYN0zd7oUr9R4K9RCdt8hDgWzWxaj2YBgmp4DkR9+D8F5Gs4dYOt
-	9lUNiL9h6dmbWadpBSYOt2SznC7hv64myxTtyscypeuWaItFMH/MD2H9N+RHOQ0ha2uXGYbfnTpp+
-	NghLUZyPGSsWGWKu+nqt7jQ7P4s9CMg2/V9GnkXxMdKljoX9C9dsDu4q8LkBDu52HDGHBkiTsolMw
-	vvwHa2GRba1mlCVFQpftSw0QHpUi6oRrEyKnr2j/V09JyB9VCvK9zjxBViUdKEbhTQhWC7ktrQ+hh
-	hJ6cgCPA==;
-Message-ID: <20230116143645.888786209@infradead.org>
+	bh=w9+PAdJk73UH2Fl3uPAAs4wgk5kyO76VlH+ufUk/PX4=; b=OB3RdkQh/z8SFHj5199h+5XxCG
+	thtkjKdk+ckbxf7Iellx2ZelkT1vO3AvWAgAjOiq8fzpCJwR6AC2SkmBx8R0Lr5PfqM/r3BVOSesf
+	iNTTF8J0Dh6dYSuq81Aos7ogKJWM8VOUSyQK3UNQsqCLKlLOI0+qQzX7Hru0M/PxVUOf8M3fiPwcL
+	XUNEPBzCO1X90Eazd5t/tUXX6nnvwXa2NznHU7elGvs2Vf9jjgratRjuPAlLu2YOjbhnfusCUjccb
+	9glOoHYAYwuO41FGkPxDyw2EqP509qne4J5wYOpjcjdfHCeOJ6BFrHWxncvKtAlQKHBLhyYXy8uSD
+	vFlY2FHg==;
+Message-ID: <20230116143645.948125465@infradead.org>
 User-Agent: quilt/0.66
-Date: Mon, 16 Jan 2023 15:25:39 +0100
+Date: Mon, 16 Jan 2023 15:25:40 +0100
 From: Peter Zijlstra <peterz@infradead.org>
 To: x86@kernel.org,
  Joan Bruguera <joanbrugueram@gmail.com>
@@ -79,58 +79,66 @@ Cc: linux-kernel@vger.kernel.org,
  Andrew Cooper <Andrew.Cooper3@citrix.com>,
  =?UTF-8?q?J=C3=B6rg=20R=C3=B6del?= <joro@8bytes.org>,
  "H. Peter Anvin" <hpa@zytor.com>
-Subject: [PATCH v2 6/7] x86/power: Sprinkle some noinstr
+Subject: [PATCH v2 7/7] PM / hibernate: Add minimal noinstr annotations
 References: <20230116142533.905102512@infradead.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 
-Ensure no compiler instrumentation sneaks in while restoring the CPU
-state. Specifically we can't handle CALL/RET until GS is restored.
+When resuming there must not be any code between swsusp_arch_suspend()
+and restore_processor_state() since the CPU state is ill defined at
+this point in time.
 
 Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
 ---
- arch/x86/power/cpu.c |   13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ kernel/power/hibernate.c |   30 +++++++++++++++++++++++++++---
+ 1 file changed, 27 insertions(+), 3 deletions(-)
 
---- a/arch/x86/power/cpu.c
-+++ b/arch/x86/power/cpu.c
-@@ -192,7 +192,7 @@ static void fix_processor_context(void)
-  * The asm code that gets us here will have restored a usable GDT, although
-  * it will be pointing to the wrong alias.
-  */
--static void notrace __restore_processor_state(struct saved_context *ctxt)
-+static __always_inline void __restore_processor_state(struct saved_context *ctxt)
- {
- 	struct cpuinfo_x86 *c;
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -280,6 +280,32 @@ __weak int arch_resume_nosmt(void)
+ 	return 0;
+ }
  
-@@ -235,6 +235,13 @@ static void notrace __restore_processor_
- 	loadsegment(fs, __KERNEL_PERCPU);
- #endif
- 
++static noinstr int suspend_and_restore(void)
++{
++	int error;
++
 +	/*
-+	 * Definitely wrong, but at this point we should have at least enough
-+	 * to do CALL/RET (consider SKL callthunks) and this avoids having
-+	 * to deal with the noinstr explosion for now :/
++	 * Strictly speaking swsusp_arch_suspend() should be noinstr too but it
++	 * is typically written in asm, as such, assume it is good and shut up
++	 * the validator.
 +	 */
 +	instrumentation_begin();
-+
- 	/* Restore the TSS, RO GDT, LDT, and usermode-relevant MSRs. */
- 	fix_processor_context();
- 
-@@ -276,10 +283,12 @@ static void notrace __restore_processor_
- 	 * because some of the MSRs are "emulated" in microcode.
- 	 */
- 	msr_restore_context(ctxt);
-+
++	error = swsusp_arch_suspend();
 +	instrumentation_end();
- }
- 
- /* Needed by apm.c */
--void notrace restore_processor_state(void)
-+void noinstr restore_processor_state(void)
- {
- 	__restore_processor_state(&saved_context);
- }
++
++	/*
++	 * Architecture resume code 'returns' from the swsusp_arch_suspend()
++	 * call and resumes execution here with some very dodgy machine state.
++	 *
++	 * Compiler instrumentation between these two calls (or in
++	 * restore_processor_state() for that matter) will make life *very*
++	 * interesting indeed.
++	 */
++	restore_processor_state();
++
++	return error;
++}
++
+ /**
+  * create_image - Create a hibernation image.
+  * @platform_mode: Whether or not to use the platform driver.
+@@ -323,9 +349,7 @@ static int create_image(int platform_mod
+ 	in_suspend = 1;
+ 	save_processor_state();
+ 	trace_suspend_resume(TPS("machine_suspend"), PM_EVENT_HIBERNATE, true);
+-	error = swsusp_arch_suspend();
+-	/* Restore control flow magically appears here */
+-	restore_processor_state();
++	error = suspend_and_restore();
+ 	trace_suspend_resume(TPS("machine_suspend"), PM_EVENT_HIBERNATE, false);
+ 	if (error)
+ 		pr_err("Error %d creating image\n", error);
 
 
 
