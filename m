@@ -2,39 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EC5566DA18
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:37:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479267.743009 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD27866DA4D
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:49:42 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479275.743020 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiP9-0005Nu-58; Tue, 17 Jan 2023 09:37:19 +0000
+	id 1pHiak-0006yT-6E; Tue, 17 Jan 2023 09:49:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479267.743009; Tue, 17 Jan 2023 09:37:19 +0000
+Received: by outflank-mailman (output) from mailman id 479275.743020; Tue, 17 Jan 2023 09:49:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiP9-0005Lv-23; Tue, 17 Jan 2023 09:37:19 +0000
-Received: by outflank-mailman (input) for mailman id 479267;
- Tue, 17 Jan 2023 09:37:17 +0000
+	id 1pHiak-0006wL-3P; Tue, 17 Jan 2023 09:49:18 +0000
+Received: by outflank-mailman (input) for mailman id 479275;
+ Tue, 17 Jan 2023 09:49:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IWGa=5O=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pHiP6-0005Lh-WF
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:37:17 +0000
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-he1eur04on2080.outbound.protection.outlook.com [40.107.7.80])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pwid=5O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pHiai-0006wF-3y
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:49:16 +0000
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 86035ae4-964a-11ed-b8d0-410ff93cb8f0;
- Tue, 17 Jan 2023 10:37:14 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by PAXPR04MB8784.eurprd04.prod.outlook.com (2603:10a6:102:20f::23)
+ id 3225820d-964c-11ed-b8d0-410ff93cb8f0;
+ Tue, 17 Jan 2023 10:49:12 +0100 (CET)
+Received: from MW4PR03CA0053.namprd03.prod.outlook.com (2603:10b6:303:8e::28)
+ by MN2PR12MB4472.namprd12.prod.outlook.com (2603:10b6:208:267::11)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Tue, 17 Jan
- 2023 09:37:11 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.012; Tue, 17 Jan 2023
- 09:37:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Tue, 17 Jan
+ 2023 09:49:10 +0000
+Received: from CO1PEPF00001A5E.namprd05.prod.outlook.com
+ (2603:10b6:303:8e:cafe::5f) by MW4PR03CA0053.outlook.office365.com
+ (2603:10b6:303:8e::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
+ Transport; Tue, 17 Jan 2023 09:49:09 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1PEPF00001A5E.mail.protection.outlook.com (10.167.241.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.11 via Frontend Transport; Tue, 17 Jan 2023 09:49:07 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 17 Jan
+ 2023 03:49:05 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 17 Jan
+ 2023 03:49:05 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 17 Jan 2023 03:49:03 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,116 +62,187 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 86035ae4-964a-11ed-b8d0-410ff93cb8f0
+X-Inumbo-ID: 3225820d-964c-11ed-b8d0-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lPZvsfywG7ijVC3GyUyzmURO0/+8j/o52pAZ5gl9eLrZnHq9DsqAg7sojgAFBWfovqn+YunvobwRRayfE2iYctN0eWx5wsnU/HF2dhGAe0T/Z5Wt5NEvsqc39Whe5t5wvUrbee+B1SuDXqprLSSyJ2mTRUn6xjp9eGOqXoXNnAh/npVuyhOTj6veyKl4Tr0KcbTZ6GXmvWSdAa+MPY19NMBBM9R9Cqf8hlsVUFdMELhk40agd8UOt7ODfI7Mj8Qv4n5dxX4QvRidaxKUD6ZVBOcnLXFp3vxdPxLoXxzMchKqO1HJK4U8aGKMdhPOz4RNnR7J6JDzNmU6ABjc4elChg==
+ b=I/IQDOWCFra+DCfOd/djXhk3sPu1QQjo9omv6Wi3O02mOxGNfEnwv0fo927gY9Bjz9x/pUClvP2aLl4n5FGUceNqgrcmsFqL12e2MN/J/TIhgKXunK7+lfmSCQnMR0d4j0yFP/ryZnm0Q02lxqYYcVRB6xRlY/mZwbEUUuMijqk4/HCNwTDP8dKVgQO/R05ut9QDM5FtZmuuViqM30Ez8E6GWvz7/Q56Lp0k6o5gp0QFYvwmgbnzBFfVnYfSNjio4FA3oE54pmwrTjlL6Pq7tIojfwTlQikB/DvKNk8ocHT9iSYxw+qOuDvifCnkX4RAoJGlpV1OSqrWSgSI5VKCYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kJ7ikuLLte0KHA5P+3v6Zz3NVJyL0NCw88NVD57UyQI=;
- b=bm5IZMZlNWN1lS3SBJZOgfho2KHsQ1886uhkoPdFzzOMz+Q3ovXTN7wH0kl6aYGX9h8rY3uPc8+ZSJsJIwobXdjF+EEEQ335FekkbJD8vNpqIyDzvATmlHfRDP47VW1oz29rcMaa7lJiO17ESgqu9FJ6/VIi3TqpUduYdxEBysGeGldNlE9SIUfx9GXJftX9hFkAcIJPWMUoo/y4gGvFhLcU0B6j3jImrdaFpG7xhG04anV6iLW6BofZOWDeFd4WdXBQuRKRbpEsuv5ASfaSmOiaylMWHGIXO6eW8yMf2g3XUgcgKfzScIrD2QAlF9ixM3HJA/mDXXFXU/ftKp7fKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ bh=7cuAwr511feybCwgNoTeux5EWB6I1zFbkf7avC719RE=;
+ b=oBuJYu9mjs6GbHjpvNyLxZS3RXEqL+pnUWw8tQJ4l1WFLTyeTSDcv+ff6CuCkXVXL/15dWwMJ9GTGgQ0oY+E7xEv/xMbw8wUduVHdb8ail4xcNzDPowC5/7ufpbHCW/abTCEwQbhU/9wsFtOewZejSMc5Tklr69i1a3fGcgPVR2Ant/BtvJvAXisp/c8c2Pv6FS9lZcqvfC+sYk9B8Qngvnrz/2pw4V+baUcPktSyGPsYvpvkfoiUp/pEl5/UiepbUZLkYNX6npZMuRVfzZ6dEZKvki5Y0pA8UBGOqh5Je0mzuhJ21MfoWVMR4hKV42lFa08uccH9Uq5R3XW3ogVpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kJ7ikuLLte0KHA5P+3v6Zz3NVJyL0NCw88NVD57UyQI=;
- b=MRFk/+pXqO4gak0Hqfj+ggQEPjemOWROwm24uc9Gq7mBM7ETmTrp25NGtiqh9q6G2KS1UVj5tKwBa9O4VmhN1lHqhTlEmgMiTnvxx0X0b39GdnrgxLqNmTlljWINw+a0w4SD6rdlyiBN/ZjlZEvYOjaMZZC6BDL3Cnaj3p9sco/zPonM4X3A9gtjHKlAI1/h/YBDd6Iy5TdMCll7+dDM0au5M9ztQsoHIYUuvJumvyD1G2SnxyYlIeo52XgfF/FYbambnQ09VISE4Mn6p7xehO6afrR+7VI5vrzPb+BRSGkisnD7U5vKKoXbdeBiIwfWYKRY+bivsLNStCfCbghKLA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <aceeec22-2183-2a60-7a68-58f43d8da493@suse.com>
-Date: Tue, 17 Jan 2023 10:37:10 +0100
+ bh=7cuAwr511feybCwgNoTeux5EWB6I1zFbkf7avC719RE=;
+ b=AAU4oMF0QNlMtC6Zvv+ccQfqzVToeZN3KMVXVdtBgDYa+n+YWXOKf6Qvgx4OdcHQCW4eLeDWyM8tHNHCDD5lnyJYWAP+58R1YTVAGIyJSywRia405oWYr7frrY8WYhZINiQAjPVywQ4USODozmKCUYfUOQNBp5zVmBP8zOU419M=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <001fe638-1bd8-5624-499e-8f1690cb33c0@amd.com>
+Date: Tue, 17 Jan 2023 10:49:03 +0100
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v3 00/17] tools/xenstore: do some cleanup and fixes
+Subject: Re: [PATCH] xen/arm: Harden setup_frametable_mappings
 Content-Language: en-US
-To: Juergen Gross <jgross@suse.com>
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20230117091124.22170-1-jgross@suse.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230117091124.22170-1-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230116144106.12544-1-michal.orzel@amd.com>
+ <2a679d99-4ed4-4fe8-8aee-faee57b5007b@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <2a679d99-4ed4-4fe8-8aee-faee57b5007b@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0176.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::11) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
-MIME-Version: 1.0
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8784:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c98d52a-7490-4c3e-5171-08daf86e68ac
-X-LD-Processed: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba,ExtFwd
+X-MS-TrafficTypeDiagnostic: CO1PEPF00001A5E:EE_|MN2PR12MB4472:EE_
+X-MS-Office365-Filtering-Correlation-Id: 391db344-c032-4fa8-3b75-08daf87013e4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	WV2nWi4284np0KTBJsQ2H9C9Et7fv+HiUBHGFFgTVIi2OCxEBcBxsvcZiZoOopmjSgSvzswRrr8Mm/0Vfu3VC6njB7sN7/6zcR4V2FlEV/C0fziJix8WWaigZcjOvEDExDYDIGoSKlKZRZTT0iQTAuuweoGs3HX0XIHnFp8BwCEW6XxDfuD/+ZFUH6j2oFtjVmCfzIHNtFD2kLbr4O5dTGX7Vjq9Q0q0ltuh3d6VGGq3Qg846Jpvggsg1e4fsBtbLSmR/HeZtFCp0nv61xfpPp5nudDJS01O8tRciQhd0Z+WVeR9DBC4nkHpSxt2nA6m6/Nr/s/KN6VUJdF/nEkoPeKQ46HZpUppXGObL17GwMML9kjJfRvHBDCWjk+28LzffUKoAf9eGjUPqcJftS45Ifyxa4+EpWvPsKp59B80Xqowd0/5eKQtiTr5alPZgafxL53jiKMg91iMUYRSw1qIUxTrM4qbxrlN7eTfouMWBDJUXVXipJJIZrRlc965Zji9ne+SVwBDdIajMekxLWpF+cvX38Cmc0MBGOyrmZLLWHCK2wcTH/+gxNKv3ZzE9/go6fjnn+HwM+YWopW/Pe5fNoJAd5sY+HFDxJ/TGKRvU9zlJuo2Y9hcBTamzzw6CE/O2q6wmTlLL4D2ExcvZ7gpct5cLO6EjiPkb3szlJpuPz09VNb29uvQsxij6fvXi+TZpyd1WPh5+ZpYRXP12+aTqhsTrSjWNw6SFBi+dZqrS2M=
+	bqjBeXUJY5wZDMoONguHWVsYSh5B4n4mak/hoYOrVLb4IvctbaRpqEJcBjlPjdn/uIaSr6on/95ZEJ+Ko+at27xRArF1MzSTMdLvbLeOVNOquILB1QtyGKrp9ViURKSqG8/fEmZRS7QZ1ZqpgIMKhnfQEmXCA4wIC7StyrEOknxsfBq/PJ1ofBhFKD0mN2VCMaQ++kRmFZbI0o5CVRvvAQ3lrFvD+mOrkj0N2S/GcTkuErhHmW/T2GTH8RZNPyWzdYGPcrGG2S3LYyN7bxMrm55J2hijbYB88OJY6Eg7iwMB3lyvUw9Ft77V3XTU/3IVT1t4QlOTNwqYgM+3CxGJvLUpsV/v1EvdzqfKhJTO1/l+O1QKKIPkBbmqICHXZ4g9/pe2g/95437dBYadiebkjEjltdTE8gdN2rJubi74GudH/l3h70VFFTjn0FXDiMs0wOaOs8kQ4xS7OIxEvhI/PCqEnq8S9PDcC1JXBp8tvBUL284BM+tTB8vEC9B3i4q7JjBifwLEfVaFA9uiKVrEC7TabHonGEoXI16HTz9Dn0DUIpHfv0TCpTWWx9aeRq+lu+M74CaFU886dfYFO1TzwOa6BEbNURANcd6hucuGQ4qtFjqu24/BIGoDyeTJxpUInPw8TGUPmwy+E2Gb8+6YID+AzPVlrIBtEecxqLQdBlZ1yvMvHG/LKwGzTtOVjzCq9PtIvqLhO5tRKjgmrwB7ANyTRvHeFzKnoA6mgHLzsVHjtNCjvMFMpSON0Jrplq+6MQOw2vJpcs3Z5d4d+410LQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(39860400002)(376002)(346002)(136003)(396003)(366004)(451199015)(31686004)(2616005)(66946007)(41300700001)(66476007)(66556008)(26005)(53546011)(186003)(6512007)(8676002)(4326008)(31696002)(86362001)(36756003)(5660300002)(38100700002)(8936002)(6862004)(54906003)(6636002)(478600001)(37006003)(83380400001)(6506007)(316002)(4744005)(6486002)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dDRKOEViaEYrSjExOFZmUjEvWmtBemt3M3k4c2JqT2R1ZFMyZnlRQldVclR2?=
- =?utf-8?B?Q0R1WEtSajd6SVp6UU1nL3dKUFZOYmFEa3Q2eW4zdFJNL05CUWxBQTlHb2xE?=
- =?utf-8?B?MWw5RzNNZ0NTWGhReWNUWkJsNTkrRGRpdGRZRTdURy80LzdWeHk5Z0ZzQWw5?=
- =?utf-8?B?MTQwY0dUV1I3U1R2QksvMU1tQ0hNM0NFMWdsR1pMYlRQUDljVjhyMEdMTGlN?=
- =?utf-8?B?MnFnbHc5NEh4QXNFcTQwZHZKSFhnOTFiSmtmdCs0THV5Z0FRWUkrU0ZudU5E?=
- =?utf-8?B?T2VHbng2d1huMVVndkhnSktnZlJML2JWYlFqS0FQVUsvbGF3WTNCTUk2L2lK?=
- =?utf-8?B?ODdObW10NGNVamRJdy9HQVNTSmhqemdCd2ZXeHpQNXlldFc4bWsxQytFUlVn?=
- =?utf-8?B?VVpYTFN3QXEyUnNiQU1aTXJYR21STkJwQlVrbU5UOUFGK29ZSFkrUEgzbCtv?=
- =?utf-8?B?ZXNyR25kRWlXOHB5RVFZTUxaR1Vib2lmQzRYb0hLZnUvQ2hDWU1FNmhRbG1l?=
- =?utf-8?B?c3ZzRitXcSs4ZEhHRnoyMG5XNEg5b3ExSkN1TFJKMTNHTmlPQXRhNkpLSWF3?=
- =?utf-8?B?dFo4OUNST2VxSVhGa2lsUTBkUDBQRlJwWkU4U3RaU2dWV0MzR084aDFpZSt1?=
- =?utf-8?B?ZXdGWW16amlhNnBTditHdzZIei9QblVyRlYzeGVFV1dxMkEycFVmVlRXQnJt?=
- =?utf-8?B?WEdNRTlXYVhadXBtcWQ5WWsyS3ViczZ2bk02ZzZqVnpwdDZHZXJaOURyazVL?=
- =?utf-8?B?QXdlcnB6ZWN2c3Z3M3ZLcWxuOFZ3NFN3cTlPcmhiTlowUVlSbnBhTGVSUVRr?=
- =?utf-8?B?UWNZa3EyWkIrRnFERkN1bjhReUpSWmp5aHpaV2ROZGh1ODhSa0IwbUNIVVZF?=
- =?utf-8?B?MXJmK0pXMi9yTEljUUF6Y3k3WlV3VFNwVFRqUi9GcFh2cVpVNkZ0b016djdJ?=
- =?utf-8?B?am54N1lsVHlhM0c1TENKaWdTbXVIY2pqcDVPKzdRSWl0b2FZWmtMU0RvZExK?=
- =?utf-8?B?SS9GZk11SGxWR3FuME53SUM5MU10Nms2ZGhoamxwWXBoT0VkSVg1SmZmbXVZ?=
- =?utf-8?B?R09RSE1NanlqN1BFbkpFeTF5RjYvQ01zU3JTOUtTc2ZDb3UrcGVZc0NPTWNi?=
- =?utf-8?B?dmtGRWZZalVBalJYVnhLb3JhMEs4L3lXbm9ybEs5dmVKdUZ0aUVJUU5Dbi9F?=
- =?utf-8?B?bTBoTnBHZi9CdGFiYXBQbVdnc0xBSSt1NWw3VWhDMDE3U3BsSWVxWXdMWkhC?=
- =?utf-8?B?UnFnVDFsZ0tlNGRrRlJ0Y2FWV2NNQ0ZXMlhkSlZkNVJkVENmOWtIdWtJUGVs?=
- =?utf-8?B?Z2FYYTlya3NJMzA0aFZBUHY3NUtNSkF0VWswN3Z1bCt2TUM3VmhJeG9IZ2Nw?=
- =?utf-8?B?R0l4Znp0K3dvR0hzQTNEQkpZVWplc2lCT1V6eUNjbkdibnlNOUtEQ1U0M0ti?=
- =?utf-8?B?cGE0eElFaWcyMDBBd2FuMXlkVnFJWVVoeXRzME1VTWhuM004Vy9pdlh4ZDRE?=
- =?utf-8?B?cXNERkh4Q0FzMnQ1NTVwWGttOURUSlIxUlpIcFh3QXd3cU1DQnluTUgzaDli?=
- =?utf-8?B?MjVnVnhzNWlmWnhKQXBwSGtBaTREMGdZa3FsbjJNemxqd1V4RWdVVlg0UzNJ?=
- =?utf-8?B?aTU0K2EvS3BQVnZJWmhwUWNOZ3dNZEtJNDZrTDZyZFFadEtjTDZzUFJyMUFs?=
- =?utf-8?B?R3o4UGxwRmJRWmRrK0c0a09BSTN5dVNmdnpBUWdsTVBpS0tqNzBwRnJsSno2?=
- =?utf-8?B?NVRyV1Q4UmpnUjU0MmdFWThqN1Y3YTVabUxrYnZJc1NMMzRRcllGMjRmajZY?=
- =?utf-8?B?MTQ4azJDSGF5dWN6c2VTYzgvMTRUQVYzVm5mWXhrSENaWW0wdHp1TGlVVG1H?=
- =?utf-8?B?a1FGcVZTT203TENMeUljbzVxNjI1YTI0cXhYRXB0VUxNRnJhUWcxa29SbnQ3?=
- =?utf-8?B?Ny80enh4VWo2MjEvMU5zTmhMdFVoMWtLV3dEUURnZU5MdTUyRjVFZlZ0U0pS?=
- =?utf-8?B?RHVPQnNMcDViMXRHWDF3QTg1bmx4UkxiTVNzOXNudWh5MDBIdml5NC9jWXdm?=
- =?utf-8?B?T1NRSEJ3aFFIeW93bXJtQVp4RUdzeGd6T0ZRUlA1QkVHcTMwT3BjYnBnZmx6?=
- =?utf-8?Q?g8Od2FJaTasTxTeo6XeWQh0pX?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c98d52a-7490-4c3e-5171-08daf86e68ac
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2023 09:37:11.4435
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(376002)(346002)(396003)(136003)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(82740400003)(36860700001)(16576012)(82310400005)(31696002)(86362001)(40480700001)(54906003)(40460700003)(41300700001)(110136005)(4326008)(70206006)(83380400001)(8676002)(70586007)(316002)(2906002)(44832011)(8936002)(186003)(336012)(47076005)(478600001)(426003)(2616005)(26005)(5660300002)(53546011)(31686004)(81166007)(356005)(36756003)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2023 09:49:07.8533
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NeRqVdzEzSv45ClRMe2ZWv84+ZApy+RjXZUX8timFxROh57iiG1NCJMXHgOn5m5xBOc2BA4XQj0Bg9SpmomUJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8784
+X-MS-Exchange-CrossTenant-Network-Message-Id: 391db344-c032-4fa8-3b75-08daf87013e4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00001A5E.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4472
 
-On 17.01.2023 10:11, Juergen Gross wrote:
-> This is a first run of post-XSA patches which piled up during the
-> development phase of all the recent Xenstore related XSA patches.
+Hi Julien,
+
+On 17/01/2023 10:29, Julien Grall wrote:
 > 
-> At least the first 5 patches are completely independent from each
-> other. After those the dependencies are starting to be more complex.
+> 
+> Hi Michal,
+> 
+> On 16/01/2023 14:41, Michal Orzel wrote:
+>> The amount of supported physical memory depends on the frametable size
+>> and the number of struct page_info entries that can fit into it. Define
+>> a macro PAGE_INFO_SIZE to store the current size of the struct page_info
+>> (i.e. 56B for arm64 and 32B for arm32) and add a sanity check in
+>> setup_frametable_mappings to be notified whenever the size of the
+>> structure changes. Also call a panic if the calculated frametable_size
+>> exceeds the limit defined by FRAMETABLE_SIZE macro.
+>>
+>> Update the comments regarding the frametable in asm/config.h and take
+>> the opportunity to remove unused macro FRAMETABLE_VIRT_END on arm32.
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>>   xen/arch/arm/include/asm/config.h |  5 ++---
+>>   xen/arch/arm/include/asm/mm.h     | 11 +++++++++++
+>>   xen/arch/arm/mm.c                 |  5 +++++
+>>   3 files changed, 18 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+>> index 16213c8b677f..d8f99776986f 100644
+>> --- a/xen/arch/arm/include/asm/config.h
+>> +++ b/xen/arch/arm/include/asm/config.h
+>> @@ -82,7 +82,7 @@
+>>    * ARM32 layout:
+>>    *   0  -  12M   <COMMON>
+>>    *
+>> - *  32M - 128M   Frametable: 24 bytes per page for 16GB of RAM
+>> + *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
+>>    * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
+>>    *                    space
+>>    *
+>> @@ -95,7 +95,7 @@
+>>    *
+>>    *   1G -   2G   VMAP: ioremap and early_ioremap
+>>    *
+>> - *  32G -  64G   Frametable: 24 bytes per page for 5.3TB of RAM
+>> + *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
+>>    *
+>>    * 0x0000008000000000 - 0x00007fffffffffff (127.5TB, L0 slots [1..255])
+>>    *  Unused
+>> @@ -127,7 +127,6 @@
+>>   #define FRAMETABLE_VIRT_START  _AT(vaddr_t,0x02000000)
+>>   #define FRAMETABLE_SIZE        MB(128-32)
+>>   #define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
+>> -#define FRAMETABLE_VIRT_END    (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
+> 
+> This is somewhat unrelated to the goal of the patch. We do clean-up in
+> the same patch, but they tend to be in the same of already modified hunk
+> (which is not the case here).
+> 
+> So I would prefer if this is split. This would make this patch a
+> potential candidate for backport.
+Just for clarity. Do you mean to separate all the config.h changes or only
+the FRAMETABLE_VIRT_END removal? I guess the former.
 
-The same was said in v2, yet three(?) of the early patches were
-committed already. Hence with a look towards committing I wonder in
-how far the 5 above is accurate.
+> 
+>>
+>>   #define VMAP_VIRT_START        _AT(vaddr_t,0x10000000)
+>>   #define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
+>> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+>> index 68adcac9fa8d..23dec574eb31 100644
+>> --- a/xen/arch/arm/include/asm/mm.h
+>> +++ b/xen/arch/arm/include/asm/mm.h
+>> @@ -26,6 +26,17 @@
+>>    */
+>>   #define PFN_ORDER(_pfn) ((_pfn)->v.free.order)
+>>
+>> +/*
+>> + * The size of struct page_info impacts the number of entries that can fit
+>> + * into the frametable area and thus it affects the amount of physical memory
+>> + * we claim to support. Define PAGE_INFO_SIZE to be used for sanity checking.
+>> +*/
+>> +#ifdef CONFIG_ARM_64
+>> +#define PAGE_INFO_SIZE 56
+>> +#else
+>> +#define PAGE_INFO_SIZE 32
+>> +#endif
+>> +
+>>   struct page_info
+>>   {
+>>       /* Each frame can be threaded onto a doubly-linked list. */
+>> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+>> index 0fc6f2992dd1..a8c28fa5b768 100644
+>> --- a/xen/arch/arm/mm.c
+>> +++ b/xen/arch/arm/mm.c
+>> @@ -676,6 +676,11 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+>>       const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
+>>       int rc;
+>>
+>> +    BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+>> +
+>> +    if ( frametable_size > FRAMETABLE_SIZE )
+>> +        panic("RAM size is too big to fit in a frametable area\n");
+> 
+> This is not correct. Depending on the PDX compression, the frametable
+> may end up to cover non-RAM. So I would write:
+> 
+> "The cannot frametable cannot cover the physical region 0x%PRIpaddr -
+> 0x%PRIpaddr".
+Yes, you're right.
 
-Jan
+> 
+>> +
+>>       frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
+>>       /* Round up to 2M or 32M boundary, as appropriate. */
+>>       frametable_size = ROUNDUP(frametable_size, mapping_size);
+> 
+> Cheers,
+> 
+> --
+> Julien Grall
+
+~Michal
 
 
