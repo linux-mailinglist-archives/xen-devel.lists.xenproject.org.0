@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F2E3670BFF
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 23:46:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479925.744038 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58D2F670C25
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 23:52:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479931.744048 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHuiB-0008Kn-3n; Tue, 17 Jan 2023 22:45:47 +0000
+	id 1pHuo3-0001KT-Op; Tue, 17 Jan 2023 22:51:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479925.744038; Tue, 17 Jan 2023 22:45:47 +0000
+Received: by outflank-mailman (output) from mailman id 479931.744048; Tue, 17 Jan 2023 22:51:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHuiB-0008J2-19; Tue, 17 Jan 2023 22:45:47 +0000
-Received: by outflank-mailman (input) for mailman id 479925;
- Tue, 17 Jan 2023 22:45:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pHuo3-0001IQ-M0; Tue, 17 Jan 2023 22:51:51 +0000
+Received: by outflank-mailman (input) for mailman id 479931;
+ Tue, 17 Jan 2023 22:51:50 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pHui9-0008It-Mo
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 22:45:45 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHui9-0005kD-0h; Tue, 17 Jan 2023 22:45:45 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHui8-0001lP-Ne; Tue, 17 Jan 2023 22:45:44 +0000
+ (envelope-from <SRS0=2qLe=5O=gmail.com=shentey@srs-se1.protection.inumbo.net>)
+ id 1pHuo2-0001IH-Ay
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 22:51:50 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86bf9084-96b9-11ed-91b6-6bf2151ebd3b;
+ Tue, 17 Jan 2023 23:51:49 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id ud5so79061668ejc.4
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 14:51:49 -0800 (PST)
+Received: from [127.0.0.1] (dynamic-077-011-043-201.77.11.pool.telefonica.de.
+ [77.11.43.201]) by smtp.gmail.com with ESMTPSA id
+ k15-20020a17090632cf00b0087120324712sm2738569ejk.23.2023.01.17.14.51.48
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 17 Jan 2023 14:51:48 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +44,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=3NWZAyDIovJyMx74/VBGc2qVIk/lkIqeHL7mPsetEoU=; b=s0XlxGqoeDUoN2JEKRZuYmkoDF
-	sSkH0eVrYoFjTTbK87rY9c1J5hO1BUI+E3bil+r7nHu0bMdL+WiC+ghXY79OqHEhZYk2EBqGt+a01
-	HJI/d3EbN20sz1CpItQQ8yuWppZvX/kXPU2HspFsgaL7zQgTE4YGlD6nFlGWmWdRmbnI=;
-Message-ID: <e59e2c5f-a0cc-ff2e-15ba-268fc132e5d4@xen.org>
-Date: Tue, 17 Jan 2023 22:45:43 +0000
+X-Inumbo-ID: 86bf9084-96b9-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jbh03W6hVMjCODjzgpmoric/2rTMsA2rWH3ep2nias0=;
+        b=GTBzrSwzC0C+TbpKBPASdjFgmPK9MbGvc5t3esQ65Uc/KQOCsm545QihSYOgepEsAx
+         rqv7NBrNxsqiw9wLC8PjaY726+IF868Uqcoj1MJRZOA4PJI6MkrYnw81z2bffpWxJHzM
+         Z15Wib++E6k1CJqXVVSu0WXiI57WxyfvsbcY+C7GpVDz5Mh1x48lhAUgcWXntXBAOKWz
+         hrPRKlnzYBmW5etZlK2IJv/Pmx+QPNK1/OGBDtAd1FrJT698evGYc/mBAwJ0xxncm0CU
+         QlSENUD08VRWCnaxpeuwqiIgQ4exc1RAQ5IPg7Y1L9iYNnBN96IiweLC3PDczt4WJBBA
+         kQZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:references
+         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jbh03W6hVMjCODjzgpmoric/2rTMsA2rWH3ep2nias0=;
+        b=h8mI+7fVg8B/z5+GL1JquyzFDT62LbYWUkOW1XAOwXzjIVOr8yRlYAtfzpp30J4g1R
+         OAJ9bem+RvlllHI3jRN/f4WnVfeBoq+l43wv8EtISGbaKaHZwwg4gNf393YzYivsDrDC
+         GUa6V4161KEJ3WEpEq+ntAlk5EagbB33XgJXjAglrVwEGjuGIdLlt0NkM6ZpyY+t6VuC
+         ++8Q7crODkXsb9lKOHgHAbNzTRafDTMuIxh0HQz3y1wp0F3l1gYru/sdMHuJmW2yUTTI
+         aTsqjHR8Zm5ez6UGS/6KmiY9dfzakNeU3M90F6QPFdLN2GjPOSWsoF6wPyF6emKP/Mbo
+         BXRQ==
+X-Gm-Message-State: AFqh2kpwYh1ud4BikGPYS+Xw+fnpUSqPt+npSXEK/Egh6EDsAgaQrnMm
+	cYwo0RV6WvBZusMCUIkyZzg=
+X-Google-Smtp-Source: AMrXdXuViHlaRCcJQwvdFLv4FdIMUTrp63hp3JtXnf0wno9j+1Rox2wLPKLD9Iw0BNao/SOEWyvs+g==
+X-Received: by 2002:a17:906:b24c:b0:869:236c:ac41 with SMTP id ce12-20020a170906b24c00b00869236cac41mr4837674ejb.24.1673995908835;
+        Tue, 17 Jan 2023 14:51:48 -0800 (PST)
+Date: Tue, 17 Jan 2023 22:51:45 +0000
+From: Bernhard Beschow <shentey@gmail.com>
+To: qemu-devel@nongnu.org
+CC: Richard Henderson <richard.henderson@linaro.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
+ =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
+ Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Anthony Perard <anthony.perard@citrix.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
+ Chuck Zmudzinski <brchuckz@aol.com>
+Subject: Re: [PATCH v2 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+In-Reply-To: <20230104144437.27479-1-shentey@gmail.com>
+References: <20230104144437.27479-1-shentey@gmail.com>
+Message-ID: <D2349D00-B64B-4197-A62E-A74CB20112FB@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH RFC 07/10] domain: map/unmap GADDR based shared guest
- areas
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: George Dunlap <George.Dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- Roger Pau Monne <roger.pau@citrix.com>
-References: <bcab8340-6bfd-8dfc-efe1-564e520b3a06@suse.com>
- <5a571fd9-b0c2-216e-a444-102397a22ca0@suse.com>
- <f1229a27-f92c-a0dc-928e-1d78b928fdd0@xen.org>
- <bd6befdf-65eb-6937-fb85-449a5fa16794@citrix.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <bd6befdf-65eb-6937-fb85-449a5fa16794@citrix.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Andrew,
 
-On 17/01/2023 22:20, Andrew Cooper wrote:
-> On 24/11/2022 9:29 pm, Julien Grall wrote:
->> Hi Jan,
->>
->> I am still digesting this series and replying with some initial comments.
->>
->> On 19/10/2022 09:43, Jan Beulich wrote:
->>> The registration by virtual/linear address has downsides: At least on
->>> x86 the access is expensive for HVM/PVH domains. Furthermore for 64-bit
->>> PV domains the areas are inaccessible (and hence cannot be updated by
->>> Xen) when in guest-user mode.
->>>
->>> In preparation of the introduction of new vCPU operations allowing to
->>> register the respective areas (one of the two is x86-specific) by
->>> guest-physical address, flesh out the map/unmap functions.
->>>
->>> Noteworthy differences from map_vcpu_info():
->>> - areas can be registered more than once (and de-registered),
->>> - remote vCPU-s are paused rather than checked for being down (which in
->>>     principle can change right after the check),
->>> - the domain lock is taken for a much smaller region.
->>>
->>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->>> ---
->>> RFC: By using global domain page mappings the demand on the underlying
->>>        VA range may increase significantly. I did consider to use per-
->>>        domain mappings instead, but they exist for x86 only. Of course we
->>>        could have arch_{,un}map_guest_area() aliasing global domain page
->>>        mapping functions on Arm and using per-domain mappings on x86. Yet
->>>        then again map_vcpu_info() doesn't do so either (albeit that's
->>>        likely to be converted subsequently to use map_vcpu_area()
->>> anyway).
->>>
->>> RFC: In map_guest_area() I'm not checking the P2M type, instead - just
->>>        like map_vcpu_info() - solely relying on the type ref acquisition.
->>>        Checking for p2m_ram_rw alone would be wrong, as at least
->>>        p2m_ram_logdirty ought to also be okay to use here (and in similar
->>>        cases, e.g. in Argo's find_ring_mfn()). p2m_is_pageable() could be
->>>        used here (like altp2m_vcpu_enable_ve() does) as well as in
->>>        map_vcpu_info(), yet then again the P2M type is stale by the time
->>>        it is being looked at anyway without the P2M lock held.
->>>
->>> --- a/xen/common/domain.c
->>> +++ b/xen/common/domain.c
->>> @@ -1563,7 +1563,82 @@ int map_guest_area(struct vcpu *v, paddr
->>>                       struct guest_area *area,
->>>                       void (*populate)(void *dst, struct vcpu *v))
->>>    {
->>> -    return -EOPNOTSUPP;
->>> +    struct domain *currd = v->domain;
->>> +    void *map = NULL;
->>> +    struct page_info *pg = NULL;
->>> +    int rc = 0;
->>> +
->>> +    if ( gaddr )
->>
->> 0 is technically a valid (guest) physical address on Arm.
-> 
-> It is on x86 too, but that's not why 0 is generally considered an
-> invalid address.
-> 
-> See the multitude of XSAs, and near-XSAs which have been caused by bad
-> logic in Xen caused by trying to make a variable held in struct
-> vcpu/domain have a default value other than 0.
-> 
-> It's not impossible to write such code safely, and in this case I expect
-> it can be done by the NULLness (or not) of the mapping pointer, rather
-> than by stashing the gaddr, but history has proved repeatedly that this
-> is a very fertile source of security bugs.
 
-I understand the security concern. However... you are now imposing some 
-constraint in the guest OS which may be more difficult to address.
+Am 4=2E Januar 2023 14:44:31 UTC schrieb Bernhard Beschow <shentey@gmail=
+=2Ecom>:
+>This series first renders TYPE_PIIX3_XEN_DEVICE redundant and finally rem=
+oves
+>
+>it=2E The motivation is to 1/ decouple PIIX from Xen and 2/ to make Xen i=
+n the PC
+>
+>machine agnostic to the precise southbridge being used=2E 2/ will become
+=
+>
+>particularily interesting once PIIX4 becomes usable in the PC machine, av=
+oiding
+>
+>the "Frankenstein" use of PIIX4_ACPI in PIIX3=2E
+>
+>
+>
+>v2:
+>
+>- xen_piix3_set_irq() is already generic=2E Just rename it=2E (Chuck)
+>
+>
+>
+>Testing done:
+>
+>None, because I don't know how to conduct this properly :(
 
-Furthermore, we are trying to make a sane ABI. It doesn't look sane to 
-me to expose our currently shortcomings to the guest OS. The more that 
-if we decide it to relax in the future, then it would not help an OS 
-because they will need to support older Xen...
+Ping
 
-Cheers,
+Successfully tested by Chuck=2E Patches 2, 4 and 6 still need review=2E
 
--- 
-Julien Grall
+I can rebase to master if that eases review -- please let me know=2E Curre=
+ntly this series is based on my "Consolidate PIIX south bridges" series:
+
+>Based-on: <20221221170003=2E2929-1-shentey@gmail=2Ecom>
+>
+>          "[PATCH v4 00/30] Consolidate PIIX south bridges"
+>
+>
+>
+>Bernhard Beschow (6):
+>
+>  include/hw/xen/xen: Rename xen_piix3_set_irq() to xen_intx_set_irq()
+>
+>  hw/isa/piix: Reuse piix3_realize() in piix3_xen_realize()
+>
+>  hw/isa/piix: Wire up Xen PCI IRQ handling outside of PIIX3
+>
+>  hw/isa/piix: Avoid Xen-specific variant of piix_write_config()
+>
+>  hw/isa/piix: Resolve redundant k->config_write assignments
+>
+>  hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
+>
+>
+>
+> hw/i386/pc_piix=2Ec             | 34 ++++++++++++++++--
+>
+> hw/i386/xen/xen-hvm=2Ec         |  2 +-
+>
+> hw/isa/piix=2Ec                 | 66 +----------------------------------=
+
+>
+> include/hw/southbridge/piix=2Eh |  1 -
+>
+> include/hw/xen/xen=2Eh          |  2 +-
+>
+> stubs/xen-hw-stub=2Ec           |  2 +-
+>
+> 6 files changed, 35 insertions(+), 72 deletions(-)
+>
+>
+>
+>-- >
+>2=2E39=2E0
+>
+>
+>
 
