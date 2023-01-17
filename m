@@ -2,35 +2,31 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33C9666DFFB
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 15:09:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479492.743383 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C243D66E003
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 15:09:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479495.743394 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHmeK-0008Hb-AD; Tue, 17 Jan 2023 14:09:16 +0000
+	id 1pHmeh-0000Gq-Iq; Tue, 17 Jan 2023 14:09:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479492.743383; Tue, 17 Jan 2023 14:09:16 +0000
+Received: by outflank-mailman (output) from mailman id 479495.743394; Tue, 17 Jan 2023 14:09:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHmeK-0008Eg-5j; Tue, 17 Jan 2023 14:09:16 +0000
-Received: by outflank-mailman (input) for mailman id 479492;
- Tue, 17 Jan 2023 14:09:14 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHmeI-0008EV-JF; Tue, 17 Jan 2023 14:09:14 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHmeI-0001Sf-Hc; Tue, 17 Jan 2023 14:09:14 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHmeI-0004FA-5N; Tue, 17 Jan 2023 14:09:14 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pHmeI-0003l3-4x; Tue, 17 Jan 2023 14:09:14 +0000
+	id 1pHmeh-0000EJ-Dt; Tue, 17 Jan 2023 14:09:39 +0000
+Received: by outflank-mailman (input) for mailman id 479495;
+ Tue, 17 Jan 2023 14:09:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mGQh=5O=gmail.com=rjwysocki@srs-se1.protection.inumbo.net>)
+ id 1pHmef-0000Cf-Vl
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 14:09:37 +0000
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8fc6f7dd-9670-11ed-b8d0-410ff93cb8f0;
+ Tue, 17 Jan 2023 15:09:31 +0100 (CET)
+Received: by mail-ej1-f54.google.com with SMTP id bk15so18120604ejb.9
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 06:09:35 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,234 +38,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=5jNeHQ3inScyJOTwoLiRy6pnhMo7qopENyKU+8LfBh0=; b=t1kJHSDKfbOjT1TGBFHqeUDAyX
-	t3HBIdOLAUNOwxFfioK4crbqdaviNLph+qQqAOJh095IaObAXiMQRu23xpC3qvEvfjVB2YzPTdRyy
-	tFb/IXuMtaXsymrPx4cAa31LYuNxoFq23wjqIC3JjuyK7pF/8NGl/qEz+B8si7dQi+zU=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175930-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 8fc6f7dd-9670-11ed-b8d0-410ff93cb8f0
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=SxrCGjSKfBkjK5viyn3/63bLv/HFmaC1YTqocY1zE1E=;
+        b=W/vgLvOb4RCSoEf3rNl+vo8bzNK3dox4hdvY0OV54GrXocUDFV44d6BEBf3axDUIoG
+         psVT5Ss//MdAys5HEyZZWSSLPZJxdg+5Uu+jPZVdM4PwOOUCtGuS01ZTLG9sYfOuwb/s
+         sKt7I8F0+NQ8DSGjC+m6du+yTkHYd0bVVgR11eUEVXpPaUPdOvorcfonJrkRO6J0UHLE
+         Vhb2lO+kd19g79ZSkPM1C1ezJvfrbhcWJRWMwEVWf053Sj5wJs+FcovZNrd4i9fHuxQ5
+         TJGwXM0qO4bEN4NOPJTJNB29Hgal4TnvZIPfIkF+A5ACRVB34w+L8EoXLVIFWwv1azc5
+         iR0Q==
+X-Gm-Message-State: AFqh2krSPPYlkdH1aZxn3GimcTyzM9bCMZr6jwPbG5aWsupHRoeygxD5
+	HVwrkFDdevGB7C8TbCu2Wd70UI+W7woKsU5a4Sc=
+X-Google-Smtp-Source: AMrXdXu3u90Y/GKUFfDt7Oeht0ZXER9iAI4urcFhf748H5avCW3qieQtQPSGgH0KHpzyPJom0xOGNHHT1Jp4RjFOURk=
+X-Received: by 2002:a17:906:eb1b:b0:86e:abe4:5acf with SMTP id
+ mb27-20020a170906eb1b00b0086eabe45acfmr297536ejb.615.1673964575446; Tue, 17
+ Jan 2023 06:09:35 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175930: regressions - trouble: blocked/broken
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:<job status>:broken:regression
-    xen-unstable-smoke:build-arm64-xsm:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-amd64:host-build-prep:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:host-build-prep:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-X-Osstest-Versions-That:
-    xen=6bec713f871f21c6254a5783c1e39867ea828256
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 17 Jan 2023 14:09:14 +0000
+References: <20230113140610.7132-1-jgross@suse.com> <CAJZ5v0gP_NUeQimn21tJuUjpMAOW_wFrRe4jstN13So_4_T4QQ@mail.gmail.com>
+ <e5cc2f96-82bc-a0dc-21fa-2f605bc867d1@suse.com>
+In-Reply-To: <e5cc2f96-82bc-a0dc-21fa-2f605bc867d1@suse.com>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Tue, 17 Jan 2023 15:09:24 +0100
+Message-ID: <CAJZ5v0ggSbR7+RiXuJo4aq+PYWS-eb9R2iSr0DFfVhcaJ1bfUQ@mail.gmail.com>
+Subject: Re: [PATCH] x86/acpi: fix suspend with Xen
+To: Juergen Gross <jgross@suse.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-kernel@vger.kernel.org, x86@kernel.org, 
+	linux-pm@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>, 
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
+	Len Brown <len.brown@intel.com>, Pavel Machek <pavel@ucw.cz>, 
+	Stefano Stabellini <sstabellini@kernel.org>, 
+	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, xen-devel@lists.xenproject.org, 
+	=?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 175930 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175930/
+On Mon, Jan 16, 2023 at 7:45 AM Juergen Gross <jgross@suse.com> wrote:
+>
+> On 13.01.23 20:40, Rafael J. Wysocki wrote:
+> > On Fri, Jan 13, 2023 at 3:06 PM Juergen Gross <jgross@suse.com> wrote:
+> >>
+> >> Commit f1e525009493 ("x86/boot: Skip realmode init code when running as
+> >> Xen PV guest") missed one code path accessing real_mode_header, leading
+> >> to dereferencing NULL when suspending the system under Xen:
+> >>
+> >>      [  348.284004] PM: suspend entry (deep)
+> >>      [  348.289532] Filesystems sync: 0.005 seconds
+> >>      [  348.291545] Freezing user space processes ... (elapsed 0.000 seconds) done.
+> >>      [  348.292457] OOM killer disabled.
+> >>      [  348.292462] Freezing remaining freezable tasks ... (elapsed 0.104 seconds) done.
+> >>      [  348.396612] printk: Suspending console(s) (use no_console_suspend to debug)
+> >>      [  348.749228] PM: suspend devices took 0.352 seconds
+> >>      [  348.769713] ACPI: EC: interrupt blocked
+> >>      [  348.816077] BUG: kernel NULL pointer dereference, address: 000000000000001c
+> >>      [  348.816080] #PF: supervisor read access in kernel mode
+> >>      [  348.816081] #PF: error_code(0x0000) - not-present page
+> >>      [  348.816083] PGD 0 P4D 0
+> >>      [  348.816086] Oops: 0000 [#1] PREEMPT SMP NOPTI
+> >>      [  348.816089] CPU: 0 PID: 6764 Comm: systemd-sleep Not tainted 6.1.3-1.fc32.qubes.x86_64 #1
+> >>      [  348.816092] Hardware name: Star Labs StarBook/StarBook, BIOS 8.01 07/03/2022
+> >>      [  348.816093] RIP: e030:acpi_get_wakeup_address+0xc/0x20
+> >>
+> >> Fix that by adding an indirection for acpi_get_wakeup_address() which
+> >> Xen PV dom0 can use to return a dummy non-zero wakeup address (this
+> >> address won't ever be used, as the real suspend handling is done by the
+> >> hypervisor).
+> >
+> > How exactly does this help?
+>
+> I believed the first sentence of the commit message would make this
+> clear enough.
 
-Regressions :-(
+That was clear, but the fix part wasn't really.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                     <job status>                 broken
- build-arm64-xsm                 <job status>                 broken
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 175746
- build-amd64                   5 host-build-prep          fail REGR. vs. 175746
- build-arm64-xsm               5 host-build-prep          fail REGR. vs. 175746
+> I can expand the commit message to go more into detail if you think
+> this is really needed.
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+IMO calling acpi_set_waking_vector() with a known-invalid wakeup
+vector address in dom0 is plain confusing.
 
-version targeted for testing:
- xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-baseline version:
- xen                  6bec713f871f21c6254a5783c1e39867ea828256
-
-Last test of basis   175746  2023-01-12 16:03:41 Z    4 days
-Failing since        175748  2023-01-12 20:01:56 Z    4 days   21 attempts
-Testing same since   175833  2023-01-14 07:00:25 Z    3 days   19 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              broken  
- build-amd64                                                  broken  
- build-armhf                                                  broken  
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-amd64 broken
-broken-job build-arm64-xsm broken
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-
-Not pushing.
-
-------------------------------------------------------------
-commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Tue Jan 3 11:25:19 2023 +0100
-
-    xen/arm: Add 0x prefix when printing memory size in construct_domU
-    
-    Printing memory size in hex without 0x prefix can be misleading, so
-    add it. Also, take the opportunity to adhere to 80 chars line length
-    limit by moving the printk arguments to the next line.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:07:42 2023 +0000
-
-    xen/arm: linker: The identitymap check should cover the whole .text.header
-    
-    At the moment, we are only checking that only some part of .text.header
-    is part of the identity mapping. However, this doesn't take into account
-    the literal pool which will be located at the end of the section.
-    
-    While we could try to avoid using a literal pool, in the near future we
-    will also want to use an identity mapping for switch_ttbr().
-    
-    Not everything in .text.header requires to be part of the identity
-    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
-    check that .text.header is smaller than a page size.
-    
-    With that _end_boot can be removed as it is now unused. Take the
-    opportunity to avoid assuming that a page size is always 4KB in the
-    error message and comment.
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:06:42 2023 +0000
-
-    xen/arm: linker: Indent correctly _stext
-    
-    _stext is indented by one space more compare to the lines. This doesn't
-    seem warrant, so delete the extra space.
-    
-    Signed-off: Julien Grall <jgrall@amazon.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 3edca52ce736297d7fcf293860cd94ef62638052
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 10:58:31 2023 +0000
-
-    x86/vmx: Support for CPUs without model-specific LBR
-    
-    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
-    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
-    later, model_specific_lbr will always be NULL, so we must make changes to
-    avoid reliably hitting the domain_crash().
-    
-    The Arch LBR spec states that CPUs without model-specific LBR implement
-    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
-    
-    Do this for any CPU for which we lack model-specific LBR information.
-    
-    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
-    signal "no model specific LBR" to guests.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 11:42:22 2023 +0000
-
-    x86/vmx: Calculate model-specific LBRs once at start of day
-    
-    There is no point repeating this calculation at runtime, especially as it is
-    in the fallback path of the WRSMR/RDMSR handlers.
-    
-    Move the infrastructure higher in vmx.c to avoid forward declarations,
-    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
-    these are model-specific only.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e6ee01ad24b6a1c3b922579964deebb119a90a48
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 3 15:08:56 2023 +0000
-
-    xen/version: Drop compat/kernel.c
-    
-    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
-    re-includes kernel.c to recompile xen_version() in a compat form.
-    
-    However, the xen_version hypercall is almost guest-ABI-agnostic; only
-    XENVER_platform_parameters has a compat split.  Handle this locally, and do
-    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
-    that are simply char-arrays in their native and compat form.
-    
-    In particular, this removed the final instances of obfuscation via the DO()
-    macro.
-    
-    No functional change.  Also saves 2k of of .text in the x86 build.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Dec 20 15:51:07 2022 +0000
-
-    public/version: Change xen_feature_info to have a fixed size
-    
-    This is technically an ABI change, but Xen doesn't operate in any environment
-    where "unsigned int" is different to uint32_t, so switch to the explicit form.
-    This avoids the need to derive (identical) compat logic for handling the
-    subop.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+I'm not sure what to do about it yet, but IMV something needs to be done.
 
