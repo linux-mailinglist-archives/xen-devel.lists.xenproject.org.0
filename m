@@ -2,44 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB6E66DA51
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:50:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479281.743030 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19A5D66DA53
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:51:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479284.743041 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiby-0008IE-GK; Tue, 17 Jan 2023 09:50:34 +0000
+	id 1pHicO-0000Oa-T4; Tue, 17 Jan 2023 09:51:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479281.743030; Tue, 17 Jan 2023 09:50:34 +0000
+Received: by outflank-mailman (output) from mailman id 479284.743041; Tue, 17 Jan 2023 09:51:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiby-0008GX-DW; Tue, 17 Jan 2023 09:50:34 +0000
-Received: by outflank-mailman (input) for mailman id 479281;
- Tue, 17 Jan 2023 09:50:33 +0000
+	id 1pHicO-0000Me-QB; Tue, 17 Jan 2023 09:51:00 +0000
+Received: by outflank-mailman (input) for mailman id 479284;
+ Tue, 17 Jan 2023 09:50:59 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=uRIs=5O=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pHibx-0008Fj-LT
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:50:33 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=pwid=5O=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pHicN-0008Fj-5u
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:50:59 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2042.outbound.protection.outlook.com [40.107.243.42])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6238fded-964c-11ed-91b6-6bf2151ebd3b;
- Tue, 17 Jan 2023 10:50:32 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 84D9568445;
- Tue, 17 Jan 2023 09:50:32 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4B6A013357;
- Tue, 17 Jan 2023 09:50:32 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id EPInEWhvxmN4BwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 17 Jan 2023 09:50:32 +0000
+ id 707956f5-964c-11ed-91b6-6bf2151ebd3b;
+ Tue, 17 Jan 2023 10:50:57 +0100 (CET)
+Received: from BN0PR04CA0043.namprd04.prod.outlook.com (2603:10b6:408:e8::18)
+ by CH3PR12MB8583.namprd12.prod.outlook.com (2603:10b6:610:15f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Tue, 17 Jan
+ 2023 09:50:55 +0000
+Received: from BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:e8:cafe::b6) by BN0PR04CA0043.outlook.office365.com
+ (2603:10b6:408:e8::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
+ Transport; Tue, 17 Jan 2023 09:50:54 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT041.mail.protection.outlook.com (10.13.177.18) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6002.13 via Frontend Transport; Tue, 17 Jan 2023 09:50:54 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 17 Jan
+ 2023 03:50:54 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 17 Jan 2023 03:50:53 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,151 +58,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6238fded-964c-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1673949032; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zqrp1waze+l6MnoF1JRnlebPy+aayXNcunsZEaOJgeA=;
-	b=L2YOTC6amVLyNdJ6lAEod11A46DbykGyQ6w6TO6c9IGf6QG89eUP3euBtHO4rL0eGx5fLJ
-	uNR1VNyBObyYSGIAw/RnCIjVUlaqNDZV8t10zBXvaW5AvfoxI2KBQSd4T/ECJArHMQ4POt
-	6IIBQq1wTKDLzKhMLAForwD1iv7qjsA=
-Message-ID: <f37c0d1b-ecb7-ef8b-cfa2-4bfad35d4452@suse.com>
-Date: Tue, 17 Jan 2023 10:50:31 +0100
+X-Inumbo-ID: 707956f5-964c-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JYDd5v9JMrnN2CtU7SlCk8x3fWdiQ5BpV23ZWkUj1Jzq5094W2KSdEPiRrHsfiMXj6J6SgpsT4/GivP/6uuDGOWDNrFoGR6txYdPFQZRQeHLtycfcTZajsspBpJkR9lVsCOZwHB2bJ4F5kgQM4MYALQhCEunPWc+61S6tPQrCtSjbmVq9vm/lC7sxuskXSf37nFb+tQDSCWeAzo88eqHlqMwdXzFafMwLc2KPl5kCMzNEaMlHpJLP/8GFVPS054gt1DyVMvN5vgGpMe+8hJSa4OeODUGtSMp3cRZnsNhvh+eh9UeKoNfrM9/9tYIVr41HwyxWkm9qehqvtFTre0mMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h9wkKzoKSt9RjFkmTx9EneVW25YHZ5K/J3+amcAa1ps=;
+ b=FVe50hSLEysUI/wK4qLhXUb2S7/QFJeBJ6EIzKM1THRCo1gspZPMbmBNzseL5Sj9glJ3NSZVr4R9ZhOfVbbz0vcs2tGqL+YqzgGUeB0zNW2GXLfeTUnBRSxBc4+dn0DJmj1igHyN9ZsH4fSRJwBsmywYs85tKQpy5jLV4BKaiyxN+M89E75hBEagck7sTAiq9jhQJEHG04oMLaxD3Lgqo8MIQobCY4I+C+tWqn8T44ndYhCeZzF2zsuy3hdDQvqcMMY0kWyKXpXlZDbbxhhcl8cSzJIrca/1etsGkJSbBeEIfOQeEZ/St9iEpQAAIMUlX50eZLtURLMPFj7RmwTAJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=xen.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h9wkKzoKSt9RjFkmTx9EneVW25YHZ5K/J3+amcAa1ps=;
+ b=Q0cG0TuZgcS6+fhA0GJZrhp/fgHQGQZ+KmOV0XXmbIwY0dp9aa1MrfxO0Lwi03yW1WhezCEFMXpSmXFWXsK8jPkcPO6IHeN5t3mybwy/D2NvPbIn1+Mh0lWjq04qQzogg7l2TS/m3JVLCP2OqpS7Qka0NvJAhZ2neWPjzbW237w=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <96964034-53b0-c391-6be1-fa5fff6842e1@amd.com>
+Date: Tue, 17 Jan 2023 10:50:52 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
+Subject: Re: [PATCH] xen/arm64: Fix incorrect DIRECTMAP_SIZE calculation
 Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-References: <20230117091124.22170-1-jgross@suse.com>
- <aceeec22-2183-2a60-7a68-58f43d8da493@suse.com>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v3 00/17] tools/xenstore: do some cleanup and fixes
-In-Reply-To: <aceeec22-2183-2a60-7a68-58f43d8da493@suse.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------Fomdzzbz6bKegKT1Z7H1MP4j"
+To: Julien Grall <julien@xen.org>, <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230116144106.12544-1-michal.orzel@amd.com>
+ <20230116144106.12544-2-michal.orzel@amd.com>
+ <72fd8c47-d654-91d0-993c-97f2d0542cff@xen.org>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <72fd8c47-d654-91d0-993c-97f2d0542cff@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT041:EE_|CH3PR12MB8583:EE_
+X-MS-Office365-Filtering-Correlation-Id: be7b2785-2f7d-4d53-f8d5-08daf870535f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4b7PbK/fFqFHSOieb63W0FloZDNbjnCEp+d9PNa9XZxsXzMgxe5fT4VozprcW4V4dq53HjDawk1uKrMfDYSnricOfMiVGCPUgGjOn1LH3Km0e2wmpw6udwP56DhoIrUuqAC/mm3JeIgh8DZX/qwwVnimb2KpKRPZnIs2CJu5shREkCcvQ7oKnrSAgHWKaDEkW+KoxLVdyALoo8nqExteyFcUP+UrxmI3/9hrud0zdUXKdMnmRNutrlCzKCzVQ6fduRSydg1oC/J28M+WbginLetVmHhu5M1ddnlvEYSYDIMM9jt/YGUnufwWWDwtmiNIG6Pb4m/6Bezk0BdnWgyJUa8Lvnux+Aad7q2k/K3wXw1Ck05NMkmCslAh9ettLT5BR/skTw3vVJYOSmiLV3zysnwdlrTd2QRnLfSbjDTvL0dB0OeiqTs3RKmMeAHx/jh29b85SFF3Yaa+l8NnPqqEIJGC9zrGYxFumEdsQ146xQBQMgkXGCVBApsum/qkpnMbZbgDLOCVMSTiApr8trswEnj+zLLAx0Z953EYw7NRAlrgiNwDtmC0xMQZ8C8BALMOKAIwDD7oe1vQy8Suy27pCjWLlZwJK+3wt36ElGooEXpNaF4OQNSR4WoFreO7zVvKQgbsXRMtf+fHTi+96Q30NmrOe+gj4eOdmTxwYunhoQvRj3HIw+nCzVFEuTZo36jeUy51y9OmRfT+b5QiG9jUJ2nGYUVsQJBpsq+o6p0zkxZk/38bJ55H+gGCvu9dbHl7797n20X4mxkCx0SxpVA2eQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(39860400002)(396003)(376002)(451199015)(36840700001)(46966006)(40470700004)(36756003)(40480700001)(31696002)(478600001)(40460700003)(110136005)(54906003)(26005)(44832011)(41300700001)(2906002)(53546011)(316002)(5660300002)(4326008)(16576012)(70586007)(70206006)(8936002)(8676002)(2616005)(36860700001)(186003)(356005)(86362001)(82740400003)(47076005)(426003)(336012)(81166007)(83380400001)(82310400005)(31686004)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Jan 2023 09:50:54.4701
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: be7b2785-2f7d-4d53-f8d5-08daf870535f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT041.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8583
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------Fomdzzbz6bKegKT1Z7H1MP4j
-Content-Type: multipart/mixed; boundary="------------Zp29MsLUiejaAPf36SeEAiiy";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
- Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org
-Message-ID: <f37c0d1b-ecb7-ef8b-cfa2-4bfad35d4452@suse.com>
-Subject: Re: [PATCH v3 00/17] tools/xenstore: do some cleanup and fixes
-References: <20230117091124.22170-1-jgross@suse.com>
- <aceeec22-2183-2a60-7a68-58f43d8da493@suse.com>
-In-Reply-To: <aceeec22-2183-2a60-7a68-58f43d8da493@suse.com>
+Hi Julien,
 
---------------Zp29MsLUiejaAPf36SeEAiiy
-Content-Type: multipart/mixed; boundary="------------ml1ZGpVaOztQd3fcIeOgP7j0"
+On 17/01/2023 10:35, Julien Grall wrote:
+> 
+> 
+> Hi Michal,
+> 
+> It is not clear to me why this was sent In-reply-to the other patch. If
+> they are meant to form a series, then this should have a cover letter +
+> each patch should be numbered.
+> 
+> If they are truly separate, then please don't thread them.
+They were meant to be separated. I will form a series for v2 to make the commiting easier.
 
---------------ml1ZGpVaOztQd3fcIeOgP7j0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> 
+> On 16/01/2023 14:41, Michal Orzel wrote:
+>> The direct mapped area occupies L0 slots from 256 to 265 (i.e. 10 slots),
+> 
+> I would write "265 included"  or similar so it shows why this is a problem.
+Ok.
 
-T24gMTcuMDEuMjMgMTA6MzcsIEphbiBCZXVsaWNoIHdyb3RlOg0KPiBPbiAxNy4wMS4yMDIz
-IDEwOjExLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0KPj4gVGhpcyBpcyBhIGZpcnN0IHJ1biBv
-ZiBwb3N0LVhTQSBwYXRjaGVzIHdoaWNoIHBpbGVkIHVwIGR1cmluZyB0aGUNCj4+IGRldmVs
-b3BtZW50IHBoYXNlIG9mIGFsbCB0aGUgcmVjZW50IFhlbnN0b3JlIHJlbGF0ZWQgWFNBIHBh
-dGNoZXMuDQo+Pg0KPj4gQXQgbGVhc3QgdGhlIGZpcnN0IDUgcGF0Y2hlcyBhcmUgY29tcGxl
-dGVseSBpbmRlcGVuZGVudCBmcm9tIGVhY2gNCj4+IG90aGVyLiBBZnRlciB0aG9zZSB0aGUg
-ZGVwZW5kZW5jaWVzIGFyZSBzdGFydGluZyB0byBiZSBtb3JlIGNvbXBsZXguDQo+IA0KPiBU
-aGUgc2FtZSB3YXMgc2FpZCBpbiB2MiwgeWV0IHRocmVlKD8pIG9mIHRoZSBlYXJseSBwYXRj
-aGVzIHdlcmUNCj4gY29tbWl0dGVkIGFscmVhZHkuIEhlbmNlIHdpdGggYSBsb29rIHRvd2Fy
-ZHMgY29tbWl0dGluZyBJIHdvbmRlciBpbg0KPiBob3cgZmFyIHRoZSA1IGFib3ZlIGlzIGFj
-Y3VyYXRlLg0KDQpJIHRoaW5rIGl0IGlzIHN0aWxsIHRydWUsIG1heWJlIGV2ZW4gcGF0Y2gg
-NiBjb3VsZCBiZSBhcHBsaWVkLCBidXQgdGhhdA0Kb25lIHdvdWxkIHJlcXVpcmUgYXQgbGVh
-c3Qgc29tZSBjb250ZXh0IGVkaXRpbmcgKGNoYW5nZXMgb2YgcGF0Y2ggNCBhcmUNCnZpc2li
-bGUgaW4gdGhlIHBhdGNoIGZpbGUpLg0KDQoNCkp1ZXJnZW4NCg==
---------------ml1ZGpVaOztQd3fcIeOgP7j0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> 
+>> resulting in 5TB (512GB * 10) of virtual address space. However, due to
+>> incorrect slot subtraction (we take 9 slots into account) we set
+>> DIRECTMAP_SIZE to 4.5TB instead. Fix it.
+> 
+> I would clarify that we only support up to 2TB. So this is a latent
+> issue. This would make clear that...
+Ok.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+> 
+>>
+>> Fixes: 5263507b1b4a ("xen: arm: Use a direct mapping of RAM on arm64")
+> 
+> ... while this is fixing a bug, it is not going to be a candidate for
+> backport.
+> 
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+>> ---
+>>   xen/arch/arm/include/asm/config.h | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+>> index 0fefed1b8aa9..16213c8b677f 100644
+>> --- a/xen/arch/arm/include/asm/config.h
+>> +++ b/xen/arch/arm/include/asm/config.h
+>> @@ -157,7 +157,7 @@
+>>   #define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
+>>
+>>   #define DIRECTMAP_VIRT_START   SLOT0(256)
+>> -#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (265-256))
+>> +#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
+>>   #define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
+>>
+>>   #define XENHEAP_VIRT_START     directmap_virt_start
+> 
+> Cheers,
+> 
+> --
+> Julien Grall
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------ml1ZGpVaOztQd3fcIeOgP7j0--
-
---------------Zp29MsLUiejaAPf36SeEAiiy--
-
---------------Fomdzzbz6bKegKT1Z7H1MP4j
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPGb2cFAwAAAAAACgkQsN6d1ii/Ey/m
-UAf7Bzx9L+jY5jLeEftdC9EmwFeGABNyTVam9RERX9YqLzdgYDM7ESy7dx5B4dvfenifpuTpE6UD
-SAQ2DGcz00/D6wK57siN4NXfsj4n5+3BBfqm6z3b6mn8bWGTyrWC/bTgWNN82HfxPwWSaZDaGo7K
-SmWyJykPess3Hv50qocGM8LAzfA1fxXQupuaR4j8ZJTiv1V7PcLEis8boRY49ssHsTY2xEkYHlEv
-lDZ1nm+iZw0083aGVbpilGz701UTVWa0xck3H2RlQdIZ9S4ysO2CmXG7IZ3BJM/Jj41cGVRNxXZ2
-WM/Hjfeok/xb367epbphSdF/1gFWs4JVYNAYJQr7ig==
-=lmVR
------END PGP SIGNATURE-----
-
---------------Fomdzzbz6bKegKT1Z7H1MP4j--
+~Michal
 
