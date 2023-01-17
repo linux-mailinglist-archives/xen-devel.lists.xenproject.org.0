@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09527670D1E
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 00:19:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479976.744098 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA7C9670D32
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 00:23:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479982.744109 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHvEZ-00063S-Py; Tue, 17 Jan 2023 23:19:15 +0000
+	id 1pHvI0-0007RO-A3; Tue, 17 Jan 2023 23:22:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479976.744098; Tue, 17 Jan 2023 23:19:15 +0000
+Received: by outflank-mailman (output) from mailman id 479982.744109; Tue, 17 Jan 2023 23:22:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHvEZ-00060f-N8; Tue, 17 Jan 2023 23:19:15 +0000
-Received: by outflank-mailman (input) for mailman id 479976;
- Tue, 17 Jan 2023 23:19:14 +0000
+	id 1pHvI0-0007OS-7L; Tue, 17 Jan 2023 23:22:48 +0000
+Received: by outflank-mailman (input) for mailman id 479982;
+ Tue, 17 Jan 2023 23:22:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=1Jq1=5O=gmail.com=bobbyeshleman@srs-se1.protection.inumbo.net>)
- id 1pHvEY-00060Z-09
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 23:19:14 +0000
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [2607:f8b0:4864:20::62a])
+ id 1pHvHy-0007OM-G3
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 23:22:46 +0000
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [2607:f8b0:4864:20::52d])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 59e283b4-96bd-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 00:19:12 +0100 (CET)
-Received: by mail-pl1-x62a.google.com with SMTP id b17so27610766pld.7
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 15:19:12 -0800 (PST)
+ id d8815da9-96bd-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 00:22:45 +0100 (CET)
+Received: by mail-pg1-x52d.google.com with SMTP id b12so23212925pgj.6
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 15:22:45 -0800 (PST)
 Received: from localhost (ec2-13-57-97-131.us-west-1.compute.amazonaws.com.
  [13.57.97.131]) by smtp.gmail.com with ESMTPSA id
- 17-20020a630211000000b0049f77341db3sm18049594pgc.42.2023.01.17.15.19.10
+ k18-20020a628412000000b0058103f45d9esm17455477pfd.82.2023.01.17.15.22.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 15:19:10 -0800 (PST)
+ Tue, 17 Jan 2023 15:22:43 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59e283b4-96bd-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: d8815da9-96bd-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=R7+tOmcqmrckRY4QYVvr7mpyl5qyA1jmpxRjK+JFMSE=;
-        b=RfF50XXsNyG3J4oHe2FuELLjhnTz4qNlFBx5RtBf/mdMm4ZVDflbyFSA1iEqESX4aN
-         yWZs/18wzDzJlszl5SfctuAePN7cXu0thfw33YHWPFQXpypWEz0qwRbMwdlBYb/VIhjE
-         lLHofdy8H16CY2OxxThydElkZCgiFjn+XKXdj97Ph5ZbfO4PL18hXI9+kE2aVc92kKrc
-         TwOfC3BR0ctNsXqthMTEaR6Dm93JJZyWJGU/vbsTyjbf9IErLrO1uBcuk6hB0MraKRz4
-         Npfnu19q9CjpiMLLOIbr1OUqrhh2eFkG8iJ374D95qJI5pWWIJ7NC31FZl16jSwU7jto
-         DZhg==
+        bh=0F1zjsrbkwMDQy5hmxNGfzYpEbvTLx9WXzW2it+3pjs=;
+        b=Sr54KRLICgOdMM+rOhICQUcuwHzZUh7FNn8UWbOTj7OWUZzeQWQ1K4H95qgNqS8Q53
+         YbCagtaxUF3b+xjqhO97vwXkbQzhQfy99eZMNwcqN7onZYaIJSW2Ct8uFj2tdkkYO+f9
+         encFoy9WPhph185Z2CQxTbGQtFqDXFt3ia0XP+jhS/2XwyhOvL/VO8AECWck4nx/yy6V
+         wgCEP0QiNsTWr9Qon/tINBl6Otkf2SgiKWXWbpCf44KirflE/dhm6ufSjANcVNROT7Lm
+         paVI48lc7PF3ukay+jE4dpiYNa7rvbB6gjtH5sLhbvjFLBM89mSXsuzOnDli86FhbBbB
+         oTuA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=in-reply-to:content-disposition:mime-version:references:message-id
          :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=R7+tOmcqmrckRY4QYVvr7mpyl5qyA1jmpxRjK+JFMSE=;
-        b=SNjB7Nn1oJ9AYUdb6Qs9DIJCCp4nivaFkd6el+jiQH0pXimEmr+fPiSuTxvQoTpMNU
-         +dGu5gYO0YBCvlDgRSUm2Fbo77Xuvl6AgU+4/AH/o64yuL51h9OEc0wNg4qlX1vpKix2
-         er2SdRZw0/yLBSpDSoKv0at07nLIHeI5ycB9usF9d7vceI2qXSdaRRlpAlcgyegGvhla
-         D987wmUCLzPOzaCYfBy3FYx0II7ZMoKIycSiEr5348VRFj1WSZ7Zxtuaj9akuGJAbaTM
-         ZBEYmn2i64egXNszSSrR2b/TXfLGHLv0dqFdH0j1wHphxeuxfOTh34Gn0upWJu6gZO+I
-         2sWA==
-X-Gm-Message-State: AFqh2kqmW7WZmfIsIoMLo5wK0OvMlTZboDB7G07cnNPS2rq7pYyIUDcv
-	5q1oVnjz9GVcGt1wrmt7UrI=
-X-Google-Smtp-Source: AMrXdXvIjeiNTjYbRqS4p4SffP+X7Wfpn6eztztcvcUEB/KQB4Vv2v3jy0yTtzMPf/Z/nm08aNsiQw==
-X-Received: by 2002:a05:6a20:7528:b0:b0:3329:c395 with SMTP id r40-20020a056a20752800b000b03329c395mr25126574pzd.30.1673997551195;
-        Tue, 17 Jan 2023 15:19:11 -0800 (PST)
-Date: Tue, 17 Jan 2023 23:19:09 +0000
+        bh=0F1zjsrbkwMDQy5hmxNGfzYpEbvTLx9WXzW2it+3pjs=;
+        b=SxBVovyTKGmypqiinqzYfnvzXdmFSaMAd6nGPYEiNjkaa7i3kFzX+QKSBdxvp0N+cn
+         1kq746NrOhYGrd44nK4ohb0BSsHIe6qOFxy4TFrZuqNT32ricBBry8dXXnmp+A9Qu7Nz
+         zqC6mOj1523obGvwOwVGz2Ts2kgD5yZBeX+S5rtG8bFhiQc7JGqHKlYKxdaXkDeQ9q4m
+         hx9xSdeSbLuoNAbVsslIJlgom0D+9Hi62FOX1QRUr/9+di07yJhbwW7nBb+5auooGNK2
+         7Ls6N7+xp4SwvdrKKBu8MFdELLsZSqOitkiX0nds94NPw7TB44pkAzaWbFWcUJHwltUl
+         LHpw==
+X-Gm-Message-State: AFqh2kruCT7jU6yFZiVKRIsplFDM/Y1J9W7bKrN193sLLDxI5S0dQW05
+	pddGvClBPIxEQZX/PLga/M8=
+X-Google-Smtp-Source: AMrXdXtAn0NZ2o859uxwF3urLwXZW8nShedS33qwc8oum+wUKOnH8a+smKZ8VKe4QrMdX2TEVYx6og==
+X-Received: by 2002:a62:1851:0:b0:581:95a7:d2f4 with SMTP id 78-20020a621851000000b0058195a7d2f4mr25008998pfy.9.1673997763702;
+        Tue, 17 Jan 2023 15:22:43 -0800 (PST)
+Date: Tue, 17 Jan 2023 23:22:42 +0000
 From: Bobby Eshleman <bobbyeshleman@gmail.com>
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
@@ -81,157 +81,183 @@ Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Gianluca Guida <gianluca@rivosinc.com>,
-	Bobby Eshleman <bobby.eshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>
-Subject: Re: [PATCH v4 2/4] xen/riscv: introduce sbi call to putchar to
- console
-Message-ID: <Y8cs7UVt1FH44k7I@bullseye>
+	Connor Davis <connojdavis@gmail.com>,
+	Bobby Eshleman <bobby.eshleman@gmail.com>
+Subject: Re: [PATCH v4 3/4] xen/riscv: introduce early_printk basic stuff
+Message-ID: <Y8ctwgHuXfmSXhqT@bullseye>
 References: <cover.1673877778.git.oleksii.kurochko@gmail.com>
- <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
+ <915bd184c6648a1a3bf0ac6a79b5274972bb33dd.1673877778.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <915bd184c6648a1a3bf0ac6a79b5274972bb33dd.1673877778.git.oleksii.kurochko@gmail.com>
 
-On Mon, Jan 16, 2023 at 04:39:30PM +0200, Oleksii Kurochko wrote:
-> From: Bobby Eshleman <bobby.eshleman@gmail.com>
+On Mon, Jan 16, 2023 at 04:39:31PM +0200, Oleksii Kurochko wrote:
+> Because printk() relies on a serial driver (like the ns16550 driver)
+> and drivers require working virtual memory (ioremap()) there is not
+> print functionality early in Xen boot.
 > 
-> Originally SBI implementation for Xen was introduced by
-> Bobby Eshleman <bobby.eshleman@gmail.com> but it was removed
-> all the stuff for simplicity  except SBI call for putting
-> character to console.
+> The patch introduces the basic stuff of early_printk functionality
+> which will be enough to print 'hello from C environment".
 > 
-> The patch introduces sbi_putchar() SBI call which is necessary
-> to implement initial early_printk.
+> Originally early_printk.{c,h} was introduced by Bobby Eshleman
+> (https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d1aab71384)
+> but some functionality was changed:
+> early_printk() function was changed in comparison with the original as
+> common isn't being built now so there is no vscnprintf.
+> 
+> This commit adds early printk implementation built on the putc SBI call.
+> 
+> As sbi_console_putchar() is already being planned for deprecation
+> it is used temporarily now and will be removed or reworked after
+> real uart will be ready.
 > 
 > Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > ---
 > Changes in V4:
->     - Nothing changed
+>     - Remove "depends on RISCV*" from Kconfig.debug as it is located in
+>       arch specific folder so by default RISCV configs should be ebabled.
+>     - Add "ifdef __riscv_cmodel_medany" to be sure that PC-relative addressing
+>       is used as early_*() functions can be called from head.S with MMU-off and
+>       before relocation (if it would be needed at all for RISC-V)
+>     - fix code style
 > ---
 > Changes in V3:
->     - update copyright's year
->     - rename definition of __CPU_SBI_H__ to __ASM_RISCV_SBI_H__
->     - fix identations
->     - change an author of the commit
+>     - reorder headers in alphabetical order
+>     - merge changes related to start_xen() function from "[PATCH v2 7/8]
+>       xen/riscv: print hello message from C env" to this patch
+>     - remove unneeded parentheses in definition of STACK_SIZE
 > ---
 > Changes in V2:
->     - add an explanatory comment about sbi_console_putchar() function.
->     - order the files alphabetically in Makefile
+>     - introduce STACK_SIZE define.
+>     - use consistent padding between instruction mnemonic and operand(s)
 > ---
->  xen/arch/riscv/Makefile          |  1 +
->  xen/arch/riscv/include/asm/sbi.h | 34 ++++++++++++++++++++++++
->  xen/arch/riscv/sbi.c             | 45 ++++++++++++++++++++++++++++++++
->  3 files changed, 80 insertions(+)
->  create mode 100644 xen/arch/riscv/include/asm/sbi.h
->  create mode 100644 xen/arch/riscv/sbi.c
+> ---
+>  xen/arch/riscv/Kconfig.debug              |  6 +++
+>  xen/arch/riscv/Makefile                   |  1 +
+>  xen/arch/riscv/early_printk.c             | 45 +++++++++++++++++++++++
+>  xen/arch/riscv/include/asm/early_printk.h | 12 ++++++
+>  xen/arch/riscv/setup.c                    |  6 ++-
+>  5 files changed, 69 insertions(+), 1 deletion(-)
+>  create mode 100644 xen/arch/riscv/early_printk.c
+>  create mode 100644 xen/arch/riscv/include/asm/early_printk.h
 > 
+> diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debug
+> index e69de29bb2..e139e44873 100644
+> --- a/xen/arch/riscv/Kconfig.debug
+> +++ b/xen/arch/riscv/Kconfig.debug
+> @@ -0,0 +1,6 @@
+> +config EARLY_PRINTK
+> +    bool "Enable early printk"
+> +    default DEBUG
+> +    help
+> +
+> +      Enables early printk debug messages
 > diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> index 5a67a3f493..fd916e1004 100644
+> index fd916e1004..1a4f1a6015 100644
 > --- a/xen/arch/riscv/Makefile
 > +++ b/xen/arch/riscv/Makefile
-> @@ -1,4 +1,5 @@
+> @@ -1,3 +1,4 @@
+> +obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
 >  obj-$(CONFIG_RISCV_64) += riscv64/
-> +obj-y += sbi.o
+>  obj-y += sbi.o
 >  obj-y += setup.o
->  
->  $(TARGET): $(TARGET)-syms
-> diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
+> diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
 > new file mode 100644
-> index 0000000000..0e6820a4ed
+> index 0000000000..6bc29a1942
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -0,0 +1,34 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-or-later) */
-> +/*
-> + * Copyright (c) 2021-2023 Vates SAS.
-> + *
-> + * Taken from xvisor, modified by Bobby Eshleman (bobby.eshleman@gmail.com).
-> + *
-> + * Taken/modified from Xvisor project with the following copyright:
-> + *
-> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
-> + */
-> +
-> +#ifndef __ASM_RISCV_SBI_H__
-> +#define __ASM_RISCV_SBI_H__
-> +
-> +#define SBI_EXT_0_1_CONSOLE_PUTCHAR		0x1
-> +
-> +struct sbiret {
-> +    long error;
-> +    long value;
-> +};
-> +
-> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-> +                        unsigned long arg0, unsigned long arg1,
-> +                        unsigned long arg2, unsigned long arg3,
-> +                        unsigned long arg4, unsigned long arg5);
-> +
-> +/**
-> + * Writes given character to the console device.
-> + *
-> + * @param ch The data to be written to the console.
-> + */
-> +void sbi_console_putchar(int ch);
-> +
-> +#endif /* __ASM_RISCV_SBI_H__ */
-> diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
-> new file mode 100644
-> index 0000000000..dc0eb44bc6
-> --- /dev/null
-> +++ b/xen/arch/riscv/sbi.c
+> +++ b/xen/arch/riscv/early_printk.c
 > @@ -0,0 +1,45 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/* SPDX-License-Identifier: GPL-2.0 */
 > +/*
-> + * Taken and modified from the xvisor project with the copyright Copyright (c)
-> + * 2019 Western Digital Corporation or its affiliates and author Anup Patel
-> + * (anup.patel@wdc.com).
+> + * RISC-V early printk using SBI
 > + *
-> + * Modified by Bobby Eshleman (bobby.eshleman@gmail.com).
-> + *
-> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
-> + * Copyright (c) 2021-2023 Vates SAS.
+> + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
 > + */
-> +
-> +#include <xen/errno.h>
+> +#include <asm/early_printk.h>
 > +#include <asm/sbi.h>
 > +
-> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-> +                        unsigned long arg0, unsigned long arg1,
-> +                        unsigned long arg2, unsigned long arg3,
-> +                        unsigned long arg4, unsigned long arg5)
+> +/*
+> + * early_*() can be called from head.S with MMU-off.
+> + *
+> + * The following requiremets should be honoured for early_*() to
+> + * work correctly:
+> + *    It should use PC-relative addressing for accessing symbols.
+> + *    To achieve that GCC cmodel=medany should be used.
+> + */
+> +#ifndef __riscv_cmodel_medany
+> +#error "early_*() can be called from head.S before relocate so it should not use absolute addressing."
+> +#endif
+> +
+> +/*
+> + * TODO:
+> + *   sbi_console_putchar is already planned for deprecation
+> + *   so it should be reworked to use UART directly.
+> +*/
+> +void early_puts(const char *s, size_t nr)
 > +{
-> +    struct sbiret ret;
-> +
-> +    register unsigned long a0 asm ("a0") = arg0;
-> +    register unsigned long a1 asm ("a1") = arg1;
-> +    register unsigned long a2 asm ("a2") = arg2;
-> +    register unsigned long a3 asm ("a3") = arg3;
-> +    register unsigned long a4 asm ("a4") = arg4;
-> +    register unsigned long a5 asm ("a5") = arg5;
-> +    register unsigned long a6 asm ("a6") = fid;
-> +    register unsigned long a7 asm ("a7") = ext;
-> +
-> +    asm volatile ("ecall"
-> +              : "+r" (a0), "+r" (a1)
-> +              : "r" (a2), "r" (a3), "r" (a4), "r" (a5), "r" (a6), "r" (a7)
-> +              : "memory");
-> +    ret.error = a0;
-> +    ret.value = a1;
-> +
-> +    return ret;
+> +    while ( nr-- > 0 )
+> +    {
+> +        if ( *s == '\n' )
+> +            sbi_console_putchar('\r');
+> +        sbi_console_putchar(*s);
+> +        s++;
+> +    }
 > +}
 > +
-> +void sbi_console_putchar(int ch)
+> +void early_printk(const char *str)
 > +{
-> +    sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
+> +    while ( *str )
+> +    {
+> +        early_puts(str, 1);
+> +        str++;
+> +    }
 > +}
+> diff --git a/xen/arch/riscv/include/asm/early_printk.h b/xen/arch/riscv/include/asm/early_printk.h
+> new file mode 100644
+> index 0000000000..05106e160d
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/early_printk.h
+> @@ -0,0 +1,12 @@
+> +#ifndef __EARLY_PRINTK_H__
+> +#define __EARLY_PRINTK_H__
+> +
+> +#include <xen/early_printk.h>
+> +
+> +#ifdef CONFIG_EARLY_PRINTK
+> +void early_printk(const char *str);
+> +#else
+> +static inline void early_printk(const char *s) {};
+> +#endif
+> +
+> +#endif /* __EARLY_PRINTK_H__ */
+> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
+> index 13e24e2fe1..9c9412152a 100644
+> --- a/xen/arch/riscv/setup.c
+> +++ b/xen/arch/riscv/setup.c
+> @@ -1,13 +1,17 @@
+>  #include <xen/compile.h>
+>  #include <xen/init.h>
+>  
+> +#include <asm/early_printk.h>
+> +
+>  /* Xen stack for bringing up the first CPU. */
+>  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
+>      __aligned(STACK_SIZE);
+>  
+>  void __init noreturn start_xen(void)
+>  {
+> -    for ( ;; )
+> +    early_printk("Hello from C env\n");
+> +
+> +    for ( ; ; )
+>          asm volatile ("wfi");
+>  
+>      unreachable();
 > -- 
 > 2.39.0
-> 
 > 
 
 Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
