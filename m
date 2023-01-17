@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC9A7670BB3
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 23:36:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479905.744005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD226670BB4
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 23:37:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479907.744016 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHuZI-0005hB-Q5; Tue, 17 Jan 2023 22:36:36 +0000
+	id 1pHuZd-00067V-2E; Tue, 17 Jan 2023 22:36:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479905.744005; Tue, 17 Jan 2023 22:36:36 +0000
+Received: by outflank-mailman (output) from mailman id 479907.744016; Tue, 17 Jan 2023 22:36:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHuZI-0005eL-MO; Tue, 17 Jan 2023 22:36:36 +0000
-Received: by outflank-mailman (input) for mailman id 479905;
- Tue, 17 Jan 2023 22:36:35 +0000
+	id 1pHuZc-000657-UO; Tue, 17 Jan 2023 22:36:56 +0000
+Received: by outflank-mailman (input) for mailman id 479907;
+ Tue, 17 Jan 2023 22:36:55 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pHuZG-0005eD-VP
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 22:36:34 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHuZb-00064s-Pu; Tue, 17 Jan 2023 22:36:55 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHuZG-0005Xj-4f; Tue, 17 Jan 2023 22:36:34 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pHuZG-0001Mk-03; Tue, 17 Jan 2023 22:36:34 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHuZb-0005Xy-P9; Tue, 17 Jan 2023 22:36:55 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHuZb-0008SR-D2; Tue, 17 Jan 2023 22:36:55 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHuZb-000898-CV; Tue, 17 Jan 2023 22:36:55 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,116 +42,103 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=XYe4maePp7zmVmQU5gus58pAOG/ID5cGJENFvQ4i/sw=; b=oeCB03jrtE+YWYnZ7GGTFbxaDj
-	xgfHYkIiZ2Z0iIgm0a2NTVgiuIw6rSzgxUy6OFQENMyOU/oG15ul25YyBRgy8rTdOjBisXtcSdVbm
-	Y8bWppjmuOa5N5PDAAJxN7vqSogUlvl4FkkhjeckJzWKc2SRIjueJot9amnqSOsX0NgI=;
-Message-ID: <17595b1f-1523-9526-85da-99b9300f3218@xen.org>
-Date: Tue, 17 Jan 2023 22:36:32 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7MM7shFrSpdg638sIB9FD56tEbQ/51qPQmY9UWoRe0A=; b=FAeA3vkgOWxkTtu0zK80V3WiIH
+	rFo1ewy8BbWSdIkSMat/tDisjr5KtbIjT9R2X7FmV/1ynjk7+xL2McyP/doEphZus5Scl44yQq/1Y
+	HWjUDNTboJ4An/NXpnUZwOvrgjtgpjpocKZfuM8+ZP/aMhiEQn9HO8luaTnLlMiZT65I=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175950-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230117091124.22170-1-jgross@suse.com>
- <20230117091124.22170-17-jgross@suse.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v3 16/17] tools/xenstore: let check_store() check the
- accounting data
-In-Reply-To: <20230117091124.22170-17-jgross@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [ovmf test] 175950: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=ea382b3b21ef6664d5850dfbe08793f77d10c15d
+X-Osstest-Versions-That:
+    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 17 Jan 2023 22:36:55 +0000
 
-Hi Juergen,
+flight 175950 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175950/
 
-On 17/01/2023 09:11, Juergen Gross wrote:
-> Today check_store() is only testing the correctness of the node tree.
-> 
-> Add verification of the accounting data (number of nodes)  and correct
+Regressions :-(
 
-NIT: one too many space before 'and'.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
+ build-i386                    6 xen-build                fail REGR. vs. 175747
+ build-amd64                   6 xen-build                fail REGR. vs. 175747
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175747
 
-> the data if it is wrong.
-> 
-> Do the initial check_store() call only after Xenstore entries of a
-> live update have been read.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
 
-Can you clarify whether this is needed for the rest of the patch, or 
-simply a nice thing to have in general?
+version targeted for testing:
+ ovmf                 ea382b3b21ef6664d5850dfbe08793f77d10c15d
+baseline version:
+ ovmf                 9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
 
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
-> ---
->   tools/xenstore/xenstored_core.c   | 62 ++++++++++++++++------
->   tools/xenstore/xenstored_domain.c | 86 +++++++++++++++++++++++++++++++
->   tools/xenstore/xenstored_domain.h |  4 ++
->   3 files changed, 137 insertions(+), 15 deletions(-)
-> 
-> diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-> index 3099077a86..e201f14053 100644
-> --- a/tools/xenstore/xenstored_core.c
-> +++ b/tools/xenstore/xenstored_core.c
-> @@ -2389,8 +2389,6 @@ void setup_structure(bool live_update)
->   		manual_node("@introduceDomain", NULL);
->   		domain_nbentry_fix(dom0_domid, 5, true);
->   	}
-> -
-> -	check_store();
->   }
->   
->   static unsigned int hash_from_key_fn(void *k)
-> @@ -2433,20 +2431,28 @@ int remember_string(struct hashtable *hash, const char *str)
->    * As we go, we record each node in the given reachable hashtable.  These
->    * entries will be used later in clean_store.
->    */
-> +
-> +struct check_store_data {
-> +	struct hashtable *reachable;
-> +	struct hashtable *domains;
-> +};
-> +
->   static int check_store_step(const void *ctx, struct connection *conn,
->   			    struct node *node, void *arg)
->   {
-> -	struct hashtable *reachable = arg;
-> +	struct check_store_data *data = arg;
->   
-> -	if (hashtable_search(reachable, (void *)node->name)) {
-> +	if (hashtable_search(data->reachable, (void *)node->name)) {
+Last test of basis   175747  2023-01-12 16:10:44 Z    5 days
+Failing since        175860  2023-01-15 07:11:07 Z    2 days   38 attempts
+Testing same since   175945  2023-01-17 19:40:40 Z    0 days    4 attempts
 
-IIUC the cast is only necessary because hashtable_search() expects a 
-non-const value. I can't think for a reason for the key to be non-const. 
-So I will look to send a follow-up patch.
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@amd.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiangang He <jiangang.he@amd.com>
+  Jiewen Yao <jiewen.yao@intel.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+  Oliver Steffen <osteffen@redhat.com>
 
-> +
-> +void domain_check_acc_add(const struct node *node, struct hashtable *domains)
-> +{
-> +	struct domain_acc *dom;
-> +	unsigned int domid;
-> +
-> +	domid = node->perms.p[0].id;
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
 
-This could be replaced with get_node_owner().
 
-> +	dom = hashtable_search(domains, &domid);
-> +	if (!dom)
-> +		log("Node %s owned by unknown domain %u", node->name, domid);
-> +	else
-> +		dom->nodes++;
-> +}
-> +
-> +static int domain_check_acc_sub(const void *k, void *v, void *arg)
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-I find the suffix 'sub' misleading because we have a function with a 
-very similar name (instead suffixed 'sub'). Yet, AFAICT, it is not meant 
-to substract.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-So I would prefix with '_cb' instead.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Cheers,
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
--- 
-Julien Grall
+
+Not pushing.
+
+(No revision log; it would be 718 lines long.)
 
