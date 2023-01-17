@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3443C66D9FB
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:31:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479254.742987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00BD566DA16
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:35:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479261.742998 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiJE-00045Q-4T; Tue, 17 Jan 2023 09:31:12 +0000
+	id 1pHiNU-0004lI-NT; Tue, 17 Jan 2023 09:35:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479254.742987; Tue, 17 Jan 2023 09:31:12 +0000
+Received: by outflank-mailman (output) from mailman id 479261.742998; Tue, 17 Jan 2023 09:35:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiJE-00042P-1p; Tue, 17 Jan 2023 09:31:12 +0000
-Received: by outflank-mailman (input) for mailman id 479254;
- Tue, 17 Jan 2023 09:31:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Is34=5O=gmail.com=mingo.kernel.org@srs-se1.protection.inumbo.net>)
- id 1pHiJC-00041y-UX
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:31:10 +0000
-Received: from mail-ej1-x629.google.com (mail-ej1-x629.google.com
- [2a00:1450:4864:20::629])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ac77fbfb-9649-11ed-91b6-6bf2151ebd3b;
- Tue, 17 Jan 2023 10:31:09 +0100 (CET)
-Received: by mail-ej1-x629.google.com with SMTP id mp20so27314023ejc.7
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 01:31:08 -0800 (PST)
-Received: from gmail.com (1F2EF7EB.nat.pool.telekom.hu. [31.46.247.235])
- by smtp.gmail.com with ESMTPSA id
- t1-20020a1709061be100b0086f40238403sm3073376ejg.223.2023.01.17.01.31.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 01:31:07 -0800 (PST)
+	id 1pHiNU-0004iU-K4; Tue, 17 Jan 2023 09:35:36 +0000
+Received: by outflank-mailman (input) for mailman id 479261;
+ Tue, 17 Jan 2023 09:35:35 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pHiNT-0004iL-Fh
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:35:35 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pHiNT-0003QQ-4P; Tue, 17 Jan 2023 09:35:35 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.7.198]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pHiNS-0004yx-T3; Tue, 17 Jan 2023 09:35:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,83 +38,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: ac77fbfb-9649-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jdnu+i46i2gnFS4iiJrllb1w2/cjIXrWKzQRHis/CFU=;
-        b=J1vTmhiewt53nz0Aw/xd1Nkmv7FSoF283O3i2YTmIIqDBDOic1wlubmcsmDvQxDvO4
-         QJJRMt5X9KB8BosQozglpBSaVcfQLVyazmkMvi/2G81lxgBFUGc6AKAr8/cFDxO23ada
-         qJPsjKGuFDUhQ0womaUeXwkVfLpNp8fvvNK3Qf+fmrZV4I+Rm9Vf+Sog7ZOY1lk7Z7Zo
-         O7aH+phliKhjKAsepC1stYUeuxBiwV1ymu+3Jj8Tp0YbmfxH8q2e9wemDFD892gfzbI5
-         Hng8xTaD6TkJqzNTURbkAXfzMiuC6YuIkirf7yqoNz2mjydfVWSCXtDnmYXo/hguNMXq
-         Xm9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jdnu+i46i2gnFS4iiJrllb1w2/cjIXrWKzQRHis/CFU=;
-        b=Rioi1VLR8FW7W/cotvHzwiTNhf0D9HT4tH3OoXsJX8QTAQankFuRB4yjEcJXl672+c
-         ux1hmFaCaTMwA4pcTB7Un5SwFUTybmabr4sDvcW2oftyCBpXsVYe/3j0I9KI/6qJHsEo
-         eefH4vyLYgaeOMKdy826Cwl7g04NgLQkV7f+DOkijDTUYiGYA7RW1xVJXE73LeuCe4Go
-         BBQH+UWSqct8MN7ey/OeVGx/s1vPuzYEDY4fjjXTqMPJdoGEBzRRQAUq5y5+1+q+SkwS
-         gWkUt+puH50Az+C/zNV3vZUGhSlrG1RkH57zHK4hFD2D2ppGPXoZHChKimA09cd52KQF
-         T0wg==
-X-Gm-Message-State: AFqh2koMAZv9PMYfV4QHZrkpqbtR6WFTh4gW9/uF+CMw6qJtdgIt+38i
-	VUuZRIWr39m0c49Fask+mO0=
-X-Google-Smtp-Source: AMrXdXvAbl6az2nEprKe4qbBEkiakEEniymcQ+bk8FYAhM2poQzyIc90typ8o1yTNjA99vtnWkmtJQ==
-X-Received: by 2002:a17:907:20e9:b0:7c0:dcc2:e7b1 with SMTP id rh9-20020a17090720e900b007c0dcc2e7b1mr2127024ejb.43.1673947868545;
-        Tue, 17 Jan 2023 01:31:08 -0800 (PST)
-Sender: Ingo Molnar <mingo.kernel.org@gmail.com>
-Date: Tue, 17 Jan 2023 10:31:05 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: x86@kernel.org, Joan Bruguera <joanbrugueram@gmail.com>,
-	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Kees Cook <keescook@chromium.org>, mark.rutland@arm.com,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	=?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>,
-	"H. Peter Anvin" <hpa@zytor.com>
-Subject: Re: [PATCH v2 6/7] x86/power: Sprinkle some noinstr
-Message-ID: <Y8Zq2WaYmxnOjfk8@gmail.com>
-References: <20230116142533.905102512@infradead.org>
- <20230116143645.888786209@infradead.org>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=WiGYDHYoXOW/AkCi5YR+2UmOE7AaFzIBgCMa3CWTVlo=; b=OZRnTo3/38ZvzzvH50WMzpSRk1
+	nm6lpGPHwyxMEcWxzL3iAJkcbFQuZKb4OYPXZ74I2NYcyht1hbwy8MpjALZvZHBIqQ2+P3evZFS67
+	98R6YUbF0ivQ7wA5NClmTPWcXvLabbqvLuObkpQLRJGVbgNVs2e5WOQaXbLCForCATr4=;
+Message-ID: <72fd8c47-d654-91d0-993c-97f2d0542cff@xen.org>
+Date: Tue, 17 Jan 2023 09:35:33 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230116143645.888786209@infradead.org>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH] xen/arm64: Fix incorrect DIRECTMAP_SIZE calculation
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230116144106.12544-1-michal.orzel@amd.com>
+ <20230116144106.12544-2-michal.orzel@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230116144106.12544-2-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Michal,
 
-* Peter Zijlstra <peterz@infradead.org> wrote:
+It is not clear to me why this was sent In-reply-to the other patch. If 
+they are meant to form a series, then this should have a cover letter + 
+each patch should be numbered.
 
-> +	/*
-> +	 * Definitely wrong, but at this point we should have at least enough
-> +	 * to do CALL/RET (consider SKL callthunks) and this avoids having
-> +	 * to deal with the noinstr explosion for now :/
-> +	 */
-> +	instrumentation_begin();
+If they are truly separate, then please don't thread them.
 
-BTW., readability side note: instrumentation_begin()/end() are the 
-misnomers of the century - they don't signal the start/end of instrumented 
-code areas like the name falsely & naively suggests, but the exact 
-opposite: start/end of *non-*instrumented code areas.
+On 16/01/2023 14:41, Michal Orzel wrote:
+> The direct mapped area occupies L0 slots from 256 to 265 (i.e. 10 slots),
 
-As such they should probably be something like:
+I would write "265 included"  or similar so it shows why this is a problem.
 
-	noinstr_begin();
-	...
-	noinstr_end();
+> resulting in 5TB (512GB * 10) of virtual address space. However, due to
+> incorrect slot subtraction (we take 9 slots into account) we set
+> DIRECTMAP_SIZE to 4.5TB instead. Fix it.
 
-... to reuse the nomenclature of the 'noinstr' attribute?
+I would clarify that we only support up to 2TB. So this is a latent 
+issue. This would make clear that...
 
-Thanks,
+> 
+> Fixes: 5263507b1b4a ("xen: arm: Use a direct mapping of RAM on arm64")
 
-	Ingo
+... while this is fixing a bug, it is not going to be a candidate for 
+backport.
+
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+>   xen/arch/arm/include/asm/config.h | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+> index 0fefed1b8aa9..16213c8b677f 100644
+> --- a/xen/arch/arm/include/asm/config.h
+> +++ b/xen/arch/arm/include/asm/config.h
+> @@ -157,7 +157,7 @@
+>   #define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
+>   
+>   #define DIRECTMAP_VIRT_START   SLOT0(256)
+> -#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (265-256))
+> +#define DIRECTMAP_SIZE         (SLOT0_ENTRY_SIZE * (266 - 256))
+>   #define DIRECTMAP_VIRT_END     (DIRECTMAP_VIRT_START + DIRECTMAP_SIZE - 1)
+>   
+>   #define XENHEAP_VIRT_START     directmap_virt_start
+
+Cheers,
+
+-- 
+Julien Grall
 
