@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF21F66E364
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 17:22:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479606.743559 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C20166E3BE
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 17:38:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479613.743569 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHoj1-0005h1-Pu; Tue, 17 Jan 2023 16:22:15 +0000
+	id 1pHoxs-0007Fv-2a; Tue, 17 Jan 2023 16:37:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479606.743559; Tue, 17 Jan 2023 16:22:15 +0000
+Received: by outflank-mailman (output) from mailman id 479613.743569; Tue, 17 Jan 2023 16:37:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHoj1-0005f3-Mr; Tue, 17 Jan 2023 16:22:15 +0000
-Received: by outflank-mailman (input) for mailman id 479606;
- Tue, 17 Jan 2023 16:22:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wyYX=5O=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pHoj0-0005ex-9V
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 16:22:14 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 18dce8ad-9683-11ed-b8d0-410ff93cb8f0;
- Tue, 17 Jan 2023 17:22:12 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id bk15so19065924ejb.9
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 08:22:12 -0800 (PST)
+	id 1pHoxr-0007DS-W2; Tue, 17 Jan 2023 16:37:35 +0000
+Received: by outflank-mailman (input) for mailman id 479613;
+ Tue, 17 Jan 2023 16:37:34 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHoxq-0007DI-IB; Tue, 17 Jan 2023 16:37:34 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHoxq-0005TU-Ep; Tue, 17 Jan 2023 16:37:34 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHoxq-0007Zo-7i; Tue, 17 Jan 2023 16:37:34 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHoxq-0004xn-7I; Tue, 17 Jan 2023 16:37:34 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,99 +42,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 18dce8ad-9683-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=xNnk8xtXpsGuhxIpiLYHfCMmNvD0b3qoKe4U8pFLMZQ=;
-        b=Hz0dKwa2C7DjWVvGztL30CEVZg1ivWP3Ovy6cTCjZ4XX4Qc1ZE+qC2GPA2cCvJEU6T
-         T/kvsdjcSXiese3am/b38YzIvcd4lUP2UXvj99iPuxHdvu9VACeBEbUKmENHal/V4pR4
-         xsP84JcZDUn5y2FQWFIE1vlVV8aVQYvK7ltMnDGcY/3HVfypyZrLvmpOqu7P9OOJ8A3W
-         BrH9CHLWuVAz7VQd/kdkzgKty6SgKMwLdXfPHbrzFrqaux5j2mHPyl5W4GLxWtBT4PrY
-         Oou4Hq4skxGqDE/ytnDCgOKILw1tUQbfjla5TvcUrxsSVmKTSTAh0alFf/bnFEHFS9B0
-         sg9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xNnk8xtXpsGuhxIpiLYHfCMmNvD0b3qoKe4U8pFLMZQ=;
-        b=07KZbpIwNVS9wD0vZZvzb640Bk1YSue6Kvr7bpyD0HRuiBP0D0D8LjEMtyDz7JHGCo
-         dvlUsOscF50xIGTpA7yK8gZ7aiIi+bF9p/34mwNLGEP6PVFuWADSk0oCY340O9PA5f1R
-         WMOOJUZ/wRTpNTPuKs+P46+80VomMxyUFt8CYXjkWzrAcKzSqlXXyMh7oC2dqlf4zSyi
-         I6bg4VksExvoUtCTTLmiW12CNnUT0rMMxEOuTccnf8snLzHOZmnjQ4+aLuGWP1jULSws
-         vd2VP+k/+5GLLV2I4d7oxOUnIDVpFYkcdSH9Qd8rKoXmh4m6hdUlby+YsjiDUxERcLcQ
-         kTmA==
-X-Gm-Message-State: AFqh2kpQzrqYCNKJUe4IU7K1I/ppnB5LPOUYAO/y4vaFlICst30OUNA2
-	eP9ID/6EaM8aIz4kc/F6LxphLPKMYoJA6ZPCZAE=
-X-Google-Smtp-Source: AMrXdXutIkia0sFmsP+r2hJMV2PwNijOQa6hRMQ4AD/xTTAXTTUSmYTsVY1UD1lSzLTDL8knoWR2YAgtHv5cI1vLn3U=
-X-Received: by 2002:a17:906:f9c9:b0:84d:45cc:3247 with SMTP id
- lj9-20020a170906f9c900b0084d45cc3247mr288177ejb.481.1673972531760; Tue, 17
- Jan 2023 08:22:11 -0800 (PST)
-MIME-Version: 1.0
-References: <20230113230835.29356-1-andrew.cooper3@citrix.com> <20230113230835.29356-4-andrew.cooper3@citrix.com>
-In-Reply-To: <20230113230835.29356-4-andrew.cooper3@citrix.com>
-From: Jason Andryuk <jandryuk@gmail.com>
-Date: Tue, 17 Jan 2023 11:21:59 -0500
-Message-ID: <CAKf6xpstz88SvrQNxmOrk2FL6x2mRegAGfrui7-6_C3Yg7EsjQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] xen/version: Introduce non-truncating XENVER_* subops
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>, 
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Daniel Smith <dpsmith@apertussolutions.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=7md/ASegCAGvXw82GiIhB2IRY39pJpLrdd99EyQz5Tc=; b=egJRQ3TvvNHXTVMzs8AQ1sFwuM
+	bGdV5QP71eHbIctyPsaXIvqL0iZEpkejXA4z7tZ19Hw7J1qY1S583kps4tSnRQVX6fHB2LF8Ts6eA
+	2qSemtj+1WffIffyhS+O6IbkUdD2dx0hWD/EMliUCjdbeJZj2h+hqovgddKLUoasRdas=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175939-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 175939: regressions - FAIL
+X-Osstest-Failures:
+    ovmf:build-amd64-xsm:xen-build:fail:regression
+    ovmf:build-i386:xen-build:fail:regression
+    ovmf:build-amd64:xen-build:fail:regression
+    ovmf:build-i386-xsm:xen-build:fail:regression
+    ovmf:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    ovmf:build-i386-libvirt:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-amd64-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+    ovmf:test-amd64-i386-xl-qemuu-ovmf-amd64:build-check(1):blocked:nonblocking
+X-Osstest-Versions-This:
+    ovmf=a107ad0f623669c72997443dc0431eeb732f81a0
+X-Osstest-Versions-That:
+    ovmf=9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 17 Jan 2023 16:37:34 +0000
 
-On Fri, Jan 13, 2023 at 6:08 PM Andrew Cooper <andrew.cooper3@citrix.com> wrote:
->
-> Recently in XenServer, we have encountered problems caused by both
-> XENVER_extraversion and XENVER_commandline having fixed bounds.
->
-> More than just the invariant size, the APIs/ABIs also broken by typedef-ing an
-> array, and using an unqualified 'char' which has implementation-specific
-> signed-ness
->
-> Provide brand new ops, which are capable of expressing variable length
-> strings, and mark the older ops as broken.
->
-> This fixes all issues around XENVER_extraversion being longer than 15 chars.
-> More work is required to remove other assumptions about XENVER_commandline
-> being 1023 chars long.
->
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: George Dunlap <George.Dunlap@eu.citrix.com>
-> CC: Jan Beulich <JBeulich@suse.com>
-> CC: Stefano Stabellini <sstabellini@kernel.org>
-> CC: Wei Liu <wl@xen.org>
-> CC: Julien Grall <julien@xen.org>
-> CC: Daniel De Graaf <dgdegra@tycho.nsa.gov>
-> CC: Daniel Smith <dpsmith@apertussolutions.com>
-> CC: Jason Andryuk <jandryuk@gmail.com>
->
-> v2:
->  * Remove xen_capabilities_info_t from the stack now that arch_get_xen_caps()
->    has gone.
->  * Use an arbitrary limit check much lower than INT_MAX.
->  * Use "buf" rather than "string" terminology.
->  * Expand the API comment.
->
-> Tested by forcing XENVER_extraversion to be 20 chars long, and confirming that
-> an untruncated version can be obtained.
-> ---
->  xen/common/kernel.c          | 62 +++++++++++++++++++++++++++++++++++++++++++
->  xen/include/public/version.h | 63 ++++++++++++++++++++++++++++++++++++++++++--
->  xen/include/xlat.lst         |  1 +
->  xen/xsm/flask/hooks.c        |  4 +++
+flight 175939 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175939/
 
-The Flask change looks good, so that part is:
-Reviewed-by: Jason Andryuk <jandryuk@gmail.com> # Flask
+Regressions :-(
 
-Looking at include/xsm/dummy.h, these new subops would fall under the
-default case and require XSM_PRIV.  Is that the desired permission,
-and guests would just have to handle EPERM?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-amd64-xsm               6 xen-build                fail REGR. vs. 175747
+ build-i386                    6 xen-build                fail REGR. vs. 175747
+ build-amd64                   6 xen-build                fail REGR. vs. 175747
+ build-i386-xsm                6 xen-build                fail REGR. vs. 175747
 
-Regards,
-Jason
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ build-i386-libvirt            1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-ovmf-amd64  1 build-check(1)             blocked n/a
+ test-amd64-i386-xl-qemuu-ovmf-amd64  1 build-check(1)              blocked n/a
+
+version targeted for testing:
+ ovmf                 a107ad0f623669c72997443dc0431eeb732f81a0
+baseline version:
+ ovmf                 9d70d8f20d0feee1d232cbf86fc87147ce92c2cb
+
+Last test of basis   175747  2023-01-12 16:10:44 Z    5 days
+Failing since        175860  2023-01-15 07:11:07 Z    2 days   30 attempts
+Testing same since   175935  2023-01-17 14:42:05 Z    0 days    3 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Abner Chang <abner.chang@amd.com>
+  Ard Biesheuvel <ardb@kernel.org>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiangang He <jiangang.he@amd.com>
+  Konstantin Aladyshev <aladyshev22@gmail.com>
+  Min M Xu <min.m.xu@intel.com>
+  Min Xu <min.m.xu@intel.com>
+
+jobs:
+ build-amd64-xsm                                              fail    
+ build-i386-xsm                                               fail    
+ build-amd64                                                  fail    
+ build-i386                                                   fail    
+ build-amd64-libvirt                                          blocked 
+ build-i386-libvirt                                           blocked 
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         blocked 
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          blocked 
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 323 lines long.)
 
