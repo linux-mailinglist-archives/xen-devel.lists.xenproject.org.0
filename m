@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A029A66D9D1
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:27:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479238.742953 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B83266D9F0
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 10:29:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479244.742965 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiEK-0001Zw-5K; Tue, 17 Jan 2023 09:26:08 +0000
+	id 1pHiHJ-0002An-Hj; Tue, 17 Jan 2023 09:29:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479238.742953; Tue, 17 Jan 2023 09:26:08 +0000
+Received: by outflank-mailman (output) from mailman id 479244.742965; Tue, 17 Jan 2023 09:29:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHiEK-0001XO-1r; Tue, 17 Jan 2023 09:26:08 +0000
-Received: by outflank-mailman (input) for mailman id 479238;
- Tue, 17 Jan 2023 09:26:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Is34=5O=gmail.com=mingo.kernel.org@srs-se1.protection.inumbo.net>)
- id 1pHiEH-0001XI-W6
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:26:06 +0000
-Received: from mail-ej1-x635.google.com (mail-ej1-x635.google.com
- [2a00:1450:4864:20::635])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5c53ed5-9648-11ed-91b6-6bf2151ebd3b;
- Tue, 17 Jan 2023 10:26:02 +0100 (CET)
-Received: by mail-ej1-x635.google.com with SMTP id qx13so15506870ejb.13
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 01:26:02 -0800 (PST)
-Received: from gmail.com (1F2EF7EB.nat.pool.telekom.hu. [31.46.247.235])
- by smtp.gmail.com with ESMTPSA id
- vo16-20020a170907a81000b0086dc174caf2sm3692018ejc.220.2023.01.17.01.26.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 01:26:01 -0800 (PST)
+	id 1pHiHJ-00028B-EY; Tue, 17 Jan 2023 09:29:13 +0000
+Received: by outflank-mailman (input) for mailman id 479244;
+ Tue, 17 Jan 2023 09:29:11 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pHiHH-00027m-8M
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 09:29:11 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pHiHG-0003I5-SM; Tue, 17 Jan 2023 09:29:10 +0000
+Received: from 54-240-197-234.amazon.com ([54.240.197.234]
+ helo=[192.168.7.198]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pHiHG-00045F-Mb; Tue, 17 Jan 2023 09:29:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,99 +38,137 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: f5c53ed5-9648-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=exVmUOS71oVOAqiELfUuXDuaGik6dNbe+Gp7QyuOUb8=;
-        b=GpMinRaS96fMLTxeHgP6Jtmqj9EhhkeoXQsvfQH8lrHGiCaqLd72g0fB9soxTwRier
-         JlE3/pwdPSu/kOk7S9xJQ83vcthyeqA4CqwB1zRMHvcUCngcYebAClrC2HO3RFGGvhrR
-         Q6vQDWVqaVhEwUDFyqWuM8hpLBdfP1YPrglsx0ubhV8Bz02IpG0sEsI8iBYTQawXD12c
-         7sqIT9NzVYEvMokLZVa0GEqrYIuo8kGf54k9JY0VfSZdUN+r5j0snoaBNGmJ8RjxbRNa
-         ZI2x7Rj2WV3xzIfLu0PYIPsoqr9c97+xP/RgFiiseQpzwH8EB+aF/x9HpAm/hTbpvbxd
-         H1bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=exVmUOS71oVOAqiELfUuXDuaGik6dNbe+Gp7QyuOUb8=;
-        b=rnsW2n20LrKtEU4/JLHk9FDK26B+7kuKqW1HQcaCw4w3AfX5EoEsVnktPi0dqbBUII
-         y7LMvWis9pokcSAe5c4XeEmKDAkmMsKqlYzMEW1dzfVQs/GLxoBpd1/A8qHB8wAbzHj4
-         X1wHXJpSUVBB5S0hMgCe5l/QouCQvJtMuYLy/bBzGaild3wTUxoYp9T0cd+IoTQlddfG
-         rnl0rmEbv4u7KEuHIRFMPx99MBwq7UiNVIWd0JrTvEif/rhDVXsZ24nRr7jXMAusql4p
-         1yJYmlefjvP7MN4Bz8lD8PyZkPYoHd3vjpKuANkUvVGOj3rybhG6Awxlge02bUrzAPEu
-         miYQ==
-X-Gm-Message-State: AFqh2koiMDjM55UeeO0UEkM8mLp+PhZ3KBhnhAOuJFcJKqGyQN8CxBy0
-	g+UkKGiTFAQRVC9NItbbX20=
-X-Google-Smtp-Source: AMrXdXuKr4bAS6tqS2mchJrJpKXUGMsa3MmPkAdloFDHqv0zcLBeA4MsdPSn6XcLDgEVV1Q6TB3V8Q==
-X-Received: by 2002:a17:907:c618:b0:868:b2b6:ee71 with SMTP id ud24-20020a170907c61800b00868b2b6ee71mr2275817ejc.6.1673947561671;
-        Tue, 17 Jan 2023 01:26:01 -0800 (PST)
-Sender: Ingo Molnar <mingo.kernel.org@gmail.com>
-Date: Tue, 17 Jan 2023 10:25:58 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: x86@kernel.org, Joan Bruguera <joanbrugueram@gmail.com>,
-	linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	xen-devel <xen-devel@lists.xenproject.org>,
-	Jan Beulich <jbeulich@suse.com>,
-	Roger Pau Monne <roger.pau@citrix.com>,
-	Kees Cook <keescook@chromium.org>, mark.rutland@arm.com,
-	Andrew Cooper <Andrew.Cooper3@citrix.com>,
-	=?iso-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, jroedel@suse.de
-Subject: Re: [PATCH v2 1/7] x86/boot: Remove verify_cpu() from
- secondary_startup_64()
-Message-ID: <Y8ZppgQ3RyzcR8eJ@gmail.com>
-References: <20230116142533.905102512@infradead.org>
- <20230116143645.589522290@infradead.org>
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=KkXjFtlIRpWB5etx1wMH/9AzZvyHJj+jr/oR3RXSlwk=; b=bvYn7K8kRusgG4tKNP3IJG2Na6
+	O85CW+UdP7zwtiF7UpI86Hjf0ldtJlNjtdiKkOnOQXaxIEW6UXWn4AokuMru4tNHwkMsSVnjqCcZD
+	aJcbMyDmu5IhIj2Rc/1GluQg0xbmYh5X/TsSyv3WF8NxyLFUMabpzmL9J/3GwfzbL4F8=;
+Message-ID: <2a679d99-4ed4-4fe8-8aee-faee57b5007b@xen.org>
+Date: Tue, 17 Jan 2023 09:29:08 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230116143645.589522290@infradead.org>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH] xen/arm: Harden setup_frametable_mappings
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230116144106.12544-1-michal.orzel@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230116144106.12544-1-michal.orzel@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+Hi Michal,
 
-* Peter Zijlstra <peterz@infradead.org> wrote:
-
-> The boot trampolines from trampoline_64.S have code flow like:
+On 16/01/2023 14:41, Michal Orzel wrote:
+> The amount of supported physical memory depends on the frametable size
+> and the number of struct page_info entries that can fit into it. Define
+> a macro PAGE_INFO_SIZE to store the current size of the struct page_info
+> (i.e. 56B for arm64 and 32B for arm32) and add a sanity check in
+> setup_frametable_mappings to be notified whenever the size of the
+> structure changes. Also call a panic if the calculated frametable_size
+> exceeds the limit defined by FRAMETABLE_SIZE macro.
 > 
->   16bit BIOS			SEV-ES				64bit EFI
+> Update the comments regarding the frametable in asm/config.h and take
+> the opportunity to remove unused macro FRAMETABLE_VIRT_END on arm32.
 > 
->   trampoline_start()		sev_es_trampoline_start()	trampoline_start_64()
->     verify_cpu()			  |				|
->   switch_to_protected:    <---------------'				v
->        |							pa_trampoline_compat()
->        v								|
->   startup_32()		<-----------------------------------------------'
->        |
->        v
->   startup_64()
->        |
->        v
->   tr_start() := head_64.S:secondary_startup_64()
-
-oh ... this nice flow chart should move into a prominent C comment I think, 
-it's far too good to be forgotten in an Git commit changelog.
-
-> Since AP bringup always goes through the 16bit BIOS path (EFI doesn't
-> touch the APs), there is already a verify_cpu() invocation.
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> ---
+>   xen/arch/arm/include/asm/config.h |  5 ++---
+>   xen/arch/arm/include/asm/mm.h     | 11 +++++++++++
+>   xen/arch/arm/mm.c                 |  5 +++++
+>   3 files changed, 18 insertions(+), 3 deletions(-)
 > 
-> Removing the verify_cpu() invocation from secondary_startup_64()
-> renders the whole secondary_startup_64_no_verify() thing moot, so
-> remove that too.
-> 
-> Cc: jroedel@suse.de
-> Cc: hpa@zytor.com
-> Fixes: e81dc127ef69 ("x86/callthunks: Add call patching for call depth tracking")
-> Reported-by: Joan Bruguera <joanbrugueram@gmail.com>
-> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+> diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
+> index 16213c8b677f..d8f99776986f 100644
+> --- a/xen/arch/arm/include/asm/config.h
+> +++ b/xen/arch/arm/include/asm/config.h
+> @@ -82,7 +82,7 @@
+>    * ARM32 layout:
+>    *   0  -  12M   <COMMON>
+>    *
+> - *  32M - 128M   Frametable: 24 bytes per page for 16GB of RAM
+> + *  32M - 128M   Frametable: 32 bytes per page for 12GB of RAM
+>    * 256M -   1G   VMAP: ioremap and early_ioremap use this virtual address
+>    *                    space
+>    *
+> @@ -95,7 +95,7 @@
+>    *
+>    *   1G -   2G   VMAP: ioremap and early_ioremap
+>    *
+> - *  32G -  64G   Frametable: 24 bytes per page for 5.3TB of RAM
+> + *  32G -  64G   Frametable: 56 bytes per page for 2TB of RAM
+>    *
+>    * 0x0000008000000000 - 0x00007fffffffffff (127.5TB, L0 slots [1..255])
+>    *  Unused
+> @@ -127,7 +127,6 @@
+>   #define FRAMETABLE_VIRT_START  _AT(vaddr_t,0x02000000)
+>   #define FRAMETABLE_SIZE        MB(128-32)
+>   #define FRAMETABLE_NR          (FRAMETABLE_SIZE / sizeof(*frame_table))
+> -#define FRAMETABLE_VIRT_END    (FRAMETABLE_VIRT_START + FRAMETABLE_SIZE - 1)
 
-Reviewed-by: Ingo Molnar <mingo@kernel.org>
+This is somewhat unrelated to the goal of the patch. We do clean-up in 
+the same patch, but they tend to be in the same of already modified hunk 
+(which is not the case here).
 
-Thanks,
+So I would prefer if this is split. This would make this patch a 
+potential candidate for backport.
 
-	Ingo
+>   
+>   #define VMAP_VIRT_START        _AT(vaddr_t,0x10000000)
+>   #define VMAP_VIRT_SIZE         _AT(vaddr_t, GB(1) - MB(256))
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+> index 68adcac9fa8d..23dec574eb31 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -26,6 +26,17 @@
+>    */
+>   #define PFN_ORDER(_pfn) ((_pfn)->v.free.order)
+>   
+> +/*
+> + * The size of struct page_info impacts the number of entries that can fit
+> + * into the frametable area and thus it affects the amount of physical memory
+> + * we claim to support. Define PAGE_INFO_SIZE to be used for sanity checking.
+> +*/
+> +#ifdef CONFIG_ARM_64
+> +#define PAGE_INFO_SIZE 56
+> +#else
+> +#define PAGE_INFO_SIZE 32
+> +#endif
+> +
+>   struct page_info
+>   {
+>       /* Each frame can be threaded onto a doubly-linked list. */
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 0fc6f2992dd1..a8c28fa5b768 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -676,6 +676,11 @@ void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
+>       const unsigned long mapping_size = frametable_size < MB(32) ? MB(2) : MB(32);
+>       int rc;
+>   
+> +    BUILD_BUG_ON(sizeof(struct page_info) != PAGE_INFO_SIZE);
+> +
+> +    if ( frametable_size > FRAMETABLE_SIZE )
+> +        panic("RAM size is too big to fit in a frametable area\n");
+
+This is not correct. Depending on the PDX compression, the frametable 
+may end up to cover non-RAM. So I would write:
+
+"The cannot frametable cannot cover the physical region 0x%PRIpaddr - 
+0x%PRIpaddr".
+
+> +
+>       frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
+>       /* Round up to 2M or 32M boundary, as appropriate. */
+>       frametable_size = ROUNDUP(frametable_size, mapping_size);
+
+Cheers,
+
+-- 
+Julien Grall
 
