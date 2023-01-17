@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6097766E2BC
-	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 16:50:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.479573.743504 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4912266E2C5
+	for <lists+xen-devel@lfdr.de>; Tue, 17 Jan 2023 16:51:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.479579.743514 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHoE3-0007vL-7P; Tue, 17 Jan 2023 15:50:15 +0000
+	id 1pHoFG-00005G-J5; Tue, 17 Jan 2023 15:51:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 479573.743504; Tue, 17 Jan 2023 15:50:15 +0000
+Received: by outflank-mailman (output) from mailman id 479579.743514; Tue, 17 Jan 2023 15:51:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHoE3-0007tS-35; Tue, 17 Jan 2023 15:50:15 +0000
-Received: by outflank-mailman (input) for mailman id 479573;
- Tue, 17 Jan 2023 15:50:13 +0000
+	id 1pHoFG-0008UT-GR; Tue, 17 Jan 2023 15:51:30 +0000
+Received: by outflank-mailman (input) for mailman id 479579;
+ Tue, 17 Jan 2023 15:51:28 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=uRIs=5O=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pHoE1-0007tM-Oi
- for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 15:50:13 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ id 1pHoFE-0008UI-Jh
+ for xen-devel@lists.xenproject.org; Tue, 17 Jan 2023 15:51:28 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a08a9428-967e-11ed-91b6-6bf2151ebd3b;
- Tue, 17 Jan 2023 16:50:12 +0100 (CET)
+ id cd6e4081-967e-11ed-91b6-6bf2151ebd3b;
+ Tue, 17 Jan 2023 16:51:27 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE96E20063;
- Tue, 17 Jan 2023 15:50:11 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5CA5238894;
+ Tue, 17 Jan 2023 15:51:27 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B98C11390C;
- Tue, 17 Jan 2023 15:50:11 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 36D3113357;
+ Tue, 17 Jan 2023 15:51:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 86XnK7PDxmMvWQAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 17 Jan 2023 15:50:11 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id n+ivC//DxmPoWQAAMHmgww
+ (envelope-from <jgross@suse.com>); Tue, 17 Jan 2023 15:51:27 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,74 +51,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a08a9428-967e-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: cd6e4081-967e-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1673970611; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1673970687; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ylkLwEQ9wpikNwd/2MHRgca3vP7wm2XPPZEd4mvvd2I=;
-	b=oZjBqEoR0o1huc2iD7qOoL95ms2uXjhIEpOA+pRp7RU8aD7mQacKA865VrAS+Lwo1k6Sh9
-	wUMxFedgjXbBoKjeU8rU0F1EqP/Y97iy6DaXC8eTcLxCgNpYGSfYZkiAh7qX5oc2o8Gnwl
-	GdjieTXBlSzyQNnlJeHWck2cqy7DDsU=
-Message-ID: <371fadc8-64d8-230e-f57b-1d081456b260@suse.com>
-Date: Tue, 17 Jan 2023 16:50:11 +0100
+	bh=NcNHI/6jQuK9NSK4vkgXK9cEJCCCc5EiLrrsH2rtyDE=;
+	b=daY0e6sqdjc1Lz/jZxwhiL+cLtCg6Owt6vwD6m74D+Gi7bbP+gNF3sBE87Vmw+DqOn/5DB
+	7BO+/EYoIvT7otChAQhCM9cPqu57Zv43Ga1BN9XWfcS0sG8Evwj3si5QpAn67nW5QzrA18
+	+xB+knEPKzWh29QsAb6zXkrjmpBc1xY=
+Message-ID: <e0e74307-a9c6-97f2-6fd2-f982b10556b7@suse.com>
+Date: Tue, 17 Jan 2023 16:51:26 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH v3 04/17] tools/xenstore: introduce dummy nodes for
- special watch paths
+Subject: Re: [PATCH v3 08/17] tools/xenstore: don't allow creating too many
+ nodes in a transaction
 Content-Language: en-US
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
 References: <20230117091124.22170-1-jgross@suse.com>
- <20230117091124.22170-5-jgross@suse.com>
- <a944a5ea-0e9f-add6-cbe7-8b06054c637a@xen.org>
+ <20230117091124.22170-9-jgross@suse.com>
+ <8aa74a44-2189-ca6b-3668-722e74d233fd@xen.org>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <a944a5ea-0e9f-add6-cbe7-8b06054c637a@xen.org>
+In-Reply-To: <8aa74a44-2189-ca6b-3668-722e74d233fd@xen.org>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------3h00L3ae711oQvX3mcdw033D"
+ boundary="------------WfxIilPo0M7BlwbCNv1FuJhc"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3h00L3ae711oQvX3mcdw033D
-Content-Type: multipart/mixed; boundary="------------WJZmKry62k8Amme0t0pkjTEc";
+--------------WfxIilPo0M7BlwbCNv1FuJhc
+Content-Type: multipart/mixed; boundary="------------PAOkmDDj440ty3Ctp1afpyLq";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <371fadc8-64d8-230e-f57b-1d081456b260@suse.com>
-Subject: Re: [PATCH v3 04/17] tools/xenstore: introduce dummy nodes for
- special watch paths
+Message-ID: <e0e74307-a9c6-97f2-6fd2-f982b10556b7@suse.com>
+Subject: Re: [PATCH v3 08/17] tools/xenstore: don't allow creating too many
+ nodes in a transaction
 References: <20230117091124.22170-1-jgross@suse.com>
- <20230117091124.22170-5-jgross@suse.com>
- <a944a5ea-0e9f-add6-cbe7-8b06054c637a@xen.org>
-In-Reply-To: <a944a5ea-0e9f-add6-cbe7-8b06054c637a@xen.org>
+ <20230117091124.22170-9-jgross@suse.com>
+ <8aa74a44-2189-ca6b-3668-722e74d233fd@xen.org>
+In-Reply-To: <8aa74a44-2189-ca6b-3668-722e74d233fd@xen.org>
 
---------------WJZmKry62k8Amme0t0pkjTEc
-Content-Type: multipart/mixed; boundary="------------aGbzozR4sYm9HMgVI0vUqdjI"
+--------------PAOkmDDj440ty3Ctp1afpyLq
+Content-Type: multipart/mixed; boundary="------------9UNnTaStq2uYDCGJcDCByauh"
 
---------------aGbzozR4sYm9HMgVI0vUqdjI
+--------------9UNnTaStq2uYDCGJcDCByauh
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMTcuMDEuMjMgMTU6MDIsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDE3LzAxLzIwMjMgMDk6MTEsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiAr
-c3RhdGljIHZvaWQgZmlyZV9zcGVjaWFsX3dhdGNoZXMoY29uc3QgY2hhciAqbmFtZSkNCj4+
-ICt7DQo+PiArwqDCoMKgIHZvaWQgKmN0eCA9IHRhbGxvY19uZXcoTlVMTCk7DQo+PiArwqDC
-oMKgIHN0cnVjdCBub2RlICpub2RlOw0KPj4gKw0KPj4gK8KgwqDCoCBpZiAoIWN0eCkNCj4+
-ICvCoMKgwqDCoMKgwqDCoCByZXR1cm47DQo+PiArDQo+PiArwqDCoMKgIG5vZGUgPSByZWFk
-X25vZGUoTlVMTCwgY3R4LCBuYW1lKTsNCj4+ICsNCj4+ICvCoMKgwqAgaWYgKG5vZGUpDQo+
-PiArwqDCoMKgwqDCoMKgwqAgZmlyZV93YXRjaGVzKE5VTEwsIGN0eCwgbmFtZSwgbm9kZSwg
-dHJ1ZSwgTlVMTCk7DQo+PiArwqDCoMKgIGVsc2UNCj4+ICvCoMKgwqDCoMKgwqDCoCBzeXNs
-b2coTE9HX0VSUiwgInNwZWNpYWwgbm9kZSAlcyBub3QgZm91bmRcbiIsIG5hbWUpOw0KPiAN
-Cj4gTklUOiBIb3cgYWJvdXQgdXNpbmcgbG9nKCkgc28gaXQgaXMgYWxzbyBwcmludGVkIGlu
-IHRoZSB0cmFjZSBsb2c/IFRoaXMgd291bGQgYmUgDQo+IGhhbmR5IHRvIGF2b2lkIGhhdmlu
-ZyB0byBjaGVjayBtdWx0aXBsZSBsb2cgZmlsZXMuDQoNClRoaXMgd291bGQgcmVxdWlyZSB0
-byBtb3ZlIHBhdGNoIDE0IGluIGZyb250IG9mIHRoaXMgb25lLg0KDQpJIHRoaW5rIHRoaXMg
-aXMgcG9zc2libGUgd2l0aG91dCBwcm9ibGVtcy4NCg0KPiANCj4gV2l0aCBvciB3aXRob3V0
-Og0KPiANCj4gUmV2aWV3ZWQtYnk6IEp1bGllbiBHcmFsbCA8amdyYWxsQGFtYXpvbi5jb20+
-DQoNClRoYW5rcywNCg0KDQpKdWVyZ2VuDQoNCg==
---------------aGbzozR4sYm9HMgVI0vUqdjI
+T24gMTcuMDEuMjMgMTU6MDgsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
+Cj4gDQo+IE9uIDE3LzAxLzIwMjMgMDk6MTEsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBU
+aGUgYWNjb3VudGluZyBmb3IgdGhlIG51bWJlciBvZiBub2RlcyBvZiBhIGRvbWFpbiBpbiBh
+biBhY3RpdmUNCj4+IHRyYW5zYWN0aW9uIGlzIG5vdCB3b3JraW5nIGNvcnJlY3RseSwgYXMg
+aXQgYWxsb3dzIHRvIGNyZWF0ZSBhcmJpdHJhcnkNCj4+IG51bWJlciBvZiBub2Rlcy4gVGhl
+IHRyYW5zYWN0aW9uIHdpbGwgZmluYWxseSBmYWlsIGR1ZSB0byBleGNlZWRpbmcNCj4+IHRo
+ZSBudW1iZXIgb2Ygbm9kZXMgcXVvdGEsIGJ1dCBiZWZvcmUgY2xvc2luZyB0aGUgdHJhbnNh
+Y3Rpb24gYW4NCj4+IHVucHJpdmlsZWdlZCBndWVzdCBjb3VsZCBjYXVzZSBYZW5zdG9yZSB0
+byB1c2UgYSBsb3Qgb2YgbWVtb3J5Lg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEp1ZXJnZW4g
+R3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4gDQo+IElzIHRoZSByZXN0IG9mIHRoZSBzZXJp
+ZXMgZGVwZW5kIG9uIHRoaXMgcGF0Y2g/IEkgYW0gYXNraW5nIHRoaXMgYmVjYXVzZSBJIHN0
+aWxsIA0KPiBuZWVkIHRvIGdvIHRocm91Z2ggeW91ciBzZWNvbmQgc2VyaWVzIGJlZm9yZSBm
+b3JnaW5nIGFuIG9waW5pb24gb24gdGhpcyBwYXRjaC4NCg0KSSB0aGluayB0aGUgcmVzdCBz
+aG91bGQgYXBwbHkgd2l0aG91dCB0aGlzIG9uZS4gVGhlcmUgc2hvdWxkbid0IGJlIGFueQ0K
+ZnVuY3Rpb25hbCBkZXBlbmRlbmN5Lg0KDQo+IFlldCwgSSB3b3VsZCBsaWtlIHRvIHJlZHVj
+ZSB0aGUgbnVtYmVyIG9mIGluZmxpZ2h0IHBhdGNoZXMgOikuDQoNCisxDQoNCg0KSnVlcmdl
+bg0K
+--------------9UNnTaStq2uYDCGJcDCByauh
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -176,25 +176,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------aGbzozR4sYm9HMgVI0vUqdjI--
+--------------9UNnTaStq2uYDCGJcDCByauh--
 
---------------WJZmKry62k8Amme0t0pkjTEc--
+--------------PAOkmDDj440ty3Ctp1afpyLq--
 
---------------3h00L3ae711oQvX3mcdw033D
+--------------WfxIilPo0M7BlwbCNv1FuJhc
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPGw7MFAwAAAAAACgkQsN6d1ii/Ey/u
-uQf+PzL5UxChEcJSrD3ZO1M6GEbPtiUJtqHcAUiBoQ8A/8OP506+4ID0b8exkJP5ksywc2LptlsF
-8UEEq3aduU/oyFyMlPAua2rEIfEJGe0YdsOwbq66C/aO4dlp91e+nN76SDwPIgmu6NttR6qbiyEW
-p9RBn/flWuezcnbe+WTlehoW6Eb2noYnil0IrVohaVmLzba8CU4QPyqMGCwLHkrNxO2GY9tNeVnc
-GQZk+yU+j+sjxDc2R5lk5f7WQPrQDiuyFo6n1Tx/FizeqPBTgX1h5AEiaao7NM32G0mf/XQ3MT7Y
-iJgyDfigljOhOSJjKV8EQlGRDVgQkYqeJPFYC+x83Q==
-=mJDj
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPGw/4FAwAAAAAACgkQsN6d1ii/Ey8L
+lAf8D1ULiJpIx4BeOv/5WGLqEcel2McLvUxWs5jG0btBWHlMb1R51lve2FZ77Ku4GbGZveYCww40
+2jUNCjX8sGVTcRJWipxONrl9R5x4vF0JcxeKg/gSSPQaqzui7eU4t5yFKiXCe6/89Gp8ETlNbpbh
+yFT8ctmFOy0Geh5tBKqquWR1zwvIRj8OTUkgpsgOrDB+/uTYlIiHNJREfsKsTBrhm3hGSnnf0pYt
+dMZozxkzy0uBb7Lvtrmhi/u6VaHBE5Rih5s4mULNk6Rzk9RJ+Ls8qfSfY7PzLkwDBPH8TMejR0SO
+NhyZ6/laQeRJBEqnwBeDuC/A5JlLlT0L/MK/Hvza7g==
+=bksH
 -----END PGP SIGNATURE-----
 
---------------3h00L3ae711oQvX3mcdw033D--
+--------------WfxIilPo0M7BlwbCNv1FuJhc--
 
