@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FD5867184A
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:55:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480371.744810 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 396A0671844
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:55:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480356.744730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI5A8-0007yi-Gp; Wed, 18 Jan 2023 09:55:20 +0000
+	id 1pI5A2-0006DP-Mk; Wed, 18 Jan 2023 09:55:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480371.744810; Wed, 18 Jan 2023 09:55:20 +0000
+Received: by outflank-mailman (output) from mailman id 480356.744730; Wed, 18 Jan 2023 09:55:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI5A7-0007p7-Vq; Wed, 18 Jan 2023 09:55:19 +0000
-Received: by outflank-mailman (input) for mailman id 480371;
- Wed, 18 Jan 2023 09:55:17 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pI5A2-000692-Iq; Wed, 18 Jan 2023 09:55:14 +0000
+Received: by outflank-mailman (input) for mailman id 480356;
+ Wed, 18 Jan 2023 09:55:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pI56U-0001BV-Hs
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:51:34 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7bb8bd32-9715-11ed-b8d1-410ff93cb8f0;
- Wed, 18 Jan 2023 10:50:04 +0100 (CET)
+ id 1pI56Z-0001v4-52
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:51:39 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id b3887dca-9715-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 10:51:38 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 42FE020D6A;
- Wed, 18 Jan 2023 09:51:32 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id ED75538943;
+ Wed, 18 Jan 2023 09:51:37 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 111C5139D2;
- Wed, 18 Jan 2023 09:51:32 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AFED5139D2;
+ Wed, 18 Jan 2023 09:51:37 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Um3AAiTBx2PtQwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:51:32 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id LSK7KSnBx2P+QwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:51:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,281 +51,355 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7bb8bd32-9715-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: b3887dca-9715-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1674035492; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1674035497; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=9xr3XDR0lnAcLZVwe7SbDNgcb70DTfqFJY2CcMlXwhM=;
-	b=nGd7aTH7CkPAeVkvRL8PVcp0qRzINcHi8y3X0BL1fF4/E455VF1rqpsgjTg4vFU/Tgn3mU
-	TrraDprG29Pf39R9TsK4xqtyUxxcZ6Mh7oC+1nMqb76SuCoZIGYUOpp+PJt0How0OjAcW3
-	zK9cu2Tb8lsMob+SF7rFx6aTtMXLJDE=
+	bh=qNOnFlh4hw9p/EOsF+rKAd70EPJwnRC4UmfljQvSTOs=;
+	b=m4LynDaHn+WDf75AAVUcSLeNgrxiuV3rEsyqDX6bWY4IqUAihNyqcRiN59Wi50OsO1xplM
+	VR2b/shSIMv1GSjKrtreKI2k6HLv0HJyhNMpu/gv9OCbLQ6xgR/KHngMqKjiGADnaW5CRC
+	yST9VLDjkP2aC81iRFU/SlQNjuWDMgg=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
-	Wei Liu <wl@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v4 13/17] tools/xenstore: switch hashtable to use the talloc framework
-Date: Wed, 18 Jan 2023 10:50:12 +0100
-Message-Id: <20230118095016.13091-14-jgross@suse.com>
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH v4 14/17] tools/xenstore: introduce trace classes
+Date: Wed, 18 Jan 2023 10:50:13 +0100
+Message-Id: <20230118095016.13091-15-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230118095016.13091-1-jgross@suse.com>
 References: <20230118095016.13091-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Instead of using malloc() and friends, let the hashtable implementation
-use the talloc framework.
+Make the xenstored internal trace configurable by adding classes
+which can be switched on and off independently from each other.
 
-This is more consistent with the rest of xenstored and it allows to
-track memory usage via "xenstore-control memreport".
+Define the following classes:
+
+- obj: Creation and deletion of interesting "objects" (watch,
+  transaction, connection)
+- io: incoming requests and outgoing responses
+- wrl: write limiting
+
+Per default "obj" and "io" are switched on.
+
+Entries written via trace() will always be printed (if tracing is on
+at all).
+
+Add the capability to control the trace settings via the "log"
+command and via a new "--log-control" command line option.
+
+Add a missing trace_create() call for creating a transaction.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
-Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
-V3:
-- make key and value children of element (if flagged)
+V2:
+- keep "log" and "logfile" command names (Julien Grall)
+V4:
+- add another const for trace_switches[] (Julien Grall)
+- add comment (Julien Grall)
 ---
- tools/xenstore/hashtable.c        | 98 +++++++++++--------------------
- tools/xenstore/hashtable.h        |  3 +-
- tools/xenstore/xenstored_core.c   |  5 +-
- tools/xenstore/xenstored_domain.c |  2 +-
- 4 files changed, 38 insertions(+), 70 deletions(-)
+ docs/misc/xenstore.txt                 | 10 +++--
+ tools/xenstore/xenstored_control.c     | 31 +++++++++++++--
+ tools/xenstore/xenstored_core.c        | 55 ++++++++++++++++++++++++--
+ tools/xenstore/xenstored_core.h        |  8 ++++
+ tools/xenstore/xenstored_domain.c      | 27 +++++++------
+ tools/xenstore/xenstored_transaction.c |  1 +
+ 6 files changed, 108 insertions(+), 24 deletions(-)
 
-diff --git a/tools/xenstore/hashtable.c b/tools/xenstore/hashtable.c
-index ddca1591a2..30eb9f21d2 100644
---- a/tools/xenstore/hashtable.c
-+++ b/tools/xenstore/hashtable.c
-@@ -6,6 +6,8 @@
- #include <string.h>
- #include <math.h>
- #include <stdint.h>
-+#include <stdarg.h>
-+#include "talloc.h"
- 
- struct entry
+diff --git a/docs/misc/xenstore.txt b/docs/misc/xenstore.txt
+index 44428ae3a7..8887e7df88 100644
+--- a/docs/misc/xenstore.txt
++++ b/docs/misc/xenstore.txt
+@@ -409,10 +409,12 @@ CONTROL			<command>|[<parameters>|]
+ 		error string in case of failure. -s can return "BUSY" in case
+ 		of an active transaction, a retry of -s can be done in that
+ 		case.
+-	log|on
+-		turn xenstore logging on
+-	log|off
+-		turn xenstore logging off
++	log|[on|off|+<switch>|-<switch>]
++		without parameters: show possible log switches
++		on: turn xenstore logging on
++		off: turn xenstore logging off
++		+<switch>: activates log entries for <switch>,
++		-<switch>: deactivates log entries for <switch>
+ 	logfile|<file-name>
+ 		log to specified file
+ 	memreport|[<file-name>]
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index 41e6992591..000b2bb8c7 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -182,6 +182,28 @@ static int do_control_check(const void *ctx, struct connection *conn,
+ static int do_control_log(const void *ctx, struct connection *conn,
+ 			  char **vec, int num)
  {
-@@ -50,7 +52,7 @@ indexFor(unsigned int tablelength, unsigned int hashvalue) {
- 
- /*****************************************************************************/
- struct hashtable *
--create_hashtable(unsigned int minsize,
-+create_hashtable(const void *ctx, unsigned int minsize,
-                  unsigned int (*hashf) (void*),
-                  int (*eqf) (void*,void*),
-                  unsigned int flags)
-@@ -66,10 +68,10 @@ create_hashtable(unsigned int minsize,
-         if (primes[pindex] > minsize) { size = primes[pindex]; break; }
-     }
- 
--    h = (struct hashtable *)calloc(1, sizeof(struct hashtable));
-+    h = talloc_zero(ctx, struct hashtable);
-     if (NULL == h)
-         goto err0;
--    h->table = (struct entry **)calloc(size, sizeof(struct entry *));
-+    h->table = talloc_zero_array(h, struct entry *, size);
-     if (NULL == h->table)
-         goto err1;
- 
-@@ -83,7 +85,7 @@ create_hashtable(unsigned int minsize,
-     return h;
- 
- err1:
--   free(h);
-+   talloc_free(h);
- err0:
-    return NULL;
- }
-@@ -115,47 +117,32 @@ hashtable_expand(struct hashtable *h)
-     if (h->primeindex == (prime_table_length - 1)) return 0;
-     newsize = primes[++(h->primeindex)];
- 
--    newtable = (struct entry **)calloc(newsize, sizeof(struct entry*));
--    if (NULL != newtable)
-+    newtable = talloc_realloc(h, h->table, struct entry *, newsize);
-+    if (!newtable)
-     {
--        /* This algorithm is not 'stable'. ie. it reverses the list
--         * when it transfers entries between the tables */
--        for (i = 0; i < h->tablelength; i++) {
--            while (NULL != (e = h->table[i])) {
--                h->table[i] = e->next;
--                index = indexFor(newsize,e->h);
-+        h->primeindex--;
-+        return 0;
-+    }
++	int ret;
 +
-+    h->table = newtable;
-+    memset(newtable + h->tablelength, 0,
-+           (newsize - h->tablelength) * sizeof(*newtable));
-+    for (i = 0; i < h->tablelength; i++) {
-+        for (pE = &(newtable[i]), e = *pE; e != NULL; e = *pE) {
-+            index = indexFor(newsize, e->h);
-+            if (index == i)
-+            {
-+                pE = &(e->next);
-+            }
-+            else
-+            {
-+                *pE = e->next;
-                 e->next = newtable[index];
-                 newtable[index] = e;
-             }
-         }
--        free(h->table);
--        h->table = newtable;
--    }
--    /* Plan B: realloc instead */
--    else 
--    {
--        newtable = (struct entry **)
--                   realloc(h->table, newsize * sizeof(struct entry *));
--        if (NULL == newtable) { (h->primeindex)--; return 0; }
--        h->table = newtable;
--        memset(newtable + h->tablelength, 0,
--               (newsize - h->tablelength) * sizeof(*newtable));
--        for (i = 0; i < h->tablelength; i++) {
--            for (pE = &(newtable[i]), e = *pE; e != NULL; e = *pE) {
--                index = indexFor(newsize,e->h);
--                if (index == i)
--                {
--                    pE = &(e->next);
--                }
--                else
--                {
--                    *pE = e->next;
--                    e->next = newtable[index];
--                    newtable[index] = e;
--                }
--            }
--        }
-     }
++	if (num == 0) {
++		char *resp = talloc_asprintf(ctx, "Log switch settings:\n");
++		unsigned int idx;
++		bool on;
 +
-     h->tablelength = newsize;
-     h->loadlimit   = (unsigned int)
-         (((uint64_t)newsize * max_load_factor) / 100);
-@@ -184,12 +171,16 @@ hashtable_insert(struct hashtable *h, void *k, void *v)
-          * element may be ok. Next time we insert, we'll try expanding again.*/
-         hashtable_expand(h);
-     }
--    e = (struct entry *)calloc(1, sizeof(struct entry));
-+    e = talloc_zero(h, struct entry);
-     if (NULL == e) { --(h->entrycount); return 0; } /*oom*/
-     e->h = hash(h,k);
-     index = indexFor(h->tablelength,e->h);
-     e->k = k;
-+    if (h->flags & HASHTABLE_FREE_KEY)
-+        talloc_steal(e, k);
-     e->v = v;
-+    if (h->flags & HASHTABLE_FREE_VALUE)
-+        talloc_steal(e, v);
-     e->next = h->table[index];
-     h->table[index] = e;
-     return -1;
-@@ -235,11 +226,7 @@ hashtable_remove(struct hashtable *h, void *k)
-         {
-             *pE = e->next;
-             h->entrycount--;
--            if (h->flags & HASHTABLE_FREE_KEY)
--                free(e->k);
--            if (h->flags & HASHTABLE_FREE_VALUE)
--                free(e->v);
--            free(e);
-+            talloc_free(e);
-             return;
-         }
-         pE = &(e->next);
-@@ -278,26 +265,7 @@ hashtable_iterate(struct hashtable *h,
- void
- hashtable_destroy(struct hashtable *h)
- {
--    unsigned int i;
--    struct entry *e, *f;
--    struct entry **table = h->table;
--
--    for (i = 0; i < h->tablelength; i++)
--    {
--        e = table[i];
--        while (NULL != e)
--        {
--            f = e;
--            e = e->next;
--            if (h->flags & HASHTABLE_FREE_KEY)
--                free(f->k);
--            if (h->flags & HASHTABLE_FREE_VALUE)
--                free(f->v);
--            free(f);
--        }
--    }
--    free(h->table);
--    free(h);
-+    talloc_free(h);
- }
++		if (!resp)
++			return ENOMEM;
++		for (idx = 0; trace_switches[idx]; idx++) {
++			on = trace_flags & (1u << idx);
++			resp = talloc_asprintf_append(resp, "%-8s: %s\n",
++						      trace_switches[idx],
++						      on ? "on" : "off");
++			if (!resp)
++				return ENOMEM;
++		}
++
++		send_reply(conn, XS_CONTROL, resp, strlen(resp) + 1);
++		return 0;
++	}
++
+ 	if (num != 1)
+ 		return EINVAL;
  
- /*
-diff --git a/tools/xenstore/hashtable.h b/tools/xenstore/hashtable.h
-index 780ad3c8f7..4e2823134e 100644
---- a/tools/xenstore/hashtable.h
-+++ b/tools/xenstore/hashtable.h
-@@ -9,6 +9,7 @@ struct hashtable;
-  * create_hashtable
-    
-  * @name                    create_hashtable
-+ * @param   ctx             talloc context to use for allocations
-  * @param   minsize         minimum initial size of hashtable
-  * @param   hashfunction    function for hashing keys
-  * @param   key_eq_fn       function for determining key equality
-@@ -22,7 +23,7 @@ struct hashtable;
- #define HASHTABLE_FREE_KEY   (1U << 1)
+@@ -189,8 +211,11 @@ static int do_control_log(const void *ctx, struct connection *conn,
+ 		reopen_log();
+ 	else if (!strcmp(vec[0], "off"))
+ 		close_log();
+-	else
+-		return EINVAL;
++	else {
++		ret = set_trace_switch(vec[0]);
++		if (ret)
++			return ret;
++	}
  
- struct hashtable *
--create_hashtable(unsigned int minsize,
-+create_hashtable(const void *ctx, unsigned int minsize,
-                  unsigned int (*hashfunction) (void*),
-                  int (*key_eq_fn) (void*,void*),
-                  unsigned int flags
+ 	send_ack(conn, XS_CONTROL);
+ 	return 0;
+@@ -923,7 +948,7 @@ static int do_control_help(const void *, struct connection *, char **, int);
+ 
+ static struct cmd_s cmds[] = {
+ 	{ "check", do_control_check, "" },
+-	{ "log", do_control_log, "on|off" },
++	{ "log", do_control_log, "[on|off|+<switch>|-<switch>]" },
+ 
+ #ifndef NO_LIVE_UPDATE
+ 	/*
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 9cfde76898..17e678256e 100644
+index 17e678256e..c2c2c342de 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -2405,11 +2405,10 @@ static int keys_equal_fn(void *key1, void *key2)
+@@ -85,6 +85,7 @@ static int reopen_log_pipe[2];
+ static int reopen_log_pipe0_pollfd_idx = -1;
+ char *tracefile = NULL;
+ TDB_CONTEXT *tdb_ctx = NULL;
++unsigned int trace_flags = TRACE_OBJ | TRACE_IO;
  
- int remember_string(struct hashtable *hash, const char *str)
+ static const char *sockmsg_string(enum xsd_sockmsg_type type);
+ 
+@@ -139,13 +140,13 @@ static void trace_io(const struct connection *conn,
+ 	time_t now;
+ 	struct tm *tm;
+ 
+-	if (tracefd < 0)
++	if (tracefd < 0 || !(trace_flags & TRACE_IO))
+ 		return;
+ 
+ 	now = time(NULL);
+ 	tm = localtime(&now);
+ 
+-	trace("%s %p %04d%02d%02d %02d:%02d:%02d %s (",
++	trace("io: %s %p %04d%02d%02d %02d:%02d:%02d %s (",
+ 	      out ? "OUT" : "IN", conn,
+ 	      tm->tm_year + 1900, tm->tm_mon + 1,
+ 	      tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec,
+@@ -158,12 +159,14 @@ static void trace_io(const struct connection *conn,
+ 
+ void trace_create(const void *data, const char *type)
  {
--	char *k = malloc(strlen(str) + 1);
-+	char *k = talloc_strdup(NULL, str);
- 
- 	if (!k)
- 		return 0;
--	strcpy(k, str);
- 	return hashtable_insert(hash, k, (void *)1);
+-	trace("CREATE %s %p\n", type, data);
++	if (trace_flags & TRACE_OBJ)
++		trace("obj: CREATE %s %p\n", type, data);
  }
  
-@@ -2504,7 +2503,7 @@ void check_store(void)
- 	};
+ void trace_destroy(const void *data, const char *type)
+ {
+-	trace("DESTROY %s %p\n", type, data);
++	if (trace_flags & TRACE_OBJ)
++		trace("obj: DESTROY %s %p\n", type, data);
+ }
  
- 	/* Don't free values (they are all void *1) */
--	reachable = create_hashtable(16, hash_from_key_fn, keys_equal_fn,
-+	reachable = create_hashtable(NULL, 16, hash_from_key_fn, keys_equal_fn,
- 				     HASHTABLE_FREE_KEY);
- 	if (!reachable) {
- 		log("check_store: ENOMEM");
+ /**
+@@ -2599,6 +2602,8 @@ static void usage(void)
+ "  -N, --no-fork           to request that the daemon does not fork,\n"
+ "  -P, --output-pid        to request that the pid of the daemon is output,\n"
+ "  -T, --trace-file <file> giving the file for logging, and\n"
++"      --trace-control=+<switch> activate a specific <switch>\n"
++"      --trace-control=-<switch> deactivate a specific <switch>\n"
+ "  -E, --entry-nb <nb>     limit the number of entries per domain,\n"
+ "  -S, --entry-size <size> limit the size of entry per domain, and\n"
+ "  -W, --watch-nb <nb>     limit the number of watches per domain,\n"
+@@ -2642,6 +2647,7 @@ static struct option options[] = {
+ 	{ "output-pid", 0, NULL, 'P' },
+ 	{ "entry-size", 1, NULL, 'S' },
+ 	{ "trace-file", 1, NULL, 'T' },
++	{ "trace-control", 1, NULL, 1 },
+ 	{ "transaction", 1, NULL, 't' },
+ 	{ "perm-nb", 1, NULL, 'A' },
+ 	{ "path-max", 1, NULL, 'M' },
+@@ -2716,6 +2722,43 @@ static void set_quota(const char *arg, bool soft)
+ 		barf("unknown quota \"%s\"\n", arg);
+ }
+ 
++/* Sorted by bit values of TRACE_* flags. Flag is (1u << index). */
++const char *const trace_switches[] = {
++	"obj", "io", "wrl",
++	NULL
++};
++
++int set_trace_switch(const char *arg)
++{
++	bool remove = (arg[0] == '-');
++	unsigned int idx;
++
++	switch (arg[0]) {
++	case '-':
++		remove = true;
++		break;
++	case '+':
++		remove = false;
++		break;
++	default:
++		return EINVAL;
++	}
++
++	arg++;
++
++	for (idx = 0; trace_switches[idx]; idx++) {
++		if (!strcmp(arg, trace_switches[idx])) {
++			if (remove)
++				trace_flags &= ~(1u << idx);
++			else
++				trace_flags |= 1u << idx;
++			return 0;
++		}
++	}
++
++	return EINVAL;
++}
++
+ int main(int argc, char *argv[])
+ {
+ 	int opt;
+@@ -2764,6 +2807,10 @@ int main(int argc, char *argv[])
+ 		case 'T':
+ 			tracefile = optarg;
+ 			break;
++		case 1:
++			if (set_trace_switch(optarg))
++				barf("Illegal trace switch \"%s\"\n", optarg);
++			break;
+ 		case 'I':
+ 			if (optarg && !strcmp(optarg, "off"))
+ 				tdb_flags = 0;
+diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
+index 6548200d8e..c59b06551f 100644
+--- a/tools/xenstore/xenstored_core.h
++++ b/tools/xenstore/xenstored_core.h
+@@ -294,6 +294,14 @@ extern char **orig_argv;
+ extern char *tracefile;
+ extern int tracefd;
+ 
++/* Trace flag values must be kept in sync with trace_switches[] contents. */
++extern unsigned int trace_flags;
++#define TRACE_OBJ	0x00000001
++#define TRACE_IO	0x00000002
++#define TRACE_WRL	0x00000004
++extern const char *const trace_switches[];
++int set_trace_switch(const char *arg);
++
+ extern TDB_CONTEXT *tdb_ctx;
+ extern int dom0_domid;
+ extern int dom0_event;
 diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
-index 391395060e..4f4c0a727c 100644
+index 4f4c0a727c..e9d84d7c24 100644
 --- a/tools/xenstore/xenstored_domain.c
 +++ b/tools/xenstore/xenstored_domain.c
-@@ -931,7 +931,7 @@ void domain_init(int evtfd)
- 	int rc;
+@@ -1261,6 +1261,12 @@ static long wrl_ndomains;
+ static wrl_creditt wrl_reserve; /* [-wrl_config_newdoms_dburst, +_gburst ] */
+ static time_t wrl_log_last_warning; /* 0: no previous warning */
  
- 	/* Start with a random rather low domain count for the hashtable. */
--	domhash = create_hashtable(8, domhash_fn, domeq_fn, 0);
-+	domhash = create_hashtable(NULL, 8, domhash_fn, domeq_fn, 0);
- 	if (!domhash)
- 		barf_perror("Failed to allocate domain hashtable");
++#define trace_wrl(...)				\
++do {						\
++	if (trace_flags & TRACE_WRL)		\
++		trace("wrl: " __VA_ARGS__);	\
++} while (0)
++
+ void wrl_gettime_now(struct wrl_timestampt *now_wt)
+ {
+ 	struct timespec now_ts;
+@@ -1366,12 +1372,9 @@ void wrl_credit_update(struct domain *domain, struct wrl_timestampt now)
  
+ 	domain->wrl_timestamp = now;
+ 
+-	trace("wrl: dom %4d %6ld  msec  %9ld credit   %9ld reserve"
+-	      "  %9ld discard\n",
+-	      domain->domid,
+-	      msec,
+-	      (long)domain->wrl_credit, (long)wrl_reserve,
+-	      (long)surplus);
++	trace_wrl("dom %4d %6ld msec %9ld credit %9ld reserve %9ld discard\n",
++		  domain->domid, msec, (long)domain->wrl_credit,
++		  (long)wrl_reserve, (long)surplus);
+ }
+ 
+ void wrl_check_timeout(struct domain *domain,
+@@ -1403,10 +1406,9 @@ void wrl_check_timeout(struct domain *domain,
+ 	if (*ptimeout==-1 || wakeup < *ptimeout)
+ 		*ptimeout = wakeup;
+ 
+-	trace("wrl: domain %u credit=%ld (reserve=%ld) SLEEPING for %d\n",
+-	      domain->domid,
+-	      (long)domain->wrl_credit, (long)wrl_reserve,
+-	      wakeup);
++	trace_wrl("domain %u credit=%ld (reserve=%ld) SLEEPING for %d\n",
++		  domain->domid, (long)domain->wrl_credit, (long)wrl_reserve,
++		  wakeup);
+ }
+ 
+ #define WRL_LOG(now, ...) \
+@@ -1424,9 +1426,8 @@ void wrl_apply_debit_actual(struct domain *domain)
+ 	wrl_credit_update(domain, now);
+ 
+ 	domain->wrl_credit -= wrl_config_writecost;
+-	trace("wrl: domain %u credit=%ld (reserve=%ld)\n",
+-	      domain->domid,
+-	      (long)domain->wrl_credit, (long)wrl_reserve);
++	trace_wrl("domain %u credit=%ld (reserve=%ld)\n", domain->domid,
++		  (long)domain->wrl_credit, (long)wrl_reserve);
+ 
+ 	if (domain->wrl_credit < 0) {
+ 		if (!domain->wrl_delay_logged) {
+diff --git a/tools/xenstore/xenstored_transaction.c b/tools/xenstore/xenstored_transaction.c
+index 82e5e66c18..1aa9d3cb3d 100644
+--- a/tools/xenstore/xenstored_transaction.c
++++ b/tools/xenstore/xenstored_transaction.c
+@@ -475,6 +475,7 @@ int do_transaction_start(const void *ctx, struct connection *conn,
+ 	if (!trans)
+ 		return ENOMEM;
+ 
++	trace_create(trans, "transaction");
+ 	INIT_LIST_HEAD(&trans->accessed);
+ 	INIT_LIST_HEAD(&trans->changed_domains);
+ 	trans->conn = conn;
 -- 
 2.35.3
 
