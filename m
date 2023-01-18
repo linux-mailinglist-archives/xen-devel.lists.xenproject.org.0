@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 225DC6717E6
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:38:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480285.744594 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F62671816
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:44:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480292.744604 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI4t2-0005pU-NS; Wed, 18 Jan 2023 09:37:40 +0000
+	id 1pI4zI-0007Mq-GP; Wed, 18 Jan 2023 09:44:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480285.744594; Wed, 18 Jan 2023 09:37:40 +0000
+Received: by outflank-mailman (output) from mailman id 480292.744604; Wed, 18 Jan 2023 09:44:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI4t2-0005m1-Jk; Wed, 18 Jan 2023 09:37:40 +0000
-Received: by outflank-mailman (input) for mailman id 480285;
- Wed, 18 Jan 2023 09:37:39 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pI4zI-0007L8-Dj; Wed, 18 Jan 2023 09:44:08 +0000
+Received: by outflank-mailman (input) for mailman id 480292;
+ Wed, 18 Jan 2023 09:44:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pI4t1-0005lt-0s
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:37:39 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9f587631-9713-11ed-b8d1-410ff93cb8f0;
- Wed, 18 Jan 2023 10:36:52 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 29DBA2105F;
- Wed, 18 Jan 2023 09:37:20 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 05AA0139D2;
- Wed, 18 Jan 2023 09:37:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9tERANC9x2OEPAAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:37:19 +0000
+ (envelope-from <julien@xen.org>) id 1pI4zG-0007L2-SE
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:44:06 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pI4zG-0004Ln-IR; Wed, 18 Jan 2023 09:44:06 +0000
+Received: from 54-240-197-231.amazon.com ([54.240.197.231]
+ helo=[192.168.8.239]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pI4zG-00051I-CW; Wed, 18 Jan 2023 09:44:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,193 +39,223 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f587631-9713-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1674034640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0o+AyJI14PwuFyUSa9s+WRcizaGnvbNkWcpl14cf+NA=;
-	b=aU1uOSGQ60R016T35+Tzicd0iW+jsn7n8KJ05L9S2aOlSiVQUxrlIQPKwo9t5o01jgZCGc
-	ZEDwuoBdopJOCDKRoFsDRyF2Uvos+WwovGB268FzitbJhkDVXDWeI22PvzdkhMTOGF7+Oq
-	s2Lu9B9rNwqnaKPxbLl4VVJ6G9lQaEc=
-Message-ID: <4aadcf29-04bc-964b-d2b2-42fd38dd5296@suse.com>
-Date: Wed, 18 Jan 2023 10:37:19 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=e0MM1jc+ZHh5iFMgn4j2QZWTG0OyHWz3yp3OPZQPxQg=; b=1Oxe+75Zkb89JyKII79RwOoKb9
+	lhSvCtrk/vf0XD59RF2jVSMSFnTXWqa3VAk1Rey0w4x5qbPicB68DPD1E8dapYMChfJBs6eUWT24k
+	IlbIJqNG1O1K8JQ3aKM8nc+aBav0p9OWGiuzSAVNjwegzh2Fn9TmMJkCd7ku0A7K41y0=;
+Message-ID: <7ffe5d34-614d-f2aa-cf87-c518917c970a@xen.org>
+Date: Wed, 18 Jan 2023 09:44:04 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v3 16/17] tools/xenstore: let check_store() check the
- accounting data
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v2 04/40] xen/arm: add an option to define Xen start
+ address for Armv8-R
 Content-Language: en-US
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230117091124.22170-1-jgross@suse.com>
- <20230117091124.22170-17-jgross@suse.com>
- <17595b1f-1523-9526-85da-99b9300f3218@xen.org>
- <c541fcd7-a829-f757-c949-1b4a089ac6c3@suse.com>
- <449dae4d-c19c-87be-88ef-aa3ff79f1a23@xen.org>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <449dae4d-c19c-87be-88ef-aa3ff79f1a23@xen.org>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------wOukoQWG4drppYz06WcT9RP9"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------wOukoQWG4drppYz06WcT9RP9
-Content-Type: multipart/mixed; boundary="------------ayT9o0cF8XL7SNk0S0qWs5aA";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <4aadcf29-04bc-964b-d2b2-42fd38dd5296@suse.com>
-Subject: Re: [PATCH v3 16/17] tools/xenstore: let check_store() check the
- accounting data
-References: <20230117091124.22170-1-jgross@suse.com>
- <20230117091124.22170-17-jgross@suse.com>
- <17595b1f-1523-9526-85da-99b9300f3218@xen.org>
- <c541fcd7-a829-f757-c949-1b4a089ac6c3@suse.com>
- <449dae4d-c19c-87be-88ef-aa3ff79f1a23@xen.org>
-In-Reply-To: <449dae4d-c19c-87be-88ef-aa3ff79f1a23@xen.org>
-
---------------ayT9o0cF8XL7SNk0S0qWs5aA
-Content-Type: multipart/mixed; boundary="------------Fc1pInSWs2umJeLayAZLBA9k"
-
---------------Fc1pInSWs2umJeLayAZLBA9k
+To: Wei Chen <Wei.Chen@arm.com>, Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ Jiamei Xie <Jiamei.Xie@arm.com>
+References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
+ <20230113052914.3845596-5-Penny.Zheng@arm.com>
+ <e406484a-aad3-4953-afdb-3159597ec998@xen.org>
+ <PAXPR08MB7420A5C7F93F23F14C77C9BA9EC79@PAXPR08MB7420.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <PAXPR08MB7420A5C7F93F23F14C77C9BA9EC79@PAXPR08MB7420.eurprd08.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gMTguMDEuMjMgMTA6MzUsIEp1bGllbiBHcmFsbCB3cm90ZToNCj4gSGkgSnVlcmdlbiwN
-Cj4gDQo+IE9uIDE4LzAxLzIwMjMgMDY6MjMsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+PiBP
-biAxNy4wMS4yMyAyMzozNiwgSnVsaWVuIEdyYWxsIHdyb3RlOg0KPj4+IEhpIEp1ZXJnZW4s
-DQo+Pj4NCj4+PiBPbiAxNy8wMS8yMDIzIDA5OjExLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-Pj4+PiBUb2RheSBjaGVja19zdG9yZSgpIGlzIG9ubHkgdGVzdGluZyB0aGUgY29ycmVjdG5l
-c3Mgb2YgdGhlIG5vZGUgdHJlZS4NCj4+Pj4NCj4+Pj4gQWRkIHZlcmlmaWNhdGlvbiBvZiB0
-aGUgYWNjb3VudGluZyBkYXRhIChudW1iZXIgb2Ygbm9kZXMpwqAgYW5kIGNvcnJlY3QNCj4+
-Pg0KPj4+IE5JVDogb25lIHRvbyBtYW55IHNwYWNlIGJlZm9yZSAnYW5kJy4NCj4+Pg0KPj4+
-PiB0aGUgZGF0YSBpZiBpdCBpcyB3cm9uZy4NCj4+Pj4NCj4+Pj4gRG8gdGhlIGluaXRpYWwg
-Y2hlY2tfc3RvcmUoKSBjYWxsIG9ubHkgYWZ0ZXIgWGVuc3RvcmUgZW50cmllcyBvZiBhDQo+
-Pj4+IGxpdmUgdXBkYXRlIGhhdmUgYmVlbiByZWFkLg0KPj4+DQo+Pj4gQ2FuIHlvdSBjbGFy
-aWZ5IHdoZXRoZXIgdGhpcyBpcyBuZWVkZWQgZm9yIHRoZSByZXN0IG9mIHRoZSBwYXRjaCwg
-b3Igc2ltcGx5IGEgDQo+Pj4gbmljZSB0aGluZyB0byBoYXZlIGluIGdlbmVyYWw/DQo+Pg0K
-Pj4gSSdsbCBhZGQ6ICJUaGlzIGlzIHdhbnRlZCB0byBtYWtlIHN1cmUgdGhlIGFjY291bnRp
-bmcgZGF0YSBpcyBjb3JyZWN0IGFmdGVyDQo+PiBhIGxpdmUgdXBkYXRlLiINCj4gDQo+IEZp
-bmUgd2l0aCBtZS4NCj4gDQo+Pg0KPj4+DQo+Pj4+DQo+Pj4+IFNpZ25lZC1vZmYtYnk6IEp1
-ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT4NCj4+Pj4gLS0tDQo+Pj4+IMKgIHRvb2xz
-L3hlbnN0b3JlL3hlbnN0b3JlZF9jb3JlLmPCoMKgIHwgNjIgKysrKysrKysrKysrKysrKy0t
-LS0tLQ0KPj4+PiDCoCB0b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfZG9tYWluLmMgfCA4NiAr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+Pj4+IMKgIHRvb2xzL3hlbnN0b3Jl
-L3hlbnN0b3JlZF9kb21haW4uaCB8wqAgNCArKw0KPj4+PiDCoCAzIGZpbGVzIGNoYW5nZWQs
-IDEzNyBpbnNlcnRpb25zKCspLCAxNSBkZWxldGlvbnMoLSkNCj4+Pj4NCj4+Pj4gZGlmZiAt
-LWdpdCBhL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9jb3JlLmMgYi90b29scy94ZW5zdG9y
-ZS94ZW5zdG9yZWRfY29yZS5jDQo+Pj4+IGluZGV4IDMwOTkwNzdhODYuLmUyMDFmMTQwNTMg
-MTAwNjQ0DQo+Pj4+IC0tLSBhL3Rvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9jb3JlLmMNCj4+
-Pj4gKysrIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYw0KPj4+PiBAQCAtMjM4
-OSw4ICsyMzg5LDYgQEAgdm9pZCBzZXR1cF9zdHJ1Y3R1cmUoYm9vbCBsaXZlX3VwZGF0ZSkN
-Cj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIG1hbnVhbF9ub2RlKCJAaW50cm9kdWNlRG9tYWlu
-IiwgTlVMTCk7DQo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBkb21haW5fbmJlbnRyeV9maXgo
-ZG9tMF9kb21pZCwgNSwgdHJ1ZSk7DQo+Pj4+IMKgwqDCoMKgwqAgfQ0KPj4+PiAtDQo+Pj4+
-IC3CoMKgwqAgY2hlY2tfc3RvcmUoKTsNCj4+Pj4gwqAgfQ0KPj4+PiDCoCBzdGF0aWMgdW5z
-aWduZWQgaW50IGhhc2hfZnJvbV9rZXlfZm4odm9pZCAqaykNCj4+Pj4gQEAgLTI0MzMsMjAg
-KzI0MzEsMjggQEAgaW50IHJlbWVtYmVyX3N0cmluZyhzdHJ1Y3QgaGFzaHRhYmxlICpoYXNo
-LCBjb25zdCANCj4+Pj4gY2hhciAqc3RyKQ0KPj4+PiDCoMKgICogQXMgd2UgZ28sIHdlIHJl
-Y29yZCBlYWNoIG5vZGUgaW4gdGhlIGdpdmVuIHJlYWNoYWJsZSBoYXNodGFibGUuIFRoZXNl
-DQo+Pj4+IMKgwqAgKiBlbnRyaWVzIHdpbGwgYmUgdXNlZCBsYXRlciBpbiBjbGVhbl9zdG9y
-ZS4NCj4+Pj4gwqDCoCAqLw0KPj4+PiArDQo+Pj4+ICtzdHJ1Y3QgY2hlY2tfc3RvcmVfZGF0
-YSB7DQo+Pj4+ICvCoMKgwqAgc3RydWN0IGhhc2h0YWJsZSAqcmVhY2hhYmxlOw0KPj4+PiAr
-wqDCoMKgIHN0cnVjdCBoYXNodGFibGUgKmRvbWFpbnM7DQo+Pj4+ICt9Ow0KPj4+PiArDQo+
-Pj4+IMKgIHN0YXRpYyBpbnQgY2hlY2tfc3RvcmVfc3RlcChjb25zdCB2b2lkICpjdHgsIHN0
-cnVjdCBjb25uZWN0aW9uICpjb25uLA0KPj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIHN0cnVjdCBub2RlICpub2RlLCB2b2lkICphcmcpDQo+Pj4+IMKgIHsNCj4+
-Pj4gLcKgwqDCoCBzdHJ1Y3QgaGFzaHRhYmxlICpyZWFjaGFibGUgPSBhcmc7DQo+Pj4+ICvC
-oMKgwqAgc3RydWN0IGNoZWNrX3N0b3JlX2RhdGEgKmRhdGEgPSBhcmc7DQo+Pj4+IC3CoMKg
-wqAgaWYgKGhhc2h0YWJsZV9zZWFyY2gocmVhY2hhYmxlLCAodm9pZCAqKW5vZGUtPm5hbWUp
-KSB7DQo+Pj4+ICvCoMKgwqAgaWYgKGhhc2h0YWJsZV9zZWFyY2goZGF0YS0+cmVhY2hhYmxl
-LCAodm9pZCAqKW5vZGUtPm5hbWUpKSB7DQo+Pj4NCj4+PiBJSVVDIHRoZSBjYXN0IGlzIG9u
-bHkgbmVjZXNzYXJ5IGJlY2F1c2UgaGFzaHRhYmxlX3NlYXJjaCgpIGV4cGVjdHMgYSANCj4+
-PiBub24tY29uc3QgdmFsdWUuIEkgY2FuJ3QgdGhpbmsgZm9yIGEgcmVhc29uIGZvciB0aGUg
-a2V5IHRvIGJlIG5vbi1jb25zdC4gU28gSSANCj4+PiB3aWxsIGxvb2sgdG8gc2VuZCBhIGZv
-bGxvdy11cCBwYXRjaC4NCj4+DQo+PiBJdCBpcyBwb3NzaWJsZSwgYnV0IG5hc3R5LCBkdWUg
-dG8gdGFsbG9jX2ZyZWUoKSBub3QgdGFraW5nIGEgY29uc3QgcG9pbnRlci4NCj4gDQo+IEkg
-YW0gbm90IHN1cmUgSSB1bmRlcnN0YW5kIHlvdXIgcmVhc29uaW5nLiBMb29raW5nIGF0IGhh
-c2h0YWJsZV9zZWFyY2goKSwgSSANCj4gZG9uJ3Qgc2VlIGEgY2FsbCB0byB0YWxsb2NfZnJl
-ZSgpLg0KDQpPaCwgSSB0aG91Z2h0IHlvdSB3ZXJlIHJlZmVycmluZyB0byB0aGUga2V5IGlu
-IGdlbmVyYWwuDQoNCg0KSnVlcmdlbg0K
---------------Fc1pInSWs2umJeLayAZLBA9k
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
 
------BEGIN PGP PUBLIC KEY BLOCK-----
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+On 18/01/2023 03:00, Wei Chen wrote:
+> Hi Julien,
 
---------------Fc1pInSWs2umJeLayAZLBA9k--
+Hi Wei,
 
---------------ayT9o0cF8XL7SNk0S0qWs5aA--
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: 2023年1月18日 7:24
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+>> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>; Jiamei Xie
+>> <Jiamei.Xie@arm.com>
+>> Subject: Re: [PATCH v2 04/40] xen/arm: add an option to define Xen start
+>> address for Armv8-R
+>>
+>> Hi Penny,
+>>
+>> On 13/01/2023 05:28, Penny Zheng wrote:
+>>> From: Wei Chen <wei.chen@arm.com>
+>>>
+>>> On Armv8-A, Xen has a fixed virtual start address (link address
+>>> too) for all Armv8-A platforms. In an MMU based system, Xen can
+>>> map its loaded address to this virtual start address. So, on
+>>> Armv8-A platforms, the Xen start address does not need to be
+>>> configurable. But on Armv8-R platforms, there is no MMU to map
+>>> loaded address to a fixed virtual address and different platforms
+>>> will have very different address space layout. So Xen cannot use
+>>> a fixed physical address on MPU based system and need to have it
+>>> configurable.
+>>>
+>>> In this patch we introduce one Kconfig option for users to define
+>>> the default Xen start address for Armv8-R. Users can enter the
+>>> address in config time, or select the tailored platform config
+>>> file from arch/arm/configs.
+>>>
+>>> And as we introduced Armv8-R platforms to Xen, that means the
+>>> existed Arm64 platforms should not be listed in Armv8-R platform
+>>> list, so we add !ARM_V8R dependency for these platforms.
+>>>
+>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>> Signed-off-by: Jiamei.Xie <jiamei.xie@arm.com>
+>>
+>> Your signed-off-by is missing.
+>>
+>>> ---
+>>> v1 -> v2:
+>>> 1. Remove the platform header fvp_baser.h.
+>>> 2. Remove the default start address for fvp_baser64.
+>>> 3. Remove the description of default address from commit log.
+>>> 4. Change HAS_MPU to ARM_V8R for Xen start address dependency.
+>>>      No matter Arm-v8r board has MPU or not, it always need to
+>>>      specify the start address.
+>>
+>> I don't quite understand the last sentence. Are you saying that it is
+>> possible to have an ARMv8-R system with an MPU nor a page-table?
+>>
+> 
+> Yes, from the Cortex-R82 page [1], you can see the MPU is optional in EL1
+> and EL2:
+> "Two optional and programmable MPUs controlled from EL1 and EL2 respectively."
+Would this mean a vendor may provide their custom solution to protect 
+the memory?
 
---------------wOukoQWG4drppYz06WcT9RP9
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
+> 
+> Although it is unlikely that vendors using the Armv8-R IP will do so, it
+> is indeed an option. In the ID register, there are also related bits in
+> ID_AA64MMFR0_EL1 (MSA_frac) to indicate this.
+> 
+>>> ---
+>>>    xen/arch/arm/Kconfig           |  8 ++++++++
+>>>    xen/arch/arm/platforms/Kconfig | 16 +++++++++++++---
+>>>    2 files changed, 21 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+>>> index ace7178c9a..c6b6b612d1 100644
+>>> --- a/xen/arch/arm/Kconfig
+>>> +++ b/xen/arch/arm/Kconfig
+>>> @@ -145,6 +145,14 @@ config TEE
+>>>    	  This option enables generic TEE mediators support. It allows
+>> guests
+>>>    	  to access real TEE via one of TEE mediators implemented in XEN.
+>>>
+>>> +config XEN_START_ADDRESS
+>>> +	hex "Xen start address: keep default to use platform defined
+>> address"
+>>> +	default 0
+>>> +	depends on ARM_V8R
+>>
+>> It is still pretty unclear to me what would be the difference between
+>> HAS_MPU and ARM_V8R.
+>>
+> 
+> If we don't want to support non-MPU supported Armv8-R, I think they are the
+> same. IMO, non-MPU supported Armv8-R is meaningless to Xen.
+OOI, why do you think this is meaningless?
 
------BEGIN PGP SIGNATURE-----
+> 
+>>> +	help
+>>> +	  This option allows to set the customized address at which Xen will
+>> be
+>>> +	  linked on MPU systems. This address must be aligned to a page size.
+>>> +
+>>>    source "arch/arm/tee/Kconfig"
+>>>
+>>>    config STATIC_SHM
+>>> diff --git a/xen/arch/arm/platforms/Kconfig
+>> b/xen/arch/arm/platforms/Kconfig
+>>> index c93a6b2756..0904793a0b 100644
+>>> --- a/xen/arch/arm/platforms/Kconfig
+>>> +++ b/xen/arch/arm/platforms/Kconfig
+>>> @@ -1,6 +1,7 @@
+>>>    choice
+>>>    	prompt "Platform Support"
+>>>    	default ALL_PLAT
+>>> +	default FVP_BASER if ARM_V8R
+>>>    	---help---
+>>>    	Choose which hardware platform to enable in Xen.
+>>>
+>>> @@ -8,13 +9,14 @@ choice
+>>>
+>>>    config ALL_PLAT
+>>>    	bool "All Platforms"
+>>> +	depends on !ARM_V8R
+>>>    	---help---
+>>>    	Enable support for all available hardware platforms. It doesn't
+>>>    	automatically select any of the related drivers.
+>>>
+>>>    config QEMU
+>>>    	bool "QEMU aarch virt machine support"
+>>> -	depends on ARM_64
+>>> +	depends on ARM_64 && !ARM_V8R
+>>>    	select GICV3
+>>>    	select HAS_PL011
+>>>    	---help---
+>>> @@ -23,7 +25,7 @@ config QEMU
+>>>
+>>>    config RCAR3
+>>>    	bool "Renesas RCar3 support"
+>>> -	depends on ARM_64
+>>> +	depends on ARM_64 && !ARM_V8R
+>>>    	select HAS_SCIF
+>>>    	select IPMMU_VMSA
+>>>    	---help---
+>>> @@ -31,14 +33,22 @@ config RCAR3
+>>>
+>>>    config MPSOC
+>>>    	bool "Xilinx Ultrascale+ MPSoC support"
+>>> -	depends on ARM_64
+>>> +	depends on ARM_64 && !ARM_V8R
+>>>    	select HAS_CADENCE_UART
+>>>    	select ARM_SMMU
+>>>    	---help---
+>>>    	Enable all the required drivers for Xilinx Ultrascale+ MPSoC
+>>>
+>>> +config FVP_BASER
+>>> +	bool "Fixed Virtual Platform BaseR support"
+>>> +	depends on ARM_V8R
+>>> +	help
+>>> +	  Enable platform specific configurations for Fixed Virtual
+>>> +	  Platform BaseR
+>>
+>> This seems unrelated to this patch.
+>>
+> 
+> Can we add some descriptions in commit log for this change, or we
+> Should move it to a new patch? 
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPHvc8FAwAAAAAACgkQsN6d1ii/Ey+l
-owf9E8EKsi5u6uTrzz8Bj6lJ3sbef2QdG1PpGr5yrvaTtNWggxAd9fVIsu4QKrBN2EqXraHJJ/r3
-0NeklGg32JPwdByMCNfvOrCIREdVm0DjqkI8758SNPZDqKf4KGtMEYPeJe+QCc8X7/yfz5hmzaQ5
-JCE631UvLFx3bHm2l01z3I4XGdAcwn6Z6nOfDwhhqzIiTMoA5FT2Zpze6M+f6IhRyLTTXgaf+NHQ
-yZ8TYK4ZRql7OFosMi4Lul+fDpI64F+zAmlfp+K4fQmEVgYeKgX3atRC3Z6JwpVeLaGU2yMq5Dpk
-9kdRxoTiYcGJg7qz/qzuvyNYKiomQooyyA8HhNU0Lg==
-=b/Ek
------END PGP SIGNATURE-----
+New patch please or introduce it in the patch where you need it.
 
---------------wOukoQWG4drppYz06WcT9RP9--
+We had preferred to use separate
+> patches for this kind of changes, but we found the number of patches
+> would become more and more. This problem has been bothering us for
+> organizing patches.
+
+I understand the concern of increasing the number of patches. However, 
+this also needs to weight against the review.
+
+In this case, it is very difficult for me to understand why we need to 
+introduce FVP_BASER.
+
+In fact, on the previous version, we discussed to not introduce any new 
+platform specific config. So I am a bit surprised this is actually needed.
+
+Cheers,
+
+-- 
+Julien Grall
 
