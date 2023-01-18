@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 331AA67182C
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:50:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480319.744682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62F6567182D
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:51:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480326.744693 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI55g-0002zn-Pr; Wed, 18 Jan 2023 09:50:44 +0000
+	id 1pI55n-0003WC-2q; Wed, 18 Jan 2023 09:50:51 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480319.744682; Wed, 18 Jan 2023 09:50:44 +0000
+Received: by outflank-mailman (output) from mailman id 480326.744693; Wed, 18 Jan 2023 09:50:51 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI55g-0002wS-Mb; Wed, 18 Jan 2023 09:50:44 +0000
-Received: by outflank-mailman (input) for mailman id 480319;
- Wed, 18 Jan 2023 09:50:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pI55m-0003Tz-Ux; Wed, 18 Jan 2023 09:50:50 +0000
+Received: by outflank-mailman (input) for mailman id 480326;
+ Wed, 18 Jan 2023 09:50:50 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pI55e-0001v4-LV
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:50:42 +0000
+ id 1pI55m-0001BV-3A
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:50:50 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9205c981-9715-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 10:50:42 +0100 (CET)
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 60fddad7-9715-11ed-b8d1-410ff93cb8f0;
+ Wed, 18 Jan 2023 10:49:19 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BB1E1340AE;
- Wed, 18 Jan 2023 09:50:41 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5A32E3EAAD;
+ Wed, 18 Jan 2023 09:50:47 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 89FB3139D2;
- Wed, 18 Jan 2023 09:50:41 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 241CA139D2;
+ Wed, 18 Jan 2023 09:50:47 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id BPUoIPHAx2NqQwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:50:41 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id D7qLB/fAx2N2QwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:50:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,16 +51,16 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9205c981-9715-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 60fddad7-9715-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1674035441; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1674035447; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=IMY3vUVgw8qRRZJd+a0HyuTGexwRF66hbh+Hzn4a2aU=;
-	b=NXR4GPBT/IDitpaZDDryrmiHoJRTV2X2AQ7BI6XajjqSMlB3CWatyJAYpMT8/n9jmVHKRf
-	rNKf3SUKoQNUW1ZPEb1NPld5VGsyDukffxXwyf4mPif149q3AEcmE2+A6loJaAQWuwTHUF
-	SDpbEsZ7PecSsO7TdczkSIJQdaPkCR0=
+	bh=c/wxZ4rtigEwZqrxTapBQSzAOAw3lmv1/174o/yGTrE=;
+	b=POE8V5ONtm0GkzjJLv8h2/kEUrgxUG0EBs1Jh9AgTDY2wWo6Gg7hYF4UWMcFq3fwRQnKXe
+	XF16TAohQUkVm8KkZuvxzK3jvnO2mxHiy45Wiq3ATk/ofl03Tc1WQvp4j08EWhBuGl1fR7
+	APeZHR/j8esuF303cTFJSrKYFDNbWAU=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
@@ -68,78 +68,532 @@ Cc: Juergen Gross <jgross@suse.com>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
 	Julien Grall <jgrall@amazon.com>
-Subject: [PATCH v4 04/17] tools/xenstore: make log macro globally available
-Date: Wed, 18 Jan 2023 10:50:03 +0100
-Message-Id: <20230118095016.13091-5-jgross@suse.com>
+Subject: [PATCH v4 05/17] tools/xenstore: introduce dummy nodes for special watch paths
+Date: Wed, 18 Jan 2023 10:50:04 +0100
+Message-Id: <20230118095016.13091-6-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230118095016.13091-1-jgross@suse.com>
 References: <20230118095016.13091-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the definition of the log() macro to xenstored_core.h in order
-to make it usable from other source files, too.
+Instead of special casing the permission handling and watch event
+firing for the special watch paths "@introduceDomain" and
+"@releaseDomain", use static dummy nodes added to the data base when
+starting Xenstore.
 
-While at it preserve errno from being modified.
+The node accounting needs to reflect that change by adding the special
+nodes in the domain_entry_fix() call in setup_structure().
+
+Note that this requires to rework the calls of fire_watches() for the
+special events in order to avoid leaking memory.
+
+Move the check for a valid node name from get_node() to
+get_node_canonicalized(), as it allows to use get_node() for the
+special nodes, too.
+
+In order to avoid read and write accesses to the special nodes use a
+special variant for obtaining the current node data for the permission
+handling.
+
+This allows to simplify quite some code. In future sub-nodes of the
+special nodes will be possible due to this change, allowing more fine
+grained permission control of special events for specific domains.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Julien Grall <jgrall@amazon.com>
 ---
- tools/xenstore/xenstored_core.c | 14 --------------
- tools/xenstore/xenstored_core.h | 15 +++++++++++++++
- 2 files changed, 15 insertions(+), 14 deletions(-)
+V2:
+- add get_spec_node()
+- expand commit message (Julien Grall)
+V3:
+- modify get_acc_domid() comment (Julien Grall)
+- log error in fire_special_watches() (Julien Grall)
+V4:
+- use log() (Julien Grall)
+---
+ tools/xenstore/xenstored_control.c |   3 -
+ tools/xenstore/xenstored_core.c    |  94 ++++++++++-------
+ tools/xenstore/xenstored_domain.c  | 164 ++++-------------------------
+ tools/xenstore/xenstored_domain.h  |   6 --
+ tools/xenstore/xenstored_watch.c   |  17 +--
+ 5 files changed, 83 insertions(+), 201 deletions(-)
 
+diff --git a/tools/xenstore/xenstored_control.c b/tools/xenstore/xenstored_control.c
+index d1aaa00bf4..41e6992591 100644
+--- a/tools/xenstore/xenstored_control.c
++++ b/tools/xenstore/xenstored_control.c
+@@ -676,9 +676,6 @@ static const char *lu_dump_state(const void *ctx, struct connection *conn)
+ 	if (ret)
+ 		goto out;
+ 	ret = dump_state_connections(fp);
+-	if (ret)
+-		goto out;
+-	ret = dump_state_special_nodes(fp);
+ 	if (ret)
+ 		goto out;
+ 	ret = dump_state_nodes(fp, ctx);
 diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 1650821922..d30f35e642 100644
+index d30f35e642..c82fb6e3d5 100644
 --- a/tools/xenstore/xenstored_core.c
 +++ b/tools/xenstore/xenstored_core.c
-@@ -88,20 +88,6 @@ TDB_CONTEXT *tdb_ctx = NULL;
+@@ -597,12 +597,13 @@ static void get_acc_data(TDB_DATA *key, struct node_account_data *acc)
+  * Per-transaction nodes need to be accounted for the transaction owner.
+  * Those nodes are stored in the data base with the transaction generation
+  * count prepended (e.g. 123/local/domain/...). So testing for the node's
+- * key not to start with "/" is sufficient.
++ * key not to start with "/" or "@" is sufficient.
+  */
+ static unsigned int get_acc_domid(struct connection *conn, TDB_DATA *key,
+ 				  unsigned int domid)
+ {
+-	return (!conn || key->dptr[0] == '/') ? domid : conn->id;
++	return (!conn || key->dptr[0] == '/' || key->dptr[0] == '@')
++	       ? domid : conn->id;
+ }
  
- static const char *sockmsg_string(enum xsd_sockmsg_type type);
+ int do_tdb_write(struct connection *conn, TDB_DATA *key, TDB_DATA *data,
+@@ -944,10 +945,6 @@ static struct node *get_node(struct connection *conn,
+ {
+ 	struct node *node;
  
--#define log(...)							\
--	do {								\
--		char *s = talloc_asprintf(NULL, __VA_ARGS__);		\
--		if (s) {						\
--			trace("%s\n", s);				\
--			syslog(LOG_ERR, "%s\n",  s);			\
--			talloc_free(s);					\
--		} else {						\
--			trace("talloc failure during logging\n");	\
--			syslog(LOG_ERR, "talloc failure during logging\n"); \
--		}							\
--	} while (0)
--
--
- int quota_nb_entry_per_domain = 1000;
- int quota_nb_watch_per_domain = 128;
- int quota_max_entry_size = 2048; /* 2K */
-diff --git a/tools/xenstore/xenstored_core.h b/tools/xenstore/xenstored_core.h
-index 37006d508d..89055cbb21 100644
---- a/tools/xenstore/xenstored_core.h
-+++ b/tools/xenstore/xenstored_core.h
-@@ -267,6 +267,21 @@ void trace(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
- void reopen_log(void);
- void close_log(void);
+-	if (!name || !is_valid_nodename(name)) {
+-		errno = EINVAL;
+-		return NULL;
+-	}
+ 	node = read_node(conn, ctx, name);
+ 	/* If we don't have permission, we don't have node. */
+ 	if (node) {
+@@ -1236,9 +1233,23 @@ static struct node *get_node_canonicalized(struct connection *conn,
+ 	*canonical_name = canonicalize(conn, ctx, name);
+ 	if (!*canonical_name)
+ 		return NULL;
++	if (!is_valid_nodename(*canonical_name)) {
++		errno = EINVAL;
++		return NULL;
++	}
+ 	return get_node(conn, ctx, *canonical_name, perm);
+ }
  
-+#define log(...)							\
-+	do {								\
-+		int _saved_errno = errno;				\
-+		char *s = talloc_asprintf(NULL, __VA_ARGS__);		\
-+		if (s) {						\
-+			trace("%s\n", s);				\
-+			syslog(LOG_ERR, "%s\n",	s);			\
-+			talloc_free(s);					\
-+		} else {						\
-+			trace("talloc failure during logging\n");	\
-+			syslog(LOG_ERR, "talloc failure during logging\n"); \
-+		}							\
-+		errno = _saved_errno;					\
-+	} while (0)
++static struct node *get_spec_node(struct connection *conn, const void *ctx,
++				  const char *name, char **canonical_name,
++				  unsigned int perm)
++{
++	if (name[0] == '@')
++		return get_node(conn, ctx, name, perm);
 +
- extern int orig_argc;
- extern char **orig_argv;
++	return get_node_canonicalized(conn, ctx, name, canonical_name, perm);
++}
++
+ static int send_directory(const void *ctx, struct connection *conn,
+ 			  struct buffered_data *in)
+ {
+@@ -1723,8 +1734,7 @@ static int do_get_perms(const void *ctx, struct connection *conn,
+ 	char *strings;
+ 	unsigned int len;
  
+-	node = get_node_canonicalized(conn, ctx, onearg(in), NULL,
+-				      XS_PERM_READ);
++	node = get_spec_node(conn, ctx, onearg(in), NULL, XS_PERM_READ);
+ 	if (!node)
+ 		return errno;
+ 
+@@ -1766,17 +1776,9 @@ static int do_set_perms(const void *ctx, struct connection *conn,
+ 	if (perms.p[0].perms & XS_PERM_IGNORE)
+ 		return ENOENT;
+ 
+-	/* First arg is node name. */
+-	if (strstarts(in->buffer, "@")) {
+-		if (set_perms_special(conn, in->buffer, &perms))
+-			return errno;
+-		send_ack(conn, XS_SET_PERMS);
+-		return 0;
+-	}
+-
+ 	/* We must own node to do this (tools can do this too). */
+-	node = get_node_canonicalized(conn, ctx, in->buffer, &name,
+-				      XS_PERM_WRITE | XS_PERM_OWNER);
++	node = get_spec_node(conn, ctx, in->buffer, &name,
++			     XS_PERM_WRITE | XS_PERM_OWNER);
+ 	if (!node)
+ 		return errno;
+ 
+@@ -2374,7 +2376,9 @@ void setup_structure(bool live_update)
+ 		manual_node("/", "tool");
+ 		manual_node("/tool", "xenstored");
+ 		manual_node("/tool/xenstored", NULL);
+-		domain_entry_fix(dom0_domid, 3, true);
++		manual_node("@releaseDomain", NULL);
++		manual_node("@introduceDomain", NULL);
++		domain_entry_fix(dom0_domid, 5, true);
+ 	}
+ 
+ 	check_store();
+@@ -3156,6 +3160,23 @@ static int dump_state_node(const void *ctx, struct connection *conn,
+ 	return WALK_TREE_OK;
+ }
+ 
++static int dump_state_special_node(FILE *fp, const void *ctx,
++				   struct dump_node_data *data,
++				   const char *name)
++{
++	struct node *node;
++	int ret;
++
++	node = read_node(NULL, ctx, name);
++	if (!node)
++		return dump_state_node_err(data, "Dump node read node error");
++
++	ret = dump_state_node(ctx, NULL, node, data);
++	talloc_free(node);
++
++	return ret;
++}
++
+ const char *dump_state_nodes(FILE *fp, const void *ctx)
+ {
+ 	struct dump_node_data data = {
+@@ -3167,6 +3188,11 @@ const char *dump_state_nodes(FILE *fp, const void *ctx)
+ 	if (walk_node_tree(ctx, NULL, "/", &walkfuncs, &data))
+ 		return data.err;
+ 
++	if (dump_state_special_node(fp, ctx, &data, "@releaseDomain"))
++		return data.err;
++	if (dump_state_special_node(fp, ctx, &data, "@introduceDomain"))
++		return data.err;
++
+ 	return NULL;
+ }
+ 
+@@ -3340,25 +3366,21 @@ void read_state_node(const void *ctx, const void *state)
+ 		node->perms.p[i].id = sn->perms[i].domid;
+ 	}
+ 
+-	if (strstarts(name, "@")) {
+-		set_perms_special(&conn, name, &node->perms);
+-		talloc_free(node);
+-		return;
+-	}
+-
+-	parentname = get_parent(node, name);
+-	if (!parentname)
+-		barf("allocation error restoring node");
+-	parent = read_node(NULL, node, parentname);
+-	if (!parent)
+-		barf("read parent error restoring node");
++	if (!strstarts(name, "@")) {
++		parentname = get_parent(node, name);
++		if (!parentname)
++			barf("allocation error restoring node");
++		parent = read_node(NULL, node, parentname);
++		if (!parent)
++			barf("read parent error restoring node");
+ 
+-	if (add_child(node, parent, name))
+-		barf("allocation error restoring node");
++		if (add_child(node, parent, name))
++			barf("allocation error restoring node");
+ 
+-	set_tdb_key(parentname, &key);
+-	if (write_node_raw(NULL, &key, parent, true))
+-		barf("write parent error restoring node");
++		set_tdb_key(parentname, &key);
++		if (write_node_raw(NULL, &key, parent, true))
++			barf("write parent error restoring node");
++	}
+ 
+ 	set_tdb_key(name, &key);
+ 	if (write_node_raw(NULL, &key, node, true))
+diff --git a/tools/xenstore/xenstored_domain.c b/tools/xenstore/xenstored_domain.c
+index 3ad1028edb..494694fd30 100644
+--- a/tools/xenstore/xenstored_domain.c
++++ b/tools/xenstore/xenstored_domain.c
+@@ -43,9 +43,6 @@ static evtchn_port_t virq_port;
+ 
+ xenevtchn_handle *xce_handle = NULL;
+ 
+-static struct node_perms dom_release_perms;
+-static struct node_perms dom_introduce_perms;
+-
+ struct domain
+ {
+ 	/* The id of this domain */
+@@ -225,27 +222,6 @@ static void unmap_interface(void *interface)
+ 	xengnttab_unmap(*xgt_handle, interface, 1);
+ }
+ 
+-static void remove_domid_from_perm(struct node_perms *perms,
+-				   struct domain *domain)
+-{
+-	unsigned int cur, new;
+-
+-	if (perms->p[0].id == domain->domid)
+-		perms->p[0].id = priv_domid;
+-
+-	for (cur = new = 1; cur < perms->num; cur++) {
+-		if (perms->p[cur].id == domain->domid)
+-			continue;
+-
+-		if (new != cur)
+-			perms->p[new] = perms->p[cur];
+-
+-		new++;
+-	}
+-
+-	perms->num = new;
+-}
+-
+ static int domain_tree_remove_sub(const void *ctx, struct connection *conn,
+ 				  struct node *node, void *arg)
+ {
+@@ -297,8 +273,26 @@ static void domain_tree_remove(struct domain *domain)
+ 			       "error when looking for orphaned nodes\n");
+ 	}
+ 
+-	remove_domid_from_perm(&dom_release_perms, domain);
+-	remove_domid_from_perm(&dom_introduce_perms, domain);
++	walk_node_tree(domain, NULL, "@releaseDomain", &walkfuncs, domain);
++	walk_node_tree(domain, NULL, "@introduceDomain", &walkfuncs, domain);
++}
++
++static void fire_special_watches(const char *name)
++{
++	void *ctx = talloc_new(NULL);
++	struct node *node;
++
++	if (!ctx)
++		return;
++
++	node = read_node(NULL, ctx, name);
++
++	if (node)
++		fire_watches(NULL, ctx, name, node, true, NULL);
++	else
++		log("special node %s not found\n", name);
++
++	talloc_free(ctx);
+ }
+ 
+ static int destroy_domain(void *_domain)
+@@ -326,7 +320,7 @@ static int destroy_domain(void *_domain)
+ 			unmap_interface(domain->interface);
+ 	}
+ 
+-	fire_watches(NULL, domain, "@releaseDomain", NULL, true, NULL);
++	fire_special_watches("@releaseDomain");
+ 
+ 	wrl_domain_destroy(domain);
+ 
+@@ -384,7 +378,7 @@ void check_domains(void)
+ 		;
+ 
+ 	if (notify)
+-		fire_watches(NULL, NULL, "@releaseDomain", NULL, true, NULL);
++		fire_special_watches("@releaseDomain");
+ }
+ 
+ /* We scan all domains rather than use the information given here. */
+@@ -633,8 +627,7 @@ static struct domain *introduce_domain(const void *ctx,
+ 		}
+ 
+ 		if (!is_master_domain && !restore)
+-			fire_watches(NULL, ctx, "@introduceDomain", NULL,
+-				     true, NULL);
++			fire_special_watches("@introduceDomain");
+ 	} else {
+ 		/* Use XS_INTRODUCE for recreating the xenbus event-channel. */
+ 		if (domain->port)
+@@ -840,59 +833,6 @@ const char *get_implicit_path(const struct connection *conn)
+ 	return conn->domain->path;
+ }
+ 
+-static int set_dom_perms_default(struct node_perms *perms)
+-{
+-	perms->num = 1;
+-	perms->p = talloc_array(NULL, struct xs_permissions, perms->num);
+-	if (!perms->p)
+-		return -1;
+-	perms->p->id = 0;
+-	perms->p->perms = XS_PERM_NONE;
+-
+-	return 0;
+-}
+-
+-static struct node_perms *get_perms_special(const char *name)
+-{
+-	if (!strcmp(name, "@releaseDomain"))
+-		return &dom_release_perms;
+-	if (!strcmp(name, "@introduceDomain"))
+-		return &dom_introduce_perms;
+-	return NULL;
+-}
+-
+-int set_perms_special(struct connection *conn, const char *name,
+-		      struct node_perms *perms)
+-{
+-	struct node_perms *p;
+-
+-	p = get_perms_special(name);
+-	if (!p)
+-		return EINVAL;
+-
+-	if ((perm_for_conn(conn, p) & (XS_PERM_WRITE | XS_PERM_OWNER)) !=
+-	    (XS_PERM_WRITE | XS_PERM_OWNER))
+-		return EACCES;
+-
+-	p->num = perms->num;
+-	talloc_free(p->p);
+-	p->p = perms->p;
+-	talloc_steal(NULL, perms->p);
+-
+-	return 0;
+-}
+-
+-bool check_perms_special(const char *name, struct connection *conn)
+-{
+-	struct node_perms *p;
+-
+-	p = get_perms_special(name);
+-	if (!p)
+-		return false;
+-
+-	return perm_for_conn(conn, p) & XS_PERM_READ;
+-}
+-
+ void dom0_init(void)
+ {
+ 	evtchn_port_t port;
+@@ -962,10 +902,6 @@ void domain_init(int evtfd)
+ 	if (xce_handle == NULL)
+ 		barf_perror("Failed to open evtchn device");
+ 
+-	if (set_dom_perms_default(&dom_release_perms) ||
+-	    set_dom_perms_default(&dom_introduce_perms))
+-		barf_perror("Failed to set special permissions");
+-
+ 	if ((rc = xenevtchn_bind_virq(xce_handle, VIRQ_DOM_EXC)) == -1)
+ 		barf_perror("Failed to bind to domain exception virq port");
+ 	virq_port = rc;
+@@ -1535,60 +1471,6 @@ const char *dump_state_connections(FILE *fp)
+ 	return ret;
+ }
+ 
+-static const char *dump_state_special_node(FILE *fp, const char *name,
+-					   const struct node_perms *perms)
+-{
+-	struct xs_state_record_header head;
+-	struct xs_state_node sn;
+-	unsigned int pathlen;
+-	const char *ret;
+-
+-	pathlen = strlen(name) + 1;
+-
+-	head.type = XS_STATE_TYPE_NODE;
+-	head.length = sizeof(sn);
+-
+-	sn.conn_id = 0;
+-	sn.ta_id = 0;
+-	sn.ta_access = 0;
+-	sn.perm_n = perms->num;
+-	sn.path_len = pathlen;
+-	sn.data_len = 0;
+-	head.length += perms->num * sizeof(*sn.perms);
+-	head.length += pathlen;
+-	head.length = ROUNDUP(head.length, 3);
+-	if (fwrite(&head, sizeof(head), 1, fp) != 1)
+-		return "Dump special node error";
+-	if (fwrite(&sn, sizeof(sn), 1, fp) != 1)
+-		return "Dump special node error";
+-
+-	ret = dump_state_node_perms(fp, perms->p, perms->num);
+-	if (ret)
+-		return ret;
+-
+-	if (fwrite(name, pathlen, 1, fp) != 1)
+-		return "Dump special node path error";
+-
+-	ret = dump_state_align(fp);
+-
+-	return ret;
+-}
+-
+-const char *dump_state_special_nodes(FILE *fp)
+-{
+-	const char *ret;
+-
+-	ret = dump_state_special_node(fp, "@releaseDomain",
+-				      &dom_release_perms);
+-	if (ret)
+-		return ret;
+-
+-	ret = dump_state_special_node(fp, "@introduceDomain",
+-				      &dom_introduce_perms);
+-
+-	return ret;
+-}
+-
+ void read_state_connection(const void *ctx, const void *state)
+ {
+ 	const struct xs_state_connection *sc = state;
+diff --git a/tools/xenstore/xenstored_domain.h b/tools/xenstore/xenstored_domain.h
+index b38c82991d..630641d620 100644
+--- a/tools/xenstore/xenstored_domain.h
++++ b/tools/xenstore/xenstored_domain.h
+@@ -99,11 +99,6 @@ void domain_outstanding_domid_dec(unsigned int domid);
+ int domain_get_quota(const void *ctx, struct connection *conn,
+ 		     unsigned int domid);
+ 
+-/* Special node permission handling. */
+-int set_perms_special(struct connection *conn, const char *name,
+-		      struct node_perms *perms);
+-bool check_perms_special(const char *name, struct connection *conn);
+-
+ /* Write rate limiting */
+ 
+ #define WRL_FACTOR   1000 /* for fixed-point arithmetic */
+@@ -132,7 +127,6 @@ void wrl_apply_debit_direct(struct connection *conn);
+ void wrl_apply_debit_trans_commit(struct connection *conn);
+ 
+ const char *dump_state_connections(FILE *fp);
+-const char *dump_state_special_nodes(FILE *fp);
+ 
+ void read_state_connection(const void *ctx, const void *state);
+ 
+diff --git a/tools/xenstore/xenstored_watch.c b/tools/xenstore/xenstored_watch.c
+index 316c08b7f7..75748ac109 100644
+--- a/tools/xenstore/xenstored_watch.c
++++ b/tools/xenstore/xenstored_watch.c
+@@ -46,13 +46,6 @@ struct watch
+ 	char *node;
+ };
+ 
+-static bool check_special_event(const char *name)
+-{
+-	assert(name);
+-
+-	return strstarts(name, "@");
+-}
+-
+ /* Is child a subnode of parent, or equal? */
+ static bool is_child(const char *child, const char *parent)
+ {
+@@ -153,14 +146,8 @@ void fire_watches(struct connection *conn, const void *ctx, const char *name,
+ 
+ 	/* Create an event for each watch. */
+ 	list_for_each_entry(i, &connections, list) {
+-		/* introduce/release domain watches */
+-		if (check_special_event(name)) {
+-			if (!check_perms_special(name, i))
+-				continue;
+-		} else {
+-			if (!watch_permitted(i, ctx, name, node, perms))
+-				continue;
+-		}
++		if (!watch_permitted(i, ctx, name, node, perms))
++			continue;
+ 
+ 		list_for_each_entry(watch, &i->watches, list) {
+ 			if (exact) {
 -- 
 2.35.3
 
