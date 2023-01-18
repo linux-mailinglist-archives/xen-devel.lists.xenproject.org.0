@@ -2,35 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAB4667226E
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 17:05:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480732.745275 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC2F86726AF
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 19:22:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480742.745287 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIAvY-0003SP-FK; Wed, 18 Jan 2023 16:04:40 +0000
+	id 1pID45-0000Hx-9W; Wed, 18 Jan 2023 18:21:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480732.745275; Wed, 18 Jan 2023 16:04:40 +0000
+Received: by outflank-mailman (output) from mailman id 480742.745287; Wed, 18 Jan 2023 18:21:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIAvY-0003QQ-Cg; Wed, 18 Jan 2023 16:04:40 +0000
-Received: by outflank-mailman (input) for mailman id 480732;
- Wed, 18 Jan 2023 16:04:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pIAvX-0003QG-3s; Wed, 18 Jan 2023 16:04:39 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pIAvW-0005bd-Kd; Wed, 18 Jan 2023 16:04:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pIAvW-0007K8-BI; Wed, 18 Jan 2023 16:04:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pIAvW-0007eU-Aq; Wed, 18 Jan 2023 16:04:38 +0000
+	id 1pID45-0000Eo-6Q; Wed, 18 Jan 2023 18:21:37 +0000
+Received: by outflank-mailman (input) for mailman id 480742;
+ Wed, 18 Jan 2023 18:21:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Muv5=5P=citrix.com=prvs=3754a6524=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pID43-0000Eh-Ss
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 18:21:36 +0000
+Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
+ [216.71.145.153]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ede39c7d-975c-11ed-b8d1-410ff93cb8f0;
+ Wed, 18 Jan 2023 19:21:32 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,224 +36,102 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=VcDITxnP+De4Xh9RV2g/0qobHZ2YK3GrP+ct7u/C3ek=; b=Ok1wSCQO3Jvn81NJ6Px2Hxbg0G
-	FN9lNhG9idJzyCleFWvoj4hkv7TCfwRkgQUoX1cTJ+5gUlfKMMhIoOyMaL4c4vjFYIE/VoOD/qedS
-	VlchCAr6QyT3YA6rwHuADjbzwFYPa1ntA1imseMeNJdtI2QWOlBOH6JE/9Cqe4mroESM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175953-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: ede39c7d-975c-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1674066092;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fZ9JGhXsLumSPUgpibDpHb8KbkAcIOwYinBrtT/AIbs=;
+  b=cxT2EectMNMdeaO58ir6T74NyjSLqQPM7WQObhggQq+LKzFscmue7xqd
+   LNUxya+6q5EsgT/LJZ2FqUS8WS4iPPpcoWSKtd9FY53DjC7bXmdejkon7
+   vwX1zghWaVSbEI/bg12iMRTHCCDmUOcZTO/n49av8sg3xCru55v1iRz41
+   U=;
+Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 93193274
+X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:SW0luKLD6FwphuDSFE+R8ZUlxSXFcZb7ZxGr2PjKsXjdYENS0mAHn
+ TBOD2vVMvvbMTD8eYh3aIvjp0MFsMWEx9VmTFdlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
+ ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHv+kUrWs1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
+ Jb5rta31GWNglaYCUpJrfPcwP9TlK6q4mhA5wVuPa0jUGL2zBH5MrpOfcldEFOgKmVkNrbSb
+ /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
+ jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c50KEB0q
+ aERdAoRLRSGmLivz7OWZ/lV05FLwMnDZOvzu1llxDDdS/0nXYrCU+PB4towMDUY354UW6yEP
+ oxANGQpNU6bC/FMEg5/5JYWleG0hn75YntApUicv6Yf6GnP1g1hlrPqNbI5f/TbHpwExRzH+
+ goq+UykPQAbZfa6wgO80UiRvvSMjy/WCLsdQejQGvlC3wTImz175ActfVmmpfi0jGauVtQZL
+ FYbkgI1trQ7/kGvStj7XjW7rWSCsxpaXMBfe8Ul7Cmdx6yS5ByWbkAGRDNcbN0ttOctWCcnk
+ FSOmrvBFTFp9bGYV3+Z3rOVti+pfzgYK3cYYi0JRhdD5MPsyLzflTqWEIwlSvTsyISoR3epm
+ WviQDUCa6s7jucq7fnm9Az9n3Goo4eTVwE0yyjHZzfwhu9mX7JJd7BE+HCCs6kbfdzDFgbR1
+ JQXs5PAtb5TVPlhgATIGbxQR+/xup5pJRWG2TZS848dGyNBEpJJVaRZ+3lAKUhgKa7okhe5M
+ RaI6Wu9CHK+VUZGjJObgKrrUazGNYC6SbzYugn8N7KimKRZeg6d5z1JbkWNxW3rm0VEufhhZ
+ szKIZ7xVS5AVP4PIN+KqwA1iO9D+8zD7TmLGcCTI+qPjNJym0J5uZ9aaQDTP4jVHYuPoRnP8
+ sY3Cid540w3bQEKWQGOqdR7BQlTfRAG6WXe95Q/mhirflA3RwnMypb5ndscRmCSt/gOzbmTo
+ SztCie1CjPX3BX6FOlDUVg7AJuHYHq1hStT0fAEVbpw50UeXA==
+IronPort-HdrOrdr: A9a23:kVTaLqpgM52vF+z5OG9RfMEaV5oyeYIsimQD101hICG9E/bo9P
+ xG885x6faZslsssRIb+exoWpPvfZq0z/cc3WB2B9uftWLd11dAQrsJ0WKb+VzdJxE=
+X-IronPort-AV: E=Sophos;i="5.97,226,1669093200"; 
+   d="scan'208";a="93193274"
+Date: Wed, 18 Jan 2023 18:21:25 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, "George
+ Dunlap" <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, "Julien
+ Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [XEN PATCH v3 1/1] build: replace get-fields.sh by a python
+ script
+Message-ID: <Y8g4pSOHvrkqmbTU@perard.uk.xensource.com>
+References: <20230116181048.30704-1-anthony.perard@citrix.com>
+ <20230116181048.30704-2-anthony.perard@citrix.com>
+ <1ab3bc93-326a-172d-4f0f-f6c2ddc84105@citrix.com>
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175953: regressions - FAIL
-X-Osstest-Failures:
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-X-Osstest-Versions-That:
-    xen=6bec713f871f21c6254a5783c1e39867ea828256
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Jan 2023 16:04:38 +0000
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <1ab3bc93-326a-172d-4f0f-f6c2ddc84105@citrix.com>
 
-flight 175953 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175953/
+On Tue, Jan 17, 2023 at 05:21:32PM +0000, Andrew Cooper wrote:
+> On 16/01/2023 6:10 pm, Anthony PERARD wrote:
+> > +def get_typedefs(tokens):
+> > +    level = 1
+> > +    state = 0
+> > +    typedefs = []
+> 
+> I'm pretty sure typedefs actually wants to be a dict rather than a list
+> (will have better "id in typedefs" performance lower down), but that
+> wants matching with code changes elsewhere, and probably wants doing
+> separately.
 
-Regressions :-(
+I'm not sure that going to make a difference to have "id in ()" instead
+of "id in []". I just found out that `typedefs` is always empty...
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-amd64                   6 xen-build                fail REGR. vs. 175746
- build-arm64-xsm               6 xen-build                fail REGR. vs. 175746
+I don't know what get_typedefs() is supposed to do, or at least if it
+works as expected, because it always returns "" or an empty list. (even
+the shell version)
 
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl          15 migrate-support-check        fail   never pass
- test-armhf-armhf-xl          16 saverestore-support-check    fail   never pass
+So, it would actually be a bit faster to not call get_typedefs(), but I
+don't know if that's safe.
 
-version targeted for testing:
- xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-baseline version:
- xen                  6bec713f871f21c6254a5783c1e39867ea828256
+> > +    for token in tokens:
+> > +        if token == 'typedef':
+> > +            if level == 1:
+> > +                state = 1
+> > +        elif re.match(r'^COMPAT_HANDLE\((.*)\)$', token):
+> > +            if not (level != 1 or state != 1):
+> > +                state = 2
+> > +        elif token in ['[', '{']:
+> > +            level += 1
+> > +        elif token in [']', '}']:
+> > +            level -= 1
+> > +        elif token == ';':
+> > +            if level == 1:
+> > +                state = 0
+> > +        elif re.match(r'^[a-zA-Z_]', token):
+> > +            if not (level != 1 or state != 2):
+> > +                typedefs.append(token)
+> > +    return typedefs
 
-Last test of basis   175746  2023-01-12 16:03:41 Z    6 days
-Failing since        175748  2023-01-12 20:01:56 Z    5 days   26 attempts
-Testing same since   175833  2023-01-14 07:00:25 Z    4 days   24 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Not pushing.
-
-------------------------------------------------------------
-commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Tue Jan 3 11:25:19 2023 +0100
-
-    xen/arm: Add 0x prefix when printing memory size in construct_domU
-    
-    Printing memory size in hex without 0x prefix can be misleading, so
-    add it. Also, take the opportunity to adhere to 80 chars line length
-    limit by moving the printk arguments to the next line.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:07:42 2023 +0000
-
-    xen/arm: linker: The identitymap check should cover the whole .text.header
-    
-    At the moment, we are only checking that only some part of .text.header
-    is part of the identity mapping. However, this doesn't take into account
-    the literal pool which will be located at the end of the section.
-    
-    While we could try to avoid using a literal pool, in the near future we
-    will also want to use an identity mapping for switch_ttbr().
-    
-    Not everything in .text.header requires to be part of the identity
-    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
-    check that .text.header is smaller than a page size.
-    
-    With that _end_boot can be removed as it is now unused. Take the
-    opportunity to avoid assuming that a page size is always 4KB in the
-    error message and comment.
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:06:42 2023 +0000
-
-    xen/arm: linker: Indent correctly _stext
-    
-    _stext is indented by one space more compare to the lines. This doesn't
-    seem warrant, so delete the extra space.
-    
-    Signed-off: Julien Grall <jgrall@amazon.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 3edca52ce736297d7fcf293860cd94ef62638052
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 10:58:31 2023 +0000
-
-    x86/vmx: Support for CPUs without model-specific LBR
-    
-    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
-    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
-    later, model_specific_lbr will always be NULL, so we must make changes to
-    avoid reliably hitting the domain_crash().
-    
-    The Arch LBR spec states that CPUs without model-specific LBR implement
-    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
-    
-    Do this for any CPU for which we lack model-specific LBR information.
-    
-    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
-    signal "no model specific LBR" to guests.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 11:42:22 2023 +0000
-
-    x86/vmx: Calculate model-specific LBRs once at start of day
-    
-    There is no point repeating this calculation at runtime, especially as it is
-    in the fallback path of the WRSMR/RDMSR handlers.
-    
-    Move the infrastructure higher in vmx.c to avoid forward declarations,
-    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
-    these are model-specific only.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e6ee01ad24b6a1c3b922579964deebb119a90a48
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 3 15:08:56 2023 +0000
-
-    xen/version: Drop compat/kernel.c
-    
-    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
-    re-includes kernel.c to recompile xen_version() in a compat form.
-    
-    However, the xen_version hypercall is almost guest-ABI-agnostic; only
-    XENVER_platform_parameters has a compat split.  Handle this locally, and do
-    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
-    that are simply char-arrays in their native and compat form.
-    
-    In particular, this removed the final instances of obfuscation via the DO()
-    macro.
-    
-    No functional change.  Also saves 2k of of .text in the x86 build.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Dec 20 15:51:07 2022 +0000
-
-    public/version: Change xen_feature_info to have a fixed size
-    
-    This is technically an ABI change, but Xen doesn't operate in any environment
-    where "unsigned int" is different to uint32_t, so switch to the explicit form.
-    This avoids the need to derive (identical) compat logic for handling the
-    subop.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+-- 
+Anthony PERARD
 
