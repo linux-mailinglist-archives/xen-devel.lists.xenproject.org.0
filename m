@@ -2,41 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C38D567129D
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 05:27:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480123.744341 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8A6671390
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 07:11:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480132.744352 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI02Z-0004lX-Ot; Wed, 18 Jan 2023 04:27:11 +0000
+	id 1pI1dr-0006oN-4x; Wed, 18 Jan 2023 06:09:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480123.744341; Wed, 18 Jan 2023 04:27:11 +0000
+Received: by outflank-mailman (output) from mailman id 480132.744352; Wed, 18 Jan 2023 06:09:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI02Z-0004in-KR; Wed, 18 Jan 2023 04:27:11 +0000
-Received: by outflank-mailman (input) for mailman id 480123;
- Wed, 18 Jan 2023 04:27:09 +0000
+	id 1pI1dr-0006ma-0m; Wed, 18 Jan 2023 06:09:47 +0000
+Received: by outflank-mailman (input) for mailman id 480132;
+ Wed, 18 Jan 2023 06:09:46 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=7ZPj=5P=redhat.com=alex.williamson@srs-se1.protection.inumbo.net>)
- id 1pI02X-0004ih-N1
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 04:27:09 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ <SRS0=CyUV=5P=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
+ id 1pI1dq-0006mU-4w
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 06:09:46 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on2040.outbound.protection.outlook.com [40.107.8.40])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5d81b4b3-96e8-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 05:27:07 +0100 (CET)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-128-uKjfGRMLM-G1zbLfxF-LVw-1; Tue, 17 Jan 2023 23:27:05 -0500
-Received: by mail-il1-f200.google.com with SMTP id
- z19-20020a921a53000000b0030b90211df1so24118714ill.2
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 20:27:04 -0800 (PST)
-Received: from redhat.com ([38.15.36.239]) by smtp.gmail.com with ESMTPSA id
- u125-20020a022383000000b003a60488c1fcsm74998jau.118.2023.01.17.20.27.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 20:27:02 -0800 (PST)
+ id b2f0a708-96f6-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 07:09:43 +0100 (CET)
+Received: from DUZPR01CA0013.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c3::6) by PA4PR08MB7620.eurprd08.prod.outlook.com
+ (2603:10a6:102:261::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Wed, 18 Jan
+ 2023 06:09:40 +0000
+Received: from DBAEUR03FT024.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:10:3c3:cafe::33) by DUZPR01CA0013.outlook.office365.com
+ (2603:10a6:10:3c3::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
+ Transport; Wed, 18 Jan 2023 06:09:40 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT024.mail.protection.outlook.com (100.127.142.163) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6002.13 via Frontend Transport; Wed, 18 Jan 2023 06:09:40 +0000
+Received: ("Tessian outbound 6e565e48ed4a:v132");
+ Wed, 18 Jan 2023 06:09:40 +0000
+Received: from a8a662c84299.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ AC0C3C80-9503-47A8-A524-0A7F4B67E2EC.1; 
+ Wed, 18 Jan 2023 06:09:29 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id a8a662c84299.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Wed, 18 Jan 2023 06:09:29 +0000
+Received: from AM0PR08MB4530.eurprd08.prod.outlook.com (2603:10a6:208:13c::21)
+ by AM9PR08MB6276.eurprd08.prod.outlook.com (2603:10a6:20b:2d4::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.12; Wed, 18 Jan
+ 2023 06:09:21 +0000
+Received: from AM0PR08MB4530.eurprd08.prod.outlook.com
+ ([fe80::ee26:4b5e:4334:b7ab]) by AM0PR08MB4530.eurprd08.prod.outlook.com
+ ([fe80::ee26:4b5e:4334:b7ab%7]) with mapi id 15.20.5986.023; Wed, 18 Jan 2023
+ 06:09:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -48,251 +71,172 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5d81b4b3-96e8-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674016026;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=GmsKXk8mxh6uH4Qz8i58lSd7uPYMl3VZxDVUoaXIxHQ=;
-	b=Q0jV2sUuc41HE6AR6a3durYHlPYKenDwCYS/1okZ9bcPtNUgZaMognXe+qOI+K8lD/HSUv
-	g6dOgOTZiI8fQczApgG310XMnhmDADkyx4GtT980kebktA/Q6pGgRePXAP/7wTu/MqypNt
-	ge8AAIPc3w4G550T4H41V4HnIHTadCQ=
-X-MC-Unique: uKjfGRMLM-G1zbLfxF-LVw-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:organization:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=WwIVV2GdMWA9O7WvFo6puxVSK0p8BVpY4+LbrHl3vXw=;
-        b=D8I/dhhXzVcLVOLgfLPWnuGRDM2ThyR8GpYHGnB/DdfohK91scbs+Y0L5ilSkbsMCa
-         GrDPGMt7SMvrG3+yeFtht4UUwCtf8NJxOg/Mda13q0LhcbNDy59tr6lGf2B8Q6+fnGTg
-         JyLQnZeMSThFI5Byaoh8eDZAvzKn4UbYPLrJyEmlJM+MZwtAQEAddThg4zD7vIMF0UFY
-         404/rswEqUwm/PjIH9Kr4GgiR/NPIHvDGwPCT4r0qSVk1/LTgTpnzhr7TtJJwXTVxP22
-         Do/EGjIXaSayudqdInfx2HTmSKCSyc1dbP6tD3pyhz2Fy0gYPpHkCh4nu414fFn0bHKK
-         1nvQ==
-X-Gm-Message-State: AFqh2koHzkH1xyxdrUi+uv1Trz7dH92/HAWjr+sr9n5kphmtHBFLDIRH
-	uLVr335R22EOCtUdUz8GFmg9p60lLqjG178VGrjvpDLFzuKQNJmIb96nwsuesLeAAus6I61pqDI
-	63GoLkufml+dZuJvcKoZS5w6uov4=
-X-Received: by 2002:a92:d5d2:0:b0:303:3163:cb0a with SMTP id d18-20020a92d5d2000000b003033163cb0amr5009485ilq.17.1674016024119;
-        Tue, 17 Jan 2023 20:27:04 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXuN/9vLnwuT4teyQ30VRbVSmD5N3uTBIPLHpuDYCgF16ZXgBQKahZL0LE1OWApEgPX8NNEJcw==
-X-Received: by 2002:a92:d5d2:0:b0:303:3163:cb0a with SMTP id d18-20020a92d5d2000000b003033163cb0amr5009468ilq.17.1674016023574;
-        Tue, 17 Jan 2023 20:27:03 -0800 (PST)
-Date: Tue, 17 Jan 2023 21:27:00 -0700
-From: Alex Williamson <alex.williamson@redhat.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>
-Cc: Igor Mammedov <imammedo@redhat.com>, Chuck Zmudzinski
- <brchuckz@netscape.net>, "Michael S. Tsirkin" <mst@redhat.com>, Bernhard
- Beschow <shentey@gmail.com>, qemu-devel@nongnu.org, Stefano Stabellini
- <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, Paolo Bonzini
- <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org, Philippe
- =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@linaro.org>, Anthony Perard
- <anthony.perard@citrix.com>, Thomas Huth <thuth@redhat.com>, Eric Auger
- <eric.auger@redhat.com>, Peter Xu <peterx@redhat.com>
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Message-ID: <20230117212700.35b3af18.alex.williamson@redhat.com>
-In-Reply-To: <b6f7d6dd-3b9b-2cc7-32ab-8521802e1fed@aol.com>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
-	<a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
-	<20230110030331-mutt-send-email-mst@kernel.org>
-	<a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
-	<D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
-	<9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
-	<7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
-	<20230112180314-mutt-send-email-mst@kernel.org>
-	<128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-	<20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-	<88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
-	<20230116163342.467039a0@imammedo.users.ipa.redhat.com>
-	<fce262ea-e0d5-d670-787c-62d91b040739@netscape.net>
-	<20230117120416.0aa041d6@imammedo.users.ipa.redhat.com>
-	<b6f7d6dd-3b9b-2cc7-32ab-8521802e1fed@aol.com>
-Organization: Red Hat
+X-Inumbo-ID: b2f0a708-96f6-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vdcxqi7XguLN86UZ9ocP990VjgUdyOog0lWV2zlPOrE=;
+ b=Z6A7bOW/bLtjlvP3WG/Pxt6oIn1usi+GaDLBQ77jJLo4MXF/9CFmLW1LtwoLUOUmeIwwCrPqki/WkQVw7qGoT1wnAe9xXvn9vMfDTLfWl5VanM2Ow/TcY+5YJ8M1dahBu5H4tYGklubopR09arZrcuoA4p5zXKsjGG2mfL2ORiY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WtHBJq0cTxlgKp6yy28XPcbztdgLvFgjfNVDUwPu8QqbmqZzGuZwon4sTC9PQrjESvhsIIfMh42cUQoFDoQY6x5q9qQes91TMRDyocWdhVemi/WJNknewgATlG9LXaWu1C66kNptGHXFv45iDt2qWrouXrQS9/grs+4Y15OMrEN3L4VFR+nGCtdsxtMvRklHb86pRQBkjnTN2/bs42VM98UDlpkGJOvWGrhKw5Kjn6uhURibc9OB9bEXazUCBQiVu6s+yIQROmvrp0AZ7VWph0W6m0lCyiKXdpkXBT46SUOWEj53ypISgFdHY4kF/VsaY+611T/ER12Gh/QfSlODsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vdcxqi7XguLN86UZ9ocP990VjgUdyOog0lWV2zlPOrE=;
+ b=jOb0roRqbo5ZlALgyCsI8lYR8nETM7qC5eZS+mE+EIa1JvyqS6VirEbjzZ4YxzYPsvJt8MWAimxe6Z34Y/YUF4Tl5MsGGRCPPc7MGdYr1OztiS1iu2Xx4Fkbt+dn7zdmKH1fODhCkEi3YNom1WfOq6LndUGRb1JjWUoaNfDHCcuNAiqT8FWLJuJ6gKTKTa61BkucHu//d2QmdZejAA46VlSR4fkr76ulmaXH1PmxU3UD3VvaOd/ZNzNFCC7sNOQq1rs3BLDBc+SYnkWb6ASEi4EWjrSRCPKXv+ovDdfsNXimuMoFIBNsieVHAJVOfy0BVp0NXvunSggRgNB1UQj3sw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vdcxqi7XguLN86UZ9ocP990VjgUdyOog0lWV2zlPOrE=;
+ b=Z6A7bOW/bLtjlvP3WG/Pxt6oIn1usi+GaDLBQ77jJLo4MXF/9CFmLW1LtwoLUOUmeIwwCrPqki/WkQVw7qGoT1wnAe9xXvn9vMfDTLfWl5VanM2Ow/TcY+5YJ8M1dahBu5H4tYGklubopR09arZrcuoA4p5zXKsjGG2mfL2ORiY=
+From: Penny Zheng <Penny.Zheng@arm.com>
+To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: RE: [PATCH v1 06/13] xen/arm: assign shared memory to owner when host
+ address not provided
+Thread-Topic: [PATCH v1 06/13] xen/arm: assign shared memory to owner when
+ host address not provided
+Thread-Index: AQHY+J1pmmYEajWz5UynKX+c5rdEZK6UzwiAgAEQoXCAAGGAAIANzbrg
+Date: Wed, 18 Jan 2023 06:09:21 +0000
+Message-ID:
+ <AM0PR08MB45301DB151AA42174CA8326BF7C79@AM0PR08MB4530.eurprd08.prod.outlook.com>
+References: <20221115025235.1378931-1-Penny.Zheng@arm.com>
+ <20221115025235.1378931-7-Penny.Zheng@arm.com>
+ <d7f12897-c6cc-0895-b70e-53c0b88bd0f9@xen.org>
+ <AM0PR08MB453041150588948050F718D4F7FE9@AM0PR08MB4530.eurprd08.prod.outlook.com>
+ <6db41bd2-ab71-422a-4235-a9209e984915@xen.org>
+In-Reply-To: <6db41bd2-ab71-422a-4235-a9209e984915@xen.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: A51278E297A39A4F8E5EB4019398EF65.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AM0PR08MB4530:EE_|AM9PR08MB6276:EE_|DBAEUR03FT024:EE_|PA4PR08MB7620:EE_
+X-MS-Office365-Filtering-Correlation-Id: d44d024e-c65e-413d-36ca-08daf91a959f
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ Q12qNdVLzDK3iskNSLVqrDITxFwMbQ5oVBnxZohZB5CwW36U6bO9j4aXgtBLdDDRCNdYqlu/mv54iUGOh/pSFlBwwJw9OfFQulT+BhiwBw28TW3a1faQd1XYEiFRNUpWtDupap7YBw2qI04tyzUdMBDm6IyOR8iZJrrME/kUo5UYU0iSeW7D8IsPRmsCPt5Igu2UMuxIyD0xbpSaUp0WR9+nQlpnzZAxGE1HebcT2yUMYrHWdPHpbke1/4DyJMDUmANqP8AOn20O/g9HYmog51a/Zj+fPxetYRBhfxoo6ikm170LK3etS8DUnR9wrd1imdgk33caTgZNoSbxCVZAUMNs6XNSrvrz1KCIf2JKE5fV7GNWENJWRR068eD0Ej3K/GfABT2eWhIAvDk/LyRJrpHb1CNcNtteeXth26/0XuPesjPFeDJyvao5zIuriDq6tt1cDYhmwow1q1LuHnR72M5rTAfPrsqTGowr/4T/2Q//TUZwslPGgLCO9ug6BzIPe92LKhOE6Q+CCMBhKWFgZr5pZzNVK8B0z3apjXvafajwIVAiScfVxead9SsY3lNmXvCGuWRQubvxUMdLEWdJGOBnHn7FhyPxrNs9HFBOuLap/f4XGIFFkHMcNMtqclcyFQMi79/gh2ZqkJIMUWTW8wSK6ol+knhgcKd4FWdApCFnWZDwF787xFLKjaLQldvaTZVXzdZkoQzDA3t7pjtnWQ==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB4530.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(376002)(39860400002)(366004)(396003)(451199015)(71200400001)(186003)(52536014)(55016003)(26005)(9686003)(7696005)(122000001)(86362001)(66556008)(66946007)(66446008)(66476007)(76116006)(4326008)(8676002)(5660300002)(33656002)(64756008)(478600001)(38070700005)(38100700002)(54906003)(8936002)(41300700001)(316002)(2906002)(53546011)(6506007)(110136005)(83380400001);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR08MB6276
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT024.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	bfd70c7a-2b6a-411e-8946-08daf91a8a54
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	qfTrySxE/5WfcZTKQflKGKv192mPdgSe6FvlHu85npTx2YCSdYL3awAUbb8G2j2EAtjoTiEZBHmlYuNToJVBfMpH/K8TkzsWboXoE7sYZwpGxZ5mhEtqXM4wWBWhfZOsPzbmfk4l5dWUYj5q0ROatRtU35aF+0IOjLAU44CIiGhGbkh5FeED7EwVA3XjT0A2zmbuws0//Zdj/+UtiNkFdZXhCWsnAm1diYjSs7RwEbqFxmxg5Jv4AtxVp4OEAMnjMbcR/ThQWUIxJJ6t+K/X71j9yK5w6WPfl7oNYxcq+medwavbb1dfQv+N8/rTELYu1bGiYmjYymo99lQfwuUjkQ9re0Y6SrnrJOVpcVCs+JVdnZyk+6qq2sGOCuXkGuZayqPPEtNcTKa3yeOUQuuzRk/wlnoJOuqjD7tgrdU8Dqdj/K7O4qWkMKHf5T8GH1Wdb7ABIayeJD0larNm19ZkAOW112Eobcbxn7wtYsO3zW+7aqFg23wxqO8ZtT6pUSQfkGcK+nrDXlDwMqZqryxyy2LTyK5U/FAeu92mz8eRlTLV3sLqVYs6S9E4g8okjKOSe2i6KtCwjhE4Cunaqm0XXKi4+n7iOpzPl4+AAmkwya88d2sU4ZmWpJWWFFOXodfZ9lBBobikcDCWyv8xEoF1BD+p2wb0hmDl3OYaifo49HHKP3O8E1a6mR7zOh/RW4xBoqkYwaFdR5JLoi2PhI14Vw==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230022)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199015)(40470700004)(36840700001)(46966006)(81166007)(82740400003)(36860700001)(86362001)(356005)(33656002)(5660300002)(8936002)(52536014)(2906002)(70586007)(70206006)(55016003)(40480700001)(41300700001)(8676002)(4326008)(82310400005)(40460700003)(26005)(9686003)(186003)(336012)(83380400001)(47076005)(53546011)(316002)(54906003)(110136005)(107886003)(7696005)(6506007)(478600001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 06:09:40.0895
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d44d024e-c65e-413d-36ca-08daf91a959f
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT024.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR08MB7620
 
-On Tue, 17 Jan 2023 19:15:57 -0500
-Chuck Zmudzinski <brchuckz@aol.com> wrote:
-
-> On 1/17/2023 6:04 AM, Igor Mammedov wrote:
-> > On Mon, 16 Jan 2023 13:00:53 -0500
-> > Chuck Zmudzinski <brchuckz@netscape.net> wrote:
-> > =20
-> > > On 1/16/23 10:33, Igor Mammedov wrote: =20
-> > > > On Fri, 13 Jan 2023 16:31:26 -0500
-> > > > Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> > > >    =20
-> > > >> On 1/13/23 4:33=E2=80=AFAM, Igor Mammedov wrote:   =20
-> > > >> > On Thu, 12 Jan 2023 23:14:26 -0500
-> > > >> > Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> > > >> >      =20
-> > > >> >> On 1/12/23 6:03=E2=80=AFPM, Michael S. Tsirkin wrote:     =20
-> > > >> >> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wr=
-ote:       =20
-> > > >> >> >> I think the change Michael suggests is very minimalistic: Mo=
-ve the if
-> > > >> >> >> condition around xen_igd_reserve_slot() into the function it=
-self and
-> > > >> >> >> always call it there unconditionally -- basically turning th=
-ree lines
-> > > >> >> >> into one. Since xen_igd_reserve_slot() seems very problem sp=
-ecific,
-> > > >> >> >> Michael further suggests to rename it to something more gene=
-ral. All
-> > > >> >> >> in all no big changes required.       =20
-> > > >> >> >=20
-> > > >> >> > yes, exactly.
-> > > >> >> >        =20
-> > > >> >>=20
-> > > >> >> OK, got it. I can do that along with the other suggestions.    =
- =20
-> > > >> >=20
-> > > >> > have you considered instead of reservation, putting a slot check=
- in device model
-> > > >> > and if it's intel igd being passed through, fail at realize time=
-  if it can't take
-> > > >> > required slot (with a error directing user to fix command line)?=
-     =20
-> > > >>=20
-> > > >> Yes, but the core pci code currently already fails at realize time
-> > > >> with a useful error message if the user tries to use slot 2 for th=
-e
-> > > >> igd, because of the xen platform device which has slot 2. The user
-> > > >> can fix this without patching qemu, but having the user fix it on
-> > > >> the command line is not the best way to solve the problem, primari=
-ly
-> > > >> because the user would need to hotplug the xen platform device via=
- a
-> > > >> command line option instead of having the xen platform device adde=
-d by
-> > > >> pc_xen_hvm_init functions almost immediately after creating the pc=
-i
-> > > >> bus, and that delay in adding the xen platform device degrades
-> > > >> startup performance of the guest.
-> > > >>    =20
-> > > >> > That could be less complicated than dealing with slot reservatio=
-ns at the cost of
-> > > >> > being less convenient.     =20
-> > > >>=20
-> > > >> And also a cost of reduced startup performance   =20
-> > > >=20
-> > > > Could you clarify how it affects performance (and how much).
-> > > > (as I see, setup done at board_init time is roughly the same
-> > > > as with '-device foo' CLI options, modulo time needed to parse
-> > > > options which should be negligible. and both ways are done before
-> > > > guest runs)   =20
-> > >=20
-> > > I preface my answer by saying there is a v9, but you don't
-> > > need to look at that. I will answer all your questions here.
-> > >=20
-> > > I am going by what I observe on the main HDMI display with the
-> > > different approaches. With the approach of not patching Qemu
-> > > to fix this, which requires adding the Xen platform device a
-> > > little later, the length of time it takes to fully load the
-> > > guest is increased. I also noticed with Linux guests that use
-> > > the grub bootoader, the grub vga driver cannot display the
-> > > grub boot menu at the native resolution of the display, which
-> > > in the tested case is 1920x1080, when the Xen platform device
-> > > is added via a command line option instead of by the
-> > > pc_xen_hvm_init_pci fucntion in pc_piix.c, but with this patch
-> > > to Qemu, the grub menu is displayed at the full, 1920x1080
-> > > native resolution of the display. Once the guest fully loads,
-> > > there is no noticeable difference in performance. It is mainly
-> > > a degradation in startup performance, not performance once
-> > > the guest OS is fully loaded. =20
-> >
-> > Looking at igd-assign.txt, it recommends to add IGD using '-device' CLI
-> > option, and actually drop at least graphics defaults explicitly.
-> > So it is expected to work fine even when IGD is constructed with
-> > '-device'.
-> >
-> > Could you provide full CLI current xen starts QEMU with and then
-> > a CLI you used (with explicit -device for IGD) that leads
-> > to reduced performance?
-> >
-> > CCing vfio folks who might have an idea what could be wrong based
-> > on vfio experience. =20
->=20
-> Actually, the igd is not added with an explicit -device option using Xen:
->=20
-> =C2=A0=C2=A0 1573 ?=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Ssl=C2=A0=
-=C2=A0=C2=A0 0:42 /usr/bin/qemu-system-i386 -xen-domid 1 -no-shutdown -char=
-dev socket,id=3Dlibxl-cmd,path=3D/var/run/xen/qmp-libxl-1,server,nowait -mo=
-n chardev=3Dlibxl-cmd,mode=3Dcontrol -chardev socket,id=3Dlibxenstat-cmd,pa=
-th=3D/var/run/xen/qmp-libxenstat-1,server,nowait -mon chardev=3Dlibxenstat-=
-cmd,mode=3Dcontrol -nodefaults -no-user-config -name windows -vnc none -dis=
-play none -serial pty -boot order=3Dc -smp 4,maxcpus=3D4 -net none -machine=
- xenfv,max-ram-below-4g=3D3758096384,igd-passthru=3Don -m 6144 -drive file=
-=3D/dev/loop0,if=3Dide,index=3D0,media=3Ddisk,format=3Draw,cache=3Dwritebac=
-k -drive file=3D/dev/disk/by-uuid/A44AA4984AA468AE,if=3Dide,index=3D1,media=
-=3Ddisk,format=3Draw,cache=3Dwriteback
->=20
-> I think it is added by xl (libxl management tool) when the guest is creat=
-ed
-> using the qmp-libxl socket that appears on the command line, but I am not=
- 100
-> percent sure. So, with libxl, the command line alone does not tell the wh=
-ole
-> story. The xl.cfg file has a line like this to define the pci devices pas=
-sed through,
-> and in qemu they are type XEN_PT devices, not VFIO devices:
->=20
-> pci =3D [ '00:1b.0','00:14.0','00:02.0@02' ]
->=20
-> This means three host pci devices are passed through, the ones on the
-> host at slot 1b.0, 14.0, and 02.0. Of course the device at 02 is the igd.
-> The @02 means libxl is requesting slot 2 in the guest for the igd, the
-> other 2 devices are just auto assigned a slot by Qemu. Qemu cannot
-> assign the igd to slot 2 for xenfv machines without a patch that prevents
-> the Xen platform device from grabbing slot 2. That is what this patch
-> accomplishes. The workaround involves using the Qemu pc machine
-> instead of the Qemu xenfv machine, in which case the code in Qemu
-> that adds the Xen platform device at slot 2 is avoided, and in that case
-> the Xen platform device is added via a command line option instead
-> at slot 3 instead of slot 2.
->=20
-> The differences between vfio and the Xen pci passthrough device
-> might make a difference in Xen vs. kvm for igd-pasthru.
->=20
-> Also, kvm does not use the Xen platform device, and it seems the
-> Xen guests behave better at startup when the Xen platform device
-> is added very early, during the initialization of the emulated devices
-> of the machine, which is based on the i440fx piix3 machine, instead
-> of being added using a command line option. Perhaps the performance
-> at startup could be improved by adding the igd via a command line
-> option using vfio instead of the canonical way that libxl does pci
-> passthrough on Xen, but I have no idea if vfio works on Xen the way it
-> works on kvm. I am willing to investigate and experiment with it, though.
->=20
-> So if any vfio people can shed some light on this, that would help.
-
-ISTR some rumors of Xen thinking about vfio, but AFAIK there is no
-combination of vfio with Xen, nor is there any sharing of device quirks
-to assign IGD.  IGD assignment has various VM platform dependencies, of
-which the bus address is just one.  Vfio support for IGD assignment
-takes a much different approach, the user or management tool is
-responsible for configuring the VM correctly for IGD assignment,
-including assigning the device to the correct bus address and using the
-right VM chipset, with the correct slot free for the LPC controller.  If
-all the user configuration of the VM aligns correctly, we'll activate
-"legacy mode" by inserting the opregion and instantiate the LPC bridge
-with the correct fields to make the BIOS and drivers happy.  Otherwise,
-maybe the user is trying to use the mythical UPT mode, but given
-Intel's lack of follow-through, it probably just won't work.  Or maybe
-it's a vGPU and we don't need the legacy features anyway.
-
-Working with an expectation that QEMU needs to do the heavy lifting to
-make it all work automatically, with no support from the management
-tool for putting devices in the right place, I'm afraid there might not
-be much to leverage from the vfio vesion.  Thanks,
-
-Alex
-
+SGkgSnVsaWVuDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSnVsaWVu
+IEdyYWxsIDxqdWxpZW5AeGVuLm9yZz4NCj4gU2VudDogTW9uZGF5LCBKYW51YXJ5IDksIDIwMjMg
+Njo1OCBQTQ0KPiBUbzogUGVubnkgWmhlbmcgPFBlbm55LlpoZW5nQGFybS5jb20+OyB4ZW4tZGV2
+ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gQ2M6IFdlaSBDaGVuIDxXZWkuQ2hlbkBhcm0uY29t
+PjsgU3RlZmFubyBTdGFiZWxsaW5pDQo+IDxzc3RhYmVsbGluaUBrZXJuZWwub3JnPjsgQmVydHJh
+bmQgTWFycXVpcyA8QmVydHJhbmQuTWFycXVpc0Bhcm0uY29tPjsNCj4gVm9sb2R5bXlyIEJhYmNo
+dWsgPFZvbG9keW15cl9CYWJjaHVrQGVwYW0uY29tPg0KPiBTdWJqZWN0OiBSZTogW1BBVENIIHYx
+IDA2LzEzXSB4ZW4vYXJtOiBhc3NpZ24gc2hhcmVkIG1lbW9yeSB0byBvd25lcg0KPiB3aGVuIGhv
+c3QgYWRkcmVzcyBub3QgcHJvdmlkZWQNCj4gDQo+IA0KPiANCj4gT24gMDkvMDEvMjAyMyAwNzo0
+OSwgUGVubnkgWmhlbmcgd3JvdGU6DQo+ID4gSGkgSnVsaWVuDQo+IA0KPiBIaSBQZW5ueSwNCj4g
+DQo+ID4gSGFwcHkgbmV3IHllYXJ+fn5+DQo+IA0KPiBIYXBweSBuZXcgeWVhciB0b28hDQo+IA0K
+PiA+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+PiBGcm9tOiBKdWxpZW4gR3JhbGwg
+PGp1bGllbkB4ZW4ub3JnPg0KPiA+PiBTZW50OiBTdW5kYXksIEphbnVhcnkgOCwgMjAyMyA4OjUz
+IFBNDQo+ID4+IFRvOiBQZW5ueSBaaGVuZyA8UGVubnkuWmhlbmdAYXJtLmNvbT47IHhlbi0NCj4g
+ZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4gPj4gQ2M6IFdlaSBDaGVuIDxXZWkuQ2hlbkBh
+cm0uY29tPjsgU3RlZmFubyBTdGFiZWxsaW5pDQo+ID4+IDxzc3RhYmVsbGluaUBrZXJuZWwub3Jn
+PjsgQmVydHJhbmQgTWFycXVpcw0KPiA+PiA8QmVydHJhbmQuTWFycXVpc0Bhcm0uY29tPjsgVm9s
+b2R5bXlyIEJhYmNodWsNCj4gPj4gPFZvbG9keW15cl9CYWJjaHVrQGVwYW0uY29tPg0KPiA+PiBT
+dWJqZWN0OiBSZTogW1BBVENIIHYxIDA2LzEzXSB4ZW4vYXJtOiBhc3NpZ24gc2hhcmVkIG1lbW9y
+eSB0byBvd25lcg0KPiA+PiB3aGVuIGhvc3QgYWRkcmVzcyBub3QgcHJvdmlkZWQNCj4gPj4NCj4g
+Pj4gSGksDQo+ID4+DQo+ID4+IE9uIDE1LzExLzIwMjIgMDI6NTIsIFBlbm55IFpoZW5nIHdyb3Rl
+Og0KPiA+Pj4gQEAgLTkyMiwzMyArOTI3LDgyIEBAIHN0YXRpYyBtZm5fdCBfX2luaXQNCj4gPj4g
+YWNxdWlyZV9zaGFyZWRfbWVtb3J5X2Jhbmsoc3RydWN0IGRvbWFpbiAqZCwNCj4gPj4+ICAgICAg
+ICBkLT5tYXhfcGFnZXMgKz0gbnJfcGZuczsNCj4gPj4+DQo+ID4+PiAgICAgICAgc21mbiA9IG1h
+ZGRyX3RvX21mbihwYmFzZSk7DQo+ID4+PiAtICAgIHJlcyA9IGFjcXVpcmVfZG9tc3RhdGljX3Bh
+Z2VzKGQsIHNtZm4sIG5yX3BmbnMsIDApOw0KPiA+Pj4gLSAgICBpZiAoIHJlcyApDQo+ID4+PiAr
+ICAgIHBhZ2UgPSBtZm5fdG9fcGFnZShzbWZuKTsNCj4gPj4+ICsgICAgLyoNCj4gPj4+ICsgICAg
+ICogSWYgcGFnZSBpcyBhbGxvY2F0ZWQgZnJvbSBoZWFwIGFzIHN0YXRpYyBzaGFyZWQgbWVtb3J5
+LCB0aGVuIHdlDQo+IGp1c3QNCj4gPj4+ICsgICAgICogYXNzaWduIGl0IHRvIHRoZSBvd25lciBk
+b21haW4NCj4gPj4+ICsgICAgICovDQo+ID4+PiArICAgIGlmICggcGFnZS0+Y291bnRfaW5mbyA9
+PSAoUEdDX3N0YXRlX2ludXNlIHwgUEdDX3N0YXRpYykgKQ0KPiA+PiBJIGFtIGEgYml0IGNvbmZ1
+c2VkIGhvdyB0aGlzIGNhbiBoZWxwIGRpZmZlcmVudGlhdGluZw0KPiA+PiBiZWNhUEdDX3N0YXRl
+X2ludXNlIGlzIDAuIFNvIGVmZmVjdGl2ZWx5LCB5b3UgYXJlIGNoZWNraW5nIHRoYXQgY291bnRf
+aW5mbw0KPiBpcyBlcXVhbCB0byBQR0Nfc3RhdGljLg0KPiA+Pg0KPiA+DQo+ID4gV2hlbiBob3N0
+IGFkZHJlc3MgaXMgcHJvdmlkZWQsIHRoZSBob3N0IGFkZHJlc3MgcmFuZ2UgZGVmaW5lZCBpbg0K
+PiA+IHhlbixzdGF0aWMtbWVtIHdpbGwgYmUgc3RvcmVkIGFzIGEgInN0cnVjdCBtZW1iYW5rIiB3
+aXRoIHR5cGUgb2YNCj4gPiAiTUVNQkFOS19TVEFUSUNfRE9NQUlOIiBpbiAiYm9vdGluZm8ucmVz
+ZXJ2ZWRfbWVtIg0KPiA+IFRoZW4gaXQgd2lsbCBiZSBpbml0aWFsaXplZCBhcyBzdGF0aWMgbWVt
+b3J5IHRocm91Z2ggImluaXRfc3RhdGljbWVtX3BhZ2VzIg0KPiA+IFNvIGhlcmUgaXRzIHBhZ2Ut
+PmNvdW50X2luZm8gaXMgUEdDX3N0YXRlX2ZyZWUgfFBHQ19zdGF0aWMuDQo+ID4gRm9yIHBhZ2Vz
+IGFsbG9jYXRlZCBmcm9tIGhlYXAsIGl0cyBwYWdlIHN0YXRlIGlzIGRpZmZlcmVudCwgYmVpbmcN
+Cj4gUEdDX3N0YXRlX2ludXNlLg0KPiA+IFNvIGFjdHVhbGx5LCB3ZSBhcmUgY2hlY2tpbmcgcGFn
+ZSBzdGF0ZSB0byB0ZWxsIHRoZQ0KPiBkaWZmZXJlbmNlICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIC4NCj4gDQo+IE9rLiBUaGlzIGlzIGRlZmluaXRl
+bHkgbm90IG9idmlvdXMgZnJvbSB0aGUgY29kZS4gQnV0IEkgdGhpbmsgdGhpcyBpcyBhIHZlcnkN
+Cj4gZnJhZ2lsZSBhc3N1bXB0aW9uLg0KPiANCj4gSW5zdGVhZCwgaXQgd291bGQgYmUgYmV0dGVy
+IGlmIHdlIGFsbG9jYXRlIHRoZSBtZW1vcnkgaW4NCj4gYWNxdWlyZV9zaGFyZWRfbWVtb3J5X2Jh
+bmsoKSB3aGVuIHRoZSBob3N0IGFkZHJlc3MgaXMgbm90IHByb3ZpZGVkLg0KPiANCg0KUmlnaHQg
+bm93LCBhY3F1aXJlX3NoYXJlZF9tZW1vcnlfYmFuayBpcyBjYWxsZWQgb25seSB3aGVuIGRvbWFp
+biBpcyBvd25lciBkb21haW4uDQpJdCBpcyBhcHBsaWNhYmxlIHdoZW4gaG9zdCBhZGRyZXNzIGlz
+IHByb3ZpZGVkLCB3ZSBjb3VsZCBzdGlsbCBkbyBndWVzdCBwaHlzbWFwIHdoZW4NCmJvcnJvd2Vy
+IGFjY2Vzc2VkIGJlZm9yZSBvd25lciwgYXMgYWRkcmVzcyBpcyBwcm92aWRlZC4NCkhvd2V2ZXIg
+d2hlbiBob3N0IGFkZHJlc3MgaXMgbm90IHByb3ZpZGVkLCB3ZSBtdXN0IGFsbG9jYXRlIG1lbW9y
+eSBhdCBmaXJzdCBkb21haW4uDQpTbyBhbGxvY2F0aW5nIHRoZSBtZW1vcnkgc2hhbGwgYmUgY2Fs
+bGVkIG91dHNpZGUgYWNxdWlyZV9zaGFyZWRfbWVtb3J5X2JhbmsNCg0KPiA+DQo+ID4+IEJ1dCBh
+cyBJIHdyb3RlIGluIGEgcHJldmlvdXMgcGF0Y2gsIEkgZG9uJ3QgdGhpbmsgeW91IHNob3VsZCBj
+b252ZXJ0DQo+ID4+IHt4ZW4sZG9tfWhlYXAgcGFnZXMgdG8gYSBzdGF0aWMgcGFnZXMuDQo+ID4+
+DQo+ID4NCj4gPiBJIGFncmVlIHRoYXQgdGFraW5nIHJlZmVyZW5jZSBjb3VsZCBhbHNvIHByZXZl
+bnQgZ2l2aW5nIHRoZXNlIHBhZ2VzIGJhY2sgdG8NCj4gaGVhcC4NCj4gPiBCdXQgbWF5IEkgYXNr
+IHdoYXQgaXMgeW91ciBjb25jZXJuIG9uIGNvbnZlcnRpbmcge3hlbixkb219aGVhcCBwYWdlcyB0
+bw0KPiBhIHN0YXRpYyBwYWdlcz8NCj4gDQo+IEEgZmV3IHJlYXNvbnM6DQo+ICAgMSkgSSBjb25z
+aWRlciB0aGVtIGFzIHR3byBkaXN0aW5jdCBhbGxvY2F0b3JzLiBTbyBmYXIgdGhleSBoYXZlIHRo
+ZSBzYW1lDQo+IGJlaGF2aW9yLCBidXQgaW4gdGhlIGZ1dHVyZSB0aGlzIG1heSBjaGFuZ2UuDQo+
+ICAgMikgSWYgdGhlIHBhZ2UgaXMgZnJlZWQgeW91IHJlYWxseSBkb24ndCB3YW50IHRoZSBkb21h
+aW4gdG8gYmUgYWJsZSB0byByZS11c2UNCj4gdGhlIHBhZ2UgZm9yIGEgZGlmZmVyZW50IHB1cnBv
+c2UuDQo+IA0KPiANCj4gSSByZWFsaXplIHRoYXQgMikgaXMgYWxyZWFkeSBhIHByb2JsZW0gdG9k
+YXkgd2l0aCBzdGF0aWMgcGFnZXMuIFNvIEkgdGhpbmsgdGhlDQo+IGJlc3QgaXMgdG8gZW5zdXJl
+IHRoYXQgcGFnZXMgYWxsb2NhdGVkIGZvciBzaGFyZWQgbWVtb3J5IG5ldmVyIHJlYWNoIHRoZQ0K
+PiBhbnkgb2YgdGhlIGFsbG9jYXRvcnMuDQo+IA0KPiANCj4gQ2hlZXJzLA0KPiANCj4gLS0NCj4g
+SnVsaWVuIEdyYWxsDQoNCkNoZWVycywNCg0KLS0NCkp1bGllbiBHcmFsbA0K
 
