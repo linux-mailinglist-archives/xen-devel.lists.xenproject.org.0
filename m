@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39626670FA3
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 02:11:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480040.744209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAC8F670FA2
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 02:11:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480047.744220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwxy-0004l1-FP; Wed, 18 Jan 2023 01:10:14 +0000
+	id 1pHwyg-0005Kr-Sz; Wed, 18 Jan 2023 01:10:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480040.744209; Wed, 18 Jan 2023 01:10:14 +0000
+Received: by outflank-mailman (output) from mailman id 480047.744220; Wed, 18 Jan 2023 01:10:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwxy-0004im-BQ; Wed, 18 Jan 2023 01:10:14 +0000
-Received: by outflank-mailman (input) for mailman id 480040;
- Wed, 18 Jan 2023 01:10:12 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHwxw-0004ic-IQ; Wed, 18 Jan 2023 01:10:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHwxw-00085Q-Ba; Wed, 18 Jan 2023 01:10:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pHwxv-0003av-SE; Wed, 18 Jan 2023 01:10:11 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pHwxv-0003mO-Rh; Wed, 18 Jan 2023 01:10:11 +0000
+	id 1pHwyg-0005HP-PU; Wed, 18 Jan 2023 01:10:58 +0000
+Received: by outflank-mailman (input) for mailman id 480047;
+ Wed, 18 Jan 2023 01:10:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=I0ll=5P=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
+ id 1pHwyf-0005FD-FS
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 01:10:57 +0000
+Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com
+ [2607:f8b0:4864:20::e29])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id f5ccd6bb-96cc-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 02:10:56 +0100 (CET)
+Received: by mail-vs1-xe29.google.com with SMTP id 3so34204577vsq.7
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 17:10:56 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,232 +39,195 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=oLrSYxlATwjbKcSr0t00aKlA42QoRqB5KOu7SsGVnIQ=; b=EsMEhnFkpCeR5aLOz3GdtHFIOg
-	sQpFSJiyT0pVcuCLCbhrJHlPU0oUhHH+tH9ANz48yP/WTyZm35nX0zpvMHNOlJv/maK19Dsve/G36
-	BtoDgYu7rR8xvMG8TLq0KY/fOK1+pTFEnnri1+OzmBfCCV9Z13dgzSfKsmh88ZNJZHEo=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175949-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f5ccd6bb-96cc-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=UdTaj5o3X/W5SP6UOlIzMe044t8GhfTKKPgfBa31DtY=;
+        b=F17vLM6Qen3OucAJba1k+GxCI0YWSOWh7/9gwNAt9klWmEFskqVugZR2PH5fKbCvLN
+         RdsWTVzIPIp1E0F+PYZpmExWyplgyQLcLDlIq/kPgc3EoAKCV7tKUD6bX3SjXxw6ihpZ
+         vXlBYsV9Kl6xFFVnqhs7fC8NtUi1nAaRKbnCag7AlirDx0YxDlm/d+CFetqXTNrNRCAD
+         Hu1lyXhgfkylPUop3EC5E5lyZTkpIFQfOXAWQ66u1C3V3O28zFTm966JYNNHZ5duh4Cv
+         82LUczlD97AZP0YXywtERiTmOa4XQ7WuJH0Yr9SIuqsBbe7WvahBV34ne14OLsgwj/HU
+         TmJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=UdTaj5o3X/W5SP6UOlIzMe044t8GhfTKKPgfBa31DtY=;
+        b=vr8v4Xg9munbVLIG2JKPmVU9mxQIH2enfZtTTfv/1rourBZ064/gcWS6NrXfmmgQ9J
+         E93BAoOKCtho4vXP28/FCml8lNxFvgr7yIZ0GocEeBDM6BCmDaP+wv24UOz3MgNngkt7
+         xjnvgk3p8yfBpmGqKwBd034FuKIkmJbEloE92/mubEPqvgF7CdRlfvmnL1Vw4XvHwaqm
+         Ku/od1BETk8RBaSkP7d35Va8SoAix2LLQhXZIY2610jhI+W4Pxt5nbbSjmP9IgQ1sR2/
+         1S+IXOr3BxCj+M/4gk2PouXZpPEZVEq3B5JWpRDYZVAmuovUEMNcbv4TvRdD32+xa8YH
+         CyKA==
+X-Gm-Message-State: AFqh2krV/n5KPVWOKGavoSG72QjOQULtEgBqOxIviCUmGv9pVQD+b2FV
+	eQ0koTjS1ENnOzgbF+mov/tDwWYwOYS2VnHitdk=
+X-Google-Smtp-Source: AMrXdXvkf6tHk+eww6am02/5I8a2jjCzgT3MdmEJGKyDvmPQhZdEG4v09Oe3WxEfeaHS/soKJUydK9uZ1z3gSgHPV2A=
+X-Received: by 2002:a67:ba0c:0:b0:3ce:f2da:96a with SMTP id
+ l12-20020a67ba0c000000b003cef2da096amr601685vsn.64.1674004255535; Tue, 17 Jan
+ 2023 17:10:55 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175949: regressions - trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:test-armhf-armhf-xl:<job status>:broken:regression
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:host-install(5):broken:heisenbug
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-X-Osstest-Versions-That:
-    xen=6bec713f871f21c6254a5783c1e39867ea828256
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Jan 2023 01:10:11 +0000
+References: <cover.1673877778.git.oleksii.kurochko@gmail.com> <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Wed, 18 Jan 2023 11:10:29 +1000
+Message-ID: <CAKmqyKMcGiO3wzF23Ps_AWZd=o6R9wdmvV3QG4-YAWnFd8BEiQ@mail.gmail.com>
+Subject: Re: [PATCH v4 2/4] xen/riscv: introduce sbi call to putchar to console
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
+	Bobby Eshleman <bobby.eshleman@gmail.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
+	Alistair Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 175949 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175949/
+On Tue, Jan 17, 2023 at 12:39 AM Oleksii Kurochko
+<oleksii.kurochko@gmail.com> wrote:
+>
+> From: Bobby Eshleman <bobby.eshleman@gmail.com>
+>
+> Originally SBI implementation for Xen was introduced by
+> Bobby Eshleman <bobby.eshleman@gmail.com> but it was removed
+> all the stuff for simplicity  except SBI call for putting
+> character to console.
+>
+> The patch introduces sbi_putchar() SBI call which is necessary
+> to implement initial early_printk.
+>
+> Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 
-Regressions :-(
+Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-xl             <job status>                 broken
- build-amd64                   6 xen-build                fail REGR. vs. 175746
+Alistair
 
-Tests which are failing intermittently (not blocking):
- test-armhf-armhf-xl           5 host-install(5)          broken pass in 175944
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-armhf-armhf-xl         15 migrate-support-check fail in 175944 never pass
- test-armhf-armhf-xl     16 saverestore-support-check fail in 175944 never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-baseline version:
- xen                  6bec713f871f21c6254a5783c1e39867ea828256
-
-Last test of basis   175746  2023-01-12 16:03:41 Z    5 days
-Failing since        175748  2023-01-12 20:01:56 Z    5 days   24 attempts
-Testing same since   175833  2023-01-14 07:00:25 Z    3 days   22 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  fail    
- build-armhf                                                  pass    
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          broken  
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job test-armhf-armhf-xl broken
-broken-step test-armhf-armhf-xl host-install(5)
-
-Not pushing.
-
-------------------------------------------------------------
-commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Tue Jan 3 11:25:19 2023 +0100
-
-    xen/arm: Add 0x prefix when printing memory size in construct_domU
-    
-    Printing memory size in hex without 0x prefix can be misleading, so
-    add it. Also, take the opportunity to adhere to 80 chars line length
-    limit by moving the printk arguments to the next line.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:07:42 2023 +0000
-
-    xen/arm: linker: The identitymap check should cover the whole .text.header
-    
-    At the moment, we are only checking that only some part of .text.header
-    is part of the identity mapping. However, this doesn't take into account
-    the literal pool which will be located at the end of the section.
-    
-    While we could try to avoid using a literal pool, in the near future we
-    will also want to use an identity mapping for switch_ttbr().
-    
-    Not everything in .text.header requires to be part of the identity
-    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
-    check that .text.header is smaller than a page size.
-    
-    With that _end_boot can be removed as it is now unused. Take the
-    opportunity to avoid assuming that a page size is always 4KB in the
-    error message and comment.
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:06:42 2023 +0000
-
-    xen/arm: linker: Indent correctly _stext
-    
-    _stext is indented by one space more compare to the lines. This doesn't
-    seem warrant, so delete the extra space.
-    
-    Signed-off: Julien Grall <jgrall@amazon.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 3edca52ce736297d7fcf293860cd94ef62638052
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 10:58:31 2023 +0000
-
-    x86/vmx: Support for CPUs without model-specific LBR
-    
-    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
-    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
-    later, model_specific_lbr will always be NULL, so we must make changes to
-    avoid reliably hitting the domain_crash().
-    
-    The Arch LBR spec states that CPUs without model-specific LBR implement
-    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
-    
-    Do this for any CPU for which we lack model-specific LBR information.
-    
-    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
-    signal "no model specific LBR" to guests.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 11:42:22 2023 +0000
-
-    x86/vmx: Calculate model-specific LBRs once at start of day
-    
-    There is no point repeating this calculation at runtime, especially as it is
-    in the fallback path of the WRSMR/RDMSR handlers.
-    
-    Move the infrastructure higher in vmx.c to avoid forward declarations,
-    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
-    these are model-specific only.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e6ee01ad24b6a1c3b922579964deebb119a90a48
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 3 15:08:56 2023 +0000
-
-    xen/version: Drop compat/kernel.c
-    
-    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
-    re-includes kernel.c to recompile xen_version() in a compat form.
-    
-    However, the xen_version hypercall is almost guest-ABI-agnostic; only
-    XENVER_platform_parameters has a compat split.  Handle this locally, and do
-    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
-    that are simply char-arrays in their native and compat form.
-    
-    In particular, this removed the final instances of obfuscation via the DO()
-    macro.
-    
-    No functional change.  Also saves 2k of of .text in the x86 build.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Dec 20 15:51:07 2022 +0000
-
-    public/version: Change xen_feature_info to have a fixed size
-    
-    This is technically an ABI change, but Xen doesn't operate in any environment
-    where "unsigned int" is different to uint32_t, so switch to the explicit form.
-    This avoids the need to derive (identical) compat logic for handling the
-    subop.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+> ---
+> Changes in V4:
+>     - Nothing changed
+> ---
+> Changes in V3:
+>     - update copyright's year
+>     - rename definition of __CPU_SBI_H__ to __ASM_RISCV_SBI_H__
+>     - fix identations
+>     - change an author of the commit
+> ---
+> Changes in V2:
+>     - add an explanatory comment about sbi_console_putchar() function.
+>     - order the files alphabetically in Makefile
+> ---
+>  xen/arch/riscv/Makefile          |  1 +
+>  xen/arch/riscv/include/asm/sbi.h | 34 ++++++++++++++++++++++++
+>  xen/arch/riscv/sbi.c             | 45 ++++++++++++++++++++++++++++++++
+>  3 files changed, 80 insertions(+)
+>  create mode 100644 xen/arch/riscv/include/asm/sbi.h
+>  create mode 100644 xen/arch/riscv/sbi.c
+>
+> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+> index 5a67a3f493..fd916e1004 100644
+> --- a/xen/arch/riscv/Makefile
+> +++ b/xen/arch/riscv/Makefile
+> @@ -1,4 +1,5 @@
+>  obj-$(CONFIG_RISCV_64) += riscv64/
+> +obj-y += sbi.o
+>  obj-y += setup.o
+>
+>  $(TARGET): $(TARGET)-syms
+> diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
+> new file mode 100644
+> index 0000000000..0e6820a4ed
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/sbi.h
+> @@ -0,0 +1,34 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-or-later) */
+> +/*
+> + * Copyright (c) 2021-2023 Vates SAS.
+> + *
+> + * Taken from xvisor, modified by Bobby Eshleman (bobby.eshleman@gmail.com).
+> + *
+> + * Taken/modified from Xvisor project with the following copyright:
+> + *
+> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
+> + */
+> +
+> +#ifndef __ASM_RISCV_SBI_H__
+> +#define __ASM_RISCV_SBI_H__
+> +
+> +#define SBI_EXT_0_1_CONSOLE_PUTCHAR            0x1
+> +
+> +struct sbiret {
+> +    long error;
+> +    long value;
+> +};
+> +
+> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
+> +                        unsigned long arg0, unsigned long arg1,
+> +                        unsigned long arg2, unsigned long arg3,
+> +                        unsigned long arg4, unsigned long arg5);
+> +
+> +/**
+> + * Writes given character to the console device.
+> + *
+> + * @param ch The data to be written to the console.
+> + */
+> +void sbi_console_putchar(int ch);
+> +
+> +#endif /* __ASM_RISCV_SBI_H__ */
+> diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
+> new file mode 100644
+> index 0000000000..dc0eb44bc6
+> --- /dev/null
+> +++ b/xen/arch/riscv/sbi.c
+> @@ -0,0 +1,45 @@
+> +/* SPDX-License-Identifier: GPL-2.0-or-later */
+> +/*
+> + * Taken and modified from the xvisor project with the copyright Copyright (c)
+> + * 2019 Western Digital Corporation or its affiliates and author Anup Patel
+> + * (anup.patel@wdc.com).
+> + *
+> + * Modified by Bobby Eshleman (bobby.eshleman@gmail.com).
+> + *
+> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
+> + * Copyright (c) 2021-2023 Vates SAS.
+> + */
+> +
+> +#include <xen/errno.h>
+> +#include <asm/sbi.h>
+> +
+> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
+> +                        unsigned long arg0, unsigned long arg1,
+> +                        unsigned long arg2, unsigned long arg3,
+> +                        unsigned long arg4, unsigned long arg5)
+> +{
+> +    struct sbiret ret;
+> +
+> +    register unsigned long a0 asm ("a0") = arg0;
+> +    register unsigned long a1 asm ("a1") = arg1;
+> +    register unsigned long a2 asm ("a2") = arg2;
+> +    register unsigned long a3 asm ("a3") = arg3;
+> +    register unsigned long a4 asm ("a4") = arg4;
+> +    register unsigned long a5 asm ("a5") = arg5;
+> +    register unsigned long a6 asm ("a6") = fid;
+> +    register unsigned long a7 asm ("a7") = ext;
+> +
+> +    asm volatile ("ecall"
+> +              : "+r" (a0), "+r" (a1)
+> +              : "r" (a2), "r" (a3), "r" (a4), "r" (a5), "r" (a6), "r" (a7)
+> +              : "memory");
+> +    ret.error = a0;
+> +    ret.value = a1;
+> +
+> +    return ret;
+> +}
+> +
+> +void sbi_console_putchar(int ch)
+> +{
+> +    sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
+> +}
+> --
+> 2.39.0
+>
+>
 
