@@ -2,39 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA52671505
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 08:25:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480173.744418 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41B8167150F
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 08:32:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480179.744428 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI2p1-0000rG-VI; Wed, 18 Jan 2023 07:25:23 +0000
+	id 1pI2vE-0002Ib-J3; Wed, 18 Jan 2023 07:31:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480173.744418; Wed, 18 Jan 2023 07:25:23 +0000
+Received: by outflank-mailman (output) from mailman id 480179.744428; Wed, 18 Jan 2023 07:31:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI2p1-0000o3-Rh; Wed, 18 Jan 2023 07:25:23 +0000
-Received: by outflank-mailman (input) for mailman id 480173;
- Wed, 18 Jan 2023 07:25:23 +0000
+	id 1pI2vE-0002GI-G6; Wed, 18 Jan 2023 07:31:48 +0000
+Received: by outflank-mailman (input) for mailman id 480179;
+ Wed, 18 Jan 2023 07:31:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=QcrT=5P=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pI2p1-0000nx-6s
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 07:25:23 +0000
-Received: from EUR05-DB8-obe.outbound.protection.outlook.com
- (mail-db8eur05on2084.outbound.protection.outlook.com [40.107.20.84])
+ (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pI2vD-0002GC-1y
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 07:31:47 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 43da2e72-9701-11ed-b8d0-410ff93cb8f0;
- Wed, 18 Jan 2023 08:25:21 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DBBPR04MB7993.eurprd04.prod.outlook.com (2603:10a6:10:1eb::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.24; Wed, 18 Jan
- 2023 07:25:18 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.024; Wed, 18 Jan 2023
- 07:25:18 +0000
+ id 28c09018-9702-11ed-b8d0-410ff93cb8f0;
+ Wed, 18 Jan 2023 08:31:44 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 80FFE209FA;
+ Wed, 18 Jan 2023 07:31:44 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5D10F139D2;
+ Wed, 18 Jan 2023 07:31:44 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id A577FGCgx2OhegAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 07:31:44 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,197 +51,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 43da2e72-9701-11ed-b8d0-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QfPzzu/guOIakYquH+gtGzubRhN01vJiYO49gH0z73apqJD/Cg/eNBipP0ZWf5GFWLGqfE1pqjQ/mP6jaf8S3wLK127lKbPv6wr+/YPejCsAFxIzwYIxeDVceKDXuIVmMFSiVeyfIo3q6cUDqXWafz00nVgHu7PSY2N81Hg8q7bClTpywM9T2FhTpTj1Q0MQn7utZnue1go/BCpY1kB3JQRzxrNbBMxmSrjm4pZapBOvAPlYjHODmuaY/tp9ix9+QXl2j7bb2sF7ERvEEXV1cn/zhEIkGTuvC+geMDhgXpQvdaRIyGwGvVrqUyOxalwJ0huSu4yWvIGwx8UcO2WNWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d1BXN+EBezKFEDEV7kCekm2JH8EqTVC7vguBfgcsXcc=;
- b=fmTsQRrzQjBhzQ4JqQTEDUQdHbQfBt+isc3Bf8Qp5n/BviFXPOSX611TYr9ZaBowzPLREv1M5QdrPnkuVzIQTsG82AKjtTl8CLam9W7n/Rw7cLFA8AyEaFP7X2hF7qjBKoY+G1U7HMkpBt63FJs2hsuB90c9yeE+KQ/GW/3nSuHDG+O/IPOinsR2ZP8Ffcx+2iwGOirkIGcWa7/Y+OchdZoiSozDirVSFfMYOCO1vCggOXQQT72o8hI7a4t5rgCtZJJu8cB2kkhH/zmv7mI4PkF6IvKX/cIpjciwFgjbUSGHR/qd32Li/LxyVd9jvxw9lfMyLrDisuXYYDlADVVWRQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d1BXN+EBezKFEDEV7kCekm2JH8EqTVC7vguBfgcsXcc=;
- b=06XrNAZd7fAkw62zE9l06Rpz7qhSgA1kOZhgqkDnh2Eih9Zp9MNluNuFZnXQuulRsaVW3NeNctkgpEeGYYxOfDHKOpzMoHEfX9v6rqoXg+O2D4uvzQ8YJpio08iUD10lQhUNsD9uDKCNF3Z9JCMNb4YDB8GnemSqMtjfCKoizmh9X/RakNmcdYbCpjIouM87tjq2Dm4V82j1q9okrcizL/R+1qZTgbJQ5eDKKHgi0Bfd31vvXhoOo7WhgBvMMEPvRFRpUBmjR6DUEgljDlqJfWAHE0XaUTx5MLDBv7iFVkHRrJN+ermRGf6tp680WapKoScTZSunjbi7jeBZoPtc3Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3852a9f8-c950-3c45-fc99-946a2ff4a5d1@suse.com>
-Date: Wed, 18 Jan 2023 08:25:17 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 6/9] x86/shadow: re-work 4-level SHADOW_FOREACH_L2E()
-Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Wei Liu <wl@xen.org>, Roger Pau Monne <roger.pau@citrix.com>,
- "Tim (Xen.org)" <tim@xen.org>, George Dunlap <George.Dunlap@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
- <27a7245c-f933-5b2b-5685-d9ba2dbd4a8c@suse.com>
- <ed382d91-d4fc-4778-d1e2-9f55b147e33a@citrix.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <ed382d91-d4fc-4778-d1e2-9f55b147e33a@citrix.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0167.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a0::6) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+X-Inumbo-ID: 28c09018-9702-11ed-b8d0-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1674027104; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZLfi7g2GBcYzwP9pKAdtS4hulT20e64IYvVfC/iPhts=;
+	b=joaefor6cWtaqHSJJmwno/9gK+OaFS90DmFHXtiKItoylqHm/AO2xhENHOx/ATMe8kCVc1
+	/fcPD/kxvTO2Rsd6KfzIlrgE8Wbff2hUaFrosbRHg/h6tSiF2l8Zww6yXtwG2VwG7Sgo6z
+	R5caZgnTlS1AFzsi12hsUw1GAW+6BHE=
+Message-ID: <94ab0683-e4b4-31cc-205b-2039860a4c70@suse.com>
+Date: Wed, 18 Jan 2023 08:31:43 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DBBPR04MB7993:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb3852c7-d4f7-43e1-f60b-08daf92526aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	wmYlz7i4+GwjSNuwJjtuQFHMZL6qZKKBYC9vEn+Z+MPgSHMATUMB2MQbM1DFHD6x3Pv76+SrqnLGWEPvutuHPNHPcDK4A4JdzHO0fHbWwI+sD5LJReMcsFo7TkrpKOoyS39TwEVN8IPRE3iGh5LYvUr224LaUPLK13QIFBGD+SSt0mxrefRd2TtnfngZW6/2eJr000j66ZP3D8Nosmtfv9MUobgkkPLPOa29MssJw1yIF2UK0QfszpLDkx+1JTo7ii/Piz5JkgJ5IVMzubAPk71VTcJ5Sxzib9ooEXozrCqIOTCmMex3UgR7xPoc3/MOX5nPZ1pmflRvjBAmirO69ndqn/CusQQnogLjVfZGLpNJBBOyRkQ5IPAcbT34dpU+BjE5EGVFhMkD86gKlXjQ16a1Uz9agUbJjqZa4gkbO7z31pbSo3WgUb5NXluRI2SPAQexFPX4QU5cVniExsfdXaZrvHqd75hYhrlfJZY4N39zAR3xjwixlrC2Orsx3Ekc+EJRPn4WUcEK+S3iCye0vzk/xYFb6wBW7Z+1Dang6pMYPB1TEx1r0Mh7rpB787cGArCXK+mvHndol0oE2U8/9CAPCqF7ceKcqD8ukmQGuzny/NA2xZ9pi5Iumkp8Zeo9bBDbh1qUU8HHHJZcmHQp895330KFB5ovnEzyUjwDLqSnEGvGmt7x5uwuuW1lkBEFAfg/Y9NTuhX5aI5/+Kt5WPcDAueAKD5uAWvwz6AbD3c=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(39860400002)(396003)(346002)(366004)(451199015)(38100700002)(31696002)(86362001)(66476007)(5660300002)(8936002)(2906002)(66946007)(66556008)(316002)(41300700001)(8676002)(6916009)(4326008)(26005)(2616005)(6512007)(186003)(83380400001)(53546011)(54906003)(6506007)(6486002)(478600001)(36756003)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Vkt6cG95M3JQLzl6YkVNR3lXbGl1OGJCTCtORUV3dFFua2JIb0NDT0dOMkRI?=
- =?utf-8?B?bG5RVG9tNStNZlR0SEM2RkF0dVhsWHd5dDZxT1M2YWtMMDJEaHBZdUhpT3l0?=
- =?utf-8?B?OEhGNEJHWmFkVXZPVkUxNXR4aTFlRkRpNytadHJ2eWJDWDFEaHJxbXUvL1kx?=
- =?utf-8?B?Wm0zdCsrVDJ3RzR5aXRHQkV0dGJyNjRtTEdtdmRBaEJVVWFKNjVxL1R5Yng2?=
- =?utf-8?B?TERRdm81V1NqbG02SGhram5rOWZMdThNK3N5eVhMMG1VemZsa1BxS2lPclUx?=
- =?utf-8?B?b0xpMHQ2OTQzM3M2dURlTWphbjZnSjhDYmY0STNNNDNVMlFDNkpzSjNLb2ZV?=
- =?utf-8?B?OUJEbnA3Mi8vNHI3WG9HRGZHZUNTdzZQUjhYUHNwQ2g4QWtBUUZBODFBRHNz?=
- =?utf-8?B?eFlkQysvYnUyRzVXeWlHWGxBSGxGS1RncjNlN21JK0pwazRWNDZ1VGRPZnE1?=
- =?utf-8?B?bVdscTR3Vk1hbVJKeHhnVytIZ0ttckhiTmZwMUNZcVNKbDdnNkVnUFNXb3k0?=
- =?utf-8?B?bTUyT3RtWm5ULy9SalF2a1AwK0NzTld3RWZCWnJodXBiVVVmL1NBd3dpTXZH?=
- =?utf-8?B?Qjdod0o3TVovcEJJdVY3bGs2c2JYSUsvOVdIcXE5NktJSlFWWkNMSXhXelFh?=
- =?utf-8?B?cU9DYXBvdEtGZ09FOVptOG4xT3F2amhQMHBDa2p3dlZlczI5S2lOVk1STHB2?=
- =?utf-8?B?UlFqNVg0ZWlURmhBSW1DZEdhUXZNUFM0WWRqcHEwZTlKb0RKNXcwQ01xYkFE?=
- =?utf-8?B?MktPT0V2WXM5VHpETkY1aXdwUU1KVEpvOTQwY0lQZGlEU1FvQk1MWmtHTmhw?=
- =?utf-8?B?aHAwamd5cm1RTWxiV21rNTFTNHEwMHJBRmI5c2lxSlA4VnBsRnJCU05pcXVR?=
- =?utf-8?B?aFhyYll0d2tNMkdiWWdMekZWSm5ySHowdEI3OHBwQXlORnVzMWhEUFVYMEp6?=
- =?utf-8?B?VjRQcEVxWE4zY25IdzV6ek5uUnNhM2dLc2M1TWwxbDFtZTl4a1hBN2RQKzVD?=
- =?utf-8?B?V0J2Y3IrczNBdmh6S0VPelFtU3dtZ1dCWDRWVndXalJtUC90b2x6T0JDUmtV?=
- =?utf-8?B?cXhGTkNZRnh2NVhuMHMzK3Y0RE5DSUNwNmdQQ28vRlM5MmxKZzkrMnkwT29J?=
- =?utf-8?B?cWk2MndvK2dVTHFlb2FDUWVLeURldGpFNWkyMzI0enlkNWhta0IwY3VTZSt2?=
- =?utf-8?B?Qmlod1g5Rk9vck1UclVCcndIbVZkajdYb3N2UXNTSDltUmhVZUlXMkNMUGpm?=
- =?utf-8?B?QWdtREN0WmFhSlhKUGtHcTR5Tzg1WnllaGs3ci9scUdGZ0pDMTAxVUliTncx?=
- =?utf-8?B?aEphVTBhSEtSYjA3OTVTbHpuZVJ0Y01Ud282eEJHZlhybnpSdW1yMXBpaSsz?=
- =?utf-8?B?Sm9XV3VGRVZta1VrakVONDdrdWJWekVTa1VuYmQ3b2lRcGprZGk3czFnMmJX?=
- =?utf-8?B?bWpJanM1bUNaZExGU0JZamdsdU9kUERnNFh6czY0NS9IbGtZVTcyYi9HT0tR?=
- =?utf-8?B?WVVzT0dJcDI5RWhsTmFqRTJtNGxzTGVRbHNhSWhJWUFsOXY1Q3hqMVh5anll?=
- =?utf-8?B?S21mTDNoMVJqUmpRKzJrUWVod3J5ZVFkQlV6dXl5UW1lcVAyVWdTa3dvZmxW?=
- =?utf-8?B?TExwRlBhc1JpdVBiQ01OejZJTFdQKzhXdjYrMEVBRk4yUlNDRW1PVFhuZC9I?=
- =?utf-8?B?elNSbEdlUEJJRVJxNlp1VGZmTktycHNJWklsQ3I2cC9yeGRFcEtuRGR2NTQ1?=
- =?utf-8?B?VGIyRU9Mc0FzMzArQ21MaGZSZUpJTTFCMjZjc1hOSVFVVDFBM0w1OHBlbzNE?=
- =?utf-8?B?bit3cEkreHhZOWFGVHo1Rml4SGhpK3ZPNGJNaTJyZldyNUZ4OE9wNEpkditl?=
- =?utf-8?B?RTFuYVcvTVpmbTlreXBsWVJRUDZ5WE55TE4zMzVVMWpWNjA4Z0ZNRmVqNkFH?=
- =?utf-8?B?NEhEa3ZLcjgrbWxzRitpQUhKamdscjhvRFdPdHQ5TEs3WmpwZjdOd3dIQXZX?=
- =?utf-8?B?SC9jQkphN2dMN3lMQmZOTnpKMDlORFZub3VzVWtnM0pkNDQ4K0o0QTB2bitZ?=
- =?utf-8?B?d3h4Njc5QmVVdmxWZFJtOXdHQjVOMzRjU2xhaWY4Ui90bHRmQ2dqZmdRemRo?=
- =?utf-8?Q?HSlNizsymYDeAjO5XQ8O+xj5M?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb3852c7-d4f7-43e1-f60b-08daf92526aa
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 07:25:18.5597
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qZJpq5Kk7MKpG41dI0vSddfR6JE2u0r+svmWgGATVjzucI2/pl2MvEYZnrMFJo6uzVt3sr8hRAlTkG7oUACWwg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7993
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v3 07/17] tools/xenstore: change per-domain node
+ accounting interface
+Content-Language: en-US
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+References: <20230117091124.22170-1-jgross@suse.com>
+ <20230117091124.22170-8-jgross@suse.com>
+From: Juergen Gross <jgross@suse.com>
+In-Reply-To: <20230117091124.22170-8-jgross@suse.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------UjMhXtf085jp4tlbK4Mv2Npr"
 
-On 17.01.2023 19:48, Andrew Cooper wrote:
-> On 11/01/2023 1:54 pm, Jan Beulich wrote:
->> First of all move the almost loop-invariant condition out of the loop;
->> transform it into an altered loop boundary. Since the new local variable
->> wants to be "unsigned int" and named without violating name space rules,
->> convert the loop induction variable accordingly.
-> 
-> I'm firmly -1 against using trailing underscores.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------UjMhXtf085jp4tlbK4Mv2Npr
+Content-Type: multipart/mixed; boundary="------------EilRpdFovX1MaHaT78vpus7w";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>,
+ Anthony PERARD <anthony.perard@citrix.com>
+Message-ID: <94ab0683-e4b4-31cc-205b-2039860a4c70@suse.com>
+Subject: Re: [PATCH v3 07/17] tools/xenstore: change per-domain node
+ accounting interface
+References: <20230117091124.22170-1-jgross@suse.com>
+ <20230117091124.22170-8-jgross@suse.com>
+In-Reply-To: <20230117091124.22170-8-jgross@suse.com>
 
-Well, I can undo that aspect, but just to get done with the change. I do
-consider ...
+--------------EilRpdFovX1MaHaT78vpus7w
+Content-Type: multipart/mixed; boundary="------------MJ3IJudYGviZTPS8aIIpoGR9"
 
-> Mainly, I object to the attempt to justify doing so based on a rule we
-> explicitly choose to violate for code consistency and legibility reasons.
+--------------MJ3IJudYGviZTPS8aIIpoGR9
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-... your view here at least questionable: I'm unaware of us doing so
-explicitly, and I've pointed out numerous times that the C standard
-specifies very clearly what underscore-prefixed names may be used for. 
+T24gMTcuMDEuMjMgMTA6MTEsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IFJld29yayB0aGUg
+aW50ZXJmYWNlIGFuZCB0aGUgaW50ZXJuYWxzIG9mIHRoZSBwZXItZG9tYWluIG5vZGUNCj4g
+YWNjb3VudGluZzoNCj4gDQo+IC0gcmVuYW1lIHRoZSBmdW5jdGlvbnMgdG8gZG9tYWluX25i
+ZW50cnlfKigpIGluIG9yZGVyIHRvIGJldHRlciBtYXRjaA0KPiAgICB0aGUgcmVsYXRlZCBj
+b3VudGVyIG5hbWUNCj4gDQo+IC0gc3dpdGNoIGZyb20gbm9kZSBwb2ludGVyIHRvIGRvbWlk
+IGFzIGludGVyZmFjZSwgYXMgYWxsIG5vZGVzIGhhdmUgdGhlDQo+ICAgIG93bmVyIGZpbGxl
+ZCBpbg0KPiANCj4gLSB1c2UgYSBjb21tb24gaW50ZXJuYWwgZnVuY3Rpb24gZm9yIGFkZGlu
+ZyBhIHZhbHVlIHRvIHRoZSBjb3VudGVyDQo+IA0KPiBGb3IgdGhlIHRyYW5zYWN0aW9uIGNh
+c2UgYWRkIGEgaGVscGVyIGZ1bmN0aW9uIHRvIGdldCB0aGUgbGlzdCBoZWFkDQo+IG9mIHRo
+ZSBwZXItdHJhbnNhY3Rpb24gY2hhbmdlZCBkb21haW5zLCBlbmFibGluZyB0byBlbGltaW5h
+dGUgdGhlDQo+IHRyYW5zYWN0aW9uX2VudHJ5XyooKSBmdW5jdGlvbnMuDQo+IA0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+DQo+IC0tLQ0KPiBW
+MzoNCj4gLSBhZGQgZ2V0X25vZGVfb3duZXIoKSAoSnVsaWVuIEdyYWxsKQ0KPiAtIHJlbmFt
+ZSBkb21haW5fbmJlbnRyeV9hZGQoKSBwYXJhbWV0ZXIgKEp1bGllbiBHcmFsbCkNCj4gLSBh
+dm9pZCBuZWdhdGl2ZSBlbnRyeSBjb3VudCAoSnVsaWVuIEdyYWxsKQ0KPiAtLS0NCj4gICB0
+b29scy94ZW5zdG9yZS94ZW5zdG9yZWRfY29yZS5jICAgICAgICB8ICAzMyArKysrLS0tDQo+
+ICAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2RvbWFpbi5jICAgICAgfCAxMjYgKysrKysr
+KysrKysrLS0tLS0tLS0tLS0tLQ0KPiAgIHRvb2xzL3hlbnN0b3JlL3hlbnN0b3JlZF9kb21h
+aW4uaCAgICAgIHwgIDEwICstDQo+ICAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX3RyYW5z
+YWN0aW9uLmMgfCAgMTUgKy0tDQo+ICAgdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX3RyYW5z
+YWN0aW9uLmggfCAgIDcgKy0NCj4gICA1IGZpbGVzIGNoYW5nZWQsIDg2IGluc2VydGlvbnMo
+KyksIDEwNSBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYgLS1naXQgYS90b29scy94ZW5zdG9y
+ZS94ZW5zdG9yZWRfY29yZS5jIGIvdG9vbHMveGVuc3RvcmUveGVuc3RvcmVkX2NvcmUuYw0K
+PiBpbmRleCBmYjQzNzllNjdjLi41NjFmYjEyMWQzIDEwMDY0NA0KPiAtLS0gYS90b29scy94
+ZW5zdG9yZS94ZW5zdG9yZWRfY29yZS5jDQo+ICsrKyBiL3Rvb2xzL3hlbnN0b3JlL3hlbnN0
+b3JlZF9jb3JlLmMNCj4gQEAgLTcwMCw2ICs3MDAsMTEgQEAgaW50IGRvX3RkYl9kZWxldGUo
+c3RydWN0IGNvbm5lY3Rpb24gKmNvbm4sIFREQl9EQVRBICprZXksDQo+ICAgCXJldHVybiAw
+Ow0KPiAgIH0NCj4gICANCj4gK3N0YXRpYyB1bnNpZ25lZCBpbnQgZ2V0X25vZGVfb3duZXIo
+Y29uc3Qgc3RydWN0IG5vZGUgKm5vZGUpDQo+ICt7DQo+ICsJcmV0dXJuIG5vZGUtPnBlcm1z
+LnBbMF0uaWQ7DQo+ICt9DQoNCkkgaGF2ZSBtb3ZlZCB0aGlzIGhlbHBlciBhcyBpbmxpbmUg
+ZnVuY3Rpb24gdG8geGVuc3RvcmVkX2NvcmUuaCBub3csDQphcyBpdCB3aWxsIGJlIG5lZWRl
+ZCBpbiB4ZW5zdG9yZWRfZG9tYWluLmMsIHRvby4NCg0KDQpKdWVyZ2VuDQo=
+--------------MJ3IJudYGviZTPS8aIIpoGR9
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-> But in this case, you're taking a block of logic which was cleanly in
-> one style, and making it mixed, even amongst only the local variables.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-That's simply the result of wanting to limit how much of a change I
-make to the macro, such that the actual changes are easier to spot.
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
->> --- a/xen/arch/x86/mm/shadow/multi.c
->> +++ b/xen/arch/x86/mm/shadow/multi.c
->> @@ -863,23 +863,20 @@ do {
->>  /* 64-bit l2: touch all entries except for PAE compat guests. */
->>  #define SHADOW_FOREACH_L2E(_sl2mfn, _sl2e, _gl2p, _done, _dom, _code)       \
->>  do {                                                                        \
->> -    int _i;                                                                 \
->> -    int _xen = !shadow_mode_external(_dom);                                 \
->> +    unsigned int i_, end_ = SHADOW_L2_PAGETABLE_ENTRIES;                    \
->>      shadow_l2e_t *_sp = map_domain_page((_sl2mfn));                         \
->>      ASSERT_VALID_L2(mfn_to_page(_sl2mfn)->u.sh.type);                       \
->> -    for ( _i = 0; _i < SHADOW_L2_PAGETABLE_ENTRIES; _i++ )                  \
->> +    if ( !shadow_mode_external(_dom) &&                                     \
->> +         is_pv_32bit_domain(_dom) &&                                        \
-> 
-> The second clause here implies the first.  Given that all we're trying
-> to say here is "are there Xen entries to skip", I think we'd be fine
-> dropping the external() check entirely.
+--------------MJ3IJudYGviZTPS8aIIpoGR9--
 
-Will do. I may retain this in some form of comment.
+--------------EilRpdFovX1MaHaT78vpus7w--
 
->> +         mfn_to_page(_sl2mfn)->u.sh.type != SH_type_l2_64_shadow )          \
->> +        end_ = COMPAT_L2_PAGETABLE_FIRST_XEN_SLOT(_dom);                    \
->> +    for ( i_ = 0; i_ < end_; ++i_ )                                         \
->>      {                                                                       \
->> -        if ( (!(_xen))                                                      \
->> -             || !is_pv_32bit_domain(_dom)                                   \
->> -             || mfn_to_page(_sl2mfn)->u.sh.type == SH_type_l2_64_shadow     \
->> -             || (_i < COMPAT_L2_PAGETABLE_FIRST_XEN_SLOT(_dom)) )           \
->> -        {                                                                   \
->> -            (_sl2e) = _sp + _i;                                             \
->> -            if ( shadow_l2e_get_flags(*(_sl2e)) & _PAGE_PRESENT )           \
->> -                {_code}                                                     \
->> -            if ( _done ) break;                                             \
->> -            increment_ptr_to_guest_entry(_gl2p);                            \
->> -        }                                                                   \
->> +        (_sl2e) = _sp + i_;                                                 \
->> +        if ( shadow_l2e_get_flags(*(_sl2e)) & _PAGE_PRESENT )               \
->> +            { _code }                                                       \
-> 
-> This doesn't match either of our two styles. 
+--------------UjMhXtf085jp4tlbK4Mv2Npr
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Indeed, and I was unable to come up with good criteria whether to leave
-it (for consistency with the other macros) or  change it. Since you're
-...
+-----BEGIN PGP SIGNATURE-----
 
-> if ( ... )
-> { _code }
-> 
-> would be closer to Xen's normal style, but  ...
-> 
->> +        if ( _done ) break;                                                 \
-> 
-> ... with this too, I think it would still be better to write it out
-> fully, so:
-> 
-> if ( ... )
-> {
->     _code
-> }
-> if ( _done )
->     break;
-> 
-> These macros are already big enough that trying to save 3 lines seems
-> futile.
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPHoF8FAwAAAAAACgkQsN6d1ii/Ey+A
+iQgAkzA0zIneKhjrgRMR5+o18odVYlEUTRltA4KgWwKsL5lea57yDxCzZwXJdUHD0ev0956a0Jxw
+z2TMgLMZrhbnUMegqlrfFqdtHrC4rolf0cI9i/DK7bsn9Bb1JIZDHj3gGOnUwhhrqmRgv32zeLfX
+5K3G1qMdHnKCfkJgp9YVr2Hp2/JYcEABfpa+FgVwJ4VM4YsLaucik5uuCZb6roSo08duu5Zhn7Lb
+G+2iT7354J7c49JdkQjJUjOqT0a6Z1yXKFbjulIpmtHs9/4IwK6Oi5zt3iSnkwVFRxGD0/SIjyBg
+Ke1I8gDx/YCFIVAGaw+UHlwT2RLoNaMv97h+c13LfA==
+=QGvO
+-----END PGP SIGNATURE-----
 
-... explicitly asking for it, I'll change then. Would you mind if I then
-also added a semicolon after _code, to make things look more sensible?
-
-Jan
+--------------UjMhXtf085jp4tlbK4Mv2Npr--
 
