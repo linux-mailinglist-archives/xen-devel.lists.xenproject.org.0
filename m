@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462CD671828
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:50:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480308.744638 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E618F671827
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 10:50:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480310.744648 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI55L-0001EF-KF; Wed, 18 Jan 2023 09:50:23 +0000
+	id 1pI55P-0001Xx-S0; Wed, 18 Jan 2023 09:50:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480308.744638; Wed, 18 Jan 2023 09:50:23 +0000
+Received: by outflank-mailman (output) from mailman id 480310.744648; Wed, 18 Jan 2023 09:50:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI55L-0001C3-H3; Wed, 18 Jan 2023 09:50:23 +0000
-Received: by outflank-mailman (input) for mailman id 480308;
- Wed, 18 Jan 2023 09:50:21 +0000
+	id 1pI55P-0001VJ-Of; Wed, 18 Jan 2023 09:50:27 +0000
+Received: by outflank-mailman (input) for mailman id 480310;
+ Wed, 18 Jan 2023 09:50:27 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=Ov7m=5P=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pI55J-0001BV-Sd
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:50:21 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [2001:67c:2178:6::1d])
+ id 1pI55O-0001BV-UU
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 09:50:27 +0000
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 505f5f5d-9715-11ed-b8d1-410ff93cb8f0;
- Wed, 18 Jan 2023 10:48:51 +0100 (CET)
+ id 5389e1da-9715-11ed-b8d1-410ff93cb8f0;
+ Wed, 18 Jan 2023 10:48:57 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 43DD620D41;
- Wed, 18 Jan 2023 09:50:19 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id D1E1520C51;
+ Wed, 18 Jan 2023 09:50:24 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F3162139D2;
- Wed, 18 Jan 2023 09:50:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A11F7139D2;
+ Wed, 18 Jan 2023 09:50:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id OVEAOtrAx2MNQwAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:50:18 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 8B8CJuDAx2MrQwAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 18 Jan 2023 09:50:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +51,130 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 505f5f5d-9715-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 5389e1da-9715-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1674035419; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:  content-transfer-encoding:content-transfer-encoding;
-	bh=zW/FbAtyVDZNOpFhbdoNM3G1fhjM/SXTsI3FkBc+OZw=;
-	b=O5jeFAdGW+cPyxe0eE8bSUiJf+j7bN8mWBCcmEwjT339SZnV7eftqfLBaG9q8r10eQkY7R
-	gUTdwGIJWGU+orWVbrRzvj3okh2GQUDbis1wIwXuZLMxKEm787bkZw5Ci7/MVTBSwYvxJ2
-	Hra3no/eeT5ukXNWhm+ziXIap4P1BJQ=
+	t=1674035424; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=CmJqgfwW3rgZ4aM9nfaFZhVOgg064OnswcLCYgVlRWM=;
+	b=btpHFKt8tGY6pgUSEfVbx9hsSYlWovpVvBz+Fu/mzw0Tl1juUL3rCqfspkcoPh4lvSn9wa
+	NklWmiLRUSO96+x0IGHwrKyYw7TS4ZPM+g69ihDVNlXqhVQ3rJyrcRCBHXG0LMccv+B+EA
+	VGuushRO1XLowRrR1VyyPeTpRe3iqgc=
 From: Juergen Gross <jgross@suse.com>
 To: xen-devel@lists.xenproject.org
 Cc: Juergen Gross <jgross@suse.com>,
 	Wei Liu <wl@xen.org>,
 	Julien Grall <julien@xen.org>,
 	Anthony PERARD <anthony.perard@citrix.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v4 00/17] tools/xenstore: do some cleanup and fixes
-Date: Wed, 18 Jan 2023 10:49:59 +0100
-Message-Id: <20230118095016.13091-1-jgross@suse.com>
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH v4 01/17] tools/xenstore: let talloc_free() preserve errno
+Date: Wed, 18 Jan 2023 10:50:00 +0100
+Message-Id: <20230118095016.13091-2-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
+In-Reply-To: <20230118095016.13091-1-jgross@suse.com>
+References: <20230118095016.13091-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a first run of post-XSA patches which piled up during the
-development phase of all the recent Xenstore related XSA patches.
+Today talloc_free() is not guaranteed to preserve errno, especially in
+case a custom destructor is being used.
 
-This is a mixture of small fixes, enhancements and cleanups.
+So preserve errno in talloc_free().
 
-Changes in V4:
-- reordered the patches a little bit (patch 4 and patch 17 of V4 have
-  been moved)
-- addressed comments
+This allows to remove some errno saving outside of talloc.c.
 
-Changes in V3:
-- patches 2, 3, and 5 of V2 have been applied already
-- new patch 12
-- addressed comments
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Reviewed-by: Julien Grall <jgrall@amazon.com>
+---
+V2:
+- drop wrapper (Julien Grall)
+---
+ tools/xenstore/talloc.c         | 21 +++++++++++++--------
+ tools/xenstore/xenstored_core.c |  2 --
+ 2 files changed, 13 insertions(+), 10 deletions(-)
 
-Changes in V2:
-- patches 1+2 of V1 have been applied already
-- addressed comments
-- new patch 19
-
-Juergen Gross (17):
-  tools/xenstore: let talloc_free() preserve errno
-  tools/xenstore: remove all watches when a domain has stopped
-  tools/xenstore: add hashlist for finding struct domain by domid
-  tools/xenstore: make log macro globally available
-  tools/xenstore: introduce dummy nodes for special watch paths
-  tools/xenstore: replace watch->relative_path with a prefix length
-  tools/xenstore: move changed domain handling
-  tools/xenstore: change per-domain node accounting interface
-  tools/xenstore: replace literal domid 0 with dom0_domid
-  tools/xenstore: make domain_is_unprivileged() an inline function
-  tools/xenstore: let chk_domain_generation() return a bool
-  tools/xenstore: don't let hashtable_remove() return the removed value
-  tools/xenstore: switch hashtable to use the talloc framework
-  tools/xenstore: introduce trace classes
-  tools/xenstore: let check_store() check the accounting data
-  tools/xenstore: make output of "xenstore-control help" more pretty
-  tools/xenstore: don't allow creating too many nodes in a transaction
-
- docs/misc/xenstore.txt                 |  10 +-
- tools/xenstore/hashtable.c             | 103 ++--
- tools/xenstore/hashtable.h             |   6 +-
- tools/xenstore/talloc.c                |  21 +-
- tools/xenstore/xenstored_control.c     |  36 +-
- tools/xenstore/xenstored_core.c        | 261 +++++++----
- tools/xenstore/xenstored_core.h        |  39 ++
- tools/xenstore/xenstored_domain.c      | 620 +++++++++++++------------
- tools/xenstore/xenstored_domain.h      |  21 +-
- tools/xenstore/xenstored_transaction.c |  76 +--
- tools/xenstore/xenstored_transaction.h |   7 +-
- tools/xenstore/xenstored_watch.c       |  36 +-
- 12 files changed, 653 insertions(+), 583 deletions(-)
-
+diff --git a/tools/xenstore/talloc.c b/tools/xenstore/talloc.c
+index d7edcf3a93..23c3a23b19 100644
+--- a/tools/xenstore/talloc.c
++++ b/tools/xenstore/talloc.c
+@@ -541,38 +541,39 @@ static void talloc_free_children(void *ptr)
+ */
+ int talloc_free(void *ptr)
+ {
++	int saved_errno = errno;
+ 	struct talloc_chunk *tc;
+ 
+ 	if (ptr == NULL) {
+-		return -1;
++		goto err;
+ 	}
+ 
+ 	tc = talloc_chunk_from_ptr(ptr);
+ 
+ 	if (tc->null_refs) {
+ 		tc->null_refs--;
+-		return -1;
++		goto err;
+ 	}
+ 
+ 	if (tc->refs) {
+ 		talloc_reference_destructor(tc->refs);
+-		return -1;
++		goto err;
+ 	}
+ 
+ 	if (tc->flags & TALLOC_FLAG_LOOP) {
+ 		/* we have a free loop - stop looping */
+-		return 0;
++		goto success;
+ 	}
+ 
+ 	if (tc->destructor) {
+ 		talloc_destructor_t d = tc->destructor;
+ 		if (d == (talloc_destructor_t)-1) {
+-			return -1;
++			goto err;
+ 		}
+ 		tc->destructor = (talloc_destructor_t)-1;
+ 		if (d(ptr) == -1) {
+ 			tc->destructor = d;
+-			return -1;
++			goto err;
+ 		}
+ 		tc->destructor = NULL;
+ 	}
+@@ -594,10 +595,14 @@ int talloc_free(void *ptr)
+ 	tc->flags |= TALLOC_FLAG_FREE;
+ 
+ 	free(tc);
++ success:
++	errno = saved_errno;
+ 	return 0;
+-}
+-
+ 
++ err:
++	errno = saved_errno;
++	return -1;
++}
+ 
+ /*
+   A talloc version of realloc. The context argument is only used if
+diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
+index 78a3edaa4e..1650821922 100644
+--- a/tools/xenstore/xenstored_core.c
++++ b/tools/xenstore/xenstored_core.c
+@@ -771,9 +771,7 @@ struct node *read_node(struct connection *conn, const void *ctx,
+ 	return node;
+ 
+  error:
+-	err = errno;
+ 	talloc_free(node);
+-	errno = err;
+ 	return NULL;
+ }
+ 
 -- 
 2.35.3
 
