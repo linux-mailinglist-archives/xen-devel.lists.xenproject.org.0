@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB78F671FF2
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 15:43:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480710.745243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 882DA672005
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 15:46:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480717.745254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI9et-00024Y-5D; Wed, 18 Jan 2023 14:43:23 +0000
+	id 1pI9hd-0002fY-Hf; Wed, 18 Jan 2023 14:46:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480710.745243; Wed, 18 Jan 2023 14:43:23 +0000
+Received: by outflank-mailman (output) from mailman id 480717.745254; Wed, 18 Jan 2023 14:46:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI9et-000226-1r; Wed, 18 Jan 2023 14:43:23 +0000
-Received: by outflank-mailman (input) for mailman id 480710;
- Wed, 18 Jan 2023 14:43:21 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vku6=5P=casper.srs.infradead.org=BATV+4fd80059aba2dd5ff62c+7087+infradead.org+dwmw2@srs-se1.protection.inumbo.net>)
- id 1pI9er-000220-Ph
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 14:43:21 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 73c7cd74-973e-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 15:43:20 +0100 (CET)
-Received: from [2001:8b0:10b:5::bb3] (helo=u3832b3a9db3152.infradead.org)
- by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1pI9ej-0004Hz-Qg; Wed, 18 Jan 2023 14:43:14 +0000
+	id 1pI9hd-0002do-Eu; Wed, 18 Jan 2023 14:46:13 +0000
+Received: by outflank-mailman (input) for mailman id 480717;
+ Wed, 18 Jan 2023 14:46:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=cVew=5P=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1pI9hc-0002di-D2
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 14:46:12 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d8bd9827-973e-11ed-b8d1-410ff93cb8f0;
+ Wed, 18 Jan 2023 15:46:10 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id kt14so24892289ejc.3
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jan 2023 06:46:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,178 +39,283 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 73c7cd74-973e-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:To:From:Subject:Message-ID:Sender:Reply-To:Cc:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+DTCbeygRHq6JhLmzQ8O4xkqOoR23wvUBiw9udkCtZU=; b=thDeeiB04kV+8CcMnNK/tFz0Dy
-	6rpng/M2ZR4zocH9mNjnbAzzsYQY7eBSggUY52lX9vEfQnOALOcfCWdZ1Am/eRqb7FbVG9UiqeeZh
-	b3At/DgAaE6e5dL6fIn9aKFl0EMdKFASUZM5pJML3WrNX+8/sPhFJqYcpDyt8Hiv84cl5wMliBTJ8
-	tCrAaGp2L7q0I95r8eHGfKqelQuMa5uO1+ZWLNjuny8HGr63SZUshNJBrLb3Ckbwi9UubMTufBFxd
-	KNCFZYa1vI4ekUxwg52OEIBJRCKYGsVBFxuJAwYaWJQg9UMNa44190/70AsZIrfdf/mSSCzRBKIYj
-	9fzuitqg==;
-Message-ID: <bfe244a08572b1d57dcb5c538bcb70e9f45761f6.camel@infradead.org>
-Subject: Re: [PATCH] xen: Allow platform PCI interrupt to be shared
-From: David Woodhouse <dwmw2@infradead.org>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>, Juergen Gross
- <jgross@suse.com>,  Stefano Stabellini <sstabellini@kernel.org>, xen-devel
- <xen-devel@lists.xenproject.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Paul
- Durrant <paul@xen.org>
-Date: Wed, 18 Jan 2023 14:43:13 +0000
-In-Reply-To: <d45d172b-0d9e-a45c-36da-3ed42c909081@citrix.com>
-References: <f9a29a68d05668a3636dd09acd94d970269eaec6.camel@infradead.org>
-	 <e0b75988-bee6-e0c7-0dda-86e1e973ba74@citrix.com>
-	 <82e6a68f3cb8c0e440f7dc848fa3444725b3f893.camel@infradead.org>
-	 <973f9ebd-173e-6753-7799-a660994e38de@citrix.com>
-	 <1ce5f5501214f1073f4eb86b2fdf3f54b2400057.camel@infradead.org>
-	 <d45d172b-0d9e-a45c-36da-3ed42c909081@citrix.com>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-i05wny+PFngKkJ5JDkw+"
-User-Agent: Evolution 3.44.4-0ubuntu1 
+X-Inumbo-ID: d8bd9827-973e-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kv6Z+netYSSwHRMmwgIwtDxfzjTdUYqAafZvFP9orlw=;
+        b=RPwIjXElJ3iwfHDjOm3wx5CniIhTiTZuBrU0X9nRhx8k2uDgnnsQ0d+RjhZdt2JVcP
+         NNrE3cJS3K5U3aKnEGTsGuH3dJtFECYminungJYeeL8nl9KbdJcuTf+FuYqgBkZ3sfnA
+         tfwbu5bfcJ/XfpVRBAW8q0zT+yGYwvV1l2bOU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kv6Z+netYSSwHRMmwgIwtDxfzjTdUYqAafZvFP9orlw=;
+        b=1u9tH/B6QQ5XGISiwc4mudPXZQS/yvRVjIW8+T8MZVQfmSKBcjXKj8a4yP5bin4jgL
+         MC15MxndDCJYZG+VEKZ9jh2jcgF1lK+Z5oYoVWfhR7MzGbpJZEyIQvelehIhkNP+LRs2
+         PaI1Y8VIm5S/5WG/rEzTwFMCybmNXbyFQ+V99ixKBGTI86MFb09XFL7PK+OaoM328cFU
+         rRq9HMB52u/Hl1Yq7FC8j3QoaJ5zzTqtfmCGPZiZ09pft7Bl4gGkUmkwJVsTQyGCG9Av
+         byoHmQMORvvxFxxINQx/moEqF3RR9uJtlUTtrD7qMibcHpXi9WgLaORYQaSsEwWMBaEX
+         rABw==
+X-Gm-Message-State: AFqh2koXVUaA+gVaqoDwJU9RFgJ4Oxq1JjZA1zaPtLDFYEN558VbL9tS
+	OFXcrJ6NIwTnTs5Mo5Gzc/EDMk0Cu+J/YaViqhT13g==
+X-Google-Smtp-Source: AMrXdXvLv8IldrZX4Gqk7vJIHOPHggMcbgORV6JS5ow8bBTjUr8oR1oKUPP5kFO8ANDP9Wmxvgoa6/EkQbxImzucJYs=
+X-Received: by 2002:a17:907:9959:b0:83e:6a85:33d9 with SMTP id
+ kl25-20020a170907995900b0083e6a8533d9mr970630ejc.704.1674053167551; Wed, 18
+ Jan 2023 06:46:07 -0800 (PST)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
+References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
+ <20230117174358.15344-6-ayan.kumar.halder@amd.com> <926307d3-a354-be87-3885-90681dc5ae24@suse.com>
+ <37719b71-8405-eefd-3bf5-95c7c8639e82@amd.com> <7e9db781-47a8-719a-d9b1-88de9c503732@suse.com>
+ <CA+zSX=a4hfFKGJfTM5BDenRo=T3kvEbkGhRs=7oh4GgOxDk0+Q@mail.gmail.com> <60628f62-c9fd-c29b-5c08-f3f746201f01@suse.com>
+In-Reply-To: <60628f62-c9fd-c29b-5c08-f3f746201f01@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Wed, 18 Jan 2023 14:45:56 +0000
+Message-ID: <CA+zSX=aAMEhqXYDF+LdyqDvnXxbUBrNZmjKcadQXpNn_vP_qfA@mail.gmail.com>
+Subject: Re: [XEN v2 05/11] xen/arm: Use paddr_t instead of u64 for address/size
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Ayan Kumar Halder <ayankuma@amd.com>, sstabellini@kernel.org, stefano.stabellini@amd.com, 
+	Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com, 
+	xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, Rahul Singh <rahul.singh@arm.com>, 
+	Ayan Kumar Halder <ayan.kumar.halder@amd.com>, julien@xen.org, Wei Xu <xuwei5@hisilicon.com>
+Content-Type: multipart/alternative; boundary="0000000000006341c005f28ae05e"
 
-
---=-i05wny+PFngKkJ5JDkw+
+--0000000000006341c005f28ae05e
 Content-Type: text/plain; charset="UTF-8"
+
+On Wed, Jan 18, 2023 at 1:58 PM Jan Beulich <jbeulich@suse.com> wrote:
+
+> On 18.01.2023 14:34, George Dunlap wrote:
+> > On Wed, Jan 18, 2023 at 1:15 PM Jan Beulich <jbeulich@suse.com> wrote:
+> >
+> >> On 18.01.2023 12:15, Ayan Kumar Halder wrote:
+> >>> On 18/01/2023 08:40, Jan Beulich wrote:
+> >>>> On 17.01.2023 18:43, Ayan Kumar Halder wrote:
+> >>>>> @@ -1166,7 +1166,7 @@ static const struct ns16550_config __initconst
+> >> uart_config[] =
+> >>>>>   static int __init
+> >>>>>   pci_uart_config(struct ns16550 *uart, bool_t skip_amt, unsigned int
+> >> idx)
+> >>>>>   {
+> >>>>> -    u64 orig_base = uart->io_base;
+> >>>>> +    paddr_t orig_base = uart->io_base;
+> >>>>>       unsigned int b, d, f, nextf, i;
+> >>>>>
+> >>>>>       /* NB. Start at bus 1 to avoid AMT: a plug-in card cannot be on
+> >> bus 0. */
+> >>>>> @@ -1259,7 +1259,7 @@ pci_uart_config(struct ns16550 *uart, bool_t
+> >> skip_amt, unsigned int idx)
+> >>>>>                       else
+> >>>>>                           size = len & PCI_BASE_ADDRESS_MEM_MASK;
+> >>>>>
+> >>>>> -                    uart->io_base = ((u64)bar_64 << 32) |
+> >>>>> +                    uart->io_base = (paddr_t) ((u64)bar_64 << 32) |
+> >>>>>                                       (bar &
+> >> PCI_BASE_ADDRESS_MEM_MASK);
+> >>>>>                   }
+> >>>> This looks wrong to me: You shouldn't blindly truncate to 32 bits. You
+> >> need
+> >>>> to refuse acting on 64-bit BARs with the upper address bits non-zero.
+> >>>
+> >>> Yes, I was treating this like others (where Xen does not detect for
+> >>> truncation while getting the address/size from device-tree and
+> >>> typecasting it to paddr_t).
+> >>>
+> >>> However in this case, as Xen is reading from PCI registers, so it needs
+> >>> to check for truncation.
+> >>>
+> >>> I think the following change should do good.
+> >>>
+> >>> @@ -1180,6 +1180,7 @@ pci_uart_config(struct ns16550 *uart, bool_t
+> >>> skip_amt, unsigned int idx)
+> >>>                   unsigned int bar_idx = 0, port_idx = idx;
+> >>>                   uint32_t bar, bar_64 = 0, len, len_64;
+> >>>                   u64 size = 0;
+> >>> +                uint64_t io_base = 0;
+> >>>                   const struct ns16550_config_param *param =
+> uart_param;
+> >>>
+> >>>                   nextf = (f || (pci_conf_read16(PCI_SBDF(0, b, d, f),
+> >>> @@ -1260,8 +1261,11 @@ pci_uart_config(struct ns16550 *uart, bool_t
+> >>> skip_amt, unsigned int idx)
+> >>>                       else
+> >>>                           size = len & PCI_BASE_ADDRESS_MEM_MASK;
+> >>>
+> >>> -                    uart->io_base = (paddr_t) ((u64)bar_64 << 32) |
+> >>> +                    io_base = ((u64)bar_64 << 32) |
+> >>>                                       (bar &
+> PCI_BASE_ADDRESS_MEM_MASK);
+> >>> +
+> >>> +                    uart->io_base = (paddr_t) io_base;
+> >>> +                    ASSERT(uart->io_base == io_base); /* Detect
+> >>> truncation */
+> >>>                   }
+> >>>                   /* IO based */
+> >>>                   else if ( !param->mmio && (bar &
+> >>> PCI_BASE_ADDRESS_SPACE_IO) )
+> >>
+> >> An assertion can only ever check assumption on behavior elsewhere in
+> Xen.
+> >> Anything external needs handling properly, including in non-debug
+> builds.
+> >>
+> >
+> > Except in this case, it's detecting the result of the compiler cast just
+> > above it, isn't it?
+>
+> Not really, no - it checks whether there was truncation, but the
+> absence (or presence) thereof is still a property of the underlying
+> system, not one in Xen.
+>
+
+Ah, gotcha.  Ayan, it might be helpful to take a look at the 'Handling
+unexpected conditions' section of our CODING_STYLE [1] for a discussion of
+when (and when not) to use ASSERT().
+
+ -George
+
+[1] https://github.com/xen-project/xen/blob/master/CODING_STYLE
+
+--0000000000006341c005f28ae05e
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2023-01-18 at 14:39 +0000, Andrew Cooper wrote:
-> On 18/01/2023 2:26 pm, David Woodhouse wrote:?
-> > > There is no actual thing called PVHVM.=C2=A0 That diagram has caused =
-far more
-> > > damage than good...
-> > >
-> > > There's HVM (and by this, I mean the hypervisor's interpretation mean=
-ing
-> > > VT-x or SVM), and a spectrum of things the guest kernel can do if it
-> > > desires.
-> > >=20
-> > > I'm pretty sure Linux knows all of them.
-> >
-> > But don't we want to refrain from providing the legacy PC platform devi=
-ces?
->=20
-> That also exists and works fine (and is one slice on the spectrum).=C2=A0=
- KVM
-> even borrowed our PVH boot API because we'd already done the hard work
-> in Linux.
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 18, 2023 at 1:58 PM Jan B=
+eulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 18.01.2=
+023 14:34, George Dunlap wrote:<br>
+&gt; On Wed, Jan 18, 2023 at 1:15 PM Jan Beulich &lt;<a href=3D"mailto:jbeu=
+lich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; On 18.01.2023 12:15, Ayan Kumar Halder wrote:<br>
+&gt;&gt;&gt; On 18/01/2023 08:40, Jan Beulich wrote:<br>
+&gt;&gt;&gt;&gt; On 17.01.2023 18:43, Ayan Kumar Halder wrote:<br>
+&gt;&gt;&gt;&gt;&gt; @@ -1166,7 +1166,7 @@ static const struct ns16550_conf=
+ig __initconst<br>
+&gt;&gt; uart_config[] =3D<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0static int __init<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0pci_uart_config(struct ns16550 *uart, bool=
+_t skip_amt, unsigned int<br>
+&gt;&gt; idx)<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0{<br>
+&gt;&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 u64 orig_base =3D uart-&gt;io_base;<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 paddr_t orig_base =3D uart-&gt;io_base;=
+<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int b, d, f, nextf,=
+ i;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* NB. Start at bus 1 to avo=
+id AMT: a plug-in card cannot be on<br>
+&gt;&gt; bus 0. */<br>
+&gt;&gt;&gt;&gt;&gt; @@ -1259,7 +1259,7 @@ pci_uart_config(struct ns16550 *=
+uart, bool_t<br>
+&gt;&gt; skip_amt, unsigned int idx)<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0else<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size =3D len &amp; PCI_BASE_ADDRE=
+SS_MEM_MASK;<br>
+&gt;&gt;&gt;&gt;&gt;<br>
+&gt;&gt;&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 uart-&gt;io_base =3D ((u64)bar_64 &lt;&lt; 32) |<br>
+&gt;&gt;&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 uart-&gt;io_base =3D (paddr_t) ((u64)bar_64 &lt;&lt; 32) =
+|<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0(bar &amp;<br>
+&gt;&gt; PCI_BASE_ADDRESS_MEM_MASK);<br>
+&gt;&gt;&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0}<br>
+&gt;&gt;&gt;&gt; This looks wrong to me: You shouldn&#39;t blindly truncate=
+ to 32 bits. You<br>
+&gt;&gt; need<br>
+&gt;&gt;&gt;&gt; to refuse acting on 64-bit BARs with the upper address bit=
+s non-zero.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; Yes, I was treating this like others (where Xen does not detec=
+t for<br>
+&gt;&gt;&gt; truncation while getting the address/size from device-tree and=
+<br>
+&gt;&gt;&gt; typecasting it to paddr_t).<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; However in this case, as Xen is reading from PCI registers, so=
+ it needs<br>
+&gt;&gt;&gt; to check for truncation.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; I think the following change should do good.<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; @@ -1180,6 +1180,7 @@ pci_uart_config(struct ns16550 *uart, bo=
+ol_t<br>
+&gt;&gt;&gt; skip_amt, unsigned int idx)<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0unsigned int bar_idx =3D 0, port_idx =3D idx;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0uint32_t bar, bar_64 =3D 0, len, len_64;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0u64 size =3D 0;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 uint6=
+4_t io_base =3D 0;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0const struct ns16550_config_param *param =3D uart_param;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0nextf =3D (f || (pci_conf_read16(PCI_SBDF(0, b, d, f),<br>
+&gt;&gt;&gt; @@ -1260,8 +1261,11 @@ pci_uart_config(struct ns16550 *uart, b=
+ool_t<br>
+&gt;&gt;&gt; skip_amt, unsigned int idx)<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0else<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0size =3D len &amp; PCI_BASE_ADDRESS_MEM_M=
+ASK;<br>
+&gt;&gt;&gt;<br>
+&gt;&gt;&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 uart-&gt;io_base =3D (paddr_t) ((u64)bar_64 &lt;&lt; 32) |<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 io_base =3D ((u64)bar_64 &lt;&lt; 32) |<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0(bar &amp; PCI_BASE_ADDRESS_MEM_MASK);<br>
+&gt;&gt;&gt; +<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 uart-&gt;io_base =3D (paddr_t) io_base;<br>
+&gt;&gt;&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 ASSERT(uart-&gt;io_base =3D=3D io_base); /* Detect<br>
+&gt;&gt;&gt; truncation */<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0}<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0/* IO based */<br>
+&gt;&gt;&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0else if ( !param-&gt;mmio &amp;&amp; (bar &amp;<br>
+&gt;&gt;&gt; PCI_BASE_ADDRESS_SPACE_IO) )<br>
+&gt;&gt;<br>
+&gt;&gt; An assertion can only ever check assumption on behavior elsewhere =
+in Xen.<br>
+&gt;&gt; Anything external needs handling properly, including in non-debug =
+builds.<br>
+&gt;&gt;<br>
+&gt; <br>
+&gt; Except in this case, it&#39;s detecting the result of the compiler cas=
+t just<br>
+&gt; above it, isn&#39;t it?<br>
+<br>
+Not really, no - it checks whether there was truncation, but the<br>
+absence (or presence) thereof is still a property of the underlying<br>
+system, not one in Xen.<br></blockquote><div><br></div><div>Ah, gotcha.=C2=
+=A0 Ayan, it might be helpful to take a look at the &#39;Handling unexpecte=
+d conditions&#39; section of our CODING_STYLE [1] for a discussion of when =
+(and when not) to use ASSERT().</div><div><br></div><div>=C2=A0-George</div=
+><div><br></div><div>[1]=C2=A0<a href=3D"https://github.com/xen-project/xen=
+/blob/master/CODING_STYLE">https://github.com/xen-project/xen/blob/master/C=
+ODING_STYLE</a></div></div></div>
 
-Ah, but it doesn't exist in qemu (on KVM) yet ;)
-
---=-i05wny+PFngKkJ5JDkw+
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
-
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCEkQw
-ggYQMIID+KADAgECAhBNlCwQ1DvglAnFgS06KwZPMA0GCSqGSIb3DQEBDAUAMIGIMQswCQYDVQQG
-EwJVUzETMBEGA1UECBMKTmV3IEplcnNleTEUMBIGA1UEBxMLSmVyc2V5IENpdHkxHjAcBgNVBAoT
-FVRoZSBVU0VSVFJVU1QgTmV0d29yazEuMCwGA1UEAxMlVVNFUlRydXN0IFJTQSBDZXJ0aWZpY2F0
-aW9uIEF1dGhvcml0eTAeFw0xODExMDIwMDAwMDBaFw0zMDEyMzEyMzU5NTlaMIGWMQswCQYDVQQG
-EwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYD
-VQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50
-aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKC
-AQEAyjztlApB/975Rrno1jvm2pK/KxBOqhq8gr2+JhwpKirSzZxQgT9tlC7zl6hn1fXjSo5MqXUf
-ItMltrMaXqcESJuK8dtK56NCSrq4iDKaKq9NxOXFmqXX2zN8HHGjQ2b2Xv0v1L5Nk1MQPKA19xeW
-QcpGEGFUUd0kN+oHox+L9aV1rjfNiCj3bJk6kJaOPabPi2503nn/ITX5e8WfPnGw4VuZ79Khj1YB
-rf24k5Ee1sLTHsLtpiK9OjG4iQRBdq6Z/TlVx/hGAez5h36bBJMxqdHLpdwIUkTqT8se3ed0PewD
-ch/8kHPo5fZl5u1B0ecpq/sDN/5sCG52Ds+QU5O5EwIDAQABo4IBZDCCAWAwHwYDVR0jBBgwFoAU
-U3m/WqorSs9UgOHYm8Cd8rIDZsswHQYDVR0OBBYEFAnA8vwL2pTbX/4r36iZQs/J4K0AMA4GA1Ud
-DwEB/wQEAwIBhjASBgNVHRMBAf8ECDAGAQH/AgEAMB0GA1UdJQQWMBQGCCsGAQUFBwMCBggrBgEF
-BQcDBDARBgNVHSAECjAIMAYGBFUdIAAwUAYDVR0fBEkwRzBFoEOgQYY/aHR0cDovL2NybC51c2Vy
-dHJ1c3QuY29tL1VTRVJUcnVzdFJTQUNlcnRpZmljYXRpb25BdXRob3JpdHkuY3JsMHYGCCsGAQUF
-BwEBBGowaDA/BggrBgEFBQcwAoYzaHR0cDovL2NydC51c2VydHJ1c3QuY29tL1VTRVJUcnVzdFJT
-QUFkZFRydXN0Q0EuY3J0MCUGCCsGAQUFBzABhhlodHRwOi8vb2NzcC51c2VydHJ1c3QuY29tMA0G
-CSqGSIb3DQEBDAUAA4ICAQBBRHUAqznCFfXejpVtMnFojADdF9d6HBA4kMjjsb0XMZHztuOCtKF+
-xswhh2GqkW5JQrM8zVlU+A2VP72Ky2nlRA1GwmIPgou74TZ/XTarHG8zdMSgaDrkVYzz1g3nIVO9
-IHk96VwsacIvBF8JfqIs+8aWH2PfSUrNxP6Ys7U0sZYx4rXD6+cqFq/ZW5BUfClN/rhk2ddQXyn7
-kkmka2RQb9d90nmNHdgKrwfQ49mQ2hWQNDkJJIXwKjYA6VUR/fZUFeCUisdDe/0ABLTI+jheXUV1
-eoYV7lNwNBKpeHdNuO6Aacb533JlfeUHxvBz9OfYWUiXu09sMAviM11Q0DuMZ5760CdO2VnpsXP4
-KxaYIhvqPqUMWqRdWyn7crItNkZeroXaecG03i3mM7dkiPaCkgocBg0EBYsbZDZ8bsG3a08LwEsL
-1Ygz3SBsyECa0waq4hOf/Z85F2w2ZpXfP+w8q4ifwO90SGZZV+HR/Jh6rEaVPDRF/CEGVqR1hiuQ
-OZ1YL5ezMTX0ZSLwrymUE0pwi/KDaiYB15uswgeIAcA6JzPFf9pLkAFFWs1QNyN++niFhsM47qod
-x/PL+5jR87myx5uYdBEQkkDc+lKB1Wct6ucXqm2EmsaQ0M95QjTmy+rDWjkDYdw3Ms6mSWE3Bn7i
-5ZgtwCLXgAIe5W8mybM2JzCCBhQwggT8oAMCAQICEQDGvhmWZ0DEAx0oURL6O6l+MA0GCSqGSIb3
-DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVyMRAwDgYD
-VQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNlY3RpZ28g
-UlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBMB4XDTIyMDEwNzAw
-MDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJARYTZHdtdzJAaW5mcmFkZWFkLm9y
-ZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3GpC2bomUqk+91wLYBzDMcCj5C9m6
-oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZHh7htyAkWYVoFsFPrwHounto8xTsy
-SSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT9YgcBqKCo65pTFmOnR/VVbjJk4K2
-xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNjP+qDrh0db7PAjO1D4d5ftfrsf+kd
-RR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy2U+eITZ5LLE5s45mX2oPFknWqxBo
-bQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3BgBEmfsYWlBXO8rVXfvPgLs32VdV
-NZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/7auNVRmPB3v5SWEsH8xi4Bez2V9U
-KxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmdlFYhAflWKQ03Ufiu8t3iBE3VJbc2
-5oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9aelIl6vtbhMA+l0nfrsORMa4kobqQ5
-C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMBAAGjggHMMIIByDAfBgNVHSMEGDAW
-gBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeDMcimo0oz8o1R1Nver3ZVpSkwDgYD
-VR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYBBQUHAgEWF2h0dHBzOi8vc2VjdGln
-by5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9jcmwuc2VjdGlnby5jb20vU2VjdGln
-b1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1haWxDQS5jcmwwgYoGCCsGAQUFBwEB
-BH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdvLmNvbS9TZWN0aWdvUlNBQ2xpZW50
-QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAjBggrBgEFBQcwAYYXaHR0cDovL29j
-c3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5mcmFkZWFkLm9yZzANBgkqhkiG9w0B
-AQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQvQ/fzPXmtR9t54rpmI2TfyvcKgOXp
-qa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvIlSPrzIB4Z2wyIGQpaPLlYflrrVFK
-v9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9ChWFfgSXvrWDZspnU3Gjw/rMHrGnql
-Htlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0whpBtXdyDjzBtQTaZJ7zTT/vlehc/
-tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9IzCCBhQwggT8oAMCAQICEQDGvhmW
-Z0DEAx0oURL6O6l+MA0GCSqGSIb3DQEBCwUAMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3Jl
-YXRlciBNYW5jaGVzdGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0
-ZWQxPjA8BgNVBAMTNVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJl
-IEVtYWlsIENBMB4XDTIyMDEwNzAwMDAwMFoXDTI1MDEwNjIzNTk1OVowJDEiMCAGCSqGSIb3DQEJ
-ARYTZHdtdzJAaW5mcmFkZWFkLm9yZzCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALQ3
-GpC2bomUqk+91wLYBzDMcCj5C9m6oZaHwvmIdXftOgTbCJXADo6G9T7BBAebw2JV38EINgKpy/ZH
-h7htyAkWYVoFsFPrwHounto8xTsySSePMiPlmIdQ10BcVSXMUJ3Juu16GlWOnAMJY2oYfEzmE7uT
-9YgcBqKCo65pTFmOnR/VVbjJk4K2xE34GC2nAdUQkPFuyaFisicc6HRMOYXPuF0DuwITEKnjxgNj
-P+qDrh0db7PAjO1D4d5ftfrsf+kdRR4gKVGSk8Tz2WwvtLAroJM4nXjNPIBJNT4w/FWWc/5qPHJy
-2U+eITZ5LLE5s45mX2oPFknWqxBobQZ8a9dsZ3dSPZBvE9ZrmtFLrVrN4eo1jsXgAp1+p7bkfqd3
-BgBEmfsYWlBXO8rVXfvPgLs32VdVNZxb/CDWPqBsiYv0Hv3HPsz07j5b+/cVoWqyHDKzkaVbxfq/
-7auNVRmPB3v5SWEsH8xi4Bez2V9UKxfYCnqsjp8RaC2/khxKt0A552Eaxnz/4ly/2C7wkwTQnBmd
-lFYhAflWKQ03Ufiu8t3iBE3VJbc25oMrglj7TRZrmKq3CkbFnX0fyulB+kHimrt6PIWn7kgyl9ae
-lIl6vtbhMA+l0nfrsORMa4kobqQ5C5rveVgmcIad67EDa+UqEKy/GltUwlSh6xy+TrK1tzDvAgMB
-AAGjggHMMIIByDAfBgNVHSMEGDAWgBQJwPL8C9qU21/+K9+omULPyeCtADAdBgNVHQ4EFgQUzMeD
-Mcimo0oz8o1R1Nver3ZVpSkwDgYDVR0PAQH/BAQDAgWgMAwGA1UdEwEB/wQCMAAwHQYDVR0lBBYw
-FAYIKwYBBQUHAwQGCCsGAQUFBwMCMEAGA1UdIAQ5MDcwNQYMKwYBBAGyMQECAQEBMCUwIwYIKwYB
-BQUHAgEWF2h0dHBzOi8vc2VjdGlnby5jb20vQ1BTMFoGA1UdHwRTMFEwT6BNoEuGSWh0dHA6Ly9j
-cmwuc2VjdGlnby5jb20vU2VjdGlnb1JTQUNsaWVudEF1dGhlbnRpY2F0aW9uYW5kU2VjdXJlRW1h
-aWxDQS5jcmwwgYoGCCsGAQUFBwEBBH4wfDBVBggrBgEFBQcwAoZJaHR0cDovL2NydC5zZWN0aWdv
-LmNvbS9TZWN0aWdvUlNBQ2xpZW50QXV0aGVudGljYXRpb25hbmRTZWN1cmVFbWFpbENBLmNydDAj
-BggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wHgYDVR0RBBcwFYETZHdtdzJAaW5m
-cmFkZWFkLm9yZzANBgkqhkiG9w0BAQsFAAOCAQEAyW6MUir5dm495teKqAQjDJwuFCi35h4xgnQv
-Q/fzPXmtR9t54rpmI2TfyvcKgOXpqa7BGXNFfh1JsqexVkIqZP9uWB2J+uVMD+XZEs/KYNNX2PvI
-lSPrzIB4Z2wyIGQpaPLlYflrrVFKv9CjT2zdqvy2maK7HKOQRt3BiJbVG5lRiwbbygldcALEV9Ch
-WFfgSXvrWDZspnU3Gjw/rMHrGnqlHtlyebp3pf3fSS9kzQ1FVtVIDrL6eqhTwJxe+pXSMMqFiN0w
-hpBtXdyDjzBtQTaZJ7zTT/vlehc/tDuqZwGHm/YJy883Ll+GP3NvOkgaRGWEuYWJJ6hFCkXYjyR9
-IzGCBMcwggTDAgEBMIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVz
-dGVyMRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMT
-NVNlY3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEA
-xr4ZlmdAxAMdKFES+jupfjANBglghkgBZQMEAgEFAKCCAeswGAYJKoZIhvcNAQkDMQsGCSqGSIb3
-DQEHATAcBgkqhkiG9w0BCQUxDxcNMjMwMTE4MTQ0MzEzWjAvBgkqhkiG9w0BCQQxIgQgX7skx9B2
-vLf7bfousUXd1knCFOqJy2P+QD9kxHMrAIAwgb0GCSsGAQQBgjcQBDGBrzCBrDCBljELMAkGA1UE
-BhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4GA1UEBxMHU2FsZm9yZDEYMBYG
-A1UEChMPU2VjdGlnbyBMaW1pdGVkMT4wPAYDVQQDEzVTZWN0aWdvIFJTQSBDbGllbnQgQXV0aGVu
-dGljYXRpb24gYW5kIFNlY3VyZSBFbWFpbCBDQQIRAMa+GZZnQMQDHShREvo7qX4wgb8GCyqGSIb3
-DQEJEAILMYGvoIGsMIGWMQswCQYDVQQGEwJHQjEbMBkGA1UECBMSR3JlYXRlciBNYW5jaGVzdGVy
-MRAwDgYDVQQHEwdTYWxmb3JkMRgwFgYDVQQKEw9TZWN0aWdvIExpbWl0ZWQxPjA8BgNVBAMTNVNl
-Y3RpZ28gUlNBIENsaWVudCBBdXRoZW50aWNhdGlvbiBhbmQgU2VjdXJlIEVtYWlsIENBAhEAxr4Z
-lmdAxAMdKFES+jupfjANBgkqhkiG9w0BAQEFAASCAgCgX/+F7t8jazPBlX8O7UAXeLF3JsHkixQI
-X/zmX/WW4PvISAoJgx00NzhPIe8NdfViEqcE5MZ5upEj2CNvirGK2ZWUWaSz+cTsxToa7Ixp2O/E
-YY9nqXPc3SX6W3YAbyKULX9ArLzpZd3mHjPYsch+YKPrceZwx8XkUklNYaPzqElKkIFAbRDBb3re
-4FTQsNN4dIn35q6ekKKQVKGViK03lJlHjCWupIn9W9V0Bstp6+aPA6O9GegaiDZY7HmufW5E30ti
-UieELRN+kdvk1qMeFQg5on0ZWz+bVUrOR0q7hbCqAroEfJx+KxYjNkGIZCTa3J/0k7nGwJYCQT60
-7NBZPy8pIYiSvtB2VL48f4n/vmDprHrdQ/RWo2zyfnWW2TI/neF95avU29sGvut2jK23+hWnkDUT
-JTm2HhrZNoPAU4Ok6mBy7xdl1KI4TsHlhffDrejfzPMy044EBIg5l8c84w1q8otiUnLbiLFHgUxU
-KSLp72wFTwzy5CD+4F2PsW5/CGslDdWEa14vLZyuZU9DNr7OJURmvFu62Z8SEG2QPVlvHiYDGWXR
-NG60sgeORcueZOST+EuINCawvXm1rI677DtSd0cRgsrN5Bcd2Jvg0+Wsru3ojF8IY9cWDD34h9m3
-gDyk8/GiTQyXv+SPjq4oE5ucVzivjzIhrxzkaDfqGwAAAAAAAA==
-
-
---=-i05wny+PFngKkJ5JDkw+--
+--0000000000006341c005f28ae05e--
 
