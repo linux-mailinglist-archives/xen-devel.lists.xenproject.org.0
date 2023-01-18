@@ -2,35 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6534671445
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 07:34:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480158.744396 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5B156714CF
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 08:17:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480166.744407 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI219-0003Ml-Qc; Wed, 18 Jan 2023 06:33:51 +0000
+	id 1pI2fu-0007iz-Vo; Wed, 18 Jan 2023 07:15:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480158.744396; Wed, 18 Jan 2023 06:33:51 +0000
+Received: by outflank-mailman (output) from mailman id 480166.744407; Wed, 18 Jan 2023 07:15:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI219-0003L1-NW; Wed, 18 Jan 2023 06:33:51 +0000
-Received: by outflank-mailman (input) for mailman id 480158;
- Wed, 18 Jan 2023 06:33:50 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pI2fu-0007gF-SE; Wed, 18 Jan 2023 07:15:58 +0000
+Received: by outflank-mailman (input) for mailman id 480166;
+ Wed, 18 Jan 2023 07:15:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pI218-0003Kr-Te; Wed, 18 Jan 2023 06:33:50 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pI218-00081C-Ea; Wed, 18 Jan 2023 06:33:50 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pI217-0002Nv-Tb; Wed, 18 Jan 2023 06:33:49 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pI217-0001dU-T8; Wed, 18 Jan 2023 06:33:49 +0000
+ (envelope-from <SRS0=QcrT=5P=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pI2fs-0007g9-HB
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 07:15:56 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2050.outbound.protection.outlook.com [40.107.22.50])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f1f451b0-96ff-11ed-b8d0-410ff93cb8f0;
+ Wed, 18 Jan 2023 08:15:54 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PA4PR04MB7520.eurprd04.prod.outlook.com (2603:10a6:102:e9::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Wed, 18 Jan
+ 2023 07:15:51 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.024; Wed, 18 Jan 2023
+ 07:15:51 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,228 +46,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=tDRQd05pemzMB5RigPZIn5bR4gqHfbb2NLmA22TaKto=; b=BTGmikRLiiv0As8bWbbjSzbukD
-	KILFSu8LOVxA2TCNgvy15GT8Fk7VG4nJJE1FIrxozuU0sOkTO3Z0wpn9QjwT+YKIwcz3DwfL8Q6Ed
-	62rNft2WLBeONbRoCjsIYni4E84slx5REGx5X8A44Ds0rEL12tT8OPi/YVyY7fw68kaM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-175951-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: f1f451b0-96ff-11ed-b8d0-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ChHkOpZJ8ufNlTczjrj/I3DJgS/rQ/N9W3DBR4DUPCrVvGkzeRc1yjOCsZYosx3tHt+gGGKIBLNrZw2pWIe/mmqnYxaiJOH1CNqWWBiZ6RSZSZG+Cq1SfghkdfjJps7M57g3JhpBMmduIVegoNQ9Q2MvyIy+if5gDsbF/VuaR3faaaTq0a+5DGYNbCeJrjR91abLeNnfAX3qbX1FLZxDuHMPr11DkFeXQkLNeoci87/M760lARIxhV+DrQOr7FbjFg61EWgRpDCuKHsL1fxleBjkr9U84jqNEcs/kX4AwsT1ZdlSeNPVFyszNexXKECaqCOMG4/0SZHB8Yzkf1JM8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cRp6zVQ7NYBJCGPeBh2wyoprETQ6CvAi0CYQGPihjyg=;
+ b=QnNC1vKS0HKyOHu14bNNPHq6p5WLeY3TiE7axZ4IKGj5N6bpRKWWHJmCeMdPOWbQsg6Xnga0/vLi6vikBtyB5AQ2Uf7sLwX1WrW+2+JfV5LgLJe7CPj+WgBkKgB81O2LooHEviBKsta95K4YahcxtpJvY5lw0OiqjhMI7FF0HMGnZF7ZPn49N7iTKjBAZIxYtHKppEw/Q3G+rujMF4RglZ39gjFP7YUJd6N35DS5NxKrcVPzCGDyn4+uSvTP95DHSfChedq353XP3/zv//PnEqi92yQStKjTgoKR8geFVWg3ZKl246kGh3IFtuHn/ZeCAkqH2DQx71lkGNDUfO6A4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cRp6zVQ7NYBJCGPeBh2wyoprETQ6CvAi0CYQGPihjyg=;
+ b=24yFOGjtht5bSTE2ILlWslxvVpPxn7wVApj6BhvmKOTp3H8LMFKJOjyHh8ZRgLqwEF+Rokl/tdmIXQB8yyBUrhsVgJGDFoKaWZ4YdyHMf+STkb5dHHZfgzPoMxkENWAwORPGluuokMAjwz05FhOhPznfMO2jv3GJSJ2KkpWzs5hxUTSnVyLRJ61YEBpbW4w8yXI48NJ/nsD/9e+y7WKOhk2gW6yfY9uoCe8EDHdVUpHHSG7ioraBhAEnrt0omGemQ3kh8AaJeorjcITgJGemRU7rN+5QvReCF/hj5MSg6Rn35eqicbEs+53wRnSCKkPo4/9CsZeQ0b4U/siwnR2ZXQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <fd408cf4-bb25-c8b0-b979-340668d4c5cd@suse.com>
+Date: Wed, 18 Jan 2023 08:15:49 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [XEN PATCH] Create a Kconfig option to set preferred reboot
+ method
+Content-Language: en-US
+To: Per Bilse <Per.Bilse@citrix.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>,
+ Roger Pau Monne <roger.pau@citrix.com>, Wei Liu <wl@xen.org>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20230116172102.43469-1-per.bilse@citrix.com>
+ <f7e7b6ea-5bc1-ba2b-5d21-eb431ecff53a@suse.com>
+ <348dff00-5ae4-5dc2-64d4-d52409a22283@citrix.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <348dff00-5ae4-5dc2-64d4-d52409a22283@citrix.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0124.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9d::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 175951: regressions - trouble: blocked/broken/fail
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-amd64:xen-build:fail:regression
-    xen-unstable-smoke:build-arm64-xsm:xen-build:fail:regression
-    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-X-Osstest-Versions-This:
-    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-X-Osstest-Versions-That:
-    xen=6bec713f871f21c6254a5783c1e39867ea828256
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 18 Jan 2023 06:33:49 +0000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB7520:EE_
+X-MS-Office365-Filtering-Correlation-Id: f502b59f-30c9-4e60-d8f8-08daf923d43c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	+uW+gutxISe+//RcVShKNA6/YQ4t6hk+jbwVwye1MGE3eMyeBLe6HjXiCYPMGh+Zr8dxZ1PObHNdQ3phrUMGKi8q1AI0FWvW8/U4n3GyMGp+7tLW8vH2a0Fm8/e4jMilnnmRuzg61ZeBLEfmSR5C+yW6/8khtagDLlbks8tiUzqlkXHuiU5kQ4LnOambyHU07VBTTnkT8A/97nlf66eqsah8Up+Qzft5p2ez2V8u/QavTple7XFq+60yP/EAJbq3PDsOIuKRdv4agLNa3JO1Oi06ObH/xOM0zsVQKUvOOe8YTInA4+jEH/XJj+YfsLK5VFRBq1fQIPUekIX7wCwGFwq1n9zpSfRKs/1SlXAw/lVQ6pJEmye4dn/HQfyRB3kn4dCkdMSdMubr6bJg5EPacc6Arn1lFAvF+FdHPoOnHS2BPBJZfcbvP7Jml5ORzfwsKwlDSuyJ12eNLaACgB1GkPcQ56cm6eGVE2O4sx2z3ibw2PQzOJfw693imEwEWhcJJaLnAtysqpPMoc5t4T/tv0e7IpHBgX6ZPidigYHXN3fhGEU+h+2OVIU7taCwPyyiMxk4VSkf+4oVH+UjxfO7SRNwW+CVxyFrKVf/SfPT1SU7Ti0WE+Npy4Ngeb72oGpRRdcw4TgtQfJYtIRuvhDYgn9PiHAGPLtIohzxlWbg0KStZqhrz6gstSXBhp8qkuzDVie5/PPSKp6XtiDswd3c4GG3qgInBZqppYCEmHD0cKA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(366004)(39860400002)(396003)(136003)(376002)(346002)(451199015)(31686004)(86362001)(53546011)(6512007)(6916009)(66556008)(66476007)(2616005)(26005)(41300700001)(186003)(66946007)(8676002)(4326008)(36756003)(31696002)(5660300002)(38100700002)(8936002)(2906002)(478600001)(54906003)(6486002)(316002)(4744005)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SGZBY2NIdXEwbitqWktJbkFaV0R0VDlQMlB6cVRyc0xMSWFqclVtWlJlcXI0?=
+ =?utf-8?B?endKYndiUUx2ZkxuQndGT0NqeUthTmEyVHRmOWROZHdneHdiMldZMWFPOE1J?=
+ =?utf-8?B?dktHQU9pTW1RVU9jVzA2Y3RzeUVkSWFqWWsvTndvTlI3TU1mcjdEYU8xa0ZC?=
+ =?utf-8?B?ekhOb2NnMFBlYk05R1YrWElYQnVYVjdGWTY2MXBZaWVmTy9ZRTJLWFc0bTBm?=
+ =?utf-8?B?VS9IZG84TkVLZjFUZzk2aDF4elFycG1GRkFEajQ1TU9sUE9VdkZEVnNndG5I?=
+ =?utf-8?B?Y3BTQTBBcGlISmUxMGhvRjhPR0Q2Sm1ZZURnQm5hTWZSYWc4UDVaYWk0SjJP?=
+ =?utf-8?B?bE5GT2ZxTkRWTjlMdkUyZW0zeHQxaFYvR2FiUzhkUUVmbm04ZUJrTUJiTlBN?=
+ =?utf-8?B?QjlxTCtaOXRzQjZUekp5eDlpVE1DUHJCVFE2ZkwrazNSZnVOaGpXdXJ4VTdF?=
+ =?utf-8?B?bUo5ckxNeTRhdmpWeVpRdUxtaHVkYzkwQ3JiTjc3eWVaK1Y1OHliRWdhOFVG?=
+ =?utf-8?B?ZkFJbm1WRmNGNG90VDl6aSt2SnJHLzhoK25mQ0QydVNFR3NJUTdxUGZwYUZw?=
+ =?utf-8?B?ZlNDcWdSdEQwV2U0ejV0NDFzRzc2bmNkYUJBNVE2d29NYnlWTXhiTjBaWVMz?=
+ =?utf-8?B?Ly9pSmM1eWZpdzlQdXFpZnk4SVRFcjVtRDhPLy9oRDlPdzRBVnFjZnhQc0wz?=
+ =?utf-8?B?cHo3TG5jSTdjc1M0dENOSSttMnBlcC9idklyamVCRDV5OXBSWEtob0dUQTRj?=
+ =?utf-8?B?QzFaTDJraVRSNElFb1ViVEVFYWJudVRiYlQ1Qzl4a3ZHUTFKZ2xQSTZZOXNP?=
+ =?utf-8?B?NVdhT0hYL2RHdDE4NHMxcC9GMzQ4R25QV2h4TzlxOEZHNFZPMlNsWm5wdWkw?=
+ =?utf-8?B?NEpDTVRlTDhLWkRWbEw5ZEZEUXJDWU56QndFcGc0SWp6THFHb01ZNS9vcHI0?=
+ =?utf-8?B?V052dWFYRXYvL2tkRmo5NjZBSTkwbkNnRVlXQVhMY1RPYlZCU0gyeDBXUTJh?=
+ =?utf-8?B?NnJuR0NSYkhzUnlRSlgwOW83MFVDc3VBRXcwckx5cUFiZDYzSkxlaXVCcUps?=
+ =?utf-8?B?aWFDU2ZQaGQ5MVNHK1d3UFJrMXdEYlcvODhmT1llbjFxek9yNmg2c1BNK3o4?=
+ =?utf-8?B?YWVLYW92WVk0M2FIT3AwMUNtenBVb3JZckpPZm9nam45UldEL2MwU3hBZTR5?=
+ =?utf-8?B?OG9seFFNdWdJQ1Q4ZklyOThQdGU1UlJFWE40bnExbWFYQ1R1WXgxTHNFNk4y?=
+ =?utf-8?B?KzN2V1p0UG5UaHVWSHUrZklQQVh2SzVkZm1mMmIzVVRlK0h6OE9WWHJPVEtH?=
+ =?utf-8?B?VUFtM0xLc3hNNEQ0OWJwVFdGUStkVUxkUk0xc0FoV0dyKzQyT2RIL1g5K2d0?=
+ =?utf-8?B?WWNSVHN4ajBPd1BlR25pQW5oRGQ5VHFMTTVld2gvTVEyOGJWM0gvWnlZU0Ix?=
+ =?utf-8?B?SmgvejV1c0Y2NDRKNk1uclFwK0FGYzA1em93WEt5NCs4MDlDcXlFRll2QkUx?=
+ =?utf-8?B?VmJweEo3dGkxcDlQRThUMVB2SlRoYXZvTlpFU0xjanpYUDl2TE5rbVFqT0Uw?=
+ =?utf-8?B?d0ZUU1RYZ0ZHNEJEbVhFV0VSZDhqU0ZyT2Z3dkwyV3VhNGp2Z05VdWRrdkZy?=
+ =?utf-8?B?ME5Sa1E4bUNpc2FJckZKVUJQQVRDc0FMS0FMM1llRGdMVFErWVYzRVAyalhY?=
+ =?utf-8?B?QWtJVURKcGR4Z2ZEdWROZUZIN1UvazZ5S1h5c1FkZ2JtdFJTVms1a3llSHZU?=
+ =?utf-8?B?MVVKK2hCT0V2bDZvdVJtdGtmNFNPeTRHNGsvckcvZGJQSDlGRDVOTm5hSkQ5?=
+ =?utf-8?B?QWlTZnVXbVdrTVhTRGN4cElkUm9TL3lBaWVKbUtVT25sb0U3QWV0MHBYandI?=
+ =?utf-8?B?RWNjTytUa3Znby9OMkJ5aHF4ZnF0dGJVSDV0ZXBTd3ZyV1p2bU45OXhQQ0ZE?=
+ =?utf-8?B?RVlCQTdySkpob2R5Y0RtbjlNRUpRZkNoYmV5bkhET3NmUnN6VHM5WDZNL1VX?=
+ =?utf-8?B?ZDdObjFvakVTMDVxRzFKTTl5NS84M0RjN0dKS00zdXBNdzZhdVFOMXpwOExw?=
+ =?utf-8?B?R0plTGtTREVQbzhPdmFPQUtBSkNyRTFTUkFIazdJVnU0YjlnSFNLMUQ5MWlO?=
+ =?utf-8?Q?5RktyGycHBwV9oSAcwnMnf3ji?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f502b59f-30c9-4e60-d8f8-08daf923d43c
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 07:15:50.8931
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y46/7GHbjXSvueF7MkRFU9kY+KETg1cmoQ99PNLiUoQ/1dmuwXAXsqIZ6gPIJyPxyuKPHSZxmYK6GXntjdrhSQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB7520
 
-flight 175951 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/175951/
+On 17.01.2023 20:28, Per Bilse wrote:
+> On 17/01/2023 15:55, Jan Beulich wrote:
+>> On 16.01.2023 18:21, Per Bilse wrote:
+>>> +	config REBOOT_METHOD_XEN
+>>> +		bool "xen"
+>>> +		help
+>>> +			Use Xen SCHEDOP hypercall (if running under Xen as a guest).
+>>
+>> This wants to depend on XEN_GUEST, doesn't it?
+> 
+> Yes, depending on context.  In providing a compiled-in equivalent
+> of the command-line parameter, it should arguably provide and accept
+> the same set of options, but I'll change it.
 
-Regressions :-(
+If consistency between the two cases is the goal, then why not adjust
+command line handling (in a separate patch) to "not know" about "x"
+when !XEN_GUEST?
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 175746
- build-amd64                   6 xen-build                fail REGR. vs. 175746
- build-arm64-xsm               6 xen-build                fail REGR. vs. 175746
-
-Tests which did not succeed, but are not blocking:
- build-amd64-libvirt           1 build-check(1)               blocked  n/a
- test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
- test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
-
-version targeted for testing:
- xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-baseline version:
- xen                  6bec713f871f21c6254a5783c1e39867ea828256
-
-Last test of basis   175746  2023-01-12 16:03:41 Z    5 days
-Failing since        175748  2023-01-12 20:01:56 Z    5 days   25 attempts
-Testing same since   175833  2023-01-14 07:00:25 Z    3 days   23 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Andrew Cooper <andrew.cooper3@citrix.com>
-  Julien Grall <jgrall@amazon.com>
-  Michal Orzel <michal.orzel@amd.com>
-  Stefano Stabellini <sstabellini@kernel.org>
-
-jobs:
- build-arm64-xsm                                              fail    
- build-amd64                                                  fail    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
- test-amd64-amd64-libvirt                                     blocked 
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-
-Not pushing.
-
-------------------------------------------------------------
-commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
-Author: Michal Orzel <michal.orzel@amd.com>
-Date:   Tue Jan 3 11:25:19 2023 +0100
-
-    xen/arm: Add 0x prefix when printing memory size in construct_domU
-    
-    Printing memory size in hex without 0x prefix can be misleading, so
-    add it. Also, take the opportunity to adhere to 80 chars line length
-    limit by moving the printk arguments to the next line.
-    
-    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-
-commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:07:42 2023 +0000
-
-    xen/arm: linker: The identitymap check should cover the whole .text.header
-    
-    At the moment, we are only checking that only some part of .text.header
-    is part of the identity mapping. However, this doesn't take into account
-    the literal pool which will be located at the end of the section.
-    
-    While we could try to avoid using a literal pool, in the near future we
-    will also want to use an identity mapping for switch_ttbr().
-    
-    Not everything in .text.header requires to be part of the identity
-    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
-    check that .text.header is smaller than a page size.
-    
-    With that _end_boot can be removed as it is now unused. Take the
-    opportunity to avoid assuming that a page size is always 4KB in the
-    error message and comment.
-    
-    Signed-off-by: Julien Grall <jgrall@amazon.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
-Author: Julien Grall <jgrall@amazon.com>
-Date:   Thu Jan 12 22:06:42 2023 +0000
-
-    xen/arm: linker: Indent correctly _stext
-    
-    _stext is indented by one space more compare to the lines. This doesn't
-    seem warrant, so delete the extra space.
-    
-    Signed-off: Julien Grall <jgrall@amazon.com>
-    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
-
-commit 3edca52ce736297d7fcf293860cd94ef62638052
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 10:58:31 2023 +0000
-
-    x86/vmx: Support for CPUs without model-specific LBR
-    
-    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
-    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
-    later, model_specific_lbr will always be NULL, so we must make changes to
-    avoid reliably hitting the domain_crash().
-    
-    The Arch LBR spec states that CPUs without model-specific LBR implement
-    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
-    
-    Do this for any CPU for which we lack model-specific LBR information.
-    
-    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
-    signal "no model specific LBR" to guests.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Mon Jan 9 11:42:22 2023 +0000
-
-    x86/vmx: Calculate model-specific LBRs once at start of day
-    
-    There is no point repeating this calculation at runtime, especially as it is
-    in the fallback path of the WRSMR/RDMSR handlers.
-    
-    Move the infrastructure higher in vmx.c to avoid forward declarations,
-    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
-    these are model-specific only.
-    
-    No practical change.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
-
-commit e6ee01ad24b6a1c3b922579964deebb119a90a48
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Jan 3 15:08:56 2023 +0000
-
-    xen/version: Drop compat/kernel.c
-    
-    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
-    re-includes kernel.c to recompile xen_version() in a compat form.
-    
-    However, the xen_version hypercall is almost guest-ABI-agnostic; only
-    XENVER_platform_parameters has a compat split.  Handle this locally, and do
-    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
-    that are simply char-arrays in their native and compat form.
-    
-    In particular, this removed the final instances of obfuscation via the DO()
-    macro.
-    
-    No functional change.  Also saves 2k of of .text in the x86 build.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Reviewed-by: Jan Beulich <jbeulich@suse.com>
-
-commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
-Author: Andrew Cooper <andrew.cooper3@citrix.com>
-Date:   Tue Dec 20 15:51:07 2022 +0000
-
-    public/version: Change xen_feature_info to have a fixed size
-    
-    This is technically an ABI change, but Xen doesn't operate in any environment
-    where "unsigned int" is different to uint32_t, so switch to the explicit form.
-    This avoids the need to derive (identical) compat logic for handling the
-    subop.
-    
-    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-    Acked-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+Jan
 
