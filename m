@@ -2,55 +2,41 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46B556718AB
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 11:13:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480438.744857 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4D9C6718A8
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 11:13:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480439.744869 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI5RH-0006aG-HQ; Wed, 18 Jan 2023 10:13:03 +0000
+	id 1pI5RT-0006tS-Pz; Wed, 18 Jan 2023 10:13:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480438.744857; Wed, 18 Jan 2023 10:13:03 +0000
+Received: by outflank-mailman (output) from mailman id 480439.744869; Wed, 18 Jan 2023 10:13:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pI5RH-0006Y4-Ec; Wed, 18 Jan 2023 10:13:03 +0000
-Received: by outflank-mailman (input) for mailman id 480438;
- Wed, 18 Jan 2023 10:13:02 +0000
+	id 1pI5RT-0006qd-Mx; Wed, 18 Jan 2023 10:13:15 +0000
+Received: by outflank-mailman (input) for mailman id 480439;
+ Wed, 18 Jan 2023 10:13:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vYxY=5P=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pI5RF-0006Xw-TR
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 10:13:02 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=FJ6X=5P=redhat.com=mst@srs-se1.protection.inumbo.net>)
+ id 1pI5RR-0006Xw-OC
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 10:13:13 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af002047-9718-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 11:13:00 +0100 (CET)
-Received: from BN0PR04CA0025.namprd04.prod.outlook.com (2603:10b6:408:ee::30)
- by PH7PR12MB5759.namprd12.prod.outlook.com (2603:10b6:510:1d2::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.23; Wed, 18 Jan
- 2023 10:12:55 +0000
-Received: from BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ee:cafe::3) by BN0PR04CA0025.outlook.office365.com
- (2603:10b6:408:ee::30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.19 via Frontend
- Transport; Wed, 18 Jan 2023 10:12:55 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT099.mail.protection.outlook.com (10.13.177.197) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Wed, 18 Jan 2023 10:12:54 +0000
-Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 18 Jan
- 2023 04:12:54 -0600
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
- (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 18 Jan
- 2023 02:12:38 -0800
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Wed, 18 Jan 2023 04:12:36 -0600
+ id b63baf53-9718-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 11:13:12 +0100 (CET)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-441-1TIaP4bENWC2iqbZ3swxhg-1; Wed, 18 Jan 2023 05:13:09 -0500
+Received: by mail-wr1-f69.google.com with SMTP id
+ s20-20020adfa294000000b002b81849101eso6764197wra.16
+ for <xen-devel@lists.xenproject.org>; Wed, 18 Jan 2023 02:13:09 -0800 (PST)
+Received: from redhat.com ([2.52.28.74]) by smtp.gmail.com with ESMTPSA id
+ z4-20020a1cf404000000b003da2932bde0sm1700355wma.23.2023.01.18.02.13.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Jan 2023 02:13:07 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,84 +48,100 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af002047-9718-11ed-91b6-6bf2151ebd3b
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=b84uFKQ8P0y/QYDaWlut7UY4+ULlHdI4YQx5o4Ovef0XOQBbcfyJP77YBY2VLq/DvrQ9hc2ix9xfosZGBVPrbBCUf0pmpiP9umeBPzeEAj4fo7MYvsKo46uaInJhkmbndblSVQYME/5sAbihg3C+39yGuECaCEY+HLJzcLpW9BlCVc7A/CtRVIhovWEw7jxYbb+AV2KsmkRBnreKmyPifupJNYF92JPn7hx3eRlgFdcei4P8NmlOFMb/i3bzhXYYWGYV5PxMisG7vMhNaFf9+SY2a/4gJQhWnszykkPPYrotRZZIGIBfC74c8flgyqQgKnzBBi7vt91neQnMU1B5jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=e48vDjnNHTq3lsRspKwSNzwRZUWiP8aG+DBD0kmMBX0=;
- b=JdDz8AA+YvfmEWngSoFDbbv1mZ0f7WD0L0EC6fili7fc3EcZybRmUSY91bh3F+1FOy5sGNzpEsS6+4neCHzHxKyXUNaAamX3LMCjt89CVtc0//E7oryMOWnrymXsxzf0pKGHyE/WRJf4x5wiFRdcVqrlbwPxtmatbANUiG2baXlRUQIZSirxq0A6yvyxhgTCL24f9ontC5ruI+4ygUhVpi6nL/AaVZESV7YJmr+fwQF00YKwwgXDA6QbqTgjpeSmllfw7gJVfw8LvF+EIsNQ+Hva1LVXlHYkc7+xgBHyo+/R896hmcGg+OMlisqLd56Lrhs5NoQbdSnhjjfWQw4Kdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e48vDjnNHTq3lsRspKwSNzwRZUWiP8aG+DBD0kmMBX0=;
- b=raqRvB3btm5M5pQzZNzpG/lScTKb7WodHMYddKYv6sxLNsU7ICqPdFSfFsOjrui8ikjeMFToAuyyrjp5QpYUYt+Xcj+WvcmUbzQBtevOaOy0BiOaiMuu+gQKgm+UBDKz4E+yHANBG3HLGoQ/AVsvHFrQQa9qvPKr9VDVT0/wcT8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <157b9c9f-b9fe-5c8a-bea2-aa45ea5d195d@amd.com>
-Date: Wed, 18 Jan 2023 11:12:36 +0100
+X-Inumbo-ID: b63baf53-9718-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1674036790;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DRjJcGcIJeRz3HV0dfr6+yOWYOH/Jreqd5wo9IIEYVE=;
+	b=S1HttiMWFk4rWddO+v12N01coH1/H9lymIQlB5LYSo0p0BfczsHhECeMlPKNUYTg50hzAx
+	zeL9GkFDkClcuRCGPB1lse7sAXgEPYXvK4EAoW6q/cCBgGFProJVaplMBIKv9zWZaXSGkU
+	OnRbTBWPSUOtMJbJc5CCebzgVP/xsrM=
+X-MC-Unique: 1TIaP4bENWC2iqbZ3swxhg-1
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=DRjJcGcIJeRz3HV0dfr6+yOWYOH/Jreqd5wo9IIEYVE=;
+        b=4OL9yDoOsVCgIaijheObfRyd/+4qMFKkoBc4YoM7GTEVl0uwgtr+HN/wl8FlcD5+ks
+         ywNWZ5QXDwhptRtUwNn1/Ij66oy2JVKTA4E6+2oDwStswkqpM2D9TNO8AaHpHmiQM3IR
+         hC41YUmEtREozP+xfOr3MKfn7s89ur1VArX4RDd+lTQVZ1GqO2ELw2yWf37H7jQE6a6H
+         l9kd3eRcgWTd4IZ9KyIo7aNE+XDfFC7KKxg0+l7cqrWSxlzZkSw1r05r4TtzzA5k9eZt
+         NvuprFT69jlIq5kVpxgBwzBY2vp+5wq4UGfC+XrQGZalugioTP781toTL5rD0lupG9Z9
+         ACeQ==
+X-Gm-Message-State: AFqh2kpFVRfAVnEIPrnmmYB6qASO12lqmoJv15ES4tMXHNQHO7u8AA2w
+	Y7jajj1cFXB/ArysJLFbfhZblu5PWu6A3Vs1+qtZbFYhjvFj7hs27qHEugAn/nKnRylz2ZWYs8u
+	Id0+3hnqb6etqD92MjpPixyoJccQ=
+X-Received: by 2002:a05:600c:3ca0:b0:3da:fc15:740c with SMTP id bg32-20020a05600c3ca000b003dafc15740cmr6168764wmb.19.1674036788251;
+        Wed, 18 Jan 2023 02:13:08 -0800 (PST)
+X-Google-Smtp-Source: AMrXdXtPeaEuZcdoxm8td8K7KjvHiWcT8LazBuqb1MG4N7vId7zMUQX+86m6izbLliR3bAA1shRznA==
+X-Received: by 2002:a05:600c:3ca0:b0:3da:fc15:740c with SMTP id bg32-20020a05600c3ca000b003dafc15740cmr6168742wmb.19.1674036788038;
+        Wed, 18 Jan 2023 02:13:08 -0800 (PST)
+Date: Wed, 18 Jan 2023 05:13:03 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Bernhard Beschow <shentey@gmail.com>
+Cc: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	xen-devel@lists.xenproject.org,
+	=?iso-8859-1?Q?Herv=E9?= Poussineau <hpoussin@reactos.org>,
+	Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Chuck Zmudzinski <brchuckz@aol.com>
+Subject: Re: [PATCH v2 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
+Message-ID: <20230118051230-mutt-send-email-mst@kernel.org>
+References: <20230104144437.27479-1-shentey@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [XEN v2 00/11] Add support for 32 bit physical address
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
-	<xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
-	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>
-References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
-Content-Language: en-US
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT099:EE_|PH7PR12MB5759:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1989ae5d-fefa-4087-8005-08daf93c90d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	NH7EjZO243IEsRlOOZCeLEva+U1l5uDMwZpS9cCYvQ4ooYxZ9Dd6SvAsU24hw/Tzj+iRZ01QVFrN2mN6vDbsjLWhlVO4EGC2iuNsZOMzmGBUmWEBjt5ttD3sGfX4qUi/5aAKIKCR/ZCzo/1b4P0EYazk2Q/zC4FSatl1byx3DRwgxQGqp4dMoSHhw6Ek0krG9wwzfxeMCwlz79LDRApu98ZQs891IsiCnR6GvLMjK64Q6Oh0v9AWGyUhYzGVWlL9ZJLvyWwENeYdax5+rd3v2FcOVKeeKehxEmPX2lIMqst6hTF/pql8n/immIIJ9zfEJpu4K0G2GM1AfG4Aqw0W94BFni5Dy8ZP6RtPmZ/jtU/iHPa6UEj1EDen3fPbl4RO/mHjb4ZQW4GgWuSgh9gyneiwJJnt6YRyw6WdVpUJFoai3LglYZMS7CsuAOlGdd+3QonnrO6TkbqkPplFn9N9wDiqibyESejZIkByvMWfocNEkjVW+4wlpms3NeFxMkfzZ427p6grU68WY2DO3KFHQBy6NwsUyyz6QL1ZHTs8XoOcHBjCcBhGC30sHmeLSAYNWqU5BO2ypCPnVSy6D/UNoGxZY7abpJ7gzq9Ks/CFjdAX558v9ndOm404nkscstNXH9FgtP6Rpnaqch1vrBl0u5F3d2jGV4vI0V9MItQHhC2TWKU95bpAAMxWEGmIl92cxXlEnnXxYDT9tkHn35ecMHVzAEVTlmzkQBJI6gawXaaXvBQKn3eHZRgsKrBhj5lgIX6rhHNQqWhW5Am+Ept//lLnnI/CR9KZqIwwXZ6dmLw=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(136003)(346002)(396003)(376002)(39860400002)(451199015)(36840700001)(46966006)(40470700004)(31686004)(82310400005)(36756003)(966005)(36860700001)(316002)(478600001)(4744005)(44832011)(31696002)(2906002)(54906003)(40480700001)(110136005)(40460700003)(16576012)(41300700001)(82740400003)(2616005)(426003)(47076005)(26005)(70206006)(53546011)(186003)(8936002)(86362001)(8676002)(4326008)(356005)(81166007)(336012)(70586007)(5660300002)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Jan 2023 10:12:54.9011
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1989ae5d-fefa-4087-8005-08daf93c90d3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT099.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5759
+In-Reply-To: <20230104144437.27479-1-shentey@gmail.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Hi Ayan,
+On Wed, Jan 04, 2023 at 03:44:31PM +0100, Bernhard Beschow wrote:
+> This series first renders TYPE_PIIX3_XEN_DEVICE redundant and finally removes
+> it. The motivation is to 1/ decouple PIIX from Xen and 2/ to make Xen in the PC
+> machine agnostic to the precise southbridge being used. 2/ will become
+> particularily interesting once PIIX4 becomes usable in the PC machine, avoiding
+> the "Frankenstein" use of PIIX4_ACPI in PIIX3.
 
-On 17/01/2023 18:43, Ayan Kumar Halder wrote:
-> 
-> 
-> Hi All,
-> 
-> Please have a look at https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg01465.html
-> for the context.
-> 
-> The benefits of using 32 bit physical addresses are as follows :-
-> 
-> 1. It helps to use Xen on platforms (for eg R52) which supports 32 bit
-> physical addresses and has no support for large page address extension.
-Looking at your entire series, you keep using "large page address extension".
-LPAE is ARMv7A thing and it is defined as "large *physical* address extension".
-So it would be good to stick to the proper naming.
+Looks ok to me.
+Reviewed-by: Michael S. Tsirkin <mst@redhat.com>
 
-~Michal
+Feel free to merge through Xen tree.
+
+> v2:
+> - xen_piix3_set_irq() is already generic. Just rename it. (Chuck)
+> 
+> Testing done:
+> None, because I don't know how to conduct this properly :(
+> 
+> Based-on: <20221221170003.2929-1-shentey@gmail.com>
+>           "[PATCH v4 00/30] Consolidate PIIX south bridges"
+> 
+> Bernhard Beschow (6):
+>   include/hw/xen/xen: Rename xen_piix3_set_irq() to xen_intx_set_irq()
+>   hw/isa/piix: Reuse piix3_realize() in piix3_xen_realize()
+>   hw/isa/piix: Wire up Xen PCI IRQ handling outside of PIIX3
+>   hw/isa/piix: Avoid Xen-specific variant of piix_write_config()
+>   hw/isa/piix: Resolve redundant k->config_write assignments
+>   hw/isa/piix: Resolve redundant TYPE_PIIX3_XEN_DEVICE
+> 
+>  hw/i386/pc_piix.c             | 34 ++++++++++++++++--
+>  hw/i386/xen/xen-hvm.c         |  2 +-
+>  hw/isa/piix.c                 | 66 +----------------------------------
+>  include/hw/southbridge/piix.h |  1 -
+>  include/hw/xen/xen.h          |  2 +-
+>  stubs/xen-hw-stub.c           |  2 +-
+>  6 files changed, 35 insertions(+), 72 deletions(-)
+> 
+> -- 
+> 2.39.0
+> 
+
 
