@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAC8F670FA2
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 02:11:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480047.744220 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A0E6670FBE
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 02:15:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480055.744230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwyg-0005Kr-Sz; Wed, 18 Jan 2023 01:10:58 +0000
+	id 1pHx30-00061E-DR; Wed, 18 Jan 2023 01:15:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480047.744220; Wed, 18 Jan 2023 01:10:58 +0000
+Received: by outflank-mailman (output) from mailman id 480055.744230; Wed, 18 Jan 2023 01:15:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwyg-0005HP-PU; Wed, 18 Jan 2023 01:10:58 +0000
-Received: by outflank-mailman (input) for mailman id 480047;
- Wed, 18 Jan 2023 01:10:57 +0000
+	id 1pHx30-0005yc-Ai; Wed, 18 Jan 2023 01:15:26 +0000
+Received: by outflank-mailman (input) for mailman id 480055;
+ Wed, 18 Jan 2023 01:15:24 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=I0ll=5P=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
- id 1pHwyf-0005FD-FS
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 01:10:57 +0000
-Received: from mail-vs1-xe29.google.com (mail-vs1-xe29.google.com
- [2607:f8b0:4864:20::e29])
+ id 1pHx2y-0005yW-8U
+ for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 01:15:24 +0000
+Received: from mail-vk1-xa34.google.com (mail-vk1-xa34.google.com
+ [2607:f8b0:4864:20::a34])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f5ccd6bb-96cc-11ed-91b6-6bf2151ebd3b;
- Wed, 18 Jan 2023 02:10:56 +0100 (CET)
-Received: by mail-vs1-xe29.google.com with SMTP id 3so34204577vsq.7
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 17:10:56 -0800 (PST)
+ id 9493945c-96cd-11ed-91b6-6bf2151ebd3b;
+ Wed, 18 Jan 2023 02:15:23 +0100 (CET)
+Received: by mail-vk1-xa34.google.com with SMTP id q141so13093428vkb.13
+ for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 17:15:23 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,66 +39,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f5ccd6bb-96cc-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 9493945c-96cd-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=UdTaj5o3X/W5SP6UOlIzMe044t8GhfTKKPgfBa31DtY=;
-        b=F17vLM6Qen3OucAJba1k+GxCI0YWSOWh7/9gwNAt9klWmEFskqVugZR2PH5fKbCvLN
-         RdsWTVzIPIp1E0F+PYZpmExWyplgyQLcLDlIq/kPgc3EoAKCV7tKUD6bX3SjXxw6ihpZ
-         vXlBYsV9Kl6xFFVnqhs7fC8NtUi1nAaRKbnCag7AlirDx0YxDlm/d+CFetqXTNrNRCAD
-         Hu1lyXhgfkylPUop3EC5E5lyZTkpIFQfOXAWQ66u1C3V3O28zFTm966JYNNHZ5duh4Cv
-         82LUczlD97AZP0YXywtERiTmOa4XQ7WuJH0Yr9SIuqsBbe7WvahBV34ne14OLsgwj/HU
-         TmJg==
+        bh=PPNOF5NzVVkBSS2fDP/+kOC4Q5RSuajK6z5SUgAz4jA=;
+        b=AYSAqvqczE9H2Rc5MS29rCoDC2LrtrSBu/GPIJgh6N2BacPJLe0hX2ZtaesZijOTSu
+         Pxra9JfXlBXEqmyG602DpWdT2kOwZ/iOSGyoqGIK4OIaF3rbw2X4Eauym2OBQJoIwdG/
+         51BgGsdlcUy3+ynE6U2RXpZemrqw5XMRGHNaDTRUMQu1kcywOQb3dRMIJPvMVWww9duV
+         thIvnXw93nYlUySlpwAhSMr5Ui5yYWbvZ30bdrBfzB4GuAtS4iwZa/JyV8clfdaH5Z3H
+         HVK/gEJYYA/a7fV4NT2vc2MemOwBSCc+EqFAWvxr4tEi5wjKoaPAYQwsNvPVHbDomfpF
+         TuOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=UdTaj5o3X/W5SP6UOlIzMe044t8GhfTKKPgfBa31DtY=;
-        b=vr8v4Xg9munbVLIG2JKPmVU9mxQIH2enfZtTTfv/1rourBZ064/gcWS6NrXfmmgQ9J
-         E93BAoOKCtho4vXP28/FCml8lNxFvgr7yIZ0GocEeBDM6BCmDaP+wv24UOz3MgNngkt7
-         xjnvgk3p8yfBpmGqKwBd034FuKIkmJbEloE92/mubEPqvgF7CdRlfvmnL1Vw4XvHwaqm
-         Ku/od1BETk8RBaSkP7d35Va8SoAix2LLQhXZIY2610jhI+W4Pxt5nbbSjmP9IgQ1sR2/
-         1S+IXOr3BxCj+M/4gk2PouXZpPEZVEq3B5JWpRDYZVAmuovUEMNcbv4TvRdD32+xa8YH
-         CyKA==
-X-Gm-Message-State: AFqh2krV/n5KPVWOKGavoSG72QjOQULtEgBqOxIviCUmGv9pVQD+b2FV
-	eQ0koTjS1ENnOzgbF+mov/tDwWYwOYS2VnHitdk=
-X-Google-Smtp-Source: AMrXdXvkf6tHk+eww6am02/5I8a2jjCzgT3MdmEJGKyDvmPQhZdEG4v09Oe3WxEfeaHS/soKJUydK9uZ1z3gSgHPV2A=
-X-Received: by 2002:a67:ba0c:0:b0:3ce:f2da:96a with SMTP id
- l12-20020a67ba0c000000b003cef2da096amr601685vsn.64.1674004255535; Tue, 17 Jan
- 2023 17:10:55 -0800 (PST)
+        bh=PPNOF5NzVVkBSS2fDP/+kOC4Q5RSuajK6z5SUgAz4jA=;
+        b=ZU715gbZ9JFshkT0zq+OLbuRYZIyLDoTaOsa5c0SMjbS180xuhXQ02Zoh3511nVlM0
+         Rb1MlL1j+LT2EdbDXCZKY4Ui0Imqq7WTwmV9mKgTB8cRUK9af9uLP0X8A8FAM7k8+kvv
+         Ypzvpk2OXUQ3PdN+1gYCSr+8pt49kIuhSt3+itZpaQGwL5f/e7TdybkkQ51iSYt4RrkY
+         4UwV7+I17j5UkA39/GyfxeBPaTLWZEZYGLFfaCTjrt5/74iqtNY3qBNSriYMP7cgLf92
+         T6/a8SVU/e/en+e2N/W7go2hYjWZmg0OXSxD5LXoe0lSiU8DyVvR0zVavkmz0f/FnWaR
+         bjgg==
+X-Gm-Message-State: AFqh2korp6wXz02tqmXfXiG/g0YP7YdQkDm58VNdPlACjJFk/uH7NwgV
+	yXM/vB/lEEkQB6VZ0lUL2G48Je6zwZ7NPZ6Crz8=
+X-Google-Smtp-Source: AMrXdXsD4EoR226TtYLLEYae1B+7q2GjlCKBNTF7Y1+z0nZfhXhm9XXF0X+ZzhEW4Y62VJkz3IMiFt1iajNdfWxtkGU=
+X-Received: by 2002:a1f:a7ca:0:b0:3d5:86ff:6638 with SMTP id
+ q193-20020a1fa7ca000000b003d586ff6638mr733643vke.30.1674004521937; Tue, 17
+ Jan 2023 17:15:21 -0800 (PST)
 MIME-Version: 1.0
-References: <cover.1673877778.git.oleksii.kurochko@gmail.com> <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
-In-Reply-To: <06ad9f6c8cbc87284ef4ecd4b85d9c7df33bd2c1.1673877778.git.oleksii.kurochko@gmail.com>
+References: <cover.1673877778.git.oleksii.kurochko@gmail.com> <216c21039a5552a329178b4376ff53ba16cf6104.1673877778.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <216c21039a5552a329178b4376ff53ba16cf6104.1673877778.git.oleksii.kurochko@gmail.com>
 From: Alistair Francis <alistair23@gmail.com>
-Date: Wed, 18 Jan 2023 11:10:29 +1000
-Message-ID: <CAKmqyKMcGiO3wzF23Ps_AWZd=o6R9wdmvV3QG4-YAWnFd8BEiQ@mail.gmail.com>
-Subject: Re: [PATCH v4 2/4] xen/riscv: introduce sbi call to putchar to console
+Date: Wed, 18 Jan 2023 11:14:55 +1000
+Message-ID: <CAKmqyKNKsQdFEWsu7RZdv4mWvoK959Uk9ZH71RDE2EYJ76ei5w@mail.gmail.com>
+Subject: Re: [PATCH v4 4/4] automation: add RISC-V smoke test
 To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
 	Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
 	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
-	Bobby Eshleman <bobby.eshleman@gmail.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Alistair Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+	Doug Goldstein <cardoe@cardoe.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Jan 17, 2023 at 12:39 AM Oleksii Kurochko
+On Tue, Jan 17, 2023 at 12:40 AM Oleksii Kurochko
 <oleksii.kurochko@gmail.com> wrote:
 >
-> From: Bobby Eshleman <bobby.eshleman@gmail.com>
+> Add check if there is a message 'Hello from C env' presents
+> in log file to be sure that stack is set and C part of early printk
+> is working.
 >
-> Originally SBI implementation for Xen was introduced by
-> Bobby Eshleman <bobby.eshleman@gmail.com> but it was removed
-> all the stuff for simplicity  except SBI call for putting
-> character to console.
->
-> The patch introduces sbi_putchar() SBI call which is necessary
-> to implement initial early_printk.
->
-> Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
 Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 
@@ -109,123 +102,79 @@ Alistair
 >     - Nothing changed
 > ---
 > Changes in V3:
->     - update copyright's year
->     - rename definition of __CPU_SBI_H__ to __ASM_RISCV_SBI_H__
->     - fix identations
->     - change an author of the commit
+>     - Nothing changed
+>     - All mentioned comments by Stefano in Xen mailing list will be
+>       fixed as a separate patch out of this patch series.
 > ---
-> Changes in V2:
->     - add an explanatory comment about sbi_console_putchar() function.
->     - order the files alphabetically in Makefile
-> ---
->  xen/arch/riscv/Makefile          |  1 +
->  xen/arch/riscv/include/asm/sbi.h | 34 ++++++++++++++++++++++++
->  xen/arch/riscv/sbi.c             | 45 ++++++++++++++++++++++++++++++++
->  3 files changed, 80 insertions(+)
->  create mode 100644 xen/arch/riscv/include/asm/sbi.h
->  create mode 100644 xen/arch/riscv/sbi.c
+>  automation/gitlab-ci/test.yaml           | 20 ++++++++++++++++++++
+>  automation/scripts/qemu-smoke-riscv64.sh | 20 ++++++++++++++++++++
+>  2 files changed, 40 insertions(+)
+>  create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
 >
-> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> index 5a67a3f493..fd916e1004 100644
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -1,4 +1,5 @@
->  obj-$(CONFIG_RISCV_64) += riscv64/
-> +obj-y += sbi.o
->  obj-y += setup.o
+> diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+> index afd80adfe1..64f47a0ab9 100644
+> --- a/automation/gitlab-ci/test.yaml
+> +++ b/automation/gitlab-ci/test.yaml
+> @@ -54,6 +54,19 @@
+>    tags:
+>      - x86_64
 >
->  $(TARGET): $(TARGET)-syms
-> diff --git a/xen/arch/riscv/include/asm/sbi.h b/xen/arch/riscv/include/asm/sbi.h
-> new file mode 100644
-> index 0000000000..0e6820a4ed
+> +.qemu-riscv64:
+> +  extends: .test-jobs-common
+> +  variables:
+> +    CONTAINER: archlinux:riscv64
+> +    LOGFILE: qemu-smoke-riscv64.log
+> +  artifacts:
+> +    paths:
+> +      - smoke.serial
+> +      - '*.log'
+> +    when: always
+> +  tags:
+> +    - x86_64
+> +
+>  .yocto-test:
+>    extends: .test-jobs-common
+>    script:
+> @@ -234,6 +247,13 @@ qemu-smoke-x86-64-clang-pvh:
+>    needs:
+>      - debian-unstable-clang-debug
+>
+> +qemu-smoke-riscv64-gcc:
+> +  extends: .qemu-riscv64
+> +  script:
+> +    - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
+> +  needs:
+> +    - riscv64-cross-gcc
+> +
+>  # Yocto test jobs
+>  yocto-qemuarm64:
+>    extends: .yocto-test-arm64
+> diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+> new file mode 100755
+> index 0000000000..e0f06360bc
 > --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/sbi.h
-> @@ -0,0 +1,34 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-or-later) */
-> +/*
-> + * Copyright (c) 2021-2023 Vates SAS.
-> + *
-> + * Taken from xvisor, modified by Bobby Eshleman (bobby.eshleman@gmail.com).
-> + *
-> + * Taken/modified from Xvisor project with the following copyright:
-> + *
-> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
-> + */
+> +++ b/automation/scripts/qemu-smoke-riscv64.sh
+> @@ -0,0 +1,20 @@
+> +#!/bin/bash
 > +
-> +#ifndef __ASM_RISCV_SBI_H__
-> +#define __ASM_RISCV_SBI_H__
+> +set -ex
 > +
-> +#define SBI_EXT_0_1_CONSOLE_PUTCHAR            0x1
+> +# Run the test
+> +rm -f smoke.serial
+> +set +e
 > +
-> +struct sbiret {
-> +    long error;
-> +    long value;
-> +};
+> +timeout -k 1 2 \
+> +qemu-system-riscv64 \
+> +    -M virt \
+> +    -smp 1 \
+> +    -nographic \
+> +    -m 2g \
+> +    -kernel binaries/xen \
+> +    |& tee smoke.serial
 > +
-> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-> +                        unsigned long arg0, unsigned long arg1,
-> +                        unsigned long arg2, unsigned long arg3,
-> +                        unsigned long arg4, unsigned long arg5);
-> +
-> +/**
-> + * Writes given character to the console device.
-> + *
-> + * @param ch The data to be written to the console.
-> + */
-> +void sbi_console_putchar(int ch);
-> +
-> +#endif /* __ASM_RISCV_SBI_H__ */
-> diff --git a/xen/arch/riscv/sbi.c b/xen/arch/riscv/sbi.c
-> new file mode 100644
-> index 0000000000..dc0eb44bc6
-> --- /dev/null
-> +++ b/xen/arch/riscv/sbi.c
-> @@ -0,0 +1,45 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Taken and modified from the xvisor project with the copyright Copyright (c)
-> + * 2019 Western Digital Corporation or its affiliates and author Anup Patel
-> + * (anup.patel@wdc.com).
-> + *
-> + * Modified by Bobby Eshleman (bobby.eshleman@gmail.com).
-> + *
-> + * Copyright (c) 2019 Western Digital Corporation or its affiliates.
-> + * Copyright (c) 2021-2023 Vates SAS.
-> + */
-> +
-> +#include <xen/errno.h>
-> +#include <asm/sbi.h>
-> +
-> +struct sbiret sbi_ecall(unsigned long ext, unsigned long fid,
-> +                        unsigned long arg0, unsigned long arg1,
-> +                        unsigned long arg2, unsigned long arg3,
-> +                        unsigned long arg4, unsigned long arg5)
-> +{
-> +    struct sbiret ret;
-> +
-> +    register unsigned long a0 asm ("a0") = arg0;
-> +    register unsigned long a1 asm ("a1") = arg1;
-> +    register unsigned long a2 asm ("a2") = arg2;
-> +    register unsigned long a3 asm ("a3") = arg3;
-> +    register unsigned long a4 asm ("a4") = arg4;
-> +    register unsigned long a5 asm ("a5") = arg5;
-> +    register unsigned long a6 asm ("a6") = fid;
-> +    register unsigned long a7 asm ("a7") = ext;
-> +
-> +    asm volatile ("ecall"
-> +              : "+r" (a0), "+r" (a1)
-> +              : "r" (a2), "r" (a3), "r" (a4), "r" (a5), "r" (a6), "r" (a7)
-> +              : "memory");
-> +    ret.error = a0;
-> +    ret.value = a1;
-> +
-> +    return ret;
-> +}
-> +
-> +void sbi_console_putchar(int ch)
-> +{
-> +    sbi_ecall(SBI_EXT_0_1_CONSOLE_PUTCHAR, 0, ch, 0, 0, 0, 0, 0);
-> +}
+> +set -e
+> +(grep -q "Hello from C env" smoke.serial) || exit 1
+> +exit 0
 > --
 > 2.39.0
 >
