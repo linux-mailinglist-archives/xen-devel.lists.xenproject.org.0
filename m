@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D389B670EA2
-	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 01:33:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480034.744197 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39626670FA3
+	for <lists+xen-devel@lfdr.de>; Wed, 18 Jan 2023 02:11:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480040.744209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwOJ-0002JL-KR; Wed, 18 Jan 2023 00:33:23 +0000
+	id 1pHwxy-0004l1-FP; Wed, 18 Jan 2023 01:10:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480034.744197; Wed, 18 Jan 2023 00:33:23 +0000
+Received: by outflank-mailman (output) from mailman id 480040.744209; Wed, 18 Jan 2023 01:10:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pHwOJ-0002Gl-HG; Wed, 18 Jan 2023 00:33:23 +0000
-Received: by outflank-mailman (input) for mailman id 480034;
- Wed, 18 Jan 2023 00:33:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=fuL9=5P=gmail.com=julien.grall@srs-se1.protection.inumbo.net>)
- id 1pHwOI-0002Gf-Ao
- for xen-devel@lists.xenproject.org; Wed, 18 Jan 2023 00:33:22 +0000
-Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
- [2a00:1450:4864:20::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id b4c597d2-96c7-11ed-b8d0-410ff93cb8f0;
- Wed, 18 Jan 2023 01:33:19 +0100 (CET)
-Received: by mail-ej1-x630.google.com with SMTP id ss4so72188349ejb.11
- for <xen-devel@lists.xenproject.org>; Tue, 17 Jan 2023 16:33:19 -0800 (PST)
+	id 1pHwxy-0004im-BQ; Wed, 18 Jan 2023 01:10:14 +0000
+Received: by outflank-mailman (input) for mailman id 480040;
+ Wed, 18 Jan 2023 01:10:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHwxw-0004ic-IQ; Wed, 18 Jan 2023 01:10:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHwxw-00085Q-Ba; Wed, 18 Jan 2023 01:10:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHwxv-0003av-SE; Wed, 18 Jan 2023 01:10:11 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pHwxv-0003mO-Rh; Wed, 18 Jan 2023 01:10:11 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,343 +42,232 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b4c597d2-96c7-11ed-b8d0-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=0O0fNqSjOCmHJ7YEyu+NfYWhs4mN0JgFNhe8XAV3gEQ=;
-        b=ZyXIEH8s2WcKyX/TKVAbw3URKTjTCTlSjs5/5XKJiVHD6k+zjAIMxlXVcxFv8K6cWE
-         yl4AEEQI5lgg12JN51gNzyH235Fo9GOMGtsctMClC+LbYiSKVaLonAEhOfGy6ecRIQQR
-         BDhi915vn82g05YELOvD17eQQLPpk680qkeoZJnnmQaizqa0g+r9AhRhzmOY+n1SjFui
-         u6+JdPGUHCEjIgGSJ5PHgmxQcjgcF4B/2MOJq3v7aPP4wSGvLUdc8F0DlD1+DR4eZKSX
-         i1ulw6KnTt6hQYOnw/a77AqWHdGvcswd3Xh6M9llXEi/0+x+nSpY4oA7pNBIpCEjGDN5
-         6laQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0O0fNqSjOCmHJ7YEyu+NfYWhs4mN0JgFNhe8XAV3gEQ=;
-        b=U7qsrS+mQH/n9Bc+F0frM54UWJ0m8yL9ODLnEy/gm0XQy7LDIPw+KqKe3ncWD27X1S
-         9zAjNnxtH4nPGUTbAucrqF5no1/Sjw4kjyd6hfKOJJh8948FmF0okNTrnoVrmd2f4K/G
-         odblHVQ86RZcyq6NXJIsCC7flrp3zHmZMFYec8ZVojkQ3oKvtL09VWQdLDMcWFbVnqTI
-         cyV+fNNmBVnkpPlgOqBWT66jQSZPmANhhgFl9KmqOekjxG251Ybmc56j4zUdZuzWX89s
-         L/35nsFxkrr0Qs9Xw2ogHsGuxkWGFquV9J1ep7NyZ46wQjwVaY5uiwU8xrrGc3WxmdO4
-         OTBg==
-X-Gm-Message-State: AFqh2kpH3HJ8NYyAqO+wVGMs2GCthXvXX6i8FlDKxC5DW5HhupXGIwtL
-	FyxFrNgzLpHwya/x9gTQU6hEYXy5O14586yIqZU=
-X-Google-Smtp-Source: AMrXdXtc59Xba6R6XpxF4vSslUNprZYwfNUw6kAL7Am0ntV8BN41cLM7g0CCCV91VFvu0+ec/6NCNVE5UmzXEXFufrs=
-X-Received: by 2002:a17:906:5c8:b0:86b:914a:572 with SMTP id
- t8-20020a17090605c800b0086b914a0572mr446015ejt.39.1674001999039; Tue, 17 Jan
- 2023 16:33:19 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1673877778.git.oleksii.kurochko@gmail.com>
- <915bd184c6648a1a3bf0ac6a79b5274972bb33dd.1673877778.git.oleksii.kurochko@gmail.com>
- <d0cabe82-315e-408c-7364-33e2b5093ee6@citrix.com>
-In-Reply-To: <d0cabe82-315e-408c-7364-33e2b5093ee6@citrix.com>
-From: Julien Grall <julien.grall@gmail.com>
-Date: Wed, 18 Jan 2023 00:33:08 +0000
-Message-ID: <CAF3u54C2ewEfBN+ZT6VPaVu4vsqS_+12gr3YJ_jsg1sGHDhZ1A@mail.gmail.com>
-Subject: Re: [PATCH v4 3/4] xen/riscv: introduce early_printk basic stuff
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: Alistair Francis <alistair.francis@wdc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Bobby Eshleman <bobby.eshleman@gmail.com>, Connor Davis <connojdavis@gmail.com>, 
-	Gianluca Guida <gianluca@rivosinc.com>, Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>, 
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Content-Type: multipart/alternative; boundary="00000000000081931c05f27ef684"
-
---00000000000081931c05f27ef684
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=oLrSYxlATwjbKcSr0t00aKlA42QoRqB5KOu7SsGVnIQ=; b=EsMEhnFkpCeR5aLOz3GdtHFIOg
+	sQpFSJiyT0pVcuCLCbhrJHlPU0oUhHH+tH9ANz48yP/WTyZm35nX0zpvMHNOlJv/maK19Dsve/G36
+	BtoDgYu7rR8xvMG8TLq0KY/fOK1+pTFEnnri1+OzmBfCCV9Z13dgzSfKsmh88ZNJZHEo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175949-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 175949: regressions - trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:test-armhf-armhf-xl:<job status>:broken:regression
+    xen-unstable-smoke:build-amd64:xen-build:fail:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:host-install(5):broken:heisenbug
+    xen-unstable-smoke:build-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-xl-qemuu-debianhvm-amd64:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+X-Osstest-Versions-That:
+    xen=6bec713f871f21c6254a5783c1e39867ea828256
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 18 Jan 2023 01:10:11 +0000
 
-On Tue, 17 Jan 2023 at 23:57, Andrew Cooper <Andrew.Cooper3@citrix.com>
-wrote:
+flight 175949 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175949/
 
-> On 16/01/2023 2:39 pm, Oleksii Kurochko wrote:
-> > diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debu=
-g
-> > index e69de29bb2..e139e44873 100644
-> > --- a/xen/arch/riscv/Kconfig.debug
-> > +++ b/xen/arch/riscv/Kconfig.debug
-> > @@ -0,0 +1,6 @@
-> > +config EARLY_PRINTK
-> > +    bool "Enable early printk"
-> > +    default DEBUG
-> > +    help
-> > +
-> > +      Enables early printk debug messages
->
-> Kconfig indentation is a little hard to get used to.
->
-> It's one tab for the main block, and one tab + 2 spaces for the help text=
-.
->
-> Also, drop the blank line after help.
->
-> > diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> > index fd916e1004..1a4f1a6015 100644
-> > --- a/xen/arch/riscv/Makefile
-> > +++ b/xen/arch/riscv/Makefile
-> > @@ -1,3 +1,4 @@
-> > +obj-$(CONFIG_EARLY_PRINTK) +=3D early_printk.o
-> >  obj-$(CONFIG_RISCV_64) +=3D riscv64/
-> >  obj-y +=3D sbi.o
-> >  obj-y +=3D setup.o
-> > diff --git a/xen/arch/riscv/early_printk.c
-> b/xen/arch/riscv/early_printk.c
-> > new file mode 100644
-> > index 0000000000..6bc29a1942
-> > --- /dev/null
-> > +++ b/xen/arch/riscv/early_printk.c
-> > @@ -0,0 +1,45 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * RISC-V early printk using SBI
-> > + *
-> > + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
-> > + */
-> > +#include <asm/early_printk.h>
-> > +#include <asm/sbi.h>
-> > +
-> > +/*
-> > + * early_*() can be called from head.S with MMU-off.
-> > + *
-> > + * The following requiremets should be honoured for early_*() to
-> > + * work correctly:
-> > + *    It should use PC-relative addressing for accessing symbols.
-> > + *    To achieve that GCC cmodel=3Dmedany should be used.
-> > + */
-> > +#ifndef __riscv_cmodel_medany
-> > +#error "early_*() can be called from head.S before relocate so it
-> should not use absolute addressing."
-> > +#endif
->
-> This is incorrect.
+Regressions :-(
 
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-armhf-armhf-xl             <job status>                 broken
+ build-amd64                   6 xen-build                fail REGR. vs. 175746
 
-Aside the part about the relocation, I do not see what is wrong with it
-(see below)
+Tests which are failing intermittently (not blocking):
+ test-armhf-armhf-xl           5 host-install(5)          broken pass in 175944
 
->
->
-> What *this* file is compiled with has no bearing on how head.S calls
-> us.  The RISC-V documentation explaining __riscv_cmodel_medany vs
-> __riscv_cmodel_medlow calls this point out specifically.  There's
-> nothing you can put here to check that head.S gets compiled with medany.
+Tests which did not succeed, but are not blocking:
+ build-amd64-libvirt           1 build-check(1)               blocked  n/a
+ test-amd64-amd64-libvirt      1 build-check(1)               blocked  n/a
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64  1 build-check(1)        blocked n/a
+ test-armhf-armhf-xl         15 migrate-support-check fail in 175944 never pass
+ test-armhf-armhf-xl     16 saverestore-support-check fail in 175944 never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+baseline version:
+ xen                  6bec713f871f21c6254a5783c1e39867ea828256
+
+Last test of basis   175746  2023-01-12 16:03:41 Z    5 days
+Failing since        175748  2023-01-12 20:01:56 Z    5 days   24 attempts
+Testing same since   175833  2023-01-14 07:00:25 Z    3 days   22 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Julien Grall <jgrall@amazon.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  fail    
+ build-armhf                                                  pass    
+ build-amd64-libvirt                                          blocked 
+ test-armhf-armhf-xl                                          broken  
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    blocked 
+ test-amd64-amd64-libvirt                                     blocked 
 
 
-I believe you misunderstood the goal here. It is not to check how head.S
-will call it but to ensure the function is safe to be called when the MMU
-is off (e.g VA !=3D VA).
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
->
-> Right now, there's nothing in this file dependent on either mode, and
-> it's not liable to change in the short term.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-The whole point is to make sure this don=E2=80=99t change without us knowin=
-g.
+broken-job test-armhf-armhf-xl broken
+broken-step test-armhf-armhf-xl host-install(5)
 
+Not pushing.
 
-  Furthermore, Xen isn't
-> doing any relocation in the first place.
->
-> We will want to support XIP in due course, and that will be compiled
-> __riscv_cmodel_medlow, which is a fine and legitimate usecase.
->
->
-> The build system sets the model up consistently.  All you are doing by
-> putting this in is creating work that someone is going to have to delete
-> for legitimate reasons in the future.
+------------------------------------------------------------
+commit f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Jan 3 11:25:19 2023 +0100
 
+    xen/arm: Add 0x prefix when printing memory size in construct_domU
+    
+    Printing memory size in hex without 0x prefix can be misleading, so
+    add it. Also, take the opportunity to adhere to 80 chars line length
+    limit by moving the printk arguments to the next line.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
 
+commit 229ebd517b9df0e2d2f9e3ea50b57ca716334826
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Thu Jan 12 22:07:42 2023 +0000
 
-Are you saying that a code compiled with medlow can also work with MMU off
-and no relocation needed?
+    xen/arm: linker: The identitymap check should cover the whole .text.header
+    
+    At the moment, we are only checking that only some part of .text.header
+    is part of the identity mapping. However, this doesn't take into account
+    the literal pool which will be located at the end of the section.
+    
+    While we could try to avoid using a literal pool, in the near future we
+    will also want to use an identity mapping for switch_ttbr().
+    
+    Not everything in .text.header requires to be part of the identity
+    mapping. But it is below a page size (i.e. 4KB) so take a shortcut and
+    check that .text.header is smaller than a page size.
+    
+    With that _end_boot can be removed as it is now unused. Take the
+    opportunity to avoid assuming that a page size is always 4KB in the
+    error message and comment.
+    
+    Signed-off-by: Julien Grall <jgrall@amazon.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-If not, then the check is correct. It would avoid hours of debugging=E2=80=
-=A6
+commit 22a9981ba2443bd569bad6b772fb6e7e64f0d714
+Author: Julien Grall <jgrall@amazon.com>
+Date:   Thu Jan 12 22:06:42 2023 +0000
 
-Cheers,
+    xen/arm: linker: Indent correctly _stext
+    
+    _stext is indented by one space more compare to the lines. This doesn't
+    seem warrant, so delete the extra space.
+    
+    Signed-off: Julien Grall <jgrall@amazon.com>
+    Acked-by: Stefano Stabellini <sstabellini@kernel.org>
 
+commit 3edca52ce736297d7fcf293860cd94ef62638052
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 10:58:31 2023 +0000
 
->
-> > diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-> > index 13e24e2fe1..9c9412152a 100644
-> > --- a/xen/arch/riscv/setup.c
-> > +++ b/xen/arch/riscv/setup.c
-> > @@ -1,13 +1,17 @@
-> >  #include <xen/compile.h>
-> >  #include <xen/init.h>
-> >
-> > +#include <asm/early_printk.h>
-> > +
-> >  /* Xen stack for bringing up the first CPU. */
-> >  unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-> >      __aligned(STACK_SIZE);
-> >
-> >  void __init noreturn start_xen(void)
-> >  {
-> > -    for ( ;; )
-> > +    early_printk("Hello from C env\n");
-> > +
-> > +    for ( ; ; )
->
-> Rebasing error?
->
-> ~Andrew
->
---=20
-Julien Grall
+    x86/vmx: Support for CPUs without model-specific LBR
+    
+    Ice Lake (server at least) has both architectural LBR and model-specific LBR.
+    Sapphire Rapids does not have model-specific LBR at all.  I.e. On SPR and
+    later, model_specific_lbr will always be NULL, so we must make changes to
+    avoid reliably hitting the domain_crash().
+    
+    The Arch LBR spec states that CPUs without model-specific LBR implement
+    MSR_DBG_CTL.LBR by discarding writes and always returning 0.
+    
+    Do this for any CPU for which we lack model-specific LBR information.
+    
+    Adjust the now-stale comment, now that the Arch LBR spec has created a way to
+    signal "no model specific LBR" to guests.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
---00000000000081931c05f27ef684
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit e94af0d58f86c3a914b9cbbf4d9ed3d43b974771
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Mon Jan 9 11:42:22 2023 +0000
 
-<div><br></div><div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
-=3D"gmail_attr">On Tue, 17 Jan 2023 at 23:57, Andrew Cooper &lt;<a href=3D"=
-mailto:Andrew.Cooper3@citrix.com">Andrew.Cooper3@citrix.com</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left-width:1px;border-left-style:solid;padding-left:1ex;border-lef=
-t-color:rgb(204,204,204)">On 16/01/2023 2:39 pm, Oleksii Kurochko wrote:<br=
->
-&gt; diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.deb=
-ug<br>
-&gt; index e69de29bb2..e139e44873 100644<br>
-&gt; --- a/xen/arch/riscv/Kconfig.debug<br>
-&gt; +++ b/xen/arch/riscv/Kconfig.debug<br>
-&gt; @@ -0,0 +1,6 @@<br>
-&gt; +config EARLY_PRINTK<br>
-&gt; +=C2=A0 =C2=A0 bool &quot;Enable early printk&quot;<br>
-&gt; +=C2=A0 =C2=A0 default DEBUG<br>
-&gt; +=C2=A0 =C2=A0 help<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 Enables early printk debug messages<br>
-<br>
-Kconfig indentation is a little hard to get used to.<br>
-<br>
-It&#39;s one tab for the main block, and one tab + 2 spaces for the help te=
-xt.<br>
-<br>
-Also, drop the blank line after help.<br>
-<br>
-&gt; diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile<br>
-&gt; index fd916e1004..1a4f1a6015 100644<br>
-&gt; --- a/xen/arch/riscv/Makefile<br>
-&gt; +++ b/xen/arch/riscv/Makefile<br>
-&gt; @@ -1,3 +1,4 @@<br>
-&gt; +obj-$(CONFIG_EARLY_PRINTK) +=3D early_printk.o<br>
-&gt;=C2=A0 obj-$(CONFIG_RISCV_64) +=3D riscv64/<br>
-&gt;=C2=A0 obj-y +=3D sbi.o<br>
-&gt;=C2=A0 obj-y +=3D setup.o<br>
-&gt; diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_prin=
-tk.c<br>
-&gt; new file mode 100644<br>
-&gt; index 0000000000..6bc29a1942<br>
-&gt; --- /dev/null<br>
-&gt; +++ b/xen/arch/riscv/early_printk.c<br>
-&gt; @@ -0,0 +1,45 @@<br>
-&gt; +/* SPDX-License-Identifier: GPL-2.0 */<br>
-&gt; +/*<br>
-&gt; + * RISC-V early printk using SBI<br>
-&gt; + *<br>
-&gt; + * Copyright (C) 2021 Bobby Eshleman &lt;<a href=3D"mailto:bobbyeshle=
-man@gmail.com" target=3D"_blank">bobbyeshleman@gmail.com</a>&gt;<br>
-&gt; + */<br>
-&gt; +#include &lt;asm/early_printk.h&gt;<br>
-&gt; +#include &lt;asm/sbi.h&gt;<br>
-&gt; +<br>
-&gt; +/*<br>
-&gt; + * early_*() can be called from head.S with MMU-off.<br>
-&gt; + *<br>
-&gt; + * The following requiremets should be honoured for early_*() to<br>
-&gt; + * work correctly:<br>
-&gt; + *=C2=A0 =C2=A0 It should use PC-relative addressing for accessing sy=
-mbols.<br>
-&gt; + *=C2=A0 =C2=A0 To achieve that GCC cmodel=3Dmedany should be used.<b=
-r>
-&gt; + */<br>
-&gt; +#ifndef __riscv_cmodel_medany<br>
-&gt; +#error &quot;early_*() can be called from head.S before relocate so i=
-t should not use absolute addressing.&quot;<br>
-&gt; +#endif<br>
-<br>
-This is incorrect.</blockquote><div dir=3D"auto"><br></div><div dir=3D"auto=
-">Aside the part about the relocation, I do not see what is wrong with it (=
-see below)</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0=
-px 0.8ex;border-left-width:1px;border-left-style:solid;padding-left:1ex;bor=
-der-left-color:rgb(204,204,204)" dir=3D"auto"><br>
-<br>
-What *this* file is compiled with has no bearing on how head.S calls<br>
-us.=C2=A0 The RISC-V documentation explaining __riscv_cmodel_medany vs<br>
-__riscv_cmodel_medlow calls this point out specifically.=C2=A0 There&#39;s<=
-br>
-nothing you can put here to check that head.S gets compiled with medany.</b=
-lockquote><div dir=3D"auto"><br></div><div dir=3D"auto">I believe you misun=
-derstood the goal here. It is not to check how head.S will call it but to e=
-nsure the function is safe to be called when the MMU is off (e.g VA !=3D VA=
-).</div><div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;=
-padding-left:1ex;border-left-color:rgb(204,204,204)" dir=3D"auto"><br>
-<br>
-Right now, there&#39;s nothing in this file dependent on either mode, and<b=
-r>
-it&#39;s not liable to change in the short term.</blockquote><div dir=3D"au=
-to"><br></div><div dir=3D"auto">The whole point is to make sure this don=E2=
-=80=99t change without us knowing.=C2=A0</div><div dir=3D"auto"><br></div><=
-div dir=3D"auto"><br></div><blockquote class=3D"gmail_quote" style=3D"margi=
-n:0px 0px 0px 0.8ex;border-left-width:1px;border-left-style:solid;padding-l=
-eft:1ex;border-left-color:rgb(204,204,204)" dir=3D"auto">=C2=A0 Furthermore=
-, Xen isn&#39;t<br>
-doing any relocation in the first place.<br>
-<br>
-We will want to support XIP in due course, and that will be compiled<br>
-__riscv_cmodel_medlow, which is a fine and legitimate usecase.<br>
-<br>
-<br>
-The build system sets the model up consistently.=C2=A0 All you are doing by=
-<br>
-putting this in is creating work that someone is going to have to delete<br=
->
-for legitimate reasons in the future.</blockquote><div dir=3D"auto"><br></d=
-iv><div dir=3D"auto"><br></div><div dir=3D"auto">Are you saying that a code=
- compiled with medlow can also work with MMU off and no relocation needed?<=
-/div><div dir=3D"auto"><br></div><div dir=3D"auto">If not, then the check i=
-s correct. It would avoid hours of debugging=E2=80=A6</div><div dir=3D"auto=
-"><br></div><div dir=3D"auto">Cheers,</div><div dir=3D"auto"><br></div><blo=
-ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
--width:1px;border-left-style:solid;padding-left:1ex;border-left-color:rgb(2=
-04,204,204)" dir=3D"auto"><br>
-<br>
-&gt; diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c<br>
-&gt; index 13e24e2fe1..9c9412152a 100644<br>
-&gt; --- a/xen/arch/riscv/setup.c<br>
-&gt; +++ b/xen/arch/riscv/setup.c<br>
-&gt; @@ -1,13 +1,17 @@<br>
-&gt;=C2=A0 #include &lt;xen/compile.h&gt;<br>
-&gt;=C2=A0 #include &lt;xen/init.h&gt;<br>
-&gt;=C2=A0 <br>
-&gt; +#include &lt;asm/early_printk.h&gt;<br>
-&gt; +<br>
-&gt;=C2=A0 /* Xen stack for bringing up the first CPU. */<br>
-&gt;=C2=A0 unsigned char __initdata cpu0_boot_stack[STACK_SIZE]<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 __aligned(STACK_SIZE);<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 void __init noreturn start_xen(void)<br>
-&gt;=C2=A0 {<br>
-&gt; -=C2=A0 =C2=A0 for ( ;; )<br>
-&gt; +=C2=A0 =C2=A0 early_printk(&quot;Hello from C env\n&quot;);<br>
-&gt; +<br>
-&gt; +=C2=A0 =C2=A0 for ( ; ; )<br>
-<br>
-Rebasing error?<br>
-<br>
-~Andrew<br>
-</blockquote></div></div>-- <br><div dir=3D"ltr" class=3D"gmail_signature" =
-data-smartmail=3D"gmail_signature">Julien Grall</div>
+    x86/vmx: Calculate model-specific LBRs once at start of day
+    
+    There is no point repeating this calculation at runtime, especially as it is
+    in the fallback path of the WRSMR/RDMSR handlers.
+    
+    Move the infrastructure higher in vmx.c to avoid forward declarations,
+    renaming last_branch_msr_get() to get_model_specific_lbr() to highlight that
+    these are model-specific only.
+    
+    No practical change.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
 
---00000000000081931c05f27ef684--
+commit e6ee01ad24b6a1c3b922579964deebb119a90a48
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Jan 3 15:08:56 2023 +0000
+
+    xen/version: Drop compat/kernel.c
+    
+    kernel.c is mostly in an #ifndef COMPAT guard, because compat/kernel.c
+    re-includes kernel.c to recompile xen_version() in a compat form.
+    
+    However, the xen_version hypercall is almost guest-ABI-agnostic; only
+    XENVER_platform_parameters has a compat split.  Handle this locally, and do
+    away with the re-include entirely.  Also drop the CHECK_TYPE()'s between types
+    that are simply char-arrays in their native and compat form.
+    
+    In particular, this removed the final instances of obfuscation via the DO()
+    macro.
+    
+    No functional change.  Also saves 2k of of .text in the x86 build.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+
+commit 73f0696dc1d31a987563184ce1d01cbf5d12d6ab
+Author: Andrew Cooper <andrew.cooper3@citrix.com>
+Date:   Tue Dec 20 15:51:07 2022 +0000
+
+    public/version: Change xen_feature_info to have a fixed size
+    
+    This is technically an ABI change, but Xen doesn't operate in any environment
+    where "unsigned int" is different to uint32_t, so switch to the explicit form.
+    This avoids the need to derive (identical) compat logic for handling the
+    subop.
+    
+    Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+    Acked-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
