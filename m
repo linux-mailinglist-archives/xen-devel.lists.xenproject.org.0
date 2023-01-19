@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A2E7674417
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 22:12:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481338.746151 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D40674672
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 23:55:41 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481349.746170 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIcD6-0002kS-LJ; Thu, 19 Jan 2023 21:12:36 +0000
+	id 1pIdnf-0004FQ-1f; Thu, 19 Jan 2023 22:54:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481338.746151; Thu, 19 Jan 2023 21:12:36 +0000
+Received: by outflank-mailman (output) from mailman id 481349.746170; Thu, 19 Jan 2023 22:54:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIcD6-0002ha-IT; Thu, 19 Jan 2023 21:12:36 +0000
-Received: by outflank-mailman (input) for mailman id 481338;
- Thu, 19 Jan 2023 21:12:34 +0000
+	id 1pIdne-0004D2-Uz; Thu, 19 Jan 2023 22:54:26 +0000
+Received: by outflank-mailman (input) for mailman id 481349;
+ Thu, 19 Jan 2023 22:54:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=4g95=5Q=linutronix.de=tglx@srs-se1.protection.inumbo.net>)
- id 1pIcD4-0002Ux-7s
- for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 21:12:34 +0000
-Received: from galois.linutronix.de (galois.linutronix.de [193.142.43.55])
+ <SRS0=PYO0=5Q=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pIdnd-0004Cw-B3
+ for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 22:54:25 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd594469-983d-11ed-91b6-6bf2151ebd3b;
- Thu, 19 Jan 2023 22:12:33 +0100 (CET)
+ id 3679293e-984c-11ed-91b6-6bf2151ebd3b;
+ Thu, 19 Jan 2023 23:54:23 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3838061D5F;
+ Thu, 19 Jan 2023 22:54:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF3DDC433F1;
+ Thu, 19 Jan 2023 22:54:19 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,111 +43,146 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd594469-983d-11ed-91b6-6bf2151ebd3b
-From: Thomas Gleixner <tglx@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1674162752;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rRUXLP0p0WQ+Qd4xVEuRKMl25ggID9YoYcEY3DCIiik=;
-	b=mdQ7CD0wRJvfaZDOr0f82Dc4967iwC75I1+s5lDCu1fHHwtrp+IBba8UPSoQ/va3j4Qar2
-	ATGu2nZLLKa0vJ8CheBHLvt0I89xHSG06ZUusQKDPY104va7qqUjwYfiuIUukk+LaqO7Gu
-	N+aHnCbtSnW+e8Smx0L+A2DiKy1AOSyLQ5QGRIN4vgJHVE1sRkt9jT/0k9LahiDV7T+AiK
-	jKmIL8dmtVDNgeoMh+UAXcZ37mv49o4hNCz9KdPCGAyDUP9ZfpqnymsWZ0f3dG4LxhFiyw
-	RTndkgdz2BKS/FhRmtxFB9hP9YbenuT2IOAVALIMh4inh4bZRqxisS45FivGfA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1674162752;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=rRUXLP0p0WQ+Qd4xVEuRKMl25ggID9YoYcEY3DCIiik=;
-	b=0BJ5w/p0x778LsQ1MznxzGrIdB3OE1QGABAUfN3vpOmJUgdDINUgQsr9tLqZGxSzWuC+ct
-	ivl26is4VR39BBBw==
-To: Igor Mammedov <imammedo@redhat.com>, "Srivatsa S. Bhat"
- <srivatsa@csail.mit.edu>
-Cc: linux-kernel@vger.kernel.org, amakhalov@vmware.com, ganb@vmware.com,
- ankitja@vmware.com, bordoloih@vmware.com, keerthanak@vmware.com,
- blamoreaux@vmware.com, namit@vmware.com, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
- <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter
- Anvin" <hpa@zytor.com>, "Rafael J.
- Wysocki" <rafael.j.wysocki@intel.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, Wyes Karny <wyes.karny@amd.com>, Lewis Caroll
- <lewis.carroll@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, Juergen
- Gross <jgross@suse.com>, x86@kernel.org, VMware PV-Drivers Reviewers
- <pv-drivers@vmware.com>, virtualization@lists.linux-foundation.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] x86/hotplug: Do not put offline vCPUs in mwait idle
- state
-In-Reply-To: <20230116155526.05d37ff9@imammedo.users.ipa.redhat.com>
-References: <20230116060134.80259-1-srivatsa@csail.mit.edu>
- <20230116155526.05d37ff9@imammedo.users.ipa.redhat.com>
-Date: Thu, 19 Jan 2023 22:12:31 +0100
-Message-ID: <87bkmui5z4.ffs@tglx>
+X-Inumbo-ID: 3679293e-984c-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1674168860;
+	bh=dC/jVX4XfevFCiywKrgTd2muNUX6G+Rw36Whx4b84Kk=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=s8XN97enMvkt05il3Xv1nHCiogvwlDN4i3GJdSvE8aVoNWu9290AWZ0kKxf1gHflH
+	 u3KW5Y76fMkPhqPVQYMB9q8xZ9XqhWcXulKgMYntkI4GLMHIsXVmetMcWYU/kES2xE
+	 caatkMhjCnDDZaOd1TGP4V6e3nXMkh4TCadhSvgf4GaMYuKqUBig1PF7iF47ilsTgn
+	 LWjrhxemhxX7uFbjy8sp1G0vt94un9dwvF2tcsT3BMb7nmLxauHVAN3gpFbrJNuJST
+	 r70JNKygJIgr/iD2I9HUUkcrwrflrla+I+1RCGuXAjjHLrYaAPB5hUlEleQGlA1Z6Q
+	 zy/5KCM+PTHQw==
+Date: Thu, 19 Jan 2023 14:54:14 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com
+Subject: Re: [XEN v2 02/11] xen/arm: Use the correct format specifier
+In-Reply-To: <20230117174358.15344-3-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2301191454080.731018@ubuntu-linux-20-04-desktop>
+References: <20230117174358.15344-1-ayan.kumar.halder@amd.com> <20230117174358.15344-3-ayan.kumar.halder@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 
-On Mon, Jan 16 2023 at 15:55, Igor Mammedov wrote:
-> "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
->> Fix this by preventing the use of mwait idle state in the vCPU offline
->> play_dead() path for any hypervisor, even if mwait support is
->> available.
->
-> if mwait is enabled, it's very likely guest to have cpuidle
-> enabled and using the same mwait as well. So exiting early from
->  mwait_play_dead(), might just punt workflow down:
->   native_play_dead()
->         ...
->         mwait_play_dead();
->         if (cpuidle_play_dead())   <- possible mwait here                                              
->                 hlt_play_dead(); 
->
-> and it will end up in mwait again and only if that fails
-> it will go HLT route and maybe transition to VMM.
+On Tue, 17 Jan 2023, Ayan Kumar Halder wrote:
+> 1. One should use 'PRIpaddr' to display 'paddr_t' variables.
+> 2. One should use 'PRIx64' to display 'u64' in hex format. The current
+> use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
+> address.
+> 
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
-Good point.
-
-> Instead of workaround on guest side,
-> shouldn't hypervisor force VMEXIT on being uplugged vCPU when it's
-> actually hot-unplugging vCPU? (ex: QEMU kicks vCPU out from guest
-> context when it is removing vCPU, among other things)
-
-For a pure guest side CPU unplug operation:
-
-    guest$ echo 0 >/sys/devices/system/cpu/cpu$N/online
-
-the hypervisor is not involved at all. The vCPU is not removed in that
-case.
-
-So to ensure that this ends up in HLT something like the below is
-required.
-
-Note, the removal of the comment after mwait_play_dead() is intentional
-because the comment is completely bogus. Not having MWAIT is not a
-failure. But that wants to be a seperate patch.
-
-Thanks,
-
-        tglx
----        
-diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-index 55cad72715d9..3f1f20f71ec5 100644
---- a/arch/x86/kernel/smpboot.c
-+++ b/arch/x86/kernel/smpboot.c
-@@ -1833,7 +1833,10 @@ void native_play_dead(void)
- 	play_dead_common();
- 	tboot_shutdown(TB_SHUTDOWN_WFS);
- 
--	mwait_play_dead();	/* Only returns on failure */
-+	if (this_cpu_has(X86_FEATURE_HYPERVISOR))
-+		hlt_play_dead();
-+
-+	mwait_play_dead();
- 	if (cpuidle_play_dead())
- 		hlt_play_dead();
- }
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-  
+> ---
+> 
+> Changes from -
+> 
+> v1 - 1. Moved the patch earlier.
+> 2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
+> into this patch.
+> 
+>  xen/arch/arm/domain_build.c | 10 +++++-----
+>  xen/arch/arm/gic-v2.c       |  6 +++---
+>  xen/arch/arm/mm.c           |  2 +-
+>  3 files changed, 9 insertions(+), 9 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index 829cea8de8..33a5945a2d 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1315,7 +1315,7 @@ static int __init make_memory_node(const struct domain *d,
+>      dt_dprintk("Create memory node\n");
+>  
+>      /* ePAPR 3.4 */
+> -    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
+> +    snprintf(buf, sizeof(buf), "memory@%"PRIpaddr, mem->bank[i].start);
+>      res = fdt_begin_node(fdt, buf);
+>      if ( res )
+>          return res;
+> @@ -1383,7 +1383,7 @@ static int __init make_shm_memory_node(const struct domain *d,
+>          __be32 *cells;
+>          unsigned int len = (addrcells + sizecells) * sizeof(__be32);
+>  
+> -        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
+> +        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIpaddr, mem->bank[i].start);
+>          res = fdt_begin_node(fdt, buf);
+>          if ( res )
+>              return res;
+> @@ -2719,7 +2719,7 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+>      /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
+>      char buf[38];
+>  
+> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
+>               vgic_dist_base(&d->arch.vgic));
+>      res = fdt_begin_node(fdt, buf);
+>      if ( res )
+> @@ -2775,7 +2775,7 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+>      char buf[38];
+>      unsigned int i, len = 0;
+>  
+> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+> +    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIpaddr,
+>               vgic_dist_base(&d->arch.vgic));
+>  
+>      res = fdt_begin_node(fdt, buf);
+> @@ -2861,7 +2861,7 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+>      /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
+>      char buf[27];
+>  
+> -    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
+> +    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIpaddr, d->arch.vpl011.base_addr);
+>      res = fdt_begin_node(fdt, buf);
+>      if ( res )
+>          return res;
+> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> index 61802839cb..5d4d298b86 100644
+> --- a/xen/arch/arm/gic-v2.c
+> +++ b/xen/arch/arm/gic-v2.c
+> @@ -1049,7 +1049,7 @@ static void __init gicv2_dt_init(void)
+>      if ( csize < SZ_8K )
+>      {
+>          printk(XENLOG_WARNING "GICv2: WARNING: "
+> -               "The GICC size is too small: %#"PRIx64" expected %#x\n",
+> +               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
+>                 csize, SZ_8K);
+>          if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
+>          {
+> @@ -1280,11 +1280,11 @@ static int __init gicv2_init(void)
+>          gicv2.map_cbase += aliased_offset;
+>  
+>          printk(XENLOG_WARNING
+> -               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
+> +               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
+>                 cbase + aliased_offset);
+>      } else if ( csize == SZ_128K )
+>          printk(XENLOG_WARNING
+> -               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
+> +               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
+>                 csize);
+>  
+>      gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index 0fc6f2992d..fab54618ab 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -249,7 +249,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+>  
+>          pte = mapping[offsets[level]];
+>  
+> -        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
+> +        printk("%s[0x%03x] = 0x%"PRIx64"\n",
+>                 level_strs[level], offsets[level], pte.bits);
+>  
+>          if ( level == 3 || !pte.walk.valid || !pte.walk.table )
+> -- 
+> 2.17.1
+> 
 
