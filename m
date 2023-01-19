@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F20367353F
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 11:15:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.480911.745569 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0426D67353B
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 11:15:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.480913.745539 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIRwf-0000Wt-Tc; Thu, 19 Jan 2023 10:14:57 +0000
+	id 1pIRwQ-0007nn-04; Thu, 19 Jan 2023 10:14:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 480911.745569; Thu, 19 Jan 2023 10:14:57 +0000
+Received: by outflank-mailman (output) from mailman id 480913.745539; Thu, 19 Jan 2023 10:14:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIRwf-0000TX-Qg; Thu, 19 Jan 2023 10:14:57 +0000
-Received: by outflank-mailman (input) for mailman id 480911;
- Thu, 19 Jan 2023 10:14:22 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pIRwP-0007lK-T7; Thu, 19 Jan 2023 10:14:41 +0000
+Received: by outflank-mailman (input) for mailman id 480913;
+ Thu, 19 Jan 2023 10:14:40 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=7itS=5Q=amazon.com=prvs=3763fc082=mstrasun@srs-se1.protection.inumbo.net>)
- id 1pIRw6-0007Sb-Sz
- for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 10:14:22 +0000
-Received: from smtp-fw-80007.amazon.com (smtp-fw-80007.amazon.com
- [99.78.197.218]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0985ffd9-97e2-11ed-91b6-6bf2151ebd3b;
- Thu, 19 Jan 2023 11:14:21 +0100 (CET)
-Received: from pdx4-co-svc-p1-lb2-vlan3.amazon.com (HELO
- email-inbound-relay-iad-1e-m6i4x-7dc0ecf1.us-east-1.amazon.com)
- ([10.25.36.214]) by smtp-border-fw-80007.pdx80.corp.amazon.com with
- ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jan 2023 10:14:17 +0000
-Received: from EX13D45EUA003.ant.amazon.com
+ id 1pIRwO-0007kn-DI
+ for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 10:14:40 +0000
+Received: from smtp-fw-2101.amazon.com (smtp-fw-2101.amazon.com [72.21.196.25])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 140a99f7-97e2-11ed-b8d1-410ff93cb8f0;
+ Thu, 19 Jan 2023 11:14:38 +0100 (CET)
+Received: from iad12-co-svc-p1-lb1-vlan3.amazon.com (HELO
+ email-inbound-relay-iad-1a-m6i4x-96feee09.us-east-1.amazon.com) ([10.43.8.6])
+ by smtp-border-fw-2101.iad2.amazon.com with
+ ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Jan 2023 10:14:34 +0000
+Received: from EX13D50EUA002.ant.amazon.com
  (iad12-ws-svc-p26-lb9-vlan2.iad.amazon.com [10.40.163.34])
- by email-inbound-relay-iad-1e-m6i4x-7dc0ecf1.us-east-1.amazon.com (Postfix)
- with ESMTPS id AFD1B83352
- for <xen-devel@lists.xenproject.org>; Thu, 19 Jan 2023 10:14:15 +0000 (UTC)
-Received: from EX19D039EUA004.ant.amazon.com (10.252.50.95) by
- EX13D45EUA003.ant.amazon.com (10.43.165.71) with Microsoft SMTP Server (TLS)
- id 15.0.1497.45; Thu, 19 Jan 2023 10:14:13 +0000
-Received: from EX13MTAUEB002.ant.amazon.com (10.43.60.12) by
- EX19D039EUA004.ant.amazon.com (10.252.50.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.1118.7;
- Thu, 19 Jan 2023 10:14:13 +0000
+ by email-inbound-relay-iad-1a-m6i4x-96feee09.us-east-1.amazon.com (Postfix)
+ with ESMTPS id 3D6C842F0E
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jan 2023 10:14:34 +0000 (UTC)
+Received: from EX19D003EUA004.ant.amazon.com (10.252.50.128) by
+ EX13D50EUA002.ant.amazon.com (10.43.165.201) with Microsoft SMTP Server (TLS)
+ id 15.0.1497.45; Thu, 19 Jan 2023 10:14:33 +0000
+Received: from EX13MTAUEE002.ant.amazon.com (10.43.62.24) by
+ EX19D003EUA004.ant.amazon.com (10.252.50.128) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.2.1118.7; Thu, 19 Jan 2023 10:14:33 +0000
 Received: from dev-dsk-mstrasun-1c-15417e94.eu-west-1.amazon.com
- (172.19.92.214) by mail-relay.amazon.com (10.43.60.234) with Microsoft SMTP
- Server id 15.0.1497.45 via Frontend Transport; Thu, 19 Jan 2023 10:14:12
+ (172.19.92.214) by mail-relay.amazon.com (10.43.62.224) with Microsoft SMTP
+ Server id 15.0.1497.45 via Frontend Transport; Thu, 19 Jan 2023 10:14:32
  +0000
 Received: by dev-dsk-mstrasun-1c-15417e94.eu-west-1.amazon.com (Postfix,
  from userid 17415739)
- id 8126F21426; Thu, 19 Jan 2023 10:14:12 +0000 (UTC)
+ id 19BEB21426; Thu, 19 Jan 2023 10:14:32 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,25 +58,26 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0985ffd9-97e2-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 140a99f7-97e2-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazon201209;
-  t=1674123262; x=1705659262;
+  t=1674123278; x=1705659278;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=4hf1x7Xe4bXRLb6h+Ksi8ZE8+Xk4HBnSsvCu7j+CUQ4=;
-  b=nUKTLNs6VsJLVg0yLiH7j7Q9MHx6dzSiqZmmGoJxY8FxPds9AhAFBV4l
-   qRSCRlKVGoO8rDABdOJf74K5UZ+prgZBd1rZ3uymNR3ZsRG+MWIwhDVTU
-   TC7NmyI6qGtoLWWE+HVn6VS8L+I/3l+bLLOCr7QnWrJkPg9B+l1wjY+Xf
-   s=;
+  bh=2xU/uBcWEWbfzk2TqLk64mpRRkZpjZZO7FkjawvYQC8=;
+  b=XwJ0oRAz/IEfDDBcyv6oPOgWj5WE8hqfb1DuEJZdQM2/DDx+iUhyJvVH
+   6G3VC0pnt37F1kgwwhmQ1MbihMrhGpI8aEDhooo8sbzOpGE3FuKDE7Fl7
+   bWHJXDm53j4046GY3cLLilt9HmAdlkWatYBtFz4L1QHhshjX2UUSr0UAO
+   k=;
 X-IronPort-AV: E=Sophos;i="5.97,228,1669075200"; 
-   d="scan'208";a="172738134"
+   d="scan'208";a="284332618"
 From: Mihails Strasuns <mstrasun@amazon.com>
 To: <xen-devel@lists.xenproject.org>
-CC: <mstrasun@amazon.com>, Michael Kurth <mku@amazon.com>
-Subject: [PATCH v1 1/4] common.h: Flush stdout before writing to stderr
-Date: Thu, 19 Jan 2023 10:13:02 +0000
-Message-ID: <2e89973f61bbd6e6ebb423ec6fe7a025d5404235.1673623880.git.mstrasun@amazon.com>
+CC: <mstrasun@amazon.com>, Raphael Ning <raphning@amazon.com>, Bjoern Doebel
+	<doebel@amazon.de>, Martin Pohlack <mpohlack@amazon.de>
+Subject: [PATCH v1 2/4] livepatch-build: Allow a patch to introduce new subdirs
+Date: Thu, 19 Jan 2023 10:13:04 +0000
+Message-ID: <472bfbf92aba6d3409b2a101798f04a50c97f6e9.1673623880.git.mstrasun@amazon.com>
 X-Mailer: git-send-email 2.38.1
 In-Reply-To: <cover.1673623880.git.mstrasun@amazon.com>
 References: <cover.1673623880.git.mstrasun@amazon.com>
@@ -85,29 +86,36 @@ Precedence: Bulk
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Flush existing debug messages before writing an error to stderr.  stderr
-is usually unbuffered and stdout is usually buffered. This results in
-odd looking output when an error occurs and both stderr/stdout are
-printed on the same console/file. More precisely, the error message is
-printed in the middle of previously emitted debug messages.
+From: Raphael Ning <raphning@amazon.com>
 
-Signed-off-by: Michael Kurth <mku@amazon.com>
+Fix a bug in create_patch() where cp, strip, etc. will fail if the new
+object file introduced by the patch is located in a new subdirectory:
+
+ DEBUG: cp: cannot create regular file `output/xen/common/lu/lu.o': No such file or directory
+ DEBUG: strip: 'output/xen/common/lu/lu.o': No such file
+
+In this example, xen/common/lu/ does not exist in the original
+(unpatched) Xen source tree. It needs to be created in output/ as well.
+
+Signed-off-by: Raphael Ning <raphning@amazon.com>
+Reviewed-by: Bjoern Doebel <doebel@amazon.de>
+Reviewed-by: Martin Pohlack <mpohlack@amazon.de>
 ---
- common.h | 1 +
+ livepatch-build | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/common.h b/common.h
-index 02c9b7b..9a9da79 100644
---- a/common.h
-+++ b/common.h
-@@ -10,6 +10,7 @@ extern char *childobj;
+diff --git a/livepatch-build b/livepatch-build
+index f7d6471..444daa9 100755
+--- a/livepatch-build
++++ b/livepatch-build
+@@ -232,6 +232,7 @@ function create_patch()
  
- #define DIFF_FATAL(format, ...) \
- ({ \
-+	fflush(stdout); \
- 	fprintf(stderr, "ERROR: %s: " format "\n", childobj, ##__VA_ARGS__); \
- 	error(2, 0, "unreconcilable difference"); \
- })
+     NEW_FILES=$(comm -23 <(cd patched/xen && find . -type f -name '*.o' | sort) <(cd original/xen && find . -type f -name '*.o' | sort))
+     for i in $NEW_FILES; do
++        mkdir -p "output/$(dirname "$i")"
+         cp "patched/$i" "output/$i"
+         [[ $STRIP -eq 1 ]] && strip --strip-unneeded "output/$i"
+         CHANGED=1
 -- 
 2.38.1
 
