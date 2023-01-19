@@ -2,36 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D091D674205
-	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 20:04:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481277.746063 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 494996742F2
+	for <lists+xen-devel@lfdr.de>; Thu, 19 Jan 2023 20:37:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481312.746103 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIaDB-0002j5-IV; Thu, 19 Jan 2023 19:04:33 +0000
+	id 1pIahZ-00083B-Kt; Thu, 19 Jan 2023 19:35:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481277.746063; Thu, 19 Jan 2023 19:04:33 +0000
+Received: by outflank-mailman (output) from mailman id 481312.746103; Thu, 19 Jan 2023 19:35:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIaDB-0002dP-Af; Thu, 19 Jan 2023 19:04:33 +0000
-Received: by outflank-mailman (input) for mailman id 481277;
- Thu, 19 Jan 2023 19:04:32 +0000
+	id 1pIahZ-00081A-Hy; Thu, 19 Jan 2023 19:35:57 +0000
+Received: by outflank-mailman (input) for mailman id 481312;
+ Thu, 19 Jan 2023 19:35:56 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Tmj6=5Q=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pIaDA-0002Ev-9A
- for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 19:04:32 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 19ea16b0-982c-11ed-b8d1-410ff93cb8f0;
- Thu, 19 Jan 2023 20:04:30 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id AEF315C011B;
- Thu, 19 Jan 2023 14:04:29 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Thu, 19 Jan 2023 14:04:29 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Jan 2023 14:04:28 -0500 (EST)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=vhZF=5Q=zytor.com=hpa@srs-se1.protection.inumbo.net>)
+ id 1pIahY-000812-83
+ for xen-devel@lists.xenproject.org; Thu, 19 Jan 2023 19:35:56 +0000
+Received: from mail.zytor.com (unknown [2607:7c80:54:3::138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7af6aad2-9830-11ed-b8d1-410ff93cb8f0;
+ Thu, 19 Jan 2023 20:35:52 +0100 (CET)
+Received: from [127.0.0.1] ([73.223.250.219]) (authenticated bits=0)
+ by mail.zytor.com (8.17.1/8.17.1) with ESMTPSA id 30JJZ95D909956
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
+ Thu, 19 Jan 2023 11:35:09 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,94 +40,77 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 19ea16b0-982c-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
-	:subject:to:to; s=fm3; t=1674155069; x=1674241469; bh=xD2qxTwi/N
-	WHKFJGn9LwYuXdkJ4R6DAu/R1nUg2IBG0=; b=ecpOATQXTQt1OzoFqAbAKuwXQ0
-	P3/N3pE/0VHkO79vVJS3N2J/Rd4OQ2EYsI/8JxXuur6kDGkZ6YVocJ3ySEUWk9sC
-	K3u1L8gMGZBo+8OxBCdShJo0RDA5nrICMOoSEOaa0IxOduZBwf0q3IapL+OfngmB
-	qq68kfN1SIuWl2sPQqLNmvwmLM5M8tKqLAQw1dPgLuhAXER+We9ER2vT/0rFHt6v
-	VPvkPbqobs1C0lFmmpD5kzpb7eKPmgN/VbMHV3WrKL6sYlN6EnWMOoKCcGUnJf3D
-	xIgcJQBzGbgxqP2O6HsGOPlUUUUy8A4uRmxNbK/CJUhgFUalagYHzy6T171A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1674155069; x=
-	1674241469; bh=xD2qxTwi/NWHKFJGn9LwYuXdkJ4R6DAu/R1nUg2IBG0=; b=o
-	68ZJd58KoLnxfMYqNc6GW6TyohkNX2AMV+/mm2cYVWNaKKPdY9GDHZ0q/dF/ON7Q
-	zpIs0v6T4J5JkJ5uH1uv5oqEaQw+leGy9yKPN/xZH2zFKj3Aq/l/+rgq3oi6pZDE
-	sFI3UGAEbys/g6nPMWkE85PsnD0EzDp0coYn/p4D98AyZjySp4PfbCtxDvdHLEQF
-	47dfxn+ZiV9fqBKYXfpZz/bD310keEUiL0R8An8YPF8pw6MzxLwJQmXx5lQw4TGK
-	PcLN/eD1pFZ6aO724/Kn+u1OjpY+U+8t+ZWykaElOSiHzxTywZuxdSjQzRwrwMvH
-	HAeU5i7XO/EgLLO+/x6aA==
-X-ME-Sender: <xms:PZTJYywVRv9e_jPD1JlUeYUEogg99S1ZlWfrcCHtckcBlCRT1Qapcw>
-    <xme:PZTJY-SnYpx5gtA7aZaJVmkSuuvP9a2WIwuNhoIqKDkhSUKmytjl5hi9ctSh1TdHW
-    1k8aYXGFGEmtOs>
-X-ME-Received: <xmr:PZTJY0WsaK4q1u3vPbOZwE7_m_7s213-yq67z4tJYWD6dtAxXe3j1jNDM2Jngv0LbAOjybKeNoPy>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddutddguddvudcutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepffgv
-    mhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhih
-    hnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepledukeelleejkeevkeefgefh
-    ffegvdeigeelieegjefffeeiveeivdejgeevteeinecuvehluhhsthgvrhfuihiivgeptd
-    enucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhn
-    ghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:PZTJY4jD1jeiU98W-4CXzhlO7tUA2SEQitukbTA72xPHi3FJXH-l6Q>
-    <xmx:PZTJY0A1wSfRmLo0RYo23Hb7239yMW_5XQNIVfSBrcsjr2ADN5C9HA>
-    <xmx:PZTJY5LIAZuI10qYrPS-w7Cmn8v-_uqg30qoUOAumWQFPHMsjWsuGQ>
-    <xmx:PZTJY20dUyD8JdS0XJ9HZ7AvUxJF4-HZfkwMQqw848OERA03DOX8Bg>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Ard Biesheuvel <ardb@kernel.org>,
-	Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	linux-efi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: [PATCH v3 5/5] efi: Warn if trying to reserve memory under Xen
-Date: Thu, 19 Jan 2023 14:04:00 -0500
-Message-Id: <e51d5abde5c5dfd122cb96f71d0dd8acc0cd358d.1669264419.git.demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <b18879e0329c785d35f2aa2164413bb56419c684.1674153153.git.demi@invisiblethingslab.com>
-References: <b18879e0329c785d35f2aa2164413bb56419c684.1674153153.git.demi@invisiblethingslab.com>
+X-Inumbo-ID: 7af6aad2-9830-11ed-b8d1-410ff93cb8f0
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 30JJZ95D909956
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
+	s=2023010601; t=1674156911;
+	bh=KFNC6n5tjG56AZ6QGCCnA813vxZPvPdVzmseUKYQm/I=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
+	b=TfwjDirpObGhbZuqhQo/OjXlYctFSVNIqq7knSM29fRDfZ2tQke+RwtNnj4zfQlUu
+	 Bq7qw2iSUSh4dJSDm7i/EaoS584mAtH8JI0HxllkzWt3z0T8MZU4Yg0NjdsZBw+YZK
+	 ZfM4pgmJ0Ook31LrNi0G4ZIduvwtcQZqBqp0unnHdEG7AuhbJIo+R1m0AcjiUZ0cRr
+	 NKhVSWrU3s9CUZaUwpuO6d8p7hTU5Lu7doD4erJ735/nqwxXHrIi/r4/iUAE4IvqIK
+	 0aAr/sWn86woN3PLoEzLyYRrgoztLvaP7svvxfNwZ4ItddpzPXF3KsA96J5mrIBTMy
+	 XnFHIg1J9H7Nw==
+Date: Thu, 19 Jan 2023 11:35:06 -0800
+From: "H. Peter Anvin" <hpa@zytor.com>
+To: Peter Zijlstra <peterz@infradead.org>, x86@kernel.org,
+        Joan Bruguera <joanbrugueram@gmail.com>
+CC: linux-kernel@vger.kernel.org, Juergen Gross <jgross@suse.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        xen-devel <xen-devel@lists.xenproject.org>,
+        Jan Beulich <jbeulich@suse.com>,
+        Roger Pau Monne <roger.pau@citrix.com>,
+        Kees Cook <keescook@chromium.org>, mark.rutland@arm.com,
+        Andrew Cooper <Andrew.Cooper3@citrix.com>,
+        =?ISO-8859-1?Q?J=F6rg_R=F6del?= <joro@8bytes.org>, jroedel@suse.de,
+        kirill.shutemov@linux.intel.com, dave.hansen@intel.com,
+        kai.huang@intel.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_1/7=5D_x86/boot=3A_Remove_ve?= =?US-ASCII?Q?rify=5Fcpu=28=29_from_secondary=5Fstartup=5F64=28=29?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <Y8e/yKgVZgbqgvAG@hirez.programming.kicks-ass.net>
+References: <20230116142533.905102512@infradead.org> <20230116143645.589522290@infradead.org> <Y8e/yKgVZgbqgvAG@hirez.programming.kicks-ass.net>
+Message-ID: <5718C98C-C07A-4BD1-9182-7F3A8BDBC605@zytor.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Doing so cannot work and should never happen.
+On January 18, 2023 1:45:44 AM PST, Peter Zijlstra <peterz@infradead=2Eorg>=
+ wrote:
+>On Mon, Jan 16, 2023 at 03:25:34PM +0100, Peter Zijlstra wrote:
+>> The boot trampolines from trampoline_64=2ES have code flow like:
+>>=20
+>>   16bit BIOS			SEV-ES				64bit EFI
+>>=20
+>>   trampoline_start()		sev_es_trampoline_start()	trampoline_start_64()
+>>     verify_cpu()			  |				|
+>>   switch_to_protected:    <---------------'				v
+>>        |							pa_trampoline_compat()
+>>        v								|
+>>   startup_32()		<-----------------------------------------------'
+>>        |
+>>        v
+>>   startup_64()
+>>        |
+>>        v
+>>   tr_start() :=3D head_64=2ES:secondary_startup_64()
+>>=20
+>> Since AP bringup always goes through the 16bit BIOS path (EFI doesn't
+>> touch the APs), there is already a verify_cpu() invocation=2E
+>
+>So supposedly TDX/ACPI-6=2E4 comes in on trampoline_startup64() for APs -=
+-
+>can any of the TDX capable folks tell me if we need verify_cpu() on
+>these?
+>
+>Aside from checking for LM, it seems to clear XD_DISABLE on Intel and
+>force enable SSE on AMD/K7=2E Surely none of that is needed for these
+>shiny new chips?
+>
+>I mean, I can hack up a patch that adds verify_cpu() to the 64bit entry
+>point, but it seems really sad to need that on modern systems=2E
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-Tested-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
----
- drivers/firmware/efi/efi.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/firmware/efi/efi.c b/drivers/firmware/efi/efi.c
-index b49fcde06ca0ff5347047666f38b9309bd9cfe26..902f323499d8acc4f2b846a78993eb201448acad 100644
---- a/drivers/firmware/efi/efi.c
-+++ b/drivers/firmware/efi/efi.c
-@@ -519,6 +519,10 @@ void __init __weak efi_arch_mem_reserve(phys_addr_t addr, u64 size) {}
-  */
- void __init efi_mem_reserve(phys_addr_t addr, u64 size)
- {
-+	/* efi_mem_reserve() does not work under Xen */
-+	if (WARN_ON_ONCE(efi_enabled(EFI_PARAVIRT)))
-+		return;
-+
- 	if (!memblock_is_region_reserved(addr, size))
- 		memblock_reserve(addr, size);
- 
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+Sad, perhaps, but really better for orthogonality =E2=80=93 fewer special =
+cases=2E
 
