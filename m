@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 458016757F5
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:00:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481858.747071 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48EFA6757FA
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:00:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481861.747106 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssH-0007ca-Rn; Fri, 20 Jan 2023 15:00:13 +0000
+	id 1pIssL-00005Z-DA; Fri, 20 Jan 2023 15:00:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481858.747071; Fri, 20 Jan 2023 15:00:13 +0000
+Received: by outflank-mailman (output) from mailman id 481861.747106; Fri, 20 Jan 2023 15:00:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssH-0007T6-F6; Fri, 20 Jan 2023 15:00:13 +0000
-Received: by outflank-mailman (input) for mailman id 481858;
- Fri, 20 Jan 2023 15:00:11 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pIssK-0008PA-KF; Fri, 20 Jan 2023 15:00:16 +0000
+Received: by outflank-mailman (input) for mailman id 481861;
+ Fri, 20 Jan 2023 15:00:13 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RVut=5R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pIssF-0006Kg-GE
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:00:11 +0000
-Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
- [2a00:1450:4864:20::436])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 229ae9d3-98d3-11ed-91b6-6bf2151ebd3b;
- Fri, 20 Jan 2023 16:00:10 +0100 (CET)
-Received: by mail-wr1-x436.google.com with SMTP id r2so5090823wrv.7
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:00:10 -0800 (PST)
+ id 1pIssH-0006SQ-Dq
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:00:13 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 23371b36-98d3-11ed-b8d1-410ff93cb8f0;
+ Fri, 20 Jan 2023 16:00:11 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id t5so5117565wrq.1
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:00:11 -0800 (PST)
 Received: from localhost.localdomain
  (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
  by smtp.gmail.com with ESMTPSA id
- o2-20020a5d58c2000000b002bdbead763csm25349811wrf.95.2023.01.20.07.00.08
+ o2-20020a5d58c2000000b002bdbead763csm25349811wrf.95.2023.01.20.07.00.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:00:09 -0800 (PST)
+ Fri, 20 Jan 2023 07:00:10 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 229ae9d3-98d3-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 23371b36-98d3-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=5On9Ljb8od/hZFXAUMkhhR6b6lBaYm3tiocvPuOanJo=;
-        b=pDhH7j2TPsx7enpELQT3c9yjlF6JakH1voO/6HzAr1AnpbCtuB8xtmohCX50LHYd9J
-         nShRQkrBDx+z9L74wDnzNvtardP8lLtdWWoTWe5Cz5EfvvO351iXoI0BYmOlFy2s8v5p
-         oeKTSapJuc/lEDWDsDapTg9Lbdzo/oyKIVCKpVoDGcba+L0fVGP8heeV0G4sAGW3D8k9
-         wmoVO57V3yLUJAJz89DupuOhmL5fnyId+d7JRVU+UvvNqKeoRqD/mRwaum/L9Fq2WwSX
-         oGlz8Z/Q5HuXbU6t0I6X2KIZlcb7dftlKsyxlHrSQX2oVaweZvF0Xhf5cnvdaA7k5bTV
-         ZHiQ==
+        bh=Oa0wgdXnZxM249MLdfrJG7qfiY3SAdUUZ8LhXWtM0Ic=;
+        b=ZABVCYsyUwKcpQX/0rzLULBtNWpkV9f4/4PXMYrYkEgKk+mKZn/DNDloFJKUDTrixv
+         Po36LgKBFSxolnriU06W0pe/TW3yjv8dxO0RLkHDxLXKyfcwtwFYfZ7aTYKt0eD95p6T
+         7MINqvik3DYun61yVCym92uqCPZfh/fVQtS/HKpqV8TpkUCMBbtef+r4cHS6Ko8i5qef
+         ukUJ1HY6Pti6D0kGKBKsCsCgiHtUS+FzSR6JEtntdKA4SsLCb7HONIDZfSYceVGi0/TV
+         wASdlX+wR+hAOEs4Acc28rWr915dBjeqzLqvf0emA8noZjE1s91x7Bxq7DpuJb00pl3a
+         VG3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=5On9Ljb8od/hZFXAUMkhhR6b6lBaYm3tiocvPuOanJo=;
-        b=ggVBx6IaRBXONhtjZgaVRXh88xF3V7gvKGRfpa6eIwtVjJymBEmERGeZ/+mncBa4Ib
-         ChzPZw9IxOp0qiQ2/yDKT7VmyoYTWaB/5lF3pCaej58k+K0J0pnOVrkAvG+Y5t2Yf/gZ
-         /6l6tklzzBqK6kpdw82ejT6txn2iT03fUdsCC54oUblozumPJAUuXIMD2pUMdAVa+zGT
-         uiSznHH4+/BPJIeBxg92vij/7qrGGcnfftYAe135eLQhx+LwpAKndUoRXyZ+EemcOfKr
-         uT5iU2T9fh29MyPHbree2xIRDLM0+KwjuRBjMfVgbjjBWlmutggARv2g9aBlB2G+InAn
-         o65w==
-X-Gm-Message-State: AFqh2kquFLtOKbIiNJGeUb/DyXeOtbRJh5S3gEZm14y8FErZKivFG6Tw
-	RAr9Da/cK8r8QnQ03EO9CDWs4sN48SH5zw==
-X-Google-Smtp-Source: AMrXdXu4zBsqjxfCKndCaQ8TRBozx/7/N8JgZeecljxPkjZZzt4PdmgjucuapdmrIiLbLvapLMX2HA==
-X-Received: by 2002:adf:eb43:0:b0:2bd:d542:e010 with SMTP id u3-20020adfeb43000000b002bdd542e010mr12250630wrn.46.1674226809884;
-        Fri, 20 Jan 2023 07:00:09 -0800 (PST)
+        bh=Oa0wgdXnZxM249MLdfrJG7qfiY3SAdUUZ8LhXWtM0Ic=;
+        b=yZCeN4MmUps7HohmDwzlNSRffXoCVYC7CFwYlL8jpk5/rC7hXfHW0tww+wWhp7t7ru
+         mJnpwF8qZsoCXq5M59EYWqEaKjM4eYmSsA/pOCELhPp2zNcxkEnIuIGSIO1+NA9PeGSG
+         YtFcXQjmv/GJJmcbrARTATJMOfB1k5Y4HuuuoRPhXcUGsxDwvYmzn43ZGMRjw6kZgn46
+         S4iI8DFTcdpsTTVN8Q7w7nQhgTonx/5gLfM2Xp3YXBfK3ZlVN0JhJtePiBEhEzl9XOYg
+         JQkqJOoFZrq+FLbuQfEXmk3jZDacb4lNUqegUVvkNkzON4vCfPF9LB+rIKmoqkUP/+C1
+         8fzA==
+X-Gm-Message-State: AFqh2komjlIdxNS2IDsBiAjZVSS6B9SFoTr5mnWSQ40EZ99+TNnD6J7w
+	taCCJBWhtohJQUKPf5Pty/dGMPAhBwAAUw==
+X-Google-Smtp-Source: AMrXdXuEs6tkrKfGNgQJxeUkzovrnpB0U2Hqnxd8SMBOuezNI2Q2tP5yjGlQzzQTreLtSGeScTUsOg==
+X-Received: by 2002:a5d:4526:0:b0:2bc:839c:134d with SMTP id j6-20020a5d4526000000b002bc839c134dmr13159877wra.4.1674226810899;
+        Fri, 20 Jan 2023 07:00:10 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,186 +84,124 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1 07/14] xen/riscv: introduce exception handlers implementation
-Date: Fri, 20 Jan 2023 16:59:47 +0200
-Message-Id: <7a459ea843d5823ee2c50b0e44dded5bdb554ca6.1674226563.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 08/14] xen/riscv: introduce decode_cause() stuff
+Date: Fri, 20 Jan 2023 16:59:48 +0200
+Message-Id: <c798832ec19cb94c0a27e8cff8f5bd6d1aa6ae7e.1674226563.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <cover.1674226563.git.oleksii.kurochko@gmail.com>
 References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch introduces an implementation of basic exception handlers:
-- to save/restore context
-- to handle an exception itself. The handler calls wait_for_interrupt
-  now, nothing more.
+The patch introduces stuff needed to decode a reason of an
+exception.
 
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/Makefile            |  2 +
- xen/arch/riscv/entry.S             | 97 ++++++++++++++++++++++++++++++
- xen/arch/riscv/include/asm/traps.h | 13 ++++
- xen/arch/riscv/traps.c             | 13 ++++
- 4 files changed, 125 insertions(+)
- create mode 100644 xen/arch/riscv/entry.S
- create mode 100644 xen/arch/riscv/include/asm/traps.h
- create mode 100644 xen/arch/riscv/traps.c
+ xen/arch/riscv/traps.c | 88 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 88 insertions(+)
 
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index 1a4f1a6015..443f6bf15f 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -1,7 +1,9 @@
- obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
-+obj-y += entry.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
- obj-y += setup.o
-+obj-y += traps.o
- 
- $(TARGET): $(TARGET)-syms
- 	$(OBJCOPY) -O binary -S $< $@
-diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
-new file mode 100644
-index 0000000000..f7d46f42bb
---- /dev/null
-+++ b/xen/arch/riscv/entry.S
-@@ -0,0 +1,97 @@
-+#include <asm/asm.h>
-+#include <asm/processor.h>
-+#include <asm/riscv_encoding.h>
-+#include <asm/traps.h>
-+
-+        .global handle_exception
-+        .align 4
-+
-+handle_exception:
-+
-+    /* Exceptions from xen */
-+save_to_stack:
-+        /* Save context to stack */
-+        REG_S   sp, (RISCV_CPU_USER_REGS_OFFSET(sp) - RISCV_CPU_USER_REGS_SIZE) (sp)
-+        addi    sp, sp, -RISCV_CPU_USER_REGS_SIZE
-+        REG_S   t0, RISCV_CPU_USER_REGS_OFFSET(t0)(sp)
-+        j       save_context
-+
-+save_context:
-+        /* Save registers */
-+        REG_S   ra, RISCV_CPU_USER_REGS_OFFSET(ra)(sp)
-+        REG_S   gp, RISCV_CPU_USER_REGS_OFFSET(gp)(sp)
-+        REG_S   t1, RISCV_CPU_USER_REGS_OFFSET(t1)(sp)
-+        REG_S   t2, RISCV_CPU_USER_REGS_OFFSET(t2)(sp)
-+        REG_S   s0, RISCV_CPU_USER_REGS_OFFSET(s0)(sp)
-+        REG_S   s1, RISCV_CPU_USER_REGS_OFFSET(s1)(sp)
-+        REG_S   a0, RISCV_CPU_USER_REGS_OFFSET(a0)(sp)
-+        REG_S   a1, RISCV_CPU_USER_REGS_OFFSET(a1)(sp)
-+        REG_S   a2, RISCV_CPU_USER_REGS_OFFSET(a2)(sp)
-+        REG_S   a3, RISCV_CPU_USER_REGS_OFFSET(a3)(sp)
-+        REG_S   a4, RISCV_CPU_USER_REGS_OFFSET(a4)(sp)
-+        REG_S   a5, RISCV_CPU_USER_REGS_OFFSET(a5)(sp)
-+        REG_S   a6, RISCV_CPU_USER_REGS_OFFSET(a6)(sp)
-+        REG_S   a7, RISCV_CPU_USER_REGS_OFFSET(a7)(sp)
-+        REG_S   s2, RISCV_CPU_USER_REGS_OFFSET(s2)(sp)
-+        REG_S   s3, RISCV_CPU_USER_REGS_OFFSET(s3)(sp)
-+        REG_S   s4, RISCV_CPU_USER_REGS_OFFSET(s4)(sp)
-+        REG_S   s5, RISCV_CPU_USER_REGS_OFFSET(s5)(sp)
-+        REG_S   s6, RISCV_CPU_USER_REGS_OFFSET(s6)(sp)
-+        REG_S   s7, RISCV_CPU_USER_REGS_OFFSET(s7)(sp)
-+        REG_S   s8, RISCV_CPU_USER_REGS_OFFSET(s8)(sp)
-+        REG_S   s9, RISCV_CPU_USER_REGS_OFFSET(s9)(sp)
-+        REG_S   s10, RISCV_CPU_USER_REGS_OFFSET(s10)(sp)
-+        REG_S   s11, RISCV_CPU_USER_REGS_OFFSET(s11)(sp)
-+        REG_S   t3, RISCV_CPU_USER_REGS_OFFSET(t3)(sp)
-+        REG_S   t4, RISCV_CPU_USER_REGS_OFFSET(t4)(sp)
-+        REG_S   t5, RISCV_CPU_USER_REGS_OFFSET(t5)(sp)
-+        REG_S   t6, RISCV_CPU_USER_REGS_OFFSET(t6)(sp)
-+        csrr    t0, CSR_SEPC
-+        REG_S   t0, RISCV_CPU_USER_REGS_OFFSET(sepc)(sp)
-+        csrr    t0, CSR_SSTATUS
-+        REG_S   t0, RISCV_CPU_USER_REGS_OFFSET(sstatus)(sp)
-+
-+        mv      a0, sp
-+        jal     __handle_exception
-+
-+restore_registers:
-+        /* Restore stack_cpu_regs */
-+        REG_L   t0, RISCV_CPU_USER_REGS_OFFSET(sepc)(sp)
-+        csrw    CSR_SEPC, t0
-+        REG_L   t0, RISCV_CPU_USER_REGS_OFFSET(sstatus)(sp)
-+        csrw    CSR_SSTATUS, t0
-+
-+        REG_L   ra, RISCV_CPU_USER_REGS_OFFSET(ra)(sp)
-+        REG_L   gp, RISCV_CPU_USER_REGS_OFFSET(gp)(sp)
-+        REG_L   t0, RISCV_CPU_USER_REGS_OFFSET(t0)(sp)
-+        REG_L   t1, RISCV_CPU_USER_REGS_OFFSET(t1)(sp)
-+        REG_L   t2, RISCV_CPU_USER_REGS_OFFSET(t2)(sp)
-+        REG_L   s0, RISCV_CPU_USER_REGS_OFFSET(s0)(sp)
-+        REG_L   s1, RISCV_CPU_USER_REGS_OFFSET(s1)(sp)
-+        REG_L   a0, RISCV_CPU_USER_REGS_OFFSET(a0)(sp)
-+        REG_L   a1, RISCV_CPU_USER_REGS_OFFSET(a1)(sp)
-+        REG_L   a2, RISCV_CPU_USER_REGS_OFFSET(a2)(sp)
-+        REG_L   a3, RISCV_CPU_USER_REGS_OFFSET(a3)(sp)
-+        REG_L   a4, RISCV_CPU_USER_REGS_OFFSET(a4)(sp)
-+        REG_L   a5, RISCV_CPU_USER_REGS_OFFSET(a5)(sp)
-+        REG_L   a6, RISCV_CPU_USER_REGS_OFFSET(a6)(sp)
-+        REG_L   a7, RISCV_CPU_USER_REGS_OFFSET(a7)(sp)
-+        REG_L   s2, RISCV_CPU_USER_REGS_OFFSET(s2)(sp)
-+        REG_L   s3, RISCV_CPU_USER_REGS_OFFSET(s3)(sp)
-+        REG_L   s4, RISCV_CPU_USER_REGS_OFFSET(s4)(sp)
-+        REG_L   s5, RISCV_CPU_USER_REGS_OFFSET(s5)(sp)
-+        REG_L   s6, RISCV_CPU_USER_REGS_OFFSET(s6)(sp)
-+        REG_L   s7, RISCV_CPU_USER_REGS_OFFSET(s7)(sp)
-+        REG_L   s8, RISCV_CPU_USER_REGS_OFFSET(s8)(sp)
-+        REG_L   s9, RISCV_CPU_USER_REGS_OFFSET(s9)(sp)
-+        REG_L   s10, RISCV_CPU_USER_REGS_OFFSET(s10)(sp)
-+        REG_L   s11, RISCV_CPU_USER_REGS_OFFSET(s11)(sp)
-+        REG_L   t3, RISCV_CPU_USER_REGS_OFFSET(t3)(sp)
-+        REG_L   t4, RISCV_CPU_USER_REGS_OFFSET(t4)(sp)
-+        REG_L   t5, RISCV_CPU_USER_REGS_OFFSET(t5)(sp)
-+        REG_L   t6, RISCV_CPU_USER_REGS_OFFSET(t6)(sp)
-+
-+        /* Restore sp */
-+        REG_L   sp, RISCV_CPU_USER_REGS_OFFSET(sp)(sp)
-+
-+        sret
-diff --git a/xen/arch/riscv/include/asm/traps.h b/xen/arch/riscv/include/asm/traps.h
-new file mode 100644
-index 0000000000..816ab1178a
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/traps.h
-@@ -0,0 +1,13 @@
-+#ifndef __ASM_TRAPS_H__
-+#define __ASM_TRAPS_H__
-+
-+#include <asm/processor.h>
-+
-+#ifndef __ASSEMBLY__
-+
-+void __handle_exception(struct cpu_user_regs *cpu_regs);
-+void handle_exception(void);
-+
-+#endif /* __ASSEMBLY__ */
-+
-+#endif /* __ASM_TRAPS_H__ */
 diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-new file mode 100644
-index 0000000000..3201b851ef
---- /dev/null
+index 3201b851ef..dd64f053a5 100644
+--- a/xen/arch/riscv/traps.c
 +++ b/xen/arch/riscv/traps.c
-@@ -0,0 +1,13 @@
-+/* SPDX-License-Identifier: GPL-2.0-or-later */
-+/*
-+ * Copyright (C) 2023 Vates
-+ *
-+ * RISC-V Trap handlers
-+ */
-+#include <asm/processor.h>
-+#include <asm/traps.h>
+@@ -4,8 +4,96 @@
+  *
+  * RISC-V Trap handlers
+  */
++#include <asm/csr.h>
++#include <asm/early_printk.h>
+ #include <asm/processor.h>
+ #include <asm/traps.h>
++#include <xen/errno.h>
 +
-+void __handle_exception(struct cpu_user_regs *cpu_regs)
++const char *decode_trap_cause(unsigned long cause)
 +{
-+    wait_for_interrupt();
++    switch ( cause )
++    {
++    case CAUSE_MISALIGNED_FETCH:
++        return "Instruction Address Misaligned";
++    case CAUSE_FETCH_ACCESS:
++        return "Instruction Access Fault";
++    case CAUSE_ILLEGAL_INSTRUCTION:
++        return "Illegal Instruction";
++    case CAUSE_BREAKPOINT:
++        return "Breakpoint";
++    case CAUSE_MISALIGNED_LOAD:
++        return "Load Address Misaligned";
++    case CAUSE_LOAD_ACCESS:
++        return "Load Access Fault";
++    case CAUSE_MISALIGNED_STORE:
++        return "Store/AMO Address Misaligned";
++    case CAUSE_STORE_ACCESS:
++        return "Store/AMO Access Fault";
++    case CAUSE_USER_ECALL:
++        return "Environment Call from U-Mode";
++    case CAUSE_SUPERVISOR_ECALL:
++        return "Environment Call from S-Mode";
++    case CAUSE_MACHINE_ECALL:
++        return "Environment Call from M-Mode";
++    case CAUSE_FETCH_PAGE_FAULT:
++        return "Instruction Page Fault";
++    case CAUSE_LOAD_PAGE_FAULT:
++        return "Load Page Fault";
++    case CAUSE_STORE_PAGE_FAULT:
++        return "Store/AMO Page Fault";
++    case CAUSE_FETCH_GUEST_PAGE_FAULT:
++        return "Instruction Guest Page Fault";
++    case CAUSE_LOAD_GUEST_PAGE_FAULT:
++        return "Load Guest Page Fault";
++    case CAUSE_VIRTUAL_INST_FAULT:
++        return "Virtualized Instruction Fault";
++    case CAUSE_STORE_GUEST_PAGE_FAULT:
++        return "Guest Store/AMO Page Fault";
++    default:
++        return "UNKNOWN";
++    }
 +}
++
++const char *decode_reserved_interrupt_cause(unsigned long irq_cause)
++{
++    switch ( irq_cause )
++    {
++    case IRQ_M_SOFT:
++        return "M-mode Software Interrupt";
++    case IRQ_M_TIMER:
++        return "M-mode TIMER Interrupt";
++    case IRQ_M_EXT:
++        return "M-mode TIMER Interrupt";
++    default:
++        return "UNKNOWN IRQ type";
++    }
++}
++
++const char *decode_interrupt_cause(unsigned long cause)
++{
++    unsigned long irq_cause = cause & ~CAUSE_IRQ_FLAG;
++
++    switch ( irq_cause )
++    {
++    case IRQ_S_SOFT:
++        return "Supervisor Software Interrupt";
++    case IRQ_S_TIMER:
++        return "Supervisor Timer Interrupt";
++    case IRQ_S_EXT:
++        return "Supervisor External Interrupt";
++    default:
++        return decode_reserved_interrupt_cause(irq_cause);
++    }
++}
++
++const char *decode_cause(unsigned long cause)
++{
++    if ( cause & CAUSE_IRQ_FLAG )
++        return decode_interrupt_cause(cause);
++
++    return decode_trap_cause(cause);
++}
+ 
+ void __handle_exception(struct cpu_user_regs *cpu_regs)
+ {
 -- 
 2.39.0
 
