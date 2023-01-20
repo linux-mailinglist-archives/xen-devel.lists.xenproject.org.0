@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 022656747EA
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 01:19:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481417.746281 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94016674817
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 01:37:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481422.746290 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIf7w-0001iJ-HO; Fri, 20 Jan 2023 00:19:28 +0000
+	id 1pIfOi-00047V-0P; Fri, 20 Jan 2023 00:36:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481417.746281; Fri, 20 Jan 2023 00:19:28 +0000
+Received: by outflank-mailman (output) from mailman id 481422.746290; Fri, 20 Jan 2023 00:36:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIf7w-0001gV-EO; Fri, 20 Jan 2023 00:19:28 +0000
-Received: by outflank-mailman (input) for mailman id 481417;
- Fri, 20 Jan 2023 00:19:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pIfOh-00044j-U1; Fri, 20 Jan 2023 00:36:47 +0000
+Received: by outflank-mailman (input) for mailman id 481422;
+ Fri, 20 Jan 2023 00:36:46 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=wqBo=5R=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pIf7v-0001gP-Fj
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 00:19:27 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1904926a-9858-11ed-91b6-6bf2151ebd3b;
- Fri, 20 Jan 2023 01:19:26 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 0519EB82624;
- Fri, 20 Jan 2023 00:19:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B027EC433EF;
- Fri, 20 Jan 2023 00:19:23 +0000 (UTC)
+ <SRS0=eVq4=5R=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
+ id 1pIfOg-00044d-KK
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 00:36:46 +0000
+Received: from mail-vs1-xe35.google.com (mail-vs1-xe35.google.com
+ [2607:f8b0:4864:20::e35])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 835818d8-985a-11ed-b8d1-410ff93cb8f0;
+ Fri, 20 Jan 2023 01:36:44 +0100 (CET)
+Received: by mail-vs1-xe35.google.com with SMTP id i188so4075237vsi.8
+ for <xen-devel@lists.xenproject.org>; Thu, 19 Jan 2023 16:36:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,102 +39,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1904926a-9858-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674173964;
-	bh=yh7TVqTJPJmJ/ye4MlX6W8P1qoVxWP3RAfJ279PctU8=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=TC1Et5PPjpmJKoHcsnVdlhN1SFI/gdFNBJNqgMyVHCWTsPFn3zAWlXxrGAvMyzmj6
-	 PyWzGh6ETB0qeF7dCBsxjhFtERy3iWV5VUawiR1dOSYK7z7jG+5jKSeegtEomUqUQG
-	 mDpypcxTBiDEaRVjEPSLNGokBh88U468J2amJxYm9ibaQg69mgck0inVrXcj1qBlPu
-	 CqXKLWmDZ+hKOD+QNZYLImLWQwLKU9tkdJPVJnja+vh4rXGIKQspjY3bU7OrbkzjiL
-	 wDK4XGL88SGPRDJ+U+QEJ221GzdMoFeS/htlFotRwO5nb549pAHj8yo7LKNVvhI5a0
-	 bulvlTpPILg6Q==
-Date: Thu, 19 Jan 2023 16:19:22 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    bertrand.marquis@arm.com
-Subject: Re: [XEN v2 10/11] xen/arm: Restrict zeroeth_table_offset for
- ARM_64
-In-Reply-To: <20230117174358.15344-11-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2301191553570.731018@ubuntu-linux-20-04-desktop>
-References: <20230117174358.15344-1-ayan.kumar.halder@amd.com> <20230117174358.15344-11-ayan.kumar.halder@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 835818d8-985a-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=kLKdhTQ7zRzllwMqlN4r5Gt2lqy+3yExc6+oZpPskyI=;
+        b=P2P6ImeKpVY5Lvw7IjzmIi86fCF9UGHzVq2Sj6aaGhi+cNkt0Sz7aCjjkAMlIy2aOe
+         JzBumEzk1rHsO3WZ6VTKnowbWhixPPntRmaI3ExkCMRl2GDVjU7e6n7LzPtv/D+9VG1G
+         8+ouEh7cZXT3uZkjDXxHMSXwNJgh08kWD1WRYPtELMLR+JhMJ8EnHfV8CVsGVm5AKNJU
+         hu7BHrzLFtAhuZtMAnTmXI5cajuHyzUl+PzVta7OB3mhkA4rzXCaOfn6pFAskpVoaXSe
+         YXV+0qDrTFwQPw5WD5yAnCbIUZgrm1ivInZv1a2qivA/Wh/mp33re8MG7Wzr0rsNqeCX
+         FA5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=kLKdhTQ7zRzllwMqlN4r5Gt2lqy+3yExc6+oZpPskyI=;
+        b=VDzRYltIdFI08cjTtUbdArrYMplYtqVxKvCdEOVTrxVsGcQ+Jp41x5DRsPN+v/taa8
+         q/jwOyMx76k/NRCQg/X/oX4Fvref06pATRzG2dVTZHrI2/f2oeD4uc9IOlraXdtr6PRe
+         Gb0Zp0Knc/rmufeF3/BGxrskgFqk1SgKyRvew9mkrF0kmbHl8JUOKnHbLrf5Cbigugin
+         2wpJJv84l0+Iq5o4sI9AqMFw1rPE984Z20MVJE4ddu4uqFpn+QhWDcJNdX6Kksu6XTuf
+         sdj2wLy9s0YvyG/VdCNu2PUCieHQ0tUoI06Uks487ZNvg/ummHpu7A2OjDfkfevHCPzT
+         7iUg==
+X-Gm-Message-State: AFqh2kqFQ8AfgDhDn0EoQBlRCZln3Da8Il6UI7DGjuskEvbyzf23s0BV
+	b0ZVqEPpGNZSrYWKOw8stMCDsSiUZbCyRAD1M1Y=
+X-Google-Smtp-Source: AMrXdXtO3J/0TS4bVZwZ4mC1sBtN45OKl6tDwjh1XNMWEh4xzEfuJ/zwnu2lgWmncKaZE+rMJY8+x+erLW4VY7vqEL0=
+X-Received: by 2002:a05:6102:cd4:b0:3d0:c2e9:cb77 with SMTP id
+ g20-20020a0561020cd400b003d0c2e9cb77mr1702713vst.54.1674175003178; Thu, 19
+ Jan 2023 16:36:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <cover.1674131459.git.oleksii.kurochko@gmail.com> <851a3fa74defe5174335646e2a79096bd8d432f8.1674131459.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <851a3fa74defe5174335646e2a79096bd8d432f8.1674131459.git.oleksii.kurochko@gmail.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Fri, 20 Jan 2023 10:36:17 +1000
+Message-ID: <CAKmqyKN6Prtqg_TSvxtGT-Vd53wxDycWpMEsV+J5HLePskjevQ@mail.gmail.com>
+Subject: Re: [PATCH v5 2/5] xen/riscv: introduce asm/types.h header file
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
+	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 17 Jan 2023, Ayan Kumar Halder wrote:
-> zeroeth_table_offset is not accessed by ARM_32.
-> Also, when 32 bit physical addresses are used (ie ARM_PA_32=y), this
-> causes an overflow.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+On Fri, Jan 20, 2023 at 12:07 AM Oleksii Kurochko
+<oleksii.kurochko@gmail.com> wrote:
+>
+> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+
+Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+
+Alistair
+
 > ---
-> Changes from -
-> 
-> v1 - Removed the duplicate declaration for DECLARE_OFFSETS.
-> 
->  xen/arch/arm/include/asm/lpae.h | 4 ++++
->  xen/arch/arm/mm.c               | 7 +------
->  2 files changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/xen/arch/arm/include/asm/lpae.h b/xen/arch/arm/include/asm/lpae.h
-> index 3fdd5d0de2..2744e0eebf 100644
-> --- a/xen/arch/arm/include/asm/lpae.h
-> +++ b/xen/arch/arm/include/asm/lpae.h
-> @@ -259,7 +259,11 @@ lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr);
->  #define first_table_offset(va)  TABLE_OFFSET(first_linear_offset(va))
->  #define second_table_offset(va) TABLE_OFFSET(second_linear_offset(va))
->  #define third_table_offset(va)  TABLE_OFFSET(third_linear_offset(va))
-> +#ifdef CONFIG_ARM_64
-
-Julien was asking for a selectable Kconfig option that would allow us to
-have 32-bit paddr_t even on ARM_64. If we do that, assuming we are on
-aarch64, and we set VTCR_T0SZ to 0x20, hence we get 32-bit IPA, are we
-going to have a 3-level or a 4-level p2m pagetable?
-
-In any case I think this should be:
-#ifndef CONFIG_PADDR_32
-
-And if it doesn't work today on aarch64 due to pagetable levels or other
-reasons, than I would make CONFIG_PADDR_32 not (yet) selectable on
-ARM_64 (until it is fixed).
-
-
->  #define zeroeth_table_offset(va)  TABLE_OFFSET(zeroeth_linear_offset(va))
-> +#else
-> +#define zeroeth_table_offset(va)  0
-
-Rather than 0 it might be better to have 32, hence zeroing the input
-address
-
-
+> Changes in V5:
+>     - Remove size_t from asm/types after rebase on top of the patch
+>           "include/types: move stddef.h-kind types to common header" [1].
+>         - All other types were back as they are used in <xen/types.h> and
+>       in xen/common.
+> ---
+> Changes in V4:
+>     - Clean up types in <asm/types.h> and remain only necessary.
+>       The following types was removed as they are defined in <xen/types.h>:
+>       {__|}{u|s}{8|16|32|64}
+> ---
+> Changes in V3:
+>     - Nothing changed
+> ---
+> Changes in V2:
+>     - Remove unneeded now types from <asm/types.h>
+> ---
+>  xen/arch/riscv/include/asm/types.h | 70 ++++++++++++++++++++++++++++++
+>  1 file changed, 70 insertions(+)
+>  create mode 100644 xen/arch/riscv/include/asm/types.h
+>
+> diff --git a/xen/arch/riscv/include/asm/types.h b/xen/arch/riscv/include/asm/types.h
+> new file mode 100644
+> index 0000000000..64976f118d
+> --- /dev/null
+> +++ b/xen/arch/riscv/include/asm/types.h
+> @@ -0,0 +1,70 @@
+> +#ifndef __RISCV_TYPES_H__
+> +#define __RISCV_TYPES_H__
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +typedef __signed__ char __s8;
+> +typedef unsigned char __u8;
+> +
+> +typedef __signed__ short __s16;
+> +typedef unsigned short __u16;
+> +
+> +typedef __signed__ int __s32;
+> +typedef unsigned int __u32;
+> +
+> +#if defined(__GNUC__) && !defined(__STRICT_ANSI__)
+> +#if defined(CONFIG_RISCV_32)
+> +typedef __signed__ long long __s64;
+> +typedef unsigned long long __u64;
+> +#elif defined (CONFIG_RISCV_64)
+> +typedef __signed__ long __s64;
+> +typedef unsigned long __u64;
 > +#endif
->  
->  /*
->   * Macros to define page-tables:
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index fab54618ab..95784e0c59 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -207,12 +207,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
->  {
->      static const char *level_strs[4] = { "0TH", "1ST", "2ND", "3RD" };
->      const mfn_t root_mfn = maddr_to_mfn(ttbr);
-> -    const unsigned int offsets[4] = {
-> -        zeroeth_table_offset(addr),
-> -        first_table_offset(addr),
-> -        second_table_offset(addr),
-> -        third_table_offset(addr)
-> -    };
-> +    DECLARE_OFFSETS(offsets, addr);
->      lpae_t pte, *mapping;
->      unsigned int level, root_table;
->  
-> -- 
-> 2.17.1
-> 
+> +#endif
+> +
+> +typedef signed char s8;
+> +typedef unsigned char u8;
+> +
+> +typedef signed short s16;
+> +typedef unsigned short u16;
+> +
+> +typedef signed int s32;
+> +typedef unsigned int u32;
+> +
+> +#if defined(CONFIG_RISCV_32)
+> +
+> +typedef signed long long s64;
+> +typedef unsigned long long u64;
+> +typedef u32 vaddr_t;
+> +#define PRIvaddr PRIx32
+> +typedef u64 paddr_t;
+> +#define INVALID_PADDR (~0ULL)
+> +#define PRIpaddr "016llx"
+> +typedef u32 register_t;
+> +#define PRIregister "x"
+> +
+> +#elif defined (CONFIG_RISCV_64)
+> +
+> +typedef signed long s64;
+> +typedef unsigned long u64;
+> +typedef u64 vaddr_t;
+> +#define PRIvaddr PRIx64
+> +typedef u64 paddr_t;
+> +#define INVALID_PADDR (~0UL)
+> +#define PRIpaddr "016lx"
+> +typedef u64 register_t;
+> +#define PRIregister "lx"
+> +
+> +#endif
+> +
+> +#endif /* __ASSEMBLY__ */
+> +
+> +#endif /* __RISCV_TYPES_H__ */
+> +/*
+> + * Local variables:
+> + * mode: C
+> + * c-file-style: "BSD"
+> + * c-basic-offset: 4
+> + * indent-tabs-mode: nil
+> + * End:
+> + */
+> --
+> 2.39.0
+>
+>
 
