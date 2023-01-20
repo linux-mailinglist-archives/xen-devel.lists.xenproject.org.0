@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D62B8675CD5
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 19:36:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.482088.747423 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59305675E03
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 20:27:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.482093.747432 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIwF4-0007rj-Cr; Fri, 20 Jan 2023 18:35:58 +0000
+	id 1pIx2L-0004bj-7r; Fri, 20 Jan 2023 19:26:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 482088.747423; Fri, 20 Jan 2023 18:35:58 +0000
+Received: by outflank-mailman (output) from mailman id 482093.747432; Fri, 20 Jan 2023 19:26:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIwF4-0007pR-A6; Fri, 20 Jan 2023 18:35:58 +0000
-Received: by outflank-mailman (input) for mailman id 482088;
- Fri, 20 Jan 2023 18:35:57 +0000
+	id 1pIx2L-0004Z0-4u; Fri, 20 Jan 2023 19:26:53 +0000
+Received: by outflank-mailman (input) for mailman id 482093;
+ Fri, 20 Jan 2023 19:26:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=3+m8=5R=google.com=seanjc@srs-se1.protection.inumbo.net>)
- id 1pIwF3-0007pL-0Y
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 18:35:57 +0000
-Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com
- [2607:f8b0:4864:20::630])
+ (envelope-from <SRS0=9Xek=5R=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pIx2I-0004Yu-Pg
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 19:26:51 +0000
+Received: from sonic312-24.consmr.mail.gq1.yahoo.com
+ (sonic312-24.consmr.mail.gq1.yahoo.com [98.137.69.205])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 45651643-98f1-11ed-b8d1-410ff93cb8f0;
- Fri, 20 Jan 2023 19:35:54 +0100 (CET)
-Received: by mail-pl1-x630.google.com with SMTP id jm10so6043229plb.13
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 10:35:54 -0800 (PST)
-Received: from google.com (7.104.168.34.bc.googleusercontent.com.
- [34.168.104.7]) by smtp.gmail.com with ESMTPSA id
- y9-20020a17090aca8900b0022bb3ee9b68sm816173pjt.13.2023.01.20.10.35.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 10:35:52 -0800 (PST)
+ id 603735d8-98f8-11ed-b8d1-410ff93cb8f0;
+ Fri, 20 Jan 2023 20:26:46 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic312.consmr.mail.gq1.yahoo.com with HTTP; Fri, 20 Jan 2023 19:26:44 +0000
+Received: by hermes--production-bf1-6bb65c4965-lwg94 (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID b91055a077e70f722712dffc6046fa22; 
+ Fri, 20 Jan 2023 19:26:42 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,179 +42,190 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 45651643-98f1-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=okolDEB21Y0jblKM4zeN9TyhMCVMpN2TkJfDtRniBvc=;
-        b=HkY8uYC3eaoxfG+CDtPspZfD/eX0Nq+DRBL/w/lbBPAVctXPlKO27GnPIwXfthk5N9
-         VC7gyEcJ6u4nAFPLBZZtLuaIrW5eLQ7pRUIMsQ0P7IH/vAwrMVeY6O0eq5y8N9gtXD71
-         MsB/8V0TvAjpRoA/f7mCK/eJ8L5cCpz/8ba/KSvwKSwa6zBYdMvsYnc3fycaiKzhvXu0
-         bdjb2uPAa1zIysmYxuisWAZGW6U9LNAlN4IJnA8+tzSANClzdAuibHS3CeaFv6CpylZE
-         liAoGaxEFIkOokZ7ibDIQSN4J2us6Ws11V6wPdyXS4f5x0ophRHfbRwS5//CQJMGSnxo
-         NK+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=okolDEB21Y0jblKM4zeN9TyhMCVMpN2TkJfDtRniBvc=;
-        b=FSP0sl6hTSp7P/3YVyKxEyFeNBvWBjc9ZhXXEy4sbrOaSFBQaMXWjnMrIxqi+8kDy9
-         9nplI4K51MLUPWdRH+1ZqbwUQqrxP8R04UFcrb9BSA4/PEF5UPiS8U3dgeutT8l67faS
-         rvqjvHWPxxxW/hz5sqJjNtIh9247CWvNK5eJJq88ZA2/FGcvrIuGB2+ce9TwLY2A5wmk
-         1UmYEUaWHeFmhZ1wLDwl96CtUTZYGRJx27kCVqYHd0+YeFL0a6/BlrViUGKZWsipMZCi
-         MuIIv/dDdcME26P8dRiuBxuhZ7EWrqQJxURl6FP5qL0vt8Ai+St8s18CCNqwcdaChcsp
-         IRSQ==
-X-Gm-Message-State: AFqh2krqg6RoXuSfnhkj2iz2pIx+n0jZC9iNaM5ido5ZduebHzCUoB1H
-	tlU+3pJcQcE9lg6tXJCCzeXSiw==
-X-Google-Smtp-Source: AMrXdXtygWR/fMhpmxei/j385EDCB6XPa4vZRiEc+kaRf3Blc1If9RpQwQ0WRTDgbKj1ut4JY7mfcQ==
-X-Received: by 2002:a17:90a:c985:b0:219:f970:5119 with SMTP id w5-20020a17090ac98500b00219f9705119mr297717pjt.1.1674239752856;
-        Fri, 20 Jan 2023 10:35:52 -0800 (PST)
-Date: Fri, 20 Jan 2023 18:35:48 +0000
-From: Sean Christopherson <seanjc@google.com>
-To: Igor Mammedov <imammedo@redhat.com>
-Cc: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>,
-	Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org,
-	amakhalov@vmware.com, ganb@vmware.com, ankitja@vmware.com,
-	bordoloih@vmware.com, keerthanak@vmware.com, blamoreaux@vmware.com,
-	namit@vmware.com, Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Wyes Karny <wyes.karny@amd.com>,
-	Lewis Caroll <lewis.carroll@amd.com>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Juergen Gross <jgross@suse.com>, x86@kernel.org,
-	VMware PV-Drivers Reviewers <pv-drivers@vmware.com>,
-	virtualization@lists.linux-foundation.org, kvm@vger.kernel.org,
-	xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] x86/hotplug: Do not put offline vCPUs in mwait idle
- state
-Message-ID: <Y8rfBBBicRMk+Hut@google.com>
-References: <20230116060134.80259-1-srivatsa@csail.mit.edu>
- <20230116155526.05d37ff9@imammedo.users.ipa.redhat.com>
- <87bkmui5z4.ffs@tglx>
- <ecb9a22e-fd6e-67f0-d916-ad16033fc13c@csail.mit.edu>
- <20230120163734.63e62444@imammedo.users.ipa.redhat.com>
+X-Inumbo-ID: 603735d8-98f8-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1674242804; bh=Yn4KGPZXDuvS4Bf0u52UWsMUa8+cfIZGayqP+lGXJSg=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=o84QnXgTczeuGnY2fpvxTYUKg7IZIXtrRc2vB0jRWVeVZPFdJ7lCe0Awdvow/HYOs06c1O2d9Pc7pF+Kk88sG7EPBNxkTg/03XQXVbuaSUgj62Nn9USfNOCBzFut9QHGqCO35J/BW79E2cpYQzikhPW3IO+1QKfIgqarVsbbDo8PpWr7TS0LYOVunVrLNW9EQvWOxeOltW0+TpemX8bATVJOlEMbLK6+XXxcyZbfOS3OiuWrEDoFUcswrlJZTLaENWAPJaVbMOtWg7o2m0R24KY6IduBBtHnaoZAgWIVWAg7gVQkgX6fhsixFncCcLnJ8Qi+T5pO5avs1EQDau+SSw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1674242804; bh=aOgE+fNrxPyiCFcakFMAoN38bhQ7RnYAHqqTDk/pR9P=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=YRmzCYrq4Vpvt0qbjg9JzXAcFaDqX7V3RT3/yMrMC2WN3q4x1Duw3J52ZLFEYQ000rdsegK0HbPUMAXiyub/NpuF/AXOecE8xbW6bWkahel/QaBPT18Rbid4RZxY3A5wuxDiYhHAxxItcYlxBj5Zno2sgY5UUDAeiAEwTr7hyRlllrkF8c/mvetgHKrDStlVS13ge+wKkp/0UcXr8vSLUzlg4UQMh46mHnIfxMX+TR1RgIVbRDRkCqwyPHa6WF3E5hGeIRwIgU0QllNQQfor2rKM7ZiizgNc2lGcsDXkuTo7vEfBKpa57RvGuJPfxse+7ZnswOjSDLt+qHuWKOixAw==
+X-YMail-OSG: lF13aSgVM1lexDeo9q.8drvnYtu6y2xfrsqrH_TchSNXN0qntER8n76YmvzZv5t
+ NwVjC5g6yw0FdcVFCg7criHd47pa5Vz.5NTTTTIJZeoxVgA5Ee8YWGW9ymqQd4OJAakwnP1y5GpH
+ .i9pGVyvqL5s83U70sS_AqH2fFpatUl7bTAiEdWde8ybTvqfu3qVpnkCyz0xaw9rdoNOmjocRNrr
+ gWzV6WpZs3wfam1SLozCWCKx_rhJRjiy9L.ynYgcIAsihk5cseDa.TvmoENn22Nio4C_BbVqrTuO
+ PTzJukYFWP1SD3qw.w9izwLGiiQAVH8TU07jSv8WZ_R5AoDF5D4CLKgo21nugp.RKq4gywBzk0Xw
+ sT7AZ6QxfI0okTkXXkePo9xaE8EUgbAlpEsP.ojW0pFzukFZntQxvi0gNlGpt6aKcwLXhYPgQDyg
+ PgRqglMCZ7l7eaWSawROq1SsFdNwhuxIFd_h69M3k7YQpsmWN21BU6kB.iW3oFars3_NhZtYRvTu
+ H5HiD.fCmDnZWeZRCOgarLGkNBIqr1XRo6SfjddRyUpV5oynMRHPmozJCfFSGvUm.gi2aYvk8Lul
+ HSKH1Ccei67H_mdW30ksqA_n5HYH3vAHu.PtHXI876Y4050_IF_oJmFfbs_e.tMddllGkHKfJAAs
+ GpOJHBoJNZ0oRMT3k.wpy5SiA7DaMsRLeVOF7dywNrAuM2oNvOwPNfQQF8r449kZDE180vnhHjkP
+ RY1.tZF7aNYN1OYv8VIluX46nZvbJDQYEcAvVkx16GjxJ_t9CksnuQ8plgp5UBhVIlcPBItvQ5gZ
+ HjiNVduk0OTsiMlAqsEvRvaA4rBWJGSanzNdmwhWYLIpBZ8iuQqgyH5mJyhOCUWY2ZicHt23SUfw
+ bBjxZKQvP5oEy.mg6dPVfXp4W8lvUxaP8WuTRfd_L9jBYFmQO_DzO0IDwSG9J1jjyA_U6F2gAP.4
+ XVnU9R0hGvQkm54EKmruHvO.Xvwikn4MlzwbfE7P4cEO5sFCdgtQsbGjiuPAAZvMO4q6xsAqiIxV
+ V9JrxMROqJAB8dREmyacO_QA17BfjLGrvwKwVETbdPmnA9byG81zlXqFdRvlKw9vll6tf9zwuV_e
+ CE0s6JhSAXvSGhOXGM9yn9ea4uJjYPoUlWwApbtNlxSmNGl37_01lgH5R4ibmdbIyjyHEGOKD7vj
+ MvwteO4WuJpdC2kN6c.3unz8dQ3.G7xn6u3PPlN_iggSKqbfhCb1lEohQkpwjRHJ9M0gtHa3QNk9
+ M8NxQMRYPwop8jsqW_8uvas2bpct6b85kUy2l2mM_ZF3ToPWDZ.QkqHqf3RgrnCzPTf62.er3n1s
+ L0x0p70QarG6PqY9HNqMFIRNzI1BSt0Hc4rFXp6cnQxAb5ILfUj7NtPJsnlvU8CF7YYuQtTHOz7_
+ RTx9tB7xIDQAO1sAoXAVBxYG45VuoSADXNCMfa4Vtj8t40um9NfBDh9g88wtpzqEYejTzXlhMbX8
+ oe1avd3Hi8k5R0yaaMJ2rjbvhsRomL_f4dXjAv.dxmSiLarDndiBFqw195OJYn_9CRcOnFYXKrYq
+ MVsPNnaYJ_6_2otIeb9cGYIRyMueXBcMcIL0YGkjwFGXBcoCby0i9lO.jU0FlgNwSVR.0cRDp5.t
+ 2oGqprDfVLjvWAVHmqaWZQMU3zO3C.k.zjutmPQqVQw04aYi6ix5lW7AcwzR.3smpTz9OKizGGf5
+ Yn8CoWGwI6gv1nXM.5_74MmqfovjanzWwwqvtREw3jOaOzblyebrEajlh4qXPdwyPFDrN1xRMBmD
+ vtleAWlFZDQEs.junMX_Y4AneCMZu2ZX7J5Isvpwf0EbFuIU3xSUkMdxDrazj3y5ITLdx_xSmm.p
+ wqee6.0pdZ7Td_9_HtE5TSbc3VrRah4q7FLWFuN6Cw4z3wNh0D_ojHMVsBvobJ4w1d9YNa0R6qCT
+ Cp5IO7q018hlWpKt1fhFGTyKucknh_HCb1FcOtpTssw7ZTYZIzpXxEIDYLhR3JAW_hfNXNppyvEg
+ .TLVgfWfwcSzawrjo_MIvXJ5ZEgNtrzrcmicoxL0SFXVZA78FKLYf7myQj_keSGHIlFzhCE2B04M
+ 86PWZ6KC6K61Pk5qygU8O0CreHCL2E_dk7C._kNWKOdfnWrdeavxUm8wWzAfrMCLzvyNdweNmofR
+ OsThDCUhJ67CNKf_Grv17jd2MqvnzMWu4ytaDK1dcI4N3G5UUK080vQEHFSqCqLAx2SnazTvOkNr
+ vkg5YaGwxOX_4bw0-
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <0a536399-f1b8-d30a-f288-8ed6b719f15c@aol.com>
+Date: Fri, 20 Jan 2023 14:26:43 -0500
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20230120163734.63e62444@imammedo.users.ipa.redhat.com>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
+Content-Language: en-US
+To: Stefano Stabellini <sstabellini@kernel.org>
+Cc: Igor Mammedov <imammedo@redhat.com>, "Michael S. Tsirkin"
+ <mst@redhat.com>, Bernhard Beschow <shentey@gmail.com>,
+ qemu-devel@nongnu.org, Paul Durrant <paul@xen.org>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ xen-devel@lists.xenproject.org, =?UTF-8?Q?Philippe_Mathieu-Daud=c3=a9?=
+ <philmd@linaro.org>, Anthony Perard <anthony.perard@citrix.com>,
+ Thomas Huth <thuth@redhat.com>, Eric Auger <eric.auger@redhat.com>,
+ Alex Williamson <alex.williamson@redhat.com>, Peter Xu <peterx@redhat.com>
+References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
+ <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
+ <20230110030331-mutt-send-email-mst@kernel.org>
+ <a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
+ <D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
+ <9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
+ <7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
+ <20230112180314-mutt-send-email-mst@kernel.org>
+ <128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
+ <20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
+ <88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
+ <20230116163342.467039a0@imammedo.users.ipa.redhat.com>
+ <fce262ea-e0d5-d670-787c-62d91b040739@netscape.net>
+ <20230117120416.0aa041d6@imammedo.users.ipa.redhat.com>
+ <b6f7d6dd-3b9b-2cc7-32ab-8521802e1fed@aol.com>
+ <alpine.DEB.2.22.394.2301200855390.731018@ubuntu-linux-20-04-desktop>
+From: Chuck Zmudzinski <brchuckz@aol.com>
+In-Reply-To: <alpine.DEB.2.22.394.2301200855390.731018@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.21062 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
 
-On Fri, Jan 20, 2023, Igor Mammedov wrote:
-> On Fri, 20 Jan 2023 05:55:11 -0800
-> "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
-> 
-> > Hi Igor and Thomas,
+On 1/20/2023 11:57 AM, Stefano Stabellini wrote:
+> On Tue, 17 Jan 2023, Chuck Zmudzinski wrote:
+> > On 1/17/2023 6:04 AM, Igor Mammedov wrote:
+> > > On Mon, 16 Jan 2023 13:00:53 -0500
+> > > Chuck Zmudzinski <brchuckz@netscape.net> wrote:
+> > >
+> > > > On 1/16/23 10:33, Igor Mammedov wrote:
+> > > > > On Fri, 13 Jan 2023 16:31:26 -0500
+> > > > > Chuck Zmudzinski <brchuckz@aol.com> wrote:
+> > > > >   
+> > > > >> On 1/13/23 4:33 AM, Igor Mammedov wrote:  
+> > > > >> > On Thu, 12 Jan 2023 23:14:26 -0500
+> > > > >> > Chuck Zmudzinski <brchuckz@aol.com> wrote:
+> > > > >> >     
+> > > > >> >> On 1/12/23 6:03 PM, Michael S. Tsirkin wrote:    
+> > > > >> >> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wrote:      
+> > > > >> >> >> I think the change Michael suggests is very minimalistic: Move the if
+> > > > >> >> >> condition around xen_igd_reserve_slot() into the function itself and
+> > > > >> >> >> always call it there unconditionally -- basically turning three lines
+> > > > >> >> >> into one. Since xen_igd_reserve_slot() seems very problem specific,
+> > > > >> >> >> Michael further suggests to rename it to something more general. All
+> > > > >> >> >> in all no big changes required.      
+> > > > >> >> > 
+> > > > >> >> > yes, exactly.
+> > > > >> >> >       
+> > > > >> >> 
+> > > > >> >> OK, got it. I can do that along with the other suggestions.    
+> > > > >> > 
+> > > > >> > have you considered instead of reservation, putting a slot check in device model
+> > > > >> > and if it's intel igd being passed through, fail at realize time  if it can't take
+> > > > >> > required slot (with a error directing user to fix command line)?    
+> > > > >> 
+> > > > >> Yes, but the core pci code currently already fails at realize time
+> > > > >> with a useful error message if the user tries to use slot 2 for the
+> > > > >> igd, because of the xen platform device which has slot 2. The user
+> > > > >> can fix this without patching qemu, but having the user fix it on
+> > > > >> the command line is not the best way to solve the problem, primarily
+> > > > >> because the user would need to hotplug the xen platform device via a
+> > > > >> command line option instead of having the xen platform device added by
+> > > > >> pc_xen_hvm_init functions almost immediately after creating the pci
+> > > > >> bus, and that delay in adding the xen platform device degrades
+> > > > >> startup performance of the guest.
+> > > > >>   
+> > > > >> > That could be less complicated than dealing with slot reservations at the cost of
+> > > > >> > being less convenient.    
+> > > > >> 
+> > > > >> And also a cost of reduced startup performance  
+> > > > > 
+> > > > > Could you clarify how it affects performance (and how much).
+> > > > > (as I see, setup done at board_init time is roughly the same
+> > > > > as with '-device foo' CLI options, modulo time needed to parse
+> > > > > options which should be negligible. and both ways are done before
+> > > > > guest runs)  
+> > > > 
+> > > > I preface my answer by saying there is a v9, but you don't
+> > > > need to look at that. I will answer all your questions here.
+> > > > 
+> > > > I am going by what I observe on the main HDMI display with the
+> > > > different approaches. With the approach of not patching Qemu
+> > > > to fix this, which requires adding the Xen platform device a
+> > > > little later, the length of time it takes to fully load the
+> > > > guest is increased. I also noticed with Linux guests that use
+> > > > the grub bootoader, the grub vga driver cannot display the
+> > > > grub boot menu at the native resolution of the display, which
+> > > > in the tested case is 1920x1080, when the Xen platform device
+> > > > is added via a command line option instead of by the
+> > > > pc_xen_hvm_init_pci fucntion in pc_piix.c, but with this patch
+> > > > to Qemu, the grub menu is displayed at the full, 1920x1080
+> > > > native resolution of the display. Once the guest fully loads,
+> > > > there is no noticeable difference in performance. It is mainly
+> > > > a degradation in startup performance, not performance once
+> > > > the guest OS is fully loaded.
+> > >
+> > > Looking at igd-assign.txt, it recommends to add IGD using '-device' CLI
+> > > option, and actually drop at least graphics defaults explicitly.
+> > > So it is expected to work fine even when IGD is constructed with
+> > > '-device'.
+> > >
+> > > Could you provide full CLI current xen starts QEMU with and then
+> > > a CLI you used (with explicit -device for IGD) that leads
+> > > to reduced performance?
+> > >
+> > > CCing vfio folks who might have an idea what could be wrong based
+> > > on vfio experience.
 > > 
-> > Thank you for your review!
+> > Actually, the igd is not added with an explicit -device option using Xen:
 > > 
-> > On 1/19/23 1:12 PM, Thomas Gleixner wrote:
-> > > On Mon, Jan 16 2023 at 15:55, Igor Mammedov wrote:  
-> > >> "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:  
-> > >>> Fix this by preventing the use of mwait idle state in the vCPU offline
-> > >>> play_dead() path for any hypervisor, even if mwait support is
-> > >>> available.  
-> > >>
-> > >> if mwait is enabled, it's very likely guest to have cpuidle
-> > >> enabled and using the same mwait as well. So exiting early from
-> > >>  mwait_play_dead(), might just punt workflow down:
-> > >>   native_play_dead()
-> > >>         ...
-> > >>         mwait_play_dead();
-> > >>         if (cpuidle_play_dead())   <- possible mwait here                                              
-> > >>                 hlt_play_dead(); 
-> > >>
-> > >> and it will end up in mwait again and only if that fails
-> > >> it will go HLT route and maybe transition to VMM.  
-> > > 
-> > > Good point.
-> > >   
-> > >> Instead of workaround on guest side,
-> > >> shouldn't hypervisor force VMEXIT on being uplugged vCPU when it's
-> > >> actually hot-unplugging vCPU? (ex: QEMU kicks vCPU out from guest
-> > >> context when it is removing vCPU, among other things)  
-> > > 
-> > > For a pure guest side CPU unplug operation:
-> > > 
-> > >     guest$ echo 0 >/sys/devices/system/cpu/cpu$N/online
-> > > 
-> > > the hypervisor is not involved at all. The vCPU is not removed in that
-> > > case.
-> > >   
+> >    1573 ?        Ssl    0:42 /usr/bin/qemu-system-i386 -xen-domid 1 -no-shutdown -chardev socket,id=libxl-cmd,path=/var/run/xen/qmp-libxl-1,server,nowait -mon chardev=libxl-cmd,mode=control -chardev socket,id=libxenstat-cmd,path=/var/run/xen/qmp-libxenstat-1,server,nowait -mon chardev=libxenstat-cmd,mode=control -nodefaults -no-user-config -name windows -vnc none -display none -serial pty -boot order=c -smp 4,maxcpus=4 -net none -machine xenfv,max-ram-below-4g=3758096384,igd-passthru=on -m 6144 -drive file=/dev/loop0,if=ide,index=0,media=disk,format=raw,cache=writeback -drive file=/dev/disk/by-uuid/A44AA4984AA468AE,if=ide,index=1,media=disk,format=raw,cache=writeback
 > > 
-> > Agreed, and this is indeed the scenario I was targeting with this patch,
-> > as opposed to vCPU removal from the host side. I'll add this clarification
-> > to the commit message.
+> > I think it is added by xl (libxl management tool) when the guest is created
+> > using the qmp-libxl socket that appears on the command line, but I am not 100
+> > percent sure. So, with libxl, the command line alone does not tell the whole
+> > story. The xl.cfg file has a line like this to define the pci devices passed through,
+> > and in qemu they are type XEN_PT devices, not VFIO devices:
+> > 
+> > pci = [ '00:1b.0','00:14.0','00:02.0@02' ]
+> > 
+> > This means three host pci devices are passed through, the ones on the
+> > host at slot 1b.0, 14.0, and 02.0. Of course the device at 02 is the igd.
+> > The @02 means libxl is requesting slot 2 in the guest for the igd, the
+> > other 2 devices are just auto assigned a slot by Qemu. Qemu cannot
+> > assign the igd to slot 2 for xenfv machines without a patch that prevents
+> > the Xen platform device from grabbing slot 2. That is what this patch
+> > accomplishes.
+>
+> In principle I think this change is OK. Apologies that this patch is at
+> v9 and none of the Xen/QEMU maintainers took a look at it yet. I'll try
+> to look at it today.
 
-Forcing HLT doesn't solve anything, it's perfectly legal to passthrough HLT.  I
-guarantee there are use cases that passthrough HLT but _not_ MONITOR/MWAIT, and
-that passthrough all of them.
-
-> commit message explicitly said:
-> "which prevents the hypervisor from running other vCPUs or workloads on the
-> corresponding pCPU."
-> 
-> and that implies unplug on hypervisor side as well.
-> Why? That's because when hypervisor exposes mwait to guest, it has to reserve/pin
-> a pCPU for each of present vCPUs. And you can safely run other VMs/workloads
-> on that pCPU only after it's not possible for it to be reused by VM where
-> it was used originally.
-
-Pinning isn't strictly required from a safety perspective.  The latency of context
-switching may suffer due to wake times, but preempting a vCPU that it's C1 (or
-deeper) won't cause functional problems.   Passing through an entire socket
-(or whatever scope triggers extra fun) might be a different story, but pinning
-isn't strictly required.
-
-That said, I 100% agree that this is expected behavior and not a bug.  Letting the
-guest execute MWAIT or HLT means the host won't have perfect visibility into guest
-activity state.
-
-Oversubscribing a pCPU and exposing MWAIT and/or HLT to vCPUs is generally not done
-precisely because the guest will always appear busy without extra effort on the
-host.  E.g. KVM requires an explicit opt-in from userspace to expose MWAIT and/or
-HLT.
-
-If someone really wants to effeciently oversubscribe pCPUs and passthrough MWAIT,
-then their best option is probably to have a paravirt interface so that the guest
-can tell the host its offlining a vCPU.  Barring that the host could inspect the
-guest when preempting a vCPU to try and guesstimate how much work the vCPU is
-actually doing in order to make better scheduling decisions.
-
-> Now consider following worst (and most likely) case without unplug
-> on hypervisor side:
-> 
->  1. vm1mwait: pin pCPU2 to vCPU2
->  2. vm1mwait: guest$ echo 0 >/sys/devices/system/cpu/cpu2/online
->         -> HLT -> VMEXIT
->  --
->  3. vm2mwait: pin pCPU2 to vCPUx and start VM
->  4. vm2mwait: guest OS onlines Vcpu and starts using it incl.
->        going into idle=>mwait state
->  --
->  5. vm1mwait: it still thinks that vCPU is present it can rightfully do:
->        guest$ echo 1 >/sys/devices/system/cpu/cpu2/online
->  --              
->  6.1 best case vm1mwait online fails after timeout
->  6.2 worse case: vm2mwait does VMEXIT on vCPUx around time-frame when
->      vm1mwait onlines vCPU2, the online may succeed and then vm2mwait's
->      vCPUx will be stuck (possibly indefinitely) until for some reason
->      VMEXIT happens on vm1mwait's vCPU2 _and_ host decides to schedule
->      vCPUx on pCPU2 which would make vm1mwait stuck on vCPU2.
-> So either way it's expected behavior.
-> 
-> And if there is no intention to unplug vCPU on hypervisor side,
-> then VMEXIT on play_dead is not really necessary (mwait is better
-> then HLT), since hypervisor can't safely reuse pCPU elsewhere and
-> VCPU goes into deep sleep within guest context.
-> 
-> PS:
-> The only case where making HLT/VMEXIT on play_dead might work out,
-> would be if new workload weren't pinned to the same pCPU nor
-> used mwait (i.e. host can migrate it elsewhere and schedule
-> vCPU2 back on pCPU2).
+Thanks!
 
