@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B1746757FB
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:00:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481865.747136 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA23F67582B
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:09:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481932.747173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssP-00013E-7b; Fri, 20 Jan 2023 15:00:21 +0000
+	id 1pIt1R-0006jy-3V; Fri, 20 Jan 2023 15:09:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481865.747136; Fri, 20 Jan 2023 15:00:21 +0000
+Received: by outflank-mailman (output) from mailman id 481932.747173; Fri, 20 Jan 2023 15:09:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssO-0000pi-Qy; Fri, 20 Jan 2023 15:00:20 +0000
-Received: by outflank-mailman (input) for mailman id 481865;
- Fri, 20 Jan 2023 15:00:18 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=RVut=5R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pIssL-0006Kg-PI
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:00:17 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 267f584d-98d3-11ed-91b6-6bf2151ebd3b;
- Fri, 20 Jan 2023 16:00:17 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id h12so1098388wrv.10
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:00:17 -0800 (PST)
-Received: from localhost.localdomain
- (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
- by smtp.gmail.com with ESMTPSA id
- o2-20020a5d58c2000000b002bdbead763csm25349811wrf.95.2023.01.20.07.00.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:00:16 -0800 (PST)
+	id 1pIt1R-0006i9-0E; Fri, 20 Jan 2023 15:09:41 +0000
+Received: by outflank-mailman (input) for mailman id 481932;
+ Fri, 20 Jan 2023 15:09:40 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pIt1Q-0006i3-0n
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:09:40 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pIt1P-0008To-MY; Fri, 20 Jan 2023 15:09:39 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[10.95.149.154]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pIt1P-00039Q-G4; Fri, 20 Jan 2023 15:09:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,69 +39,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 267f584d-98d3-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=78yWSa2oWiLzMGFflcvH/ERn5FdBlTt3em76ND/K9vE=;
-        b=XvHOyf10LUlT6LmVnhY1ibZnrqr/iIjqulVWUGapL3LP6TjwBnILSqN37umGlIfWGo
-         5vXq93ElkWy1VPP89tq0TnvEiYktTtL1UJ6o2MFWuyxffggA9/ufzv8xQDgJq0r48LX8
-         xZlJ4GC+N2lWm5J+XFSclYN8MSXttXQFcNK0v0pImeBKP5y+5aZ/arZsHiCu+GrXvrUC
-         L7gYf/bJQ25pvI/IwUm3vPXdxmMoz3ZT5Kk8M8S7qvJNV4ttCbYbcu8oDU+OKlDgcOto
-         pSCt8VxSsJ6SkIO6EUjJ/Jvfk2crTEFq8Jgj2SC/6d/rA3/uTyl+8hcZVaEz5JmVKwUW
-         UCTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=78yWSa2oWiLzMGFflcvH/ERn5FdBlTt3em76ND/K9vE=;
-        b=w2msBVPA1rgEwKjQrV9tKQ4sPVdUDfUcT1qfmFdZst709U5J4iMARICherPhNPkEIR
-         B0gcVb1bUgQcGUjFritUsUzmTFamphZ7JBKQ2qa9luA26OXwSjKki370764GHpReOFdF
-         3WLf5uRgRmrWa6c9E0C5XTGAc8xFdenmuuTEb+SvrKCyPllCEsLksWf4tbsh2JuRDavz
-         OpGIMIGGSEcbuEpt1sH2XQgERuFkyOY4LcB9vJM1cJdv0GkQVwqElSFazlgXM96Jj6EQ
-         BK+okF/8662y8xa/LDlTONvvEToxhXpJM4Z/WLeIbLTnH5B+f2pz0/GX3ZTdp5xapAY/
-         mSsg==
-X-Gm-Message-State: AFqh2kp8WThQFqNonKfsbxYcPFyvPfSc5G4fs9zi66/TdKeJ9LZ46pIV
-	slItx/eh25T19YsSfoXs5zDVikMF6rIS7w==
-X-Google-Smtp-Source: AMrXdXty68AY1Bi6ypLUFvDVa6BIpSI51vivEHVWuO/BZ4HJwY6WN3iurrzFblkw5msdZClxnfBk/g==
-X-Received: by 2002:adf:fa88:0:b0:2bd:d85f:55cc with SMTP id h8-20020adffa88000000b002bdd85f55ccmr12704200wrr.21.1674226816452;
-        Fri, 20 Jan 2023 07:00:16 -0800 (PST)
-From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Gianluca Guida <gianluca@rivosinc.com>,
-	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Doug Goldstein <cardoe@cardoe.com>
-Subject: [PATCH v1 14/14] automation: add smoke test to verify macros from bug.h
-Date: Fri, 20 Jan 2023 16:59:54 +0200
-Message-Id: <4ce72535e44f49e82ad23f4e7dc004a67344b823.1674226563.git.oleksii.kurochko@gmail.com>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <cover.1674226563.git.oleksii.kurochko@gmail.com>
-References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=9qJtD2Yqcw0dYOgj4lUpYax2JUGRXYkvpooIw51hFoA=; b=WkR0FA36zUzIz5YtjGTdCoaIpq
+	fN7o9d6ImHa4raAywCK6WfpUORschYW1KgfwDdMg29Agufi1uyVv3+MKYJgCasuYK7ZARoOZRa0Cm
+	TsRQj62GcRYdWEd7DMbbyvVw2G0DmVZTjlnlUIaC1Ytce5WgR9adnlRZX2GZv3Cegy+8=;
+Message-ID: <cd673f97-9c0d-286b-e973-7a85c84dd576@xen.org>
+Date: Fri, 20 Jan 2023 15:09:37 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [XEN v2 02/11] xen/arm: Use the correct format specifier
+Content-Language: en-US
+To: Michal Orzel <michal.orzel@amd.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Cc: xen-devel@lists.xenproject.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
+ <20230117174358.15344-3-ayan.kumar.halder@amd.com>
+ <alpine.DEB.2.22.394.2301191454080.731018@ubuntu-linux-20-04-desktop>
+ <c7e5fbf3-9e90-7008-0299-f53b20566b9a@xen.org>
+ <ba37ee02-c07c-2803-0867-149c779890b6@amd.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <ba37ee02-c07c-2803-0867-149c779890b6@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
----
- automation/scripts/qemu-smoke-riscv64.sh | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
-index e0f06360bc..e7cc7f1442 100755
---- a/automation/scripts/qemu-smoke-riscv64.sh
-+++ b/automation/scripts/qemu-smoke-riscv64.sh
-@@ -17,4 +17,6 @@ qemu-system-riscv64 \
- 
- set -e
- (grep -q "Hello from C env" smoke.serial) || exit 1
-+(grep -q "run_in_exception_handler is most likely working" smoke.serial) || exit 1
-+(grep -q "WARN is most likely working" smoke.serial) || exit 1
- exit 0
+
+On 20/01/2023 14:40, Michal Orzel wrote:
+> Hello,
+
+Hi,
+
+> 
+> On 20/01/2023 10:32, Julien Grall wrote:
+>>
+>>
+>> Hi,
+>>
+>> On 19/01/2023 22:54, Stefano Stabellini wrote:
+>>> On Tue, 17 Jan 2023, Ayan Kumar Halder wrote:
+>>>> 1. One should use 'PRIpaddr' to display 'paddr_t' variables.
+>>>> 2. One should use 'PRIx64' to display 'u64' in hex format. The current
+>>>> use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
+>>>> address.
+>>>>
+>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>>>
+>>> Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+>>
+>>
+>> I have committed the patch.
+> The CI test jobs (static-mem) failed on this patch:
+> https://gitlab.com/xen-project/xen/-/pipelines/752911309
+
+Thanks for the report.
+
+> 
+> I took a look at it and this is because in the test script we
+> try to find a node whose unit-address does not have leading zeroes.
+> However, after this patch, we switched to PRIpaddr which is defined as 016lx/016llx and
+> we end up creating nodes like:
+> 
+> memory@0000000050000000
+> 
+> instead of:
+> 
+> memory@60000000
+> 
+> We could modify the script, 
+
+TBH, I think it was a mistake for the script to rely on how Xen describe 
+the memory banks in the Device-Tree.
+
+For instance, from my understanding, it would be valid for Xen to create 
+a single node for all the banks or even omitting the unit-address if 
+there is only one bank.
+
+> but do we really want to create nodes
+> with leading zeroes? The dt spec does not mention it, although [1]
+> specifies that the Linux convention is not to have leading zeroes.
+
+Reading through the spec in [2], it suggested the current naming is 
+fine. That said the example match the Linux convention (I guess that's 
+not surprising...).
+
+I am open to remove the leading. However, I think the CI also needs to 
+be updated (see above why).
+
+Cheers,
+
+[2] https://www.devicetree.org/
+
 -- 
-2.39.0
-
+Julien Grall
 
