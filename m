@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECAA76757FC
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:00:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481860.747100 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B430B6757ED
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:00:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481862.747114 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssK-0008QB-JJ; Fri, 20 Jan 2023 15:00:16 +0000
+	id 1pIssM-0000O3-MH; Fri, 20 Jan 2023 15:00:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481860.747100; Fri, 20 Jan 2023 15:00:16 +0000
+Received: by outflank-mailman (output) from mailman id 481862.747114; Fri, 20 Jan 2023 15:00:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIssK-0008Jr-57; Fri, 20 Jan 2023 15:00:16 +0000
-Received: by outflank-mailman (input) for mailman id 481860;
- Fri, 20 Jan 2023 15:00:13 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pIssL-00007D-NG; Fri, 20 Jan 2023 15:00:17 +0000
+Received: by outflank-mailman (input) for mailman id 481862;
+ Fri, 20 Jan 2023 15:00:15 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=RVut=5R=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pIssH-0006Kg-6z
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:00:13 +0000
-Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
- [2a00:1450:4864:20::42d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 23c0fd10-98d3-11ed-91b6-6bf2151ebd3b;
- Fri, 20 Jan 2023 16:00:12 +0100 (CET)
-Received: by mail-wr1-x42d.google.com with SMTP id d14so1414141wrr.9
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:00:12 -0800 (PST)
+ id 1pIssJ-0006SQ-9R
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:00:15 +0000
+Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
+ [2a00:1450:4864:20::429])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 2477e016-98d3-11ed-b8d1-410ff93cb8f0;
+ Fri, 20 Jan 2023 16:00:13 +0100 (CET)
+Received: by mail-wr1-x429.google.com with SMTP id d2so5080529wrp.8
+ for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:00:13 -0800 (PST)
 Received: from localhost.localdomain
  (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
  by smtp.gmail.com with ESMTPSA id
- o2-20020a5d58c2000000b002bdbead763csm25349811wrf.95.2023.01.20.07.00.10
+ o2-20020a5d58c2000000b002bdbead763csm25349811wrf.95.2023.01.20.07.00.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:00:11 -0800 (PST)
+ Fri, 20 Jan 2023 07:00:12 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 23c0fd10-98d3-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 2477e016-98d3-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ZjpYBpBo3Rvm4msdSTsMXPTvqTVEFs1X4iKpD2JoZQU=;
-        b=lbAg5dv6suGwRBTCKXEyvvFajHOIaWRpUJEdSPJuBfhaq5FSurrZnxrfpX0gtdoSPI
-         VS4Dkwg2tRGxZcE90N9W6vilda/AuaWcGR3JgMerMjXUrtt6uuW30q3KFryoQ4dj2haZ
-         6Rf2JP0E3IKNt42KJbRGSH0/vZQikQPHca+kSAfGBm9wcH9maOSvGzIZvFEwTIuBJNi5
-         7U+CdWG9BtInXKRKGS68hkZ/7JhtQ1TDCXY0rYE8mKICBzzPRDjxByt/xnSKZjdYD3ry
-         WB9sWCPWegEhRiN1bhzioo2PcRWmXkfGzaevgljYO2SvFP0V0ar5+hr3DpAU5hcfgWjA
-         3OfQ==
+        bh=Fe0eCk7Y2xW3r2WIytl0p5j+qQaI829KhiJfOtG83A0=;
+        b=jIUmaA3XUraRJJAH8KPW+MjheJZlQAEZXAlkV0Ekv6KkzdeBGH6ASGvkvjUuZR3iRk
+         jFH42EV6W1820nMwJzNCphjSLDJSORRv2AdRNgZ5Gz5ElEVhihzFpFR0uwJ5F9mwHb/j
+         9Jw7/wVoX8dDHcgKIsl2GLJei9hOUAXCoVSIjwy526yJZgkuenlbbgIcXuj2uNiRWlLf
+         u1Je+p+2pvDKaeOIMQepTEKid/NT7ocuqFG/IkZ4ol9MhynxB6h7CNvMrirj6MEIH/Cr
+         AXrBP3ia/L2S4UEXWHrikcecXqQpBht4EEI6g59oNvuwpT2fnad0XfZNBWTJyHeAdYfl
+         +qmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ZjpYBpBo3Rvm4msdSTsMXPTvqTVEFs1X4iKpD2JoZQU=;
-        b=q6KVNpPnMkt7pbLyoSwblskdOaMnPfKkNbKXdLYAGV0rJvA8Eqx/55CXOfLjd8srBc
-         oGaqpm+M133+x69a7FwgOH6pWmvHXIma0yxMan0pWnEj+tjqv8JCIDbYYX9mZF0jgh8q
-         NyEhqCWuLKgbvSZudPMnfCbF4k17i5jl3HqNbmn9KNflVGcDUHCpiMX4zvogwgu0yS2i
-         AMDKDClNJKFft0AEDp4VhCfmFFR+WzdkhDCfSdk5p0bK/sZerSZ0HobgVAenXEBkKzvp
-         2+hFXNk3pwgvpcV+WjvvC8VNfAyEJdAmROEeQTARPPuFMi4T20Cw8gygeZH7a9CJYb9j
-         ztew==
-X-Gm-Message-State: AFqh2kryi7WDcO2chgW3IOf55OGAATpNnXci9gpzdRwFLeeTCeTSPCBt
-	ZvkY/N6eEQFd39lzKP3IdWYGVwO+HHmusw==
-X-Google-Smtp-Source: AMrXdXteAT6I9N77L+ttW3wX8XDgO3yTGlXjVcwDsz4APn1u6Fh217pSeg8S9yJgMugS9zwgTeUbJw==
-X-Received: by 2002:adf:f20d:0:b0:2bd:f549:e66 with SMTP id p13-20020adff20d000000b002bdf5490e66mr12883813wro.63.1674226811821;
-        Fri, 20 Jan 2023 07:00:11 -0800 (PST)
+        bh=Fe0eCk7Y2xW3r2WIytl0p5j+qQaI829KhiJfOtG83A0=;
+        b=6bwNmsKrHgjf2bVGDuDggUrKu8VtRR/ryn9Jg1ZjLcHIO7jGypCrlDByUDeeVjOiba
+         ibNtakYza21jH+T/UFXNWeXpPDRYmnPlC1L4lI3DfFs+Qv8MWpJvC0Uq597z8VA0YqOP
+         YPNdEUMFnXsk5Q6So2l58+LCgSJKf7WZJATrPPJSr25Apc5kJXVyoS09evMtlfB/7Zfs
+         J6vQfGaITPhEvmu9cA/GmhuBYvpqVVqDhvMv7UEiuUVeSxCHy7Fr5ddz1dRm2dAi5P2R
+         9dXARTbR25TWKszGlnYyVS8S6+9xF9/B17z4VfS3bh2bA0fGb2IneL9QzDULKl+fmWoa
+         Va1A==
+X-Gm-Message-State: AFqh2koP8136qBBwKP1pgrnwNAkM0NuutpRH/LFjzGrt444m2n0+4lKa
+	XPZi+B9ciNoCYW286xwYINRq+tLamRLvVg==
+X-Google-Smtp-Source: AMrXdXt4JWVsRr18Xw60hT1COAZWenDPxPHrl7+0Iefg1VDxeFvBkM2RgM3zdh5s71wY+nqBE3s5Rg==
+X-Received: by 2002:adf:e310:0:b0:2bd:d8f1:2edf with SMTP id b16-20020adfe310000000b002bdd8f12edfmr13237260wrj.49.1674226812961;
+        Fri, 20 Jan 2023 07:00:12 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
@@ -84,48 +84,36 @@ Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
 	Connor Davis <connojdavis@gmail.com>
-Subject: [PATCH v1 09/14] xen/riscv: introduce do_unexpected_trap()
-Date: Fri, 20 Jan 2023 16:59:49 +0200
-Message-Id: <74ca10d9be1dfc3aed4b3b21a79eae88c9df26a4.1674226563.git.oleksii.kurochko@gmail.com>
+Subject: [PATCH v1 10/14] xen/riscv: mask all interrupts
+Date: Fri, 20 Jan 2023 16:59:50 +0200
+Message-Id: <0153a210de96733880fb3f6fddd902862cc2eaca.1674226563.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <cover.1674226563.git.oleksii.kurochko@gmail.com>
 References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch introduces the function the purpose of which is to print
-a cause of an exception and call "wfi" instruction.
-
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
- xen/arch/riscv/traps.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ xen/arch/riscv/riscv64/head.S | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-index dd64f053a5..fc25138a4b 100644
---- a/xen/arch/riscv/traps.c
-+++ b/xen/arch/riscv/traps.c
-@@ -95,7 +95,19 @@ const char *decode_cause(unsigned long cause)
-     return decode_trap_cause(cause);
- }
+diff --git a/xen/arch/riscv/riscv64/head.S b/xen/arch/riscv/riscv64/head.S
+index d444dd8aad..ffd95f9f89 100644
+--- a/xen/arch/riscv/riscv64/head.S
++++ b/xen/arch/riscv/riscv64/head.S
+@@ -1,6 +1,11 @@
++#include <asm/riscv_encoding.h>
++
+         .section .text.header, "ax", %progbits
  
--void __handle_exception(struct cpu_user_regs *cpu_regs)
-+static void do_unexpected_trap(const struct cpu_user_regs *regs)
- {
-+    unsigned long cause = csr_read(CSR_SCAUSE);
+ ENTRY(start)
++        /* Mask all interrupts */
++        csrw    CSR_SIE, zero
 +
-+    early_printk("Unhandled exception: ");
-+    early_printk(decode_cause(cause));
-+    early_printk("\n");
-+
-+    // kind of die...
-     wait_for_interrupt();
- }
-+
-+void __handle_exception(struct cpu_user_regs *cpu_regs)
-+{
-+    do_unexpected_trap(cpu_regs);
-+}
+         la      sp, cpu0_boot_stack
+         li      t0, STACK_SIZE
+         add     sp, sp, t0
 -- 
 2.39.0
 
