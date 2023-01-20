@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5BFF1675AAE
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 18:02:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.482021.747312 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A74D9675ADB
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 18:12:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.482027.747323 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIumW-0001MH-OQ; Fri, 20 Jan 2023 17:02:24 +0000
+	id 1pIuvs-0002pz-NQ; Fri, 20 Jan 2023 17:12:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 482021.747312; Fri, 20 Jan 2023 17:02:24 +0000
+Received: by outflank-mailman (output) from mailman id 482027.747323; Fri, 20 Jan 2023 17:12:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pIumW-0001K4-Le; Fri, 20 Jan 2023 17:02:24 +0000
-Received: by outflank-mailman (input) for mailman id 482021;
- Fri, 20 Jan 2023 17:02:23 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pIuvs-0002nS-Js; Fri, 20 Jan 2023 17:12:04 +0000
+Received: by outflank-mailman (input) for mailman id 482027;
+ Fri, 20 Jan 2023 17:12:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=6CDk=5R=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1pIumV-0001Jy-H3
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 17:02:23 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 34bc3a7a-98e4-11ed-91b6-6bf2151ebd3b;
- Fri, 20 Jan 2023 18:02:22 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id x10so7485165edd.10
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 09:02:22 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pIuvr-0002mz-5V; Fri, 20 Jan 2023 17:12:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pIuvr-0003Nm-3B; Fri, 20 Jan 2023 17:12:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pIuvq-0006yt-QQ; Fri, 20 Jan 2023 17:12:02 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pIuvq-0000oq-Q1; Fri, 20 Jan 2023 17:12:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +42,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 34bc3a7a-98e4-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=P/reDGfLQUDu+XX9ekjpDd8Mv6YCEE5/O+FBfPa46zo=;
-        b=CW//LJmHlo/DnU1omjb5W5cyEhO1E67hO2RQcJljiWNblOB5PGWdkob4XYkd2MIAoR
-         /Xcjhy9LU40Wnr8jeJLFvNpFSC/t5uIfhxdq+dZbg+jCVnbKlHRPEUdzarQEQFINPzfL
-         qMJhXvT6AaBZr/YjWFjn7PspxsQWkXarjt4jk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=P/reDGfLQUDu+XX9ekjpDd8Mv6YCEE5/O+FBfPa46zo=;
-        b=wYr+TLVg8KQ/Mi7ISzV5IQa36zc1H3j4MXROgKM6vLoLjvSgqst+p9Qyj63b+V+OfJ
-         Cxh2a6v0c9X+Pq3XCA1oYv6tclZhz2g1uUjg6ewgvZJ/Zo6Wv1OPRP3Ka/eQaHK6MHCP
-         CWlBS86d42VtxgEQUH5qfL6X4WFX+1IwrpgSgFT+V1+gL18LF9OluI/u33lw94hbaLHm
-         xWnNQJi9kgzJOtZJ0nNNy44GMyFEBl0cOxN3vqPwwStgxW6f9J0dAzodZ+kJC4Lp03W7
-         l3TqKpoBGfcZF5yo19xlyvR0XyeFKjUji0poqfQhc1wVa22Ph8xL+SLaW8haqeWVCSxZ
-         TPjA==
-X-Gm-Message-State: AFqh2koop9Adh7yujLtspW5i2c2WDoGID3LjTShQnicgtdP711nZvb1e
-	/3xV8AqnMcN5FY1tccZskjs+HvQbxrX7Fn8DYkKHrA==
-X-Google-Smtp-Source: AMrXdXuxL2yfe5gt2d0Y/WkhfgT5bASVojcep7tLJZNOLYPZpUMZpngFWW0bn8AVQQRgWeFSEkfq7p0uB82yW8lsx6U=
-X-Received: by 2002:aa7:db8b:0:b0:496:e060:44ff with SMTP id
- u11-20020aa7db8b000000b00496e06044ffmr1787457edt.226.1674234142096; Fri, 20
- Jan 2023 09:02:22 -0800 (PST)
-MIME-Version: 1.0
-References: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com> <d91b5315-a5bb-a6ee-c9bb-58974c733a4e@suse.com>
-In-Reply-To: <d91b5315-a5bb-a6ee-c9bb-58974c733a4e@suse.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Fri, 20 Jan 2023 17:02:11 +0000
-Message-ID: <CA+zSX=ZVK_7xpgraJyC3__uORqXo8F9Atj9gCF+oO7OyfRrtYg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/9] x86/shadow: replace sh_reset_l3_up_pointers()
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
-	Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
-Content-Type: multipart/alternative; boundary="0000000000004f97b105f2b5033a"
-
---0000000000004f97b105f2b5033a
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=BYQzHe/KJUriQlr3CawW/UOHH5sj/pjSxmHduOoIRwE=; b=6BPvnxFncxE/4TDbgzJCCnLlsB
+	Y200NapPPbgCCilAWlJzXcmf6p2Y979nbdoX6GijHKZhA651AYK8Wv76bx4OoCECSF95S14BcL/lW
+	7Kft6v6bmfDSnGULBvZP2wXKmXzwA2EF8myFPO7KowNtmee81SlPnRBUilNuVi972YqU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176000-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 176000: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=bf5678b5802685e07583e3c7ec56d883cbdd5da3
+X-Osstest-Versions-That:
+    ovmf=51411435d559c55eaf38c02baf5d76da78bb658d
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 20 Jan 2023 17:12:02 +0000
 
-On Wed, Jan 11, 2023 at 1:52 PM Jan Beulich <jbeulich@suse.com> wrote:
+flight 176000 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176000/
 
-> Rather than doing a separate hash walk (and then even using the vCPU
-> variant, which is to go away), do the up-pointer-clearing right in
-> sh_unpin(), as an alternative to the (now further limited) enlisting on
-> a "free floating" list fragment. This utilizes the fact that such list
-> fragments are traversed only for multi-page shadows (in shadow_free()).
-> Furthermore sh_terminate_list() is a safe guard only anyway, which isn't
-> in use in the common case (it actually does anything only for BIGMEM
-> configurations).
->
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 bf5678b5802685e07583e3c7ec56d883cbdd5da3
+baseline version:
+ ovmf                 51411435d559c55eaf38c02baf5d76da78bb658d
 
-One thing that seems strange about this patch is that you're essentially
-adding a field to the domain shadow struct in lieu of adding another
-another argument to sh_unpin() (unless the bit is referenced elsewhere in
-subsequent patches, which I haven't reviewed, in part because about half of
-them don't apply cleanly to the current tree).
+Last test of basis   175981  2023-01-19 12:43:49 Z    1 days
+Testing same since   176000  2023-01-20 14:10:45 Z    0 days    1 attempts
 
- -George
+------------------------------------------------------------
+People who touched revisions under test:
+  Ard Biesheuvel <ardb@kernel.org>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Jiewen Yao <Jiewen.yao@Intel.com>
+  Laszlo Ersek <lersek@redhat.com>
 
---0000000000004f97b105f2b5033a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jan 11, 2023 at 1:52 PM Jan B=
-eulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Rather tha=
-n doing a separate hash walk (and then even using the vCPU<br>
-variant, which is to go away), do the up-pointer-clearing right in<br>
-sh_unpin(), as an alternative to the (now further limited) enlisting on<br>
-a &quot;free floating&quot; list fragment. This utilizes the fact that such=
- list<br>
-fragments are traversed only for multi-page shadows (in shadow_free()).<br>
-Furthermore sh_terminate_list() is a safe guard only anyway, which isn&#39;=
-t<br>
-in use in the common case (it actually does anything only for BIGMEM<br>
-configurations).<br></blockquote><div><br></div><div>One thing that seems s=
-trange about this patch is that you&#39;re essentially adding a field to th=
-e domain shadow struct in lieu of adding another another argument to sh_unp=
-in() (unless the bit is referenced elsewhere in subsequent patches, which I=
- haven&#39;t reviewed, in part because about half of them don&#39;t apply c=
-leanly to the current tree).<br></div><div><br></div><div>=C2=A0-George<br>=
-</div></div></div>
 
---0000000000004f97b105f2b5033a--
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   51411435d5..bf5678b580  bf5678b5802685e07583e3c7ec56d883cbdd5da3 -> xen-tested-master
 
