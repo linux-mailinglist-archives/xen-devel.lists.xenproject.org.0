@@ -2,42 +2,42 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22B876758D9
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:38:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481957.747212 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1F476758E4
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 16:39:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481963.747223 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pItSd-0003Re-1J; Fri, 20 Jan 2023 15:37:47 +0000
+	id 1pItUE-00045a-GA; Fri, 20 Jan 2023 15:39:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481957.747212; Fri, 20 Jan 2023 15:37:47 +0000
+Received: by outflank-mailman (output) from mailman id 481963.747223; Fri, 20 Jan 2023 15:39:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pItSc-0003PV-UL; Fri, 20 Jan 2023 15:37:46 +0000
-Received: by outflank-mailman (input) for mailman id 481957;
- Fri, 20 Jan 2023 15:37:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pItUE-00042s-DB; Fri, 20 Jan 2023 15:39:26 +0000
+Received: by outflank-mailman (input) for mailman id 481963;
+ Fri, 20 Jan 2023 15:39:24 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=islB=5R=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
- id 1pItSb-0003PP-Hi
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:37:45 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6072c019-98d8-11ed-b8d1-410ff93cb8f0;
- Fri, 20 Jan 2023 16:37:42 +0100 (CET)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
- [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-311-ynSzOyI2M92Q8d7NniEQ-A-1; Fri, 20 Jan 2023 10:37:39 -0500
-Received: by mail-ej1-f70.google.com with SMTP id
- sb39-20020a1709076da700b0086b1cfb06f0so4022535ejc.4
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 07:37:39 -0800 (PST)
-Received: from imammedo.users.ipa.redhat.com (nat-pool-brq-t.redhat.com.
- [213.175.37.10]) by smtp.gmail.com with ESMTPSA id
- eg49-20020a05640228b100b00488117821ffsm17591730edb.31.2023.01.20.07.37.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 07:37:35 -0800 (PST)
+ <SRS0=Vlkl=5R=citrix.com=prvs=3778cfab1=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pItUC-00042l-JV
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 15:39:24 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 9ba4428d-98d8-11ed-91b6-6bf2151ebd3b;
+ Fri, 20 Jan 2023 16:39:22 +0100 (CET)
+Received: from mail-mw2nam12lp2042.outbound.protection.outlook.com (HELO
+ NAM12-MW2-obe.outbound.protection.outlook.com) ([104.47.66.42])
+ by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 20 Jan 2023 10:39:12 -0500
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
+ by BY5PR03MB4982.namprd03.prod.outlook.com (2603:10b6:a03:1f1::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.13; Fri, 20 Jan
+ 2023 15:39:10 +0000
+Received: from BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19]) by BYAPR03MB3623.namprd03.prod.outlook.com
+ ([fe80::c679:226f:52fa:4c19%6]) with mapi id 15.20.6002.024; Fri, 20 Jan 2023
+ 15:39:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,198 +49,165 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6072c019-98d8-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674229061;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Lf+VUNzHo6930QhHDjlYS5a/9FVCtfkspKq7OQ6oVEY=;
-	b=a0rMRdsdO9Th5o8Sm5dJoRDcemvLrMD4n/r9GP+KMgd4Y4K+qno9oiSP4hYvxFnCSCqDsB
-	FZp44/8/MwChd7jNkJ4fO7VCB1MTlb7/CGcPh5AfW140yisvHthoKPkaIBk4jWwuJKejZP
-	EimqZ5tXl1GW0/o3s+wBa260mYXrFxE=
-X-MC-Unique: ynSzOyI2M92Q8d7NniEQ-A-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=Lf+VUNzHo6930QhHDjlYS5a/9FVCtfkspKq7OQ6oVEY=;
-        b=hP0PCkZZPmEoHiTsyIiMgYfYWjCXIjz9ReSvnSLOvWxBgQbid+/ohldBToXtlcRd5z
-         qo54EdBACouV/FQ1sOQW1y8toR6ee6Ye7Mzf6M54wFqVSYwfSOx/O3f1Tmycdcr3nmEf
-         Zm6T0t/79nhWYHN+JchjBtbpMgK4v8Lmt9JiRQIPVyQQHefz7+s3VpE02DriDAc6d97s
-         yUYyF6mLgF0/dNgdORoHtyJHxNSRrH5pRp3nx+VYg0mL6Kf28s2qScL9+CBGxVwVt5mX
-         N/taxZKuWNFrBVo3KlTQ94T1sekIoHE1ac1H+yO75l4dHw42pnr9FdsuII3PYNGua8kw
-         3S4Q==
-X-Gm-Message-State: AFqh2krOFQETGXvWSgj4CRoPS3jJ8seoW4aOq4xSW8A6KyogBoAwawHd
-	0jefW1sKHoKUfuJYXvsHhYhMpYlYqkWeQWm9Cuxod1Fq0LYxHIWSxDd/mHj8t/cv9ZAcicdSYka
-	AAmW2VjkwVEtgMjnBHz+2OX3hDDU=
-X-Received: by 2002:a05:6402:413:b0:498:b9ea:1894 with SMTP id q19-20020a056402041300b00498b9ea1894mr14217260edv.15.1674229058192;
-        Fri, 20 Jan 2023 07:37:38 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXt9Neac975gd5nkcxdpVzeTBwC+wqA5CjhhwnQrnrtHBQwgyExGpn/wMyvV8tTW0X127YXwMw==
-X-Received: by 2002:a05:6402:413:b0:498:b9ea:1894 with SMTP id q19-20020a056402041300b00498b9ea1894mr14217220edv.15.1674229057884;
-        Fri, 20 Jan 2023 07:37:37 -0800 (PST)
-Date: Fri, 20 Jan 2023 16:37:34 +0100
-From: Igor Mammedov <imammedo@redhat.com>
-To: "Srivatsa S. Bhat" <srivatsa@csail.mit.edu>
-Cc: Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org,
- amakhalov@vmware.com, ganb@vmware.com, ankitja@vmware.com,
- bordoloih@vmware.com, keerthanak@vmware.com, blamoreaux@vmware.com,
- namit@vmware.com, Peter Zijlstra <peterz@infradead.org>, Ingo Molnar
- <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, "Rafael J.
- Wysocki" <rafael.j.wysocki@intel.com>, "Paul E. McKenney"
- <paulmck@kernel.org>, Wyes Karny <wyes.karny@amd.com>, Lewis Caroll
- <lewis.carroll@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, Juergen
- Gross <jgross@suse.com>, x86@kernel.org, VMware PV-Drivers Reviewers
- <pv-drivers@vmware.com>, virtualization@lists.linux-foundation.org,
- kvm@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] x86/hotplug: Do not put offline vCPUs in mwait idle
- state
-Message-ID: <20230120163734.63e62444@imammedo.users.ipa.redhat.com>
-In-Reply-To: <ecb9a22e-fd6e-67f0-d916-ad16033fc13c@csail.mit.edu>
-References: <20230116060134.80259-1-srivatsa@csail.mit.edu>
-	<20230116155526.05d37ff9@imammedo.users.ipa.redhat.com>
-	<87bkmui5z4.ffs@tglx>
-	<ecb9a22e-fd6e-67f0-d916-ad16033fc13c@csail.mit.edu>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+X-Inumbo-ID: 9ba4428d-98d8-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1674229162;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=NJj7xlRHwcyXb1MBngUqx3cNZ3XmMewkOKdHGsa7SmA=;
+  b=bNJPh79Pnil93FMZNxNmOdRgmh2CemF2yZH3l7jDq5RB+xgviQg/BLVx
+   EOFuuodqS6oonwfsXaJzKnWvaGMjpxvbNsbMBDLhAKlcKyGo91b5s4tWp
+   XZQLxZlfACzGqxAg/UoqI+z0LEvT2512OwT4//Xqz4fmFZSfwC9TS1Rdc
+   Y=;
+X-IronPort-RemoteIP: 104.47.66.42
+X-IronPort-MID: 92440284
+X-IronPort-Reputation: None
+X-IronPort-Listener: OutboundMail
+X-IronPort-SenderGroup: RELAY_O365
+X-IronPort-MailFlowPolicy: $RELAYED
+IronPort-Data: A9a23:BAU2xqt6nFkRvNoq9W3SmYEd+ufnVM9fMUV32f8akzHdYApBsoF/q
+ tZmKW/Qa6uPa2WhKt8nPIi1phsEucDQmIQwSQE6+SFhFnlG+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg0HVU/IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj51v0gnRkPaoQ5AaEzyFPZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwcXcubkqzrPCPyr+kTdJTmpkMPe/kBdZK0p1g5Wmx4fcOZ7nmGv+PwOACmTA6i4ZJAOrUY
+ NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0ovjv6xarI5efTTLSlRtm+eq
+ njL4CLSBRYCOcbE4TGE7mitlqnEmiaTtIc6RefkqqYw0AH7Kmo7ETQWb3eChKiA2hSAV/hzB
+ hIu6y8+hP1nnKCsZpynN/Gim1aDuhMfQNtRVe4n8gaGyqnTywmcD2kACDVGbbQOpMIwADAny
+ FKNt9foHiB09q2YT2qH8bWZpi/0PjIaRUcZfjMNRwYB59jloakwgwjJQ9IlF7S65vX6GDj2x
+ y2BpQAkhqsUls8N3OOw+lWvqzirrJLYQxU14gjSV2SN4QZwZYrjbIutgXDS6fdbMI+YVB+Pp
+ nECkMmFxP8CBteGkynlaO4KGreu5fqMLjzHqVFqFpglsT+q/haekZt45Th/IAJsLZwCcDqwO
+ kvL41sNvtlUIWegarJxb8SpEcM2wKP8FNPjEPfJct5JZZs3fwiClM1zWXOtM6nWuBBEuckC1
+ V2zKK5A0V5y5Xxb8QeL
+IronPort-HdrOrdr: A9a23:ZGCAiqDvWhEVfjTlHejLsseALOsnbusQ8zAXPhhKOGVom7+j5o
+ WTdZUgpFvJYVMqM03I9urwXZVoLUmzyXcx2/h2AV7AZniThILLFvAH0WKK+VSJcUGQygce79
+ YGT0EUMr3N5C1B/KTHCX6DYrUdKbe8kZxBKIzloktFfEVPUeVN/g15AgGUHglfQxRHP4MwEN
+ 6x99dKvD2pfFUQd4CeCmMeV+bOitXXnNa+CCR2cSIP2U2rt3eF+bT6Gx+X0lM3VC5O+64r9S
+ zoghH0/aKqttC801v523XI55pbtdP9wp9oBdCKiOISNjLw4zzYE7hJavmnhnQYseuv4FElnJ
+ 3nuBE7Jfl+7HvXYyWcvQbt8xOI6kdn11bSjXujxVfzq83wQzw3T+Bbg5hCTxff4008+Plhza
+ Nw2X6DvZY/N2KKoM293amDa/hZrDv5nZMQq59ds5WZa/pRVFZll/1TwKqSKuZAIMu10vFmLA
+ AkNrCl2B8fSyLgU5hf1VMfguBFih8Ib1S7qw45y4Wo+ikTk3Zjw0QCwssD2n8G6ZImUpFBo/
+ /JK6Jyidh1P7wrhI9GdZY8qPGMexzwaAOJNHjXLUXsFakBNX6Io5nr4K8t7OXvfJAT1pM9lJ
+ nITVsd7AcJCjfTINzL2IcO/gHGQW27UziowsZC54Jhsrm5QLbwKyWMRF0njsPlqfQCBc/QXe
+ q1Jfttco3eBHqrHZwM0xz1WpFUJ3VbWMoJuswjU1bLuc7PIp2CjJ2kTB8SHsuTLd8JYBKCPp
+ JYZkmIGCxp1DHXZkPF
+X-IronPort-AV: E=Sophos;i="5.97,232,1669093200"; 
+   d="scan'208";a="92440284"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bR9STxQpPWCktMp5ROnGMcRo703NrrIbe+ZfUVjznwmLPpPWpJgwA7ldkZpVDve1WMXWIsqTW1C7aIcfRvxx4DVD5cTthcCjLr2FRDxZMr6i70RfdsMOvyrrrxMnq79RaTdDVp5lC8+gifJ6pRQ0m51ta36zG0fKVsdJ98Dl3m3o1pTj0m4WFSVqSc5aDUk0r36jryrEDtVwW0v7hGpeV+iT6FLmxrdgspPDZ3DCQrbdnIE3sqwT0YXV+xh59YOBnhTjLoavoEWZlEp8R49c7QzW2e47NiLopLSh8MpqKCb4T6eD9wjDat4UISfA9N19WapGR6axUqQ029MNiWfqEQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NJj7xlRHwcyXb1MBngUqx3cNZ3XmMewkOKdHGsa7SmA=;
+ b=a3hI4CfyfaNfXM4lXRZcuqk6ToB5DhiGy+mvbWL65tUzRcb2ND973pzDlXNKJDUGZ0EzRsqZw2qnnPr8Fyeq+ZH/yEGRWB1nt6dZudbyQVUJFMy3US5ii+bGL0LBuSeZjJ4Ao61EXlP8Frz2UIA2GH5uirAVqLoeJLjPIgUUs6STjbCCZ3mpY+pkxzWcPRR70CH5vZ0pB5uHgs7j+FH4ltLFH//Ueq7LJSlpnB32ykBZq29kGDw5JtXxIkNMu7QvhNyPlxR+3GrAXugPTr8vdSymXA9COOWIVEnIxM24sWlfCMDMBn/N67I3HZkiHh9ExA889Y+LyY2rdyY5i4thbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
+ dkim=pass header.d=citrix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NJj7xlRHwcyXb1MBngUqx3cNZ3XmMewkOKdHGsa7SmA=;
+ b=VWVrQ964HU3rlPI3dqYPB0ZEf3AIOJ0kC4Z6ZRsiNWQaHXQYcnKPeMWK7eCmXvShtbX31TEnXWgppPtJHp8R55m+14lzc5vf5CtN6+bkXUI+78oL+/0Mc3sAVWqdXDM8on0FOYtwulHvU0XGdxEuh4K1yXKZdVw1tz0IbRB0s1g=
+From: Andrew Cooper <Andrew.Cooper3@citrix.com>
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
+	<gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
+ Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Subject: Re: [PATCH v1 05/14] xen/riscv: add early_printk_hnum() function
+Thread-Topic: [PATCH v1 05/14] xen/riscv: add early_printk_hnum() function
+Thread-Index: AQHZLN/tUylHypY/2ESw6BfK5kdGDa6ncO0A
+Date: Fri, 20 Jan 2023 15:39:10 +0000
+Message-ID: <53b7651a-4274-1e2f-fb97-d30f3ddbac1d@citrix.com>
+References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
+ <633ced21788a3abf5079c9a191794616bb1ad351.1674226563.git.oleksii.kurochko@gmail.com>
+In-Reply-To:
+ <633ced21788a3abf5079c9a191794616bb1ad351.1674226563.git.oleksii.kurochko@gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=citrix.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR03MB3623:EE_|BY5PR03MB4982:EE_
+x-ms-office365-filtering-correlation-id: acd564b8-6bfa-4823-0fba-08dafafc79a7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info:
+ uqhwGWwfe+duW3GRSP3EnoeIIlMUU39eDo41N53pGdUsFPOSMJi4lGzwAojxBwFjGVfjZGHR4JRf5hVbSmpnJluYMUb+ln0k7Nq0Yngry7NL71OUH8BEhjBd7mu55ZAlT7IhSxnUQ1l1k2fW5gyDf2HiOziFQPf4bj8vt3q+j8+QSYLsjKP+3cV8b9nwLpMcSj14fV0Ka0TK1fpidcZPMYQhCRPIDJiF8uMEyN5Acg8FCI2IEZfFX6lRQ8LJEK8TYTjpDKCNK14VLctY8mNwz5gd/oIQenBLryszMzFoTkReiNdoPrYIVCRZm5H7qidAOvFOW5TmZflEylFkaAp3xzfR9fhyX/0JxjfgkG/knyqfMf06puWbe0PJPHaOn6dI7EDZZup5j3yR39eqWKiNFy0ZpgK06Kt/P/j2WlI2wMLVzCecdY9KryT7NdLEJW391fl14nlvkBgs2dYaHjTVEtn+CDBrreR9wRTM0bZ7d4Wrvkm2+VkgbQU/PjEuPPxCckFS1+UiUXBTaSYqXU7haZ/oblLgM8aYtui/oENw9tXyPVmCJHoUK8KX/926L2x3mAmwYSDSOZOx/9NvH+5MC4yL0P2xLvt6KKP803SkKOPYI/W0B6y16nb2nI+TpHd7t/9aDnJCe+PgDQzPSqfTn3L0Qy1aX2ogfjy/9S6dqP2RsZGxEWhZAsVInjpDEsB80CDlWglQEHyyCqq8oHX0ZRJr6MRfMoc0MsOaUu5Mnb+1mQLFB9hwUbLW58SfRxfojOVwX4kzyMTuNWfBSycdhQ==
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(346002)(366004)(376002)(136003)(451199015)(122000001)(82960400001)(36756003)(38100700002)(31696002)(38070700005)(26005)(8936002)(4744005)(41300700001)(5660300002)(64756008)(91956017)(316002)(66556008)(76116006)(66476007)(4326008)(66946007)(2906002)(8676002)(66446008)(2616005)(186003)(6486002)(71200400001)(54906003)(110136005)(53546011)(6506007)(86362001)(478600001)(6512007)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?QjUwQ0tHaDZlbG1BQS8xNzJMZ2pRMWtqTlhjUGdVUG44ODFwdTE2MExVTlhh?=
+ =?utf-8?B?cE1BcHVYdDRTV3NhcjFVcnZheXBYbE9rNHhnRG9laXZXRGpwd0NJM3JoNGhj?=
+ =?utf-8?B?UEJ0ck9KbkxzeFp0TWxvL1JpdEhVUmZwODBlaERYVmE4VnZPbmhCb2QxYVNK?=
+ =?utf-8?B?UDBFcmg1Z0xzQysxZ05tSXNkbzlORSs0akp4QWdGVnMwbVlLZGJhNWR1bi9U?=
+ =?utf-8?B?MS9QUWFrcGFVSHg5eXZmUjJrMUdjLzZ0NFc1NFJNRlRlMVFFemlsZVZwQ1Bs?=
+ =?utf-8?B?RXNxaWJKL3piTGVOM0tpRk4zV0pjWlJlVG1wOUFRbUlnZkdxdjFzSUtHTm5q?=
+ =?utf-8?B?YnhlY0h4NU1jalFEMDNtbWRWRi9EdGdKZ0JFanE3R1p6OWNwOGdTanZEZ0Rx?=
+ =?utf-8?B?UHVmYUl6R0dwYTE3ZjRlUGNiNW5lYUdxaVlqOVFxdmpzM1NyTEtJbjFYMU8x?=
+ =?utf-8?B?Sys0RTcrVWFqOXNNNXpGZjkrTHVpOTUzQ01DV0tvTWZCZC9MN1ZwTlVGc2cw?=
+ =?utf-8?B?UnNQbjl0cyswQVN1SnYrOWtZeURrVUZEVTRTMWs3b1I2UVlFK3hrNEVrVUlv?=
+ =?utf-8?B?a21qN29LQWM0R2VNR3FwUHdvYlMyOWt6cnNtSUZBQkJpTXdjWWJIaTVnRWtC?=
+ =?utf-8?B?SFI5bzI5SW1rU3dMd1crbm9zNW5TcG4wREV2bUZmeTB5SDZ1ZmFaYUhIM3ln?=
+ =?utf-8?B?UW5EZ2xCMWY5bTBEMldRMU8rdStFbE1WcHJQWHA2emdxOVcwQ000dnBYVlE4?=
+ =?utf-8?B?ZHlKV1A5bTlQalM0OFJnTjFHbzFlaGNJbi9DZldRMnFVL2ZQb2tTTitXa2tw?=
+ =?utf-8?B?aFBzMTI1MEtoWmVobVNzV2xSODBYZjgwU2gzR0Y2NjRoUFVMeTIyb0ppVTBm?=
+ =?utf-8?B?RGpkSFNkRG1mc2VYcnRMS2FZU1ZCU0daZHp5Nm10SkJQaktIMWhjeHlLWEd6?=
+ =?utf-8?B?SGtKMTB6QzNYRk5vY3FTdXdwb2tkMHNVRHhvSlhDNG5DeU1YaklBSVY0eEJ6?=
+ =?utf-8?B?bW1YUk9CR0VlbnVJbVUxcFFQT2VJa1N1MUdKOUxTYkNGdjBsSkJYWUpWcy9T?=
+ =?utf-8?B?OThoUzkzS3dEYWE4c2NvZkRtQnl3ZzBYOFpDMEpEYXRDRGxPTUpSZnJhOVFs?=
+ =?utf-8?B?aDliWkg1R3pBWFhKMnRidDJiZmFSZTVwTXhjc1JlV1J6cEl2K0FOSzdPb0M5?=
+ =?utf-8?B?RitQeU5OalhiWTloeVN6TlVWaGJWemp4blZNOXN1c0NlRTlsZnZPeWt6S01w?=
+ =?utf-8?B?elMwdW45VWErRVc2STFNbFY1TGE0cWo1QXJUUE04Q1RXcWVCSytncGZ3ZGVa?=
+ =?utf-8?B?eDA1US9JYjdlbkI2Y3Z5cmhub0lqK2ZCWkdDaUwxZ1NDUkE2ajE2MFY5UXdI?=
+ =?utf-8?B?dVE1c09qbTI1Y0Z1WGx2Z0IrK0tGMFd2SmU2ZXJvV2FQNE12WHJReXdST0Iy?=
+ =?utf-8?B?L1dQdWhzdjE3SUlJRHQ5ZHcxZS9rU2ZLc2FPL2dXK0FNZ2JCcnd3MXkrQmxL?=
+ =?utf-8?B?amJjbVBhcC9ObHZwMVl0MVRFRUZJTmoySUF2N2l0WTR1dTh1SnprdEpZRis0?=
+ =?utf-8?B?b1lPTmhuSEdNRzFoL1NmYUFNRk5oVExTQVZNdkF4WnV5Ly9ZYkh0VlltaURF?=
+ =?utf-8?B?RFpGc2lzT0pVdFdINDIrRlY3VFVxL0VWa1lrL0VXZXFVRnlSY2psVVArRWJC?=
+ =?utf-8?B?YVNkbzd5UjdqZWg0SGYxQXBLR3ZoVUcrcEFmMlhaLzU4blY0S0dNV3poYjZu?=
+ =?utf-8?B?a2JqUGEwWVhTYzdzNkV2VmpYRi9ZYWZDd1FsRnNid0l0Sndkb0Z3WmpxVWdG?=
+ =?utf-8?B?cHVCQmVLSmpWaEtkTWF3ejREWGlxOURxK0pTb0c4MjQ2aWxzc1RpeldoejBw?=
+ =?utf-8?B?T1dPL1Brd05iRFhKNGdqZGxuTHNTOHNHVjNhS0NZeGNoZjJFSXRYZko3SDdJ?=
+ =?utf-8?B?SG9HSXJoT2tMcmJkWlRrM2RKSUlIaWpQcW1wY0lXM2tqLy90ck45RjNsUHdJ?=
+ =?utf-8?B?NEZnMHpuQzcxeFFwRzg5bDRydzc3WXQxMFRWQVR3R1JHOFE3dXl2Vlh1aWVW?=
+ =?utf-8?B?V2JjcVRsakxYa3QyNHNCc0pQeWl2OWUxcndtUUJSUzJsamlKRDEvWHNXNzhS?=
+ =?utf-8?B?TEVWaWgwWGJ6V1ZocGp1SUFJbk5CWkVQMTl5SHlaZUw2N1oxaUZCSExsVGZ3?=
+ =?utf-8?B?WVE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <B1FA74962851904DA858A523CAD268C2@namprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	4WjD9xedmqBIXj+9Jh1sPCRTw31UHolsxQTyf1vUT/vcbSO2KJA9w+3F93KFGN9rRTPpZgXJFp+ox80N+yUFwDs4zXgh8UNq9xXcKoWkw+ZsDNaUP34jJ62k97DSeqYcYrvtyhHF/gMBx8fvNbim5IN5uKfIRWi7b6ldCWU66l5GNH+00jVsImP+d0jjSy8lA/6eufS57WqLxO9JPPUkoQhS5Lwma7njIyoyf3UVaFkI8d90CuPiiPo816OjDZt+oHFSW5pNgTG72gpE5Qh9gWgvzfs6xXhGG5H8CS5+A/oS23vmgLdbxuxDNfl8bDEOBg1K2XYinVE896o1Vkb6yc2OBgYT1HvJtFQd+fztGddUPmcvJwvvZhcEv45oV6tbiCDyFK/julbqiJEGyl3zkoE2AV4d/isKuty1PhXdiaA0f9ZwWibgUhgM99YyfxvNkzFxRA4uOpMRJzgN5rbL44IjkYd/oMo1p4mjRo821r0QLzGMXtWerG/G5BIfOPYC2X5vmEZFtiHSzeDGtlLloJyiz4g+zJkTvV/eKlnU8DQCFSMtG40WbWiotxNHLV/wX+N7d1haGdDmRFSSQjJdIUPeZ587Epg7GZc7pXha5Opd+vzCgLB/QoKu+JLfzbl2a2kjrkadGGARaGIIH5KJhJSZvzV5Ot/YdWCr2kzinbM8YgEiICy3Od+Tk6yItgu/DuL/jb8CHkpYDxKQh3gG3v/uHWXUyI9BOkxjjz8RHIzMvqPDusdqNjjdUStuslpEYZl2L+3+xgw4vvnpbs+d/McJ2u0eUoChqkO6yeaswNHUr/DK7g0m2Wk2oLUUqap03vn5RXq+a8DTyY5NVlHYNGdsanuKiY+4tAb+j0wjfceMR6s0uy/j9YLV83OvREBGIfSeCiqRsS+wNF/OXp4ExA==
+X-OriginatorOrg: citrix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: acd564b8-6bfa-4823-0fba-08dafafc79a7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jan 2023 15:39:10.5572
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xZxEZ+4+fUVc/ItmqJymIWxwEzQZUM0vTGe6qpBWQho4Tvq+DGtFVtlDKXRUC2UeioFaAti2uC4V7MWYctkdFhCFb8aQMigNgQYpo6aaQ84=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB4982
 
-On Fri, 20 Jan 2023 05:55:11 -0800
-"Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:
-
-> Hi Igor and Thomas,
-> 
-> Thank you for your review!
-> 
-> On 1/19/23 1:12 PM, Thomas Gleixner wrote:
-> > On Mon, Jan 16 2023 at 15:55, Igor Mammedov wrote:  
-> >> "Srivatsa S. Bhat" <srivatsa@csail.mit.edu> wrote:  
-> >>> Fix this by preventing the use of mwait idle state in the vCPU offline
-> >>> play_dead() path for any hypervisor, even if mwait support is
-> >>> available.  
-> >>
-> >> if mwait is enabled, it's very likely guest to have cpuidle
-> >> enabled and using the same mwait as well. So exiting early from
-> >>  mwait_play_dead(), might just punt workflow down:
-> >>   native_play_dead()
-> >>         ...
-> >>         mwait_play_dead();
-> >>         if (cpuidle_play_dead())   <- possible mwait here                                              
-> >>                 hlt_play_dead(); 
-> >>
-> >> and it will end up in mwait again and only if that fails
-> >> it will go HLT route and maybe transition to VMM.  
-> > 
-> > Good point.
-> >   
-> >> Instead of workaround on guest side,
-> >> shouldn't hypervisor force VMEXIT on being uplugged vCPU when it's
-> >> actually hot-unplugging vCPU? (ex: QEMU kicks vCPU out from guest
-> >> context when it is removing vCPU, among other things)  
-> > 
-> > For a pure guest side CPU unplug operation:
-> > 
-> >     guest$ echo 0 >/sys/devices/system/cpu/cpu$N/online
-> > 
-> > the hypervisor is not involved at all. The vCPU is not removed in that
-> > case.
-> >   
-> 
-> Agreed, and this is indeed the scenario I was targeting with this patch,
-> as opposed to vCPU removal from the host side. I'll add this clarification
-> to the commit message.
-
-commit message explicitly said:
-"which prevents the hypervisor from running other vCPUs or workloads on the
-corresponding pCPU."
-
-and that implies unplug on hypervisor side as well.
-Why? That's because when hypervisor exposes mwait to guest, it has to reserve/pin
-a pCPU for each of present vCPUs. And you can safely run other VMs/workloads
-on that pCPU only after it's not possible for it to be reused by VM where
-it was used originally.
-
-Now consider following worst (and most likely) case without unplug
-on hypervisor side:
-
- 1. vm1mwait: pin pCPU2 to vCPU2
- 2. vm1mwait: guest$ echo 0 >/sys/devices/system/cpu/cpu2/online
-        -> HLT -> VMEXIT
- --
- 3. vm2mwait: pin pCPU2 to vCPUx and start VM
- 4. vm2mwait: guest OS onlines Vcpu and starts using it incl.
-       going into idle=>mwait state
- --
- 5. vm1mwait: it still thinks that vCPU is present it can rightfully do:
-       guest$ echo 1 >/sys/devices/system/cpu/cpu2/online
- --              
- 6.1 best case vm1mwait online fails after timeout
- 6.2 worse case: vm2mwait does VMEXIT on vCPUx around time-frame when
-     vm1mwait onlines vCPU2, the online may succeed and then vm2mwait's
-     vCPUx will be stuck (possibly indefinitely) until for some reason
-     VMEXIT happens on vm1mwait's vCPU2 _and_ host decides to schedule
-     vCPUx on pCPU2 which would make vm1mwait stuck on vCPU2.
-So either way it's expected behavior.
-
-And if there is no intention to unplug vCPU on hypervisor side,
-then VMEXIT on play_dead is not really necessary (mwait is better
-then HLT), since hypervisor can't safely reuse pCPU elsewhere and
-VCPU goes into deep sleep within guest context.
-
-PS:
-The only case where making HLT/VMEXIT on play_dead might work out,
-would be if new workload weren't pinned to the same pCPU nor
-used mwait (i.e. host can migrate it elsewhere and schedule
-vCPU2 back on pCPU2).
-
-
-> > So to ensure that this ends up in HLT something like the below is
-> > required.
-> > 
-> > Note, the removal of the comment after mwait_play_dead() is intentional
-> > because the comment is completely bogus. Not having MWAIT is not a
-> > failure. But that wants to be a seperate patch.
-> >   
-> 
-> Sounds good, will do and post a new version.
-> 
-> Thank you!
-> 
-> Regards,
-> Srivatsa
-> VMware Photon OS
-> 
-> 
-> > Thanks,
-> > 
-> >         tglx
-> > ---        
-> > diff --git a/arch/x86/kernel/smpboot.c b/arch/x86/kernel/smpboot.c
-> > index 55cad72715d9..3f1f20f71ec5 100644
-> > --- a/arch/x86/kernel/smpboot.c
-> > +++ b/arch/x86/kernel/smpboot.c
-> > @@ -1833,7 +1833,10 @@ void native_play_dead(void)
-> >  	play_dead_common();
-> >  	tboot_shutdown(TB_SHUTDOWN_WFS);
-> >  
-> > -	mwait_play_dead();	/* Only returns on failure */
-> > +	if (this_cpu_has(X86_FEATURE_HYPERVISOR))
-> > +		hlt_play_dead();
-> > +
-> > +	mwait_play_dead();
-> >  	if (cpuidle_play_dead())
-> >  		hlt_play_dead();
-> >  }
-> > 
-> > 
-> >   
-> >   
-> 
-
+T24gMjAvMDEvMjAyMyAyOjU5IHBtLCBPbGVrc2lpIEt1cm9jaGtvIHdyb3RlOg0KPiBBZGQgYWJp
+bGl0eSB0byBwcmludCBoZXggbnVtYmVyLg0KPiBJdCBtaWdodCBiZSB1c2VmdWwgdG8gcHJpbnQg
+cmVnaXN0ZXIgdmFsdWUgYXMgZGVidWcgaW5mb3JtYXRpb24NCj4gaW4gQlVHKCksIFdBUk4oKSwg
+ZXRjLi4uDQo+DQo+IFNpZ25lZC1vZmYtYnk6IE9sZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vy
+b2Noa29AZ21haWwuY29tPg0KDQpJIHRoaW5rIGl0IHdvdWxkIGJlIGJldHRlciB0byBnZXQgcyhu
+KXByaW50ZigpIHdvcmtpbmcgdGhhbiB0byB0YWtlDQp0aGVzZS7CoCBXZSdyZSBnb2luZyB0byBu
+ZWVkIHRvIGdldCBpdCB3b3JraW5nIHNvb24gYW55d2F5LCBhbmQgd2lsbCBiZQ0KbXVjaCBlYXNp
+ZXIgdGhhbiBkb2luZyB0aGUgZnVsbCBwcmludGsoKSBpbmZyYXN0cnVjdHVyZS4NCg0KfkFuZHJl
+dw0K
 
