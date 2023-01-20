@@ -2,42 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE1C675972
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 17:03:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481993.747273 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 151BD675973
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 17:03:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481990.747263 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pItqs-0001VW-Km; Fri, 20 Jan 2023 16:02:50 +0000
+	id 1pItqj-0001DM-8Z; Fri, 20 Jan 2023 16:02:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481993.747273; Fri, 20 Jan 2023 16:02:50 +0000
+Received: by outflank-mailman (output) from mailman id 481990.747263; Fri, 20 Jan 2023 16:02:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pItqs-0001Sw-Hh; Fri, 20 Jan 2023 16:02:50 +0000
-Received: by outflank-mailman (input) for mailman id 481993;
- Fri, 20 Jan 2023 16:02:49 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=islB=5R=redhat.com=imammedo@srs-se1.protection.inumbo.net>)
- id 1pItqq-0001S8-Vc
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 16:02:49 +0000
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id e05087ad-98db-11ed-b8d1-410ff93cb8f0;
- Fri, 20 Jan 2023 17:02:45 +0100 (CET)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
- [209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-632-d8gPAWXTMzq3olbTxg8uVA-1; Fri, 20 Jan 2023 11:02:43 -0500
-Received: by mail-ed1-f69.google.com with SMTP id
- l17-20020a056402255100b00472d2ff0e59so4167091edb.19
- for <xen-devel@lists.xenproject.org>; Fri, 20 Jan 2023 08:02:42 -0800 (PST)
-Received: from imammedo.users.ipa.redhat.com (nat-pool-brq-t.redhat.com.
- [213.175.37.10]) by smtp.gmail.com with ESMTPSA id
- l1-20020a1709063d2100b0086d70b9c023sm8983330ejf.63.2023.01.20.08.02.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Jan 2023 08:02:05 -0800 (PST)
+	id 1pItqj-0001B6-4c; Fri, 20 Jan 2023 16:02:41 +0000
+Received: by outflank-mailman (input) for mailman id 481990;
+ Fri, 20 Jan 2023 16:02:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pItqh-0001Aw-TL; Fri, 20 Jan 2023 16:02:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pItqh-0001qa-Pa; Fri, 20 Jan 2023 16:02:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pItqh-0003bl-9U; Fri, 20 Jan 2023 16:02:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pItqh-0000rA-91; Fri, 20 Jan 2023 16:02:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,177 +42,217 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e05087ad-98db-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674230564;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ltffmf7efxRjeBXWrWYsu1MTZJnXzkkEAcN40f2IiyQ=;
-	b=QUNmQgrTW+se7kdGGKKlaBQfnVgJj7N5W+bXSgIfY2SNhAPyE7TOat5e+t6tSop0nJOWJ2
-	mO1I5d9OqIoXGWY6hAaY6hpmz/K0P6uQEFCTRZg+soB6kRL2Hh9u/puVHkpFYgGBSVfv7s
-	8KAnBVbRxbIR/ViLQbESZ5K85p0oGpI=
-X-MC-Unique: d8gPAWXTMzq3olbTxg8uVA-1
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=LqK9LshMvEORLrMKTzFodPJbRAbdUgjc/AwkyEARM60=;
-        b=4q3gDDekj2uBW9VGUXAqbwGkH+k7x2YrKL/O1INiMx5XMFF7lHVfdbxJue9VB/Vdlc
-         WHP0iKWnH2hGLkEj7219Ds94B1VRgjrq4aZmSW01uxBy1K1f/kK38idIidI7p37eGFIM
-         HRdnpFLLSTOa4GgOf2I2VevQy9C9Im/kJzKOHc8OmPFEUak+BEoSK6+YBjzjqO7clOho
-         jKwOB+bHYAbw29Tb0VnHbfYMIVLiFihFwl2y4K+z/GwLYp8yU5CYbGGmS2jDg+P+u8I3
-         Jrrud5feoZPc8KwzLueHv0+zoCIG3rB6NDhb1jtvVsHNpe2j4UpGFV1zipVarwgXv6Hk
-         lNyg==
-X-Gm-Message-State: AFqh2krSjaplxy+xu+7Y8hdZTj9T8QJOXwPZ06petcFENPoOZjADgTby
-	mALAjX9PIJJwY9zaFMfge8WL8T+8EPKf4G8Bxok469tiiIcLuC3zlK1gdDW6hJLmDC7lHhZvVif
-	noeiPe5LqgsTrV9FAfeUTssUCL1U=
-X-Received: by 2002:a17:906:1f57:b0:872:2cc4:6886 with SMTP id d23-20020a1709061f5700b008722cc46886mr11043970ejk.30.1674230561772;
-        Fri, 20 Jan 2023 08:02:41 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXthoGh0EHUow3P0wDivX/RlxEqI+itykWmbgiIvnMaGm/zCGmO2sh2c7h+h1DgYquwHUIEv8g==
-X-Received: by 2002:a17:906:1f57:b0:872:2cc4:6886 with SMTP id d23-20020a1709061f5700b008722cc46886mr11043949ejk.30.1674230561580;
-        Fri, 20 Jan 2023 08:02:41 -0800 (PST)
-Date: Fri, 20 Jan 2023 17:01:47 +0100
-From: Igor Mammedov <imammedo@redhat.com>
-To: Chuck Zmudzinski <brchuckz@aol.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>, Bernhard Beschow
- <shentey@gmail.com>, qemu-devel@nongnu.org, Stefano Stabellini
- <sstabellini@kernel.org>, Paul Durrant <paul@xen.org>, Paolo Bonzini
- <pbonzini@redhat.com>, Richard Henderson <richard.henderson@linaro.org>,
- Eduardo Habkost <eduardo@habkost.net>, Marcel Apfelbaum
- <marcel.apfelbaum@gmail.com>, xen-devel@lists.xenproject.org, Philippe
- =?UTF-8?B?TWF0aGlldS1EYXVkw6k=?= <philmd@linaro.org>, Anthony Perard
- <anthony.perard@citrix.com>
-Subject: Re: [PATCH v8] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-Message-ID: <20230120170147.4f3bbda6@imammedo.users.ipa.redhat.com>
-In-Reply-To: <1c7d1fd7-d29b-1ae1-a7f4-0fea811b56c5@aol.com>
-References: <a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz.ref@aol.com>
-	<a09d2427397621eaecee4c46b33507a99cc5f161.1673334040.git.brchuckz@aol.com>
-	<20230110030331-mutt-send-email-mst@kernel.org>
-	<a6994521-68d5-a05b-7be2-a8c605733467@aol.com>
-	<D785501E-F95D-4A22-AFD0-85133F8CE56D@gmail.com>
-	<9f63e7a6-e434-64b4-f082-7f5a0ab8d5bf@aol.com>
-	<7208A064-2A25-4DBB-BF19-6797E96AB00C@gmail.com>
-	<20230112180314-mutt-send-email-mst@kernel.org>
-	<128d8ee2-8ee9-0a76-10de-af4c1b364179@aol.com>
-	<20230113103310.3da703ab@imammedo.users.ipa.redhat.com>
-	<88af50cb-4ebd-7995-70cf-f23ac33c5e45@aol.com>
-	<20230116163342.467039a0@imammedo.users.ipa.redhat.com>
-	<fce262ea-e0d5-d670-787c-62d91b040739@netscape.net>
-	<20230117113513.4e692539@imammedo.users.ipa.redhat.com>
-	<1c7d1fd7-d29b-1ae1-a7f4-0fea811b56c5@aol.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.36; x86_64-redhat-linux-gnu)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=B9ZAObwNdUY/u+w92AYmSpNRQNpeS2vubHTH7JKg+3c=; b=cw/ueXjbINwEmi9e/vsQBiNJmU
+	vuhB51bCtCQonH+2EhQiP7zsk4uhec4gb40/4MEj0fhEC9bzGoay3p7xWtLFy7wsxlaD0FtvLTq90
+	SZDotGlP/Bia8aB0m35GYUjohYXWTUVolAtKoLQc9iatXpgBI8vwwzMleiDXCjqfjbJo=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-175992-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [linux-linus test] 175992: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=d368967cb1039b5c4cccb62b5a4b9468c50cd143
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 20 Jan 2023 16:02:39 +0000
 
-On Tue, 17 Jan 2023 09:50:23 -0500
-Chuck Zmudzinski <brchuckz@aol.com> wrote:
+flight 175992 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/175992/
 
-> On 1/17/2023 5:35 AM, Igor Mammedov wrote:
-> > On Mon, 16 Jan 2023 13:00:53 -0500
-> > Chuck Zmudzinski <brchuckz@netscape.net> wrote:
-> > =20
-> > > On 1/16/23 10:33, Igor Mammedov wrote: =20
-> > > > On Fri, 13 Jan 2023 16:31:26 -0500
-> > > > Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> > > >    =20
-> > > >> On 1/13/23 4:33=E2=80=AFAM, Igor Mammedov wrote:   =20
-> > > >> > On Thu, 12 Jan 2023 23:14:26 -0500
-> > > >> > Chuck Zmudzinski <brchuckz@aol.com> wrote:
-> > > >> >      =20
-> > > >> >> On 1/12/23 6:03=E2=80=AFPM, Michael S. Tsirkin wrote:     =20
-> > > >> >> > On Thu, Jan 12, 2023 at 10:55:25PM +0000, Bernhard Beschow wr=
-ote:       =20
-> > > >> >> >> I think the change Michael suggests is very minimalistic: Mo=
-ve the if
-> > > >> >> >> condition around xen_igd_reserve_slot() into the function it=
-self and
-> > > >> >> >> always call it there unconditionally -- basically turning th=
-ree lines
-> > > >> >> >> into one. Since xen_igd_reserve_slot() seems very problem sp=
-ecific,
-> > > >> >> >> Michael further suggests to rename it to something more gene=
-ral. All
-> > > >> >> >> in all no big changes required.       =20
-> > > >> >> >=20
-> > > >> >> > yes, exactly.
-> > > >> >> >        =20
-> > > >> >>=20
-> > > >> >> OK, got it. I can do that along with the other suggestions.    =
- =20
-> > > >> >=20
-> > > >> > have you considered instead of reservation, putting a slot check=
- in device model
-> > > >> > and if it's intel igd being passed through, fail at realize time=
-  if it can't take
-> > > >> > required slot (with a error directing user to fix command line)?=
-     =20
-> > > >>=20
-> > > >> Yes, but the core pci code currently already fails at realize time
-> > > >> with a useful error message if the user tries to use slot 2 for th=
-e
-> > > >> igd, because of the xen platform device which has slot 2. The user
-> > > >> can fix this without patching qemu, but having the user fix it on
-> > > >> the command line is not the best way to solve the problem, primari=
-ly
-> > > >> because the user would need to hotplug the xen platform device via=
- a
-> > > >> command line option instead of having the xen platform device adde=
-d by
-> > > >> pc_xen_hvm_init functions almost immediately after creating the pc=
-i
-> > > >> bus, and that delay in adding the xen platform device degrades
-> > > >> startup performance of the guest.
-> > > >>    =20
-> > > >> > That could be less complicated than dealing with slot reservatio=
-ns at the cost of
-> > > >> > being less convenient.     =20
-> > > >>=20
-> > > >> And also a cost of reduced startup performance   =20
-> > > >=20
-> > > > Could you clarify how it affects performance (and how much).
-> > > > (as I see, setup done at board_init time is roughly the same
-> > > > as with '-device foo' CLI options, modulo time needed to parse
-> > > > options which should be negligible. and both ways are done before
-> > > > guest runs)   =20
-> > >=20
-> > > I preface my answer by saying there is a v9, but you don't
-> > > need to look at that. I will answer all your questions here.
-> > >=20
-> > > I am going by what I observe on the main HDMI display with the
-> > > different approaches. With the approach of not patching Qemu
-> > > to fix this, which requires adding the Xen platform device a
-> > > little later, the length of time it takes to fully load the
-> > > guest is increased. I also noticed with Linux guests that use
-> > > the grub bootoader, the grub vga driver cannot display the
-> > > grub boot menu at the native resolution of the display, which
-> > > in the tested case is 1920x1080, when the Xen platform device
-> > > is added via a command line option instead of by the
-> > > pc_xen_hvm_init_pci fucntion in pc_piix.c, but with this patch
-> > > to Qemu, the grub menu is displayed at the full, 1920x1080
-> > > native resolution of the display. Once the guest fully loads,
-> > > there is no noticeable difference in performance. It is mainly
-> > > a degradation in startup performance, not performance once
-> > > the guest OS is fully loaded. =20
-> > above hints on presence of bug[s] in igd-passthru implementation,
-> > and this patch effectively hides problem instead of trying to figure
-> > out what's wrong and fixing it.
-> > =20
->=20
-> I agree that the with the current Qemu there is a bug in the igd-passthru
-> implementation. My proposed patch fixes it. So why not support the
-> proposed patch with a Reviewed-by tag?
-I see the patch as workaround (it might be a reasonable one) and
-it's upto xen maintainers to give Reviewed-by/accept it.
+Regressions :-(
 
-Though I'd add to commit message something about performance issues
-you are experiencing when trying to passthrough IGD manually
-as one of justifications for workaround (it might push Xen folks
-to investigate the issue and it won't be lost/forgotten on mail-list).
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
 
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
+
+version targeted for testing:
+ linux                d368967cb1039b5c4cccb62b5a4b9468c50cd143
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+
+Last test of basis   173462  2022-10-07 18:41:45 Z  104 days
+Failing since        173470  2022-10-08 06:21:34 Z  104 days  213 attempts
+Testing same since   175992  2023-01-20 06:11:32 Z    0 days    1 attempts
+
+------------------------------------------------------------
+3375 people touched revisions under test,
+not listing them all
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 516960 lines long.)
 
