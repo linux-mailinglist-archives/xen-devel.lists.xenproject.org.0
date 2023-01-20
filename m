@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4910675088
-	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 10:18:12 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.481512.746449 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF0BD6750F4
+	for <lists+xen-devel@lfdr.de>; Fri, 20 Jan 2023 10:25:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.481517.746460 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pInWg-0008UO-DS; Fri, 20 Jan 2023 09:17:34 +0000
+	id 1pIneF-0001X4-7e; Fri, 20 Jan 2023 09:25:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 481512.746449; Fri, 20 Jan 2023 09:17:34 +0000
+Received: by outflank-mailman (output) from mailman id 481517.746460; Fri, 20 Jan 2023 09:25:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pInWg-0008SK-As; Fri, 20 Jan 2023 09:17:34 +0000
-Received: by outflank-mailman (input) for mailman id 481512;
- Fri, 20 Jan 2023 09:17:32 +0000
+	id 1pIneF-0001Ub-4I; Fri, 20 Jan 2023 09:25:23 +0000
+Received: by outflank-mailman (input) for mailman id 481517;
+ Fri, 20 Jan 2023 09:25:21 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pInWe-0008SE-HV
- for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 09:17:32 +0000
+ (envelope-from <julien@xen.org>) id 1pIneD-0001UU-R9
+ for xen-devel@lists.xenproject.org; Fri, 20 Jan 2023 09:25:21 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pInWd-00009J-Nm; Fri, 20 Jan 2023 09:17:31 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
- by xenbits.xenproject.org with esmtpsa
+ id 1pIneD-0000Jb-JM; Fri, 20 Jan 2023 09:25:21 +0000
+Received: from 54-240-197-230.amazon.com ([54.240.197.230]
+ helo=[10.95.149.154]) by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pInWd-0003x1-GA; Fri, 20 Jan 2023 09:17:31 +0000
+ id 1pIneD-0004IY-Ca; Fri, 20 Jan 2023 09:25:21 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,79 +42,75 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=5676djTPa2pge/e7UnPJo9SKFwnDti2WjFGbGt5H56c=; b=c0zuvtvKCqauQWjr+v5fWwIMlC
-	D2iCveWlyAWJhZnIZN/atKt88ksm2EPXeR0O5No7mxa32vYDDX6jakKnipviFiCOIjux2N5FRoZ94
-	spQC/LlMm6j5/FAn8K7puAuSS/8CRK/p0j9W5SDuOUmHbvtTumgdeEK6XcmReJqZk160=;
-Message-ID: <0ec33871-96fa-bd9f-eb1b-eb37d3d7c982@xen.org>
-Date: Fri, 20 Jan 2023 09:17:29 +0000
+	bh=vckqFbR1AK4IWNIgkbK0OB4zTEYkI32iWrrLaBBdHZo=; b=dlbMIoTLFiqT/9CvYe4Aoq2QqZ
+	bWc6i7kirGs8EB8QudlT1FuoIAW6T0bmWDY1oi5hVZRvj/yCCGRsNQCYQwkoqEmqZv38OpwNNbimU
+	rVxHu/ePLRZWq3JGbW+uItIliCcCryG11yp2JRLkQ8ZB3nme3/JcB7Muu4mF145vpY+s=;
+Message-ID: <b5cb6edf-d97a-5a83-09a7-7ef5d154dcb1@xen.org>
+Date: Fri, 20 Jan 2023 09:25:19 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v5 4/5] xen/riscv: introduce early_printk basic stuff
+Subject: Re: [PATCH v4 00/17] tools/xenstore: do some cleanup and fixes
 Content-Language: en-US
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Jan Beulich <jbeulich@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Bobby Eshleman <bobby.eshleman@gmail.com>
-References: <cover.1674131459.git.oleksii.kurochko@gmail.com>
- <8d7ac0dc51a6331d3efa7fcda433616670b46700.1674131459.git.oleksii.kurochko@gmail.com>
- <aefd4cb9-9a60-4ef1-ff45-dedfb6c37203@citrix.com>
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>
+References: <20230118095016.13091-1-jgross@suse.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <aefd4cb9-9a60-4ef1-ff45-dedfb6c37203@citrix.com>
+In-Reply-To: <20230118095016.13091-1-jgross@suse.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Juergen,
 
-On 20/01/2023 00:48, Andrew Cooper wrote:
-> On 19/01/2023 2:07 pm, Oleksii Kurochko wrote:
->> diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
->> new file mode 100644
->> index 0000000000..6f590e712b
->> --- /dev/null
->> +++ b/xen/arch/riscv/early_printk.c
->> @@ -0,0 +1,45 @@
->> +/* SPDX-License-Identifier: GPL-2.0 */
->> +/*
->> + * RISC-V early printk using SBI
->> + *
->> + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
->> + */
->> +#include <asm/early_printk.h>
->> +#include <asm/sbi.h>
->> +
->> +/*
->> + * early_*() can be called from head.S with MMU-off.
->> + *
->> + * The following requiremets should be honoured for early_*() to
->> + * work correctly:
->> + *    It should use PC-relative addressing for accessing symbols.
->> + *    To achieve that GCC cmodel=medany should be used.
->> + */
->> +#ifndef __riscv_cmodel_medany
->> +#error "early_*() can be called from head.S with MMU-off"
->> +#endif
+On 18/01/2023 09:49, Juergen Gross wrote:
+> This is a first run of post-XSA patches which piled up during the
+> development phase of all the recent Xenstore related XSA patches.
 > 
-> This comment is false, and the check is bogus.
+> This is a mixture of small fixes, enhancements and cleanups.
+> 
+> Changes in V4:
+> - reordered the patches a little bit (patch 4 and patch 17 of V4 have
+>    been moved)
+> - addressed comments
+> 
+> Changes in V3:
+> - patches 2, 3, and 5 of V2 have been applied already
+> - new patch 12
+> - addressed comments
+> 
+> Changes in V2:
+> - patches 1+2 of V1 have been applied already
+> - addressed comments
+> - new patch 19
+> 
+> Juergen Gross (17):
+>    tools/xenstore: let talloc_free() preserve errno
+>    tools/xenstore: remove all watches when a domain has stopped
+>    tools/xenstore: add hashlist for finding struct domain by domid
+>    tools/xenstore: make log macro globally available
+>    tools/xenstore: introduce dummy nodes for special watch paths
+>    tools/xenstore: replace watch->relative_path with a prefix length
+>    tools/xenstore: move changed domain handling
+>    tools/xenstore: change per-domain node accounting interface
+>    tools/xenstore: replace literal domid 0 with dom0_domid
+>    tools/xenstore: make domain_is_unprivileged() an inline function
+>    tools/xenstore: let chk_domain_generation() return a bool
+>    tools/xenstore: don't let hashtable_remove() return the removed value
+>    tools/xenstore: switch hashtable to use the talloc framework
+>    tools/xenstore: introduce trace classes
+>    tools/xenstore: let check_store() check the accounting data
+>    tools/xenstore: make output of "xenstore-control help" more pretty
 
-You are already said that in the previous version and ... I reply back 
-explaining why I think this is correct (see [1]).
+I have committed up to this patch. The last one...
 
->  > It needs deleting.
+>    tools/xenstore: don't allow creating too many nodes in a transaction
 
-That might be the second step. The first step is we settle down on the 
-approach.
+... needs some review which I will do with part 2 of the xenstored series.
 
 Cheers,
-
-[1] 
-https://lore.kernel.org/xen-devel/CAF3u54C2ewEfBN+ZT6VPaVu4vsqS_+12gr3YJ_jsg1sGHDhZ1A@mail.gmail.com/
 
 -- 
 Julien Grall
