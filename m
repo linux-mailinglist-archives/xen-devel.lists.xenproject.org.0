@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26A6A6769AB
-	for <lists+xen-devel@lfdr.de>; Sat, 21 Jan 2023 22:40:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.482384.747874 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54BDC6769C4
+	for <lists+xen-devel@lfdr.de>; Sat, 21 Jan 2023 23:25:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.482399.747888 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJLac-0004se-E4; Sat, 21 Jan 2023 21:39:54 +0000
+	id 1pJMHy-0002Br-TX; Sat, 21 Jan 2023 22:24:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 482384.747874; Sat, 21 Jan 2023 21:39:54 +0000
+Received: by outflank-mailman (output) from mailman id 482399.747888; Sat, 21 Jan 2023 22:24:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJLac-0004p6-Ag; Sat, 21 Jan 2023 21:39:54 +0000
-Received: by outflank-mailman (input) for mailman id 482384;
- Sat, 21 Jan 2023 21:39:53 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Ql0K=5S=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
- id 1pJLab-0004Ke-Ap
- for xen-devel@lists.xenproject.org; Sat, 21 Jan 2023 21:39:53 +0000
-Received: from mail-qv1-xf2e.google.com (mail-qv1-xf2e.google.com
- [2607:f8b0:4864:20::f2e])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 226ad58a-99d4-11ed-b8d1-410ff93cb8f0;
- Sat, 21 Jan 2023 22:39:51 +0100 (CET)
-Received: by mail-qv1-xf2e.google.com with SMTP id g10so6368251qvo.6
- for <xen-devel@lists.xenproject.org>; Sat, 21 Jan 2023 13:39:51 -0800 (PST)
-Received: from shine.lan ([2001:470:8:67e:4282:e612:9c15:499])
- by smtp.gmail.com with ESMTPSA id
- w6-20020a05620a424600b00705be892191sm24202402qko.56.2023.01.21.13.39.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 Jan 2023 13:39:48 -0800 (PST)
+	id 1pJMHy-00029I-Qt; Sat, 21 Jan 2023 22:24:42 +0000
+Received: by outflank-mailman (input) for mailman id 482399;
+ Sat, 21 Jan 2023 22:24:41 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pJMHx-000298-3S; Sat, 21 Jan 2023 22:24:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pJMHx-0004cx-19; Sat, 21 Jan 2023 22:24:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pJMHw-00051I-Ht; Sat, 21 Jan 2023 22:24:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pJMHw-0002S0-HR; Sat, 21 Jan 2023 22:24:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,179 +42,219 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 226ad58a-99d4-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=5M2ErVFM3ffELnEbXKvTrmkvSoDVxImjjfW2QVBelko=;
-        b=f/lW/Oy/8GtMQRgRZmpr7uaJfCjHJ40UWyp5DbiReRm6FlvGHdZUgu9sv/+kkegcTO
-         rgFLK3DEAYSK4sJ6Rv26b1W/RiYbNFnoIfHhBbgsnIXn8ERrerCa2/9B0xnvcBb1wq1Q
-         Afl9yNr0x8EPKpCa2DLuxHe4LfxozqJW01Vqb01Rv6yQOSygne3cs/Kk8qJcUHl7XzLd
-         eiRCpCYeOjBJILEUZt4tnWzVGQuJJ+1H0eiZPkevmoW6oyUW9zPpOEyR2HcYlq8hwYYr
-         nGFN0TyMAxobXOClVOx0Iic1yPux8CmbFVBjMTvdjJwRfKDZ9itWbRhNmFSVQ+m/Sq5h
-         izlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=5M2ErVFM3ffELnEbXKvTrmkvSoDVxImjjfW2QVBelko=;
-        b=13tywHzQkTd4EYfymQQsO3a+j42XCGLWE4+h21LzOi64Abkd6XLijQd3o6VNqVg46N
-         nEHw76QMHIYbJg29RO+sQAi+rbBhVv6donYql9ZshJmn+aMDtqfhY/C5bppGNsNvOtcg
-         yL0da0n41gRae6yuJ2cE9rbY8+FCutYL5utwyEX1xfR1GqXJAI7U4TWQzOB+qnlkhEkc
-         rMBU1oJswqCIKNN6NMi0eMFH9JlDK1xDGiHtdz6h5lmDitxCscqXXrQwhMRfe+RdfBg9
-         4KpJ2qqej7zrRUU/Bkrj1gG+LMEhCN84DgQsrctPKHlV87W0VYDImCj5QtIJFwoifp09
-         W3Kw==
-X-Gm-Message-State: AFqh2kp5lAaj3Qir4NrWPrLHokv9CLqqYmbzyin22Xncj1PGtQS25jXO
-	InFC/IqM7Ibj3UrF9G/ZbWR68MVlXvs=
-X-Google-Smtp-Source: AMrXdXvgUq6EjRFocmsqWWNYsaDfvnRpwxtDOvRgwbUsxotT8lr9AYnAZhcBp5dpibOm+JJmCxh8IQ==
-X-Received: by 2002:a0c:b2d4:0:b0:534:8f10:e1a with SMTP id d20-20020a0cb2d4000000b005348f100e1amr29409884qvf.0.1674337189583;
-        Sat, 21 Jan 2023 13:39:49 -0800 (PST)
-From: Jason Andryuk <jandryuk@gmail.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=EBmEXA0rGmvNxB82HivbiAvnUWg8DHC9BXl8jVVOvAg=; b=T7R/dbopgOV7Yc6NpQUa4RbxlG
+	MWWfwpvp+VzLTGtceVO6u9tgsXImkOq5XrS8VLgs2ELnrXehcGiUo15GBsCaHxzicVYBd1sRP+SbX
+	DUtXzxLCfUH5z31oPB5X4dPvyFnT/Kq9/iG1FRUl7/C+oifm+SYWzXXPCaq17tr/gQQM=;
 To: xen-devel@lists.xenproject.org
-Cc: Jason Andryuk <jandryuk@gmail.com>,
-	Wei Liu <wl@xen.org>,
-	Juergen Gross <jgross@suse.com>,
-	Julien Grall <julien@xen.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH 2/2] Revert "tools/xenstore: simplify loop handling connection I/O"
-Date: Sat, 21 Jan 2023 16:39:08 -0500
-Message-Id: <20230121213908.6504-3-jandryuk@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20230121213908.6504-1-jandryuk@gmail.com>
-References: <20230121213908.6504-1-jandryuk@gmail.com>
-MIME-Version: 1.0
+Message-ID: <osstest-176016-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 176016: regressions - FAIL
+X-Osstest-Failures:
+    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
+    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-libvirt-qcow2:guest-start/debian.repeat:fail:regression
+    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
+    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
+    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=f883675bf6522b52cd75dc3de791680375961769
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 21 Jan 2023 22:24:40 +0000
 
-I'm observing guest kexec trigger xenstored to abort on a double free.
+flight 176016 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176016/
 
-gdb output:
-Program received signal SIGABRT, Aborted.
-__pthread_kill_implementation (no_tid=0, signo=6, threadid=140645614258112) at ./nptl/pthread_kill.c:44
-44    ./nptl/pthread_kill.c: No such file or directory.
-(gdb) bt
-    at ./nptl/pthread_kill.c:44
-    at ./nptl/pthread_kill.c:78
-    at ./nptl/pthread_kill.c:89
-    at ../sysdeps/posix/raise.c:26
-    at talloc.c:119
-    ptr=ptr@entry=0x559fae724290) at talloc.c:232
-    at xenstored_core.c:2945
-(gdb) frame 5
-    at talloc.c:119
-119            TALLOC_ABORT("Bad talloc magic value - double free");
-(gdb) frame 7
-    at xenstored_core.c:2945
-2945                talloc_increase_ref_count(conn);
-(gdb) p conn
-$1 = (struct connection *) 0x559fae724290
+Regressions :-(
 
-Looking at a xenstore trace, we have:
-IN 0x559fae71f250 20230120 17:40:53 READ (/local/domain/3/image/device-model-dom
-id )
-wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
-ard
-wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
-ard
-wrl: dom    0      0  msec      10000 credit     1000000 reserve          0 disc
-ard
-wrl: dom    3      0  msec      10000 credit     1000000 reserve          0 disc
-ard
-OUT 0x559fae71f250 20230120 17:40:53 ERROR (ENOENT )
-wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
-ard
-wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
-ard
-IN 0x559fae71f250 20230120 17:40:53 RELEASE (3 )
-DESTROY watch 0x559fae73f630
-DESTROY watch 0x559fae75ddf0
-DESTROY watch 0x559fae75ec30
-DESTROY watch 0x559fae75ea60
-DESTROY watch 0x559fae732c00
-DESTROY watch 0x559fae72cea0
-DESTROY watch 0x559fae728fc0
-DESTROY watch 0x559fae729570
-DESTROY connection 0x559fae724290
-orphaned node /local/domain/3/device/suspend/event-channel deleted
-orphaned node /local/domain/3/device/vbd/51712 deleted
-orphaned node /local/domain/3/device/vkbd/0 deleted
-orphaned node /local/domain/3/device/vif/0 deleted
-orphaned node /local/domain/3/control/shutdown deleted
-orphaned node /local/domain/3/control/feature-poweroff deleted
-orphaned node /local/domain/3/control/feature-reboot deleted
-orphaned node /local/domain/3/control/feature-suspend deleted
-orphaned node /local/domain/3/control/feature-s3 deleted
-orphaned node /local/domain/3/control/feature-s4 deleted
-orphaned node /local/domain/3/control/sysrq deleted
-orphaned node /local/domain/3/data deleted
-orphaned node /local/domain/3/drivers deleted
-orphaned node /local/domain/3/feature deleted
-orphaned node /local/domain/3/attr deleted
-orphaned node /local/domain/3/error deleted
-orphaned node /local/domain/3/console/backend-id deleted
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-arm64-arm64-examine      8 reboot                   fail REGR. vs. 173462
+ test-arm64-arm64-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-seattle   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-xsm       8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-arndale   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-multivcpu  8 xen-boot                fail REGR. vs. 173462
+ test-armhf-armhf-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-xl-vhd       8 xen-boot                 fail REGR. vs. 173462
+ test-amd64-amd64-libvirt-qcow2 19 guest-start/debian.repeat fail REGR. vs. 173462
+ test-arm64-arm64-libvirt-xsm  8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit2   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl-credit1   8 xen-boot                 fail REGR. vs. 173462
+ test-arm64-arm64-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-examine      8 reboot                   fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-qcow2  8 xen-boot               fail REGR. vs. 173462
+ test-armhf-armhf-xl           8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt      8 xen-boot                 fail REGR. vs. 173462
+ test-armhf-armhf-libvirt-raw  8 xen-boot                 fail REGR. vs. 173462
 
-and no further output.
+Regressions which are regarded as allowable (not blocking):
+ test-armhf-armhf-xl-rtds      8 xen-boot                 fail REGR. vs. 173462
 
-The trace shows that DESTROY was called for connection 0x559fae724290,
-but that is the same pointer (conn) main() was looping through from
-connections.  So it wasn't actually removed from the connections list?
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-armhf-armhf-xl-cubietruck 15 migrate-support-check        fail never pass
+ test-armhf-armhf-xl-cubietruck 16 saverestore-support-check    fail never pass
 
-Reverting commit e8e6e42279a5 "tools/xenstore: simplify loop handling
-connection I/O" fixes the abort/double free.  I think the use of
-list_for_each_entry_safe is incorrect.  list_for_each_entry_safe makes
-traversal safe for deleting the current iterator, but RELEASE/do_release
-will delete some other entry in the connections list.  I think the
-observed abort is because list_for_each_entry has next pointing to the
-deleted connection, and it is used in the subsequent iteration.
+version targeted for testing:
+ linux                f883675bf6522b52cd75dc3de791680375961769
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
-Add a comment explaining the unsuitability of list_for_each_entry_safe.
-Also notice that the old code takes a reference on next which would
-prevents a use-after-free.
+Last test of basis   173462  2022-10-07 18:41:45 Z  106 days
+Failing since        173470  2022-10-08 06:21:34 Z  105 days  216 attempts
+Testing same since   176007  2023-01-21 02:54:45 Z    0 days    2 attempts
 
-This reverts commit e8e6e42279a5723239c5c40ba4c7f579a979465d.
+------------------------------------------------------------
+3414 people touched revisions under test,
+not listing them all
 
-Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
----
-I didn't verify the stale pointers, which is why there are a lot of "I
-think" qualifiers.  But reverting the commit has xenstored still running
-whereas it was aborting consistently beforehand.
----
- tools/xenstore/xenstored_core.c | 19 +++++++++++++++++--
- 1 file changed, 17 insertions(+), 2 deletions(-)
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          fail    
+ test-armhf-armhf-xl                                          fail    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 fail    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      fail    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  fail    
+ test-armhf-armhf-xl-credit1                                  fail    
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  fail    
+ test-armhf-armhf-xl-credit2                                  fail    
+ test-armhf-armhf-xl-cubietruck                               pass    
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     fail    
+ test-armhf-armhf-examine                                     fail    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     fail    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                fail    
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               fail    
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 fail    
+ test-armhf-armhf-libvirt-raw                                 fail    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     fail    
+ test-arm64-arm64-xl-seattle                                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      fail    
+ test-armhf-armhf-xl-vhd                                      fail    
 
-diff --git a/tools/xenstore/xenstored_core.c b/tools/xenstore/xenstored_core.c
-index 78a3edaa4e..029e3852fc 100644
---- a/tools/xenstore/xenstored_core.c
-+++ b/tools/xenstore/xenstored_core.c
-@@ -2941,8 +2941,23 @@ int main(int argc, char *argv[])
- 			}
- 		}
- 
--		list_for_each_entry_safe(conn, next, &connections, list) {
--			talloc_increase_ref_count(conn);
-+		/*
-+		 * list_for_each_entry_safe is not suitable here because
-+		 * handle_input may delete entries besides the current one, but
-+		 * those may be in the temporary next which would trigger a
-+		 * use-after-free.  list_for_each_entry_safe is only safe for
-+		 * deleting the current entry.
-+		 */
-+		next = list_entry(connections.next, typeof(*conn), list);
-+		if (&next->list != &connections)
-+			talloc_increase_ref_count(next);
-+		while (&next->list != &connections) {
-+			conn = next;
-+
-+			next = list_entry(conn->list.next,
-+					  typeof(*conn), list);
-+			if (&next->list != &connections)
-+				talloc_increase_ref_count(next);
- 
- 			if (conn_can_read(conn))
- 				handle_input(conn);
--- 
-2.34.1
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 524922 lines long.)
 
