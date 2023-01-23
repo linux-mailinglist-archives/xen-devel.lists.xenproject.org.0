@@ -2,51 +2,51 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CE3A677CD3
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 14:45:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.482849.748605 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1A5677CD6
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 14:45:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.482852.748616 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJx8k-0005GG-Nz; Mon, 23 Jan 2023 13:45:38 +0000
+	id 1pJx8u-0005gZ-1m; Mon, 23 Jan 2023 13:45:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 482849.748605; Mon, 23 Jan 2023 13:45:38 +0000
+Received: by outflank-mailman (output) from mailman id 482852.748616; Mon, 23 Jan 2023 13:45:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJx8k-0005DS-LA; Mon, 23 Jan 2023 13:45:38 +0000
-Received: by outflank-mailman (input) for mailman id 482849;
- Mon, 23 Jan 2023 13:45:36 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pJx8t-0005ds-Ts; Mon, 23 Jan 2023 13:45:47 +0000
+Received: by outflank-mailman (input) for mailman id 482852;
+ Mon, 23 Jan 2023 13:45:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=ozL9=5U=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pJx8i-0004z7-H0
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 13:45:36 +0000
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1nam02on2082.outbound.protection.outlook.com [40.107.96.82])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 351b59a2-9b24-11ed-b8d1-410ff93cb8f0;
- Mon, 23 Jan 2023 14:45:34 +0100 (CET)
-Received: from BN1PR13CA0015.namprd13.prod.outlook.com (2603:10b6:408:e2::20)
- by BY5PR12MB4950.namprd12.prod.outlook.com (2603:10b6:a03:1d9::11)
+ id 1pJx8r-0004ON-Lf
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 13:45:45 +0000
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 3b5f0ff9-9b24-11ed-91b6-6bf2151ebd3b;
+ Mon, 23 Jan 2023 14:45:44 +0100 (CET)
+Received: from MN2PR20CA0058.namprd20.prod.outlook.com (2603:10b6:208:235::27)
+ by IA0PR12MB8225.namprd12.prod.outlook.com (2603:10b6:208:408::6)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Mon, 23 Jan
- 2023 13:45:30 +0000
-Received: from BL02EPF0000C409.namprd05.prod.outlook.com
- (2603:10b6:408:e2:cafe::b7) by BN1PR13CA0015.outlook.office365.com
- (2603:10b6:408:e2::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.16 via Frontend
- Transport; Mon, 23 Jan 2023 13:45:30 +0000
+ 2023 13:45:42 +0000
+Received: from BL02EPF0000C404.namprd05.prod.outlook.com
+ (2603:10b6:208:235:cafe::8c) by MN2PR20CA0058.outlook.office365.com
+ (2603:10b6:208:235::27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
+ Transport; Mon, 23 Jan 2023 13:45:42 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BL02EPF0000C409.mail.protection.outlook.com (10.167.241.11) with Microsoft
+ BL02EPF0000C404.mail.protection.outlook.com (10.167.241.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6043.12 via Frontend Transport; Mon, 23 Jan 2023 13:45:29 +0000
+ 15.20.6043.10 via Frontend Transport; Mon, 23 Jan 2023 13:45:41 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 23 Jan
- 2023 07:45:28 -0600
+ 2023 07:45:40 -0600
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 23 Jan 2023 07:45:27 -0600
+ via Frontend Transport; Mon, 23 Jan 2023 07:45:39 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -58,22 +58,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 351b59a2-9b24-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 3b5f0ff9-9b24-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hRDlrAhffOntDHJMDIhIPuT6F6ruXQGdXeHnPi8xsjJlg1wOtrmS2VFS4gGefzhRITCcbHDiWdTEmiL1InLF93+7cRSImHXfRifgmfoQd1xlTy4JwdAdAVdUVuo1t0IEEJmYGBUvRz0ba7eF3ZC7L2wvmrttL0EmXN1SLlXQXuXfsaxq0xRtokjAOrniv70nneyAGY7PG8dXSHxysYWv8gB3VU9MPBe84LZ9oiln4y9b1QkvUqowTgc3nhIhc2Ert+ozGI2Xi2DH0R6oWOu4rjiaiqdkf3diU08hzb89WFWaGU36YmxbF0FK1n9nj/gNPsqMO8RSTYwbVM5rV2CLIQ==
+ b=Xlsf/ickAFk41BuHISbEuDiI2PDrdGvCfr7EJZyOLXESECohAQPhZTWAE+agYQu90QP9ZRV5XjzN+tRCtK61MwLToI2sy4mz8nPx2FlesQ6+BjR5z9PV1KiYQbPkFpb/DlzHYuzXFu6F41wY4/fxRr1lSiefTignbhWZL4mZUGDpEXReNUY8i2DMC0z1AUMjpG/LI0ZrFbtdKm2MfS1AzlzaNd4zsX5CZrRRt8o90sye0chIVbNkSWYs2Ei9QkK/Lhzjffs15/sVDiDLO3m3FGjxCGQXlbe/RL0HEOyR7AnamigT70joLZMYwrH6MbAdj+PyEOGsVOdEuBC9rIjniQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3fI/wStOnID0RkF6ajH6XFxYRunB4UiMDznXWTD+pWQ=;
- b=UXi5BJxp9CmqubORI+ztYHG6K33gKZHYy8GycNgfw1+lsDFw7jqBrpZyBQ7HgwLy8nL32CGC9GwSvZ2HfMUVsm275N3JAYdFl7lnhWlKaWQw1ZeojHxb6Ev2IQuS59YY0ilSimgB7HA5AD/vN8xpC2D8lTUhCvXXxkHHlYok1ZxaPOPgKUZ0KfMYKMMIXKiJkJBlp0ZWaosHuh2uumaH43UlXw5zDfcVCnzoemqminfPEGvwbgW+JoCKX5qeQoNgVJRP6MZSgjt8olWTeUlJLcq2HqC2fs5w5hGX+PrEgTCTGLZf/HmeNGECGC23p9Oh3C7WmH60I18gdT7PnFHTDQ==
+ bh=5mGRDEaxCT5Vc+hDapbIEiqvewhZapa+H6B636bxP5M=;
+ b=MQnajVYMRuobPs107ohVlA1ehJRqh9Zyskmfs241nUvp5tpvhVB6WitBaw24fYCKCn38qZ/f8cSGAuCTtkerWBwuFkKhILUuqicWklTnTu4qYw6lbLeFOTd3PIQyXBCClAaJ2ZeoPxtojZEQiber9IaJnd3Vm3OWYOfdKtpAlqqUvr3O6EHaewal1s6/gWFx9pds3k4dsH7i/csOlNhpUBkOTL3Ow4tBZtntUHF3Wu9rBcIlxsuUziv2mRwohZpx9A463NbT9FXe6FEsRvJmk5B3IY1juqQh6IkPGjN2Vn3eO4VlXTib2D3xJVytrqsV5CAywMdcghw2GRVTjDbrnw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3fI/wStOnID0RkF6ajH6XFxYRunB4UiMDznXWTD+pWQ=;
- b=vCZxt+9Kv9qamNjha5CGNaFOfEqcMDwHuowsF6cX1TTTJVQNEMR7mJH7HNciGOu1y2UJF8D1B9X+oZwRsiNb2tPJSq13ljPFw2RFQnzXEIl0RikBm28born5YQRa6FA1g2/y6zaL0wXptopc23eW4/5AeA4/Ud1+T/wU5CpgxNg=
+ bh=5mGRDEaxCT5Vc+hDapbIEiqvewhZapa+H6B636bxP5M=;
+ b=fIF9l37l+P5/oG56WnqX+cAxtnnOPpsXFHjRG/dsLmudBoXTosES/Iyu9nUpUHbEsO/DKBvG4VB5xeqjon5nkfHpLAmKDMWaBLpavre/dt2yE2tY2fVqnYyRXlQXvc/FmUeynP6CmSiHwOUySgAgpd911en3x/odbFXnlkYD3CI=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -87,9 +87,9 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <xuwei5@hisilicon.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v3 2/3] xen/drivers: ns16550: Fix the use of simple_strtoul() for extracting u64
-Date: Mon, 23 Jan 2023 13:44:50 +0000
-Message-ID: <20230123134451.47185-3-ayan.kumar.halder@amd.com>
+Subject: [XEN v3 3/3] xen/drivers: ns16550: Fix an incorrect assignment to uart->io_size
+Date: Mon, 23 Jan 2023 13:44:51 +0000
+Message-ID: <20230123134451.47185-4-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230123134451.47185-1-ayan.kumar.halder@amd.com>
 References: <20230123134451.47185-1-ayan.kumar.halder@amd.com>
@@ -97,64 +97,54 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0000C409:EE_|BY5PR12MB4950:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3fc4c396-6b08-48a6-0378-08dafd48170f
+X-MS-TrafficTypeDiagnostic: BL02EPF0000C404:EE_|IA0PR12MB8225:EE_
+X-MS-Office365-Filtering-Correlation-Id: af5965ca-5167-482d-6424-08dafd481e69
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	FtqA7S0k/5S05cPZtD17e0/3ppmIs54D2Biof9wFuU2U5TMgu/7dyIQLMnqBPxNYd78ZZJbpRJT4DSOkVon4KY+23Cf4z7luuM+nXtQs/myz829MCHPJIKsDcU9+r89srHpll17LE2HV5YAdMvpas0TEmKxvaIGzbx6y9swxlnnwkhOGe+IWTwVGbDjDMGReXHsaVaYrZ+VvQaoz4yNQhhMyUdc41pOZuP5+2KVRd8kyd5F8KO8S5U5M1RGt5ejzjVEt3Wul/J3g2Jb7a67UYU4aR/gj3kcjYYPBkR0vbbHJPJ0Sd8w2IIQSXaM7skDw/B3fYdSQg41oXZRC54c9tuKVcjog+nGCNVpKCMC52GwByY8U8se55ELk41UkWV9YhLUD5EsPPLR0L/C9G5vqKtG/+SUqtgkAwDzZpMzLv9AQYCzpgw+s6Sl+zkru6fWniZNApOEjHR9ZLQHjUhE/5LJCyAygvyQfTkQwYUUOf6TVr7zDBqOBzEuUJ3EkYHue/qMAI+Seoup4KqZHS6R/ZCosbkCXjuCgpNWyo5OpLoEKQLy7GapYX/TtOdwQIeYBFOiuA6CfyMu+u36y8pU1VcISwbfWjSdbwO7wGHZ0XBnEYB7kl3kUnEpZnUrjCfPQS3WCxXE8ixSnXgYVTYiZCg+igtSUuLq//2eK+qlnPC2k6IkrynNpbwjSHtOkNJfHGLxozolVrfsn5H3gDux3fA==
+	AB7WWCZKD+eSNlfQKxUC+IDNe195ojdqn9k+dPhD6HT5fyFLMM7hTirllhUHGXnymi+kI8E5Or/odxrcNAKkTpDun+EHdN/Ga7URAKdwYJRkMDccxZsM3Pxv4v2eZxffuExdu2p5KX8yyLT8diHtuWmE3Jn3xWfU3IP3iO1kkZqBIJIIl/tLtd0EYvgZv56sRRbzdePELNG/Kq7zz9yiwJL0AD1K7uWt2+vc5nQedABCJqXeDKEd2HQsiuEkTnlrwZ6wyUHyDvY2HTXLpQ/gl+aUyOTNRz1xnp+mnTnzJHtGK2PoyOYtNfo+NplsjtRZsNzvCvk6uzoUcUcNojPrKvQpWibIwNztHxyBEBt/oHMiBB1S4NLolfxclZ3NwMLqwDnpCju/A6rBh/8Z7Bu/YEYPZvkehP3dkK9O/oJXINKPTHroRheMyZl7phvMv7wbTAMM/5wSUH94dHePC0r8JlScH8GpOU9l+5Efuv4iFmwmiM1mAGMHhATaTo2jcH8cwAYBvYosRC9nD7sIYwHwV6kSx3fEsMvTpmm9UdMMo6RmNNL4/2RFOlN+kZBxL3Q9ITojSEPafUYN1ZyYNNVwKBlI/Y0PjsHMRp77+WwUbCAGYfXVrAY/pJPx8Yx0FTxDp+68ScVtiD1Jg9iWHEc/8pMgS8h5AvTgScbAN7GPz+znlXD0P4c+51xmRskKJo819k6C6qZGIWa/z7FPD4wV8neWEFbfztbdPSitwCPlAqM=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(346002)(136003)(376002)(396003)(39850400004)(451199015)(36840700001)(46966006)(83380400001)(36860700001)(70206006)(70586007)(86362001)(6916009)(4326008)(8676002)(316002)(54906003)(36756003)(40480700001)(6666004)(26005)(186003)(478600001)(356005)(336012)(2616005)(81166007)(103116003)(1076003)(8936002)(47076005)(5660300002)(7416002)(82740400003)(82310400005)(2906002)(426003)(41300700001)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(39860400002)(376002)(136003)(346002)(451199015)(36840700001)(46966006)(40470700004)(83380400001)(36860700001)(103116003)(81166007)(82740400003)(7416002)(41300700001)(86362001)(356005)(2906002)(4744005)(8936002)(5660300002)(4326008)(82310400005)(40460700003)(40480700001)(6916009)(8676002)(26005)(186003)(1076003)(6666004)(426003)(47076005)(336012)(316002)(70586007)(70206006)(54906003)(2616005)(478600001)(36756003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 13:45:29.2366
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 13:45:41.5573
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3fc4c396-6b08-48a6-0378-08dafd48170f
+X-MS-Exchange-CrossTenant-Network-Message-Id: af5965ca-5167-482d-6424-08dafd481e69
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF0000C409.namprd05.prod.outlook.com
+	BL02EPF0000C404.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4950
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8225
 
-One should be using simple_strtoull() ( instead of simple_strtoul() )
-to assign value to 'u64' variable. The reason being u64 can be
-represented by 'unsigned long long' on all the platforms (ie Arm32,
-Arm64 and x86).
+uart->io_size represents the size in bytes. Thus, when serial_port.bit_width
+is assigned to it, it should be converted to size in bytes.
 
+Fixes: 17b516196c55 ("ns16550: add ACPI support for ARM only")
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 ---
 
 Changes from -
 
-v1,v2 - NA (This patch is introduced in v3).
+v1, v2 - NA (New patch introduced in v3).
 
- xen/drivers/char/ns16550.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ xen/drivers/char/ns16550.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/xen/drivers/char/ns16550.c b/xen/drivers/char/ns16550.c
-index 58d0ccd889..43e1f971ab 100644
+index 43e1f971ab..092f6b9c4b 100644
 --- a/xen/drivers/char/ns16550.c
 +++ b/xen/drivers/char/ns16550.c
-@@ -1532,7 +1532,7 @@ static bool __init parse_positional(struct ns16550 *uart, char **str)
-         else
- #endif
-         {
--            uart->io_base = simple_strtoul(conf, &conf, 0);
-+            uart->io_base = simple_strtoull(conf, &conf, 0);
-         }
-     }
+@@ -1870,7 +1870,7 @@ static int __init ns16550_acpi_uart_init(const void *data)
+     uart->parity = spcr->parity;
+     uart->stop_bits = spcr->stop_bits;
+     uart->io_base = spcr->serial_port.address;
+-    uart->io_size = spcr->serial_port.bit_width;
++    uart->io_size = DIV_ROUND_UP(spcr->serial_port.bit_width, BITS_PER_BYTE);
+     uart->reg_shift = spcr->serial_port.bit_offset;
+     uart->reg_width = spcr->serial_port.access_width;
  
-@@ -1603,7 +1603,7 @@ static bool __init parse_namevalue_pairs(char *str, struct ns16550 *uart)
-                        "Can't use io_base with dev=pci or dev=amt options\n");
-                 break;
-             }
--            uart->io_base = simple_strtoul(param_value, NULL, 0);
-+            uart->io_base = simple_strtoull(param_value, NULL, 0);
-             break;
- 
-         case irq:
 -- 
 2.17.1
 
