@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7873D677F69
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 16:18:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483010.748881 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17731677F7A
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 16:20:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483016.748892 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJyZl-0004TY-FX; Mon, 23 Jan 2023 15:17:37 +0000
+	id 1pJycJ-0005vc-W8; Mon, 23 Jan 2023 15:20:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483010.748881; Mon, 23 Jan 2023 15:17:37 +0000
+Received: by outflank-mailman (output) from mailman id 483016.748892; Mon, 23 Jan 2023 15:20:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJyZl-0004R6-Bl; Mon, 23 Jan 2023 15:17:37 +0000
-Received: by outflank-mailman (input) for mailman id 483010;
- Mon, 23 Jan 2023 15:17:35 +0000
+	id 1pJycJ-0005t0-Se; Mon, 23 Jan 2023 15:20:15 +0000
+Received: by outflank-mailman (input) for mailman id 483016;
+ Mon, 23 Jan 2023 15:20:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Rv8W=5U=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pJyZj-0004Qy-AK
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 15:17:35 +0000
-Received: from mail-wm1-x330.google.com (mail-wm1-x330.google.com
- [2a00:1450:4864:20::330])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=fd1Y=5U=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1pJycI-0005sr-Bv
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 15:20:14 +0000
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [2a00:1450:4864:20::630])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0fdae306-9b31-11ed-91b6-6bf2151ebd3b;
- Mon, 23 Jan 2023 16:17:34 +0100 (CET)
-Received: by mail-wm1-x330.google.com with SMTP id l8so9279961wms.3
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 07:17:34 -0800 (PST)
-Received: from [192.168.100.7] (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr.
- [90.112.199.53]) by smtp.gmail.com with ESMTPSA id
- f22-20020a1cc916000000b003d35acb0fd7sm11047915wmb.34.2023.01.23.07.17.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jan 2023 07:17:33 -0800 (PST)
+ id 6e90db43-9b31-11ed-91b6-6bf2151ebd3b;
+ Mon, 23 Jan 2023 16:20:13 +0100 (CET)
+Received: by mail-ej1-x630.google.com with SMTP id ud5so31431952ejc.4
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 07:20:13 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,164 +39,216 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0fdae306-9b31-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 6e90db43-9b31-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=Ajxs1wqVGy4VyBnUzuMAw1pH+VeDislQpXThvlQnrN4=;
-        b=Rm+AtL4NtoLbFyjH6O8UdNoGuXzjdXqd48OgnQ8DDM3S7fLM8rJ1vsHpC8rO1R/vlS
-         M3wniqFNeXlm75R9uaVBFHGPMlH1VEaJQM+EUQCnNTIYmvoDzl1zq5jWqmNV84HytHdb
-         pcfeNpupFyL4KUbphh9XYfjzvwoCbYPfQZPls3ps0Z8++a7fOX0Jo743yhH8MSbHdC5F
-         yBQEOUi3ZYSVRvZmpcvsxXFuP+6rqDEqh+iG72yS2DesrTe+WdKfYDk6nNOujQNWKcab
-         McHdLsbNTod6bpjA15hwDA/0kZ5Zhn8oOnCVHMnTljzQYzSa2sXL4Vm8YVCDrf7++rL8
-         6Jbg==
+        d=cloud.com; s=cloud;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=hCe7wNP+TKqBI+q0C50QUeVPIh9gXzDPbTeF71ad82o=;
+        b=BScuW+/NLYhPGp9cIeu7wYll/Nfs2exQkGEORM7xcmdmraE1GjRv/Cm82VmMic4Elk
+         9fC/T9MIj5uuja6scg5hEDvBj2MCNK6J1CuztFdFD2xLd8blMjN/KkOGPUKRQIaGLHQQ
+         OBVcJleRL2fHr2H4TXtKuXwhZ1051hLYkWDZ8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Ajxs1wqVGy4VyBnUzuMAw1pH+VeDislQpXThvlQnrN4=;
-        b=Quc2x+oIfoieRALMoI24x+KWvlDzkszJNt2OtczRz+5HTgV5O0QwZxXiA2e9l403br
-         04lmy5nGnJQDg8NOxDZNp58q6g//krecpVZm+8JBI91X3OhfuAPMnXlaR+kkPUctJb1P
-         4ggMjjw6kiPUhkYJCnB8a/vgx1zb55fnuLwbhw5P5rckkxspDliUHDj+GObNeZ1aMMQq
-         y1/D00iBEvC15Az/GlIyGaQYnEN8QxTo/vZcFxbv4IJbRBRHf/NHMufZzYXE0Yq50Ad8
-         u+G2jEZsXgucAZzPwQ26GnEHITUKOk5xWLVnteYehjF5J+tZD7rzDkExmLMpsB13esrU
-         h7hQ==
-X-Gm-Message-State: AFqh2kp3Wx81l3fJ0kCahGSYuNgABGr/aYKfwnGa3C46BR1r+AXZ8AMy
-	fLyohZu0VL65tnYjME0Vr9Y=
-X-Google-Smtp-Source: AMrXdXu5uNAOnXEEEShUq+GA+FPUkrlkgf2LXOeXXj/TvMc/hY11jS3TpYI0+f/CglkLZjpa3xf9yg==
-X-Received: by 2002:a05:600c:3d96:b0:3db:26b7:2fc8 with SMTP id bi22-20020a05600c3d9600b003db26b72fc8mr15410085wmb.39.1674487053554;
-        Mon, 23 Jan 2023 07:17:33 -0800 (PST)
-Message-ID: <ea3c256c0f5a7f09a2504c548e649a0cf0edcb43.camel@gmail.com>
-Subject: Re: [PATCH v1 07/14] xen/riscv: introduce exception handlers
- implementation
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
-	"xen-devel@lists.xenproject.org"
-	 <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida
-	 <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
-	Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
-Date: Mon, 23 Jan 2023 17:17:32 +0200
-In-Reply-To: <ac6f02e8-c493-7914-f3c4-32b4ebe1bc26@citrix.com>
-References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
-	 <7a459ea843d5823ee2c50b0e44dded5bdb554ca6.1674226563.git.oleksii.kurochko@gmail.com>
-	 <ac6f02e8-c493-7914-f3c4-32b4ebe1bc26@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=hCe7wNP+TKqBI+q0C50QUeVPIh9gXzDPbTeF71ad82o=;
+        b=S7Yo1rFJhniNRaPG2+XgJUz+LuxmCWEPN5PThLvFZZ5N+Ed5KoD697qqTbJMALdv6U
+         4nxF9fDEVarAcTGJuaMpbyYAgPyk+CD4/TEGezkKNqRNJTibejTKaf0/rEKLj4Er0aqO
+         YbIJ8d1zw8xesOby6hceQa3FA6tNG++jlEeNncp9Zo+/PQYjCbtRTnxkpjc197km3d+Z
+         iL5fra19jK91q01EJ5g/MIK1OiYGi60Odz0OquqXC13plqBDWtbqGWNVnnxgMdkFxYNp
+         qSqPIgr65Cr06eW+gPXXVhZARvZdfnFCDbBXVZeb3v/ETOCYrJ8FiRKBKbGbF7FPbnD/
+         OGUA==
+X-Gm-Message-State: AFqh2kr7c9p9aUXpm5T1vuXqXHC7962uchd5S2hLL1Lv8uWfVVXmuIsD
+	bHouLtVxVa8WS/a/MMyRtJwU9enIz8dCA+pU/ZyNjg==
+X-Google-Smtp-Source: AMrXdXvvoWeHbNEKoJ4nZwFjZQb+QKm3L9CCa8WeEhuw7GMqr6XtAovcn2sUcS1g5LYLU5sMgaKKWLIL7sK7AZGr4wI=
+X-Received: by 2002:a17:907:a065:b0:84d:28d4:6bb with SMTP id
+ ia5-20020a170907a06500b0084d28d406bbmr1939830ejc.531.1674487212626; Mon, 23
+ Jan 2023 07:20:12 -0800 (PST)
 MIME-Version: 1.0
+References: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
+ <d91b5315-a5bb-a6ee-c9bb-58974c733a4e@suse.com> <CA+zSX=ZVK_7xpgraJyC3__uORqXo8F9Atj9gCF+oO7OyfRrtYg@mail.gmail.com>
+ <c8ca4781-13ac-add6-1ae0-558f8d0da052@suse.com>
+In-Reply-To: <c8ca4781-13ac-add6-1ae0-558f8d0da052@suse.com>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Mon, 23 Jan 2023 15:20:01 +0000
+Message-ID: <CA+zSX=b2o_sbC+CwLUm2F5QnSKaGBSayUPgsLheLWHob8jUnrg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/9] x86/shadow: replace sh_reset_l3_up_pointers()
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
+Content-Type: multipart/alternative; boundary="0000000000007d7a3e05f2efef00"
 
-On Mon, 2023-01-23 at 11:50 +0000, Andrew Cooper wrote:
-> On 20/01/2023 2:59 pm, Oleksii Kurochko wrote:
-> > diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
-> > new file mode 100644
-> > index 0000000000..f7d46f42bb
-> > --- /dev/null
-> > +++ b/xen/arch/riscv/entry.S
-> > @@ -0,0 +1,97 @@
-> > +#include <asm/asm.h>
-> > +#include <asm/processor.h>
-> > +#include <asm/riscv_encoding.h>
-> > +#include <asm/traps.h>
-> > +
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .global handle_exception
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 .align 4
-> > +
-> > +handle_exception:
->=20
-> ENTRY() which takes care of the global and the align.
->=20
-> Also, you want a size and type at the end, just like in head.S=C2=A0
-> (Sorry,
-> we *still* don't have any sane infrastructure for doing that nicely.=C2=
-=A0
-> Opencode it for now.)
->=20
-> > +
-> > +=C2=A0=C2=A0=C2=A0 /* Exceptions from xen */
-> > +save_to_stack:
->=20
-> This label isn't used at all, is it?
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* Save context to stack */
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 sp, (RISC=
-V_CPU_USER_REGS_OFFSET(sp) -
-> > RISCV_CPU_USER_REGS_SIZE) (sp)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 addi=C2=A0=C2=A0=C2=A0 sp, =
-sp, -RISCV_CPU_USER_REGS_SIZE
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 t0, RISCV=
-_CPU_USER_REGS_OFFSET(t0)(sp)
->=20
-> Exceptions on RISC-V don't adjust the stack pointer.=C2=A0 This logic
-> depends
-> on interrupting Xen code, and Xen not having suffered a stack
-> overflow
-> (and actually, that the space on the stack for all registers also
-> doesn't overflow).
->=20
-> Which might be fine for now, but I think it warrants a comment
-> somewhere
-> (probably at handle_exception itself) stating the expectations while
-> it's still a work in progress.=C2=A0 So in this case something like:
->=20
-> /* Work-in-progress:=C2=A0 Depends on interrupting Xen, and the stack
-> being
-> good. */
->=20
->=20
-> But, do we want to allocate stemp right away (even with an empty
-> struct), and get tp set up properly?
->=20
-I am not sure that I get you here about stemp. Could you please clarify
-a little bit.
+--0000000000007d7a3e05f2efef00
+Content-Type: text/plain; charset="UTF-8"
 
-> That said, aren't we going to have to rewrite this when enabling H
-> mode
-> anyway?
-I based these code on a code from Bobby's repo ( on top of which with
-some additional patches I've successfully ran Dom0 ) so I am not sure
-that it will be re-written.
-Probably I don't understand about which one part you are talking about.
+On Mon, Jan 23, 2023 at 8:41 AM Jan Beulich <jbeulich@suse.com> wrote:
 
-Regarding H mode if to be honest I didn't see where it is switched to
-it.
-Maybe Bobby or Alistair can explain me?
->=20
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 j=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 save_context
-> > +
-> > +save_context:
->=20
-> I'd drop this.=C2=A0 It's a nop right now.
->=20
-> > <snip>
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 csrr=C2=A0=C2=A0=C2=A0 t0, =
-CSR_SEPC
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 t0, RISCV=
-_CPU_USER_REGS_OFFSET(sepc)(sp)
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 csrr=C2=A0=C2=A0=C2=A0 t0, =
-CSR_SSTATUS
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 REG_S=C2=A0=C2=A0 t0, RISCV=
-_CPU_USER_REGS_OFFSET(sstatus)(sp)
->=20
-> So something I've noticed about CSRs through this series.
->=20
-> The C CSR macros are set up to use real CSR names, but the CSR_*
-> constants used in C and ASM are raw numbers.
->=20
-> If we're using raw numbers, then the C CSR accessors should be static
-> inlines instead, but the advantage of using names is the toolchain
-> can
-> issue an error when we reference a CSR not supported by the current
-> extensions.
->=20
-> We ought to use a single form, consistently through Xen.=C2=A0 How
-> feasible
-> will it be to use names throughout?
->=20
-> ~Andrew
+> On 20.01.2023 18:02, George Dunlap wrote:
+> > On Wed, Jan 11, 2023 at 1:52 PM Jan Beulich <jbeulich@suse.com> wrote:
+> >
+> >> Rather than doing a separate hash walk (and then even using the vCPU
+> >> variant, which is to go away), do the up-pointer-clearing right in
+> >> sh_unpin(), as an alternative to the (now further limited) enlisting on
+> >> a "free floating" list fragment. This utilizes the fact that such list
+> >> fragments are traversed only for multi-page shadows (in shadow_free()).
+> >> Furthermore sh_terminate_list() is a safe guard only anyway, which isn't
+> >> in use in the common case (it actually does anything only for BIGMEM
+> >> configurations).
+> >
+> > One thing that seems strange about this patch is that you're essentially
+> > adding a field to the domain shadow struct in lieu of adding another
+> > another argument to sh_unpin() (unless the bit is referenced elsewhere in
+> > subsequent patches, which I haven't reviewed, in part because about half
+> of
+> > them don't apply cleanly to the current tree).
+>
+> Well, to me adding another parameter to sh_unpin() would have looked odd;
+> the new field looks slightly cleaner to me. But changing that is merely a
+> matter of taste, so if you and e.g. Andrew think that approach was better,
+> I could switch to that. And no, I don't foresee further uses of the field.
+>
 
+You're about to call sh_unpin(), and you want to tell that function to
+change its behavior.  What's so odd about adding an argument to the
+function to indicate the behavior?  Instead you're adding a bit of global
+state which is carried around 100% of the time, even when that function
+isn't being called.  That's not what people normally expect; it makes the
+code harder to reason about.
+
+It would certainly be ugly to have to add "false" to every other instance
+of sh_unpin; but the normal way you get around that is to redefine
+sh_unpin() as a wrapper which calls the other function with the 'false'
+argument set.
+
+You asked me to review this for a second opinion on the safety of clearing
+the up-pointer this way, not because you need an ack; so I don't really
+want to block the patch for non-functional reasons.  But I think this is
+one of the "death by a thousand cuts" that makes the shadow code more
+fragile and difficult for new people to approach and understand.
+
+Re the original question: I've stared at the code for a bit now, and I
+can't see anything obviously wrong or dangerous about it.
+
+But it does make me ask, why do we need the "unpinning_l3" pseudo-argument
+at all?  Is there any reason not to unconditionally zero out sp->up when we
+find a head_type of SH_type_l3_64_shadow?  As far as I can tell, sp->list
+doesn't require any special state.  Why do we make the effort to leave it
+alone when we're not unpinning all l3s?
+
+In fact, is there a way to unpin an l3 shadow *other* than when we're
+unpinning all l3's?  If so, then this patch, as written, is broken -- the
+original code clears the up-pointer for *all* L3_64 shadows, regardless of
+whether they're on the pinned list; the new patch will only clear the ones
+on the pinned list.  But unconditionally clearing sp->up could actually fix
+that.
+
+Thoughts?
+
+As to half of the patches not applying: Some where already applied out of
+> order, and others therefore need re-basing slightly. Till now I saw no
+> reason to re-send the remaining patches just for that.
+>
+
+Sorry if that sounded like complaining; I was only being preemptively
+defensive against the potential accusation that the answer would have been
+obvious if I'd just continued reviewing the series. :-). (And indeed if the
+whole series had applied I would have checked that the final result didn't
+have any other references to it.)
+
+ -George
+
+--0000000000007d7a3e05f2efef00
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div dir=3D"ltr"><div dir=3D"lt=
+r">=C2=A0</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gma=
+il_attr">On Mon, Jan 23, 2023 at 8:41 AM Jan Beulich &lt;<a href=3D"mailto:=
+jbeulich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">On 20.01.2023 18:02, =
+George Dunlap wrote:<br>
+&gt; On Wed, Jan 11, 2023 at 1:52 PM Jan Beulich &lt;<a href=3D"mailto:jbeu=
+lich@suse.com" target=3D"_blank">jbeulich@suse.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt;&gt; Rather than doing a separate hash walk (and then even using the vC=
+PU<br>
+&gt;&gt; variant, which is to go away), do the up-pointer-clearing right in=
+<br>
+&gt;&gt; sh_unpin(), as an alternative to the (now further limited) enlisti=
+ng on<br>
+&gt;&gt; a &quot;free floating&quot; list fragment. This utilizes the fact =
+that such list<br>
+&gt;&gt; fragments are traversed only for multi-page shadows (in shadow_fre=
+e()).<br>
+&gt;&gt; Furthermore sh_terminate_list() is a safe guard only anyway, which=
+ isn&#39;t<br>
+&gt;&gt; in use in the common case (it actually does anything only for BIGM=
+EM<br>
+&gt;&gt; configurations).<br>
+&gt; <br>
+&gt; One thing that seems strange about this patch is that you&#39;re essen=
+tially<br>
+&gt; adding a field to the domain shadow struct in lieu of adding another<b=
+r>
+&gt; another argument to sh_unpin() (unless the bit is referenced elsewhere=
+ in<br>
+&gt; subsequent patches, which I haven&#39;t reviewed, in part because abou=
+t half of<br>
+&gt; them don&#39;t apply cleanly to the current tree).<br>
+<br>
+Well, to me adding another parameter to sh_unpin() would have looked odd;<b=
+r>
+the new field looks slightly cleaner to me. But changing that is merely a<b=
+r>
+matter of taste, so if you and e.g. Andrew think that approach was better,<=
+br>
+I could switch to that. And no, I don&#39;t foresee further uses of the fie=
+ld.<br></blockquote><div><br></div><div>You&#39;re about to call sh_unpin()=
+, and you want to tell that function to change its behavior.=C2=A0 What&#39=
+;s so odd about adding an argument to the function to indicate the behavior=
+?=C2=A0 Instead you&#39;re adding a bit of global state which is carried ar=
+ound 100% of the time, even when that function isn&#39;t being called.=C2=
+=A0 That&#39;s not what people normally expect; it makes the code harder to=
+ reason about.</div><div><br></div><div>It would certainly be ugly to have =
+to add &quot;false&quot; to every other instance of sh_unpin; but the norma=
+l way you get around that is to redefine sh_unpin() as a wrapper which call=
+s the other function with the &#39;false&#39; argument set.</div><div><br><=
+/div><div>You asked me to review this for a second opinion on the safety of=
+ clearing the up-pointer this way, not because you need an ack; so I don&#3=
+9;t really want to block the patch for non-functional reasons.=C2=A0 But I =
+think this is one of the &quot;death by a thousand cuts&quot; that makes th=
+e shadow code more fragile and difficult for new people to approach and und=
+erstand.</div><div>=C2=A0</div><div>Re the original question: I&#39;ve star=
+ed at the code for a bit now, and I can&#39;t see anything obviously wrong =
+or dangerous about it.</div><div><br></div><div>But it does make me ask, wh=
+y do we need the &quot;unpinning_l3&quot; pseudo-argument at all?=C2=A0 Is =
+there any reason not to unconditionally zero out sp-&gt;up when we find a h=
+ead_type of SH_type_l3_64_shadow?=C2=A0 As far as I can tell, sp-&gt;list d=
+oesn&#39;t require any special state.=C2=A0 Why do we make the effort to le=
+ave it alone when we&#39;re not unpinning all l3s?</div><div><br></div><div=
+>In fact, is there a way to unpin an l3 shadow *other* than when we&#39;re =
+unpinning all l3&#39;s?=C2=A0 If so, then this patch, as written, is broken=
+ -- the original code clears the up-pointer for *all* L3_64 shadows, regard=
+less of whether they&#39;re on the pinned list; the new patch will only cle=
+ar the ones on the pinned list.=C2=A0 But unconditionally clearing sp-&gt;u=
+p could actually fix that.</div><div><br></div><div>Thoughts?</div><div><br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex">As to half of the =
+patches not applying: Some where already applied out of<br>
+order, and others therefore need re-basing slightly. Till now I saw no<br>
+reason to re-send the remaining patches just for that.<br></blockquote><div=
+><br></div><div>Sorry if that sounded like complaining; I was only being pr=
+eemptively defensive against the potential accusation that the answer would=
+ have been obvious if I&#39;d just continued reviewing the series. :-). (An=
+d indeed if the whole series had applied I would have checked that the fina=
+l result didn&#39;t have any other references to it.)</div><div><br></div><=
+div>=C2=A0-George=C2=A0</div></div></div>
+</div>
+
+--0000000000007d7a3e05f2efef00--
 
