@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23656677885
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 11:07:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.482715.748371 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44C63677935
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 11:31:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.482723.748384 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJtii-0005EM-Rt; Mon, 23 Jan 2023 10:06:32 +0000
+	id 1pJu6M-0008Up-Sv; Mon, 23 Jan 2023 10:30:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 482715.748371; Mon, 23 Jan 2023 10:06:32 +0000
+Received: by outflank-mailman (output) from mailman id 482723.748384; Mon, 23 Jan 2023 10:30:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJtii-0005BX-Ob; Mon, 23 Jan 2023 10:06:32 +0000
-Received: by outflank-mailman (input) for mailman id 482715;
- Mon, 23 Jan 2023 10:06:31 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pJtih-0005BR-9X
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 10:06:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pJtig-0003po-Gl; Mon, 23 Jan 2023 10:06:30 +0000
-Received: from 54-240-197-238.amazon.com ([54.240.197.238]
- helo=[192.168.11.171]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pJtig-0000An-AD; Mon, 23 Jan 2023 10:06:30 +0000
+	id 1pJu6M-0008Se-OG; Mon, 23 Jan 2023 10:30:58 +0000
+Received: by outflank-mailman (input) for mailman id 482723;
+ Mon, 23 Jan 2023 10:30:57 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Oetg=5U=citrix.com=prvs=380ad89a7=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pJu6L-0008SY-Bt
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 10:30:57 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 03a5d671-9b09-11ed-91b6-6bf2151ebd3b;
+ Mon, 23 Jan 2023 11:30:55 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,93 +36,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=18SE7SHjckfBxjtButz+tpG9m2iYFLekvCknyMkwnvw=; b=BJi+ASAGDKHxe6Vd8duudiouhA
-	xbz99un8c/Touv/nq60o8yQ6sscsGcuXm/KtKN//S5692jxM7fKRJnj4CuCEBmxTCXuD648/aLsuE
-	1R0kKcNBN8q/oV7fno0j8+e0gqqk9gXj4a1/2Dc7hLsZ7p4ALTPCVUz3+UXT3cU4PweU=;
-Message-ID: <07dac0bc-6415-259f-6410-0ca285997a81@xen.org>
-Date: Mon, 23 Jan 2023 10:06:28 +0000
+X-Inumbo-ID: 03a5d671-9b09-11ed-91b6-6bf2151ebd3b
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1674469855;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Ni+/kyJb9wYCoU/b1nnBkKujdRvalEwt92GEdQZdjb8=;
+  b=QgHR7smQBvgjs1JYWE4ASRYlols2HXxHy5Eg3fgbFDN78y2Vwbb0JFhq
+   5F/u1bWubZWDzH0uZagxyxX+3twqxuutbjP6T+i6Do163hk2VAHWwxRqK
+   /NmfQPhe1eaP7m7OCqdFed3SWbujIyYzgJ/rht3C+D+DcC7JNlrLdlDWJ
+   s=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 93238071
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:eXpABqhUytoG1ZJCDvmdItofX161qBAKZh0ujC45NGQN5FlHY01je
+ htvWWzXbPreM2v8cosjao/no0kHuJPWzYdjHQM5q3gzRSwb9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmUpH1QMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWt0N8klgZmP6sT5QWFzyB94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tRBKA0EPxGT2Nntg4mmZLB+tu0oDe3kadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27J/
+ TidrzymW3n2MvTPxCKqolWMttSUthjfRb0WP7Hnp7111Qj7Kms7V0RNCArTTeOCol6zXZdTJ
+ lIZ/gIqrLMu7wq7Q9/lRRq6rXWY+BkGVLJ4Eec39QWMwar8+BuCCy4PSTspQN47sM47QxQ62
+ 1nPmMnmbRR0q6GcQ3+Z8raSrBuxNDITIGtEYjULJSMa5/HzrYd1iQjAJv5qCKOvh8f5MS3xy
+ TuN6iM5gt0uYdUjjvvhuwqd2nT1+8aPF1RujunKYo67xlp5WYf0Zpz30gOY1utudZSpZ1Kgm
+ HdRzqBy89syJZ2KkSWMRsAEE7eo++uJPVXgvLJ/I3Uy32/zoiD+JOi89Bk7fR40aZhcJVcFd
+ WeJ4WtsCIlv0GxGhEOdS6a4EIwUwKfpDrwJvdiEP4MVMvCdmOJqlRyChHJ8PUi3yyDAcollY
+ /93lPpA6l5EYZmLNBLsG48gPUYDn0jSP1/7S5Hh1AiA2rGDfnOTQrptGALQMbxltfnf/12Fq
+ Yc32y62J/J3Cb2WX8Uq2dRLcQBiwYYTW/gaVPC7hsbce1E7SQnN+tfawK87epwNokimvr6gw
+ 51JYWcBkACXrSSeeW23hoVLNOuHsWBX8ShqYkTB/D+AhxAeXGpYxP1OKsppIOB4rrALIDwdZ
+ 6BtRvhsy89nElzvkwnxp7GjxGC+XHxHXT6zAhc=
+IronPort-HdrOrdr: A9a23:BSMJz6Brtsbs1CTlHemK55DYdb4zR+YMi2TDgXoBMyC9Vvbo7v
+ xG+85rsyMc6QxhP03I/OrrBEDuewK+yXcY2+ks1NSZLW3bUQmTXeNfBNDZskXd8kTFn4Y36U
+ 4KSdkaNDSfNzlHpPe/yBWkFc0t2dyWmZrY/ts2DE0AceipUcxdBstCZTpz23cZeDV7
+X-IronPort-AV: E=Sophos;i="5.97,239,1669093200"; 
+   d="scan'208";a="93238071"
+Date: Mon, 23 Jan 2023 10:30:30 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Andrew Cooper <Andrew.Cooper3@citrix.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, George
+ Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Julien
+ Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu
+	<wl@xen.org>
+Subject: Re: [XEN PATCH v4 3/3] build: compat-xlat-header.py: optimisation to
+ search for just '{' instead of [{}]
+Message-ID: <Y85hxvyTHa/nXZ9H@perard.uk.xensource.com>
+References: <20230119152256.15832-1-anthony.perard@citrix.com>
+ <20230119152256.15832-4-anthony.perard@citrix.com>
+ <60df7795-8f0b-e0f2-a790-2e00c0d4db2a@citrix.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [XEN][RFC PATCH v4 09/16] xen/iommu: Introduce
- iommu_remove_dt_device()
-Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>,
- Vikram Garhwal <vikram.garhwal@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, Luca.Fancellu@arm.com,
- Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
-References: <20221207061815.7404-1-vikram.garhwal@amd.com>
- <20221207061815.7404-3-vikram.garhwal@amd.com>
- <311dc97d-e924-e9ad-25d3-1135d4b24f7e@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <311dc97d-e924-e9ad-25d3-1135d4b24f7e@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <60df7795-8f0b-e0f2-a790-2e00c0d4db2a@citrix.com>
 
-Hi,
-
-On 23/01/2023 10:00, Michal Orzel wrote:
->> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
->> ---
->>   xen/drivers/passthrough/device_tree.c | 38 +++++++++++++++++++++++++++
->>   xen/include/xen/iommu.h               |  2 ++
->>   2 files changed, 40 insertions(+)
->>
->> diff --git a/xen/drivers/passthrough/device_tree.c b/xen/drivers/passthrough/device_tree.c
->> index 457df333a0..a8ba0b0d17 100644
->> --- a/xen/drivers/passthrough/device_tree.c
->> +++ b/xen/drivers/passthrough/device_tree.c
->> @@ -126,6 +126,44 @@ int iommu_release_dt_devices(struct domain *d)
->>       return 0;
->>   }
->>
->> +int iommu_remove_dt_device(struct dt_device_node *np)
->> +{
->> +    const struct iommu_ops *ops = iommu_get_ops();
->> +    struct device *dev = dt_to_dev(np);
->> +    int rc;
->> +
-> Aren't we missing a check if iommu is enabled?
+On Fri, Jan 20, 2023 at 06:26:14PM +0000, Andrew Cooper wrote:
+> On 19/01/2023 3:22 pm, Anthony PERARD wrote:
+> > `fields` and `extrafields` always all the parts of a sub-struct, so
+> > when there is '}', there is always a '{' before it. Also, both are
+> > lists.
+> >
+> > Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
+> > ---
+> >  xen/tools/compat-xlat-header.py | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/xen/tools/compat-xlat-header.py b/xen/tools/compat-xlat-header.py
+> > index ae5c9f11c9..d0a864b68e 100644
+> > --- a/xen/tools/compat-xlat-header.py
+> > +++ b/xen/tools/compat-xlat-header.py
+> > @@ -105,7 +105,7 @@ def handle_field(prefix, name, id, type, fields):
+> >          else:
+> >              k = id.replace('.', '_')
+> >              print("%sXLAT_%s_HNDL_%s(_d_, _s_);" % (prefix, name, k), end='')
+> > -    elif not re_brackets.search(' '.join(fields)):
+> > +    elif not '{' in fields:
+> >          tag = ' '.join(fields)
+> >          tag = re.sub(r'\s*(struct|union)\s+(compat_)?(\w+)\s.*', '\\3', tag)
+> >          print(" \\")
+> > @@ -290,7 +290,7 @@ def build_body(name, tokens):
+> >      print(" \\\n} while (0)")
+> >  
+> >  def check_field(kind, name, field, extrafields):
+> > -    if not re_brackets.search(' '.join(extrafields)):
+> > +    if not '{' in extrafields:
+> >          print("; \\")
+> >          if len(extrafields) != 0:
+> >              for token in extrafields:
 > 
->> +    if ( !ops )
->> +        return -EOPNOTSUPP;
-> -EINVAL to match the return values returned by other functions?
+> These are the only two users of re_brackets aren't they?  In which case
+> you should drop the re.compile() too.
 
-The meaning of -EINVAL is quite overloaded. So it would be better to use 
-a mix of errno to help differentiating the error paths.
-
-In this case, '!ops' means there are no possibility (read "support") to 
-remove the device. So I think -EOPNOTUSUPP is suitable.
-
-> 
->> +
->> +    spin_lock(&dtdevs_lock);
->> +
->> +    if ( iommu_dt_device_is_assigned_locked(np) ) {
-> Incorrect coding style. The closing brace should be placed on the next line.
-> 
->> +        rc = -EBUSY;
->> +        goto fail;
->> +    }
->> +
->> +    /*
->> +     * The driver which supports generic IOMMU DT bindings must have
->> +     * these callback implemented.
->> +     */
->> +    if ( !ops->remove_device ) {
-> Incorrect coding style. The closing brace should be placed on the next line.
-> 
->> +        rc = -EOPNOTSUPP;
-> -EINVAL to match the return values returned by other functions?
-
-Ditto.
+Indeed, I miss that, we can drop re_brackets.
 
 Cheers,
 
 -- 
-Julien Grall
+Anthony PERARD
 
