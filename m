@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 921056789CD
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 22:40:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483250.749291 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6376A6789DD
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 22:46:22 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483255.749302 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pK4Xs-0005Cl-QQ; Mon, 23 Jan 2023 21:40:04 +0000
+	id 1pK4dJ-000669-Ev; Mon, 23 Jan 2023 21:45:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483250.749291; Mon, 23 Jan 2023 21:40:04 +0000
+Received: by outflank-mailman (output) from mailman id 483255.749302; Mon, 23 Jan 2023 21:45:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pK4Xs-00057c-NB; Mon, 23 Jan 2023 21:40:04 +0000
-Received: by outflank-mailman (input) for mailman id 483250;
- Mon, 23 Jan 2023 21:40:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pK4dJ-000645-Aw; Mon, 23 Jan 2023 21:45:41 +0000
+Received: by outflank-mailman (input) for mailman id 483255;
+ Mon, 23 Jan 2023 21:45:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=QMpG=5U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pK4Xr-0004u2-Lu
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 21:40:03 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7d6f33bb-9b66-11ed-91b6-6bf2151ebd3b;
- Mon, 23 Jan 2023 22:40:02 +0100 (CET)
+ id 1pK4dH-00063z-UO
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 21:45:39 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4558684d-9b67-11ed-b8d1-410ff93cb8f0;
+ Mon, 23 Jan 2023 22:45:37 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6827C61119;
- Mon, 23 Jan 2023 21:40:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80206C433D2;
- Mon, 23 Jan 2023 21:39:58 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E000D61049;
+ Mon, 23 Jan 2023 21:45:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5CE1C433EF;
+ Mon, 23 Jan 2023 21:45:33 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d6f33bb-9b66-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 4558684d-9b67-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674509999;
-	bh=7z4gMYKOdsyiK4P1pFGZ62cPu6iRIegwPcJ767kAfzU=;
+	s=k20201202; t=1674510335;
+	bh=ZuPiGptW3KXe3Gus67y+vUCaqRxd7Br0s0k42Kd7ZFk=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=XEsxf5WHwY0gbrOKaK/w97t3oUuLByo4dkrp1ZIyHVrt2Erx3ZkPgR3fVXL7hj/n2
-	 mfF2NGfsZ4m2Zh0ZcvMeS7f3yGntwEL1rFDLrtsI/oB61Afy101Ui9DzTh0YnbtFMt
-	 fVCXIGfnCrLayTMGHGDwB1xCQ1Avk+qMqTp2Vi5cnEnrCJY9jcXOjZyOcBnBvibdqZ
-	 tQyy2mcSQiFXOl459YHhqiuJ938PYOmUl/ohYgP0/w0J5D+pwMJw3JSUyxOcG0+2F6
-	 M2Sv6DZDW9gJTeCpUS9HBRi+TQMeGtj6qHdUxhovLoNJOuyK8pIW67QtHAKCRnXcry
-	 H09o3ExWcfnag==
-Date: Mon, 23 Jan 2023 13:39:57 -0800 (PST)
+	b=mo5NZw06EPAsOHzp5eaIfVoYB603EpTYjqDpzsoeHiiS6N+L12qA6aG2jRctO7UXr
+	 UqhT1aDL5hadel/BQnUb2MyQqG+QmCPq5B/DiMxfwmYzFegc/1bIFBy6f11Waasb1J
+	 dH1o1wFMPost/zL6vhc+7UuKIE+CoDA8rLHrvkKubCfBM0E7cpiJr7BOIWwr5aB1hY
+	 EMr3i3vfl62fWl4EAMFPFNn6KiL3QrOnT07dLIymx2ktKXyGgHpY9T4QAUyqDzTdri
+	 LHah9VN3E5uG/ZfY1EHAY8IVG3J4OTyT43kZYfLDvs1lluZWNWjTozoL9I6ZVPlRB1
+	 8rI3mSOcQeHLA==
+Date: Mon, 23 Jan 2023 13:45:32 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Julien Grall <julien@xen.org>
@@ -63,11 +62,15 @@ cc: xen-devel@lists.xenproject.org, Hongyan Xia <hongyxia@amazon.com>,
     Andrew Cooper <andrew.cooper3@citrix.com>, 
     George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
     Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+    Bertrand Marquis <bertrand.marquis@arm.com>, 
+    Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
     Julien Grall <jgrall@amazon.com>
-Subject: Re: [PATCH 03/22] acpi: vmap pages in acpi_os_alloc_memory
-In-Reply-To: <20221216114853.8227-4-julien@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2301231339310.1978264@ubuntu-linux-20-04-desktop>
-References: <20221216114853.8227-1-julien@xen.org> <20221216114853.8227-4-julien@xen.org>
+Subject: Re: [PATCH 11/22] x86: add a boot option to enable and disable the
+ direct map
+In-Reply-To: <20221216114853.8227-12-julien@xen.org>
+Message-ID: <alpine.DEB.2.22.394.2301231345010.1978264@ubuntu-linux-20-04-desktop>
+References: <20221216114853.8227-1-julien@xen.org> <20221216114853.8227-12-julien@xen.org>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
@@ -75,92 +78,144 @@ Content-Type: text/plain; charset=US-ASCII
 On Fri, 16 Dec 2022, Julien Grall wrote:
 > From: Hongyan Xia <hongyxia@amazon.com>
 > 
-> Also, introduce a wrapper around vmap that maps a contiguous range for
-> boot allocations. Unfortunately, the new helper cannot be a static inline
-> because the dependences are a mess. We would need to re-include
-> asm/page.h (was removed in aa4b9d1ee653 "include: don't use asm/page.h
-> from common headers") and it doesn't look to be enough anymore
-> because bits from asm/cpufeature.h is used in the definition of PAGE_NX.
+> Also add a helper function to retrieve it. Change arch_mfns_in_direct_map
+> to check this option before returning.
+> 
+> This is added as a boot command line option, not a Kconfig to allow
+> the user to experiment the feature without rebuild the hypervisor.
 > 
 > Signed-off-by: Hongyan Xia <hongyxia@amazon.com>
 > Signed-off-by: Julien Grall <jgrall@amazon.com>
-
-I saw Jan's comments and I agree with them but I also wanted to track
-that I reviewed this patch and looks OK:
-
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-
-
+> 
 > ----
 > 
->     Changes since Hongyan's version:
->         * Rename vmap_boot_pages() to vmap_contig_pages()
->         * Move the new helper in vmap.c to avoid compilation issue
->         * Don't use __pa() to translate the virtual address
-> ---
->  xen/common/vmap.c      |  5 +++++
->  xen/drivers/acpi/osl.c | 13 +++++++++++--
->  xen/include/xen/vmap.h |  2 ++
->  3 files changed, 18 insertions(+), 2 deletions(-)
+>     TODO:
+>         * Do we also want to provide a Kconfig option?
 > 
-> diff --git a/xen/common/vmap.c b/xen/common/vmap.c
-> index 1340c7c6faf6..78f051a67682 100644
-> --- a/xen/common/vmap.c
-> +++ b/xen/common/vmap.c
-> @@ -244,6 +244,11 @@ void *vmap(const mfn_t *mfn, unsigned int nr)
->      return __vmap(mfn, 1, nr, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
+>     Changes since Hongyan's version:
+>         * Reword the commit message
+>         * opt_directmap is only modified during boot so mark it as
+>           __ro_after_init
+> ---
+>  docs/misc/xen-command-line.pandoc | 12 ++++++++++++
+>  xen/arch/arm/include/asm/mm.h     |  5 +++++
+>  xen/arch/x86/include/asm/mm.h     | 17 ++++++++++++++++-
+>  xen/arch/x86/mm.c                 |  3 +++
+>  xen/arch/x86/setup.c              |  2 ++
+>  5 files changed, 38 insertions(+), 1 deletion(-)
+> 
+> diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+> index b7ee97be762e..a63e4612acac 100644
+> --- a/docs/misc/xen-command-line.pandoc
+> +++ b/docs/misc/xen-command-line.pandoc
+> @@ -760,6 +760,18 @@ Specify the size of the console debug trace buffer. By specifying `cpu:`
+>  additionally a trace buffer of the specified size is allocated per cpu.
+>  The debug trace feature is only enabled in debugging builds of Xen.
+>  
+> +### directmap (x86)
+> +> `= <boolean>`
+> +
+> +> Default: `true`
+> +
+> +Enable or disable the direct map region in Xen.
+> +
+> +By default, Xen creates the direct map region which maps physical memory
+> +in that region. Setting this to no will remove the direct map, blocking
+> +exploits that leak secrets via speculative memory access in the direct
+> +map.
+> +
+>  ### dma_bits
+>  > `= <integer>`
+>  
+> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
+> index 68adcac9fa8d..2366928d71aa 100644
+> --- a/xen/arch/arm/include/asm/mm.h
+> +++ b/xen/arch/arm/include/asm/mm.h
+> @@ -406,6 +406,11 @@ static inline void page_set_xenheap_gfn(struct page_info *p, gfn_t gfn)
+>      } while ( (y = cmpxchg(&p->u.inuse.type_info, x, nx)) != x );
 >  }
 >  
-> +void *vmap_contig_pages(mfn_t mfn, unsigned int nr_pages)
+> +static inline bool arch_has_directmap(void)
 > +{
-> +    return __vmap(&mfn, nr_pages, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
+> +    return true;
+
+Shoudn't arch_has_directmap return false for arm32?
+
+
+
 > +}
 > +
->  void vunmap(const void *va)
+>  #endif /*  __ARCH_ARM_MM__ */
+>  /*
+>   * Local variables:
+> diff --git a/xen/arch/x86/include/asm/mm.h b/xen/arch/x86/include/asm/mm.h
+> index db29e3e2059f..cf8b20817c6c 100644
+> --- a/xen/arch/x86/include/asm/mm.h
+> +++ b/xen/arch/x86/include/asm/mm.h
+> @@ -464,6 +464,8 @@ static inline int get_page_and_type(struct page_info *page,
+>      ASSERT(((_p)->count_info & PGC_count_mask) != 0);          \
+>      ASSERT(page_get_owner(_p) == (_d))
+>  
+> +extern bool opt_directmap;
+> +
+>  /******************************************************************************
+>   * With shadow pagetables, the different kinds of address start
+>   * to get get confusing.
+> @@ -620,13 +622,26 @@ extern const char zero_page[];
+>  /* Build a 32bit PSE page table using 4MB pages. */
+>  void write_32bit_pse_identmap(uint32_t *l2);
+>  
+> +static inline bool arch_has_directmap(void)
+> +{
+> +    return opt_directmap;
+> +}
+> +
+>  /*
+>   * x86 maps part of physical memory via the directmap region.
+>   * Return whether the range of MFN falls in the directmap region.
+> + *
+> + * When boot command line sets directmap=no, we will not have a direct map at
+> + * all so this will always return false.
+>   */
+>  static inline bool arch_mfns_in_directmap(unsigned long mfn, unsigned long nr)
 >  {
->      unsigned long addr = (unsigned long)va;
-> diff --git a/xen/drivers/acpi/osl.c b/xen/drivers/acpi/osl.c
-> index 389505f78666..44a9719b0dcf 100644
-> --- a/xen/drivers/acpi/osl.c
-> +++ b/xen/drivers/acpi/osl.c
-> @@ -221,7 +221,11 @@ void *__init acpi_os_alloc_memory(size_t sz)
->  	void *ptr;
->  
->  	if (system_state == SYS_STATE_early_boot)
-> -		return mfn_to_virt(mfn_x(alloc_boot_pages(PFN_UP(sz), 1)));
-> +	{
-> +		mfn_t mfn = alloc_boot_pages(PFN_UP(sz), 1);
+> -    unsigned long eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+> +    unsigned long eva;
 > +
-> +		return vmap_contig_pages(mfn, PFN_UP(sz));
-> +	}
->  
->  	ptr = xmalloc_bytes(sz);
->  	ASSERT(!ptr || is_xmalloc_memory(ptr));
-> @@ -246,5 +250,10 @@ void __init acpi_os_free_memory(void *ptr)
->  	if (is_xmalloc_memory(ptr))
->  		xfree(ptr);
->  	else if (ptr && system_state == SYS_STATE_early_boot)
-> -		init_boot_pages(__pa(ptr), __pa(ptr) + PAGE_SIZE);
-> +	{
-> +		paddr_t addr = mfn_to_maddr(vmap_to_mfn(ptr));
+> +    if ( !arch_has_directmap() )
+> +        return false;
 > +
-> +		vunmap(ptr);
-> +		init_boot_pages(addr, addr + PAGE_SIZE);
-> +	}
+> +    eva = min(DIRECTMAP_VIRT_END, HYPERVISOR_VIRT_END);
+>  
+>      return (mfn + nr) <= (virt_to_mfn(eva - 1) + 1);
 >  }
-> diff --git a/xen/include/xen/vmap.h b/xen/include/xen/vmap.h
-> index b0f7632e8985..3c06c7c3ba30 100644
-> --- a/xen/include/xen/vmap.h
-> +++ b/xen/include/xen/vmap.h
-> @@ -23,6 +23,8 @@ void *vmalloc_xen(size_t size);
->  void *vzalloc(size_t size);
->  void vfree(void *va);
+> diff --git a/xen/arch/x86/mm.c b/xen/arch/x86/mm.c
+> index 041bd4cfde17..e76e135b96fc 100644
+> --- a/xen/arch/x86/mm.c
+> +++ b/xen/arch/x86/mm.c
+> @@ -157,6 +157,9 @@ l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>  l1_pgentry_t __section(".bss.page_aligned") __aligned(PAGE_SIZE)
+>      l1_fixmap_x[L1_PAGETABLE_ENTRIES];
 >  
-> +void *vmap_contig_pages(mfn_t mfn, unsigned int nr_pages);
+> +bool __ro_after_init opt_directmap = true;
+> +boolean_param("directmap", opt_directmap);
 > +
->  void __iomem *ioremap(paddr_t, size_t);
+>  /* Frame table size in pages. */
+>  unsigned long max_page;
+>  unsigned long total_pages;
+> diff --git a/xen/arch/x86/setup.c b/xen/arch/x86/setup.c
+> index 1c2e09711eb0..2cb051c6e4e7 100644
+> --- a/xen/arch/x86/setup.c
+> +++ b/xen/arch/x86/setup.c
+> @@ -1423,6 +1423,8 @@ void __init noreturn __start_xen(unsigned long mbi_p)
+>      if ( highmem_start )
+>          xenheap_max_mfn(PFN_DOWN(highmem_start - 1));
 >  
->  static inline void iounmap(void __iomem *va)
+> +    printk("Booting with directmap %s\n", arch_has_directmap() ? "on" : "off");
+> +
+>      /*
+>       * Walk every RAM region and map it in its entirety (on x86/64, at least)
+>       * and notify it to the boot allocator.
 > -- 
 > 2.38.1
 > 
