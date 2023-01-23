@@ -2,36 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8306780F9
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 17:10:48 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483104.749045 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB6567811C
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 17:14:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483112.749057 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJzOp-0003BF-2v; Mon, 23 Jan 2023 16:10:23 +0000
+	id 1pJzSd-0003qy-Lp; Mon, 23 Jan 2023 16:14:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483104.749045; Mon, 23 Jan 2023 16:10:23 +0000
+Received: by outflank-mailman (output) from mailman id 483112.749057; Mon, 23 Jan 2023 16:14:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJzOo-00037y-VY; Mon, 23 Jan 2023 16:10:22 +0000
-Received: by outflank-mailman (input) for mailman id 483104;
- Mon, 23 Jan 2023 16:10:22 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FuoH=5U=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1pJzOn-00037r-Qb
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 16:10:22 +0000
-Received: from m228-12.mailgun.net (m228-12.mailgun.net [159.135.228.12])
- by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
- id 6d4d47f0-9b38-11ed-b8d1-410ff93cb8f0;
- Mon, 23 Jan 2023 17:10:18 +0100 (CET)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169]) by
- 13593c2b9515 with SMTP id 63ceb166196255da45dc598d (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Mon, 23 Jan 2023 16:10:14 GMT
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-4ff07dae50dso133284737b3.2
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 08:10:14 -0800 (PST)
+	id 1pJzSd-0003om-J2; Mon, 23 Jan 2023 16:14:19 +0000
+Received: by outflank-mailman (input) for mailman id 483112;
+ Mon, 23 Jan 2023 16:14:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=K5hw=5U=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pJzSb-0003oe-Mi
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 16:14:17 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2079.outbound.protection.outlook.com [40.107.20.79])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fb901ec1-9b38-11ed-91b6-6bf2151ebd3b;
+ Mon, 23 Jan 2023 17:14:16 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB7511.eurprd04.prod.outlook.com (2603:10a6:20b:23f::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Mon, 23 Jan
+ 2023 16:14:14 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
+ 16:14:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,247 +45,134 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 6d4d47f0-9b38-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
- q=dns/txt; s=mailo; t=1674490216; x=1674497416; h=Content-Type: Cc: To: To:
- Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
- MIME-Version: Sender: Sender;
- bh=wM1Uaew0DbHCJGVY5lMyeejCeJvbZTTwMjzi9q79dCE=;
- b=I69SNRYy7bmLuxBmneyWatDgUVs60yYMzszTMcXBhLAxaxSwmhX4uXOsK+j8Ds4qFc8JDjJQMj1RVzW/HBMh3kWZO0fXp3yB1A7ETCgSG8z/s4Je+ZfwytaRNQK43WXX7rE5InOYYONIASffkIm6rZtZTz0FURUxMSC5BHpjOeglCkdwpfP3uiYvRBHjL9wClBepkio4fPx9ursi5et3t638QFfGYnQVBaFHEzWEq6Br3DDqNVNo1S/5uJr984zrdoxcOl3FhcYtBZ7/HbP6B6/XbJig4FvaIghQYAZh4FRg08zfSL2mwc5syL8gpzC5egaDvrEjjZzZ02g6n0+KoQ==
-X-Mailgun-Sending-Ip: 159.135.228.12
-X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
-Sender: tamas@tklengyel.com
-X-Gm-Message-State: AFqh2koo+10EuePwV4cI8ge+Cv1vhvOo6v3T8gVJ80mhxHBeJmg25KP9
-	QsQaHBTcU+vJ2mBA6tJCj5vBV6rscpzur2s+0rs=
-X-Google-Smtp-Source: AMrXdXuX8sOqi8JeKpXJ8d/tuLr0cO/+U0tfae0MLIkDVbuiiZs1R12R2GZkyymHBJ19RGgHNgyFg7zFOhPPDuUG9pg=
-X-Received: by 2002:a0d:db95:0:b0:4ff:f7a4:56d1 with SMTP id
- d143-20020a0ddb95000000b004fff7a456d1mr860258ywe.23.1674490213786; Mon, 23
- Jan 2023 08:10:13 -0800 (PST)
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: fb901ec1-9b38-11ed-91b6-6bf2151ebd3b
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VVGl0n4SGDbF+G3kvovPgaWobC6Wnf1zq4yRFn3JaNRocakIu4gSyxP2tq2br2ymM+lmZV7Oil4Pxh6VtDickLt5GUZNaerNfqqyY6Non6PJ/AiJIetA0nVunHC18V1WJvbULXlFwGCR1nl2bHmX5zDyMA1WpdeZyq95QObhFGc7OKqpFnp/8LHw5mSsgKxhlh0gS2usKzVBS/xaEW/8XfdMNbgpQHyvHqtDi9IwMFiBnaqqxmyvKsPAjgSfNkv9239WGRHSK23P7YFTVIUn7osucMBoZMiKsFN3BVAQVcbTcsVwY7Zob847ww9IxewhJOWaEILEU7w//hkRo+xZ/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aLhiWSO1/sbXhCBK6AdHYeMWiQDCkuoYjDwExbfLF0A=;
+ b=mM3kBQmxFbDHCWIRie1tN+H87xX8OydWFZVu7/LHyumLhDTMEqF6ELdCZG7WbqNWZ7UC7dXjVP67/7ayKGpPMwf2LDeHxTkjQ/3KXgQAKxgfoP1xoL7jokhK7dteTvHTm+ydi9iQKsxfkBGaMCW6s842E9oEr0vCSUFteqpAg4v987nM49FDYMtcHQyVt3KSP13VGKyRkE+Cl1ZaOC5YJQqK8Ez4mB45dP4oJpe+XvHerhpoy5s8txpAP2sLRjKm/dZpReokBEHg4Xx3OiQ8AZ/jz6eBxd5hB8qPzodZSadtiPuO5laxE2B32ybj0nNvPtHlpcCP5EytBLFaB+UyjA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aLhiWSO1/sbXhCBK6AdHYeMWiQDCkuoYjDwExbfLF0A=;
+ b=4Gxx+QMbxWRyevMcxpljdihoABEtJBJQ3QmtpnVZOwipQFlxetBOpBnwg35+HbzFVlCmVJvgLeVq9cC5E2MkBVPV6Vw4V62436iDyv+Jrg1Qtgj+LPrytI5Moc5Y9RSpnCRH4Yi/p8NwEs0Hs1l4fL7U/srplGF2uvblFvpX1qMzpmE0+CXEjETCILHeG6KyxQ7BtepkOh6o4dhw3/Uplz16CFFZDk3NP1Ma8lELnPzrT+r1Rv5XS/Pf+IUSrvsd36yq/vQvApfagiOyp09pJzKV1FOoBk2X/+HrW9mc7Xb0F/ywBIuRWM8FcmgDPyetkt3Vm4GS+GDCprp5n7Gx+Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <11198de8-fcda-5e19-0ab8-25056dc47341@suse.com>
+Date: Mon, 23 Jan 2023 17:14:12 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 1/9] x86/shadow: replace sh_reset_l3_up_pointers()
+Content-Language: en-US
+To: George Dunlap <george.dunlap@cloud.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Tim Deegan <tim@xen.org>, George Dunlap <george.dunlap@citrix.com>
+References: <f17d07b3-2558-70b8-9d1b-b599a54a2d59@suse.com>
+ <d91b5315-a5bb-a6ee-c9bb-58974c733a4e@suse.com>
+ <CA+zSX=ZVK_7xpgraJyC3__uORqXo8F9Atj9gCF+oO7OyfRrtYg@mail.gmail.com>
+ <c8ca4781-13ac-add6-1ae0-558f8d0da052@suse.com>
+ <CA+zSX=b2o_sbC+CwLUm2F5QnSKaGBSayUPgsLheLWHob8jUnrg@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <CA+zSX=b2o_sbC+CwLUm2F5QnSKaGBSayUPgsLheLWHob8jUnrg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR0P281CA0104.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::15) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-References: <33cd2aba-73fc-6dfe-d0f2-f41883e7cdfa@suse.com> <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com>
-In-Reply-To: <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Mon, 23 Jan 2023 11:09:37 -0500
-X-Gmail-Original-Message-ID: <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
-Message-ID: <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/8] x86/mem-sharing: copy GADDR based shared guest areas
-To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="0000000000005f6bb505f2f0a22f"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB7511:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7c99d569-13ff-4f03-bedc-08dafd5cde95
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	nP7fWncDb52gk9AxkucLCF0Epm3VwZJFFAJFGajf4PpnFit/58iAxT3TT38Ub3B/dnTgaWfvQJBE17vwwz24h/OjcaEab8WPBvXGAd0T++5+bfRgkm+4AgOiE2vM/7PAjHeOKUzHtZBZUl4SWOwzfRFuhKtt2rD0sEUV4Col7AdFzQ2ek3AR2jLyGEEPvzzvFWC7NhDHPJYpoYPY1aBSn7EybwXd7LIcCG6kyOzzsopMICoOQsAz8tmfkdgRBw9UDa3FmLhx1cylYsHMNDqR7B/9nT5YSWelYpo8/6uxcg68mPiuMlBr3gOfOS3fpQkXrETHFr49D34md9tPJ2HLK7MfBB5wDqa9DM2yOrkrXxdbmg2uOsO1MaSxYGjFvvyqsUp/UlJjxNSmOEGSVndRVuC3ke1BD/Ix7RaZOk9gKrpsvCrHH97wPomWf0l1bukaiPPy5NDvoGOGH7RXZg4WYoNsQw6F3D403nWINzUVw/Kn+yW2OMxNeVw4cunajuEGgiQueejsZkinRdlPMEC+9lhR/VqXTQvi9fWrAs1HIAXuT3MN4PmXS9y36ODahh5UFo72jOwSm0P9VWi0SSfJxFjVq4/KmO4SXi7StqYjw6hun33cPiUxGYRQspj9VFWBGJ4TLVNUyCeanwi06ALnvI6pmZyLhPVbhEOf034Rk8CxsUCI1iNwPbIYbUIoMQk6/AC6yHF/3y+LWuSGFhEJ/qcpwC5EttybfJvmGNQwuDk=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(346002)(366004)(136003)(376002)(396003)(39860400002)(451199015)(36756003)(86362001)(41300700001)(5660300002)(38100700002)(2906002)(8936002)(4326008)(31696002)(478600001)(6486002)(66476007)(31686004)(186003)(6512007)(8676002)(6916009)(53546011)(26005)(6506007)(66946007)(54906003)(316002)(66556008)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZGg3dDhCS1Z4K095VUFWeEhWWmdJenFDbDBQdDNHWGZCZUpCRHZ1TDZabGZ6?=
+ =?utf-8?B?eTJvaUo3U3dscnJ6NjhIODJxVzl4S3A5NzZjTjFMTDRxWEkwQW14YmpjMmIy?=
+ =?utf-8?B?M0wxUU9POUphVG1oYmRmMUN2M3JTbUM2Z0tqOG5DbFljdE9TeHdoZFQ1aWNH?=
+ =?utf-8?B?QXMzVE13clcwOHUwejlBWEgxRG5yMVZkTThmRU5WN0dFYzZWRHVvUGYwcWpP?=
+ =?utf-8?B?MVVSNHJuWWVzbXhwVmRtMUdncGVjMWppTHZRUVVXbVRpcFdHM21Id3Iwcjky?=
+ =?utf-8?B?eDB0cEdHRGdjRENnS3RaN3hXSFF6bnZMZE01REZKbUZpV29xUHNYMitEaWRX?=
+ =?utf-8?B?bmpYc1RMK2Fhb29qZ2VINmVlNTRoV3B5NFVEMXRTOERXcTBrUnA3Rk5XT2Y2?=
+ =?utf-8?B?UmdBM0c4NGJBSVFML3FPSG1IcEhjcmNncDVjQ2gzNHdPcWoyRmt2WU5XbEMr?=
+ =?utf-8?B?QzN2MlkrTHBCTCtiUkplUCtkTjNqRlZaN0Z3dUNEeFUrUU1rRzYzTmdnbGl1?=
+ =?utf-8?B?bnRMa0VwRm53b05qdmxpMHBWZmZnT1o3Y0VuNk5xbEREQ2hwY1hReXM3Z3Rq?=
+ =?utf-8?B?OUFueUVxQWpTeStCVkRYVHpLMnZ3NjJMdzhBZmwzcUsvRzhmUzUraG1jYjQ1?=
+ =?utf-8?B?RXRNYVBCbGk5VTRlMnBWdFNnbHV6NzVubW1SUUtPbFEwczY4c1o4K1ZmTStv?=
+ =?utf-8?B?Rm5qZnZWY21sQmhDenVXSG5mZTA4ekZJTzJTWWVnMzFCeXBWaGpXejVNS0tB?=
+ =?utf-8?B?bm5KVFhPamNRWDNmSHZwNWIwNXB0bG0yV2ZCYkhhQlE3a3RVN0pBQVBmMnlh?=
+ =?utf-8?B?SGVhMjVRVFA5aTFncnZHUmNSL0Z0blpQRjd1MHJqNmVDVGZYVU1kYTZ5OWFx?=
+ =?utf-8?B?VTFVdnZTendqSzJlTUpOa0dKYndqbTFWcnBKdWs1WERFNlFBZWozcHYyK2d0?=
+ =?utf-8?B?Si9XUGVZREJERjM4WE5hWDRTcHQwVmF6TWwvUllISmVqWXh0a0MxOHprYU94?=
+ =?utf-8?B?VTUxS1Bmb0RzS2FVdjVGS3N5bklBVE5OV1kvaE5ON3NxbnBFNjhOTU1UMDJj?=
+ =?utf-8?B?ZE16b3hwd1dWZktBeEQ1bzhaOC9TS29BbVpPa1E3a1RIYnM0OXdFNWo4SXho?=
+ =?utf-8?B?M2JWNENMb1BiZW5OSmlrc3RxSGsyQWY0S0hybHkxeGFBNmhhRnV0bjBuVHow?=
+ =?utf-8?B?dU53RjhFMVpKeDBONmxuV0xFejN0aFF1ekg0RE9QQUUxY2xvQWM4L3EvOUQ2?=
+ =?utf-8?B?ZGlWamlLajZ3V1cya3hERTB6ZTdmc3VISVhJdVpRU3pNSmJMUDlpaHRUNlNm?=
+ =?utf-8?B?NStzSFZjclQwV0s5RWtQcURCcFFMaGdITGNZY1psbFd2WW9HYnZXbVBvY2t6?=
+ =?utf-8?B?NWFXR2NQdWtZdGx3NTF6c3k1R3lSSGNRT0dtdFNzTW9OZXROWWdaTXFid3o4?=
+ =?utf-8?B?b1RXMERhUVFzQXJCWUl3Q1hFTHk3VUZJeGxnQm56UHdkc1JMUEJzQUZhR05X?=
+ =?utf-8?B?YTFlUkU2QmNlT3hyZjFKenNSbWRpMFpkSHd6ZkhXSGg0dkJoS2phSVlZSHRN?=
+ =?utf-8?B?T1BuZytqV2xGMzV2eERvRHdVK0lPdXJWNlF6WGlhaHZrYVl0VGJZNnJVT0Nm?=
+ =?utf-8?B?TFZIblo3QVlXWjhCUXFVOGN3MkZjTGI4NExkN0VtaDU0Sm5KYllQVEpCUDhU?=
+ =?utf-8?B?SXZTVXNkUDlPUWRNM05lMUtqZDRISlc3V2F2RzJYM3NvYXBVeFNMQ0RNUVJC?=
+ =?utf-8?B?WUMvWXlsNHFkY0tMc1NMNzdZQlg2L1QvejkrSDlFQlRlQUYwTnF6M3BDbldO?=
+ =?utf-8?B?cmpXL2FSVGJST3l5YkNLZGt1b1JXemh1M0tSN01wSmI0NkY4dlV5M25RSG5z?=
+ =?utf-8?B?SnoxWHFOdGVOSFZWNGZPamVaYnZEdjFvaEh5RVdva0NDayt1N0xQSnVzaC9k?=
+ =?utf-8?B?Um9JenhONFpRT3JTM1g5dVN6b29lK0h2U1JqajRSMC8yaXF0b1NuOHBVWjRj?=
+ =?utf-8?B?SVJheWd0aUZVb0Y1ekxoR2MzUkdHR0xHNEsrOG1rUVhLQXg3TDZwMERTUmI0?=
+ =?utf-8?B?M1BaSmJ0eDJIT1FVYjJhY2Y4TnkwZ0J6L1c3TGZqVnoxVGJEWG1DdlJXSHo1?=
+ =?utf-8?Q?Jze9CixUGqsEFb36MoSC8j+yc?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c99d569-13ff-4f03-bedc-08dafd5cde95
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 16:14:14.1083
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +feA2W/8zwSrBtYkk5TJnfvUJzz9kjDMJPB+P91sLzwoeV0FTcssy02DeS2KnjyNojYmUY7/g5Te6gOsff6QcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7511
 
---0000000000005f6bb505f2f0a22f
-Content-Type: text/plain; charset="UTF-8"
+On 23.01.2023 16:20, George Dunlap wrote:
+> Re the original question: I've stared at the code for a bit now, and I
+> can't see anything obviously wrong or dangerous about it.
+> 
+> But it does make me ask, why do we need the "unpinning_l3" pseudo-argument
+> at all?  Is there any reason not to unconditionally zero out sp->up when we
+> find a head_type of SH_type_l3_64_shadow?  As far as I can tell, sp->list
+> doesn't require any special state.  Why do we make the effort to leave it
+> alone when we're not unpinning all l3s?
 
-On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> In preparation of the introduction of new vCPU operations allowing to
-> register the respective areas (one of the two is x86-specific) by
-> guest-physical address, add the necessary fork handling (with the
-> backing function yet to be filled in).
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
->
-> --- a/xen/arch/x86/mm/mem_sharing.c
-> +++ b/xen/arch/x86/mm/mem_sharing.c
-> @@ -1653,6 +1653,65 @@ static void copy_vcpu_nonreg_state(struc
->      hvm_set_nonreg_state(cd_vcpu, &nrs);
->  }
->
-> +static int copy_guest_area(struct guest_area *cd_area,
-> +                           const struct guest_area *d_area,
-> +                           struct vcpu *cd_vcpu,
-> +                           const struct domain *d)
-> +{
-> +    mfn_t d_mfn, cd_mfn;
-> +
-> +    if ( !d_area->pg )
-> +        return 0;
-> +
-> +    d_mfn = page_to_mfn(d_area->pg);
-> +
-> +    /* Allocate & map a page for the area if it hasn't been already. */
-> +    if ( !cd_area->pg )
-> +    {
-> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
-> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
-> +        p2m_type_t p2mt;
-> +        p2m_access_t p2ma;
-> +        unsigned int offset;
-> +        int ret;
-> +
-> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL, NULL);
-> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
-> +        {
-> +            struct page_info *pg = alloc_domheap_page(cd_vcpu->domain,
-0);
-> +
-> +            if ( !pg )
-> +                return -ENOMEM;
-> +
-> +            cd_mfn = page_to_mfn(pg);
-> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
-> +
-> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,
-p2m_ram_rw,
-> +                                 p2m->default_access, -1);
-> +            if ( ret )
-> +                return ret;
-> +        }
-> +        else if ( p2mt != p2m_ram_rw )
-> +            return -EBUSY;
-> +
-> +        /*
-> +         * Simply specify the entire range up to the end of the page.
-All the
-> +         * function uses it for is a check for not crossing page
-boundaries.
-> +         */
-> +        offset = PAGE_OFFSET(d_area->map);
-> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
-> +                             PAGE_SIZE - offset, cd_area, NULL);
-> +        if ( ret )
-> +            return ret;
-> +    }
-> +    else
-> +        cd_mfn = page_to_mfn(cd_area->pg);
+This was an attempt to retain original behavior as much as possible, but I'm
+afraid that, ...
 
-Everything to this point seems to be non mem-sharing/forking related. Could
-these live somewhere else? There must be some other place where allocating
-these areas happens already for non-fork VMs so it would make sense to just
-refactor that code to be callable from here.
+> In fact, is there a way to unpin an l3 shadow *other* than when we're
+> unpinning all l3's?
 
-> +
-> +    copy_domain_page(cd_mfn, d_mfn);
-> +
-> +    return 0;
-> +}
-> +
->  static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
->  {
->      struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
-> @@ -1745,6 +1804,16 @@ static int copy_vcpu_settings(struct dom
->              copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
->          }
->
-> +        /* Same for the (physically registered) runstate and time info
-areas. */
-> +        ret = copy_guest_area(&cd_vcpu->runstate_guest_area,
-> +                              &d_vcpu->runstate_guest_area, cd_vcpu, d);
-> +        if ( ret )
-> +            return ret;
-> +        ret = copy_guest_area(&cd_vcpu->arch.time_guest_area,
-> +                              &d_vcpu->arch.time_guest_area, cd_vcpu, d);
-> +        if ( ret )
-> +            return ret;
-> +
->          ret = copy_vpmu(d_vcpu, cd_vcpu);
->          if ( ret )
->              return ret;
-> @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain
->
->   state:
->      if ( reset_state )
-> +    {
->          rc = copy_settings(d, pd);
-> +        /* TBD: What to do here with -ERESTART? */
+... since the answer here is of course "yes", ...
 
-Where does ERESTART coming from?
+>  If so, then this patch, as written, is broken -- the
+> original code clears the up-pointer for *all* L3_64 shadows, regardless of
+> whether they're on the pinned list; the new patch will only clear the ones
+> on the pinned list.  But unconditionally clearing sp->up could actually fix
+> that.
 
---0000000000005f6bb505f2f0a22f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+... you're right, and I failed (went too far) with that attempt. Plus it'll
+naturally resolve the parameter-vs-state aspect.
 
-<div dir=3D"ltr"><br><br>On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich &lt;<a=
- href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
-<br>&gt; In preparation of the introduction of new vCPU operations allowing=
- to<br>&gt; register the respective areas (one of the two is x86-specific) =
-by<br>&gt; guest-physical address, add the necessary fork handling (with th=
-e<br>&gt; backing function yet to be filled in).<br>&gt;<br>&gt; Signed-off=
--by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com=
-</a>&gt;<br>&gt;<br>&gt; --- a/xen/arch/x86/mm/mem_sharing.c<br>&gt; +++ b/=
-xen/arch/x86/mm/mem_sharing.c<br>&gt; @@ -1653,6 +1653,65 @@ static void co=
-py_vcpu_nonreg_state(struc<br>&gt; =C2=A0 =C2=A0 =C2=A0hvm_set_nonreg_state=
-(cd_vcpu, &amp;nrs);<br>&gt; =C2=A0}<br>&gt;<br>&gt; +static int copy_guest=
-_area(struct guest_area *cd_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct gu=
-est_area *d_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct vcpu *cd_vcpu,<br>&gt;=
- + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 const struct domain *d)<br>&gt; +{<br>&gt; + =C2=A0 =
-=C2=A0mfn_t d_mfn, cd_mfn;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0if ( !d_area-&g=
-t;pg )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>&gt; +<br>&gt; + =
-=C2=A0 =C2=A0d_mfn =3D page_to_mfn(d_area-&gt;pg);<br>&gt; +<br>&gt; + =C2=
-=A0 =C2=A0/* Allocate &amp; map a page for the area if it hasn&#39;t been a=
-lready. */<br>&gt; + =C2=A0 =C2=A0if ( !cd_area-&gt;pg )<br>&gt; + =C2=A0 =
-=C2=A0{<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0gfn_t gfn =3D mfn_to_gfn(d, d_=
-mfn);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0struct p2m_domain *p2m =3D p2m_g=
-et_hostp2m(cd_vcpu-&gt;domain);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0p2m_ty=
-pe_t p2mt;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0p2m_access_t p2ma;<br>&gt; =
-+ =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int offset;<br>&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0int ret;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn=
- =3D p2m-&gt;get_entry(p2m, gfn, &amp;p2mt, &amp;p2ma, 0, NULL, NULL);<br>&=
-gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( mfn_eq(cd_mfn, INVALID_MFN) )<br>&gt;=
- + =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0struct page_info *pg =3D alloc_domheap_page(cd_vcpu-&gt;domain, 0=
-);<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( !pg )<=
-br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EN=
-OMEM;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =
-=3D page_to_mfn(pg);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set=
-_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));<br>&gt; +<br>&gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D p2m-&gt;set_entry(p2m, gfn, cd_mfn, =
-PAGE_ORDER_4K, p2m_ram_rw,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 p=
-2m-&gt;default_access, -1);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0return ret;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0else if ( p2mt !=3D p2m_ram_rw )<br>&gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EBUSY;<br>&gt; +<br>&gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0/*<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Simply speci=
-fy the entire range up to the end of the page. All the<br>&gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 * function uses it for is a check for not crossing page b=
-oundaries.<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>&gt; + =C2=A0 =C2=A0=
- =C2=A0 =C2=A0offset =3D PAGE_OFFSET(d_area-&gt;map);<br>&gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0ret =3D map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset=
-,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAGE_SIZE - offset, cd_area, NULL);<br>&=
-gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0return ret;<br>&gt; + =C2=A0 =C2=A0}<br>&gt; + =C2=A0 =
-=C2=A0else<br><div>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_mfn=
-(cd_area-&gt;pg);</div><div><br></div><div>Everything to this point seems t=
-o be non mem-sharing/forking related. Could these live somewhere else? Ther=
-e must be some other place where allocating these areas happens already for=
- non-fork VMs so it would make sense to just refactor that code to be calla=
-ble from here.<br></div><div><br></div>&gt; +<br>&gt; + =C2=A0 =C2=A0copy_d=
-omain_page(cd_mfn, d_mfn);<br>&gt; +<br>&gt; + =C2=A0 =C2=A0return 0;<br>&g=
-t; +}<br>&gt; +<br>&gt; =C2=A0static int copy_vpmu(struct vcpu *d_vcpu, str=
-uct vcpu *cd_vcpu)<br>&gt; =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=A0struct vpmu_=
-struct *d_vpmu =3D vcpu_vpmu(d_vcpu);<br>&gt; @@ -1745,6 +1804,16 @@ static=
- int copy_vcpu_settings(struct dom<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);<br>&gt=
-; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt;<br>&gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0/* Same for the (physically registered) runstate and time info ar=
-eas. */<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D copy_guest_area(&amp;c=
-d_vcpu-&gt;runstate_guest_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
-mp;d_vcpu-&gt;runstate_guest_area, cd_vcpu, d);<br>&gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret=
-urn ret;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D copy_guest_area(&amp;=
-cd_vcpu-&gt;arch.time_guest_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
-mp;d_vcpu-&gt;arch.time_guest_area, cd_vcpu, d);<br>&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
-return ret;<br>&gt; +<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D cop=
-y_vpmu(d_vcpu, cd_vcpu);<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret=
- )<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>&=
-gt; @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain<br>&gt;=
-<br>&gt; =C2=A0 state:<br>&gt; =C2=A0 =C2=A0 =C2=A0if ( reset_state )<br>&g=
-t; + =C2=A0 =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rc =3D copy_s=
-ettings(d, pd);<br><div>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0/* TBD: What to d=
-o here with -ERESTART? */</div><div><br></div><div>Where does ERESTART comi=
-ng from?<br></div></div>
-
---0000000000005f6bb505f2f0a22f--
+Jan
 
