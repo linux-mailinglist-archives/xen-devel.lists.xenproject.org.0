@@ -2,39 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33CF46780B3
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 17:01:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483098.749033 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B8306780F9
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 17:10:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483104.749045 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJzFY-0001ct-4P; Mon, 23 Jan 2023 16:00:48 +0000
+	id 1pJzOp-0003BF-2v; Mon, 23 Jan 2023 16:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483098.749033; Mon, 23 Jan 2023 16:00:48 +0000
+Received: by outflank-mailman (output) from mailman id 483104.749045; Mon, 23 Jan 2023 16:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJzFY-0001ZV-1D; Mon, 23 Jan 2023 16:00:48 +0000
-Received: by outflank-mailman (input) for mailman id 483098;
- Mon, 23 Jan 2023 16:00:46 +0000
+	id 1pJzOo-00037y-VY; Mon, 23 Jan 2023 16:10:22 +0000
+Received: by outflank-mailman (input) for mailman id 483104;
+ Mon, 23 Jan 2023 16:10:22 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ozL9=5U=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pJzFW-0001ZP-Bh
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 16:00:46 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2076.outbound.protection.outlook.com [40.107.93.76])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1690fc83-9b37-11ed-b8d1-410ff93cb8f0;
- Mon, 23 Jan 2023 17:00:43 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by DM4PR12MB7696.namprd12.prod.outlook.com (2603:10b6:8:100::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Mon, 23 Jan
- 2023 16:00:39 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1%6]) with mapi id 15.20.6002.033; Mon, 23 Jan 2023
- 16:00:39 +0000
+ <SRS0=FuoH=5U=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1pJzOn-00037r-Qb
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 16:10:22 +0000
+Received: from m228-12.mailgun.net (m228-12.mailgun.net [159.135.228.12])
+ by se1-gles-flk1.inumbo.com (Halon) with UTF8SMTPS
+ id 6d4d47f0-9b38-11ed-b8d1-410ff93cb8f0;
+ Mon, 23 Jan 2023 17:10:18 +0100 (CET)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169]) by
+ 13593c2b9515 with SMTP id 63ceb166196255da45dc598d (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Mon, 23 Jan 2023 16:10:14 GMT
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-4ff07dae50dso133284737b3.2
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 08:10:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,172 +42,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1690fc83-9b37-11ed-b8d1-410ff93cb8f0
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ms3d8eB4JQjzPsYcN/NRll4Jnyiz2ffPIvxHvGe3UwttY8lh8TWRC4ZmfCFIp3Q75WNOwkn6JRkZiqJdKMG+WFCimXXE/Pmu1RlwEm83Zzmqm5UmRX+kI7gXN8I4D+CveZgJm/nXKV9ymV0VTrH5/sf0iPAy4XsJNdcocXHidO7f+fnrmOmrujRmC3AsLPuVvjL8MTD2VVTuLZ8BbYYvlLlu14oqKXEL/gQKLy3Ya2jNLVvn2xjyc/MTh881FYhbXNmpFKTUUvZ7AEr8kulU0ng54x6/Kow6KJ9EFI/0i0Mi0280FvtTsegVBgR2EcAulqsKtRzmmJFnsHSx/ixAlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EYPbFfiKt7zIfjPeWWObD4SdpHnEiPChlMM5TGKPguc=;
- b=eTsqjIphwfRdQCHpLj1eb7ozI7+0C7afzHsmppoy2+yrWJWX/6s327j3P6WF39PuCgWGcIhyk+UGAsYDhlh/oi1yqmWVNzESEyGFCrcfUXcBtP4sek4mQjtkE6TxJcnhLOtdWuUkJT0MmyCkap7lL/0hjrUuvqtiWGqfoBk/XnVxpw9eQrwFosmnYOng2fl5HzIGmcISLZmOocicsnmIHmXYZq+vihXoCOa63f01y+IXWRgDexFYDtfYk37i/lAVNFr//J6u2UIRTtq6qLLgE4nDqV2UPXMAaqIuSkiZ4W7rJnF2r4142bv3RqB1SgvPv3giLoM0ixOJzXpWO88q/A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYPbFfiKt7zIfjPeWWObD4SdpHnEiPChlMM5TGKPguc=;
- b=p0bxbIN6fFlp1sJ8lOOMzWbZAcEuHljEqU1VKfRoN3j8F73Z0xYPVls9oyX/nJKaTgEW/UFqDncM4id4+tvVMcHmxTwxkONZtPRh74sQRCFJQ12UfoNijMpY9WPzkQezIZToIDT6qnw0AZZVqzKWV8S8B2SF4JEbkq8joIA9vPA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <be452e89-506d-a187-f918-4e7450c52bb1@amd.com>
-Date: Mon, 23 Jan 2023 16:00:32 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH] automation: Modify static-mem check in
- qemu-smoke-dom0less-arm64.sh
-To: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Doug Goldstein <cardoe@cardoe.com>,
- Stefano Stabellini <sstabellini@kernel.org>, julien@xen.org
-References: <20230123131023.9408-1-michal.orzel@amd.com>
- <01297097-d8ce-a22c-a616-f98691d3ad4f@gmail.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <01297097-d8ce-a22c-a616-f98691d3ad4f@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0253.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37c::6) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 6d4d47f0-9b38-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1674490216; x=1674497416; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=wM1Uaew0DbHCJGVY5lMyeejCeJvbZTTwMjzi9q79dCE=;
+ b=I69SNRYy7bmLuxBmneyWatDgUVs60yYMzszTMcXBhLAxaxSwmhX4uXOsK+j8Ds4qFc8JDjJQMj1RVzW/HBMh3kWZO0fXp3yB1A7ETCgSG8z/s4Je+ZfwytaRNQK43WXX7rE5InOYYONIASffkIm6rZtZTz0FURUxMSC5BHpjOeglCkdwpfP3uiYvRBHjL9wClBepkio4fPx9ursi5et3t638QFfGYnQVBaFHEzWEq6Br3DDqNVNo1S/5uJr984zrdoxcOl3FhcYtBZ7/HbP6B6/XbJig4FvaIghQYAZh4FRg08zfSL2mwc5syL8gpzC5egaDvrEjjZzZ02g6n0+KoQ==
+X-Mailgun-Sending-Ip: 159.135.228.12
+X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
+Sender: tamas@tklengyel.com
+X-Gm-Message-State: AFqh2koo+10EuePwV4cI8ge+Cv1vhvOo6v3T8gVJ80mhxHBeJmg25KP9
+	QsQaHBTcU+vJ2mBA6tJCj5vBV6rscpzur2s+0rs=
+X-Google-Smtp-Source: AMrXdXuX8sOqi8JeKpXJ8d/tuLr0cO/+U0tfae0MLIkDVbuiiZs1R12R2GZkyymHBJ19RGgHNgyFg7zFOhPPDuUG9pg=
+X-Received: by 2002:a0d:db95:0:b0:4ff:f7a4:56d1 with SMTP id
+ d143-20020a0ddb95000000b004fff7a456d1mr860258ywe.23.1674490213786; Mon, 23
+ Jan 2023 08:10:13 -0800 (PST)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|DM4PR12MB7696:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5989a562-fdb3-429d-6e97-08dafd5af8af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	15Nga2UeoDJvP+LW4bZiE7M5SFwbrSLhnu3r6xJXPivVXWJavz6lwfXtgbF1aSeZK1XeVEXH4s4YitHavLUyiWxQU55VHEpwSek81cInd5PT9CYc7ukVEdhBEHD9NvLcIvgNIBCVyVWIHBUwdosEJye2G5wR9auvuJ71EwxEwmCoPYbxhRpEpZRHHy+vGbXl27yfcu/lAcujz2RGCS9soWADs3L2pWIEfyHefU9ZfXHWHYb+fmW22j+hC9filPAIwxMVOahJ1E5JXAHdgZZQDbi4v9anKxmnzVUiZxixBfOqdgLp4pIEasxfIdoa1ddL+1+idADlCapjK/6HmFkQrTzkORNt3Cf6P2/RfU69ekHL0cSz8McyqS9ODsrBa02w3m5P7SlfeI1+iaHMWqJ6o2T8ErM/oUQ9rABWRp2eI4ZpLhbvdGR3Jzsi3uJSOOpOtVodmf3UQ/IEjG6o5b/NsHQDBPjnNDcphhAd/2d45Ge7obaNmz+nBQLyE7R1PtjJPYCNfTuTBuCHm3aWwqmTgIZg2NK6PzwL1QaWohGMr6HFPa5UEDOzzHfbqXj7pMhh8LJVqTxbta4lgdsLf0O6rl/rqXgbJMtzg2gi1oKa+3OGSxWtyGwUwtxmTyczV4WHZ29c7cNOZ8sRPupd4kU1ZBbMf1yvOpSoQhmY0MNXjglWdEFFigXU49qyDIyefW83o3kyDt+h/ee7kAHustUHxR2bEhLEFll2ML81on2wf3PNjEKuhaDK0VmVeBazVE/E8BPyYfZXIS+nDmgxi1HcJjFBjsl81H4Iv8iIZS89x4o=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(39860400002)(366004)(376002)(451199015)(6506007)(6666004)(8676002)(966005)(38100700002)(6486002)(66476007)(66946007)(66556008)(53546011)(186003)(26005)(6512007)(478600001)(4326008)(2906002)(8936002)(5660300002)(41300700001)(83380400001)(316002)(31686004)(2616005)(110136005)(54906003)(31696002)(36756003)(45980500001)(43740500002)(139555002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WkdPVHpjWWFweUZ2SXNra2VROVRDUllCVncvNUVPSjFQcFdJdzRlVnRiS3Q1?=
- =?utf-8?B?K0d0VFJtYi9TSXVrOVNKZm5jcnAzT1VwMEtkbFY4S1VaMGd2eU1WMjRpamw5?=
- =?utf-8?B?VjdDMVNFc0xlMDlkODk1SGViNWZJYTJMLzJycVU0YkNoaXprRlBFS3lwd0Ey?=
- =?utf-8?B?a2RxRXBDU3FNSGphMy9lMlhGQ0YrN1h4Qzc5Qnkzck9FNTdLRHlyeDZYZDQ0?=
- =?utf-8?B?SXFaak1aNjkxMWRFUzNvenlTU0tsMEdpU2R6UE1YR3FUWU8xNjlpZ3JaT2U4?=
- =?utf-8?B?b081ZXRvQTBMNnRsSDMxN29vdm85aDVBekUzZCtUbmM3T0piQjJLUU1JVng4?=
- =?utf-8?B?NFlQZmRIRTY2R0MzM3lHbzRxL0lkbjFTSkVCN1YwS1FoeTgwcFZjelJvUW15?=
- =?utf-8?B?blpFbHVNNCtmREU1MFV0WENhSVpydEoxUGdKeXBkSVBhdUNYYllQUFZvbzU3?=
- =?utf-8?B?M2hUTGowQ3N4em1UTk9va1NyUVB2U1hOZXp1Q2ZEMjNqNldDSVZnRE1WZXpG?=
- =?utf-8?B?L29MU0xWeWltS0hRSDNSS0lZVzRXYVdRbTZoakl4b2JpMUZOeEZPUmtiRGFW?=
- =?utf-8?B?QVRSYXhWT0pWcVNSaFFTdW1EeTA0NGx6R0MySm1QbE1MMHVrOWNCTkE5V2RU?=
- =?utf-8?B?czc5cHMydk0zYlBjeUllRDlIcHVrYjByUlpucldNS2JlU01qMWhlSVdLZlV4?=
- =?utf-8?B?aEhOM1hWcXQrWDdTNTVyTTJoeTJ2U2NwbWcwOHB4VDFVNDBRczh1bVdDeHVR?=
- =?utf-8?B?c0g5blIyc2c5VjJocU9Pb0NGVDVvdHpRa1BRUnVIYkhhaEphbmd6Y04zNVlI?=
- =?utf-8?B?TEdHeWs5YzRpbFc1MXYwU3o0MC9hNUhLNWEremdtcndlT2hidHZyK3F0Sm1x?=
- =?utf-8?B?eFQ3a2Z6ZHNNb3NTeHM0ejlmeFZBUUdscUdjYWZFU213aW9zOTE2K2JaNHE5?=
- =?utf-8?B?MSttT29kZTNWZ0RjVmhUTzZQKzZxVXAzVjIvL1NRMUovbktWVFV1UmRtT2pk?=
- =?utf-8?B?UWN3Sks4a3p6R1FiQytqZXJFdURzckRZbDY3OVJkVVhPb2RZc1ppYWhYTFkx?=
- =?utf-8?B?cHVoMExFdkZiZ1pQMCs4dm1GLzdBNUsvRVhmUXBqd1F6azE5WElXbDg4dmRK?=
- =?utf-8?B?QzRHV05aK05HSFlNQ1czRDgrM2hka1JiRG9QSlJ3VkdVREpNZ084bjgrNlgw?=
- =?utf-8?B?eFZUYXBRRzBxeUR2M2ZVbDNpMStoSXphUU80N1R2ZExRWmgxS1orVG5qc0Ry?=
- =?utf-8?B?UnpLMHp1T0JnN2R5Q3NZRU5ZeFRjR2xPTklLbzAyZVBVanBGYkNiVHVCbXdt?=
- =?utf-8?B?NmRmaXd1TXNGQ3NQN085WngyREpseFFERUVwUkJ1VW9qbWRTUW9RRisrRWJI?=
- =?utf-8?B?Y291ZUZHamxoYkpTK20wcGgrQmNSdTEzKzZyYzhIRk9LTHBuVlE5K0NMUExy?=
- =?utf-8?B?NW1paUszK24wQ3h1RkxyYlZSdys4aXhBeTVtZHJRRXhORzdQd2JoeUp4R2N2?=
- =?utf-8?B?VW5MdVFjeHhYeHlXTEVNdzI2OW5MaEJWN1VhSE5RellqS2xSSlVVOVBJcW51?=
- =?utf-8?B?N3NYK01Rb3lCZ3NLejlGSDY4YTNZeWtlUjJDcUpYZ0dnNDU0UEhwbU8yTm16?=
- =?utf-8?B?eHZDZ3MwWXZEZHBGYW1vQTlpZ0Y0MEhMajVxem5oV0MwRTNmVk4vNkhkV0pO?=
- =?utf-8?B?WkxHNkJpMU40Q1JJNGI3eVZNZDVNZFpXVHAxOGdFNGFwdkEvTW0wUlFyQjRR?=
- =?utf-8?B?TERVNnZsT01NNUVlZkNPRTNBV3RuM2hmQ2pnLzY4djQyb1dQWFpqeXpxY1du?=
- =?utf-8?B?MkQyV0g1YkZhK0lRYkMzbHJ3cTZwVFMwMkVGd3UxNWxCdWJxWi9LSklKQTB5?=
- =?utf-8?B?NnphRzF2WnhZZ0pvdHYyL05uZEppeGFJMnluQ3pxeTlJYndLVWVaZjNVYlNm?=
- =?utf-8?B?WGFDVlNRck9GUWVyQURTa2RwRytqMmljU09Ma0hnMEs5bDg1YWlqQ25jZFVm?=
- =?utf-8?B?RitVZHlnUkJwekVzc2RBeU5JU2VHaS8yZUVHcENvL1YzU0hQeGliSnVyMkNk?=
- =?utf-8?B?bnVEdXJtTmdobjJReXp2bDJyNWU3OFUwMENUcWZISjlzUUZJcE9hZFk4bVVI?=
- =?utf-8?Q?WldJ05PzRkxq0LPS0iJ1W+uXK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5989a562-fdb3-429d-6e97-08dafd5af8af
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2023 16:00:39.0133
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: omWM8gxr1d2O+pT8Wrpwp+QSUHXl8YliIi6EmIoYikdFKDrE46uXH4u8foearUT9sAc44nweJdd1/7mdjCMCtA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7696
+References: <33cd2aba-73fc-6dfe-d0f2-f41883e7cdfa@suse.com> <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com>
+In-Reply-To: <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Mon, 23 Jan 2023 11:09:37 -0500
+X-Gmail-Original-Message-ID: <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
+Message-ID: <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
+Subject: Re: [PATCH v2 4/8] x86/mem-sharing: copy GADDR based shared guest areas
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="0000000000005f6bb505f2f0a22f"
 
+--0000000000005f6bb505f2f0a22f
+Content-Type: text/plain; charset="UTF-8"
 
-On 23/01/2023 14:30, Xenia Ragiadakou wrote:
+On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich <jbeulich@suse.com> wrote:
 >
-> On 1/23/23 15:10, Michal Orzel wrote:
->> At the moment, the static-mem check relies on the way Xen exposes the
->> memory banks in device tree. As this might change, the check should be
->> modified to be generic and not to rely on device tree. In this case,
->> let's use /proc/iomem which exposes the memory ranges in %08x format
->> as follows:
->> <start_addr>-<end_addr> : <description>
->>
->> This way, we can grep in /proc/iomem for an entry containing memory
->> region defined by the static-mem configuration with "System RAM"
->> description. If it exists, mark the test as passed. Also, take the
->> opportunity to add 0x prefix to domu_{base,size} definition rather than
->> adding it in front of each occurence.
->>
->> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> In preparation of the introduction of new vCPU operations allowing to
+> register the respective areas (one of the two is x86-specific) by
+> guest-physical address, add the necessary fork handling (with the
+> backing function yet to be filled in).
 >
-> Reviewed-by: Xenia Ragiadakou <burzalodowa@gmail.com>
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 >
-> Also you fixed the hard tab.
+> --- a/xen/arch/x86/mm/mem_sharing.c
+> +++ b/xen/arch/x86/mm/mem_sharing.c
+> @@ -1653,6 +1653,65 @@ static void copy_vcpu_nonreg_state(struc
+>      hvm_set_nonreg_state(cd_vcpu, &nrs);
+>  }
 >
->> ---
->> Patch made as part of the discussion:
->> https://lore.kernel.org/xen-devel/ba37ee02-c07c-2803-0867-149c779890b6@amd.com/ 
->>
->>
->> CC: Julien, Ayan
->> ---
->>   automation/scripts/qemu-smoke-dom0less-arm64.sh | 13 ++++++-------
->>   1 file changed, 6 insertions(+), 7 deletions(-)
->>
->> diff --git a/automation/scripts/qemu-smoke-dom0less-arm64.sh 
->> b/automation/scripts/qemu-smoke-dom0less-arm64.sh
->> index 2b59346fdcfd..182a4b6c18fc 100755
->> --- a/automation/scripts/qemu-smoke-dom0less-arm64.sh
->> +++ b/automation/scripts/qemu-smoke-dom0less-arm64.sh
->> @@ -16,14 +16,13 @@ fi
->>     if [[ "${test_variant}" == "static-mem" ]]; then
->>       # Memory range that is statically allocated to DOM1
->> -    domu_base="50000000"
->> -    domu_size="10000000"
->> +    domu_base="0x50000000"
->> +    domu_size="0x10000000"
->>       passed="${test_variant} test passed"
->>       domU_check="
->> -current=\$(hexdump -e '16/1 \"%02x\"' 
->> /proc/device-tree/memory@${domu_base}/reg 2>/dev/null)
->> -expected=$(printf \"%016x%016x\" 0x${domu_base} 0x${domu_size})
->> -if [[ \"\${expected}\" == \"\${current}\" ]]; then
->> -    echo \"${passed}\"
->> +mem_range=$(printf \"%08x-%08x\" ${domu_base} $(( ${domu_base} + 
->> ${domu_size} - 1 )))
->> +if grep -q -x \"\${mem_range} : System RAM\" /proc/iomem; then
->> +    echo \"${passed}\"
->>   fi
->>   "
->>   fi
->> @@ -126,7 +125,7 @@ UBOOT_SOURCE="boot.source"
->>   UBOOT_SCRIPT="boot.scr"' > binaries/config
->>     if [[ "${test_variant}" == "static-mem" ]]; then
->> -    echo -e "\nDOMU_STATIC_MEM[0]=\"0x${domu_base} 0x${domu_size}\"" 
->> >> binaries/config
->> +    echo -e "\nDOMU_STATIC_MEM[0]=\"${domu_base} ${domu_size}\"" >> 
->> binaries/config
->>   fi
->>     if [[ "${test_variant}" == "boot-cpupools" ]]; then
+> +static int copy_guest_area(struct guest_area *cd_area,
+> +                           const struct guest_area *d_area,
+> +                           struct vcpu *cd_vcpu,
+> +                           const struct domain *d)
+> +{
+> +    mfn_t d_mfn, cd_mfn;
+> +
+> +    if ( !d_area->pg )
+> +        return 0;
+> +
+> +    d_mfn = page_to_mfn(d_area->pg);
+> +
+> +    /* Allocate & map a page for the area if it hasn't been already. */
+> +    if ( !cd_area->pg )
+> +    {
+> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
+> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
+> +        p2m_type_t p2mt;
+> +        p2m_access_t p2ma;
+> +        unsigned int offset;
+> +        int ret;
+> +
+> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL, NULL);
+> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
+> +        {
+> +            struct page_info *pg = alloc_domheap_page(cd_vcpu->domain,
+0);
+> +
+> +            if ( !pg )
+> +                return -ENOMEM;
+> +
+> +            cd_mfn = page_to_mfn(pg);
+> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
+> +
+> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,
+p2m_ram_rw,
+> +                                 p2m->default_access, -1);
+> +            if ( ret )
+> +                return ret;
+> +        }
+> +        else if ( p2mt != p2m_ram_rw )
+> +            return -EBUSY;
+> +
+> +        /*
+> +         * Simply specify the entire range up to the end of the page.
+All the
+> +         * function uses it for is a check for not crossing page
+boundaries.
+> +         */
+> +        offset = PAGE_OFFSET(d_area->map);
+> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
+> +                             PAGE_SIZE - offset, cd_area, NULL);
+> +        if ( ret )
+> +            return ret;
+> +    }
+> +    else
+> +        cd_mfn = page_to_mfn(cd_area->pg);
+
+Everything to this point seems to be non mem-sharing/forking related. Could
+these live somewhere else? There must be some other place where allocating
+these areas happens already for non-fork VMs so it would make sense to just
+refactor that code to be callable from here.
+
+> +
+> +    copy_domain_page(cd_mfn, d_mfn);
+> +
+> +    return 0;
+> +}
+> +
+>  static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
+>  {
+>      struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
+> @@ -1745,6 +1804,16 @@ static int copy_vcpu_settings(struct dom
+>              copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
+>          }
 >
+> +        /* Same for the (physically registered) runstate and time info
+areas. */
+> +        ret = copy_guest_area(&cd_vcpu->runstate_guest_area,
+> +                              &d_vcpu->runstate_guest_area, cd_vcpu, d);
+> +        if ( ret )
+> +            return ret;
+> +        ret = copy_guest_area(&cd_vcpu->arch.time_guest_area,
+> +                              &d_vcpu->arch.time_guest_area, cd_vcpu, d);
+> +        if ( ret )
+> +            return ret;
+> +
+>          ret = copy_vpmu(d_vcpu, cd_vcpu);
+>          if ( ret )
+>              return ret;
+> @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain
+>
+>   state:
+>      if ( reset_state )
+> +    {
+>          rc = copy_settings(d, pd);
+> +        /* TBD: What to do here with -ERESTART? */
+
+Where does ERESTART coming from?
+
+--0000000000005f6bb505f2f0a22f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br>On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich &lt;<a=
+ href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
+<br>&gt; In preparation of the introduction of new vCPU operations allowing=
+ to<br>&gt; register the respective areas (one of the two is x86-specific) =
+by<br>&gt; guest-physical address, add the necessary fork handling (with th=
+e<br>&gt; backing function yet to be filled in).<br>&gt;<br>&gt; Signed-off=
+-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com=
+</a>&gt;<br>&gt;<br>&gt; --- a/xen/arch/x86/mm/mem_sharing.c<br>&gt; +++ b/=
+xen/arch/x86/mm/mem_sharing.c<br>&gt; @@ -1653,6 +1653,65 @@ static void co=
+py_vcpu_nonreg_state(struc<br>&gt; =C2=A0 =C2=A0 =C2=A0hvm_set_nonreg_state=
+(cd_vcpu, &amp;nrs);<br>&gt; =C2=A0}<br>&gt;<br>&gt; +static int copy_guest=
+_area(struct guest_area *cd_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct gu=
+est_area *d_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct vcpu *cd_vcpu,<br>&gt;=
+ + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 const struct domain *d)<br>&gt; +{<br>&gt; + =C2=A0 =
+=C2=A0mfn_t d_mfn, cd_mfn;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0if ( !d_area-&g=
+t;pg )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>&gt; +<br>&gt; + =
+=C2=A0 =C2=A0d_mfn =3D page_to_mfn(d_area-&gt;pg);<br>&gt; +<br>&gt; + =C2=
+=A0 =C2=A0/* Allocate &amp; map a page for the area if it hasn&#39;t been a=
+lready. */<br>&gt; + =C2=A0 =C2=A0if ( !cd_area-&gt;pg )<br>&gt; + =C2=A0 =
+=C2=A0{<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0gfn_t gfn =3D mfn_to_gfn(d, d_=
+mfn);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0struct p2m_domain *p2m =3D p2m_g=
+et_hostp2m(cd_vcpu-&gt;domain);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0p2m_ty=
+pe_t p2mt;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0p2m_access_t p2ma;<br>&gt; =
++ =C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned int offset;<br>&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0int ret;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn=
+ =3D p2m-&gt;get_entry(p2m, gfn, &amp;p2mt, &amp;p2ma, 0, NULL, NULL);<br>&=
+gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( mfn_eq(cd_mfn, INVALID_MFN) )<br>&gt;=
+ + =C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0struct page_info *pg =3D alloc_domheap_page(cd_vcpu-&gt;domain, 0=
+);<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( !pg )<=
+br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EN=
+OMEM;<br>&gt; +<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =
+=3D page_to_mfn(pg);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set=
+_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));<br>&gt; +<br>&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D p2m-&gt;set_entry(p2m, gfn, cd_mfn, =
+PAGE_ORDER_4K, p2m_ram_rw,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 p=
+2m-&gt;default_access, -1);<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0return ret;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0else if ( p2mt !=3D p2m_ram_rw )<br>&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EBUSY;<br>&gt; +<br>&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0/*<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Simply speci=
+fy the entire range up to the end of the page. All the<br>&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 * function uses it for is a check for not crossing page b=
+oundaries.<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>&gt; + =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0offset =3D PAGE_OFFSET(d_area-&gt;map);<br>&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0ret =3D map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset=
+,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAGE_SIZE - offset, cd_area, NULL);<br>&=
+gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0return ret;<br>&gt; + =C2=A0 =C2=A0}<br>&gt; + =C2=A0 =
+=C2=A0else<br><div>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_mfn=
+(cd_area-&gt;pg);</div><div><br></div><div>Everything to this point seems t=
+o be non mem-sharing/forking related. Could these live somewhere else? Ther=
+e must be some other place where allocating these areas happens already for=
+ non-fork VMs so it would make sense to just refactor that code to be calla=
+ble from here.<br></div><div><br></div>&gt; +<br>&gt; + =C2=A0 =C2=A0copy_d=
+omain_page(cd_mfn, d_mfn);<br>&gt; +<br>&gt; + =C2=A0 =C2=A0return 0;<br>&g=
+t; +}<br>&gt; +<br>&gt; =C2=A0static int copy_vpmu(struct vcpu *d_vcpu, str=
+uct vcpu *cd_vcpu)<br>&gt; =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=A0struct vpmu_=
+struct *d_vpmu =3D vcpu_vpmu(d_vcpu);<br>&gt; @@ -1745,6 +1804,16 @@ static=
+ int copy_vcpu_settings(struct dom<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);<br>&gt=
+; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt;<br>&gt; + =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0/* Same for the (physically registered) runstate and time info ar=
+eas. */<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D copy_guest_area(&amp;c=
+d_vcpu-&gt;runstate_guest_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
+mp;d_vcpu-&gt;runstate_guest_area, cd_vcpu, d);<br>&gt; + =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret=
+urn ret;<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D copy_guest_area(&amp;=
+cd_vcpu-&gt;arch.time_guest_area,<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&a=
+mp;d_vcpu-&gt;arch.time_guest_area, cd_vcpu, d);<br>&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0if ( ret )<br>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+return ret;<br>&gt; +<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D cop=
+y_vpmu(d_vcpu, cd_vcpu);<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret=
+ )<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>&=
+gt; @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain<br>&gt;=
+<br>&gt; =C2=A0 state:<br>&gt; =C2=A0 =C2=A0 =C2=A0if ( reset_state )<br>&g=
+t; + =C2=A0 =C2=A0{<br>&gt; =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rc =3D copy_s=
+ettings(d, pd);<br><div>&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0/* TBD: What to d=
+o here with -ERESTART? */</div><div><br></div><div>Where does ERESTART comi=
+ng from?<br></div></div>
+
+--0000000000005f6bb505f2f0a22f--
 
