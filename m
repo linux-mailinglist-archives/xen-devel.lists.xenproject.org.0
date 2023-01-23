@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50ADF6787C1
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 21:28:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483205.749218 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE129678943
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 22:11:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483212.749230 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pK3QE-0002Ii-45; Mon, 23 Jan 2023 20:28:06 +0000
+	id 1pK459-0007cE-7n; Mon, 23 Jan 2023 21:10:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483205.749218; Mon, 23 Jan 2023 20:28:06 +0000
+Received: by outflank-mailman (output) from mailman id 483212.749230; Mon, 23 Jan 2023 21:10:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pK3QE-0002Gf-1A; Mon, 23 Jan 2023 20:28:06 +0000
-Received: by outflank-mailman (input) for mailman id 483205;
- Mon, 23 Jan 2023 20:28:04 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=QMpG=5U=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pK3QC-0002GX-1m
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 20:28:04 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6dd05750-9b5c-11ed-91b6-6bf2151ebd3b;
- Mon, 23 Jan 2023 21:28:01 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 810A761029;
- Mon, 23 Jan 2023 20:27:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314CEC433D2;
- Mon, 23 Jan 2023 20:27:57 +0000 (UTC)
+	id 1pK459-0007a9-2t; Mon, 23 Jan 2023 21:10:23 +0000
+Received: by outflank-mailman (input) for mailman id 483212;
+ Mon, 23 Jan 2023 21:10:21 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pK457-0007Zy-1u; Mon, 23 Jan 2023 21:10:21 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pK456-0003VJ-VP; Mon, 23 Jan 2023 21:10:20 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pK456-0008UX-Je; Mon, 23 Jan 2023 21:10:20 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pK456-0006Nj-JB; Mon, 23 Jan 2023 21:10:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,451 +42,179 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6dd05750-9b5c-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674505678;
-	bh=pTUgUj0rudWGkaabcAfieQ/Wga7zg1phd06XWWevQoM=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=h9/ou6rQLxZs2xz2xXYqaZL8Mntkl4pJr0XJQKOZzCZPIxqThKJ0UYYvZ85/q81t3
-	 FWjkk9Ft2XS8XUUtwxKzfiZv2OCmnHmuSa4SIBwJNKV1215HDInSy2ArCAWwNynMKh
-	 OnniTykvy8zaApiSjg0cp8Ibdx8yUYj5NdHo3vDsREx9qeH9M9Riie8woOdWt5/m44
-	 x0bpREPgLQ0+BfrgQKzg8QEEGeGnHxXbJ7YnDvvL40/SLuHKe0vd9diHXFtwGTzOnk
-	 WZitmV1KIW57SDM+qt2WSFKvBv8tw0pOqPz7t3+JPFuHEOrEwEuE4LGGkzXp1hPaUe
-	 tRVJwKt8Vd/4Q==
-Date: Mon, 23 Jan 2023 12:27:55 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Chuck Zmudzinski <brchuckz@aol.com>
-cc: qemu-devel@nongnu.org, Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-    Paolo Bonzini <pbonzini@redhat.com>, 
-    Richard Henderson <richard.henderson@linaro.org>, 
-    Eduardo Habkost <eduardo@habkost.net>, 
-    "Michael S. Tsirkin" <mst@redhat.com>, 
-    Marcel Apfelbaum <marcel.apfelbaum@gmail.com>, 
-    Igor Mammedov <imammedo@redhat.com>, xen-devel@lists.xenproject.org, 
-    qemu-stable@nongnu.org
-Subject: Re: [PATCH v11] xen/pt: reserve PCI slot 2 for Intel igd-passthru
-In-Reply-To: <b1b4a21fe9a600b1322742dda55a40e9961daa57.1674346505.git.brchuckz@aol.com>
-Message-ID: <alpine.DEB.2.22.394.2301231227430.1978264@ubuntu-linux-20-04-desktop>
-References: <b1b4a21fe9a600b1322742dda55a40e9961daa57.1674346505.git.brchuckz.ref@aol.com> <b1b4a21fe9a600b1322742dda55a40e9961daa57.1674346505.git.brchuckz@aol.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Message-Id:Subject:To;
+	bh=RHsT7JaQFRtNwu+niMifT0cW09SjemPacgblphRvUcg=; b=uXJx6zlJ9Wp5vLIr+ktA0RRYjQ
+	0fhq1KJq5odY1FJwJxQsiQS99ji6mmJN6uKkAssZBvvpDTOfDFV5ydHtqhvzy86l/feOV3I5S10cF
+	c2BNt5aMryXdrEduB72QzJg9uxKneTvz6WAfeVXoFSF1ohhFrLP1eORyMKeWKWvQEJqQ=;
+To: xen-devel@lists.xenproject.org
+Subject: [xen-unstable bisection] complete test-amd64-i386-xl-xsm
+Message-Id: <E1pK456-0006Nj-JB@osstest.test-lab.xenproject.org>
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 23 Jan 2023 21:10:20 +0000
 
-On Sat, 21 Jan 2023, Chuck Zmudzinski wrote:
-> Intel specifies that the Intel IGD must occupy slot 2 on the PCI bus,
-> as noted in docs/igd-assign.txt in the Qemu source code.
-> 
-> Currently, when the xl toolstack is used to configure a Xen HVM guest with
-> Intel IGD passthrough to the guest with the Qemu upstream device model,
-> a Qemu emulated PCI device will occupy slot 2 and the Intel IGD will occupy
-> a different slot. This problem often prevents the guest from booting.
-> 
-> The only available workarounds are not good: Configure Xen HVM guests to
-> use the old and no longer maintained Qemu traditional device model
-> available from xenbits.xen.org which does reserve slot 2 for the Intel
-> IGD or use the "pc" machine type instead of the "xenfv" machine type and
-> add the xen platform device at slot 3 using a command line option
-> instead of patching qemu to fix the "xenfv" machine type directly. The
-> second workaround causes some degredation in startup performance such as
-> a longer boot time and reduced resolution of the grub menu that is
-> displayed on the monitor. This patch avoids that reduced startup
-> performance when using the Qemu upstream device model for Xen HVM guests
-> configured with the igd-passthru=on option.
-> 
-> To implement this feature in the Qemu upstream device model for Xen HVM
-> guests, introduce the following new functions, types, and macros:
-> 
-> * XEN_PT_DEVICE_CLASS declaration, based on the existing TYPE_XEN_PT_DEVICE
-> * XEN_PT_DEVICE_GET_CLASS macro helper function for XEN_PT_DEVICE_CLASS
-> * typedef XenPTQdevRealize function pointer
-> * XEN_PCI_IGD_SLOT_MASK, the value of slot_reserved_mask to reserve slot 2
-> * xen_igd_reserve_slot and xen_igd_clear_slot functions
-> 
-> Michael Tsirkin:
-> * Introduce XEN_PCI_IGD_DOMAIN, XEN_PCI_IGD_BUS, XEN_PCI_IGD_DEV, and
->   XEN_PCI_IGD_FN - use them to compute the value of XEN_PCI_IGD_SLOT_MASK
-> 
-> The new xen_igd_reserve_slot function uses the existing slot_reserved_mask
-> member of PCIBus to reserve PCI slot 2 for Xen HVM guests configured using
-> the xl toolstack with the gfx_passthru option enabled, which sets the
-> igd-passthru=on option to Qemu for the Xen HVM machine type.
-> 
-> The new xen_igd_reserve_slot function also needs to be implemented in
-> hw/xen/xen_pt_stub.c to prevent FTBFS during the link stage for the case
-> when Qemu is configured with --enable-xen and --disable-xen-pci-passthrough,
-> in which case it does nothing.
-> 
-> The new xen_igd_clear_slot function overrides qdev->realize of the parent
-> PCI device class to enable the Intel IGD to occupy slot 2 on the PCI bus
-> since slot 2 was reserved by xen_igd_reserve_slot when the PCI bus was
-> created in hw/i386/pc_piix.c for the case when igd-passthru=on.
-> 
-> Move the call to xen_host_pci_device_get, and the associated error
-> handling, from xen_pt_realize to the new xen_igd_clear_slot function to
-> initialize the device class and vendor values which enables the checks for
-> the Intel IGD to succeed. The verification that the host device is an
-> Intel IGD to be passed through is done by checking the domain, bus, slot,
-> and function values as well as by checking that gfx_passthru is enabled,
-> the device class is VGA, and the device vendor in Intel.
-> 
-> Signed-off-by: Chuck Zmudzinski <brchuckz@aol.com>
-> ---
-> Notes that might be helpful to reviewers of patched code in hw/xen:
-> 
-> The new functions and types are based on recommendations from Qemu docs:
-> https://qemu.readthedocs.io/en/latest/devel/qom.html
-> 
-> Notes that might be helpful to reviewers of patched code in hw/i386:
-> 
-> The small patch to hw/i386/pc_piix.c is protected by CONFIG_XEN so it does
-> not affect builds that do not have CONFIG_XEN defined.
-> 
-> xen_igd_gfx_pt_enabled() in the patched hw/i386/pc_piix.c file is an
-> existing function that is only true when Qemu is built with
-> xen-pci-passthrough enabled and the administrator has configured the Xen
-> HVM guest with Qemu's igd-passthru=on option.
-> 
-> v2: Remove From: <email address> tag at top of commit message
-> 
-> v3: Changed the test for the Intel IGD in xen_igd_clear_slot:
-> 
->     if (is_igd_vga_passthrough(&s->real_device) &&
->         (s->real_device.vendor_id == PCI_VENDOR_ID_INTEL)) {
-> 
->     is changed to
-> 
->     if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
->         && (s->hostaddr.function == 0)) {
-> 
->     I hoped that I could use the test in v2, since it matches the
->     other tests for the Intel IGD in Qemu and Xen, but those tests
->     do not work because the necessary data structures are not set with
->     their values yet. So instead use the test that the administrator
->     has enabled gfx_passthru and the device address on the host is
->     02.0. This test does detect the Intel IGD correctly.
-> 
-> v4: Use brchuckz@aol.com instead of brchuckz@netscape.net for the author's
->     email address to match the address used by the same author in commits
->     be9c61da and c0e86b76
->     
->     Change variable for XEN_PT_DEVICE_CLASS: xptc changed to xpdc
-> 
-> v5: The patch of xen_pt.c was re-worked to allow a more consistent test
->     for the Intel IGD that uses the same criteria as in other places.
->     This involved moving the call to xen_host_pci_device_get from
->     xen_pt_realize to xen_igd_clear_slot and updating the checks for the
->     Intel IGD in xen_igd_clear_slot:
->     
->     if (xen_igd_gfx_pt_enabled() && (s->hostaddr.slot == 2)
->         && (s->hostaddr.function == 0)) {
-> 
->     is changed to
-> 
->     if (is_igd_vga_passthrough(&s->real_device) &&
->         s->real_device.domain == 0 && s->real_device.bus == 0 &&
->         s->real_device.dev == 2 && s->real_device.func == 0 &&
->         s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
-> 
->     Added an explanation for the move of xen_host_pci_device_get from
->     xen_pt_realize to xen_igd_clear_slot to the commit message.
-> 
->     Rebase.
-> 
-> v6: Fix logging by removing these lines from the move from xen_pt_realize
->     to xen_igd_clear_slot that was done in v5:
-> 
->     XEN_PT_LOG(d, "Assigning real physical device %02x:%02x.%d"
->                " to devfn 0x%x\n",
->                s->hostaddr.bus, s->hostaddr.slot, s->hostaddr.function,
->                s->dev.devfn);
-> 
->     This log needs to be in xen_pt_realize because s->dev.devfn is not
->     set yet in xen_igd_clear_slot.
-> 
-> v7: The v7 that was posted to the mailing list was incorrect. v8 is what
->     v7 was intended to be.
-> 
-> v8: Inhibit out of context log message and needless processing by
->     adding 2 lines at the top of the new xen_igd_clear_slot function:
-> 
->     if (!(pci_bus->slot_reserved_mask & XEN_PCI_IGD_SLOT_MASK))
->         return;
-> 
->     Rebase. This removed an unnecessary header file from xen_pt.h 
-> 
-> v9: Move check for xen_igd_gfx_pt_enabled() from pc_piix.c to xen_pt.c
-> 
->     Move #include "hw/pci/pci_bus.h" from xen_pt.h to xen_pt.c
-> 
->     Introduce macros for the IGD devfn constants and use them to compute
->     the value of XEN_PCI_IGD_SLOT_MASK
-> 
->     Also use the new macros at an appropriate place in xen_pt_realize
-> 
->     Add Cc: to stable - This has been broken for a long time, ever since
->                         support for igd-passthru was added to Qemu 7
->                         years ago.
-> 
->     Mention new macros in the commit message (Michael Tsirkin)
-> 
->     N.B.: I could not follow the suggestion to move the statement
->     pci_bus->slot_reserved_mask &= ~XEN_PCI_IGD_SLOT_MASK; to after
->     pci_qdev_realize for symmetry. Doing that results in an error when
->     creating the guest:
->     
->     libxl: error: libxl_qmp.c:1837:qmp_ev_parse_error_messages: Domain 4:PCI: slot 2 function 0 not available for xen-pci-passthrough, reserved
->     libxl: error: libxl_pci.c:1809:device_pci_add_done: Domain 4:libxl__device_pci_add failed for PCI device 0:0:2.0 (rc -28)
->     libxl: error: libxl_create.c:1921:domcreate_attach_devices: Domain 4:unable to add pci devices
-> 
-> v10: Change in xen_pt.c at xen_igd_clear_slot from
-> 
->     if (!(pci_bus->slot_reserved_mask & XEN_PCI_IGD_SLOT_MASK))
->         return;
-> 
->     xen_host_pci_device_get(&s->real_device,
->                             s->hostaddr.domain, s->hostaddr.bus,
->                             s->hostaddr.slot, s->hostaddr.function,
->                             errp);
->     if (*errp) {
->         error_append_hint(errp, "Failed to \"open\" the real pci device");
->         return;
->     }
-> 
-> to:
-> 
->     xen_host_pci_device_get(&s->real_device,
->                             s->hostaddr.domain, s->hostaddr.bus,
->                             s->hostaddr.slot, s->hostaddr.function,
->                             errp);
->     if (*errp) {
->         error_append_hint(errp, "Failed to \"open\" the real pci device");
->         return;
->     }
-> 
->     if (!(pci_bus->slot_reserved_mask & XEN_PCI_IGD_SLOT_MASK)) {
->         xpdc->pci_qdev_realize(qdev, errp);
->         return;
->     }
-> 
->      Testing shows this fixes the problem of xen_host_pci_device_get
->      and xpdc->pci_qdev_realize not being called if xen_igd_clear_slot
->      returns because the bit to reserve slot 2 in slot_reserved_mask is
->      not set. Without this change, guest creation fails in the cases
->      when the bit to reserve slot 2 in slot_reserved_mask is not set.
->      Thanks, Stefano!
->      
->      Also, in addition to mentioning the workaround of using the
->      traditional qemu device model available from xenbits.xen.org in the
->      commit message, also mention in the commit message the workaround
->      of using the "pc" machine type instead of the "xenfv" machine type,
->      which results in reduced startup performance.
->      
->      Rebase.
->      
->      Add Igor Mammedov <imammedo@redhat.com> to Cc.
-> 
-> v11: I noticed a style mistake that has been present in the past few
->      versions that no one noticed. This version fixes it. No
->      functional change in v11. I also did more tests on different guests
->      such as guests that don't have igd-passthru=on set. No regressions
->      were observed.
->      
->      The style mistake (missing braces) is fixed as follows:
-> 
-> xen_pt.c at xen_igd_reserve_slot is changed from
-> 
->     if (!xen_igd_gfx_pt_enabled())
->         return;
-> 
-> to
-> 
->     if (!xen_igd_gfx_pt_enabled()) {
->         return;
->     }
-> 
->  hw/i386/pc_piix.c    |  1 +
->  hw/xen/xen_pt.c      | 64 ++++++++++++++++++++++++++++++++++++--------
->  hw/xen/xen_pt.h      | 20 ++++++++++++++
->  hw/xen/xen_pt_stub.c |  4 +++
->  4 files changed, 78 insertions(+), 11 deletions(-)
+branch xen-unstable
+xenbranch xen-unstable
+job test-amd64-i386-xl-xsm
+testid guest-localmigrate
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  1894049fa283308d5f90446370be1ade7afe8975
+  Bug not present: 20279afd732371dd2534380d27aa6d1863d82d1f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/176075/
 
 
-> diff --git a/hw/i386/pc_piix.c b/hw/i386/pc_piix.c
-> index df64dd8dcc..a9d535c815 100644
-> --- a/hw/i386/pc_piix.c
-> +++ b/hw/i386/pc_piix.c
-> @@ -421,6 +421,7 @@ static void pc_xen_hvm_init(MachineState *machine)
->      }
->  
->      pc_xen_hvm_init_pci(machine);
-> +    xen_igd_reserve_slot(pcms->bus);
->      pci_create_simple(pcms->bus, -1, "xen-platform");
->  }
->  #endif
-> diff --git a/hw/xen/xen_pt.c b/hw/xen/xen_pt.c
-> index 8db0532632..85c93cffcf 100644
-> --- a/hw/xen/xen_pt.c
-> +++ b/hw/xen/xen_pt.c
-> @@ -57,6 +57,7 @@
->  #include <sys/ioctl.h>
->  
->  #include "hw/pci/pci.h"
-> +#include "hw/pci/pci_bus.h"
->  #include "hw/qdev-properties.h"
->  #include "hw/qdev-properties-system.h"
->  #include "hw/xen/xen.h"
-> @@ -780,15 +781,6 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
->                 s->hostaddr.bus, s->hostaddr.slot, s->hostaddr.function,
->                 s->dev.devfn);
->  
-> -    xen_host_pci_device_get(&s->real_device,
-> -                            s->hostaddr.domain, s->hostaddr.bus,
-> -                            s->hostaddr.slot, s->hostaddr.function,
-> -                            errp);
-> -    if (*errp) {
-> -        error_append_hint(errp, "Failed to \"open\" the real pci device");
-> -        return;
-> -    }
-> -
->      s->is_virtfn = s->real_device.is_virtfn;
->      if (s->is_virtfn) {
->          XEN_PT_LOG(d, "%04x:%02x:%02x.%d is a SR-IOV Virtual Function\n",
-> @@ -803,8 +795,10 @@ static void xen_pt_realize(PCIDevice *d, Error **errp)
->      s->io_listener = xen_pt_io_listener;
->  
->      /* Setup VGA bios for passthrough GFX */
-> -    if ((s->real_device.domain == 0) && (s->real_device.bus == 0) &&
-> -        (s->real_device.dev == 2) && (s->real_device.func == 0)) {
-> +    if ((s->real_device.domain == XEN_PCI_IGD_DOMAIN) &&
-> +        (s->real_device.bus == XEN_PCI_IGD_BUS) &&
-> +        (s->real_device.dev == XEN_PCI_IGD_DEV) &&
-> +        (s->real_device.func == XEN_PCI_IGD_FN)) {
->          if (!is_igd_vga_passthrough(&s->real_device)) {
->              error_setg(errp, "Need to enable igd-passthru if you're trying"
->                      " to passthrough IGD GFX");
-> @@ -950,11 +944,58 @@ static void xen_pci_passthrough_instance_init(Object *obj)
->      PCI_DEVICE(obj)->cap_present |= QEMU_PCI_CAP_EXPRESS;
->  }
->  
-> +void xen_igd_reserve_slot(PCIBus *pci_bus)
-> +{
-> +    if (!xen_igd_gfx_pt_enabled()) {
-> +        return;
-> +    }
-> +
-> +    XEN_PT_LOG(0, "Reserving PCI slot 2 for IGD\n");
-> +    pci_bus->slot_reserved_mask |= XEN_PCI_IGD_SLOT_MASK;
-> +}
-> +
-> +static void xen_igd_clear_slot(DeviceState *qdev, Error **errp)
-> +{
-> +    ERRP_GUARD();
-> +    PCIDevice *pci_dev = (PCIDevice *)qdev;
-> +    XenPCIPassthroughState *s = XEN_PT_DEVICE(pci_dev);
-> +    XenPTDeviceClass *xpdc = XEN_PT_DEVICE_GET_CLASS(s);
-> +    PCIBus *pci_bus = pci_get_bus(pci_dev);
-> +
-> +    xen_host_pci_device_get(&s->real_device,
-> +                            s->hostaddr.domain, s->hostaddr.bus,
-> +                            s->hostaddr.slot, s->hostaddr.function,
-> +                            errp);
-> +    if (*errp) {
-> +        error_append_hint(errp, "Failed to \"open\" the real pci device");
-> +        return;
-> +    }
-> +
-> +    if (!(pci_bus->slot_reserved_mask & XEN_PCI_IGD_SLOT_MASK)) {
-> +        xpdc->pci_qdev_realize(qdev, errp);
-> +        return;
-> +    }
-> +
-> +    if (is_igd_vga_passthrough(&s->real_device) &&
-> +        s->real_device.domain == XEN_PCI_IGD_DOMAIN &&
-> +        s->real_device.bus == XEN_PCI_IGD_BUS &&
-> +        s->real_device.dev == XEN_PCI_IGD_DEV &&
-> +        s->real_device.func == XEN_PCI_IGD_FN &&
-> +        s->real_device.vendor_id == PCI_VENDOR_ID_INTEL) {
-> +        pci_bus->slot_reserved_mask &= ~XEN_PCI_IGD_SLOT_MASK;
-> +        XEN_PT_LOG(pci_dev, "Intel IGD found, using slot 2\n");
-> +    }
-> +    xpdc->pci_qdev_realize(qdev, errp);
-> +}
-> +
->  static void xen_pci_passthrough_class_init(ObjectClass *klass, void *data)
->  {
->      DeviceClass *dc = DEVICE_CLASS(klass);
->      PCIDeviceClass *k = PCI_DEVICE_CLASS(klass);
->  
-> +    XenPTDeviceClass *xpdc = XEN_PT_DEVICE_CLASS(klass);
-> +    xpdc->pci_qdev_realize = dc->realize;
-> +    dc->realize = xen_igd_clear_slot;
->      k->realize = xen_pt_realize;
->      k->exit = xen_pt_unregister_device;
->      k->config_read = xen_pt_pci_read_config;
-> @@ -977,6 +1018,7 @@ static const TypeInfo xen_pci_passthrough_info = {
->      .instance_size = sizeof(XenPCIPassthroughState),
->      .instance_finalize = xen_pci_passthrough_finalize,
->      .class_init = xen_pci_passthrough_class_init,
-> +    .class_size = sizeof(XenPTDeviceClass),
->      .instance_init = xen_pci_passthrough_instance_init,
->      .interfaces = (InterfaceInfo[]) {
->          { INTERFACE_CONVENTIONAL_PCI_DEVICE },
-> diff --git a/hw/xen/xen_pt.h b/hw/xen/xen_pt.h
-> index cf10fc7bbf..e184699740 100644
-> --- a/hw/xen/xen_pt.h
-> +++ b/hw/xen/xen_pt.h
-> @@ -40,7 +40,20 @@ typedef struct XenPTReg XenPTReg;
->  #define TYPE_XEN_PT_DEVICE "xen-pci-passthrough"
->  OBJECT_DECLARE_SIMPLE_TYPE(XenPCIPassthroughState, XEN_PT_DEVICE)
->  
-> +#define XEN_PT_DEVICE_CLASS(klass) \
-> +    OBJECT_CLASS_CHECK(XenPTDeviceClass, klass, TYPE_XEN_PT_DEVICE)
-> +#define XEN_PT_DEVICE_GET_CLASS(obj) \
-> +    OBJECT_GET_CLASS(XenPTDeviceClass, obj, TYPE_XEN_PT_DEVICE)
-> +
-> +typedef void (*XenPTQdevRealize)(DeviceState *qdev, Error **errp);
-> +
-> +typedef struct XenPTDeviceClass {
-> +    PCIDeviceClass parent_class;
-> +    XenPTQdevRealize pci_qdev_realize;
-> +} XenPTDeviceClass;
-> +
->  uint32_t igd_read_opregion(XenPCIPassthroughState *s);
-> +void xen_igd_reserve_slot(PCIBus *pci_bus);
->  void igd_write_opregion(XenPCIPassthroughState *s, uint32_t val);
->  void xen_igd_passthrough_isa_bridge_create(XenPCIPassthroughState *s,
->                                             XenHostPCIDevice *dev);
-> @@ -75,6 +88,13 @@ typedef int (*xen_pt_conf_byte_read)
->  
->  #define XEN_PCI_INTEL_OPREGION 0xfc
->  
-> +#define XEN_PCI_IGD_DOMAIN 0
-> +#define XEN_PCI_IGD_BUS 0
-> +#define XEN_PCI_IGD_DEV 2
-> +#define XEN_PCI_IGD_FN 0
-> +#define XEN_PCI_IGD_SLOT_MASK \
-> +    (1UL << PCI_SLOT(PCI_DEVFN(XEN_PCI_IGD_DEV, XEN_PCI_IGD_FN)))
-> +
->  typedef enum {
->      XEN_PT_GRP_TYPE_HARDWIRED = 0,  /* 0 Hardwired reg group */
->      XEN_PT_GRP_TYPE_EMU,            /* emul reg group */
-> diff --git a/hw/xen/xen_pt_stub.c b/hw/xen/xen_pt_stub.c
-> index 2d8cac8d54..5c108446a8 100644
-> --- a/hw/xen/xen_pt_stub.c
-> +++ b/hw/xen/xen_pt_stub.c
-> @@ -20,3 +20,7 @@ void xen_igd_gfx_pt_set(bool value, Error **errp)
->          error_setg(errp, "Xen PCI passthrough support not built in");
->      }
->  }
-> +
-> +void xen_igd_reserve_slot(PCIBus *pci_bus)
-> +{
-> +}
-> -- 
-> 2.39.0
-> 
+  commit 1894049fa283308d5f90446370be1ade7afe8975
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Jan 20 09:17:33 2023 +0100
+  
+      x86/shadow: L2H shadow type is PV32-only
+      
+      Like for the various HVM-only types, save a little bit of code by suitably
+      "masking" this type out when !PV32.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+
+For bisection revision-tuple graph see:
+   http://logs.test-lab.xenproject.org/osstest/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-localmigrate.html
+Revision IDs in each graph node refer, respectively, to the Trees above.
+
+----------------------------------------
+Running cs-bisection-step --graph-out=/home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-localmigrate --summary-out=tmp/176075.bisection-summary --basis-template=175994 --blessings=real,real-bisect,real-retry xen-unstable test-amd64-i386-xl-xsm guest-localmigrate
+Searching for failure / basis pass:
+ 176062 fail [host=fiano0] / 175994 [host=elbling0] 175987 [host=fiano1] 175965 [host=elbling1] 175734 [host=debina1] 175726 [host=italia0] 175720 [host=pinot1] 175714 [host=nobling0] 175694 [host=albana1] 175671 [host=nobling1] 175651 [host=debina0] 175635 [host=huxelrebe0] 175624 [host=nocera1] 175612 [host=albana0] 175601 [host=italia0] 175592 ok.
+Failure / basis pass flights: 176062 / 175592
+(tree with no url: minios)
+(tree with no url: ovmf)
+(tree with no url: seabios)
+Tree: linux git://xenbits.xen.org/linux-pvops.git
+Tree: linuxfirmware git://xenbits.xen.org/osstest/linux-firmware.git
+Tree: qemu git://xenbits.xen.org/qemu-xen-traditional.git
+Tree: qemuu git://xenbits.xen.org/qemu-xen.git
+Tree: xen git://xenbits.xen.org/xen.git
+Latest c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+Basis pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cf02b05b27c48775a25699e61b93b814b9ae042 671f50ffab3329c5497208da89620322b9721a77
+Generating revisions with ./adhoc-revtuple-generator  git://xenbits.xen.org/linux-pvops.git#c3038e718a19fc596f7b1baba0f83d5146dc7784-c3038e718a19fc596f7b1baba0f83d5146dc7784 git://xenbits.xen.org/osstest/linux-firmware.git#c530a75c1e6a472b0eb9558310b518f0dfcd8860-c530a75c1e6a472b0eb9558310b518f0dfcd8860 git://xenbits.xen.org/qemu-xen-traditional.git#3d273dd05e51e5a1ffba3d98c7437ee84e8f8764-3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 git://xenbits.xen.org/qemu-xen.git#1cf02b05b27c48775a25699e61b93b8\
+ 14b9ae042-625eb5e96dc96aa7fddef59a08edae215527f19c git://xenbits.xen.org/xen.git#671f50ffab3329c5497208da89620322b9721a77-1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+Loaded 10003 nodes in revision graph
+Searching for test results:
+ 175592 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cf02b05b27c48775a25699e61b93b814b9ae042 671f50ffab3329c5497208da89620322b9721a77
+ 175601 [host=italia0]
+ 175612 [host=albana0]
+ 175624 [host=nocera1]
+ 175635 [host=huxelrebe0]
+ 175651 [host=debina0]
+ 175671 [host=nobling1]
+ 175694 [host=albana1]
+ 175714 [host=nobling0]
+ 175720 [host=pinot1]
+ 175726 [host=italia0]
+ 175734 [host=debina1]
+ 175834 []
+ 175861 []
+ 175890 []
+ 175907 []
+ 175931 []
+ 175956 []
+ 175965 [host=elbling1]
+ 175987 [host=fiano1]
+ 175994 [host=elbling0]
+ 176003 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 89cc5d96a9d1fce81cf58b6814dac62a9e07fbee
+ 176011 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176025 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176035 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176042 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176048 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176055 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cf02b05b27c48775a25699e61b93b814b9ae042 671f50ffab3329c5497208da89620322b9721a77
+ 176057 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176058 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+ 176056 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176061 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c a1a618208bf53469f5e3eaa14202ba777d33f442
+ 176063 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 41dbbfb5966f2517916333d1885ee68018161f48
+ 176064 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 321b1b5eb351a5836d26817d7db48052e623b411
+ 176065 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 20279afd732371dd2534380d27aa6d1863d82d1f
+ 176067 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1894049fa283308d5f90446370be1ade7afe8975
+ 176062 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1d60c20260c7e82fe5344d06c20d718e0cc03b8b
+ 176070 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 20279afd732371dd2534380d27aa6d1863d82d1f
+ 176071 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1894049fa283308d5f90446370be1ade7afe8975
+ 176074 pass c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 20279afd732371dd2534380d27aa6d1863d82d1f
+ 176075 fail c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 1894049fa283308d5f90446370be1ade7afe8975
+Searching for interesting versions
+ Result found: flight 175592 (pass), for basis pass
+ For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 20279afd732371dd2534380d27aa6d1863d82d1f, results HASH(0x55831ca44980) HASH(0x55831ca597c8) HASH(0x55831c072b98) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96\
+ dc96aa7fddef59a08edae215527f19c f588e7b7cb70800533aaa8a2a9d7a4b32d10b363, results HASH(0x55831ca6a5d8) For basis failure, parent search stopping at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 1cf02b05b27c48775a25699e61b93b814b9ae042 671f50ffab3329c5497208da89620322b9721a77, results HASH(0x55831ca51900) HASH(0x55831ca62a10) Result found: flight 176003 (fail), for basis failure (at ancestor ~988)
+ Repro found: flight 176055 (pass), for basis pass
+ Repro found: flight 176056 (fail), for basis failure
+ 0 revisions at c3038e718a19fc596f7b1baba0f83d5146dc7784 c530a75c1e6a472b0eb9558310b518f0dfcd8860 3d273dd05e51e5a1ffba3d98c7437ee84e8f8764 625eb5e96dc96aa7fddef59a08edae215527f19c 20279afd732371dd2534380d27aa6d1863d82d1f
+No revisions left to test, checking graph state.
+ Result found: flight 176065 (pass), for last pass
+ Result found: flight 176067 (fail), for first failure
+ Repro found: flight 176070 (pass), for last pass
+ Repro found: flight 176071 (fail), for first failure
+ Repro found: flight 176074 (pass), for last pass
+ Repro found: flight 176075 (fail), for first failure
+
+*** Found and reproduced problem changeset ***
+
+  Bug is in tree:  xen git://xenbits.xen.org/xen.git
+  Bug introduced:  1894049fa283308d5f90446370be1ade7afe8975
+  Bug not present: 20279afd732371dd2534380d27aa6d1863d82d1f
+  Last fail repro: http://logs.test-lab.xenproject.org/osstest/logs/176075/
+
+
+  commit 1894049fa283308d5f90446370be1ade7afe8975
+  Author: Jan Beulich <jbeulich@suse.com>
+  Date:   Fri Jan 20 09:17:33 2023 +0100
+  
+      x86/shadow: L2H shadow type is PV32-only
+      
+      Like for the various HVM-only types, save a little bit of code by suitably
+      "masking" this type out when !PV32.
+      
+      Signed-off-by: Jan Beulich <jbeulich@suse.com>
+      Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+Revision graph left in /home/logs/results/bisect/xen-unstable/test-amd64-i386-xl-xsm.guest-localmigrate.{dot,ps,png,html,svg}.
+----------------------------------------
+176075: tolerable ALL FAIL
+
+flight 176075 xen-unstable real-bisect [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176075/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed,
+including tests which could not be run:
+ test-amd64-i386-xl-xsm       18 guest-localmigrate      fail baseline untested
+
+
+jobs:
+ test-amd64-i386-xl-xsm                                       fail    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
 
