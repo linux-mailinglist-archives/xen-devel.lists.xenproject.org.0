@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC0867805F
-	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 16:48:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483031.748987 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E42FF67806A
+	for <lists+xen-devel@lfdr.de>; Mon, 23 Jan 2023 16:49:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483032.749001 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJz3c-0002Q3-Gf; Mon, 23 Jan 2023 15:48:28 +0000
+	id 1pJz3e-0002w2-Cp; Mon, 23 Jan 2023 15:48:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483031.748987; Mon, 23 Jan 2023 15:48:28 +0000
+Received: by outflank-mailman (output) from mailman id 483032.749001; Mon, 23 Jan 2023 15:48:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pJz3c-0002MX-7U; Mon, 23 Jan 2023 15:48:28 +0000
-Received: by outflank-mailman (input) for mailman id 483031;
- Mon, 23 Jan 2023 15:48:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pJz3e-0002mz-6u; Mon, 23 Jan 2023 15:48:30 +0000
+Received: by outflank-mailman (input) for mailman id 483032;
+ Mon, 23 Jan 2023 15:48:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=kihy=5U=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1pJz3a-0000MU-CW
- for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 15:48:26 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 59943607-9b35-11ed-b8d1-410ff93cb8f0;
- Mon, 23 Jan 2023 16:48:15 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id ud5so31668821ejc.4
- for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 07:48:24 -0800 (PST)
+ id 1pJz3c-00006V-3K
+ for xen-devel@lists.xenproject.org; Mon, 23 Jan 2023 15:48:28 +0000
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [2a00:1450:4864:20::631])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6078c854-9b35-11ed-91b6-6bf2151ebd3b;
+ Mon, 23 Jan 2023 16:48:27 +0100 (CET)
+Received: by mail-ej1-x631.google.com with SMTP id vw16so31591843ejc.12
+ for <xen-devel@lists.xenproject.org>; Mon, 23 Jan 2023 07:48:27 -0800 (PST)
 Received: from carlo-ubuntu.mo54.unimo.it (nonato.mo54.unimo.it.
  [155.185.85.8]) by smtp.gmail.com with ESMTPSA id
- r2-20020a17090609c200b007bd28b50305sm22170978eje.200.2023.01.23.07.48.23
+ r2-20020a17090609c200b007bd28b50305sm22170978eje.200.2023.01.23.07.48.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Jan 2023 07:48:23 -0800 (PST)
+ Mon, 23 Jan 2023 07:48:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,105 +44,174 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 59943607-9b35-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 6078c854-9b35-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GXjHJG37wrPSsNQkI70mLlT9j7sfcQhay1lHTQfBpqE=;
-        b=aOmXpVDTwkO8k0CqcxAZ3eZ1tYYpqm6pCnougkWeY4CsGgbelNyDO0RRGHptwTZVtC
-         cctHSUIq0dgNyfkcqlB9urbilwiY7VvKByqF54wJ7lVWdOlXh3OI/k30YzwQoKtP/DOg
-         X5zFTQQStGMNu0q5vyol2FBFYiCKprE4RLZVsevYHYz3upjY7L9Gu7VTdheaUkIFzzU/
-         oTl84wAK7FVX31qaBvaob/Zc+1hKoIrWJz7eAbU/081A+Lmm0MrkqqyyHXMcBGxdYxC4
-         SxquQZtmbckIYn8UYSpmFCN/XSj21MijZwteeVOldD/GlBqoacDgTFYlyM8IGyrFe7Kz
-         OQsA==
+        bh=ptsteZfIhpfF2UQfbP6Zi8kakL6wMfzWUQYlwBmp7AM=;
+        b=2DpkluxTwEf/rRNWROpMgUV2g5OJe6zodA3z8G79y/tFiEa/xuzYvvNsjq/cJp25DW
+         ch2upGGp+OeeGZEH6uBjtwDVFTSlDD8ATwiiqu5BC06x7KMJiD/PaAIMqCoaXEumAZ+K
+         +woTazI9Bikae17grp8UM2v2O6EqVxuhcxIymq04xG0UN8WDtJiUYAFHecber9pBv+ws
+         75JLet58stpmZ34/+wVep9dcDpkOD73930kMyI/ET80Bf/OW60CznHxRlYnimonmum2A
+         ZCmPHqZ/hUQSvmpcWT19bI3V0n9vRSwJOOGDFQHA7N4aO9FIwsdHVKgUjcYYaYRJJGJv
+         8UJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=GXjHJG37wrPSsNQkI70mLlT9j7sfcQhay1lHTQfBpqE=;
-        b=zo4WeqaXSGZYSwdBHuN5zijVl1UCC7PYbpAWAmef+3++c0a6GNtlfrVSYTqas1D9TX
-         9sQV5RPno9t19oiFZDRNvOYtw/KwYPJcT8f/zpRLZahOGoZfBrzpTMufAt5C7zGM9ucJ
-         3Wx2e3BDUigrTUD1y2rcUiV3uu6RgrSelzKMrQGNLSbyeyTXz8CH79S+zad7NMWBWkDb
-         lBuuadhi5bQonI0HwDOAAhaBMEm4ao9dkrWOvNRhdiTIWrs3KUum5qjCaNDXYwTR5xiS
-         HMY5voutBVngOm6N0oqaylolAUUXdPKD84sFTXeZwymIn2Ok9Y9E2luHxe2VFcgRzKwp
-         3MbQ==
-X-Gm-Message-State: AFqh2kqy95Ayvtqvae4t57noLdKonG9sMMIf4Bpfvh6S634+y37pJqmj
-	8iLJvpWOsmWXK3V65W7Oa05wENjKNzhA8SKA
-X-Google-Smtp-Source: AMrXdXtZW+SmY+t9CiCJtVGB6Ye1/RFitDnHCtldOZ8D0at+eHlzhbIJDeiQ1+pJ78QI+Z+WxyveiQ==
-X-Received: by 2002:a17:906:f9cd:b0:7c0:b569:8efe with SMTP id lj13-20020a170906f9cd00b007c0b5698efemr25695642ejb.60.1674488903979;
-        Mon, 23 Jan 2023 07:48:23 -0800 (PST)
+        bh=ptsteZfIhpfF2UQfbP6Zi8kakL6wMfzWUQYlwBmp7AM=;
+        b=xPtW4JrAjcThHGahy3YpOb7auqnFAYLGy4p2HHe3xH4hBGfpLWV9FuazxggQZRjxtr
+         rCYPnCozuDtNwjEhpFyJt6JDdRLX3dqYq16/U6rgjQVtQj4Ry6ikq2ApqmzD0ZgjzSlI
+         O0ecd2hIMS5D6VEKd1cQjSfcSphs3Dky1g8siAKTqzoNCX0Mp+IdhcoiIaT31snFSWqs
+         JSnwTSxdRrTTKzPH2z+8WFOwcxeqLlSvpgHf4FFPnGLKw71V3dpAhpfD/DUP5MIT5TPp
+         0TOjsNsGcHfD6Nm7neIwbGwujvDBvjSKtYA8cu0RFfdtVnLcGjyKSYJ2U57ZojMDM4MV
+         SPyg==
+X-Gm-Message-State: AFqh2krpmuO6DKKEMw+Fs/7bB8rZTLb5whqH59wkIIrFoyqr7+h/Nmqd
+	vRQfX274/VWOg6vnRevaxNbxw6g036932PV0
+X-Google-Smtp-Source: AMrXdXufOtlIu4zh2FVI6Bx7clwNuhDAjNxjB+9zPKqe3JEQrOrwigNGOjnHHO0yrWiiAXQBqeVl5A==
+X-Received: by 2002:a17:906:a09:b0:7c1:4a3a:dc97 with SMTP id w9-20020a1709060a0900b007c14a3adc97mr32277336ejf.0.1674488906739;
+        Mon, 23 Jan 2023 07:48:26 -0800 (PST)
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
 To: xen-devel@lists.xenproject.org
-Cc: Carlo Nonato <carlo.nonato@minervasys.tech>,
-	Stefano Stabellini <sstabellini@kernel.org>,
+Cc: Luca Miccio <lucmiccio@gmail.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
 	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Marco Solieri <marco.solieri@minervasys.tech>
-Subject: [PATCH v4 09/11] Revert "xen/arm: Remove unused BOOT_RELOC_VIRT_START"
-Date: Mon, 23 Jan 2023 16:47:33 +0100
-Message-Id: <20230123154735.74832-10-carlo.nonato@minervasys.tech>
+	Marco Solieri <marco.solieri@minervasys.tech>,
+	Carlo Nonato <carlo.nonato@minervasys.tech>
+Subject: [PATCH v4 10/11] xen/arm: add Xen cache colors command line parameter
+Date: Mon, 23 Jan 2023 16:47:34 +0100
+Message-Id: <20230123154735.74832-11-carlo.nonato@minervasys.tech>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20230123154735.74832-1-carlo.nonato@minervasys.tech>
 References: <20230123154735.74832-1-carlo.nonato@minervasys.tech>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This reverts commit 0c18fb76323bfb13615b6f13c98767face2d8097 (not clean).
+From: Luca Miccio <lucmiccio@gmail.com>
 
-This is not a clean revert since the rework of the memory layout, but it is
-sufficiently similar to a clean one.
-The only difference is that the BOOT_RELOC_VIRT_START must match the new
-layout.
+This commit adds a new command line parameter to configure Xen cache
+colors. These colors can be dumped with the cache coloring info debug-key.
 
-Cache coloring support for Xen needs to relocate Xen code and data in a new
-colored physical space. The BOOT_RELOC_VIRT_START will be used as the virtual
-base address for a temporary mapping to this new space.
+By default, Xen uses the first color.
+Benchmarking the VM interrupt response time provides an estimation of
+LLC usage by Xen's most latency-critical runtime task. Results on Arm
+Cortex-A53 on Xilinx Zynq UltraScale+ XCZU9EG show that one color, which
+reserves 64 KiB of L2, is enough to attain best responsiveness.
 
-Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+More colors are instead very likely to be needed on processors whose L1
+cache is physically-indexed and physically-tagged, such as Cortex-A57.
+In such cases, coloring applies to L1 also, and there typically are two
+distinct L1-colors. Therefore, reserving only one color for Xen would
+senselessly partitions a cache memory that is already private, i.e.
+underutilize it. The default amount of Xen colors is thus set to one.
+
+Signed-off-by: Luca Miccio <lucmiccio@gmail.com>
 Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
 ---
- xen/arch/arm/include/asm/config.h | 4 +++-
- xen/arch/arm/mm.c                 | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ docs/misc/xen-command-line.pandoc | 10 ++++++++++
+ xen/arch/arm/llc_coloring.c       | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
 
-diff --git a/xen/arch/arm/include/asm/config.h b/xen/arch/arm/include/asm/config.h
-index c5d407a749..5359acd529 100644
---- a/xen/arch/arm/include/asm/config.h
-+++ b/xen/arch/arm/include/asm/config.h
-@@ -96,7 +96,8 @@
-  *   2M -   4M   Xen text, data, bss
-  *   4M -   6M   Fixmap: special-purpose 4K mapping slots
-  *   6M -  10M   Early boot mapping of FDT
-- *  10M -  12M   Livepatch vmap (if compiled in)
-+ *  10M -  12M   Early relocation address (used when relocating Xen)
-+ *               and later for livepatch vmap (if compiled in)
-  *
-  *   1G -   2G   VMAP: ioremap and early_ioremap
-  *
-@@ -133,6 +134,7 @@
- #define BOOT_FDT_VIRT_START     (FIXMAP_VIRT_START + FIXMAP_VIRT_SIZE)
- #define BOOT_FDT_VIRT_SIZE      _AT(vaddr_t, MB(4))
+diff --git a/docs/misc/xen-command-line.pandoc b/docs/misc/xen-command-line.pandoc
+index a89c0cef61..d486946648 100644
+--- a/docs/misc/xen-command-line.pandoc
++++ b/docs/misc/xen-command-line.pandoc
+@@ -2796,6 +2796,16 @@ In the case that x2apic is in use, this option switches between physical and
+ clustered mode.  The default, given no hint from the **FADT**, is cluster
+ mode.
  
-+#define BOOT_RELOC_VIRT_START   (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
- #ifdef CONFIG_LIVEPATCH
- #define LIVEPATCH_VMAP_START    (BOOT_FDT_VIRT_START + BOOT_FDT_VIRT_SIZE)
- #define LIVEPATCH_VMAP_SIZE    _AT(vaddr_t, MB(2))
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index b9c698088b..7015a0f841 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -145,6 +145,7 @@ static void __init __maybe_unused build_assertions(void)
-     /* 2MB aligned regions */
-     BUILD_BUG_ON(XEN_VIRT_START & ~SECOND_MASK);
-     BUILD_BUG_ON(FIXMAP_ADDR(0) & ~SECOND_MASK);
-+    BUILD_BUG_ON(BOOT_RELOC_VIRT_START & ~SECOND_MASK);
-     /* 1GB aligned regions */
- #ifdef CONFIG_ARM_32
-     BUILD_BUG_ON(XENHEAP_VIRT_START & ~FIRST_MASK);
++### xen-llc-colors (arm64)
++> `= List of [ <integer> | <integer>-<integer> ]`
++
++> Default: `0: the lowermost color`
++
++Specify Xen LLC color configuration. This options is available only when
++`CONFIG_LLC_COLORING` is enabled.
++Two colors are most likely needed on platforms where private caches are
++physically indexed, e.g. the L1 instruction cache of the Arm Cortex-A57.
++
+ ### xenheap_megabytes (arm32)
+ > `= <size>`
+ 
+diff --git a/xen/arch/arm/llc_coloring.c b/xen/arch/arm/llc_coloring.c
+index 22612d455b..745e93a61a 100644
+--- a/xen/arch/arm/llc_coloring.c
++++ b/xen/arch/arm/llc_coloring.c
+@@ -19,6 +19,10 @@
+ #include <asm/processor.h>
+ #include <asm/sysregs.h>
+ 
++/* By default Xen uses the lowest color */
++#define XEN_DEFAULT_COLOR       0
++#define XEN_DEFAULT_NUM_COLORS  1
++
+ bool llc_coloring_enabled;
+ boolean_param("llc-coloring", llc_coloring_enabled);
+ 
+@@ -33,6 +37,9 @@ static paddr_t __ro_after_init addr_col_mask;
+ static unsigned int __ro_after_init dom0_colors[CONFIG_NR_LLC_COLORS];
+ static unsigned int __ro_after_init dom0_num_colors;
+ 
++static unsigned int __ro_after_init xen_colors[CONFIG_NR_LLC_COLORS];
++static unsigned int __ro_after_init xen_num_colors;
++
+ #define addr_to_color(addr) (((addr) & addr_col_mask) >> PAGE_SHIFT)
+ 
+ /*
+@@ -83,6 +90,12 @@ static int parse_color_config(const char *buf, unsigned int *colors,
+     return *s ? -EINVAL : 0;
+ }
+ 
++static int __init parse_xen_colors(const char *s)
++{
++    return parse_color_config(s, xen_colors, &xen_num_colors);
++}
++custom_param("xen-llc-colors", parse_xen_colors);
++
+ static int __init parse_dom0_colors(const char *s)
+ {
+     return parse_color_config(s, dom0_colors, &dom0_num_colors);
+@@ -166,6 +179,8 @@ static void dump_coloring_info(unsigned char key)
+     printk("LLC way size: %u KiB\n", llc_way_size >> 10);
+     printk("Number of LLC colors supported: %u\n", nr_colors);
+     printk("Address to LLC color mask: 0x%lx\n", addr_col_mask);
++    printk("Xen LLC colors: ");
++    print_colors(xen_colors, xen_num_colors);
+ }
+ 
+ bool __init llc_coloring_init(void)
+@@ -202,6 +217,21 @@ bool __init llc_coloring_init(void)
+ 
+     addr_col_mask = (nr_colors - 1) << PAGE_SHIFT;
+ 
++    if ( !xen_num_colors )
++    {
++        printk(XENLOG_WARNING
++               "Xen LLC color config not found. Using default color: %u\n",
++               XEN_DEFAULT_COLOR);
++        xen_colors[0] = XEN_DEFAULT_COLOR;
++        xen_num_colors = XEN_DEFAULT_NUM_COLORS;
++    }
++
++    if ( !check_colors(xen_colors, xen_num_colors) )
++    {
++        printk(XENLOG_ERR "Bad LLC color config for Xen\n");
++        return false;
++    }
++
+     register_keyhandler('K', dump_coloring_info, "dump LLC coloring info", 1);
+ 
+     return true;
 -- 
 2.34.1
 
