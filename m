@@ -2,55 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E68B86797DD
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 13:24:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483524.749712 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B07926797DF
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 13:24:58 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483526.749722 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKILD-00047z-7R; Tue, 24 Jan 2023 12:23:55 +0000
+	id 1pKILk-0004ac-Gp; Tue, 24 Jan 2023 12:24:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483524.749712; Tue, 24 Jan 2023 12:23:55 +0000
+Received: by outflank-mailman (output) from mailman id 483526.749722; Tue, 24 Jan 2023 12:24:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKILD-00045R-4g; Tue, 24 Jan 2023 12:23:55 +0000
-Received: by outflank-mailman (input) for mailman id 483524;
- Tue, 24 Jan 2023 12:23:53 +0000
+	id 1pKILk-0004XG-Dk; Tue, 24 Jan 2023 12:24:28 +0000
+Received: by outflank-mailman (input) for mailman id 483526;
+ Tue, 24 Jan 2023 12:24:26 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=KMs4=5V=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pKILB-00045L-IY
- for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 12:23:53 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
+ id 1pKILi-0004Vt-8S
+ for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 12:24:26 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id f55bea82-9be1-11ed-91b6-6bf2151ebd3b;
- Tue, 24 Jan 2023 13:23:51 +0100 (CET)
-Received: from BN9PR03CA0953.namprd03.prod.outlook.com (2603:10b6:408:108::28)
- by BY5PR12MB4308.namprd12.prod.outlook.com (2603:10b6:a03:20a::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ id 09c7df3c-9be2-11ed-91b6-6bf2151ebd3b;
+ Tue, 24 Jan 2023 13:24:24 +0100 (CET)
+Received: from DS7PR05CA0046.namprd05.prod.outlook.com (2603:10b6:8:2f::14) by
+ PH7PR12MB6538.namprd12.prod.outlook.com (2603:10b6:510:1f1::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Tue, 24 Jan
- 2023 12:23:48 +0000
-Received: from BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:108:cafe::20) by BN9PR03CA0953.outlook.office365.com
- (2603:10b6:408:108::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Tue, 24 Jan 2023 12:23:48 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT096.mail.protection.outlook.com (10.13.177.195) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6023.16 via Frontend Transport; Tue, 24 Jan 2023 12:23:48 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 12:24:21 +0000
+Received: from CY4PEPF0000C96C.namprd02.prod.outlook.com
+ (2603:10b6:8:2f:cafe::86) by DS7PR05CA0046.outlook.office365.com
+ (2603:10b6:8:2f::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.16 via Frontend
+ Transport; Tue, 24 Jan 2023 12:24:20 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CY4PEPF0000C96C.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.16 via Frontend Transport; Tue, 24 Jan 2023 12:24:20 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 24 Jan
- 2023 06:23:47 -0600
+ 2023 06:24:19 -0600
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 24 Jan
- 2023 06:23:47 -0600
+ 2023 06:24:19 -0600
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 24 Jan 2023 06:23:45 -0600
+ via Frontend Transport; Tue, 24 Jan 2023 06:24:17 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,28 +62,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f55bea82-9be1-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 09c7df3c-9be2-11ed-91b6-6bf2151ebd3b
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TiasAKgtQArF6j70wJj36I+BASH5iPP4RNLgrsuhsWY3IsarcpJ16PGwwzhjp0yW5bKFkxB9QBAHTemAN8Uno7uTDempEvrpAic6Xp8IS2/GT/zeG5RjSAdw8oCbW23k7DOW/kydbHK/lxn1jHpzsfZS+48ltpc/HFm0g9lpvGxc0906moqgXjzubDWqYDiWfnvDzDT/HRAU1vmx+6vvNuLsq7039M2fwkhyeyy5Ji2w70sgmPoSrP8K5ZKqXwTxMd+gh1+Rps6TYrc/7pFU9HGZP/Kha6ZBEU17yNjJDKf4/YOGdffAIYoN09nsC2ZEECQUbAfQ6NhCSw5SUwDbqw==
+ b=UdbK5XxRQ+EMtHOJ1LsgpJTQUawO1BShYPxYdlsEi/dV021E8dfDopG4NEV8MvFODuoRv0RdrC8J1qHmSXsdMKDahc3pQrZ3kUPxIUhslyzEqoQgkCuIaAQaBYCDYr4KsYiInEdbbrKHU3mAVWKzeBji3eYf8IdRZ2AbfLwuD5s5tnuCYGgCNCyfy5LIvCvEPoDz932RvaKogumZyAp90R1DJQIpNHMtJbiThw5JYBGLvSwMPlHiDekjZkHcYuxVQgEpqAEvevUd1PO/LooJqkwYmJPZhTL8WYGCy1bEdatmXwQThPv60DqeJQiEInTbwGIsuECljhYbKFIO3BL25w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yNRhILNLfqW939U1RmkLOBvXHj+NzLs7DVp5r/4+RbA=;
- b=Ann4hREntyd3d2BdpjGgm57pS65EWe0Ar/IdFbFTWJSEVMEehQrPqDbJvS3POKYyKIsfdBOT74eK7KLbqBkNFYCj3lczpwtmwvDZfatBe0SQTcgD5D266+fkpo5+1QwtBenjhwAhPSkxK/cDATlrkdc7bb/v90ExuPqMftcUPqVXuLG+sMSe2yyN11t4tx0XHmYb+htzkiSSqv2BwotAYqHavethDjzISkV0K0rsPJ062fUJP98x9fwHWXd9EXIOcdT1S1DxtF1rlnvquy1T3xNE0SLZS+FE4lY+JEmxnwuRJ+Zwvb9ffiN1bhBm5f/IMHQY94+UtuZxw3zLVyI6bA==
+ bh=dLtHfVA9rWIdMrCEiLYIoSk9YFT/fvnUoYzthA+TwGE=;
+ b=Ivmbq/5AnURA25XAoMW5roUrn7TcBu7Mp2fwf6syxQIHOF17i7FaFuMkqZI3IC0c7vZLehBydluR9+CSJgAVMo47SZwSs8Bv4TtOZXieHoCHhf+nG2R0VSr0Q5aWX6xbqnhTe1euYkG55EwTG9YrqKELoTogK3uMRQKzQmqdEeIuCJmKt5pLYbdjlOOAkKhfp7C+qpANwq5guf6rt+ErjVHgCSNz8/B8kHJrNBboaKc5WXqr167Nt7bxw+5fTB05aecTchEHnd/h1b98LkL5Lf6m6ynf11rECDd0G8XUSomxH5gEIqEhMGK3gKs3s2w1RzWE2woUGLKiU6JI6IZ4zw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yNRhILNLfqW939U1RmkLOBvXHj+NzLs7DVp5r/4+RbA=;
- b=JuaMcYM0UNjHx7LCQbC54271lAT0ZX/JyDBdFg9mZCkLaroeqhBVyCBzwZ7v+2mrmtYL/SSqniDuwbxnr1jMi6YqyClhePKRDEkD5RX49ZQz8y9YZCY5OHac4jIYV1Uib40d6gqUE5h6ohBokOBT6JsNIV0lpC37dTirv11xAeI=
+ bh=dLtHfVA9rWIdMrCEiLYIoSk9YFT/fvnUoYzthA+TwGE=;
+ b=3bhXEmcHit2wiXD102CubgJkRclTmvxYenlQlDVQxu36ZhJUKhqb/SzPwLXB+25mcPIpcIckrcmVtJG4I0CDpPodSAXPS/Jd3FJzhCiurY6VHPckCn+UhmVaOxrD+Y34GK3vbOaA9x88kM7ceCSK8AKGiHuMWFu1hLz1wQOEua0=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
 From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
@@ -91,63 +91,240 @@ CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
 	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
 	<wl@xen.org>, <xuwei5@hisilicon.com>, Ayan Kumar Halder
 	<ayan.kumar.halder@amd.com>
-Subject: [XEN v4 0/3] Pre-requisite patches for supporting 32 bit physical address
-Date: Tue, 24 Jan 2023 12:23:33 +0000
-Message-ID: <20230124122336.40993-1-ayan.kumar.halder@amd.com>
+Subject: [XEN v4 1/3] xen/arm: Use the correct format specifier
+Date: Tue, 24 Jan 2023 12:23:34 +0000
+Message-ID: <20230124122336.40993-2-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20230124122336.40993-1-ayan.kumar.halder@amd.com>
+References: <20230124122336.40993-1-ayan.kumar.halder@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT096:EE_|BY5PR12MB4308:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33618034-cfe8-4c08-2b56-08dafe05d827
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C96C:EE_|PH7PR12MB6538:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0564bf77-ed2e-4463-de66-08dafe05eb3a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	UhbqywAVyihLhRPrchx13O0Hzt4A0/4KwQGGBX83fqXpnFSMMpukjZklySRy3rOAvR2x6aS7bwUdEp7KHlG8Lisv4mGdsONqfC7wxTysxwyvjDj4wKwK3yFmbEp54EDteNupPzbt+H1sT04YhWSTLRrNxfk9/M+h4lPxTwomLKUBlCdBduMBeba24SlaHBghNHQoKgDF7xM3NUJv7hagdTM9XuQf8orYqQLSGhmCqaM3ZyZkro+f2FtjZjEqj3MuyNqSNMfeU4vfmijC2ju0BPX6w5wkpk+nB7Ho/H0baiJvBv6sDObh34Vc3Xd2pJnUnv8tQGVkztb9yNXsyInartiV6m21TOsGa2yjQE+gEhQ8SidHzC5XBnaFj0y3DUbWEYmoy/jgF27GYvJcvaDTzgVRnuTp5IDy/fbTYwclUE3symG8Fdsv7lVGugfNQtTkF98pbh4HYNUs5v5v3mitCwe6ssiphLSS/AFKWI0myfYYjLB+EudeM3ONxzURSpU+K8llDc+iGrAb+Y0wK+CSM+doBL9WNHmNujgVw6PBHMcj0Ea+w9Tlyv7KZ7iLqg0479bX7+hCqVRiZHVdkEvTMGmugVXphUSNXHIvqyZaGHOSJmKn4GZRmfhXkS8SEO7sEkBVY5Z3H81OimT9X3nWd4FkWwPacVnzn9ceJnzAdDgwvyJGiZM9ksf6an4T8dxlx1Ltpl7m+rKyYcgnbdl3ges+VHJ+7ngYubF02XZ/RPs=
+	D8M8eEf3G61sjvtgaWcF8iBsvvH+pUI5Mi5wXBUFTaUqZa2s0ybz9NaNgWyoqEyJfFMjYYG3s3AUPBL//9Dd36x24F/TycjW1WWYq61RleIC6LpvRdEsn3TQUsLQ+dwFq5OqL82JkS7FeczUXg47jYQkvlK3ncrWfkEjUhcmETKgMY8uUkIgwv3uLauW1iSZ4H8/mU7xcRUXmqmSAEsNatitX1VfnOdcIfdflSoFlBqWbJaF/R9oJWKZ37ioROhd0GQj2tmTXTFbOkgnsR6QfmKlCJbuMcrKknNqVOYvLphN7MEcFPZZgBYhyHv/4F5BzzaLJtEh4XXdI0BPnhmO1sT976J23EI+awIGkYslwW4CvbNSLQ48WdtPeYXPPsKA1lCpyY1Wdi3RXZWlsb7BqzFtgTMUjR62nksw3eR/VuTOZ+M166Mq9Ga/cpv119pprz/5DlwzGZDnoVGi58V2JsUAH71LF8lIazXTXxfOGPAyOOe1JKr4F7mpDcSPeemJ5MmzFx2tQ2kFexSbjZtTIep/MSQDuh+k1rTMpE38sCb2JLoiHpOJRZSJLIZt9IZS2u1iuZrS7VxhQS95+e0R7CRHoPv3M6lnLw8R12xigs3HQcq+rzqVDwzgKc1Rnq/NWwE4u82oCXCePk3rNlK2B/WLUMDDnK8zADZfaAJbXJG/F6C/uoQSzIUvZsitPfruQWX4Y+t9/ajYm0NrHGg8QtTmyMRoWMYLoBArlBTpFXyEgw7KczUmVb9f7ChLd0ePHNGnLRKbQN3aOfQ5uL3DXg==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(396003)(136003)(346002)(376002)(39860400002)(451199015)(40470700004)(46966006)(36840700001)(81166007)(82740400003)(103116003)(40460700003)(36756003)(356005)(40480700001)(82310400005)(86362001)(478600001)(316002)(336012)(8676002)(70206006)(6916009)(70586007)(4326008)(2616005)(426003)(47076005)(54906003)(1076003)(2906002)(8936002)(186003)(26005)(41300700001)(36860700001)(83380400001)(6666004)(7416002)(5660300002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199015)(46966006)(36840700001)(40470700004)(36860700001)(83380400001)(103116003)(81166007)(82740400003)(7416002)(41300700001)(86362001)(356005)(2906002)(82310400005)(8936002)(5660300002)(4326008)(40460700003)(316002)(40480700001)(26005)(6916009)(8676002)(186003)(6666004)(47076005)(336012)(426003)(70586007)(70206006)(54906003)(2616005)(1076003)(478600001)(966005)(36756003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 12:23:48.0615
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 12:24:20.0047
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33618034-cfe8-4c08-2b56-08dafe05d827
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0564bf77-ed2e-4463-de66-08dafe05eb3a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
+	CY4PEPF0000C96C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6538
 
-Hi All,
+1. One should use 'PRIpaddr' to display 'paddr_t' variables. However,
+while creating nodes in fdt, the address (if present in the node name)
+should be represented using 'PRIx64'. This is to be in conformance
+with the following rule present in https://elinux.org/Device_Tree_Linux
 
-These series include some patches and fixes identified during the review of
-"[XEN v2 00/11] Add support for 32 bit physical address".
+. node names
+"unit-address does not have leading zeros"
 
-Patch 1/3 : The previous version causes CI to fail. This patch attempts to fix
-this.
+As 'PRIpaddr' introduces leading zeros, we cannot use it.
 
-Patch 2/3 : This was pointed by Jan during the review of
-"[XEN v2 05/11] xen/arm: Use paddr_t instead of u64 for address/size".
-Similar to Patch 1/3, this can also be considered as a pre-req for supporting
-32 bit physical address.
+So, we have introduced a wrapper ie domain_fdt_begin_node() which will
+represent physical address using 'PRIx64'.
 
-Patch 3/3 : This was also pointed by Jan during the review of
-"[XEN v2 05/11] xen/arm: Use paddr_t instead of u64 for address/size".
+2. One should use 'PRIx64' to display 'u64' in hex format. The current
+use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
+address.
 
-Ayan Kumar Halder (3):
-  xen/arm: Use the correct format specifier
-  xen/drivers: ns16550: Fix the use of simple_strtoul() for extracting
-    u64
-  xen/drivers: ns16550: Fix an incorrect assignment to uart->io_size
+Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+---
+
+Changes from -
+
+v1 - 1. Moved the patch earlier.
+2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
+into this patch.
+
+v2 - 1. Use PRIx64 for appending addresses to fdt node names. This fixes the CI failure.
+
+v3 - 1. Added a comment on top of domain_fdt_begin_node().
+2. Check for the return of snprintf() in domain_fdt_begin_node().
 
  xen/arch/arm/domain_build.c | 64 +++++++++++++++++++++++--------------
  xen/arch/arm/gic-v2.c       |  6 ++--
  xen/arch/arm/mm.c           |  2 +-
- xen/drivers/char/ns16550.c  |  6 ++--
- 4 files changed, 47 insertions(+), 31 deletions(-)
+ 3 files changed, 44 insertions(+), 28 deletions(-)
 
+diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+index f35f4d2456..81a213cf9a 100644
+--- a/xen/arch/arm/domain_build.c
++++ b/xen/arch/arm/domain_build.c
+@@ -1288,6 +1288,39 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
+     return res;
+ }
+ 
++/*
++ * Wrapper to convert physical address from paddr_t to uint64_t and
++ * invoke fdt_begin_node(). This is required as the physical address
++ * provided as a part of node name should not contain any leading
++ * zeroes. Thus, one should use PRIx64 (instead of PRIpaddr) to append
++ * unit (which contains the physical address) with name to generate a
++ * node name.
++ */
++static int __init domain_fdt_begin_node(void *fdt, const char *name,
++                                        uint64_t unit)
++{
++    /*
++     * The size of the buffer to hold the longest possible string ie
++     * interrupt-controller@ + a 64-bit number + \0
++     */
++    char buf[38];
++    int ret;
++
++    /* ePAPR 3.4 */
++    ret = snprintf(buf, sizeof(buf), "%s@%"PRIx64, name, unit);
++
++    if ( ret >= sizeof(buf) )
++    {
++        printk(XENLOG_ERR
++               "Insufficient buffer. Minimum size required is %d\n",
++               ( ret + 1 ));
++
++        return -FDT_ERR_TRUNCATED;
++    }
++
++    return fdt_begin_node(fdt, buf);
++}
++
+ static int __init make_memory_node(const struct domain *d,
+                                    void *fdt,
+                                    int addrcells, int sizecells,
+@@ -1296,8 +1329,6 @@ static int __init make_memory_node(const struct domain *d,
+     unsigned int i;
+     int res, reg_size = addrcells + sizecells;
+     int nr_cells = 0;
+-    /* Placeholder for memory@ + a 64-bit number + \0 */
+-    char buf[24];
+     __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + sizecells */];
+     __be32 *cells;
+ 
+@@ -1314,9 +1345,7 @@ static int __init make_memory_node(const struct domain *d,
+ 
+     dt_dprintk("Create memory node\n");
+ 
+-    /* ePAPR 3.4 */
+-    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
+-    res = fdt_begin_node(fdt, buf);
++    res = domain_fdt_begin_node(fdt, "memory", mem->bank[i].start);
+     if ( res )
+         return res;
+ 
+@@ -1375,16 +1404,13 @@ static int __init make_shm_memory_node(const struct domain *d,
+     {
+         uint64_t start = mem->bank[i].start;
+         uint64_t size = mem->bank[i].size;
+-        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
+-        char buf[27];
+         const char compat[] = "xen,shared-memory-v1";
+         /* Worst case addrcells + sizecells */
+         __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+         __be32 *cells;
+         unsigned int len = (addrcells + sizecells) * sizeof(__be32);
+ 
+-        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
+-        res = fdt_begin_node(fdt, buf);
++        res = domain_fdt_begin_node(fdt, "xen-shmem", mem->bank[i].start);
+         if ( res )
+             return res;
+ 
+@@ -2716,12 +2742,9 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+     __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
+     __be32 *cells;
+     const struct domain *d = kinfo->d;
+-    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
+-    char buf[38];
+ 
+-    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+-             vgic_dist_base(&d->arch.vgic));
+-    res = fdt_begin_node(fdt, buf);
++    res = domain_fdt_begin_node(fdt, "interrupt-controller",
++                                vgic_dist_base(&d->arch.vgic));
+     if ( res )
+         return res;
+ 
+@@ -2771,14 +2794,10 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+     int res = 0;
+     __be32 *reg, *cells;
+     const struct domain *d = kinfo->d;
+-    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
+-    char buf[38];
+     unsigned int i, len = 0;
+ 
+-    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+-             vgic_dist_base(&d->arch.vgic));
+-
+-    res = fdt_begin_node(fdt, buf);
++    res = domain_fdt_begin_node(fdt, "interrupt-controller",
++                                vgic_dist_base(&d->arch.vgic));
+     if ( res )
+         return res;
+ 
+@@ -2858,11 +2877,8 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+     __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+     __be32 *cells;
+     struct domain *d = kinfo->d;
+-    /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
+-    char buf[27];
+ 
+-    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
+-    res = fdt_begin_node(fdt, buf);
++    res = domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_addr);
+     if ( res )
+         return res;
+ 
+diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+index 61802839cb..5d4d298b86 100644
+--- a/xen/arch/arm/gic-v2.c
++++ b/xen/arch/arm/gic-v2.c
+@@ -1049,7 +1049,7 @@ static void __init gicv2_dt_init(void)
+     if ( csize < SZ_8K )
+     {
+         printk(XENLOG_WARNING "GICv2: WARNING: "
+-               "The GICC size is too small: %#"PRIx64" expected %#x\n",
++               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
+                csize, SZ_8K);
+         if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
+         {
+@@ -1280,11 +1280,11 @@ static int __init gicv2_init(void)
+         gicv2.map_cbase += aliased_offset;
+ 
+         printk(XENLOG_WARNING
+-               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
++               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
+                cbase + aliased_offset);
+     } else if ( csize == SZ_128K )
+         printk(XENLOG_WARNING
+-               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
++               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
+                csize);
+ 
+     gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
+diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+index 0fc6f2992d..fab54618ab 100644
+--- a/xen/arch/arm/mm.c
++++ b/xen/arch/arm/mm.c
+@@ -249,7 +249,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+ 
+         pte = mapping[offsets[level]];
+ 
+-        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
++        printk("%s[0x%03x] = 0x%"PRIx64"\n",
+                level_strs[level], offsets[level], pte.bits);
+ 
+         if ( level == 3 || !pte.walk.valid || !pte.walk.table )
 -- 
 2.17.1
 
