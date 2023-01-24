@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2538C67A101
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:16:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483674.749975 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D8867A113
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:22:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483679.749985 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKNqH-0002yZ-A9; Tue, 24 Jan 2023 18:16:21 +0000
+	id 1pKNvs-0004Nh-UN; Tue, 24 Jan 2023 18:22:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483674.749975; Tue, 24 Jan 2023 18:16:21 +0000
+Received: by outflank-mailman (output) from mailman id 483679.749985; Tue, 24 Jan 2023 18:22:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKNqH-0002vj-7D; Tue, 24 Jan 2023 18:16:21 +0000
-Received: by outflank-mailman (input) for mailman id 483674;
- Tue, 24 Jan 2023 18:16:20 +0000
+	id 1pKNvs-0004LC-RO; Tue, 24 Jan 2023 18:22:08 +0000
+Received: by outflank-mailman (input) for mailman id 483679;
+ Tue, 24 Jan 2023 18:22:07 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pKNqG-0002vd-3C
- for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:16:20 +0000
+ (envelope-from <julien@xen.org>) id 1pKNvr-0004L5-BU
+ for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:22:07 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKNqD-0001Kk-QT; Tue, 24 Jan 2023 18:16:17 +0000
+ id 1pKNvq-0001Qa-Sa; Tue, 24 Jan 2023 18:22:06 +0000
 Received: from [54.239.6.189] (helo=[192.168.20.46])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKNqD-0008Nt-JB; Tue, 24 Jan 2023 18:16:17 +0000
+ id 1pKNvq-0000DU-MX; Tue, 24 Jan 2023 18:22:06 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,120 +42,93 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=NY7JwPPR50y+fz7nwQdvaJwsfN4uh4lspWJSX8WfcUQ=; b=oOfkjowMIrpX675yS6yWavVdaZ
-	RZq3h5KKZgzaI5jDOnvGIJEOmFiYLo+RwOyKVuGN7O0kqH+O2Bd3nQcpGDgK2vow0XU9x1pOZJnjL
-	GgSGOdpykyacfVwbgQTRBBagC1kuDPXhv27yzm3EYcsSS3FlGLIdXC4IfGk0ZKbFP/8E=;
-Message-ID: <631b5639-0f48-a872-219b-607d0a521960@xen.org>
-Date: Tue, 24 Jan 2023 18:16:14 +0000
+	bh=vVB2uH+yR7egd+Uws0JxTVET7xDa/Cfg533Zfr/q1FY=; b=FxdcLXUsoOqUFmVx+xO7pF1Qm/
+	2j5YQM1QmdUPJZ+4wDiHPjO2KdPVQOGAcNREvlmEKBQxJv426JxpkyRjcnVvNufME0vVmr0/5GvLN
+	iiW/cK6B02/D/ZgSv6zP2F1WI0P2spqgaS8AXlRSFMsqkD09zKi0IctOmzYAtMt/4pPA=;
+Message-ID: <25264dca-acf6-7ad1-e8a5-a1b893eab30d@xen.org>
+Date: Tue, 24 Jan 2023 18:22:04 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [XEN v4 1/3] xen/arm: Use the correct format specifier
+Subject: Re: [PATCH 3/3] xen/arm: Clean-up in p2m_init() and
+ p2m_final_teardown()
 Content-Language: en-US
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
+To: Michal Orzel <michal.orzel@amd.com>, Henry Wang <Henry.Wang@arm.com>,
  xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, xuwei5@hisilicon.com
-References: <20230124122336.40993-1-ayan.kumar.halder@amd.com>
- <20230124122336.40993-2-ayan.kumar.halder@amd.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <wei.chen@arm.com>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230116015820.1269387-1-Henry.Wang@arm.com>
+ <20230116015820.1269387-4-Henry.Wang@arm.com>
+ <d9861060-22ba-5fce-eef6-a7f2ef01526a@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230124122336.40993-2-ayan.kumar.halder@amd.com>
+In-Reply-To: <d9861060-22ba-5fce-eef6-a7f2ef01526a@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Ayan,
+Hi,
 
-On 24/01/2023 12:23, Ayan Kumar Halder wrote:
-> 1. One should use 'PRIpaddr' to display 'paddr_t' variables. However,
-> while creating nodes in fdt, the address (if present in the node name)
-> should be represented using 'PRIx64'. This is to be in conformance
-> with the following rule present in https://elinux.org/Device_Tree_Linux
+On 20/01/2023 10:23, Michal Orzel wrote:
+> Hi Henry,
 > 
-> . node names
-> "unit-address does not have leading zeros"
-> 
-> As 'PRIpaddr' introduces leading zeros, we cannot use it.
-> 
-> So, we have introduced a wrapper ie domain_fdt_begin_node() which will
-> represent physical address using 'PRIx64'.
-> 
-> 2. One should use 'PRIx64' to display 'u64' in hex format. The current
-> use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
-> address.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changes from -
-> 
-> v1 - 1. Moved the patch earlier.
-> 2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
-> into this patch.
-> 
-> v2 - 1. Use PRIx64 for appending addresses to fdt node names. This fixes the CI failure.
-> 
-> v3 - 1. Added a comment on top of domain_fdt_begin_node().
-> 2. Check for the return of snprintf() in domain_fdt_begin_node().
-> 
->   xen/arch/arm/domain_build.c | 64 +++++++++++++++++++++++--------------
->   xen/arch/arm/gic-v2.c       |  6 ++--
->   xen/arch/arm/mm.c           |  2 +-
->   3 files changed, 44 insertions(+), 28 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index f35f4d2456..81a213cf9a 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1288,6 +1288,39 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
->       return res;
->   }
->   
-> +/*
-> + * Wrapper to convert physical address from paddr_t to uint64_t and
-> + * invoke fdt_begin_node(). This is required as the physical address
-> + * provided as a part of node name should not contain any leading
-
-s/as a part/as part/ ?
-
-> + * zeroes. Thus, one should use PRIx64 (instead of PRIpaddr) to append
-> + * unit (which contains the physical address) with name to generate a
-> + * node name.
-> + */
-> +static int __init domain_fdt_begin_node(void *fdt, const char *name,
-> +                                        uint64_t unit)
-> +{
-> +    /*
-> +     * The size of the buffer to hold the longest possible string ie
-
-I think this should be "i.e." and there is possibly a missing full stop 
-before hand.
-
-> +     * interrupt-controller@ + a 64-bit number + \0
-> +     */
-> +    char buf[38];
-> +    int ret;
-> +
-> +    /* ePAPR 3.4 */
-> +    ret = snprintf(buf, sizeof(buf), "%s@%"PRIx64, name, unit);
-> +
-> +    if ( ret >= sizeof(buf) )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "Insufficient buffer. Minimum size required is %d\n",
-> +               ( ret + 1 ));
-
-The parenthesis are unnecessary. But if you want them, then you should 
-not add a space after ( and before ).
-
-> +
-> +        return -FDT_ERR_TRUNCATED;
-> +    }
-> +
-> +    return fdt_begin_node(fdt, buf);
-> +}
-> +
+> On 16/01/2023 02:58, Henry Wang wrote:
+>>
+>>
+>> With the change in previous patch, the initial 16 pages in the P2M
+>> pool is not necessary anymore. Drop them for code simplification.
+>>
+>> Also the call to p2m_teardown() from arch_domain_destroy() is not
+>> necessary anymore since the movement of the P2M allocation out of
+>> arch_domain_create(). Drop the code and the above in-code comment
+>> mentioning it.
+>>
+>> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+>> ---
+>> I am not entirely sure if I should also drop the "TODO" on top of
+>> the p2m_set_entry(). Because although we are sure there is no
+>> p2m pages populated in domain_create() stage now, but we are not
+>> sure if anyone will add more in the future...Any comments?
+>> ---
+>>   xen/arch/arm/include/asm/p2m.h |  4 ----
+>>   xen/arch/arm/p2m.c             | 20 +-------------------
+>>   2 files changed, 1 insertion(+), 23 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
+>> index bf5183e53a..cf06d3cc21 100644
+>> --- a/xen/arch/arm/include/asm/p2m.h
+>> +++ b/xen/arch/arm/include/asm/p2m.h
+>> @@ -200,10 +200,6 @@ int p2m_init(struct domain *d);
+>>    *  - p2m_final_teardown() will be called when domain struct is been
+>>    *    freed. This *cannot* be preempted and therefore one small
+>>    *    resources should be freed here.
+>> - *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
+>> - *  free the P2M when failures happen in the domain creation with P2M pages
+>> - *  already in use. In this case p2m_teardown() is called non-preemptively and
+>> - *  p2m_teardown() will always return 0.
+>>    */
+>>   int p2m_teardown(struct domain *d, bool allow_preemption);
+>>   void p2m_final_teardown(struct domain *d);
+>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>> index 7de7d822e9..d41a316d18 100644
+>> --- a/xen/arch/arm/p2m.c
+>> +++ b/xen/arch/arm/p2m.c
+>> @@ -1744,13 +1744,9 @@ void p2m_final_teardown(struct domain *d)
+>>       /*
+>>        * No need to call relinquish_p2m_mapping() here because
+>>        * p2m_final_teardown() is called either after domain_relinquish_resources()
+>> -     * where relinquish_p2m_mapping() has been called, or from failure path of
+>> -     * domain_create()/arch_domain_create() where mappings that require
+>> -     * p2m_put_l3_page() should never be created. For the latter case, also see
+>> -     * comment on top of the p2m_set_entry() for more info.
+>> +     * where relinquish_p2m_mapping() has been called.
+>>        */
+>>
+>> -    BUG_ON(p2m_teardown(d, false));
+> Because you remove this,
+>>       ASSERT(page_list_empty(&p2m->pages));
+> you no longer need this assert, right?
+I think the ASSERT() is still useful as it at least show that the pages 
+should have been freed before the call to p2m_final_teardown().
 
 Cheers,
 
