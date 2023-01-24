@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1D8867A113
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:22:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483679.749985 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07F8C67A124
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:28:25 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483684.749995 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKNvs-0004Nh-UN; Tue, 24 Jan 2023 18:22:08 +0000
+	id 1pKO1f-00057N-Hx; Tue, 24 Jan 2023 18:28:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483679.749985; Tue, 24 Jan 2023 18:22:08 +0000
+Received: by outflank-mailman (output) from mailman id 483684.749995; Tue, 24 Jan 2023 18:28:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKNvs-0004LC-RO; Tue, 24 Jan 2023 18:22:08 +0000
-Received: by outflank-mailman (input) for mailman id 483679;
- Tue, 24 Jan 2023 18:22:07 +0000
+	id 1pKO1f-00055N-Et; Tue, 24 Jan 2023 18:28:07 +0000
+Received: by outflank-mailman (input) for mailman id 483684;
+ Tue, 24 Jan 2023 18:28:06 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pKNvr-0004L5-BU
- for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:22:07 +0000
+ (envelope-from <julien@xen.org>) id 1pKO1e-000551-6I
+ for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:28:06 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKNvq-0001Qa-Sa; Tue, 24 Jan 2023 18:22:06 +0000
+ id 1pKO1d-0001WU-MH; Tue, 24 Jan 2023 18:28:05 +0000
 Received: from [54.239.6.189] (helo=[192.168.20.46])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKNvq-0000DU-MX; Tue, 24 Jan 2023 18:22:06 +0000
+ id 1pKO1d-0000MG-Bl; Tue, 24 Jan 2023 18:28:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,93 +42,100 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=vVB2uH+yR7egd+Uws0JxTVET7xDa/Cfg533Zfr/q1FY=; b=FxdcLXUsoOqUFmVx+xO7pF1Qm/
-	2j5YQM1QmdUPJZ+4wDiHPjO2KdPVQOGAcNREvlmEKBQxJv426JxpkyRjcnVvNufME0vVmr0/5GvLN
-	iiW/cK6B02/D/ZgSv6zP2F1WI0P2spqgaS8AXlRSFMsqkD09zKi0IctOmzYAtMt/4pPA=;
-Message-ID: <25264dca-acf6-7ad1-e8a5-a1b893eab30d@xen.org>
-Date: Tue, 24 Jan 2023 18:22:04 +0000
+	bh=F4RyW7ieQKR2gtA7gaemy2f7d3xMbPhWD7eLZ+R1iOY=; b=DGhLiTu3HG0aTldb4lmA9HhieW
+	/KEQO7OnNei1f7uMcUSE4onId/E5f9s2i5zmVJkHswAKs7UPEWtTui/enlgRec0mQbI6wqNfkvskj
+	rIco85ZYxoCEu2wJ87HhIza13QaQJWywqZXh+SXpXM4zLRXG1nU2nVW0k863SZ8HN6e0=;
+Message-ID: <59f4d24a-44cf-fa8f-bdac-2af036f2cd30@xen.org>
+Date: Tue, 24 Jan 2023 18:28:03 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 3/3] xen/arm: Clean-up in p2m_init() and
- p2m_final_teardown()
+Subject: Re: [PATCH 1/3] xen/arm: Reduce redundant clear root pages when
+ teardown p2m
 Content-Language: en-US
 To: Michal Orzel <michal.orzel@amd.com>, Henry Wang <Henry.Wang@arm.com>,
  xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <wei.chen@arm.com>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20230116015820.1269387-1-Henry.Wang@arm.com>
- <20230116015820.1269387-4-Henry.Wang@arm.com>
- <d9861060-22ba-5fce-eef6-a7f2ef01526a@amd.com>
+ <20230116015820.1269387-2-Henry.Wang@arm.com>
+ <36821aa0-4e88-57f7-3f8b-35ba0529fabf@amd.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <d9861060-22ba-5fce-eef6-a7f2ef01526a@amd.com>
+In-Reply-To: <36821aa0-4e88-57f7-3f8b-35ba0529fabf@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
 
-On 20/01/2023 10:23, Michal Orzel wrote:
+
+On 20/01/2023 09:43, Michal Orzel wrote:
 > Hi Henry,
 > 
 > On 16/01/2023 02:58, Henry Wang wrote:
 >>
 >>
->> With the change in previous patch, the initial 16 pages in the P2M
->> pool is not necessary anymore. Drop them for code simplification.
+>> Currently, p2m for a domain will be teardown from two paths:
+>> (1) The normal path when a domain is destroyed.
+>> (2) The arch_domain_destroy() in the failure path of domain creation.
 >>
->> Also the call to p2m_teardown() from arch_domain_destroy() is not
->> necessary anymore since the movement of the P2M allocation out of
->> arch_domain_create(). Drop the code and the above in-code comment
->> mentioning it.
+>> When tearing down p2m from (1), the part to clear and clean the root
+>> is only needed to do once rather than for every call of p2m_teardown().
+>> If the p2m teardown is from (2), the clear and clean of the root
+>> is unnecessary because the domain is not scheduled.
+>>
+>> Therefore, this patch introduces a helper `p2m_clear_root_pages()` to
+>> do the clear and clean of the root, and move this logic outside of
+>> p2m_teardown(). With this movement, the `page_list_empty(&p2m->pages)`
+>> check can be dropped.
 >>
 >> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
 >> ---
->> I am not entirely sure if I should also drop the "TODO" on top of
->> the p2m_set_entry(). Because although we are sure there is no
->> p2m pages populated in domain_create() stage now, but we are not
->> sure if anyone will add more in the future...Any comments?
+>> Was: [PATCH v2] xen/arm: Reduce redundant clear root pages when
+>> teardown p2m. Picked to this series with changes in original v1:
+>> 1. Introduce a new PROGRESS for p2m_clear_root_pages() to avoid
+>>     multiple calling when p2m_teardown() is preempted.
+>> 2. Move p2m_force_tlb_flush_sync() to p2m_clear_root_pages().
 >> ---
->>   xen/arch/arm/include/asm/p2m.h |  4 ----
->>   xen/arch/arm/p2m.c             | 20 +-------------------
->>   2 files changed, 1 insertion(+), 23 deletions(-)
+>>   xen/arch/arm/domain.c          | 12 ++++++++++++
+>>   xen/arch/arm/include/asm/p2m.h |  1 +
+>>   xen/arch/arm/p2m.c             | 34 ++++++++++++++--------------------
+>>   3 files changed, 27 insertions(+), 20 deletions(-)
 >>
->> diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
->> index bf5183e53a..cf06d3cc21 100644
->> --- a/xen/arch/arm/include/asm/p2m.h
->> +++ b/xen/arch/arm/include/asm/p2m.h
->> @@ -200,10 +200,6 @@ int p2m_init(struct domain *d);
->>    *  - p2m_final_teardown() will be called when domain struct is been
->>    *    freed. This *cannot* be preempted and therefore one small
->>    *    resources should be freed here.
->> - *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
->> - *  free the P2M when failures happen in the domain creation with P2M pages
->> - *  already in use. In this case p2m_teardown() is called non-preemptively and
->> - *  p2m_teardown() will always return 0.
->>    */
->>   int p2m_teardown(struct domain *d, bool allow_preemption);
->>   void p2m_final_teardown(struct domain *d);
->> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index 7de7d822e9..d41a316d18 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -1744,13 +1744,9 @@ void p2m_final_teardown(struct domain *d)
->>       /*
->>        * No need to call relinquish_p2m_mapping() here because
->>        * p2m_final_teardown() is called either after domain_relinquish_resources()
->> -     * where relinquish_p2m_mapping() has been called, or from failure path of
->> -     * domain_create()/arch_domain_create() where mappings that require
->> -     * p2m_put_l3_page() should never be created. For the latter case, also see
->> -     * comment on top of the p2m_set_entry() for more info.
->> +     * where relinquish_p2m_mapping() has been called.
->>        */
+>> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
+>> index 99577adb6c..961dab9166 100644
+>> --- a/xen/arch/arm/domain.c
+>> +++ b/xen/arch/arm/domain.c
+>> @@ -959,6 +959,7 @@ enum {
+>>       PROG_xen,
+>>       PROG_page,
+>>       PROG_mapping,
+>> +    PROG_p2m_root,
+>>       PROG_p2m,
+>>       PROG_p2m_pool,
+>>       PROG_done,
+>> @@ -1021,6 +1022,17 @@ int domain_relinquish_resources(struct domain *d)
+>>           if ( ret )
+>>               return ret;
 >>
->> -    BUG_ON(p2m_teardown(d, false));
-> Because you remove this,
->>       ASSERT(page_list_empty(&p2m->pages));
-> you no longer need this assert, right?
-I think the ASSERT() is still useful as it at least show that the pages 
-should have been freed before the call to p2m_final_teardown().
+>> +    PROGRESS(p2m_root):
+>> +        /*
+>> +         * We are about to free the intermediate page-tables, so clear the
+>> +         * root to prevent any walk to use them.
+> The comment from here...
+>> +         * The domain will not be scheduled anymore, so in theory we should
+>> +         * not need to flush the TLBs. Do it for safety purpose.
+>> +         * Note that all the devices have already been de-assigned. So we don't
+>> +         * need to flush the IOMMU TLB here.
+>> +         */
+> to here does not make a lot of sense in this place and should be moved to p2m_clear_root_pages
+> where a user can see the call to p2m_force_tlb_flush_sync.
+
++1
+
+> Apart from that:
+> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+
+Acked-by: Julien Grall <jgrall@amazon.com>
 
 Cheers,
 
