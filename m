@@ -2,55 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2CFC6795D9
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 11:57:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483472.749667 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CF1B679676
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 12:19:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483481.749676 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKGyl-0001CR-Lp; Tue, 24 Jan 2023 10:56:39 +0000
+	id 1pKHKf-0003sI-Lm; Tue, 24 Jan 2023 11:19:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483472.749667; Tue, 24 Jan 2023 10:56:39 +0000
+Received: by outflank-mailman (output) from mailman id 483481.749676; Tue, 24 Jan 2023 11:19:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKGyl-00019A-I7; Tue, 24 Jan 2023 10:56:39 +0000
-Received: by outflank-mailman (input) for mailman id 483472;
- Tue, 24 Jan 2023 10:56:38 +0000
+	id 1pKHKf-0003pZ-Ia; Tue, 24 Jan 2023 11:19:17 +0000
+Received: by outflank-mailman (input) for mailman id 483481;
+ Tue, 24 Jan 2023 11:19:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=EcKj=5V=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pKGyk-000194-7c
- for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 10:56:38 +0000
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2050.outbound.protection.outlook.com [40.107.93.50])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=HFQP=5V=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pKHKd-0003pT-Uh
+ for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 11:19:16 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2053.outbound.protection.outlook.com [40.107.22.53])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c34846f3-9bd5-11ed-b8d1-410ff93cb8f0;
- Tue, 24 Jan 2023 11:56:33 +0100 (CET)
-Received: from DM5PR07CA0058.namprd07.prod.outlook.com (2603:10b6:4:ad::23) by
- MN0PR12MB6004.namprd12.prod.outlook.com (2603:10b6:208:380::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ id eb39f723-9bd8-11ed-b8d1-410ff93cb8f0;
+ Tue, 24 Jan 2023 12:19:13 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB8359.eurprd04.prod.outlook.com (2603:10a6:20b:3b3::17)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Tue, 24 Jan
- 2023 10:56:30 +0000
-Received: from DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:ad:cafe::6) by DM5PR07CA0058.outlook.office365.com
- (2603:10b6:4:ad::23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
- Transport; Tue, 24 Jan 2023 10:56:30 +0000
-Received: from SATLEXMB04.amd.com (165.204.84.17) by
- DM6NAM11FT099.mail.protection.outlook.com (10.13.172.241) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6002.13 via Frontend Transport; Tue, 24 Jan 2023 10:56:29 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 24 Jan
- 2023 04:56:29 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 24 Jan
- 2023 02:56:28 -0800
-Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Tue, 24 Jan 2023 04:56:27 -0600
+ 2023 11:19:06 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6002.033; Tue, 24 Jan 2023
+ 11:19:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -62,650 +46,299 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c34846f3-9bd5-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: eb39f723-9bd8-11ed-b8d1-410ff93cb8f0
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L/R/F+pW8fX8wj85ZnJDH9M88aIjyWJyx69+g4FrEPMs5wXKhyezBRwuQBeqoXk5/eNPqVNicYYbsbdIBxT+9uqNNMDYJd8Swryc1ECfWa37j2yXTp78rXPcY0XPFkrZd9mkCwWxJdQGfKTCxsHJq0pz0vcqIDa0dyOStfM4SdMCv5AZgC5d+IRDI9wvMAcyAMJrsSD63BUpv4f7h2+yRfuAt6iXWgEqr3abDWGk/cWZcEjZwVIpzij7gYvBnzdwAnwPPM1wX4n25PXmcYvXweJC16cU0k7mvJ4IZ/tcQ2fcoA79IPMWu/GqideOWI6R+02pMVrKkoEzZvr6L+b4xQ==
+ b=T3fNMc9sHrota4o9Rwa9dn+lPqX8rzzXDHVYYoPjC95+YY2NCyKCiWh5LHN0ibus5c2USJih1xaUMrwBCeOtrB6FOYE8dMxQ/F71YINNZIMtjzmzMqOWKj42AkLWVXOr7aPAII2nktxsw3FlmaryPryeNQiZd527XtbiFyF46X1g4taQnDeF6On5uBlQHxmfb9ky7y21WSkm1V9jZDhlrj/N/YnBi/kVlKVlcu55tj4LOxCM/bAGaUKsZ77ePgBGJN6IojGsROOYIZFG4Rpc6xsS2ifcBh07mTYNy0qoiluQxMf5B7AVZncBgobaRJc7qXHLWg9XN6FIzay1Ee9ntw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6lNnU5d6266tgFlyfbx7geCpGMT6/ZXZjG5mtIs/Pq0=;
- b=WSRSwA51ev8o4rrTWumdwmcmLBHZPn3fUnJQUyUwck5SgvYks9ch2PFkUNOLyob4jOOFY3BH09ckoysdvEW/sqmbRBkWsVSQzAiMq9UviQn0nThqhEuG9xkJS6nPy3e//rXLXXCZF35rkXKqPHwsM4mh7F8xVBUcnXXbRtyETUppLekbVqQE0qy50pjndqGXtZjAcVdtJnHb9niXCSrghu+0UxhboiHYqzYliH+1jZbXj4Yr+K6rDTdij2sGQUcsuzrWz1Yc07DVk7O1EsLBH1gA5Az7VOXsEpLBNhMvkvpcNopqAAgaxvs/7AD2h4//HMsyWcNL2Umks8GIWAn5yA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=uYDO/WG9lwrpKxcxKdvmeoiZh8bvQ9oxQUj65CXMJ6Q=;
+ b=ZvEhDF43MypbdF53UP2eApIxy6pNa+PlmFZ4YSYxlWCLNdOqfLfsWqbd3HjPOy3sbEwSz8OJ+ARoUOdDLwgbvgLnqbh5ZCmGOQgpaGL6Uj89S3BYfs8I/UN+sl6BJlrKCfJqnurOG2WZEgpSdVd3gpUAOT5oEgqk7xg/mxVdT+h76s6p+qEUmGT6+jBSu/jLM9reeNp5e8t0vlJnhqu2SPe0I0PNvRoufZhWMObri/835ltHcnq1J56nq5J9SbBmUIsWucooH1c60WDEczbVRsy8ep9AvpDbmv6gZJ8zab9JA1pe+6uds8X8fIwht7pkPL0qjgawlPMGu/odqpGg3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6lNnU5d6266tgFlyfbx7geCpGMT6/ZXZjG5mtIs/Pq0=;
- b=rU3okWx531iXm9Ba5pnBNSvwTSwXix5ao3WMLwNmv1GIOWthUmwrOzaa2L+PCWdhzOY1fw8ak4ZGmvYjcwjBnplaQEgb7ZtVAI4emLNWXfnIyO1bMHSNpSnnpZZssKSfyCivtncdyaKdXtQVjiIQlEnQEtdWZVnSHQWSvus/jpo=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <678e765c-9ab7-14d8-ecbd-6edeb230c41d@amd.com>
-Date: Tue, 24 Jan 2023 11:56:26 +0100
-MIME-Version: 1.0
+ bh=uYDO/WG9lwrpKxcxKdvmeoiZh8bvQ9oxQUj65CXMJ6Q=;
+ b=CbLlbmT1Pbd3VCJFbZNfCvXIAztCcOUq+HgvGcgeCNqJO3id9MIqdgfQQSQoIfrJXmU8zr2G/4KRNOMKv+IkqR2/4QDz3ohw0umxnJmB0MetOom6KTs5O3bNrNdrXkYeJJHveVmaW9QsY6Y2GfSiM8S9F0gCILP6/Y9cmpPlwG/TxOX1VqwuAH6OrNCNyaS7QHeSGU90UN7JQdatQs3pdYS1V9X2m3dlVIQ/W44NL39Iy656vACUYmbBy9Y18X4spovBzlKY8ylxwEQCs25kYW2u/RV6vBOJuwKS3HGFq/7wF4Altp+oFuJUr3dPT8AhFIc+RmDDAF24TeG9tnF2sg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <6099e6fb-0a3e-c6da-2766-d61c2c3d1e96@suse.com>
+Date: Tue, 24 Jan 2023 12:19:03 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [XEN][RFC PATCH v4 13/16] xen/arm: Implement device tree node
- addition functionalities
+Subject: Re: [PATCH v2 4/8] x86/mem-sharing: copy GADDR based shared guest
+ areas
 Content-Language: en-US
-To: Vikram Garhwal <vikram.garhwal@amd.com>, <xen-devel@lists.xenproject.org>
-CC: <sstabellini@kernel.org>, <julien@xen.org>, <Luca.Fancellu@arm.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
-	<george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, Wei Liu
-	<wl@xen.org>
-References: <20221207061815.7404-1-vikram.garhwal@amd.com>
- <20221207061815.7404-7-vikram.garhwal@amd.com>
-From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20221207061815.7404-7-vikram.garhwal@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+References: <33cd2aba-73fc-6dfe-d0f2-f41883e7cdfa@suse.com>
+ <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com>
+ <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
+ <a92b9714-5e29-146f-3b68-b44692c56de1@suse.com>
+ <CABfawhkiaheQPJhtG7fupHcbfYPUy+BJgvbVoQ+FJUnev5bowQ@mail.gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <CABfawhkiaheQPJhtG7fupHcbfYPUy+BJgvbVoQ+FJUnev5bowQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR3P281CA0127.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT099:EE_|MN0PR12MB6004:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79ab540f-9338-49c1-ea0b-08dafdf9a5cd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8359:EE_
+X-MS-Office365-Filtering-Correlation-Id: 562b1bf2-0a99-4f65-7237-08dafdfccdf1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	BuueBnlFmZ/JstIG5n0pY6hl7s/jQ0rfSCUfJkiGec8g9WmQc2NvdFRR5TtvscjqhINz2CVxLGUYv2JJb/rDtjp6lQz1yx2HFPjd0fq9VE264dQJ03gT9TcqHpf8jvEiDeCMKS8mt3m0B7Fikh/A8wvbJ4IWPwpdA+ycA9z+PYY+iqTz4FHjd93+sLJS+d3O+QIypTrJUTn8GLQKOy5cuhjClC+jXhwbPPmelo7wdlUWI3HKeEfnEAeAzX0+70HoumqjlfLAuq5Rcru0W3O9SHnJdopHQ6VlATAIHyVjYa99ozBVXWfyRXAMi4c32N4P+VeKwLd3g/+BQdsRVeGoNQdx4I9K9aCosLuvgc1oq+wBnW1EQJ88i+ccbkrKibT0Xj/XsWt46/O1CUaAddco8CGM2U2fnCW3/l067Vp57O7/F+2JAQ88XXmXyXBP/f8HvgDfX4wCn7nWCwIh7MaxE417vVSvvKNVwhCl7NpRINX3r8AEkwVfsQnDxr6aNZ1APUpBPauPhHUcfjOaP5s8H0NHiwmugefj8/kWhTxtJPehx2E5TUTjAamo4f5nnM7+oWeALx5GChjpUl8CzQfI4//I6NyjRrcyMkja6ue0QQ598qycN0Wlw5QI85+yTvh3VNoLHEDL4N/Q0IvFqvw9Qmqhf0vCVGR7oWsLb80EBONfMicL3PTT/2QmaHSvoohT7uKE9GfUM3PoqMY3ISMWKTZtnlKBUBRUUAtRK+B2A3ykt00zel1V1iM4DypgU0IkfkvUO+JnSwEW0Y28f6Bg5Q==
+	1KYDM8G1IsVyjsYrqYWcnhgFVv9tp6283knR2d1SuWQA+FR7GVrLrZ7QdZn8GfwBUb1kRBK0qogQut2aQEpMF8UzU67aJHzpfW6AgiwfGj8icuooDvYLSZPizm05UJ9zdYPBTrIs3YCrQTAAOdSt+qXWEWXdbQ3kjLE2IsJX0tIrCC4S5AyfZ/l2szVYuXgikx0IxPR01t5ZQMwwJCAUNyKKdiRdIGFKG9M0EukNYWg6AH/RGweqpPtNvY1glp3kZjc4kDqlfJQfuEwZKzYU2mDDH8w/s7vikcKttggRSOVAEc+lIL6xMUWdn24QsfCCKwasZDi3aWrOOR/+JZPg0tDYXHnVietM53qg29tQo4qMBfaRqijqQMVIc8vOFhkyldJUuvjzMeryT4kBEQQNmz1Edv9sYYh6hZb0qElWvgmlbvGAY5IwW/aRLTLi8bgA/m33qS48SkU7acdmyXGImQHpmhGSUGfzcFOdrB9RQ7OaL8djeAnrjY44Zp07hIefjbAfPcsn4ctMh6q+siztFqEjChSYLFkT0A42WuwtNluqCg4DEEFsIhpDCwri7xFuO0b9Gpfa8gZOq9hAAaVUTLVw8rGQP92Y1fPIfbBUSuqOpWa88dnGGQctE8XRbYJwl+8ICp0U2vIspB1/UrW4YVl5KfM+dJnF7YZj2vXYIyroGstettIcky9IOLfw/rKgAsjgjgV+/CTHH1hfcgbbLmHkwDfaCGMDy1prQ92TcBY=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230022)(4636009)(39860400002)(396003)(376002)(346002)(136003)(451199015)(40470700004)(46966006)(36840700001)(31686004)(4326008)(8676002)(70206006)(2616005)(53546011)(70586007)(426003)(47076005)(8936002)(41300700001)(186003)(26005)(83380400001)(30864003)(44832011)(5660300002)(2906002)(36860700001)(16576012)(82740400003)(81166007)(110136005)(82310400005)(31696002)(478600001)(336012)(54906003)(316002)(86362001)(36756003)(40460700003)(356005)(40480700001)(36900700001)(43740500002);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 10:56:29.5984
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230022)(376002)(136003)(346002)(396003)(366004)(39860400002)(451199015)(31696002)(36756003)(41300700001)(86362001)(8936002)(5660300002)(4326008)(2906002)(38100700002)(83380400001)(478600001)(6486002)(31686004)(66946007)(6916009)(53546011)(6512007)(26005)(6506007)(186003)(8676002)(316002)(54906003)(2616005)(66476007)(66556008)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGhyN1ZaeXVQZ3BoYW8rQmRJV2dIMXZUbWltdkVCdU8zUmxBRDdtMUJsVGRv?=
+ =?utf-8?B?UjdrZmVVK0dUZUVyU2Z4N3ExeTFLSVR5bG5JakJ6KzFpRVZ6bmdaVUZjcHUx?=
+ =?utf-8?B?WW9iY0lwU0pnOGwvUlpwajdkZkxSczl6Nm4vWWJSMXRDZ2ZaYWFHUHpiUzdY?=
+ =?utf-8?B?VGJNbFduT3NFbUJvM3N5RUsrcGMydG5BNlYwelo3MkUrdFQ3VEJzQUdwMGR4?=
+ =?utf-8?B?L0hSYk9XZDErTDBCVno0d3cyNGFYYWhGQXJGQmgyT0h0VStCUHNzMERNUGZ4?=
+ =?utf-8?B?YlVCaUhjaDhPRVVzR1ZKMDdmUDd6a2w1bnc1UkxZVU8rNXpRcDQ5cUJGNWdy?=
+ =?utf-8?B?aVlHTXRBQ3VIS0ZaMjUvOUR5R25WeVB6ZFZ1N0Jqbng5cThmT3JVbm4xOHU4?=
+ =?utf-8?B?ck5ndzNEdHZsb1drU09tSUxVclRZelBRVWFsaGh0cnlETTd6UmZCQU9YSm9B?=
+ =?utf-8?B?dFN6dVhrRkoyQyswQUQzcnFSY1ZjUVgvaGtIR2c2TnJVZjNXSFl0Y3B3M3Nw?=
+ =?utf-8?B?SmEva1FRajZ1ZnZZWXhBOElzbWdmc1BiVnNkQVAvdWcxNnlsYk05YUExZG00?=
+ =?utf-8?B?MVJ1Skp2WDNkcjl6TlVjb0Z3RzVBZXJIdHhGREdtbFcwMkpVVEY1OVlMeGFU?=
+ =?utf-8?B?N2o2cXFRbFBGd0hmOTE3aldUbEFKWVVnYXpPQ0djYlkycDlJQ2VPVTY4SHpC?=
+ =?utf-8?B?MEhOU0JBeHdsd3BvL1B1dDd6ZDhjWCtkNlVOUE1LUmhCQ1dzZ25QV0pSTlBw?=
+ =?utf-8?B?RE1WRTduWUtlVW9BaTcwM0dsV2lmVXJsa051WktGNXJmYlBtMEJIRGpQUzdo?=
+ =?utf-8?B?NHBtM1JBWlNWdDFUSFJ2ZWdRdGJVTnBIeGdkSDRkbU0xM25rZFFUWFZXOEg3?=
+ =?utf-8?B?VnRYLzJ1eTBLa1lUd3psL3ZKZktTbEk0QVJrZHZXbnlhc1l4Vi9KRWlWOXRs?=
+ =?utf-8?B?YzE5QnRkbFhkQWdBNFlWV3g1Z09vOHVPYmEvOU1ySWorb1puZ1EyckV3N0FY?=
+ =?utf-8?B?ZElUdGw5VkpUN2dJcHNUbUg0ZkNCaFpEQzkwa2pJNGw2dE9XSFJaM25RN2t1?=
+ =?utf-8?B?UHU4K1JoMXIxSkdZRitkVi94Z3Fmd3JEWTVOQlZqdUFqYlNMdElBeDVZZzMz?=
+ =?utf-8?B?N29SM1VFRVpzWWlZbE9MMXJNNlpoOGVyTUZzWXg4cEliTU1wdDB4SXlkSmI2?=
+ =?utf-8?B?ZTVlQUtQN2kwVExGOUhDdXRyWDhPbUEyeFcxQnNGNFMxb1dneFhNeU9pR2ZT?=
+ =?utf-8?B?NDcrZHRaS2FpY2VXZjR2bzZ4VU5vK1dwSVdNeVBwNms2NDdaWVgwcDh6ZDQv?=
+ =?utf-8?B?ZTFGS1FqYmlMQ1dKc3pNQStnQWg0SUg0Z3c0V0xBZnhEMnBkNDA2WmVDL3BM?=
+ =?utf-8?B?RjlPbkhBb0xTaEVzenlPZUM3VEJXZ3VvbXFVWjYwSHorZzlMeHMycEZaS0tT?=
+ =?utf-8?B?NTlEMTJsRUp0WlNsNkx4NE82Z3ZBbkNlUlZLOU9ubDIyUEw2U0tFc3hTUTFY?=
+ =?utf-8?B?VTR6RXZ3VmEwRURiRGY2WFZJZEoxTkczVTVESDIwQmFEazJxOFQwcG5uMmdK?=
+ =?utf-8?B?a1lNY3UxRXRjcHBYaHpoSU8yL0lYTGFoL2pubGx2NnBNVzZZZXlYM29xdFVv?=
+ =?utf-8?B?djBWYUU1bEdYVVhQTDlpMmhKU2o2Ryt5bFZVa3BSTDdnVmhaVC9RLzJ3cFBu?=
+ =?utf-8?B?djBRRjVSZnNLQk1OS2NtcDI2aUt1VFk3RVBsbGEweDE3NWxvSnhveVZGVTZx?=
+ =?utf-8?B?b2xqU0h6eVVzS0UrUW5hc0g3OWpId1NuL1BaTkFGQlBTek5pVzM1YkJFdmdE?=
+ =?utf-8?B?aitJZy9haUNYRXVYUW1wNkZsa2pDQS9Mb3ZBQmliNnV3YjJNRlpOcmZvTGRl?=
+ =?utf-8?B?Q25zY0tDL2NUSmpOVG8xYWJ2bDJQYnBqVmg1RlU1RFFlUXZ3WFZYWnNBalVm?=
+ =?utf-8?B?UUVWQWI3eTUydEhyeHpPKy9QRExaNUR6UE1LVTF4UDlFSUZ3SUNySUM2RzQz?=
+ =?utf-8?B?eWRXNjJFSXR2a25yVTNFallGQ1hzRGovb2QxUlp6YjYxWnNNMmNzRzBuN21m?=
+ =?utf-8?B?K3hQNndZdEoxWXdxb0hEL05XVEZpSVhMTTFoYzdlVnhhWCtHbzdlOXBWWDNV?=
+ =?utf-8?Q?/HOaG+dpuRmi5CjTgX5b5qM5P?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 562b1bf2-0a99-4f65-7237-08dafdfccdf1
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2023 11:19:05.7272
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79ab540f-9338-49c1-ea0b-08dafdf9a5cd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT099.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6004
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4+81QytibjlCRXWqrBcy+9d8tB0fbwddSkFZhkW141H/dJgXB9NnrJUhlS7JNrzzlsfwnD/8JTP5ssqNXXUvUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8359
 
-Hi Vikram,
-
-On 07/12/2022 07:18, Vikram Garhwal wrote:
+On 23.01.2023 19:32, Tamas K Lengyel wrote:
+> On Mon, Jan 23, 2023 at 11:24 AM Jan Beulich <jbeulich@suse.com> wrote:
+>> On 23.01.2023 17:09, Tamas K Lengyel wrote:
+>>> On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> --- a/xen/arch/x86/mm/mem_sharing.c
+>>>> +++ b/xen/arch/x86/mm/mem_sharing.c
+>>>> @@ -1653,6 +1653,65 @@ static void copy_vcpu_nonreg_state(struc
+>>>>      hvm_set_nonreg_state(cd_vcpu, &nrs);
+>>>>  }
+>>>>
+>>>> +static int copy_guest_area(struct guest_area *cd_area,
+>>>> +                           const struct guest_area *d_area,
+>>>> +                           struct vcpu *cd_vcpu,
+>>>> +                           const struct domain *d)
+>>>> +{
+>>>> +    mfn_t d_mfn, cd_mfn;
+>>>> +
+>>>> +    if ( !d_area->pg )
+>>>> +        return 0;
+>>>> +
+>>>> +    d_mfn = page_to_mfn(d_area->pg);
+>>>> +
+>>>> +    /* Allocate & map a page for the area if it hasn't been already.
+> */
+>>>> +    if ( !cd_area->pg )
+>>>> +    {
+>>>> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
+>>>> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
+>>>> +        p2m_type_t p2mt;
+>>>> +        p2m_access_t p2ma;
+>>>> +        unsigned int offset;
+>>>> +        int ret;
+>>>> +
+>>>> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL,
+> NULL);
+>>>> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
+>>>> +        {
+>>>> +            struct page_info *pg = alloc_domheap_page(cd_vcpu->domain,
+>>> 0);
+>>>> +
+>>>> +            if ( !pg )
+>>>> +                return -ENOMEM;
+>>>> +
+>>>> +            cd_mfn = page_to_mfn(pg);
+>>>> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
+>>>> +
+>>>> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,
+>>> p2m_ram_rw,
+>>>> +                                 p2m->default_access, -1);
+>>>> +            if ( ret )
+>>>> +                return ret;
+>>>> +        }
+>>>> +        else if ( p2mt != p2m_ram_rw )
+>>>> +            return -EBUSY;
+>>>> +
+>>>> +        /*
+>>>> +         * Simply specify the entire range up to the end of the page.
+>>> All the
+>>>> +         * function uses it for is a check for not crossing page
+>>> boundaries.
+>>>> +         */
+>>>> +        offset = PAGE_OFFSET(d_area->map);
+>>>> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
+>>>> +                             PAGE_SIZE - offset, cd_area, NULL);
+>>>> +        if ( ret )
+>>>> +            return ret;
+>>>> +    }
+>>>> +    else
+>>>> +        cd_mfn = page_to_mfn(cd_area->pg);
+>>>
+>>> Everything to this point seems to be non mem-sharing/forking related.
+> Could
+>>> these live somewhere else? There must be some other place where
+> allocating
+>>> these areas happens already for non-fork VMs so it would make sense to
+> just
+>>> refactor that code to be callable from here.
+>>
+>> It is the "copy" aspect with makes this mem-sharing (or really fork)
+>> specific. Plus in the end this is no different from what you have
+>> there right now for copying the vCPU info area. In the final patch
+>> that other code gets removed by re-using the code here.
 > 
+> Yes, the copy part is fork-specific. Arguably if there was a way to do the
+> allocation of the page for vcpu_info I would prefer that being elsewhere,
+> but while the only requirement is allocate-page and copy from parent I'm OK
+> with that logic being in here because it's really straight forward. But now
+> you also do extra sanity checks here which are harder to comprehend in this
+> context alone.
+
+What sanity checks are you talking about (also below, where you claim
+map_guest_area() would be used only to sanity check)?
+
+> What if extra sanity checks will be needed in the future? Or
+> the sanity checks in the future diverge from where this happens for normal
+> VMs because someone overlooks this needing to be synched here too?
 > 
-> Update sysctl XEN_SYSCTL_dt_overlay to enable support for dtbo nodes addition
-> using device tree overlay.
+>> I also haven't been able to spot anything that could be factored
+>> out (and one might expect that if there was something, then the vCPU
+>> info area copying should also already have used it). map_guest_area()
+>> is all that is used for other purposes as well.
 > 
-> xl dt_overlay add file.dtbo:
->     Each time overlay nodes are added using .dtbo, a new fdt(memcpy of
->     device_tree_flattened) is created and updated with overlay nodes. This
->     updated fdt is further unflattened to a dt_host_new. Next, it checks if any
->     of the overlay nodes already exists in the dt_host. If overlay nodes doesn't
->     exist then find the overlay nodes in dt_host_new, find the overlay node's
->     parent in dt_host and add the nodes as child under their parent in the
->     dt_host. The node is attached as the last node under target parent.
+> Well, there must be a location where all this happens for normal VMs as
+> well, no?
+
+That's map_guest_area(). What is needed here but not elsewhere is the
+populating of the GFN underlying the to-be-mapped area. That's the code
+being added here, mirroring what you need to do for the vCPU info page.
+Similar code isn't needed elsewhere because the guest invoked operation
+is purely a "map" - the underlying pages are already expected to be
+populated (which of course we check, or else we wouldn't know what page
+to actually map).
+
+> Why not factor that code so that it can be called from here, so
+> that we don't have to track sanity check requirements in two different
+> locations? Or for normal VMs that sanity checking bit isn't required? If
+> so, why?
+
+As per above, I'm afraid that I'm lost with these questions. I simply
+don't know what you're talking about.
+
+>>>> +
+>>>> +    copy_domain_page(cd_mfn, d_mfn);
+>>>> +
+>>>> +    return 0;
+>>>> +}
+>>>> +
+>>>>  static int copy_vpmu(struct vcpu *d_vcpu, struct vcpu *cd_vcpu)
+>>>>  {
+>>>>      struct vpmu_struct *d_vpmu = vcpu_vpmu(d_vcpu);
+>>>> @@ -1745,6 +1804,16 @@ static int copy_vcpu_settings(struct dom
+>>>>              copy_domain_page(new_vcpu_info_mfn, vcpu_info_mfn);
+>>>>          }
+>>>>
+>>>> +        /* Same for the (physically registered) runstate and time info
+>>> areas. */
+>>>> +        ret = copy_guest_area(&cd_vcpu->runstate_guest_area,
+>>>> +                              &d_vcpu->runstate_guest_area, cd_vcpu,
+> d);
+>>>> +        if ( ret )
+>>>> +            return ret;
+>>>> +        ret = copy_guest_area(&cd_vcpu->arch.time_guest_area,
+>>>> +                              &d_vcpu->arch.time_guest_area, cd_vcpu,
+> d);
+>>>> +        if ( ret )
+>>>> +            return ret;
+>>>> +
+>>>>          ret = copy_vpmu(d_vcpu, cd_vcpu);
+>>>>          if ( ret )
+>>>>              return ret;
+>>>> @@ -1987,7 +2056,10 @@ int mem_sharing_fork_reset(struct domain
+>>>>
+>>>>   state:
+>>>>      if ( reset_state )
+>>>> +    {
+>>>>          rc = copy_settings(d, pd);
+>>>> +        /* TBD: What to do here with -ERESTART? */
+>>>
+>>> Where does ERESTART coming from?
+>>
+>> From map_guest_area()'s attempt to acquire the hypercall deadlock mutex,
+>> in order to then pause the subject vCPU. I suppose that in the forking
+>> case it may already be paused, but then there's no way map_guest_area()
+>> could know. Looking at the pause count is fragile, as there's no
+>> guarantee that the vCPU may be unpaused while we're still doing work on
+>> it. Hence I view such checks as only suitable for assertions.
 > 
->     Finally, add IRQs, add device to IOMMUs, set permissions and map MMIO for the
->     overlay node.
-> 
-> When a node is added using overlay, a new entry is allocated in the
-> overlay_track to keep the track of memory allocation due to addition of overlay
-> node. This is helpful for freeing the memory allocated when a device tree node
-> is removed.
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> ---
->  xen/common/dt_overlay.c | 465 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 465 insertions(+)
-> 
-> diff --git a/xen/common/dt_overlay.c b/xen/common/dt_overlay.c
-> index 477341f0aa..f5426b9dab 100644
-> --- a/xen/common/dt_overlay.c
-> +++ b/xen/common/dt_overlay.c
-> @@ -38,9 +38,29 @@ static struct dt_device_node *find_last_descendants_node(
->      /* If last child_node also have children. */
->      if ( child_node->child )
->          child_node = find_last_descendants_node(child_node);
-> +
-This should be done in a previous patch as I pointed out in patch 12.
+> Since map_guest_area is only used to sanity check, and it only happens when
+> the page is being setup for the fork, why can't the sanity check be done on
+> the parent?
 
->      return child_node;
->  }
-> 
-> +/*
-> + * Returns next node to the input node. If node has children then return
-> + * last descendant's next node.
-> +*/
-> +static struct dt_device_node *dt_find_next_node(struct dt_device_node *dt,
-> +                                                struct dt_device_node *node)
-I think the node should be const.
+As above, I'm afraid I simply don't understand what you're asking.
 
-> +{
-> +    struct dt_device_node *np;
-> +
-> +    dt_for_each_device_node(dt, np)
-> +        if ( np == node )
-> +            break;
-> +
-> +    if ( np->child )
-> +        np = find_last_descendants_node(np);
-> +
-> +    return np->allnext;
-> +}
-> +
->  static int dt_overlay_remove_node(struct dt_device_node *device_node)
->  {
->      struct dt_device_node *np;
-> @@ -114,6 +134,74 @@ static int dt_overlay_remove_node(struct dt_device_node *device_node)
->      return 0;
->  }
-> 
-> +static int dt_overlay_add_node(struct dt_device_node *device_node,
-> +                               const char *parent_node_path)
-> +{
-> +    struct dt_device_node *parent_node;
-> +    struct dt_device_node *np, *np_last_descendant;
-> +    struct dt_device_node *next_node;
-> +    struct dt_device_node *device_node_last_descendant;
-> +
-> +    parent_node = dt_find_node_by_path(parent_node_path);
-> +
-> +    if ( parent_node == NULL )
-> +    {
-> +        dt_dprintk("Node not found. Overlay node will not be added\n");
-> +        return -EINVAL;
-> +    }
-> +
-> +    /* If parent has no child. */
-> +    if ( parent_node->child == NULL )
-> +    {
-> +        next_node = parent_node->allnext;
-> +        device_node->parent = parent_node;
-> +        parent_node->allnext = device_node;
-> +        parent_node->child = device_node;
-> +    }
-> +    else
-> +    {
-> +        /* If parent has at least one child node.
-> +         * Iterate to the last child node of parent.
-> +         */
-> +        for ( np = parent_node->child; np->sibling != NULL; np = np->sibling )
-> +        {
-> +        }
-Instead of {} you could just put ; at the end of for statement.
+> The parent is guaranteed to be paused when forks are active so
+> there is no ERESTART concern and from the looks of it if there is a concern
+> the sanity check is looking for it would be visible on the parent just as
+> well as the fork.
 
-> +
-> +        /* Iterate over all child nodes of np node. */
-> +        if ( np->child )
-> +        {
-> +            np_last_descendant = find_last_descendants_node(np);
-> +
-> +            next_node = np_last_descendant->allnext;
-> +            np_last_descendant->allnext = device_node;
-> +        }
-> +        else
-> +        {
-> +            next_node = np->allnext;
-> +            np->allnext = device_node;
-> +        }
-> +
-> +        device_node->parent = parent_node;
-> +        np->sibling = device_node;
-> +        np->sibling->sibling = NULL;
-> +    }
-> +
-> +    /* Iterate over all child nodes of device_node to add children too. */
-> +    if ( device_node->child )
-> +    {
-> +        device_node_last_descendant = find_last_descendants_node(device_node);
-> +        /* Plug next_node at the end of last children of device_node. */
-> +        device_node_last_descendant->allnext = next_node;
-> +    }
-> +    else
-> +    {
-> +        /* Now plug next_node at the end of device_node. */
-> +        device_node->allnext = next_node;
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->  /* Basic sanity check for the dtbo tool stack provided to Xen. */
->  static int check_overlay_fdt(const void *overlay_fdt, uint32_t overlay_fdt_size)
->  {
-> @@ -153,6 +241,79 @@ static unsigned int overlay_node_count(void *fdto)
->      return num_overlay_nodes;
->  }
-> 
-> +/*
-> + * overlay_get_nodes_info will get full name with path for all the nodes which
-> + * are in one level of __overlay__ tag. This is useful when checking node for
-> + * duplication i.e. dtbo tries to add nodes which already exists in device tree.
-> + */
-> +static int overlay_get_nodes_info(const void *fdto, char ***nodes_full_path,
-> +                                  unsigned int num_overlay_nodes)
-> +{
-> +    int fragment;
-> +    unsigned int node_num = 0;
-node_num should be moved under the second for loop.
+The parent being paused isn't of interest to map_guest_area(). It's the
+subject vcpu (i.e. in the forked instance) where we require this. Thinking
+of it - the forked domain wasn't started yet, was it? We could then avoid
+the pausing (and the acquiring of the hypercall deadlock mutex) based on
+->creation_finished still being "false", or even simply based on
+v->domain != current->domain. Then there wouldn't be any chance anymore of
+-ERESTART making it here.
 
-> +
-> +    *nodes_full_path = xzalloc_bytes(num_overlay_nodes * sizeof(char *));
-> +
-> +    if ( *nodes_full_path == NULL )
-> +        return -ENOMEM;
-> +
-> +    fdt_for_each_subnode(fragment, fdto, 0)
-> +    {
-> +        int target;
-> +        int overlay;
-> +        int subnode;
-> +        const char *target_path;
-> +
-> +        target = fdt_overlay_target_offset(device_tree_flattened, fdto,
-> +                                           fragment, &target_path);
-> +        if ( target < 0 )
-> +            return target;
-> +
-> +        overlay = fdt_subnode_offset(fdto, fragment, "__overlay__");
-> +
-> +        /*
-> +         * overlay value can be < 0. But fdt_for_each_subnode() loop checks for
-> +         * overlay >= 0. So, no need for a overlay>=0 check here.
-> +         */
-> +        fdt_for_each_subnode(subnode, fdto, overlay)
-> +        {
-> +            const char *node_name = NULL;
-> +            int node_name_len = 0;
-No need for assignment.
+> But I would like to understand why that sanity checking
+> is required in the first place.
 
-> +            unsigned int target_path_len = strlen(target_path);
-> +            unsigned int node_full_name_len = 0;
-No need for assignment.
-> +
-> +            node_name = fdt_get_name(fdto, subnode, &node_name_len);
-> +
-> +            if ( node_name == NULL )
-> +                return -EINVAL;
-In case of node_name being NULL, the error code is stored in node_name_len, so
-don't you want to return it instead of -EINVAL?
+See further up.
 
-> +
-> +            /*
-> +             * Magic number 2 is for adding '/'. This is done to keep the
-> +             * node_full_name in the correct full node name format.
-> +             */
-> +            node_full_name_len = target_path_len + node_name_len + 2;
-> +
-> +            (*nodes_full_path)[node_num] = xmalloc_bytes(node_full_name_len);
-> +
-> +            if ( (*nodes_full_path)[node_num] == NULL )
-> +                return -ENOMEM;
-> +
-> +            memcpy((*nodes_full_path)[node_num], target_path, target_path_len);
-> +
-> +            (*nodes_full_path)[node_num][target_path_len] = '/';
-> +
-> +            memcpy((*nodes_full_path)[node_num] + target_path_len + 1,
-> +                    node_name, node_name_len);
-> +
-> +            (*nodes_full_path)[node_num][node_full_name_len - 1] = '\0';
-> +
-> +            node_num++;
-> +        }
-> +    }
-> +
-> +    return 0;
-> +}
-> +
->  static int handle_remove_irq_iommu(struct dt_device_node *device_node)
->  {
->      int rc = 0;
-> @@ -373,6 +534,302 @@ out:
->      return rc;
->  }
-> 
-> +/*
-> + * Handles IRQ and IOMMU mapping for the overlay_node and all descendants of the
-> + * overlay_nodes.
-> + */
-> +static int handle_add_irq_iommu(struct domain *d,
-> +                                struct dt_device_node *overlay_node)
-> +{
-> +    int rc = 0;
-No need for assignment.
-
-> +    unsigned int naddr, i, len;
-> +    u64 addr, size;
-Should be uint64_t.
-
-> +    struct dt_device_node *np;
-> +
-> +    /* First let's handle the interrupts. */
-> +    rc = handle_device_interrupts(d, overlay_node, false);
-> +    if ( rc )
-To match the handle_device_interrupts behavior on failure, you should check ( rc < 0 )
-
-> +    {
-> +        printk(XENLOG_ERR "Interrupt failed\n");
-> +        return rc;
-> +    }
-> +
-> +    /* Check if iommu property exists. */
-> +    if ( dt_get_property(overlay_node, "iommus", &len) )
-> +    {
-> +
-> +        /* Add device to IOMMUs. */
-> +        rc = iommu_add_dt_device(overlay_node);
-> +        if ( rc < 0 )
-> +        {
-> +            printk(XENLOG_ERR "Failed to add %s to the IOMMU\n",
-> +                   dt_node_full_name(overlay_node));
-> +            return rc;
-> +        }
-> +    }
-> +
-> +    /* Set permissions. */
-> +    naddr = dt_number_of_address(overlay_node);
-> +
-> +    dt_dprintk("%s passthrough = %d naddr = %u\n",
-> +               dt_node_full_name(overlay_node), false, naddr);
-> +
-> +    /* Give permission for map MMIOs */
-> +    for ( i = 0; i < naddr; i++ )
-> +    {
-> +        struct map_range_data mr_data = { .d = d,
-> +                                          .p2mt = p2m_mmio_direct_c,
-> +                                          .skip_mapping = true };
-> +
-> +        rc = dt_device_get_address(overlay_node, i, &addr, &size);
-> +        if ( rc )
-> +        {
-> +            printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
-> +                   i, dt_node_full_name(overlay_node));
-> +            return rc;
-> +        }
-> +
-> +        rc = map_range_to_domain(overlay_node, addr, size, &mr_data);
-> +        if ( rc )
-> +            return rc;
-> +    }
-> +
-> +    /* Map IRQ and IOMMU for overlay_node's children. */
-> +    for ( np = overlay_node->child; np != NULL; np = np->sibling)
-> +    {
-> +        rc = handle_add_irq_iommu(d, np);
-Shouldn't you stop looping if rc not zero?
-
-> +    }
-> +
-> +    return rc;
-> +}
-> +
-> +/*
-> + * Adds device tree nodes under target node.
-> + * We use tr->dt_host_new to unflatten the updated device_tree_flattened. This
-> + * is done to avoid the removal of device_tree generation, iomem regions mapping
-> + * to hardware domain done by handle_node().
-> + */
-> +static long handle_add_overlay_nodes(void *overlay_fdt,
-> +                                     uint32_t overlay_fdt_size)
-> +{
-> +    int rc = 0, j = 0, i;
-No need for assignments.
-
-> +    struct dt_device_node *overlay_node, *prev_node, *next_node;
-> +    struct domain *d = hardware_domain;
-> +    struct overlay_track *tr = NULL;
-> +    char **nodes_full_path = NULL;
-> +    unsigned int new_fdt_size;
-> +
-> +    tr = xzalloc(struct overlay_track);
-> +    if ( tr == NULL )
-> +    {
-No need for braces.
-
-> +        return -ENOMEM;
-> +    }
-> +
-> +    new_fdt_size = fdt_totalsize(device_tree_flattened) +
-> +                                 fdt_totalsize(overlay_fdt);
-> +
-> +    tr->fdt = xzalloc_bytes(new_fdt_size);
-> +    if ( tr->fdt == NULL )
-What about allocated tr? Shouldn't you free it? Also this applies to ...
-
-> +        return -ENOMEM;
-> +
-> +    tr->num_nodes = overlay_node_count(overlay_fdt);
-> +    if ( tr->num_nodes == 0 )
-> +    {
-> +        xfree(tr->fdt);
-here and ...
-
-> +        return -ENOMEM;
-> +    }
-> +
-> +    tr->nodes_address = xzalloc_bytes(tr->num_nodes * sizeof(unsigned long));
-> +    if ( tr->nodes_address == NULL )
-> +    {
-> +        xfree(tr->fdt);
-here and ...
-
-> +        return -ENOMEM;
-> +    }
-> +
-> +    rc = check_overlay_fdt(overlay_fdt, overlay_fdt_size);
-> +    if ( rc )
-> +    {
-> +        xfree(tr->fdt);
-here and ...
-
-> +        return rc;
-> +    }
-> +
-> +    /*
-> +     * Keep a copy of overlay_fdt as fdt_overlay_apply will change the input
-> +     * overlay's content(magic) when applying overlay.
-> +     */
-> +    tr->overlay_fdt = xzalloc_bytes(overlay_fdt_size);
-> +    if ( tr->overlay_fdt == NULL )
-> +    {
-> +        xfree(tr->fdt);
-here.
-
-> +        return -ENOMEM;
-> +    }
-> +
-> +    memcpy(tr->overlay_fdt, overlay_fdt, overlay_fdt_size);
-> +
-> +    spin_lock(&overlay_lock);
-> +
-> +    memcpy(tr->fdt, device_tree_flattened,
-> +           fdt_totalsize(device_tree_flattened));
-> +
-> +    /* Open tr->fdt with more space to accommodate the overlay_fdt. */
-> +    fdt_open_into(tr->fdt, tr->fdt, new_fdt_size);
-> +
-> +    /*
-> +     * overlay_get_nodes_info is called to get the node information from dtbo.
-> +     * This is done before fdt_overlay_apply() because the overlay apply will
-> +     * erase the magic of overlay_fdt.
-> +     */
-> +    rc = overlay_get_nodes_info(overlay_fdt, &nodes_full_path,
-> +                                tr->num_nodes);
-> +    if ( rc )
-> +    {
-> +        printk(XENLOG_ERR "Getting nodes information failed with error %d\n",
-> +               rc);
-> +        goto err;
-> +    }
-> +
-> +    rc = fdt_overlay_apply(tr->fdt, overlay_fdt);
-> +    if ( rc )
-> +    {
-> +        printk(XENLOG_ERR "Adding overlay node failed with error %d\n", rc);
-> +        goto err;
-> +    }
-> +
-> +    /*
-> +     * Check if any of the node already exists in dt_host. If node already exits
-> +     * we can return here as this overlay_fdt is not suitable for overlay ops.
-> +     */
-> +    for ( j = 0; j < tr->num_nodes; j++ )
-> +    {
-> +        overlay_node = dt_find_node_by_path(nodes_full_path[j]);
-> +        if ( overlay_node != NULL )
-> +        {
-> +            printk(XENLOG_ERR "node %s exists in device tree\n",
-> +                   nodes_full_path[j]);
-> +            rc = -EINVAL;
-> +            goto err;
-> +        }
-> +    }
-> +
-> +    /* Unflatten the tr->fdt into a new dt_host. */
-> +    rc = unflatten_device_tree(tr->fdt, &tr->dt_host_new);
-> +    if ( rc < 0 )
-> +        goto err;
-> +
-> +    for ( j = 0; j < tr->num_nodes; j++ )
-> +    {
-> +        dt_dprintk("Adding node: %s\n", nodes_full_path[j]);
-> +
-> +        /* Find the newly added node in tr->dt_host_new by it's full path. */
-> +        overlay_node = device_tree_find_node_by_path(tr->dt_host_new,
-> +                                                     nodes_full_path[j]);
-> +        if ( overlay_node == NULL )
-> +        {
-> +            dt_dprintk("%s node not found\n", nodes_full_path[j]);
-> +            rc = -EFAULT;
-> +            goto remove_node;
-> +        }
-> +
-> +        /*
-> +         * Find previous and next node to overlay_node in dt_host_new. We will
-> +         * need these nodes to fix the dt_host_new mapping. When overlay_node is
-> +         * take out of dt_host_new tree and added to dt_host, link between
-> +         * previous node and next_node is broken. We will need to refresh
-> +         * dt_host_new with correct linking for any other overlay nodes
-> +         * extraction in future.
-> +         */
-> +        dt_for_each_device_node(tr->dt_host_new, prev_node)
-> +            if ( prev_node->allnext == overlay_node )
-> +                break;
-> +
-> +        next_node = dt_find_next_node(tr->dt_host_new, overlay_node);
-> +
-> +        read_lock(&dt_host->lock);
-> +
-> +        /* Add the node to dt_host. */
-> +        rc = dt_overlay_add_node(overlay_node, overlay_node->parent->full_name);
-> +        if ( rc )
-> +        {
-> +            read_unlock(&dt_host->lock);
-> +
-> +            /* Node not added in dt_host. */
-> +            goto remove_node;
-> +        }
-> +
-> +        read_unlock(&dt_host->lock);
-> +
-> +        prev_node->allnext = next_node;
-> +
-> +        overlay_node = dt_find_node_by_path(overlay_node->full_name);
-> +        if ( overlay_node == NULL )
-> +        {
-> +            /* Sanity check. But code will never come here. */
-> +            ASSERT_UNREACHABLE();
-> +            goto remove_node;
-> +        }
-> +
-> +        rc = handle_add_irq_iommu(d, overlay_node);
-Shouldn't you check rc and exit the loop earlier in case of failure?
-
-> +
-> +        /* Keep overlay_node address in tracker. */
-> +        tr->nodes_address[j] = (unsigned long)overlay_node;
-> +    }
-> +
-> +    INIT_LIST_HEAD(&tr->entry);
-> +    list_add_tail(&tr->entry, &overlay_tracker);
-> +
-> +    spin_unlock(&overlay_lock);
-> +
-> +    if ( nodes_full_path != NULL )
-> +    {
-> +        for ( i = 0; i < tr->num_nodes && nodes_full_path[i] != NULL;
-> +              i++ )
-> +        {
-> +            xfree(nodes_full_path[i]);
-> +        }
-> +        xfree(nodes_full_path);
-> +    }
-> +
-> +    return rc;
-> +
-> +/*
-> + * Failure case. We need to remove the nodes, free tracker(if tr exists) and
-> + * tr->dt_host_new.
-> + */
-> +remove_node:
-> +    tr->num_nodes = j;
-> +    rc = remove_nodes(tr);
-> +
-> +    if ( rc )
-> +    {
-> +        /* If removing node fails, this may cause memory leaks. */
-> +        printk(XENLOG_ERR "Removing node failed.\n");
-> +        spin_unlock(&overlay_lock);
-> +        return rc;
-> +    }
-> +
-> +err:
-> +    spin_unlock(&overlay_lock);
-> +
-> +    xfree(tr->dt_host_new);
-> +    xfree(tr->fdt);
-> +    xfree(tr->overlay_fdt);
-> +    xfree(tr->nodes_address);
-> +
-> +    if ( nodes_full_path != NULL )
-> +    {
-> +        for ( i = 0; i < tr->num_nodes && nodes_full_path[i] != NULL;
-> +              i++ )
-> +        {
-> +            xfree(nodes_full_path[i]);
-> +        }
-> +        xfree(nodes_full_path);
-> +    }
-> +
-> +    xfree(tr);
-> +
-> +    return rc;
-> +}
-> +
->  long dt_sysctl(struct xen_sysctl_dt_overlay *op)
->  {
->      long ret = 0;
-> @@ -397,6 +854,14 @@ long dt_sysctl(struct xen_sysctl_dt_overlay *op)
-> 
->      switch ( op->overlay_op )
->      {
-> +    case XEN_SYSCTL_DT_OVERLAY_ADD:
-> +        ret = handle_add_overlay_nodes(overlay_fdt, op->overlay_fdt_size);
-> +
-> +        if ( ret )
-> +            xfree(overlay_fdt);
-> +
-> +        break;
-> +
->      case XEN_SYSCTL_DT_OVERLAY_REMOVE:
->          ret = handle_remove_overlay_nodes(overlay_fdt, op->overlay_fdt_size);
->          xfree(overlay_fdt);
-> --
-> 2.17.1
-> 
-> 
-
-~Michal
-
+Jan
 
