@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07F8C67A124
-	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:28:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483684.749995 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C47967A1EB
+	for <lists+xen-devel@lfdr.de>; Tue, 24 Jan 2023 19:55:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483691.750008 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKO1f-00057N-Hx; Tue, 24 Jan 2023 18:28:07 +0000
+	id 1pKORa-0000Ai-MV; Tue, 24 Jan 2023 18:54:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483684.749995; Tue, 24 Jan 2023 18:28:07 +0000
+Received: by outflank-mailman (output) from mailman id 483691.750008; Tue, 24 Jan 2023 18:54:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKO1f-00055N-Et; Tue, 24 Jan 2023 18:28:07 +0000
-Received: by outflank-mailman (input) for mailman id 483684;
- Tue, 24 Jan 2023 18:28:06 +0000
+	id 1pKORa-00007y-It; Tue, 24 Jan 2023 18:54:54 +0000
+Received: by outflank-mailman (input) for mailman id 483691;
+ Tue, 24 Jan 2023 18:54:53 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pKO1e-000551-6I
- for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:28:06 +0000
+ (envelope-from <julien@xen.org>) id 1pKORZ-00007s-B6
+ for xen-devel@lists.xenproject.org; Tue, 24 Jan 2023 18:54:53 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKO1d-0001WU-MH; Tue, 24 Jan 2023 18:28:05 +0000
+ id 1pKORY-00025e-TI; Tue, 24 Jan 2023 18:54:52 +0000
 Received: from [54.239.6.189] (helo=[192.168.20.46])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pKO1d-0000MG-Bl; Tue, 24 Jan 2023 18:28:05 +0000
+ id 1pKORY-0001Rv-MS; Tue, 24 Jan 2023 18:54:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,101 +42,141 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
 	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=F4RyW7ieQKR2gtA7gaemy2f7d3xMbPhWD7eLZ+R1iOY=; b=DGhLiTu3HG0aTldb4lmA9HhieW
-	/KEQO7OnNei1f7uMcUSE4onId/E5f9s2i5zmVJkHswAKs7UPEWtTui/enlgRec0mQbI6wqNfkvskj
-	rIco85ZYxoCEu2wJ87HhIza13QaQJWywqZXh+SXpXM4zLRXG1nU2nVW0k863SZ8HN6e0=;
-Message-ID: <59f4d24a-44cf-fa8f-bdac-2af036f2cd30@xen.org>
-Date: Tue, 24 Jan 2023 18:28:03 +0000
+	bh=qiKkbjNHba8n4ibZQ1qefH3703iGasc0Lc7/wN4aHn0=; b=nfoSOeuZ1gqyRWoDjv+JqC1q5O
+	zxbi04sZpXfUMJs3lPfpSicRJbZgr8HSs7WoGEA1fDDburKwQ9PnZoww7z7wSRNqw50qDL8wKT+vY
+	ZPoqTYdpvccfGOnoesyeCK4pvo8JQnh4dEs4KZJc04TirYlBEft9aWAz4BXY4VIfPDVA=;
+Message-ID: <af8cec04-9817-0830-d989-b7453abdd931@xen.org>
+Date: Tue, 24 Jan 2023 18:54:50 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 1/3] xen/arm: Reduce redundant clear root pages when
- teardown p2m
+Subject: Re: [PATCH v2 12/40] xen/mpu: introduce helpers for MPU enablement
 Content-Language: en-US
-To: Michal Orzel <michal.orzel@amd.com>, Henry Wang <Henry.Wang@arm.com>,
- xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>, Wei Chen <wei.chen@arm.com>,
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230116015820.1269387-1-Henry.Wang@arm.com>
- <20230116015820.1269387-2-Henry.Wang@arm.com>
- <36821aa0-4e88-57f7-3f8b-35ba0529fabf@amd.com>
+References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
+ <20230113052914.3845596-13-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-In-Reply-To: <36821aa0-4e88-57f7-3f8b-35ba0529fabf@amd.com>
+In-Reply-To: <20230113052914.3845596-13-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
+Hi Penny,
 
-
-On 20/01/2023 09:43, Michal Orzel wrote:
-> Hi Henry,
+On 13/01/2023 05:28, Penny Zheng wrote:
+> We need a new helper for Xen to enable MPU in boot-time.
+> The new helper is semantically consistent with the original enable_mmu.
 > 
-> On 16/01/2023 02:58, Henry Wang wrote:
->>
->>
->> Currently, p2m for a domain will be teardown from two paths:
->> (1) The normal path when a domain is destroyed.
->> (2) The arch_domain_destroy() in the failure path of domain creation.
->>
->> When tearing down p2m from (1), the part to clear and clean the root
->> is only needed to do once rather than for every call of p2m_teardown().
->> If the p2m teardown is from (2), the clear and clean of the root
->> is unnecessary because the domain is not scheduled.
->>
->> Therefore, this patch introduces a helper `p2m_clear_root_pages()` to
->> do the clear and clean of the root, and move this logic outside of
->> p2m_teardown(). With this movement, the `page_list_empty(&p2m->pages)`
->> check can be dropped.
->>
->> Signed-off-by: Henry Wang <Henry.Wang@arm.com>
->> ---
->> Was: [PATCH v2] xen/arm: Reduce redundant clear root pages when
->> teardown p2m. Picked to this series with changes in original v1:
->> 1. Introduce a new PROGRESS for p2m_clear_root_pages() to avoid
->>     multiple calling when p2m_teardown() is preempted.
->> 2. Move p2m_force_tlb_flush_sync() to p2m_clear_root_pages().
->> ---
->>   xen/arch/arm/domain.c          | 12 ++++++++++++
->>   xen/arch/arm/include/asm/p2m.h |  1 +
->>   xen/arch/arm/p2m.c             | 34 ++++++++++++++--------------------
->>   3 files changed, 27 insertions(+), 20 deletions(-)
->>
->> diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
->> index 99577adb6c..961dab9166 100644
->> --- a/xen/arch/arm/domain.c
->> +++ b/xen/arch/arm/domain.c
->> @@ -959,6 +959,7 @@ enum {
->>       PROG_xen,
->>       PROG_page,
->>       PROG_mapping,
->> +    PROG_p2m_root,
->>       PROG_p2m,
->>       PROG_p2m_pool,
->>       PROG_done,
->> @@ -1021,6 +1022,17 @@ int domain_relinquish_resources(struct domain *d)
->>           if ( ret )
->>               return ret;
->>
->> +    PROGRESS(p2m_root):
->> +        /*
->> +         * We are about to free the intermediate page-tables, so clear the
->> +         * root to prevent any walk to use them.
-> The comment from here...
->> +         * The domain will not be scheduled anymore, so in theory we should
->> +         * not need to flush the TLBs. Do it for safety purpose.
->> +         * Note that all the devices have already been de-assigned. So we don't
->> +         * need to flush the IOMMU TLB here.
->> +         */
-> to here does not make a lot of sense in this place and should be moved to p2m_clear_root_pages
-> where a user can see the call to p2m_force_tlb_flush_sync.
+> If the Background region is enabled, then the MPU uses the default memory
+> map as the Background region for generating the memory
+> attributes when MPU is disabled.
+> Since the default memory map of the Armv8-R AArch64 architecture is
+> IMPLEMENTATION DEFINED, we always turn off the Background region.
 
-+1
+You are saying this. But I don't see any code below clearing 
+SCTLR_EL2.BR. Can you clarify?
 
-> Apart from that:
-> Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> In this patch, we also introduce a neutral name enable_mm for
+> Xen to enable MMU/MPU. This can help us to keep one code flow
+> in head.S
 
-Acked-by: Julien Grall <jgrall@amazon.com>
+NIT: Missing full stop.
 
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/arch/arm/arm64/head.S     |  5 +++--
+>   xen/arch/arm/arm64/head_mmu.S |  4 ++--
+>   xen/arch/arm/arm64/head_mpu.S | 19 +++++++++++++++++++
+>   3 files changed, 24 insertions(+), 4 deletions(-)
+> 
+> diff --git a/xen/arch/arm/arm64/head.S b/xen/arch/arm/arm64/head.S
+> index 145e3d53dc..7f3f973468 100644
+> --- a/xen/arch/arm/arm64/head.S
+> +++ b/xen/arch/arm/arm64/head.S
+> @@ -258,7 +258,8 @@ real_start_efi:
+>            * and memory regions for MPU systems.
+>            */
+>           bl    prepare_early_mappings
+> -        bl    enable_mmu
+> +        /* Turn on MMU or MPU */
+> +        bl    enable_mm
+>   
+>           /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+>           ldr   x0, =primary_switched
+> @@ -316,7 +317,7 @@ GLOBAL(init_secondary)
+>           bl    check_cpu_mode
+>           bl    cpu_init
+>           bl    prepare_early_mappings
+> -        bl    enable_mmu
+> +        bl    enable_mm
+>   
+>           /* We are still in the 1:1 mapping. Jump to the runtime Virtual Address. */
+>           ldr   x0, =secondary_switched
+> diff --git a/xen/arch/arm/arm64/head_mmu.S b/xen/arch/arm/arm64/head_mmu.S
+> index 2346f755df..b59c40495f 100644
+> --- a/xen/arch/arm/arm64/head_mmu.S
+> +++ b/xen/arch/arm/arm64/head_mmu.S
+> @@ -217,7 +217,7 @@ ENDPROC(prepare_early_mappings)
+>    *
+>    * Clobbers x0 - x3
+>    */
+> -ENTRY(enable_mmu)
+> +ENTRY(enable_mm)
+>           PRINT("- Turning on paging -\r\n")
+>   
+>           /*
+> @@ -239,7 +239,7 @@ ENTRY(enable_mmu)
+>           msr   SCTLR_EL2, x0          /* now paging is enabled */
+>           isb                          /* Now, flush the icache */
+>           ret
+> -ENDPROC(enable_mmu)
+> +ENDPROC(enable_mm)
+>   
+>   /*
+>    * Remove the 1:1 map from the page-tables. It is not easy to keep track
+> diff --git a/xen/arch/arm/arm64/head_mpu.S b/xen/arch/arm/arm64/head_mpu.S
+> index 0b97ce4646..e2ac69b0cc 100644
+> --- a/xen/arch/arm/arm64/head_mpu.S
+> +++ b/xen/arch/arm/arm64/head_mpu.S
+> @@ -315,6 +315,25 @@ ENDPROC(prepare_early_mappings)
+>   
+>   GLOBAL(_end_boot)
+>   
+> +/*
+> + * Enable EL2 MPU and data cache
+> + * If the Background region is enabled, then the MPU uses the default memory
+> + * map as the Background region for generating the memory
+> + * attributes when MPU is disabled.
+> + * Since the default memory map of the Armv8-R AArch64 architecture is
+> + * IMPLEMENTATION DEFINED, we intend to turn off the Background region here.
+
+Please document which register you are clobberring. See the MMU code for 
+examples how to do you.
+
+> + */
+> +ENTRY(enable_mm)
+> +    mrs   x0, SCTLR_EL2
+> +    orr   x0, x0, #SCTLR_Axx_ELx_M    /* Enable MPU */
+> +    orr   x0, x0, #SCTLR_Axx_ELx_C    /* Enable D-cache */
+> +    orr   x0, x0, #SCTLR_Axx_ELx_WXN  /* Enable WXN */
+> +    dsb   sy
+
+Please document the reason of each dsb. In this case, it is not entirely 
+clear what this is for.
+
+> +    msr   SCTLR_EL2, x0
+> +    isb
+
+Likely for isb.
+
+> +    ret
+> +ENDPROC(enable_mm)
+> +
 Cheers,
 
 -- 
