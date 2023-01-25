@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E68267BD86
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 21:58:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484555.751178 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CAD67BD9B
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 22:07:04 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484560.751189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKmpz-0004xi-Gb; Wed, 25 Jan 2023 20:57:43 +0000
+	id 1pKmyn-0006aD-Dr; Wed, 25 Jan 2023 21:06:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484555.751178; Wed, 25 Jan 2023 20:57:43 +0000
+Received: by outflank-mailman (output) from mailman id 484560.751189; Wed, 25 Jan 2023 21:06:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKmpz-0004v3-Dz; Wed, 25 Jan 2023 20:57:43 +0000
-Received: by outflank-mailman (input) for mailman id 484555;
- Wed, 25 Jan 2023 20:57:42 +0000
+	id 1pKmyn-0006XM-9u; Wed, 25 Jan 2023 21:06:49 +0000
+Received: by outflank-mailman (input) for mailman id 484560;
+ Wed, 25 Jan 2023 21:06:48 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a83O=5W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pKmpy-0004ux-Dp
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 20:57:42 +0000
+ id 1pKmym-0006XG-3t
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 21:06:48 +0000
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id e7fa0eef-9cf2-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 21:57:41 +0100 (CET)
+ id 2d3bbcd1-9cf4-11ed-91b6-6bf2151ebd3b;
+ Wed, 25 Jan 2023 22:06:46 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4E7EFB81BAA;
- Wed, 25 Jan 2023 20:57:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8872C433D2;
- Wed, 25 Jan 2023 20:57:37 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id B14A8B81BA4;
+ Wed, 25 Jan 2023 21:06:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C905C433D2;
+ Wed, 25 Jan 2023 21:06:43 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +43,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: e7fa0eef-9cf2-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 2d3bbcd1-9cf4-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674680258;
-	bh=NjOPVgeL6TzTpB1raybc4GpDzLzYle8JRXOrLMSBex8=;
-	h=From:To:Cc:Subject:Date:From;
-	b=bfeTCjxBCoUud7hi+9tT+TDGcx1QFAdoxLOtHXWet0Mb/L72k3B7fMgJq+CQs+mAq
-	 lZgq8+yDRhzNzH4DiIpGuvwR56kPb3I/+mOqKGQvMO8TQd0pxi2671LfqsdQjmheho
-	 4Ul8fvBnm8FlxfZAHzpJ2lBMRWrEgA7jLkC1lD/Y+ziPCVl4B19jYZ1lQIOzsk7L2c
-	 uZgDBR8o7bAK+WX0jSrmnRuGUfnVFb1TcPLRwSVw7YnouNP8k7aFDrHl/71qnqWikb
-	 zzTUsG4ygPfj39RQYXpc/MLSsIssrUFUKVMmT7JZfftkS7DnXWNuZOVCgKucc6C/sK
-	 al2jYZRLSJKzA==
+	s=k20201202; t=1674680804;
+	bh=m6k4jbuGQlX2dImWgEurG1RtDsvQrOrANOYLEJHIYvE=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=gMyyFfExEUd+w6CsMnjL3uYVMMQc4wjO8Ja+5lB4qaEPQfQwcK/3vm+NwJiD3ZkXr
+	 +gWFL6EaC8Kf8hZkzDnDx+XC4oQqxdq8Gzcvsigfss9pbNlLUg7URk0QaGBqEC+nez
+	 Zi332TSbBSyH94YwopJUYSgPm97BHLJbq0v8iBL63W9WNDzQ45meajCj3oBX2JFkdK
+	 Z/r0B2xJDbOVlabdEwDbI2grTsovWkkmYu/yAX1McQUuL4YGp68HfnCXmv7hLvCOBj
+	 cFln/lqjX8pqgVgqnOGHkbqsjtoOOfkYuDoxokuxxEBhn1oG90B0ufH/DZo9bOJMln
+	 XrHvtPck+I7hQ==
+Date: Wed, 25 Jan 2023 13:06:41 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
-To: xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org,
-	george.dunlap@citrix.com,
-	andrew.cooper3@citrix.com,
-	jbeulich@suse.com,
-	roger.pau@citrix.com,
-	Bertrand.Marquis@arm.com,
-	julien@xen.org,
-	Stefano Stabellini <stefano.stabellini@amd.com>
-Subject: [PATCH] Add more rules to docs/misra/rules.rst
-Date: Wed, 25 Jan 2023 12:57:35 -0800
-Message-Id: <20230125205735.2662514-1-sstabellini@kernel.org>
-X-Mailer: git-send-email 2.25.1
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
+    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
+    bertrand.marquis@arm.com
+Subject: Re: [XEN v6] xen/arm: Probe the load/entry point address of an uImage
+ correctly
+In-Reply-To: <20230125112131.19682-1-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2301251302360.1978264@ubuntu-linux-20-04-desktop>
+References: <20230125112131.19682-1-ayan.kumar.halder@amd.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-From: Stefano Stabellini <stefano.stabellini@amd.com>
+On Wed, 25 Jan 2023, Ayan Kumar Halder wrote:
+> Currently, kernel_uimage_probe() does not read the load/entry point address
+> set in the uImge header. Thus, info->zimage.start is 0 (default value). This
+> causes, kernel_zimage_place() to treat the binary (contained within uImage)
+> as position independent executable. Thus, it loads it at an incorrect
+> address.
+> 
+> The correct approach would be to read "uimage.load" and set
+> info->zimage.start. This will ensure that the binary is loaded at the
+> correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
+> address).
+> 
+> If user provides load address (ie "uimage.load") as 0x0, then the image is
+> treated as position independent executable. Xen can load such an image at
+> any address it considers appropriate. A position independent executable
+> cannot have a fixed entry point address.
+> 
+> This behavior is applicable for both arm32 and arm64 platforms.
+> 
+> Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
+> point address set in the uImage header. With this commit, Xen will use them.
+> This makes the behavior of Xen consistent with uboot for uimage headers.
+> 
+> Users who want to use Xen with statically partitioned domains, can provide
+> non zero load address and entry address for the dom0/domU kernel. It is
+> required that the load and entry address provided must be within the memory
+> region allocated by Xen.
+> 
+> A deviation from uboot behaviour is that we consider load address == 0x0,
+> to denote that the image supports position independent execution. This
+> is to make the behavior consistent across uImage and zImage.
+>
+> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+> ---
+> 
+> Changes from v1 :-
+> 1. Added a check to ensure load address and entry address are the same.
+> 2. Considered load address == 0x0 as position independent execution.
+> 3. Ensured that the uImage header interpretation is consistent across
+> arm32 and arm64.
+> 
+> v2 :-
+> 1. Mentioned the change in existing behavior in booting.txt.
+> 2. Updated booting.txt with a new section to document "Booting Guests".
+> 
+> v3 :-
+> 1. Removed the constraint that the entry point should be same as the load
+> address. Thus, Xen uses both the load address and entry point to determine
+> where the image is to be copied and the start address.
+> 2. Updated documentation to denote that load address and start address
+> should be within the memory region allocated by Xen.
+> 3. Added constraint that user cannot provide entry point for a position
+> independent executable (PIE) image.
+> 
+> v4 :-
+> 1. Explicitly mentioned the version in booting.txt from when the uImage
+> probing behavior has changed.
+> 2. Logged the requested load address and entry point parsed from the uImage
+> header.
+> 3. Some style issues.
+> 
+> v5 :-
+> 1. Set info->zimage.text_offset = 0 in kernel_uimage_probe().
+> 2. Mention that if the kernel has a legacy image header on top of zImage/zImage64
+> header, then the attrbutes from legacy image header is used to determine the load
+> address, entry point, etc. Thus, zImage/zImage64 header is effectively ignored.
+> 
+> This is true because Xen currently does not support recursive probing of kernel
+> headers ie if uImage header is probed, then Xen will not attempt to see if there
+> is an underlying zImage/zImage64 header.
+> 
+>  docs/misc/arm/booting.txt         | 30 ++++++++++++++++
+>  xen/arch/arm/include/asm/kernel.h |  2 +-
+>  xen/arch/arm/kernel.c             | 58 +++++++++++++++++++++++++++++--
+>  3 files changed, 86 insertions(+), 4 deletions(-)
+> 
+> diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
+> index 3e0c03e065..1837579aef 100644
+> --- a/docs/misc/arm/booting.txt
+> +++ b/docs/misc/arm/booting.txt
+> @@ -23,6 +23,32 @@ The exceptions to this on 32-bit ARM are as follows:
+>  
+>  There are no exception on 64-bit ARM.
+>  
+> +Booting Guests
+> +--------------
+> +
+> +Xen supports the legacy image header[3], zImage protocol for 32-bit
+> +ARM Linux[1] and Image protocol defined for ARM64[2].
+> +
+> +Until Xen 4.17, in case of legacy image protocol, Xen ignored the load
+> +address and entry point specified in the header. This has now changed.
+> +
+> +Now, it loads the image at the load address provided in the header.
+> +And the entry point is used as the kernel start address.
+> +
+> +A deviation from uboot is that, Xen treats "load address == 0x0" as
+> +position independent execution (PIE). Thus, Xen will load such an image
+> +at an address it considers appropriate. Also, user cannot specify the
+> +entry point of a PIE image since the start address cennot be
+> +predetermined.
+> +
+> +Users who want to use Xen with statically partitioned domains, can provide
+> +the fixed non zero load address and start address for the dom0/domU kernel.
+> +The load address and start address specified by the user in the header must
+> +be within the memory region allocated by Xen.
+> +
+> +Also, it is to be noted that if user provides the legacy image header on top of
+> +zImage or Image header, then Xen uses the attrbutes of legacy image header only
+                                             ^ attributes                    ^ remove only
 
-As agreed during the last MISRA C discussion, I am adding the following
-MISRA C rules: 7.1, 7.3, 18.3.
+> +to determine the load address, entry point, etc.
 
-I am also adding 13.1 and 18.2 that were "agreed pending an analysis on
-the amount of violations".
+Also add:
 
-In the case of 13.1 there are zero violations reported by cppcheck.
+"""
+Known limitation: compressed kernels with a uboot headers are not
+working.
+"""
 
-In the case of 18.2, there are zero violations reported by cppcheck
-after deviating the linker symbols, as discussed.
+These few minor changes to the documentation can be done on commit:
 
-Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
----
- docs/misra/rules.rst | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
-diff --git a/docs/misra/rules.rst b/docs/misra/rules.rst
-index dcceab9388..1da79f33c1 100644
---- a/docs/misra/rules.rst
-+++ b/docs/misra/rules.rst
-@@ -138,6 +138,16 @@ existing codebase are work-in-progress.
-      - Single-bit named bit fields shall not be of a signed type
-      -
- 
-+   * - `Rule 7.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_01.c>`_
-+     - Required
-+     - Octal constants shall not be used
-+     -
-+
-+   * - `Rule 7.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_07_03.c>`_
-+     - Required
-+     - The lowercase character l shall not be used in a literal suffix
-+     -
-+
-    * - `Rule 8.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_08_01.c>`_
-      - Required
-      - Types shall be explicitly specified
-@@ -200,6 +210,11 @@ existing codebase are work-in-progress.
-        expression which has potential side effects
-      -
- 
-+   * - `Rule 13.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_13_01_1.c>`_
-+     - Required
-+     - Initializer lists shall not contain persistent side effects
-+     -
-+
-    * - `Rule 14.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_14_01.c>`_
-      - Required
-      - A loop counter shall not have essentially floating type
-@@ -227,6 +242,16 @@ existing codebase are work-in-progress.
-        static keyword between the [ ]
-      -
- 
-+   * - `Rule 18.2 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_02.c>`_
-+     - Required
-+     - Subtraction between pointers shall only be applied to pointers that address elements of the same array
-+     -
-+
-+   * - `Rule 18.3 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_18_03.c>`_
-+     - Required
-+     - The relational operators > >= < and <= shall not be applied to objects of pointer type except where they point into the same object
-+     -
-+
-    * - `Rule 19.1 <https://gitlab.com/MISRA/MISRA-C/MISRA-C-2012/Example-Suite/-/blob/master/R_19_01.c>`_
-      - Mandatory
-      - An object shall not be assigned or copied to an overlapping
--- 
-2.25.1
 
+
+>  Firmware/bootloader requirements
+>  --------------------------------
+> @@ -39,3 +65,7 @@ Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/t
+>  
+>  [2] linux/Documentation/arm64/booting.rst
+>  Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arm64/booting.rst
+> +
+> +[3] legacy format header
+> +Latest version: https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
+> +https://linux.die.net/man/1/mkimage
+> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
+> index 5bb30c3f2f..4617cdc83b 100644
+> --- a/xen/arch/arm/include/asm/kernel.h
+> +++ b/xen/arch/arm/include/asm/kernel.h
+> @@ -72,7 +72,7 @@ struct kernel_info {
+>  #ifdef CONFIG_ARM_64
+>              paddr_t text_offset; /* 64-bit Image only */
+>  #endif
+> -            paddr_t start; /* 32-bit zImage only */
+> +            paddr_t start; /* Must be 0 for 64-bit Image */
+>          } zimage;
+>      };
+>  };
+> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
+> index 23b840ea9e..36081e73f1 100644
+> --- a/xen/arch/arm/kernel.c
+> +++ b/xen/arch/arm/kernel.c
+> @@ -127,7 +127,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
+>      paddr_t load_addr;
+>  
+>  #ifdef CONFIG_ARM_64
+> -    if ( info->type == DOMAIN_64BIT )
+> +    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
+>          return info->mem.bank[0].start + info->zimage.text_offset;
+>  #endif
+>  
+> @@ -162,7 +162,12 @@ static void __init kernel_zimage_load(struct kernel_info *info)
+>      void *kernel;
+>      int rc;
+>  
+> -    info->entry = load_addr;
+> +    /*
+> +     * If the image does not have a fixed entry point, then use the load
+> +     * address as the entry point.
+> +     */
+> +    if ( info->entry == 0 )
+> +        info->entry = load_addr;
+>  
+>      place_modules(info, load_addr, load_addr + len);
+>  
+> @@ -223,10 +228,38 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
+>      if ( len > size - sizeof(uimage) )
+>          return -EINVAL;
+>  
+> +    info->zimage.start = be32_to_cpu(uimage.load);
+> +    info->entry = be32_to_cpu(uimage.ep);
+> +
+> +    /*
+> +     * While uboot considers 0x0 to be a valid load/start address, for Xen
+> +     * to maintain parity with zImage, we consider 0x0 to denote position
+> +     * independent image. That means Xen is free to load such an image at
+> +     * any valid address.
+> +     */
+> +    if ( info->zimage.start == 0 )
+> +        printk(XENLOG_INFO
+> +               "No load address provided. Xen will decide where to load it.\n");
+> +    else
+> +        printk(XENLOG_INFO
+> +               "Provided load address: %"PRIpaddr" and entry address: %"PRIpaddr"\n",
+> +               info->zimage.start, info->entry);
+> +
+> +    /*
+> +     * If the image supports position independent execution, then user cannot
+> +     * provide an entry point as Xen will load such an image at any appropriate
+> +     * memory address. Thus, we need to return error.
+> +     */
+> +    if ( (info->zimage.start == 0) && (info->entry != 0) )
+> +    {
+> +        printk(XENLOG_ERR
+> +               "Entry point cannot be non zero for PIE image.\n");
+> +        return -EINVAL;
+> +    }
+> +
+>      info->zimage.kernel_addr = addr + sizeof(uimage);
+>      info->zimage.len = len;
+>  
+> -    info->entry = info->zimage.start;
+>      info->load = kernel_zimage_load;
+>  
+>  #ifdef CONFIG_ARM_64
+> @@ -242,6 +275,15 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
+>          printk(XENLOG_ERR "Unsupported uImage arch type %d\n", uimage.arch);
+>          return -EINVAL;
+>      }
+> +
+> +    /*
+> +     * If there is a uImage header, then we do not parse zImage or zImage64
+> +     * header. In other words if the user provides a uImage header on top of
+> +     * zImage or zImage64 header, Xen uses the attributes of uImage header only.
+> +     * Thus, Xen uses uimage.load attribute to determine the load address and
+> +     * zimage.text_offset is ignored.
+> +     */
+> +    info->zimage.text_offset = 0;
+>  #endif
+>  
+>      return 0;
+> @@ -366,6 +408,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
+>      info->zimage.kernel_addr = addr;
+>      info->zimage.len = end - start;
+>      info->zimage.text_offset = zimage.text_offset;
+> +    info->zimage.start = 0;
+>  
+>      info->load = kernel_zimage_load;
+>  
+> @@ -436,6 +479,15 @@ int __init kernel_probe(struct kernel_info *info,
+>      u64 kernel_addr, initrd_addr, dtb_addr, size;
+>      int rc;
+>  
+> +    /*
+> +     * We need to initialize start to 0. This field may be populated during
+> +     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
+> +     * uimage.ep).
+> +     * We will use this to determine if the image has a fixed entry point or
+> +     * the load address should be used as the start address.
+> +     */
+> +    info->entry = 0;
+> +
+>      /* domain is NULL only for the hardware domain */
+>      if ( domain == NULL )
+>      {
+> -- 
+> 2.17.1
+> 
 
