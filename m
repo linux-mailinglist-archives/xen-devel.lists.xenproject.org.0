@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 062A167B837
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 18:15:24 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484496.751090 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E26767C42D
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 06:09:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484502.751479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKjMb-0002ff-SN; Wed, 25 Jan 2023 17:15:09 +0000
+	id 1pKuUw-0004wC-Ci; Thu, 26 Jan 2023 05:08:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484496.751090; Wed, 25 Jan 2023 17:15:09 +0000
+Received: by outflank-mailman (output) from mailman id 484502.751479; Thu, 26 Jan 2023 05:08:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKjMb-0002ct-PR; Wed, 25 Jan 2023 17:15:09 +0000
-Received: by outflank-mailman (input) for mailman id 484496;
- Wed, 25 Jan 2023 17:15:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pKuUw-0004oq-70; Thu, 26 Jan 2023 05:08:30 +0000
+Received: by outflank-mailman (input) for mailman id 484502;
+ Wed, 25 Jan 2023 17:22:39 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ToUz=5W=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1pKjMa-0002cg-9H
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 17:15:08 +0000
-Received: from ppsw-43.srv.uis.cam.ac.uk (ppsw-43.srv.uis.cam.ac.uk
- [131.111.8.143]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d04ab1f3-9cd3-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 18:15:07 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:35168)
- by ppsw-43.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1pKjMT-000KrU-Ux (Exim 4.96) (return-path <amc96@srcf.net>);
- Wed, 25 Jan 2023 17:15:01 +0000
-Received: from [10.80.2.8] (default-46-102-197-194.interdsl.co.uk
- [46.102.197.194]) (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 534AE1FBD8;
- Wed, 25 Jan 2023 17:15:01 +0000 (GMT)
+ (envelope-from <SRS0=EtGL=5W=google.com=surenb@srs-se1.protection.inumbo.net>)
+ id 1pKjTr-0004CI-Ir
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 17:22:39 +0000
+Received: from mail-yb1-xb2d.google.com (mail-yb1-xb2d.google.com
+ [2607:f8b0:4864:20::b2d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id dc229028-9cd4-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 18:22:36 +0100 (CET)
+Received: by mail-yb1-xb2d.google.com with SMTP id m199so8144629ybm.4
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 09:22:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +39,132 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d04ab1f3-9cd3-11ed-91b6-6bf2151ebd3b
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <c12689b9-950c-94f5-e54b-490eea19b066@srcf.net>
-Date: Wed, 25 Jan 2023 17:15:01 +0000
+X-Inumbo-ID: dc229028-9cd4-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=IqJXv+IInDU1mKTOWecSjx46uIp9RhIiEah7PjvPLrg=;
+        b=QlZyecSvRJAlH7daZiVbTmdMCDJawwIkjqybbPcYd50INvCOOFwycJjGFsDCENBvPF
+         JeBM9yeOQDknmaZC6LT0p7wlzLAJo3QYgAn7K1xQNCTJjPrh6oinOxgRNGwGedAqUfeH
+         4EF6oknHwKU0N6BIZOc0CJi1hrgM4W0zxm3gicvvOuEGF7JC9HCNICDdMPEAz6Lz/B5y
+         FN2dpyuojKkpe3r7ipsFxRIyHaJ4nJmkiiUGkQy6aOsuBhBZ3WzwUsGkq0uXDlGTKFEH
+         iRh4N/trPN148wcbBUC1DmqB3ErHQLF9n9pkmMXooLK6oXyXf0aS41iIJv2buhnN7zSu
+         X8Bw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=IqJXv+IInDU1mKTOWecSjx46uIp9RhIiEah7PjvPLrg=;
+        b=5rp6rkzmt/hqEXkXuMpnrN2x6AKRB+XmjPEuuyid7mrDOZ1zb14sl9RPqY6BsoPU9/
+         fkdnT6U8pNbtNJ9PLPLRzWPCtvGgVXG2mqXsWlK5VnQceSzSFXM/CM82kClXbH0vjJhG
+         6u597nSC2rERBk8uvR2UOjsgswJPyX8lVqIkcaLvv15ioHit+FzgNKcroOQrEPu+Fmhe
+         Wcs1d4bG/UU0ae9xN2zOU6PYf4UMjW5QjdB3gHFEUnBMIr8y2uYOVK67OP34vI4SYOWw
+         9tGg99sGawD/0VQsLyOPZia/xpr1VeVk5e+lN/+Qk7x7Bk3iWAZq+jUbFaCRce0et2ns
+         6ykw==
+X-Gm-Message-State: AFqh2korhaMmUd/+j9j54B2bPYLaaGbSFCbv7TYfWA47ukEp43OwxPXt
+	IovmCFb2aYyjKg8rRgAOS/aVErA57xwbnv9y5t4Z+Q==
+X-Google-Smtp-Source: AMrXdXv634nY3BrnZ3PlTUGlyUi8i7L3YenO2gMgxW5qJ4tF6Xha6yZp+2FFeWeU8OQrXrCFeHpomo5nr++haHZW7UI=
+X-Received: by 2002:a25:a408:0:b0:800:28d4:6936 with SMTP id
+ f8-20020a25a408000000b0080028d46936mr2303639ybi.431.1674667354997; Wed, 25
+ Jan 2023 09:22:34 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Oleksii <oleksii.kurochko@gmail.com>,
- Alistair Francis <alistair23@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
- <74ca10d9be1dfc3aed4b3b21a79eae88c9df26a4.1674226563.git.oleksii.kurochko@gmail.com>
- <CAKmqyKNtFGoXmF1SJWO+JBJQvPSyDYEfpaYn2YBMQ=BsCk6VPQ@mail.gmail.com>
- <df6bd499b06c2e4997a3b647624aa2163e7f23d6.camel@gmail.com>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH v1 09/14] xen/riscv: introduce do_unexpected_trap()
-In-Reply-To: <df6bd499b06c2e4997a3b647624aa2163e7f23d6.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20230125083851.27759-1-surenb@google.com> <20230125083851.27759-5-surenb@google.com>
+ <Y9D4rWEsajV/WfNx@dhcp22.suse.cz> <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
+ <Y9Fh9joU3vTCwYbX@dhcp22.suse.cz>
+In-Reply-To: <Y9Fh9joU3vTCwYbX@dhcp22.suse.cz>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 25 Jan 2023 09:22:23 -0800
+Message-ID: <CAJuCfpEJ1U2UHBNhLx4gggN3PLZKP5RejiZL_U5ZLxU_wdviVg@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification in ksm_madvise
+To: Michal Hocko <mhocko@suse.com>
+Cc: akpm@linux-foundation.org, michel@lespinasse.org, jglisse@google.com, 
+	vbabka@suse.cz, hannes@cmpxchg.org, mgorman@techsingularity.net, 
+	dave@stgolabs.net, willy@infradead.org, liam.howlett@oracle.com, 
+	peterz@infradead.org, ldufour@linux.ibm.com, paulmck@kernel.org, 
+	luto@kernel.org, songliubraving@fb.com, peterx@redhat.com, david@redhat.com, 
+	dhowells@redhat.com, hughd@google.com, bigeasy@linutronix.de, 
+	kent.overstreet@linux.dev, punit.agrawal@bytedance.com, lstoakes@gmail.com, 
+	peterjung1337@gmail.com, rientjes@google.com, axelrasmussen@google.com, 
+	joelaf@google.com, minchan@google.com, jannh@google.com, shakeelb@google.com, 
+	tatashin@google.com, edumazet@google.com, gthelen@google.com, 
+	gurua@google.com, arjunroy@google.com, soheil@google.com, 
+	hughlynch@google.com, leewalsh@google.com, posk@google.com, will@kernel.org, 
+	aneesh.kumar@linux.ibm.com, npiggin@gmail.com, chenhuacai@kernel.org, 
+	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, richard@nod.at, anton.ivanov@cambridgegreys.com, 
+	johannes@sipsolutions.net, qianweili@huawei.com, wangzhou1@hisilicon.com, 
+	herbert@gondor.apana.org.au, davem@davemloft.net, vkoul@kernel.org, 
+	airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, tzimmermann@suse.de, l.stach@pengutronix.de, 
+	krzysztof.kozlowski@linaro.org, patrik.r.jakobsson@gmail.com, 
+	matthias.bgg@gmail.com, robdclark@gmail.com, quic_abhinavk@quicinc.com, 
+	dmitry.baryshkov@linaro.org, tomba@kernel.org, hjc@rock-chips.com, 
+	heiko@sntech.de, ray.huang@amd.com, kraxel@redhat.com, sre@kernel.org, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, tfiga@chromium.org, 
+	m.szyprowski@samsung.com, mchehab@kernel.org, dimitri.sivanich@hpe.com, 
+	zhangfei.gao@linaro.org, jejb@linux.ibm.com, martin.petersen@oracle.com, 
+	dgilbert@interlog.com, hdegoede@redhat.com, mst@redhat.com, 
+	jasowang@redhat.com, alex.williamson@redhat.com, deller@gmx.de, 
+	jayalk@intworks.biz, viro@zeniv.linux.org.uk, nico@fluxnic.net, 
+	xiang@kernel.org, chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
+	miklos@szeredi.hu, mike.kravetz@oracle.com, muchun.song@linux.dev, 
+	bhe@redhat.com, andrii@kernel.org, yoshfuji@linux-ipv6.org, 
+	dsahern@kernel.org, kuba@kernel.org, pabeni@redhat.com, perex@perex.cz, 
+	tiwai@suse.com, haojian.zhuang@gmail.com, robert.jarzmik@free.fr, 
+	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, 
+	linuxppc-dev@lists.ozlabs.org, x86@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-graphics-maintainer@vmware.com, linux-ia64@vger.kernel.org, 
+	linux-arch@vger.kernel.org, loongarch@lists.linux.dev, kvm@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
+	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, nvdimm@lists.linux.dev, 
+	dmaengine@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
+	linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+	freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+	linux-tegra@vger.kernel.org, virtualization@lists.linux-foundation.org, 
+	xen-devel@lists.xenproject.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, 
+	linux-accelerators@lists.ozlabs.org, sparclinux@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev, 
+	target-devel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	netdev@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-aio@kvack.org, 
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
+	linux-ext4@vger.kernel.org, devel@lists.orangefs.org, 
+	kexec@lists.infradead.org, linux-xfs@vger.kernel.org, bpf@vger.kernel.org, 
+	linux-perf-users@vger.kernel.org, kasan-dev@googlegroups.com, 
+	selinux@vger.kernel.org, alsa-devel@alsa-project.org, kernel-team@android.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 25/01/2023 5:01 pm, Oleksii wrote:
-> On Mon, 2023-01-23 at 09:39 +1000, Alistair Francis wrote:
->> On Sat, Jan 21, 2023 at 1:00 AM Oleksii Kurochko
->> <oleksii.kurochko@gmail.com> wrote:
->>> The patch introduces the function the purpose of which is to print
->>> a cause of an exception and call "wfi" instruction.
->>>
->>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
->>> ---
->>>  xen/arch/riscv/traps.c | 14 +++++++++++++-
->>>  1 file changed, 13 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
->>> index dd64f053a5..fc25138a4b 100644
->>> --- a/xen/arch/riscv/traps.c
->>> +++ b/xen/arch/riscv/traps.c
->>> @@ -95,7 +95,19 @@ const char *decode_cause(unsigned long cause)
->>>      return decode_trap_cause(cause);
->>>  }
->>>
->>> -void __handle_exception(struct cpu_user_regs *cpu_regs)
->>> +static void do_unexpected_trap(const struct cpu_user_regs *regs)
->>>  {
->>> +    unsigned long cause = csr_read(CSR_SCAUSE);
->>> +
->>> +    early_printk("Unhandled exception: ");
->>> +    early_printk(decode_cause(cause));
->>> +    early_printk("\n");
->>> +
->>> +    // kind of die...
->>>      wait_for_interrupt();
->> We could put this in a loop, to ensure we never progress
->>
-> I think that right now there is no big difference how to stop
-> because we have only 1 CPU, interrupts are disabled and we are in
-> exception so it looks like anything can interrupt us.
-> And in future it will be changed to panic() so we won't need here wfi()
-> any more.
+On Wed, Jan 25, 2023 at 9:08 AM Michal Hocko <mhocko@suse.com> wrote:
+>
+> On Wed 25-01-23 08:57:48, Suren Baghdasaryan wrote:
+> > On Wed, Jan 25, 2023 at 1:38 AM 'Michal Hocko' via kernel-team
+> > <kernel-team@android.com> wrote:
+> > >
+> > > On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
+> > > > Replace indirect modifications to vma->vm_flags with calls to modifier
+> > > > functions to be able to track flag changes and to keep vma locking
+> > > > correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
+> > > > vm_flags modification attempts.
+> > >
+> > > Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
+> > > gueess we should be willing to trust it.
+> >
+> > Yes, but I really want to prevent an indirect misuse since it was not
+> > easy to find these. If you feel strongly about it I will remove them
+> > or if you have a better suggestion I'm all for it.
+>
+> You can avoid that by making flags inaccesible directly, right?
 
-WFI is permitted to be implemented as a NOP by hardware.  Furthermore,
-WFI with interrupts already disabled is a supported usecase, and will
-resume execution without taking the interrupt that became pending.
+Ah, you mean Peter's suggestion of using __private? I guess that would
+cover it. I'll drop these BUG_ONs in the next version. Thanks!
 
-You need an infinite loop of WFI's for execution to halt here.
-
-~Andrew
+>
+> --
+> Michal Hocko
+> SUSE Labs
 
