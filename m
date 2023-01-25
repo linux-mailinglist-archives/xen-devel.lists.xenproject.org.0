@@ -2,33 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5935B67ADC8
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 10:27:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.483889.750574 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92BFD67ACC2
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 09:46:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.483892.750292 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKc3H-0002PD-Ci; Wed, 25 Jan 2023 09:26:43 +0000
+	id 1pKbPi-0000iv-Tg; Wed, 25 Jan 2023 08:45:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 483889.750574; Wed, 25 Jan 2023 09:26:43 +0000
+Received: by outflank-mailman (output) from mailman id 483892.750292; Wed, 25 Jan 2023 08:45:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKc3H-0002A6-3I; Wed, 25 Jan 2023 09:26:43 +0000
-Received: by outflank-mailman (input) for mailman id 483889;
- Wed, 25 Jan 2023 08:39:12 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pKbPi-0000gp-R7; Wed, 25 Jan 2023 08:45:50 +0000
+Received: by outflank-mailman (input) for mailman id 483892;
+ Wed, 25 Jan 2023 08:45:49 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5DRb=5W=flex--surenb.bounces.google.com=3rurQYwYKCesfheRaOTbbTYR.PbZkRa-QRiRYYVfgf.kRacebWRPg.beT@srs-se1.protection.inumbo.net>)
- id 1pKbJI-00083W-9K
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 08:39:12 +0000
-Received: from mail-yw1-x114a.google.com (mail-yw1-x114a.google.com
- [2607:f8b0:4864:20::114a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bd5e0aa4-9c8b-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 09:39:11 +0100 (CET)
-Received: by mail-yw1-x114a.google.com with SMTP id
- 00721157ae682-506466c484fso43568687b3.13
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 00:39:11 -0800 (PST)
+ <SRS0=6g1N=5W=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
+ id 1pKbPh-0000gj-KQ
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 08:45:49 +0000
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2060c.outbound.protection.outlook.com
+ [2a01:111:f400:7e89::60c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8e701aae-9c8c-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 09:45:03 +0100 (CET)
+Received: from DM6PR03CA0095.namprd03.prod.outlook.com (2603:10b6:5:333::28)
+ by SA0PR12MB7074.namprd12.prod.outlook.com (2603:10b6:806:2d5::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Wed, 25 Jan
+ 2023 08:44:21 +0000
+Received: from DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:333:cafe::b7) by DM6PR03CA0095.outlook.office365.com
+ (2603:10b6:5:333::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33 via Frontend
+ Transport; Wed, 25 Jan 2023 08:44:21 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ DM6NAM11FT030.mail.protection.outlook.com (10.13.172.146) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.21 via Frontend Transport; Wed, 25 Jan 2023 08:44:20 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 25 Jan
+ 2023 02:44:19 -0600
+Received: from xsjfnuv50.xilinx.com (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Wed, 25 Jan 2023 02:44:19 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,129 +59,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bd5e0aa4-9c8b-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20210112;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:from:to:cc:subject:date:message-id:reply-to;
-        bh=J7ancMifNNyjJiTof8bzSGdh+LvtuOAZ/yhUxoIZ6EY=;
-        b=l/hcCYqvcIly8bHSP154OLa3geKFmW7WOJHtqW6QP0WOiQCkjUgO6NFBclTznfTfXd
-         q/KZ4uqcFfz6e/A7WhMCPvMZlY7cpI5ZXPygAYrMACNGYIbdZdn2/wrvbiLbPFMi0EJU
-         e2xhTpttA9V49soY/4kK5pbOiY/jtu7/UBbsL9M2oZElpThGo5ueYxij1daBdATn/U6J
-         lFgz4QPoUTVqu2tO2Jv29c+EKfKlUr82uf6j5jrJG0K4kH7t4tXslYBl2iUfCiGyJg2L
-         sa2ZzT9fi8Nbfwma/h4EwurZmwhJrp5hy3f2wiTWrdCgSBqaWH+IxEwCQ2mYpS41PmTz
-         ZJ5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:from:subject:message-id:references:mime-version:in-reply-to
-         :date:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=J7ancMifNNyjJiTof8bzSGdh+LvtuOAZ/yhUxoIZ6EY=;
-        b=4aDsLxXHwgk9u7LiQu+YW5XR+doG+eTFElwdSy66t9UNWsY/twtC7J0XLGePhEgxh+
-         Ik06KSQq/iLAS3WlfUoWvQWi4sNK2wSrTXnenUTCfRpWWcO5VcYGZ+aTUU+88+L5CMtt
-         Pk4G4baebNSOhgLXXRyCQJBDY7G4E48z8/i0eUwvpry3goPsYchJJx5/wrHLxulENb/A
-         GX0fmrRCv1erAGKCLGPB+UO3AVTPgbyeNEmAntwTv3UHaiPBBYfjltrLutTtCjdxJy+Q
-         V5JOejZ+GKDt8k5OhxI83316HgDXEJK0l0Xi+Cpi977QqZUSi6e5rmk8AmFo8M+9iOIi
-         6fMg==
-X-Gm-Message-State: AFqh2kpTZq3MMTwWXhp1zdC90kzszpRHcXWrX9Tx5pEs4bG1lTA9qm5D
-	F0PTcoAsKlpFgUytnnR++yfa4zQiVxY=
-X-Google-Smtp-Source: AMrXdXslOvF1txeQ7QJk1q8MehIUDQnhzGgaj+Ckxm4gdtDkml40uAzU8COPOn8c5wwtHui85E8JZje3JZk=
-X-Received: from surenb-desktop.mtv.corp.google.com ([2620:15c:211:200:f7b0:20e8:ce66:f98])
- (user=surenb job=sendgmr) by 2002:a0d:ca88:0:b0:501:80db:3eca with SMTP id
- m130-20020a0dca88000000b0050180db3ecamr2010555ywd.100.1674635950405; Wed, 25
- Jan 2023 00:39:10 -0800 (PST)
-Date: Wed, 25 Jan 2023 00:38:51 -0800
-In-Reply-To: <20230125083851.27759-1-surenb@google.com>
-Mime-Version: 1.0
-References: <20230125083851.27759-1-surenb@google.com>
-X-Mailer: git-send-email 2.39.1.405.gd4c25cc71f-goog
-Message-ID: <20230125083851.27759-7-surenb@google.com>
-Subject: [PATCH v2 6/6] mm: export dump_mm()
-From: Suren Baghdasaryan <surenb@google.com>
-To: akpm@linux-foundation.org
-Cc: michel@lespinasse.org, jglisse@google.com, mhocko@suse.com, vbabka@suse.cz, 
-	hannes@cmpxchg.org, mgorman@techsingularity.net, dave@stgolabs.net, 
-	willy@infradead.org, liam.howlett@oracle.com, peterz@infradead.org, 
-	ldufour@linux.ibm.com, paulmck@kernel.org, luto@kernel.org, 
-	songliubraving@fb.com, peterx@redhat.com, david@redhat.com, 
-	dhowells@redhat.com, hughd@google.com, bigeasy@linutronix.de, 
-	kent.overstreet@linux.dev, punit.agrawal@bytedance.com, lstoakes@gmail.com, 
-	peterjung1337@gmail.com, rientjes@google.com, axelrasmussen@google.com, 
-	joelaf@google.com, minchan@google.com, jannh@google.com, shakeelb@google.com, 
-	tatashin@google.com, edumazet@google.com, gthelen@google.com, 
-	gurua@google.com, arjunroy@google.com, soheil@google.com, 
-	hughlynch@google.com, leewalsh@google.com, posk@google.com, will@kernel.org, 
-	aneesh.kumar@linux.ibm.com, npiggin@gmail.com, chenhuacai@kernel.org, 
-	tglx@linutronix.de, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, richard@nod.at, anton.ivanov@cambridgegreys.com, 
-	johannes@sipsolutions.net, qianweili@huawei.com, wangzhou1@hisilicon.com, 
-	herbert@gondor.apana.org.au, davem@davemloft.net, vkoul@kernel.org, 
-	airlied@gmail.com, daniel@ffwll.ch, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, l.stach@pengutronix.de, 
-	krzysztof.kozlowski@linaro.org, patrik.r.jakobsson@gmail.com, 
-	matthias.bgg@gmail.com, robdclark@gmail.com, quic_abhinavk@quicinc.com, 
-	dmitry.baryshkov@linaro.org, tomba@kernel.org, hjc@rock-chips.com, 
-	heiko@sntech.de, ray.huang@amd.com, kraxel@redhat.com, sre@kernel.org, 
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, tfiga@chromium.org, 
-	m.szyprowski@samsung.com, mchehab@kernel.org, dimitri.sivanich@hpe.com, 
-	zhangfei.gao@linaro.org, jejb@linux.ibm.com, martin.petersen@oracle.com, 
-	dgilbert@interlog.com, hdegoede@redhat.com, mst@redhat.com, 
-	jasowang@redhat.com, alex.williamson@redhat.com, deller@gmx.de, 
-	jayalk@intworks.biz, viro@zeniv.linux.org.uk, nico@fluxnic.net, 
-	xiang@kernel.org, chao@kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca, 
-	miklos@szeredi.hu, mike.kravetz@oracle.com, muchun.song@linux.dev, 
-	bhe@redhat.com, andrii@kernel.org, yoshfuji@linux-ipv6.org, 
-	dsahern@kernel.org, kuba@kernel.org, pabeni@redhat.com, perex@perex.cz, 
-	tiwai@suse.com, haojian.zhuang@gmail.com, robert.jarzmik@free.fr, 
-	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, x86@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-graphics-maintainer@vmware.com, linux-ia64@vger.kernel.org, 
-	linux-arch@vger.kernel.org, loongarch@lists.linux.dev, kvm@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org, 
-	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, nvdimm@lists.linux.dev, 
-	dmaengine@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org, 
-	linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
-	freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
-	linux-tegra@vger.kernel.org, virtualization@lists.linux-foundation.org, 
-	xen-devel@lists.xenproject.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-accelerators@lists.ozlabs.org, sparclinux@vger.kernel.org, 
-	linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev, 
-	target-devel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	netdev@vger.kernel.org, linux-fbdev@vger.kernel.org, linux-aio@kvack.org, 
-	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org, 
-	linux-ext4@vger.kernel.org, devel@lists.orangefs.org, 
-	kexec@lists.infradead.org, linux-xfs@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-perf-users@vger.kernel.org, kasan-dev@googlegroups.com, 
-	selinux@vger.kernel.org, alsa-devel@alsa-project.org, kernel-team@android.com, 
-	surenb@google.com
-Content-Type: text/plain; charset="UTF-8"
+X-Inumbo-ID: 8e701aae-9c8c-11ed-b8d1-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=bcGycvZFyRxpAEIqfsI3cKxKUUlrd+yXyzoDHglrn9qeQvM8vemgXPAlpfzqLE3mk6Z3gxhCvAmsQDt56MerLAmaRsAS19aGxuMMIbyLDjEkSBg3NXXNh/DTBIqHwT3bUpV0nrm4pCtbcBVqKxSCfP1lZ5V+Co4mBJPkVyMmuc6J2Ctyca7lyv19fFl4XIxeQisx/PLFerzVEB+Yr4m/xRSkmMxsdsWIV8WWcBd7NT1m8UB/7rMo0NLan4+VM007G1ISo+FjdwxXmIQcwQX4yqNctH69o9mHl8VH93H7WP1tNcQu9mcbHJmcn0ilAHBUPdV8q0oVCqbMrqy6eeVomg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qx1KuYQR6ecGUTs1AcZ1xyNLJ/NWGF8kUn8IPVLjxhM=;
+ b=EifB5JC9/QBhZQWAF+0Cfc+W3atOg0bZ+VeDRRaMrgSLwQCmhJOkq/qb57VgPLoAUp28RpPYd0laY1LK9g1tvtf65tqzFLfoNc49xp0XKDC75HsrgzEcVfD5vTJeTMgaAfivfSiLFFAh7FuCtWxDSKjmzxZI8LDRUHh1vHBJ1CbegzocDr0djbm7RH+zZRwIXSOxQ68lm0idOkstB4B/0t+q16h0d3KsF7XDmpbf8nGeFkgmlojmQj+AL/jscjlo3Yly9/bCnNUxFeG9TaZ3217+T+2xzThpFHQWXKcsRoOYV/1r32SppVRsfZPKTLWwvZIMIYoOPhvqab2f50zlYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=nongnu.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qx1KuYQR6ecGUTs1AcZ1xyNLJ/NWGF8kUn8IPVLjxhM=;
+ b=dLhpK0DVCBzbVycLkTcZNXCo7w1fJV7Ldqx+SJW+Gqf4IW2v6OH+p/qGwKAfhAtjHhWfxElrwAjrVKwnLN8be7Ob9BuSjflrAEyjJd3ItasK5p/v182eE+nMIGTOPgNJGLvDsMo6kYuldYJbw1vsyuk4u7u+b9nufLrZZ/3QNsk=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+From: Vikram Garhwal <vikram.garhwal@amd.com>
+To: <qemu-devel@nongnu.org>
+CC: <xen-devel@lists.xenproject.org>, <vikram.garhwal@amd.com>,
+	<stefano.stabellini@amd.com>, <alex.bennee@linaro.org>
+Subject: [QEMU][PATCH v3 00/10] Introduce xenpvh machine for arm architecture
+Date: Wed, 25 Jan 2023 00:43:45 -0800
+Message-ID: <20230125084356.6684-1-vikram.garhwal@amd.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT030:EE_|SA0PR12MB7074:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a434cbf-ab58-498c-0e99-08dafeb05a15
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	zDqgLfzZ3BkeV9hJO+jv9ivBkrALiRdtGC1QlTxa1HnY2+19PEk8Dm7U6AZ7CxyPwCN8pkZWwMiQ6JFAzin/mgByR8pMQex5HM01a/PgqwSt4Ugm3Xz/r739Ihaoz0gupbvVnDthCJQj3Ub7P8X6ZR+Qij2+RzPxnrxVYrA4bIELzAGITHuBeW0QmNnuG8WpDbGVW5zyfyc+aim6DX+y8Sn5EtHwKNGvwvjut8/qizPHKEyBqxlHSSUf4oWRYDzYVgfgLXxU+56W5wxObmcefK61CQlDQXOVW02+P22d1+QzowY8pkRukPEz4zVaJI9z7/em8mktksUDtFEW1fcLIGIyLxL3pwmEGQJ4qMDZxRLITUKYWLl7j/Uh6ByZp3oGr8wyHJiiwwCFw1UnpctUO0a7Du6pjsfOpiOIEEywpu/dy3+X+y3VjoR5GDjYi/fccpZ9U5UVk/l+hPqiw8yRtrOztpweY7oNPRtAfcUF18p9ZxTsv8pJdvsZYBO09k+N4JZ/8ar+5dJAxmwA35e6571dbB/MGB8zr9kmTEorJ+gIzwfNYOOJ/7RSxgKSOm5uYc983JXTIVIlZ12i/S2Vwc6sNCqmaOKaxVk4hzDe9q4409UmnWqPaZkvIZeIfnuFWqggmkOThqKiiYv6S7TzJ8dfej+SDZarMg49JHjGKpLqmIOqtqoNg30lYA/MX0kedfuTVOdyYvpGC8PmpdN6KISHZ+us8iAzIIool9xg29c=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(346002)(396003)(376002)(451199018)(40470700004)(46966006)(36840700001)(70586007)(70206006)(8676002)(4326008)(54906003)(40480700001)(316002)(41300700001)(36860700001)(336012)(86362001)(40460700003)(44832011)(2616005)(1076003)(82310400005)(2906002)(82740400003)(8936002)(356005)(5660300002)(426003)(186003)(83380400001)(47076005)(478600001)(6666004)(36756003)(6916009)(26005)(81166007)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jan 2023 08:44:20.4593
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a434cbf-ab58-498c-0e99-08dafeb05a15
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT030.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7074
 
-mmap_assert_write_locked() is used in vm_flags modifiers. Because
-mmap_assert_write_locked() uses dump_mm() and vm_flags are sometimes
-modified from from inside a module, it's necessary to export
-dump_mm() function.
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Signed-off-by: Suren Baghdasaryan <surenb@google.com>
----
- mm/debug.c | 1 +
- 1 file changed, 1 insertion(+)
+Hi,
+This series add xenpvh machine for aarch64. Motivation behind creating xenpvh
+machine with IOREQ and TPM was to enable each guest on Xen aarch64 to have it's
+own unique and emulated TPM.
 
-diff --git a/mm/debug.c b/mm/debug.c
-index 9d3d893dc7f4..96d594e16292 100644
---- a/mm/debug.c
-+++ b/mm/debug.c
-@@ -215,6 +215,7 @@ void dump_mm(const struct mm_struct *mm)
- 		mm->def_flags, &mm->def_flags
- 	);
- }
-+EXPORT_SYMBOL(dump_mm);
- 
- static bool page_init_poisoning __read_mostly = true;
- 
+This series does following:
+    1. Moved common xen functionalities from hw/i386/xen to hw/xen/ so those can
+       be used for aarch64.
+    2. We added a minimal xenpvh arm machine which creates an IOREQ server and
+       support TPM.
+
+Also, checkpatch.pl fails for 03/12 and 06/12. These fails are due to
+moving old code to new place which was not QEMU code style compatible.
+No new add code was added.
+
+Regards,
+Vikram
+
+ChangeLog:
+    v2->v3:
+        1. Change machine name to xenpvh as per Jurgen's input.
+        2. Add docs/system/xenpvh.rst documentation.
+        3. Removed GUEST_TPM_BASE and added tpm_base_address as property.
+        4. Correct CONFIG_TPM related issues.
+        5. Added xen_register_backend() function call to xen_register_ioreq().
+        6. Added Oleksandr's suggestion i.e. removed extra interface opening and
+           used accel=xen option
+
+    v1 -> v2
+    Merged patch 05 and 06.
+    04/12: xen-hvm-common.c:
+        1. Moved xen_be_init() and xen_be_register_common() from
+            xen_register_ioreq() to xen_register_backend().
+        2. Changed g_malloc to g_new and perror -> error_setg_errno.
+        3. Created a local subroutine function for Xen_IOREQ_register.
+        4. Fixed build issues with inclusion of xenstore.h.
+        5. Fixed minor errors.
+
+Stefano Stabellini (5):
+  hw/i386/xen/xen-hvm: move x86-specific fields out of XenIOState
+  xen-hvm: reorganize xen-hvm and move common function to xen-hvm-common
+  include/hw/xen/xen_common: return error from xen_create_ioreq_server
+  hw/xen/xen-hvm-common: skip ioreq creation on ioreq registration
+    failure
+  meson.build: do not set have_xen_pci_passthrough for aarch64 targets
+
+Vikram Garhwal (5):
+  hw/i386/xen/: move xen-mapcache.c to hw/xen/
+  hw/i386/xen: rearrange xen_hvm_init_pc
+  hw/xen/xen-hvm-common: Use g_new and error_setg_errno
+  hw/arm: introduce xenpvh machine
+  meson.build: enable xenpv machine build for ARM
+
+ docs/system/arm/xenpvh.rst       |   34 +
+ docs/system/target-arm.rst       |    1 +
+ hw/arm/meson.build               |    2 +
+ hw/arm/xen_arm.c                 |  184 +++++
+ hw/i386/meson.build              |    1 +
+ hw/i386/xen/meson.build          |    1 -
+ hw/i386/xen/trace-events         |   19 -
+ hw/i386/xen/xen-hvm.c            | 1084 +++---------------------------
+ hw/xen/meson.build               |    7 +
+ hw/xen/trace-events              |   19 +
+ hw/xen/xen-hvm-common.c          |  889 ++++++++++++++++++++++++
+ hw/{i386 => }/xen/xen-mapcache.c |    0
+ include/hw/arm/xen_arch_hvm.h    |    9 +
+ include/hw/i386/xen_arch_hvm.h   |   11 +
+ include/hw/xen/arch_hvm.h        |    5 +
+ include/hw/xen/xen-hvm-common.h  |   97 +++
+ include/hw/xen/xen_common.h      |   13 +-
+ meson.build                      |    4 +-
+ 18 files changed, 1363 insertions(+), 1017 deletions(-)
+ create mode 100644 docs/system/arm/xenpvh.rst
+ create mode 100644 hw/arm/xen_arm.c
+ create mode 100644 hw/xen/xen-hvm-common.c
+ rename hw/{i386 => }/xen/xen-mapcache.c (100%)
+ create mode 100644 include/hw/arm/xen_arch_hvm.h
+ create mode 100644 include/hw/i386/xen_arch_hvm.h
+ create mode 100644 include/hw/xen/arch_hvm.h
+ create mode 100644 include/hw/xen/xen-hvm-common.h
+
 -- 
-2.39.1
+2.17.0
 
 
