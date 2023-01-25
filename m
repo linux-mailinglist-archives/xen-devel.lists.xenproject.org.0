@@ -2,36 +2,43 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E7D67BF93
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 23:07:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484613.751272 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B8667BFD0
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 23:20:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484619.751282 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKnvO-0000im-U4; Wed, 25 Jan 2023 22:07:22 +0000
+	id 1pKo7i-00035B-2a; Wed, 25 Jan 2023 22:20:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484613.751272; Wed, 25 Jan 2023 22:07:22 +0000
+Received: by outflank-mailman (output) from mailman id 484619.751282; Wed, 25 Jan 2023 22:20:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKnvO-0000gV-Pe; Wed, 25 Jan 2023 22:07:22 +0000
-Received: by outflank-mailman (input) for mailman id 484613;
- Wed, 25 Jan 2023 22:07:22 +0000
+	id 1pKo7h-00033G-UK; Wed, 25 Jan 2023 22:20:05 +0000
+Received: by outflank-mailman (input) for mailman id 484619;
+ Wed, 25 Jan 2023 22:20:04 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a83O=5W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pKnvO-0000gP-3Q
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 22:07:22 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ <SRS0=V6li=5W=redhat.com=stefanha@srs-se1.protection.inumbo.net>)
+ id 1pKo7g-0002mN-Cv
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 22:20:04 +0000
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a2f81672-9cfc-11ed-b8d1-410ff93cb8f0;
- Wed, 25 Jan 2023 23:07:20 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ id 6898e916-9cfe-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 23:20:01 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-523-Eg2ockkrMBCcGSKv08KftQ-1; Wed, 25 Jan 2023 17:19:55 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 838B6B81BE0;
- Wed, 25 Jan 2023 22:07:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2822EC433EF;
- Wed, 25 Jan 2023 22:07:17 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE2F43C0CD39;
+ Wed, 25 Jan 2023 22:19:53 +0000 (UTC)
+Received: from localhost (unknown [10.39.192.105])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id B4F4CC15BA0;
+ Wed, 25 Jan 2023 22:19:51 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,109 +50,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a2f81672-9cfc-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674684438;
-	bh=+67Nm9MEXf9tqfA8JJgsd8crv/UF0jOLjrPwb+n11Ac=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gX2egELc5SZdxp4rDaGX8Ol0GPtMmRl5zkdC1lek8jGKXzo/WlEzz9dOGDyWBeJ2J
-	 rvugQsULNsrMQEGoTG6CSA9jeJvlk3tTuWmv/8uwxcsVMSni6aw/lKjv2nKJ+/XuSX
-	 dleZRbL7JhfPuuac7yck8DtnBFs5vizHGSzcJAFG3bWlwL70YOU2nunxYUdqIajnjt
-	 D5lKT90yWlBrWrnO+qGTuy02g4NMasnmKlOJNfVz+e8bzPTkfmJe64r8vv1kPalDJ8
-	 CeW1u8F74Se5eLiZtJAAutrsU/RAiG9GI3JwVYQFaiEeeedTDY3wdzzQ+Kwavkg3bj
-	 Nv8JVqzFZirfQ==
-Date: Wed, 25 Jan 2023 14:07:15 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-cc: qemu-devel@nongnu.org, xen-devel@lists.xenproject.org, 
-    stefano.stabellini@amd.com, alex.bennee@linaro.org, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>
-Subject: Re: [QEMU][PATCH v4 07/10] hw/xen/xen-hvm-common: Use g_new and
- error_setg_errno
-In-Reply-To: <20230125085407.7144-8-vikram.garhwal@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2301251406170.1978264@ubuntu-linux-20-04-desktop>
-References: <20230125085407.7144-1-vikram.garhwal@amd.com> <20230125085407.7144-8-vikram.garhwal@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 6898e916-9cfe-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1674685200;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SXWTS7PEfK4jfis5AMTJ0jfF1+NWNTH+CYWW0b9TfAk=;
+	b=IVY4iK60xsypQIQzi6BKwM4EAFcXxDsEmaTwU9c1UiyJaR4RTOjldQ4B9NxX7VTpqpxE35
+	exrVAU2L4q2yijlNQtBbQDfAp9J0QLIJ8k0ZevUvCfgMhvAWg/kb1QKMJ6g1n8QVruFIX5
+	qkqBv6Q7y0qC4mgmBdFtoFdLOiYrezE=
+X-MC-Unique: Eg2ockkrMBCcGSKv08KftQ-1
+Date: Wed, 25 Jan 2023 17:19:49 -0500
+From: Stefan Hajnoczi <stefanha@redhat.com>
+To: Alexander Bulekov <alxndr@bu.edu>
+Cc: qemu-devel@nongnu.org,
+	Philippe =?iso-8859-1?Q?Mathieu-Daud=E9?= <philmd@linaro.org>,
+	Mauro Matteo Cascella <mcascell@redhat.com>,
+	Peter Xu <peterx@redhat.com>, Jason Wang <jasowang@redhat.com>,
+	David Hildenbrand <david@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>, Thomas Huth <thuth@redhat.com>,
+	Laurent Vivier <lvivier@redhat.com>, Bandan Das <bsd@redhat.com>,
+	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
+	Darren Kenny <darren.kenny@oracle.com>,
+	Bin Meng <bin.meng@windriver.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	"Michael S . Tsirkin" <mst@redhat.com>,
+	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+	Daniel P =?iso-8859-1?Q?=2E_Berrang=E9?= <berrange@redhat.com>,
+	Eduardo Habkost <eduardo@habkost.net>,
+	Jon Maloy <jmaloy@redhat.com>, Siqi Chen <coc.cyqh@gmail.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Anthony Perard <anthony.perard@citrix.com>,
+	Paul Durrant <paul@xen.org>, Kevin Wolf <kwolf@redhat.com>,
+	Hanna Reitz <hreitz@redhat.com>, Amit Shah <amit@kernel.org>,
+	=?iso-8859-1?Q?Marc-Andr=E9?= Lureau <marcandre.lureau@redhat.com>,
+	John Snow <jsnow@redhat.com>,
+	Peter Maydell <peter.maydell@linaro.org>,
+	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
+	Keith Busch <kbusch@kernel.org>, Klaus Jensen <its@irrelevant.dk>,
+	Fam Zheng <fam@euphon.net>,
+	Dmitry Fleytman <dmitry.fleytman@gmail.com>,
+	"Gonglei (Arei)" <arei.gonglei@huawei.com>,
+	"open list:X86 Xen CPUs" <xen-devel@lists.xenproject.org>,
+	"open list:virtio-blk" <qemu-block@nongnu.org>,
+	"open list:i.MX31 (kzm)" <qemu-arm@nongnu.org>,
+	"open list:Old World (g3beige)" <qemu-ppc@nongnu.org>
+Subject: Re: [PATCH v4 3/3] hw: replace most qemu_bh_new calls with
+ qemu_bh_new_guarded
+Message-ID: <Y9GrBTALs18YkSKG@fedora>
+References: <20230119070308.321653-1-alxndr@bu.edu>
+ <20230119070308.321653-4-alxndr@bu.edu>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="M2N6eqImXDUC6qNs"
+Content-Disposition: inline
+In-Reply-To: <20230119070308.321653-4-alxndr@bu.edu>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 
-On Wed, 25 Jan 2023, Vikram Garhwal wrote:
-> Replace g_malloc with g_new and perror with error_setg_errno.
-> 
-> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+
+--M2N6eqImXDUC6qNs
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Jan 19, 2023 at 02:03:08AM -0500, Alexander Bulekov wrote:
+> This protects devices from bh->mmio reentrancy issues.
+>=20
+> Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
 > ---
->  hw/xen/xen-hvm-common.c | 12 ++++++------
->  1 file changed, 6 insertions(+), 6 deletions(-)
-> 
-> diff --git a/hw/xen/xen-hvm-common.c b/hw/xen/xen-hvm-common.c
-> index 94dbbe97ed..01c8ec1956 100644
-> --- a/hw/xen/xen-hvm-common.c
-> +++ b/hw/xen/xen-hvm-common.c
-> @@ -34,7 +34,7 @@ void xen_ram_alloc(ram_addr_t ram_addr, ram_addr_t size, MemoryRegion *mr,
->      trace_xen_ram_alloc(ram_addr, size);
->  
->      nr_pfn = size >> TARGET_PAGE_BITS;
-> -    pfn_list = g_malloc(sizeof (*pfn_list) * nr_pfn);
-> +    pfn_list = g_new(xen_pfn_t, nr_pfn);
->  
->      for (i = 0; i < nr_pfn; i++) {
->          pfn_list[i] = (ram_addr >> TARGET_PAGE_BITS) + i;
-> @@ -726,7 +726,7 @@ void destroy_hvm_domain(bool reboot)
->              return;
->          }
->          if (errno != ENOTTY /* old Xen */) {
-> -            perror("xendevicemodel_shutdown failed");
-> +            error_report("xendevicemodel_shutdown failed with error %d", errno);
+>  hw/9pfs/xen-9p-backend.c        | 4 +++-
+>  hw/block/dataplane/virtio-blk.c | 3 ++-
+>  hw/block/dataplane/xen-block.c  | 5 +++--
+>  hw/block/virtio-blk.c           | 5 +++--
+>  hw/char/virtio-serial-bus.c     | 3 ++-
+>  hw/display/qxl.c                | 9 ++++++---
+>  hw/display/virtio-gpu.c         | 6 ++++--
+>  hw/ide/ahci.c                   | 3 ++-
+>  hw/ide/core.c                   | 3 ++-
+>  hw/misc/imx_rngc.c              | 6 ++++--
+>  hw/misc/macio/mac_dbdma.c       | 2 +-
+>  hw/net/virtio-net.c             | 3 ++-
+>  hw/nvme/ctrl.c                  | 6 ++++--
+>  hw/scsi/mptsas.c                | 3 ++-
+>  hw/scsi/scsi-bus.c              | 3 ++-
+>  hw/scsi/vmw_pvscsi.c            | 3 ++-
+>  hw/usb/dev-uas.c                | 3 ++-
+>  hw/usb/hcd-dwc2.c               | 3 ++-
+>  hw/usb/hcd-ehci.c               | 3 ++-
+>  hw/usb/hcd-uhci.c               | 2 +-
+>  hw/usb/host-libusb.c            | 6 ++++--
+>  hw/usb/redirect.c               | 6 ++++--
+>  hw/usb/xen-usb.c                | 3 ++-
+>  hw/virtio/virtio-balloon.c      | 5 +++--
+>  hw/virtio/virtio-crypto.c       | 3 ++-
+>  25 files changed, 66 insertions(+), 35 deletions(-)
 
-You can use strerror(errno), here and below.
+Should scripts/checkpatch.pl complain when qemu_bh_new() or aio_bh_new()
+are called from hw/? Adding a check is important so new instances cannot
+be added accidentally in the future.
 
-Either way:
+Stefan
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+--M2N6eqImXDUC6qNs
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmPRqwUACgkQnKSrs4Gr
+c8gRpgf/XSMSSsqXecEYX86MfvLzEtDZEi3FpITflNUsNp60gUR3RxhOHYM1uYKt
+JJsD58pqNmAqE+w3Yp3IfsHiqN2/Nn4M11DhA+LTtr/aOBDj2Avtn8cjlD9B/9sv
+pdBlSmT9qdqNSMV0Vf3PeTQoFPgO0HfszA90SWOxVtRSPY5+I0ogrcBQnF9CniKP
+ckWq3++62BxEnQDD74thjGagTPexUnMER/G5RGu7bEHZZPnVCUZSrRN413f5eco2
+8hJZwVfvUmr/28Pn57ShdIm0T4VAr8A2T4+BpaGpc5oiBL5Jxblkj7J8+A78tv0v
+jeSYTaMqrl98ceiYFrymlZCjC9aaOQ==
+=MJ1Z
+-----END PGP SIGNATURE-----
 
->          }
->          /* well, try the old thing then */
->      }
-> @@ -797,7 +797,7 @@ static void xen_do_ioreq_register(XenIOState *state,
->      }
->  
->      /* Note: cpus is empty at this point in init */
-> -    state->cpu_by_vcpu_id = g_malloc0(max_cpus * sizeof(CPUState *));
-> +    state->cpu_by_vcpu_id = g_new0(CPUState *, max_cpus);
->  
->      rc = xen_set_ioreq_server_state(xen_domid, state->ioservid, true);
->      if (rc < 0) {
-> @@ -806,7 +806,7 @@ static void xen_do_ioreq_register(XenIOState *state,
->          goto err;
->      }
->  
-> -    state->ioreq_local_port = g_malloc0(max_cpus * sizeof (evtchn_port_t));
-> +    state->ioreq_local_port = g_new0(evtchn_port_t, max_cpus);
->  
->      /* FIXME: how about if we overflow the page here? */
->      for (i = 0; i < max_cpus; i++) {
-> @@ -860,13 +860,13 @@ void xen_register_ioreq(XenIOState *state, unsigned int max_cpus,
->  
->      state->xce_handle = xenevtchn_open(NULL, 0);
->      if (state->xce_handle == NULL) {
-> -        perror("xen: event channel open");
-> +        error_report("xen: event channel open failed with error %d", errno);
->          goto err;
->      }
->  
->      state->xenstore = xs_daemon_open();
->      if (state->xenstore == NULL) {
-> -        perror("xen: xenstore open");
-> +        error_report("xen: xenstore open failed with error %d", errno);
->          goto err;
->      }
->  
-> -- 
-> 2.17.0
-> 
-> 
+--M2N6eqImXDUC6qNs--
+
 
