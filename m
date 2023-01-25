@@ -2,32 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7B0167C42A
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 06:09:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484531.751487 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E1E867B968
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 19:34:02 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484521.751137 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKuUw-00054P-QO; Thu, 26 Jan 2023 05:08:30 +0000
+	id 1pKkaf-0004te-AJ; Wed, 25 Jan 2023 18:33:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484531.751487; Thu, 26 Jan 2023 05:08:30 +0000
+Received: by outflank-mailman (output) from mailman id 484521.751137; Wed, 25 Jan 2023 18:33:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKuUw-0004vj-Hk; Thu, 26 Jan 2023 05:08:30 +0000
-Received: by outflank-mailman (input) for mailman id 484531;
- Wed, 25 Jan 2023 18:39:11 +0000
+	id 1pKkaf-0004rx-6l; Wed, 25 Jan 2023 18:33:45 +0000
+Received: by outflank-mailman (input) for mailman id 484521;
+ Wed, 25 Jan 2023 18:33:44 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NNIG=5W=infradead.org=willy@srs-se1.protection.inumbo.net>)
- id 1pKkfq-0005i0-RB
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 18:39:11 +0000
-Received: from casper.infradead.org (casper.infradead.org
- [2001:8b0:10b:1236::1])
+ <SRS0=dnVv=5W=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
+ id 1pKkad-0004rn-Uo
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 18:33:43 +0000
+Received: from crocodile.elm.relay.mailchannels.net
+ (crocodile.elm.relay.mailchannels.net [23.83.212.45])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 8b2f30b6-9cdf-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 19:39:05 +0100 (CET)
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1pKkaL-0066XZ-MG; Wed, 25 Jan 2023 18:33:25 +0000
+ id c98d1fd9-9cde-11ed-91b6-6bf2151ebd3b;
+ Wed, 25 Jan 2023 19:33:41 +0100 (CET)
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id 25BFC881D46
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 18:33:39 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (unknown [127.0.0.6])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 8EC9C881C5C
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 18:33:38 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.126.30.49 (trex/6.7.1); Wed, 25 Jan 2023 18:33:38 +0000
+Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: kjlx@templeofstupid.com)
+ by pdx1-sub0-mail-a306.dreamhost.com (Postfix) with ESMTPSA id 4P2CCQ1YPDzK3
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 10:33:38 -0800 (PST)
+Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
+ id e00e2 by kmjvbox (DragonFly Mail Agent v0.12);
+ Wed, 25 Jan 2023 10:33:37 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,118 +57,101 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8b2f30b6-9cdf-11ed-91b6-6bf2151ebd3b
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=WhE3p5nMlMDjaV/irGLArTSJUCL3MW0izpTScdbc1OU=; b=mx74wVm8uyXRMzRkznkmPv14f3
-	DM5mkZY0d2Y454KV/p1DBO6bVWUBYmLnjNwq5de4oOCp4K1tzlZ+pYhblaAnUsgNim9Cg22n4lXC7
-	YVziRodKlXV3h1dcA4wCil3iZ6I2W+LteukgjO5nFw9bnJFOnLJvx0ni4Ju6wCzLw38ztU2xqwXDF
-	Hz7a4pCnrIPatIpdvDFmrtxTdMVr7eH9j59LSpJj79ys6zGb7fhMV69syzXZoxm/q67WE7IxkNx+x
-	YR6wIJfVUlSwCzFkthS2vqR79CZmfDxbuiYrAaQdlm8CD16FJpwzTtCFj0zPf7AtdmoIV8Mlhhb7E
-	KwDK04uQ==;
-Date: Wed, 25 Jan 2023 18:33:25 +0000
-From: Matthew Wilcox <willy@infradead.org>
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: akpm@linux-foundation.org, michel@lespinasse.org, jglisse@google.com,
-	mhocko@suse.com, vbabka@suse.cz, hannes@cmpxchg.org,
-	mgorman@techsingularity.net, dave@stgolabs.net,
-	liam.howlett@oracle.com, peterz@infradead.org,
-	ldufour@linux.ibm.com, paulmck@kernel.org, luto@kernel.org,
-	songliubraving@fb.com, peterx@redhat.com, david@redhat.com,
-	dhowells@redhat.com, hughd@google.com, bigeasy@linutronix.de,
-	kent.overstreet@linux.dev, punit.agrawal@bytedance.com,
-	lstoakes@gmail.com, peterjung1337@gmail.com, rientjes@google.com,
-	axelrasmussen@google.com, joelaf@google.com, minchan@google.com,
-	jannh@google.com, shakeelb@google.com, tatashin@google.com,
-	edumazet@google.com, gthelen@google.com, gurua@google.com,
-	arjunroy@google.com, soheil@google.com, hughlynch@google.com,
-	leewalsh@google.com, posk@google.com, will@kernel.org,
-	aneesh.kumar@linux.ibm.com, npiggin@gmail.com,
-	chenhuacai@kernel.org, tglx@linutronix.de, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, richard@nod.at,
-	anton.ivanov@cambridgegreys.com, johannes@sipsolutions.net,
-	qianweili@huawei.com, wangzhou1@hisilicon.com,
-	herbert@gondor.apana.org.au, davem@davemloft.net, vkoul@kernel.org,
-	airlied@gmail.com, daniel@ffwll.ch,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, l.stach@pengutronix.de,
-	krzysztof.kozlowski@linaro.org, patrik.r.jakobsson@gmail.com,
-	matthias.bgg@gmail.com, robdclark@gmail.com,
-	quic_abhinavk@quicinc.com, dmitry.baryshkov@linaro.org,
-	tomba@kernel.org, hjc@rock-chips.com, heiko@sntech.de,
-	ray.huang@amd.com, kraxel@redhat.com, sre@kernel.org,
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
-	tfiga@chromium.org, m.szyprowski@samsung.com, mchehab@kernel.org,
-	dimitri.sivanich@hpe.com, zhangfei.gao@linaro.org,
-	jejb@linux.ibm.com, martin.petersen@oracle.com,
-	dgilbert@interlog.com, hdegoede@redhat.com, mst@redhat.com,
-	jasowang@redhat.com, alex.williamson@redhat.com, deller@gmx.de,
-	jayalk@intworks.biz, viro@zeniv.linux.org.uk, nico@fluxnic.net,
-	xiang@kernel.org, chao@kernel.org, tytso@mit.edu,
-	adilger.kernel@dilger.ca, miklos@szeredi.hu,
-	mike.kravetz@oracle.com, muchun.song@linux.dev, bhe@redhat.com,
-	andrii@kernel.org, yoshfuji@linux-ipv6.org, dsahern@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, perex@perex.cz, tiwai@suse.com,
-	haojian.zhuang@gmail.com, robert.jarzmik@free.fr,
-	linux-mm@kvack.org, linux-arm-kernel@lists.infradead.org,
-	linuxppc-dev@lists.ozlabs.org, x86@kernel.org,
-	linux-kernel@vger.kernel.org, linux-graphics-maintainer@vmware.com,
-	linux-ia64@vger.kernel.org, linux-arch@vger.kernel.org,
-	loongarch@lists.linux.dev, kvm@vger.kernel.org,
-	linux-s390@vger.kernel.org, linux-sgx@vger.kernel.org,
-	linux-um@lists.infradead.org, linux-acpi@vger.kernel.org,
-	linux-crypto@vger.kernel.org, nvdimm@lists.linux.dev,
-	dmaengine@vger.kernel.org, amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, etnaviv@lists.freedesktop.org,
-	linux-samsung-soc@vger.kernel.org, intel-gfx@lists.freedesktop.org,
-	linux-mediatek@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-	freedreno@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
-	linux-tegra@vger.kernel.org,
-	virtualization@lists.linux-foundation.org,
-	xen-devel@lists.xenproject.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-rdma@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-accelerators@lists.ozlabs.org, sparclinux@vger.kernel.org,
-	linux-scsi@vger.kernel.org, linux-staging@lists.linux.dev,
-	target-devel@vger.kernel.org, linux-usb@vger.kernel.org,
-	netdev@vger.kernel.org, linux-fbdev@vger.kernel.org,
-	linux-aio@kvack.org, linux-fsdevel@vger.kernel.org,
-	linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
-	devel@lists.orangefs.org, kexec@lists.infradead.org,
-	linux-xfs@vger.kernel.org, bpf@vger.kernel.org,
-	linux-perf-users@vger.kernel.org, kasan-dev@googlegroups.com,
-	selinux@vger.kernel.org, alsa-devel@alsa-project.org,
-	kernel-team@android.com
-Subject: Re: [PATCH v2 1/6] mm: introduce vma->vm_flags modifier functions
-Message-ID: <Y9F19QEDX5d/44EV@casper.infradead.org>
-References: <20230125083851.27759-1-surenb@google.com>
- <20230125083851.27759-2-surenb@google.com>
+X-Inumbo-ID: c98d1fd9-9cde-11ed-91b6-6bf2151ebd3b
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1674671618; a=rsa-sha256;
+	cv=none;
+	b=0RcDVdnfrfpZO++0fp/wERntWG6DUztZnG2iq28H16d12M7DJEGQQoj1QheyUuXcgnMhPA
+	nkv+xt4MRVjEIEKg+t6WaZfh14lmJj0isg1S1dI8RbMD813+1d4iJoOZaZ2cPdzfmW66ea
+	4OE6hO/TowJHfI5vo+cI9M9QMg1MUAV8ank6MUmpIeU6M4HfxYuJL45dZUZGd5ZQxbVm2Z
+	QsL4MnEa5PaNVUoFMAIeW41ZuJkdvRe4kP3c7QuV+LHqxhb2F/9gHOt5FQ8G1lPQFTaajb
+	zPIfHEilx2e4rMdPOab3CleXm6o15uVgEBEZS7hJGY3lrIMRiDEViUaHXYqo+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1674671618;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=eqyFtuln9teDjnwVY8VK7WjssFBHkmh8oTKDG+ZK2Dg=;
+	b=iooMJgKXGkqohds3FAEuulD2ymWzfGD8M8Q/jP9FiKGctDuiUS1NE+CdwS4Tf4u1fMWHiT
+	FnAxR06uOCsFohEA/nc8YjyI/puk0ctlmOTHEvBuqvY60N2oX8F9j6pG0d8flTkP66WcIz
+	UZafvLARpFUMbVO9HwRPtngvctong+lJ5dl3VaZF+0BX2GtfODy7DUuE4P621DNw/LHjfw
+	u+I0A702GgqNvuaulE/f0vPBAKdJffyqG0qXLA+NKWL8P0IJmk6Ic7CS5bTfobaEP6+1OX
+	Fr/sPuV8WoMBf+7R3d580dR55eHnBstUCYXqGEvk3saIsKhh/a6wyurhMiOCbA==
+ARC-Authentication-Results: i=1;
+	rspamd-65f5b7cf85-z6rsq;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MailChannels-Auth-Id: dreamhost
+X-Cure-Gusty: 65b9a5b53bc53093_1674671618808_1379431902
+X-MC-Loop-Signature: 1674671618808:1002556764
+X-MC-Ingress-Time: 1674671618808
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
+	s=dreamhost; t=1674671618;
+	bh=eqyFtuln9teDjnwVY8VK7WjssFBHkmh8oTKDG+ZK2Dg=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=jTYoayBwAJyox93l/wMGptzqafXCYrPR9Oascr3rXA8ynmDNqiGto3CJNq1wd80ic
+	 fEZEVmdZtOW06CnMG4XZFajP6M+zd341nk89Nb+q0GyISCnGfzx4lc4uiwut3n734C
+	 Blo3ouPHsd60YXfSE+Rlas1IaH1a2b8Blg/z4zu8=
+Date: Wed, 25 Jan 2023 10:33:37 -0800
+From: Krister Johansen <kjlx@templeofstupid.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	David Reaver <me@davidreaver.com>
+Subject: [PATCH v2] xen/x86: public: add TSC defines for cpuid leaf 4
+Message-ID: <20230125183337.GC1963@templeofstupid.com>
+References: <20230124223531.GB1962@templeofstupid.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20230125083851.27759-2-surenb@google.com>
+In-Reply-To: <20230124223531.GB1962@templeofstupid.com>
 
-On Wed, Jan 25, 2023 at 12:38:46AM -0800, Suren Baghdasaryan wrote:
-> +/* Use when VMA is not part of the VMA tree and needs no locking */
-> +static inline void init_vm_flags(struct vm_area_struct *vma,
-> +				 unsigned long flags)
-> +{
-> +	vma->vm_flags = flags;
+Cpuid leaf 4 contains information about how the state of the tsc, its
+mode, and some additional information.  A commit that is queued for
+linux would like to use this to determine whether the tsc mode has been
+set to 'no emulation' in order to make some decisions about which
+clocksource is more reliable.
 
-vm_flags are supposed to have type vm_flags_t.  That's not been
-fully realised yet, but perhaps we could avoid making it worse?
+Expose this information in the public API headers so that they can
+subsequently be imported into linux and used there.
 
->  	pgprot_t vm_page_prot;
-> -	unsigned long vm_flags;		/* Flags, see mm.h. */
-> +
-> +	/*
-> +	 * Flags, see mm.h.
-> +	 * WARNING! Do not modify directly.
-> +	 * Use {init|reset|set|clear|mod}_vm_flags() functions instead.
-> +	 */
-> +	unsigned long vm_flags;
+Link: https://lore.kernel.org/xen-devel/eda8d9f2-3013-1b68-0df8-64d7f13ee35e@suse.com/
+Link: https://lore.kernel.org/xen-devel/0835453d-9617-48d5-b2dc-77a2ac298bad@oracle.com/
+Signed-off-by: Krister Johansen <kjlx@templeofstupid.com>
+---
+v2:
+  - Fix whitespace between comment and #defines (feedback from Jan Beulich)
+  - Add tsc mode 3: no emulate TSC_AUX (feedback from Jan Beulich)
+---
+ xen/include/public/arch-x86/cpuid.h | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Including changing this line to vm_flags_t
+diff --git a/xen/include/public/arch-x86/cpuid.h b/xen/include/public/arch-x86/cpuid.h
+index 7ecd16ae05..090f7f0034 100644
+--- a/xen/include/public/arch-x86/cpuid.h
++++ b/xen/include/public/arch-x86/cpuid.h
+@@ -72,6 +72,14 @@
+  * Sub-leaf 2: EAX: host tsc frequency in kHz
+  */
+ 
++#define XEN_CPUID_TSC_EMULATED               (1u << 0)
++#define XEN_CPUID_HOST_TSC_RELIABLE          (1u << 1)
++#define XEN_CPUID_RDTSCP_INSTR_AVAIL         (1u << 2)
++#define XEN_CPUID_TSC_MODE_DEFAULT           (0)
++#define XEN_CPUID_TSC_MODE_EMULATE           (1u)
++#define XEN_CPUID_TSC_MODE_NOEMULATE         (2u)
++#define XEN_CPUID_TSC_MODE_NOEMULATE_TSC_AUX (3u)
++
+ /*
+  * Leaf 5 (0x40000x04)
+  * HVM-specific features
+-- 
+2.25.1
+
 
