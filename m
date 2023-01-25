@@ -2,36 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35CAD67BD9B
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 22:07:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484560.751189 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35AEA67BDBB
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 22:09:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484567.751199 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKmyn-0006aD-Dr; Wed, 25 Jan 2023 21:06:49 +0000
+	id 1pKn1a-0007ED-Tv; Wed, 25 Jan 2023 21:09:42 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484560.751189; Wed, 25 Jan 2023 21:06:49 +0000
+Received: by outflank-mailman (output) from mailman id 484567.751199; Wed, 25 Jan 2023 21:09:42 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKmyn-0006XM-9u; Wed, 25 Jan 2023 21:06:49 +0000
-Received: by outflank-mailman (input) for mailman id 484560;
- Wed, 25 Jan 2023 21:06:48 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pKn1a-0007BY-Qd; Wed, 25 Jan 2023 21:09:42 +0000
+Received: by outflank-mailman (input) for mailman id 484567;
+ Wed, 25 Jan 2023 21:09:41 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=a83O=5W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pKmym-0006XG-3t
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 21:06:48 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2d3bbcd1-9cf4-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 22:06:46 +0100 (CET)
+ id 1pKn1Z-0007BS-Af
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 21:09:41 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org
+ [2604:1380:4601:e00::1])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 93d27d8f-9cf4-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 22:09:38 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id B14A8B81BA4;
- Wed, 25 Jan 2023 21:06:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C905C433D2;
- Wed, 25 Jan 2023 21:06:43 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 3EA3FB81BA4;
+ Wed, 25 Jan 2023 21:09:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2680C433D2;
+ Wed, 25 Jan 2023 21:09:35 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,289 +44,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d3bbcd1-9cf4-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 93d27d8f-9cf4-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674680804;
-	bh=m6k4jbuGQlX2dImWgEurG1RtDsvQrOrANOYLEJHIYvE=;
+	s=k20201202; t=1674680976;
+	bh=eP9p7Owq6sX9WhkkEIrdPKlxpEYqi5HBwp29OQpgcpU=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=gMyyFfExEUd+w6CsMnjL3uYVMMQc4wjO8Ja+5lB4qaEPQfQwcK/3vm+NwJiD3ZkXr
-	 +gWFL6EaC8Kf8hZkzDnDx+XC4oQqxdq8Gzcvsigfss9pbNlLUg7URk0QaGBqEC+nez
-	 Zi332TSbBSyH94YwopJUYSgPm97BHLJbq0v8iBL63W9WNDzQ45meajCj3oBX2JFkdK
-	 Z/r0B2xJDbOVlabdEwDbI2grTsovWkkmYu/yAX1McQUuL4YGp68HfnCXmv7hLvCOBj
-	 cFln/lqjX8pqgVgqnOGHkbqsjtoOOfkYuDoxokuxxEBhn1oG90B0ufH/DZo9bOJMln
-	 XrHvtPck+I7hQ==
-Date: Wed, 25 Jan 2023 13:06:41 -0800 (PST)
+	b=E1neAMK1neHJjFK5rjSwLns75F6rA67sZnu8o9QsoNKBsbcwGWJaA9UoxdsEYScki
+	 JL2vRPb7SO7nRflvIwK1FFmbqO4FCZqzc8qtRrfqeZTw2OBRdUbHizwXu/kIxfB+Xa
+	 DenjYV3L4ekJ1xgCstNIx90j4uPZDC3X+B7P7NGj60EvhQImwtVLqRhgoy10PeomLs
+	 E62l8oa6faeT9mT5sL19fPCaTdGL49WYUx4jyMjOKLigkbU1xncB1ovdmzJOhSHmKy
+	 VF8rtlWSDkAW01pIaBtBfDYKBJ0RLSfzqgowB1m44at7iZih2lHrfLzwkuz92blLdv
+	 yOWOcdKgIOEHg==
+Date: Wed, 25 Jan 2023 13:09:34 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
     stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
     bertrand.marquis@arm.com
-Subject: Re: [XEN v6] xen/arm: Probe the load/entry point address of an uImage
- correctly
-In-Reply-To: <20230125112131.19682-1-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2301251302360.1978264@ubuntu-linux-20-04-desktop>
-References: <20230125112131.19682-1-ayan.kumar.halder@amd.com>
+Subject: Re: [XEN v5] xen/arm: Use the correct format specifier
+In-Reply-To: <20230125101943.1854-1-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2301251309160.1978264@ubuntu-linux-20-04-desktop>
+References: <20230125101943.1854-1-ayan.kumar.halder@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 25 Jan 2023, Ayan Kumar Halder wrote:
-> Currently, kernel_uimage_probe() does not read the load/entry point address
-> set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-> causes, kernel_zimage_place() to treat the binary (contained within uImage)
-> as position independent executable. Thus, it loads it at an incorrect
+> 1. One should use 'PRIpaddr' to display 'paddr_t' variables. However,
+> while creating nodes in fdt, the address (if present in the node name)
+> should be represented using 'PRIx64'. This is to be in conformance
+> with the following rule present in https://elinux.org/Device_Tree_Linux
+> 
+> . node names
+> "unit-address does not have leading zeros"
+> 
+> As 'PRIpaddr' introduces leading zeros, we cannot use it.
+> 
+> So, we have introduced a wrapper ie domain_fdt_begin_node() which will
+> represent physical address using 'PRIx64'.
+> 
+> 2. One should use 'PRIx64' to display 'u64' in hex format. The current
+> use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
 > address.
 > 
-> The correct approach would be to read "uimage.load" and set
-> info->zimage.start. This will ensure that the binary is loaded at the
-> correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-> address).
-> 
-> If user provides load address (ie "uimage.load") as 0x0, then the image is
-> treated as position independent executable. Xen can load such an image at
-> any address it considers appropriate. A position independent executable
-> cannot have a fixed entry point address.
-> 
-> This behavior is applicable for both arm32 and arm64 platforms.
-> 
-> Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-> point address set in the uImage header. With this commit, Xen will use them.
-> This makes the behavior of Xen consistent with uboot for uimage headers.
-> 
-> Users who want to use Xen with statically partitioned domains, can provide
-> non zero load address and entry address for the dom0/domU kernel. It is
-> required that the load and entry address provided must be within the memory
-> region allocated by Xen.
-> 
-> A deviation from uboot behaviour is that we consider load address == 0x0,
-> to denote that the image supports position independent execution. This
-> is to make the behavior consistent across uImage and zImage.
->
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changes from v1 :-
-> 1. Added a check to ensure load address and entry address are the same.
-> 2. Considered load address == 0x0 as position independent execution.
-> 3. Ensured that the uImage header interpretation is consistent across
-> arm32 and arm64.
-> 
-> v2 :-
-> 1. Mentioned the change in existing behavior in booting.txt.
-> 2. Updated booting.txt with a new section to document "Booting Guests".
-> 
-> v3 :-
-> 1. Removed the constraint that the entry point should be same as the load
-> address. Thus, Xen uses both the load address and entry point to determine
-> where the image is to be copied and the start address.
-> 2. Updated documentation to denote that load address and start address
-> should be within the memory region allocated by Xen.
-> 3. Added constraint that user cannot provide entry point for a position
-> independent executable (PIE) image.
-> 
-> v4 :-
-> 1. Explicitly mentioned the version in booting.txt from when the uImage
-> probing behavior has changed.
-> 2. Logged the requested load address and entry point parsed from the uImage
-> header.
-> 3. Some style issues.
-> 
-> v5 :-
-> 1. Set info->zimage.text_offset = 0 in kernel_uimage_probe().
-> 2. Mention that if the kernel has a legacy image header on top of zImage/zImage64
-> header, then the attrbutes from legacy image header is used to determine the load
-> address, entry point, etc. Thus, zImage/zImage64 header is effectively ignored.
-> 
-> This is true because Xen currently does not support recursive probing of kernel
-> headers ie if uImage header is probed, then Xen will not attempt to see if there
-> is an underlying zImage/zImage64 header.
-> 
->  docs/misc/arm/booting.txt         | 30 ++++++++++++++++
->  xen/arch/arm/include/asm/kernel.h |  2 +-
->  xen/arch/arm/kernel.c             | 58 +++++++++++++++++++++++++++++--
->  3 files changed, 86 insertions(+), 4 deletions(-)
-> 
-> diff --git a/docs/misc/arm/booting.txt b/docs/misc/arm/booting.txt
-> index 3e0c03e065..1837579aef 100644
-> --- a/docs/misc/arm/booting.txt
-> +++ b/docs/misc/arm/booting.txt
-> @@ -23,6 +23,32 @@ The exceptions to this on 32-bit ARM are as follows:
->  
->  There are no exception on 64-bit ARM.
->  
-> +Booting Guests
-> +--------------
-> +
-> +Xen supports the legacy image header[3], zImage protocol for 32-bit
-> +ARM Linux[1] and Image protocol defined for ARM64[2].
-> +
-> +Until Xen 4.17, in case of legacy image protocol, Xen ignored the load
-> +address and entry point specified in the header. This has now changed.
-> +
-> +Now, it loads the image at the load address provided in the header.
-> +And the entry point is used as the kernel start address.
-> +
-> +A deviation from uboot is that, Xen treats "load address == 0x0" as
-> +position independent execution (PIE). Thus, Xen will load such an image
-> +at an address it considers appropriate. Also, user cannot specify the
-> +entry point of a PIE image since the start address cennot be
-> +predetermined.
-> +
-> +Users who want to use Xen with statically partitioned domains, can provide
-> +the fixed non zero load address and start address for the dom0/domU kernel.
-> +The load address and start address specified by the user in the header must
-> +be within the memory region allocated by Xen.
-> +
-> +Also, it is to be noted that if user provides the legacy image header on top of
-> +zImage or Image header, then Xen uses the attrbutes of legacy image header only
-                                             ^ attributes                    ^ remove only
 
-> +to determine the load address, entry point, etc.
-
-Also add:
-
-"""
-Known limitation: compressed kernels with a uboot headers are not
-working.
-"""
-
-These few minor changes to the documentation can be done on commit:
 
 Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
+(I checked that Ayan also addressed Julien's latest comments.)
 
 
->  Firmware/bootloader requirements
->  --------------------------------
-> @@ -39,3 +65,7 @@ Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/t
+> ---
+> Changes from -
+> 
+> v1 - 1. Moved the patch earlier.
+> 2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
+> into this patch.
+> 
+> v2 - 1. Use PRIx64 for appending addresses to fdt node names. This fixes the CI failure.
+> 
+> v3 - 1. Added a comment on top of domain_fdt_begin_node().
+> 2. Check for the return of snprintf() in domain_fdt_begin_node().
+> 
+> v4 - 1. Grammatical error fixes.
+> 
+>  xen/arch/arm/domain_build.c | 64 +++++++++++++++++++++++--------------
+>  xen/arch/arm/gic-v2.c       |  6 ++--
+>  xen/arch/arm/mm.c           |  2 +-
+>  3 files changed, 44 insertions(+), 28 deletions(-)
+> 
+> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
+> index c2b97fa21e..a798e0b256 100644
+> --- a/xen/arch/arm/domain_build.c
+> +++ b/xen/arch/arm/domain_build.c
+> @@ -1288,6 +1288,39 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
+>      return res;
+>  }
 >  
->  [2] linux/Documentation/arm64/booting.rst
->  Latest version: http://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/tree/Documentation/arm64/booting.rst
-> +
-> +[3] legacy format header
-> +Latest version: https://source.denx.de/u-boot/u-boot/-/blob/master/include/image.h#L315
-> +https://linux.die.net/man/1/mkimage
-> diff --git a/xen/arch/arm/include/asm/kernel.h b/xen/arch/arm/include/asm/kernel.h
-> index 5bb30c3f2f..4617cdc83b 100644
-> --- a/xen/arch/arm/include/asm/kernel.h
-> +++ b/xen/arch/arm/include/asm/kernel.h
-> @@ -72,7 +72,7 @@ struct kernel_info {
->  #ifdef CONFIG_ARM_64
->              paddr_t text_offset; /* 64-bit Image only */
->  #endif
-> -            paddr_t start; /* 32-bit zImage only */
-> +            paddr_t start; /* Must be 0 for 64-bit Image */
->          } zimage;
->      };
->  };
-> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-> index 23b840ea9e..36081e73f1 100644
-> --- a/xen/arch/arm/kernel.c
-> +++ b/xen/arch/arm/kernel.c
-> @@ -127,7 +127,7 @@ static paddr_t __init kernel_zimage_place(struct kernel_info *info)
->      paddr_t load_addr;
->  
->  #ifdef CONFIG_ARM_64
-> -    if ( info->type == DOMAIN_64BIT )
-> +    if ( (info->type == DOMAIN_64BIT) && (info->zimage.start == 0) )
->          return info->mem.bank[0].start + info->zimage.text_offset;
->  #endif
->  
-> @@ -162,7 +162,12 @@ static void __init kernel_zimage_load(struct kernel_info *info)
->      void *kernel;
->      int rc;
->  
-> -    info->entry = load_addr;
+> +/*
+> + * Wrapper to convert physical address from paddr_t to uint64_t and
+> + * invoke fdt_begin_node(). This is required as the physical address
+> + * provided as part of node name should not contain any leading
+> + * zeroes. Thus, one should use PRIx64 (instead of PRIpaddr) to append
+> + * unit (which contains the physical address) with name to generate a
+> + * node name.
+> + */
+> +static int __init domain_fdt_begin_node(void *fdt, const char *name,
+> +                                        uint64_t unit)
+> +{
 > +    /*
-> +     * If the image does not have a fixed entry point, then use the load
-> +     * address as the entry point.
+> +     * The size of the buffer to hold the longest possible string (i.e.
+> +     * interrupt-controller@ + a 64-bit number + \0).
 > +     */
-> +    if ( info->entry == 0 )
-> +        info->entry = load_addr;
->  
->      place_modules(info, load_addr, load_addr + len);
->  
-> @@ -223,10 +228,38 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->      if ( len > size - sizeof(uimage) )
->          return -EINVAL;
->  
-> +    info->zimage.start = be32_to_cpu(uimage.load);
-> +    info->entry = be32_to_cpu(uimage.ep);
+> +    char buf[38];
+> +    int ret;
 > +
-> +    /*
-> +     * While uboot considers 0x0 to be a valid load/start address, for Xen
-> +     * to maintain parity with zImage, we consider 0x0 to denote position
-> +     * independent image. That means Xen is free to load such an image at
-> +     * any valid address.
-> +     */
-> +    if ( info->zimage.start == 0 )
-> +        printk(XENLOG_INFO
-> +               "No load address provided. Xen will decide where to load it.\n");
-> +    else
-> +        printk(XENLOG_INFO
-> +               "Provided load address: %"PRIpaddr" and entry address: %"PRIpaddr"\n",
-> +               info->zimage.start, info->entry);
+> +    /* ePAPR 3.4 */
+> +    ret = snprintf(buf, sizeof(buf), "%s@%"PRIx64, name, unit);
 > +
-> +    /*
-> +     * If the image supports position independent execution, then user cannot
-> +     * provide an entry point as Xen will load such an image at any appropriate
-> +     * memory address. Thus, we need to return error.
-> +     */
-> +    if ( (info->zimage.start == 0) && (info->entry != 0) )
+> +    if ( ret >= sizeof(buf) )
 > +    {
 > +        printk(XENLOG_ERR
-> +               "Entry point cannot be non zero for PIE image.\n");
-> +        return -EINVAL;
+> +               "Insufficient buffer. Minimum size required is %d\n",
+> +               (ret + 1));
+> +
+> +        return -FDT_ERR_TRUNCATED;
 > +    }
 > +
->      info->zimage.kernel_addr = addr + sizeof(uimage);
->      info->zimage.len = len;
->  
-> -    info->entry = info->zimage.start;
->      info->load = kernel_zimage_load;
->  
->  #ifdef CONFIG_ARM_64
-> @@ -242,6 +275,15 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->          printk(XENLOG_ERR "Unsupported uImage arch type %d\n", uimage.arch);
->          return -EINVAL;
->      }
+> +    return fdt_begin_node(fdt, buf);
+> +}
 > +
-> +    /*
-> +     * If there is a uImage header, then we do not parse zImage or zImage64
-> +     * header. In other words if the user provides a uImage header on top of
-> +     * zImage or zImage64 header, Xen uses the attributes of uImage header only.
-> +     * Thus, Xen uses uimage.load attribute to determine the load address and
-> +     * zimage.text_offset is ignored.
-> +     */
-> +    info->zimage.text_offset = 0;
->  #endif
+>  static int __init make_memory_node(const struct domain *d,
+>                                     void *fdt,
+>                                     int addrcells, int sizecells,
+> @@ -1296,8 +1329,6 @@ static int __init make_memory_node(const struct domain *d,
+>      unsigned int i;
+>      int res, reg_size = addrcells + sizecells;
+>      int nr_cells = 0;
+> -    /* Placeholder for memory@ + a 64-bit number + \0 */
+> -    char buf[24];
+>      __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + sizecells */];
+>      __be32 *cells;
 >  
->      return 0;
-> @@ -366,6 +408,7 @@ static int __init kernel_zimage64_probe(struct kernel_info *info,
->      info->zimage.kernel_addr = addr;
->      info->zimage.len = end - start;
->      info->zimage.text_offset = zimage.text_offset;
-> +    info->zimage.start = 0;
+> @@ -1314,9 +1345,7 @@ static int __init make_memory_node(const struct domain *d,
 >  
->      info->load = kernel_zimage_load;
+>      dt_dprintk("Create memory node\n");
 >  
-> @@ -436,6 +479,15 @@ int __init kernel_probe(struct kernel_info *info,
->      u64 kernel_addr, initrd_addr, dtb_addr, size;
->      int rc;
+> -    /* ePAPR 3.4 */
+> -    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
+> -    res = fdt_begin_node(fdt, buf);
+> +    res = domain_fdt_begin_node(fdt, "memory", mem->bank[i].start);
+>      if ( res )
+>          return res;
 >  
-> +    /*
-> +     * We need to initialize start to 0. This field may be populated during
-> +     * kernel_xxx_probe() if the image has a fixed entry point (for e.g.
-> +     * uimage.ep).
-> +     * We will use this to determine if the image has a fixed entry point or
-> +     * the load address should be used as the start address.
-> +     */
-> +    info->entry = 0;
-> +
->      /* domain is NULL only for the hardware domain */
->      if ( domain == NULL )
+> @@ -1375,16 +1404,13 @@ static int __init make_shm_memory_node(const struct domain *d,
 >      {
+>          uint64_t start = mem->bank[i].start;
+>          uint64_t size = mem->bank[i].size;
+> -        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
+> -        char buf[27];
+>          const char compat[] = "xen,shared-memory-v1";
+>          /* Worst case addrcells + sizecells */
+>          __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+>          __be32 *cells;
+>          unsigned int len = (addrcells + sizecells) * sizeof(__be32);
+>  
+> -        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
+> -        res = fdt_begin_node(fdt, buf);
+> +        res = domain_fdt_begin_node(fdt, "xen-shmem", mem->bank[i].start);
+>          if ( res )
+>              return res;
+>  
+> @@ -2716,12 +2742,9 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
+>      __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
+>      __be32 *cells;
+>      const struct domain *d = kinfo->d;
+> -    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
+> -    char buf[38];
+>  
+> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+> -             vgic_dist_base(&d->arch.vgic));
+> -    res = fdt_begin_node(fdt, buf);
+> +    res = domain_fdt_begin_node(fdt, "interrupt-controller",
+> +                                vgic_dist_base(&d->arch.vgic));
+>      if ( res )
+>          return res;
+>  
+> @@ -2771,14 +2794,10 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
+>      int res = 0;
+>      __be32 *reg, *cells;
+>      const struct domain *d = kinfo->d;
+> -    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
+> -    char buf[38];
+>      unsigned int i, len = 0;
+>  
+> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
+> -             vgic_dist_base(&d->arch.vgic));
+> -
+> -    res = fdt_begin_node(fdt, buf);
+> +    res = domain_fdt_begin_node(fdt, "interrupt-controller",
+> +                                vgic_dist_base(&d->arch.vgic));
+>      if ( res )
+>          return res;
+>  
+> @@ -2858,11 +2877,8 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
+>      __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
+>      __be32 *cells;
+>      struct domain *d = kinfo->d;
+> -    /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
+> -    char buf[27];
+>  
+> -    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
+> -    res = fdt_begin_node(fdt, buf);
+> +    res = domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_addr);
+>      if ( res )
+>          return res;
+>  
+> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
+> index 61802839cb..5d4d298b86 100644
+> --- a/xen/arch/arm/gic-v2.c
+> +++ b/xen/arch/arm/gic-v2.c
+> @@ -1049,7 +1049,7 @@ static void __init gicv2_dt_init(void)
+>      if ( csize < SZ_8K )
+>      {
+>          printk(XENLOG_WARNING "GICv2: WARNING: "
+> -               "The GICC size is too small: %#"PRIx64" expected %#x\n",
+> +               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
+>                 csize, SZ_8K);
+>          if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
+>          {
+> @@ -1280,11 +1280,11 @@ static int __init gicv2_init(void)
+>          gicv2.map_cbase += aliased_offset;
+>  
+>          printk(XENLOG_WARNING
+> -               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
+> +               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
+>                 cbase + aliased_offset);
+>      } else if ( csize == SZ_128K )
+>          printk(XENLOG_WARNING
+> -               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
+> +               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
+>                 csize);
+>  
+>      gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index f758cad545..b99806af99 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -263,7 +263,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+>  
+>          pte = mapping[offsets[level]];
+>  
+> -        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
+> +        printk("%s[0x%03x] = 0x%"PRIx64"\n",
+>                 level_strs[level], offsets[level], pte.bits);
+>  
+>          if ( level == 3 || !pte.walk.valid || !pte.walk.table )
 > -- 
 > 2.17.1
 > 
