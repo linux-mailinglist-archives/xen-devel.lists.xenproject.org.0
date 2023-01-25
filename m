@@ -2,33 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D32467C42F
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 06:09:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484475.751453 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23C5B67C427
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 06:09:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484477.751461 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKuUu-0004QZ-QZ; Thu, 26 Jan 2023 05:08:28 +0000
+	id 1pKuUv-0004aA-8a; Thu, 26 Jan 2023 05:08:29 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484475.751453; Thu, 26 Jan 2023 05:08:28 +0000
+Received: by outflank-mailman (output) from mailman id 484477.751461; Thu, 26 Jan 2023 05:08:29 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKuUu-0004IT-Mr; Thu, 26 Jan 2023 05:08:28 +0000
-Received: by outflank-mailman (input) for mailman id 484475;
- Wed, 25 Jan 2023 16:55:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pKuUv-0004QR-2q; Thu, 26 Jan 2023 05:08:29 +0000
+Received: by outflank-mailman (input) for mailman id 484477;
+ Wed, 25 Jan 2023 16:58:04 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=EtGL=5W=google.com=surenb@srs-se1.protection.inumbo.net>)
- id 1pKj3W-0007d7-MQ
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 16:55:26 +0000
-Received: from mail-yw1-x1131.google.com (mail-yw1-x1131.google.com
- [2607:f8b0:4864:20::1131])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 101f0543-9cd1-11ed-91b6-6bf2151ebd3b;
- Wed, 25 Jan 2023 17:55:25 +0100 (CET)
-Received: by mail-yw1-x1131.google.com with SMTP id
- 00721157ae682-5063029246dso104354547b3.6
- for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 08:55:25 -0800 (PST)
+ id 1pKj64-0007nJ-FA
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 16:58:04 +0000
+Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
+ [2607:f8b0:4864:20::b2c])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 6d2c35dc-9cd1-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 17:58:01 +0100 (CET)
+Received: by mail-yb1-xb2c.google.com with SMTP id 129so19773684ybb.0
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 08:58:02 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -40,45 +39,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 101f0543-9cd1-11ed-91b6-6bf2151ebd3b
+X-Inumbo-ID: 6d2c35dc-9cd1-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=google.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=49H+5dcfdqsESvQ4qNxkOgTxyGkRYtaMvRra0jMgwoI=;
-        b=S433Z2p/j0oEnqzhdMbCoBVS6yLsoVuhPxi7PQkxnyRK8RoE5tlGqQCWFiSx/y2EvP
-         VAUU6f5te6yd0FF3QKoXQk59fXSc40Ni99FjmOhoS8uoMeuhfG+AT8hg6vTHrAcNtls7
-         iMIrnMdjSfEnhMBuERTLvpM6IdVwE9wobd2Cb3XY0VBKEUGGTBatMri522T6kyoxGdRv
-         R/YHI2CzXA+66ssNNRD0kBHVPl8TI5ear6XOrgI2lTdtmT0YpMoSddNSDob6lG0ADoLk
-         +xTQAwFZ3i/oeH+aroOYDwlOGwYRh8N7mvnq0HFpqRIYUl+jcTUyG7X+0g74P9WaFx1x
-         4nDw==
+        bh=G/HaQvIeifLKJJp6JsBUTA/Cu0PG4HCFXOBV2LCBpGc=;
+        b=ngnRJahtqVxSN6UIjLqWU+1aTxdIhv7re4hDfLrN8LXncI6BNG1ZwqGy4tzOTLxPiH
+         4VWOIuHk0tMtzp4F11bJV5cn9qN75X4TjPW2iyn4nOIj2Y2qsTa18wfmHkOGhLKlmZoS
+         vXpRc/g/QGDtReYNnPGF6rlvG7jz8sM8MsRTR7LhXioKCpHgDgO7fKBddw0dzS48JeET
+         78piPZYcyZX9vIYyfAzpklatM6XnaaFqr/b+XLZlxI1Y0y+wCHWFOsnbVElEi6T+CQOb
+         4zMPa96gAXD4xbmjnQv7nMUvo5bgJJEK/r3Eu0NIV8f4SPGC7eT5IU6zl2RkKdozGWcK
+         sknQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=49H+5dcfdqsESvQ4qNxkOgTxyGkRYtaMvRra0jMgwoI=;
-        b=Cam+JNGHMP9vTwVqJcCZ4xX1sudekRnJ/c1A14tZQI1ueXajOzqORvOYtQ5+OQsKKW
-         TM3haIIXYoOElOcHk2cZR5FTdT19xPJqdl5EFAKNt5B5QcCrQoMcy+l4StqDZ/KbLq3A
-         +1K9Bz3iJ6PiJ7hEzc2sxtjgMhdKaCNxhDi5dtGO5YYTHWXJ0LXYBrvpKHCK9OyCz8UB
-         Bkf4Mu38jbMzBwDomzHyq9IMWd7T7rCWlrCBpHTNCOGzgB8AFWt7BRQ2YP6hSa1kY1LL
-         lIeIE3PUpTrpILlgEBjdx3oNxsA6R/3JAq0vW06EpnQTSzG55RmUjtWYL+Rw6GfQK+v9
-         wnEw==
-X-Gm-Message-State: AO0yUKWtP6n13Bgn5Q9IK6QKQsKHKFj3MpkOrDKfExtDecFFgA4KaOld
-	pGFAe0R71QFUx4gBqvCsPwuxkCmt3cfRdKMG5OQyQA==
-X-Google-Smtp-Source: AK7set/FwLbWx6yiqkzvjcGbe3t+VxnD8xj+/iXHUbjRIwB0jRkvrcCR+VhH4DhOMzxTzJJlzd0h1TxaYfABci/YfRk=
-X-Received: by 2002:a0d:d456:0:b0:507:26dc:ebd with SMTP id
- w83-20020a0dd456000000b0050726dc0ebdmr239978ywd.455.1674665724181; Wed, 25
- Jan 2023 08:55:24 -0800 (PST)
+        bh=G/HaQvIeifLKJJp6JsBUTA/Cu0PG4HCFXOBV2LCBpGc=;
+        b=jixSNznKDtjoCkHUUoC9KNUp/POCCGmHBLelsXr5Qgb2f36aaOphvnNT2v94f+PamY
+         HinbRwFK/lJjrm2JTm0CsYX4oQ170DlxXbSbph/FWqVqhf3rdtmAg51urAaEGHtE4kMJ
+         d/X3CVJvlRu/6sQ3t4khAivWPeQA6zZzVxIEVb4Flz/r3tcEhtGhqderl7e+TIJgAe/F
+         SFgYPRAvpjhPtmalN9CGjiV7yYUJVzIgVrjfU9fee8w+HKiarkN7U5Y9+MuIQoCo9/IV
+         DlOBJFwJbllJ586oX6gZ2nddcR0BR8LaLY0mYS4IxKdOotCrv2hCcRWMw4EbiHjhCRY0
+         nSXg==
+X-Gm-Message-State: AO0yUKXKwWSusFvVE2GwX3t0Rzbg+UJOg90awf4tFczYT/mvFaDpvPsW
+	IqNHGE/rt/XDqsG2EmkzzXDdkEKoAd/wcGTwvaYKig==
+X-Google-Smtp-Source: AK7set97wrc43TM0/ovVONCfpWDKrtFzkyYmNKL3FW97qdU/yOGMPZssBTWD4MRF2UhZkPfEz4JLEj3/xF1loldnjYM=
+X-Received: by 2002:a25:ad02:0:b0:80b:6fd3:84d3 with SMTP id
+ y2-20020a25ad02000000b0080b6fd384d3mr714673ybi.316.1674665880846; Wed, 25 Jan
+ 2023 08:58:00 -0800 (PST)
 MIME-Version: 1.0
-References: <20230125083851.27759-1-surenb@google.com> <20230125083851.27759-4-surenb@google.com>
- <Y9D2zXpy+9iyZNun@dhcp22.suse.cz>
-In-Reply-To: <Y9D2zXpy+9iyZNun@dhcp22.suse.cz>
+References: <20230125083851.27759-1-surenb@google.com> <20230125083851.27759-5-surenb@google.com>
+ <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
+In-Reply-To: <Y9D4rWEsajV/WfNx@dhcp22.suse.cz>
 From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 25 Jan 2023 08:55:12 -0800
-Message-ID: <CAJuCfpG7KWnj3J_t4nN1R4gfiM5jgjsiTfL55hNa=Uvz4E835g@mail.gmail.com>
-Subject: Re: [PATCH v2 3/6] mm: replace vma->vm_flags direct modifications
- with modifier calls
+Date: Wed, 25 Jan 2023 08:57:48 -0800
+Message-ID: <CAJuCfpGd2eG0RSMte9OVgsRVWPo+Sj7+t8EOo8o_iKzZoh1MXA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/6] mm: replace vma->vm_flags indirect modification in ksm_madvise
 To: Michal Hocko <mhocko@suse.com>
 Cc: akpm@linux-foundation.org, michel@lespinasse.org, jglisse@google.com, 
 	vbabka@suse.cz, hannes@cmpxchg.org, mgorman@techsingularity.net, 
@@ -140,39 +138,26 @@ Cc: akpm@linux-foundation.org, michel@lespinasse.org, jglisse@google.com,
 	selinux@vger.kernel.org, alsa-devel@alsa-project.org, kernel-team@android.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jan 25, 2023 at 1:30 AM 'Michal Hocko' via kernel-team
+On Wed, Jan 25, 2023 at 1:38 AM 'Michal Hocko' via kernel-team
 <kernel-team@android.com> wrote:
 >
-> On Wed 25-01-23 00:38:48, Suren Baghdasaryan wrote:
-> > Replace direct modifications to vma->vm_flags with calls to modifier
+> On Wed 25-01-23 00:38:49, Suren Baghdasaryan wrote:
+> > Replace indirect modifications to vma->vm_flags with calls to modifier
 > > functions to be able to track flag changes and to keep vma locking
-> > correctness.
+> > correctness. Add a BUG_ON check in ksm_madvise() to catch indirect
+> > vm_flags modification attempts.
 >
-> Is this a manual (git grep) based work or have you used Coccinele for
-> the patch generation?
+> Those BUG_ONs scream to much IMHO. KSM is an MM internal code so I
+> gueess we should be willing to trust it.
 
-It was a manual "search and replace" and in the process I temporarily
-renamed vm_flags to ensure I did not miss any usage.
-
->
-> My potentially incomplete check
-> $ git grep ">[[:space:]]*vm_flags[[:space:]]*[&|^]="
->
-> shows that nothing should be left after this. There is still quite a lot
-> of direct checks of the flags (more than 600). Maybe it would be good to
-> make flags accessible only via accessors which would also prevent any
-> future direct setting of those flags in uncontrolled way as well.
-
-Yes, I think Peter's suggestion in the first patch would also require
-that. Much more churn but probably worth it for the future
-maintenance. I'll add a patch which converts all readers as well.
+Yes, but I really want to prevent an indirect misuse since it was not
+easy to find these. If you feel strongly about it I will remove them
+or if you have a better suggestion I'm all for it.
 
 >
-> Anyway
+> > Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+>
 > Acked-by: Michal Hocko <mhocko@suse.com>
-
-Thanks for all the reviews!
-
 > --
 > Michal Hocko
 > SUSE Labs
