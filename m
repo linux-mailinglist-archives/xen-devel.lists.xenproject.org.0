@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35AEA67BDBB
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 22:09:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484567.751199 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4692567BDBC
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 22:10:31 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484571.751209 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKn1a-0007ED-Tv; Wed, 25 Jan 2023 21:09:42 +0000
+	id 1pKn2B-0008Rz-77; Wed, 25 Jan 2023 21:10:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484567.751199; Wed, 25 Jan 2023 21:09:42 +0000
+Received: by outflank-mailman (output) from mailman id 484571.751209; Wed, 25 Jan 2023 21:10:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKn1a-0007BY-Qd; Wed, 25 Jan 2023 21:09:42 +0000
-Received: by outflank-mailman (input) for mailman id 484567;
- Wed, 25 Jan 2023 21:09:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=a83O=5W=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pKn1Z-0007BS-Af
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 21:09:41 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 93d27d8f-9cf4-11ed-b8d1-410ff93cb8f0;
- Wed, 25 Jan 2023 22:09:38 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3EA3FB81BA4;
- Wed, 25 Jan 2023 21:09:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2680C433D2;
- Wed, 25 Jan 2023 21:09:35 +0000 (UTC)
+	id 1pKn2B-0008OL-3I; Wed, 25 Jan 2023 21:10:19 +0000
+Received: by outflank-mailman (input) for mailman id 484571;
+ Wed, 25 Jan 2023 21:10:17 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=ToUz=5W=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1pKn29-0008Nq-NY
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 21:10:17 +0000
+Received: from ppsw-33.srv.uis.cam.ac.uk (ppsw-33.srv.uis.cam.ac.uk
+ [131.111.8.133]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a9f22214-9cf4-11ed-91b6-6bf2151ebd3b;
+ Wed, 25 Jan 2023 22:10:16 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:34984)
+ by ppsw-33.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1pKn22-0008CT-R3 (Exim 4.96) (return-path <amc96@srcf.net>);
+ Wed, 25 Jan 2023 21:10:10 +0000
+Received: from [10.80.2.8] (default-46-102-197-194.interdsl.co.uk
+ [46.102.197.194]) (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 29F7B1FBD8;
+ Wed, 25 Jan 2023 21:10:10 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,245 +45,225 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 93d27d8f-9cf4-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674680976;
-	bh=eP9p7Owq6sX9WhkkEIrdPKlxpEYqi5HBwp29OQpgcpU=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=E1neAMK1neHJjFK5rjSwLns75F6rA67sZnu8o9QsoNKBsbcwGWJaA9UoxdsEYScki
-	 JL2vRPb7SO7nRflvIwK1FFmbqO4FCZqzc8qtRrfqeZTw2OBRdUbHizwXu/kIxfB+Xa
-	 DenjYV3L4ekJ1xgCstNIx90j4uPZDC3X+B7P7NGj60EvhQImwtVLqRhgoy10PeomLs
-	 E62l8oa6faeT9mT5sL19fPCaTdGL49WYUx4jyMjOKLigkbU1xncB1ovdmzJOhSHmKy
-	 VF8rtlWSDkAW01pIaBtBfDYKBJ0RLSfzqgowB1m44at7iZih2lHrfLzwkuz92blLdv
-	 yOWOcdKgIOEHg==
-Date: Wed, 25 Jan 2023 13:09:34 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, 
-    stefano.stabellini@amd.com, julien@xen.org, Volodymyr_Babchuk@epam.com, 
-    bertrand.marquis@arm.com
-Subject: Re: [XEN v5] xen/arm: Use the correct format specifier
-In-Reply-To: <20230125101943.1854-1-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2301251309160.1978264@ubuntu-linux-20-04-desktop>
-References: <20230125101943.1854-1-ayan.kumar.halder@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: a9f22214-9cf4-11ed-91b6-6bf2151ebd3b
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <718f6fd0-cb96-6f72-87ff-7382582d89f9@srcf.net>
+Date: Wed, 25 Jan 2023 21:10:08 +0000
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-GB
+To: Jan Beulich <jbeulich@suse.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>
+References: <930254a6-d0c8-4910-982a-bfd227187240@suse.com>
+ <8ee98cc0-21d3-100a-ffcc-37cd466e7761@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+Subject: Re: [PATCH v3 1/4] x86/spec-ctrl: add logic to issue IBPB on exit to
+ guest
+In-Reply-To: <8ee98cc0-21d3-100a-ffcc-37cd466e7761@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 25 Jan 2023, Ayan Kumar Halder wrote:
-> 1. One should use 'PRIpaddr' to display 'paddr_t' variables. However,
-> while creating nodes in fdt, the address (if present in the node name)
-> should be represented using 'PRIx64'. This is to be in conformance
-> with the following rule present in https://elinux.org/Device_Tree_Linux
-> 
-> . node names
-> "unit-address does not have leading zeros"
-> 
-> As 'PRIpaddr' introduces leading zeros, we cannot use it.
-> 
-> So, we have introduced a wrapper ie domain_fdt_begin_node() which will
-> represent physical address using 'PRIx64'.
-> 
-> 2. One should use 'PRIx64' to display 'u64' in hex format. The current
-> use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
-> address.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+On 25/01/2023 3:25 pm, Jan Beulich wrote:
+> In order to be able to defer the context switch IBPB to the last
+> possible point, add logic to the exit-to-guest paths to issue the
+> barrier there, including the "IBPB doesn't flush the RSB/RAS"
+> workaround. Since alternatives, for now at least, can't nest, emit JMP
+> to skip past both constructs where both are needed. This may be more
+> efficient anyway, as the sequence of NOPs is pretty long.
+
+It is very uarch specific as to when a jump is less overhead than a line
+of nops.
+
+In all CPUs liable to be running Xen, even unconditional jumps take up
+branch prediction resource, because all branch prediction is pre-decode
+these days, so branch locations/types/destinations all need deriving
+from %rip and "history" alone.
+
+So whether a branch or a line of nops is better is a tradeoff between
+how much competition there is for branch prediction resource, and how
+efficiently the CPU can brute-force its way through a long line of nops.
+
+But a very interesting datapoint.  It turns out that AMD Zen4 CPUs
+macrofuse adjacent nops, including longnops, because it reduces the
+amount of execute/retire resources required.  And a lot of
+kernel/hypervisor fastpaths have a lot of nops these days.
 
 
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+For us, the "can't nest" is singularly more important than any worry
+about uarch behaviour.  We've frankly got much lower hanging fruit than
+worring about one branch vs a few nops.
 
-(I checked that Ayan also addressed Julien's latest comments.)
+> LFENCEs are omitted - for HVM a VM entry is immanent, which already
+> elsewhere we deem sufficiently serializing an event. For 32-bit PV
+> we're going through IRET, which ought to be good enough as well. While
+> 64-bit PV may use SYSRET, there are several more conditional branches
+> there which are all unprotected.
 
+Privilege changes are serialsing-ish, and this behaviour has been
+guaranteed moving forwards, although not documented coherently.
 
+CPL (well - privilege, which includes SMM, root/non-root, etc) is not
+written speculatively.  So any logic which needs to modify privilege has
+to block until it is known to be an architectural execution path.
+
+This gets us "lfence-like" or "dispatch serialising" behaviour, which is
+also the reason why INT3 is our go-to speculation halting instruction. 
+Microcode has to be entirely certain we are going to deliver an
+interrupt/exception/etc before it can start reading the IDT/etc.
+
+Either way, we've been promised that all instructions like IRET,
+SYS{CALL,RET,ENTER,EXIT}, VM{RUN,LAUNCH,RESUME} (and ERET{U,S} in the
+future FRED world) do, and shall continue to not execute speculatively.
+
+Which in practice means we don't need to worry about Spectre-v1 attack
+against codepaths which hit an exit-from-xen path, in terms of skipping
+protections.
+
+We do need to be careful about memory accesses and potential double
+dereferences, but all the data is on the top of the stack for XPTI
+reasons.  About the only concern is v->arch.msrs->* in the HVM path, and
+we're fine with the current layout (AFAICT).
+
+>
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 > ---
-> Changes from -
-> 
-> v1 - 1. Moved the patch earlier.
-> 2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
-> into this patch.
-> 
-> v2 - 1. Use PRIx64 for appending addresses to fdt node names. This fixes the CI failure.
-> 
-> v3 - 1. Added a comment on top of domain_fdt_begin_node().
-> 2. Check for the return of snprintf() in domain_fdt_begin_node().
-> 
-> v4 - 1. Grammatical error fixes.
-> 
->  xen/arch/arm/domain_build.c | 64 +++++++++++++++++++++++--------------
->  xen/arch/arm/gic-v2.c       |  6 ++--
->  xen/arch/arm/mm.c           |  2 +-
->  3 files changed, 44 insertions(+), 28 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index c2b97fa21e..a798e0b256 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1288,6 +1288,39 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
->      return res;
->  }
+> I have to admit that I'm not really certain about the placement of the
+> IBPB wrt the MSR_SPEC_CTRL writes. For now I've simply used "opposite of
+> entry".
+
+It really doesn't matter.  They're independent operations that both need
+doing, and are fully serialising so can't parallelise.
+
+But on this note, WRMSRNS and WRMSRLIST are on the horizon.  The CPUs
+which implement these instructions are the ones which also ought not to
+need any adjustments in the exit paths.  So I think it is specifically
+not worth trying to make any effort to turn *these* WRMSR's into more
+optimised forms.
+
+But WRMSRLIST was designed specifically for this kind of usecase
+(actually, more for the main context switch path) where you can prepare
+the list of MSRs in memory, including the ability to conditionally skip
+certain entries by adjusting the index field.
+
+
+It occurs to me, having written this out, is that what we actually want
+to do is have slightly custom not-quite-alternative blocks.  We have a
+sequence of independent code blocks, and a small block at the end that
+happens to contain an IRET.
+
+We could remove the nops at boot time if we treated it as one large
+region, with the IRET at the end also able to have a variable position,
+and assembles the "active" blocks tightly from the start.  Complications
+would include adjusting the IRET extable entry, but this isn't
+insurmountable.  Entrypoints are a bit more tricky but could be done by
+packing from the back forward, and adjusting the entry position.
+
+Either way, something to ponder.  (It's also possible that it doesn't
+make a measurable difference until we get to FRED, at which point we
+have a set of fresh entry-points to write anyway, and a slight glimmer
+of hope of not needing to pollute them with speculation workarounds...)
+
+> Since we're going to run out of SCF_* bits soon and since the new flag
+> is meaningful only in struct cpu_info's spec_ctrl_flags, we could choose
+> to widen that field to 16 bits right away and then use bit 8 (or higher)
+> for the purpose here.
+
+I really don't think it matters.  We've got plenty of room, and the
+flexibility to shuffle, in both structures.  It's absolutely not worth
+trying to introduce asymmetries to save 1 bit.
+
+> --- a/xen/arch/x86/include/asm/current.h
+> +++ b/xen/arch/x86/include/asm/current.h
+> @@ -55,9 +55,13 @@ struct cpu_info {
 >  
-> +/*
-> + * Wrapper to convert physical address from paddr_t to uint64_t and
-> + * invoke fdt_begin_node(). This is required as the physical address
-> + * provided as part of node name should not contain any leading
-> + * zeroes. Thus, one should use PRIx64 (instead of PRIpaddr) to append
-> + * unit (which contains the physical address) with name to generate a
-> + * node name.
-> + */
-> +static int __init domain_fdt_begin_node(void *fdt, const char *name,
-> +                                        uint64_t unit)
-> +{
+>      /* See asm/spec_ctrl_asm.h for usage. */
+>      unsigned int shadow_spec_ctrl;
 > +    /*
-> +     * The size of the buffer to hold the longest possible string (i.e.
-> +     * interrupt-controller@ + a 64-bit number + \0).
+> +     * spec_ctrl_flags can be accessed as a 32-bit entity and hence needs
+> +     * placing suitably.
+
+I'd suggest "is accessed as a 32-bit entity, and wants aligning suitably" ?
+
+If I've followed the logic correctly.  (I can't say I was specifically
+aware that the bit test instructions didn't have byte forms, but I
+suspect such instruction forms would be very very niche.)
+
 > +     */
-> +    char buf[38];
-> +    int ret;
+> +    uint8_t      spec_ctrl_flags;
+>      uint8_t      xen_spec_ctrl;
+>      uint8_t      last_spec_ctrl;
+> -    uint8_t      spec_ctrl_flags;
+>  
+>      /*
+>       * The following field controls copying of the L4 page table of 64-bit
+> --- a/xen/arch/x86/include/asm/spec_ctrl.h
+> +++ b/xen/arch/x86/include/asm/spec_ctrl.h
+> @@ -36,6 +36,8 @@
+>  #define SCF_verw       (1 << 3)
+>  #define SCF_ist_ibpb   (1 << 4)
+>  #define SCF_entry_ibpb (1 << 5)
+> +#define SCF_exit_ibpb_bit 6
+> +#define SCF_exit_ibpb  (1 << SCF_exit_ibpb_bit)
+
+One option to avoid the second define is to use ILOG2() with btrl.
+
+Of all the common forms of doing this, its the only one I'm aware of
+which avoids needing the second define.
+
+>  
+>  /*
+>   * The IST paths (NMI/#MC) can interrupt any arbitrary context.  Some
+> --- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> +++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
+> @@ -117,6 +117,27 @@
+>  .L\@_done:
+>  .endm
+>  
+> +.macro DO_SPEC_CTRL_EXIT_IBPB disp=0
+> +/*
+> + * Requires %rsp=regs
+> + * Clobbers %rax, %rcx, %rdx
+> + *
+> + * Conditionally issue IBPB if SCF_exit_ibpb is active.  The macro invocation
+> + * may be followed by X86_BUG_IBPB_NO_RET workaround code.  The "disp" argument
+> + * is to allow invocation sites to pass in the extra amount of code which needs
+> + * skipping in case no action is necessary.
+> + *
+> + * The flag is a "one-shot" indicator, so it is being cleared at the same time.
+> + */
+> +    btrl    $SCF_exit_ibpb_bit, CPUINFO_spec_ctrl_flags(%rsp)
+> +    jnc     .L\@_skip + (\disp)
+> +    mov     $MSR_PRED_CMD, %ecx
+> +    mov     $PRED_CMD_IBPB, %eax
+> +    xor     %edx, %edx
+> +    wrmsr
+> +.L\@_skip:
+> +.endm
 > +
-> +    /* ePAPR 3.4 */
-> +    ret = snprintf(buf, sizeof(buf), "%s@%"PRIx64, name, unit);
-> +
-> +    if ( ret >= sizeof(buf) )
-> +    {
-> +        printk(XENLOG_ERR
-> +               "Insufficient buffer. Minimum size required is %d\n",
-> +               (ret + 1));
-> +
-> +        return -FDT_ERR_TRUNCATED;
-> +    }
-> +
-> +    return fdt_begin_node(fdt, buf);
-> +}
-> +
->  static int __init make_memory_node(const struct domain *d,
->                                     void *fdt,
->                                     int addrcells, int sizecells,
-> @@ -1296,8 +1329,6 @@ static int __init make_memory_node(const struct domain *d,
->      unsigned int i;
->      int res, reg_size = addrcells + sizecells;
->      int nr_cells = 0;
-> -    /* Placeholder for memory@ + a 64-bit number + \0 */
-> -    char buf[24];
->      __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + sizecells */];
->      __be32 *cells;
->  
-> @@ -1314,9 +1345,7 @@ static int __init make_memory_node(const struct domain *d,
->  
->      dt_dprintk("Create memory node\n");
->  
-> -    /* ePAPR 3.4 */
-> -    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
-> -    res = fdt_begin_node(fdt, buf);
-> +    res = domain_fdt_begin_node(fdt, "memory", mem->bank[i].start);
->      if ( res )
->          return res;
->  
-> @@ -1375,16 +1404,13 @@ static int __init make_shm_memory_node(const struct domain *d,
->      {
->          uint64_t start = mem->bank[i].start;
->          uint64_t size = mem->bank[i].size;
-> -        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
-> -        char buf[27];
->          const char compat[] = "xen,shared-memory-v1";
->          /* Worst case addrcells + sizecells */
->          __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
->          __be32 *cells;
->          unsigned int len = (addrcells + sizecells) * sizeof(__be32);
->  
-> -        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
-> -        res = fdt_begin_node(fdt, buf);
-> +        res = domain_fdt_begin_node(fdt, "xen-shmem", mem->bank[i].start);
->          if ( res )
->              return res;
->  
-> @@ -2716,12 +2742,9 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
->      __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
->      __be32 *cells;
->      const struct domain *d = kinfo->d;
-> -    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
-> -    char buf[38];
->  
-> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> -             vgic_dist_base(&d->arch.vgic));
-> -    res = fdt_begin_node(fdt, buf);
-> +    res = domain_fdt_begin_node(fdt, "interrupt-controller",
-> +                                vgic_dist_base(&d->arch.vgic));
->      if ( res )
->          return res;
->  
-> @@ -2771,14 +2794,10 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
->      int res = 0;
->      __be32 *reg, *cells;
->      const struct domain *d = kinfo->d;
-> -    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
-> -    char buf[38];
->      unsigned int i, len = 0;
->  
-> -    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
-> -             vgic_dist_base(&d->arch.vgic));
-> -
-> -    res = fdt_begin_node(fdt, buf);
-> +    res = domain_fdt_begin_node(fdt, "interrupt-controller",
-> +                                vgic_dist_base(&d->arch.vgic));
->      if ( res )
->          return res;
->  
-> @@ -2858,11 +2877,8 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
->      __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
->      __be32 *cells;
->      struct domain *d = kinfo->d;
-> -    /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
-> -    char buf[27];
->  
-> -    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
-> -    res = fdt_begin_node(fdt, buf);
-> +    res = domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_addr);
->      if ( res )
->          return res;
->  
-> diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-> index 61802839cb..5d4d298b86 100644
-> --- a/xen/arch/arm/gic-v2.c
-> +++ b/xen/arch/arm/gic-v2.c
-> @@ -1049,7 +1049,7 @@ static void __init gicv2_dt_init(void)
->      if ( csize < SZ_8K )
->      {
->          printk(XENLOG_WARNING "GICv2: WARNING: "
-> -               "The GICC size is too small: %#"PRIx64" expected %#x\n",
-> +               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
->                 csize, SZ_8K);
->          if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
->          {
-> @@ -1280,11 +1280,11 @@ static int __init gicv2_init(void)
->          gicv2.map_cbase += aliased_offset;
->  
->          printk(XENLOG_WARNING
-> -               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
-> +               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
->                 cbase + aliased_offset);
->      } else if ( csize == SZ_128K )
->          printk(XENLOG_WARNING
-> -               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
-> +               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
->                 csize);
->  
->      gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
-> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-> index f758cad545..b99806af99 100644
-> --- a/xen/arch/arm/mm.c
-> +++ b/xen/arch/arm/mm.c
-> @@ -263,7 +263,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
->  
->          pte = mapping[offsets[level]];
->  
-> -        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
-> +        printk("%s[0x%03x] = 0x%"PRIx64"\n",
->                 level_strs[level], offsets[level], pte.bits);
->  
->          if ( level == 3 || !pte.walk.valid || !pte.walk.table )
-> -- 
-> 2.17.1
-> 
+>  .macro DO_OVERWRITE_RSB tmp=rax
+>  /*
+>   * Requires nothing
+> @@ -272,6 +293,14 @@
+>  #define SPEC_CTRL_EXIT_TO_PV                                            \
+>      ALTERNATIVE "",                                                     \
+>          DO_SPEC_CTRL_EXIT_TO_GUEST, X86_FEATURE_SC_MSR_PV;              \
+> +    ALTERNATIVE __stringify(jmp PASTE(.Lscexitpv_done, __LINE__)),      \
+> +        __stringify(DO_SPEC_CTRL_EXIT_IBPB                              \
+> +                    disp=(PASTE(.Lscexitpv_done, __LINE__) -            \
+> +                          PASTE(.Lscexitpv_rsb, __LINE__))),            \
+> +        X86_FEATURE_IBPB_EXIT_PV;                                       \
+> +PASTE(.Lscexitpv_rsb, __LINE__):                                        \
+> +    ALTERNATIVE "", DO_OVERWRITE_RSB, X86_BUG_IBPB_NO_RET;              \
+> +PASTE(.Lscexitpv_done, __LINE__):                                       \
+>      DO_SPEC_CTRL_COND_VERW
+
+What's wrong with the normal %= trick?  The use of __LINE__ makes this
+hard to subsequently livepatch, so I'd prefer to avoid it if possible.
+
+~Andrew
 
