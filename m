@@ -2,29 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DEC767B94C
-	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 19:28:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484512.751117 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E1F767B964
+	for <lists+xen-devel@lfdr.de>; Wed, 25 Jan 2023 19:32:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484517.751127 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKkUh-0002wq-DL; Wed, 25 Jan 2023 18:27:35 +0000
+	id 1pKkZ6-0004Kn-Ut; Wed, 25 Jan 2023 18:32:08 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484512.751117; Wed, 25 Jan 2023 18:27:35 +0000
+Received: by outflank-mailman (output) from mailman id 484517.751127; Wed, 25 Jan 2023 18:32:08 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKkUh-0002ts-AQ; Wed, 25 Jan 2023 18:27:35 +0000
-Received: by outflank-mailman (input) for mailman id 484512;
- Wed, 25 Jan 2023 18:27:34 +0000
+	id 1pKkZ6-0004IP-SA; Wed, 25 Jan 2023 18:32:08 +0000
+Received: by outflank-mailman (input) for mailman id 484517;
+ Wed, 25 Jan 2023 18:32:07 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mmdc=5W=citrix.com=prvs=382ccbc00=Per.Bilse@srs-se1.protection.inumbo.net>)
- id 1pKkUg-0002tm-6L
- for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 18:27:34 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ecb563a4-9cdd-11ed-b8d1-410ff93cb8f0;
- Wed, 25 Jan 2023 19:27:30 +0100 (CET)
+ <SRS0=dnVv=5W=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
+ id 1pKkZ5-0004IJ-Jn
+ for xen-devel@lists.xenproject.org; Wed, 25 Jan 2023 18:32:07 +0000
+Received: from caracal.birch.relay.mailchannels.net
+ (caracal.birch.relay.mailchannels.net [23.83.209.30])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8f97e226-9cde-11ed-b8d1-410ff93cb8f0;
+ Wed, 25 Jan 2023 19:32:04 +0100 (CET)
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id 07950500ED2
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 18:32:02 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (unknown [127.0.0.6])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 8034F50144E
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 18:32:01 +0000 (UTC)
+Received: from pdx1-sub0-mail-a306.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.97.74.44 (trex/6.7.1); Wed, 25 Jan 2023 18:32:01 +0000
+Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: kjlx@templeofstupid.com)
+ by pdx1-sub0-mail-a306.dreamhost.com (Postfix) with ESMTPSA id 4P2C9X4Xh6zTR
+ for <xen-devel@lists.xenproject.org>; Wed, 25 Jan 2023 10:32:00 -0800 (PST)
+Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
+ id e00e2 by kmjvbox (DragonFly Mail Agent v0.12);
+ Wed, 25 Jan 2023 10:31:59 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,234 +57,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecb563a4-9cdd-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1674671250;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=HfetvvXoeGVeKHCAxwKgly1dttDJk6a1tWc5GK5C/pM=;
-  b=AYti+agZ6F8s41Az/zatDwRrVSMZUa3J05TWwHPF6Z8QsRhc5PUFgFnZ
-   ftVXEubv8ZtxcIFf5jUsbkL+kmzkBzhsbmSHVdny0bpmUJ4F5MKfBQ41N
-   czYrJH6Yvfulj1oMQdxbr0Pdj1s818/9YYVkpVvQVOMJ2qV4iaG0TH5To
-   Q=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 93141906
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:wZ6azapJJBSffdgDS3PCTb5OmDleBmIQZRIvgKrLsJaIsI4StFCzt
- garIBmEaPnbambweIsgYIy1p0oOvcTUyIBmGVRvriFhRitGopuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpAFc+E0/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weHzSRNUPrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXACgHRRTfiMe6+qCQardMr+smJsa1I7pK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVgpUjTj6sz+GX7xw1tyrn9dtHSf7RmQO0ExR/E/
- zOeoQwVBDk8FMyykjy/ykuun9CevAbUdItDG5uno6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0WdBdDuk74wGl0bfP7kCSAW1sZiFFQMwrsokxXzNC6
- 7OSt4q3X3o16uTTEC/DsO7O9lteJBT5M0cabwQAEQQg7+Pxi6FtrjvgS9xsTrGM24id9S7L/
- xiGqy03hrM2hMEN1rmm8V2vvw9AtqQlXSZuuFyJAzvNAhdRIdf8Otf2sQSzAeNodt7xc7WXg
- JQTdyFyBsgqBIrFqiGCSf5l8FqBt6fca220bbKC8vAcG9WRF5yLJ9g4DNJWfh0B3iM4ldjBP
- ifuVft5vsM7AZdTRfYfj3iNI8or17P8Mt/uS+rZaNFDCrAoKlDboXEzPxXJhz69+KTJrU3YE
- c7LGftA8F5AUfg3pNZIb7l1PUAXKtAWmjqIGMGTI+WP2ruCfn+FIYrpw3PXBt3VGJis+V2Pm
- /4Gbpvi9vmqeLGmCsUh2dJJfA9iwLlSLcyelvG7gcbafVs/QjFxUqONqV7jEqQ895loei7z1
- inVcidlJJDX3BUr9S3ihqhfVY7S
-IronPort-HdrOrdr: A9a23:w+9ThalqSkUUTHuaRfT3qmK7PqHpDfIT3DAbv31ZSRFFG/FwWf
- re5cjztCWE8Ar5PUtLpTnuAtjkfZqxz+8W3WBVB8bAYOCEggqVxeNZnO/fKlTbckWUygce78
- ddmsNFebrN5DZB/KDHCcqDf+rIAuPrzEllv4jjJr5WIz1XVw==
-X-IronPort-AV: E=Sophos;i="5.97,246,1669093200"; 
-   d="scan'208";a="93141906"
-From: Per Bilse <per.bilse@citrix.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Per Bilse <per.bilse@citrix.com>, Jan Beulich <jbeulich@suse.com>, Andrew
- Cooper <andrew.cooper3@citrix.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [XEN PATCH v2] Create a Kconfig option to set preferred reboot method
-Date: Wed, 25 Jan 2023 18:27:06 +0000
-Message-ID: <20230125182706.1480160-1-per.bilse@citrix.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: 8f97e226-9cde-11ed-b8d1-410ff93cb8f0
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1674671521; a=rsa-sha256;
+	cv=none;
+	b=kr8jnzAkaLLX580X7SPq7SzTh9zUL60gexwnpSocbZxRcvjgvYA3b4PMom9MHspUiPF/4g
+	k6USz/RVwpEQoe4uNBmzGsq34Gru36ePqs6TLrWhUeZXfXcMW0/wsCQVv/ZVbkln5TuGif
+	ZKQjtkHj9lQUqWSy6k4IjGIHdG4eyki9HcYmavHSeBiELg1jNzN+zojfC6qfdTf8cV4Agk
+	i2nIHBGngGDypOERCxwWTC8Ra+f27+54Md/WLXoscM9Kg7AgRMoOffcjE4CImt15kuw9+y
+	5VPKc+uVa8w5A5jjEC9gXAtRPVLDWE8kua4f2xL1HBZ+ZO8IiVq8JL/j2OCPpA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1674671521;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=qxwJU1KGPHSbufcjGUiRlF4u7gN7908PHDzD9oDlrkU=;
+	b=C/QeFOk5WBEiEMplgSWwzOvwqxU/Wwa+U+hbKhBZa1mv66NkCAh4NMGaB2zGz6l5U9q1jH
+	U7n2A9VJKHHoJRQlSU4SHDlZGCpvmeH/JRTxr6kiMn3Onlx+/1LcMdgAo+uS0z9odW1G+O
+	ECE11cp0k0rz3V+2BNrZgSJbQSdERyO1dDsyhgFulVeQG+ic+jWBMEIIUG6pV64GzTBHHz
+	LSlXAs5TprSKuw/VBGRjtn6m/FXqgPhgjuDo0+kkexS79MQNTQsKIdVszRDKVYW1O7l7SH
+	bLRrHRFkXL84JUT10v9QmzlOmKZQhRR3Osr2Tqbb+JFzxrM6P+6PtsPqWkF39g==
+ARC-Authentication-Results: i=1;
+	rspamd-6989874cc5-vfcqp;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MailChannels-Auth-Id: dreamhost
+X-Spill-Average: 0bdc106079f3d167_1674671521842_3279774127
+X-MC-Loop-Signature: 1674671521842:647148034
+X-MC-Ingress-Time: 1674671521841
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
+	s=dreamhost; t=1674671520;
+	bh=qxwJU1KGPHSbufcjGUiRlF4u7gN7908PHDzD9oDlrkU=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=Rw2OFdLCEOwAbp/1i7CZHRg8P+T2J8WuPv8M3Nn8kxUho5cxbHkJxVO4LW+hvULCo
+	 SjQ2s5aDxaGy6ZFOp06CAKr0KvPLDL4oZI3WPSagoLBxznOSl3EhSLKui8vx7D8QqJ
+	 XcNQqtkuHSd/9sSNyNabeAAcYMr0H6AINrbanQ6c=
+Date: Wed, 25 Jan 2023 10:31:59 -0800
+From: Krister Johansen <kjlx@templeofstupid.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: xen-devel@lists.xenproject.org, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	David Reaver <me@davidreaver.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>
+Subject: Re: [PATCH] xen/x86: public: add TSC defines for cpuid leaf 4
+Message-ID: <20230125183159.GA1963@templeofstupid.com>
+References: <20230124223516.GA1962@templeofstupid.com>
+ <145a827e-4b09-5a85-cb12-eb8f3e0c4f2a@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <145a827e-4b09-5a85-cb12-eb8f3e0c4f2a@suse.com>
 
-Provide a user-friendly option to specify preferred reboot details at
-compile time.  It uses the same internals as the command line 'reboot'
-parameter, and will be overridden by a choice on the command line.
+On Wed, Jan 25, 2023 at 07:57:16AM +0100, Jan Beulich wrote:
+> On 24.01.2023 23:35, Krister Johansen wrote:
+> > --- a/xen/include/public/arch-x86/cpuid.h
+> > +++ b/xen/include/public/arch-x86/cpuid.h
+> > @@ -71,6 +71,12 @@
+> >   *             EDX: shift amount for tsc->ns conversion
+> >   * Sub-leaf 2: EAX: host tsc frequency in kHz
+> >   */
+> > +#define XEN_CPUID_TSC_EMULATED       (1u << 0)
+> > +#define XEN_CPUID_HOST_TSC_RELIABLE  (1u << 1)
+> > +#define XEN_CPUID_RDTSCP_INSTR_AVAIL (1u << 2)
+> > +#define XEN_CPUID_TSC_MODE_DEFAULT   (0)
+> > +#define XEN_CPUID_TSC_MODE_EMULATE   (1u)
+> > +#define XEN_CPUID_TSC_MODE_NOEMULATE (2u)
+> 
+> This could do with a blank line between the two groups. You're also
+> missing mode 3. Plus, as a formal remark, please follow patch
+> submission rules: They are sent To: the list, with maintainers on
+> Cc:.
 
-Signed-off-by: Per Bilse <per.bilse@citrix.com>
----
-v2: Incorporate feedback from initial patch.  Separating out warm
-reboot as a separate boolean led to a proliferation of code changes,
-so we now use the details from Kconfig to assemble a reboot string
-identical to what would be specified on the command line.  This leads
-to minimal changes and additions to the code.
----
- xen/arch/x86/Kconfig    | 84 +++++++++++++++++++++++++++++++++++++++++
- xen/arch/x86/shutdown.c | 30 ++++++++++++++-
- 2 files changed, 112 insertions(+), 2 deletions(-)
+Thanks for the feedback.  I'll make those changes.
 
-diff --git a/xen/arch/x86/Kconfig b/xen/arch/x86/Kconfig
-index 6a7825f4ba..b881a118f1 100644
---- a/xen/arch/x86/Kconfig
-+++ b/xen/arch/x86/Kconfig
-@@ -306,6 +306,90 @@ config MEM_SHARING
- 	bool "Xen memory sharing support (UNSUPPORTED)" if UNSUPPORTED
- 	depends on HVM
- 
-+config REBOOT_SYSTEM_DEFAULT
-+	bool "Xen-defined reboot method"
-+	default y
-+	help
-+	  Xen will choose the most appropriate reboot method,
-+	  which will be a Xen SCHEDOP hypercall if running as
-+	  a Xen guest, otherwise EFI, ACPI, or by way of the
-+	  keyboard controller, depending on system features.
-+	  Disabling this will allow you to specify how the
-+	  system will be rebooted.
-+
-+choice
-+	bool "Reboot method"
-+	depends on !REBOOT_SYSTEM_DEFAULT
-+	default REBOOT_METHOD_ACPI
-+	help
-+	  This is a compiled-in alternative to specifying the
-+	  reboot method on the Xen command line.  Specifying a
-+	  method on the command line will override both this
-+	  configuration and the warm boot option below.
-+
-+	  none    Suppress automatic reboot after panics or crashes
-+	  triple  Force a triple fault (init)
-+	  kbd     Use the keyboard controller
-+	  acpi    Use the RESET_REG in the FADT
-+	  pci     Use the so-called "PCI reset register", CF9
-+	  power   Like 'pci' but for a full power-cyle reset
-+	  efi     Use the EFI reboot (if running under EFI)
-+	  xen     Use Xen SCHEDOP hypercall (if running under Xen as a guest)
-+
-+	config REBOOT_METHOD_NONE
-+	bool "none"
-+
-+	config REBOOT_METHOD_TRIPLE
-+	bool "triple"
-+
-+	config REBOOT_METHOD_KBD
-+	bool "kbd"
-+
-+	config REBOOT_METHOD_ACPI
-+	bool "acpi"
-+
-+	config REBOOT_METHOD_PCI
-+	bool "pci"
-+
-+	config REBOOT_METHOD_POWER
-+	bool "power"
-+
-+	config REBOOT_METHOD_EFI
-+	bool "efi"
-+
-+	config REBOOT_METHOD_XEN
-+	bool "xen"
-+	depends on !XEN_GUEST
-+
-+endchoice
-+
-+config REBOOT_METHOD
-+	string
-+	default "none"   if REBOOT_METHOD_NONE
-+	default "triple" if REBOOT_METHOD_TRIPLE
-+	default "kbd"    if REBOOT_METHOD_KBD
-+	default "acpi"   if REBOOT_METHOD_ACPI
-+	default "pci"    if REBOOT_METHOD_PCI
-+	default "Power"  if REBOOT_METHOD_POWER
-+	default "efi"    if REBOOT_METHOD_EFI
-+	default "xen"    if REBOOT_METHOD_XEN
-+
-+config REBOOT_WARM
-+	bool "Warm reboot"
-+	default n
-+	help
-+	  By default the system will perform a cold reboot.
-+	  Enable this to carry out a warm reboot.  This
-+	  configuration will have no effect if a "reboot="
-+	  string is supplied on the Xen command line; in this
-+	  case the reboot string must include "warm" if a warm
-+	  reboot is desired.
-+
-+config REBOOT_TEMPERATURE
-+	string
-+	default "warm" if REBOOT_WARM
-+	default "cold" if !REBOOT_WARM && !REBOOT_SYSTEM_DEFAULT
-+
- endmenu
- 
- source "common/Kconfig"
-diff --git a/xen/arch/x86/shutdown.c b/xen/arch/x86/shutdown.c
-index 7619544d14..4969af1316 100644
---- a/xen/arch/x86/shutdown.c
-+++ b/xen/arch/x86/shutdown.c
-@@ -28,6 +28,19 @@
- #include <asm/apic.h>
- #include <asm/guest.h>
- 
-+/*
-+ * We don't define a compiled-in reboot string if both method and
-+ * temperature are defaults, in which case we can compile better code.
-+ */
-+#ifdef CONFIG_REBOOT_METHOD
-+#define REBOOT_STR CONFIG_REBOOT_METHOD "," CONFIG_REBOOT_TEMPERATURE
-+#else
-+#ifdef CONFIG_REBOOT_TEMPERATURE
-+#define REBOOT_STR CONFIG_REBOOT_TEMPERATURE
-+#endif
-+#endif
-+
-+/* Do not modify without updating arch/x86/Kconfig, see below. */
- enum reboot_type {
-         BOOT_INVALID,
-         BOOT_TRIPLE = 't',
-@@ -42,10 +55,13 @@ enum reboot_type {
- static int reboot_mode;
- 
- /*
-- * reboot=t[riple] | k[bd] | a[cpi] | p[ci] | n[o] | [e]fi [, [w]arm | [c]old]
-+ * These constants are duplicated in full in arch/x86/Kconfig, keep in synch.
-+ *
-+ * reboot=t[riple] | k[bd] | a[cpi] | p[ci] | P[ower] | n[one] | [e]fi
-+ *                                                     [, [w]arm | [c]old]
-  * warm   Don't set the cold reboot flag
-  * cold   Set the cold reboot flag
-- * no     Suppress automatic reboot after panics or crashes
-+ * none   Suppress automatic reboot after panics or crashes
-  * triple Force a triple fault (init)
-  * kbd    Use the keyboard controller. cold reset (default)
-  * acpi   Use the RESET_REG in the FADT
-@@ -56,7 +72,12 @@ static int reboot_mode;
-  */
- static enum reboot_type reboot_type = BOOT_INVALID;
- 
-+/* If we don't have a compiled-in boot string, we won't call after start-up. */
-+#ifndef REBOOT_STR
- static int __init cf_check set_reboot_type(const char *str)
-+#else
-+static int cf_check set_reboot_type(const char *str)
-+#endif
- {
-     int rc = 0;
- 
-@@ -145,6 +166,11 @@ void machine_halt(void)
- 
- static void default_reboot_type(void)
- {
-+#ifdef REBOOT_STR
-+    if ( reboot_type == BOOT_INVALID )
-+        set_reboot_type(REBOOT_STR);
-+#endif
-+
-     if ( reboot_type != BOOT_INVALID )
-         return;
- 
--- 
-2.31.1
+My apologies for the breach etiquette, and thank you for the reminder
+about the norms.  I'll correct the To: and CC: headers on the next go
+around.
 
+-K
 
