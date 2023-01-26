@@ -2,50 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5D967D3B9
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 19:03:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485181.752208 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 163B067D439
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 19:31:36 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485189.752224 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL6aN-00061O-Nf; Thu, 26 Jan 2023 18:02:55 +0000
+	id 1pL70y-0001SJ-Sb; Thu, 26 Jan 2023 18:30:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485181.752208; Thu, 26 Jan 2023 18:02:55 +0000
+Received: by outflank-mailman (output) from mailman id 485189.752224; Thu, 26 Jan 2023 18:30:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL6aN-0005ya-KQ; Thu, 26 Jan 2023 18:02:55 +0000
-Received: by outflank-mailman (input) for mailman id 485181;
- Thu, 26 Jan 2023 18:02:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pL70y-0001Qc-Pb; Thu, 26 Jan 2023 18:30:24 +0000
+Received: by outflank-mailman (input) for mailman id 485189;
+ Thu, 26 Jan 2023 18:30:23 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=FZWf=5X=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
- id 1pL6aM-0005yU-Rg
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 18:02:54 +0000
-Received: from cross.elm.relay.mailchannels.net
- (cross.elm.relay.mailchannels.net [23.83.212.46])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id a60c1c6b-9da3-11ed-a5d9-ddcf98b90cbd;
- Thu, 26 Jan 2023 19:02:52 +0100 (CET)
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
- by relay.mailchannels.net (Postfix) with ESMTP id 427C27E2460
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 18:02:50 +0000 (UTC)
-Received: from pdx1-sub0-mail-a305.dreamhost.com (unknown [127.0.0.6])
- (Authenticated sender: dreamhost)
- by relay.mailchannels.net (Postfix) with ESMTPA id C3ABB7E2513
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 18:02:49 +0000 (UTC)
-Received: from pdx1-sub0-mail-a305.dreamhost.com (pop.dreamhost.com
- [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
- by 100.99.229.34 (trex/6.7.1); Thu, 26 Jan 2023 18:02:50 +0000
-Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- (Authenticated sender: kjlx@templeofstupid.com)
- by pdx1-sub0-mail-a305.dreamhost.com (Postfix) with ESMTPSA id 4P2pTM0R0bzT5
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 10:02:46 -0800 (PST)
-Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
- id e00cd by kmjvbox (DragonFly Mail Agent v0.12);
- Thu, 26 Jan 2023 10:02:44 -0800
+ <SRS0=6/FI=5X=yahoo.com=hack3rcon@srs-se1.protection.inumbo.net>)
+ id 1pL70x-0001QU-4I
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 18:30:23 +0000
+Received: from sonic306-2.consmr.mail.bf2.yahoo.com
+ (sonic306-2.consmr.mail.bf2.yahoo.com [74.6.132.41])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7c38155a-9da7-11ed-b8d1-410ff93cb8f0;
+ Thu, 26 Jan 2023 19:30:20 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic306.consmr.mail.bf2.yahoo.com with HTTP; Thu, 26 Jan 2023 18:30:18 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -57,110 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a60c1c6b-9da3-11ed-a5d9-ddcf98b90cbd
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1674756169; a=rsa-sha256;
-	cv=none;
-	b=m+F75p7unMf/DGAEQAxbnR+zXDdWAgGhYW8HjvdjZ0Hod0DyabuhDUnsAzIWJqYgjIdznl
-	IR5KCTZMj11Cju+QtbNGJzKmXZz7lC5HoUXaGuALdRG2FUxsnBkconashgGRvj10xZ5CI7
-	4rzLSVNL2dnBBOQCzbSw2juI6/vKuWBqlb46BdKdTvNrtnmubwnZnT3unpmfj8CR2OF4Vh
-	CZW1C/rumpE84+lTMPuC1NFqRetZYl9MchAWzwOdYLnGUb+M2f/YgFy6ctHcT/KuvDcpYi
-	Z7faWG4MdbAtiz9x9iu/Tur2mH1+0C7Y/N+f0UCx9zyxsFxEeZiFYFoSAJSPAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
- d=mailchannels.net;
-	s=arc-2022; t=1674756169;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references:dkim-signature;
-	bh=0h75USw75PEGBO20cN1/ibS8ETsuoLrcwhoitcGBX6c=;
-	b=BHR7BiDKdJ1SntEX1cBO0PfaNNxwDHLp+30G7VrOakbdq/KV69mJKur9Gu06BYj54kvVni
-	wVGm9sfUbr41MeaZQ2COEr5AtUziL00m/nTWAP+4/HyTauMIBMDyYcG/OgwdDVjHfNL01O
-	gSoQ6Is1W7kOfy5VwNXsu80RTzZ6DoQV0BYzgNSGHJJu+tlg3HxA4SPZytS7+fNicsOZ1D
-	JnF9J5Osq4we+4MPT8RpA9sQAaB6v0M13/iAbGSxofDbUhD4wcpS0uWe1mKE4EBkff7vLu
-	PNNmVUvpVfO5VeKFgSmIADxRMLMMpR4l+2Fut6WXhV06FsYp1QT0PdAs9LFcKQ==
-ARC-Authentication-Results: i=1;
-	rspamd-9476994bd-kbl4q;
-	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
-X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
-X-MailChannels-Auth-Id: dreamhost
-X-Interest-Madly: 553898051b093dac_1674756170081_675623390
-X-MC-Loop-Signature: 1674756170081:1438025192
-X-MC-Ingress-Time: 1674756170081
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
-	s=dreamhost; t=1674756167;
-	bh=0h75USw75PEGBO20cN1/ibS8ETsuoLrcwhoitcGBX6c=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=llWecIXKg3DgeOW4ZnIcOdY2rwmIKWHjYEN9bbbv5l7NZVOs5scTZeOoDs3TeKaui
-	 Ih1XnGvI5NqGYj3655ruFXf3VMGvGMbP1gbPqr3DUgws+vxEXnIFCWTV8qUUaogOwu
-	 8rZDmzuTHwcr2wd/2gHO5RpG7CSTQpTElmCcDWnI=
-Date: Thu, 26 Jan 2023 10:02:44 -0800
-From: Krister Johansen <kjlx@templeofstupid.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Krister Johansen <kjlx@templeofstupid.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	David Reaver <me@davidreaver.com>, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH v2] xen/x86: public: add TSC defines for cpuid leaf 4
-Message-ID: <20230126180244.GB1959@templeofstupid.com>
-References: <20230125184506.GE1963@templeofstupid.com>
- <77576aab-93bf-5f6a-9b04-17eaf1d84ffb@suse.com>
+X-Inumbo-ID: 7c38155a-9da7-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1674757818; bh=xGcwb2Lir9gHeBMb8n1Gla1tLvlag64G3DJCpjlw9w0=; h=Date:From:Reply-To:To:Subject:References:From:Subject:Reply-To; b=bDDVHk9XfOmYrva6H68sniGnBua3IoY3V6oN/HMadHDFn66Pq94tu25e7aMquqekqBW4+H55VmWFPNjqcEcHkzt53S7AfVKgqStzwD5LU1LwBu4AuOljK7P7dlJRgb2y6mfKIU791ZO30UUVZbYzRLGkLyDO7W9yB0zEnzHCO12196P7sjIw97l8NdEOGIB9aDOZ6WKC/XRTzAO3b3z/BZ3/6eyAVsECpGckkpWa4oLsEzVJ4JiEFJPHeZtvxVT5xB8p0jpeczYKLmkGK3dDEUhmFHrJEEBULtJCWnUuMS1NHyVlfLYoNI1w/XW0SDBxQ+np9lxDy5qP4flz5RPMAA==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1674757818; bh=sNeXBtdZp2cbMl7i8rfeKa+JLG2d67gzMFaCZF5pBdg=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=twJND2pGV1fo1WTO9gQKtSNKDP/9TghVpM7UGaTCPsTTif9OSYaRlhrM4BLRF5KpJpeFlTEC/EcDQe5N6s2qiI+PBl3EcapShPWO5XH12J8CEUlYXIgid27horq3w992qAp+l7hAeTW2OcoEPgYlBPAfzCTj0eQq34yachzMTGkrhrq1rWe0+tatJ0aTjz0uAZLbwz0R4eqqUKvT3M9bq10mFPVSCIpUHe2Knm5FXFYzNy9vrW1RyZr8wsiAl8j2YKg0xKg+BROC7tOn09Gsn1eHw86DKcyBAj5sG2/FpyJYjbFMrBvvBHdsykrWWVW52oNBtrX+c23H3OOhfxQ4IA==
+X-YMail-OSG: 2zuozUkVM1kVEl9tFD7uBA7wo7Hu1XXSt3lG433MVo95xQ6moEivLXfUVVC2BYu
+ zLpsGtxPsou.ilHSSTkGd69Cv3Fl_mMqugsuIARViFj5W3OJbMapJGBTSdUukUxR3Elak2Cl7Pf1
+ bZjTN2TBaNzyXzj4ed6UFrO89b5hdUmPg7EP4rEUY2ap02Wr9iOiLT2388w_T81j9u9l2tMpz0VA
+ Rh_IDdqFE0jbqMhp_yL7a6mftJX2ysP_f5dFSKL95LRuZOqzhgglSr7ZrGa2VuhQB.aqcF0I4jZN
+ giaDrYGyDkCv7.gNBK1Jmxkh_L7xe_ON726Vz8TNL50.ZfkEihWOZwRhEcdUaIspHb0b_VC.R1kG
+ MrRJP8Qpn6_iph8vvY_zBn0Da9aJjDbfw3kNyFqWDZZcBkiWEQEvRoShdQTnLmzaxJcHjXmiJpFp
+ VpyzN6PfCddFD0guhKPjbZVIMKjFQTsf5kIB3gF6HKf.z63xQZJFWZDgaY8YCZu_rjG9_nxviXle
+ bZw7fozKsU9KR1WWV8uh1COWYsPIlRoTZqgGYvRcdvcazsftxBfTqhkrI13B60g_1HBRZVo0L7pL
+ lY49y268TJzkQCc4InBN5UyczgpebrmSw_BqoJi3qJ71KUkSybTHAa9haycNjHwZS9.cE5pV6Ugy
+ hBy8kxPJ4dcBW_Qu8N.aME5sVG5rvyMmXAIpArzltEX2IJ9XzuXt3jEKQOoWkLD8rjJx6hUhpx4a
+ FzYtE5cWiMG_5i4ybJoItGo3SoJKUzIn24uq9Af.d9JFaG9bwTOrn4H0BWc7DjJxZBqkcbHtyvzT
+ 1yJSI1xMLi2IXx7vu60470RpcAZfKdToo485vc7JvGJwsXKfhQ6jk9j5UW3CyuMszFyY1kDRsHEs
+ fP8zXxDoCC.IYJ0MusApdHkgt_OirkfIvWX81qqjPxD8q0pf5Gy_ZfNR6qyZhMwzxSgTvYVLzkrH
+ iSu05U86yN3kGsGmMVzD2WYN7TbdAk8TvmFjUPTwYD20RuVnptxavyYU7GQTxIPlLGjQakLUCh65
+ a7LGQIrYwCxAn1ooIh1ynIJqkGcWEdRVkM5YdTWgHHMYQ9RvTTlt2Ga._d2Sn2E9Z.RkLT1Ce3uI
+ MgRpvh72c1j2P3HvUXFuDGLvKrF.kukPYQIyMdVm4KtfK9sMAu0Ey_iQ_XAbvQNqIKXSANoYF5x_
+ wsAciIFUpi7s1Eglxibl1IjburrFgVbTJ9Wd3ORI3B_oZCambzbQMmo6DVFkGTr40hcd_iVcLLls
+ ELdBJcjq9bMT2Dt2zp9_FslrifNv6Yo6yASfAEki29yLmEyHuWwj7oQtOJCPOdT2AMTAsG9S1Uff
+ yU4r1G28OvKZWK.onB9NdVMJ3M1qmxWokaRt_V5KRNrbrO96ysdumFYDUaH1N_UQffY1ivFVe1BN
+ IQ69ZmuVn.VTVGbtg3AiQZf86gRZXF1iGoRMJLUNEg0GaTlykpXwZvuimVNDHIwPC_k2LGLF3Xz6
+ .9tggycE4Cqy6fIDnAlICdqwOAUfojurIc7KcN.v2ujzUPOYbHOTESykr2y7C9evBZBHlyqBOWgC
+ S5VWugYNcXDwf7NK1a33FSAaZTQYIp_oI9WdgHY6TS8sREnJ398RQ.BPasSi9.0LF05T26g0TFt1
+ uiBzZBLA8f4jdukCHAbrGpx8Wv.aAxyZqXcqTPwT27vARgJgUA34uXE_nAn_WHgNLaBolYEHVmrQ
+ oyVvLyusCXydvca7Z0Ek66mZJq3.mHlSGsM6jNZZcrlQDTCi7Nz6rQBo3H_TJ.X7tjxpJaDYQuV9
+ nqp0oFccDmlYPJE8AyPjT3WSgcZVQHWgdgY0yfbsVXUc_So_ACPZjGqbpHuSMnHM7nGzKWnaA0s2
+ jURLrWcmEaxgeQyh4wxIKbJOL0fHamEp0j9cTrfqoAtUiEKW5jX5MSpsqRQkrcbfLUZTQFOGEKaL
+ Asz.UvrTZRxHqhIFbUGP5YtB.dciabm5I2a7yb6n1_kd0PYF4darkIAdvWP9uzPFqouPT8leebuh
+ LgwNqWgLqZqiGKq0RzLJZ6YPHnt4QN8NG_ciP_e6YThPkzIB7sihFj9n58gho3n3RkiV2vAzcp7j
+ PatRy6QZaxgYPkVcAA.Z8GIE0xF6lhaLufGavUprQQu6vs61yVPv_CCB2z9IP4ggYBI2fF.PxbLU
+ 7Paaf9awF_smgRC1iBTDcZ56KqZKRxjZCwbXpD9qJuIgmTOvfCodTku2sbw6K89RgaOS29BtYFM9
+ PVwWFO.g5g7BE5AM9aXKKxOZa0SDnAvb_pPNZWXtd28KWfhXpLSVjGtGbar3MFFjtKMP5fD_dhiZ
+ PeYUKo2heZwRcuuyCGrr0HjmkpCMMMUAjyYoBDwGp
+X-Sonic-MF: <hack3rcon@yahoo.com>
+Date: Thu, 26 Jan 2023 18:30:11 +0000 (UTC)
+From: Jason Long <hack3rcon@yahoo.com>
+Reply-To: Jason Long <hack3rcon@yahoo.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+Message-ID: <907082531.1459240.1674757811189@mail.yahoo.com>
+Subject: The re-architecture of Xen
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <77576aab-93bf-5f6a-9b04-17eaf1d84ffb@suse.com>
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_1459239_246279745.1674757811189"
+References: <907082531.1459240.1674757811189.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.21096 YahooMailAndroidMobile
 
-On Thu, Jan 26, 2023 at 10:57:01AM +0100, Jan Beulich wrote:
-> On 25.01.2023 19:45, Krister Johansen wrote:
-> > --- a/xen/include/public/arch-x86/cpuid.h
-> > +++ b/xen/include/public/arch-x86/cpuid.h
-> > @@ -72,6 +72,14 @@
-> >   * Sub-leaf 2: EAX: host tsc frequency in kHz
-> >   */
-> >  
-> > +#define XEN_CPUID_TSC_EMULATED               (1u << 0)
-> > +#define XEN_CPUID_HOST_TSC_RELIABLE          (1u << 1)
-> > +#define XEN_CPUID_RDTSCP_INSTR_AVAIL         (1u << 2)
-> > +#define XEN_CPUID_TSC_MODE_DEFAULT           (0)
-> > +#define XEN_CPUID_TSC_MODE_EMULATE           (1u)
-> > +#define XEN_CPUID_TSC_MODE_NOEMULATE         (2u)
-> > +#define XEN_CPUID_TSC_MODE_NOEMULATE_TSC_AUX (3u)
-> 
-> Actually I think we'd better stick to the names found in asm/time.h
-> (and then replace their uses, dropping the #define-s there). If you
-> agree, I'd be happy to make the adjustment while committing.
+------=_Part_1459239_246279745.1674757811189
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Just to confirm, this would be moving these:
+Hello,Doesn't KVM need re-architecture? For example, Dom0 consumes memory and if its number is large, it causes waste of memory in the system.
+Tnx.
+------=_Part_1459239_246279745.1674757811189
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-   #define TSC_MODE_DEFAULT          0
-   #define TSC_MODE_ALWAYS_EMULATE   1
-   #define TSC_MODE_NEVER_EMULATE    2
-   
-To cpuid.h?  I'm generally fine with this.  I don't see anything in
-Linux that's using these names.  The only question I have is whether
-we'd still want to prefix the names with XEN so that if they're pulled
-in to Linux it's clear that the define is Xen specific?  E.g. something
-like this perhaps?
-
-   #define XEN_TSC_MODE_DEFAULT          0
-   #define XEN_TSC_MODE_ALWAYS_EMULATE   1
-   #define XEN_TSC_MODE_NEVER_EMULATE    2
-
-That does increase the number of files we'd need to touch to make the
-change, though. (And the other defines in that file all start with
-XEN_CPUID).
-
-Though, if you mean doing it this way:
-
-   #define XEN_CPUID_TSC_MODE_DEFAULT          0
-   #define XEN_CPUID_TSC_MODE_ALWAYS_EMULATE   1
-   #define XEN_CPUID_TSC_MODE_NEVER_EMULATE    2
- 
-then no objection to that at all.  Apologies for overlooking the naming
-overlap when I put this together the first time.
-
--K
+<div id="ymail_android_signature">Hello,</div><div id="ymail_android_signature">Doesn't KVM need re-architecture?  For example, Dom0 consumes memory and if its number is large, it causes waste of memory in the system.</div><div id="ymail_android_signature"><br></div><div id="ymail_android_signature">Tnx.</div>
+------=_Part_1459239_246279745.1674757811189--
 
