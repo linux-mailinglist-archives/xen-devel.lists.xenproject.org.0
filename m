@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B9AD67C9A2
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 12:19:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484955.751869 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2D8B67C9A3
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 12:19:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484961.751880 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL0HL-0000tv-VD; Thu, 26 Jan 2023 11:18:51 +0000
+	id 1pL0I8-0001U1-Bb; Thu, 26 Jan 2023 11:19:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484955.751869; Thu, 26 Jan 2023 11:18:51 +0000
+Received: by outflank-mailman (output) from mailman id 484961.751880; Thu, 26 Jan 2023 11:19:40 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL0HL-0000rh-Ru; Thu, 26 Jan 2023 11:18:51 +0000
-Received: by outflank-mailman (input) for mailman id 484955;
- Thu, 26 Jan 2023 11:18:51 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pL0I8-0001SI-7j; Thu, 26 Jan 2023 11:19:40 +0000
+Received: by outflank-mailman (input) for mailman id 484961;
+ Thu, 26 Jan 2023 11:19:38 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=q9FD=5X=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1pL0HK-0000rb-Ub
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 11:18:51 +0000
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com
- [2a00:1450:4864:20::633])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 331c5a5f-9d6b-11ed-b8d1-410ff93cb8f0;
- Thu, 26 Jan 2023 12:18:46 +0100 (CET)
-Received: by mail-ej1-x633.google.com with SMTP id kt14so4195871ejc.3
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 03:18:48 -0800 (PST)
+ id 1pL0I6-0001S5-UU
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 11:19:38 +0000
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 51d9962c-9d6b-11ed-a5d9-ddcf98b90cbd;
+ Thu, 26 Jan 2023 12:19:38 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id m2so3687763ejb.8
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 03:19:37 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,95 +39,129 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 331c5a5f-9d6b-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 51d9962c-9d6b-11ed-a5d9-ddcf98b90cbd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=dqzFF7QucsnVSfBoepSCqTZ+X/O6fJVPSJ88AYHvMA4=;
-        b=r116+izGoWqcUtXsMn2LBmc4VbAbsal1ABTZrJhpvuL5h+nV+XhPm1Bkkndl8h3+6j
-         mGXL4EEZ+NaxpmiOaGqgzYS2QVyRa4gwLqog64iGKwTTo3dV09xh+BdzPCJagOKWiMUG
-         5VtuxVc5jMULIr9fAtqaLqEsGRxlGVfFcrt6CmrYOL2yqYQFSLpQjqB/x9SsaWFa7AIS
-         tvpZqbXYcrMycZ8dwE1bQWb0jrVnFx/x/6pUuudOLSCYbY2FfgSGc8A5JrAa4pnMPhp4
-         QF2DiWGP93Qc8K69jXMLCZK0g6YHIzAz4ZqWvr1V5FwgRIgW4zBb5KhGo0YFDTO12BIY
-         5hlA==
+        bh=fzQGTWbaPl1YN/xW9eCb7OJQZkAto1uIKcuM5Qbgrr4=;
+        b=GQflZ1jhsRdZiuXW1FlGyi4SBuecrs3kxu/buHb10WvVv5xh9vzlL5wYDj3KIuzJh9
+         7cBEwFyXiQBu6QEvtzScVk/744a7UPHPtSvkyoV0DoAo8yag4zp0DfxciI4A0BH9sl3I
+         8rkQripbWk+DrCXxwTEqeib1BR0eHi/RM8HIzBVR1Lsd8Eb5FiW1Inmt0iPjaLRPxI3w
+         JN8W/gjFhulkgFJxM2wK3Ndr+xYhxmIopU5F/eYMxQH+0DPQj6W+psy1f/m6ZPBK0ab4
+         VVpLGCLrxZvVOoRJlKP2W6bpgQ3Si37Z+oiSrCRxiFhJivD0WWaNPdr16Q1oT9YQXTZI
+         BiCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=dqzFF7QucsnVSfBoepSCqTZ+X/O6fJVPSJ88AYHvMA4=;
-        b=APiq5er3CX3wxh1rc67hb/uUHTWHbw2I5rfMrnAQphNpBwXa+qkDuxIoESezo0igmG
-         lSZyW2slivvbwvk8JZ8qqWXdO6Q1kRN9Vm6kZMxA1b+4ikz6CA8jHP7Sfl37h46yuhq1
-         27INPqvmhpFvHvwWTGEcrHqlNIelAn9+GLlEUQOC99o9GL24t6SRrIcUyjW7bLFLfXKa
-         vi3ZsznFJTrRHuM1JCUmnzGEVFjQId8Et0b6/83fDUHk1gFesTu/T6LIlGpf7oBNrm5n
-         JymVsZtCCFVNUK1mz8lItX3u9ePd7Mzq/ydcex4jVGDtbucVQEvqFWiVE+x0h9JXS9cs
-         oV/Q==
-X-Gm-Message-State: AO0yUKVkajajI/Umj7cQ2iIYUImc8EbKqb9Pi0f2WKHGRTltpOnRTe23
-	YYbjBJkO4LGnKmtCsYLcffrNEWzA4Qp4jZATKIPdHQ==
-X-Google-Smtp-Source: AK7set8czsAbe20kBZW4lC5tuIlUA5aqHtVaj/ZQ214iNi1aI0+eDHUGTcg541k/2KhunXj5uj84wEejI9fxbSmYzzQ=
-X-Received: by 2002:a17:906:308b:b0:878:42af:c614 with SMTP id
- 11-20020a170906308b00b0087842afc614mr925274ejv.149.1674731928050; Thu, 26 Jan
- 2023 03:18:48 -0800 (PST)
+        bh=fzQGTWbaPl1YN/xW9eCb7OJQZkAto1uIKcuM5Qbgrr4=;
+        b=HthcU0Nta5B4os6vwzoja61T627ag19b3H9pRHwyfiOAwRZtgjldQ05PVIPVuCmf3f
+         f5K2B6D+oSGpw0bnngeyEH3Pb8yRZtSs9GtqMmxhDhrglOsg/15sVPzL7r6VZz6YmV1v
+         mNmyWyAWPJqwMkoL+1WhpAVGsfOFz9TLVxV7JY/xUYFldGExux/NuO/RF6hr9p2irUMM
+         FAVeGIpzUzBWd1Pn0oI4Ff1uKyXLQShOcDXpqImrg37Dm9Ok5J1l/lppEiiyRguq5Kpl
+         U0KBtQLblTLpCwj+46kKTRgmL/5A6lTvi61SZcFVaxpejHulTCNfbpvp11DdjKfL/EgP
+         AjSQ==
+X-Gm-Message-State: AFqh2kqIKp0/z6WvRgfl3B1WxcTHvQ69v8Y46URtZ/cZD/29tN6ZVsnt
+	mYH9hnbtpDMBlQEISvnI6fxY6mFdvtqg3i69kDUsQg==
+X-Google-Smtp-Source: AMrXdXtSdARUMR/fTagNMtjfnY8gpMcble7Fdibe1YB8/nvg2agNvodYiUdS72YXnZaQxc7KS5eBsJbFSrXp0BLNZTA=
+X-Received: by 2002:a17:907:10d0:b0:84d:49c2:8701 with SMTP id
+ rv16-20020a17090710d000b0084d49c28701mr4049092ejb.236.1674731977601; Thu, 26
+ Jan 2023 03:19:37 -0800 (PST)
 MIME-Version: 1.0
 References: <20230123154735.74832-1-carlo.nonato@minervasys.tech>
  <20230123154735.74832-5-carlo.nonato@minervasys.tech> <9bfee6d9-9cb2-262e-5a46-91b0bf35d60b@suse.com>
- <4e723846-09c1-32c8-94ba-3755e6af0529@suse.com>
-In-Reply-To: <4e723846-09c1-32c8-94ba-3755e6af0529@suse.com>
+ <CAG+AhRW+45gt7ZyOYSjaQZbfLORNsJVeADk_Tb7j9CEyTcY6QQ@mail.gmail.com> <0ec4c364-1e18-4176-ac24-ece84eb72859@xen.org>
+In-Reply-To: <0ec4c364-1e18-4176-ac24-ece84eb72859@xen.org>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 26 Jan 2023 12:18:37 +0100
-Message-ID: <CAG+AhRULW9ZWUcKpFq6_grF-8GzdKm3CqOZpwjYz5gjTg_Uukw@mail.gmail.com>
+Date: Thu, 26 Jan 2023 12:19:26 +0100
+Message-ID: <CAG+AhRVF+XEbbkARh5VuZuh2JiE6J3Z3yXvXQCwD_vrLDhCB6Q@mail.gmail.com>
 Subject: Re: [PATCH v4 04/11] xen: extend domctl interface for cache coloring
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall <julien@xen.org>, 
-	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Wei Liu <wl@xen.org>, Marco Solieri <marco.solieri@minervasys.tech>, 
-	xen-devel@lists.xenproject.org
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
+	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Jan,
+Hi Julien and Jan,
 
-On Thu, Jan 26, 2023 at 8:25 AM Jan Beulich <jbeulich@suse.com> wrote:
+On Thu, Jan 26, 2023 at 11:21 AM Julien Grall <julien@xen.org> wrote:
 >
-> On 24.01.2023 17:29, Jan Beulich wrote:
-> > On 23.01.2023 16:47, Carlo Nonato wrote:
-> >> @@ -92,6 +92,10 @@ struct xen_domctl_createdomain {
-> >>      /* CPU pool to use; specify 0 or a specific existing pool */
-> >>      uint32_t cpupool_id;
+> Hi,
+>
+> On 25/01/2023 16:27, Carlo Nonato wrote:
+> > On Tue, Jan 24, 2023 at 5:29 PM Jan Beulich <jbeulich@suse.com> wrote:
 > >>
-> >> +    /* IN LLC coloring parameters */
-> >> +    uint32_t num_llc_colors;
-> >> +    XEN_GUEST_HANDLE(uint32) llc_colors;
+> >> On 23.01.2023 16:47, Carlo Nonato wrote:
+> >>> @@ -275,6 +276,19 @@ unsigned int *dom0_llc_colors(unsigned int *num_colors)
+> >>>       return colors;
+> >>>   }
+> >>>
+> >>> +unsigned int *llc_colors_from_guest(struct xen_domctl_createdomain *config)
+> >>
+> >> const struct ...?
+> >>
+> >>> +{
+> >>> +    unsigned int *colors;
+> >>> +
+> >>> +    if ( !config->num_llc_colors )
+> >>> +        return NULL;
+> >>> +
+> >>> +    colors = alloc_colors(config->num_llc_colors);
+> >>
+> >> Error handling needs to occur here; the panic() in alloc_colors() needs
+> >> to go away.
+> >>
+> >>> @@ -434,7 +436,15 @@ long do_domctl(XEN_GUEST_HANDLE_PARAM(xen_domctl_t) u_domctl)
+> >>>               rover = dom;
+> >>>           }
+> >>>
+> >>> -        d = domain_create(dom, &op->u.createdomain, false);
+> >>> +        if ( llc_coloring_enabled )
+> >>> +        {
+> >>> +            llc_colors = llc_colors_from_guest(&op->u.createdomain);
+> >>> +            num_llc_colors = op->u.createdomain.num_llc_colors;
+> >>
+> >> I think you would better avoid setting num_llc_colors to non-zero if
+> >> you got back NULL from the function. It's at best confusing.
+> >>
+> >>> @@ -92,6 +92,10 @@ struct xen_domctl_createdomain {
+> >>>       /* CPU pool to use; specify 0 or a specific existing pool */
+> >>>       uint32_t cpupool_id;
+> >>>
+> >>> +    /* IN LLC coloring parameters */
+> >>> +    uint32_t num_llc_colors;
+> >>> +    XEN_GUEST_HANDLE(uint32) llc_colors;
+> >>
+> >> Despite your earlier replies I continue to be unconvinced that this
+> >> is information which needs to be available right at domain_create.
+> >> Without that you'd also get away without the sufficiently odd
+> >> domain_create_llc_colored(). (Odd because: Think of two or three
+> >> more extended features appearing, all of which want a special cased
+> >> domain_create().)
 > >
-> > Despite your earlier replies I continue to be unconvinced that this
-> > is information which needs to be available right at domain_create.
-> > Without that you'd also get away without the sufficiently odd
-> > domain_create_llc_colored(). (Odd because: Think of two or three
-> > more extended features appearing, all of which want a special cased
-> > domain_create().)
+> > Yes, I definitely see your point. Still there is the p2m table allocation
+> > problem that you and Julien have discussed previously. I'm not sure I
+> > understood what the approach is.
 >
-> And perhaps the real question is: Why do the two items need passing
-> to a special variant of domain_create() in the first place? The
-> necessary information already is passed to the normal function via
-> struct xen_domctl_createdomain. All it would take is to read the
-> array from guest space later, when struct domain was already
-> allocated and is hence available for storing the pointer. (Passing
-> the count separately is redundant in any event.)
-
-This was our first approach. However, struct xen_domctl_createdomain is used
-both by domctl (pointing to guest memory) and by Xen itself (using Xen memory)
-and Julien wasn't happy with this approach because it required some
-kind of hack.
-
-See this message from him:
-
-https://marc.info/?l=xen-devel&m=166637496520053
-
-and my answer:
-
-https://marc.info/?l=xen-devel&m=166782830201561
-
-> Jan
+> Henry has sent a series [1] to remove the requirement to allocate the
+> P2M in domain_create().
 >
+> With that series applied, there requirements to pass the colors at
+> domain creation should be lifted.
+>
+> Cheers,
+>
+> [1]
+> https://lore.kernel.org/xen-devel/20230116015820.1269387-1-Henry.Wang@arm.com/
+
+Really nice. Thanks to both.
+
+> >
+> >> Jan
+>
+> --
+> Julien Grall
 
