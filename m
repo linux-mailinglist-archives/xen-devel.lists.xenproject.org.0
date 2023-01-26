@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9550A67D9C8
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 00:41:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485237.752308 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C541F67D9F6
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 00:53:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485243.752319 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLBrU-0006nH-PD; Thu, 26 Jan 2023 23:40:56 +0000
+	id 1pLC3A-00007S-W2; Thu, 26 Jan 2023 23:53:00 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485237.752308; Thu, 26 Jan 2023 23:40:56 +0000
+Received: by outflank-mailman (output) from mailman id 485243.752319; Thu, 26 Jan 2023 23:53:00 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLBrU-0006kZ-Ls; Thu, 26 Jan 2023 23:40:56 +0000
-Received: by outflank-mailman (input) for mailman id 485237;
- Thu, 26 Jan 2023 23:40:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pLC3A-0008Vl-TB; Thu, 26 Jan 2023 23:53:00 +0000
+Received: by outflank-mailman (input) for mailman id 485243;
+ Thu, 26 Jan 2023 23:52:58 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HSUn=5X=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pLBrT-0006kT-K9
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 23:40:55 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id dfbc2637-9dd2-11ed-a5d9-ddcf98b90cbd;
- Fri, 27 Jan 2023 00:40:54 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id AE3F0B81ED5;
- Thu, 26 Jan 2023 23:40:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8114FC433EF;
- Thu, 26 Jan 2023 23:40:51 +0000 (UTC)
+ <SRS0=xXdJ=5X=koconnor.net=kevin@srs-se1.protection.inumbo.net>)
+ id 1pLC38-0008Vf-J9
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 23:52:58 +0000
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [2607:f8b0:4864:20::830])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8da7cf04-9dd4-11ed-b8d1-410ff93cb8f0;
+ Fri, 27 Jan 2023 00:52:56 +0100 (CET)
+Received: by mail-qt1-x830.google.com with SMTP id jr19so2775298qtb.7
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 15:52:56 -0800 (PST)
+Received: from localhost ([64.18.11.71]) by smtp.gmail.com with ESMTPSA id
+ pj4-20020a05620a1d8400b0070648cf78bdsm1845526qkn.54.2023.01.26.15.52.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Jan 2023 15:52:54 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,170 +43,86 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dfbc2637-9dd2-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674776452;
-	bh=MwcrpHNjJOmzEcKQbB9lI4v77vX57G2nWxiUid79/vs=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=So3E+Vni2AScsj3hwqrikOAemXJ89SU3gU9S78+9BTutugIa77wG2DWWgf17BHFkT
-	 C0/nNQDlyUP667xkmkarejmvhwTSJnblya12XW2cAqp617d2SkZ2joaXBCiYM/J972
-	 rpccpuPDA18n44C/cFRSKW1SR1MrkrB8Oz6epXz6jy9pULEFQmJAl7kdV0yfRDhN/u
-	 Ea+rOdcKB9B1ACC+w5zp9kvZEutjuCjzKlP7SV2p3+2XiHxI51ZwyT782q+Qarnxys
-	 Z90h+cXM78rfItuX2PGBDa4SX0Us2ehHL+KFiOjpZWxHpq7dDH8NppkC87oAKm9AD9
-	 uQmwrZ+PuG5MA==
-Date: Thu, 26 Jan 2023 15:40:50 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
-    Jan Beulich <jbeulich@suse.com>, Paul Durrant <paul@xen.org>, 
-    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [RFC PATCH 02/10] xen: pci: add pci_seg->alldevs_lock
-In-Reply-To: <20220831141040.13231-3-volodymyr_babchuk@epam.com>
-Message-ID: <alpine.DEB.2.22.394.2301261524430.1978264@ubuntu-linux-20-04-desktop>
-References: <20220831141040.13231-1-volodymyr_babchuk@epam.com> <20220831141040.13231-3-volodymyr_babchuk@epam.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 8da7cf04-9dd4-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=koconnor.net; s=google;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=UroPNeyGolPSc4AeIUJptAUxE2BU/L0w0GU3C1PJzJc=;
+        b=KVRXSZlcq9t+wUG/QENleViQ72Qmw5LwKgEqKoPBm/sOgrjGjIkRYDp2+ZPwyO3B8I
+         M0tTrWHY/Ps1cZxrrNYNcy/pQP5RqkiBilyAOW93nlovnDDp6Zf+YBHAfbvNRiSoPmWw
+         Z00f58fy/xSV3sSdiuQ5iindJwIPSpUzJ4Fuk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=UroPNeyGolPSc4AeIUJptAUxE2BU/L0w0GU3C1PJzJc=;
+        b=K93ECvnM9PMTlHi/RSnLU89h1rNIiizFtf1Bn1hbPb7wHiP+9niowE88U0UI6Vjiml
+         cVlxwFBwjj0MSk6oDM0s5jd6pqiOCtnYs4P+icALbpEALC5sSSW2vRg637BF/9ghZROm
+         HPDRxhIsYVfOxFRMY7m0jgM6wyEkBI9b55OptbaBP0+NlppspktNvHeoSzrjFdUZAdHi
+         ZiKe4XpOewCjer7c7Ca/WuzjvFLxiBvj+MxVb6YlwN0ZtYUgvj7Rj2+Wz+P1PyIBhSXg
+         nsWLp8rD1rMVPqd9I3NHqY4oCEYx6sqw10MHyGOEgIvDDEWqbVSfuoho0n8OcgOT7qYF
+         BEHQ==
+X-Gm-Message-State: AFqh2kqGQWzBMkyecpXdw6Tb3A4HQfZrNy2rUu/XfiRswUXqifqNKGx7
+	zNU5hy3vPjahdaI8adpWXLIIuw==
+X-Google-Smtp-Source: AMrXdXsrfVzASVRgvjjBI+Fccg+qIz2lwVVPSChxGQajRz8mS4PHXRer1c82HYJIpg8zeOQLroq52A==
+X-Received: by 2002:ac8:4a0a:0:b0:3b6:2d6d:3546 with SMTP id x10-20020ac84a0a000000b003b62d6d3546mr53029151qtq.64.1674777174879;
+        Thu, 26 Jan 2023 15:52:54 -0800 (PST)
+Date: Thu, 26 Jan 2023 18:52:53 -0500
+From: Kevin O'Connor <kevin@koconnor.net>
+To: David Woodhouse <dwmw2@infradead.org>
+Cc: seabios <seabios@seabios.org>,
+	xen-devel <xen-devel@lists.xenproject.org>,
+	qemu-devel <qemu-devel@nongnu.org>, paul <paul@xen.org>
+Subject: Re: [SeaBIOS] [SeaBIOS PATCH] xen: require Xen info structure at
+ 0x1000 to detect Xen
+Message-ID: <Y9MSVYx4sN1dMRbn@morn>
+References: <feef99dd2e1a5dce004d22baf07d716d6ea1344c.camel@infradead.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <feef99dd2e1a5dce004d22baf07d716d6ea1344c.camel@infradead.org>
 
-On Wed, 31 Aug 2022, Volodymyr Babchuk wrote:
-> This lock protects alldevs_list of struct pci_seg. As this, it should
-> be used when we are adding, removing on enumerating PCI devices
-> assigned to a PCI segment.
+On Fri, Jan 20, 2023 at 11:33:19AM +0000, David Woodhouse wrote:
+> From: David Woodhouse <dwmw@amazon.co.uk>
 > 
-> Radix tree that stores PCI segment has own locking mechanism, also
-> pci_seg structures are only allocated and newer freed, so we need no
-> additional locking to access pci_seg structures. But we need a lock
-> that protects alldevs_list field.
+> When running under Xen, hvmloader places a table at 0x1000 with the e820
+> information and BIOS tables. If this isn't present, SeaBIOS will 
+> currently panic.
 > 
-> This enables more granular locking instead of one huge pcidevs_lock
-> that locks entire PCI subsystem.  Please note that pcidevs_lock() is
-> still used, we are going to remove it in subsequent patches.
+> We now have support for running Xen guests natively in QEMU/KVM, which
+> boots SeaBIOS directly instead of via hvmloader, and does not provide
+> the same structure.
 > 
-> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
-> ---
->  xen/drivers/passthrough/pci.c | 20 +++++++++++++++++++-
->  1 file changed, 19 insertions(+), 1 deletion(-)
+> As it happens, this doesn't matter on first boot. because although we
+> set PlatformRunningOn to PF_QEMU|PF_XEN, reading it back again still
+> gives zero. Presumably because in true Xen, this is all already RAM. But
+> in QEMU with a faithfully-emulated PAM config in the host bridge, it's
+> still in ROM mode at this point so we don't see what we've just written.
 > 
-> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
-> index 4366f8f965..2dfa1c2875 100644
-> --- a/xen/drivers/passthrough/pci.c
-> +++ b/xen/drivers/passthrough/pci.c
-> @@ -38,6 +38,7 @@
->  
->  struct pci_seg {
->      struct list_head alldevs_list;
-> +    spinlock_t alldevs_lock;
->      u16 nr;
->      unsigned long *ro_map;
->      /* bus2bridge_lock protects bus2bridge array */
-> @@ -93,6 +94,7 @@ static struct pci_seg *alloc_pseg(u16 seg)
->      pseg->nr = seg;
->      INIT_LIST_HEAD(&pseg->alldevs_list);
->      spin_lock_init(&pseg->bus2bridge_lock);
-> +    spin_lock_init(&pseg->alldevs_lock);
->  
->      if ( radix_tree_insert(&pci_segments, seg, pseg) )
->      {
-> @@ -385,9 +387,13 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->      unsigned int pos;
->      int rc;
->  
-> +    spin_lock(&pseg->alldevs_lock);
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
-> +        {
-> +            spin_unlock(&pseg->alldevs_lock);
->              return pdev;
-> +        }
->  
->      pdev = xzalloc(struct pci_dev);
->      if ( !pdev )
-
-Here there is a missing spin_unlock on the error path
-
-
-> @@ -404,10 +410,12 @@ static struct pci_dev *alloc_pdev(struct pci_seg *pseg, u8 bus, u8 devfn)
->      if ( rc )
->      {
->          xfree(pdev);
-> +        spin_unlock(&pseg->alldevs_lock);
->          return NULL;
->      }
->  
->      list_add(&pdev->alldevs_list, &pseg->alldevs_list);
-> +    spin_unlock(&pseg->alldevs_lock);
->  
->      /* update bus2bridge */
->      switch ( pdev->type = pdev_type(pseg->nr, bus, devfn) )
-> @@ -611,15 +619,20 @@ struct pci_dev *pci_get_pdev(struct domain *d, pci_sbdf_t sbdf)
->       */
->      if ( !d || is_hardware_domain(d) )
->      {
-> -        const struct pci_seg *pseg = get_pseg(sbdf.seg);
-> +        struct pci_seg *pseg = get_pseg(sbdf.seg);
->  
->          if ( !pseg )
->              return NULL;
->  
-> +        spin_lock(&pseg->alldevs_lock);
->          list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->              if ( pdev->sbdf.bdf == sbdf.bdf &&
->                   (!d || pdev->domain == d) )
-> +            {
-> +                spin_unlock(&pseg->alldevs_lock);
->                  return pdev;
-> +            }
-> +        spin_unlock(&pseg->alldevs_lock);
->      }
->      else
->      {
-> @@ -893,6 +906,7 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->          return -ENODEV;
->  
->      pcidevs_lock();
-> +    spin_lock(&pseg->alldevs_lock);
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->          if ( pdev->bus == bus && pdev->devfn == devfn )
->          {
-> @@ -907,10 +921,12 @@ int pci_remove_device(u16 seg, u8 bus, u8 devfn)
->              }
->              printk(XENLOG_DEBUG "PCI remove device %pp\n", &pdev->sbdf);
->              free_pdev(pseg, pdev);
-> +            list_del(&pdev->alldevs_list);
-
-use after free: free_pdev is freeing pdef
-
->              break;
->          }
->  
->      pcidevs_unlock();
-> +    spin_unlock(&pseg->alldevs_lock);
-
-lock inversion
-
-
->      return ret;
->  }
->  
-> @@ -1363,6 +1379,7 @@ static int cf_check _dump_pci_devices(struct pci_seg *pseg, void *arg)
->  
->      printk("==== segment %04x ====\n", pseg->nr);
->  
-> +    spin_lock(&pseg->alldevs_lock);
->      list_for_each_entry ( pdev, &pseg->alldevs_list, alldevs_list )
->      {
->          printk("%pp - ", &pdev->sbdf);
-> @@ -1376,6 +1393,7 @@ static int cf_check _dump_pci_devices(struct pci_seg *pseg, void *arg)
->          pdev_dump_msi(pdev);
->          printk("\n");
->      }
-> +    spin_unlock(&pseg->alldevs_lock);
->  
->      return 0;
->  }
-> -- 
-> 2.36.1
+> On reboot, however, the region *is* set to RAM mode and we do see the
+> updated value of PlatformRunningOn, do manage to remember that we've
+> detected Xen in CPUID, and hit the panic.
 > 
+> It's not trivial to detect QEMU vs. real Xen at the time xen_preinit()
+> runs, because it's so early. We can't even make a XENVER_extraversion
+> hypercall to look for hints, because we haven't set up the hypercall
+> page (and don't have an allocator to give us a page in which to do so).
+> 
+> So just make Xen detection contingent on the info structure being
+> present. If it wasn't, we were going to panic anyway. That leaves us
+> taking the standard QEMU init path for Xen guests in native QEMU,
+> which is just fine.
+> 
+> Untested on actual Xen but ObviouslyCorrect™.
+
+Thanks.  I don't have a way to test this, but it looks fine to me.
+I'll give a few more days to see if others have comments, and
+otherwise look to commit.
+
+Cheers,
+-Kevin
 
