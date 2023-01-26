@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6BCE67C957
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 12:02:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484938.751833 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0D4567C95B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 12:03:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484944.751846 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL00K-0006Jn-0J; Thu, 26 Jan 2023 11:01:16 +0000
+	id 1pL01t-0006r4-BZ; Thu, 26 Jan 2023 11:02:53 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484938.751833; Thu, 26 Jan 2023 11:01:15 +0000
+Received: by outflank-mailman (output) from mailman id 484944.751846; Thu, 26 Jan 2023 11:02:53 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL00J-0006HF-TP; Thu, 26 Jan 2023 11:01:15 +0000
-Received: by outflank-mailman (input) for mailman id 484938;
- Thu, 26 Jan 2023 11:01:14 +0000
+	id 1pL01t-0006oL-8q; Thu, 26 Jan 2023 11:02:53 +0000
+Received: by outflank-mailman (input) for mailman id 484944;
+ Thu, 26 Jan 2023 11:02:51 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=q9FD=5X=minervasys.tech=carlo.nonato@srs-se1.protection.inumbo.net>)
- id 1pL00I-0006H3-Hy
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 11:01:14 +0000
-Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
- [2a00:1450:4864:20::531])
+ id 1pL01r-0006oF-Pc
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 11:02:51 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id bb935eee-9d68-11ed-b8d1-410ff93cb8f0;
- Thu, 26 Jan 2023 12:01:06 +0100 (CET)
-Received: by mail-ed1-x531.google.com with SMTP id y11so1508531edd.6
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 03:01:06 -0800 (PST)
+ id f8e9b41f-9d68-11ed-b8d1-410ff93cb8f0;
+ Thu, 26 Jan 2023 12:02:49 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id qx13so3959416ejb.13
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 03:02:49 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,113 +39,123 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bb935eee-9d68-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: f8e9b41f-9d68-11ed-b8d1-410ff93cb8f0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=minervasys-tech.20210112.gappssmtp.com; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=673vAa67vWT2HXWDufxt2zxk3AW8Lvgl9CbqmU9Xjsk=;
-        b=5fx9N+womgJAmOzVdR2OZVKfr7pSlkVI+GlUdaGJ0lGt73i5XQ8khE/66sbNlm07xp
-         ZeCu2mwONMF1eLrxKOWTYs9x8YykCmZ9GudGjR55LwzodjwstnHCdVk4+Oxp6zSnfbTf
-         F6bSqIfE2/p4mLo/Z7mpvSR046B2O/JQ8wSOFbFktKf4t3PEGAPPHleIWHdkC96G7B6K
-         0rbAHNT2UjHUpbqGMP/5FVYD+PvGCpfrMEiaBBYojtVGtCIEApWRpBbyKzZBu4Zs+4uL
-         Y6LeulWx98Ksqwosvb7LvUdH6uD0+dvc8Ny5pLYOc4dIy83sw5/tRKzGZANeJdydOG3b
-         121w==
+        bh=Bujbm72cptBXg/nA31OUEyqO7n4/E7HF5yfYemWcZ6o=;
+        b=c+h2jQRkciPXrKdsi6WVM2efQhnOM8MYjV4DAldu0bohYZKPjSenZRrttjcFoLw3mx
+         Ogf5nMyYp4biL3I7rzKhDeR+FbE5jKyDkD51IufU9N4qae/ZExLINErYrRm3/TngHazJ
+         pefg19QhUcu/QtcXcXBQw5P71tCIFpOKRwFeqp6iuR3iMs1jHJlUH53EzD5Q+qlW2Y3f
+         JFv5E+v8eaCntol8DDYBlUV2WVO3SjVBvXFGCTw9bMh84fKpJLmvU60Cd8KsNfkurXvI
+         H4dzLTOHsgiIE1kABv5wuLmp0pmg1tqIu3Bfcc7LLWa4u7uhaNzo8ixeoB+qXvncIUsR
+         xLnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=673vAa67vWT2HXWDufxt2zxk3AW8Lvgl9CbqmU9Xjsk=;
-        b=7vD+gBng+yXzIBtl+Wwz+/Ioq1C5646eGOFLnqX76njNCATtRzzTVXXlwy0148eBHC
-         Wwue54r6bNK6eU3EXvhyesBp68rBDFFuRv/B/sj1By/zOkvbhQIRrEksUxem7qbNftgR
-         R2Gh2DZccD1PJXEJYdu4djMX1bL4JrS+1UOxFG5YD0MGsqOBVixlKEyhPd4NIIla+56s
-         l45FF3QsPSiXhvDMYfVdo7jcDUT95Pw8ZffGMtwyas04hHdxfI8whS7p6O6lSo6owlkg
-         TVsXfluReg6yXm1+4Gb1iTatUW2PogT5f7DhFztM47Js6qfUq/qnb/u/4wJd5dsC9b3u
-         E2KA==
-X-Gm-Message-State: AFqh2ko0WMcPPO/1cUTqewqtBvPGZA4bb4zjzjgRmw0oHf+SWQ+mYhjZ
-	z+IpJWm2EBi/W9E2QrcnOwfpWWHX54js4xFycUIklA==
-X-Google-Smtp-Source: AMrXdXshVQ8ydHOeU84+dezm9ho09eDhfc6+4l3RnUjgKXX0IGWjs8INqyyBBZEOdhU+ioX9KwdaJ7TK5INglsAS53Y=
-X-Received: by 2002:a05:6402:221a:b0:49d:836e:21f9 with SMTP id
- cq26-20020a056402221a00b0049d836e21f9mr5476199edb.36.1674730866340; Thu, 26
- Jan 2023 03:01:06 -0800 (PST)
+        bh=Bujbm72cptBXg/nA31OUEyqO7n4/E7HF5yfYemWcZ6o=;
+        b=TF1wdgkgBxPoPyfunhg+1+LvPnrtbYXxP33VLGYX7PcLP1IM6bVzh7qNEkvV/bHIMo
+         tU67uuQobhBYE2i82oMzbuAqA2rQa4Egf5X/9uUzWD1q5bc3DoJbKjGrH00nAA3MwGFe
+         on1Hoftf6KwQNIUd9mJBoaOKy3X2bkTLZ5LB1TjM6JqXWzDPrhqe5k/D1kItGt7jKPYA
+         1qQLURJAxITy4kEJe1C53yuYdStrQ7RtNbB1GmmG+PsaWRa2YWJF3pPSm5QGndHgOQaq
+         VVIXoBQPs7V0rrCf9s1/JCJJ2jQ1Sf/AxmC5dv/G23ijQwufnalPMxGYa9H/CGZY7zwQ
+         D6dw==
+X-Gm-Message-State: AFqh2krbo6u/Wn3WDNixg0Mn3nhC7gmFAVaRXTWSbmTn/nACwQbZN7m0
+	GQ6b4+vmfNOC7caug1Jwy3HYXsp5znTRH9AvUIqSxQ==
+X-Google-Smtp-Source: AMrXdXs6ZO20bnYkjz9tUNqm/EaiI9vO3ArxqEmCfUEJCp/qLipGMo6wjTU2IGtZn94XRgc4X26+HFanW7Q+KuwiZqA=
+X-Received: by 2002:a17:907:d043:b0:868:dca5:b73c with SMTP id
+ vb3-20020a170907d04300b00868dca5b73cmr3726723ejc.1.1674730969321; Thu, 26 Jan
+ 2023 03:02:49 -0800 (PST)
 MIME-Version: 1.0
 References: <20230123154735.74832-1-carlo.nonato@minervasys.tech>
- <20230123154735.74832-8-carlo.nonato@minervasys.tech> <a74381ce-d204-1f40-7ccc-2be3bbc3ebd1@suse.com>
-In-Reply-To: <a74381ce-d204-1f40-7ccc-2be3bbc3ebd1@suse.com>
+ <20230123154735.74832-9-carlo.nonato@minervasys.tech> <79a1cd30-b2b6-f7e1-f000-d78520ec9e0e@xen.org>
+In-Reply-To: <79a1cd30-b2b6-f7e1-f000-d78520ec9e0e@xen.org>
 From: Carlo Nonato <carlo.nonato@minervasys.tech>
-Date: Thu, 26 Jan 2023 12:00:55 +0100
-Message-ID: <CAG+AhRUKWfJBf5C0uqfzePMvxN-gc2gYup+oBRBA2DXnNW-txw@mail.gmail.com>
-Subject: Re: [PATCH v4 07/11] xen: add cache coloring allocator for domains
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Luca Miccio <lucmiccio@gmail.com>, Stefano Stabellini <sstabellini@kernel.org>, 
-	Julien Grall <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>, 
-	Marco Solieri <marco.solieri@minervasys.tech>, xen-devel@lists.xenproject.org
+Date: Thu, 26 Jan 2023 12:02:38 +0100
+Message-ID: <CAG+AhRXNhFOFe-jmN6Lj=RH9zhnZF+=k6yT412_GB0js9pLPTA@mail.gmail.com>
+Subject: Re: [PATCH v4 08/11] xen/arm: use colored allocator for p2m page tables
+To: Julien Grall <julien@xen.org>
+Cc: xen-devel@lists.xenproject.org, 
+	Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis <bertrand.marquis@arm.com>, 
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, Marco Solieri <marco.solieri@minervasys.tech>
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Jan,
+Hi Julien,
 
-On Tue, Jan 24, 2023 at 5:50 PM Jan Beulich <jbeulich@suse.com> wrote:
+On Thu, Jan 26, 2023 at 11:25 AM Julien Grall <julien@xen.org> wrote:
 >
-> On 23.01.2023 16:47, Carlo Nonato wrote:
-> > From: Luca Miccio <lucmiccio@gmail.com>
+> Hi Carlo,
+>
+> On 23/01/2023 15:47, Carlo Nonato wrote:
+> > Cache colored domains can benefit from having p2m page tables allocated
+> > with the same coloring schema so that isolation can be achieved also for
+> > those kind of memory accesses.
+> > In order to do that, the domain struct is passed to the allocator and the
+> > MEMF_no_owner flag is used.
 > >
-> > This commit adds a new memory page allocator that implements the cache
-> > coloring mechanism. The allocation algorithm follows the given domain color
-> > configuration and maximizes contiguity in the page selection of multiple
-> > subsequent requests.
+> > Signed-off-by: Carlo Nonato <carlo.nonato@minervasys.tech>
+> > Signed-off-by: Marco Solieri <marco.solieri@minervasys.tech>
+> > ---
+> > v4:
+> > - fixed p2m page allocation using MEMF_no_owner memflag
+> > ---
+> >   xen/arch/arm/p2m.c | 11 +++++++++--
+> >   1 file changed, 9 insertions(+), 2 deletions(-)
 > >
-> > Pages are stored in a color-indexed array of lists, each one sorted by
-> > machine address, that is referred to as "colored heap". Those lists are
-> > filled by a simple init function which computes the color of each page.
-> > When a domain requests a page, the allocator takes one from those lists
-> > whose colors equals the domain configuration. It chooses the page with the
-> > lowest machine address such that contiguous pages are sequentially
-> > allocated if this is made possible by a color assignment which includes
-> > adjacent colors.
+> > diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+> > index 948f199d84..f9faeb61af 100644
+> > --- a/xen/arch/arm/p2m.c
+> > +++ b/xen/arch/arm/p2m.c
+> > @@ -4,6 +4,7 @@
+> >   #include <xen/iocap.h>
+> >   #include <xen/ioreq.h>
+> >   #include <xen/lib.h>
+> > +#include <xen/llc_coloring.h>
+> >   #include <xen/sched.h>
+> >   #include <xen/softirq.h>
+> >
+> > @@ -56,7 +57,10 @@ static struct page_info *p2m_alloc_page(struct domain *d)
+> >        */
+> >       if ( is_hardware_domain(d) )
+> >       {
+> > -        pg = alloc_domheap_page(NULL, 0);
+> > +        if ( is_domain_llc_colored(d) )
+> > +            pg = alloc_domheap_page(d, MEMF_no_owner);
+> > +        else
+> > +            pg = alloc_domheap_page(NULL, 0);
+> I don't think we need to special case a colored domain here.You could
+> simply always pass the domain/MEMF_no_owner and let the function decide
+> what to do.
 >
-> What use is this with ...
+> This approach would also be useful when NUMA will be supported on Arm
+> (the series is still under review).
+
+Ok, nice. This was pointed out also by Jan in the previous revision.
+
+> >           if ( pg == NULL )
+> >               printk(XENLOG_G_ERR "Failed to allocate P2M pages for hwdom.\n");
+> >       }
+> > @@ -105,7 +109,10 @@ int p2m_set_allocation(struct domain *d, unsigned long pages, bool *preempted)
+> >           if ( d->arch.paging.p2m_total_pages < pages )
+> >           {
+> >               /* Need to allocate more memory from domheap */
+> > -            pg = alloc_domheap_page(NULL, 0);
+> > +            if ( is_domain_llc_colored(d) )
+> > +                pg = alloc_domheap_page(d, MEMF_no_owner);
+> > +            else
+> > +                pg = alloc_domheap_page(NULL, 0);
 >
-> > The allocator can handle only requests with order equal to 0 since the
-> > single color granularity is represented in memory by one page.
+> Ditto.
 >
-> ... this restriction? Plus aiui there's no guarantee of contiguous pages
-> coming back in any event (because things depend on what may have been
-> allocated / freed earlier on), so why even give the impression of there
-> being a way to obtain contiguous pages?
-
-I really need us to be on the same "page" (no pun intended) here cause we
-discussed the subject multiple times and I'm probably missing important
-details.
-
-First, is physical memory contiguity important? I'm assuming this is good
-because then some hardware optimization can occur when accessing memory.
-I'm taking it for granted because it's what the original author of the series
-thought, but I don't have an objective view of this.
-
-Then, let's state what contiguity means with coloring:
-*if* there are contiguous free pages and *if* subsequent requests are made
-and *if* the coloring configuration allows it, the allocator guarantees
-contiguity because it serves pages *in order*.
-
-From the fragmentation perspective (first prerequisite), this is somewhat
-similar to the buddy case where only if contiguous pages are freed they can
-be allocated after. So order of operation is always important for
-fragmentation in dynamic allocation. The main difference is speed
-(I'm not comparing them on this aspect).
-
-The second prerequisite requires that users of the allocator have exclusive
-access to it until the request is carried out. If interleaved requests happen,
-contiguity is practically impossible. How often does this happen? I view
-allocation as something that happens mainly at domain creation time, one
-domain at a time which results in a lot of subsequent requests, and then
-contiguity (if other prerequisites hold) isn't an impression.
-
-Obviously fragmentation is inherently higher with coloring because it actually
-needs to partition memory, so the third prerequisite actually limits contiguity
-a lot.
-
-> Jan
+> >               if ( pg == NULL )
+> >               {
+> >                   printk(XENLOG_ERR "Failed to allocate P2M pages.\n");
+>
+> Cheers,
+>
+> --
+> Julien Grall
 
