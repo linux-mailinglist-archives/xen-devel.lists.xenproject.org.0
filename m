@@ -2,32 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 163B067D439
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 19:31:36 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485189.752224 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30EF567D4C0
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 19:55:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485196.752234 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL70y-0001SJ-Sb; Thu, 26 Jan 2023 18:30:24 +0000
+	id 1pL7Oi-0004N3-VZ; Thu, 26 Jan 2023 18:54:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485189.752224; Thu, 26 Jan 2023 18:30:24 +0000
+Received: by outflank-mailman (output) from mailman id 485196.752234; Thu, 26 Jan 2023 18:54:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL70y-0001Qc-Pb; Thu, 26 Jan 2023 18:30:24 +0000
-Received: by outflank-mailman (input) for mailman id 485189;
- Thu, 26 Jan 2023 18:30:23 +0000
+	id 1pL7Oi-0004Ke-SN; Thu, 26 Jan 2023 18:54:56 +0000
+Received: by outflank-mailman (input) for mailman id 485196;
+ Thu, 26 Jan 2023 18:54:55 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=6/FI=5X=yahoo.com=hack3rcon@srs-se1.protection.inumbo.net>)
- id 1pL70x-0001QU-4I
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 18:30:23 +0000
-Received: from sonic306-2.consmr.mail.bf2.yahoo.com
- (sonic306-2.consmr.mail.bf2.yahoo.com [74.6.132.41])
+ <SRS0=wwAt=5X=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1pL7Oh-0004KY-EA
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 18:54:55 +0000
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2041.outbound.protection.outlook.com [40.107.236.41])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7c38155a-9da7-11ed-b8d1-410ff93cb8f0;
- Thu, 26 Jan 2023 19:30:20 +0100 (CET)
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic306.consmr.mail.bf2.yahoo.com with HTTP; Thu, 26 Jan 2023 18:30:18 +0000
+ id e9d06e1c-9daa-11ed-b8d1-410ff93cb8f0;
+ Thu, 26 Jan 2023 19:54:51 +0100 (CET)
+Received: from BN9PR03CA0289.namprd03.prod.outlook.com (2603:10b6:408:f5::24)
+ by CH3PR12MB7524.namprd12.prod.outlook.com (2603:10b6:610:146::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22; Thu, 26 Jan
+ 2023 18:54:46 +0000
+Received: from BL02EPF000108EB.namprd05.prod.outlook.com
+ (2603:10b6:408:f5:cafe::65) by BN9PR03CA0289.outlook.office365.com
+ (2603:10b6:408:f5::24) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22 via Frontend
+ Transport; Thu, 26 Jan 2023 18:54:45 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ BL02EPF000108EB.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.12 via Frontend Transport; Thu, 26 Jan 2023 18:54:44 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 26 Jan
+ 2023 12:54:43 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 26 Jan
+ 2023 10:54:43 -0800
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34 via Frontend Transport; Thu, 26 Jan 2023 12:54:42 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,64 +63,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7c38155a-9da7-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1674757818; bh=xGcwb2Lir9gHeBMb8n1Gla1tLvlag64G3DJCpjlw9w0=; h=Date:From:Reply-To:To:Subject:References:From:Subject:Reply-To; b=bDDVHk9XfOmYrva6H68sniGnBua3IoY3V6oN/HMadHDFn66Pq94tu25e7aMquqekqBW4+H55VmWFPNjqcEcHkzt53S7AfVKgqStzwD5LU1LwBu4AuOljK7P7dlJRgb2y6mfKIU791ZO30UUVZbYzRLGkLyDO7W9yB0zEnzHCO12196P7sjIw97l8NdEOGIB9aDOZ6WKC/XRTzAO3b3z/BZ3/6eyAVsECpGckkpWa4oLsEzVJ4JiEFJPHeZtvxVT5xB8p0jpeczYKLmkGK3dDEUhmFHrJEEBULtJCWnUuMS1NHyVlfLYoNI1w/XW0SDBxQ+np9lxDy5qP4flz5RPMAA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1674757818; bh=sNeXBtdZp2cbMl7i8rfeKa+JLG2d67gzMFaCZF5pBdg=; h=X-Sonic-MF:Date:From:To:Subject:From:Subject; b=twJND2pGV1fo1WTO9gQKtSNKDP/9TghVpM7UGaTCPsTTif9OSYaRlhrM4BLRF5KpJpeFlTEC/EcDQe5N6s2qiI+PBl3EcapShPWO5XH12J8CEUlYXIgid27horq3w992qAp+l7hAeTW2OcoEPgYlBPAfzCTj0eQq34yachzMTGkrhrq1rWe0+tatJ0aTjz0uAZLbwz0R4eqqUKvT3M9bq10mFPVSCIpUHe2Knm5FXFYzNy9vrW1RyZr8wsiAl8j2YKg0xKg+BROC7tOn09Gsn1eHw86DKcyBAj5sG2/FpyJYjbFMrBvvBHdsykrWWVW52oNBtrX+c23H3OOhfxQ4IA==
-X-YMail-OSG: 2zuozUkVM1kVEl9tFD7uBA7wo7Hu1XXSt3lG433MVo95xQ6moEivLXfUVVC2BYu
- zLpsGtxPsou.ilHSSTkGd69Cv3Fl_mMqugsuIARViFj5W3OJbMapJGBTSdUukUxR3Elak2Cl7Pf1
- bZjTN2TBaNzyXzj4ed6UFrO89b5hdUmPg7EP4rEUY2ap02Wr9iOiLT2388w_T81j9u9l2tMpz0VA
- Rh_IDdqFE0jbqMhp_yL7a6mftJX2ysP_f5dFSKL95LRuZOqzhgglSr7ZrGa2VuhQB.aqcF0I4jZN
- giaDrYGyDkCv7.gNBK1Jmxkh_L7xe_ON726Vz8TNL50.ZfkEihWOZwRhEcdUaIspHb0b_VC.R1kG
- MrRJP8Qpn6_iph8vvY_zBn0Da9aJjDbfw3kNyFqWDZZcBkiWEQEvRoShdQTnLmzaxJcHjXmiJpFp
- VpyzN6PfCddFD0guhKPjbZVIMKjFQTsf5kIB3gF6HKf.z63xQZJFWZDgaY8YCZu_rjG9_nxviXle
- bZw7fozKsU9KR1WWV8uh1COWYsPIlRoTZqgGYvRcdvcazsftxBfTqhkrI13B60g_1HBRZVo0L7pL
- lY49y268TJzkQCc4InBN5UyczgpebrmSw_BqoJi3qJ71KUkSybTHAa9haycNjHwZS9.cE5pV6Ugy
- hBy8kxPJ4dcBW_Qu8N.aME5sVG5rvyMmXAIpArzltEX2IJ9XzuXt3jEKQOoWkLD8rjJx6hUhpx4a
- FzYtE5cWiMG_5i4ybJoItGo3SoJKUzIn24uq9Af.d9JFaG9bwTOrn4H0BWc7DjJxZBqkcbHtyvzT
- 1yJSI1xMLi2IXx7vu60470RpcAZfKdToo485vc7JvGJwsXKfhQ6jk9j5UW3CyuMszFyY1kDRsHEs
- fP8zXxDoCC.IYJ0MusApdHkgt_OirkfIvWX81qqjPxD8q0pf5Gy_ZfNR6qyZhMwzxSgTvYVLzkrH
- iSu05U86yN3kGsGmMVzD2WYN7TbdAk8TvmFjUPTwYD20RuVnptxavyYU7GQTxIPlLGjQakLUCh65
- a7LGQIrYwCxAn1ooIh1ynIJqkGcWEdRVkM5YdTWgHHMYQ9RvTTlt2Ga._d2Sn2E9Z.RkLT1Ce3uI
- MgRpvh72c1j2P3HvUXFuDGLvKrF.kukPYQIyMdVm4KtfK9sMAu0Ey_iQ_XAbvQNqIKXSANoYF5x_
- wsAciIFUpi7s1Eglxibl1IjburrFgVbTJ9Wd3ORI3B_oZCambzbQMmo6DVFkGTr40hcd_iVcLLls
- ELdBJcjq9bMT2Dt2zp9_FslrifNv6Yo6yASfAEki29yLmEyHuWwj7oQtOJCPOdT2AMTAsG9S1Uff
- yU4r1G28OvKZWK.onB9NdVMJ3M1qmxWokaRt_V5KRNrbrO96ysdumFYDUaH1N_UQffY1ivFVe1BN
- IQ69ZmuVn.VTVGbtg3AiQZf86gRZXF1iGoRMJLUNEg0GaTlykpXwZvuimVNDHIwPC_k2LGLF3Xz6
- .9tggycE4Cqy6fIDnAlICdqwOAUfojurIc7KcN.v2ujzUPOYbHOTESykr2y7C9evBZBHlyqBOWgC
- S5VWugYNcXDwf7NK1a33FSAaZTQYIp_oI9WdgHY6TS8sREnJ398RQ.BPasSi9.0LF05T26g0TFt1
- uiBzZBLA8f4jdukCHAbrGpx8Wv.aAxyZqXcqTPwT27vARgJgUA34uXE_nAn_WHgNLaBolYEHVmrQ
- oyVvLyusCXydvca7Z0Ek66mZJq3.mHlSGsM6jNZZcrlQDTCi7Nz6rQBo3H_TJ.X7tjxpJaDYQuV9
- nqp0oFccDmlYPJE8AyPjT3WSgcZVQHWgdgY0yfbsVXUc_So_ACPZjGqbpHuSMnHM7nGzKWnaA0s2
- jURLrWcmEaxgeQyh4wxIKbJOL0fHamEp0j9cTrfqoAtUiEKW5jX5MSpsqRQkrcbfLUZTQFOGEKaL
- Asz.UvrTZRxHqhIFbUGP5YtB.dciabm5I2a7yb6n1_kd0PYF4darkIAdvWP9uzPFqouPT8leebuh
- LgwNqWgLqZqiGKq0RzLJZ6YPHnt4QN8NG_ciP_e6YThPkzIB7sihFj9n58gho3n3RkiV2vAzcp7j
- PatRy6QZaxgYPkVcAA.Z8GIE0xF6lhaLufGavUprQQu6vs61yVPv_CCB2z9IP4ggYBI2fF.PxbLU
- 7Paaf9awF_smgRC1iBTDcZ56KqZKRxjZCwbXpD9qJuIgmTOvfCodTku2sbw6K89RgaOS29BtYFM9
- PVwWFO.g5g7BE5AM9aXKKxOZa0SDnAvb_pPNZWXtd28KWfhXpLSVjGtGbar3MFFjtKMP5fD_dhiZ
- PeYUKo2heZwRcuuyCGrr0HjmkpCMMMUAjyYoBDwGp
-X-Sonic-MF: <hack3rcon@yahoo.com>
-Date: Thu, 26 Jan 2023 18:30:11 +0000 (UTC)
-From: Jason Long <hack3rcon@yahoo.com>
-Reply-To: Jason Long <hack3rcon@yahoo.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-Message-ID: <907082531.1459240.1674757811189@mail.yahoo.com>
-Subject: The re-architecture of Xen
+X-Inumbo-ID: e9d06e1c-9daa-11ed-b8d1-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AbNrToVVlYJj+3qov2aM8Y6IRBnjJdbGDc2QVEGT5DRpx4uij/qkFC/MCUB8yFQk8awTTBDDh/eI23JlkHE/ypsabPBV1BmhU180i6qZE/4r6gL9CLMmNQoCeOH2YBsjyeR8kN1ZsHU+lgGqGcbcIxpOOpjNzQwK45gEkrVNXcJvoi0MFxuqnyv5ZDetqzfbMC09K1srl5gR/bwp6cTYXie8m/7j8IGb8LxFDKXYIujP38AVF4UdUn+dmHdgy4B3lISzp/FXXbXYNF1gfnMOqT3SG8mvsXb9EZFKPOVdV0tcyf+BykMFEEXT4SJIxCY5AoPB/+KMYEEop/DEVzSlsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=jnhVOI7/C6P07l70YzzpuToHV64j2v2n4IaKG41cFJQ=;
+ b=CHYNrjyWs40cG2fj9hSKhZmUp/T4BqPyIFUJ86AUIDGjg1z9HrQyUzRGnCuQss6tOwQ5gaqdrV2cVyX6kH+/eW0/AnR5yn8KhbCMaK8o+93daEr4dR8e8mtp62oeywkykfEh79wzAIpy0qfJMfVPPe5on7pn1gK5hLLv2WLAZX8p9E4NAhfmJqxWz5cc4Wj8/yIazaZGHM/4u5MKS6eByXMPlZNt+NFzebkVNCZ88H4F+kNu3Q5sA9yY2h8nSwOAaqNTX9UTDgEbsxPHWuQsB4h615PsejyOahECFWJQGBjRwTOclt9Epdm83iys9q6V/3cF96wcNuotU3/2pCvtAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jnhVOI7/C6P07l70YzzpuToHV64j2v2n4IaKG41cFJQ=;
+ b=1wPgeLYe3NsgO2WaN4viyvTs0ZgTFg4L5iAFPZDamyr4pxeQBMahpjqkAVbEjmijaousoMWtjap7wSQLIyp3H6bhFC+pWBSeN+e578oSN5i6zAdifr8nB5SM+tVcrupBAuTX3JvCRmrPUEjc1QeBzdlEWmkQTIbUoKQOChfWE1A=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Thu, 26 Jan 2023 10:54:42 -0800
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <stefano.stabellini@amd.com>, Stefano Stabellini
+	<sstabellini@kernel.org>, <george.dunlap@citrix.com>,
+	<andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
+	<Bertrand.Marquis@arm.com>, <julien@xen.org>,
+	<xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Add more rules to docs/misra/rules.rst
+In-Reply-To: <5a3ef92e-281f-e337-1a3e-aa4c6825d964@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2301261041440.1978264@ubuntu-linux-20-04-desktop>
+References: <20230125205735.2662514-1-sstabellini@kernel.org> <9d536cec-726d-4a39-da36-ecc19d35d420@suse.com> <alpine.DEB.2.22.394.2301260749150.1978264@ubuntu-linux-20-04-desktop> <5a3ef92e-281f-e337-1a3e-aa4c6825d964@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
-	boundary="----=_Part_1459239_246279745.1674757811189"
-References: <907082531.1459240.1674757811189.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.21096 YahooMailAndroidMobile
+Content-Type: text/plain; charset="US-ASCII"
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF000108EB:EE_|CH3PR12MB7524:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8543448-d0bd-45c0-a264-08daffcec9f5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	KbvNoquGxB/zqqRGnocSVGhkQaaujDHO25tFpkUHRenZ2s7vENBnN2BYTg3qHyKPaSshECEuSprtwkQlAWJ4x5EgSaPiLdBB+bkRZJJ6CFeqqFvMjlasOY7uQMySdcfUzLQ/U+NWgI+9Cu6qWMv1W3dU/y0ugj+omaS8npVLnnCX8UClFa0PzwX0URANz3I2LmNoaQaSPPJbNf0QvsD6oF0NzYx3Ni+gZSyuBCSLvZPDRsxfc0xOiuimT9QU7CR/0M1zrifX88w21osjJ9h2Jew+gB11DKWMocegMlpOr+I61HOohBOUPQ5tzBgo0IeelGlKd8bBRpTPqXvpiMQXP0POciecfTLnGyLmaQ/hZClDPOhO/tTCGlOE0/gKU7imCyaEtTpryljORkrW6WVz+NKnHl+KaLcXMoWZJpWNBeSVSrK8GPCYB6BaeR1d/c1GU8iioTu1CZk5+a96OBr5qjEo71zfVzxotm3cMiyntdtSpNPTreY1S/ntuZIadDWCVIamyxJzd7fOyNaE6zJpYc+DyBCgC7iEk8SPr0TgfsTT6nHUpSuSZgq5PeAD7cYH7F9wujIK8bTBSfAQ57mlM76eduT9/ea7z76AOZP9Kwp5BDIlBzjSEDuNl2NVjxM3iFsXlU+RGei1e95823+EOMQQC7mEMTSQcx9hyC8UOPgiPPeCma+GbvbwZ7zeL52gDW+ILOc5LDl3DF5TfJrq7FtG8Avl9cFVKI6ns9J/ZNQ=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(7916004)(39860400002)(396003)(376002)(136003)(346002)(451199018)(46966006)(36840700001)(40470700004)(6916009)(41300700001)(8936002)(5660300002)(44832011)(2906002)(33716001)(82310400005)(66899018)(40460700003)(40480700001)(356005)(8676002)(4326008)(54906003)(70586007)(478600001)(36860700001)(47076005)(81166007)(82740400003)(86362001)(70206006)(83380400001)(316002)(186003)(426003)(53546011)(336012)(26005)(9686003)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 18:54:44.2541
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8543448-d0bd-45c0-a264-08daffcec9f5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF000108EB.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7524
 
-------=_Part_1459239_246279745.1674757811189
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+On Thu, 26 Jan 2023, Jan Beulich wrote:
+> On 26.01.2023 16:59, Stefano Stabellini wrote:
+> > On Thu, 26 Jan 2023, Jan Beulich wrote:
+> >> On 25.01.2023 21:57, Stefano Stabellini wrote:
+> >>> From: Stefano Stabellini <stefano.stabellini@amd.com>
+> >>>
+> >>> As agreed during the last MISRA C discussion, I am adding the following
+> >>> MISRA C rules: 7.1, 7.3, 18.3.
+> >>>
+> >>> I am also adding 13.1 and 18.2 that were "agreed pending an analysis on
+> >>> the amount of violations".
+> >>>
+> >>> In the case of 13.1 there are zero violations reported by cppcheck.
+> >>>
+> >>> In the case of 18.2, there are zero violations reported by cppcheck
+> >>> after deviating the linker symbols, as discussed.
+> >>
+> >> I find this suspicious.
+> > 
+> > Hi Jan, you are right to be suspicious about 18.2 :-)  cppcheck is
+> > clearly not doing a great job at finding violations. Here is the full
+> > picture:
+> > 
+> > - cppcheck finds 3 violations, obviously related to linker symbols
+> > specifically common/version.c:xen_build_init and
+> > xen/lib/ctors.c:init_constructors
+> > 
+> > - Coverity finds 9 violations, not sure which ones
+> > 
+> > - Eclair finds 56 total on x86. Eclair is always the strictest of the
+> >   three tools and is flagging:
+> >   - the usage of the guest_mode macro in x86/traps.c and other places
+> >   - the usage of the NEED_OP/NEED_IP macros in common/lzo.c
+> >   the remaining violations should be less than 10
+> > 
+> > 
+> >> See e.g. ((pg) - frame_table) expressions both Arm
+> >> and x86 have. frame_table is neither a linker generated symbol, nor does
+> >> it represent something that the compiler (or static analysis tools) would
+> >> recognized as an "object". Still, the entire frame table of course
+> >> effectively is an object (array), yet there's no way for any tool to
+> >> actually recognize the array dimension.
+> > 
+> > I used cppcheck in my original email because it is the only tool today
+> > where I can add a deviation as an in-code comment, re-run the scan,
+> > and what happens (see the number of violations go down.)
+> > 
+> > However also considering that Coverity reports less than 10, and Eclair
+> > reports more but due to only 2-3 macros, I think 18.2 should be
+> > manageable.
+> 
+> That's not the conclusion I would draw. If none of the three finds what
+> ought to be found, I'm not convinced this can be considered "manageable".
+> Subsequent tool improvements may change the picture quite unexpectedly.
 
-Hello,Doesn't KVM need re-architecture? For example, Dom0 consumes memory and if its number is large, it causes waste of memory in the system.
-Tnx.
-------=_Part_1459239_246279745.1674757811189
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Keep in mind that there is always the possibility that a new version of
+the tool will detect more violations. In that case, we'll have the
+choice whether:
+- to fix/deviate them
+- not to upgrade the tool
+- to skip checking this specific rule with the specific tool in question
 
-<div id="ymail_android_signature">Hello,</div><div id="ymail_android_signature">Doesn't KVM need re-architecture?  For example, Dom0 consumes memory and if its number is large, it causes waste of memory in the system.</div><div id="ymail_android_signature"><br></div><div id="ymail_android_signature">Tnx.</div>
-------=_Part_1459239_246279745.1674757811189--
+
+So let me make a concrete example based on cppcheck, given that is the
+one we understand better from an integration point of view. Let's say
+that tomorrow we introduce a gitlab-ci job that automatically scans
+xen.git using cppcheck and docs/misra/rules.rst. The job fails when it
+detects *new* violations. All is good for now.
+
+Then one day we upgrade cppcheck to a new version. The new cppcheck
+version detects way more violations. We have a few options:
+- hold back the upgrade in gitlab-ci until we fix more violations or
+  deviate them
+- keep the rule in docs/misra/rules.rst but skip checking for the rule
+  in gitlab-ci using the mechanism introduced by Luca, and upgrade
+  cppcheck
+- remove the rule from docs/misra/rules.rst, and upgrade cppcheck
+
+
+We have ways to deal with this situation well. I think the decision
+whether to add a rule to docs/misra/rules.rst should be primarily based
+on whether the rule makes sense for Xen. And of course it also makes
+sense to have a look at the number of violations because having a rule
+in docs/misra/rules.rst that no tool can scan properly, or with
+thousands of violations, is not useful.
+
+Coming back to 18.2: it makes sense for Xen and the scanners today work
+well with this rule, so I think we are fine.
+
+(In retrospect we should have thought twice before adding 20.7 given all
+the troubles that the rule is giving us with the scanners. We are
+learning. There is still the option of removing 20.7, we can discuss in
+the next meeting.)
 
