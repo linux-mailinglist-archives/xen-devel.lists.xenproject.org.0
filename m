@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC94767C3A4
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 04:34:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484688.751416 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B073867C3A8
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 04:35:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484689.751425 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKt1m-00005x-0q; Thu, 26 Jan 2023 03:34:18 +0000
+	id 1pKt1s-0000PO-Bk; Thu, 26 Jan 2023 03:34:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484688.751416; Thu, 26 Jan 2023 03:34:17 +0000
+Received: by outflank-mailman (output) from mailman id 484689.751425; Thu, 26 Jan 2023 03:34:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKt1l-0008Uk-TD; Thu, 26 Jan 2023 03:34:17 +0000
-Received: by outflank-mailman (input) for mailman id 484688;
- Thu, 26 Jan 2023 03:34:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pKt1s-0000N1-8p; Thu, 26 Jan 2023 03:34:24 +0000
+Received: by outflank-mailman (input) for mailman id 484689;
+ Thu, 26 Jan 2023 03:34:23 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Q4q1=5X=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pKt1k-0008Fc-KU
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 03:34:16 +0000
+ id 1pKt1r-0000Lj-60
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 03:34:23 +0000
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4deb3e3d-9d2a-11ed-b8d1-410ff93cb8f0;
- Thu, 26 Jan 2023 04:34:14 +0100 (CET)
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 4fe5c3ad-9d2a-11ed-91b6-6bf2151ebd3b;
+ Thu, 26 Jan 2023 04:34:20 +0100 (CET)
 Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id CE38E5C05B8;
- Wed, 25 Jan 2023 22:34:13 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 2472C5C05B7;
+ Wed, 25 Jan 2023 22:34:17 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute6.internal (MEProxy); Wed, 25 Jan 2023 22:34:13 -0500
+ by compute6.internal (MEProxy); Wed, 25 Jan 2023 22:34:17 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 25 Jan 2023 22:34:13 -0500 (EST)
+ 25 Jan 2023 22:34:16 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,278 +43,107 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4deb3e3d-9d2a-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 4fe5c3ad-9d2a-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1674704053; x=1674790453; bh=sHxeYo7zgfjFccvxCuuph95svfpElxK2vn8
-	+J41Up4A=; b=adUQaXp/oYs3g7OS0f7kpq6+GmWpux+QVtFXmFgtDpZ+2VjYKeP
-	9TItVn12LYJcNB5LUo9myKpUTXtUrub4Cu3SZHp9B+8vNaXlQInbcta8Jgb5Rdm3
-	GDMdlpRs9T01yZ8uWOdhyDKShEL87ywJ2VNVgFYUH1bDwbHFK2dO0qr3yq0cvVFy
-	3eoUWxCkpQavHyEfCY5wDHOBniqwVCTrJuMQ2SieXTo8oPvzh6pG7gmtGRGPdCnT
-	tedZ2CBSXoGlenczbkKFo4+j/OkQjZR3Py3rH3eqHWaVVP0NndZ+GzPKlFzxNqkO
-	myxdVg9hbn03ZDe/5l/5s9z/r+Y8ZAjNyBg==
+	1674704057; x=1674790457; bh=fly1TGtjPYQFqq0ZAbmMb6xmSvsz35BqaEQ
+	byQNg2OA=; b=D1MtYf7memgXbJNrc512Gsyf7cLrgjr6PQo/+5SRDUNVexrSxSC
+	Jkb5mc4UepBZHaS+WfVmJOPzRnlte6IdRUwS2LchBnaoWtesjoO1buvJGixk1ZWt
+	W2JlzBei3s3Q+yUEq/btspULrZTxS5BYxXousMYLYeRrAQ8Vz/bDNL7SjKPt/1HO
+	V+D/T8GldIOZR/fE2l3RLQw7uXqbjeBid6SdZxtWQPQmjG+VNO/1ntp5kbEu7oFI
+	lnzGP/sb+Mtlukny0sQD11buwfGcg/H2paeQWwfapygyZ1QbCpdMapdr3yZZzAOu
+	2nJkuttV4wyUT8tSgLLiVazf/HXYBehvrdg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1674704053; x=1674790453; bh=sHxeYo7zgfjFc
-	cvxCuuph95svfpElxK2vn8+J41Up4A=; b=XIQCpZ3lX4/2fvGEl+smR04IQxUTp
-	YuK64iAV32C+MVzzlelSu8NtBFy3/erKTDaWxxRgFI9OYqQVuQ/DJz9Tv+hoFKOm
-	4FxRc/bDupPlBYUU4UYdCHegdxMEunUBGzNtYiKm9AtHfexmQpZVGpBIxAahaA1T
-	fvGb/rfnrO7ezrUMGViTPOF1DjPNXbqTAxFzq3hW9JBb0TLR8dNXWzO1JOmt26Eb
-	tvOejPXmncG8791tijP4bM4Kd9ujFo1RIPbMn81uxM3JiB5xsMiPNiHHrpZi1QYx
-	Yea9SHaJ1U7hOEBIAMxH2y4mx1MZa2AwwK0EUaeLP30w2vkPrVQp9AZWw==
-X-ME-Sender: <xms:tfTRY6RAol72fj1u1ITTzffjf13SuYDGvZJW2kpYz2bGieIW_GJMDg>
-    <xme:tfTRY_z5TiiBtt-0BX8vAhX0ddJaRfaz7MQoewPgHdks3DUCcV7DWixXEkMi6HfQg
-    yaK_fc4IaFHbzw>
-X-ME-Received: <xmr:tfTRY30w6RETlzCYZ2lEM_tWt6QmFeDgVkMAK_hrqJo3fjZxERsl3au4LUOn--qRx7btPnOYLcmD>
+	:x-sasl-enc; s=fm3; t=1674704057; x=1674790457; bh=fly1TGtjPYQFq
+	q0ZAbmMb6xmSvsz35BqaEQbyQNg2OA=; b=ctkpfx7SZRRL6KeO6bFZhCqe3XQGd
+	ddY9ADAEaPF42/Pdj3OYxAFRo254vZsVEa8tWSr/KSF+zVoyu2EteDsynPXOj/iu
+	63IO7MJyBbRlf7+vQey7wd0POoDgEkJdxFADcHNTYc1/FbN9ZjueKRKqVShvQjKd
+	H52kTj6LTGwltBqYV4MSsF9pfN6Ngjul1V6orbHr317ENrVkDkF04ZJyJ/u6siGZ
+	040psDMjFLte9H8xZp2q3BlERdUWC3vFfHvaXpbUYvoMJDuxj/eP7uesva1h1NAJ
+	A31HPEIeEK62hAR0XVgh41M6lyaOiUZeQlINouPHd1OF+PYrKk/UTJ/5g==
+X-ME-Sender: <xms:uPTRY-UJugvRHQWqLPTevHKqWNImygoOOyYewPe_uQqS9qbczCFzJQ>
+    <xme:uPTRY6kQLCCCct-1GcPEKU697zRbqex5ZNGMVHmm5m1c95TxOkO3SEzC1ScFo6NML
+    oOwjeNEzEMil4k>
+X-ME-Received: <xmr:uPTRYyZG5ypvub0AjxhcULUmMs0YaTlx0iWR3IkE2nr6D7XtDdxS9uvROL8aCXQoMnZS-iuZdIud>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvfedgheelucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
     ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeffjefggfeugeduvedvjeekgfeh
-    gffhhfffjeetkeelueefffetfffhtdduheetnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:tfTRY2Bf-X_3FCTLk3Szue3EOF95aEtMIVdgXBWa31wVr91cDPl6RA>
-    <xmx:tfTRYzigofFurxcrjTtFYCetZEOw1dSBgitqG3wjwcRhN6oaNQe4VQ>
-    <xmx:tfTRYyokStzJCyD_7oSZHto9b08SZEox4pnzEh5ptU9hKuHtd9tSqw>
-    <xmx:tfTRY-UWccG3HaEP6VIIgwpptXZDMU3fICCe6fG84ssRJodWhMRKNg>
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepheehvdekudfffeelkeelvdevffej
+    ieetudeifeeliefgleffiedvgefhheehgfeunecuffhomhgrihhnpehinhguihhrvggtth
+    drnhhrpdhinhguihhrvggtthdrihgunecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
+    rghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsg
+    drtghomh
+X-ME-Proxy: <xmx:ufTRY1VuavHbMeRfNh8kDPgSScRHLLvGJKom87ozljBfd7VtLvnXOw>
+    <xmx:ufTRY4kcERKeOg3A5RFmTzfWgpLEQfKpt-p4qEWyUhIR0g086pbcKg>
+    <xmx:ufTRY6fYHq4xTO6jgFUdjKJN8TzKE92H_QhdqAHrdujMm1gOVJ1NeA>
+    <xmx:ufTRY3ufM2M8yw78lZ1XU9KjM0U4Iyf08R5809m_oRpfv3KY2kmPCQ>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+To: Jens Axboe <axboe@kernel.dk>,
 	Juergen Gross <jgross@suse.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Demi Marie Obenour <demiobenour@gmail.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	xen-devel@lists.xenproject.org,
 	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Demi Marie Obenour <demi@invisiblethingslab.com>
-Subject: [RFC PATCH 3/7] Implement diskseq checks in blkback
-Date: Wed, 25 Jan 2023 22:33:55 -0500
-Message-Id: <20230126033358.1880-4-demi@invisiblethingslab.com>
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 6/7] Minor blkback cleanups
+Date: Wed, 25 Jan 2023 22:33:57 -0500
+Message-Id: <20230126033358.1880-6-demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <20230126033358.1880-1-demi@invisiblethingslab.com>
 References: <20230126033358.1880-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Demi Marie Obenour <demiobenour@gmail.com>
-
-This allows specifying a disk sequence number in XenStore.  If it does
-not match the disk sequence number of the underlying device, the device
-will not be exported and a warning will be logged.  Userspace can use
-this to eliminate race conditions due to major/minor number reuse.
-Older kernels will ignore this, so it is safe for userspace to set it
-unconditionally.
-
-This also makes physical-device parsing stricter.  I do not believe this
-will break any extant userspace tools.
+No functional change intended.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- drivers/block/xen-blkback/xenbus.c | 137 +++++++++++++++++++++--------
- 1 file changed, 100 insertions(+), 37 deletions(-)
+ drivers/block/xen-blkback/blkback.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 4807af1d58059394d7a992335dabaf2bc3901721..2c43bfc7ab5ba6954f11d4b949a5668660dbd290 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -24,6 +24,7 @@ struct backend_info {
- 	struct xenbus_watch	backend_watch;
- 	unsigned		major;
- 	unsigned		minor;
-+	unsigned long long	diskseq;
- 	char			*mode;
- };
+diff --git a/drivers/block/xen-blkback/blkback.c b/drivers/block/xen-blkback/blkback.c
+index a5cf7f1e871c7f9ff397ab8ff1d7b9e3db686659..8a49cbe81d8895f89371bdf50d1b445c088c9b6a 100644
+--- a/drivers/block/xen-blkback/blkback.c
++++ b/drivers/block/xen-blkback/blkback.c
+@@ -1238,6 +1238,8 @@ static int dispatch_rw_block_io(struct xen_blkif_ring *ring,
+ 	nseg = req->operation == BLKIF_OP_INDIRECT ?
+ 	       req->u.indirect.nr_segments : req->u.rw.nr_segments;
  
-@@ -479,7 +480,7 @@ static void xen_vbd_free(struct xen_vbd *vbd)
- 
- static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
- 			  unsigned major, unsigned minor, int readonly,
--			  int cdrom)
-+			  bool cdrom, u64 diskseq)
- {
- 	struct xen_vbd *vbd;
- 	struct block_device *bdev;
-@@ -507,6 +508,25 @@ static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
- 		xen_vbd_free(vbd);
- 		return -ENOENT;
- 	}
-+
-+	if (diskseq) {
-+		struct gendisk *disk = bdev->bd_disk;
-+		if (unlikely(disk == NULL)) {
-+			pr_err("xen_vbd_create: device %08x has no gendisk\n",
-+			       vbd->pdevice);
-+			xen_vbd_free(vbd);
-+			return -EFAULT;
-+		}
-+
-+		if (unlikely(disk->diskseq != diskseq)) {
-+			pr_warn("xen_vbd_create: device %08x has incorrect sequence "
-+				"number 0x%llx (expected 0x%llx)\n",
-+				vbd->pdevice, disk->diskseq, diskseq);
-+			xen_vbd_free(vbd);
-+			return -ENODEV;
-+		}
-+	}
-+
- 	vbd->size = vbd_sz(vbd);
- 
- 	if (cdrom || disk_to_cdi(vbd->bdev->bd_disk))
-@@ -690,6 +710,55 @@ static int xen_blkbk_probe(struct xenbus_device *dev,
- 	return err;
- }
- 
-+static bool read_physical_device(struct xenbus_device *dev,
-+				 unsigned long long *diskseq,
-+				 unsigned *major, unsigned *minor)
-+{
-+	char *physical_device, *problem;
-+	int i, physical_device_length;
-+	char junk;
-+
-+	physical_device = xenbus_read(XBT_NIL, dev->nodename, "physical-device",
-+				      &physical_device_length);
-+
-+	if (IS_ERR(physical_device)) {
-+		int err = PTR_ERR(physical_device);
-+		/*
-+		 * Since this watch will fire once immediately after it is
-+		 * registered, we expect "does not exist" errors.  Ignore
-+		 * them and wait for the hotplug scripts.
-+		 */
-+		if (unlikely(!XENBUS_EXIST_ERR(err)))
-+			xenbus_dev_fatal(dev, err, "reading physical-device");
-+		return false;
-+	}
-+
-+	for (i = 0; i < physical_device_length; ++i)
-+		if (unlikely(physical_device[i] <= 0x20 || physical_device[i] >= 0x7F)) {
-+			problem = "bad byte in physical-device";
-+			goto fail;
-+		}
-+
-+	if (sscanf(physical_device, "%16llx@%8x:%8x%c",
-+		   diskseq, major, minor, &junk) == 3) {
-+		if (*diskseq == 0) {
-+			problem = "diskseq 0 is invalid";
-+			goto fail;
-+		}
-+	} else if (sscanf(physical_device, "%8x:%8x%c", major, minor, &junk) == 2) {
-+		*diskseq = 0;
-+	} else {
-+		problem = "invalid physical-device";
-+		goto fail;
-+	}
-+	kfree(physical_device);
-+	return true;
-+fail:
-+	kfree(physical_device);
-+	xenbus_dev_fatal(dev, -EINVAL, problem);
-+	return false;
-+}
-+
- /*
-  * Callback received when the hotplug scripts have placed the physical-device
-  * node.  Read it and the mode node, and create a vbd.  If the frontend is
-@@ -707,28 +776,17 @@ static void backend_changed(struct xenbus_watch *watch,
- 	int cdrom = 0;
- 	unsigned long handle;
- 	char *device_type;
-+	unsigned long long diskseq;
- 
- 	pr_debug("%s %p %d\n", __func__, dev, dev->otherend_id);
--
--	err = xenbus_scanf(XBT_NIL, dev->nodename, "physical-device", "%x:%x",
--			   &major, &minor);
--	if (XENBUS_EXIST_ERR(err)) {
--		/*
--		 * Since this watch will fire once immediately after it is
--		 * registered, we expect this.  Ignore it, and wait for the
--		 * hotplug scripts.
--		 */
-+	if (!read_physical_device(dev, &diskseq, &major, &minor))
- 		return;
--	}
--	if (err != 2) {
--		xenbus_dev_fatal(dev, err, "reading physical-device");
--		return;
--	}
- 
--	if (be->major | be->minor) {
--		if (be->major != major || be->minor != minor)
--			pr_warn("changing physical device (from %x:%x to %x:%x) not supported.\n",
--				be->major, be->minor, major, minor);
-+	if (be->major | be->minor | be->diskseq) {
-+		if (be->major != major || be->minor != minor || be->diskseq != diskseq)
-+			pr_warn("changing physical device (from %x:%x:%llx to %x:%x:%llx)"
-+				" not supported.\n",
-+				be->major, be->minor, be->diskseq, major, minor, diskseq);
- 		return;
- 	}
- 
-@@ -756,29 +814,34 @@ static void backend_changed(struct xenbus_watch *watch,
- 
- 	be->major = major;
- 	be->minor = minor;
-+	be->diskseq = diskseq;
- 
- 	err = xen_vbd_create(be->blkif, handle, major, minor,
--			     !strchr(be->mode, 'w'), cdrom);
--
--	if (err)
--		xenbus_dev_fatal(dev, err, "creating vbd structure");
--	else {
--		err = xenvbd_sysfs_addif(dev);
--		if (err) {
--			xen_vbd_free(&be->blkif->vbd);
--			xenbus_dev_fatal(dev, err, "creating sysfs entries");
--		}
--	}
-+			     !strchr(be->mode, 'w'), cdrom, diskseq);
- 
- 	if (err) {
--		kfree(be->mode);
--		be->mode = NULL;
--		be->major = 0;
--		be->minor = 0;
--	} else {
--		/* We're potentially connected now */
--		xen_update_blkif_status(be->blkif);
-+		xenbus_dev_fatal(dev, err, "creating vbd structure");
-+		goto fail;
- 	}
-+
-+	err = xenvbd_sysfs_addif(dev);
-+	if (err) {
-+		xenbus_dev_fatal(dev, err, "creating sysfs entries");
-+		goto free_vbd;
-+	}
-+
-+	/* We're potentially connected now */
-+	xen_update_blkif_status(be->blkif);
-+	return;
-+
-+free_vbd:
-+	xen_vbd_free(&be->blkif->vbd);
-+fail:
-+	kfree(be->mode);
-+	be->mode = NULL;
-+	be->major = 0;
-+	be->minor = 0;
-+	be->diskseq = 0;
- }
- 
- /*
++	BUILD_BUG_ON(offsetof(struct blkif_request, u.rw.id) != 8);
++	BUILD_BUG_ON(offsetof(struct blkif_request, u.indirect.id) != 8);
+ 	if (unlikely(nseg == 0 && operation_flags != REQ_PREFLUSH) ||
+ 	    unlikely((req->operation != BLKIF_OP_INDIRECT) &&
+ 		     (nseg > BLKIF_MAX_SEGMENTS_PER_REQUEST)) ||
+@@ -1261,13 +1263,13 @@ static int dispatch_rw_block_io(struct xen_blkif_ring *ring,
+ 		preq.sector_number     = req->u.rw.sector_number;
+ 		for (i = 0; i < nseg; i++) {
+ 			pages[i]->gref = req->u.rw.seg[i].gref;
+-			seg[i].nsec = req->u.rw.seg[i].last_sect -
+-				req->u.rw.seg[i].first_sect + 1;
+-			seg[i].offset = (req->u.rw.seg[i].first_sect << 9);
+ 			if ((req->u.rw.seg[i].last_sect >= (XEN_PAGE_SIZE >> 9)) ||
+ 			    (req->u.rw.seg[i].last_sect <
+ 			     req->u.rw.seg[i].first_sect))
+ 				goto fail_response;
++			seg[i].nsec = req->u.rw.seg[i].last_sect -
++				req->u.rw.seg[i].first_sect + 1;
++			seg[i].offset = (req->u.rw.seg[i].first_sect << 9);
+ 			preq.nr_sects += seg[i].nsec;
+ 		}
+ 	} else {
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
+
 
