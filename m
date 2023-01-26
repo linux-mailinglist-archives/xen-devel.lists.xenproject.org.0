@@ -2,37 +2,50 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A852E67D382
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 18:50:04 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485170.752187 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33CAF67D39B
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 18:55:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485175.752198 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL6NM-0002rx-8d; Thu, 26 Jan 2023 17:49:28 +0000
+	id 1pL6Sk-0004Ki-U5; Thu, 26 Jan 2023 17:55:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485170.752187; Thu, 26 Jan 2023 17:49:28 +0000
+Received: by outflank-mailman (output) from mailman id 485175.752198; Thu, 26 Jan 2023 17:55:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL6NM-0002q9-60; Thu, 26 Jan 2023 17:49:28 +0000
-Received: by outflank-mailman (input) for mailman id 485170;
- Thu, 26 Jan 2023 17:49:26 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pL6Sk-0004HT-R9; Thu, 26 Jan 2023 17:55:02 +0000
+Received: by outflank-mailman (input) for mailman id 485175;
+ Thu, 26 Jan 2023 17:55:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=xamf=5X=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
- id 1pL6NK-0002q3-LP
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 17:49:26 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id c575218e-9da1-11ed-a5d9-ddcf98b90cbd;
- Thu, 26 Jan 2023 18:49:25 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id q8so1662603wmo.5
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 09:49:24 -0800 (PST)
-Received: from [192.168.16.153] (54-240-197-239.amazon.com. [54.240.197.239])
- by smtp.gmail.com with ESMTPSA id
- iz17-20020a05600c555100b003db07420d14sm2065074wmb.39.2023.01.26.09.49.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Jan 2023 09:49:23 -0800 (PST)
+ <SRS0=FZWf=5X=templeofstupid.com=kjlx@srs-se1.protection.inumbo.net>)
+ id 1pL6Si-0004HL-T2
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 17:55:01 +0000
+Received: from cross.elm.relay.mailchannels.net
+ (cross.elm.relay.mailchannels.net [23.83.212.46])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8a7f377c-9da2-11ed-b8d1-410ff93cb8f0;
+ Thu, 26 Jan 2023 18:54:56 +0100 (CET)
+Received: from relay.mailchannels.net (localhost [127.0.0.1])
+ by relay.mailchannels.net (Postfix) with ESMTP id EF67C762218
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 17:54:54 +0000 (UTC)
+Received: from pdx1-sub0-mail-a305.dreamhost.com (unknown [127.0.0.6])
+ (Authenticated sender: dreamhost)
+ by relay.mailchannels.net (Postfix) with ESMTPA id 8AADF762051
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 17:54:54 +0000 (UTC)
+Received: from pdx1-sub0-mail-a305.dreamhost.com (pop.dreamhost.com
+ [64.90.62.162]) (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
+ by 100.120.227.169 (trex/6.7.1); Thu, 26 Jan 2023 17:54:54 +0000
+Received: from kmjvbox (c-76-102-200-71.hsd1.ca.comcast.net [76.102.200.71])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ (Authenticated sender: kjlx@templeofstupid.com)
+ by pdx1-sub0-mail-a305.dreamhost.com (Postfix) with ESMTPSA id 4P2pJF4RXCzSG
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 09:54:53 -0800 (PST)
+Received: from johansen (uid 1000) (envelope-from kjlx@templeofstupid.com)
+ id e00cd by kmjvbox (DragonFly Mail Agent v0.12);
+ Thu, 26 Jan 2023 09:54:51 -0800
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,103 +57,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c575218e-9da1-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=OK8D8R+tAQUoFtCWzoU1n8SQdUbAKXNoKJvtArjQYWo=;
-        b=fsrSpnrqMY978vETifGGB5jJhFgGa9z1kwcWK6T2nOCu+2w+3q003EfrS2S3nto/9O
-         lxe3tYcU8G4mfiFeNDwyeOtZ6IpN6OGNe5mvX2oCYaolr2h2fKwfDb+bxz95DcEGZcgt
-         baW9SuyDs+IEAs4Fczqco/bSDXCuXJ9zw8fBxPmw1fsMHyYS/OnDg/d4M0REeUbUPJvJ
-         RQv6LwyWhdbAqU2ztQFsLdrlFMGtDLdvlO64WYfr1H45JdhGSnTHa0NWmRYX1GMcLOq5
-         lgctRAthj0M2xFVSiOFnZZWIfgJNNw6o+vkIeVJ+9yWcTvOSRYMwMeFWYUlgDljKCXEG
-         ExkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:organization:content-language
-         :references:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=OK8D8R+tAQUoFtCWzoU1n8SQdUbAKXNoKJvtArjQYWo=;
-        b=tYpBlRY33xSJenDPb3hlqVO868Xecr7i7h0mMR0sPv4esnzAfEZE4bDq2wka3SvRNA
-         tXAPRfavCTcFUenLb8Xe7Bnxi4Vp3wp7zGVzb6qmqCjd7/ew3Ne90m23dr/GyiebSWIw
-         rRJ6cjkDpf6Z/ct+XyaqGYzRoZLYJvuEKjR8uZaV6w2O405ytmBzcG/Rua2oS+FTHJmi
-         AA0BRHQ0UG0GpMtDdAkYzOHFPLWHQ7NshrIIxIRV7CkZlIQnZZsHjw6hyINyr0jQ7cgc
-         5Z22hpgL6Y69IJEeWmyynbjF/HDUuji++f7I8pUi62EFHhD1dXd0qb14IE6KuBtKGrQk
-         Wvgw==
-X-Gm-Message-State: AFqh2kpD0EDjORh43OdWZ49kouQ9Z2bwyFH5NeCYH9lIhQv2lc3oaG8a
-	ir5IEH8OOoxsToJA0z3tXKU=
-X-Google-Smtp-Source: AMrXdXs5F4OCgvN3uEJ60IUaqKqHzXV14E3jUKorb3s+0tE+r6nmGLv0K7Ivj0ZpjpxRkHHOTPAUPQ==
-X-Received: by 2002:a05:600c:3ac8:b0:3da:270b:ba6b with SMTP id d8-20020a05600c3ac800b003da270bba6bmr37704210wms.41.1674755364280;
-        Thu, 26 Jan 2023 09:49:24 -0800 (PST)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <46ea1f4e-2061-d5f8-2b44-5d24a3a3e7ca@xen.org>
-Date: Thu, 26 Jan 2023 17:49:22 +0000
+X-Inumbo-ID: 8a7f377c-9da2-11ed-b8d1-410ff93cb8f0
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+ARC-Seal: i=1; s=arc-2022; d=mailchannels.net; t=1674755694; a=rsa-sha256;
+	cv=none;
+	b=07rfH9T6IVlT2nXEgcpxUcr7SdvG8EQ5l7bhIi2VZhUCTEP/F8FK+HO7Rq09JATZuigxxG
+	xoSftRnZ7wVHkUwlBmAYx0ooScCJBFTDbCFtHESzPwYHxrqqcfn2Xbk5oo++TkWjcyIE1K
+	/KrWHgxoQ5cwqQiXVnQCUsfYZoCp8WGjhp24CavKyIiRvAQtMhbhRYX/7IMXJJTHOIPPJ3
+	uXUhnCO+OE8dCiw6JN1p/8T+LjBpxxEjIH8DP5oSruLXta9E5B2pmgph33hIedpEGEB2tY
+	btrwi5URFxYevq49mcJZNkpQeP0k33Mlcg4SYFBQRbi9zyemNrTdygfF7vu9eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mailchannels.net;
+	s=arc-2022; t=1674755694;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references:dkim-signature;
+	bh=jxmpzMRS8uv3Rx43UOYjHE4GiOK6D+gngqmat/OvKTQ=;
+	b=AQfgmF5sW+ntihOWQ6Vke+AXGJrE91B+aBonYWQblB5AUrfZY8L8akUZ0Pw+lJCmdfRBTJ
+	p8vga3lXnOGzwGw03UkzEPNrVLJIOp+O4WkKWf+qTxK+JrXGKVddfHIZqanvkbUFwmea2K
+	HVMcPW7PUd/oH/je4vf/3fJGRoSvolRPrtR4KacAzoWHgge0+Sf3MesLtelyf9u7OF6ncx
+	zmtspb9JliiaAgNI8ANi1OQOa3HB0cQN4cbkPAixnIYsIpsDaWN1QqZQoakA2pDLjSMrEB
+	l+FZ4PE+thOL6lFkn9CAAVy2a1lhF0pIu67cYQwVM8NRSERkPEA9ujljTL7jJw==
+ARC-Authentication-Results: i=1;
+	rspamd-7b784c8cc8-jzzsr;
+	auth=pass smtp.auth=dreamhost smtp.mailfrom=kjlx@templeofstupid.com
+X-Sender-Id: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MC-Relay: Neutral
+X-MailChannels-SenderId: dreamhost|x-authsender|kjlx@templeofstupid.com
+X-MailChannels-Auth-Id: dreamhost
+X-Ruddy-Ski: 1455bc5660740c05_1674755694805_2390760637
+X-MC-Loop-Signature: 1674755694805:1234692241
+X-MC-Ingress-Time: 1674755694805
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=templeofstupid.com;
+	s=dreamhost; t=1674755693;
+	bh=jxmpzMRS8uv3Rx43UOYjHE4GiOK6D+gngqmat/OvKTQ=;
+	h=Date:From:To:Cc:Subject:Content-Type;
+	b=A/gr4s6WbWSqnhtz9OVBbLJeoRkHj9sZom+OSFHjQGKW4pAb9y6xSnjhGQKahtLh9
+	 jeW1jUeTiKtfb0B9I+zmwGu1eJuTZJUsMcholeKxYE8osojqKClUCB8LTY4wtzpUXS
+	 2+IPXzITtOb/7JMRIlgf1GZldC6kQeQSv+OLwUgQ=
+Date: Thu, 26 Jan 2023 09:54:51 -0800
+From: Krister Johansen <kjlx@templeofstupid.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>,
+	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
+	David Reaver <me@davidreaver.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2] xen/x86: public: add TSC defines for cpuid leaf 4
+Message-ID: <20230126175451.GA1959@templeofstupid.com>
+References: <20230125184506.GE1963@templeofstupid.com>
+ <8a07d6f8-a07a-d435-deef-1366fad29a11@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Reply-To: paul@xen.org
-Subject: Re: [SeaBIOS PATCH] xen: require Xen info structure at 0x1000 to
- detect Xen
-To: David Woodhouse <dwmw2@infradead.org>, seabios <seabios@seabios.org>,
- xen-devel <xen-devel@lists.xenproject.org>,
- qemu-devel <qemu-devel@nongnu.org>
-References: <feef99dd2e1a5dce004d22baf07d716d6ea1344c.camel@infradead.org>
-Content-Language: en-US
-Organization: Xen Project
-In-Reply-To: <feef99dd2e1a5dce004d22baf07d716d6ea1344c.camel@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8a07d6f8-a07a-d435-deef-1366fad29a11@suse.com>
 
-On 20/01/2023 11:33, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
+On Thu, Jan 26, 2023 at 09:57:43AM +0100, Jan Beulich wrote:
+> On 25.01.2023 19:45, Krister Johansen wrote:
+> > v2:
+> >   - Fix whitespace between comment and #defines (feedback from Jan Beulich)
 > 
-> When running under Xen, hvmloader places a table at 0x1000 with the e820
-> information and BIOS tables. If this isn't present, SeaBIOS will
-> currently panic.
+> Hmm, ...
 > 
-> We now have support for running Xen guests natively in QEMU/KVM, which
-> boots SeaBIOS directly instead of via hvmloader, and does not provide
-> the same structure.
+> > --- a/xen/include/public/arch-x86/cpuid.h
+> > +++ b/xen/include/public/arch-x86/cpuid.h
+> > @@ -72,6 +72,14 @@
+> >   * Sub-leaf 2: EAX: host tsc frequency in kHz
+> >   */
+> >  
+> > +#define XEN_CPUID_TSC_EMULATED               (1u << 0)
+> > +#define XEN_CPUID_HOST_TSC_RELIABLE          (1u << 1)
+> > +#define XEN_CPUID_RDTSCP_INSTR_AVAIL         (1u << 2)
+> > +#define XEN_CPUID_TSC_MODE_DEFAULT           (0)
+> > +#define XEN_CPUID_TSC_MODE_EMULATE           (1u)
+> > +#define XEN_CPUID_TSC_MODE_NOEMULATE         (2u)
+> > +#define XEN_CPUID_TSC_MODE_NOEMULATE_TSC_AUX (3u)
 > 
-> As it happens, this doesn't matter on first boot. because although we
-> set PlatformRunningOn to PF_QEMU|PF_XEN, reading it back again still
-> gives zero. Presumably because in true Xen, this is all already RAM. But
-> in QEMU with a faithfully-emulated PAM config in the host bridge, it's
-> still in ROM mode at this point so we don't see what we've just written.
+> ... while I'm fine with the leading blank line, what my earlier comment was
+> about really are the two separate blocks of #define-s (the flag bits and the
+> modes). I'll take care of this while committing; with the adjustment
 > 
-> On reboot, however, the region *is* set to RAM mode and we do see the
-> updated value of PlatformRunningOn, do manage to remember that we've
-> detected Xen in CPUID, and hit the panic.
-> 
-> It's not trivial to detect QEMU vs. real Xen at the time xen_preinit()
-> runs, because it's so early. We can't even make a XENVER_extraversion
-> hypercall to look for hints, because we haven't set up the hypercall
-> page (and don't have an allocator to give us a page in which to do so).
-> 
-> So just make Xen detection contingent on the info structure being
-> present. If it wasn't, we were going to panic anyway. That leaves us
-> taking the standard QEMU init path for Xen guests in native QEMU,
-> which is just fine.
-> 
-> Untested on actual Xen but ObviouslyCorrect™.
+> Reviewed-by: Jan Beulich <jbeulich@suse.com>
 
-Works for me...
+Sorry I miunderstood, and thanks for being willing to fix this up
+while committing.
 
-Tested-by: Paul Durrant <paul@xen.org>
-
-> 
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   src/fw/xen.c | 45 ++++++++++++++++++++++++++++++++-------------
->   1 file changed, 32 insertions(+), 13 deletions(-)
-> 
-
-Also...
-
-Reviewed-by: Paul Durrant <paul@xen.org>
-
+-K
 
