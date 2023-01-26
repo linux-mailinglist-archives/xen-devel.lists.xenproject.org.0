@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9AA67D06C
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 16:40:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485087.752052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DEA667D07C
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 16:42:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485094.752062 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL4LU-0005oE-BT; Thu, 26 Jan 2023 15:39:24 +0000
+	id 1pL4OV-0007E6-SG; Thu, 26 Jan 2023 15:42:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485087.752052; Thu, 26 Jan 2023 15:39:24 +0000
+Received: by outflank-mailman (output) from mailman id 485094.752062; Thu, 26 Jan 2023 15:42:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL4LU-0005mV-6d; Thu, 26 Jan 2023 15:39:24 +0000
-Received: by outflank-mailman (input) for mailman id 485087;
- Thu, 26 Jan 2023 15:39:22 +0000
+	id 1pL4OV-0007Bm-Ob; Thu, 26 Jan 2023 15:42:31 +0000
+Received: by outflank-mailman (input) for mailman id 485094;
+ Thu, 26 Jan 2023 15:42:30 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=HSUn=5X=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pL4LS-0005mP-Gi
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 15:39:22 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9992aeeb-9d8f-11ed-a5d9-ddcf98b90cbd;
- Thu, 26 Jan 2023 16:39:20 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8C16661880;
- Thu, 26 Jan 2023 15:39:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 944BAC4339B;
- Thu, 26 Jan 2023 15:39:17 +0000 (UTC)
+ <SRS0=b5Fb=5X=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1pL4OU-0007Bg-C6
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 15:42:30 +0000
+Received: from so254-35.mailgun.net (so254-35.mailgun.net [198.61.254.35])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id 0957f3d6-9d90-11ed-a5d9-ddcf98b90cbd;
+ Thu, 26 Jan 2023 16:42:28 +0100 (CET)
+Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
+ [209.85.219.179]) by
+ c0240418b22b with SMTP id 63d29f6241f80c63a459d68c (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Thu, 26 Jan 2023 15:42:26 GMT
+Received: by mail-yb1-f179.google.com with SMTP id 123so2438690ybv.6
+ for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 07:42:26 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,403 +41,289 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9992aeeb-9d8f-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1674747559;
-	bh=eb7A4/uVco8ZN4jcR8yIJnmo4s/u3G30hcK0FC8/PjA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=RA3AawPIpSn6Nq9YUayfGmaMDik7XQPttSV9giBwoaO1vOx+oe3d2BFSW6b40NnLN
-	 /M11So5tp7e7D1WBpLfXRKt2B97OzMMkHTlnlXlkFOxjsv+VpGYTZWZALQDwr+WPbG
-	 P8wdTusYR4/shaj1AbY29xQCrhmT2m5bMIBaSxC5qzY4DNTzf1T/ve/YSIxOxFrED3
-	 ny7PFAlzY8B1ANmWrfR7yHIzC1oJvcuSV/3SGnsg4QFDoCyu8k8/TWitZ3ZRdilgX4
-	 jVBdsdT3hx4f9VmJn81D5glbyVePvQgZlR/sJePzhgIj74khO43tUpWdTBqPFYrLUN
-	 uHAgIeeUh29HQ==
-Date: Thu, 26 Jan 2023 07:39:16 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Vikram Garhwal <vikram.garhwal@amd.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, qemu-devel@nongnu.org, 
-    xen-devel@lists.xenproject.org, stefano.stabellini@amd.com, 
-    alex.bennee@linaro.org, Peter Maydell <peter.maydell@linaro.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>, 
-    "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>
-Subject: Re: [QEMU][PATCH v4 09/10] hw/arm: introduce xenpvh machine
-In-Reply-To: <d6bb030b-406a-5a07-f089-2382bdd46e3c@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2301260739100.1978264@ubuntu-linux-20-04-desktop>
-References: <20230125085407.7144-1-vikram.garhwal@amd.com> <20230125085407.7144-10-vikram.garhwal@amd.com> <alpine.DEB.2.22.394.2301251410440.1978264@ubuntu-linux-20-04-desktop> <d6bb030b-406a-5a07-f089-2382bdd46e3c@amd.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: 0957f3d6-9d90-11ed-a5d9-ddcf98b90cbd
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1674747746; x=1674754946; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=o5LlAxm5OT7NlU/UHCsH/EC8XsY/l2h67gaOon1D984=;
+ b=jwoREEcpVTayJiH2Ikc8XGnjKB5tND7Gx/Xn1KqRVhbchl7sKxy086nKH+SsZVSHC1k9il+9OY6YrJgKxHBTVlZyfruIjkMGVpId+AXcvPAsTncsvIPWVM/3jOIkvAsHEU/dzey3TguglWDnMmHb+OQLEtXN3hJreYBn9SH4VjDwD4g0BydKP+dLipemyIsItDyQWzPik9P/LZaTFmx3p2/4+uF5DytNjVBZhJC+n6omyLOS97Gm/m2FQXCxY+IEVmCVURpg5ARLiL+XOZbNvHVEEV6EU3TW1dwr45QeefodeVbF5ilXtHerQLII8Bhl+BXw17qvr01OKTdJsWnvMA==
+X-Mailgun-Sending-Ip: 198.61.254.35
+X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
+Sender: tamas@tklengyel.com
+X-Gm-Message-State: AFqh2koUvt9zWZqzKn524aIOqcxJ5rett87VxsY/hB1veMY85Gz8oA4I
+	EagYQa5u9hxPO0HdYYnB3qBAmXC0btsvJh8vyBU=
+X-Google-Smtp-Source: AMrXdXuSqMC+T7CjEFrOtcBhFSv0+T0wPEDQwTvKipL7Qg0sdKhNTE0df15tTgfdfOTc4kxVG29IOrmOCOrpFxYoteo=
+X-Received: by 2002:a25:af8a:0:b0:7fc:a696:981c with SMTP id
+ g10-20020a25af8a000000b007fca696981cmr2981028ybh.165.1674747746093; Thu, 26
+ Jan 2023 07:42:26 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <33cd2aba-73fc-6dfe-d0f2-f41883e7cdfa@suse.com>
+ <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com> <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
+ <a92b9714-5e29-146f-3b68-b44692c56de1@suse.com> <CABfawhkiaheQPJhtG7fupHcbfYPUy+BJgvbVoQ+FJUnev5bowQ@mail.gmail.com>
+ <6099e6fb-0a3e-c6da-2766-d61c2c3d1e96@suse.com> <CABfawh=1XUWbeRJJZQsYVLyZX-Ez8=D2YYCgBYvDGQemHeJkzA@mail.gmail.com>
+ <cfffcf15-c2fa-6529-d1ff-a71a7571bfe2@suse.com>
+In-Reply-To: <cfffcf15-c2fa-6529-d1ff-a71a7571bfe2@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 26 Jan 2023 10:41:49 -0500
+X-Gmail-Original-Message-ID: <CABfawhm_b=MskQN_zZsuKz0FDtZzZNvBMa8bXtxxUZU9rXbUCA@mail.gmail.com>
+Message-ID: <CABfawhm_b=MskQN_zZsuKz0FDtZzZNvBMa8bXtxxUZU9rXbUCA@mail.gmail.com>
+Subject: Re: [PATCH v2 4/8] x86/mem-sharing: copy GADDR based shared guest areas
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
+Content-Type: multipart/alternative; boundary="0000000000007e917105f32c98ab"
 
-On Wed, 25 Jan 2023, Vikram Garhwal wrote:
-> Hi Stefano,
-> 
-> On 1/25/23 2:20 PM, Stefano Stabellini wrote:
-> > On Wed, 25 Jan 2023, Vikram Garhwal wrote:
-> > > Add a new machine xenpvh which creates a IOREQ server to register/connect
-> > > with
-> > > Xen Hypervisor.
-> > > 
-> > > Optional: When CONFIG_TPM is enabled, it also creates a tpm-tis-device,
-> > > adds a
-> > > TPM emulator and connects to swtpm running on host machine via chardev
-> > > socket
-> > > and support TPM functionalities for a guest domain.
-> > > 
-> > > Extra command line for aarch64 xenpvh QEMU to connect to swtpm:
-> > >      -chardev socket,id=chrtpm,path=/tmp/myvtpm2/swtpm-sock \
-> > >      -tpmdev emulator,id=tpm0,chardev=chrtpm \
-> > >      -machine tpm-base-addr=0x0c000000 \
-> > > 
-> > > swtpm implements a TPM software emulator(TPM 1.2 & TPM 2) built on libtpms
-> > > and
-> > > provides access to TPM functionality over socket, chardev and CUSE
-> > > interface.
-> > > Github repo: https://github.com/stefanberger/swtpm
-> > > Example for starting swtpm on host machine:
-> > >      mkdir /tmp/vtpm2
-> > >      swtpm socket --tpmstate dir=/tmp/vtpm2 \
-> > >      --ctrl type=unixio,path=/tmp/vtpm2/swtpm-sock &
-> > > 
-> > > Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
-> > > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-> > > ---
-> > >   docs/system/arm/xenpvh.rst    |  34 +++++++
-> > >   docs/system/target-arm.rst    |   1 +
-> > >   hw/arm/meson.build            |   2 +
-> > >   hw/arm/xen_arm.c              | 184 ++++++++++++++++++++++++++++++++++
-> > >   include/hw/arm/xen_arch_hvm.h |   9 ++
-> > >   include/hw/xen/arch_hvm.h     |   2 +
-> > >   6 files changed, 232 insertions(+)
-> > >   create mode 100644 docs/system/arm/xenpvh.rst
-> > >   create mode 100644 hw/arm/xen_arm.c
-> > >   create mode 100644 include/hw/arm/xen_arch_hvm.h
-> > > 
-> > > diff --git a/docs/system/arm/xenpvh.rst b/docs/system/arm/xenpvh.rst
-> > > new file mode 100644
-> > > index 0000000000..e1655c7ab8
-> > > --- /dev/null
-> > > +++ b/docs/system/arm/xenpvh.rst
-> > > @@ -0,0 +1,34 @@
-> > > +XENPVH (``xenpvh``)
-> > > +=========================================
-> > > +This machine creates a IOREQ server to register/connect with Xen
-> > > Hypervisor.
-> > > +
-> > > +When TPM is enabled, this machine also creates a tpm-tis-device at a user
-> > > input
-> > > +tpm base address, adds a TPM emulator and connects to a swtpm application
-> > > +running on host machine via chardev socket. This enables xenpvh to
-> > > support TPM
-> > > +functionalities for a guest domain.
-> > > +
-> > > +More information about TPM use and installing swtpm linux application can
-> > > be
-> > > +found at: docs/specs/tpm.rst.
-> > > +
-> > > +Example for starting swtpm on host machine:
-> > > +.. code-block:: console
-> > > +
-> > > +    mkdir /tmp/vtpm2
-> > > +    swtpm socket --tpmstate dir=/tmp/vtpm2 \
-> > > +    --ctrl type=unixio,path=/tmp/vtpm2/swtpm-sock &
-> > > +
-> > > +Sample QEMU xenpvh commands for running and connecting with Xen:
-> > > +.. code-block:: console
-> > > +
-> > > +    qemu-system-aarch64 -xen-domid 1 \
-> > > +    -chardev socket,id=libxl-cmd,path=qmp-libxl-1,server=on,wait=off \
-> > > +    -mon chardev=libxl-cmd,mode=control \
-> > > +    -chardev
-> > > socket,id=libxenstat-cmd,path=qmp-libxenstat-1,server=on,wait=off \
-> > > +    -mon chardev=libxenstat-cmd,mode=control \
-> > > +    -xen-attach -name guest0 -vnc none -display none -nographic \
-> > > +    -machine xenpvh -m 1301 \
-> > > +    -chardev socket,id=chrtpm,path=tmp/vtpm2/swtpm-sock \
-> > > +    -tpmdev emulator,id=tpm0,chardev=chrtpm -machine
-> > > tpm-base-addr=0x0C000000
-> > > +
-> > > +In above QEMU command, last two lines are for connecting xenpvh QEMU to
-> > > swtpm
-> > > +via chardev socket.
-> > > diff --git a/docs/system/target-arm.rst b/docs/system/target-arm.rst
-> > > index 91ebc26c6d..af8d7c77d6 100644
-> > > --- a/docs/system/target-arm.rst
-> > > +++ b/docs/system/target-arm.rst
-> > > @@ -106,6 +106,7 @@ undocumented; you can get a complete list by running
-> > >      arm/stm32
-> > >      arm/virt
-> > >      arm/xlnx-versal-virt
-> > > +   arm/xenpvh
-> > >     Emulated CPU architecture support
-> > >   =================================
-> > > diff --git a/hw/arm/meson.build b/hw/arm/meson.build
-> > > index b036045603..06bddbfbb8 100644
-> > > --- a/hw/arm/meson.build
-> > > +++ b/hw/arm/meson.build
-> > > @@ -61,6 +61,8 @@ arm_ss.add(when: 'CONFIG_FSL_IMX7', if_true:
-> > > files('fsl-imx7.c', 'mcimx7d-sabre.
-> > >   arm_ss.add(when: 'CONFIG_ARM_SMMUV3', if_true: files('smmuv3.c'))
-> > >   arm_ss.add(when: 'CONFIG_FSL_IMX6UL', if_true: files('fsl-imx6ul.c',
-> > > 'mcimx6ul-evk.c'))
-> > >   arm_ss.add(when: 'CONFIG_NRF51_SOC', if_true: files('nrf51_soc.c'))
-> > > +arm_ss.add(when: 'CONFIG_XEN', if_true: files('xen_arm.c'))
-> > > +arm_ss.add_all(xen_ss)
-> > >     softmmu_ss.add(when: 'CONFIG_ARM_SMMUV3', if_true:
-> > > files('smmu-common.c'))
-> > >   softmmu_ss.add(when: 'CONFIG_EXYNOS4', if_true:
-> > > files('exynos4_boards.c'))
-> > > diff --git a/hw/arm/xen_arm.c b/hw/arm/xen_arm.c
-> > > new file mode 100644
-> > > index 0000000000..12b19e3609
-> > > --- /dev/null
-> > > +++ b/hw/arm/xen_arm.c
-> > > @@ -0,0 +1,184 @@
-> > > +/*
-> > > + * QEMU ARM Xen PV Machine
-> >                     ^ PVH
-> > 
-> > 
-> > > + *
-> > > + * Permission is hereby granted, free of charge, to any person obtaining
-> > > a copy
-> > > + * of this software and associated documentation files (the "Software"),
-> > > to deal
-> > > + * in the Software without restriction, including without limitation the
-> > > rights
-> > > + * to use, copy, modify, merge, publish, distribute, sublicense, and/or
-> > > sell
-> > > + * copies of the Software, and to permit persons to whom the Software is
-> > > + * furnished to do so, subject to the following conditions:
-> > > + *
-> > > + * The above copyright notice and this permission notice shall be
-> > > included in
-> > > + * all copies or substantial portions of the Software.
-> > > + *
-> > > + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-> > > EXPRESS OR
-> > > + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-> > > MERCHANTABILITY,
-> > > + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT
-> > > SHALL
-> > > + * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
-> > > OTHER
-> > > + * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-> > > ARISING FROM,
-> > > + * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
-> > > IN
-> > > + * THE SOFTWARE.
-> > > + */
-> > > +
-> > > +#include "qemu/osdep.h"
-> > > +#include "qemu/error-report.h"
-> > > +#include "qapi/qapi-commands-migration.h"
-> > > +#include "qapi/visitor.h"
-> > > +#include "hw/boards.h"
-> > > +#include "hw/sysbus.h"
-> > > +#include "sysemu/block-backend.h"
-> > > +#include "sysemu/tpm_backend.h"
-> > > +#include "sysemu/sysemu.h"
-> > > +#include "hw/xen/xen-legacy-backend.h"
-> > > +#include "hw/xen/xen-hvm-common.h"
-> > > +#include "sysemu/tpm.h"
-> > > +#include "hw/xen/arch_hvm.h"
-> > > +
-> > > +#define TYPE_XEN_ARM  MACHINE_TYPE_NAME("xenpvh")
-> > > +OBJECT_DECLARE_SIMPLE_TYPE(XenArmState, XEN_ARM)
-> > > +
-> > > +static MemoryListener xen_memory_listener = {
-> > > +    .region_add = xen_region_add,
-> > > +    .region_del = xen_region_del,
-> > > +    .log_start = NULL,
-> > > +    .log_stop = NULL,
-> > > +    .log_sync = NULL,
-> > > +    .log_global_start = NULL,
-> > > +    .log_global_stop = NULL,
-> > > +    .priority = 10,
-> > > +};
-> > > +
-> > > +struct XenArmState {
-> > > +    /*< private >*/
-> > > +    MachineState parent;
-> > > +
-> > > +    XenIOState *state;
-> > > +
-> > > +    struct {
-> > > +        uint64_t tpm_base_addr;
-> > > +    } cfg;
-> > > +};
-> > > +
-> > > +void arch_handle_ioreq(XenIOState *state, ioreq_t *req)
-> > > +{
-> > > +    hw_error("Invalid ioreq type 0x%x\n", req->type);
-> > > +
-> > > +    return;
-> > > +}
-> > > +
-> > > +void arch_xen_set_memory(XenIOState *state, MemoryRegionSection *section,
-> > > +                         bool add)
-> > > +{
-> > > +}
-> > > +
-> > > +void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length)
-> > > +{
-> > > +}
-> > > +
-> > > +void qmp_xen_set_global_dirty_log(bool enable, Error **errp)
-> > > +{
-> > > +}
-> > > +
-> > > +#ifdef CONFIG_TPM
-> > > +static void xen_enable_tpm(XenArmState *xam)
-> > > +{
-> > > +    Error *errp = NULL;
-> > > +    DeviceState *dev;
-> > > +    SysBusDevice *busdev;
-> > > +
-> > > +    TPMBackend *be = qemu_find_tpm_be("tpm0");
-> > > +    if (be == NULL) {
-> > > +        DPRINTF("Couldn't fine the backend for tpm0\n");
-> > > +        return;
-> > > +    }
-> > > +    dev = qdev_new(TYPE_TPM_TIS_SYSBUS);
-> > > +    object_property_set_link(OBJECT(dev), "tpmdev", OBJECT(be), &errp);
-> > > +    object_property_set_str(OBJECT(dev), "tpmdev", be->id, &errp);
-> > > +    busdev = SYS_BUS_DEVICE(dev);
-> > > +    sysbus_realize_and_unref(busdev, &error_fatal);
-> > > +    sysbus_mmio_map(busdev, 0, xam->cfg.tpm_base_addr);
-> > > +
-> > > +    DPRINTF("Connected tpmdev at address 0x%lx\n",
-> > > xam->cfg.tpm_base_addr);
-> > > +}
-> > > +#endif
-> > > +
-> > > +static void xen_arm_init(MachineState *machine)
-> > > +{
-> > > +    XenArmState *xam = XEN_ARM(machine);
-> > > +
-> > > +    xam->state =  g_new0(XenIOState, 1);
-> > > +
-> > > +    xen_register_ioreq(xam->state, machine->smp.cpus,
-> > > xen_memory_listener);
-> > > +
-> > > +#ifdef CONFIG_TPM
-> > > +    if (xam->cfg.tpm_base_addr) {
-> > > +        xen_enable_tpm(xam);
-> > > +    } else {
-> > > +        DPRINTF("tpm-base-addr is not provided. TPM will not be
-> > > enabled\n");
-> > > +    }
-> > I would remove the "else", we already have a DPRINTF at the end of
-> > xen_enable_tpm.
-> 
-> This print is bit different than the one in /xen_enable_tpm/. I added it
-> because now user needs to provide "tpm_base_addr=0x0C00_0000" from command
-> line. If no /tpm_base_addr/ then /cfg.tpm_base_addr /value is 0x0 and we don't
-> wanna create tpm device at 0x0.
-> 
-> Perhaps instead of debug print, I print a warning here?
+--0000000000007e917105f32c98ab
+Content-Type: text/plain; charset="UTF-8"
 
-Definitely not a warning because it is totally OK to configure QEMU with
-CONFIG_TPM but then not pass tpm_base_addr because you don't want to
-provide one to a Xen VM. But I can see that a debug printf can be useful
-for debugging so it is fine to keep it too.
- 
- 
-> > > +#endif
-> > > +
-> > > +    return;
-> > the return is unnecessary
-> > 
-> > 
-> > > +}
-> > > +
-> > > +#ifdef CONFIG_TPM
-> > > +static void xen_arm_get_tpm_base_addr(Object *obj, Visitor *v,
-> > > +                                      const char *name, void *opaque,
-> > > +                                      Error **errp)
-> > > +{
-> > > +    XenArmState *xam = XEN_ARM(obj);
-> > > +    uint64_t value = xam->cfg.tpm_base_addr;
-> > > +
-> > > +    visit_type_uint64(v, name, &value, errp);
-> > > +}
-> > > +
-> > > +static void xen_arm_set_tpm_base_addr(Object *obj, Visitor *v,
-> > > +                                      const char *name, void *opaque,
-> > > +                                      Error **errp)
-> > > +{
-> > > +    XenArmState *xam = XEN_ARM(obj);
-> > > +    uint64_t value;
-> > > +
-> > > +    if (!visit_type_uint64(v, name, &value, errp)) {
-> > > +        return;
-> > > +    }
-> > > +
-> > > +    xam->cfg.tpm_base_addr = value;
-> > > +}
-> > > +#endif
-> > > +
-> > > +static void xen_arm_machine_class_init(ObjectClass *oc, void *data)
-> > > +{
-> > > +
-> > > +    MachineClass *mc = MACHINE_CLASS(oc);
-> > > +    mc->desc = "Xen Para-virtualized PC";
-> > > +    mc->init = xen_arm_init;
-> > > +    mc->max_cpus = 1;
-> > > +    mc->default_machine_opts = "accel=xen";
-> > > +
-> > > +#ifdef CONFIG_TPM
-> > > +    object_class_property_add(oc, "tpm-base-addr", "uint64_t",
-> > > +                              xen_arm_get_tpm_base_addr,
-> > > +                              xen_arm_set_tpm_base_addr,
-> > > +                              NULL, NULL);
-> > > +    object_class_property_set_description(oc, "tpm-base-addr",
-> > > +                                          "Set Base address for TPM
-> > > device.");
-> > > +
-> > > +    machine_class_allow_dynamic_sysbus_dev(mc, TYPE_TPM_TIS_SYSBUS);
-> > > +#endif
-> > > +}
-> > > +
-> > > +static const TypeInfo xen_arm_machine_type = {
-> > > +    .name = TYPE_XEN_ARM,
-> > > +    .parent = TYPE_MACHINE,
-> > > +    .class_init = xen_arm_machine_class_init,
-> > > +    .instance_size = sizeof(XenArmState),
-> > > +};
-> > > +
-> > > +static void xen_arm_machine_register_types(void)
-> > > +{
-> > > +    type_register_static(&xen_arm_machine_type);
-> > > +}
-> > > +
-> > > +type_init(xen_arm_machine_register_types)
-> > > diff --git a/include/hw/arm/xen_arch_hvm.h b/include/hw/arm/xen_arch_hvm.h
-> > > new file mode 100644
-> > > index 0000000000..8fd645e723
-> > > --- /dev/null
-> > > +++ b/include/hw/arm/xen_arch_hvm.h
-> > > @@ -0,0 +1,9 @@
-> > > +#ifndef HW_XEN_ARCH_ARM_HVM_H
-> > > +#define HW_XEN_ARCH_ARM_HVM_H
-> > > +
-> > > +#include <xen/hvm/ioreq.h>
-> > > +void arch_handle_ioreq(XenIOState *state, ioreq_t *req);
-> > > +void arch_xen_set_memory(XenIOState *state,
-> > > +                         MemoryRegionSection *section,
-> > > +                         bool add);
-> > > +#endif
-> > > diff --git a/include/hw/xen/arch_hvm.h b/include/hw/xen/arch_hvm.h
-> > > index 26674648d8..c7c515220d 100644
-> > > --- a/include/hw/xen/arch_hvm.h
-> > > +++ b/include/hw/xen/arch_hvm.h
-> > > @@ -1,3 +1,5 @@
-> > >   #if defined(TARGET_I386) || defined(TARGET_X86_64)
-> > >   #include "hw/i386/xen_arch_hvm.h"
-> > > +#elif defined(TARGET_ARM) || defined(TARGET_ARM_64)
-> > > +#include "hw/arm/xen_arch_hvm.h"
-> > >   #endif
+On Thu, Jan 26, 2023 at 3:14 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 25.01.2023 16:34, Tamas K Lengyel wrote:
+> > On Tue, Jan 24, 2023 at 6:19 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >>
+> >> On 23.01.2023 19:32, Tamas K Lengyel wrote:
+> >>> On Mon, Jan 23, 2023 at 11:24 AM Jan Beulich <jbeulich@suse.com>
+wrote:
+> >>>> On 23.01.2023 17:09, Tamas K Lengyel wrote:
+> >>>>> On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich <jbeulich@suse.com>
+wrote:
+> >>>>>> --- a/xen/arch/x86/mm/mem_sharing.c
+> >>>>>> +++ b/xen/arch/x86/mm/mem_sharing.c
+> >>>>>> @@ -1653,6 +1653,65 @@ static void copy_vcpu_nonreg_state(struc
+> >>>>>>      hvm_set_nonreg_state(cd_vcpu, &nrs);
+> >>>>>>  }
+> >>>>>>
+> >>>>>> +static int copy_guest_area(struct guest_area *cd_area,
+> >>>>>> +                           const struct guest_area *d_area,
+> >>>>>> +                           struct vcpu *cd_vcpu,
+> >>>>>> +                           const struct domain *d)
+> >>>>>> +{
+> >>>>>> +    mfn_t d_mfn, cd_mfn;
+> >>>>>> +
+> >>>>>> +    if ( !d_area->pg )
+> >>>>>> +        return 0;
+> >>>>>> +
+> >>>>>> +    d_mfn = page_to_mfn(d_area->pg);
+> >>>>>> +
+> >>>>>> +    /* Allocate & map a page for the area if it hasn't been
+already.
+> >>> */
+> >>>>>> +    if ( !cd_area->pg )
+> >>>>>> +    {
+> >>>>>> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
+> >>>>>> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
+> >>>>>> +        p2m_type_t p2mt;
+> >>>>>> +        p2m_access_t p2ma;
+> >>>>>> +        unsigned int offset;
+> >>>>>> +        int ret;
+> >>>>>> +
+> >>>>>> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL,
+> >>> NULL);
+> >>>>>> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
+> >>>>>> +        {
+> >>>>>> +            struct page_info *pg =
+> > alloc_domheap_page(cd_vcpu->domain,
+> >>>>> 0);
+> >>>>>> +
+> >>>>>> +            if ( !pg )
+> >>>>>> +                return -ENOMEM;
+> >>>>>> +
+> >>>>>> +            cd_mfn = page_to_mfn(pg);
+> >>>>>> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
+> >>>>>> +
+> >>>>>> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,
+> >>>>> p2m_ram_rw,
+> >>>>>> +                                 p2m->default_access, -1);
+> >>>>>> +            if ( ret )
+> >>>>>> +                return ret;
+> >>>>>> +        }
+> >>>>>> +        else if ( p2mt != p2m_ram_rw )
+> >>>>>> +            return -EBUSY;
+> >>>>>> +
+> >>>>>> +        /*
+> >>>>>> +         * Simply specify the entire range up to the end of the
+> > page.
+> >>>>> All the
+> >>>>>> +         * function uses it for is a check for not crossing page
+> >>>>> boundaries.
+> >>>>>> +         */
+> >>>>>> +        offset = PAGE_OFFSET(d_area->map);
+> >>>>>> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
+> >>>>>> +                             PAGE_SIZE - offset, cd_area, NULL);
+> >>>>>> +        if ( ret )
+> >>>>>> +            return ret;
+> >>>>>> +    }
+> >>>>>> +    else
+> >>>>>> +        cd_mfn = page_to_mfn(cd_area->pg);
+> >>>>>
+> >>>>> Everything to this point seems to be non mem-sharing/forking
+related.
+> >>> Could
+> >>>>> these live somewhere else? There must be some other place where
+> >>> allocating
+> >>>>> these areas happens already for non-fork VMs so it would make sense
+to
+> >>> just
+> >>>>> refactor that code to be callable from here.
+> >>>>
+> >>>> It is the "copy" aspect with makes this mem-sharing (or really fork)
+> >>>> specific. Plus in the end this is no different from what you have
+> >>>> there right now for copying the vCPU info area. In the final patch
+> >>>> that other code gets removed by re-using the code here.
+> >>>
+> >>> Yes, the copy part is fork-specific. Arguably if there was a way to do
+> > the
+> >>> allocation of the page for vcpu_info I would prefer that being
+> > elsewhere,
+> >>> but while the only requirement is allocate-page and copy from parent
+> > I'm OK
+> >>> with that logic being in here because it's really straight forward.
+But
+> > now
+> >>> you also do extra sanity checks here which are harder to comprehend in
+> > this
+> >>> context alone.
+> >>
+> >> What sanity checks are you talking about (also below, where you claim
+> >> map_guest_area() would be used only to sanity check)?
+> >
+> > Did I misread your comment above "All the function uses it for is a
+check
+> > for not crossing page boundaries"? That sounds to me like a simple
+sanity
+> > check, unclear why it matters though and why only for forks.
+>
+> The comment is about the function's use of the range it is being passed.
+> It doesn't say in any way that the function is doing only sanity checking.
+> If the comment wording is ambiguous or unclear, I'm happy to take
+> improvement suggestions.
 
+Yes, please do, it definitely was confusing while reviewing the patch.
+
+Thanks,
+Tamas
+
+--0000000000007e917105f32c98ab
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br>On Thu, Jan 26, 2023 at 3:14 AM Jan Beulich &lt;<a=
+ href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
+<br>&gt; On 25.01.2023 16:34, Tamas K Lengyel wrote:<br>&gt; &gt; On Tue, J=
+an 24, 2023 at 6:19 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com"=
+>jbeulich@suse.com</a>&gt; wrote:<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; On 23.0=
+1.2023 19:32, Tamas K Lengyel wrote:<br>&gt; &gt;&gt;&gt; On Mon, Jan 23, 2=
+023 at 11:24 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeuli=
+ch@suse.com</a>&gt; wrote:<br>&gt; &gt;&gt;&gt;&gt; On 23.01.2023 17:09, Ta=
+mas K Lengyel wrote:<br>&gt; &gt;&gt;&gt;&gt;&gt; On Mon, Jan 23, 2023 at 9=
+:55 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.c=
+om</a>&gt; wrote:<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; --- a/xen/arch/x86/mm/me=
+m_sharing.c<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +++ b/xen/arch/x86/mm/mem_shar=
+ing.c<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; @@ -1653,6 +1653,65 @@ static void c=
+opy_vcpu_nonreg_state(struc<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; =C2=A0 =C2=A0 =
+=C2=A0hvm_set_nonreg_state(cd_vcpu, &amp;nrs);<br>&gt; &gt;&gt;&gt;&gt;&gt;=
+&gt; =C2=A0}<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>&gt; &gt;&gt;&gt;&gt;&gt;&=
+gt; +static int copy_guest_area(struct guest_area *cd_area,<br>&gt; &gt;&gt=
+;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct guest_area *d_area,<br>&gt=
+; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct vcpu *cd_vcpu,<br>&gt;=
+ &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct domain *d)<br>&g=
+t; &gt;&gt;&gt;&gt;&gt;&gt; +{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
+=C2=A0mfn_t d_mfn, cd_mfn;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&=
+gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0if ( !d_area-&gt;pg )<br>&gt; &gt;&gt;&g=
+t;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>&gt; &gt;&gt;&gt;&=
+gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0d_mfn =3D pag=
+e_to_mfn(d_area-&gt;pg);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt=
+;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0/* Allocate &amp; map a page for the area =
+if it hasn&#39;t been already.<br>&gt; &gt;&gt;&gt; */<br>&gt; &gt;&gt;&gt;=
+&gt;&gt;&gt; + =C2=A0 =C2=A0if ( !cd_area-&gt;pg )<br>&gt; &gt;&gt;&gt;&gt;=
+&gt;&gt; + =C2=A0 =C2=A0{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0gfn_t gfn =3D mfn_to_gfn(d, d_mfn);<br>&gt; &gt;&gt;&gt;&gt;&g=
+t;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0struct p2m_domain *p2m =3D p2m_get_host=
+p2m(cd_vcpu-&gt;domain);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0p2m_type_t p2mt;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0p2m_access_t p2ma;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0unsigned int offset;<br>&gt; &gt;&gt;&gt;&gt;&gt;&g=
+t; + =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +=
+<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D p=
+2m-&gt;get_entry(p2m, gfn, &amp;p2mt, &amp;p2ma, 0, NULL,<br>&gt; &gt;&gt;&=
+gt; NULL);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if=
+ ( mfn_eq(cd_mfn, INVALID_MFN) )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0struct page_info *pg =3D<br>&gt; &gt; alloc_domheap=
+_page(cd_vcpu-&gt;domain,<br>&gt; &gt;&gt;&gt;&gt;&gt; 0);<br>&gt; &gt;&gt;=
+&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0if ( !pg )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>&gt; &gt=
+;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_mfn(pg);<br>&gt; &gt;&gt;&gt;=
+&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set_gpfn_from_mfn(m=
+fn_x(cd_mfn), gfn_x(gfn));<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&=
+gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D p2m-=
+&gt;set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,<br>&gt; &gt;&gt;&gt;&gt;&gt;=
+ p2m_ram_rw,<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 p2m-&gt;default_access, -1);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret )<br>&gt; &gt;&gt;&gt;&gt=
+;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r=
+et;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt;=
+ &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0else if ( p2mt !=3D =
+p2m_ram_rw )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0return -EBUSY;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt=
+;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>&gt; &gt;&gt;&gt;&=
+gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Simply specify the entire range=
+ up to the end of the<br>&gt; &gt; page.<br>&gt; &gt;&gt;&gt;&gt;&gt; All t=
+he<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * functio=
+n uses it for is a check for not crossing page<br>&gt; &gt;&gt;&gt;&gt;&gt;=
+ boundaries.<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ */<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0offset =
+=3D PAGE_OFFSET(d_area-&gt;map);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0ret =3D map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + off=
+set,<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAGE_SIZE - =
+offset, cd_area, NULL);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0if ( ret )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =
+=C2=A0 =C2=A0}<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0else<br>&gt;=
+ &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_m=
+fn(cd_area-&gt;pg);<br>&gt; &gt;&gt;&gt;&gt;&gt;<br>&gt; &gt;&gt;&gt;&gt;&g=
+t; Everything to this point seems to be non mem-sharing/forking related.<br=
+>&gt; &gt;&gt;&gt; Could<br>&gt; &gt;&gt;&gt;&gt;&gt; these live somewhere =
+else? There must be some other place where<br>&gt; &gt;&gt;&gt; allocating<=
+br>&gt; &gt;&gt;&gt;&gt;&gt; these areas happens already for non-fork VMs s=
+o it would make sense to<br>&gt; &gt;&gt;&gt; just<br>&gt; &gt;&gt;&gt;&gt;=
+&gt; refactor that code to be callable from here.<br>&gt; &gt;&gt;&gt;&gt;<=
+br>&gt; &gt;&gt;&gt;&gt; It is the &quot;copy&quot; aspect with makes this =
+mem-sharing (or really fork)<br>&gt; &gt;&gt;&gt;&gt; specific. Plus in the=
+ end this is no different from what you have<br>&gt; &gt;&gt;&gt;&gt; there=
+ right now for copying the vCPU info area. In the final patch<br>&gt; &gt;&=
+gt;&gt;&gt; that other code gets removed by re-using the code here.<br>&gt;=
+ &gt;&gt;&gt;<br>&gt; &gt;&gt;&gt; Yes, the copy part is fork-specific. Arg=
+uably if there was a way to do<br>&gt; &gt; the<br>&gt; &gt;&gt;&gt; alloca=
+tion of the page for vcpu_info I would prefer that being<br>&gt; &gt; elsew=
+here,<br>&gt; &gt;&gt;&gt; but while the only requirement is allocate-page =
+and copy from parent<br>&gt; &gt; I&#39;m OK<br>&gt; &gt;&gt;&gt; with that=
+ logic being in here because it&#39;s really straight forward. But<br>&gt; =
+&gt; now<br>&gt; &gt;&gt;&gt; you also do extra sanity checks here which ar=
+e harder to comprehend in<br>&gt; &gt; this<br>&gt; &gt;&gt;&gt; context al=
+one.<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; What sanity checks are you talking a=
+bout (also below, where you claim<br>&gt; &gt;&gt; map_guest_area() would b=
+e used only to sanity check)?<br>&gt; &gt;<br>&gt; &gt; Did I misread your =
+comment above &quot;All the function uses it for is a check<br>&gt; &gt; fo=
+r not crossing page boundaries&quot;? That sounds to me like a simple sanit=
+y<br>&gt; &gt; check, unclear why it matters though and why only for forks.=
+<br>&gt;<br>&gt; The comment is about the function&#39;s use of the range i=
+t is being passed.<br>&gt; It doesn&#39;t say in any way that the function =
+is doing only sanity checking.<br>&gt; If the comment wording is ambiguous =
+or unclear, I&#39;m happy to take<br>&gt; improvement suggestions.<br><div>=
+<br></div><div>Yes, please do, it definitely was confusing while reviewing =
+the patch.<br></div><div><br></div><div>Thanks,<br></div><div>Tamas<br></di=
+v></div>
+
+--0000000000007e917105f32c98ab--
 
