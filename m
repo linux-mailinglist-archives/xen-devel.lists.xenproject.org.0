@@ -2,35 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DEA667D07C
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 16:42:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485094.752062 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F18067D0C1
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 17:00:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485104.752083 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL4OV-0007E6-SG; Thu, 26 Jan 2023 15:42:31 +0000
+	id 1pL4ep-0001J8-GW; Thu, 26 Jan 2023 15:59:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485094.752062; Thu, 26 Jan 2023 15:42:31 +0000
+Received: by outflank-mailman (output) from mailman id 485104.752083; Thu, 26 Jan 2023 15:59:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pL4OV-0007Bm-Ob; Thu, 26 Jan 2023 15:42:31 +0000
-Received: by outflank-mailman (input) for mailman id 485094;
- Thu, 26 Jan 2023 15:42:30 +0000
+	id 1pL4ep-0001Et-Cy; Thu, 26 Jan 2023 15:59:23 +0000
+Received: by outflank-mailman (input) for mailman id 485104;
+ Thu, 26 Jan 2023 15:59:22 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=b5Fb=5X=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
- id 1pL4OU-0007Bg-C6
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 15:42:30 +0000
-Received: from so254-35.mailgun.net (so254-35.mailgun.net [198.61.254.35])
- by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
- id 0957f3d6-9d90-11ed-a5d9-ddcf98b90cbd;
- Thu, 26 Jan 2023 16:42:28 +0100 (CET)
-Received: from mail-yb1-f179.google.com (mail-yb1-f179.google.com
- [209.85.219.179]) by
- c0240418b22b with SMTP id 63d29f6241f80c63a459d68c (version=TLS1.3,
- cipher=TLS_AES_128_GCM_SHA256); Thu, 26 Jan 2023 15:42:26 GMT
-Received: by mail-yb1-f179.google.com with SMTP id 123so2438690ybv.6
- for <xen-devel@lists.xenproject.org>; Thu, 26 Jan 2023 07:42:26 -0800 (PST)
+ <SRS0=wwAt=5X=amd.com=stefano.stabellini@srs-se1.protection.inumbo.net>)
+ id 1pL4en-0001En-Vs
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 15:59:22 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 63e0e897-9d92-11ed-a5d9-ddcf98b90cbd;
+ Thu, 26 Jan 2023 16:59:19 +0100 (CET)
+Received: from MW4PR03CA0238.namprd03.prod.outlook.com (2603:10b6:303:b9::33)
+ by DM4PR12MB6398.namprd12.prod.outlook.com (2603:10b6:8:b5::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Thu, 26 Jan
+ 2023 15:59:16 +0000
+Received: from CO1NAM11FT071.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:b9:cafe::e5) by MW4PR03CA0238.outlook.office365.com
+ (2603:10b6:303:b9::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22 via Frontend
+ Transport; Thu, 26 Jan 2023 15:59:16 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT071.mail.protection.outlook.com (10.13.175.56) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.17 via Frontend Transport; Thu, 26 Jan 2023 15:59:15 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Thu, 26 Jan
+ 2023 09:59:14 -0600
+Received: from ubuntu-20.04.2-arm64.shared (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34 via Frontend Transport; Thu, 26 Jan 2023 09:59:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -41,289 +58,113 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-X-Inumbo-ID: 0957f3d6-9d90-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
- q=dns/txt; s=mailo; t=1674747746; x=1674754946; h=Content-Type: Cc: To: To:
- Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
- MIME-Version: Sender: Sender;
- bh=o5LlAxm5OT7NlU/UHCsH/EC8XsY/l2h67gaOon1D984=;
- b=jwoREEcpVTayJiH2Ikc8XGnjKB5tND7Gx/Xn1KqRVhbchl7sKxy086nKH+SsZVSHC1k9il+9OY6YrJgKxHBTVlZyfruIjkMGVpId+AXcvPAsTncsvIPWVM/3jOIkvAsHEU/dzey3TguglWDnMmHb+OQLEtXN3hJreYBn9SH4VjDwD4g0BydKP+dLipemyIsItDyQWzPik9P/LZaTFmx3p2/4+uF5DytNjVBZhJC+n6omyLOS97Gm/m2FQXCxY+IEVmCVURpg5ARLiL+XOZbNvHVEEV6EU3TW1dwr45QeefodeVbF5ilXtHerQLII8Bhl+BXw17qvr01OKTdJsWnvMA==
-X-Mailgun-Sending-Ip: 198.61.254.35
-X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
-Sender: tamas@tklengyel.com
-X-Gm-Message-State: AFqh2koUvt9zWZqzKn524aIOqcxJ5rett87VxsY/hB1veMY85Gz8oA4I
-	EagYQa5u9hxPO0HdYYnB3qBAmXC0btsvJh8vyBU=
-X-Google-Smtp-Source: AMrXdXuSqMC+T7CjEFrOtcBhFSv0+T0wPEDQwTvKipL7Qg0sdKhNTE0df15tTgfdfOTc4kxVG29IOrmOCOrpFxYoteo=
-X-Received: by 2002:a25:af8a:0:b0:7fc:a696:981c with SMTP id
- g10-20020a25af8a000000b007fca696981cmr2981028ybh.165.1674747746093; Thu, 26
- Jan 2023 07:42:26 -0800 (PST)
-MIME-Version: 1.0
-References: <33cd2aba-73fc-6dfe-d0f2-f41883e7cdfa@suse.com>
- <dad36e4c-4529-6836-c50e-7c5febb8eea4@suse.com> <CABfawhmTe3Rxwo54gR5-4KGv=K0Ai7o9g6i=1nkb=XdES1CrcQ@mail.gmail.com>
- <a92b9714-5e29-146f-3b68-b44692c56de1@suse.com> <CABfawhkiaheQPJhtG7fupHcbfYPUy+BJgvbVoQ+FJUnev5bowQ@mail.gmail.com>
- <6099e6fb-0a3e-c6da-2766-d61c2c3d1e96@suse.com> <CABfawh=1XUWbeRJJZQsYVLyZX-Ez8=D2YYCgBYvDGQemHeJkzA@mail.gmail.com>
- <cfffcf15-c2fa-6529-d1ff-a71a7571bfe2@suse.com>
-In-Reply-To: <cfffcf15-c2fa-6529-d1ff-a71a7571bfe2@suse.com>
-From: Tamas K Lengyel <tamas@tklengyel.com>
-Date: Thu, 26 Jan 2023 10:41:49 -0500
-X-Gmail-Original-Message-ID: <CABfawhm_b=MskQN_zZsuKz0FDtZzZNvBMa8bXtxxUZU9rXbUCA@mail.gmail.com>
-Message-ID: <CABfawhm_b=MskQN_zZsuKz0FDtZzZNvBMa8bXtxxUZU9rXbUCA@mail.gmail.com>
-Subject: Re: [PATCH v2 4/8] x86/mem-sharing: copy GADDR based shared guest areas
+Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
+X-Inumbo-ID: 63e0e897-9d92-11ed-a5d9-ddcf98b90cbd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lJAy8u549xO7FSbiHmtv6cGSNfE40BzoVH8yZb3gqVHO/ZKyocfQEr7iXYeJjt4h/HUJmZwYuCvz/l51qjRqpgk3/MZD3EG/zcPTOAXr7wd3b6sXsIPbZyz/DNvN0fG2nemBfYNogMwkPvgVS7/XXMFzIBVzMX0yTiIKm57gXj17R/qu9QX36KPCs7Ikm2fPumM/Dnhk//cjqh9XsfyHEfpakO7J46BOXsmBQSlEq6EVGmsDDPFxTxNpirMzJ381Mt/9kQoMxH/lPV3n5V/qQjQ376uKXQjwl8K2TnEZ7bsst3C9I5pUtkL0yPKpNtB4s9Py1gWELJh/j8RL+IDYLg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=khjpEyDzuKs0srj1SOymkxfPi+62LoBUiSGbPAT6KQI=;
+ b=lW2OlqXCJ7EArNoEcsRx8D0chrvDTPODK6+A6JFK/Qb2C598yr9FolJ51kKvZg2wJivZKfdeVV31M22boyXFI7fzfpwm8jrIc4KiS6su+rGTXXD2suZ0yezEnkMDe7N98ojbVN9k7G4lsrtGwTPZjXaNwB0qCm6XdfuinCeqnolPI4zs6CaZtOxTikrEvh8zqrFC5zoLF5AJtb9GwVt+1WALcP6HOHRxVGHIpAW5YWzxKfN7m9x1xdPqnJ5/li/Ro3IuOmkou9KtwHYfadDFxExWyomvGcrZTTf619d5JaAwDpHurGoihFXP/jM9MbXvIfg0sS9D4KnRbiX61eajCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=khjpEyDzuKs0srj1SOymkxfPi+62LoBUiSGbPAT6KQI=;
+ b=uBlhObuBp9F2zTi5hUty2J8LFx37/ShwVbCavTIxzW5a/1RcxNwBFJAlNdJyMKyqs0uvUcj2/RYSpfY8ALm8XBoAK2Ephs0+WYVpAUVTVbXoowbURG9FpTkpeKQ0NLSbHzFeZHKsYDocd8mSplRUGY8hcHY6pSzDv8oWH6ppy8k=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Date: Thu, 26 Jan 2023 07:59:08 -0800
+From: Stefano Stabellini <stefano.stabellini@amd.com>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Jan Beulich <jbeulich@suse.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, 
-	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
-	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Content-Type: multipart/alternative; boundary="0000000000007e917105f32c98ab"
+CC: Stefano Stabellini <sstabellini@kernel.org>, <george.dunlap@citrix.com>,
+	<andrew.cooper3@citrix.com>, <roger.pau@citrix.com>,
+	<Bertrand.Marquis@arm.com>, <julien@xen.org>, Stefano Stabellini
+	<stefano.stabellini@amd.com>, <xen-devel@lists.xenproject.org>
+Subject: Re: [PATCH] Add more rules to docs/misra/rules.rst
+In-Reply-To: <9d536cec-726d-4a39-da36-ecc19d35d420@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2301260749150.1978264@ubuntu-linux-20-04-desktop>
+References: <20230125205735.2662514-1-sstabellini@kernel.org> <9d536cec-726d-4a39-da36-ecc19d35d420@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+MIME-Version: 1.0
+Content-Type: text/plain; charset="US-ASCII"
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT071:EE_|DM4PR12MB6398:EE_
+X-MS-Office365-Filtering-Correlation-Id: c01d5663-9fa2-4427-b02d-08daffb64657
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	1SewCxArtfHH8VvxTuh6pP47ffIUk7XYQye3VJqC4wKDgb56HNG77jDTA9NdcYjV4C4QpgdYVnacMSBZayoQMnM+KG3JtV9LA8pRuDySd/yu7mAOX/8z8qGyzu16RFtJXL5wSWZdDEtzJRVp5RhQjwtMXluwVG8Be09XFa6sgrKisaCpr08mq3LWOcMvOeD+N87J2+5B5wkhwIqsyoAHiMj9/X+Y/1IveIDevZYV78pI+qmnURqDZULU7wRx5oP3PwYLng3WWHNQrliucAqPTWVOrv+aU9wkcV7VP0XBT0xRzWelYHn2e2a0J9jmu65ehSXdl+o5u1Ogp1G3UNbcLsfCzZUf0UUMXJ+9DerwmF5t1lXzmMHY2yI4FRkIkDCkVtOcFCehWit8LY87XR2fii427n31oEVnQWU9NweTuT/Sc7RQj2TrFPYT8YoFPkGnz3C/g6/6wTVZVOQoA31KZPiGhaXwlhVBgFtkB9rp3gOndYwmxnss/4FJE14JtTgfribZR9jfb84XsVOPRodpuCaqJYud0TQHQVLwmG59mHobqcXy5Lft0aoStM0ww2AwcvtoCEl8pEBWJvYP/99nsw+2LijfGJM1S+zBEO3HaLKXbErSc10QE392xJvf/RImddv1OBLNylIoIoyn2c7aGe/jVFNNbS7j+XA1SvX/nYOLpu/eOD/pnjjDwCwnw+FwlUTvVuEcrs4/DIwyh8AhHW/viQmU0bz6Iga0GzQL35s=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(7916004)(4636009)(346002)(136003)(376002)(396003)(39860400002)(451199018)(36840700001)(40470700004)(46966006)(86362001)(426003)(336012)(316002)(47076005)(33716001)(54906003)(9686003)(82310400005)(6666004)(186003)(81166007)(53546011)(83380400001)(478600001)(26005)(44832011)(2906002)(70586007)(70206006)(8676002)(5660300002)(40460700003)(40480700001)(6916009)(356005)(82740400003)(8936002)(41300700001)(36860700001)(4326008)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Jan 2023 15:59:15.3910
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c01d5663-9fa2-4427-b02d-08daffb64657
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT071.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6398
 
---0000000000007e917105f32c98ab
-Content-Type: text/plain; charset="UTF-8"
+On Thu, 26 Jan 2023, Jan Beulich wrote:
+> On 25.01.2023 21:57, Stefano Stabellini wrote:
+> > From: Stefano Stabellini <stefano.stabellini@amd.com>
+> > 
+> > As agreed during the last MISRA C discussion, I am adding the following
+> > MISRA C rules: 7.1, 7.3, 18.3.
+> > 
+> > I am also adding 13.1 and 18.2 that were "agreed pending an analysis on
+> > the amount of violations".
+> > 
+> > In the case of 13.1 there are zero violations reported by cppcheck.
+> > 
+> > In the case of 18.2, there are zero violations reported by cppcheck
+> > after deviating the linker symbols, as discussed.
+> 
+> I find this suspicious.
 
-On Thu, Jan 26, 2023 at 3:14 AM Jan Beulich <jbeulich@suse.com> wrote:
->
-> On 25.01.2023 16:34, Tamas K Lengyel wrote:
-> > On Tue, Jan 24, 2023 at 6:19 AM Jan Beulich <jbeulich@suse.com> wrote:
-> >>
-> >> On 23.01.2023 19:32, Tamas K Lengyel wrote:
-> >>> On Mon, Jan 23, 2023 at 11:24 AM Jan Beulich <jbeulich@suse.com>
-wrote:
-> >>>> On 23.01.2023 17:09, Tamas K Lengyel wrote:
-> >>>>> On Mon, Jan 23, 2023 at 9:55 AM Jan Beulich <jbeulich@suse.com>
-wrote:
-> >>>>>> --- a/xen/arch/x86/mm/mem_sharing.c
-> >>>>>> +++ b/xen/arch/x86/mm/mem_sharing.c
-> >>>>>> @@ -1653,6 +1653,65 @@ static void copy_vcpu_nonreg_state(struc
-> >>>>>>      hvm_set_nonreg_state(cd_vcpu, &nrs);
-> >>>>>>  }
-> >>>>>>
-> >>>>>> +static int copy_guest_area(struct guest_area *cd_area,
-> >>>>>> +                           const struct guest_area *d_area,
-> >>>>>> +                           struct vcpu *cd_vcpu,
-> >>>>>> +                           const struct domain *d)
-> >>>>>> +{
-> >>>>>> +    mfn_t d_mfn, cd_mfn;
-> >>>>>> +
-> >>>>>> +    if ( !d_area->pg )
-> >>>>>> +        return 0;
-> >>>>>> +
-> >>>>>> +    d_mfn = page_to_mfn(d_area->pg);
-> >>>>>> +
-> >>>>>> +    /* Allocate & map a page for the area if it hasn't been
-already.
-> >>> */
-> >>>>>> +    if ( !cd_area->pg )
-> >>>>>> +    {
-> >>>>>> +        gfn_t gfn = mfn_to_gfn(d, d_mfn);
-> >>>>>> +        struct p2m_domain *p2m = p2m_get_hostp2m(cd_vcpu->domain);
-> >>>>>> +        p2m_type_t p2mt;
-> >>>>>> +        p2m_access_t p2ma;
-> >>>>>> +        unsigned int offset;
-> >>>>>> +        int ret;
-> >>>>>> +
-> >>>>>> +        cd_mfn = p2m->get_entry(p2m, gfn, &p2mt, &p2ma, 0, NULL,
-> >>> NULL);
-> >>>>>> +        if ( mfn_eq(cd_mfn, INVALID_MFN) )
-> >>>>>> +        {
-> >>>>>> +            struct page_info *pg =
-> > alloc_domheap_page(cd_vcpu->domain,
-> >>>>> 0);
-> >>>>>> +
-> >>>>>> +            if ( !pg )
-> >>>>>> +                return -ENOMEM;
-> >>>>>> +
-> >>>>>> +            cd_mfn = page_to_mfn(pg);
-> >>>>>> +            set_gpfn_from_mfn(mfn_x(cd_mfn), gfn_x(gfn));
-> >>>>>> +
-> >>>>>> +            ret = p2m->set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,
-> >>>>> p2m_ram_rw,
-> >>>>>> +                                 p2m->default_access, -1);
-> >>>>>> +            if ( ret )
-> >>>>>> +                return ret;
-> >>>>>> +        }
-> >>>>>> +        else if ( p2mt != p2m_ram_rw )
-> >>>>>> +            return -EBUSY;
-> >>>>>> +
-> >>>>>> +        /*
-> >>>>>> +         * Simply specify the entire range up to the end of the
-> > page.
-> >>>>> All the
-> >>>>>> +         * function uses it for is a check for not crossing page
-> >>>>> boundaries.
-> >>>>>> +         */
-> >>>>>> +        offset = PAGE_OFFSET(d_area->map);
-> >>>>>> +        ret = map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + offset,
-> >>>>>> +                             PAGE_SIZE - offset, cd_area, NULL);
-> >>>>>> +        if ( ret )
-> >>>>>> +            return ret;
-> >>>>>> +    }
-> >>>>>> +    else
-> >>>>>> +        cd_mfn = page_to_mfn(cd_area->pg);
-> >>>>>
-> >>>>> Everything to this point seems to be non mem-sharing/forking
-related.
-> >>> Could
-> >>>>> these live somewhere else? There must be some other place where
-> >>> allocating
-> >>>>> these areas happens already for non-fork VMs so it would make sense
-to
-> >>> just
-> >>>>> refactor that code to be callable from here.
-> >>>>
-> >>>> It is the "copy" aspect with makes this mem-sharing (or really fork)
-> >>>> specific. Plus in the end this is no different from what you have
-> >>>> there right now for copying the vCPU info area. In the final patch
-> >>>> that other code gets removed by re-using the code here.
-> >>>
-> >>> Yes, the copy part is fork-specific. Arguably if there was a way to do
-> > the
-> >>> allocation of the page for vcpu_info I would prefer that being
-> > elsewhere,
-> >>> but while the only requirement is allocate-page and copy from parent
-> > I'm OK
-> >>> with that logic being in here because it's really straight forward.
-But
-> > now
-> >>> you also do extra sanity checks here which are harder to comprehend in
-> > this
-> >>> context alone.
-> >>
-> >> What sanity checks are you talking about (also below, where you claim
-> >> map_guest_area() would be used only to sanity check)?
-> >
-> > Did I misread your comment above "All the function uses it for is a
-check
-> > for not crossing page boundaries"? That sounds to me like a simple
-sanity
-> > check, unclear why it matters though and why only for forks.
->
-> The comment is about the function's use of the range it is being passed.
-> It doesn't say in any way that the function is doing only sanity checking.
-> If the comment wording is ambiguous or unclear, I'm happy to take
-> improvement suggestions.
+Hi Jan, you are right to be suspicious about 18.2 :-)  cppcheck is
+clearly not doing a great job at finding violations. Here is the full
+picture:
 
-Yes, please do, it definitely was confusing while reviewing the patch.
+- cppcheck finds 3 violations, obviously related to linker symbols
+specifically common/version.c:xen_build_init and
+xen/lib/ctors.c:init_constructors
 
-Thanks,
-Tamas
+- Coverity finds 9 violations, not sure which ones
 
---0000000000007e917105f32c98ab
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+- Eclair finds 56 total on x86. Eclair is always the strictest of the
+  three tools and is flagging:
+  - the usage of the guest_mode macro in x86/traps.c and other places
+  - the usage of the NEED_OP/NEED_IP macros in common/lzo.c
+  the remaining violations should be less than 10
 
-<div dir=3D"ltr"><br><br>On Thu, Jan 26, 2023 at 3:14 AM Jan Beulich &lt;<a=
- href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
-<br>&gt; On 25.01.2023 16:34, Tamas K Lengyel wrote:<br>&gt; &gt; On Tue, J=
-an 24, 2023 at 6:19 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com"=
->jbeulich@suse.com</a>&gt; wrote:<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; On 23.0=
-1.2023 19:32, Tamas K Lengyel wrote:<br>&gt; &gt;&gt;&gt; On Mon, Jan 23, 2=
-023 at 11:24 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeuli=
-ch@suse.com</a>&gt; wrote:<br>&gt; &gt;&gt;&gt;&gt; On 23.01.2023 17:09, Ta=
-mas K Lengyel wrote:<br>&gt; &gt;&gt;&gt;&gt;&gt; On Mon, Jan 23, 2023 at 9=
-:55 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.c=
-om</a>&gt; wrote:<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; --- a/xen/arch/x86/mm/me=
-m_sharing.c<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +++ b/xen/arch/x86/mm/mem_shar=
-ing.c<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; @@ -1653,6 +1653,65 @@ static void c=
-opy_vcpu_nonreg_state(struc<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; =C2=A0 =C2=A0 =
-=C2=A0hvm_set_nonreg_state(cd_vcpu, &amp;nrs);<br>&gt; &gt;&gt;&gt;&gt;&gt;=
-&gt; =C2=A0}<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt;<br>&gt; &gt;&gt;&gt;&gt;&gt;&=
-gt; +static int copy_guest_area(struct guest_area *cd_area,<br>&gt; &gt;&gt=
-;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct guest_area *d_area,<br>&gt=
-; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 struct vcpu *cd_vcpu,<br>&gt;=
- &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct domain *d)<br>&g=
-t; &gt;&gt;&gt;&gt;&gt;&gt; +{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
-=C2=A0mfn_t d_mfn, cd_mfn;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&=
-gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0if ( !d_area-&gt;pg )<br>&gt; &gt;&gt;&g=
-t;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>&gt; &gt;&gt;&gt;&=
-gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0d_mfn =3D pag=
-e_to_mfn(d_area-&gt;pg);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt=
-;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0/* Allocate &amp; map a page for the area =
-if it hasn&#39;t been already.<br>&gt; &gt;&gt;&gt; */<br>&gt; &gt;&gt;&gt;=
-&gt;&gt;&gt; + =C2=A0 =C2=A0if ( !cd_area-&gt;pg )<br>&gt; &gt;&gt;&gt;&gt;=
-&gt;&gt; + =C2=A0 =C2=A0{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0gfn_t gfn =3D mfn_to_gfn(d, d_mfn);<br>&gt; &gt;&gt;&gt;&gt;&g=
-t;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0struct p2m_domain *p2m =3D p2m_get_host=
-p2m(cd_vcpu-&gt;domain);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0p2m_type_t p2mt;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0p2m_access_t p2ma;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0unsigned int offset;<br>&gt; &gt;&gt;&gt;&gt;&gt;&g=
-t; + =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +=
-<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D p=
-2m-&gt;get_entry(p2m, gfn, &amp;p2mt, &amp;p2ma, 0, NULL,<br>&gt; &gt;&gt;&=
-gt; NULL);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0if=
- ( mfn_eq(cd_mfn, INVALID_MFN) )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0{<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0struct page_info *pg =3D<br>&gt; &gt; alloc_domheap=
-_page(cd_vcpu-&gt;domain,<br>&gt; &gt;&gt;&gt;&gt;&gt; 0);<br>&gt; &gt;&gt;=
-&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0if ( !pg )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -ENOMEM;<br>&gt; &gt=
-;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_mfn(pg);<br>&gt; &gt;&gt;&gt;=
-&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0set_gpfn_from_mfn(m=
-fn_x(cd_mfn), gfn_x(gfn));<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt;&=
-gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D p2m-=
-&gt;set_entry(p2m, gfn, cd_mfn, PAGE_ORDER_4K,<br>&gt; &gt;&gt;&gt;&gt;&gt;=
- p2m_ram_rw,<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 p2m-&gt;default_access, -1);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if ( ret )<br>&gt; &gt;&gt;&gt;&gt=
-;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r=
-et;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>&gt;=
- &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0else if ( p2mt !=3D =
-p2m_ram_rw )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0return -EBUSY;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; +<br>&gt; &gt=
-;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>&gt; &gt;&gt;&gt;&=
-gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * Simply specify the entire range=
- up to the end of the<br>&gt; &gt; page.<br>&gt; &gt;&gt;&gt;&gt;&gt; All t=
-he<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 * functio=
-n uses it for is a check for not crossing page<br>&gt; &gt;&gt;&gt;&gt;&gt;=
- boundaries.<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- */<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0offset =
-=3D PAGE_OFFSET(d_area-&gt;map);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0ret =3D map_guest_area(cd_vcpu, gfn_to_gaddr(gfn) + off=
-set,<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 PAGE_SIZE - =
-offset, cd_area, NULL);<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0if ( ret )<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =
-=C2=A0 =C2=A0}<br>&gt; &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0else<br>&gt;=
- &gt;&gt;&gt;&gt;&gt;&gt; + =C2=A0 =C2=A0 =C2=A0 =C2=A0cd_mfn =3D page_to_m=
-fn(cd_area-&gt;pg);<br>&gt; &gt;&gt;&gt;&gt;&gt;<br>&gt; &gt;&gt;&gt;&gt;&g=
-t; Everything to this point seems to be non mem-sharing/forking related.<br=
->&gt; &gt;&gt;&gt; Could<br>&gt; &gt;&gt;&gt;&gt;&gt; these live somewhere =
-else? There must be some other place where<br>&gt; &gt;&gt;&gt; allocating<=
-br>&gt; &gt;&gt;&gt;&gt;&gt; these areas happens already for non-fork VMs s=
-o it would make sense to<br>&gt; &gt;&gt;&gt; just<br>&gt; &gt;&gt;&gt;&gt;=
-&gt; refactor that code to be callable from here.<br>&gt; &gt;&gt;&gt;&gt;<=
-br>&gt; &gt;&gt;&gt;&gt; It is the &quot;copy&quot; aspect with makes this =
-mem-sharing (or really fork)<br>&gt; &gt;&gt;&gt;&gt; specific. Plus in the=
- end this is no different from what you have<br>&gt; &gt;&gt;&gt;&gt; there=
- right now for copying the vCPU info area. In the final patch<br>&gt; &gt;&=
-gt;&gt;&gt; that other code gets removed by re-using the code here.<br>&gt;=
- &gt;&gt;&gt;<br>&gt; &gt;&gt;&gt; Yes, the copy part is fork-specific. Arg=
-uably if there was a way to do<br>&gt; &gt; the<br>&gt; &gt;&gt;&gt; alloca=
-tion of the page for vcpu_info I would prefer that being<br>&gt; &gt; elsew=
-here,<br>&gt; &gt;&gt;&gt; but while the only requirement is allocate-page =
-and copy from parent<br>&gt; &gt; I&#39;m OK<br>&gt; &gt;&gt;&gt; with that=
- logic being in here because it&#39;s really straight forward. But<br>&gt; =
-&gt; now<br>&gt; &gt;&gt;&gt; you also do extra sanity checks here which ar=
-e harder to comprehend in<br>&gt; &gt; this<br>&gt; &gt;&gt;&gt; context al=
-one.<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; What sanity checks are you talking a=
-bout (also below, where you claim<br>&gt; &gt;&gt; map_guest_area() would b=
-e used only to sanity check)?<br>&gt; &gt;<br>&gt; &gt; Did I misread your =
-comment above &quot;All the function uses it for is a check<br>&gt; &gt; fo=
-r not crossing page boundaries&quot;? That sounds to me like a simple sanit=
-y<br>&gt; &gt; check, unclear why it matters though and why only for forks.=
-<br>&gt;<br>&gt; The comment is about the function&#39;s use of the range i=
-t is being passed.<br>&gt; It doesn&#39;t say in any way that the function =
-is doing only sanity checking.<br>&gt; If the comment wording is ambiguous =
-or unclear, I&#39;m happy to take<br>&gt; improvement suggestions.<br><div>=
-<br></div><div>Yes, please do, it definitely was confusing while reviewing =
-the patch.<br></div><div><br></div><div>Thanks,<br></div><div>Tamas<br></di=
-v></div>
 
---0000000000007e917105f32c98ab--
+> See e.g. ((pg) - frame_table) expressions both Arm
+> and x86 have. frame_table is neither a linker generated symbol, nor does
+> it represent something that the compiler (or static analysis tools) would
+> recognized as an "object". Still, the entire frame table of course
+> effectively is an object (array), yet there's no way for any tool to
+> actually recognize the array dimension.
+
+I used cppcheck in my original email because it is the only tool today
+where I can add a deviation as an in-code comment, re-run the scan,
+and what happens (see the number of violations go down.)
+
+However also considering that Coverity reports less than 10, and Eclair
+reports more but due to only 2-3 macros, I think 18.2 should be
+manageable.
 
