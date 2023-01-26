@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD38267C3A5
-	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 04:35:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.484690.751436 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE0967C431
+	for <lists+xen-devel@lfdr.de>; Thu, 26 Jan 2023 06:13:50 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.484743.751546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKt1u-0000gF-L8; Thu, 26 Jan 2023 03:34:26 +0000
+	id 1pKuZo-0002O7-As; Thu, 26 Jan 2023 05:13:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 484690.751436; Thu, 26 Jan 2023 03:34:26 +0000
+Received: by outflank-mailman (output) from mailman id 484743.751546; Thu, 26 Jan 2023 05:13:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pKt1u-0000dZ-HF; Thu, 26 Jan 2023 03:34:26 +0000
-Received: by outflank-mailman (input) for mailman id 484690;
- Thu, 26 Jan 2023 03:34:24 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pKuZo-0002M6-7J; Thu, 26 Jan 2023 05:13:32 +0000
+Received: by outflank-mailman (input) for mailman id 484743;
+ Thu, 26 Jan 2023 05:13:30 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Q4q1=5X=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pKt1s-0008Fc-Cy
- for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 03:34:24 +0000
+ <SRS0=0+3p=5X=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
+ id 1pKuZm-0002M0-M3
+ for xen-devel@lists.xenproject.org; Thu, 26 Jan 2023 05:13:30 +0000
 Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 52ae7c33-9d2a-11ed-b8d1-410ff93cb8f0;
- Thu, 26 Jan 2023 04:34:22 +0100 (CET)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id CBD635C0153;
- Wed, 25 Jan 2023 22:34:21 -0500 (EST)
+ [66.111.4.27]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 2a2f8711-9d38-11ed-91b6-6bf2151ebd3b;
+ Thu, 26 Jan 2023 06:13:28 +0100 (CET)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.nyi.internal (Postfix) with ESMTP id A89635C05B9;
+ Thu, 26 Jan 2023 00:13:26 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 25 Jan 2023 22:34:21 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 25 Jan 2023 22:34:21 -0500 (EST)
+ by compute6.internal (MEProxy); Thu, 26 Jan 2023 00:13:26 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Jan 2023 00:13:25 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,138 +43,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 52ae7c33-9d2a-11ed-b8d1-410ff93cb8f0
+X-Inumbo-ID: 2a2f8711-9d38-11ed-91b6-6bf2151ebd3b
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1674704061; x=1674790461; bh=V4qU6xBczXYBxuAJBBtWt5596TfV6Bd4Dyk
-	+YpmwRl4=; b=CuRQlVlIShgx+Q3OebmHVhmoUi/3WbvG8C7kvnQPwXe1QU0tnFD
-	XmXhEOq6gJBc6ipUhy7jKIip+gM3ffn5Znohlz62xTB8F1yHGTtB13fNiydmxq8e
-	2NjBisXqiKFl0vK9uPtshH9lj1xhj6MDUbOxxBL4KbfXVOMP7KwQ4DrSGSnoqz5v
-	d6dv73iHBERop8YVJX5LqtEdHvUdr0xm4S09J7FjPLp5bR7H52os2QZqiFTm67i9
-	WSyDDhKmA7AG5cp7E0sqeAwVvYFz7eBL5YnZTmc2OuyQSug0g4Q6R7UsbbvzwEBp
-	VBXdD9UALLDVFotjfYSfUvP34A7I/PNUiFw==
+	invisiblethingslab.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:from:from:in-reply-to:message-id
+	:mime-version:reply-to:sender:subject:subject:to:to; s=fm3; t=
+	1674710006; x=1674796406; bh=si2CIeQHBvEuBg0GKAq7c57w/l0f6keWtZb
+	ZENwz+Cg=; b=TU/TLoenO7nU4Zgag4pHQ9NDhmS5vEblIyIC4EpELdyspPyxEmK
+	vsUJEPyhrTPE2dHGgRwzvEoQt7hIipuxkPcGo2FmyKYxNj/fstwpizlEQ8zwJByI
+	0bohzchjPAywJTCw39Xs4U0IFz1+7l014ULWIRbSOtCzfh1ZER9HkH4B+bXzyF/j
+	YRJqE00gCT/FzHmm/qySX6Vlg9SafclW/NaPbmwgy6SrVze5hw48f3JKwCnkfF1x
+	QJIRy+lruJ/YYL+Sp8OJcOP8tjCSj8MzAMHr8OgrNU74iUyuPWeWNRm9ulRe9lzB
+	HvsfiwG0rows11oEdF1Ncd3toEisNiWfrHg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:sender:subject
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm3; t=1674704061; x=1674790461; bh=V4qU6xBczXYBx
-	uAJBBtWt5596TfV6Bd4Dyk+YpmwRl4=; b=G9bxwKaZXTcN/J3Y2b7exagftg8il
-	c5jEtm6ch7lOIR5yCje41RguRYT6IRbn7gpcD3VHhIl+gCjLBkRtp4h/UAu98A0e
-	7H98igegXsNN79gnXc7QzoSxLZLguaUyAYegjyRxUITnysoDIeVqdrWD/iyE9DUJ
-	01Hj38zqEP6unZz26qbaMVQ0cu7ymak7KVLI3QeEssr7vVUZp21eJAhutlVu6KV/
-	KL9QJ9/r/Mba6IKukxPiuLInp9TnFA58SK240NHNIxaXY2vb4wxe4pklBQI9NGVt
-	5avPzNEuaIKk0yRBDDkmAc1gSsTYrCTxsk0OSevDGJ1k8LPKZX83qcDtw==
-X-ME-Sender: <xms:vfTRYxA6-Mngv9kVvNeKYFelujd9X3hxqrxnsQQgQoRXnx4akNDqMA>
-    <xme:vfTRY_g0kbEZ2GK9NWaXaIW2jukfJa_e8DoKuK0Qs1K8To3jRJqmKJfnAJm8He6OV
-    OClK6S6edNa1b0>
-X-ME-Received: <xmr:vfTRY8m1auzzdb8jSU39w5zp7FT0b4qePSogOj96JXeuvMIR8ldPIDUslbahgUZ95JUqh_QZYJQn>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvfedgheekucetufdoteggodetrfdotf
+	:x-sasl-enc; s=fm3; t=1674710006; x=1674796406; bh=si2CIeQHBvEuB
+	g0GKAq7c57w/l0f6keWtZbZENwz+Cg=; b=YO8NH5dPFIM8uFLgeyEWKZ+X8ljlj
+	k3N28Pkp8dSwiqlIzicRI2tK2elnHGj/Yb3giv7m8wRKUdjhwd1HGficyhm3xQXU
+	fBbtUvMJ5g0qfmPvqAwlBUnOhxOzSzoVf4i2Vji1Bm6lRCM1kq2lWAMP2jVw+yne
+	lAeb1hoMuwdYRyb7YXYgjXnPwWsvs+AwSTagAK4yYzfHMGg7OzWk8h9k+ay1oD+W
+	7pN8Y5DiEWTmVZPTwBnHjKk7dNzdyeNtQ4C7n7QeI5o5i7JXhw83fkj5xCSem3QD
+	c5UgP7hVWG0PUqcEmfiQw4fzTYm2aQgLgz4kS+Z08yhoCr02DiDhZnakQ==
+X-ME-Sender: <xms:9gvSY9qUe1TGob5fDDdTEgKUKT4F17CK9aCpQW6yWeiTHH14Q6pB3Q>
+    <xme:9gvSY_pYSI36pRCuodyysmPy9csENTepU83j7_zze7YtZhpSIBprTHXeGniYN58fJ
+    mFt3VYeJO2wbA>
+X-ME-Received: <xmr:9gvSY6PWlvHydTEMQJfYIFEyf3M-uHerzRtMifpON62Wb9v7m-FqF7YKOJS00crMrEuXW2G1A2epa-nPeforirbGSUQoTpvEc0WT01SNv0vAMlvWYWqm>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvfedgjeekucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeffjefggfeugeduvedvjeekgfeh
-    gffhhfffjeetkeelueefffetfffhtdduheetnecuvehluhhsthgvrhfuihiivgepudenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:vfTRY7xo8bC9Gr4gUIjDd84JXD5A1aGSZY1WcD3a0S1k6pWQFfviyg>
-    <xmx:vfTRY2REdgxnXQkrWOt5bdeY1R2H8D3OLGT6Jgnwvyz-LF6f9vLeNg>
-    <xmx:vfTRY-aS49RRI1jZpvQNiqfXM3wRVucZ3oNnZ3i3OTk5w4kJRrQnCg>
-    <xmx:vfTRYzI9BQbkoretVj3UW_QFpClo_dTyXivnEBXZLbRkgvC5qIZA_A>
-Feedback-ID: iac594737:Fastmail
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
-	=?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 7/7] xen/blkback: Inform userspace that device has been opened
-Date: Wed, 25 Jan 2023 22:33:58 -0500
-Message-Id: <20230126033358.1880-7-demi@invisiblethingslab.com>
-X-Mailer: git-send-email 2.39.1
-In-Reply-To: <20230126033358.1880-1-demi@invisiblethingslab.com>
-References: <20230126033358.1880-1-demi@invisiblethingslab.com>
+    cujfgurhephffvvefufffkofggtgfgsehtkeertdertdejnecuhfhrohhmpeforghrvghk
+    ucforghrtgiihihkohifshhkihdqifpkrhgvtghkihcuoehmrghrmhgrrhgvkhesihhnvh
+    hishhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeelkefh
+    udelteelleelteetveeffeetffekteetjeehlefggeekleeghefhtdehvdenucevlhhush
+    htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmrghrmhgrrhgvkhes
+    ihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:9gvSY45BN99xpV5q7YvHznyVgbn9nAVqJyLaKYLBh1OwZpTG8Okm_A>
+    <xmx:9gvSY85BmH5WKkTZbKZ27ug5ISgPJuv7L9F2nMCwQ0-YCXZEahiizQ>
+    <xmx:9gvSYwi1wYAeX0qR_y2msvZUkO5Nahg38NO9h5jZ5Sj35X8LVlX4aw>
+    <xmx:9gvSY6Sws963j1I7Wb2NkG1BTO3AlsI8RiSo93hBywUHMH9goeaEaw>
+Feedback-ID: i1568416f:Fastmail
+From: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
+To: xen-devel@lists.xenproject.org
+Cc: =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Wei Liu <wl@xen.org>,
+	Anthony PERARD <anthony.perard@citrix.com>
+Subject: [PATCH] tools/python: change 's#' size type for Python >= 3.10
+Date: Thu, 26 Jan 2023 06:13:10 +0100
+Message-Id: <20230126051310.4149074-1-marmarek@invisiblethingslab.com>
+X-Mailer: git-send-email 2.37.3
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This allows userspace to use block devices with delete-on-close
-behavior, which is necessary to ensure virtual devices (such as loop or
-device-mapper devices) are cleaned up automatically.  Protocol details
-are included in comments.
+Python < 3.10 by default uses 'int' type for data+size string types
+(s#), unless PY_SSIZE_T_CLEAN is defined - in which case it uses
+Py_ssize_t. The former behavior was removed in Python 3.10 and now it's
+required to define PY_SSIZE_T_CLEAN before including Python.h, and using
+Py_ssize_t for the length argument. The PY_SSIZE_T_CLEAN behavior is
+supported since Python 2.5.
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+Adjust bindings accordingly.
+
+Signed-off-by: Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
 ---
- drivers/block/xen-blkback/xenbus.c | 34 ++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
+ tools/python/xen/lowlevel/xc/xc.c | 3 ++-
+ tools/python/xen/lowlevel/xs/xs.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 2c43bfc7ab5ba6954f11d4b949a5668660dbd290..ca8dae05985038da490c5ac93364509913f6b4c7 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -3,6 +3,19 @@
-     Copyright (C) 2005 Rusty Russell <rusty@rustcorp.com.au>
-     Copyright (C) 2005 XenSource Ltd
+diff --git a/tools/python/xen/lowlevel/xc/xc.c b/tools/python/xen/lowlevel/xc/xc.c
+index fd008610329b..cfb2734a992b 100644
+--- a/tools/python/xen/lowlevel/xc/xc.c
++++ b/tools/python/xen/lowlevel/xc/xc.c
+@@ -4,6 +4,7 @@
+  * Copyright (c) 2003-2004, K A Fraser (University of Cambridge)
+  */
  
-+In addition to the XenStore nodes required by the Xen block device
-+specification, this implementation of blkback uses a new XenStore
-+node: "opened".  blkback sets "opened" to "0" before the hotplug script
-+is called.  Once the device node has been opened, blkback sets "opened"
-+to "1".
-+
-+"opened" is used exclusively by userspace.  It serves two purposes:
-+
-+1. It tells userspace that diskseq@major:minor syntax for "physical-device" is
-+   supported.
-+2. It tells userspace that it can wait for "opened" to be set to 1.  Once
-+   "opened" is 1, blkback has a reference to the device, so userspace doesn't
-+   need to keep one.
++#define PY_SSIZE_T_CLEAN
+ #include <Python.h>
+ #define XC_WANT_COMPAT_MAP_FOREIGN_API
+ #include <xenctrl.h>
+@@ -1774,7 +1775,7 @@ static PyObject *pyflask_load(PyObject *self, PyObject *args, PyObject *kwds)
+ {
+     xc_interface *xc_handle;
+     char *policy;
+-    uint32_t len;
++    Py_ssize_t len;
+     int ret;
  
- */
+     static char *kwd_list[] = { "policy", NULL };
+diff --git a/tools/python/xen/lowlevel/xs/xs.c b/tools/python/xen/lowlevel/xs/xs.c
+index 0dad7fa5f2fc..3ba5a8b893d9 100644
+--- a/tools/python/xen/lowlevel/xs/xs.c
++++ b/tools/python/xen/lowlevel/xs/xs.c
+@@ -18,6 +18,7 @@
+  * Copyright (C) 2005 XenSource Ltd.
+  */
  
-@@ -698,6 +711,14 @@ static int xen_blkbk_probe(struct xenbus_device *dev,
- 	if (err)
- 		pr_warn("%s write out 'max-ring-page-order' failed\n", __func__);
++#define PY_SSIZE_T_CLEAN
+ #include <Python.h>
  
-+	/*
-+	 * This informs userspace that the "opened" node will be set to "1" when
-+	 * the device has been opened successfully.
-+	 */
-+	err = xenbus_write(XBT_NIL, dev->nodename, "opened", "0");
-+	if (err)
-+		goto fail;
-+
- 	err = xenbus_switch_state(dev, XenbusStateInitWait);
- 	if (err)
- 		goto fail;
-@@ -824,6 +845,19 @@ static void backend_changed(struct xenbus_watch *watch,
- 		goto fail;
- 	}
+ #include <stdbool.h>
+@@ -141,7 +142,7 @@ static PyObject *xspy_write(XsHandle *self, PyObject *args)
+     char *thstr;
+     char *path;
+     char *data;
+-    int data_n;
++    Py_ssize_t data_n;
+     bool result;
  
-+	/*
-+	 * Tell userspace that the device has been opened and that blkback has a
-+	 * reference to it.  Userspace can then close the device or mark it as
-+	 * delete-on-close, knowing that blkback will keep the device open as
-+	 * long as necessary.
-+	 */
-+	err = xenbus_write(XBT_NIL, dev->nodename, "opened", "1");
-+	if (err) {
-+		xenbus_dev_fatal(dev, err, "%s: notifying userspace device has been opened",
-+				 dev->nodename);
-+		goto free_vbd;
-+	}
-+
- 	err = xenvbd_sysfs_addif(dev);
- 	if (err) {
- 		xenbus_dev_fatal(dev, err, "creating sysfs entries");
+     if (!xh)
 -- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+2.37.3
 
 
