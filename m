@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCDF567E252
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 11:56:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485420.752628 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1D4A67E296
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:04:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485426.752641 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLMOQ-0006sv-W2; Fri, 27 Jan 2023 10:55:38 +0000
+	id 1pLMWp-0008Px-Rf; Fri, 27 Jan 2023 11:04:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485420.752628; Fri, 27 Jan 2023 10:55:38 +0000
+Received: by outflank-mailman (output) from mailman id 485426.752641; Fri, 27 Jan 2023 11:04:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLMOQ-0006rE-Sm; Fri, 27 Jan 2023 10:55:38 +0000
-Received: by outflank-mailman (input) for mailman id 485420;
- Fri, 27 Jan 2023 10:55:38 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pLMWp-0008OU-OL; Fri, 27 Jan 2023 11:04:19 +0000
+Received: by outflank-mailman (input) for mailman id 485426;
+ Fri, 27 Jan 2023 11:04:18 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=D8Jc=5Y=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pLMOP-0006r8-V2
- for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 10:55:38 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 205e9910-9e31-11ed-a5d9-ddcf98b90cbd;
- Fri, 27 Jan 2023 11:55:36 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id D5F7A21EF1;
- Fri, 27 Jan 2023 10:55:34 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ADA8F1336F;
- Fri, 27 Jan 2023 10:55:34 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id lbz9KKat02MfSwAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 27 Jan 2023 10:55:34 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pLMWo-0008OK-43; Fri, 27 Jan 2023 11:04:18 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pLMWo-0001Oy-15; Fri, 27 Jan 2023 11:04:18 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pLMWn-0008MZ-Ee; Fri, 27 Jan 2023 11:04:17 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pLMWn-0006Lu-B6; Fri, 27 Jan 2023 11:04:17 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,187 +42,326 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 205e9910-9e31-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1674816934; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Tik5Mo8RQiGkhGpFKdBUsc6igXWcZ6MXreo5CUGHB80=;
-	b=gNp0m7tcvV9pR3KPb8A54JMoYoBGemPBy99j7pkkRPS10Ep1Q6BGoCkQG4vKDOZJ8ZB/Uu
-	Z2fkn/ZfCjz5EweLx20hoUV4TBljpw9qNzgRxZ3tfGgr9yknE9fQedgMohBBHW6iUL1rRs
-	a1mM627/u58lIoRLGdetP1NMjG0Xkmg=
-Message-ID: <260bfbf4-8a6c-d3ea-a4e6-547a51d59ba1@suse.com>
-Date: Fri, 27 Jan 2023 11:55:34 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=cuHw8GsZhNl7V/Nouoao+s9Oxlk4RPLsFJAA73QT7Do=; b=s0DWXK2FChRzG8SfN/quZVuRc5
+	W9XrMLEbyNIUJahp+UtTeWY2lKEDiZKnyoZYqBy1XbJxcPTnck+MEaZ39cAq7F33L2wEn0RrbWc9T
+	TfOpyqmFMvUBlAQW2UN91p55M2X03KUyQmhAs3gOsDC2QfbhJjqfYFonPr2Yj9A3Qaxc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176233-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-References: <20230127055421.22945-1-jgross@suse.com>
- <547fab47-d4b5-2c04-74d5-baffa10b9638@srcf.net>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH v2] tools/helpers: don't log errors when trying to load
- PVH xenstore-stubdom
-In-Reply-To: <547fab47-d4b5-2c04-74d5-baffa10b9638@srcf.net>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------ehhHZFICYFi45f9zaxjsa7Ij"
+Subject: [libvirt test] 176233: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    libvirt:build-arm64-libvirt:<job status>:broken:regression
+    libvirt:build-armhf-libvirt:<job status>:broken:regression
+    libvirt:build-armhf-libvirt:host-install(4):broken:regression
+    libvirt:build-arm64-libvirt:host-install(4):broken:regression
+    libvirt:build-armhf-libvirt:syslog-server:running:regression
+    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:build-armhf-libvirt:capture-logs:broken:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    libvirt=2dde3840b1d50e79f6b8161820fff9fe62f613a9
+X-Osstest-Versions-That:
+    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 27 Jan 2023 11:04:17 +0000
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------ehhHZFICYFi45f9zaxjsa7Ij
-Content-Type: multipart/mixed; boundary="------------0Hf0Y5jeYYyQNk9QcLRhwTje";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Andrew Cooper <amc96@srcf.net>, xen-devel@lists.xenproject.org
-Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
-Message-ID: <260bfbf4-8a6c-d3ea-a4e6-547a51d59ba1@suse.com>
-Subject: Re: [PATCH v2] tools/helpers: don't log errors when trying to load
- PVH xenstore-stubdom
-References: <20230127055421.22945-1-jgross@suse.com>
- <547fab47-d4b5-2c04-74d5-baffa10b9638@srcf.net>
-In-Reply-To: <547fab47-d4b5-2c04-74d5-baffa10b9638@srcf.net>
+flight 176233 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176233/
 
---------------0Hf0Y5jeYYyQNk9QcLRhwTje
-Content-Type: multipart/mixed; boundary="------------SBe6Q266FspEqNUdTEPl5Yy0"
+Failures and problems with tests :-(
 
---------------SBe6Q266FspEqNUdTEPl5Yy0
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-arm64-libvirt             <job status>                 broken
+ build-armhf-libvirt             <job status>                 broken
+ build-armhf-libvirt           4 host-install(4)        broken REGR. vs. 176139
+ build-arm64-libvirt           4 host-install(4)        broken REGR. vs. 176139
+ build-armhf-libvirt           3 syslog-server                running
 
-T24gMjcuMDEuMjMgMTE6MjgsIEFuZHJldyBDb29wZXIgd3JvdGU6DQo+IE9uIDI3LzAxLzIw
-MjMgNTo1NCBhbSwgSnVlcmdlbiBHcm9zcyB3cm90ZToNCj4+IFdoZW4gbG9hZGluZyBhIFhl
-bnN0b3JlIHN0dWJkb20gdGhlIGxvYWRlciBkb2Vzbid0IGtub3cgd2hldGhlciB0aGUNCj4+
-IGxvIGJlIGxvYWRlZCBrZXJuZWwgaXMgYSBQVkggb3IgYSBQViBvbmUuIFNvIGl0IHRyaWVz
-IHRvIGxvYWQgaXQgYXMNCj4+IGEgUFZIIG9uZSBmaXJzdCwgYW5kIGlmIHRoaXMgZmFpbHMg
-aXQgaXMgbG9hZGluZyBpdCBhcyBhIFBWIGtlcm5lbC4NCj4gDQo+IFdlbGwsIHllcyBpdCBk
-b2VzLg0KPiANCj4gV2hhdCBtaWdodCBiZSBtaXNzaW5nIGlzIGxpYnhlbmd1ZXN0J3MgYWJp
-bGl0eSB0byBwYXJzZSB0aGUgcHJvdmlkZWQNCj4ga2VybmVsJ3MgRUxGIE5vdGVzIGFoZWFk
-IG9mIHRyeWluZyB0byBidWlsZCB0aGUgZG9tYWluLg0KDQpDb3JyZWN0Lg0KDQo+IFRoaXMg
-aXMgdGhlIHNhbWUga2luZCBvZiBwb29yIGRlc2lnbiB3aGljaCBoYXMgbGVmdCB1cyB3aXRo
-IGENCj4gZG9tMD1wdnxwdmggY21kbGluZSBvcHRpb24gd2hpY2ggbXVzdCBtYXRjaCB0aGUg
-a2VybmVsIHRoZSBib290bG9hZGVyDQo+IGdhdmUgdXMsIGlmIHdlIHdhbnQgdG8gbm90IHBh
-bmljKCkgb24gYm9vdC4NCg0KSG1tLCB0aGlzIGlzIG9ubHkgcGFydGlhbGx5IHRydWUuDQoN
-CkkgYWdyZWUgdGhhdCB3aXRob3V0IGFueSBkb20wIG9wdGlvbiBnaXZlbiBpdCB3b3VsZCBi
-ZSBuaWNlIGlmIHRoZQ0KaHlwZXJ2aXNvciBjb3VsZCB1c2UgdGhlIHNwZWNpZmllZCBkb20w
-IGtlcm5lbCBhcyBsb25nIGFzIGl0IGlzDQpzdXBwb3J0aW5nIGVpdGhlciBQViBvciBQVkgg
-bW9kZS4NCg0KT1RPSCBub3dhZGF5cyBpdCBpcyBlYXNpbHkgcG9zc2libGUgdG8gYnVpbGQg
-YSBrZXJuZWwgYmVpbmcgY2FwYWJsZQ0KdG8gc3VwcG9ydCBib3RoIHZhcmlhbnRzLCBpbiB3
-aGljaCBjYXNlIHRoZSBoeXBlcnZpc29yIG5lZWRzIHRvDQpzZWxlY3Qgd2hpY2ggbW9kZSB0
-byB1c2UuIFRoaXMgbWlnaHQgbmVlZCB0aGUgaGVscCBvZiB0aGUgdXNlciBpbg0KY2FzZSB0
-aGUgbm9uLWRlZmF1bHQgbW9kZSBpcyB3YW50ZWQuDQoNCkZvciB4ZW5zdG9yZS1zdHViZG9t
-IGl0IGlzIGVhc2llciwgYXMgdGhlcmUgaXMgbm8gcmVhc29uIHRvIHByZWZlcg0KdGhlIFBW
-IG1vZGUgb3ZlciBQVkggKGluIGZhY3QgSSdtIHN0aWxsIHdvcmtpbmcgb24gWGVuc3RvcmUg
-TFUgZm9yDQp0aGUgUFZIIGNhc2UsIG1ha2luZyB0aGUgZGVjaXNpb24gZXZlbiBlYXNpZXIp
-Lg0KDQo+IA0KPiBTbyB3aGlsZSB0aGlzIG1pZ2h0IGJlIGFuIGFjY2VwdGFibGUgZ3Jvc3Mg
-Ym9kZ2UgaW4gdGhlIHNob3J0IHRlcm0sIHRoaXMuLi4NCj4gDQo+Pg0KPj4gVGhpcyByZXN1
-bHRzIGluIGVycm9ycyBiZWluZyBsb2dnZWQgaW4gY2FzZSB0aGUgc3R1YmRvbSBpcyBhIFBW
-IGtlcm5lbC4NCj4+DQo+PiBTdXBwcmVzcyB0aG9zZSBlcnJvcnMgYnkgc2V0dGluZyB0aGUg
-bWluaW11bSBsb2dnaW5nIGxldmVsIHRvDQo+PiAiY3JpdGljYWwiIHdoaWxlIHRyeWluZyB0
-byBsb2FkIHRoZSBrZXJuZWwgYXMgUFZILg0KPj4NCj4+IEZpeGVzOiBmODk5NTU0NDljNWEg
-KCJ0b29scy9pbml0LXhlbnN0b3JlLWRvbWFpbjogc3VwcG9ydCB4ZW5zdG9yZSBwdmggc3R1
-YmRvbSIpDQo+PiBTaWduZWQtb2ZmLWJ5OiBKdWVyZ2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5j
-b20+DQo+PiAtLS0NCj4+IFYyOg0KPj4gLSByZXRyeSBQVkggbG9hZGluZyB3aXRoIGxvZ2dp
-bmcgaWYgUFYgZmFpbHMsIHRvbyAoSmFuIEJldWxpY2gpDQo+PiAtLS0NCj4+ICAgdG9vbHMv
-aGVscGVycy9pbml0LXhlbnN0b3JlLWRvbWFpbi5jIHwgMjQgKysrKysrKysrKysrKysrKy0t
-LS0tLS0tDQo+PiAgIDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA4IGRlbGV0
-aW9ucygtKQ0KPj4NCj4+IGRpZmYgLS1naXQgYS90b29scy9oZWxwZXJzL2luaXQteGVuc3Rv
-cmUtZG9tYWluLmMgYi90b29scy9oZWxwZXJzL2luaXQteGVuc3RvcmUtZG9tYWluLmMNCj4+
-IGluZGV4IDA0ZTM1MWNhMjkuLjRlMmY4ZDRkYTUgMTAwNjQ0DQo+PiAtLS0gYS90b29scy9o
-ZWxwZXJzL2luaXQteGVuc3RvcmUtZG9tYWluLmMNCj4+ICsrKyBiL3Rvb2xzL2hlbHBlcnMv
-aW5pdC14ZW5zdG9yZS1kb21haW4uYw0KPj4gQEAgLTMxLDYgKzMxLDggQEAgc3RhdGljIGlu
-dCBtZW1vcnk7DQo+PiAgIHN0YXRpYyBpbnQgbWF4bWVtOw0KPj4gICBzdGF0aWMgeGVuX3Bm
-bl90IGNvbnNvbGVfZ2ZuOw0KPj4gICBzdGF0aWMgeGNfZXZ0Y2huX3BvcnRfb3JfZXJyb3Jf
-dCBjb25zb2xlX2V2dGNobjsNCj4+ICtzdGF0aWMgeGVudG9vbGxvZ19sZXZlbCBtaW5tc2ds
-ZXZlbCA9IFhUTF9QUk9HUkVTUzsNCj4+ICtzdGF0aWMgdm9pZCAqbG9nZ2VyOw0KPj4gICAN
-Cj4+ICAgc3RhdGljIHN0cnVjdCBvcHRpb24gb3B0aW9uc1tdID0gew0KPj4gICAgICAgeyAi
-a2VybmVsIiwgMSwgTlVMTCwgJ2snIH0sDQo+PiBAQCAtMTQxLDE5ICsxNDMsMjkgQEAgc3Rh
-dGljIGludCBidWlsZCh4Y19pbnRlcmZhY2UgKnhjaCkNCj4+ICAgICAgICAgICBnb3RvIGVy
-cjsNCj4+ICAgICAgIH0NCj4+ICAgDQo+PiArICAgIC8qIFRyeSBQVkggZmlyc3QsIHN1cHBy
-ZXNzIGVycm9ycyBieSBzZXR0aW5nIG1pbiBsZXZlbCBoaWdoLiAqLw0KPiANCj4gLi4uIG5l
-ZWRzIHRvIG1ha2UgdGhlIHBvc2l0aW9uIGNsZWFyLg0KPiANCj4gLyrCoCBUaGlzIGlzIGEg
-Ym9kZ2UuwqAgV2UgY2FuJ3QgY3VycmVudGx5IGluc3BlY3QgdGhlIGtlcm5lbCdzIEVMRiBu
-b3Rlcw0KPiBhaGVhZCBvZiBhdHRlbXB0aW5nIHRvIGNvbnN0cnVjdCBhIGRvbWFpbiwgc28g
-dHJ5IFBWSCBmaXJzdCwgc3VwcHJlc3NpbmcNCj4gZXJyb3JzIGJ5IHNldHRpbmcgbWluIGxl
-dmVsIHRvIGhpZ2gsIGFuZCBmYWxsIGJhY2sgdG8gUFYuICovDQoNCk5vIHByb2JsZW0gd2l0
-aCBtZS4NCg0KDQpKdWVyZ2VuDQoNCg==
---------------SBe6Q266FspEqNUdTEPl5Yy0
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           5 capture-logs          broken blocked in 176139
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+version targeted for testing:
+ libvirt              2dde3840b1d50e79f6b8161820fff9fe62f613a9
+baseline version:
+ libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+Last test of basis   176139  2023-01-26 04:18:49 Z    1 days
+Testing same since   176233  2023-01-27 04:18:53 Z    0 days    1 attempts
 
---------------SBe6Q266FspEqNUdTEPl5Yy0--
+------------------------------------------------------------
+People who touched revisions under test:
+  Jiri Denemark <jdenemar@redhat.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
 
---------------0Hf0Y5jeYYyQNk9QcLRhwTje--
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          broken  
+ build-armhf-libvirt                                          broken  
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 blocked 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     blocked 
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               blocked 
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 blocked 
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
---------------ehhHZFICYFi45f9zaxjsa7Ij
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
 
------BEGIN PGP SIGNATURE-----
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPTraYFAwAAAAAACgkQsN6d1ii/Ey/v
-aggAh2kAqx9HDiiHpaMwITwQTJEYLocJvaerKVHzTliHd3RKAlh2qGkiJ0uF39zP54Vc2YYgmuDj
-HgXwoVLakYfgDw36cGvLx8sLDIc7ZiApOVWvIu+PsoZWAjcdszC0HMwqKj9Q1hnzloVr8X0cFnuF
-4TPoHLnGTZgHGkDU8+jMDAupuOHxOvnAOj8W0Nd+WdlL7td53XXfPWEYSKgmdwwo6IrZBxMkIUZs
-d33geklrdsobWyxr+Z30X6gFOdib56XCJzvxOdyZDwDewhvuZ2gqMGjrBuvnUT3biPdmwSXiyYR2
-i7oYBMi4XpHQsmqUEKhjh9fn6GhfCfV+E/x8RTxm+A==
-=8OgK
------END PGP SIGNATURE-----
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
---------------ehhHZFICYFi45f9zaxjsa7Ij--
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-arm64-libvirt broken
+broken-job build-armhf-libvirt broken
+broken-step build-armhf-libvirt host-install(4)
+broken-step build-armhf-libvirt capture-logs
+broken-step build-arm64-libvirt host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 2dde3840b1d50e79f6b8161820fff9fe62f613a9
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Thu Jan 26 16:57:20 2023 +0100
+
+    qemuxml2argvdata: Fix missing device in crypto-builtin XML
+    
+    Another forgotten fix after a post-review rebase.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit f3c9cbc36cc10775f6cefeb7e3de2f799dc74d70
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Thu Jan 26 16:57:20 2023 +0100
+
+    qemuxml2argvdata: Fix watchdog parameters in crypto-builtin
+    
+    Forgotten fix after a post-review rebase.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit a2c5c5dad2275414e325ca79778fad2612d14470
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 18:22:34 2023 +0100
+
+    news: Add information about iTCO watchdog changes
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 2fa92efe9b286ad064833cd2d8b907698e58e1cf
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 18:22:30 2023 +0100
+
+    Document change to multiple watchdogs
+    
+    With the reasoning behind it.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 926594dcc82b40f483010cebe5addbf1d7f58b24
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 11:22:22 2023 +0100
+
+    qemu: Add implicit watchdog for q35 machine types
+    
+    The iTCO watchdog is part of the q35 machine type since its inception,
+    we just did not add it implicitly.
+    
+    Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2137346
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit d81a27b9815d68d85d2ddc9671649923ee5905d7
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 14:15:06 2023 +0100
+
+    qemu: Enable iTCO watchdog by disabling its noreboot pin strap
+    
+    In order for the iTCO watchdog to be operational we must disable the
+    noreboot pin strap in qemu.  This is the default starting from 8.0
+    machine types, but desirable for older ones as well.  And we can safely
+    do that since that is not guest-visible.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 5b80e93e42a1d89ee64420debd2b4b785a144c40
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 10:26:21 2023 +0100
+
+    Add iTCO watchdog support
+    
+    Supported only with q35 machine types.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 1c61bd718a9e311016da799a42dfae18f538385a
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Tue Nov 8 09:10:57 2022 +0100
+
+    Support multiple watchdog devices
+    
+    This is already possible with qemu, and actually already happening with
+    q35 machines and a specified watchdog since q35 already includes a
+    watchdog we do not include in the XML.  In order to express such
+    posibility multiple watchdogs need to be supported.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit c5340d5420012412ea298f0102cc7f113e87d89b
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 10:28:52 2023 +0100
+
+    qemuDomainAttachWatchdog: Avoid unnecessary nesting
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 1cf7e6ec057a80f3c256d739a8228e04b7fb8862
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 15:25:06 2023 +0100
+
+    remote: Drop useless cleanup in remoteDispatchNodeGet{CPU,Memory}Stats
+    
+    The function cannot fail once it starts populating
+    ret->params.params_val[i].field.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit d0f339170f35957e7541e5b20552d0007e150fbc
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 15:06:33 2023 +0100
+
+    remote: Avoid leaking uri_out
+    
+    In case the API returned success and a NULL pointer in uri_out, we would
+    leak the preallocated buffer used for storing the uri_out pointer.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 4849eb2220fb2171e88e014a8e63018d20a8de95
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 11:56:28 2023 +0100
+
+    remote: Propagate error from virDomainGetSecurityLabelList via RPC
+    
+    The daemon side of this API has been broken ever since the API was
+    introduced in 2012. Instead of sending the error from
+    virDomainGetSecurityLabelList via RPC so that the client can see it, the
+    dispatcher would just send a successful reply with return value set to
+    -1 (and an empty array of labels). The client side would propagate this
+    return value so the client can see the API failed, but the original
+    error would be lost.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 0211e430a87a96db9a4e085e12f33caad9167653
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Thu Jan 26 13:19:31 2023 +0100
+
+    remote: Initialize args variable
+    
+    Recently, in v9.0.0-7-gb2034bb04c we've dropped initialization of
+    @args variable. The reasoning was that eventually, all members of
+    the variable will be set. Well, this is not correct. For
+    instance, in remoteConnectGetAllDomainStats() the
+    args.doms.doms_val pointer is set iff @ndoms != 0. However,
+    regardless of that, the pointer is then passed to VIR_FREE().
+    
+    Worse, the whole args is passed to
+    xdr_remote_connect_get_all_domain_stats_args() which then calls
+    xdr_array, which tests the (uninitialized) pointer against NULL.
+    
+    This effectively reverts b2034bb04c61c75ddbfbed46879d641b6f8ca8dc.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit c3afde9211b550d3900edc5386ab121f5b39fd3e
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Thu Jan 26 11:56:10 2023 +0100
+
+    qemu_domain: Don't unref NULL hash table in qemuDomainRefreshStatsSchema()
+    
+    The g_hash_table_unref() function does not accept NULL. Passing
+    NULL results in a glib warning being triggered. Check whether the
+    hash table is not NULL and unref it only then.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Ján Tomko <jtomko@redhat.com>
 
