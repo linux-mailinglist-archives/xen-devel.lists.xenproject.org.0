@@ -2,32 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7391B67E38B
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:35:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485485.752744 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88BC067E397
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:39:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485490.752754 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLN1A-0000tS-T6; Fri, 27 Jan 2023 11:35:40 +0000
+	id 1pLN4s-0001Y0-DC; Fri, 27 Jan 2023 11:39:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485485.752744; Fri, 27 Jan 2023 11:35:40 +0000
+Received: by outflank-mailman (output) from mailman id 485490.752754; Fri, 27 Jan 2023 11:39:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLN1A-0000rl-Q3; Fri, 27 Jan 2023 11:35:40 +0000
-Received: by outflank-mailman (input) for mailman id 485485;
- Fri, 27 Jan 2023 11:35:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pLN19-0000rd-FA
- for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 11:35:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pLN19-0002Ac-2b; Fri, 27 Jan 2023 11:35:39 +0000
-Received: from 54-240-197-224.amazon.com ([54.240.197.224]
- helo=[192.168.15.151]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pLN18-0001FQ-Sy; Fri, 27 Jan 2023 11:35:39 +0000
+	id 1pLN4s-0001VB-AJ; Fri, 27 Jan 2023 11:39:30 +0000
+Received: by outflank-mailman (input) for mailman id 485490;
+ Fri, 27 Jan 2023 11:39:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dhsa=5Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pLN4q-0001Uz-C6
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 11:39:28 +0000
+Received: from mail-wm1-x329.google.com (mail-wm1-x329.google.com
+ [2a00:1450:4864:20::329])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 40ef7ac6-9e37-11ed-a5d9-ddcf98b90cbd;
+ Fri, 27 Jan 2023 12:39:27 +0100 (CET)
+Received: by mail-wm1-x329.google.com with SMTP id
+ q10-20020a1cf30a000000b003db0edfdb74so5329006wmq.1
+ for <xen-devel@lists.xenproject.org>; Fri, 27 Jan 2023 03:39:27 -0800 (PST)
+Received: from localhost.localdomain
+ (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr. [90.112.199.53])
+ by smtp.gmail.com with ESMTPSA id
+ x10-20020a05600c420a00b003c6b70a4d69sm3919529wmh.42.2023.01.27.03.39.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Jan 2023 03:39:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,87 +46,141 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=ONPcW5Rwkp1ZgIhf8zY8FmKLkRgXYF90Amoqzb6mXUw=; b=ViiRxEeY9GS0WQG5Dx1gjIrrTu
-	d8QbVRErt9RtWyFuFxf72Y9YuU77jLrMNgax1j7vgtyFHe5hU5xAaZlTcgELoy8dB7ChLysg7qy6K
-	kTRlVTB2c9sCUV08kPfpBFZHer8vG5drLZujaWCEhFRIFXAY9Z3Tc2trv8nL/BSGAyeI=;
-Message-ID: <ed09cf44-cb7b-6713-6ea4-ac38e80b3549@xen.org>
-Date: Fri, 27 Jan 2023 11:35:36 +0000
+X-Inumbo-ID: 40ef7ac6-9e37-11ed-a5d9-ddcf98b90cbd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=93xHdobg99NHM1CBAealBqb3ezQMD/tc5tDFhGtXYqU=;
+        b=YD+3oSg57fsqTmqLNx/QPsH0gMWuiIY7q+Ott6LU6odo0ENwcCR4SAAAJSy4o2JoUq
+         O74X3TH3doIFvdu7n8B0e+uHZSeOEGNJXYpV6EHatl76RKUG0hoCxjbRGUTr6TwOyQlt
+         KHIuNONWg5+zQKT2nXhBj64D+IlFK8OlVdoYxYfgVIhG51UR3nSFtWLSinvOyrDnCF24
+         QVIJx8PM5kJ4iwOmfrC6Bfywn5IvrvqD/U0p/ku4ZqQYJ88zO7C3bwTyJ9jflKwJJUsV
+         m1mLCsZcCyeRzaq4qWXr7VkY606x9bVq4wVWKOpZeLVLNOIsgmNVEqs44MTvYQ0qisae
+         9eEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=93xHdobg99NHM1CBAealBqb3ezQMD/tc5tDFhGtXYqU=;
+        b=Kkn2g9oJIluNU+ZgwpTxhvIMP0gkXZfyfnlAOKnpS29Eqs/bi05zbbM9FdRWFhKqGI
+         Do1OJgXGV/XYTLSzbPYu3MrJpA6u4mQ+pjERBNeCjYm4RukFLewloAapPAfcw8KZg6du
+         SaLQ6d+IhqOGklwRRaHRlxSOTD9CXPa/21eZfOVyukuHKPRt4fG8snl34QdeWvONRF0l
+         E20GWqm+Zkib2ZEZ9cbI5E8rvfINsgBJLb3CDI4WgrEihWOoIOmTlIFfeVBToWyQaDhP
+         AUA3xwzYTZQPU8I1eC1vKtgct6hJzk5pdezzoXFjPyTvh8cWsku4dh8QWXJ4PZPFw3st
+         HVng==
+X-Gm-Message-State: AFqh2kpM2ZR2RJ1EtKuQ6dNht1VXOn9sRVY2bP/t4qqZRmD7IIeK1gnh
+	b0hU0GgvR4/mJmAVtoW4vl78wkXeDbg=
+X-Google-Smtp-Source: AMrXdXsIYjHN7H9ZA+TDIJLR8oocWmd64DZrSW8Hp8H3UKmsOpUzXNREi3DRKipbdGtWU5rE5QCm4w==
+X-Received: by 2002:a05:600c:1e1d:b0:3cf:674a:aefe with SMTP id ay29-20020a05600c1e1d00b003cf674aaefemr38575760wmb.22.1674819566250;
+        Fri, 27 Jan 2023 03:39:26 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v7 0/2] Basic early_printk and smoke test implementation
+Date: Fri, 27 Jan 2023 13:39:13 +0200
+Message-Id: <cover.1674819203.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 2/3] xen/arm: Defer GICv2 CPU interface mapping until the
- first access
-Content-Language: en-US
-To: Henry Wang <Henry.Wang@arm.com>, Michal Orzel <michal.orzel@amd.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230116015820.1269387-1-Henry.Wang@arm.com>
- <20230116015820.1269387-3-Henry.Wang@arm.com>
- <b2822e36-0972-5c4b-90d9-aee6533824b2@amd.com>
- <AS8PR08MB79913487DBC6F434758EAE5A92CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <a729bf36-8c67-ccd4-c787-d62aaf7e24b2@xen.org>
- <AS8PR08MB799127D46D09BCFEF9A0392192CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AS8PR08MB799127D46D09BCFEF9A0392192CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The patch series introduces the following:
+- the minimal set of headers and changes inside them.
+- SBI (RISC-V Supervisor Binary Interface) things necessary for basic
+  early_printk implementation.
+- things needed to set up the stack.
+- early_printk() function to print only strings.
+- RISC-V smoke test which checks if  "Hello from C env" message is
+  present in serial.tmp
 
+The patch series is rebased on top of the patch "include/types: move
+stddef.h-kind types to common header" [1]
 
-On 27/01/2023 11:30, Henry Wang wrote:
-> Hi Julien,
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Subject: Re: [PATCH 2/3] xen/arm: Defer GICv2 CPU interface mapping until
->> the first access
->>
->> Hi,
->>
->>>>> @@ -153,6 +153,8 @@ struct vgic_dist {
->>>>>        /* Base address for guest GIC */
->>>>>        paddr_t dbase; /* Distributor base address */
->>>>>        paddr_t cbase; /* CPU interface base address */
->>>>> +    paddr_t csize; /* CPU interface size */
->>>>> +    paddr_t vbase; /* virtual CPU interface base address */
->>>> Could you swap them so that base address variables are grouped?
->>>
->>> Sure, my original thought was grouping the CPU interface related fields but
->>> since you prefer grouping the base address, I will follow your suggestion.
->>
->> I would actually prefer your approach because it is easier to associate
->> the size with the base.
->>
->> An alternative would be to use a structure to combine the base/size. So
->> it is even clearer the association.
->>
->> I don't have a strong opinion on either of the two approach I suggested.
-> 
-> Maybe we can do something like this:
-> ```
-> paddr_t dbase; /* Distributor base address */
-> paddr_t vbase; /* virtual CPU interface base address */
-> paddr_t cbase; /* CPU interface base address */
-> paddr_t csize; /* CPU interface size */
-> ```
-> 
-> So we can ensure both "base address variables are grouped" and
-> "CPU interface variables are grouped".
-> 
-> If you don't like this, I would prefer the way I am currently doing, as
-> personally I think an extra structure would slightly be an overkill :)
+[1] https://lore.kernel.org/xen-devel/5a0a9e2a-c116-21b5-8081-db75fe4178d7@suse.com/
 
-This is really a matter of taste here. My preference is your initial 
-approach because I find strange to have virtual CPU interface 
-information the physical one.
+---
+Changes in V7:
+  - Fix dependecy for qemu-smoke-riscv64-gcc job
+---
+Changes in V6:
+  - Remove patches that were merged to upstream:
+      * xen/include: Change <asm/types.h> to <xen/types.h>
+      * xen/riscv: introduce asm/types.h header file
+      * xen/riscv: introduce sbi call to putchar to console
+  - Remove __riscv_cmodel_medany check from early_printk.C
+  - Rename container name in test.yaml for .qemu-riscv64.
+---
+Changes in V5:
+  - Code style fixes
+  - Remove size_t from asm/types after rebase on top of the patch
+    "include/types: move stddef.h-kind types to common header". [1]
 
-Cheers,
+    All other types were back as they are used in <xen/types.h>
+  - Update <xen/early_printk.h> after rebase on top of [1] as size_t was moved from
+    <asm/types.h> to <xen/types.h>
+  - Remove unneeded <xen/errno.h> from sbi.c
+  - Change an error message of #error in case of __riscv_cmodel_medany isn't defined
+---
+Changes in V4:
+    - Patches "xen/riscv: introduce dummy asm/init.h" and "xen/riscv: introduce
+      stack stuff" were removed from the patch series as they were merged separately
+      into staging.
+    - Remove "depends on RISCV*" from Kconfig.debug as Kconfig.debug is located
+      in arch specific folder.
+    - fix code style.
+    - Add "ifdef __riscv_cmodel_medany" to early_printk.c.  
+---
+Changes in V3:
+    - Most of "[PATCH v2 7/8] xen/riscv: print hello message from C env"
+      was merged with [PATCH v2 3/6] xen/riscv: introduce stack stuff.
+    - "[PATCH v2 7/8] xen/riscv: print hello message from C env" was
+      merged with "[PATCH v2 6/8] xen/riscv: introduce early_printk basic
+      stuff".
+    - "[PATCH v2 5/8] xen/include: include <asm/types.h> in
+      <xen/early_printk.h>" was removed as it has been already merged to
+      mainline staging.
+    - code style fixes.
+---
+Changes in V2:
+    - update commit patches commit messages according to the mailing
+      list comments
+    - Remove unneeded types in <asm/types.h>
+    - Introduce definition of STACK_SIZE
+    - order the files alphabetically in Makefile
+    - Add license to early_printk.c
+    - Add RISCV_32 dependecy to config EARLY_PRINTK in Kconfig.debug
+    - Move dockerfile changes to separate config and sent them as
+      separate patch to mailing list.
+    - Update test.yaml to wire up smoke test
+---
+
+Oleksii Kurochko (2):
+  xen/riscv: introduce early_printk basic stuff
+  automation: add RISC-V smoke test
+
+ automation/gitlab-ci/test.yaml            | 20 ++++++++++++++
+ automation/scripts/qemu-smoke-riscv64.sh  | 20 ++++++++++++++
+ xen/arch/riscv/Kconfig.debug              |  5 ++++
+ xen/arch/riscv/Makefile                   |  1 +
+ xen/arch/riscv/early_printk.c             | 33 +++++++++++++++++++++++
+ xen/arch/riscv/include/asm/early_printk.h | 12 +++++++++
+ xen/arch/riscv/setup.c                    |  4 +++
+ 7 files changed, 95 insertions(+)
+ create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
+ create mode 100644 xen/arch/riscv/early_printk.c
+ create mode 100644 xen/arch/riscv/include/asm/early_printk.h
 
 -- 
-Julien Grall
+2.39.0
+
 
