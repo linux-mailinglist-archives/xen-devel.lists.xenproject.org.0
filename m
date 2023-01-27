@@ -2,38 +2,55 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97B8C67E41C
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:49:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485526.752824 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 430D067E436
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:53:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485533.752834 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLNED-0006e7-Tk; Fri, 27 Jan 2023 11:49:09 +0000
+	id 1pLNI6-00085q-Hq; Fri, 27 Jan 2023 11:53:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485526.752824; Fri, 27 Jan 2023 11:49:09 +0000
+Received: by outflank-mailman (output) from mailman id 485533.752834; Fri, 27 Jan 2023 11:53:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLNED-0006bN-Q5; Fri, 27 Jan 2023 11:49:09 +0000
-Received: by outflank-mailman (input) for mailman id 485526;
- Fri, 27 Jan 2023 11:49:08 +0000
+	id 1pLNI6-000849-DA; Fri, 27 Jan 2023 11:53:10 +0000
+Received: by outflank-mailman (input) for mailman id 485533;
+ Fri, 27 Jan 2023 11:53:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dhsa=5Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pLNEC-0006b8-3N
- for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 11:49:08 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
+ <SRS0=xsEI=5Y=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pLNI4-000843-D0
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 11:53:08 +0000
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2073.outbound.protection.outlook.com [40.107.220.73])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9a199ad5-9e38-11ed-b8d1-410ff93cb8f0;
- Fri, 27 Jan 2023 12:49:06 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- fl11-20020a05600c0b8b00b003daf72fc844so5249904wmb.0
- for <xen-devel@lists.xenproject.org>; Fri, 27 Jan 2023 03:49:06 -0800 (PST)
-Received: from [192.168.100.7] (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr.
- [90.112.199.53]) by smtp.gmail.com with ESMTPSA id
- m14-20020a5d6a0e000000b002bfd09f2ca6sm1965515wru.3.2023.01.27.03.49.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Jan 2023 03:49:05 -0800 (PST)
+ id 285b5aed-9e39-11ed-b8d1-410ff93cb8f0;
+ Fri, 27 Jan 2023 12:53:06 +0100 (CET)
+Received: from DS7PR03CA0122.namprd03.prod.outlook.com (2603:10b6:5:3b4::7) by
+ SN7PR12MB8148.namprd12.prod.outlook.com (2603:10b6:806:351::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.25; Fri, 27 Jan
+ 2023 11:53:00 +0000
+Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b4:cafe::ff) by DS7PR03CA0122.outlook.office365.com
+ (2603:10b6:5:3b4::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22 via Frontend
+ Transport; Fri, 27 Jan 2023 11:53:00 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6043.22 via Frontend Transport; Fri, 27 Jan 2023 11:53:00 +0000
+Received: from SATLEXMB07.amd.com (10.181.41.45) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 27 Jan
+ 2023 05:52:59 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB07.amd.com
+ (10.181.41.45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 27 Jan
+ 2023 03:52:59 -0800
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Fri, 27 Jan 2023 05:52:58 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,114 +62,131 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9a199ad5-9e38-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=7AyoerhmqCeZ8pg+s7b8bghinbz1l+MavFXsve8+Lmo=;
-        b=Zi6UfbzXY5r5pi95k3hTnHxVLqfDn8zkOVCMuIQJ8+T0KhMIptD9o8rW2WnOvnnru+
-         ++Yfnp1n6kEgfYSfL9eWY6l3D0UhA8KqORc9HmXnYW+sF9+3GxAimpt7pnMRPdX5j98T
-         yliSncIwksl/WwxHUuko40p77/amLETUdKfpzjGM+RZU1IwBilIN/0R2w+uqBkl/0w4x
-         G+aRLfl3gWUEbgSMUbO1A7mziDJW/z2zU8DzkBjbRQbqMHr8X8x8QrLX7w3rKfVSI6/Y
-         8efmXhGHxbNK8PAN+/8MCLEEX7dsLdu6lOTBVRXn5SXkoQKeATqtM7p69yi+3kteummB
-         ZbQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=7AyoerhmqCeZ8pg+s7b8bghinbz1l+MavFXsve8+Lmo=;
-        b=dVQWpw8j6cU5hlVogEBz0ogqCcHh/qGKaxbvGkuFxcwVqJsSAvt3Y8GsePO0Z5EpsE
-         xOg5E7kN7aKuo0uhTAGFfvFSPH5Lw8zfI838t6AHt8xGXp/SdSgA4/escV/DirC2I0PU
-         uvXwaO6NnCWFm+7l/8b/8EZF7lEQNt93cUG9/Ze7ptHuRxAcB535vgCSRZ/ouUEm1zO+
-         sxUr2IxNtEGs+hXwX7+XNZwSRjLoB42CQHUEQIp0KnIZloouQ30BSBWI39l8DdZjXuBW
-         +ZLzuJVTqx5gw07nTKqNb/AL1scfQJQoLWUzUkuAZQXnwWTqYLm+6A5rLQ9o5KrjNntu
-         YIaQ==
-X-Gm-Message-State: AFqh2kqU1YBqPwJksy2zk0a0hTlnRzCEuejVq0G9SNP/HWljOik63n4f
-	g/iwNcxETZS+O3Qaw4UsV7s=
-X-Google-Smtp-Source: AMrXdXt2zD+S0X1Vu5V/GxQiUgpWj4okTGy0/Gapl31SOMAdPMXlSMTInfI8FKWLzqtvZkn6PLzslg==
-X-Received: by 2002:a05:600c:214:b0:3db:30f:bd72 with SMTP id 20-20020a05600c021400b003db030fbd72mr36948159wmi.8.1674820145489;
-        Fri, 27 Jan 2023 03:49:05 -0800 (PST)
-Message-ID: <b7070c68ce88fdd3a1a7b04400ca8c3366ddf416.camel@gmail.com>
-Subject: Re: [PATCH v6 1/2] xen/riscv: introduce early_printk basic stuff
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
- Connor Davis <connojdavis@gmail.com>, Bobby Eshleman
- <bobby.eshleman@gmail.com>
-Date: Fri, 27 Jan 2023 13:49:04 +0200
-In-Reply-To: <fbab23b9-663e-9516-5721-a92486686f84@xen.org>
-References: <cover.1674816429.git.oleksii.kurochko@gmail.com>
-	 <06c2c36bd68b2534c757dc4087476e855253680a.1674816429.git.oleksii.kurochko@gmail.com>
-	 <fbab23b9-663e-9516-5721-a92486686f84@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+X-Inumbo-ID: 285b5aed-9e39-11ed-b8d1-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HwCDcd1VN0gR3Qq+MnTto6puKhcWRCMuWK1WprBgmPD5tZDhWNRdxK5e6PGrSL7WvZDzehFznFVCskebYGJXuBz0fM+Xqn24ZSaOySyN2GLLydXWlthjUXt5lS0K5o4Ni1sqxnf+CWbc5J/6RTxVEQ7xJGV2b7W4Ng5VNYIlKjy3+Rw6YNQTN+EDfC43GvMMHKIgQwUVxNkKRO5scfse+ick0+RT977VYnYV8LvBIXugEB91ga0/Qr2zlWhbhpwwlqdAVnTCliWRlJMyNPCffdxbArAV6Xuh4Z90NKvP9hhcPXxY+nN/k23xIc8pXuUHGP/OgnYARYTvDiomHFOmqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dhijC0uOxXO1WKKXskNj09v5rtoISG0vbj8f9f9JMAM=;
+ b=m75QuJxAbkUasDJcAbSfnC9M5TBMd2enT6nkONGv/s+hCxnsG1v6r/B28GzWo3+JoI3PYifYYk5GVMrv33nVRzdFOaoW6AVoggJXFvLueejS5HblYfYpkd7zIeNSdCLVreHk3pBjRYFEcesqrjVN1YAuFafi5+OQ4b6ovS4wjYPFLGiFTpHfLZnzh2qgM+rMIuQ/kwlaI+S9EaMwpT3goICwq3BXO/7JLDpvew9mmBaFn4aWF0J/yZpy5XK7qIqgZ8ZuAsYEW2Kcf1lCjaFpJObK5pJRiLJJoa3RQIrtUSqKtZStqlBif2X98xN87LWHwzNxTD5yRRVZSBctc0/aUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=arm.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dhijC0uOxXO1WKKXskNj09v5rtoISG0vbj8f9f9JMAM=;
+ b=IIOOYWNgd2IKckj6ptiEFxNjW0K8HnOddyKQJR0AqOoIIruSFumk9mULD1TApOMSmVdJYIifcfRAU96WER2OnKL/ggvl8Oi4W3RX/P5apxwrGdPwGce22RvmZvWo8TxF7fWUs3hvrdtQUamOXjwECP9NQhmY35VX6hxyfTGY4Ek=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+Message-ID: <06cc44e6-9ffc-aef1-9d32-66c8d87fae9b@amd.com>
+Date: Fri, 27 Jan 2023 12:52:52 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH 2/3] xen/arm: Defer GICv2 CPU interface mapping until the
+ first access
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>, Julien Grall <julien@xen.org>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+References: <20230116015820.1269387-1-Henry.Wang@arm.com>
+ <20230116015820.1269387-3-Henry.Wang@arm.com>
+ <b2822e36-0972-5c4b-90d9-aee6533824b2@amd.com>
+ <AS8PR08MB79913487DBC6F434758EAE5A92CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <a729bf36-8c67-ccd4-c787-d62aaf7e24b2@xen.org>
+ <AS8PR08MB799127D46D09BCFEF9A0392192CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <ed09cf44-cb7b-6713-6ea4-ac38e80b3549@xen.org>
+ <AS8PR08MB7991EA180B325C6E58B0157F92CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <AS8PR08MB7991EA180B325C6E58B0157F92CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT050:EE_|SN7PR12MB8148:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e564f51-9a5b-443b-54ce-08db005d0a39
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	+pwpkY4hforKbllIYfc/bIK+ByQpFlA7fJ13PPDyYzq7fkuM96u2B+PY4Kxn3QroyPPQZ36r3W4NTWPjl5r0wP8CTWUmmqEXKYUv/cmd9hdlctXOzLCDHBGWAQXW3+aXQs4dsIOGXZXv4Qkg06AjsjV0G075RdNdUeLxb4TWFs77lxidkYE6JBM5f+Mr5AEvF4TEKtHJonSjSk+QwTGYNbEjuNUhNyTghu+w0fSH3zoHWJcKKUx+a1G5xIDMED1VLE4fhz/pbtXuOXs3p79YTmqFyQhe4wXoUhb9ZfuG5JwkVYpKHughhGt/f1Qw1DJhv5dQpWS+xmz5TStOFcXAecerEPtT8WtnSORRyEMLKEApSLbrGgTf6z8WVPqcdXcd+uoAsnpTbusHQNeGIDMYs1dq3tExkKbnl1k4M4XkIsiUqS+LTasbRaBhEBTF0pGaWhUNv245/gL0/g4Yd5XmnYS2TCB4YhHz/mnPQWfEyan7gJM/mVNeG4EQj94Qhe51T8f6kj2xg/vuPIhfxAlqKDOq6xPqm6/6QCKl1VTH5IAdpxACQkNqwgBcCx6oY6tDp9guI6wpLVqUV0TTOLkMx00YBQfJYbU+ZdeV1GvPbCks0J3CSYSMod8V3BjfpoRNh7kWKpxybPgQt72u6cPaGDhY+ApbQrVe8PMoFmYfkh2ZaC7vbo09hz3T5pzwJIvr1sB1zqLlfozFMOtjCIP8p8qbYn+Xx/5IXXRrwbE8qR3CLJZkz5heC+rXGdjmYwsvqVScKnORgxEjyFz9etZ8lA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(346002)(396003)(136003)(376002)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(16576012)(41300700001)(356005)(36756003)(316002)(53546011)(8936002)(31686004)(186003)(26005)(8676002)(40460700003)(2906002)(40480700001)(70586007)(6666004)(70206006)(83380400001)(4326008)(5660300002)(47076005)(426003)(54906003)(478600001)(110136005)(44832011)(86362001)(2616005)(336012)(31696002)(36860700001)(82740400003)(82310400005)(81166007)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2023 11:53:00.5763
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e564f51-9a5b-443b-54ce-08db005d0a39
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8148
 
-On Fri, 2023-01-27 at 11:26 +0000, Julien Grall wrote:
-> Hi,
->=20
-> On 27/01/2023 11:15, Oleksii Kurochko wrote:
-> > Because printk() relies on a serial driver (like the ns16550
-> > driver)
-> > and drivers require working virtual memory (ioremap()) there is not
-> > print functionality early in Xen boot.
-> >=20
-> > The patch introduces the basic stuff of early_printk functionality
-> > which will be enough to print 'hello from C environment".
-> >=20
-> > Originally early_printk.{c,h} was introduced by Bobby Eshleman
-> > (
-> > https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d
-> > 1aab71384)
-> > but some functionality was changed:
-> > early_printk() function was changed in comparison with the original
-> > as
-> > common isn't being built now so there is no vscnprintf.
-> >=20
-> > This commit adds early printk implementation built on the putc SBI
-> > call.
-> >=20
-> > As sbi_console_putchar() is already being planned for deprecation
-> > it is used temporarily now and will be removed or reworked after
-> > real uart will be ready.
-> >=20
-> > Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
-> > ---
-> > Changes in V6:
-> > =C2=A0=C2=A0=C2=A0=C2=A0 - Remove __riscv_cmodel_medany check from earl=
-y_printk.c
->=20
-> Why? I know Andrew believed this is wrong, but I replied back with my
-> understanding and saw no discussion afterwards explaining why I am=20
-> incorrect.
->=20
-> I am not a maintainer of the code here, but I don't particularly=20
-> appreciate comments to be ignored. If there was any discussion on
-> IRC,=20
-> then please summarize them here.
-Sorry, I have to mentioned that in the description of patch series.
+Hi Henry,
 
-There is no any specific reason to remove and only one reason I decided
-to remove the check was that the check wasn't present in original
-Alistair/Bobby patches and based on my experiments with that patches=20
-all worked fine. ( at least with some additional patches from my side I
-was able to run Dom0 with console )
+On 27/01/2023 12:39, Henry Wang wrote:
+> 
+> 
+> Hi Julien,
+> 
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Subject: Re: [PATCH 2/3] xen/arm: Defer GICv2 CPU interface mapping until
+>> the first access
+>>>>>>> @@ -153,6 +153,8 @@ struct vgic_dist {
+>>>>>>>        /* Base address for guest GIC */
+>>>>>>>        paddr_t dbase; /* Distributor base address */
+>>>>>>>        paddr_t cbase; /* CPU interface base address */
+>>>>>>> +    paddr_t csize; /* CPU interface size */
+>>>>>>> +    paddr_t vbase; /* virtual CPU interface base address */
+>>>>>> Could you swap them so that base address variables are grouped?
+>>>>>
+>>>>> Sure, my original thought was grouping the CPU interface related fields
+>> but
+>>>>> since you prefer grouping the base address, I will follow your suggestion.
+>>>>
+>>>> I would actually prefer your approach because it is easier to associate
+>>>> the size with the base.
+>>>>
+>>>> An alternative would be to use a structure to combine the base/size. So
+>>>> it is even clearer the association.
+>>>>
+>>>> I don't have a strong opinion on either of the two approach I suggested.
+>>>
+>>> Maybe we can do something like this:
+>>> ```
+>>> paddr_t dbase; /* Distributor base address */
+>>> paddr_t vbase; /* virtual CPU interface base address */
+>>> paddr_t cbase; /* CPU interface base address */
+>>> paddr_t csize; /* CPU interface size */
+>>> ```
+>>>
+>>> So we can ensure both "base address variables are grouped" and
+>>> "CPU interface variables are grouped".
+>>>
+>>> If you don't like this, I would prefer the way I am currently doing, as
+>>> personally I think an extra structure would slightly be an overkill :)
+>>
+>> This is really a matter of taste here.
+> 
+> Indeed,
+> 
+>> My preference is your initial
+>> approach because I find strange to have virtual CPU interface
+>> information the physical one.
+> 
+> then I will keep it as it is if there is no strong objection from Michal.
+there are none. It was just a suggestion.
 
-I pushed a new version (v7) of the patch series ( as I missed to change
-dependency for CI job ) so probably we have to open a discussion again
-as Andrew don't answer for a long time.
->=20
-> Cheers,
->=20
-~ Oleksii
-
+~Michal
 
