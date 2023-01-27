@@ -2,35 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D07267EB0D
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 17:41:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485803.753209 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6195E67EC4B
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 18:19:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485817.753220 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLRm3-0002vV-MA; Fri, 27 Jan 2023 16:40:23 +0000
+	id 1pLSMP-0007Uw-IU; Fri, 27 Jan 2023 17:17:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485803.753209; Fri, 27 Jan 2023 16:40:23 +0000
+Received: by outflank-mailman (output) from mailman id 485817.753220; Fri, 27 Jan 2023 17:17:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLRm3-0002tl-JK; Fri, 27 Jan 2023 16:40:23 +0000
-Received: by outflank-mailman (input) for mailman id 485803;
- Fri, 27 Jan 2023 16:40:22 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pLSMP-0007SO-F5; Fri, 27 Jan 2023 17:17:57 +0000
+Received: by outflank-mailman (input) for mailman id 485817;
+ Fri, 27 Jan 2023 17:17:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLRm2-0002ta-0u; Fri, 27 Jan 2023 16:40:22 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLRm2-0001lI-09; Fri, 27 Jan 2023 16:40:22 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLRm1-0007rv-Qp; Fri, 27 Jan 2023 16:40:21 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pLRm1-0003pt-QN; Fri, 27 Jan 2023 16:40:21 +0000
+ (envelope-from <SRS0=gttX=5Y=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1pLSMO-0007SI-1b
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 17:17:56 +0000
+Received: from ppsw-43.srv.uis.cam.ac.uk (ppsw-43.srv.uis.cam.ac.uk
+ [131.111.8.143]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 88c04f5a-9e66-11ed-a5d9-ddcf98b90cbd;
+ Fri, 27 Jan 2023 18:17:54 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:34326)
+ by ppsw-43.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.139]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1pLSML-000nZM-TQ (Exim 4.96) (return-path <amc96@srcf.net>);
+ Fri, 27 Jan 2023 17:17:53 +0000
+Received: from [10.80.2.8] (default-46-102-197-194.interdsl.co.uk
+ [46.102.197.194]) (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 014CE1FA74;
+ Fri, 27 Jan 2023 17:17:52 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,75 +45,45 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=1DJ+MqWONCsWjoHye0+Tzv5UrkoZCoznnWRE7J+0E/o=; b=TZBw9QGOBbEk5kzmLLhK05/89M
-	FVgy6P/RApGVgiOhxwXOREIMKMfZIrrMQ2QvpcBo60FLnIb6DQfLJyzQH5GP5NJsbKDTHeSw3fxtf
-	D+SGfWINVxZRWQ57zAFEn+n7Q2Y32bfWS9c3Fkg6csBI756j0Qu1rygVUn7j8mho9Srs=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176248-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 88c04f5a-9e66-11ed-a5d9-ddcf98b90cbd
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <db17d550-bbf8-f645-8ac4-51e20007aafc@srcf.net>
+Date: Fri, 27 Jan 2023 17:17:52 +0000
 MIME-Version: 1.0
-Subject: [ovmf test] 176248: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=e7aac7fc137e247edad22f7ee53b9a1fba227397
-X-Osstest-Versions-That:
-    ovmf=0d129ef7c3a95d64f2f2cab4f8302318775f9933
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 27 Jan 2023 16:40:21 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH v3] tools/helpers: don't log errors when trying to load
+ PVH xenstore-stubdom
+Content-Language: en-GB
+To: Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>
+References: <20230127161739.5596-1-jgross@suse.com>
+From: Andrew Cooper <amc96@srcf.net>
+In-Reply-To: <20230127161739.5596-1-jgross@suse.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-flight 176248 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176248/
+On 27/01/2023 4:17 pm, Juergen Gross wrote:
+> When loading a Xenstore stubdom the loader doesn't know whether the
+> lo be loaded kernel is a PVH or a PV one. So it tries to load it as
+> a PVH one first, and if this fails it is loading it as a PV kernel.
+>
+> This results in errors being logged in case the stubdom is a PV kernel.
+>
+> Suppress those errors by setting the minimum logging level to
+> "critical" while trying to load the kernel as PVH.
+>
+> In case PVH mode and PV mode loading fails, retry PVH mode loading
+> without changing the log level in order to get the error messages
+> logged.
+>
+> Fixes: f89955449c5a ("tools/init-xenstore-domain: support xenstore pvh stubdom")
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 e7aac7fc137e247edad22f7ee53b9a1fba227397
-baseline version:
- ovmf                 0d129ef7c3a95d64f2f2cab4f8302318775f9933
+Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
-Last test of basis   176232  2023-01-27 04:15:54 Z    0 days
-Testing same since   176248  2023-01-27 14:45:33 Z    0 days    1 attempts
+although lets wait for OSStest to unblock before putting this in.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Kun Qin <kun.qin@microsoft.com>
-  Rebecca Cran <quic_rcran@quicinc.com>
-  Rebecca Cran <rebecca@quicinc.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   0d129ef7c3..e7aac7fc13  e7aac7fc137e247edad22f7ee53b9a1fba227397 -> xen-tested-master
+~Andrew
 
