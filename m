@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9992267E4ED
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 13:17:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485553.752864 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EA2467E508
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 13:23:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485563.752877 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLNew-0003z3-1c; Fri, 27 Jan 2023 12:16:46 +0000
+	id 1pLNkd-0005Sq-QB; Fri, 27 Jan 2023 12:22:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485553.752864; Fri, 27 Jan 2023 12:16:46 +0000
+Received: by outflank-mailman (output) from mailman id 485563.752877; Fri, 27 Jan 2023 12:22:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLNev-0003vy-Uv; Fri, 27 Jan 2023 12:16:45 +0000
-Received: by outflank-mailman (input) for mailman id 485553;
- Fri, 27 Jan 2023 12:16:44 +0000
+	id 1pLNkd-0005Qa-NK; Fri, 27 Jan 2023 12:22:39 +0000
+Received: by outflank-mailman (input) for mailman id 485563;
+ Fri, 27 Jan 2023 12:22:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLNeu-0003vo-Gc; Fri, 27 Jan 2023 12:16:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pLNkc-0005QU-Be
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 12:22:38 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLNeu-0003RY-C9; Fri, 27 Jan 2023 12:16:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLNet-0003Fr-78; Fri, 27 Jan 2023 12:16:43 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pLNet-00028v-6e; Fri, 27 Jan 2023 12:16:43 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pLNkb-0003Zl-D5; Fri, 27 Jan 2023 12:22:37 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pLNkb-0003Cg-5e; Fri, 27 Jan 2023 12:22:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,399 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rJ6nvwD6ugHoYAcIdmLugwLAAYAPkSRriS5wk2dFXkI=; b=C2L5DQxligltGZXa1WYv4zMxZE
-	0TRpyFNfW509C7f8dgbJpVbOca3vqS/fQDPLkOlP31WrgdFLEh6Zry8NB9Q1K+xrKRXsov1tjOj2H
-	idfw+aGTxEsE+sUJpL3pSrPOQxeAbnm+e+cB3gHayURUdxOgRVRK7vpt29h1I2SrXpy0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176230-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=NNYmZxh3/3DjcWnwmpnH91d0aTGSNw/T0EVG0RJbciI=; b=SwwX/r4/Hj6eOUsLuOCkcyABLf
+	bdKD53k3RfDPjyJto7p4O/rNVMANDp81HK0ACAJqFdRIKK8R4GIir3sA/ZJ2L6I+wRP6W9T2ihZrO
+	yT2WXh79lEUqPnxyJFfvWMjHSEpvKMBgOwvm/ZaP/3AR0xUXPvdcd/d0Ud7ef8x6OiMU=;
+Message-ID: <599792fa-b08c-0b1e-10c1-0451519d9e4a@xen.org>
+Date: Fri, 27 Jan 2023 12:22:34 +0000
 MIME-Version: 1.0
-Subject: [linux-linus test] 176230: regressions - trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    linux-linus:build-arm64:<job status>:broken:regression
-    linux-linus:build-arm64-pvops:<job status>:broken:regression
-    linux-linus:build-arm64-xsm:<job status>:broken:regression
-    linux-linus:build-armhf:<job status>:broken:regression
-    linux-linus:build-arm64:host-install(4):broken:regression
-    linux-linus:build-arm64-pvops:host-install(4):broken:regression
-    linux-linus:build-arm64-xsm:host-install(4):broken:regression
-    linux-linus:build-armhf:host-install(4):broken:regression
-    linux-linus:test-arm64-arm64-xl-credit2:<job status>:broken:regression
-    linux-linus:test-arm64-arm64-xl-seattle:<job status>:broken:regression
-    linux-linus:test-arm64-arm64-xl-vhd:<job status>:broken:regression
-    linux-linus:test-arm64-arm64-xl-xsm:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-cubietruck:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-credit2:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-libvirt:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-vhd:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-credit1:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-arndale:<job status>:broken:regression
-    linux-linus:test-armhf-armhf-xl-rtds:<job status>:broken:regression
-    linux-linus:test-arm64-arm64-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-seattle:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-xsm:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit2:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-examine:reboot:fail:regression
-    linux-linus:test-arm64-arm64-xl:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-xsm:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-arndale:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-multivcpu:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-vhd:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-xl-credit1:xen-boot:fail:regression
-    linux-linus:test-arm64-arm64-libvirt-raw:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-examine:reboot:fail:regression
-    linux-linus:test-armhf-armhf-libvirt-qcow2:xen-boot:fail:regression
-    linux-linus:test-armhf-armhf-xl-credit2:xen-boot:fail:regression
-    linux-linus:build-armhf:syslog-server:running:regression
-    linux-linus:test-arm64-arm64-xl-vhd:host-install(5):broken:heisenbug
-    linux-linus:test-arm64-arm64-xl-seattle:host-install(5):broken:heisenbug
-    linux-linus:test-arm64-arm64-xl-xsm:host-install(5):broken:heisenbug
-    linux-linus:test-arm64-arm64-xl-credit2:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-arndale:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-credit1:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-libvirt:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-libvirt-qcow2:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-examine:host-install:broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-credit2:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-cubietruck:capture-logs(22):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-vhd:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-xl-multivcpu:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-libvirt-raw:host-install(5):broken:heisenbug
-    linux-linus:test-armhf-armhf-examine:capture-logs:broken:heisenbug
-    linux-linus:test-amd64-amd64-xl-xsm:xen-boot:fail:heisenbug
-    linux-linus:test-amd64-amd64-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
-    linux-linus:test-armhf-armhf-xl-rtds:xen-boot:fail:allowable
-    linux-linus:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-examine:build-check(1):blocked:nonblocking
-    linux-linus:build-arm64-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    linux-linus:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    linux-linus:build-armhf:capture-logs:broken:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-qcow2:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit1:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-libvirt:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-arndale:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-credit2:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-rtds:capture-logs(9):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-vhd:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-xl-multivcpu:capture-logs(6):broken:nonblocking
-    linux-linus:test-armhf-armhf-libvirt-raw:capture-logs(6):broken:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:migrate-support-check:fail:nonblocking
-    linux-linus:test-armhf-armhf-xl-cubietruck:saverestore-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    linux=7c46948a6e9cf47ed03b0d489fde894ad46f1437
-X-Osstest-Versions-That:
-    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 27 Jan 2023 12:16:43 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Bobby Eshleman <bobby.eshleman@gmail.com>
+References: <cover.1674816429.git.oleksii.kurochko@gmail.com>
+ <06c2c36bd68b2534c757dc4087476e855253680a.1674816429.git.oleksii.kurochko@gmail.com>
+ <fbab23b9-663e-9516-5721-a92486686f84@xen.org>
+ <b7070c68ce88fdd3a1a7b04400ca8c3366ddf416.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v6 1/2] xen/riscv: introduce early_printk basic stuff
+In-Reply-To: <b7070c68ce88fdd3a1a7b04400ca8c3366ddf416.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 176230 linux-linus real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176230/
+Hi Oleksii,
 
-Regressions :-(
+On 27/01/2023 11:49, Oleksii wrote:
+> On Fri, 2023-01-27 at 11:26 +0000, Julien Grall wrote:
+>> Hi,
+>>
+>> On 27/01/2023 11:15, Oleksii Kurochko wrote:
+>>> Because printk() relies on a serial driver (like the ns16550
+>>> driver)
+>>> and drivers require working virtual memory (ioremap()) there is not
+>>> print functionality early in Xen boot.
+>>>
+>>> The patch introduces the basic stuff of early_printk functionality
+>>> which will be enough to print 'hello from C environment".
+>>>
+>>> Originally early_printk.{c,h} was introduced by Bobby Eshleman
+>>> (
+>>> https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d
+>>> 1aab71384)
+>>> but some functionality was changed:
+>>> early_printk() function was changed in comparison with the original
+>>> as
+>>> common isn't being built now so there is no vscnprintf.
+>>>
+>>> This commit adds early printk implementation built on the putc SBI
+>>> call.
+>>>
+>>> As sbi_console_putchar() is already being planned for deprecation
+>>> it is used temporarily now and will be removed or reworked after
+>>> real uart will be ready.
+>>>
+>>> Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+>>> ---
+>>> Changes in V6:
+>>>       - Remove __riscv_cmodel_medany check from early_printk.c
+>>
+>> Why? I know Andrew believed this is wrong, but I replied back with my
+>> understanding and saw no discussion afterwards explaining why I am
+>> incorrect.
+>>
+>> I am not a maintainer of the code here, but I don't particularly
+>> appreciate comments to be ignored. If there was any discussion on
+>> IRC,
+>> then please summarize them here.
+> Sorry, I have to mentioned that in the description of patch series.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64                     <job status>                 broken
- build-arm64-pvops               <job status>                 broken
- build-arm64-xsm                 <job status>                 broken
- build-armhf                     <job status>                 broken
- build-arm64                   4 host-install(4)        broken REGR. vs. 173462
- build-arm64-pvops             4 host-install(4)        broken REGR. vs. 173462
- build-arm64-xsm               4 host-install(4)        broken REGR. vs. 173462
- build-armhf                   4 host-install(4)        broken REGR. vs. 173462
- test-arm64-arm64-xl-credit2     <job status>                 broken  in 176143
- test-arm64-arm64-xl-seattle     <job status>                 broken  in 176143
- test-arm64-arm64-xl-vhd         <job status>                 broken  in 176143
- test-arm64-arm64-xl-xsm         <job status>                 broken  in 176143
- test-armhf-armhf-libvirt-qcow2    <job status>                broken in 176223
- test-armhf-armhf-xl-cubietruck    <job status>                broken in 176223
- test-armhf-armhf-xl-credit2     <job status>                 broken  in 176223
- test-armhf-armhf-libvirt        <job status>                 broken  in 176223
- test-armhf-armhf-xl-vhd         <job status>                 broken  in 176223
- test-armhf-armhf-xl-multivcpu    <job status>                 broken in 176223
- test-armhf-armhf-libvirt-raw    <job status>                 broken  in 176223
- test-armhf-armhf-xl-credit1     <job status>                 broken  in 176223
- test-armhf-armhf-xl             <job status>                 broken  in 176223
- test-armhf-armhf-xl-arndale     <job status>                 broken  in 176223
- test-armhf-armhf-xl-rtds        <job status>                 broken  in 176223
- test-arm64-arm64-xl-vhd       8 xen-boot       fail in 176135 REGR. vs. 173462
- test-arm64-arm64-xl-seattle   8 xen-boot       fail in 176135 REGR. vs. 173462
- test-arm64-arm64-xl-xsm       8 xen-boot       fail in 176135 REGR. vs. 173462
- test-arm64-arm64-xl-credit2   8 xen-boot       fail in 176135 REGR. vs. 173462
- test-arm64-arm64-examine      8 reboot         fail in 176143 REGR. vs. 173462
- test-arm64-arm64-xl           8 xen-boot       fail in 176143 REGR. vs. 173462
- test-arm64-arm64-libvirt-xsm  8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl-arndale   8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl-multivcpu  8 xen-boot      fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl           8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl-vhd       8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl-credit1   8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-libvirt-raw  8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-libvirt      8 xen-boot       fail in 176143 REGR. vs. 173462
- test-arm64-arm64-xl-credit1   8 xen-boot       fail in 176143 REGR. vs. 173462
- test-arm64-arm64-libvirt-raw  8 xen-boot       fail in 176143 REGR. vs. 173462
- test-armhf-armhf-examine      8 reboot         fail in 176143 REGR. vs. 173462
- test-armhf-armhf-libvirt-qcow2  8 xen-boot     fail in 176143 REGR. vs. 173462
- test-armhf-armhf-xl-credit2   8 xen-boot       fail in 176143 REGR. vs. 173462
- build-armhf                   3 syslog-server                running
+I think this should be part of the section --- in this patch as this 
+makes easier to know what changes have been done.
 
-Tests which are failing intermittently (not blocking):
- test-arm64-arm64-xl-vhd      5 host-install(5) broken in 176143 pass in 176135
- test-arm64-arm64-xl-seattle  5 host-install(5) broken in 176143 pass in 176135
- test-arm64-arm64-xl-xsm      5 host-install(5) broken in 176143 pass in 176135
- test-arm64-arm64-xl-credit2  5 host-install(5) broken in 176143 pass in 176135
- test-armhf-armhf-xl-arndale  5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-xl-credit1  5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-libvirt     5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-xl          5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-libvirt-qcow2 5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-examine      5 host-install   broken in 176223 pass in 176143
- test-armhf-armhf-xl-credit2  5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-xl-cubietruck 22 capture-logs(22) broken in 176223 pass in 176143
- test-armhf-armhf-xl-vhd      5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-xl-multivcpu 5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-libvirt-raw 5 host-install(5) broken in 176223 pass in 176143
- test-armhf-armhf-examine      6 capture-logs   broken in 176223 pass in 176143
- test-amd64-amd64-xl-xsm       8 xen-boot         fail in 176135 pass in 176230
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 176223
+> 
+> There is no any specific reason to remove and only one reason I decided
+> to remove the check was that the check wasn't present in original
+> Alistair/Bobby patches and based on my experiments with that patches
+> all worked fine. ( at least with some additional patches from my side I
+> was able to run Dom0 with console )
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      8 xen-boot       fail in 176223 REGR. vs. 173462
+The lines you removed only confirm that the file was built with the 
+given model and if it is incorrect then the compilation will fail. There 
+are no change in behavior expected past the compilation.
 
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-credit1   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-seattle   1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)               blocked  n/a
- test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
- test-arm64-arm64-examine      1 build-check(1)               blocked  n/a
- build-arm64-libvirt           1 build-check(1)               blocked  n/a
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-arm64-arm64-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 173462
- test-armhf-armhf-libvirt-qcow2 6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-credit1 6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-libvirt  6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-arndale 6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-credit2 6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl       6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-rtds  9 capture-logs(9) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-vhd   6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-xl-multivcpu 6 capture-logs(6) broken in 176223 blocked in 173462
- test-armhf-armhf-libvirt-raw 6 capture-logs(6) broken in 176223 blocked in 173462
- test-arm64-arm64-xl-thunderx 15 migrate-support-check fail in 176143 never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check fail in 176143 never pass
- test-armhf-armhf-xl-cubietruck 15 migrate-support-check fail in 176223 never pass
- test-armhf-armhf-xl-cubietruck 16 saverestore-support-check fail in 176223 never pass
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+So I am not quite too sure what sort of experiment you did. Did you try 
+to change the model used to build Xen?
 
-version targeted for testing:
- linux                7c46948a6e9cf47ed03b0d489fde894ad46f1437
-baseline version:
- linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+Now if you (or anyone else) can tell me that there will be no issues if 
+the model is changed. Then yes, I will agree that the check is unnecessary.
 
-Last test of basis   173462  2022-10-07 18:41:45 Z  111 days
-Failing since        173470  2022-10-08 06:21:34 Z  111 days  230 attempts
-Testing same since   176135  2023-01-26 00:10:53 Z    1 days    4 attempts
+The alternative is you say that you are happy to accept the risk if the 
+model is changed. If I were the maintainer, that would not be something 
+I would agree with because "wrong" unwritten assumptions are a pain to 
+debug. So I much prefer a "wrong" written assumptions that would tip me 
+that the author thought the code would not work otherwise.
 
-------------------------------------------------------------
-3442 people touched revisions under test,
-not listing them all
+This is quite easy to remove the check after the fact if it is not correct.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              broken  
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  broken  
- build-armhf                                                  broken  
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          blocked 
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            broken  
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          blocked 
- test-armhf-armhf-xl                                          blocked 
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 fail    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      blocked 
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-freebsd11-amd64                             pass    
- test-amd64-amd64-freebsd12-amd64                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-armhf-armhf-xl-arndale                                  blocked 
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  blocked 
- test-armhf-armhf-xl-credit1                                  blocked 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  blocked 
- test-armhf-armhf-xl-credit2                                  blocked 
- test-armhf-armhf-xl-cubietruck                               blocked 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     blocked 
- test-armhf-armhf-examine                                     blocked 
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                blocked 
- test-amd64-amd64-pair                                        pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-amd64-pygrub                                      pass    
- test-amd64-amd64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-amd64-amd64-libvirt-raw                                 pass    
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     blocked 
- test-arm64-arm64-xl-seattle                                  blocked 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-arm64-arm64-xl-thunderx                                 blocked 
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-amd64-xl-vhd                                      pass    
- test-arm64-arm64-xl-vhd                                      blocked 
- test-armhf-armhf-xl-vhd                                      blocked 
+I am not the maintainer of the code, so if this is what they want then 
+so be it. But it needs to be explicitely stated. So far, the reviewed-by 
+from Bobby was with the check, so it would imply that he was happy with 
+it...
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-arm64 broken
-broken-job build-arm64-pvops broken
-broken-job build-arm64-xsm broken
-broken-job build-armhf broken
-broken-step build-arm64 host-install(4)
-broken-step build-arm64-pvops host-install(4)
-broken-step build-arm64-xsm host-install(4)
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-broken-job test-armhf-armhf-libvirt-qcow2 broken
-broken-job build-arm64-xsm broken
-broken-job test-armhf-armhf-xl-cubietruck broken
-broken-job test-armhf-armhf-xl-credit2 broken
-broken-job test-armhf-armhf-libvirt broken
-broken-job test-armhf-armhf-xl-vhd broken
-broken-job test-armhf-armhf-xl-multivcpu broken
-broken-job test-armhf-armhf-libvirt-raw broken
-broken-job build-arm64-pvops broken
-broken-job test-armhf-armhf-xl-credit1 broken
-broken-job test-armhf-armhf-xl broken
-broken-job test-armhf-armhf-xl-arndale broken
-broken-job test-armhf-armhf-xl-rtds broken
-broken-job test-arm64-arm64-xl-credit2 broken
-broken-job test-arm64-arm64-xl-seattle broken
-broken-job test-arm64-arm64-xl-vhd broken
-broken-job test-arm64-arm64-xl-xsm broken
-
-Not pushing.
-
-(No revision log; it would be 529026 lines long.)
+-- 
+Julien Grall
 
