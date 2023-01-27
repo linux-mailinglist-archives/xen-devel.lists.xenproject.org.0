@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BB8867E0A3
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 10:47:34 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485377.752572 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0404467E0D4
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 10:54:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485390.752582 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLLKB-0003m6-ME; Fri, 27 Jan 2023 09:47:11 +0000
+	id 1pLLQw-0005oR-CG; Fri, 27 Jan 2023 09:54:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485377.752572; Fri, 27 Jan 2023 09:47:11 +0000
+Received: by outflank-mailman (output) from mailman id 485390.752582; Fri, 27 Jan 2023 09:54:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLLKB-0003jh-Ht; Fri, 27 Jan 2023 09:47:11 +0000
-Received: by outflank-mailman (input) for mailman id 485377;
- Fri, 27 Jan 2023 09:47:10 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yrR2=5Y=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pLLKA-0003im-MW
- for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 09:47:10 +0000
-Received: from mail-ed1-x533.google.com (mail-ed1-x533.google.com
- [2a00:1450:4864:20::533])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9079e61e-9e27-11ed-b8d1-410ff93cb8f0;
- Fri, 27 Jan 2023 10:47:08 +0100 (CET)
-Received: by mail-ed1-x533.google.com with SMTP id s3so4247289edd.4
- for <xen-devel@lists.xenproject.org>; Fri, 27 Jan 2023 01:47:08 -0800 (PST)
-Received: from uni.router.wind (adsl-40.109.242.227.tellas.gr.
- [109.242.227.40]) by smtp.googlemail.com with ESMTPSA id
- l23-20020a50d6d7000000b004a0b1d7e39csm2054861edj.51.2023.01.27.01.47.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Jan 2023 01:47:07 -0800 (PST)
+	id 1pLLQw-0005mk-8o; Fri, 27 Jan 2023 09:54:10 +0000
+Received: by outflank-mailman (input) for mailman id 485390;
+ Fri, 27 Jan 2023 09:54:09 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=gttX=5Y=srcf.net=amc96@srs-se1.protection.inumbo.net>)
+ id 1pLLQu-0005me-Ut
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 09:54:08 +0000
+Received: from ppsw-33.srv.uis.cam.ac.uk (ppsw-33.srv.uis.cam.ac.uk
+ [131.111.8.133]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 89a39567-9e28-11ed-a5d9-ddcf98b90cbd;
+ Fri, 27 Jan 2023 10:54:07 +0100 (CET)
+Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:58384)
+ by ppsw-33.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
+ with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ id 1pLLQr-000Rmd-Rf (Exim 4.96) (return-path <amc96@srcf.net>);
+ Fri, 27 Jan 2023 09:54:05 +0000
+Received: from [192.168.1.10] (host-92-12-62-6.as13285.net [92.12.62.6])
+ (Authenticated sender: amc96)
+ by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 57BA71FBD6;
+ Fri, 27 Jan 2023 09:54:05 +0000 (GMT)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,77 +45,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9079e61e-9e27-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fNHLqVTJvvKFPavM3IC7KX+Lm0FkHZuO+pPfJrnfnO0=;
-        b=amMeP8IP3Mn9HPzY0unccRDcPcTE/i3gEg22kwEdTJsxvSFHlyhCPT2ENTP44V31Rf
-         zjxMogcdbckB/c8eaAVvptC+h/p5+dPjDKv9A+3YftJwj0Xj/IaZZawb5EJCLJC1/77g
-         Jd6c0Qnke9Q1YH0Oh3b+6lYbe4io+PljsFw9npPi/0/4fscDEgzpcEINaWqFfNPt/W8w
-         LgOQIQHIsPRFF/rjoLiiQBdVDcqKdR+td6WU1jXpjj0LsheQm3tJL/sb0e8DIkSidPI9
-         6aEhWGH7yuiG7IeFKjlEsscJKMdnX+DeLq6Acx/Lp/VyfnxicoqaCwsthq1HigW9L28e
-         /+Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=fNHLqVTJvvKFPavM3IC7KX+Lm0FkHZuO+pPfJrnfnO0=;
-        b=LHLQz3KOoTQTgNMd3kdV20UMBz8K5bkLStrpLVuSGdxDFFxvi6nv/8ZtHT/8eXh/2p
-         zqtOjvU+6O+DaOe2Ff8s/ixXq3qyVh/kkUp6Xk2zhZUMYZx/Srx2LkSzX6buvh/7I1Ep
-         xOysevf2CT7JZhfcMCUJE3lgQuLIJAjfcH3ww6vzZ9Uw9WNq0DCbOpioEvTfCoAw7edF
-         XiFK5QqkjKetAnkiTO1k9GwtK8JNNW+Hzcizxty7J1/RiAh1DYxB3mbVpHCSNmvbtLWz
-         e5ScbTWNzSloFK6SBSDSQ5Fl9THjTROYhb6Kxzz/LZd/fKVW7plZGl62FynD/jjw/AeB
-         XcNA==
-X-Gm-Message-State: AO0yUKXclyNWT1GSTNwpLhitPMbihmnwohYoVDI/58yIpMopxmpqXT3Z
-	beuy5j0bpd9rEmFcGJzomRfNJ9FjJjw=
-X-Google-Smtp-Source: AK7set9YbIeVVxZQvUD7MCdwwdED7L+4+SehWRHzX8xbhSB+9RftPx5MGarrrJgiGFEGa5dsuO2BSQ==
-X-Received: by 2002:a50:ce54:0:b0:4a0:e039:e911 with SMTP id k20-20020a50ce54000000b004a0e039e911mr5663717edj.12.1674812827804;
-        Fri, 27 Jan 2023 01:47:07 -0800 (PST)
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-To: xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 2/2] x86/vpmu: remove unused svm and vmx specific headers
-Date: Fri, 27 Jan 2023 11:46:56 +0200
-Message-Id: <20230127094656.140120-3-burzalodowa@gmail.com>
-X-Mailer: git-send-email 2.37.2
-In-Reply-To: <20230127094656.140120-1-burzalodowa@gmail.com>
-References: <20230127094656.140120-1-burzalodowa@gmail.com>
+X-Inumbo-ID: 89a39567-9e28-11ed-a5d9-ddcf98b90cbd
+X-Cam-AntiVirus: no malware found
+X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
+Message-ID: <9718888d-96a9-09fb-fca9-f12fa76929f3@srcf.net>
+Date: Fri, 27 Jan 2023 09:54:05 +0000
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [PATCH 0/2] Remove unused virtualization technology specific
+ headers
+Content-Language: en-GB
+To: Xenia Ragiadakou <burzalodowa@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Paul Durrant <paul@xen.org>, Jan Beulich <jbeulich@suse.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+References: <20230127094656.140120-1-burzalodowa@gmail.com>
+From: Andrew Cooper <amc96@srcf.net>
+In-Reply-To: <20230127094656.140120-1-burzalodowa@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Fixes: 8c20aca6751b ("x86/vPMU: invoke <vendor>_vpmu_initialise() through a hook as well")
-Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
----
+On 27/01/2023 9:46 am, Xenia Ragiadakou wrote:
+> The patches remove forgotten and now unused virtualization technology specific
+> headers from arch/x86/cpu/vpmu.c and arch/x86/hvm/emulate.c.
+>
+> Xenia Ragiadakou (2):
+>   x86/emulate: remove unused svm specific header
+>   x86/vpmu: remove unused svm and vmx specific headers
+>
+>  xen/arch/x86/cpu/vpmu.c    | 4 ----
+>  xen/arch/x86/hvm/emulate.c | 1 -
+>  2 files changed, 5 deletions(-)
+>
 
-I 'm not sure that a Fixes tag applies in this case. I 've added it mostly
-for reference.
+Oh excellent.  Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
 
- xen/arch/x86/cpu/vpmu.c | 4 ----
- 1 file changed, 4 deletions(-)
+IMO the fixes tags are useful even if we won't want to backport them. 
+It's an easy pointer for people to follow if needs be.
 
-diff --git a/xen/arch/x86/cpu/vpmu.c b/xen/arch/x86/cpu/vpmu.c
-index 64cdbfc48c..33e2fca8cd 100644
---- a/xen/arch/x86/cpu/vpmu.c
-+++ b/xen/arch/x86/cpu/vpmu.c
-@@ -31,10 +31,6 @@
- #include <asm/p2m.h>
- #include <asm/vpmu.h>
- #include <asm/hvm/support.h>
--#include <asm/hvm/vmx/vmx.h>
--#include <asm/hvm/vmx/vmcs.h>
--#include <asm/hvm/svm/svm.h>
--#include <asm/hvm/svm/vmcb.h>
- #include <asm/apic.h>
- #include <irq_vectors.h>
- #include <public/pmu.h>
--- 
-2.37.2
-
+~Andrew
 
