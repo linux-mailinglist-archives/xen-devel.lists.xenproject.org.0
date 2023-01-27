@@ -2,35 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1D4A67E296
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:04:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485426.752641 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61C2967E297
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 12:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485431.752651 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLMWp-0008Px-Rf; Fri, 27 Jan 2023 11:04:19 +0000
+	id 1pLMXH-0000Xt-Bc; Fri, 27 Jan 2023 11:04:47 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485426.752641; Fri, 27 Jan 2023 11:04:19 +0000
+Received: by outflank-mailman (output) from mailman id 485431.752651; Fri, 27 Jan 2023 11:04:47 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLMWp-0008OU-OL; Fri, 27 Jan 2023 11:04:19 +0000
-Received: by outflank-mailman (input) for mailman id 485426;
- Fri, 27 Jan 2023 11:04:18 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLMWo-0008OK-43; Fri, 27 Jan 2023 11:04:18 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLMWo-0001Oy-15; Fri, 27 Jan 2023 11:04:18 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLMWn-0008MZ-Ee; Fri, 27 Jan 2023 11:04:17 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pLMWn-0006Lu-B6; Fri, 27 Jan 2023 11:04:17 +0000
+	id 1pLMXH-0000VC-8M; Fri, 27 Jan 2023 11:04:47 +0000
+Received: by outflank-mailman (input) for mailman id 485431;
+ Fri, 27 Jan 2023 11:04:45 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=JKSU=5Y=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1pLMXF-0000Ta-Np
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 11:04:45 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2081.outbound.protection.outlook.com [40.107.22.81])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 65afcf75-9e32-11ed-a5d9-ddcf98b90cbd;
+ Fri, 27 Jan 2023 12:04:42 +0100 (CET)
+Received: from AS8PR04CA0068.eurprd04.prod.outlook.com (2603:10a6:20b:313::13)
+ by DB9PR08MB9948.eurprd08.prod.outlook.com (2603:10a6:10:3d0::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.23; Fri, 27 Jan
+ 2023 11:04:39 +0000
+Received: from AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:313:cafe::1b) by AS8PR04CA0068.outlook.office365.com
+ (2603:10a6:20b:313::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.22 via Frontend
+ Transport; Fri, 27 Jan 2023 11:04:39 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT033.mail.protection.outlook.com (100.127.140.129) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.22 via Frontend Transport; Fri, 27 Jan 2023 11:04:39 +0000
+Received: ("Tessian outbound 333ca28169fa:v132");
+ Fri, 27 Jan 2023 11:04:38 +0000
+Received: from 35e18bb5e9c7.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 39D4614B-5018-4448-9B88-75CF38E143BA.1; 
+ Fri, 27 Jan 2023 11:04:33 +0000
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 35e18bb5e9c7.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 27 Jan 2023 11:04:33 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by DB9PR08MB6459.eurprd08.prod.outlook.com (2603:10a6:10:256::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.23; Fri, 27 Jan
+ 2023 11:04:23 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e%5]) with mapi id 15.20.6043.023; Fri, 27 Jan 2023
+ 11:04:23 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,326 +71,122 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=cuHw8GsZhNl7V/Nouoao+s9Oxlk4RPLsFJAA73QT7Do=; b=s0DWXK2FChRzG8SfN/quZVuRc5
-	W9XrMLEbyNIUJahp+UtTeWY2lKEDiZKnyoZYqBy1XbJxcPTnck+MEaZ39cAq7F33L2wEn0RrbWc9T
-	TfOpyqmFMvUBlAQW2UN91p55M2X03KUyQmhAs3gOsDC2QfbhJjqfYFonPr2Yj9A3Qaxc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176233-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 65afcf75-9e32-11ed-a5d9-ddcf98b90cbd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yr8Ewi+aEYg+FppOqBJ5NN8pgGWxGVq5zqHmAceUmPk=;
+ b=iGGNuFTmLJRBBOyciKBVMO2FlIV2DEFKoWC4ANn/ONb60+/fYP7BO0eijdt1R27CaC1QDMFs+CYCrrfTGUQkRQ+duNE4+gNRBm9tOCsWSKe5DCBu0IqqIDH6+PFTwu0DECDjP7GkXdyP0/fiBR5nKII6YUVIPidTApNaIqBFz1Q=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Uc31rkgnuo2O3lpb1Pun+1StVFCSG3V+6OwwlC0u2w8mYWRah0iqRJZg9w9N/wOOI1xFvtkCGeeDO94BuSHgN6sTb6W7tuCEtFCe59AXQ7S2fZVMB30xzwT/lLDLqKB3GLUI2Y8/gWL3FGfpS9oBkld0jSlddJ5oj/Y+CnBP/cPha5rdHY5Q0eQmb4GQXfewE8yV3fWV5SjxsshG3d6rdqPjizep8MefVL8kWWXaG7xHSZdiQH01T2jhOieCSDp6ThVRXuukRER4D3mnKYUimRjJ2iEx88orxsjf4ERFWehBauD1GwYVHWpuuT5+FNqETJc7BxVtqqgrWElzLZ8XXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yr8Ewi+aEYg+FppOqBJ5NN8pgGWxGVq5zqHmAceUmPk=;
+ b=Q6Z4kT0pEdGYeiZFj+oC2BUDZ+FCwj13kpREfQHzPvAQy+xREmJG/1zk7TvIrJef3SCN7X0wzVkOK2tmOjf24UnlEU1rXVTLTY06piPpzvF8BmZ+8eSbIbd/0FjX/6DxBjtkpKntEfL0am84Kj1HNx31FRnTtlJtBmfnlAYeYYBPEv9ltoYXhkdSI5QujqJ5pKFON8GTkRgdnw8Z5pEF53R31e149W89AzJfywnZntZhwLAi19ZFoBkRsbV+GDXb1f3KpQ3Gfy7J0J04Ecs7X1vuoTljLPB19vL6lrhbkGfHYueAlloHjuiGlZpgTan/4XVHzPmFJXNz8IZVV0JbSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yr8Ewi+aEYg+FppOqBJ5NN8pgGWxGVq5zqHmAceUmPk=;
+ b=iGGNuFTmLJRBBOyciKBVMO2FlIV2DEFKoWC4ANn/ONb60+/fYP7BO0eijdt1R27CaC1QDMFs+CYCrrfTGUQkRQ+duNE4+gNRBm9tOCsWSKe5DCBu0IqqIDH6+PFTwu0DECDjP7GkXdyP0/fiBR5nKII6YUVIPidTApNaIqBFz1Q=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Julien Grall <julien@xen.org>, Michal Orzel <michal.orzel@amd.com>,
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Bertrand Marquis
+	<Bertrand.Marquis@arm.com>, Wei Chen <Wei.Chen@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: RE: [PATCH 1/3] xen/arm: Reduce redundant clear root pages when
+ teardown p2m
+Thread-Topic: [PATCH 1/3] xen/arm: Reduce redundant clear root pages when
+ teardown p2m
+Thread-Index: AQHZKU4erKVguEhJ4EOF/N1uL2C1/a6nFMuAgAbbyYCABDoEcA==
+Date: Fri, 27 Jan 2023 11:04:23 +0000
+Message-ID:
+ <AS8PR08MB79917007B583442AB6B43F9892CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <20230116015820.1269387-1-Henry.Wang@arm.com>
+ <20230116015820.1269387-2-Henry.Wang@arm.com>
+ <36821aa0-4e88-57f7-3f8b-35ba0529fabf@amd.com>
+ <59f4d24a-44cf-fa8f-bdac-2af036f2cd30@xen.org>
+In-Reply-To: <59f4d24a-44cf-fa8f-bdac-2af036f2cd30@xen.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 4FB410BE413FDF40973393DD219C82C1.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|DB9PR08MB6459:EE_|AM7EUR03FT033:EE_|DB9PR08MB9948:EE_
+X-MS-Office365-Filtering-Correlation-Id: c09c80c6-7712-44ac-79a0-08db005648cb
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ dVWjZcOKmnoVyoBb8aeI513zDgrOik4o3+/G5pxwOt6XYvJ3IFsgBELlKQ5klfppgXuNAIxPB+Dy8Jhpxk9SjhFBOQeE/cDOJPvMPWtOZ8gkyP0YvcvsuB05NsLR5jU7IrgvH33wLI23Fv07FUkZDVHf7Eu6XoKj+c29oUt5dnAPzJaccVlA4XLE4Fd3Y1imM3QGtoZkw11l+Up6yhbDIoU2xL+GsRb/u0RVBEwBwx13CKS+fSCLb3gwOG5U+csY7aM9zMdd1uNoTyIYU6I2Lg9q+tSlBYkWPxcdAonHZtMpNcd01ehVTt4SCWLTc2QK1YtGEfsG6RB7fIXfRwLUq+URAsJvTIHK9sZEQ/Fwmibr8pKqWE4CuV4MYr7bl+OZe22ga8027P16mh1oPJQfFfw0B3VW2n0iVpzGyms0oxr3ZF9JtG/2sayajK5aElGpcKw9JATYumrQstVkyNRgIy4pWS074+Q7PVU2jdo39dLjBuJy2j8JgqrfSx4qkEijsladJ167vSGm7J8P1wF/jf3pDQFG46UL+UlFt/GsuTb3t9kKtMw1c7gwWQQ7EsTwz+8r5rt3p12lyXwvrnk3lXyaLvfZabLBUz/E2bdNErGMx7Oy4KNiAi2VbSlW7EVpJ5CXkJ3HiYvCKyq1c3IkIsSVg8Onx6QmSlad+sU6gDzR7qjpQd3U3hKYi7K/6TRrnbhbYh6iztzykfHQV45gJA==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(396003)(366004)(346002)(136003)(451199018)(41300700001)(66476007)(66446008)(64756008)(66556008)(55016003)(83380400001)(86362001)(7696005)(316002)(38100700002)(38070700005)(122000001)(110136005)(54906003)(76116006)(8676002)(66946007)(71200400001)(6506007)(186003)(26005)(478600001)(4326008)(33656002)(9686003)(2906002)(8936002)(52536014)(5660300002);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Subject: [libvirt test] 176233: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    libvirt:build-arm64-libvirt:<job status>:broken:regression
-    libvirt:build-armhf-libvirt:<job status>:broken:regression
-    libvirt:build-armhf-libvirt:host-install(4):broken:regression
-    libvirt:build-arm64-libvirt:host-install(4):broken:regression
-    libvirt:build-armhf-libvirt:syslog-server:running:regression
-    libvirt:test-arm64-arm64-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:build-armhf-libvirt:capture-logs:broken:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=2dde3840b1d50e79f6b8161820fff9fe62f613a9
-X-Osstest-Versions-That:
-    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Fri, 27 Jan 2023 11:04:17 +0000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB6459
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	b83e45b0-09a2-477c-965f-08db00563f8d
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	fz2vwi1el5Gg4scoKG08nOgM9Y8a0UrrgcsSHNODDEIXv2XkmZMUY9dbm+sKL9sXszHxZXRuwv1MDEMqfWbtrMDYyLoxux2Kp5TN2iPsDKKBRSslQybAQJtbT9uAVNWsIIdqwZgPO0B9O6NZGvglmxTBHLxwJapS57LNB0I5arHT4d4i+BqcKWVMLQVZqgbIzFno7WfKuRN2zgjrsO2D7LVYCuMGDecdsaRrARUzrtaD0LwGOQiMjRzb9F/ZyrCVjrN7AioF9pXIzVX9C0eZqZTsJW+9cvBG8S1IK4tYvKbXoJHx7XvHKI+cfwCUb5v+r+aruqduBKCYQERmQDYXjadVPiPveDQuQtDx6G0jz4ukA57PaM0+8NDz9x/Nuie8IEQG55sIxb2oy1/RfPwAzazSeliwgFRLrhDn485H7OVuowHelJlrQNe2iASm+U8HhvwTTmmIDWYd1X/jzq4YICcNxf0gUbMNAUXCqmFaY7r6WlRxNbJ6gnSHQP+PO71f80Wl/2dSKtkuJfuK0C3hFMX9RVbarvpaK02MFceHPWodGw9AUHvFZruyyr1ONpkc/zGm5apoFEL55HatXQucgk1IhMdkppaigjiNcGIy6vN3oYf1apEo4Vzw2zp6nUguMZnX+fiJyMHTqfaGXKKm7wJE6ftP5kIcjmgwr/tTJJaFmQwjTX/6+sRIM/svfraq8LWTkTKatJp9QBN9N03QDg==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199018)(40470700004)(46966006)(36840700001)(83380400001)(36860700001)(336012)(40460700003)(86362001)(82740400003)(110136005)(316002)(54906003)(5660300002)(47076005)(55016003)(81166007)(40480700001)(33656002)(356005)(82310400005)(7696005)(9686003)(107886003)(478600001)(2906002)(26005)(8676002)(4326008)(8936002)(186003)(70586007)(70206006)(6506007)(52536014)(41300700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2023 11:04:39.0914
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c09c80c6-7712-44ac-79a0-08db005648cb
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT033.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR08MB9948
 
-flight 176233 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176233/
-
-Failures and problems with tests :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-arm64-libvirt             <job status>                 broken
- build-armhf-libvirt             <job status>                 broken
- build-armhf-libvirt           4 host-install(4)        broken REGR. vs. 176139
- build-arm64-libvirt           4 host-install(4)        broken REGR. vs. 176139
- build-armhf-libvirt           3 syslog-server                running
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-libvirt      1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-qcow2  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- build-armhf-libvirt           5 capture-logs          broken blocked in 176139
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              2dde3840b1d50e79f6b8161820fff9fe62f613a9
-baseline version:
- libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
-
-Last test of basis   176139  2023-01-26 04:18:49 Z    1 days
-Testing same since   176233  2023-01-27 04:18:53 Z    0 days    1 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiri Denemark <jdenemar@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          broken  
- build-armhf-libvirt                                          broken  
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 blocked 
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     blocked 
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               blocked 
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 blocked 
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-arm64-libvirt broken
-broken-job build-armhf-libvirt broken
-broken-step build-armhf-libvirt host-install(4)
-broken-step build-armhf-libvirt capture-logs
-broken-step build-arm64-libvirt host-install(4)
-
-Not pushing.
-
-------------------------------------------------------------
-commit 2dde3840b1d50e79f6b8161820fff9fe62f613a9
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix missing device in crypto-builtin XML
-    
-    Another forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit f3c9cbc36cc10775f6cefeb7e3de2f799dc74d70
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix watchdog parameters in crypto-builtin
-    
-    Forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit a2c5c5dad2275414e325ca79778fad2612d14470
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:34 2023 +0100
-
-    news: Add information about iTCO watchdog changes
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 2fa92efe9b286ad064833cd2d8b907698e58e1cf
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:30 2023 +0100
-
-    Document change to multiple watchdogs
-    
-    With the reasoning behind it.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 926594dcc82b40f483010cebe5addbf1d7f58b24
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 11:22:22 2023 +0100
-
-    qemu: Add implicit watchdog for q35 machine types
-    
-    The iTCO watchdog is part of the q35 machine type since its inception,
-    we just did not add it implicitly.
-    
-    Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2137346
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d81a27b9815d68d85d2ddc9671649923ee5905d7
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 14:15:06 2023 +0100
-
-    qemu: Enable iTCO watchdog by disabling its noreboot pin strap
-    
-    In order for the iTCO watchdog to be operational we must disable the
-    noreboot pin strap in qemu.  This is the default starting from 8.0
-    machine types, but desirable for older ones as well.  And we can safely
-    do that since that is not guest-visible.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 5b80e93e42a1d89ee64420debd2b4b785a144c40
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:26:21 2023 +0100
-
-    Add iTCO watchdog support
-    
-    Supported only with q35 machine types.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1c61bd718a9e311016da799a42dfae18f538385a
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Tue Nov 8 09:10:57 2022 +0100
-
-    Support multiple watchdog devices
-    
-    This is already possible with qemu, and actually already happening with
-    q35 machines and a specified watchdog since q35 already includes a
-    watchdog we do not include in the XML.  In order to express such
-    posibility multiple watchdogs need to be supported.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit c5340d5420012412ea298f0102cc7f113e87d89b
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:28:52 2023 +0100
-
-    qemuDomainAttachWatchdog: Avoid unnecessary nesting
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1cf7e6ec057a80f3c256d739a8228e04b7fb8862
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:25:06 2023 +0100
-
-    remote: Drop useless cleanup in remoteDispatchNodeGet{CPU,Memory}Stats
-    
-    The function cannot fail once it starts populating
-    ret->params.params_val[i].field.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d0f339170f35957e7541e5b20552d0007e150fbc
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:06:33 2023 +0100
-
-    remote: Avoid leaking uri_out
-    
-    In case the API returned success and a NULL pointer in uri_out, we would
-    leak the preallocated buffer used for storing the uri_out pointer.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 4849eb2220fb2171e88e014a8e63018d20a8de95
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 11:56:28 2023 +0100
-
-    remote: Propagate error from virDomainGetSecurityLabelList via RPC
-    
-    The daemon side of this API has been broken ever since the API was
-    introduced in 2012. Instead of sending the error from
-    virDomainGetSecurityLabelList via RPC so that the client can see it, the
-    dispatcher would just send a successful reply with return value set to
-    -1 (and an empty array of labels). The client side would propagate this
-    return value so the client can see the API failed, but the original
-    error would be lost.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 0211e430a87a96db9a4e085e12f33caad9167653
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 13:19:31 2023 +0100
-
-    remote: Initialize args variable
-    
-    Recently, in v9.0.0-7-gb2034bb04c we've dropped initialization of
-    @args variable. The reasoning was that eventually, all members of
-    the variable will be set. Well, this is not correct. For
-    instance, in remoteConnectGetAllDomainStats() the
-    args.doms.doms_val pointer is set iff @ndoms != 0. However,
-    regardless of that, the pointer is then passed to VIR_FREE().
-    
-    Worse, the whole args is passed to
-    xdr_remote_connect_get_all_domain_stats_args() which then calls
-    xdr_array, which tests the (uninitialized) pointer against NULL.
-    
-    This effectively reverts b2034bb04c61c75ddbfbed46879d641b6f8ca8dc.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit c3afde9211b550d3900edc5386ab121f5b39fd3e
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 11:56:10 2023 +0100
-
-    qemu_domain: Don't unref NULL hash table in qemuDomainRefreshStatsSchema()
-    
-    The g_hash_table_unref() function does not accept NULL. Passing
-    NULL results in a glib warning being triggered. Check whether the
-    hash table is not NULL and unref it only then.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
+SGkgTWljaGFsIGFuZCBKdWxpZW4sDQoNCkFwb2xvZ2llcyBmb3IgdGhlIGxhdGUgcmVzcG9uc2Uu
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPj4gKyAgICBQUk9HUkVTUyhwMm1f
+cm9vdCk6DQo+ID4+ICsgICAgICAgIC8qDQo+ID4+ICsgICAgICAgICAqIFdlIGFyZSBhYm91dCB0
+byBmcmVlIHRoZSBpbnRlcm1lZGlhdGUgcGFnZS10YWJsZXMsIHNvIGNsZWFyIHRoZQ0KPiA+PiAr
+ICAgICAgICAgKiByb290IHRvIHByZXZlbnQgYW55IHdhbGsgdG8gdXNlIHRoZW0uDQo+ID4gVGhl
+IGNvbW1lbnQgZnJvbSBoZXJlLi4uDQo+ID4+ICsgICAgICAgICAqIFRoZSBkb21haW4gd2lsbCBu
+b3QgYmUgc2NoZWR1bGVkIGFueW1vcmUsIHNvIGluIHRoZW9yeSB3ZQ0KPiBzaG91bGQNCj4gPj4g
+KyAgICAgICAgICogbm90IG5lZWQgdG8gZmx1c2ggdGhlIFRMQnMuIERvIGl0IGZvciBzYWZldHkg
+cHVycG9zZS4NCj4gPj4gKyAgICAgICAgICogTm90ZSB0aGF0IGFsbCB0aGUgZGV2aWNlcyBoYXZl
+IGFscmVhZHkgYmVlbiBkZS1hc3NpZ25lZC4gU28gd2UNCj4gZG9uJ3QNCj4gPj4gKyAgICAgICAg
+ICogbmVlZCB0byBmbHVzaCB0aGUgSU9NTVUgVExCIGhlcmUuDQo+ID4+ICsgICAgICAgICAqLw0K
+PiA+IHRvIGhlcmUgZG9lcyBub3QgbWFrZSBhIGxvdCBvZiBzZW5zZSBpbiB0aGlzIHBsYWNlIGFu
+ZCBzaG91bGQgYmUgbW92ZWQgdG8NCj4gcDJtX2NsZWFyX3Jvb3RfcGFnZXMNCj4gPiB3aGVyZSBh
+IHVzZXIgY2FuIHNlZSB0aGUgY2FsbCB0byBwMm1fZm9yY2VfdGxiX2ZsdXNoX3N5bmMuDQo+IA0K
+PiArMQ0KDQpJIHdpbGwgbW92ZSB0aGlzIGNvZGUgY29tbWVudCBibG9jayB0byB0aGUgcGxhY2Ug
+dGhhdCB5b3Ugc3VnZ2VzdGVkIGluIHYyLg0KDQo+IA0KPiA+IEFwYXJ0IGZyb20gdGhhdDoNCj4g
+PiBSZXZpZXdlZC1ieTogTWljaGFsIE9yemVsIDxtaWNoYWwub3J6ZWxAYW1kLmNvbT4NCj4gDQo+
+IEFja2VkLWJ5OiBKdWxpZW4gR3JhbGwgPGpncmFsbEBhbWF6b24uY29tPg0KDQpUaGFua3MgdG8g
+Ym90aCBvZiB5b3UuIEkgd2lsbCBrZWVwIHRoZXNlIHR3byB0YWdzIHdpdGggdGhlIGZpeCBhYm91
+dCB0aGUgYWJvdmUNCmluLWNvZGUgY29tbWVudCBwb3NpdGlvbi4NCg0KS2luZCByZWdhcmRzLA0K
+SGVucnkNCg0KPiANCj4gQ2hlZXJzLA0KPiANCj4gLS0NCj4gSnVsaWVuIEdyYWxsDQo=
 
