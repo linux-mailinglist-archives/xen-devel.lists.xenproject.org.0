@@ -2,37 +2,39 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C406367E7ED
-	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 15:15:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.485678.753076 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A45CF67E82D
+	for <lists+xen-devel@lfdr.de>; Fri, 27 Jan 2023 15:25:03 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.485687.753086 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLPVR-0003ck-6Z; Fri, 27 Jan 2023 14:15:05 +0000
+	id 1pLPeg-0005PD-4c; Fri, 27 Jan 2023 14:24:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 485678.753076; Fri, 27 Jan 2023 14:15:05 +0000
+Received: by outflank-mailman (output) from mailman id 485687.753086; Fri, 27 Jan 2023 14:24:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLPVR-0003aW-2X; Fri, 27 Jan 2023 14:15:05 +0000
-Received: by outflank-mailman (input) for mailman id 485678;
- Fri, 27 Jan 2023 14:15:03 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dhsa=5Y=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pLPVP-0003aQ-Pb
- for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 14:15:03 +0000
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [2a00:1450:4864:20::42c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fd35090b-9e4c-11ed-a5d9-ddcf98b90cbd;
- Fri, 27 Jan 2023 15:15:02 +0100 (CET)
-Received: by mail-wr1-x42c.google.com with SMTP id h16so5061853wrz.12
- for <xen-devel@lists.xenproject.org>; Fri, 27 Jan 2023 06:15:02 -0800 (PST)
-Received: from [192.168.100.7] (lfbn-gre-1-240-53.w90-112.abo.wanadoo.fr.
- [90.112.199.53]) by smtp.gmail.com with ESMTPSA id
- j5-20020adff005000000b002bddd75a83fsm4133579wro.8.2023.01.27.06.15.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Jan 2023 06:15:00 -0800 (PST)
+	id 1pLPeg-0005Ma-1P; Fri, 27 Jan 2023 14:24:38 +0000
+Received: by outflank-mailman (input) for mailman id 485687;
+ Fri, 27 Jan 2023 14:24:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=N8iV=5Y=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pLPef-0005MU-C5
+ for xen-devel@lists.xenproject.org; Fri, 27 Jan 2023 14:24:37 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2075.outbound.protection.outlook.com [40.107.20.75])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 529cfffc-9e4e-11ed-b8d1-410ff93cb8f0;
+ Fri, 27 Jan 2023 15:24:35 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AS8PR04MB9176.eurprd04.prod.outlook.com (2603:10a6:20b:44b::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.33; Fri, 27 Jan
+ 2023 14:24:33 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6043.022; Fri, 27 Jan 2023
+ 14:24:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,273 +46,173 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fd35090b-9e4c-11ed-a5d9-ddcf98b90cbd
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=4Q86dD1lo7VUFB+GozTLUzEN5VfEloh1zuvqKw45joo=;
-        b=dRuwMasfnpkREPWr/1vr9i22DPJ3orpn4yaox5lPwZUiPzFz1Z6fA4ZiHrZ/NHkjyo
-         O33gsx9SuSn1WzIwgqiMN2jhu0skJhU3bO0wEcS9Hu6cNF+xSz2DscrdWcJSk9lL9INU
-         Po0AZO0W3NF3riTMK8lWDdbit3iaSzF3wsCU6LHr1kfiIKvYiaX4/QtvB5g619aCVKKU
-         iYdSr1zsmC6xYSxBAJW42NDNhhh+FxBHs8JUbzAXZtMMNxsjX4wp2hn1GmJCVUtL/bCJ
-         aUg9luJoIwqfhLdAgC5n/8qDkmSzekjFAvkZidiQ/kq9/c3X9Fbjdmmi0Jqil5CtCWV7
-         nk2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=4Q86dD1lo7VUFB+GozTLUzEN5VfEloh1zuvqKw45joo=;
-        b=AnYY2y3w6fzuFTDZ4ddHS+xReuXKxRIX8XYtJWqd0RKP3TwCRvJzohmZv3ozw8iOBx
-         tDrP1K7eLfBsDcBFc3Y4L/RCWFESmN729JsCgrJFLLaSRAb6/C4LaUu+0TylwVWcKQLq
-         jGsOdg/kNVscxhIcuqy9cAOG1LKcothdlBUAnTfExVuXSDaiBhVwhSH/3f8XqnVz50Mr
-         xsW8698N1JmlCAsAQTtffMWHsdUmcQT0MIN/fhWB/q0bfcf9Xb4/yYDHdqPCfos8tO8T
-         7Ur/S2cu5Md2RbVzJTT6naFg4PMD/OyzIP6tDLNB3yaWuP0I0+uTYA2/lWiBPWKV9Ac2
-         L2zQ==
-X-Gm-Message-State: AFqh2krNjbHU2ohlk5cNroLtadkDEPIIdcjCFsSTmKRvu7hs3VQfVBJq
-	m8WlfZq3NiHoVS+q3LyNNdFUrUgJyDw=
-X-Google-Smtp-Source: AMrXdXscQG8kEGMr7Y1AsjJdJ3mhDuCiYu3+zdW3CsKbfJhZ//tAD/a8rfa3vsb3LaZsUMLkve96Ew==
-X-Received: by 2002:a05:6000:1f14:b0:2ac:5b46:9c85 with SMTP id bv20-20020a0560001f1400b002ac5b469c85mr34231516wrb.68.1674828901396;
-        Fri, 27 Jan 2023 06:15:01 -0800 (PST)
-Message-ID: <f5cd1bfb116bfcc86fc2848df7eead05cd1a24c0.camel@gmail.com>
-Subject: Re: [PATCH v7 1/2] xen/riscv: introduce early_printk basic stuff
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: xen-devel@lists.xenproject.org, Bob Eshleman <bobbyeshleman@gmail.com>, 
-	Alistair Francis <alistair.francis@wdc.com>, Julien Grall <julien@xen.org>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>,  Stefano Stabellini <sstabellini@kernel.org>, Gianluca
- Guida <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,  Connor Davis
- <connojdavis@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>
-Date: Fri, 27 Jan 2023 16:15:00 +0200
-In-Reply-To: <06c2c36bd68b2534c757dc4087476e855253680a.1674819203.git.oleksii.kurochko@gmail.com>
-References: <cover.1674819203.git.oleksii.kurochko@gmail.com>
-	 <06c2c36bd68b2534c757dc4087476e855253680a.1674819203.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+X-Inumbo-ID: 529cfffc-9e4e-11ed-b8d1-410ff93cb8f0
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aQHxNsirJRnehuXKWFevR+NK6n5/k72LKj2Yf08a6oeUSjl/7PzukefwqD7Wh6S2U/nG8muepY51Ce3fSfbh7+iUzEqol0m23E0u6Lx/GbLZq4vll7087ljBlQSqghAavEOMML1nvvG1UNDWCYBKKNZRLtw/eNkE4+MVqfZOopSpMFiwP2MJo7UA0OSdLki8TrTdspLRkPqsNertFfq/enI/O02hPk56mONHSCSqvyoWpjw4YL/pfUdSnQs1lv6k5A3YkFG2VnY5GDgmsKPexEFbt3beyQDWezQClNOolF19oZ99hhto8ctx2zZoTH86Ft6U2YPY6IjA4N645EZQcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=39S+I3MneBJhbeyryLlr5sj2mu3nP26wl0wNCoY0Ho8=;
+ b=oKYQYcQGiKfCBv9aAjr3yDttxGHODFvkKX6HGPz31/mwQZNHNufUKhC8E21WdDKpkZosXkZrRNHigind9LhVrDSWh/0Jrn/46qAHY8jXM6zIgCx1om58Y5AqRkUOInCVuPdPdUJj/8zcMxUR+b8yl4GIQ3qwM5CYLw8mFWJooVuvwkp8eDluxVGPxYNLwbN/s9OxD5S8s1oMdRtKWMwX94JGPYNLCpogE4h3IkXH1frL8WxEaNdkm4lJJZFDqrb2KS4ObZBb4W7B6JNOAnZYx9BZHdcXxy+RrDUXNrZnOW+bHX87a5qkMKikDQSZA4kR+v9suJAJQVqD40S/PKq37w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=39S+I3MneBJhbeyryLlr5sj2mu3nP26wl0wNCoY0Ho8=;
+ b=CtX6ZwAaKWuiIqJ2GEEYhbX9pFxvZxvHpMt+X0jSo88dkFNvUBVHXXXxhmzSt1ziwrqaSanFVeRxY4KwaxfC+DQkQ4YWCzC5eICLDt0jdg3mhZr1Blw1FDqMIY3+AO+EzxMSe3GWUvFi2S3C9vNkJ655nSMCS2nXpiQsFieByhtNFrFgzVUfblwSo+lmt8mCyFze880WKQDtkUfXpIzJ/MsEK1IqjZPkj/+yREg6lyHci/cUdqpI1H00fXuRHhnJ3Hb5GTpnkL2C/9jNPu8fnajNGmMyiU+6kZpUQgcYYDXqzEITVra5KoYPuxae1IahsXrrOSyRfSd/VSblLDynmQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com>
+Date: Fri, 27 Jan 2023 15:24:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
+Content-Language: en-US
+To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>,
+ Bobby Eshleman <bobby.eshleman@gmail.com>, xen-devel@lists.xenproject.org
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
+ <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0036.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::23) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB9176:EE_
+X-MS-Office365-Filtering-Correlation-Id: a5b38790-628a-4d16-3b33-08db00723594
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	sUInzmr7pLV8gb+oksUH7xykZ8Vzi7Cdj8K87SYJeWMY6ltWbdL35qNt/fzovw7VfVDWigI5ZevXticbCkt79ccK6IdEl9925dnRi7ApxIZv+cWcJeDcDgrgUuEWcmfBS9F6pZyMmLMPIkGK52GFodbZNu2kztzCK4BLlLMojdQ/IMDLXALvxwXhAbKIgp/KBSYpKuq9pF+knxewYuoQUCrPFM3T4e8jo5nB4/faWPeM2xVQ3WRMa9WutHO4s49hv/q/0arlsSxyjwQD9FhdEbHuc6dAdprQAE3+l8GlHxHkUoqod6PITga0sOIBYUhMqpfat1ssWpiaMRhRi7rOHKZKhA5VcAEraP9WBMxqQF0qKJ87CuMuXlqJ62TutY4zTUeujHGz8awk4yCHXsQqhIXskegomYa6L2eQJs34bCu/VCgybaaXnDnUN2cuSWQ/IWfaXwVlOhClJax3D5/Ry4cG+97KQ4Vn6GjQ0mtXdTmiOtb4Ima3vU0cdChagxndcWBD9yol4K3r2g6AbJ4TUIJyAx0LQsiKMgfzLiN4hdGb5qb5kbwLxxpVODxZcyMEPThnjIRrg0JE/aY1zfezreBCAKX4Cme7q/4EkwMEwOwNJa32nVwqleXohMAylMCzYMIM+92J9JrMwb2pSbJVNg0qhKVfc6BGbN7bLgUs1GGIpdiIVrV9beT8oGzNzFQaJpKL6Kw4PdoY62LAVyowoRSaVR8CrS1OyD9f5Yg+LKA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(136003)(396003)(366004)(39860400002)(376002)(451199018)(316002)(54906003)(36756003)(2616005)(66946007)(38100700002)(6916009)(6512007)(4326008)(186003)(8676002)(478600001)(66556008)(26005)(86362001)(66476007)(53546011)(31696002)(6486002)(6506007)(31686004)(7416002)(2906002)(8936002)(41300700001)(5660300002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?VVp4dTBpeXJXbGs3Y1JVNnBGR2gxR3FiQVdlZlhzby9TMk44YnVTdGZzZURO?=
+ =?utf-8?B?UUd2YlV5Nzk2MzRWREtxRUw2Y1NvZ1RCVThUOFdzclpOWWtVQUJNSFNCdlZC?=
+ =?utf-8?B?SkZhYmtDandlSDk0MFJTZzFtYVlPcEtnSDZxTVM2Q0NPazdzaGNNVWlUMElJ?=
+ =?utf-8?B?clZ6OXduNTl5M3JEYVJmZ3VwM21qdnB6cDcvYmoyTnZFMC9UY0dpK2lnR3Ni?=
+ =?utf-8?B?Q0NRT1V0dHluNWJnU2dnS0RzUnBPSU9aQW00OFFmaDNuTnh1YnZYS3BJS3JM?=
+ =?utf-8?B?Z2JkOGdjSEh5WE9yTjRGTnhUMHY2TFA0bHRnUTNTQm9lTlNYeWhNRUtxcGM4?=
+ =?utf-8?B?RUhRck1DVC9yVVZRdkpScUpkUGtjTERzeWZiK3V4S3lPU3crR00wT0libUpa?=
+ =?utf-8?B?elV2RmFSWXVuUm5mSnI2Y1MxZDlnQ3pLcjRDMm9xallGdVNKZEhPUC9MczN1?=
+ =?utf-8?B?UFNlSEVEcXNVVmh1UWRGMHJOZWxhTnlTNWh0dmdhOG9XeXdrcXBBMzJOeVNm?=
+ =?utf-8?B?Q2M2d0FRSmxFS01SVEVRb0lYTjZNK3hpRjlGclZ5OW4wNzJ3UGpCdlVjQzdB?=
+ =?utf-8?B?eDJpMS9yeER0eFRJakpFc3puaVNQSy9zSVV4VWdxbnAybmZQaWpBaXgzSnQv?=
+ =?utf-8?B?cEgrR3dEZU5RSGN1eGloamtEWjN0ckZ6dkk1enhlRW95bEpnNHA0NmpJNUww?=
+ =?utf-8?B?cUpHNVJQeEs4RlF1SVNwbyt2VmlHOThSYWROVnlTenE5TnRuSVNUOFJRaVBq?=
+ =?utf-8?B?U2M0RExZdTcxUS92eTRYazFVWWhlTnlQSld6NnBhdG0rT2d0Kyt1VUNpS1Ba?=
+ =?utf-8?B?TDRtbmJSU3BLcDVZY2E5N0ErM3Vzbml0K3V3dHBWT0F0QzVOSFNaU0tMSWZk?=
+ =?utf-8?B?ZWtrRFJpMU1PZVM1d21CekY1ZzkyTXQ5QXZ4L3dHZW4yckdHd01qQU5FM0xH?=
+ =?utf-8?B?VXNLcEdQMDhnQ3lQZXVxUVJoTDVNU1RQYktMMG5ZQnQ1V3NIWG1xUjNtSmlk?=
+ =?utf-8?B?TEo1R0t6djVWeFBHNW5hbzkvLzRsN09Lb01iclkwTzFyZVVmTmdYNVRyTFZO?=
+ =?utf-8?B?ZVhza2pvKzNORUF1akR1aHNqUkJlcVNYZ2ROM0ZIRk1nbFdtaERQcS8wTlZE?=
+ =?utf-8?B?TFFqUmlCd0NLeXZZd1VmclFzMFJIVVhBR09laU9hcW8xZlhLazNjWG9XWjQ4?=
+ =?utf-8?B?VExRNjR6WHZZbElDY1dVcXY4bGt6cjFhWU1rbDExUk9mQW5kZmRXaXFyYzJP?=
+ =?utf-8?B?b3NMeU5FbDJobVhXNE96Rm9CdWw0MFdNMXNzWkdHc2UrU1lBT2xpZzd1ZWYr?=
+ =?utf-8?B?eDVFaWM4SWNMZGVGZ3pCNEhLU1VsckFBRmxFQXhmSkxYTjhSRDBGbllONDdI?=
+ =?utf-8?B?ZkMwamczdml1WldDeTNvcnM2eTB2Q1BUMDBYN1VkTG9SZ1J1MTlRVmw1b1dQ?=
+ =?utf-8?B?bHRSKzBIZHQvM2h3ZzZ5aHp1VU1VaTA0bGtKV25QdlhCMXVxenJ2citiMUh1?=
+ =?utf-8?B?Y2NjMDdBUVp1NEpXUnJaM3RqdnZ2MzkzSXJ6SFZGekh5SWpXTWJGTkc4WFF1?=
+ =?utf-8?B?TXE5Q0x4T3U4V3NGMUVZdUFTRTdjcmZkVXFhY2FRM1JscVQ5aTJUZ0FXUU9F?=
+ =?utf-8?B?UXRldWVRR1FXaVdkV1M5czB6UlpTRXJMVE50TEY4REluOEp3YkFxWC9CR01h?=
+ =?utf-8?B?WnY1dzBGenJqR0JzcDJKZll3NVBwRXJ3eFBtd1RQMjNtSE5RWXE4M2lmdkZC?=
+ =?utf-8?B?Rld5cEgzeDlXZGZ3YStZdm1wWlplTlVGek9nY1o3QURWQWhpRWNXRmVRMHph?=
+ =?utf-8?B?Zi93a1dURlk2SisyeU9kY2dXSU10UHRBN0ZrM21oTzkwNEoySGkvL2RnbG54?=
+ =?utf-8?B?ZnNvd1RHb0dBTzQwbEVZL1oxZE0yWDc3cWpEWVFDNDZEY1JTdUZzeU9POWh1?=
+ =?utf-8?B?VUp0NzVTc0JyTzNsTThyNDhpTDhWR3BseWFCd1VGbUZVSlYzaTlQUkFjRUla?=
+ =?utf-8?B?dXRva0RRYzBDZkM1Y0RvT1NTQ3R0emZCMHlJZlNza2pkWEFHMTdJNnk3cjBs?=
+ =?utf-8?B?QWhLM0RzSEwyY3ZWVW1KMW95cWVKalFsMnlaZ0NXV2ROUiswbStjbE1nMGg3?=
+ =?utf-8?Q?tXleW01mntpO5s8Y+F/7noem0?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a5b38790-628a-4d16-3b33-08db00723594
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2023 14:24:32.9798
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UzowZ6itbaRxukYLiIJlB8e0vBzFzD8ZxUsaENqbl4P4Q3M69A3OchUfBHS2t9fjsWhYOpwE3cXWLPuj0AO8RA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB9176
 
-Hi Alistair, Bobby and community,
-
-I would like to ask your help with the following check:
-+/*
-+ * early_*() can be called from head.S with MMU-off.
-+ *
-+ * The following requiremets should be honoured for early_*() to
-+ * work correctly:
-+ *    It should use PC-relative addressing for accessing symbols.
-+ *    To achieve that GCC cmodel=3Dmedany should be used.
-+ */
-+#ifndef __riscv_cmodel_medany
-+#error "early_*() can be called from head.S with MMU-off"
-+#endif
-
-Please take a look at the following messages and help me to decide if
-the check mentioned above should be in early_printk.c or not:
-[1]
-https://lore.kernel.org/xen-devel/599792fa-b08c-0b1e-10c1-0451519d9e4a@xen.=
-org/
-[2]
-https://lore.kernel.org/xen-devel/0ec33871-96fa-bd9f-eb1b-eb37d3d7c982@xen.=
-org/
-
-Thanks in advance.
-
-~ Oleksii
-
-On Fri, 2023-01-27 at 13:39 +0200, Oleksii Kurochko wrote:
-> Because printk() relies on a serial driver (like the ns16550 driver)
-> and drivers require working virtual memory (ioremap()) there is not
-> print functionality early in Xen boot.
->=20
-> The patch introduces the basic stuff of early_printk functionality
-> which will be enough to print 'hello from C environment".
->=20
-> Originally early_printk.{c,h} was introduced by Bobby Eshleman
-> (
-> https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d1a
-> ab71384)
-> but some functionality was changed:
-> early_printk() function was changed in comparison with the original
-> as
-> common isn't being built now so there is no vscnprintf.
->=20
-> This commit adds early printk implementation built on the putc SBI
-> call.
->=20
-> As sbi_console_putchar() is already being planned for deprecation
-> it is used temporarily now and will be removed or reworked after
-> real uart will be ready.
->=20
-> Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
-> ---
-> Changes in V7:
-> =C2=A0=C2=A0=C2=A0 - Nothing was changed
-> ---
-> Changes in V6:
-> =C2=A0=C2=A0=C2=A0 - Remove __riscv_cmodel_medany check from early_printk=
-.c
-> ---
-> Changes in V5:
-> =C2=A0=C2=A0=C2=A0 - Code style fixes
-> =C2=A0=C2=A0=C2=A0 - Change an error message of #error in case of
-> __riscv_cmodel_medany
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 isn't defined
-> ---
-> Changes in V4:
-> =C2=A0=C2=A0=C2=A0 - Remove "depends on RISCV*" from Kconfig.debug as it =
-is located
-> in
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 arch specific folder so by default RISCV c=
-onfigs should be
-> ebabled.
-> =C2=A0=C2=A0=C2=A0 - Add "ifdef __riscv_cmodel_medany" to be sure that PC=
--relative
-> addressing
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 is used as early_*() functions can be call=
-ed from head.S with
-> MMU-off and
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 before relocation (if it would be needed a=
-t all for RISC-V)
-> =C2=A0=C2=A0=C2=A0 - fix code style
-> ---
-> Changes in V3:
-> =C2=A0=C2=A0=C2=A0 - reorder headers in alphabetical order
-> =C2=A0=C2=A0=C2=A0 - merge changes related to start_xen() function from "=
-[PATCH v2
-> 7/8]
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 xen/riscv: print hello message from C env"=
- to this patch
-> =C2=A0=C2=A0=C2=A0 - remove unneeded parentheses in definition of STACK_S=
-IZE
-> ---
-> Changes in V2:
-> =C2=A0=C2=A0=C2=A0 - introduce STACK_SIZE define.
-> =C2=A0=C2=A0=C2=A0 - use consistent padding between instruction mnemonic =
-and
-> operand(s)
-> ---
-> =C2=A0xen/arch/riscv/Kconfig.debug=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 5 ++++
-> =C2=A0xen/arch/riscv/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 =
-1 +
-> =C2=A0xen/arch/riscv/early_printk.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 33
-> +++++++++++++++++++++++
-> =C2=A0xen/arch/riscv/include/asm/early_printk.h | 12 +++++++++
-> =C2=A0xen/arch/riscv/setup.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 4 +++
-> =C2=A05 files changed, 55 insertions(+)
-> =C2=A0create mode 100644 xen/arch/riscv/early_printk.c
-> =C2=A0create mode 100644 xen/arch/riscv/include/asm/early_printk.h
->=20
-> diff --git a/xen/arch/riscv/Kconfig.debug
-> b/xen/arch/riscv/Kconfig.debug
-> index e69de29bb2..608c9ff832 100644
-> --- a/xen/arch/riscv/Kconfig.debug
-> +++ b/xen/arch/riscv/Kconfig.debug
-> @@ -0,0 +1,5 @@
-> +config EARLY_PRINTK
-> +=C2=A0=C2=A0=C2=A0 bool "Enable early printk"
-> +=C2=A0=C2=A0=C2=A0 default DEBUG
-> +=C2=A0=C2=A0=C2=A0 help
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Enables early printk debug messages
-> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> index fd916e1004..1a4f1a6015 100644
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -1,3 +1,4 @@
-> +obj-$(CONFIG_EARLY_PRINTK) +=3D early_printk.o
-> =C2=A0obj-$(CONFIG_RISCV_64) +=3D riscv64/
-> =C2=A0obj-y +=3D sbi.o
-> =C2=A0obj-y +=3D setup.o
-> diff --git a/xen/arch/riscv/early_printk.c
-> b/xen/arch/riscv/early_printk.c
-> new file mode 100644
-> index 0000000000..b66a11f1bc
+On 27.01.2023 14:59, Oleksii Kurochko wrote:
 > --- /dev/null
-> +++ b/xen/arch/riscv/early_printk.c
-> @@ -0,0 +1,33 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * RISC-V early printk using SBI
+> +++ b/xen/arch/riscv/include/asm/processor.h
+> @@ -0,0 +1,82 @@
+> +/* SPDX-License-Identifier: MIT */
+> +/******************************************************************************
 > + *
-> + * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
+> + * Copyright 2019 (C) Alistair Francis <alistair.francis@wdc.com>
+> + * Copyright 2021 (C) Bobby Eshleman <bobby.eshleman@gmail.com>
+> + * Copyright 2023 (C) Vates
+> + *
 > + */
-> +#include <asm/early_printk.h>
-> +#include <asm/sbi.h>
 > +
-> +/*
-> + * TODO:
-> + *=C2=A0=C2=A0 sbi_console_putchar is already planned for deprecation
-> + *=C2=A0=C2=A0 so it should be reworked to use UART directly.
-> +*/
-> +void early_puts(const char *s, size_t nr)
+> +#ifndef _ASM_RISCV_PROCESSOR_H
+> +#define _ASM_RISCV_PROCESSOR_H
+> +
+> +#ifndef __ASSEMBLY__
+> +
+> +/* On stack VCPU state */
+> +struct cpu_user_regs
 > +{
-> +=C2=A0=C2=A0=C2=A0 while ( nr-- > 0 )
-> +=C2=A0=C2=A0=C2=A0 {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if ( *s =3D=3D '\n' )
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sbi_c=
-onsole_putchar('\r');
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sbi_console_putchar(*s);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 s++;
-> +=C2=A0=C2=A0=C2=A0 }
-> +}
-> +
-> +void early_printk(const char *str)
-> +{
-> +=C2=A0=C2=A0=C2=A0 while ( *str )
-> +=C2=A0=C2=A0=C2=A0 {
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 early_puts(str, 1);
-> +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 str++;
-> +=C2=A0=C2=A0=C2=A0 }
-> +}
-> diff --git a/xen/arch/riscv/include/asm/early_printk.h
-> b/xen/arch/riscv/include/asm/early_printk.h
-> new file mode 100644
-> index 0000000000..05106e160d
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/early_printk.h
-> @@ -0,0 +1,12 @@
-> +#ifndef __EARLY_PRINTK_H__
-> +#define __EARLY_PRINTK_H__
-> +
-> +#include <xen/early_printk.h>
-> +
-> +#ifdef CONFIG_EARLY_PRINTK
-> +void early_printk(const char *str);
-> +#else
-> +static inline void early_printk(const char *s) {};
-> +#endif
-> +
-> +#endif /* __EARLY_PRINTK_H__ */
-> diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-> index 13e24e2fe1..d09ffe1454 100644
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -1,12 +1,16 @@
-> =C2=A0#include <xen/compile.h>
-> =C2=A0#include <xen/init.h>
-> =C2=A0
-> +#include <asm/early_printk.h>
-> +
-> =C2=A0/* Xen stack for bringing up the first CPU. */
-> =C2=A0unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-> =C2=A0=C2=A0=C2=A0=C2=A0 __aligned(STACK_SIZE);
-> =C2=A0
-> =C2=A0void __init noreturn start_xen(void)
-> =C2=A0{
-> +=C2=A0=C2=A0=C2=A0 early_printk("Hello from C env\n");
-> +
-> =C2=A0=C2=A0=C2=A0=C2=A0 for ( ;; )
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 asm volatile ("wfi");
-> =C2=A0
+> +    unsigned long zero;
+> +    unsigned long ra;
+> +    unsigned long sp;
+> +    unsigned long gp;
+> +    unsigned long tp;
+> +    unsigned long t0;
+> +    unsigned long t1;
+> +    unsigned long t2;
+> +    unsigned long s0;
+> +    unsigned long s1;
+> +    unsigned long a0;
+> +    unsigned long a1;
+> +    unsigned long a2;
+> +    unsigned long a3;
+> +    unsigned long a4;
+> +    unsigned long a5;
+> +    unsigned long a6;
+> +    unsigned long a7;
+> +    unsigned long s2;
+> +    unsigned long s3;
+> +    unsigned long s4;
+> +    unsigned long s5;
+> +    unsigned long s6;
+> +    unsigned long s7;
+> +    unsigned long s8;
+> +    unsigned long s9;
+> +    unsigned long s10;
+> +    unsigned long s11;
+> +    unsigned long t3;
+> +    unsigned long t4;
+> +    unsigned long t5;
+> +    unsigned long t6;
+> +    unsigned long sepc;
+> +    unsigned long sstatus;
+> +    /* pointer to previous stack_cpu_regs */
+> +    unsigned long pregs;
+> +};
 
+Just to restate what I said on the earlier version: We have a struct of
+this name in the public interface for x86. Besides to confusion about
+re-using the name for something private, I'd still like to understand
+what the public interface plans are. This is specifically because I
+think it would be better to re-use suitable public interface structs
+internally where possible. But that of course requires spelling out
+such parts of the public interface first.
+
+Jan
 
