@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DADA267F33F
-	for <lists+xen-devel@lfdr.de>; Sat, 28 Jan 2023 01:39:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.486014.753475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42B0E67F363
+	for <lists+xen-devel@lfdr.de>; Sat, 28 Jan 2023 01:56:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.486029.753496 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLZF1-0004fj-1q; Sat, 28 Jan 2023 00:38:47 +0000
+	id 1pLZW7-00081t-TJ; Sat, 28 Jan 2023 00:56:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 486014.753475; Sat, 28 Jan 2023 00:38:47 +0000
+Received: by outflank-mailman (output) from mailman id 486029.753496; Sat, 28 Jan 2023 00:56:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pLZF0-0004d1-UC; Sat, 28 Jan 2023 00:38:46 +0000
-Received: by outflank-mailman (input) for mailman id 486014;
- Sat, 28 Jan 2023 00:38:45 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLZEy-0004cr-VT; Sat, 28 Jan 2023 00:38:44 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLZEy-0006J9-RQ; Sat, 28 Jan 2023 00:38:44 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pLZEy-0000WQ-Id; Sat, 28 Jan 2023 00:38:44 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pLZEy-0008Vr-II; Sat, 28 Jan 2023 00:38:44 +0000
+	id 1pLZW7-0007yU-QI; Sat, 28 Jan 2023 00:56:27 +0000
+Received: by outflank-mailman (input) for mailman id 486029;
+ Sat, 28 Jan 2023 00:56:26 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=LM4o=5Z=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pLZW6-0007yO-G0
+ for xen-devel@lists.xenproject.org; Sat, 28 Jan 2023 00:56:26 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 969eb3c2-9ea6-11ed-a5d9-ddcf98b90cbd;
+ Sat, 28 Jan 2023 01:56:25 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4AEDCB821C0;
+ Sat, 28 Jan 2023 00:56:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861EEC433D2;
+ Sat, 28 Jan 2023 00:56:21 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,532 +43,266 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=JjpDeQyT/yQZcGek5vWGm4qwtR5ZDN2Pz90vJ4GFFCY=; b=tEt3y2/jNj5eN2t2ybvu1QZIVb
-	NOwG2NZDADHBeUIQFeYh/he7Zn5tJgJoqeb+GKkwgiCE6ZpSB31yLZePP+0fivkKOJUVdIGViebr5
-	tHuLUdI4/uCG0KDCvFwMXIUpFCG8dJs2RxzQcCnuVswJytPM+fDdLPBiFs9sO9XpTkWM=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176250-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 969eb3c2-9ea6-11ed-a5d9-ddcf98b90cbd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1674867383;
+	bh=ko/2BoiEHAjn/12n/nbJy4SQj1VKto8eBKFuvRsHVtg=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=GyF2KsSZ7GqOjPO1q1cNZk+qCrJIeUyV2NYvKC1r9UdNXE1E6BnhzEPZAXsEHVde7
+	 qgQ9C2N/jsJDXwyXIqLpVD9CljvfRnc6rC+zlWLT6McPzOExM2EV78mpRGdqquvv+o
+	 6U6G1M/BtD+bvqMnJ2agJsakQ7GRlEPLRJffE0ejkF5DKENKNs8ACJufAxCAwxUdyc
+	 or0Eyid1TDaKNdTlnD8lwledm1A+4X2pZC22LJj7Vdwf/OyLIVGqcRRdTSNBd/CeAz
+	 CdOrlHX4rMYrvrxWzQVijVa8jZz29hw+uWipAxPelpypZV7q2X/vLqMpOjpbjRZmID
+	 wdIttP371QKiA==
+Date: Fri, 27 Jan 2023 16:56:17 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+    Oleksandr Andrushchenko <Oleksandr_Andrushchenko@epam.com>, 
+    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
+    =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+    Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>, 
+    Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, 
+    Paul Durrant <paul@xen.org>
+Subject: Re: [RFC PATCH 07/10] xen: pci: add per-device locking
+In-Reply-To: <20220831141040.13231-8-volodymyr_babchuk@epam.com>
+Message-ID: <alpine.DEB.2.22.394.2301271615330.1978264@ubuntu-linux-20-04-desktop>
+References: <20220831141040.13231-1-volodymyr_babchuk@epam.com> <20220831141040.13231-8-volodymyr_babchuk@epam.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-4.17-testing test] 176250: trouble: broken/fail/pass/starved
-X-Osstest-Failures:
-    xen-4.17-testing:test-armhf-armhf-libvirt:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-cubietruck:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:<job status>:broken:regression
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-libvirt:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl:host-install(5):broken:regression
-    xen-4.17-testing:test-armhf-armhf-xl-cubietruck:host-install(5):broken:regression
-    xen-4.17-testing:test-amd64-i386-qemut-rhel6hvm-intel:<job status>:broken:regression
-    xen-4.17-testing:build-arm64-xsm:<job status>:broken:regression
-    xen-4.17-testing:build-arm64-pvops:<job status>:broken:regression
-    xen-4.17-testing:build-armhf:<job status>:broken:regression
-    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:<job status>:broken:regression
-    xen-4.17-testing:build-armhf:host-install(4):broken:regression
-    xen-4.17-testing:build-arm64-xsm:host-install(4):broken:regression
-    xen-4.17-testing:build-arm64-pvops:host-install(4):broken:regression
-    xen-4.17-testing:build-armhf:syslog-server:running:regression
-    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:host-install(5):broken:heisenbug
-    xen-4.17-testing:test-amd64-i386-qemut-rhel6hvm-intel:host-reuse/final:broken:heisenbug
-    xen-4.17-testing:test-amd64-i386-qemut-rhel6hvm-amd:xen-install:fail:heisenbug
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-debianhvm-amd64:guest-start/debianhvm.repeat:fail:heisenbug
-    xen-4.17-testing:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:heisenbug
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:host-install(5):broken:allowable
-    xen-4.17-testing:test-arm64-arm64-xl-seattle:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:build-check(1):blocked:nonblocking
-    xen-4.17-testing:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit1:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt-raw:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-libvirt:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-credit2:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-vhd:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-rtds:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-arndale:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:test-armhf-armhf-xl-cubietruck:capture-logs(6):broken:nonblocking
-    xen-4.17-testing:build-armhf:capture-logs:broken:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-4.17-testing:test-arm64-arm64-xl-seattle:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=2f8851c37f88e4eb4858e16626fcb2379db71a4f
-X-Osstest-Versions-That:
-    xen=c4972a4272690384b15d5706f2a833aed636895e
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sat, 28 Jan 2023 00:38:44 +0000
+Content-Type: text/plain; charset=US-ASCII
 
-flight 176250 xen-4.17-testing real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176250/
+On Wed, 31 Aug 2022, Volodymyr Babchuk wrote:
+> Spinlock in struct pci_device will be used to protect access to device
+> itself. Right now it is used mostly by MSI code.
+> 
+> Signed-off-by: Volodymyr Babchuk <volodymyr_babchuk@epam.com>
 
-Failures and problems with tests :-(
+There are 2 instances of:
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- test-armhf-armhf-libvirt        <job status>                 broken
- test-armhf-armhf-libvirt-qcow2    <job status>                 broken
- test-armhf-armhf-libvirt-raw    <job status>                 broken
- test-armhf-armhf-xl             <job status>                 broken
- test-armhf-armhf-xl-arndale     <job status>                 broken
- test-armhf-armhf-xl-credit1     <job status>                 broken
- test-armhf-armhf-xl-credit2     <job status>                 broken
- test-armhf-armhf-xl-cubietruck    <job status>                 broken
- test-armhf-armhf-xl-multivcpu    <job status>                 broken
- test-armhf-armhf-xl-rtds        <job status>                 broken
- test-armhf-armhf-xl-vhd         <job status>                 broken
- test-armhf-armhf-libvirt-qcow2  5 host-install(5)      broken REGR. vs. 175447
- test-armhf-armhf-xl-credit1   5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-xl-vhd       5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-libvirt-raw  5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-libvirt      5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-xl-credit2   5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-xl-multivcpu  5 host-install(5)       broken REGR. vs. 175447
- test-armhf-armhf-xl-arndale   5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-xl           5 host-install(5)        broken REGR. vs. 175447
- test-armhf-armhf-xl-cubietruck  5 host-install(5)      broken REGR. vs. 175447
- test-amd64-i386-qemut-rhel6hvm-intel    <job status>          broken in 176238
- build-arm64-xsm                 <job status>                 broken  in 176238
- build-arm64-pvops               <job status>                 broken  in 176238
- build-armhf                     <job status>                 broken  in 176238
- test-amd64-i386-xl-qemut-ws16-amd64    <job status>           broken in 176238
- build-armhf                4 host-install(4) broken in 176238 REGR. vs. 175447
- build-arm64-xsm            4 host-install(4) broken in 176238 REGR. vs. 175447
- build-arm64-pvops          4 host-install(4) broken in 176238 REGR. vs. 175447
- build-armhf                   3 syslog-server                running in 176238
+    BUG_ON(list_empty(&dev->msi_list));
 
-Tests which are failing intermittently (not blocking):
- test-amd64-i386-xl-qemut-ws16-amd64 5 host-install(5) broken in 176238 pass in 176250
- test-amd64-i386-qemut-rhel6hvm-intel 19 host-reuse/final broken in 176238 pass in 176250
- test-amd64-i386-qemut-rhel6hvm-amd 7 xen-install fail in 176238 pass in 176250
- test-amd64-amd64-xl-qemuu-debianhvm-amd64 20 guest-start/debianhvm.repeat fail in 176238 pass in 176250
- test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install          fail pass in 176238
+in xen/arch/x86/msi.c:__pci_disable_msi and
+xen/arch/x86/msi.c:__pci_disable_msix which are not protected by
+pcidev_lock. However list_empty needs to be protected. (pci_disable_msi
+can also be called from xen/arch/x86/irq.c where it is not surrounded by
+pcidev_lock.)
 
-Regressions which are regarded as allowable (not blocking):
- test-armhf-armhf-xl-rtds      5 host-install(5)        broken REGR. vs. 175447
-
-Tests which did not succeed, but are not blocking:
- test-arm64-arm64-xl-seattle   1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)         blocked in 176238 n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)          blocked in 176238 n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)         blocked in 176238 n/a
- test-armhf-armhf-xl-arndale   1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl-credit2   1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl-credit1   1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-libvirt-xsm  1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-libvirt-raw  1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-libvirt      1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl-vhd       1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl-thunderx  1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl           1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl-xsm       1 build-check(1)           blocked in 176238 n/a
- test-arm64-arm64-xl           1 build-check(1)           blocked in 176238 n/a
- build-armhf-libvirt           1 build-check(1)           blocked in 176238 n/a
- test-armhf-armhf-xl-credit1   6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-libvirt-qcow2  6 capture-logs(6)     broken blocked in 175447
- test-armhf-armhf-libvirt-raw  6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-libvirt      6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl-credit2   6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl-multivcpu  6 capture-logs(6)      broken blocked in 175447
- test-armhf-armhf-xl-vhd       6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl-rtds      6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl-arndale   6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl           6 capture-logs(6)       broken blocked in 175447
- test-armhf-armhf-xl-cubietruck  6 capture-logs(6)     broken blocked in 175447
- build-armhf                  5 capture-logs broken in 176238 blocked in 175447
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175447
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175447
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175447
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175447
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175447
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175447
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175447
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175447
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175447
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-seattle   3 hosts-allocate               starved  n/a
-
-version targeted for testing:
- xen                  2f8851c37f88e4eb4858e16626fcb2379db71a4f
-baseline version:
- xen                  c4972a4272690384b15d5706f2a833aed636895e
-
-Last test of basis   175447  2022-12-22 00:40:06 Z   36 days
-Testing same since   176224  2023-01-26 22:14:43 Z    1 days    3 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jason Andryuk <jandryuk@gmail.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          broken  
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-armhf-armhf-xl-arndale                                  broken  
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  broken  
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  broken  
- test-armhf-armhf-xl-cubietruck                               broken  
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     broken  
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                broken  
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               broken  
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 broken  
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     broken  
- test-arm64-arm64-xl-seattle                                  starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      broken  
- test-amd64-i386-xl-vhd                                       pass    
+Given that they are BUG_ON, I wonder if we could remove them instead of
+adding locks there. It would make things simpler.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> ---
+>  xen/arch/x86/hvm/vmsi.c       |  6 +++++-
+>  xen/arch/x86/msi.c            | 16 ++++++++++++++++
+>  xen/drivers/passthrough/msi.c |  8 +++++++-
+>  xen/drivers/passthrough/pci.c |  2 ++
+>  xen/include/xen/pci.h         | 12 ++++++++++++
+>  5 files changed, 42 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/x86/hvm/vmsi.c b/xen/arch/x86/hvm/vmsi.c
+> index 7fb1075673..c9e5f279c5 100644
+> --- a/xen/arch/x86/hvm/vmsi.c
+> +++ b/xen/arch/x86/hvm/vmsi.c
+> @@ -203,10 +203,14 @@ static struct msi_desc *msixtbl_addr_to_desc(
+>  
+>      nr_entry = (addr - entry->gtable) / PCI_MSIX_ENTRY_SIZE;
+>  
+> +    pcidev_lock(entry->pdev);
+>      list_for_each_entry( desc, &entry->pdev->msi_list, list )
+>          if ( desc->msi_attrib.type == PCI_CAP_ID_MSIX &&
+> -             desc->msi_attrib.entry_nr == nr_entry )
+> +             desc->msi_attrib.entry_nr == nr_entry ) {
+> +	    pcidev_unlock(entry->pdev);
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+code style
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+>              return desc;
+> +	}
+> +    pcidev_unlock(entry->pdev);
+>  
+>      return NULL;
+>  }
+> diff --git a/xen/arch/x86/msi.c b/xen/arch/x86/msi.c
+> index bccaccb98b..6b62c4f452 100644
+> --- a/xen/arch/x86/msi.c
+> +++ b/xen/arch/x86/msi.c
+> @@ -389,6 +389,7 @@ static bool msi_set_mask_bit(struct irq_desc *desc, bool host, bool guest)
+>      default:
+>          return 0;
+>      }
+> +
 
-broken-job test-armhf-armhf-libvirt broken
-broken-job test-armhf-armhf-libvirt-qcow2 broken
-broken-job test-armhf-armhf-libvirt-raw broken
-broken-job test-armhf-armhf-xl broken
-broken-job test-armhf-armhf-xl-arndale broken
-broken-job test-armhf-armhf-xl-credit1 broken
-broken-job test-armhf-armhf-xl-credit2 broken
-broken-job test-armhf-armhf-xl-cubietruck broken
-broken-job test-armhf-armhf-xl-multivcpu broken
-broken-job test-armhf-armhf-xl-rtds broken
-broken-job test-armhf-armhf-xl-vhd broken
-broken-step test-armhf-armhf-libvirt-qcow2 host-install(5)
-broken-step test-armhf-armhf-xl-credit1 host-install(5)
-broken-step test-armhf-armhf-xl-credit1 capture-logs(6)
-broken-step test-armhf-armhf-libvirt-qcow2 capture-logs(6)
-broken-step test-armhf-armhf-xl-vhd host-install(5)
-broken-step test-armhf-armhf-libvirt-raw host-install(5)
-broken-step test-armhf-armhf-libvirt-raw capture-logs(6)
-broken-step test-armhf-armhf-libvirt host-install(5)
-broken-step test-armhf-armhf-libvirt capture-logs(6)
-broken-step test-armhf-armhf-xl-credit2 host-install(5)
-broken-step test-armhf-armhf-xl-multivcpu host-install(5)
-broken-step test-armhf-armhf-xl-arndale host-install(5)
-broken-step test-armhf-armhf-xl-credit2 capture-logs(6)
-broken-step test-armhf-armhf-xl-rtds host-install(5)
-broken-step test-armhf-armhf-xl-multivcpu capture-logs(6)
-broken-step test-armhf-armhf-xl host-install(5)
-broken-step test-armhf-armhf-xl-vhd capture-logs(6)
-broken-step test-armhf-armhf-xl-rtds capture-logs(6)
-broken-step test-armhf-armhf-xl-arndale capture-logs(6)
-broken-step test-armhf-armhf-xl capture-logs(6)
-broken-step test-armhf-armhf-xl-cubietruck host-install(5)
-broken-step test-armhf-armhf-xl-cubietruck capture-logs(6)
-broken-job test-amd64-i386-qemut-rhel6hvm-intel broken
-broken-job build-arm64-xsm broken
-broken-job build-arm64-pvops broken
-broken-job build-armhf broken
-broken-job test-amd64-i386-xl-qemut-ws16-amd64 broken
+spurious change
 
-Not pushing.
 
-------------------------------------------------------------
-commit 2f8851c37f88e4eb4858e16626fcb2379db71a4f
-Author: Jason Andryuk <jandryuk@gmail.com>
-Date:   Thu Jan 26 11:00:24 2023 +0100
-
-    Revert "tools/xenstore: simplify loop handling connection I/O"
-    
-    I'm observing guest kexec trigger xenstored to abort on a double free.
-    
-    gdb output:
-    Program received signal SIGABRT, Aborted.
-    __pthread_kill_implementation (no_tid=0, signo=6, threadid=140645614258112) at ./nptl/pthread_kill.c:44
-    44    ./nptl/pthread_kill.c: No such file or directory.
-    (gdb) bt
-        at ./nptl/pthread_kill.c:44
-        at ./nptl/pthread_kill.c:78
-        at ./nptl/pthread_kill.c:89
-        at ../sysdeps/posix/raise.c:26
-        at talloc.c:119
-        ptr=ptr@entry=0x559fae724290) at talloc.c:232
-        at xenstored_core.c:2945
-    (gdb) frame 5
-        at talloc.c:119
-    119            TALLOC_ABORT("Bad talloc magic value - double free");
-    (gdb) frame 7
-        at xenstored_core.c:2945
-    2945                talloc_increase_ref_count(conn);
-    (gdb) p conn
-    $1 = (struct connection *) 0x559fae724290
-    
-    Looking at a xenstore trace, we have:
-    IN 0x559fae71f250 20230120 17:40:53 READ (/local/domain/3/image/device-model-dom
-    id )
-    wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
-    ard
-    wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
-    ard
-    wrl: dom    0      0  msec      10000 credit     1000000 reserve          0 disc
-    ard
-    wrl: dom    3      0  msec      10000 credit     1000000 reserve          0 disc
-    ard
-    OUT 0x559fae71f250 20230120 17:40:53 ERROR (ENOENT )
-    wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
-    ard
-    wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
-    ard
-    IN 0x559fae71f250 20230120 17:40:53 RELEASE (3 )
-    DESTROY watch 0x559fae73f630
-    DESTROY watch 0x559fae75ddf0
-    DESTROY watch 0x559fae75ec30
-    DESTROY watch 0x559fae75ea60
-    DESTROY watch 0x559fae732c00
-    DESTROY watch 0x559fae72cea0
-    DESTROY watch 0x559fae728fc0
-    DESTROY watch 0x559fae729570
-    DESTROY connection 0x559fae724290
-    orphaned node /local/domain/3/device/suspend/event-channel deleted
-    orphaned node /local/domain/3/device/vbd/51712 deleted
-    orphaned node /local/domain/3/device/vkbd/0 deleted
-    orphaned node /local/domain/3/device/vif/0 deleted
-    orphaned node /local/domain/3/control/shutdown deleted
-    orphaned node /local/domain/3/control/feature-poweroff deleted
-    orphaned node /local/domain/3/control/feature-reboot deleted
-    orphaned node /local/domain/3/control/feature-suspend deleted
-    orphaned node /local/domain/3/control/feature-s3 deleted
-    orphaned node /local/domain/3/control/feature-s4 deleted
-    orphaned node /local/domain/3/control/sysrq deleted
-    orphaned node /local/domain/3/data deleted
-    orphaned node /local/domain/3/drivers deleted
-    orphaned node /local/domain/3/feature deleted
-    orphaned node /local/domain/3/attr deleted
-    orphaned node /local/domain/3/error deleted
-    orphaned node /local/domain/3/console/backend-id deleted
-    
-    and no further output.
-    
-    The trace shows that DESTROY was called for connection 0x559fae724290,
-    but that is the same pointer (conn) main() was looping through from
-    connections.  So it wasn't actually removed from the connections list?
-    
-    Reverting commit e8e6e42279a5 "tools/xenstore: simplify loop handling
-    connection I/O" fixes the abort/double free.  I think the use of
-    list_for_each_entry_safe is incorrect.  list_for_each_entry_safe makes
-    traversal safe for deleting the current iterator, but RELEASE/do_release
-    will delete some other entry in the connections list.  I think the
-    observed abort is because list_for_each_entry has next pointing to the
-    deleted connection, and it is used in the subsequent iteration.
-    
-    Add a comment explaining the unsuitability of list_for_each_entry_safe.
-    Also notice that the old code takes a reference on next which would
-    prevents a use-after-free.
-    
-    This reverts commit e8e6e42279a5723239c5c40ba4c7f579a979465d.
-    
-    This is XSA-425/CVE-2022-42330.
-    
-    Fixes: e8e6e42279a5 ("tools/xenstore: simplify loop handling connection I/O")
-    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
-    Reviewed-by: Juergen Gross <jgross@suse.com>
-    Reviewed-by: Julien Grall <jgrall@amazon.com>
-(qemu changes not included)
+>      entry->msi_attrib.host_masked = host;
+>      entry->msi_attrib.guest_masked = guest;
+>  
+> @@ -585,12 +586,17 @@ static struct msi_desc *find_msi_entry(struct pci_dev *dev,
+>  {
+>      struct msi_desc *entry;
+>  
+> +    pcidev_lock(dev);
+>      list_for_each_entry( entry, &dev->msi_list, list )
+>      {
+>          if ( entry->msi_attrib.type == cap_id &&
+>               (irq == -1 || entry->irq == irq) )
+> +	{
+> +	    pcidev_unlock(dev);
+>              return entry;
+> +	}
+>      }
+> +    pcidev_unlock(dev);
+>  
+>      return NULL;
+>  }
+> @@ -661,7 +667,9 @@ static int msi_capability_init(struct pci_dev *dev,
+>          maskbits |= ~(uint32_t)0 >> (32 - dev->msi_maxvec);
+>          pci_conf_write32(dev->sbdf, mpos, maskbits);
+>      }
+> +    pcidev_lock(dev);
+>      list_add_tail(&entry->list, &dev->msi_list);
+> +    pcidev_unlock(dev);
+>  
+>      *desc = entry;
+>      /* Restore the original MSI enabled bits  */
+> @@ -946,7 +954,9 @@ static int msix_capability_init(struct pci_dev *dev,
+>  
+>  	pcidev_get(dev);
+>  
+> +	pcidev_lock(dev);
+>          list_add_tail(&entry->list, &dev->msi_list);
+> +	pcidev_unlock(dev);
+>          *desc = entry;
+>      }
+>  
+> @@ -1231,11 +1241,13 @@ static void msi_free_irqs(struct pci_dev* dev)
+>  {
+>      struct msi_desc *entry, *tmp;
+>  
+> +    pcidev_lock(dev);
+>      list_for_each_entry_safe( entry, tmp, &dev->msi_list, list )
+>      {
+>          pci_disable_msi(entry);
+>          msi_free_irq(entry);
+>      }
+> +    pcidev_unlock(dev);
+>  }
+>  
+>  void pci_cleanup_msi(struct pci_dev *pdev)
+> @@ -1354,6 +1366,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>      if ( ret )
+>          return ret;
+>  
+> +    pcidev_lock(pdev);
+>      list_for_each_entry_safe( entry, tmp, &pdev->msi_list, list )
+>      {
+>          unsigned int i = 0, nr = 1;
+> @@ -1371,6 +1384,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>              dprintk(XENLOG_ERR, "Restore MSI for %pp entry %u not set?\n",
+>                      &pdev->sbdf, i);
+>              spin_unlock_irqrestore(&desc->lock, flags);
+> +	    pcidev_unlock(pdev);
+>              if ( type == PCI_CAP_ID_MSIX )
+>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
+> @@ -1393,6 +1407,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>              if ( unlikely(!memory_decoded(pdev)) )
+>              {
+>                  spin_unlock_irqrestore(&desc->lock, flags);
+> +		pcidev_unlock(pdev);
+>                  pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>                                   control & ~PCI_MSIX_FLAGS_ENABLE);
+>                  return -ENXIO;
+> @@ -1438,6 +1453,7 @@ int pci_restore_msi_state(struct pci_dev *pdev)
+>          pci_conf_write16(pdev->sbdf, msix_control_reg(pos),
+>                           control | PCI_MSIX_FLAGS_ENABLE);
+>  
+> +    pcidev_unlock(pdev);
+>      return 0;
+>  }
+>  
+> diff --git a/xen/drivers/passthrough/msi.c b/xen/drivers/passthrough/msi.c
+> index ce1a450f6f..98f4d2721a 100644
+> --- a/xen/drivers/passthrough/msi.c
+> +++ b/xen/drivers/passthrough/msi.c
+> @@ -22,6 +22,7 @@ int pdev_msi_init(struct pci_dev *pdev)
+>  {
+>      unsigned int pos;
+>  
+> +    pcidev_lock(pdev);
+>      INIT_LIST_HEAD(&pdev->msi_list);
+>  
+>      pos = pci_find_cap_offset(pdev->seg, pdev->bus, PCI_SLOT(pdev->devfn),
+> @@ -41,7 +42,10 @@ int pdev_msi_init(struct pci_dev *pdev)
+>          uint16_t ctrl;
+>  
+>          if ( !msix )
+> -            return -ENOMEM;
+> +        {
+> +             pcidev_unlock(pdev);
+> +             return -ENOMEM;
+> +        }
+>  
+>          spin_lock_init(&msix->table_lock);
+>  
+> @@ -51,6 +55,8 @@ int pdev_msi_init(struct pci_dev *pdev)
+>          pdev->msix = msix;
+>      }
+>  
+> +    pcidev_unlock(pdev);
+> +
+>      return 0;
+>  }
+>  
+> diff --git a/xen/drivers/passthrough/pci.c b/xen/drivers/passthrough/pci.c
+> index c8da80b981..c83397211b 100644
+> --- a/xen/drivers/passthrough/pci.c
+> +++ b/xen/drivers/passthrough/pci.c
+> @@ -1383,7 +1383,9 @@ static int cf_check _dump_pci_devices(struct pci_seg *pseg, void *arg)
+>              printk("%pd", pdev->domain);
+>          printk(" - node %-3d refcnt %d", (pdev->node != NUMA_NO_NODE) ? pdev->node : -1,
+>                 atomic_read(&pdev->refcnt));
+> +        pcidev_lock(pdev);
+>          pdev_dump_msi(pdev);
+> +        pcidev_unlock(pdev);
+>          printk("\n");
+>      }
+>      spin_unlock(&pseg->alldevs_lock);
+> diff --git a/xen/include/xen/pci.h b/xen/include/xen/pci.h
+> index e71a180ef3..d0a7339d84 100644
+> --- a/xen/include/xen/pci.h
+> +++ b/xen/include/xen/pci.h
+> @@ -106,6 +106,8 @@ struct pci_dev {
+>      uint8_t msi_maxvec;
+>      uint8_t phantom_stride;
+>  
+> +    /* Device lock */
+> +    spinlock_t lock;
+>      nodeid_t node; /* NUMA node */
+>  
+>      /* Device to be quarantined, don't automatically re-assign to dom0 */
+> @@ -235,6 +237,16 @@ int msixtbl_pt_register(struct domain *, struct pirq *, uint64_t gtable);
+>  void msixtbl_pt_unregister(struct domain *, struct pirq *);
+>  void msixtbl_pt_cleanup(struct domain *d);
+>  
+> +static inline void pcidev_lock(struct pci_dev *pdev)
+> +{
+> +    spin_lock(&pdev->lock);
+> +}
+> +
+> +static inline void pcidev_unlock(struct pci_dev *pdev)
+> +{
+> +    spin_unlock(&pdev->lock);
+> +}
+> +
+>  #ifdef CONFIG_HVM
+>  int arch_pci_clean_pirqs(struct domain *d);
+>  #else
+> -- 
+> 2.36.1
+> 
 
