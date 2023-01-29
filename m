@@ -2,35 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC92D680093
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Jan 2023 18:50:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.486397.753741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5A36800F5
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Jan 2023 19:50:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.486409.753756 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMBnH-0001Y1-2l; Sun, 29 Jan 2023 17:48:43 +0000
+	id 1pMCkc-0000H6-Ob; Sun, 29 Jan 2023 18:50:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 486397.753741; Sun, 29 Jan 2023 17:48:43 +0000
+Received: by outflank-mailman (output) from mailman id 486409.753756; Sun, 29 Jan 2023 18:50:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMBnG-0001Vy-Vr; Sun, 29 Jan 2023 17:48:42 +0000
-Received: by outflank-mailman (input) for mailman id 486397;
- Sun, 29 Jan 2023 17:48:41 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMBnF-0001Vo-9H; Sun, 29 Jan 2023 17:48:41 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMBnF-0006wa-4q; Sun, 29 Jan 2023 17:48:41 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMBnE-00062D-Lc; Sun, 29 Jan 2023 17:48:40 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pMBnE-0000SH-LC; Sun, 29 Jan 2023 17:48:40 +0000
+	id 1pMCkc-0000C6-Kj; Sun, 29 Jan 2023 18:50:02 +0000
+Received: by outflank-mailman (input) for mailman id 486409;
+ Sun, 29 Jan 2023 18:50:01 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=As8j=52=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1pMCkb-00007Y-1L
+ for xen-devel@lists.xenproject.org; Sun, 29 Jan 2023 18:50:01 +0000
+Received: from sonata.ens-lyon.org (sonata.ens-lyon.org [140.77.166.138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b84e0226-a005-11ed-b8d1-410ff93cb8f0;
+ Sun, 29 Jan 2023 19:49:56 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 4D6B2200FB;
+ Sun, 29 Jan 2023 19:49:54 +0100 (CET)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 4AaagANKtKKu; Sun, 29 Jan 2023 19:49:54 +0100 (CET)
+Received: from begin (lfbn-bor-1-1163-184.w92-158.abo.wanadoo.fr
+ [92.158.138.184])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 0289A200F9;
+ Sun, 29 Jan 2023 19:49:53 +0100 (CET)
+Received: from samy by begin with local (Exim 4.96)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1pMCkT-000G6W-1i;
+ Sun, 29 Jan 2023 19:49:53 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,363 +52,298 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=912R82siLUpl82YycsHMaXCGjcAYYE+cY381RLtDawE=; b=mgkdM71zgRze6k4+iTRJOAWQsC
-	5XY0THKeg/v44yvv+ydbpnpyq49QBEKP+jt1dUae2HPxyqY9mbsKmz8HmRtm9pWvexSAmHDbtzcv9
-	OS+y7Nta/RA27fH1VVHnN+gFYRIwTpCySaEdqx2GCpohLPrvNomNIjXgP0v1BLzf6q7U=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176269-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: b84e0226-a005-11ed-b8d1-410ff93cb8f0
+Date: Sun, 29 Jan 2023 19:49:53 +0100
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH] Mini-OS: move xenbus test code into test.c
+Message-ID: <20230129184953.lcfdp23l6pp42c3l@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20230127073346.6992-1-jgross@suse.com>
 MIME-Version: 1.0
-Subject: [libvirt test] 176269: trouble: blocked/broken/fail/pass
-X-Osstest-Failures:
-    libvirt:build-armhf:<job status>:broken:regression
-    libvirt:build-armhf:host-install(4):broken:regression
-    libvirt:build-armhf:syslog-server:running:regression
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:guest-start/debianhvm.repeat:fail:heisenbug
-    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:build-armhf:capture-logs:broken:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=9f8fba7501327a60f6adb279ea17f0e2276071be
-X-Osstest-Versions-That:
-    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Sun, 29 Jan 2023 17:48:40 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230127073346.6992-1-jgross@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-flight 176269 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176269/
+Juergen Gross, le ven. 27 janv. 2023 08:33:46 +0100, a ecrit:
+> The test code in xenbus.c can easily be moved into test.c.
+> 
+> Signed-off-by: Juergen Gross <jgross@suse.com>
 
-Failures and problems with tests :-(
+Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176139
- build-armhf                   3 syslog-server                running
+> ---
+>  test.c   | 108 +++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  xenbus.c | 113 -------------------------------------------------------
+>  2 files changed, 106 insertions(+), 115 deletions(-)
+> 
+> diff --git a/test.c b/test.c
+> index 42a26661..465c54e8 100644
+> --- a/test.c
+> +++ b/test.c
+> @@ -44,6 +44,7 @@
+>  #include <fcntl.h>
+>  #include <xen/features.h>
+>  #include <xen/version.h>
+> +#include <xen/io/xs_wire.h>
+>  
+>  #ifdef CONFIG_XENBUS
+>  static unsigned int do_shutdown = 0;
+> @@ -52,11 +53,114 @@ static DECLARE_WAIT_QUEUE_HEAD(shutdown_queue);
+>  #endif
+>  
+>  #ifdef CONFIG_XENBUS
+> -void test_xenbus(void);
+> +/* Send a debug message to xenbus.  Can block. */
+> +static void xenbus_debug_msg(const char *msg)
+> +{
+> +    int len = strlen(msg);
+> +    struct write_req req[] = {
+> +        { "print", sizeof("print") },
+> +        { msg, len },
+> +        { "", 1 }};
+> +    struct xsd_sockmsg *reply;
+> +
+> +    reply = xenbus_msg_reply(XS_DEBUG, 0, req, ARRAY_SIZE(req));
+> +    printk("Got a reply, type %d, id %d, len %d.\n",
+> +           reply->type, reply->req_id, reply->len);
+> +}
+> +
+> +static void do_ls_test(const char *pre)
+> +{
+> +    char **dirs, *msg;
+> +    int x;
+> +
+> +    printk("ls %s...\n", pre);
+> +    msg = xenbus_ls(XBT_NIL, pre, &dirs);
+> +    if ( msg )
+> +    {
+> +        printk("Error in xenbus ls: %s\n", msg);
+> +        free(msg);
+> +        return;
+> +    }
+> +
+> +    for ( x = 0; dirs[x]; x++ )
+> +    {
+> +        printk("ls %s[%d] -> %s\n", pre, x, dirs[x]);
+> +        free(dirs[x]);
+> +    }
+> +
+> +    free(dirs);
+> +}
+> +
+> +static void do_read_test(const char *path)
+> +{
+> +    char *res, *msg;
+> +
+> +    printk("Read %s...\n", path);
+> +    msg = xenbus_read(XBT_NIL, path, &res);
+> +    if ( msg )
+> +    {
+> +        printk("Error in xenbus read: %s\n", msg);
+> +        free(msg);
+> +        return;
+> +    }
+> +    printk("Read %s -> %s.\n", path, res);
+> +    free(res);
+> +}
+> +
+> +static void do_write_test(const char *path, const char *val)
+> +{
+> +    char *msg;
+> +
+> +    printk("Write %s to %s...\n", val, path);
+> +    msg = xenbus_write(XBT_NIL, path, val);
+> +    if ( msg )
+> +    {
+> +        printk("Result %s\n", msg);
+> +        free(msg);
+> +    }
+> +    else
+> +        printk("Success.\n");
+> +}
+> +
+> +static void do_rm_test(const char *path)
+> +{
+> +    char *msg;
+> +
+> +    printk("rm %s...\n", path);
+> +    msg = xenbus_rm(XBT_NIL, path);
+> +    if ( msg )
+> +    {
+> +        printk("Result %s\n", msg);
+> +        free(msg);
+> +    }
+> +    else
+> +        printk("Success.\n");
+> +}
+>  
+>  static void xenbus_tester(void *p)
+>  {
+> -    test_xenbus();
+> +    printk("Doing xenbus test.\n");
+> +    xenbus_debug_msg("Testing xenbus...\n");
+> +
+> +    printk("Doing ls test.\n");
+> +    do_ls_test("device");
+> +    do_ls_test("device/vif");
+> +    do_ls_test("device/vif/0");
+> +
+> +    printk("Doing read test.\n");
+> +    do_read_test("device/vif/0/mac");
+> +    do_read_test("device/vif/0/backend");
+> +
+> +    printk("Doing write test.\n");
+> +    do_write_test("device/vif/0/flibble", "flobble");
+> +    do_read_test("device/vif/0/flibble");
+> +    do_write_test("device/vif/0/flibble", "widget");
+> +    do_read_test("device/vif/0/flibble");
+> +
+> +    printk("Doing rm test.\n");
+> +    do_rm_test("device/vif/0/flibble");
+> +    do_read_test("device/vif/0/flibble");
+> +    printk("(Should have said ENOENT)\n");
+>  }
+>  #endif
+>  
+> diff --git a/xenbus.c b/xenbus.c
+> index aa1fe7bf..81e9b65d 100644
+> --- a/xenbus.c
+> +++ b/xenbus.c
+> @@ -964,119 +964,6 @@ domid_t xenbus_get_self_id(void)
+>      return ret;
+>  }
+>  
+> -#ifdef CONFIG_TEST
+> -/* Send a debug message to xenbus.  Can block. */
+> -static void xenbus_debug_msg(const char *msg)
+> -{
+> -    int len = strlen(msg);
+> -    struct write_req req[] = {
+> -        { "print", sizeof("print") },
+> -        { msg, len },
+> -        { "", 1 }};
+> -    struct xsd_sockmsg *reply;
+> -
+> -    reply = xenbus_msg_reply(XS_DEBUG, 0, req, ARRAY_SIZE(req));
+> -    printk("Got a reply, type %d, id %d, len %d.\n",
+> -           reply->type, reply->req_id, reply->len);
+> -}
+> -
+> -static void do_ls_test(const char *pre)
+> -{
+> -    char **dirs, *msg;
+> -    int x;
+> -
+> -    printk("ls %s...\n", pre);
+> -    msg = xenbus_ls(XBT_NIL, pre, &dirs);
+> -    if ( msg )
+> -    {
+> -        printk("Error in xenbus ls: %s\n", msg);
+> -        free(msg);
+> -        return;
+> -    }
+> -
+> -    for ( x = 0; dirs[x]; x++ )
+> -    {
+> -        printk("ls %s[%d] -> %s\n", pre, x, dirs[x]);
+> -        free(dirs[x]);
+> -    }
+> -
+> -    free(dirs);
+> -}
+> -
+> -static void do_read_test(const char *path)
+> -{
+> -    char *res, *msg;
+> -
+> -    printk("Read %s...\n", path);
+> -    msg = xenbus_read(XBT_NIL, path, &res);
+> -    if ( msg )
+> -    {
+> -        printk("Error in xenbus read: %s\n", msg);
+> -        free(msg);
+> -        return;
+> -    }
+> -    printk("Read %s -> %s.\n", path, res);
+> -    free(res);
+> -}
+> -
+> -static void do_write_test(const char *path, const char *val)
+> -{
+> -    char *msg;
+> -
+> -    printk("Write %s to %s...\n", val, path);
+> -    msg = xenbus_write(XBT_NIL, path, val);
+> -    if ( msg )
+> -    {
+> -        printk("Result %s\n", msg);
+> -        free(msg);
+> -    }
+> -    else
+> -        printk("Success.\n");
+> -}
+> -
+> -static void do_rm_test(const char *path)
+> -{
+> -    char *msg;
+> -
+> -    printk("rm %s...\n", path);
+> -    msg = xenbus_rm(XBT_NIL, path);
+> -    if ( msg )
+> -    {
+> -        printk("Result %s\n", msg);
+> -        free(msg);
+> -    }
+> -    else
+> -        printk("Success.\n");
+> -}
+> -
+> -/* Simple testing thing */
+> -void test_xenbus(void)
+> -{
+> -    printk("Doing xenbus test.\n");
+> -    xenbus_debug_msg("Testing xenbus...\n");
+> -
+> -    printk("Doing ls test.\n");
+> -    do_ls_test("device");
+> -    do_ls_test("device/vif");
+> -    do_ls_test("device/vif/0");
+> -
+> -    printk("Doing read test.\n");
+> -    do_read_test("device/vif/0/mac");
+> -    do_read_test("device/vif/0/backend");
+> -
+> -    printk("Doing write test.\n");
+> -    do_write_test("device/vif/0/flibble", "flobble");
+> -    do_read_test("device/vif/0/flibble");
+> -    do_write_test("device/vif/0/flibble", "widget");
+> -    do_read_test("device/vif/0/flibble");
+> -
+> -    printk("Doing rm test.\n");
+> -    do_rm_test("device/vif/0/flibble");
+> -    do_read_test("device/vif/0/flibble");
+> -    printk("(Should have said ENOENT)\n");
+> -}
+> -#endif /* CONFIG_TEST */
+> -
+>  /*
+>   * Local variables:
+>   * mode: C
+> -- 
+> 2.35.3
+> 
 
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 18 guest-start/debianhvm.repeat fail pass in 176262
-
-Tests which did not succeed, but are not blocking:
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176139
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              9f8fba7501327a60f6adb279ea17f0e2276071be
-baseline version:
- libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
-
-Last test of basis   176139  2023-01-26 04:18:49 Z    3 days
-Failing since        176233  2023-01-27 04:18:53 Z    2 days    3 attempts
-Testing same since   176262  2023-01-28 04:20:25 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiri Denemark <jdenemar@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  broken  
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           fail    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-broken-job build-armhf broken
-
-Not pushing.
-
-------------------------------------------------------------
-commit 9f8fba7501327a60f6adb279ea17f0e2276071be
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Thu Jan 26 16:12:00 2023 +0100
-
-    remote: Fix version annotation for remoteDomainFDAssociate
-    
-    The API was added in libvirt 9.0.0.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
-
-commit a0fbf1e25cd0f91bedf159bf7f0086f4b1aeafc2
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 16:48:50 2023 +0100
-
-    rpc: Use struct zero initializer for args
-    
-    In a recent commit of v9.0.0-104-g0211e430a8 I've turned all args
-    vars in src/remote/remote_driver.c to be initialized wit {0}.
-    What I've missed was the generated code.
-    
-    Do what we've done in v9.0.0-13-g1c656836e3 and init also args,
-    not just ret.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 2dde3840b1d50e79f6b8161820fff9fe62f613a9
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix missing device in crypto-builtin XML
-    
-    Another forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit f3c9cbc36cc10775f6cefeb7e3de2f799dc74d70
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix watchdog parameters in crypto-builtin
-    
-    Forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit a2c5c5dad2275414e325ca79778fad2612d14470
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:34 2023 +0100
-
-    news: Add information about iTCO watchdog changes
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 2fa92efe9b286ad064833cd2d8b907698e58e1cf
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:30 2023 +0100
-
-    Document change to multiple watchdogs
-    
-    With the reasoning behind it.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 926594dcc82b40f483010cebe5addbf1d7f58b24
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 11:22:22 2023 +0100
-
-    qemu: Add implicit watchdog for q35 machine types
-    
-    The iTCO watchdog is part of the q35 machine type since its inception,
-    we just did not add it implicitly.
-    
-    Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2137346
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d81a27b9815d68d85d2ddc9671649923ee5905d7
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 14:15:06 2023 +0100
-
-    qemu: Enable iTCO watchdog by disabling its noreboot pin strap
-    
-    In order for the iTCO watchdog to be operational we must disable the
-    noreboot pin strap in qemu.  This is the default starting from 8.0
-    machine types, but desirable for older ones as well.  And we can safely
-    do that since that is not guest-visible.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 5b80e93e42a1d89ee64420debd2b4b785a144c40
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:26:21 2023 +0100
-
-    Add iTCO watchdog support
-    
-    Supported only with q35 machine types.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1c61bd718a9e311016da799a42dfae18f538385a
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Tue Nov 8 09:10:57 2022 +0100
-
-    Support multiple watchdog devices
-    
-    This is already possible with qemu, and actually already happening with
-    q35 machines and a specified watchdog since q35 already includes a
-    watchdog we do not include in the XML.  In order to express such
-    posibility multiple watchdogs need to be supported.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit c5340d5420012412ea298f0102cc7f113e87d89b
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:28:52 2023 +0100
-
-    qemuDomainAttachWatchdog: Avoid unnecessary nesting
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1cf7e6ec057a80f3c256d739a8228e04b7fb8862
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:25:06 2023 +0100
-
-    remote: Drop useless cleanup in remoteDispatchNodeGet{CPU,Memory}Stats
-    
-    The function cannot fail once it starts populating
-    ret->params.params_val[i].field.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d0f339170f35957e7541e5b20552d0007e150fbc
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:06:33 2023 +0100
-
-    remote: Avoid leaking uri_out
-    
-    In case the API returned success and a NULL pointer in uri_out, we would
-    leak the preallocated buffer used for storing the uri_out pointer.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 4849eb2220fb2171e88e014a8e63018d20a8de95
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 11:56:28 2023 +0100
-
-    remote: Propagate error from virDomainGetSecurityLabelList via RPC
-    
-    The daemon side of this API has been broken ever since the API was
-    introduced in 2012. Instead of sending the error from
-    virDomainGetSecurityLabelList via RPC so that the client can see it, the
-    dispatcher would just send a successful reply with return value set to
-    -1 (and an empty array of labels). The client side would propagate this
-    return value so the client can see the API failed, but the original
-    error would be lost.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 0211e430a87a96db9a4e085e12f33caad9167653
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 13:19:31 2023 +0100
-
-    remote: Initialize args variable
-    
-    Recently, in v9.0.0-7-gb2034bb04c we've dropped initialization of
-    @args variable. The reasoning was that eventually, all members of
-    the variable will be set. Well, this is not correct. For
-    instance, in remoteConnectGetAllDomainStats() the
-    args.doms.doms_val pointer is set iff @ndoms != 0. However,
-    regardless of that, the pointer is then passed to VIR_FREE().
-    
-    Worse, the whole args is passed to
-    xdr_remote_connect_get_all_domain_stats_args() which then calls
-    xdr_array, which tests the (uninitialized) pointer against NULL.
-    
-    This effectively reverts b2034bb04c61c75ddbfbed46879d641b6f8ca8dc.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit c3afde9211b550d3900edc5386ab121f5b39fd3e
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 11:56:10 2023 +0100
-
-    qemu_domain: Don't unref NULL hash table in qemuDomainRefreshStatsSchema()
-    
-    The g_hash_table_unref() function does not accept NULL. Passing
-    NULL results in a glib warning being triggered. Check whether the
-    hash table is not NULL and unref it only then.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
+-- 
+Samuel
+---
+Pour une évaluation indépendante, transparente et rigoureuse !
+Je soutiens la Commission d'Évaluation de l'Inria.
 
