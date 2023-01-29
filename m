@@ -2,64 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D28E67FD2B
-	for <lists+xen-devel@lfdr.de>; Sun, 29 Jan 2023 07:48:20 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.486256.753682 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04B0267FD66
+	for <lists+xen-devel@lfdr.de>; Sun, 29 Jan 2023 08:39:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.486264.753692 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pM1Te-0001Dt-Sb; Sun, 29 Jan 2023 06:47:46 +0000
+	id 1pM2Fn-0007Wm-Mk; Sun, 29 Jan 2023 07:37:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 486256.753682; Sun, 29 Jan 2023 06:47:46 +0000
+Received: by outflank-mailman (output) from mailman id 486264.753692; Sun, 29 Jan 2023 07:37:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pM1Te-0001B5-PT; Sun, 29 Jan 2023 06:47:46 +0000
-Received: by outflank-mailman (input) for mailman id 486256;
- Sun, 29 Jan 2023 06:47:45 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hFYh=52=arm.com=Penny.Zheng@srs-se1.protection.inumbo.net>)
- id 1pM1Td-0001Az-3E
- for xen-devel@lists.xenproject.org; Sun, 29 Jan 2023 06:47:45 +0000
-Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on2085.outbound.protection.outlook.com [40.107.22.85])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d4020138-9fa0-11ed-b836-f113854b840a;
- Sun, 29 Jan 2023 07:47:42 +0100 (CET)
-Received: from DB6PR0202CA0032.eurprd02.prod.outlook.com (2603:10a6:4:a5::18)
- by PAWPR08MB10060.eurprd08.prod.outlook.com (2603:10a6:102:35a::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.28; Sun, 29 Jan
- 2023 06:47:39 +0000
-Received: from DBAEUR03FT055.eop-EUR03.prod.protection.outlook.com
- (2603:10a6:4:a5:cafe::fe) by DB6PR0202CA0032.outlook.office365.com
- (2603:10a6:4:a5::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6002.37 via Frontend
- Transport; Sun, 29 Jan 2023 06:47:39 +0000
-Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
- DBAEUR03FT055.mail.protection.outlook.com (100.127.142.171) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6043.30 via Frontend Transport; Sun, 29 Jan 2023 06:47:39 +0000
-Received: ("Tessian outbound 3ad958cd7492:v132");
- Sun, 29 Jan 2023 06:47:39 +0000
-Received: from f5a2e4db7e68.2
- by 64aa7808-outbound-1.mta.getcheckrecipient.com id
- 9702BFB7-F731-4F36-8F4F-A546E519AC38.1; 
- Sun, 29 Jan 2023 06:47:32 +0000
-Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id f5a2e4db7e68.2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
- Sun, 29 Jan 2023 06:47:32 +0000
-Received: from AM0PR08MB4530.eurprd08.prod.outlook.com (2603:10a6:208:13c::21)
- by PR3PR08MB5562.eurprd08.prod.outlook.com (2603:10a6:102:85::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.31; Sun, 29 Jan
- 2023 06:47:30 +0000
-Received: from AM0PR08MB4530.eurprd08.prod.outlook.com
- ([fe80::ee26:4b5e:4334:b7ab]) by AM0PR08MB4530.eurprd08.prod.outlook.com
- ([fe80::ee26:4b5e:4334:b7ab%3]) with mapi id 15.20.6043.030; Sun, 29 Jan 2023
- 06:47:30 +0000
+	id 1pM2Fn-0007UX-Jz; Sun, 29 Jan 2023 07:37:31 +0000
+Received: by outflank-mailman (input) for mailman id 486264;
+ Sun, 29 Jan 2023 07:37:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pM2Fm-0007UR-A7
+ for xen-devel@lists.xenproject.org; Sun, 29 Jan 2023 07:37:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pM2Fl-0000Iu-T5; Sun, 29 Jan 2023 07:37:29 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pM2Fl-000197-NG; Sun, 29 Jan 2023 07:37:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -71,312 +39,301 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d4020138-9fa0-11ed-b836-f113854b840a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5dWuG2UPPtT7nqAbc7D7vzScag53zwV8SczmR3BjogA=;
- b=n7JOevdpROPaOFeFfkplTgAKTOCp/9w/KkBa4UM9tqPgCHMxfyouhpXWg8W4hp9IaN/Y2hAc4RSuU0DjvwxtvYU45h8AvUaINgxAye7hlMpv1rgsOlghU6451ImzBHSqnBJLNhZOZb05nVjOA6v2lE85YkO0F29C68VK3EMOKN8=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
- client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
- pr=C
-X-CR-MTA-TID: 64aa7808
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iDvY0xQhGoragX7QSI2rQqldyUuAzvvVofEyOxKENSOMmejEetNeaoasTIKvuQ2m+xMYHR5IN3bu+dBugzSwfwnGvNnxcqtZv5FgmwHufm7d4eRevvibHgqMWLaZiRdf2FlAEkPmqyPLp5kzvTSoDj+dVM6JgL9DQPTxSJErLhZU6QPSYqmjbnBCVI6Ixw3SSjth3Gq7fCXLe9C1dsB+3LPKnQo8OhMYZ/PFb/njQ5Yfs7LFqDW1LEKkhNQ/Pk1XtHBA9UHAacvDSC8CqOBOc+/tMtuvLO1typs0cmRXM6LcFEVBPCREx9Jewju6dEtj43KsaqLBmQuCzSQ6etDEzA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5dWuG2UPPtT7nqAbc7D7vzScag53zwV8SczmR3BjogA=;
- b=NzE9BtmPC9asC1ChNOpg4uL/XC803iO4wTQjESomH4R7VJlgRqyisamDrH/3LUrf9mgMfXDYa0mAmaQHl/gyhcyt3lUwBUJ/xt/abHECUYb2o5JXwyRE/fi2dGMvklM12GxFwtZMYNTfrYMAbQyklBJgy24SKGmZDciKWZXybe+QGPob8t1kWQkfz+APN4wf12alqjgUBNRtCOrWtfuqBwcimphbblvVScoP88Mcd6BUHNuKC3l6E32XTvdQLLStkAlgdi1bZ4/p4TqgWwbA3cHNW9hkfpFOHezyqPE7TEdOrqLODrEyYAiINZOxiyoJaLqc6KJ2uzAFvDf/Wh7opw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
- s=selector2-armh-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5dWuG2UPPtT7nqAbc7D7vzScag53zwV8SczmR3BjogA=;
- b=n7JOevdpROPaOFeFfkplTgAKTOCp/9w/KkBa4UM9tqPgCHMxfyouhpXWg8W4hp9IaN/Y2hAc4RSuU0DjvwxtvYU45h8AvUaINgxAye7hlMpv1rgsOlghU6451ImzBHSqnBJLNhZOZb05nVjOA6v2lE85YkO0F29C68VK3EMOKN8=
-From: Penny Zheng <Penny.Zheng@arm.com>
-To: Ayan Kumar Halder <ayankuma@amd.com>, "xen-devel@lists.xenproject.org"
-	<xen-devel@lists.xenproject.org>
-CC: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>, Bertrand Marquis <Bertrand.Marquis@arm.com>,
-	"Volodymyr_Babchuk@epam.com" <Volodymyr_Babchuk@epam.com>
-Subject: RE: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU memory
- region map
-Thread-Topic: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU memory
- region map
-Thread-Index: AQHZJxAhTWb1zeTHm029bSgcZo/2Yq6lkLCAgA92BsA=
-Date: Sun, 29 Jan 2023 06:47:30 +0000
-Message-ID:
- <AM0PR08MB453049ABE537CC36D9574CC4F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=ZUahC7aqKP2EFGYOlFbHDxPU3jHbiQr55anPEZpzm/4=; b=U55fp/yCUyJyDx53S0HUWaA4jo
+	v5uC04boZCO9jan/OHJgUTzw1qbPOXMZBxU0dzmdfl5d3rARpYORllNy7yIToYdvspwD9KYqCENpC
+	6LyVdLPpEn8gW6S3cVLk6mUE9EsM+yGipU1tDHD4WyJdW29C9rwhHu8K+jCt3/P0Ps0E=;
+Message-ID: <7931e70f-3754-363c-28d8-5fde3198d70f@xen.org>
+Date: Sun, 29 Jan 2023 07:37:27 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
  <20230113052914.3845596-12-Penny.Zheng@arm.com>
- <54355320-2c3c-665f-32e2-90329586d98a@amd.com>
-In-Reply-To: <54355320-2c3c-665f-32e2-90329586d98a@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ts-tracking-id: 08635A7C284C2740B8C02673D51094A9.0
-x-checkrecipientchecked: true
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-x-ms-traffictypediagnostic:
-	AM0PR08MB4530:EE_|PR3PR08MB5562:EE_|DBAEUR03FT055:EE_|PAWPR08MB10060:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bbaa118-438f-4cbb-4c34-08db01c4b6cf
-x-checkrecipientrouted: true
-nodisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original:
- DNS+M5/5qVHWudeDPITe8SB7BCkUB7KFDugclRQ2OExuJJlg7rTqxHRwuha3/gU2q8XFMPO7Py1V2DOXZVx17iAqgjtoXWp92ByMb1IfmJmvlbq1djr48kYOJbuLDwR5Fj8JG3UVzxHMzgF2nTaruqyUS55R6gqDEkMVT+GhlmEZA3lEbl2g0DXY4KovfPwN6/09MnuMctpZ8/lounH9LhLAY1+W02YuEgxYbYvcIJVOGdLwkWm37XHYl588d9LmzUEDvDLPsGeP5Ox6wE9TXDUTIDGPhU7Z3/H2pWHTMZSfvMtxZZ6IpPNEdOqJuKWdayPfeumsfAdnHrN/P9qv7nrkyjj23aPwhKsTW2nGZKtvWrUV7kl/ag6HWrzhqofy9S2TLE1MzHID0ULDyFFX1Ei1aotsIffsY4Cx8J1O5rxEtozrGJ6ibN5qucEEPGu5kbWfk3o7ABqJdS1FjQauO+XWBCvl+O0zxmL8zmgPKxocbnHQuq2v27K5AhN1MKkbVMpqzW6gd6dccO0oV++Oa8nxu3pi4Cic2D8xLwE8+DcxbiO7QYOhBSwxaC5i+CuTI1pgNnpcrJjuViYBztQ/TGTpaXH9jkUBSAWarnCnLO8U++5mQbMcsTQnzUZ1Kti17WWZ/9ISH0ZmUs6cXYJ2uUsfuPN9cNrGV9AzHVmImiTPgEbV2UVui1teGH+1bmC+5Zt5ZKGKBbE1Awl47yZJ48e3VFWclgU1Avm3j9UvWD4=
-X-Forefront-Antispam-Report-Untrusted:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR08MB4530.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(366004)(136003)(39860400002)(346002)(376002)(451199018)(9686003)(7696005)(26005)(71200400001)(186003)(6506007)(53546011)(478600001)(2906002)(966005)(64756008)(110136005)(66556008)(66446008)(66476007)(76116006)(66946007)(54906003)(4326008)(8676002)(316002)(83380400001)(41300700001)(5660300002)(52536014)(30864003)(8936002)(122000001)(38100700002)(86362001)(33656002)(38070700005)(55016003);DIR:OUT;SFP:1101;
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5562
-Original-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped:
- DBAEUR03FT055.eop-EUR03.prod.protection.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs:
-	1beedee1-3aaf-46b5-fab7-08db01c4b143
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	Td3uZLiEFBj2g6DgmUAj5R1ZWj5ovrqABaTUQoM31HO9KKZ/LPNUgmWy874npL1bAwvWrqJCYeDeIPsy29t7fD8LfVSC2/gfHjjzS8ORQDtnjsYy8oh8J4j1qs2OKSkgSaWVCvBl+ndsLJYZmPmlCBtYAD9IBcVMdXedJf/XIutUZsT5oJROgiYwDHolx25Kydpu+94K6lygL2ClCrIomDf25ucN5jL57N9TN+pqb2mFfB0aSn/ZI46gBi+h3xL6DmjY1qq53pftlZEbdkbTkFRLwiOYu9EVccYYo/mNjvZgVIuJR2Idf0KbHeyG6e1NxoUJbnXfWH4sl5HAxd+rYiEfBpsgMv9AoVq005G7rWJ2euPJec5XDh6xjtziNwaTadjMHCY9R4p5luYxd5kQATraBCXvx+dWoofBotC42azYSkmzSNvYe/esEvnA5SzPWKlJfOaKTI9FdjGHeeUDGWlxKsF5D5/V1NKCJoBfe5d+kd0wZREnQLSqHJPriHELBHzF3iJLLMsZZhusMcExhcy9QRriqcePKlDRIu1qhY/aBMHyXK/t8qe8BJz+e1SfFKG0qgfnSvhw6FiU9g4/KJf8HyIXJrOQbcQkOS4ywmHa3NEz5WkDisJrxfol03C4771N/8UvmuGSb0Wb0rcuaXi0UFjQJKWRxLr96y02o00nQx/XfZfsD7FGkvp6FkAqnqW1+ABtwT9XN9O6noz0cA==
-X-Forefront-Antispam-Report:
-	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199018)(46966006)(36840700001)(82310400005)(2906002)(52536014)(86362001)(30864003)(336012)(5660300002)(47076005)(41300700001)(356005)(81166007)(8936002)(83380400001)(966005)(7696005)(478600001)(26005)(9686003)(6506007)(53546011)(186003)(107886003)(82740400003)(36860700001)(33656002)(70586007)(70206006)(4326008)(8676002)(110136005)(54906003)(40480700001)(316002)(55016003);DIR:OUT;SFP:1101;
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2023 06:47:39.5157
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bbaa118-438f-4cbb-4c34-08db01c4b6cf
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DBAEUR03FT055.eop-EUR03.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR08MB10060
+ <c30b4458-b5f6-f996-0c3c-220b18bfb356@xen.org>
+ <AM0PR08MB453083B74DB1D00BDF469331F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU memory
+ region map
+In-Reply-To: <AM0PR08MB453083B74DB1D00BDF469331F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-SGkgQXlhbg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEF5YW4gS3Vt
-YXIgSGFsZGVyIDxheWFua3VtYUBhbWQuY29tPg0KPiBTZW50OiBUaHVyc2RheSwgSmFudWFyeSAx
-OSwgMjAyMyA2OjE5IFBNDQo+IFRvOiB4ZW4tZGV2ZWxAbGlzdHMueGVucHJvamVjdC5vcmcNCj4g
-Q2M6IFdlaSBDaGVuIDxXZWkuQ2hlbkBhcm0uY29tPjsgUGVubnkgWmhlbmcNCj4gPFBlbm55Llpo
-ZW5nQGFybS5jb20+OyBTdGVmYW5vIFN0YWJlbGxpbmkgPHNzdGFiZWxsaW5pQGtlcm5lbC5vcmc+
-OyBKdWxpZW4NCj4gR3JhbGwgPGp1bGllbkB4ZW4ub3JnPjsgQmVydHJhbmQgTWFycXVpcyA8QmVy
-dHJhbmQuTWFycXVpc0Bhcm0uY29tPjsNCj4gVm9sb2R5bXlyX0JhYmNodWtAZXBhbS5jb20NCj4g
-U3ViamVjdDogUmU6IFtQQVRDSCB2MiAxMS80MF0geGVuL21wdTogYnVpbGQgdXAgc3RhcnQtb2Yt
-ZGF5IFhlbiBNUFUNCj4gbWVtb3J5IHJlZ2lvbiBtYXANCj4gDQo+IA0KPiBPbiAxMy8wMS8yMDIz
-IDA1OjI4LCBQZW5ueSBaaGVuZyB3cm90ZToNCj4gPiBDQVVUSU9OOiBUaGlzIG1lc3NhZ2UgaGFz
-IG9yaWdpbmF0ZWQgZnJvbSBhbiBFeHRlcm5hbCBTb3VyY2UuIFBsZWFzZSB1c2UNCj4gcHJvcGVy
-IGp1ZGdtZW50IGFuZCBjYXV0aW9uIHdoZW4gb3BlbmluZyBhdHRhY2htZW50cywgY2xpY2tpbmcg
-bGlua3MsIG9yDQo+IHJlc3BvbmRpbmcgdG8gdGhpcyBlbWFpbC4NCj4gPg0KPiA+DQo+ID4gRnJv
-bTogUGVubnkgWmhlbmcgPHBlbm55LnpoZW5nQGFybS5jb20+DQo+ID4NCj4gPiBUaGUgc3RhcnQt
-b2YtZGF5IFhlbiBNUFUgbWVtb3J5IHJlZ2lvbiBsYXlvdXQgc2hhbGwgYmUgbGlrZSBhcyBmb2xs
-b3dzOg0KPiA+DQo+ID4geGVuX21wdW1hcFswXSA6IFhlbiB0ZXh0DQo+ID4geGVuX21wdW1hcFsx
-XSA6IFhlbiByZWFkLW9ubHkgZGF0YQ0KPiA+IHhlbl9tcHVtYXBbMl0gOiBYZW4gcmVhZC1vbmx5
-IGFmdGVyIGluaXQgZGF0YSB4ZW5fbXB1bWFwWzNdIDogWGVuDQo+ID4gcmVhZC13cml0ZSBkYXRh
-IHhlbl9tcHVtYXBbNF0gOiBYZW4gQlNTIC4uLi4uLg0KPiA+IHhlbl9tcHVtYXBbbWF4X3hlbl9t
-cHVtYXAgLSAyXTogWGVuIGluaXQgZGF0YQ0KPiA+IHhlbl9tcHVtYXBbbWF4X3hlbl9tcHVtYXAg
-LSAxXTogWGVuIGluaXQgdGV4dA0KPiA+DQo+ID4gbWF4X3hlbl9tcHVtYXAgcmVmZXJzIHRvIHRo
-ZSBudW1iZXIgb2YgcmVnaW9ucyBzdXBwb3J0ZWQgYnkgdGhlIEVMMg0KPiBNUFUuDQo+ID4gVGhl
-IGxheW91dCBzaGFsbCBiZSBjb21wbGlhbnQgd2l0aCB3aGF0IHdlIGRlc2NyaWJlIGluIHhlbi5s
-ZHMuUywgb3INCj4gPiB0aGUgY29kZXMgbmVlZCBhZGp1c3RtZW50Lg0KPiA+DQo+ID4gQXMgTU1V
-IHN5c3RlbSBhbmQgTVBVIHN5c3RlbSBoYXZlIGRpZmZlcmVudCBmdW5jdGlvbnMgdG8gY3JlYXRl
-IHRoZQ0KPiA+IGJvb3QgTU1VL01QVSBtZW1vcnkgbWFuYWdlbWVudCBkYXRhLCBpbnN0ZWFkIG9m
-IGludHJvZHVjaW5nIGV4dHJhDQo+ID4gI2lmZGVmIGluIG1haW4gY29kZSBmbG93LCB3ZSBpbnRy
-b2R1Y2UgYSBuZXV0cmFsIG5hbWUNCj4gPiBwcmVwYXJlX2Vhcmx5X21hcHBpbmdzIGZvciBib3Ro
-LCBhbmQgYWxzbyB0byByZXBsYWNlIGNyZWF0ZV9wYWdlX3RhYmxlcw0KPiBmb3IgTU1VLg0KPiA+
-DQo+ID4gU2lnbmVkLW9mZi1ieTogUGVubnkgWmhlbmcgPHBlbm55LnpoZW5nQGFybS5jb20+DQo+
-ID4gU2lnbmVkLW9mZi1ieTogV2VpIENoZW4gPHdlaS5jaGVuQGFybS5jb20+DQo+ID4gLS0tDQo+
-ID4gICB4ZW4vYXJjaC9hcm0vYXJtNjQvTWFrZWZpbGUgICAgICAgICAgICAgIHwgICAyICsNCj4g
-PiAgIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMgICAgICAgICAgICAgICAgfCAgMTcgKy0NCj4g
-PiAgIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkX21tdS5TICAgICAgICAgICAgfCAgIDQgKy0NCj4g
-PiAgIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkX21wdS5TICAgICAgICAgICAgfCAzMjMNCj4gKysr
-KysrKysrKysrKysrKysrKysrKysNCj4gPiAgIHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9hcm02
-NC9tcHUuaCAgICAgfCAgNjMgKysrKysNCj4gPiAgIHhlbi9hcmNoL2FybS9pbmNsdWRlL2FzbS9h
-cm02NC9zeXNyZWdzLmggfCAgNDkgKysrKw0KPiA+ICAgeGVuL2FyY2gvYXJtL21tX21wdS5jICAg
-ICAgICAgICAgICAgICAgICB8ICA0OCArKysrDQo+ID4gICB4ZW4vYXJjaC9hcm0veGVuLmxkcy5T
-ICAgICAgICAgICAgICAgICAgIHwgICA0ICsNCj4gPiAgIDggZmlsZXMgY2hhbmdlZCwgNTAyIGlu
-c2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0pDQo+ID4gICBjcmVhdGUgbW9kZSAxMDA2NDQgeGVu
-L2FyY2gvYXJtL2FybTY0L2hlYWRfbXB1LlMNCj4gPiAgIGNyZWF0ZSBtb2RlIDEwMDY0NCB4ZW4v
-YXJjaC9hcm0vaW5jbHVkZS9hc20vYXJtNjQvbXB1LmgNCj4gPiAgIGNyZWF0ZSBtb2RlIDEwMDY0
-NCB4ZW4vYXJjaC9hcm0vbW1fbXB1LmMNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS94ZW4vYXJjaC9h
-cm0vYXJtNjQvTWFrZWZpbGUNCj4gYi94ZW4vYXJjaC9hcm0vYXJtNjQvTWFrZWZpbGUNCj4gPiBp
-bmRleCAyMmRhMmY1NGI1Li40MzhjOTczN2FkIDEwMDY0NA0KPiA+IC0tLSBhL3hlbi9hcmNoL2Fy
-bS9hcm02NC9NYWtlZmlsZQ0KPiA+ICsrKyBiL3hlbi9hcmNoL2FybS9hcm02NC9NYWtlZmlsZQ0K
-PiA+IEBAIC0xMCw2ICsxMCw4IEBAIG9iai15ICs9IGVudHJ5Lm8NCj4gPiAgIG9iai15ICs9IGhl
-YWQubw0KPiA+ICAgaWZuZXEgKCQoQ09ORklHX0hBU19NUFUpLHkpDQo+ID4gICBvYmoteSArPSBo
-ZWFkX21tdS5vDQo+ID4gK2Vsc2UNCj4gPiArb2JqLXkgKz0gaGVhZF9tcHUubw0KPiA+ICAgZW5k
-aWYNCj4gPiAgIG9iai15ICs9IGluc24ubw0KPiA+ICAgb2JqLSQoQ09ORklHX0xJVkVQQVRDSCkg
-Kz0gbGl2ZXBhdGNoLm8gZGlmZiAtLWdpdA0KPiA+IGEveGVuL2FyY2gvYXJtL2FybTY0L2hlYWQu
-UyBiL3hlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMgaW5kZXgNCj4gPiA3ODJiZDFmOTRjLi4xNDVl
-M2Q1M2RjIDEwMDY0NA0KPiA+IC0tLSBhL3hlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMNCj4gPiAr
-KysgYi94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZC5TDQo+ID4gQEAgLTY4LDkgKzY4LDkgQEANCj4g
-PiAgICAqICB4MjQgLQ0KPiA+ICAgICogIHgyNSAtDQo+ID4gICAgKiAgeDI2IC0gc2tpcF96ZXJv
-X2JzcyAoYm9vdCBjcHUgb25seSkNCj4gPiAtICogIHgyNyAtDQo+ID4gLSAqICB4MjggLQ0KPiA+
-IC0gKiAgeDI5IC0NCj4gPiArICogIHgyNyAtIHJlZ2lvbiBzZWxlY3RvciAobXB1IG9ubHkpDQo+
-ID4gKyAqICB4MjggLSBwcmJhciAobXB1IG9ubHkpDQo+ID4gKyAqICB4MjkgLSBwcmxhciAobXB1
-IG9ubHkpDQo+ID4gICAgKiAgeDMwIC0gbHINCj4gPiAgICAqLw0KPiA+DQo+ID4gQEAgLTgyLDcg
-KzgyLDcgQEANCj4gPiAgICAqIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiA+ICAgICoN
-Cj4gPiAgICAqIFRoZSByZXF1aXJlbWVudHMgYXJlOg0KPiA+IC0gKiAgIE1NVSA9IG9mZiwgRC1j
-YWNoZSA9IG9mZiwgSS1jYWNoZSA9IG9uIG9yIG9mZiwNCj4gPiArICogICBNTVUvTVBVID0gb2Zm
-LCBELWNhY2hlID0gb2ZmLCBJLWNhY2hlID0gb24gb3Igb2ZmLA0KPiA+ICAgICogICB4MCA9IHBo
-eXNpY2FsIGFkZHJlc3MgdG8gdGhlIEZEVCBibG9iLg0KPiA+ICAgICoNCj4gPiAgICAqIFRoaXMg
-bXVzdCBiZSB0aGUgdmVyeSBmaXJzdCBhZGRyZXNzIGluIHRoZSBsb2FkZWQgaW1hZ2UuDQo+ID4g
-QEAgLTI1Miw3ICsyNTIsMTIgQEAgcmVhbF9zdGFydF9lZmk6DQo+ID4NCj4gPiAgICAgICAgICAg
-YmwgICAgY2hlY2tfY3B1X21vZGUNCj4gPiAgICAgICAgICAgYmwgICAgY3B1X2luaXQNCj4gPiAt
-ICAgICAgICBibCAgICBjcmVhdGVfcGFnZV90YWJsZXMNCj4gPiArDQo+ID4gKyAgICAgICAgLyoN
-Cj4gPiArICAgICAgICAgKiBDcmVhdGUgYm9vdCBtZW1vcnkgbWFuYWdlbWVudCBkYXRhLCBwYWdl
-dGFibGUgZm9yIE1NVQ0KPiBzeXN0ZW1zDQo+ID4gKyAgICAgICAgICogYW5kIG1lbW9yeSByZWdp
-b25zIGZvciBNUFUgc3lzdGVtcy4NCj4gPiArICAgICAgICAgKi8NCj4gPiArICAgICAgICBibCAg
-ICBwcmVwYXJlX2Vhcmx5X21hcHBpbmdzDQo+ID4gICAgICAgICAgIGJsICAgIGVuYWJsZV9tbXUN
-Cj4gPg0KPiA+ICAgICAgICAgICAvKiBXZSBhcmUgc3RpbGwgaW4gdGhlIDE6MSBtYXBwaW5nLiBK
-dW1wIHRvIHRoZSBydW50aW1lDQo+ID4gVmlydHVhbCBBZGRyZXNzLiAqLyBAQCAtMzEwLDcgKzMx
-NSw3IEBAIEdMT0JBTChpbml0X3NlY29uZGFyeSkNCj4gPiAgICNlbmRpZg0KPiA+ICAgICAgICAg
-ICBibCAgICBjaGVja19jcHVfbW9kZQ0KPiA+ICAgICAgICAgICBibCAgICBjcHVfaW5pdA0KPiA+
-IC0gICAgICAgIGJsICAgIGNyZWF0ZV9wYWdlX3RhYmxlcw0KPiA+ICsgICAgICAgIGJsICAgIHBy
-ZXBhcmVfZWFybHlfbWFwcGluZ3MNCj4gPiAgICAgICAgICAgYmwgICAgZW5hYmxlX21tdQ0KPiA+
-DQo+ID4gICAgICAgICAgIC8qIFdlIGFyZSBzdGlsbCBpbiB0aGUgMToxIG1hcHBpbmcuIEp1bXAg
-dG8gdGhlIHJ1bnRpbWUNCj4gPiBWaXJ0dWFsIEFkZHJlc3MuICovIGRpZmYgLS1naXQgYS94ZW4v
-YXJjaC9hcm0vYXJtNjQvaGVhZF9tbXUuUw0KPiA+IGIveGVuL2FyY2gvYXJtL2FybTY0L2hlYWRf
-bW11LlMgaW5kZXggNmZmMTNjNzUxYy4uMjM0NmY3NTVkZg0KPiAxMDA2NDQNCj4gPiAtLS0gYS94
-ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZF9tbXUuUw0KPiA+ICsrKyBiL3hlbi9hcmNoL2FybS9hcm02
-NC9oZWFkX21tdS5TDQo+ID4gQEAgLTEyMyw3ICsxMjMsNyBAQA0KPiA+ICAgICoNCj4gPiAgICAq
-IENsb2JiZXJzIHgwIC0geDQNCj4gPiAgICAqLw0KPiA+IC1FTlRSWShjcmVhdGVfcGFnZV90YWJs
-ZXMpDQo+ID4gK0VOVFJZKHByZXBhcmVfZWFybHlfbWFwcGluZ3MpDQo+ID4gICAgICAgICAgIC8q
-IFByZXBhcmUgdGhlIHBhZ2UtdGFibGVzIGZvciBtYXBwaW5nIFhlbiAqLw0KPiA+ICAgICAgICAg
-ICBsZHIgICB4MCwgPVhFTl9WSVJUX1NUQVJUDQo+ID4gICAgICAgICAgIGNyZWF0ZV90YWJsZV9l
-bnRyeSBib290X3BndGFibGUsIGJvb3RfZmlyc3QsIHgwLCAwLCB4MSwgeDIsDQo+ID4geDMgQEAg
-LTIwOCw3ICsyMDgsNyBAQCB2aXJ0cGh5c19jbGFzaDoNCj4gPiAgICAgICAgICAgLyogSWRlbnRp
-dHkgbWFwIGNsYXNoZXMgd2l0aCBib290X3RoaXJkLCB3aGljaCB3ZSBjYW5ub3QgaGFuZGxlIHll
-dA0KPiAqLw0KPiA+ICAgICAgICAgICBQUklOVCgiLSBVbmFibGUgdG8gYnVpbGQgYm9vdCBwYWdl
-IHRhYmxlcyAtIHZpcnQgYW5kIHBoeXMgYWRkcmVzc2VzDQo+IGNsYXNoLiAtXHJcbiIpDQo+ID4g
-ICAgICAgICAgIGIgICAgIGZhaWwNCj4gPiAtRU5EUFJPQyhjcmVhdGVfcGFnZV90YWJsZXMpDQo+
-ID4gK0VORFBST0MocHJlcGFyZV9lYXJseV9tYXBwaW5ncykNCj4gDQo+IE5JVDotIENhbiB0aGlz
-IHJlbmFtaW5nIGJlIGRvbmUgaW4gYSBzZXBhcmF0ZSBwYXRjaCBvZiBpdHMgb3duIChiZWZvcmUg
-dGhpcw0KPiBwYXRjaCkuDQo+IA0KDQpZYXksIHlvdSdyZSByaWdodC4gSSdsbCBwdXQgaXQgaW4g
-ZGlmZmVyZW50IGNvbW1pdC4NCg0KPiBTbyB0aGF0IHRoaXMgcGF0Y2ggY2FuIGJlIG9ubHkgYWJv
-dXQgdGhlIG5ldyBmdW5jdGlvbmFsaXR5IGludHJvZHVjZWQuDQo+IA0KPiA+DQo+ID4gICAvKg0K
-PiA+ICAgICogVHVybiBvbiB0aGUgRGF0YSBDYWNoZSBhbmQgdGhlIE1NVS4gVGhlIGZ1bmN0aW9u
-IHdpbGwgcmV0dXJuIG9uDQo+ID4gdGhlIDE6MSBkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2Fy
-bTY0L2hlYWRfbXB1LlMNCj4gPiBiL3hlbi9hcmNoL2FybS9hcm02NC9oZWFkX21wdS5TIG5ldyBm
-aWxlIG1vZGUgMTAwNjQ0IGluZGV4DQo+ID4gMDAwMDAwMDAwMC4uMGI5N2NlNDY0Ng0KPiA+IC0t
-LSAvZGV2L251bGwNCj4gPiArKysgYi94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZF9tcHUuUw0KPiA+
-IEBAIC0wLDAgKzEsMzIzIEBADQo+ID4gKy8qIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwt
-Mi4wLW9ubHkgKi8NCj4gPiArLyoNCj4gPiArICogU3RhcnQtb2YtZGF5IGNvZGUgZm9yIGFuIEFy
-bXY4LVIgQUFyY2g2NCBNUFUgc3lzdGVtLg0KPiA+ICsgKi8NCj4gPiArDQo+ID4gKyNpbmNsdWRl
-IDxhc20vYXJtNjQvbXB1Lmg+DQo+ID4gKyNpbmNsdWRlIDxhc20vZWFybHlfcHJpbnRrLmg+DQo+
-ID4gKyNpbmNsdWRlIDxhc20vcGFnZS5oPg0KPiA+ICsNCj4gPiArLyoNCj4gPiArICogT25lIGVu
-dHJ5IGluIFhlbiBNUFUgbWVtb3J5IHJlZ2lvbiBtYXBwaW5nIHRhYmxlKHhlbl9tcHVtYXApIGlz
-DQo+IGENCj4gPiArc3RydWN0dXJlDQo+ID4gKyAqIG9mIHByX3QsIHdoaWNoIGlzIDE2LWJ5dGVz
-IHNpemUsIHNvIHRoZSBlbnRyeSBvZmZzZXQgaXMgdGhlIG9yZGVyIG9mIDQuDQo+ID4gKyAqLw0K
-PiBOSVQgOi0gSXQgd291bGQgYmUgZ29vZCB0byBxdW90ZSBBcm0gQVJNIGZyb20gd2hpY2ggY2Fu
-IGJlIHJlZmVycmVkIGZvcg0KPiB0aGUgZGVmaW5pdGlvbnMuDQo+ID4gKyNkZWZpbmUgTVBVX0VO
-VFJZX1NISUZUICAgICAgICAgMHg0DQo+ID4gKw0KPiA+ICsjZGVmaW5lIFJFR0lPTl9TRUxfTUFT
-SyAgICAgICAgIDB4Zg0KPiA+ICsNCj4gPiArI2RlZmluZSBSRUdJT05fVEVYVF9QUkJBUiAgICAg
-ICAweDM4ICAgIC8qIFNIPTExIEFQPTEwIFhOPTAwICovDQo+ID4gKyNkZWZpbmUgUkVHSU9OX1JP
-X1BSQkFSICAgICAgICAgMHgzQSAgICAvKiBTSD0xMSBBUD0xMCBYTj0xMCAqLw0KPiA+ICsjZGVm
-aW5lIFJFR0lPTl9EQVRBX1BSQkFSICAgICAgIDB4MzIgICAgLyogU0g9MTEgQVA9MDAgWE49MTAg
-Ki8NCj4gPiArDQo+ID4gKyNkZWZpbmUgUkVHSU9OX05PUk1BTF9QUkxBUiAgICAgMHgwZiAgICAv
-KiBOUz0wIEFUVFI9MTExIEVOPTEgKi8NCj4gPiArDQo+ID4gKy8qDQo+ID4gKyAqIE1hY3JvIHRv
-IHJvdW5kIHVwIHRoZSBzZWN0aW9uIGFkZHJlc3MgdG8gYmUgUEFHRV9TSVpFIGFsaWduZWQNCj4g
-PiArICogRWFjaCBzZWN0aW9uKGUuZy4gLnRleHQsIC5kYXRhLCBldGMpIGluIHhlbi5sZHMuUyBp
-cyBwYWdlLWFsaWduZWQsDQo+ID4gKyAqIHdoaWNoIGlzIHVzdWFsbHkgZ3VhcmRlZCB3aXRoICIu
-ID0gQUxJR04oUEFHRV9TSVpFKSIgaW4gdGhlIGhlYWQsDQo+ID4gKyAqIG9yIGluIHRoZSBlbmQN
-Cj4gPiArICovDQo+ID4gKy5tYWNybyByb3VuZHVwX3NlY3Rpb24sIHhiDQo+ID4gKyAgICAgICAg
-YWRkICAgXHhiLCBceGIsICMoUEFHRV9TSVpFLTEpDQo+ID4gKyAgICAgICAgYW5kICAgXHhiLCBc
-eGIsICNQQUdFX01BU0sNCj4gPiArLmVuZG0NCj4gPiArDQo+ID4gKy8qDQo+ID4gKyAqIE1hY3Jv
-IHRvIGNyZWF0ZSBhIG5ldyBNUFUgbWVtb3J5IHJlZ2lvbiBlbnRyeSwgd2hpY2ggaXMgYQ0KPiA+
-ICtzdHJ1Y3R1cmUNCj4gPiArICogb2YgcHJfdCwgIGluIFxwcm1hcC4NCj4gPiArICoNCj4gPiAr
-ICogSW5wdXRzOg0KPiA+ICsgKiBwcm1hcDogICBtcHUgbWVtb3J5IHJlZ2lvbiBtYXAgdGFibGUg
-c3ltYm9sDQo+ID4gKyAqIHNlbDogICAgIHJlZ2lvbiBzZWxlY3Rvcg0KPiA+ICsgKiBwcmJhcjog
-ICBwcmVzZXJ2ZSB2YWx1ZSBmb3IgUFJCQVJfRUwyDQo+ID4gKyAqIHBybGFyICAgIHByZXNlcnZl
-IHZhbHVlIGZvciBQUkxBUl9FTDINCj4gPiArICoNCj4gPiArICogQ2xvYmJlcnMgXHRtcDEsIFx0
-bXAyDQo+ID4gKyAqDQo+ID4gKyAqLw0KPiA+ICsubWFjcm8gY3JlYXRlX21wdV9lbnRyeSBwcm1h
-cCwgc2VsLCBwcmJhciwgcHJsYXIsIHRtcDEsIHRtcDINCj4gPiArICAgIG1vdiAgIFx0bXAyLCBc
-c2VsDQo+ID4gKyAgICBsc2wgICBcdG1wMiwgXHRtcDIsICNNUFVfRU5UUllfU0hJRlQNCj4gPiAr
-ICAgIGFkcl9sIFx0bXAxLCBccHJtYXANCj4gPiArICAgIC8qIFdyaXRlIHRoZSBmaXJzdCA4IGJ5
-dGVzKHByYmFyX3QpIG9mIHByX3QgKi8NCj4gPiArICAgIHN0ciAgIFxwcmJhciwgW1x0bXAxLCBc
-dG1wMl0NCj4gPiArDQo+ID4gKyAgICBhZGQgICBcdG1wMiwgXHRtcDIsICM4DQo+ID4gKyAgICAv
-KiBXcml0ZSB0aGUgbGFzdCA4IGJ5dGVzKHBybGFyX3QpIG9mIHByX3QgKi8NCj4gPiArICAgIHN0
-ciAgIFxwcmxhciwgW1x0bXAxLCBcdG1wMl0NCj4gPiArLmVuZG0NCj4gPiArDQo+ID4gKy8qDQo+
-ID4gKyAqIE1hY3JvIHRvIHN0b3JlIHRoZSBtYXhpbXVtIG51bWJlciBvZiByZWdpb25zIHN1cHBv
-cnRlZCBieSB0aGUgRUwyDQo+ID4gK01QVQ0KPiA+ICsgKiBpbiBtYXhfeGVuX21wdW1hcCwgd2hp
-Y2ggaXMgaWRlbnRpZmllZCBieSBNUFVJUl9FTDIuDQo+ID4gKyAqDQo+ID4gKyAqIE91dHB1dHM6
-DQo+ID4gKyAqIG5yX3JlZ2lvbnM6IHByZXNlcnZlIHRoZSBtYXhpbXVtIG51bWJlciBvZiByZWdp
-b25zIHN1cHBvcnRlZCBieQ0KPiA+ICt0aGUgRUwyIE1QVQ0KPiA+ICsgKg0KPiA+ICsgKiBDbG9i
-YmVycyBcdG1wMQ0KPiA+ICsgKg0KPiA+ICsgKi8NCj4gPiArLm1hY3JvIHJlYWRfbWF4X2VsMl9y
-ZWdpb25zLCBucl9yZWdpb25zLCB0bXAxDQo+ID4gKyAgICBsb2FkX3BhZGRyIFx0bXAxLCBtYXhf
-eGVuX21wdW1hcA0KPiA+ICsgICAgbXJzICAgXG5yX3JlZ2lvbnMsIE1QVUlSX0VMMg0KPiA+ICsg
-ICAgaXNiDQo+ID4gKyAgICBzdHIgICBcbnJfcmVnaW9ucywgW1x0bXAxXQ0KPiA+ICsuZW5kbQ0K
-PiA+ICsNCj4gPiArLyoNCj4gPiArICogTWFjcm8gdG8gcHJlcGFyZSBhbmQgc2V0IGEgTVBVIG1l
-bW9yeSByZWdpb24NCj4gPiArICoNCj4gPiArICogSW5wdXRzOg0KPiA+ICsgKiBiYXNlOiAgICAg
-ICAgYmFzZSBhZGRyZXNzIHN5bWJvbCAoc2hvdWxkIGJlIHBhZ2UtYWxpZ25lZCkNCj4gPiArICog
-bGltaXQ6ICAgICAgIGxpbWl0IGFkZHJlc3Mgc3ltYm9sDQo+ID4gKyAqIHNlbDogICAgICAgICBy
-ZWdpb24gc2VsZWN0b3INCj4gPiArICogcHJiYXI6ICAgICAgIHN0b3JlIGNvbXB1dGVkIFBSQkFS
-X0VMMiB2YWx1ZQ0KPiA+ICsgKiBwcmxhcjogICAgICAgc3RvcmUgY29tcHV0ZWQgUFJMQVJfRUwy
-IHZhbHVlDQo+ID4gKyAqIGF0dHJfcHJiYXI6ICBQUkJBUl9FTDItcmVsYXRlZCBtZW1vcnkgYXR0
-cmlidXRlcy4gSWYgbm90IHNwZWNpZmllZA0KPiA+ICtpdCB3aWxsIGJlIFJFR0lPTl9EQVRBX1BS
-QkFSDQo+ID4gKyAqIGF0dHJfcHJsYXI6ICBQUkxBUl9FTDItcmVsYXRlZCBtZW1vcnkgYXR0cmli
-dXRlcy4gSWYgbm90IHNwZWNpZmllZA0KPiA+ICtpdCB3aWxsIGJlIFJFR0lPTl9OT1JNQUxfUFJM
-QVINCj4gPiArICoNCj4gPiArICogQ2xvYmJlciBcdG1wMQ0KPiA+ICsgKg0KPiA+ICsgKi8NCj4g
-PiArLm1hY3JvIHByZXBhcmVfeGVuX3JlZ2lvbiwgYmFzZSwgbGltaXQsIHNlbCwgcHJiYXIsIHBy
-bGFyLCB0bXAxLA0KPiBhdHRyX3ByYmFyPVJFR0lPTl9EQVRBX1BSQkFSLCBhdHRyX3BybGFyPVJF
-R0lPTl9OT1JNQUxfUFJMQVINCj4gPiArICAgIC8qIFByZXBhcmUgdmFsdWUgZm9yIFBSQkFSX0VM
-MiByZWcgYW5kIHByZXNlcnZlIGl0IGluIFxwcmJhci4qLw0KPiA+ICsgICAgbG9hZF9wYWRkciBc
-cHJiYXIsIFxiYXNlDQo+ID4gKyAgICBhbmQgICBccHJiYXIsIFxwcmJhciwgI01QVV9SRUdJT05f
-TUFTSw0KPiA+ICsgICAgbW92ICAgXHRtcDEsICNcYXR0cl9wcmJhcg0KPiA+ICsgICAgb3JyICAg
-XHByYmFyLCBccHJiYXIsIFx0bXAxDQo+ID4gKw0KPiA+ICsgICAgLyogUHJlcGFyZSB2YWx1ZSBm
-b3IgUFJMQVJfRUwyIHJlZyBhbmQgcHJlc2VydmUgaXQgaW4gXHBybGFyLiovDQo+ID4gKyAgICBs
-b2FkX3BhZGRyIFxwcmxhciwgXGxpbWl0DQo+ID4gKyAgICAvKiBSb3VuZCB1cCBsaW1pdCBhZGRy
-ZXNzIHRvIGJlIFBBR0VfU0laRSBhbGlnbmVkICovDQo+ID4gKyAgICByb3VuZHVwX3NlY3Rpb24g
-XHBybGFyDQo+ID4gKyAgICAvKiBMaW1pdCBhZGRyZXNzIHNob3VsZCBiZSBpbmNsdXNpdmUgKi8N
-Cj4gPiArICAgIHN1YiAgIFxwcmxhciwgXHBybGFyLCAjMQ0KPiA+ICsgICAgYW5kICAgXHBybGFy
-LCBccHJsYXIsICNNUFVfUkVHSU9OX01BU0sNCj4gPiArICAgIG1vdiAgIFx0bXAxLCAjXGF0dHJf
-cHJsYXINCj4gPiArICAgIG9yciAgIFxwcmxhciwgXHBybGFyLCBcdG1wMQ0KPiA+ICsNCj4gPiAr
-ICAgIG1vdiAgIHgyNywgXHNlbA0KPiA+ICsgICAgbW92ICAgeDI4LCBccHJiYXINCj4gPiArICAg
-IG1vdiAgIHgyOSwgXHBybGFyDQo+IA0KPiBBbnkgcmVhc29ucyBmb3IgdXNpbmcgeDI3LCB4Mjgs
-IHgyOSB0byBwYXNzIGZ1bmN0aW9uIHBhcmFtZXRlcnMuDQo+IA0KPiBodHRwczovL2dpdGh1Yi5j
-b20vQVJNLXNvZnR3YXJlL2FiaS1hYS9ibG9iL21haW4vYWFwY3M2NC9hYXBjczY0LnJzdA0KPiBz
-dGF0ZXMgeDAuLng3IHNob3VsZCBiZSB1c2VkIChUYWJsZSAyLCBHZW5lcmFsLXB1cnBvc2UgcmVn
-aXN0ZXJzIGFuZA0KPiBBQVBDUzY0IHVzYWdlKS4NCj4gDQoNClRoZXNlIHJlZ2lzdGVycyBhcmUg
-ZG9jdW1lbnRlZCBhbmQgcmVzZXJ2ZWQgaW4geGVuL2FyY2gvYXJtL2FybTY0L2hlYWQuUywgbGlr
-ZQ0KaG93IHdlIHJlc2VydmUgeDI2IHRvIHBhc3MgZnVuY3Rpb24gcGFyYW1ldGVyIGluIHNraXBf
-emVyb19ic3MsIHNlZQ0KYGBgDQpkaWZmIC0tZ2l0IGEveGVuL2FyY2gvYXJtL2FybTY0L2hlYWQu
-UyBiL3hlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMNCmluZGV4IDc4MmJkMWY5NGMuLjE0NWUzZDUz
-ZGMgMTAwNjQ0DQotLS0gYS94ZW4vYXJjaC9hcm0vYXJtNjQvaGVhZC5TDQorKysgYi94ZW4vYXJj
-aC9hcm0vYXJtNjQvaGVhZC5TDQpAQCAtNjgsOSArNjgsOSBAQA0KICAqICB4MjQgLQ0KICAqICB4
-MjUgLQ0KICAqICB4MjYgLSBza2lwX3plcm9fYnNzIChib290IGNwdSBvbmx5KQ0KLSAqICB4Mjcg
-LQ0KLSAqICB4MjggLQ0KLSAqICB4MjkgLQ0KKyAqICB4MjcgLSByZWdpb24gc2VsZWN0b3IgKG1w
-dSBvbmx5KQ0KKyAqICB4MjggLSBwcmJhciAobXB1IG9ubHkpDQorICogIHgyOSAtIHBybGFyICht
-cHUgb25seSkNCiAgKiAgeDMwIC0gbHINCiAgKi8NCmBgYA0KeDAuLi54NyBhcmUgYWxyZWFkeSBj
-b21tb25seSB1c2VkIGluIHhlbi9hcmNoL2FybS9hcm02NC9oZWFkLlMsIGl0IGlzIGRpZmZpY3Vs
-dCBmb3IgbWUNCnRvIHByZXNlcnZlIHRoZW0gb25seSBmb3Igd3JpdGVfcHIuDQoNCklmIHdlIGFy
-ZSB1c2luZyB4MC4uLng3IGFzIGZ1bmN0aW9uIHBhcmFtZXRlciwgSSBuZWVkIHRvIHN0YWNrL3Bv
-cCB0aGVtIHRvIG11dGF0ZQ0Kc3RhY2sgb3BlcmF0aW9uIGluIHdyaXRlX3ByIHRvIGF2b2lkIGNv
-cnJ1cHRpb24uDQoNCj4gPiArICAgIC8qDQo+ID4gKyAgICAgKiB4MnNraXBfemVybzcsIHgyOCwg
-eDI5IGFyZSBzcGVjaWFsIHJlZ2lzdGVycyBkZXNpZ25lZCBhcw0KPiA+ICsgICAgICogaW5wdXRz
-IGZvciBmdW5jdGlvbiB3cml0ZV9wcg0KPiA+ICsgICAgICovDQo+ID4gKyAgICBibCAgICB3cml0
-ZV9wcg0KPiA+ICsuZW5kbQ0KPiA+ICsNClsuLi5dDQo+ID4gLS0NCj4gPiAyLjI1LjENCj4gPg0K
-PiBOSVQ6LSBXb3VsZCB5b3UgY29uc2lkZXIgc3BsaXR0aW5nIHRoaXMgcGF0Y2gsIHNvbWV0aGlu
-ZyBsaWtlIHRoaXMgOi0NCj4gDQo+IDEuIFJlbmFtaW5nIG9mIHRoZSBtbXUgZnVuY3Rpb24NCj4g
-DQo+IDIuIERlZmluZSBzeXNyZWdzLCBwcmxhcl90LCBwcmJhcl90IGFuZCBvdGhlciBvdGhlciBo
-YXJkd2FyZSBzcGVjaWZpYyBtYWNyb3MuDQo+IA0KPiAzLiBEZWZpbmUgd3JpdGVfcHINCj4gDQo+
-IDQuIFRoZSByZXN0IG9mIHRoZSBjaGFuZ2VzIChpZSBwcmVwYXJlX2Vhcmx5X21hcHBpbmdzKCks
-IHhlbi5sZHMuUywgZXRjKQ0KPiANCg0KRm9yIDIsIDMgYW5kIDQsIGl0IHdpbGwgYnJlYWsgdGhl
-IHJ1bGUgb2YgIkFsd2F5cyBkZWZpbmUgYW5kIGludHJvZHVjZSBhdCB0aGUNCmZpcnN0IHVzYWdl
-Ii4NCkhvd2V2ZXIsIEkga25vdyB0aGF0IHRoaXMgY29tbWl0IGlzIHZlcnkgYmlnIDsvLCBzbyBh
-cyBsb25nIGFzIG1haW50YWluZXJzIGFyZSBhbHNvDQppbiBmYXZvciBvZiB5b3VyIHNwbGl0dGlu
-ZyBzdWdnZXN0aW9uLCBJJ20gaGFwcHkgdG8gZG8gdGhlIHNwbGl0IHRvb34NCg0KPiAtIEF5YW4N
-Cg0K
+Hi Penny,
+
+On 29/01/2023 05:39, Penny Zheng wrote:
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Thursday, January 19, 2023 11:04 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+>> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> Subject: Re: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU
+>> memory region map
+>>
+>> Hi Penny,
+>>
+> 
+> Hi Julien
+> 
+> Sorry for the late response, just come back from Chinese Spring Festival Holiday~
+>   
+>> On 13/01/2023 05:28, Penny Zheng wrote:
+>>> From: Penny Zheng <penny.zheng@arm.com>
+>>>
+>>> The start-of-day Xen MPU memory region layout shall be like as follows:
+>>>
+>>> xen_mpumap[0] : Xen text
+>>> xen_mpumap[1] : Xen read-only data
+>>> xen_mpumap[2] : Xen read-only after init data xen_mpumap[3] : Xen
+>>> read-write data xen_mpumap[4] : Xen BSS ......
+>>> xen_mpumap[max_xen_mpumap - 2]: Xen init data
+>>> xen_mpumap[max_xen_mpumap - 1]: Xen init text
+>>
+>> Can you explain why the init region should be at the end of the MPU?
+>>
+> 
+> As discussed in the v1 Serie, I'd like to put all transient MPU regions, like boot-only region,
+> at the end of the MPU.
+
+I vaguely recall the discussion but can't seem to find the thread. Do 
+you have a link? (A summary in the patch would have been nice)
+
+> Since they will get removed at the end of the boot, I am trying not to leave holes in the MPU
+> map by putting all transient MPU regions at rear.
+
+I understand the principle, but I am not convinced this is worth it 
+because of the increase complexity in the assembly code.
+
+What would be the problem with reshuffling partially the MPU once we booted?
+
+> 
+>>>
+>>> max_xen_mpumap refers to the number of regions supported by the EL2
+>> MPU.
+>>> The layout shall be compliant with what we describe in xen.lds.S, or
+>>> the codes need adjustment.
+>>>
+>>> As MMU system and MPU system have different functions to create the
+>>> boot MMU/MPU memory management data, instead of introducing extra
+>>> #ifdef in main code flow, we introduce a neutral name
+>>> prepare_early_mappings for both, and also to replace create_page_tables
+>> for MMU.
+>>>
+>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>> ---
+>>>    xen/arch/arm/arm64/Makefile              |   2 +
+>>>    xen/arch/arm/arm64/head.S                |  17 +-
+>>>    xen/arch/arm/arm64/head_mmu.S            |   4 +-
+>>>    xen/arch/arm/arm64/head_mpu.S            | 323
+>> +++++++++++++++++++++++
+>>>    xen/arch/arm/include/asm/arm64/mpu.h     |  63 +++++
+>>>    xen/arch/arm/include/asm/arm64/sysregs.h |  49 ++++
+>>>    xen/arch/arm/mm_mpu.c                    |  48 ++++
+>>>    xen/arch/arm/xen.lds.S                   |   4 +
+>>>    8 files changed, 502 insertions(+), 8 deletions(-)
+>>>    create mode 100644 xen/arch/arm/arm64/head_mpu.S
+>>>    create mode 100644 xen/arch/arm/include/asm/arm64/mpu.h
+>>>    create mode 100644 xen/arch/arm/mm_mpu.c
+>>>
+>>> +/*
+>>> + * Macro to create a new MPU memory region entry, which is a
+>>> +structure
+>>> + * of pr_t,  in \prmap.
+>>> + *
+>>> + * Inputs:
+>>> + * prmap:   mpu memory region map table symbol
+>>> + * sel:     region selector
+>>> + * prbar:   preserve value for PRBAR_EL2
+>>> + * prlar    preserve value for PRLAR_EL2
+>>> + *
+>>> + * Clobbers \tmp1, \tmp2
+>>> + *
+>>> + */
+>>> +.macro create_mpu_entry prmap, sel, prbar, prlar, tmp1, tmp2
+>>> +    mov   \tmp2, \sel
+>>> +    lsl   \tmp2, \tmp2, #MPU_ENTRY_SHIFT
+>>> +    adr_l \tmp1, \prmap
+>>> +    /* Write the first 8 bytes(prbar_t) of pr_t */
+>>> +    str   \prbar, [\tmp1, \tmp2]
+>>> +
+>>> +    add   \tmp2, \tmp2, #8
+>>> +    /* Write the last 8 bytes(prlar_t) of pr_t */
+>>> +    str   \prlar, [\tmp1, \tmp2]
+>>
+>> Any particular reason to not use 'stp'?
+>>
+>> Also, AFAICT, with data cache disabled. But at least on ARMv8-A, the cache is
+>> never really off. So don't need some cache maintainance?
+>>
+>> FAOD, I know the existing MMU code has the same issue. But I would rather
+>> prefer if the new code introduced is compliant to the Arm Arm.
+>>
+> 
+> True, `stp` is better and I will clean data cache to be compliant to the Arm Arm.
+> I write the following example to see if I catch what you suggested:
+> ```
+> add \tmp1, \tmp1, \tmp2
+> stp \prbar, \prlar, [\tmp1]
+> dc cvau, \tmp1
+
+I think this wants to be invalidate rather than clean because the cache 
+is off.
+
+> isb
+> dsb sy
+> ```
+> 
+>>> +.endm
+>>> +
+>>> +/*
+>>> + * Macro to store the maximum number of regions supported by the EL2
+>>> +MPU
+>>> + * in max_xen_mpumap, which is identified by MPUIR_EL2.
+>>> + *
+>>> + * Outputs:
+>>> + * nr_regions: preserve the maximum number of regions supported by
+>>> +the EL2 MPU
+>>> + *
+>>> + * Clobbers \tmp1
+>>> + * > + */
+>>
+>> Are you going to have multiple users? If not, then I would prefer if this is
+>> folded in the only caller.
+>>
+> 
+> Ok. I will fold since I think it is one-time reading thingy.
+> 
+>>> +.macro read_max_el2_regions, nr_regions, tmp1
+>>> +    load_paddr \tmp1, max_xen_mpumap
+>>
+>> I would rather prefer if we restrict the use of global while the MMU if off (see
+>> why above).
+>>
+> 
+> If we don't use global here, then after MPU enabled, we need to re-read MPUIR_EL2
+> to get the number of maximum EL2 regions.
+
+Which, IMHO, is better than having to think about cache.
+
+> 
+> Or I put data cache clean after accessing global, is it better?
+> ```
+> str   \nr_regions, [\tmp1]
+> dc cvau, \tmp1
+> isb
+> dsb sy
+> ```
+> 
+>>> +    mrs   \nr_regions, MPUIR_EL2
+>>> +    isb
+>>
+>> What's that isb for?
+>>
+>>> +    str   \nr_regions, [\tmp1]
+>>> +.endm
+>>> +
+>>> +/*
+>>> + * ENTRY to configure a EL2 MPU memory region
+>>> + * ARMv8-R AArch64 at most supports 255 MPU protection regions.
+>>> + * See section G1.3.18 of the reference manual for ARMv8-R AArch64,
+>>> + * PRBAR<n>_EL2 and PRLAR<n>_EL2 provides access to the EL2 MPU
+>>> +region
+>>> + * determined by the value of 'n' and PRSELR_EL2.REGION as
+>>> + * PRSELR_EL2.REGION<7:4>:n.(n = 0, 1, 2, ... , 15)
+>>> + * For example to access regions from 16 to 31 (0b10000 to 0b11111):
+>>> + * - Set PRSELR_EL2 to 0b1xxxx
+>>> + * - Region 16 configuration is accessible through PRBAR0_EL2 and
+>>> +PRLAR0_EL2
+>>> + * - Region 17 configuration is accessible through PRBAR1_EL2 and
+>>> +PRLAR1_EL2
+>>> + * - Region 18 configuration is accessible through PRBAR2_EL2 and
+>>> +PRLAR2_EL2
+>>> + * - ...
+>>> + * - Region 31 configuration is accessible through PRBAR15_EL2 and
+>>> +PRLAR15_EL2
+>>> + *
+>>> + * Inputs:
+>>> + * x27: region selector
+>>> + * x28: preserve value for PRBAR_EL2
+>>> + * x29: preserve value for PRLAR_EL2
+>>> + *
+>>> + */
+>>> +ENTRY(write_pr)
+>>
+>> AFAICT, this function would not be necessary if the index for the init sections
+>> were hardcoded.
+>>
+>> So I would like to understand why the index cannot be hardcoded.
+>>
+> 
+> The reason is that we are putting init sections at the *end* of the MPU map, and
+> the length of the whole MPU map is platform-specific. We read it from MPUIR_EL2.
+
+Right, I got that bit from the code. What I would like to understand is 
+why all the initial address cannot be hardocoded?
+
+ From a brief look, this would simplify a lot the assembly code.
+
+>   
+>>> +    msr   PRSELR_EL2, x27
+>>> +    dsb   sy
+>>
+>> [...]
+>>
+>>> diff --git a/xen/arch/arm/xen.lds.S b/xen/arch/arm/xen.lds.S index
+>>> bc45ea2c65..79965a3c17 100644
+>>> --- a/xen/arch/arm/xen.lds.S
+>>> +++ b/xen/arch/arm/xen.lds.S
+>>> @@ -91,6 +91,8 @@ SECTIONS
+>>>          __ro_after_init_end = .;
+>>>      } : text
+>>>
+>>> +  . = ALIGN(PAGE_SIZE);
+>>
+>> Why do you need this ALIGN?
+>>
+> 
+> I need a symbol as the start of the data section, so I introduce
+> "__data_begin = .;".
+> If I use "__ro_after_init_end = .;" instead, I'm afraid in the future,
+> if someone introduces a new section after ro-after-init section, this part
+> also needs modification too.
+
+I haven't suggested there is a problem to define a new symbol. I am 
+merely asking about the align.
+
+> 
+> When we define MPU regions for each section in xen.lds.S, we always treat these sections
+> page-aligned.
+> I checked each section in xen.lds.S, and ". = ALIGN(PAGE_SIZE);" is either added
+> at section head, or at the tail of the previous section, to make sure starting address symbol
+> page-aligned.
+> 
+> And if we don't put this ALIGN, if "__ro_after_init_end " symbol itself is not page-aligned,
+> the two adjacent sections will overlap in MPU.
+
+__ro_after_init_end *has* to be page aligned because the permissions are 
+different than for __data_begin.
+
+If we were going to add a new section, then either it has the same 
+permission as .data.read.mostly and we will bundle them or it doesn't 
+and we would need a .align.
+
+But today, the extra .ALIGN seems unnecessary (at least in the context 
+of this patch).
+
+Cheers,
+
+-- 
+Julien Grall
 
