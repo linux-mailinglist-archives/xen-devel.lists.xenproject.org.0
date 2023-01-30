@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB1C0681427
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 16:10:55 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487059.754539 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 796F968165E
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 17:28:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487069.754549 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMVng-0000dC-UU; Mon, 30 Jan 2023 15:10:28 +0000
+	id 1pMX0I-0001Hp-GY; Mon, 30 Jan 2023 16:27:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487059.754539; Mon, 30 Jan 2023 15:10:28 +0000
+Received: by outflank-mailman (output) from mailman id 487069.754549; Mon, 30 Jan 2023 16:27:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMVng-0000bU-Rl; Mon, 30 Jan 2023 15:10:28 +0000
-Received: by outflank-mailman (input) for mailman id 487059;
- Mon, 30 Jan 2023 15:10:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pMX0I-0001G6-Dl; Mon, 30 Jan 2023 16:27:34 +0000
+Received: by outflank-mailman (input) for mailman id 487069;
+ Mon, 30 Jan 2023 16:27:33 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SNTu=53=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1pMVnf-0000bM-3N
- for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 15:10:27 +0000
-Received: from ppsw-33.srv.uis.cam.ac.uk (ppsw-33.srv.uis.cam.ac.uk
- [131.111.8.133]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3955c2e4-a0b0-11ed-9ec0-891035b88211;
- Mon, 30 Jan 2023 16:10:26 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:47388)
- by ppsw-33.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1pMVnY-0009bd-SO (Exim 4.96) (return-path <amc96@srcf.net>);
- Mon, 30 Jan 2023 15:10:20 +0000
-Received: from [10.80.2.8] (default-46-102-197-194.interdsl.co.uk
- [46.102.197.194]) (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 88A0C1FBD6;
- Mon, 30 Jan 2023 15:10:20 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pMX0H-0001Fw-05; Mon, 30 Jan 2023 16:27:33 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pMX0G-0006CQ-RV; Mon, 30 Jan 2023 16:27:32 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pMX0G-0001wm-Cb; Mon, 30 Jan 2023 16:27:32 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pMX0G-0006lO-C2; Mon, 30 Jan 2023 16:27:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,72 +42,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3955c2e4-a0b0-11ed-9ec0-891035b88211
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <4b454af5-925c-c95b-42a1-4e125265e3f4@srcf.net>
-Date: Mon, 30 Jan 2023 15:10:20 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [XEN PATCH v4 3/3] build: compat-xlat-header.py: optimisation to
- search for just '{' instead of [{}]
-Content-Language: en-GB
-To: Anthony PERARD <anthony.perard@citrix.com>,
- Andrew Cooper <Andrew.Cooper3@citrix.com>
-Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- George Dunlap <George.Dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>,
- Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
- Wei Liu <wl@xen.org>
-References: <20230119152256.15832-1-anthony.perard@citrix.com>
- <20230119152256.15832-4-anthony.perard@citrix.com>
- <60df7795-8f0b-e0f2-a790-2e00c0d4db2a@citrix.com>
- <Y85hxvyTHa/nXZ9H@perard.uk.xensource.com>
-From: Andrew Cooper <amc96@srcf.net>
-In-Reply-To: <Y85hxvyTHa/nXZ9H@perard.uk.xensource.com>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=XBqWYK+2OeKht95q8+lEf3RZbknW/hO+ktmICoFNbRk=; b=4Sjljj84dnRnLSGkxEwKMDrEM8
+	ZWzid6tOCBpqBzW7EnffwsX4HGDftA6U5dTOGz9Z82yqlkEoarFOmjSEMsEC/H6ARSzn3m6uvI7Z6
+	czTI+Dmpjce2GFVLHK0dmOov0jHB2qlE+RrF4gvd+rh4zDVOliZVrgoKJjsRs/lb+O4Y=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176280-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [ovmf test] 176280: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=4b384c21ad02fbf5eda25a1516cc72fa66b150f6
+X-Osstest-Versions-That:
+    ovmf=bb1376254803bfdaa012c62f1cf6d6b26161cfe7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 30 Jan 2023 16:27:32 +0000
 
-On 23/01/2023 10:30 am, Anthony PERARD wrote:
-> On Fri, Jan 20, 2023 at 06:26:14PM +0000, Andrew Cooper wrote:
->> On 19/01/2023 3:22 pm, Anthony PERARD wrote:
->>> `fields` and `extrafields` always all the parts of a sub-struct, so
->>> when there is '}', there is always a '{' before it. Also, both are
->>> lists.
->>>
->>> Signed-off-by: Anthony PERARD <anthony.perard@citrix.com>
->>> ---
->>>  xen/tools/compat-xlat-header.py | 4 ++--
->>>  1 file changed, 2 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/xen/tools/compat-xlat-header.py b/xen/tools/compat-xlat-header.py
->>> index ae5c9f11c9..d0a864b68e 100644
->>> --- a/xen/tools/compat-xlat-header.py
->>> +++ b/xen/tools/compat-xlat-header.py
->>> @@ -105,7 +105,7 @@ def handle_field(prefix, name, id, type, fields):
->>>          else:
->>>              k = id.replace('.', '_')
->>>              print("%sXLAT_%s_HNDL_%s(_d_, _s_);" % (prefix, name, k), end='')
->>> -    elif not re_brackets.search(' '.join(fields)):
->>> +    elif not '{' in fields:
->>>          tag = ' '.join(fields)
->>>          tag = re.sub(r'\s*(struct|union)\s+(compat_)?(\w+)\s.*', '\\3', tag)
->>>          print(" \\")
->>> @@ -290,7 +290,7 @@ def build_body(name, tokens):
->>>      print(" \\\n} while (0)")
->>>  
->>>  def check_field(kind, name, field, extrafields):
->>> -    if not re_brackets.search(' '.join(extrafields)):
->>> +    if not '{' in extrafields:
->>>          print("; \\")
->>>          if len(extrafields) != 0:
->>>              for token in extrafields:
->> These are the only two users of re_brackets aren't they?  In which case
->> you should drop the re.compile() too.
-> Indeed, I miss that, we can drop re_brackets.
+flight 176280 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176280/
 
-I've folded this deletion and queued the series for when OSSTest gets
-unblocked.
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 4b384c21ad02fbf5eda25a1516cc72fa66b150f6
+baseline version:
+ ovmf                 bb1376254803bfdaa012c62f1cf6d6b26161cfe7
 
-~Andrew
+Last test of basis   176278  2023-01-30 07:40:53 Z    0 days
+Testing same since   176280  2023-01-30 14:12:12 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Dionna Glaze <dionnaglaze@google.com>
+  Dionna Glaze via groups.io <dionnaglaze=google.com@groups.io>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   bb13762548..4b384c21ad  4b384c21ad02fbf5eda25a1516cc72fa66b150f6 -> xen-tested-master
 
