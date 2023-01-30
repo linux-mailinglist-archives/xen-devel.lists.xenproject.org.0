@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DDBC680C71
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 12:49:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.486937.754380 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 039C0680C7C
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 12:54:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.486941.754389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMSey-0002rp-O2; Mon, 30 Jan 2023 11:49:16 +0000
+	id 1pMSjv-0004GP-9u; Mon, 30 Jan 2023 11:54:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 486937.754380; Mon, 30 Jan 2023 11:49:16 +0000
+Received: by outflank-mailman (output) from mailman id 486941.754389; Mon, 30 Jan 2023 11:54:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMSey-0002ov-LG; Mon, 30 Jan 2023 11:49:16 +0000
-Received: by outflank-mailman (input) for mailman id 486937;
- Mon, 30 Jan 2023 11:49:15 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=ZQwi=53=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pMSex-0002op-Nm
- for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 11:49:15 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1d94d574-a094-11ed-b8d1-410ff93cb8f0;
- Mon, 30 Jan 2023 12:49:13 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E36E21FE4C;
- Mon, 30 Jan 2023 11:49:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 97E5513444;
- Mon, 30 Jan 2023 11:49:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Tuy8I7eu12MsLgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 30 Jan 2023 11:49:11 +0000
+	id 1pMSjv-0004Dx-71; Mon, 30 Jan 2023 11:54:23 +0000
+Received: by outflank-mailman (input) for mailman id 486941;
+ Mon, 30 Jan 2023 11:54:22 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=qdfF=53=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pMSjt-0004Dr-VM
+ for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 11:54:22 +0000
+Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
+ [2a00:1450:4864:20::52d])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d4fd9997-a094-11ed-9ec0-891035b88211;
+ Mon, 30 Jan 2023 12:54:20 +0100 (CET)
+Received: by mail-ed1-x52d.google.com with SMTP id v13so10659124eda.11
+ for <xen-devel@lists.xenproject.org>; Mon, 30 Jan 2023 03:54:20 -0800 (PST)
+Received: from pc-879.home (83.29.147.144.ipv4.supernova.orange.pl.
+ [83.29.147.144]) by smtp.gmail.com with ESMTPSA id
+ eo14-20020a056402530e00b0049e08f781e3sm6691931edb.3.2023.01.30.03.54.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Jan 2023 03:54:19 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,198 +44,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1d94d574-a094-11ed-b8d1-410ff93cb8f0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675079351; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=9prjl4m2Rk4B/GytnuBQOODd9ZaELhm9GsrZsLQeA9o=;
-	b=V9ceniBLf0wNyjL1WvYpGMR2kytNJULJiF54/AxX8WWBsliZNe91/s/DbTngX61twPdz/M
-	fnQsNhdUhWYumdog3kUQXNxvH9bGMx+zUmkeH2ifHmO+nFp3oDTpGYJuo7hs8YoRzhHo3M
-	e+3+/0rAeMkkXe/bBV9f1/VKrJ5z2hc=
-Message-ID: <e1943855-729e-8bb2-4af2-138be84c0576@suse.com>
-Date: Mon, 30 Jan 2023 12:49:11 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of macros
- from <asm/bug.h>
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
+X-Inumbo-ID: d4fd9997-a094-11ed-9ec0-891035b88211
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=qSDmlF2OoJ5Q3AsZwDCdJTqMVugx7W+X3PB8E4z01XM=;
+        b=QnfodsB2k2oSsLqV28vxcjdzPLACAXihEd1IaRzqLhf6Fo/RUeEg5At9AXhf7dTwCJ
+         MSgzH32qBwGW7PpWqYWr8tbriRGkPuR6PBeOrqdYXDad32oiv0wfBlbTITtzol5Goa7e
+         LDKGFXLAlePIEjqql91fdNbmwH1C+ZUx2RJccPJafXTrNuiQKEECjPUV8Vgk9yX1u2fU
+         9Hvti6SHHGmQGFZYix4cVZEPToda/wyXLpbxwsBNECHQUhBf6njgTSNF81TSK0SIhIqI
+         M9NtnKwUPvKNDzqOJVrnQMFtzjgbqTWbwsgpL7VddMAzCeDaik4CVSUApLbMhQPexpf8
+         jhOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=qSDmlF2OoJ5Q3AsZwDCdJTqMVugx7W+X3PB8E4z01XM=;
+        b=GGLKNtORhT5VqnvArZa0DGRfM188aB6DisXY0TNQ3YdQX5EXJoXoTqWM2l/ssiW9uc
+         yuVwM8dp0zWKvXTcClVvoQELgwmereRtIDFEHKdqvqiwtIZvfB47bi8MySEp8Y0eKFu8
+         PW1jeoQuRTcRWUCetu/va759Hhi0REpSaw4AyS3VfUKClHAY5A4xhM5f+fwZzKUaW/O1
+         46j0eiCcZ90q2L1fs6HT1NUNYJQbnRI0nl/2YclXQ1xvWzjcNKGMUF9lkEQMkl6KkuKw
+         kkJ4uhsqW85kxAqb2UGzholQt3bPp2h4KH3DTLZ5H4dzf9xalIs5UEUxLoqeAChJqzL2
+         /PfQ==
+X-Gm-Message-State: AFqh2koP0xnnL+c+0+bPYU1g85c4EBmlpfqdlR0RgzcwG5gX6hdF8RzB
+	ClEKmXGznmq3jGHw0ZQ41nFWqf7SmwE=
+X-Google-Smtp-Source: AMrXdXtxAle95+0/a/wgHd7z1KT/zqWqRIN401nvw7Y8v1Q0u7kILqm9Rb10v8FZX3sbjmtz2JJ3Aw==
+X-Received: by 2002:a05:6402:4026:b0:49e:4786:a0e2 with SMTP id d38-20020a056402402600b0049e4786a0e2mr52987540eda.14.1675079660331;
+        Mon, 30 Jan 2023 03:54:20 -0800 (PST)
+Message-ID: <792bc4533d3604acd4321b4b15965adec22431a4.camel@gmail.com>
+Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+ Connor Davis <connojdavis@gmail.com>, Bobby Eshleman
+ <bobby.eshleman@gmail.com>,  xen-devel@lists.xenproject.org
+Date: Mon, 30 Jan 2023 13:54:18 +0200
+In-Reply-To: <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com>
 References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
- <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
- <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
- <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------dF3i0ecysf9AJQWulpeQ63FA"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------dF3i0ecysf9AJQWulpeQ63FA
-Content-Type: multipart/mixed; boundary="------------Fh3fGTKT3p6uwLn90hBgyw5R";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Oleksii <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>,
- xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>
-Message-ID: <e1943855-729e-8bb2-4af2-138be84c0576@suse.com>
-Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of macros
- from <asm/bug.h>
-References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
- <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
- <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
- <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
-In-Reply-To: <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
-
---------------Fh3fGTKT3p6uwLn90hBgyw5R
-Content-Type: multipart/mixed; boundary="------------uaeY0p00u1ACrQlFUO184YnO"
-
---------------uaeY0p00u1ACrQlFUO184YnO
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
-
-T24gMzAuMDEuMjMgMTI6MzUsIE9sZWtzaWkgd3JvdGU6DQo+IEhpIEp1bGllbiwNCj4gT24g
-RnJpLCAyMDIzLTAxLTI3IGF0IDE2OjAyICswMDAwLCBKdWxpZW4gR3JhbGwgd3JvdGU6DQo+
-PiBIaSBPbGVrc2lpLA0KPj4NCj4+IE9uIDI3LzAxLzIwMjMgMTM6NTksIE9sZWtzaWkgS3Vy
-b2Noa28gd3JvdGU6DQo+Pj4gVGhlIHBhdGNoIGludHJvZHVjZXMgbWFjcm9zOiBCVUcoKSwg
-V0FSTigpLCBydW5faW5fZXhjZXB0aW9uKCksDQo+Pj4gYXNzZXJ0X2ZhaWxlZC4NCj4+Pg0K
-Pj4+IFRoZSBpbXBsZW1lbnRhdGlvbiB1c2VzICJlYnJlYWsiIGluc3RydWN0aW9uIGluIGNv
-bWJpbmF0aW9uIHdpdGgNCj4+PiBkaWZmcmVudCBidWcgZnJhbWUgdGFibGVzIChmb3IgZWFj
-aCB0eXBlKSB3aGljaCBjb250YWlucyB1c2VmdWwNCj4+PiBpbmZvcm1hdGlvbi4NCj4+Pg0K
-Pj4+IFNpZ25lZC1vZmYtYnk6IE9sZWtzaWkgS3Vyb2Noa28gPG9sZWtzaWkua3Vyb2Noa29A
-Z21haWwuY29tPg0KPj4+IC0tLQ0KPj4+IENoYW5nZXM6DQo+Pj4gIMKgwqAgLSBSZW1vdmUg
-X18gaW4gZGVmaW5lIG5hbWluZ3MNCj4+PiAgwqDCoCAtIFVwZGF0ZSBydW5faW5fZXhjZXB0
-aW9uX2hhbmRsZXIoKSB3aXRoDQo+Pj4gIMKgwqDCoMKgIHJlZ2lzdGVyIHZvaWQgKmZuXyBh
-c20oX19zdHJpbmdpZnkoQlVHX0ZOX1JFRykpID0gKGZuKTsNCj4+PiAgwqDCoCAtIFJlbW92
-ZSBidWdfaW5zdHJfdCB0eXBlIGFuZCBjaGFuZ2UgaXQncyB1c2FnZSB0byB1aW50MzJfdA0K
-Pj4+IC0tLQ0KPj4+ICDCoCB4ZW4vYXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9idWcuaCB8IDEx
-OA0KPj4+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysNCj4+PiAgwqAgeGVuL2FyY2gv
-cmlzY3YvdHJhcHMuY8KgwqDCoMKgwqDCoMKgwqDCoMKgIHwgMTI4DQo+Pj4gKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKw0KPj4+ICDCoCB4ZW4vYXJjaC9yaXNjdi94ZW4ubGRz
-LlPCoMKgwqDCoMKgwqDCoMKgIHzCoCAxMCArKysNCj4+PiAgwqAgMyBmaWxlcyBjaGFuZ2Vk
-LCAyNTYgaW5zZXJ0aW9ucygrKQ0KPj4+ICDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgeGVuL2Fy
-Y2gvcmlzY3YvaW5jbHVkZS9hc20vYnVnLmgNCj4+Pg0KPj4+IGRpZmYgLS1naXQgYS94ZW4v
-YXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9idWcuaA0KPj4+IGIveGVuL2FyY2gvcmlzY3YvaW5j
-bHVkZS9hc20vYnVnLmgNCj4+PiBuZXcgZmlsZSBtb2RlIDEwMDY0NA0KPj4+IGluZGV4IDAw
-MDAwMDAwMDAuLjRiMTVkOGViYTYNCj4+PiAtLS0gL2Rldi9udWxsDQo+Pj4gKysrIGIveGVu
-L2FyY2gvcmlzY3YvaW5jbHVkZS9hc20vYnVnLmgNCj4+PiBAQCAtMCwwICsxLDExOCBAQA0K
-Pj4+ICsvKiBTUERYLUxpY2Vuc2UtSWRlbnRpZmllcjogR1BMLTIuMCAqLw0KPj4+ICsvKg0K
-Pj4+ICsgKiBDb3B5cmlnaHQgKEMpIDIwMTIgUmVnZW50cyBvZiB0aGUgVW5pdmVyc2l0eSBv
-ZiBDYWxpZm9ybmlhDQo+Pj4gKyAqIENvcHlyaWdodCAoQykgMjAyMS0yMDIzIFZhdGVzDQo+
-Pg0KPj4gSSBoYXZlIHRvIHF1ZXN0aW9uIHRoZSB0d28gY29weXJpZ2h0cyBoZXJlIGdpdmVu
-IHRoYXQgdGhlIG1ham9yaXR5IG9mDQo+PiB0aGUgY29kZSBzZWVtcyB0byBiZSB0YWtlbiBm
-cm9tIHRoZSBhcm0gaW1wbGVtZW50YXRpb24gKHNlZQ0KPj4gYXJjaC9hcm0vaW5jbHVkZS9h
-c20vYnVnLmgpLg0KPj4NCj4+IFdpdGggdGhhdCBzYWlkLCB3ZSBzaG91bGQgY29uc29saWRh
-dGUgdGhlIGNvZGUgcmF0aGVyIHRoYW4NCj4+IGR1cGxpY2F0aW5nDQo+PiBpdCBvbiBldmVy
-eSBhcmNoaXRlY3R1cmUuDQo+Pg0KPiBDb3B5cmlnaHRzIHNob3VsZCBiZSByZW1vdmVkLiBU
-aGV5IHdlcmUgdGFrZW4gZnJvbSB0aGUgcHJldmlvdXMNCj4gaW1wbGVtZW50YXRpb24gb2Yg
-YnVnLmggZm9yIFJJU0MtViBzbyBJIGp1c3QgZm9yZ290IHRvIHJlbW92ZSB0aGVtLg0KPiAN
-Cj4gSXQgbG9va3MgbGlrZSB3ZSBzaG91bGQgaGF2ZSBjb21tb24gYnVnLmggZm9yIEFSTSBh
-bmQgUklTQ1YgYnV0IEkgYW0NCj4gbm90IHN1cmUgdGhhdCBJIGtub3cgaG93IHRvIGRvIHRo
-YXQgYmV0dGVyLg0KPiBQcm9iYWJseSB0aGUgY29kZSB3YW50cyB0byBiZSBtb3ZlZCB0byB4
-ZW4vaW5jbHVkZS9idWcuaCBhbmQgdXNpbmcNCj4gaWZkZWYgQVJNICYmIFJJU0NWIC4uLg0K
-PiBCdXQgc3RpbGwgSSBhbSBub3Qgc3VyZSB0aGF0IHRoaXMgaXMgdGhlIGJlc3Qgb25lIG9w
-dGlvbiBhcyBhdCBsZWFzdCB3ZQ0KPiBoYXZlIGRpZmZlcmVudCBpbXBsZW1lbnRhdGlvbiBm
-b3IgeDg2XzY0Lg0KDQpUaGVyZSBhcmUgYWxyZWFkeSBhIGxvdCBvZiBkdXBsaWNhdGVkICNk
-ZWZpbmVzIGluIHRoZSBBcm0gYW5kIHg4NiBhc20vYnVnLmgNCmZpbGVzLg0KDQpJJ2QgY3Jl
-YXRlIHhlbi9pbmNsdWRlL3hlbi9idWcuaCBpbmNsdWRpbmcgYXNtL2J1Zy5oIGZpcnN0IGFu
-ZCB0aGVuIGFkZGluZw0KYWxsIHRoZSBjb21tb24gc3R1ZmYuDQoNCkluIGNhc2UgMiBhcmNo
-cyBhcmUgc2hhcmluZyBzb21lICNkZWZpbmUgRk9PIHlvdSBjb3VsZCAjZGVmaW5lIEZPTyBp
-biB0aGUNCmFzbS9idWcuaCBmb3IgdGhlIGFyY2ggbm90IHVzaW5nIHRoZSBjb21tb24gZGVm
-aW5pdGlvbiBhbmQgZG8gI2lmbmRlZiBGT08NCmluIHhlbi9pbmNsdWRlL3hlbi9idWcuaCBh
-cm91bmQgdGhlIHZhcmlhbnQgc2hhcmVkIGJ5IHRoZSBvdGhlciBhcmNocy4NCg0KDQpKdWVy
-Z2VuDQoNCg==
---------------uaeY0p00u1ACrQlFUO184YnO
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
+	 <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
+	 <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+MIME-Version: 1.0
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Hi Jan,
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+On Fri, 2023-01-27 at 15:24 +0100, Jan Beulich wrote:
+> On 27.01.2023 14:59, Oleksii Kurochko wrote:
+> > --- /dev/null
+> > +++ b/xen/arch/riscv/include/asm/processor.h
+> > @@ -0,0 +1,82 @@
+> > +/* SPDX-License-Identifier: MIT */
+> > +/*****************************************************************
+> > *************
+> > + *
+> > + * Copyright 2019 (C) Alistair Francis <alistair.francis@wdc.com>
+> > + * Copyright 2021 (C) Bobby Eshleman <bobby.eshleman@gmail.com>
+> > + * Copyright 2023 (C) Vates
+> > + *
+> > + */
+> > +
+> > +#ifndef _ASM_RISCV_PROCESSOR_H
+> > +#define _ASM_RISCV_PROCESSOR_H
+> > +
+> > +#ifndef __ASSEMBLY__
+> > +
+> > +/* On stack VCPU state */
+> > +struct cpu_user_regs
+> > +{
+> > +=C2=A0=C2=A0=C2=A0 unsigned long zero;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long ra;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long sp;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long gp;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long tp;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t0;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t1;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t2;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s0;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s1;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a0;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a1;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a2;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a3;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a4;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a5;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a6;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long a7;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s2;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s3;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s4;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s5;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s6;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s7;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s8;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s9;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s10;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long s11;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t3;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t4;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t5;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long t6;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long sepc;
+> > +=C2=A0=C2=A0=C2=A0 unsigned long sstatus;
+> > +=C2=A0=C2=A0=C2=A0 /* pointer to previous stack_cpu_regs */
+> > +=C2=A0=C2=A0=C2=A0 unsigned long pregs;
+> > +};
+>=20
+> Just to restate what I said on the earlier version: We have a struct
+> of
+> this name in the public interface for x86. Besides to confusion about
+> re-using the name for something private, I'd still like to understand
+> what the public interface plans are. This is specifically because I
+> think it would be better to re-use suitable public interface structs
+> internally where possible. But that of course requires spelling out
+> such parts of the public interface first.
+>=20
+I am not sure that I get you here.
+I greped a little bit and found out that each architecture declares
+this structure inside arch-specific folder.
 
---------------uaeY0p00u1ACrQlFUO184YnO--
+Mostly the usage of the cpu_user_regs is to save/restore current state
+of CPU during traps ( exceptions/interrupts ) and context_switch().
+Also some registers are modified during construction of a domain.
+Thereby I prefer here to see the arch-specific register names instead
+of common.
 
---------------Fh3fGTKT3p6uwLn90hBgyw5R--
-
---------------dF3i0ecysf9AJQWulpeQ63FA
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPXrrcFAwAAAAAACgkQsN6d1ii/Ey/F
-rwf/W8rz5wC0ViUsGPe7ppRiONsesYMT87n/Je70W7N9rNImTqj1uZ1JLz2KiSm/iOotNJ7uN++Z
-ZZnYOYERa+552som3MARe8vFPRuRBRbtsmsVXZiFx9b4gFZBTWCdJPdajP2Kxo+59PMK6jE0de59
-I056LEJX7oTTvirnhOXnwUHQ8X+RyGzzKkTjrAve9GO57k2Q347OGcPJ/Xq0vl4MfyTHf8X6hg3l
-NLe6Cf9tY0UkJBXTJXrPHxPDUWikkHppVg9xz5kxzhFfUmGRMVRLzGJQSPBzY3dVfxLT0BPaMz0I
-ZDiBNdS1ZylQ1JpzXNEN71NqDCU9WdqovyO2cH32Rw==
-=lFZI
------END PGP SIGNATURE-----
-
---------------dF3i0ecysf9AJQWulpeQ63FA--
+> Jan
+~ Oleksii
 
