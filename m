@@ -2,29 +2,33 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE335681862
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 19:11:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487142.754650 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5CF5681928
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 19:29:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487151.754659 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMYcD-00024Z-AQ; Mon, 30 Jan 2023 18:10:49 +0000
+	id 1pMYtY-0004Cs-PJ; Mon, 30 Jan 2023 18:28:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487142.754650; Mon, 30 Jan 2023 18:10:49 +0000
+Received: by outflank-mailman (output) from mailman id 487151.754659; Mon, 30 Jan 2023 18:28:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMYcD-00022W-79; Mon, 30 Jan 2023 18:10:49 +0000
-Received: by outflank-mailman (input) for mailman id 487142;
- Mon, 30 Jan 2023 18:10:47 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dpD8=53=citrix.com=prvs=3879b2cf9=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pMYcB-00022F-Eo
- for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 18:10:47 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68a2551d-a0c9-11ed-93eb-7b0ecb3c1525;
- Mon, 30 Jan 2023 19:10:45 +0100 (CET)
+	id 1pMYtY-0004Ai-Mj; Mon, 30 Jan 2023 18:28:44 +0000
+Received: by outflank-mailman (input) for mailman id 487151;
+ Mon, 30 Jan 2023 18:28:43 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pMYtX-0004Aa-5y
+ for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 18:28:43 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMYtX-0000h3-41; Mon, 30 Jan 2023 18:28:43 +0000
+Received: from 54-240-197-232.amazon.com ([54.240.197.232]
+ helo=dev-dsk-jgrall-1b-035652ec.eu-west-1.amazon.com)
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMYtW-0004Ps-S0; Mon, 30 Jan 2023 18:28:43 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,68 +40,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68a2551d-a0c9-11ed-93eb-7b0ecb3c1525
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675102246;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=b0f6lavD++iE+TA/+evuMB1/iYP5KiQ/PTS8XIwKCt4=;
-  b=UhniO0SvN56Mfcqlenvhzkje4Ro0Cfz9xE8xckWezBWjZn/ShVL55m5L
-   B9bR+qyRRdJyjxujr8VvzKfrcDqWG0/q9WG6IZs0m9S0EKDJnGB/a75QD
-   0Ygky+8GpjicR2dmRr6x8myXt6YhljJPPL5VXyqpacZWcUW/qmeJxO0qj
-   8=;
-Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 93750567
-X-Ironport-Server: esa5.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:WLePWKmjZDQvLqn2Qa1NtGvo5gy3JkRdPkR7XQ2eYbSJt1+Wr1Gzt
- xIcUGmOaPiIMGqmLd9wYdy/8U5VvJ7dyIBiSVFrrX88FiMWpZLJC+rCIxarNUt+DCFhoGFPt
- JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
- LvartbWfVSowFaYCEpNg064gE4p7auaVA8w5ARkPqgS5weGzRH5MbpETU2PByqgKmVrNrbSq
- 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
- f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
- aZfcDtXMA++vP+n3J7kSPFhh504J9a+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
- ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQthfD+
- T+eojqmav0cHPiu8DGP8TWJvf7OwSfLdJMURbuzp8c/1TV/wURMUUZLBDNXu8KRhkegVvpFJ
- kcT+y5oqrI9nGSiVtTnVge0iGKFtBUbHdFXFoUS+AyLj6bZ/QudLmwFVSJaLswrstcsQj4n3
- UPPmMnmbRRtv6eSUmm17aqPoHW5Pi19BXAGTT8JS00C+daLnW0opkuRFJA5Svfz14CrX2iqm
- FhmsRTSmZ1JypYAjfukwGvaki6A+ZrRQw9s/Q7ICzfNAhxCWKapYImh6F7+5PlGLZqEQlTpg
- EXoi/Ry/8hVU8jTyXXlrPElWejwuq3baGG0bUtHRcFJyti7x5K0kWm8ChlaLVwhDMsLcCSBj
- KT76VIIv8870JdHgMZKj2ON5yYCl/OI+TfNDKq8gj9yjn9ZKWe6ENlGPxL44owUuBFEfVsDE
- Zmaa92wKn0RFL5qyjG7L89Ej+B2nnlhnDOPHcGkp/hC7VZ5TCfFIYrpzXPUNrxphE96iFq9H
- ylj2zuilEwEDbyWjtj/+o8PN1EaRUXX9rivw/G7gtWre1I8cEl4Uq+5/F/UU9A990ijvruSr
- y7Vt44x4AaXuEAr3i3RMys7Mei+AM8XQLBSFXVEAGtEEkMLOe6HhJrzvbNrFVX73ISPFcJJc
- sQ=
-IronPort-HdrOrdr: A9a23:ClzYQK5kuajZjXsqBAPXwMbXdLJyesId70hD6qkRc3xom6mj/f
- xG88536faZslkssQgb6LK90cq7IE80i6Qf3WB5B97LYOCMggeVBbxPxa+n/hulIhbZ29J26M
- 5bAstD4bPLY2RHsQ==
-X-IronPort-AV: E=Sophos;i="5.97,258,1669093200"; 
-   d="scan'208";a="93750567"
-Date: Mon, 30 Jan 2023 18:10:26 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Juergen
- Gross" <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>, Edwin Torok <edvin.torok@citrix.com>, Rob Hoes
-	<Rob.Hoes@citrix.com>
-Subject: Re: [PATCH 0/6] tools: Switch to non-truncating XENVER_* ops
-Message-ID: <Y9gIEpQ5G1inUDX7@perard.uk.xensource.com>
-References: <20230117135336.11662-1-andrew.cooper3@citrix.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
+	Subject:Cc:To:From; bh=QHeyb39BAUbBq7kVi2Vj45hoLod0vCzIr6POB59arQY=; b=qYChNV
+	uGSGzG8G0/IL4MYnug029eOK+NZO9TKW3l2K5Q0rWyepqUN1Idraz1S/e0rHlmSTnYaiNMENU9BF2
+	5E9ES212yhB2gQx7sOf7WTb0PllYA8/ke3CrMc2VhbyxJzaaX9QCaLoUTJFweOrETOsDor4+KRv7H
+	vwJ5AYfL6gg=;
+From: Julien Grall <julien@xen.org>
+To: xen-devel@lists.xenproject.org
+Cc: julien@xen.org,
+	Julien Grall <jgrall@amazon.com>
+Subject: [PATCH] xen/common: rwlock: Constify the parameter of _rw_is{,_write}_locked()
+Date: Mon, 30 Jan 2023 18:28:40 +0000
+Message-Id: <20230130182840.86744-1-julien@xen.org>
+X-Mailer: git-send-email 2.38.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20230117135336.11662-1-andrew.cooper3@citrix.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jan 17, 2023 at 01:53:30PM +0000, Andrew Cooper wrote:
-> This is the tools side of the Xen series posted previously.
+From: Julien Grall <jgrall@amazon.com>
 
-There's also python bindings using xc_version(), is it something we want
-to update?
+The lock is not meant to be modified by _rw_is{,_write}_locked(). So
+constify it.
 
-Cheers,
+This is helpful to be able to assert if the lock is taken when the
+underlying structure is const.
 
+Signed-off-by: Julien Grall <jgrall@amazon.com>
+---
+ xen/include/xen/rwlock.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/xen/include/xen/rwlock.h b/xen/include/xen/rwlock.h
+index b8d52a5aa939..e0d2b41c5c7e 100644
+--- a/xen/include/xen/rwlock.h
++++ b/xen/include/xen/rwlock.h
+@@ -149,7 +149,7 @@ static inline void _read_unlock_irqrestore(rwlock_t *lock, unsigned long flags)
+     local_irq_restore(flags);
+ }
+ 
+-static inline int _rw_is_locked(rwlock_t *lock)
++static inline int _rw_is_locked(const rwlock_t *lock)
+ {
+     return atomic_read(&lock->cnts);
+ }
+@@ -254,7 +254,7 @@ static inline void _write_unlock_irqrestore(rwlock_t *lock, unsigned long flags)
+     local_irq_restore(flags);
+ }
+ 
+-static inline int _rw_is_write_locked(rwlock_t *lock)
++static inline int _rw_is_write_locked(const rwlock_t *lock)
+ {
+     return (atomic_read(&lock->cnts) & _QW_WMASK) == _QW_LOCKED;
+ }
 -- 
-Anthony PERARD
+2.38.1
+
 
