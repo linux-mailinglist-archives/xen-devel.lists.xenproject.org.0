@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 527F86804D2
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 05:15:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.486521.753890 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A323B680513
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 05:36:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.486530.753900 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMLZa-00010V-LJ; Mon, 30 Jan 2023 04:15:14 +0000
+	id 1pMLtU-0003rh-AU; Mon, 30 Jan 2023 04:35:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 486521.753890; Mon, 30 Jan 2023 04:15:14 +0000
+Received: by outflank-mailman (output) from mailman id 486530.753900; Mon, 30 Jan 2023 04:35:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMLZa-0000yG-Hw; Mon, 30 Jan 2023 04:15:14 +0000
-Received: by outflank-mailman (input) for mailman id 486521;
- Mon, 30 Jan 2023 04:15:13 +0000
+	id 1pMLtU-0003oj-7O; Mon, 30 Jan 2023 04:35:48 +0000
+Received: by outflank-mailman (input) for mailman id 486530;
+ Mon, 30 Jan 2023 04:35:47 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=JFid=53=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1pMLRL-000485-I6
- for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 04:06:43 +0000
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 803d39b6-a053-11ed-b8d1-410ff93cb8f0;
- Mon, 30 Jan 2023 05:06:41 +0100 (CET)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DDC1F1FB;
- Sun, 29 Jan 2023 20:07:22 -0800 (PST)
-Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
- [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 331583F64C;
- Sun, 29 Jan 2023 20:06:37 -0800 (PST)
+ <SRS0=kEu1=53=gmail.com=christopher.w.clark@srs-se1.protection.inumbo.net>)
+ id 1pMLtT-0003od-5q
+ for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 04:35:47 +0000
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [2a00:1450:4864:20::62b])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8f72b79c-a057-11ed-b8d1-410ff93cb8f0;
+ Mon, 30 Jan 2023 05:35:44 +0100 (CET)
+Received: by mail-ej1-x62b.google.com with SMTP id ud5so28335106ejc.4
+ for <xen-devel@lists.xenproject.org>; Sun, 29 Jan 2023 20:35:44 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,103 +39,189 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 803d39b6-a053-11ed-b8d1-410ff93cb8f0
-From: Henry Wang <Henry.Wang@arm.com>
-To: xen-devel@lists.xenproject.org
-Cc: Henry Wang <Henry.Wang@arm.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Julien Grall <julien@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Wei Chen <wei.chen@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Michal Orzel <michal.orzel@amd.com>
-Subject: [PATCH v2 4/4] xen/arm: Clean-up in p2m_init() and p2m_final_teardown()
-Date: Mon, 30 Jan 2023 12:06:14 +0800
-Message-Id: <20230130040614.188296-5-Henry.Wang@arm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20230130040614.188296-1-Henry.Wang@arm.com>
-References: <20230130040614.188296-1-Henry.Wang@arm.com>
+X-Inumbo-ID: 8f72b79c-a057-11ed-b8d1-410ff93cb8f0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=tcwDFwSyVUur/SOWJhNh6+iBub0EwUFatnyIjButEEM=;
+        b=ZUQ8cXXQpDrpHL8h5de9AieDoYs0Wk23NjVgU7iyHC1Tt7Sc0MQxdgyAdeoVmNGC8z
+         F9hv4sQME6QYvAQcREVONApeAIQWfABuMUpGBg5wBO/MkD+wxpbOklyzdPrdkQG1MX9c
+         jcTVMSZ7ivouIShrp8CGq/QqvAFiQ9KrG03+v5B8IwekjapBQZ2w1plDeWWjtcU84uZQ
+         OBZqNhBSTq3nank/9SXdWxu74AOJQXSB0nbom8ggALHnTOzouhNsVRJCajv87CUYGhIh
+         uZGCQkEiNNzWR+hL6OYjm6J2Z35xg+ho+4UYYr8AauFYfKvIzu2nClXmXckVYnRc8VLS
+         AaLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tcwDFwSyVUur/SOWJhNh6+iBub0EwUFatnyIjButEEM=;
+        b=YU6lfzm38hYhKt1mQX9Vi/5ganJzGqee/kRrs1YJqPyRSl7pUD6aXDCPGq4xwDqKUF
+         CNTrFZFa1Ota+qtlYjypgBvmbjtcaAiC+fb28gNcRI0Uqe6tjV+ntFbdIaYo4n8DiH7v
+         p5RaSdN3DZ1ILzDz7e7IFAz3zqyN0jB8cU5NN/0F0/1vd64oyJkmC0yhedYsveIfMhGK
+         5SC7Wh2IG2h4rCU8kG+UKnqWuVvuhEzuga4zEhCSClox2/Wx5hrHcAiwLD32mMqxNYPq
+         9yLxgZNmQ99RR3Qlb1m3sqE1Xy8O6RdSg81+ZvGM05bjv0zZTNg6muvfi6Fxl7eCn4ZP
+         +7Kg==
+X-Gm-Message-State: AO0yUKVstH/ohK4i/iVwfn6UKEQWvSKkY0BVkKsPATDzMG1geBScRY5U
+	irYhl/BQ4slAtWBNmGH3Qef+vPj2/FHV+iAePNI=
+X-Google-Smtp-Source: AK7set8aYsCUQ5546trUxrG0rN/8vlXwXeaXb9JRpPOYqsnpQPKZ7STy8bOYBcFowGxXjCEVRZ6+n3OATKC9cqn5RQQ=
+X-Received: by 2002:a17:906:5856:b0:883:b70b:c049 with SMTP id
+ h22-20020a170906585600b00883b70bc049mr1351753ejs.8.1675053344305; Sun, 29 Jan
+ 2023 20:35:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <f9cd7b84-6f51-d797-cd2a-b9c9bc62b0f6@suse.com> <d03dc8b3-4c1f-2db0-4d97-944972dc6e06@suse.com>
+In-Reply-To: <d03dc8b3-4c1f-2db0-4d97-944972dc6e06@suse.com>
+From: Christopher Clark <christopher.w.clark@gmail.com>
+Date: Sun, 29 Jan 2023 20:35:32 -0800
+Message-ID: <CACMJ4GbUjLczb9ru_QUERGaNCModspnqgGwAgCqUN+oZ_90NDA@mail.gmail.com>
+Subject: Re: Ping: [PATCH] Argo: don't obtain excess page references
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Content-Type: multipart/alternative; boundary="00000000000091357e05f373bfc1"
 
-With the change in previous patch, the initial 16 pages in the P2M
-pool is not necessary anymore. Drop them for code simplification.
+--00000000000091357e05f373bfc1
+Content-Type: text/plain; charset="UTF-8"
 
-Also the call to p2m_teardown() from arch_domain_destroy() is not
-necessary anymore since the movement of the P2M allocation out of
-arch_domain_create(). Drop the code and the above in-code comment
-mentioning it.
+On Mon, Nov 21, 2022 at 4:41 AM Jan Beulich <jbeulich@suse.com> wrote:
 
-Signed-off-by: Henry Wang <Henry.Wang@arm.com>
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
----
-I am not entirely sure if I should also drop the "TODO" on top of
-the p2m_set_entry(). Because although we are sure there is no
-p2m pages populated in domain_create() stage now, but we are not
-sure if anyone will add more in the future...Any comments?
-v1 -> v2:
-1. Add Reviewed-by tag from Michal.
----
- xen/arch/arm/include/asm/p2m.h |  4 ----
- xen/arch/arm/p2m.c             | 20 +-------------------
- 2 files changed, 1 insertion(+), 23 deletions(-)
+> On 11.10.2022 11:28, Jan Beulich wrote:
+> > find_ring_mfn() already holds a page reference when trying to obtain a
+> > writable type reference. We shouldn't make assumptions on the general
+> > reference count limit being effectively "infinity". Obtain merely a type
+> > ref, re-using the general ref by only dropping the previously acquired
+> > one in the case of an error.
+> >
+> > Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>
+> Ping?
+>
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index bf5183e53a..cf06d3cc21 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -200,10 +200,6 @@ int p2m_init(struct domain *d);
-  *  - p2m_final_teardown() will be called when domain struct is been
-  *    freed. This *cannot* be preempted and therefore one small
-  *    resources should be freed here.
-- *  Note that p2m_final_teardown() will also call p2m_teardown(), to properly
-- *  free the P2M when failures happen in the domain creation with P2M pages
-- *  already in use. In this case p2m_teardown() is called non-preemptively and
-- *  p2m_teardown() will always return 0.
-  */
- int p2m_teardown(struct domain *d, bool allow_preemption);
- void p2m_final_teardown(struct domain *d);
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index f1ccd7efbd..46406a9eb1 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -1750,13 +1750,9 @@ void p2m_final_teardown(struct domain *d)
-     /*
-      * No need to call relinquish_p2m_mapping() here because
-      * p2m_final_teardown() is called either after domain_relinquish_resources()
--     * where relinquish_p2m_mapping() has been called, or from failure path of
--     * domain_create()/arch_domain_create() where mappings that require
--     * p2m_put_l3_page() should never be created. For the latter case, also see
--     * comment on top of the p2m_set_entry() for more info.
-+     * where relinquish_p2m_mapping() has been called.
-      */
- 
--    BUG_ON(p2m_teardown(d, false));
-     ASSERT(page_list_empty(&p2m->pages));
- 
-     while ( p2m_teardown_allocation(d) == -ERESTART )
-@@ -1827,20 +1823,6 @@ int p2m_init(struct domain *d)
-     if ( rc )
-         return rc;
- 
--    /*
--     * Hardware using GICv2 needs to create a P2M mapping of 8KB GICv2 area
--     * when the domain is created. Considering the worst case for page
--     * tables and keep a buffer, populate 16 pages to the P2M pages pool here.
--     * For GICv3, the above-mentioned P2M mapping is not necessary, but since
--     * the allocated 16 pages here would not be lost, hence populate these
--     * pages unconditionally.
--     */
--    spin_lock(&d->arch.paging.lock);
--    rc = p2m_set_allocation(d, 16, NULL);
--    spin_unlock(&d->arch.paging.lock);
--    if ( rc )
--        return rc;
--
-     return 0;
- }
- 
--- 
-2.25.1
+Hi Jan,
 
+Sorry it has taken me so long to review this patch and thank-you for
+posting it. The points raised are helpful.
+
+Wrt to the patch - I can't ack because:
+the general ref that is already held is from the page owner, and it may
+actually be foreign; so the second ref acquire is currently ensuring that
+it is a match for the owner of the ring. That needs addressing.
+
+Am supportive of points raised:
+- review + limit ref counts taken
+    - better to not need two general page refs
+- a type ref rather than general may be sufficient to hold for the ring
+lifetime?
+- paging_mark_dirty at writes
+- p2m log dirty would be better to be allowed than EAGAIN
+- allowing mapping of foreign pages may have uses though likely also
+challenging
+
+I should let you know that my time available is extremely limited at the
+moment, sorry.
+
+Christopher
+
+
+
+
+>
+> > ---
+> > I further question the log-dirty check there: The present P2M type of a
+> > page doesn't really matter for writing to the page (plus it's stale by
+> > the time it is looked at). Instead I think every write to such a page
+> > needs to be accompanied by a call to paging_mark_dirty().
+> >
+> > --- a/xen/common/argo.c
+> > +++ b/xen/common/argo.c
+> > @@ -1429,10 +1429,11 @@ find_ring_mfn(struct domain *d, gfn_t gf
+> >          ret = -EAGAIN;
+> >  #endif
+> >      else if ( (p2mt != p2m_ram_rw) ||
+> > -              !get_page_and_type(page, d, PGT_writable_page) )
+> > +              !get_page_type(page, PGT_writable_page) )
+> >          ret = -EINVAL;
+> >
+> > -    put_page(page);
+> > +    if ( unlikely(ret) )
+> > +        put_page(page);
+> >
+> >      return ret;
+> >  }
+> >
+>
+>
+
+--00000000000091357e05f373bfc1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Mon, Nov 21, 2022 at 4:41 AM Jan B=
+eulich &lt;<a href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; w=
+rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
+x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 11.10.2=
+022 11:28, Jan Beulich wrote:<br>
+&gt; find_ring_mfn() already holds a page reference when trying to obtain a=
+<br>
+&gt; writable type reference. We shouldn&#39;t make assumptions on the gene=
+ral<br>
+&gt; reference count limit being effectively &quot;infinity&quot;. Obtain m=
+erely a type<br>
+&gt; ref, re-using the general ref by only dropping the previously acquired=
+<br>
+&gt; one in the case of an error.<br>
+&gt; <br>
+&gt; Signed-off-by: Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com" ta=
+rget=3D"_blank">jbeulich@suse.com</a>&gt;<br>
+<br>
+Ping?<br></blockquote><div><br></div><div>Hi Jan,<br><br>Sorry it has taken=
+ me so long to review this patch and thank-you for posting it. The points r=
+aised are helpful.<br><br>Wrt to the patch - I can&#39;t ack because:</div>=
+<div>the general ref that is already held is from the page owner, and it ma=
+y actually be foreign; so the second ref acquire is currently ensuring that=
+ it is a match for the owner of the ring. That needs addressing.<br><br>Am =
+supportive of points raised:<br>- review + limit ref counts taken<br>=C2=A0=
+ =C2=A0 - better to not need two general page refs<br>- a type ref rather t=
+han general may be sufficient to hold for the ring lifetime?<br>- paging_ma=
+rk_dirty at writes<br>- p2m log dirty would be better to be allowed than EA=
+GAIN<br>- allowing mapping of foreign pages may have uses though likely als=
+o challenging<br><br>I should let you know that my time available is extrem=
+ely limited at the moment, sorry.<br><br>Christopher<br></div><div><br></di=
+v><div><br></div><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex">
+<br>
+&gt; ---<br>
+&gt; I further question the log-dirty check there: The present P2M type of =
+a<br>
+&gt; page doesn&#39;t really matter for writing to the page (plus it&#39;s =
+stale by<br>
+&gt; the time it is looked at). Instead I think every write to such a page<=
+br>
+&gt; needs to be accompanied by a call to paging_mark_dirty().<br>
+&gt; <br>
+&gt; --- a/xen/common/argo.c<br>
+&gt; +++ b/xen/common/argo.c<br>
+&gt; @@ -1429,10 +1429,11 @@ find_ring_mfn(struct domain *d, gfn_t gf<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -EAGAIN;<br>
+&gt;=C2=A0 #endif<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 else if ( (p2mt !=3D p2m_ram_rw) ||<br>
+&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !get_page_and_type(p=
+age, d, PGT_writable_page) )<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 !get_page_type(page,=
+ PGT_writable_page) )<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 ret =3D -EINVAL;<br>
+&gt;=C2=A0 <br>
+&gt; -=C2=A0 =C2=A0 put_page(page);<br>
+&gt; +=C2=A0 =C2=A0 if ( unlikely(ret) )<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 put_page(page);<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 return ret;<br>
+&gt;=C2=A0 }<br>
+&gt; <br>
+<br>
+</blockquote></div></div>
+
+--00000000000091357e05f373bfc1--
 
