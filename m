@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 591C5681DE8
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 23:18:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487252.754841 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE6EC681E0D
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 23:29:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487262.754850 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMcTE-0006hu-6R; Mon, 30 Jan 2023 22:17:48 +0000
+	id 1pMcde-0008Sk-Ae; Mon, 30 Jan 2023 22:28:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487252.754841; Mon, 30 Jan 2023 22:17:48 +0000
+Received: by outflank-mailman (output) from mailman id 487262.754850; Mon, 30 Jan 2023 22:28:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMcTE-0006fB-28; Mon, 30 Jan 2023 22:17:48 +0000
-Received: by outflank-mailman (input) for mailman id 487252;
- Mon, 30 Jan 2023 22:17:46 +0000
+	id 1pMcde-0008QV-7h; Mon, 30 Jan 2023 22:28:34 +0000
+Received: by outflank-mailman (input) for mailman id 487262;
+ Mon, 30 Jan 2023 22:28:32 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMcTC-0006f1-90; Mon, 30 Jan 2023 22:17:46 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pMcdc-0008QP-M1
+ for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 22:28:32 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMcTC-0006Nt-6f; Mon, 30 Jan 2023 22:17:46 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMcTB-0007aW-Rh; Mon, 30 Jan 2023 22:17:45 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pMcTB-0000yG-RJ; Mon, 30 Jan 2023 22:17:45 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pMcdb-0006YX-Fa; Mon, 30 Jan 2023 22:28:31 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMcdb-0006RX-9V; Mon, 30 Jan 2023 22:28:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,138 +39,118 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=FFG9K2dSPT8juZnLADJkmtpn1+i16HA6fHbs6zc5RQE=; b=mgfV5uwuyNd5FWa3/Xx/M55Nqb
-	Hd5PylaGBwSmRiwxokeFkaOj1KTf07Nb+JgIzazWG6gBS8cmqY8mTNSk5mf+NcyNg4ziaA2EHQtwm
-	GTVJdVZEwmR2hAUOCa3pFQKFaLD0XsdDYTYIuFUi24+k/18Idm9lH8ucz4fOxvoDFyoE=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176283-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=EDF1QFuI4jxrtzBXSFtiSx9pKV3f0YCfWn7V8Syo8/s=; b=kEhBIhejaJFr7qxrljuUpxR7p8
+	MxC5Lcq4rYbc4dmfLw0oDWsT2cbKBzLCS+Rh4rZx7JwNldERdgRRjjCu/b2iul9X2+kdLDlB2WC+W
+	mcOr6dMUXfM7FERyqoZd1oJ8LK5HLqbfw8g+aPxcE6YKaZrlsryaAc0dMo7+5v6kPsQ4=;
+Message-ID: <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
+Date: Mon, 30 Jan 2023 22:28:29 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 176283: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-armhf:syslog-server:running:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=78e93e6e57c218eead498a664785f414bcb12460
-X-Osstest-Versions-That:
-    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Mon, 30 Jan 2023 22:17:45 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
+ <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
+ <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
+ <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of macros
+ from <asm/bug.h>
+In-Reply-To: <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-flight 176283 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176283/
+Hi Oleksii,
 
-Failures and problems with tests :-(
+On 30/01/2023 11:35, Oleksii wrote:
+> Hi Julien,
+> On Fri, 2023-01-27 at 16:02 +0000, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> On 27/01/2023 13:59, Oleksii Kurochko wrote:
+>>> The patch introduces macros: BUG(), WARN(), run_in_exception(),
+>>> assert_failed.
+>>>
+>>> The implementation uses "ebreak" instruction in combination with
+>>> diffrent bug frame tables (for each type) which contains useful
+>>> information.
+>>>
+>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>> ---
+>>> Changes:
+>>>     - Remove __ in define namings
+>>>     - Update run_in_exception_handler() with
+>>>       register void *fn_ asm(__stringify(BUG_FN_REG)) = (fn);
+>>>     - Remove bug_instr_t type and change it's usage to uint32_t
+>>> ---
+>>>    xen/arch/riscv/include/asm/bug.h | 118
+>>> ++++++++++++++++++++++++++++
+>>>    xen/arch/riscv/traps.c           | 128
+>>> +++++++++++++++++++++++++++++++
+>>>    xen/arch/riscv/xen.lds.S         |  10 +++
+>>>    3 files changed, 256 insertions(+)
+>>>    create mode 100644 xen/arch/riscv/include/asm/bug.h
+>>>
+>>> diff --git a/xen/arch/riscv/include/asm/bug.h
+>>> b/xen/arch/riscv/include/asm/bug.h
+>>> new file mode 100644
+>>> index 0000000000..4b15d8eba6
+>>> --- /dev/null
+>>> +++ b/xen/arch/riscv/include/asm/bug.h
+>>> @@ -0,0 +1,118 @@
+>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>> +/*
+>>> + * Copyright (C) 2012 Regents of the University of California
+>>> + * Copyright (C) 2021-2023 Vates
+>>
+>> I have to question the two copyrights here given that the majority of
+>> the code seems to be taken from the arm implementation (see
+>> arch/arm/include/asm/bug.h).
+>>
+>> With that said, we should consolidate the code rather than
+>> duplicating
+>> it on every architecture.
+>>
+> Copyrights should be removed. They were taken from the previous
+> implementation of bug.h for RISC-V so I just forgot to remove them.
+> 
+> It looks like we should have common bug.h for ARM and RISCV but I am
+> not sure that I know how to do that better.
+> Probably the code wants to be moved to xen/include/bug.h and using
+> ifdef ARM && RISCV ...
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176151
- build-armhf                   3 syslog-server                running
+Or you could introduce CONFIG_BUG_GENERIC or else, so it is easily 
+selectable by other architecture.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176151
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+> But still I am not sure that this is the best one option as at least we
+> have different implementation for x86_64.
 
-version targeted for testing:
- xen                  78e93e6e57c218eead498a664785f414bcb12460
-baseline version:
- xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
+My main concern is the maintainance effort. For every bug, we would need 
+to fix it in two places. The risk is we may forget to fix one architecture.
+This is not a very ideal situation.
 
-Last test of basis   176151  2023-01-26 14:00:29 Z    4 days
-Testing same since   176283  2023-01-30 21:02:20 Z    0 days    1 attempts
+So I think sharing the header between RISC-V and Arm (or x86, see below) 
+is at least a must. We can do the 3rd architecture at a leisure pace.
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
+One option would be to introduce asm-generic like Linux (IIRC this was a 
+suggestion from Andrew). This would also to share code between two of 
+the archs.
 
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+Also, from a brief look, the difference in implementation is mainly 
+because on Arm we can't use %c (some version of GCC didn't support it). 
+Is this also the case on RISC-V? If not, you may want to consider to use 
+the x86 version.
 
+Cheers,
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-
-Not pushing.
-
-------------------------------------------------------------
-commit 78e93e6e57c218eead498a664785f414bcb12460
-Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Date:   Wed Jan 25 11:21:31 2023 +0000
-
-    xen/arm: Probe the load/entry point address of an uImage correctly
-    
-    Currently, kernel_uimage_probe() does not read the load/entry point address
-    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-    causes, kernel_zimage_place() to treat the binary (contained within uImage)
-    as position independent executable. Thus, it loads it at an incorrect
-    address.
-    
-    The correct approach would be to read "uimage.load" and set
-    info->zimage.start. This will ensure that the binary is loaded at the
-    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-    address).
-    
-    If user provides load address (ie "uimage.load") as 0x0, then the image is
-    treated as position independent executable. Xen can load such an image at
-    any address it considers appropriate. A position independent executable
-    cannot have a fixed entry point address.
-    
-    This behavior is applicable for both arm32 and arm64 platforms.
-    
-    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-    point address set in the uImage header. With this commit, Xen will use them.
-    This makes the behavior of Xen consistent with uboot for uimage headers.
-    
-    Users who want to use Xen with statically partitioned domains, can provide
-    non zero load address and entry address for the dom0/domU kernel. It is
-    required that the load and entry address provided must be within the memory
-    region allocated by Xen.
-    
-    A deviation from uboot behaviour is that we consider load address == 0x0,
-    to denote that the image supports position independent execution. This
-    is to make the behavior consistent across uImage and zImage.
-    
-    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    [stefano: minor doc improvement]
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+-- 
+Julien Grall
 
