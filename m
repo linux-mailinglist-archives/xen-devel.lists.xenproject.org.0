@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CB0E68185D
-	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 19:09:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487136.754640 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE335681862
+	for <lists+xen-devel@lfdr.de>; Mon, 30 Jan 2023 19:11:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487142.754650 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMYak-0000eC-1H; Mon, 30 Jan 2023 18:09:18 +0000
+	id 1pMYcD-00024Z-AQ; Mon, 30 Jan 2023 18:10:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487136.754640; Mon, 30 Jan 2023 18:09:18 +0000
+Received: by outflank-mailman (output) from mailman id 487142.754650; Mon, 30 Jan 2023 18:10:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMYaj-0000c3-TV; Mon, 30 Jan 2023 18:09:17 +0000
-Received: by outflank-mailman (input) for mailman id 487136;
- Mon, 30 Jan 2023 18:09:16 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pMYcD-00022W-79; Mon, 30 Jan 2023 18:10:49 +0000
+Received: by outflank-mailman (input) for mailman id 487142;
+ Mon, 30 Jan 2023 18:10:47 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=dpD8=53=citrix.com=prvs=3879b2cf9=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pMYai-0000bo-LA
- for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 18:09:16 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 33138544-a0c9-11ed-8ba2-5fe241e16ab0;
- Mon, 30 Jan 2023 19:09:14 +0100 (CET)
+ id 1pMYcB-00022F-Eo
+ for xen-devel@lists.xenproject.org; Mon, 30 Jan 2023 18:10:47 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 68a2551d-a0c9-11ed-93eb-7b0ecb3c1525;
+ Mon, 30 Jan 2023 19:10:45 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,72 +36,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 33138544-a0c9-11ed-8ba2-5fe241e16ab0
+X-Inumbo-ID: 68a2551d-a0c9-11ed-93eb-7b0ecb3c1525
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675102154;
+  d=citrix.com; s=securemail; t=1675102246;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=xouqlqiYb7B9rW3YcR6qZFZRtnr9jXX8J8LIOIh3rbE=;
-  b=FRDCoBen31wtHZ9Du5LvDM/Fz5Q1P+Ih/P6Vslh0+0Pdz1gkxe9vjeT1
-   FUoJuntmCXTWYeSC+7KsMgySEBnQEieng554pbdIPfBXw0vzdaentIwzY
-   CA9BqNMt+1XGUeP4xyG83f+4CxJ/T8ZNEuBkCIDL8PuyqKxwdyRFB6KxJ
-   g=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=b0f6lavD++iE+TA/+evuMB1/iYP5KiQ/PTS8XIwKCt4=;
+  b=UhniO0SvN56Mfcqlenvhzkje4Ro0Cfz9xE8xckWezBWjZn/ShVL55m5L
+   B9bR+qyRRdJyjxujr8VvzKfrcDqWG0/q9WG6IZs0m9S0EKDJnGB/a75QD
+   0Ygky+8GpjicR2dmRr6x8myXt6YhljJPPL5VXyqpacZWcUW/qmeJxO0qj
+   8=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 95283211
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
+X-MesageID: 93750567
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:SFDY0aDvb2slChVW/w7jw5YqxClBgxIJ4kV8jS/XYbTApDkkhDxVy
- WUeXziPPPuLMTahLYggbI3ipkxTsceAx9MwQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
- yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
- t7pyyHlEAbNNwVcbyRFtMpvlDs15K6p4GpD5gRkDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
- uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
- jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw/7hKXWwU8
- uEhdw8hMDKawOvon5K7Vbw57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
- pdHL2M1N3wsYDUWUrsTIJs4gOevgGi5azBCoUiZjaE2/3LS3Ep6172F3N/9K4HQFZ4Pxx/wS
- mTuwSf+WTM7Ctijyzep1zWd2u/zlCLZcddHfFG/3qEz2wDCroAJMzUUWkG8uuKRkVOlVpRUL
- El80iM2oLI77kCDUtj3VBr+q3mB1jYDX/JAHut87xuCooLE7gDcCmUaQzppbN09qNRwVTEsz
- kWOnd7iGXpoqrL9dJ6G3u7K93XoY3FTdDJcI3ZeFmPp/uUPvqk20C+TQ4xkDZfqsfGrOyi3y
- m7VjCgh0uB7YdEw6423+lXOgjSJr5fPTxIo6gi/Yl9J/j+Vd6b+OdX2tAGzAeJoad/AEwLf5
- CRsd922trhmMH2bqMCarAzh9pmN7u3NDjDTiEUH83IJp2X0oC7LkWy9DVhDyKZV3iQsI2SBj
- Kz741k5CHpv0JyCMMdKj3qZUZhC8EQZPY2NugroRtRPeINtUwSM4TtjY0Wdt0i0zhdxyfhgY
- MfHKZfzZZr/NUiA5GPmL9rxLJdxnnxurY8tbc+TI+ubPUq2OyfOFOZt3KqmZeEl9qKUyDg5A
- P4GX/ZmPy53CbWkCgGOqN57ELz/BSRjbXwAg5ANJ7Hrz8sPMD1JNsI9Npt6Itc9xv8Ey76gE
- 7PUchYw9WcTTEbvcW2iAk2Popu1NXqjhRrX5RARAGs=
-IronPort-HdrOrdr: A9a23:0FfoiKs2e7jvxr5gB0Yi90Qc7skDZ9V00zEX/kB9WHVpm62j+v
- xG+c5xvyMc5wxhO03I5urwWpVoLUmzyXcX2+Us1NWZPDUO0VHARL2KhrGM/9SPIUzDH+dmpM
- JdT5Q=
+IronPort-Data: A9a23:WLePWKmjZDQvLqn2Qa1NtGvo5gy3JkRdPkR7XQ2eYbSJt1+Wr1Gzt
+ xIcUGmOaPiIMGqmLd9wYdy/8U5VvJ7dyIBiSVFrrX88FiMWpZLJC+rCIxarNUt+DCFhoGFPt
+ JxCN4aafKjYaleG+39B55C49SEUOZmgH+a6U6icf3grHmeIcQ954Tp7gek1n4V0ttawBgKJq
+ LvartbWfVSowFaYCEpNg064gE4p7auaVA8w5ARkPqgS5weGzRH5MbpETU2PByqgKmVrNrbSq
+ 9brlNmR4m7f9hExPdKp+p6TnpoiG+O60aCm0xK6aoD66vRwjnVaPpUTbZLwXXx/mTSR9+2d/
+ f0W3XCGpaXFCYWX8AgVe0Ew/yiTpsSq8pefSZS0mZT7I0Er7xIAahihZa07FdRwxwp5PY1B3
+ aZfcDtXMA++vP+n3J7kSPFhh504J9a+aevzulk4pd3YJfMvQJSFSKTW/95Imjw3g6iiH96HO
+ ZBfM2A2Kk2dPVsWYAx/5JEWxY9EglH2dSFYr1SE47I6+WHJwCR60aT3McqTcduPLSlQthfD+
+ T+eojqmav0cHPiu8DGP8TWJvf7OwSfLdJMURbuzp8c/1TV/wURMUUZLBDNXu8KRhkegVvpFJ
+ kcT+y5oqrI9nGSiVtTnVge0iGKFtBUbHdFXFoUS+AyLj6bZ/QudLmwFVSJaLswrstcsQj4n3
+ UPPmMnmbRRtv6eSUmm17aqPoHW5Pi19BXAGTT8JS00C+daLnW0opkuRFJA5Svfz14CrX2iqm
+ FhmsRTSmZ1JypYAjfukwGvaki6A+ZrRQw9s/Q7ICzfNAhxCWKapYImh6F7+5PlGLZqEQlTpg
+ EXoi/Ry/8hVU8jTyXXlrPElWejwuq3baGG0bUtHRcFJyti7x5K0kWm8ChlaLVwhDMsLcCSBj
+ KT76VIIv8870JdHgMZKj2ON5yYCl/OI+TfNDKq8gj9yjn9ZKWe6ENlGPxL44owUuBFEfVsDE
+ Zmaa92wKn0RFL5qyjG7L89Ej+B2nnlhnDOPHcGkp/hC7VZ5TCfFIYrpzXPUNrxphE96iFq9H
+ ylj2zuilEwEDbyWjtj/+o8PN1EaRUXX9rivw/G7gtWre1I8cEl4Uq+5/F/UU9A990ijvruSr
+ y7Vt44x4AaXuEAr3i3RMys7Mei+AM8XQLBSFXVEAGtEEkMLOe6HhJrzvbNrFVX73ISPFcJJc
+ sQ=
+IronPort-HdrOrdr: A9a23:ClzYQK5kuajZjXsqBAPXwMbXdLJyesId70hD6qkRc3xom6mj/f
+ xG88536faZslkssQgb6LK90cq7IE80i6Qf3WB5B97LYOCMggeVBbxPxa+n/hulIhbZ29J26M
+ 5bAstD4bPLY2RHsQ==
 X-IronPort-AV: E=Sophos;i="5.97,258,1669093200"; 
-   d="scan'208";a="95283211"
-Date: Mon, 30 Jan 2023 18:09:03 +0000
+   d="scan'208";a="93750567"
+Date: Mon, 30 Jan 2023 18:10:26 +0000
 From: Anthony PERARD <anthony.perard@citrix.com>
 To: Andrew Cooper <andrew.cooper3@citrix.com>
 CC: Xen-devel <xen-devel@lists.xenproject.org>, Wei Liu <wl@xen.org>, "Juergen
- Gross" <jgross@suse.com>
-Subject: Re: [PATCH 6/6] tools: Introduce a xc_xenver_buildid() wrapper
-Message-ID: <Y9gHv3Ype4+x4r8L@perard.uk.xensource.com>
+ Gross" <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>, Edwin Torok <edvin.torok@citrix.com>, Rob Hoes
+	<Rob.Hoes@citrix.com>
+Subject: Re: [PATCH 0/6] tools: Switch to non-truncating XENVER_* ops
+Message-ID: <Y9gIEpQ5G1inUDX7@perard.uk.xensource.com>
 References: <20230117135336.11662-1-andrew.cooper3@citrix.com>
- <20230117135336.11662-7-andrew.cooper3@citrix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20230117135336.11662-7-andrew.cooper3@citrix.com>
+In-Reply-To: <20230117135336.11662-1-andrew.cooper3@citrix.com>
 
-On Tue, Jan 17, 2023 at 01:53:36PM +0000, Andrew Cooper wrote:
-> ... which converts binary content to hex automatically.
-> 
-> Update libxl to match.  No API/ABI change.
-> 
-> This removes a latent bug for cases when the buildid is longer than 4092
-> bytes.
-> 
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+On Tue, Jan 17, 2023 at 01:53:30PM +0000, Andrew Cooper wrote:
+> This is the tools side of the Xen series posted previously.
 
-Reviewed-by: Anthony PERARD <anthony.perard@citrix.com>
+There's also python bindings using xc_version(), is it something we want
+to update?
 
-Thanks,
-
+Cheers,
 
 -- 
 Anthony PERARD
