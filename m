@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF687682BD0
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 12:49:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487580.755254 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC7A682C2C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:04:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487599.755264 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMp8r-0006h5-5w; Tue, 31 Jan 2023 11:49:37 +0000
+	id 1pMpMT-00019e-Qe; Tue, 31 Jan 2023 12:03:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487580.755254; Tue, 31 Jan 2023 11:49:37 +0000
+Received: by outflank-mailman (output) from mailman id 487599.755264; Tue, 31 Jan 2023 12:03:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMp8r-0006eq-2j; Tue, 31 Jan 2023 11:49:37 +0000
-Received: by outflank-mailman (input) for mailman id 487580;
- Tue, 31 Jan 2023 11:49:35 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=+DaM=54=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
- id 1pMp8p-0006ek-Dc
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 11:49:35 +0000
-Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
- [2607:f8b0:4864:20::e36])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 53583c01-a15d-11ed-b63b-5f92e7d2e73a;
- Tue, 31 Jan 2023 12:49:33 +0100 (CET)
-Received: by mail-vs1-xe36.google.com with SMTP id a24so13658195vsl.2
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 03:49:33 -0800 (PST)
+	id 1pMpMT-00017H-NW; Tue, 31 Jan 2023 12:03:41 +0000
+Received: by outflank-mailman (input) for mailman id 487599;
+ Tue, 31 Jan 2023 12:03:39 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pMpMR-00017A-PR
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:03:39 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMpMQ-00017H-VS; Tue, 31 Jan 2023 12:03:38 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.240])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMpMQ-0000fT-Pq; Tue, 31 Jan 2023 12:03:38 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,105 +39,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 53583c01-a15d-11ed-b63b-5f92e7d2e73a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=76fBGWc5LJRCSdEAxjHz2pXIwr0W3yh0xSvvo/l/+Zs=;
-        b=b3lyt7dHGOeAhWN5ELVMnyAvZfFtyDcs2rcLWbBPLeG3fGqQ+JXOc+/eLXWL6y6aoQ
-         uKzAOYIX0Un+2H1VJIJ9mSFrPShwnF3XAoRCL+KpDjNmAaXcoXFGdNPe79iv3lME+AEt
-         h9Ubzmyz4eq89JCwW1DcSS5JpBuqhNzzjuzODFl2hRfP8KjQ5ne7oubbSkaV2VuuzgTA
-         xImBJOdUmnMCLL1zg2SsEFD3AngXCd8TKF0e8mqy6LVFxfCqIzrRDbDKodft++cHtVD4
-         AgKiXg5A/f1Zgu7r7xIQ5I/psY5A/kxufiHZUk1T0CWB3xOHihQZ1zi3qGqJjppd+dUm
-         g59Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=76fBGWc5LJRCSdEAxjHz2pXIwr0W3yh0xSvvo/l/+Zs=;
-        b=bVfO+NCTOSKiCzyW0KyKsTdzAbji2A7nGmyPCbu5c/u6PPV6OUlkUloYODaqXkYfNk
-         4/TWVZhOYKARlG7L79Ch6B0orfOlGfgc6izVTWZi9dlYlG2GhC6+kRk2FBpCHqeWs0Ay
-         kiYjLWLd0lx4OZ9xrG7fkAwqVotW5EIpaN9edtlnfUSrHL3Em8DBw5kRlIxSKIVCFcbt
-         2gqswFdwxRxAsUXgfk9ukRFWsET++hA7vps+fPUmJr3jOVsvjqmbJYIRWF8xyio7SkaL
-         oSnE8FEY8aQsMHQImpf3r/dlHArDz7jAyTI2fx7GBkAfqf6tLLycyo+xuzlkVhwqtrk3
-         orHw==
-X-Gm-Message-State: AO0yUKVHrdtlboImxQRd107kuJNXswU9F6+7fytYcRW0lKSNCe/zCeal
-	C79n8FOTcevDQ1lkzDWj1hsVvSEQRmeJhdMlQ5w=
-X-Google-Smtp-Source: AK7set+4J1JJDyOhUWTBkUQ+yFINmj91UHAL+mWR1PwgnyAPbwX9KzADnbLaAxDQJpvDvcVOIfoR3veqoDwQrUmjfMY=
-X-Received: by 2002:a67:e101:0:b0:3f0:89e1:7c80 with SMTP id
- d1-20020a67e101000000b003f089e17c80mr1537104vsl.72.1675165771875; Tue, 31 Jan
- 2023 03:49:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=u5nY5Kts/Uq5eSWU6q+8En3cC2yDTmdBxeciRaBP2tE=; b=bO7817/dhQFRwQvsH26wcxFXbg
+	bBYA3G/iQjBAo80LOQyJGsHHO7o3ghkxWfOKLfjDp1DaRm0SIV0LHlO51oQY9/9/vl895c/xudjqs
+	wQQ4/GT1cFE1q3FmI9KqQVlC3vHDNJ4HbuWhDr8PqJ3PZt0T2MKIssmAyNeDjyK0Wizk=;
+Message-ID: <2f6a3b17-4e41-fe9a-1713-4942b3bd3585@xen.org>
+Date: Tue, 31 Jan 2023 12:03:36 +0000
 MIME-Version: 1.0
-References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
- <3617dc882193166580ae7e5d122447e924cab524.1674226563.git.oleksii.kurochko@gmail.com>
- <d5d9a305-3501-cbc4-1c8a-1a62bd08d588@citrix.com> <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
-In-Reply-To: <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Tue, 31 Jan 2023 21:49:05 +1000
-Message-ID: <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
-Subject: Re: [PATCH v1 01/14] xen/riscv: add _zicsr to CFLAGS
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
-	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
-	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v7 1/2] xen/riscv: introduce early_printk basic stuff
+To: Alistair Francis <alistair23@gmail.com>,
+ Oleksii <oleksii.kurochko@gmail.com>
+Cc: xen-devel@lists.xenproject.org, Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Connor Davis
+ <connojdavis@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>
+References: <cover.1674819203.git.oleksii.kurochko@gmail.com>
+ <06c2c36bd68b2534c757dc4087476e855253680a.1674819203.git.oleksii.kurochko@gmail.com>
+ <f5cd1bfb116bfcc86fc2848df7eead05cd1a24c0.camel@gmail.com>
+ <CAKmqyKMGiDiPRZBekdKan=+YduSmkB2DoWo5btrtVQ8nS3KMAg@mail.gmail.com>
+Content-Language: en-US
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <CAKmqyKMGiDiPRZBekdKan=+YduSmkB2DoWo5btrtVQ8nS3KMAg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 23, 2023 at 8:43 PM Oleksii <oleksii.kurochko@gmail.com> wrote:
->
-> On Fri, 2023-01-20 at 15:29 +0000, Andrew Cooper wrote:
-> > On 20/01/2023 2:59 pm, Oleksii Kurochko wrote:
-> > > Work with some registers requires csr command which is part of
-> > > Zicsr.
-> > >
-> > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > ---
-> > >  xen/arch/riscv/arch.mk | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-> > > index 012dc677c3..95b41d9f3e 100644
-> > > --- a/xen/arch/riscv/arch.mk
-> > > +++ b/xen/arch/riscv/arch.mk
-> > > @@ -10,7 +10,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       :=3D
-> > > $(riscv-march-y)c
-> > >  # into the upper half _or_ the lower half of the address space.
-> > >  # -mcmodel=3Dmedlow would force Xen into the lower half.
-> > >
-> > > -CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -mcmodel=3Dmeda=
-ny
-> > > +CFLAGS +=3D -march=3D$(riscv-march-y)_zicsr -mstrict-align -
-> > > mcmodel=3Dmedany
-> >
-> > Should we just go straight for G, rather than bumping it along every
-> > time we make a tweak?
-> >
-> I didn't go straight for G as it represents the =E2=80=9CIMAFDZicsr Zifen=
-cei=E2=80=9D
-> base and extensions thereby it will be needed to add support for FPU
-> (at least it requires {save,restore}_fp_state) but I am not sure that
-> we need it in general.
 
-That seems fair enough. I don't see a reason to restrict ourselves if
-we aren't using something. Although we probably will hit a requirement
-on G at some point anyway.
 
-Alistair
+On 31/01/2023 11:44, Alistair Francis wrote:
+> On Sat, Jan 28, 2023 at 12:15 AM Oleksii <oleksii.kurochko@gmail.com> wrote:
+>>
+>> Hi Alistair, Bobby and community,
+>>
+>> I would like to ask your help with the following check:
+>> +/*
+>> + * early_*() can be called from head.S with MMU-off.
+>> + *
+>> + * The following requiremets should be honoured for early_*() to
+>> + * work correctly:
+>> + *    It should use PC-relative addressing for accessing symbols.
+>> + *    To achieve that GCC cmodel=medany should be used.
+>> + */
+>> +#ifndef __riscv_cmodel_medany
+>> +#error "early_*() can be called from head.S with MMU-off"
+>> +#endif
+> 
+> I have never seen a check like this before. 
 
->
-> Another one reason is that Linux kernel introduces _zicsr extenstion
-> separately (but I am not sure that it can be considered as a serious
-> argument):
-> https://elixir.bootlin.com/linux/latest/source/arch/riscv/Makefile#L58
-> https://lore.kernel.org/all/20221024113000.891820486@linuxfoundation.org/
->
-> > ~Andrew
-> ~Oleksii
->
->
+The check is in the Linux code, see [3].
+
+> I don't really understand
+> what it's looking for, if the linker is unable to call early_*() I
+> would expect it to throw an error. I'm not sure what this is adding.
+
+When the MMU is off during early boot, you want any C function called to 
+use PC-relative address rather than absolute address. This is because 
+the physical address may not match the virtual address.
+
+ From my understanding, on RISC-V, the use of PC-relative address is 
+only guaranteed with medany. So if you were going to change the cmodel 
+(Andrew suggested you would), then early_*() may end up to be broken.
+
+This check serve as a documentation of the assumption and also help the 
+developer any change in the model and take the appropriate action to 
+remediate it.
+
+> 
+> I think this is safe to remove.
+Based on what I wrote above, do you still think this is safe?
+
+Cheers,
+
+>> Please take a look at the following messages and help me to decide if
+>> the check mentioned above should be in early_printk.c or not:
+>> [1]
+>> https://lore.kernel.org/xen-devel/599792fa-b08c-0b1e-10c1-0451519d9e4a@xen.org/
+>> [2]
+>> https://lore.kernel.org/xen-devel/0ec33871-96fa-bd9f-eb1b-eb37d3d7c982@xen.org/
+
+[3] 
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/riscv/mm/init.c
+
+
+-- 
+Julien Grall
 
