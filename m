@@ -2,32 +2,64 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66AB56828CD
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:28:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487473.755104 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB9526828DF
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:31:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487475.755113 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMmvU-00070G-4Y; Tue, 31 Jan 2023 09:27:40 +0000
+	id 1pMmyW-0008Hi-H9; Tue, 31 Jan 2023 09:30:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487473.755104; Tue, 31 Jan 2023 09:27:40 +0000
+Received: by outflank-mailman (output) from mailman id 487475.755113; Tue, 31 Jan 2023 09:30:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMmvU-0006xw-0d; Tue, 31 Jan 2023 09:27:40 +0000
-Received: by outflank-mailman (input) for mailman id 487473;
- Tue, 31 Jan 2023 09:27:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pMmvS-0006xq-Tg
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 09:27:39 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pMmvS-0005g0-Fe; Tue, 31 Jan 2023 09:27:38 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.14.74]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pMmvS-0002kH-9C; Tue, 31 Jan 2023 09:27:38 +0000
+	id 1pMmyW-0008F7-EP; Tue, 31 Jan 2023 09:30:48 +0000
+Received: by outflank-mailman (input) for mailman id 487475;
+ Tue, 31 Jan 2023 09:30:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=WzvD=54=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1pMmyV-0008Ey-Dg
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 09:30:47 +0000
+Received: from EUR04-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur04on2053.outbound.protection.outlook.com [40.107.8.53])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ef5a4890-a149-11ed-b63b-5f92e7d2e73a;
+ Tue, 31 Jan 2023 10:30:44 +0100 (CET)
+Received: from DB6PR07CA0074.eurprd07.prod.outlook.com (2603:10a6:6:2b::12) by
+ AM0PR08MB5297.eurprd08.prod.outlook.com (2603:10a6:208:18a::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Tue, 31 Jan
+ 2023 09:30:42 +0000
+Received: from DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:6:2b:cafe::6f) by DB6PR07CA0074.outlook.office365.com
+ (2603:10a6:6:2b::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.20 via Frontend
+ Transport; Tue, 31 Jan 2023 09:30:42 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ DBAEUR03FT038.mail.protection.outlook.com (100.127.143.23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.36 via Frontend Transport; Tue, 31 Jan 2023 09:30:41 +0000
+Received: ("Tessian outbound 3ad958cd7492:v132");
+ Tue, 31 Jan 2023 09:30:41 +0000
+Received: from 814e91673b6e.2
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ 9696D683-772A-4C99-A1CF-1E3E841C3F72.1; 
+ Tue, 31 Jan 2023 09:30:35 +0000
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 814e91673b6e.2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Tue, 31 Jan 2023 09:30:35 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by AS8PR08MB8393.eurprd08.prod.outlook.com (2603:10a6:20b:569::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Tue, 31 Jan
+ 2023 09:30:33 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e%5]) with mapi id 15.20.6043.033; Tue, 31 Jan 2023
+ 09:30:33 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,161 +71,117 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=iEOW7X8Cc3FoaUkO2QLv7nhpRfsoHwTOTV3ZCYd3sO8=; b=wHXsLZB3AoKB3zX/lHL6EkcfGm
-	jMfwxPWcjUEfDmZntmHoica2rgz1NVnmkcuNITy2ci1UtyJVf6howibx2p8nO8AG9LrxQB99XuzLp
-	/NuVUp95WgDMeWzbHD/cNR2FhLxs8vqu0+1X1lBzN/XWOKidcjnqSj9qhTO6SL9hsie8=;
-Message-ID: <509eafac-bbe7-ed18-ce11-3fede7ca691d@xen.org>
-Date: Tue, 31 Jan 2023 09:27:36 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU memory
- region map
+X-Inumbo-ID: ef5a4890-a149-11ed-b63b-5f92e7d2e73a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TLhtKl+Utw5UAEC1Dx7Msd4JVJQ8kROlz7KpHGW8NHU=;
+ b=tk55W9OzcV6NCFRq/d8ZfdX5+/O+XAk4DZtSNVEHX3euyZ832WPrmBq9v1Nn3roLBn8js9xpkFQrbJslEATqIUoaKBYEBGsL7IWVFxcmBUKZJMKRbibDrbJbU2d522uit2fgPegivxKGFnRDni3gV5lY8VbAu2d88DlcIpaD4eQ=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=EpqidlYKOr94impxdC+xv8f2j6lrpLjOBXDRPEN64D/aj9gcjItti4PgnpJ5GSLj3R9rGuIP4+1qflYUYG42uQTpWnW/8MRRQUXea20k2pFu4+YkEPwtvOhS2hZlmqVsThu7GZzLlXd15OOZI6YROf7YZBZG+eJy+GAx7cm6zHkk6ReU344Agwyt78bYAllWmoVpoW/bJCnqyizoqPRfaskzkc6nQeGMTlvuuYGH0yejpCmC5YJuNbHkfrwQr+T7rUEuVakxCTcS3km+Z8ytumMa/7Lywv0vOX5BKw8pW89MGKaCgWUSzzrbXAiSMgp2Cvc27Gkocea4r5Dw6GVjFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TLhtKl+Utw5UAEC1Dx7Msd4JVJQ8kROlz7KpHGW8NHU=;
+ b=cZsl6eZC05gcEkaJDx1+C4Bmvgz9CLGIdzJl0OU/lrYaPiFgXNa1DiIBLn0th8HJcAQLufTe+O74t7+9aHtJzWv/dYseH/4vx9zCTSDHV29ehOESm53pm5BSeQwoLCxfO/Rwu5RJaDWcqdcc3muD5PuRtOzqSvV5U7YD0FVExEA2ZQtNrOsidnxJPWFKbV0fWUP6F9cp7eQd9hm2MNFzGD87wWGE+S0cWXr9dSCfkgiIkAKSAB/1N158IqooMUEn/EkWYMHgXL6xMyIEom/8/1Fo0iT2S5R4K9synPEiOw/uTsf92x59ts9yAXVksoC39sTXFclPyUOPIRUwndTIEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TLhtKl+Utw5UAEC1Dx7Msd4JVJQ8kROlz7KpHGW8NHU=;
+ b=tk55W9OzcV6NCFRq/d8ZfdX5+/O+XAk4DZtSNVEHX3euyZ832WPrmBq9v1Nn3roLBn8js9xpkFQrbJslEATqIUoaKBYEBGsL7IWVFxcmBUKZJMKRbibDrbJbU2d522uit2fgPegivxKGFnRDni3gV5lY8VbAu2d88DlcIpaD4eQ=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>,
+	Bertrand Marquis <Bertrand.Marquis@arm.com>, Volodymyr Babchuk
+	<Volodymyr_Babchuk@epam.com>
+Subject: RE: [PATCH v3 1/3] xen/arm: Add memory overlap check for
+ bootinfo.reserved_mem
+Thread-Topic: [PATCH v3 1/3] xen/arm: Add memory overlap check for
+ bootinfo.reserved_mem
+Thread-Index: AQHZNGA1IwnnIsRmjEGECQ4jTGRpG663gnMAgAA6SvCAAISzAIAAAKDw
+Date: Tue, 31 Jan 2023 09:30:33 +0000
+Message-ID:
+ <AS8PR08MB799131C4BA5A3C5A33A0CD8D92D09@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <20230130040535.188236-1-Henry.Wang@arm.com>
+ <20230130040535.188236-2-Henry.Wang@arm.com>
+ <fca91d3c-5d8a-3f7e-419a-a4c5208273dc@xen.org>
+ <AS8PR08MB79910D7E3C7F32D8CDCB851092D09@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <ffa2c5e3-9dcb-eca1-fe3f-6ad4c7c83bae@xen.org>
+In-Reply-To: <ffa2c5e3-9dcb-eca1-fe3f-6ad4c7c83bae@xen.org>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- "ayan.kumar.halder@xilinx.com" <ayan.kumar.halder@xilinx.com>
-Cc: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
- <20230113052914.3845596-12-Penny.Zheng@arm.com>
- <c30b4458-b5f6-f996-0c3c-220b18bfb356@xen.org>
- <AM0PR08MB453083B74DB1D00BDF469331F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <7931e70f-3754-363c-28d8-5fde3198d70f@xen.org>
- <AM0PR08MB45308D5CD69EBB5FE85A4B88F7D39@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <3c915633-ddb8-d1e4-f42e-064aaff168b2@xen.org>
- <AM0PR08MB45309F6DCB1B1E0975A741B7F7D09@AM0PR08MB4530.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AM0PR08MB45309F6DCB1B1E0975A741B7F7D09@AM0PR08MB4530.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: C16B78551AD1024BA44A40369D0BE28F.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|AS8PR08MB8393:EE_|DBAEUR03FT038:EE_|AM0PR08MB5297:EE_
+X-MS-Office365-Filtering-Correlation-Id: a877b8b0-af61-4e7c-4689-08db036dd257
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ EZ7jkKDBPbzDiTNyUEKBBkpTC4pUTCxC0a8uEU4d/vfYyubm+uYnKIpabhQoqpp72gRCvAngmGkFHnk0664RANUbeqPedHvAYk9/3Y3bNwKoqOjuqunXYyonCr7O37aBnziZNNFPAZFa8rzMsi/aTCaECCV1tD7ZvinLTe7grEU8dBz2mhbfNbcS7gI29u1oc567CmAgeIrnjUmWiIj4ORD3IzyLg1Uw9E4ywJ5+4IP7Q1Jw7wWf8TXIOt4ChvRL5NKAQmDcBqsYB1KKyIRR6S62ZxIaeXNiWQ7BEdWIWf/ql7/yeTwAI/Tb43tPrmBL3JcMRa7vq9XiexlcybnScYqLRy0VvRXNuiRWFxfBXnlMDQED0z7kg0zUWYcAfb6z96qAAxpG0pP3OYDKCoACNEv8/gEXAfxhk2dmGk9LLi0RTYJ9VysHDxunkSuWVAy7crWQnc7UqNl4IENoAqiwQRo8LuadEehjKOOXbGzlUs7/H2xKJqNJLSqeyD4+WPsuxem6yrm3pSH8boeDE38GD0ar3xpoAylPSCQTTzRsDSRJZHUuu0enrkO16pwfuypHSxKKDcEyzKpARxr4IUi8mEvelFSwDCNnMpKemluw3/70Ia5uqgKJNckYAz7uXhI7g96nnZJCGGkbld1NwHZldOUVJv1lQFzWsNvNvbrsPOvzVusk2bpi3e4WD+keZKFMjofRKvUtWg7HH0jH7rt73w==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(451199018)(83380400001)(54906003)(110136005)(316002)(52536014)(8936002)(41300700001)(66946007)(66476007)(66446008)(64756008)(4326008)(8676002)(66556008)(76116006)(6506007)(26005)(186003)(478600001)(7696005)(9686003)(71200400001)(86362001)(38070700005)(33656002)(55016003)(5660300002)(4744005)(2906002)(122000001)(38100700002)(66899018);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB8393
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f3991fe2-9ebe-40c8-4833-08db036dcd86
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	h/xk+xMtXfWqlqETttEEgktXBE4F3FIZKG33g2Zj92VNReS81/+icfldt8i9bJQyib2cAXrIdOhMpgr75IqUBYLTaaToz7WOSnzdMuT2rBAdXgret8NfKMDPO27iNsmDag9NaC/KnG6YOD7FCld6mvG9GSytxylLXxDO/z6HXhlHZqU8QUtpztylk1XR2xlY0czWkhS/W5HpPYWsVZvPEXYS5/K8I+C124zYBG8n5/xOx/3xAzuzSCRea2ENi+Ld3QwHFn9Hhcz1hbrJx4s90QuLkcqJFljYWjqjJJ+z6iHsOz/den8zOcO687z1sFl0ZZXDiiWmkRqxHWbg1bllGNPiRgXBpes9HWpXK5DVdP7NeeE1lTXV4qgxO3bOxCvFkoZVw8dluqDLRH9qve+3tpBEqREQ3pXkVaS1H7aiZjvi7c/MdQyzd5JymylkmU5BLieOSMBv4E6FJ13mDglZhNC6OZga4vb45NyQ2Hgh5Dh9904/9SHSmxnAjOLZuF5W75deASuYfnp3ZXUnhyyuGyZ1vrZ76jYStpiVlgT4gYnsFBQaXNOE24x/FPId36tZba0Npme6nzsQv8Yf4ZVd31/bmjIkAyDsqL0zy/i8OcEyElAtwxnLqTIOpjKQBEAYzPl19OvTmuwTURweiQOX5bmrTx1629lI2EXzjtF/aDtZVpVEhw8FbbOTQ4NTmwtlnMtCXwZmO9wkupqzrX47Qg==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(376002)(136003)(396003)(346002)(451199018)(46966006)(36840700001)(40470700004)(7696005)(26005)(41300700001)(66899018)(478600001)(186003)(336012)(9686003)(107886003)(6506007)(54906003)(110136005)(316002)(47076005)(70586007)(70206006)(4326008)(40460700003)(83380400001)(8676002)(2906002)(82740400003)(55016003)(5660300002)(8936002)(36860700001)(81166007)(82310400005)(86362001)(52536014)(33656002)(4744005)(356005)(40480700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 09:30:41.8310
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a877b8b0-af61-4e7c-4689-08db036dd257
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DBAEUR03FT038.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR08MB5297
 
-
-
-On 31/01/2023 04:11, Penny Zheng wrote:
-> Hi Julien
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Monday, January 30, 2023 5:40 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
->> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> Subject: Re: [PATCH v2 11/40] xen/mpu: build up start-of-day Xen MPU
->> memory region map
->>
->> Hi Penny,
->>
->> On 30/01/2023 05:45, Penny Zheng wrote:
->>>    There are three types of MPU regions during boot-time:
->>> 1. Fixed MPU region
->>> Regions like Xen text section, Xen heap section, etc.
->>> 2. Boot-only MPU region
->>> Regions like Xen init sections, etc. It will be removed at the end of booting.
->>> 3.   Regions need switching in/out during vcpu context switch
->>> Region like system device memory map.
->>> For example, for FVP_BaseR_AEMv8R, we have [0x80000000, 0xfffff000) as
->>> the whole system device memory map for Xen(idle vcpu) in EL2,  when
->>> context switching to guest vcpu, it shall be replaced with
->>> guest-specific device mapping, like vgic, vpl011, passthrough device, etc.
->>>
->>> We don't have two mappings for different stage translations in MPU, like
->> we had in MMU.
->>> Xen stage 1 EL2 mapping and stage 2 mapping are both sharing one MPU
->>> memory mapping(xen_mpumap) So to save the trouble of hunting down
->> each
->>> switching regions in time-sensitive context switch, we must re-order
->> xen_mpumap to keep fixed regions in the front, and switching ones in the
->> heels of them.
->>
->>   From my understanding, hunting down each switching regions would be a
->> matter to loop over a bitmap. There will be a slight increase in the number
->> of instructions executed, but I don't believe it will be noticeable.
->>
->>>
->>> In Patch Serie v1, I was adding MPU regions in sequence,  and I
->>> introduced a set of bitmaps to record the location of same type
->>> regions. At the end of booting, I need to *disable* MPU to do the
->> reshuffling, as I can't move regions like xen heap while MPU on.
->>>
->>> And we discussed that it is too risky to disable MPU, and you
->>> suggested [1] "
->>>> You should not need any reorg if you map the boot-only section
->>>> towards in the higher slot index (or just after the fixed ones).
->>> "
->>
->> Right, looking at the new code. I realize that this was probably a bad idea
->> because we are adding complexity in the assembly code.
->>
->>>
->>> Maybe in assembly, we know exactly how many fixed regions are,
->>> boot-only regions are, but in C codes, we parse FDT to get static
->> configuration, like we don't know how many fixed regions for xen static
->> heap is enough.
->>> Approximation is not suggested in MPU system with limited MPU regions,
->>> some platform may only have 16 MPU regions, IMHO, it is not worthy
->> wasting in approximation.
->>
->> I haven't suggested to use approximation anywhere here. I will answer
->> about the limited number of entries in the other thread.
->>
->>>
->>> So I take the suggestion of putting regions in the higher slot index.
->>> Putting fixed regions in the front, and putting boot-only and
->>> switching ones at tail. Then, at the end of booting, when we reorg the
->> mpu mapping, we remove all boot-only regions, and for switching ones, we
->> disable-relocate(after fixed ones)-enable them. Specific codes in [2].
->>
->>   From this discussion, it feels to me that you are trying to make the code
->> more complicated just to keep the split and save a few cycles (see above).
->>
->> I would suggest to investigate the cost of "hunting down each section".
->> Depending on the result, we can discuss what the best approach.
->>
-> 
-> Correct me if I'm wrong, the complicated things in assembly you are worried about
-> is that we couldn't define the index for initial sections, no hardcoded to keep simple.
-
-Correct.
-
-> And function write_pr, ik, is really a big chunk of codes, however the logic is simple there,
-> just a bunch of "switch-cases".
-
-I agree that write_pr() is a bunch of switch-cases. But there are a lot 
-of duplication in it and the interface to use it is, IMHO, not intuitive.
-
-> 
-> If we are adding MPU regions in sequence as you suggested, while using bitmap at the
-> same time to record used entry.
-> TBH, this is how I designed at the very beginning internally. We found that if we don't
-> do reorg late-boot to keep fixed in front and switching ones after, each time when we
-> do vcpu context switch, not only we need to hunt down switching ones to disable,
-> while we add new switch-in regions, using bitmap to find free entry is saying that the
-> process is unpredictable. Uncertainty is what we want to avoid in Armv8-R architecture.
-
-I don't understand why it would be unpredictable. For a given 
-combination of platform/device-tree, the bitmap will always look the 
-same. So the number of cycles/instructions will always be the same.
-
-This is not very different from the case where you split the MPU in two 
-because
-
-> 
-> Hmmm, TBH, I really really like your suggestion to put boot-only/switching regions into
-> higher slot. It really saved a lot trouble in late-init reorg and also avoids disabling MPU
-> at the same time. The split is a simple and easy-to-understand construction compared
-> with bitmap too.
-
-I would like to propose another split. I will reply to that in the 
-thread where you provided the MPU layout.
-
-Cheers,
-
--- 
-Julien Grall
+SGkgSnVsaWVuLA0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEp1bGll
+biBHcmFsbCA8anVsaWVuQHhlbi5vcmc+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjMgMS8zXSB4
+ZW4vYXJtOiBBZGQgbWVtb3J5IG92ZXJsYXAgY2hlY2sgZm9yDQo+IGJvb3RpbmZvLnJlc2VydmVk
+X21lbQ0KPiA+IEkgd2lsbCBmaXggdGhpcyBwYXRjaCBhbmQgIzIgaW4gdjQuDQo+IA0KPiBJIGFt
+IGhhcHB5IHRvIGRlYWwgd2l0aCBpdCBvbiBjb21taXQgaWYgeW91IHdhbnQuDQoNCkluY2x1ZGlu
+ZyBhZGRpbmcgdGhlIGNvbW1lbnQgZm9yIGJvdGggcGF0Y2hlcz8gVGhpcyB3b3VsZCBiZSB3b25k
+ZXJmdWwNCmFuZCB2ZXJ5IG5pY2Ugb2YgeW91IHRvIGRvIHRoYXQuIEJ1dCBpZiB5b3VyIHRpbWUg
+aXMgbGltaXRlZCBJIGFtIGFsc28gbW9yZQ0KdGhhbiBoYXBweSB0byByZXNwaW4gdGhlIHBhdGNo
+IChwcm9iYWJseSBldmVuIHdpdGggU3RlZmFubydzIFJldmlld2VkLWJ5DQp0YWcgaWYgaGUgaXMg
+b2sgd2l0aCBpdCkgdG8gcmVkdWNlIHlvdXIgYnVyZGVuLiBUaGF0IHNhaWQsIGlmIEkgbmVlZCB0
+byByZXNwaW4gdGhlDQpwYXRjaCwgaXQgd291bGQgYmUgZ29vZCB0byBnZXQgc29tZSBoaW50cyBh
+Ym91dCB0aGUgd29yZGluZyBvZiB0aGUgY29tbWVudHMNCnRvIGF2b2lkIGFub3RoZXIgdisxIGp1
+c3QgYmVjYXVzZSBvZiBteSBpbmFjY3VyYXRlIHdvcmRpbmcgOikgVGhhbmtzIHZlcnkNCm11Y2gh
+DQoNCktpbmQgcmVnYXJkcywNCkhlbnJ5DQoNCj4gDQo+IENoZWVycywNCj4gDQo+IC0tDQo+IEp1
+bGllbiBHcmFsbA0K
 
