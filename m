@@ -2,29 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AF7E6838A8
+	by mail.lfdr.de (Postfix) with ESMTPS id 64A726838A9
 	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 22:30:09 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487845.755567 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.487849.755610 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMyC4-0000UY-NA; Tue, 31 Jan 2023 21:29:32 +0000
+	id 1pMyC8-0001VX-8o; Tue, 31 Jan 2023 21:29:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487845.755567; Tue, 31 Jan 2023 21:29:32 +0000
+Received: by outflank-mailman (output) from mailman id 487849.755610; Tue, 31 Jan 2023 21:29:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMyC4-0000Pl-GI; Tue, 31 Jan 2023 21:29:32 +0000
-Received: by outflank-mailman (input) for mailman id 487845;
- Tue, 31 Jan 2023 21:29:30 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pMyC7-0001PN-UY; Tue, 31 Jan 2023 21:29:35 +0000
+Received: by outflank-mailman (input) for mailman id 487849;
+ Tue, 31 Jan 2023 21:29:33 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=qwjI=54=citrix.com=prvs=3886215e8=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pMyC2-0000Nb-NH
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 21:29:30 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 55eb48d0-a1ae-11ed-933c-83870f6b2ba8;
- Tue, 31 Jan 2023 22:29:28 +0100 (CET)
+ id 1pMyC5-0000Nm-Kb
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 21:29:33 +0000
+Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
+ [216.71.145.142]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 58685249-a1ae-11ed-b63b-5f92e7d2e73a;
+ Tue, 31 Jan 2023 22:29:31 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,53 +36,62 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 55eb48d0-a1ae-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 58685249-a1ae-11ed-b63b-5f92e7d2e73a
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675200568;
+  d=citrix.com; s=securemail; t=1675200571;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=Epp3wFTJjIGliIjbWr7uyY/q1naoD6A5ExyqnrFK5rI=;
-  b=UJUr2HlDbZcKqqNgMq7dcLaPSyT+kXj+eeYjDK03mMc1fylKIMJ91E1y
-   TaCNb/sumgXKP+nVlPEe2xdRk53pUKRw01M9gA7M6QMpBLI+LyZCY6qQC
-   eKpIF+bQGFDtYfCUrJFlVkh6B2hfxOLNL7ya53W/Kst+FxGF+K/Fs+6yL
-   M=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+  bh=D6fomBGSmJOQ8kYSoARFYZfJ7J0cbqAWh1IAdPyYhsE=;
+  b=JYEzherDJoTOePts40n4Aw3VyqbG07cKdW3/nIiXhQDQl4rtz2h72RNi
+   PL75zCAHkKhjEVHCL41hn6+/1ve1Xfp2v5iOkk7UP2tD4wymOE25Z025/
+   vQcXVrnvZa+PdpAgj8BOfli07zt620i73jBCXIWNkrrA5xeZQaVIQjE/c
+   k=;
+Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
 X-SBRS: 4.0
-X-MesageID: 95024398
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
+X-MesageID: 95499181
+X-Ironport-Server: esa1.hc3370-68.iphmx.com
 X-Remote-IP: 162.221.156.123
 X-Policy: $RELAYED
-IronPort-Data: A9a23:V4+TD6+/ZY02RbRFWKniDrUDgX6TJUtcMsCJ2f8bNWPcYEJGY0x3m
- GRJCz2Gb/iCYGX3fIwgOYiw9UkA6JeByNRrGlNlpSs8E34SpcT7XtnIdU2Y0wF+jCHgZBk+s
- 5hBMImowOQcFCK0SsKFa+C5xZVE/fjUAOG6UKucYHsZqTZMEE8JkQhkl/MynrlmiN24BxLlk
- d7pqojUNUTNNwRcawr40Ire7kIw1BjOkGlA5AdmPKsS5AS2e0Q9V/rzG4ngdxMUfaEMdgKKb
- 76r5K20+Grf4yAsBruN+losWhRXKlJ6FVHmZkt+A8BOsDAbzsAB+v9T2M4nQVVWk120c+VZk
- 72hg3ASpTABZcUgkMxFO/VR/roX0aduoNcrKlDn2SCfItGvn9IBDJyCAWlvVbD09NqbDkkUy
- u0nARFdLSqioMmR4ZeHavlmoMcKeZyD0IM34hmMzBncBPciB5vCX7/L9ZlT2zJYasJmRKiEI
- ZBDMHw2MUqGOkcUUrsUIMtWcOOAr3/zaTBH7nmSorI6+TP7xw1tyrn9dtHSf7RmQO0Ewx7C+
- jmXrwwVBDlACIyBxheP60umj96I3gDhVLIfL4ano6sCbFq7mTVIVUx+uUGAiem0jAuyVsxSL
- 2QQ+zEytu4i+UqzVN7/Uhak5nmesXY0V9NOHsUg5QqKy66S5ByWblXoVRYYNoZg7pVvA2V3i
- BnQxYiB6SFTXKO9E02MyZ61/XCIGA8+Ck4nWQ8URy0Gyoy2yG0stS7nQtFmGa+zq9T6HzDs3
- jyHxBQDa6UvYd0jjPviow2e6964jt2QF1NuuF2LNo6wxlkhDLNJcbBE/rQyARxoCI+CBmeMs
- 3Ef8yR1xLBfVMrd/MBhrQhkIV1I2xpnGGeE6bKMN8N7n9hIx5JEVd443d2GDB01WvvogBewC
- KMphStf5YVIIFyhZrJtboS6BqwClPa/SI20DqiMM4AUPfCdkTNrGwk3NSatM53FyhBwwcnTx
- 7/EGSpTMZrqIfs+l2fnLwvs+bQq2jo/1QvuqWPTlnyaPU6lTCfNE98taQLeBt3VGYvY+G05B
- f4DbZrVo/ieOcWiChTqHXk7dglWcyNkWMys+6S6tIere2JbJY3oMNeJqZtJRmCvt/09ejvgl
- p1lZnJl9Q==
-IronPort-HdrOrdr: A9a23:9jBw2K20Bzub96R4VOQEwAqjBEgkLtp133Aq2lEZdPU0SKGlfg
- 6V/MjztCWE7Ar5PUtLpTnuAsa9qB/nm6KdgrNhWItKPjOW21dARbsKheffKlXbcBEWndQtt5
- uIHZIeNDXxZ2IK8PoT4mODYqodKA/sytHWuQ/cpU0dMz2Dc8tbnmBE4p7wKDwMeOFBb6BJcq
- a01458iBeLX28YVci/DmltZZm4mzWa/KiWGCLvHnQcmXGzsQ8=
+IronPort-Data: A9a23:UaIn26Dp78IZrxVW/yjjw5YqxClBgxIJ4kV8jS/XYbTApG8ghmNWy
+ TcbCG+EOvyDYmOgL4t1O4Ti9RsHuZ/Wm9M1QQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nNHuCnYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtMpvlDs15K6p4GpD5wRlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIw0/5SWVMJ1
+ +IhMTkAYjTY28uE8qOCY7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTILs4kP2lmT/UdDpApUjOjaE2/3LS3Ep6172F3N/9K4HWFJQMzh/wS
+ mTu2zrFWkslF8Wl8BWZ8m6QivTwwy3UcddHfFG/3qEz2wDCroAJMzUGWF3+rfSnh0qWX9NEN
+ 1dS6icotbI19kGgUp/6RRLQiHKNoBM0QddbFOw+rgaXxcLpDx2xXzZeCGQbMZp/6ZFwHGZxv
+ rOUoz/3LRV3leWnDlCDz66doD+WYnQ8H10TXAZRGGPp/OLfiI00ixvOSPNqH6i0ksD5FFnM/
+ tyakMQtr+5N1JBWjs1X6XiC2mvx/caREmbZ8y2NBgqYAhVFiJlJjmBCwXzS9r5+IYmQVTFtV
+ 1BUypHFvIji4Xxg/RFhodnh/pnzv55p0xWG2zaD+qXNEBzzk0NPhagKvFlDyL5Ba67ogwPBb
+ k7Joh9275ROJnasZqIfS9vvVJlznPC4TYm/DK+8gj9yjn9ZLV/vwc2TTRTIgzCFfLYEzsnTx
+ qt3ge7zVC1HWMyLPRK9RvsH0K9D+8zN7Tq7eHwP9Dz+ieD2TCfMGd843K6mMrhRAFWs/F+Er
+ L6y9qKil31ibQEJSnKOrdBIcg1WdyhT6FKfg5U/S9Nv6zFOQAkJY8I9C5t4E2C5t8y5Ttv1w
+ 0w=
+IronPort-HdrOrdr: A9a23:6YTmlaFIAcvJGvc6pLqF8ZLXdLJyesId70hD6qkvc3Fom52j/f
+ xGws5x6fatskdoZJkh8erhBEDyewKmyXcV2/hZAV7MZniDhILFFu9fBM7ZskTd8k7Fh6ZgPM
+ VbAs9D4bTLZDAX4voSojPIderIq+P3k5xA8N2uqkuFOjsaCZ2IgT0ZNi+rVmlNACVWD5swE5
+ SRouJBujqbYHwSKuirG3UfWODHhtvT0LbrewQPCRIL4BSHyWrA0s+xLzGomjMlFx9fy7Yr9m
+ bI1yT/+6WYqvm+jjPMymPJ6JxSud35jv9OHtaFhMQ5IijlziyoeINicbufuy1dmpDl1H8a1P
+ 335zswNcV67H3cOkuvpwH25gXm2DEyr1f/1F6xmxLY0IDEbQN/L/AEqZNScxPf5UZllsp7yr
+ h302WQsIcSJQ/cnR76+8PDW3hR5wWJSDsZ4KAuZk5kIMsjgYxq3M8iFYRuYdU99RfBmcEa+S
+ 9VfYThDbhtABenhjvizxNSKZSXLwkO91G9MwU/U4WuokRrtWE8wE0CyMMFmHAcsJo7Vplf/u
+ zBdr9ljbdUU6YtHNZA7co6MLmK41b2MGfxGXPXJU6iGLAMOnrLpZKy6LIp5PuycJhNyJcpgp
+ zOXF5RqGZ3IivVeLuz9YwO9gqITHS2XDzrxM0b759luqfkTL6uNSGYUlghn8apvv1aCMzGXP
+ S4Po5QHpbYXBzTMJcM2xe7V4hZKHEYXsFQstEnW0iWqsaOMYHuvvyzSoehGFMsK0dVZorSOA
+ pzYNGoHrQ+0qmCYA6HvCTs
 X-IronPort-AV: E=Sophos;i="5.97,261,1669093200"; 
-   d="scan'208";a="95024398"
+   d="scan'208";a="95499181"
 From: Andrew Cooper <andrew.cooper3@citrix.com>
 To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: =?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>, Rob Hoes <Rob.Hoes@citrix.com>
-Subject: [PATCH 3/7] tools/ocaml/evtchn: Don't reference Custom objects with the GC lock released
-Date: Tue, 31 Jan 2023 21:29:09 +0000
-Message-ID: <20230131212913.6199-4-andrew.cooper3@citrix.com>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Christian Lindig
+	<christian.lindig@citrix.com>, David Scott <dave@recoil.org>,
+	=?UTF-8?q?Edwin=20T=C3=B6r=C3=B6k?= <edwin.torok@cloud.com>, Rob Hoes
+	<Rob.Hoes@citrix.com>
+Subject: [PATCH 4/7] tools/ocaml/evtchn: Misc cleanup
+Date: Tue, 31 Jan 2023 21:29:10 +0000
+Message-ID: <20230131212913.6199-5-andrew.cooper3@citrix.com>
 X-Mailer: git-send-email 2.11.0
 In-Reply-To: <20230131212913.6199-1-andrew.cooper3@citrix.com>
 References: <20230131212913.6199-1-andrew.cooper3@citrix.com>
@@ -90,33 +99,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-From: Edwin Török <edwin.torok@cloud.com>
+ * Remove local integers when all we're returning is Val_int() of another
+   variable.  The CAMLlocal*() can't be optimised automatically, as it's
+   registered with the GC.
+ * Rename "virq_type" to "virq" and "_port" to "port".
+ * In stub_eventchn_pending(), rename 'port' to 'rc', to be consistent with
+   all other stubs that return xenevtchn_port_or_error_t.
+ * In stub_eventchn_unmask(), check for rc == -1 to be consistent with all
+   other stubs.
 
-The modification to the _H() macro for Ocaml 5 support introduced a subtle
-bug.  From the manual:
+No practical change.
 
-  https://ocaml.org/manual/intfc.html#ss:parallel-execution-long-running-c-code
-
-"After caml_release_runtime_system() was called and until
-caml_acquire_runtime_system() is called, the C code must not access any OCaml
-data, nor call any function of the run-time system, nor call back into OCaml
-code."
-
-Previously, the value was a naked C pointer, so dereferencing it wasn't
-"accessing any Ocaml data", but the fix to avoid naked C pointers added a
-layer of indirection through an Ocaml Custom object, meaning that the common
-pattern of using _H() in a blocking section is unsafe.
-
-In order to fix:
-
- * Drop the _H() macro and replace it with a static inline xce_of_val().
- * Opencode the assignment into Data_custom_val() in the two constructors.
- * Rename "value xce" parameters to "value xce_val" so we can consistently
-   have "xenevtchn_handle *xce" on the stack, and obtain the pointer with the
-   GC lock still held.
-
-Fixes: 22d5affdf0ce ("tools/ocaml/evtchn: OCaml 5 support, fix potential resource leak")
-Signed-off-by: Edwin Török <edwin.torok@cloud.com>
 Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
 ---
 CC: Christian Lindig <christian.lindig@citrix.com>
@@ -124,178 +117,123 @@ CC: David Scott <dave@recoil.org>
 CC: Edwin Török <edwin.torok@cloud.com>
 CC: Rob Hoes <Rob.Hoes@citrix.com>
 ---
- tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 60 ++++++++++++++++-----------
- 1 file changed, 35 insertions(+), 25 deletions(-)
+ tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 45 +++++++++++----------------
+ 1 file changed, 18 insertions(+), 27 deletions(-)
 
 diff --git a/tools/ocaml/libs/eventchn/xeneventchn_stubs.c b/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
-index aa8a69cc1ecb..d7881ca95f98 100644
+index d7881ca95f98..34dcfed30275 100644
 --- a/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
 +++ b/tools/ocaml/libs/eventchn/xeneventchn_stubs.c
-@@ -33,11 +33,14 @@
- #include <caml/fail.h>
- #include <caml/signals.h>
- 
--#define _H(__h) (*((xenevtchn_handle **)Data_custom_val(__h)))
-+static inline xenevtchn_handle *xce_of_val(value v)
-+{
-+	return *(xenevtchn_handle **)Data_custom_val(v);
-+}
- 
- static void stub_evtchn_finalize(value v)
+@@ -98,17 +98,15 @@ CAMLprim value stub_eventchn_fdopen(value fdval)
+ CAMLprim value stub_eventchn_fd(value xce_val)
  {
--	xenevtchn_close(_H(v));
-+	xenevtchn_close(xce_of_val(v));
- }
- 
- static struct custom_operations xenevtchn_ops = {
-@@ -68,7 +71,7 @@ CAMLprim value stub_eventchn_init(value cloexec)
- 		caml_failwith("open failed");
- 
- 	result = caml_alloc_custom(&xenevtchn_ops, sizeof(xce), 0, 1);
--	_H(result) = xce;
-+	*(xenevtchn_handle **)Data_custom_val(result) = xce;
- 
- 	CAMLreturn(result);
- }
-@@ -87,18 +90,19 @@ CAMLprim value stub_eventchn_fdopen(value fdval)
- 		caml_failwith("evtchn fdopen failed");
- 
- 	result = caml_alloc_custom(&xenevtchn_ops, sizeof(xce), 0, 1);
--	_H(result) = xce;
-+	*(xenevtchn_handle **)Data_custom_val(result) = xce;
- 
- 	CAMLreturn(result);
- }
- 
--CAMLprim value stub_eventchn_fd(value xce)
-+CAMLprim value stub_eventchn_fd(value xce_val)
- {
--	CAMLparam1(xce);
-+	CAMLparam1(xce_val);
- 	CAMLlocal1(result);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
+ 	CAMLparam1(xce_val);
+-	CAMLlocal1(result);
+ 	xenevtchn_handle *xce = xce_of_val(xce_val);
  	int fd;
  
--	fd = xenevtchn_fd(_H(xce));
-+	fd = xenevtchn_fd(xce);
++	/* Don't drop the GC lock.  This is a simple read out of memory */
+ 	fd = xenevtchn_fd(xce);
  	if (fd == -1)
  		caml_failwith("evtchn fd failed");
  
-@@ -107,13 +111,14 @@ CAMLprim value stub_eventchn_fd(value xce)
- 	CAMLreturn(result);
+-	result = Val_int(fd);
+-
+-	CAMLreturn(result);
++	CAMLreturn(Val_int(fd));
  }
  
--CAMLprim value stub_eventchn_notify(value xce, value port)
-+CAMLprim value stub_eventchn_notify(value xce_val, value port)
- {
--	CAMLparam2(xce, port);
-+	CAMLparam2(xce_val, port);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
- 	int rc;
- 
- 	caml_enter_blocking_section();
--	rc = xenevtchn_notify(_H(xce), Int_val(port));
-+	rc = xenevtchn_notify(xce, Int_val(port));
- 	caml_leave_blocking_section();
- 
- 	if (rc == -1)
-@@ -122,15 +127,16 @@ CAMLprim value stub_eventchn_notify(value xce, value port)
- 	CAMLreturn(Val_unit);
- }
- 
--CAMLprim value stub_eventchn_bind_interdomain(value xce, value domid,
-+CAMLprim value stub_eventchn_bind_interdomain(value xce_val, value domid,
+ CAMLprim value stub_eventchn_notify(value xce_val, value port)
+@@ -131,37 +129,34 @@ CAMLprim value stub_eventchn_bind_interdomain(value xce_val, value domid,
                                                value remote_port)
  {
--	CAMLparam3(xce, domid, remote_port);
-+	CAMLparam3(xce_val, domid, remote_port);
- 	CAMLlocal1(port);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
+ 	CAMLparam3(xce_val, domid, remote_port);
+-	CAMLlocal1(port);
+ 	xenevtchn_handle *xce = xce_of_val(xce_val);
  	xenevtchn_port_or_error_t rc;
  
  	caml_enter_blocking_section();
--	rc = xenevtchn_bind_interdomain(_H(xce), Int_val(domid), Int_val(remote_port));
-+	rc = xenevtchn_bind_interdomain(xce, Int_val(domid), Int_val(remote_port));
+-	rc = xenevtchn_bind_interdomain(xce, Int_val(domid), Int_val(remote_port));
++	rc = xenevtchn_bind_interdomain(xce, Int_val(domid),
++					Int_val(remote_port));
  	caml_leave_blocking_section();
  
  	if (rc == -1)
-@@ -140,14 +146,15 @@ CAMLprim value stub_eventchn_bind_interdomain(value xce, value domid,
- 	CAMLreturn(port);
+ 		caml_failwith("evtchn bind_interdomain failed");
+-	port = Val_int(rc);
+ 
+-	CAMLreturn(port);
++	CAMLreturn(Val_int(rc));
  }
  
--CAMLprim value stub_eventchn_bind_virq(value xce, value virq_type)
-+CAMLprim value stub_eventchn_bind_virq(value xce_val, value virq_type)
+-CAMLprim value stub_eventchn_bind_virq(value xce_val, value virq_type)
++CAMLprim value stub_eventchn_bind_virq(value xce_val, value virq)
  {
--	CAMLparam2(xce, virq_type);
-+	CAMLparam2(xce_val, virq_type);
- 	CAMLlocal1(port);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
+-	CAMLparam2(xce_val, virq_type);
+-	CAMLlocal1(port);
++	CAMLparam2(xce_val, virq);
+ 	xenevtchn_handle *xce = xce_of_val(xce_val);
  	xenevtchn_port_or_error_t rc;
  
  	caml_enter_blocking_section();
--	rc = xenevtchn_bind_virq(_H(xce), Int_val(virq_type));
-+	rc = xenevtchn_bind_virq(xce, Int_val(virq_type));
+-	rc = xenevtchn_bind_virq(xce, Int_val(virq_type));
++	rc = xenevtchn_bind_virq(xce, Int_val(virq));
  	caml_leave_blocking_section();
  
  	if (rc == -1)
-@@ -157,13 +164,14 @@ CAMLprim value stub_eventchn_bind_virq(value xce, value virq_type)
- 	CAMLreturn(port);
+ 		caml_failwith("evtchn bind_virq failed");
+-	port = Val_int(rc);
+ 
+-	CAMLreturn(port);
++	CAMLreturn(Val_int(rc));
  }
  
--CAMLprim value stub_eventchn_unbind(value xce, value port)
-+CAMLprim value stub_eventchn_unbind(value xce_val, value port)
+ CAMLprim value stub_eventchn_unbind(value xce_val, value port)
+@@ -183,35 +178,31 @@ CAMLprim value stub_eventchn_unbind(value xce_val, value port)
+ CAMLprim value stub_eventchn_pending(value xce_val)
  {
--	CAMLparam2(xce, port);
+ 	CAMLparam1(xce_val);
+-	CAMLlocal1(result);
+ 	xenevtchn_handle *xce = xce_of_val(xce_val);
+-	xenevtchn_port_or_error_t port;
++	xenevtchn_port_or_error_t rc;
+ 
+ 	caml_enter_blocking_section();
+-	port = xenevtchn_pending(xce);
++	rc = xenevtchn_pending(xce);
+ 	caml_leave_blocking_section();
+ 
+-	if (port == -1)
++	if (rc == -1)
+ 		caml_failwith("evtchn pending failed");
+-	result = Val_int(port);
+ 
+-	CAMLreturn(result);
++	CAMLreturn(Val_int(rc));
+ }
+ 
+-CAMLprim value stub_eventchn_unmask(value xce_val, value _port)
++CAMLprim value stub_eventchn_unmask(value xce_val, value port)
+ {
+-	CAMLparam2(xce_val, _port);
 +	CAMLparam2(xce_val, port);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
+ 	xenevtchn_handle *xce = xce_of_val(xce_val);
+-	evtchn_port_t port;
  	int rc;
  
+-	port = Int_val(_port);
+-
  	caml_enter_blocking_section();
--	rc = xenevtchn_unbind(_H(xce), Int_val(port));
-+	rc = xenevtchn_unbind(xce, Int_val(port));
+-	rc = xenevtchn_unmask(xce, port);
++	rc = xenevtchn_unmask(xce, Int_val(port));
  	caml_leave_blocking_section();
  
- 	if (rc == -1)
-@@ -172,14 +180,15 @@ CAMLprim value stub_eventchn_unbind(value xce, value port)
+-	if (rc)
++	if (rc == -1)
+ 		caml_failwith("evtchn unmask failed");
++
  	CAMLreturn(Val_unit);
  }
- 
--CAMLprim value stub_eventchn_pending(value xce)
-+CAMLprim value stub_eventchn_pending(value xce_val)
- {
--	CAMLparam1(xce);
-+	CAMLparam1(xce_val);
- 	CAMLlocal1(result);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
- 	xenevtchn_port_or_error_t port;
- 
- 	caml_enter_blocking_section();
--	port = xenevtchn_pending(_H(xce));
-+	port = xenevtchn_pending(xce);
- 	caml_leave_blocking_section();
- 
- 	if (port == -1)
-@@ -189,16 +198,17 @@ CAMLprim value stub_eventchn_pending(value xce)
- 	CAMLreturn(result);
- }
- 
--CAMLprim value stub_eventchn_unmask(value xce, value _port)
-+CAMLprim value stub_eventchn_unmask(value xce_val, value _port)
- {
--	CAMLparam2(xce, _port);
-+	CAMLparam2(xce_val, _port);
-+	xenevtchn_handle *xce = xce_of_val(xce_val);
- 	evtchn_port_t port;
- 	int rc;
- 
- 	port = Int_val(_port);
- 
- 	caml_enter_blocking_section();
--	rc = xenevtchn_unmask(_H(xce), port);
-+	rc = xenevtchn_unmask(xce, port);
- 	caml_leave_blocking_section();
- 
- 	if (rc)
 -- 
 2.11.0
 
