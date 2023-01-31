@@ -2,39 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7EC86828EC
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:34:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487480.755124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48568682933
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:42:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487489.755134 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMn27-0000RW-1V; Tue, 31 Jan 2023 09:34:31 +0000
+	id 1pMn9Q-0002Jj-Ti; Tue, 31 Jan 2023 09:42:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487480.755124; Tue, 31 Jan 2023 09:34:31 +0000
+Received: by outflank-mailman (output) from mailman id 487489.755134; Tue, 31 Jan 2023 09:42:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMn26-0000Po-UG; Tue, 31 Jan 2023 09:34:30 +0000
-Received: by outflank-mailman (input) for mailman id 487480;
- Tue, 31 Jan 2023 09:34:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pMn9Q-0002Gq-Qc; Tue, 31 Jan 2023 09:42:04 +0000
+Received: by outflank-mailman (input) for mailman id 487489;
+ Tue, 31 Jan 2023 09:42:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=nz19=54=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pMn25-0000Pi-Ii
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 09:34:29 +0000
-Received: from EUR02-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur02on2041.outbound.protection.outlook.com [40.107.241.41])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 75146907-a14a-11ed-933c-83870f6b2ba8;
- Tue, 31 Jan 2023 10:34:28 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8478.eurprd04.prod.outlook.com (2603:10a6:10:2c4::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.33; Tue, 31 Jan
- 2023 09:34:26 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::2991:58a4:e308:4389%7]) with mapi id 15.20.6043.038; Tue, 31 Jan 2023
- 09:34:26 +0000
+ (envelope-from <julien@xen.org>) id 1pMn9P-0002Gk-2z
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 09:42:03 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMn9O-0005yZ-OF; Tue, 31 Jan 2023 09:42:02 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.14.74]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMn9N-0003LQ-N3; Tue, 31 Jan 2023 09:42:02 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -46,120 +39,403 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 75146907-a14a-11ed-933c-83870f6b2ba8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ODIHzNUxNeNKibGytfkT/fU5kSu6KsFYiimQC+qA0LY7TuAx7j7eisWScaMcKJwQb+HxF9vdgTKZaBehz/8IAWol1XontBPMyjOb2gl5GfkGBSEnrt4eo2Zs84PteEZjWctPzojn7TY4kT8rz423JL98Ix4Vaa30Fwigiy0UcVgK4+GdtWEM0B1u/CaPMCcOwpF9vPOTk2SgBpPgVeMP91W7JqesyDCt0+VrdCEgmw7wEeLAdPTw6jQwJYw5Kvh4989vEfnMpP0DMDeGQsOANjKO4jpogga12i224Jk5SymU7siR5Uh3sT3xnpLyvGBhxE5lGxC8HZpt8K2u2kZ8xg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z+PlCKXgtw66fgXDbozMa0qLuW7sUDRE/I1XW0+CKPg=;
- b=VsMFxG4zcga4qWvn97xvr7hqqfi3GPBQPtP2bGfwPSmU/LE+jGbRXwPA3xXQFHcJjlPECJKnpgEwqMuswlAp/BXWBPzgpQY7HGhOhZfQNeGhs2Sa/u3r3k5t9riRIpZoJrbcGTBA+EOJsaoM3SosZriNF3yXoh9W2yzGkmg+n7M1msmAw86VY5hHM/vh7KcHtuH1a4XvubK4YF/6ESWc4I2FdyMOGHXwVF3bguOr1eqo/QdqZBxXqgpKMzIEiwup+VDJD/4m5n06je0K9jPFQYES7nqrYqpftSV1ohFOZOoF/V9VxptE028WOH74B1e48ntGX02PmGuvzOEYG5Q9fw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z+PlCKXgtw66fgXDbozMa0qLuW7sUDRE/I1XW0+CKPg=;
- b=JIq1topNSojTmk3AEVNArAD5+BIfjC10WZgDaqKMBOZvqmWFpCMRjJ//appJ4NA3sMr4O0OoDLDGaXHFfX/OMMdtmPLqHuL0Amp7xiz31PMNy5SCLqoPPZlrp+LO2+44b/dwGxKwqrsoCbZAPt6sPqxqp+9D6aoTEKHD9eM2B+iDG2XTjlJTJ1iQLM3uiBMIb3g3murtFMjvTRqTA1eIN9JjDFDp9M26XrHfsoZ1gLidi1a8Q5SVLOtXHLo/l0ZNfkRb5KNcvFJVFWM0zV8xpBk5HxptOA9FIQ9Mf8bWMgrp+ZQHSqRM1Bmq7sV3M6QWVTxivY9m5WGuSrUppgw6dA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <9dc52d71-4148-0c16-d153-3ebcd1a9c754@suse.com>
-Date: Tue, 31 Jan 2023 10:34:24 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [PATCH] xen/common: rwlock: Constify the parameter of
- _rw_is{,_write}_locked()
-Content-Language: en-US
-To: Julien Grall <julien@xen.org>
-Cc: Julien Grall <jgrall@amazon.com>,
- Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <20230130182858.86886-1-julien@xen.org>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230130182858.86886-1-julien@xen.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0059.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:93::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=eApX0SiPJqBG8PjynyliWGtRgSgyc8CP81OtRv2OCSo=; b=JgbFBTR27UpQj3kY4mBHLKz3pz
+	pYA6eiJUU3asEEq6ZEDScyPseYC312fh0b9mDg/szPz1cdy+VQhMw2I9eMgZnZRNWbYIm/5G0nGXg
+	UnGr3VPCzU7FlFbk8ilsrOT5ylSMiQxgN42PtC2xkHSgvajtocNm5i7wZTjk558sRVAc=;
+Message-ID: <14f9c89a-6eea-204e-cd1b-6bc1cca99716@xen.org>
+Date: Tue, 31 Jan 2023 09:41:59 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8478:EE_
-X-MS-Office365-Filtering-Correlation-Id: da0cab7e-2aee-405f-8b01-08db036e5821
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	5+3HFUygyOI/zXDQT7zabEmUFYLbE1z5aa8htR9mom/P1TA5tVjF6LC9pAurtnoP23WAu6PV+w0UZzKSgeTDHFmhOXjkANlAOHtj4hLExJsa8kzxz5PzPExzC2tsmNBEax0E5sjd3sfvWcmcThf+4cx7dqe7YJjRcJxIA8SHqL5Gd2/zR/DPsgFWUU1+vDorAH+uoTuEdC3e6tQdcLVitClviuwHn4T/vy2KIWNl+N9mWKSAqWx0Qdxvsr2l2Ox7ADgHtOzIOy/Km1rbMG/mq/d+4IS1rrcM16YqCGfSaOS9GDzerrTEUhgTp8QY6NrDin4AE2BssSE45t7bIXsB/4Jj239/IxZ2mRPXNXxXG6hooz5NBVm6o2bi6NdgsgUICBf2Y7Im6wTw6CtFHA4VKE2HMR1b1w6BxBNg0LWcJiitelYGXpm/7EZ3M0JPVO/Xp5izKU0nVPQRZ9Cd+y8KYIEGmmQzaxrmJ09gDqW/clFDvODhWWh/ICBH1j2DxV+idzNwbb53JUW2YREebwssVTHFPrOdVXZpREkFx34mmF0H9EbgKEvB4oOL2Wh3BeCnpQ4xdtWxeEokqCRH+QaFYMbXimIZk0rq4B3rTXn1W+1CHnIab4qK221Jsd4sG2ixQHYpc91Ehdw7+00KWBJTtC01pFsUNOVrARCaG7UF1xYAqeN3k9A4vF8vC0bqzLebFpeQv3kCPaRlsmKdVYyCAnsOpA69h21pbCxu4fd2wnw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(396003)(366004)(376002)(136003)(346002)(39860400002)(451199018)(4326008)(6916009)(66556008)(66946007)(66476007)(41300700001)(8936002)(8676002)(83380400001)(31686004)(2616005)(6506007)(36756003)(53546011)(54906003)(316002)(31696002)(5660300002)(6512007)(6486002)(186003)(4744005)(2906002)(26005)(86362001)(38100700002)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MUtiWWpyZnFoVmovOFFadlI3ZGNxUjZobFYrdmlvMmJZeXhNdFV4MWdGWUhV?=
- =?utf-8?B?OFdyUHhkaW1BMUhFczJPYityMWpTL0R4YmNiVHVZNlNheU1mYm5mVlZ2UjBE?=
- =?utf-8?B?S2cra00wY0FCc0JkbHdtN1ZXYWxuUnRiektsOUU1eUZ4ZEE2ZFdxN1R6Z2Fv?=
- =?utf-8?B?MmNqZEd5aVIxS2k2VWhJcVZMd1pCODRmRHpLM0RoS2hUYk5IWGtMbURkSUly?=
- =?utf-8?B?NCthQ1BvcTBPejVJNm8yVHJ2MG9MRGc0TWdVOVIvTW5pOTk4NXIxSmlRZnk3?=
- =?utf-8?B?dit3UmhDSG4zM1dVMVFsSmhuMGNrYkRnSXVNTTBqVDl2bWVHdnRWK09zelJi?=
- =?utf-8?B?V0lrYUdpTkgyU3QxTGVKbW12ZUFJNUFxNkVVRjFxQ2RFTG5vWWMyZ2EzTytX?=
- =?utf-8?B?b2dCQzMzaXMxYXl3Y0RTRXpITFNaTDBrU0xzK01VVXovUGVVek1valEvZ2Zp?=
- =?utf-8?B?aUFjbStsT1pSQ0psSG11Qkd3NS9ocmxuWXJLRDl6bXd3aTB4MVNoUSt3S1Jr?=
- =?utf-8?B?ek9vNUFETE1YR0tvQnZBTDFSVFp0bnFtL3gzdVN1L2NwWHV4RjA4cVRtYmtE?=
- =?utf-8?B?SG5tVnRZZUhaL3dxMk1IaHJpbWpGYzRBZnRmSm9xOXFrcVpnS0w4WEowZ21X?=
- =?utf-8?B?aEVBcnFKRU02YTVKZitUcm92SlNkMTkzU1pmcHNQVGh3aGpoL3dwc2ZJbUk2?=
- =?utf-8?B?ZWNIWFNEbkUyaXZYalpsbGpta0oyRWw5WVJFelJRNlZubE9Pa0VPWFNBM0xL?=
- =?utf-8?B?UzFkU255Y1FDaUw3ZVY0eFdyZEp6SERQMWlUcDQwTW0rdkwvUllLNFNIcmdo?=
- =?utf-8?B?RHZCbzJnUXNDWGNTQ3Rsb0t4aG9CaWVFZUJRL2I1VlorZFlFWDRjZFVXaDVD?=
- =?utf-8?B?OWE5bXV4Sm1BNjIvSVJ3bFFaRUV5cXY5UTY3VEFWWHhhMnQwek1YLzNyVzZN?=
- =?utf-8?B?aXNKUFZkbFpJc3phejBub1VjZGpscjcyY0xKaUR1aW44d2h1dmlmb2k4Sjdy?=
- =?utf-8?B?aDVrMkxjWTY0NVdaTnV0MCsrZk9JTS9kaDY2bTVueXhuY2hOQjRLeTBTbyt5?=
- =?utf-8?B?UTFTVUFmaThWTER3UXVuQWsxSUY3N0tzd2U2WmRFZWxpUjQrNkpFcytyaVNK?=
- =?utf-8?B?NjF1dTdVaXNLWGNHV0Nld0lxTlhmR2ZZK3NiYzJMQktlSXcvWUZicHVEVWhr?=
- =?utf-8?B?eDhvM3l0S0VlUUV3aFI1cE1XeURocHpyay83ZEw0cXVkTHpLeU5IdjZRTlBD?=
- =?utf-8?B?dGZ0QzZwYXo4SlRpcWIwT2RCOEVaUHJzSWcwMTFKbjhsYXFDTzFYVExtK3Nm?=
- =?utf-8?B?VjZaUVBqcjZyV2RUdUxZbFV5dnVFMXl1SEt2REVRQjNnc24yNXYySU1OMG50?=
- =?utf-8?B?eE1BZ041NXdJOFB5Y1cvdmdhOWRHWUpDN3dzQ29Fbm15Sll0dU1kdWtlRFB4?=
- =?utf-8?B?cHJRUjRPMlkxUk9LRXowZkdmSVZyOGdSUzY2VnF0V3F2ZDBneThpNkFuVFBP?=
- =?utf-8?B?WTBpelZpRDNUQTR2QXlQdW9LdjNZamJheE1rVEFudlI2MnpiN3JMbVFHZDZG?=
- =?utf-8?B?NExDOGdReFNNMTJtSzNTc0h4UmtsMi9YeXhmQkxsUXV6TGYyZkVzUmpHc1VF?=
- =?utf-8?B?QUg2SjczWmNPSzFXZzRaS2hidWF5c09CWEZpNnhDMDNEd3NSbU80N1dBOXBC?=
- =?utf-8?B?RVdNWkZyQWU4ZmdjK0NXeWhzZkFWc2phQXF5STk4a2F5TFNoTHhvd1h1Rm5l?=
- =?utf-8?B?ZStkV1lYNWFhS29laWFTVkdiTnNOa0JobTBTRHZFNDdmand4V0dNeHBKYVA5?=
- =?utf-8?B?R0oyRmlac1ZqN0tnU1ZnTG5KbUgrSlJCb2E0RWZDMk1rV3RpQm44VHhHRlB1?=
- =?utf-8?B?RE04UVBuaUJoTEFxRWxHUGFaSDdNZ2FuV21CQjllaHpRYW5NL2FOTXE0VzQz?=
- =?utf-8?B?QmZucThuUmJ2by9uZDFocTFrSFFxdWdlZCtkZ05SaC9KRWxhcDhrbXNnTUhQ?=
- =?utf-8?B?OW1ReDJ3dVA4d1h5QzhDb0k2YVU5NDhpRlJ1OHByWVR3bDYwakJ0UVU0cjZM?=
- =?utf-8?B?UEh5OHVDK0FCemNQQmJ2VGJIaURZM2Z6blpKejRtTDRyT3Q0bzArQVB3MW1O?=
- =?utf-8?Q?QCDcmfghNXqtzN5beuL8p4snm?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da0cab7e-2aee-405f-8b01-08db036e5821
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 09:34:26.5279
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Hhco2Uk3YsNVV9Tqlp27Bsp+2A5QHPCiKEg53cR1iumQSrV86FpjEYGF1HpaonQ+O/TxgQMDBI2WU48GceYCEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8478
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
+ setup_early_uart to map early UART
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
+ <20230113052914.3845596-14-Penny.Zheng@arm.com>
+ <23f49916-dd2a-a956-1e6b-6dbb41a8817b@xen.org>
+ <AM0PR08MB4530B7AF6EA406882974D528F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
+ <33bddc11-ae1e-b467-32d7-647748d1c627@xen.org>
+ <AM0PR08MB453026B268BA9FBEEE970090F7D39@AM0PR08MB4530.eurprd08.prod.outlook.com>
+ <49329992-3203-78a7-fc61-d6494e37705c@xen.org>
+ <AM0PR08MB45305D27CA8353162445AE1EF7D09@AM0PR08MB4530.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <AM0PR08MB45305D27CA8353162445AE1EF7D09@AM0PR08MB4530.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 30.01.2023 19:28, Julien Grall wrote:
-> From: Julien Grall <jgrall@amazon.com>
+Hi Penny,
+
+On 31/01/2023 05:38, Penny Zheng wrote:
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Sent: Monday, January 30, 2023 6:00 PM
+>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
+>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+>> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
+>> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
+>> setup_early_uart to map early UART
+>>
+>>
+>>
+>> On 30/01/2023 06:24, Penny Zheng wrote:
+>>> Hi, Julien
+>>
+>> Hi Penny,
+>>
+>>>> -----Original Message-----
+>>>> From: Julien Grall <julien@xen.org>
+>>>> Sent: Sunday, January 29, 2023 3:43 PM
+>>>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-
+>> devel@lists.xenproject.org
+>>>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+>>>> <sstabellini@kernel.org>; Bertrand Marquis
+>>>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+>>>> <Volodymyr_Babchuk@epam.com>
+>>>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
+>>>> setup_early_uart to map early UART
+>>>>
+>>>> Hi Penny,
+>>>>
+>>>> On 29/01/2023 06:17, Penny Zheng wrote:
+>>>>>> -----Original Message-----
+>>>>>> From: Julien Grall <julien@xen.org>
+>>>>>> Sent: Wednesday, January 25, 2023 3:09 AM
+>>>>>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-
+>>>> devel@lists.xenproject.org
+>>>>>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
+>>>>>> <sstabellini@kernel.org>; Bertrand Marquis
+>>>>>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
+>>>>>> <Volodymyr_Babchuk@epam.com>
+>>>>>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
+>>>>>> setup_early_uart to map early UART
+>>>>>>
+>>>>>> Hi Peny,
+>>>>>
+>>>>> Hi Julien,
+>>>>>
+>>>>>>
+>>>>>> On 13/01/2023 05:28, Penny Zheng wrote:
+>>>>>>> In MMU system, we map the UART in the fixmap (when earlyprintk is
+>>>> used).
+>>>>>>> However in MPU system, we map the UART with a transient MPU
+>>>> memory
+>>>>>>> region.
+>>>>>>>
+>>>>>>> So we introduce a new unified function setup_early_uart to replace
+>>>>>>> the previous setup_fixmap.
+>>>>>>>
+>>>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+>>>>>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
+>>>>>>> ---
+>>>>>>>      xen/arch/arm/arm64/head.S               |  2 +-
+>>>>>>>      xen/arch/arm/arm64/head_mmu.S           |  4 +-
+>>>>>>>      xen/arch/arm/arm64/head_mpu.S           | 52
+>>>>>> +++++++++++++++++++++++++
+>>>>>>>      xen/arch/arm/include/asm/early_printk.h |  1 +
+>>>>>>>      4 files changed, 56 insertions(+), 3 deletions(-)
+>>>>>>>
+>>>>>>> diff --git a/xen/arch/arm/arm64/head.S
+>> b/xen/arch/arm/arm64/head.S
+>>>>>>> index 7f3f973468..a92883319d 100644
+>>>>>>> --- a/xen/arch/arm/arm64/head.S
+>>>>>>> +++ b/xen/arch/arm/arm64/head.S
+>>>>>>> @@ -272,7 +272,7 @@ primary_switched:
+>>>>>>>               * afterwards.
+>>>>>>>               */
+>>>>>>>              bl    remove_identity_mapping
+>>>>>>> -        bl    setup_fixmap
+>>>>>>> +        bl    setup_early_uart
+>>>>>>>      #ifdef CONFIG_EARLY_PRINTK
+>>>>>>>              /* Use a virtual address to access the UART. */
+>>>>>>>              ldr   x23, =EARLY_UART_VIRTUAL_ADDRESS
+>>>>>>> diff --git a/xen/arch/arm/arm64/head_mmu.S
+>>>>>>> b/xen/arch/arm/arm64/head_mmu.S index b59c40495f..a19b7c873d
+>>>>>> 100644
+>>>>>>> --- a/xen/arch/arm/arm64/head_mmu.S
+>>>>>>> +++ b/xen/arch/arm/arm64/head_mmu.S
+>>>>>>> @@ -312,7 +312,7 @@ ENDPROC(remove_identity_mapping)
+>>>>>>>       *
+>>>>>>>       * Clobbers x0 - x3
+>>>>>>>       */
+>>>>>>> -ENTRY(setup_fixmap)
+>>>>>>> +ENTRY(setup_early_uart)
+>>>>>>
+>>>>>> This function is doing more than enable the early UART. It also
+>>>>>> setups the fixmap even earlyprintk is not configured.
+>>>>>
+>>>>> True, true.
+>>>>> I've thoroughly read the MMU implementation of setup_fixmap, and
+>>>>> I'll try to split it up.
+>>>>>
+>>>>>>
+>>>>>> I am not entirely sure what could be the name. Maybe this needs to
+>>>>>> be split further.
+>>>>>>
+>>>>>>>      #ifdef CONFIG_EARLY_PRINTK
+>>>>>>>              /* Add UART to the fixmap table */
+>>>>>>>              ldr   x0, =EARLY_UART_VIRTUAL_ADDRESS
+>>>>>>> @@ -325,7 +325,7 @@ ENTRY(setup_fixmap)
+>>>>>>>              dsb   nshst
+>>>>>>>
+>>>>>>>              ret
+>>>>>>> -ENDPROC(setup_fixmap)
+>>>>>>> +ENDPROC(setup_early_uart)
+>>>>>>>
+>>>>>>>      /* Fail-stop */
+>>>>>>>      fail:   PRINT("- Boot failed -\r\n")
+>>>>>>> diff --git a/xen/arch/arm/arm64/head_mpu.S
+>>>>>>> b/xen/arch/arm/arm64/head_mpu.S index e2ac69b0cc..72d1e0863d
+>>>>>> 100644
+>>>>>>> --- a/xen/arch/arm/arm64/head_mpu.S
+>>>>>>> +++ b/xen/arch/arm/arm64/head_mpu.S
+>>>>>>> @@ -18,8 +18,10 @@
+>>>>>>>      #define REGION_TEXT_PRBAR       0x38    /* SH=11 AP=10 XN=00 */
+>>>>>>>      #define REGION_RO_PRBAR         0x3A    /* SH=11 AP=10 XN=10 */
+>>>>>>>      #define REGION_DATA_PRBAR       0x32    /* SH=11 AP=00 XN=10 */
+>>>>>>> +#define REGION_DEVICE_PRBAR     0x22    /* SH=10 AP=00 XN=10 */
+>>>>>>>
+>>>>>>>      #define REGION_NORMAL_PRLAR     0x0f    /* NS=0 ATTR=111 EN=1
+>> */
+>>>>>>> +#define REGION_DEVICE_PRLAR     0x09    /* NS=0 ATTR=100 EN=1 */
+>>>>>>>
+>>>>>>>      /*
+>>>>>>>       * Macro to round up the section address to be PAGE_SIZE
+>>>>>>> aligned @@
+>>>>>>> -334,6 +336,56 @@ ENTRY(enable_mm)
+>>>>>>>          ret
+>>>>>>>      ENDPROC(enable_mm)
+>>>>>>>
+>>>>>>> +/*
+>>>>>>> + * Map the early UART with a new transient MPU memory region.
+>>>>>>> + *
+>>>>>>
+>>>>>> Missing "Inputs: "
+>>>>>>
+>>>>>>> + * x27: region selector
+>>>>>>> + * x28: prbar
+>>>>>>> + * x29: prlar
+>>>>>>> + *
+>>>>>>> + * Clobbers x0 - x4
+>>>>>>> + *
+>>>>>>> + */
+>>>>>>> +ENTRY(setup_early_uart)
+>>>>>>> +#ifdef CONFIG_EARLY_PRINTK
+>>>>>>> +    /* stack LR as write_pr will be called later like nested function */
+>>>>>>> +    mov   x3, lr
+>>>>>>> +
+>>>>>>> +    /*
+>>>>>>> +     * MPU region for early UART is a transient region, since it will be
+>>>>>>> +     * replaced by specific device memory layout when FDT gets
+>> parsed.
+>>>>>>
+>>>>>> I would rather not mention "FDT" here because this code is
+>>>>>> independent to the firmware table used.
+>>>>>>
+>>>>>> However, any reason to use a transient region rather than the one
+>>>>>> that will be used for the UART driver?
+>>>>>>
+>>>>>
+>>>>> We don’t want to define a MPU region for each device driver. It will
+>>>>> exhaust MPU regions very quickly.
+>>>> What the usual size of an MPU?
+>>>>
+>>>> However, even if you don't want to define one for every device, it
+>>>> still seem to be sensible to define a fixed temporary one for the
+>>>> early UART as this would simplify the assembly code.
+>>>>
+>>>
+>>> We will add fixed MPU regions for Xen static heap in function setup_mm.
+>>> If we put early uart region in front(fixed region place), it will
+>>> leave holes later after removing it.
+>>
+>> Why? The entry could be re-used to map the devices entry.
+>>
+>>>
+>>>>
+>>>>> In commit " [PATCH v2 28/40] xen/mpu: map boot module section in
+>> MPU
+>>>>> system",
+>>>>
+>>>> Did you mean patch #27?
+>>>>
+>>>>> A new FDT property `mpu,device-memory-section` will be introduced
+>>>>> for users to statically configure the whole system device memory
+>>>>> with the
+>>>> least number of memory regions in Device Tree.
+>>>>> This section shall cover all devices that will be used in Xen, like
+>>>>> `UART`,
+>>>> `GIC`, etc.
+>>>>> For FVP_BaseR_AEMv8R, we have the following definition:
+>>>>> ```
+>>>>> mpu,device-memory-section = <0x0 0x80000000 0x0 0x7ffff000>; ```
+>>>>
+>>>> I am a bit worry this will be a recipe for mistake. Do you have an
+>>>> example where the MPU will be exhausted if we reserve some entries
+>>>> for each device (or some)?
+>>>>
+>>>
+>>> Yes, we have internal platform where MPU regions are only 16.
+>>
+>> Internal is in silicon (e.g. real) or virtual platform?
+>>
 > 
-> The lock is not meant to be modified by _rw_is{,_write}_locked(). So
-> constify it.
+> Sorry, we met this kind of type platform is all I'm allowed to say.
+> Due to NDA, I couldn’t tell more.
 > 
-> This is helpful to be able to assert if the lock is taken when the
-> underlying structure is const.
+>>>   It will almost eat up
+>>> all MPU regions based on current implementation, when launching two
+>> guests in platform.
+>>>
+>>> Let's calculate the most simple scenario:
+>>> The following is MPU-related static configuration in device tree:
+>>> ```
+>>>           mpu,boot-module-section = <0x0 0x10000000 0x0 0x10000000>;
+>>>           mpu,guest-memory-section = <0x0 0x20000000 0x0 0x40000000>;
+>>>           mpu,device-memory-section = <0x0 0x80000000 0x0 0x7ffff000>;
+>>>           mpu,shared-memory-section = <0x0 0x7a000000 0x0 0x02000000>;
+>>>
+>>>           xen,static-heap = <0x0 0x60000000 0x0 0x1a000000>; ``` At the
+>>> end of the boot, before reshuffling, the MPU region usage will be as
+>> follows:
+>>> 7 (defined in assembly) + FDT(early_fdt_map) + 5 (at least one region for
+>> each "mpu,xxx-memory-section").
+>>
+>> Can you list the 7 sections? Is it including the init section?
+>>
 > 
-> Signed-off-by: Julien Grall <jgrall@amazon.com>
+> Yes, I'll draw the layout for you:
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
-(maybe also Requested-by)
+Thanks!
 
-Thanks for doing this on top of the spinlock change.
+> '''
+>   Xen MPU Map before reorg:
+> 
+> xen_mpumap[0] : Xen text
+> xen_mpumap[1] : Xen read-only data
+> xen_mpumap[2] : Xen read-only after init data
+> xen_mpumap[3] : Xen read-write data
+> xen_mpumap[4] : Xen BSS
+> xen_mpumap[5] : Xen static heap
+> ......
+> xen_mpumap[max_xen_mpumap - 7]: Static shared memory section
+> xen_mpumap[max_xen_mpumap - 6]: Boot Module memory section(kernel, initramfs, etc)
+> xen_mpumap[max_xen_mpumap - 5]: Device memory section
+> xen_mpumap[max_xen_mpumap - 4]: Guest memory section
+> xen_mpumap[max_xen_mpumap - 3]: Early FDT
+> xen_mpumap[max_xen_mpumap - 2]: Xen init data
+> xen_mpumap[max_xen_mpumap - 1]: Xen init text
+> 
+> In the end of boot, function init_done will do the reorg and boot-only region clean-up:
+> 
+> Xen MPU Map after reorg(idle vcpu):
+> 
+> xen_mpumap[0] : Xen text
+> xen_mpumap[1] : Xen read-only data
+> xen_mpumap[2] : Xen read-only after init data
 
-Jan
+In theory 1 and 2 could be merged after boot. But I guess it might be 
+complicated?
+
+> xen_mpumap[3] : Xen read-write data
+> xen_mpumap[4] : Xen BSS
+> xen_mpumap[5] : Xen static heap
+> xen_mpumap[6] : Guest memory section
+
+Why do you need to map the "Guest memory section" for the idle vCPU?
+
+> xen_mpumap[7] : Device memory section
+
+I might be missing some context here. But why this section is not also 
+mapped in the context of the guest vCPU?
+
+For instance, how would you write to the serial console when the context 
+is the guest vCPU?
+
+> xen_mpumap[6] : Static shared memory section
+> 
+> Xen MPU Map on runtime(guest vcpu):
+> 
+> xen_mpumap[0] : Xen text
+> xen_mpumap[1] : Xen read-only data
+> xen_mpumap[2] : Xen read-only after init data
+> xen_mpumap[3] : Xen read-write data
+> xen_mpumap[4] : Xen BSS
+> xen_mpumap[5] : Xen static heap
+> xen_mpumap[6] : Guest memory
+> xen_mpumap[7] : vGIC map
+> xen_mpumap[8] : vPL011 map
+
+I was expected the PL011 to be fully emulated. So why is this necessary?
+
+> xen_mpumap[9] : Passthrough device map(UART, etc)
+> xen_mpumap[10] : Static shared memory section
+> 
+>>>
+>>> That will be already at least 13 MPU regions ;\.
+>>
+>> The section I am the most concern of is mpu,device-memory-section
+>> because it would likely mean that all the devices will be mapped in Xen.
+>> Is there any risk that the guest may use different memory attribute?
+>>
+> 
+> Yes, on current implementation, per-domain vgic, vpl011, and passthrough device map
+> will be individually added into per-domain P2M mapping, then when switching into guest
+> vcpu from xen idle vcpu, device memory section will be replaced by vgic, vpl011, passthrough
+> device map.
+
+Per above, I am not entirely sure how you could remove the device memory 
+section when using the guest vCPU.
+
+Now about the layout between init and runtime. From previous discussion, 
+you said you didn't want to have init section to be fixed because of the 
+section "Xen static heap".
+
+Furthermore, you also mention that you didn't want a bitmap. So how 
+about the following for the assembly part:
+
+xen_mpumap[0] : Xen text
+xen_mpumap[1] : Xen read-only data
+xen_mpumap[2] : Xen read-only after init data
+xen_mpumap[3] : Xen read-write data
+xen_mpumap[4] : Xen BSS
+xen_mpumap[5]: Early FDT
+xen_mpumap[6]: Xen init data
+xen_mpumap[7]: Xen init text
+xen_mpumap[8]: Early UART (optional)
+
+Then when you switch to C, you could have:
+
+xen_mpumap[0] : Xen text
+xen_mpumap[1] : Xen read-only data
+xen_mpumap[2] : Xen read-only after init data
+xen_mpumap[3] : Xen read-write data
+xen_mpumap[4] : Xen BSS
+xen_mpumap[5]: Early FDT
+xen_mpumap[6]: Xen init data
+xen_mpumap[7]: Xen init text
+
+xen_mpumap[max_xen_mpumap - 4]: Device memory section
+xen_mpumap[max_xen_mpumap - 3]: Guest memory section
+xen_mpumap[max_xen_mpumap - 2]: Static shared memory section
+xen_mpumap[max_xen_mpumap - 1] : Xen static heap
+
+And at runtime, you would keep the "Xen static heap" right at the end of 
+the MPU and keep the middle entries as the switchable one.
+
+There would be not bitmap with this solution and all the entries for the 
+assembly code would be fixed.
+
+Cheers,
+
+-- 
+Julien Grall
 
