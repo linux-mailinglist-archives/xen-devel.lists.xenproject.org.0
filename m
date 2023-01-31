@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E14CE6833ED
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 18:32:22 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487765.755461 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C3A568340C
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 18:38:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487772.755472 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMuTS-0001Op-1O; Tue, 31 Jan 2023 17:31:14 +0000
+	id 1pMuaa-0002Jk-RU; Tue, 31 Jan 2023 17:38:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487765.755461; Tue, 31 Jan 2023 17:31:14 +0000
+Received: by outflank-mailman (output) from mailman id 487772.755472; Tue, 31 Jan 2023 17:38:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMuTR-0001M1-UC; Tue, 31 Jan 2023 17:31:13 +0000
-Received: by outflank-mailman (input) for mailman id 487765;
- Tue, 31 Jan 2023 17:31:13 +0000
+	id 1pMuaa-0002H2-Nn; Tue, 31 Jan 2023 17:38:36 +0000
+Received: by outflank-mailman (input) for mailman id 487772;
+ Tue, 31 Jan 2023 17:38:36 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pMuTR-0001Lr-56; Tue, 31 Jan 2023 17:31:13 +0000
+ id 1pMuaa-0002Gs-0t; Tue, 31 Jan 2023 17:38:36 +0000
 Received: from host146.205.237.98.conversent.net ([205.237.98.146]
  helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pMuTR-0000mu-3W; Tue, 31 Jan 2023 17:31:13 +0000
+ id 1pMuaZ-0000uu-T0; Tue, 31 Jan 2023 17:38:35 +0000
 Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
  by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <osstest-admin@xenproject.org>)
- id 1pMuTQ-0001fe-OS; Tue, 31 Jan 2023 17:31:12 +0000
+ id 1pMuaZ-0002Jb-AD; Tue, 31 Jan 2023 17:38:35 +0000
 Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
  4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pMuTQ-0002q8-O0; Tue, 31 Jan 2023 17:31:12 +0000
+ id 1pMuaZ-0003OD-9j; Tue, 31 Jan 2023 17:38:35 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,71 +45,131 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
 	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=rWahmNFHNd4+jiaZLJPucOUsLBWH+B2siMtrbNPD5g4=; b=Qn+NXSy8qO8/4614udS4W65qVW
-	RtxOu00klUJf7oLX+gSpOIBaE2b6w+nM9PfAgo2nCGQporiRu3hLg+5AfFSZgEcYzhzT2xHHniNzZ
-	CRf8R3yrRyFVHYfYJ3oNN3fDcxvJaDuQUn0jPkQXHLS6B9wNYg6kXttNocsH2q4giOig=;
+	bh=BUoxrf31fX1OFAa8bhQ9m1m652eQERzWaQm9IrFM5jo=; b=40shYnzaEktxIfIL2A9Tyt81YF
+	wnapgVKpJj+y9FlLXAgXdi3lap4GhKZytyQ/nl0u1bE42JOLGLzXiNcGz1K6yswVvYfLoddizjk2M
+	Li/c2JkoH2dGxqh0weTmMlW9f8m0gONv1+O3I6osdOMFIGVaiRZ4IdV+kTOFMq0Pb4SI=;
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176298-mainreport@xen.org>
+Message-ID: <osstest-176289-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 176298: trouble: blocked/broken/pass
+Subject: [libvirt test] 176289: trouble: blocked/broken/pass
 X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-armhf:syslog-server:running:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:build-armhf:<job status>:broken:regression
+    libvirt:test-amd64-amd64-libvirt-xsm:<job status>:broken:regression
+    libvirt:test-amd64-amd64-libvirt-xsm:host-install(5):broken:regression
+    libvirt:build-armhf:host-install(4):broken:regression
+    libvirt:build-armhf:syslog-server:running:regression
+    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    libvirt:build-armhf:capture-logs:broken:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
 X-Osstest-Versions-This:
-    xen=78e93e6e57c218eead498a664785f414bcb12460
+    libvirt=648391f170ddbb0e92832d543a940bcc84fc2309
 X-Osstest-Versions-That:
-    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
+    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
 From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Jan 2023 17:31:12 +0000
+Date: Tue, 31 Jan 2023 17:38:35 +0000
 
-flight 176298 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176298/
+flight 176289 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176289/
 
 Failures and problems with tests :-(
 
 Tests which did not succeed and are blocking,
 including tests which could not be run:
  build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176151
+ test-amd64-amd64-libvirt-xsm    <job status>                 broken
+ test-amd64-amd64-libvirt-xsm  5 host-install(5)        broken REGR. vs. 176139
+ build-armhf                   4 host-install(4)        broken REGR. vs. 176139
  build-armhf                   3 syslog-server                running
 
 Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176151
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ build-armhf                   5 capture-logs          broken blocked in 176139
  test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
 
 version targeted for testing:
- xen                  78e93e6e57c218eead498a664785f414bcb12460
+ libvirt              648391f170ddbb0e92832d543a940bcc84fc2309
 baseline version:
- xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
+ libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
 
-Last test of basis   176151  2023-01-26 14:00:29 Z    5 days
-Testing same since   176283  2023-01-30 21:02:20 Z    0 days    9 attempts
+Last test of basis   176139  2023-01-26 04:18:49 Z    5 days
+Failing since        176233  2023-01-27 04:18:53 Z    4 days    5 attempts
+Testing same since   176289  2023-01-31 04:18:49 Z    0 days    1 attempts
 
 ------------------------------------------------------------
 People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
+  Jiri Denemark <jdenemar@redhat.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
 
 jobs:
+ build-amd64-xsm                                              pass    
  build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
  build-amd64                                                  pass    
+ build-arm64                                                  pass    
  build-armhf                                                  broken  
+ build-i386                                                   pass    
  build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 broken  
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
  test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
 ------------------------------------------------------------
@@ -128,52 +188,253 @@ Test harness code can be found at
     http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 broken-job build-armhf broken
-broken-step build-armhf host-install(4)
+broken-job test-amd64-amd64-libvirt-xsm broken
 broken-step build-armhf capture-logs
+broken-step test-amd64-amd64-libvirt-xsm host-install(5)
+broken-step build-armhf host-install(4)
 
 Not pushing.
 
 ------------------------------------------------------------
-commit 78e93e6e57c218eead498a664785f414bcb12460
-Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Date:   Wed Jan 25 11:21:31 2023 +0000
+commit 648391f170ddbb0e92832d543a940bcc84fc2309
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Thu Jan 26 16:54:06 2023 +0100
 
-    xen/arm: Probe the load/entry point address of an uImage correctly
+    remote: Fix memory leak in remoteDomainMigrateFinish3*
     
-    Currently, kernel_uimage_probe() does not read the load/entry point address
-    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-    causes, kernel_zimage_place() to treat the binary (contained within uImage)
-    as position independent executable. Thus, it loads it at an incorrect
-    address.
+    Theoretically, when remoteDomainMigrateFinish3* is called without a
+    pointer for storing migration cookie or its length (i.e., either
+    cookieout == NULL or cookieoutlen == NULL), we would leak the freshly
+    created virDomain object referenced by rv.
     
-    The correct approach would be to read "uimage.load" and set
-    info->zimage.start. This will ensure that the binary is loaded at the
-    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-    address).
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Erik Skultety <eskultet@redhat.com>
+
+commit 6f3f6c0f763b9ffd8ef93eb124c88dd0b79138fc
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Mon Jan 30 10:55:22 2023 +0100
+
+    virsh: Make domif-setlink work more than once
     
-    If user provides load address (ie "uimage.load") as 0x0, then the image is
-    treated as position independent executable. Xen can load such an image at
-    any address it considers appropriate. A position independent executable
-    cannot have a fixed entry point address.
+    In virsh, we have this convenient domif-setlink command, which is
+    just a wrapper over virDomainUpdateDeviceFlags() and which allows
+    setting link state of given guest NIC. It does so by fetching
+    corresponding <interface/> XML snippet and either putting <link
+    state=''/> into it, OR if the element already exists setting the
+    attribute to desired value. The XML is then fed into the update
+    API.
     
-    This behavior is applicable for both arm32 and arm64 platforms.
+    There's, however, a small bug in detecting the pre-existence of
+    the element and its attribute. The code looks at "link"
+    attribute, while in fact, the attribute is called "state".
     
-    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-    point address set in the uImage header. With this commit, Xen will use them.
-    This makes the behavior of Xen consistent with uboot for uimage headers.
+    Resolves: https://gitlab.com/libvirt/libvirt/-/issues/426
+    Fixes: e575bf082ed4889280be07c986375f1ca15bb7ee
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Ján Tomko <jtomko@redhat.com>
+
+commit 9f8fba7501327a60f6adb279ea17f0e2276071be
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Thu Jan 26 16:12:00 2023 +0100
+
+    remote: Fix version annotation for remoteDomainFDAssociate
     
-    Users who want to use Xen with statically partitioned domains, can provide
-    non zero load address and entry address for the dom0/domU kernel. It is
-    required that the load and entry address provided must be within the memory
-    region allocated by Xen.
+    The API was added in libvirt 9.0.0.
     
-    A deviation from uboot behaviour is that we consider load address == 0x0,
-    to denote that the image supports position independent execution. This
-    is to make the behavior consistent across uImage and zImage.
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
+
+commit a0fbf1e25cd0f91bedf159bf7f0086f4b1aeafc2
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Thu Jan 26 16:48:50 2023 +0100
+
+    rpc: Use struct zero initializer for args
     
-    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    [stefano: minor doc improvement]
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+    In a recent commit of v9.0.0-104-g0211e430a8 I've turned all args
+    vars in src/remote/remote_driver.c to be initialized wit {0}.
+    What I've missed was the generated code.
+    
+    Do what we've done in v9.0.0-13-g1c656836e3 and init also args,
+    not just ret.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
+
+commit 2dde3840b1d50e79f6b8161820fff9fe62f613a9
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Thu Jan 26 16:57:20 2023 +0100
+
+    qemuxml2argvdata: Fix missing device in crypto-builtin XML
+    
+    Another forgotten fix after a post-review rebase.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit f3c9cbc36cc10775f6cefeb7e3de2f799dc74d70
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Thu Jan 26 16:57:20 2023 +0100
+
+    qemuxml2argvdata: Fix watchdog parameters in crypto-builtin
+    
+    Forgotten fix after a post-review rebase.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit a2c5c5dad2275414e325ca79778fad2612d14470
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 18:22:34 2023 +0100
+
+    news: Add information about iTCO watchdog changes
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 2fa92efe9b286ad064833cd2d8b907698e58e1cf
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 18:22:30 2023 +0100
+
+    Document change to multiple watchdogs
+    
+    With the reasoning behind it.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 926594dcc82b40f483010cebe5addbf1d7f58b24
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 11:22:22 2023 +0100
+
+    qemu: Add implicit watchdog for q35 machine types
+    
+    The iTCO watchdog is part of the q35 machine type since its inception,
+    we just did not add it implicitly.
+    
+    Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2137346
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit d81a27b9815d68d85d2ddc9671649923ee5905d7
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 14:15:06 2023 +0100
+
+    qemu: Enable iTCO watchdog by disabling its noreboot pin strap
+    
+    In order for the iTCO watchdog to be operational we must disable the
+    noreboot pin strap in qemu.  This is the default starting from 8.0
+    machine types, but desirable for older ones as well.  And we can safely
+    do that since that is not guest-visible.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 5b80e93e42a1d89ee64420debd2b4b785a144c40
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 10:26:21 2023 +0100
+
+    Add iTCO watchdog support
+    
+    Supported only with q35 machine types.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 1c61bd718a9e311016da799a42dfae18f538385a
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Tue Nov 8 09:10:57 2022 +0100
+
+    Support multiple watchdog devices
+    
+    This is already possible with qemu, and actually already happening with
+    q35 machines and a specified watchdog since q35 already includes a
+    watchdog we do not include in the XML.  In order to express such
+    posibility multiple watchdogs need to be supported.
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit c5340d5420012412ea298f0102cc7f113e87d89b
+Author: Martin Kletzander <mkletzan@redhat.com>
+Date:   Fri Jan 20 10:28:52 2023 +0100
+
+    qemuDomainAttachWatchdog: Avoid unnecessary nesting
+    
+    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 1cf7e6ec057a80f3c256d739a8228e04b7fb8862
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 15:25:06 2023 +0100
+
+    remote: Drop useless cleanup in remoteDispatchNodeGet{CPU,Memory}Stats
+    
+    The function cannot fail once it starts populating
+    ret->params.params_val[i].field.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit d0f339170f35957e7541e5b20552d0007e150fbc
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 15:06:33 2023 +0100
+
+    remote: Avoid leaking uri_out
+    
+    In case the API returned success and a NULL pointer in uri_out, we would
+    leak the preallocated buffer used for storing the uri_out pointer.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 4849eb2220fb2171e88e014a8e63018d20a8de95
+Author: Jiri Denemark <jdenemar@redhat.com>
+Date:   Wed Jan 25 11:56:28 2023 +0100
+
+    remote: Propagate error from virDomainGetSecurityLabelList via RPC
+    
+    The daemon side of this API has been broken ever since the API was
+    introduced in 2012. Instead of sending the error from
+    virDomainGetSecurityLabelList via RPC so that the client can see it, the
+    dispatcher would just send a successful reply with return value set to
+    -1 (and an empty array of labels). The client side would propagate this
+    return value so the client can see the API failed, but the original
+    error would be lost.
+    
+    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
+    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
+
+commit 0211e430a87a96db9a4e085e12f33caad9167653
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Thu Jan 26 13:19:31 2023 +0100
+
+    remote: Initialize args variable
+    
+    Recently, in v9.0.0-7-gb2034bb04c we've dropped initialization of
+    @args variable. The reasoning was that eventually, all members of
+    the variable will be set. Well, this is not correct. For
+    instance, in remoteConnectGetAllDomainStats() the
+    args.doms.doms_val pointer is set iff @ndoms != 0. However,
+    regardless of that, the pointer is then passed to VIR_FREE().
+    
+    Worse, the whole args is passed to
+    xdr_remote_connect_get_all_domain_stats_args() which then calls
+    xdr_array, which tests the (uninitialized) pointer against NULL.
+    
+    This effectively reverts b2034bb04c61c75ddbfbed46879d641b6f8ca8dc.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
+
+commit c3afde9211b550d3900edc5386ab121f5b39fd3e
+Author: Michal Privoznik <mprivozn@redhat.com>
+Date:   Thu Jan 26 11:56:10 2023 +0100
+
+    qemu_domain: Don't unref NULL hash table in qemuDomainRefreshStatsSchema()
+    
+    The g_hash_table_unref() function does not accept NULL. Passing
+    NULL results in a glib warning being triggered. Check whether the
+    hash table is not NULL and unref it only then.
+    
+    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
+    Reviewed-by: Ján Tomko <jtomko@redhat.com>
 
