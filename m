@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C0A2683615
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 20:07:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487805.755505 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CBC76836A8
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 20:36:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487813.755516 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMvyp-0006Cq-V8; Tue, 31 Jan 2023 19:07:43 +0000
+	id 1pMwQ2-0001uA-9x; Tue, 31 Jan 2023 19:35:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487805.755505; Tue, 31 Jan 2023 19:07:43 +0000
+Received: by outflank-mailman (output) from mailman id 487813.755516; Tue, 31 Jan 2023 19:35:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMvyp-0006AH-SA; Tue, 31 Jan 2023 19:07:43 +0000
-Received: by outflank-mailman (input) for mailman id 487805;
- Tue, 31 Jan 2023 19:07:42 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dLqc=54=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pMvyo-0006A0-Mt
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 19:07:42 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20607.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::607])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 87d04f31-a19a-11ed-b63b-5f92e7d2e73a;
- Tue, 31 Jan 2023 20:07:41 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by MW3PR12MB4361.namprd12.prod.outlook.com (2603:10b6:303:5a::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.38; Tue, 31 Jan
- 2023 19:07:35 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1%4]) with mapi id 15.20.6043.033; Tue, 31 Jan 2023
- 19:07:35 +0000
+	id 1pMwQ2-0001sI-6o; Tue, 31 Jan 2023 19:35:50 +0000
+Received: by outflank-mailman (input) for mailman id 487813;
+ Tue, 31 Jan 2023 19:35:48 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=8ra6=54=aim.com=brchuckz@srs-se1.protection.inumbo.net>)
+ id 1pMwQ0-0001sC-I9
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 19:35:48 +0000
+Received: from sonic312-24.consmr.mail.gq1.yahoo.com
+ (sonic312-24.consmr.mail.gq1.yahoo.com [98.137.69.205])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 73953587-a19e-11ed-933c-83870f6b2ba8;
+ Tue, 31 Jan 2023 20:35:46 +0100 (CET)
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic312.consmr.mail.gq1.yahoo.com with HTTP; Tue, 31 Jan 2023 19:35:42 +0000
+Received: by hermes--production-bf1-57c96c66f6-thr8d (Yahoo Inc. Hermes SMTP
+ Server) with ESMTPA ID 3630b60c4b8d5aee2b4f4bc210d4b88a; 
+ Tue, 31 Jan 2023 19:35:39 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,280 +42,249 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 87d04f31-a19a-11ed-b63b-5f92e7d2e73a
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AFkRJ7A/4sOx5/cISYJZw2B1F0JMDQ5ppYdyRDp3dwVhBkcjycUgbmVIeeiIDIX3F1qGrsIpzUzb+6rjaSqWC46ggrReqQTEF4Ag/OG0w6gpgsm4AjsZzor9/mmKY1BrMXIMp/lxYjuQFoPZBZrXGuT5t1xXrOHQoOJbVo2rjpQlGnjdatH4e2sdWBeO6zmB6fJi3Un762FzJChbQyHgu1rEQMRVhz452VavF3nfeowJPoshnYDQYAdlrNdX0UM9iV9Jn+ValasZc4vwFLO4L5z70ooUhvNDaTFSjZ1/vojdRnp68Mh6XT6vzzYvMKwjQt9iJYHB0pXlL2yeIzZz+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VQ38XZ67DqkmuNThReZZZu5DL/yy5JoGlHgaUWuf8GU=;
- b=Aukr6ZqDUXQ7diRULpcPPcIfKhKkzG47KfHo1nIIWCgD8SatiZRtxw1+ul3JMzNNkVNyaxiqBp7fCn8nqWimKZu4r/KQJCXoJRcv+L+lhr/0Jn2RUI0eUAaQAplyQvrucd1g68NyVtuBRHM9yvKz+XbQQVYdMdDkRnvPqiom6LgVlKrAwvHXWF2y8iBEhnd83nRbPwlM6RNZio2LupTrWycq+zBAUFrmCj6oKjkGaPCSDzr1L7cfmcpySE+cmur4w7Z/s0tUdXVUvCByKQk6ZRZdk0GqRAFCUq/a8sWks6iNExfRtinAlWaQUl/ENjFwwPcndosZe7MGLSBS4DuAMg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VQ38XZ67DqkmuNThReZZZu5DL/yy5JoGlHgaUWuf8GU=;
- b=Ze9veedk8k/Sn89WfOS/X3bsNxVtIlHOg4P30CDVvVG9PNMNFadAvnlbha2cpPFbtHYttbI4vN7H93hC0BR00B9a/j5fGJKATNehs8dils+lMzpN72NjIiWNdutMA8UHZ+xW04+SSM/kZXJv2EmM26GgodG9xIED92wj5aHy2tY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <d5797a3a-b616-e034-1320-bf483f82fe07@amd.com>
-Date: Tue, 31 Jan 2023 19:07:29 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH 1/2] xen/arm: Move kernel_uimage_probe definition after
- kernel_decompress
-To: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org
-Cc: Stefano Stabellini <sstabellini@kernel.org>, Julien Grall
- <julien@xen.org>, Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230131151354.25943-1-michal.orzel@amd.com>
- <20230131151354.25943-2-michal.orzel@amd.com>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <20230131151354.25943-2-michal.orzel@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO2P265CA0494.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13a::19) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 73953587-a19e-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aol.com; s=a2048; t=1675193742; bh=TcT1YLmDGMvqANZil3o3s8Huix+Bg0YzehzcamGdlf8=; h=Date:Subject:From:To:Cc:References:In-Reply-To:From:Subject:Reply-To; b=Qi/bBEwZFhU/LxhIdJmnAmZTqAsychYutnrghCnmzIiCUaAwIfedPUTiHaR+cqz33nJrQjMzTv9ecilMKBR6CL9mFHCDmFpvY5kvQUG8JUL1rgAgYunepSyhxIQxuRNz5QCn73NLvAk8/py/U8D5sir9jozSloFGVNBRav6TsSWzbuXKoWq2oIXvmh8fyylXb/Xtzsj++9FrXWdLm4sLJVnwh69bNQlEUv63WlxZqMJV+q3S1vd8zWrV5LlkfgSiQ4pGCfj0eeEH6fmvHCpwyDHTJ6EMHtTNv+ztz/BlNOq0VaR3587LPj+zuKP6m6i/xPBG0pjPSg/mUzlb8n5U3Q==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1675193742; bh=Vqs+NHE+qz2hmhRgzHF2LDUclXDDCON5zo+WbbQiIPm=; h=X-Sonic-MF:Date:Subject:From:To:From:Subject; b=Alp83Kv0TJdYJg0PSlSLvaSklAbcUR67w+GHazmKWp6rFIr58qqjkDlU/f4lqZhgWrt7+3gagWP4kZyZFayEubtGl20wRp0AkFRdQwrQgEfeu53YIkTreEXHiIFs+xtwan1Yy3dbWzbPJN6EsBi22bOGNlY7GkivZ51GMvBO0P/miQalWOmTB5gBvqdtUl0p/ymrfDlaFF5YQoaMo4fuwtbNV32jpL2OijAQYDraB9Hvv7qMN14jYQTMIJZYfdDAwuczJ2qLCjwT7xXcF1Usy7DlrBoGoLNNCtZpxiqq9TP20fRH7tl1NT86J6e8nee6YK/etntdq73eZLjTQDb3Zw==
+X-YMail-OSG: bhJnv9EVM1n26u3qMRQeyZccSawdEKiv0NT6ya4GEOjSs48Tiq82GezNLFy9GVf
+ qoVqnf0YtKXebF9NLH4iuYsbXUmQNpKanxLJ8GsMOf5vzyOzY9I5kFkyiunkYfHpctk6WE2gXmNQ
+ ALjcKqPxBCSsX9z3btgP2VxgnZqPuVU2_Q3JjSJWPXSfwOb9iIliBOoqtb.QD30oCpv8IN8_7Ubk
+ ZxwkmrOBmiBU1u9EYjtnUBScMmvAfWXNf.uETOV8h5ZjhmJg.t9hiCu.oTj3oF042FF4fntXzgtw
+ HEWAwNfrEx1sfsovBhclkwNWmlKdzJ7ymX2zJN41fFhPLTPuwjwb5oYfpohEurESM2CVBEoPRhc2
+ ZDz5CZb.hc95u0A_VPcCURe3Rw_2Ps6bm3dEsrYby36KU_6WFSDnbgylk73uCrnjfuiZJzmNJuV.
+ y4GEO51MvfiX7skKpvkvXy7SCdOJ09oiQF.w.vvHVbCwpbgBLw_Dovj1_XSooXWWcVaH6lFdQIHh
+ sivBgzXwy9hcmecCD5YnzvD6maoGmSSUHiGXDKqvzMISy0xkWXhfLgenUI0.Dkb2VZbIHBFq_shf
+ _vMi_a0w.Wmn_w89MUIE_BlQ7wLfS2Pg33xMkcs9ycuqSnbaAtTHL1QYRh50_xBr7lUHh6utgNzN
+ YAnS2cgqL3QkO1VUEKc9848ZW3vvfZoggwnki1fMyrYCgLrCW1aCoAwFikSdULXRnUDGAwi7cVFX
+ GlcOmR4.MOQOswyRjCKsAzkEcmMBdz9TJ8hRW.GQxhxkxCPwidI6BMdFPTFBTk1_Bu62XmueDpHH
+ ZsoDlaAWFX5CUABabLTmzW_27jzcBuk9DQ56YhXDXR0yynXBRyUaq3pEXcU5qw3V6jO57WYWdLAb
+ roGAn4QLVX_TGVmc8DpOi6OgUUS6GqrURJHOImmB7ZbNhW6dim7UD4VGhq4rtSTaNpC.GdneRhHN
+ _6QFjQI9PQLXHZOognUIf95CyPK4ZbwfhuvXAQkUj_elk08.whGPiMOxIjIE0xjKJ6Yjrku.WW84
+ PlQO9.Sn1QmHMrBXkUIVmgnvE_eCx8tbDZRETgScrdaqmz9Xyejjxa2QNNoJwi1Ny1h2JMeq_kb8
+ tp.HC0CP4MyqSoQ.q965bvTnxUXn1CUoV9fR2qMz36brRaxIOxxKOCRT0G_Ehg0EDMfzWaYcTJkj
+ qbWPDxZ.4VF1DEZlosjv9Df1MIc3y.mfEk.uAfmNfnSfHm_S1Yoq6vkGUXTzaz171hWWgDlkT7BF
+ 6FZbY_InTrBCIRaWJXb_Ch6u2Xk909TJc3fC88nlTVjYo1FVBTvJ9LXa7cDEsg6hICw22cvuWhTq
+ NpMEePQYHzPh__7IeuPlEXXTh.S5Ax8GlV3.2yrhMeu5wXruho3zjnBlvfnFMarnrkRO6_VwsupV
+ Z_YZhJ.EsznOB24aFZWhT_RISGK.PQmls33Swg0NdOhOLOtO8vE5Hs945GWD_SgZ2excwA7c_YAU
+ b3wbL8dkwsiAWIlr32wc3_rG7YH8ghCl6QGE.Y5f0ViupQ8CSvr3r2pyDGYPyBLT0BJCS7Y_fr7E
+ VksqZUdOhdeN06ioqe0svtbmaIe4yTUgFgAwO.f5mi5NpzWlcF9j4scI19FOqOh4hcAgkDBRg8bD
+ 9S8gsRUyfaL0CQGnj4CqvNJNOL8i559VOsXlnL5rhyyGjiOI7LGFf_tGIJz_Q6TV5ZtQ5RVfF3Gu
+ O9fU6b7402Xm2.E4_t6mR0Hufsi2hMpXHl7jBm2JUik5e403UPe__IGokQYjy.N6L_e3AvkuJRez
+ WwnhPt8BdM7hYr.c3trLp_mygmXZUWmlaEM0K6KEE53Cir2nEmNtVgZjtAFVNt1GpaMB1Cg.Tv.I
+ nkOjvBfOuSJEBH60IZ0.bPJulUZbAAS.pifsi04I_QDOIcXY0n0ff7DztmGdlBlFhuufKHLtsBlW
+ G9N8nos80hjSGI5uCdVwBiEd7cmFGlb7NAosvZE.nEXlGzL9q9FsD2jNX8LaUjDWngpATKSbKVPT
+ XeGnHaMgdgFkT0w.N18S5Ks282EkLGkAFq4iHPUGlphwmKZxxfVqHjOuYZuVyql.6LtnaQ8Oogyf
+ vATUBK.fWhpIkSLXhe8f6jIkzOucOVdQzFG91t.JtmC6R.Zj9eBd8pdBKCEiO3XXz7V95GPGsljl
+ RBBc6o_367jgwZnQCjv1eAq1BAKp3hj_dIKew0DvMDgV3s_avLj2SGhwhHBy3.G_rnwmNk9r_C7k
+ a75fJtXSfBw--
+X-Sonic-MF: <brchuckz@aim.com>
+Message-ID: <af419213-ba65-c9dc-9191-006d908339eb@aol.com>
+Date: Tue, 31 Jan 2023 14:35:37 -0500
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|MW3PR12MB4361:EE_
-X-MS-Office365-Filtering-Correlation-Id: 84debc48-0ea8-43e5-4bae-08db03be69c1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	a8OPZvaXdDxekGoO+vvLpEbN7YM4c3T5FfaH6giWNJMHFT/OOpuKXTb3J6p2ypesDxJRfu8lsutYe8TdYuPL8PuWKpyxe5TTO4RN50NnEkDK6NvXiJk404ScjHMdaMVAHG+1btT4KA1sipFQBZ5ymEAzsJnI9bKX9Iw8IquMNU5heFexzpijU6dhzEOdItN9swezfo01O7LVsgdOpHHZ2qpDVPKk9EimGGqs1vnNbIwAvJu/VCjp+rkb0ups4qIVQHFtDhEXf6c9+WyPz/IrcRQSJp1R/8yjigT68y7FBwCiLmCsujPUkhD4splmojSRsLRj12yrjync9c/gAMFpsV+Wqklw8gRta4vzoXDwWQnHBoImneGFzhTq9xXFLvdGzPlpS7NL8MIt2IPhbn46YKiE5HdDiuhcSGdYX5AR+STAW26JSzvr/42lVDyRT5xLqPV+eoewaahmKSWZ12inJ+y3Q47owcbSyOGrkJDPqKBUocn03swkH+8ssMHPhHSkAZlRfmSl4rglVoWLkivUJbb5rJNHgu1DR60BD7nVtALcZDrup7QsMvXE6pM1oQfDeU2xONZa96RI9SpH2CGhw9wEMoh8kFsOW3Ld2fLvV6J3p+/FYPAhf/ksPg+bUZr+o6bkZZq+V3x94hhONOtbqHH2tCtjdOe51rZXeYKdkxcXHLD4wZcnqmBoymPTxQdALBoqTsf/uqpvyplrej+ACy77oRmo6aOXMtnL8jDfM7k=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(451199018)(31686004)(2906002)(6512007)(5660300002)(8936002)(83380400001)(41300700001)(66946007)(6666004)(6506007)(53546011)(54906003)(36756003)(66556008)(8676002)(4326008)(66476007)(478600001)(186003)(26005)(6486002)(38100700002)(2616005)(31696002)(316002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UU03ODZwVXVJUVRxcjc0NjNTaDBtTDVMUU4wOEgzYXVsTTExSkpxdllESWtv?=
- =?utf-8?B?OGpFSDVxcG1VVDNaMHdwK3hCR1lGM2dGZGJ5VWw3L2NBZm1TOEF0MTA5Wnc4?=
- =?utf-8?B?K3hhc0NPOHg1WFh4V3djZHRkZUJCSDg5SkFRK0YyTXlseG1obTZXWGhUTFcz?=
- =?utf-8?B?MWlTMEIzTVBjQ2lxV21LcHNDSmJnRVJkYzJBRVY0NjhrU3VjUXh5ckR0d0JJ?=
- =?utf-8?B?MHdaYm9kcWMvejUySUY0VTZVWUxmL3F5dVVkc0sxaFFHNUxEa2hOblpqd0Jz?=
- =?utf-8?B?Nzd3c3NYbGtyWWJHQ2RrTC9EZnpOZGZlZTVPM2RTL00ydGdzWElmOEpGcHQ4?=
- =?utf-8?B?L3JhRHNialZtNUJCSTJ0SHZJK3RGalcvRnMyaCszVmdubWpDYnZBMk5XZm9Z?=
- =?utf-8?B?M20vWWdHdksydDBKN2RYRWlhcVFOVmQvM1BnTktaWmRxYkFVeWFwS2VIdFB0?=
- =?utf-8?B?eE81Qm0xUyt5ekRPS1NFelFGcTdwc2U3c1VVVk85TTFpSGU5SVZ4MU5NeGN1?=
- =?utf-8?B?WWpOVXJzZWd1Njd6WUE3UENHN3BkVmlKK3ZmWkRkSUFmVlJhTlp5N3FXRHRK?=
- =?utf-8?B?THAwVkJSWENUNUVsWXhjUFBCNlpaRXdKNkU0UjIvMm53RTZtQlZNS1ladGYx?=
- =?utf-8?B?eEZMcVFva1I1bWFNZUdNTkdCblJKT1RmZkppZ2xkeEphQnhObkJJbnNzQXVx?=
- =?utf-8?B?bmJIa25LaWNXQk1Rc3BIQU1mTnJxcnFwUysrT3dOK3J1TkFCSEV3TmFMdnNI?=
- =?utf-8?B?dXJjQjdGckRXK0JGdUNqRVdpRCtKY0dDVStUZUdXTWY0NktFbE84c0QyTWVF?=
- =?utf-8?B?OHpuRnArYUJNOEZ6WGw2U3lreitIdjg5TDBxY0lsVjk1VlJhVXVaV0tyeUFh?=
- =?utf-8?B?Yk9GYysvWlZlK0Vkbk5QNnl1TTZkWXVlR0pMbHRrRGwyMkxFOUw4ekpKWUM0?=
- =?utf-8?B?enpLckZpVTJjNzRTTi90d3BJdzBXTVhib3paSkNBYnM0NHVOTWRQOXlTdkxQ?=
- =?utf-8?B?VlpRcGk5K3dXSk50T2F1UjFuQ3pGVnV2M21SNXdVVVRtbUMrenBwZEppSHAz?=
- =?utf-8?B?ZFFFNkV0M0prRUVLcFBibVNtU05kRXg2ZFUydzRTcDYyS3pYc3VURWVyeURO?=
- =?utf-8?B?V3E4UkxKM0UzMmxocEk4NE1KcW12T2QvUU5lYVBYSmhRYk1kYWxVUFJ3Nmdw?=
- =?utf-8?B?UzNodm9pMU9hTnlBbzJSM1BPT3BpaDgrM1paTklOb1ZrMEZWV1E1YzFaenlj?=
- =?utf-8?B?ZlIrYUoxVCsxY3FLUERrVHNQN25GN0g1RHRhMEppRmcySCsrMUgxL3RHWDhJ?=
- =?utf-8?B?aUYyWHdXTDJHT2FFNXdDcDJyMUtjdzNoRDZKOGRtZXQwMEY1QkxCamRRNzJm?=
- =?utf-8?B?R0ZiYVIxVXp3c1BLeERHb2M2WSt1S0xmL0lPWkthNklMZFRIQnhDZFRxUDh2?=
- =?utf-8?B?NUNpc2dUV0NUWEZDV2ExOG03M2xoZHhCNFRpMlp3TUtwN3ZkOTdCcjZYS0Z0?=
- =?utf-8?B?S1BvamF2NW9nZHFHQ1ZVV041SnFDQ281THcvZG5uOWxPRWpveUEycDVsV0Nx?=
- =?utf-8?B?UkVySDRLR2dkYnRSdENYZnlLK08xYzdXUkx5WEl5cDFLc0ZYTzBRTDJGdzA1?=
- =?utf-8?B?N0cwRWg0ek9JZzl5NzM4UnJxdFo4TFEvVUQ4UlpiMWgvNWV3TnQ3c0JjNGpy?=
- =?utf-8?B?MnpQRDZuYXoxUE5qQTRZdlRsTHZ5RmxkTHVCUFd6UEhwV21aWmJlUXlDSE1o?=
- =?utf-8?B?ZGFnNlVVbVE1YXZ0UXJrSjBvV0NmRWMzeUNWQmxzREZzRjlYMFM4YnJBWE1q?=
- =?utf-8?B?dEk3MTd0bS9BaEJvRit6UlkzUVhBaSs5QS8vWkc1NDdHNmJOWVFsT1BMaWp2?=
- =?utf-8?B?a1lRTlk1UEovN0JlTDJmaVNJM2x0RWtmQ1BFQnZsNkxQOFI1NHZicGtML0gw?=
- =?utf-8?B?cTZXeVJsa0NKUDVwMVVPTHUvL3FpUHdFRy9hRFpsclU4WTYxV2Q0WTh1dGZY?=
- =?utf-8?B?bGlLY1J5aGQ4cmVCOW9hWjB4dGhHZ3dkRHdNTXd0SFFqNi8vTFBjZHk4OS9j?=
- =?utf-8?B?eTJwWDgyVHBaQUM5d0lyMFYrM2N4UzRmdWdzSUFnUmNHRFRCRjh2VWdSek5n?=
- =?utf-8?Q?R++jTH7WJwaxz3KY5vtfJQmSk?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 84debc48-0ea8-43e5-4bae-08db03be69c1
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2023 19:07:35.8033
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GuenIn7wgk4yczIl+gxj7D2e/sG9yjcMOybIOds1Da64RAk1RSM/YkiOpKYW/Lr2R7Ex9AYPmMlwyBgNWy9iCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4361
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Subject: Re: [XEN PATCH v2 0/3] Configure qemu upstream correctly by default
+ for igd-passthru
+From: Chuck Zmudzinski <brchuckz@aol.com>
+To: Anthony PERARD <anthony.perard@citrix.com>
+Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>,
+ Juergen Gross <jgross@suse.com>, qemu-devel@nongnu.org
+References: <cover.1673300848.git.brchuckz.ref@aol.com>
+ <cover.1673300848.git.brchuckz@aol.com>
+ <Y9EUarVVWr223API@perard.uk.xensource.com>
+ <de3a3992-8f56-086a-e19e-bac9233d4265@aol.com>
+ <a2a927bd-a764-8676-68c9-4c53cb86af3e@aol.com>
+Content-Language: en-US
+In-Reply-To: <a2a927bd-a764-8676-68c9-4c53cb86af3e@aol.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Mailer: WebService/1.1.21123 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.aol
+
+On 1/29/23 7:38 PM, Chuck Zmudzinski wrote:
+> On 1/25/23 6:19 PM, Chuck Zmudzinski wrote:
+>> On 1/25/2023 6:37 AM, Anthony PERARD wrote:
+>>> On Tue, Jan 10, 2023 at 02:32:01AM -0500, Chuck Zmudzinski wrote:
+>>> > I call attention to the commit message of the first patch which points
+>>> > out that using the "pc" machine and adding the xen platform device on
+>>> > the qemu upstream command line is not functionally equivalent to using
+>>> > the "xenfv" machine which automatically adds the xen platform device
+>>> > earlier in the guest creation process. As a result, there is a noticeable
+>>> > reduction in the performance of the guest during startup with the "pc"
+>>> > machne type even if the xen platform device is added via the qemu
+>>> > command line options, although eventually both Linux and Windows guests
+>>> > perform equally well once the guest operating system is fully loaded.
+>>>
+>>> There shouldn't be a difference between "xenfv" machine or using the
+>>> "pc" machine while adding the "xen-platform" device, at least with
+>>> regards to access to disk or network.
+>>>
+>>> The first patch of the series is using the "pc" machine without any
+>>> "xen-platform" device, so we can't compare startup performance based on
+>>> that.
+>>>
+>>> > Specifically, startup time is longer and neither the grub vga drivers
+>>> > nor the windows vga drivers in early startup perform as well when the
+>>> > xen platform device is added via the qemu command line instead of being
+>>> > added immediately after the other emulated i440fx pci devices when the
+>>> > "xenfv" machine type is used.
+>>>
+>>> The "xen-platform" device is mostly an hint to a guest that they can use
+>>> pv-disk and pv-network devices. I don't think it would change anything
+>>> with regards to graphics.
+>>>
+>>> > For example, when using the "pc" machine, which adds the xen platform
+>>> > device using a command line option, the Linux guest could not display
+>>> > the grub boot menu at the native resolution of the monitor, but with the
+>>> > "xenfv" machine, the grub menu is displayed at the full 1920x1080
+>>> > native resolution of the monitor for testing. So improved startup
+>>> > performance is an advantage for the patch for qemu.
+>>>
+>>> I've just found out that when doing IGD passthrough, both machine
+>>> "xenfv" and "pc" are much more different than I though ... :-(
+>>> pc_xen_hvm_init_pci() in QEMU changes the pci-host device, which in
+>>> turns copy some informations from the real host bridge.
+>>> I guess this new host bridge help when the firmware setup the graphic
+>>> for grub.
+> 
+> Yes, it is needed - see below for the very simple patch to Qemu
+> upstream that fixes it for the "pc" machine!
+> 
+>> 
+>> I am surprised it works at all with the "pc" machine, that is, without the
+>> TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE that is used in the "xenfv"
+>> machine. This only seems to affect the legacy grub vga driver and the legacy
+>> Windows vga driver during early boot. Still, I much prefer keeping the "xenfv"
+>> machine for Intel IGD than this workaround of patching libxl to use the "pc"
+>> machine.
+>> 
+>>>
+>>> > I also call attention to the last point of the commit message of the
+>>> > second patch and the comments for reviewers section of the second patch.
+>>> > This approach, as opposed to fixing this in qemu upstream, makes
+>>> > maintaining the code in libxl__build_device_model_args_new more
+>>> > difficult and therefore increases the chances of problems caused by
+>>> > coding errors and typos for users of libxl. So that is another advantage
+>>> > of the patch for qemu.
+>>>
+>>> We would just needs to use a different approach in libxl when generating
+>>> the command line. We could probably avoid duplications.
+> 
+> I was thinking we could also either write a test to verify the correctness
+> of the second patch to ensure it generates the correct Qemu command line
+> or take the time to verify the second patch's accuracy before committing it.
+> 
+>>> I was hopping to
+>>> have patch series for libxl that would change the machine used to start
+>>> using "pc" instead of "xenfv" for all configurations, but based on the
+>>> point above (IGD specific change to "xenfv"), then I guess we can't
+>>> really do anything from libxl to fix IGD passthrough.
+>> 
+>> We could switch to the "pc" machine, but we would need to patch
+>> qemu also so the "pc" machine uses the special device the "xenfv"
+>> machine uses (TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE).
+>> ...
+> 
+> I just tested a very simple patch to Qemu upstream to fix the
+> difference between the upstream Qemu "pc" machine and the upstream
+> Qemu "xenfv" machine:
+> 
+> --- a/hw/i386/pc_piix.c	2023-01-28 13:22:15.714595514 -0500
+> +++ b/hw/i386/pc_piix.c	2023-01-29 18:08:34.668491593 -0500
+> @@ -434,6 +434,8 @@
+>              compat(machine); \
+>          } \
+>          pc_init1(machine, TYPE_I440FX_PCI_HOST_BRIDGE, \
+> +                 xen_igd_gfx_pt_enabled() ? \
+> +                 TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : \
+>                   TYPE_I440FX_PCI_DEVICE); \
+>      } \
+>      DEFINE_PC_MACHINE(suffix, name, pc_init_##suffix, optionfn)
+> ----- snip -------
+> 
+> With this simple two-line patch to upstream Qemu, we can use the "pc"
+> machine without any regressions such as the startup performance
+> degradation I observed without this small patch to fix the "pc" machine
+> with igd passthru!
+
+Hi Anthony,
+
+Actually, to implement the fix for the "pc" machine and IGD in Qemu
+upstream and not break builds for configurations such as --disable-xen
+the patch to Qemu needs to add four lines instead of two (still trivial!):
 
 
-On 31/01/2023 15:13, Michal Orzel wrote:
-> In a follow-up patch, we will be calling kernel_decompress function from
-> within kernel_uimage_probe to support booting compressed images with
-> u-boot header. Therefore, move the kernel_uimage_probe definition after
-> kernel_decompress so that the latter is visible to the former.
->
-> No functional change intended.
->
-> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
-Reviewed-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
->   xen/arch/arm/kernel.c | 146 +++++++++++++++++++++---------------------
->   1 file changed, 73 insertions(+), 73 deletions(-)
->
-> diff --git a/xen/arch/arm/kernel.c b/xen/arch/arm/kernel.c
-> index 36081e73f140..068fbf88e492 100644
-> --- a/xen/arch/arm/kernel.c
-> +++ b/xen/arch/arm/kernel.c
-> @@ -186,6 +186,79 @@ static void __init kernel_zimage_load(struct kernel_info *info)
->       iounmap(kernel);
->   }
->   
-> +static __init uint32_t output_length(char *image, unsigned long image_len)
-> +{
-> +    return *(uint32_t *)&image[image_len - 4];
-> +}
-> +
-> +static __init int kernel_decompress(struct bootmodule *mod)
-> +{
-> +    char *output, *input;
-> +    char magic[2];
-> +    int rc;
-> +    unsigned int kernel_order_out;
-> +    paddr_t output_size;
-> +    struct page_info *pages;
-> +    mfn_t mfn;
-> +    int i;
-> +    paddr_t addr = mod->start;
-> +    paddr_t size = mod->size;
-> +
-> +    if ( size < 2 )
-> +        return -EINVAL;
-> +
-> +    copy_from_paddr(magic, addr, sizeof(magic));
-> +
-> +    /* only gzip is supported */
-> +    if ( !gzip_check(magic, size) )
-> +        return -EINVAL;
-> +
-> +    input = ioremap_cache(addr, size);
-> +    if ( input == NULL )
-> +        return -EFAULT;
-> +
-> +    output_size = output_length(input, size);
-> +    kernel_order_out = get_order_from_bytes(output_size);
-> +    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
-> +    if ( pages == NULL )
-> +    {
-> +        iounmap(input);
-> +        return -ENOMEM;
-> +    }
-> +    mfn = page_to_mfn(pages);
-> +    output = __vmap(&mfn, 1 << kernel_order_out, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
-> +
-> +    rc = perform_gunzip(output, input, size);
-> +    clean_dcache_va_range(output, output_size);
-> +    iounmap(input);
-> +    vunmap(output);
-> +
-> +    if ( rc )
-> +    {
-> +        free_domheap_pages(pages, kernel_order_out);
-> +        return rc;
-> +    }
-> +
-> +    mod->start = page_to_maddr(pages);
-> +    mod->size = output_size;
-> +
-> +    /*
-> +     * Need to free pages after output_size here because they won't be
-> +     * freed by discard_initial_modules
-> +     */
-> +    i = PFN_UP(output_size);
-> +    for ( ; i < (1 << kernel_order_out); i++ )
-> +        free_domheap_page(pages + i);
-> +
-> +    /*
-> +     * Free the original kernel, update the pointers to the
-> +     * decompressed kernel
-> +     */
-> +    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
-> +
-> +    return 0;
-> +}
-> +
->   /*
->    * Uimage CPU Architecture Codes
->    */
-> @@ -289,79 +362,6 @@ static int __init kernel_uimage_probe(struct kernel_info *info,
->       return 0;
->   }
->   
-> -static __init uint32_t output_length(char *image, unsigned long image_len)
-> -{
-> -    return *(uint32_t *)&image[image_len - 4];
-> -}
-> -
-> -static __init int kernel_decompress(struct bootmodule *mod)
-> -{
-> -    char *output, *input;
-> -    char magic[2];
-> -    int rc;
-> -    unsigned int kernel_order_out;
-> -    paddr_t output_size;
-> -    struct page_info *pages;
-> -    mfn_t mfn;
-> -    int i;
-> -    paddr_t addr = mod->start;
-> -    paddr_t size = mod->size;
-> -
-> -    if ( size < 2 )
-> -        return -EINVAL;
-> -
-> -    copy_from_paddr(magic, addr, sizeof(magic));
-> -
-> -    /* only gzip is supported */
-> -    if ( !gzip_check(magic, size) )
-> -        return -EINVAL;
-> -
-> -    input = ioremap_cache(addr, size);
-> -    if ( input == NULL )
-> -        return -EFAULT;
-> -
-> -    output_size = output_length(input, size);
-> -    kernel_order_out = get_order_from_bytes(output_size);
-> -    pages = alloc_domheap_pages(NULL, kernel_order_out, 0);
-> -    if ( pages == NULL )
-> -    {
-> -        iounmap(input);
-> -        return -ENOMEM;
-> -    }
-> -    mfn = page_to_mfn(pages);
-> -    output = __vmap(&mfn, 1 << kernel_order_out, 1, 1, PAGE_HYPERVISOR, VMAP_DEFAULT);
-> -
-> -    rc = perform_gunzip(output, input, size);
-> -    clean_dcache_va_range(output, output_size);
-> -    iounmap(input);
-> -    vunmap(output);
-> -
-> -    if ( rc )
-> -    {
-> -        free_domheap_pages(pages, kernel_order_out);
-> -        return rc;
-> -    }
-> -
-> -    mod->start = page_to_maddr(pages);
-> -    mod->size = output_size;
-> -
-> -    /*
-> -     * Need to free pages after output_size here because they won't be
-> -     * freed by discard_initial_modules
-> -     */
-> -    i = PFN_UP(output_size);
-> -    for ( ; i < (1 << kernel_order_out); i++ )
-> -        free_domheap_page(pages + i);
-> -
-> -    /*
-> -     * Free the original kernel, update the pointers to the
-> -     * decompressed kernel
-> -     */
-> -    fw_unreserved_regions(addr, addr + size, init_domheap_pages, 0);
-> -
-> -    return 0;
-> -}
-> -
->   #ifdef CONFIG_ARM_64
->   /*
->    * Check if the image is a 64-bit Image.
+--- a/hw/i386/pc_piix.c	2023-01-29 18:05:15.714595514 -0500
++++ b/hw/i386/pc_piix.c	2023-01-29 18:08:34.668491593 -0500
+@@ -434,6 +434,8 @@
+             compat(machine); \
+         } \
+         pc_init1(machine, TYPE_I440FX_PCI_HOST_BRIDGE, \
++                 pc_xen_igd_gfx_pt_enabled() ? \
++                 TYPE_IGD_PASSTHROUGH_I440FX_PCI_DEVICE : \
+                  TYPE_I440FX_PCI_DEVICE); \
+     } \
+     DEFINE_PC_MACHINE(suffix, name, pc_init_##suffix, optionfn)
+--- a/include/sysemu/xen.h	2023-01-20 08:17:55.000000000 -0500
++++ b/include/sysemu/xen.h	2023-01-30 00:18:29.276886734 -0500
+@@ -23,6 +23,7 @@
+ extern bool xen_allowed;
+ 
+ #define xen_enabled()           (xen_allowed)
++#define pc_xen_igd_gfx_pt_enabled()    xen_igd_gfx_pt_enabled()
+ 
+ #ifndef CONFIG_USER_ONLY
+ void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length);
+@@ -33,6 +34,7 @@
+ #else /* !CONFIG_XEN_IS_POSSIBLE */
+ 
+ #define xen_enabled() 0
++#define pc_xen_igd_gfx_pt_enabled() 0
+ #ifndef CONFIG_USER_ONLY
+ static inline void xen_hvm_modified_memory(ram_addr_t start, ram_addr_t length)
+ {
+------- snip -------
+
+Would you support this patch to Qemu if I formally submitted it to
+Qemu as a replacement for the current more complicated patch to Qemu
+that I proposed to reserve slot 2 for the IGD?
+
+Thanks,
+
+Chuck
+
+> 
+> The "pc" machine maintainers for upstream Qemu would need to accept
+> this small patch to Qemu upstream. They might prefer this to the
+> other Qemu patch that reserves slot 2 for the Qemu upstream "xenfv"
+> machine when the guest is configured for igd passthru.
+> 
+>>>
+>>> ...
+>>>
+>>> So overall, unfortunately the "pc" machine in QEMU isn't suitable to do
+>>> IGD passthrough as the "xenfv" machine has already some workaround to
+>>> make IGD work and just need some more.
+> 
+> Well, the little patch to upstream shown above fixes the "pc" machine
+> with IGD so maybe this approach of patching libxl to use the "pc" machine
+> will be a viable fix for the IGD.
+> 
+>>>
+>>> I've seen that the patch for QEMU is now reviewed, so I look at having
+>>> it merged soonish.
+>>>
+>>> Thanks,
+>>>
+>> 
+> 
+> I just added the bit of information above to help you decide which
+> approach to use to improve the support for the igd passthru feature
+> with Xen and Qemu upstream. I think the test of the small patch to
+> Qemu to fix the "pc" machine with igd passthru makes this patch to
+> libxl a viable alternative to the other patch to Qemu upstream that
+> reserves slot 2 when using the "xenfv" machine and igd passthru.
+> 
+> Thanks,
+> 
+> Chuck
+
 
