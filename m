@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15DB6682C81
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:24:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487606.755274 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0DF78682C96
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:30:46 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487612.755284 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpgG-00046a-E8; Tue, 31 Jan 2023 12:24:08 +0000
+	id 1pMpmR-0005n4-3v; Tue, 31 Jan 2023 12:30:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487606.755274; Tue, 31 Jan 2023 12:24:08 +0000
+Received: by outflank-mailman (output) from mailman id 487612.755284; Tue, 31 Jan 2023 12:30:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpgG-00043z-BE; Tue, 31 Jan 2023 12:24:08 +0000
-Received: by outflank-mailman (input) for mailman id 487606;
- Tue, 31 Jan 2023 12:24:07 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pMpmR-0005l9-15; Tue, 31 Jan 2023 12:30:31 +0000
+Received: by outflank-mailman (input) for mailman id 487612;
+ Tue, 31 Jan 2023 12:30:28 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0fq0=54=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pMpgE-00043t-TK
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:24:06 +0000
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [2a00:1450:4864:20::52d])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 265c11a3-a162-11ed-b63b-5f92e7d2e73a;
- Tue, 31 Jan 2023 13:24:04 +0100 (CET)
-Received: by mail-ed1-x52d.google.com with SMTP id z11so14239206ede.1
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:24:04 -0800 (PST)
+ id 1pMpmO-0005l3-SA
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:30:28 +0000
+Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
+ [2a00:1450:4864:20::636])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 0b16727f-a163-11ed-933c-83870f6b2ba8;
+ Tue, 31 Jan 2023 13:30:27 +0100 (CET)
+Received: by mail-ej1-x636.google.com with SMTP id ud5so41136989ejc.4
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:30:27 -0800 (PST)
 Received: from pc-879.home (83.29.147.144.ipv4.supernova.orange.pl.
  [83.29.147.144]) by smtp.gmail.com with ESMTPSA id
- m13-20020aa7c2cd000000b00499b6b50419sm2477349edp.11.2023.01.31.04.24.02
+ l3-20020a056402230300b0049f29a7c0d6sm8328170eda.34.2023.01.31.04.30.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Jan 2023 04:24:03 -0800 (PST)
+ Tue, 31 Jan 2023 04:30:27 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,137 +44,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 265c11a3-a162-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: 0b16727f-a163-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=2kltFoK2okjjXyyfDtDoDJKFwbDdK3iC7eRwue+UiHs=;
-        b=aQX2xe0vlEtnVV8+9ASUtxPzSqFBnlpzRpJuFfM+WwOezaoX3NXedeEGBSBAER+iSm
-         PKt3SW76EUjzoGhYQrUCswybLTILSONQd7wgeiaRr2SYGPSNzLdq1AeO+VDxvp1T0k/x
-         k/HcMZhZ3+d5M4Awmobz+X8dRcl83lhoSjlH6mdFnCJxCSG6dIwqkpSBO3BDNawSAPwR
-         G2oJufd0/RBwTg4jIEAwgWtfNy/hrL+QG1OHRhbQpv2ENKcB+jq6lpW69F1yqJonY+FI
-         y+tGCHTUX+pMdVs0nI00d3IxxMUtLRQ3FVCs2rIn8EffUQHXNl3PLl0mUvquzIgiypUs
-         yHrw==
+        bh=pCmLGAI5vdHBS0eYH6qCqi6roe/ilfkfoE+bpcz9Jog=;
+        b=fFVQI4lrSpdvK270rKm/WdXqSIbMcxBu1UYdrvsbnL85EKJ1Gyqersvi8rbTFOu9ML
+         AV8Ivb/KYIyM42OmZnei5Vp4a+d/aEtZGS0olnpDIo54YAPQLDZnSCdMSQvUE5PfyYWG
+         vFZk6xOHMi5NK0p9GvF3eNa9y8aRzr57zwIdO7LuZR0GvDKHW/D67bNTjuxLji1F9bz6
+         yvr22NsU4qK54YOQw25hXn/VwUQ7Gx/4xBN3nMXa30o7dKyCm/sLZ+HeS3gLKYOxbeRE
+         1VdDSSlO4o7ocAAbsmYIld41j55AmUI7Mx8BKDCdQfuw5Ctar6KKUDeQE4Or0ulqKKcC
+         RP0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=2kltFoK2okjjXyyfDtDoDJKFwbDdK3iC7eRwue+UiHs=;
-        b=WM32TX8mPGYBOoP7J9MyAahkGhDAhbubhIbxoDsjW6ATd1NJBSqszC+P9ubhz6324W
-         V9+sH+otzNVRbUyDxVDQgyfmk59U66YD2c5hDxosjvGL77UJOXGRo1HA3S7EI+N/Bo9v
-         7RAG9yeuGkHd3tSVoCV1zlIKm5vpW5AcAc5cNRkCP09F/8oT7Af9i9z5IpecfFcBay4A
-         PMvovUcasJOnmECB0IZ9AiNa0NWGnaj+h7UfqH7++bO54w0gWVL/azEoQG7oUamTDJnm
-         bA5qbmg9M7FtZDBIOrIIBBpjt7q0PBf0O7vFaRNthCcWOorT+0E76ONaC9tbC1wfhqZx
-         Gmyg==
-X-Gm-Message-State: AFqh2krTEhyz0TE2lN6UqREsYmhLDkQKP6h8JCZ4VwiBC5e1XnZCrEqy
-	UGFa7QDtak7Zog0+941hYQQ=
-X-Google-Smtp-Source: AMrXdXtrq8e1rmhBRv1KU7pAS4kqe6nLqWP+MmTtcWVfLTgoHulWqwSgLw/8GZMx+Me+QCXFEB28ww==
-X-Received: by 2002:a50:c005:0:b0:49e:f062:99e6 with SMTP id r5-20020a50c005000000b0049ef06299e6mr41538084edb.28.1675167843575;
-        Tue, 31 Jan 2023 04:24:03 -0800 (PST)
-Message-ID: <72a7bdfc72161144df741e3a39f628874d88debd.camel@gmail.com>
-Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
+        bh=pCmLGAI5vdHBS0eYH6qCqi6roe/ilfkfoE+bpcz9Jog=;
+        b=UZZTkGMSRU91lm30f4vvxc6h97oa+xTbzOI37mzE8yRI7UMXa3jSnWXRowj85jffkJ
+         GsEHaecsJUVeT4FQdSwSSLjNqtcX6Z6fRU5G4nRy+Vj3g8JzD4fm4h+0rFbai+fgQf+v
+         r5wwrs6a5w4lE54PRDz7ssUbJ7Q/do4zwjzWy34s6fbng4I4LHDL1E+jOJXY0A7GWvCD
+         A4fq3rIkpwPUAtD92XP8WjnNPYs57JikCF+DTX93HXG1MTzKJdCxcS/Anb9BL13A0Mau
+         QmtzL4LVI6J0DEcJ8v8jvYRa/Kqi5D5qQcgSmEtNkfxarsCwYqcuJ+2bHmw1eS+I7Vqq
+         UpGA==
+X-Gm-Message-State: AO0yUKWUpxbdGsLt+wQ/KIgxSsoa/ueYtd4HGd0U+fV7mRtmZiLnukTm
+	0rlskiXLZQE0VSaeVQego6U=
+X-Google-Smtp-Source: AK7set+V/QAdvwc377Dd9bPYcjGsDrMH/7bjzENkzEIziofx99wtg+61HlS/+oAlUhGP0gdhSeigIg==
+X-Received: by 2002:a17:907:97d3:b0:889:33ca:70c6 with SMTP id js19-20020a17090797d300b0088933ca70c6mr7928894ejc.2.1675168227442;
+        Tue, 31 Jan 2023 04:30:27 -0800 (PST)
+Message-ID: <1bb7d9d3580311888aa97c8ad50aa93c09c46fce.camel@gmail.com>
+Subject: Re: [PATCH v1 01/14] xen/riscv: add _zicsr to CFLAGS
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
-Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
- Connor Davis <connojdavis@gmail.com>, Bobby Eshleman
- <bobby.eshleman@gmail.com>
-Date: Tue, 31 Jan 2023 14:24:02 +0200
-In-Reply-To: <8c0bce0b-05bd-5f4b-7b66-f6668ad34899@xen.org>
-References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
-	 <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
-	 <a8219b2d-a22d-63ac-5088-c33610310d6e@xen.org>
-	 <27469e861d4777af42b84fb637b24ed47a187647.camel@gmail.com>
-	 <8c0bce0b-05bd-5f4b-7b66-f6668ad34899@xen.org>
+To: Alistair Francis <alistair23@gmail.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
+ Stabellini <sstabellini@kernel.org>,  Gianluca Guida
+ <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
+ Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
+Date: Tue, 31 Jan 2023 14:30:26 +0200
+In-Reply-To: <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
+References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
+	 <3617dc882193166580ae7e5d122447e924cab524.1674226563.git.oleksii.kurochko@gmail.com>
+	 <d5d9a305-3501-cbc4-1c8a-1a62bd08d588@citrix.com>
+	 <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
+	 <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
 
-Hi Julien,
-
-On Mon, 2023-01-30 at 22:11 +0000, Julien Grall wrote:
-> Hi,
->=20
-> On 30/01/2023 11:40, Oleksii wrote:
-> > On Fri, 2023-01-27 at 14:54 +0000, Julien Grall wrote:
-> > > Hi Oleksii,
-> > >=20
-> > > On 27/01/2023 13:59, Oleksii Kurochko wrote:
-> > > > +static inline void wfi(void)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 __asm__ __volatile__ ("wfi");
-> > >=20
-> > > I have starred at this line for a while and I am not quite too
-> > > sure
-> > > to
-> > > understand why we don't need to clobber the memory like we do on
-> > > Arm.
-> > >=20
-> > I don't have an answer. The code was based on Linux so...
->=20
-> Hmmm ok. It would probably wise to understand how code imported from=20
-> Linux work so we don't end up introducing bug when calling such
-> function.
->=20
-> =C2=A0From your current use in this patch, I don't expect any issue. That
-> may=20
-> chance for the others use.
->=20
-Could you please share with me a link or explain what kind of problems
-may occur in case when we don't clobber the memory in the others use
-case during usage of "wfi" ?
-
-As I understand the reason for clobber the memory is to cause GCC to
-not keep memory values cached in registers across the
-assembler	instruction and not optimize stores/load to the memory.
-But current one instruction isn't expected to work with the memory so
-it should be safe enough to stall current hart ( CPU ) until an
-interrupt might need servicing.
-
-Anyway we can change the code to:
-    __asm__ __volatile__ ("wfi" ::: "memory")
-In order to be sure that no problems will arise in the future.
-
-> > > FWIW, Linux is doing the same, so I guess this is correct. For
-> > > Arm we
-> > > also follow the Linux implementation.
-> > >=20
-> > > But I am wondering whether we are just too strict on Arm, RISCv
-> > > compiler
-> > > offer a different guarantee, or you expect the user to be
-> > > responsible
-> > > to
-> > > prevent the compiler to do harmful optimization.
-> > >=20
-> > > > +/*
-> > > > + * panic() isn't available at the moment so an infinite loop
-> > > > will
-> > > > be
-> > > > + * used temporarily.
-> > > > + * TODO: change it to panic()
-> > > > + */
-> > > > +static inline void die(void)
-> > > > +{
-> > > > +=C2=A0=C2=A0=C2=A0 for( ;; ) wfi();
-> > >=20
-> > > Please move wfi() to a newline.
-> > Thanks.
+On Tue, 2023-01-31 at 21:49 +1000, Alistair Francis wrote:
+> On Mon, Jan 23, 2023 at 8:43 PM Oleksii <oleksii.kurochko@gmail.com>
+> wrote:
 > >=20
-> > I thought that it is fine to put into one line in this case but
-> > I'll
-> > move it to a newline. It's fine.
+> > On Fri, 2023-01-20 at 15:29 +0000, Andrew Cooper wrote:
+> > > On 20/01/2023 2:59 pm, Oleksii Kurochko wrote:
+> > > > Work with some registers requires csr command which is part of
+> > > > Zicsr.
+> > > >=20
+> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > > > ---
+> > > > =C2=A0xen/arch/riscv/arch.mk | 2 +-
+> > > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> > > >=20
+> > > > diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> > > > index 012dc677c3..95b41d9f3e 100644
+> > > > --- a/xen/arch/riscv/arch.mk
+> > > > +++ b/xen/arch/riscv/arch.mk
+> > > > @@ -10,7 +10,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 :=3D
+> > > > $(riscv-march-y)c
+> > > > =C2=A0# into the upper half _or_ the lower half of the address
+> > > > space.
+> > > > =C2=A0# -mcmodel=3Dmedlow would force Xen into the lower half.
+> > > >=20
+> > > > -CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -
+> > > > mcmodel=3Dmedany
+> > > > +CFLAGS +=3D -march=3D$(riscv-march-y)_zicsr -mstrict-align -
+> > > > mcmodel=3Dmedany
+> > >=20
+> > > Should we just go straight for G, rather than bumping it along
+> > > every
+> > > time we make a tweak?
+> > >=20
+> > I didn't go straight for G as it represents the =E2=80=9CIMAFDZicsr
+> > Zifencei=E2=80=9D
+> > base and extensions thereby it will be needed to add support for
+> > FPU
+> > (at least it requires {save,restore}_fp_state) but I am not sure
+> > that
+> > we need it in general.
 >=20
-> I am not aware of any place in Xen where we would combine the lines.
-> Also, you want a space after 'for'.
+> That seems fair enough. I don't see a reason to restrict ourselves if
+> we aren't using something. Although we probably will hit a
+> requirement
+> on G at some point anyway.
 >=20
-> Cheers,
->=20
+Thanks for your notes so I will change it to G.
 
-~ Oleksii
+> Alistair
+>=20
+> >=20
+> > Another one reason is that Linux kernel introduces _zicsr
+> > extenstion
+> > separately (but I am not sure that it can be considered as a
+> > serious
+> > argument):
+> > https://elixir.bootlin.com/linux/latest/source/arch/riscv/Makefile#L58
+> > https://lore.kernel.org/all/20221024113000.891820486@linuxfoundation.or=
+g/
+> >=20
+> > > ~Andrew
+> > ~Oleksii
+> >=20
+> >=20
+
 
