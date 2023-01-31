@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F7A1682985
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:52:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487494.755144 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0866829C4
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 10:59:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487502.755154 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMnIH-00042k-Pg; Tue, 31 Jan 2023 09:51:13 +0000
+	id 1pMnQE-0004lX-Ix; Tue, 31 Jan 2023 09:59:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487494.755144; Tue, 31 Jan 2023 09:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 487502.755154; Tue, 31 Jan 2023 09:59:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMnIH-000402-N0; Tue, 31 Jan 2023 09:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 487494;
- Tue, 31 Jan 2023 09:51:12 +0000
+	id 1pMnQE-0004j4-G8; Tue, 31 Jan 2023 09:59:26 +0000
+Received: by outflank-mailman (input) for mailman id 487502;
+ Tue, 31 Jan 2023 09:59:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMnIG-0003zs-CU; Tue, 31 Jan 2023 09:51:12 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pMnQD-0004iy-JS
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 09:59:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMnIG-0006Mj-9X; Tue, 31 Jan 2023 09:51:12 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMnIF-0004wD-Vm; Tue, 31 Jan 2023 09:51:12 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pMnIF-00087c-VG; Tue, 31 Jan 2023 09:51:11 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pMnQD-0006WY-6z; Tue, 31 Jan 2023 09:59:25 +0000
+Received: from 54-240-197-233.amazon.com ([54.240.197.233]
+ helo=[192.168.14.74]) by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pMnQD-0003xm-1W; Tue, 31 Jan 2023 09:59:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,147 +39,64 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=ZIzrdvFw+xfQW/VPfLACutseE8Dk0iuenV7YyaFwlQ0=; b=bTALwk9/AB8rKg8VfK030TGiJM
-	74BIZGxTRb+HvvSy/kg2/z87bR1Tl31XyWm2U9VSMYDZSvF0O/IFUi6mokq2cRGxfjuZirW6Lu6wL
-	O0JCj+A1Dfh671HRcq+LBIHYBrnqHnpFtUP2gAEP4iVTmyUuYyNNo0sceSEDgBo+i0QA=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176293-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=OAPeHy/0SDnRTC1ShnbPDm2XNvl7LMFEozy9czPWj/0=; b=ht+lfgtjfPr2v6A5YNrCHDYzjP
+	dbQY8oRSmm/KYAedxCHrpsPV5avRqhFQn9Om2+AjshdbSQ2JBg5FALfB5FdFrmdZP9Rj8Ti6ZG5Cr
+	rnFpkjZRFCPvLeMrDLrwTtV/UhZhlM3WemGUYXch7FTUbvSrzOeK/PKqIT4IqVE9QV3w=;
+Message-ID: <b8b0b07c-2b5f-f5df-1a95-e787f2cab25a@xen.org>
+Date: Tue, 31 Jan 2023 09:59:22 +0000
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 176293: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-armhf:syslog-server:running:regression
-    xen-unstable-smoke:test-amd64-amd64-libvirt:host-install(5):broken:heisenbug
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=78e93e6e57c218eead498a664785f414bcb12460
-X-Osstest-Versions-That:
-    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Jan 2023 09:51:11 +0000
-
-flight 176293 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176293/
-
-Failures and problems with tests :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- test-amd64-amd64-libvirt        <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176151
- build-armhf                   3 syslog-server                running
-
-Tests which are failing intermittently (not blocking):
- test-amd64-amd64-libvirt      5 host-install(5)          broken pass in 176292
-
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176151
- test-amd64-amd64-libvirt    15 migrate-support-check fail in 176292 never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  78e93e6e57c218eead498a664785f414bcb12460
-baseline version:
- xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
-
-Last test of basis   176151  2023-01-26 14:00:29 Z    4 days
-Testing same since   176283  2023-01-30 21:02:20 Z    0 days    6 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     broken  
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [PATCH v3 1/3] xen/arm: Add memory overlap check for
+ bootinfo.reserved_mem
+Content-Language: en-US
+To: Henry Wang <Henry.Wang@arm.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Stefano Stabellini <sstabellini@kernel.org>, Wei Chen <Wei.Chen@arm.com>,
+ Bertrand Marquis <Bertrand.Marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230130040535.188236-1-Henry.Wang@arm.com>
+ <20230130040535.188236-2-Henry.Wang@arm.com>
+ <fca91d3c-5d8a-3f7e-419a-a4c5208273dc@xen.org>
+ <AS8PR08MB79910D7E3C7F32D8CDCB851092D09@AS8PR08MB7991.eurprd08.prod.outlook.com>
+ <ffa2c5e3-9dcb-eca1-fe3f-6ad4c7c83bae@xen.org>
+ <AS8PR08MB799131C4BA5A3C5A33A0CD8D92D09@AS8PR08MB7991.eurprd08.prod.outlook.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <AS8PR08MB799131C4BA5A3C5A33A0CD8D92D09@AS8PR08MB7991.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 31/01/2023 09:30, Henry Wang wrote:
+> Hi Julien,
+> 
+>> -----Original Message-----
+>> From: Julien Grall <julien@xen.org>
+>> Subject: Re: [PATCH v3 1/3] xen/arm: Add memory overlap check for
+>> bootinfo.reserved_mem
+>>> I will fix this patch and #2 in v4.
+>>
+>> I am happy to deal with it on commit if you want.
+> 
+> Including adding the comment for both patches? This would be wonderful
+> and very nice of you to do that. But if your time is limited I am also more
+> than happy to respin the patch (probably even with Stefano's Reviewed-by
+> tag if he is ok with it) to reduce your burden. That said, if I need to respin the
+> patch, it would be good to get some hints about the wording of the comments
+> to avoid another v+1 just because of my inaccurate wording :)
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Good idea. My suggestion would be:
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+TODO: '*_end' could be 0 if the bank/region is at the end of the 
+physical address space. This is for now not handled as it requires more 
+rework.
 
-broken-job build-armhf broken
-broken-job test-amd64-amd64-libvirt broken
-broken-step test-amd64-amd64-libvirt host-install(5)
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-broken-job build-armhf broken
+Cheers,
 
-Not pushing.
-
-------------------------------------------------------------
-commit 78e93e6e57c218eead498a664785f414bcb12460
-Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Date:   Wed Jan 25 11:21:31 2023 +0000
-
-    xen/arm: Probe the load/entry point address of an uImage correctly
-    
-    Currently, kernel_uimage_probe() does not read the load/entry point address
-    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-    causes, kernel_zimage_place() to treat the binary (contained within uImage)
-    as position independent executable. Thus, it loads it at an incorrect
-    address.
-    
-    The correct approach would be to read "uimage.load" and set
-    info->zimage.start. This will ensure that the binary is loaded at the
-    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-    address).
-    
-    If user provides load address (ie "uimage.load") as 0x0, then the image is
-    treated as position independent executable. Xen can load such an image at
-    any address it considers appropriate. A position independent executable
-    cannot have a fixed entry point address.
-    
-    This behavior is applicable for both arm32 and arm64 platforms.
-    
-    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-    point address set in the uImage header. With this commit, Xen will use them.
-    This makes the behavior of Xen consistent with uboot for uimage headers.
-    
-    Users who want to use Xen with statically partitioned domains, can provide
-    non zero load address and entry address for the dom0/domU kernel. It is
-    required that the load and entry address provided must be within the memory
-    region allocated by Xen.
-    
-    A deviation from uboot behaviour is that we consider load address == 0x0,
-    to denote that the image supports position independent execution. This
-    is to make the behavior consistent across uImage and zImage.
-    
-    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    [stefano: minor doc improvement]
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+-- 
+Julien Grall
 
