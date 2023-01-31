@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50422682BBB
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 12:46:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487574.755243 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF687682BD0
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 12:49:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487580.755254 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMp5O-00061l-Mh; Tue, 31 Jan 2023 11:46:02 +0000
+	id 1pMp8r-0006h5-5w; Tue, 31 Jan 2023 11:49:37 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487574.755243; Tue, 31 Jan 2023 11:46:02 +0000
+Received: by outflank-mailman (output) from mailman id 487580.755254; Tue, 31 Jan 2023 11:49:37 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMp5O-00060E-JN; Tue, 31 Jan 2023 11:46:02 +0000
-Received: by outflank-mailman (input) for mailman id 487574;
- Tue, 31 Jan 2023 11:46:01 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMp5N-000604-Cd; Tue, 31 Jan 2023 11:46:01 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMp5N-0000bP-Bd; Tue, 31 Jan 2023 11:46:01 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pMp5M-0001eq-TZ; Tue, 31 Jan 2023 11:46:01 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pMp5M-00057y-T2; Tue, 31 Jan 2023 11:46:00 +0000
+	id 1pMp8r-0006eq-2j; Tue, 31 Jan 2023 11:49:37 +0000
+Received: by outflank-mailman (input) for mailman id 487580;
+ Tue, 31 Jan 2023 11:49:35 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=+DaM=54=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
+ id 1pMp8p-0006ek-Dc
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 11:49:35 +0000
+Received: from mail-vs1-xe36.google.com (mail-vs1-xe36.google.com
+ [2607:f8b0:4864:20::e36])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 53583c01-a15d-11ed-b63b-5f92e7d2e73a;
+ Tue, 31 Jan 2023 12:49:33 +0100 (CET)
+Received: by mail-vs1-xe36.google.com with SMTP id a24so13658195vsl.2
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 03:49:33 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,138 +39,105 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=2EJ+GBa0FadW7CIc2oKLwgHTPoxgOaEwvhZw3V5o63A=; b=4WYWau4d4cwJ4qplC2uQqQPcWd
-	b1NVeVySOFn27aGR0N9XAxe/52ig/yzA4lJ4Zg2Hdgb1xw6ATmgGPFm3mNZJBp2i3k7o23pIC6aPD
-	czF6tvuUxy86/03i2gMBgqbc/N0Q8Tam5NzAbC+wDbLa68yk2YtzHI1L2MRE3vYwAiv0=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176294-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 53583c01-a15d-11ed-b63b-5f92e7d2e73a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=76fBGWc5LJRCSdEAxjHz2pXIwr0W3yh0xSvvo/l/+Zs=;
+        b=b3lyt7dHGOeAhWN5ELVMnyAvZfFtyDcs2rcLWbBPLeG3fGqQ+JXOc+/eLXWL6y6aoQ
+         uKzAOYIX0Un+2H1VJIJ9mSFrPShwnF3XAoRCL+KpDjNmAaXcoXFGdNPe79iv3lME+AEt
+         h9Ubzmyz4eq89JCwW1DcSS5JpBuqhNzzjuzODFl2hRfP8KjQ5ne7oubbSkaV2VuuzgTA
+         xImBJOdUmnMCLL1zg2SsEFD3AngXCd8TKF0e8mqy6LVFxfCqIzrRDbDKodft++cHtVD4
+         AgKiXg5A/f1Zgu7r7xIQ5I/psY5A/kxufiHZUk1T0CWB3xOHihQZ1zi3qGqJjppd+dUm
+         g59Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=76fBGWc5LJRCSdEAxjHz2pXIwr0W3yh0xSvvo/l/+Zs=;
+        b=bVfO+NCTOSKiCzyW0KyKsTdzAbji2A7nGmyPCbu5c/u6PPV6OUlkUloYODaqXkYfNk
+         4/TWVZhOYKARlG7L79Ch6B0orfOlGfgc6izVTWZi9dlYlG2GhC6+kRk2FBpCHqeWs0Ay
+         kiYjLWLd0lx4OZ9xrG7fkAwqVotW5EIpaN9edtlnfUSrHL3Em8DBw5kRlIxSKIVCFcbt
+         2gqswFdwxRxAsUXgfk9ukRFWsET++hA7vps+fPUmJr3jOVsvjqmbJYIRWF8xyio7SkaL
+         oSnE8FEY8aQsMHQImpf3r/dlHArDz7jAyTI2fx7GBkAfqf6tLLycyo+xuzlkVhwqtrk3
+         orHw==
+X-Gm-Message-State: AO0yUKVHrdtlboImxQRd107kuJNXswU9F6+7fytYcRW0lKSNCe/zCeal
+	C79n8FOTcevDQ1lkzDWj1hsVvSEQRmeJhdMlQ5w=
+X-Google-Smtp-Source: AK7set+4J1JJDyOhUWTBkUQ+yFINmj91UHAL+mWR1PwgnyAPbwX9KzADnbLaAxDQJpvDvcVOIfoR3veqoDwQrUmjfMY=
+X-Received: by 2002:a67:e101:0:b0:3f0:89e1:7c80 with SMTP id
+ d1-20020a67e101000000b003f089e17c80mr1537104vsl.72.1675165771875; Tue, 31 Jan
+ 2023 03:49:31 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 176294: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-armhf:syslog-server:running:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=78e93e6e57c218eead498a664785f414bcb12460
-X-Osstest-Versions-That:
-    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 31 Jan 2023 11:46:00 +0000
+References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
+ <3617dc882193166580ae7e5d122447e924cab524.1674226563.git.oleksii.kurochko@gmail.com>
+ <d5d9a305-3501-cbc4-1c8a-1a62bd08d588@citrix.com> <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
+In-Reply-To: <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Tue, 31 Jan 2023 21:49:05 +1000
+Message-ID: <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
+Subject: Re: [PATCH v1 01/14] xen/riscv: add _zicsr to CFLAGS
+To: Oleksii <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
+	"xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
+	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-flight 176294 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176294/
+On Mon, Jan 23, 2023 at 8:43 PM Oleksii <oleksii.kurochko@gmail.com> wrote:
+>
+> On Fri, 2023-01-20 at 15:29 +0000, Andrew Cooper wrote:
+> > On 20/01/2023 2:59 pm, Oleksii Kurochko wrote:
+> > > Work with some registers requires csr command which is part of
+> > > Zicsr.
+> > >
+> > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > > ---
+> > >  xen/arch/riscv/arch.mk | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
+> > > index 012dc677c3..95b41d9f3e 100644
+> > > --- a/xen/arch/riscv/arch.mk
+> > > +++ b/xen/arch/riscv/arch.mk
+> > > @@ -10,7 +10,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)       :=3D
+> > > $(riscv-march-y)c
+> > >  # into the upper half _or_ the lower half of the address space.
+> > >  # -mcmodel=3Dmedlow would force Xen into the lower half.
+> > >
+> > > -CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -mcmodel=3Dmeda=
+ny
+> > > +CFLAGS +=3D -march=3D$(riscv-march-y)_zicsr -mstrict-align -
+> > > mcmodel=3Dmedany
+> >
+> > Should we just go straight for G, rather than bumping it along every
+> > time we make a tweak?
+> >
+> I didn't go straight for G as it represents the =E2=80=9CIMAFDZicsr Zifen=
+cei=E2=80=9D
+> base and extensions thereby it will be needed to add support for FPU
+> (at least it requires {save,restore}_fp_state) but I am not sure that
+> we need it in general.
 
-Failures and problems with tests :-(
+That seems fair enough. I don't see a reason to restrict ourselves if
+we aren't using something. Although we probably will hit a requirement
+on G at some point anyway.
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176151
- build-armhf                   3 syslog-server                running
+Alistair
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176151
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
-
-version targeted for testing:
- xen                  78e93e6e57c218eead498a664785f414bcb12460
-baseline version:
- xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
-
-Last test of basis   176151  2023-01-26 14:00:29 Z    4 days
-Testing same since   176283  2023-01-30 21:02:20 Z    0 days    7 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
-
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-
-Not pushing.
-
-------------------------------------------------------------
-commit 78e93e6e57c218eead498a664785f414bcb12460
-Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Date:   Wed Jan 25 11:21:31 2023 +0000
-
-    xen/arm: Probe the load/entry point address of an uImage correctly
-    
-    Currently, kernel_uimage_probe() does not read the load/entry point address
-    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-    causes, kernel_zimage_place() to treat the binary (contained within uImage)
-    as position independent executable. Thus, it loads it at an incorrect
-    address.
-    
-    The correct approach would be to read "uimage.load" and set
-    info->zimage.start. This will ensure that the binary is loaded at the
-    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-    address).
-    
-    If user provides load address (ie "uimage.load") as 0x0, then the image is
-    treated as position independent executable. Xen can load such an image at
-    any address it considers appropriate. A position independent executable
-    cannot have a fixed entry point address.
-    
-    This behavior is applicable for both arm32 and arm64 platforms.
-    
-    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-    point address set in the uImage header. With this commit, Xen will use them.
-    This makes the behavior of Xen consistent with uboot for uimage headers.
-    
-    Users who want to use Xen with statically partitioned domains, can provide
-    non zero load address and entry address for the dom0/domU kernel. It is
-    required that the load and entry address provided must be within the memory
-    region allocated by Xen.
-    
-    A deviation from uboot behaviour is that we consider load address == 0x0,
-    to denote that the image supports position independent execution. This
-    is to make the behavior consistent across uImage and zImage.
-    
-    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    [stefano: minor doc improvement]
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+>
+> Another one reason is that Linux kernel introduces _zicsr extenstion
+> separately (but I am not sure that it can be considered as a serious
+> argument):
+> https://elixir.bootlin.com/linux/latest/source/arch/riscv/Makefile#L58
+> https://lore.kernel.org/all/20221024113000.891820486@linuxfoundation.org/
+>
+> > ~Andrew
+> ~Oleksii
+>
+>
 
