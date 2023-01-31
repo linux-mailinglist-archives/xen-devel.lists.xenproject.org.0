@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA751682B4D
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 12:18:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487534.755195 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18F11682B4E
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 12:18:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487533.755189 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMoeM-0007oa-Op; Tue, 31 Jan 2023 11:18:06 +0000
+	id 1pMoeM-0007jL-Cm; Tue, 31 Jan 2023 11:18:06 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487534.755195; Tue, 31 Jan 2023 11:18:06 +0000
+Received: by outflank-mailman (output) from mailman id 487533.755189; Tue, 31 Jan 2023 11:18:06 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMoeM-0007k1-Ix; Tue, 31 Jan 2023 11:18:06 +0000
-Received: by outflank-mailman (input) for mailman id 487534;
+	id 1pMoeM-0007eo-8A; Tue, 31 Jan 2023 11:18:06 +0000
+Received: by outflank-mailman (input) for mailman id 487533;
  Tue, 31 Jan 2023 11:18:04 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0fq0=54=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pMoeK-0007cK-IS
+ id 1pMoeK-0007cS-Fy
  for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 11:18:04 +0000
-Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
- [2a00:1450:4864:20::631])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ec985ac1-a158-11ed-b63b-5f92e7d2e73a;
- Tue, 31 Jan 2023 12:18:01 +0100 (CET)
-Received: by mail-ej1-x631.google.com with SMTP id gr7so15966529ejb.5
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 03:18:01 -0800 (PST)
+Received: from mail-ej1-x634.google.com (mail-ej1-x634.google.com
+ [2a00:1450:4864:20::634])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ed27a3eb-a158-11ed-933c-83870f6b2ba8;
+ Tue, 31 Jan 2023 12:18:03 +0100 (CET)
+Received: by mail-ej1-x634.google.com with SMTP id p26so29346203ejx.13
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 03:18:02 -0800 (PST)
 Received: from pc-879.home (83.29.147.144.ipv4.supernova.orange.pl.
  [83.29.147.144]) by smtp.gmail.com with ESMTPSA id
- ov9-20020a170906fc0900b0087bdae9a1ebsm6712058ejb.94.2023.01.31.03.18.00
+ ov9-20020a170906fc0900b0087bdae9a1ebsm6712058ejb.94.2023.01.31.03.18.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Jan 2023 03:18:00 -0800 (PST)
+ Tue, 31 Jan 2023 03:18:01 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,36 +44,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ec985ac1-a158-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: ed27a3eb-a158-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y085K0nUfCuQzxisU9i9l8wFm3KxLDa0CMqvfqi8NAE=;
-        b=KgQPuRwPRCeN2HgTmzgky93xrPust6oWo1CdKcO6O3S3DH5bp9E1lpcdSSfoGXzUB9
-         w1+yqbvvFUgkkXhLVOhLD5Ol4iSHKjtTNObxWBXQ7eE2IJSb/rwK03hMZZwVpc4PVPRc
-         Tse6Plnj1bun29WWsiEtmdWOKh30egGnBvGm+TGPqhQYdq+anYJTy6cYcD68TSnfGdjR
-         hWd9pwwEhAEn/NABNkfN9+Au9Hlk73ArhYlSalz2AMLQV9r5tnyuhDxycd6Zmi8ZTinu
-         bc76KBy64tODZTmMedvLllkNOWpnrYtSYaQbZZ8dzPizBiVcPT35bzJg2yACD08iEE9v
-         JYhQ==
+        bh=wfQOzmI0ND5xgeMj5qf0FcEgmhRpEir/hocEHXP8Mt0=;
+        b=EgKt5niaErUnbLb2f5cbcqiFhXkxAiZ2cz6UQ9fy0T03umMKUitexfvDGpQQ2+Od2R
+         9WuW6sMRAOl4gyW2P7LjdIYl5l4KM5i8+nxh8bevmTgWnu6bBDrU6pBXnYfbOiLLGeo0
+         c+rc4mx1EKihzVpaoBwotEdwhb1eWH7b10dWZIBr/gjCaPq63maEgKfnO8HABpLn+VEf
+         7Vr5utbNvN/avCRrM8bL4LiI9Kck5xR+3ZXvAVlwXjzFrLY7Lxnmoxpku5TcCCv9cFmx
+         BvSYHen3IbmDbhC+xexm1hsExG//UBfk536PBMxjREg4Q5h7zyLHTGbih3Yx8dMA5nOC
+         8sUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=Y085K0nUfCuQzxisU9i9l8wFm3KxLDa0CMqvfqi8NAE=;
-        b=Le9EJ2GPkju6EPcvPEm2O8qxAVpAMRK14SmCyQGLrC6XPotlFGQCX6Ci0PLtpTi1w6
-         4Os/mpqjWbu2zvVM3DHYTGutQlzoKe3ZqgDVhOgg9rm5ZnH+8nEODndVyCP5k3tt74DO
-         dN48xrFpr9nWYmtnbutzPAyo4d9YQTUhL3nGC/+Oaa7mOE/+FzRS5jdRJjUfbXmEjePZ
-         zWwAUp/ncds68j/4Uc4o1xifOq0ixCFeRbpd0Z/RIRkPZjcPUuYGXMxphxYJBkolGq3w
-         pMXKf9E457gJZlkuE09FI/lsj0zUJJ8MZXAFY+tqaWjTcDJ1CK1Cwn1deG3XFafxz3hP
-         AI0Q==
-X-Gm-Message-State: AO0yUKWlkqRqjgeAfsF6QETP2EKwptcU38aC1NO+0kJh9LmmMADxCBYr
-	/UXpYuMIEhUYFW3wo3lH0SzZruwA9UA=
-X-Google-Smtp-Source: AK7set8/orIAz/ZORgXx9i6Y45+PTLUtH5yyIZPrFzjlr7xQpHGXRGM7Lcv1AvPg5mxd6chhhMBkhg==
-X-Received: by 2002:a17:906:bccc:b0:870:3c70:8c8d with SMTP id lw12-20020a170906bccc00b008703c708c8dmr2893771ejb.17.1675163881159;
-        Tue, 31 Jan 2023 03:18:01 -0800 (PST)
+        bh=wfQOzmI0ND5xgeMj5qf0FcEgmhRpEir/hocEHXP8Mt0=;
+        b=T+MyDzAIcEo4T73BIJ+qmYJtKCptuHuOVEbvafYWEVHMfhH+a8EskDhjasWzf6b43z
+         HUl3b2iJpEDsh/+GQw6JL/aFwS1xKFEMWFFl8sX10mZp5L3TpO59mWFmVfFwVGM+Q0nS
+         IwmzrptHRZKwKa/dQyIPVNfMXdXUa1uhzxgsGbQVz14rwbOeouG4xTi4MF1JUbWxxg3s
+         caCDBY/M3a1Lxii+3tMZMcsde7cuA2KkPl6KvPvOPv8YHYqAvGLYHChqmizCtY8d4qbC
+         li334xLy0NJu0zOXIyq3Z01Jm8nvOSx8msJfW3Q/pqH0Jja/oAAgjlna1iNWADSAtlBp
+         HGDg==
+X-Gm-Message-State: AO0yUKXBV0+OCzuQmptlmhNCx0/MGd1dG4pam00YhA8T+tQ4CGpjEj58
+	lqfdVsVqgqtcLjYbd3I2JHzhumacnbc=
+X-Google-Smtp-Source: AK7set8o8MRDq1CxDIX+Nyn8bi9Gl0kzET374ToTSKGGTCT1h+X/i98ET16sXDhVWHtlipfLUpDMDQ==
+X-Received: by 2002:a17:906:f143:b0:882:1b70:8967 with SMTP id gw3-20020a170906f14300b008821b708967mr11083308ejb.35.1675163882054;
+        Tue, 31 Jan 2023 03:18:02 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
@@ -82,180 +82,116 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Gianluca Guida <gianluca@rivosinc.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
-	Bob Eshleman <bobbyeshleman@gmail.com>,
-	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Bobby Eshleman <bobby.eshleman@gmail.com>
-Subject: [PATCH v8 1/2] xen/riscv: introduce early_printk basic stuff
-Date: Tue, 31 Jan 2023 13:17:54 +0200
-Message-Id: <06c2c36bd68b2534c757dc4087476e855253680a.1675163330.git.oleksii.kurochko@gmail.com>
+	Doug Goldstein <cardoe@cardoe.com>,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v8 2/2] automation: update RISC-V smoke test
+Date: Tue, 31 Jan 2023 13:17:55 +0200
+Message-Id: <2ff69540fffe67880bb13a468295c593d0db8604.1675163330.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
 In-Reply-To: <cover.1675163330.git.oleksii.kurochko@gmail.com>
 References: <cover.1675163330.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Because printk() relies on a serial driver (like the ns16550 driver)
-and drivers require working virtual memory (ioremap()) there is not
-print functionality early in Xen boot.
+Add check if there is a message 'Hello from C env' presents
+in log file to be sure that stack is set and C part of early printk
+is working.
 
-The patch introduces the basic stuff of early_printk functionality
-which will be enough to print 'hello from C environment".
-
-Originally early_printk.{c,h} was introduced by Bobby Eshleman
-(https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d1aab71384)
-but some functionality was changed:
-early_printk() function was changed in comparison with the original as
-common isn't being built now so there is no vscnprintf.
-
-This commit adds early printk implementation built on the putc SBI call.
-
-As sbi_console_putchar() is already being planned for deprecation
-it is used temporarily now and will be removed or reworked after
-real uart will be ready.
-
-Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
 ---
 Changes in V8:
-    - Nothing was changed
+ - Set "needs: archlinux-current-gcc-riscv64-debug" in test.yaml
+   for RISCV job as CONFIG_EARLY_PRINTK is available only when
+   CONFIG_DEBUG is available.
 ---
 Changes in V7:
-    - Nothing was changed
+ - Fix dependecy for qemu-smoke-riscv64-gcc job
 ---
 Changes in V6:
-    - Remove __riscv_cmodel_medany check from early_printk.c
+ - Rename container name in test.yaml for .qemu-riscv64.
 ---
 Changes in V5:
-    - Code style fixes
-    - Change an error message of #error in case of __riscv_cmodel_medany
-      isn't defined
+  - Nothing changed
 ---
 Changes in V4:
-    - Remove "depends on RISCV*" from Kconfig.debug as it is located in
-      arch specific folder so by default RISCV configs should be ebabled.
-    - Add "ifdef __riscv_cmodel_medany" to be sure that PC-relative addressing
-      is used as early_*() functions can be called from head.S with MMU-off and
-      before relocation (if it would be needed at all for RISC-V)
-    - fix code style
+  - Nothing changed
 ---
 Changes in V3:
-    - reorder headers in alphabetical order
-    - merge changes related to start_xen() function from "[PATCH v2 7/8]
-      xen/riscv: print hello message from C env" to this patch
-    - remove unneeded parentheses in definition of STACK_SIZE
+  - Nothing changed
+  - All mentioned comments by Stefano in Xen mailing list will be
+    fixed as a separate patch out of this patch series.
 ---
-Changes in V2:
-    - introduce STACK_SIZE define.
-    - use consistent padding between instruction mnemonic and operand(s)
----
- xen/arch/riscv/Kconfig.debug              |  5 ++++
- xen/arch/riscv/Makefile                   |  1 +
- xen/arch/riscv/early_printk.c             | 33 +++++++++++++++++++++++
- xen/arch/riscv/include/asm/early_printk.h | 12 +++++++++
- xen/arch/riscv/setup.c                    |  4 +++
- 5 files changed, 55 insertions(+)
- create mode 100644 xen/arch/riscv/early_printk.c
- create mode 100644 xen/arch/riscv/include/asm/early_printk.h
+ automation/gitlab-ci/test.yaml           | 20 ++++++++++++++++++++
+ automation/scripts/qemu-smoke-riscv64.sh | 20 ++++++++++++++++++++
+ 2 files changed, 40 insertions(+)
+ create mode 100755 automation/scripts/qemu-smoke-riscv64.sh
 
-diff --git a/xen/arch/riscv/Kconfig.debug b/xen/arch/riscv/Kconfig.debug
-index e69de29bb2..608c9ff832 100644
---- a/xen/arch/riscv/Kconfig.debug
-+++ b/xen/arch/riscv/Kconfig.debug
-@@ -0,0 +1,5 @@
-+config EARLY_PRINTK
-+    bool "Enable early printk"
-+    default DEBUG
-+    help
-+      Enables early printk debug messages
-diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-index fd916e1004..1a4f1a6015 100644
---- a/xen/arch/riscv/Makefile
-+++ b/xen/arch/riscv/Makefile
-@@ -1,3 +1,4 @@
-+obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
- obj-$(CONFIG_RISCV_64) += riscv64/
- obj-y += sbi.o
- obj-y += setup.o
-diff --git a/xen/arch/riscv/early_printk.c b/xen/arch/riscv/early_printk.c
-new file mode 100644
-index 0000000000..b66a11f1bc
+diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
+index afd80adfe1..ce543ef5c0 100644
+--- a/automation/gitlab-ci/test.yaml
++++ b/automation/gitlab-ci/test.yaml
+@@ -54,6 +54,19 @@
+   tags:
+     - x86_64
+ 
++.qemu-riscv64:
++  extends: .test-jobs-common
++  variables:
++    CONTAINER: archlinux:current-riscv64
++    LOGFILE: qemu-smoke-riscv64.log
++  artifacts:
++    paths:
++      - smoke.serial
++      - '*.log'
++    when: always
++  tags:
++    - x86_64
++
+ .yocto-test:
+   extends: .test-jobs-common
+   script:
+@@ -234,6 +247,13 @@ qemu-smoke-x86-64-clang-pvh:
+   needs:
+     - debian-unstable-clang-debug
+ 
++qemu-smoke-riscv64-gcc:
++  extends: .qemu-riscv64
++  script:
++    - ./automation/scripts/qemu-smoke-riscv64.sh 2>&1 | tee ${LOGFILE}
++  needs:
++    - archlinux-current-gcc-riscv64-debug
++
+ # Yocto test jobs
+ yocto-qemuarm64:
+   extends: .yocto-test-arm64
+diff --git a/automation/scripts/qemu-smoke-riscv64.sh b/automation/scripts/qemu-smoke-riscv64.sh
+new file mode 100755
+index 0000000000..e0f06360bc
 --- /dev/null
-+++ b/xen/arch/riscv/early_printk.c
-@@ -0,0 +1,33 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * RISC-V early printk using SBI
-+ *
-+ * Copyright (C) 2021 Bobby Eshleman <bobbyeshleman@gmail.com>
-+ */
-+#include <asm/early_printk.h>
-+#include <asm/sbi.h>
++++ b/automation/scripts/qemu-smoke-riscv64.sh
+@@ -0,0 +1,20 @@
++#!/bin/bash
 +
-+/*
-+ * TODO:
-+ *   sbi_console_putchar is already planned for deprecation
-+ *   so it should be reworked to use UART directly.
-+*/
-+void early_puts(const char *s, size_t nr)
-+{
-+    while ( nr-- > 0 )
-+    {
-+        if ( *s == '\n' )
-+            sbi_console_putchar('\r');
-+        sbi_console_putchar(*s);
-+        s++;
-+    }
-+}
++set -ex
 +
-+void early_printk(const char *str)
-+{
-+    while ( *str )
-+    {
-+        early_puts(str, 1);
-+        str++;
-+    }
-+}
-diff --git a/xen/arch/riscv/include/asm/early_printk.h b/xen/arch/riscv/include/asm/early_printk.h
-new file mode 100644
-index 0000000000..05106e160d
---- /dev/null
-+++ b/xen/arch/riscv/include/asm/early_printk.h
-@@ -0,0 +1,12 @@
-+#ifndef __EARLY_PRINTK_H__
-+#define __EARLY_PRINTK_H__
++# Run the test
++rm -f smoke.serial
++set +e
 +
-+#include <xen/early_printk.h>
++timeout -k 1 2 \
++qemu-system-riscv64 \
++    -M virt \
++    -smp 1 \
++    -nographic \
++    -m 2g \
++    -kernel binaries/xen \
++    |& tee smoke.serial
 +
-+#ifdef CONFIG_EARLY_PRINTK
-+void early_printk(const char *str);
-+#else
-+static inline void early_printk(const char *s) {};
-+#endif
-+
-+#endif /* __EARLY_PRINTK_H__ */
-diff --git a/xen/arch/riscv/setup.c b/xen/arch/riscv/setup.c
-index 13e24e2fe1..d09ffe1454 100644
---- a/xen/arch/riscv/setup.c
-+++ b/xen/arch/riscv/setup.c
-@@ -1,12 +1,16 @@
- #include <xen/compile.h>
- #include <xen/init.h>
- 
-+#include <asm/early_printk.h>
-+
- /* Xen stack for bringing up the first CPU. */
- unsigned char __initdata cpu0_boot_stack[STACK_SIZE]
-     __aligned(STACK_SIZE);
- 
- void __init noreturn start_xen(void)
- {
-+    early_printk("Hello from C env\n");
-+
-     for ( ;; )
-         asm volatile ("wfi");
- 
++set -e
++(grep -q "Hello from C env" smoke.serial) || exit 1
++exit 0
 -- 
 2.39.0
 
