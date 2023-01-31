@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DF78682C96
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:30:46 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487612.755284 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88EE5682C9E
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:34:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487617.755295 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpmR-0005n4-3v; Tue, 31 Jan 2023 12:30:31 +0000
+	id 1pMpq7-0006QN-M8; Tue, 31 Jan 2023 12:34:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487612.755284; Tue, 31 Jan 2023 12:30:31 +0000
+Received: by outflank-mailman (output) from mailman id 487617.755295; Tue, 31 Jan 2023 12:34:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpmR-0005l9-15; Tue, 31 Jan 2023 12:30:31 +0000
-Received: by outflank-mailman (input) for mailman id 487612;
- Tue, 31 Jan 2023 12:30:28 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pMpq7-0006NI-IW; Tue, 31 Jan 2023 12:34:19 +0000
+Received: by outflank-mailman (input) for mailman id 487617;
+ Tue, 31 Jan 2023 12:34:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0fq0=54=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pMpmO-0005l3-SA
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:30:28 +0000
-Received: from mail-ej1-x636.google.com (mail-ej1-x636.google.com
- [2a00:1450:4864:20::636])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 0b16727f-a163-11ed-933c-83870f6b2ba8;
- Tue, 31 Jan 2023 13:30:27 +0100 (CET)
-Received: by mail-ej1-x636.google.com with SMTP id ud5so41136989ejc.4
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:30:27 -0800 (PST)
+ id 1pMpq6-0006NA-AQ
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:34:18 +0000
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
+ [2a00:1450:4864:20::62d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 932ebe66-a163-11ed-b63b-5f92e7d2e73a;
+ Tue, 31 Jan 2023 13:34:16 +0100 (CET)
+Received: by mail-ej1-x62d.google.com with SMTP id m2so40674863ejb.8
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:34:16 -0800 (PST)
 Received: from pc-879.home (83.29.147.144.ipv4.supernova.orange.pl.
  [83.29.147.144]) by smtp.gmail.com with ESMTPSA id
- l3-20020a056402230300b0049f29a7c0d6sm8328170eda.34.2023.01.31.04.30.26
+ de3-20020a1709069bc300b0088be5f9843fsm1138776ejc.158.2023.01.31.04.34.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Jan 2023 04:30:27 -0800 (PST)
+ Tue, 31 Jan 2023 04:34:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,121 +44,163 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 0b16727f-a163-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 932ebe66-a163-11ed-b63b-5f92e7d2e73a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=pCmLGAI5vdHBS0eYH6qCqi6roe/ilfkfoE+bpcz9Jog=;
-        b=fFVQI4lrSpdvK270rKm/WdXqSIbMcxBu1UYdrvsbnL85EKJ1Gyqersvi8rbTFOu9ML
-         AV8Ivb/KYIyM42OmZnei5Vp4a+d/aEtZGS0olnpDIo54YAPQLDZnSCdMSQvUE5PfyYWG
-         vFZk6xOHMi5NK0p9GvF3eNa9y8aRzr57zwIdO7LuZR0GvDKHW/D67bNTjuxLji1F9bz6
-         yvr22NsU4qK54YOQw25hXn/VwUQ7Gx/4xBN3nMXa30o7dKyCm/sLZ+HeS3gLKYOxbeRE
-         1VdDSSlO4o7ocAAbsmYIld41j55AmUI7Mx8BKDCdQfuw5Ctar6KKUDeQE4Or0ulqKKcC
-         RP0Q==
+        bh=rHkuxG+nSuICPPi7KodEiRosBEeuCix+OENZAvUeQVA=;
+        b=g+T7mDATQy7IYOwckkooh1zbU7ylJdT2cfn9caLlxOejNK9YLb24nQ31v5ppki+1so
+         0z/1p/LwIMz+Y2tUv0nA5+IIpRljM7HHn7nZ7/GOjva/+so/ADrHItjTBpoET+8cW1II
+         ctfLA1m7TBvIknZ59F18Zk8YF65K1FrSVxzg77oPoXrZikXWGAjIXJhQCgfKzcg67UgB
+         bZLxmPBitWwc4ff/TKxRP8kvYq+nnmzNF8r3Mc4nuj0ln2svLZl8p6uhCz+X5ux1DR8h
+         jAVAyQw+qDVTnLdi7uBQqvnl2C+sOH4YcXO3oPCVuWTV6OlxN75R7Hxk6vr6VBVunC5M
+         bWEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=pCmLGAI5vdHBS0eYH6qCqi6roe/ilfkfoE+bpcz9Jog=;
-        b=UZZTkGMSRU91lm30f4vvxc6h97oa+xTbzOI37mzE8yRI7UMXa3jSnWXRowj85jffkJ
-         GsEHaecsJUVeT4FQdSwSSLjNqtcX6Z6fRU5G4nRy+Vj3g8JzD4fm4h+0rFbai+fgQf+v
-         r5wwrs6a5w4lE54PRDz7ssUbJ7Q/do4zwjzWy34s6fbng4I4LHDL1E+jOJXY0A7GWvCD
-         A4fq3rIkpwPUAtD92XP8WjnNPYs57JikCF+DTX93HXG1MTzKJdCxcS/Anb9BL13A0Mau
-         QmtzL4LVI6J0DEcJ8v8jvYRa/Kqi5D5qQcgSmEtNkfxarsCwYqcuJ+2bHmw1eS+I7Vqq
-         UpGA==
-X-Gm-Message-State: AO0yUKWUpxbdGsLt+wQ/KIgxSsoa/ueYtd4HGd0U+fV7mRtmZiLnukTm
-	0rlskiXLZQE0VSaeVQego6U=
-X-Google-Smtp-Source: AK7set+V/QAdvwc377Dd9bPYcjGsDrMH/7bjzENkzEIziofx99wtg+61HlS/+oAlUhGP0gdhSeigIg==
-X-Received: by 2002:a17:907:97d3:b0:889:33ca:70c6 with SMTP id js19-20020a17090797d300b0088933ca70c6mr7928894ejc.2.1675168227442;
-        Tue, 31 Jan 2023 04:30:27 -0800 (PST)
-Message-ID: <1bb7d9d3580311888aa97c8ad50aa93c09c46fce.camel@gmail.com>
-Subject: Re: [PATCH v1 01/14] xen/riscv: add _zicsr to CFLAGS
+        bh=rHkuxG+nSuICPPi7KodEiRosBEeuCix+OENZAvUeQVA=;
+        b=cK6Fw9tCCMyr9L7atM+RQGDwrj+UlXUBUP3s4I2L7e0KW+1FCPVBQZDtemTbOBhi8H
+         XJAY+LxEyyL0IrsONljonHDpGoRK4+m6kfpOg+hexU8mgXx5sTndbUeWBeOT6/rpOLlb
+         zXZRqElCqs0Ob7V4dsWheSUTTsksuAHHlafACM4x2R0blPmJZ6AhVnhUsKEN1P2O/8WP
+         odLDZxsGOhPBUKIxCpu3plmJxo+QjT6qS8DVkt45bLtr8pHx2KiyXd6zUn/J+sbUjpbA
+         BLR/pRtkAb5MnxbRNWGSOaapfkczFx0Gf4Csov1/ArwYSRDFWcPB0Ja8jmPtxDPmBWs0
+         bcrw==
+X-Gm-Message-State: AO0yUKVAKsNuIyhUBy6o/s9mbnkPPrA7VBMBwb9hKAtZfN7wPxVsn2eD
+	pTBDX9qChYHDT3LZtMDJiUI=
+X-Google-Smtp-Source: AK7set/M5UHOxpF//t4LAM0ABaXpcT6VZDrCQxCfLpVwhTLYsVZPFhtB8NpFXkVENRmoqUnReQIz6A==
+X-Received: by 2002:a17:906:6402:b0:87b:cefa:c99b with SMTP id d2-20020a170906640200b0087bcefac99bmr16160588ejm.48.1675168455771;
+        Tue, 31 Jan 2023 04:34:15 -0800 (PST)
+Message-ID: <fdbf044d79b23b33b75a684f5124fa218f826a32.camel@gmail.com>
+Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of
+ macros from <asm/bug.h>
 From: Oleksii <oleksii.kurochko@gmail.com>
-To: Alistair Francis <alistair23@gmail.com>
-Cc: Andrew Cooper <Andrew.Cooper3@citrix.com>, 
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Stefano
- Stabellini <sstabellini@kernel.org>,  Gianluca Guida
- <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
- Francis <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
-Date: Tue, 31 Jan 2023 14:30:26 +0200
-In-Reply-To: <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
-References: <cover.1674226563.git.oleksii.kurochko@gmail.com>
-	 <3617dc882193166580ae7e5d122447e924cab524.1674226563.git.oleksii.kurochko@gmail.com>
-	 <d5d9a305-3501-cbc4-1c8a-1a62bd08d588@citrix.com>
-	 <d3e2c18e443439d18f8ece31c9419e30a19be8c5.camel@gmail.com>
-	 <CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+HmwkUPb2r3ew@mail.gmail.com>
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
+ <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+ Connor Davis <connojdavis@gmail.com>
+Date: Tue, 31 Jan 2023 14:34:14 +0200
+In-Reply-To: <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
+	 <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
+	 <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
+	 <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
+	 <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
 
-On Tue, 2023-01-31 at 21:49 +1000, Alistair Francis wrote:
-> On Mon, Jan 23, 2023 at 8:43 PM Oleksii <oleksii.kurochko@gmail.com>
-> wrote:
-> >=20
-> > On Fri, 2023-01-20 at 15:29 +0000, Andrew Cooper wrote:
-> > > On 20/01/2023 2:59 pm, Oleksii Kurochko wrote:
-> > > > Work with some registers requires csr command which is part of
-> > > > Zicsr.
+On Mon, 2023-01-30 at 22:28 +0000, Julien Grall wrote:
+> Hi Oleksii,
+>=20
+> On 30/01/2023 11:35, Oleksii wrote:
+> > Hi Julien,
+> > On Fri, 2023-01-27 at 16:02 +0000, Julien Grall wrote:
+> > > Hi Oleksii,
+> > >=20
+> > > On 27/01/2023 13:59, Oleksii Kurochko wrote:
+> > > > The patch introduces macros: BUG(), WARN(), run_in_exception(),
+> > > > assert_failed.
+> > > >=20
+> > > > The implementation uses "ebreak" instruction in combination
+> > > > with
+> > > > diffrent bug frame tables (for each type) which contains useful
+> > > > information.
 > > > >=20
 > > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 > > > > ---
-> > > > =C2=A0xen/arch/riscv/arch.mk | 2 +-
-> > > > =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+> > > > Changes:
+> > > > =C2=A0=C2=A0=C2=A0 - Remove __ in define namings
+> > > > =C2=A0=C2=A0=C2=A0 - Update run_in_exception_handler() with
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 register void *fn_ asm(__stringify(B=
+UG_FN_REG)) =3D (fn);
+> > > > =C2=A0=C2=A0=C2=A0 - Remove bug_instr_t type and change it's usage =
+to uint32_t
+> > > > ---
+> > > > =C2=A0=C2=A0 xen/arch/riscv/include/asm/bug.h | 118
+> > > > ++++++++++++++++++++++++++++
+> > > > =C2=A0=C2=A0 xen/arch/riscv/traps.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 128
+> > > > +++++++++++++++++++++++++++++++
+> > > > =C2=A0=C2=A0 xen/arch/riscv/xen.lds.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +++
+> > > > =C2=A0=C2=A0 3 files changed, 256 insertions(+)
+> > > > =C2=A0=C2=A0 create mode 100644 xen/arch/riscv/include/asm/bug.h
 > > > >=20
-> > > > diff --git a/xen/arch/riscv/arch.mk b/xen/arch/riscv/arch.mk
-> > > > index 012dc677c3..95b41d9f3e 100644
-> > > > --- a/xen/arch/riscv/arch.mk
-> > > > +++ b/xen/arch/riscv/arch.mk
-> > > > @@ -10,7 +10,7 @@ riscv-march-$(CONFIG_RISCV_ISA_C)=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0 :=3D
-> > > > $(riscv-march-y)c
-> > > > =C2=A0# into the upper half _or_ the lower half of the address
-> > > > space.
-> > > > =C2=A0# -mcmodel=3Dmedlow would force Xen into the lower half.
-> > > >=20
-> > > > -CFLAGS +=3D -march=3D$(riscv-march-y) -mstrict-align -
-> > > > mcmodel=3Dmedany
-> > > > +CFLAGS +=3D -march=3D$(riscv-march-y)_zicsr -mstrict-align -
-> > > > mcmodel=3Dmedany
+> > > > diff --git a/xen/arch/riscv/include/asm/bug.h
+> > > > b/xen/arch/riscv/include/asm/bug.h
+> > > > new file mode 100644
+> > > > index 0000000000..4b15d8eba6
+> > > > --- /dev/null
+> > > > +++ b/xen/arch/riscv/include/asm/bug.h
+> > > > @@ -0,0 +1,118 @@
+> > > > +/* SPDX-License-Identifier: GPL-2.0 */
+> > > > +/*
+> > > > + * Copyright (C) 2012 Regents of the University of California
+> > > > + * Copyright (C) 2021-2023 Vates
 > > >=20
-> > > Should we just go straight for G, rather than bumping it along
-> > > every
-> > > time we make a tweak?
+> > > I have to question the two copyrights here given that the
+> > > majority of
+> > > the code seems to be taken from the arm implementation (see
+> > > arch/arm/include/asm/bug.h).
 > > >=20
-> > I didn't go straight for G as it represents the =E2=80=9CIMAFDZicsr
-> > Zifencei=E2=80=9D
-> > base and extensions thereby it will be needed to add support for
-> > FPU
-> > (at least it requires {save,restore}_fp_state) but I am not sure
-> > that
-> > we need it in general.
+> > > With that said, we should consolidate the code rather than
+> > > duplicating
+> > > it on every architecture.
+> > >=20
+> > Copyrights should be removed. They were taken from the previous
+> > implementation of bug.h for RISC-V so I just forgot to remove them.
+> >=20
+> > It looks like we should have common bug.h for ARM and RISCV but I
+> > am
+> > not sure that I know how to do that better.
+> > Probably the code wants to be moved to xen/include/bug.h and using
+> > ifdef ARM && RISCV ...
 >=20
-> That seems fair enough. I don't see a reason to restrict ourselves if
-> we aren't using something. Although we probably will hit a
-> requirement
-> on G at some point anyway.
+> Or you could introduce CONFIG_BUG_GENERIC or else, so it is easily=20
+> selectable by other architecture.
 >=20
-Thanks for your notes so I will change it to G.
+> > But still I am not sure that this is the best one option as at
+> > least we
+> > have different implementation for x86_64.
+>=20
+> My main concern is the maintainance effort. For every bug, we would
+> need=20
+> to fix it in two places. The risk is we may forget to fix one
+> architecture.
+> This is not a very ideal situation.
+>=20
+> So I think sharing the header between RISC-V and Arm (or x86, see
+> below)=20
+> is at least a must. We can do the 3rd architecture at a leisure pace.
+>=20
+> One option would be to introduce asm-generic like Linux (IIRC this
+> was a=20
+> suggestion from Andrew). This would also to share code between two of
+> the archs.
+>=20
+> Also, from a brief look, the difference in implementation is mainly=20
+> because on Arm we can't use %c (some version of GCC didn't support
+> it).=20
+> Is this also the case on RISC-V? If not, you may want to consider to
+> use=20
+> the x86 version.
+>=20
+No, it shouldn't be an issue for RISC-V. I'll double check.
+Any way it should bug.h should be shared between archs so I am going to
+rework that in this patch series and sent the changes in the next
+version of the patch series.
 
-> Alistair
+Thanks.
+
+~Oleksii
+> Cheers,
 >=20
-> >=20
-> > Another one reason is that Linux kernel introduces _zicsr
-> > extenstion
-> > separately (but I am not sure that it can be considered as a
-> > serious
-> > argument):
-> > https://elixir.bootlin.com/linux/latest/source/arch/riscv/Makefile#L58
-> > https://lore.kernel.org/all/20221024113000.891820486@linuxfoundation.or=
-g/
-> >=20
-> > > ~Andrew
-> > ~Oleksii
-> >=20
-> >=20
 
 
