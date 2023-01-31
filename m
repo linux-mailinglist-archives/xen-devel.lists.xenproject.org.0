@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88EE5682C9E
-	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:34:33 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487617.755295 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B255682CB1
+	for <lists+xen-devel@lfdr.de>; Tue, 31 Jan 2023 13:37:40 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487622.755304 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpq7-0006QN-M8; Tue, 31 Jan 2023 12:34:19 +0000
+	id 1pMpt0-00079l-2Z; Tue, 31 Jan 2023 12:37:18 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487617.755295; Tue, 31 Jan 2023 12:34:19 +0000
+Received: by outflank-mailman (output) from mailman id 487622.755304; Tue, 31 Jan 2023 12:37:18 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pMpq7-0006NI-IW; Tue, 31 Jan 2023 12:34:19 +0000
-Received: by outflank-mailman (input) for mailman id 487617;
- Tue, 31 Jan 2023 12:34:18 +0000
+	id 1pMpsz-00077X-Vx; Tue, 31 Jan 2023 12:37:17 +0000
+Received: by outflank-mailman (input) for mailman id 487622;
+ Tue, 31 Jan 2023 12:37:16 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0fq0=54=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pMpq6-0006NA-AQ
- for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:34:18 +0000
-Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com
- [2a00:1450:4864:20::62d])
+ id 1pMpsy-00077M-Sv
+ for xen-devel@lists.xenproject.org; Tue, 31 Jan 2023 12:37:16 +0000
+Received: from mail-ed1-x52f.google.com (mail-ed1-x52f.google.com
+ [2a00:1450:4864:20::52f])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 932ebe66-a163-11ed-b63b-5f92e7d2e73a;
- Tue, 31 Jan 2023 13:34:16 +0100 (CET)
-Received: by mail-ej1-x62d.google.com with SMTP id m2so40674863ejb.8
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:34:16 -0800 (PST)
+ id fda5c719-a163-11ed-b63b-5f92e7d2e73a;
+ Tue, 31 Jan 2023 13:37:14 +0100 (CET)
+Received: by mail-ed1-x52f.google.com with SMTP id f7so7027140edw.5
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 04:37:14 -0800 (PST)
 Received: from pc-879.home (83.29.147.144.ipv4.supernova.orange.pl.
  [83.29.147.144]) by smtp.gmail.com with ESMTPSA id
- de3-20020a1709069bc300b0088be5f9843fsm1138776ejc.158.2023.01.31.04.34.14
+ g12-20020a056402114c00b004a216fa259esm6225345edw.60.2023.01.31.04.37.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 Jan 2023 04:34:15 -0800 (PST)
+ Tue, 31 Jan 2023 04:37:14 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,163 +44,119 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 932ebe66-a163-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: fda5c719-a163-11ed-b63b-5f92e7d2e73a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=rHkuxG+nSuICPPi7KodEiRosBEeuCix+OENZAvUeQVA=;
-        b=g+T7mDATQy7IYOwckkooh1zbU7ylJdT2cfn9caLlxOejNK9YLb24nQ31v5ppki+1so
-         0z/1p/LwIMz+Y2tUv0nA5+IIpRljM7HHn7nZ7/GOjva/+so/ADrHItjTBpoET+8cW1II
-         ctfLA1m7TBvIknZ59F18Zk8YF65K1FrSVxzg77oPoXrZikXWGAjIXJhQCgfKzcg67UgB
-         bZLxmPBitWwc4ff/TKxRP8kvYq+nnmzNF8r3Mc4nuj0ln2svLZl8p6uhCz+X5ux1DR8h
-         jAVAyQw+qDVTnLdi7uBQqvnl2C+sOH4YcXO3oPCVuWTV6OlxN75R7Hxk6vr6VBVunC5M
-         bWEw==
+        bh=pQteqOCyAwbu0M9jaRz8XXN1rQY3QJ0D8KKKbXHgsYY=;
+        b=GsBKl0XLdwLmbwS2zltNkihJofVcRpe+mstb6uMVNe1iuUVZveUv0scDmFbqNNzQvm
+         YF0L/RqIE94fSwvmi56daqSKguUZzZ+CNOdu7+4v3OJoEi4bSlcSRRsIKdWFOMKjVFq/
+         Ih4FSg5LkWCWP0z105kDQRXziFOv8DCuj7IIkWqT9KBf1TzMuhvsqp9p9ecnBMezmBW0
+         FeGqOL/wMWAn1DIsGIXOqYTqNSCJ9tvpeJugnDRwl0ZajAvWyaW9e7zTkGkMotcXABW9
+         XUx7Lgy6YZEfWjVj3q8qmWFtB1EdkCafvl/mYECOIo3Qftgfu8QlCu3VSCDggR90SJsj
+         jRpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=rHkuxG+nSuICPPi7KodEiRosBEeuCix+OENZAvUeQVA=;
-        b=cK6Fw9tCCMyr9L7atM+RQGDwrj+UlXUBUP3s4I2L7e0KW+1FCPVBQZDtemTbOBhi8H
-         XJAY+LxEyyL0IrsONljonHDpGoRK4+m6kfpOg+hexU8mgXx5sTndbUeWBeOT6/rpOLlb
-         zXZRqElCqs0Ob7V4dsWheSUTTsksuAHHlafACM4x2R0blPmJZ6AhVnhUsKEN1P2O/8WP
-         odLDZxsGOhPBUKIxCpu3plmJxo+QjT6qS8DVkt45bLtr8pHx2KiyXd6zUn/J+sbUjpbA
-         BLR/pRtkAb5MnxbRNWGSOaapfkczFx0Gf4Csov1/ArwYSRDFWcPB0Ja8jmPtxDPmBWs0
-         bcrw==
-X-Gm-Message-State: AO0yUKVAKsNuIyhUBy6o/s9mbnkPPrA7VBMBwb9hKAtZfN7wPxVsn2eD
-	pTBDX9qChYHDT3LZtMDJiUI=
-X-Google-Smtp-Source: AK7set/M5UHOxpF//t4LAM0ABaXpcT6VZDrCQxCfLpVwhTLYsVZPFhtB8NpFXkVENRmoqUnReQIz6A==
-X-Received: by 2002:a17:906:6402:b0:87b:cefa:c99b with SMTP id d2-20020a170906640200b0087bcefac99bmr16160588ejm.48.1675168455771;
-        Tue, 31 Jan 2023 04:34:15 -0800 (PST)
-Message-ID: <fdbf044d79b23b33b75a684f5124fa218f826a32.camel@gmail.com>
-Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of
- macros from <asm/bug.h>
+        bh=pQteqOCyAwbu0M9jaRz8XXN1rQY3QJ0D8KKKbXHgsYY=;
+        b=KQqUUuNIu6v5/vQrmtaJ6UAtQrIpQQI2s1y9BO0W0Rjh4uKVn0ZNTTu5C95KcOCvvu
+         S1TJn6Lmu+NP4lfoNuy7GUCB3mEvZtEsZIdtWT4K7a7UmN8PQr7nXJ67h9hMjd12pC21
+         NItyuyHQB6RB4qfGgGFDj0jeOTVBu48a+tYz5cQgwM7VLCIYyoMxL7I44R87w3ie+GxW
+         fxH0LLwRMNfu1R2wCCvCVv0NLi6+Lql/CJlrX4uY393Jn0SETfHostN0TOQrQ1OXvsoo
+         9ryUNESheSwjjKOlrD5yOi+JxoWXQxlaSUwq6CoBeSMcJXpD28h32ZVzA9TdiAGfax3n
+         hqKA==
+X-Gm-Message-State: AO0yUKUDcsebOKqCdk8wHKE121x/RCDkq7t6qkknzpCGC+gsb+o1A+T6
+	c5Vrfm0c+KKkmaHzOUjoHVM=
+X-Google-Smtp-Source: AK7set9nAjQwlEifEw/u78Qh5wLhEz5Cnq11+HNpony01MddJpfoNhlK5liZ9OQvbgIczskdaWIv1g==
+X-Received: by 2002:a05:6402:22b9:b0:4a2:6f53:c417 with SMTP id cx25-20020a05640222b900b004a26f53c417mr1370199edb.32.1675168634511;
+        Tue, 31 Jan 2023 04:37:14 -0800 (PST)
+Message-ID: <5c6e413b606ae268f0a6a24d347d6dd994598d37.camel@gmail.com>
+Subject: Re: [PATCH v8 1/2] xen/riscv: introduce early_printk basic stuff
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
  <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
  Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
  <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
- Connor Davis <connojdavis@gmail.com>
-Date: Tue, 31 Jan 2023 14:34:14 +0200
-In-Reply-To: <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
-References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
-	 <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
-	 <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
-	 <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
-	 <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
+ Connor Davis <connojdavis@gmail.com>, Bobby Eshleman
+ <bobby.eshleman@gmail.com>
+Date: Tue, 31 Jan 2023 14:37:13 +0200
+In-Reply-To: <12f4a315-19dc-2462-7bbf-f02408b09081@xen.org>
+References: <cover.1675163330.git.oleksii.kurochko@gmail.com>
+	 <06c2c36bd68b2534c757dc4087476e855253680a.1675163330.git.oleksii.kurochko@gmail.com>
+	 <12f4a315-19dc-2462-7bbf-f02408b09081@xen.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
 
-On Mon, 2023-01-30 at 22:28 +0000, Julien Grall wrote:
+Hi Julien,
+
+On Tue, 2023-01-31 at 11:42 +0000, Julien Grall wrote:
 > Hi Oleksii,
 >=20
-> On 30/01/2023 11:35, Oleksii wrote:
-> > Hi Julien,
-> > On Fri, 2023-01-27 at 16:02 +0000, Julien Grall wrote:
-> > > Hi Oleksii,
-> > >=20
-> > > On 27/01/2023 13:59, Oleksii Kurochko wrote:
-> > > > The patch introduces macros: BUG(), WARN(), run_in_exception(),
-> > > > assert_failed.
-> > > >=20
-> > > > The implementation uses "ebreak" instruction in combination
-> > > > with
-> > > > diffrent bug frame tables (for each type) which contains useful
-> > > > information.
-> > > >=20
-> > > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > > > ---
-> > > > Changes:
-> > > > =C2=A0=C2=A0=C2=A0 - Remove __ in define namings
-> > > > =C2=A0=C2=A0=C2=A0 - Update run_in_exception_handler() with
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 register void *fn_ asm(__stringify(B=
-UG_FN_REG)) =3D (fn);
-> > > > =C2=A0=C2=A0=C2=A0 - Remove bug_instr_t type and change it's usage =
-to uint32_t
-> > > > ---
-> > > > =C2=A0=C2=A0 xen/arch/riscv/include/asm/bug.h | 118
-> > > > ++++++++++++++++++++++++++++
-> > > > =C2=A0=C2=A0 xen/arch/riscv/traps.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 128
-> > > > +++++++++++++++++++++++++++++++
-> > > > =C2=A0=C2=A0 xen/arch/riscv/xen.lds.S=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 10 +++
-> > > > =C2=A0=C2=A0 3 files changed, 256 insertions(+)
-> > > > =C2=A0=C2=A0 create mode 100644 xen/arch/riscv/include/asm/bug.h
-> > > >=20
-> > > > diff --git a/xen/arch/riscv/include/asm/bug.h
-> > > > b/xen/arch/riscv/include/asm/bug.h
-> > > > new file mode 100644
-> > > > index 0000000000..4b15d8eba6
-> > > > --- /dev/null
-> > > > +++ b/xen/arch/riscv/include/asm/bug.h
-> > > > @@ -0,0 +1,118 @@
-> > > > +/* SPDX-License-Identifier: GPL-2.0 */
-> > > > +/*
-> > > > + * Copyright (C) 2012 Regents of the University of California
-> > > > + * Copyright (C) 2021-2023 Vates
-> > >=20
-> > > I have to question the two copyrights here given that the
-> > > majority of
-> > > the code seems to be taken from the arm implementation (see
-> > > arch/arm/include/asm/bug.h).
-> > >=20
-> > > With that said, we should consolidate the code rather than
-> > > duplicating
-> > > it on every architecture.
-> > >=20
-> > Copyrights should be removed. They were taken from the previous
-> > implementation of bug.h for RISC-V so I just forgot to remove them.
+> On 31/01/2023 11:17, Oleksii Kurochko wrote:
+> > Because printk() relies on a serial driver (like the ns16550
+> > driver)
+> > and drivers require working virtual memory (ioremap()) there is not
+> > print functionality early in Xen boot.
 > >=20
-> > It looks like we should have common bug.h for ARM and RISCV but I
-> > am
-> > not sure that I know how to do that better.
-> > Probably the code wants to be moved to xen/include/bug.h and using
-> > ifdef ARM && RISCV ...
+> > The patch introduces the basic stuff of early_printk functionality
+> > which will be enough to print 'hello from C environment".
+> >=20
+> > Originally early_printk.{c,h} was introduced by Bobby Eshleman
+> > (
+> > https://github.com/glg-rv/xen/commit/a3c9916bbdff7ad6030055bbee7e53d
+> > 1aab71384)
+> > but some functionality was changed:
+> > early_printk() function was changed in comparison with the original
+> > as
+> > common isn't being built now so there is no vscnprintf.
+> >=20
+> > This commit adds early printk implementation built on the putc SBI
+> > call.
+> >=20
+> > As sbi_console_putchar() is already being planned for deprecation
+> > it is used temporarily now and will be removed or reworked after
+> > real uart will be ready.
+> >=20
+> > Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+> > Reviewed-by: Bobby Eshleman <bobby.eshleman@gmail.com>
+> > ---
+> > Changes in V8:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 - Nothing was changed
+> > ---
+> > Changes in V7:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 - Nothing was changed
+> > ---
+> > Changes in V6:
+> > =C2=A0=C2=A0=C2=A0=C2=A0 - Remove __riscv_cmodel_medany check from earl=
+y_printk.c
 >=20
-> Or you could introduce CONFIG_BUG_GENERIC or else, so it is easily=20
-> selectable by other architecture.
+> This discussion is still not resolved. I will echo Jan's point [1]
+> and=20
+> expand it. There is limited point to keep sending a new version for=20
+> small changes if there main open points are not addressed.
 >=20
-> > But still I am not sure that this is the best one option as at
-> > least we
-> > have different implementation for x86_64.
->=20
-> My main concern is the maintainance effort. For every bug, we would
-> need=20
-> to fix it in two places. The risk is we may forget to fix one
-> architecture.
-> This is not a very ideal situation.
->=20
-> So I think sharing the header between RISC-V and Arm (or x86, see
-> below)=20
-> is at least a must. We can do the 3rd architecture at a leisure pace.
->=20
-> One option would be to introduce asm-generic like Linux (IIRC this
-> was a=20
-> suggestion from Andrew). This would also to share code between two of
-> the archs.
->=20
-> Also, from a brief look, the difference in implementation is mainly=20
-> because on Arm we can't use %c (some version of GCC didn't support
-> it).=20
-> Is this also the case on RISC-V? If not, you may want to consider to
-> use=20
-> the x86 version.
->=20
-No, it shouldn't be an issue for RISC-V. I'll double check.
-Any way it should bug.h should be shared between archs so I am going to
-rework that in this patch series and sent the changes in the next
-version of the patch series.
+> Can you please look at settling done on the issues first and then
+> send a=20
+> new version?
+Sure, I won't provide new patch series until the issue will be
+resolved.
 
-Thanks.
+This patch series has been sent to resolve an issue with CI&CD which I
+missed after the renaming of task for RISC-V in build.yaml.
 
-~Oleksii
+~ Oleksii
+>=20
 > Cheers,
+>=20
+> [1] 1d63dd9a-77df-4fca-e35b-886ba19fb35d@suse.com
 >=20
 
 
