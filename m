@@ -2,38 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E9EF686098
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 08:31:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488139.756072 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 282C2686105
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 08:55:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488144.756082 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN7aF-0007tz-Op; Wed, 01 Feb 2023 07:31:07 +0000
+	id 1pN7wx-0002Yy-Ja; Wed, 01 Feb 2023 07:54:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488139.756072; Wed, 01 Feb 2023 07:31:07 +0000
+Received: by outflank-mailman (output) from mailman id 488144.756082; Wed, 01 Feb 2023 07:54:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN7aF-0007rU-Kw; Wed, 01 Feb 2023 07:31:07 +0000
-Received: by outflank-mailman (input) for mailman id 488139;
- Wed, 01 Feb 2023 07:31:06 +0000
+	id 1pN7wx-0002X9-GX; Wed, 01 Feb 2023 07:54:35 +0000
+Received: by outflank-mailman (input) for mailman id 488144;
+ Wed, 01 Feb 2023 07:54:33 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=ku+U=55=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pN7aE-0007rO-6o
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 07:31:06 +0000
+ <SRS0=EYYs=55=gmail.com=xadimgnik@srs-se1.protection.inumbo.net>)
+ id 1pN7wv-0002X3-Ai
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 07:54:33 +0000
 Received: from mail-wm1-x335.google.com (mail-wm1-x335.google.com
  [2a00:1450:4864:20::335])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6224fcd2-a202-11ed-b63b-5f92e7d2e73a;
- Wed, 01 Feb 2023 08:31:04 +0100 (CET)
-Received: by mail-wm1-x335.google.com with SMTP id
- iv8-20020a05600c548800b003db04a0a46bso2073111wmb.0
- for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 23:31:04 -0800 (PST)
-Received: from [192.168.1.93] (adsl-184.109.242.224.tellas.gr.
- [109.242.224.184]) by smtp.gmail.com with ESMTPSA id
- g10-20020a05600c310a00b003db30be4a54sm835517wmo.38.2023.01.31.23.31.02
+ id a53a09c3-a205-11ed-b63b-5f92e7d2e73a;
+ Wed, 01 Feb 2023 08:54:25 +0100 (CET)
+Received: by mail-wm1-x335.google.com with SMTP id bg26so6133738wmb.0
+ for <xen-devel@lists.xenproject.org>; Tue, 31 Jan 2023 23:54:30 -0800 (PST)
+Received: from [192.168.9.204] (54-240-197-238.amazon.com. [54.240.197.238])
+ by smtp.gmail.com with ESMTPSA id
+ b9-20020a05600c150900b003daf672a616sm859085wmg.22.2023.01.31.23.54.29
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Jan 2023 23:31:03 -0800 (PST)
+ Tue, 31 Jan 2023 23:54:29 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,90 +44,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6224fcd2-a202-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: a53a09c3-a205-11ed-b63b-5f92e7d2e73a
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=JCnrAqJEVHxPW26rKJcQaouQVlcy/LvyniwfBABmy9A=;
-        b=Upepx/mL8v8t/75DyHuAfV7cncRLiuGRg8qsNZLgendg8s45aaYTQ1rfiCR2HVjGN0
-         6Rc7fVFueSx0W7P6wnPriRjbKSJlzr9cWB8OLR8vTuO6QAul6A5aSFZ0twIWwm/ZkwqQ
-         gNXDcY5epCbXhDOxchVD3p2x5r3UsMnBc0f/OQ/XRZk5on55tqwZO/dPqWOcnhjtQRNX
-         z7f7gxj2Bb+8RzoNKJnyLhuVsnby3pQSbVz7/GzDGIojUtTUpQbtoaS41Hs05y5zCPLN
-         XoQO2FeO5gT2jT1GFIZwfxmXlG8TsKuBPjAS8FTUbbYBBdqsZ/7sOwIDx3AEG+OFgRZk
-         hBfQ==
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tF6b+FZ/vwEGQ06h3xdBxOjcTdoCvjB2eFH4X/PWMV4=;
+        b=Zbid6yH79dOqTUGKoJSIoLLd2f6TRIAjljirZ81diqB8MS7s7mlxRLkroDfxceGSdl
+         bXyXP9+QrRy3Q+k8RZzahbPnaGmVWtJQPPlvliRPAdS+Ygu6ZXBr7OWuTerjNKgWAoo+
+         4JXUGRVPtwVxD71yAQFIrfGDtERb5og505GUm/0fItQ/KzQYqxDgviYHEWG5xJHPTTYK
+         MVIQyErxK/kfaYA5EXEY31LbrULJy0XNYjHdk2kaWeFVqBvouHwTxa1czRsBXFu1ExZb
+         AKQspaREGPTMp3SKBdso7g9xn9nBkwanoJ+2Xck11QIU+cFzFddXHc09yHjmTTH+TPI+
+         EsiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=JCnrAqJEVHxPW26rKJcQaouQVlcy/LvyniwfBABmy9A=;
-        b=peftM/b+vfHgyDt63iYNUNF3+vZmM46KeE9e2SQ6mLmi8DPK8xe2ceJqDAORVblLyX
-         kRCLr9xxjtJOzmnk5IYF9u9011WkwzoD9QW9Y1VqiJalzbduVuTVsrXnTAj8XNTEldoI
-         KLjIP3/bqgHsnlS8wgPuSnyd1Qk+gxTIh1fYDtxAQC8/H2lTmI3+FDlJGE5TLemeFv+h
-         IowvZrpd7OhdppKM8nFwGvQ3kyXuIJeAPTfdyfVoyxsBATnKsTXLoo/N5pzDrPAdEObw
-         0EgsSKXcpitR6wDbNuLuEx+8ItlnaTdka6QSbqECargl9jrVhXi2gy12jziqRHpIlmk8
-         OEYw==
-X-Gm-Message-State: AO0yUKVlA3Le8Lkb6mVmk+lOt7Viaf7nEngDocrU+pqwfkKgCujmvhmt
-	TFA0v2aA9K6MHTuUyat8MWE=
-X-Google-Smtp-Source: AK7set92n7LTq8tO2jp4NicCauKVDFLRK0yHDSiDCYdWUWvIwqMmjzpVz/s+GGlA627bH8laZqpx6w==
-X-Received: by 2002:a05:600c:3489:b0:3da:f670:a199 with SMTP id a9-20020a05600c348900b003daf670a199mr898894wmq.36.1675236663422;
-        Tue, 31 Jan 2023 23:31:03 -0800 (PST)
-Message-ID: <b8415b36-4e99-9d85-1621-ffd7fe05b2d1@gmail.com>
-Date: Wed, 1 Feb 2023 09:31:01 +0200
+        h=content-transfer-encoding:in-reply-to:organization:references:cc:to
+         :content-language:subject:reply-to:user-agent:mime-version:date
+         :message-id:from:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tF6b+FZ/vwEGQ06h3xdBxOjcTdoCvjB2eFH4X/PWMV4=;
+        b=60sLo7lnFAp6lmZSPrFcX84w3Mf5vkuf5ugHPlpCEOu2TZsNMaF1vfujG7cErzcJJX
+         Xj6P8yeF1Q3wB7Fqrnzce1fILYMkt6WBNUukBldUByUuMUjzaSgj6fB/bNVx4Iim9Etp
+         nT+IettsKUJjQ38UgXj9tmEdFXX5dRVoM+mIhPIp3p8N36rkiDr3QH5cUuanFBhlLlZM
+         +C5c6fiYQ37jd9WTOf2mfoonNfMNK0yfzYwfTDGjXMPArte14thAERiOs6+cM3MiJs42
+         1/dzmYToYLd8JcXo5/pUxNqX6chzN9ht/AoZ0xw9AQkbJgwdGLScTERi2Pwq176gReLH
+         2U1Q==
+X-Gm-Message-State: AO0yUKURarMVg57mG2FeAx2qOwVu3nY0SukgEPbP39NcnjsVMeVl6fxH
+	YZd255ejDAlf8aunJZqBcgA=
+X-Google-Smtp-Source: AK7set8UFjNEV3CqydT78jA5XvU/Hwp9p7Lzv1PCa3cZdV7qvdbW/Vp4fBbafqW4ng7hwbxQO7e/5g==
+X-Received: by 2002:a05:600c:b88:b0:3d3:5a4a:9103 with SMTP id fl8-20020a05600c0b8800b003d35a4a9103mr1022429wmb.31.1675238070338;
+        Tue, 31 Jan 2023 23:54:30 -0800 (PST)
+From: Paul Durrant <xadimgnik@gmail.com>
+X-Google-Original-From: Paul Durrant <paul@xen.org>
+Message-ID: <8b43c153-8c7c-1834-11d6-b3d9c73e2893@xen.org>
+Date: Wed, 1 Feb 2023 07:54:25 +0000
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-Subject: Re: [PATCH v4 2/5] x86/iommu: make code addressing CVE-2011-1898 no
- VT-d specific
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+Reply-To: paul@xen.org
+Subject: Re: [QEMU][PATCH v5 01/10] hw/i386/xen/: move xen-mapcache.c to
+ hw/xen/
 Content-Language: en-US
-To: "Tian, Kevin" <kevin.tian@intel.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: "Beulich, Jan" <JBeulich@suse.com>, Paul Durrant <paul@xen.org>,
- =?UTF-8?Q?Pau_Monn=c3=a9=2c_Roger?= <roger.pau@citrix.com>
-References: <20230124124142.38500-1-burzalodowa@gmail.com>
- <20230124124142.38500-3-burzalodowa@gmail.com>
- <BN9PR11MB5276023EB640F1CE9DD72BEE8CD19@BN9PR11MB5276.namprd11.prod.outlook.com>
-From: Xenia Ragiadakou <burzalodowa@gmail.com>
-In-Reply-To: <BN9PR11MB5276023EB640F1CE9DD72BEE8CD19@BN9PR11MB5276.namprd11.prod.outlook.com>
+To: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org
+Cc: xen-devel@lists.xenproject.org, stefano.stabellini@amd.com,
+ alex.bennee@linaro.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>,
+ Richard Henderson <richard.henderson@linaro.org>,
+ Eduardo Habkost <eduardo@habkost.net>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Anthony Perard <anthony.perard@citrix.com>
+References: <20230131225149.14764-1-vikram.garhwal@amd.com>
+ <20230131225149.14764-2-vikram.garhwal@amd.com>
+Organization: Xen Project
+In-Reply-To: <20230131225149.14764-2-vikram.garhwal@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-On 2/1/23 07:07, Tian, Kevin wrote:
->> From: Xenia Ragiadakou <burzalodowa@gmail.com>
->> Sent: Tuesday, January 24, 2023 8:42 PM
->>
->> The variable untrusted_msi indicates whether the system is vulnerable to
->> CVE-2011-1898 due to the absence of interrupt remapping support.
->> Although AMD iommus with interrupt remapping disabled are also affected,
->> this case is not handled yet. Given that the issue is not VT-d specific,
->> and to accommodate future use of the flag for covering also the AMD iommu
->> case, move the definition of the flag out of the VT-d specific code to the
->> common x86 iommu code.
->>
->> Also, since the current implementation assumes that only PV guests are
->> prone
->> to this attack, take the opportunity to define untrusted_msi only when PV is
->> enabled.
->>
+On 31/01/2023 22:51, Vikram Garhwal wrote:
+> xen-mapcache.c contains common functions which can be used for enabling Xen on
+> aarch64 with IOREQ handling. Moving it out from hw/i386/xen to hw/xen to make it
+> accessible for both aarch64 and x86.
 > 
-> I'm fine with this change given no functional change.
+> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+> Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+> ---
+>   hw/i386/meson.build              | 1 +
+>   hw/i386/xen/meson.build          | 1 -
+>   hw/i386/xen/trace-events         | 5 -----
+>   hw/xen/meson.build               | 4 ++++
+>   hw/xen/trace-events              | 5 +++++
+>   hw/{i386 => }/xen/xen-mapcache.c | 0
+>   6 files changed, 10 insertions(+), 6 deletions(-)
+>   rename hw/{i386 => }/xen/xen-mapcache.c (100%)
 > 
-> But I'm curious about the statement here that the current code only
-> applies to PV guest. I didn't see such statement in original mail [1]
-> and in concept a HVM guest with passthrough device can also do such
-> attack w/o interrupt remapping.
-> 
-> Any more context?
 
-I agree. I phrased it that way because currently the mitigation 
-addresses only maliciously injected PV traps.
+Reviewed-by: Paul Durrant <paul@xen.org>
 
-> 
-> [1] http://old-list-archives.xenproject.org/archives/html/xen-devel/2011-05/msg00687.html
-
--- 
-Xenia
 
