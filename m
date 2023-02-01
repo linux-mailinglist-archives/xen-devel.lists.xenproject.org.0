@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA378685D55
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 03:27:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488056.755940 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A1559685DB1
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 04:07:28 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488064.755950 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN2qG-0004jb-Tr; Wed, 01 Feb 2023 02:27:20 +0000
+	id 1pN3Rx-0001qV-Ux; Wed, 01 Feb 2023 03:06:17 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488056.755940; Wed, 01 Feb 2023 02:27:20 +0000
+Received: by outflank-mailman (output) from mailman id 488064.755950; Wed, 01 Feb 2023 03:06:17 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN2qG-0004hA-Qg; Wed, 01 Feb 2023 02:27:20 +0000
-Received: by outflank-mailman (input) for mailman id 488056;
- Wed, 01 Feb 2023 02:27:19 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pN3Rx-0001om-SF; Wed, 01 Feb 2023 03:06:17 +0000
+Received: by outflank-mailman (input) for mailman id 488064;
+ Wed, 01 Feb 2023 03:06:16 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=H7L9=55=srcf.net=amc96@srs-se1.protection.inumbo.net>)
- id 1pN2qF-0004h4-Hm
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 02:27:19 +0000
-Received: from ppsw-33.srv.uis.cam.ac.uk (ppsw-33.srv.uis.cam.ac.uk
- [131.111.8.133]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f150e70d-a1d7-11ed-b63b-5f92e7d2e73a;
- Wed, 01 Feb 2023 03:27:16 +0100 (CET)
-Received: from hades.srcf.societies.cam.ac.uk ([131.111.179.67]:44954)
- by ppsw-33.srv.uis.cam.ac.uk (ppsw.cam.ac.uk [131.111.8.137]:25)
- with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
- id 1pN2q0-000nkw-Rq (Exim 4.96) (return-path <amc96@srcf.net>);
- Wed, 01 Feb 2023 02:27:04 +0000
-Received: from [192.168.1.10] (host-92-12-62-6.as13285.net [92.12.62.6])
- (Authenticated sender: amc96)
- by hades.srcf.societies.cam.ac.uk (Postfix) with ESMTPSA id 448BE1FB3A;
- Wed,  1 Feb 2023 02:27:04 +0000 (GMT)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pN3Rw-0001oa-24; Wed, 01 Feb 2023 03:06:16 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pN3Rv-0001Y4-Vs; Wed, 01 Feb 2023 03:06:15 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pN3Rv-00024S-He; Wed, 01 Feb 2023 03:06:15 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pN3Rv-0006Pj-H1; Wed, 01 Feb 2023 03:06:15 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,147 +42,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f150e70d-a1d7-11ed-b63b-5f92e7d2e73a
-X-Cam-AntiVirus: no malware found
-X-Cam-ScannerInfo: https://help.uis.cam.ac.uk/email-scanner-virus
-Message-ID: <b3564bd0-cf28-d268-226a-efc962271750@srcf.net>
-Date: Wed, 1 Feb 2023 02:27:03 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Content-Language: en-GB
-To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>,
- Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>,
- Bobby Eshleman <bobby.eshleman@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
- <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
- <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com>
- <792bc4533d3604acd4321b4b15965adec22431a4.camel@gmail.com>
- <bdb8c6a8-a677-9bef-c819-904bd944e6da@suse.com>
- <7fe303b6-9d01-783b-f24a-12605fe62e5f@xen.org>
-From: Andrew Cooper <amc96@srcf.net>
-Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
-In-Reply-To: <7fe303b6-9d01-783b-f24a-12605fe62e5f@xen.org>
-Content-Type: text/plain; charset=UTF-8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=4S7Q8ok3zkGLhN5SFr1Xz6G2psuN9qzXJaw87s9ax4Y=; b=CJy4PqgACEwhWe3dCAIbYBPm99
+	m7+aaUH4ddlGjWbwfUuA2pn/PkG8w5h8lSyty4mDbJnJkPRw5tghfFRJQdPKck7Ft36gEeVdsgGcj
+	TAhYJZaAGD5BaU9N0I+3QRdqIvszI/NYGU3LS72LO9nd3gb0Bg/ugJIikA2tnyakpdpc=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176305-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 176305: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:build-armhf:syslog-server:running:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=78e93e6e57c218eead498a664785f414bcb12460
+X-Osstest-Versions-That:
+    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Feb 2023 03:06:15 +0000
 
-On 30/01/2023 10:44 pm, Julien Grall wrote:
-> Hi Jan,
->
-> On 30/01/2023 13:50, Jan Beulich wrote:
->> On 30.01.2023 12:54, Oleksii wrote:
->>> Hi Jan,
->>>
->>> On Fri, 2023-01-27 at 15:24 +0100, Jan Beulich wrote:
->>>> On 27.01.2023 14:59, Oleksii Kurochko wrote:
->>>>> --- /dev/null
->>>>> +++ b/xen/arch/riscv/include/asm/processor.h
->>>>> @@ -0,0 +1,82 @@
->>>>> +/* SPDX-License-Identifier: MIT */
->>>>> +/*****************************************************************
->>>>> *************
->>>>> + *
->>>>> + * Copyright 2019 (C) Alistair Francis <alistair.francis@wdc.com>
->>>>> + * Copyright 2021 (C) Bobby Eshleman <bobby.eshleman@gmail.com>
->>>>> + * Copyright 2023 (C) Vates
->>>>> + *
->>>>> + */
->>>>> +
->>>>> +#ifndef _ASM_RISCV_PROCESSOR_H
->>>>> +#define _ASM_RISCV_PROCESSOR_H
->>>>> +
->>>>> +#ifndef __ASSEMBLY__
->>>>> +
->>>>> +/* On stack VCPU state */
->>>>> +struct cpu_user_regs
->>>>> +{
->>>>> +    unsigned long zero;
->>>>> +    unsigned long ra;
->>>>> +    unsigned long sp;
->>>>> +    unsigned long gp;
->>>>> +    unsigned long tp;
->>>>> +    unsigned long t0;
->>>>> +    unsigned long t1;
->>>>> +    unsigned long t2;
->>>>> +    unsigned long s0;
->>>>> +    unsigned long s1;
->>>>> +    unsigned long a0;
->>>>> +    unsigned long a1;
->>>>> +    unsigned long a2;
->>>>> +    unsigned long a3;
->>>>> +    unsigned long a4;
->>>>> +    unsigned long a5;
->>>>> +    unsigned long a6;
->>>>> +    unsigned long a7;
->>>>> +    unsigned long s2;
->>>>> +    unsigned long s3;
->>>>> +    unsigned long s4;
->>>>> +    unsigned long s5;
->>>>> +    unsigned long s6;
->>>>> +    unsigned long s7;
->>>>> +    unsigned long s8;
->>>>> +    unsigned long s9;
->>>>> +    unsigned long s10;
->>>>> +    unsigned long s11;
->>>>> +    unsigned long t3;
->>>>> +    unsigned long t4;
->>>>> +    unsigned long t5;
->>>>> +    unsigned long t6;
->>>>> +    unsigned long sepc;
->>>>> +    unsigned long sstatus;
->>>>> +    /* pointer to previous stack_cpu_regs */
->>>>> +    unsigned long pregs;
->>>>> +};
->>>>
->>>> Just to restate what I said on the earlier version: We have a struct
->>>> of
->>>> this name in the public interface for x86. Besides to confusion about
->>>> re-using the name for something private, I'd still like to understand
->>>> what the public interface plans are. This is specifically because I
->>>> think it would be better to re-use suitable public interface structs
->>>> internally where possible. But that of course requires spelling out
->>>> such parts of the public interface first.
->>>>
->>> I am not sure that I get you here.
->>> I greped a little bit and found out that each architecture declares
->>> this structure inside arch-specific folder.
->>>
->>> Mostly the usage of the cpu_user_regs is to save/restore current state
->>> of CPU during traps ( exceptions/interrupts ) and context_switch().
->>
->> Arm effectively duplicates the public interface struct
->> vcpu_guest_core_regs
->> and the internal struct cpu_user_regs (and this goes as far as also
->> duplicating the __DECL_REG() helper). Personally I find such duplication
->> odd at the first glance at least; maybe there is a specific reason
->> for this
->> in Arm. But whether the public interface struct can be re-used can
->> likely
->> only be known once it was spelled out.
->
-> There are some force padding, a different ordering and some extra
-> fields in the internal version to simplify the assembly code.
->
-> The rationale is explained in 1c38a1e937d3 ("xen: arm: separate guest
-> user regs from internal guest state").
->
-> We also have a split between 32-bit and 64-bit to avoid doubling up
-> the size in the former case.
+flight 176305 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176305/
 
-And on top of these reasons, I feel I need to remind you that we still
-need to break these apart on x86 to fix a stack OoB access in the #DF
-handler, and to fix stack alignment for UEFI, and to remove the relics
-of vm86 mode, and not to mention adding support for FRED.
+Failures and problems with tests :-(
 
-It was a fundamental design error that Xen's internal representation
-ever made it into the public API, and it absolutely does not want
-repeating again.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 176151
+ build-armhf                   3 syslog-server                running
 
-~Andrew
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ build-armhf                   5 capture-logs          broken blocked in 176151
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  78e93e6e57c218eead498a664785f414bcb12460
+baseline version:
+ xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
+
+Last test of basis   176151  2023-01-26 14:00:29 Z    5 days
+Testing same since   176283  2023-01-30 21:02:20 Z    1 days   13 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+broken-job build-armhf broken
+broken-step build-armhf capture-logs
+broken-step build-armhf host-install(4)
+
+Not pushing.
+
+------------------------------------------------------------
+commit 78e93e6e57c218eead498a664785f414bcb12460
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Wed Jan 25 11:21:31 2023 +0000
+
+    xen/arm: Probe the load/entry point address of an uImage correctly
+    
+    Currently, kernel_uimage_probe() does not read the load/entry point address
+    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
+    causes, kernel_zimage_place() to treat the binary (contained within uImage)
+    as position independent executable. Thus, it loads it at an incorrect
+    address.
+    
+    The correct approach would be to read "uimage.load" and set
+    info->zimage.start. This will ensure that the binary is loaded at the
+    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
+    address).
+    
+    If user provides load address (ie "uimage.load") as 0x0, then the image is
+    treated as position independent executable. Xen can load such an image at
+    any address it considers appropriate. A position independent executable
+    cannot have a fixed entry point address.
+    
+    This behavior is applicable for both arm32 and arm64 platforms.
+    
+    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
+    point address set in the uImage header. With this commit, Xen will use them.
+    This makes the behavior of Xen consistent with uboot for uimage headers.
+    
+    Users who want to use Xen with statically partitioned domains, can provide
+    non zero load address and entry address for the dom0/domU kernel. It is
+    required that the load and entry address provided must be within the memory
+    region allocated by Xen.
+    
+    A deviation from uboot behaviour is that we consider load address == 0x0,
+    to denote that the image supports position independent execution. This
+    is to make the behavior consistent across uImage and zImage.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    [stefano: minor doc improvement]
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+(qemu changes not included)
 
