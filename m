@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 512136862B9
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 10:23:01 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488219.756200 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1131686268
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 10:07:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488211.756177 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN9K9-0003T0-Iq; Wed, 01 Feb 2023 09:22:37 +0000
+	id 1pN94U-0000DH-UY; Wed, 01 Feb 2023 09:06:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488219.756200; Wed, 01 Feb 2023 09:22:37 +0000
+Received: by outflank-mailman (output) from mailman id 488211.756177; Wed, 01 Feb 2023 09:06:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN9K9-0003Pd-Fr; Wed, 01 Feb 2023 09:22:37 +0000
-Received: by outflank-mailman (input) for mailman id 488219;
- Wed, 01 Feb 2023 09:11:31 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pN94U-0000Ac-RE; Wed, 01 Feb 2023 09:06:26 +0000
+Received: by outflank-mailman (input) for mailman id 488211;
+ Wed, 01 Feb 2023 09:06:25 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a0kk=55=tibco.com=clindig@srs-se1.protection.inumbo.net>)
- id 1pN99P-00026F-9t
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 09:11:31 +0000
-Received: from mail-ed1-x52a.google.com (mail-ed1-x52a.google.com
- [2a00:1450:4864:20::52a])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 69c06197-a210-11ed-933c-83870f6b2ba8;
- Wed, 01 Feb 2023 10:11:30 +0100 (CET)
-Received: by mail-ed1-x52a.google.com with SMTP id cw4so11827043edb.13
- for <xen-devel@lists.xenproject.org>; Wed, 01 Feb 2023 01:11:29 -0800 (PST)
-Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- k27-20020a05600c081b00b003de77597f16sm1072830wmp.21.2023.02.01.01.04.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 Feb 2023 01:04:43 -0800 (PST)
+ (envelope-from <julien@xen.org>) id 1pN94T-0000AW-9o
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 09:06:25 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pN94S-0002X2-5U; Wed, 01 Feb 2023 09:06:24 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pN94R-0002Vu-Up; Wed, 01 Feb 2023 09:06:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,104 +39,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69c06197-a210-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MuOMiMCaIb4W5xDLrZ5AT/uU/AgC110LiidElfA2tjQ=;
-        b=l++JAFYn28aYNtbNWPcV4jSY0b8Lq7PTBPkz7oSquxQloMwiaOVlS0v5Xv93vPXbRJ
-         RshAJLcKR/QAFJWXEPvxvy0mN18MWMARvi6gLaidufuNzkH7tEQ6xzlE3T7HzS0lRIxm
-         oOW9L8IAFd+kwGBP4rPwFguA3C3hyjmypzBQw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=MuOMiMCaIb4W5xDLrZ5AT/uU/AgC110LiidElfA2tjQ=;
-        b=Jpposja9EUKxK8i0CpGzSvQgUrZ0kb47e9pMkXqmNIn0YaGXWXWS4QCeIwdXWplJk/
-         WTkNjMrpinEqWkD6vCtTmL+Cli9olNYQxkhGvAEjsdbnW4A975suXHWymHRnV4Npz6eR
-         Jv64PInIgxAgKpi1DKfTIfL+7NzDgcL35S96CIMFHAPfbldcXDUreZ5jqu1iuOQxcX5X
-         y9rXs4Px8AFUtupiUtDn57ZkOvQkcNCcNmoIXz8gPK8F6Yx/vOFjMmmHAAjuolINXShU
-         FB8hI2Zrgdtul8kje8C3hSdTkkAZn+QzjueAYnfoMQP+q3rOodnQoliIWACWTJ6ffgGD
-         9hwQ==
-X-Gm-Message-State: AO0yUKXw2u5Wy/0REmaKlngodkUMNYL+mRgcHJCM1+7hWVvIi0fJ+wyR
-	T5ZBhOjqq9Yccw52mGmSwwOusahHK4AwPFLQwiH2cw==
-X-Google-Smtp-Source: AK7set/6/CR8MPQ4iWHTfaKeGWi8T0K3tIKOSg+YA6OZuFVgUy2pCSK3EwDOtWBiMKtP9gvWI2zNeg==
-X-Received: by 2002:a05:600c:1546:b0:3dc:58d5:3a80 with SMTP id f6-20020a05600c154600b003dc58d53a80mr6591921wmg.24.1675242284043;
-        Wed, 01 Feb 2023 01:04:44 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
-Subject: Re: [PATCH 0/7] tools/ocaml: Memory corruption fixes in bindings
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <20230131212913.6199-1-andrew.cooper3@citrix.com>
-Date: Wed, 1 Feb 2023 09:04:42 +0000
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
- Rob Hoes <Rob.Hoes@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0962AEC0-72C5-4A03-BF97-AFB3455B9EDE@cloud.com>
-References: <20230131212913.6199-1-andrew.cooper3@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=m2obYo8VF0262euVcLhlmIca1IIMvx+h7vlIhXldtK8=; b=AqDRYpBmUZJwC1FklR7lsjwugD
+	QxSO0IafPCLph1OXHJeec3pOPE5ozfs+UHzn+LBVp1JmeGHIHtp7xq3FL3lHpYrgDCzMHDbWEpm4d
+	INEABfMskBh9ZgAo3SQBSCZ8kX693A9yjzR+yn0qJ2zwkwD3TjPLeWGc7kJVzo7DWRBs=;
+Message-ID: <1a1e9b46-e665-f33a-b122-31a5af5b22da@xen.org>
+Date: Wed, 1 Feb 2023 09:06:21 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Andrew Cooper <amc96@srcf.net>, Alistair Francis <alistair23@gmail.com>
+Cc: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich <jbeulich@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>, Connor Davis
+ <connojdavis@gmail.com>, Bobby Eshleman <bobby.eshleman@gmail.com>
+References: <cover.1674819203.git.oleksii.kurochko@gmail.com>
+ <06c2c36bd68b2534c757dc4087476e855253680a.1674819203.git.oleksii.kurochko@gmail.com>
+ <f5cd1bfb116bfcc86fc2848df7eead05cd1a24c0.camel@gmail.com>
+ <CAKmqyKMGiDiPRZBekdKan=+YduSmkB2DoWo5btrtVQ8nS3KMAg@mail.gmail.com>
+ <2f6a3b17-4e41-fe9a-1713-4942b3bd3585@xen.org>
+ <CAKmqyKNwH4-D3dKGQEsW_Zup4OT32C1RwaA7_Sey4fo_jOzFcA@mail.gmail.com>
+ <9d5841b2-5d0b-390f-6e95-cf492e99e5a2@srcf.net>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v7 1/2] xen/riscv: introduce early_printk basic stuff
+In-Reply-To: <9d5841b2-5d0b-390f-6e95-cf492e99e5a2@srcf.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi Andrew,
 
+On 01/02/2023 00:21, Andrew Cooper wrote:
+> On 31/01/2023 11:17 pm, Alistair Francis wrote:
+>> On Tue, Jan 31, 2023 at 10:03 PM Julien Grall <julien@xen.org> wrote:
+>>> On 31/01/2023 11:44, Alistair Francis wrote:
+>>>> On Sat, Jan 28, 2023 at 12:15 AM Oleksii <oleksii.kurochko@gmail.com> wrote:
+>>>>
+>>>   From my understanding, on RISC-V, the use of PC-relative address is
+>>> only guaranteed with medany. So if you were going to change the cmodel
+>>> (Andrew suggested you would), then early_*() may end up to be broken.
+>>>
+>>> This check serve as a documentation of the assumption and also help the
+>>> developer any change in the model and take the appropriate action to
+>>> remediate it.
+>>>
+>>>> I think this is safe to remove.
+>>> Based on what I wrote above, do you still think this is safe?
+>> With that in mind it's probably worth leaving in then. Maybe the
+>> comment should be updated to make it explicit why we want this check
+>> (I find the current comment not very helpful).
+> 
+> The presence of this check pre-supposes that Xen will always relocate
+> itself, and this simply not true.  XIP for example typically does not
+> 
+> Furthermore it's not checking the property wanted.  The way C is
+> compiled has no bearing on what relocation head.S uses to call it.
 
-> On 31 Jan 2023, at 21:29, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> It turns out there have been some latent memory corruption bugs and =
-other
-> errors in the bindings since they were first introduced.
->=20
-> These were discovered after realising that we'd introduced other =
-memory
-> corruption bugs as part of the Ocaml 5 fixes, and in the case of the =
-evtchn
-> bindings, backported this as part of the oxenstored-lu fixes.
->=20
-> This series addresses all the memory corrupution issues we're aware of =
-that
-> can occur in an entirely well-formed program.
->=20
-> Deferred for now are the (hopefully latent) memory corruption errors =
-which
-> happen due to bad parameter passing, and a substantial pile of related =
-cleanup.
->=20
-> Andrew Cooper (3):
->  tools/ocaml/libs: Allocate the correct amount of memory for =
-Abstract_tag
->  tools/ocaml/evtchn: Misc cleanup
->  tools/ocaml/xc: Don't reference Abstract_Tag objects with the GC lock =
-released
->=20
-> Edwin T=C3=B6r=C3=B6k (4):
->  tools/ocaml/libs: Don't declare stubs as taking void
->  tools/ocaml/evtchn: Don't reference Custom objects with the GC lock =
-released
->  tools/ocaml/xc: Fix binding for xc_domain_assign_device()
->  tools/ocaml/xc: Don't reference Custom objects with the GC lock =
-released
->=20
-> tools/ocaml/libs/eventchn/xeneventchn_stubs.c |  89 ++---
-> tools/ocaml/libs/mmap/Makefile                |   2 +
-> tools/ocaml/libs/mmap/xenmmap_stubs.c         |   6 +-
-> tools/ocaml/libs/xb/xenbus_stubs.c            |   5 +-
-> tools/ocaml/libs/xc/xenctrl_stubs.c           | 494 =
-++++++++++++++------------
-> 5 files changed, 323 insertions(+), 273 deletions(-)
->=20
-> --=20
-> 2.11.0
->=20
+I think we are still cross-talking each other because this is not my 
+point. I am not sure how to explain differently...
 
-Really pleased with the attention to this.
+This check is not about how head.S call early_*() but making sure the C 
+function can be executed with the MMU off. In which case, you will 
+likely have VA != PA.
 
-Acked-by: Christian Lindig <christian.lindig@citrix.com>
+In theory head.S could apply some relocations before hand, but it may be 
+too complicated to do it before calling early_*().
 
+> 
+> It is a given that we compile the hypervisor with a consistent code
+> model, meaning that the properly actually making the check do what is
+> wanted is also the property that means it is not needed in the first place.
+
+See above.
+
+> 
+> This check is literally not worth the bytes it's taking up on disk, and
+> not worth the added compiler time, nor the wasted time of whoever comes
+> to support something like XIP in the future finds it to be in the way.
+> Xen as a whole will really genuinely function as intended in models
+> other than medany, and it demonstrates a misunderstanding of the topic
+> to put in such a check to begin with.
+
+Then enlight me :). So far it looks more like you are not understanding 
+my point: I am talking about C function call with MMU off (e.g. VA != 
+PA) and you are talking about Xen as a whole.
+
+I guess the only way to really know is to implement a different model. 
+At which point there are three possible outcome:
+   1) We had the compiler check, it fired and the developper will take 
+action to fix it (if needed).
+   2) We have no compiler check, the developper knew what to do it and 
+fixed it.
+   3) We have no compiler check, the developper where not aware of the 
+problem and we will waste time.
+
+Even if you disagree with the check, then I think 1 is still the best 
+because it would explain our assumption. Yes it may waste a few minutes 
+to the developer switching the model. But that probably nothing compare 
+to the time you could waste if you don't notice it.
+
+Anyway, Alistair has now all the information to take an informative 
+decision.
+
+Cheers,
+
+-- 
+Julien Grall
 
