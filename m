@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E5F8687017
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 21:50:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488429.756523 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296AB6870DC
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 23:12:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488460.756550 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNK2Z-0006xP-92; Wed, 01 Feb 2023 20:49:11 +0000
+	id 1pNLK6-0002lV-GS; Wed, 01 Feb 2023 22:11:22 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488429.756523; Wed, 01 Feb 2023 20:49:11 +0000
+Received: by outflank-mailman (output) from mailman id 488460.756550; Wed, 01 Feb 2023 22:11:22 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNK2Z-0006uO-5b; Wed, 01 Feb 2023 20:49:11 +0000
-Received: by outflank-mailman (input) for mailman id 488429;
- Wed, 01 Feb 2023 20:49:09 +0000
+	id 1pNLK6-0002jg-DQ; Wed, 01 Feb 2023 22:11:22 +0000
+Received: by outflank-mailman (input) for mailman id 488460;
+ Wed, 01 Feb 2023 22:11:20 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pNK2X-0006uE-Ie; Wed, 01 Feb 2023 20:49:09 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
+ (envelope-from <julien@xen.org>) id 1pNLK4-0002ja-Nn
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 22:11:20 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pNK2X-0002jB-Fe; Wed, 01 Feb 2023 20:49:09 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pNK2W-0003Jc-W8; Wed, 01 Feb 2023 20:49:09 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pNK2W-0001hv-Vj; Wed, 01 Feb 2023 20:49:08 +0000
+ (envelope-from <julien@xen.org>)
+ id 1pNLK4-0004SO-63; Wed, 01 Feb 2023 22:11:20 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pNLK3-0008OS-WF; Wed, 01 Feb 2023 22:11:20 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,395 +39,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=gnmkZ6T6BIv8W0JQi9B1xsC9T0p/LbKTFeUpXhm8emc=; b=ohQE2RiP5mlWoXyBB1+2BDXXCv
-	hYUfkQEgq3zKe+SmXvxpYe4ZWN95c1Kspq30nyVZRur+gXY8EHgm2vUvG3giOsJKCCiYHv8bNHO8v
-	f53fEdcaq6GK1EIhZzhAYw9squcRs3n6LxkCWjQMLqTEFU3Jry5qAz6LMgF9mlik3bKQ=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176309-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=jipR7+cbugD8Ubdec53EWNKrD2peULlIM1gaiRNjkFE=; b=Z7cjQCqsldVlqdkbFtLQEKq9sw
+	itWMSW+kygLPe4R3Xo4T54mgHZJo+27ixCJrBYoJrLarusguMojq9/K8JXcrFjimpku0eEqC+s+Ae
+	FB5aW3t84PqRcb5p/10jAYdLdiPymp8a5oqHoznrqnewH44BfZHgSh13Iutj0OxQB43I=;
+Message-ID: <b5dba106-e7ed-4aa9-ea44-19adacc7fade@xen.org>
+Date: Wed, 1 Feb 2023 22:11:17 +0000
 MIME-Version: 1.0
-Subject: [libvirt test] 176309: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    libvirt:build-armhf:<job status>:broken:regression
-    libvirt:build-armhf:host-install(4):broken:regression
-    libvirt:build-armhf:syslog-server:running:regression
-    libvirt:build-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
-    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
-    libvirt:build-armhf:capture-logs:broken:nonblocking
-    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    libvirt=648391f170ddbb0e92832d543a940bcc84fc2309
-X-Osstest-Versions-That:
-    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Feb 2023 20:49:08 +0000
-
-flight 176309 libvirt real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176309/
-
-Failures and problems with tests :-(
-
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176139
- build-armhf                   3 syslog-server                running
-
-Tests which did not succeed, but are not blocking:
- build-armhf-libvirt           1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176139
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
- test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
-
-version targeted for testing:
- libvirt              648391f170ddbb0e92832d543a940bcc84fc2309
-baseline version:
- libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
-
-Last test of basis   176139  2023-01-26 04:18:49 Z    6 days
-Failing since        176233  2023-01-27 04:18:53 Z    5 days    6 attempts
-Testing same since   176289  2023-01-31 04:18:49 Z    1 days    2 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Jiri Denemark <jdenemar@redhat.com>
-  Martin Kletzander <mkletzan@redhat.com>
-  Michal Privoznik <mprivozn@redhat.com>
-
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  broken  
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          blocked 
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-libvirt                                     pass    
- test-arm64-arm64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     blocked 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-arm64-arm64-libvirt-qcow2                               pass    
- test-armhf-armhf-libvirt-qcow2                               blocked 
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 blocked 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Oleksii <oleksii.kurochko@gmail.com>, xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>, Andrew Cooper
+ <andrew.cooper3@citrix.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ Gianluca Guida <gianluca@rivosinc.com>,
+ Bob Eshleman <bobbyeshleman@gmail.com>,
+ Alistair Francis <alistair.francis@wdc.com>,
+ Connor Davis <connojdavis@gmail.com>
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
+ <06c06dde5ee635c6d1ebf66a8cff9e7e1f4fbf5c.1674818705.git.oleksii.kurochko@gmail.com>
+ <73553bcf-9688-c187-a9cb-c12806484893@xen.org>
+ <2c4d490bde4f04f956e481257ddc7129c312abb6.camel@gmail.com>
+ <873d4754-0314-0022-96a9-e54ed78ac6ef@xen.org>
+ <d41b705904b693e80cf5fdadd46a26e38d1bc596.camel@gmail.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH v2 12/14] xen/riscv: introduce an implementation of macros
+ from <asm/bug.h>
+In-Reply-To: <d41b705904b693e80cf5fdadd46a26e38d1bc596.camel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+On 01/02/2023 17:40, Oleksii wrote:
+> Hi Julien,
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Hi Oleksii,
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+> On Mon, 2023-01-30 at 22:28 +0000, Julien Grall wrote:
+>> Hi Oleksii,
+>>
+>> On 30/01/2023 11:35, Oleksii wrote:
+>>> Hi Julien,
+>>> On Fri, 2023-01-27 at 16:02 +0000, Julien Grall wrote:
+>>>> Hi Oleksii,
+>>>>
+>>>> On 27/01/2023 13:59, Oleksii Kurochko wrote:
+>>>>> The patch introduces macros: BUG(), WARN(), run_in_exception(),
+>>>>> assert_failed.
+>>>>>
+>>>>> The implementation uses "ebreak" instruction in combination
+>>>>> with
+>>>>> diffrent bug frame tables (for each type) which contains useful
+>>>>> information.
+>>>>>
+>>>>> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+>>>>> ---
+>>>>> Changes:
+>>>>>      - Remove __ in define namings
+>>>>>      - Update run_in_exception_handler() with
+>>>>>        register void *fn_ asm(__stringify(BUG_FN_REG)) = (fn);
+>>>>>      - Remove bug_instr_t type and change it's usage to uint32_t
+>>>>> ---
+>>>>>     xen/arch/riscv/include/asm/bug.h | 118
+>>>>> ++++++++++++++++++++++++++++
+>>>>>     xen/arch/riscv/traps.c           | 128
+>>>>> +++++++++++++++++++++++++++++++
+>>>>>     xen/arch/riscv/xen.lds.S         |  10 +++
+>>>>>     3 files changed, 256 insertions(+)
+>>>>>     create mode 100644 xen/arch/riscv/include/asm/bug.h
+>>>>>
+>>>>> diff --git a/xen/arch/riscv/include/asm/bug.h
+>>>>> b/xen/arch/riscv/include/asm/bug.h
+>>>>> new file mode 100644
+>>>>> index 0000000000..4b15d8eba6
+>>>>> --- /dev/null
+>>>>> +++ b/xen/arch/riscv/include/asm/bug.h
+>>>>> @@ -0,0 +1,118 @@
+>>>>> +/* SPDX-License-Identifier: GPL-2.0 */
+>>>>> +/*
+>>>>> + * Copyright (C) 2012 Regents of the University of California
+>>>>> + * Copyright (C) 2021-2023 Vates
+>>>>
+>>>> I have to question the two copyrights here given that the
+>>>> majority of
+>>>> the code seems to be taken from the arm implementation (see
+>>>> arch/arm/include/asm/bug.h).
+>>>>
+>>>> With that said, we should consolidate the code rather than
+>>>> duplicating
+>>>> it on every architecture.
+>>>>
+>>> Copyrights should be removed. They were taken from the previous
+>>> implementation of bug.h for RISC-V so I just forgot to remove them.
+>>>
+>>> It looks like we should have common bug.h for ARM and RISCV but I
+>>> am
+>>> not sure that I know how to do that better.
+>>> Probably the code wants to be moved to xen/include/bug.h and using
+>>> ifdef ARM && RISCV ...
+>>
+>> Or you could introduce CONFIG_BUG_GENERIC or else, so it is easily
+>> selectable by other architecture.
+>>
+>>> But still I am not sure that this is the best one option as at
+>>> least we
+>>> have different implementation for x86_64.
+>>
+>> My main concern is the maintainance effort. For every bug, we would
+>> need
+>> to fix it in two places. The risk is we may forget to fix one
+>> architecture.
+>> This is not a very ideal situation.
+>>
+>> So I think sharing the header between RISC-V and Arm (or x86, see
+>> below)
+>> is at least a must. We can do the 3rd architecture at a leisure pace.
+>>
+>> One option would be to introduce asm-generic like Linux (IIRC this
+>> was a
+>> suggestion from Andrew). This would also to share code between two of
+>> the archs.
+>>
+>> Also, from a brief look, the difference in implementation is mainly
+>> because on Arm we can't use %c (some version of GCC didn't support
+>> it).
+>> Is this also the case on RISC-V? If not, you may want to consider to
+>> use
+>> the x86 version.
+>>
+> I did several experiments related to '%c' in inline assembly for RISC-V
+> and it seems that '%c' doesn't support all forms of the use of '%c'.
 
-broken-job build-armhf broken
-broken-step build-armhf capture-logs
-broken-step build-armhf host-install(4)
+Thanks for checking!
 
-Not pushing.
+> I wrote the following macros and they have been compiled without any
+> errors:
+>                          .....
+> #define _ASM_BUGFRAME_TEXT(second_frame)                       \
+>      ".Lbug%=: ebreak\n"                                        \
+>      ".pushsection .bug_frames.%c[bf_type], \"a\", @progbits\n" \
+>      ".p2align 2\n"                                             \
+>      ".Lfrm%=:\n"                                               \
+>      ".long (.Lfrm%=)\n"                                        \
+>      ".long (0x55555555)\n"                                     \
+>      ".long (.Lbug%=)\n"                                        \
+>      ".long (0x55555555)\n"                                     \
+>      ".long %c[bf_line_hi]\n"                                   \
+>      ".long (0x55555555)\n"                                     \
+>      ".long %[bf_line_hi]\n"                                    \
+>      ".long (0x55555555)\n"                                     \
+>      ".long %[bf_line_lo]\n"                                    \
+>      ".long (0x55555555)\n"                                     \
+>      ".long %[bf_ptr]\n"                                        \
+>      ".long (0x55555555)\n"                                     \
+>      ".long (.Lbug%= - .Lfrm%=) + %c[bf_line_hi]\n"             \
+>      ".popsection\n"                                            \
+> 
+> #define _ASM_BUGFRAME_INFO(type, line, ptr, msg)               \
+>      [bf_type]    "i" (type),                                   \
+>      [bf_ptr]     "i" (ptr),                                    \
+>      [bf_msg]     "i" (msg),                                    \
+>      [bf_line_lo] "i" ((line & ((1 << BUG_LINE_LO_WIDTH) - 1))  \
+>                        << BUG_DISP_WIDTH),                      \
+>      [bf_line_hi] "i" (((line) >> BUG_LINE_LO_WIDTH) << BUG_DISP_WIDTH)
+> 
+> #define BUG_FRAME(type, line, ptr, second_frame, msg) do {     \
+>      __asm__ __volatile__ ( _ASM_BUGFRAME_TEXT(second_frame)    \
+>                     :: _ASM_BUGFRAME_INFO(type, line, ptr, msg) ); \
+> } while (0)
+>                            ....
+> 
+> 
+> But if add ".long %c[bf_ptr]\n" then the following compilation error
+> will occur: [ error: invalid 'asm': invalid use of '%c'. ]
+> 
+> If you look at the dissembler of _bug_frames_...
+>                                 ......
+>      80201010:   1010                    addi    a2,sp,32   # .Lfrm%=
+>      80201012:   8020                    .2byte  0x8020
+>      80201014:   5555                    li      a0,-11
+>      80201016:   5555                    li      a0,-11
+>      80201018:   3022                    .2byte  0x3022  # .Lbug%=
+>      8020101a:   8020                    .2byte  0x8020
+>      8020101c:   5555                    li      a0,-11
+>      8020101e:   5555                    li      a0,-11
+>      80201020:   0000                    unimp          # %c[bf_line_hi]
+>      80201022:   0000                    unimp
+>      80201024:   5555                    li      a0,-11
+>      80201026:   5555                    li      a0,-11
+>      80201028:   0000                    unimp           # %[bf_line_hi]
+>      8020102a:   0000                    unimp
+>      8020102c:   5555                    li      a0,-11
+>      8020102e:   5555                    li      a0,-11
+>      80201030:   0000                    unimp           # %[bf_line_lo]
+>      80201032:   1600                    addi    s0,sp,800
+>      80201034:   5555                    li      a0,-11
+>      80201036:   5555                    li      a0,-11
+>      80201038:   10b8                    addi    a4,sp,104   # %[bf_ptr]
+>      8020103a:   8020                    .2byte  0x8020
+>      8020103c:   5555                    li      a0,-11
+>      8020103e:   5555                    li      a0,-11
+>      80201040:   2012                    .2byte  0x2012   # (.Lbug%= -
+> .Lfrm%=) + %c[bf_line_hi]
+>                                 .....
+> ... it looks like the error will be generated if the name in %c[name]
+> isn't equal to 0.
+> 
+> Another thing I noticed is that %[name] can be used instead of %c[name]
+> for RISC-V ( i did a quick check and it works) so it is still possible
+> to follow Intel implementation but required a redefinition of
+> _ASM_BUGFRAME_TEXT where %c[...] won't be used. All the rest will be
+> the same as in x86 implementation:
+>                                  .....
+> #define _ASM_BUGFRAME_TEXT(second_frame)                      \
+>      ".Lbug%=: ebreak\n"                                       \
+>      ".pushsection .bug_frames.%[bf_type], \"a\", @progbits\n" \
+>      ".p2align 2\n"                                            \
+>      ".Lfrm%=:\n"                                              \
+>      ".long (.Lbug%= - .Lfrm%=) + %[bf_line_hi]\n"             \
+>      ".long (%[bf_ptr] - .Lfrm%=) + %[bf_line_lo]\n"           \
+>      ".if " #second_frame "\n"                                 \
+>      ".long 0, %[bf_msg] - .Lfrm%=\n"                          \
+>      ".endif\n"                                                \
+>      ".popsection\n"                                           \
+>                                   .....
+> 
+> One thing I would like to ask you is why it's better to follow/use x86
+> implementation instead of ARM?
 
-------------------------------------------------------------
-commit 648391f170ddbb0e92832d543a940bcc84fc2309
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Thu Jan 26 16:54:06 2023 +0100
+IMHO, the x86 version is cleaner. But...
 
-    remote: Fix memory leak in remoteDomainMigrateFinish3*
-    
-    Theoretically, when remoteDomainMigrateFinish3* is called without a
-    pointer for storing migration cookie or its length (i.e., either
-    cookieout == NULL or cookieoutlen == NULL), we would leak the freshly
-    created virDomain object referenced by rv.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Erik Skultety <eskultet@redhat.com>
+> It seems that "%c[...]" has the best support only for Intel GCC and
+> thereby ARM implementation looks more universal, doesn't it?
 
-commit 6f3f6c0f763b9ffd8ef93eb124c88dd0b79138fc
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Mon Jan 30 10:55:22 2023 +0100
+... you are right, the Arm version is more portable. Although, I do 
+wonder how GCC managed to have a different behavior between architecture 
+as I would have expected %c to be a generic implementation.
 
-    virsh: Make domif-setlink work more than once
-    
-    In virsh, we have this convenient domif-setlink command, which is
-    just a wrapper over virDomainUpdateDeviceFlags() and which allows
-    setting link state of given guest NIC. It does so by fetching
-    corresponding <interface/> XML snippet and either putting <link
-    state=''/> into it, OR if the element already exists setting the
-    attribute to desired value. The XML is then fed into the update
-    API.
-    
-    There's, however, a small bug in detecting the pre-existence of
-    the element and its attribute. The code looks at "link"
-    attribute, while in fact, the attribute is called "state".
-    
-    Resolves: https://gitlab.com/libvirt/libvirt/-/issues/426
-    Fixes: e575bf082ed4889280be07c986375f1ca15bb7ee
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
+Anyway, if you are basing on the Arm one, then you should be able to
+  1) move arch/arm/include/asm/bug.h in asm-generic/bug.h (or similar)
+  2) Rename the guard and remove arm specific code.(I am not sure from 
+where to include arm{32, 64}/bug.h)
+  3) Define BUG_INSTR to ebreak on RISC-V.
+  4) Find a place for all the RISC-V specific header
+  5) Move do_bug_frame() in common/bug.c
 
-commit 9f8fba7501327a60f6adb279ea17f0e2276071be
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Thu Jan 26 16:12:00 2023 +0100
+I am happy to help testing the Arm version and/or help moving the code 
+to common.
 
-    remote: Fix version annotation for remoteDomainFDAssociate
-    
-    The API was added in libvirt 9.0.0.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Peter Krempa <pkrempa@redhat.com>
+Cheers,
 
-commit a0fbf1e25cd0f91bedf159bf7f0086f4b1aeafc2
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 16:48:50 2023 +0100
-
-    rpc: Use struct zero initializer for args
-    
-    In a recent commit of v9.0.0-104-g0211e430a8 I've turned all args
-    vars in src/remote/remote_driver.c to be initialized wit {0}.
-    What I've missed was the generated code.
-    
-    Do what we've done in v9.0.0-13-g1c656836e3 and init also args,
-    not just ret.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Daniel P. Berrangé <berrange@redhat.com>
-
-commit 2dde3840b1d50e79f6b8161820fff9fe62f613a9
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix missing device in crypto-builtin XML
-    
-    Another forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit f3c9cbc36cc10775f6cefeb7e3de2f799dc74d70
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Thu Jan 26 16:57:20 2023 +0100
-
-    qemuxml2argvdata: Fix watchdog parameters in crypto-builtin
-    
-    Forgotten fix after a post-review rebase.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit a2c5c5dad2275414e325ca79778fad2612d14470
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:34 2023 +0100
-
-    news: Add information about iTCO watchdog changes
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 2fa92efe9b286ad064833cd2d8b907698e58e1cf
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 18:22:30 2023 +0100
-
-    Document change to multiple watchdogs
-    
-    With the reasoning behind it.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 926594dcc82b40f483010cebe5addbf1d7f58b24
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 11:22:22 2023 +0100
-
-    qemu: Add implicit watchdog for q35 machine types
-    
-    The iTCO watchdog is part of the q35 machine type since its inception,
-    we just did not add it implicitly.
-    
-    Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2137346
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d81a27b9815d68d85d2ddc9671649923ee5905d7
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 14:15:06 2023 +0100
-
-    qemu: Enable iTCO watchdog by disabling its noreboot pin strap
-    
-    In order for the iTCO watchdog to be operational we must disable the
-    noreboot pin strap in qemu.  This is the default starting from 8.0
-    machine types, but desirable for older ones as well.  And we can safely
-    do that since that is not guest-visible.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 5b80e93e42a1d89ee64420debd2b4b785a144c40
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:26:21 2023 +0100
-
-    Add iTCO watchdog support
-    
-    Supported only with q35 machine types.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1c61bd718a9e311016da799a42dfae18f538385a
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Tue Nov 8 09:10:57 2022 +0100
-
-    Support multiple watchdog devices
-    
-    This is already possible with qemu, and actually already happening with
-    q35 machines and a specified watchdog since q35 already includes a
-    watchdog we do not include in the XML.  In order to express such
-    posibility multiple watchdogs need to be supported.
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit c5340d5420012412ea298f0102cc7f113e87d89b
-Author: Martin Kletzander <mkletzan@redhat.com>
-Date:   Fri Jan 20 10:28:52 2023 +0100
-
-    qemuDomainAttachWatchdog: Avoid unnecessary nesting
-    
-    Signed-off-by: Martin Kletzander <mkletzan@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 1cf7e6ec057a80f3c256d739a8228e04b7fb8862
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:25:06 2023 +0100
-
-    remote: Drop useless cleanup in remoteDispatchNodeGet{CPU,Memory}Stats
-    
-    The function cannot fail once it starts populating
-    ret->params.params_val[i].field.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit d0f339170f35957e7541e5b20552d0007e150fbc
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 15:06:33 2023 +0100
-
-    remote: Avoid leaking uri_out
-    
-    In case the API returned success and a NULL pointer in uri_out, we would
-    leak the preallocated buffer used for storing the uri_out pointer.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 4849eb2220fb2171e88e014a8e63018d20a8de95
-Author: Jiri Denemark <jdenemar@redhat.com>
-Date:   Wed Jan 25 11:56:28 2023 +0100
-
-    remote: Propagate error from virDomainGetSecurityLabelList via RPC
-    
-    The daemon side of this API has been broken ever since the API was
-    introduced in 2012. Instead of sending the error from
-    virDomainGetSecurityLabelList via RPC so that the client can see it, the
-    dispatcher would just send a successful reply with return value set to
-    -1 (and an empty array of labels). The client side would propagate this
-    return value so the client can see the API failed, but the original
-    error would be lost.
-    
-    Signed-off-by: Jiri Denemark <jdenemar@redhat.com>
-    Reviewed-by: Michal Privoznik <mprivozn@redhat.com>
-
-commit 0211e430a87a96db9a4e085e12f33caad9167653
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 13:19:31 2023 +0100
-
-    remote: Initialize args variable
-    
-    Recently, in v9.0.0-7-gb2034bb04c we've dropped initialization of
-    @args variable. The reasoning was that eventually, all members of
-    the variable will be set. Well, this is not correct. For
-    instance, in remoteConnectGetAllDomainStats() the
-    args.doms.doms_val pointer is set iff @ndoms != 0. However,
-    regardless of that, the pointer is then passed to VIR_FREE().
-    
-    Worse, the whole args is passed to
-    xdr_remote_connect_get_all_domain_stats_args() which then calls
-    xdr_array, which tests the (uninitialized) pointer against NULL.
-    
-    This effectively reverts b2034bb04c61c75ddbfbed46879d641b6f8ca8dc.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Martin Kletzander <mkletzan@redhat.com>
-
-commit c3afde9211b550d3900edc5386ab121f5b39fd3e
-Author: Michal Privoznik <mprivozn@redhat.com>
-Date:   Thu Jan 26 11:56:10 2023 +0100
-
-    qemu_domain: Don't unref NULL hash table in qemuDomainRefreshStatsSchema()
-    
-    The g_hash_table_unref() function does not accept NULL. Passing
-    NULL results in a glib warning being triggered. Check whether the
-    hash table is not NULL and unref it only then.
-    
-    Signed-off-by: Michal Privoznik <mprivozn@redhat.com>
-    Reviewed-by: Ján Tomko <jtomko@redhat.com>
+-- 
+Julien Grall
 
