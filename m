@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B597685C30
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 01:32:25 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.487983.755834 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C10D685CA3
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 02:32:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.487995.755845 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN12Y-000457-AL; Wed, 01 Feb 2023 00:31:54 +0000
+	id 1pN1xi-0001pI-R0; Wed, 01 Feb 2023 01:30:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 487983.755834; Wed, 01 Feb 2023 00:31:54 +0000
+Received: by outflank-mailman (output) from mailman id 487995.755845; Wed, 01 Feb 2023 01:30:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN12Y-00041n-7G; Wed, 01 Feb 2023 00:31:54 +0000
-Received: by outflank-mailman (input) for mailman id 487983;
- Wed, 01 Feb 2023 00:31:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pN12W-00041d-Py; Wed, 01 Feb 2023 00:31:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pN12W-0002f2-Mw; Wed, 01 Feb 2023 00:31:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pN12W-0003lb-8M; Wed, 01 Feb 2023 00:31:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pN12W-0000AB-7v; Wed, 01 Feb 2023 00:31:52 +0000
+	id 1pN1xi-0001ne-La; Wed, 01 Feb 2023 01:30:58 +0000
+Received: by outflank-mailman (input) for mailman id 487995;
+ Wed, 01 Feb 2023 01:30:57 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=OiZ6=55=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
+ id 1pN1xg-0001nY-OP
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 01:30:57 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 101c0c5c-a1d0-11ed-b63b-5f92e7d2e73a;
+ Wed, 01 Feb 2023 02:30:52 +0100 (CET)
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 826536098A;
+ Wed,  1 Feb 2023 01:30:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D550C433D2;
+ Wed,  1 Feb 2023 01:30:49 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,138 +43,153 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=4LWiZPUUrL6cEphH+WDsSQHMZ0gx+5KIvfYHPLKPFsI=; b=D2vatyWou5xq0Ubi0b82O5nPB6
-	H+g7LwyOAuj1cxQyH4cwU3B9TE4abMsL8+1avZwlvxJDvmVZYMW25AwV9DQLmPPrBzxa6IR13XkyZ
-	NsuQFQ5dl8135m7+FbT5199AbG9mDQ7qSyf/oqPKh469S95UvPHaDq+9QXsIXpK86SAk=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-176303-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 101c0c5c-a1d0-11ed-b63b-5f92e7d2e73a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1675215050;
+	bh=U/1z8e8d/tq25Kzt4j9FU3/4jdlftRctNW3sDc8LYMU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
+	b=uSQYvBKeoBUcvjvW5ebm6NIqwCITlhkHHCAYxwqZhtL2Jc8SQxcEmpXq7XNJ7FNj6
+	 Qp1jwa6jBJ67Fj1lqX/0u31GQEKe4sJbe11GyhWmKzl5pecUvNKXgRqF7091S2h87n
+	 PUXHzXuEFGeQa+a2yLsVoUs8tLBotGI74Y028ufwpYB/GSv05mwDzKRJvcCYPuLUcd
+	 ARcdWWz06MIufid0p+eAvBI5VF/RhCe5OAA6F+C4A3cr7j59Dmh+IVc0m1ZSxQ9IpX
+	 avbSortQG5UZkY1JItv939cd2wVeM/b5Yf3ss2mjBxgeKFZkIhshntRqt5Duz4g5WS
+	 Xrp+oBCrx+FMg==
+Date: Tue, 31 Jan 2023 17:30:47 -0800 (PST)
+From: Stefano Stabellini <sstabellini@kernel.org>
+X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
+To: Jan Beulich <jbeulich@suse.com>
+cc: Oleksii <oleksii.kurochko@gmail.com>, Julien Grall <julien@xen.org>, 
+    Andrew Cooper <andrew.cooper3@citrix.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, 
+    Gianluca Guida <gianluca@rivosinc.com>, 
+    Bob Eshleman <bobbyeshleman@gmail.com>, 
+    Alistair Francis <alistair.francis@wdc.com>, 
+    Connor Davis <connojdavis@gmail.com>, 
+    Bobby Eshleman <bobby.eshleman@gmail.com>, xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
+In-Reply-To: <bdb8c6a8-a677-9bef-c819-904bd944e6da@suse.com>
+Message-ID: <alpine.DEB.2.22.394.2301311719490.132504@ubuntu-linux-20-04-desktop>
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com> <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com> <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com> <792bc4533d3604acd4321b4b15965adec22431a4.camel@gmail.com>
+ <bdb8c6a8-a677-9bef-c819-904bd944e6da@suse.com>
+User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
-Subject: [xen-unstable-smoke test] 176303: trouble: blocked/broken/pass
-X-Osstest-Failures:
-    xen-unstable-smoke:build-armhf:<job status>:broken:regression
-    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
-    xen-unstable-smoke:build-armhf:syslog-server:running:regression
-    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
-    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
-    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-X-Osstest-Versions-This:
-    xen=78e93e6e57c218eead498a664785f414bcb12460
-X-Osstest-Versions-That:
-    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 01 Feb 2023 00:31:52 +0000
+Content-Type: multipart/mixed; boundary="8323329-900873961-1675215050=:132504"
 
-flight 176303 xen-unstable-smoke real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/176303/
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Failures and problems with tests :-(
+--8323329-900873961-1675215050=:132504
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8BIT
 
-Tests which did not succeed and are blocking,
-including tests which could not be run:
- build-armhf                     <job status>                 broken
- build-armhf                   4 host-install(4)        broken REGR. vs. 176151
- build-armhf                   3 syslog-server                running
+On Mon, 30 Jan 2023, Jan Beulich wrote:
+> On 30.01.2023 12:54, Oleksii wrote:
+> > Hi Jan,
+> > 
+> > On Fri, 2023-01-27 at 15:24 +0100, Jan Beulich wrote:
+> >> On 27.01.2023 14:59, Oleksii Kurochko wrote:
+> >>> --- /dev/null
+> >>> +++ b/xen/arch/riscv/include/asm/processor.h
+> >>> @@ -0,0 +1,82 @@
+> >>> +/* SPDX-License-Identifier: MIT */
+> >>> +/*****************************************************************
+> >>> *************
+> >>> + *
+> >>> + * Copyright 2019 (C) Alistair Francis <alistair.francis@wdc.com>
+> >>> + * Copyright 2021 (C) Bobby Eshleman <bobby.eshleman@gmail.com>
+> >>> + * Copyright 2023 (C) Vates
+> >>> + *
+> >>> + */
+> >>> +
+> >>> +#ifndef _ASM_RISCV_PROCESSOR_H
+> >>> +#define _ASM_RISCV_PROCESSOR_H
+> >>> +
+> >>> +#ifndef __ASSEMBLY__
+> >>> +
+> >>> +/* On stack VCPU state */
+> >>> +struct cpu_user_regs
+> >>> +{
+> >>> +    unsigned long zero;
+> >>> +    unsigned long ra;
+> >>> +    unsigned long sp;
+> >>> +    unsigned long gp;
+> >>> +    unsigned long tp;
+> >>> +    unsigned long t0;
+> >>> +    unsigned long t1;
+> >>> +    unsigned long t2;
+> >>> +    unsigned long s0;
+> >>> +    unsigned long s1;
+> >>> +    unsigned long a0;
+> >>> +    unsigned long a1;
+> >>> +    unsigned long a2;
+> >>> +    unsigned long a3;
+> >>> +    unsigned long a4;
+> >>> +    unsigned long a5;
+> >>> +    unsigned long a6;
+> >>> +    unsigned long a7;
+> >>> +    unsigned long s2;
+> >>> +    unsigned long s3;
+> >>> +    unsigned long s4;
+> >>> +    unsigned long s5;
+> >>> +    unsigned long s6;
+> >>> +    unsigned long s7;
+> >>> +    unsigned long s8;
+> >>> +    unsigned long s9;
+> >>> +    unsigned long s10;
+> >>> +    unsigned long s11;
+> >>> +    unsigned long t3;
+> >>> +    unsigned long t4;
+> >>> +    unsigned long t5;
+> >>> +    unsigned long t6;
+> >>> +    unsigned long sepc;
+> >>> +    unsigned long sstatus;
+> >>> +    /* pointer to previous stack_cpu_regs */
+> >>> +    unsigned long pregs;
+> >>> +};
+> >>
+> >> Just to restate what I said on the earlier version: We have a struct
+> >> of
+> >> this name in the public interface for x86. Besides to confusion about
+> >> re-using the name for something private, I'd still like to understand
+> >> what the public interface plans are. This is specifically because I
+> >> think it would be better to re-use suitable public interface structs
+> >> internally where possible. But that of course requires spelling out
+> >> such parts of the public interface first.
+> >>
+> > I am not sure that I get you here.
+> > I greped a little bit and found out that each architecture declares
+> > this structure inside arch-specific folder.
+> > 
+> > Mostly the usage of the cpu_user_regs is to save/restore current state
+> > of CPU during traps ( exceptions/interrupts ) and context_switch().
+> 
+> Arm effectively duplicates the public interface struct vcpu_guest_core_regs
+> and the internal struct cpu_user_regs (and this goes as far as also
+> duplicating the __DECL_REG() helper). Personally I find such duplication
+> odd at the first glance at least; maybe there is a specific reason for this
+> in Arm. But whether the public interface struct can be re-used can likely
+> only be known once it was spelled out.
 
-Tests which did not succeed, but are not blocking:
- test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
- build-armhf                   5 capture-logs          broken blocked in 176151
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+struct vcpu_guest_core_regs is used as part of struct
+vcpu_guest_context, which is used for VCPUOP_initialise, which is not
+used on ARM and RISC-V (we use a standard firmware interface instead),
+and for save/restore, which also is not going to work any time soon on
+ARM and RISC-V.
 
-version targeted for testing:
- xen                  78e93e6e57c218eead498a664785f414bcb12460
-baseline version:
- xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
-
-Last test of basis   176151  2023-01-26 14:00:29 Z    5 days
-Testing same since   176283  2023-01-30 21:02:20 Z    1 days   12 attempts
-
-------------------------------------------------------------
-People who touched revisions under test:
-  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-  Stefano Stabellini <stefano.stabellini@amd.com>
-
-jobs:
- build-arm64-xsm                                              pass    
- build-amd64                                                  pass    
- build-armhf                                                  broken  
- build-amd64-libvirt                                          pass    
- test-armhf-armhf-xl                                          blocked 
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-amd64-libvirt                                     pass    
+This is to say that we are probably not going to need the public
+interface for the next year or two, so it is difficult to tell at this
+stage if it aligns well with struct cpu_user_regs. I think we'll have to
+cross that bridge when we come to it.
 
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+> > Also some registers are modified during construction of a domain.
+> > Thereby I prefer here to see the arch-specific register names instead
+> > of common.
+> 
+> Not sure what meaning of "common" you imply here. Surely register names
+> want to be arch-specific, and hence can't be "common" with other arch-es.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-broken-job build-armhf broken
-broken-step build-armhf host-install(4)
-broken-step build-armhf capture-logs
-
-Not pushing.
-
-------------------------------------------------------------
-commit 78e93e6e57c218eead498a664785f414bcb12460
-Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Date:   Wed Jan 25 11:21:31 2023 +0000
-
-    xen/arm: Probe the load/entry point address of an uImage correctly
-    
-    Currently, kernel_uimage_probe() does not read the load/entry point address
-    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
-    causes, kernel_zimage_place() to treat the binary (contained within uImage)
-    as position independent executable. Thus, it loads it at an incorrect
-    address.
-    
-    The correct approach would be to read "uimage.load" and set
-    info->zimage.start. This will ensure that the binary is loaded at the
-    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
-    address).
-    
-    If user provides load address (ie "uimage.load") as 0x0, then the image is
-    treated as position independent executable. Xen can load such an image at
-    any address it considers appropriate. A position independent executable
-    cannot have a fixed entry point address.
-    
-    This behavior is applicable for both arm32 and arm64 platforms.
-    
-    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
-    point address set in the uImage header. With this commit, Xen will use them.
-    This makes the behavior of Xen consistent with uboot for uimage headers.
-    
-    Users who want to use Xen with statically partitioned domains, can provide
-    non zero load address and entry address for the dom0/domU kernel. It is
-    required that the load and entry address provided must be within the memory
-    region allocated by Xen.
-    
-    A deviation from uboot behaviour is that we consider load address == 0x0,
-    to denote that the image supports position independent execution. This
-    is to make the behavior consistent across uImage and zImage.
-    
-    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-    [stefano: minor doc improvement]
-    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
-    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-(qemu changes not included)
+I think Oleksii misunderstood your request and believed you were asking
+him to make struct cpu_user_regs common across arches.
+--8323329-900873961-1675215050=:132504--
 
