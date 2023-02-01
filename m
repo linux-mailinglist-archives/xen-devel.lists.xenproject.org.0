@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D18CC685D3F
+	by mail.lfdr.de (Postfix) with ESMTPS id 81FCA685D3E
 	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 03:15:51 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488035.755896 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.488036.755907 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN2em-0001CD-3A; Wed, 01 Feb 2023 02:15:28 +0000
+	id 1pN2ep-0001S6-Bq; Wed, 01 Feb 2023 02:15:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488035.755896; Wed, 01 Feb 2023 02:15:28 +0000
+Received: by outflank-mailman (output) from mailman id 488036.755907; Wed, 01 Feb 2023 02:15:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pN2em-0001AV-0M; Wed, 01 Feb 2023 02:15:28 +0000
-Received: by outflank-mailman (input) for mailman id 488035;
- Wed, 01 Feb 2023 02:15:26 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pN2ep-0001Q7-8D; Wed, 01 Feb 2023 02:15:31 +0000
+Received: by outflank-mailman (input) for mailman id 488036;
+ Wed, 01 Feb 2023 02:15:29 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=c1xX=55=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
- id 1pN2ek-0001AP-GA
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 02:15:26 +0000
+ id 1pN2en-000179-HZ
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 02:15:29 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 484018e8-a1d6-11ed-b63b-5f92e7d2e73a;
- Wed, 01 Feb 2023 03:15:22 +0100 (CET)
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 4bbd7035-a1d6-11ed-933c-83870f6b2ba8;
+ Wed, 01 Feb 2023 03:15:28 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DAA242F4;
- Tue, 31 Jan 2023 18:16:04 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 208284B3;
+ Tue, 31 Jan 2023 18:16:10 -0800 (PST)
 Received: from a015966.shanghai.arm.com (a015966.shanghai.arm.com
  [10.169.190.24])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 5BF3D3F882;
- Tue, 31 Jan 2023 18:15:20 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 979223F882;
+ Tue, 31 Jan 2023 18:15:25 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,7 +43,7 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 484018e8-a1d6-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: 4bbd7035-a1d6-11ed-933c-83870f6b2ba8
 From: Henry Wang <Henry.Wang@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: Henry Wang <Henry.Wang@arm.com>,
@@ -52,51 +52,177 @@ Cc: Henry Wang <Henry.Wang@arm.com>,
 	Wei Chen <wei.chen@arm.com>,
 	Bertrand Marquis <bertrand.marquis@arm.com>,
 	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-Subject: [PATCH v4 0/3] Memory region overlap check in device tree
-Date: Wed,  1 Feb 2023 10:15:10 +0800
-Message-Id: <20230201021513.336837-1-Henry.Wang@arm.com>
+Subject: [PATCH v4 1/3] xen/arm: Add memory overlap check for bootinfo.reserved_mem
+Date: Wed,  1 Feb 2023 10:15:11 +0800
+Message-Id: <20230201021513.336837-2-Henry.Wang@arm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20230201021513.336837-1-Henry.Wang@arm.com>
+References: <20230201021513.336837-1-Henry.Wang@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As we are having more and more types of memory region defined in the
-device tree, it is necessary to add the overlap check of these memory
-regions in Xen, because such check will help user to identify the
-misconfiguration in the device tree at the early stage of boot time.
+As we are having more and more types of static region, and all of
+these static regions are defined in bootinfo.reserved_mem, it is
+necessary to add the overlap check of reserved memory regions in Xen,
+because such check will help user to identify the misconfiguration in
+the device tree at the early stage of boot time.
 
-The first patch introduces the basic memory overlap check mechanism,
-and does the memory check for memory regions in bootinfo.reserved_mem.
-Following patches extend the overlap check to include bootmodules and
-EfiACPIReclaimMemory.
+Currently we have 3 types of static region, namely
+(1) static memory
+(2) static heap
+(3) static shared memory
 
+(1) and (2) are parsed by the function `device_tree_get_meminfo()` and
+(3) is parsed using its own logic. All of parsed information of these
+types will be stored in `struct meminfo`.
+
+Therefore, to unify the overlap checking logic for all of these types,
+this commit firstly introduces a helper `meminfo_overlap_check()` and
+a function `check_reserved_regions_overlap()` to check if an input
+physical address range is overlapping with the existing memory regions
+defined in bootinfo. After that, use `check_reserved_regions_overlap()`
+in `device_tree_get_meminfo()` to do the overlap check of (1) and (2)
+and replace the original overlap check of (3) with
+`check_reserved_regions_overlap()`.
+
+Signed-off-by: Henry Wang <Henry.Wang@arm.com>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+---
+Stefano - I kept your reviewed-by tag since there is no actual code
+change in v4. Hope you'd be fine with this and thanks for the review.
 v3 -> v4:
 1. Correct printk error message, end should be exclusive.
 2. Add comment explaining the unhandled case where '*_end' could be 0
-   if the module/region is at the end of the physical address space.
+   if the bank/region is at the end of the physical address space.
 3. Add Stefano's reviewed-by tag.
-
 v2 -> v3:
 1. Use "[start, end]" format in printk error message.
 2. Change the return type of helper functions to bool.
 3. Use 'start' and 'size' in helper functions to describe a region.
-
 v1 -> v2:
-- Split original `overlap_check()` to `meminfo_overlap_check()` and
-  `bootmodules_overlap_check()`.
-- Rework commit message.
+1. Split original `overlap_check()` to `meminfo_overlap_check()`.
+2. Rework commit message.
+---
+ xen/arch/arm/bootfdt.c           | 13 +++++----
+ xen/arch/arm/include/asm/setup.h |  2 ++
+ xen/arch/arm/setup.c             | 45 ++++++++++++++++++++++++++++++++
+ 3 files changed, 53 insertions(+), 7 deletions(-)
 
-Henry Wang (3):
-  xen/arm: Add memory overlap check for bootinfo.reserved_mem
-  xen/arm: Extend the memory overlap check to include bootmodules
-  xen/arm: Extend the memory overlap check to include
-    EfiACPIReclaimMemory
-
- xen/arch/arm/bootfdt.c           | 13 +++--
- xen/arch/arm/efi/efi-boot.h      | 10 +++-
- xen/arch/arm/include/asm/setup.h |  2 +
- xen/arch/arm/setup.c             | 90 ++++++++++++++++++++++++++++++++
- 4 files changed, 106 insertions(+), 9 deletions(-)
-
+diff --git a/xen/arch/arm/bootfdt.c b/xen/arch/arm/bootfdt.c
+index 0085c28d74..e2f6c7324b 100644
+--- a/xen/arch/arm/bootfdt.c
++++ b/xen/arch/arm/bootfdt.c
+@@ -88,6 +88,9 @@ static int __init device_tree_get_meminfo(const void *fdt, int node,
+     for ( i = 0; i < banks && mem->nr_banks < NR_MEM_BANKS; i++ )
+     {
+         device_tree_get_reg(&cell, address_cells, size_cells, &start, &size);
++        if ( mem == &bootinfo.reserved_mem &&
++             check_reserved_regions_overlap(start, size) )
++            return -EINVAL;
+         /* Some DT may describe empty bank, ignore them */
+         if ( !size )
+             continue;
+@@ -482,7 +485,9 @@ static int __init process_shm_node(const void *fdt, int node,
+                 return -EINVAL;
+             }
+ 
+-            if ( (end <= mem->bank[i].start) || (paddr >= bank_end) )
++            if ( check_reserved_regions_overlap(paddr, size) )
++                return -EINVAL;
++            else
+             {
+                 if ( strcmp(shm_id, mem->bank[i].shm_id) != 0 )
+                     continue;
+@@ -493,12 +498,6 @@ static int __init process_shm_node(const void *fdt, int node,
+                     return -EINVAL;
+                 }
+             }
+-            else
+-            {
+-                printk("fdt: shared memory region overlap with an existing entry %#"PRIpaddr" - %#"PRIpaddr"\n",
+-                        mem->bank[i].start, bank_end);
+-                return -EINVAL;
+-            }
+         }
+     }
+ 
+diff --git a/xen/arch/arm/include/asm/setup.h b/xen/arch/arm/include/asm/setup.h
+index a926f30a2b..f0592370ea 100644
+--- a/xen/arch/arm/include/asm/setup.h
++++ b/xen/arch/arm/include/asm/setup.h
+@@ -143,6 +143,8 @@ void fw_unreserved_regions(paddr_t s, paddr_t e,
+ size_t boot_fdt_info(const void *fdt, paddr_t paddr);
+ const char *boot_fdt_cmdline(const void *fdt);
+ 
++bool check_reserved_regions_overlap(paddr_t region_start, paddr_t region_size);
++
+ struct bootmodule *add_boot_module(bootmodule_kind kind,
+                                    paddr_t start, paddr_t size, bool domU);
+ struct bootmodule *boot_module_find_by_kind(bootmodule_kind kind);
+diff --git a/xen/arch/arm/setup.c b/xen/arch/arm/setup.c
+index 1f26f67b90..28c79a413f 100644
+--- a/xen/arch/arm/setup.c
++++ b/xen/arch/arm/setup.c
+@@ -261,6 +261,36 @@ static void __init dt_unreserved_regions(paddr_t s, paddr_t e,
+     cb(s, e);
+ }
+ 
++/*
++ * TODO: '*_end' could be 0 if the bank/region is at the end of the physical
++ * address space. This is for now not handled as it requires more rework.
++ */
++static bool __init meminfo_overlap_check(struct meminfo *meminfo,
++                                         paddr_t region_start,
++                                         paddr_t region_size)
++{
++    paddr_t bank_start = INVALID_PADDR, bank_end = 0;
++    paddr_t region_end = region_start + region_size;
++    unsigned int i, bank_num = meminfo->nr_banks;
++
++    for ( i = 0; i < bank_num; i++ )
++    {
++        bank_start = meminfo->bank[i].start;
++        bank_end = bank_start + meminfo->bank[i].size;
++
++        if ( region_end <= bank_start || region_start >= bank_end )
++            continue;
++        else
++        {
++            printk("Region: [%#"PRIpaddr", %#"PRIpaddr") overlapping with bank[%u]: [%#"PRIpaddr", %#"PRIpaddr")\n",
++                   region_start, region_end, i, bank_start, bank_end);
++            return true;
++        }
++    }
++
++    return false;
++}
++
+ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+                                   void (*cb)(paddr_t, paddr_t),
+                                   unsigned int first)
+@@ -271,7 +301,22 @@ void __init fw_unreserved_regions(paddr_t s, paddr_t e,
+         cb(s, e);
+ }
+ 
++/*
++ * Given an input physical address range, check if this range is overlapping
++ * with the existing reserved memory regions defined in bootinfo.
++ * Return true if the input physical address range is overlapping with any
++ * existing reserved memory regions, otherwise false.
++ */
++bool __init check_reserved_regions_overlap(paddr_t region_start,
++                                           paddr_t region_size)
++{
++    /* Check if input region is overlapping with bootinfo.reserved_mem banks */
++    if ( meminfo_overlap_check(&bootinfo.reserved_mem,
++                               region_start, region_size) )
++        return true;
+ 
++    return false;
++}
+ 
+ struct bootmodule __init *add_boot_module(bootmodule_kind kind,
+                                           paddr_t start, paddr_t size,
 -- 
 2.25.1
 
