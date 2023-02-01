@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68A4A686CCC
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 18:23:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488371.756412 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6938E686CD2
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 18:24:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488377.756424 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNGp9-0000Cm-EY; Wed, 01 Feb 2023 17:23:07 +0000
+	id 1pNGqA-0000ro-Tj; Wed, 01 Feb 2023 17:24:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488371.756412; Wed, 01 Feb 2023 17:23:07 +0000
+Received: by outflank-mailman (output) from mailman id 488377.756424; Wed, 01 Feb 2023 17:24:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNGp9-0000AT-Br; Wed, 01 Feb 2023 17:23:07 +0000
-Received: by outflank-mailman (input) for mailman id 488371;
- Wed, 01 Feb 2023 17:23:05 +0000
+	id 1pNGqA-0000p4-QD; Wed, 01 Feb 2023 17:24:10 +0000
+Received: by outflank-mailman (input) for mailman id 488377;
+ Wed, 01 Feb 2023 17:24:09 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=tMue=55=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
- id 1pNGp7-00007c-D1
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 17:23:05 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2061d.outbound.protection.outlook.com
- [2a01:111:f400:fe59::61d])
+ id 1pNGq9-0000oy-2K
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 17:24:09 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061c.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 147b78ab-a255-11ed-b63b-5f92e7d2e73a;
- Wed, 01 Feb 2023 18:23:03 +0100 (CET)
+ id 3a7d7f8a-a255-11ed-b63b-5f92e7d2e73a;
+ Wed, 01 Feb 2023 18:24:06 +0100 (CET)
 Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
- by IA1PR12MB7589.namprd12.prod.outlook.com (2603:10b6:208:42b::13)
+ by SA0PR12MB4381.namprd12.prod.outlook.com (2603:10b6:806:70::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Wed, 1 Feb
- 2023 17:23:00 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.25; Wed, 1 Feb
+ 2023 17:24:03 +0000
 Received: from MW3PR12MB4409.namprd12.prod.outlook.com
  ([fe80::f803:f951:a68f:663a]) by MW3PR12MB4409.namprd12.prod.outlook.com
  ([fe80::f803:f951:a68f:663a%5]) with mapi id 15.20.6043.038; Wed, 1 Feb 2023
- 17:22:59 +0000
+ 17:24:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,167 +47,193 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 147b78ab-a255-11ed-b63b-5f92e7d2e73a
+X-Inumbo-ID: 3a7d7f8a-a255-11ed-b63b-5f92e7d2e73a
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aadjURwlSwYvRmgmN8Vt8w9rYNvlnAYHAWjjzf0M4f4rDD/tnkHRcegt6RxbJ5z3AJAfuux/+P7GQb4yUrMkO8btu6YjZnjhvitboayctBOqh2cuF8EowDmkGnTX9WJliu5rqKC5IS8e/9v9rZsn7CN+ZUb591I3jTDl4f9ho0t1YLtdfDN796LfuL4ZuOzOY2FuPA5agaa8XJNExaudTzdTczMqkqdJEqZVIbFQo6OnU7wku/gVrw1jR73CnRNQfX2X1OqDFvF1497Awc3KIJO+daVF54NxaP0pjhjwoPwIGfXEBUi6mFC+RVy1pvrool++Zu1hHOXl+u8AxphnLw==
+ b=eGSW8OWujuZuGjZcsqsXLG0eUR/hLu8bvGEbQN/Buo+/mrNMXVTkdM1dZbmtg6s1zOqEBV6iO4XCuRmrCxNkGGiNhl5tILGdwsmbKVY0Mjo4sj9Z9ovzMUg8MrNDWvOlg+5eRwsw8pSGVDlgMu4fj/giElSGrMrLP2vjxYpF9mLRjUPxKejY6xkBU4s4aK31Qc48msfTO+yBuAiyq5+DX+WS8lvwzZF+RcV21AmBsMVMmznKs26F0BTzxUkgt5Uxv0xS8mn94KbwvVN1cs58Hut7g58mBapVUVpWlNSlDRwFlMxCTHrDD6srNkqSB9VZRLeSmooOeUQYywqouqQyWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vT3+Q0FqEUI+MrO5MSmCjiNIjXIEaPuJjz3zdnfZubw=;
- b=EWQM8suds/988UpY2pt1GuoIWtyAntHq5bLYXusU7zQi6wApCmwg6UxKYm3mC9lCDK9Cir21KVNthzuk1iGDg21RDzsoZEsutiKdcqMiIx6R8ALysbm3NXir2ql62oZQgSvDTvYgHUCqtnwAa73yxm0Ppv4sgfLHJkEMfU2UUodco/wwk/v8gIpPANxa+yv6Jl60PzT/j79Zto9bSxkvD5K4mhs+mrX8wplA6g9NMu+5Bx2a0t3W9mNemmvxmkGwlCi8m0vurhrcZGPwk5bqEcsZ38CcphAQB9KWQH4+jEI1S3azx9Yn9TZTjzGVTMuLHWcgSe7gfKf0PjFvBWII3w==
+ bh=OexwS3EpqzFx25dS57WVA010nSmNvsdKxI61GuOTzQg=;
+ b=InrT+1M84HNstYAFzufkW1F9RsdX+R2MiHuBR4Z8nRzz010QmR6RMpzfa34O7B+ylE/YCei/xq3FxOj+OZsRz1Wovf4aCJ47/S7jRzFKUdvJVzlTTnXlA/6zwubsrQqxjWNxCFpjczCNGfOpsJPOps+eJi8ML8GEgB1BRIyANmQWbDuS7ULyAoWwTUyLcei/vwFD38Cs/d8ciarC+P8bhE7AwAfySNMifjFJBKJXjNzpZuE3/Q88z4FHHhAh5R6JM8myyyN+jH7fsTIpacDFAeHFE+gU2q4M/JBoLrSFtcUqUd9S0EmjtjsUeHGHT8e8eTrGkm5mfNlXREL6dZfl6Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vT3+Q0FqEUI+MrO5MSmCjiNIjXIEaPuJjz3zdnfZubw=;
- b=IeG9HbdNdCLykbh0xlkcZQyS1CgwlWf2Z+Urf4KDWT/rZVTfcN8WIUCxhdfA3nFs4MyUYJuZUshnS1998OYKHNMP+ndm6VU0qP7FipMVWG61dIstl+6SfT9EUZLvnhRaPkLxxY5/p1P0kWJAiQf5Q9iH5WOtyycaYGRy+UKsN08=
+ bh=OexwS3EpqzFx25dS57WVA010nSmNvsdKxI61GuOTzQg=;
+ b=rYSKEMWpb8NKXZKUoWYzlDTNIpttq9rHBXdpvW5T6CR76Mo4PejsIfHXYNYoVHEfsO3ZHf7cbXEDvr6txjLsx9t98+BaOyfxRRKzHas0+3fKAQG4W35QCupm+4yFwNiXaoeHqBmpLmhVk1RMzKoEdrGsK2qU9s5jY82XOIDW7o0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <b753db25-f4e2-1f55-5450-d8a1681603b7@amd.com>
-Date: Wed, 1 Feb 2023 09:22:57 -0800
+Message-ID: <2f6df3dc-acdb-3625-5724-4e61da99270f@amd.com>
+Date: Wed, 1 Feb 2023 09:24:01 -0800
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [XEN][RFC PATCH v4 15/16] tools/libs/light: Implement new libxl
- functions for device tree overlay ops
+Subject: Re: [XEN][RFC PATCH v4 16/16] tools/xl: Add new xl command overlay
+ for device tree overlay support
 Content-Language: en-US
 To: Anthony PERARD <anthony.perard@citrix.com>
 Cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org, julien@xen.org,
- Luca.Fancellu@arm.com, Wei Liu <wl@xen.org>, Juergen Gross <jgross@suse.com>
+ Luca.Fancellu@arm.com, Wei Liu <wl@xen.org>
 References: <20221207061815.7404-1-vikram.garhwal@amd.com>
- <20221207061815.7404-9-vikram.garhwal@amd.com>
- <Y5NpZiWZOssDwX5Z@perard.uk.xensource.com>
+ <20221207061815.7404-10-vikram.garhwal@amd.com>
+ <Y5N2lU8f3PVOTNSa@perard.uk.xensource.com>
 From: Vikram Garhwal <vikram.garhwal@amd.com>
-In-Reply-To: <Y5NpZiWZOssDwX5Z@perard.uk.xensource.com>
+In-Reply-To: <Y5N2lU8f3PVOTNSa@perard.uk.xensource.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BYAPR06CA0017.namprd06.prod.outlook.com
- (2603:10b6:a03:d4::30) To MW3PR12MB4409.namprd12.prod.outlook.com
+X-ClientProxiedBy: SJ0PR03CA0160.namprd03.prod.outlook.com
+ (2603:10b6:a03:338::15) To MW3PR12MB4409.namprd12.prod.outlook.com
  (2603:10b6:303:2d::23)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_|IA1PR12MB7589:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0b92a1a5-35cd-4bf8-d870-08db0478f770
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_|SA0PR12MB4381:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfd26ae1-54e9-4679-5651-08db04791d84
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	PZDw5SQncV+qYa/ea1OvJKtYLT3f7iV7vmti6JUE6qkiXlbREGUqDhv+tGPE8PEHskM/lZ7IO9Qj+oRhLuIqbLGHKXTII1W/GfMJVu1Pw1eAqxuf8PlXEdfkjDMpMR+mH2kFxmaIVpkAKtsQ/+XfOE6Q4lHVN/MOcZ9s6R23vxLj/HUN34rKslxAt4EIULLnejZc62fGtiVFHC9+bVgI3SxsV89QSb1//WFatpn1EqsvxjIDvxbVgdkTSOzj8TJXbIajhuOfzq/smdf9AGp/f+BfsKmkIRVwNH2s583NYE7EQt7XByqXTgSX1Zhuhx/Dzy4iA76Ih5WlL39s07/gs0fLj+sbsL0pHelag6Bm5nadvx1ktFIQbnvzZVh+8aT1/XZDzskQjnbbCIFYgpwUrPAua+pX3L+sB8IDaHJsEzSoZjK87/d43Ey0thoY4jb05tcVGpls/fF7ILxXaGr3y/fXi0xOJf5D8PJkOLzYlpWYde4WkErX4bBY82YVFiextqmzoknWQrhGtTvcYYLNY54hRgd68o1JONu9Gl1bPSu8Ce6Kg4/ls6r3JTG+hoyo6bFA9pw2pvavNzliNHlYoGzFRynWDZTtlZAISf8ubD7lbSXEi6KrnQozUrIcWHsqVfXQeDn2y30zBGPAMyxF9/Awmmku0u1TX4OoMh7X+N2onU+merLtmDBi3c5lf5o03f8PzUmYPz+PpAkUvTCsX8yY3jbrbBjWVw14RuggU30=
+	6Viw+BU3U38Q1aW9JcN2JBpaE6y+GPFzwMLrkhZTa8P7NdQZ8DkQxcX7z4xIt8X3DDywr0Dp+GqPcFTSHB2dtsu1WlpPGgbwy7md8U/bl2oEJILIBfu3/1hX3hx3jpzNgNFbI9bZmCpwZqITDPaPSjVNH1xlsxs3Rbe12h309ZFjLkR55rDFsdSSv/Tqm8VKNlW5OXSoMoy5OU+z3LjdmyBnhZrJCKzWTp7EngnKNGkRVQNgFSV3LqMn1oZXzLl59tZ+MwekC7FnRIza2JIAh+P8Kyd1Pk7GK8hEyMIcd2dPrxcIsV9nLx+tTS3MRYYCyE+7YkeZxldnPdNZKlu+2c0SOkpDgghgrR1J6B4LLerESiHVofxeLwZs7RsqCLZ2P2h4uf6qx867fF8oDSaPOPVqJ+DKrnO3t1hzgnt0ISqP+oYJqfMGC6BODP01CAhbvBWzjvwtrteDKvz2o9IqOdEGQax0zi4SZpx7p5Sfc/+BSErAqNBfyssclRRgwE7uHPayKMJYC95wDTL1kUvy7h0Jpkbc42cE2lB4svVedeOPzSZzIE38CzY/PmHjJa2lc1Pb893WSrbfCaRTFKSlAunqwZSuSFXwCFQ/gFKmxotO05PXFWZkjWHkBTs6ExVmI+pY3NPzADM5pW8Z09LTyH7F8C28IJU+xtCBPV4yGxsL8zbhVrSBJ9FVlnU0Gy/HDzJeFiA+/oaMVBj+5dPgMvVyLOUXLHcmKB2TB59THi8=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(346002)(376002)(136003)(396003)(39860400002)(451199018)(41300700001)(44832011)(53546011)(8936002)(86362001)(66556008)(5660300002)(38100700002)(2616005)(66476007)(31696002)(4326008)(6916009)(6486002)(66946007)(8676002)(316002)(54906003)(478600001)(36756003)(6512007)(186003)(26005)(6506007)(31686004)(2906002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(376002)(346002)(366004)(39860400002)(396003)(451199018)(5660300002)(31686004)(44832011)(41300700001)(8936002)(66556008)(66476007)(6916009)(4326008)(31696002)(66946007)(8676002)(478600001)(6512007)(26005)(36756003)(53546011)(6506007)(186003)(83380400001)(2616005)(2906002)(38100700002)(86362001)(316002)(6486002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Zlc1a2dMUHFsbTl0MEwxRkI4T3dNWm83eGJIMjN0ZEZxUDdXRXBjT3JMWGFr?=
- =?utf-8?B?NHNGMW5OVGZhMlFPbEdVM0Y5Q0R0VG92WTlVcXhUeVFYeWViKzVwWWJFcjNP?=
- =?utf-8?B?UXorbUlWRE8yYlhCSkZYR1JuaUNMUEgva3hRMldaeWw5L1BLRGh4MmQ4TE9B?=
- =?utf-8?B?YkNsSTYzTVMzRk8xZjdaUmZ2TDltZld5bFNESE1ReVNjNENLdXhHMGVodjlu?=
- =?utf-8?B?clNZN3lRcmNMRi9neENMbDY4M1BJMEs5MG51RUM1N3lOeUtxME9NQTVjUmps?=
- =?utf-8?B?dTJhM1J5YzFGdDZSYmIzSWhpWC9LWU9Ba2hRa2RxMytGdGROSlIyYmVxZUR2?=
- =?utf-8?B?Tyt5N3JVTWVNdGhITkZYcStTSis3MlNONGlpVVgxZzc1T09iMFZEcnZHTmZX?=
- =?utf-8?B?c3dyYTFKZVh3WmpMdHdBMGJCcmhuQVQxSmJJUGpkTHc1RGNJeU5CdktoMXFk?=
- =?utf-8?B?Mk1PMVd6aGQ4VUpNK2dhOG90WDFsem00Q3FCUUpTUDdLQ3lJVkVPNmdZaXhy?=
- =?utf-8?B?NEp1UmpDVVVlWXl4TjJiVXFhMVJuL2JOV1JuZnJDSHIzbjM3VXZSWCtjUkRX?=
- =?utf-8?B?bmgvcTc3NWt5SGNiQVZkUHkxb25MWUpFSWJVQVpaV0wrRC90NlF6YWdVdUs3?=
- =?utf-8?B?WXFrK3R5bFpQQjJLVEFxU1hpc082ZWcrOW5SZ2FoeHRMMGVHV2xUSUkxcis3?=
- =?utf-8?B?dXN6bnlWRWZVTHNvSzhlYW1HQU5vaVV3L2t0Q01lQTZKSkhDUUpjaFNWTVpX?=
- =?utf-8?B?a1dTUUZxc0FPbXJBSzJoOFlnQzR6VmhVbnlZdHR4ZjF3eVdmcmZhSVpGUzFR?=
- =?utf-8?B?Lzd6amVVU0ZBVkpCcGtvS3RNK3dycVZEcXlQQmhUTlJQdjdwQXZzdTBqeXk0?=
- =?utf-8?B?OWRmMGkrNTVXZXJUK3NHZHBFTm50d1BpUnZLS1dwdzdIWk1GUExPZ2ZZTVVt?=
- =?utf-8?B?VnZhaE1sU3AwRHBXaWlQUnN6SktjalhGUEczUXlDdE5zVVhqMWRid1FQZUZE?=
- =?utf-8?B?WG54YmpGME9JQmN0S0NuTVlDM0ZUdGVnVE8wblcweU5jemI4WThpZFp2ejFS?=
- =?utf-8?B?NUxmZTZkdnExYWVEWFZQMXdEWENmM3p3Sk9KR3ZPb2J3T25YWmVDK1VWYVM5?=
- =?utf-8?B?U1VyR3UvcmoycWFGbUc5M21KNXJkQ2lGTWZOWjlHNEFQYjBxZHNCVmVKL0Vw?=
- =?utf-8?B?UThwWGgvNlNlMEc1RzJudW9zTkdPSTg1cWRiU3VKRDhEdHVUQ0hOYkpjNkJR?=
- =?utf-8?B?dTNwMFgyck5kd2x6VDlabVh2ZFl6bzhhOFNvck9QZGoxdG92bjRMbEFZUFNr?=
- =?utf-8?B?UmMrdDRkUHBsYjJWb2pMbVRVNlN6ZUMwWnYwNmtqMTlNemZEZEZSdldmWkw1?=
- =?utf-8?B?THJDRkl0ckw0SHEvTmM4bkFFRzY1ZEhYOU1vYndnUXgrY3FMMndiSVFCV3gv?=
- =?utf-8?B?ZnptWjFvTGt4RGhhQzRraFZpRzVud0l1VmZydkFhd0VHSnU3NmQva05wOGdv?=
- =?utf-8?B?d1ZuZHFrU1MvZFBJVXIrQ1U2YUpPQVNCNnM3RjU1d3phQWZFbnllTXk4UE5z?=
- =?utf-8?B?TFpNMmJHZkNiNjZRM200ZnBYL2NJN3VSMVhvUXUwSXBKUUdzYmJoa09RbzFZ?=
- =?utf-8?B?RXdFdkRLVERoa1NIWU5mMnVXZ3lOQmRtaGdOUEQ2R2d0a3NSbVArdjVTSjBR?=
- =?utf-8?B?bXVzaVNFcjM2cEpvMW5jNmZjWngxb1RCeU9kcjNISUtnanMrOFVIU0VBeWNJ?=
- =?utf-8?B?VXBtWFFUSm9qT0xYR1JrQ1NOMlY4RjRrS2JFT2xBNEVpSzlxRld0MUwyN1hy?=
- =?utf-8?B?Q0d1K2VuZHZMd2RhTzFZVkpzbkpvL3YxZTZSSzljdWxBNWdBZDU1N3lheDcy?=
- =?utf-8?B?TEY3RVJQSkgzMkg0YTBJOGRESWhrd2dzYWhUNmc4NmxIUVZrT0tQRm5UcmhS?=
- =?utf-8?B?LysvV3FuakR0VHpvdmI2a29Ldi9KZWJXQlA4VzhUdXFHNnZSNXQ0TUcvVTJs?=
- =?utf-8?B?U3dSZmx0WHpQc0kyZTVPcWgrSVdLc3F0T0ZIV2FqYXZvYWZhRkJQY0xmNDg0?=
- =?utf-8?B?NWJqakpoNG9MRVpVQUtvSkVDUUhObktoanBrQ2xjajRkeTMxenMvM0xDcVBQ?=
- =?utf-8?Q?p08/kPfbixCKjEGsmM2Ss7/3z?=
+	=?utf-8?B?cnplaTJ2aHJlcVZOa0R3WUNCTlpoaWI1WXA3dkppODRwVDNOM2p6STVYQ2JW?=
+ =?utf-8?B?SElMVGZnSkhUbjBEY1FLTHhOTzF6RHlIbGQ2cVh5MWtOVWJXUXZ0MW85QVFh?=
+ =?utf-8?B?S0VyanZPUzVTcmpwMXJDYUhHbzhmb1d0VWY2blhZcGROVzM4NWc3TkxDc3E4?=
+ =?utf-8?B?NEVuOTlDV2V1MC9DblNpeWtzeFFrTDdycUpYQUVSdW5Ob3NBVlpNZlJDRUN6?=
+ =?utf-8?B?SkFRS29oY1hvNXlSNXl0N0RVZUN1bkxFbHVleWk5REZRcG5Kd1pDRXBic1Yw?=
+ =?utf-8?B?bFdSMloxdGYrdWNGbm45WGRybnlHc1BSekpiWDk1ZWt2cjhJVS95WFZnNHM4?=
+ =?utf-8?B?UFc4QUI1c0ZvZ1FTQkdZcGw4ZjlnVjJuL01hRE5RMm03NzZjZ1ZGcUtkTTVO?=
+ =?utf-8?B?WXhTRzZaYml5Wk91THlyR3gwOTlueXltWDBzYTRwYVNIK1FEbm1QRVZVTVpM?=
+ =?utf-8?B?dTkzZkU3dG9BcUFNSWNabEtndVFSa2c2Nm1GMUtPSWhYMmMxMkJMOWd0NmI3?=
+ =?utf-8?B?bUhiYW9lRzlIUFJWNDZpUmdIalpMeERZbkU5LzdkR3kxWTJsUEhGVHk2am1m?=
+ =?utf-8?B?Sjh0ci9ITE5OVklaODlSMGowWXRrVGdxNjhzdDdMenZuTk5xOXNIMlp3ZE9n?=
+ =?utf-8?B?aVhaWGVxWU5iSVV1cEZCdEVRRlA5eGpKOUhBaVNDTG41VktvLzU3Z1p1S1FI?=
+ =?utf-8?B?V2p0NzJnWnFlMStQU3pTeUtlMTRFTDc1L0N3YUVLamg5YmY0VXNsNWdGUWRT?=
+ =?utf-8?B?UFVISE12Snk2ZFhOUVdYS2FYU0E2VW02UXpyWlkwMXBLVmY5Vys0YTVrenVu?=
+ =?utf-8?B?YlpPSlNuQzBoLzVZOVJhNGM0M2xMZkFTRzMvMGV0akVnTElyRjBxVjhGblNO?=
+ =?utf-8?B?bWVPYmxuSjhQYldibjd3U3dlVVVnRTA4MGFuRU9wNkdZZmNoUHBGYkd3dHB3?=
+ =?utf-8?B?Q1pUWEF4OGM0VUkwVFRIV21CNVFRQU9vaXpLdXdlb29PQlBxdE8wZUJxRW9m?=
+ =?utf-8?B?eDFLZVNYNDcvK2hlQnhyWDRnWWpqM1l1RXo4VXdKaU8raHBpSXF1ckdBa0k4?=
+ =?utf-8?B?M1JKUktRUEs3UVZMQnlPMG00VG9YdmVkMHl2M0Qxd2xTSjZwaGtXZ1pYSndm?=
+ =?utf-8?B?V2lEclNHaWkzd25xTEhYUVZQZ1NUVXNRSFY5cldyOW03aUxndzd6Rm5QUUt2?=
+ =?utf-8?B?bjcxZXhTcnhKdFJkVEtEaHVoZHdvc2NENERVRFJMbTdiaXEwcnJVVmZTa0VG?=
+ =?utf-8?B?SWd3QVR4eGdLQXR5V3pMeFd4RWpuUUxmQnIzaXE3UlNHNzRmcWZiV2Zybity?=
+ =?utf-8?B?OFU5VUdrb2FvS25nNGFWMGg5SE9TMFJlQUo4RktrU0ZxNXJNbzg5NFV2Vk9y?=
+ =?utf-8?B?VHVld1ppTnNiMzllY3pKT3RxNmVmS2ovY3psbWhhVXByRjZFSUpLVmQxRXVF?=
+ =?utf-8?B?SWtRa2pMemZqdzQzN01CSTNEN1o0cDNWcGUzdVFTZHlIMVlIVmF6R3FldlVD?=
+ =?utf-8?B?WmdnbHE2NkpsKzZIU0ttMDh1KzZONnl6ZlZpeVJPZU13UUxwTkEvMklkNHFO?=
+ =?utf-8?B?UHhqc3p1d2JHcHBjQmhxcC84aTE1UmlTVmJ3dU85cGZwb201ZnlnUC80dlJk?=
+ =?utf-8?B?Ri9JSlBGc0pRanNVakg0TzNmdmM2SGl2QWhveHB4WGxlYkFGb292Y1N1Ry9C?=
+ =?utf-8?B?NE9EWFB4ZmZVZ2syZnphY0thVHl3ZmJhNVhnWmRIZTJSZ2xxQ2xDU1hjTTFJ?=
+ =?utf-8?B?YTBMcndMM0RPL0NVUFF0Mi9kK3ZpZ3Z0MmNWdGc2M0l0U0VYQ2dzbG9ZbFR4?=
+ =?utf-8?B?NkJZWmRseEkzSUcrcldORnRzamxYKy9qRXEwUld0VnRFcEplYmgrWDdsR25V?=
+ =?utf-8?B?VUI1YXd5Wi9CVXJobVlVaDFNTkY3YngrcHdKUjZhQXBhNDVqVkU2bzRiaTgy?=
+ =?utf-8?B?M1h0c1UyWWh1TVJCWERhM1Z5UWZtb3BUSXE0V3pYNkpLc1p5RWw4SlJQb2xa?=
+ =?utf-8?B?em9hSDNTT1cvRWJMeFpoeVpzYy9aZFVXaXo5MDFaVnJQTGNMRXI2eGIxS01m?=
+ =?utf-8?B?UHMzTVh6SnZLbTh2cTFjNC9nV3J4ZkNvWXFiUm5RRjdOdmNpbkdXUUJPQ3c2?=
+ =?utf-8?Q?1Jsb+6KJOcPukEhY5WzT9NsR/?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0b92a1a5-35cd-4bf8-d870-08db0478f770
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfd26ae1-54e9-4679-5651-08db04791d84
 X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 17:22:59.8401
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 17:24:03.7385
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HCQ3ZbuzLfrGLRmXbq9E/OxgfoAy9kXHvTxhNbidW7h1FBvFIEl/HfEnFmPySyw7EzRw9+hwpbGT3Yd/gkku5A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7589
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6FTMpZ3k09d6DhdECWmrqvssmJkSMXI517qfHsAZiU+pnOtCC8bMwPHHciBaAfpINjvOLXhqZU1fQ+XwXcBIMw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4381
 
 Hi Anthony,
 
-On 12/9/22 8:59 AM, Anthony PERARD wrote:
-> On Tue, Dec 06, 2022 at 10:18:14PM -0800, Vikram Garhwal wrote:
->> diff --git a/tools/include/libxl.h b/tools/include/libxl.h
->> index 2321a648a5..82fc7ce6b9 100644
->> --- a/tools/include/libxl.h
->> +++ b/tools/include/libxl.h
->> @@ -245,6 +245,11 @@
->>    */
->>   #define LIBXL_HAVE_DEVICETREE_PASSTHROUGH 1
->>   
->> +/**
->> + * This means Device Tree Overlay is supported.
->> + */
->> +#define LIBXL_HAVE_DT_OVERLAY 1
->> +
->>   /*
->>    * libxl_domain_build_info has device_model_user to specify the user to
->>    * run the device model with. See docs/misc/qemu-deprivilege.txt.
->> @@ -2448,6 +2453,9 @@ libxl_device_pci *libxl_device_pci_list(libxl_ctx *ctx, uint32_t domid,
->>                                           int *num);
->>   void libxl_device_pci_list_free(libxl_device_pci* list, int num);
->>   
->> +int libxl_dt_overlay(libxl_ctx *ctx, void *overlay,
->> +                     uint32_t overlay_size, uint8_t overlay_op);
->> +
-> Could you guard both the LIBXL_HAVE_* macro and this prototype with "#if
-> arm"? Since the dt_overlay operation to libxl built on arm.
-Will do this in v5
+On 12/9/22 9:55 AM, Anthony PERARD wrote:
+> On Tue, Dec 06, 2022 at 10:18:15PM -0800, Vikram Garhwal wrote:
+>> diff --git a/tools/xl/xl_cmdtable.c b/tools/xl/xl_cmdtable.c
+>> index 35182ca196..868364c58d 100644
+>> --- a/tools/xl/xl_cmdtable.c
+>> +++ b/tools/xl/xl_cmdtable.c
+>> @@ -630,6 +630,12 @@ const struct cmd_spec cmd_table[] = {
+>>         "Issue a qemu monitor command to the device model of a domain",
+>>         "<Domain> <Command>",
+>>       },
+>> +    { "dt_overlay",
+> Command with multiple words are using '-' instead of '_', could you
+> rename the command to "dt-overlay"?
+understood.
 >
->>   /*
->>    * Turns the current process into a backend device service daemon
->>    * for a driver domain.
->> diff --git a/tools/libs/light/Makefile b/tools/libs/light/Makefile
->> index 374be1cfab..2fde58246e 100644
->> --- a/tools/libs/light/Makefile
->> +++ b/tools/libs/light/Makefile
->> @@ -111,6 +111,9 @@ OBJS-y += _libxl_types.o
->>   OBJS-y += libxl_flask.o
->>   OBJS-y += _libxl_types_internal.o
+>> +      &main_dt_overlay, 0, 1,
+>> +      "Add/Remove a device tree overlay",
+>> +      "add/remove <.dtbo>"
+>> +      "-h print this help\n"
+>> +    },
+>>   };
 >>   
->> +# Device tree overlay is enabled only for ARM architecture.
->> +OBJS-$(CONFIG_ARM) += libxl_dt_overlay.o
+>>   const int cmdtable_len = ARRAY_SIZE(cmd_table);
+>> diff --git a/tools/xl/xl_vmcontrol.c b/tools/xl/xl_vmcontrol.c
+>> index 5518c78dc6..b5f04e2741 100644
+>> --- a/tools/xl/xl_vmcontrol.c
+>> +++ b/tools/xl/xl_vmcontrol.c
+>> @@ -1265,6 +1265,54 @@ int main_create(int argc, char **argv)
+>>       return 0;
+>>   }
+>>   
+>> +int main_dt_overlay(int argc, char **argv)
+>> +{
+>> +    const char *overlay_ops = NULL;
+>> +    const char *overlay_config_file = NULL;
+>> +    void *overlay_dtb = NULL;
+>> +    int rc;
+>> +    uint8_t op;
+>> +    int overlay_dtb_size = 0;
+>> +    const int overlay_add_op = 1;
+>> +    const int overlay_remove_op = 2;
 >> +
->>   ifeq ($(CONFIG_LIBNL),y)
->>   CFLAGS_LIBXL += $(LIBNL3_CFLAGS)
->>   endif
->> diff --git a/tools/libs/light/libxl_dt_overlay.c b/tools/libs/light/libxl_dt_overlay.c
->> new file mode 100644
->> index 0000000000..38cab880a0
->> --- /dev/null
->> +++ b/tools/libs/light/libxl_dt_overlay.c
->> +#include "libxl_osdeps.h" /* must come before any other headers */
->> +#include "libxl_internal.h"
->> +#include <libfdt.h>
->> +#include <xenguest.h>
->> +#include <xenctrl.h>
-> Don't you need just xenctrl.h and not xenguest.h? (They both already are
-> libxl_internal.h so I'm not sure if xenguest.h is needed., but
-> xc_dt_overlay() is in xenctrl.h)
-Thanks for spotting this. I will remove xenguest.h
+>> +    if (argc < 2) {
+>> +        help("dt_overlay");
+>> +        return EXIT_FAILURE;
+>> +    }
+>> +
+>> +    overlay_ops = argv[1];
+>> +    overlay_config_file = argv[2];
+>> +
+>> +    if (strcmp(overlay_ops, "add") == 0)
+>> +        op = overlay_add_op;
+>> +    else if (strcmp(overlay_ops, "remove") == 0)
+>> +        op = overlay_remove_op;
+>> +    else {
+>> +        fprintf(stderr, "Invalid dt overlay operation\n");
+>> +        return ERROR_FAIL;
+> ERROR_FAIL isn't really a value to be used when exiting the programme,
+> it's value is -3. It's from libxl API.
 >
+> Instead, could you return EXIT_FAILURE?
+Will address this in next version.
+>> +    }
+>> +
+>> +    if (overlay_config_file) {
+>> +        rc = libxl_read_file_contents(ctx, overlay_config_file,
+>> +                                      &overlay_dtb, &overlay_dtb_size);
+>> +
+>> +        if (rc) {
+>> +            fprintf(stderr, "failed to read the overlay device tree file %s\n",
+>> +                    overlay_config_file);
+>> +            free(overlay_dtb);
+>> +            return ERROR_FAIL;
+>> +        }
+>> +    } else {
+>> +        fprintf(stderr, "overlay dtbo file not provided\n");
+>> +        return ERROR_FAIL;
+>> +    }
+>> +
+>> +    rc = libxl_dt_overlay(ctx, overlay_dtb, overlay_dtb_size, op);
+> Value returned by libxl_*() are going to be negative when there's an
+> error, so not something to be return by main(). Could you check if
+> there's an error and return EXIT_FAILURE instead?
+Okay.
+>> +    free(overlay_dtb);
+>> +    return rc;
+>> +}
 > Thanks,
 >
 
