@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 513A5686EEC
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 20:27:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488415.756500 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826B0686F3E
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 20:50:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488421.756512 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNIkt-0003qQ-2q; Wed, 01 Feb 2023 19:26:51 +0000
+	id 1pNJ6y-00073R-0j; Wed, 01 Feb 2023 19:49:40 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488415.756500; Wed, 01 Feb 2023 19:26:51 +0000
+Received: by outflank-mailman (output) from mailman id 488421.756512; Wed, 01 Feb 2023 19:49:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNIks-0003of-WB; Wed, 01 Feb 2023 19:26:51 +0000
-Received: by outflank-mailman (input) for mailman id 488415;
- Wed, 01 Feb 2023 19:26:49 +0000
+	id 1pNJ6x-00070h-Tb; Wed, 01 Feb 2023 19:49:39 +0000
+Received: by outflank-mailman (input) for mailman id 488421;
+ Wed, 01 Feb 2023 19:49:38 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pNIkr-0003oZ-IP
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 19:26:49 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNJ6w-00070V-Ar; Wed, 01 Feb 2023 19:49:38 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pNIkr-0000hH-4O; Wed, 01 Feb 2023 19:26:49 +0000
-Received: from 54-240-197-233.amazon.com ([54.240.197.233]
- helo=[192.168.6.251]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pNIkq-0001eo-UD; Wed, 01 Feb 2023 19:26:49 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNJ6w-0001ET-9T; Wed, 01 Feb 2023 19:49:38 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNJ6v-0008UM-W7; Wed, 01 Feb 2023 19:49:38 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNJ6v-0005ym-Ve; Wed, 01 Feb 2023 19:49:37 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,313 +42,138 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=gyuImUdBmr1Ji/IiyVAftkCsRP2FpRMtSRol289FyCQ=; b=4X7Zg+O8x8o33uCx83S3+fBxWj
-	K+I67zLp/x7dn9ll2NOWFzeov1FykczJThQgp98wh813g2T9wKvf9nWoyKkGJM5f5ztlUXE6ToVGk
-	4jh+y7/GHgqEk3fhon/3VSY75GZqCRWh5lbHvlqEKCo7ijAYJsmR+8O0ePlSMXKdBSfY=;
-Message-ID: <6e96eaa7-a8a3-eaf3-ca44-3432c88e71d1@xen.org>
-Date: Wed, 1 Feb 2023 19:26:46 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
- setup_early_uart to map early UART
-Content-Language: en-US
-To: Penny Zheng <Penny.Zheng@arm.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Wei Chen <Wei.Chen@arm.com>, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <Bertrand.Marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
- <20230113052914.3845596-14-Penny.Zheng@arm.com>
- <23f49916-dd2a-a956-1e6b-6dbb41a8817b@xen.org>
- <AM0PR08MB4530B7AF6EA406882974D528F7D29@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <33bddc11-ae1e-b467-32d7-647748d1c627@xen.org>
- <AM0PR08MB453026B268BA9FBEEE970090F7D39@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <49329992-3203-78a7-fc61-d6494e37705c@xen.org>
- <AM0PR08MB45305D27CA8353162445AE1EF7D09@AM0PR08MB4530.eurprd08.prod.outlook.com>
- <14f9c89a-6eea-204e-cd1b-6bc1cca99716@xen.org>
- <AM0PR08MB4530E442D03BCD5520FEF3EBF7D19@AM0PR08MB4530.eurprd08.prod.outlook.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <AM0PR08MB4530E442D03BCD5520FEF3EBF7D19@AM0PR08MB4530.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=00AOAx5V5ZMdML4Y+LciO8r1NdM6nf3DuNDJLio0tCQ=; b=IREDgsrUPL/2PvCwp0M19D/sUH
+	2/TVU0Na+5NgQfGcQfcKzLsz9JwaZL5QolLuN6RNNyCLJ62blVM66QDeLJj9zL9Q9qEZdIcqSnGG+
+	iCj0LsTotiUhUEEgaQl8cu0tc9QLCsWvk4bXzJqDDFJdLjSoIOllUr/vogrLQv3TVMyA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176316-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 176316: trouble: blocked/broken/pass
+X-Osstest-Failures:
+    xen-unstable-smoke:build-armhf:<job status>:broken:regression
+    xen-unstable-smoke:build-armhf:host-install(4):broken:regression
+    xen-unstable-smoke:build-armhf:syslog-server:running:regression
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    xen-unstable-smoke:build-armhf:capture-logs:broken:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    xen=78e93e6e57c218eead498a664785f414bcb12460
+X-Osstest-Versions-That:
+    xen=10b80ee5588e8928b266dea02a5e99d098bd227a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 01 Feb 2023 19:49:37 +0000
+
+flight 176316 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176316/
+
+Failures and problems with tests :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ build-armhf                   4 host-install(4)        broken REGR. vs. 176151
+ build-armhf                   3 syslog-server                running
+
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ build-armhf                   5 capture-logs          broken blocked in 176151
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+
+version targeted for testing:
+ xen                  78e93e6e57c218eead498a664785f414bcb12460
+baseline version:
+ xen                  10b80ee5588e8928b266dea02a5e99d098bd227a
+
+Last test of basis   176151  2023-01-26 14:00:29 Z    6 days
+Testing same since   176283  2023-01-30 21:02:20 Z    1 days   19 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  broken  
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 01/02/2023 05:36, Penny Zheng wrote:
-> Hi Julien
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Hi Penny,
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-> 
->> -----Original Message-----
->> From: Julien Grall <julien@xen.org>
->> Sent: Tuesday, January 31, 2023 5:42 PM
->> To: Penny Zheng <Penny.Zheng@arm.com>; xen-devel@lists.xenproject.org
->> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->> <sstabellini@kernel.org>; Bertrand Marquis <Bertrand.Marquis@arm.com>;
->> Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
->> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
->> setup_early_uart to map early UART
->>
->> Hi Penny,
->>
->> On 31/01/2023 05:38, Penny Zheng wrote:
->>>> -----Original Message-----
->>>> From: Julien Grall <julien@xen.org>
->>>> Sent: Monday, January 30, 2023 6:00 PM
->>>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-
->> devel@lists.xenproject.org
->>>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->>>> <sstabellini@kernel.org>; Bertrand Marquis
->>>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->>>> <Volodymyr_Babchuk@epam.com>
->>>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
->>>> setup_early_uart to map early UART
->>>>
->>>>
->>>>
->>>> On 30/01/2023 06:24, Penny Zheng wrote:
->>>>> Hi, Julien
->>>>
->>>> Hi Penny,
->>>>
->>>>>> -----Original Message-----
->>>>>> From: Julien Grall <julien@xen.org>
->>>>>> Sent: Sunday, January 29, 2023 3:43 PM
->>>>>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-
->>>> devel@lists.xenproject.org
->>>>>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->>>>>> <sstabellini@kernel.org>; Bertrand Marquis
->>>>>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->>>>>> <Volodymyr_Babchuk@epam.com>
->>>>>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
->>>>>> setup_early_uart to map early UART
->>>>>>
->>>>>> Hi Penny,
->>>>>>
->>>>>> On 29/01/2023 06:17, Penny Zheng wrote:
->>>>>>>> -----Original Message-----
->>>>>>>> From: Julien Grall <julien@xen.org>
->>>>>>>> Sent: Wednesday, January 25, 2023 3:09 AM
->>>>>>>> To: Penny Zheng <Penny.Zheng@arm.com>; xen-
->>>>>> devel@lists.xenproject.org
->>>>>>>> Cc: Wei Chen <Wei.Chen@arm.com>; Stefano Stabellini
->>>>>>>> <sstabellini@kernel.org>; Bertrand Marquis
->>>>>>>> <Bertrand.Marquis@arm.com>; Volodymyr Babchuk
->>>>>>>> <Volodymyr_Babchuk@epam.com>
->>>>>>>> Subject: Re: [PATCH v2 13/40] xen/mpu: introduce unified function
->>>>>>>> setup_early_uart to map early UART
->>>>>>>>
->>>>>>>> Hi Peny,
->>>>>>>
->>>>>>> Hi Julien,
->>>>>>>
->>>>>>>>
->>>>>>>> On 13/01/2023 05:28, Penny Zheng wrote:
->>>>>>>>> In MMU system, we map the UART in the fixmap (when earlyprintk
->>>>>>>>> is
->>>>>> used).
->>>>>>>>> However in MPU system, we map the UART with a transient MPU
->>>>>> memory
->>>>>>>>> region.
->>>>>>>>>
->>>>>>>>> So we introduce a new unified function setup_early_uart to
->>>>>>>>> replace the previous setup_fixmap.
->>>>>>>>>
->>>>>>>>> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
->>>>>>>>> Signed-off-by: Wei Chen <wei.chen@arm.com>
->>>>>>>>> ---
->>>>>>>>>       xen/arch/arm/arm64/head.S               |  2 +-
->>>>>>>>>       xen/arch/arm/arm64/head_mmu.S           |  4 +-
->>>>>>>>>       xen/arch/arm/arm64/head_mpu.S           | 52
->>>>>>>> +++++++++++++++++++++++++
->>>>>>>>>       xen/arch/arm/include/asm/early_printk.h |  1 +
->>>>>>>>>       4 files changed, 56 insertions(+), 3 deletions(-)
->>>>>>>>>
->>> Yes, I'll draw the layout for you:
->>
->> Thanks!
->>
->>> '''
->>>    Xen MPU Map before reorg:
->>>
->>> xen_mpumap[0] : Xen text
->>> xen_mpumap[1] : Xen read-only data
->>> xen_mpumap[2] : Xen read-only after init data xen_mpumap[3] : Xen
->>> read-write data xen_mpumap[4] : Xen BSS xen_mpumap[5] : Xen static
->>> heap ......
->>> xen_mpumap[max_xen_mpumap - 7]: Static shared memory section
->>> xen_mpumap[max_xen_mpumap - 6]: Boot Module memory
->> section(kernel,
->>> initramfs, etc) xen_mpumap[max_xen_mpumap - 5]: Device memory
->> section
->>> xen_mpumap[max_xen_mpumap - 4]: Guest memory section
->>> xen_mpumap[max_xen_mpumap - 3]: Early FDT
->> xen_mpumap[max_xen_mpumap -
->>> 2]: Xen init data xen_mpumap[max_xen_mpumap - 1]: Xen init text
->>>
->>> In the end of boot, function init_done will do the reorg and boot-only
->> region clean-up:
->>>
->>> Xen MPU Map after reorg(idle vcpu):
->>>
->>> xen_mpumap[0] : Xen text
->>> xen_mpumap[1] : Xen read-only data
->>> xen_mpumap[2] : Xen read-only after init data
->>
->> In theory 1 and 2 could be merged after boot. But I guess it might be
->> complicated?
->>
-> 
-> In theory, if in C merging codes, we do not use any read-only data or read-only-after-init
-> data, then, ig, it will be ok.
-> Since, In MPU system, when we implement C merging codes, we need to disable region 1 and 2
-> firstly, and enable the merged region after. The reason is that two MPU regions with address overlapping
-> is not allowed when MPU on.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Good to know! I think it should be feasible to avoid accessing read-only 
-variable while doing the merge.
+broken-job build-armhf broken
+broken-step build-armhf capture-logs
+broken-step build-armhf host-install(4)
 
-Anyway, this looks more like a potential optimization for the future.
+Not pushing.
 
->   
->>> xen_mpumap[3] : Xen read-write data
->>> xen_mpumap[4] : Xen BSS
->>> xen_mpumap[5] : Xen static heap
->>> xen_mpumap[6] : Guest memory section
->>
->> Why do you need to map the "Guest memory section" for the idle vCPU?
->>
-> 
-> Hmmm, "Guest memory section" here refers to *ALL* guest RAM address range with only EL2 read/write access.
+------------------------------------------------------------
+commit 78e93e6e57c218eead498a664785f414bcb12460
+Author: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+Date:   Wed Jan 25 11:21:31 2023 +0000
 
-For what purpose? Earlier, you said you had a setup with a limited 
-number of MPU entries. So it may not be possible to map all the guests RAM.
-
-Xen should only need to access the guest memory in hypercalls and 
-scrubbing. In both cases you could map/unmap on demand.
-
-> 
-> For guest vcpu, this section will be replaced by guest itself own RAM with both EL1/EL2 access.
-> 
-> 
->>> xen_mpumap[7] : Device memory section
->>
->> I might be missing some context here. But why this section is not also
->> mapped in the context of the guest vCPU?
->>
->> For instance, how would you write to the serial console when the context is
->> the guest vCPU?
->>
-> 
-> I think, as Xen itself, it shall have access to all system device memory on EL2.
-> Ik, it is not accurate in current MMU implementation, only devices with supported driver
-> will get ioremap.
-
-So in the MMU case, we are not mapping all the devices in Xen because we 
-don't exactly know which memory attributes will be used by the guest.
-
-If we are using different attributes, then we are risking to break 
-coherency. Could the same issue happen with the MPU?
-
-If so, then you should not mapped those regions in Xen.
-
-> 
-> But like we discussed before, if following the same strategy as MMU does, with limited
-> MPU regions, we could not afford mapping a MPU region for each device.
-> For example, On FVPv8R model, we have four uarts, and a GICv3. At most, we may provide
-> four MPU regions for uarts, and two MPU regions for Distributor and one Redistributor region.
-> So, I thought up this new device tree property “mpu,device-memory-section = <0x0 0x80000000 0x0 0x7ffff000>;“
-> to roughly map all system device memory for Xen itself.
-
-Why do you say "roughly"? Is it possible that you have non-device region 
-in the range?
-
-> 
-> For guest, it shall only see vgic, vpl011, and its own passthrough device. And here, to maintain safe and
-> isolation, we will be mapping a MPU region for each device for guest vcpu.
-> For example, vgic and vpl011 are emulated and direct-map in MPU. Relevant device
-
-I am confused. If the vGIC/vPL011 is emulated then why do you need to 
-map it in the MPU? IOW, wouldn't you receive a fault in the hypervisor 
-if the guest is trying to access a region not present in the MPU?
-
-> mapping(GFN == MFN with only EL2 access)will be added to its *P2M mapping table*, in vgic_v3_domain_init [1].
-> 
-> Later, on vcpu context switching, when switching from idle vcpu, device memory section gets disabled
-> and switched out in ctxt_switch_from [2], later when switching into guest vcpu, vgic and vpl011 device mapping
-> will be switched in along with the whole P2M mapping table [3].
-> 
-> Words might be ambiguous, but all related code implementation is on MPU patch serie part II - guest initialization, you may
-> have to check the gitlab link:
-> [1] https://gitlab.com/xen-project/people/weic/xen/-/commit/a51d5b25eb17a50a36b27987a2f48e14793ac585
-> [2] https://gitlab.com/xen-project/people/weic/xen/-/commit/c6a069d777d9407aeda42b7e5b08a086a1c15976
-> [3] https://gitlab.com/xen-project/people/weic/xen/-/commit/d8c6408b6eef1190d75c9bd4e58557d34fc8b4df
-
-I have looked at the code and this doesn't entirely answer my question. 
-So let me provide an example.
-
-Xen can print to the serial console at any time. So Xen should be able 
-to access the physical UART even when it has context switched to the 
-guest vCPU.
-
-But above you said that the physical device would not be accessible and 
-instead you map the virtual UART. So how Xen is supported to access the 
-physical UART?
-
-Or by vpl011 did you actually mean the physical UART? If so, then if you 
-map the device one by one in the MPU context, then it would likely mean 
-to have space to map them one by one in the idle context.
-
-> xen_mpumap[0] : Xen text
-> xen_mpumap[1] : Xen read-only data
-> xen_mpumap[2] : Xen read-only after init data
-> xen_mpumap[3] : Xen read-write data
-> xen_mpumap[4] : Xen BSS
-> ( Fixed MPU region defined in assembly )
-> --------------------------------------------------------------------------
-> xen_mpumap[5]: Xen init data
-> xen_mpumap[6]: Xen init text
-> xen_mpumap[7]: Early FDT
-> xen_mpumap[8]: Guest memory section
-> xen_mpumap[9]: Device memory section
-> xen_mpumap[10]: Static shared memory section
-> ( boot-only and switching regions defined in C )
-> --------------------------------------------------------------------------
-> ...
-> xen_mpumap[max_xen_mpumap - 1] : Xen static heap
-> ( Fixed MPU region defined in C )
-> --------------------------------------------------------------------------
-> 
-> After re-org:
-> xen_mpumap[0] : Xen text
-> xen_mpumap[1] : Xen read-only data
-> xen_mpumap[2] : Xen read-only after init data
-> xen_mpumap[3] : Xen read-write data
-> xen_mpumap[4] : Xen BSS
-> ( Fixed MPU region defined in assembly )
-> --------------------------------------------------------------------------
-> xen_mpumap[8]: Guest memory section
-> xen_mpumap[9]: Device memory section
-> xen_mpumap[10]: Static shared memory section
-> ( Switching region )
-> --------------------------------------------------------------------------
-> ...
-> xen_mpumap[max_xen_mpumap - 1] : Xen static heap
-> ( Fixed MPU region defined in C )
-> 
-> If you're fine with it, then next serie, I'll use this layout, to keep both
-> simple assembly and re-org process.
-
-I am ok in principle with the layout you propose. My main requirement is 
-that the region used in assembly are fixed.
-
-Cheers,
-
--- 
-Julien Grall
+    xen/arm: Probe the load/entry point address of an uImage correctly
+    
+    Currently, kernel_uimage_probe() does not read the load/entry point address
+    set in the uImge header. Thus, info->zimage.start is 0 (default value). This
+    causes, kernel_zimage_place() to treat the binary (contained within uImage)
+    as position independent executable. Thus, it loads it at an incorrect
+    address.
+    
+    The correct approach would be to read "uimage.load" and set
+    info->zimage.start. This will ensure that the binary is loaded at the
+    correct address. Also, read "uimage.ep" and set info->entry (ie kernel entry
+    address).
+    
+    If user provides load address (ie "uimage.load") as 0x0, then the image is
+    treated as position independent executable. Xen can load such an image at
+    any address it considers appropriate. A position independent executable
+    cannot have a fixed entry point address.
+    
+    This behavior is applicable for both arm32 and arm64 platforms.
+    
+    Earlier for arm32 and arm64 platforms, Xen was ignoring the load and entry
+    point address set in the uImage header. With this commit, Xen will use them.
+    This makes the behavior of Xen consistent with uboot for uimage headers.
+    
+    Users who want to use Xen with statically partitioned domains, can provide
+    non zero load address and entry address for the dom0/domU kernel. It is
+    required that the load and entry address provided must be within the memory
+    region allocated by Xen.
+    
+    A deviation from uboot behaviour is that we consider load address == 0x0,
+    to denote that the image supports position independent execution. This
+    is to make the behavior consistent across uImage and zImage.
+    
+    Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+    [stefano: minor doc improvement]
+    Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+(qemu changes not included)
 
