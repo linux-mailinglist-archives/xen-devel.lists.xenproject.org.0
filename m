@@ -2,38 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA12686A74
-	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 16:34:59 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488320.756351 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DE19686C64
+	for <lists+xen-devel@lfdr.de>; Wed,  1 Feb 2023 18:06:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488355.756381 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNF7i-0007fp-ED; Wed, 01 Feb 2023 15:34:10 +0000
+	id 1pNGYA-0004pA-Gd; Wed, 01 Feb 2023 17:05:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488320.756351; Wed, 01 Feb 2023 15:34:10 +0000
+Received: by outflank-mailman (output) from mailman id 488355.756381; Wed, 01 Feb 2023 17:05:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNF7i-0007de-BG; Wed, 01 Feb 2023 15:34:10 +0000
-Received: by outflank-mailman (input) for mailman id 488320;
- Wed, 01 Feb 2023 15:34:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=a0kk=55=tibco.com=clindig@srs-se1.protection.inumbo.net>)
- id 1pNF7h-0007dI-AA
- for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 15:34:09 +0000
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [2a00:1450:4864:20::32f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id dd0daf19-a245-11ed-b63b-5f92e7d2e73a;
- Wed, 01 Feb 2023 16:34:06 +0100 (CET)
-Received: by mail-wm1-x32f.google.com with SMTP id
- m5-20020a05600c4f4500b003db03b2559eso1765810wmq.5
- for <xen-devel@lists.xenproject.org>; Wed, 01 Feb 2023 07:34:06 -0800 (PST)
-Received: from smtpclient.apple (default-46-102-197-194.interdsl.co.uk.
- [46.102.197.194]) by smtp.gmail.com with ESMTPSA id
- f31-20020a05600c491f00b003dc3d9fb09asm2072405wmp.47.2023.02.01.07.34.05
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 01 Feb 2023 07:34:06 -0800 (PST)
+	id 1pNGYA-0004mg-BJ; Wed, 01 Feb 2023 17:05:34 +0000
+Received: by outflank-mailman (input) for mailman id 488355;
+ Wed, 01 Feb 2023 17:05:32 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=tMue=55=amd.com=vikram.garhwal@srs-se1.protection.inumbo.net>)
+ id 1pNGY8-0004ma-HW
+ for xen-devel@lists.xenproject.org; Wed, 01 Feb 2023 17:05:32 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20627.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::627])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id a1294a0d-a252-11ed-933c-83870f6b2ba8;
+ Wed, 01 Feb 2023 18:05:30 +0100 (CET)
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com (2603:10b6:303:2d::23)
+ by MN0PR12MB5979.namprd12.prod.outlook.com (2603:10b6:208:37e::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6043.36; Wed, 1 Feb
+ 2023 17:05:27 +0000
+Received: from MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::f803:f951:a68f:663a]) by MW3PR12MB4409.namprd12.prod.outlook.com
+ ([fe80::f803:f951:a68f:663a%5]) with mapi id 15.20.6043.038; Wed, 1 Feb 2023
+ 17:05:26 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,77 +47,170 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: dd0daf19-a245-11ed-b63b-5f92e7d2e73a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=pmru7z6DNxabZ+7LeeevMB28YXFl7Ld5NjLT+3YrBUU=;
-        b=F2EHC15HNiw32S7SlueGiSWDfGzcdoyfq6yb34HBZ0hvnmXvab1QWNzE3NAso2FtUY
-         EX3svebRlAJ/l7c13EqBoZaMxg2ogVIKYMwAT5Oy4gpOhrl2JhdX9rH3Tld38HWUzIcN
-         w8Im6PlqnmJs3I5z6114smK1MyMn2+4Qdwpfs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=to:references:message-id:content-transfer-encoding:cc:date
-         :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=pmru7z6DNxabZ+7LeeevMB28YXFl7Ld5NjLT+3YrBUU=;
-        b=WQANcj4rEkHAEr0N0K+lXwP3Ez4Gu9Vgvs07UeK00VzDWwlW7RD+zXLnw07321LGIV
-         uHx+xdjyVXRSwUkp5hyewMwx9mX0nboWGAM6ZO4dT+HYIbQYHyqX6fGNfJn6mNqNk78P
-         sLWr96bDpQ/zd8BB+EXEV5FpfveUG1wGt3Rs0Kcvr4Ly2XLG4pyG3C4px9llMay/l8Cq
-         xUWd85CUscg0cL1nJ3UUlvo47r+N0Kj+DPWZhDUHd4K46x7gVxS31D70JSNCkak40HYA
-         M/m4pB9iOzbsD3C66zC0TSjKfdOwWUp/w+bK41SsU3TXr40Y/R8lXJ5Npy17bbeAglnz
-         9u4Q==
-X-Gm-Message-State: AO0yUKW0qK4fLa4iGV0xGcoVZdfuBkOy8y4fOUVsV9eywN34HlwvEzpU
-	wq725gvoXRffR7ssnZyGipUhdQ==
-X-Google-Smtp-Source: AK7set/UnIcy0ea0yzVVqftCsucuQhKgEK49RhXevmX/sbrqnHC4Z2Z+yOOOODZUl6L/Vd3mDb2OHA==
-X-Received: by 2002:a05:600c:538e:b0:3dc:2c7c:6616 with SMTP id hg14-20020a05600c538e00b003dc2c7c6616mr2332323wmb.21.1675265646535;
-        Wed, 01 Feb 2023 07:34:06 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3696.120.41.1.1\))
-Subject: Re: [PATCH] tools/ocaml/libs: Fix memory/resource leaks with
- caml_alloc_custom()
-From: Christian Lindig <christian.lindig@cloud.com>
-In-Reply-To: <20230201132924.28711-1-andrew.cooper3@citrix.com>
-Date: Wed, 1 Feb 2023 15:34:05 +0000
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Christian Lindig <christian.lindig@citrix.com>,
- David Scott <dave@recoil.org>,
- =?utf-8?B?RWR3aW4gVMO2csO2aw==?= <edwin.torok@cloud.com>,
- Rob Hoes <Rob.Hoes@citrix.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <3F433EFB-199F-44F8-AE80-C3AFCF5159C0@cloud.com>
-References: <20230201132924.28711-1-andrew.cooper3@citrix.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-X-Mailer: Apple Mail (2.3696.120.41.1.1)
+X-Inumbo-ID: a1294a0d-a252-11ed-933c-83870f6b2ba8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=keDqcSU0e2Tbb5l1nzlpF3mVhZ7hDzNJnMiuvQxCbU9VG+eIWPZFq0xlyEUvU/sYSLbMJ9xIPalSnOZvJlGKk7AkDtC5EmBVeZeSdBCzxJo1a6N6gDt7+vmrXm7RZhYW8tkYu1DcMkvceNh2YfcOKxipBSrfKDVQC7d2f8CMO/5UvWPcqBZS+u4cwPkbVfQSsXFSivNFcZsw0yItuXzqgd0B7itVe/xhC9WkdKFhs9SVf2NKyLcLLh/0SIhYg3dEUE2wgf8jZxD2Zy4Fd7BygAptc9OKI5X0MDnwHST5WA5VBTwDCOeqlhmkUPQYTnT0+Jw9mZ60fFLG7VV9Inh7TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GA94RVLce3o5GlWAMhI7az39HzBXE50ceQe87PcPDdE=;
+ b=d/gvSInXtqhQCTuA9jNvbuw2hIbqQUsaMCM1P0VIW93QIbEPrTZzCRDWUNvHnGGQHkW02LCOTKPJczlgICG9yOo3bbme6reWyydWEmkwU6rWVv/dIYrNmMIpBnm0IpSZJ7I3C3I6uKQDP79zNwDD232Jn8w3OC91MYliocfkY0Y/bUOmihHlFAaE6q4PY3js16oOaUG6rbSFGv9hfceYOOPdXhelgEIj8q8f2HPVRngjWDbeqzloej6N+rDiVDghbOrGBO6NbXuzvxd/vBc//WKaumYWbdno1AfZv1I+SNBX7o52ID8wv+90pE5TIirOk4XGdkVKmntqnsNHCFre/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GA94RVLce3o5GlWAMhI7az39HzBXE50ceQe87PcPDdE=;
+ b=NozZG80Z39oqWXcoMkj3kD8agrIqMJnIybMEokEi6a36rCfG4K7U+2yIjrZ9lRz5LfqHP0L3slFZalpeCrNQJqIrC5mmf2XMo4aQ6cRKUxwiALMqB+GIEtqivbeArGYMiQ8AETp+rgs+gNEoNJs41pdQblDU/Pp6Q8G1ZvamqIU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <796a88a8-03d2-14f8-be50-10085d785eed@amd.com>
+Date: Wed, 1 Feb 2023 09:05:24 -0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [XEN][RFC PATCH v4 11/16] common/device_tree: Add rwlock for
+ dt_host
+Content-Language: en-US
+To: Julien Grall <julien@xen.org>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, Luca.Fancellu@arm.com
+References: <20221207061815.7404-1-vikram.garhwal@amd.com>
+ <20221207061815.7404-5-vikram.garhwal@amd.com>
+ <9560a124-020c-6a5c-d4ce-c26e52413bd2@xen.org>
+From: Vikram Garhwal <vikram.garhwal@amd.com>
+In-Reply-To: <9560a124-020c-6a5c-d4ce-c26e52413bd2@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR05CA0115.namprd05.prod.outlook.com
+ (2603:10b6:a03:334::30) To MW3PR12MB4409.namprd12.prod.outlook.com
+ (2603:10b6:303:2d::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4409:EE_|MN0PR12MB5979:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7d57085-96f0-47e3-8371-08db047683cc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	4lXCrSXRoc6ZUQBB45Pqov8cDQTPobiYeiXc/N6F6C1xtqqEBU2ZeZNa1TsZUEzR3Bv1QcGZK+46039k23uhHXvzM4zTXDeSIfLH87VhbPomDHv+XwesNryl2NZ3vnILpSsPdAe+WaYj8ok9yOmOL3hs8MIiCCfxBxZmA01v6/CU5JHYQLiLFXVNVxvzpPTA9AIfnf0hj2YzfRUMWqMMA37NwI7lYpxN0BNY825jK/xuB251IWcTLYXr3u7knp7s+IrDVlZqeHUz4lqhUc1oajAlgSyO9ogfA7+Ftg3Fofp6Scm7x38fOlI7ZSGQ6K47CD6lK21IW/eZXVS8+EQEa+tvFfEUjtgely3jbIWlJgCgCkDhdpy6jdDACSDn3PiTsNI/j9AwNpDnm6CsfjtXNuCr7mSb2FhD6oZhAp/4NL9QzKQFBCP1OF4DSUFYhK/nqKa4KrDLb69fps5gYM8PiLY8BNHpM67+Eosvnlp+b+GmhcgABEl1Nh/gqJzmKxQITr/WKNV7w7HZEwOK+9eJ+MU1GY01wVumXaaWmcxNJKzP3J7uwXrj9/ZvVxBqB6zAAgwkfqhi2x3uwyZRcPE6R2XBcvS1eRCqfDmREiN1Gvt+FM978Ga1UPRoxYnB/sEkId46nW4nvc3Ir0j4Eh1tujYWfpvn51SOZNLIW8uViQNASVgj0CcvoDxokHgFXWU7x8iSMzPUwZu+JwLLrGdbC+FIYRqvZ8iLBGDqOhZYNm0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW3PR12MB4409.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(136003)(376002)(366004)(346002)(39860400002)(396003)(451199018)(44832011)(26005)(36756003)(83380400001)(2906002)(6506007)(478600001)(66476007)(186003)(6512007)(53546011)(86362001)(31696002)(6486002)(4326008)(66946007)(2616005)(8936002)(5660300002)(41300700001)(316002)(8676002)(66556008)(38100700002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UkFBOTdZR094V0xtaGFEWVJhUm1FZ0xJcmg0aFlDUjEvT240NU5QYTRLaVhV?=
+ =?utf-8?B?WFBtQWlTYm9qNFprc2xLcHN1eWxYV2NwdVNSTStwcjNqYU4vVjRXeWVNVyti?=
+ =?utf-8?B?bm5Xa1RpVXpkNzBGOVJZOG9acnVGeHE3RnBiMGZyYzIvR2g5cVNLekFobjR2?=
+ =?utf-8?B?bXY3QVpiVkpoUXJlaFYyM2Nma3ZQVWtjcjhaeTgxMXBYN0ZoVTBwVWpEZnJJ?=
+ =?utf-8?B?emdlRjBKeGdlcHpsakJteGlxRDU2Wi9TMXkyeFY2YVVoT0s0SmRnSGE3ZWpT?=
+ =?utf-8?B?L09GSDhNZk9GQ1JJSmt5Mmo0bWNZSXJaMFlIRlNISDZPK0NWRHhUZmpvYXEv?=
+ =?utf-8?B?cDBKaDBXNmcwdk9ZNXlYa2I3MlRYUDJsZ1hTcW5RRDVrVE4rTmlDUE9LTFZj?=
+ =?utf-8?B?Y2NQU1RzTSt2TDdjOUlFRURhMk5TUjFzY05kelJvV090dlJuMFBsK0ZnSndl?=
+ =?utf-8?B?K3lqa0ZyZHpwajVZTWxSUTdEdTM0bWNQblJrNUYyMW56Zk9ZQXpMVXF5T1E3?=
+ =?utf-8?B?bWxOaXFuaVUrOXpBOXg3cGZQZHZpbE4vZzFML1d6ZnZ1SVNSdDNYY3czeEhG?=
+ =?utf-8?B?S3BQdXg3RldFU2grdlVUdE83NU0ydlczWmJ1TGZud25EdmlhZGF4bWI1OEQz?=
+ =?utf-8?B?Q1lLYUVzVUVpRmVyc2VHT0ZiTTJhQm1pZm12Zk1jeGZSb1RUUnJzajRsRDVM?=
+ =?utf-8?B?QmJjaHJFRlJLK0VwTThhSWFRcGY1N2tYUG1pZ1JPY1YvdHBQMG91akwvOTVE?=
+ =?utf-8?B?My90cGRDS0VsOVh4bmx6K1VLNFk2MzBwWFZPdEEzaDRTWFVTb2VReENUWHcr?=
+ =?utf-8?B?bGpDL2Zaai95Mk5LcGtvb3RZSGh3bXhDQ2hHMjM4bFN6MVJUUDVpUkJaMUE4?=
+ =?utf-8?B?dVNqVXNpUU1JMEV2cllHcFRvVTFmblh4ZVhkMGRxMHpnQnN1Y081STd3QVhx?=
+ =?utf-8?B?eE94SjVFV0ZETnp1WW5vMzh2MVRrblR1dVlkRkdYOFdwRFRsOFNUQlBuS0Nq?=
+ =?utf-8?B?ZldHYmhUdldldHFGeHdOOUJlV2hlNXdteThUK2sraGV6V1lDc0hMUGpjWW5T?=
+ =?utf-8?B?SGdWTnZuY0JjQ2QydDdnVUxYVUJvQkI2UDlRd2hNUzlabFBFdWtPT2t1QzlT?=
+ =?utf-8?B?NTIrV09WZXBKNVNIZHpaOXZDVHFpemVya0RJMGlZQVlkY09GMm1iaVI0b0g2?=
+ =?utf-8?B?clBvcUlBbGNjVkg2anNScW1IcGhIVWoxbnNLSHlDOFg5MGhaaXVrWTlGcEZq?=
+ =?utf-8?B?dTdmWFJNMnoyRlJtdDl2UWdUOXR3Q1NoTmtURVY1UVFDYmFTWUxQTTNWOVJv?=
+ =?utf-8?B?REt1NlFpZHBrQUh2MUIzb3V1bGwvMzlYNFN5eVU0OWowT1dBMjROR21nSzhp?=
+ =?utf-8?B?eXdudzFLQ2ZRRjFtQnlpYzFXNkRJb0l2Z2VRV0xjRXZrZzRRTGE0TnhhRE9k?=
+ =?utf-8?B?Y0h0cVBITGYyL0ZJY0NMdG1yc1g0N1hzaHNyVzlYbTlCT3pGeXNlS1Q1MTJj?=
+ =?utf-8?B?NE04Y2Mrd3pzK0p3a3ZpcmpqdWpLeWQrK1RPcmNqakVCTWpYdE9ibHQ4NENE?=
+ =?utf-8?B?a2RKVzhDSmF0emFyczFpbkZFZE5rM3BGUTJrQjl2VHRodjRMMVY0T3B6ODNM?=
+ =?utf-8?B?UXZibXVBYU9DbndyTzhLQmxqZFhkUkkzSEJzdHExNTRmeXVPNjNVam9EMGFw?=
+ =?utf-8?B?VnQreG5IUXVEaFBUUjYxbXBTbG9JZ1Q4WStHcHl4QUIvc2g0cU5Hc21oVnY4?=
+ =?utf-8?B?amE2bnM0UldLdXJhMEJUNVF3K21uYTFiUGljTUdvY0VrcnAwcTJMNktUR0o3?=
+ =?utf-8?B?RTdqVlFtSVNLMGE4MER2T3M0SWVlVllKZHhqQUdCYTh0elByRDV0Sk5OQzN4?=
+ =?utf-8?B?L2xyQ1JiUHVRbUt6dGdtVEExMUxDaFdoWGR5L3pwNnkxcm56dCt1b1kxVHo3?=
+ =?utf-8?B?Nzg1TjZ4dXlzY1EwOVBWbzZnSDcyd3Qzai85U0pjOWRzeFNCckJyT3VuWnp1?=
+ =?utf-8?B?TklrckZFTW9mZmpNY2swbVExSUpoYXVaaGxUWEpGSVE4M3RwdklQZ1Z1b2Ry?=
+ =?utf-8?B?ZzZxTzJrS2RnWEYva0VzRGZpRWlGdmMwd1FjRUZ2alo1d1NrY1VwS3VITDVD?=
+ =?utf-8?Q?WClVO3eawjZlACepjqEGrSiAC?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7d57085-96f0-47e3-8371-08db047683cc
+X-MS-Exchange-CrossTenant-AuthSource: MW3PR12MB4409.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2023 17:05:26.8646
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ruEzhbb4DtV4F5/5rTrFgJrvJK7mFEGTkDaVP97U3/GYrdbK3k+ASXGLoNkX8iS3oa1sIWKtrzHfCxPADtdZaA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5979
+
+Hi Julien,
+
+On 12/7/22 8:31 AM, Julien Grall wrote:
+> Hi Vikram,
+>
+> On 07/12/2022 06:18, Vikram Garhwal wrote:
+>>   Dynamic programming ops will modify the dt_host and there might be 
+>> other
+>>   function which are browsing the dt_host at the same time. To avoid 
+>> the race
+>>   conditions, adding rwlock for browsing the dt_host.
+>
+> Looking at the user below, it is not entirely clear what the lock is 
+> actually protecting. For instance...
+
+Purpose of the lock was to protect the read/scanning of dt_host while we 
+remove the add/nodes. This lock is also used when nodes are 
+added/removed in "[XEN][RFC PATCH v4 12/16]: static int 
+remove_nodes(const struct overlay_track *tracker)".
 
 
-
-> On 1 Feb 2023, at 13:29, Andrew Cooper <andrew.cooper3@citrix.com> =
-wrote:
->=20
-> All caml_alloc_*() functions can throw exceptions, and longjump out of
-> context.  If this happens, we leak the xch/xce handle.
->=20
-> Reorder the logic to allocate the the Ocaml object first.
->=20
-> Fixes: 8b3c06a3e545 ("tools/ocaml/xenctrl: OCaml 5 support, fix =
-use-after-free")
-> Fixes: 22d5affdf0ce ("tools/ocaml/evtchn: OCaml 5 support, fix =
-potential resource leak")
-> Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
-> ---
-> CC: Christian Lindig <christian.lindig@citrix.com>
-> CC: David Scott <dave@recoil.org>
-> CC: Edwin T=C3=B6r=C3=B6k <edwin.torok@cloud.com>
-> CC: Rob Hoes <Rob.Hoes@citrix.com>
-> ---
-> tools/ocaml/libs/eventchn/xeneventchn_stubs.c | 6 ++++--
-> tools/ocaml/libs/xc/xenctrl_stubs.c           | 3 ++-
-> 2 files changed, 6 insertions(+), 3 deletions(-)
-
-Acked-by: Christian Lindig <christian.lindig@citrix.com>
-
+>
+>>
+>> Signed-off-by: Vikram Garhwal <vikram.garhwal@amd.com>
+>> ---
+>>   xen/common/device_tree.c      | 27 +++++++++++++++++++++++++++
+>>   xen/include/xen/device_tree.h |  6 ++++++
+>>   2 files changed, 33 insertions(+)
+>>
+>> diff --git a/xen/common/device_tree.c b/xen/common/device_tree.c
+>> index acf26a411d..51ee2a5edf 100644
+>> --- a/xen/common/device_tree.c
+>> +++ b/xen/common/device_tree.c
+>> @@ -140,6 +140,8 @@ const struct dt_property *dt_find_property(const 
+>> struct dt_device_node *np,
+>>       if ( !np )
+>>           return NULL;
+>>   +    read_lock(&dt_host->lock);
+>> +
+>>       for ( pp = np->properties; pp; pp = pp->next )
+>>       {
+>>           if ( dt_prop_cmp(pp->name, name) == 0 )
+>> @@ -150,6 +152,7 @@ const struct dt_property *dt_find_property(const 
+>> struct dt_device_node *np,
+>>           }
+>>       }
+>>   +    read_unlock(&dt_host->lock);
+>>       return pp;
+>>   }
+>>   @@ -336,11 +339,14 @@ struct dt_device_node 
+>> *dt_find_node_by_name(struct dt_device_node *from,
+>>       struct dt_device_node *np;
+>>       struct dt_device_node *dt;
+>>   +    read_lock(&dt_host->lock);
+>> +
+>>       dt = from ? from->allnext : dt_host;
+>>       dt_for_each_device_node(dt, np)
+>>           if ( np->name && (dt_node_cmp(np->name, name) == 0) )
+>>               break;
+>>   +    read_unlock(&dt_host->lock);
+>>       return np;
+>
+> ... I was expecting the read lock to also protect the value returned 
+> from being freed. But this is not the case.
+>
+Okay. Shall I remove the lock from here and perhaps add it when 
+dt_find_node_by_name() and other related functions are called?
+> Cheers,
+>
 
