@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 931B568846A
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 17:29:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488858.757133 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37C36884D0
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 17:51:56 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488866.757145 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNcSA-0003Zh-8G; Thu, 02 Feb 2023 16:28:50 +0000
+	id 1pNco7-0007ml-8m; Thu, 02 Feb 2023 16:51:31 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488858.757133; Thu, 02 Feb 2023 16:28:50 +0000
+Received: by outflank-mailman (output) from mailman id 488866.757145; Thu, 02 Feb 2023 16:51:31 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNcSA-0003XF-5D; Thu, 02 Feb 2023 16:28:50 +0000
-Received: by outflank-mailman (input) for mailman id 488858;
- Thu, 02 Feb 2023 16:28:49 +0000
+	id 1pNco7-0007l4-3r; Thu, 02 Feb 2023 16:51:31 +0000
+Received: by outflank-mailman (input) for mailman id 488866;
+ Thu, 02 Feb 2023 16:50:42 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=5lL2=56=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pNcS8-0003X9-W8
- for xen-devel@lists.xenproject.org; Thu, 02 Feb 2023 16:28:49 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a9bd4f1e-a316-11ed-b63b-5f92e7d2e73a;
- Thu, 02 Feb 2023 17:28:46 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id AAC0461BE0;
- Thu,  2 Feb 2023 16:28:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B729AC433EF;
- Thu,  2 Feb 2023 16:28:42 +0000 (UTC)
+ <SRS0=SvQ0=56=redhat.com=msnitzer@srs-se1.protection.inumbo.net>)
+ id 1pNcnK-0007jK-D7
+ for xen-devel@lists.xenproject.org; Thu, 02 Feb 2023 16:50:42 +0000
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id b93cdf18-a319-11ed-b63b-5f92e7d2e73a;
+ Thu, 02 Feb 2023 17:50:40 +0100 (CET)
+Received: by mail-qt1-f173.google.com with SMTP id w3so2518250qts.7
+ for <xen-devel@lists.xenproject.org>; Thu, 02 Feb 2023 08:50:40 -0800 (PST)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ t9-20020a05620a034900b0071eddd3bebbsm31687qkm.81.2023.02.02.08.50.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Feb 2023 08:50:38 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,84 +43,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a9bd4f1e-a316-11ed-b63b-5f92e7d2e73a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675355324;
-	bh=vtD2jzguhzCVkXCD7bfBMkIilEwFWfya//AvKlmwY0I=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rCVgvkQnmNmcR4PhhmrhGhiSlnMKjyNb/Ap5GZI+hmnRfsZ/aPO3rLmsNpKaml9D0
-	 XWr50Xfpqjt7fRJUCNQOaR+izO8Q1dfo81aLWXnVRBup6D32OYhToBte07XP+Fjylo
-	 UAPYZa74c3c4G1oBxO1DelFvi8HSnr/dVquOSU+az78imh8JrCX1J4qVJalndBZjxr
-	 0FKCGPZ0XMQBL0CQGeNrKrBt1MeVN20mrnegegNN9ETgLCMQYLuayM83+6xq1uZtgb
-	 fP4zBj9iUfiousknNUKHA72qCs1OCOaA9Y2Lpd646ZVgxyhBUpqZCb6VMXUV/XprSK
-	 1vSZLjfOOpE4A==
-Date: Thu, 2 Feb 2023 08:28:41 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: paul@xen.org
-cc: Vikram Garhwal <vikram.garhwal@amd.com>, qemu-devel@nongnu.org, 
-    xen-devel@lists.xenproject.org, stefano.stabellini@amd.com, 
-    alex.bennee@linaro.org, Peter Maydell <peter.maydell@linaro.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Anthony Perard <anthony.perard@citrix.com>, 
-    "open list:ARM TCG CPUs" <qemu-arm@nongnu.org>
-Subject: Re: [QEMU][PATCH v5 09/10] hw/arm: introduce xenpvh machine
-In-Reply-To: <5b7c223a-2c96-4bd2-7150-79a56281dd57@xen.org>
-Message-ID: <alpine.DEB.2.22.394.2302020828260.132504@ubuntu-linux-20-04-desktop>
-References: <20230131225149.14764-1-vikram.garhwal@amd.com> <20230131225149.14764-10-vikram.garhwal@amd.com> <179d773b-2634-b52b-8836-8d8f882e1495@xen.org> <3e205146-5113-861d-ef39-c463257b54a1@amd.com> <5b7c223a-2c96-4bd2-7150-79a56281dd57@xen.org>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: b93cdf18-a319-11ed-b63b-5f92e7d2e73a
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=1tztcBchRZ+ahQ+Rv8slGEZ3rlEReGoboay+wBElNpk=;
+        b=X620MAly2Vy6OEgASJxhu7lIpwNz9UWg8EIk8uzA7zbeMqdfA2mZCLmYVnsSCfsnvV
+         +o3IrQG1ExVx6eS4nQy8hqZvcmNpIsOMmwavleu0cnEWmNiIGgisSD8nkDXd2AuwSI73
+         bTWUpNWpbUae6qxXHup06Zlcl+9sEE32aihqiK8TgnoY/AGZfafM9UWOg+WNKNPgOVJC
+         6xjTs7FBzZXgair6hGi6r7IAXzLltUm+unmjV4RostwRcBAGGuNzFN35yGG3OXoFisgM
+         TYS36YcqW/8hz6m8mhQh17pUc51jpSE2ISvQpr99HKf33wC4DlviktRoksRHMF6jAxk/
+         mKhw==
+X-Gm-Message-State: AO0yUKUmwCgaexzJVBY058Lmz2OOHSvjXLdtAB4qFjA14+abNyLCzxjE
+	KgMYmQ1Zuguy/nq58XzmsqO/
+X-Google-Smtp-Source: AK7set+4Pyeb5ompgmUg0JYUv54bCb2ceknHgU0XW/UAy594tQAOCFstY5279x2+bA/W3Ae7xhvLGQ==
+X-Received: by 2002:a05:622a:1788:b0:3b8:2ea9:a093 with SMTP id s8-20020a05622a178800b003b82ea9a093mr13141578qtk.1.1675356639078;
+        Thu, 02 Feb 2023 08:50:39 -0800 (PST)
+Date: Thu, 2 Feb 2023 11:50:37 -0500
+From: Mike Snitzer <snitzer@kernel.org>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>,
+	Juergen Gross <jgross@suse.com>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	dm-devel@redhat.com
+Subject: Re: [RFC PATCH 0/7] Allow race-free block device handling
+Message-ID: <Y9vp3XDEQAl7TLND@redhat.com>
+References: <20230126033358.1880-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-1274086482-1675355324=:132504"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20230126033358.1880-1-demi@invisiblethingslab.com>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Wed, Jan 25 2023 at 10:33P -0500,
+Demi Marie Obenour <demi@invisiblethingslab.com> wrote:
 
---8323329-1274086482-1675355324=:132504
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+> This work aims to allow userspace to create and destroy block devices
+> in a race-free and leak-free way,
 
-On Thu, 2 Feb 2023, Paul Durrant wrote:
-> On 01/02/2023 18:22, Vikram Garhwal wrote:
-> > Hi Paul,
-> > 
-> > Thanks for reviewing this and other patches in series.
-> > 
-> > Please see my reply below.
-> > 
-> > On 2/1/23 12:30 AM, Paul Durrant wrote:
-> > > On 31/01/2023 22:51, Vikram Garhwal wrote:
-> > > > Add a new machine xenpvh which creates a IOREQ server to
-> > > > register/connect with
-> > > > Xen Hypervisor.
-> > > > 
-> > > 
-> > > Is this really the right way? Is it not possible to do the Xen
-> > > initialization (including ioreq server registration) off the back of the
-> > > accelerator init (i.e. AccelOpsClass ops_init function), which seems like
-> > > the right place to do it now that it's no longer architecture specific.
-> > > 
-> > There are few other machines using the "accel=xen" option and few of these
-> > machines aren't using IOREQ and other Xen related initialization. Example:
-> > /xenpv/ machine under /hw/xenpv/xen_machine_pv.c /and few other machines
-> > under /hw/i386/pc_piix.c//.
+"race-free and leak-free way" implies there both races and leaks in
+existing code. You're making claims that are likely very specific to
+your Xen use-case.  Please explain more carefully.
+
+> and to allow them to be exposed to
+> other Xen VMs via blkback without leaks or races.  It’s marked as RFC
+> for a few reasons:
 > 
-> Ok. TBH the concept of 'accel=xen' is probably somewhat broken then. (QEMU
-> isn't even running the VM in question, so how can it be accelerated?). Maybe
-> abstract machine types really are the right way then.
-
-Yes, it doesn't quite match QEMU as device model for Xen. However, as an
-internal API in QEMU it can be useful to Xen as well occasionally. It is
-just that in this specific case it doesn't look like it is the right
-fit.
-
-
-> > /So, that's//why we moved the IOREQ and other common initialization parts in
-> > hw/xen/xen-hvm-common.c and call them as needed for the particular machine.
-> > 
-> > @stefano, just checking if you want to add any other suggestion here.
-> > 
-> > >   Paul
-> > > 
+> - The code has been only lightly tested.  It might be unstable or
+>   insecure.
 > 
---8323329-1274086482-1675355324=:132504--
+> - The DM_DEV_CREATE ioctl gains a new flag.  Unknown flags were
+>   previously ignored, so this could theoretically break buggy userspace
+>   tools.
+
+Not seeing a reason that type of DM change is needed. If you feel
+strongly about it send a separate patch and we can discuss it.
+
+> - I have no idea if I got the block device reference counting and
+>   locking correct.
+
+Your headers and justifcation for this line of work are really way too
+terse. Please take the time to clearly make the case for your changes
+in both the patch headers and code.
+
+Mike
 
