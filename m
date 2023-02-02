@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 412EE687B8C
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 12:08:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488661.756853 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BDB1687B93
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 12:08:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488662.756859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNXSE-0003E0-0b; Thu, 02 Feb 2023 11:08:34 +0000
+	id 1pNXSE-0003MF-DQ; Thu, 02 Feb 2023 11:08:34 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488661.756853; Thu, 02 Feb 2023 11:08:33 +0000
+Received: by outflank-mailman (output) from mailman id 488662.756859; Thu, 02 Feb 2023 11:08:34 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNXSD-0003AH-SW; Thu, 02 Feb 2023 11:08:33 +0000
-Received: by outflank-mailman (input) for mailman id 488661;
- Thu, 02 Feb 2023 11:08:32 +0000
+	id 1pNXSE-0003E3-5c; Thu, 02 Feb 2023 11:08:34 +0000
+Received: by outflank-mailman (input) for mailman id 488662;
+ Thu, 02 Feb 2023 11:08:33 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=4BK1=56=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
- id 1pNXSC-0002sY-4x
- for xen-devel@lists.xenproject.org; Thu, 02 Feb 2023 11:08:32 +0000
+ id 1pNXSD-0002sY-53
+ for xen-devel@lists.xenproject.org; Thu, 02 Feb 2023 11:08:33 +0000
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTP
- id ecc1a21b-a2e9-11ed-933c-83870f6b2ba8;
- Thu, 02 Feb 2023 12:08:30 +0100 (CET)
+ id ed7dffbc-a2e9-11ed-933c-83870f6b2ba8;
+ Thu, 02 Feb 2023 12:08:31 +0100 (CET)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 740A41424;
- Thu,  2 Feb 2023 03:09:12 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD2BC1480;
+ Thu,  2 Feb 2023 03:09:13 -0800 (PST)
 Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
  [10.1.199.62])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD8333F64C;
- Thu,  2 Feb 2023 03:08:28 -0800 (PST)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8A4C63F64C;
+ Thu,  2 Feb 2023 03:08:30 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,237 +43,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ecc1a21b-a2e9-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: ed7dffbc-a2e9-11ed-933c-83870f6b2ba8
 From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
 Cc: bertrand.marquis@arm.com,
 	wei.chen@arm.com,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Julien Grall <julien@xen.org>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>,
-	Wei Liu <wl@xen.org>
-Subject: [PATCH 02/10] xen/arm: add sve_vl_bits field to domain
-Date: Thu,  2 Feb 2023 11:08:08 +0000
-Message-Id: <20230202110816.1252419-3-luca.fancellu@arm.com>
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+Subject: [PATCH 03/10] xen/arm: Expose SVE feature to the guest
+Date: Thu,  2 Feb 2023 11:08:09 +0000
+Message-Id: <20230202110816.1252419-4-luca.fancellu@arm.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230202110816.1252419-1-luca.fancellu@arm.com>
 References: <20230202110816.1252419-1-luca.fancellu@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add sve_vl_bits field to arch_domain and xen_arch_domainconfig
-structure, to allow the domain to have an information about the
-SVE feature and the number of SVE register bits that are allowed
-for this domain.
-
-The field is used also to allow or forbid a domain to use SVE,
-because a value equal to zero means the guest is not allowed to
-use the feature.
-
-Check that the requested vector length is lower or equal to the
-platform supported vector length, otherwise fail on domain
-creation.
+When a guest is allowed to use SVE, expose the SVE features through
+the identification registers.
 
 Signed-off-by: Luca Fancellu <luca.fancellu@arm.com>
 ---
 Changes from RFC:
- - restore zcr_el2 in sve_restore_state, that will be introduced
-   later in this serie, so remove zcr_el2 related code from this
-   patch and move everything to the later patch (Julien)
- - add explicit padding into struct xen_arch_domainconfig (Julien)
- - Don't lower down the vector length, just fail to create the
-   domain. (Julien)
+ - No changes
 ---
- xen/arch/arm/arm64/sve.c             |  9 ++++++++
- xen/arch/arm/domain.c                | 32 ++++++++++++++++++++++++++++
- xen/arch/arm/include/asm/arm64/sve.h | 12 +++++++++++
- xen/arch/arm/include/asm/domain.h    |  5 +++++
- xen/include/public/arch-arm.h        |  3 +++
- xen/include/public/domctl.h          |  2 +-
- 6 files changed, 62 insertions(+), 1 deletion(-)
+ xen/arch/arm/arm64/vsysreg.c | 39 ++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
-diff --git a/xen/arch/arm/arm64/sve.c b/xen/arch/arm/arm64/sve.c
-index 1c8024b44cd8..eee39caa9efa 100644
---- a/xen/arch/arm/arm64/sve.c
-+++ b/xen/arch/arm/arm64/sve.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/xen/arch/arm/arm64/vsysreg.c b/xen/arch/arm/arm64/vsysreg.c
+index 758750983c11..10048bb4d221 100644
+--- a/xen/arch/arm/arm64/vsysreg.c
++++ b/xen/arch/arm/arm64/vsysreg.c
+@@ -18,6 +18,7 @@
  
- #include <xen/types.h>
-+#include <asm/cpufeature.h>
- #include <asm/arm64/sve.h>
- #include <asm/arm64/sysregs.h>
- #include <asm/processor.h>
-@@ -47,3 +48,11 @@ register_t vl_to_zcr(uint16_t vl)
- {
-     return ((vl / SVE_VL_MULTIPLE_VAL) - 1U) & ZCR_ELx_LEN_MASK;
- }
-+
-+/* Get the system sanitized value for VL in bits */
-+uint16_t get_sys_vl_len(void)
-+{
-+    /* ZCR_ELx len field is ((len+1) * 128) = vector bits length */
-+    return ((system_cpuinfo.zcr64.bits[0] & ZCR_ELx_LEN_MASK) + 1U) *
-+            SVE_VL_MULTIPLE_VAL;
-+}
-diff --git a/xen/arch/arm/domain.c b/xen/arch/arm/domain.c
-index adb6ace2e24d..8d64e3c08edf 100644
---- a/xen/arch/arm/domain.c
-+++ b/xen/arch/arm/domain.c
-@@ -13,6 +13,7 @@
- #include <xen/wait.h>
+ #include <xen/sched.h>
  
- #include <asm/alternative.h>
-+#include <asm/arm64/sve.h>
- #include <asm/cpuerrata.h>
- #include <asm/cpufeature.h>
++#include <asm/arm64/cpufeature.h>
  #include <asm/current.h>
-@@ -550,6 +551,8 @@ int arch_vcpu_create(struct vcpu *v)
-     v->arch.vmpidr = MPIDR_SMP | vcpuid_to_vaffinity(v->vcpu_id);
- 
-     v->arch.cptr_el2 = get_default_cptr_flags();
-+    if ( is_sve_domain(v->domain) )
-+        v->arch.cptr_el2 &= ~HCPTR_CP(8);
- 
-     v->arch.hcr_el2 = get_default_hcr_flags();
- 
-@@ -594,6 +597,7 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-     unsigned int max_vcpus;
-     unsigned int flags_required = (XEN_DOMCTL_CDF_hvm | XEN_DOMCTL_CDF_hap);
-     unsigned int flags_optional = (XEN_DOMCTL_CDF_iommu | XEN_DOMCTL_CDF_vpmu);
-+    unsigned int sve_vl_bits = config->arch.sve_vl_bits;
- 
-     if ( (config->flags & ~flags_optional) != flags_required )
-     {
-@@ -602,6 +606,31 @@ int arch_sanitise_domain_config(struct xen_domctl_createdomain *config)
-         return -EINVAL;
-     }
- 
-+    /* Check feature flags */
-+    if ( sve_vl_bits > 0 ) {
-+        unsigned int zcr_max_bits = get_sys_vl_len();
+ #include <asm/regs.h>
+ #include <asm/traps.h>
+@@ -295,7 +296,28 @@ void do_sysreg(struct cpu_user_regs *regs,
+     GENERATE_TID3_INFO(MVFR0_EL1, mvfr, 0)
+     GENERATE_TID3_INFO(MVFR1_EL1, mvfr, 1)
+     GENERATE_TID3_INFO(MVFR2_EL1, mvfr, 2)
+-    GENERATE_TID3_INFO(ID_AA64PFR0_EL1, pfr64, 0)
 +
-+        if ( !cpu_has_sve )
++    case HSR_SYSREG_ID_AA64PFR0_EL1:
++    {
++        register_t guest_reg_value = guest_cpuinfo.pfr64.bits[0];
++
++        if ( is_sve_domain(v->domain) )
 +        {
-+            dprintk(XENLOG_INFO, "SVE is unsupported on this machine.\n");
-+            return -EINVAL;
++            /* 4 is the SVE field width in id_aa64pfr0_el1 */
++            uint64_t mask = GENMASK(ID_AA64PFR0_SVE_SHIFT + 4 - 1,
++                                    ID_AA64PFR0_SVE_SHIFT);
++            /* sysval is the sve field on the system */
++            uint64_t sysval = cpuid_feature_extract_unsigned_field_width(
++                                system_cpuinfo.pfr64.bits[0],
++                                ID_AA64PFR0_SVE_SHIFT, 4);
++            guest_reg_value &= ~mask;
++            guest_reg_value |= (sysval << ID_AA64PFR0_SVE_SHIFT) & mask;
 +        }
-+        else if ( !is_vl_valid(sve_vl_bits) )
-+        {
-+            dprintk(XENLOG_INFO, "Unsupported SVE vector length (%u)\n",
-+                    sve_vl_bits);
-+            return -EINVAL;
-+        }
-+        else if ( sve_vl_bits > zcr_max_bits )
-+        {
-+            dprintk(XENLOG_INFO,
-+                    "The requested SVE vector length (%u) must be lower or \n"
-+                    "equal to the platform supported vector length (%u)\n",
-+                    sve_vl_bits, zcr_max_bits);
-+            return -EINVAL;
-+        }
++
++        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 1,
++                                  guest_reg_value);
 +    }
 +
-     /* The P2M table must always be shared between the CPU and the IOMMU */
-     if ( config->iommu_opts & XEN_DOMCTL_IOMMU_no_sharept )
-     {
-@@ -744,6 +773,9 @@ int arch_domain_create(struct domain *d,
-     if ( (rc = domain_vpci_init(d)) != 0 )
-         goto fail;
- 
-+    /* Copy sve_vl_bits to the domain configuration */
-+    d->arch.sve_vl_bits = config->arch.sve_vl_bits;
+     GENERATE_TID3_INFO(ID_AA64PFR1_EL1, pfr64, 1)
+     GENERATE_TID3_INFO(ID_AA64DFR0_EL1, dbg64, 0)
+     GENERATE_TID3_INFO(ID_AA64DFR1_EL1, dbg64, 1)
+@@ -306,7 +328,20 @@ void do_sysreg(struct cpu_user_regs *regs,
+     GENERATE_TID3_INFO(ID_AA64MMFR2_EL1, mm64, 2)
+     GENERATE_TID3_INFO(ID_AA64AFR0_EL1, aux64, 0)
+     GENERATE_TID3_INFO(ID_AA64AFR1_EL1, aux64, 1)
+-    GENERATE_TID3_INFO(ID_AA64ZFR0_EL1, zfr64, 0)
 +
-     return 0;
- 
- fail:
-diff --git a/xen/arch/arm/include/asm/arm64/sve.h b/xen/arch/arm/include/asm/arm64/sve.h
-index bd56e2f24230..f4a660e402ca 100644
---- a/xen/arch/arm/include/asm/arm64/sve.h
-+++ b/xen/arch/arm/include/asm/arm64/sve.h
-@@ -13,10 +13,17 @@
- /* Vector length must be multiple of 128 */
- #define SVE_VL_MULTIPLE_VAL (128U)
- 
-+static inline bool is_vl_valid(uint16_t vl)
-+{
-+    /* SVE vector length is multiple of 128 and maximum 2048 */
-+    return ((vl % SVE_VL_MULTIPLE_VAL) == 0) && (vl <= SVE_VL_MAX_BITS);
-+}
++    case HSR_SYSREG_ID_AA64ZFR0_EL1:
++    {
++        /*
++         * When the guest has the SVE feature enabled, the whole id_aa64zfr0_el1
++         * needs to be exposed.
++         */
++        register_t guest_reg_value = guest_cpuinfo.zfr64.bits[0];
++        if ( is_sve_domain(v->domain) )
++            guest_reg_value = system_cpuinfo.zfr64.bits[0];
 +
- #ifdef CONFIG_ARM64_SVE
++        return handle_ro_read_val(regs, regidx, hsr.sysreg.read, hsr, 1,
++                                  guest_reg_value);
++    }
  
- register_t compute_max_zcr(void);
- register_t vl_to_zcr(uint16_t vl);
-+uint16_t get_sys_vl_len(void);
- 
- #else /* !CONFIG_ARM64_SVE */
- 
-@@ -30,6 +37,11 @@ static inline register_t vl_to_zcr(uint16_t vl)
-     return 0;
- }
- 
-+static inline uint16_t get_sys_vl_len(void)
-+{
-+    return 0;
-+}
-+
- #endif
- 
- #endif /* _ARM_ARM64_SVE_H */
-diff --git a/xen/arch/arm/include/asm/domain.h b/xen/arch/arm/include/asm/domain.h
-index 42eb5df320a7..1bd669e0a5c1 100644
---- a/xen/arch/arm/include/asm/domain.h
-+++ b/xen/arch/arm/include/asm/domain.h
-@@ -31,6 +31,8 @@ enum domain_type {
- 
- #define is_domain_direct_mapped(d) ((d)->cdf & CDF_directmap)
- 
-+#define is_sve_domain(d) ((d)->arch.sve_vl_bits > 0)
-+
- /*
-  * Is the domain using the host memory layout?
-  *
-@@ -114,6 +116,9 @@ struct arch_domain
-     void *tee;
- #endif
- 
-+    /* max SVE vector length in bits */
-+    uint16_t sve_vl_bits;
-+
- }  __cacheline_aligned;
- 
- struct arch_vcpu
-diff --git a/xen/include/public/arch-arm.h b/xen/include/public/arch-arm.h
-index 1528ced5097a..3094aeb57990 100644
---- a/xen/include/public/arch-arm.h
-+++ b/xen/include/public/arch-arm.h
-@@ -304,6 +304,9 @@ struct xen_arch_domainconfig {
-     uint16_t tee_type;
-     /* IN */
-     uint32_t nr_spis;
-+    /* IN */
-+    uint16_t sve_vl_bits;
-+    uint16_t _pad1;
      /*
-      * OUT
-      * Based on the property clock-frequency in the DT timer node.
-diff --git a/xen/include/public/domctl.h b/xen/include/public/domctl.h
-index 51be28c3de7c..616d7a1c070d 100644
---- a/xen/include/public/domctl.h
-+++ b/xen/include/public/domctl.h
-@@ -21,7 +21,7 @@
- #include "hvm/save.h"
- #include "memory.h"
- 
--#define XEN_DOMCTL_INTERFACE_VERSION 0x00000015
-+#define XEN_DOMCTL_INTERFACE_VERSION 0x00000016
- 
- /*
-  * NB. xen_domctl.domain is an IN/OUT parameter for this operation.
+      * Those cases are catching all Reserved registers trapped by TID3 which
 -- 
 2.25.1
 
