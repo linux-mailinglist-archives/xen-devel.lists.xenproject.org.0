@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F38216879C2
-	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 11:05:49 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.488625.756782 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99FFB687ACC
+	for <lists+xen-devel@lfdr.de>; Thu,  2 Feb 2023 11:49:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.488631.756793 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNWSb-0000CM-Iy; Thu, 02 Feb 2023 10:04:53 +0000
+	id 1pNX8M-0006NB-RD; Thu, 02 Feb 2023 10:48:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 488625.756782; Thu, 02 Feb 2023 10:04:53 +0000
+Received: by outflank-mailman (output) from mailman id 488631.756793; Thu, 02 Feb 2023 10:48:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNWSb-0000AQ-G5; Thu, 02 Feb 2023 10:04:53 +0000
-Received: by outflank-mailman (input) for mailman id 488625;
- Thu, 02 Feb 2023 10:04:52 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pNX8M-0006LD-Ng; Thu, 02 Feb 2023 10:48:02 +0000
+Received: by outflank-mailman (input) for mailman id 488631;
+ Thu, 02 Feb 2023 10:48:00 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=H2wX=56=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
- id 1pNWSa-0000AJ-EG
- for xen-devel@lists.xenproject.org; Thu, 02 Feb 2023 10:04:52 +0000
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
- [2a00:1450:4864:20::62a])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 05b97a15-a2e1-11ed-b63b-5f92e7d2e73a;
- Thu, 02 Feb 2023 11:04:47 +0100 (CET)
-Received: by mail-ej1-x62a.google.com with SMTP id bk15so4385187ejb.9
- for <xen-devel@lists.xenproject.org>; Thu, 02 Feb 2023 02:04:48 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNX8K-0006L3-OH; Thu, 02 Feb 2023 10:48:00 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNX8K-0008Ow-La; Thu, 02 Feb 2023 10:48:00 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNX8K-00071I-34; Thu, 02 Feb 2023 10:48:00 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNX8K-0008N0-2b; Thu, 02 Feb 2023 10:48:00 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,225 +42,290 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 05b97a15-a2e1-11ed-b63b-5f92e7d2e73a
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.com; s=cloud;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=MQDiLZo7zTWXPLch69kob9AYmFaKQp5JLZ/Kup7RSmw=;
-        b=CbEyipfp6XEPDGORaqazWtoePPd7FsnWFxWc/sPlrdV9hWgennvo7g5JTVsXPj44to
-         R67li+Id1XZzUmSbfvfMrxYllaNLUk3qtzhjTMIrxsqU+adTcExsHzsFst8/Bm/pIqwE
-         LkGlIi6g+LOphoMwFQbVeu+aU/UuC+PgTMMxo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=MQDiLZo7zTWXPLch69kob9AYmFaKQp5JLZ/Kup7RSmw=;
-        b=hDJ7c6E6lCDlvHwSTD7ZdoC7KfWf3bbBgOHG8rn71PcoEixbDJLA3xbwdU2VKdy0TZ
-         8AV9GiOnGPTv8tqWtJDN/NGpTMC92XH3jklAsVdSsgP7e6l+qr77omcqbtXpBH3brREd
-         CbRhxMvEJcVmRreJaczt2ZxPtw6CsHLNn+2cTrmipx34fD73dFsZst5FhhlKuJAjHIqJ
-         zjakXUPcpYYYCu3TfLWss6/IOfZMVTN8ZOqC17l2g15S1eDBLeZTDSaa+NmjoQpOThKH
-         qMr84owRTj5GYdue11B/dUpeVCGIloD9/0fY5EbuYQtC6GV/XDZXr5QvTd5+Z4J0a4re
-         iW6g==
-X-Gm-Message-State: AO0yUKV/WGj1j4QT0veqTPi9zpL+LP1xYdZIAvSRPyRV3I8rv6HRvV8y
-	gNT/JbOSg54mccRgdzeiUgYcwIq8By3mtGssoYfyaQ==
-X-Google-Smtp-Source: AK7set+aDB8eCGU7tcCR6hKyAYPMkRAd95qykUBBqHOhAIPAHAV92fYAfSQTTFIpvLn7i+ZRvLvYo5W7th+7Up9Tp1g=
-X-Received: by 2002:a17:906:31cf:b0:850:2768:735e with SMTP id
- f15-20020a17090631cf00b008502768735emr1791639ejf.64.1675332288477; Thu, 02
- Feb 2023 02:04:48 -0800 (PST)
-MIME-Version: 1.0
-References: <20230120220004.7456-1-andrew.cooper3@citrix.com>
- <AS8PR08MB79918B0D0329A2B722B773EB92CC9@AS8PR08MB7991.eurprd08.prod.outlook.com>
- <9abcfc06-1401-cdb7-a1f1-670cd307a593@srcf.net> <CA+zSX=ZdQi5RsSUPRTKyY63=--GoXwea-MXyN7xbovKeo9jRug@mail.gmail.com>
- <AS8PR08MB7991C8898F8008BB64E4DCB092D69@AS8PR08MB7991.eurprd08.prod.outlook.com>
-In-Reply-To: <AS8PR08MB7991C8898F8008BB64E4DCB092D69@AS8PR08MB7991.eurprd08.prod.outlook.com>
-From: George Dunlap <george.dunlap@cloud.com>
-Date: Thu, 2 Feb 2023 10:04:37 +0000
-Message-ID: <CA+zSX=b76sAFdTcvwJ4kF-kRnwo9x8jmG8QoGmROrnADm40xLw@mail.gmail.com>
-Subject: Re: [PATCH] Changelog: Add details about new features for SPR
-To: Henry Wang <Henry.Wang@arm.com>
-Cc: Andrew Cooper <amc96@srcf.net>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Xen-devel <xen-devel@lists.xenproject.org>, 
-	George Dunlap <George.Dunlap@eu.citrix.com>, Jan Beulich <JBeulich@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Julien Grall <julien@xen.org>
-Content-Type: multipart/alternative; boundary="000000000000ef90e305f3b4b177"
-
---000000000000ef90e305f3b4b177
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=9QCOdvUPP9mkbBoq8ylT0wfK9Li5b7WzRdWcCag7YMg=; b=DuAoByb0e8HUZ2gFMAgYXZC9NZ
+	ZeukDrbeX+Gw+hbMV1/TBK+dJkcQArCuw64m5wSC0+ZHZtjej6izc2PIngh4fcXHhphBWRqt5pvXr
+	oYB0SixE4w+oSD4B9d5+xfYVW+iO/uSyXdMhswUxDtWe/xGJuBVOmGKFRTffINsSAxCw=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176314-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 176314: regressions - trouble: blocked/broken/fail/pass
+X-Osstest-Failures:
+    linux-linus:build-armhf:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-pvshim:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-qemuu-nested-intel:host-install(5):broken:regression
+    linux-linus:test-amd64-amd64-freebsd12-amd64:host-install(5):broken:regression
+    linux-linus:build-armhf:host-install(4):broken:regression
+    linux-linus:test-amd64-amd64-xl-pvhv2-intel:host-install(5):broken:regression
+    linux-linus:test-amd64-amd64-pygrub:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-xl-multivcpu:xen-boot:fail:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-localmigrate/x10:fail:regression
+    linux-linus:build-armhf:syslog-server:running:regression
+    linux-linus:test-amd64-amd64-pygrub:host-install(5):broken:heisenbug
+    linux-linus:test-amd64-amd64-freebsd11-amd64:host-install(5):broken:heisenbug
+    linux-linus:test-amd64-amd64-xl-pvshim:host-install(5):broken:heisenbug
+    linux-linus:test-amd64-amd64-xl-multivcpu:host-install(5):broken:heisenbug
+    linux-linus:test-amd64-amd64-xl-vhd:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-amd64-amd64-libvirt-qcow2:guest-start/debian.repeat:fail:heisenbug
+    linux-linus:test-armhf-armhf-examine:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):blocked:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):blocked:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):blocked:nonblocking
+    linux-linus:build-armhf:capture-logs:broken:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+X-Osstest-Versions-This:
+    linux=c0b67534c95c537f7a506a06b98e5e85d72e2b7d
+X-Osstest-Versions-That:
+    linux=9d84bb40bcb30a7fa16f33baa967aeb9953dda78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Thu, 02 Feb 2023 10:48:00 +0000
 
-On Thu, Feb 2, 2023 at 2:05 AM Henry Wang <Henry.Wang@arm.com> wrote:
+flight 176314 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176314/
 
-> Hi George,
->
->
->
-> > From: George Dunlap <george.dunlap@cloud.com>
->
-> > Subject: Re: [PATCH] Changelog: Add details about new features for SPR
->
-> >
->
-> > One approach would be to have someone / something (either the release
-> manager, or an automated script)
->
->
->
-> An automated script would be best if possible IMHO, as the email
->
-> content would be pretty much fixed/predictable and the email is
->
-> sent periodically.
->
->
->
-> > periodically (monthly?  Bi-weekly?) email each maintainer a list of the
-> commits under their remit, with an encouragement to consider what entries
-> could be added to CHANGELOG.md.  i.e., something like this:
->
-> >
->
-> > 8<---
->
-> > Dear $MAINTAINER_NAME,
->
-> >
->
-> > During the last $TIME_PERIOD, the commits below have been checked into
-> the tree which modify code under your maintainership.  Please ensure that
-> necessary changes to CHANGELOG.md have also been comitted.
->
-> >
->
-> > Thanks,
->
-> > $SENDER
->
-> >
->
-> > $GIT_LOG
->
-> > ---->8
->
-> >
->
-> > Ideally this would prompt maintainers to get into the habit of always
-> asking for CHANGELOG entries to be added during review (which would also
-> get developers into the habit of always including them); at which point the
-> maintainers could just skim the commits in the email and only add he odd
-> CHANGELOG that they may have forgotten.
->
-> >
->
-> > Thoughts?
->
->
->
-> I like this idea very much :) Just a small question: As a developer, it is
->
-> not really clear to me that under what criteria would a patch/series
->
-> deserve for a changelog entry. Personally I would try to include the
->
-> CHANGELOG into my changes in the future if this criteria is cleared.
->
+Regressions :-(
 
-What I would personally like to see is something that can create a document
-like this:
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken
+ test-amd64-amd64-xl-pvshim      <job status>                 broken
+ test-amd64-amd64-xl-pvhv2-intel    <job status>                 broken
+ test-amd64-amd64-xl-multivcpu    <job status>                 broken
+ test-amd64-amd64-freebsd11-amd64    <job status>                 broken
+ test-amd64-amd64-freebsd12-amd64    <job status>                 broken
+ test-amd64-amd64-qemuu-nested-intel    <job status>                 broken
+ test-amd64-amd64-qemuu-nested-intel  5 host-install(5) broken REGR. vs. 173462
+ test-amd64-amd64-freebsd12-amd64  5 host-install(5)    broken REGR. vs. 173462
+ build-armhf                   4 host-install(4)        broken REGR. vs. 173462
+ test-amd64-amd64-xl-pvhv2-intel  5 host-install(5)     broken REGR. vs. 173462
+ test-amd64-amd64-pygrub         <job status>                 broken  in 176304
+ test-amd64-amd64-xl-multivcpu  8 xen-boot      fail in 176304 REGR. vs. 173462
+ test-amd64-amd64-freebsd11-amd64 19 guest-localmigrate/x10 fail in 176304 REGR. vs. 173462
+ build-armhf                   3 syslog-server                running
 
-https://go.dev/doc/go1.20
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-pygrub      5 host-install(5) broken in 176304 pass in 176314
+ test-amd64-amd64-freebsd11-amd64  5 host-install(5)      broken pass in 176304
+ test-amd64-amd64-xl-pvshim    5 host-install(5)          broken pass in 176304
+ test-amd64-amd64-xl-multivcpu  5 host-install(5)         broken pass in 176304
+ test-amd64-amd64-xl-vhd 21 guest-start/debian.repeat fail in 176304 pass in 176314
+ test-amd64-amd64-libvirt-qcow2 19 guest-start/debian.repeat fail pass in 176304
 
-I'm not sure exactly how to quantify that level of description; nor exactly
-what other people have in mind.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-examine      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl           1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-arndale   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               blocked  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               blocked  n/a
+ build-armhf-libvirt           1 build-check(1)               blocked  n/a
+ build-armhf                   5 capture-logs          broken blocked in 173462
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 173462
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 173462
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 173462
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
 
- -George
+version targeted for testing:
+ linux                c0b67534c95c537f7a506a06b98e5e85d72e2b7d
+baseline version:
+ linux                9d84bb40bcb30a7fa16f33baa967aeb9953dda78
 
->
+Last test of basis   173462  2022-10-07 18:41:45 Z  117 days
+Failing since        173470  2022-10-08 06:21:34 Z  117 days  240 attempts
+Testing same since   176304  2023-02-01 00:13:30 Z    1 days    2 attempts
 
---000000000000ef90e305f3b4b177
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+------------------------------------------------------------
+3468 people touched revisions under test,
+not listing them all
 
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 2, 2023 at 2:05 AM Henry =
-Wang &lt;<a href=3D"mailto:Henry.Wang@arm.com">Henry.Wang@arm.com</a>&gt; w=
-rote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div class=
-=3D"msg8507475333917824981">
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  broken  
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          blocked 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          blocked 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             broken  
+ test-amd64-amd64-freebsd12-amd64                             broken  
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-armhf-armhf-xl-arndale                                  blocked 
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  blocked 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  blocked 
+ test-armhf-armhf-xl-cubietruck                               blocked 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     blocked 
+ test-amd64-amd64-qemuu-nested-intel                          broken  
+ test-amd64-amd64-xl-pvhv2-intel                              broken  
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     blocked 
+ test-amd64-amd64-xl-multivcpu                                broken  
+ test-armhf-armhf-xl-multivcpu                                blocked 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   broken  
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               fail    
+ test-armhf-armhf-libvirt-qcow2                               blocked 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 blocked 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     blocked 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      blocked 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-<div lang=3D"EN-US" style=3D"overflow-wrap: break-word;">
-<div class=3D"m_8507475333917824981WordSection1">
-<p class=3D"MsoNormal">Hi George,<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; From: George Dunlap &lt;<a href=3D"mailto:georg=
-e.dunlap@cloud.com" target=3D"_blank">george.dunlap@cloud.com</a>&gt; <u></=
-u><u></u></p>
-<p class=3D"MsoNormal">&gt; Subject: Re: [PATCH] Changelog: Add details abo=
-ut new features for SPR<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; One approach would be to have someone / somethi=
-ng (either the release manager, or an automated script)
-<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">An automated script would be best if possible IMHO, =
-as the email<u></u><u></u></p>
-<p class=3D"MsoNormal">content would be pretty much fixed/predictable and t=
-he email is<u></u><u></u></p>
-<p class=3D"MsoNormal">sent periodically. <u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; periodically (monthly?=C2=A0 Bi-weekly?) email =
-each maintainer a list of the commits under their remit, with an encouragem=
-ent to consider what entries could be added to CHANGELOG.md.=C2=A0 i.e., so=
-mething like this:<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; 8&lt;---<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt; Dear $MAINTAINER_NAME,<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; During the last $TIME_PERIOD, the commits below=
- have been checked into the tree which modify code under your maintainershi=
-p.=C2=A0 Please ensure that necessary changes to CHANGELOG.md have also bee=
-n comitted.<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; Thanks,<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;=C2=A0$SENDER<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; $GIT_LOG<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt; ----&gt;8<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; Ideally this would prompt maintainers to get in=
-to the habit of always asking for CHANGELOG entries to be added during revi=
-ew (which would also get developers into the habit of always including them=
-); at which point the maintainers could
- just skim the commits in the email and only add he odd CHANGELOG that they=
- may have forgotten.<u></u><u></u></p>
-<p class=3D"MsoNormal">&gt;<u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">&gt; Thoughts?<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">I like this idea very much :) Just a small question:=
- As a developer, it is<u></u><u></u></p>
-<p class=3D"MsoNormal">not really clear to me that under what criteria woul=
-d a patch/series<u></u><u></u></p>
-<p class=3D"MsoNormal">deserve for a changelog entry. Personally I would tr=
-y to include the<u></u><u></u></p>
-<p class=3D"MsoNormal">CHANGELOG into my changes in the future if this crit=
-eria is cleared.</p></div></div></div></blockquote><div><br></div><div>What=
- I would personally like to see is something that can create a document lik=
-e this:</div><div><br></div><div><a href=3D"https://go.dev/doc/go1.20">http=
-s://go.dev/doc/go1.20</a><br></div><div><br></div><div>I&#39;m not sure exa=
-ctly how to quantify that level of description; nor exactly what other peop=
-le have in mind.</div><div><br></div><div>=C2=A0-George</div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex"><div class=3D"msg8507475333917824981"><=
-div lang=3D"EN-US" style=3D"overflow-wrap: break-word;"><div class=3D"m_850=
-7475333917824981WordSection1">
-</div>
-</div>
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-</div></blockquote></div></div>
+broken-job build-armhf broken
+broken-job test-amd64-amd64-xl-pvshim broken
+broken-job test-amd64-amd64-xl-pvhv2-intel broken
+broken-job test-amd64-amd64-xl-multivcpu broken
+broken-job test-amd64-amd64-freebsd11-amd64 broken
+broken-job test-amd64-amd64-freebsd12-amd64 broken
+broken-job test-amd64-amd64-qemuu-nested-intel broken
+broken-step build-armhf capture-logs
+broken-step test-amd64-amd64-freebsd11-amd64 host-install(5)
+broken-step test-amd64-amd64-qemuu-nested-intel host-install(5)
+broken-step test-amd64-amd64-xl-pvshim host-install(5)
+broken-step test-amd64-amd64-freebsd12-amd64 host-install(5)
+broken-step build-armhf host-install(4)
+broken-step test-amd64-amd64-xl-pvhv2-intel host-install(5)
+broken-step test-amd64-amd64-xl-multivcpu host-install(5)
+broken-job test-amd64-amd64-qemuu-nested-intel broken
+broken-job build-armhf broken
+broken-job test-amd64-amd64-pygrub broken
+broken-job test-amd64-amd64-freebsd12-amd64 broken
+broken-job test-amd64-amd64-xl-pvhv2-intel broken
 
---000000000000ef90e305f3b4b177--
+Not pushing.
+
+(No revision log; it would be 533994 lines long.)
 
