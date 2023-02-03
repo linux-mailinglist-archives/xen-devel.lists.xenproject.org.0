@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60407689936
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 13:52:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489166.757484 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FC8689937
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 13:52:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489174.757500 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNvWm-0002fo-2z; Fri, 03 Feb 2023 12:50:52 +0000
+	id 1pNvYG-0003Fz-Eq; Fri, 03 Feb 2023 12:52:24 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489166.757484; Fri, 03 Feb 2023 12:50:52 +0000
+Received: by outflank-mailman (output) from mailman id 489174.757500; Fri, 03 Feb 2023 12:52:24 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNvWl-0002e1-WD; Fri, 03 Feb 2023 12:50:52 +0000
-Received: by outflank-mailman (input) for mailman id 489166;
- Fri, 03 Feb 2023 12:50:51 +0000
+	id 1pNvYG-0003EC-Be; Fri, 03 Feb 2023 12:52:24 +0000
+Received: by outflank-mailman (input) for mailman id 489174;
+ Fri, 03 Feb 2023 12:52:23 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=HD5o=57=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pNvWl-0002dv-BF
- for xen-devel@lists.xenproject.org; Fri, 03 Feb 2023 12:50:51 +0000
+ id 1pNvYF-0003E4-Hy
+ for xen-devel@lists.xenproject.org; Fri, 03 Feb 2023 12:52:23 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 61ca4dbc-a3c1-11ed-933c-83870f6b2ba8;
- Fri, 03 Feb 2023 13:50:49 +0100 (CET)
+ id 9989a0b3-a3c1-11ed-933c-83870f6b2ba8;
+ Fri, 03 Feb 2023 13:52:21 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 85686346CF;
- Fri,  3 Feb 2023 12:50:48 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5F3E6346D8;
+ Fri,  3 Feb 2023 12:52:22 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 645991358A;
- Fri,  3 Feb 2023 12:50:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 38D891358A;
+ Fri,  3 Feb 2023 12:52:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id tUvmFigD3WPAcQAAMHmgww
- (envelope-from <jgross@suse.com>); Fri, 03 Feb 2023 12:50:48 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id rONyDIYD3WOpcgAAMHmgww
+ (envelope-from <jgross@suse.com>); Fri, 03 Feb 2023 12:52:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,63 +51,59 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 61ca4dbc-a3c1-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 9989a0b3-a3c1-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675428648; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1675428742; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=aQz6KReeIBnxU3F9c9Bu3VhouAL47OPI7ut9qgu2Ddo=;
-	b=DBFd9FzepLsReMCht9jqEuhhcnjKAzKnOKIbrGxXeHiSr0sfF7ofQTwocGsoYSvABo5JHk
-	2eL0tVgGVT2cPTx0AmIUTy/uVx+y2t+L++216P+Sf518+kjN7Yo5X2Ic4ovTHZNCZFoao9
-	shFLf5AXklQN65zdkDYZzP4pcNUvoJY=
-Message-ID: <f8153f9f-1e83-674f-a67f-d5b8831eaa2b@suse.com>
-Date: Fri, 3 Feb 2023 13:50:47 +0100
+	bh=mvt2+Gv/dBnKSemdRNIgG5off+fk9kijKWONvjmudx8=;
+	b=QNAvTrzeqiXR+KjOVuD4E6UQsDNupUCR9HsYLS8DKnAnnCdN6Z5MgGTfz5olpazSaPPZdG
+	cYKtdm+dsT1dSGRf1bvPmipM3NvH1obcgxwtzeGhXnvd9vBe/AcO69t83b1bfmYAl3CuMv
+	7/HcOpqrfomuwp01zNztjvZgxdgBoMY=
+Message-ID: <fdc93f3e-e200-6c9e-bbc8-ce14d9a5a9e3@suse.com>
+Date: Fri, 3 Feb 2023 13:52:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH 6/7] Mini-OS: add open and close handling to the 9pfs
- frontend
+Subject: Re: [PATCH 7/7] Mini-OS: add read and write support to 9pfsfront
 Content-Language: en-US
 To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
 References: <20230203091809.14478-1-jgross@suse.com>
- <20230203091809.14478-7-jgross@suse.com>
+ <20230203091809.14478-8-jgross@suse.com>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230203091809.14478-7-jgross@suse.com>
+In-Reply-To: <20230203091809.14478-8-jgross@suse.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------kCVE4JPEmlHYhI2VUIUK1icS"
+ boundary="------------YI0KurEEFOlVNx7w638kODkU"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------kCVE4JPEmlHYhI2VUIUK1icS
-Content-Type: multipart/mixed; boundary="------------a8J3SxOE2EmF53jgtBnHlxHu";
+--------------YI0KurEEFOlVNx7w638kODkU
+Content-Type: multipart/mixed; boundary="------------6e7YkB0oaWewm8HvMsuQzKDP";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org, wl@xen.org
-Message-ID: <f8153f9f-1e83-674f-a67f-d5b8831eaa2b@suse.com>
-Subject: Re: [PATCH 6/7] Mini-OS: add open and close handling to the 9pfs
- frontend
+Message-ID: <fdc93f3e-e200-6c9e-bbc8-ce14d9a5a9e3@suse.com>
+Subject: Re: [PATCH 7/7] Mini-OS: add read and write support to 9pfsfront
 References: <20230203091809.14478-1-jgross@suse.com>
- <20230203091809.14478-7-jgross@suse.com>
-In-Reply-To: <20230203091809.14478-7-jgross@suse.com>
+ <20230203091809.14478-8-jgross@suse.com>
+In-Reply-To: <20230203091809.14478-8-jgross@suse.com>
 
---------------a8J3SxOE2EmF53jgtBnHlxHu
-Content-Type: multipart/mixed; boundary="------------ReT8a7108Yc03RHhExnd7ha3"
+--------------6e7YkB0oaWewm8HvMsuQzKDP
+Content-Type: multipart/mixed; boundary="------------t98G7AeIYauxvE7mHeLkHJv3"
 
---------------ReT8a7108Yc03RHhExnd7ha3
+--------------t98G7AeIYauxvE7mHeLkHJv3
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDMuMDIuMjMgMTA6MTgsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IEFkZCB0aGUgb3Bl
-bigpIGFuZCBjbG9zZSgpIHN1cHBvcnQgdG8gdGhlIDlwZnMgZnJvbnRlbmQuIFRoaXMgcmVx
-dWlyZXMNCj4gdG8gc3BsaXQgdGhlIHBhdGggbmFtZSBhbmQgdG8gd2FsayB0byB0aGUgZGVz
-aXJlZCBkaXJlY3RvcnkgbGV2ZWwuDQo+IA0KPiBUaGUgb3BlbmVkIGZpbGUgbmVlZHMgdG8g
-YmUgcXVlcmllZCB2aWEgc3RhdCBpbiBvcmRlciB0byBvYnRhaW4gdGhlDQo+IGRhdGEgbmVl
-ZGVkIGZvciBwcm9wZXIgYWNjZXNzIChhY2Nlc3MgcmlnaHRzLCBzaXplLCB0eXBlIG9mIGZp
-bGUpLg0KDQpPaCwgc29ycnksIHRoaXMgcGFyYWdyYXBoIHNob3VsZCBiZSBkcm9wcGVkLg0K
-DQoNCkp1ZXJnZW4NCg==
---------------ReT8a7108Yc03RHhExnd7ha3
+T24gMDMuMDIuMjMgMTA6MTgsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+IEFkZCBzdXBwb3J0
+IHRvIHJlYWQgZnJvbSBhbmQgd3JpdGUgdG8gYSBmaWxlIGhhbmRsZWQgYnkgOXBmc2Zyb250
+Lg0KPiANCj4gU2lnbmVkLW9mZi1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29t
+Pg0KDQpUaGlzIHBhdGNoIGlzIG1pc3NpbmcgdGhlIGxpbWl0YXRpb24gb2YgcmVhZC93cml0
+ZSBtZXNzYWdlcyB0byBzdGF5DQpiZWxvdyB0aGUgbWF4LiBzdXBwb3J0ZWQgbWVzc2FnZSBz
+aXplLg0KDQoNCkp1ZXJnZW4NCg0K
+--------------t98G7AeIYauxvE7mHeLkHJv3
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -165,25 +161,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------ReT8a7108Yc03RHhExnd7ha3--
+--------------t98G7AeIYauxvE7mHeLkHJv3--
 
---------------a8J3SxOE2EmF53jgtBnHlxHu--
+--------------6e7YkB0oaWewm8HvMsuQzKDP--
 
---------------kCVE4JPEmlHYhI2VUIUK1icS
+--------------YI0KurEEFOlVNx7w638kODkU
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPdAycFAwAAAAAACgkQsN6d1ii/Ey+P
-bwf+LfAWnaVYLyqy6zLJKxcMUi3OMdtmgoToAi00iP7ynTAn1uqwjweI+ySzfYtB32eMLZwffUTk
-QvPy4rGHg/mj7tSdYz+ksqFNo4WrM4JWZjYz0Me40zoj1tk+GjpYY+YYWdKS9jEKKrxeLOVGvv7d
-L1XGcgnDA8c3ZzDPPHixTAPSgKmhyR8NPM1J0jGN6TrclXLwMwXi1ayCcBP4yWanQJCF0GT3HulB
-V3TeYV1g1bMEHhtg3Ha4crGq2cheShocveGaaPBBvDhvgp7QmR6zqtfTe7/2TlKvlZu35mNq3g5x
-GiLW+zGg9er1WpMYo147OrRs6FwlRiFBWUiLQA1/Kw==
-=8gRQ
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPdA4UFAwAAAAAACgkQsN6d1ii/Ey+3
+Kwf/UvRzwAqEoNFMUpCXRjeXxJwiUBdKCMyXxZ17/p9ZkBotb1CTuegUauvU3j1QF84yS3J234Gv
+1ufy25E38IV06eVrUDYGUlTeHNB5l2rpw1DkA2MkGasIVsoIHdkoMglur2bviFUmiJ7d6xzVkrb5
+S8z/QjrBRpm65+NDtsFYm7k3x5n7eh1eTRsb+cfmL4Yw2IvHWKNsO1/jqlaKUwC4dA4j6UP9Vmd+
+muwsPUyorgS3U0a4C+F0vwXyCCobvOrUg99Rcya9vJ9dpSnc/bjdQ/yO9LVkKlGQ5NQA8ZRrpLCL
+ngCwI4jbu5EHAScRYVqy/gSz4TBW6x8L1GpBekYIcA==
+=CEZL
 -----END PGP SIGNATURE-----
 
---------------kCVE4JPEmlHYhI2VUIUK1icS--
+--------------YI0KurEEFOlVNx7w638kODkU--
 
