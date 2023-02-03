@@ -2,38 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53223689AC8
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 14:59:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489198.757536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6AC6D689AE9
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 15:07:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489213.757547 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNwZt-0003Lm-Ug; Fri, 03 Feb 2023 13:58:09 +0000
+	id 1pNwiy-00054L-Rr; Fri, 03 Feb 2023 14:07:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489198.757536; Fri, 03 Feb 2023 13:58:09 +0000
+Received: by outflank-mailman (output) from mailman id 489213.757547; Fri, 03 Feb 2023 14:07:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pNwZt-0003Ja-Rt; Fri, 03 Feb 2023 13:58:09 +0000
-Received: by outflank-mailman (input) for mailman id 489198;
- Fri, 03 Feb 2023 13:58:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pNwiy-00052F-Ow; Fri, 03 Feb 2023 14:07:32 +0000
+Received: by outflank-mailman (input) for mailman id 489213;
+ Fri, 03 Feb 2023 14:07:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=x3lM=57=oderland.se=josef@srs-se1.protection.inumbo.net>)
- id 1pNwZs-0003JU-Pl
- for xen-devel@lists.xenproject.org; Fri, 03 Feb 2023 13:58:09 +0000
-Received: from vsp01-out.oderland.com (vsp01-out.oderland.com
- [2a02:28f0::25:1]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c6145c9d-a3ca-11ed-93b5-47a8fe42b414;
- Fri, 03 Feb 2023 14:58:04 +0100 (CET)
-Received: from office.oderland.com (office.oderland.com [91.201.60.5])
- by vsp-out.oderland.com (Halon) with ESMTPSA
- id c5c667fc-a3ca-11ed-988b-13c61387685f;
- Fri, 03 Feb 2023 14:58:01 +0100 (CET)
-Received: from 160.193-180-18.r.oderland.com ([193.180.18.160]:42860
- helo=[10.137.0.14])
- by office.oderland.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.95) (envelope-from <josef@oderland.se>) id 1pNwZq-0040K8-9P;
- Fri, 03 Feb 2023 14:58:01 +0100
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNwix-000525-QX; Fri, 03 Feb 2023 14:07:31 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNwix-0006hv-NU; Fri, 03 Feb 2023 14:07:31 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNwix-0004bI-65; Fri, 03 Feb 2023 14:07:31 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pNwix-0001er-5V; Fri, 03 Feb 2023 14:07:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,115 +42,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c6145c9d-a3ca-11ed-93b5-47a8fe42b414
-X-Scanned-Cookie: 0162612eaad5b0a05cb4a8d9b4dce14a4c5e9ffb
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=oderland.se
-	; s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=0vnqyLQjLM8vIxF5gJPRlxfMok/MJsZ2QdrgPNLap6A=; b=aAPvWYDchoFfYjna1mfsZ6jyzK
-	cI6Dyni4w4oCB0PaIj9A2cpbKDveCoTAg5bDP0iU3yusuhhT2Oi0luM1iVAb30AeJmPC+v4ja5uJ3
-	1OBQg6L4q9G6cMsBVX17Ng1wAOvLVRJRz2Ffb9DA5Ez/Jt8uL6+SvmbJ6HXVlm5vFNYcdeNa4kqZu
-	X7CuhssKOrDKqUH0v4NVGr42ENlJ7wwgZ1upz3ydYa3/8wld/2Z9a03IX6CTPmsgjuiWE8A8DCq8h
-	hWPD5uEUWEeolZ5xzaaR+/eQanWZ+jlMV9quhwKtAK6SROlPEnye7Try6AyyqOboYARa9UJFkUX4g
-	l34Ro1XA==;
-Message-ID: <06e6cefb-c773-d959-d569-84dd63e240e1@oderland.se>
-Date: Fri, 3 Feb 2023 14:58:00 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:108.0) Gecko/20100101
- Thunderbird/108.0
-Subject: Re: [PATCH 1/3] acpi/processor: fix evaluating _PDC method when
- running as Xen dom0
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel@lists.xenproject.org, x86@kernel.org,
- linux-acpi@vger.kernel.org, Roger Pau Monne <roger.pau@citrix.com>,
- linux-kernel@vger.kernel.org
-References: <20221121102113.41893-1-roger.pau@citrix.com>
- <20221121102113.41893-2-roger.pau@citrix.com>
- <952fdc14-a8e5-a59a-9c7d-af1adf361d77@oderland.se>
- <513e2851-9098-b510-588e-1e68d44d23fc@suse.com>
-Content-Language: en-US
-From: Josef Johansson <josef@oderland.se>
-In-Reply-To: <513e2851-9098-b510-588e-1e68d44d23fc@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=C+VDcNHPHApfZskE1+QZs+MVpsMsFE2XxI3bb8pwk6o=; b=T4D2LGLXS2kNjrvW03RyprdxEU
+	IGxpOQ+mrPxWL0GxAfYq/Lw7z6a7Byv/THQvmM32Pwb7MwnvJlK7dStQuXoBEgjVUmhV6rfT/hZvz
+	rimEboHf6kSi5BQMI4h+BsgiU9DxerZKZnXfP08IYer2LH/agCZ69dTZjCxTqozc7EfU=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176346-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-x-oderland-domain-valid: yes
+MIME-Version: 1.0
+Subject: [ovmf test] 176346: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=11f0014c0e3046e3762eac420b760091d0cdc063
+X-Osstest-Versions-That:
+    ovmf=ae6e470252d9312dce20d0b21e7f622c4ca9ad0a
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Feb 2023 14:07:31 +0000
+
+flight 176346 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176346/
+
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 11f0014c0e3046e3762eac420b760091d0cdc063
+baseline version:
+ ovmf                 ae6e470252d9312dce20d0b21e7f622c4ca9ad0a
+
+Last test of basis   176328  2023-02-02 06:12:22 Z    1 days
+Testing same since   176346  2023-02-03 08:11:24 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Rebecca Cran <rebecca@bsdio.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
 
 
-On 2/3/23 08:05, Jan Beulich wrote:
-> On 30.01.2023 10:21, Josef Johansson wrote:
->> On 11/21/22 11:21, Roger Pau Monne wrote:
->>> --- a/arch/x86/xen/enlighten.c
->>> +++ b/arch/x86/xen/enlighten.c
->>> @@ -346,3 +346,30 @@ void xen_arch_unregister_cpu(int num)
->>>    }
->>>    EXPORT_SYMBOL(xen_arch_unregister_cpu);
->>>    #endif
->>> +
->>> +#ifdef CONFIG_XEN_DOM0
->>> +bool __init xen_processor_present(uint32_t acpi_id)
->>> +{
->>> +	unsigned int i, maxid;
->>> +	struct xen_platform_op op = {
->>> +		.cmd = XENPF_get_cpuinfo,
->>> +		.interface_version = XENPF_INTERFACE_VERSION,
->>> +	};
->>> +	int ret = HYPERVISOR_platform_op(&op);
->>> +
->>> +	if (ret)
->>> +		return false;
->>> +
->>> +	maxid = op.u.pcpu_info.max_present;
->>> +	for (i = 0; i <= maxid; i++) {
->>> +		op.u.pcpu_info.xen_cpuid = i;
->>> +		ret = HYPERVISOR_platform_op(&op);
->>> +		if (ret)
->>> +			continue;
->>> +		if (op.u.pcpu_info.acpi_id == acpi_id)
->>> +			return op.u.pcpu_info.flags & XEN_PCPU_FLAGS_ONLINE;
->>> +	}
->>> +
->>> +	return false;
->>> +}
->> My compiler (Default GCC on Fedora 32, compiling for Qubes) complain
->> loudly that the below was missing.
->>
->> +}
->> +EXPORT_SYMBOL(xen_processor_present);
->>
->> `ERROR: MODPOST xen_processor_present
->> [drivers/xen/xen-acpi-processor.ko] undefined!`
->>
->> Same thing with xen_sanitize_pdc in the next patch.
->>
->> +}
->> +EXPORT_SYMBOL(xen_sanitize_pdc);
->>
->> Everything compiled fine after those changes.
-> Except that you may not export __init symbols. The section mismatch checker
-> should actually complain about that.
->
-> Jan
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-That makes sense. Patch 3 does change it from an __init though.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-diff --git a/arch/x86/xen/enlighten.c b/arch/x86/xen/enlighten.c
-index 394dd6675113..a7b41103d3e5 100644
---- a/arch/x86/xen/enlighten.c
-+++ b/arch/x86/xen/enlighten.c
-@@ -348,7 +348,7 @@ EXPORT_SYMBOL(xen_arch_unregister_cpu);
-  #endif
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-  #ifdef CONFIG_XEN_DOM0
--bool __init xen_processor_present(uint32_t acpi_id)
-+bool xen_processor_present(uint32_t acpi_id)
-  {
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-So the change should be in Patch 3 I guess.
+Pushing revision :
 
-Regards
-- Josef
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   ae6e470252..11f0014c0e  11f0014c0e3046e3762eac420b760091d0cdc063 -> xen-tested-master
 
