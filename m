@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68B6968A34D
-	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 20:56:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489368.757730 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99D3268A431
+	for <lists+xen-devel@lfdr.de>; Fri,  3 Feb 2023 22:06:24 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489375.757741 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pO29p-0002Lk-EU; Fri, 03 Feb 2023 19:55:37 +0000
+	id 1pO3F5-00024t-KW; Fri, 03 Feb 2023 21:05:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489368.757730; Fri, 03 Feb 2023 19:55:37 +0000
+Received: by outflank-mailman (output) from mailman id 489375.757741; Fri, 03 Feb 2023 21:05:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pO29p-0002Ja-Be; Fri, 03 Feb 2023 19:55:37 +0000
-Received: by outflank-mailman (input) for mailman id 489368;
- Fri, 03 Feb 2023 19:55:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=NGac=57=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pO29o-0002JU-Ag
- for xen-devel@lists.xenproject.org; Fri, 03 Feb 2023 19:55:36 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id b7aab1fd-a3fc-11ed-933c-83870f6b2ba8;
- Fri, 03 Feb 2023 20:55:34 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 548F461F54;
- Fri,  3 Feb 2023 19:55:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABEC5C433D2;
- Fri,  3 Feb 2023 19:55:30 +0000 (UTC)
+	id 1pO3F5-00022e-GG; Fri, 03 Feb 2023 21:05:07 +0000
+Received: by outflank-mailman (input) for mailman id 489375;
+ Fri, 03 Feb 2023 21:05:06 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pO3F4-00022U-7O; Fri, 03 Feb 2023 21:05:06 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pO3F4-0008Hg-3m; Fri, 03 Feb 2023 21:05:06 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pO3F3-00085O-Q8; Fri, 03 Feb 2023 21:05:05 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pO3F3-0007cE-Pb; Fri, 03 Feb 2023 21:05:05 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,140 +42,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: b7aab1fd-a3fc-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675454131;
-	bh=lLRrHJlFYjFEfeAb9WbJomtpWEWCRRS7nGpExue/71c=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=dRf0W9tLRAZUXD8XVHEU2GATrBroa3rpO3JU+/Ibb3Fawb6eV5S8l7OTC9IV00loZ
-	 naGPZF4JPZOrzHoP7Z2MBrZ7cFvIY4BrE5dDgPkHV6rUYyyPJcLLSDyy1x8lQTNpVI
-	 ZWm520+nJH9+400ubEBk5wdn46fqfrCtuPo2F8Yc1xg8/tLQ8+wxHXsJMN9qaiN858
-	 j9I7WSD5J3zSCGjnAdQsBSugdH5H+teyHYU4HZ9w3WcR2iYkupw4mo7mGrvi0j0ME2
-	 tn65cS/dxCK8v5H8SVtTsFQ+ntonPyevidtJXvXu04NB4gsUUNIbGNgaAHaCt7NQ6J
-	 YhLngzxRJkVOA==
-Date: Fri, 3 Feb 2023 11:55:29 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Luca Fancellu <Luca.Fancellu@arm.com>
-cc: Xen-devel <xen-devel@lists.xenproject.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Jan Beulich <jbeulich@suse.com>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>
-Subject: Re: Proposal: List files in Xen originated from external sources
-In-Reply-To: <BC3ED7B9-4917-491C-934A-EF112849CBF1@arm.com>
-Message-ID: <alpine.DEB.2.22.394.2302031145530.132504@ubuntu-linux-20-04-desktop>
-References: <BC3ED7B9-4917-491C-934A-EF112849CBF1@arm.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=DLVcFpDlfiCnnoy3s8IUq9haqBgg77AvhKqPzJEQVBo=; b=3Nmz+pasJjCigkbR4p2sy32ADJ
+	ELHmmNuwKnRh/nBN2D4swucNkrQ5gVZaBzur+MW85segQuk4EiAxRXYYA6yTqZOheYMgFRabsdGdq
+	ToMls6+/yUntRy3FBKh42x6vXCnnRVjvlGzWcSyM9WqxWjMNuSTR8jTjVqEe6CS47NN4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176343-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-1397571923-1675453621=:132504"
-Content-ID: <alpine.DEB.2.22.394.2302031147040.132504@ubuntu-linux-20-04-desktop>
+Subject: [libvirt test] 176343: tolerable trouble: fail/pass/starved - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-amd64-libvirt-pair:guest-migrate/dst_host/src_host/debian.repeat:fail:heisenbug
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=f2d379e7cb802f922409c35e4831ee52a2162486
+X-Osstest-Versions-That:
+    libvirt=95a278a84591b6a4cfa170eba31c8ec60e82f940
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 03 Feb 2023 21:05:05 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+flight 176343 libvirt real [real]
+flight 176353 libvirt real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176343/
+http://logs.test-lab.xenproject.org/osstest/logs/176353/
 
---8323329-1397571923-1675453621=:132504
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2302031147041.132504@ubuntu-linux-20-04-desktop>
+Failures :-/ but no regressions.
 
-On Fri, 3 Feb 2023, Luca Fancellu wrote:
-> Hi all,
-> 
-> I’m starting a proposal for the external files that needs to be removed from the MISRA scan,
-> the work was originally started by Michal here:
-> https://patchwork.kernel.org/project/xen-devel/patch/20221116092032.4423-1-michal.orzel@amd.com/
-> so I started by that thread, the aim of this work is to have an initial format to start as soon as possible to
-> exclude the external files from the MISRA scan (at least initially from cppcheck).
-> 
-> I think we can use the JSON format because it’s easy to integrate it with python and it’s easy to add/remove
-> fields from the structure without interfering with the other elements during time, so we can define a structure
-> now but if in the future we see the needs for additional field, we can just add them without changes to the
-> analysis script.
-> 
-> In my opinion many of these fields can be left empty in a first push, to let the script exclude the files and during
-> time with the contributions of the community we can add the missing informations.
-> I think it’s easier for the community to pick an entry, do some research to fill the gaps and push, instead to wait
-> until having all the informations before adding the entry.
-> 
-> 
-> This is my first though for the fields, let me know yours:
-> 
-> docs/misra/external-files.json:
-> {
->  "version": "1.0”,
->  "content": [
->    {
->      "path": "relative/path/from/xen/“,
->      "backport": True/False,
->      "origin_project": "URL to origin project",
->      "origin_path": "relative path in the original project",
->      "origin_revision": "revision in original project”
->    }
->  ]
-> }
-> 
-> 
-> Maybe, documentation for this file and the fields can reside in docs/misra/external-files.rst.
-> 
-> Here follows the explanation for the fields:
-> 
-> path: is a relative path from the xen base folder, it can refer to a file or it can be a path to an entire folder
->          (Taking as example libfdt)
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-libvirt-pair 28 guest-migrate/dst_host/src_host/debian.repeat fail pass in 176353-retest
 
-I think "path" should be the only mandatory field. path alone should be
-sufficient for a MISRA C scanner to know if a file or directory should
-be excluded.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
+version targeted for testing:
+ libvirt              f2d379e7cb802f922409c35e4831ee52a2162486
+baseline version:
+ libvirt              95a278a84591b6a4cfa170eba31c8ec60e82f940
 
-> backport: it’s a boolean flag that says if the file is subject to backport, so every file where this field is true
->                 won’t be included in the analysis. A file is subject to backport when it’s external and it doesn’t
->                 accept direct changes (changes needs to be made in the original project and then backported
->                 to Xen)
-> 
-> origin_project: url of the repository where this file was originated
-> 
-> origin_path: relative path in the original project, mostly linked to the original_revision field
-> 
-> origin_revision: revision of the changes in the repository when this file was taken.
- 
-These other fields (backport, origin_project, origin_path,
-origin_revision) are nice to have but not required. They don't provide
-information necessary to exclude something from MISRA C scans, however
-they provide information that are useful to the Xen maintainers.
+Last test of basis   176139  2023-01-26 04:18:49 Z    8 days
+Failing since        176233  2023-01-27 04:18:53 Z    7 days    8 attempts
+Testing same since   176343  2023-02-03 04:20:20 Z    0 days    1 attempts
 
-This is to say that we should introduce these fields only if they are
-useful to us human maintainers, not automated tools.
+------------------------------------------------------------
+People who touched revisions under test:
+  Jiri Denemark <jdenemar@redhat.com>
+  Ján Tomko <jtomko@redhat.com>
+  Martin Kletzander <mkletzan@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Peter Krempa <pkrempa@redhat.com>
 
-That said, I think they are all useful and I would keep them as you did.
-
-
-> Now, I’m not entirely sure about the field “backport”, because if a file is not subject to backport, then why
-> we should not make direct changes? 
-
-"backport" is meant to say that *only* backports are allowed, no direct
-changes to the source file. E.g. only backports from Linux commits, so
-first you need to get your patch in Linux, then we'll take it from
-there.
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                fail    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
-> Shall we maybe change its codestyle and convert it to Xen codestyle?
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-Typically if you only accept backports to a file, it doesn't make any
-sense to convert it to Xen codestyle. But it is not a hard rule and I
-don't think we should say anything in that regard here.
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
-> And then, if the file is not subject to backport and now we “own” the file, there is no more the need to list it
-> in the external file, a commit search can reveal when it was converted to Xen codestyle and removed from
-> the external file list so we don’t lose the history.
+Pushing revision :
 
-Yes, I agree. If a file is coverted to Xen coding style and follows
-MISRA rules, then there is no need to list the file in
-docs/misra/external-files.json.
-
-
-> So we would end up excluding just all the file listed in external-file.json by the analysis.
-
-Right, I think so too
---8323329-1397571923-1675453621=:132504--
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   95a278a845..f2d379e7cb  f2d379e7cb802f922409c35e4831ee52a2162486 -> xen-tested-master
 
