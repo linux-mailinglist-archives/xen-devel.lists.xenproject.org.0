@@ -2,35 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B41068A86B
-	for <lists+xen-devel@lfdr.de>; Sat,  4 Feb 2023 06:40:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489438.757784 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E54068A947
+	for <lists+xen-devel@lfdr.de>; Sat,  4 Feb 2023 10:56:01 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489463.757796 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOBGi-0008Q9-Eh; Sat, 04 Feb 2023 05:39:20 +0000
+	id 1pOFFx-0003L8-RY; Sat, 04 Feb 2023 09:54:49 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489438.757784; Sat, 04 Feb 2023 05:39:20 +0000
+Received: by outflank-mailman (output) from mailman id 489463.757796; Sat, 04 Feb 2023 09:54:49 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOBGi-0008OC-Bu; Sat, 04 Feb 2023 05:39:20 +0000
-Received: by outflank-mailman (input) for mailman id 489438;
- Sat, 04 Feb 2023 05:39:18 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=vsXA=6A=wind.enjellic.com=greg@srs-se1.protection.inumbo.net>)
- id 1pOBGg-0008O6-S5
- for xen-devel@lists.xen.org; Sat, 04 Feb 2023 05:39:18 +0000
-Received: from wind.enjellic.com (wind.enjellic.com [76.10.64.91])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTP
- id 418ac521-a44e-11ed-93b5-47a8fe42b414;
- Sat, 04 Feb 2023 06:39:15 +0100 (CET)
-Received: from wind.enjellic.com (localhost [127.0.0.1])
- by wind.enjellic.com (8.15.2/8.15.2) with ESMTP id 3145cmjc010476;
- Fri, 3 Feb 2023 23:38:48 -0600
-Received: (from greg@localhost)
- by wind.enjellic.com (8.15.2/8.15.2/Submit) id 3145clRD010475;
- Fri, 3 Feb 2023 23:38:47 -0600
+	id 1pOFFx-0003JR-OZ; Sat, 04 Feb 2023 09:54:49 +0000
+Received: by outflank-mailman (input) for mailman id 489463;
+ Sat, 04 Feb 2023 09:54:48 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOFFw-0003JH-Ct; Sat, 04 Feb 2023 09:54:48 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOFFw-0001Ce-7y; Sat, 04 Feb 2023 09:54:48 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOFFv-0003vO-LN; Sat, 04 Feb 2023 09:54:47 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOFFv-00049o-Ks; Sat, 04 Feb 2023 09:54:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,84 +42,401 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 418ac521-a44e-11ed-93b5-47a8fe42b414
-Date: Fri, 3 Feb 2023 23:38:46 -0600
-From: "Dr. Greg" <greg@enjellic.com>
-To: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-        xen-devel@lists.xen.org, linux-sgx@vger.kernel.org,
-        tboot-devel@lists.sourceforge.net
-Cc: paul@paul-moore.com, casey@schaufler-ca.com, corbet@lwn.net
-Subject: Quixote/TSEM: A new security architecture and eco-system for Linux.
-Message-ID: <20230204053846.GA10404@wind.enjellic.com>
-Reply-To: "Dr. Greg" <greg@enjellic.com>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.4i
-X-Greylist: Sender passed SPF test, not delayed by milter-greylist-4.2.3 (wind.enjellic.com [127.0.0.1]); Fri, 03 Feb 2023 23:38:49 -0600 (CST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=1yeGFVM9YXi6XK4MpopmIpyitgnx0JpTaq3EaWZ0FF0=; b=5LoEeorQesnMhw/Ufe8XsWnhL7
+	K5gSWh004zPcO+4rha9H7nQjdeIkg4hbu+4BllNrq9THxKGWDE+NLI3LaAtZzwtf4eggog+pgz2QY
+	ATv8yZwqr05zwU0FxgPeTZQCDO/LXQhx6XEGkQxu49fxdlfwZr/Gn/IuOCGcAymZtvgM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176357-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.17-testing test] 176357: trouble: fail/pass/starved
+X-Osstest-Failures:
+    xen-4.17-testing:build-armhf:<job status>:broken:regression
+    xen-4.17-testing:test-amd64-amd64-qemuu-freebsd11-amd64:<job status>:broken:regression
+    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:<job status>:broken:regression
+    xen-4.17-testing:build-armhf:host-install(4):broken:regression
+    xen-4.17-testing:build-armhf:syslog-server:running:regression
+    xen-4.17-testing:test-amd64-amd64-qemuu-freebsd11-amd64:host-install(5):broken:heisenbug
+    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:host-install(5):broken:heisenbug
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-ovmf-amd64:xen-install:fail:heisenbug
+    xen-4.17-testing:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:heisenbug
+    xen-4.17-testing:test-armhf-armhf-xl-arndale:build-check(1):blocked:nonblocking
+    xen-4.17-testing:build-armhf:capture-logs:broken:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:build-check(1):starved:nonblocking
+    xen-4.17-testing:build-arm64-pvops:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:build-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    xen-4.17-testing:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    xen-4.17-testing:build-armhf:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-xsm:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit1:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-thunderx:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-xsm:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-libvirt-raw:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-vhd:hosts-allocate:starved:nonblocking
+    xen-4.17-testing:test-arm64-arm64-xl-credit2:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=2f8851c37f88e4eb4858e16626fcb2379db71a4f
+X-Osstest-Versions-That:
+    xen=c4972a4272690384b15d5706f2a833aed636895e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 04 Feb 2023 09:54:47 +0000
 
-Good evening, I hope the week has gone well for everyone.
+flight 176357 xen-4.17-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176357/
 
-On behalf of the Quixote team: Izzy the Golden Retriever, Maria, John
-and myself; I am pleased to announce the initial release of the
-Quixote/TSEM Trust Orchestration System.  We believe it uniquely
-positions Linux to demonstrate a new approach to security and security
-co-processor architectures.
+Failures and problems with tests :-(
 
-Quixote/TSEM is based on the notion, that like all other physical
-phenomenon, the security state of a platform or workload can be
-mathematically modeled.  The objective is to provide for Linux
-security what Docker did for Linux namespace technology.
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ build-armhf                     <job status>                 broken  in 176317
+ test-amd64-amd64-qemuu-freebsd11-amd64    <job status>        broken in 176317
+ test-amd64-i386-xl-qemut-win7-amd64    <job status>           broken in 176317
+ build-armhf                4 host-install(4) broken in 176317 REGR. vs. 175447
+ build-armhf                   3 syslog-server                running in 176317
 
-There are two major components to this architecture.
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-qemuu-freebsd11-amd64 5 host-install(5) broken in 176317 pass in 176357
+ test-amd64-i386-xl-qemut-win7-amd64 5 host-install(5) broken in 176317 pass in 176357
+ test-amd64-i386-xl-qemuu-ovmf-amd64 7 xen-install fail in 176317 pass in 176357
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install          fail pass in 176317
 
-TSEM is the Trusted Security Event Modeling system.  It is a new Linux
-Security Module implementation, that at a conceptual level, is a
-blending of integrity measurement and mandatory access controls.  It
-treats the LSM hooks as the basis set for a functional description of
-the security state of a system.
+Tests which did not succeed, but are not blocking:
+ test-armhf-armhf-xl-arndale   1 build-check(1)           blocked in 176317 n/a
+ build-armhf                  5 capture-logs broken in 176317 blocked in 175447
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175447
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175447
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175447
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175447
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175447
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175447
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175447
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175447
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175447
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd       1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-xl-xsm       1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-xl           1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-libvirt-xsm  1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-libvirt-raw  1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-xl-credit2   1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-xl-credit1   1 build-check(1)           starved in 176317 n/a
+ test-arm64-arm64-xl-thunderx  1 build-check(1)           starved in 176317 n/a
+ build-arm64-pvops             2 hosts-allocate           starved in 176317 n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+ test-arm64-arm64-libvirt-xsm  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit1   3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-thunderx  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-xsm       3 hosts-allocate               starved  n/a
+ test-arm64-arm64-libvirt-raw  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl           3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-vhd       3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit2   3 hosts-allocate               starved  n/a
 
-Quixote is the userspace software stack that makes the TSEM LSM
-useful.  It implements the concept of a Trust Orchestration System
-(TOS).  A trust orchestration environment is designed to keep a
-platform or workload in a known trust state.  It thus implements the
-notion of prospective trust rather than the retrospective trust model
-available with TPM based architectures.
+version targeted for testing:
+ xen                  2f8851c37f88e4eb4858e16626fcb2379db71a4f
+baseline version:
+ xen                  c4972a4272690384b15d5706f2a833aed636895e
 
-A patch series implementing the TSEM LSM has been submitted to the
-linux-security-module list for review and inclusion in the upstream
-kernel.
+Last test of basis   175447  2022-12-22 00:40:06 Z   44 days
+Testing same since   176224  2023-01-26 22:14:43 Z    8 days   18 attempts
 
-The source code for the Quixote TOS and pre-compiled binaries for the
-userspace tooling can be found at the following URL:
+------------------------------------------------------------
+People who touched revisions under test:
+  Jason Andryuk <jandryuk@gmail.com>
 
-ftp://ftp.enjellic.com/pub/Quixote
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          starved 
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 starved 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      starved 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  starved 
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  starved 
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 starved 
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 starved 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      starved 
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
 
-The source release includes a selection of TMA's that include Xen, SGX
-and micro-controller implementations.
 
-The kernel patches include a documentation file, that we believe,
-thoroughly discusses the rationale and implementation of the new
-architecture.  To avoid further indemnifying my reputation for
-loquaciousness in e-mail, I will defer interested parties to that
-document for further discussion.  The document is also included in the
-Quixote source code release for those who choose to download that.
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-In addition to initiating a discussion on a different approach to
-security, we hope that this release keeps Casey Schaufler from turning
-more blue than he already is.  Given that I had mentioned to him two
-months ago that a new LSM would become available, "in a couple of
-weeks", that may influence conversations on changes to the Linux LSM
-architecture that are being discussed.  Such is the state of software
-development.... :-)
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-I would be more than happy to field any additional questions that may
-be forthcoming.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-Best wishes for a pleasant weekend.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-As always,
-Dr. Greg
+broken-job build-armhf broken
+broken-job test-amd64-amd64-qemuu-freebsd11-amd64 broken
+broken-job test-amd64-i386-xl-qemut-win7-amd64 broken
 
-The Quixote Project - Flailing at the Travails of Cybersecurity
+Not pushing.
+
+------------------------------------------------------------
+commit 2f8851c37f88e4eb4858e16626fcb2379db71a4f
+Author: Jason Andryuk <jandryuk@gmail.com>
+Date:   Thu Jan 26 11:00:24 2023 +0100
+
+    Revert "tools/xenstore: simplify loop handling connection I/O"
+    
+    I'm observing guest kexec trigger xenstored to abort on a double free.
+    
+    gdb output:
+    Program received signal SIGABRT, Aborted.
+    __pthread_kill_implementation (no_tid=0, signo=6, threadid=140645614258112) at ./nptl/pthread_kill.c:44
+    44    ./nptl/pthread_kill.c: No such file or directory.
+    (gdb) bt
+        at ./nptl/pthread_kill.c:44
+        at ./nptl/pthread_kill.c:78
+        at ./nptl/pthread_kill.c:89
+        at ../sysdeps/posix/raise.c:26
+        at talloc.c:119
+        ptr=ptr@entry=0x559fae724290) at talloc.c:232
+        at xenstored_core.c:2945
+    (gdb) frame 5
+        at talloc.c:119
+    119            TALLOC_ABORT("Bad talloc magic value - double free");
+    (gdb) frame 7
+        at xenstored_core.c:2945
+    2945                talloc_increase_ref_count(conn);
+    (gdb) p conn
+    $1 = (struct connection *) 0x559fae724290
+    
+    Looking at a xenstore trace, we have:
+    IN 0x559fae71f250 20230120 17:40:53 READ (/local/domain/3/image/device-model-dom
+    id )
+    wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
+    ard
+    wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
+    ard
+    wrl: dom    0      0  msec      10000 credit     1000000 reserve          0 disc
+    ard
+    wrl: dom    3      0  msec      10000 credit     1000000 reserve          0 disc
+    ard
+    OUT 0x559fae71f250 20230120 17:40:53 ERROR (ENOENT )
+    wrl: dom    0      1  msec      10000 credit     1000000 reserve        100 disc
+    ard
+    wrl: dom    3      1  msec      10000 credit     1000000 reserve        100 disc
+    ard
+    IN 0x559fae71f250 20230120 17:40:53 RELEASE (3 )
+    DESTROY watch 0x559fae73f630
+    DESTROY watch 0x559fae75ddf0
+    DESTROY watch 0x559fae75ec30
+    DESTROY watch 0x559fae75ea60
+    DESTROY watch 0x559fae732c00
+    DESTROY watch 0x559fae72cea0
+    DESTROY watch 0x559fae728fc0
+    DESTROY watch 0x559fae729570
+    DESTROY connection 0x559fae724290
+    orphaned node /local/domain/3/device/suspend/event-channel deleted
+    orphaned node /local/domain/3/device/vbd/51712 deleted
+    orphaned node /local/domain/3/device/vkbd/0 deleted
+    orphaned node /local/domain/3/device/vif/0 deleted
+    orphaned node /local/domain/3/control/shutdown deleted
+    orphaned node /local/domain/3/control/feature-poweroff deleted
+    orphaned node /local/domain/3/control/feature-reboot deleted
+    orphaned node /local/domain/3/control/feature-suspend deleted
+    orphaned node /local/domain/3/control/feature-s3 deleted
+    orphaned node /local/domain/3/control/feature-s4 deleted
+    orphaned node /local/domain/3/control/sysrq deleted
+    orphaned node /local/domain/3/data deleted
+    orphaned node /local/domain/3/drivers deleted
+    orphaned node /local/domain/3/feature deleted
+    orphaned node /local/domain/3/attr deleted
+    orphaned node /local/domain/3/error deleted
+    orphaned node /local/domain/3/console/backend-id deleted
+    
+    and no further output.
+    
+    The trace shows that DESTROY was called for connection 0x559fae724290,
+    but that is the same pointer (conn) main() was looping through from
+    connections.  So it wasn't actually removed from the connections list?
+    
+    Reverting commit e8e6e42279a5 "tools/xenstore: simplify loop handling
+    connection I/O" fixes the abort/double free.  I think the use of
+    list_for_each_entry_safe is incorrect.  list_for_each_entry_safe makes
+    traversal safe for deleting the current iterator, but RELEASE/do_release
+    will delete some other entry in the connections list.  I think the
+    observed abort is because list_for_each_entry has next pointing to the
+    deleted connection, and it is used in the subsequent iteration.
+    
+    Add a comment explaining the unsuitability of list_for_each_entry_safe.
+    Also notice that the old code takes a reference on next which would
+    prevents a use-after-free.
+    
+    This reverts commit e8e6e42279a5723239c5c40ba4c7f579a979465d.
+    
+    This is XSA-425/CVE-2022-42330.
+    
+    Fixes: e8e6e42279a5 ("tools/xenstore: simplify loop handling connection I/O")
+    Signed-off-by: Jason Andryuk <jandryuk@gmail.com>
+    Reviewed-by: Juergen Gross <jgross@suse.com>
+    Reviewed-by: Julien Grall <jgrall@amazon.com>
+(qemu changes not included)
 
