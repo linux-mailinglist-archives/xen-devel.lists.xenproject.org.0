@@ -2,32 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D0BB68B218
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Feb 2023 23:08:11 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489952.758536 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C3A268B228
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Feb 2023 23:27:38 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489959.758546 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOnAj-0004cE-9p; Sun, 05 Feb 2023 22:07:41 +0000
+	id 1pOnTE-00079v-Q0; Sun, 05 Feb 2023 22:26:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489952.758536; Sun, 05 Feb 2023 22:07:41 +0000
+Received: by outflank-mailman (output) from mailman id 489959.758546; Sun, 05 Feb 2023 22:26:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOnAj-0004Zp-6U; Sun, 05 Feb 2023 22:07:41 +0000
-Received: by outflank-mailman (input) for mailman id 489952;
- Sun, 05 Feb 2023 22:07:39 +0000
+	id 1pOnTE-00077z-NN; Sun, 05 Feb 2023 22:26:48 +0000
+Received: by outflank-mailman (input) for mailman id 489959;
+ Sun, 05 Feb 2023 22:26:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pOnAh-0004Zj-I0
- for xen-devel@lists.xenproject.org; Sun, 05 Feb 2023 22:07:39 +0000
+ (envelope-from <julien@xen.org>) id 1pOnTD-00077t-Nt
+ for xen-devel@lists.xenproject.org; Sun, 05 Feb 2023 22:26:47 +0000
 Received: from xenbits.xenproject.org ([104.239.192.120])
  by mail.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pOnAh-0002cy-9m; Sun, 05 Feb 2023 22:07:39 +0000
+ id 1pOnTD-000396-Dm; Sun, 05 Feb 2023 22:26:47 +0000
 Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
  by xenbits.xenproject.org with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
  (envelope-from <julien@xen.org>)
- id 1pOnAh-0001gP-3a; Sun, 05 Feb 2023 22:07:39 +0000
+ id 1pOnTD-0002Wr-8M; Sun, 05 Feb 2023 22:26:47 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,11 +42,11 @@ Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
 	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
 	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=6AdZCZI6fb0VGIeKRACPAcGvZAbt3Nl8xzVZj9BRxMk=; b=nYTtoyv8vLgYMEMm363LU+Gx0n
-	MS6pgAKJG8fT4PYS2X3fYpDxQZTV7DQh95Y1sD8BIKHyY12NagkW+WtP3yPqThfkLE+AsJFML5N71
-	uINGnwEufrL5ipO5QwBUjYOZquabJVUnhni22TVajcps3fdI7rIuMEuDipOU7tX9VXQE=;
-Message-ID: <2382e2c1-ab5a-ad7d-1426-b323d5f02ba6@xen.org>
-Date: Sun, 5 Feb 2023 22:07:37 +0000
+	bh=mIv17BOurYzN7jXQvzWRTILfXOUEiR2mUpxq65r72Hs=; b=WOls4ws1yNsfmO6GTewF/BBSNN
+	c49sanPU6jFROX91N+PuR7SS8uk3Jez+yzqaT0e7jTDKl9Apvl7KV/NN6G1lcoZVHkXrzBISplDb0
+	EfqOaihXAwJCJJad1PbFE+hLqsVO3mUvVDbGSIaco54odqwdlkA/qfwOQK4aF8jlkl1E=;
+Message-ID: <32e86166-ea9c-ef58-3651-aca635435cb8@xen.org>
+Date: Sun, 5 Feb 2023 22:26:45 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.6.1
@@ -55,215 +55,174 @@ Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
  Bertrand Marquis <bertrand.marquis@arm.com>,
  Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
 References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
- <20230113052914.3845596-24-Penny.Zheng@arm.com>
+ <20230113052914.3845596-37-Penny.Zheng@arm.com>
 From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 23/40] xen/mpu: initialize frametable in MPU system
-In-Reply-To: <20230113052914.3845596-24-Penny.Zheng@arm.com>
+Subject: Re: [PATCH v2 36/40] xen/mpu: Use secure hypervisor timer for
+ AArch64v8R
+In-Reply-To: <20230113052914.3845596-37-Penny.Zheng@arm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Penny,
 
-On 13/01/2023 05:28, Penny Zheng wrote:
-> Xen is using page as the smallest granularity for memory managment.
-> And we want to follow the same concept in MPU system.
-> That is, structure page_info and the frametable which is used for storing
-> and managing page_info is also required in MPU system.
+On 13/01/2023 05:29, Penny Zheng wrote:
+> As AArch64v8R only has one secure state, we have to use secure EL2 hypervisor
+> timer for Xen in secure EL2.
 > 
-> In MPU system, since there is no virtual address translation (VA == PA),
-> we can not use a fixed VA address(FRAMETABLE_VIRT_START) to map frametable
-> like MMU system does.
-> Instead, we define a variable "struct page_info *frame_table" as frametable
-> pointer, and ask boot allocator to allocate memory for frametable.
-> 
-> As frametable is successfully initialized, the convertion between machine frame
-> number/machine address/"virtual address" and page-info structure is
-> ready too, like mfn_to_page/maddr_to_page/virt_to_page, etc
+> In this patch, we introduce a Kconfig option ARM_SECURE_STATE.
+> With this new Kconfig option, we can re-define the timer's
+> system register name in different secure state, but keep the
+> timer code flow unchanged.
 > 
 > Signed-off-by: Penny Zheng <penny.zheng@arm.com>
 > Signed-off-by: Wei Chen <wei.chen@arm.com>
 > ---
->   xen/arch/arm/include/asm/mm.h     | 15 ---------------
->   xen/arch/arm/include/asm/mm_mmu.h | 16 ++++++++++++++++
-
-You are already moving some bits related to the frametable in an earlier 
-patch. So I am a bit surprised to see some changes in mm_mmu.h here.
-
-I would also rather prefer if the code changes are separated from the 
-addition of the MPU code. They could them be moved at the beginning of 
-the series and hopefully be merged before the rest (reducing the size 
-this series).
-
->   xen/arch/arm/include/asm/mm_mpu.h | 17 +++++++++++++++++
->   xen/arch/arm/mm_mpu.c             | 25 +++++++++++++++++++++++++
->   4 files changed, 58 insertions(+), 15 deletions(-)
+>   xen/arch/arm/Kconfig                     |  7 +++++++
+>   xen/arch/arm/include/asm/arm64/sysregs.h | 21 ++++++++++++++++++++-
+>   xen/arch/arm/include/asm/cpregs.h        |  4 ++--
+>   xen/arch/arm/time.c                      | 14 +++++++-------
+>   4 files changed, 36 insertions(+), 10 deletions(-)
 > 
-> diff --git a/xen/arch/arm/include/asm/mm.h b/xen/arch/arm/include/asm/mm.h
-> index e29158028a..7969ec9f98 100644
-> --- a/xen/arch/arm/include/asm/mm.h
-> +++ b/xen/arch/arm/include/asm/mm.h
-> @@ -176,7 +176,6 @@ struct page_info
+> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
+> index 91491341c4..ee942a33bc 100644
+> --- a/xen/arch/arm/Kconfig
+> +++ b/xen/arch/arm/Kconfig
+> @@ -47,6 +47,13 @@ config ARM_EFI
+>   	  be booted as an EFI application. This is only useful for
+>   	  Xen that may run on systems that have UEFI firmware.
 >   
->   #define maddr_get_owner(ma)   (page_get_owner(maddr_to_page((ma))))
->   
-> -#define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
->   /* PDX of the first page in the frame table. */
->   extern unsigned long frametable_base_pdx;
->   
-> @@ -280,20 +279,6 @@ static inline uint64_t gvirt_to_maddr(vaddr_t va, paddr_t *pa,
->   #define virt_to_mfn(va)     __virt_to_mfn(va)
->   #define mfn_to_virt(mfn)    __mfn_to_virt(mfn)
->   
-> -/* Convert between Xen-heap virtual addresses and page-info structures. */
-> -static inline struct page_info *virt_to_page(const void *v)
-> -{
-> -    unsigned long va = (unsigned long)v;
-> -    unsigned long pdx;
-> -
-> -    ASSERT(va >= XENHEAP_VIRT_START);
-> -    ASSERT(va < directmap_virt_end);
-> -
-> -    pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
-> -    pdx += mfn_to_pdx(directmap_mfn_start);
-> -    return frame_table + pdx - frametable_base_pdx;
-> -}
-> -
->   static inline void *page_to_virt(const struct page_info *pg)
->   {
->       return mfn_to_virt(mfn_x(page_to_mfn(pg)));
-> diff --git a/xen/arch/arm/include/asm/mm_mmu.h b/xen/arch/arm/include/asm/mm_mmu.h
-> index 6d7e5ddde7..bc1b04c4c7 100644
-> --- a/xen/arch/arm/include/asm/mm_mmu.h
-> +++ b/xen/arch/arm/include/asm/mm_mmu.h
-> @@ -23,6 +23,8 @@ extern uint64_t init_ttbr;
->   extern void setup_directmap_mappings(unsigned long base_mfn,
->                                        unsigned long nr_mfns);
->   
-> +#define frame_table ((struct page_info *)FRAMETABLE_VIRT_START)
+> +config ARM_SECURE_STATE
+> +	bool "Xen will run in Arm Secure State"
+> +	depends on ARM_V8R
+> +	help
+> +	  In this state, a Processing Element (PE) can access the secure
+> +	  physical address space, and the secure copy of banked registers.
+
+Above, you suggest that the Armv8r will always use the secure EL2 timer. 
+But here you allow the integrator to disable it. Why?
+
 > +
->   static inline paddr_t __virt_to_maddr(vaddr_t va)
->   {
->       uint64_t par = va_to_par(va);
-> @@ -49,6 +51,20 @@ static inline void *maddr_to_virt(paddr_t ma)
->   }
+>   config GICV3
+>   	bool "GICv3 driver"
+>   	depends on !NEW_VGIC
+> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
+> index c46daf6f69..9546e8e3d0 100644
+> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
+> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
+> @@ -458,7 +458,6 @@
+>   #define ZCR_ELx_LEN_SIZE             9
+>   #define ZCR_ELx_LEN_MASK             0x1ff
+>   
+> -/* System registers for Armv8-R AArch64 */
+
+Why is this removed?
+
+>   #ifdef CONFIG_HAS_MPU
+>   
+>   /* EL2 MPU Protection Region Base Address Register encode */
+> @@ -510,6 +509,26 @@
+>   
 >   #endif
 >   
-> +/* Convert between Xen-heap virtual addresses and page-info structures. */
-> +static inline struct page_info *virt_to_page(const void *v)
-> +{
-> +    unsigned long va = (unsigned long)v;
-> +    unsigned long pdx;
+> +#ifdef CONFIG_ARM_SECURE_STATE
+> +/*
+> + * The Armv8-R AArch64 architecture always executes code in Secure
+> + * state with EL2 as the highest Exception.
+> + *
+> + * Hypervisor timer registers for Secure EL2.
+> + */
+> +#define CNTHPS_TVAL_EL2  S3_4_C14_C5_0
+> +#define CNTHPS_CTL_EL2   S3_4_C14_C5_1
+> +#define CNTHPS_CVAL_EL2  S3_4_C14_C5_2
+> +#define CNTHPx_TVAL_EL2  CNTHPS_TVAL_EL2
+> +#define CNTHPx_CTL_EL2   CNTHPS_CTL_EL2
+> +#define CNTHPx_CVAL_EL2  CNTHPS_CVAL_EL2
+> +#else
+> +/* Hypervisor timer registers for Non-Secure EL2. */
+> +#define CNTHPx_TVAL_EL2  CNTHP_TVAL_EL2
+> +#define CNTHPx_CTL_EL2   CNTHP_CTL_EL2
+> +#define CNTHPx_CVAL_EL2  CNTHP_CVAL_EL2
+> +#endif /* CONFIG_ARM_SECURE_STATE */
+
+Given there is only one state, I would actually prefer if we alias 
+CNTHP_*_EL2 to CNTHPS_*_EL2. So there is no renaming.
+
 > +
-> +    ASSERT(va >= XENHEAP_VIRT_START);
-> +    ASSERT(va < directmap_virt_end);
-> +
-> +    pdx = (va - XENHEAP_VIRT_START) >> PAGE_SHIFT;
-> +    pdx += mfn_to_pdx(directmap_mfn_start);
-> +    return frame_table + pdx - frametable_base_pdx;
-> +}
-> +
->   #endif /* __ARCH_ARM_MM_MMU__ */
+>   /* Access to system registers */
 >   
->   /*
-> diff --git a/xen/arch/arm/include/asm/mm_mpu.h b/xen/arch/arm/include/asm/mm_mpu.h
-> index fe6a828a50..eebd5b5d35 100644
-> --- a/xen/arch/arm/include/asm/mm_mpu.h
-> +++ b/xen/arch/arm/include/asm/mm_mpu.h
-> @@ -9,6 +9,8 @@
->    */
->   extern void setup_static_mappings(void);
+>   #define WRITE_SYSREG64(v, name) do {                    \
+> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
+> index 6b083de204..a704677fbc 100644
+> --- a/xen/arch/arm/include/asm/cpregs.h
+> +++ b/xen/arch/arm/include/asm/cpregs.h
+> @@ -374,8 +374,8 @@
+>   #define CLIDR_EL1               CLIDR
+>   #define CNTFRQ_EL0              CNTFRQ
+>   #define CNTHCTL_EL2             CNTHCTL
+> -#define CNTHP_CTL_EL2           CNTHP_CTL
+> -#define CNTHP_CVAL_EL2          CNTHP_CVAL
+> +#define CNTHPx_CTL_EL2          CNTHP_CTL
+> +#define CNTHPx_CVAL_EL2         CNTHP_CVAL
+>   #define CNTKCTL_EL1             CNTKCTL
+>   #define CNTPCT_EL0              CNTPCT
+>   #define CNTP_CTL_EL0            CNTP_CTL
+> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
+> index 433d7be909..3bba733b83 100644
+> --- a/xen/arch/arm/time.c
+> +++ b/xen/arch/arm/time.c
+> @@ -196,13 +196,13 @@ int reprogram_timer(s_time_t timeout)
 >   
-> +extern struct page_info *frame_table;
-> +
->   static inline paddr_t __virt_to_maddr(vaddr_t va)
+>       if ( timeout == 0 )
+>       {
+> -        WRITE_SYSREG(0, CNTHP_CTL_EL2);
+> +        WRITE_SYSREG(0, CNTHPx_CTL_EL2);
+>           return 1;
+>       }
+>   
+>       deadline = ns_to_ticks(timeout) + boot_count;
+> -    WRITE_SYSREG64(deadline, CNTHP_CVAL_EL2);
+> -    WRITE_SYSREG(CNTx_CTL_ENABLE, CNTHP_CTL_EL2);
+> +    WRITE_SYSREG64(deadline, CNTHPx_CVAL_EL2);
+> +    WRITE_SYSREG(CNTx_CTL_ENABLE, CNTHPx_CTL_EL2);
+>       isb();
+>   
+>       /* No need to check for timers in the past; the Generic Timer fires
+> @@ -213,7 +213,7 @@ int reprogram_timer(s_time_t timeout)
+>   /* Handle the firing timer */
+>   static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
 >   {
->       /* In MPU system, VA == PA. */
-> @@ -22,6 +24,21 @@ static inline void *maddr_to_virt(paddr_t ma)
->       return (void *)ma;
+> -    if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
+> +    if ( unlikely(!(READ_SYSREG(CNTHPx_CTL_EL2) & CNTx_CTL_PENDING)) )
+>           return;
+>   
+>       perfc_incr(hyp_timer_irqs);
+> @@ -222,7 +222,7 @@ static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
+>       raise_softirq(TIMER_SOFTIRQ);
+>   
+>       /* Disable the timer to avoid more interrupts */
+> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);
+> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);
 >   }
 >   
-> +/* Convert between virtual address to page-info structure. */
-> +static inline struct page_info *virt_to_page(const void *v)
-> +{
-> +    unsigned long va = (unsigned long)v;
-> +    unsigned long pdx;
-> +
-> +    /*
-> +     * In MPU system, VA == PA, virt_to_maddr() outputs the
-> +     * exact input address.
-> +     */
-You are describing an implementation details of virt_to_maddr() which 
-doesn't matter here.
-
-> +    pdx = mfn_to_pdx(maddr_to_mfn(virt_to_maddr(va)));
-
-Why not using virt_to_mfn()?
-
-Also, I would consider to add ASSERT(mfn_is_valid(...)) to confirm the 
-MFN you pass is covered by the frametable. (This would be a sort of 
-equalivent check to the MMU one).
-
-> +
-> +    return frame_table + pdx - frametable_base_pdx;
-> +}
-> +
->   #endif /* __ARCH_ARM_MM_MPU__ */
+>   static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
+> @@ -281,7 +281,7 @@ void init_timer_interrupt(void)
+>       /* Do not let the VMs program the physical timer, only read the physical counter */
+>       WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
+>       WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
+> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
+> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);   /* Hypervisor's timer disabled */
+>       isb();
 >   
->   /*
-> diff --git a/xen/arch/arm/mm_mpu.c b/xen/arch/arm/mm_mpu.c
-> index f057ee26df..7b282be4fb 100644
-> --- a/xen/arch/arm/mm_mpu.c
-> +++ b/xen/arch/arm/mm_mpu.c
-> @@ -69,6 +69,8 @@ static DEFINE_SPINLOCK(xen_mpumap_lock);
->   
->   static paddr_t dtb_paddr;
->   
-> +struct page_info *frame_table;
-> +
->   /* Write a MPU protection region */
->   #define WRITE_PROTECTION_REGION(sel, pr, prbar_el2, prlar_el2) ({       \
->       uint64_t _sel = sel;                                                \
-> @@ -564,6 +566,29 @@ void __init setup_static_mappings(void)
->       /* TODO: guest memory section, device memory section, boot-module section, etc */
->   }
->   
-> +/* Map a frame table to cover physical addresses ps through pe */
-> +void __init setup_frametable_mappings(paddr_t ps, paddr_t pe)
-
-I have to admit, I am a bit puzzled why you added some stub in earlier 
-patches for some functions but not for others. How did you make the 
-decision on which one to stub?
-
-> +{
-> +    mfn_t base_mfn;
-> +    unsigned long nr_pdxs = mfn_to_pdx(mfn_add(maddr_to_mfn(pe), -1)) -
-> +                            mfn_to_pdx(maddr_to_mfn(ps)) + 1;
-> +    unsigned long frametable_size = nr_pdxs * sizeof(struct page_info);
-> +
-> +    frametable_base_pdx = mfn_to_pdx(maddr_to_mfn(ps));
-> +    frametable_size = ROUNDUP(frametable_size, PAGE_SIZE);
-
-Maybe assert()/panic() the function is not called twice?
-
-> +    /*
-> +     * Since VA == PA in MPU and we've already setup Xenheap mapping
-> +     * in setup_staticheap_mappings(), we could easily deduce the
-> +     * "virtual address" of frame table.
-> +     */
-> +    base_mfn = alloc_boot_pages(frametable_size >> PAGE_SHIFT, 1);
-> +    frame_table = (struct page_info*)mfn_to_virt(base_mfn);
-
-Coding style: "struct page_info *".
-
-> +
-> +    memset(&frame_table[0], 0, nr_pdxs * sizeof(struct page_info));
-> +    memset(&frame_table[nr_pdxs], -1,
-> +           frametable_size - (nr_pdxs * sizeof(struct page_info)));
-> +}
-> +
->   /* TODO: Implementation on the first usage */
->   void dump_hyp_walk(vaddr_t addr)
+>       request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
+> @@ -301,7 +301,7 @@ void init_timer_interrupt(void)
+>   static void deinit_timer_interrupt(void)
 >   {
+>       WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
+> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
+> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);   /* Disable hypervisor's timer */
+>       isb();
+>   
+>       release_irq(timer_irq[TIMER_HYP_PPI], NULL);
 
 Cheers,
 
