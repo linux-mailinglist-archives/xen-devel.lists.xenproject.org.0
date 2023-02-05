@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A11B68AE37
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Feb 2023 05:10:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489669.758005 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4AF68AE38
+	for <lists+xen-devel@lfdr.de>; Sun,  5 Feb 2023 05:14:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489695.758089 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOWKz-0006Fi-GL; Sun, 05 Feb 2023 04:09:09 +0000
+	id 1pOWPl-0000FF-Tb; Sun, 05 Feb 2023 04:14:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489669.758005; Sun, 05 Feb 2023 04:09:09 +0000
+Received: by outflank-mailman (output) from mailman id 489695.758089; Sun, 05 Feb 2023 04:14:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOWKz-0006Dv-8W; Sun, 05 Feb 2023 04:09:09 +0000
-Received: by outflank-mailman (input) for mailman id 489669;
- Sun, 05 Feb 2023 04:09:08 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pOWPl-0000D0-Pu; Sun, 05 Feb 2023 04:14:05 +0000
+Received: by outflank-mailman (input) for mailman id 489695;
+ Sun, 05 Feb 2023 04:14:04 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=BXn3=6B=bu.edu=alxndr@srs-se1.protection.inumbo.net>)
- id 1pOWKx-0006Dp-K2
- for xen-devel@lists.xenproject.org; Sun, 05 Feb 2023 04:09:08 +0000
-Received: from esa6.hc2706-39.iphmx.com (esa6.hc2706-39.iphmx.com
- [216.71.137.79]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d19caf28-a50a-11ed-933c-83870f6b2ba8;
- Sun, 05 Feb 2023 05:09:03 +0100 (CET)
-Received: from mail-oa1-f71.google.com ([209.85.160.71])
- by ob1.hc2706-39.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 04 Feb 2023 23:08:59 -0500
-Received: by mail-oa1-f71.google.com with SMTP id
- 586e51a60fabf-163aaf19aecso4941292fac.15
- for <xen-devel@lists.xenproject.org>; Sat, 04 Feb 2023 20:08:59 -0800 (PST)
-Received: from mozz.bu.edu (mozz.bu.edu. [128.197.127.33])
- by smtp.gmail.com with ESMTPSA id
- x11-20020a05620a448b00b0072c01a3b6aasm5031450qkp.100.2023.02.04.20.08.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 04 Feb 2023 20:08:47 -0800 (PST)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOWPk-0000CG-2c; Sun, 05 Feb 2023 04:14:04 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOWPk-0000vP-0L; Sun, 05 Feb 2023 04:14:04 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOWPj-00086h-GN; Sun, 05 Feb 2023 04:14:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOWPj-0001mH-Ft; Sun, 05 Feb 2023 04:14:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,521 +42,304 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d19caf28-a50a-11ed-933c-83870f6b2ba8
-X-IronPort-RemoteIP: 209.85.160.71
-X-IronPort-MID: 260002417
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutgoingMail
-X-IronPort-SenderGroup: RELAY_GSUITE
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:o7ipUawOjs9y91eAYMJ6t+dzxyrEfRIJ4+MujC+fZmUNrF6WrkVWx
- mpMXDjSM/aMYDf1LYhwat7lp0hT7MfUn9BkTQo+qC00HyNBpPSeOdnIdU2Y0wF+jyHgoOCLy
- +1EN7Es+ehtFie0Si+Fa+Sn9j8kkPnSHdIQMcacUghpXwhoVSw9vhxqnu89k+ZAjMOwRgiAo
- rsemeWGULOe82MyYz18B56r8ks156yo4G9A5TTSWNgQ1LPgvyhNZH4gDfzpR5fIatE8NvK3Q
- e/F0Ia48gvxl/v6Ior4+lpTWhRiro/6ZGBiuFIPM0SRqkEqShgJ70oOHKF0hXG7Ktm+t4sZJ
- N1l7fRcQOqyV0HGsL11vxJwSkmSMUDakVNuzLfWXcG7liX7n3XQL/pGBXwIO9cj4cBLMD9B5
- 6xEDTlTS0qlrrfjqF67YrEEasULKcDqOMYYsyglw26AS/khRp/HTuPB4towMDUY3JgfW6aDI
- ZNHMXwwNXwsYDUWUrsTIJs6jOGknFH1bntVpE/9Sa8fuTaLlFQrjOGyWDbTUtqxHstLpB/Gm
- jP95WSoMAxZJvmhlDXQpxpAgceKx0sXQrk6BLC+s/JnnlCX7mgSEwENE0u2p+GjjUyzUM4ZL
- FYbkhfCtoA3/U2vC970Bli2/yfCsRkbVN5dVeY97Wlh15bp3upQPUBcJhYpVTDsnJ5eqeACv
- rNRo+7UOA==
-IronPort-HdrOrdr: A9a23:/Y4xZqtC1AzKSxfejIPXBUAm7skDoNV00zEX/kB9WHVpmwKj5q
- STdZMgpGPJYVMqMk3I9urwXpVoLUmsl6KdpLNhRotKPzOWxVdAUrsSlLcKqgeIc0aOldK1l5
- 0QCZSWYOeRMbEQt7ec3ODXKadE/PC3tIqFv6Px9UtMcC1dQ51czm5Ce3mm+45NKDWux6BVKH
- NR3KR6TkKbCAwqhw2AaRg4Y9Q=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bu.edu; s=s1gsbu;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IOvqN3WejMEJLJDUyDO4/PFLr/b6LzRjKv9Yr9nPTE8=;
-        b=aN6T2mk2T6GtehZIfi/g96OZW+dXClvobi5ThTY61Ag1KE2jshi2nyCYulicTs1iDT
-         vPfV3Ty2lKYS0a1P8VJR99ACPU6Kzpl1Yi2SJOrEv0WVN+UgRPBtioNaBN1de5PYM7h3
-         zzSuYRm/5OSX1PdIRm33dp5QzGsFyhdDq6sEHweuKg0CVEYHl1CslAR62OqLWsQj/yxq
-         ahEo2iEiWHLO4exDq6MWdHTqYfb1Xac9nOdTG59KMh42ud2HKQE6uxtZwc2WKDsJCWp7
-         dqUxgpkx0Sy/t9YhA3KX+ftYjWTtHDA0+OiMibGrKFS1chTiZkLmfdlChsJgD3QSsPXT
-         UTYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=IOvqN3WejMEJLJDUyDO4/PFLr/b6LzRjKv9Yr9nPTE8=;
-        b=KWLzY/0eYY4AyjAmokF62gmipl6A+nZgcZYiYakcdMijSOGirku1uNzf9iMDEhypKd
-         0ioeezBRE7CVKowiNhZMHkdfejJmFCHA1VfiQI+CrbWM6p0PnoqYXT5LsXW01e/jwQPV
-         7peUuyz7uWbptBb71z7ji92jbgXWmcQK/AMQN7ybMsUH2GTMvryL0EEdEgotE9sYiCq0
-         2NninnHf1rKk1lgSjB4C/ITXFiULZ/o5PsPiLMlMb3FP97g3WTRe3VKq3quizX1JM2JM
-         2tUi8hAFGg5hgAQvdMPJoLtp1YBd10JHvV0SMz7w39WIgFDYf9PNG88V1S/qnTN5jdrw
-         sk9g==
-X-Gm-Message-State: AO0yUKXt1iiytUwgul4sOEzXAdRMiJdra1dZVVGZRScG/rhwg+HfrppN
-	NMf546NdfPsmBSptf83pis3p1hVZM7UZhj+Homj47bmTYm+jaVxerCjql6LG9urg0XZG2mD9xwK
-	15TVulG3ePDfEXTw8nm/P7YCRjvNsiKdjCN58+6KVzg==
-X-Received: by 2002:ac8:7770:0:b0:3b9:bc8c:c20c with SMTP id h16-20020ac87770000000b003b9bc8cc20cmr11909895qtu.23.1675570127799;
-        Sat, 04 Feb 2023 20:08:47 -0800 (PST)
-X-Google-Smtp-Source: AK7set/xx0BTLv3UNnqT9/Q54Sxp1Rx3BtxUlZ/n9BQOGfQx1yKHQ1RB/enyaIyXA11Ar0ZAtj7Kcw==
-X-Received: by 2002:ac8:7770:0:b0:3b9:bc8c:c20c with SMTP id h16-20020ac87770000000b003b9bc8cc20cmr11909853qtu.23.1675570127403;
-        Sat, 04 Feb 2023 20:08:47 -0800 (PST)
-From: Alexander Bulekov <alxndr@bu.edu>
-To: qemu-devel@nongnu.org
-Cc: Alexander Bulekov <alxndr@bu.edu>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>,
-	Mauro Matteo Cascella <mcascell@redhat.com>,
-	Peter Xu <peterx@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
-	David Hildenbrand <david@redhat.com>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Thomas Huth <thuth@redhat.com>,
-	Laurent Vivier <lvivier@redhat.com>,
-	Bandan Das <bsd@redhat.com>,
-	"Edgar E . Iglesias" <edgar.iglesias@gmail.com>,
-	Darren Kenny <darren.kenny@oracle.com>,
-	Bin Meng <bin.meng@windriver.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	"Michael S . Tsirkin" <mst@redhat.com>,
-	Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
-	=?UTF-8?q?Daniel=20P=20=2E=20Berrang=C3=A9?= <berrange@redhat.com>,
-	Eduardo Habkost <eduardo@habkost.net>,
-	Jon Maloy <jmaloy@redhat.com>,
-	Siqi Chen <coc.cyqh@gmail.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Kevin Wolf <kwolf@redhat.com>,
-	Hanna Reitz <hreitz@redhat.com>,
-	Amit Shah <amit@kernel.org>,
-	=?UTF-8?q?Marc-Andr=C3=A9=20Lureau?= <marcandre.lureau@redhat.com>,
-	John Snow <jsnow@redhat.com>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>,
-	Keith Busch <kbusch@kernel.org>,
-	Klaus Jensen <its@irrelevant.dk>,
-	Fam Zheng <fam@euphon.net>,
-	Dmitry Fleytman <dmitry.fleytman@gmail.com>,
-	"Gonglei (Arei)" <arei.gonglei@huawei.com>,
-	xen-devel@lists.xenproject.org (open list:X86 Xen CPUs),
-	qemu-block@nongnu.org (open list:virtio-blk),
-	qemu-arm@nongnu.org (open list:i.MX31 (kzm)),
-	qemu-ppc@nongnu.org (open list:Old World (g3beige))
-Subject: [PATCH v6 4/4] hw: replace most qemu_bh_new calls with qemu_bh_new_guarded
-Date: Sat,  4 Feb 2023 23:07:37 -0500
-Message-Id: <20230205040737.3567731-5-alxndr@bu.edu>
-X-Mailer: git-send-email 2.39.0
-In-Reply-To: <20230205040737.3567731-1-alxndr@bu.edu>
-References: <20230205040737.3567731-1-alxndr@bu.edu>
-MIME-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=idQY+tCC54glQgflnj4QGhge+AqklcI4vcZPn9e9Bag=; b=CSjQ93WMhSfRtNLab1b/OJxwCD
+	ssQYpYz3AQdevQ6Jm4J3KRykrCidvo0sMsHua98xRFcFu4gzH0aoPV13SFNANZUIeuC5LnLm6NURb
+	FYE5tL14x92mG1JKV0hIaqdm3rnmW/6YODIwWOZ3jQbNVte492FPea4RCBPZPXxsNp4Q=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176365-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CES-GSUITE_AUTH: bf3aNvsZpxl8
+MIME-Version: 1.0
+Subject: [xen-unstable test] 176365: tolerable trouble: fail/pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable:test-amd64-i386-qemuu-rhel6hvm-amd:xen-install:fail:heisenbug
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:build-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    xen-unstable:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=a21c9e6ddfee6d21dff1f18c299cb94a47b32c9e
+X-Osstest-Versions-That:
+    xen=f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sun, 05 Feb 2023 04:14:03 +0000
 
-This protects devices from bh->mmio reentrancy issues.
+flight 176365 xen-unstable real [real]
+flight 176385 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176365/
+http://logs.test-lab.xenproject.org/osstest/logs/176385/
 
-Reviewed-by: Darren Kenny <darren.kenny@oracle.com>
-Reviewed-by: Stefan Hajnoczi <stefanha@redhat.com>
-Signed-off-by: Alexander Bulekov <alxndr@bu.edu>
----
- hw/9pfs/xen-9p-backend.c        | 4 +++-
- hw/block/dataplane/virtio-blk.c | 3 ++-
- hw/block/dataplane/xen-block.c  | 5 +++--
- hw/char/virtio-serial-bus.c     | 3 ++-
- hw/display/qxl.c                | 9 ++++++---
- hw/display/virtio-gpu.c         | 6 ++++--
- hw/ide/ahci.c                   | 3 ++-
- hw/ide/core.c                   | 3 ++-
- hw/misc/imx_rngc.c              | 6 ++++--
- hw/misc/macio/mac_dbdma.c       | 2 +-
- hw/net/virtio-net.c             | 3 ++-
- hw/nvme/ctrl.c                  | 6 ++++--
- hw/scsi/mptsas.c                | 3 ++-
- hw/scsi/scsi-bus.c              | 3 ++-
- hw/scsi/vmw_pvscsi.c            | 3 ++-
- hw/usb/dev-uas.c                | 3 ++-
- hw/usb/hcd-dwc2.c               | 3 ++-
- hw/usb/hcd-ehci.c               | 3 ++-
- hw/usb/hcd-uhci.c               | 2 +-
- hw/usb/host-libusb.c            | 6 ++++--
- hw/usb/redirect.c               | 6 ++++--
- hw/usb/xen-usb.c                | 3 ++-
- hw/virtio/virtio-balloon.c      | 5 +++--
- hw/virtio/virtio-crypto.c       | 3 ++-
- 24 files changed, 63 insertions(+), 33 deletions(-)
+Failures :-/ but no regressions.
 
-diff --git a/hw/9pfs/xen-9p-backend.c b/hw/9pfs/xen-9p-backend.c
-index 65c4979c3c..f077c1b255 100644
---- a/hw/9pfs/xen-9p-backend.c
-+++ b/hw/9pfs/xen-9p-backend.c
-@@ -441,7 +441,9 @@ static int xen_9pfs_connect(struct XenLegacyDevice *xendev)
-         xen_9pdev->rings[i].ring.out = xen_9pdev->rings[i].data +
-                                        XEN_FLEX_RING_SIZE(ring_order);
- 
--        xen_9pdev->rings[i].bh = qemu_bh_new(xen_9pfs_bh, &xen_9pdev->rings[i]);
-+        xen_9pdev->rings[i].bh = qemu_bh_new_guarded(xen_9pfs_bh,
-+                                                     &xen_9pdev->rings[i],
-+                                                     &DEVICE(xen_9pdev)->mem_reentrancy_guard);
-         xen_9pdev->rings[i].out_cons = 0;
-         xen_9pdev->rings[i].out_size = 0;
-         xen_9pdev->rings[i].inprogress = false;
-diff --git a/hw/block/dataplane/virtio-blk.c b/hw/block/dataplane/virtio-blk.c
-index b28d81737e..a6202997ee 100644
---- a/hw/block/dataplane/virtio-blk.c
-+++ b/hw/block/dataplane/virtio-blk.c
-@@ -127,7 +127,8 @@ bool virtio_blk_data_plane_create(VirtIODevice *vdev, VirtIOBlkConf *conf,
-     } else {
-         s->ctx = qemu_get_aio_context();
-     }
--    s->bh = aio_bh_new(s->ctx, notify_guest_bh, s);
-+    s->bh = aio_bh_new_guarded(s->ctx, notify_guest_bh, s,
-+                               &DEVICE(vdev)->mem_reentrancy_guard);
-     s->batch_notify_vqs = bitmap_new(conf->num_queues);
- 
-     *dataplane = s;
-diff --git a/hw/block/dataplane/xen-block.c b/hw/block/dataplane/xen-block.c
-index 2785b9e849..e31806b317 100644
---- a/hw/block/dataplane/xen-block.c
-+++ b/hw/block/dataplane/xen-block.c
-@@ -632,8 +632,9 @@ XenBlockDataPlane *xen_block_dataplane_create(XenDevice *xendev,
-     } else {
-         dataplane->ctx = qemu_get_aio_context();
-     }
--    dataplane->bh = aio_bh_new(dataplane->ctx, xen_block_dataplane_bh,
--                               dataplane);
-+    dataplane->bh = aio_bh_new_guarded(dataplane->ctx, xen_block_dataplane_bh,
-+                                       dataplane,
-+                                       &DEVICE(xendev)->mem_reentrancy_guard);
- 
-     return dataplane;
- }
-diff --git a/hw/char/virtio-serial-bus.c b/hw/char/virtio-serial-bus.c
-index 7d4601cb5d..dd619f0731 100644
---- a/hw/char/virtio-serial-bus.c
-+++ b/hw/char/virtio-serial-bus.c
-@@ -985,7 +985,8 @@ static void virtser_port_device_realize(DeviceState *dev, Error **errp)
-         return;
-     }
- 
--    port->bh = qemu_bh_new(flush_queued_data_bh, port);
-+    port->bh = qemu_bh_new_guarded(flush_queued_data_bh, port,
-+                                   &dev->mem_reentrancy_guard);
-     port->elem = NULL;
- }
- 
-diff --git a/hw/display/qxl.c b/hw/display/qxl.c
-index ec712d3ca2..c0460c4ef1 100644
---- a/hw/display/qxl.c
-+++ b/hw/display/qxl.c
-@@ -2201,11 +2201,14 @@ static void qxl_realize_common(PCIQXLDevice *qxl, Error **errp)
- 
-     qemu_add_vm_change_state_handler(qxl_vm_change_state_handler, qxl);
- 
--    qxl->update_irq = qemu_bh_new(qxl_update_irq_bh, qxl);
-+    qxl->update_irq = qemu_bh_new_guarded(qxl_update_irq_bh, qxl,
-+                                          &DEVICE(qxl)->mem_reentrancy_guard);
-     qxl_reset_state(qxl);
- 
--    qxl->update_area_bh = qemu_bh_new(qxl_render_update_area_bh, qxl);
--    qxl->ssd.cursor_bh = qemu_bh_new(qemu_spice_cursor_refresh_bh, &qxl->ssd);
-+    qxl->update_area_bh = qemu_bh_new_guarded(qxl_render_update_area_bh, qxl,
-+                                              &DEVICE(qxl)->mem_reentrancy_guard);
-+    qxl->ssd.cursor_bh = qemu_bh_new_guarded(qemu_spice_cursor_refresh_bh, &qxl->ssd,
-+                                             &DEVICE(qxl)->mem_reentrancy_guard);
- }
- 
- static void qxl_realize_primary(PCIDevice *dev, Error **errp)
-diff --git a/hw/display/virtio-gpu.c b/hw/display/virtio-gpu.c
-index 5e15c79b94..66ac9b6cc5 100644
---- a/hw/display/virtio-gpu.c
-+++ b/hw/display/virtio-gpu.c
-@@ -1339,8 +1339,10 @@ void virtio_gpu_device_realize(DeviceState *qdev, Error **errp)
- 
-     g->ctrl_vq = virtio_get_queue(vdev, 0);
-     g->cursor_vq = virtio_get_queue(vdev, 1);
--    g->ctrl_bh = qemu_bh_new(virtio_gpu_ctrl_bh, g);
--    g->cursor_bh = qemu_bh_new(virtio_gpu_cursor_bh, g);
-+    g->ctrl_bh = qemu_bh_new_guarded(virtio_gpu_ctrl_bh, g,
-+                                     &qdev->mem_reentrancy_guard);
-+    g->cursor_bh = qemu_bh_new_guarded(virtio_gpu_cursor_bh, g,
-+                                       &qdev->mem_reentrancy_guard);
-     QTAILQ_INIT(&g->reslist);
-     QTAILQ_INIT(&g->cmdq);
-     QTAILQ_INIT(&g->fenceq);
-diff --git a/hw/ide/ahci.c b/hw/ide/ahci.c
-index 7ce001cacd..37091150cb 100644
---- a/hw/ide/ahci.c
-+++ b/hw/ide/ahci.c
-@@ -1508,7 +1508,8 @@ static void ahci_cmd_done(const IDEDMA *dma)
-     ahci_write_fis_d2h(ad);
- 
-     if (ad->port_regs.cmd_issue && !ad->check_bh) {
--        ad->check_bh = qemu_bh_new(ahci_check_cmd_bh, ad);
-+        ad->check_bh = qemu_bh_new_guarded(ahci_check_cmd_bh, ad,
-+                                           &DEVICE(ad)->mem_reentrancy_guard);
-         qemu_bh_schedule(ad->check_bh);
-     }
- }
-diff --git a/hw/ide/core.c b/hw/ide/core.c
-index 5d1039378f..8c8d1a8ec2 100644
---- a/hw/ide/core.c
-+++ b/hw/ide/core.c
-@@ -519,7 +519,8 @@ BlockAIOCB *ide_issue_trim(
- 
-     iocb = blk_aio_get(&trim_aiocb_info, s->blk, cb, cb_opaque);
-     iocb->s = s;
--    iocb->bh = qemu_bh_new(ide_trim_bh_cb, iocb);
-+    iocb->bh = qemu_bh_new_guarded(ide_trim_bh_cb, iocb,
-+                                   &DEVICE(s)->mem_reentrancy_guard);
-     iocb->ret = 0;
-     iocb->qiov = qiov;
-     iocb->i = -1;
-diff --git a/hw/misc/imx_rngc.c b/hw/misc/imx_rngc.c
-index 632c03779c..082c6980ad 100644
---- a/hw/misc/imx_rngc.c
-+++ b/hw/misc/imx_rngc.c
-@@ -228,8 +228,10 @@ static void imx_rngc_realize(DeviceState *dev, Error **errp)
-     sysbus_init_mmio(sbd, &s->iomem);
- 
-     sysbus_init_irq(sbd, &s->irq);
--    s->self_test_bh = qemu_bh_new(imx_rngc_self_test, s);
--    s->seed_bh = qemu_bh_new(imx_rngc_seed, s);
-+    s->self_test_bh = qemu_bh_new_guarded(imx_rngc_self_test, s,
-+                                          &dev->mem_reentrancy_guard);
-+    s->seed_bh = qemu_bh_new_guarded(imx_rngc_seed, s,
-+                                     &dev->mem_reentrancy_guard);
- }
- 
- static void imx_rngc_reset(DeviceState *dev)
-diff --git a/hw/misc/macio/mac_dbdma.c b/hw/misc/macio/mac_dbdma.c
-index 43bb1f56ba..80a789f32b 100644
---- a/hw/misc/macio/mac_dbdma.c
-+++ b/hw/misc/macio/mac_dbdma.c
-@@ -914,7 +914,7 @@ static void mac_dbdma_realize(DeviceState *dev, Error **errp)
- {
-     DBDMAState *s = MAC_DBDMA(dev);
- 
--    s->bh = qemu_bh_new(DBDMA_run_bh, s);
-+    s->bh = qemu_bh_new_guarded(DBDMA_run_bh, s, &dev->mem_reentrancy_guard);
- }
- 
- static void mac_dbdma_class_init(ObjectClass *oc, void *data)
-diff --git a/hw/net/virtio-net.c b/hw/net/virtio-net.c
-index 3ae909041a..a170c724de 100644
---- a/hw/net/virtio-net.c
-+++ b/hw/net/virtio-net.c
-@@ -2885,7 +2885,8 @@ static void virtio_net_add_queue(VirtIONet *n, int index)
-         n->vqs[index].tx_vq =
-             virtio_add_queue(vdev, n->net_conf.tx_queue_size,
-                              virtio_net_handle_tx_bh);
--        n->vqs[index].tx_bh = qemu_bh_new(virtio_net_tx_bh, &n->vqs[index]);
-+        n->vqs[index].tx_bh = qemu_bh_new_guarded(virtio_net_tx_bh, &n->vqs[index],
-+                                                  &DEVICE(vdev)->mem_reentrancy_guard);
-     }
- 
-     n->vqs[index].tx_waiting = 0;
-diff --git a/hw/nvme/ctrl.c b/hw/nvme/ctrl.c
-index f25cc2c235..dcb250e772 100644
---- a/hw/nvme/ctrl.c
-+++ b/hw/nvme/ctrl.c
-@@ -4318,7 +4318,8 @@ static void nvme_init_sq(NvmeSQueue *sq, NvmeCtrl *n, uint64_t dma_addr,
-         QTAILQ_INSERT_TAIL(&(sq->req_list), &sq->io_req[i], entry);
-     }
- 
--    sq->bh = qemu_bh_new(nvme_process_sq, sq);
-+    sq->bh = qemu_bh_new_guarded(nvme_process_sq, sq,
-+                                 &DEVICE(sq->ctrl)->mem_reentrancy_guard);
- 
-     if (n->dbbuf_enabled) {
-         sq->db_addr = n->dbbuf_dbs + (sqid << 3);
-@@ -4708,7 +4709,8 @@ static void nvme_init_cq(NvmeCQueue *cq, NvmeCtrl *n, uint64_t dma_addr,
-         }
-     }
-     n->cq[cqid] = cq;
--    cq->bh = qemu_bh_new(nvme_post_cqes, cq);
-+    cq->bh = qemu_bh_new_guarded(nvme_post_cqes, cq,
-+                                 &DEVICE(cq->ctrl)->mem_reentrancy_guard);
- }
- 
- static uint16_t nvme_create_cq(NvmeCtrl *n, NvmeRequest *req)
-diff --git a/hw/scsi/mptsas.c b/hw/scsi/mptsas.c
-index c485da792c..3de288b454 100644
---- a/hw/scsi/mptsas.c
-+++ b/hw/scsi/mptsas.c
-@@ -1322,7 +1322,8 @@ static void mptsas_scsi_realize(PCIDevice *dev, Error **errp)
-     }
-     s->max_devices = MPTSAS_NUM_PORTS;
- 
--    s->request_bh = qemu_bh_new(mptsas_fetch_requests, s);
-+    s->request_bh = qemu_bh_new_guarded(mptsas_fetch_requests, s,
-+                                        &DEVICE(dev)->mem_reentrancy_guard);
- 
-     scsi_bus_init(&s->bus, sizeof(s->bus), &dev->qdev, &mptsas_scsi_info);
- }
-diff --git a/hw/scsi/scsi-bus.c b/hw/scsi/scsi-bus.c
-index ceceafb2cd..e5c9f7a53d 100644
---- a/hw/scsi/scsi-bus.c
-+++ b/hw/scsi/scsi-bus.c
-@@ -193,7 +193,8 @@ static void scsi_dma_restart_cb(void *opaque, bool running, RunState state)
-         AioContext *ctx = blk_get_aio_context(s->conf.blk);
-         /* The reference is dropped in scsi_dma_restart_bh.*/
-         object_ref(OBJECT(s));
--        s->bh = aio_bh_new(ctx, scsi_dma_restart_bh, s);
-+        s->bh = aio_bh_new_guarded(ctx, scsi_dma_restart_bh, s,
-+                                   &DEVICE(s)->mem_reentrancy_guard);
-         qemu_bh_schedule(s->bh);
-     }
- }
-diff --git a/hw/scsi/vmw_pvscsi.c b/hw/scsi/vmw_pvscsi.c
-index fa76696855..4de34536e9 100644
---- a/hw/scsi/vmw_pvscsi.c
-+++ b/hw/scsi/vmw_pvscsi.c
-@@ -1184,7 +1184,8 @@ pvscsi_realizefn(PCIDevice *pci_dev, Error **errp)
-         pcie_endpoint_cap_init(pci_dev, PVSCSI_EXP_EP_OFFSET);
-     }
- 
--    s->completion_worker = qemu_bh_new(pvscsi_process_completion_queue, s);
-+    s->completion_worker = qemu_bh_new_guarded(pvscsi_process_completion_queue, s,
-+                                               &DEVICE(pci_dev)->mem_reentrancy_guard);
- 
-     scsi_bus_init(&s->bus, sizeof(s->bus), DEVICE(pci_dev), &pvscsi_scsi_info);
-     /* override default SCSI bus hotplug-handler, with pvscsi's one */
-diff --git a/hw/usb/dev-uas.c b/hw/usb/dev-uas.c
-index 88f99c05d5..f013ded91e 100644
---- a/hw/usb/dev-uas.c
-+++ b/hw/usb/dev-uas.c
-@@ -937,7 +937,8 @@ static void usb_uas_realize(USBDevice *dev, Error **errp)
- 
-     QTAILQ_INIT(&uas->results);
-     QTAILQ_INIT(&uas->requests);
--    uas->status_bh = qemu_bh_new(usb_uas_send_status_bh, uas);
-+    uas->status_bh = qemu_bh_new_guarded(usb_uas_send_status_bh, uas,
-+                                         &d->mem_reentrancy_guard);
- 
-     dev->flags |= (1 << USB_DEV_FLAG_IS_SCSI_STORAGE);
-     scsi_bus_init(&uas->bus, sizeof(uas->bus), DEVICE(dev), &usb_uas_scsi_info);
-diff --git a/hw/usb/hcd-dwc2.c b/hw/usb/hcd-dwc2.c
-index 8755e9cbb0..a0c4e782b2 100644
---- a/hw/usb/hcd-dwc2.c
-+++ b/hw/usb/hcd-dwc2.c
-@@ -1364,7 +1364,8 @@ static void dwc2_realize(DeviceState *dev, Error **errp)
-     s->fi = USB_FRMINTVL - 1;
-     s->eof_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, dwc2_frame_boundary, s);
-     s->frame_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, dwc2_work_timer, s);
--    s->async_bh = qemu_bh_new(dwc2_work_bh, s);
-+    s->async_bh = qemu_bh_new_guarded(dwc2_work_bh, s,
-+                                      &dev->mem_reentrancy_guard);
- 
-     sysbus_init_irq(sbd, &s->irq);
- }
-diff --git a/hw/usb/hcd-ehci.c b/hw/usb/hcd-ehci.c
-index d4da8dcb8d..c930c60921 100644
---- a/hw/usb/hcd-ehci.c
-+++ b/hw/usb/hcd-ehci.c
-@@ -2533,7 +2533,8 @@ void usb_ehci_realize(EHCIState *s, DeviceState *dev, Error **errp)
-     }
- 
-     s->frame_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, ehci_work_timer, s);
--    s->async_bh = qemu_bh_new(ehci_work_bh, s);
-+    s->async_bh = qemu_bh_new_guarded(ehci_work_bh, s,
-+                                      &dev->mem_reentrancy_guard);
-     s->device = dev;
- 
-     s->vmstate = qemu_add_vm_change_state_handler(usb_ehci_vm_state_change, s);
-diff --git a/hw/usb/hcd-uhci.c b/hw/usb/hcd-uhci.c
-index 30ae0104bb..bdc891f57a 100644
---- a/hw/usb/hcd-uhci.c
-+++ b/hw/usb/hcd-uhci.c
-@@ -1193,7 +1193,7 @@ void usb_uhci_common_realize(PCIDevice *dev, Error **errp)
-                               USB_SPEED_MASK_LOW | USB_SPEED_MASK_FULL);
-         }
-     }
--    s->bh = qemu_bh_new(uhci_bh, s);
-+    s->bh = qemu_bh_new_guarded(uhci_bh, s, &DEVICE(dev)->mem_reentrancy_guard);
-     s->frame_timer = timer_new_ns(QEMU_CLOCK_VIRTUAL, uhci_frame_timer, s);
-     s->num_ports_vmstate = NB_PORTS;
-     QTAILQ_INIT(&s->queues);
-diff --git a/hw/usb/host-libusb.c b/hw/usb/host-libusb.c
-index 176868d345..f500db85ab 100644
---- a/hw/usb/host-libusb.c
-+++ b/hw/usb/host-libusb.c
-@@ -1141,7 +1141,8 @@ static void usb_host_nodev_bh(void *opaque)
- static void usb_host_nodev(USBHostDevice *s)
- {
-     if (!s->bh_nodev) {
--        s->bh_nodev = qemu_bh_new(usb_host_nodev_bh, s);
-+        s->bh_nodev = qemu_bh_new_guarded(usb_host_nodev_bh, s,
-+                                          &DEVICE(s)->mem_reentrancy_guard);
-     }
-     qemu_bh_schedule(s->bh_nodev);
- }
-@@ -1739,7 +1740,8 @@ static int usb_host_post_load(void *opaque, int version_id)
-     USBHostDevice *dev = opaque;
- 
-     if (!dev->bh_postld) {
--        dev->bh_postld = qemu_bh_new(usb_host_post_load_bh, dev);
-+        dev->bh_postld = qemu_bh_new_guarded(usb_host_post_load_bh, dev,
-+                                             &DEVICE(dev)->mem_reentrancy_guard);
-     }
-     qemu_bh_schedule(dev->bh_postld);
-     dev->bh_postld_pending = true;
-diff --git a/hw/usb/redirect.c b/hw/usb/redirect.c
-index fd7df599bc..39fbaaab16 100644
---- a/hw/usb/redirect.c
-+++ b/hw/usb/redirect.c
-@@ -1441,8 +1441,10 @@ static void usbredir_realize(USBDevice *udev, Error **errp)
-         }
-     }
- 
--    dev->chardev_close_bh = qemu_bh_new(usbredir_chardev_close_bh, dev);
--    dev->device_reject_bh = qemu_bh_new(usbredir_device_reject_bh, dev);
-+    dev->chardev_close_bh = qemu_bh_new_guarded(usbredir_chardev_close_bh, dev,
-+                                                &DEVICE(dev)->mem_reentrancy_guard);
-+    dev->device_reject_bh = qemu_bh_new_guarded(usbredir_device_reject_bh, dev,
-+                                                &DEVICE(dev)->mem_reentrancy_guard);
-     dev->attach_timer = timer_new_ms(QEMU_CLOCK_VIRTUAL, usbredir_do_attach, dev);
- 
-     packet_id_queue_init(&dev->cancelled, dev, "cancelled");
-diff --git a/hw/usb/xen-usb.c b/hw/usb/xen-usb.c
-index 0f7369e7ed..dec91294ad 100644
---- a/hw/usb/xen-usb.c
-+++ b/hw/usb/xen-usb.c
-@@ -1021,7 +1021,8 @@ static void usbback_alloc(struct XenLegacyDevice *xendev)
- 
-     QTAILQ_INIT(&usbif->req_free_q);
-     QSIMPLEQ_INIT(&usbif->hotplug_q);
--    usbif->bh = qemu_bh_new(usbback_bh, usbif);
-+    usbif->bh = qemu_bh_new_guarded(usbback_bh, usbif,
-+                                    &DEVICE(xendev)->mem_reentrancy_guard);
- }
- 
- static int usbback_free(struct XenLegacyDevice *xendev)
-diff --git a/hw/virtio/virtio-balloon.c b/hw/virtio/virtio-balloon.c
-index 746f07c4d2..309cebacc6 100644
---- a/hw/virtio/virtio-balloon.c
-+++ b/hw/virtio/virtio-balloon.c
-@@ -908,8 +908,9 @@ static void virtio_balloon_device_realize(DeviceState *dev, Error **errp)
-         precopy_add_notifier(&s->free_page_hint_notify);
- 
-         object_ref(OBJECT(s->iothread));
--        s->free_page_bh = aio_bh_new(iothread_get_aio_context(s->iothread),
--                                     virtio_ballloon_get_free_page_hints, s);
-+        s->free_page_bh = aio_bh_new_guarded(iothread_get_aio_context(s->iothread),
-+                                             virtio_ballloon_get_free_page_hints, s,
-+                                             &DEVICE(s)->mem_reentrancy_guard);
-     }
- 
-     if (virtio_has_feature(s->host_features, VIRTIO_BALLOON_F_REPORTING)) {
-diff --git a/hw/virtio/virtio-crypto.c b/hw/virtio/virtio-crypto.c
-index 516425e26a..4c95f1096e 100644
---- a/hw/virtio/virtio-crypto.c
-+++ b/hw/virtio/virtio-crypto.c
-@@ -1050,7 +1050,8 @@ static void virtio_crypto_device_realize(DeviceState *dev, Error **errp)
-         vcrypto->vqs[i].dataq =
-                  virtio_add_queue(vdev, 1024, virtio_crypto_handle_dataq_bh);
-         vcrypto->vqs[i].dataq_bh =
--                 qemu_bh_new(virtio_crypto_dataq_bh, &vcrypto->vqs[i]);
-+                 qemu_bh_new_guarded(virtio_crypto_dataq_bh, &vcrypto->vqs[i],
-+                                     &dev->mem_reentrancy_guard);
-         vcrypto->vqs[i].vcrypto = vcrypto;
-     }
- 
--- 
-2.39.0
+Tests which are failing intermittently (not blocking):
+ test-amd64-i386-qemuu-rhel6hvm-amd  7 xen-install   fail pass in 176385-retest
 
+Tests which did not succeed, but are not blocking:
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 175987
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 175987
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 175994
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 175994
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 175994
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 175994
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 175994
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 175994
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 175994
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  a21c9e6ddfee6d21dff1f18c299cb94a47b32c9e
+baseline version:
+ xen                  f588e7b7cb70800533aaa8a2a9d7a4b32d10b363
+
+Last test of basis   175994  2023-01-20 08:38:32 Z   15 days
+Failing since        176003  2023-01-20 17:40:27 Z   15 days   28 attempts
+Testing same since   176349  2023-02-03 14:25:48 Z    1 days    2 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Andrew Cooper <andrew.cooper@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+  Bobby Eshleman <bobby.eshleman@gmail.com>
+  Daniel P. Smith <dpsmith@apertussolutions.com>
+  George Dunlap <george.dunlap@cloud.com>
+  Henry Wang <Henry.Wang@arm.com>
+  Jan Beulich <jbeulich@suse.com>
+  Jason Andryuk <jandryuk@gmail.com>
+  Juergen Gross <jgross@suse.com>
+  Julien Grall <jgrall@amazon.com>
+  Luca Fancellu <luca.fancellu@arm.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Oleksii Kurochko <oleksii.kurochko@gmail.com>
+  Stefano Stabellini <sstabellini@kernel.org>
+  Stefano Stabellini <stefano.stabellini@amd.com>
+  Xenia Ragiadakou <burzalodowa@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           fail    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   f588e7b7cb..a21c9e6ddf  a21c9e6ddfee6d21dff1f18c299cb94a47b32c9e -> master
 
