@@ -2,32 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF4168C435
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 18:08:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490655.759456 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5780368C452
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 18:13:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490663.759468 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP4yH-0004kK-Oj; Mon, 06 Feb 2023 17:08:01 +0000
+	id 1pP53P-0006Eq-Hj; Mon, 06 Feb 2023 17:13:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490655.759456; Mon, 06 Feb 2023 17:08:01 +0000
+Received: by outflank-mailman (output) from mailman id 490663.759468; Mon, 06 Feb 2023 17:13:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP4yH-0004ic-LT; Mon, 06 Feb 2023 17:08:01 +0000
-Received: by outflank-mailman (input) for mailman id 490655;
- Mon, 06 Feb 2023 17:07:59 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pP4yF-0004iW-B9
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 17:07:59 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pP4y8-000620-UD; Mon, 06 Feb 2023 17:07:52 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.13.231]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pP4y8-0000sV-N8; Mon, 06 Feb 2023 17:07:52 +0000
+	id 1pP53P-0006Ca-Dg; Mon, 06 Feb 2023 17:13:19 +0000
+Received: by outflank-mailman (input) for mailman id 490663;
+ Mon, 06 Feb 2023 17:13:18 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=K59t=6C=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pP53O-0006CU-EA
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 17:13:18 +0000
+Received: from mail-wm1-x334.google.com (mail-wm1-x334.google.com
+ [2a00:1450:4864:20::334])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8b88d504-a641-11ed-933c-83870f6b2ba8;
+ Mon, 06 Feb 2023 18:13:17 +0100 (CET)
+Received: by mail-wm1-x334.google.com with SMTP id
+ l37-20020a05600c1d2500b003dfe46a9801so7905785wms.0
+ for <xen-devel@lists.xenproject.org>; Mon, 06 Feb 2023 09:13:16 -0800 (PST)
+Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
+ [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
+ p9-20020a05600c468900b003dc53217e07sm12482471wmo.16.2023.02.06.09.13.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Feb 2023 09:13:15 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,182 +45,196 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=O+IH0CODgK6C59yuZASs+SvNoF6Rdvd/FoLJo7Wq58I=; b=1Vi4O/0dH8sYfZfhiJC6hACKov
-	2qC4YbC+SmI1Csh5tGGh/4d7OQ/5JWTge3TVPbOpBatbb3iGp08+t804TLw8Fbv70NQSvyBXysZ2m
-	Cnip6SHaOEzI51b4GB23gGozhP89yxIAP1hmh/3sCpofrUOfjv1FhZ17M/Byu77YWtYw=;
-Message-ID: <1d685b34-940b-b8ca-e689-b5a42eaccea1@xen.org>
-Date: Mon, 6 Feb 2023 17:07:50 +0000
+X-Inumbo-ID: 8b88d504-a641-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=8kJeWBeBEEkZinRTqUdpXBM4KBY2GKR9YUxlAybjLNA=;
+        b=DCKQXUbgOF0XysgbQpYCGzMDUy3A9NCJzbo2yGZ5p83xhpEK/p78lWjgnmsFjTLebi
+         XOXaE8wgntZca8pasdB/5tQe7EsSNo6kGNbNfmqQeHppwrTwuyqG6ZA0Hk+knIT0bTgw
+         357/3JnzjHbvs4ChnV9wUPr3p6mfRXEOu0x1dHhivW774oEWp/aT3CcGQjK2Mldo/WNx
+         Tkf2xFYN9w4IwsEZCb5sV/vnedHvQ3qXQZu1s7kG3VkGp5kAeR+2Bc78786hpDKUVIth
+         bmgC8HhOe2yJzGL5gASruhOkizSud+uo/t2A+xgxSFwMbRwJKa4t60IsTxRNvC+DUy0u
+         eRNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=8kJeWBeBEEkZinRTqUdpXBM4KBY2GKR9YUxlAybjLNA=;
+        b=ArZozIa5bhHkxXmee0XHVmmGL9vFVPeTDf/1ClOLiioTYXctZazjFirqJs4AZoCYJQ
+         JfXq3DueCqUEYsq30R1dbmnulOI76z6Ly3Gn357Fk2ryZeypm22+eOQNvPQLMY3EoMel
+         9DAqzIW5TeVgnjBWje3VRzj/T9Glu61fk7lrM8VJ1jdg42s+LhMrZgoUAnwtYm49fzeh
+         vw8MxtSoq492CWD9jTK10dDVwZc2XOZDddWJY6vRbK48gHkWkv9LVRzIs43oxbOBzlsh
+         EH92p61Y+3ZTl+g5Ubqp/QndN+bK6es56baetra2znGK/kfllQAVGC4Zo53icc9IH1fS
+         DmIQ==
+X-Gm-Message-State: AO0yUKUC1/sxxoP0WrSUV5gfoEHipdKFsW/I6DnK+HCXbm0AkEO0FboI
+	YMjgAF3fu9/bYuM/K1PlCPCJQ9Hy2TU=
+X-Google-Smtp-Source: AK7set+OrE4llkvGByt9rua/P84tDUWUxYHxTfZJepBHfWufbFF/B/A9giEHcpoirsR4Ay1/CtRuaQ==
+X-Received: by 2002:a05:600c:704:b0:3df:d8c5:ec18 with SMTP id i4-20020a05600c070400b003dfd8c5ec18mr437977wmn.13.1675703595862;
+        Mon, 06 Feb 2023 09:13:15 -0800 (PST)
+Message-ID: <21617e45dd4efea7b1779650cd063d054ed0e309.camel@gmail.com>
+Subject: Re: [PATCH v2 07/14] xen/riscv: introduce exception context
+From: Oleksii <oleksii.kurochko@gmail.com>
+To: Stefano Stabellini <sstabellini@kernel.org>, Jan Beulich
+ <jbeulich@suse.com>
+Cc: Julien Grall <julien@xen.org>, Andrew Cooper
+ <andrew.cooper3@citrix.com>,  Gianluca Guida <gianluca@rivosinc.com>, Bob
+ Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
+ <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>, Bobby
+ Eshleman <bobby.eshleman@gmail.com>, xen-devel@lists.xenproject.org
+Date: Mon, 06 Feb 2023 19:13:13 +0200
+In-Reply-To: <alpine.DEB.2.22.394.2301311719490.132504@ubuntu-linux-20-04-desktop>
+References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
+	 <652289358975cf869e4bc0a6a70e3aba7bd2fbf6.1674818705.git.oleksii.kurochko@gmail.com>
+	 <75328420-0fbd-92ae-40c7-9fee1c31c907@suse.com>
+	 <792bc4533d3604acd4321b4b15965adec22431a4.camel@gmail.com>
+	 <bdb8c6a8-a677-9bef-c819-904bd944e6da@suse.com>
+	 <alpine.DEB.2.22.394.2301311719490.132504@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [PATCH] xen/arm64: Default ACPI support enabled
-Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-References: <202302031801.313I1SdK033264@m5p.com>
- <df51bbdc-ab88-7254-799e-0e2828d3d1a9@suse.com>
- <15b88500-89b0-507a-601c-84a8102bb550@xen.org>
- <Y+EmIHDyvSCHjEo+@mattapan.m5p.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <Y+EmIHDyvSCHjEo+@mattapan.m5p.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Elliott,
+On Tue, 2023-01-31 at 17:30 -0800, Stefano Stabellini wrote:
+> On Mon, 30 Jan 2023, Jan Beulich wrote:
+> > On 30.01.2023 12:54, Oleksii wrote:
+> > > Hi Jan,
+> > >=20
+> > > On Fri, 2023-01-27 at 15:24 +0100, Jan Beulich wrote:
+> > > > On 27.01.2023 14:59, Oleksii Kurochko wrote:
+> > > > > --- /dev/null
+> > > > > +++ b/xen/arch/riscv/include/asm/processor.h
+> > > > > @@ -0,0 +1,82 @@
+> > > > > +/* SPDX-License-Identifier: MIT */
+> > > > > +/***********************************************************
+> > > > > ******
+> > > > > *************
+> > > > > + *
+> > > > > + * Copyright 2019 (C) Alistair Francis
+> > > > > <alistair.francis@wdc.com>
+> > > > > + * Copyright 2021 (C) Bobby Eshleman
+> > > > > <bobby.eshleman@gmail.com>
+> > > > > + * Copyright 2023 (C) Vates
+> > > > > + *
+> > > > > + */
+> > > > > +
+> > > > > +#ifndef _ASM_RISCV_PROCESSOR_H
+> > > > > +#define _ASM_RISCV_PROCESSOR_H
+> > > > > +
+> > > > > +#ifndef __ASSEMBLY__
+> > > > > +
+> > > > > +/* On stack VCPU state */
+> > > > > +struct cpu_user_regs
+> > > > > +{
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long zero;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long ra;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long sp;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long gp;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long tp;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t0;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t1;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t2;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s0;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s1;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a0;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a1;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a2;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a3;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a4;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a5;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a6;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long a7;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s2;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s3;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s4;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s5;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s6;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s7;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s8;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s9;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s10;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long s11;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t3;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t4;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t5;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long t6;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long sepc;
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long sstatus;
+> > > > > +=C2=A0=C2=A0=C2=A0 /* pointer to previous stack_cpu_regs */
+> > > > > +=C2=A0=C2=A0=C2=A0 unsigned long pregs;
+> > > > > +};
+> > > >=20
+> > > > Just to restate what I said on the earlier version: We have a
+> > > > struct
+> > > > of
+> > > > this name in the public interface for x86. Besides to confusion
+> > > > about
+> > > > re-using the name for something private, I'd still like to
+> > > > understand
+> > > > what the public interface plans are. This is specifically
+> > > > because I
+> > > > think it would be better to re-use suitable public interface
+> > > > structs
+> > > > internally where possible. But that of course requires spelling
+> > > > out
+> > > > such parts of the public interface first.
+> > > >=20
+> > > I am not sure that I get you here.
+> > > I greped a little bit and found out that each architecture
+> > > declares
+> > > this structure inside arch-specific folder.
+> > >=20
+> > > Mostly the usage of the cpu_user_regs is to save/restore current
+> > > state
+> > > of CPU during traps ( exceptions/interrupts ) and
+> > > context_switch().
+> >=20
+> > Arm effectively duplicates the public interface struct
+> > vcpu_guest_core_regs
+> > and the internal struct cpu_user_regs (and this goes as far as also
+> > duplicating the __DECL_REG() helper). Personally I find such
+> > duplication
+> > odd at the first glance at least; maybe there is a specific reason
+> > for this
+> > in Arm. But whether the public interface struct can be re-used can
+> > likely
+> > only be known once it was spelled out.
+>=20
+> struct vcpu_guest_core_regs is used as part of struct
+> vcpu_guest_context, which is used for VCPUOP_initialise, which is not
+> used on ARM and RISC-V (we use a standard firmware interface
+> instead),
+> and for save/restore, which also is not going to work any time soon
+> on
+> ARM and RISC-V.
+>=20
+> This is to say that we are probably not going to need the public
+> interface for the next year or two, so it is difficult to tell at
+> this
+> stage if it aligns well with struct cpu_user_regs. I think we'll have
+> to
+> cross that bridge when we come to it.
+>=20
+Agree that it will be better to return to the public interface later.
+So I'll this part of the patch series as is now.
+>=20
+> > > Also some registers are modified during construction of a domain.
+> > > Thereby I prefer here to see the arch-specific register names
+> > > instead
+> > > of common.
+> >=20
+> > Not sure what meaning of "common" you imply here. Surely register
+> > names
+> > want to be arch-specific, and hence can't be "common" with other
+> > arch-es.
+>=20
+> I think Oleksii misunderstood your request and believed you were
+> asking
+> him to make struct cpu_user_regs common across arches.
+Yeah, that's what I thought at first...
 
-On 06/02/2023 16:09, Elliott Mitchell wrote:
-> On Mon, Feb 06, 2023 at 10:38:32AM +0000, Julien Grall wrote:
->>
->> On 06/02/2023 07:29, Jan Beulich wrote:
->>> On 22.07.2020 19:43, Elliott Mitchell wrote:
->>>> Unlike other unsupportted options, ACPI support is required to *boot*
->>>> for a number of platforms.  Users on these platforms are unable to use
->>>> distribution builds and must rebuild from source to use Xen.
->>>>
->>>> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
->>>
->>> A general question first: How come this mail dates back to July 2020? I
->>> had almost missed it as "new".
->>
->> I can't even find the Elliott's email in my inbox so reply here. But
->> this sounds like a rehash of [1].
-> 
-> The date on Git patches is meant as an indicator for author date.  Since
-> this is a cherry-pick of a patch which was written >2 years ago
-> `git format-patch` indicates when it was written.  This IS how these
-> systems work.
-
-Hmmm... I am a bit surprised to what you say. I have sent several 
-patches in the past with an old author date and they always showed as 
-the date sent in my inbox.
-
-> 
->>   >> Unlike other unsupportted options, ACPI support is required to *boot*
->>   >> for a number of platforms.  Users on these platforms are unable to use
->>   >> distribution builds and must rebuild from source to use Xen.
->>
->> What platforms are you testing on? I know that this is working-ish on
->> RPI4 and QEMU. But this will likely blow up on one of the server we
->> support in OSSTest because we don't have proper support to hide SMMUs in
->> dom0.
-> 
-> I've been doing RPI4 w/EDK2.  Which works for my purpose, the remaining
-> trouble spot for my purpose is needing a final resolution of the EFIFB
-> situation.
-
-I have had no feedback from the relevant person on EFIFB patch and I am 
-not planning to purse the work in the near future.
-
-> 
->>>> --- a/xen/arch/arm/Kconfig
->>>> +++ b/xen/arch/arm/Kconfig
->>>> @@ -29,13 +29,18 @@ menu "Architecture Features"
->>>>    source "arch/Kconfig"
->>>>    
->>>>    config ACPI
->>>> -	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
->>>> +	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)"
->>
->> The concerns I raised in [1] still stand. Most of the ACPI platform will
->> also have support for IOMMUs. If we have support for IORT in Xen, then I
->> would be a lot more amenable to remove the "UNSUPPORTED". And without
->> that support we are going to do more harm and than good.
-> 
-> Okay, this has been a known issue for *years* and yet remains unresolved
-> despite being a major issue.
-
-Right, the situation hasn't changed much since you last sent your patch 
-to drop EXPERT/UNSUPPORTED.
-
-Unless you fancy working on ACPI, I don't really see the situation 
-changing soon.
-
->  Might be an abomination, but would it work
-> to find the string "IORT" and change it to "iort", "RTIO" or "IOXN" to
-> prevent Dom0 from finding it?
-
-Unfortunately no because there IORT is used to describing mapping for 
-the GICv3 ITS which is currently working when ACPI is enabled in Xen.
-
-> 
-> This ends up turning into a question of what are the cases and which are
-> more common?
-> 
-> Case1: DT-only: Unchanged
-> 
-> Case2: Switchable between DT and ACPI, w/o SMMU: Starts working with ACPI
-> 
-> Case3: Switchable between DT and ACPI, w/SMMU: Unchanged, ACPI mode still
-> doesn't work, but the failure is different.
-> 
-> Case4: Concurrent DT and ACPI support, w/o SMMU: Unchanged
-
-So Xen would start using ACPI rather than DT.I think we should default 
-DT it until we have the ACPI support completed.
-
-> 
-> Case5: Concurrent DT and ACPI support, w/SMMU: Breaks if Dom0 tries to
-> use ACPI
-> 
-> Case6: ACPI-only, w/o SMMU: Starts working out-of-box
-> 
-> Case7: ACPI-only, w/SMMU: Unchanged (still broken)
-
-To clarify, this will boot but then start to break in very subtle way.
-
-> 
-> Any other distinct cases of note?
-
-Nothing AFAICT.
-
-> So case 5 is a problem, but cases 2 and 6 are positive.  Does the classic
-> workaround of "acpi=off" work for Linux as Dom0?  If that is "yes", then
-> publicizing that workaround (should be detectable by Xen) seems a likely
-> short-term solution.
-> 
-> My impression is ACPI is getting increasing support in on ARM.  The
-> number of mentions suggests if they keep going it looks likely to win.
-> The EDK2 project has been providing an image for RPI4 and the
-> functionality is impressive.
-
-AFAIK, the push is drove by Arm Server and Windows on Arm. Does EDK2 on 
-RPI4 still provide both DT and ACPI?
-
-> 
-> Ultimately this is more a decision for Xen Project management, than the
-> technical side.  Are things in shape where they can be rolled out?
-
-No. But as I wrote before, I don't believe the gap is very big.
-
->  Is
-> ACPI support important enough to need rolling out now?
-> 
-> I'm unsure about the former, but the latter seems a distinct "yes" since
-> ACPI appears to be the future.
-
-ACPI is indeed picking up the pace on Arm Server and platform where 
-Windows on Arm is supported. But that should not only be the reason to 
-remove UNSUPPORTED.
-
-You are right that enabling ACPI by default will draw more users. But I 
-also expect those users to be less familiar with Xen and therefore not 
-very interested to fix bugs. So removing EXPERT/UNSUPPORTED is probably 
-going to still make them unhappy as I don't think the help (including 
-writing patch) for ACPI on Arm will change very much in the near future 
-(from the community call I was under the impression you could not commit 
-time for it).
-
-So I am not convinced this is really making Xen in a better position 
-right now.
-
-Cheers,
-
--- 
-Julien Grall
+~ Oleksii
 
