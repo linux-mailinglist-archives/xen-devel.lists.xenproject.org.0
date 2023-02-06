@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C3A268B228
-	for <lists+xen-devel@lfdr.de>; Sun,  5 Feb 2023 23:27:38 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.489959.758546 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F4268B393
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 02:04:55 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.489970.758563 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOnTE-00079v-Q0; Sun, 05 Feb 2023 22:26:48 +0000
+	id 1pOpv5-0005cs-PZ; Mon, 06 Feb 2023 01:03:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 489959.758546; Sun, 05 Feb 2023 22:26:48 +0000
+Received: by outflank-mailman (output) from mailman id 489970.758563; Mon, 06 Feb 2023 01:03:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOnTE-00077z-NN; Sun, 05 Feb 2023 22:26:48 +0000
-Received: by outflank-mailman (input) for mailman id 489959;
- Sun, 05 Feb 2023 22:26:47 +0000
+	id 1pOpv5-0005bD-MU; Mon, 06 Feb 2023 01:03:43 +0000
+Received: by outflank-mailman (input) for mailman id 489970;
+ Mon, 06 Feb 2023 01:03:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pOnTD-00077t-Nt
- for xen-devel@lists.xenproject.org; Sun, 05 Feb 2023 22:26:47 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOpv3-0005b3-Pe; Mon, 06 Feb 2023 01:03:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pOnTD-000396-Dm; Sun, 05 Feb 2023 22:26:47 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pOnTD-0002Wr-8M; Sun, 05 Feb 2023 22:26:47 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOpv3-0005lm-Io; Mon, 06 Feb 2023 01:03:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOpv2-00053o-Vq; Mon, 06 Feb 2023 01:03:41 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOpv2-0005I1-VM; Mon, 06 Feb 2023 01:03:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,193 +42,274 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=mIv17BOurYzN7jXQvzWRTILfXOUEiR2mUpxq65r72Hs=; b=WOls4ws1yNsfmO6GTewF/BBSNN
-	c49sanPU6jFROX91N+PuR7SS8uk3Jez+yzqaT0e7jTDKl9Apvl7KV/NN6G1lcoZVHkXrzBISplDb0
-	EfqOaihXAwJCJJad1PbFE+hLqsVO3mUvVDbGSIaco54odqwdlkA/qfwOQK4aF8jlkl1E=;
-Message-ID: <32e86166-ea9c-ef58-3651-aca635435cb8@xen.org>
-Date: Sun, 5 Feb 2023 22:26:45 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=rp2ZjGtofgM6be8u9MbRAdL11wwCNm2q7ec18RG3Yjs=; b=p7rco1IuWlqAG+CK2uIBuRq+J0
+	HtoVQxx2+UmW+g5zPJ+sMw0skHYaUCMd32T09rMn1QEE2/9DQhKQA8GomRg6JK6aJvhA86P16R60V
+	njPFMIJyC8690Cg4VLruxGO1YB2NAFxs9V+qV/PF1ZXtAcawlhDL7N8gkNOiFUr/MTtQ=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176392-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
-Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
-References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
- <20230113052914.3845596-37-Penny.Zheng@arm.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [PATCH v2 36/40] xen/mpu: Use secure hypervisor timer for
- AArch64v8R
-In-Reply-To: <20230113052914.3845596-37-Penny.Zheng@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [qemu-mainline test] 176392: regressions - trouble: fail/pass/starved
+X-Osstest-Failures:
+    qemu-mainline:test-amd64-amd64-xl-qcow2:debian-di-install:fail:regression
+    qemu-mainline:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    qemu-mainline:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    qemu-mainline:build-armhf-libvirt:build-check(1):starved:nonblocking
+    qemu-mainline:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    qemu-mainline:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    qemuu=ceabf6e500570ecfb311d8896c4ba9da8cf21f2a
+X-Osstest-Versions-That:
+    qemuu=387b2b52558bbb44ad74634415e1ab488d3c62a7
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Feb 2023 01:03:40 +0000
 
-Hi Penny,
+flight 176392 qemu-mainline real [real]
+flight 176405 qemu-mainline real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176392/
+http://logs.test-lab.xenproject.org/osstest/logs/176405/
 
-On 13/01/2023 05:29, Penny Zheng wrote:
-> As AArch64v8R only has one secure state, we have to use secure EL2 hypervisor
-> timer for Xen in secure EL2.
-> 
-> In this patch, we introduce a Kconfig option ARM_SECURE_STATE.
-> With this new Kconfig option, we can re-define the timer's
-> system register name in different secure state, but keep the
-> timer code flow unchanged.
-> 
-> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
-> Signed-off-by: Wei Chen <wei.chen@arm.com>
-> ---
->   xen/arch/arm/Kconfig                     |  7 +++++++
->   xen/arch/arm/include/asm/arm64/sysregs.h | 21 ++++++++++++++++++++-
->   xen/arch/arm/include/asm/cpregs.h        |  4 ++--
->   xen/arch/arm/time.c                      | 14 +++++++-------
->   4 files changed, 36 insertions(+), 10 deletions(-)
-> 
-> diff --git a/xen/arch/arm/Kconfig b/xen/arch/arm/Kconfig
-> index 91491341c4..ee942a33bc 100644
-> --- a/xen/arch/arm/Kconfig
-> +++ b/xen/arch/arm/Kconfig
-> @@ -47,6 +47,13 @@ config ARM_EFI
->   	  be booted as an EFI application. This is only useful for
->   	  Xen that may run on systems that have UEFI firmware.
->   
-> +config ARM_SECURE_STATE
-> +	bool "Xen will run in Arm Secure State"
-> +	depends on ARM_V8R
-> +	help
-> +	  In this state, a Processing Element (PE) can access the secure
-> +	  physical address space, and the secure copy of banked registers.
+Regressions :-(
 
-Above, you suggest that the Armv8r will always use the secure EL2 timer. 
-But here you allow the integrator to disable it. Why?
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2    12 debian-di-install        fail REGR. vs. 176342
 
-> +
->   config GICV3
->   	bool "GICv3 driver"
->   	depends on !NEW_VGIC
-> diff --git a/xen/arch/arm/include/asm/arm64/sysregs.h b/xen/arch/arm/include/asm/arm64/sysregs.h
-> index c46daf6f69..9546e8e3d0 100644
-> --- a/xen/arch/arm/include/asm/arm64/sysregs.h
-> +++ b/xen/arch/arm/include/asm/arm64/sysregs.h
-> @@ -458,7 +458,6 @@
->   #define ZCR_ELx_LEN_SIZE             9
->   #define ZCR_ELx_LEN_MASK             0x1ff
->   
-> -/* System registers for Armv8-R AArch64 */
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop      fail blocked in 176342
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 176342
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 176342
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 176342
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 176342
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-Why is this removed?
+version targeted for testing:
+ qemuu                ceabf6e500570ecfb311d8896c4ba9da8cf21f2a
+baseline version:
+ qemuu                387b2b52558bbb44ad74634415e1ab488d3c62a7
 
->   #ifdef CONFIG_HAS_MPU
->   
->   /* EL2 MPU Protection Region Base Address Register encode */
-> @@ -510,6 +509,26 @@
->   
->   #endif
->   
-> +#ifdef CONFIG_ARM_SECURE_STATE
-> +/*
-> + * The Armv8-R AArch64 architecture always executes code in Secure
-> + * state with EL2 as the highest Exception.
-> + *
-> + * Hypervisor timer registers for Secure EL2.
-> + */
-> +#define CNTHPS_TVAL_EL2  S3_4_C14_C5_0
-> +#define CNTHPS_CTL_EL2   S3_4_C14_C5_1
-> +#define CNTHPS_CVAL_EL2  S3_4_C14_C5_2
-> +#define CNTHPx_TVAL_EL2  CNTHPS_TVAL_EL2
-> +#define CNTHPx_CTL_EL2   CNTHPS_CTL_EL2
-> +#define CNTHPx_CVAL_EL2  CNTHPS_CVAL_EL2
-> +#else
-> +/* Hypervisor timer registers for Non-Secure EL2. */
-> +#define CNTHPx_TVAL_EL2  CNTHP_TVAL_EL2
-> +#define CNTHPx_CTL_EL2   CNTHP_CTL_EL2
-> +#define CNTHPx_CVAL_EL2  CNTHP_CVAL_EL2
-> +#endif /* CONFIG_ARM_SECURE_STATE */
+Last test of basis   176342  2023-02-03 03:30:18 Z    2 days
+Failing since        176352  2023-02-03 17:40:20 Z    2 days    3 attempts
+Testing same since   176392  2023-02-05 09:22:08 Z    0 days    1 attempts
 
-Given there is only one state, I would actually prefer if we alias 
-CNTHP_*_EL2 to CNTHPS_*_EL2. So there is no renaming.
+------------------------------------------------------------
+People who touched revisions under test:
+  Alberto Faria <afaria@redhat.com>
+  Alex Bennée <alex.bennee@linaro.org>
+  Alexander Graf <agraf@csgraf.de>
+  Daniel P. Berrangé <berrange@redhat.com>
+  Drew DeVault <sir@cmpwn.com>
+  Emanuele Giuseppe Esposito <eesposit@redhat.com>
+  Emilio Cota <cota@braap.org>
+  Evgeny Iakovlev <eiakovlev@linux.microsoft.com>
+  Fuad Tabba <tabba@google.com>
+  Gerd Hoffmann <kraxel@redhat.com>
+  Hanna Reitz <hreitz@redhat.com>
+  Helge Deller <deller@gmx.de>
+  Idan Horowitz <idan.horowitz@gmail.com>
+  Ilya Leoshkevich <iii@linux.ibm.com>
+  Keith Packard <keithp@keithp.com>
+  Kevin Wolf <kwolf@redhat.com>
+  Laurent Vivier <laurent@vivier.eu>
+  Letu Ren <fantasquex@gmail.com>
+  Marc-André Lureau <marcandre.lureau@redhat.com>
+  Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+  Mark Cave-Ayland <mark.cave-ayland@ilande.co.uk>
+  Markus Armbruster <armbru@redhat.com>
+  Mike Frysinger <vapier@gentoo.org>
+  Paolo Bonzini <pbonzini@redhat.com>
+  Peter Maydell <peter.maydell@linaro.org>
+  Philippe Mathieu-Daudé <philmd@linaro.org>
+  Richard Henderson <richard.henderson@linaro.org>
+  Rui Wang <wangrui@loongson.cn>
+  Thomas Huth <thuth@redhat.com>
+  Xiang Zheng <zhengxiang9@huawei.com>
 
-> +
->   /* Access to system registers */
->   
->   #define WRITE_SYSREG64(v, name) do {                    \
-> diff --git a/xen/arch/arm/include/asm/cpregs.h b/xen/arch/arm/include/asm/cpregs.h
-> index 6b083de204..a704677fbc 100644
-> --- a/xen/arch/arm/include/asm/cpregs.h
-> +++ b/xen/arch/arm/include/asm/cpregs.h
-> @@ -374,8 +374,8 @@
->   #define CLIDR_EL1               CLIDR
->   #define CNTFRQ_EL0              CNTFRQ
->   #define CNTHCTL_EL2             CNTHCTL
-> -#define CNTHP_CTL_EL2           CNTHP_CTL
-> -#define CNTHP_CVAL_EL2          CNTHP_CVAL
-> +#define CNTHPx_CTL_EL2          CNTHP_CTL
-> +#define CNTHPx_CVAL_EL2         CNTHP_CVAL
->   #define CNTKCTL_EL1             CNTKCTL
->   #define CNTPCT_EL0              CNTPCT
->   #define CNTP_CTL_EL0            CNTP_CTL
-> diff --git a/xen/arch/arm/time.c b/xen/arch/arm/time.c
-> index 433d7be909..3bba733b83 100644
-> --- a/xen/arch/arm/time.c
-> +++ b/xen/arch/arm/time.c
-> @@ -196,13 +196,13 @@ int reprogram_timer(s_time_t timeout)
->   
->       if ( timeout == 0 )
->       {
-> -        WRITE_SYSREG(0, CNTHP_CTL_EL2);
-> +        WRITE_SYSREG(0, CNTHPx_CTL_EL2);
->           return 1;
->       }
->   
->       deadline = ns_to_ticks(timeout) + boot_count;
-> -    WRITE_SYSREG64(deadline, CNTHP_CVAL_EL2);
-> -    WRITE_SYSREG(CNTx_CTL_ENABLE, CNTHP_CTL_EL2);
-> +    WRITE_SYSREG64(deadline, CNTHPx_CVAL_EL2);
-> +    WRITE_SYSREG(CNTx_CTL_ENABLE, CNTHPx_CTL_EL2);
->       isb();
->   
->       /* No need to check for timers in the past; the Generic Timer fires
-> @@ -213,7 +213,7 @@ int reprogram_timer(s_time_t timeout)
->   /* Handle the firing timer */
->   static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
->   {
-> -    if ( unlikely(!(READ_SYSREG(CNTHP_CTL_EL2) & CNTx_CTL_PENDING)) )
-> +    if ( unlikely(!(READ_SYSREG(CNTHPx_CTL_EL2) & CNTx_CTL_PENDING)) )
->           return;
->   
->       perfc_incr(hyp_timer_irqs);
-> @@ -222,7 +222,7 @@ static void htimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
->       raise_softirq(TIMER_SOFTIRQ);
->   
->       /* Disable the timer to avoid more interrupts */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);
-> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);
->   }
->   
->   static void vtimer_interrupt(int irq, void *dev_id, struct cpu_user_regs *regs)
-> @@ -281,7 +281,7 @@ void init_timer_interrupt(void)
->       /* Do not let the VMs program the physical timer, only read the physical counter */
->       WRITE_SYSREG(CNTHCTL_EL2_EL1PCTEN, CNTHCTL_EL2);
->       WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Physical timer disabled */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Hypervisor's timer disabled */
-> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);   /* Hypervisor's timer disabled */
->       isb();
->   
->       request_irq(timer_irq[TIMER_HYP_PPI], 0, htimer_interrupt,
-> @@ -301,7 +301,7 @@ void init_timer_interrupt(void)
->   static void deinit_timer_interrupt(void)
->   {
->       WRITE_SYSREG(0, CNTP_CTL_EL0);    /* Disable physical timer */
-> -    WRITE_SYSREG(0, CNTHP_CTL_EL2);   /* Disable hypervisor's timer */
-> +    WRITE_SYSREG(0, CNTHPx_CTL_EL2);   /* Disable hypervisor's timer */
->       isb();
->   
->       release_irq(timer_irq[TIMER_HYP_PPI], NULL);
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
 
-Cheers,
 
--- 
-Julien Grall
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+(No revision log; it would be 3750 lines long.)
 
