@@ -2,29 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEEF568C2A3
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 17:12:06 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490595.759373 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA1A668C2C1
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 17:14:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490604.759385 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP45s-0003l8-Pl; Mon, 06 Feb 2023 16:11:48 +0000
+	id 1pP48E-0004Sj-DS; Mon, 06 Feb 2023 16:14:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490595.759373; Mon, 06 Feb 2023 16:11:48 +0000
+Received: by outflank-mailman (output) from mailman id 490604.759385; Mon, 06 Feb 2023 16:14:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP45s-0003ii-Mv; Mon, 06 Feb 2023 16:11:48 +0000
-Received: by outflank-mailman (input) for mailman id 490595;
- Mon, 06 Feb 2023 16:11:46 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=teK6=6C=citrix.com=prvs=39493946a=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pP45q-0003iW-Kf
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 16:11:46 +0000
-Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
- [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id f19e89e4-a638-11ed-93b5-47a8fe42b414;
- Mon, 06 Feb 2023 17:11:44 +0100 (CET)
+	id 1pP48E-0004Pv-AL; Mon, 06 Feb 2023 16:14:14 +0000
+Received: by outflank-mailman (input) for mailman id 490604;
+ Mon, 06 Feb 2023 16:14:12 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pP48C-0004Pj-PV; Mon, 06 Feb 2023 16:14:12 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pP48C-0004a4-Od; Mon, 06 Feb 2023 16:14:12 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pP48C-0005GO-Ih; Mon, 06 Feb 2023 16:14:12 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pP48C-0007aB-I9; Mon, 06 Feb 2023 16:14:12 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,78 +42,75 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: f19e89e4-a638-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675699903;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3+4sUGuF9CppcWeyGFZngKG/6LArzgH+qRUpuX7/cNk=;
-  b=e0MZ9II+rzctqinTzRdhG8ze/EIEEiSAFzD7Pu6xmbYzSaPC+vGEmtAN
-   hjU1P3wJnKb8B4YpO+aYr1IPbC5s+OyvtZDUnuOQ5wyLYPrursl/Jlxs2
-   Et3qWp+ebAHu+jsusIyxO2Am2QnLqRw4484EHjN4gy/Ku8zO32TIvqO7X
-   s=;
-Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 98289369
-X-Ironport-Server: esa4.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:VoS456osVIYabB6OnaFjbxJbE81eBmIpZRIvgKrLsJaIsI4StFCzt
- garIBmOParcajbxKoxyatzk9BgGuJPVydcxSlc//ig9Fy0a95uZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEzydNVfrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXACAdUSCjl8np/K62UuVMmZ0NfOXBGZxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
- jOWpTSoWU9LXDCZ4Wqb/3SLhPXBoWD2AZ84G+a6sf1Yu2TGkwT/DzVJDADm8JFVkHWWWdhSN
- kgV8SoGtrUp+QqgSdyVdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOq8seVTEsk
- FiTkLvBBzN1t6aOYWmA7brSpjS3UQAcNWIYbDUIZRcE6dLk5oo0i3ryos1LSfDvyIevQHepn
- m7M9XJl71kOsSIV/7WrwmDnkxnzmoTEVgIV+Vz5Dk6PyxwsMeZJeLeUwVTc6P9BKqOQQV+Ao
- GUIlqCi0QweMX2evHfTGbtQRdlF897AaWSB2gA3Q/HN4hz3oxaekZZsDCaSzauDGuINYnfXb
- UDaomu9D7cDbSLxPcebj29cYvnGLJQM9/y/DZg4jfIUOPCdkTNrGwkwDXN8J0i3zCARfVgXY
- P93i/qEA3cAErhAxzGrXeob2rJD7nlgmj6NH8mqkE36j+v2iJuppVAtaQvmUwzExPnc/FW9H
- yh3Z6NmNCmzoMWhO3KKoOb/3HgBLGQhBICeliCkXrfrH+aSI0l4U6W56ep4K+RYc1F9yr+gE
- oeVBhUJlzISRBTvdW23V5yUQO62AMsm9CpkVcHuVH7xs0UejU+UxP93X/MKkXMPpISPEdYco
- yE5Rvi9
-IronPort-HdrOrdr: A9a23:oM2aoKOWsZ7yzcBcT4z255DYdb4zR+YMi2TDiHoddfUFSKalfp
- 6V98jzjSWE+gr5nUtQ7uxpOMG7MA/hHP9OkPAs1NKZMDUO11HYXL2KgbGSuQEIeBeOudK1t5
- 0QAJSWYeeYZTcV/KWKgnjBYq0dLcG8kJxA7d2ujkuFJjsaFJ2Imj0JezpzZXcGOjWua6BJaa
- Z00vA35waISDA6f86/DnkAU/PjocfXmJ/dYRAADwM68wWVyRel8qTzHRSgxREVXylUzbpKyx
- mhryXJoomzufSyyhvRzE/W9o9Xn8bIwMZCAsvksLlyFhzcziq4boFoW7mPpxAwufqu70sOmM
- TBpB0xVv4DjE/5TyWYsBHp0wnl3C0W8Hny2XqRnHflq9yRfkNfNyMNv/MeTvMXg3BQ8O1U4e
- Zu5Sa0ppBXBRTPkGDU4MXJbQhjkg6OrX8rgYco/jdiud91Ut5shL1a2HkQPIYLHSr85oxiOv
- JpFtvg6PFfdk7fR2zFv0F0qebcAUgbL1OjeAwvq8aV2z9ZkDRS1E0D3vESmX8G6dYUV4RE3e
- LZKa5l/Ys+EvP+VZgNWtvpfPHHUFAlACi8a156GG6XTJ3v7ki99qIe490OlamXkdIzvdVCya
- goljtjxC0PkgnVeLizNaZwg1nwqL/UZ0Wp9ihv3ek6hlS1fsueDcSiciFrryLymYRZPiUsM8
- zDda6/9JfYXCHT8MByrlTDsrFpWA8jbPE=
-X-IronPort-AV: E=Sophos;i="5.97,276,1669093200"; 
-   d="scan'208";a="98289369"
-Date: Mon, 6 Feb 2023 16:11:19 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
-To: Jan Beulich <jbeulich@suse.com>
-CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
-	<wl@xen.org>, Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] libxl/x86: use public interface TSC mode definitions
-Message-ID: <Y+Emp96NtOw0yZ0U@perard.uk.xensource.com>
-References: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=qzuJ9PLNitvo4DnTrOsEjNoP4oSCuqZ7BJqH7hfarfI=; b=xjqc+p2l2+vuz7ZCrqteVyLNRh
+	ei9RYQc8DE1HBF2LBBzJ6PG5b+CkzfdeMyMRF19ZC9uwRpiNxTw1pabgCllyjeGpBfoIvnoSllnAi
+	JZ4uhorvQaNFcCl8fO0bgm1+9DMZ48z8P3ZJ9Udr0JvudV8wb4tz0mZaKqxhpJfkSsn0=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176422-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
+Subject: [ovmf test] 176422: all pass - PUSHED
+X-Osstest-Versions-This:
+    ovmf=b98e2113b53fa9c7474a820bcd94fffb352acdf6
+X-Osstest-Versions-That:
+    ovmf=9d669016d968b0f3e17ce7df16ae51d85b0adfcf
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Feb 2023 16:14:12 +0000
 
-On Mon, Feb 06, 2023 at 01:33:03PM +0100, Jan Beulich wrote:
-> Now that they're properly represented in the public interface, stop
-> using literal numbers.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+flight 176422 ovmf real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176422/
 
-Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+Perfect :-)
+All tests in this flight passed as required
+version targeted for testing:
+ ovmf                 b98e2113b53fa9c7474a820bcd94fffb352acdf6
+baseline version:
+ ovmf                 9d669016d968b0f3e17ce7df16ae51d85b0adfcf
 
-Thanks,
+Last test of basis   176370  2023-02-04 15:12:29 Z    2 days
+Testing same since   176422  2023-02-06 14:13:24 Z    0 days    1 attempts
 
--- 
-Anthony PERARD
+------------------------------------------------------------
+People who touched revisions under test:
+  Pierre Gondois <pierre.gondois@arm.com>
+  Sami Mujawar <sami.mujawar@arm.com>
+  Sudeep Holla <sudeep.holla@arm.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
+   9d669016d9..b98e2113b5  b98e2113b53fa9c7474a820bcd94fffb352acdf6 -> xen-tested-master
 
