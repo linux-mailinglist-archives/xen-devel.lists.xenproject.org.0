@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F33368B892
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 10:24:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490137.758717 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E57768B894
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 10:25:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490145.758731 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOxjG-0005YI-Er; Mon, 06 Feb 2023 09:24:02 +0000
+	id 1pOxkl-0006G0-Pz; Mon, 06 Feb 2023 09:25:35 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490137.758717; Mon, 06 Feb 2023 09:24:02 +0000
+Received: by outflank-mailman (output) from mailman id 490145.758731; Mon, 06 Feb 2023 09:25:35 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOxjG-0005WU-Av; Mon, 06 Feb 2023 09:24:02 +0000
-Received: by outflank-mailman (input) for mailman id 490137;
- Mon, 06 Feb 2023 09:24:00 +0000
+	id 1pOxkl-0006Dq-NC; Mon, 06 Feb 2023 09:25:35 +0000
+Received: by outflank-mailman (input) for mailman id 490145;
+ Mon, 06 Feb 2023 09:25:34 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=ehTD=6C=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pOxjE-0005UA-G2
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 09:24:00 +0000
+ id 1pOxkj-000682-TT
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 09:25:34 +0000
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id fab14662-a5ff-11ed-93b5-47a8fe42b414;
- Mon, 06 Feb 2023 10:23:56 +0100 (CET)
+ id 32594bdd-a600-11ed-93b5-47a8fe42b414;
+ Mon, 06 Feb 2023 10:25:29 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A4FDC3F290;
- Mon,  6 Feb 2023 09:23:56 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0ECDD3F291;
+ Mon,  6 Feb 2023 09:25:30 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7D14713677;
- Mon,  6 Feb 2023 09:23:56 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DD83813677;
+ Mon,  6 Feb 2023 09:25:29 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id q9stHSzH4GNwOAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 06 Feb 2023 09:23:56 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id /xLKNInH4GMROgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 06 Feb 2023 09:25:29 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,70 +51,79 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fab14662-a5ff-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 32594bdd-a600-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675675436; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+	t=1675675530; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=LQXVc2EqJoXYjYOUh6r9cWLuCgbAbKl+BcBrC9LF9hA=;
-	b=Hrbvogd19KA3WLtkkVFmxCZ/W7OlssyvXrsEDIFUPoI/WSjjltK2jzbEuLmwlrmKxKDMO4
-	I6oyODWogV3r86p/6yP5RREanL57fMY/pdQZlrYhrt/5FbGT4OjBjv4pYdbIf71UZgoBBN
-	DvscIA2peR7PSmnEi5WhDseEyz2Yjf4=
-Message-ID: <75603739-a013-1da8-a30a-e0e549c5fcd6@suse.com>
-Date: Mon, 6 Feb 2023 10:23:56 +0100
+	bh=xaUPPW+RojxjSgBFSPhxWmG2HPgYboyEyG3uqWZ5qVQ=;
+	b=UBgZUsxfife+Rzq8PKoaFYN/gWWf1qh9/MYmEeEIQv0pXJm4UA1uEP+rYNbLFTZ6ymDWuV
+	gG98p4a8tko5jOF6GwBwvFU+toboxBFeN1s/VKojBueZpuuISxWxZtFOHCSgV7k3dqLehb
+	xSEGVMFJosYsDITFnCFrL81vB61ATAo=
+Message-ID: <16b989f6-333b-10a8-c985-bfc132342f49@suse.com>
+Date: Mon, 6 Feb 2023 10:25:29 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.6.1
-Subject: Re: [PATCH 1/7] Mini-OS: xenbus: add support for reading node from
- directory
+Subject: Re: [PATCH 2/7] Mini-OS: add concept of mount points
 Content-Language: en-US
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
 References: <20230203091809.14478-1-jgross@suse.com>
- <20230203091809.14478-2-jgross@suse.com>
- <20230204140148.pmhv2vnsb7ejobji@begin>
+ <20230203091809.14478-3-jgross@suse.com>
+ <20230205124509.pr5xswn4ygqsqoba@begin>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230204140148.pmhv2vnsb7ejobji@begin>
+In-Reply-To: <20230205124509.pr5xswn4ygqsqoba@begin>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------WzMtLIAV9yaN7ruULp3feNIM"
+ boundary="------------03mOFBryRpUb8qINwbY1kud5"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------WzMtLIAV9yaN7ruULp3feNIM
-Content-Type: multipart/mixed; boundary="------------0y4kSmhFGC6gfg7MtiRe0Iwo";
+--------------03mOFBryRpUb8qINwbY1kud5
+Content-Type: multipart/mixed; boundary="------------0o2qI4Dwe9qyRtfYEJ0oaCnP";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
 To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
  minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org, wl@xen.org
-Message-ID: <75603739-a013-1da8-a30a-e0e549c5fcd6@suse.com>
-Subject: Re: [PATCH 1/7] Mini-OS: xenbus: add support for reading node from
- directory
+Message-ID: <16b989f6-333b-10a8-c985-bfc132342f49@suse.com>
+Subject: Re: [PATCH 2/7] Mini-OS: add concept of mount points
 References: <20230203091809.14478-1-jgross@suse.com>
- <20230203091809.14478-2-jgross@suse.com>
- <20230204140148.pmhv2vnsb7ejobji@begin>
-In-Reply-To: <20230204140148.pmhv2vnsb7ejobji@begin>
+ <20230203091809.14478-3-jgross@suse.com>
+ <20230205124509.pr5xswn4ygqsqoba@begin>
+In-Reply-To: <20230205124509.pr5xswn4ygqsqoba@begin>
 
---------------0y4kSmhFGC6gfg7MtiRe0Iwo
-Content-Type: multipart/mixed; boundary="------------GPQvSeXqb39WSySrtk6ebLJ7"
+--------------0o2qI4Dwe9qyRtfYEJ0oaCnP
+Content-Type: multipart/mixed; boundary="------------T2Tp6q2lXqPcEcjlt5KXoU94"
 
---------------GPQvSeXqb39WSySrtk6ebLJ7
+--------------T2Tp6q2lXqPcEcjlt5KXoU94
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDQuMDIuMjMgMTU6MDEsIFNhbXVlbCBUaGliYXVsdCB3cm90ZToNCj4gSGVsbG8sDQo+
-IA0KPiBKdWVyZ2VuIEdyb3NzLCBsZSB2ZW4uIDAzIGbDqXZyLiAyMDIzIDEwOjE4OjAzICsw
-MTAwLCBhIGVjcml0Og0KPj4gK2NoYXIgKnhlbmJ1c19yZWFkX3Vuc2lnbmVkKHhlbmJ1c190
-cmFuc2FjdGlvbl90IHhidCwgY29uc3QgY2hhciAqZGlyLA0KPj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIGNvbnN0IGNoYXIgKm5vZGUsIHVuc2lnbmVkIGludCAqdmFsdWUpDQo+
-PiArew0KPj4gKyAgICBjaGFyIHBhdGhbQlVGRkVSX1NJWkVdOw0KPj4gKyAgICBjaGFyICpt
-c2c7DQo+PiArICAgIGNoYXIgKnN0cjsNCj4+ICsNCj4+ICsgICAgeGVuYnVzX2J1aWxkX3Bh
-dGgoZGlyLCBub2RlLCBwYXRoKTsNCj4+ICsgICAgbXNnID0geGVuYnVzX3JlYWQoeGJ0LCBw
-YXRoLCAmc3RyKTsNCj4+ICsgICAgaWYgKCBtc2cgKQ0KPj4gKyAgICAgICAgcmV0dXJuIG1z
-ZzsNCj4+ICsNCj4+ICsgICAgc3NjYW5mKHN0ciwgIiV1IiwgdmFsdWUpOw0KPiANCj4gSSdk
-IHNheSBiZXR0ZXIgY2hlY2sgdGhhdCBzc2NhbmYgcmV0dXJuZWQgMSBhbmQgb3RoZXJ3aXNl
-IHJldHVybiBhbg0KPiBlcnJvci4gT3RoZXJ3aXNlICp2YWx1ZSBtYXkgZW5kIHVwIHVuaW5p
-dGlhbGl6ZWQuDQoNCk9rYXkuDQoNCg0KSnVlcmdlbg0KDQo=
---------------GPQvSeXqb39WSySrtk6ebLJ7
+T24gMDUuMDIuMjMgMTM6NDUsIFNhbXVlbCBUaGliYXVsdCB3cm90ZToNCj4gSnVlcmdlbiBH
+cm9zcywgbGUgdmVuLiAwMyBmw6l2ci4gMjAyMyAxMDoxODowNCArMDEwMCwgYSBlY3JpdDoN
+Cj4+ICtpbnQgb3Blbihjb25zdCBjaGFyICpwYXRobmFtZSwgaW50IGZsYWdzLCAuLi4pDQo+
+PiArew0KPj4gKyAgICB1bnNpZ25lZCBpbnQgbSwgbWxlbjsNCj4+ICsgICAgc3RydWN0IG1v
+dW50X3BvaW50ICptbnQ7DQo+PiArICAgIG1vZGVfdCBtb2RlID0gMDsNCj4+ICsgICAgdmFf
+bGlzdCBhcDsNCj4+ICsNCj4+ICsgICAgaWYgKCBmbGFncyAmIE9fQ1JFQVQgKQ0KPj4gKyAg
+ICB7DQo+PiArICAgICAgICB2YV9zdGFydChhcCwgZmxhZ3MpOw0KPj4gKyAgICAgICAgbW9k
+ZSA9IHZhX2FyZyhhcCwgbW9kZV90KTsNCj4+ICsgICAgICAgIHZhX2VuZChhcCk7DQo+PiAg
+ICAgICB9DQo+PiAtICAgIGlmICghc3RybmNtcChwYXRobmFtZSwgIi9kZXYvbWVtIiwgc3Ry
+bGVuKCIvZGV2L21lbSIpKSkgew0KPj4gLSAgICAgICAgZmQgPSBhbGxvY19mZChGVFlQRV9N
+RU0pOw0KPj4gLSAgICAgICAgcHJpbnRrKCJvcGVuKC9kZXYvbWVtKSAtPiAlZFxuIiwgZmQp
+Ow0KPj4gLSAgICAgICAgcmV0dXJuIGZkOw0KPj4gKw0KPj4gKyAgICBmb3IgKCBtID0gMDsg
+bSA8IEFSUkFZX1NJWkUobW91bnRfcG9pbnRzKTsgbSsrICkNCj4+ICsgICAgew0KPj4gKyAg
+ICAgICAgbW50ID0gbW91bnRfcG9pbnRzICsgbTsNCj4+ICsgICAgICAgIG1sZW4gPSBzdHJs
+ZW4obW50LT5wYXRoKTsNCj4+ICsgICAgICAgIGlmICggIXN0cm5jbXAocGF0aG5hbWUsIG1u
+dC0+cGF0aCwgbWxlbikgJiYNCj4+ICsgICAgICAgICAgICAgKHBhdGhuYW1lW21sZW5dID09
+ICcvJyB8fCBwYXRobmFtZVttbGVuXSA9PSAwKSApDQo+PiArICAgICAgICAgICAgcmV0dXJu
+IG1udC0+b3BlbihtbnQsIHBhdGhuYW1lLCBmbGFncywgbW9kZSk7DQo+IA0KPiBUaGlua2lu
+ZyBhYm91dCBpdCBtb3JlOiBkb24ndCB3ZSB3YW50IHRvIHBhc3MgcGF0aG5hbWUrbWxlbj8N
+Cj4gDQo+IFNvIHRoYXQgdGhlIG9wZW4gZnVuY3Rpb24gZG9lc24ndCBoYXZlIHRvIGNhcmUg
+d2hlcmUgaXQncyBtb3VudGVkLg0KDQpJIHRoaW5rIGJvdGggdmFyaWFudHMgaGF2ZSB0aGVp
+ciBwcm9zIGFuZCBjb25zLg0KDQpBcyB0aGUgb3BlbiBmdW5jdGlvbnMgaGF2ZSB0aGUgbW91
+bnQgcG9pbnQgYXZhaWxhYmxlIHZpYSB0aGUgbW50IHBhcmFtZXRlcg0KSSBjYW4gY2hhbmdl
+IGl0Lg0KDQoNCkp1ZXJnZW4NCg0K
+--------------T2Tp6q2lXqPcEcjlt5KXoU94
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -172,25 +181,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------GPQvSeXqb39WSySrtk6ebLJ7--
+--------------T2Tp6q2lXqPcEcjlt5KXoU94--
 
---------------0y4kSmhFGC6gfg7MtiRe0Iwo--
+--------------0o2qI4Dwe9qyRtfYEJ0oaCnP--
 
---------------WzMtLIAV9yaN7ruULp3feNIM
+--------------03mOFBryRpUb8qINwbY1kud5
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPgxywFAwAAAAAACgkQsN6d1ii/Ey+g
-Twf/dDI8C+ha68MR6vyp6KvSH1hUT6k8f7xCYZgxPnPO36WzD28rB0Aa/SWWZKLsqWrIUoWweiT8
-PudisnbyALNuqhbMF7cY0Z1QIcjYvu40od6bk+AX/bHb+EU4KSmZfpYOxtjuKbUYU5GWQK4jCQEj
-GQ2dbcAf9RN9azYZuYwhxXALMj7+WMRTjRK5yjjFW26q3B9yXTGbKJuj0aTrXPp4ZzhyvtKh0mAh
-Xh6qx1IykBXugFVs6m2TCnB3P8Z/9LibNvn5NCM0GZv8BiajuGecY9NNpHKy0dYXM4CZXLpDWJX5
-Cf9nP3kItzRtzxJ7DlhX3Dx6zEDTkM/bqLfbJ/ijCA==
-=yYpx
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPgx4kFAwAAAAAACgkQsN6d1ii/Ey+z
+SAf/WXa7lfvar4BViWtPFOQyN7ue9FGd6zGjc/YEkZ0bx2nI1A2xpU3ZGrkLdY6Plj7q+bqig5FF
+md2EOQ8vF7xC5DXH4Md/Y6ABs/4nrlOyshfLmKUT9hv4x+8JHLIF13Ux3tkD6xG/xyb2JwjOOW61
+aG5RDZF3yBf/1sOJfkBsWyk6QTADgv8huFotRs2MVpzNGINqjlc7hPfEvAVrk4MUFyErvxbiSye7
+X/3Meh9a4MW23+EiBjquJ60Xk90Xldvq3sC4iPjukskO11TQ9u9rfzq9oOB0+eVNVtszobsrY4Lw
+sArR4ArFNsf3leHBlSC05SjsZ33o9CfIMdSL0d/LCA==
+=Z174
 -----END PGP SIGNATURE-----
 
---------------WzMtLIAV9yaN7ruULp3feNIM--
+--------------03mOFBryRpUb8qINwbY1kud5--
 
