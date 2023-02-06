@@ -2,42 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E10568BE9E
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 14:46:13 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490460.759159 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0792468BF04
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 14:58:48 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490465.759171 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP1oV-0002ai-F3; Mon, 06 Feb 2023 13:45:43 +0000
+	id 1pP20j-0004Ch-Kk; Mon, 06 Feb 2023 13:58:21 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490460.759159; Mon, 06 Feb 2023 13:45:43 +0000
+Received: by outflank-mailman (output) from mailman id 490465.759171; Mon, 06 Feb 2023 13:58:21 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP1oV-0002YY-CK; Mon, 06 Feb 2023 13:45:43 +0000
-Received: by outflank-mailman (input) for mailman id 490460;
- Mon, 06 Feb 2023 13:45:42 +0000
+	id 1pP20j-0004Ao-HC; Mon, 06 Feb 2023 13:58:21 +0000
+Received: by outflank-mailman (input) for mailman id 490465;
+ Mon, 06 Feb 2023 13:58:19 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=N+3J=6C=citrix.com=prvs=394ad1b64=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pP1oU-0002YS-Dn
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 13:45:42 +0000
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 8a45534d-a624-11ed-93b5-47a8fe42b414;
- Mon, 06 Feb 2023 14:45:40 +0100 (CET)
-Received: from mail-dm6nam10lp2102.outbound.protection.outlook.com (HELO
- NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.102])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 06 Feb 2023 08:45:33 -0500
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com (2603:10b6:a02:aa::12)
- by CH2PR03MB5335.namprd03.prod.outlook.com (2603:10b6:610:91::17)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=JzEl=6C=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pP20h-00049B-EW
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 13:58:19 +0000
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on20608.outbound.protection.outlook.com
+ [2a01:111:f400:7d00::608])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4e080ebb-a626-11ed-93b5-47a8fe42b414;
+ Mon, 06 Feb 2023 14:58:17 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by PAXPR04MB8637.eurprd04.prod.outlook.com (2603:10a6:102:21c::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Mon, 6 Feb
- 2023 13:45:31 +0000
-Received: from BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8]) by BYAPR03MB3623.namprd03.prod.outlook.com
- ([fe80::8299:f95f:934b:29e8%7]) with mapi id 15.20.6064.034; Mon, 6 Feb 2023
- 13:45:31 +0000
+ 2023 13:58:14 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e138:4fc3:705c:d178%6]) with mapi id 15.20.6064.034; Mon, 6 Feb 2023
+ 13:58:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -49,151 +47,305 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 8a45534d-a624-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675691140;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=ZAHp/lI4t8TkQiHunAeTFynX07AwyNhhAq0BWBQF6kU=;
-  b=B94jycVGWJld/PCGcD6sxd0IqTB6Xdj9PxgIpnKoMMeRp9K2sXW/kasQ
-   B72R+NeraVTszF/QiCmIvGF/bT/QNgRsWZ80ZxEy9zT74cPztG/FL7rT7
-   +juzpBMNs6G6jRjoHG2afUzTgFGeFWHN4Traq3254w40FeTr3kr1B4+o6
-   M=;
-X-IronPort-RemoteIP: 104.47.58.102
-X-IronPort-MID: 94688837
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:IVmMr6spvvqZRj0obCZa7L6lAefnVGtfMUV32f8akzHdYApBsoF/q
- tZmKWyOafqLY2WkLooiboiyo0IF65SHxoNkGgdpriwwFC0b+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj51v0gnRkPaoQ5AWGySFMZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMwFjEONw7Evc6M8pWAcvFVnuABfOTaI9ZK0p1g5Wmx4fcOZ7nmGv2PyfoGmTA6i4ZJAOrUY
- NcfZXx3dhPcbhZTO1ARTpUjgOOvgXq5eDpdwL6XjfNvvy6Pk0osgP60aIC9lt+iHK25mm6xo
- G7c8nu/KRYdLNGFkhKO8262h/+JliT+MG4XPOzkqK460AbMroAVIARNRVLmh92VsB+7BY59F
- lEE3S0F9ZFnoSRHSfG4BXVUukWsvBQRRt5RGO0S8xyWx+zf5APxLngJSHtNZcIrsOcyRCc2z
- RmZktXxHzttvbaJD3WH+d+8sjeaKSUTa2gYakcsTwQf5ML4iJoulR+JRdFmeJNZlfXwEDD0h
- jyP8i43guxLidZRjv3hu1fanziru57FCBYv4RnaVX6k6QU/Y5O5Y4uv6h7Q6vMowJulc2Rtd
- UMsw6C2hN3ix7nX/MBRaI3hxI2U2ss=
-IronPort-HdrOrdr: A9a23:MppvW6C0xssw6X/lHela55DYdb4zR+YMi2TDt3oddfWaSKylfq
- GV7ZImPHrP4gr5N0tOpTntAse9qDbnhPxICOoqTNCftWvdyQiVxehZhOOP/9SjIVyaygc078
- xdmsNFebnN5DZB7PoT4GODYqkdKNvsytHXuQ8JpU0dPD2DaMtbnndE4h7wKDwOeOHfb6BJaa
- Z14KB81kKdUEVSVOuXLF8fUdPOotXa/aiWHSLvV3YcmXKzZSrD0s+BLySl
-X-IronPort-AV: E=Sophos;i="5.97,276,1669093200"; 
-   d="scan'208";a="94688837"
+X-Inumbo-ID: 4e080ebb-a626-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VXJdhhKT3uqjC3ZFkzA/uBz3ovm72btmaU3TN65zds7Qznwi0yGcAwjnQadqhaj+16N3qUp8CzsNFMhQsXgNblhlIpTCerHFsbzx774VOvBO1rB9hcncbanKzYYISHs8dTKA54duLjTR0tLL2HAkCR3wu3+JKjijFQf8fop9jUYGeqrtUD/MGb7fCKjSWFWHE19VGb5Mld8AtMdoUl4VLJccpDhEAInPr/VRBwC7EAwiRA/pYCF/dVibp5/jPgwxJnpngzZ4OFhQ90Al3c1nFMy4792ynlEcJtHKxw+P42qjIvfy7CuNccMCISrvUToaDwZOE/5uR38zvIGO2mYqCA==
+ b=jJrYRecOtZJvyTJivxTgmhGSDLbZcp58THSjLaashuLadpwWBD+Df7cBHp2b/Zfk4vsdcnUesBVsq06eGYId5lZLvj6EPof9y5KP15sfinhRCP0KltY4rZ0knejX5KbikkefbtIkhlLcKkEgtToCV8/1XJQ0oTnn2EvoCgwoFeENe1MG0pWTiS2DXB9K+5grBEhHEwQZNGz5ERQPJS9uMCTyLjV3uA63+J/Sf3c/s8pxV99Y/Q+no8pP0XQLnL0bSiTkoiUgPZr1gzKfQO2d7LbdXYdirNEwZ+wIP0iTm/TINS8oVGoJV5YrihsMzEdd2ypF5q0KfzEuBK+V0Alc0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZAHp/lI4t8TkQiHunAeTFynX07AwyNhhAq0BWBQF6kU=;
- b=e1BniGKbIZyl/z910PUZXmpu46nuQQlf/leuxVGDYM+CcrUljA4hT2+WNs6zwG0Kjsgjyu72poypmeT4IM3uwAxoZtEyFPnRd66OxaN5EMKUY1fLEC7SiV1JUqPfMUDS0RQBai8bTo6RSwVDnOCDCr/08mE1ZrLyt43QKO5VTdMtkXZ0LImxVwktZORvjcA7RtWL3MfC0mectx1/L35rlarLL1sUXQEDSUGIsmOsitDj6jyno08giUwwDxxwe7FQCS8SkJtZIoAlkJKzUiF6WZPtWi26A9jkGbkpqVxv+YWGsLYMzJltf9bctLjLFKZ1P6qbo3SFhE7p3UKKtP+TOw==
+ bh=GzqF5368DTaBhVCL2nvfUNDbe9atO/rOWGiNiaI0vb0=;
+ b=gzTscLW3kly2BHwwjyrRlNv3g6pVirKiPPOrajkeOj1BgHZXPGu6APs1zuvgpkSZHhPVKNDLd17mY3UB5HziqcF+hKh5HhEL5llWiQBxc0y/fntlzY8LiHaUMe9+JNMQKlpNX2/pFIkOy9QrFpwrApNSIQIXlN3NqUCNQiyUvhgcLyii1fBNOcqIB8Io4LSeayVmTHN4EoaibZSfw6mtVyP8eIBMnRZnnbSeCYFAhg09uS0AKJKrwcEadGXbn8nDF44vMyF13zGw4m+N2voFZfPn9qAKyHzf1lo921NImep1md0est6K3tKyTYjP8DAtSIfVGfbRrWMyiuqZzvdOmQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=citrix.com; dmarc=pass action=none header.from=citrix.com;
- dkim=pass header.d=citrix.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=citrix.onmicrosoft.com; s=selector2-citrix-onmicrosoft-com;
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZAHp/lI4t8TkQiHunAeTFynX07AwyNhhAq0BWBQF6kU=;
- b=Rhhe+iTekP4vHnHZ+3a1cN5nuVxLf0xgWWcYMR2I/m3aNXjF+czFqHtpMhBBbBi7xN3achDkpuWm2lLIqBW0PhuQ1AqMaPvZeBgSMrrNWE1HQ5tJyTaAgzzTCWBzlFtHYfhxXzDcnwh5HZZUyeQsAINbOndtAosO1uOTHff0Okc=
+ bh=GzqF5368DTaBhVCL2nvfUNDbe9atO/rOWGiNiaI0vb0=;
+ b=juECzp8pRzgHBBaGhhBGNEAbA1FAFDYO+80rJtKpxVOuyVlUx4INpbYShYiTLXbUfFESO37mfhhDGUUa4ZwcvoS0EcZ3BVJQ0rJJU/xy+wkSsJm8z+5IfbafiMg52fVwnf53Jttl3u2tOAB/8eGjq8eH4xWbTPIjpFYHLqDoBBiYmNLxdpYW+4K0IJqNKAkeONXrMx1QtCldOxI9fD34Wpe3fJ4qIsR+mSRIaULEPdRJso4X4P1mA2Fyf8j0qgUthV8KoBvv0IP+RTbp6xxY284408pzA80t8hWgiMnLzvBayowS5oXEdXGubzAk6ftt+6pAqyGMOcn8K/r1I33jkA==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=citrix.com;
-Message-ID: <8f19c3eb-bb1e-b3b8-926e-caa6b2f2eee5@citrix.com>
-Date: Mon, 6 Feb 2023 13:45:24 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <38621f02-83a3-d1dc-560f-905dd0d963b0@suse.com>
+Date: Mon, 6 Feb 2023 14:58:11 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH] libxl/x86: use public interface TSC mode definitions
-Content-Language: en-GB
-To: Jan Beulich <jbeulich@suse.com>,
+Subject: Re: [PATCH v3 1/4] x86/spec-ctrl: add logic to issue IBPB on exit to
+ guest
+Content-Language: en-US
+To: Andrew Cooper <amc96@srcf.net>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
+ Kevin Tian <kevin.tian@intel.com>, Jun Nakajima <jun.nakajima@intel.com>,
  "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
- Juergen Gross <jgross@suse.com>
-References: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-In-Reply-To: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
+References: <930254a6-d0c8-4910-982a-bfd227187240@suse.com>
+ <8ee98cc0-21d3-100a-ffcc-37cd466e7761@suse.com>
+ <718f6fd0-cb96-6f72-87ff-7382582d89f9@srcf.net>
+ <fa38f305-df29-4178-2279-17a084fdf2cd@suse.com>
+ <df86e0a6-1415-3fd3-5202-faff5edfc271@srcf.net>
+From: Jan Beulich <jbeulich@suse.com>
+In-Reply-To: <df86e0a6-1415-3fd3-5202-faff5edfc271@srcf.net>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LNXP265CA0083.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:76::23) To BYAPR03MB3623.namprd03.prod.outlook.com
- (2603:10b6:a02:aa::12)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0070.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:49::20) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BYAPR03MB3623:EE_|CH2PR03MB5335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9aba4131-97bd-481e-bf57-08db084869d3
-X-LD-Processed: 335836de-42ef-43a2-b145-348c2ee9ca5b,ExtAddr,ExtFwd
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB8637:EE_
+X-MS-Office365-Filtering-Correlation-Id: c850fbc3-9ee6-4df2-473d-08db084a30cb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	xM4R3Tmopsc3tDAdMWHOD+JvCKziDHEAAzluKcgDmkZ/MHKmmLazlZWgsGr36NvFen3SFu+YB/F7nLWlQX7wIEbYgMhsMIWYoU/1g3IJM2+HO95txhJ0K0FDongXxgS+wRhlSEqnG70XpWmb/zrsZT1Y67PgNp6+ggdKXvoJtJSpC9FI+A2NDT1IyDw+lzxzIRqMjVpR6fMhXoWEXIF4Z9UEnWp0apg1xEGRruXBXMhG1VYmjpn8dCDGloyPzFHDuQ39Inz+N8Jv6A2lCvCFyLg6RhS9Tpd7GNtsMq+KDKWfWGOfHZQxk+e1+beYTkUkMbIlTCfz9hcDZEFdLF4tNG0rP8GIrnViHUvsBk70orMXefQL9royfDKwHLe3AWeasJfN+ZgGh1dcxPfHuavmwf4CXf1sPab3ELMSlVYk9MV9NL9kTcRxf9MX8e0jcNtPoRiR62LC07zjVoHaoIO2YhDTUS9eM8Y8wJlfTRjX0dl0euYYq+57Kt/peJE1ur0DAG+3QyOJ0J0iOj3S075diWxDgDOt/yaG3Aq/fh0lVbCRus/zpUGNzUAzVz/Go33GtPU6uujUcTc3oHACAAtnUQo0I3p6pXPQyDWTEmSKCBCdy/SC75kEfLwa+n8QknabZFRLLXBtT4296LPbunjc4Ij66ak1N5UU4J0Wsp9RZjh1GtWSkHKpdu3KiODjuluq16NOFduzW6nLvIB/jELD8BU4vMdvboUzJZSWD17XU1Y=
+	Y9Q8jRmq05yNYV9DnsWMa9ePViobilfTF+I03/e0H2MwcTcgWeRkcz5KkCt2gUyzJm849Sby2QnzYfBFmSRpJ07AYWtuPnGC/tcXg8Qv8Tuc5kH571a1nxUMoRYicn1UCNBTNntLBPBhC6zEsZxKSP+BnlT54qU5/1WCFNxmcFA91LJrTB2c6oJ9oHfdO7kQ6IHALgoHlZiToktkPCLfs/G6ziYcAa8QVxO2vaXyIoIDraq58Ccr2gZNR3aECpwqZ2eAXho0tzX0n6Nby5sNNJkrweNVXtaMa97I8AK/XVaVTXMhfQzglbj1sxySHO6+EG9mc5v+Ml2JBWVzWttNgNHeRFc+GzXENmWbP51Pfnj1+HbHaZjqNQUkkmz45hI0AgU9U0OXgNbiyNR7Hq66OIrIPoZde6VzGmxdnsrwx3NHHBTaLX04EGX1/d/gcoaDyOONdUrXKq94aOMlWeuvhyYbfXD/9VYMhMtzcyS+pJ2suovsW2pr7pm2XlAbHJ/b95Io5KRgLtwRW8fH3fqk/3dVK4TGFxT8Ui5S22xOZube0lL/MkqjbymVZH9iRortWKDKvT/cusncHS84lsflfDI0qzdiN7SeybgfACiE0NVefnuoRTzhD08oaEVZh71Y96rrJR3+d1LI92UZ4m4OZESYGGXJbQR0AatQXjTN54CZjpPnlQ+iehgMU1Pe3K094tJ0VY5lMpeV3maGuYL53laNBb00Ll/vh6og2ZRI/TQ=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BYAPR03MB3623.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(366004)(39860400002)(136003)(346002)(396003)(376002)(451199018)(478600001)(110136005)(316002)(54906003)(6506007)(4744005)(53546011)(6666004)(2616005)(6512007)(26005)(186003)(31686004)(31696002)(36756003)(6486002)(5660300002)(86362001)(82960400001)(38100700002)(66946007)(4326008)(8676002)(2906002)(8936002)(66556008)(41300700001)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(346002)(396003)(39860400002)(366004)(136003)(451199018)(66946007)(83380400001)(38100700002)(66556008)(66476007)(41300700001)(8936002)(6916009)(4326008)(8676002)(2906002)(30864003)(6506007)(53546011)(6512007)(26005)(186003)(6666004)(2616005)(54906003)(478600001)(316002)(6486002)(36756003)(86362001)(5660300002)(31696002)(31686004)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d1MrL1ZwcE5sdFFRdlppRFNEU0ZHVFFPUmZQSzFTRUE0Z0JpQml3Sk05elFv?=
- =?utf-8?B?VEtzWXpPR3hRd0Iwc21TcGZtelVwMjhBR1ltZmxYbjQ5cTRmQTZPcmt4aHdU?=
- =?utf-8?B?VjIwckJBMHhKcUZ2TmRSUGU1MlhXdlVXM2o2UE1XY3ZPaEd4WlhkRmdzL0ww?=
- =?utf-8?B?clBQeGc1SThIVGRlSlMvL1hIb2srY3RGdElvSUpIK3VTemJXNThJRFljNVFq?=
- =?utf-8?B?K1RqOTdpUGRLdlhuNENJVVJlbFA1TjUyM29ITTR4Rm1zend2VEJZNWpYMTcz?=
- =?utf-8?B?L25sRmh0WGxseXdmU2VXcndKZ3FYbExGcG9YUnZ4MzFMLzl4R2xnUVo3eWo5?=
- =?utf-8?B?WVk4ckhFdTBicDVBMWI0eTlVck9GdWZZY2xkTk5EeVcxRVlBaHdVelh4TXVS?=
- =?utf-8?B?TXNtSmVRREhzc3crejBqYTRWTlJCdlRJNFpQUlY2amR3eDk4YW9mNDRpaFps?=
- =?utf-8?B?MU1wc1pJYTdKbitqTUZUekhkQUhndGxWQTI0SG5yU3dMdi9abk02QjdXRno3?=
- =?utf-8?B?WWRNU25QZ3FsMUZOZ3pobHlBUXMzNjdLRnh1YVdNZmUxYkZkNkJkTG84a0Fr?=
- =?utf-8?B?SVUvSEpOdzluUHNCZnpodTdiWk1JcXhyQ24zKy9WRjRXOWtVSFBCN0tNVWtU?=
- =?utf-8?B?cE1NTW03Qmx1QlRBL1RGclhua2FYVkMxRlQ0aVB5QjF6LzhBZW9SRjFMeUJQ?=
- =?utf-8?B?djVmK2F6OEg0ZWMwZGVGb2NhaktoOE9WMjVlb01kT3JaUjB2Znd0RFN0SitD?=
- =?utf-8?B?NmtIWHVmWTM5Zll6ZFJHQktyR0lHS0srZFgwSlJtT1pjSXVzWk9Nb3NtV3cy?=
- =?utf-8?B?cWJUNFZkY2ljT2FWOXU1NHBUMk1hVnZkQ3owM09KenY3TzNOT0xCbXdLT0Ri?=
- =?utf-8?B?WUtoQVFLV3RlTjc3R2xsOE5BV0h6dEpGK0FTMkcySU1yZXZRME02QUpaSmdI?=
- =?utf-8?B?Smc2anhTOEVlbTdYVWlINjN0RHRyMzNtU1BYbnFVQjVRSlp5Y21lMCtLQjli?=
- =?utf-8?B?Q2M4RjFmbU5paXY2a3luNmhhMVVxbWUyMXI3SGkyNko4TnB5T3hlWjBhQjh0?=
- =?utf-8?B?OHRhSWZqZzJWZzBnd3kwSEdsNDZYZ01tSk1GdDlEcjVMaUZjeUJXVyt0M2ww?=
- =?utf-8?B?d3MvWmNsMG4xOCtXa0R5UlBkM3dlM1NqUEkyVVpKNm9jbUN6NnlBTWloRm5v?=
- =?utf-8?B?dzBlQVgxeDd0M2h4czE0QkdGWUQ5N29uMk1EbWl4NzFGWWQ4bDF1bFFEU1Ny?=
- =?utf-8?B?bEV3MnIxTHQ0MlVzeVo5dWNFTDNjK3NaMlEwNXRMT0VlWmxEQzRWOVlPWGJM?=
- =?utf-8?B?WXdsQ1FxdWlQTHA1TUxGd0NaMTR0SjNxZ2EvSDFyWnB2OElKN3ZIYU5aRHpq?=
- =?utf-8?B?bGoxaS9WQUhNdCtaVjlYMkJnRzVWekhSZVRjRUJOdzFLS0d6cU5heWVEeW94?=
- =?utf-8?B?UzdTekxuN2RUYVhSZjdRd3pncUxIbndWL3dmWTRTK0xHeG9sYTFYMTlkMFM2?=
- =?utf-8?B?NkhwelcrU1BEbVlKVmJ4QTdXWVoxTVR1UWovL0Mwb1UzMjFjZ1dOUnFhSDBG?=
- =?utf-8?B?R0hsQzc2UW10empnSHoyVTRwKy9tNGR6cVNWbUdnRkwvOWUyVWRhUi9ESzQr?=
- =?utf-8?B?S0FLN1ZTWnNqZTgvZFh6V1Z4Y25FcVpEMElpMDBpMy85YWxxbm1XRFBDWE5E?=
- =?utf-8?B?c0xIMkRZa3RQZkVRd0ROVm92eDdBZzhtNEpWdDlodzJIelRVem82c3Z1SXkv?=
- =?utf-8?B?Q3k1SENYeVJFamVCaFZabGhWWUFML1FZN1dYZm53L201SURsWlF4Yk8zUkVh?=
- =?utf-8?B?S05jZk5INi9kNGpxTGF2RHB5TWZ4Tnc1UlF3clhobkxNOUovN01rV25WOVBH?=
- =?utf-8?B?KzNrVFRCS1ArMVRnbXVSYXdnVHlZNUJCRFpPZXdqb3BZSEI5Nnp1UlRjL256?=
- =?utf-8?B?MEdjOGNOcG54ZEpVYXg4Mm5EbnNEQjJ3NDBvSkhLaDdGZ3c1WmZmT3pYWUF0?=
- =?utf-8?B?T2llN2daN015VlM3SWwzVmNjR0grUTd5MGFUZFJkM2k5aUI2L3NQNzU1cXRE?=
- =?utf-8?B?dlhyZ3ltcjk5ZHJGandLa3d3V0czS0hTcG5MUHNRSDJYZ3Baa3VVbmxYOWhq?=
- =?utf-8?B?RFc2S2VCYXAwOUlkekdyY3NuZENtNEJvVGIxUVp3anAyZXNWdlMvR0V3Z2Qr?=
- =?utf-8?B?Umc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	oB++t5Li9pndLfD+jxKkvHmbRJF5PHnNCvz2bhFdHIy1FFtXLnPozMDGKeK+rcb5OM/N3C5HrM3QyF6BqDl2QMmizZtuboqXMbvpWgJfXyDLpNluuo/PLfsOoJQIUDjBIyXX3T9mXNUttFL4UYkruW3j8NYiaVvGS4nHRi1x5tfKLcC9lS67BAId3OdlVO7EVjQLUUK7TSLjUMaMNDsGtDGf/8tvoRK3ECkumU8fruUvmutfQstes41hnNgInKbmL0+GjANvWMO8zoQDTVTkLMhX8oj//thmYGssTsSFgN+LpkKZSe4SJm6xwsyYdAvsKOj7mQJ5wnRMIOxDp0rnj1twPJByQjqGr2ze6rmgVjapdQsrWnYmriUUx3NEB/zwWG3daI7aT/PDjwm9xBPxa6uAVRG1PsyOFULsNv7+y8+8b/zuvkJzmAr/UETe7zfc1xZlvQeecLqtMUQEm3xRQfXscgmsN8l6jNt9oVW9+b6ly/u9f1bT5s/6m6va8hTsxHiokZz+HIZHfzAu+2xst/0e5naJfuZbuN5EOV0urglNMWoohOfgrZr1G/1uRPUcEXIyQleor8idYAfkZcNOlk8OCbMG2iEmxf8OpPseDJNF+AkSL0inER898u3Am8JoXddrhAq7BwKEILNqCAhkqmWzBVshtWwam2bcBIvLlTF9HNdyIXmJKLInY/j5azjL+tEQT4QvIwe6Zf9BEezAWdowT5pkuE09/3fLZkxxjgI1HUrRio+qtjmr456dvflDNA/jwILAC5EyYbRFRiOlemiOcSRH6hk2O/KuLGHnsSeubDsM7GNvgmn57qzPbQty
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9aba4131-97bd-481e-bf57-08db084869d3
-X-MS-Exchange-CrossTenant-AuthSource: BYAPR03MB3623.namprd03.prod.outlook.com
+	=?utf-8?B?MkpNclJYby94TUtWSkUvM3BKY0ZGSGRDZG8rV2M0ZmQ3ejBqcnc5M3g4Wlhj?=
+ =?utf-8?B?SmpidjBNWGVzS2N6SC9WenM1VzAvZDUzMXNWSTg4a01uTFdLVDdqTHVaRVFB?=
+ =?utf-8?B?MUMzRU82WlJqdHFhQkpPQmxFOENUWS9aUytZdVJ5UTNRQ2tRSHBTTUVySG1T?=
+ =?utf-8?B?aDZKWm1wUFd0RWUwNS92ams2bEx5TXhzWXpSbm40Y0l5NHdyVjBUUHQvY0Q0?=
+ =?utf-8?B?VEhxMTdGc29NVlJuMW1Ua3BNYnE0Zy9nMVRmMFBPS1hvMTNJNFlkNm5Wd0M1?=
+ =?utf-8?B?WVlQV0kxa09XNTdLeTNuVmdpaGlSVHA3WkFPdU91U0VickVMMHU3WEllWEtt?=
+ =?utf-8?B?NDNVaHdCL09hSXNPUXl6WkNVN2tRbXJRNnJEbzVnc3pLWWFUZWljSXQzNUR5?=
+ =?utf-8?B?THdsUW02ek1ONWNFN3NXRkl0Wjk0VmZzemlEa0FmczJFQzRoY1NRQy82TGF5?=
+ =?utf-8?B?bzhHRkZlSEt4dFBBK3JVZXdpaTZaS0U0cGJwZEdac0U0d3orZlJKWVhrcW1p?=
+ =?utf-8?B?MHJzYmNJQjUvNEhYOVRLZWtPcFZxRVU2Z3hBWjRzVTF0WWdMQTNqMnNzb2Nv?=
+ =?utf-8?B?ZXN1UGQ1QWl1QTdOUGlrczAvNHdBWVYwazBWcWFDNlJ3Y2d4S0J1VEM3cm96?=
+ =?utf-8?B?dy9GaWhSQVhLeVlWYThXRjRIQkxoUlhqSUsyVWQ4Tmc0YnNBVkJhY0pZUi9B?=
+ =?utf-8?B?dlZ2ODdyTlRlbUd0ZjNiZjdPTW13Nk9kS2x6b001N0QrdkJjdFhnNTJiV1V2?=
+ =?utf-8?B?QmNhS3ZrYXhqWnhsVXowQ3FHeXJwbVBKdTZqRzBIbkRQY2xkVGtyb2dwc1Vj?=
+ =?utf-8?B?dkpDd1laSGVGZHhRNUpVMmx2M2h2c3JhS3NBa3BJRE04b0F4czBWNDNwZlFp?=
+ =?utf-8?B?bVVSVEpnU0FjRkRkWXdoOU1pMGdDRmVhN1c4UjhKekJxcElqbnFLZUh4Y01u?=
+ =?utf-8?B?T2RwU2VEcjNOenZHUUwvajhaaC9CenBlQm1SN2JxelU2REZ1aDdtQXRMczFN?=
+ =?utf-8?B?Z2FtRUc2YzlDN1VWd1dHRVZxMFNGSmxiZU1qNmZ4L3ZoMzR3a2xIV3ZzdGUx?=
+ =?utf-8?B?Z3ZiQWYyMWhYNFFqM2hHTjFMdjk1YWNLUERzYjkza0RqM2JKZkI1d2VhTFhi?=
+ =?utf-8?B?V214cno2c2k0bnlVcUJzUDJqNUhIeXRYSTFMWEkzSXp3OTdKQ08rbG9DeGtE?=
+ =?utf-8?B?TzJaN3RJV285TS9rYmVhTHpBQ3ZNOEZWL0dvSGJRRVZQZ0lsc2MwOFdPdys0?=
+ =?utf-8?B?RUFraGRhdnVGRitNV29CT1h2Z3JkM1g2UVl0ay9jODhEYUNzSEdnZEdKdldj?=
+ =?utf-8?B?N3FNOVgzaSs5dklTNlI4cGdVOUNRNldzUzdDYjlYc0lNOTlaWStMK2V6bzEv?=
+ =?utf-8?B?TmVZMG5RU0hVNkFicnNrK2s1WkY1VVRuWkdXVUdPVDFpcU96emtHUGIzMVky?=
+ =?utf-8?B?cFgvSzZLTDJ4bGVFWlJIRlkwUlBqNUFjSkh4STBWQlgrZEVJaVJtRHVpdW50?=
+ =?utf-8?B?SnFFejdDN0pDamhuL1ZCVlNDMXI0MWtqWGRoaVRoS1N0c0Q4SjNLRVNFc3Aw?=
+ =?utf-8?B?Yll3L2VWV3dwUEhOVUZvZXZicWEzM2VJUEovZnZQQ2Flb3FDbm0vQTN1K0U3?=
+ =?utf-8?B?TVQ5elptdTcwelpTamFIZ1p0OXg1RWNBbENuSHpkZkhEeDdwNExLZTZneFRO?=
+ =?utf-8?B?RGs2dGRFa0xmQkRkQzJqRWVQc1dBOWUweThTVFQzbmhaTEFyd2d1S2IzY0l4?=
+ =?utf-8?B?UHlSa01CSlBWRWxsbFhCeGZIbEFGYVlSd3gyTExaUkpaTWpKMWpMeDM3TXg1?=
+ =?utf-8?B?S2lGVEwrblJISzdBQllsRWJvRWlRYWN0SFQyWWExQWZqL1NRcVpKdSs2aW1s?=
+ =?utf-8?B?OGwyNzlWN3h1aXQzbi9uQi9odkVCV09zR3M3eDRKMEdvd2tpQlczd1VENEU1?=
+ =?utf-8?B?a1RybGFCUElXYzhxY05UbENwWEM0NXF4OEFITGM0TjFPamlPQ0RLNTJUUllr?=
+ =?utf-8?B?anVvTzIwcEo5OFovc0YydWZKNEZWWTEzand2NEhwRHFENThwQTdwTjBaTVdp?=
+ =?utf-8?B?aVRjL2lvM1JWUER4U21YNU92aUZoQ2U5a2Z6eWI2alR2T0tGRzRMN2hEVVgw?=
+ =?utf-8?Q?vql+aeSc4EItmzNqlvkv6Z5tI?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c850fbc3-9ee6-4df2-473d-08db084a30cb
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 13:45:31.2334
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Feb 2023 13:58:14.4318
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eoq0/YmsvbEaezOINXjx5j1Scf7Mcp5QOpQL9PbvVWJkT9/8Mx+Qo5s5OoOgietIDSf0Ty4slOgLD7ZJ/AxbBhgnwEBIJyWp6FuiXJ84bbE=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR03MB5335
+X-MS-Exchange-CrossTenant-UserPrincipalName: scZ1d2F6CCQQy5aM1vZ4HvgWjeLt+LfIsDKqOFfd+Q3Mksgki/thkoZor4EnlrXA7F67VSfutQebX7jUq6kzIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8637
 
-On 06/02/2023 12:33 pm, Jan Beulich wrote:
-> Now that they're properly represented in the public interface, stop
-> using literal numbers.
->
-> No functional change intended.
->
-> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+On 26.01.2023 21:27, Andrew Cooper wrote:
+> On 26/01/2023 8:02 am, Jan Beulich wrote:
+>> On 25.01.2023 22:10, Andrew Cooper wrote:
+>>> On 25/01/2023 3:25 pm, Jan Beulich wrote:
+>>>> In order to be able to defer the context switch IBPB to the last
+>>>> possible point, add logic to the exit-to-guest paths to issue the
+>>>> barrier there, including the "IBPB doesn't flush the RSB/RAS"
+>>>> workaround. Since alternatives, for now at least, can't nest, emit JMP
+>>>> to skip past both constructs where both are needed. This may be more
+>>>> efficient anyway, as the sequence of NOPs is pretty long.
+>>> It is very uarch specific as to when a jump is less overhead than a line
+>>> of nops.
+>>>
+>>> In all CPUs liable to be running Xen, even unconditional jumps take up
+>>> branch prediction resource, because all branch prediction is pre-decode
+>>> these days, so branch locations/types/destinations all need deriving
+>>> from %rip and "history" alone.
+>>>
+>>> So whether a branch or a line of nops is better is a tradeoff between
+>>> how much competition there is for branch prediction resource, and how
+>>> efficiently the CPU can brute-force its way through a long line of nops.
+>>>
+>>> But a very interesting datapoint.  It turns out that AMD Zen4 CPUs
+>>> macrofuse adjacent nops, including longnops, because it reduces the
+>>> amount of execute/retire resources required.  And a lot of
+>>> kernel/hypervisor fastpaths have a lot of nops these days.
+>>>
+>>>
+>>> For us, the "can't nest" is singularly more important than any worry
+>>> about uarch behaviour.  We've frankly got much lower hanging fruit than
+>>> worring about one branch vs a few nops.
+>>>
+>>>> LFENCEs are omitted - for HVM a VM entry is immanent, which already
+>>>> elsewhere we deem sufficiently serializing an event. For 32-bit PV
+>>>> we're going through IRET, which ought to be good enough as well. While
+>>>> 64-bit PV may use SYSRET, there are several more conditional branches
+>>>> there which are all unprotected.
+>>> Privilege changes are serialsing-ish, and this behaviour has been
+>>> guaranteed moving forwards, although not documented coherently.
+>>>
+>>> CPL (well - privilege, which includes SMM, root/non-root, etc) is not
+>>> written speculatively.  So any logic which needs to modify privilege has
+>>> to block until it is known to be an architectural execution path.
+>>>
+>>> This gets us "lfence-like" or "dispatch serialising" behaviour, which is
+>>> also the reason why INT3 is our go-to speculation halting instruction. 
+>>> Microcode has to be entirely certain we are going to deliver an
+>>> interrupt/exception/etc before it can start reading the IDT/etc.
+>>>
+>>> Either way, we've been promised that all instructions like IRET,
+>>> SYS{CALL,RET,ENTER,EXIT}, VM{RUN,LAUNCH,RESUME} (and ERET{U,S} in the
+>>> future FRED world) do, and shall continue to not execute speculatively.
+>>>
+>>> Which in practice means we don't need to worry about Spectre-v1 attack
+>>> against codepaths which hit an exit-from-xen path, in terms of skipping
+>>> protections.
+>>>
+>>> We do need to be careful about memory accesses and potential double
+>>> dereferences, but all the data is on the top of the stack for XPTI
+>>> reasons.  About the only concern is v->arch.msrs->* in the HVM path, and
+>>> we're fine with the current layout (AFAICT).
+>>>
+>>>> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>>>> ---
+>>>> I have to admit that I'm not really certain about the placement of the
+>>>> IBPB wrt the MSR_SPEC_CTRL writes. For now I've simply used "opposite of
+>>>> entry".
+>>> It really doesn't matter.  They're independent operations that both need
+>>> doing, and are fully serialising so can't parallelise.
+>>>
+>>> But on this note, WRMSRNS and WRMSRLIST are on the horizon.  The CPUs
+>>> which implement these instructions are the ones which also ought not to
+>>> need any adjustments in the exit paths.  So I think it is specifically
+>>> not worth trying to make any effort to turn *these* WRMSR's into more
+>>> optimised forms.
+>>>
+>>> But WRMSRLIST was designed specifically for this kind of usecase
+>>> (actually, more for the main context switch path) where you can prepare
+>>> the list of MSRs in memory, including the ability to conditionally skip
+>>> certain entries by adjusting the index field.
+>>>
+>>>
+>>> It occurs to me, having written this out, is that what we actually want
+>>> to do is have slightly custom not-quite-alternative blocks.  We have a
+>>> sequence of independent code blocks, and a small block at the end that
+>>> happens to contain an IRET.
+>>>
+>>> We could remove the nops at boot time if we treated it as one large
+>>> region, with the IRET at the end also able to have a variable position,
+>>> and assembles the "active" blocks tightly from the start.  Complications
+>>> would include adjusting the IRET extable entry, but this isn't
+>>> insurmountable.  Entrypoints are a bit more tricky but could be done by
+>>> packing from the back forward, and adjusting the entry position.
+>>>
+>>> Either way, something to ponder.  (It's also possible that it doesn't
+>>> make a measurable difference until we get to FRED, at which point we
+>>> have a set of fresh entry-points to write anyway, and a slight glimmer
+>>> of hope of not needing to pollute them with speculation workarounds...)
+>>>
+>>>> Since we're going to run out of SCF_* bits soon and since the new flag
+>>>> is meaningful only in struct cpu_info's spec_ctrl_flags, we could choose
+>>>> to widen that field to 16 bits right away and then use bit 8 (or higher)
+>>>> for the purpose here.
+>>> I really don't think it matters.  We've got plenty of room, and the
+>>> flexibility to shuffle, in both structures.  It's absolutely not worth
+>>> trying to introduce asymmetries to save 1 bit.
+>> Thanks for all the comments up to here. Just to clarify - I've not spotted
+>> anything there that would result in me being expected to take any action.
+> 
+> I'm tempted to suggest dropping the sentence about "might be more
+> efficient".  It's not necessary at all IMO, and it's probably not
+> correct if you were to compare an atom microserver vs a big Xeon.
 
-Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Hmm - "might" still isn't "will". ISTR us actually discussing to limit
+how long a sequence of NOPs we'd tolerate before switching to JMP.
 
-(Take 2, trying to sort out my email aliases properly.)
+>>>> --- a/xen/arch/x86/include/asm/spec_ctrl.h
+>>>> +++ b/xen/arch/x86/include/asm/spec_ctrl.h
+>>>> @@ -36,6 +36,8 @@
+>>>>  #define SCF_verw       (1 << 3)
+>>>>  #define SCF_ist_ibpb   (1 << 4)
+>>>>  #define SCF_entry_ibpb (1 << 5)
+>>>> +#define SCF_exit_ibpb_bit 6
+>>>> +#define SCF_exit_ibpb  (1 << SCF_exit_ibpb_bit)
+>>> One option to avoid the second define is to use ILOG2() with btrl.
+>> Specifically not. The assembler doesn't know the conditional operator,
+>> and the pre-processor won't collapse the expression resulting from
+>> expanding ilog2().
+> 
+> Oh that's dull.
+> 
+> I suspect we could construct equivalent logic with an .if/.else chain,
+> but I have no idea if the order of evaluation would be conducive to
+> doing so as part of evaluating an immediate operand.  We would
+> specifically not want something that ended looking like `ilog2 const
+> "btrl $" ",%eax"`, even though I could see how to make that work.
+> 
+> It would be nice if we could make something suitable here, but if not we
+> can live with the second _bit constant.
+
+How would .if/.else be able to go inside an expression? You can't even
+put this in a .macro, as that can't be invoked as part of an expression
+either.
+
+>>>> @@ -272,6 +293,14 @@
+>>>>  #define SPEC_CTRL_EXIT_TO_PV                                            \
+>>>>      ALTERNATIVE "",                                                     \
+>>>>          DO_SPEC_CTRL_EXIT_TO_GUEST, X86_FEATURE_SC_MSR_PV;              \
+>>>> +    ALTERNATIVE __stringify(jmp PASTE(.Lscexitpv_done, __LINE__)),      \
+>>>> +        __stringify(DO_SPEC_CTRL_EXIT_IBPB                              \
+>>>> +                    disp=(PASTE(.Lscexitpv_done, __LINE__) -            \
+>>>> +                          PASTE(.Lscexitpv_rsb, __LINE__))),            \
+>>>> +        X86_FEATURE_IBPB_EXIT_PV;                                       \
+>>>> +PASTE(.Lscexitpv_rsb, __LINE__):                                        \
+>>>> +    ALTERNATIVE "", DO_OVERWRITE_RSB, X86_BUG_IBPB_NO_RET;              \
+>>>> +PASTE(.Lscexitpv_done, __LINE__):                                       \
+>>>>      DO_SPEC_CTRL_COND_VERW
+>>> What's wrong with the normal %= trick?
+>> We're in a C macro here which is then used in assembly code. %= only
+>> works in asm(), though. If we were in an assembler macro, I'd have
+>> used \@. Yet wrapping the whole thing in an assembler macro would, for
+>> my taste, hide too much information from the use sites (in particular
+>> the X86_{FEATURE,BUG}_* which are imo relevant to be visible there).
+>>
+>>>   The use of __LINE__ makes this
+>>> hard to subsequently livepatch, so I'd prefer to avoid it if possible.
+>> Yes, I was certainly aware this would be a concern. I couldn't think of
+>> a (forward looking) clean solution, though: Right now we have only one
+>> use per source file (the native and compat PV entry.S), so we could use
+>> a context-independent label name. But as you say above, for FRED we're
+>> likely to get new entry points, and they're likely better placed in the
+>> same files.
+> 
+> I was going to suggest using __COUNTER__ but I've just realised why that
+> wont work.
+> 
+> But on further consideration, this might be ok for livepatching, so long
+> as __LINE__ is only ever used with a local label name.  By the time it
+> has been compiled to a binary, the label name wont survive; only the
+> resulting displacement will.
+> 
+> I think we probably want to merge this with TEMP_NAME() (perhaps as
+> UNIQ_NAME(), as it will have to move elsewhere to become common with
+> this) to avoid proliferating our livepatching reasoning.
+
+Even if I had recalled that we have TEMP_NAME() somewhere, I'd be very
+hesitant to make anything like that into more generally accessible
+infrastructure. I consider TEMP_NAME() itself already a too widely
+exposed. The problem with it is that you can easily end up with two uses
+as the result of expanding something that's all contained on a single
+source line. Hence I very specifically want to have uses of __LINE__
+only in places where either it is the top level source line, or where
+- as is the case here - it is clear that no two instance of the same or
+a similar macro will ever sensibly be put on one line. (Even then there's
+still the risk of using the C macro inside an assembler macro, where two
+instances would cause problems. But if such appeared, making the
+assembler macro suitably use \@ instead shouldn't be overly difficult.)
+
+Jan
 
