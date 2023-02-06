@@ -2,44 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21E8868B8EC
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 10:48:47 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490163.758758 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96E8A68B8F2
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 10:49:07 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490169.758773 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOy6x-0001E6-0V; Mon, 06 Feb 2023 09:48:31 +0000
+	id 1pOy7M-0001lj-BI; Mon, 06 Feb 2023 09:48:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490163.758758; Mon, 06 Feb 2023 09:48:30 +0000
+Received: by outflank-mailman (output) from mailman id 490169.758773; Mon, 06 Feb 2023 09:48:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOy6w-0001BW-Sx; Mon, 06 Feb 2023 09:48:30 +0000
-Received: by outflank-mailman (input) for mailman id 490163;
- Mon, 06 Feb 2023 09:48:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=q8JA=6C=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1pOy6v-0001BL-R7
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 09:48:29 +0000
-Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 686e1ae3-a603-11ed-933c-83870f6b2ba8;
- Mon, 06 Feb 2023 10:48:28 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id 3112220137;
- Mon,  6 Feb 2023 10:48:28 +0100 (CET)
-Received: from sonata.ens-lyon.org ([127.0.0.1])
- by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 37gCvjbV6Dqt; Mon,  6 Feb 2023 10:48:28 +0100 (CET)
-Received: from begin (unknown [89.207.171.57])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 03F7D20135;
- Mon,  6 Feb 2023 10:48:27 +0100 (CET)
-Received: from samy by begin with local (Exim 4.96)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1pOy6t-0092S6-0v;
- Mon, 06 Feb 2023 10:48:27 +0100
+	id 1pOy7M-0001id-78; Mon, 06 Feb 2023 09:48:56 +0000
+Received: by outflank-mailman (input) for mailman id 490169;
+ Mon, 06 Feb 2023 09:48:54 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOy7K-0001iC-Bb; Mon, 06 Feb 2023 09:48:54 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOy7K-0003OM-90; Mon, 06 Feb 2023 09:48:54 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOy7J-0006xm-Qc; Mon, 06 Feb 2023 09:48:53 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pOy7J-00076D-Q8; Mon, 06 Feb 2023 09:48:53 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,84 +42,90 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 686e1ae3-a603-11ed-933c-83870f6b2ba8
-Date: Mon, 6 Feb 2023 10:48:27 +0100
-From: Samuel Thibault <samuel.thibault@ens-lyon.org>
-To: Juergen Gross <jgross@suse.com>
-Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
-	wl@xen.org
-Subject: Re: [PATCH 4/7] Mini-OS: add 9pfs frontend
-Message-ID: <20230206094827.rayr5tqstjnco3nf@begin>
-Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
-	xen-devel@lists.xenproject.org, wl@xen.org
-References: <20230203091809.14478-1-jgross@suse.com>
- <20230203091809.14478-5-jgross@suse.com>
- <20230206090139.ehvf2czoocn6j7nc@begin>
- <383cbd1b-6518-bc1d-a3ae-5562e3dec5c1@suse.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=op1tJHQux/9uIDNPxTiROvfNnaTHxjWDo32IODHN2H8=; b=48uOV3gP4nlLDtUUubBkvVs5Pz
+	HQB8o+XCDr3Np8QMT/MBDAHImc1yNaDQ4L/gy9D0AbZPEHqgEubHUJh+P6RN8Lxmja55WlnrNYWLG
+	s12xcR/7Ya/JJ5eo0Tcl3w4SvAJmQRZ2MNFadIwxY3uVDeg9LXL0klwaTWKMwoabYcW4=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176414-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <383cbd1b-6518-bc1d-a3ae-5562e3dec5c1@suse.com>
-Organization: I am not organized
-User-Agent: NeoMutt/20170609 (1.8.3)
+MIME-Version: 1.0
+Subject: [xen-unstable-smoke test] 176414: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=39ee93d21290293712ffb7f7c265df7dcb45b12f
+X-Osstest-Versions-That:
+    xen=a21c9e6ddfee6d21dff1f18c299cb94a47b32c9e
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 06 Feb 2023 09:48:53 +0000
 
-Juergen Gross, le lun. 06 févr. 2023 10:22:10 +0100, a ecrit:
-> On 06.02.23 10:01, Samuel Thibault wrote:
-> > Juergen Gross, le ven. 03 févr. 2023 10:18:06 +0100, a ecrit:
-> > > +void *init_9pfront(unsigned int id, const char *mnt)
-> > > +{
-> > [...]
-> > > +    free(xenbus_watch_path_token(XBT_NIL, bepath, bepath, &dev->events));
-> > 
-> > Better check for errors, otherwise the rest will hang without useful
-> > feedback.
-> 
-> This is a common pattern in Mini-OS frontends.
+flight 176414 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176414/
 
-Ah, indeed. Ok, then.
+Failures :-/ but no regressions.
 
-> > > +    for ( v = version; *v; v++ )
-> > > +    {
-> > > +        if ( strtoul(v, &v, 10) == 1 )
-> > > +        {
-> > > +            v = NULL;
-> > > +            break;
-> > 
-> > This looks fragile? if version is "2.1" it will accept it apparently? I
-> > guess better check whether strtoul did read a number, and in that case
-> > break the loop anyway, successfully if the number is 1 and with failure
-> > otherwise.
-> 
-> Versions are defined to be integers.
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-Ah, it's a list of versions?
-(I don't know the protocol at all).
+version targeted for testing:
+ xen                  39ee93d21290293712ffb7f7c265df7dcb45b12f
+baseline version:
+ xen                  a21c9e6ddfee6d21dff1f18c299cb94a47b32c9e
 
-> I can add checks for sanitizing backend written data, but I'm not sure we
-> need that. In case the backend wants to fool us, it can easily tell us to
-> support version 1 even if it doesn't.
+Last test of basis   176339  2023-02-02 21:02:06 Z    3 days
+Testing same since   176414  2023-02-06 08:00:30 Z    0 days    1 attempts
 
-Not necessarily fooling, but misprogramming :)
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Anthony PERARD <anthony.perard@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Juergen Gross <jgross@suse.com>
+  Krister Johansen <kjlx@templeofstupid.com>
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Xenia Ragiadakou <burzalodowa@gmail.com>
 
-> > > +        }
-> > > +    }
-> > > +    free(version);
-> > > +    if ( v )
-> > > +    {
-> > > +        reason = "version 1 not supported";
-> > > +        goto err;
-> > > +    }
-> > 
-> > This looks odd: when number 1 is detected this breaks out successfully,
-> > while the error message otherwise says that it's version 1 which is not
-> > supported? Is the message supposed to be "version greater than 1 not
-> > supported"?
-> 
-> I can change the message to "Backend doesn't support version 1".
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
-Aah, yes indeed, that was the part I missed for understanding it all :)
 
-Samuel
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   a21c9e6ddf..39ee93d212  39ee93d21290293712ffb7f7c265df7dcb45b12f -> smoke
 
