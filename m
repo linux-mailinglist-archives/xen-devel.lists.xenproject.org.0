@@ -2,37 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC5668C28B
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 17:09:58 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490581.759348 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEEF568C2A3
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 17:12:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490595.759373 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP43X-0001qM-4i; Mon, 06 Feb 2023 16:09:23 +0000
+	id 1pP45s-0003l8-Pl; Mon, 06 Feb 2023 16:11:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490581.759348; Mon, 06 Feb 2023 16:09:23 +0000
+Received: by outflank-mailman (output) from mailman id 490595.759373; Mon, 06 Feb 2023 16:11:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP43X-0001oC-1Y; Mon, 06 Feb 2023 16:09:23 +0000
-Received: by outflank-mailman (input) for mailman id 490581;
- Mon, 06 Feb 2023 16:09:21 +0000
+	id 1pP45s-0003ii-Mv; Mon, 06 Feb 2023 16:11:48 +0000
+Received: by outflank-mailman (input) for mailman id 490595;
+ Mon, 06 Feb 2023 16:11:46 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=K59t=6C=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pP43V-0001o6-Nf
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 16:09:21 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 9c974987-a638-11ed-93b5-47a8fe42b414;
- Mon, 06 Feb 2023 17:09:19 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id h16so10845219wrz.12
- for <xen-devel@lists.xenproject.org>; Mon, 06 Feb 2023 08:09:19 -0800 (PST)
-Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
- [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
- o7-20020a05600002c700b002be5bdbe40csm9826652wry.27.2023.02.06.08.09.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Feb 2023 08:09:18 -0800 (PST)
+ <SRS0=teK6=6C=citrix.com=prvs=39493946a=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pP45q-0003iW-Kf
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 16:11:46 +0000
+Received: from esa4.hc3370-68.iphmx.com (esa4.hc3370-68.iphmx.com
+ [216.71.155.144]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id f19e89e4-a638-11ed-93b5-47a8fe42b414;
+ Mon, 06 Feb 2023 17:11:44 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,80 +36,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9c974987-a638-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=xFsZzbiGJaBKLs/rFiMkljY9r+p3AVj/m6uaTSmp/nA=;
-        b=k7C4ba208ZbOa2+Cdojg4SlTdP2Twwvb3aCSd5f+0v8tgAafYTaagvX9atSIYIFBsW
-         Ndqt9GqxIL8wE0erV3bwCwW7gV6kIM5lQEQ6H//WNHDQqHDuGaU1OcInGeelH++v4z2H
-         OOhRoE/9Uuv032yS63ay4GrEUPO2k75WleuBbkrXxNytimoq9bryVwUqEXH8A1IqigjR
-         2Q79tzEaEcQTdTVkTTnx0+YyPPOVfPyMLVaPIbqb5k3jKWFCJQanxMgkTKoGgGqw5tiS
-         tW8VvmpqPKRtCjw4paNUsECsz186nLrJL0hlK2vSp475dKMoRRvMMqootgrcYRyCndqM
-         nHFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xFsZzbiGJaBKLs/rFiMkljY9r+p3AVj/m6uaTSmp/nA=;
-        b=RlpckSt8zBdU1oYIaD2UAUcdbMiOTJzpwHuJtEVg7zPn4znyek0Nb5C8IELVQPCNBL
-         1QEir+f8s2Vt7h1LOSB3wf0Hc1omWQmceIrmKiSXSt+hxuSRr/denh/ZmO8lLB1exuX6
-         +SK3C9LANWNBrK2UGH+Fnxg+V9+jwBsgdC7x2kDrYE709qi0RyltYV/O2vL7Oi8MfP9D
-         41uTa/iwsT/P3EF/MxIWAJVJ+3gHpee7yqdbmjDlsd4zUk6rqJaSTbN6WyjOcXA+NLLE
-         j/EGBEnPY94+rSIWlZEHtjRMW7OUnWXCVjy6Ggf0VCbrbDETAS+ZiQVWxLEYrMUBXzvE
-         G88w==
-X-Gm-Message-State: AO0yUKU9hORDy8epk7SCrDjnH4u/eReOjAxYmgQYJWYheEtW7J7MEk4B
-	cBwLDc+jaOEEhANdIjuur6A=
-X-Google-Smtp-Source: AK7set/YK1kfkBko1SP0df3Zb9yhuvDHn1wSrJOt9mjjmRn8Kv55bYenT3715SNxdosUUW4Qjm2EeQ==
-X-Received: by 2002:adf:e4c1:0:b0:2c3:f06f:850c with SMTP id v1-20020adfe4c1000000b002c3f06f850cmr946866wrm.31.1675699759036;
-        Mon, 06 Feb 2023 08:09:19 -0800 (PST)
-Message-ID: <7b22356adb84e32601b82985cd526e9bc050dacd.camel@gmail.com>
-Subject: Re: [PATCH v2 01/14] xen/riscv: add _zicsr to CFLAGS
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>, Alistair Francis <alistair23@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Julien Grall <julien@xen.org>, Andrew
- Cooper <andrew.cooper3@citrix.com>, Stefano Stabellini
- <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, Bob
- Eshleman <bobbyeshleman@gmail.com>, Alistair Francis
- <alistair.francis@wdc.com>, Connor Davis <connojdavis@gmail.com>
-Date: Mon, 06 Feb 2023 18:09:16 +0200
-In-Reply-To: <1d63dd9a-77df-4fca-e35b-886ba19fb35d@suse.com>
-References: <cover.1674818705.git.oleksii.kurochko@gmail.com>
-	 <971c400abf7f88a6be322db72481c075d3ceb233.1674818705.git.oleksii.kurochko@gmail.com>
-	 <CAKmqyKNSywyF8=KUTiKN12JL_Bst5if74h6mgek1aMYS1QpjeQ@mail.gmail.com>
-	 <1d63dd9a-77df-4fca-e35b-886ba19fb35d@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+X-Inumbo-ID: f19e89e4-a638-11ed-93b5-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1675699903;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3+4sUGuF9CppcWeyGFZngKG/6LArzgH+qRUpuX7/cNk=;
+  b=e0MZ9II+rzctqinTzRdhG8ze/EIEEiSAFzD7Pu6xmbYzSaPC+vGEmtAN
+   hjU1P3wJnKb8B4YpO+aYr1IPbC5s+OyvtZDUnuOQ5wyLYPrursl/Jlxs2
+   Et3qWp+ebAHu+jsusIyxO2Am2QnLqRw4484EHjN4gy/Ku8zO32TIvqO7X
+   s=;
+Authentication-Results: esa4.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 98289369
+X-Ironport-Server: esa4.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:VoS456osVIYabB6OnaFjbxJbE81eBmIpZRIvgKrLsJaIsI4StFCzt
+ garIBmOParcajbxKoxyatzk9BgGuJPVydcxSlc//ig9Fy0a95uZCYyVIHmrMnLJJKUvbq7FA
+ +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
+ NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEzydNVfrzGInqR5fGatgMdgKFb
+ 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
+ OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
+ RAXACAdUSCjl8np/K62UuVMmZ0NfOXBGZxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
+ eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
+ jOWpTSoWU9LXDCZ4Wqb/3SLhPXBoWD2AZ84G+a6sf1Yu2TGkwT/DzVJDADm8JFVkHWWWdhSN
+ kgV8SoGtrUp+QqgSdyVdw21pjuIswARX/JUEvYm80edx6zM+QGbC2MYCDlbZ7QOq8seVTEsk
+ FiTkLvBBzN1t6aOYWmA7brSpjS3UQAcNWIYbDUIZRcE6dLk5oo0i3ryos1LSfDvyIevQHepn
+ m7M9XJl71kOsSIV/7WrwmDnkxnzmoTEVgIV+Vz5Dk6PyxwsMeZJeLeUwVTc6P9BKqOQQV+Ao
+ GUIlqCi0QweMX2evHfTGbtQRdlF897AaWSB2gA3Q/HN4hz3oxaekZZsDCaSzauDGuINYnfXb
+ UDaomu9D7cDbSLxPcebj29cYvnGLJQM9/y/DZg4jfIUOPCdkTNrGwkwDXN8J0i3zCARfVgXY
+ P93i/qEA3cAErhAxzGrXeob2rJD7nlgmj6NH8mqkE36j+v2iJuppVAtaQvmUwzExPnc/FW9H
+ yh3Z6NmNCmzoMWhO3KKoOb/3HgBLGQhBICeliCkXrfrH+aSI0l4U6W56ep4K+RYc1F9yr+gE
+ oeVBhUJlzISRBTvdW23V5yUQO62AMsm9CpkVcHuVH7xs0UejU+UxP93X/MKkXMPpISPEdYco
+ yE5Rvi9
+IronPort-HdrOrdr: A9a23:oM2aoKOWsZ7yzcBcT4z255DYdb4zR+YMi2TDiHoddfUFSKalfp
+ 6V98jzjSWE+gr5nUtQ7uxpOMG7MA/hHP9OkPAs1NKZMDUO11HYXL2KgbGSuQEIeBeOudK1t5
+ 0QAJSWYeeYZTcV/KWKgnjBYq0dLcG8kJxA7d2ujkuFJjsaFJ2Imj0JezpzZXcGOjWua6BJaa
+ Z00vA35waISDA6f86/DnkAU/PjocfXmJ/dYRAADwM68wWVyRel8qTzHRSgxREVXylUzbpKyx
+ mhryXJoomzufSyyhvRzE/W9o9Xn8bIwMZCAsvksLlyFhzcziq4boFoW7mPpxAwufqu70sOmM
+ TBpB0xVv4DjE/5TyWYsBHp0wnl3C0W8Hny2XqRnHflq9yRfkNfNyMNv/MeTvMXg3BQ8O1U4e
+ Zu5Sa0ppBXBRTPkGDU4MXJbQhjkg6OrX8rgYco/jdiud91Ut5shL1a2HkQPIYLHSr85oxiOv
+ JpFtvg6PFfdk7fR2zFv0F0qebcAUgbL1OjeAwvq8aV2z9ZkDRS1E0D3vESmX8G6dYUV4RE3e
+ LZKa5l/Ys+EvP+VZgNWtvpfPHHUFAlACi8a156GG6XTJ3v7ki99qIe490OlamXkdIzvdVCya
+ goljtjxC0PkgnVeLizNaZwg1nwqL/UZ0Wp9ihv3ek6hlS1fsueDcSiciFrryLymYRZPiUsM8
+ zDda6/9JfYXCHT8MByrlTDsrFpWA8jbPE=
+X-IronPort-AV: E=Sophos;i="5.97,276,1669093200"; 
+   d="scan'208";a="98289369"
+Date: Mon, 6 Feb 2023 16:11:19 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, Wei Liu
+	<wl@xen.org>, Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH] libxl/x86: use public interface TSC mode definitions
+Message-ID: <Y+Emp96NtOw0yZ0U@perard.uk.xensource.com>
+References: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <0d80ade5-dcf2-b0b3-ba4c-010962a6febc@suse.com>
 
-Hi Jan,=20
-On Tue, 2023-01-31 at 10:14 +0100, Jan Beulich wrote:
-> On 31.01.2023 01:21, Alistair Francis wrote:
-> > On Sat, Jan 28, 2023 at 12:00 AM Oleksii Kurochko
-> > <oleksii.kurochko@gmail.com> wrote:
-> > >=20
-> > > Work with some registers requires csr command which is part of
-> > > Zicsr.
-> > >=20
-> > > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> >=20
-> > Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
->=20
-> There is an open aspect Andrew has pointed out on an earlier version.
-> I think it would be quite helpful if that could be settled one way or
-> another before this patch gets committed (which formally may now be
-> possible, depending on whether that open aspect is considered an
-> "open" objection, as per ./MAINTAINERS).
->=20
-I will change it to 'G' as Alistair doesn't see any sense to restrict
-ourselves:
-https://lore.kernel.org/xen-devel/CAKmqyKOecoz91e-4-KZUdgT5HNhuwuN83tpFR+Hm=
-wkUPb2r3ew@mail.gmail.com/
+On Mon, Feb 06, 2023 at 01:33:03PM +0100, Jan Beulich wrote:
+> Now that they're properly represented in the public interface, stop
+> using literal numbers.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-> Jan
-~ Oleksii
+Acked-by: Anthony PERARD <anthony.perard@citrix.com>
+
+Thanks,
+
+-- 
+Anthony PERARD
 
