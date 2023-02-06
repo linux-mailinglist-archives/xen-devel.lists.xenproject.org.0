@@ -2,36 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38F9F68C88F
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 22:24:21 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490730.759551 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01F2968C974
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 23:33:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490740.759567 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP8xY-0002DL-48; Mon, 06 Feb 2023 21:23:32 +0000
+	id 1pPA2K-0001Mn-6f; Mon, 06 Feb 2023 22:32:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490730.759551; Mon, 06 Feb 2023 21:23:32 +0000
+Received: by outflank-mailman (output) from mailman id 490740.759567; Mon, 06 Feb 2023 22:32:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pP8xY-0002B0-1A; Mon, 06 Feb 2023 21:23:32 +0000
-Received: by outflank-mailman (input) for mailman id 490730;
- Mon, 06 Feb 2023 21:23:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=53dg=6C=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pP8xX-0002Ae-9q
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 21:23:31 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 7d7a0642-a664-11ed-93b5-47a8fe42b414;
- Mon, 06 Feb 2023 22:23:27 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id C2A0FB81625;
- Mon,  6 Feb 2023 21:23:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88617C433EF;
- Mon,  6 Feb 2023 21:23:22 +0000 (UTC)
+	id 1pPA2K-0001LB-3m; Mon, 06 Feb 2023 22:32:32 +0000
+Received: by outflank-mailman (input) for mailman id 490740;
+ Mon, 06 Feb 2023 22:32:30 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>) id 1pPA2I-0001L5-DQ
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 22:32:30 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pPA2C-0005Ty-HV; Mon, 06 Feb 2023 22:32:24 +0000
+Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pPA2C-0006Qy-Af; Mon, 06 Feb 2023 22:32:24 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,74 +39,246 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7d7a0642-a664-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1675718603;
-	bh=/L6vScwanHXQkqlWWq3WvENVOhp9UJBsxYcGY9TovNA=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=kJy22NLlEYDFYl5LC9EYy1W8ZkkJr0WmEg2ATI7r2Z/Jf0EItt01iJtJFb7MW1hY/
-	 Mt0snoE83/ahw55qGIfBmaxbtlIJ+P4NjNSnNxUshowVEwaq0Q9IT9SAFGpA6KtPBn
-	 mpg61oCAxOHyL5TslO414HY7jZtdVwy7cKtL59vlC0LXX9jKGiSIOEMhC4p9lZjnC0
-	 SdKngky7TtWlBYCUe1jKB5BHbdjAQEcCeU4SNnv7SIvwgpPa2kWY+pL825RIeU5D2O
-	 SraFqFHDognpL9WDNSy4N0LNhnJ808sPPVnaHuLIT3T0HrJ8vikF8FMkNoXP0DpigQ
-	 a6drYlCQ6PcKg==
-Date: Mon, 6 Feb 2023 13:23:21 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Stefano Stabellini <sstabellini@kernel.org>, 
-    Luca Fancellu <Luca.Fancellu@arm.com>, 
-    Xen-devel <xen-devel@lists.xenproject.org>, 
-    Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>
-Subject: Re: Proposal: List files in Xen originated from external sources
-In-Reply-To: <53371bbc-ea78-4c2b-a84e-e888ae090d3a@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2302061323130.132504@ubuntu-linux-20-04-desktop>
-References: <BC3ED7B9-4917-491C-934A-EF112849CBF1@arm.com> <alpine.DEB.2.22.394.2302031145530.132504@ubuntu-linux-20-04-desktop> <53371bbc-ea78-4c2b-a84e-e888ae090d3a@suse.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
+	From:References:Cc:To:MIME-Version:Date:Message-ID;
+	bh=g2znekQW63nAZ8k2hF8K09p6l4jUYK6Zf2PQwsS7lfc=; b=Jd8wCoUHRyk8dfHuaHAf4NFKN4
+	gY5fd1cx8IkemMkEsRNhuvKcyvaOGJpjnVXmtjDVIfvaDgroyEQx+auQSiPrG51RDL6rnvf1W0i1Z
+	Nv2k2dQIoda8HRMe5VMA/lDyBsne14OiFgqSy4zbSNv96+t/B/j26hyKNRS4Y2be5vug=;
+Message-ID: <3b2f49cd-195c-f69b-b5d4-681a7cad58d5@xen.org>
+Date: Mon, 6 Feb 2023 22:32:22 +0000
 MIME-Version: 1.0
-Content-Type: multipart/mixed; BOUNDARY="8323329-268053785-1675718239=:132504"
-Content-ID: <alpine.DEB.2.22.394.2302061317480.132504@ubuntu-linux-20-04-desktop>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+To: Elliott Mitchell <ehem+xen@m5p.com>
+Cc: Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+ xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
+References: <202302031801.313I1SdK033264@m5p.com>
+ <df51bbdc-ab88-7254-799e-0e2828d3d1a9@suse.com>
+ <15b88500-89b0-507a-601c-84a8102bb550@xen.org>
+ <Y+EmIHDyvSCHjEo+@mattapan.m5p.com>
+ <1d685b34-940b-b8ca-e689-b5a42eaccea1@xen.org>
+ <Y+FjUTXdcoy3W9th@mattapan.m5p.com>
+From: Julien Grall <julien@xen.org>
+Subject: Re: [PATCH] xen/arm64: Default ACPI support enabled
+In-Reply-To: <Y+FjUTXdcoy3W9th@mattapan.m5p.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi,
 
---8323329-268053785-1675718239=:132504
-Content-Type: text/plain; CHARSET=UTF-8
-Content-Transfer-Encoding: 8BIT
-Content-ID: <alpine.DEB.2.22.394.2302061317481.132504@ubuntu-linux-20-04-desktop>
-
-On Mon, 6 Feb 2023, Jan Beulich wrote:
-> On 03.02.2023 20:55, Stefano Stabellini wrote:
-> > On Fri, 3 Feb 2023, Luca Fancellu wrote:
-> >> And then, if the file is not subject to backport and now we “own” the file, there is no more the need to list it
-> >> in the external file, a commit search can reveal when it was converted to Xen codestyle and removed from
-> >> the external file list so we don’t lose the history.
-> > 
-> > Yes, I agree. If a file is coverted to Xen coding style and follows
-> > MISRA rules, then there is no need to list the file in
-> > docs/misra/external-files.json.
-> > 
-> > 
-> >> So we would end up excluding just all the file listed in external-file.json by the analysis.
-> > 
-> > Right, I think so too
+On 06/02/2023 20:30, Elliott Mitchell wrote:
+> On Mon, Feb 06, 2023 at 05:07:50PM +0000, Julien Grall wrote:
+>>
+>> On 06/02/2023 16:09, Elliott Mitchell wrote:
+>>> On Mon, Feb 06, 2023 at 10:38:32AM +0000, Julien Grall wrote:
+>>>>
+>>>> On 06/02/2023 07:29, Jan Beulich wrote:
+>>>>> On 22.07.2020 19:43, Elliott Mitchell wrote:
+>>>>>> Unlike other unsupportted options, ACPI support is required to *boot*
+>>>>>> for a number of platforms.  Users on these platforms are unable to use
+>>>>>> distribution builds and must rebuild from source to use Xen.
+>>>>>>
+>>>>>> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+>>>>>
+>>>>> A general question first: How come this mail dates back to July 2020? I
+>>>>> had almost missed it as "new".
+>>>>
+>>>> I can't even find the Elliott's email in my inbox so reply here. But
+>>>> this sounds like a rehash of [1].
+>>>
+>>> The date on Git patches is meant as an indicator for author date.  Since
+>>> this is a cherry-pick of a patch which was written >2 years ago
+>>> `git format-patch` indicates when it was written.  This IS how these
+>>> systems work.
+>>
+>> Hmmm... I am a bit surprised to what you say. I have sent several
+>> patches in the past with an old author date and they always showed as
+>> the date sent in my inbox.
 > 
-> Personally I think this is too focused on Misra.
+> Dunno, but it was straight out of `git format-patch`.  I'm not using
+> `git send-email` though (that requires a setup distinct from what I'm
+> aiming for).
 
-We are trying to do two things at once:
-1) list of external files with their management info (backports, origin, etc.)
-2) list of files and paths to exclude from MISRA checking
+That's probably why.
 
-From this discussion it became clear that 1) and 2) are very different,
-have different requirements, and different info attached. In fact, the
-two lists of files and paths don't even match: not all external files
-exclude MISRA checking and some non-external files also exclude MISRA
-checking.
 
-I suggest we go forward with a MISRA-only exclude list with files and
-paths to exclude from automatic checking, and without any implication
-about external files. The list could be a json file called
-"misra-exclude.json" to avoid any doubts.
---8323329-268053785-1675718239=:132504--
+>>>>    >> Unlike other unsupportted options, ACPI support is required to *boot*
+>>>>    >> for a number of platforms.  Users on these platforms are unable to use
+>>>>    >> distribution builds and must rebuild from source to use Xen.
+>>>>
+>>>> What platforms are you testing on? I know that this is working-ish on
+>>>> RPI4 and QEMU. But this will likely blow up on one of the server we
+>>>> support in OSSTest because we don't have proper support to hide SMMUs in
+>>>> dom0.
+>>>
+>>> I've been doing RPI4 w/EDK2.  Which works for my purpose, the remaining
+>>> trouble spot for my purpose is needing a final resolution of the EFIFB
+>>> situation.
+>>
+>> I have had no feedback from the relevant person on EFIFB patch and I am
+>> not planning to purse the work in the near future.
+> 
+> Okay, thanks for the news.  Hopefully efifb on Xen support gets into
+> kernels closer to the Linux HEAD.
+> 
+> 
+>>>>>> --- a/xen/arch/arm/Kconfig
+>>>>>> +++ b/xen/arch/arm/Kconfig
+>>>>>> @@ -29,13 +29,18 @@ menu "Architecture Features"
+>>>>>>     source "arch/Kconfig"
+>>>>>>     
+>>>>>>     config ACPI
+>>>>>> -	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
+>>>>>> +	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)"
+>>>>
+>>>> The concerns I raised in [1] still stand. Most of the ACPI platform will
+>>>> also have support for IOMMUs. If we have support for IORT in Xen, then I
+>>>> would be a lot more amenable to remove the "UNSUPPORTED". And without
+>>>> that support we are going to do more harm and than good.
+>>>
+>>> Okay, this has been a known issue for *years* and yet remains unresolved
+>>> despite being a major issue.
+>>
+>> Right, the situation hasn't changed much since you last sent your patch
+>> to drop EXPERT/UNSUPPORTED.
+>>
+>> Unless you fancy working on ACPI, I don't really see the situation
+>> changing soon.
+> 
+> The situation is changing in large entities are pushing ACPI for ARM.  If
+> they succeed (likely) then it will be a case of Xen/ARM MUST support
+> ACPI, or else the project will die. 
+
+This is quite a bold statement... I can see this ACPI to overtake in 
+server world where ACPI is sort of the de-facto default firmware table. 
+However, in embedded this is probably going to be more mixed because 
+Device-Tree is a lot simpler to use (think of safety certified environment).
+
+>>>   Might be an abomination, but would it work
+>>> to find the string "IORT" and change it to "iort", "RTIO" or "IOXN" to
+>>> prevent Dom0 from finding it?
+>>
+>> Unfortunately no because there IORT is used to describing mapping for
+>> the GICv3 ITS which is currently working when ACPI is enabled in Xen.
+> 
+> The original advantage of Xen was paravirtualization.  Might this
+> be a case where it is better to have Domain 0 compensate and know the
+> SMMU is unusable with current versions of Xen?
+
+I believe it would make more difficult to add support for Stage-1 SMMU 
+in dom0. So this would be a short-sighted decision.
+
+> 
+>>> This ends up turning into a question of what are the cases and which are
+>>> more common?
+>>>
+>>> Case1: DT-only: Unchanged
+>>>
+>>> Case2: Switchable between DT and ACPI, w/o SMMU: Starts working with ACPI
+>>>
+>>> Case3: Switchable between DT and ACPI, w/SMMU: Unchanged, ACPI mode still
+>>> doesn't work, but the failure is different.
+>>>
+>>> Case4: Concurrent DT and ACPI support, w/o SMMU: Unchanged
+>>
+>> So Xen would start using ACPI rather than DT.I think we should default
+>> DT it until we have the ACPI support completed.
+> 
+> Isn't this precisely what the proposed change does?  Are you suggesting,
+> if both DT and ACPI are present, prevent Dom0 from seeing ACPI?
+
+In the current model Xen and dom0 have to be using the same kind of 
+firmware table. IOW if Xen is using the Device-Tree then dom0 has to.
+
+We never investigated whether it would be feasible for Dom0 to use ACPI 
+but not Xen.
+
+>  If
+> you're suggesting doing futher masking, perhaps only if SMMU is present?
+
+Even if we remove the dependencies on UNSUPPORTED, ACPI will still be in 
+a unsupported state by Xen Project (at least until the missing feature 
+are present).
+
+This means, if both Device-Tree and ACPI are present then we should boot 
+using Device-Tree so the user is using a supported configuration. If 
+they wish to use ACPI, then they will need to pass "acpi=on" on the Xen 
+command line.
+
+> 
+>>> Case5: Concurrent DT and ACPI support, w/SMMU: Breaks if Dom0 tries to
+>>> use ACPI
+>>>
+>>> Case6: ACPI-only, w/o SMMU: Starts working out-of-box
+>>>
+>>> Case7: ACPI-only, w/SMMU: Unchanged (still broken)
+>>
+>> To clarify, this will boot but then start to break in very subtle way.
+> 
+> Which suggests a need to provide warnings the situation is known to be
+> broken.
+
+Right. If that's the decision, then this would need to be part of this 
+patch (or a new one patch).
+
+>>> Ultimately this is more a decision for Xen Project management, than the
+>>> technical side.  Are things in shape where they can be rolled out?
+>>
+>> No. But as I wrote before, I don't believe the gap is very big.
+>>
+>>>   Is
+>>> ACPI support important enough to need rolling out now?
+>>>
+>>> I'm unsure about the former, but the latter seems a distinct "yes" since
+>>> ACPI appears to be the future.
+>>
+>> ACPI is indeed picking up the pace on Arm Server and platform where
+>> Windows on Arm is supported. But that should not only be the reason to
+>> remove UNSUPPORTED.
+> 
+> Well good news is I'm not proposing removing the unsupported marking.
+> I'm proposing to enable ACPI by default.  I think it is reasonable to
+> add more warnings at runtime of the setup not being supported.
+ From my experience warnings tend to be ignore/forgotten. So this could 
+lead to poorer experience when issues are subbtle (think memory corruption).
+
+> 
+>> You are right that enabling ACPI by default will draw more users. But I
+>> also expect those users to be less familiar with Xen and therefore not
+>> very interested to fix bugs. So removing EXPERT/UNSUPPORTED is probably
+>> going to still make them unhappy as I don't think the help (including
+>> writing patch) for ACPI on Arm will change very much in the near future
+>> (from the community call I was under the impression you could not commit
+>> time for it).
+> 
+> The average level of technical competence may be lower, but the larger
+> pool of people should yield enough to get additional problems fixed. >
+>> So I am not convinced this is really making Xen in a better position
+>> right now.
+> 
+> Right now the present situation is *actively* pushing people who want to
+> use Xen on ACPI-only ARM boards away.
+That's interesting because I haven't encountered that many ACPI-only 
+platform outside of the server world.
+
+But, honestly, I think you are blaming a bit too much 
+EXPERT/UNSUPPORTED. Such issue would be really a problem with single 
+contributor. For companies they usually care less and will pick whatever 
+suit them (even it is behind a Kconfig).
+
+> If virtualization is important for
+> them, they are likely to instead opt for KVM, VMWare, Hyper-V, or Bhyve.
+> Suppressing mindshare will destroy the future of Xen on ARM.
+
+Another bold statement?
+
+Anyway, I will wait for input from Bertand and Stefano.
+
+Cheers,
+
+-- 
+Julien Grall
 
