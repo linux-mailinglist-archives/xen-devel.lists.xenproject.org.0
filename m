@@ -2,32 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCDAE68BA81
-	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 11:39:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.490265.758912 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1AFC68BC4A
+	for <lists+xen-devel@lfdr.de>; Mon,  6 Feb 2023 13:06:47 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.490304.758929 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOytU-0004ej-SX; Mon, 06 Feb 2023 10:38:40 +0000
+	id 1pP0FY-00063T-HD; Mon, 06 Feb 2023 12:05:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 490265.758912; Mon, 06 Feb 2023 10:38:40 +0000
+Received: by outflank-mailman (output) from mailman id 490304.758929; Mon, 06 Feb 2023 12:05:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pOytU-0004cp-Px; Mon, 06 Feb 2023 10:38:40 +0000
-Received: by outflank-mailman (input) for mailman id 490265;
- Mon, 06 Feb 2023 10:38:40 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pOytU-0004cj-7n
- for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 10:38:40 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pOytP-0004ZH-1b; Mon, 06 Feb 2023 10:38:35 +0000
-Received: from 54-240-197-235.amazon.com ([54.240.197.235]
- helo=[192.168.13.231]) by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pOytO-0003RC-Re; Mon, 06 Feb 2023 10:38:34 +0000
+	id 1pP0FY-00061l-E6; Mon, 06 Feb 2023 12:05:32 +0000
+Received: by outflank-mailman (input) for mailman id 490304;
+ Mon, 06 Feb 2023 12:05:30 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=q8JA=6C=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
+ id 1pP0FW-00061a-RI
+ for xen-devel@lists.xenproject.org; Mon, 06 Feb 2023 12:05:30 +0000
+Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 8b20074c-a616-11ed-93b5-47a8fe42b414;
+ Mon, 06 Feb 2023 13:05:27 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by sonata.ens-lyon.org (Postfix) with ESMTP id DF5EB2012F;
+ Mon,  6 Feb 2023 13:05:26 +0100 (CET)
+Received: from sonata.ens-lyon.org ([127.0.0.1])
+ by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id zYnBPJhNB15A; Mon,  6 Feb 2023 13:05:26 +0100 (CET)
+Received: from begin (nat-inria-interne-52-gw-01-bso.bordeaux.inria.fr
+ [194.199.1.52])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 93CEE20127;
+ Mon,  6 Feb 2023 13:05:26 +0100 (CET)
+Received: from samy by begin with local (Exim 4.96)
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1pP0FS-009A6r-0i;
+ Mon, 06 Feb 2023 13:05:26 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,82 +52,44 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=x56EfA9OWN1eC+U2EnXtfTTLCv7iltDe9D/V/Fvb+jk=; b=6Sxv18QYcl9/6on5qFbxrHn1KN
-	d0Wss9kAkdCcKJDIfxayqiTFikOjRRFqlTyFNNeHUsW7pF5o8iUPr4tfCYQluHVVY0GoSfXGDpBxP
-	XN3lIpm1utmBZJd+gsbVHKzJu58PLOnKEUPZL+G4p3SsdddnRGpAV3Z3GK6C/2kZrmIA=;
-Message-ID: <15b88500-89b0-507a-601c-84a8102bb550@xen.org>
-Date: Mon, 6 Feb 2023 10:38:32 +0000
+X-Inumbo-ID: 8b20074c-a616-11ed-93b5-47a8fe42b414
+Date: Mon, 6 Feb 2023 13:05:26 +0100
+From: Samuel Thibault <samuel.thibault@ens-lyon.org>
+To: Juergen Gross <jgross@suse.com>
+Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
+	wl@xen.org
+Subject: Re: [PATCH 7/7] Mini-OS: add read and write support to 9pfsfront
+Message-ID: <20230206120526.242njyptovkpz3jl@begin>
+Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
+	xen-devel@lists.xenproject.org, wl@xen.org
+References: <20230203091809.14478-1-jgross@suse.com>
+ <20230203091809.14478-8-jgross@suse.com>
+ <20230206101341.5l7cxb2vvregskrx@begin>
+ <77d6d486-5ad5-1f13-e223-79295707d090@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [PATCH] xen/arm64: Default ACPI support enabled
-Content-Language: en-US
-To: Elliott Mitchell <ehem+xen@m5p.com>
-Cc: Stefano Stabellini <sstabellini@kernel.org>,
- Bertrand Marquis <bertrand.marquis@arm.com>,
- Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
- xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>
-References: <202302031801.313I1SdK033264@m5p.com>
- <df51bbdc-ab88-7254-799e-0e2828d3d1a9@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <df51bbdc-ab88-7254-799e-0e2828d3d1a9@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <77d6d486-5ad5-1f13-e223-79295707d090@suse.com>
+Organization: I am not organized
+User-Agent: NeoMutt/20170609 (1.8.3)
 
-
-
-On 06/02/2023 07:29, Jan Beulich wrote:
-> On 22.07.2020 19:43, Elliott Mitchell wrote:
->> Unlike other unsupportted options, ACPI support is required to *boot*
->> for a number of platforms.  Users on these platforms are unable to use
->> distribution builds and must rebuild from source to use Xen.
->>
->> Signed-off-by: Elliott Mitchell <ehem+xen@m5p.com>
+Juergen Gross, le lun. 06 févr. 2023 11:17:27 +0100, a ecrit:
+> On 06.02.23 11:13, Samuel Thibault wrote:
+> > 
+> > Juergen Gross, le ven. 03 févr. 2023 10:18:09 +0100, a ecrit:
+> > > This patch is missing the limitation of read/write messages to stay
+> > > below the max. supported message size.
+> > 
+> > It should at least be asserted.
 > 
-> A general question first: How come this mail dates back to July 2020? I
-> had almost missed it as "new".
+> It can easily be limited by returning the resulting limit as the
+> number of processed bytes.
 
-I can't even find the Elliott's email in my inbox so reply here. But 
-this sounds like a rehash of [1].
+Strictly speaking, posix allows to return short reads, but that's
+usually only handled by applications when they know that they may get
+signals. I'd thus rather have read/write loop over the size.
 
- >> Unlike other unsupportted options, ACPI support is required to *boot*
- >> for a number of platforms.  Users on these platforms are unable to use
- >> distribution builds and must rebuild from source to use Xen.
-
-What platforms are you testing on? I know that this is working-ish on 
-RPI4 and QEMU. But this will likely blow up on one of the server we 
-support in OSSTest because we don't have proper support to hide SMMUs in 
-dom0.
-
-> 
->> --- a/xen/arch/arm/Kconfig
->> +++ b/xen/arch/arm/Kconfig
->> @@ -29,13 +29,18 @@ menu "Architecture Features"
->>   source "arch/Kconfig"
->>   
->>   config ACPI
->> -	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)" if UNSUPPORTED
->> +	bool "ACPI (Advanced Configuration and Power Interface) Support (UNSUPPORTED)"
-
-The concerns I raised in [1] still stand. Most of the ACPI platform will 
-also have support for IOMMUs. If we have support for IORT in Xen, then I 
-would be a lot more amenable to remove the "UNSUPPORTED". And without 
-that support we are going to do more harm and than good.
-
-> 
-> Personally I think the (UNSUPPORTED) in the prompt should then go away as
-> well. Which in turn points out that we will want to reconsider whether we
-> actually have UNSUPPORTED as a Kconfig control, as its purpose looks to
-> be specifically cases like the one here. The question goes to Stefano in
-> particular, who I think had introduced it back at the time.
-
-Cheers,
-
-[1] 20201022014310.GA70872@mattapan.m5p.com
-
--- 
-Julien Grall
+Samuel
 
