@@ -2,32 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADAB068D79D
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 14:01:35 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491143.760124 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id E270768D988
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 14:39:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491154.760136 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPNax-00086l-WB; Tue, 07 Feb 2023 13:01:11 +0000
+	id 1pPOBD-0003Vv-S2; Tue, 07 Feb 2023 13:38:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491143.760124; Tue, 07 Feb 2023 13:01:11 +0000
+Received: by outflank-mailman (output) from mailman id 491154.760136; Tue, 07 Feb 2023 13:38:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPNax-00084U-Sc; Tue, 07 Feb 2023 13:01:11 +0000
-Received: by outflank-mailman (input) for mailman id 491143;
- Tue, 07 Feb 2023 13:01:10 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pPOBD-0003Sy-OH; Tue, 07 Feb 2023 13:38:39 +0000
+Received: by outflank-mailman (input) for mailman id 491154;
+ Tue, 07 Feb 2023 13:38:38 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pPNaw-00084O-18
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 13:01:10 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pPNav-0001Ss-AH; Tue, 07 Feb 2023 13:01:09 +0000
-Received: from [54.239.6.184] (helo=[192.168.19.254])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pPNav-0001sb-3F; Tue, 07 Feb 2023 13:01:09 +0000
+ (envelope-from <SRS0=hbTv=6D=gmail.com=error27@srs-se1.protection.inumbo.net>)
+ id 1pPOBC-0003Sn-4h
+ for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 13:38:38 +0000
+Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
+ [2a00:1450:4864:20::333])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 9994c7e4-a6ec-11ed-93b5-47a8fe42b414;
+ Tue, 07 Feb 2023 14:38:14 +0100 (CET)
+Received: by mail-wm1-x333.google.com with SMTP id
+ bg5-20020a05600c3c8500b003e00c739ce4so2830976wmb.5
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Feb 2023 05:38:14 -0800 (PST)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ o7-20020a05600002c700b002be5bdbe40csm12128975wry.27.2023.02.07.05.37.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Feb 2023 05:37:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,120 +44,159 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=CGl5AJpT8mlXhiKot7RSXU8efAe90/C+/eAtEeF7bOA=; b=ODC0Yb06vqrEMpfTsdSjk1jF3M
-	R55oY5h4zgnhLPVfrTVHMCe88AWrtMQ814uR+BZOjTJQVQ9uCzq24HFdit7R2IDglt13ENXba7WtN
-	++ndm5rjvsX+7mtPYVrpzJR9Ov6Qonj+F1JLRLANYW4/snBmOhSdSuiwUgBb8YRhcEuM=;
-Message-ID: <7255affa-a0f5-4388-2889-cb523a0246b0@xen.org>
-Date: Tue, 7 Feb 2023 13:01:07 +0000
+X-Inumbo-ID: 9994c7e4-a6ec-11ed-93b5-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Cm28rj9Az0U5hMacFDsUKTaBeJjioQqU2J6dR3p92Tg=;
+        b=ILJQRtgZd7lX16j/WA8Lj/dGEeLZFfn+iFir7u0IH2rDTltxSs1I8igEN+PwwhbPO2
+         7oPURxm3NDk2RY3SNISQvtkRUUM3c5bE6h0zB2NCiojvedfiaS8DW5sG9d1Hcp1Q8tiv
+         XOIeKIR8X0TsNR76X5xukwz7wjo5zEi2BG8BzOP+uN7HZPiGzvKTESqXoALG1gL1PhCF
+         4Y5UczT+FChIudEsGThZjXUVcVxusV1u1x+N7shOtTig1S7d0i1mZxdNjg33uMScZWe6
+         EdBRncMKieo77OitLf+bN8Tz0GahtSg5H7JnR1o+Thr8GwD/J9VUdlLmPmaWgcrbOU1s
+         TzFA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Cm28rj9Az0U5hMacFDsUKTaBeJjioQqU2J6dR3p92Tg=;
+        b=Z6kkZys7l3hPLOLl1mUtbBRnnrkMk+dp9rSiji/PNrVXjWqEph6DTHeYarIzXmOedT
+         G46h7cnImkzCQo6+oIx+4wxTvXESeAg3SnwQ6T+dwPWnzWVkoh9qQHtktZhzvAzAym/J
+         HC+EQIaWvJvYDEijMwaLKAzIFmkATc9T4JcVEvAy88z7sfSg5DqKm+cM29/jx9Xgr6Ss
+         d+und3F+oEnl0TALG74OxxXkPqXUjGkS8zqXXLO7NsPMv/WLULALxzB8Yjiul5hZHW+U
+         QENMPCFDEvKP/XNsqP03WItw4DvfH2xYhEk5Gd0R+GV5q9OQeV90nrMDumu7WZClnJUj
+         kc0g==
+X-Gm-Message-State: AO0yUKVANAox7luFcrP8eClhImzqkaz+S6E51CWQFZtzbfFjiYv4K5SG
+	bgHiGyfkOSufnIPwgQ96qQMCUW6e7shu4haw
+X-Google-Smtp-Source: AK7set8RzcALzpamYdyKC4uDj9lXzPUP6SPGeGKJIRGB15faLUk1G6npuUQipZ/Ae90poRqUiAITHA==
+X-Received: by 2002:a05:600c:a291:b0:3dc:55e6:fffd with SMTP id hu17-20020a05600ca29100b003dc55e6fffdmr3188847wmb.15.1675777062052;
+        Tue, 07 Feb 2023 05:37:42 -0800 (PST)
+Date: Tue, 7 Feb 2023 16:37:38 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Julia Lawall <julia.lawall@inria.fr>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Hongchen Zhang <zhanghongchen@loongson.cn>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Christian Brauner (Microsoft)" <brauner@kernel.org>,
+	David Howells <dhowells@redhat.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	"Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	maobibo <maobibo@loongson.cn>, Matthew Wilcox <willy@infradead.org>,
+	Sedat Dilek <sedat.dilek@gmail.com>
+Subject: xen: sleeping in atomic warnings
+Message-ID: <Y+JUIl64UDmdkboh@kadam>
+References: <20230129060452.7380-1-zhanghongchen@loongson.cn>
+ <CAHk-=wjw-rrT59k6VdeLu4qUarQOzicsZPFGAO5J8TKM=oukUw@mail.gmail.com>
+ <Y+EjmnRqpLuBFPX1@bombadil.infradead.org>
+ <4ffbb0c8-c5d0-73b3-7a4e-2da9a7b03669@inria.fr>
+ <Y+EupX1jX1c5BAHv@kadam>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [PATCH v3 1/2] xen/device_tree: fix Eclair findings for MISRA C
- 2012 Rule 20.7
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>,
- Luca Fancellu <Luca.Fancellu@arm.com>
-Cc: Xen-devel <xen-devel@lists.xenproject.org>,
- Stefano Stabellini <sstabellini@kernel.org>
-References: <20230203190908.211541-1-burzalodowa@gmail.com>
- <20230203190908.211541-2-burzalodowa@gmail.com>
- <F9BF9B83-7889-4D51-B0B3-09950071AB75@arm.com>
- <63d81215-fd4a-e2f2-e145-3ee115b7df14@xen.org>
- <a8056218-34d6-71b2-8034-42dcf6f37a1b@gmail.com>
- <43562da4-53a1-df7a-dcf3-2af62a95f42d@xen.org>
- <30f5c980-0d90-a293-0542-1c967dbae41b@gmail.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <30f5c980-0d90-a293-0542-1c967dbae41b@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <Y+EupX1jX1c5BAHv@kadam>
 
-Hi,
+These are static checker warnings from Smatch.  The line numbers are
+based on next-20230207.  To reproduce these warnings then you need to
+have the latest Smatch from git and you need to rebuild the cross
+function probably four times.  I have reviewed most of these and they
+all seem valid to me.  I remember I reported some a while back but never
+heard back.  https://lore.kernel.org/all/20210802144037.GA29540@kili/
 
-On 07/02/2023 12:46, Xenia Ragiadakou wrote:
-> On 2/7/23 14:25, Julien Grall wrote:
->>
->>
->> On 07/02/2023 10:46, Xenia Ragiadakou wrote:
->>>
->>> On 2/7/23 12:39, Julien Grall wrote:
->>>> Hi,
->>>>
->>>> On 07/02/2023 10:23, Luca Fancellu wrote:
->>>>>
->>>>>
->>>>>> On 3 Feb 2023, at 19:09, Xenia Ragiadakou <burzalodowa@gmail.com> 
->>>>>> wrote:
->>>>>>
->>>>>
->>>>> I’m not really a supporter of empty commit message, but it’s up to 
->>>>> the maintainer :)
->>>>
->>>> +1. In this case a brief summary of the rule would be handy for 
->>>> those that are not well-versed with MISRA.
->>>>
->>>> This can be dealt on commit if you propose a new commit message.
->>>
->>> I 'm refrained from stating the rule as is because it is strict and 
->>> it is not applied as is.
->>
->> I am a bit confused with this statement. From misra/..., we are 
->> supporting rule 20.7. So why aren't applying it strictly?
->>
->> And if it is not applied as-is, shouldn't we document the violation 
->> (if any)?
-> 
-> I applied it strictly on v2, but there was no review.
+regards,
+dan carpenter
 
-Ah! In general it is best to ping if there are no answers.
+arch/x86/xen/p2m.c:189 alloc_p2m_page() warn: sleeping in atomic context
+xen_create_contiguous_region() <- disables preempt
+xen_destroy_contiguous_region() <- disables preempt
+-> xen_remap_exchanged_ptes()
+   -> set_phys_to_machine()
+      -> xen_alloc_p2m_entry()
+         -> alloc_p2m_pmd()
+xen_alloc_p2m_entry() <duplicate>
+            -> alloc_p2m_page()
 
-> Then Eclair was adjusted to have a less strict approach. Still there is 
-> a finding asking to add parentheses around dt in 
-> dt_for_each_device_node(dt, dn), i.e dn = (dt);, to which AFAIK you object.
+drivers/xen/events/events_base.c:1213 bind_evtchn_to_irq_chip() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> bind_evtchn_to_irqhandler()
+      -> bind_evtchn_to_irqhandler_chip()
+         -> bind_evtchn_to_irq_chip()
 
-Are you referring to the discussion in [1]? If so, I wasn't totally 
-opposed to the suggestion so long we are consistent.
+drivers/net/ethernet/qlogic/netxen/netxen_nic_hw.c:303 netxen_pcie_sem_lock() warn: sleeping in atomic context
+netxen_nic_hw_write_wx_2M() <- disables preempt
+netxen_nic_hw_read_wx_2M() <- disables preempt
+-> netxen_pcie_sem_lock()
 
-> 
->>
->>>
->>> "Add parentheses around macro parameters when the precedence and 
->>> associativity of the performed operators can lead to unintended order 
->>> of evaluation."
->>>
->>> Is this ok?
->>
->> I am OK with this. Is there any ID from Eclair that could be used to 
->> track each error (and so we can confirm they have disappeared)?
-> 
-> I am not aware of any.
-Hmmm ok. It might be a nice feature to suggest in Eclair because anyone 
-can check whether an issue was resolved.
+drivers/xen/xen-pciback/pci_stub.c:110 pcistub_device_release() warn: sleeping in atomic context
+pcistub_get_pci_dev_by_slot() <- disables preempt
+pcistub_get_pci_dev() <- disables preempt
+-> pcistub_device_get_pci_dev()
+   -> pcistub_device_put()
+      -> pcistub_device_release()
 
-Here, I don't exactly know what to check in Eclair. So I have to rely on 
-you. Anyway, nothing that can be fixed for this commit.
+drivers/xen/xen-scsiback.c:1016 __scsiback_del_translation_entry() warn: sleeping in atomic context
+scsiback_del_translation_entry() <- disables preempt
+scsiback_release_translation_entry() <- disables preempt
+-> __scsiback_del_translation_entry()
 
-> 
-> The patch can be decoupled from misra and Eclair (I mean have a generic 
-> commit title) and just mention in the commit message that it fixes some 
-> Eclair findings for MISRA C rule 20.7.
+drivers/xen/xen-scsiback.c:276 scsiback_free_translation_entry() warn: sleeping in atomic context
+scsiback_del_translation_entry() <- disables preempt
+scsiback_release_translation_entry() <- disables preempt
+-> __scsiback_del_translation_entry()
+   -> scsiback_free_translation_entry()
 
-I have a slight preference for a more generic title. But the current one 
-also work for me.
+drivers/xen/events/events_base.c:1427 unbind_from_irq() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> bind_evtchn_to_irqhandler()
+      -> bind_evtchn_to_irqhandler_chip()
+         -> unbind_from_irq()
 
-I will commit later on.
+drivers/xen/xenbus/xenbus_client.c:473 xenbus_alloc_evtchn() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> xenbus_alloc_evtchn()
 
-Cheers,
+drivers/xen/xenbus/xenbus_client.c:321 xenbus_dev_error() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> xenbus_free_evtchn()
+      -> xenbus_dev_error()
 
-[1] b2f2d1e7-0c18-206f-5e9d-d0115e398840@xen.org
-> 
->>
->> Cheers,
->>
-> 
+drivers/xen/xenbus/xenbus_client.c:342 xenbus_dev_fatal() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> xenbus_alloc_evtchn()
+      -> xenbus_dev_fatal()
 
--- 
-Julien Grall
+drivers/xen/xenbus/xenbus_client.c:494 xenbus_free_evtchn() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> xenbus_free_evtchn()
+
+drivers/xen/xenbus/xenbus_client.c:290 xenbus_va_dev_error() warn: sleeping in atomic context
+pvcalls_front_connect() <- disables preempt
+pvcalls_front_accept() <- disables preempt
+-> create_active()
+   -> xenbus_free_evtchn()
+      -> xenbus_dev_error()
+create_active() <duplicate>
+-> xenbus_alloc_evtchn()
+   -> xenbus_dev_fatal()
+         -> xenbus_va_dev_error()
+
 
