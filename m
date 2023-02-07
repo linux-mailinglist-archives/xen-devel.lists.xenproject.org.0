@@ -2,38 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1409068DC07
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 15:47:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491192.760246 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61F1368DC0C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 15:47:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491193.760262 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPPFU-0005pC-5S; Tue, 07 Feb 2023 14:47:08 +0000
+	id 1pPPFX-0006LO-HK; Tue, 07 Feb 2023 14:47:11 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491192.760246; Tue, 07 Feb 2023 14:47:08 +0000
+Received: by outflank-mailman (output) from mailman id 491193.760262; Tue, 07 Feb 2023 14:47:11 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPPFU-0005jp-0h; Tue, 07 Feb 2023 14:47:08 +0000
-Received: by outflank-mailman (input) for mailman id 491192;
- Tue, 07 Feb 2023 14:47:06 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pPPFX-0006Id-C8; Tue, 07 Feb 2023 14:47:11 +0000
+Received: by outflank-mailman (input) for mailman id 491193;
+ Tue, 07 Feb 2023 14:47:09 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pPPFS-00043Z-LI
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 14:47:06 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 4a3b7ca3-a6f6-11ed-933c-83870f6b2ba8;
- Tue, 07 Feb 2023 15:47:05 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id h3so5955059wrp.10
- for <xen-devel@lists.xenproject.org>; Tue, 07 Feb 2023 06:47:06 -0800 (PST)
+ id 1pPPFV-0004Hz-4j
+ for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 14:47:09 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 4b1400ea-a6f6-11ed-93b5-47a8fe42b414;
+ Tue, 07 Feb 2023 15:47:07 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id m14so13759855wrg.13
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Feb 2023 06:47:07 -0800 (PST)
 Received: from 34-6F-24-FC-D2-65..
  (46.204.109.85.nat.umts.dynamic.t-mobile.pl. [46.204.109.85])
  by smtp.gmail.com with ESMTPSA id
- h10-20020a5d4fca000000b002c3e94cb757sm5269743wrw.117.2023.02.07.06.47.03
+ h10-20020a5d4fca000000b002c3e94cb757sm5269743wrw.117.2023.02.07.06.47.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Feb 2023 06:47:04 -0800 (PST)
+ Tue, 07 Feb 2023 06:47:06 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,36 +45,36 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4a3b7ca3-a6f6-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 4b1400ea-a6f6-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=CM5HAZAjC5AS1XK7mKrfXtpw4DHmLtXflVKppyEPcdo=;
-        b=QBriLcpZb17+mIDzi2hjXl/GfUukjGfTQRZexvrZ+QPKD1zSlUt5+GASQzCrg8Gy8A
-         P8bgxeSlxuW/ydZTZI7mRfFUHCaz6RqcaXmKkXk1k8dcN+zDwUwH+qnZsXfwsKaL7rfV
-         XwXL/dSjYDxq6N72X/6Y+WDdYlpSDwyMKdzE2IUazeOWiGSeRtlTkm9w16LCEOMckSMi
-         1Y42XMiG9rCudzursKW6xmFLU7Z5hCNqBMQDk2hbwN4r/GbYnxzLYifj1jSaQQzhdYSE
-         tXSyi192ftfYr1P0P9NI1zfcEmpQAvlb9zMpnAWYhtenPgJKEgJh09snizFHNY7rFFUF
-         4hDg==
+        bh=oi5DCBZSkuvSDM/z9ivzbbaEYK1y6oIa/0SJ8j9gemI=;
+        b=eIswdB6VeglcjRbBDpI8+zM5jevHk6HrUHXIx6qx6KIzdOl3zd3g8Td+eDCkZ3XrD+
+         dhKMpHY+8/jS1P0rgaVBu6wYW6jmLZ4iaA8h8/fT1xRaHmQrimtsXJ4EJpm6rSVnnaKC
+         7CAaO4Q71Nvks0OWtE/kVOX5dAvyGS+u662BopXaQx/tj8+fJ4t00r3NU9QS4Tx8AlPS
+         9jETBCBPGiaeObyJx1QwDCSbTI6xJUbUfQD1tckhXK+RE34lyQI2di2w8wBf0Q/OC9jT
+         fIxPrup2kIyqwLH9VOobgUObxoOFN3Yx49wSNYtGfk9z9fdcN25qjHUid8J6FpdMvoWL
+         ZWSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=CM5HAZAjC5AS1XK7mKrfXtpw4DHmLtXflVKppyEPcdo=;
-        b=D/aeDHjw27MwWf1yvN6pTXLUVNpIxbtTfLVDCqsLHoIWIWydKCd8N2r3McrRoYXVR+
-         g1hd8VpKTOxbZ0IWRATbsCOnaCLraCqCYOeHhhr8sirH2FIdgNfCWz1RGBYQ6NO1zrRl
-         5PoJLtEListljkHTLsrsSBkS/dCdjd9QxrTLt71TlWYhgQPchwKWXOvhq8ce3Ofitw9e
-         5/W2iKEFwxFrY1ucFDA1nrZZ/nTJU2FyaN+J+GXLiBpotpKyCB79IuAMvRfDB4+tSuuS
-         BTqDk9uXj6z0Zh/8U2+MngCv437MoXkr/uxtZPzKVd8ajXHOu7rgogW1YR/qo/TZMsyg
-         o8vA==
-X-Gm-Message-State: AO0yUKU9zeAAD74Zy+UoY3MS3TXOr0eZqWzqIQSjPRbmpWVGlXU6DigA
-	xp1J+t5ilVbgzSBK4MGlKP9EZQRI6yI=
-X-Google-Smtp-Source: AK7set9ECa3KSNKJ9bKD3YYek4ecROKFNbQm3F0y6p2soM6Yv1NRvKI0Jzh3WUrYcgqWkTpTMDqIkQ==
-X-Received: by 2002:adf:f80c:0:b0:2c3:cdcd:f0b3 with SMTP id s12-20020adff80c000000b002c3cdcdf0b3mr2739661wrp.9.1675781225280;
-        Tue, 07 Feb 2023 06:47:05 -0800 (PST)
+        bh=oi5DCBZSkuvSDM/z9ivzbbaEYK1y6oIa/0SJ8j9gemI=;
+        b=MDS5s1ru03EyqwbmZSh//az6L6AuP+Mm1z6QWg0XsmqCDqlEc0yEd9Pcvo4L13YkSp
+         nSOz3D5Ya0OQSpIH7tEDhTItRnUosk7j6yMEASHC+rlq1C1wL5gXAFLRS+JrEIGvrQeD
+         Zm5IQjL3i4D8el+uLzUmKDDv6g0wfS+JajqPr6XeQpkR7cCAYlQiI67ZOT19Ce+xnsOe
+         OlPLJwj/DIuj4v1+sjO6/6MdhSEaez2CWit3Wvb70jAU0dAp9NkF0rM4gkBmBBJRaleO
+         2z/jtX/4qcN8vZGP130hvNS6mTSI2IHImBfSlMyDQ/EwNQ6N7aN0pUzp1+aFFLfXAQNg
+         bWKQ==
+X-Gm-Message-State: AO0yUKVLpXVJnXwE5g2Z5Alr54E+AX6BXoGFlX1GCNwHJQbGoI0uodBl
+	a3clRDpMEPbDd0uVdVDgv+Z4Apa+TpA=
+X-Google-Smtp-Source: AK7set9GC8uo+fLEbxV24Az69fz4r4X2+GU8mXoIYCHS44ACCVdzGaKQjn+K3rwZV+BSuuuqf7r9nA==
+X-Received: by 2002:a05:6000:18ca:b0:2c3:db9e:4b06 with SMTP id w10-20020a05600018ca00b002c3db9e4b06mr3018255wrq.45.1675781226491;
+        Tue, 07 Feb 2023 06:47:06 -0800 (PST)
 From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
@@ -85,195 +85,192 @@ Cc: Jan Beulich <jbeulich@suse.com>,
 	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
 	Bob Eshleman <bobbyeshleman@gmail.com>,
 	Alistair Francis <alistair.francis@wdc.com>,
-	Connor Davis <connojdavis@gmail.com>,
-	Bobby Eshleman <bobby.eshleman@gmail.com>
-Subject: [PATCH v3 07/14] xen/riscv: introduce exception context
-Date: Tue,  7 Feb 2023 16:46:42 +0200
-Message-Id: <5aa05592497ba9c4d207185d81981442d43ba676.1675780434.git.oleksii.kurochko@gmail.com>
+	Connor Davis <connojdavis@gmail.com>
+Subject: [PATCH v3 08/14] xen/riscv: introduce exception handlers implementation
+Date: Tue,  7 Feb 2023 16:46:43 +0200
+Message-Id: <c614e69342eea7a5ce27f7a0e550ab3147afa592.1675779308.git.oleksii.kurochko@gmail.com>
 X-Mailer: git-send-email 2.39.0
-In-Reply-To: <cover.1675780434.git.oleksii.kurochko@gmail.com>
-References: <cover.1675780434.git.oleksii.kurochko@gmail.com>
+In-Reply-To: <cover.1675779308.git.oleksii.kurochko@gmail.com>
+References: <cover.1675779308.git.oleksii.kurochko@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The patch introduces a set of registers which should be saved to and
-restored from a stack after an exception occurs and a set of defines
-which will be used during exception context saving/restoring.
+The patch introduces an implementation of basic exception handlers:
+- to save/restore context
+- to handle an exception itself. The handler calls wait_for_interrupt
+  now, nothing more.
 
-Originally <asm/processor.h> header was introduced in the patch series
-from Bobby so partially it was
-re-used and the following changes were done:
-  - Move all RISCV_CPU_USER_REGS_* to asm/asm-offsets.c
-  - Remove RISCV_CPU_USER_REGS_OFFSET & RISCV_CPU_USER_REGS_SIZE as
-    there is no sense in them after RISCV_CPU_USER_REGS_* were moved to
-    asm/asm-offsets.c
-  - Remove RISCV_PCPUINFO_* as they aren't needed for current status of
-    the RISC-V port
-  - register_t renamed to unsigned long
-  - rename wait_for_interrupt to wfi
-
-Signed-off-by: Bobby Eshleman <bobby.eshleman@gmail.com>
 Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
 ---
 Changes in V3:
-  - update code style for die() function
+  - Nothing changed
 ---
 Changes in V2:
-  - All the changes were added to the commit message.
-  - temporarily was added function die() to stop exectution it will be
-    removed after panic() will be available.
+  - Refactor entry.S to start using of defines introduced in asm_offsets.C
+  - Rename {__,}handle_exception to handle_trap() and do_trap() to be more
+    consistent with RISC-V spec.
+  - Wrap handle_trap() to ENTRY().
 ---
- xen/arch/riscv/include/asm/processor.h | 83 ++++++++++++++++++++++++++
- xen/arch/riscv/riscv64/asm-offsets.c   | 53 ++++++++++++++++
- 2 files changed, 136 insertions(+)
- create mode 100644 xen/arch/riscv/include/asm/processor.h
+ xen/arch/riscv/Makefile            |  2 +
+ xen/arch/riscv/entry.S             | 94 ++++++++++++++++++++++++++++++
+ xen/arch/riscv/include/asm/traps.h | 13 +++++
+ xen/arch/riscv/traps.c             | 13 +++++
+ 4 files changed, 122 insertions(+)
+ create mode 100644 xen/arch/riscv/entry.S
+ create mode 100644 xen/arch/riscv/include/asm/traps.h
+ create mode 100644 xen/arch/riscv/traps.c
 
-diff --git a/xen/arch/riscv/include/asm/processor.h b/xen/arch/riscv/include/asm/processor.h
+diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
+index 1a4f1a6015..443f6bf15f 100644
+--- a/xen/arch/riscv/Makefile
++++ b/xen/arch/riscv/Makefile
+@@ -1,7 +1,9 @@
+ obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
++obj-y += entry.o
+ obj-$(CONFIG_RISCV_64) += riscv64/
+ obj-y += sbi.o
+ obj-y += setup.o
++obj-y += traps.o
+ 
+ $(TARGET): $(TARGET)-syms
+ 	$(OBJCOPY) -O binary -S $< $@
+diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
 new file mode 100644
-index 0000000000..a71448e02e
+index 0000000000..0be543f8e0
 --- /dev/null
-+++ b/xen/arch/riscv/include/asm/processor.h
-@@ -0,0 +1,83 @@
-+/* SPDX-License-Identifier: MIT */
-+/******************************************************************************
-+ *
-+ * Copyright 2019 (C) Alistair Francis <alistair.francis@wdc.com>
-+ * Copyright 2021 (C) Bobby Eshleman <bobby.eshleman@gmail.com>
-+ * Copyright 2023 (C) Vates
-+ *
-+ */
++++ b/xen/arch/riscv/entry.S
+@@ -0,0 +1,94 @@
++#include <asm/asm.h>
++#include <asm/asm-offsets.h>
++#include <asm/processor.h>
++#include <asm/riscv_encoding.h>
++#include <asm/traps.h>
 +
-+#ifndef _ASM_RISCV_PROCESSOR_H
-+#define _ASM_RISCV_PROCESSOR_H
++/* WIP: only works while interrupting Xen context */
++ENTRY(handle_trap)
++
++    /* Exceptions from xen */
++save_to_stack:
++        /* Save context to stack */
++        REG_S   sp, (CPU_USER_REGS_SP - CPU_USER_REGS_SIZE) (sp)
++        addi    sp, sp, -CPU_USER_REGS_SIZE
++        REG_S   t0, CPU_USER_REGS_T0(sp)
++
++        /* Save registers */
++        REG_S   ra, CPU_USER_REGS_RA(sp)
++        REG_S   gp, CPU_USER_REGS_GP(sp)
++        REG_S   t1, CPU_USER_REGS_T1(sp)
++        REG_S   t2, CPU_USER_REGS_T2(sp)
++        REG_S   s0, CPU_USER_REGS_S0(sp)
++        REG_S   s1, CPU_USER_REGS_S1(sp)
++        REG_S   a0, CPU_USER_REGS_A0(sp)
++        REG_S   a1, CPU_USER_REGS_A1(sp)
++        REG_S   a2, CPU_USER_REGS_A2(sp)
++        REG_S   a3, CPU_USER_REGS_A3(sp)
++        REG_S   a4, CPU_USER_REGS_A4(sp)
++        REG_S   a5, CPU_USER_REGS_A5(sp)
++        REG_S   a6, CPU_USER_REGS_A6(sp)
++        REG_S   a7, CPU_USER_REGS_A7(sp)
++        REG_S   s2, CPU_USER_REGS_S2(sp)
++        REG_S   s3, CPU_USER_REGS_S3(sp)
++        REG_S   s4, CPU_USER_REGS_S4(sp)
++        REG_S   s5, CPU_USER_REGS_S5(sp)
++        REG_S   s6, CPU_USER_REGS_S6(sp)
++        REG_S   s7, CPU_USER_REGS_S7(sp)
++        REG_S   s8, CPU_USER_REGS_S8(sp)
++        REG_S   s9, CPU_USER_REGS_S9(sp)
++        REG_S   s10,CPU_USER_REGS_S10(sp)
++        REG_S   s11,CPU_USER_REGS_S11(sp)
++        REG_S   t3, CPU_USER_REGS_T3(sp)
++        REG_S   t4, CPU_USER_REGS_T4(sp)
++        REG_S   t5, CPU_USER_REGS_T5(sp)
++        REG_S   t6, CPU_USER_REGS_T6(sp)
++        csrr    t0, CSR_SEPC
++        REG_S   t0, CPU_USER_REGS_SEPC(sp)
++        csrr    t0, CSR_SSTATUS
++        REG_S   t0, CPU_USER_REGS_SSTATUS(sp)
++
++        mv      a0, sp
++        jal     do_trap
++
++restore_registers:
++        /* Restore stack_cpu_regs */
++        REG_L   t0, CPU_USER_REGS_SEPC(sp)
++        csrw    CSR_SEPC, t0
++        REG_L   t0, CPU_USER_REGS_SSTATUS(sp)
++        csrw    CSR_SSTATUS, t0
++
++        REG_L   ra, CPU_USER_REGS_RA(sp)
++        REG_L   gp, CPU_USER_REGS_GP(sp)
++        REG_L   t0, CPU_USER_REGS_T0(sp)
++        REG_L   t1, CPU_USER_REGS_T1(sp)
++        REG_L   t2, CPU_USER_REGS_T2(sp)
++        REG_L   s0, CPU_USER_REGS_S0(sp)
++        REG_L   s1, CPU_USER_REGS_S1(sp)
++        REG_L   a0, CPU_USER_REGS_A0(sp)
++        REG_L   a1, CPU_USER_REGS_A1(sp)
++        REG_L   a2, CPU_USER_REGS_A2(sp)
++        REG_L   a3, CPU_USER_REGS_A3(sp)
++        REG_L   a4, CPU_USER_REGS_A4(sp)
++        REG_L   a5, CPU_USER_REGS_A5(sp)
++        REG_L   a6, CPU_USER_REGS_A6(sp)
++        REG_L   a7, CPU_USER_REGS_A7(sp)
++        REG_L   s2, CPU_USER_REGS_S2(sp)
++        REG_L   s3, CPU_USER_REGS_S3(sp)
++        REG_L   s4, CPU_USER_REGS_S4(sp)
++        REG_L   s5, CPU_USER_REGS_S5(sp)
++        REG_L   s6, CPU_USER_REGS_S6(sp)
++        REG_L   s7, CPU_USER_REGS_S7(sp)
++        REG_L   s8, CPU_USER_REGS_S8(sp)
++        REG_L   s9, CPU_USER_REGS_S9(sp)
++        REG_L   s10, CPU_USER_REGS_S10(sp)
++        REG_L   s11, CPU_USER_REGS_S11(sp)
++        REG_L   t3, CPU_USER_REGS_T3(sp)
++        REG_L   t4, CPU_USER_REGS_T4(sp)
++        REG_L   t5, CPU_USER_REGS_T5(sp)
++        REG_L   t6, CPU_USER_REGS_T6(sp)
++
++        /* Restore sp */
++        REG_L   sp, CPU_USER_REGS_SP(sp)
++
++        sret
+diff --git a/xen/arch/riscv/include/asm/traps.h b/xen/arch/riscv/include/asm/traps.h
+new file mode 100644
+index 0000000000..f3fb6b25d1
+--- /dev/null
++++ b/xen/arch/riscv/include/asm/traps.h
+@@ -0,0 +1,13 @@
++#ifndef __ASM_TRAPS_H__
++#define __ASM_TRAPS_H__
++
++#include <asm/processor.h>
 +
 +#ifndef __ASSEMBLY__
 +
-+/* On stack VCPU state */
-+struct cpu_user_regs
-+{
-+    unsigned long zero;
-+    unsigned long ra;
-+    unsigned long sp;
-+    unsigned long gp;
-+    unsigned long tp;
-+    unsigned long t0;
-+    unsigned long t1;
-+    unsigned long t2;
-+    unsigned long s0;
-+    unsigned long s1;
-+    unsigned long a0;
-+    unsigned long a1;
-+    unsigned long a2;
-+    unsigned long a3;
-+    unsigned long a4;
-+    unsigned long a5;
-+    unsigned long a6;
-+    unsigned long a7;
-+    unsigned long s2;
-+    unsigned long s3;
-+    unsigned long s4;
-+    unsigned long s5;
-+    unsigned long s6;
-+    unsigned long s7;
-+    unsigned long s8;
-+    unsigned long s9;
-+    unsigned long s10;
-+    unsigned long s11;
-+    unsigned long t3;
-+    unsigned long t4;
-+    unsigned long t5;
-+    unsigned long t6;
-+    unsigned long sepc;
-+    unsigned long sstatus;
-+    /* pointer to previous stack_cpu_regs */
-+    unsigned long pregs;
-+};
-+
-+static inline void wfi(void)
-+{
-+    __asm__ __volatile__ ("wfi");
-+}
-+
-+/*
-+ * panic() isn't available at the moment so an infinite loop will be
-+ * used temporarily.
-+ * TODO: change it to panic()
-+ */
-+static inline void die(void)
-+{
-+    for ( ;; )
-+        wfi();
-+}
++void do_trap(struct cpu_user_regs *cpu_regs);
++void handle_trap(void);
 +
 +#endif /* __ASSEMBLY__ */
 +
-+#endif /* _ASM_RISCV_PROCESSOR_H */
-+
++#endif /* __ASM_TRAPS_H__ */
+diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
+new file mode 100644
+index 0000000000..ccd3593f5a
+--- /dev/null
++++ b/xen/arch/riscv/traps.c
+@@ -0,0 +1,13 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/*
-+ * Local variables:
-+ * mode: C
-+ * c-file-style: "BSD"
-+ * c-basic-offset: 4
-+ * indent-tabs-mode: nil
-+ * End:
++ * Copyright (C) 2023 Vates
++ *
++ * RISC-V Trap handlers
 + */
-diff --git a/xen/arch/riscv/riscv64/asm-offsets.c b/xen/arch/riscv/riscv64/asm-offsets.c
-index e69de29bb2..d632b75c2a 100644
---- a/xen/arch/riscv/riscv64/asm-offsets.c
-+++ b/xen/arch/riscv/riscv64/asm-offsets.c
-@@ -0,0 +1,53 @@
-+#define COMPILE_OFFSETS
-+
 +#include <asm/processor.h>
-+#include <xen/types.h>
++#include <asm/traps.h>
 +
-+#define DEFINE(_sym, _val)                                                 \
-+    asm volatile ("\n.ascii\"==>#define " #_sym " %0 /* " #_val " */<==\"" \
-+                  : : "i" (_val) )
-+#define BLANK()                                                            \
-+    asm volatile ( "\n.ascii\"==><==\"" : : )
-+#define OFFSET(_sym, _str, _mem)                                           \
-+    DEFINE(_sym, offsetof(_str, _mem));
-+
-+void asm_offsets(void)
++void do_trap(struct cpu_user_regs *cpu_regs)
 +{
-+    BLANK();
-+    DEFINE(CPU_USER_REGS_SIZE, sizeof(struct cpu_user_regs));
-+    OFFSET(CPU_USER_REGS_ZERO, struct cpu_user_regs, zero);
-+    OFFSET(CPU_USER_REGS_RA, struct cpu_user_regs, ra);
-+    OFFSET(CPU_USER_REGS_SP, struct cpu_user_regs, sp);
-+    OFFSET(CPU_USER_REGS_GP, struct cpu_user_regs, gp);
-+    OFFSET(CPU_USER_REGS_TP, struct cpu_user_regs, tp);
-+    OFFSET(CPU_USER_REGS_T0, struct cpu_user_regs, t0);
-+    OFFSET(CPU_USER_REGS_T1, struct cpu_user_regs, t1);
-+    OFFSET(CPU_USER_REGS_T2, struct cpu_user_regs, t2);
-+    OFFSET(CPU_USER_REGS_S0, struct cpu_user_regs, s0);
-+    OFFSET(CPU_USER_REGS_S1, struct cpu_user_regs, s1);
-+    OFFSET(CPU_USER_REGS_A0, struct cpu_user_regs, a0);
-+    OFFSET(CPU_USER_REGS_A1, struct cpu_user_regs, a1);
-+    OFFSET(CPU_USER_REGS_A2, struct cpu_user_regs, a2);
-+    OFFSET(CPU_USER_REGS_A3, struct cpu_user_regs, a3);
-+    OFFSET(CPU_USER_REGS_A4, struct cpu_user_regs, a4);
-+    OFFSET(CPU_USER_REGS_A5, struct cpu_user_regs, a5);
-+    OFFSET(CPU_USER_REGS_A6, struct cpu_user_regs, a6);
-+    OFFSET(CPU_USER_REGS_A7, struct cpu_user_regs, a7);
-+    OFFSET(CPU_USER_REGS_S2, struct cpu_user_regs, s2);
-+    OFFSET(CPU_USER_REGS_S3, struct cpu_user_regs, s3);
-+    OFFSET(CPU_USER_REGS_S4, struct cpu_user_regs, s4);
-+    OFFSET(CPU_USER_REGS_S5, struct cpu_user_regs, s5);
-+    OFFSET(CPU_USER_REGS_S6, struct cpu_user_regs, s6);
-+    OFFSET(CPU_USER_REGS_S7, struct cpu_user_regs, s7);
-+    OFFSET(CPU_USER_REGS_S8, struct cpu_user_regs, s8);
-+    OFFSET(CPU_USER_REGS_S9, struct cpu_user_regs, s9);
-+    OFFSET(CPU_USER_REGS_S10, struct cpu_user_regs, s10);
-+    OFFSET(CPU_USER_REGS_S11, struct cpu_user_regs, s11);
-+    OFFSET(CPU_USER_REGS_T3, struct cpu_user_regs, t3);
-+    OFFSET(CPU_USER_REGS_T4, struct cpu_user_regs, t4);
-+    OFFSET(CPU_USER_REGS_T5, struct cpu_user_regs, t5);
-+    OFFSET(CPU_USER_REGS_T6, struct cpu_user_regs, t6);
-+    OFFSET(CPU_USER_REGS_SEPC, struct cpu_user_regs, sepc);
-+    OFFSET(CPU_USER_REGS_SSTATUS, struct cpu_user_regs, sstatus);
-+    OFFSET(CPU_USER_REGS_PREGS, struct cpu_user_regs, pregs);
++    die();
 +}
 -- 
 2.39.0
