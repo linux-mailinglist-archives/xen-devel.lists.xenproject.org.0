@@ -2,44 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD3A68DA0E
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 15:03:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491172.760163 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B740D68DC0D
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 15:47:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491185.760175 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPOZJ-0007k7-8I; Tue, 07 Feb 2023 14:03:33 +0000
+	id 1pPPFJ-00046z-Kv; Tue, 07 Feb 2023 14:46:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491172.760163; Tue, 07 Feb 2023 14:03:33 +0000
+Received: by outflank-mailman (output) from mailman id 491185.760175; Tue, 07 Feb 2023 14:46:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPOZJ-0007hW-5J; Tue, 07 Feb 2023 14:03:33 +0000
-Received: by outflank-mailman (input) for mailman id 491172;
- Tue, 07 Feb 2023 14:03:31 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=rEk/=6D=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pPOZH-0007hQ-Rf
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 14:03:31 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2d3a8384-a6f0-11ed-93b5-47a8fe42b414;
- Tue, 07 Feb 2023 15:03:20 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 9774938B13;
- Tue,  7 Feb 2023 14:03:19 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 15351139ED;
- Tue,  7 Feb 2023 14:03:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id E93JAyda4mNlAwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 07 Feb 2023 14:03:19 +0000
+	id 1pPPFJ-00043f-Hk; Tue, 07 Feb 2023 14:46:57 +0000
+Received: by outflank-mailman (input) for mailman id 491185;
+ Tue, 07 Feb 2023 14:46:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=BG9e=6D=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pPPFH-00043Z-Mg
+ for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 14:46:55 +0000
+Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
+ [2a00:1450:4864:20::431])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 435db7ae-a6f6-11ed-933c-83870f6b2ba8;
+ Tue, 07 Feb 2023 15:46:54 +0100 (CET)
+Received: by mail-wr1-x431.google.com with SMTP id o18so13802520wrj.3
+ for <xen-devel@lists.xenproject.org>; Tue, 07 Feb 2023 06:46:54 -0800 (PST)
+Received: from 34-6F-24-FC-D2-65..
+ (46.204.109.85.nat.umts.dynamic.t-mobile.pl. [46.204.109.85])
+ by smtp.gmail.com with ESMTPSA id
+ h10-20020a5d4fca000000b002c3e94cb757sm5269743wrw.117.2023.02.07.06.46.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Feb 2023 06:46:53 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,206 +45,158 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2d3a8384-a6f0-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675778599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=aqWjYHqVE8IvaN3952TdpK0BSSvIahWB7+QeuDQju0E=;
-	b=Z+sNqKMBUcr9PbS8JeE5I2eNwQCHKlA7YsRnX1vfF9u9qVANR71qfA6hfqriiyCLd+A2Er
-	7w/L+SecSxDsWrc9hzFu3BvqbVocAAFx2nOjyaMPiYKyFPRgoFrUSKvuu2VGQyq6qSezaO
-	59vLyZ33Nzgx+F2rcVJL5N1Xtxok7JM=
-Message-ID: <e5ca6ffa-ccc1-06a0-4382-2b6cf4f75548@suse.com>
-Date: Tue, 7 Feb 2023 15:03:18 +0100
+X-Inumbo-ID: 435db7ae-a6f6-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=AMHmfkHHTHE0v8pkna6MESdKkLlHbxr+3nLxEqnuiC4=;
+        b=JJI6HdRHIWyCG0Qcly/fFIST+Tcw6IpEg44w2jU+neU9OLHt6feqdUdJUAC+jR9jMZ
+         27ARJoCYBkXc0FL0UjJWCPiJEWaASW6ffCQKesJjBg6FvS2WixNHIzBgX38hvF2CAVPU
+         FFJwy7qKs/C+nw8uk0h45KmcB3qZHZGAOvRGEUTTGeOmC1g9oOdfpxHqVNsMl8Kl86wM
+         swKJxCoqZ6zDJPG45WlE59CIdFEeOWAASU0adaTHk40Ey3jyDKp4aruCMpKqGJy2Bp6B
+         aiCHdeIxntwjD6/wnyK2Usu48SNyrjXlylq28uJeyCtaYCgSbHIZPPwFMQlFJtyth0cz
+         wTIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=AMHmfkHHTHE0v8pkna6MESdKkLlHbxr+3nLxEqnuiC4=;
+        b=RTLw/nuySScArWW/Ybk/auOP3rVOhZtEtvbZPXsxTYbJ7D+Kf+Sozd+G6Z1rVYm5R0
+         mNWRhb8WZBzKhjgUbV05XH+ZlcLbLdaJ8VR4RI+RbVGiso1wcToA5YQD9IUeklWWee4K
+         IQMY22gqGiapw23H2fViNqeqAjaOHTiaefVqx3kRvF3W8MOkDW+FUOwFeCc1UAjcjpMF
+         jtup7StB2LT4EW1PkpmfsjS3B8txJb8m3mCQBpVbA2NaN0nOMVcNP8tKFvXGgDK5enNk
+         pxExPzd/aC+xYa1ISXAv6Spr26HCiuRAu6+j3srdP5IAze2q6J6eyhnIOjyJ6/J66pLh
+         2Gxw==
+X-Gm-Message-State: AO0yUKVLLlr+hRd0axTBoCo6GVVEzCfb9UvOHb/nGLYz8I36w36LT+FT
+	x3R5SWN2QQhYuY07YxdoRWGrVC+AlJM=
+X-Google-Smtp-Source: AK7set98BUQF2JfES/VGC6uCGFzYm12btefrioeDJfWkGepohAAunlIN0GLPqqAWrAY6y6FHTg6uwQ==
+X-Received: by 2002:adf:e786:0:b0:2c3:def9:7e1a with SMTP id n6-20020adfe786000000b002c3def97e1amr3055414wrm.44.1675781213722;
+        Tue, 07 Feb 2023 06:46:53 -0800 (PST)
+From: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Gianluca Guida <gianluca@rivosinc.com>,
+	Oleksii Kurochko <oleksii.kurochko@gmail.com>,
+	Bob Eshleman <bobbyeshleman@gmail.com>,
+	Alistair Francis <alistair.francis@wdc.com>,
+	Connor Davis <connojdavis@gmail.com>,
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v3 00/14] RISCV basic exception handling implementation
+Date: Tue,  7 Feb 2023 16:46:35 +0200
+Message-Id: <cover.1675779308.git.oleksii.kurochko@gmail.com>
+X-Mailer: git-send-email 2.39.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Content-Language: en-US
-To: Dan Carpenter <error27@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Julia Lawall <julia.lawall@inria.fr>, Luis Chamberlain
- <mcgrof@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
- Hongchen Zhang <zhanghongchen@loongson.cn>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Christian Brauner (Microsoft)" <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Eric Dumazet <edumazet@google.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- maobibo <maobibo@loongson.cn>, Matthew Wilcox <willy@infradead.org>,
- Sedat Dilek <sedat.dilek@gmail.com>
-References: <20230129060452.7380-1-zhanghongchen@loongson.cn>
- <CAHk-=wjw-rrT59k6VdeLu4qUarQOzicsZPFGAO5J8TKM=oukUw@mail.gmail.com>
- <Y+EjmnRqpLuBFPX1@bombadil.infradead.org>
- <4ffbb0c8-c5d0-73b3-7a4e-2da9a7b03669@inria.fr> <Y+EupX1jX1c5BAHv@kadam>
- <Y+JUIl64UDmdkboh@kadam>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: xen: sleeping in atomic warnings
-In-Reply-To: <Y+JUIl64UDmdkboh@kadam>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------8Cy4GAJEf0mO30TJKVjHugHL"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------8Cy4GAJEf0mO30TJKVjHugHL
-Content-Type: multipart/mixed; boundary="------------ISvi0mubQ4jvNED1SOA4tE7c";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Dan Carpenter <error27@gmail.com>, xen-devel@lists.xenproject.org
-Cc: Julia Lawall <julia.lawall@inria.fr>, Luis Chamberlain
- <mcgrof@kernel.org>, Linus Torvalds <torvalds@linux-foundation.org>,
- Hongchen Zhang <zhanghongchen@loongson.cn>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Christian Brauner (Microsoft)" <brauner@kernel.org>,
- David Howells <dhowells@redhat.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Eric Dumazet <edumazet@google.com>,
- "Fabio M. De Francesco" <fmdefrancesco@gmail.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- maobibo <maobibo@loongson.cn>, Matthew Wilcox <willy@infradead.org>,
- Sedat Dilek <sedat.dilek@gmail.com>
-Message-ID: <e5ca6ffa-ccc1-06a0-4382-2b6cf4f75548@suse.com>
-Subject: Re: xen: sleeping in atomic warnings
-References: <20230129060452.7380-1-zhanghongchen@loongson.cn>
- <CAHk-=wjw-rrT59k6VdeLu4qUarQOzicsZPFGAO5J8TKM=oukUw@mail.gmail.com>
- <Y+EjmnRqpLuBFPX1@bombadil.infradead.org>
- <4ffbb0c8-c5d0-73b3-7a4e-2da9a7b03669@inria.fr> <Y+EupX1jX1c5BAHv@kadam>
- <Y+JUIl64UDmdkboh@kadam>
-In-Reply-To: <Y+JUIl64UDmdkboh@kadam>
+The patch series is based on another one [Basic early_printk and smoke
+test implementation] and [introduce generic implementation
+of macros from bug.h] which haven't been commited yet.
 
---------------ISvi0mubQ4jvNED1SOA4tE7c
-Content-Type: multipart/mixed; boundary="------------iyE4cjBPZ5UxfPZspDcYBu0a"
+The patch series provides a basic implementation of exception handling.
+It can do only basic things such as decode a cause of an exception,
+save/restore registers and execute "wfi" instruction if an exception
+can not be handled.
 
---------------iyE4cjBPZ5UxfPZspDcYBu0a
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+To verify that exception handling works well it was implemented macros
+from <asm/bug.h> such as BUG/WARN/run_in_exception/assert_failed.
+The implementation of macros is used "ebreak" instruction and set up bug
+frame tables for each type of macros.
+Also it was implemented register save/restore to return and continue work
+after WARN/run_in_exception.
+Not all functionality of the macros was implemented as some of them
+require hard-panic the system which is not available now. Instead of
+hard-panic 'wfi' instruction is used but it should be definitely changed
+in the neareset future.
+It wasn't implemented show_execution_state() and stack trace discovering
+as it's not necessary now.
 
-T24gMDcuMDIuMjMgMTQ6MzcsIERhbiBDYXJwZW50ZXIgd3JvdGU6DQo+IFRoZXNlIGFyZSBz
-dGF0aWMgY2hlY2tlciB3YXJuaW5ncyBmcm9tIFNtYXRjaC4gIFRoZSBsaW5lIG51bWJlcnMg
-YXJlDQo+IGJhc2VkIG9uIG5leHQtMjAyMzAyMDcuICBUbyByZXByb2R1Y2UgdGhlc2Ugd2Fy
-bmluZ3MgdGhlbiB5b3UgbmVlZCB0bw0KPiBoYXZlIHRoZSBsYXRlc3QgU21hdGNoIGZyb20g
-Z2l0IGFuZCB5b3UgbmVlZCB0byByZWJ1aWxkIHRoZSBjcm9zcw0KPiBmdW5jdGlvbiBwcm9i
-YWJseSBmb3VyIHRpbWVzLiAgSSBoYXZlIHJldmlld2VkIG1vc3Qgb2YgdGhlc2UgYW5kIHRo
-ZXkNCj4gYWxsIHNlZW0gdmFsaWQgdG8gbWUuICBJIHJlbWVtYmVyIEkgcmVwb3J0ZWQgc29t
-ZSBhIHdoaWxlIGJhY2sgYnV0IG5ldmVyDQo+IGhlYXJkIGJhY2suICBodHRwczovL2xvcmUu
-a2VybmVsLm9yZy9hbGwvMjAyMTA4MDIxNDQwMzcuR0EyOTU0MEBraWxpLw0KPiANCj4gcmVn
-YXJkcywNCj4gZGFuIGNhcnBlbnRlcg0KPiANCj4gYXJjaC94ODYveGVuL3AybS5jOjE4OSBh
-bGxvY19wMm1fcGFnZSgpIHdhcm46IHNsZWVwaW5nIGluIGF0b21pYyBjb250ZXh0DQo+IHhl
-bl9jcmVhdGVfY29udGlndW91c19yZWdpb24oKSA8LSBkaXNhYmxlcyBwcmVlbXB0DQo+IHhl
-bl9kZXN0cm95X2NvbnRpZ3VvdXNfcmVnaW9uKCkgPC0gZGlzYWJsZXMgcHJlZW1wdA0KPiAt
-PiB4ZW5fcmVtYXBfZXhjaGFuZ2VkX3B0ZXMoKQ0KPiAgICAgLT4gc2V0X3BoeXNfdG9fbWFj
-aGluZSgpDQo+ICAgICAgICAtPiB4ZW5fYWxsb2NfcDJtX2VudHJ5KCkNCj4gICAgICAgICAg
-IC0+IGFsbG9jX3AybV9wbWQoKQ0KPiB4ZW5fYWxsb2NfcDJtX2VudHJ5KCkgPGR1cGxpY2F0
-ZT4NCj4gICAgICAgICAgICAgIC0+IGFsbG9jX3AybV9wYWdlKCkNCg0KVGhvc2UgYWxsb2Nh
-dGlvbnMgY2FuJ3QgYmUgcmVhY2hlZCBhZnRlciBlYXJseSBib290Lg0KDQo+IGRyaXZlcnMv
-eGVuL2V2ZW50cy9ldmVudHNfYmFzZS5jOjEyMTMgYmluZF9ldnRjaG5fdG9faXJxX2NoaXAo
-KSB3YXJuOiBzbGVlcGluZyBpbiBhdG9taWMgY29udGV4dA0KPiBwdmNhbGxzX2Zyb250X2Nv
-bm5lY3QoKSA8LSBkaXNhYmxlcyBwcmVlbXB0DQo+IHB2Y2FsbHNfZnJvbnRfYWNjZXB0KCkg
-PC0gZGlzYWJsZXMgcHJlZW1wdA0KPiAtPiBjcmVhdGVfYWN0aXZlKCkNCj4gICAgIC0+IGJp
-bmRfZXZ0Y2huX3RvX2lycWhhbmRsZXIoKQ0KPiAgICAgICAgLT4gYmluZF9ldnRjaG5fdG9f
-aXJxaGFuZGxlcl9jaGlwKCkNCj4gICAgICAgICAgIC0+IGJpbmRfZXZ0Y2huX3RvX2lycV9j
-aGlwKCkNCg0KWWVzLCB0aGF0IG9uZSBsb29rcyB2ZXJ5IHN1c3BpY2lvdXMuIEJhc2ljYWxs
-eSB0aGUgc2FtZSBwcm9ibGVtIGFzIGFsbA0KdGhlIG90aGVyIHB2Y2FsbHMgaXNzdWVzIGJl
-bG93Lg0KDQo+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3Fsb2dpYy9uZXR4ZW4vbmV0eGVuX25p
-Y19ody5jOjMwMyBuZXR4ZW5fcGNpZV9zZW1fbG9jaygpIHdhcm46IHNsZWVwaW5nIGluIGF0
-b21pYyBjb250ZXh0DQo+IG5ldHhlbl9uaWNfaHdfd3JpdGVfd3hfMk0oKSA8LSBkaXNhYmxl
-cyBwcmVlbXB0DQo+IG5ldHhlbl9uaWNfaHdfcmVhZF93eF8yTSgpIDwtIGRpc2FibGVzIHBy
-ZWVtcHQNCj4gLT4gbmV0eGVuX3BjaWVfc2VtX2xvY2soKQ0KDQpUaGlzIGlzIG5vdCBYZW4g
-cmVsYXRlZC4NCg0KPiBkcml2ZXJzL3hlbi94ZW4tcGNpYmFjay9wY2lfc3R1Yi5jOjExMCBw
-Y2lzdHViX2RldmljZV9yZWxlYXNlKCkgd2Fybjogc2xlZXBpbmcgaW4gYXRvbWljIGNvbnRl
-eHQNCj4gcGNpc3R1Yl9nZXRfcGNpX2Rldl9ieV9zbG90KCkgPC0gZGlzYWJsZXMgcHJlZW1w
-dA0KPiBwY2lzdHViX2dldF9wY2lfZGV2KCkgPC0gZGlzYWJsZXMgcHJlZW1wdA0KPiAtPiBw
-Y2lzdHViX2RldmljZV9nZXRfcGNpX2RldigpDQo+ICAgICAtPiBwY2lzdHViX2RldmljZV9w
-dXQoKQ0KPiAgICAgICAgLT4gcGNpc3R1Yl9kZXZpY2VfcmVsZWFzZSgpDQoNClNlZW1zIHRv
-cCBiZSBwcm9ibGVtYXRpYywgdG9vLg0KDQo+IGRyaXZlcnMveGVuL3hlbi1zY3NpYmFjay5j
-OjEwMTYgX19zY3NpYmFja19kZWxfdHJhbnNsYXRpb25fZW50cnkoKSB3YXJuOiBzbGVlcGlu
-ZyBpbiBhdG9taWMgY29udGV4dA0KPiBzY3NpYmFja19kZWxfdHJhbnNsYXRpb25fZW50cnko
-KSA8LSBkaXNhYmxlcyBwcmVlbXB0DQo+IHNjc2liYWNrX3JlbGVhc2VfdHJhbnNsYXRpb25f
-ZW50cnkoKSA8LSBkaXNhYmxlcyBwcmVlbXB0DQo+IC0+IF9fc2NzaWJhY2tfZGVsX3RyYW5z
-bGF0aW9uX2VudHJ5KCkNCg0KTmVlZHMgZml4aW5nIChzYW1lIGZpeCBhcyB0aGUgb3RoZXIg
-c2NzaWJhY2sgaXNzdWUpLg0KDQpUaGFua3MgZm9yIHRoZSByZXBvcnRzLA0KDQoNCkp1ZXJn
-ZW4NCg==
---------------iyE4cjBPZ5UxfPZspDcYBu0a
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+---
+Changes in V3:
+  - Change the name of config RISCV_ISA_RV64IMA to RISCV_ISA_RV64G
+    as instructions from Zicsr and Zifencei extensions aren't part of
+    I extension any more.
+  - Rebase the patch "xen/riscv: introduce an implementation of macros
+    from <asm/bug.h>" on top of patch series [introduce generic implementation
+    of macros from bug.h]
+  - Update commit messages
+---
+Changes in V2:
+  - take the latest riscv_encoding.h from OpenSBI, update it with Xen
+    related changes, and update the commit message with "Origin:"
+    tag and the commit message itself.
+  - add "Origin:" tag to the commit messag of the patch
+    [xen/riscv: add <asm/csr.h> header].
+  - Remove the patch [xen/riscv: add early_printk_hnum() function] as the
+    functionality provided by the patch isn't used now.
+  - Refactor prcoess.h: move structure offset defines to asm-offsets.c,
+    change register_t to unsigned long.
+  - Refactor entry.S to use offsets defined in asm-offsets.C
+  - Rename {__,}handle_exception to handle_trap() and do_trap() to be more
+    consistent with RISC-V spec.
+  - Merge the pathc which introduces do_unexpected_trap() with the patch
+    [xen/riscv: introduce exception handlers implementation].
+  - Rename setup_trap_handler() to trap_init() and update correspondingly
+    the patches in the patch series.
+  - Refactor bug.h, remove bug_instr_t type from it.
+  - Refactor decode_trap_cause() function to be more optimization-friendly.
+  - Add two new empty headers: <cache.h> and <string.h> as they are needed to
+    include <xen/lib.h> which provides ARRAY_SIZE and other macros.
+  - Code style fixes.
+---
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Oleksii Kurochko (14):
+  xen/riscv: change ISA to r64G
+  xen/riscv: add <asm/asm.h> header
+  xen/riscv: add <asm/riscv_encoding.h header
+  xen/riscv: add <asm/csr.h> header
+  xen/riscv: introduce empty <asm/string.h>
+  xen/riscv: introduce empty <asm/cache.h>
+  xen/riscv: introduce exception context
+  xen/riscv: introduce exception handlers implementation
+  xen/riscv: introduce decode_cause() stuff
+  xen/riscv: mask all interrupts
+  xen/riscv: introduce trap_init()
+  xen/riscv: introduce an implementation of macros from <asm/bug.h>
+  xen/riscv: test basic handling stuff
+  automation: modify RISC-V smoke test
 
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+ automation/scripts/qemu-smoke-riscv64.sh    |   2 +-
+ xen/arch/riscv/Kconfig                      |  14 +-
+ xen/arch/riscv/Makefile                     |   2 +
+ xen/arch/riscv/arch.mk                      |   2 +-
+ xen/arch/riscv/entry.S                      |  94 ++
+ xen/arch/riscv/include/asm/asm.h            |  54 ++
+ xen/arch/riscv/include/asm/bug.h            |  38 +
+ xen/arch/riscv/include/asm/cache.h          |   6 +
+ xen/arch/riscv/include/asm/csr.h            |  84 ++
+ xen/arch/riscv/include/asm/processor.h      |  82 ++
+ xen/arch/riscv/include/asm/riscv_encoding.h | 927 ++++++++++++++++++++
+ xen/arch/riscv/include/asm/string.h         |   6 +
+ xen/arch/riscv/include/asm/traps.h          |  14 +
+ xen/arch/riscv/riscv64/asm-offsets.c        |  53 ++
+ xen/arch/riscv/riscv64/head.S               |   5 +
+ xen/arch/riscv/setup.c                      |  22 +-
+ xen/arch/riscv/traps.c                      | 233 +++++
+ xen/arch/riscv/xen.lds.S                    |  10 +
+ 18 files changed, 1640 insertions(+), 8 deletions(-)
+ create mode 100644 xen/arch/riscv/entry.S
+ create mode 100644 xen/arch/riscv/include/asm/asm.h
+ create mode 100644 xen/arch/riscv/include/asm/bug.h
+ create mode 100644 xen/arch/riscv/include/asm/cache.h
+ create mode 100644 xen/arch/riscv/include/asm/csr.h
+ create mode 100644 xen/arch/riscv/include/asm/processor.h
+ create mode 100644 xen/arch/riscv/include/asm/riscv_encoding.h
+ create mode 100644 xen/arch/riscv/include/asm/string.h
+ create mode 100644 xen/arch/riscv/include/asm/traps.h
+ create mode 100644 xen/arch/riscv/traps.c
 
---------------iyE4cjBPZ5UxfPZspDcYBu0a--
+-- 
+2.39.0
 
---------------ISvi0mubQ4jvNED1SOA4tE7c--
-
---------------8Cy4GAJEf0mO30TJKVjHugHL
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPiWiYFAwAAAAAACgkQsN6d1ii/Ey/x
-Hgf+P2Hd8pWhpiMwq3X+xYM/xtj+fvlGoOrT0aNfmaplCixttNBdSZw/MuMAIkqodiNp6uHap9tk
-2/Jfcf9JwTgNRcdr23SNSMPGh86R3JKF/qaCMfM8wifYktD/meNw0Vs1ZW5xw8QZOCwqe9jqv3Hz
-CQKBeHTEeH9uDb4wql8A6gao/2tnusvveVESAF98OoP1cPv7vuB4ylG+4kyjOp5WqvfT37xrmP6R
-mhfe9AdX3MLEAFefFXDmxMHbxaRk5ZMCt5Y3HKiUpIJEPWPzXmJyVMY2DhHMKwm6WYVH5fFnGs8T
-y/UMp78Wic3f7u3tNzjylhrnaKthkCrhwKVmmxTGkg==
-=qKRH
------END PGP SIGNATURE-----
-
---------------8Cy4GAJEf0mO30TJKVjHugHL--
 
