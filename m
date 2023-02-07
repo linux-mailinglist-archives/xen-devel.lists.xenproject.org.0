@@ -2,40 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C1468DD1F
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 16:35:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491309.760379 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29A5968DD2C
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 16:37:49 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491316.760389 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPQ02-0002sF-4b; Tue, 07 Feb 2023 15:35:14 +0000
+	id 1pPQ2G-0003Qw-GN; Tue, 07 Feb 2023 15:37:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491309.760379; Tue, 07 Feb 2023 15:35:14 +0000
+Received: by outflank-mailman (output) from mailman id 491316.760389; Tue, 07 Feb 2023 15:37:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPQ02-0002qK-1U; Tue, 07 Feb 2023 15:35:14 +0000
-Received: by outflank-mailman (input) for mailman id 491309;
- Tue, 07 Feb 2023 15:35:12 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pPQ2G-0003Ot-Dj; Tue, 07 Feb 2023 15:37:32 +0000
+Received: by outflank-mailman (input) for mailman id 491316;
+ Tue, 07 Feb 2023 15:37:31 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dGaM=6D=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pPPzz-0002jd-U0
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 15:35:12 +0000
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on20625.outbound.protection.outlook.com
- [2a01:111:f400:fe59::625])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id ff86cec0-a6fc-11ed-93b5-47a8fe42b414;
- Tue, 07 Feb 2023 16:35:08 +0100 (CET)
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
- by BL3PR12MB6644.namprd12.prod.outlook.com (2603:10b6:208:3b1::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Tue, 7 Feb
- 2023 15:35:03 +0000
-Received: from SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1]) by SN6PR12MB2621.namprd12.prod.outlook.com
- ([fe80::a3a7:87d9:60f1:7eb1%4]) with mapi id 15.20.6064.032; Tue, 7 Feb 2023
- 15:35:03 +0000
+ <SRS0=if6N=6D=citrix.com=prvs=3954b4a48=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pPQ2F-0003On-P2
+ for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 15:37:31 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5369dfb1-a6fd-11ed-933c-83870f6b2ba8;
+ Tue, 07 Feb 2023 16:37:29 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,160 +36,198 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ff86cec0-a6fc-11ed-93b5-47a8fe42b414
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RxRKCk+SoFxfQ4kO3zXvTjt5yhG0+CL4CJhbsC4RnEa+ZB8/+yPeJWPNSUnJvu1F/HHzpMUTYcHR+4NovWzfOi+QJXLcOO3B44ihVTTb/ArCjeoq2pvQS6SM0J/nobZuJAW6CwvGuB/61/u5Sj/7R/lPeAHLjqgmmlCyLQ71AcoMD4Mi4MDKbuZVJDd3MlBrxFDbgG7tORacEXVxKIwFk4Rd3RiSxMF59oTL4EHKcLT8/l+yWprpWQduH8b5xWpUr1R3XxH4WveIf8aDQJ3ff+v7xtqtInx92E1zuGI34nFUZWsONMon6GtrEeSuoFyAyUhbQzwfhAXt7gdqZVie6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UZfXDTBW7e3Ody7K6nafRVS7FjVu2tDf+oF5XqRnlu4=;
- b=EofM/gJpxg4q1V+IBQSr4CK0tHru/VyNBcz9tkqm31/+KINjur91HqKC4fcBceaJF8+xpxJfxMavejXmRVGabqASq3ahs1xBq1/VgYPgZI9AzWEFd7aiwv6iYDQZiaMzYGk5q+4j4kyr9S7JgIawONtqcN4YM4UHdKwX4PDJ4P8m0mSzRhx9wsZOnnoOkL2YZjnp+4XeXmJzi4rz3J7zGAzpjapuyE37Gi+asvrpxomUA4tSw1m/ceVUdBM0/UKMVLszun7nKypki3fd25gsXQ2LRteLtZ05Hntvlt4kmLWIUlvUfdkfjD//6y3jcJ6ZR/1gVZOj5OK2Gg6viYVg1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UZfXDTBW7e3Ody7K6nafRVS7FjVu2tDf+oF5XqRnlu4=;
- b=CmeDGs/Ylto0Z/oH2vbBVhQuaZxl9cnbXylskuUhVGj9lQeOkGiF8SeHMfiDwae3Z7fFgJ16Mq2dV21/TNn4tBfXxlMgPE6tNazlBfdidRgHV1zm0KY5fGenwT9ZolH9nomrOL4GpYUIt9xa25Lepi4hP5psOXFkjAawKkeh4yo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Message-ID: <eb4d4da7-0251-6efc-1311-6b236fdca6c4@amd.com>
-Date: Tue, 7 Feb 2023 15:34:56 +0000
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [XEN v2 11/11] xen/arm: p2m: Enable support for 32bit IPA
-To: Julien Grall <julien@xen.org>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
- <20230117174358.15344-12-ayan.kumar.halder@amd.com>
- <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
-From: Ayan Kumar Halder <ayankuma@amd.com>
-In-Reply-To: <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: LO4P265CA0254.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:37c::18) To SN6PR12MB2621.namprd12.prod.outlook.com
- (2603:10b6:805:73::15)
+X-Inumbo-ID: 5369dfb1-a6fd-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1675784249;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MzFiCAJWokp+6zcRaC5Zzpqym3xpJR7o9NQ472GezWo=;
+  b=MdQ/+wa/Xuyh4FUYC/RYAPPp4VKh3xRnjMY2F+d7ArwJInbLjwK5hQz8
+   QL6IlSdOWqfqPwNwZgVgnl3eSr9XkCzXLX8ixxvzvGf4bIU8PbhJ6EdB0
+   /EeBtXoLPTpa10CsDCQa+MBbV9QPx2W6K4jbBrSgbOyCs6K7t5qIDPbe6
+   A=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 95443851
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:R5baOaigqg+IGDdT/Qdn4katX1612RAKZh0ujC45NGQN5FlHY01je
+ htvXG7Sb/iJa2D3KdwjboS3p0wAucLTzodhQAZqpC9mQn8b9cadCdqndUqhZCn6wu8v7q5Ex
+ 55HNoSfdpBcolv0/ErF3m3J9CEkvU2wbuOgTrWCYmYpHlUMpB4J0XpLg/Q+jpNjne+3CgaMv
+ cKai8DEMRqu1iUc3lg8sspvkzsy+qWt0N8klgZmP6sT5geBzyB94K83fsldEVOpGuG4IcbiL
+ wrz5OnR1n/U+R4rFuSknt7TGqHdauePVeQmoiM+t5mK2nCulARrukoIHKN0hXNsoyeIh7hMJ
+ OBl7vRcf+uL0prkw4zxWzEAe8130DYvFLXveRBTuuTLp6HKnueFL1yDwyjaMKVBktubD12i+
+ tQ8dW4rQyuGtd6H4+KSE/JRi8k6EMDCadZ3VnFIlVk1DN4jSJHHBa7L+cVZzHE7gcUm8fT2P
+ pRDL2A1NVKZPkMJYw1MYH49tL7Aan3XejtEqFWTtOwv7nLa1gBZ27nxKtvFPNeNQK25m27J+
+ z6apDSkW3n2MvSjxx6F0yypg9bIxzzlecUYE7KR0/R11Qj7Kms7V0RNCArTTeOCokKzXtN3K
+ koK+zEvp6w/6EyqSNbmWxSy5nWDu3Y0S9dWVuE39gyJ4q7V+BqCQHgJSCZbb94rv9NwQiYlv
+ neLld70AT1ksJWOVGmQsLyTqFuaOzURLGIETT8JS00C+daLiJookhvFQ9JnEai0pt74Azf9x
+ 3aNtidWr6oXpd4G0eO851+vqzmlvJTOQyY+7x/bWW/j5QR8DKa+bom15Fyd8fZBJo+ESkWps
+ X4f3syP6+ZICouC/ASISf8IFauk5N6ENiPdml9lG5Q99zWr9GWndIoW6zZ7TG9gKssecCXlS
+ FPSswhWopRUOROXgbRfOtzrTZ5wlO65SIqjD6qPBjZTXnRvXCvaogdDXkui41HOwGF1ipwyN
+ I6neO/5WB72Fp9b5DaxQu4c15oiySY/2X7fSPjH8vi37VaNTCXLEOlYaTNiesh8tfrZ+1uNr
+ 76zIuPQk31ivPvCjj47GGL5BXQDNjAFCJ//sKS7ncbTc1M9SAnN5xI8qI7NmrCJfYwPzo8kH
+ VnnACe0LWYTYlWZQThmklg5NNvSsW9X9BrXxxAEM1eywGQEao2y9qoZfJZfVeB5q7E8la4oF
+ 6ZZIZ/o7hFzptPvomV1UHUAhNY6KETDafymb0JJnwTTj7Y/HleUq7cIjyPk9TUUDzrfiCfNi
+ +TI6+8verJaH14KJJ+POJqSI6aZ4SB1dBRaAxGZfbG+uSzErOBXFsAGpqVofpxSd06enGvyO
+ sT/KU5wmNQharQdqLHh7Z1oZa/weweiNiK2x1Xm0Is=
+IronPort-HdrOrdr: A9a23:bEhxSqpZtUOpz4JYFMCpTQoaV5stL9V00zEX/kB9WHVpm5Oj+v
+ xGzc5w6farsl0ssScb6KG90dq7MAvhHP9OkO8s1NKZMDUO11HYS72KgbGSpgEIXheOjNK1tp
+ 0QEZSWaueAdmSS5PySiGbXYrUdLcG8kJxAx92uskuFJTsaG52IhD0JdDpzZ3cGOzWucqBJaK
+ Z0iPA3wwZITU5nHfhTS0N1FNTrlpnurtbLcBQGDxko5E2nii6p0qfzF1yi0hIXQ1p0sMEfGT
+ yuqW3Ez5Tml8v+5g7X1mfV4ZgTssDm0MF/CMuFjdVQAinwiy6zDb4RG4GqjXQQmqWC+VwqmN
+ 7Dr1MLJMJo8U7ceWmzvF/ExxTg6jAz8HXvoGXowEcLmfaJBw7SNvAxyr6xMyGpp3bIhesMnZ
+ 6jCljp+aa+RHn77V3AD9uhbWAcqqP7mwthrQcptQ0qbWIvUs4ikWUhxjIhLH4hJlOy1Gl1Kp
+ gnMCib3ocdTW+n
+X-IronPort-AV: E=Sophos;i="5.97,278,1669093200"; 
+   d="scan'208";a="95443851"
+Date: Tue, 7 Feb 2023 15:37:14 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+CC: <xen-devel@lists.xenproject.org>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, "Jan
+ Beulich" <jbeulich@suse.com>, Julien Grall <julien@xen.org>, "Stefano
+ Stabellini" <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, Doug Goldstein
+	<cardoe@cardoe.com>, Samuel Thibault <samuel.thibault@ens-lyon.org>, "Roger
+ Pau =?iso-8859-1?Q?Monn=E9?=" <roger.pau@citrix.com>, Marek
+ =?iso-8859-1?Q?Marczykowski-G=F3recki?= <marmarek@invisiblethingslab.com>
+Subject: Re: [PATCH] Replace git:// and http:// with https://
+Message-ID: <Y+JwKkcBC6AEAeqW@perard.uk.xensource.com>
+References: <f10112b7fa66d0fda3c5fd523e6240cd72730b90.1675739352.git.demi@invisiblethingslab.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BL3PR12MB6644:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8901b209-51ce-47a3-0886-08db0920e165
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	q89N5UkIGR9+SS8P3IvVCMXh49Z3IxZQscrpYHGm896r6ls+7qMMJYgk8dBXNBix0l4cYHDxpbILwgwSqkWcJI+kKaNMFuuNuc+roC+BujbZHSz9V/brpWkVnTXs6a2t/AhcHavZEx/VaHDpAC9n2ijMtQnk+IWZpOxROirm8BHIqMlhwYNqfe+QdvpAH2AOWTgA9YukwGj/zQqTAvYxkBkP9OpJu78ipqeUsjb1fCqsZJrcBBlw7RGe8d2LCNfm9DPuUXB/+1E9kgfCzhaPi9jR1BPlGd4sLq+c1Mh+oydQHo5h3hf0+TzIzDa7GIS7J37+QTSOp0onM3vdfGXhRxNnv0hf9dYKAmZxwJ20j6glbgQxnq19xo1JEoBnYpe29Zds/IZIg5om5cqzCt3U2KQPnJXeABSW11aF+wxbjIyFmheLqq+Kk1odbQ1RtOgofAjoOjzu/wCDs+moPrGznNh0dG8uipDwThF/Aec+2zDoKXfEpPMjDPytq/WCBgV6IYeTQzugppuHgTGaUUVMlbjUAbK9lM2F+vTfgdHvRGZWqSqrI63cgxjiGH6fSV4XWEdY+B5wds8YN9nfRuHJFtywFyyIiy5dOJr6Dz8iJZlEbekarZl88TX6Z87DC87ufZzTDzULsQ4h6VRqpeIRkd/ZgGriG26gw3JLp0UPzIwfA0xVctbLoCdAmrlIIuPTZgS7TI6zbyLAjk2LqAHhodxe7cB0oghKbCYLXui0DMc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(451199018)(5660300002)(31696002)(31686004)(2906002)(36756003)(41300700001)(8936002)(186003)(26005)(110136005)(38100700002)(66556008)(6512007)(66476007)(66946007)(8676002)(478600001)(4326008)(2616005)(6486002)(6666004)(316002)(83380400001)(53546011)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?YjdPdTFrVHAyTDBYUlFISm03L2lzemt2cTVIcDhaM3daUnAwK3lGYmgvVk9K?=
- =?utf-8?B?VDYzRnJCZjNHRjNDU3dvbDlDdzZRcndmOEtZdmlCSkdFcml2Z29nV2FaMXRC?=
- =?utf-8?B?WEtDOEFGYjlaNDNPaUtDZjQvNUpEK1owcnVoWW9WL2JGRU9EQ3BLVzhucncz?=
- =?utf-8?B?UHNkNE1UdGlUWFJ2YWJiYmxjbE12TWozbWVKV3Q0RWRTUHQ5dTRCUWkrbDFD?=
- =?utf-8?B?bHRrbkZFcE4zaFRkaUpZZWJoQVJyQlpDdE0wazJLZlNhVUVET2t0aS9DK1Ns?=
- =?utf-8?B?OGxKVDUwYnRETGswVVU2aDZEcWZ3TlZUYkxZNzNSVi9wSEVEckIzWGxzQnJa?=
- =?utf-8?B?aHRkRFZDdEUrU2dlODZ6R0I1T2tkVmhLVzN2NjhiZ1ZGQkVJbXlrdzBWU1pw?=
- =?utf-8?B?T2hFd0dpY3R2MnptUTR3QlpVSmlwTVFqVkVLNG9FVnc3MXEvdTNZdWw4SHJt?=
- =?utf-8?B?ZGx2YmQ1bkhxT3haSGRRM0hHY0kxcW1uZXNwOHJERWNMT28yaGdCU1hhWnpi?=
- =?utf-8?B?bCtPQlNJUm03THRuMTBhc3Y3ZzdJak1CQ2lxTW5GYXI5cDlnR3JjRjZzVFVu?=
- =?utf-8?B?Vjc2dU1UOEJwYW93NSs5eEU2S0JBNnpDMzJjT1dCZnR1ajFuNkIwY0YrdVA1?=
- =?utf-8?B?L1pPMWxmUk1EdElMczdMN1RZTEhpRmpBbUJpaC85ait2ZFB3UnV4L3puM3Uy?=
- =?utf-8?B?NDNtT2NUS1N5a3l4NXZ0bXZWVjI4QU50QmszWS9CWWNRSU4xcHpkSUZvZVd6?=
- =?utf-8?B?d2V4VStBTUl1ZU1HUzJGdGI5NEdRbWQ2MDhxZnd5eXpBaDd2ZTR1QnI0N3NR?=
- =?utf-8?B?TWZiSVd6NDhHdlpTWTIxa1poVmtvRzBGOElsS0I4bEhZejlwcTNQUUU2N0Q5?=
- =?utf-8?B?RElLaUZPQjZrbkNXbUNzcnlrZVpHNkt0eEljem9jNVc0akl5S1BIY2grUlRT?=
- =?utf-8?B?ZjY0THg1aTUyZkNXMlg4NWFJemUzR0Y1V28yQm5PcVhUa2FXczlMNHJxc3BZ?=
- =?utf-8?B?ZmhQem1UZU1Gd3AzekQ0cWRHaldrbVhCYmZ1YlhucERFb3RVMEZHSTRXWmhM?=
- =?utf-8?B?bUo3YUZDN2kzMVU5OERnT1BFcW00QmJkOTV6d0JhNmFITzBmenY2Nnp1MHBr?=
- =?utf-8?B?b1NXNVltU0UvZks5MHl6UVQyS2JUMTBDZmJlaUVrdEdnRTFvSGcvK0gwNzR1?=
- =?utf-8?B?T05HQ3lkT2xzUHgxUmgzNXllWEtsWXJoWlA0U2Z5STZ1QnVXR2VKeEhpejRJ?=
- =?utf-8?B?c1YrRmRUNEJTWWwrZDNSNk1MUGpRdkduWmNlYXpXUkE0UG5Vb2RhZEFLVGdC?=
- =?utf-8?B?QWJFMEF6UGJpNXJIZzFLTlpMVzNHbU1YVGFxbVVhRGtlM3p6UWk3TGVWM1Zj?=
- =?utf-8?B?M1RBT3RjMnE0TTY5ODFYQ290V2hxTG0xanN3VDJQbEluWmRFT2tyV1BUR2dQ?=
- =?utf-8?B?Y2gyNUdmRGdpMTl1UklmSlVXS2xMRVdYRllqZlFHTnVMOVozTWgwYVJHbFky?=
- =?utf-8?B?Y290RElYMG12SmU0QytwOVhVK0NPdmFXbkEyTmQzUDkyVHlKbkt0Qkx0OGFR?=
- =?utf-8?B?YjdxYjMrZk5ZbVV6OWtHS2dMQTBxMDVRaWRMQmdZb1UweERXNlFOZTl2aDFX?=
- =?utf-8?B?bGIramFHTUg1TU5SRk5DdFJpblVsR1hkVXF0YlU5UG1PTFlkdzFWWWZTM0Fu?=
- =?utf-8?B?MGxxUTFGRFNCVWV3V3NCNDUvWGR3ZHJndG8wYmwwRzRaVXc4N0RRQlgvd2Vi?=
- =?utf-8?B?VCtvZWloNkhpN1NNc0ZCOEthQXpZVUI4WDU4L2Ntd1N4SE42WW1KT1dralZ4?=
- =?utf-8?B?bkdsR1BWRlloK1FwZXg5TGdNK0FQVXF5Y05aSFJKQlJEVG9qa0Y0MlFIdU1y?=
- =?utf-8?B?ZXlCS294UE96WXdUOHdhV1p4YVVod3MvU3ZuZHJtTEpweDV1S2pabmUvWExM?=
- =?utf-8?B?Qk9mWlA3R092eEx0SGlxTnVXNUhuZ1FZMWR3REdhWEcrdVdWbFgyVGdTaFVm?=
- =?utf-8?B?a3ZGQ0taV0I0dUlKamx3RVR4N2ZyWDZ5Y3dYa2Q1M2pFLzA2VlhNZXo2eEVT?=
- =?utf-8?B?MHpYaFgvdVVMQUNYS1pBQlphTXR6aHZJbmpxQXJXUlh3WHlqaWU4bk5JOFZF?=
- =?utf-8?Q?xAQzuB+UeI5w+2VnxRyITQP7Y?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8901b209-51ce-47a3-0886-08db0920e165
-X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 15:35:03.0499
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Re+uDZNgPAhArNkBN9IPZFZ/KEVre5+lOxQZmLoqdDLeADA0VTo8VQljW627jFKVou751zJuKz2Dje94YwI+3A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6644
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <f10112b7fa66d0fda3c5fd523e6240cd72730b90.1675739352.git.demi@invisiblethingslab.com>
+
+On Mon, Feb 06, 2023 at 10:10:33PM -0500, Demi Marie Obenour wrote:
+> Obtaining code over an insecure transport is a terrible idea for
+> blatently obvious reasons.  Even for non-executable data, insecure
+> transports are considered deprecated.
+> 
+> This patch was created by doing a tree-wide search and replace with sed,
+> then reverting changes that were pointless or wrong.
+> 
+> Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+
+Hi,
+
+Thanks for the patch.
+
+Could you split this patch into several patches? I think that would make
+it easier to review. Not all URL are equal, or have the same purpose.
+They need to be check one by one to make sure that the right change to
+do.
+
+I propose at least 3 patches:
+
+> ---
+
+"automation / CI" changes:
+>  automation/build/centos/CentOS-7.2.repo      |  8 ++++----
+>  automation/build/debian/stretch-llvm-8.list  |  4 ++--
+>  automation/build/debian/unstable-llvm-8.list |  4 ++--
+>  automation/scripts/qemu-smoke-dom0-arm32.sh  |  2 +-
+
+"build system" changes:
+>  Config.mk                                    | 20 ++++++--------------
+>  stubdom/configure                            | 18 +++++++++---------
+>  stubdom/configure.ac                         | 18 +++++++++---------
+>  tools/firmware/etherboot/Makefile            |  4 ++--
 
 
-On 20/01/2023 11:06, Julien Grall wrote:
-> Hi Ayan,
-Hi Julien,
->
-> On 17/01/2023 17:43, Ayan Kumar Halder wrote:
->> VTCR.T0SZ should be set as 0x20 to support 32bit IPA.
->> Refer ARM DDI 0487I.a ID081822, G8-9824, G8.2.171, VTCR,
->> "Virtualization Translation Control Register" for the bit descriptions.
->>
->> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->> ---
->> Changes from -
->>
->> v1 - New patch.
->>
->>   xen/arch/arm/p2m.c | 10 +++++++---
->>   1 file changed, 7 insertions(+), 3 deletions(-)
->>
->> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->> index 948f199d84..cfdea55e71 100644
->> --- a/xen/arch/arm/p2m.c
->> +++ b/xen/arch/arm/p2m.c
->> @@ -2266,13 +2266,17 @@ void __init setup_virt_paging(void)
->>       register_t val = 
->> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
->>     #ifdef CONFIG_ARM_32
->> -    if ( p2m_ipa_bits < 40 )
->> +    if ( p2m_ipa_bits < PADDR_BITS )
->>           panic("P2M: Not able to support %u-bit IPA at the moment\n",
->>                 p2m_ipa_bits);
->>   -    printk("P2M: 40-bit IPA\n");
->> -    p2m_ipa_bits = 40;
->> +    printk("P2M: %u-bit IPA\n",PADDR_BITS);
->> +    p2m_ipa_bits = PADDR_BITS;
->> +#ifdef CONFIG_ARM_PA_32
->> +    val |= VTCR_T0SZ(0x20); /* 32 bit IPA */
->> +#else
->>       val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
->> +#endif
->
-> I am wondering whether this is right time to switch to an array like 
-> the arm64 code? This would allow to use 32-bit IPA also when Xen 
-> support 64-bit physical address.
+"miscellaneous and documentation":
+>  README                                       |  4 ++--
+>  docs/README.remus                            |  2 +-
+>  docs/conf.py                                 |  2 +-
+>  scripts/get_maintainer.pl                    |  2 +-
+>  stubdom/grub.patches/10graphics.diff         |  2 +-
+>  tools/examples/xeninfo.pl                    |  2 +-
+>  tools/firmware/etherboot/README              |  2 +-
+>  tools/firmware/hvmloader/pci_regs.h          |  2 +-
+>  tools/firmware/hvmloader/pir.c               |  2 +-
+>  tools/firmware/hvmloader/pir_types.h         |  2 +-
+>  tools/firmware/hvmloader/smbios_types.h      |  2 +-
+>  19 files changed, 47 insertions(+), 55 deletions(-)
 
-In AArch64, we use ID_AA64MMFR0_EL1.PARange to determine the physical 
-address range supported at runtime. This is then used as an index into 
-pa_range_info[] to determine t0sz, root_order, etc.
+In or after the "build system" patch, you could propose to remove
+GIT_HTTP variable, and only use https:// urls. A separate change could
+be better as we could easily revert it if that an issue.
+We could start with a patch to default to GIT_HTTP=y, even if all urls
+would bu https.
 
-However, for AArch32 I do not see an equivalent register (similar to 
-ID_AA64MMFR0_EL1) or any register to determine the physical address 
-range. Thus, I will prefer to keep the code as it is unless you suggest 
-any alternative.
 
-- Ayan
+> diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+> index 98e4d481f65c2b29ac935ddf6247132ddf94fa1d..22ec2f2474ed3d1f1f614085f9bd832be4d42496 100755
+> --- a/automation/scripts/qemu-smoke-dom0-arm32.sh
+> +++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+> @@ -4,7 +4,7 @@ set -ex
+>  
+>  cd binaries
+>  # Use the kernel from Debian
+> -curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
+> +curl --fail --silent --show-error --location --output vmlinuz https://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
 
->
-> Cheers,
->
+This url change is wrong, the certificate provided aren't for debian.org.
+
+>  # Use a tiny initrd based on busybox from Alpine Linux
+>  curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
+>  
+> diff --git a/docs/README.remus b/docs/README.remus
+> index e41e045a109466213b39bf5099ee16652b229ccc..5e411addb1a63f1b2c01ff165fc6f74d6d81c8ea 100644
+> --- a/docs/README.remus
+> +++ b/docs/README.remus
+> @@ -7,7 +7,7 @@ Using Remus with libxl on Xen 4.5 and higher:
+>   To enable network buffering, you need libnl 3.2.8
+>   or higher along with the development headers and command line utilities.
+>   If your distro does not have the appropriate libnl3 version, you can find
+> - the latest source tarball of libnl3 at http://www.carisma.slowglass.com/~tgr/libnl/
+> + the latest source tarball of libnl3 at https://www.carisma.slowglass.com/~tgr/libnl/
+
+This url doesn't exist anymore, so better not change it, or fix the
+comment.
+
+>  
+>  Disk replication:
+>   VMs protected by Remus need to use DRBD based disk backends. Specifically, you
+> diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
+> index 48e07370e8d462ced70a1de13ec8134b4eed65ba..9f32e0e0c0ec5c491209d6e73232b5a388b0a588 100755
+> --- a/scripts/get_maintainer.pl
+> +++ b/scripts/get_maintainer.pl
+> @@ -1457,7 +1457,7 @@ sub vcs_exists {
+>  	warn("$P: No supported VCS found.  Add --nogit to options?\n");
+>  	warn("Using a git repository produces better results.\n");
+>  	warn("Try latest git repository using:\n");
+> -	warn("git clone git://xenbits.xen.org/xen.git\n");
+> +	warn("git clone https://xenbits.xen.org/xen.git\n");
+
+This url is wrong, xenbits provides git trees on http via a different path, see in Config.mk.
+
+>  	$printed_novcs = 1;
+>      }
+>      return 0;
+> diff --git a/tools/examples/xeninfo.pl b/tools/examples/xeninfo.pl
+> index 95a15d9595c0f4bf09c9429099bd3b27e98ebf3e..1815d1d9f219799a83fbc0329a4a1a010264893e 100644
+> --- a/tools/examples/xeninfo.pl
+> +++ b/tools/examples/xeninfo.pl
+> @@ -36,7 +36,7 @@ sub apiconnect
+>  {
+>  	foreach my $xenhost (keys %xenhosts)
+>  	{
+> -		my $xen = RPC::XML::Client->new("http://$xenhost:$xenhosts{$xenhost}{'port'}");
+> +		my $xen = RPC::XML::Client->new("https://$xenhost:$xenhosts{$xenhost}{'port'}");
+
+I'm pretty sure that the wrong change to do here.
+
+>  		my $session = $xen->simple_request("session.login_with_password", "user","");
+>  		if (! $session)
+>  		{
+
+I haven't check every urls, there's  probably other that want to be
+change to something else rather that just s/http/https/.
+
+Cheers,
+
+-- 
+Anthony PERARD
 
