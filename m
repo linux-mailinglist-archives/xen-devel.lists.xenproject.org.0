@@ -2,36 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B9DB68E0EF
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 20:13:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491400.760481 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C071B68E179
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 20:49:26 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491410.760492 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPTOX-0005y8-BL; Tue, 07 Feb 2023 19:12:45 +0000
+	id 1pPTxS-0001Ow-4A; Tue, 07 Feb 2023 19:48:50 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491400.760481; Tue, 07 Feb 2023 19:12:45 +0000
+Received: by outflank-mailman (output) from mailman id 491410.760492; Tue, 07 Feb 2023 19:48:50 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPTOX-0005w0-7u; Tue, 07 Feb 2023 19:12:45 +0000
-Received: by outflank-mailman (input) for mailman id 491400;
- Tue, 07 Feb 2023 19:12:44 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pPTxS-0001M2-19; Tue, 07 Feb 2023 19:48:50 +0000
+Received: by outflank-mailman (input) for mailman id 491410;
+ Tue, 07 Feb 2023 19:48:49 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=SVd9=6D=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1pPTOW-0005vu-G7
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 19:12:44 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 64b02c5e-a71b-11ed-93b5-47a8fe42b414;
- Tue, 07 Feb 2023 20:12:42 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 317JCUdF055038
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Tue, 7 Feb 2023 14:12:35 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 317JCUs8055037;
- Tue, 7 Feb 2023 11:12:30 -0800 (PST) (envelope-from ehem)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pPTxR-0001Ls-4V; Tue, 07 Feb 2023 19:48:49 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pPTxR-000327-1j; Tue, 07 Feb 2023 19:48:49 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pPTxQ-0003y4-Nf; Tue, 07 Feb 2023 19:48:48 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pPTxQ-0007SW-L5; Tue, 07 Feb 2023 19:48:48 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,88 +42,142 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 64b02c5e-a71b-11ed-93b5-47a8fe42b414
-Date: Tue, 7 Feb 2023 11:12:30 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: Jan Beulich <jbeulich@suse.com>, Wei Liu <wl@xen.org>,
-        Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] tools: Have flex and bison mandatory
-Message-ID: <Y+KinmC34qwz4FY3@mattapan.m5p.com>
-References: <20230207160948.3169-1-anthony.perard@citrix.com>
- <a11b962e-7422-a197-4ff4-fcac9963364d@suse.com>
- <Y+KSRY+5SmrNYpJ/@perard.uk.xensource.com>
- <Y+KdGBSukPdVR0hz@mattapan.m5p.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=ZLjOJszRiP2iWWyRBvI8wYRlxS5FTw5JTtyOkxmg72E=; b=dmtis2AoIq0rVIJmWSJsKy7oIX
+	8ysqA1i4j0dBu/qyPHGCb+xpsvnmRB0CcOTHUMcoLJMlzV9BpiIbHveJDV5UMEsZCe00af5ecfC+P
+	Zn/qJfSxd7pBEonYXt7l0cLwYcyWKFE0RXwv3iMLGYdsk3hUi2s3duqwwUG5Kf4/9P+g=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176441-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <Y+KdGBSukPdVR0hz@mattapan.m5p.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
+Subject: [libvirt test] 176441: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=5c4007ddc6c29632b5cc96ab4ef81ebb7797d1bb
+X-Osstest-Versions-That:
+    libvirt=0f350a4d070e952b0ecc7631708478ddfd43ba3f
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Tue, 07 Feb 2023 19:48:48 +0000
 
-On Tue, Feb 07, 2023 at 10:48:56AM -0800, Elliott Mitchell wrote:
-> On Tue, Feb 07, 2023 at 06:02:45PM +0000, Anthony PERARD wrote:
-> > On Tue, Feb 07, 2023 at 06:03:12PM +0100, Jan Beulich wrote:
-> > > On 07.02.2023 17:09, Anthony PERARD wrote:
-> > > > This also remove the way the missing binaries are been handled, with
-> > > > double-column-rules, which might be an issue sometime.
-> > > 
-> > > These double-colon rules should never have been introduced. Double
-> > > colons have a different meaning ("terminal rule") for pattern rules.
-> > > In fact they were my initial suspects when looking into that odd build
-> > > failure in CI.
-> > 
-> > After some more investigation, I don't think anymore the double-colon
-> > rules here is an issue.
-> > 
-> > I think the issue that Andrew saw in the CI with "libxlu_cfg_y.o"
-> > failing to build while "libxlu_cfg_l.[ch]" are been regenerated is
-> > probably because make doesn't consider "libxlu_cfg_l.[ch]" as a group of
-> > targets.
-> > 
-> > If for some reason we have:
-> >     libxlu_cfg_l.h newer than libxlu_cfg_l.l newer than libxlu_cfg_l.c
-> > 
-> > Then make seems to take two parallel decision:
-> >     When building libxlu_cfg_y.o:
-> >         libxlu_cfg_l.h is newer than libxlu_cfg_l.l
-> >         -> libxlu_cfg_l.h is up-to-date, start building libxlu_cfg_y.o
-> >     When building libxlu_cfg_l.o:
-> >         libxlu_cfg_l.c is older than libxlu_cfg_l.l
-> >         -> we need to generate libxlu_cfg_l.c first
-> > Then, libxlu_cfg_y.o fails to build because libxlu_cfg_l.h is been
-> > updated do to the parallel build of libxlu_cfg_l.o.
-> > 
-> > I can easily reproduce the issue with:
-> >     touch libxlu_cfg_l.c; sleep .1; touch libxlu_cfg_l.l; sleep .1;
-> >     touch libxlu_cfg_l.h; sleep .1; make -j
-> > And having "sleep 1" in "%.c %.h: %.l" recipe, between `rm` and `flex`.
-> > 
-> > I don't know how to properly fix this yet.
-> > Event writing "%.c %.h &: %.l" doesn't work, with make 4.3, which is
-> > supposed to be grouped targets. But that's is maybe fixed in 4.4.
-> 
-> Might this be solved with:
-> 
-> %.c: %.l | %.h
-> 
-> I'm unsure whether order-only dependencies are GNU-make only (there is a
-> good chance).  There is also the option of using .PRECIOUS
+flight 176441 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176441/
 
-Then upon more reading wouldn't:
+Failures :-/ but no regressions.
 
-%_y.c: | %_l.c
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-Accomplish the job?  (assuming GNU-make or everyone has copied that
-feature)
+version targeted for testing:
+ libvirt              5c4007ddc6c29632b5cc96ab4ef81ebb7797d1bb
+baseline version:
+ libvirt              0f350a4d070e952b0ecc7631708478ddfd43ba3f
+
+Last test of basis   176388  2023-02-05 04:35:40 Z    2 days
+Testing same since   176441  2023-02-07 04:20:57 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Michal Privoznik <mprivozn@redhat.com>
+  Oleg Vasilev <oleg.vasilev@virtuozzo.com>
+  Peter Krempa <pkrempa@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
 
 
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
 
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   0f350a4d07..5c4007ddc6  5c4007ddc6c29632b5cc96ab4ef81ebb7797d1bb -> xen-tested-master
 
