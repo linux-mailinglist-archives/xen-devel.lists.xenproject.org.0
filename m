@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1644968DC8B
-	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 16:08:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491303.760365 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C1468DD1F
+	for <lists+xen-devel@lfdr.de>; Tue,  7 Feb 2023 16:35:53 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491309.760379 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPPZU-0007Xh-1I; Tue, 07 Feb 2023 15:07:48 +0000
+	id 1pPQ02-0002sF-4b; Tue, 07 Feb 2023 15:35:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491303.760365; Tue, 07 Feb 2023 15:07:48 +0000
+Received: by outflank-mailman (output) from mailman id 491309.760379; Tue, 07 Feb 2023 15:35:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPPZT-0007Vx-Up; Tue, 07 Feb 2023 15:07:47 +0000
-Received: by outflank-mailman (input) for mailman id 491303;
- Tue, 07 Feb 2023 15:07:46 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=Mf1n=6D=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pPPZS-0007Vp-Cr
- for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 15:07:46 +0000
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05on20621.outbound.protection.outlook.com
- [2a01:111:f400:7d00::621])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 2ca5a753-a6f9-11ed-933c-83870f6b2ba8;
- Tue, 07 Feb 2023 16:07:44 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by DB9PR04MB8314.eurprd04.prod.outlook.com (2603:10a6:10:249::13)
+	id 1pPQ02-0002qK-1U; Tue, 07 Feb 2023 15:35:14 +0000
+Received: by outflank-mailman (input) for mailman id 491309;
+ Tue, 07 Feb 2023 15:35:12 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=dGaM=6D=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1pPPzz-0002jd-U0
+ for xen-devel@lists.xenproject.org; Tue, 07 Feb 2023 15:35:12 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on20625.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::625])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id ff86cec0-a6fc-11ed-93b5-47a8fe42b414;
+ Tue, 07 Feb 2023 16:35:08 +0100 (CET)
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com (2603:10b6:805:73::15)
+ by BL3PR12MB6644.namprd12.prod.outlook.com (2603:10b6:208:3b1::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.34; Tue, 7 Feb
- 2023 15:07:42 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6064.036; Tue, 7 Feb 2023
- 15:07:42 +0000
+ 2023 15:35:03 +0000
+Received: from SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::a3a7:87d9:60f1:7eb1]) by SN6PR12MB2621.namprd12.prod.outlook.com
+ ([fe80::a3a7:87d9:60f1:7eb1%4]) with mapi id 15.20.6064.032; Tue, 7 Feb 2023
+ 15:35:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,333 +47,160 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ca5a753-a6f9-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: ff86cec0-a6fc-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W3VcYEcRSeKEjdJ/Y7RvZM95G4hpQXCQHZw24t3km4zVGV1IPYN11Zq//z4Xvd7y5bOkGSlu1+I6cO9B0JXwmdPmubCO96pYiuze7ZduMKyVC5WOgb6PiyyxKFZXexferTO9FtDgl5Yhe2kInqy67pi/3rIN21vvNyM+6dB2rj54hPLSLAPtDjEfF6kigoBx5bcsG8+hOVDF8w6qVGMBKZ5sWhsKRUQhgwlMi7vP3NzndwUf4z68O/1/urJdnKX4hmQeBlZMJATlcMIa96lPJbUdQNk3slI9qMRBllFxmCWs0eOkB7mixiIK22e6Q9KLpPOROyv4c8IsaaSFU6eodg==
+ b=RxRKCk+SoFxfQ4kO3zXvTjt5yhG0+CL4CJhbsC4RnEa+ZB8/+yPeJWPNSUnJvu1F/HHzpMUTYcHR+4NovWzfOi+QJXLcOO3B44ihVTTb/ArCjeoq2pvQS6SM0J/nobZuJAW6CwvGuB/61/u5Sj/7R/lPeAHLjqgmmlCyLQ71AcoMD4Mi4MDKbuZVJDd3MlBrxFDbgG7tORacEXVxKIwFk4Rd3RiSxMF59oTL4EHKcLT8/l+yWprpWQduH8b5xWpUr1R3XxH4WveIf8aDQJ3ff+v7xtqtInx92E1zuGI34nFUZWsONMon6GtrEeSuoFyAyUhbQzwfhAXt7gdqZVie6A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lRjNyhJB24lX2oEDBofRKsPL/nQHU2HOAqMzsG9bTZs=;
- b=JCPbxi86sWq008e27T8HV9N0CWog9dN0MHkv0Bq6GA4+lgw+tMNpE8Wt3u4AJ+CjbjvYtdZUmg25bMBWoO+eVx93xbdI9V4o03WCwH4C+O2E9q8razct7erDGHp1ta3mxKm4Qeqm3J/11Lg3jZ105ZteVs4GEtYA87+CeBz5Ipdhn7OFCe8p7aKFmPtNcrsGyrOsL8k50C2Ez7E800E0iEYofY82MhysQ4mmbpI4YpMPCkKhO9ML2RT0WUNv6d5PbUMP9MAsZogB1XuRxzQGjue5N46xRmTOp3HmbRYwZt8FD1ocFUXjKt7iWjF4j5cs7+wHXp0dRdYaxJyLfyDTqA==
+ bh=UZfXDTBW7e3Ody7K6nafRVS7FjVu2tDf+oF5XqRnlu4=;
+ b=EofM/gJpxg4q1V+IBQSr4CK0tHru/VyNBcz9tkqm31/+KINjur91HqKC4fcBceaJF8+xpxJfxMavejXmRVGabqASq3ahs1xBq1/VgYPgZI9AzWEFd7aiwv6iYDQZiaMzYGk5q+4j4kyr9S7JgIawONtqcN4YM4UHdKwX4PDJ4P8m0mSzRhx9wsZOnnoOkL2YZjnp+4XeXmJzi4rz3J7zGAzpjapuyE37Gi+asvrpxomUA4tSw1m/ceVUdBM0/UKMVLszun7nKypki3fd25gsXQ2LRteLtZ05Hntvlt4kmLWIUlvUfdkfjD//6y3jcJ6ZR/1gVZOj5OK2Gg6viYVg1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lRjNyhJB24lX2oEDBofRKsPL/nQHU2HOAqMzsG9bTZs=;
- b=Jvb+1/min/rRrNt+RKNRIuj9OjxcJ8bHVbD0ezKzCcTsAhGcUjG2CYMaMHRyWtSRDAFGMDYr8zfe8Zl69vrLbuUSewf9QLQDzSVeSdjJEp3XxVVevjj+cZc0O5gRg1pBlMLV88pVtaZcxzPakLaA69gpf/Z9UM257JlP5U+OWGbn/05A6t6mGS09EpNsDR2uQnbRXTjXNwnghyxBXy/bYW4hk3LD199VkHKnLBPaOiZDKBq48AIpbRMY4IEkAZEm2iCpZHT97Y3dJ+pANAqzts/Xjv8T8Fy3cZWWRebfwuKSPf0kA9qtt7E73rMvvu7SF6/t0RYE11im1t1Yi805zA==
+ bh=UZfXDTBW7e3Ody7K6nafRVS7FjVu2tDf+oF5XqRnlu4=;
+ b=CmeDGs/Ylto0Z/oH2vbBVhQuaZxl9cnbXylskuUhVGj9lQeOkGiF8SeHMfiDwae3Z7fFgJ16Mq2dV21/TNn4tBfXxlMgPE6tNazlBfdidRgHV1zm0KY5fGenwT9ZolH9nomrOL4GpYUIt9xa25Lepi4hP5psOXFkjAawKkeh4yo=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <bee6af5c-6000-461b-7642-2864d412e351@suse.com>
-Date: Tue, 7 Feb 2023 16:07:39 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
-Subject: Re: [PATCH v3 12/14] xen/riscv: introduce an implementation of macros
- from <asm/bug.h>
-Content-Language: en-US
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>,
- Bob Eshleman <bobbyeshleman@gmail.com>,
- Alistair Francis <alistair.francis@wdc.com>,
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-References: <cover.1675779308.git.oleksii.kurochko@gmail.com>
- <404a4d6621a2e5eb276d2fa61188429294d682ba.1675779308.git.oleksii.kurochko@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <404a4d6621a2e5eb276d2fa61188429294d682ba.1675779308.git.oleksii.kurochko@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR2P281CA0112.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9d::14) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Message-ID: <eb4d4da7-0251-6efc-1311-6b236fdca6c4@amd.com>
+Date: Tue, 7 Feb 2023 15:34:56 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.6.1
+Subject: Re: [XEN v2 11/11] xen/arm: p2m: Enable support for 32bit IPA
+To: Julien Grall <julien@xen.org>,
+ Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
+Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
+ Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
+References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
+ <20230117174358.15344-12-ayan.kumar.halder@amd.com>
+ <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
+From: Ayan Kumar Halder <ayankuma@amd.com>
+In-Reply-To: <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0254.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:37c::18) To SN6PR12MB2621.namprd12.prod.outlook.com
+ (2603:10b6:805:73::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|DB9PR04MB8314:EE_
-X-MS-Office365-Filtering-Correlation-Id: 153492c4-f394-48c4-9ed5-08db091d0f52
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2621:EE_|BL3PR12MB6644:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8901b209-51ce-47a3-0886-08db0920e165
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	hFBGseIWP5yPy9x+4m2tiDVPPsHwiMHN0RRl+8poBZO6Drv3odMTBBDtQC6ZmuAqmeSdCjMme/iK2nuMbeVkcpCs8h9cuAuOgTcsiKeJ/+Vqb8Utff4fu09cRn7Z7n/mzL+O81O0fJALBMD5cFo9b8Vl6SyOO9JFF14n9mvS7HiL+Nw50gStSsmGK4fGkzvAwye5+2a8d06npBSVBt4OzBf5ehlaQA+r3f/B2fCY8iEHwJxzlzL1GQb4j04w0GEB5EbHxy4ICFRXpZzldN5S1e+5ij/iaImFm7PIEfkdA/DS19dwH8VWgZcbO9jnddwOOEx2VkgoDtz9q+sHhCxYA2K2Wydrnc5N35LPux9gEn2gsm2nvur8zbm14nKTxP881F+AQALgKZfCIjeAMtkGXfrBG3hCztFxFotKzJ8Y5hd6YyG92UjlPXPhHDeykh4hB8Pcxmkd2+9yAKwG4W5OYwzbkC3rbTi02DYiPhCFQCRBQqzfsTr0R548OGXBs+TiI517ir//SD+owIwtyYO3Ir2l4zY27BiiaaTgwcodWEUVsMpUHrTtUQWFyDUja2d5slRHA6N60rfo/ygWH++u0/EndUJXX3UQ2ErmEBssfrrcGFgVA+bUmfbCjyAs445RrXn1QMKyNmmqycj2YobpHCnoyvZk4OOE+fXxGtMA267A6Dx2T/TDbbV0J2iMsmI/B9+ygrmEILAhTiAMx8HgDCSouBhhHUto3bNDGu/Rksc=
+	q89N5UkIGR9+SS8P3IvVCMXh49Z3IxZQscrpYHGm896r6ls+7qMMJYgk8dBXNBix0l4cYHDxpbILwgwSqkWcJI+kKaNMFuuNuc+roC+BujbZHSz9V/brpWkVnTXs6a2t/AhcHavZEx/VaHDpAC9n2ijMtQnk+IWZpOxROirm8BHIqMlhwYNqfe+QdvpAH2AOWTgA9YukwGj/zQqTAvYxkBkP9OpJu78ipqeUsjb1fCqsZJrcBBlw7RGe8d2LCNfm9DPuUXB/+1E9kgfCzhaPi9jR1BPlGd4sLq+c1Mh+oydQHo5h3hf0+TzIzDa7GIS7J37+QTSOp0onM3vdfGXhRxNnv0hf9dYKAmZxwJ20j6glbgQxnq19xo1JEoBnYpe29Zds/IZIg5om5cqzCt3U2KQPnJXeABSW11aF+wxbjIyFmheLqq+Kk1odbQ1RtOgofAjoOjzu/wCDs+moPrGznNh0dG8uipDwThF/Aec+2zDoKXfEpPMjDPytq/WCBgV6IYeTQzugppuHgTGaUUVMlbjUAbK9lM2F+vTfgdHvRGZWqSqrI63cgxjiGH6fSV4XWEdY+B5wds8YN9nfRuHJFtywFyyIiy5dOJr6Dz8iJZlEbekarZl88TX6Z87DC87ufZzTDzULsQ4h6VRqpeIRkd/ZgGriG26gw3JLp0UPzIwfA0xVctbLoCdAmrlIIuPTZgS7TI6zbyLAjk2LqAHhodxe7cB0oghKbCYLXui0DMc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(136003)(39860400002)(376002)(396003)(346002)(451199018)(6506007)(6512007)(186003)(26005)(6666004)(53546011)(36756003)(38100700002)(8676002)(54906003)(316002)(5660300002)(41300700001)(2616005)(8936002)(2906002)(83380400001)(66476007)(66946007)(31696002)(4326008)(6486002)(86362001)(478600001)(6916009)(66556008)(31686004)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN6PR12MB2621.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(451199018)(5660300002)(31696002)(31686004)(2906002)(36756003)(41300700001)(8936002)(186003)(26005)(110136005)(38100700002)(66556008)(6512007)(66476007)(66946007)(8676002)(478600001)(4326008)(2616005)(6486002)(6666004)(316002)(83380400001)(53546011)(6506007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OU1qaFBKN1hXRUtoZ3V6ZzY1NXVFcjdGdHRwTU9UaXNPTXl0WVp2dDNuQ3dO?=
- =?utf-8?B?ZmtyRkxldHFKdnZVZWp4NGR3RDVOSUNhYjJmd2gxM0pQNlo3YUpxdDl5eity?=
- =?utf-8?B?VEo4dW1JdUIvUjIwVDJzMUdRUDNnZEQwdWQrMGw0L0RTMXQ1cUduQUhRWDI5?=
- =?utf-8?B?c25xVzcrUEpvUWpmUVgzUElsMTM1WWV0WXd5aThRVGNnaTRWMGQrVE9TNHVt?=
- =?utf-8?B?YWtyL1lRZGlyQ2pGTXhzRXFFQkNySjVrRkVLbjRaTTRiWk0yZ0hsK3FMSnFX?=
- =?utf-8?B?WXRPSE9yTjA5TE9veStqTGNOYnhJYjhwQWlTbGp6ZWR1NXdlVjJQLzVPWENu?=
- =?utf-8?B?ZVQvWWIvRVdPa1UyTnVyUGZKbHZyQzVWcDdPNmVXWGp4czFxcEY4bkZDc3hX?=
- =?utf-8?B?elM4SlBtYmpGdFgrdml6MVoxeFRJOTlpMDJWYmlvcXpzUVVabURFek5IVWFE?=
- =?utf-8?B?N0RyNUkrWjUrU2dYNy8wallsRnRFdmRSbUo2SHIzTXRiRUFpNWVqcDR5Umwx?=
- =?utf-8?B?aDFIYms2WnY1ekppdmNsUTRDa2pyaWYvanVHRWxESUNjK0dITlJKejlxbzE3?=
- =?utf-8?B?b2JBZ0t6WGxFS09tbVYvWnNCYVAzTUhHRFQwb1dRRTBQcVd4WDNhWS9XLzd0?=
- =?utf-8?B?c0dpc2hvN0lPUitFak55UlZQdWtCd1B4MzgzVW5KQlBzZWd4ODFaaDlJaE1Z?=
- =?utf-8?B?THZOUnQ5UnZ3TkZSR3dqM2hkKzVvUmJDd1U1eW0yTWNXOE9TaU9zeVAvanlN?=
- =?utf-8?B?c0xpK21HanZLeW1NWC9NMnhGdFJHUkk4RzZBb01zZjZ0TnR3c2NUeVdYS3FO?=
- =?utf-8?B?R3lXME4rN2F5U24vaXlSRCtMNEFLKytTQU9XZS9rbVN1NGdEaHlzK1F0Lyti?=
- =?utf-8?B?QXg1TVdRK2R4OVE2elFzbHh4MWV2U0VsblZHVEZCZkphRk5aOTMyN0phaGtC?=
- =?utf-8?B?ZmxJWWppZC8xQ0R0aU5yTWlxeUxnd09PT3NjcWVDRElCdm5YUVBCYjBDL094?=
- =?utf-8?B?WWl5SXhINWt6aXkyYkIzVFJiVVdSbWdHakhWQ3Q5dUorRlVRVW9WUGVSNzhI?=
- =?utf-8?B?dWlOLy9SL3MvUGJJK1RmR2xGeVc0Y3o2cUlzNWJ5TkQ1dGdKZG5sVnE5dWcx?=
- =?utf-8?B?WlE3SzM0M0Qrc0puR1haU1RsMmZwcnI4ODlIL3pYQXQxcFczOWkrL3M4cWs5?=
- =?utf-8?B?ajllVzdHWk5YRFhqcStvVFZFTlpRMUpQYUJ3eGFrc0tCVkJUdXlDaDR2RHNi?=
- =?utf-8?B?dzR6bU5ybWZqVUFnZWJJZU9lbjNhWGlIQ2NuekdIajlQMTVpZkJDWTVQbHBM?=
- =?utf-8?B?Qlc1V3NLUmtaeHU3bEJVVkRWV0YzQnlST0NkbjA4dmRZKzVaUmlCU1NTSDdU?=
- =?utf-8?B?eHozczFma0wraWdOU0ZnbE5SalYxa3ZUQittQ0ZZeVg4MWVjYVZOZ2lvaDhl?=
- =?utf-8?B?S0FMZU9ocG5RMlNVSG9zTFNlZnVzZ1NxemxWaFd2VzhCVEwxeVREMVc0ZGJv?=
- =?utf-8?B?b0lVSml3QjJ3TURtK2wyK2hteWIrY3ViQVp5N2xPQWQ2NlAzdEFwNkpmdEZu?=
- =?utf-8?B?Szc4VmkwZWlFanhjOS9wSnpvdXBtS3ZpTUh5WXhBaVQ1S3dNb0wwMlVPVjUv?=
- =?utf-8?B?UFZqRi9zVC9PbUJTWjgyelpXNHhZSm5mdit4S2Z3U3BlTDZlbU94MWx0T0ow?=
- =?utf-8?B?OHZOdGZJNTFuaVpzbmxIa3pwVXVLNXQ5YVlycDhFd2Q1WThIS2RDYlh3eTdK?=
- =?utf-8?B?OENTSlEzU3ViQXE2VXhUSmw3aUFrY1crU2RWcFlMdEpxTGF2Y0xWbXhBcmo1?=
- =?utf-8?B?cDZ5OVJhTmFEVWJVa1B0bnhMNlRjMU9kUVY2WWFVakpQeG1NajRDME5HcmJz?=
- =?utf-8?B?dkhoRFR4b2NJOHB2ejZtWG9vVndHSlB4aGpBWVJMaEF3WExWbWlHalVxZTlD?=
- =?utf-8?B?WmtOVEZHZ1dIb1RxQzJkV0VJRDg0Ukk4VVozZ1hGYlRvMmM5b2tzdnNwOGFk?=
- =?utf-8?B?aE5LMUxhVnRWSTY1RUtkbHNiUnJpc2JQSHRWb0tYaEp3OTV0QldBdGJ5Wkhy?=
- =?utf-8?B?alpDMFM3djBZNHRTc1RGMEtyZCtHeUo0eHlSMGpzR3VHNzVVWmJSOXRJS3N6?=
- =?utf-8?Q?c5B5rExbRpmQvbJX21pE8WC48?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 153492c4-f394-48c4-9ed5-08db091d0f52
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+	=?utf-8?B?YjdPdTFrVHAyTDBYUlFISm03L2lzemt2cTVIcDhaM3daUnAwK3lGYmgvVk9K?=
+ =?utf-8?B?VDYzRnJCZjNHRjNDU3dvbDlDdzZRcndmOEtZdmlCSkdFcml2Z29nV2FaMXRC?=
+ =?utf-8?B?WEtDOEFGYjlaNDNPaUtDZjQvNUpEK1owcnVoWW9WL2JGRU9EQ3BLVzhucncz?=
+ =?utf-8?B?UHNkNE1UdGlUWFJ2YWJiYmxjbE12TWozbWVKV3Q0RWRTUHQ5dTRCUWkrbDFD?=
+ =?utf-8?B?bHRrbkZFcE4zaFRkaUpZZWJoQVJyQlpDdE0wazJLZlNhVUVET2t0aS9DK1Ns?=
+ =?utf-8?B?OGxKVDUwYnRETGswVVU2aDZEcWZ3TlZUYkxZNzNSVi9wSEVEckIzWGxzQnJa?=
+ =?utf-8?B?aHRkRFZDdEUrU2dlODZ6R0I1T2tkVmhLVzN2NjhiZ1ZGQkVJbXlrdzBWU1pw?=
+ =?utf-8?B?T2hFd0dpY3R2MnptUTR3QlpVSmlwTVFqVkVLNG9FVnc3MXEvdTNZdWw4SHJt?=
+ =?utf-8?B?ZGx2YmQ1bkhxT3haSGRRM0hHY0kxcW1uZXNwOHJERWNMT28yaGdCU1hhWnpi?=
+ =?utf-8?B?bCtPQlNJUm03THRuMTBhc3Y3ZzdJak1CQ2lxTW5GYXI5cDlnR3JjRjZzVFVu?=
+ =?utf-8?B?Vjc2dU1UOEJwYW93NSs5eEU2S0JBNnpDMzJjT1dCZnR1ajFuNkIwY0YrdVA1?=
+ =?utf-8?B?L1pPMWxmUk1EdElMczdMN1RZTEhpRmpBbUJpaC85ait2ZFB3UnV4L3puM3Uy?=
+ =?utf-8?B?NDNtT2NUS1N5a3l4NXZ0bXZWVjI4QU50QmszWS9CWWNRSU4xcHpkSUZvZVd6?=
+ =?utf-8?B?d2V4VStBTUl1ZU1HUzJGdGI5NEdRbWQ2MDhxZnd5eXpBaDd2ZTR1QnI0N3NR?=
+ =?utf-8?B?TWZiSVd6NDhHdlpTWTIxa1poVmtvRzBGOElsS0I4bEhZejlwcTNQUUU2N0Q5?=
+ =?utf-8?B?RElLaUZPQjZrbkNXbUNzcnlrZVpHNkt0eEljem9jNVc0akl5S1BIY2grUlRT?=
+ =?utf-8?B?ZjY0THg1aTUyZkNXMlg4NWFJemUzR0Y1V28yQm5PcVhUa2FXczlMNHJxc3BZ?=
+ =?utf-8?B?ZmhQem1UZU1Gd3AzekQ0cWRHaldrbVhCYmZ1YlhucERFb3RVMEZHSTRXWmhM?=
+ =?utf-8?B?bUo3YUZDN2kzMVU5OERnT1BFcW00QmJkOTV6d0JhNmFITzBmenY2Nnp1MHBr?=
+ =?utf-8?B?b1NXNVltU0UvZks5MHl6UVQyS2JUMTBDZmJlaUVrdEdnRTFvSGcvK0gwNzR1?=
+ =?utf-8?B?T05HQ3lkT2xzUHgxUmgzNXllWEtsWXJoWlA0U2Z5STZ1QnVXR2VKeEhpejRJ?=
+ =?utf-8?B?c1YrRmRUNEJTWWwrZDNSNk1MUGpRdkduWmNlYXpXUkE0UG5Vb2RhZEFLVGdC?=
+ =?utf-8?B?QWJFMEF6UGJpNXJIZzFLTlpMVzNHbU1YVGFxbVVhRGtlM3p6UWk3TGVWM1Zj?=
+ =?utf-8?B?M1RBT3RjMnE0TTY5ODFYQ290V2hxTG0xanN3VDJQbEluWmRFT2tyV1BUR2dQ?=
+ =?utf-8?B?Y2gyNUdmRGdpMTl1UklmSlVXS2xMRVdYRllqZlFHTnVMOVozTWgwYVJHbFky?=
+ =?utf-8?B?Y290RElYMG12SmU0QytwOVhVK0NPdmFXbkEyTmQzUDkyVHlKbkt0Qkx0OGFR?=
+ =?utf-8?B?YjdxYjMrZk5ZbVV6OWtHS2dMQTBxMDVRaWRMQmdZb1UweERXNlFOZTl2aDFX?=
+ =?utf-8?B?bGIramFHTUg1TU5SRk5DdFJpblVsR1hkVXF0YlU5UG1PTFlkdzFWWWZTM0Fu?=
+ =?utf-8?B?MGxxUTFGRFNCVWV3V3NCNDUvWGR3ZHJndG8wYmwwRzRaVXc4N0RRQlgvd2Vi?=
+ =?utf-8?B?VCtvZWloNkhpN1NNc0ZCOEthQXpZVUI4WDU4L2Ntd1N4SE42WW1KT1dralZ4?=
+ =?utf-8?B?bkdsR1BWRlloK1FwZXg5TGdNK0FQVXF5Y05aSFJKQlJEVG9qa0Y0MlFIdU1y?=
+ =?utf-8?B?ZXlCS294UE96WXdUOHdhV1p4YVVod3MvU3ZuZHJtTEpweDV1S2pabmUvWExM?=
+ =?utf-8?B?Qk9mWlA3R092eEx0SGlxTnVXNUhuZ1FZMWR3REdhWEcrdVdWbFgyVGdTaFVm?=
+ =?utf-8?B?a3ZGQ0taV0I0dUlKamx3RVR4N2ZyWDZ5Y3dYa2Q1M2pFLzA2VlhNZXo2eEVT?=
+ =?utf-8?B?MHpYaFgvdVVMQUNYS1pBQlphTXR6aHZJbmpxQXJXUlh3WHlqaWU4bk5JOFZF?=
+ =?utf-8?Q?xAQzuB+UeI5w+2VnxRyITQP7Y?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8901b209-51ce-47a3-0886-08db0920e165
+X-MS-Exchange-CrossTenant-AuthSource: SN6PR12MB2621.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 15:07:42.0393
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2023 15:35:03.0499
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rAm7gxsqfOeA2E6Yh7d+aot+pCxABU3QZquLIOxcjnO90Jn5zWfKmWsmfEgsu5p3CwVH2q9bV3V+AHG9hSqrVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8314
+X-MS-Exchange-CrossTenant-UserPrincipalName: Re+uDZNgPAhArNkBN9IPZFZ/KEVre5+lOxQZmLoqdDLeADA0VTo8VQljW627jFKVou751zJuKz2Dje94YwI+3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6644
 
-On 07.02.2023 15:46, Oleksii Kurochko wrote:
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/bug.h
-> @@ -0,0 +1,38 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (C) 2012 Regents of the University of California
-> + * Copyright (C) 2021-2023 Vates
-> + *
-> + */
-> +#ifndef _ASM_RISCV_BUG_H
-> +#define _ASM_RISCV_BUG_H
-> +
-> +#include <xen/types.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +#define BUG_FN_REG t0
-> +
-> +#define BUG_INSTR "ebreak"
-> +
-> +#define INSN_LENGTH_MASK        _UL(0x3)
-> +#define INSN_LENGTH_32          _UL(0x3)
 
-I assume these are deliberately over-simplified (not accounting for
-wider than 32-bit insns in any way)?
+On 20/01/2023 11:06, Julien Grall wrote:
+> Hi Ayan,
+Hi Julien,
+>
+> On 17/01/2023 17:43, Ayan Kumar Halder wrote:
+>> VTCR.T0SZ should be set as 0x20 to support 32bit IPA.
+>> Refer ARM DDI 0487I.a ID081822, G8-9824, G8.2.171, VTCR,
+>> "Virtualization Translation Control Register" for the bit descriptions.
+>>
+>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+>> ---
+>> Changes from -
+>>
+>> v1 - New patch.
+>>
+>>   xen/arch/arm/p2m.c | 10 +++++++---
+>>   1 file changed, 7 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
+>> index 948f199d84..cfdea55e71 100644
+>> --- a/xen/arch/arm/p2m.c
+>> +++ b/xen/arch/arm/p2m.c
+>> @@ -2266,13 +2266,17 @@ void __init setup_virt_paging(void)
+>>       register_t val = 
+>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
+>>     #ifdef CONFIG_ARM_32
+>> -    if ( p2m_ipa_bits < 40 )
+>> +    if ( p2m_ipa_bits < PADDR_BITS )
+>>           panic("P2M: Not able to support %u-bit IPA at the moment\n",
+>>                 p2m_ipa_bits);
+>>   -    printk("P2M: 40-bit IPA\n");
+>> -    p2m_ipa_bits = 40;
+>> +    printk("P2M: %u-bit IPA\n",PADDR_BITS);
+>> +    p2m_ipa_bits = PADDR_BITS;
+>> +#ifdef CONFIG_ARM_PA_32
+>> +    val |= VTCR_T0SZ(0x20); /* 32 bit IPA */
+>> +#else
+>>       val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
+>> +#endif
+>
+> I am wondering whether this is right time to switch to an array like 
+> the arm64 code? This would allow to use 32-bit IPA also when Xen 
+> support 64-bit physical address.
 
-> +#define BUG_INSN_32             _UL(0x00100073) /* ebreak */
-> +#define BUG_INSN_16             _UL(0x9002)     /* c.ebreak */
-> +#define COMPRESSED_INSN_MASK    _UL(0xffff)
-> +
-> +#define GET_INSN_LENGTH(insn)                               \
-> +({                                                          \
-> +    unsigned long len;                                      \
-> +    len = ((insn & INSN_LENGTH_MASK) == INSN_LENGTH_32) ?   \
-> +        4UL : 2UL;                                          \
-> +    len;                                                    \
+In AArch64, we use ID_AA64MMFR0_EL1.PARange to determine the physical 
+address range supported at runtime. This is then used as an index into 
+pa_range_info[] to determine t0sz, root_order, etc.
 
-Any reason for the use of "unsigned long" (not "unsigned int") here?
+However, for AArch32 I do not see an equivalent register (similar to 
+ID_AA64MMFR0_EL1) or any register to determine the physical address 
+range. Thus, I will prefer to keep the code as it is unless you suggest 
+any alternative.
 
-> +})
-> +
-> +/* These are defined by the architecture */
-> +int is_valid_bugaddr(uint32_t addr);
+- Ayan
 
-A function by this name very likely wants to return bool. Also -
-uint32_t (not "unsigned long") for an address?
-
-> --- a/xen/arch/riscv/setup.c
-> +++ b/xen/arch/riscv/setup.c
-> @@ -1,6 +1,6 @@
-> +#include <xen/bug.h>
->  #include <xen/compile.h>
->  #include <xen/init.h>
-> -
->  #include <asm/csr.h>
->  #include <asm/early_printk.h>
->  #include <asm/traps.h>
-
-I think it is good practice to have a blank line between xen/ and asm/
-includes.
-
-> --- a/xen/arch/riscv/traps.c
-> +++ b/xen/arch/riscv/traps.c
-> @@ -8,6 +8,7 @@
->  #include <asm/early_printk.h>
->  #include <asm/processor.h>
->  #include <asm/traps.h>
-> +#include <xen/bug.h>
->  #include <xen/errno.h>
->  #include <xen/lib.h>
-
-Perhaps wants adjusting earlier in the series: Preferably all xen/
-ahead of all asm/.
-
-> @@ -97,7 +98,136 @@ static void do_unexpected_trap(const struct cpu_user_regs *regs)
->      die();
->  }
->  
-> +void show_execution_state(const struct cpu_user_regs *regs)
-> +{
-> +    early_printk("implement show_execution_state(regs)\n");
-> +}
-> +
-> +int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
-> +{
-> +    struct bug_frame *start, *end;
-> +    struct bug_frame *bug = NULL;
-
-const?
-
-> +    unsigned int id = 0;
-> +    const char *filename, *predicate;
-> +    int lineno;
-> +
-> +    unsigned long bug_frames[] = {
-> +        (unsigned long)&__start_bug_frames[0],
-> +        (unsigned long)&__stop_bug_frames_0[0],
-> +        (unsigned long)&__stop_bug_frames_1[0],
-> +        (unsigned long)&__stop_bug_frames_2[0],
-> +        (unsigned long)&__stop_bug_frames_3[0],
-> +    };
-> +
-> +    for ( id = 0; id < BUGFRAME_NR; id++ )
-> +    {
-> +        start = (struct  bug_frame *)bug_frames[id];
-> +        end = (struct  bug_frame *)bug_frames[id + 1];
-
-Nit: Stray double blanks. But I'd like to suggest that you get away
-without casts here in the first place. Such casts are always a certain
-risk going forward.
-
-> +        while ( start != end )
-> +        {
-> +            if ( (vaddr_t)bug_loc(start) == pc )
-> +            {
-> +                bug = start;
-> +                goto found;
-> +            }
-> +
-> +            start++;
-> +        }
-> +    }
-> +
-> + found:
-> +    if ( bug == NULL )
-> +        return -ENOENT;
-> +
-> +    if ( id == BUGFRAME_run_fn )
-> +    {
-> +        void (*fn)(const struct cpu_user_regs *) = (void *)regs->BUG_FN_REG;
-> +
-> +        fn(regs);
-> +
-> +        goto end;
-> +    }
-> +
-> +    /* WARN, BUG or ASSERT: decode the filename pointer and line number. */
-> +    filename = bug_file(bug);
-> +    lineno = bug_line(bug);
-> +
-> +    switch ( id )
-> +    {
-> +    case BUGFRAME_warn:
-> +        /*
-> +         * TODO: change early_printk's function to early_printk with format
-> +         *       when s(n)printf() will be added.
-> +         */
-> +        early_printk("Xen WARN at ");
-> +        early_printk(filename);
-> +        early_printk(":");
-> +        // early_printk_hnum(lineno);
-
-What's this? At the very least the comment is malformed.
-
-> +        show_execution_state(regs);
-> +
-> +        goto end;
-> +
-> +    case BUGFRAME_bug:
-> +         /*
-> +          * TODO: change early_printk's function to early_printk with format
-> +          *       when s(n)printf() will be added.
-> +          */
-> +        early_printk("Xen BUG at ");
-> +        early_printk(filename);
-> +        early_printk(":");
-> +        // early_printk_hnum(lineno);
-> +
-> +        show_execution_state(regs);
-> +        early_printk("change wait_for_interrupt to panic() when common is available\n");
-> +        die();
-> +
-> +    case BUGFRAME_assert:
-> +        /* ASSERT: decode the predicate string pointer. */
-> +        predicate = bug_msg(bug);
-> +
-> +        /*
-> +         * TODO: change early_printk's function to early_printk with format
-> +         *       when s(n)printf() will be added.
-> +         */
-> +        early_printk("Assertion \'");
-> +        early_printk(predicate);
-> +        early_printk("\' failed at ");
-> +        early_printk(filename);
-> +        early_printk(":");
-> +        // early_printk_hnum(lineno);
-> +
-> +        show_execution_state(regs);
-> +        early_printk("change wait_for_interrupt to panic() when common is available\n");
-> +        die();
-> +    }
-> +
-> +    return -EINVAL;
-> +
-> + end:
-> +    return 0;
-> +}
-> +
-> +int is_valid_bugaddr(uint32_t insn)
-> +{
-> +    if ((insn & INSN_LENGTH_MASK) == INSN_LENGTH_32)
-
-Nit: Style.
-
-> +        return (insn == BUG_INSN_32);
-> +    else
-> +        return ((insn & COMPRESSED_INSN_MASK) == BUG_INSN_16);
-> +}
-> +
->  void do_trap(struct cpu_user_regs *cpu_regs)
->  {
-> +    register_t pc = cpu_regs->sepc;
-> +    uint32_t instr = *(uint32_t *)pc;
-
-You still read a 32-bit value when only 16 bits may be accessible.
-
-> +    if (is_valid_bugaddr(instr)) {
-> +        if (!do_bug_frame(cpu_regs, cpu_regs->sepc)) {
-
-I'm pretty sure I did point out the style issues here.
-
-> +            cpu_regs->sepc += GET_INSN_LENGTH(*(uint32_t *)pc);
-
-Why would you re-read the insn here, when you have it in a local variable
-already?
-
-Jan
+>
+> Cheers,
+>
 
