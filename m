@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D8768F76F
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 19:52:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491960.761337 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F4D68F83B
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 20:42:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491969.761349 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPpXW-0001Jr-3l; Wed, 08 Feb 2023 18:51:30 +0000
+	id 1pPqJe-0007Cs-Sf; Wed, 08 Feb 2023 19:41:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491960.761337; Wed, 08 Feb 2023 18:51:30 +0000
+Received: by outflank-mailman (output) from mailman id 491969.761349; Wed, 08 Feb 2023 19:41:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPpXW-0001Ha-0v; Wed, 08 Feb 2023 18:51:30 +0000
-Received: by outflank-mailman (input) for mailman id 491960;
- Wed, 08 Feb 2023 18:51:29 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=IZ02=6E=m5p.com=ehem@srs-se1.protection.inumbo.net>)
- id 1pPpXU-0001HU-Vf
- for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 18:51:28 +0000
-Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 95999630-a7e1-11ed-93b5-47a8fe42b414;
- Wed, 08 Feb 2023 19:51:25 +0100 (CET)
-Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
- by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 318Ip1Px061004
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
- Wed, 8 Feb 2023 13:51:07 -0500 (EST) (envelope-from ehem@m5p.com)
-Received: (from ehem@localhost)
- by m5p.com (8.16.1/8.15.2/Submit) id 318Ip1ro061003;
- Wed, 8 Feb 2023 10:51:01 -0800 (PST) (envelope-from ehem)
+	id 1pPqJe-00079q-PZ; Wed, 08 Feb 2023 19:41:14 +0000
+Received: by outflank-mailman (input) for mailman id 491969;
+ Wed, 08 Feb 2023 19:41:12 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=mMba=6E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
+ id 1pPqJc-00079e-IW
+ for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 19:41:12 +0000
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 84984beb-a7e8-11ed-933c-83870f6b2ba8;
+ Wed, 08 Feb 2023 20:41:04 +0100 (CET)
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id D89465C0056;
+ Wed,  8 Feb 2023 14:41:01 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Wed, 08 Feb 2023 14:41:01 -0500
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 8 Feb 2023 14:40:58 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,95 +43,202 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 95999630-a7e1-11ed-93b5-47a8fe42b414
-Date: Wed, 8 Feb 2023 10:51:01 -0800
-From: Elliott Mitchell <ehem+xen@m5p.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
-        Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
-Subject: Re: [XEN PATCH] tools: Have flex and bison mandatory
-Message-ID: <Y+PvFfDQU5GXV57m@mattapan.m5p.com>
-References: <20230207160948.3169-1-anthony.perard@citrix.com>
- <a11b962e-7422-a197-4ff4-fcac9963364d@suse.com>
- <Y+KSRY+5SmrNYpJ/@perard.uk.xensource.com>
- <7e01f840-1d42-f31e-4471-ee06820b4b31@suse.com>
+X-Inumbo-ID: 84984beb-a7e8-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1675885261; x=
+	1675971661; bh=tSC+d5CSw18yD+fR/I858Vj+qQlU6DNIY9nwulJK/Po=; b=t
+	+Ah9UYYIaK3ZiIav0B2AlPaS/8zSPUQdL+O9HINaX7oV3hIPAD/cPhM/jArFwYHP
+	BtRtvv/t7X+2TDP+PgNsppc7LpycL0R9ZiDRXx7dpxnzoNWVhFwcQXQdt6hvU4nQ
+	HPLegS+XLzCyvfDCjxSvsgAGt5LIrnDWcy2LYiv+zVuJXK2fe/7Mv192nV1ULqPU
+	QewruBqpSkHY+V8C9GErelUvhg7c5m+2sIXtUtvk5TMZWwlt4Hmj750WAtqOifh8
+	luvsjcqNECAb2DoikQubMMOAJ9waGwv/D7nlxjMIP4n6dIIuo9W7LiKSYPn8G3jb
+	m+1jAg1RtiUzqK2s6uHfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:sender:subject:subject:to:to
+	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1675885261; x=1675971661; bh=tSC+d5CSw18yD+fR/I858Vj+qQlU
+	6DNIY9nwulJK/Po=; b=aPigWqCpUD8CMnMH655bc7WKkpHCXwZ04SZsMglyNVTD
+	q4ppWg48QYtafTj3t7x1iVllRzEC0n3StvK6Vl+w29aNPdfqOYRxsUcFWazjS6Wt
+	InwuiFMFWEyKHoxGYmvkRCFG/vZXlAGlAUshHs07svAXOSdVpU8cZd9Dxgc2a2y9
+	mTRzaJuAfEUQZ3szytKlCiiBoiUC8oz7vVOjCn+nk7SFF/rpfFNOJk+QW4XlmXsY
+	AXnZLeCHtAdjM0b1/H1A7UwXsJYUe6mtvSQtfhkOW1eVsL5aHFIieDEvX9s0eU9B
+	vswbju3/60QYcrrzN8N/E++UBq3IT4ol5Q1+I6weGQ==
+X-ME-Sender: <xms:zfrjY4U3aHx_uCZfkwOOZ16TVD6_HZRc96ZCPhc9V4ZfB6OJpLluvg>
+    <xme:zfrjY8k902ZYiTwC0qcF6701HIKaBsVb0AiXbJ0ZpdDF50R4oGszxhU4ZQaIFjBCY
+    2LH6_K5p8npaHA>
+X-ME-Received: <xmr:zfrjY8Y8IMxSQAB6KOW1xz5V2ux4BERtgXIcOKYnjm6McQAion4WArEVM8c>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehuddgieegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
+    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnheptdeugffgteevffevkeefveekfeet
+    heefteffgefgvdekgfefgeelveetteffveefnecuffhomhgrihhnpehgnhhurdhorhhgpd
+    hinhhtvghlrdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+    lhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:zfrjY3Uwv99MdAw-0MiBGWEoNvI1Ywv4P2IQowa_wx2LMtR_irWuuw>
+    <xmx:zfrjYymEEGiuJHCbX4kpi807NT54KiX5__h2zke3Xf-tWUr3_5CwRw>
+    <xmx:zfrjY8e3dwqI1u8uXhUeUj990VnbirqUkxZ6VzTBTU-RohtY2Uitog>
+    <xmx:zfrjY-y4UEJhyU8M6XvNQ2OYpEAXV6tr0x3uCGrLYSVX1IiO0O-dAw>
+Feedback-ID: iac594737:Fastmail
+Date: Wed, 8 Feb 2023 14:19:46 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,	Quan Xu <quan.xu0@gmail.com>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,	Juergen Gross <jgross@suse.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,	Kevin Tian <kevin.tian@intel.com>,
+ Paul Durrant <paul@xen.org>,	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,	Tim Deegan <tim@xen.org>,
+	Christopher Clark <christopher.w.clark@gmail.com>,
+	Dario Faggioli <dfaggioli@suse.com>,	Rahul Singh <rahul.singh@arm.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/4] GPL License Boilerplate: Switch from HTTP to HTTPS
+Message-ID: <Y+P6yJw2qWgMrSUi@itl-email>
+References: <cover.1675829866.git.demi@invisiblethingslab.com>
+ <32fae62c9eb9e9536d49fdd28e1bf54430842023.1675829867.git.demi@invisiblethingslab.com>
+ <3f3c358e-02b9-94e0-0b06-8a96ff92519b@suse.com>
+ <1770bab7-3e25-d611-1d3f-58c02a2f7492@xen.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i88wNZm7oENdIBvm"
 Content-Disposition: inline
-In-Reply-To: <7e01f840-1d42-f31e-4471-ee06820b4b31@suse.com>
-X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
-	autolearn_force=no version=3.4.6
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
-
-On Wed, Feb 08, 2023 at 09:02:35AM +0100, Jan Beulich wrote:
-> On 07.02.2023 19:02, Anthony PERARD wrote:
-> > 
-> > I think the issue that Andrew saw in the CI with "libxlu_cfg_y.o"
-> > failing to build while "libxlu_cfg_l.[ch]" are been regenerated is
-> > probably because make doesn't consider "libxlu_cfg_l.[ch]" as a group of
-> > targets.
-> > 
-> > If for some reason we have:
-> >     libxlu_cfg_l.h newer than libxlu_cfg_l.l newer than libxlu_cfg_l.c
-> > 
-> > Then make seems to take two parallel decision:
-> >     When building libxlu_cfg_y.o:
-> >         libxlu_cfg_l.h is newer than libxlu_cfg_l.l
-> >         -> libxlu_cfg_l.h is up-to-date, start building libxlu_cfg_y.o
-> >     When building libxlu_cfg_l.o:
-> >         libxlu_cfg_l.c is older than libxlu_cfg_l.l
-> >         -> we need to generate libxlu_cfg_l.c first
-> > Then, libxlu_cfg_y.o fails to build because libxlu_cfg_l.h is been
-> > updated do to the parallel build of libxlu_cfg_l.o.
-> > 
-> > I can easily reproduce the issue with:
-> >     touch libxlu_cfg_l.c; sleep .1; touch libxlu_cfg_l.l; sleep .1;
-> >     touch libxlu_cfg_l.h; sleep .1; make -j
-> > And having "sleep 1" in "%.c %.h: %.l" recipe, between `rm` and `flex`.
-> 
-> Interesting. In my somewhat similar experiments I found that an issue
-> exists only when one of the .c files is missing. Things looked to work
-> properly when both were there, but one was outdated. Clearly that's
-> yet more surprising behavior than, as you appear to observe, the issue
-> simply being tied too "needs updating".
-
-The actual problem is flex and bison output both files at the same time.
-One process sees all of its prerequisites are up to do and therefore
-proceeds to the next step.  A second process sees an out of date
-prerequisite, and starts to run flex which wipes out the prerequisite of
-the first process.
+In-Reply-To: <1770bab7-3e25-d611-1d3f-58c02a2f7492@xen.org>
 
 
-Crucially libxlu_cfg_y.o does NOT depend on libxlu_cfg_l.c, therefore GNU
-Make is allowed to proceed with building libxlu_cfg_y.o even if
-libxlu_cfg_l.c is out of date.
+--i88wNZm7oENdIBvm
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 8 Feb 2023 14:19:46 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Julien Grall <julien@xen.org>, Jan Beulich <jbeulich@suse.com>
+Cc: Wei Liu <wl@xen.org>, Anthony PERARD <anthony.perard@citrix.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>,	Quan Xu <quan.xu0@gmail.com>,
+	Elena Ufimtseva <elena.ufimtseva@oracle.com>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Nick Rosbrook <rosbrookn@gmail.com>,	Juergen Gross <jgross@suse.com>,
+	Christian Lindig <christian.lindig@citrix.com>,
+	David Scott <dave@recoil.org>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>,
+	Bertrand Marquis <bertrand.marquis@arm.com>,
+	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
+	Jun Nakajima <jun.nakajima@intel.com>,	Kevin Tian <kevin.tian@intel.com>,
+ Paul Durrant <paul@xen.org>,	Tamas K Lengyel <tamas@tklengyel.com>,
+	Alexandru Isaila <aisaila@bitdefender.com>,
+	Petre Pircalabu <ppircalabu@bitdefender.com>,	Tim Deegan <tim@xen.org>,
+	Christopher Clark <christopher.w.clark@gmail.com>,
+	Dario Faggioli <dfaggioli@suse.com>,	Rahul Singh <rahul.singh@arm.com>,
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
+	xen-devel@lists.xenproject.org
+Subject: Re: [PATCH 4/4] GPL License Boilerplate: Switch from HTTP to HTTPS
 
-The problem is the rule to update libxlu_cfg_l.c ALSO updates
-libxlu_cfg_l.h as a side-effect.
+On Wed, Feb 08, 2023 at 08:26:37AM +0000, Julien Grall wrote:
+> Hi,
+>=20
+> On 08/02/2023 07:40, Jan Beulich wrote:
+> > On 08.02.2023 05:51, Demi Marie Obenour wrote:
+> > > --- a/xen/drivers/passthrough/pci.c
+> > > +++ b/xen/drivers/passthrough/pci.c
+> > > @@ -11,7 +11,7 @@
+> > >    * more details.
+> > >    *
+> > >    * You should have received a copy of the GNU General Public Licens=
+e along with
+> > > - * this program; If not, see <http://www.gnu.org/licenses/>.
+> > > + * this program; If not, see <https://www.gnu.org/licenses/>.
+> > >    */
+> > >   #include <xen/sched.h>
+> >=20
+> > At the example of this file: While the above matches $subject, ...
+> >=20
+> > > @@ -285,14 +285,14 @@ static void apply_quirks(struct pci_dev *pdev)
+> > >            * Device [8086:2fc0]
+> > >            * Erratum HSE43
+> > >            * CONFIG_TDP_NOMINAL CSR Implemented at Incorrect Offset
+> > > -         * https://www.intel.com/content/www/us/en/processors/xeon/x=
+eon-e5-v3-spec-update.html
+> > > +         * https://www.intel.com/content/www/us/en/processors/xeon/x=
+eon-e5-v3-spec-update.html
+> > >            */
+> > >           { PCI_VENDOR_ID_INTEL, 0x2fc0 },
+> > >           /*
+> > >            * Devices [8086:6f60,6fa0,6fc0]
+> > >            * Errata BDF2 / BDX2
+> > >            * PCI BARs in the Home Agent Will Return Non-Zero Values D=
+uring Enumeration
+> > > -         * https://www.intel.com/content/www/us/en/processors/xeon/x=
+eon-e5-v4-spec-update.html
+> > > +         * https://www.intel.com/content/www/us/en/processors/xeon/x=
+eon-e5-v4-spec-update.html
+> > >           */
+> > >           { PCI_VENDOR_ID_INTEL, 0x6f60 },
+> > >           { PCI_VENDOR_ID_INTEL, 0x6fa0 },
+> >=20
+> > ... this doesn't (and would rather belong in the earlier patch).
+> >=20
+> > As to $subject: Wouldn't it be more logical to replace the license boil=
+er
+> > plates by SPDX headers instead? This was done to some degree on Arm
+> > already, but I haven't gone check why it was done incompletely there.
+>=20
+> Skimming through xen-devel, it sounds like it was most likely a lack of
+> time. I think it would be a good idea here to switch to SPDX.
+>=20
+> That said, I can appreciate that Demi may not want to take on that works.=
+ So
+> I would be happy to give a try if no-one else wants to.
 
+Should I drop this patch then?  I don=E2=80=99t have time for the SPDX chan=
+ge,
+sorry.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
-As such libxlu_cfg_y.o needs an order-only dependency (assuming GNU Make
-syntax is allowed) on libxlu_cfg_l.c, so the two rules DON'T run in
-parallel and cause havoc.
+--i88wNZm7oENdIBvm
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-> > I don't know how to properly fix this yet.
-> > Event writing "%.c %.h &: %.l" doesn't work, with make 4.3, which is
-> > supposed to be grouped targets. But that's is maybe fixed in 4.4.
-> 
-> Well, in my tests while 4.4 has fixed one issue with intermediate files
-> affecting the behavior here, the issue we're possibly running into is
-> still there. I've sent an inquiry to bug-make@gnu.org.
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPj+sgACgkQsoi1X/+c
+IsHZKQ/9GRm4WqJ9yhAkeDjsG/vAOsGx71MMKrZK7IBB6rbCuuJK0PK2cOnt6ldu
+zcmeUDPFcFKaMMIZQOskTMiahbTDECW5k19swgyF9shX6PFmxPur4sGuneJ0NzUv
+4qzrM/OzCnNygNlp8YAyOxmJlwVSAv9nm1dMArupnGiWhNRDBbO2cYY2KtLWOM6y
+tHQduBcDg0cmJqj3/h/P+fYggamvKzXFBRgcyldvxa2DS+6tlHWKqWxIdnaaoTnR
+3Q8kOXPiWc0fEZIEfR/5j2T02Gg9M4/gNfL5AXZXFTZUdfWhtjiArjcOFZjYLxD1
+X8Aym5hCE4ntmFrNO0t6rj1+ylstXRIC6TC1mOk0ZVPMijVMSVuK+9YdgsB62jyy
+qAuG0K9Ej0v6Vgd6Plb3PzvEyQVxxP8qGyoKHjZoq1xYaCNJ8eAbqcB0eh1fR+8E
+o0RHPJOtXmZ1XELOTYxXHuMTpaa1+7fpWrjB3gCRICeG9NSvyj/IB/kXgjB0w/os
+Gh+TQRKSbvucaISxb3Bd/XNXEE2McD3k2+uiJpKJqMPnjUyImCrN9fZI4/jstb8j
+LQTRiNiL+MEjwTx1nV1aFmKaSO0J5dLo4kKKzf5UUZ6YgBDqvEU9rzYNooW9gDcQ
+gMqkeerUC8Jlhy3XLWbzBuekVqO8RT/peCHQoApEx4XGLAMT1o0=
+=Y2dQ
+-----END PGP SIGNATURE-----
 
-I do not believe this is a bug in GNU Make.  Merely double-output rules
-cause precisely this sort of trouble in Make when run in parallel.
-
-
--- 
-(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
- \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
-  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
-8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
-
-
+--i88wNZm7oENdIBvm--
 
