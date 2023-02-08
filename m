@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43FCB68F0F2
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 15:37:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491839.761172 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2EF268F0F3
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 15:38:12 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491847.761184 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPlZy-0006O9-2w; Wed, 08 Feb 2023 14:37:46 +0000
+	id 1pPlaG-0006xr-Eh; Wed, 08 Feb 2023 14:38:04 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491839.761172; Wed, 08 Feb 2023 14:37:46 +0000
+Received: by outflank-mailman (output) from mailman id 491847.761184; Wed, 08 Feb 2023 14:38:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPlZx-0006KO-Vf; Wed, 08 Feb 2023 14:37:45 +0000
-Received: by outflank-mailman (input) for mailman id 491839;
- Wed, 08 Feb 2023 14:37:44 +0000
+	id 1pPlaG-0006vs-B8; Wed, 08 Feb 2023 14:38:04 +0000
+Received: by outflank-mailman (input) for mailman id 491847;
+ Wed, 08 Feb 2023 14:38:03 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=z/8R=6E=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pPlZw-0006Jc-6G
- for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 14:37:44 +0000
+ id 1pPlaF-0006Jc-9R
+ for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 14:38:03 +0000
 Received: from EUR05-AM6-obe.outbound.protection.outlook.com
- (mail-am6eur05on20613.outbound.protection.outlook.com
- [2a01:111:f400:7e1b::613])
+ (mail-am6eur05on20600.outbound.protection.outlook.com
+ [2a01:111:f400:7e1b::600])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 24b06bb7-a7be-11ed-93b5-47a8fe42b414;
- Wed, 08 Feb 2023 15:37:42 +0100 (CET)
+ id 302e92b4-a7be-11ed-93b5-47a8fe42b414;
+ Wed, 08 Feb 2023 15:38:01 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by PA4PR04MB9343.eurprd04.prod.outlook.com (2603:10a6:102:2a7::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.22; Wed, 8 Feb
- 2023 14:37:41 +0000
+ 2023 14:37:59 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6064.036; Wed, 8 Feb 2023
- 14:37:40 +0000
+ 14:37:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,28 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 24b06bb7-a7be-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 302e92b4-a7be-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LbtCQ3Fj/naIk3mxntRfiOU2vyS+Lrro7KvreNTYOjgyzhIJPzlKhvfsRHVPwL/yYZCiTtvpyecp4OV1jZE9a6/DVkcsd7Mt4g8oBbayq5wPlxBeitLuQoXkm1G20Ma5H/ktFok5k1Shcd7U8dbZNN0zCEn4K7bTlZnaEzXTmwbrvQh2JuGF/M4xgJvCmkRAiJrOHfZAQDi6H1R7YZ5x7qET9DljqUIKq2wuOn4XJej37QsKvw0JWJ8QdJFJ8yLpq8rvBRl0IMB9knZiAj5TOsXCWzaGKgkoQZVxqz3LSmNeCQ9wTeJWq7maVr8e6P3pAKfmWNC0nDrQBpSwVgcLQw==
+ b=gxytKhLHogxVaSy3rKMjoRZ0tuZ3VcYuYGU8TL1+BcV73hlkqzuvN4VwLWOJ6w33yl7sC9AyPe6+ybCXsK56rSfH6h124wk1mtb5UJlPfa4/tqaLKboobi/HS0qrlRkFnoZXGeKJFsgDdyS82i6ueQw0fyktE7CftDs8Ut/b3X6i7ef0sWha/IfoUnCNWAEcLvjffdgQNcOlJC3RXEcwL6hnDwfL0JmJxqfgf1uBBbNNW/xpQ3BUaJHl8C0g+Q1ooWo5AfEnVzNzVPDPhIUvhOodJI+gujk0gRSFqh9kJAfgzece7jAYLsrlz3CHRGSaGqpUNQmLYg8r2fio9ppmgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0EWXtpH9i4csdupIvMLjkJkLdXonRZOQV6uj0BrMrb4=;
- b=Xf2PPYj8eLALD3yFgK1POvzyG91HO0VMWx/LTkMDovigZVagv+seUfcanaYYrVbshPz1EP4mAu2JsmnroMmKoBY60axMfycNtmW/tqeVZj+AeDwMSZfaL7xIepppJPfsFbtofveCLk99iRPhldccky23Z5G3bYmqGifYuLaQs1gyaTPTyq1SLchU/31XWEbYvpVBFGOWgx+DLZ3mV5fGfgw0vqfIz2m85iQUrqt2jl9gQWVII3pnSt1SmbXhQoxccYE24HXa1KZlBM8Ffe0MGGHgF7QHmwMM0awXZ5saOYWI/XiU9V0tf09XsC2f4G5YMM2JgNS8LRGCIQY7Bsfc5Q==
+ bh=Z4ux/6tWNQBcW4wZFr0MDeGUcIrrS8cZY8coYVotxL8=;
+ b=lahJGM0c92A3RJ5cL722RF5FWN9y5saT+j7OK1LG706wD0KJXHjUHpiE009k1Q0fWrUmmAQ44quGjt9WAdnY1FlJeCHorzqIIBxeCf5PkmfTpXqeCOXK3gBAaZLY6nG94kbFr4JATJ15feL7NjpqYkrlKh7M6xjEPw+UbGK1pfiv9eNGCAg7bgOOiIxKU6LTnlb/m8KPihjPWoJxWHxEygFjF0Z4mMxLqnF52L9NYetb24T3eaCPM0BjV0V+5ifw0k5NLzEVmoL6+hDMnWGVH/q6u/2b4/9zCq5665xFs/sTLFcaJd+FZXv4uyXmRLMzwVvljClA/6OnyKVaySbmtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0EWXtpH9i4csdupIvMLjkJkLdXonRZOQV6uj0BrMrb4=;
- b=Qh1qHPV6wUp7LMfiGM3gQnJkKOnv0lVT95ZPlGeB49SFKvguHIE39ZasZUFu1wb/twDrnkHPEZFpK9nX2PVVhqd0vyJ37zHUTQ8nCYJkocZmJKEFw9sXbTfCRbt/gASSuuxCqXdT2bT7g+fVEWvGietZQhygGOG9pjROYAaOye8M3bBp8x6o5QK9TGp2Alo2qzua2lSnSnWqGtHg5OQVjBrhXKSJZjidizczDkCz7RLfN/xAheBW1h/zdWmmgM1QV6CPWXAML9YkKCVXfz9mJC8JJUTC2RQ8KGkbzRmDJQj5g/y33GVvw62nWnyw8BP/jmqpJ0V6jGaj9ocqzmydcw==
+ bh=Z4ux/6tWNQBcW4wZFr0MDeGUcIrrS8cZY8coYVotxL8=;
+ b=po9kfWLv26qWv9anAv+kougLog3B3orii9DwzrVE0G9vlMwF0EVh2LHHBLxYw7rtucxq02Qe3bYRrYqczKUozlZfFzC7WD6uXUSJF4u9kyjJJ/gaBGYrrzo6egh6wNzJH/3LJwLo4dpvsL0DvSdRMly7f/zFqkIH3k5835cT7EbdhhiyxMcObf3f2RAL9EsuJ7DSax62uVAhp+p39TIqRE4rN9HAQUkg0gjYbpwQbWmpud5J74lt3UEuO+ndVqUV86r6+R80j7Bg7ILNColX10asArZlzNeoknUzkm7shoMrSvzgbn5ztiM95mNOaUM/4o9j1TL9tbB2FH2rFX0eAw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <2f9d6428-9cc6-ddff-a65f-25b7ef7556b7@suse.com>
-Date: Wed, 8 Feb 2023 15:37:39 +0100
+Message-ID: <a7071737-896f-91f0-0fa8-c5cd30494c10@suse.com>
+Date: Wed, 8 Feb 2023 15:37:58 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: [PATCH v3 2/4] x86/shadow: drop hash_vcpu_foreach()
+Subject: [PATCH v3 3/4] x86/shadow: rename hash_domain_foreach()
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -79,278 +79,182 @@ References: <c8858a19-e89a-c1de-3222-810bb43c3c88@suse.com>
 In-Reply-To: <c8858a19-e89a-c1de-3222-810bb43c3c88@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0093.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a1::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR3P281CA0013.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PA4PR04MB9343:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfed1094-557c-41a1-f566-08db09e2082c
+X-MS-Office365-Filtering-Correlation-Id: dbe2301b-5c59-42b9-cce7-08db09e21359
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	oyus828w65Ulom6Fw9Ld1C96VHblAak5+1JTsFg4zy76P9K2uwBw8VokHmE9F9A2T7Fy6GE9J9YOV1YTYEuF0OpCnsxxeLKTQMcLMQkqroPwMjSy4ahcqg663Vd2+35coR4kMQTRuFHBPEW3j6kMSYusi5RVrT6KjxXWxTQz4Q5mXRHCWHif7Kt8tSaYIPZtqL9MvQu41wDMXZ4sQJxMVj/uYfcd3OvId7gMYWYYWGXGFi/YffVFGC6RZvMrzPHSD2XmNYQfZSLcR5DcMhzm3aRL6v5PoHQDlmXLCMiVcMqGqk5+7gjKKE14SBGBLKmtTf5Y0K/u+2oBILydtxxX1BfXAU61xJnojP9KKGAyDTH+CcIyMlETTgvl25mzEchTTvPcBcZSWarXX02MhPtnUsVLIGo2F0Mw2SQsHkTL7gRVWVkTCcOYNYgO7VHEioADV+VYYryMmaCz0t/XJ4ekRbZnNd/ONhBq+n+gmFHMp5D6fBqnjMhpNgCoi/z2xVYkqd5aimuEdtzs/2EZXIiRE0uKinuzuZxB3VsUjb+9CvZcthHobUftFMvu8EwYwqztrzoIXp/jbNfqHZ3JCp1VdKOsHSwAaOKo6JW/+yiNp8ajhUbvlf9xhFP0jQ03DDEyoP+G9Nnpqxypw+K/oyKuPbxIWKRrBMpumuEy7Eg3YayopQ9mQBeLIadlIPLElaWyskSI7Kz9YOePNtkh+PSFw5zjvaQw+GXK4iOFoov3arCSM3pucBZvsqR8wQP3RNoO0NnSlocV2h1hJITjU+ndSrVbPlNyUa6o9mB9F/rM6nIz952g41ATZ6o76StHXuLL
+	WpmEtlNKVRqR0IDDeaRC3+KhsB3O89G4fgdPGJ9ShZ1RToQY7jI1qIb0avMWi7B/bAK8mYc80WO7WvzM6aaXYS9RvuQmUAXqSBfoSkBOWvDFQHgCsXwhcvPozVDJCw01sT/QFbP43iWE3sSK8SW6e8521d6mN+zRITMatLVmfgT+bHZu94MEysRgOsW59dv6J+mJ7pzE4CrCXUIHTh6/kRPadUkPD1RfSGtY2yCPVMtfcwz+iLnsadLOtlX01Hx8kf05942nxr6HIZH87jTPRUAGWaMHxl7m3YqdHTCzb8tmWJBsySipHNvWhmvKdLNyVcDL6FTmcTw85cEFQ08KnHoKUq+g44YFv9Flk1cyCWbrg6NhOoEoDGwLY4b+gCaLCA0RnbV/oxJIW5z6YIJKvlVQpl+s31b+ZybMc/HxCmZyGe/tr5d5FWyR0ICtkOJqDzwcPqhL7zzcQXp0K5fk0LRU3i8lv3o/43gzkOw4AH85Qe06ed/fD+YRUqqSW+9ERlZ4vOpadoZiWkzAVAXZ0KPAsKGARkFm1+8s9X0F2/O5bQ0yl6oQOJxOYcuVeSuKRPv9Gfe1EpKBJAMLWfVffDvgegqIY4hwG5l6zsndBmAbcME95uFb6Y5iLqbWBCsENh4nFBfYPoC1Jg9dtHWPF3CCQnpckZcrqFUzkAwmB83zVdEfqNWWjDXynqqWxKulo8hi1Vx31KB9uyKwIVlQPAZTemU4bocbuvLR1jSEqAY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(366004)(346002)(376002)(136003)(396003)(451199018)(31686004)(83380400001)(6486002)(36756003)(5660300002)(2906002)(26005)(186003)(31696002)(478600001)(6506007)(6512007)(41300700001)(54906003)(86362001)(38100700002)(2616005)(316002)(66946007)(4326008)(6916009)(66556008)(8676002)(8936002)(66476007)(43740500002)(45980500001)(414714003)(473944003)(357404004);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(39860400002)(366004)(346002)(376002)(136003)(396003)(451199018)(31686004)(83380400001)(6486002)(36756003)(5660300002)(2906002)(26005)(186003)(31696002)(478600001)(6506007)(6512007)(41300700001)(54906003)(86362001)(38100700002)(2616005)(316002)(66946007)(4326008)(6916009)(66556008)(8676002)(8936002)(66476007)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cDN0ZCtRM1JUdzZBczZmRGwvOFRrSXVpM0xTNm9oSitZbGczNDFzMDBnYmow?=
- =?utf-8?B?VHJxaHg5MllaRnJSY3NqMjEvZFlBMGlvQy9QdWtYelE5WE5mTjdhOFhZZ2ow?=
- =?utf-8?B?YTIzNVJ0MllWWnlBVytJUnhDSkt0WkRwQ3NiTm9oOGhQVjQxLzZCV1BESHU3?=
- =?utf-8?B?Z1lKS2dLeDJBUWtPS1gwMUdPNlROOEJycHVLaTNRenFqR2FSRlZ3ZEw0NmxT?=
- =?utf-8?B?ei9hcHQxcG9JdnpTdno2MGthNGZPdUVPb254Q1ArWFRKV1hOaEpzb3VvNHV1?=
- =?utf-8?B?NzR5T0JQZko1a1VJejc4bU55Wm4vN3M5aHN2VHEvSGJWeWsrMnBZTDNVRkU2?=
- =?utf-8?B?NGQ2bXV4TnRuYUVXS010RmhmNWNWclU2WnEzZ2lpcUI4VW9UNVNZRStsMDJ5?=
- =?utf-8?B?RytMUG9PYWdTOTZkSU9HdGtVNXFPcmJzeVBMR3MzSFh3UVNNWDRBRFAvR25i?=
- =?utf-8?B?dzRaVUhIT0I0ZUZScDFrV0I3cVRlc295ejlVbGxLOFpiREJRNTgzR3h2cWx5?=
- =?utf-8?B?UkhQY1VhTmJ5VGdJQS93dk5nUUNQN0U0QWdhR0xMbFM1Nm9DdEhMbXZjbDBM?=
- =?utf-8?B?c210TGxrQk5IYkt1Tm1GeDBoWVdZY1BXQ241MHk5b1Vlb0VtbW9Lblc4UUEr?=
- =?utf-8?B?YW9QQThWakxtYXBlYVJxQ3RiQVlrQW5sTDNDL1BpYUQvV3RqbUFzUFlkOHlM?=
- =?utf-8?B?ZzROOTNxOXQwWUJhYnVGdzFUa3hwR3Z0eUJrZ1kyWnJOTmgxb1VOd01OQi9Q?=
- =?utf-8?B?SDkrM0pObllDRFFMZGJRUXBwZWxiNEpxOE5xdWJKSzVyZkpsZzd1OXZKM1Jt?=
- =?utf-8?B?TjZFa00xV3FOTUowTXRTVnQzRjhsRmttODJUNlNNd1RBT0l3Znh6Y1RNeTJK?=
- =?utf-8?B?WEtLNEpFZDE5b3NmbmJqTy8wbVJPUFpjSVV3MURHMnZwRk44SHJYcExiQ2Mx?=
- =?utf-8?B?aXdoN1g2alU3QXBtK0UrZGVBVDdISENvc1dUQm9QUWp5NjFqK2ptRUVhcmR4?=
- =?utf-8?B?UTUzSDhiTFA3Nml0Ny9uMmx0UktXc2VvQmVWUEVYNDJxMDBoRk5ETThKQjVj?=
- =?utf-8?B?QW16MWJPQzlJdVJIU3EraEt5eE9JbmRhU2VhRjMzQzYxQ3VNRm4yZng1Mzhq?=
- =?utf-8?B?c1lRektBU245cHFDelRrRng0K01adVJtcWxOL3lhbWRicnZCdGhGc2ZaN0tp?=
- =?utf-8?B?Qk1WdHZJUkUzY1I1dDFGNWp4YXlXQnd5Q1dlZWlNTEEyeWVHNGhpOHV3bWc0?=
- =?utf-8?B?VWppNVFuN2QxQWNTTEhuMkRlVmFqLzl0NmkydVNKM0JaMHNVcngrQUwraEV6?=
- =?utf-8?B?R3JlNG1wZjA5L1J3cmVWN0xld2FzeThtT1U0N2pLZVFDNDl4aWpEUldPU2lI?=
- =?utf-8?B?d05nYTArZlJac1R6cHlES3dYMUllRkFyeFdtTmFIQTM1cDlIVlBjVGlBa3E0?=
- =?utf-8?B?OHhKY25NRXpXZUpuMWdNdEdrTlFtT05qT0FuZ29OTWphQ1NHaGVvVi9nWERm?=
- =?utf-8?B?VWxadTM2WVFsb1dUOXVJZ1hIdE50WTVib3lGbGRnaGZXZTFQb2JmYW1Uc1dh?=
- =?utf-8?B?RDhzN2E5Zlo3aStrWmRMVmZ3Zjc3dXRKZWM1R2dnR0djdENKWmVoTFo2WUlV?=
- =?utf-8?B?VWhXazk2bktTWks0Sk1rNm8wWUJDZWE1U2F2QUlOamw3aWR4NUpVdFJ2TGpN?=
- =?utf-8?B?d2FjRFR6RHZiVEZBR2lYRlRJbDh0ZGUxUFBqS1phWDhFNnJTKzZ6UlFLMzk0?=
- =?utf-8?B?QmdWMVVCcHdOTGFZb05GQ1c3ajZuQlh4a0JZaFdWS01vUCtGTGs1dGFBU3JN?=
- =?utf-8?B?VDkwbU15bFpxbTQyWG1PZXhMTW9MRm5MQ2Z6dm9yWm0wN3hKRlJ0OU0venlL?=
- =?utf-8?B?SVJMejI5bGRLb0lyWFg0RDgrM2ZEd2hHU3dKUC80eXc2dmpucE1BTDB3VE9P?=
- =?utf-8?B?Q0xSMkg1VDZZYmxCcEFQQldOYkk4VDEzSmluVCtodlNvTW4rYUZGZE1TUHlw?=
- =?utf-8?B?TUtmZnRHUDhuRzFIN0xBNXRFaUJRY3k4MEM5TlYzYzdwVFhsTFl6V0ZHb01p?=
- =?utf-8?B?b0dGWVYrbTJwdjh6c0F3aUlKVTBubGVSOHhLVzREMW5qTit6VXp1UzBlOXZX?=
- =?utf-8?Q?f7D/ovlylvtKegyOvcfqGjclr?=
+	=?utf-8?B?My93aksxZWpQT0htUmZCOHFuaVRHa2MwQnVTMkdPcXhZdUFpNldObXhDU29F?=
+ =?utf-8?B?QkROTGtEYTJMZ0R6N2xDcnZHbExTRnlwNVZjVUZHeGFyaVVPbyswMUc0Wk5V?=
+ =?utf-8?B?UDBkamZVSjJQMEgvajFoQnpsSjZxdmsrODdvRlJRWi94YUNZaFllbTB1bUMr?=
+ =?utf-8?B?K2hkOGxvcEdoRXBlS2lkZlhTeCtNOTV3amdQQS9pMjlQVkJYekI2Z1hkc2hD?=
+ =?utf-8?B?VGlBQVdoanUwVGdtSS9GeWlmdGJodlRtWXp3Ty9NZEh4L1QxNHo2SzNETUhW?=
+ =?utf-8?B?b21iSkkzSncwMFdzdGJ2NUVZQ2p1Z3VuRDJrU2dITlNLUVdKZ1R0VFZVWGxp?=
+ =?utf-8?B?RVhzbjZ2a1dzU0UxeTNIbFdiUVUxbHA3aktOeGdOSGhZZnl3REdMaWV5b3pC?=
+ =?utf-8?B?dUZ1MEl0ZkVMK0tHQXViOE9URlhZcC9lQ3Bxdlh1aWR1T3R0WWN0RkNyMms0?=
+ =?utf-8?B?TTQ2a2twZjlMbVhDQ3B5RU5rNGxGbjl2MFFtZUxuQWF3NFVTcTN0UHZzNE9W?=
+ =?utf-8?B?bi92UDNqS1h3QmFRSzR1NW04ZjVXVkRWQUxXUEo2dEFuRWdKTTdEbWtRQlpu?=
+ =?utf-8?B?aXRJZXlpT2hvdTUzU0U3K2srUVZSM2VZNU11MkFkRGl2cnlTVmx4R29IakJ4?=
+ =?utf-8?B?Q3c3SjU0VmdBQVdxVFV3Q3hZUTlQd0JqMXRDeEVJTlJ2cUloREEzZUdGVEY4?=
+ =?utf-8?B?M1B5ZVJpZDN2cW1yeGt3WVVpOFpBWndPUCtheFUxUVhhOEpYTVd4d2RtaFVV?=
+ =?utf-8?B?RloyN1BXQXg2S3VzTDhoWVVkb3VOcUFGK1FndjlMM1pkSmFxdXFqem1OQ1Ny?=
+ =?utf-8?B?L1dkZzJsVWdmYzZ0Z2lvR3FGRk85dG5WbFBtWjVTbndiNEZKcFd6T0JUSk1H?=
+ =?utf-8?B?ZmUzWnZURGxOZ09PMW8zU3BERW9lR0I5UUN5a2RWOU9NLzMrMkp2WER5RHkz?=
+ =?utf-8?B?SlBjVHI0UlRBcThIWUpDcHpRRVcrd0tHRmVHM3dMOE1FK1QxZm9GTUcra0VR?=
+ =?utf-8?B?bjdzM0VINDNZYVhUK0xSRm5aamxJL0ZINWUvaXo2TGlOUEJ2SGFsMUNLc0Zw?=
+ =?utf-8?B?dWVzNXMvcVdSOS8rQjh6NjZFOVdxZ2swRHJnMTl1NThCeXZjNlBzTEg2NWxD?=
+ =?utf-8?B?U0RzSnBRUzBHOVRmQVBwRnpQQjVuc3R3WHpMS0VJdkpUZUpmTVg0eWRJeUFu?=
+ =?utf-8?B?UTBYRXpueTVTTG51Ulg3cFBLVElSQ1NNWnNHWS9RUE90U1RwZytkMzI4Rk1r?=
+ =?utf-8?B?QUsxOFoxaFVSQnNNSitwMmRVby9sZkwvVDJleWljYm9rQnVNRGdKdUhpenUy?=
+ =?utf-8?B?ZkYzRnNzQVIyV2NMWDdrVmpUdm9zdUNNNDFSMkt1Sy9GNWM2dlRvQU0zaUNo?=
+ =?utf-8?B?WDlrOEhpTW9xRFBsRng5cWRZSWpVWnhRV0M0NFZtNkZxMlM5VEJwcUFaRzVR?=
+ =?utf-8?B?ZDZuWGJBY1ZqRHNTNjk0WnNvamJrQWtpYXZ1VVUyOGtWZStsTnc0ZE5DZTQ4?=
+ =?utf-8?B?MFpoSVNkc3FSWkdzc28rWFR3TFg0YnJwVDlvaTBUSnZKUWIyZ2JXd2ovODhx?=
+ =?utf-8?B?YUZzSytySWV2SUwwTEtMc29XQk9VNUc1a3BycmtZOU1YUmdnZlR1d0w3d0VY?=
+ =?utf-8?B?OGFKQkhpQmxKMmhkWFpDN1p5ZytpMDFBd204aGxoQnhTaVVwV3p4ZGZ5YlRY?=
+ =?utf-8?B?NmN2RXZUT044eS9SVHQzaVBVbWljMXNkbktnbHBqTW0wMGZXbWpsZ0ZaOEg0?=
+ =?utf-8?B?NGVTTzhGTHp1NGpoZG04Z09NbEYrMHJsejZoUURQR1gvRUJLVm5iT0ZEbHB0?=
+ =?utf-8?B?U3dNYmxEZjRzK2RZam5pSnNZOGFINGh6c1BRc04yUUIweFBXTHVnYk9TeW13?=
+ =?utf-8?B?ZlZuTHNCMStRek9WTjhROHZueHE5M3RlS0o3b3VuYzhneXIxYVhkdk9ZdDBJ?=
+ =?utf-8?B?NmRibWNzQ1VDRXdIWUdlaDVHeGVnOFhWTTlOMUNmOGNsa0ZDV1h6TWxRYkt6?=
+ =?utf-8?B?U0ptVkYvRkFqZG1keS8reXdVSjZxQ2haQW5YTG00WWd0TDlYcTJzanRydUUx?=
+ =?utf-8?B?NXMwTkpOQ0xNTldqdC9ZMGhkcXJRNTI3V29uNG9waElYd3MwZ3dQeHErMi9h?=
+ =?utf-8?Q?Dj+UxdSBtFpMoayvRQGqtVQQX?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfed1094-557c-41a1-f566-08db09e2082c
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbe2301b-5c59-42b9-cce7-08db09e21359
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 14:37:40.8573
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 14:37:59.6061
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qi7RMSmI8R0LN+SMJZj8MT/lBkghHjLLSZZ64ktBxK6ip/pNc93t6utOAoOSl0wEFKB629GV7oW3zCSV8/HY3g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SeEM17TOsMTIMM0ousfCsmt1LLExf16Kotwef5emK+xXBuhQ2D6X51rfWX6OxnJnNTFDHuPycXqjgNcMMpsPkA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9343
 
-The domain based variant is easily usable by shadow_audit_tables(); all
-that's needed is conversion of the callback functions.
+The "domain" in there has become meaningless; drop it.
 
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-v3: Re-base.
 
 --- a/xen/arch/x86/mm/shadow/common.c
 +++ b/xen/arch/x86/mm/shadow/common.c
-@@ -1680,59 +1680,11 @@ bool shadow_hash_delete(struct domain *d
+@@ -1680,15 +1680,15 @@ bool shadow_hash_delete(struct domain *d
      return true;
  }
  
--typedef int (*hash_vcpu_callback_t)(struct vcpu *v, mfn_t smfn, mfn_t other_mfn);
- typedef int (*hash_domain_callback_t)(struct domain *d, mfn_t smfn, mfn_t other_mfn);
+-typedef int (*hash_domain_callback_t)(struct domain *d, mfn_t smfn, mfn_t other_mfn);
++typedef int (*hash_callback_t)(struct domain *d, mfn_t smfn, mfn_t other_mfn);
  
  #define HASH_CALLBACKS_CHECK(mask) \
      BUILD_BUG_ON((mask) > (1U << ARRAY_SIZE(callbacks)) - 1)
  
--static void hash_vcpu_foreach(struct vcpu *v, unsigned int callback_mask,
--                              const hash_vcpu_callback_t callbacks[],
--                              mfn_t callback_mfn)
--/* Walk the hash table looking at the types of the entries and
-- * calling the appropriate callback function for each entry.
-- * The mask determines which shadow types we call back for, and the array
-- * of callbacks tells us which function to call.
-- * Any callback may return non-zero to let us skip the rest of the scan.
-- *
-- * WARNING: Callbacks MUST NOT add or remove hash entries unless they
-- * then return non-zero to terminate the scan. */
--{
--    int i, done = 0;
--    struct domain *d = v->domain;
--    struct page_info *x;
--
--    ASSERT(paging_locked_by_me(d));
--
--    /* Can be called via p2m code &c after shadow teardown. */
--    if ( unlikely(!d->arch.paging.shadow.hash_table) )
--        return;
--
--    /* Say we're here, to stop hash-lookups reordering the chains */
--    ASSERT(d->arch.paging.shadow.hash_walking == 0);
--    d->arch.paging.shadow.hash_walking = 1;
--
--    for ( i = 0; i < SHADOW_HASH_BUCKETS; i++ )
--    {
--        /* WARNING: This is not safe against changes to the hash table.
--         * The callback *must* return non-zero if it has inserted or
--         * deleted anything from the hash (lookups are OK, though). */
--        for ( x = d->arch.paging.shadow.hash_table[i]; x; x = next_shadow(x) )
--        {
--            if ( callback_mask & (1 << x->u.sh.type) )
--            {
--                ASSERT(x->u.sh.type <= SH_type_max_shadow);
--                ASSERT(callbacks[x->u.sh.type] != NULL);
--                done = callbacks[x->u.sh.type](v, page_to_mfn(x),
--                                               callback_mfn);
--                if ( done ) break;
--            }
--        }
--        if ( done ) break;
--    }
--    d->arch.paging.shadow.hash_walking = 0;
--}
--
- static void hash_domain_foreach(struct domain *d,
-                                 unsigned int callback_mask,
-                                 const hash_domain_callback_t callbacks[],
-@@ -3280,7 +3232,7 @@ int shadow_domctl(struct domain *d,
+-static void hash_domain_foreach(struct domain *d,
+-                                unsigned int callback_mask,
+-                                const hash_domain_callback_t callbacks[],
+-                                mfn_t callback_mfn)
++static void hash_foreach(struct domain *d,
++                         unsigned int callback_mask,
++                         const hash_callback_t callbacks[],
++                         mfn_t callback_mfn)
+ /* Walk the hash table looking at the types of the entries and
+  * calling the appropriate callback function for each entry.
+  * The mask determines which shadow types we call back for, and the array
+@@ -1826,7 +1826,7 @@ int sh_remove_write_access(struct domain
+                            unsigned long fault_addr)
+ {
+     /* Dispatch table for getting per-type functions */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
++    static const hash_callback_t callbacks[SH_type_unused] = {
+ #ifdef CONFIG_HVM
+         [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2),
+         [SH_type_fl1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_write_access_from_l1, 2),
+@@ -2011,7 +2011,7 @@ int sh_remove_write_access(struct domain
+     else
+         perfc_incr(shadow_writeable_bf);
+     HASH_CALLBACKS_CHECK(SHF_L1_ANY | SHF_FL1_ANY);
+-    hash_domain_foreach(d, SHF_L1_ANY | SHF_FL1_ANY, callbacks, gmfn);
++    hash_foreach(d, SHF_L1_ANY | SHF_FL1_ANY, callbacks, gmfn);
+ 
+     /* If that didn't catch the mapping, then there's some non-pagetable
+      * mapping -- ioreq page, grant mapping, &c. */
+@@ -2039,7 +2039,7 @@ int sh_remove_all_mappings(struct domain
+     struct page_info *page = mfn_to_page(gmfn);
+ 
+     /* Dispatch table for getting per-type functions */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
++    static const hash_callback_t callbacks[SH_type_unused] = {
+         [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2),
+         [SH_type_fl1_32_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 2),
+         [SH_type_l1_pae_shadow] = SHADOW_INTERNAL_NAME(sh_rm_mappings_from_l1, 3),
+@@ -2063,7 +2063,7 @@ int sh_remove_all_mappings(struct domain
+     /* Brute-force search of all the shadows, by walking the hash */
+     perfc_incr(shadow_mappings_bf);
+     HASH_CALLBACKS_CHECK(SHF_L1_ANY | SHF_FL1_ANY);
+-    hash_domain_foreach(d, SHF_L1_ANY | SHF_FL1_ANY, callbacks, gmfn);
++    hash_foreach(d, SHF_L1_ANY | SHF_FL1_ANY, callbacks, gmfn);
+ 
+     /* If that didn't catch the mapping, something is very wrong */
+     if ( !sh_check_page_has_no_refs(page) )
+@@ -2172,7 +2172,7 @@ void sh_remove_shadows(struct domain *d,
+ 
+     /* Dispatch table for getting per-type functions: each level must
+      * be called with the function to remove a lower-level shadow. */
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
++    static const hash_callback_t callbacks[SH_type_unused] = {
+ #ifdef CONFIG_HVM
+         [SH_type_l2_32_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 2),
+         [SH_type_l2_pae_shadow] = SHADOW_INTERNAL_NAME(sh_remove_l1_shadow, 3),
+@@ -2221,9 +2221,9 @@ void sh_remove_shadows(struct domain *d,
+ 
+     /*
+      * Lower-level shadows need to be excised from upper-level shadows. This
+-     * call to hash_domain_foreach() looks dangerous but is in fact OK: each
+-     * call will remove at most one shadow, and terminate immediately when
+-     * it does remove it, so we never walk the hash after doing a deletion.
++     * call to hash_foreach() looks dangerous but is in fact OK: each call
++     * will remove at most one shadow, and terminate immediately when it does
++     * remove it, so we never walk the hash after doing a deletion.
+      */
+ #define DO_UNSHADOW(_type) do {                                         \
+     t = (_type);                                                        \
+@@ -2247,7 +2247,7 @@ void sh_remove_shadows(struct domain *d,
+          (pg->shadow_flags & (1 << t)) )                                \
+     {                                                                   \
+         HASH_CALLBACKS_CHECK(SHF_page_type_mask);                       \
+-        hash_domain_foreach(d, masks[t], callbacks, smfn);              \
++        hash_foreach(d, masks[t], callbacks, smfn);                     \
+     }                                                                   \
+ } while (0)
+ 
+@@ -3232,7 +3232,7 @@ int shadow_domctl(struct domain *d,
  void shadow_audit_tables(struct vcpu *v)
  {
      /* Dispatch table for getting per-type functions */
--    static const hash_vcpu_callback_t callbacks[SH_type_unused] = {
-+    static const hash_domain_callback_t callbacks[SH_type_unused] = {
+-    static const hash_domain_callback_t callbacks[SH_type_unused] = {
++    static const hash_callback_t callbacks[SH_type_unused] = {
  #if SHADOW_AUDIT & (SHADOW_AUDIT_ENTRIES | SHADOW_AUDIT_ENTRIES_FULL)
  # ifdef CONFIG_HVM
          [SH_type_l1_32_shadow] = SHADOW_INTERNAL_NAME(sh_audit_l1_table, 2),
-@@ -3329,7 +3281,7 @@ void shadow_audit_tables(struct vcpu *v)
+@@ -3281,7 +3281,7 @@ void shadow_audit_tables(struct vcpu *v)
      HASH_CALLBACKS_CHECK(SHADOW_AUDIT & (SHADOW_AUDIT_ENTRIES |
                                           SHADOW_AUDIT_ENTRIES_FULL)
                           ? SHF_page_type_mask : 0);
--    hash_vcpu_foreach(v, mask, callbacks, INVALID_MFN);
-+    hash_domain_foreach(v->domain, mask, callbacks, INVALID_MFN);
+-    hash_domain_foreach(v->domain, mask, callbacks, INVALID_MFN);
++    hash_foreach(v->domain, mask, callbacks, INVALID_MFN);
  }
  
  #ifdef CONFIG_PV
---- a/xen/arch/x86/mm/shadow/multi.c
-+++ b/xen/arch/x86/mm/shadow/multi.c
-@@ -333,32 +333,32 @@ static void sh_audit_gw(struct vcpu *v,
-     if ( mfn_valid(gw->l4mfn)
-          && mfn_valid((smfn = get_shadow_status(d, gw->l4mfn,
-                                                 SH_type_l4_shadow))) )
--        (void) sh_audit_l4_table(v, smfn, INVALID_MFN);
-+        sh_audit_l4_table(d, smfn, INVALID_MFN);
-     if ( mfn_valid(gw->l3mfn)
-          && mfn_valid((smfn = get_shadow_status(d, gw->l3mfn,
-                                                 SH_type_l3_shadow))) )
--        (void) sh_audit_l3_table(v, smfn, INVALID_MFN);
-+        sh_audit_l3_table(d, smfn, INVALID_MFN);
- #endif /* PAE or 64... */
-     if ( mfn_valid(gw->l2mfn) )
-     {
-         if ( mfn_valid((smfn = get_shadow_status(d, gw->l2mfn,
-                                                  SH_type_l2_shadow))) )
--            (void) sh_audit_l2_table(v, smfn, INVALID_MFN);
-+            sh_audit_l2_table(d, smfn, INVALID_MFN);
- #if GUEST_PAGING_LEVELS >= 4 && defined(CONFIG_PV32)
-         if ( mfn_valid((smfn = get_shadow_status(d, gw->l2mfn,
-                                                  SH_type_l2h_shadow))) )
--            (void) sh_audit_l2_table(v, smfn, INVALID_MFN);
-+            sh_audit_l2_table(d, smfn, INVALID_MFN);
- #endif
-     }
-     if ( mfn_valid(gw->l1mfn)
-          && mfn_valid((smfn = get_shadow_status(d, gw->l1mfn,
-                                                 SH_type_l1_shadow))) )
--        (void) sh_audit_l1_table(v, smfn, INVALID_MFN);
-+        sh_audit_l1_table(d, smfn, INVALID_MFN);
-     else if ( (guest_l2e_get_flags(gw->l2e) & _PAGE_PRESENT)
-               && (guest_l2e_get_flags(gw->l2e) & _PAGE_PSE)
-               && mfn_valid(
-               (smfn = get_fl1_shadow_status(d, guest_l2e_get_gfn(gw->l2e)))) )
--        (void) sh_audit_fl1_table(v, smfn, INVALID_MFN);
-+        sh_audit_fl1_table(d, smfn, INVALID_MFN);
- #endif /* SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES */
- }
- 
-@@ -3920,9 +3920,8 @@ static const char *sh_audit_flags(const
-     return NULL;
- }
- 
--int cf_check sh_audit_l1_table(struct vcpu *v, mfn_t sl1mfn, mfn_t x)
-+int cf_check sh_audit_l1_table(struct domain *d, mfn_t sl1mfn, mfn_t x)
- {
--    struct domain *d = v->domain;
-     guest_l1e_t *gl1e, *gp;
-     shadow_l1e_t *sl1e;
-     mfn_t mfn, gmfn, gl1mfn;
-@@ -3989,7 +3988,7 @@ int cf_check sh_audit_l1_table(struct vc
-     return done;
- }
- 
--int cf_check sh_audit_fl1_table(struct vcpu *v, mfn_t sl1mfn, mfn_t x)
-+int cf_check sh_audit_fl1_table(struct domain *d, mfn_t sl1mfn, mfn_t x)
- {
-     guest_l1e_t *gl1e, e;
-     shadow_l1e_t *sl1e;
-@@ -4015,9 +4014,8 @@ int cf_check sh_audit_fl1_table(struct v
-     return 0;
- }
- 
--int cf_check sh_audit_l2_table(struct vcpu *v, mfn_t sl2mfn, mfn_t x)
-+int cf_check sh_audit_l2_table(struct domain *d, mfn_t sl2mfn, mfn_t x)
- {
--    struct domain *d = v->domain;
-     guest_l2e_t *gl2e, *gp;
-     shadow_l2e_t *sl2e;
-     mfn_t mfn, gmfn, gl2mfn;
-@@ -4067,9 +4065,8 @@ int cf_check sh_audit_l2_table(struct vc
- }
- 
- #if GUEST_PAGING_LEVELS >= 4
--int cf_check sh_audit_l3_table(struct vcpu *v, mfn_t sl3mfn, mfn_t x)
-+int cf_check sh_audit_l3_table(struct domain *d, mfn_t sl3mfn, mfn_t x)
- {
--    struct domain *d = v->domain;
-     guest_l3e_t *gl3e, *gp;
-     shadow_l3e_t *sl3e;
-     mfn_t mfn, gmfn, gl3mfn;
-@@ -4117,9 +4114,8 @@ int cf_check sh_audit_l3_table(struct vc
-     return 0;
- }
- 
--int cf_check sh_audit_l4_table(struct vcpu *v, mfn_t sl4mfn, mfn_t x)
-+int cf_check sh_audit_l4_table(struct domain *d, mfn_t sl4mfn, mfn_t x)
- {
--    struct domain *d = v->domain;
-     guest_l4e_t *gl4e, *gp;
-     shadow_l4e_t *sl4e;
-     mfn_t mfn, gmfn, gl4mfn;
---- a/xen/arch/x86/mm/shadow/multi.h
-+++ b/xen/arch/x86/mm/shadow/multi.h
-@@ -83,19 +83,19 @@ SHADOW_INTERNAL_NAME(sh_remove_l3_shadow
- #if SHADOW_AUDIT & SHADOW_AUDIT_ENTRIES
- int cf_check
- SHADOW_INTERNAL_NAME(sh_audit_l1_table, GUEST_LEVELS)
--    (struct vcpu *v, mfn_t sl1mfn, mfn_t x);
-+    (struct domain *d, mfn_t sl1mfn, mfn_t x);
- int cf_check
- SHADOW_INTERNAL_NAME(sh_audit_fl1_table, GUEST_LEVELS)
--    (struct vcpu *v, mfn_t sl1mfn, mfn_t x);
-+    (struct domain *d, mfn_t sl1mfn, mfn_t x);
- int cf_check
- SHADOW_INTERNAL_NAME(sh_audit_l2_table, GUEST_LEVELS)
--    (struct vcpu *v, mfn_t sl2mfn, mfn_t x);
-+    (struct domain *d, mfn_t sl2mfn, mfn_t x);
- int cf_check
- SHADOW_INTERNAL_NAME(sh_audit_l3_table, GUEST_LEVELS)
--    (struct vcpu *v, mfn_t sl3mfn, mfn_t x);
-+    (struct domain *d, mfn_t sl3mfn, mfn_t x);
- int cf_check
- SHADOW_INTERNAL_NAME(sh_audit_l4_table, GUEST_LEVELS)
--    (struct vcpu *v, mfn_t sl4mfn, mfn_t x);
-+    (struct domain *d, mfn_t sl4mfn, mfn_t x);
- #endif
- 
- extern const struct paging_mode
 
 
