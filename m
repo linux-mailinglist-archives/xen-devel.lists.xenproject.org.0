@@ -2,37 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4346868EE63
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 13:00:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491709.760963 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38FC468EE72
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 13:06:11 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491718.760975 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPj7s-0004rr-3U; Wed, 08 Feb 2023 12:00:36 +0000
+	id 1pPjCq-0005bq-NE; Wed, 08 Feb 2023 12:05:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491709.760963; Wed, 08 Feb 2023 12:00:36 +0000
+Received: by outflank-mailman (output) from mailman id 491718.760975; Wed, 08 Feb 2023 12:05:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPj7s-0004pM-0c; Wed, 08 Feb 2023 12:00:36 +0000
-Received: by outflank-mailman (input) for mailman id 491709;
- Wed, 08 Feb 2023 12:00:34 +0000
+	id 1pPjCq-0005Z0-K1; Wed, 08 Feb 2023 12:05:44 +0000
+Received: by outflank-mailman (input) for mailman id 491718;
+ Wed, 08 Feb 2023 12:05:43 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hHoX=6E=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pPj7q-0004pC-HU
- for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 12:00:34 +0000
-Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
- [2a00:1450:4864:20::434])
+ <SRS0=/3BG=6E=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
+ id 1pPjCp-0005Yt-1p
+ for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 12:05:43 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on20613.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::613])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 2ffb8efd-a7a8-11ed-93b5-47a8fe42b414;
- Wed, 08 Feb 2023 13:00:32 +0100 (CET)
-Received: by mail-wr1-x434.google.com with SMTP id r2so16495775wrv.7
- for <xen-devel@lists.xenproject.org>; Wed, 08 Feb 2023 04:00:32 -0800 (PST)
-Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
- [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
- k10-20020a5d6e8a000000b002bdda9856b5sm13533349wrz.50.2023.02.08.04.00.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Feb 2023 04:00:31 -0800 (PST)
+ id e611272c-a7a8-11ed-93b5-47a8fe42b414;
+ Wed, 08 Feb 2023 13:05:38 +0100 (CET)
+Received: from BN9P223CA0005.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::10)
+ by DS0PR12MB8502.namprd12.prod.outlook.com (2603:10b6:8:15b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.36; Wed, 8 Feb
+ 2023 12:05:35 +0000
+Received: from BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:10b:cafe::dd) by BN9P223CA0005.outlook.office365.com
+ (2603:10b6:408:10b::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.17 via Frontend
+ Transport; Wed, 8 Feb 2023 12:05:34 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ BN8NAM11FT096.mail.protection.outlook.com (10.13.177.195) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.17 via Frontend Transport; Wed, 8 Feb 2023 12:05:34 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Feb
+ 2023 06:05:33 -0600
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Wed, 8 Feb
+ 2023 04:05:33 -0800
+Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
+ SATLEXMB03.amd.com (10.181.40.144) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Wed, 8 Feb 2023 06:05:32 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,216 +63,178 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 2ffb8efd-a7a8-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qQJM2z8w5SMjjjK6M6hIicfHTpkGlBAWuTOaToSD/NM=;
-        b=UQMoe4gEBu/ZKPJwL7np79iKew9f0UlC/IkwjJRPOPCp5d+VrgqvyU8kKG7xQEkh9e
-         rpA6kTCqYSAtFzx4zAoTzn0TbN63yyAFRg9sdyL+OzCryX0uxjMz5JZXEULr+EU86zsw
-         nf3Mt07NHItxS1efOJRRBIPZobWHY4AWpvZsN6mVLuhg3BP7KwNvAkjuYKgXkQqEGGt2
-         ijq6uvT7EH3Lbo5yY7BsmeExYqLikOgBL706riujpKugVpCotT1nMY+aBpLvM43lQsFF
-         zpOXBQaDcBTk4t3Z/bJr7OSAzHKda68Uzkn+vk9lNzc18YzSkJHGxnWkBu9KtI8uVS1x
-         MECQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qQJM2z8w5SMjjjK6M6hIicfHTpkGlBAWuTOaToSD/NM=;
-        b=0N77ti24TBEpApxI71sMs1bIdBcoE72NvBPwrY1Q9bKlNch94mHph42Ncil9Mglaay
-         IsMb2Mw45lGhKZCuU2+CHL5r5aMcKa0g/ZYl6FL8rUm2RZ95dpTXcRDzHG+xoPPH2KiU
-         qTAzumR0W1reHm5RN78/trXG1Itzgy6gvdqUp6a9ZVNQuRJhBOxuWI0xQQF74RBSWEW7
-         G/GptKWGOINFNOHgOCpiXY1NZf92iL8XbWg4ABx3/HMGA6DhURURtvmeEhCnBDnU2KVg
-         VXoVF3t43VYQc9Se6hPxqUEojctUJqpPRJ5oNsyLPTHG5VXYGNRlJhNip4ClVhzttTRE
-         Dw0A==
-X-Gm-Message-State: AO0yUKVAXdY07irnuBofI0sRDm7RUje538nt7YnIeEZiIrc76cPj2C4v
-	Yls14ZNGYNnvJx/eyP9ierY=
-X-Google-Smtp-Source: AK7set/ZD1Dvkrs0e2MIzCeniKrb/Sv2xR9IwGMhY5BtDKN278G2Lsrf6PQLvXYCJOCYBdWdt+YRGg==
-X-Received: by 2002:a5d:468c:0:b0:2c3:fb4f:490f with SMTP id u12-20020a5d468c000000b002c3fb4f490fmr3037204wrq.33.1675857631531;
-        Wed, 08 Feb 2023 04:00:31 -0800 (PST)
-Message-ID: <e69eb6695310ed63eb68291f76ba1ec96626d68b.camel@gmail.com>
-Subject: Re: [PATCH v3 12/14] xen/riscv: introduce an implementation of
- macros from <asm/bug.h>
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: Julien Grall <julien@xen.org>, Andrew Cooper
- <andrew.cooper3@citrix.com>,  Stefano Stabellini <sstabellini@kernel.org>,
- Gianluca Guida <gianluca@rivosinc.com>, Bob Eshleman
- <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
- Connor Davis <connojdavis@gmail.com>, xen-devel@lists.xenproject.org
-Date: Wed, 08 Feb 2023 14:00:29 +0200
-In-Reply-To: <bee6af5c-6000-461b-7642-2864d412e351@suse.com>
-References: <cover.1675779308.git.oleksii.kurochko@gmail.com>
-	 <404a4d6621a2e5eb276d2fa61188429294d682ba.1675779308.git.oleksii.kurochko@gmail.com>
-	 <bee6af5c-6000-461b-7642-2864d412e351@suse.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+X-Inumbo-ID: e611272c-a7a8-11ed-93b5-47a8fe42b414
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RovyDJI5mN7W1CJhW8UGjDhdNTpoyi7AzYWXL94q2osTfD1JnXVVJPFmUZ0G3ea3d+PmxLnVb9d4Ba65OO7fjAoq5Kh1VsSuz2bnHdKRuvCDU14FEXPfIJPGveW7D6wDOcvs22GJJQhBR+L48t04hyx78SrdbDJDVP1ef5Ncqmy0ckk+yDsynDD3/h6YoWCKy/OuF8cedaVQMdbV+HytbAPh5MIWhPKaQPf8bwQggp04kxWhvKpwbm9uHM2GtCPWPtQgqAyKNEULeboZcDi81OWMJmA4cOAfHRrML+76753NlDDE1k+sb6CFATbwJSmy0llF0v5zqBnz2f2QXZPh5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a3dVG3f7t3j71oFqAAKQ6yDvr9I2Ln5TtlO/vvACjZU=;
+ b=TxxbvsD/LqqdlxIIJMf84rx5YHl2GpwqERilFjOyg2JSk9V8GngS7MUvHCqpwaugwCffSeEthv/vThWlSxGFUlOVQrhG7PQpi1B+OetYizFxZhPMqXhtFL+2dj7w20euU9dKm4/dht0O10co//wFOZbog+ItUSp/9fwstqCgol3zOfQV7stqoaBrCaLySLZ4EVqcoASGLT80r4WIPY68sTOc6YjAIEyP1mBWIBznOHJkksP8hext+JayN0Oeh0uqJM+DdOAMU8HlYCfqg2rg4xzyPj4YAztjqniHnCG5qJA5jrYA8pR0PRqhPcRgieo+fOZre6SZtduU1Lizuv23kA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a3dVG3f7t3j71oFqAAKQ6yDvr9I2Ln5TtlO/vvACjZU=;
+ b=U7ldx1QJ/qkUWNJ2K+8uMiyGyTzV2CCRG1UF1tWaagGFSqT2zuoeCOg472z2/stFigPK78DwLYs9dpwpppWYbzx0loDz4c0vfLuCSGXXWiE6NI+dzzn0pJLZJtNZMvXlwGWsSan4eCKfDfx54Qnxe8aB5ZSJujoygXStWSGKdDE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: <sstabellini@kernel.org>, <stefano.stabellini@amd.com>, <julien@xen.org>,
+	<Volodymyr_Babchuk@epam.com>, <bertrand.marquis@arm.com>,
+	<andrew.cooper3@citrix.com>, <george.dunlap@citrix.com>, <jbeulich@suse.com>,
+	<wl@xen.org>, <rahul.singh@arm.com>, Ayan Kumar Halder
+	<ayan.kumar.halder@amd.com>
+Subject: [XEN v3 0/9] Add support for 32 bit physical address
+Date: Wed, 8 Feb 2023 12:05:20 +0000
+Message-ID: <20230208120529.22313-1-ayan.kumar.halder@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT096:EE_|DS0PR12MB8502:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd7bff0f-a7bb-4c37-b1a0-08db09ccc85a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	c5IBmDM45OJxXWXeS9VGe2A3gaWZyb1R1pvsYn0wALiDxDjrfVDPYAxzswJbSXrk/lB1isJGdBcMuQ8P1NLeGmxqENhPyjVLanouJhR/pwxRM/37+75JehyrU3LzC5iAHfoIqo1UsBEOnYk3HFDUia4nIIxO+ZKL2xFx+Tf9n8jyg7GzzC1zudxjQRzB5DH9nQIF6TCmzTolRUvBIbZAo5sgXl+EpzbeaQXO3NpA21yz1SC72NNOhAgvad0cceaA9KD/LlwgpOWAeRJX99sCyLN3Mvz9cv+HI4udWk5mPVm0ID1Kolrj/LN0qSNOj5iv2IXg98fbNm7pFQzO+Um9FayB0I+PC8W7Pfi1QA0CVwKSxIWwbLHvYwmiKK3uKuQFkQ3G8oRR2mIbIBkt3zahAYI2mVt3bhtHRx5GTFI7RA9dvb+jQZ249FLds17x9lbwggVyDbShb/Da87dm0LP5YjIv2awbyaQwT85yWAFNpLJiXPQhc7RQeU9sRhbyTiuvaTqnU6YwLzOrRg5PtATpVR/fdPScHb709mdrOuXSpCMzmvFaB4uAmoazwPZFtwFEEst2OUtW2B2++sYDBgiXWRXWZ5P6czU8R9NpCBGvH8M8RlOW4jBHZLdfnInjg4LkPWuwxBgk7SaMR/tXSe4x7LzPCq4Mo3G15X/RSywqdJwstyWt3k2YFar7Fi3z1nmNAP1O0Ok8GtWQiHmgPyTlXj+gPwHH4vk2pA1Gxt5QPoLT42HQSuX3Ao8e2WpZlM2OEcK1pk08pmoD0j27g+rtXhytwuojIog+Eu98RQmhPandWLNAHP+9pQW6WI1cOY/g
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(396003)(376002)(136003)(346002)(451199018)(36840700001)(40470700004)(46966006)(5660300002)(47076005)(36756003)(7416002)(2906002)(426003)(81166007)(83380400001)(1076003)(40480700001)(2616005)(336012)(356005)(82740400003)(8676002)(36860700001)(4326008)(70206006)(70586007)(54906003)(6916009)(316002)(8936002)(103116003)(41300700001)(6666004)(186003)(82310400005)(26005)(40460700003)(478600001)(86362001)(966005)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Feb 2023 12:05:34.1953
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd7bff0f-a7bb-4c37-b1a0-08db09ccc85a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN8NAM11FT096.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8502
 
-SGVsbG8gSmFuLAoKVGhhbmtzIGZvciB0aGUgY29tbWVudHMhCgpPbiBUdWUsIDIwMjMtMDItMDcg
-YXQgMTY6MDcgKzAxMDAsIEphbiBCZXVsaWNoIHdyb3RlOgo+IE9uIDA3LjAyLjIwMjMgMTU6NDYs
-IE9sZWtzaWkgS3Vyb2Noa28gd3JvdGU6Cj4gPiAtLS0gL2Rldi9udWxsCj4gPiArKysgYi94ZW4v
-YXJjaC9yaXNjdi9pbmNsdWRlL2FzbS9idWcuaAo+ID4gQEAgLTAsMCArMSwzOCBAQAo+ID4gKy8q
-IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wICovCj4gPiArLyoKPiA+ICsgKiBDb3B5
-cmlnaHQgKEMpIDIwMTIgUmVnZW50cyBvZiB0aGUgVW5pdmVyc2l0eSBvZiBDYWxpZm9ybmlhCj4g
-PiArICogQ29weXJpZ2h0IChDKSAyMDIxLTIwMjMgVmF0ZXMKPiA+ICsgKgo+ID4gKyAqLwo+ID4g
-KyNpZm5kZWYgX0FTTV9SSVNDVl9CVUdfSAo+ID4gKyNkZWZpbmUgX0FTTV9SSVNDVl9CVUdfSAo+
-ID4gKwo+ID4gKyNpbmNsdWRlIDx4ZW4vdHlwZXMuaD4KPiA+ICsKPiA+ICsjaWZuZGVmIF9fQVNT
-RU1CTFlfXwo+ID4gKwo+ID4gKyNkZWZpbmUgQlVHX0ZOX1JFRyB0MAo+ID4gKwo+ID4gKyNkZWZp
-bmUgQlVHX0lOU1RSICJlYnJlYWsiCj4gPiArCj4gPiArI2RlZmluZSBJTlNOX0xFTkdUSF9NQVNL
-wqDCoMKgwqDCoMKgwqAgX1VMKDB4MykKPiA+ICsjZGVmaW5lIElOU05fTEVOR1RIXzMywqDCoMKg
-wqDCoMKgwqDCoMKgIF9VTCgweDMpCj4gCj4gSSBhc3N1bWUgdGhlc2UgYXJlIGRlbGliZXJhdGVs
-eSBvdmVyLXNpbXBsaWZpZWQgKG5vdCBhY2NvdW50aW5nIGZvcgo+IHdpZGVyIHRoYW4gMzItYml0
-IGluc25zIGluIGFueSB3YXkpPwpUaGUgYmFzZSBpbnN0cnVjdGlvbiBzZXQgaGFzIGEgZml4ZWQg
-bGVuZ3RoIG9mIDMyLWJpdCBuYXR1cmFsbHkgYWxpZ25lZAppbnN0cnVjdGlvbnMuCgpUaGVyZSBh
-cmUgZXh0ZW5zaW9ucyBvZiB2YXJpYWJsZSBsZW5ndGggKCB3aGVyZSBlYWNoIGluc3RydWN0aW9u
-IGNhbiBiZQphbnkgbnVtYmVyIG9mIDE2LWJpdCBwYXJjZWxzIGluIGxlbmd0aCApIGJ1dCB0aGV5
-IGFyZW4ndCB1c2VkIGluIFhlbgphbmQgTGludXgga2VybmVsICggd2hlcmUgdGhlc2UgZGVmaW5p
-dGlvbnMgd2VyZSB0YWtlbiBmcm9tICkuCgpDb21wcmVzc2VkIElTQSBpcyB1c2VkIG5vdyB3aGVy
-ZSB0aGUgaW5zdHJ1Y3Rpb24gbGVuZ3RoIGlzIDE2IGJpdCAgYW5kCidlYnJlYWsnIGluc3RydWN0
-aW9uLCBpbiB0aGlzIGNhc2UsIGNhbiBiZSBlaXRoZXIgMTYgb3IgMzIgYml0ICgKZGVwZW5kaW5n
-IG9uIGlmIGNvbXByZXNzZWQgSVNBIGlzIHVzZWQgb3Igbm90ICkKPiAKPiA+ICsjZGVmaW5lIEJV
-R19JTlNOXzMywqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF9VTCgweDAwMTAwMDczKSAvKiBlYnJl
-YWsgKi8KPiA+ICsjZGVmaW5lIEJVR19JTlNOXzE2wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF9V
-TCgweDkwMDIpwqDCoMKgwqAgLyogYy5lYnJlYWsgKi8KPiA+ICsjZGVmaW5lIENPTVBSRVNTRURf
-SU5TTl9NQVNLwqDCoMKgIF9VTCgweGZmZmYpCj4gPiArCj4gPiArI2RlZmluZSBHRVRfSU5TTl9M
-RU5HVEgoaW5zbinCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgXAo+ID4gKyh7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqAgdW5zaWduZWQgbG9uZyBsZW47
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgXAo+ID4gK8KgwqDCoCBsZW4gPSAoKGluc24gJiBJTlNOX0xFTkdU
-SF9NQVNLKSA9PSBJTlNOX0xFTkdUSF8zMikgP8KgwqAgXAo+ID4gK8KgwqDCoMKgwqDCoMKgIDRV
-TCA6IDJVTDvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFwKPiA+ICvCoMKgwqAgbGVuO8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gCj4gQW55IHJlYXNv
-biBmb3IgdGhlIHVzZSBvZiAidW5zaWduZWQgbG9uZyIgKG5vdCAidW5zaWduZWQgaW50IikgaGVy
-ZT8KPiAKVGhlcmUgaXMgbm8gc3BlY2lmaWMgcmVhc29uIChhdCBsZWFzdCBJIGRvbid0IHNlZSBp
-dCBub3cpLiBJdCBsb29rcwpsaWtlIGl0IGNhbiBiZSB1c2VkIGhlcmUgZXZlbiBzbWFsbGVyIHR5
-cGUgdGhhbiAndW5zaWduZWQgaW50JyBhcyBsZW4sCmluIGN1cnJlbnQgY2FzZSwgY2FuIGJlIGVp
-dGhlciA0IG9yIDIuCgo+ID4gK30pCj4gPiArCj4gPiArLyogVGhlc2UgYXJlIGRlZmluZWQgYnkg
-dGhlIGFyY2hpdGVjdHVyZSAqLwo+ID4gK2ludCBpc192YWxpZF9idWdhZGRyKHVpbnQzMl90IGFk
-ZHIpOwo+IAo+IEEgZnVuY3Rpb24gYnkgdGhpcyBuYW1lIHZlcnkgbGlrZWx5IHdhbnRzIHRvIHJl
-dHVybiBib29sLiBBbHNvIC0KPiB1aW50MzJfdCAobm90ICJ1bnNpZ25lZCBsb25nIikgZm9yIGFu
-IGFkZHJlc3M/Cj4gCkl0IHNob3VsZCBiZSB1bnNpZ25lZCBsb25nLgoKPiA+IC0tLSBhL3hlbi9h
-cmNoL3Jpc2N2L3NldHVwLmMKPiA+ICsrKyBiL3hlbi9hcmNoL3Jpc2N2L3NldHVwLmMKPiA+IEBA
-IC0xLDYgKzEsNiBAQAo+ID4gKyNpbmNsdWRlIDx4ZW4vYnVnLmg+Cj4gPiDCoCNpbmNsdWRlIDx4
-ZW4vY29tcGlsZS5oPgo+ID4gwqAjaW5jbHVkZSA8eGVuL2luaXQuaD4KPiA+IC0KPiA+IMKgI2lu
-Y2x1ZGUgPGFzbS9jc3IuaD4KPiA+IMKgI2luY2x1ZGUgPGFzbS9lYXJseV9wcmludGsuaD4KPiA+
-IMKgI2luY2x1ZGUgPGFzbS90cmFwcy5oPgo+IAo+IEkgdGhpbmsgaXQgaXMgZ29vZCBwcmFjdGlj
-ZSB0byBoYXZlIGEgYmxhbmsgbGluZSBiZXR3ZWVuIHhlbi8gYW5kCj4gYXNtLwo+IGluY2x1ZGVz
-Lgo+IApUaGFua3MuIEkgd2lsbCBicmluZyBhIGJsYW5rIGxpbmUgYmFjay4KCj4gPiAtLS0gYS94
-ZW4vYXJjaC9yaXNjdi90cmFwcy5jCj4gPiArKysgYi94ZW4vYXJjaC9yaXNjdi90cmFwcy5jCj4g
-PiBAQCAtOCw2ICs4LDcgQEAKPiA+IMKgI2luY2x1ZGUgPGFzbS9lYXJseV9wcmludGsuaD4KPiA+
-IMKgI2luY2x1ZGUgPGFzbS9wcm9jZXNzb3IuaD4KPiA+IMKgI2luY2x1ZGUgPGFzbS90cmFwcy5o
-Pgo+ID4gKyNpbmNsdWRlIDx4ZW4vYnVnLmg+Cj4gPiDCoCNpbmNsdWRlIDx4ZW4vZXJybm8uaD4K
-PiA+IMKgI2luY2x1ZGUgPHhlbi9saWIuaD4KPiAKPiBQZXJoYXBzIHdhbnRzIGFkanVzdGluZyBl
-YXJsaWVyIGluIHRoZSBzZXJpZXM6IFByZWZlcmFibHkgYWxsIHhlbi8KPiBhaGVhZCBvZiBhbGwg
-YXNtLy4KPiAKSSdsbCBmaXggaXQgaW4gdGhlIG5leHQgdmVyc2lvbiBvZiB0aGUgcGF0Y2ggc2Vy
-aWVzLgoKPiA+IEBAIC05Nyw3ICs5OCwxMzYgQEAgc3RhdGljIHZvaWQgZG9fdW5leHBlY3RlZF90
-cmFwKGNvbnN0IHN0cnVjdAo+ID4gY3B1X3VzZXJfcmVncyAqcmVncykKPiA+IMKgwqDCoMKgIGRp
-ZSgpOwo+ID4gwqB9Cj4gPiDCoAo+ID4gK3ZvaWQgc2hvd19leGVjdXRpb25fc3RhdGUoY29uc3Qg
-c3RydWN0IGNwdV91c2VyX3JlZ3MgKnJlZ3MpCj4gPiArewo+ID4gK8KgwqDCoCBlYXJseV9wcmlu
-dGsoImltcGxlbWVudCBzaG93X2V4ZWN1dGlvbl9zdGF0ZShyZWdzKVxuIik7Cj4gPiArfQo+ID4g
-Kwo+ID4gK2ludCBkb19idWdfZnJhbWUoY29uc3Qgc3RydWN0IGNwdV91c2VyX3JlZ3MgKnJlZ3Ms
-IHZhZGRyX3QgcGMpCj4gPiArewo+ID4gK8KgwqDCoCBzdHJ1Y3QgYnVnX2ZyYW1lICpzdGFydCwg
-KmVuZDsKPiA+ICvCoMKgwqAgc3RydWN0IGJ1Z19mcmFtZSAqYnVnID0gTlVMTDsKPiAKPiBjb25z
-dD8KcmVncyBhcmVuJ3QgY2hhbmdlZCBpbiB0aGUgZnVuY3Rpb24gc28gSSBkZWNpZGVkIHRvIHB1
-dCBpdCBhcyBjb25zdC4KPiAKPiA+ICvCoMKgwqAgdW5zaWduZWQgaW50IGlkID0gMDsKPiA+ICvC
-oMKgwqAgY29uc3QgY2hhciAqZmlsZW5hbWUsICpwcmVkaWNhdGU7Cj4gPiArwqDCoMKgIGludCBs
-aW5lbm87Cj4gPiArCj4gPiArwqDCoMKgIHVuc2lnbmVkIGxvbmcgYnVnX2ZyYW1lc1tdID0gewo+
-ID4gK8KgwqDCoMKgwqDCoMKgICh1bnNpZ25lZCBsb25nKSZfX3N0YXJ0X2J1Z19mcmFtZXNbMF0s
-Cj4gPiArwqDCoMKgwqDCoMKgwqAgKHVuc2lnbmVkIGxvbmcpJl9fc3RvcF9idWdfZnJhbWVzXzBb
-MF0sCj4gPiArwqDCoMKgwqDCoMKgwqAgKHVuc2lnbmVkIGxvbmcpJl9fc3RvcF9idWdfZnJhbWVz
-XzFbMF0sCj4gPiArwqDCoMKgwqDCoMKgwqAgKHVuc2lnbmVkIGxvbmcpJl9fc3RvcF9idWdfZnJh
-bWVzXzJbMF0sCj4gPiArwqDCoMKgwqDCoMKgwqAgKHVuc2lnbmVkIGxvbmcpJl9fc3RvcF9idWdf
-ZnJhbWVzXzNbMF0sCj4gPiArwqDCoMKgIH07Cj4gPiArCj4gPiArwqDCoMKgIGZvciAoIGlkID0g
-MDsgaWQgPCBCVUdGUkFNRV9OUjsgaWQrKyApCj4gPiArwqDCoMKgIHsKPiA+ICvCoMKgwqDCoMKg
-wqDCoCBzdGFydCA9IChzdHJ1Y3TCoCBidWdfZnJhbWUgKilidWdfZnJhbWVzW2lkXTsKPiA+ICvC
-oMKgwqDCoMKgwqDCoCBlbmQgPSAoc3RydWN0wqAgYnVnX2ZyYW1lICopYnVnX2ZyYW1lc1tpZCAr
-IDFdOwo+IAo+IE5pdDogU3RyYXkgZG91YmxlIGJsYW5rcy4gQnV0IEknZCBsaWtlIHRvIHN1Z2dl
-c3QgdGhhdCB5b3UgZ2V0IGF3YXkKPiB3aXRob3V0IGNhc3RzIGhlcmUgaW4gdGhlIGZpcnN0IHBs
-YWNlLiBTdWNoIGNhc3RzIGFyZSBhbHdheXMgYQo+IGNlcnRhaW4KPiByaXNrIGdvaW5nIGZvcndh
-cmQuCkRvIHlvdSBtZWFuIHRoYXQgaXQgaXMgYmV0dGVyIHRvIHJlLXdyaXRlIGJ1Z19mcmFtZVtd
-IHRvOgogICAgc3RydWN0IGJ1Z19mcmFuZSBidWdfZnJhbWVzW10gPSB7CiAgICAgICAgJl9fc3Rh
-cnRfYnVnX2ZyYW1lWzBdLAogICAgICAgIC4uLgo+IAo+ID4gK8KgwqDCoMKgwqDCoMKgIHdoaWxl
-ICggc3RhcnQgIT0gZW5kICkKPiA+ICvCoMKgwqDCoMKgwqDCoCB7Cj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpZiAoICh2YWRkcl90KWJ1Z19sb2Moc3RhcnQpID09IHBjICkKPiA+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHsKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-YnVnID0gc3RhcnQ7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZm91
-bmQ7Cj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9Cj4gPiArCj4gPiArwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBzdGFydCsrOwo+ID4gK8KgwqDCoMKgwqDCoMKgIH0KPiA+ICvCoMKgwqAgfQo+
-ID4gKwo+ID4gKyBmb3VuZDoKPiA+ICvCoMKgwqAgaWYgKCBidWcgPT0gTlVMTCApCj4gPiArwqDC
-oMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9FTlQ7Cj4gPiArCj4gPiArwqDCoMKgIGlmICggaWQgPT0g
-QlVHRlJBTUVfcnVuX2ZuICkKPiA+ICvCoMKgwqAgewo+ID4gK8KgwqDCoMKgwqDCoMKgIHZvaWQg
-KCpmbikoY29uc3Qgc3RydWN0IGNwdV91c2VyX3JlZ3MgKikgPSAodm9pZCAqKXJlZ3MtCj4gPiA+
-QlVHX0ZOX1JFRzsKPiA+ICsKPiA+ICvCoMKgwqDCoMKgwqDCoCBmbihyZWdzKTsKPiA+ICsKPiA+
-ICvCoMKgwqDCoMKgwqDCoCBnb3RvIGVuZDsKPiA+ICvCoMKgwqAgfQo+ID4gKwo+ID4gK8KgwqDC
-oCAvKiBXQVJOLCBCVUcgb3IgQVNTRVJUOiBkZWNvZGUgdGhlIGZpbGVuYW1lIHBvaW50ZXIgYW5k
-IGxpbmUKPiA+IG51bWJlci4gKi8KPiA+ICvCoMKgwqAgZmlsZW5hbWUgPSBidWdfZmlsZShidWcp
-Owo+ID4gK8KgwqDCoCBsaW5lbm8gPSBidWdfbGluZShidWcpOwo+ID4gKwo+ID4gK8KgwqDCoCBz
-d2l0Y2ggKCBpZCApCj4gPiArwqDCoMKgIHsKPiA+ICvCoMKgwqAgY2FzZSBCVUdGUkFNRV93YXJu
-Ogo+ID4gK8KgwqDCoMKgwqDCoMKgIC8qCj4gPiArwqDCoMKgwqDCoMKgwqDCoCAqIFRPRE86IGNo
-YW5nZSBlYXJseV9wcmludGsncyBmdW5jdGlvbiB0byBlYXJseV9wcmludGsKPiA+IHdpdGggZm9y
-bWF0Cj4gPiArwqDCoMKgwqDCoMKgwqDCoCAqwqDCoMKgwqDCoMKgIHdoZW4gcyhuKXByaW50Zigp
-IHdpbGwgYmUgYWRkZWQuCj4gPiArwqDCoMKgwqDCoMKgwqDCoCAqLwo+ID4gK8KgwqDCoMKgwqDC
-oMKgIGVhcmx5X3ByaW50aygiWGVuIFdBUk4gYXQgIik7Cj4gPiArwqDCoMKgwqDCoMKgwqAgZWFy
-bHlfcHJpbnRrKGZpbGVuYW1lKTsKPiA+ICvCoMKgwqDCoMKgwqDCoCBlYXJseV9wcmludGsoIjoi
-KTsKPiA+ICvCoMKgwqDCoMKgwqDCoCAvLyBlYXJseV9wcmludGtfaG51bShsaW5lbm8pOwo+IAo+
-IFdoYXQncyB0aGlzPyBBdCB0aGUgdmVyeSBsZWFzdCB0aGUgY29tbWVudCBpcyBtYWxmb3JtZWQu
-Ckl0J3MgYW4gb2xkIGNvZGUgdGhhdCBzaG91bGQgYmUgcmVtb3ZlZC4KCj4gCj4gPiArwqDCoMKg
-wqDCoMKgwqAgc2hvd19leGVjdXRpb25fc3RhdGUocmVncyk7Cj4gPiArCj4gPiArwqDCoMKgwqDC
-oMKgwqAgZ290byBlbmQ7Cj4gPiArCj4gPiArwqDCoMKgIGNhc2UgQlVHRlJBTUVfYnVnOgo+ID4g
-K8KgwqDCoMKgwqDCoMKgwqAgLyoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgKiBUT0RPOiBjaGFu
-Z2UgZWFybHlfcHJpbnRrJ3MgZnVuY3Rpb24gdG8gZWFybHlfcHJpbnRrCj4gPiB3aXRoIGZvcm1h
-dAo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCAqwqDCoMKgwqDCoMKgIHdoZW4gcyhuKXByaW50Zigp
-IHdpbGwgYmUgYWRkZWQuCj4gPiArwqDCoMKgwqDCoMKgwqDCoMKgICovCj4gPiArwqDCoMKgwqDC
-oMKgwqAgZWFybHlfcHJpbnRrKCJYZW4gQlVHIGF0ICIpOwo+ID4gK8KgwqDCoMKgwqDCoMKgIGVh
-cmx5X3ByaW50ayhmaWxlbmFtZSk7Cj4gPiArwqDCoMKgwqDCoMKgwqAgZWFybHlfcHJpbnRrKCI6
-Iik7Cj4gPiArwqDCoMKgwqDCoMKgwqAgLy8gZWFybHlfcHJpbnRrX2hudW0obGluZW5vKTsKPiA+
-ICsKPiA+ICvCoMKgwqDCoMKgwqDCoCBzaG93X2V4ZWN1dGlvbl9zdGF0ZShyZWdzKTsKPiA+ICvC
-oMKgwqDCoMKgwqDCoCBlYXJseV9wcmludGsoImNoYW5nZSB3YWl0X2Zvcl9pbnRlcnJ1cHQgdG8g
-cGFuaWMoKSB3aGVuCj4gPiBjb21tb24gaXMgYXZhaWxhYmxlXG4iKTsKPiA+ICvCoMKgwqDCoMKg
-wqDCoCBkaWUoKTsKPiA+ICsKPiA+ICvCoMKgwqAgY2FzZSBCVUdGUkFNRV9hc3NlcnQ6Cj4gPiAr
-wqDCoMKgwqDCoMKgwqAgLyogQVNTRVJUOiBkZWNvZGUgdGhlIHByZWRpY2F0ZSBzdHJpbmcgcG9p
-bnRlci4gKi8KPiA+ICvCoMKgwqDCoMKgwqDCoCBwcmVkaWNhdGUgPSBidWdfbXNnKGJ1Zyk7Cj4g
-PiArCj4gPiArwqDCoMKgwqDCoMKgwqAgLyoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgICogVE9ETzog
-Y2hhbmdlIGVhcmx5X3ByaW50aydzIGZ1bmN0aW9uIHRvIGVhcmx5X3ByaW50awo+ID4gd2l0aCBm
-b3JtYXQKPiA+ICvCoMKgwqDCoMKgwqDCoMKgICrCoMKgwqDCoMKgwqAgd2hlbiBzKG4pcHJpbnRm
-KCkgd2lsbCBiZSBhZGRlZC4KPiA+ICvCoMKgwqDCoMKgwqDCoMKgICovCj4gPiArwqDCoMKgwqDC
-oMKgwqAgZWFybHlfcHJpbnRrKCJBc3NlcnRpb24gXCciKTsKPiA+ICvCoMKgwqDCoMKgwqDCoCBl
-YXJseV9wcmludGsocHJlZGljYXRlKTsKPiA+ICvCoMKgwqDCoMKgwqDCoCBlYXJseV9wcmludGso
-IlwnIGZhaWxlZCBhdCAiKTsKPiA+ICvCoMKgwqDCoMKgwqDCoCBlYXJseV9wcmludGsoZmlsZW5h
-bWUpOwo+ID4gK8KgwqDCoMKgwqDCoMKgIGVhcmx5X3ByaW50aygiOiIpOwo+ID4gK8KgwqDCoMKg
-wqDCoMKgIC8vIGVhcmx5X3ByaW50a19obnVtKGxpbmVubyk7Cj4gPiArCj4gPiArwqDCoMKgwqDC
-oMKgwqAgc2hvd19leGVjdXRpb25fc3RhdGUocmVncyk7Cj4gPiArwqDCoMKgwqDCoMKgwqAgZWFy
-bHlfcHJpbnRrKCJjaGFuZ2Ugd2FpdF9mb3JfaW50ZXJydXB0IHRvIHBhbmljKCkgd2hlbgo+ID4g
-Y29tbW9uIGlzIGF2YWlsYWJsZVxuIik7Cj4gPiArwqDCoMKgwqDCoMKgwqAgZGllKCk7Cj4gPiAr
-wqDCoMKgIH0KPiA+ICsKPiA+ICvCoMKgwqAgcmV0dXJuIC1FSU5WQUw7Cj4gPiArCj4gPiArIGVu
-ZDoKPiA+ICvCoMKgwqAgcmV0dXJuIDA7Cj4gPiArfQo+ID4gKwo+ID4gK2ludCBpc192YWxpZF9i
-dWdhZGRyKHVpbnQzMl90IGluc24pCj4gPiArewo+ID4gK8KgwqDCoCBpZiAoKGluc24gJiBJTlNO
-X0xFTkdUSF9NQVNLKSA9PSBJTlNOX0xFTkdUSF8zMikKPiAKPiBOaXQ6IFN0eWxlLgpUaGFua3Mu
-IEknbGwgZml4IGl0Lgo+IAo+ID4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiAoaW5zbiA9PSBCVUdf
-SU5TTl8zMik7Cj4gPiArwqDCoMKgIGVsc2UKPiA+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gKChp
-bnNuICYgQ09NUFJFU1NFRF9JTlNOX01BU0spID09IEJVR19JTlNOXzE2KTsKPiA+ICt9Cj4gPiAr
-Cj4gPiDCoHZvaWQgZG9fdHJhcChzdHJ1Y3QgY3B1X3VzZXJfcmVncyAqY3B1X3JlZ3MpCj4gPiDC
-oHsKPiA+ICvCoMKgwqAgcmVnaXN0ZXJfdCBwYyA9IGNwdV9yZWdzLT5zZXBjOwo+ID4gK8KgwqDC
-oCB1aW50MzJfdCBpbnN0ciA9ICoodWludDMyX3QgKilwYzsKPiAKPiBZb3Ugc3RpbGwgcmVhZCBh
-IDMyLWJpdCB2YWx1ZSB3aGVuIG9ubHkgMTYgYml0cyBtYXkgYmUgYWNjZXNzaWJsZS4KU2luY2Ug
-dGhlcmUgd2VyZSBhIGxvdCBvZiBjb21tZW50cyBvbiB0aGUgcHJldmlvdXMgdmVyc2lvbiBvZiBw
-YXRjaApzZXJpZXMsIHRoaXMgY29tbWVudCBzbGlwcGVkIG91dCBvZiBteSBoZWFkLgpJJ2xsIGZp
-eCBpbiBuZXcgdmVyc2lvbiBvZiB0aGUgcGF0Y2ggc2VyaWVzLgoKPiAKPiA+ICvCoMKgwqAgaWYg
-KGlzX3ZhbGlkX2J1Z2FkZHIoaW5zdHIpKSB7Cj4gPiArwqDCoMKgwqDCoMKgwqAgaWYgKCFkb19i
-dWdfZnJhbWUoY3B1X3JlZ3MsIGNwdV9yZWdzLT5zZXBjKSkgewo+IAo+IEknbSBwcmV0dHkgc3Vy
-ZSBJIGRpZCBwb2ludCBvdXQgdGhlIHN0eWxlIGlzc3VlcyBoZXJlLgo+IAo+ID4gK8KgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgY3B1X3JlZ3MtPnNlcGMgKz0gR0VUX0lOU05fTEVOR1RIKCoodWludDMy
-X3QgKilwYyk7Cj4gCj4gV2h5IHdvdWxkIHlvdSByZS1yZWFkIHRoZSBpbnNuIGhlcmUsIHdoZW4g
-eW91IGhhdmUgaXQgaW4gYSBsb2NhbAo+IHZhcmlhYmxlCj4gYWxyZWFkeT8KSW5hdHRlbnRpb24u
-IEknbGwgcmUtdXNlIGxvY2FsIHZhcmlhYmxlLgo+IAo+IEphbgoK
+Hi All,
+
+Please have a look at https://lists.xenproject.org/archives/html/xen-devel/2022-11/msg01465.html
+for the context.
+
+The benefits of using 32 bit physical addresses are as follows :-
+
+1. It helps to use Xen on platforms (for eg R52) which supports 32 bit
+physical addresses and has no support for large physical address extension.
+On 32 bit MPU systems which supports flat-mapping (for eg R52), it helps
+to translate 32 bit VA into 32 bit PA.
+
+2. It also helps in code optimization when the underlying platform does not
+use large physical address extension.
+
+The current patch serie depends on :-
+"[XEN v5] xen/arm: Use the correct format specifier"
+https://lists.xenproject.org/archives/html/xen-devel/2023-01/msg01896.html
+I did not send out the patch again as it has already been reviewed and acked and
+is waiting to be committed to staging.
+
+The following points are to be noted :-
+1. Device tree always use u64 for address and size. The caller needs to
+translate between u64 and u32 (when 32 bit physical addressing is used).
+2. Currently, we have enabled this option for Arm_32 as the MMU for Arm_64
+uses 48 bit physical addressing.
+3. https://lists.xenproject.org/archives/html/xen-devel/2022-12/msg00117.html
+has been added to this series.
+
+Changes from :
+
+v1 - 1. Reordered the patches such that the first three patches fixes issues in
+the existing codebase. These can be applied independent of the remaining patches
+in this serie,
+
+2. Dropped translate_dt_address_size() for the address/size translation between
+paddr_t and u64 (as parsed from the device tree). Also, dropped the check for
+truncation (while converting u64 to paddr_t).
+Instead now we have modified device_tree_get_reg() and typecasted the return for
+dt_read_number(), to obtain paddr_t. Also, introduced wrappers for
+fdt_get_mem_rsv() and dt_device_get_address() for the same purpose. These can be
+found in patch 4/11 and patch 6/11.
+
+3. Split "Other adaptations required to support 32bit paddr" into the following
+individual patches for each adaptation :
+  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
+    SMMU_CBn_TTBR0
+  xen/arm: guest_walk: LPAE specific bits should be enclosed within
+    "ifndef CONFIG_ARM_PA_32"
+
+4. Introduced "xen/arm: p2m: Enable support for 32bit IPA".
+
+v2 - 1. Dropped patches 1/11, 2/11 and 3/11 from the v2 as it has already been
+committed (except 2/11 - "[XEN v5] xen/arm: Use the correct format specifier"
+which is waiting to be committed).
+
+2. Introduced a new patch "xen/drivers: ns16550: Use paddr_t for io_base/io_size".
+
+Ayan Kumar Halder (9):
+  xen/ns16550: Remove unneeded truncation check in the DT init code
+  xen/arm: Typecast the DT values into paddr_t
+  xen/drivers: ns16550: Use paddr_t for io_base/io_size
+  xen/arm: Introduce a wrapper for dt_device_get_address() to handle
+    paddr_t
+  xen/arm: smmu: Use writeq_relaxed_non_atomic() for writing to
+    SMMU_CBn_TTBR0
+  xen/arm: Introduce choice to enable 64/32 bit physical addressing
+  xen/arm: guest_walk: LPAE specific bits should be enclosed within
+    "ifndef CONFIG_ARM_PA_32"
+  xen/arm: Restrict zeroeth_table_offset for ARM_64
+  xen/arm: p2m: Enable support for 32bit IPA
+
+ xen/arch/Kconfig                           | 12 +++++
+ xen/arch/arm/Kconfig                       | 31 +++++++++++++
+ xen/arch/arm/bootfdt.c                     | 38 ++++++++++++----
+ xen/arch/arm/domain_build.c                | 12 ++---
+ xen/arch/arm/gic-v2.c                      | 10 ++---
+ xen/arch/arm/gic-v3-its.c                  |  4 +-
+ xen/arch/arm/gic-v3.c                      | 10 ++---
+ xen/arch/arm/guest_walk.c                  |  2 +
+ xen/arch/arm/include/asm/lpae.h            |  4 ++
+ xen/arch/arm/include/asm/page-bits.h       |  2 +
+ xen/arch/arm/include/asm/setup.h           |  2 +-
+ xen/arch/arm/include/asm/types.h           |  6 +++
+ xen/arch/arm/mm.c                          |  7 +--
+ xen/arch/arm/p2m.c                         | 10 +++--
+ xen/arch/arm/pci/pci-host-common.c         |  6 +--
+ xen/arch/arm/platforms/brcm-raspberry-pi.c |  2 +-
+ xen/arch/arm/platforms/brcm.c              |  4 +-
+ xen/arch/arm/platforms/exynos5.c           | 32 ++++++-------
+ xen/arch/arm/platforms/sunxi.c             |  2 +-
+ xen/arch/arm/platforms/xgene-storm.c       |  2 +-
+ xen/arch/arm/setup.c                       | 14 +++---
+ xen/arch/arm/smpboot.c                     |  2 +-
+ xen/common/device_tree.c                   | 36 ++++++++++++++-
+ xen/drivers/char/cadence-uart.c            |  4 +-
+ xen/drivers/char/exynos4210-uart.c         |  4 +-
+ xen/drivers/char/imx-lpuart.c              |  4 +-
+ xen/drivers/char/meson-uart.c              |  4 +-
+ xen/drivers/char/mvebu-uart.c              |  4 +-
+ xen/drivers/char/ns16550.c                 | 31 ++++++++-----
+ xen/drivers/char/omap-uart.c               |  4 +-
+ xen/drivers/char/pl011.c                   |  6 +--
+ xen/drivers/char/scif-uart.c               |  4 +-
+ xen/drivers/passthrough/arm/ipmmu-vmsa.c   |  8 ++--
+ xen/drivers/passthrough/arm/smmu-v3.c      |  2 +-
+ xen/drivers/passthrough/arm/smmu.c         | 23 +++++-----
+ xen/include/xen/device_tree.h              | 27 +++++++++--
+ xen/include/xen/libfdt/libfdt_xen.h        | 52 ++++++++++++++++++++++
+ xen/include/xen/types.h                    |  2 +
+ 38 files changed, 311 insertions(+), 118 deletions(-)
+ create mode 100644 xen/include/xen/libfdt/libfdt_xen.h
+
+-- 
+2.17.1
 
 
