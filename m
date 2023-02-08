@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FBE468F94D
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 21:59:23 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491995.761388 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10A3D68F94B
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 21:59:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491994.761382 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPrWe-000863-Jf; Wed, 08 Feb 2023 20:58:44 +0000
+	id 1pPrWe-00082h-Bm; Wed, 08 Feb 2023 20:58:44 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491995.761388; Wed, 08 Feb 2023 20:58:44 +0000
+Received: by outflank-mailman (output) from mailman id 491994.761382; Wed, 08 Feb 2023 20:58:44 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPrWe-00082m-Ej; Wed, 08 Feb 2023 20:58:44 +0000
-Received: by outflank-mailman (input) for mailman id 491995;
+	id 1pPrWe-00080Z-7q; Wed, 08 Feb 2023 20:58:44 +0000
+Received: by outflank-mailman (input) for mailman id 491994;
  Wed, 08 Feb 2023 20:58:42 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=mMba=6E=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pPrWc-000800-Lt
+ id 1pPrWc-0007kX-Ko
  for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 20:58:42 +0000
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 5b6a5f2d-a7f3-11ed-933c-83870f6b2ba8;
- Wed, 08 Feb 2023 21:58:39 +0100 (CET)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 360795C0114;
- Wed,  8 Feb 2023 15:58:37 -0500 (EST)
+ [66.111.4.28]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 5d433fe9-a7f3-11ed-93b5-47a8fe42b414;
+ Wed, 08 Feb 2023 21:58:40 +0100 (CET)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0C1455C013E;
+ Wed,  8 Feb 2023 15:58:40 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Wed, 08 Feb 2023 15:58:37 -0500
+ by compute4.internal (MEProxy); Wed, 08 Feb 2023 15:58:40 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 8 Feb 2023 15:58:35 -0500 (EST)
+ 8 Feb 2023 15:58:38 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,51 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 5b6a5f2d-a7f3-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 5d433fe9-a7f3-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-transfer-encoding:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:sender:subject:subject:to:to; s=fm3; t=
-	1675889917; x=1675976317; bh=mEGhY+Vya8iAlE9GB9PbRYaZwA2j9eKz3dR
-	M4StDQ70=; b=ozyYwcXHg1RrE3lLptE+zLipMntILP0qWcQtn4NSEyKVeD5g1vw
-	ZHKEgoYenRyg9mAiRArU8g4uvT5QiFnuq4ZjEasabFEV5FxlwQFHqHBxFO11BjRr
-	aDPeSiBL7HaLQQTehj4tXDhkrzSZGpIjoSXhcgGl8c1H8sLzFvhuoAbz+bzAD/Eh
-	1EdGU8/BsPcKPszxgRA6gDHb4iyXuuJp8RsT5EE3Prc9CkrE/iHk/qObknLDZy3c
-	/4EqZP8wQsdav2rsqBO9qhnnsNLA+G+yvNT7mf2mnZxmXdoLTmeCpPIOWllLfipF
-	paung8Z3C/VYlxa2lm0nwG50cjw67/DBvxg==
+	1675889920; x=1675976320; bh=YjlH9X1VyXgKgkGafsk0dvpHNT7Xq4V4f4f
+	mb7TTmQY=; b=jaEcFfmHc3jC4mYccFTIPr09qO7jo80ZccMUmV7ONnH7Y13AcC1
+	J0mqLLxFgjaQ7taNYM/UqrQ1pUVcB5eGD1QXvpm75yZEyliVvM99ErUNaFdhkFCT
+	GLBQEbceYawOVVStZOfeU7ZJVvRXToWHeouzAh7mpopV169AweJxZRa2PxXk8a+r
+	jOAHpX4+aWWmrQau5OkCA/UANUQsGoVeCFZf7+t9JTXJliuJ2E3oOCSh1hSutPhf
+	Fz6N7NArDclx7i2KcIuh+qYRACQUnHubGyBHWoq6g59kJF1gu5dOZngWMOz0VUoq
+	p5NekZSxz0CXEWDMEFgB5CldR83ZC6dO0Rw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:sender:subject
 	:subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
-	:x-sasl-enc; s=fm1; t=1675889917; x=1675976317; bh=mEGhY+Vya8iAl
-	E9GB9PbRYaZwA2j9eKz3dRM4StDQ70=; b=halKxgKZ7sSdmrY4257EzJTAwrRhZ
-	YUH9cmdxgpMLXtrVP+jROOZaRc6lYXnJ4LcOsd+ginkVEKBeKXrhEHVuou/RYsGJ
-	Ft3LAC2yCE66oe6leEvPvxEVfLStTgeDYJOJzgYo6DiiCgX1pLs+a3Kmk+DVmDR2
-	IGVMvh+EO6t4wLjvepyL3tLSN6DJbqPW46bS6LXGcmjAiFiOP56h02a8dY12eP8Q
-	IYxNw5EcmGEumCki8ehIcGxdMjWZT/xjPTSl662MIpLt90BrTssa8j4aOUPysak/
-	WXKpIl2LUTN9fo+EpkFIZy/AQYNLmUTJSTadvM/6q846+zqYH9oJaoYMA==
-X-ME-Sender: <xms:_AzkYxW76aVSsrbVfHPBY5sdDfnxWnI5mtcR6qRObsey76zxfbflgw>
-    <xme:_AzkYxmi65eS-tnInYENyiX2m4RVPM5ceTi6EddYrPFArueQ9IyPWPivzdfHNGCBv
-    g1poTFD8a2Xz_Y>
-X-ME-Received: <xmr:_AzkY9bSYncRdAwI0zfkBLLCS0-P3YNHqUZQhs9swCdGYPqCcTU-b6GdQS9CtMOVE1apgrJtnuI>
+	:x-sasl-enc; s=fm1; t=1675889920; x=1675976320; bh=YjlH9X1VyXgKg
+	kGafsk0dvpHNT7Xq4V4f4fmb7TTmQY=; b=epZVL0unkdc7f5L0bOAadoCipddZY
+	oDZp2lKBJaGzoNwWCywg+liuQqg1MZlPBLE+bWlQtPeCEFWoI3Oeba7XhrAiQXW6
+	hZcx6twW/Nxxs61YTlagFpQ7ACJCOdmL9Rb0GGQeT6c3Vgtws0gPh7YrO6bhorEd
+	PxjLp5KN3fRSyjYQN8yZFgK0CMBp9XhnKf8bBGovIaFeWZsT8Y5Xtu1LKYLyMAUM
+	N4Juxc6hTSY9ctAH+xX5tfjRebTilxhBzhRzexd/qX5rLBo+j58GbwWymSVfIARx
+	ytuY6eQ9CtziUqaT1vK5wff7YAP0b6vgw6hAH2ofBr3bZ6FfTtworH71A==
+X-ME-Sender: <xms:_wzkY9nLq60Omlz3mRI79IGgILONohEJGSdCOmyjnXi4D3CW172Uag>
+    <xme:_wzkY43dTK0iL16Uvpw2YkOF30d9xUAf5wd-vlhwH_lEQF2jUZ6FIRzFbEVmAwVm5
+    YI4rR0gisFpytI>
+X-ME-Received: <xmr:_wzkYzpbI1TlOx06GDFoPa6EWTeoPJUDSHdmt79S7EiX5rCC3mn9ONcf7688k07VARWi5bX4Png>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehuddgkedtucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
     ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkeevtdevgffhieevgffgjeetueej
-    veegleeihfeileehudfggfetvdevueekudeknecuffhomhgrihhnpeigvghnrdhorhhgpd
-    hslhhofihglhgrshhsrdgtohhmpdhinhhfrhgruggvrggurdhorhhgpdhsphhhihhngidq
-    ughotgdrohhrghdpiihlihgsrdhnvghtpdhkvghrnhgvlhdrohhrghdprhgvughhrghtrd
-    gtohhmpdhgnhhurdhorhhgpdhinhhrihgrrdhfrhdpghhmphhlihgsrdhorhhgpdhpohhl
-    rghrshhslhdrohhrghdpsggvrhhlihhoshdruggvpdhsohhurhgtvgifrghrvgdrohhrgh
-    dpihhpgigvrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
-    lhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:_QzkY0V1q9RB90tx2squsHdPSmk0gtGpD6EfZxP24PKJPP0UIH0hTQ>
-    <xmx:_QzkY7mwPMbj_a2DJckeKnR0bTXFoAEitVBZlGULN_TqeRIlhR57Fw>
-    <xmx:_QzkYxcREMjLAXL9FJgOokpIUYDrZsLFd8WJhQzniAHclJ-dATk1nA>
-    <xmx:_QzkY5Xk1S9FG6dxPDJXI3CMoZDNN8cfJzNPmokZ3lbqPJAfBkzgMw>
+    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepteduueehgeeujeegudeiffffveel
+    teeljeevudeileffieetgfegffeitedvkeeunecuffhomhgrihhnpehphihthhhonhdroh
+    hrghdpihhnthgvlhdrtghomhdptggvnhhtohhsrdhorhhgpdhllhhvmhdrohhrghdpuggv
+    sghirghnrdhorhhgpdgrlhhpihhnvghlihhnuhigrdhorhhgnecuvehluhhsthgvrhfuih
+    iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgv
+    thhhihhnghhslhgrsgdrtghomh
+X-ME-Proxy: <xmx:_wzkY9lfX0HK4EoU_SmAnng7TbskdSCUx65lpsnRA0xRPBPdrXaQdw>
+    <xmx:_wzkY72JCEyqK5Nkb2BjJvk4QQMyzZqvksVgtyPHOfJTHH2raf9PMA>
+    <xmx:_wzkY8sPhWznX9uA3QOr6OlvJpfjr6JylW2ydG3ceiQzUvIABwnb-w>
+    <xmx:AA3kY1rZ99mRymy1v4ueDY7zBQQ3rfUmcmeCfgLPBYBHlwWMrH3TEg>
 Feedback-ID: iac594737:Fastmail
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: xen-devel@lists.xenproject.org
@@ -98,11 +96,10 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
 	Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>,
 	Wei Liu <wl@xen.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: [PATCH v2 1/4] Build system: Replace git:// and http:// with https://
-Date: Wed,  8 Feb 2023 15:58:21 -0500
-Message-Id: <75d91def8234bceb41548147ee8af5fea52bd1d6.1675889602.git.demi@invisiblethingslab.com>
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: [PATCH v2 2/4] Automation and CI: Replace git:// and http:// with https://
+Date: Wed,  8 Feb 2023 15:58:22 -0500
+Message-Id: <8a3d0ce9747e486e91ad5b47777c80293e0fd168.1675889602.git.demi@invisiblethingslab.com>
 X-Mailer: git-send-email 2.39.1
 In-Reply-To: <cover.1675889601.git.demi@invisiblethingslab.com>
 References: <cover.1675889601.git.demi@invisiblethingslab.com>
@@ -113,237 +110,109 @@ Obtaining code over an insecure transport is a terrible idea for
 blatently obvious reasons.  Even for non-executable data, insecure
 transports are considered deprecated.
 
-This patch enforces the use of secure transports in the build system.
+This patch enforces the use of secure transports in automation and CI.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- Config.mk                         | 20 ++++++--------------
- docs/README.remus                 |  2 +-
- docs/conf.py                      |  2 +-
- scripts/get_maintainer.pl         |  2 +-
- stubdom/configure                 | 18 +++++++++---------
- stubdom/configure.ac              | 24 +++++++++++++++---------
- tools/firmware/etherboot/Makefile |  6 +-----
- 7 files changed, 34 insertions(+), 40 deletions(-)
+ README                                       | 4 ++--
+ automation/build/centos/CentOS-7.2.repo      | 8 ++++----
+ automation/build/debian/stretch-llvm-8.list  | 4 ++--
+ automation/build/debian/unstable-llvm-8.list | 4 ++--
+ automation/scripts/qemu-smoke-dom0-arm32.sh  | 2 +-
+ 5 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/Config.mk b/Config.mk
-index 10eb443b17d85381b2d1e2282f8965c3e99767e0..b2bef45b059976d5a6320eabada6073004eb22ee 100644
---- a/Config.mk
-+++ b/Config.mk
-@@ -191,7 +191,7 @@ APPEND_CFLAGS += $(foreach i, $(APPEND_INCLUDES), -I$(i))
- EMBEDDED_EXTRA_CFLAGS := -fno-pie -fno-stack-protector -fno-stack-protector-all
- EMBEDDED_EXTRA_CFLAGS += -fno-exceptions -fno-asynchronous-unwind-tables
+diff --git a/README b/README
+index 755b3d8eaf8f7a58a945b7594e68a3fe455a7bdf..f8cc426f78d690f37e013242e81d4e440556c330 100644
+--- a/README
++++ b/README
+@@ -181,7 +181,7 @@ Python Runtime Libraries
+ Various tools, such as pygrub, have the following runtime dependencies:
  
--XEN_EXTFILES_URL ?= http://xenbits.xen.org/xen-extfiles
-+XEN_EXTFILES_URL ?= https://xenbits.xen.org/xen-extfiles
- # All the files at that location were downloaded from elsewhere on
- # the internet.  The original download URL is preserved as a comment
- # near the place in the Xen Makefiles where the file is used.
-@@ -215,19 +215,11 @@ ifneq (,$(QEMU_TAG))
- QEMU_TRADITIONAL_REVISION ?= $(QEMU_TAG)
- endif
+     * Python 2.6 or later.
+-          URL:    http://www.python.org/
++          URL:    https://www.python.org/
+           Debian: python
  
--ifeq ($(GIT_HTTP),y)
--OVMF_UPSTREAM_URL ?= http://xenbits.xen.org/git-http/ovmf.git
--QEMU_UPSTREAM_URL ?= http://xenbits.xen.org/git-http/qemu-xen.git
--QEMU_TRADITIONAL_URL ?= http://xenbits.xen.org/git-http/qemu-xen-traditional.git
--SEABIOS_UPSTREAM_URL ?= http://xenbits.xen.org/git-http/seabios.git
--MINIOS_UPSTREAM_URL ?= http://xenbits.xen.org/git-http/mini-os.git
--else
--OVMF_UPSTREAM_URL ?= git://xenbits.xen.org/ovmf.git
--QEMU_UPSTREAM_URL ?= git://xenbits.xen.org/qemu-xen.git
--QEMU_TRADITIONAL_URL ?= git://xenbits.xen.org/qemu-xen-traditional.git
--SEABIOS_UPSTREAM_URL ?= git://xenbits.xen.org/seabios.git
--MINIOS_UPSTREAM_URL ?= git://xenbits.xen.org/mini-os.git
--endif
-+OVMF_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/ovmf.git
-+QEMU_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/qemu-xen.git
-+QEMU_TRADITIONAL_URL ?= https://xenbits.xen.org/git-http/qemu-xen-traditional.git
-+SEABIOS_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/seabios.git
-+MINIOS_UPSTREAM_URL ?= https://xenbits.xen.org/git-http/mini-os.git
- OVMF_UPSTREAM_REVISION ?= 7b4a99be8a39c12d3a7fc4b8db9f0eab4ac688d5
- QEMU_UPSTREAM_REVISION ?= master
- MINIOS_UPSTREAM_REVISION ?= 5bcb28aaeba1c2506a82fab0cdad0201cd9b54b3
-diff --git a/docs/README.remus b/docs/README.remus
-index e41e045a109466213b39bf5099ee16652b229ccc..10929e06d049755c4e8a9c900af7e10048c3effb 100644
---- a/docs/README.remus
-+++ b/docs/README.remus
-@@ -7,7 +7,7 @@ Using Remus with libxl on Xen 4.5 and higher:
-  To enable network buffering, you need libnl 3.2.8
-  or higher along with the development headers and command line utilities.
-  If your distro does not have the appropriate libnl3 version, you can find
-- the latest source tarball of libnl3 at http://www.carisma.slowglass.com/~tgr/libnl/
-+ the latest source tarball of libnl3 at https://www.infradead.org/~tgr/libnl/
+ Note that the build system expects `python` to be available. If your system
+@@ -197,7 +197,7 @@ Intel(R) Trusted Execution Technology Support
+ Intel's technology for safer computing, Intel(R) Trusted Execution Technology
+ (Intel(R) TXT), defines platform-level enhancements that provide the building
+ blocks for creating trusted platforms.  For more information, see
+-http://www.intel.com/technology/security/.
++https://www.intel.com/technology/security/.
  
- Disk replication:
-  VMs protected by Remus need to use DRBD based disk backends. Specifically, you
-diff --git a/docs/conf.py b/docs/conf.py
-index 50e41501db8f95bd186818c49a8e6538d733012b..7f4adce29e57e4ab8be9a09fc105bb133c51dbb0 100644
---- a/docs/conf.py
-+++ b/docs/conf.py
-@@ -5,7 +5,7 @@
- #
- # This file does only contain a selection of the most common options. For a
- # full list see the documentation:
--# http://www.sphinx-doc.org/en/master/config
-+# https://www.sphinx-doc.org/en/master/config
+ Intel(R) TXT support is provided by the Trusted Boot (tboot) module in
+ conjunction with minimal logic in the Xen hypervisor.
+diff --git a/automation/build/centos/CentOS-7.2.repo b/automation/build/centos/CentOS-7.2.repo
+index 4da27faeb5fa863fd4e140cbeaad308b9a543b86..8e37da1a03f839c486eb9bd0af46716cfb9086e0 100644
+--- a/automation/build/centos/CentOS-7.2.repo
++++ b/automation/build/centos/CentOS-7.2.repo
+@@ -6,28 +6,28 @@
  
- # -- Path setup --------------------------------------------------------------
+ [base]
+ name=CentOS-7.2.1511 - Base
+-baseurl=http://vault.centos.org/7.2.1511/os/$basearch/
++baseurl=https://vault.centos.org/7.2.1511/os/$basearch/
+ gpgcheck=1
+ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
  
-diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
-index 48e07370e8d462ced70a1de13ec8134b4eed65ba..cf629cdf3c44e4abe67214378c49a3a9d858d9b5 100755
---- a/scripts/get_maintainer.pl
-+++ b/scripts/get_maintainer.pl
-@@ -1457,7 +1457,7 @@ sub vcs_exists {
- 	warn("$P: No supported VCS found.  Add --nogit to options?\n");
- 	warn("Using a git repository produces better results.\n");
- 	warn("Try latest git repository using:\n");
--	warn("git clone git://xenbits.xen.org/xen.git\n");
-+	warn("git clone https://xenbits.xen.org/git-http/xen.git\n");
- 	$printed_novcs = 1;
-     }
-     return 0;
-diff --git a/stubdom/configure b/stubdom/configure
-index b8bffceafdd46181e26a79b85405aefb8bc3ff7d..8b409d294d6ad5e363d6942078e66de95fa0503d 100755
---- a/stubdom/configure
-+++ b/stubdom/configure
-@@ -3535,7 +3535,7 @@ if test "x$ZLIB_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   ZLIB_URL=\$\(XEN_EXTFILES_URL\)
- else
--  ZLIB_URL="http://www.zlib.net"
-+  ZLIB_URL="https://www.zlib.net"
- fi
+ #released updates 
+ [updates]
+ name=CentOS-7.2.1511 - Updates
+-baseurl=http://vault.centos.org/7.2.1511/updates/$basearch/
++baseurl=https://vault.centos.org/7.2.1511/updates/$basearch/
+ gpgcheck=1
+ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
  
- fi
-@@ -3550,7 +3550,7 @@ if test "x$LIBPCI_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   LIBPCI_URL=\$\(XEN_EXTFILES_URL\)
- else
--  LIBPCI_URL="http://www.kernel.org/pub/software/utils/pciutils"
-+  LIBPCI_URL="https://www.kernel.org/pub/software/utils/pciutils"
- fi
+ #additional packages that may be useful
+ [extras]
+ name=CentOS-7.2.1511 - Extras
+-baseurl=http://vault.centos.org/7.2.1511/extras/$basearch/
++baseurl=https://vault.centos.org/7.2.1511/extras/$basearch/
+ gpgcheck=1
+ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
  
- fi
-@@ -3565,7 +3565,7 @@ if test "x$NEWLIB_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   NEWLIB_URL=\$\(XEN_EXTFILES_URL\)
- else
--  NEWLIB_URL="ftp://sources.redhat.com/pub/newlib"
-+  NEWLIB_URL="https://sources.redhat.com/pub/newlib"
- fi
+ #additional packages that extend functionality of existing packages
+ [centosplus]
+ name=CentOS-7.2.1511 - Plus
+-baseurl=http://vault.centos.org/7.2.1511/centosplus/$basearch/
++baseurl=https://vault.centos.org/7.2.1511/centosplus/$basearch/
+ gpgcheck=1
+ gpgcheck=1
+ enabled=0
+diff --git a/automation/build/debian/stretch-llvm-8.list b/automation/build/debian/stretch-llvm-8.list
+index 09fe843fb2a31ae38f752d7c8c71cf97f5b14513..590001ca81e826ab624ba9185423adf4b0c51a21 100644
+--- a/automation/build/debian/stretch-llvm-8.list
++++ b/automation/build/debian/stretch-llvm-8.list
+@@ -1,3 +1,3 @@
+ # Strech LLVM 8 repos
+-deb http://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
+-deb-src http://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
++deb https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
++deb-src https://apt.llvm.org/stretch/ llvm-toolchain-stretch-8 main
+diff --git a/automation/build/debian/unstable-llvm-8.list b/automation/build/debian/unstable-llvm-8.list
+index dc119fa0b4df1bd6e742c42776710abcd6deaa86..1db1598997429d7a14d3fcd8f0f8152aa6d40b8a 100644
+--- a/automation/build/debian/unstable-llvm-8.list
++++ b/automation/build/debian/unstable-llvm-8.list
+@@ -1,3 +1,3 @@
+ # Unstable LLVM 8 repos
+-deb http://apt.llvm.org/unstable/ llvm-toolchain-8 main
+-deb-src http://apt.llvm.org/unstable/ llvm-toolchain-8 main
++deb https://apt.llvm.org/unstable/ llvm-toolchain-8 main
++deb-src https://apt.llvm.org/unstable/ llvm-toolchain-8 main
+diff --git a/automation/scripts/qemu-smoke-dom0-arm32.sh b/automation/scripts/qemu-smoke-dom0-arm32.sh
+index 98e4d481f65c2b29ac935ddf6247132ddf94fa1d..6163eeeda623527d0620fb20a23b589b1168a896 100755
+--- a/automation/scripts/qemu-smoke-dom0-arm32.sh
++++ b/automation/scripts/qemu-smoke-dom0-arm32.sh
+@@ -4,7 +4,7 @@ set -ex
  
- fi
-@@ -3580,7 +3580,7 @@ if test "x$LWIP_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   LWIP_URL=\$\(XEN_EXTFILES_URL\)
- else
--  LWIP_URL="http://download.savannah.gnu.org/releases/lwip"
-+  LWIP_URL="https://download.savannah.gnu.org/releases/lwip"
- fi
+ cd binaries
+ # Use the kernel from Debian
+-curl --fail --silent --show-error --location --output vmlinuz http://http.us.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
++curl --fail --silent --show-error --location --output vmlinuz https://deb.debian.org/debian/dists/bullseye/main/installer-armhf/current/images/netboot/vmlinuz
+ # Use a tiny initrd based on busybox from Alpine Linux
+ curl --fail --silent --show-error --location --output initrd.tar.gz https://dl-cdn.alpinelinux.org/alpine/v3.15/releases/armhf/alpine-minirootfs-3.15.1-armhf.tar.gz
  
- fi
-@@ -3595,7 +3595,7 @@ if test "x$GRUB_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   GRUB_URL=\$\(XEN_EXTFILES_URL\)
- else
--  GRUB_URL="http://alpha.gnu.org/gnu/grub"
-+  GRUB_URL="https://alpha.gnu.org/gnu/grub"
- fi
- 
- fi
-@@ -3607,7 +3607,7 @@ GRUB_VERSION="0.97"
- 
- if test "x$OCAML_URL" = "x"; then :
- 
--	OCAML_URL="http://caml.inria.fr/pub/distrib/ocaml-4.02"
-+	OCAML_URL="https://caml.inria.fr/pub/distrib/ocaml-4.02"
- 
- fi
- OCAML_VERSION="4.02.0"
-@@ -3621,7 +3621,7 @@ if test "x$GMP_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   GMP_URL=\$\(XEN_EXTFILES_URL\)
- else
--  GMP_URL="ftp://ftp.gmplib.org/pub/gmp-4.3.2"
-+  GMP_URL="https://gmplib.org/download/gmp"
- fi
- 
- fi
-@@ -3636,7 +3636,7 @@ if test "x$POLARSSL_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   POLARSSL_URL=\$\(XEN_EXTFILES_URL\)
- else
--  POLARSSL_URL="http://polarssl.org/code/releases"
-+  POLARSSL_URL="https://polarssl.org/code/releases"
- fi
- 
- fi
-@@ -3651,7 +3651,7 @@ if test "x$TPMEMU_URL" = "x"; then :
- 	if test "x$extfiles" = "xy"; then :
-   TPMEMU_URL=\$\(XEN_EXTFILES_URL\)
- else
--  TPMEMU_URL="http://download.berlios.de/tpm-emulator"
-+  TPMEMU_URL="https://download.berlios.de/tpm-emulator"
- fi
- 
- fi
-diff --git a/stubdom/configure.ac b/stubdom/configure.ac
-index e20d99edac0da88098f4806333edde9f31dbc1a7..e43853d45a5f652c05fe36f9171fba4c1b5863c0 100644
---- a/stubdom/configure.ac
-+++ b/stubdom/configure.ac
-@@ -55,19 +55,25 @@ AC_PROG_INSTALL
- AX_DEPENDS_PATH_PROG([vtpm], [CMAKE], [cmake])
- 
- # Stubdom libraries version and url setup
--AX_STUBDOM_LIB([ZLIB], [zlib], [1.2.3], [http://www.zlib.net])
--AX_STUBDOM_LIB([LIBPCI], [libpci], [2.2.9], [http://www.kernel.org/pub/software/utils/pciutils])
--AX_STUBDOM_LIB([NEWLIB], [newlib], [1.16.0], [ftp://sources.redhat.com/pub/newlib])
--AX_STUBDOM_LIB([LWIP], [lwip], [1.3.0], [http://download.savannah.gnu.org/releases/lwip])
--AX_STUBDOM_LIB([GRUB], [grub], [0.97], [http://alpha.gnu.org/gnu/grub])
--AX_STUBDOM_LIB_NOEXT([OCAML], [ocaml], [4.02.0], [http://caml.inria.fr/pub/distrib/ocaml-4.02])
--AX_STUBDOM_LIB([GMP], [libgmp], [4.3.2], [ftp://ftp.gmplib.org/pub/gmp-4.3.2])
--AX_STUBDOM_LIB([POLARSSL], [polarssl], [1.1.4], [http://polarssl.org/code/releases])
--AX_STUBDOM_LIB([TPMEMU], [berlios tpm emulator], [0.7.4], [http://download.berlios.de/tpm-emulator])
-+AX_STUBDOM_LIB([ZLIB], [zlib], [1.2.3], [https://www.zlib.net])
-+AX_STUBDOM_LIB([LIBPCI], [libpci], [2.2.9], [https://www.kernel.org/pub/software/utils/pciutils])
-+AX_STUBDOM_LIB([NEWLIB], [newlib], [1.16.0], [https://sourceware.org/ftp/newlib])
-+AX_STUBDOM_LIB([LWIP], [lwip], [1.3.0], [https://download.savannah.gnu.org/releases/lwip])
-+AX_STUBDOM_LIB([GRUB], [grub], [0.97], [https://alpha.gnu.org/gnu/grub])
-+AX_STUBDOM_LIB_NOEXT([OCAML], [ocaml], [4.02.0], [https://caml.inria.fr/pub/distrib/ocaml-4.02])
-+AX_STUBDOM_LIB([GMP], [libgmp], [4.3.2], [https://gmplib.org/download/gmp])
-+AX_STUBDOM_LIB([POLARSSL], [polarssl], [1.1.4], [https://polarssl.org/code/releases])
-+AX_STUBDOM_LIB([TPMEMU], [berlios tpm emulator], [0.7.4], [https://download.berlios.de/tpm-emulator])
- 
- #These stubdoms should be enabled if the dependent one is
- AX_STUBDOM_AUTO_DEPENDS([vtpmmgr], [vtpm])
- 
-+if test "x$vtpm" != xn || test "x$vtpmmgr" != xn; then
-+    if test "x$extfiles" != xy; then
-+        AC_MSG_ERROR([Sources needed for the vTPM and vTPM manager stubdomains are no longer at their original URLs])
-+    fi
-+fi
-+
- #Conditionally enable these stubdoms based on the presense of dependencies
- AX_STUBDOM_CONDITIONAL_FINISH([vtpm-stubdom], [vtpm])
- AX_STUBDOM_CONDITIONAL_FINISH([vtpmmgr-stubdom], [vtpmmgr])
-diff --git a/tools/firmware/etherboot/Makefile b/tools/firmware/etherboot/Makefile
-index 4bc3633ba3d67ff9f52a9cb7923afea73c861da9..f08b2c847b6535e5c28b6576445d02c2ac9551eb 100644
---- a/tools/firmware/etherboot/Makefile
-+++ b/tools/firmware/etherboot/Makefile
-@@ -4,11 +4,7 @@ XEN_ROOT = $(CURDIR)/../../..
- include $(XEN_ROOT)/tools/Rules.mk
- include Config
- 
--ifeq ($(GIT_HTTP),y)
--IPXE_GIT_URL ?= http://git.ipxe.org/ipxe.git
--else
--IPXE_GIT_URL ?= git://git.ipxe.org/ipxe.git
--endif
-+IPXE_GIT_URL ?= https://git.ipxe.org/ipxe.git
- 
- # put an updated tar.gz on xenbits after changes to this variable
- IPXE_GIT_TAG := 3c040ad387099483102708bb1839110bc788cefb
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
