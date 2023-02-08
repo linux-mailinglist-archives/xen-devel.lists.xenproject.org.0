@@ -2,29 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BACE68F68E
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 19:05:37 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491953.761327 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D8768F76F
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 19:52:10 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491960.761337 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPooy-000451-Md; Wed, 08 Feb 2023 18:05:28 +0000
+	id 1pPpXW-0001Jr-3l; Wed, 08 Feb 2023 18:51:30 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491953.761327; Wed, 08 Feb 2023 18:05:28 +0000
+Received: by outflank-mailman (output) from mailman id 491960.761337; Wed, 08 Feb 2023 18:51:30 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPooy-000425-Io; Wed, 08 Feb 2023 18:05:28 +0000
-Received: by outflank-mailman (input) for mailman id 491953;
- Wed, 08 Feb 2023 18:05:27 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=8nB3=6E=citrix.com=prvs=396cc5531=ross.lagerwall@srs-se1.protection.inumbo.net>)
- id 1pPoox-00041z-7F
- for xen-devel@lists.xen.org; Wed, 08 Feb 2023 18:05:27 +0000
-Received: from esa1.hc3370-68.iphmx.com (esa1.hc3370-68.iphmx.com
- [216.71.145.142]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 271b7ce0-a7db-11ed-933c-83870f6b2ba8;
- Wed, 08 Feb 2023 19:05:25 +0100 (CET)
+	id 1pPpXW-0001Ha-0v; Wed, 08 Feb 2023 18:51:30 +0000
+Received: by outflank-mailman (input) for mailman id 491960;
+ Wed, 08 Feb 2023 18:51:29 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=IZ02=6E=m5p.com=ehem@srs-se1.protection.inumbo.net>)
+ id 1pPpXU-0001HU-Vf
+ for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 18:51:28 +0000
+Received: from mailhost.m5p.com (mailhost.m5p.com [74.104.188.4])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 95999630-a7e1-11ed-93b5-47a8fe42b414;
+ Wed, 08 Feb 2023 19:51:25 +0100 (CET)
+Received: from m5p.com (mailhost.m5p.com [IPv6:2001:470:1f07:15ff:0:0:0:f7])
+ by mailhost.m5p.com (8.16.1/8.15.2) with ESMTPS id 318Ip1Px061004
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NO);
+ Wed, 8 Feb 2023 13:51:07 -0500 (EST) (envelope-from ehem@m5p.com)
+Received: (from ehem@localhost)
+ by m5p.com (8.16.1/8.15.2/Submit) id 318Ip1ro061003;
+ Wed, 8 Feb 2023 10:51:01 -0800 (PST) (envelope-from ehem)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,81 +43,95 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 271b7ce0-a7db-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1675879525;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=6GFlkZ7+0oTK0eTY8I2TZ0OsKy8DTPzIbsaB6hzh+UQ=;
-  b=Ad/bRzp88iwwHKMOY9Y6bq+E23ynEmDbfQL3y6iwquhcYQg2MPLG2suj
-   Cg4T8zwmbT3KuzkwX0e78p1KCzx83Mk7+1ZJ9JeAZSHskdHR0SQ6TCJCH
-   JYezVm+iuB/nBVje6L+Y6yfs6V9p5BbuBU8dMVEufaOBy4bIqs3JzGig5
-   4=;
-Authentication-Results: esa1.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 96638636
-X-Ironport-Server: esa1.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:hEMwmKuox9I2ik6kSEjD9gcxXufnVFleMUV32f8akzHdYApBsoF/q
- tZmKT3Vb66JNzOgKo9wbI2wph8EvsTVzoBjSwNupS89ECtB+JbJXdiXEBz9bniYRiHhoOCLz
- O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
- Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj51v0gnRkPaoQ5AWGxyFPZH4iDfrZw0XQE9E88tGSH
- 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
- Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
- fMweClQbAGAityM/vGaWtcv1p0KIsvOM9ZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
- 5NHM3w1Nk2GOkARfA5NU/rSn8/x7pX7Wydfs0nToaM47nLMxQh1+LPsLMDUapqBQsA9ckOw9
- zyYpDSnWU9y2Nq322K18Firl+/0rQyhAqMiKpjl7NtnjwjGroAUIEJPDgbqyRWjsWauVtQaJ
- 0EK9y4Gqakp6FftXtT7GRqirxasvRkaQdNcVfI77AKlzbDd6AKUQGMDS1Z8hMcO7ZFsA2Zwj
- xnQwo2vXGY02FGIdZ6D3ueN8DGjOiUrF1FBRD86DltcytfhhY5m23ojUe1fOKKyi9T0HxT5z
- DaLsDUyit0vsCIb60mo1QuZ2mzx//AlWiZwv1yKBTz9smuVcab/P+SVBU7nAeGsxWpzZn2Ip
- zA6lseX94ji5rndxXXWEI3h8FxEjstp0QEwY3Y1R/HNFBz3oRZPmLy8BxkgTHqFyu5eJVfUj
- Lb74Gu9HqN7MnqwdrNQaImsEcksxqWIPY27Ca2LP4YQPMUrK1HvEMRSiai4hTiFfK8EyP5XB
- HtmWZz0USZy5VpPnFJauNvxIZd0n3tjlAs/tLjwzgi90Kr2WZJmYe5tDbd6VchgtPnsiFyMo
- 75i2z6il003vBvWPnOGrub+7DkicRAGOHwBg5UGLbDfelU4SAnMyZb5mNscRmCspIwN/s+gw
- 513chYGoLYjrRUr8Tm3V00=
-IronPort-HdrOrdr: A9a23:K15wR6nlYRGaflI5jvXKVzCIa1fpDfLW3DAbv31ZSRFFG/Fw9/
- rCoB3U73/JYVcqKRUdcLW7UpVoLkmyyXcY2+cs1NSZLWzbUQmTXeJfBOLZqlWNJ8SXzIVgPM
- xbAspD4bPLbGSTjazBkXSF+9RL+qj6zEh/792usEuETmtRGt9dBx8SMHf9LqXvLjM2fqbQEv
- Cnl6x6jgvlQ1s7ROKhCEIIWuDSzue77q4PMXY9dmcaABDlt0LR1ILH
-X-IronPort-AV: E=Sophos;i="5.97,281,1669093200"; 
-   d="scan'208";a="96638636"
-From: Ross Lagerwall <ross.lagerwall@citrix.com>
-To: <xen-devel@lists.xen.org>
-CC: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Andrew Cooper
-	<andrew.cooper3@citrix.com>, <sergey.dyasli@citrix.com>, Ross Lagerwall
-	<ross.lagerwall@citrix.com>
-Subject: [PATCH] create-diff-object: Handle missing secsym for debug sections
-Date: Wed, 8 Feb 2023 18:04:57 +0000
-Message-ID: <20230208180457.800671-1-ross.lagerwall@citrix.com>
-X-Mailer: git-send-email 2.31.1
+X-Inumbo-ID: 95999630-a7e1-11ed-93b5-47a8fe42b414
+Date: Wed, 8 Feb 2023 10:51:01 -0800
+From: Elliott Mitchell <ehem+xen@m5p.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Anthony PERARD <anthony.perard@citrix.com>, Wei Liu <wl@xen.org>,
+        Juergen Gross <jgross@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [XEN PATCH] tools: Have flex and bison mandatory
+Message-ID: <Y+PvFfDQU5GXV57m@mattapan.m5p.com>
+References: <20230207160948.3169-1-anthony.perard@citrix.com>
+ <a11b962e-7422-a197-4ff4-fcac9963364d@suse.com>
+ <Y+KSRY+5SmrNYpJ/@perard.uk.xensource.com>
+ <7e01f840-1d42-f31e-4471-ee06820b4b31@suse.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e01f840-1d42-f31e-4471-ee06820b4b31@suse.com>
+X-Spam-Status: No, score=0.4 required=10.0 tests=KHOP_HELO_FCRDNS autolearn=no
+	autolearn_force=no version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on mattapan.m5p.com
 
-Certain debug sections like ".debug_aranges" when built with GCC 11.2.1
-are missing section symbols (presumably because they're not needed).
-Instead, of segfaulting, simply don't include them if they're missing.
+On Wed, Feb 08, 2023 at 09:02:35AM +0100, Jan Beulich wrote:
+> On 07.02.2023 19:02, Anthony PERARD wrote:
+> > 
+> > I think the issue that Andrew saw in the CI with "libxlu_cfg_y.o"
+> > failing to build while "libxlu_cfg_l.[ch]" are been regenerated is
+> > probably because make doesn't consider "libxlu_cfg_l.[ch]" as a group of
+> > targets.
+> > 
+> > If for some reason we have:
+> >     libxlu_cfg_l.h newer than libxlu_cfg_l.l newer than libxlu_cfg_l.c
+> > 
+> > Then make seems to take two parallel decision:
+> >     When building libxlu_cfg_y.o:
+> >         libxlu_cfg_l.h is newer than libxlu_cfg_l.l
+> >         -> libxlu_cfg_l.h is up-to-date, start building libxlu_cfg_y.o
+> >     When building libxlu_cfg_l.o:
+> >         libxlu_cfg_l.c is older than libxlu_cfg_l.l
+> >         -> we need to generate libxlu_cfg_l.c first
+> > Then, libxlu_cfg_y.o fails to build because libxlu_cfg_l.h is been
+> > updated do to the parallel build of libxlu_cfg_l.o.
+> > 
+> > I can easily reproduce the issue with:
+> >     touch libxlu_cfg_l.c; sleep .1; touch libxlu_cfg_l.l; sleep .1;
+> >     touch libxlu_cfg_l.h; sleep .1; make -j
+> > And having "sleep 1" in "%.c %.h: %.l" recipe, between `rm` and `flex`.
+> 
+> Interesting. In my somewhat similar experiments I found that an issue
+> exists only when one of the .c files is missing. Things looked to work
+> properly when both were there, but one was outdated. Clearly that's
+> yet more surprising behavior than, as you appear to observe, the issue
+> simply being tied too "needs updating".
 
-Signed-off-by: Ross Lagerwall <ross.lagerwall@citrix.com>
----
- create-diff-object.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The actual problem is flex and bison output both files at the same time.
+One process sees all of its prerequisites are up to do and therefore
+proceeds to the next step.  A second process sees an out of date
+prerequisite, and starts to run flex which wipes out the prerequisite of
+the first process.
 
-diff --git a/create-diff-object.c b/create-diff-object.c
-index a516670..780e6c8 100644
---- a/create-diff-object.c
-+++ b/create-diff-object.c
-@@ -1484,7 +1484,7 @@ static void kpatch_include_debug_sections(struct kpatch_elf *kelf)
- 	list_for_each_entry(sec, &kelf->sections, list) {
- 		if (is_debug_section(sec)) {
- 			sec->include = 1;
--			if (!is_rela_section(sec))
-+			if (!is_rela_section(sec) && sec->secsym)
- 				sec->secsym->include = 1;
- 		}
- 	}
+
+Crucially libxlu_cfg_y.o does NOT depend on libxlu_cfg_l.c, therefore GNU
+Make is allowed to proceed with building libxlu_cfg_y.o even if
+libxlu_cfg_l.c is out of date.
+
+The problem is the rule to update libxlu_cfg_l.c ALSO updates
+libxlu_cfg_l.h as a side-effect.
+
+
+As such libxlu_cfg_y.o needs an order-only dependency (assuming GNU Make
+syntax is allowed) on libxlu_cfg_l.c, so the two rules DON'T run in
+parallel and cause havoc.
+
+
+> > I don't know how to properly fix this yet.
+> > Event writing "%.c %.h &: %.l" doesn't work, with make 4.3, which is
+> > supposed to be grouped targets. But that's is maybe fixed in 4.4.
+> 
+> Well, in my tests while 4.4 has fixed one issue with intermediate files
+> affecting the behavior here, the issue we're possibly running into is
+> still there. I've sent an inquiry to bug-make@gnu.org.
+
+I do not believe this is a bug in GNU Make.  Merely double-output rules
+cause precisely this sort of trouble in Make when run in parallel.
+
+
 -- 
-2.31.1
+(\___(\___(\______          --=> 8-) EHM <=--          ______/)___/)___/)
+ \BS (    |         ehem+sigmsg@m5p.com  PGP 87145445         |    )   /
+  \_CS\   |  _____  -O #include <stddisclaimer.h> O-   _____  |   /  _/
+8A19\___\_|_/58D2 7E3D DDF4 7BA6 <-PGP-> 41D1 B375 37D0 8714\_|_/___/5445
+
 
 
