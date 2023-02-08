@@ -2,44 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 541CF68F1E2
-	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 16:21:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.491882.761227 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4627568F237
+	for <lists+xen-devel@lfdr.de>; Wed,  8 Feb 2023 16:40:59 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.491890.761238 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPmFO-0006Fm-FK; Wed, 08 Feb 2023 15:20:34 +0000
+	id 1pPmYE-0008BX-8c; Wed, 08 Feb 2023 15:40:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 491882.761227; Wed, 08 Feb 2023 15:20:34 +0000
+Received: by outflank-mailman (output) from mailman id 491890.761238; Wed, 08 Feb 2023 15:40:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pPmFO-0006Cs-Bq; Wed, 08 Feb 2023 15:20:34 +0000
-Received: by outflank-mailman (input) for mailman id 491882;
- Wed, 08 Feb 2023 15:20:33 +0000
+	id 1pPmYE-000887-5H; Wed, 08 Feb 2023 15:40:02 +0000
+Received: by outflank-mailman (input) for mailman id 491890;
+ Wed, 08 Feb 2023 15:40:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=FSNm=6E=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pPmFN-0006Cm-23
- for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 15:20:33 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=n8uy=6E=gmail.com=olekstysh@srs-se1.protection.inumbo.net>)
+ id 1pPmYC-00087y-KX
+ for xen-devel@lists.xenproject.org; Wed, 08 Feb 2023 15:40:00 +0000
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [2a00:1450:4864:20::32d])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 1fdf9b94-a7c4-11ed-93b5-47a8fe42b414;
- Wed, 08 Feb 2023 16:20:31 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8E7DA1FE93;
- Wed,  8 Feb 2023 15:20:30 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 701B513425;
- Wed,  8 Feb 2023 15:20:30 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id hO6lGb6942M4PQAAMHmgww
- (envelope-from <jgross@suse.com>); Wed, 08 Feb 2023 15:20:30 +0000
+ id d720f501-a7c6-11ed-93b5-47a8fe42b414;
+ Wed, 08 Feb 2023 16:39:57 +0100 (CET)
+Received: by mail-wm1-x32d.google.com with SMTP id
+ l21-20020a05600c1d1500b003dfe462b7e4so2773480wms.0
+ for <xen-devel@lists.xenproject.org>; Wed, 08 Feb 2023 07:39:57 -0800 (PST)
+Received: from work-hp.. ([91.123.148.245]) by smtp.gmail.com with ESMTPSA id
+ d8-20020adfe2c8000000b002bfe08c566fsm13958034wrj.106.2023.02.08.07.39.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Feb 2023 07:39:55 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,160 +44,93 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1fdf9b94-a7c4-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675869630; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tNudGKwfWz2Qi9qUZWYX4r6w5ISOHAiaiJecluurz8Q=;
-	b=Q7SvzmiLbf/F+8FfSiba+wJUWsDhLkRsb1/iuTDE5ApMh+1QPKoMJnnoJw3HfeeH84I+Up
-	uqBGezGdkp/sO16kMNua9mDdzKJslfjz52FA8Pu6Y/0SDjg/MfeHGq/1az7auPGIscDnIZ
-	mYFwxWG5NpFfcpfNcyJ8VZ4GFZv4OSM=
-Message-ID: <6a141dab-aef8-960d-269d-23f8000a257d@suse.com>
-Date: Wed, 8 Feb 2023 16:20:30 +0100
+X-Inumbo-ID: d720f501-a7c6-11ed-93b5-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=oGWuGjSyAolvIuh2gpF30/sfRfWcmW0ukeqiTc1FZg4=;
+        b=oJLgmWwOA/fWnsZRLlXi0D7IB41vvMVwDk7qIp/hPO/I0Cu28Q2i4d0DPXkgCMMGW7
+         SdzZx2e3lqC+DVRz/VlUF+Pk6ZB+kB9aSgjpLPKWsIw6CQBDEbkGyHNWz4UyfDWYca53
+         K34F4fo3Rdk5I9CATRq9b+kuSOPothxpM0z/dhRzc7xKpmGW2aUP7qLS5v26HcIzsXml
+         uRi3XbYZNSXIYEpwwPGuh8OTovAuQ7No2yybmDgLJaO+R3upLfKBHWlDm2zvJPPCTQlz
+         8uTHL68LY/yG++GRdkvszu7ZgdscE3xE0++V0ywwduDPIPSfpmd/Xpn8oL10Dt/+8xS3
+         XurQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=oGWuGjSyAolvIuh2gpF30/sfRfWcmW0ukeqiTc1FZg4=;
+        b=777myMKhD4KEoB+UVlt4crIkZLK5efbJ7sNcs6K90URPJfJXakLSnf6VNcKAclHkyu
+         DiyI3xB3wZosjglbf9OLi0hImFEswGtNk1wTPZ7iENeelOMrJK3nn3jvfbA1Wo6FCFik
+         oxjlr2QVKzt/5h0Ejm4VgitVzZp483rc22GEK4aXZ5YFAEXG6weV3gYf5Wad6FMvr186
+         8JnD5MpqL90KTBMfdA4PjKnBadBRcl/8Yl6vDhGTGZCqh4lfuP4FXE6rJ7TNBq5o4Tk4
+         fUjV+EWktuGe2Ln1BgW5Il5NVgf7hl43fa8/AAK3h1tFXWiaDLOA6EfDApVeFxDq/z1a
+         gPHg==
+X-Gm-Message-State: AO0yUKVF43vqhyF2IMkhWnYj5HR+FqPovARZ9qAfvPUKfXZPE2pgDJEE
+	M2cD7N7nQDmMGJSGCgc911w6OVu0vLU=
+X-Google-Smtp-Source: AK7set/9TBqIZGKiBgGkbYehMHhv5R4xqumCMXaSzOW6dO7LsQm45M+8qsR9emWP/44RWI8GFW0KSA==
+X-Received: by 2002:a05:600c:1613:b0:3df:b5ae:5289 with SMTP id m19-20020a05600c161300b003dfb5ae5289mr6782149wmn.8.1675870796500;
+        Wed, 08 Feb 2023 07:39:56 -0800 (PST)
+From: Oleksandr Tyshchenko <olekstysh@gmail.com>
+To: xen-devel@lists.xenproject.org,
+	linux-kernel@vger.kernel.org
+Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+	Juergen Gross <jgross@suse.com>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Subject: [PATCH] xen/grant-dma-iommu: Implement a dummy probe_device() callback
+Date: Wed,  8 Feb 2023 17:36:49 +0200
+Message-Id: <20230208153649.3604857-1-olekstysh@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-Subject: Re: [XEN PATCH for-4.17 v6 5/5] tools: Rework $(xenlibs-ldlibs, ) to
- provide library flags only.
-Content-Language: en-US
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-References: <20230120194431.55922-1-anthony.perard@citrix.com>
- <20230120194431.55922-6-anthony.perard@citrix.com>
- <fee42999-a31c-3b12-9148-81b0898fac78@suse.com>
- <Y+O7WntT11toKyH/@perard.uk.xensource.com>
-From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <Y+O7WntT11toKyH/@perard.uk.xensource.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------3XYzH0xAdv2HzJAOc6ANiMLK"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------3XYzH0xAdv2HzJAOc6ANiMLK
-Content-Type: multipart/mixed; boundary="------------LCfy9ydGsVF7jbzK000cXc0t";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-Cc: xen-devel@lists.xenproject.org, Wei Liu <wl@xen.org>
-Message-ID: <6a141dab-aef8-960d-269d-23f8000a257d@suse.com>
-Subject: Re: [XEN PATCH for-4.17 v6 5/5] tools: Rework $(xenlibs-ldlibs, ) to
- provide library flags only.
-References: <20230120194431.55922-1-anthony.perard@citrix.com>
- <20230120194431.55922-6-anthony.perard@citrix.com>
- <fee42999-a31c-3b12-9148-81b0898fac78@suse.com>
- <Y+O7WntT11toKyH/@perard.uk.xensource.com>
-In-Reply-To: <Y+O7WntT11toKyH/@perard.uk.xensource.com>
+From: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
 
---------------LCfy9ydGsVF7jbzK000cXc0t
-Content-Type: multipart/mixed; boundary="------------NGeQ0T0Ln0Bk0r7ebsQeeLuP"
+Update stub IOMMU driver (which main purpose is to reuse generic
+IOMMU device-tree bindings by Xen grant DMA-mapping layer on Arm)
+according to the recent changes done in the following
+commit 57365a04c921 ("iommu: Move bus setup to IOMMU device registration").
 
---------------NGeQ0T0Ln0Bk0r7ebsQeeLuP
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+With probe_device() callback being called during IOMMU device registration,
+the uninitialized callback just leads to the "kernel NULL pointer
+dereference" issue during boot. Fix that by adding a dummy callback.
 
-T24gMDguMDIuMjMgMTY6MTAsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPiBPbiBXZWQsIEZl
-YiAwOCwgMjAyMyBhdCAwODo0ODozM0FNICswMTAwLCBKdWVyZ2VuIEdyb3NzIHdyb3RlOg0K
-Pj4gT24gMjAuMDEuMjMgMjA6NDQsIEFudGhvbnkgUEVSQVJEIHdyb3RlOg0KPj4+IExETElC
-UyBpcyB1c3VhbGx5IG9ubHkgdGhlIGxpYnJhcnkgZmxhZ3MgKHRoYXQgaXMgdGhlIGAtbGAg
-ZmxhZ3MpLCBhcw0KPj4+IHByb3Bvc2VkIGluIEdOVSBtYWtlIG1hbnVhbCwgd2hpbGUgTERG
-TEFHUyB3b3VsZCBiZSBleHRyYSBmbGFncyBzdWNoDQo+Pj4gYXMgYC1MYC4NCj4+Pg0KPj4+
-IFJld29yayB0aGUgbWFrZSBtYWNybyAkKHhlbmxpYnMtbGRsaWJzLCApIHRvIG9ubHkgcHJv
-dmlkZSB0aGUgbGlicmFyeQ0KPj4+IGZsYWdzLiAkKHhlbmxpYnMtbGRmbGFncywgKSBhbHJl
-YWR5IG9ubHkgcHJvdmlkZSB0aGUgZXh0cmEgZmxhZ3MgbGlrZQ0KPj4+IHRoZSAtcnBhdGgt
-bGluayBmbGFncy4NCj4+Pg0KPj4+IEFsc28gZml4ICJ0ZXN0XyUiIHJlY2lwZSBpbiBsaWJz
-L2xpZ2h0IGFzICJsaWJ4ZW5saWdodC5zbyIgaW4NCj4+PiAkKExETElCU19saWJ4ZW5saWdo
-dCkgaXMgYmVlbiByZXBsYWNlZCBieSAiLWx4ZW5saWdodCIuIEluc3RlYWQgb2YNCj4+PiBq
-dXN0IGNoYW5naW5nIHRoZSBmaWx0ZXIsIHdlIHdpbGwgc3RhcnQgdXNpbmcgdGhlICQoeGVu
-bGlicy0qLCkgbWFjcm8uDQo+Pj4gRm9yIExERkxBR1MsIHdlIG9ubHkgbmVlZHMgdGhlIG9u
-ZSBmb3IgbGlieGVubGlnaHQsIGFzIHRoZSBvbmUgZm9yDQo+Pg0KPj4gbml0OiBzL25lZWRz
-L25lZWQvDQo+Pg0KPj4+IHRvb2xjb3JlIGFuZCB0b29sbG9nIGFyZSBhbHJlYWR5IGluICQo
-TERGTEFHUyksIHRoZXkgYXJlIGRlcGVuZGVuY2llcw0KPj4+IHRvIGJ1aWxkIGxpYnhlbmxp
-Z2h0LnNvLg0KPj4NCj4+IEkgZG9uJ3QgbGlrZSB0aGlzIHZlcnkgbXVjaC4gdG9vbGNvcmUg
-YW5kIHRvb2xsb2cgYXJlIHVzZWQgZGlyZWN0bHkgYnkNCj4+IHRoZSB0ZXN0XyUgcHJvZ3Jh
-bXMsIHNvIEkgZG9uJ3QgdGhpbmsgd2Ugc2hvdWxkIHJlbHkgb24gbGlieGVubGlnaHQNCj4+
-IGRlcGVuZGluZyBvbiB0aGVtLg0KPiANCj4gT2ssIEkgY2FuIGFkZCB0aGVtIGJhY2ssIGl0
-IGlzbid0IG11Y2ggb2YgYW4gaXNzdWUgdG8gaGF2ZSBkdXBsaWNhdGVkDQo+IGZsYWdzIG9u
-IHRoZSBjb21tYW5kIGxpbmUuDQoNCkluIHRoYXQgY2FzZSB5b3UgY2FuIGFkZCBteQ0KDQpS
-ZXZpZXdlZC1ieTogSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1c2UuY29tPg0KDQoNCkp1ZXJn
-ZW4NCg0K
---------------NGeQ0T0Ln0Bk0r7ebsQeeLuP
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+Looks like the release_device() callback is not mandatory to be
+implemented as IOMMU framework makes sure that callback is initialized
+before dereferencing.
 
------BEGIN PGP PUBLIC KEY BLOCK-----
+Reported-by: Viresh Kumar <viresh.kumar@linaro.org>
+Signed-off-by: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+---
+ drivers/xen/grant-dma-iommu.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
-oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
-kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
-1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
-BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
-N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
-PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
-FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
-UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
-vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
-+6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
-qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
-tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
-Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
-CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
-RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
-8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
-BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
-SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
-7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
-nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
-AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
-Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
-hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
-w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
-VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
-OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
-/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
-c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
-F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
-k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
-wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
-5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
-TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
-N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
-AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
-0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
-Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
-LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
-we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
-v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
-Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
-534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
-b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
-yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
-suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
+diff --git a/drivers/xen/grant-dma-iommu.c b/drivers/xen/grant-dma-iommu.c
+index 16b8bc0c0b33..6a9fe02c6bfc 100644
+--- a/drivers/xen/grant-dma-iommu.c
++++ b/drivers/xen/grant-dma-iommu.c
+@@ -16,8 +16,15 @@ struct grant_dma_iommu_device {
+ 	struct iommu_device iommu;
+ };
+ 
+-/* Nothing is really needed here */
+-static const struct iommu_ops grant_dma_iommu_ops;
++static struct iommu_device *grant_dma_iommu_probe_device(struct device *dev)
++{
++	return ERR_PTR(-ENODEV);
++}
++
++/* Nothing is really needed here except a dummy probe_device callback */
++static const struct iommu_ops grant_dma_iommu_ops = {
++	.probe_device = grant_dma_iommu_probe_device,
++};
+ 
+ static const struct of_device_id grant_dma_iommu_of_match[] = {
+ 	{ .compatible = "xen,grant-dma" },
+-- 
+2.34.1
 
---------------NGeQ0T0Ln0Bk0r7ebsQeeLuP--
-
---------------LCfy9ydGsVF7jbzK000cXc0t--
-
---------------3XYzH0xAdv2HzJAOc6ANiMLK
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPjvb4FAwAAAAAACgkQsN6d1ii/Ey/c
-NggAnsThHSKs11L8Gg/65yMm/QFoXIGuJVVYtrqerdkhy+Pd8WdGrGbyUS9YMFCdMMAZPjQhZM5i
-zihP9uP6JX1sn83JFlP4dOAU3onPEDDc7v2A92ZbQiYf8xIFlTvaIBG+6puIw226Buev7Aim0R36
-c6yyNp3vOJ4zaw22h1HuW5Tb07RcFbkFphXvUcrFkMpQ/lPw8HncRk3vTBMi1y5LeRR7+VYzfKps
-pcCjjEwJKNYNvMrssWibpuN5NoV2pNs+HCFiL8bCdpHRFs9GUOa7c41NXheL65jRlpaHn3AQfngO
-rLzXDgISvBT/tdXJUjbIWt3BBpHrUEQiJxz7PERrig==
-=231C
------END PGP SIGNATURE-----
-
---------------3XYzH0xAdv2HzJAOc6ANiMLK--
 
