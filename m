@@ -2,36 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21807690F91
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 18:52:26 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.492875.762636 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DED4B690FC5
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 19:00:45 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.492885.762647 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQB5K-0003e8-8q; Thu, 09 Feb 2023 17:51:50 +0000
+	id 1pQBDR-0005Tz-6u; Thu, 09 Feb 2023 18:00:13 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 492875.762636; Thu, 09 Feb 2023 17:51:50 +0000
+Received: by outflank-mailman (output) from mailman id 492885.762647; Thu, 09 Feb 2023 18:00:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQB5K-0003cR-5y; Thu, 09 Feb 2023 17:51:50 +0000
-Received: by outflank-mailman (input) for mailman id 492875;
- Thu, 09 Feb 2023 17:51:48 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pQBDR-0005RF-3W; Thu, 09 Feb 2023 18:00:13 +0000
+Received: by outflank-mailman (input) for mailman id 492885;
+ Thu, 09 Feb 2023 18:00:11 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=TKJk=6F=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pQB5I-0003cL-AH
- for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 17:51:48 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 6aec5190-a8a2-11ed-93b5-47a8fe42b414;
- Thu, 09 Feb 2023 18:51:46 +0100 (CET)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 0C6723200952;
- Thu,  9 Feb 2023 12:51:41 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 09 Feb 2023 12:51:43 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Feb 2023 12:51:38 -0500 (EST)
+ <SRS0=6rTn=6F=citrix.com=prvs=3970fcfec=anthony.perard@srs-se1.protection.inumbo.net>)
+ id 1pQBDP-0005R9-At
+ for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 18:00:11 +0000
+Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
+ [216.71.155.168]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 96f87304-a8a3-11ed-933c-83870f6b2ba8;
+ Thu, 09 Feb 2023 19:00:09 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,168 +36,98 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6aec5190-a8a2-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1675965101; x=
-	1676051501; bh=diSmzBlF2MmmtyrCfWIQfmZm5ZWHPl8mbWdnYSJQ94g=; b=F
-	SGsov8/Se26hQx6HOVKDHV4eOHChCyg24KLpSrZyoz062+AvpnuvYtf7LCgM2arL
-	fBj0C0yPpYL8ZelQK8wEvwTCbjw96/neRs1TQ4nGcKqnDH6TM0e9/G3sg6Up9Nbj
-	diL78dv3ldk5zoz8iV1AYtjwkhc2wNysoT6+51uR60cWF6l2Ebo5HtiZqCJbcC0i
-	TM0JsRAxOdkr/EBHUrMbhx/ZvDrjD4mFFNdvyPQGU/V7OdHuej//wnW+wPwQwMq1
-	vW22GmD9dgOqRj9Cl62CWd/4154uW5QzUejKu8+e3Nby9+gagrEIX6ilECRVI6Z4
-	6e8H5KB1qmXc/VnFQEkYw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1675965101; x=1676051501; bh=diSmzBlF2MmmtyrCfWIQfmZm5ZWH
-	Pl8mbWdnYSJQ94g=; b=pJrkdrQpVkjxT90+gF/1bhkEMz2risLYS9HU8bfvOJrS
-	xi3GKnXAYxQFRCTLMl5bnjJx0WENpAAvEzM25VwcY2X396iLwnAP3NX+7EIIZ2mb
-	uY8t89hKC4jykhFMukgt8DORYeH1R7f0FtydZad4g3EIPEBjDl9S+bZBjnt0DgYM
-	/TnXROpLbdE9wxrBntSStHNFgHYMkTBoq56iUi65tcJv5NjSZL/qabjN37KmO9Jc
-	pKRvFwMs6LM6TrSnk+nxVLJU/XVjefTYL1nkzOqo8o5+QHgfgl7iJICpUriqSGK/
-	M1mEUOqoBnkQbg9DrE8BENdUiWiMCRbKeJaYsnai4Q==
-X-ME-Sender: <xms:rDLlYwJP9nYwXUe50wcRz3qhRz-UdwwvsvMgMee2erpb6RMQgF3dnQ>
-    <xme:rDLlYwKMqctUGh2yrpnZA-ARj03rtWyxIjGP444bmEs_79hema2W_8XaXuWQt3q4K
-    mAiLc-NmEXp_h4>
-X-ME-Received: <xmr:rDLlYwvBMtAkJ5qEGJs7GG9SqFjDI951phv9TUTiyatQFVixyFvB7XMl9l0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehfedguddtfecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghm
-    ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeetieelleffffdtudffvddugfel
-    feejtdektdfghfefgfejteeutddvfffgieegjeenucffohhmrghinhepgigvnhdrohhrgh
-    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghm
-    ihesihhnvhhishhisghlvghthhhinhhgshhlrggsrdgtohhm
-X-ME-Proxy: <xmx:rDLlY9Z_EwR8InEUD9PFgbC3lq0o2mj0JH_1w7JrwWnCWLxS2nKiPw>
-    <xmx:rDLlY3Z2s-qFPR4EwhaNSoo0DGKEen1ldA0PBCi-Uf8dGn0G188Y6A>
-    <xmx:rDLlY5AQhjTNlhIwZ4ax6kra91iX2HsXYWxtGBncPOccHtHP_6kQtQ>
-    <xmx:rTLlY7PSQe_8vPL_V42w189RbbYuT_G3cdEONZCECkzY0qQota8G4A>
-Feedback-ID: iac594737:Fastmail
-Date: Thu, 9 Feb 2023 12:51:16 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 3/4] Miscellaneous and documentation: Only use
- TLS-protected transports
-Message-ID: <Y+UyqCITWks0I4AU@itl-email>
-References: <cover.1675889601.git.demi@invisiblethingslab.com>
- <8c476ad1d36919f31c3d37edc813182e8f1489e8.1675889602.git.demi@invisiblethingslab.com>
- <CA+zSX=Z+Vg0xBb9Ww-iSSUQGp+oyoGFuY_cKMfQs_9epsRFUkg@mail.gmail.com>
+X-Inumbo-ID: 96f87304-a8a3-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1675965609;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wl3c0Qfxyvotoj1ZLLkshjDTcebAgiJ+acqaZNuN4gI=;
+  b=UiSk2rersj97rcepSimBLx4n6+ROXRuicRmhHZrVXXpLE8gD80akZmWi
+   Bh70t4+GF1OgJk8JA8JRj9WhvdcCZ5C0LN5uED8TnC/zFKGZ4HZ7gtkrM
+   ILolKzxpeQp83DELfDLtVFK3PfmlAMcNKrtWGBck3KBf0RNK0KHp6LnHF
+   w=;
+Authentication-Results: esa5.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 95248249
+X-Ironport-Server: esa5.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:jPER9qD30CzfTRVW///jw5YqxClBgxIJ4kV8jS/XYbTApD933mMGz
+ WtLD2CDPqzYYmHzeItwO4Xn8ElS6pDTyNRmQQY4rX1jcSlH+JHPbTi7wuUcHAvJd5GeExg3h
+ yk6QoOdRCzhZiaE/n9BCpC48T8nk/nOHuGmYAL9EngZbRd+Tys8gg5Ulec8g4p56fC0GArIs
+ t7pyyHlEAbNNwVcbyRFtMpvlDs15K6p4GlA7wRlDRx2lAS2e0c9Xcp3yZ6ZdxMUcqEMdsamS
+ uDKyq2O/2+x13/B3fv8z94X2mVTKlLjFVDmZkh+AsBOsTAbzsAG6Y4pNeJ0VKtio27hc+ada
+ jl6ncfYpQ8BZsUgkQmGOvVSO3kW0aZuoNcrLZUj2CA6IoKvn3bEmp1T4E8K0YIwq/RzBCZ82
+ P0jExMCTBqIrdDo+7WeY7w57igjBJGD0II3v3hhyXfSDOo8QICFSKLPjTNa9G5u3IYUR6+YP
+ pdHL2M1N3wsYDUWUrsTIJs4gOevgGi5azBCoUiZjaE2/3LS3Ep6172F3N/9K4HQGZUPwhfwS
+ mTup0X7QQ8YKsOllz+dzCmIptTFnzPiR9dHfFG/3qEz2wDCroAJMzUUX1ampfiyimalRslSb
+ UcT/0IGr7U29UGtZsnwWVu/unHslgUHR9NaHuk+6QeM4qnZ+QCUAi4DVDEpQMMinN87Q3otz
+ FDht8PkA3ljvaOYTVqZ96yItnWiNC4NN2gAaCQYCwwf7LHLqZk+lBvVQv5/EaS+iZv+HjSY/
+ tyRhHFg3fNJ15dNjvjluwmd2FpAu6QlUCZk9AHSGVCI7zhCR4GHbYeC2wbg6tNpedPxoka6g
+ FAInM2X7eYrBJ6LlTCQTOhlIIxF98ppIxWH3wcxQsBJGyCFvif6INsOuG0WyFJBaJ5sRNP/X
+ KPEVeq9Drd3NWDiU6J4apnZ5y8Cnfm5ToSNuhw5g7NzjnlNmO2vpnkGia24hTqFfK0QfUYXZ
+ /+mnT6EVypyNEie5GPeqx0h+bEq3Dsi4mjYWIr2yR+quZLHOiHIGedcaAXfP7pohE9hnOkz2
+ 40PXydt40wAONASnwGNqdJDRbz0BSdT6W/KRzx/KbfYf1sO9JAJAP7N27IxE7GJbIwM/tokC
+ kqVAxcCoHKm3C2vFOl/Qiw7AF8Zdcol/C1T0O1FFQrA5kXPlq71tv1PJsJoJ+V8nAGhpNYtJ
+ 8Q4lwy7KqwnYlz6F/41N/ERcKQKmMyXuD+z
+IronPort-HdrOrdr: A9a23:OsXi9qMyDOqU/sBcTjejsMiBIKoaSvp037BK7S1MoHtuA6qlfq
+ GV7ZMmPHrP4gr5N0tOpTntAse9qDbnhP1ICOoqTNOftWvd2FdARbsKheffKn/bak/DH4Zmvp
+ uIGJIObeEYY2IasS77ijPIbOrJwrO8gd6VbTG19QYdceloAZsQnzuQEmygYzRLrJEtP+tFKH
+ KbjPA33waISDAsQemQIGIKZOTHr82jruObXfZXbyRXkzVnlFmTmcTHLyQ=
+X-IronPort-AV: E=Sophos;i="5.97,284,1669093200"; 
+   d="scan'208";a="95248249"
+Date: Thu, 9 Feb 2023 17:59:57 +0000
+From: Anthony PERARD <anthony.perard@citrix.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: George Dunlap <george.dunlap@cloud.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>,
+	"Julien Grall" <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>,
+	Wei Liu <wl@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+Subject: Re: Proposal for consistent Kconfig usage by the hypervisor build
+ system
+Message-ID: <Y+U0nWkIXmksbHM7@perard.uk.xensource.com>
+References: <d77c1a7a-9d15-491d-38fa-99739f20bebd@suse.com>
+ <906028ef-b9cd-93bd-8ee2-f263851496f5@citrix.com>
+ <b899223d-6e13-af64-2359-76d0c30ec46e@suse.com>
+ <CA+zSX=Z+y5CkSR-xBpgeLx_gouuGbbNd3c2z12OKeSODsKimDA@mail.gmail.com>
+ <383dfffe-ed1b-7539-d601-c9e7caee22ee@suse.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3twc6P7aNkhOC967"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <CA+zSX=Z+Vg0xBb9Ww-iSSUQGp+oyoGFuY_cKMfQs_9epsRFUkg@mail.gmail.com>
+In-Reply-To: <383dfffe-ed1b-7539-d601-c9e7caee22ee@suse.com>
 
+On Thu, Feb 09, 2023 at 05:08:10PM +0100, Jan Beulich wrote:
+> On 09.02.2023 17:02, George Dunlap wrote:
+> > On Thu, Feb 9, 2023 at 1:43 PM Jan Beulich <jbeulich@suse.com> wrote:
+> > 
+> >> On 02.02.2023 16:51, Andrew Cooper wrote:
+> >>> On 12/01/2023 4:52 pm, Jan Beulich wrote:
+> >>
+> >> Anyway, I have a prototype for the two CET controls mostly ready now, so
+> >> I guess we'll continue the discussion there once I've submitted that one.
+> >>
+> > 
+> > One thing that it occured to me will be important: `make randconfig` must
+> > continue to work somehow.
+> 
+> Hmm, good point. For now I've merely added a TBD to the patch I've already
+> sent. Right now I can't see how that might be possible without the user
+> specifying which options cannot be turned on due to tool chain dependencies
+> (by way of a seeding .config, I suppose).
+> 
+> >  I'm not sure how Anthony's patch to deal with `checkpolicy` deals with that.
+> 
+> Given his remark on the community call I did actually try to locate it,
+> assuming that it had at least "policy" in the title. But I couldn't find
+> anything in my mailbox.
 
---3twc6P7aNkhOC967
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Feb 2023 12:51:16 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: George Dunlap <george.dunlap@cloud.com>
-Cc: xen-devel@lists.xenproject.org,
-	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
-	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Bertrand Marquis <bertrand.marquis@arm.com>,
-	Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	Ross Lagerwall <ross.lagerwall@citrix.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	Anthony PERARD <anthony.perard@citrix.com>,
-	Daniel De Graaf <dgdegra@tycho.nsa.gov>,
-	Quan Xu <quan.xu0@gmail.com>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
-	Christian Lindig <christian.lindig@citrix.com>,
-	David Scott <dave@recoil.org>, Paul Durrant <paul@xen.org>
-Subject: Re: [PATCH v2 3/4] Miscellaneous and documentation: Only use
- TLS-protected transports
+0b000a2ce813 ("xen: rework `checkpolicy` detection when using "randconfig"")
 
-On Thu, Feb 09, 2023 at 02:25:07PM +0000, George Dunlap wrote:
-> On Wed, Feb 8, 2023 at 8:59 PM Demi Marie Obenour <
-> demi@invisiblethingslab.com> wrote:
->=20
-> > Obtaining code over an insecure transport is a terrible idea for
-> > blatently obvious reasons.  Even for non-executable data, insecure
-> > transports are considered deprecated.
-> >
-> > This patch changes miscellaneous links that are not used by any
-> > automated tool.  Some of these links are dead anyway.
-> >
->=20
-> As I said in response to patch 4, I appreciate the goal and the effort
-> here.  But I'd rather not replace a working link with a broken link, or a
-> broken link with another broken link.
->=20
-> If we want to make this change, I think we're going to have to be creative
-> with how the link replacement is done, as well as in how it's demonstrated
-> to reviewers that the new URLs are valid.
->=20
-> One option, for instance, could be writing a small script that would check
-> the link validity first and only make the change if the link was valid; a=
-nd
-> then including that script in the commit message.  The reviewer could then
-> convince themselves that the script was correct, and give an Ack or R-b on
-> that basis.  There are probably other ideas as well.
->=20
-> Any thoughts?
->=20
->  -George
+It boil down to adding "CONFIG_XSM_FLASK_POLICY=n" via
+KCONFIG_ALLCONFIG option. The macro $(filechk_kconfig_allconfig,) does
+the job.
 
-What about breaking the patch up into smaller ones?  One could change
-all of the xenbits.xen.org links in one patch, since those are known to
-support HTTPS.  Then keep going for other domains.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---3twc6P7aNkhOC967
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPlMqkACgkQsoi1X/+c
-IsFAyw/+Izax+D9FitbxfFeROnthD+Z5oe7M22tfYjEI/Ks6aZ6cyM+ocBmxvFAA
-sikXezwoElWO2HmNpVmECyvBBQ1NwrmptQJg975l+zSSkoHYmRT0DBc+4AIDx8Ye
-OQXRz72byi5V8GbWjkH1w7BrSw+BzdvXzoZuw+gv/OllhV0STr1YADvLSOtjG0cV
-PTY+DM77lpR4PNhPVh8HYgb9wM33/yx3CoR3pyrsKCkqay7OOw1rL3oiapPIQQbc
-pJ+iTJzNOF2Dr+Iw4ClpM5y3OUEFZQfoGhursHFoXpRUWXv2EyVTPBUOOX5AmbQQ
-1hFQ35nYT5PpHhQWVsW4zdFZK2VFHrlsg7RG4/P58nH3C1zcDxDE6X2FHSnOKR+K
-NYhD4GxAi02yRQfuEQYHmAVGPySjpnjuCPG+OOam/z65FmphXGEsxiMBwf/EGXO3
-RhSZwFzkolx/qmP832De7lgI4/VimCeQbSvb72UXqGX+UcMPNN/GdD3jhxZ6yGA8
-Y1gDpMXkFsUDKR09BoVS8fnuVlSuHe4n+dw6ydz2JFq5loDG2TRd8L2EOzXgT2to
-6lAqTKsFKsXu8/cX1jkEPgYLWBOY9wQg7OFwLESixvILYtGXyNX9C0e7Gk68pJ7p
-9pn7dJVRBHxBmAOKnMNcHOxbMpzne1ye2znmQUQfC45TdDUFQjU=
-=lVv4
------END PGP SIGNATURE-----
-
---3twc6P7aNkhOC967--
+-- 
+Anthony PERARD
 
