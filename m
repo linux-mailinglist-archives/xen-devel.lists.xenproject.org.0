@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B5C4690F52
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 18:35:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.492860.762625 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC8F6690F50
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 18:34:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.492850.762614 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQApG-0000u1-TZ; Thu, 09 Feb 2023 17:35:14 +0000
+	id 1pQAnq-0000Go-HN; Thu, 09 Feb 2023 17:33:46 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 492860.762625; Thu, 09 Feb 2023 17:35:14 +0000
+Received: by outflank-mailman (output) from mailman id 492850.762614; Thu, 09 Feb 2023 17:33:46 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQApG-0000rb-Q0; Thu, 09 Feb 2023 17:35:14 +0000
-Received: by outflank-mailman (input) for mailman id 492860;
- Thu, 09 Feb 2023 17:35:13 +0000
+	id 1pQAnq-0000Ez-EG; Thu, 09 Feb 2023 17:33:46 +0000
+Received: by outflank-mailman (input) for mailman id 492850;
+ Thu, 09 Feb 2023 17:33:45 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=TKJk=6F=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pQAkS-0005qC-B1
- for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 17:30:16 +0000
+ id 1pQAnp-0000Et-Pd
+ for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 17:33:45 +0000
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 68a5b7a5-a89f-11ed-933c-83870f6b2ba8;
- Thu, 09 Feb 2023 18:30:14 +0100 (CET)
+ id e675a4c4-a89f-11ed-933c-83870f6b2ba8;
+ Thu, 09 Feb 2023 18:33:44 +0100 (CET)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id BDF27320095C;
- Thu,  9 Feb 2023 12:30:10 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id BC89D320090D;
+ Thu,  9 Feb 2023 12:33:42 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Thu, 09 Feb 2023 12:30:11 -0500
+ by compute2.internal (MEProxy); Thu, 09 Feb 2023 12:33:43 -0500
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 9 Feb 2023 12:30:08 -0500 (EST)
+ 9 Feb 2023 12:33:41 -0500 (EST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,50 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 68a5b7a5-a89f-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: e675a4c4-a89f-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
 	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1675963810; x=
-	1676050210; bh=9ONn4jeJnzY4RbURezybz2EzV94m+2kzfhLz2FCfSBY=; b=g
-	WL3QGUa6EwSfV+nxEOefuDMWruOCV9Vil+RQew9uWZm+SChcvcDNqia+f3eZLNYG
-	aaAuqGzILm7l/YJhpvyNsmIevy5bBIbvvHK1DydQ2lJHRengMCqgDPh/I9wa7xVz
-	BbKaxmtk7YBiv8KHjMM+09JmBo5QtiWv9AjljqULDJToS2y2GPBmD97psgJBznKj
-	JTiTISBjh9N+zhk4tKasppinJb9TgosglzWZwF46cXuIBLWfypmrcRIxvie5NG1O
-	Mr+Iu/uT9e1ZGRf4G41b55wMxrF9BfuNqN6jHEsGCvpuWDa1+C+OjJXv57qDixiH
-	YdD6AHtuxSAztqCTDobvg==
+	:reply-to:sender:subject:subject:to:to; s=fm3; t=1675964022; x=
+	1676050422; bh=+gWL5kImMUsYHMpsPGwx6t2ZADiSvIHJdC0B/YhuKUM=; b=W
+	e/K0JpTmtOQFrvGXnavJ/sCK3UKgvG3CbJe1ZuEjFCiH93CfHKZkOavBQPxMClSc
+	myPVAzkF0Od9oi+nVinEAnzIa1fRadjAF5EyQ6Nohqhih875SAQtZ71+XmPeXPc2
+	Sp+SRNZbbUzeAEVa2pYpXVIA3jQmBFyuFftcdoeZPpwzr5io4613oTn1KOqcUuZH
+	7EyFqbGB62+RwQFyPCuhs8sD7rnm5qKgybx/wJ3qnlZsvk/jjVIjbhnySKByp5tV
+	UznQUf7ICEQY3gwt6s4purNFDTWP10pCJ03W0j/gIT7Y3BWfQ+vVQVwHHXayJ/Zn
+	l03evkkqwBKV2x7zVvd3g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
 	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
 	:mime-version:references:reply-to:sender:subject:subject:to:to
 	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1675963810; x=1676050210; bh=9ONn4jeJnzY4RbURezybz2EzV94m
-	+2kzfhLz2FCfSBY=; b=Y7z7THhBNglzTPpV0DN6kPMP2NO1hhBJXjht21BOWSbP
-	UnxI1cyejB9wEX2KpQoFhAGh/MuALicDF7oUyx3mfeGbFMKmfvSJ8xSMJ7B2ipDY
-	XmdOAC5+2ecGNqIPx6Dwad+oLJtgKEI7HyIFGiagIB7pesVgsdeEbzg1NNoVF+vi
-	l2FyV401otsdkvyfhYX8xbIt6VptmQSVK6HBGFoyCMcFpmC/Z7bCTr9gNMrD/Bnd
-	vi9AFSiPwYwr5k7+sY3VfR/vW4CRwXbMV8JM1FDD5l3o5c+mHSpuPr/J/mvKY0ZZ
-	px+wdIXXUQv154XFcsM9DrbWGvlIx+ZXGsiIuUnkbQ==
-X-ME-Sender: <xms:oi3lY-JG887YzTWVNV0iUq00eo9OIdIpAEFrum4au-vLZ93JyK1N1g>
-    <xme:oi3lY2JWkktlnkHZKAfQMeCBsoRZnLKJpxs69CvAEUAlgP4UhZRO0PdFywR0EL54o
-    yJMC0ikrdjwlRE>
-X-ME-Received: <xmr:oi3lY-srozyjocRbPRo-if4mrQaaVYpoG1dmHV7MVItbZbgSs4Q_lJWmyTw>
+	fm1; t=1675964022; x=1676050422; bh=+gWL5kImMUsYHMpsPGwx6t2ZADiS
+	vIHJdC0B/YhuKUM=; b=t4pqXj9O06j9KbydeWNqJP7dST2DBMcTUPyITLwDY4mL
+	M4DbFOFRVsAtqKaamDpAJ+0kQecI9ycyVvXWmYDl1PQlmtn0Oon1Dk93ax/QEJF/
+	TgltlFGbUAW0sl/TKgAza8wT3AA3WQl1iHtUz1Fsz1gPpRgcESq92zABNn0I0MG0
+	24UJTog5z9+SA4vlsFKyMKDBb4AZ4GFqRxvIv3aA5YWDtvEKcy0Q/piMIK9RZ39C
+	zyF4dDvaKUhgXn8nQ0XAmHvkWhgcgMc4Uvq2bp5X5uZXkLr7RZriDIY8hkc5RC2E
+	LRrGqW36oWx1xqNTs6ElXU6l5HLYXHjSiZuG1B84lg==
+X-ME-Sender: <xms:di7lY8c5qGXX-DaaZdaSjgaTmx42NBZCiE6LkvbSb1vtCqaVLitXOA>
+    <xme:di7lY-N_84lwDyyRYFogixzCxuHesR38tdiFmb0r-6v4harYy1JPFf6tTltZojIyw
+    ZqBzZrc7WVIwgM>
+X-ME-Received: <xmr:di7lY9i9NziNpbmFB7edZA-8FMF0PBBNsDS2-RroSs1kPej1DOiim4I7mvU>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudehfedguddttdcutefuodetggdotefrod
     ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
     necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
     enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpeffvghm
     ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
-    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeehkefhiefgffeileffieekkedv
-    kedufeeuteekiefgiedufeehfeeifefhvdekleenucffohhmrghinhepshhouhhrtggvfi
-    grrhgvrdhorhhgpdhrvgguhhgrthdrtghomhenucevlhhushhtvghrufhiiigvpedtnecu
-    rfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-    hlrggsrdgtohhm
-X-ME-Proxy: <xmx:oi3lYzZBdvbFYDMVeeLjsUVJk-LJf8_gBTl95yJZHKw5Hq4h-Dxayw>
-    <xmx:oi3lY1YM_FzjKRxmlZW_qFpuxmkf5ehkDIlgZnnVKcs3U65d-O4suw>
-    <xmx:oi3lY_AglX5iweNGD4kKFM46eCMLdmO53mbymffLOjac2Fpux6ey4Q>
-    <xmx:oi3lYx49pis7eqFvcyLn2hoL18zgKF69zgz1OMTeOO1T999CFColKw>
+    hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeduieelfeeutedvleehueetffej
+    geejgeffkeelveeuleeukeejjeduffetjeekteenucevlhhushhtvghrufhiiigvpedtne
+    curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+    shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:di7lYx9RT5y2ZPHXwLGBpr0AeG-WK-9c_hlIQXGkK7hYKbvT125mug>
+    <xmx:di7lY4sof7fO0bYUJF_lyIZavy33LHJhVmw0AawcYRfzvrPQ05LhYg>
+    <xmx:di7lY4HBm8rjhquTjgJRKIg1-BuwNmNyCp-hkpl-CWZJszpjdFlp4w>
+    <xmx:di7lY8iew5mLPYYe7mI-WdSCDKckljP0wv9Xs7UujmjTZbLA2XZLyw>
 Feedback-ID: iac594737:Fastmail
-Date: Thu, 9 Feb 2023 12:30:03 -0500
+Date: Thu, 9 Feb 2023 12:33:37 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: George Dunlap <george.dunlap@cloud.com>
 Cc: xen-devel@lists.xenproject.org,
@@ -94,26 +93,25 @@ Cc: xen-devel@lists.xenproject.org,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v2 1/4] Build system: Replace git:// and http:// with
- https://
-Message-ID: <Y+UtnvFpwv9DduST@itl-email>
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v2 2/4] Automation and CI: Replace git:// and http://
+ with https://
+Message-ID: <Y+UucvSzLz61iZFX@itl-email>
 References: <cover.1675889601.git.demi@invisiblethingslab.com>
- <75d91def8234bceb41548147ee8af5fea52bd1d6.1675889602.git.demi@invisiblethingslab.com>
- <CA+zSX=a68fwMjAVRYC52894L4VsaHz9KACRVoewAyBTiNKJuYw@mail.gmail.com>
+ <8a3d0ce9747e486e91ad5b47777c80293e0fd168.1675889602.git.demi@invisiblethingslab.com>
+ <CA+zSX=Yu+wV8mqj1n5=yFZxDxLwB5cpaZ3oG62DZu_Z2ebPxdQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HYepDk4+IANRBz0A"
+	protocol="application/pgp-signature"; boundary="5ZxjEK4Mi/gAGzVS"
 Content-Disposition: inline
-In-Reply-To: <CA+zSX=a68fwMjAVRYC52894L4VsaHz9KACRVoewAyBTiNKJuYw@mail.gmail.com>
+In-Reply-To: <CA+zSX=Yu+wV8mqj1n5=yFZxDxLwB5cpaZ3oG62DZu_Z2ebPxdQ@mail.gmail.com>
 
 
---HYepDk4+IANRBz0A
+--5ZxjEK4Mi/gAGzVS
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 9 Feb 2023 12:30:03 -0500
+Date: Thu, 9 Feb 2023 12:33:37 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: George Dunlap <george.dunlap@cloud.com>
 Cc: xen-devel@lists.xenproject.org,
@@ -121,73 +119,50 @@ Cc: xen-devel@lists.xenproject.org,
 	George Dunlap <george.dunlap@citrix.com>,
 	Jan Beulich <jbeulich@suse.com>, Julien Grall <julien@xen.org>,
 	Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	Anthony PERARD <anthony.perard@citrix.com>
-Subject: Re: [PATCH v2 1/4] Build system: Replace git:// and http:// with
- https://
+	Doug Goldstein <cardoe@cardoe.com>
+Subject: Re: [PATCH v2 2/4] Automation and CI: Replace git:// and http://
+ with https://
 
-On Thu, Feb 09, 2023 at 02:01:52PM +0000, George Dunlap wrote:
-> On Wed, Feb 8, 2023 at 8:58 PM Demi Marie Obenour <
+On Thu, Feb 09, 2023 at 02:03:34PM +0000, George Dunlap wrote:
+> On Wed, Feb 8, 2023 at 8:59 PM Demi Marie Obenour <
 > demi@invisiblethingslab.com> wrote:
 >=20
 > > Obtaining code over an insecure transport is a terrible idea for
 > > blatently obvious reasons.  Even for non-executable data, insecure
 > > transports are considered deprecated.
 > >
-> > This patch enforces the use of secure transports in the build system.
+> > This patch enforces the use of secure transports in automation and CI.
 > >
 > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 > >
 >=20
-> Hey Demi,
->=20
-> Thanks for this series -- we definitely want the build system to use secu=
-re
-> transports when available.  Can you confirm that you've tested the "+s"
-> versions of all the URLs in this patch, and verified that they actually
-> work?
+> Same question here -- have you verified somehow that the new URLs work?
 
-I had not, but a subsequent review indicated that most do work.  The
-exceptions are:
-
-- Neither the PolarSSL nor TPM emulator links work, but the http://
-  verison of these links is also broken.  I added an AC_MSG_ERROR to
-  fail the TPM emulator build if they would be used, but a Xen committer
-  will need to regenerate configure.
-
-- the newlib url should be https://sourceware.org/ftp/newlib, not
-  https://source.redhat.com/ftp/newlib.  This was changed in
-  configure.ac but not in configure.
-
-> If you haven't, I realize that may be somewhat tedious, but I think it's
-> pretty important.  You should be able to automate  a lot of it using `curl
-> --head --fail`. [1]
-
-That does not work for the Xen git repositories, but those all do work.
+I had not, but I just checked and they all do.=20
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---HYepDk4+IANRBz0A
+--5ZxjEK4Mi/gAGzVS
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPlLZ8ACgkQsoi1X/+c
-IsHTTQ/+PQkqXyTptUZxmAn9zU/a2jLEJSR7vRpHN4M9qmezFoal36y35Phk2XRN
-7OrdkHqhYEnkOX8PrPW8tY0wULH8aZsveve+RQRrq6R9Fkiw/ALwaPs+0WkRqCbd
-qPhOmS5fqi+9xoS9gOsv9RGpdlGJdBGur0+Erd2MTUdmLlm416DeVCCtWLh7rulN
-z2ruBGMmBkTZHRDj7J5w81RaJOzx5Pgez9jXKiuC6CI6zWNK2EQtOkUqglWG9oVy
-nssRervVahjofqg9crDrSS+ao7JRzqjEFEl9PlE1u+ivS2mTAkgv6IOuonmDm/ry
-Vb2oMA6vHYSgW36pDVLe2Z8W+hAuC6z3OyvvNOKBEX7TllErApGpVOAbC1+5+h+O
-BrePYk2WjOj90ZFccISakxU4BW4nfObf77i76fsm3I7UFeXoI+QJOXet+f7XSxwd
-8CFHZDwLuQjdUyOTaGwhi3q7LRf9FA63Sb9BBGsJ8/Uuahh790ad2Sqd3/Czt0u4
-3LKUHQnAR4dqbvyrGcCWpFzVvwMlPAJKs2kgUKJi1Rdpvqs1q7A0+Us5yCOcqAgo
-czCe1IlCBNjyT5yHUleXMFSLey947uI/LtMDF/pCpo5Nb2Lrf0BeeMWvr3DznqAU
-bcCy0KhqfIcZDOnXhpiBNro3Tb19xvSJo1MI3xlGGhPrVze2tss=
-=iPFj
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPlLnMACgkQsoi1X/+c
+IsG6/g/+P102TDvpkUA6eFt5f1mkhy7m2uF77jRmcAVsG7nUuvpQ4O0wf/51H7re
+ZwCPeM6A7I6lH6TZgfSItgYHEKwjig/IoDzlCi4w/PIJuvSi5y7fxiWNDtTy2k65
+yjDP67BraZ/f5p429Ulkqoh7NBytU3Pbdzikgrdm/UhXBJalhuenu7uTLK4r/NZ4
+DuxngFXxAG/JDf3mqfLv1La8iUeRK2YmcqI2dU0j0COSMVwr1VQ2YAnwykcAgQ8A
+baLegM0btKNftgwYDdHPiY30clOpGbogbDXyq764LNpRCWgpH8YrJrvdgz0FvrQn
+taOXbwjbErVU4tm12ObC6q/kxMaEpeBb18hWieU3uEpELtPxZ4p8UatYD9Yhj8/1
+WxlDcmZmTfX6+jDrt+CSWRRqP7F/q7I4D5wKzdWW5Yr9jqU5dkNygaqG+0tuwrhx
+YrZQ5xL0W02pK/dAikWhy7eIgENxoA5ou7ZukUaGWGvbXc6tI1Ij+UxNHt2AQn2B
+khGB1FO0uReHDkcPuqrsxqSZFenoSDOlZcXtlJsWz89IiqOvqTLjBlUGqkHvk1fg
+kR6kgFSRw+WclA4beoV0OWfSZ3t4/oR4d4WqY+s8n5sq+b820IFA5+iXZlZr5YyF
+AOZOnPdQBoG4Satao3pnLhiSbHVMXffGmeOCorpXMzMNKWrFQ+M=
+=kpc1
 -----END PGP SIGNATURE-----
 
---HYepDk4+IANRBz0A--
+--5ZxjEK4Mi/gAGzVS--
 
