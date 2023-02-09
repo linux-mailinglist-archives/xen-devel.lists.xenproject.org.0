@@ -2,37 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D0126912D8
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 22:54:30 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.492945.762724 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 509236913B0
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 23:47:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.492956.762735 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQErb-0002Mk-Cj; Thu, 09 Feb 2023 21:53:55 +0000
+	id 1pQFfw-0000GT-5t; Thu, 09 Feb 2023 22:45:56 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 492945.762724; Thu, 09 Feb 2023 21:53:55 +0000
+Received: by outflank-mailman (output) from mailman id 492956.762735; Thu, 09 Feb 2023 22:45:56 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQErb-0002Kv-9w; Thu, 09 Feb 2023 21:53:55 +0000
-Received: by outflank-mailman (input) for mailman id 492945;
- Thu, 09 Feb 2023 21:53:53 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=2cpx=6F=gmail.com=shentey@srs-se1.protection.inumbo.net>)
- id 1pQErZ-0002Kp-DM
- for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 21:53:53 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d8a86a3-a8c4-11ed-933c-83870f6b2ba8;
- Thu, 09 Feb 2023 22:53:52 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id c26so5902992ejz.10
- for <xen-devel@lists.xenproject.org>; Thu, 09 Feb 2023 13:53:51 -0800 (PST)
-Received: from [127.0.0.1] (dynamic-077-011-177-219.77.11.pool.telefonica.de.
- [77.11.177.219]) by smtp.gmail.com with ESMTPSA id
- q25-20020a50cc99000000b004a24b8b58cbsm1318598edi.16.2023.02.09.13.53.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 09 Feb 2023 13:53:50 -0800 (PST)
+	id 1pQFfw-0000Cw-2C; Thu, 09 Feb 2023 22:45:56 +0000
+Received: by outflank-mailman (input) for mailman id 492956;
+ Thu, 09 Feb 2023 22:45:54 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=UnIs=6F=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
+ id 1pQFft-0000Cn-Ug
+ for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 22:45:53 +0000
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [2607:f8b0:4864:20::e31])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 7ffce9c8-a8cb-11ed-93b5-47a8fe42b414;
+ Thu, 09 Feb 2023 23:45:51 +0100 (CET)
+Received: by mail-vs1-xe31.google.com with SMTP id l8so3769505vsm.11
+ for <xen-devel@lists.xenproject.org>; Thu, 09 Feb 2023 14:45:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,117 +39,76 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d8a86a3-a8c4-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 7ffce9c8-a8cb-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=itT7CNNYwIbGw/NdhBVioMq1qk/0q2en8jeZiTvu8fM=;
-        b=gvkdPO+ea8gbJrkwujaXuq7jqd/x4q/yoZr/60V6ZoeTTF6CXPrsxdbDvp58h25VsY
-         gMCOWNcSa8jF3Z7//UFAWiQIDoN9oOAvoPxiQpMeFziN3CCAwwMJ6GJ1zrartjupv+ZG
-         grh6lZGDFObX5DwdUHW8wwXlMMISHQubCBP0pXVVualrI4IHsFeFvDXp61y6n9JvotOr
-         JW4rtSkplS8r0DJZxifuoVbFWSom8YloiJ9CKfnW6TaK1TNNHrkkBsjuAFxpML2kCxV1
-         wTt4V7NnWFpOa80BgYPhVfH+Hgk2Wqb47ehOk/qi9VoRyjUzG3edsXPnpzq+Ca/44qoP
-         KE+g==
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=Y8kFwis3pzEZ5yShlWxbV4o74IEFVkY2Kbc/fc1drLg=;
+        b=OtoiH4yr1E1UD0IDRsByA222jIV5cwfiknYtPetwtgrr2fzs3JplVE1qTrTgWLxC8s
+         0w9qgIMApVrueQYH263P3680ikbO5WWuhCllcRJPPEiEZDs2rldm2JeNbtfkouZ/jrlT
+         aEEqacx8V1Mvc8mxby9O5+meFI2cstNuRUoGpCmlFQqDFyKv/qFFL8R14/kf2W+iY78x
+         MH6K1kLIB43E3EPF9Q6DUnNuv+NFJgrinXYkcYsL78w/2AUIPmyM9alBMLaoF/JyXo3J
+         J10Z9tIQFmrKPebiXlTfD6SJWpMNuxkShsqlD8ET5HxJSt8kKDmw2sNGK4dF3zwaeFXo
+         rBBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:references
-         :in-reply-to:subject:cc:to:from:date:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=itT7CNNYwIbGw/NdhBVioMq1qk/0q2en8jeZiTvu8fM=;
-        b=zQo+Edo2Pa0K+36EgDm9LCsI0rUqmRvPt2upY/K+rhBfnAVLf0V5yy6KLG8DISy3xU
-         VHqRVpg8hwTQZ66oKQBuNeT6PXbdjFLhNgFXipUPV6xXcIT6ranX/4Z1vadljLDeWsnP
-         +uIKKa8tyTMBys45x43agl0EFLIgu/hdsAduYr3pOqXOqvUpYjd//U1fCcBG0hHUICBQ
-         LtgyvbqAh4WcoiTy4wL6+LPvRuj4P+j/8PycQQvTkQPxHRaBKBEyxMyV62jsMQZ0ya8g
-         /4ed0nKZ1/BYU8qBhGLsLjH5AUl7TZWrGyUGZXfT5eyiHHrHPzGygqau/bvVmo7+8Tvi
-         kv6A==
-X-Gm-Message-State: AO0yUKWpvARL20xzYI6NWEL8Ni/ZOe0eRccB6AVS3OU1VeozdUTuWfte
-	dSRrfZfatXTtiwbXh9nAy1A=
-X-Google-Smtp-Source: AK7set+8AOKT8imCofnKhSOXuWnoO7CZmbZIKmaAC/5ETBa5KX7LXmOcaqdQ1HR9CDMB3Tr6dFoSnA==
-X-Received: by 2002:a17:906:1252:b0:889:7781:f62e with SMTP id u18-20020a170906125200b008897781f62emr14288663eja.22.1675979631428;
-        Thu, 09 Feb 2023 13:53:51 -0800 (PST)
-Date: Thu, 09 Feb 2023 21:53:41 +0000
-From: Bernhard Beschow <shentey@gmail.com>
-To: Anthony PERARD <anthony.perard@citrix.com>
-CC: qemu-devel@nongnu.org, Richard Henderson <richard.henderson@linaro.org>,
- Stefano Stabellini <sstabellini@kernel.org>, xen-devel@lists.xenproject.org,
- =?ISO-8859-1?Q?Herv=E9_Poussineau?= <hpoussin@reactos.org>,
- Aurelien Jarno <aurelien@aurel32.net>, Paul Durrant <paul@xen.org>,
- Marcel Apfelbaum <marcel.apfelbaum@gmail.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Eduardo Habkost <eduardo@habkost.net>,
- =?ISO-8859-1?Q?Philippe_Mathieu-Daud=E9?= <philmd@linaro.org>,
- Chuck Zmudzinski <brchuckz@aol.com>, "Michael S. Tsirkin" <mst@redhat.com>
-Subject: Re: [PATCH v2 0/6] Resolve TYPE_PIIX3_XEN_DEVICE
-In-Reply-To: <96A4863B-D6BA-48B5-B5E4-54DD103FEBAA@gmail.com>
-References: <20230104144437.27479-1-shentey@gmail.com> <20230118051230-mutt-send-email-mst@kernel.org> <Y9ADQ/Yu8QQD0oyD@perard.uk.xensource.com> <0C2B1FE4-BB48-4C38-9161-6569BA1D6226@gmail.com> <96A4863B-D6BA-48B5-B5E4-54DD103FEBAA@gmail.com>
-Message-ID: <6C8AA4D4-FF57-4E43-A464-7F64C576ED5B@gmail.com>
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Y8kFwis3pzEZ5yShlWxbV4o74IEFVkY2Kbc/fc1drLg=;
+        b=L0R7qdWSd3PJ7u52dZykqyhP+mD8XejTTPW1kBO9Ze1F3cs0vNUKm8tDTYtRWfVArP
+         CSv252fJ/rFcCZTxqdgiMAiwECbxYmulBeHYklZTCR+NzEieu5zao2YOkv4UiMSoCQp4
+         v9EOKTsZ4Mz4+rRG8sUJALMwcANtNr3IQ23F3tEOhgYJ2WDkLYjicY+B+xSbAgSpHE3D
+         541L+DAXOYMsCDEjTqEK/6MuMvIs1P45JxSqxSPQsktAUXj79vlRBnrXzZpalBxfu/M0
+         9lsuj2Z+xZKuXFx1zgxNnarFgUO6IAQ1pp2eeth8wRTzV4iCzgPeyg/rB9gpNO8MSm5v
+         RXfA==
+X-Gm-Message-State: AO0yUKXJ1+kzhn2+Wmy5jCSprw9E4zeDC4eUdurGsP49Obm5SLEa0tsE
+	W+l1CHnTI0PgWy6uKwt/SK+n4HNcSHAENG4aUQI=
+X-Google-Smtp-Source: AK7set+TDB/iSty1FOgMcwRZnU0o/YA3V6ejbyFonm3GmJ+O1pKlXwSYLXDLSUFqHw2fMNcOBSBimJxU6sXqiRw9mq4=
+X-Received: by 2002:a67:a407:0:b0:3f0:89e1:7c80 with SMTP id
+ n7-20020a67a407000000b003f089e17c80mr2444094vse.72.1675982749302; Thu, 09 Feb
+ 2023 14:45:49 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <15a27b40-54ab-6b7a-9702-f72cf870e6d1@suse.com>
+In-Reply-To: <15a27b40-54ab-6b7a-9702-f72cf870e6d1@suse.com>
+From: Alistair Francis <alistair23@gmail.com>
+Date: Fri, 10 Feb 2023 08:45:23 +1000
+Message-ID: <CAKmqyKNUCPWieZxbzgwaH5KzZ=3propx-bVRGshkcXFmWt7Wmg@mail.gmail.com>
+Subject: Re: [PATCH] riscv: add temporary riscv64_defconfig alias
+To: Jan Beulich <jbeulich@suse.com>
+Cc: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>, 
+	Bobby Eshleman <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
+	Connor Davis <connojdavis@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-
-
-Am 1=2E Februar 2023 08:11:10 UTC schrieb Bernhard Beschow <shentey@gmail=
-=2Ecom>:
+On Thu, Feb 9, 2023 at 8:02 PM Jan Beulich <jbeulich@suse.com> wrote:
 >
+> This is to allow building of Xen without going through a separate
+> tiny64_defconfig build step, just like is possible for all other
+> architectures. Eventually the symlink will want replacing by,
+> presumably, an empty file just like other arches have.
 >
->Am 24=2E Januar 2023 17:07:30 UTC schrieb Bernhard Beschow <shentey@gmail=
-=2Ecom>:
->>
->>
->>Am 24=2E Januar 2023 16:11:47 UTC schrieb Anthony PERARD <anthony=2Epera=
-rd@citrix=2Ecom>:
->>>On Wed, Jan 18, 2023 at 05:13:03AM -0500, Michael S=2E Tsirkin wrote:
->>>> On Wed, Jan 04, 2023 at 03:44:31PM +0100, Bernhard Beschow wrote:
->>>> > This series first renders TYPE_PIIX3_XEN_DEVICE redundant and final=
-ly removes
->>>> > it=2E The motivation is to 1/ decouple PIIX from Xen and 2/ to make=
- Xen in the PC
->>>> > machine agnostic to the precise southbridge being used=2E 2/ will b=
-ecome
->>>> > particularily interesting once PIIX4 becomes usable in the PC machi=
-ne, avoiding
->>>> > the "Frankenstein" use of PIIX4_ACPI in PIIX3=2E
->>>>=20
->>>> Looks ok to me=2E
->>>> Reviewed-by: Michael S=2E Tsirkin <mst@redhat=2Ecom>
->>>>=20
->>>> Feel free to merge through Xen tree=2E
->>>
->>>Hi Bernhard,
->>
->>Hi Anthony,
->>
->>>The series currently doesn't apply on master=2E And a quick try at
->>>applying the series it is based on also failed=2E Could you rebase it ,=
- or
->>>maybe you would prefer to wait until the other series "Consolidate
->>>PIIX=2E=2E=2E" is fully applied?
->>
->>Thanks for looking into it!
->>
->>You can get the compilable series from https://patchew=2Eorg/QEMU/202301=
-04144437=2E27479-1-shentey@gmail=2Ecom/ =2E If it doesn't work for you let =
-me know, then I can rebase onto master=2E All necessary dependencies for th=
-e series are upstreamed meanwhile=2E
->
->Ping
+> Signed-off-by: Jan Beulich <jbeulich@suse.com>
 
-Ping^2
+Acked-by: Alistair Francis <alistair.francis@wdc.com>
 
+Alistair
+
+> ---
+>  xen/arch/riscv/configs/riscv64_defconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>  create mode 120000 xen/arch/riscv/configs/riscv64_defconfig
 >
->>
->>Thanks,
->>Bernhard
->>>
->>>Thanks=2E
->>>
->>>> > Testing done:
->>>> > None, because I don't know how to conduct this properly :(
->>>> >=20
->>>> > Based-on: <20221221170003=2E2929-1-shentey@gmail=2Ecom>
->>>> >           "[PATCH v4 00/30] Consolidate PIIX south bridges"
->>>
+> diff --git a/xen/arch/riscv/configs/riscv64_defconfig b/xen/arch/riscv/configs/riscv64_defconfig
+> new file mode 120000
+> index 000000000000..c3c97b4d109b
+> --- /dev/null
+> +++ b/xen/arch/riscv/configs/riscv64_defconfig
+> @@ -0,0 +1 @@
+> +tiny64_defconfig
+> \ No newline at end of file
+> --
+> 2.37.1
+>
 
