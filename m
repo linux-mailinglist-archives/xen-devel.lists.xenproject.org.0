@@ -2,44 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE306690719
-	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 12:24:05 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.492345.761873 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id F136E690756
+	for <lists+xen-devel@lfdr.de>; Thu,  9 Feb 2023 12:27:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.492366.761884 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQ51w-0002vU-JL; Thu, 09 Feb 2023 11:23:56 +0000
+	id 1pQ556-0004Dx-1r; Thu, 09 Feb 2023 11:27:12 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 492345.761873; Thu, 09 Feb 2023 11:23:56 +0000
+Received: by outflank-mailman (output) from mailman id 492366.761884; Thu, 09 Feb 2023 11:27:12 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQ51w-0002tF-Ff; Thu, 09 Feb 2023 11:23:56 +0000
-Received: by outflank-mailman (input) for mailman id 492345;
- Thu, 09 Feb 2023 11:23:54 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pQ555-0004B4-V0; Thu, 09 Feb 2023 11:27:11 +0000
+Received: by outflank-mailman (input) for mailman id 492366;
+ Thu, 09 Feb 2023 11:27:10 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=7iTR=6F=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pQ51u-0002J1-Q2
- for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 11:23:54 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3c5783f4-a86c-11ed-933c-83870f6b2ba8;
- Thu, 09 Feb 2023 12:23:54 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 055735C830;
- Thu,  9 Feb 2023 11:23:54 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C222E1339E;
- Thu,  9 Feb 2023 11:23:53 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4G8qLsnX5GONPAAAMHmgww
- (envelope-from <jgross@suse.com>); Thu, 09 Feb 2023 11:23:53 +0000
+ (envelope-from <julien@xen.org>) id 1pQ554-0004Aw-Mj
+ for xen-devel@lists.xenproject.org; Thu, 09 Feb 2023 11:27:10 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pQ554-00025G-5m; Thu, 09 Feb 2023 11:27:10 +0000
+Received: from [54.239.6.186] (helo=[192.168.16.230])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pQ553-000625-VR; Thu, 09 Feb 2023 11:27:10 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,100 +39,200 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3c5783f4-a86c-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1675941834; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=l9hWyX1xxO2Hr5xWFMrMhIclyrLkWDLxq1LOLbj+I4I=;
-	b=cnhgXp3QLOM22dAa7iRHOVdKpkMg18w1JaOg3jmcq2AVgi8YWHZcTkRa1ICbbL190fAENl
-	ToyEe2sNNx6IUFhuH49oVwBp/dCk0HRnTCxLSUjzcmJB348wrE/2pESJP9WwSqV1PXYBs8
-	GJAh7ysO0cVYdUy1dsEGJ+znJl0Bttc=
-From: Juergen Gross <jgross@suse.com>
-To: xen-devel@lists.xenproject.org
-Cc: andrew.cooper3@citrix.com,
-	george.dunlap@citrix.com,
-	jbeulich@suse.com,
-	julien@xen.org,
-	sstabellini@kernel.org,
-	wl@xen.org,
-	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v4 2/2 RESEND] xen/public: fix 9pfs documentation of connection sequence
-Date: Thu,  9 Feb 2023 12:23:38 +0100
-Message-Id: <20230209112338.26287-3-jgross@suse.com>
-X-Mailer: git-send-email 2.35.3
-In-Reply-To: <20230209112338.26287-1-jgross@suse.com>
-References: <20230209112338.26287-1-jgross@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=l8xKBW3Ps51StnTZpqRDWsODFvx92XlF9VFH9umiv1M=; b=rzdiFBmXxnDQw/4rtlbAh0bcco
+	qlF7a1G996ltGhiykGOzA9JTAF6zRj/CdZRcqUh0y9XSZtLXzciaCdIc7dROPKQODhe9KPIdxKvmS
+	d8uiVZHZ3D5tcx7sKP7sdzV+0inD/6tjf5fZMAuCnF1+AYWC+vTxKYvTNQd5TJn0JnGY=;
+Message-ID: <af8411ba-d22f-ba66-3f29-9abc09d1e500@xen.org>
+Date: Thu, 9 Feb 2023 11:27:07 +0000
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.1
+Subject: Re: [PATCH v2 34/40] xen/mpu: free init memory in MPU system
+Content-Language: en-US
+To: Penny Zheng <Penny.Zheng@arm.com>, xen-devel@lists.xenproject.org
+Cc: wei.chen@arm.com, Stefano Stabellini <sstabellini@kernel.org>,
+ Bertrand Marquis <bertrand.marquis@arm.com>,
+ Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+References: <20230113052914.3845596-1-Penny.Zheng@arm.com>
+ <20230113052914.3845596-35-Penny.Zheng@arm.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <20230113052914.3845596-35-Penny.Zheng@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The documented connection sequence in xen/include/public/io/9pfs.h has
-a bug: the frontend needs to wait for the backend to have published its
-features before being able to allocate its rings and event-channels.
+Hi Penny,
 
-While correcting that, make it clear that there might be multiple
-rings and event-channels by adding "(s)".
+On 13/01/2023 05:29, Penny Zheng wrote:
+> This commit implements free_init_memory in MPU system, trying to keep
+> the same strategy with MMU system.
+> 
+> In order to inserting BRK instruction into init code section, which
+> aims to provok a fault on purpose, we should change init code section
+> permission to RW at first.
+> Function modify_xen_mappings is introduced to modify permission of the
+> existing valid MPU memory region.
+> 
+> Then we nuke the instruction cache to remove entries related to init
+> text.
+> At last, we destroy these two MPU memory regions referring init text and
+> init data using destroy_xen_mappings.
+> 
+> Signed-off-by: Penny Zheng <penny.zheng@arm.com>
+> Signed-off-by: Wei Chen <wei.chen@arm.com>
+> ---
+>   xen/arch/arm/mm_mpu.c | 85 ++++++++++++++++++++++++++++++++++++++++++-
+>   1 file changed, 83 insertions(+), 2 deletions(-)
+> 
+> diff --git a/xen/arch/arm/mm_mpu.c b/xen/arch/arm/mm_mpu.c
+> index 0b720004ee..de0c7d919a 100644
+> --- a/xen/arch/arm/mm_mpu.c
+> +++ b/xen/arch/arm/mm_mpu.c
+> @@ -20,6 +20,7 @@
+>    */
+>   
+>   #include <xen/init.h>
+> +#include <xen/kernel.h>
+>   #include <xen/libfdt/libfdt.h>
+>   #include <xen/mm.h>
+>   #include <xen/page-size.h>
+> @@ -77,6 +78,8 @@ static const unsigned int mpu_section_mattr[MSINFO_MAX] = {
+>       REGION_HYPERVISOR_BOOT,
+>   };
+>   
+> +extern char __init_data_begin[], __init_end[];
 
-Signed-off-by: Juergen Gross <jgross@suse.com>
----
-V4:
-- patch split off (Julien Grall)
----
- xen/include/public/io/9pfs.h | 32 ++++++++++++++++++++++----------
- 1 file changed, 22 insertions(+), 10 deletions(-)
+Now we have two places define __init_end as extern. Can this instead be 
+defined in setup.h?
 
-diff --git a/xen/include/public/io/9pfs.h b/xen/include/public/io/9pfs.h
-index 617ad9afd7..a0ce82d0a8 100644
---- a/xen/include/public/io/9pfs.h
-+++ b/xen/include/public/io/9pfs.h
-@@ -114,14 +114,26 @@
-  *
-  *    *Front*                               *Back*
-  *    XenbusStateInitialising               XenbusStateInitialising
-- *    - Query virtual device                - Query backend device
-- *      properties.                           identification data.
-- *    - Setup OS device instance.           - Publish backend features
-- *    - Allocate and initialize the           and transport parameters
-- *      request ring.                                      |
-- *    - Publish transport parameters                       |
-- *      that will be in effect during                      V
-- *      this connection.                            XenbusStateInitWait
-+ *                                          - Query backend device
-+ *                                            identification data.
-+ *                                          - Publish backend features
-+ *                                            and transport parameters.
-+ *                                                         |
-+ *                                                         |
-+ *                                                         V
-+ *                                                  XenbusStateInitWait
-+ *
-+ *    - Query virtual device
-+ *      properties.
-+ *    - Query backend features and
-+ *      transport parameters.
-+ *    - Setup OS device instance.
-+ *    - Allocate and initialize the
-+ *      request ring(s) and
-+ *      event-channel(s).
-+ *    - Publish transport parameters
-+ *      that will be in effect during
-+ *      this connection.
-  *                 |
-  *                 |
-  *                 V
-@@ -129,8 +141,8 @@
-  *
-  *                                          - Query frontend transport
-  *                                            parameters.
-- *                                          - Connect to the request ring and
-- *                                            event channel.
-+ *                                          - Connect to the request ring(s)
-+ *                                            and event channel(s).
-  *                                                         |
-  *                                                         |
-  *                                                         V
+> +
+>   /* Write a MPU protection region */
+>   #define WRITE_PROTECTION_REGION(sel, pr, prbar_el2, prlar_el2) ({       \
+>       uint64_t _sel = sel;                                                \
+> @@ -443,8 +446,41 @@ static int xen_mpumap_update_entry(paddr_t base, paddr_t limit,
+>       if ( rc == MPUMAP_REGION_OVERLAP )
+>           return -EINVAL;
+>   
+> +    /* We are updating the permission. */
+> +    if ( (flags & _REGION_PRESENT) && (rc == MPUMAP_REGION_FOUND ||
+> +                                       rc == MPUMAP_REGION_INCLUSIVE) )
+> +    {
+> +
+> +        /*
+> +         * Currently, we only support modifying a *WHOLE* MPU memory region,
+> +         * part-region modification is not supported, as in worst case, it will
+> +         * lead to three fragments in result after modification.
+> +         * part-region modification will be introduced only when actual usage
+> +         * come
+> +         */
+> +        if ( rc == MPUMAP_REGION_INCLUSIVE )
+> +        {
+> +            region_printk("mpu: part-region modification is not supported\n");
+> +            return -EINVAL;
+> +        }
+> +
+> +        /* We don't allow changing memory attributes. */
+> +        if (xen_mpumap[idx].prlar.reg.ai != REGION_AI_MASK(flags) )
+> +        {
+> +            region_printk("Modifying memory attributes is not allowed (0x%x -> 0x%x).\n",
+> +                          xen_mpumap[idx].prlar.reg.ai, REGION_AI_MASK(flags));
+> +            return -EINVAL;
+> +        }
+> +
+> +        /* Set new permission */
+> +        xen_mpumap[idx].prbar.reg.ap = REGION_AP_MASK(flags);
+> +        xen_mpumap[idx].prbar.reg.xn = REGION_XN_MASK(flags);
+> +
+> +        access_protection_region(false, NULL, (const pr_t*)(&xen_mpumap[idx]),
+> +                                 idx);
+> +    }
+>       /* We are inserting a mapping => Create new region. */
+> -    if ( flags & _REGION_PRESENT )
+> +    else if ( flags & _REGION_PRESENT )
+>       {
+>           if ( rc != MPUMAP_REGION_FAILED )
+>               return -EINVAL;
+> @@ -831,11 +867,56 @@ void mmu_init_secondary_cpu(void)
+>   
+>   int modify_xen_mappings(unsigned long s, unsigned long e, unsigned int flags)
+>   {
+> -    return -ENOSYS;
+> +    ASSERT(IS_ALIGNED(s, PAGE_SIZE));
+> +    ASSERT(IS_ALIGNED(e, PAGE_SIZE));
+> +    ASSERT(s <= e);
+> +    return xen_mpumap_update(s, e, flags);
+>   }
+>   
+>   void free_init_memory(void)
+>   {
+> +    /* Kernel init text section. */
+> +    paddr_t init_text = virt_to_maddr(_sinittext);
+> +    paddr_t init_text_end = round_pgup(virt_to_maddr(_einittext));
+> +    /* Kernel init data. */
+> +    paddr_t init_data = virt_to_maddr(__init_data_begin);
+> +    paddr_t init_data_end = round_pgup(virt_to_maddr(__init_end));
+> +    unsigned long init_section[4] = {(unsigned long)init_text,
+> +                                     (unsigned long)init_text_end,
+> +                                     (unsigned long)init_data,
+> +                                     (unsigned long)init_data_end};
+> +    unsigned int nr_init = 2;
+
+At first, it wasn't  obvious what's the 2 meant here. It also seems you 
+expect the number to be in-sync with the one above.
+
+I don't think the genericity is necessary here. But if you want it, then 
+it would be better to use an array of structure (begin/end) so you can 
+use ARRAY_SIZE() afterwards and avoid magic like "i * 2".
+
+> +    uint32_t insn = AARCH64_BREAK_FAULT;
+
+AMD is also working on 32-bit ARMv8R support. When it is easy (like) 
+here it would best to avoid making the assumption about 64-bit only.
+
+That said, to me it feels like a big part of this code could be shared 
+with the MMU version.
+
+> +    unsigned int i = 0, j = 0;
+> +
+> +    /* Change kernel init text section to RW. */
+> +    modify_xen_mappings((unsigned long)init_text,
+> +                        (unsigned long)init_text_end, REGION_HYPERVISOR_RW);
+> +
+> +    /*
+> +     * From now on, init will not be used for execution anymore,
+> +     * so nuke the instruction cache to remove entries related to init.
+> +     */
+> +    invalidate_icache_local();
+> +
+> +    /* Destroy two MPU memory regions referring init text and init data. */
+> +    for ( ; i < nr_init; i++ )
+> +    {
+> +        uint32_t *p;
+> +        unsigned int nr;
+> +        int rc;
+> +
+> +        i = 2 * i;
+
+... avoid such magic.
+
+> +        p = (uint32_t *)init_section[i];
+> +        nr = (init_section[i + 1] - init_section[i]) / sizeof(uint32_t);
+> +
+> +        for ( ; j < nr ; j++ )
+> +            *(p + j) = insn;
+> +
+> +        rc = destroy_xen_mappings(init_section[i], init_section[i + 1]);
+> +        if ( rc < 0 )
+> +            panic("Unable to remove the init section (rc = %d)\n", rc);
+> +    }
+>   }
+>   
+>   int xenmem_add_to_physmap_one(
+
+Cheers,
+
 -- 
-2.35.3
-
+Julien Grall
 
