@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2F96691B37
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 10:25:02 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493182.762992 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF141691B8B
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 10:36:00 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493192.763003 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQPdN-00015Q-8h; Fri, 10 Feb 2023 09:23:57 +0000
+	id 1pQPog-00030S-94; Fri, 10 Feb 2023 09:35:38 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493182.762992; Fri, 10 Feb 2023 09:23:57 +0000
+Received: by outflank-mailman (output) from mailman id 493192.763003; Fri, 10 Feb 2023 09:35:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQPdN-00012c-5e; Fri, 10 Feb 2023 09:23:57 +0000
-Received: by outflank-mailman (input) for mailman id 493182;
- Fri, 10 Feb 2023 09:23:55 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pQPog-0002yk-63; Fri, 10 Feb 2023 09:35:38 +0000
+Received: by outflank-mailman (input) for mailman id 493192;
+ Fri, 10 Feb 2023 09:35:36 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=/7BC=6G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pQPdL-00012W-0l
- for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 09:23:55 +0000
-Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
- [2a00:1450:4864:20::42f])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id a1cb642c-a924-11ed-93b5-47a8fe42b414;
- Fri, 10 Feb 2023 10:23:51 +0100 (CET)
-Received: by mail-wr1-x42f.google.com with SMTP id m14so4356097wrg.13
- for <xen-devel@lists.xenproject.org>; Fri, 10 Feb 2023 01:23:51 -0800 (PST)
+ id 1pQPoe-0002ye-NS
+ for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 09:35:36 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 44eec9a1-a926-11ed-933c-83870f6b2ba8;
+ Fri, 10 Feb 2023 10:35:35 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ c4-20020a1c3504000000b003d9e2f72093so5831260wma.1
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Feb 2023 01:35:35 -0800 (PST)
 Received: from [192.168.8.199] (46.204.104.21.nat.umts.dynamic.t-mobile.pl.
  [46.204.104.21]) by smtp.gmail.com with ESMTPSA id
- l3-20020a5d6683000000b002bdf3809f59sm3163585wru.38.2023.02.10.01.23.49
+ p1-20020a1c7401000000b003cfa622a18asm7803974wmc.3.2023.02.10.01.35.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Feb 2023 01:23:50 -0800 (PST)
+ Fri, 10 Feb 2023 01:35:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,37 +45,37 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: a1cb642c-a924-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 44eec9a1-a926-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
          :date:message-id:reply-to;
-        bh=fF4hictUgKkFuGyL59Ei48VpWVLxxgngBHdigpfEiME=;
-        b=duJ1DSMCfr7hlQl0TQVMdkDt3UZ+bNrrey6Yz+MtO8p7v+ABqBBRe6w5dHDr27ujlR
-         SocaXsf4M4nUizkwGCDwYqpehIb+jUwAccjBGgVNhNO2sYqizyLQBF13ku4CDz1N3+Ad
-         H7r/kBcXyQ59rZe7w26MgHMbJTwQMlmQQxwalmTB1KIGldjXl3OhLAYceM2G8QOYN/dX
-         2oJcR+HyLqoSXKbL8YrbF1QbUiirDnc39jdP/2vdM1wDPq/KuX3yldHUlEXOgPL4k/vV
-         dfi+oVHlPsK7435FBEEgWnVkWVZCOVdc8gSR7xj3yu0+UmIlMXaZyp25LuEhQIFLCpQl
-         UO1A==
+        bh=pB+VdG7PJklnLwo9yvMgFdwLNlutsCER1KpWKkOLKiE=;
+        b=g4hj8VC4JVfC6FFFGnc7d4IczlKZCpoy5eEzIXeyggcB6JyyEHq4G0xF0+yta6fysJ
+         ODrjsWNH7rRRW6Rvouui7xzXXMPz/8pSJpyyk5kpGJFblo/4hU3cKVLKCZylFJYEGyly
+         2dX14MGqZ0XilQOT10nneKCMxCtBZ5a00f8Oi7jo3G2jp37hDRKeBthfiLcLinhQyC4D
+         LJSR1HEHmss7ZSFoXKI5f01zOpdfpTsRQB6TMW+y+BX44MSe9nDkKdYzdc0D7eurD46Y
+         PWu4sk7aSYZnstV/AwLi+yBa4L24ShRfDfHOGzTiJVmYCb1JCMT3ySBvVqYwliWU1Ze0
+         +JIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=mime-version:user-agent:content-transfer-encoding:references
          :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=fF4hictUgKkFuGyL59Ei48VpWVLxxgngBHdigpfEiME=;
-        b=6s1MkXQwiTXJ9H+7u/4AFURDkQxLGBf63xPpwdVxdWXA4MRJbNXB8TlHhwRMi6dizG
-         HyLIOrUBaibioYUYy71Eh93vR9r3i9n02LMz6dr7P9oK/23Ba8ulmxxZZjKu9fw7eW/a
-         KxzDRLm0LvtezDZSW2pr4nxfSY81hcDQVzu3MBM6EX+iSV00FSlxmzwKdUp1UVjjuZnl
-         4/YMWdlx85f4oYqRLGR29UzhXTig1VZZBjQqPutQc36bcusdSey+80mghGJ25mkxmrlx
-         ZcfojL+IUdyJKzZtJij5hG0Su+6QEF+ED1ii3gKKt6wYeuG7MrxyTLNsV+W3420feBF5
-         aEaQ==
-X-Gm-Message-State: AO0yUKXWEb3+xMhfSlXDNHtG00bJmE9aP3o6xKH2cEGZvUuDeOI4T18d
-	5VXJSKx8CYbNtQoGoZDcrSA=
-X-Google-Smtp-Source: AK7set8BLx4nSmBaP4NS+B/ULkskAuTrLs2OXN6QKAoOwzOOQFkfsdcQHFzoD/zd9p/IT3CYDp4njw==
-X-Received: by 2002:a5d:4c44:0:b0:2c3:e4f5:17f with SMTP id n4-20020a5d4c44000000b002c3e4f5017fmr15559606wrt.33.1676021031281;
-        Fri, 10 Feb 2023 01:23:51 -0800 (PST)
-Message-ID: <13c3a5fbf6528ce6232be5ed56c8449a90e5c3ad.camel@gmail.com>
+        bh=pB+VdG7PJklnLwo9yvMgFdwLNlutsCER1KpWKkOLKiE=;
+        b=vCYhaCzw6q/Ld34vlXuO7DXm5nL/D/T52f164ECUFtZysdnrt1ctrdQyZhkwlurgac
+         MbuKcUZdb3EQYxbleRkYfwR3B6BZARa/6EqHgNJx19No7CMGyKB6TSWhSSh/RuSBsl0f
+         1lQE+7s54rt0sNmN6LzTuk3pKz1PpA9dkugrIx+F0ZuFuc9QeyPFXdf+PVTj7D9p+m/r
+         EWISaA8S1LY55+djampI21vpw1EenVf+oX1vnQjtMMUV8v9JtSgEgbUzSGSLe5Qu54St
+         3H4x83plng50fawnAzFkycOEs9rs1r4z4ifkC1VbsNR6/Bpg/ObkV0sl5FOX5AwbuxdW
+         5BVQ==
+X-Gm-Message-State: AO0yUKVvEdG9RIZQHYUvqDX08u+vdAsteZ9G4/7uRc48RLygSuQjoMEg
+	OcSIe0jF58HGVW4ycHtLEjc=
+X-Google-Smtp-Source: AK7set9Vw8pAgwCIMJgTkdtevj3haVyWnyEoOxgdVL8UvOLH2TJE1XajRXPSTD12GZsunv+T97Srqw==
+X-Received: by 2002:a05:600c:1713:b0:3dc:5b88:e6dd with SMTP id c19-20020a05600c171300b003dc5b88e6ddmr13890439wmn.10.1676021734919;
+        Fri, 10 Feb 2023 01:35:34 -0800 (PST)
+Message-ID: <448b79128a0f010af40f9f063a341cbdca17f206.camel@gmail.com>
 Subject: Re: [PATCH v3 09/14] xen/riscv: introduce decode_cause() stuff
 From: Oleksii <oleksii.kurochko@gmail.com>
 To: Alistair Francis <alistair23@gmail.com>
@@ -83,7 +84,7 @@ Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Julien
  Stabellini <sstabellini@kernel.org>, Gianluca Guida
  <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
  Francis <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
-Date: Fri, 10 Feb 2023 11:23:48 +0200
+Date: Fri, 10 Feb 2023 11:35:32 +0200
 In-Reply-To: <CAKmqyKNDZgrXZrXg9ttqFdxP8aZKAfiAEcNHn-VjqWhqDqUhpQ@mail.gmail.com>
 References: <cover.1675779308.git.oleksii.kurochko@gmail.com>
 	 <0198e2a5b572b9031eafe7cd1c85c6f9537b704c.1675779308.git.oleksii.kurochko@gmail.com>
@@ -199,9 +200,9 @@ upt";
 > Wrong string here
 >=20
 > Alistair
-Nice catch.
-Thanks.
 >=20
+Nice catch.
+Thanks a lot.
 > > +=C2=A0=C2=A0=C2=A0 default:
 > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "UNKNOWN IRQ type";
 > > +=C2=A0=C2=A0=C2=A0 }
