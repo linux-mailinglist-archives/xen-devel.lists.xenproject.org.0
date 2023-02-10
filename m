@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BADBF6924F0
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 18:58:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493498.763425 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 477DD692553
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 19:26:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493516.763479 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQXfP-0002yV-GU; Fri, 10 Feb 2023 17:58:35 +0000
+	id 1pQY5f-0007Kb-4o; Fri, 10 Feb 2023 18:25:43 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493498.763425; Fri, 10 Feb 2023 17:58:35 +0000
+Received: by outflank-mailman (output) from mailman id 493516.763479; Fri, 10 Feb 2023 18:25:43 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQXfP-0002vU-DU; Fri, 10 Feb 2023 17:58:35 +0000
-Received: by outflank-mailman (input) for mailman id 493498;
- Fri, 10 Feb 2023 17:58:34 +0000
+	id 1pQY5f-0007I2-1Y; Fri, 10 Feb 2023 18:25:43 +0000
+Received: by outflank-mailman (input) for mailman id 493516;
+ Fri, 10 Feb 2023 18:25:41 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pQXfN-0002vK-Ps
- for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 17:58:33 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQY5d-0007Hs-81; Fri, 10 Feb 2023 18:25:41 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQXfN-0005TP-AS; Fri, 10 Feb 2023 17:58:33 +0000
-Received: from [54.239.6.186] (helo=[192.168.26.31])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQXfN-00069h-42; Fri, 10 Feb 2023 17:58:33 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQY5d-0006EQ-6U; Fri, 10 Feb 2023 18:25:41 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQY5c-0006yg-FW; Fri, 10 Feb 2023 18:25:40 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQY5T-0001hR-6Q; Fri, 10 Feb 2023 18:25:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,205 +42,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=1Vy12ZjwbXyB0msoMPe47eFj66Jb1B1r+RbbesZQwc4=; b=B1yq6XnshVZLV9cDY2ouL8Jq9b
-	E6bHzU1xtzttf01MEbIBfrMm7YnweFCowTjrJ8SsJf9949CPu37dIaoI6+Yr5ucXP146X/iSrvDXS
-	TdThX+T05TeSvgBxo9lxtIhjxzu10hRQ3YCEbCrTGCnOkogJn05wK3FD1HhCnxbiH2rk=;
-Message-ID: <6f6f30e1-d1a0-97f8-d230-dbbd18373e2c@xen.org>
-Date: Fri, 10 Feb 2023 17:58:31 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [XEN v2 11/11] xen/arm: p2m: Enable support for 32bit IPA
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
- <20230117174358.15344-12-ayan.kumar.halder@amd.com>
- <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
- <eb4d4da7-0251-6efc-1311-6b236fdca6c4@amd.com>
- <3655dce9-f795-3d37-3236-d95d74c865ff@xen.org>
- <1e5d905c-0511-ed80-c899-e679d955775d@amd.com>
- <5eb92203-2d99-7dfc-4f01-d92b7a23c3e5@xen.org>
- <3b3c3846-5464-4914-3b28-f451f7e70c9a@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <3b3c3846-5464-4914-3b28-f451f7e70c9a@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=bszKjaWlM3Jx1paU+iNcW+dn+LtcQRK7fsfOsrPSICA=; b=KN2JnLjCQVMrkLIHzN88HqOVYu
+	QEjXVJZDWfuQxuXNYM3VwqvB4iMyNpUCevmXOwc3aP/JCPZNiNpV3L/aI38cfvFZJCBp2GJ3miSem
+	rFidSR8CrP3LUpD/ktwkUKVNu4du84MAvG/+EY9N+3lWHv7ZfDju88p8gt1V9Yk60J7w=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176835-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [xen-4.16-testing test] 176835: tolerable trouble: fail/pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-4.16-testing:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-4.16-testing:build-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-libvirt-raw:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-libvirt-xsm:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-credit1:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-thunderx:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-vhd:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-xsm:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:test-arm64-arm64-xl-credit2:hosts-allocate:starved:nonblocking
+    xen-4.16-testing:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=1b6acdeeb2323c53d841356da50440e274e7bf9a
+X-Osstest-Versions-That:
+    xen=6e081438bf8ef616d0123aab7a743476d8114ef6
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Feb 2023 18:25:31 +0000
 
-On 10/02/2023 17:51, Ayan Kumar Halder wrote:
-> 
-> On 10/02/2023 16:19, Julien Grall wrote:
->> Hi,
->> On 10/02/2023 15:39, Ayan Kumar Halder wrote:
->>>
->>> On 09/02/2023 11:45, Julien Grall wrote:
->>>> Hi,
->>> Hi Julien,
->>>>
->>>> On 07/02/2023 15:34, Ayan Kumar Halder wrote:
->>>>>
->>>>> On 20/01/2023 11:06, Julien Grall wrote:
->>>>>> Hi Ayan,
->>>>> Hi Julien,
->>>>>>
->>>>>> On 17/01/2023 17:43, Ayan Kumar Halder wrote:
->>>>>>> VTCR.T0SZ should be set as 0x20 to support 32bit IPA.
->>>>>>> Refer ARM DDI 0487I.a ID081822, G8-9824, G8.2.171, VTCR,
->>>>>>> "Virtualization Translation Control Register" for the bit 
->>>>>>> descriptions.
->>>>>>>
->>>>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>>>>> ---
->>>>>>> Changes from -
->>>>>>>
->>>>>>> v1 - New patch.
->>>>>>>
->>>>>>>   xen/arch/arm/p2m.c | 10 +++++++---
->>>>>>>   1 file changed, 7 insertions(+), 3 deletions(-)
->>>>>>>
->>>>>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>>>>>> index 948f199d84..cfdea55e71 100644
->>>>>>> --- a/xen/arch/arm/p2m.c
->>>>>>> +++ b/xen/arch/arm/p2m.c
->>>>>>> @@ -2266,13 +2266,17 @@ void __init setup_virt_paging(void)
->>>>>>>       register_t val = 
->>>>>>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
->>>>>>>     #ifdef CONFIG_ARM_32
->>>>>>> -    if ( p2m_ipa_bits < 40 )
->>>>>>> +    if ( p2m_ipa_bits < PADDR_BITS )
->>>>>>>           panic("P2M: Not able to support %u-bit IPA at the 
->>>>>>> moment\n",
->>>>>>>                 p2m_ipa_bits);
->>>>>>>   -    printk("P2M: 40-bit IPA\n");
->>>>>>> -    p2m_ipa_bits = 40;
->>>>>>> +    printk("P2M: %u-bit IPA\n",PADDR_BITS);
->>>>>>> +    p2m_ipa_bits = PADDR_BITS;
->>>>>>> +#ifdef CONFIG_ARM_PA_32
->>>>>>> +    val |= VTCR_T0SZ(0x20); /* 32 bit IPA */
->>>>>>> +#else
->>>>>>>       val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
->>>>>>> +#endif
->>>>>>
->>>>>> I am wondering whether this is right time to switch to an array 
->>>>>> like the arm64 code? This would allow to use 32-bit IPA also when 
->>>>>> Xen support 64-bit physical address.
->>>>>
->>>>> In AArch64, we use ID_AA64MMFR0_EL1.PARange to determine the 
->>>>> physical address range supported at runtime. This is then used as 
->>>>> an index into pa_range_info[] to determine t0sz, root_order, etc.
->>>>
->>>> It is using both the ID_AA64MMFR0_EL1 but also p2m_ipa_bits to 
->>>> decide the size.
->>> Ack.
->>>>
->>>>>
->>>>> However, for AArch32 I do not see an equivalent register (similar 
->>>>> to ID_AA64MMFR0_EL1) or any register to determine the physical 
->>>>> address range. Thus, I will prefer to keep the code as it is unless 
->>>>> you suggest any alternative.
->>>>
->>>> I looked at the Arm Arm and indeed it doesn't look like there are 
->>>> equivalent for ID_AA64MMFR0_EL1.PARange.
->>>>
->>>> However, my point was less about reading the system register but 
->>>> more about the fact we could have the code a bit more generic and 
->>>> avoid the assumption that PADDR_BITS is only modified when 
->>>> CONFIG_ARM_PA_32 is set.
->>>
->>> I had a rework at the patch. Please let me know if the following 
->>> looks better.
->>>
->>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>> index 948f199d84..bc3bdf5f3e 100644
->>> --- a/xen/arch/arm/p2m.c
->>> +++ b/xen/arch/arm/p2m.c
->>> @@ -2266,14 +2266,35 @@ void __init setup_virt_paging(void)
->>>       register_t val = 
->>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
->>>
->>>   #ifdef CONFIG_ARM_32
->>> -    if ( p2m_ipa_bits < 40 )
->>> +    static const struct {
->>> +        unsigned int pabits; /* Physical Address Size */
->>> +        unsigned int t0sz;   /* Desired T0SZ */
->>> +        unsigned int sl0;    /* Desired SL0 */
->>
->> Hmmm... Why don't you include the root order? In fact...
->>
->>> +    } pa_range_info[] __initconst = {
->>> +        [0] = { 32,     32,     1 },
->>> +        [1] = { 40,     24,     1 },
->>
->> ... looking at the ARMv7 specification (see B3-1345 in ARM DDI 
->> 0406C.d), the root page-table is only concatenated for 40-bits.
-> Sorry, I could not follow how you inferred this. Can you paste the 
-> relevant snippet ?
+flight 176835 xen-4.16-testing real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176835/
 
-Use of concatenated second-level translation tables
-A stage 2 translation with an input address range of 31-34 bits can 
-start the translation either:
-• With a first-level lookup, accessing a first-level translation table 
-with 2-16 entries.
-• With a second-level lookup, accessing a set of concatenated 
-second-level translation tables.
+Failures :-/ but no regressions.
 
->>
->>> +    };
->>> +    int i = 0;
->>> +
->>> +    if ( p2m_ipa_bits < PADDR_BITS )
->>> +        panic("P2M: Not able to support %u-bit IPA at the moment\n",
->>> +              p2m_ipa_bits);
->>
->> This check seems unnecessary now.
-> 
-> We still need this check as arm_smmu_device_cfg_probe() invokes 
-> p2m_restrict_ipa_bits(size).
-> 
-> And referARM IHI 0062D.cID070116 (SMMU arch version 2.0 Specification), 
-> the IPA address size can be
-> 
-> 0.
-> 
->     0b0000 32-bit.
-> 
-> 1.
-> 
->     0b0001 36-bit.
-> 
-> 10.
-> 
->     0b0010 40-bit.
-> 
-> 11.
-> 
->     0b0011 42-bit.
-> 
-> 100.
-> 
->     0b0100 44-bit.
-> 
-> 101.
-> 
->     0b0101 48-bit.
-> 
-> So if p2m_ipa_bits = 36 bits and PADDR_BITS = 40, then we want to panic.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 176458
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 176458
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 176458
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 176458
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 176458
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 176458
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 176458
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 176458
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 176458
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ test-arm64-arm64-libvirt-raw  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-libvirt-xsm  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl           3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit1   3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-thunderx  3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-vhd       3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-xsm       3 hosts-allocate               starved  n/a
+ test-arm64-arm64-xl-credit2   3 hosts-allocate               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-We can have the same situation on Arm64 (PADDR_BITS = 48), yet we don't 
-panic(). So I don't quite understand why we would need to differ...
+version targeted for testing:
+ xen                  1b6acdeeb2323c53d841356da50440e274e7bf9a
+baseline version:
+ xen                  6e081438bf8ef616d0123aab7a743476d8114ef6
 
-Or are you saying that for 64-bit we also need such check? If so, then I 
-am still not sure why because p2m_ipa_bits represent the guest physical 
-address space and PADDR_BITS the Xen physical address space. It is valid 
-to have both of them differing.
+Last test of basis   176458  2023-02-07 16:39:55 Z    3 days
+Testing same since   176755  2023-02-09 16:07:08 Z    1 days    2 attempts
 
-Cheers,
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Christian Lindig <christian.lindig@citrix.com>
+  Edwin Török <edvin.torok@citrix.com>
+  Edwin Török <edwin.torok@cloud.com>
+  Pau Ruiz Safont <pau.safont@citrix.com>
 
--- 
-Julien Grall
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          starved 
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 starved 
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      starved 
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  starved 
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  starved 
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    pass    
+ test-arm64-arm64-libvirt-raw                                 starved 
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 starved 
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      starved 
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   6e081438bf..1b6acdeeb2  1b6acdeeb2323c53d841356da50440e274e7bf9a -> stable-4.16
 
