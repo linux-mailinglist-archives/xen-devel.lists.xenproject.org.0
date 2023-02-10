@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C455E692329
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 17:19:56 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493467.763391 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E96769238D
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 17:44:17 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493475.763404 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQW7O-0006zv-Ob; Fri, 10 Feb 2023 16:19:22 +0000
+	id 1pQWUh-0002Dj-OH; Fri, 10 Feb 2023 16:43:27 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493467.763391; Fri, 10 Feb 2023 16:19:22 +0000
+Received: by outflank-mailman (output) from mailman id 493475.763404; Fri, 10 Feb 2023 16:43:27 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQW7O-0006y3-Ly; Fri, 10 Feb 2023 16:19:22 +0000
-Received: by outflank-mailman (input) for mailman id 493467;
- Fri, 10 Feb 2023 16:19:20 +0000
+	id 1pQWUh-0002Ag-Kf; Fri, 10 Feb 2023 16:43:27 +0000
+Received: by outflank-mailman (input) for mailman id 493475;
+ Fri, 10 Feb 2023 16:43:25 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pQW7M-0006xw-Ir
- for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 16:19:20 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQWUf-0002AW-Kn; Fri, 10 Feb 2023 16:43:25 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQW7M-0003GH-4F; Fri, 10 Feb 2023 16:19:20 +0000
-Received: from [54.239.6.186] (helo=[192.168.26.31])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQW7L-0004zp-Rg; Fri, 10 Feb 2023 16:19:19 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQWUf-0003hw-Ha; Fri, 10 Feb 2023 16:43:25 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQWUf-00028g-4U; Fri, 10 Feb 2023 16:43:25 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQWUf-0007Wy-40; Fri, 10 Feb 2023 16:43:25 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,288 +42,315 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=p6+oTOtiOTmEaR8NKZP2gD5Jp5xbNhPjcvyQOOSxhJY=; b=G725kLh6T59IPHHqk8e56agJmP
-	ESDJlG7XfnSdCpNld+CPhykfjCAWRREtpJVCewTmaMWJg3plul7J8FRp/0ogqV73/rhvOLOPxe0Yk
-	y3fdd8Mvh8J8QG52irB/8M3p0BwUHDbVTPZR3hGS7c1HabNF1/xuc/ysw+lvBz+DbNQ4=;
-Message-ID: <5eb92203-2d99-7dfc-4f01-d92b7a23c3e5@xen.org>
-Date: Fri, 10 Feb 2023 16:19:17 +0000
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [XEN v2 11/11] xen/arm: p2m: Enable support for 32bit IPA
-Content-Language: en-US
-To: Ayan Kumar Halder <ayankuma@amd.com>,
- Ayan Kumar Halder <ayan.kumar.halder@amd.com>, xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com
-References: <20230117174358.15344-1-ayan.kumar.halder@amd.com>
- <20230117174358.15344-12-ayan.kumar.halder@amd.com>
- <ae501ac3-af2d-c4cb-3ea9-04dd946cdc51@xen.org>
- <eb4d4da7-0251-6efc-1311-6b236fdca6c4@amd.com>
- <3655dce9-f795-3d37-3236-d95d74c865ff@xen.org>
- <1e5d905c-0511-ed80-c899-e679d955775d@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <1e5d905c-0511-ed80-c899-e679d955775d@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=m+wDdZYFExVk0F9cZZfwzYdyK8Pt32uyUz5gU6pZkyc=; b=z9AFqWLvHa39+rfHxTSAzG7pXC
+	LQJrCTCJPi6wax7vIqRdQz9Js9i0PmFEgJmeQ5wwYleGditsx9ww4delTh2iGnxr6P0YL83/YtwNn
+	fDDah1eV0znwcTm1blmY+0hY3fEEIjzL8cm/7WstHfLoCgnfoFG05XfmerrmD3sQes0Y=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176771-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Subject: [linux-linus test] 176771: tolerable trouble: fail/pass/starved - PUSHED
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-libvirt-xsm:debian-install:fail:heisenbug
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    linux=35674e787518768626d3a0ffce1c13a7eeed922d
+X-Osstest-Versions-That:
+    linux=0983f6bf2bfc0789b51ddf7315f644ff4da50acb
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 10 Feb 2023 16:43:25 +0000
 
-Hi,
+flight 176771 linux-linus real [real]
+flight 176869 linux-linus real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176771/
+http://logs.test-lab.xenproject.org/osstest/logs/176869/
 
-On 10/02/2023 15:39, Ayan Kumar Halder wrote:
-> 
-> On 09/02/2023 11:45, Julien Grall wrote:
->> Hi,
-> Hi Julien,
->>
->> On 07/02/2023 15:34, Ayan Kumar Halder wrote:
->>>
->>> On 20/01/2023 11:06, Julien Grall wrote:
->>>> Hi Ayan,
->>> Hi Julien,
->>>>
->>>> On 17/01/2023 17:43, Ayan Kumar Halder wrote:
->>>>> VTCR.T0SZ should be set as 0x20 to support 32bit IPA.
->>>>> Refer ARM DDI 0487I.a ID081822, G8-9824, G8.2.171, VTCR,
->>>>> "Virtualization Translation Control Register" for the bit 
->>>>> descriptions.
->>>>>
->>>>> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
->>>>> ---
->>>>> Changes from -
->>>>>
->>>>> v1 - New patch.
->>>>>
->>>>>   xen/arch/arm/p2m.c | 10 +++++++---
->>>>>   1 file changed, 7 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
->>>>> index 948f199d84..cfdea55e71 100644
->>>>> --- a/xen/arch/arm/p2m.c
->>>>> +++ b/xen/arch/arm/p2m.c
->>>>> @@ -2266,13 +2266,17 @@ void __init setup_virt_paging(void)
->>>>>       register_t val = 
->>>>> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
->>>>>     #ifdef CONFIG_ARM_32
->>>>> -    if ( p2m_ipa_bits < 40 )
->>>>> +    if ( p2m_ipa_bits < PADDR_BITS )
->>>>>           panic("P2M: Not able to support %u-bit IPA at the moment\n",
->>>>>                 p2m_ipa_bits);
->>>>>   -    printk("P2M: 40-bit IPA\n");
->>>>> -    p2m_ipa_bits = 40;
->>>>> +    printk("P2M: %u-bit IPA\n",PADDR_BITS);
->>>>> +    p2m_ipa_bits = PADDR_BITS;
->>>>> +#ifdef CONFIG_ARM_PA_32
->>>>> +    val |= VTCR_T0SZ(0x20); /* 32 bit IPA */
->>>>> +#else
->>>>>       val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
->>>>> +#endif
->>>>
->>>> I am wondering whether this is right time to switch to an array like 
->>>> the arm64 code? This would allow to use 32-bit IPA also when Xen 
->>>> support 64-bit physical address.
->>>
->>> In AArch64, we use ID_AA64MMFR0_EL1.PARange to determine the physical 
->>> address range supported at runtime. This is then used as an index 
->>> into pa_range_info[] to determine t0sz, root_order, etc.
->>
->> It is using both the ID_AA64MMFR0_EL1 but also p2m_ipa_bits to decide 
->> the size.
-> Ack.
->>
->>>
->>> However, for AArch32 I do not see an equivalent register (similar to 
->>> ID_AA64MMFR0_EL1) or any register to determine the physical address 
->>> range. Thus, I will prefer to keep the code as it is unless you 
->>> suggest any alternative.
->>
->> I looked at the Arm Arm and indeed it doesn't look like there are 
->> equivalent for ID_AA64MMFR0_EL1.PARange.
->>
->> However, my point was less about reading the system register but more 
->> about the fact we could have the code a bit more generic and avoid the 
->> assumption that PADDR_BITS is only modified when CONFIG_ARM_PA_32 is set.
-> 
-> I had a rework at the patch. Please let me know if the following looks 
-> better.
-> 
-> diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-> index 948f199d84..bc3bdf5f3e 100644
-> --- a/xen/arch/arm/p2m.c
-> +++ b/xen/arch/arm/p2m.c
-> @@ -2266,14 +2266,35 @@ void __init setup_virt_paging(void)
->       register_t val = 
-> VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
-> 
->   #ifdef CONFIG_ARM_32
-> -    if ( p2m_ipa_bits < 40 )
-> +    static const struct {
-> +        unsigned int pabits; /* Physical Address Size */
-> +        unsigned int t0sz;   /* Desired T0SZ */
-> +        unsigned int sl0;    /* Desired SL0 */
+Failures :-/ but no regressions.
 
-Hmmm... Why don't you include the root order? In fact...
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-libvirt-xsm 12 debian-install      fail pass in 176869-retest
 
-> +    } pa_range_info[] __initconst = {
-> +        [0] = { 32,     32,     1 },
-> +        [1] = { 40,     24,     1 },
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check fail in 176869 never pass
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 176667
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 176667
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 176667
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 176667
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 176667
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-... looking at the ARMv7 specification (see B3-1345 in ARM DDI 0406C.d), 
-the root page-table is only concatenated for 40-bits.
+version targeted for testing:
+ linux                35674e787518768626d3a0ffce1c13a7eeed922d
+baseline version:
+ linux                0983f6bf2bfc0789b51ddf7315f644ff4da50acb
 
-> +    };
-> +    int i = 0;
-> +
-> +    if ( p2m_ipa_bits < PADDR_BITS )
-> +        panic("P2M: Not able to support %u-bit IPA at the moment\n",
-> +              p2m_ipa_bits);
+Last test of basis   176667  2023-02-08 20:26:33 Z    1 days
+Testing same since   176771  2023-02-09 18:42:21 Z    0 days    1 attempts
 
-This check seems unnecessary now.
+------------------------------------------------------------
+People who touched revisions under test:
+  Adham Faris <afaris@nvidia.com>
+  Alan Stern <stern@rowland.harvard.edu>
+  Allen Hubbe <allen.hubbe@amd.com>
+  Amir Tzin <amirtz@nvidia.com>
+  Amritha Nambiar <amritha.nambiar@intel.com>
+  Anastasia Belova <abelova@astralinux.ru>
+  Anirudh Venkataramanan <anirudh.venkataramanan@intel.com>
+  Arnd Bergmann <arnd@arndb.de>
+  Arınç ÜNAL <arinc.unal@arinc9.com>
+  Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+  Bastien Nocera <hadess@hadess.net>
+  Benedict Wong <benedictwong@google.com>
+  Benjamin Tissoires <benjamin.tissoires@redhat.com>
+  Bharathi Sreenivas <bharathi.sreenivas@intel.com>
+  Brett Creeley <brett.creeley@intel.com>
+  Carlos O'Donell <carlos@redhat.com>
+  Casper Andersson <casper.casan@gmail.com>
+  Christian Hopps <chopps@chopps.org>
+  Clément Léger <clement.leger@bootlin.com>
+  Dan Carpenter <dan.carpenter@oracle.com>
+  Dan Carpenter <error27@gmail.com>
+  David S. Miller <davem@davemloft.net>
+  Devid Antonio Filoni <devid.filoni@egluetechnologies.com>
+  Dmitry Safonov <0x7f454c46@gmail.com>
+  Dragos Tatulea <dtatulea@nvidia.com>
+  Eric Dumazet <edumazet@google.com>
+  Frank Wunderlich <frank-w@public-files.de>
+  Gurucharan G <gurucharanx.g@intel.com> (A Contingent worker at Intel)
+  Haiyang Zhang <haiyangz@microsoft.com>
+  Hangbin Liu <liuhangbin@gmail.com>
+  Heiner Kallweit <hkallweit1@gmail.com>
+  Herbert Xu <herbert@gondor.apana.org.au>
+  Herton R. Krzesinski <herton@redhat.com>
+  Ido Schimmel <idosch@nvidia.com>
+  Jakub Andrysiak <jakub.andrysiak@intel.com>
+  Jakub Kicinski <kuba@kernel.org>
+  Jay Vosburgh <jay.vosburgh@canonical.com>
+  Jiawen Wu <jiawenwu@trustnetic.com>
+  Jiri Kosina <jkosina@suse.cz>
+  Jiri Pirko <jiri@nvidia.com>
+  Julian Anastasov <ja@ssi.bg>
+  Karen Ostrowska <karen.ostrowska@intel.com>
+  Kevin Yang <yyd@google.com>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Luka Guzenko <l.guzenko@web.de>
+  Maher Sanalla <msanalla@nvidia.com>
+  Marc Kleine-Budde <mkl@pengutronix.de>
+  Marcin Szycik <marcin.szycik@linux.intel.com>
+  Marco Rodolfi <marco.rodolfi@tuta.io>
+  marco.rodolfi@tuta.io <marco.rodolfi@tuta.io>
+  Marek Szlosek <marek.szlosek@intel.com>
+  Mario Limonciello <mario.limonciello@amd.com>
+  Matthieu Baerts <matthieu.baerts@tessares.net>
+  Michael Kelley <mikelley@microsoft.com>
+  Michal Simek <michal.simek@amd.com>
+  Michal Swiatkowski <michal.swiatkowski@linux.intel.com>
+  Naama Meir <naamax.meir@linux.intel.com>
+  Neel Patel <neel.patel@amd.com>
+  Oleksij Rempel <o.rempel@pengutronix.de>
+  Paolo Abeni <pabeni@redhat.com>
+  Paulo Alcantara (SUSE) <pc@cjr.nz>
+  Pietro Borrello <borrello@diag.uniroma1.it>
+  Qi Zheng <zhengqi.arch@bytedance.com>
+  Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+  Richard van Schagen <richard@routerhints.com>
+  Saeed Mahameed <saeedm@nvidia.com>
+  Sasha Neftin <sasha.neftin@intel.com>
+  Shannon Nelson <shannon.nelson@amd.com>
+  Shay Drory <shayd@nvidia.com>
+  Simon Horman <simon.horman@corigine.com>
+  Steffen Klassert <steffen.klassert@secunet.com>
+  Steve French <stfrench@microsoft.com>
+  Sujai Buvaneswaran <sujai.buvaneswaran@intel.com>
+  Takahiro Fujii <fujii@xaxxi.net>
+  Tariq Toukan <tariqt@nvidia.com>
+  Tobias Klausmann <klausman@schwarzvogel.de>
+  Tony Nguyen <anthony.l.nguyen@intel.com>
+  Vlad Buslov <vladbu@nvidia.com>
+  Vladimir Oltean <vladimir.oltean@nxp.com>
+  Xin Zhao <xnzhao@google.com>
+  Yevgeny Kliteynik <kliteyn@nvidia.com>
+  Yu Xiao <yu.xiao@corigine.com>
+  Zhang Changzhong <zhangchangzhong@huawei.com>
+  ZhaoLong Wang <wangzhaolong1@huawei.com>
 
-> +
-> +    printk("P2M: %u-bit IPA\n",PADDR_BITS);
-> +    p2m_ipa_bits = PADDR_BITS;
-> +
-> +    for ( i = 0; i < ARRAY_SIZE(pa_range_info); i++ )
-> +        if ( p2m_ipa_bits == pa_range_info[i].pabits )
-> +            break;
-> +
-> +    if ( i == ARRAY_SIZE(pa_range_info) )
->           panic("P2M: Not able to support %u-bit IPA at the moment\n",
->                 p2m_ipa_bits);
-> 
-> -    printk("P2M: 40-bit IPA\n");
-> -    p2m_ipa_bits = 40;
-> -    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
-> -    val |= VTCR_SL0(0x1); /* P2M starts at first level */
-> +    val |= VTCR_T0SZ(pa_range_info[i].t0sz);
-> +    val |= VTCR_SL0(pa_range_info[i].sl0);
-> +
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 fail    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             pass    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
 
-I think you can share a lot of code between arm64 and arm32. A diff 
-below (not tested):
 
-diff --git a/xen/arch/arm/include/asm/p2m.h b/xen/arch/arm/include/asm/p2m.h
-index 91df922e1c9f..05f26780a29d 100644
---- a/xen/arch/arm/include/asm/p2m.h
-+++ b/xen/arch/arm/include/asm/p2m.h
-@@ -14,16 +14,10 @@
-  /* Holds the bit size of IPAs in p2m tables.  */
-  extern unsigned int p2m_ipa_bits;
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
--#ifdef CONFIG_ARM_64
-  extern unsigned int p2m_root_order;
-  extern unsigned int p2m_root_level;
-  #define P2M_ROOT_ORDER    p2m_root_order
-  #define P2M_ROOT_LEVEL p2m_root_level
--#else
--/* First level P2M is always 2 consecutive pages */
--#define P2M_ROOT_ORDER    1
--#define P2M_ROOT_LEVEL 1
--#endif
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-  struct domain;
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-diff --git a/xen/arch/arm/p2m.c b/xen/arch/arm/p2m.c
-index 948f199d848f..6fda0b92230a 100644
---- a/xen/arch/arm/p2m.c
-+++ b/xen/arch/arm/p2m.c
-@@ -2264,17 +2264,6 @@ void __init setup_virt_paging(void)
-  {
-      /* Setup Stage 2 address translation */
-      register_t val = 
-VTCR_RES1|VTCR_SH0_IS|VTCR_ORGN0_WBWA|VTCR_IRGN0_WBWA;
--
--#ifdef CONFIG_ARM_32
--    if ( p2m_ipa_bits < 40 )
--        panic("P2M: Not able to support %u-bit IPA at the moment\n",
--              p2m_ipa_bits);
--
--    printk("P2M: 40-bit IPA\n");
--    p2m_ipa_bits = 40;
--    val |= VTCR_T0SZ(0x18); /* 40 bit IPA */
--    val |= VTCR_SL0(0x1); /* P2M starts at first level */
--#else /* CONFIG_ARM_64 */
-      static const struct {
-          unsigned int pabits; /* Physical Address Size */
-          unsigned int t0sz;   /* Desired T0SZ, minimum in comment */
-@@ -2286,29 +2275,26 @@ void __init setup_virt_paging(void)
-          [0] = { 32,      32/*32*/,  0,          1 },
-          [1] = { 36,      28/*28*/,  0,          1 },
-          [2] = { 40,      24/*24*/,  1,          1 },
-+#ifdef CONFIG_ARM_64
-          [3] = { 42,      22/*22*/,  3,          1 },
-          [4] = { 44,      20/*20*/,  0,          2 },
-          [5] = { 48,      16/*16*/,  0,          2 },
-          [6] = { 52,      12/*12*/,  4,          2 },
-          [7] = { 0 }  /* Invalid */
-+#endif
-      };
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-      unsigned int i;
-      unsigned int pa_range = 0x10; /* Larger than any possible value */
 
-+#ifdef CONFIG_ARM_64
-      /*
-       * Restrict "p2m_ipa_bits" if needed. As P2M table is always 
-configured
-       * with IPA bits == PA bits, compare against "pabits".
-       */
-      if ( pa_range_info[system_cpuinfo.mm64.pa_range].pabits < 
-p2m_ipa_bits )
-          p2m_ipa_bits = pa_range_info[system_cpuinfo.mm64.pa_range].pabits;
--
--    /*
--     * cpu info sanitization made sure we support 16bits VMID only if all
--     * cores are supporting it.
--     */
--    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
--        max_vmid = MAX_VMID_16_BIT;
-+#endif
+Pushing revision :
 
-      /* Choose suitable "pa_range" according to the resulted 
-"p2m_ipa_bits". */
-      for ( i = 0; i < ARRAY_SIZE(pa_range_info); i++ )
-@@ -2324,12 +2310,22 @@ void __init setup_virt_paging(void)
-      if ( pa_range >= ARRAY_SIZE(pa_range_info) || 
-!pa_range_info[pa_range].pabits )
-          panic("Unknown encoding of ID_AA64MMFR0_EL1.PARange %x\n", 
-pa_range);
-
--    val |= VTCR_PS(pa_range);
--    val |= VTCR_TG0_4K;
-+#ifdef CONFIG_ARM_64
-+    /*
-+     * cpu info sanitization made sure we support 16bits VMID only if all
-+     * cores are supporting it.
-+     */
-+    if ( system_cpuinfo.mm64.vmid_bits == MM64_VMID_16_BITS_SUPPORT )
-+        max_vmid = MAX_VMID_16_BIT;
-
-      /* Set the VS bit only if 16 bit VMID is supported. */
-      if ( MAX_VMID == MAX_VMID_16_BIT )
-          val |= VTCR_VS;
-+#endif
-+
-+    val |= VTCR_PS(pa_range);
-+    val |= VTCR_TG0_4K;
-+
-      val |= VTCR_SL0(pa_range_info[pa_range].sl0);
-      val |= VTCR_T0SZ(pa_range_info[pa_range].t0sz);
-
-@@ -2341,7 +2337,7 @@ void __init setup_virt_paging(void)
-             p2m_ipa_bits,
-             pa_range_info[pa_range].pabits,
-             ( MAX_VMID == MAX_VMID_16_BIT ) ? 16 : 8);
--#endif
-+
-      printk("P2M: %d levels with order-%d root, VTCR 0x%"PRIregister"\n",
-             4 - P2M_ROOT_LEVEL, P2M_ROOT_ORDER, val);
-
-Cheers,
-
--- 
-Julien Grall
+hint: The 'hooks/update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-receive' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+hint: The 'hooks/post-update' hook was ignored because it's not set as executable.
+hint: You can disable this warning with `git config advice.ignoredHook false`.
+To xenbits.xen.org:/home/xen/git/linux-pvops.git
+   0983f6bf2bfc..35674e787518  35674e787518768626d3a0ffce1c13a7eeed922d -> tested/linux-linus
 
