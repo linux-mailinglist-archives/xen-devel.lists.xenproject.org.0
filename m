@@ -2,32 +2,65 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93E94691658
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 02:47:17 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493036.762845 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAB8269166E
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 02:58:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493045.762859 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQIUs-0000GI-Rg; Fri, 10 Feb 2023 01:46:42 +0000
+	id 1pQIg2-0001z0-Tx; Fri, 10 Feb 2023 01:58:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493036.762845; Fri, 10 Feb 2023 01:46:42 +0000
+Received: by outflank-mailman (output) from mailman id 493045.762859; Fri, 10 Feb 2023 01:58:14 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQIUs-0000Du-Oi; Fri, 10 Feb 2023 01:46:42 +0000
-Received: by outflank-mailman (input) for mailman id 493036;
- Fri, 10 Feb 2023 01:46:41 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pQIg2-0001wa-Qt; Fri, 10 Feb 2023 01:58:14 +0000
+Received: by outflank-mailman (input) for mailman id 493045;
+ Fri, 10 Feb 2023 01:58:13 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=uYSr=6G=gmail.com=alistair23@srs-se1.protection.inumbo.net>)
- id 1pQIUr-0000Do-EX
- for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 01:46:41 +0000
-Received: from mail-ua1-x931.google.com (mail-ua1-x931.google.com
- [2607:f8b0:4864:20::931])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id c2397c41-a8e4-11ed-93b5-47a8fe42b414;
- Fri, 10 Feb 2023 02:46:39 +0100 (CET)
-Received: by mail-ua1-x931.google.com with SMTP id b11so715857uae.4
- for <xen-devel@lists.xenproject.org>; Thu, 09 Feb 2023 17:46:38 -0800 (PST)
+ <SRS0=+3fG=6G=arm.com=Henry.Wang@srs-se1.protection.inumbo.net>)
+ id 1pQIg1-0001wU-1N
+ for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 01:58:13 +0000
+Received: from EUR02-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02on20608.outbound.protection.outlook.com
+ [2a01:111:f400:fe16::608])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 5e6f3b4c-a8e6-11ed-933c-83870f6b2ba8;
+ Fri, 10 Feb 2023 02:58:10 +0100 (CET)
+Received: from AM6PR02CA0001.eurprd02.prod.outlook.com (2603:10a6:20b:6e::14)
+ by AS8PR08MB9118.eurprd08.prod.outlook.com (2603:10a6:20b:5b6::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Fri, 10 Feb
+ 2023 01:58:01 +0000
+Received: from AM7EUR03FT034.eop-EUR03.prod.protection.outlook.com
+ (2603:10a6:20b:6e:cafe::e9) by AM6PR02CA0001.outlook.office365.com
+ (2603:10a6:20b:6e::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.21 via Frontend
+ Transport; Fri, 10 Feb 2023 01:58:01 +0000
+Received: from 64aa7808-outbound-1.mta.getcheckrecipient.com (63.35.35.123) by
+ AM7EUR03FT034.mail.protection.outlook.com (100.127.140.87) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6086.19 via Frontend Transport; Fri, 10 Feb 2023 01:58:01 +0000
+Received: ("Tessian outbound baf1b7a96f25:v132");
+ Fri, 10 Feb 2023 01:58:00 +0000
+Received: from 004a2ca34f67.1
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com id
+ B8EA516A-6A66-4B6F-9ED5-D6B043AC1B02.1; 
+ Fri, 10 Feb 2023 01:57:54 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ by 64aa7808-outbound-1.mta.getcheckrecipient.com with ESMTPS id 004a2ca34f67.1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384);
+ Fri, 10 Feb 2023 01:57:54 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com (2603:10a6:20b:570::15)
+ by PR3PR08MB5723.eurprd08.prod.outlook.com (2603:10a6:102:89::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Fri, 10 Feb
+ 2023 01:57:52 +0000
+Received: from AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e]) by AS8PR08MB7991.eurprd08.prod.outlook.com
+ ([fe80::d1d7:166d:6c34:d19e%4]) with mapi id 15.20.6064.035; Fri, 10 Feb 2023
+ 01:57:52 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,238 +72,124 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: c2397c41-a8e4-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=3bZyRdx/tBTOfbHOAIRS378NmZr2nfsGuMCm41Sv5BI=;
-        b=MVkkD1Zsrzamw4LcETsWm9FVOP9uuLOArbbbu7NRt1CwD0RAtjh1WpGRh6O/yMkmJ8
-         skcOkRdaKHJRvM0M08EIewFi0ezUaB8z9JkNwTFaqAiaNFuBlRcvAbF0QYr+MC0m1NQL
-         UVhEO47lv+AiS3efWxNGFkWd+Bf78Xg6Ye0pvDLpvRGDlheCReQzEQOANd+R79OZyG1b
-         8hK6fK21aVkwEuqXL6HTh/n9yyE/wPKDU8jzKk+ssxISKoqGOo8kgtAqSWXY4c3K96fY
-         p0388soavvfAZ0PEwxM33hB0mRHtgwVbxqO6Sce6swreDy5OPoyULInWMqEwFkLWMRND
-         9P4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3bZyRdx/tBTOfbHOAIRS378NmZr2nfsGuMCm41Sv5BI=;
-        b=gleK8AKp0o267JlImQPG4fEhqwBpbnR6BVfOFSClnKOY5HQp0Xn72cm6++H8wGMu1S
-         +1Hpc6MUw0ML96rs22bDCtjLpIWKNaG1o+hopeex3/beusVMHr6DHqB4x9BMGt7dS+o/
-         DhrI/uAiX1/M9jBOGKxQq8UcEJW2Ll6SA7zQJIxUvwuyEQ9A0S0pRZD5Xs8Sm5d/TE2F
-         kJf/Z9OhGERGw0HJLFOzRKaY0xY37pMaomCVAXYuWyAmq/Q56prhDbvnf5Zcc/DUT687
-         VMv62YIxyNBZHHnqReSdFMlCQJT1Os5+HZ8WG/ni5jcfyzeqCkB5i+IZzAiLk8ycQxUP
-         IYxw==
-X-Gm-Message-State: AO0yUKXUVgqmamk3NuoMQoHRThR0X79OdGMmZTRfKvI4LVr0IGHQUCHr
-	CoTaTOGklfmspdGZ0kqnanMQXGh6eS+T3c79Q1M=
-X-Google-Smtp-Source: AK7set85KH7pDDzlzhcJ3ZCDfwaSAOhStZj+BYybrRQG22yB+8hChhJj15YdM4JkNE6QXX6IqN1e1VDNmWepu5K4WXY=
-X-Received: by 2002:ab0:3b90:0:b0:683:c74a:af60 with SMTP id
- p16-20020ab03b90000000b00683c74aaf60mr2744470uaw.74.1675993597834; Thu, 09
- Feb 2023 17:46:37 -0800 (PST)
+X-Inumbo-ID: 5e6f3b4c-a8e6-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2M8XVoSVQzj1eLY7upvJZiKmO3vJoeH8m934rCew6kk=;
+ b=KfkIhEMwZAbeuIaN85oHrFysWpGIx3qGhGXNM0qxa91w0mHB6Djx03G0sKv7Aj98AGd0nVGXv1X9dUEsU3n6xaocKlBjKpf8m3OgoAS1j99uUXvT4WRRRxLqVb9RrGH2kZ04A+g6Wc0NKGgRFM7wQcFu7aY822q1EmTQA0uZqBY=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 63.35.35.123)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=armh.onmicrosoft.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 63.35.35.123 as permitted sender) receiver=protection.outlook.com;
+ client-ip=63.35.35.123; helo=64aa7808-outbound-1.mta.getcheckrecipient.com;
+ pr=C
+X-CR-MTA-TID: 64aa7808
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Mi2ohxfE4lK1qB+1jd3nyqVRSvVOcwrsTrKBr5mTcn4uQjTnqUt19JZLrbhZzq08qn/K2HyqLLRKeBXdDgfFWwP+qsEa9lvgntW7bh/dK+i6+81yspjvB18xU3MaI3wH5mZWyF1jqP4GyluMslHrTKh7jGnwCfl+Md8GvHIzL6OGydF2TK8g9fkcRdVYT9M0GflIfgUCZhCyLN+nI+OYZdbpTwz80EzhEEujG+H8Bc/iNd3q6NtJRqoMatPcCLp/NupNlpc9BF6EK1phqgXFFhDA6TA3VYCafZKc517xCQdoMmwSBh60uwEEDKc3RXWswsO5IlYHiyfNxfgPu+igBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2M8XVoSVQzj1eLY7upvJZiKmO3vJoeH8m934rCew6kk=;
+ b=hoHMpmOWSM3wDQc0h9CQJhmLc3GbhbXA54U/LSm5hbo7mri1I3Qg44DwlDygoZ21G7dlfEHk6ZuF9wWyUur+rod6lgBfDon8ud3XUOgQlBjiXDC9K/e+m0nRBScf4N955gX2JXOlEqEwW0PhkSQy3hbLdp5eELGHQQ+WpJKhNDVXolf8JFwI75uuKB56BAA5udV9UcPECaddsiLUVdIg06ClsXJtbB25zPnW2/o1Zz0m2U7mF6Q/Ow+6zrN2DWa5mQhCacFMzLWxq4HPTOSlZfMO8dE49lq0WZwrzbumNScignpMu83GXDn7/7kkPM2JjYh5t5Wu8KRwUueBOK48Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com;
+ s=selector2-armh-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2M8XVoSVQzj1eLY7upvJZiKmO3vJoeH8m934rCew6kk=;
+ b=KfkIhEMwZAbeuIaN85oHrFysWpGIx3qGhGXNM0qxa91w0mHB6Djx03G0sKv7Aj98AGd0nVGXv1X9dUEsU3n6xaocKlBjKpf8m3OgoAS1j99uUXvT4WRRRxLqVb9RrGH2kZ04A+g6Wc0NKGgRFM7wQcFu7aY822q1EmTQA0uZqBY=
+From: Henry Wang <Henry.Wang@arm.com>
+To: Julien Grall <julien@xen.org>, "xen-devel@lists.xenproject.org"
+	<xen-devel@lists.xenproject.org>
+CC: Julien Grall <jgrall@amazon.com>, Andrew Cooper
+	<andrew.cooper3@citrix.com>, George Dunlap <george.dunlap@citrix.com>, Jan
+ Beulich <jbeulich@suse.com>, Stefano Stabellini <sstabellini@kernel.org>, Wei
+ Liu <wl@xen.org>
+Subject: RE: [PATCH v2 1/4] docs/process: branching-checklist: Reword the
+ section about Config.mk
+Thread-Topic: [PATCH v2 1/4] docs/process: branching-checklist: Reword the
+ section about Config.mk
+Thread-Index: AQHZPKvv515bR3UnJEOFsOrA2YinZa7HazWA
+Date: Fri, 10 Feb 2023 01:57:52 +0000
+Message-ID:
+ <AS8PR08MB79916656C845345C353CE29692DE9@AS8PR08MB7991.eurprd08.prod.outlook.com>
+References: <20230209172820.56292-1-julien@xen.org>
+ <20230209172820.56292-2-julien@xen.org>
+In-Reply-To: <20230209172820.56292-2-julien@xen.org>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ts-tracking-id: 68CF94D2BF3B5E4DB2180453436FA4DC.0
+x-checkrecipientchecked: true
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+x-ms-traffictypediagnostic:
+	AS8PR08MB7991:EE_|PR3PR08MB5723:EE_|AM7EUR03FT034:EE_|AS8PR08MB9118:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d8ef17a-c7da-475f-59fd-08db0b0a3d71
+x-checkrecipientrouted: true
+nodisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original:
+ VKaHRG/42uTAp6RXVTWVTirnU0ON4Ukbr1ZeFsU2F2LGV9QHPf49rUlosqjMO0ewcDilqmmeDkfqQvT9u27uKrTd9pTo8/cD1CgenFjxdjtBStL7bjwAI7nx4MD9tKj4fnPURRmJXQzI6o9Qx7mNXc8kGgm5SDZrDY33KEvtlWaIy3C3kO9YJwKpwG4DmSXCC1+bpUqCQdawT0fpTyUvxpiFXR8yvHKfc7Si0bIC3h7c+Ccp5JVBrQoOrpdoRiM7a9uB9L8+fJDXOXYr7rCca8eX8IgjG0Gevw8bSuR7jyJYtZRSzt6eoKFjEOy7usE54GGbUgKGnAh6y4Z31koUCpXI6ErDHqmtyGORt0k6P3KKPTaoAHYz0OblHtzlEMPpROELLGCGHVcs/eJp2oxYSRGGHTCjAfouvHH7CGunwRzaXOjN3QD27eftMvvkMQq34+qijS8lYWCbCIAQyx1t1Uqn/RvZvJjlvgXig89OkO3pXYoYOIqu+pws1tmeZ7KyoqGkBTxDqII48tUvwU3TIUbtblLOyYEM6cY7j2ybglBMgbsCK2LxM6nokoaB9HG37JiKKJlNyZWd+ErarS0PXl9z4l4wcl/tCf+/BREz8DCWpVHYVdwxr1nIiJBRowCmL+3XQFmw9VwfSSmvsbU4jjgE+SD5T+uI48USKKh4BHeqIxl/JdlOcm8HetslhG5+t9M0p0FDBVcOD5z1A+WTtg==
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8PR08MB7991.eurprd08.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(396003)(366004)(346002)(376002)(39860400002)(136003)(451199018)(122000001)(38070700005)(38100700002)(8676002)(86362001)(33656002)(7696005)(2906002)(4744005)(41300700001)(52536014)(4326008)(5660300002)(8936002)(9686003)(55016003)(64756008)(66446008)(6506007)(26005)(186003)(316002)(54906003)(83380400001)(110136005)(66946007)(66476007)(66556008)(478600001)(71200400001)(76116006);DIR:OUT;SFP:1101;
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <cover.1675779308.git.oleksii.kurochko@gmail.com> <c614e69342eea7a5ce27f7a0e550ab3147afa592.1675779308.git.oleksii.kurochko@gmail.com>
-In-Reply-To: <c614e69342eea7a5ce27f7a0e550ab3147afa592.1675779308.git.oleksii.kurochko@gmail.com>
-From: Alistair Francis <alistair23@gmail.com>
-Date: Fri, 10 Feb 2023 11:46:03 +1000
-Message-ID: <CAKmqyKP44=9Var_NiNi9RJuckFuR6ePR-r9wM__WQLv-=AeLaQ@mail.gmail.com>
-Subject: Re: [PATCH v3 08/14] xen/riscv: introduce exception handlers implementation
-To: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, 
-	Julien Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Gianluca Guida <gianluca@rivosinc.com>, 
-	Bob Eshleman <bobbyeshleman@gmail.com>, Alistair Francis <alistair.francis@wdc.com>, 
-	Connor Davis <connojdavis@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5723
+Original-Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM7EUR03FT034.eop-EUR03.prod.protection.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	f5094a81-df7d-49f6-7717-08db0b0a3837
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	47B/RLWuFmKeAK4EU2zc4+xJpfPBZ1BhrzLcCrH8qs8+CXvC2zHiV4WYR/GLyOa970+uTHqTZSfGKj1Cps9lI0n9m5TRMdSfrintzgTplGNmuTzQZwnk2nBWvn8JzUpEsQ/63sjwLn4mhkZXFJ5dAAvo8MDZpxwzxG1tclfWPMtFYjkK9ZVWJKqjXni8mHBF+JO5MS9EWlQdxdxEIERbzhlxTiA6EqY7DLVTzBlai2j2X7Odi/IR0UfacpEA+GMA6RTJ3yjzoLaH5ceRerYSadH/OJug5Z7OB0URiYhCoKXxNW+1zr93JYFB2qA+c0Ric3iRsW2Lwkmtr0gzcvK+hnI924YBSAw8WOe/LFblwHNOYBVUxytsHokfwtE7d2TX7p1/N5O2YUrbbljV1LpY5qKEmGVp1CynHYJ02yj9MCx1Qr56A4jNBfYC+R14NooXLthikerKHFdihW1Lf6xbEaJ1j330VNhVGkvxoMx1Z2Gueyw+ziOlvMHAtbZ7H8pqyoDflTjTGlwfiqA4RxXKCjJ9rBacPzXJFNdbVVlCfATnubymy3Y7JI4gxDwMTHGurT3YMoGTn7EzKWqxXpqsOxvoAa54i1JW8G9Jx7CLstHgHRdec3u+yB38WXWuWFwQY8mnOCTNnyr/BkPmzrKKRPmHJtTJV3a7+4+7BS/cgTswFrlsZKGvVVOSrI9u/9sxtex7c2WYQYK4sFdgjfyJ4g==
+X-Forefront-Antispam-Report:
+	CIP:63.35.35.123;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:64aa7808-outbound-1.mta.getcheckrecipient.com;PTR:ec2-63-35-35-123.eu-west-1.compute.amazonaws.com;CAT:NONE;SFS:(13230025)(4636009)(346002)(376002)(39860400002)(136003)(396003)(451199018)(36840700001)(40470700004)(46966006)(478600001)(33656002)(86362001)(41300700001)(8936002)(8676002)(70206006)(70586007)(82310400005)(5660300002)(52536014)(4744005)(4326008)(2906002)(36860700001)(81166007)(356005)(82740400003)(83380400001)(40480700001)(7696005)(186003)(55016003)(40460700003)(6506007)(54906003)(110136005)(316002)(47076005)(9686003)(26005)(336012);DIR:OUT;SFP:1101;
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2023 01:58:01.1005
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d8ef17a-c7da-475f-59fd-08db0b0a3d71
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d;Ip=[63.35.35.123];Helo=[64aa7808-outbound-1.mta.getcheckrecipient.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM7EUR03FT034.eop-EUR03.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR08MB9118
 
-On Wed, Feb 8, 2023 at 12:47 AM Oleksii Kurochko
-<oleksii.kurochko@gmail.com> wrote:
->
-> The patch introduces an implementation of basic exception handlers:
-> - to save/restore context
-> - to handle an exception itself. The handler calls wait_for_interrupt
->   now, nothing more.
->
-> Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Hi Julien,
 
-Reviewed-by: Alistair Francis <alistair.francis@wdc.com>
+> -----Original Message-----
+> Subject: [PATCH v2 1/4] docs/process: branching-checklist: Reword the
+> section about Config.mk
+>=20
+> From: Julien Grall <jgrall@amazon.com>
+>=20
+> Since at least Xen 4.12, the revision for external trees don't contain
+> the word "unstable". So explicitely list the *_REVISION variables that
 
-Alistair
+A small typo that can be fixed on commit: s/explicitely/explicitly
 
-> ---
-> Changes in V3:
->   - Nothing changed
-> ---
-> Changes in V2:
->   - Refactor entry.S to start using of defines introduced in asm_offsets.C
->   - Rename {__,}handle_exception to handle_trap() and do_trap() to be more
->     consistent with RISC-V spec.
->   - Wrap handle_trap() to ENTRY().
-> ---
->  xen/arch/riscv/Makefile            |  2 +
->  xen/arch/riscv/entry.S             | 94 ++++++++++++++++++++++++++++++
->  xen/arch/riscv/include/asm/traps.h | 13 +++++
->  xen/arch/riscv/traps.c             | 13 +++++
->  4 files changed, 122 insertions(+)
->  create mode 100644 xen/arch/riscv/entry.S
->  create mode 100644 xen/arch/riscv/include/asm/traps.h
->  create mode 100644 xen/arch/riscv/traps.c
->
-> diff --git a/xen/arch/riscv/Makefile b/xen/arch/riscv/Makefile
-> index 1a4f1a6015..443f6bf15f 100644
-> --- a/xen/arch/riscv/Makefile
-> +++ b/xen/arch/riscv/Makefile
-> @@ -1,7 +1,9 @@
->  obj-$(CONFIG_EARLY_PRINTK) += early_printk.o
-> +obj-y += entry.o
->  obj-$(CONFIG_RISCV_64) += riscv64/
->  obj-y += sbi.o
->  obj-y += setup.o
-> +obj-y += traps.o
->
->  $(TARGET): $(TARGET)-syms
->         $(OBJCOPY) -O binary -S $< $@
-> diff --git a/xen/arch/riscv/entry.S b/xen/arch/riscv/entry.S
-> new file mode 100644
-> index 0000000000..0be543f8e0
-> --- /dev/null
-> +++ b/xen/arch/riscv/entry.S
-> @@ -0,0 +1,94 @@
-> +#include <asm/asm.h>
-> +#include <asm/asm-offsets.h>
-> +#include <asm/processor.h>
-> +#include <asm/riscv_encoding.h>
-> +#include <asm/traps.h>
-> +
-> +/* WIP: only works while interrupting Xen context */
-> +ENTRY(handle_trap)
-> +
-> +    /* Exceptions from xen */
-> +save_to_stack:
-> +        /* Save context to stack */
-> +        REG_S   sp, (CPU_USER_REGS_SP - CPU_USER_REGS_SIZE) (sp)
-> +        addi    sp, sp, -CPU_USER_REGS_SIZE
-> +        REG_S   t0, CPU_USER_REGS_T0(sp)
-> +
-> +        /* Save registers */
-> +        REG_S   ra, CPU_USER_REGS_RA(sp)
-> +        REG_S   gp, CPU_USER_REGS_GP(sp)
-> +        REG_S   t1, CPU_USER_REGS_T1(sp)
-> +        REG_S   t2, CPU_USER_REGS_T2(sp)
-> +        REG_S   s0, CPU_USER_REGS_S0(sp)
-> +        REG_S   s1, CPU_USER_REGS_S1(sp)
-> +        REG_S   a0, CPU_USER_REGS_A0(sp)
-> +        REG_S   a1, CPU_USER_REGS_A1(sp)
-> +        REG_S   a2, CPU_USER_REGS_A2(sp)
-> +        REG_S   a3, CPU_USER_REGS_A3(sp)
-> +        REG_S   a4, CPU_USER_REGS_A4(sp)
-> +        REG_S   a5, CPU_USER_REGS_A5(sp)
-> +        REG_S   a6, CPU_USER_REGS_A6(sp)
-> +        REG_S   a7, CPU_USER_REGS_A7(sp)
-> +        REG_S   s2, CPU_USER_REGS_S2(sp)
-> +        REG_S   s3, CPU_USER_REGS_S3(sp)
-> +        REG_S   s4, CPU_USER_REGS_S4(sp)
-> +        REG_S   s5, CPU_USER_REGS_S5(sp)
-> +        REG_S   s6, CPU_USER_REGS_S6(sp)
-> +        REG_S   s7, CPU_USER_REGS_S7(sp)
-> +        REG_S   s8, CPU_USER_REGS_S8(sp)
-> +        REG_S   s9, CPU_USER_REGS_S9(sp)
-> +        REG_S   s10,CPU_USER_REGS_S10(sp)
-> +        REG_S   s11,CPU_USER_REGS_S11(sp)
-> +        REG_S   t3, CPU_USER_REGS_T3(sp)
-> +        REG_S   t4, CPU_USER_REGS_T4(sp)
-> +        REG_S   t5, CPU_USER_REGS_T5(sp)
-> +        REG_S   t6, CPU_USER_REGS_T6(sp)
-> +        csrr    t0, CSR_SEPC
-> +        REG_S   t0, CPU_USER_REGS_SEPC(sp)
-> +        csrr    t0, CSR_SSTATUS
-> +        REG_S   t0, CPU_USER_REGS_SSTATUS(sp)
-> +
-> +        mv      a0, sp
-> +        jal     do_trap
-> +
-> +restore_registers:
-> +        /* Restore stack_cpu_regs */
-> +        REG_L   t0, CPU_USER_REGS_SEPC(sp)
-> +        csrw    CSR_SEPC, t0
-> +        REG_L   t0, CPU_USER_REGS_SSTATUS(sp)
-> +        csrw    CSR_SSTATUS, t0
-> +
-> +        REG_L   ra, CPU_USER_REGS_RA(sp)
-> +        REG_L   gp, CPU_USER_REGS_GP(sp)
-> +        REG_L   t0, CPU_USER_REGS_T0(sp)
-> +        REG_L   t1, CPU_USER_REGS_T1(sp)
-> +        REG_L   t2, CPU_USER_REGS_T2(sp)
-> +        REG_L   s0, CPU_USER_REGS_S0(sp)
-> +        REG_L   s1, CPU_USER_REGS_S1(sp)
-> +        REG_L   a0, CPU_USER_REGS_A0(sp)
-> +        REG_L   a1, CPU_USER_REGS_A1(sp)
-> +        REG_L   a2, CPU_USER_REGS_A2(sp)
-> +        REG_L   a3, CPU_USER_REGS_A3(sp)
-> +        REG_L   a4, CPU_USER_REGS_A4(sp)
-> +        REG_L   a5, CPU_USER_REGS_A5(sp)
-> +        REG_L   a6, CPU_USER_REGS_A6(sp)
-> +        REG_L   a7, CPU_USER_REGS_A7(sp)
-> +        REG_L   s2, CPU_USER_REGS_S2(sp)
-> +        REG_L   s3, CPU_USER_REGS_S3(sp)
-> +        REG_L   s4, CPU_USER_REGS_S4(sp)
-> +        REG_L   s5, CPU_USER_REGS_S5(sp)
-> +        REG_L   s6, CPU_USER_REGS_S6(sp)
-> +        REG_L   s7, CPU_USER_REGS_S7(sp)
-> +        REG_L   s8, CPU_USER_REGS_S8(sp)
-> +        REG_L   s9, CPU_USER_REGS_S9(sp)
-> +        REG_L   s10, CPU_USER_REGS_S10(sp)
-> +        REG_L   s11, CPU_USER_REGS_S11(sp)
-> +        REG_L   t3, CPU_USER_REGS_T3(sp)
-> +        REG_L   t4, CPU_USER_REGS_T4(sp)
-> +        REG_L   t5, CPU_USER_REGS_T5(sp)
-> +        REG_L   t6, CPU_USER_REGS_T6(sp)
-> +
-> +        /* Restore sp */
-> +        REG_L   sp, CPU_USER_REGS_SP(sp)
-> +
-> +        sret
-> diff --git a/xen/arch/riscv/include/asm/traps.h b/xen/arch/riscv/include/asm/traps.h
-> new file mode 100644
-> index 0000000000..f3fb6b25d1
-> --- /dev/null
-> +++ b/xen/arch/riscv/include/asm/traps.h
-> @@ -0,0 +1,13 @@
-> +#ifndef __ASM_TRAPS_H__
-> +#define __ASM_TRAPS_H__
-> +
-> +#include <asm/processor.h>
-> +
-> +#ifndef __ASSEMBLY__
-> +
-> +void do_trap(struct cpu_user_regs *cpu_regs);
-> +void handle_trap(void);
-> +
-> +#endif /* __ASSEMBLY__ */
-> +
-> +#endif /* __ASM_TRAPS_H__ */
-> diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-> new file mode 100644
-> index 0000000000..ccd3593f5a
-> --- /dev/null
-> +++ b/xen/arch/riscv/traps.c
-> @@ -0,0 +1,13 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +/*
-> + * Copyright (C) 2023 Vates
-> + *
-> + * RISC-V Trap handlers
-> + */
-> +#include <asm/processor.h>
-> +#include <asm/traps.h>
-> +
-> +void do_trap(struct cpu_user_regs *cpu_regs)
-> +{
-> +    die();
-> +}
-> --
-> 2.39.0
->
->
+> need to be updated as part of the branching process.
+>=20
+> Signed-off-by: Julien Grall <jgrall@amazon.com>
+
+Change looks good, thanks for updating the doc :)
+
+Reviewed-by: Henry Wang <Henry.Wang@arm.com>
+
+Kind regards,
+Henry
+
 
