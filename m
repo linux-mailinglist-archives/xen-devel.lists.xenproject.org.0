@@ -2,38 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF141691B8B
-	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 10:36:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493192.763003 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8940691C34
+	for <lists+xen-devel@lfdr.de>; Fri, 10 Feb 2023 11:03:18 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493205.763014 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQPog-00030S-94; Fri, 10 Feb 2023 09:35:38 +0000
+	id 1pQQEp-0006yc-F3; Fri, 10 Feb 2023 10:02:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493192.763003; Fri, 10 Feb 2023 09:35:38 +0000
+Received: by outflank-mailman (output) from mailman id 493205.763014; Fri, 10 Feb 2023 10:02:39 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQPog-0002yk-63; Fri, 10 Feb 2023 09:35:38 +0000
-Received: by outflank-mailman (input) for mailman id 493192;
- Fri, 10 Feb 2023 09:35:36 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=/7BC=6G=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pQPoe-0002ye-NS
- for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 09:35:36 +0000
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [2a00:1450:4864:20::331])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 44eec9a1-a926-11ed-933c-83870f6b2ba8;
- Fri, 10 Feb 2023 10:35:35 +0100 (CET)
-Received: by mail-wm1-x331.google.com with SMTP id
- c4-20020a1c3504000000b003d9e2f72093so5831260wma.1
- for <xen-devel@lists.xenproject.org>; Fri, 10 Feb 2023 01:35:35 -0800 (PST)
-Received: from [192.168.8.199] (46.204.104.21.nat.umts.dynamic.t-mobile.pl.
- [46.204.104.21]) by smtp.gmail.com with ESMTPSA id
- p1-20020a1c7401000000b003cfa622a18asm7803974wmc.3.2023.02.10.01.35.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 10 Feb 2023 01:35:34 -0800 (PST)
+	id 1pQQEp-0006wa-CH; Fri, 10 Feb 2023 10:02:39 +0000
+Received: by outflank-mailman (input) for mailman id 493205;
+ Fri, 10 Feb 2023 10:02:37 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=7WNm=6G=tibco.com=gdunlap@srs-se1.protection.inumbo.net>)
+ id 1pQQEn-0006wQ-MP
+ for xen-devel@lists.xenproject.org; Fri, 10 Feb 2023 10:02:37 +0000
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [2a00:1450:4864:20::235])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 0a6dc517-a92a-11ed-93b5-47a8fe42b414;
+ Fri, 10 Feb 2023 11:02:35 +0100 (CET)
+Received: by mail-lj1-x235.google.com with SMTP id y19so5462769ljq.7
+ for <xen-devel@lists.xenproject.org>; Fri, 10 Feb 2023 02:02:34 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -45,218 +39,167 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 44eec9a1-a926-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 0a6dc517-a92a-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=pB+VdG7PJklnLwo9yvMgFdwLNlutsCER1KpWKkOLKiE=;
-        b=g4hj8VC4JVfC6FFFGnc7d4IczlKZCpoy5eEzIXeyggcB6JyyEHq4G0xF0+yta6fysJ
-         ODrjsWNH7rRRW6Rvouui7xzXXMPz/8pSJpyyk5kpGJFblo/4hU3cKVLKCZylFJYEGyly
-         2dX14MGqZ0XilQOT10nneKCMxCtBZ5a00f8Oi7jo3G2jp37hDRKeBthfiLcLinhQyC4D
-         LJSR1HEHmss7ZSFoXKI5f01zOpdfpTsRQB6TMW+y+BX44MSe9nDkKdYzdc0D7eurD46Y
-         PWu4sk7aSYZnstV/AwLi+yBa4L24ShRfDfHOGzTiJVmYCb1JCMT3ySBvVqYwliWU1Ze0
-         +JIg==
+        d=cloud.com; s=cloud;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=tJHHiFB6XTRc5bRBoVCvpiltWq8Bcwgzl8DV3TsVtdE=;
+        b=arPkwq2x/OrO4FYavOalh4uFpS8gMk3a7BOTCHZwXD/txt2wEwdsS0Bn7SigQEt2xy
+         BIRKX7T+/YQtwoBQpy8V5gqr5KL+lbKsOGJn2nYugPI9atnh02YBpoEh32LtoqNG2u0A
+         k/GE3nA5zLkxo/om/hFCrkVUs2fREDjt4iKYM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=pB+VdG7PJklnLwo9yvMgFdwLNlutsCER1KpWKkOLKiE=;
-        b=vCYhaCzw6q/Ld34vlXuO7DXm5nL/D/T52f164ECUFtZysdnrt1ctrdQyZhkwlurgac
-         MbuKcUZdb3EQYxbleRkYfwR3B6BZARa/6EqHgNJx19No7CMGyKB6TSWhSSh/RuSBsl0f
-         1lQE+7s54rt0sNmN6LzTuk3pKz1PpA9dkugrIx+F0ZuFuc9QeyPFXdf+PVTj7D9p+m/r
-         EWISaA8S1LY55+djampI21vpw1EenVf+oX1vnQjtMMUV8v9JtSgEgbUzSGSLe5Qu54St
-         3H4x83plng50fawnAzFkycOEs9rs1r4z4ifkC1VbsNR6/Bpg/ObkV0sl5FOX5AwbuxdW
-         5BVQ==
-X-Gm-Message-State: AO0yUKVvEdG9RIZQHYUvqDX08u+vdAsteZ9G4/7uRc48RLygSuQjoMEg
-	OcSIe0jF58HGVW4ycHtLEjc=
-X-Google-Smtp-Source: AK7set9Vw8pAgwCIMJgTkdtevj3haVyWnyEoOxgdVL8UvOLH2TJE1XajRXPSTD12GZsunv+T97Srqw==
-X-Received: by 2002:a05:600c:1713:b0:3dc:5b88:e6dd with SMTP id c19-20020a05600c171300b003dc5b88e6ddmr13890439wmn.10.1676021734919;
-        Fri, 10 Feb 2023 01:35:34 -0800 (PST)
-Message-ID: <448b79128a0f010af40f9f063a341cbdca17f206.camel@gmail.com>
-Subject: Re: [PATCH v3 09/14] xen/riscv: introduce decode_cause() stuff
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Alistair Francis <alistair23@gmail.com>
-Cc: xen-devel@lists.xenproject.org, Jan Beulich <jbeulich@suse.com>, Julien
- Grall <julien@xen.org>, Andrew Cooper <andrew.cooper3@citrix.com>, Stefano
- Stabellini <sstabellini@kernel.org>, Gianluca Guida
- <gianluca@rivosinc.com>, Bob Eshleman <bobbyeshleman@gmail.com>, Alistair
- Francis <alistair.francis@wdc.com>,  Connor Davis <connojdavis@gmail.com>
-Date: Fri, 10 Feb 2023 11:35:32 +0200
-In-Reply-To: <CAKmqyKNDZgrXZrXg9ttqFdxP8aZKAfiAEcNHn-VjqWhqDqUhpQ@mail.gmail.com>
-References: <cover.1675779308.git.oleksii.kurochko@gmail.com>
-	 <0198e2a5b572b9031eafe7cd1c85c6f9537b704c.1675779308.git.oleksii.kurochko@gmail.com>
-	 <CAKmqyKNDZgrXZrXg9ttqFdxP8aZKAfiAEcNHn-VjqWhqDqUhpQ@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=tJHHiFB6XTRc5bRBoVCvpiltWq8Bcwgzl8DV3TsVtdE=;
+        b=1sQiCWXDQtj9VQo1G+y7iFpjRoNzNUKS9jjheljKELSANl6rFaUVV0Fsu6qF/yJoe3
+         RyIuvskG7y48DPA2v3LqFc3loQBnEbR6xH98KMlPVX8ng5LxVD35mSMnOh7YHWOkUmoI
+         /ZvWgOHO27LaHZto3KXF00HVSYQivpDTSDvQMGRTXlsylLTa2WdDiLwp/fgP+of2/teb
+         H+muOevPnHG3LBH62euc+6S1UqajH4NGDsJEahjxCCxYNHbx4gQ4Btl8SzQAjq0xMDUK
+         3DUnKsmLcSBScvif4nUmrqZ2Lsh7KWqilMPvTIPWK5iQR8K7KEWZ8eEglqPmyc2Xdh3Z
+         JQfw==
+X-Gm-Message-State: AO0yUKUfHVA7VMqaAYQ8GA+FT0eo7fEXbOSfDsDWFXrPYYNtBw0RZmSd
+	EqFK436AftZdLWKzmVBnjXjpbV3wCDx8Tv+CPqSmiA==
+X-Google-Smtp-Source: AK7set9XkIgZnFCV5HtdqJYRyAxFvnPkD4e0unubfGNYbsyKILaVotBip6KzDOzDYzPYDkQGBcaXi3tMAiwqLVpU9xE=
+X-Received: by 2002:a2e:7a09:0:b0:293:2e0a:da94 with SMTP id
+ v9-20020a2e7a09000000b002932e0ada94mr1342061ljc.136.1676023354053; Fri, 10
+ Feb 2023 02:02:34 -0800 (PST)
 MIME-Version: 1.0
+References: <cover.1675889601.git.demi@invisiblethingslab.com>
+ <8c476ad1d36919f31c3d37edc813182e8f1489e8.1675889602.git.demi@invisiblethingslab.com>
+ <CA+zSX=Z+Vg0xBb9Ww-iSSUQGp+oyoGFuY_cKMfQs_9epsRFUkg@mail.gmail.com> <Y+UyqCITWks0I4AU@itl-email>
+In-Reply-To: <Y+UyqCITWks0I4AU@itl-email>
+From: George Dunlap <george.dunlap@cloud.com>
+Date: Fri, 10 Feb 2023 10:02:23 +0000
+Message-ID: <CA+zSX=b=hVtOJRObJ8+n5gzxEEeGZ5mOuYOYr7W8C_487PMKFw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] Miscellaneous and documentation: Only use
+ TLS-protected transports
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Cc: xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>, 
+	George Dunlap <george.dunlap@citrix.com>, Jan Beulich <jbeulich@suse.com>, 
+	Julien Grall <julien@xen.org>, Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>, 
+	Bertrand Marquis <bertrand.marquis@arm.com>, Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>, 
+	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>, Ross Lagerwall <ross.lagerwall@citrix.com>, 
+	"Daniel P. Smith" <dpsmith@apertussolutions.com>, Anthony PERARD <anthony.perard@citrix.com>, 
+	Daniel De Graaf <dgdegra@tycho.nsa.gov>, Quan Xu <quan.xu0@gmail.com>, 
+	Samuel Thibault <samuel.thibault@ens-lyon.org>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Juergen Gross <jgross@suse.com>, Christian Lindig <christian.lindig@citrix.com>, 
+	David Scott <dave@recoil.org>, Paul Durrant <paul@xen.org>
+Content-Type: multipart/alternative; boundary="000000000000a76ade05f4559841"
 
-On Fri, 2023-02-10 at 12:00 +1000, Alistair Francis wrote:
-> On Wed, Feb 8, 2023 at 12:48 AM Oleksii Kurochko
-> <oleksii.kurochko@gmail.com> wrote:
-> >=20
-> > The patch introduces stuff needed to decode a reason of an
-> > exception.
-> >=20
-> > Signed-off-by: Oleksii Kurochko <oleksii.kurochko@gmail.com>
-> > ---
-> > Changes in V3:
-> > =C2=A0 - Nothing changed
-> > ---
-> > Changes in V2:
-> > =C2=A0 - Make decode_trap_cause() more optimization friendly.
-> > =C2=A0 - Merge the pathc which introduces do_unexpected_trap() to the
-> > current one.
-> > ---
-> > =C2=A0xen/arch/riscv/traps.c | 85
-> > +++++++++++++++++++++++++++++++++++++++++-
-> > =C2=A01 file changed, 84 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/xen/arch/riscv/traps.c b/xen/arch/riscv/traps.c
-> > index ccd3593f5a..f2a1e1ffcf 100644
-> > --- a/xen/arch/riscv/traps.c
-> > +++ b/xen/arch/riscv/traps.c
-> > @@ -4,10 +4,93 @@
-> > =C2=A0 *
-> > =C2=A0 * RISC-V Trap handlers
-> > =C2=A0 */
-> > +#include <asm/csr.h>
-> > +#include <asm/early_printk.h>
-> > =C2=A0#include <asm/processor.h>
-> > =C2=A0#include <asm/traps.h>
-> > +#include <xen/errno.h>
-> > +#include <xen/lib.h>
-> >=20
-> > -void do_trap(struct cpu_user_regs *cpu_regs)
-> > +static const char *decode_trap_cause(unsigned long cause)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 static const char *const trap_causes[] =3D {
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_MISALIGNED_FETCH] =
-=3D "Instruction Address
-> > Misaligned",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_FETCH_ACCESS] =3D "I=
-nstruction Access Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_ILLEGAL_INSTRUCTION]=
- =3D "Illegal Instruction",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_BREAKPOINT] =3D "Bre=
-akpoint",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_MISALIGNED_LOAD] =3D=
- "Load Address Misaligned",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_LOAD_ACCESS] =3D "Lo=
-ad Access Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_MISALIGNED_STORE] =
-=3D "Store/AMO Address Misaligned",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_STORE_ACCESS] =3D "S=
-tore/AMO Access Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_USER_ECALL] =3D "Env=
-ironment Call from U-Mode",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_SUPERVISOR_ECALL] =
-=3D "Environment Call from S-Mode",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_MACHINE_ECALL] =3D "=
-Environment Call from M-Mode",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_FETCH_PAGE_FAULT] =
-=3D "Instruction Page Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_LOAD_PAGE_FAULT] =3D=
- "Load Page Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_STORE_PAGE_FAULT] =
-=3D "Store/AMO Page Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_FETCH_GUEST_PAGE_FAU=
-LT] =3D "Instruction Guest Page
-> > Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_LOAD_GUEST_PAGE_FAUL=
-T] =3D "Load Guest Page Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_VIRTUAL_INST_FAULT] =
-=3D "Virtualized Instruction
-> > Fault",
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [CAUSE_STORE_GUEST_PAGE_FAU=
-LT] =3D "Guest Store/AMO Page
-> > Fault",
-> > +=C2=A0=C2=A0=C2=A0 };
-> > +
-> > +=C2=A0=C2=A0=C2=A0 if ( cause < ARRAY_SIZE(trap_causes) && trap_causes=
-[cause] )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return trap_causes[cause];
-> > +=C2=A0=C2=A0=C2=A0 return "UNKNOWN";
-> > +}
-> > +
-> > +const char *decode_reserved_interrupt_cause(unsigned long
-> > irq_cause)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 switch ( irq_cause )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_M_SOFT:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "M-mode Software Int=
-errupt";
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_M_TIMER:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "M-mode TIMER Interr=
-upt";
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_M_EXT:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "M-mode TIMER Interr=
-upt";
->=20
-> Wrong string here
->=20
-> Alistair
->=20
-Nice catch.
-Thanks a lot.
-> > +=C2=A0=C2=A0=C2=A0 default:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "UNKNOWN IRQ type";
-> > +=C2=A0=C2=A0=C2=A0 }
-> > +}
-> > +
-> > +const char *decode_interrupt_cause(unsigned long cause)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 unsigned long irq_cause =3D cause & ~CAUSE_IRQ_FLAG=
-;
-> > +
-> > +=C2=A0=C2=A0=C2=A0 switch ( irq_cause )
-> > +=C2=A0=C2=A0=C2=A0 {
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_S_SOFT:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "Supervisor Software=
- Interrupt";
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_S_TIMER:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "Supervisor Timer In=
-terrupt";
-> > +=C2=A0=C2=A0=C2=A0 case IRQ_S_EXT:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return "Supervisor External=
- Interrupt";
-> > +=C2=A0=C2=A0=C2=A0 default:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return decode_reserved_inte=
-rrupt_cause(irq_cause);
-> > +=C2=A0=C2=A0=C2=A0 }
-> > +}
-> > +
-> > +const char *decode_cause(unsigned long cause)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 if ( cause & CAUSE_IRQ_FLAG )
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 return decode_interrupt_cau=
-se(cause);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 return decode_trap_cause(cause);
-> > +}
-> > +
-> > +static void do_unexpected_trap(const struct cpu_user_regs *regs)
-> > =C2=A0{
-> > +=C2=A0=C2=A0=C2=A0 unsigned long cause =3D csr_read(CSR_SCAUSE);
-> > +
-> > +=C2=A0=C2=A0=C2=A0 early_printk("Unhandled exception: ");
-> > +=C2=A0=C2=A0=C2=A0 early_printk(decode_cause(cause));
-> > +=C2=A0=C2=A0=C2=A0 early_printk("\n");
-> > +
-> > =C2=A0=C2=A0=C2=A0=C2=A0 die();
-> > =C2=A0}
-> > +
-> > +void do_trap(struct cpu_user_regs *cpu_regs)
-> > +{
-> > +=C2=A0=C2=A0=C2=A0 do_unexpected_trap(cpu_regs);
-> > +}
-> > --
-> > 2.39.0
-> >=20
-> >=20
+--000000000000a76ade05f4559841
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, Feb 9, 2023 at 5:51 PM Demi Marie Obenour <
+demi@invisiblethingslab.com> wrote:
+
+> On Thu, Feb 09, 2023 at 02:25:07PM +0000, George Dunlap wrote:
+> > On Wed, Feb 8, 2023 at 8:59 PM Demi Marie Obenour <
+> > demi@invisiblethingslab.com> wrote:
+> >
+> > > Obtaining code over an insecure transport is a terrible idea for
+> > > blatently obvious reasons.  Even for non-executable data, insecure
+> > > transports are considered deprecated.
+> > >
+> > > This patch changes miscellaneous links that are not used by any
+> > > automated tool.  Some of these links are dead anyway.
+> > >
+> >
+> > As I said in response to patch 4, I appreciate the goal and the effort
+> > here.  But I'd rather not replace a working link with a broken link, or a
+> > broken link with another broken link.
+> >
+> > If we want to make this change, I think we're going to have to be
+> creative
+> > with how the link replacement is done, as well as in how it's
+> demonstrated
+> > to reviewers that the new URLs are valid.
+> >
+> > One option, for instance, could be writing a small script that would
+> check
+> > the link validity first and only make the change if the link was valid;
+> and
+> > then including that script in the commit message.  The reviewer could
+> then
+> > convince themselves that the script was correct, and give an Ack or R-b
+> on
+> > that basis.  There are probably other ideas as well.
+> >
+> > Any thoughts?
+> >
+> >  -George
+>
+> What about breaking the patch up into smaller ones?  One could change
+> all of the xenbits.xen.org links in one patch, since those are known to
+> support HTTPS.  Then keep going for other domains.
+>
+
+That would work for me.
+
+ -George
+
+--000000000000a76ade05f4559841
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"></div><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 9, 2023 at 5:51 PM Demi Marie=
+ Obenour &lt;<a href=3D"mailto:demi@invisiblethingslab.com">demi@invisiblet=
+hingslab.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">On Thu, Feb 09, 2023 at 02:25:07PM +0000, George Dunlap wrote:<=
+br>
+&gt; On Wed, Feb 8, 2023 at 8:59 PM Demi Marie Obenour &lt;<br>
+&gt; <a href=3D"mailto:demi@invisiblethingslab.com" target=3D"_blank">demi@=
+invisiblethingslab.com</a>&gt; wrote:<br>
+&gt; <br>
+&gt; &gt; Obtaining code over an insecure transport is a terrible idea for<=
+br>
+&gt; &gt; blatently obvious reasons.=C2=A0 Even for non-executable data, in=
+secure<br>
+&gt; &gt; transports are considered deprecated.<br>
+&gt; &gt;<br>
+&gt; &gt; This patch changes miscellaneous links that are not used by any<b=
+r>
+&gt; &gt; automated tool.=C2=A0 Some of these links are dead anyway.<br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; As I said in response to patch 4, I appreciate the goal and the effort=
+<br>
+&gt; here.=C2=A0 But I&#39;d rather not replace a working link with a broke=
+n link, or a<br>
+&gt; broken link with another broken link.<br>
+&gt; <br>
+&gt; If we want to make this change, I think we&#39;re going to have to be =
+creative<br>
+&gt; with how the link replacement is done, as well as in how it&#39;s demo=
+nstrated<br>
+&gt; to reviewers that the new URLs are valid.<br>
+&gt; <br>
+&gt; One option, for instance, could be writing a small script that would c=
+heck<br>
+&gt; the link validity first and only make the change if the link was valid=
+; and<br>
+&gt; then including that script in the commit message.=C2=A0 The reviewer c=
+ould then<br>
+&gt; convince themselves that the script was correct, and give an Ack or R-=
+b on<br>
+&gt; that basis.=C2=A0 There are probably other ideas as well.<br>
+&gt; <br>
+&gt; Any thoughts?<br>
+&gt; <br>
+&gt;=C2=A0 -George<br>
+<br>
+What about breaking the patch up into smaller ones?=C2=A0 One could change<=
+br>
+all of the <a href=3D"http://xenbits.xen.org" rel=3D"noreferrer" target=3D"=
+_blank">xenbits.xen.org</a> links in one patch, since those are known to<br=
+>
+support HTTPS.=C2=A0 Then keep going for other domains.<br></blockquote><di=
+v><br></div><div>That would work for me.</div><div><br></div><div>=C2=A0-Ge=
+orge</div></div></div>
+
+--000000000000a76ade05f4559841--
 
