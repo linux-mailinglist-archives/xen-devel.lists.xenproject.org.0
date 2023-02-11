@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0E76692FF2
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 11:22:16 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493869.763920 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6091C693162
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 14:51:08 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493899.763931 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQn1A-0002JD-By; Sat, 11 Feb 2023 10:22:04 +0000
+	id 1pQqG5-0000kk-Gw; Sat, 11 Feb 2023 13:49:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493869.763920; Sat, 11 Feb 2023 10:22:04 +0000
+Received: by outflank-mailman (output) from mailman id 493899.763931; Sat, 11 Feb 2023 13:49:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQn1A-0002H8-8V; Sat, 11 Feb 2023 10:22:04 +0000
-Received: by outflank-mailman (input) for mailman id 493869;
- Sat, 11 Feb 2023 10:22:02 +0000
+	id 1pQqG5-0000hQ-DO; Sat, 11 Feb 2023 13:49:41 +0000
+Received: by outflank-mailman (input) for mailman id 493899;
+ Sat, 11 Feb 2023 13:49:39 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pQn18-0002H2-Cu
- for xen-devel@lists.xenproject.org; Sat, 11 Feb 2023 10:22:02 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQqG3-0000hG-S7; Sat, 11 Feb 2023 13:49:39 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQn17-00046t-Rz; Sat, 11 Feb 2023 10:22:01 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pQn17-0004wm-LW; Sat, 11 Feb 2023 10:22:01 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQqG3-0000CX-PU; Sat, 11 Feb 2023 13:49:39 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQqG3-0002DO-CH; Sat, 11 Feb 2023 13:49:39 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pQqG3-0004tx-Bp; Sat, 11 Feb 2023 13:49:39 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,50 +42,144 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=RkylwcnVRQ8Ks7T/orrI2njcPI5xZg9nC77qmsjPHUU=; b=MyaV0RsgWBqN9zjl5gFxk4z7Ev
-	ktX4HP8rg8tku+nTm81Y4VqJouA+o9bVE4k4Ua6cuBQTyd7ilmUoUNxUV3+6rRFkmxGPbj/6Yz0p9
-	aRYRMgkZMClG4cTmCWwxKkMBxE7vDlFs9LP7OSpY65w8LlvA4QnAp8YfE6HzpjbBdgRI=;
-Message-ID: <0a532421-60b4-5b9b-31a6-24ffafbe1870@xen.org>
-Date: Sat, 11 Feb 2023 10:21:59 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=j+HuC3edWidfp+kxhKznfgUkI17xNs/HwJApo+KB8+s=; b=svDFMnfiaflbQ/0SeMIGK+946o
+	GGetnG3gzc8GdAXMygraus767iwpTAdv9eWrxYdaaPkfUu7FrU2eOGuft70XdIrY+abTWKD2/Ag4B
+	JQSmQlL3H8UXcn/jikh/HJ1e6LNsmQuEqeYFn51DakvpNrRRWKm9X/zivvLy0vEC8WEA=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-176926-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.6.1
-Subject: Re: [XEN v3 9/9] xen/arm: p2m: Enable support for 32bit IPA
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, stefano.stabellini@amd.com,
- Volodymyr_Babchuk@epam.com, bertrand.marquis@arm.com,
- andrew.cooper3@citrix.com, george.dunlap@citrix.com, jbeulich@suse.com,
- wl@xen.org, rahul.singh@arm.com
-References: <20230208120529.22313-1-ayan.kumar.halder@amd.com>
- <20230208120529.22313-10-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <20230208120529.22313-10-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [libvirt test] 176926: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    libvirt:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-qcow2:saverestore-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    libvirt:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    libvirt:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    libvirt:build-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    libvirt:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    libvirt:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    libvirt=092176e5ec2f45d3b56a9e131c5237c52712d804
+X-Osstest-Versions-That:
+    libvirt=86cfe93ef7fdc2d665a2fc88b79af89e7978ba78
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Sat, 11 Feb 2023 13:49:39 +0000
 
-Hi Ayan,
+flight 176926 libvirt real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/176926/
 
-On 08/02/2023 12:05, Ayan Kumar Halder wrote:
-> VTCR.T0SZ should be set as 0x20 to support 32bit IPA.
-> Refer ARM DDI 0487I.a ID081822, G8-9824, G8.2.171, VTCR,
-> "Virtualization Translation Control Register" for the bit descriptions.
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Failures :-/ but no regressions.
 
-This will need a respin based on the discussion we had in v2. The main 
-things are:
-    - 32-bit IPA will be using one page at the root (not 2 like for 
-40-bit IPA)
-    - the code should be consolidate with arm64 as the logic is mainly 
-the same.
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt     16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-libvirt-qcow2 15 saverestore-support-check    fail never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
 
-Cheers,
+version targeted for testing:
+ libvirt              092176e5ec2f45d3b56a9e131c5237c52712d804
+baseline version:
+ libvirt              86cfe93ef7fdc2d665a2fc88b79af89e7978ba78
 
--- 
-Julien Grall
+Last test of basis   176816  2023-02-10 04:18:47 Z    1 days
+Testing same since   176926  2023-02-11 04:20:15 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Boris Fiuczynski<fiuczy@linux.ibm.com>
+  Laine Stump <laine@redhat.com>
+  Michal Privoznik <mprivozn@redhat.com>
+  Praveen K Paladugu <prapal@linux.microsoft.com>
+  Thomas Huth <thuth@redhat.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-arm64-arm64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-arm64-arm64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/libvirt.git
+   86cfe93ef7..092176e5ec  092176e5ec2f45d3b56a9e131c5237c52712d804 -> xen-tested-master
 
