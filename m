@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBCB0692BD2
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 01:14:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493713.763718 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1406692BE3
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 01:21:09 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493723.763730 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQdX0-0007o0-Lv; Sat, 11 Feb 2023 00:14:18 +0000
+	id 1pQdcm-00013H-Eq; Sat, 11 Feb 2023 00:20:16 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493713.763718; Sat, 11 Feb 2023 00:14:18 +0000
+Received: by outflank-mailman (output) from mailman id 493723.763730; Sat, 11 Feb 2023 00:20:16 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQdX0-0007kd-Ik; Sat, 11 Feb 2023 00:14:18 +0000
-Received: by outflank-mailman (input) for mailman id 493713;
- Sat, 11 Feb 2023 00:14:17 +0000
+	id 1pQdcm-000113-Bf; Sat, 11 Feb 2023 00:20:16 +0000
+Received: by outflank-mailman (input) for mailman id 493723;
+ Sat, 11 Feb 2023 00:20:14 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0mMB=6H=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pQdWz-0007kX-C6
- for xen-devel@lists.xenproject.org; Sat, 11 Feb 2023 00:14:17 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
+ id 1pQdck-00010x-Ao
+ for xen-devel@lists.xenproject.org; Sat, 11 Feb 2023 00:20:14 +0000
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 04b49c98-a9a1-11ed-933c-83870f6b2ba8;
- Sat, 11 Feb 2023 01:14:15 +0100 (CET)
+ id d975dc83-a9a1-11ed-933c-83870f6b2ba8;
+ Sat, 11 Feb 2023 01:20:12 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 76A1CB825C8;
- Sat, 11 Feb 2023 00:14:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A549C433D2;
- Sat, 11 Feb 2023 00:14:11 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 89F15B8261F;
+ Sat, 11 Feb 2023 00:20:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41FDAC433D2;
+ Sat, 11 Feb 2023 00:20:08 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 04b49c98-a9a1-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: d975dc83-a9a1-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676074453;
-	bh=oLICUezsJFv9B6NEozeKz2bJezO2yt2sPo61krm6Xss=;
+	s=k20201202; t=1676074810;
+	bh=CvRQE9mI+c60oRT291r19E64f3jKbyg3PTbUuM7VsOE=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=rVaFdv7Mn3ji0CRFHyU6YRmefE3NgbAYVbrthmySZoK2PdNI8wQrOoVDETOR3nmnW
-	 NTAmcGHgiKnzPLnF11/eeWQ5krt52wyIRNTon3gPjGb4vgPIV0Rpg31JNRUH4QnVrv
-	 /vP06YRJeeYcVnWVhUvl7Xp/74M/i9tsXxo1g/zrUK7SjScG++FwWzbGZiwp/q2HoM
-	 3ScTB4Phx0ZsNJJzK142MtpvIUHW3MXSGC7yPSuWl6jA0fYm3D7WlsK2AKaGdwQiEF
-	 Pw9gZE9UAz8LfJnjxl2bD6sok2Yg4X2DdGUU23xhGp0+Jlow/8AINf5408tWSuLUZC
-	 g4yeOBCsQJcFQ==
-Date: Fri, 10 Feb 2023 16:14:09 -0800 (PST)
+	b=sWgXnx6ktOUa5KRZdpy0ysegt8p8vp3QmnoXl1T4CB0jI2TJIW10ERPP5St2jmMat
+	 it7eHCzT2DXPhjKSWOU+NvtYq8w287opoI0Teim/FCV7g9UO/HImQkHIhxajKw/Uyi
+	 6MgTwyz4DtHNp16N91gmYewOZHHcLLrkkSRzn5x3H180/0/7sO2prSN9jUZNJzEGVF
+	 +QWw9DoXF+UUdW2ICFEf2D/g2oGzaE9E1afsqyA2ATycCzR+5FPjpDEf91QPw9nBK/
+	 jsFelUFEBmkUowTRo84Lhdphw3l/VCymIXQv7uVRi/b9q7Di2LmkJZfm+Iherf6f+W
+	 54lxX8Iysqxnw==
+Date: Fri, 10 Feb 2023 16:20:06 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
@@ -67,7 +66,7 @@ cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
 Subject: Re: [XEN v3 4/9] xen/arm: Introduce a wrapper for dt_device_get_address()
  to handle paddr_t
 In-Reply-To: <20230208120529.22313-5-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2302101612470.4661@ubuntu-linux-20-04-desktop>
+Message-ID: <alpine.DEB.2.22.394.2302101617590.4661@ubuntu-linux-20-04-desktop>
 References: <20230208120529.22313-1-ayan.kumar.halder@amd.com> <20230208120529.22313-5-ayan.kumar.halder@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
@@ -144,6 +143,16 @@ On Wed, 8 Feb 2023, Ayan Kumar Halder wrote:
 >          {
 > -            res = dt_device_get_address(np, i, &addr, &size);
 > +            res = dt_device_get_paddr(np, i, &addr, &size);
+
+One thing to be careful here is that "start" and "end" in
+find_memory_holes are defined now as paddr_t and passed to
+rangeset_add_range and rangeset_remove_range.
+
+rangeset_add_range and rangeset_remove_range take an unsigned long as
+parameter, so in an arm32 configuration with paddr_t set to 64-bit it
+would result in truncation
+
+
 >              if ( res )
 >              {
 >                  printk(XENLOG_ERR "Unable to retrieve address %u for %s\n",
@@ -491,22 +500,10 @@ On Wed, 8 Feb 2023, Ayan Kumar Halder wrote:
 > +    int ret;
 > +
 > +    ret = dt_device_get_address(dev, index, &dt_addr, &dt_size);
-
-Here we should have:
-
-  if ( ret != 0 )
-      return ret;
-
-
+> +
 > +    if ( addr )
 > +    {
 > +        if ( (dt_addr >> (PADDR_SHIFT - 1)) > 1 )
-
-If we are going to update the way this check is written in patch #2,
-please also update it here...
-
-
-
 > +        {
 > +            printk("Error: Physical address greater than max width supported\n");
 > +            return -EINVAL;
@@ -518,12 +515,6 @@ please also update it here...
 > +    if ( size )
 > +    {
 > +        if ( (dt_size >> (PADDR_SHIFT - 1)) > 1 )
-
-... and here
-
-In any case this patch looks good to me
-
-
 > +        {
 > +            printk("Error: Physical size greater than max width supported\n");
 > +            return -EINVAL;
