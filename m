@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2989A692C18
-	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 01:35:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.493737.763753 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C2CA692C2B
+	for <lists+xen-devel@lfdr.de>; Sat, 11 Feb 2023 01:39:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.493744.763764 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQdrD-0003O1-2l; Sat, 11 Feb 2023 00:35:11 +0000
+	id 1pQdut-0004Ex-IW; Sat, 11 Feb 2023 00:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 493737.763753; Sat, 11 Feb 2023 00:35:11 +0000
+Received: by outflank-mailman (output) from mailman id 493744.763764; Sat, 11 Feb 2023 00:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pQdrC-0003Lb-WF; Sat, 11 Feb 2023 00:35:11 +0000
-Received: by outflank-mailman (input) for mailman id 493737;
- Sat, 11 Feb 2023 00:35:09 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pQdut-0004Cc-Fi; Sat, 11 Feb 2023 00:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 493744;
+ Sat, 11 Feb 2023 00:38:58 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=0mMB=6H=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pQdrB-0003LN-Ja
- for xen-devel@lists.xenproject.org; Sat, 11 Feb 2023 00:35:09 +0000
-Received: from ams.source.kernel.org (ams.source.kernel.org
- [2604:1380:4601:e00::1])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id eea33dd6-a9a3-11ed-93b5-47a8fe42b414;
- Sat, 11 Feb 2023 01:35:07 +0100 (CET)
+ id 1pQdus-0004CW-60
+ for xen-devel@lists.xenproject.org; Sat, 11 Feb 2023 00:38:58 +0000
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 771d8018-a9a4-11ed-933c-83870f6b2ba8;
+ Sat, 11 Feb 2023 01:38:56 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 36BC3B825B6;
- Sat, 11 Feb 2023 00:35:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FDC6C433EF;
- Sat, 11 Feb 2023 00:35:03 +0000 (UTC)
+ by sin.source.kernel.org (Postfix) with ESMTPS id F278ACE2A08;
+ Sat, 11 Feb 2023 00:38:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C29E0C433EF;
+ Sat, 11 Feb 2023 00:38:48 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,18 +43,18 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: eea33dd6-a9a3-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 771d8018-a9a4-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676075705;
-	bh=uau6Q8yjbCes0epO1WxHdWSk8LWiToScWHNk9jAsh7w=;
+	s=k20201202; t=1676075930;
+	bh=xK+uegO2hwQc+JAe7itgKZBCr5RFCqTsE4BtQojh/OM=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=U1E2d7/nHlvdb48npqoxgDRB8IQgXyjdedNjdA6eaRPS3P7alZ9Ijgmmym/eLUCg5
-	 ZGsfP0qnLpWDK3j1WcpJoP1BG/oGSEpahjYIDh5UG4vZAcRvU/qR5NfdGXpAdSSNn5
-	 gftn8cVdBnyZryuCknOumyK4RVZr+TcY0ku2mJqQH+WTDfjVi6qDerF/Q5x9M+MxbF
-	 diU2O9zIZuoIhUMOtwl7whpqLOyod3mu2oyKDqgbaghuGW80sRFPoLN1m5dQKLkZGt
-	 dfDeUqdlS95SQD6XsCfCV2rAfzYNym3jlDhJK6zHCF6Dinvm1AyTU4fMsI7oVBvrUS
-	 HAVDXRVT6L4BQ==
-Date: Fri, 10 Feb 2023 16:35:02 -0800 (PST)
+	b=s1d43aqrPWFZLWzTyh2ks3kV0OWRMerJQCG2TJPQC5af79yjfCreN+5Uihm7ABE/O
+	 Em/kivdVlFIXwh0TpUbiI3jkIxy9iJ1UZhGbNm7iJk6DkPkIt5bBGnlM/hf5ioOskH
+	 6+1EgXpZ3V/lQBFDmnt0GGSiKxzSG/Ug5Yn4fjiCem5eYAlFJ1G7oqsMCwFzWPHNq7
+	 ePZZpx0NwUKqjnpCU9wWXf9TYw4NoxqlTtRMQWOR0Tnh2b+8a47DBoy4ru4LGyB+3w
+	 a8NFKANgA0vdlB9+G9c92tcrxBFW63L34m2osXJNzNsYmqdXgd2qhBH3Kv8stafznH
+	 LeXZWGwKC436Q==
+Date: Fri, 10 Feb 2023 16:38:47 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
 To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
@@ -64,64 +63,74 @@ cc: xen-devel@lists.xenproject.org, sstabellini@kernel.org,
     bertrand.marquis@arm.com, andrew.cooper3@citrix.com, 
     george.dunlap@citrix.com, jbeulich@suse.com, wl@xen.org, 
     rahul.singh@arm.com
-Subject: Re: [XEN v3 7/9] xen/arm: guest_walk: LPAE specific bits should be
- enclosed within "ifndef CONFIG_ARM_PA_32"
-In-Reply-To: <20230208120529.22313-8-ayan.kumar.halder@amd.com>
-Message-ID: <alpine.DEB.2.22.394.2302101634340.4661@ubuntu-linux-20-04-desktop>
-References: <20230208120529.22313-1-ayan.kumar.halder@amd.com> <20230208120529.22313-8-ayan.kumar.halder@amd.com>
+Subject: Re: [XEN v3 8/9] xen/arm: Restrict zeroeth_table_offset for ARM_64
+In-Reply-To: <20230208120529.22313-9-ayan.kumar.halder@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2302101638310.4661@ubuntu-linux-20-04-desktop>
+References: <20230208120529.22313-1-ayan.kumar.halder@amd.com> <20230208120529.22313-9-ayan.kumar.halder@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
 On Wed, 8 Feb 2023, Ayan Kumar Halder wrote:
-> In the subsequent patch, we introduce "CONFIG_ARM_PA_32" to support
-> 32 bit physical addresses. Thus, the code specific to
-> "Large Physical Address Extension" (ie LPAE) should be enclosed within
-> "ifndef CONFIG_ARM_PA_32".
-
-this statement needs an  update
-
-
-> Refer xen/arch/arm/include/asm/short-desc.h, "short_desc_l1_supersec_t"
-> unsigned int extbase1:4;    /* Extended base address, PA[35:32] */
-> unsigned int extbase2:4;    /* Extended base address, PA[39:36] */
+> When 32 bit physical addresses are used (ie ARM_PA_32=y),
+> "va >> ZEROETH_SHIFT" causes an overflow.
+> Also, there is no zeroeth level page table on Arm 32-bit.
 > 
-> Thus, extbase1 and extbase2 are not valid when 32 bit physical addresses
-> are supported.
+> Also took the opportunity to clean up dump_pt_walk(). One could use
+> DECLARE_OFFSETS() macro instead of declaring the declaring an array
+> of page table offsets.
 > 
 > Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
 
-Aside from the above:
-
-Acked-by: Stefano Stabellini <sstabellini@kernel.org>
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
 > ---
-> 
 > Changes from -
-> v1 - 1. Extracted from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr".
 > 
-> v2 - 1. Reordered this patch so that it appears after CONFIG_ARM_PA_32 is
-> introduced (in 6/9).
+> v1 - Removed the duplicate declaration for DECLARE_OFFSETS.
 > 
->  xen/arch/arm/guest_walk.c | 2 ++
->  1 file changed, 2 insertions(+)
+> v2 - 1. Reworded the commit message. 
+> 2. Use CONFIG_ARM_PA_32 to restrict zeroeth_table_offset.
 > 
-> diff --git a/xen/arch/arm/guest_walk.c b/xen/arch/arm/guest_walk.c
-> index 43d3215304..0feb7b76ec 100644
-> --- a/xen/arch/arm/guest_walk.c
-> +++ b/xen/arch/arm/guest_walk.c
-> @@ -154,8 +154,10 @@ static bool guest_walk_sd(const struct vcpu *v,
->              mask = (1ULL << L1DESC_SUPERSECTION_SHIFT) - 1;
->              *ipa = gva & mask;
->              *ipa |= (paddr_t)(pte.supersec.base) << L1DESC_SUPERSECTION_SHIFT;
-> +#ifndef CONFIG_ARM_PA_32
->              *ipa |= (paddr_t)(pte.supersec.extbase1) << L1DESC_SUPERSECTION_EXT_BASE1_SHIFT;
->              *ipa |= (paddr_t)(pte.supersec.extbase2) << L1DESC_SUPERSECTION_EXT_BASE2_SHIFT;
-> +#endif /* CONFIG_ARM_PA_32 */
->          }
+>  xen/arch/arm/include/asm/lpae.h | 4 ++++
+>  xen/arch/arm/mm.c               | 7 +------
+>  2 files changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/xen/arch/arm/include/asm/lpae.h b/xen/arch/arm/include/asm/lpae.h
+> index 3fdd5d0de2..998edeed6e 100644
+> --- a/xen/arch/arm/include/asm/lpae.h
+> +++ b/xen/arch/arm/include/asm/lpae.h
+> @@ -259,7 +259,11 @@ lpae_t mfn_to_xen_entry(mfn_t mfn, unsigned int attr);
+>  #define first_table_offset(va)  TABLE_OFFSET(first_linear_offset(va))
+>  #define second_table_offset(va) TABLE_OFFSET(second_linear_offset(va))
+>  #define third_table_offset(va)  TABLE_OFFSET(third_linear_offset(va))
+> +#ifdef CONFIG_ARM_PA_32
+> +#define zeroeth_table_offset(va)  0
+> +#else
+>  #define zeroeth_table_offset(va)  TABLE_OFFSET(zeroeth_linear_offset(va))
+> +#endif
 >  
->          /* Set permissions so that the caller can check the flags by herself. */
+>  /*
+>   * Macros to define page-tables:
+> diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
+> index b99806af99..44942c6a4f 100644
+> --- a/xen/arch/arm/mm.c
+> +++ b/xen/arch/arm/mm.c
+> @@ -221,12 +221,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+>  {
+>      static const char *level_strs[4] = { "0TH", "1ST", "2ND", "3RD" };
+>      const mfn_t root_mfn = maddr_to_mfn(ttbr);
+> -    const unsigned int offsets[4] = {
+> -        zeroeth_table_offset(addr),
+> -        first_table_offset(addr),
+> -        second_table_offset(addr),
+> -        third_table_offset(addr)
+> -    };
+> +    DECLARE_OFFSETS(offsets, addr);
+>      lpae_t pte, *mapping;
+>      unsigned int level, root_table;
+>  
 > -- 
 > 2.17.1
 > 
