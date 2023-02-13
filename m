@@ -2,36 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4BDB6947C2
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 15:13:43 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494541.764634 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 251DF6947DF
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 15:22:43 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494551.764644 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRZZJ-0000FQ-It; Mon, 13 Feb 2023 14:12:33 +0000
+	id 1pRZip-0001sw-Fa; Mon, 13 Feb 2023 14:22:23 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494541.764634; Mon, 13 Feb 2023 14:12:33 +0000
+Received: by outflank-mailman (output) from mailman id 494551.764644; Mon, 13 Feb 2023 14:22:23 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRZZJ-0000Bt-Fd; Mon, 13 Feb 2023 14:12:33 +0000
-Received: by outflank-mailman (input) for mailman id 494541;
- Mon, 13 Feb 2023 14:12:32 +0000
+	id 1pRZip-0001qL-Cq; Mon, 13 Feb 2023 14:22:23 +0000
+Received: by outflank-mailman (input) for mailman id 494551;
+ Mon, 13 Feb 2023 14:22:21 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=c9jb=6J=invisiblethingslab.com=marmarek@srs-se1.protection.inumbo.net>)
- id 1pRZZI-0000Bn-2g
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 14:12:32 +0000
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 707a3598-aba8-11ed-93b5-47a8fe42b414;
- Mon, 13 Feb 2023 15:12:28 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 6230A3200754;
- Mon, 13 Feb 2023 09:12:23 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 13 Feb 2023 09:12:23 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Feb 2023 09:12:22 -0500 (EST)
+ <SRS0=HfrU=6J=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pRZin-0001q4-BN
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 14:22:21 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061e.outbound.protection.outlook.com
+ [2a01:111:f400:7e8a::61e])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id d1de0962-aba9-11ed-93b5-47a8fe42b414;
+ Mon, 13 Feb 2023 15:22:18 +0100 (CET)
+Received: from DM6PR17CA0029.namprd17.prod.outlook.com (2603:10b6:5:1b3::42)
+ by BN9PR12MB5129.namprd12.prod.outlook.com (2603:10b6:408:136::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Mon, 13 Feb
+ 2023 14:22:15 +0000
+Received: from DS1PEPF0000B073.namprd05.prod.outlook.com
+ (2603:10b6:5:1b3:cafe::17) by DM6PR17CA0029.outlook.office365.com
+ (2603:10b6:5:1b3::42) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
+ Transport; Mon, 13 Feb 2023 14:22:15 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ DS1PEPF0000B073.mail.protection.outlook.com (10.167.17.4) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6111.8 via Frontend Transport; Mon, 13 Feb 2023 14:22:15 +0000
+Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
+ 2023 08:22:14 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
+ (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
+ 2023 06:22:14 -0800
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Mon, 13 Feb 2023 08:22:13 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,162 +63,78 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 707a3598-aba8-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1676297542; x=
-	1676383942; bh=CLOIlYzbmg1DZi7Tu8o3YTVSaR3X2iddSKcMIH3yv7w=; b=n
-	NvoGIx3VlZd1DHAmwQE6sSd8gfvKYmJ6EWe5XTB2IWbpaI9DFT07pjrIlwk39yCk
-	MeUrS0F80r8gllUS9eDmNYRPJPS6bu6oqbYuS36NJfnP4BrdqOSSeNgoTWzEmk83
-	UULboaf+Mg/jrmGv7hG1coLhmozmxdBAG/io0N5mToaPs7dkSHvb7IxPDHePrnE9
-	vIYXXRVhrFR13pop81wSD8eutnwJ9+8VmjBNx721fSvoUQVOTum9LqyQumOwbbDF
-	bfMz4LXFBmFAIXUEQ4q1fXSgxFP1/CMsxiv+KkiCOkSLC9Ll1zwJk6KSxmeYCvt1
-	0h4VwajyJAFqIVfD4GAfA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1676297542; x=1676383942; bh=CLOIlYzbmg1DZi7Tu8o3YTVSaR3X
-	2iddSKcMIH3yv7w=; b=YbTpybQ1cxI2xcCHUhoz3b7X5P28a9CDkn3Mkxg8QOz8
-	daGN76Nhr4MHUq0oD1k85heD+oBvvnEvGEVl4kiRRdzElOj9hS6Pry1SYpnTGLqR
-	0FTs1aB3gOLKcRZaDCtTZ/WSktV+qHX70W0FMHCfjE8vdlgUFDN5T3s50ESIqp7w
-	OSuxqDgntWR332zgtJL6QCG0v/cJzAgA22Ekuq441WEYtGHn5jks311YPYw2M2cK
-	cWaJn/owUkYQddJXU3eAjDMjVoulLCUZG3SG0xkZe2zU6Nob9ZlPD9Vr5Vt4KhTD
-	eKpG1yY08p5noW3ZVi5JzRc+3sr++YokKRLRuYPlzw==
-X-ME-Sender: <xms:RkXqY98pAmbcu07UVILLq0ipA8pEb2VhLdLE1SnuFgxpq4GsWycWQg>
-    <xme:RkXqYxtKFKSJ3A7toQwABQOGTf3jlQ9vfZT3CiX9jvpQZRlGV45AWd2snhnTQtz7Q
-    i4vsVtMWKft1g>
-X-ME-Received: <xmr:RkXqY7AnfMkfK9wc3-7WqHriJrDZyP7dz53XD8ykJgK_fizdFW6IrtSP66HfybqYGvuyAmLlVFbxWiOh8fVfCuF-2XoQl7gAGR8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeiuddgheelucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepofgrrhgv
-    khcuofgrrhgtiiihkhhofihskhhiqdfikphrvggtkhhiuceomhgrrhhmrghrvghksehinh
-    hvihhsihgslhgvthhhihhnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephffg
-    hfelueeitddvvddtveffueelfeevffeuiefhgeejjeejjeelveefueelheefnecuffhomh
-    grihhnpehquhgsvghsqdhoshdrohhrghdplhgushdrshgsnecuvehluhhsthgvrhfuihii
-    vgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhgrrhhmrghrvghksehinhhvihhsih
-    gslhgvthhhihhnghhslhgrsgdrtghomh
-X-ME-Proxy: <xmx:RkXqYxdyqNAR8Xl01rQ-GNeVBvcNS-Z-HSNYVYt0TTnY39iTzN3HVg>
-    <xmx:RkXqYyMCsYnxliQTp3XJNlGqVPvVqPtsOKvYiw12rROXVChJMV8ObA>
-    <xmx:RkXqYzn3c3sehs1lbjb3Zi_PMdFsEqp8NXmGC2FRNiu8pkL_FOPMTg>
-    <xmx:RkXqY8WKZEpeXrucADq0LXPhkcjNp1Uv1Fl56zpQ1Ba--gqhdbnB3w>
-Feedback-ID: i1568416f:Fastmail
-Date: Mon, 13 Feb 2023 15:12:18 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: xen (multiboot) binary gets corrupted ELF notes
-Message-ID: <Y+pFQ5lDhgbSUKMO@mail-itl>
-References: <Y+obpe5nnLybL/8y@mail-itl>
- <9e4e8000-9e2d-6e43-df7d-9a34a75b7163@suse.com>
+X-Inumbo-ID: d1de0962-aba9-11ed-93b5-47a8fe42b414
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZDS5nCPhT0UCsTM3zsSfPjp1IFm2+0vCo77+QqlBEiPpUQ+461TYVqpNOKKgHR/GJ4cT5RcM520tU5b5atH7JPE1G4giSqeRqbSOPE4/tbwT85HL19Kvf1/JAP5jnpfjTSEpDzUuPd5NHYd5i4URhKvd6GgA5+0aHjAyQx72XjaqkzlHWDmFj41ttXBmdSoBqcFP3OYBpFnG7xa5Xlv/wZGs9v6Srlf/Wiz3GX6PH9FSkB2n8ZE0849hTQRRsOoQu2XcvXyUlMdT22GiPxTDdVvOFqGni+ulmS+DZo210gMeVWII37egmNZ635vu3znjEklT+sboCGfmRiszY+Um7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Uryp0FBeOVB3D/UsJiltpcmedQ/Z3ksaraSj5aZ5Sjo=;
+ b=X6t7n7LNG8VGESG4j+iFb6lJTzLr0TekGLRnxTYhqBOMlO8iMkHCkh8QtZJSO0U/QgUQgSnoAstCq4rIawi738w4ou/f5k6sKnVVDQoRi1ZeuaDUoKz1abCwBVJExpPeKJ4i7YW9C3zEQxTBQxw1E1+bJh4CECRMKLfItPDjvDUbmZ3sLqox/HOjXTJzjmT1yInYBu4gmFlUFjyQghQdU1CgpKXTuer855qo+ySvGiJUWsJfUlMI+mQ7Et94me21XP/wwppXwTd6gsbKhXXkPwAkfzov3BjwGb8xswbw5ijUgUIFubAVcdEaXj7gf2h8/EesYe1XVQhAb5pEk62PmA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Uryp0FBeOVB3D/UsJiltpcmedQ/Z3ksaraSj5aZ5Sjo=;
+ b=gXs1rYn7s9Io/lV7EahCZPp9onAsgRvRLs7zxlkL/OIVCrmgNtv/S4xCRDkt4qYeGHkUWMXQByz+1wXX7VWGx76Ru2gEL35srPKOgoSD1yUU3RNpmWIAzD43v7SryNxjVM2tUBcoXltoGK94SDhZ+orQtb0pX0PCcMlvdQrMPfs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH 0/3] automation: dom0less arm32 testing
+Date: Mon, 13 Feb 2023 15:22:07 +0100
+Message-ID: <20230213142210.11728-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="3mUomW0mmu7TtCj8"
-Content-Disposition: inline
-In-Reply-To: <9e4e8000-9e2d-6e43-df7d-9a34a75b7163@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF0000B073:EE_|BN9PR12MB5129:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d3d5da6-f5d3-4b62-23bb-08db0dcdb48c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	obwmYGB//Nw3u6tRirNOLwhfX03WwXVzDFMXtwoRd3mgAw8ontwbCi81gVGIQOr+gm4OhgJDgip/pLBY3VWpqnCubzN68J8T87NhZn/4C1JcSyGbi4HW7Ipqo/scQc8BTExHvkzFpmcON6MOcjzWCzxRq97IjES+C6GR4pTKuomByfw7nlTJrJmVFNjPpqGAyoA2BqjCV/Jm7DszEfJSHXWR3LNNJod7gR8DxARF3qQO6qHNdMrlLNVZhgyWgCeW1d8NKGi/gHxLc4EDzi1RqHZpX9mfqsut8bYvc59WaoX3NmUqITqeHGq/VC1f2lg3c1WX21i2XSGgw9UbF22uhAvjztXGyAbEBgoDbJU/zuDJkxNgeBl3asSxFrts4PA2/NSxH4mcK/ZWyHfSpErBOaGVwvXvWvQID8OzpxeS5shDYS82AecPy8lfYDzyxZGNU4GtBWe9JlESIi83LTdQwzH4VX7qcS66EhkhvaoXOg0PyFoOwxbyQ11ac9XcjhjZfiMK9YeWYIVeSgnWdYMdWmj48GUN6g96tz1ic5JjgRcZxFjmu3e63xk8JR6ZsaivI6wkAAoaa+l+4UrTpFvWvQAWCbGphFtPPFrSVyklcHm1oX9oXCA2eAhA50qOgBA0CAqnJYppzC1XHOOCfPjO3dV0UfjWBW9EbKcDJcIb7WlCQ661+od8wPPPKn36AaV2Eou0ISkgH2vd+/5nDSYzwC8Fkjy5CFikcNM6qdXkFEcS1DHjXzKIryWX4gP+38XAZ+blFh6i7r9sQMDOuoBGpA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(376002)(346002)(396003)(39860400002)(451199018)(40470700004)(36840700001)(46966006)(86362001)(40480700001)(36860700001)(82310400005)(81166007)(82740400003)(40460700003)(36756003)(4326008)(70586007)(70206006)(8676002)(356005)(41300700001)(316002)(54906003)(6916009)(4744005)(8936002)(5660300002)(2906002)(2616005)(44832011)(336012)(47076005)(426003)(478600001)(6666004)(26005)(186003)(1076003)(32563001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 14:22:15.0819
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d3d5da6-f5d3-4b62-23bb-08db0dcdb48c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF0000B073.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN9PR12MB5129
 
+This patch series aims at improving the arm32 CI testing by introducing
+the true dom0less-based tests that do not require dom0 with a toolstack.
+It creates a foundation for further test expansion.
 
---3mUomW0mmu7TtCj8
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 13 Feb 2023 15:12:18 +0100
-From: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: xen-devel <xen-devel@lists.xenproject.org>,
-	Andrew Cooper <andrew.cooper3@citrix.com>
-Subject: Re: xen (multiboot) binary gets corrupted ELF notes
+Michal Orzel (3):
+  automation: Add arm32 dom0less testing
+  automation: Add a static memory allocation test on arm32
+  automation: Add a gzip compressed kernel image test on arm32
 
-On Mon, Feb 13, 2023 at 01:53:21PM +0100, Jan Beulich wrote:
-> On 13.02.2023 12:14, Marek Marczykowski-G=C3=B3recki wrote:
-> > Hi,
-> >=20
-> > I'm getting some ELF note issues on multiboot binary
-> > specifically:
-> > xen/xen: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), stat=
-ically linked, BuildID[sha1]=3Df7d2c37a4ad599b268f2f2d94bff3776d12649b3, ba=
-d note description size 0xc0010001, stripped
-> >=20
-> > readelf additionally says:
-> >=20
-> >     Displaying notes found in: .note
-> >       Owner                Data size 	Description
-> >       GNU                  0x00000014	NT_GNU_BUILD_ID (unique build ID =
-bitstring)
-> >         Build ID: c5825a0d08edc4d11b1138fedca6b14ce8ba7302
-> >       (NONE)               0x00000004	Unknown note type: (0x00000020)
-> >        description data: 05 00 00 00=20
-> >     readelf: xen/xen: Warning: note with invalid namesz and/or descsz f=
-ound at offset 0x34
-> >     readelf: xen/xen: Warning:  type: 0x4, namesize: 0x00554e47, descsi=
-ze: 0xc0010001, alignment: 4
-> >=20
-> > Grub doesn't care, but launching such xen with kexec doesn't work.
-> >=20
-> > Initially found when booting Xen via Heads: https://openqa.qubes-os.org=
-/tests/60151#step/install_startup/11
-> >=20
-> > Andy says:
-> >> yeah, I've seen the same on XTF
-> >> binutil's recent elf notes for CET compatibility use an unsigned long
-> >> so they're not compatible when we build as 64bit and then re-package a=
-s 32
-> >> I think we need to strip all elf notes in mkelf32
->=20
-> Instead of complicating mkelf32 (we want to retain at least the build-id
-> note, after all, and for PVH_GUEST builds also .note.Xen) why don't we
-> discard the unwanted/unneeded notes then from the linker script, just
-> like we already do for xen.efi?
+ automation/gitlab-ci/build.yaml               |  20 +++
+ automation/gitlab-ci/test.yaml                |  48 +++++++
+ .../scripts/qemu-smoke-dom0less-arm32.sh      | 119 ++++++++++++++++++
+ 3 files changed, 187 insertions(+)
+ create mode 100755 automation/scripts/qemu-smoke-dom0less-arm32.sh
 
-Ok, this seems to help:
+-- 
+2.25.1
 
----8<----
-diff --git a/xen/arch/x86/xen.lds.S b/xen/arch/x86/xen.lds.S
-index 8930e14fc40e..f0831bd677e7 100644
---- a/xen/arch/x86/xen.lds.S
-+++ b/xen/arch/x86/xen.lds.S
-@@ -192,13 +192,6 @@ SECTIONS
- #endif
- #endif
-=20
--#ifndef EFI
--  /* Retain these just for the purpose of possible analysis tools. */
--  DECL_SECTION(.note) {
--       *(.note.*)
--  } PHDR(note) PHDR(text)
--#endif
--
-   _erodata =3D .;
-=20
-   . =3D ALIGN(SECTION_ALIGN);
----8<---
-
-The comment suggests some notes could be useful, but given they are
-broken anyway and nobody complained so far, maybe not really?
-
---=20
-Best Regards,
-Marek Marczykowski-G=C3=B3recki
-Invisible Things Lab
-
---3mUomW0mmu7TtCj8
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhrpukzGPukRmQqkK24/THMrX1ywFAmPqRUMACgkQ24/THMrX
-1ywjTwf7BNphGtDx6mroAUouaXpz95WIKCuDlnHd0/F/En86co6RliGRdZ/FtBPC
-6x9mr8CHSl6I46SYSaxt8AHJ/dWx3CY6OVRZSMxYNs3OIkQFGhqmoUGZbNCzHYL1
-HPKbkOoeOqBJazSSm5AErVIFqdngDrsgEmHdsfrXHRh3llzkJlOtZJRz0mRKRb5+
-TsTMU2dJBdC4MXcTUPgsOIJ8cv6Edqcdul58uT3mZHGQtP67zS8wC3CVD/FSHWKg
-g/pREAZX99WKj4yBOV7eefEWnF3KVPefHv5z3umkAkbetLUmtC2IgWvjt0cz9CW2
-Xrx5bElrs497oVQwkbSRTm422fRyzQ==
-=0x00
------END PGP SIGNATURE-----
-
---3mUomW0mmu7TtCj8--
 
