@@ -2,45 +2,45 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3868469548A
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 00:13:53 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494864.765027 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8300469548B
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 00:14:06 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494866.765042 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRi0d-0004wK-Gy; Mon, 13 Feb 2023 23:13:19 +0000
+	id 1pRi0m-0005HO-Tr; Mon, 13 Feb 2023 23:13:28 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494864.765027; Mon, 13 Feb 2023 23:13:19 +0000
+Received: by outflank-mailman (output) from mailman id 494866.765042; Mon, 13 Feb 2023 23:13:28 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRi0d-0004tR-Dv; Mon, 13 Feb 2023 23:13:19 +0000
-Received: by outflank-mailman (input) for mailman id 494864;
- Mon, 13 Feb 2023 23:13:17 +0000
+	id 1pRi0m-0005Dz-QN; Mon, 13 Feb 2023 23:13:28 +0000
+Received: by outflank-mailman (input) for mailman id 494866;
+ Mon, 13 Feb 2023 23:13:27 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=79xl=6J=ens-lyon.org=samuel.thibault@bounce.ens-lyon.org>)
- id 1pRi0b-0004r4-6P
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 23:13:17 +0000
+ id 1pRi0l-0004r4-A4
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 23:13:27 +0000
 Received: from sonata.ens-lyon.org (domu-toccata.ens-lyon.fr [140.77.166.138])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id fde687da-abf3-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 00:13:15 +0100 (CET)
+ id 04819dda-abf4-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 00:13:25 +0100 (CET)
 Received: from localhost (localhost [127.0.0.1])
- by sonata.ens-lyon.org (Postfix) with ESMTP id 3EB982015E;
- Tue, 14 Feb 2023 00:13:14 +0100 (CET)
+ by sonata.ens-lyon.org (Postfix) with ESMTP id 51D392015E;
+ Tue, 14 Feb 2023 00:13:25 +0100 (CET)
 Received: from sonata.ens-lyon.org ([127.0.0.1])
  by localhost (sonata.ens-lyon.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id o0yD5qTvQaE0; Tue, 14 Feb 2023 00:13:14 +0100 (CET)
+ with ESMTP id I6mMgcOWUcc4; Tue, 14 Feb 2023 00:13:25 +0100 (CET)
 Received: from begin (lfbn-bor-1-1163-184.w92-158.abo.wanadoo.fr
  [92.158.138.184])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
- by sonata.ens-lyon.org (Postfix) with ESMTPSA id 17D792013C;
- Tue, 14 Feb 2023 00:13:14 +0100 (CET)
+ by sonata.ens-lyon.org (Postfix) with ESMTPSA id 33F742013C;
+ Tue, 14 Feb 2023 00:13:25 +0100 (CET)
 Received: from samy by begin with local (Exim 4.96)
- (envelope-from <samuel.thibault@ens-lyon.org>) id 1pRi0X-00FwK0-2O;
- Tue, 14 Feb 2023 00:13:13 +0100
+ (envelope-from <samuel.thibault@ens-lyon.org>) id 1pRi0i-00FwLB-2v;
+ Tue, 14 Feb 2023 00:13:24 +0100
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -52,374 +52,82 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: fde687da-abf3-11ed-933c-83870f6b2ba8
-Date: Tue, 14 Feb 2023 00:13:13 +0100
+X-Inumbo-ID: 04819dda-abf4-11ed-933c-83870f6b2ba8
+Date: Tue, 14 Feb 2023 00:13:24 +0100
 From: Samuel Thibault <samuel.thibault@ens-lyon.org>
 To: Juergen Gross <jgross@suse.com>
 Cc: minios-devel@lists.xenproject.org, xen-devel@lists.xenproject.org,
 	wl@xen.org
-Subject: Re: [PATCH v3 7/7] Mini-OS: add read and write support to 9pfsfront
-Message-ID: <20230213231313.hryz7fynrpztzmf2@begin>
+Subject: Re: [PATCH v3 0/7] Mini-OS: add minimal 9pfs support
+Message-ID: <20230213231324.zfax6v5elvndzky3@begin>
 Mail-Followup-To: Samuel Thibault <samuel.thibault@ens-lyon.org>,
 	Juergen Gross <jgross@suse.com>, minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org, wl@xen.org
 References: <20230213084412.21065-1-jgross@suse.com>
- <20230213084412.21065-8-jgross@suse.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20230213084412.21065-8-jgross@suse.com>
+In-Reply-To: <20230213084412.21065-1-jgross@suse.com>
 Organization: I am not organized
 User-Agent: NeoMutt/20170609 (1.8.3)
 
-Juergen Gross, le lun. 13 févr. 2023 09:44:12 +0100, a ecrit:
-> Add support to read from and write to a file handled by 9pfsfront.
-> 
-> Signed-off-by: Juergen Gross <jgross@suse.com>
+Thanks!!
 
-Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
-
-> ---
-> V2:
-> - add check for max message size
-> - return EAGAIN in case no free request got (Samuel Thibault)
-> - loop until all data read/written (Samuel Thibault)
-> V3:
-> - use an exact limit for read/write (Samuel Thibault)
-> - log read(write errors (Samuel Thibault)
-> ---
->  9pfront.c | 216 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 216 insertions(+)
+Juergen Gross, le lun. 13 févr. 2023 09:44:05 +0100, a ecrit:
+> This series is adding minimal support to use 9pfs in Mini-OS. It is
+> adding a PV 9pfs frontend and the ability to open, close, read and
+> write files.
 > 
-> diff --git a/9pfront.c b/9pfront.c
-> index fb2e5669..5da8a365 100644
-> --- a/9pfront.c
-> +++ b/9pfront.c
-> @@ -72,7 +72,10 @@ struct file_9pfs {
->  #define P9_CMD_WALK       110
->  #define P9_CMD_OPEN       112
->  #define P9_CMD_CREATE     114
-> +#define P9_CMD_READ       116
-> +#define P9_CMD_WRITE      118
->  #define P9_CMD_CLUNK      120
-> +#define P9_CMD_STAT       124
->  
->  /* P9 protocol open flags. */
->  #define P9_OREAD            0   /* read */
-> @@ -88,11 +91,39 @@ struct p9_header {
->      uint16_t tag;
->  } __attribute__((packed));
->  
-> +struct p9_stat {
-> +    uint16_t size;
-> +    uint16_t type;
-> +    uint32_t dev;
-> +    uint8_t qid[P9_QID_SIZE];
-> +    uint32_t mode;
-> +    uint32_t atime;
-> +    uint32_t mtime;
-> +    uint64_t length;
-> +    char *name;
-> +    char *uid;
-> +    char *gid;
-> +    char *muid;
-> +    char *extension;
-> +    uint32_t n_uid;
-> +    uint32_t n_gid;
-> +    uint32_t n_muid;
-> +};
-> +
->  #define P9_VERSION        "9P2000.u"
->  #define P9_ROOT_FID       0
->  
->  static unsigned int ftype_9pfs;
->  
-> +static void free_stat(struct p9_stat *stat)
-> +{
-> +    free(stat->name);
-> +    free(stat->uid);
-> +    free(stat->gid);
-> +    free(stat->muid);
-> +    free(stat->extension);
-> +}
-> +
->  static unsigned int get_fid(struct dev_9pfs *dev)
->  {
->      unsigned int fid;
-> @@ -181,9 +212,12 @@ static void copy_from_ring(struct dev_9pfs *dev, void *data, unsigned int len)
->   *    Only valid for sending.
->   * u: 2 byte unsigned integer (uint16_t)
->   * U: 4 byte unsigned integer (uint32_t)
-> + * L: 8 byte unsigned integer (uint64_t)
->   * S: String (2 byte length + <length> characters)
->   *    in the rcv_9p() case the data for string is allocated (length omitted,
->   *    string terminated by a NUL character)
-> + * D: Binary data (4 byte length + <length> bytes of data), requires a length
-> + *    and a buffer pointer parameter.
->   * Q: A 13 byte "qid", consisting of 1 byte file type, 4 byte file version
->   *    and 8 bytes unique file id. Only valid for receiving.
->   */
-> @@ -192,10 +226,12 @@ static void send_9p(struct dev_9pfs *dev, struct req *req, const char *fmt, ...)
->      struct p9_header hdr;
->      va_list ap, aq;
->      const char *f;
-> +    uint64_t longval;
->      uint32_t intval;
->      uint16_t shortval;
->      uint16_t len;
->      uint8_t byte;
-> +    uint8_t *data;
->      char *strval;
->  
->      hdr.size = sizeof(hdr);
-> @@ -221,11 +257,21 @@ static void send_9p(struct dev_9pfs *dev, struct req *req, const char *fmt, ...)
->              hdr.size += 4;
->              intval = va_arg(aq, unsigned int);
->              break;
-> +        case 'L':
-> +            hdr.size += 8;
-> +            longval = va_arg(aq, uint64_t);
-> +            break;
->          case 'S':
->              hdr.size += 2;
->              strval = va_arg(aq, char *);
->              hdr.size += strlen(strval);
->              break;
-> +        case 'D':
-> +            hdr.size += 4;
-> +            intval = va_arg(aq, unsigned int);
-> +            hdr.size += intval;
-> +            data = va_arg(aq, uint8_t *);
-> +            break;
->          default:
->              printk("send_9p: unknown format character %c\n", *f);
->              break;
-> @@ -258,12 +304,22 @@ static void send_9p(struct dev_9pfs *dev, struct req *req, const char *fmt, ...)
->              intval = va_arg(ap, unsigned int);
->              copy_to_ring(dev, &intval, sizeof(intval));
->              break;
-> +        case 'L':
-> +            longval = va_arg(ap, uint64_t);
-> +            copy_to_ring(dev, &longval, sizeof(longval));
-> +            break;
->          case 'S':
->              strval = va_arg(ap, char *);
->              len = strlen(strval);
->              copy_to_ring(dev, &len, sizeof(len));
->              copy_to_ring(dev, strval, len);
->              break;
-> +        case 'D':
-> +            intval = va_arg(ap, unsigned int);
-> +            copy_to_ring(dev, &intval, sizeof(intval));
-> +            data = va_arg(ap, uint8_t *);
-> +            copy_to_ring(dev, data, intval);
-> +            break;
->          }
->      }
->  
-> @@ -348,6 +404,8 @@ static void rcv_9p_copy(struct dev_9pfs *dev, struct req *req,
->      uint32_t err;
->      uint16_t *shortval;
->      uint32_t *val;
-> +    uint64_t *longval;
-> +    uint8_t *data;
->      char **strval;
->      uint8_t *qval;
->  
-> @@ -412,6 +470,10 @@ static void rcv_9p_copy(struct dev_9pfs *dev, struct req *req,
->              val = va_arg(ap, uint32_t *);
->              copy_bufs(&buf1, &buf2, &len1, &len2, val, sizeof(*val));
->              break;
-> +        case 'L':
-> +            longval = va_arg(ap, uint64_t *);
-> +            copy_bufs(&buf1, &buf2, &len1, &len2, longval, sizeof(*longval));
-> +            break;
->          case 'S':
->              strval = va_arg(ap, char **);
->              copy_bufs(&buf1, &buf2, &len1, &len2, &len, sizeof(len));
-> @@ -419,6 +481,12 @@ static void rcv_9p_copy(struct dev_9pfs *dev, struct req *req,
->              copy_bufs(&buf1, &buf2, &len1, &len2, *strval, len);
->              (*strval)[len] = 0;
->              break;
-> +        case 'D':
-> +            val = va_arg(ap, uint32_t *);
-> +            data = va_arg(ap, uint8_t *);
-> +            copy_bufs(&buf1, &buf2, &len1, &len2, val, sizeof(*val));
-> +            copy_bufs(&buf1, &buf2, &len1, &len2, data, *val);
-> +            break;
->          case 'Q':
->              qval = va_arg(ap, uint8_t *);
->              copy_bufs(&buf1, &buf2, &len1, &len2, qval, P9_QID_SIZE);
-> @@ -640,6 +708,115 @@ static int p9_create(struct dev_9pfs *dev, uint32_t fid, char *path,
->      return ret;
->  }
->  
-> +static int p9_stat(struct dev_9pfs *dev, uint32_t fid, struct p9_stat *stat)
-> +{
-> +    struct req *req = get_free_req(dev);
-> +    int ret;
-> +
-> +    if ( !req )
-> +        return EAGAIN;
-> +
-> +    memset(stat, 0, sizeof(*stat));
-> +    req->cmd = P9_CMD_STAT;
-> +    send_9p(dev, req, "U", fid);
-> +    rcv_9p(dev, req, "uuUQUUULSSSSSUUU", &stat->size, &stat->type, &stat->dev,
-> +           stat->qid, &stat->mode, &stat->atime, &stat->mtime, &stat->length,
-> +           &stat->name, &stat->uid, &stat->gid, &stat->muid, &stat->extension,
-> +           &stat->n_uid, &stat->n_gid, &stat->n_muid);
-> +
-> +    ret = req->result;
-> +
-> +    put_free_req(dev, req);
-> +
-> +    return ret;
-> +}
-> +
-> +static int p9_read(struct dev_9pfs *dev, uint32_t fid, uint64_t offset,
-> +                   uint8_t *data, uint32_t len)
-> +{
-> +    struct req *req = get_free_req(dev);
-> +    int ret = 0;
-> +    uint32_t count, count_max;
-> +
-> +    if ( !req )
-> +    {
-> +        errno = EAGAIN;
-> +        return -1;
-> +    }
-> +    req->cmd = P9_CMD_READ;
-> +    count_max = dev->msize_max - (sizeof(struct p9_header) + sizeof(uint32_t));
-> +
-> +    while ( len )
-> +    {
-> +        count = len;
-> +        if ( count > count_max )
-> +            count = count_max;
-> +
-> +        send_9p(dev, req, "ULU", fid, offset, count);
-> +        rcv_9p(dev, req, "D", &count, data);
-> +
-> +        if ( !count )
-> +            break;
-> +        if ( req->result )
-> +        {
-> +            ret = -1;
-> +            errno = EIO;
-> +            printk("9pfs: read got error %d\n", req->result);
-> +            break;
-> +        }
-> +        ret += count;
-> +        offset += count;
-> +        data += count;
-> +        len -= count;
-> +    }
-> +
-> +    put_free_req(dev, req);
-> +
-> +    return ret;
-> +}
-> +
-> +static int p9_write(struct dev_9pfs *dev, uint32_t fid, uint64_t offset,
-> +                    const uint8_t *data, uint32_t len)
-> +{
-> +    struct req *req = get_free_req(dev);
-> +    int ret = 0;
-> +    uint32_t count, count_max;
-> +
-> +    if ( !req )
-> +    {
-> +        errno = EAGAIN;
-> +        return -1;
-> +    }
-> +    req->cmd = P9_CMD_WRITE;
-> +    count_max = dev->msize_max - (sizeof(struct p9_header) + sizeof(uint32_t) +
-> +                                  sizeof(uint64_t) + sizeof(uint32_t));
-> +
-> +    while ( len )
-> +    {
-> +        count = len;
-> +        if ( count > count_max )
-> +            count = count_max;
-> +
-> +        send_9p(dev, req, "ULD", fid, offset, count, data);
-> +        rcv_9p(dev, req, "U", &count);
-> +        if ( req->result )
-> +        {
-> +            ret = -1;
-> +            errno = EIO;
-> +            printk("9pfs: write got error %d\n", req->result);
-> +            break;
-> +        }
-> +        ret += count;
-> +        offset += count;
-> +        data += count;
-> +        len -= count;
-> +    }
-> +
-> +    put_free_req(dev, req);
-> +
-> +    return ret;
-> +}
-> +
->  /*
->   * Walk from root <steps> levels with the levels listed in <*paths> as a
->   * sequence of names. Returns the number of steps not having been able to
-> @@ -731,6 +908,43 @@ static void intr_9pfs(evtchn_port_t port, struct pt_regs *regs, void *data)
->      wake_up(&dev->waitq);
->  }
->  
-> +static int read_9pfs(struct file *file, void *buf, size_t nbytes)
-> +{
-> +    struct file_9pfs *f9pfs = file->filedata;
-> +    int ret;
-> +
-> +    ret = p9_read(f9pfs->dev, f9pfs->fid, file->offset, buf, nbytes);
-> +    if ( ret >= 0 )
-> +        file->offset += ret;
-> +
-> +    return ret;
-> +}
-> +
-> +static int write_9pfs(struct file *file, const void *buf, size_t nbytes)
-> +{
-> +    struct file_9pfs *f9pfs = file->filedata;
-> +    struct p9_stat stat;
-> +    int ret;
-> +
-> +    if ( f9pfs->append )
-> +    {
-> +        ret = p9_stat(f9pfs->dev, f9pfs->fid, &stat);
-> +        free_stat(&stat);
-> +        if ( ret )
-> +        {
-> +            errno = EIO;
-> +            return -1;
-> +        }
-> +        file->offset = stat.length;
-> +    }
-> +
-> +    ret = p9_write(f9pfs->dev, f9pfs->fid, file->offset, buf, nbytes);
-> +    if ( ret >= 0 )
-> +        file->offset += ret;
-> +
-> +    return ret;
-> +}
-> +
->  static int close_9pfs(struct file *file)
->  {
->      struct file_9pfs *f9pfs = file->filedata;
-> @@ -1072,6 +1286,8 @@ void shutdown_9pfront(void *dev)
->  
->  static const struct file_ops ops_9pfs = {
->      .name = "9pfs",
-> +    .read = read_9pfs,
-> +    .write = write_9pfs,
->      .close = close_9pfs,
->  };
->  
+> The series has been tested with qemu as 9pfs backend in a PVH Mini-OS
+> guest (I've used a slightly modified Xenstore-stubdom for that purpose
+> in order to reuse the build runes).
+> 
+> This series is meant to setup the stage for adding file based logging
+> support to Xenstore-stubdom and later to add live update support (being
+> able to save the LU data stream in a dom0 file makes this a _lot_
+> easier).
+> 
+> In order to keep Mini-OS's license I have only used the protocol docs
+> available on the internet [1] and then verified those with the qemu 9pfs
+> backend implementation (especially for supporting the 9P2000.u variant,
+> as qemu doesn't support the basic 9P2000 protocol).
+> 
+> The needed fixed values of the protocol have been taken from [2].
+> 
+> [1]: http://ericvh.github.io/9p-rfc/rfc9p2000.html
+> [2]: https://github.com/0intro/libixp
+> 
+> Changes in V2:
+> - addressed comments by Samuel Thibault
+> 
+> Changes in V3:
+> - addressed comments by Samuel Thibault and Andrew Cooper
+> 
+> Juergen Gross (7):
+>   Mini-OS: xenbus: add support for reading node from directory
+>   Mini-OS: add concept of mount points
+>   Mini-OS: add support for runtime mounts
+>   Mini-OS: add 9pfs frontend
+>   Mini-OS: add 9pfs transport layer
+>   Mini-OS: add open and close handling to the 9pfs frontend
+>   Mini-OS: add read and write support to 9pfsfront
+> 
+>  9pfront.c                     | 1300 +++++++++++++++++++++++++++++++++
+>  Config.mk                     |    1 +
+>  Makefile                      |    1 +
+>  arch/x86/testbuild/all-no     |    1 +
+>  arch/x86/testbuild/all-yes    |    1 +
+>  arch/x86/testbuild/newxen-yes |    1 +
+>  include/9pfront.h             |    7 +
+>  include/lib.h                 |   14 +
+>  include/xenbus.h              |    6 +
+>  lib/sys.c                     |  123 +++-
+>  xenbus.c                      |   40 +-
+>  11 files changed, 1473 insertions(+), 22 deletions(-)
+>  create mode 100644 9pfront.c
+>  create mode 100644 include/9pfront.h
+> 
 > -- 
 > 2.35.3
 > 
