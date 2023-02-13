@@ -2,32 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D082D6946D0
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 14:20:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494490.764568 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D276946F6
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 14:27:13 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494496.764579 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYk0-0007IO-EG; Mon, 13 Feb 2023 13:19:32 +0000
+	id 1pRYr2-0000Jo-5h; Mon, 13 Feb 2023 13:26:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494490.764568; Mon, 13 Feb 2023 13:19:32 +0000
+Received: by outflank-mailman (output) from mailman id 494496.764579; Mon, 13 Feb 2023 13:26:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYk0-0007F7-Aw; Mon, 13 Feb 2023 13:19:32 +0000
-Received: by outflank-mailman (input) for mailman id 494490;
- Mon, 13 Feb 2023 13:19:31 +0000
+	id 1pRYr2-0000Gk-1P; Mon, 13 Feb 2023 13:26:48 +0000
+Received: by outflank-mailman (input) for mailman id 494496;
+ Mon, 13 Feb 2023 13:26:47 +0000
 Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pRYjz-0007F1-1V
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 13:19:31 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pRYr0-0000Ga-V4; Mon, 13 Feb 2023 13:26:46 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
  by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pRYjw-0006D6-MD; Mon, 13 Feb 2023 13:19:28 +0000
-Received: from [54.239.6.185] (helo=[192.168.15.251])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pRYjw-0003Lm-Fx; Mon, 13 Feb 2023 13:19:28 +0000
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pRYr0-0006Lo-Rb; Mon, 13 Feb 2023 13:26:46 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pRYr0-0007EX-Ep; Mon, 13 Feb 2023 13:26:46 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pRYr0-0003Dc-EP; Mon, 13 Feb 2023 13:26:46 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,247 +42,327 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
-	bh=yhGpZgnntPpRs8Hh5jCyIam4Ay/fHr95E6vic4Pnb3M=; b=cqV/1y/Q0mKTkgNf9Tyz80Kq71
-	ASvZ6Ave0hB0Ph8nnd0jyQLQmzdxaQpucP6UGhHLZiXuiesUwx2Bsj1YHTqHnP8mk8uy6HODRZY2S
-	B0VRqDykKezORqHO5gV59SCnTTAv1LY/xLNjELvqfvAHuxipLhd8XeZkz4ENzHkqtsL0=;
-Message-ID: <64aba76d-1746-9f6c-109a-e8c3bf1e1b61@xen.org>
-Date: Mon, 13 Feb 2023 13:19:26 +0000
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=FHWfpRxTuaoesYqtfq1iYaa7md4wBfKCZMm0WsbvTRo=; b=awW6WjuKfyvfhBOhTkg9G38uFW
+	xX5wDJqXS1cX9/LAzHDnKbVDfl5zAXmBQZAfQSFAe27MnV7C3gLvPybokutA8LyeNRayvcui9qaOL
+	ylTQI4PVkwjenSHabYwaiAFZzFNWvLSUgQ+ufxRZpxurMJPeqLN5Ok+seksyGXHL6C7Y=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-177133-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.1
-Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-Content-Language: en-US
-To: Jan Beulich <jbeulich@suse.com>,
- Oleksii Kurochko <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
- <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
- <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
-From: Julien Grall <julien@xen.org>
-In-Reply-To: <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: [linux-linus test] 177133: regressions - trouble: broken/fail/pass/starved
+X-Osstest-Failures:
+    linux-linus:test-amd64-amd64-libvirt-pair:<job status>:broken:regression
+    linux-linus:test-amd64-amd64-libvirt-pair:host-install/dst_host(7):broken:regression
+    linux-linus:test-amd64-amd64-freebsd11-amd64:guest-start/freebsd.repeat:fail:regression
+    linux-linus:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    linux-linus:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qcow2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    linux-linus:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    linux-linus:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    linux-linus:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    linux-linus:build-armhf-libvirt:build-check(1):starved:nonblocking
+    linux-linus:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    linux=ceaa837f96adb69c0df0397937cd74991d5d821a
+X-Osstest-Versions-That:
+    linux=711e9a4d52bf4e477e51c7135e1e6188c42018d0
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Mon, 13 Feb 2023 13:26:46 +0000
+
+flight 177133 linux-linus real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/177133/
+
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-libvirt-pair    <job status>                 broken
+ test-amd64-amd64-libvirt-pair 7 host-install/dst_host(7) broken REGR. vs. 177104
+ test-amd64-amd64-freebsd11-amd64 21 guest-start/freebsd.repeat fail REGR. vs. 177104
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 177104
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 177104
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 177104
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 177104
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 177104
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qcow2 14 migrate-support-check        fail never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ linux                ceaa837f96adb69c0df0397937cd74991d5d821a
+baseline version:
+ linux                711e9a4d52bf4e477e51c7135e1e6188c42018d0
+
+Last test of basis   177104  2023-02-12 20:42:38 Z    0 days
+Testing same since   177133  2023-02-13 03:40:57 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Geert Uytterhoeven <geert+renesas@glider.be>
+  John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+  Linus Torvalds <torvalds@linux-foundation.org>
+  Steven Rostedt (Google) <rostedt@goodmis.org>
+  Yafang Shao <laoar.shao@gmail.com>
+  Yoshinori Sato <ysato@users.sourceforge.jp>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-freebsd11-amd64                             fail    
+ test-amd64-amd64-freebsd12-amd64                             pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-amd64-libvirt-pair                                broken  
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-amd64-pygrub                                      pass    
+ test-amd64-amd64-libvirt-qcow2                               pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-libvirt-raw                                 pass    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-amd64-xl-vhd                                      pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
 
 
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-On 13/02/2023 12:24, Jan Beulich wrote:
-> On 03.02.2023 18:05, Oleksii Kurochko wrote:
->> --- a/xen/common/Kconfig
->> +++ b/xen/common/Kconfig
->> @@ -92,6 +92,12 @@ config STATIC_MEMORY
->>   
->>   	  If unsure, say N.
->>   
->> +config GENERIC_DO_BUG_FRAME
->> +	bool
->> +	help
->> +	  Generic do_bug_frame() function is needed to handle the type of bug
->> +	  frame and print an information about it.
-> 
-> Generally help text for prompt-less functions is not very useful. Assuming
-> it is put here to inform people actually reading the source file, I'm okay
-> for it to be left here, but please at least drop the stray "an". I also
-> think this may want moving up in the file, e.g. ahead of all the HAS_*
-> controls (which, as you will notice, all have no help text either). Plus
-> finally how about shorter and more applicable GENERIC_BUG_FRAME - after
-> all what becomes generic is more than just do_bug_frame()?
-> 
->> --- /dev/null
->> +++ b/xen/common/bug.c
->> @@ -0,0 +1,88 @@
->> +#include <xen/bug.h>
->> +#include <xen/errno.h>
->> +#include <xen/types.h>
->> +#include <xen/kernel.h>
-> 
-> Please order headers alphabetically unless there's anything preventing
-> that from being done.
-> 
->> +#include <xen/string.h>
->> +#include <xen/virtual_region.h>
->> +
->> +#include <asm/processor.h>
->> +
->> +int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
-> 
-> I know Arm is using vaddr_t and RISC-V now also has it, but in UNIX-like
-> environments that's redundant with "unsigned long", and it's also
-> redundant with C99's uintptr_t. Hence when seeing the type I always
-> wonder whether it's really a host virtual address which is meant (and
-> not perhaps a guest one, which in principle could differ from the host
-> one for certain guest types). In any event the existence of this type
-> should imo not be a prereq to using this generic piece of infrastructure
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-C spec aside, the use "unsigned long" is quite overloaded within Xen. 
-Although, this has improved since we introduced mfn_t/gfn_t.
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
-In the future, I could imagine us to also introduce typesafe for 
-vaddr_t, reducing further the risk to mix different meaning of unsigned 
-long.
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
 
-Therefore, I think the introduction of vaddr_t should be a prereq for 
-using the generic piece of infrastructure.
+broken-job test-amd64-amd64-libvirt-pair broken
+broken-step test-amd64-amd64-libvirt-pair host-install/dst_host(7)
 
-> 
->> +{
->> +    const struct bug_frame *bug = NULL;
->> +    const char *prefix = "", *filename, *predicate;
->> +    unsigned long fixup;
->> +    int id = -1, lineno;
-> 
-> For both of these I question them needing to be of a signed type.
-> 
->> +    const struct virtual_region *region;
->> +
->> +    region = find_text_region(pc);
->> +    if ( region )
->> +    {
->> +        for ( id = 0; id < BUGFRAME_NR; id++ )
->> +        {
->> +            const struct bug_frame *b;
->> +            unsigned int i;
->> +
->> +            for ( i = 0, b = region->frame[id].bugs;
->> +                  i < region->frame[id].n_bugs; b++, i++ )
->> +            {
->> +                if ( ((vaddr_t)bug_loc(b)) == pc )
-> 
-> Afaics this is the sole use of bug_loc(). If so, better change the macro
-> to avoid the need for a cast here:
-> 
-> #define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
-> 
->> --- /dev/null
->> +++ b/xen/include/xen/bug.h
->> @@ -0,0 +1,127 @@
->> +#ifndef __XEN_BUG_H__
->> +#define __XEN_BUG_H__
->> +
->> +#define BUG_DISP_WIDTH    24
->> +#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
->> +#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
->> +
->> +#define BUGFRAME_run_fn 0
->> +#define BUGFRAME_warn   1
->> +#define BUGFRAME_bug    2
->> +#define BUGFRAME_assert 3
->> +
->> +#define BUGFRAME_NR     4
->> +
->> +#ifndef __ASSEMBLY__
->> +
->> +#include <xen/errno.h>
->> +#include <xen/stringify.h>
->> +#include <xen/types.h>
->> +#include <xen/lib.h>
-> 
-> Again - please sort headers.
-> 
->> +#include <asm/bug.h>
->> +
->> +#ifndef BUG_FRAME_STUFF
->> +struct bug_frame {
-> 
-> Please can we have a blank line between the above two ones and then similarly
-> ahead of the #endif?
-> 
->> +    signed int loc_disp;    /* Relative address to the bug address */
->> +    signed int file_disp;   /* Relative address to the filename */
->> +    signed int msg_disp;    /* Relative address to the predicate (for ASSERT) */
->> +    uint16_t line;          /* Line number */
->> +    uint32_t pad0:16;       /* Padding for 8-bytes align */
-> 
-> Already the original comment in Arm code is wrong: The padding doesn't
-> guarantee 8-byte alignment; it merely guarantees a multiple of 8 bytes
-> size.
-> Aiui there's also no need for 8-byte alignment anywhere here (in
-> fact there's ".p2align 2" in the generator macros).
+Not pushing.
 
-I would rather keep the pad0 here.
+------------------------------------------------------------
+commit ceaa837f96adb69c0df0397937cd74991d5d821a
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Sun Feb 12 14:10:17 2023 -0800
 
-> 
-> I also wonder why this needs to be a named bitfield: Either make it
-> plain uint16_t, or if you use a bitfield, then omit the name.
+    Linux 6.2-rc8
 
-Everything you seem to suggest are clean ups. So I think it would be 
-better if they are first applied to Arm and then we move the code to 
-common afterwards.
+commit 80510b63f7b6bdd30e07b3a42115d0a324e20cd6
+Author: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+Date:   Tue Feb 7 17:57:15 2023 +0100
 
-This will make easier to confirm what changed and also tracking the 
-history (think git blame).
+    MAINTAINERS: Add myself as maintainer for arch/sh (SUPERH)
+    
+    Both Rich Felker and Yoshinori Sato haven't done any work on arch/sh
+    for a while. As I have been maintaining Debian's sh4 port since 2014,
+    I am interested to keep the architecture alive.
+    
+    Signed-off-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
+    Acked-by: Yoshinori Sato <ysato@users.sourceforge.jp>
+    Acked-by: Geert Uytterhoeven <geert+renesas@glider.be>
+    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
 
-That said, I don't view the clean-ups as necessary in order to move the 
-code in common... They could be done afterwards by Oleksii or someone else.
+commit 5e98e916f95bdc50e90f3199d7f3d74b94fa5976
+Merge: 711e9a4d52bf b6c7abd1c28a
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Sun Feb 12 13:52:17 2023 -0800
 
-> 
->> +};
->> +
->> +#define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
->> +#define bug_file(b) ((const void *)(b) + (b)->file_disp);
->> +#define bug_line(b) ((b)->line)
->> +#define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
->> +#endif /* BUG_FRAME_STUFF */
->> +
->> +#ifndef BUG_FRAME
->> +/* Many versions of GCC doesn't support the asm %c parameter which would
->> + * be preferable to this unpleasantness. We use mergeable string
->> + * sections to avoid multiple copies of the string appearing in the
->> + * Xen image. BUGFRAME_run_fn needs to be handled separately.
->> + */
-> 
-> When generalizing the logic, I wonder in how far the comment doesn't
-> want re-wording some. For example, while Arm prefixes constant insn
-> operands with # (and x86 uses $), there's no such prefix in RISC-V. At
-> which point there's no need to use %c in the first place. (Which in
-> turn means x86'es more compact representation may also be usable there.
-> And yet in turn the question arises whether RISC-V wouldn't better have
-> its own derivation of the machinery, rather than trying to generalize
-> things. RISC-V's would then likely be closer to x86'es, just without
-> the use of %c on asm() operands. Which might then suggest to rather
-> generalize x86'es variant down the road.)
-> 
-> At the very least the comment's style wants correcting, and in the first
-> sentence s/doesn't/don't/. Also %c isn't a parameter, but a modifier.
-> 
->> +#define BUG_FRAME(type, line, file, has_msg, msg) do {                      \
->> +    BUILD_BUG_ON((line) >> 16);                                             \
->> +    BUILD_BUG_ON((type) >= BUGFRAME_NR);                                    \
->> +    asm ("1:"BUG_INSTR"\n"                                                  \
-> 
-> Nit: Style (missing blank after opening parenthesis, and then also at the
-> end of the construct ahead of the closing parenthesis).
-> 
->> +         ".pushsection .rodata.str, \"aMS\", %progbits, 1\n"                \
->> +         "2:\t.asciz " __stringify(file) "\n"                               \
-> 
-> file is always a string literal; really it always is __FILE__ in this
-> non-x86 implementation. So first preference ought to be to drop the
-> macro parameter and use __FILE__ here (same then for line vs __LINE__).
-> Yet even if not done like that, the __stringify() is largely unneeded
-> (unless we expect file names to have e.g. backslashes in their names)
-> and looks somewhat odd here. So how about
-> 
->           "2:\t.asciz \"" __FILE__ "\"\n"
-> 
-> ? But wait - peeking ahead to the x86 patch I notice that __FILE__ and
-> __LINE__ need to remain arguments. But then the second preference would
-> still be
-> 
->           "2:\t.asciz \"" file "\"\n"
-> 
-> imo. Yet maybe others disagree ...
+    Merge tag 'trace-v6.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace
+    
+    Pull tracing fix from Steven Rostedt:
+     "Fix showing of TASK_COMM_LEN instead of its value
+    
+      The TASK_COMM_LEN was converted from a macro into an enum so that BTF
+      would have access to it. But this unfortunately caused TASK_COMM_LEN
+      to display in the format fields of trace events, as they are created
+      by the TRACE_EVENT() macro and such, macros convert to their values,
+      where as enums do not.
+    
+      To handle this, instead of using the field itself to be display, save
+      the value of the array size as another field in the trace_event_fields
+      structure, and use that instead.
+    
+      Not only does this fix the issue, but also converts the other trace
+      events that have this same problem (but were not breaking tooling).
+    
+      With this change, the original work around b3bc8547d3be6 ("tracing:
+      Have TRACE_DEFINE_ENUM affect trace event types as well") could be
+      reverted (but that should be done in the merge window)"
+    
+    * tag 'trace-v6.2-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace:
+      tracing: Fix TASK_COMM_LEN in trace event format file
 
-I would prefer to keep the __stringify() version because it avoids 
-relying on file to always be a string literal.
+commit b6c7abd1c28a63ad633433d037ee15a1bc3023ba
+Author: Yafang Shao <laoar.shao@gmail.com>
+Date:   Sun Feb 12 15:13:03 2023 +0000
 
-[...]
-
--- 
-Julien Grall
+    tracing: Fix TASK_COMM_LEN in trace event format file
+    
+    After commit 3087c61ed2c4 ("tools/testing/selftests/bpf: replace open-coded 16 with TASK_COMM_LEN"),
+    the content of the format file under
+    /sys/kernel/tracing/events/task/task_newtask was changed from
+      field:char comm[16];    offset:12;    size:16;    signed:0;
+    to
+      field:char comm[TASK_COMM_LEN];    offset:12;    size:16;    signed:0;
+    
+    John reported that this change breaks older versions of perfetto.
+    Then Mathieu pointed out that this behavioral change was caused by the
+    use of __stringify(_len), which happens to work on macros, but not on enum
+    labels. And he also gave the suggestion on how to fix it:
+      :One possible solution to make this more robust would be to extend
+      :struct trace_event_fields with one more field that indicates the length
+      :of an array as an actual integer, without storing it in its stringified
+      :form in the type, and do the formatting in f_show where it belongs.
+    
+    The result as follows after this change,
+    $ cat /sys/kernel/tracing/events/task/task_newtask/format
+            field:char comm[16];    offset:12;      size:16;        signed:0;
+    
+    Link: https://lore.kernel.org/lkml/Y+QaZtz55LIirsUO@google.com/
+    Link: https://lore.kernel.org/linux-trace-kernel/20230210155921.4610-1-laoar.shao@gmail.com/
+    Link: https://lore.kernel.org/linux-trace-kernel/20230212151303.12353-1-laoar.shao@gmail.com
+    
+    Cc: stable@vger.kernel.org
+    Cc: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+    Cc: Kajetan Puchalski <kajetan.puchalski@arm.com>
+    CC: Qais Yousef <qyousef@layalina.io>
+    Fixes: 3087c61ed2c4 ("tools/testing/selftests/bpf: replace open-coded 16 with TASK_COMM_LEN")
+    Reported-by: John Stultz <jstultz@google.com>
+    Debugged-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+    Suggested-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+    Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+    Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+    Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
 
