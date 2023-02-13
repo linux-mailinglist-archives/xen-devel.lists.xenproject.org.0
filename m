@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F372D693F75
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 09:20:15 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494180.764162 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB1B0693F77
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 09:20:37 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494186.764173 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRU48-0000Fq-DE; Mon, 13 Feb 2023 08:20:00 +0000
+	id 1pRU4Y-0001aL-KK; Mon, 13 Feb 2023 08:20:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494180.764162; Mon, 13 Feb 2023 08:20:00 +0000
+Received: by outflank-mailman (output) from mailman id 494186.764173; Mon, 13 Feb 2023 08:20:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRU48-0000Cs-9w; Mon, 13 Feb 2023 08:20:00 +0000
-Received: by outflank-mailman (input) for mailman id 494180;
- Mon, 13 Feb 2023 08:19:58 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pRU4Y-0001Y8-HZ; Mon, 13 Feb 2023 08:20:26 +0000
+Received: by outflank-mailman (input) for mailman id 494186;
+ Mon, 13 Feb 2023 08:20:25 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DRhn=6J=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pRU46-0007Wh-Nn
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 08:19:58 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 341073ce-ab77-11ed-933c-83870f6b2ba8;
- Mon, 13 Feb 2023 09:19:58 +0100 (CET)
+ id 1pRU4X-0001RB-3a
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 08:20:25 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 42fd8ea3-ab77-11ed-93b5-47a8fe42b414;
+ Mon, 13 Feb 2023 09:20:23 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 162A467AC1;
- Mon, 13 Feb 2023 08:19:58 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 1A2BE37706;
+ Mon, 13 Feb 2023 08:20:23 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB979138E6;
- Mon, 13 Feb 2023 08:19:57 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E345F138E6;
+ Mon, 13 Feb 2023 08:20:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id eZO8M63y6WN4NgAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 13 Feb 2023 08:19:57 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id x741Nsby6WPDNgAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 13 Feb 2023 08:20:22 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,77 +51,74 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 341073ce-ab77-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 42fd8ea3-ab77-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1676276398; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1676276423; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=QE3+ImDbv+iRMg0urx+hhREwWMlTqSaDmNJTX/t3b28=;
-	b=K8wk7UwJ8jvwXSQrTwUKGkT21bQRUW0XeObdsuY1QkLrz3CyFqteBaEltPWKxsPfaBqH3L
-	Uk+qI6aAlvsVmHvplKSJyMn3aBLlmYGvls0b8UbxBPteNBCaCp55AYhBtHWKjwz+DVqXYb
-	BuhDnfscfGqW2IQq3z1BJOqzUNG08lU=
-Message-ID: <ecb93fed-ee16-0688-ec3b-744d599f0598@suse.com>
-Date: Mon, 13 Feb 2023 09:19:57 +0100
+	bh=T67QN63umXnc0fRsL1qO+KXl0rONIm141v5QsXiqc7U=;
+	b=nIZERco8BTO8Q9GkwypnEoUodoHwrDRZ6gVAHupOktjw74RpgcU3SdsiVBy8zC1nCXIOpV
+	RNTMh5kE5zg8GlrELal5E9+o2kSFYYG9AJlort/DtAHv9MjyB3sfVyvWJ/jvt05uQa3Mw2
+	ygeiym/agAdWVhgk22j2m/6qu2gh3n8=
+Message-ID: <589edfa4-ae52-49dd-08b2-25ffb506084a@suse.com>
+Date: Mon, 13 Feb 2023 09:20:22 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.1
-Subject: Re: [PATCH] xen/grant-dma-iommu: Implement a dummy probe_device()
- callback
+Subject: Re: [PATCH][next] xen: Replace one-element array with flexible-array
+ member
 Content-Language: en-US
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-References: <20230208153649.3604857-1-olekstysh@gmail.com>
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+References: <Y9xjN6Wa3VslgXeX@work>
 From: Juergen Gross <jgross@suse.com>
-In-Reply-To: <20230208153649.3604857-1-olekstysh@gmail.com>
+In-Reply-To: <Y9xjN6Wa3VslgXeX@work>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="------------RBH6UhIRkHMiUqsxgvy3xsXY"
+ boundary="------------mUBn580fjrlxklzUomy0ToCm"
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------RBH6UhIRkHMiUqsxgvy3xsXY
-Content-Type: multipart/mixed; boundary="------------NGWlZ7vq7DpqRSV3qtp1bda3";
+--------------mUBn580fjrlxklzUomy0ToCm
+Content-Type: multipart/mixed; boundary="------------MEG0JBht7zMjbG92DYZ0qhxr";
  protected-headers="v1"
 From: Juergen Gross <jgross@suse.com>
-To: Oleksandr Tyshchenko <olekstysh@gmail.com>,
- xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org
-Cc: Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
  Stefano Stabellini <sstabellini@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>
-Message-ID: <ecb93fed-ee16-0688-ec3b-744d599f0598@suse.com>
-Subject: Re: [PATCH] xen/grant-dma-iommu: Implement a dummy probe_device()
- callback
-References: <20230208153649.3604857-1-olekstysh@gmail.com>
-In-Reply-To: <20230208153649.3604857-1-olekstysh@gmail.com>
+ Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
+Cc: xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+Message-ID: <589edfa4-ae52-49dd-08b2-25ffb506084a@suse.com>
+Subject: Re: [PATCH][next] xen: Replace one-element array with flexible-array
+ member
+References: <Y9xjN6Wa3VslgXeX@work>
+In-Reply-To: <Y9xjN6Wa3VslgXeX@work>
 
---------------NGWlZ7vq7DpqRSV3qtp1bda3
-Content-Type: multipart/mixed; boundary="------------gsVpOz0V7CNMqpfHNUPpAH8n"
+--------------MEG0JBht7zMjbG92DYZ0qhxr
+Content-Type: multipart/mixed; boundary="------------ZuHhLaWGSyu994BrV7gofsrQ"
 
---------------gsVpOz0V7CNMqpfHNUPpAH8n
+--------------ZuHhLaWGSyu994BrV7gofsrQ
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: base64
 
-T24gMDguMDIuMjMgMTY6MzYsIE9sZWtzYW5kciBUeXNoY2hlbmtvIHdyb3RlOg0KPiBGcm9t
-OiBPbGVrc2FuZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+
-DQo+IA0KPiBVcGRhdGUgc3R1YiBJT01NVSBkcml2ZXIgKHdoaWNoIG1haW4gcHVycG9zZSBp
-cyB0byByZXVzZSBnZW5lcmljDQo+IElPTU1VIGRldmljZS10cmVlIGJpbmRpbmdzIGJ5IFhl
-biBncmFudCBETUEtbWFwcGluZyBsYXllciBvbiBBcm0pDQo+IGFjY29yZGluZyB0byB0aGUg
-cmVjZW50IGNoYW5nZXMgZG9uZSBpbiB0aGUgZm9sbG93aW5nDQo+IGNvbW1pdCA1NzM2NWEw
-NGM5MjEgKCJpb21tdTogTW92ZSBidXMgc2V0dXAgdG8gSU9NTVUgZGV2aWNlIHJlZ2lzdHJh
-dGlvbiIpLg0KPiANCj4gV2l0aCBwcm9iZV9kZXZpY2UoKSBjYWxsYmFjayBiZWluZyBjYWxs
-ZWQgZHVyaW5nIElPTU1VIGRldmljZSByZWdpc3RyYXRpb24sDQo+IHRoZSB1bmluaXRpYWxp
-emVkIGNhbGxiYWNrIGp1c3QgbGVhZHMgdG8gdGhlICJrZXJuZWwgTlVMTCBwb2ludGVyDQo+
-IGRlcmVmZXJlbmNlIiBpc3N1ZSBkdXJpbmcgYm9vdC4gRml4IHRoYXQgYnkgYWRkaW5nIGEg
-ZHVtbXkgY2FsbGJhY2suDQo+IA0KPiBMb29rcyBsaWtlIHRoZSByZWxlYXNlX2RldmljZSgp
-IGNhbGxiYWNrIGlzIG5vdCBtYW5kYXRvcnkgdG8gYmUNCj4gaW1wbGVtZW50ZWQgYXMgSU9N
-TVUgZnJhbWV3b3JrIG1ha2VzIHN1cmUgdGhhdCBjYWxsYmFjayBpcyBpbml0aWFsaXplZA0K
-PiBiZWZvcmUgZGVyZWZlcmVuY2luZy4NCj4gDQo+IFJlcG9ydGVkLWJ5OiBWaXJlc2ggS3Vt
-YXIgPHZpcmVzaC5rdW1hckBsaW5hcm8ub3JnPg0KPiBTaWduZWQtb2ZmLWJ5OiBPbGVrc2Fu
-ZHIgVHlzaGNoZW5rbyA8b2xla3NhbmRyX3R5c2hjaGVua29AZXBhbS5jb20+DQoNClB1c2hl
-ZC10bzogeGVuL3RpcC5naXQgZm9yLWxpbnVzLTYuMw0KDQoNCkp1ZXJnZW4NCg0K
---------------gsVpOz0V7CNMqpfHNUPpAH8n
+T24gMDMuMDIuMjMgMDI6MjgsIEd1c3Rhdm8gQS4gUi4gU2lsdmEgd3JvdGU6DQo+IE9uZS1l
+bGVtZW50IGFycmF5cyBhcmUgZGVwcmVjYXRlZCwgYW5kIHdlIGFyZSByZXBsYWNpbmcgdGhl
+bSB3aXRoIGZsZXhpYmxlDQo+IGFycmF5IG1lbWJlcnMgaW5zdGVhZC4gU28sIHJlcGxhY2Ug
+b25lLWVsZW1lbnQgYXJyYXkgd2l0aCBmbGV4aWJsZS1hcnJheQ0KPiBtZW1iZXIgaW4gc3Ry
+dWN0IHhlbl9wYWdlX2RpcmVjdG9yeS4NCj4gDQo+IFRoaXMgaGVscHMgd2l0aCB0aGUgb25n
+b2luZyBlZmZvcnRzIHRvIHRpZ2h0ZW4gdGhlIEZPUlRJRllfU09VUkNFDQo+IHJvdXRpbmVz
+IG9uIG1lbWNweSgpIGFuZCBoZWxwIHVzIG1ha2UgcHJvZ3Jlc3MgdG93YXJkcyBnbG9iYWxs
+eQ0KPiBlbmFibGluZyAtZnN0cmljdC1mbGV4LWFycmF5cz0zIFsxXS4NCj4gDQo+IFRoaXMg
+cmVzdWx0cyBpbiBubyBkaWZmZXJlbmNlcyBpbiBiaW5hcnkgb3V0cHV0Lg0KPiANCj4gTGlu
+azogaHR0cHM6Ly9naXRodWIuY29tL0tTUFAvbGludXgvaXNzdWVzLzc5DQo+IExpbms6IGh0
+dHBzOi8vZ2l0aHViLmNvbS9LU1BQL2xpbnV4L2lzc3Vlcy8yNTUNCj4gTGluazogaHR0cHM6
+Ly9nY2MuZ251Lm9yZy9waXBlcm1haWwvZ2NjLXBhdGNoZXMvMjAyMi1PY3RvYmVyLzYwMjkw
+Mi5odG1sIFsxXQ0KPiBTaWduZWQtb2ZmLWJ5OiBHdXN0YXZvIEEuIFIuIFNpbHZhIDxndXN0
+YXZvYXJzQGtlcm5lbC5vcmc+DQoNClB1c2hlZC10bzogeGVuL3RpcC5naXQgZm9yLWxpbnVz
+LTYuMw0KDQoNCkp1ZXJnZW4NCg0K
+--------------ZuHhLaWGSyu994BrV7gofsrQ
 Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
 Content-Description: OpenPGP public key
@@ -179,25 +176,25 @@ jR/i1DG86lem3iBDXzXsZDn8R38=3D
 =3D2wuH
 -----END PGP PUBLIC KEY BLOCK-----
 
---------------gsVpOz0V7CNMqpfHNUPpAH8n--
+--------------ZuHhLaWGSyu994BrV7gofsrQ--
 
---------------NGWlZ7vq7DpqRSV3qtp1bda3--
+--------------MEG0JBht7zMjbG92DYZ0qhxr--
 
---------------RBH6UhIRkHMiUqsxgvy3xsXY
+--------------mUBn580fjrlxklzUomy0ToCm
 Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="OpenPGP_signature"
 
 -----BEGIN PGP SIGNATURE-----
 
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPp8q0FAwAAAAAACgkQsN6d1ii/Ey/S
-QAf/fRXsFUEMr+WD5+EQRdD8h1X1IsQTLpZWHreyPibtO4+gl1AooVP8oBzbGTPhKeygMpT0A8BK
-8i6optXzCxLAL6LYh8GNklO7XnwwSWCb39TKMtKrJ7kFkERbp1afX+EaWpArLoYzhOfQagpRZ7IX
-5ABbAT+kmH3incsqG9BPePDOO0h5Rzrx7Kzv2xW4o9ZRgqCYGVC2XFBiTcyMNoKLY1xIY/tyB1II
-zxpG+A0v1cgX2xmxyvQOFOHXn/CqSEgUa9b+f//4r8+9V7mUCHyx75DXBM+kqTtRBAQTtWnrBdGH
-Cvfb/Y3fLUPVh4MNrI0IKc1f0YLoSoBF3AryktWAPQ==
-=Gzun
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPp8sYFAwAAAAAACgkQsN6d1ii/Ey+z
+iggAlU6pTFIxYTeG+qBwseJU8IrA0YQD3rA/JBTv+2jARNlwIGkEwuZL5sAy6zYiIbGT6hADym+u
+WfKfojYMs2mEmylJBPQCgDWpW9K2924G7btecf3T5DPdqAeR9VkMMg2Y1eLPZ23xZA0Hc9xIreP8
+5pRH3T966LJOXzn5J4nDCrU8fwSgUhIKmeSNw5kToVTkJKpdFmjd0zfO94ymQmMGEm0n8m184iUk
+4O1SjtrSWG07d8UOqIvHlZpfGnabh6jY5h01oUS/i8DVqI76YT4/HBl/ze7I2T+zaUE1n7yuj8go
+6JpL9C/kOGxzovfKVvw7WbdEUt2YOMSVNBEiJrVYkw==
+=6d2w
 -----END PGP SIGNATURE-----
 
---------------RBH6UhIRkHMiUqsxgvy3xsXY--
+--------------mUBn580fjrlxklzUomy0ToCm--
 
