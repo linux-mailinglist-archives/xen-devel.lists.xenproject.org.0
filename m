@@ -2,44 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2F16693FD9
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 09:44:40 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494210.764228 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD44D693FDE
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 09:44:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494216.764244 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRURq-0005nG-LA; Mon, 13 Feb 2023 08:44:30 +0000
+	id 1pRURz-0006Q6-11; Mon, 13 Feb 2023 08:44:39 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494210.764228; Mon, 13 Feb 2023 08:44:30 +0000
+Received: by outflank-mailman (output) from mailman id 494216.764244; Mon, 13 Feb 2023 08:44:38 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRURq-0005kU-Hg; Mon, 13 Feb 2023 08:44:30 +0000
-Received: by outflank-mailman (input) for mailman id 494210;
- Mon, 13 Feb 2023 08:44:29 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pRURy-0006Mu-Td; Mon, 13 Feb 2023 08:44:38 +0000
+Received: by outflank-mailman (input) for mailman id 494216;
+ Mon, 13 Feb 2023 08:44:36 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=DRhn=6J=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pRURp-00053b-AI
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 08:44:29 +0000
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [2001:67c:2178:6::1c])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 9f3030d6-ab7a-11ed-933c-83870f6b2ba8;
- Mon, 13 Feb 2023 09:44:26 +0100 (CET)
+ id 1pRURw-0006An-NG
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 08:44:36 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id a3098a0a-ab7a-11ed-93b5-47a8fe42b414;
+ Mon, 13 Feb 2023 09:44:33 +0100 (CET)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 30DED37870;
- Mon, 13 Feb 2023 08:44:27 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B5FC137870;
+ Mon, 13 Feb 2023 08:44:32 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 03E4E1391B;
- Mon, 13 Feb 2023 08:44:26 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D23C1391B;
+ Mon, 13 Feb 2023 08:44:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yNUpO2r46WM2RAAAMHmgww
- (envelope-from <jgross@suse.com>); Mon, 13 Feb 2023 08:44:26 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id aHdDIXD46WNARAAAMHmgww
+ (envelope-from <jgross@suse.com>); Mon, 13 Feb 2023 08:44:32 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,202 +51,147 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 9f3030d6-ab7a-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: a3098a0a-ab7a-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1676277867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	t=1676277872; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
 	 mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=19ujpdeO6r/ntB3v/0hzqQCc5N6kEKU3yTBXBtOtbZg=;
-	b=UxYiQRhP1uw/dAULpCCF9xOTAqeUbO9hm0aaDfQjC1i0wV90bjKIPIzKCsoIV41Aiq+/3K
-	cV8NacSRhsjG58kxQNyVHDGZ+stNlJvON/xNpy6S2L7Q/dfUiMaRgda/eFqjmbcgYNkvLO
-	EL5Y5HLwN8l3iKbedmbWVBMcX3x4Lxo=
+	bh=7/tiDXbP/9+hZp0jDtSI+PwtYbXnE16R86Manl6T7bw=;
+	b=qiR+HkdnGMmX36aZ+SoeWq7GNf4wwvzOGMdiNfYGeiA1zLvLOv6d/EiRWw5K3JRpmdJr1S
+	8nUOwXjEBHl7+0sNC8SUyEqCHPZOaAWUunLG4c6G56biCIP0q4goSBslMbUBZ2rS8JxS6/
+	MYvFRShMfQnaj/DJmzIY0bop4HB1F+M=
 From: Juergen Gross <jgross@suse.com>
 To: minios-devel@lists.xenproject.org,
 	xen-devel@lists.xenproject.org
 Cc: samuel.thibault@ens-lyon.org,
 	wl@xen.org,
 	Juergen Gross <jgross@suse.com>
-Subject: [PATCH v3 2/7] Mini-OS: add concept of mount points
-Date: Mon, 13 Feb 2023 09:44:07 +0100
-Message-Id: <20230213084412.21065-3-jgross@suse.com>
+Subject: [PATCH v3 3/7] Mini-OS: add support for runtime mounts
+Date: Mon, 13 Feb 2023 09:44:08 +0100
+Message-Id: <20230213084412.21065-4-jgross@suse.com>
 X-Mailer: git-send-email 2.35.3
 In-Reply-To: <20230213084412.21065-1-jgross@suse.com>
 References: <20230213084412.21065-1-jgross@suse.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the concept of mount points to Mini-OS. A mount point is a path
-associated with a device pointer and an open() callback. A mount point
-can be either a file (e.g. "/dev/mem") or a directory ("/var/log").
+Add the support to mount a device at runtime. The number of dynamic
+mounts is limited by a #define.
 
-This allows to replace the special casing in the generic open()
-handling with a generic mount point handling.
-
-Prepare the open() callbacks to support creating new files by adding a
-mode parameter.
-
-Additionally add a close() prototype to include/lib.h, as it is missing
-today.
+For devices supporting multiple files struct file is modified to hold
+a pointer to file specific data in contrast to device specific data.
 
 Signed-off-by: Juergen Gross <jgross@suse.com>
 Reviewed-by: Samuel Thibault <samuel.thibault@ens-lyon.org>
 ---
-V2:
-- pass path below mount point to open callbacks (Samuel Thibault)
+V3:
+- set number of possible mountpoints to 16 (Andrew Cooper)
 ---
- include/lib.h |  9 ++++++
- lib/sys.c     | 80 +++++++++++++++++++++++++++++++++++++++------------
- 2 files changed, 70 insertions(+), 19 deletions(-)
+ include/lib.h |  5 +++++
+ lib/sys.c     | 45 ++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 49 insertions(+), 1 deletion(-)
 
 diff --git a/include/lib.h b/include/lib.h
-index bec99646..36d94ec4 100644
+index 36d94ec4..fd8c36de 100644
 --- a/include/lib.h
 +++ b/include/lib.h
-@@ -187,6 +187,13 @@ struct file_ops {
-     bool (*select_wr)(struct file *file);
+@@ -172,6 +172,7 @@ struct file {
+     union {
+         int fd; /* Any fd from an upper layer. */
+         void *dev;
++        void *filedata;
+     };
  };
  
-+struct mount_point {
-+    const char *path;
-+    int (*open)(struct mount_point *mnt, const char *pathname, int flags,
-+                mode_t mode);
-+    void *dev;
-+};
+@@ -194,6 +195,10 @@ struct mount_point {
+     void *dev;
+ };
+ 
++int mount(const char *path, void *dev,
++          int (*open)(struct mount_point *, const char *, int, mode_t));
++void umount(const char *path);
 +
  unsigned int alloc_file_type(const struct file_ops *ops);
  
  off_t lseek_default(struct file *file, off_t offset, int whence);
-@@ -198,6 +205,8 @@ int alloc_fd(unsigned int type);
- void close_all_files(void);
- extern struct thread *main_thread;
- void sparse(unsigned long data, size_t size);
-+
-+int close(int fd);
- #endif
- 
- #endif /* _LIB_H_ */
 diff --git a/lib/sys.c b/lib/sys.c
-index 8f8a3de2..2f33c937 100644
+index 2f33c937..118fc441 100644
 --- a/lib/sys.c
 +++ b/lib/sys.c
-@@ -263,11 +263,6 @@ char *getcwd(char *buf, size_t size)
-     return buf;
- }
- 
--#define LOG_PATH "/var/log/"
--#define SAVE_PATH "/var/lib/xen"
--#define SAVE_CONSOLE 1
--#define RESTORE_CONSOLE 2
--
- int mkdir(const char *pathname, mode_t mode)
- {
-     errno = EIO;
-@@ -286,18 +281,30 @@ int posix_openpt(int flags)
-     return fd;
- }
- 
-+static int open_pt(struct mount_point *mnt, const char *pathname, int flags,
-+                   mode_t mode)
-+{
-+    return posix_openpt(flags);
-+}
-+
- int open_savefile(const char *path, int save)
- {
-     int fd;
-     char nodename[64];
- 
--    snprintf(nodename, sizeof(nodename), "device/console/%d", save ? SAVE_CONSOLE : RESTORE_CONSOLE);
-+    snprintf(nodename, sizeof(nodename), "device/console/%d", save ? 1 : 2);
- 
-     fd = open_consfront(nodename);
-     printk("fd(%d) = open_savefile\n", fd);
- 
-     return fd;
- }
-+
-+static int open_save(struct mount_point *mnt, const char *pathname, int flags,
-+                     mode_t mode)
-+{
-+    return open_savefile(pathname, flags & O_WRONLY);
-+}
- #else
- int posix_openpt(int flags)
- {
-@@ -311,24 +318,59 @@ int open_savefile(const char *path, int save)
- }
- #endif
- 
--int open(const char *pathname, int flags, ...)
-+static int open_log(struct mount_point *mnt, const char *pathname, int flags,
-+                    mode_t mode)
- {
-     int fd;
-+
-     /* Ugly, but fine.  */
--    if (!strncmp(pathname,LOG_PATH,strlen(LOG_PATH))) {
--	fd = alloc_fd(FTYPE_CONSOLE);
--        printk("open(%s) -> %d\n", pathname, fd);
--        return fd;
-+    fd = alloc_fd(FTYPE_CONSOLE);
-+    printk("open(%s%s) -> %d\n", mnt->path, pathname, fd);
-+    return fd;
-+}
-+
-+static int open_mem(struct mount_point *mnt, const char *pathname, int flags,
-+                    mode_t mode)
-+{
-+    int fd;
-+
-+    fd = alloc_fd(FTYPE_MEM);
-+    printk("open(%s%s) -> %d\n", mnt->path, pathname, fd);
-+    return fd;
-+}
-+
-+static struct mount_point mount_points[] = {
-+    { .path = "/var/log",     .open = open_log,  .dev = NULL },
-+    { .path = "/dev/mem",     .open = open_mem,  .dev = NULL },
-+#ifdef CONFIG_CONSFRONT
-+    { .path = "/dev/ptmx",    .open = open_pt,   .dev = NULL },
-+    { .path = "/var/lib/xen", .open = open_save, .dev = NULL },
-+#endif
-+};
-+
-+int open(const char *pathname, int flags, ...)
-+{
-+    unsigned int m, mlen;
-+    struct mount_point *mnt;
-+    mode_t mode = 0;
-+    va_list ap;
-+
-+    if ( flags & O_CREAT )
-+    {
-+        va_start(ap, flags);
-+        mode = va_arg(ap, mode_t);
-+        va_end(ap);
+@@ -85,6 +85,8 @@
      }
--    if (!strncmp(pathname, "/dev/mem", strlen("/dev/mem"))) {
--        fd = alloc_fd(FTYPE_MEM);
--        printk("open(/dev/mem) -> %d\n", fd);
--        return fd;
+ 
+ #define NOFILE 32
++#define N_MOUNTS  16
++
+ extern void minios_evtchn_close_fd(int fd);
+ extern void minios_gnttab_close_fd(int fd);
+ 
+@@ -339,7 +341,7 @@ static int open_mem(struct mount_point *mnt, const char *pathname, int flags,
+     return fd;
+ }
+ 
+-static struct mount_point mount_points[] = {
++static struct mount_point mount_points[N_MOUNTS] = {
+     { .path = "/var/log",     .open = open_log,  .dev = NULL },
+     { .path = "/dev/mem",     .open = open_mem,  .dev = NULL },
+ #ifdef CONFIG_CONSFRONT
+@@ -365,6 +367,8 @@ int open(const char *pathname, int flags, ...)
+     for ( m = 0; m < ARRAY_SIZE(mount_points); m++ )
+     {
+         mnt = mount_points + m;
++        if ( !mnt->path )
++            continue;
+         mlen = strlen(mnt->path);
+         if ( !strncmp(pathname, mnt->path, mlen) &&
+              (pathname[mlen] == '/' || pathname[mlen] == 0) )
+@@ -375,6 +379,45 @@ int open(const char *pathname, int flags, ...)
+     return -1;
+ }
+ 
++int mount(const char *path, void *dev,
++          int (*open)(struct mount_point *, const char *, int, mode_t))
++{
++    unsigned int m;
++    struct mount_point *mnt;
 +
 +    for ( m = 0; m < ARRAY_SIZE(mount_points); m++ )
 +    {
 +        mnt = mount_points + m;
-+        mlen = strlen(mnt->path);
-+        if ( !strncmp(pathname, mnt->path, mlen) &&
-+             (pathname[mlen] == '/' || pathname[mlen] == 0) )
-+            return mnt->open(mnt, pathname + mlen, flags, mode);
-     }
--    if (!strncmp(pathname, "/dev/ptmx", strlen("/dev/ptmx")))
--        return posix_openpt(flags);
--    if (!strncmp(pathname,SAVE_PATH,strlen(SAVE_PATH)))
--        return open_savefile(pathname, flags & O_WRONLY);
++        if ( !mnt->path )
++        {
++            mnt->path = strdup(path);
++            mnt->open = open;
++            mnt->dev = dev;
++            return 0;
++        }
++    }
 +
-     errno = EIO;
-     return -1;
- }
++    errno = ENOSPC;
++    return -1;
++}
++
++void umount(const char *path)
++{
++    unsigned int m;
++    struct mount_point *mnt;
++
++    for ( m = 0; m < ARRAY_SIZE(mount_points); m++ )
++    {
++        mnt = mount_points + m;
++        if ( mnt->path && !strcmp(mnt->path, path) )
++        {
++            free((char *)mnt->path);
++            mnt->path = NULL;
++            return;
++        }
++    }
++}
++
+ int isatty(int fd)
+ {
+     return files[fd].type == FTYPE_CONSOLE;
 -- 
 2.35.3
 
