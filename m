@@ -2,40 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 324B46946C6
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 14:16:00 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494481.764557 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D082D6946D0
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 14:20:15 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494490.764568 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYgN-0006RZ-Rj; Mon, 13 Feb 2023 13:15:47 +0000
+	id 1pRYk0-0007IO-EG; Mon, 13 Feb 2023 13:19:32 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494481.764557; Mon, 13 Feb 2023 13:15:47 +0000
+Received: by outflank-mailman (output) from mailman id 494490.764568; Mon, 13 Feb 2023 13:19:32 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYgN-0006PV-Ne; Mon, 13 Feb 2023 13:15:47 +0000
-Received: by outflank-mailman (input) for mailman id 494481;
- Mon, 13 Feb 2023 13:15:45 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pRYk0-0007F7-Aw; Mon, 13 Feb 2023 13:19:32 +0000
+Received: by outflank-mailman (input) for mailman id 494490;
+ Mon, 13 Feb 2023 13:19:31 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=kX12=6J=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pRYgL-0006PK-TA
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 13:15:45 +0000
-Received: from EUR01-VE1-obe.outbound.protection.outlook.com
- (mail-ve1eur01on0630.outbound.protection.outlook.com
- [2a01:111:f400:fe1f::630])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 853102a4-aba0-11ed-93b5-47a8fe42b414;
- Mon, 13 Feb 2023 14:15:44 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM7PR04MB6903.eurprd04.prod.outlook.com (2603:10a6:20b:10d::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23; Mon, 13 Feb
- 2023 13:15:42 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6086.024; Mon, 13 Feb 2023
- 13:15:42 +0000
+ (envelope-from <julien@xen.org>) id 1pRYjz-0007F1-1V
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 13:19:31 +0000
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pRYjw-0006D6-MD; Mon, 13 Feb 2023 13:19:28 +0000
+Received: from [54.239.6.185] (helo=[192.168.15.251])
+ by xenbits.xenproject.org with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
+ (envelope-from <julien@xen.org>)
+ id 1pRYjw-0003Lm-Fx; Mon, 13 Feb 2023 13:19:28 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,121 +39,247 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 853102a4-aba0-11ed-93b5-47a8fe42b414
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=A/W1mGUsmas+5R96wcRRHp8e2vHNr6MyJYHkMi1mro5lsc1BeFPPzeWzg2iCtddFJZzhqWMjuX1NUfRsGNH911A9rKNyzEnSlmjnxwNGYUgoHgjW7vYc21GWK2ePyOj86GcRY3K+IJNxHxKtd15PoxGuSoo4uZQQw840OlkzCXNJJhsQjRYe3iyb2v5Xzeg3R5DgEYzRih93XLE63f3cItKunWxXq+5IVp0MEuAfTcguX0lPF3/rIx4jsC40XaPPGR/2nrGJSkVntoeHjorJ8nHJ6BIgvhR1S0oThWI8QvWZ0EtYsEKEPiSKwHJTA1v0oAMct72Stn3htTmXQIsTRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=S9QZW/TJgcYW70GPlUd5E60yboVrl3mjfoXh880ekTU=;
- b=gFFRPKF0GPCl2RUrdqj2ccdHPakRI528RmLNPWMIkzm1XJOjT4YNp1lN72NEMGBAtbu8YKc1KwU7gBFnEX9QXMrxy1pBz7aGST4fqYmZ1HNcQUdfoIS2IhmXQnlj3yeIw2ZC/UE7L+4bk0cmt0hfslKQEYRuCezL4q9vqGH2R/ZT1NcCSCGeZuVXFAVq1nV3GP47u13CwVeNpAYFqGQYJObZJ0FN9agSJBxwTQ6Up2iVFqGUfzYfzPJm69pBb6SKG6z6vWKWAsF6vrfCF9vgZEuQjWldwhCEiRagYH20li0/JyIdrBFtGozSh6XrSX4pfv/s1zmSlDm3DBXmrcl0rw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=S9QZW/TJgcYW70GPlUd5E60yboVrl3mjfoXh880ekTU=;
- b=3RdDmitA8GtEpYi3FH0ZW8S4MIA6evRKPNF+Hulo2zIoPbfO2BFUkUTxA6UmJUBxo1y43XCCWiNhbs399J+25C4wpHZlVRiy9WP/k1cK8tXviOPQCG4szPNt5ELKg4aa7R8r7COROdMOzWz2H5ZJX7+XdxAs9O2ZvH1sJOTNf12u8CVaTUc1dMYsg5h+x/EUwHKYF60f6I5wUZzeoJ1x2WuKxEHC0KJpXUyi5vl0IoVxi7P5myEq1otLkB6hqWJPrbrvuNqKfz7ZqK6rBfgVbYNB+A8y5QgO6EvoIHTNtv04HdvlBh/nRBlTU+TMSPZ/0BR6S4x5mw9nxbECFk4YwA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <3800fe2b-6e20-d225-b57e-fdd3553b0123@suse.com>
-Date: Mon, 13 Feb 2023 14:15:40 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Subject: Re: [PATCH v3] x86/vlapic: call vmx_vlapic_msr_changed through an
- hvm_function callback
-Content-Language: en-US
-To: Xenia Ragiadakou <burzalodowa@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
- <wl@xen.org>, Jun Nakajima <jun.nakajima@intel.com>,
- Kevin Tian <kevin.tian@intel.com>, xen-devel@lists.xenproject.org
-References: <20230213115017.902037-1-burzalodowa@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <20230213115017.902037-1-burzalodowa@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0118.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a3::13) To VE1PR04MB6560.eurprd04.prod.outlook.com
- (2603:10a6:803:122::25)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID;
+	bh=yhGpZgnntPpRs8Hh5jCyIam4Ay/fHr95E6vic4Pnb3M=; b=cqV/1y/Q0mKTkgNf9Tyz80Kq71
+	ASvZ6Ave0hB0Ph8nnd0jyQLQmzdxaQpucP6UGhHLZiXuiesUwx2Bsj1YHTqHnP8mk8uy6HODRZY2S
+	B0VRqDykKezORqHO5gV59SCnTTAv1LY/xLNjELvqfvAHuxipLhd8XeZkz4ENzHkqtsL0=;
+Message-ID: <64aba76d-1746-9f6c-109a-e8c3bf1e1b61@xen.org>
+Date: Mon, 13 Feb 2023 13:19:26 +0000
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM7PR04MB6903:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7bebc5d-ce38-4e89-d2b9-08db0dc46835
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	J97pDUArMQhoob+CDn4c4+Hik+KoIVF8Mb5sSaG3Nyo1lJEzrp0lxwvysDeRPcXaLy8fRyfqyLOyEAkLZsTuuDpT3vaV/mfajfeNLXa97fO4sJg1jvA33d+uAOw8lZUREsGQN234ixSSGtjiad8ZFw9Xsy7WHH9i1ppdeTm9CgPT777VGGhseJAfLR9Ou2QxfqT4v/5JTg0mc1zVtsAvWGIlzKqVpE+SUvdDNus7We1a2qrgE0mTMBssOvM72qmRZ+mpdVYVBbTzgf8Rg87KngYzRSI25yjd5P+o7QSCjDavcpjJG/G4kbi40i+xjffViwatGXenbABuB4lFfnUArm5pXONztKM09uxYDuQlL/a2FnLYwcLh0lTiuAJEAkMbvlTnEn/bnDGmlZSoepv6lR/Oc0BEF3C/xAvGzpPFN0U+7AX+dYZhi00/cOsFlA5Db8NX9TnZF2BtpjjRxCM6ja0HFPEmvZM6YiGeIoFX6sykkM4JWUbPn4duGFC3fEPnhwZ9LIrrgZ3fO4ef29jibyMZRNUCrfglZ7QRdIGiTkCBXkrvOFm/b98fatTQOLQg1OCpAGgVs3+PtOuCeLnWxfHsoa+k6m63GKHknXHD5lW38/kvStJx9CVHqHArK8JD4sxoSLYM8ZnfhUsab7g/0pZyU7vVjFEX/VTCTddvODufoJzvRhs33I3/EKUbqJA4uF3joL2GdBnOEwD/r93/EAdP+/S3zQLKfwmhpoZljOM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(376002)(396003)(136003)(39850400004)(346002)(451199018)(6486002)(6506007)(478600001)(31686004)(53546011)(31696002)(86362001)(6512007)(26005)(66556008)(186003)(316002)(4326008)(54906003)(2616005)(8676002)(66946007)(66476007)(6916009)(36756003)(8936002)(41300700001)(5660300002)(83380400001)(38100700002)(4744005)(2906002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VE11NTVrcFVuTTY3Z281NXQvVytzcE9kbFdmclZXRjhmYzB0ODJRVnZrRGZq?=
- =?utf-8?B?WXhZcTZ4WWdmbXFDdjQ5TitqVmRscUVPQmFMcnlvQ0V1MzlvZGRVVTRvYnBM?=
- =?utf-8?B?ZnJ1Tm9lNWk0QWhhS0hNZTQ0MkZTckQzVFZTTmVxbUY5M3VQa1orckpnTWV5?=
- =?utf-8?B?anlhd0lqQ2t5Y1RhMktjMGxlV2ZlK0taRENNcmJaSkVtcldPSmMvOUxlQXpO?=
- =?utf-8?B?WkkvV1FuQ2xSTHZyOGdDRGQ4eHNrYmxWTjFQYTY1NlFYdUNiYXJUZXovU0dS?=
- =?utf-8?B?VXloM0VlNkJxTE5WeXI1L2UwU1RNc0Erd0x2TnpFeU1BeGRJMjhrN0JqaWM1?=
- =?utf-8?B?bkl2TEExTHROK2swT0h2cUN2NVdtdCtxTVRUM1cwa08vWGRWQUhFYzVndlQz?=
- =?utf-8?B?NlNWRlFSYURLcDZFZjRwbklyNEpYY245TEpseC9uTUh1UE9WMlVYeVRNRzBZ?=
- =?utf-8?B?UXEweTZUWEJWRW1MSnZmSjRSRTJJcjE3cFVmRXBnQU1wVVN0SnhJY1BKeW4y?=
- =?utf-8?B?N2wzRWFUNzk2VmlIZ1RtQ1pXRlBmWHg2bTJnS3ZNa3d4S2RMUGVjbW1OcWxy?=
- =?utf-8?B?UjZNRzh5VmpUa2lQaEk2MDZYMjdpY2ZCZGhVN3JiTGNUQnNzMndKc2w3WVhr?=
- =?utf-8?B?bVhTWlJwRTlwNFAyNE5QZ3AyM0Uyc0R1dE1VZWcrbUpWOXprZDBscGkyVzZJ?=
- =?utf-8?B?clBLQkFtQUdadVVVWGJwYVZuRVAvclpHcHBHckRqdUdRL2pYb0dlYmM1NjNP?=
- =?utf-8?B?d3J1VXVGMnNmbDZpYUVEY1BoRU0yQTRLcVBZZ2tERUdHRVZ5S0kvVGdxeTNr?=
- =?utf-8?B?SEgxaEcyTnczaFcyeUZZanhIRHRoMURlZW9yVDVhb0hCTXRSQVFwU0lIWFds?=
- =?utf-8?B?aWhBMXJvMmVJWVZla1lsaHJTclJ3VXVNdmZYMUFraEROcTcwWThwUjBSdmpV?=
- =?utf-8?B?Sk1GdlNYVmFYOUdGbGNoMVVjZmpoNjN5anRIOEgyRTZGdWErV0dzTGRzWm9R?=
- =?utf-8?B?U3BRZmJrRCsvbW9BdHBVRlNOSS9OV3Y4QSs5bTU5QzFkWWRCeWE3KzBiOWF1?=
- =?utf-8?B?czY4VEN1K1dmTXFLVndBMWExdUc4U0FMbDVTQ1JKZUZoMG4vMnlsK3ZmdEE1?=
- =?utf-8?B?NUo4NFZYQnROK0dobXZVSVFLUjRlS3cyMTFMT3I1NnQ5YUNsNXBjMHVKa0ZD?=
- =?utf-8?B?VXZUQnhFbXF4aW9EZG1oSzZJTXg5OEdrV0NTVHg3Y1paRGQzMHNZb2tpUGsv?=
- =?utf-8?B?eEFRTHNyQ28xd09INFJoNTJMdjkwbkNQRURXVFEwYXMxWVVvTVZIMVhNT3dy?=
- =?utf-8?B?and6SHdNdzdYMnhvVE9DaXhFOG1YeW1LWi9wVTlmRGtlRWlnMXVVREtIbXJU?=
- =?utf-8?B?dFJ3VjRKV2pJT0RYMW9zNnlneTkxV1pMQis4dzJ1T1F0NUN6MFhld29GcVRw?=
- =?utf-8?B?cCtCZGJMNUJyQ2NlcUY5WGlpc2I5WmxVd0dCNFNDL3JvRm1iUDVzY042UnBu?=
- =?utf-8?B?M3dWVU9lbGMvOXZQNklnaDNJWXVXVFhSMS8ra2ZuM0xvalhNVHRzMmJ4ZEVJ?=
- =?utf-8?B?bnZaMm9qMWVPQ3F4ZnQyOTRWV0ZNcndPQWlibE9zZGc2bTAzU2kybzFXT1Vu?=
- =?utf-8?B?YmVsQTNjbXRIeEZybEdDVHR3aDk3VTVsNmVLMmRpd0dtTnNhS3B2bG9Ldk1p?=
- =?utf-8?B?QU1MeFIvdVRia0JBWnBZRXR6ZnFKejJSRHpkdWxLdlFEdHdPdlY4VkJBK3ll?=
- =?utf-8?B?dzlHMXZzTFpKUlY3UUxoR1VpU2tLbkFjYUpoWUg2ZnQ4NzhzL1pnWUkycUtt?=
- =?utf-8?B?Z1hnODIyNHlBc0o0b3p0MG1vUVR3clMvVFF3RWM4WUNDNkZYSjgvZU41eXpr?=
- =?utf-8?B?VWZ0dW9TSXZ0UGtaNUk0U3g1TU5aTkxlNnFJVHZDT0xQQWRkNCt0aEN0V0Uz?=
- =?utf-8?B?UWtDZElWNjNQT0tyaDR5WVJDT1dCdUdFc2dzaWF1Z0sxamRDS3NrUksrRGJx?=
- =?utf-8?B?TUVjNXZEem9CM2tIaG9XTThTZGIzYTBLVUwvdzdrSmF2cnpvcCtsVmR0Vm52?=
- =?utf-8?B?UHkzSzgvcmhITjljNmluU092czBlL1M4RWl5U1pNSU1rVU9SVWk0NFUxMmNH?=
- =?utf-8?Q?mR0uI67GuSAFThLSRZ/ay0msM?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7bebc5d-ce38-4e89-d2b9-08db0dc46835
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 13:15:41.8040
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NJ8JOIUi0nizfRaavhlqD4oioRgmhnEP5ZYYoyrwBeZ8rNMtrYxG9Idhvn0Iq7kF5g+FUHCTlvfsBe1JuFa3uQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6903
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.7.1
+Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
+Content-Language: en-US
+To: Jan Beulich <jbeulich@suse.com>,
+ Oleksii Kurochko <oleksii.kurochko@gmail.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ George Dunlap <george.dunlap@citrix.com>,
+ Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
+ <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
+ <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
+From: Julien Grall <julien@xen.org>
+In-Reply-To: <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 13.02.2023 12:50, Xenia Ragiadakou wrote:
-> APIC virtualization support is currently implemented only for Intel VT-x.
-> To aid future work on separating AMD-V from Intel VT-x code, instead of
-> calling directly vmx_vlapic_msr_changed() from common hvm code, add a stub
-> to the hvm_function_table, named update_vlapic_mode, and create a wrapper
-> function, called hvm_vlapic_mode(), to be used by common hvm code.
+
+
+On 13/02/2023 12:24, Jan Beulich wrote:
+> On 03.02.2023 18:05, Oleksii Kurochko wrote:
+>> --- a/xen/common/Kconfig
+>> +++ b/xen/common/Kconfig
+>> @@ -92,6 +92,12 @@ config STATIC_MEMORY
+>>   
+>>   	  If unsure, say N.
+>>   
+>> +config GENERIC_DO_BUG_FRAME
+>> +	bool
+>> +	help
+>> +	  Generic do_bug_frame() function is needed to handle the type of bug
+>> +	  frame and print an information about it.
 > 
-> After the change above, do not include header asm/hvm/vmx/vmx.h as it is
-> not required anymore and resolve subsequent build errors for implicit
-> declaration of functions ‘TRACE_2_LONG_3D’ and ‘TRC_PAR_LONG’ by including
-> missing asm/hvm/trace.h header.
+> Generally help text for prompt-less functions is not very useful. Assuming
+> it is put here to inform people actually reading the source file, I'm okay
+> for it to be left here, but please at least drop the stray "an". I also
+> think this may want moving up in the file, e.g. ahead of all the HAS_*
+> controls (which, as you will notice, all have no help text either). Plus
+> finally how about shorter and more applicable GENERIC_BUG_FRAME - after
+> all what becomes generic is more than just do_bug_frame()?
 > 
-> No functional change intended.
+>> --- /dev/null
+>> +++ b/xen/common/bug.c
+>> @@ -0,0 +1,88 @@
+>> +#include <xen/bug.h>
+>> +#include <xen/errno.h>
+>> +#include <xen/types.h>
+>> +#include <xen/kernel.h>
 > 
-> Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+> Please order headers alphabetically unless there's anything preventing
+> that from being done.
+> 
+>> +#include <xen/string.h>
+>> +#include <xen/virtual_region.h>
+>> +
+>> +#include <asm/processor.h>
+>> +
+>> +int do_bug_frame(const struct cpu_user_regs *regs, vaddr_t pc)
+> 
+> I know Arm is using vaddr_t and RISC-V now also has it, but in UNIX-like
+> environments that's redundant with "unsigned long", and it's also
+> redundant with C99's uintptr_t. Hence when seeing the type I always
+> wonder whether it's really a host virtual address which is meant (and
+> not perhaps a guest one, which in principle could differ from the host
+> one for certain guest types). In any event the existence of this type
+> should imo not be a prereq to using this generic piece of infrastructure
 
-Reviewed-by: Jan Beulich <jbeulich@suse.com>
+C spec aside, the use "unsigned long" is quite overloaded within Xen. 
+Although, this has improved since we introduced mfn_t/gfn_t.
 
+In the future, I could imagine us to also introduce typesafe for 
+vaddr_t, reducing further the risk to mix different meaning of unsigned 
+long.
 
+Therefore, I think the introduction of vaddr_t should be a prereq for 
+using the generic piece of infrastructure.
+
+> 
+>> +{
+>> +    const struct bug_frame *bug = NULL;
+>> +    const char *prefix = "", *filename, *predicate;
+>> +    unsigned long fixup;
+>> +    int id = -1, lineno;
+> 
+> For both of these I question them needing to be of a signed type.
+> 
+>> +    const struct virtual_region *region;
+>> +
+>> +    region = find_text_region(pc);
+>> +    if ( region )
+>> +    {
+>> +        for ( id = 0; id < BUGFRAME_NR; id++ )
+>> +        {
+>> +            const struct bug_frame *b;
+>> +            unsigned int i;
+>> +
+>> +            for ( i = 0, b = region->frame[id].bugs;
+>> +                  i < region->frame[id].n_bugs; b++, i++ )
+>> +            {
+>> +                if ( ((vaddr_t)bug_loc(b)) == pc )
+> 
+> Afaics this is the sole use of bug_loc(). If so, better change the macro
+> to avoid the need for a cast here:
+> 
+> #define bug_loc(b) ((unsigned long)(b) + (b)->loc_disp)
+> 
+>> --- /dev/null
+>> +++ b/xen/include/xen/bug.h
+>> @@ -0,0 +1,127 @@
+>> +#ifndef __XEN_BUG_H__
+>> +#define __XEN_BUG_H__
+>> +
+>> +#define BUG_DISP_WIDTH    24
+>> +#define BUG_LINE_LO_WIDTH (31 - BUG_DISP_WIDTH)
+>> +#define BUG_LINE_HI_WIDTH (31 - BUG_DISP_WIDTH)
+>> +
+>> +#define BUGFRAME_run_fn 0
+>> +#define BUGFRAME_warn   1
+>> +#define BUGFRAME_bug    2
+>> +#define BUGFRAME_assert 3
+>> +
+>> +#define BUGFRAME_NR     4
+>> +
+>> +#ifndef __ASSEMBLY__
+>> +
+>> +#include <xen/errno.h>
+>> +#include <xen/stringify.h>
+>> +#include <xen/types.h>
+>> +#include <xen/lib.h>
+> 
+> Again - please sort headers.
+> 
+>> +#include <asm/bug.h>
+>> +
+>> +#ifndef BUG_FRAME_STUFF
+>> +struct bug_frame {
+> 
+> Please can we have a blank line between the above two ones and then similarly
+> ahead of the #endif?
+> 
+>> +    signed int loc_disp;    /* Relative address to the bug address */
+>> +    signed int file_disp;   /* Relative address to the filename */
+>> +    signed int msg_disp;    /* Relative address to the predicate (for ASSERT) */
+>> +    uint16_t line;          /* Line number */
+>> +    uint32_t pad0:16;       /* Padding for 8-bytes align */
+> 
+> Already the original comment in Arm code is wrong: The padding doesn't
+> guarantee 8-byte alignment; it merely guarantees a multiple of 8 bytes
+> size.
+> Aiui there's also no need for 8-byte alignment anywhere here (in
+> fact there's ".p2align 2" in the generator macros).
+
+I would rather keep the pad0 here.
+
+> 
+> I also wonder why this needs to be a named bitfield: Either make it
+> plain uint16_t, or if you use a bitfield, then omit the name.
+
+Everything you seem to suggest are clean ups. So I think it would be 
+better if they are first applied to Arm and then we move the code to 
+common afterwards.
+
+This will make easier to confirm what changed and also tracking the 
+history (think git blame).
+
+That said, I don't view the clean-ups as necessary in order to move the 
+code in common... They could be done afterwards by Oleksii or someone else.
+
+> 
+>> +};
+>> +
+>> +#define bug_loc(b) ((const void *)(b) + (b)->loc_disp)
+>> +#define bug_file(b) ((const void *)(b) + (b)->file_disp);
+>> +#define bug_line(b) ((b)->line)
+>> +#define bug_msg(b) ((const char *)(b) + (b)->msg_disp)
+>> +#endif /* BUG_FRAME_STUFF */
+>> +
+>> +#ifndef BUG_FRAME
+>> +/* Many versions of GCC doesn't support the asm %c parameter which would
+>> + * be preferable to this unpleasantness. We use mergeable string
+>> + * sections to avoid multiple copies of the string appearing in the
+>> + * Xen image. BUGFRAME_run_fn needs to be handled separately.
+>> + */
+> 
+> When generalizing the logic, I wonder in how far the comment doesn't
+> want re-wording some. For example, while Arm prefixes constant insn
+> operands with # (and x86 uses $), there's no such prefix in RISC-V. At
+> which point there's no need to use %c in the first place. (Which in
+> turn means x86'es more compact representation may also be usable there.
+> And yet in turn the question arises whether RISC-V wouldn't better have
+> its own derivation of the machinery, rather than trying to generalize
+> things. RISC-V's would then likely be closer to x86'es, just without
+> the use of %c on asm() operands. Which might then suggest to rather
+> generalize x86'es variant down the road.)
+> 
+> At the very least the comment's style wants correcting, and in the first
+> sentence s/doesn't/don't/. Also %c isn't a parameter, but a modifier.
+> 
+>> +#define BUG_FRAME(type, line, file, has_msg, msg) do {                      \
+>> +    BUILD_BUG_ON((line) >> 16);                                             \
+>> +    BUILD_BUG_ON((type) >= BUGFRAME_NR);                                    \
+>> +    asm ("1:"BUG_INSTR"\n"                                                  \
+> 
+> Nit: Style (missing blank after opening parenthesis, and then also at the
+> end of the construct ahead of the closing parenthesis).
+> 
+>> +         ".pushsection .rodata.str, \"aMS\", %progbits, 1\n"                \
+>> +         "2:\t.asciz " __stringify(file) "\n"                               \
+> 
+> file is always a string literal; really it always is __FILE__ in this
+> non-x86 implementation. So first preference ought to be to drop the
+> macro parameter and use __FILE__ here (same then for line vs __LINE__).
+> Yet even if not done like that, the __stringify() is largely unneeded
+> (unless we expect file names to have e.g. backslashes in their names)
+> and looks somewhat odd here. So how about
+> 
+>           "2:\t.asciz \"" __FILE__ "\"\n"
+> 
+> ? But wait - peeking ahead to the x86 patch I notice that __FILE__ and
+> __LINE__ need to remain arguments. But then the second preference would
+> still be
+> 
+>           "2:\t.asciz \"" file "\"\n"
+> 
+> imo. Yet maybe others disagree ...
+
+I would prefer to keep the __stringify() version because it avoids 
+relying on file to always be a string literal.
+
+[...]
+
+-- 
+Julien Grall
 
