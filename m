@@ -2,37 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8F072694957
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E7D4694955
 	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 15:58:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494608.764756 (Exim 4.92)
+Received: from list by lists.xenproject.org with outflank-mailman.494609.764761 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRaHP-0001tS-3D; Mon, 13 Feb 2023 14:58:07 +0000
+	id 1pRaHP-0001xy-EE; Mon, 13 Feb 2023 14:58:07 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494608.764756; Mon, 13 Feb 2023 14:58:07 +0000
+Received: by outflank-mailman (output) from mailman id 494609.764761; Mon, 13 Feb 2023 14:58:07 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRaHO-0001pd-Ts; Mon, 13 Feb 2023 14:58:06 +0000
-Received: by outflank-mailman (input) for mailman id 494608;
+	id 1pRaHP-0001tW-6n; Mon, 13 Feb 2023 14:58:07 +0000
+Received: by outflank-mailman (input) for mailman id 494609;
  Mon, 13 Feb 2023 14:58:05 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=sHlb=6J=gmail.com=burzalodowa@srs-se1.protection.inumbo.net>)
- id 1pRaHM-0001Ha-W7
+ id 1pRaHN-00012P-IR
  for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 14:58:05 +0000
-Received: from mail-ed1-x52b.google.com (mail-ed1-x52b.google.com
- [2a00:1450:4864:20::52b])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d0d24940-abae-11ed-93b5-47a8fe42b414;
- Mon, 13 Feb 2023 15:58:03 +0100 (CET)
-Received: by mail-ed1-x52b.google.com with SMTP id eq11so13271373edb.6
- for <xen-devel@lists.xenproject.org>; Mon, 13 Feb 2023 06:58:03 -0800 (PST)
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [2a00:1450:4864:20::52c])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id d1cb4403-abae-11ed-933c-83870f6b2ba8;
+ Mon, 13 Feb 2023 15:58:05 +0100 (CET)
+Received: by mail-ed1-x52c.google.com with SMTP id w3so6279037edc.2
+ for <xen-devel@lists.xenproject.org>; Mon, 13 Feb 2023 06:58:05 -0800 (PST)
 Received: from uni.router.wind (adsl-89.109.242.225.tellas.gr.
  [109.242.225.89]) by smtp.googlemail.com with ESMTPSA id
- v1-20020a50a441000000b004aab66d34c7sm6787617edb.7.2023.02.13.06.58.02
+ v1-20020a50a441000000b004aab66d34c7sm6787617edb.7.2023.02.13.06.58.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 06:58:02 -0800 (PST)
+ Mon, 13 Feb 2023 06:58:04 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,93 +44,88 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d0d24940-abae-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: d1cb4403-abae-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ehevLc9UhGQTTXawWIjo+7aNcyD01VoFpnNrDZ36mVw=;
-        b=c9lUKLlsbtltLGWVZRSYyjKUzvZBFCrc2pKH061xmq457BT5H00nnOlPWHpQJvU7xH
-         EbMm9buOdH5hGvx/huQcGmVyF8qDpVcVf1oENRftqo1HH0Hwscai5fHS/WTdlvkl8IaA
-         SX0thonEGefecuqO0oyKbsgozeCWdXWW/KKMf1fdM9KOozrFpWOIyS4FPXoVZKp/Ha7T
-         JYF4yavwnmcbSyeULGB73vAF7X/nLc8RF63k2G8ZpacZKvyN60p4IlQT+oYbbPkqy25G
-         nnjy2X4tcJYJG4Q2aHGT+n8eE0kMXVVGrGvvQRLq6BDv3YfMc+sjM+OkENAWC/S/qmh6
-         PRzw==
+        bh=ujMzxZfrYB5JFSrASU3fn2r5SzOae7nTM8nRB1r5wJY=;
+        b=qQUzqofAB7XHVlMOJ9/FiXdsAacgiS1HSqi/8gBRNXvR56Oj4eO3O8SJgrLiL9tVEt
+         rfBTy+Qs9j5FxHLjB1uR8NE7soc6tL4v/cm6P4jMtPXiknjOjvWhOrZOUh6zb0ijU4Ep
+         cr0sJL06LieL2T8A2eJgMYsz/7AqDWm0Ld+lEgshwqK1DKHLXbtXO9NTqn5sUqjyQxxZ
+         VInXFl0fSpMym4dxoxV7fcorKp0jetIjKw+QeKDPOiuktGtcGGSZevTby+s9p3xDwi5r
+         JeimrvjdRoXR2C+eEggRYLl22PNakIG5w572SRtHitcKA6yytQRD4oIF4KprCY+6Dk4G
+         H9pw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to;
-        bh=ehevLc9UhGQTTXawWIjo+7aNcyD01VoFpnNrDZ36mVw=;
-        b=qqOpeTFjtJrmOKgO0wZtQuWBEep6CmLP+g3MqBXes7mphlU79pq45boWkJSpC8GlRv
-         XwLbe7obKUr4rYPlqHvEh0chCZPVPb49cqTByq7TyV8FfHVusLNzN6rcD63/E12Civqn
-         rpJbazDeAhS469Y0c3BSvzxH0HB9xrF56ysOeC+rqTBLlnjNl9iKV/9xwxErzGQub3K/
-         NOrDK9+o/WZnhFq+sBU9VYdt+dCZsi8Nz/3Ms3kWOAZmkXY0gZL96ktUAw89c7aITeJg
-         yiOffKpIht9QLu9ya97e7JC232ew1T65xnCG/1WhGkvu15TUZycighVMef1AImTrrqXH
-         IZ1w==
-X-Gm-Message-State: AO0yUKW4SlBuJoJGdifF0FQBqO0O7tqA6uaPcvaN9manMphqI1lKXlIu
-	mRFnH5pF4n8sadDPv+uBO+jAG8VvayM=
-X-Google-Smtp-Source: AK7set/RhU+VKXAMuoVSRcH0AkySbUzaBHdZAEoRN54+E6ZdszX6hHmjPmE+XYWHO9PeKbDe2npL9w==
-X-Received: by 2002:a50:bb4a:0:b0:4aa:f932:6f49 with SMTP id y68-20020a50bb4a000000b004aaf9326f49mr20931521ede.8.1676300282961;
-        Mon, 13 Feb 2023 06:58:02 -0800 (PST)
+        bh=ujMzxZfrYB5JFSrASU3fn2r5SzOae7nTM8nRB1r5wJY=;
+        b=gSAoZc59SWV6eX6ercuQFVU5I+i81uIPNtgRzftWyVYdLXFMeAeT2MCudJyIoCXzR6
+         b6z3lAAjNNuPXau3tV91fGVfuU6kU0NP9kXa3Jph3PlHtEwV9F3YlBOzwVm/GhuidNsz
+         l2DOs3EBZnu9sQl54jOXZ5FfLtHZstPliUz5uxkfEsV61ht97Sy8uDu9ziDBqfKPPbaI
+         FsSESlidVUkoI7WB2c01uryJGxQT995uqhrB03TxWZnyUrC5s9Hlzs/mB5T7hbEurcgB
+         JTZqU/G5RujoJrlrdPDeWMX55gAsc589/4Ag6p5MtURraVZUdenUKQiQsch2xBuYAELj
+         +tlQ==
+X-Gm-Message-State: AO0yUKVdyxDasLRnSTP8XxoOvpQmFPxaI64pD94dlOubufBX7EAG3Oky
+	DQI0YsoEJ18IWg51o46IlWfSx+t20E0=
+X-Google-Smtp-Source: AK7set/AgUit0BtL52XxsnBZB07JuKhunWPqAOd3skmpuIm61VEmLFWBGHZlfOt4Hgg3BEozgoJVnA==
+X-Received: by 2002:a50:d547:0:b0:4ab:15d9:2dae with SMTP id f7-20020a50d547000000b004ab15d92daemr19565683edj.14.1676300284612;
+        Mon, 13 Feb 2023 06:58:04 -0800 (PST)
 From: Xenia Ragiadakou <burzalodowa@gmail.com>
 To: xen-devel@lists.xenproject.org
 Cc: Jan Beulich <jbeulich@suse.com>,
 	Andrew Cooper <andrew.cooper3@citrix.com>,
-	George Dunlap <george.dunlap@citrix.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
 	Wei Liu <wl@xen.org>
-Subject: [RFC 03/10] x86/p2m: guard vmx specific ept functions with INTEL_VMX
-Date: Mon, 13 Feb 2023 16:57:44 +0200
-Message-Id: <20230213145751.1047236-4-burzalodowa@gmail.com>
+Subject: [RFC 04/10] x86/vpmu: separate AMD-V and Intel VT-x init arch_vpmu_ops initializers
+Date: Mon, 13 Feb 2023 16:57:45 +0200
+Message-Id: <20230213145751.1047236-5-burzalodowa@gmail.com>
 X-Mailer: git-send-email 2.37.2
 In-Reply-To: <20230213145751.1047236-1-burzalodowa@gmail.com>
 References: <20230213145751.1047236-1-burzalodowa@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The functions ept_p2m_init(), ept_p2m_uninit() and p2m_init_altp2m_ept() are
-VT-x specific.
-Implement them as unreachable static inline functions when !INTEL_VMX.
+The function core2_vpmu_init() is VT-x specific while the functions
+amd_vpmu_init() and hygon_vpmu_init() are AMD-V specific, thus need to be
+guarded with INTEL_VMX and AMD_SVM, respectively.
+Instead of adding #ifdef guards around the function calls in common vpu code,
+implement them as static inline null-returning functions when the respective
+technology is not enabled.
 
 No functional change intended.
 
 Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
 ---
- xen/arch/x86/mm/p2m.h | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ xen/arch/x86/include/asm/vpmu.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/xen/arch/x86/mm/p2m.h b/xen/arch/x86/mm/p2m.h
-index cc0f6766e4..ac80414688 100644
---- a/xen/arch/x86/mm/p2m.h
-+++ b/xen/arch/x86/mm/p2m.h
-@@ -35,9 +35,25 @@ void p2m_nestedp2m_init(struct p2m_domain *p2m);
- int p2m_init_nestedp2m(struct domain *d);
- void p2m_teardown_nestedp2m(struct domain *d);
+diff --git a/xen/arch/x86/include/asm/vpmu.h b/xen/arch/x86/include/asm/vpmu.h
+index 05e1fbfccf..1e08afb7af 100644
+--- a/xen/arch/x86/include/asm/vpmu.h
++++ b/xen/arch/x86/include/asm/vpmu.h
+@@ -53,9 +53,18 @@ struct arch_vpmu_ops {
+ #endif
+ };
  
 +#ifdef CONFIG_INTEL_VMX
- int ept_p2m_init(struct p2m_domain *p2m);
- void ept_p2m_uninit(struct p2m_domain *p2m);
- void p2m_init_altp2m_ept(struct domain *d, unsigned int i);
+ const struct arch_vpmu_ops *core2_vpmu_init(void);
 +#else
-+static inline int ept_p2m_init(struct p2m_domain *p2m)
-+{
-+    ASSERT_UNREACHABLE();
-+    return -EINVAL;
-+}
-+static inline void ept_p2m_uninit(struct p2m_domain *p2m)
-+{
-+    ASSERT_UNREACHABLE();
-+}
-+static inline void p2m_init_altp2m_ept(struct domain *d, unsigned int i)
-+{
-+    ASSERT_UNREACHABLE();
-+}
-+#endif
++static inline const struct arch_vpmu_ops *core2_vpmu_init(void) { return NULL; }
++#endif /* CONFIG_INTEL_VMX */
++#ifdef CONFIG_AMD_SVM
+ const struct arch_vpmu_ops *amd_vpmu_init(void);
+ const struct arch_vpmu_ops *hygon_vpmu_init(void);
++#else
++static inline const struct arch_vpmu_ops *amd_vpmu_init(void) { return NULL; }
++static inline const struct arch_vpmu_ops *hygon_vpmu_init(void) { return NULL; }
++#endif /* CONFIG_AMD_SVM */
  
- /*
-  * Local variables:
+ struct vpmu_struct {
+     u32 flags;
 -- 
 2.37.2
 
