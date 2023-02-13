@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id E21A7694620
-	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 13:45:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494414.764468 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28AB5694622
+	for <lists+xen-devel@lfdr.de>; Mon, 13 Feb 2023 13:45:34 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.494416.764480 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYCj-0006ed-Gc; Mon, 13 Feb 2023 12:45:09 +0000
+	id 1pRYCt-00071f-Nu; Mon, 13 Feb 2023 12:45:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494414.764468; Mon, 13 Feb 2023 12:45:09 +0000
+Received: by outflank-mailman (output) from mailman id 494416.764480; Mon, 13 Feb 2023 12:45:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRYCj-0006c1-Dp; Mon, 13 Feb 2023 12:45:09 +0000
-Received: by outflank-mailman (input) for mailman id 494414;
- Mon, 13 Feb 2023 12:45:07 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pRYCt-0006zu-Kx; Mon, 13 Feb 2023 12:45:19 +0000
+Received: by outflank-mailman (input) for mailman id 494416;
+ Mon, 13 Feb 2023 12:45:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=iLJL=6J=amd.com=ayan.kumar.halder@srs-se1.protection.inumbo.net>)
- id 1pRYCh-0006bE-LD
- for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 12:45:07 +0000
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062d.outbound.protection.outlook.com
- [2a01:111:f400:7e8a::62d])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 3d50cf24-ab9c-11ed-933c-83870f6b2ba8;
- Mon, 13 Feb 2023 13:45:06 +0100 (CET)
-Received: from DM6PR08CA0033.namprd08.prod.outlook.com (2603:10b6:5:80::46) by
- DS7PR12MB5767.namprd12.prod.outlook.com (2603:10b6:8:76::22) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6086.23; Mon, 13 Feb 2023 12:45:02 +0000
-Received: from DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:80:cafe::63) by DM6PR08CA0033.outlook.office365.com
- (2603:10b6:5:80::46) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
- Transport; Mon, 13 Feb 2023 12:45:02 +0000
+ id 1pRYCs-0006LH-A1
+ for xen-devel@lists.xenproject.org; Mon, 13 Feb 2023 12:45:18 +0000
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2061d.outbound.protection.outlook.com
+ [2a01:111:f400:7e88::61d])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 43455734-ab9c-11ed-93b5-47a8fe42b414;
+ Mon, 13 Feb 2023 13:45:16 +0100 (CET)
+Received: from DS7PR03CA0021.namprd03.prod.outlook.com (2603:10b6:5:3b8::26)
+ by DS0PR12MB7536.namprd12.prod.outlook.com (2603:10b6:8:11c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Mon, 13 Feb
+ 2023 12:45:11 +0000
+Received: from DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:3b8:cafe::a0) by DS7PR03CA0021.outlook.office365.com
+ (2603:10b6:5:3b8::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.23 via Frontend
+ Transport; Mon, 13 Feb 2023 12:45:11 +0000
 Received: from SATLEXMB03.amd.com (165.204.84.17) by
- DM6NAM11FT104.mail.protection.outlook.com (10.13.173.232) with Microsoft SMTP
+ DM6NAM11FT102.mail.protection.outlook.com (10.13.173.172) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.24 via Frontend Transport; Mon, 13 Feb 2023 12:45:02 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB03.amd.com
+ 15.20.6086.24 via Frontend Transport; Mon, 13 Feb 2023 12:45:10 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
- 2023 06:45:02 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Mon, 13 Feb
- 2023 06:45:01 -0600
+ 2023 06:45:08 -0600
 Received: from xcbayankuma41x.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Mon, 13 Feb 2023 06:45:00 -0600
+ via Frontend Transport; Mon, 13 Feb 2023 06:45:07 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 3d50cf24-ab9c-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 43455734-ab9c-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iYQKX4/gKMefQGovOPM2spOFhzCZ+IPIXWbHYXbYSu2jLmmr5HeQDuQVCosRKsifKVphZ5deaXEvViOUFzTvqEf8pSkSMptWLVH/mxE29VakIHrwsGrHf3x3Y771ZVtDiSYt7ixhFaIvO0wSAPL2nvTLwgkQSZBW0tK1QIQsxmitOm4DittoATw3+aQY2bznTEQ90kFMMgbpcsi7PJgSFjAr06rLDY3oHDDiqIcvXEsa54tq31F5yfnm8owXYLOM9jmxPIuNnBJvXQvdtw4J/RvJxDMNbrQV938jdyGekGB5WmS+CAtAnD9hSYP5LcA1KA34YeW8apukDLgeDnvPTA==
+ b=eK0raAxV1vdE+TzW9PrR0JHmSGtNORSjnOLANoOnCKHd5jtdGUWUXI5oJ8I1KMw9qzDM7yQ63F1qrThD44DR8LDL5JjVU74pU0zspsW5urfPsfqkxUrvoVjh3S0rOOHTB7PxQXiWMFaE7GLjTI1k3hobmZKpfd2sO4CSmUZZHE1HmEv6hfvxOJh3Obwg7+OhmOXUQcnMBj3MX/FmB5umtyU6/9pZUgIl0AHOzqkXMdicZ2KEAfSej18/vKkSHjU3ZTpB2CSHT3qcBFkEwfMSg17Yf5Fyq9pPUawdV9A3nWJdumGXmIcCe3eYsKex9oLYBGbtg/dVbQpYDG4nYGD/Xg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zlgQKmohEtacQnMD+bkEbzo8njZdJKjN33VbXURvNlw=;
- b=mdNQ+AXkWgB5RMNfMlyHtvGGYUePJ1wr/EWHzCgg2HoSzmjT7o63iGcfKgB0GdZGJBW11QKjs2dJHSIeWEaKKyF1mHi/e0XNKuHLPYad6jFRffxNQFKlf3HF1Y+g3QtIxdliJtoepu5BA6fX8EkTnXon4BX7cdyA6KfBHWGfqOwXyymJl1bgi7KhuXzFaP5y3M9oJL5gngb9MiqjN9Tz5wEUn+pnOTvD4F1Z4uvGOm+0c3DPzm6T72gfcyG0jq7lOt0XnnX1qjRFJ5WCYQv3VaAOycrrdkxCho6arXcwagAXgFHrmT6pYifCCt6S3jF6M/3NVKubmZTip3kt9WGpow==
+ bh=dDRwZ7ZvjA48oEAhFhPaFv6O7TQwmnUnkVyn+g6g4qQ=;
+ b=D+KHkchKNyHyDbPYy7bUb+WC29oXcfUR0Qb3aMHwDwSdEgTHBqYxT+x0pyoWlXsXh8APLBD8EIOFWq/Ebxeq7sJDlRKKfDliqm7S7SP+MagTUJns8TSkeDmaeg7SWJYZWmdBLacTYyGP5FqbjOA41mCKI/5B6bV1lwQgQjIuxzT8fuuZMh+mfm8HQa+9SwLKB0ynzLvIaM8bxOCucgp9YKq79x/jkVdgX/a+g+PFuGWKrsbWpKh4OFZSwaUzEddYiBiMU6QJOw5lSClFmEzK7E8WePDDA4Zb4XHK6JsnPZS/tbOJmPYFC9G7xvqTk5uQlF4yst0D5qvMz0hUztQWhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zlgQKmohEtacQnMD+bkEbzo8njZdJKjN33VbXURvNlw=;
- b=i5Gt7gT14si+2KvZDS4l/z7tdIrF8XrZ9XX6cQzdr2TF006G9YQPbRsLIaf6jRhRlC41f9JUScLasXu9Lojnvh/DDlNeqmE2u6NWZdG4G0/AaFskoOsnzdPcRXI9nEAm9DeawvC5w7SchlmqbZDfsVTn1NbSTtBGYhqCFxOOJes=
+ bh=dDRwZ7ZvjA48oEAhFhPaFv6O7TQwmnUnkVyn+g6g4qQ=;
+ b=TreOAcegEs6wNN3yAoHGzcaRz3TdTuFeSw56nden8eQDx6WRnS2LoqZGw5WUEe7SE6fE3pu/WsQ+McqTbVvjfGofNhKsH6wYOFBI0hQq1AlJX3hOX5+oykQQVQko9rA/pixN9zRadB09KIuw7o39Bb8zG6OA0iU1MC9bAaceRQk=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -90,9 +86,9 @@ To: <xen-devel@lists.xenproject.org>
 CC: <sstabellini@kernel.org>, <julien@xen.org>, <bertrand.marquis@arm.com>,
 	<Volodymyr_Babchuk@epam.com>, <jgrall@amazon.com>,
 	<stefano.stabellini@amd.com>, Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Subject: [XEN v6 1/2] xen/arm: Use the correct format specifier
-Date: Mon, 13 Feb 2023 12:44:37 +0000
-Message-ID: <20230213124438.14836-2-ayan.kumar.halder@amd.com>
+Subject: [XEN v6 2/2] xen/arm: domain_build: Use pfn start and end address for rangeset_{xxx}_range()
+Date: Mon, 13 Feb 2023 12:44:38 +0000
+Message-ID: <20230213124438.14836-3-ayan.kumar.halder@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20230213124438.14836-1-ayan.kumar.halder@amd.com>
 References: <20230213124438.14836-1-ayan.kumar.halder@amd.com>
@@ -100,236 +96,144 @@ MIME-Version: 1.0
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM6NAM11FT104:EE_|DS7PR12MB5767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a442292-dd86-4c50-30ea-08db0dc02017
+X-MS-TrafficTypeDiagnostic: DM6NAM11FT102:EE_|DS0PR12MB7536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e487a48-7a6a-4b88-33ac-08db0dc02517
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	W1GGhl4MfXQNiChkqe55syZHNEOryg8QShW1KeBWvGgLVkTddDtDZSwveab6gX1euA0IMq53uBr8kuEFi2Cmg4+kntHM433lBvegfvlm0k414oa1/Ke+z/pMIU9b4kgaMVxaqICh9Ojz5R60yelWCTppbbdtX2zBbwmtNzYdz9HIfF3zWMPc73JTSx+1FXUIkxiQdLik+6NbN1JNMnzVUNYkzpAIubCjOpP1QwstAReY4cnrmjTv03dtsmm+kjuZ1ztC9y6FE/9wDp1NBqKVjcFnBuOVYLNJ+JBlvTKTPOZ+0CO2SonYHlvGNyNnFSiGmOMV1ROpP2qyvVWa3M5yOvEOdEDQ1SGp8PhyGILzVyTTxN15iBHj/+QFf2g+Rn1JD+3j3b+nPKOrQDxy+Ho4HA5zQhtsL7l5s4X1pAYVJjbmGWsVvDuQZ7WxAcpUtkmz5yFuZ6NAbi4myZNdnB5/7PLjpEjEkWd9JUAXQdJnFdaFGqzpeDcU3Ey+WooZR+15bslpEEe9NZiXjOaD+C5Jd7w8JARMHqB3w+E6IgfHlJVhCZF165A72TKrWezwVAwgA3VWyIkJlkAp8r4EvrrkMqPM9/QBD3INTH/dekDRqAYLPaNYHCCbEdp47nFb3xF9L+vZ6w/szYfvndqQDRo9dDF2xGlLkjEDo0MIXV/fQuTUOjkSGV7SjMKgl4JF3rAeRSBn6c/cwIbTKmb+K3qw1ST3Vrk0fZmkc1AQjA05Uts0XD9M3PzeQrGAFcOYe+/q
+	LkU8i0ra120Cn33v9/kJY2cKDt9+VHvMhjb+ficfqysykG7Nbdu7JWeh3cYz43nQoG2Bxb12JyDWsVI3vo8qt8IoXT0c2oK4DlAiyeIzng0wCw77Uc3Y6W0gI1beebeC4OG/uD0UKQwCiva/Ctivp9yUFQ89pJ4blrkgMnAEtRpHivtbB1xjrxvvK7G2FNpgeNJHfqZG4Lp59l3CVdJsC0gEINwiHgGsJn51j7NEaXMSoHMgVgsGXpJCAvvLZOIgJvSmOwFLDfUFctSSvGYm7B8ogobNmc9LZIEdu2/OT2WcsECxmWN9qFhXSD81Ew8qD96N4WqG860pou/jyfIlLGBxTD4Dt6oh7MMuFTO/TLLpgstKuDCWzSCEOENQ5SrLF3jWojWKGtPRC+jCBfTGL5Ax7kkrulHzy5tz0c6U4rA2u5qCpvj7YaNkRT5rHNzU9QGTuX5pPNnwNPwed2G2ZkUU9ZMBLANaFNAUTI79Xn4suMpgt5IGcgnsEYPmvY78qqh4OLhdUsP/+2LxUKvhfwRMmVA//n+J+btXFUJEUEhtfWfWFKrrvH/JXn1i7L6xz92DdSDxgiwoHh2RbzOrB7g2Kwh9yz7ZgFqPCsOPPYxyQRi/mYPZTAG9hg0JsszXrlG4J+9IyK87frCBXMCi+B9VawCBR1aHobHKMRm82we2yN0X0NmApFsupzEjbha+H3t25mAQjqXNYvXQf3atz9+YTzTSnBKVZ/tfWc4zzCDy6YHhJo9ZCwY3bk1MLovk0e5jZtpg5FFZ8cQkTHNCtj7hvTh95p9qSeIkw61qsNI=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199018)(46966006)(36840700001)(40470700004)(6666004)(81166007)(2616005)(1076003)(356005)(83380400001)(40460700003)(478600001)(966005)(26005)(186003)(336012)(86362001)(47076005)(82310400005)(426003)(82740400003)(2906002)(8936002)(5660300002)(54906003)(40480700001)(316002)(103116003)(8676002)(36756003)(4326008)(41300700001)(36860700001)(70206006)(6916009)(70586007)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(136003)(396003)(39860400002)(346002)(451199018)(40470700004)(46966006)(36840700001)(36756003)(86362001)(103116003)(82310400005)(40460700003)(40480700001)(47076005)(426003)(83380400001)(70586007)(70206006)(8676002)(6916009)(4326008)(316002)(54906003)(1076003)(2616005)(186003)(26005)(336012)(6666004)(478600001)(82740400003)(2906002)(8936002)(356005)(41300700001)(5660300002)(81166007)(36860700001)(13513002)(21314003)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 12:45:02.5548
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Feb 2023 12:45:10.9279
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a442292-dd86-4c50-30ea-08db0dc02017
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e487a48-7a6a-4b88-33ac-08db0dc02517
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DM6NAM11FT104.eop-nam11.prod.protection.outlook.com
+	DM6NAM11FT102.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5767
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7536
 
-1. One should use 'PRIpaddr' to display 'paddr_t' variables. However,
-while creating nodes in fdt, the address (if present in the node name)
-should be represented using 'PRIx64'. This is to be in conformance
-with the following rule present in https://elinux.org/Device_Tree_Linux
+rangeset_{xxx}_range() functions are invoked with 'start' and 'size' as
+arguments which are either 'uint64_t' or 'paddr_t'. However, the function
+accepts 'unsigned long' for 'start' and 'size'. 'unsigned long' is 32 bits for
+ARM_32. Thus, there is an implicit downcasting from 'uint64_t'/'paddr_t' to
+'unsigned long' when invoking rangeset_{xxx}_range().
 
-. node names
-"unit-address does not have leading zeros"
+However, it may seem there is a possibility of lose of data due to truncation.
 
-As 'PRIpaddr' introduces leading zeros, we cannot use it.
+In reality, 'start' and 'size' are always page aligned. And ARM_32 currently
+supports 40 bits as the width of physical address.
+So if the addresses are page aligned, the last 12 bits contain zeroes.
+Thus, we could instead pass page frame number which will contain 28 bits (40-12
+on Arm_32) and this can be represented using 'unsigned long'.
 
-So, we have introduced a wrapper ie domain_fdt_begin_node() which will
-represent physical address using 'PRIx64'.
-
-2. One should use 'PRIx64' to display 'u64' in hex format. The current
-use of 'PRIpaddr' for printing PTE is buggy as this is not a physical
-address.
+On Arm_64, this change will not induce any adverse side effect as the width of
+physical address is 48 bits. Thus, the width of 'pfn' (ie 48 - 12 = 36) can be
+represented using 'unsigned long' (which is 64 bits wide).
 
 Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
-Acked-by: Julien Grall <jgrall@amazon.com>
 ---
 
 Changes from -
 
-v1 - 1. Moved the patch earlier.
-2. Moved a part of change from "[XEN v1 8/9] xen/arm: Other adaptations required to support 32bit paddr"
-into this patch.
+v1 - v5 - NA (New patch introduced in v6).
 
-v2 - 1. Use PRIx64 for appending addresses to fdt node names. This fixes the CI failure.
-
-v3 - 1. Added a comment on top of domain_fdt_begin_node().
-2. Check for the return of snprintf() in domain_fdt_begin_node().
-
-v4 - 1. Grammatical error fixes.
-
-v5 - 1. Added R-b and A-b.
-
- xen/arch/arm/domain_build.c | 64 +++++++++++++++++++++++--------------
- xen/arch/arm/gic-v2.c       |  6 ++--
- xen/arch/arm/mm.c           |  2 +-
- 3 files changed, 44 insertions(+), 28 deletions(-)
+ xen/arch/arm/domain_build.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
 diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-index c2b97fa21e..a798e0b256 100644
+index a798e0b256..6a8c7206ae 100644
 --- a/xen/arch/arm/domain_build.c
 +++ b/xen/arch/arm/domain_build.c
-@@ -1288,6 +1288,39 @@ static int __init fdt_property_interrupts(const struct kernel_info *kinfo,
-     return res;
- }
- 
-+/*
-+ * Wrapper to convert physical address from paddr_t to uint64_t and
-+ * invoke fdt_begin_node(). This is required as the physical address
-+ * provided as part of node name should not contain any leading
-+ * zeroes. Thus, one should use PRIx64 (instead of PRIpaddr) to append
-+ * unit (which contains the physical address) with name to generate a
-+ * node name.
-+ */
-+static int __init domain_fdt_begin_node(void *fdt, const char *name,
-+                                        uint64_t unit)
-+{
-+    /*
-+     * The size of the buffer to hold the longest possible string (i.e.
-+     * interrupt-controller@ + a 64-bit number + \0).
-+     */
-+    char buf[38];
-+    int ret;
-+
-+    /* ePAPR 3.4 */
-+    ret = snprintf(buf, sizeof(buf), "%s@%"PRIx64, name, unit);
-+
-+    if ( ret >= sizeof(buf) )
-+    {
-+        printk(XENLOG_ERR
-+               "Insufficient buffer. Minimum size required is %d\n",
-+               (ret + 1));
-+
-+        return -FDT_ERR_TRUNCATED;
-+    }
-+
-+    return fdt_begin_node(fdt, buf);
-+}
-+
- static int __init make_memory_node(const struct domain *d,
-                                    void *fdt,
-                                    int addrcells, int sizecells,
-@@ -1296,8 +1329,6 @@ static int __init make_memory_node(const struct domain *d,
-     unsigned int i;
-     int res, reg_size = addrcells + sizecells;
-     int nr_cells = 0;
--    /* Placeholder for memory@ + a 64-bit number + \0 */
--    char buf[24];
-     __be32 reg[NR_MEM_BANKS * 4 /* Worst case addrcells + sizecells */];
-     __be32 *cells;
- 
-@@ -1314,9 +1345,7 @@ static int __init make_memory_node(const struct domain *d,
- 
-     dt_dprintk("Create memory node\n");
- 
--    /* ePAPR 3.4 */
--    snprintf(buf, sizeof(buf), "memory@%"PRIx64, mem->bank[i].start);
--    res = fdt_begin_node(fdt, buf);
-+    res = domain_fdt_begin_node(fdt, "memory", mem->bank[i].start);
-     if ( res )
-         return res;
- 
-@@ -1375,16 +1404,13 @@ static int __init make_shm_memory_node(const struct domain *d,
+@@ -1566,7 +1566,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
      {
-         uint64_t start = mem->bank[i].start;
-         uint64_t size = mem->bank[i].size;
--        /* Placeholder for xen-shmem@ + a 64-bit number + \0 */
--        char buf[27];
-         const char compat[] = "xen,shared-memory-v1";
-         /* Worst case addrcells + sizecells */
-         __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-         __be32 *cells;
-         unsigned int len = (addrcells + sizecells) * sizeof(__be32);
- 
--        snprintf(buf, sizeof(buf), "xen-shmem@%"PRIx64, mem->bank[i].start);
--        res = fdt_begin_node(fdt, buf);
-+        res = domain_fdt_begin_node(fdt, "xen-shmem", mem->bank[i].start);
+         start = bootinfo.mem.bank[i].start;
+         end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
+-        res = rangeset_add_range(unalloc_mem, start, end - 1);
++        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
++                                 PFN_DOWN(end - 1));
          if ( res )
-             return res;
- 
-@@ -2716,12 +2742,9 @@ static int __init make_gicv2_domU_node(struct kernel_info *kinfo)
-     __be32 reg[(GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS) * 2];
-     __be32 *cells;
-     const struct domain *d = kinfo->d;
--    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
--    char buf[38];
- 
--    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
--             vgic_dist_base(&d->arch.vgic));
--    res = fdt_begin_node(fdt, buf);
-+    res = domain_fdt_begin_node(fdt, "interrupt-controller",
-+                                vgic_dist_base(&d->arch.vgic));
-     if ( res )
-         return res;
- 
-@@ -2771,14 +2794,10 @@ static int __init make_gicv3_domU_node(struct kernel_info *kinfo)
-     int res = 0;
-     __be32 *reg, *cells;
-     const struct domain *d = kinfo->d;
--    /* Placeholder for interrupt-controller@ + a 64-bit number + \0 */
--    char buf[38];
-     unsigned int i, len = 0;
- 
--    snprintf(buf, sizeof(buf), "interrupt-controller@%"PRIx64,
--             vgic_dist_base(&d->arch.vgic));
--
--    res = fdt_begin_node(fdt, buf);
-+    res = domain_fdt_begin_node(fdt, "interrupt-controller",
-+                                vgic_dist_base(&d->arch.vgic));
-     if ( res )
-         return res;
- 
-@@ -2858,11 +2877,8 @@ static int __init make_vpl011_uart_node(struct kernel_info *kinfo)
-     __be32 reg[GUEST_ROOT_ADDRESS_CELLS + GUEST_ROOT_SIZE_CELLS];
-     __be32 *cells;
-     struct domain *d = kinfo->d;
--    /* Placeholder for sbsa-uart@ + a 64-bit number + \0 */
--    char buf[27];
- 
--    snprintf(buf, sizeof(buf), "sbsa-uart@%"PRIx64, d->arch.vpl011.base_addr);
--    res = fdt_begin_node(fdt, buf);
-+    res = domain_fdt_begin_node(fdt, "sbsa-uart", d->arch.vpl011.base_addr);
-     if ( res )
-         return res;
- 
-diff --git a/xen/arch/arm/gic-v2.c b/xen/arch/arm/gic-v2.c
-index 61802839cb..5d4d298b86 100644
---- a/xen/arch/arm/gic-v2.c
-+++ b/xen/arch/arm/gic-v2.c
-@@ -1049,7 +1049,7 @@ static void __init gicv2_dt_init(void)
-     if ( csize < SZ_8K )
-     {
-         printk(XENLOG_WARNING "GICv2: WARNING: "
--               "The GICC size is too small: %#"PRIx64" expected %#x\n",
-+               "The GICC size is too small: %#"PRIpaddr" expected %#x\n",
-                csize, SZ_8K);
-         if ( platform_has_quirk(PLATFORM_QUIRK_GIC_64K_STRIDE) )
          {
-@@ -1280,11 +1280,11 @@ static int __init gicv2_init(void)
-         gicv2.map_cbase += aliased_offset;
+             printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1580,7 +1581,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+     {
+         start = assign_mem->bank[i].start;
+         end = assign_mem->bank[i].start + assign_mem->bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
++        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
++                                    PFN_DOWN(end - 1));
+         if ( res )
+         {
+             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1595,7 +1597,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+         start = bootinfo.reserved_mem.bank[i].start;
+         end = bootinfo.reserved_mem.bank[i].start +
+             bootinfo.reserved_mem.bank[i].size;
+-        res = rangeset_remove_range(unalloc_mem, start, end - 1);
++        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
++                                    PFN_DOWN(end - 1));
+         if ( res )
+         {
+             printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1607,7 +1610,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
+     /* Remove grant table region */
+     start = kinfo->gnttab_start;
+     end = kinfo->gnttab_start + kinfo->gnttab_size;
+-    res = rangeset_remove_range(unalloc_mem, start, end - 1);
++    res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end - 1));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1617,7 +1620,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
  
-         printk(XENLOG_WARNING
--               "GICv2: Adjusting CPU interface base to %#"PRIx64"\n",
-+               "GICv2: Adjusting CPU interface base to %#"PRIpaddr"\n",
-                cbase + aliased_offset);
-     } else if ( csize == SZ_128K )
-         printk(XENLOG_WARNING
--               "GICv2: GICC size=%#"PRIx64" but not aliased\n",
-+               "GICv2: GICC size=%#"PRIpaddr" but not aliased\n",
-                csize);
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_report_ranges(unalloc_mem, start, end,
++    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
+                                  add_ext_regions, ext_regions);
+     if ( res )
+         ext_regions->nr_banks = 0;
+@@ -1639,7 +1642,7 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
  
-     gicv2.map_hbase = ioremap_nocache(hbase, PAGE_SIZE);
-diff --git a/xen/arch/arm/mm.c b/xen/arch/arm/mm.c
-index f758cad545..b99806af99 100644
---- a/xen/arch/arm/mm.c
-+++ b/xen/arch/arm/mm.c
-@@ -263,7 +263,7 @@ void dump_pt_walk(paddr_t ttbr, paddr_t addr,
+     start = addr & PAGE_MASK;
+     end = PAGE_ALIGN(addr + len);
+-    res = rangeset_remove_range(mem_holes, start, end - 1);
++    res = rangeset_remove_range(mem_holes, PFN_DOWN(start),PFN_DOWN(end - 1));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1677,7 +1680,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
+     /* Start with maximum possible addressable physical memory range */
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_add_range(mem_holes, start, end);
++    res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
+     if ( res )
+     {
+         printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1708,7 +1711,8 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
  
-         pte = mapping[offsets[level]];
+             start = addr & PAGE_MASK;
+             end = PAGE_ALIGN(addr + size);
+-            res = rangeset_remove_range(mem_holes, start, end - 1);
++            res = rangeset_remove_range(mem_holes, PFN_DOWN(start),
++                                        PFN_DOWN(end - 1));
+             if ( res )
+             {
+                 printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
+@@ -1735,7 +1739,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
  
--        printk("%s[0x%03x] = 0x%"PRIpaddr"\n",
-+        printk("%s[0x%03x] = 0x%"PRIx64"\n",
-                level_strs[level], offsets[level], pte.bits);
- 
-         if ( level == 3 || !pte.walk.valid || !pte.walk.table )
+     start = 0;
+     end = (1ULL << p2m_ipa_bits) - 1;
+-    res = rangeset_report_ranges(mem_holes, start, end,
++    res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
+                                  add_ext_regions,  ext_regions);
+     if ( res )
+         ext_regions->nr_banks = 0;
 -- 
 2.17.1
 
