@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FC626968D7
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 17:11:45 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495269.765595 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id A10736968D8
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 17:12:16 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495279.765607 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxth-0002w1-8m; Tue, 14 Feb 2023 16:11:13 +0000
+	id 1pRxuD-0003bN-MN; Tue, 14 Feb 2023 16:11:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495269.765595; Tue, 14 Feb 2023 16:11:13 +0000
+Received: by outflank-mailman (output) from mailman id 495279.765607; Tue, 14 Feb 2023 16:11:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxth-0002uD-5b; Tue, 14 Feb 2023 16:11:13 +0000
-Received: by outflank-mailman (input) for mailman id 495269;
- Tue, 14 Feb 2023 16:11:11 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pRxuD-0003Xk-JD; Tue, 14 Feb 2023 16:11:45 +0000
+Received: by outflank-mailman (input) for mailman id 495279;
+ Tue, 14 Feb 2023 16:11:44 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=jX19=6K=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pRxtf-0002sY-MV
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 16:11:11 +0000
+ id 1pRxuC-0002M8-0A
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 16:11:44 +0000
 Received: from EUR02-AM0-obe.outbound.protection.outlook.com
- (mail-am0eur02on20627.outbound.protection.outlook.com
- [2a01:111:f400:fe13::627])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 316928c8-ac82-11ed-93b5-47a8fe42b414;
- Tue, 14 Feb 2023 17:11:09 +0100 (CET)
+ (mail-am0eur02on20621.outbound.protection.outlook.com
+ [2a01:111:f400:fe13::621])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 45a4d807-ac82-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 17:11:43 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
  by AM0PR04MB6884.eurprd04.prod.outlook.com (2603:10a6:208:183::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Tue, 14 Feb
- 2023 16:11:07 +0000
+ 2023 16:11:42 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6086.024; Tue, 14 Feb 2023
- 16:11:07 +0000
+ 16:11:42 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,29 +47,28 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 316928c8-ac82-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: 45a4d807-ac82-11ed-933c-83870f6b2ba8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C99l2jMkVu9rzdHMOsHKmHwNS9BXezQ2iP6vvNFPn7+Ff87icPa6QXJJSf69OqINNj+HFCHRqE1pW5f6y1Podjz4FckXyBrTJrH6NQPBIXHt89JmRkuab+M2fJMTqspvodejXDQrv0Rk2Hzxaz6UWl6+/nC/sC2jdRZuJn3vNOwDHUOVa3NXULbrx+3ZBZ5mTA330aiuykWUL1VdDxEYEeWVqQW7J+BKWRGpeWIk4mU2x1NaWOwwDbwhFFwBl8a5qNWfgSWU4+Tps5YRP5wwwyvjNcoDIHI9aWCG/Ev1KQU4w1Tiw2X+AoH0s0pQDocvvpVmBsTipiROv3ICVra/9g==
+ b=JT8SwaaxGaqOdIlo6G/KwBNB0XjHtaMZzaQ7Y8YSFx8+2OIGnW20U4hPu2lYEs2aNrQf+QsXu79BcYBDZiKs0wVJ5HtLRvk+uX6CNZcALA/OwXBRg07zybGO0r+dnrWhXaPvTeznw893ZrXyDTE5Lb2sam2qgQVnLXAPAl1THgtwLyBaG+ibjiYJAartW8tNSCf+h5R1TJ1unVdx0u5jLNIlwRtiBnX1D9jn8aqtEZsZRH3BuO+UREgP/TQJF4HwVpVeR4xfXWgVr5uqFSzTjvOueemsy610vhp3Pzwze6OQWz1XdKRzd3H1tvLbbMrxkF4DwZJt7tnpoieyRW1LwA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=d+/DUjrNApE1of8R+q9OMsOXlsFTj99u5P7jS1EbUzw=;
- b=HlzK3w2z8vDcWlMOVrr3ldmCB5ym69dXwYYUT00Q9Da+RmIC1lzD/YbrFA2lb5yI65+WT9Ohn/LSiffFGlLnr6r+LaJntmrAM/CrWlZlzSufNcK908kkERraUTybrM8koUyX5OTYolKXZxyOgUF9RQbXe9f8ANTGxgT0V3Gu6tcYwQCFsm9P6YWw+oRcTi1tydtGOUfAXLv+fxWL45fTBlV3rQWR7X1AqTXe4NZ+Ud4nOdIzZ1/GidrCBE18V3YGX7vyLUjQfOS7h0bPmVouYbVZEVfNZ/qjY+LHy4CI9nmerebukVq78HXUHW8uh9HRbDL4ZLHRd4FkOtqRiCThUA==
+ bh=VsxokRwRk6IFeqdM2G8OVgIpJfgzhXYhcx1m6t7JxXU=;
+ b=hRv+o2iB3ts4eeUUw7Eujg5jTu3qRqL/O2p7jQPPLlFul8LTiQKXFyuBaG+tQlHbjEP3AK/rPoVhAnMbPhI+NQOOUZEAKyhb9PRu7RcR61dcFf0y/fooWqqcvDO18ttuGHUPq50z33xgxqq5kurCm2/8hC7Lkly9MI+hxFVUCbFzVYj1UrWvAv06j/SbZ40tm7b9WkGQzocFm0KkncMZ5wKjQoVg+71b7hRi8QZBfa1T3TZf03g0aZP3NppXEuQltDqPNz4XgfyA2kn/DUhRsge6XibOAKrYABJ1fnbTrYguCWHe3FlesOISNmJKpvWPmzW3XdPZYyBtP+ow6KalRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=d+/DUjrNApE1of8R+q9OMsOXlsFTj99u5P7jS1EbUzw=;
- b=mp379rXn8PAvUHg/0/2DNWWpDwNNxjCs8VFu5C9ewGCfl2xvKM91ZhuGzGwioznnlnmK+5ZAd7bc5XcPKkQZt42/61v2ZhD6ICwphB7Qvd0eh7JuAFKBXgmUa4Etf0O6O8e8a6afSqERds85Vk9b1g/n2uXW032z46hEvcMchvVuG3M9YUfKaDxHBasxJxN6Koqj161N/L3WCijP3qDIUY5AkcdWqCWN3/J4Mb9/kSOZK+zM0MX7+/vWhkQnZwO54xJ0i5HSKzmUszprnk0lAt2YvLuRorif8pmcAeLHHX4tVY5SJMU6oS6nuiF73s/HMEfIzjPDr76GrmL7W1/J0Q==
+ bh=VsxokRwRk6IFeqdM2G8OVgIpJfgzhXYhcx1m6t7JxXU=;
+ b=U7XvhegJ8GMO1QT2UKrJfS6i+eB4NSGwMoO1BHUvguONKcFeHs5Ic6KoNjfUsuRMKE7bBXd14KAY9t4hegeo293e1kXWcd4fM1z0s76I011xLKh9xSYtwHLmfHCKnfvp1TX5vmph7ERjJU/KrmTUAo3GCirbF7dKIh3+c0fVLpCymY+Xbb2hyF6XDZQpYz3uLgfIgnL4zGxXnGehrcuhVBl4jtNGczkwBBGeh/rohmSTwBnGeCBxU4qMrfRPZ50juVSMJ+h0zO528STOXQ23+LDtxsedJa5DKb/p5ufmp+paDBESCyIyPcjWXky4EP6ZzhuQmJaQfj/wYncdPocpew==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <83c2a504-bce4-d3e7-1d9a-76ac0ca17bab@suse.com>
-Date: Tue, 14 Feb 2023 17:11:05 +0100
+Message-ID: <29e2b527-16b8-e72d-f625-781aedf21bc4@suse.com>
+Date: Tue, 14 Feb 2023 17:11:40 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Subject: [PATCH v4 2/4] x86/spec-ctrl: defer context-switch IBPB until guest
- entry
+Subject: [PATCH v4 3/4] x86: limit issuing of IBPB during context switch
 Content-Language: en-US
 From: Jan Beulich <jbeulich@suse.com>
 To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
@@ -79,140 +78,116 @@ References: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
 In-Reply-To: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR3P281CA0013.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:1d::18) To VE1PR04MB6560.eurprd04.prod.outlook.com
+X-ClientProxiedBy: FR0P281CA0093.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:a9::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM0PR04MB6884:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d646964-26d3-445f-a041-08db0ea61462
+X-MS-Office365-Filtering-Correlation-Id: 441e74e2-b448-4ad6-f2ec-08db0ea62913
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	Tskmce7OGb43LH2g6WzEvYyOya1BIYP3xbYaiTLPk72ey6rs2j1yXUt0bcKOVtKSPNv8CYQJU1bQ0GFVTu5XXyZJf8SRH2yBiMNj86yI1tlFOvicEkgR1A2ZHTJ8EFgEpacGDab33LrxQmoDI0hjhgjeezlYRRP1k7oufuHDYmpyQ5zCyCklGn5CUSVWs2qFUAEWDeRxXe0TmRyKlESL7vxpVCpn0JOK+L5rsN3KNKzAJ601Nyfj2fuspOiU6YSU2uoGZhVgs1HmOUqtxjBmrNO859vXajhAZVjZeAJ8yOHkyMIwsNpuBSyxWUqk29ihuVO1iN+Q+BwvgbjCXZFP6Sa0d5ZTvg/tLzkb1uy66tHFxyCp6EdDVWdM112UtVuz7rqRILErt7dnaXjhdOn2M9zOGTBd7nv/xvO/U39Ag+04jW+oF2VEg+hsWTOFY/uwP5gHW1010FkEJmsa2hW1IYm9xIuO6Poo5qrUHh1Fz12PXfMI+Lx2i8oQjnwh0OgdWBFL7rAZr3vWKWy/x0oLtD033+8FBbrAJL15ugXfeIiF+wfzXkgS1ny3gLPFIE5mUHBhgMTkTSEFdwrer47mFgp3CbOXFDWuV+NK/2J6dyAq32VpSCAdTmNh4vpKzSHobQbd3XYG5lssxYfDRNt3WC7KgCl/VARjl9w0oVqGYvGWV+EomQ0aG8Lt35TzNehyCuUWjd4H2YIaOwbZq9UFJLwEChBBHFaC0hMgegIGulw=
+	VqAyzyPwo07sJJyQli/aw7moJ+ZLsPQLdQDyk2II2UTRLq2wWLjs9Opf0No9cV+zhn+ftsKi7Tk+0BcqcD2HzlJbhdzMKYjqxfU59//ukDn77VLChp9o3qVErKd2fZ9W9RZe27UHo0g9NWB0lm2BYDAHnrA5iyuCp0eqB4gpE4Sy2bn0Z4O25gEi6oRbbnyuRP3eioy8gsXVbeBuh9yghg3ZyoRmcTZQhfmovuLjvWT53RogQHaaH1nlCHwGwEQmU0Cge7V2zCj0DpsyjaPcCFuWhOHWQo/22KFkngSmcRGoYEG6O6aAF8EmubcyKHDXCyE4yeGYvaWx+2bry+1chNzxY9MMuMNoRmdBTmV3TH9VvH92FWrW9VKB75spZj6yqamGZ5afO78hfa0TNpfaldY46wS+JSkbVE242Vt7M2qaxTXhDUTGpqlcWCSI0hGTOsO1SN8uUVsRNmRPdZ7HMHq151JMHlRPF3BBGDArUlIRBIAaVRlIEaNT3VERooHYSdEzSir15qNqsoSuMZw+F4Dwogs9qL6t469M4h4d8KAkqGEm69e52GGUXRVdgcH8SHBESyKcTzguaTyM+9MyiYOE3vcrUS5dcip9+HOoRjCNixjRp6LdvG/JZJSgq+P5GtuaKkQhMKxIrWz3mqdVEbatcoM/WCnUR4qXMdK1CG/wj+p0q7lWLNhoAuFyX/7zlSQxwYaGR73m2atO1ccT8kTXS1LbpMa6bmpQf0VhFH0=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(366004)(39860400002)(396003)(346002)(136003)(451199018)(66476007)(66556008)(66946007)(6916009)(83380400001)(4326008)(31686004)(8676002)(41300700001)(316002)(8936002)(54906003)(36756003)(2906002)(5660300002)(26005)(31696002)(186003)(6486002)(478600001)(86362001)(6506007)(38100700002)(6512007)(2616005)(45980500001)(43740500002);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?b25sVkF5ZDlOdmdhMUExaGNPNUZJdXhWYnFQaUZnbm5YNEoyU09pNmI2UzlE?=
- =?utf-8?B?ZGtuOHJVZWc5OGNxU2NLcS9CVHYxQ0tHblBNM1BMVUJRcmQrUSsxNFc5eGtu?=
- =?utf-8?B?WEZGWnBnRG43dmlMRmhWbXpqV2dIMUxrR1g1djV0dVEvTk5Vdk54TDJPaEVh?=
- =?utf-8?B?VFVUZEdJUU8wOEU2bWUwdHZMdDkrbTVjUSs5Zlkyak85a3FRbjd5cndEQWwx?=
- =?utf-8?B?SFNtV0hmSzg1M1h6emlxeWZkN2FPWTlCak0wT1BVWXJCYnZzUXhuaW4vVGkw?=
- =?utf-8?B?Zk1qNU9Ca2hRTEhpcDNSdC9qcnh5NzZ1MDc3Qmg2bkdDdGd3OThqazNBY3lx?=
- =?utf-8?B?WWg0N3MzaXd6VVB4VnFBVXBxYWhrTTZmQlBPeGROdnl2eXF2T2MrQUJUeTAv?=
- =?utf-8?B?aXdGTEYxWVM3aVFlMGtsWDFYalpaaFNob1lOYndmMlVkVkZ0Mld3VWcyK2Fw?=
- =?utf-8?B?RGIwUlhTYnA3c1FSWml6dGgvWENFMmNGUENrZFZXMWZyMnQzcEhhQ05NUVJj?=
- =?utf-8?B?OFJzSXFDMGI5MmIrY2RQR2haSFBXR1pCK3k0U2o4ek1JZmRSYzZQQ0JVV2Rx?=
- =?utf-8?B?SCtPbkt1YnJQa3JCaTNPWWpEM0VXNFJFRzVmL1pma0FHeWp1S3l0Y0sybFhR?=
- =?utf-8?B?YzRheXdEVUFFbDN4RXp0RWhXaGFxRklBRC9QTXRxYnVpZWNDd2NQdFFEaFpB?=
- =?utf-8?B?YzRwYWIyTFpBMm9EeHlUbEdrOHpjaDBKN2lVTHRjd3RJUGNZWEE0NFJINldw?=
- =?utf-8?B?akhkeGYyajA1SXdiRXlaSzZSWDlrbTJueFlzQUgwUG9helJFVmtuKzZIOG52?=
- =?utf-8?B?SzJJZW1sd0hMUDRjWXZCcDhzZjZhVDM1cWZRbVM1ZHhqMHpUSFFrOG1Ua0hO?=
- =?utf-8?B?a2QxNm5ISkd5SUtsYUJqWkRucEwxaStraWo3T3gydGdndndFRzdvMUNYaTNG?=
- =?utf-8?B?MWFVaUNuVFE1aHBpWnU0TmVtaC9QSk9Ga0FVSmtDVExjVk9TNnUvSkdLRlov?=
- =?utf-8?B?MjRtKys5ZHZYWnhaNUV5enNBS2xxL2hFMXNDRWs3WXV3L2d0c0pBb2VoSHF0?=
- =?utf-8?B?SUhVcVhaZncxNWVrS0lnakZFUjJPUzFpY2pmN1pCL0lDZmNOR0hVRTNYOUxX?=
- =?utf-8?B?elZGTjQzc0FBc251alYzRDlnUksveUJCMjFlNTJRWXNTb25kN2VwSFhnWE1r?=
- =?utf-8?B?dmpQcnJKUlB4c3E2R1JvWmNsczVtRWwrcFIraENOekFkYUxjSm5XMzZqN0Qw?=
- =?utf-8?B?NjVkV2MzYlRTSzIwNDMvR1ZSWjNiSWpsQ3JCRGJQQlFQNzRTN3ZaNGEwSkpT?=
- =?utf-8?B?Z0pscTA5dlA4cjVtd0svL0phYittNG11ZjJRQ042RlV1dE1xam1GVk1FRk9D?=
- =?utf-8?B?M1krM01xRHZMYWhqNFBPazJNR1Vzc3YwU1ZNTWw1UktRbjI5T1gvaE9yQ2Zx?=
- =?utf-8?B?ZlNqQWJYWmNwNFhhcGM0Q3RqZ1hpdEpJaHgzNUIvdHJ2NTVVbk9PZTNyRjAz?=
- =?utf-8?B?N3Iwc25WRS9FNHVWRXRoSE11Wnp2eGtYeGthUHBqalUyYWFjcm4wT2M2eWtX?=
- =?utf-8?B?UDlNaXVINWJnSFIxUStzNzFrTVNkM0VrSjB1WGFVdEVvYlJuTHZnb2hHOFU1?=
- =?utf-8?B?R1l4MmhVZkcxbDJkdmxGaGE0azdTdTBQSnprQUZNZTVxMC9MblpuVmlFWjZv?=
- =?utf-8?B?UnR0YmtUbXEwVXgwcVFFTXBFZjI1ekdzb1kvTEREZ0JDRzlxOEFyL0tWQmxt?=
- =?utf-8?B?Y2MvanY5QzFaRUFxdWxrRmpBVGRLZXdwNDNxZGVCSCtQelNhL2hWSVN0WHlO?=
- =?utf-8?B?b21vT0V6Ny9qWFZDbjlzNlpGQUxReVRCT3o3QjVVbG50cGVNbVlFMlNGdDh3?=
- =?utf-8?B?dTgrVWtDUVIrUEp4REVvOHhNbmwyNzRjSnUwVEpIZG1EdnczSWFWdFlXeVJn?=
- =?utf-8?B?QjBrckw4Q0drcmF1QWQwUWsyVlBSQTVtS3JBL2JGbXBZbVhtWG9XSTdEcVUz?=
- =?utf-8?B?aldvVVFxOThMYlhGV0pjcFlJZDNqS1ROaFBlZ1cwRHRSdXlLZUdpOFcrdGgy?=
- =?utf-8?B?eGo5NzQzZXRxZnhTL2VYUWJRcE4zcTJmVkdXQ2NQM3lzcG1sR0wzZktoSFFk?=
- =?utf-8?Q?W4uUW5EVMIB1wWlE8jp1aSQ6G?=
+	=?utf-8?B?MUsxQnFPRjMwL0lSdjUrQnl2SnR1Ym92djhPMmpVVWdNOEJVZVBzdFd0N3lQ?=
+ =?utf-8?B?QS8vb3ZJd1ovK1RqNlZMSENobXJxN0U5ai9uNjZ2ejRUVUwwRmY1UUhJSm0w?=
+ =?utf-8?B?c0lKeC9YaDAwWGo4WmU5dDY0Q0FtVGIzNDA0TTZlT0hxY1NVLzlvZ2hFK2tU?=
+ =?utf-8?B?cFVXM2tnMGpIZkcvR3A1K3NDcGlyTGYxbjFhM1djam5TYkhQKzU2QWREZ29F?=
+ =?utf-8?B?RSsyYWJaZlVtRld2RnlNUFBzZGZDSDNpK1hnSnpEdU1pZWtwODdQZTVmeEds?=
+ =?utf-8?B?QmRpUTRHWVVtU0FzTzF0cG1vTW8wWEhySnZIaG5sWmhvd3ZTY0ErTWlLWGky?=
+ =?utf-8?B?NTlKeWFEeGQ4Qkt1L2ViYUVaRUY3NVRDVWRHSVIvNllGZWt5TU5STW5pQ1dx?=
+ =?utf-8?B?MEpPRWt1NVRUYnpZdm5tVThIMStHaWRwRWFjQXd5S3B2RUxJTFFXVUgybllD?=
+ =?utf-8?B?VzhqTjY2Z21TWXcwczdkbjl6d0hsMXRNU0MzQmNlZk5GcXBrdnFPbUJZMHVY?=
+ =?utf-8?B?RVd6Q1hxeGpBMjdzbHQ3bU9oZ1ZLbkF3SVNVSDBVNk5TTUVtcVVQRTBadno1?=
+ =?utf-8?B?T0dSNGk0dDRBRVY4d3VhVXphZEg1YnprWnpMMkhFemdoVU8zOXdOZnlMbGVX?=
+ =?utf-8?B?SWx6V01uSDM1Z3FDU3hLNHdmY1llVCtjTTM4endXUkpaaW9ja1NjMjBBMW1M?=
+ =?utf-8?B?T25WQ1ZFRGczYUg5NjRRdFpVRXlpUHcxR2x1cTdXbDM1SVhvTlVmRUlMQUNL?=
+ =?utf-8?B?Wk5qMlVuQXhqYzFCbXJPaDNvSHE1c2prNCt0VDgvWEkzNDFXb3JRUUZLNjEv?=
+ =?utf-8?B?RHZGK0VuV0I5NTBKQ01URzhkbmpQMmd5Nm1BblpiQkVnSEVOZmhJRENpM0RI?=
+ =?utf-8?B?K21HU2RzRmtUQmtTTDh1UW5raWg1YTYzaFFxeWpQeEJnT2pKM0tmMEhJOEUr?=
+ =?utf-8?B?eXVZUVdsc3ZFRDViQmRTZ3o2T2svSkZtcUhNOGR2QjhzaVRVQUpzNkNRYkhW?=
+ =?utf-8?B?QkY1SVhwVURxSzBoMWJSYkZ4MXBzSEVEZXZ4cW1RNHZmOTlJclJYVjg5T3d0?=
+ =?utf-8?B?UzBXWnZPVjlHbmhkazd4c1R0SU9QVjlGcWlUbkc5NTIwRWZZd241ZjhkUHpv?=
+ =?utf-8?B?c01ua21sRTU1clZwa0FMcFZzc2RMdEdSMXJocU1YUnVpbXJHN0IyNzlQeTJE?=
+ =?utf-8?B?WTNRYk9GYmZ6WWptTURlYlZzNDc4bTJnbDRuZFNOVU1LdjMzaGovbGtyTWl0?=
+ =?utf-8?B?Zm1Wd3lQK3o5VmliSDNERmZCMzlqQ0lTWmFGc2xzTDREK1NMRm4xRjRzYVVF?=
+ =?utf-8?B?MWZWQWEyek5FclRBVUJyS2hMKzRISnlVa1JxK2dkOVk3NGVnYXd3RWtURUIx?=
+ =?utf-8?B?TDNlNzlSQmJEYWNucW1aaWltV2R0amtITEtRRitvSTNiOFlQUEVZYmJTV1FV?=
+ =?utf-8?B?Y05jU3NHWjZ3cVVjVWFuQjF5S21qWTA1bVdmeU9xSWM0eVJnb0dxU1ZZbmJU?=
+ =?utf-8?B?Q2pNNU9iWXJSRngvSk8zaXM4L1lpRFV5YTVGVFV2aGxwM09Zdk82dUdsV1dt?=
+ =?utf-8?B?RnY1N0hOc1FBeUcrUkoyVmJmM2Z6SlVzNTMyaUFKUGFVc1BBVnJUQnR3Ty90?=
+ =?utf-8?B?dXJtS09ocXI1U2VFUjJMNVF4djM4S2FOdFF1V2s4MzloajlnS3RyOFN5Smc1?=
+ =?utf-8?B?VzY3NUxXQjA0cDNoVW1QMlhBTmF5cFVoRWhINDJaRlk1ZDBKZkxuZC95RGxB?=
+ =?utf-8?B?UzJtS3NDRUJXSW1VNmJRVWVZUEdCclcvK2pZMDk4QjVZa3JxcEpXaWg2Qkla?=
+ =?utf-8?B?NmlOZll2LytQaVk1N2IyS3N4QkFYbFNxTWtZblVPSHB4L3lJc2VJdzZGNjE1?=
+ =?utf-8?B?eUVPUTVZeGJ4dFhpakJTZWM3QXBDU21ZYkJCeXg3SmFWMGhYbWZMZEk5WWhI?=
+ =?utf-8?B?eEZsR3pJbFlxR3JGY1VOanlUMnZLbnNZVFV2TzNUblZjL1YydGNoMzVqYWVi?=
+ =?utf-8?B?enZkdThMQWQybG4yNVRxd0RpZlEvZnBzSUR6QldCalAvVWxMa2lOcy8zMERX?=
+ =?utf-8?B?UVZLcGplWkFzMTIyTzhxclJ1akFaeHlPTzJJMC9BYTJqWmZ3MFpIR2RvdWxw?=
+ =?utf-8?Q?3Nr04aSiZVmOa0FFlXn8p/7P/?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d646964-26d3-445f-a041-08db0ea61462
+X-MS-Exchange-CrossTenant-Network-Message-Id: 441e74e2-b448-4ad6-f2ec-08db0ea62913
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:11:07.3987
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:11:42.1465
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bVEwUtcvQJBdxzOzEFyBX9jSj1PP7UJMXhJxLjaPxUEEG3WcdQ2eleMwQKzAwuqbeIqrTiAVmW5qOyeXGCc/LQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Alwjud9TwSgKoWatYLAs8MvH7BA1JUpP2babXVA/uSwGYMzvwgRUKF0Nr2dRxt7ZgBPlyW6vseW8J4KT1dI8Ow==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB6884
 
-In order to avoid clobbering Xen's own predictions, defer the barrier as
-much as possible. Merely mark the CPU as needing a barrier issued the
-next time we're exiting to guest context.
+When the outgoing vCPU had IBPB issued and RSB overwritten upon entering
+Xen, then there's no need for a 2nd barrier during context switch.
 
-Suggested-by: Andrew Cooper <andrew.cooper3@citrix.com>
+Note that SCF_entry_ibpb is always clear for the idle domain, so no
+explicit idle domain check is needed to augment the feature check
+(which is simply inapplicable to "idle").
+
 Signed-off-by: Jan Beulich <jbeulich@suse.com>
 ---
-I couldn't find any sensible (central/unique) place where to move the
-comment which is being deleted alongside spec_ctrl_new_guest_context().
-(If this patch is to survive in the first place, it was suggested to
-move to spect_ctrl_asm.h, next to the #define of the controlling bit.)
+v4: Tighten the condition.
+v3: Fold into series.
 ---
-v4: Re-base in particular over changes earlier in the series.
-v3: New.
+I think in principle we could limit the impact from finding the idle
+domain as "prevd", by having __context_switch() tell us what kind
+domain's vCPU was switched out (it could still be "idle", but in fewer
+cases).
 
 --- a/xen/arch/x86/domain.c
 +++ b/xen/arch/x86/domain.c
-@@ -2038,7 +2038,7 @@ void context_switch(struct vcpu *prev, s
-              */
-             if ( *last_id != next_id )
-             {
--                spec_ctrl_new_guest_context();
-+                info->spec_ctrl_flags |= SCF_new_pred_ctxt;
-                 *last_id = next_id;
-             }
-         }
---- a/xen/arch/x86/include/asm/spec_ctrl.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl.h
-@@ -67,28 +67,6 @@
- void init_speculation_mitigations(void);
- void spec_ctrl_init_domain(struct domain *d);
+@@ -2005,17 +2005,26 @@ void context_switch(struct vcpu *prev, s
+     }
+     else
+     {
++        unsigned int feat_sc_rsb = X86_FEATURE_SC_RSB_HVM;
++
+         __context_switch();
  
--/*
-- * Switch to a new guest prediction context.
-- *
-- * This flushes all indirect branch predictors (BTB, RSB/RAS), so guest code
-- * which has previously run on this CPU can't attack subsequent guest code.
-- *
-- * As this flushes the RSB/RAS, it destroys the predictions of the calling
-- * context.  For best performace, arrange for this to be used when we're going
-- * to jump out of the current context, e.g. with reset_stack_and_jump().
-- *
-- * For hardware which mis-implements IBPB, fix up by flushing the RSB/RAS
-- * manually.
-- */
--static always_inline void spec_ctrl_new_guest_context(void)
--{
--    wrmsrl(MSR_PRED_CMD, PRED_CMD_IBPB);
--
--    /* (ab)use alternative_input() to specify clobbers. */
--    alternative_input("", "DO_OVERWRITE_RSB", X86_BUG_IBPB_NO_RET,
--                      : "rax", "rcx");
--}
--
- extern int8_t opt_ibpb_ctxt_switch;
- extern bool opt_ssbd;
- extern int8_t opt_eager_fpu;
---- a/xen/arch/x86/spec_ctrl.c
-+++ b/xen/arch/x86/spec_ctrl.c
-@@ -854,6 +854,11 @@ static void __init ibpb_calculations(voi
-      */
-     if ( opt_ibpb_ctxt_switch == -1 )
-         opt_ibpb_ctxt_switch = !(opt_ibpb_entry_hvm && opt_ibpb_entry_pv);
-+    if ( opt_ibpb_ctxt_switch )
-+    {
-+        setup_force_cpu_cap(X86_FEATURE_NEW_PRED_CTXT_PV);
-+        setup_force_cpu_cap(X86_FEATURE_NEW_PRED_CTXT_HVM);
-+    }
- }
+         /* Re-enable interrupts before restoring state which may fault. */
+         local_irq_enable();
  
- /* Calculate whether this CPU is vulnerable to L1TF. */
+         if ( is_pv_domain(nextd) )
++        {
+             load_segments(next);
+ 
++            feat_sc_rsb = X86_FEATURE_SC_RSB_PV;
++        }
++
+         ctxt_switch_levelling(next);
+ 
+-        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) )
++        if ( opt_ibpb_ctxt_switch && !is_idle_domain(nextd) &&
++             (!(prevd->arch.spec_ctrl_flags & SCF_entry_ibpb) ||
++              /* is_idle_domain(prevd) || */
++              !boot_cpu_has(feat_sc_rsb)) )
+         {
+             static DEFINE_PER_CPU(unsigned int, last);
+             unsigned int *last_id = &this_cpu(last);
 
 
