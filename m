@@ -2,35 +2,32 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3358696D49
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 19:49:08 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495553.765907 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5939B696D91
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 20:05:51 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495573.765918 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pS0M4-0002Eg-Md; Tue, 14 Feb 2023 18:48:40 +0000
+	id 1pS0bd-00059a-6H; Tue, 14 Feb 2023 19:04:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495553.765907; Tue, 14 Feb 2023 18:48:40 +0000
+Received: by outflank-mailman (output) from mailman id 495573.765918; Tue, 14 Feb 2023 19:04:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pS0M4-0002BI-JH; Tue, 14 Feb 2023 18:48:40 +0000
-Received: by outflank-mailman (input) for mailman id 495553;
- Tue, 14 Feb 2023 18:48:39 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pS0M2-0002B8-VL; Tue, 14 Feb 2023 18:48:38 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pS0M2-0008GV-SH; Tue, 14 Feb 2023 18:48:38 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pS0M2-0002GZ-DO; Tue, 14 Feb 2023 18:48:38 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pS0M2-0003vo-Cv; Tue, 14 Feb 2023 18:48:38 +0000
+	id 1pS0bd-00057F-33; Tue, 14 Feb 2023 19:04:45 +0000
+Received: by outflank-mailman (input) for mailman id 495573;
+ Tue, 14 Feb 2023 19:04:43 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=cD5U=6K=gmail.com=jandryuk@srs-se1.protection.inumbo.net>)
+ id 1pS0bb-000577-DO
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 19:04:43 +0000
+Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com
+ [2a00:1450:4864:20::62a])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 6ff554c9-ac9a-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 20:04:42 +0100 (CET)
+Received: by mail-ej1-x62a.google.com with SMTP id lf10so10657197ejc.5
+ for <xen-devel@lists.xenproject.org>; Tue, 14 Feb 2023 11:04:42 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,274 +39,139 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=H6VNZJgx+rU/DlFDf9KP/tRkQ6F3TvKch74utrTj8Vw=; b=R8fEpLBPSUxMbQKOq57djqPt6O
-	nCt/+iHtO8ruXOPEmvULo2oGjjpv/HUIr9NUk1T2rlDjIsq7Yx21b7+ZJn+ktdCxChJE9zs/sWpoi
-	o9Ehjogn4/3Me6B4ZVrdwlkcBXQoOdh6ef0edlsgX9WTzNn9vdycqhWtGHFuhMZv4qBY=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-177271-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 6ff554c9-ac9a-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=+PIpU7Z2jqm/15Iq1kV1McY54hb16Oom8P9IvSW0h1Q=;
+        b=gCbaPSeHBbcVM6E4S7IM0m7UNhsdNhqaLPN7zgGSQHNrjFingah3lDlN7CBOoSCJsU
+         e17D2oYmX/lvMq9dCqKy6uceED4TU0lDVtRhASwZ8H0qFjAUaSFJhY49LWrDyuPXz+yl
+         PmnIpAyYSwhtJyT4RXEY5H9jlZ1REld42Ynzanp5KKyE6JosgnKfcKusiZYgvSFCP9af
+         IXLuF5RQesa+Du5wWTfApmpGyjrp5a1A3RxwlvFljkiqBz5JmYutviyavK1mgOaOOePI
+         u5D7CFVhVwZ6hoIFBpR6+oPFEVq0F7DRXYeckkZhOwljUjbPzdyU2vUT2baRc4nHgU2N
+         henA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=+PIpU7Z2jqm/15Iq1kV1McY54hb16Oom8P9IvSW0h1Q=;
+        b=JVENwsnEMJ0sRyxPmfOTnDwcTdGewWt55SqC/730QJchzZhlRBmLGXvueJXg+mAhI1
+         ddzrq2DvGPiSsl9+SjbG00fZefsv5NMx5R+MDrL3D4RKaBbBu2pAJxgZromUMuobI17+
+         is3KSPr7QBiplux71cL8eWImrh/hPlnqA9dLTRRTcjnKRkiTvXb+ZfSpL+vESYWWgL+g
+         38mCroxxqGyQBNinnJXLL6jraSn+R0L15YZYn9xWFkB4/svIol+fVMgDjsnKDYpZr0wo
+         q1RjvtUdN7QpKSZl1LyQXlYAWGwFe7DML+e/fzkjUzjWZZj6+fYRDiUE4vLkVR26JMsH
+         /dtw==
+X-Gm-Message-State: AO0yUKU7HtJ6G1xgI+rQl+sg6+fyadopNb/ZMLJjD9KNsh+hb9/OAIGp
+	iLxK0HsOMN5c/50UDuW9Ds0msFX+Ou1AG4neu4+ZSM5PqIs=
+X-Google-Smtp-Source: AK7set8Xx6IyiSP8d9Ahpa9XJbemIwzp5IqmpI1YDwtwUvUuXDk3v2NrWX3fyVrpcnbQictIpEGq6DhnVdYKmQicryY=
+X-Received: by 2002:a17:906:8591:b0:8af:43c6:10bb with SMTP id
+ v17-20020a170906859100b008af43c610bbmr1682191ejx.14.1676401480942; Tue, 14
+ Feb 2023 11:04:40 -0800 (PST)
 MIME-Version: 1.0
-Subject: [xen-unstable test] 177271: tolerable trouble: fail/pass/starved
-X-Osstest-Failures:
-    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
-    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
-    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
-    xen-unstable:build-armhf-libvirt:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-examine:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
-    xen-unstable:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
-    xen-unstable:build-armhf:hosts-allocate:starved:nonblocking
-X-Osstest-Versions-This:
-    xen=9b70bc6d9678142a40e6c1c6934a32c7a0966e38
-X-Osstest-Versions-That:
-    xen=9b70bc6d9678142a40e6c1c6934a32c7a0966e38
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 14 Feb 2023 18:48:38 +0000
+From: Jason Andryuk <jandryuk@gmail.com>
+Date: Tue, 14 Feb 2023 14:04:28 -0500
+Message-ID: <CAKf6xptjWKXYeUX2yua6nsSnJOwOWOfU3TBxEQ8YC1tewvHJkQ@mail.gmail.com>
+Subject: HWP and ACPI workarounds
+To: xen-devel <xen-devel@lists.xenproject.org>
+Content-Type: text/plain; charset="UTF-8"
 
-flight 177271 xen-unstable real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/177271/
+Hi,
 
-Failures :-/ but no regressions.
+Qubes recently incorporated my HWP patches, but there was a report of
+a laptop, Thinkpad X1 Carbon Gen 4 with a Skylake processor, locking
+up during boot when HWP is enabled.  A user found a kernel bug that
+seems to be the same issue:
+https://bugzilla.kernel.org/show_bug.cgi?id=110941.
 
-Tests which did not succeed, but are not blocking:
- test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 177229
- test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 177229
- test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 177229
- test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 177229
- test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 177229
- test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 177229
- test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 177229
- test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 177229
- test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 177229
- test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
- test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
- test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
- test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
- test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
- test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
- test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
- test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
- test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
- test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
- test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
- build-armhf-libvirt           1 build-check(1)               starved  n/a
- test-armhf-armhf-examine      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
- test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl           1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
- test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
- build-armhf                   2 hosts-allocate               starved  n/a
+That bug was fixed by Linux commit a21211672c9a ("ACPI / processor:
+Request native thermal interrupt handling via _OSC").  The commit
+message has a good summary of the issue and is included at the end of
+this message.  The tl;dr is SMM crashes when it receives thermal
+interrupts, so Linux calls the ACPI _OSC method to take over interrupt
+handling.
 
-version targeted for testing:
- xen                  9b70bc6d9678142a40e6c1c6934a32c7a0966e38
-baseline version:
- xen                  9b70bc6d9678142a40e6c1c6934a32c7a0966e38
+Today, Linux calls the _OSC method when boot_cpu_has(X86_FEATURE_HWP),
+but that is not exposed to the PV Dom0.  As a test, the Qubes user was
+able to boot with the check expanded to `boot_cpu_has(X86_FEATURE_HWP)
+|| xen_initial_domain()`.
 
-Last test of basis   177271  2023-02-14 11:20:41 Z    0 days
-Testing same since                          (not found)         0 attempts
+We need some way for Xen to indicate the presence and/or use of HWP to
+Dom0, and Dom0 needs to use that to call _OSC.
 
-jobs:
- build-amd64-xsm                                              pass    
- build-arm64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64-xtf                                              pass    
- build-amd64                                                  pass    
- build-arm64                                                  pass    
- build-armhf                                                  starved 
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-arm64-libvirt                                          pass    
- build-armhf-libvirt                                          starved 
- build-i386-libvirt                                           pass    
- build-amd64-prev                                             pass    
- build-i386-prev                                              pass    
- build-amd64-pvops                                            pass    
- build-arm64-pvops                                            pass    
- build-armhf-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-xtf-amd64-amd64-1                                       pass    
- test-xtf-amd64-amd64-2                                       pass    
- test-xtf-amd64-amd64-3                                       pass    
- test-xtf-amd64-amd64-4                                       pass    
- test-xtf-amd64-amd64-5                                       pass    
- test-amd64-amd64-xl                                          pass    
- test-amd64-coresched-amd64-xl                                pass    
- test-arm64-arm64-xl                                          pass    
- test-armhf-armhf-xl                                          starved 
- test-amd64-i386-xl                                           pass    
- test-amd64-coresched-i386-xl                                 pass    
- test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
- test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
- test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
- test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
- test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
- test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
- test-amd64-amd64-libvirt-xsm                                 pass    
- test-arm64-arm64-libvirt-xsm                                 pass    
- test-amd64-i386-libvirt-xsm                                  pass    
- test-amd64-amd64-xl-xsm                                      pass    
- test-arm64-arm64-xl-xsm                                      pass    
- test-amd64-i386-xl-xsm                                       pass    
- test-amd64-amd64-qemuu-nested-amd                            fail    
- test-amd64-amd64-xl-pvhv2-amd                                pass    
- test-amd64-i386-qemut-rhel6hvm-amd                           pass    
- test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
- test-amd64-amd64-dom0pvh-xl-amd                              pass    
- test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
- test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
- test-amd64-i386-freebsd10-amd64                              pass    
- test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
- test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
- test-amd64-amd64-xl-qemut-win7-amd64                         fail    
- test-amd64-i386-xl-qemut-win7-amd64                          fail    
- test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
- test-amd64-i386-xl-qemuu-win7-amd64                          fail    
- test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
- test-amd64-i386-xl-qemut-ws16-amd64                          fail    
- test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
- test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
- test-amd64-amd64-examine-bios                                pass    
- test-amd64-i386-examine-bios                                 pass    
- test-amd64-amd64-xl-credit1                                  pass    
- test-arm64-arm64-xl-credit1                                  pass    
- test-armhf-armhf-xl-credit1                                  starved 
- test-amd64-amd64-xl-credit2                                  pass    
- test-arm64-arm64-xl-credit2                                  pass    
- test-armhf-armhf-xl-credit2                                  starved 
- test-armhf-armhf-xl-cubietruck                               starved 
- test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
- test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
- test-amd64-amd64-examine                                     pass    
- test-arm64-arm64-examine                                     pass    
- test-armhf-armhf-examine                                     starved 
- test-amd64-i386-examine                                      pass    
- test-amd64-i386-freebsd10-i386                               pass    
- test-amd64-amd64-qemuu-nested-intel                          pass    
- test-amd64-amd64-xl-pvhv2-intel                              pass    
- test-amd64-i386-qemut-rhel6hvm-intel                         pass    
- test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
- test-amd64-amd64-dom0pvh-xl-intel                            pass    
- test-amd64-amd64-libvirt                                     pass    
- test-armhf-armhf-libvirt                                     starved 
- test-amd64-i386-libvirt                                      pass    
- test-amd64-amd64-livepatch                                   pass    
- test-amd64-i386-livepatch                                    pass    
- test-amd64-amd64-migrupgrade                                 pass    
- test-amd64-i386-migrupgrade                                  pass    
- test-amd64-amd64-xl-multivcpu                                pass    
- test-armhf-armhf-xl-multivcpu                                starved 
- test-amd64-amd64-pair                                        pass    
- test-amd64-i386-pair                                         pass    
- test-amd64-amd64-libvirt-pair                                pass    
- test-amd64-i386-libvirt-pair                                 pass    
- test-amd64-amd64-xl-pvshim                                   pass    
- test-amd64-i386-xl-pvshim                                    fail    
- test-amd64-amd64-pygrub                                      pass    
- test-armhf-armhf-libvirt-qcow2                               starved 
- test-amd64-amd64-xl-qcow2                                    pass    
- test-arm64-arm64-libvirt-raw                                 pass    
- test-armhf-armhf-libvirt-raw                                 starved 
- test-amd64-i386-libvirt-raw                                  pass    
- test-amd64-amd64-xl-rtds                                     pass    
- test-armhf-armhf-xl-rtds                                     starved 
- test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
- test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
- test-amd64-amd64-xl-shadow                                   pass    
- test-amd64-i386-xl-shadow                                    pass    
- test-arm64-arm64-xl-thunderx                                 pass    
- test-amd64-amd64-examine-uefi                                pass    
- test-amd64-i386-examine-uefi                                 pass    
- test-amd64-amd64-libvirt-vhd                                 pass    
- test-arm64-arm64-xl-vhd                                      pass    
- test-armhf-armhf-xl-vhd                                      starved 
- test-amd64-i386-xl-vhd                                       pass    
+My first idea is that Dom0 could query Xen's cpufreq driver.  However,
+Xen exposes the cpufreq driver through the unstable sysctl ops, and
+using an unstable hypercall seems wrong for the kernel.
 
+Can we add something to an existing hypercall - maybe platform_op?  Or
+do we need a new stable hypercall?
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+Linux will perform the _OSC calls unilaterally upon seeing FEATURE_HWP
+and independent of actually using HWP via the intel_pstate driver.
+However, not using HWP may be an untested configuration in practice.
+The intel_pstate.c driver will not use HWP when FEATURE_HWP_EPP is not
+found.  So we could potentially cheat and expose only HWP to Dom0.
+That should trigger the _OSC calls without letting Dom0 think it can
+use HWP.  This is rather fragile though, so a more explicity method
+seems better.
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+Roger's ACPI Processor patches that add xen_sanitize_pdc calls could
+be leveraged.  On the Xen side, arch_acpi_set_pdc_bits() could be
+extended to set bit 12, which would then be passed to the evaluate
+_PDC call. _PDC is the older interface superseded by _OSC, but they
+can be wrappers around the same implementation.  But if linux is just
+using _OSC, it seems more compatible to follow that implementation.
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+Thoughts?
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+Thanks,
+Jason
 
+commit a21211672c9a1d730a39aa65d4a5b3414700adfb
+Author: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+Date:   Wed Mar 23 21:07:39 2016 -0700
 
-Published tested tree is already up to date.
+    ACPI / processor: Request native thermal interrupt handling via _OSC
 
+    There are several reports of freeze on enabling HWP (Hardware PStates)
+    feature on Skylake-based systems by the Intel P-states driver. The root
+    cause is identified as the HWP interrupts causing BIOS code to freeze.
+
+    HWP interrupts use the thermal LVT which can be handled by Linux
+    natively, but on the affected Skylake-based systems SMM will respond
+    to it by default.  This is a problem for several reasons:
+     - On the affected systems the SMM thermal LVT handler is broken (it
+       will crash when invoked) and a BIOS update is necessary to fix it.
+     - With thermal interrupt handled in SMM we lose all of the reporting
+       features of the arch/x86/kernel/cpu/mcheck/therm_throt driver.
+     - Some thermal drivers like x86-package-temp depend on the thermal
+       threshold interrupts signaled via the thermal LVT.
+     - The HWP interrupts are useful for debugging and tuning
+       performance (if the kernel can handle them).
+    The native handling of thermal interrupts needs to be enabled
+    because of that.
+
+    This requires some way to tell SMM that the OS can handle thermal
+    interrupts.  That can be done by using _OSC/_PDC in processor
+    scope very early during ACPI initialization.
+
+    The meaning of _OSC/_PDC bit 12 in processor scope is whether or
+    not the OS supports native handling of interrupts for Collaborative
+    Processor Performance Control (CPPC) notifications.  Since on
+    HWP-capable systems CPPC is a firmware interface to HWP, setting
+    this bit effectively tells the firmware that the OS will handle
+    thermal interrupts natively going forward.
+
+    For details on _OSC/_PDC refer to:
+    http://www.intel.com/content/www/us/en/standards/processor-vendor-specific-acpi-specification.html
+
+    To implement the _OSC/_PDC handshake as described, introduce a new
+    function, acpi_early_processor_osc(), that walks the ACPI
+    namespace looking for ACPI processor objects and invokes _OSC for
+    them with bit 12 in the capabilities buffer set and terminates the
+    namespace walk on the first success.
+
+    Also modify intel_thermal_interrupt() to clear HWP status bits in
+    the HWP_STATUS MSR to acknowledge HWP interrupts (which prevents
+    them from firing continuously).
 
