@@ -2,52 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 592FF696880
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 16:50:50 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495253.765562 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CCCA6968D5
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 17:11:23 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495262.765573 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxZY-00078k-VE; Tue, 14 Feb 2023 15:50:24 +0000
+	id 1pRxsK-0001BM-Ly; Tue, 14 Feb 2023 16:09:48 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495253.765562; Tue, 14 Feb 2023 15:50:24 +0000
+Received: by outflank-mailman (output) from mailman id 495262.765573; Tue, 14 Feb 2023 16:09:48 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxZY-00076Z-Ro; Tue, 14 Feb 2023 15:50:24 +0000
-Received: by outflank-mailman (input) for mailman id 495253;
- Tue, 14 Feb 2023 15:50:24 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=Xrib=6K=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pRxPO-0001Wn-MX
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 15:39:54 +0000
-Received: from NAM04-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam04on20617.outbound.protection.outlook.com
- [2a01:111:f400:7e8d::617])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id d28a18a6-ac7d-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 16:39:53 +0100 (CET)
-Received: from MW4P223CA0010.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::15)
- by CY5PR12MB6648.namprd12.prod.outlook.com (2603:10b6:930:42::11) with
- Microsoft SMTP Server (version=TLS1_2,
+	id 1pRxsK-00018d-J7; Tue, 14 Feb 2023 16:09:48 +0000
+Received: by outflank-mailman (input) for mailman id 495262;
+ Tue, 14 Feb 2023 16:09:47 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <SRS0=jX19=6K=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
+ id 1pRxsI-00018X-Tp
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 16:09:47 +0000
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on20609.outbound.protection.outlook.com
+ [2a01:111:f400:7e1a::609])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id fda1c285-ac81-11ed-93b5-47a8fe42b414;
+ Tue, 14 Feb 2023 17:09:43 +0100 (CET)
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+ by AM9PR04MB8355.eurprd04.prod.outlook.com (2603:10a6:20b:3b7::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Tue, 14 Feb
- 2023 15:39:50 +0000
-Received: from CO1NAM11FT113.eop-nam11.prod.protection.outlook.com
- (2603:10b6:303:80:cafe::ba) by MW4P223CA0010.outlook.office365.com
- (2603:10b6:303:80::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
- Transport; Tue, 14 Feb 2023 15:39:50 +0000
-Received: from SATLEXMB03.amd.com (165.204.84.17) by
- CO1NAM11FT113.mail.protection.outlook.com (10.13.174.180) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.26 via Frontend Transport; Tue, 14 Feb 2023 15:39:49 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
- 2023 09:39:48 -0600
-Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
- SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 14 Feb 2023 09:39:48 -0600
+ 2023 16:09:40 +0000
+Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
+ ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6086.024; Tue, 14 Feb 2023
+ 16:09:40 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,226 +47,114 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d28a18a6-ac7d-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: fda1c285-ac81-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fJ4ITEASRc/8Sb5R+HVd89wxpTlQRlZPDGASieTg4pAvNLMj/IflPLGdVXMYS/2W9Cj8LqUSk8OMeI7JhlWuLAk/VqMuPwGqkY4EwWKVPRH6F9nGGoIVVh2R5cG5h46frHEbJwcZ3kGI4cxBakBJ534vRvpCoP7hTsHM1+O1drEEd+ir6PxOayEu5f+BfeAVpCbfYyKMk8iOjxOsL3JvjdMqRPuvl202fS5/yZIJPVnJ8HfsMJUKr3MQoASVfGSXTyQ7NPoAmESwNIckdjb9XbILr1EBcPu9EkkKQ0DQ/2f5v93LfoYdOX1+XbV1EvIpOWn+K+cGOsRq7VsROQMASQ==
+ b=jy6SqNzSeMQV5UA+VmbK7JrB/Zt0vwwOjDsQpmOIVklrgTFB1nBNNDy8J/fS2a0Rf7WEKwMXUVZsgcpYeqr0kAQmNRJgcBzcFqDzEDCrsJmUdW/H35XZrM7Bo9/dC/NAIuCoVlfDqKVMWT1HCHgoNeyXIhaS45/uAS3Tb4cd9MZC+hly1Jf2SU9XM0RkK35i3Ar71GjRUobnKTHvRHjfQ8yHcE6rJfZAK/Ni7RO4mtDb8+fzl4fdfBhbHe5/+AjaNVxZTxv8rgZAXQ6G0mvAfUMeIFInHOgI2lOJ9xAeCzbNlV5dMJtFfAV6mOy9zV+uJdGpZGBerdDuqx50vGPmfw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=idbIK0WFX/oj0rIMVRUxvERZADW8zVY79vH5sqj84xw=;
- b=BX+jdvDKpMNHg8B+rhZm/Xnd/qfeBkE0X0WN5NEUew5X16dd0t5PtgcG5fO0uxcWE5SK9cMPFVUNuOvuPPBtO+FExvbDb09CGFCWAOrcBdhQdRGHgCyGDEG6C0PJSH1woO9Vl3snDn1n9mmHQ/XHrla9X5ixywZSWovefKkxCagHV/iuC7kgHtJ6ZVvnWRhtuX4skBHzYco+6lPf0nJ7COsLay9H0VuIbj3XAPAMl623DMCG/bKYh1Mvpa4o2lrYWrAvdkKDnNAef2+B1mcLtfqPlCx9j6iKRH7ZaKZaaUT1vQhEeJwXW+TD6CxyVNtMHYlML5C8OxDH4B5c8azGSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=xprwUPDQPzbG5hi8fYinkuvqBjSbr8pGUFSbo9sYTrA=;
+ b=ih5uzeq/w5+2rGsGdPNkLSt95uVmllWI95ljRRzToRLCycr7I2oPOdG3xADucjunx/iZs8l6iggGqWWFJzjdKAHZVPQbeJ5HdA9nxedOQoX5nb1CbKWln93OYwaXlp7CRI4MKYGrmyWdL3E389Flgjhd27Y01nkV6XXcoUO+N5Y0sBKotnjwaR7VJTy3ezpFWZMoDC4Ic6lAEtW75nl9uJW8iLDNb/xpoftOu/FoYL2dSUd4nY/0YLHc7Jz6GCHC5g5gQ3wBLV5yzdzCc9fupgmlEeqCtdd4g0xa8lJRC/DYkzUG7gBu53NhT0YgDGH2nLz8rXbvgMKxx/q8ekVwGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
+ dkim=pass header.d=suse.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=idbIK0WFX/oj0rIMVRUxvERZADW8zVY79vH5sqj84xw=;
- b=JbVpWfvkGSCi6vRea/zKRZJrUzlMt3pBNhySJNeEfl7JuJEj/LI7cixC+IigXK8AH64V+bQtSFmezkb2GcFJrOSXoYGW5+BcUvXUN+ylwBQe300UIovyrVbGdU4XgDef22DzvQwxrWq+Ih8z+RUWoC16Nrvbw8cODmCHf7hs52A=
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
-From: Michal Orzel <michal.orzel@amd.com>
-To: <xen-devel@lists.xenproject.org>
-CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
-	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2] automation: Add container and build jobs to run cppcheck analysis
-Date: Tue, 14 Feb 2023 16:39:45 +0100
-Message-ID: <20230214153945.15719-1-michal.orzel@amd.com>
-X-Mailer: git-send-email 2.25.1
+ bh=xprwUPDQPzbG5hi8fYinkuvqBjSbr8pGUFSbo9sYTrA=;
+ b=v9dj0zSplgzjyoRkp0uy8imYH02sdGE0LoFyX7YPS0ZmP7WxGG3BvVRbFTOAlp4wQlzrb2DHCaWOKjyh+nYpo52zJpzWGZL66JuPhec5T0MqHh2wSRGFU2QfvE+tLeCzXzpBONsPrkcuxQC+NS8w7uqc5DAS0u4E0kGwHSJ98IkBzNAAKIuIf93DX0+VXBzD7WPPd23eG5mlMjpP0zbT66gpJHxkRWTo0tVPvR/2e+mRUofUMoA6MNWBfbGCQg8XP/gKaSe2Id7jDTmW88TdHdunR9NOITvSMoIL5I0VGwq2F3JvPtRY8pNcyCwAuu6jq9iPP/iyz5GajhG/sXsnPQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=suse.com;
+Message-ID: <06591b64-2f05-a4cc-a2f3-a74c3c4a76d6@suse.com>
+Date: Tue, 14 Feb 2023 17:09:38 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+From: Jan Beulich <jbeulich@suse.com>
+Subject: [PATCH v4 0/4 + v1 0/1] x86/spec-ctrl: IBPB improvements
+To: "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0069.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9a::10) To VE1PR04MB6560.eurprd04.prod.outlook.com
+ (2603:10a6:803:122::25)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1NAM11FT113:EE_|CY5PR12MB6648:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45139c04-b8b1-4825-b126-08db0ea1b582
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8355:EE_
+X-MS-Office365-Filtering-Correlation-Id: cd04a135-7368-4549-f2d8-08db0ea5e066
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	rlfI0F9CPqhka3XvK5wD17sVvsCwJP3/Vg24N3QBquwWLXhEdY83FCnqQu5RSZrIBNS7txoZ07Rz2P9ItNkIL29BvGom1lKIb8iyY19e3Q6MgHFhod7Lj36YaEXfAbzVGtz+BXUK/8usTfw26r/KTDLmDbrQ8Q0FWZuTzxbMT23D5z5Z5p/5s5yktC4ziDlhxg9OKId11Ks1V+Pig4ECKwRQq9XCSk0Kf8b0yqAltAX3UyEUkSGpirP25Kqd8/AwQ5pGDrzGpfpXZexNDnlHodjMt3mw372qFCIlFJn1oO+KsxFJbnidUWTVHN74FH2sGhtTWKHmeSJ+bj2187K19WxVFmZZkofeUh/3D3ohcvmEsXqgegJ+WGAY7hR/z2kn9/jFHk8S8/hjMJvnvwIP4fLImGQbLidGLdybhjNW3/Wnc/AphDKm+1p293fNlxXoGwahWmftOKRJNXkMOoVmZlnuzrRfs8svYd5dA49g5RVpWX48ghByCiLPu5zmppEEydGlqmAvwri3iSUqHSTYlowyMsF7Srw8C01K39oFXaG1Ys5m6zCd14dBAdHitFxLqqUP4AjtFViQtLxttr/U8o511w8eF29HSoM4KGc+E7YjrLat8e8XyGgcIxLnV8mtNgsf9a3MLP9UJDInRwguWEqy9RKbhNyd/Jl3DOOPH82I1Z4/rHuJXCSO4HDP4+oAAE0wb+WX7fU8T/D+EK4mKoqM/IM0a2hkZH2FAUlgDYhcu/W8QQybhswrCFIy/qB9NwpNvlNPlLoAFeRhXwaWRQ==
+	qjOmW5gmJB3pmnZjDDC0kZqe3LD95Zh6nlabVOMwn3zRYRCWsI8Ws38IlENe9OsGwUS4qSp6jWubIgpnZUocg0a75nrzGge7fJ3+GWOCuwaqIGtddTGP3LgcuHRzem4FAgG+xoETFAE9fXaC8SWbD+HsnkoMXExy65ltaWQ7+ukbtCrC8NslSpTtLtzcogtDzhLmcDO9CgdkKDOoL2umKa3lzHoTSUlNgE+pBeajcUl4fuPMqqQskEkV0hAe6okR2IlbXVd9gIr3GJHEUK/j2nTu8Spa2XK43EvlGkxJz42TtF7i1JJOD7+1CrsFPBAgQPH30dUGj2TCRRkDbGUL6k2ESC+nMnHLH4ikKKS3ot046eOLbgVH8K0ilmBmYlKCNMxNVItQiGyL6YJXzGDcY9HLpVEhL/wj43LVvCZ88YZAFaEj+4c/zlG5khNN9yWSZ0WaXHcCrHLhpu/OBNK7vazM1GwXSg3hLNvOXLhEHSLM5VZAAYWCC8Fv63dEgZ+A4+uLftN5sYxteCxZmwzjLwVlM1NrcfJK84w+Mo9VyYbyZWySp4X8oGk83qWdCDfncYap5IenDLvXn4785stnVyTZmyqNAu0FL277fE/qjNni1RiHMxLYbSnG2z3PnLQW2iVM7OpIgJ1Tv6nxsqv6eyrSkh0CA/gIaVYMQkt7K/1RKbsmABMTUTC6t0GtfPUtsD0ZRY279I085TQFG5OpDbEMcM6gvScXghWQ1PtSKYY=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(136003)(376002)(396003)(346002)(451199018)(40470700004)(46966006)(36840700001)(8936002)(5660300002)(82310400005)(86362001)(41300700001)(356005)(40480700001)(36860700001)(36756003)(82740400003)(44832011)(81166007)(40460700003)(2906002)(1076003)(336012)(426003)(47076005)(6666004)(2616005)(478600001)(966005)(83380400001)(4326008)(54906003)(8676002)(6916009)(70206006)(70586007)(26005)(186003)(316002)(36900700001);DIR:OUT;SFP:1101;
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 15:39:49.9259
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(366004)(136003)(39860400002)(346002)(376002)(396003)(451199018)(6512007)(186003)(31686004)(4326008)(8676002)(66946007)(54906003)(316002)(31696002)(86362001)(36756003)(2616005)(26005)(6506007)(66556008)(83380400001)(38100700002)(478600001)(6916009)(41300700001)(66476007)(2906002)(6486002)(4744005)(5660300002)(8936002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZUhLZ0hSblVsVjIxOWxabzVaQkJYTnplNW9Bc0p0ejkwVGxINElOTGFiNzVn?=
+ =?utf-8?B?TVYrck1FZ0h4VUdDclBRMkRBZTltYVBRclVLRGRCL3dEV3lVYkFsQzFwRFN2?=
+ =?utf-8?B?U0tWMlNWNE9mczRMZlVKWXRGWEovMzhVQnVXSFlqOVRPWW1RVEd6cWs1VFlO?=
+ =?utf-8?B?UlNFenFUdVpCUXlqczBoZ2dDRFdtRUJ5eGFpNXlYQTJnRFdvTG9Dd1lTN0Mr?=
+ =?utf-8?B?Z2tMbmRMakw5T3ZIUW45Tkp2RUpxNU1uMHFyRHlUbzRoUnh0ekpMQ1VlK0ZH?=
+ =?utf-8?B?L2pvWE9nYU1xa3BCMUp1aStVancrTHN5d1RuS2NWbmJobXFuY0NKQVd3VjBi?=
+ =?utf-8?B?c2JFa2tIcUp1Nk50SzBPUDc4ZDcvbnBVd2RSby9ZYmV4WldyOWZ0cnVkQU0r?=
+ =?utf-8?B?aE8zZ1p1K2FmTDM3d2pMdllySHZKL2NtVVhHQnBGalJNUkQxWFBNT0d1TWVB?=
+ =?utf-8?B?c0dtMlBURUovVko3SlhROUNGZ1VLYmsxa2lib1FLYW9sZkR4Z3lJcVh4R0ht?=
+ =?utf-8?B?QmFITllRK2xnTGxvSkdhcmNrbW96NXFyZlF0SHdIcU04LzJ1TVBLK2FiZEEv?=
+ =?utf-8?B?dWVrRDIyZW42MmdwZWtkVzl0ZHd4N0JnOUh0dzJBcUlOWWp2RjhKSVMrYXlH?=
+ =?utf-8?B?SGc2bkt1amhlVnZLd2drZDlxbG55VFc4WW81aUJvcFUwa2ZOejNyelBRYWRq?=
+ =?utf-8?B?TXkrU3JONlFaS1VNaUpJUlkzYWN3cDk1QWtjSjJ5Mksxd2MwUm0vanFDb3ph?=
+ =?utf-8?B?SjV3VDVnb2IrWFJ4Q0RUY3FEeC9nVm9XaCtkK0V2V2hYSU4yN2RqRlNwN0Vv?=
+ =?utf-8?B?MisrenJ3Q1NIdnFKMHc4YTdFNlNWVWVKWW1vMlNtSGE4TTQ0OHlJeUxIMklZ?=
+ =?utf-8?B?amlBWXYzMklsOXJSSzFUNEgzNWNOdktEUURMMHZocG1BS2NOZU54N3hWeFdz?=
+ =?utf-8?B?NjVzYlVjbW83N2crbUJrYStIVGVOQTUrb2FVdXRqUEZHRDU4SDhXb0RaU25v?=
+ =?utf-8?B?dTRBeEFGaTJyOHJ2WFQ1Vk94eUpJRUcxbG50Z0Y4NzJ1b2ZKSVZTdDUvTVV4?=
+ =?utf-8?B?akRtR0F4WEx6Myt0ZXJnaGFmTFVuU0ZEem9Xdk1VeHpNbUtUbytLRk9UOWw1?=
+ =?utf-8?B?WFhUTEYvOWdSVjBkT1lWd2I1YmlZL3AxTVo4WHZwRUduTTFVTWtuRDRUUHdW?=
+ =?utf-8?B?cGloSFIrWlRlNnZYVm40OENibDNFV2Z4TjJOSXFMYVNJYXBLdnVGd3MxL3Y3?=
+ =?utf-8?B?WUc2bDlqREtkc3lCRXNrRlJGUS9WT3U0QWxlenpZSTZza2pVNHNrbTdzL2dm?=
+ =?utf-8?B?RlFkTXI3RUl0M0VublFUVjJWSWhVaHpGVURGMms3dmNVU0p5dENWcGc3VVdv?=
+ =?utf-8?B?RWRHYTV6aXA1K0tlOC9GVEl4eVJsejZidkhISWJBdnljcjVZZ2JDcGFsaDJZ?=
+ =?utf-8?B?NmZyTE9NRDhDWWZUNGxUYXBWVFJ4emN0NjBvQkpDTkhBa25ZcmtjWWhoSGli?=
+ =?utf-8?B?MlRiUVJQa2FZbFlORTFWQjk0TGc3T1V5dnhSS21mdlowdUJWaE45akJRWm01?=
+ =?utf-8?B?MUZQY2lsUHF4NFVoZTVrVE0zU3oxY050d0w1ZXc4MkpDd3pmYkdrMTJPcjhw?=
+ =?utf-8?B?RmRMRUk0WDM2N2lWczA1YlRaZGlySThyM0dsNGNSaVp4N3BBVzRSTWpXWXUr?=
+ =?utf-8?B?bUhQMVdxV1YyOExxRVBFNzJhM2hlZ1R4YmZPeUowQ0FCb3N3S2F2anhWMFlK?=
+ =?utf-8?B?dXBPazFaTm5EU3FyMlpKVGFGS1dldGZSWll6alA2NSt0eCtqVGluYmYxa1gx?=
+ =?utf-8?B?Tmx2Zm4zNkRObnRTOFJTRkQ5d1k4QmNZLzZRNkNFc0tJc2tZQlF4Y2VJdmRs?=
+ =?utf-8?B?SlJIU0kyU2pLZ1FsU0xvNmFzaHBDOUhFaXU0Sk5HV0xqT2tLelZLSEsyZ0hm?=
+ =?utf-8?B?b0VmU1lKVUZoRG4wckhnSjlNQmN1dnMyNTZyVVV3dEJQVWlKKzZ3cmNidmJH?=
+ =?utf-8?B?WG5nZng5ei9RSHViT05EN0xLU2JqVFdjMHRTcWI5M3dEQVdhSVFTZHppMS93?=
+ =?utf-8?B?ZEV6K3ZpeFEwYURyQklWZjQ4WGRlWVVvQ25vSDFFWUpwbUNJVzdHWGpCbzVy?=
+ =?utf-8?Q?1kNovxim0U4Olix+eViCOUX36?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cd04a135-7368-4549-f2d8-08db0ea5e066
+X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 16:09:40.2949
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45139c04-b8b1-4825-b126-08db0ea1b582
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1NAM11FT113.eop-nam11.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6648
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sDxjJ2AYfAEUJdCOcL+CnninMMNpikB7VkjhnIUbjiIS1ADFzvo8uJRY2Rnwx4aIyxOgaLOFRbGtPSasMHRsPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8355
 
-Add a debian container with cppcheck installation routine inside,
-capable of performing cppcheck analysis on Xen-only build including
-cross-builds for arm32 and x86_64.
+Versions of the two final patches were submitted standalone earlier
+on. The series here tries to carry out a suggestion from Andrew,
+which the two of us have been discussing. Then said previously posted
+patches are re-based on top, utilizing the new functionality.
 
-Populate build jobs making use of that container to run cppcheck
-analysis to produce a text report (xen-cppcheck.txt) containing the list
-of all the findings.
+Xen:
 
-This patch does not aim at performing any sort of bisection. Cppcheck is
-imperfect and for now, our goal is to at least be aware of its reports,
-so that we can compare them with the ones produced by better tools and
-to be able to see how these reports change as a result of further
-infrastructure improvements (e.g. exception list, rules exclusion).
+1: spec-ctrl: add logic to issue IBPB on exit to guest
+2: spec-ctrl: defer context-switch IBPB until guest entry
+3: limit issuing of IBPB during context switch
+4: PV: issue branch prediction barrier when switching 64-bit guest to kernel mode
 
-Signed-off-by: Michal Orzel <michal.orzel@amd.com>
----
-Changes in v2:
- - use arm64 container instead of x86 to make pipeline faster
- - explicitly set HYPERVISOR_ONLY=y for cppcheck jobs
+Linux (new):
 
-For convenience and own testing, I built and pushed the new container
-to registry. CI pipeline including dom0less series:
-https://gitlab.com/xen-project/people/morzel/xen-orzelmichal/-/pipelines/777181033
----
- .../build/debian/unstable-cppcheck.dockerfile | 37 ++++++++++++++++
- automation/gitlab-ci/build.yaml               | 43 +++++++++++++++++++
- automation/scripts/build                      | 11 ++++-
- 3 files changed, 90 insertions(+), 1 deletion(-)
- create mode 100644 automation/build/debian/unstable-cppcheck.dockerfile
+1: x86/Xen: make use of IBPB controlling VM assist
 
-diff --git a/automation/build/debian/unstable-cppcheck.dockerfile b/automation/build/debian/unstable-cppcheck.dockerfile
-new file mode 100644
-index 000000000000..54b99f87dfec
---- /dev/null
-+++ b/automation/build/debian/unstable-cppcheck.dockerfile
-@@ -0,0 +1,37 @@
-+FROM arm64v8/debian:unstable
-+LABEL maintainer.name="The Xen Project" \
-+      maintainer.email="xen-devel@lists.xenproject.org"
-+
-+ENV DEBIAN_FRONTEND=noninteractive
-+ENV CPPCHECK_VERSION=2.7
-+ENV USER root
-+
-+RUN mkdir /build
-+WORKDIR /build
-+
-+# dependencies for cppcheck and Xen-only build/cross-build
-+RUN apt-get update && \
-+    apt-get --quiet --yes install \
-+        build-essential \
-+        curl \
-+        python-is-python3 \
-+        libpcre3-dev \
-+        flex \
-+        bison \
-+        gcc-arm-linux-gnueabihf \
-+        gcc-x86-64-linux-gnu
-+
-+# cppcheck release build (see cppcheck readme.md)
-+RUN curl -fsSLO https://github.com/danmar/cppcheck/archive/"$CPPCHECK_VERSION".tar.gz && \
-+    tar xvzf "$CPPCHECK_VERSION".tar.gz && \
-+    cd cppcheck-"$CPPCHECK_VERSION" && \
-+    make install -j$(nproc) \
-+        MATCHCOMPILER=yes \
-+        FILESDIR=/usr/share/cppcheck \
-+        HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-+
-+# clean
-+RUN apt-get autoremove -y && \
-+    apt-get clean && \
-+    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/* && \
-+    rm -rf cppcheck-"$CPPCHECK_VERSION"* "$CPPCHECK_VERSION".tar.gz
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index 079e9b73f659..1441b7dbb6fa 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -7,6 +7,7 @@
-     paths:
-       - binaries/
-       - xen-config
-+      - xen-cppcheck.txt
-       - '*.log'
-       - '*/*.log'
-     when: always
-@@ -199,6 +200,23 @@
-   variables:
-     <<: *gcc
- 
-+.x86-64-cross-build-tmpl:
-+  <<: *build
-+  variables:
-+    XEN_TARGET_ARCH: x86_64
-+  tags:
-+    - arm64
-+
-+.x86-64-cross-build:
-+  extends: .x86-64-cross-build-tmpl
-+  variables:
-+    debug: n
-+
-+.gcc-x86-64-cross-build:
-+  extends: .x86-64-cross-build
-+  variables:
-+    <<: *gcc
-+
- # Jobs below this line
- 
- archlinux-gcc:
-@@ -699,6 +717,31 @@ archlinux-current-gcc-riscv64-debug-randconfig:
-     EXTRA_FIXED_RANDCONFIG:
-       CONFIG_COVERAGE=n
- 
-+# Cppcheck analysis jobs
-+
-+debian-unstable-gcc-cppcheck:
-+  extends: .gcc-x86-64-cross-build
-+  variables:
-+    CONTAINER: debian:unstable-cppcheck
-+    CROSS_COMPILE: /usr/bin/x86_64-linux-gnu-
-+    CPPCHECK: y
-+    HYPERVISOR_ONLY: y
-+
-+debian-unstable-gcc-arm32-cppcheck:
-+  extends: .gcc-arm32-cross-build
-+  variables:
-+    CONTAINER: debian:unstable-cppcheck
-+    CROSS_COMPILE: /usr/bin/arm-linux-gnueabihf-
-+    CPPCHECK: y
-+    HYPERVISOR_ONLY: y
-+
-+debian-unstable-gcc-arm64-cppcheck:
-+  extends: .gcc-arm64-build
-+  variables:
-+    CONTAINER: debian:unstable-cppcheck
-+    CPPCHECK: y
-+    HYPERVISOR_ONLY: y
-+
- ## Test artifacts common
- 
- .test-jobs-artifact-common:
-diff --git a/automation/scripts/build b/automation/scripts/build
-index f2f5e55bc04f..7d1b19c4250d 100755
---- a/automation/scripts/build
-+++ b/automation/scripts/build
-@@ -38,7 +38,16 @@ cp xen/.config xen-config
- # Directory for the artefacts to be dumped into
- mkdir binaries
- 
--if [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
-+if [[ "${CPPCHECK}" == "y" ]] && [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
-+    # Cppcheck analysis invokes Xen-only build.
-+    # Known limitation: cppcheck generates inconsistent reports when running
-+    # in parallel mode, therefore do not specify -j<n>.
-+    xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra
-+
-+    # Preserve artefacts
-+    cp xen/xen binaries/xen
-+    cp xen/cppcheck-report/xen-cppcheck.txt xen-cppcheck.txt
-+elif [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
-     # Xen-only build
-     make -j$(nproc) xen
- 
--- 
-2.25.1
-
+Jan
 
