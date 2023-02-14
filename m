@@ -2,52 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1377696841
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 16:39:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495213.765498 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8940696840
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 16:39:27 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495217.765528 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxOT-0001ad-Qr; Tue, 14 Feb 2023 15:38:57 +0000
+	id 1pRxOV-00026m-IK; Tue, 14 Feb 2023 15:38:59 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495213.765498; Tue, 14 Feb 2023 15:38:57 +0000
+Received: by outflank-mailman (output) from mailman id 495217.765528; Tue, 14 Feb 2023 15:38:59 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRxOT-0001XE-Ns; Tue, 14 Feb 2023 15:38:57 +0000
-Received: by outflank-mailman (input) for mailman id 495213;
- Tue, 14 Feb 2023 15:38:55 +0000
+	id 1pRxOV-00021f-9C; Tue, 14 Feb 2023 15:38:59 +0000
+Received: by outflank-mailman (input) for mailman id 495217;
+ Tue, 14 Feb 2023 15:38:57 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=Xrib=6K=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pRxOR-0001Wn-H1
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 15:38:55 +0000
+ id 1pRxOT-0001Wn-73
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 15:38:57 +0000
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on20600.outbound.protection.outlook.com
  [2a01:111:f400:7eae::600])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id af75abb3-ac7d-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 16:38:54 +0100 (CET)
-Received: from BN8PR07CA0020.namprd07.prod.outlook.com (2603:10b6:408:ac::33)
- by PH7PR12MB7844.namprd12.prod.outlook.com (2603:10b6:510:27b::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ id b07c23f2-ac7d-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 16:38:55 +0100 (CET)
+Received: from BN0PR04CA0001.namprd04.prod.outlook.com (2603:10b6:408:ee::6)
+ by CH2PR12MB4938.namprd12.prod.outlook.com (2603:10b6:610:34::24) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24; Tue, 14 Feb
- 2023 15:38:50 +0000
-Received: from BN8NAM11FT016.eop-nam11.prod.protection.outlook.com
- (2603:10b6:408:ac:cafe::3a) by BN8PR07CA0020.outlook.office365.com
- (2603:10b6:408:ac::33) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 15:38:51 +0000
+Received: from BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:ee:cafe::fe) by BN0PR04CA0001.outlook.office365.com
+ (2603:10b6:408:ee::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26 via Frontend
- Transport; Tue, 14 Feb 2023 15:38:50 +0000
+ Transport; Tue, 14 Feb 2023 15:38:51 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- BN8NAM11FT016.mail.protection.outlook.com (10.13.176.97) with Microsoft SMTP
+ BN8NAM11FT083.mail.protection.outlook.com (10.13.177.75) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6086.26 via Frontend Transport; Tue, 14 Feb 2023 15:38:50 +0000
+ 15.20.6086.26 via Frontend Transport; Tue, 14 Feb 2023 15:38:51 +0000
 Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
- 2023 09:38:49 -0600
+ 2023 09:38:50 -0600
 Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
  SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
- via Frontend Transport; Tue, 14 Feb 2023 09:38:48 -0600
+ via Frontend Transport; Tue, 14 Feb 2023 09:38:49 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -59,22 +59,22 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: af75abb3-ac7d-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: b07c23f2-ac7d-11ed-933c-83870f6b2ba8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l76iyEkYIughuGzCdunfHXJJDhYmt9tTpraRDyFf5LbzYUY/SJZI1CHz4aeDBthRZNhv8dx4TMJwipE7OcSaeotw4sH+U3P9RFr7XF6QkvxOKH5sDkklbDILiLO12HI0IowsUMUh0I/E99x2RvBpl1CZBilVv/kSXLzXT0HjXNhIK9mdBcvuXfKq6lEQEKxiTNiuY856XIxV+8LAFNzMlMXncrUZbXFVW89iVKJIZE6YaqVymxpSPgKLZhgQpELDknx+aI0lTN8TcJqs7gDGjKEONGQpo7TbzmEGjWBT1rTmNk2rIPrcsnB+Iq5G0vJLliAwes2uh8bsW2kUDHU0ww==
+ b=bZcH4xujC2G2v82cxAudHWpjXsFoRHAqdcXZ/oIv/aF/KHzqFk4Dc73AIibMKPPQ6FVM1XRiLM2y5hY05zNCIAV8lUWtuD/w9+0b2CD22nGFhVNH3UiI3JQSFEJKINFIHQrFQR96tEJKm2EWosfxl6kF0Ets/tnnCdOjX4pvIEjsfxRv9n0ydVLHb7qbA2P9Px8c1uxAbCpFt4Nrw6oR+B3LOnA/+aBmWFqB9JTJ0ZRylBpzKrn37CQ1jCy/hDXB3NbU5tn03q4PbcF8IOeu2Zi5EmcbX3DCYKGmur7ok79mM+oMpvv/5zFAOKh8FS0Ss8xSkKsOYcZOAjjpJuLtGQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=b0EpUoqR8Ti6mMX8h1TX8yK7lQ2ly00UlOlPVf05D8M=;
- b=czo20orL9s8AmhbE3L5FxpS7UVgk0utDi8z3rbqWjdOMnfUj588cJrOC2LzqsmFe0pstcHGWsSilJFV7wPp7gEXflXZy2DWB9tzGhNx4QtL1UpCMg8gns6yzeZl1NAtoGlfPb4doK/76mEZdmpCy/U6zR2/HiyxkOSZ8bTQaQqBxrkhRoilz+jrqPwDJfUUcN1ZU6D3kzuIHbVmOvPTTN+PMU52H9UG8IrpeBAjXeBFkGF7UXfveBk6m2q649/fuzyD8V0uSL3cVEWFY0r0bvLBnYxDJIhR1MLzClk07dzpQCTMeQjIqcFCSEKGMniVukmf7V8r0cINDvFm8/XMB3A==
+ bh=VrWoeY005CFD5W1azhm+V3ALraRSyeUKG95MNZECaF8=;
+ b=RiCQypaykDEH8zyEUyUnCglaMHqZ/Au4gy6thrngoWiVzNld56Y9+NFDfc/IpIM6m0fAy8OsUv4Pc6WXJPIHCaco2/Z7QpNTde5r19KWGVp0m5nY9JrYlCakvbHDK2pfVB+s9MPKV30Vbee+uLDQCw+uCEbjvSE/ngdorz8cglu2Ez5mGrMrYjXNnXmQxZtf05zd0g+cPQfzJIK5j/6CHsCyHvlLCe2mVBp3b3Pb5kutn2UouwGo/7ISBIAmZYB577veNqXr71CeQ7VYJlstt+J/MdzQNUJvxKNWbxUkDcDJYz5NczZn9dzPpmLUhP8x7JEY2NjaVE3In9TnGa1r6g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b0EpUoqR8Ti6mMX8h1TX8yK7lQ2ly00UlOlPVf05D8M=;
- b=AcxtLSPSg+WzlrhYkiwSTxzJPIjZReHAzDdciY8sl8skDH7fXdLQ9qno7xkrDrQCUeC8FTM6V1E8h8yHqSPGXHGHerZ6b4Tcj5bExgsiuzil0YjSzapWkdtUQ7F7polm2DDz/HIoUlLt/4mAp0GPdyCZw6NXbrm3clQiCKLn26E=
+ bh=VrWoeY005CFD5W1azhm+V3ALraRSyeUKG95MNZECaF8=;
+ b=ZtRAuO9swxrvYVM3aXHxqCAMhaaXvjROM6vt6tN6Q/4YAIhx6mXuzMGB1wggcOsE1BnZYpduLAlCyXK6PJLUiTCh6uervCpoWOg3ZhVAYYQL7LcfEYZYh3vpv4+n6vnkE3MojAJh/EktrRgLK//2AJWgyvtf/7hmx5vJFvHuYKU=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -85,9 +85,9 @@ From: Michal Orzel <michal.orzel@amd.com>
 To: <xen-devel@lists.xenproject.org>
 CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
 	Stefano Stabellini <sstabellini@kernel.org>
-Subject: [PATCH v2 3/5] automation: Add a static memory allocation test on arm32
-Date: Tue, 14 Feb 2023 16:38:40 +0100
-Message-ID: <20230214153842.15637-4-michal.orzel@amd.com>
+Subject: [PATCH v2 4/5] automation: Add a gzip compressed kernel image test on arm32
+Date: Tue, 14 Feb 2023 16:38:41 +0100
+Message-ID: <20230214153842.15637-5-michal.orzel@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20230214153842.15637-1-michal.orzel@amd.com>
 References: <20230214153842.15637-1-michal.orzel@amd.com>
@@ -96,137 +96,101 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN8NAM11FT016:EE_|PH7PR12MB7844:EE_
-X-MS-Office365-Filtering-Correlation-Id: a850e441-3bab-4253-0c6d-08db0ea191c1
+X-MS-TrafficTypeDiagnostic: BN8NAM11FT083:EE_|CH2PR12MB4938:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca799b3c-8d72-4548-8cc3-08db0ea1927d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	tAI1zthRDMO5RkWh29zxkBPijJagfdHvAcwxWx5N0EyRJmEs9bN32OB2oMswlzp5qWpdx7rjO1SE4gUpYJLc5N1Boh3EUTxgaWYWVv9posXW/6aPPgLfzq8t7acl3WBrixe36ikxNx6nfdbJ60vufY1mkvTBIbKxN4ZwuniU/WqYkVuSBzasnJQOvoc8uf2lB+D9zXsKQ/K4yP5ADizja/aMtrB+EDlEuLemdaYSaE7iYvscdHgp3tRnxzHtyUQEqhc/F+jYqK4jrDLald1QHOBUJRf8V6mUOcyEY+sFRZflHEKiKF9jB9lBGeepSAs/s+gauMxtTogjT8eNP7FtWknqhzM5d24wjEia1zSpuk4tsZztc+gv9/P1qITsHFc213QWU2ZVbV+BRXJWtIhi3q8SRKUdj9VNcnVGAEdURg3lAnBkEJLBOhzAKayhWmyBJX6jyXsj5JxpVdWKEjvARWY8N3DyPJww6EywOuczEfJsDTiNZ0nKW1nZEZn/v+HxqijREIbu7rS4r464MZxvydZbHkQgfZJ6b74ZBOuNSS2tevYlQMg5VgPltg1dp93hzu3yglP6wtF2L7wVGyhkyuCG8UTWAvlT1/+rJsxPL0KRDNat3SmHY1RNgh6crQxovFAjyIBMrHI0xqlRlaNO8TQmkJN7/uCm1X9vUGSorVByGJAAnxdR9yH67v2olZWLBHW0P3aQbnW5H6MznBxsFxJpW+x+uDKLK+vCWX5Aui9JmKi4OtTH+3os/EtmZCID
+	stVE1UCSS1wdeJf9uMFsK6dHh4qQNpqq4EWDgy1025opqGjI6rbH4aYnZ/UY57jI/nGzzXCNsUIp7TCteN2OXfyfEMHiDHY8YF/uQIFBAjva7q4fNHh7lbSpLEv/N1n3gc6aEazrhxw1tSoFsI0058zskyFlDovgoxRhICN18/4ss3fWz840QGAghWa4l0BKP+tvs4X2u04RrSbykLKUxS9aDQZBT/9nB+aYaEIHkrmVHuFw038jTHno0dZ8Yw+t//XUiJs9jfsGLjII37TAmbgN7z1otX269ESB2ui7QN2NIi0XoW2fHMHxdNJZFNI6l+2bdN0JNX3FVFo+NaNFxU1XpQcF7Br2oqUC3jD0goZRng644DmzaRvJAV3K/XLSXBQADDS+7bqAbMO0gP/tN+MTLN5fS1L275DSvMnpESU19F/VPgZxdNNN1///vLAntg87KpMUVjOImYCnBRYAQ/DERJaacUNaPchfkbdutsAfrt9r/qny8zVyEh6QDk3yXvbt+2P6twCDLKSCPyzAmeZetlo5c088vIbQK/Y7rjX0si7bfB4JMZW6n232VNNpo370+wGPVKlREpZ6ktikCnm1u05wKQNa2GkhCi7fpgByUZ3IMY017rHrP1pjOO7AeKLXnq6QdpMWD9FH02h15EydUeNt1pwHRq1ul6EY58lgIorEh+4mobvyb1ywqqJ4WHJLGqbJ4qazxg3Wsv127uOLeoBPUGAM4I+vjkBC1xE=
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(396003)(346002)(376002)(136003)(39860400002)(451199018)(40470700004)(46966006)(36840700001)(82310400005)(40460700003)(478600001)(966005)(6666004)(26005)(2616005)(40480700001)(1076003)(41300700001)(186003)(6916009)(70206006)(356005)(8676002)(70586007)(4326008)(316002)(8936002)(82740400003)(86362001)(47076005)(81166007)(83380400001)(426003)(36756003)(36860700001)(54906003)(5660300002)(44832011)(2906002)(336012)(36900700001)(139555002);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(39860400002)(396003)(346002)(136003)(376002)(451199018)(36840700001)(46966006)(40470700004)(82740400003)(40460700003)(2906002)(478600001)(83380400001)(356005)(26005)(1076003)(186003)(6666004)(36756003)(966005)(5660300002)(41300700001)(44832011)(36860700001)(70586007)(70206006)(8936002)(6916009)(8676002)(4326008)(82310400005)(81166007)(86362001)(426003)(54906003)(40480700001)(336012)(47076005)(2616005)(316002)(36900700001);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 15:38:50.0616
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 15:38:51.2969
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a850e441-3bab-4253-0c6d-08db0ea191c1
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca799b3c-8d72-4548-8cc3-08db0ea1927d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN8NAM11FT016.eop-nam11.prod.protection.outlook.com
+	BN8NAM11FT083.eop-nam11.prod.protection.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7844
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4938
 
-Add a new test job qemu-smoke-dom0less-arm32-gcc-staticmem in debug
-and non-debug variant that will execute qemu-smoke-dom0less-arm32.sh
-script to test static memory allocation feature. The test case itself
-is directly taken from dom0less arm64 testing.
+Xen supports booting gzip compressed kernels, therefore add a new test
+job qemu-smoke-dom0less-arm32-gcc-gzip in debug and non-debug variant
+that will execute qemu-smoke-dom0less-arm32.sh script to test booting
+a domU with a gzip compressed kernel image (in our case zImage).
 
-Populate build jobs to compile Xen with config options necessary to
-enable static memory feature. Populate test jobs passing "static-mem"
-as a test variant. The test configures domU with a static memory region
-(direct-mapped) and adds a check using /proc/iomem to determine the
-memory region marked as "System RAM".
+By passing "gzip" as a test variant, the test will call gzip command
+to compress kernel image and use it in ImageBuilder configuration for
+domU1. No need for a specific check to be executed from domU. Being able
+to see a test message from a boot log is sufficient to mark a test as
+passed.
 
 Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 ---
 Changes in v2:
- - take into account new container for arm32 cross builds
+ - take into account dom0 presence
  - drop Rb as a result of code changes
 ---
- automation/gitlab-ci/build.yaml               | 20 +++++++++++++++++++
- automation/gitlab-ci/test.yaml                | 16 +++++++++++++++
- .../scripts/qemu-smoke-dom0less-arm32.sh      | 17 ++++++++++++++++
- 3 files changed, 53 insertions(+)
+ automation/gitlab-ci/test.yaml                  | 16 ++++++++++++++++
+ automation/scripts/qemu-smoke-dom0less-arm32.sh | 13 +++++++++++++
+ 2 files changed, 29 insertions(+)
 
-diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-index f8e156e0a994..079e9b73f659 100644
---- a/automation/gitlab-ci/build.yaml
-+++ b/automation/gitlab-ci/build.yaml
-@@ -565,6 +565,26 @@ debian-unstable-gcc-arm32-debug-randconfig:
-     HYPERVISOR_ONLY: y
-     RANDCONFIG: y
- 
-+debian-unstable-gcc-arm32-staticmem:
-+  extends: .gcc-arm32-cross-build
-+  variables:
-+    CONTAINER: debian:unstable-arm64v8-arm32-gcc
-+    HYPERVISOR_ONLY: y
-+    EXTRA_XEN_CONFIG: |
-+      CONFIG_EXPERT=y
-+      CONFIG_UNSUPPORTED=y
-+      CONFIG_STATIC_MEMORY=y
-+
-+debian-unstable-gcc-arm32-debug-staticmem:
-+  extends: .gcc-arm32-cross-build-debug
-+  variables:
-+    CONTAINER: debian:unstable-arm64v8-arm32-gcc
-+    HYPERVISOR_ONLY: y
-+    EXTRA_XEN_CONFIG: |
-+      CONFIG_EXPERT=y
-+      CONFIG_UNSUPPORTED=y
-+      CONFIG_STATIC_MEMORY=y
-+
- # Arm builds
- 
- debian-unstable-gcc-arm64:
 diff --git a/automation/gitlab-ci/test.yaml b/automation/gitlab-ci/test.yaml
-index 84ab1fee50a4..c2bcc5d4d3e5 100644
+index c2bcc5d4d3e5..be7a55d89708 100644
 --- a/automation/gitlab-ci/test.yaml
 +++ b/automation/gitlab-ci/test.yaml
-@@ -226,6 +226,22 @@ qemu-smoke-dom0less-arm32-gcc-debug:
+@@ -242,6 +242,22 @@ qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
      - *arm32-test-needs
-     - debian-unstable-gcc-arm32-debug
+     - debian-unstable-gcc-arm32-debug-staticmem
  
-+qemu-smoke-dom0less-arm32-gcc-staticmem:
++qemu-smoke-dom0less-arm32-gcc-gzip:
 +  extends: .qemu-arm32
 +  script:
-+    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
++    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
 +  needs:
 +    - *arm32-test-needs
-+    - debian-unstable-gcc-arm32-staticmem
++    - debian-unstable-gcc-arm32
 +
-+qemu-smoke-dom0less-arm32-gcc-debug-staticmem:
++qemu-smoke-dom0less-arm32-gcc-debug-gzip:
 +  extends: .qemu-arm32
 +  script:
-+    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh static-mem 2>&1 | tee ${LOGFILE}
++    - ./automation/scripts/qemu-smoke-dom0less-arm32.sh gzip 2>&1 | tee ${LOGFILE}
 +  needs:
 +    - *arm32-test-needs
-+    - debian-unstable-gcc-arm32-debug-staticmem
++    - debian-unstable-gcc-arm32-debug
 +
  qemu-alpine-x86_64-gcc:
    extends: .qemu-x86-64
    script:
 diff --git a/automation/scripts/qemu-smoke-dom0less-arm32.sh b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-index e3f2b28f3f89..bd89a3f8b45e 100755
+index bd89a3f8b45e..c2e331451d99 100755
 --- a/automation/scripts/qemu-smoke-dom0less-arm32.sh
 +++ b/automation/scripts/qemu-smoke-dom0less-arm32.sh
-@@ -20,6 +20,19 @@ echo \"${passed}\"
+@@ -33,6 +33,15 @@ fi
  "
  fi
  
-+if [[ "${test_variant}" == "static-mem" ]]; then
-+    # Memory range that is statically allocated to domU1
-+    domu_base="0x50000000"
-+    domu_size="0x20000000"
++if [[ "${test_variant}" == "gzip" ]]; then
++    # Compress kernel image with gzip (keep unmodified one for dom0)
++    gzip -k vmlinuz
 +    passed="${test_variant} test passed"
 +    domU_check="
-+mem_range=$(printf \"%08x-%08x\" ${domu_base} $(( ${domu_base} + ${domu_size} - 1 )))
-+if grep -q -x \"\${mem_range} : System RAM\" /proc/iomem; then
-+    echo \"${passed}\"
-+fi
++echo \"${passed}\"
 +"
 +fi
 +
  # dom0/domU rootfs
  # We are using the same rootfs for dom0 and domU. The only difference is
  # that for the former, we set explictly rdinit to /bin/sh, whereas for the
-@@ -72,6 +85,10 @@ BOOT_CMD="bootm"
- UBOOT_SOURCE="boot.source"
- UBOOT_SCRIPT="boot.scr"' > config
+@@ -89,6 +98,10 @@ if [[ "${test_variant}" == "static-mem" ]]; then
+     echo -e "\nDOMU_STATIC_MEM[0]=\"${domu_base} ${domu_size}\"" >> config
+ fi
  
-+if [[ "${test_variant}" == "static-mem" ]]; then
-+    echo -e "\nDOMU_STATIC_MEM[0]=\"${domu_base} ${domu_size}\"" >> config
++if [[ "${test_variant}" == "gzip" ]]; then
++    sed -i 's/DOMU_KERNEL\[0\]=.*/DOMU_KERNEL\[0\]="vmlinuz.gz"/' config
 +fi
 +
  rm -rf imagebuilder
