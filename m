@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4D0A6970B7
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 23:26:44 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495593.765939 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F3206971B5
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 00:20:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495600.765951 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pS3k0-0004P7-Ig; Tue, 14 Feb 2023 22:25:36 +0000
+	id 1pS4aZ-0002cp-EA; Tue, 14 Feb 2023 23:19:55 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495593.765939; Tue, 14 Feb 2023 22:25:36 +0000
+Received: by outflank-mailman (output) from mailman id 495600.765951; Tue, 14 Feb 2023 23:19:55 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pS3k0-0004NQ-Fp; Tue, 14 Feb 2023 22:25:36 +0000
-Received: by outflank-mailman (input) for mailman id 495593;
- Tue, 14 Feb 2023 22:25:35 +0000
+	id 1pS4aZ-0002ay-BO; Tue, 14 Feb 2023 23:19:55 +0000
+Received: by outflank-mailman (input) for mailman id 495600;
+ Tue, 14 Feb 2023 23:19:54 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=nHuR=6K=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pS3jz-0004NG-09
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 22:25:35 +0000
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [2604:1380:4641:c500::1])
+ id 1pS4aY-0002aq-Eq
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 23:19:54 +0000
+Received: from dfw.source.kernel.org (dfw.source.kernel.org [139.178.84.217])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 7e00cd9d-acb6-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 23:25:33 +0100 (CET)
+ id 10577463-acbe-11ed-933c-83870f6b2ba8;
+ Wed, 15 Feb 2023 00:19:51 +0100 (CET)
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3AE4361937;
- Tue, 14 Feb 2023 22:25:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FFAC433EF;
- Tue, 14 Feb 2023 22:25:29 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E829B6194D;
+ Tue, 14 Feb 2023 23:19:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84322C433D2;
+ Tue, 14 Feb 2023 23:19:40 +0000 (UTC)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,270 +43,128 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 7e00cd9d-acb6-11ed-933c-83870f6b2ba8
+X-Inumbo-ID: 10577463-acbe-11ed-933c-83870f6b2ba8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676413530;
-	bh=7NFfVDI72T27LvlvJp/EOq8RRDqEW1nSI1jeM0wJ26M=;
+	s=k20201202; t=1676416781;
+	bh=Mp62uhTPJWNACpVdBtbuSRreZI0BhK90COKIax8rGiA=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=eIYDXIIIs2NRU33fK8C7rir3SXF4GY17v5fuHm8wrBTmd8SgFYCPKk1ZNYFdOXcMr
-	 chMdZSfAYrqx9RsZzYgGbVCd0XAqBppVlTlAEa9rHCqNniC2djmwjQ0qxHXvrNATwc
-	 xhOx5uERUDBlMmC/22hPuxpaV8IDU8SIo3iKBxyAvrxnjdCK050uuqNrjBG6Exl0BQ
-	 NOX78A3GSCGYsWMtPwmprEysbr9EivGBUzXOQ17N+HMv3cG2zalAO+FFnXWG/DKQwi
-	 XodnUNqOP1g7kjwHBv8XCcB1yfPSpucTGUS9Wx4yt/pqn4aczxopOZLYd2lMPscMVu
-	 4bI4qN99Nk6dA==
-Date: Tue, 14 Feb 2023 14:25:27 -0800 (PST)
+	b=qkOO67MnJmuBxGKAh0fE+vlpj/W9+Solll4cZn463ijZYeOevcs8wpMwYBk73Exqr
+	 zq9dslcL9cf3Bw6o1EgZfkVOrwo3d9hpgSMnc+lc88HMMR3UTNs1G4rRpKGji8xZDM
+	 w016kRz7yJYa6iKjRAOY504PnoeS2Zva2QbWuyyde/OC/Qs1dukNngcvBH80lzs7gm
+	 GIFEQvD/WrTpxIGzTNxlmeRyV1qU9+bQSWB8r4VhgFjyu4xXwjdq3JywdMj1LnwBLs
+	 daOD5i8MnKMXj9uB9jKx5QqkBvggzqOX2Uev3Tl1ZKJv9X4Lw7Xluk1WuKhHi89ZFT
+	 iIsrgBwbRoYhw==
+Date: Tue, 14 Feb 2023 15:19:38 -0800 (PST)
 From: Stefano Stabellini <sstabellini@kernel.org>
 X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Jan Beulich <jbeulich@suse.com>
-cc: Luca Fancellu <luca.fancellu@arm.com>, wei.chen@arm.com, 
-    bertrand.marquis@arm.com, Andrew Cooper <andrew.cooper3@citrix.com>, 
-    George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, 
-    Stefano Stabellini <sstabellini@kernel.org>, 
-    Michal Orzel <michal.orzel@amd.com>, Wei Liu <wl@xen.org>, 
-    xen-devel@lists.xenproject.org
-Subject: Re: [PATCH 2/2] xen/misra: add entries to exclude-list.json
-In-Reply-To: <b893c489-53e1-7e23-c3c8-9fd6bc846e5d@suse.com>
-Message-ID: <alpine.DEB.2.22.394.2302141415520.2025117@ubuntu-linux-20-04-desktop>
-References: <20230214085635.3170962-1-luca.fancellu@arm.com> <20230214085635.3170962-3-luca.fancellu@arm.com> <b893c489-53e1-7e23-c3c8-9fd6bc846e5d@suse.com>
+To: Michal Orzel <michal.orzel@amd.com>
+cc: xen-devel@lists.xenproject.org, Doug Goldstein <cardoe@cardoe.com>, 
+    Stefano Stabellini <sstabellini@kernel.org>, andrew.cooper3@citrix.com
+Subject: Re: [PATCH v2 1/5] automation: Switch arm32 cross builds to run on
+ arm64
+In-Reply-To: <20230214153842.15637-2-michal.orzel@amd.com>
+Message-ID: <alpine.DEB.2.22.394.2302141519270.2025117@ubuntu-linux-20-04-desktop>
+References: <20230214153842.15637-1-michal.orzel@amd.com> <20230214153842.15637-2-michal.orzel@amd.com>
 User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Tue, 14 Feb 2023, Jan Beulich wrote:
-> On 14.02.2023 09:56, Luca Fancellu wrote:
-> > --- a/docs/misra/exclude-list.json
-> > +++ b/docs/misra/exclude-list.json
-> > @@ -1,4 +1,209 @@
-> >  {
-> >      "version": "1.0",
-> > -    "content": []
-> > +    "content": [
-> > +        {
-> > +            "rel_path": "arch/arm/arm64/cpufeature.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/arm/arm64/insn.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/arm/arm64/lib/find_next_bit.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/boot.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/cpu_idle.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/cpufreq/cpufreq.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/cpuidle_menu.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/lib.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/acpi/power.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/amd.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/centaur.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/common.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/hygon.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/intel.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/intel_cacheinfo.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/mcheck/mce-apei.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/mcheck/non-fatal.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/mtrr/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/cpu/mwait-idle.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/delay.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/dmi_scan.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/domain.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/genapic/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/i387.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/irq.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/mpparse.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/srat.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/time.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/traps.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/usercopy.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "arch/x86/x86_64/mmconf-fam10h.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/bitmap.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/bunzip2.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/cpu.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/earlycpio.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/inflate.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/libfdt/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/lz4/decompress.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/notifier.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/radix-tree.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/rcupdate.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/softirq.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/tasklet.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/ubsan/ubsan.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/un*.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/vsprintf.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/xz/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "common/zstd/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "crypto/rijndael.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "crypto/vmac.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/apei/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/hwregs.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/numa.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/osl.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/reboot.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/tables.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/tables/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/acpi/utilities/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/char/ehci-dbgp.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/char/xhci-dbc.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/cpufreq/*"
-> > +        },
-> > +        {
-> > +            "rel_path": "drivers/video/font_*"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/list-sort.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/mem*.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/rbtree.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/str*.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/xxhash32.c"
-> > +        },
-> > +        {
-> > +            "rel_path": "lib/xxhash64.c"
-> > +        }
-> > +    ]
-> >  }
+On Tue, 14 Feb 2023, Michal Orzel wrote:
+> Due to the limited x86 CI resources slowing down the whole pipeline,
+> switch the arm32 cross builds to be executed on arm64 which is much more
+> capable. For that, rename the existing debian container dockerfile
+> from unstable-arm32-gcc to unstable-arm64v8-arm32-gcc and use
+> arm64v8/debian:unstable as an image. Note, that we cannot use the same
+> container name as we have to keep the backwards compatibility.
+> Take the opportunity to remove extra empty line at the end of a file.
 > 
-> Patch 1's example has a "comment" field, which no entry makes use of.
-> Without that, how does it become clear _why_ a particular file is to
-> be excluded? The patch description here also doesn't provide any
-> justification ...
+> Modify the tag of .arm32-cross-build-tmpl to arm64 and update the build
+> jobs accordingly.
+> 
+> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
 
-It would be good to have a couple of pre-canned justifications as the
-reason for excluding one file could be different from the reason for
-excluding another file. Some of the reasons:
-
-- imported from Linux
-- too many false positives
+Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
 
 
-That said, we don't necessarily need to know the exact reason for
-excluding one file to be able to start scanning xen with cppcheck
-automatically. If someone wants to remove a file from the exclude list
-in the future they just need to show that cppcheck does a good job at
-scanning the file and we can handle the number of violations.
+> ---
+> Changes in v2:
+>  - new patch
+> 
+> For convenience and own testing, I built and pushed the new container
+> to registry.
 
-I take that with this exclude list, not accounting for rule 20.7,
-cppcheck reports zero violations overall?
+Thanks!
+
+
+> ---
+>  ...ockerfile => unstable-arm64v8-arm32-gcc.dockerfile} |  3 +--
+>  automation/gitlab-ci/build.yaml                        | 10 +++++-----
+>  2 files changed, 6 insertions(+), 7 deletions(-)
+>  rename automation/build/debian/{unstable-arm32-gcc.dockerfile => unstable-arm64v8-arm32-gcc.dockerfile} (94%)
+> 
+> diff --git a/automation/build/debian/unstable-arm32-gcc.dockerfile b/automation/build/debian/unstable-arm64v8-arm32-gcc.dockerfile
+> similarity index 94%
+> rename from automation/build/debian/unstable-arm32-gcc.dockerfile
+> rename to automation/build/debian/unstable-arm64v8-arm32-gcc.dockerfile
+> index b41a57f19729..11860425a6a2 100644
+> --- a/automation/build/debian/unstable-arm32-gcc.dockerfile
+> +++ b/automation/build/debian/unstable-arm64v8-arm32-gcc.dockerfile
+> @@ -1,4 +1,4 @@
+> -FROM debian:unstable
+> +FROM arm64v8/debian:unstable
+>  LABEL maintainer.name="The Xen Project" \
+>        maintainer.email="xen-devel@lists.xenproject.org"
+>  
+> @@ -21,4 +21,3 @@ RUN apt-get update && \
+>          apt-get autoremove -y && \
+>          apt-get clean && \
+>          rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/*
+> -
+> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+> index a053c5c7325d..f8e156e0a994 100644
+> --- a/automation/gitlab-ci/build.yaml
+> +++ b/automation/gitlab-ci/build.yaml
+> @@ -123,7 +123,7 @@
+>    variables:
+>      XEN_TARGET_ARCH: arm32
+>    tags:
+> -    - x86_64
+> +    - arm64
+>  
+>  .arm32-cross-build:
+>    extends: .arm32-cross-build-tmpl
+> @@ -542,26 +542,26 @@ alpine-3.12-clang-debug:
+>  debian-unstable-gcc-arm32:
+>    extends: .gcc-arm32-cross-build
+>    variables:
+> -    CONTAINER: debian:unstable-arm32-gcc
+> +    CONTAINER: debian:unstable-arm64v8-arm32-gcc
+>      HYPERVISOR_ONLY: y
+>  
+>  debian-unstable-gcc-arm32-debug:
+>    extends: .gcc-arm32-cross-build-debug
+>    variables:
+> -    CONTAINER: debian:unstable-arm32-gcc
+> +    CONTAINER: debian:unstable-arm64v8-arm32-gcc
+>      HYPERVISOR_ONLY: y
+>  
+>  debian-unstable-gcc-arm32-randconfig:
+>    extends: .gcc-arm32-cross-build
+>    variables:
+> -    CONTAINER: debian:unstable-arm32-gcc
+> +    CONTAINER: debian:unstable-arm64v8-arm32-gcc
+>      HYPERVISOR_ONLY: y
+>      RANDCONFIG: y
+>  
+>  debian-unstable-gcc-arm32-debug-randconfig:
+>    extends: .gcc-arm32-cross-build-debug
+>    variables:
+> -    CONTAINER: debian:unstable-arm32-gcc
+> +    CONTAINER: debian:unstable-arm64v8-arm32-gcc
+>      HYPERVISOR_ONLY: y
+>      RANDCONFIG: y
+>  
+> -- 
+> 2.25.1
+> 
 
