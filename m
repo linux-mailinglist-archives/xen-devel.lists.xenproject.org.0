@@ -2,35 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF004695CB0
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 09:16:10 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495018.765268 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA9F695DB5
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 09:57:44 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495056.765297 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRqSo-0008RQ-3S; Tue, 14 Feb 2023 08:14:58 +0000
+	id 1pRr7O-00069O-P9; Tue, 14 Feb 2023 08:56:54 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495018.765268; Tue, 14 Feb 2023 08:14:58 +0000
+Received: by outflank-mailman (output) from mailman id 495056.765297; Tue, 14 Feb 2023 08:56:54 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRqSo-0008PL-0d; Tue, 14 Feb 2023 08:14:58 +0000
-Received: by outflank-mailman (input) for mailman id 495018;
- Tue, 14 Feb 2023 08:14:56 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pRqSm-0008PB-Oq; Tue, 14 Feb 2023 08:14:56 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pRqSm-0000zq-Mi; Tue, 14 Feb 2023 08:14:56 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pRqSm-0004lE-Hn; Tue, 14 Feb 2023 08:14:56 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pRqSm-0008NT-HJ; Tue, 14 Feb 2023 08:14:56 +0000
+	id 1pRr7O-00066J-Lp; Tue, 14 Feb 2023 08:56:54 +0000
+Received: by outflank-mailman (input) for mailman id 495056;
+ Tue, 14 Feb 2023 08:56:54 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=anql=6K=arm.com=luca.fancellu@srs-se1.protection.inumbo.net>)
+ id 1pRr7O-00066D-2l
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 08:56:54 +0000
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTP
+ id 8616a93d-ac45-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 09:56:53 +0100 (CET)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4A9931042;
+ Tue, 14 Feb 2023 00:57:34 -0800 (PST)
+Received: from e109506.cambridge.arm.com (e109506.cambridge.arm.com
+ [10.1.199.62])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 52C813F703;
+ Tue, 14 Feb 2023 00:56:50 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +43,49 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=HfVuaVqEORzvXePh8gl6cUNjc0od1jnEJFUOqnFHrAs=; b=gfnOaYnLJIXaYYeY8xTudIKJH1
-	l8HFzjGk0uyMWcHb3En/FpRbYz5s9AMl3z2bKTlgkhhbEv3TbE+F5MckV+eoxCCwL7T7GVI+B8Dsl
-	6q0GpVuOcOfk3Gyr6owmSAUQ+lAWTU4Ah6kD154aVrOZmisJiPvIJxIQtymoZMBfNCxI=;
+X-Inumbo-ID: 8616a93d-ac45-11ed-933c-83870f6b2ba8
+From: Luca Fancellu <luca.fancellu@arm.com>
 To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-177239-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+Cc: wei.chen@arm.com,
+	bertrand.marquis@arm.com,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	George Dunlap <george.dunlap@citrix.com>,
+	Jan Beulich <jbeulich@suse.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Michal Orzel <michal.orzel@amd.com>,
+	Wei Liu <wl@xen.org>
+Subject: [PATCH 0/2] xen/misra: create exclusion file list
+Date: Tue, 14 Feb 2023 08:56:33 +0000
+Message-Id: <20230214085635.3170962-1-luca.fancellu@arm.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Subject: [ovmf test] 177239: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=540522fec06b87bf11ad5624abe23b515f282d60
-X-Osstest-Versions-That:
-    ovmf=b3f321f2d7871868951cf73edb8fa4d5a88854a5
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Tue, 14 Feb 2023 08:14:56 +0000
+Content-Transfer-Encoding: 8bit
 
-flight 177239 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/177239/
+This serie is introducing an exclusion list for the misra analysis, at the
+moment only cppcheck can benefit from it because it's the tool where we
+control every step and configuration.
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 540522fec06b87bf11ad5624abe23b515f282d60
-baseline version:
- ovmf                 b3f321f2d7871868951cf73edb8fa4d5a88854a5
+Exclude a file from the analysis is the last step we should do, but sometime it
+is unavoidable because we can't do direct changes to it to fix/deviate from
+findings.
+So we declare the file(s) here and we leave the burden of the misra compliance
+to the final user.
 
-Last test of basis   177223  2023-02-14 00:11:46 Z    0 days
-Testing same since   177239  2023-02-14 03:48:16 Z    0 days    1 attempts
+Luca Fancellu (2):
+  xen/cppcheck: add a way to exclude files from the scan
+  xen/misra: add entries to exclude-list.json
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Michael Kubacki <michael.kubacki@microsoft.com>
+ docs/misra/exclude-list.json                  | 209 ++++++++++++++++++
+ docs/misra/exclude-list.rst                   |  44 ++++
+ xen/scripts/xen_analysis/cppcheck_analysis.py |  21 +-
+ .../xen_analysis/exclusion_file_list.py       |  79 +++++++
+ 4 files changed, 351 insertions(+), 2 deletions(-)
+ create mode 100644 docs/misra/exclude-list.json
+ create mode 100644 docs/misra/exclude-list.rst
+ create mode 100644 xen/scripts/xen_analysis/exclusion_file_list.py
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+-- 
+2.25.1
 
-
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
-
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
-
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
-
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
-
-
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   b3f321f2d7..540522fec0  540522fec06b87bf11ad5624abe23b515f282d60 -> xen-tested-master
 
