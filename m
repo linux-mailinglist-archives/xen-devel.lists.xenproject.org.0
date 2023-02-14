@@ -2,36 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51CB86967A0
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 16:10:03 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495199.765475 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5E045696843
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 16:39:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495215.765509 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRwux-0005X7-5N; Tue, 14 Feb 2023 15:08:27 +0000
+	id 1pRxOU-0001o7-GJ; Tue, 14 Feb 2023 15:38:58 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495199.765475; Tue, 14 Feb 2023 15:08:27 +0000
+Received: by outflank-mailman (output) from mailman id 495215.765509; Tue, 14 Feb 2023 15:38:58 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRwux-0005Uc-2A; Tue, 14 Feb 2023 15:08:27 +0000
-Received: by outflank-mailman (input) for mailman id 495199;
- Tue, 14 Feb 2023 15:08:25 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pRxOU-0001hm-A6; Tue, 14 Feb 2023 15:38:58 +0000
+Received: by outflank-mailman (input) for mailman id 495215;
+ Tue, 14 Feb 2023 15:38:56 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=mQZL=6K=invisiblethingslab.com=demi@srs-se1.protection.inumbo.net>)
- id 1pRwuu-0005UW-Vj
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 15:08:25 +0000
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 69e86ac7-ac79-11ed-93b5-47a8fe42b414;
- Tue, 14 Feb 2023 16:08:20 +0100 (CET)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 4CE1A5C00E9;
- Tue, 14 Feb 2023 10:08:18 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Tue, 14 Feb 2023 10:08:18 -0500
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 14 Feb 2023 10:08:16 -0500 (EST)
+ <SRS0=Xrib=6K=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pRxOS-0001Wn-71
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 15:38:56 +0000
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on20602.outbound.protection.outlook.com
+ [2a01:111:f400:fe5a::602])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id ae3d67da-ac7d-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 16:38:53 +0100 (CET)
+Received: from MW4PR03CA0320.namprd03.prod.outlook.com (2603:10b6:303:dd::25)
+ by PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.19; Tue, 14 Feb
+ 2023 15:38:47 +0000
+Received: from CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:dd:cafe::c6) by MW4PR03CA0320.outlook.office365.com
+ (2603:10b6:303:dd::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
+ Transport; Tue, 14 Feb 2023 15:38:47 +0000
+Received: from SATLEXMB03.amd.com (165.204.84.17) by
+ CO1NAM11FT088.mail.protection.outlook.com (10.13.175.131) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6111.10 via Frontend Transport; Tue, 14 Feb 2023 15:38:46 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
+ 2023 09:38:45 -0600
+Received: from XIR-MICHALO-L1.xilinx.com (10.180.168.240) by
+ SATLEXMB04.amd.com (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34
+ via Frontend Transport; Tue, 14 Feb 2023 09:38:44 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,221 +59,91 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 69e86ac7-ac79-11ed-93b5-47a8fe42b414
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to; s=fm3; t=1676387298; x=
-	1676473698; bh=elzZ43LKNtskgQb+dtRg8bbRNCKz8uQV13+HixszXXw=; b=N
-	110Tcn9D2Uj0Uv03GzqmQSFJnlv3ur3LQcVWbYZ/mMfCHfkioAgPnzJFgSsfHMEG
-	ar/abhLEF8DAKi58gPlkJGAkfZ836ualJblNnaxznOLV6xi2vX3pDfHd6SBn2LD+
-	R3a2kLuaYyPjQuDOAjDEXSW9/dvJ02mCTkwbSM6Os7W7f3MDIgno9OKUlpRsZCBv
-	u+bP0DeVmGTmgNruxUpdmHzpnA9t263x1MFY6fq+5UONkIZFkccl/E+eIzlV8s9l
-	fZtidTL0kWZFg20AS36Bh7G6ogR6+7YhQt/tf0L9LjxAIL43Dfw9RG/plpB1wNvD
-	g3knDshKS0JjwkPOQ7htA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
-	:feedback-id:from:from:in-reply-to:in-reply-to:message-id
-	:mime-version:references:reply-to:sender:subject:subject:to:to
-	:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm1; t=1676387298; x=1676473698; bh=elzZ43LKNtskgQb+dtRg8bbRNCKz
-	8uQV13+HixszXXw=; b=FF+oibrueivLy4Vkd4Ee9TmjKrL8N18HpPdXEv7Uyv6E
-	a4PjO6MeUiO/Ugs/VmQ1XWYax50qok+pTJ4APDD3gcj/G0NY4rp3brpL2szW3Ncn
-	fK3+8tpOavrIF0x6xOB++W02Kx7vDNi3Vsx5IzaF2fAPHRv36wrbkTY3UZiZcgfT
-	66zWouod/15ZlWMEM0Oy1xB5KzqyKcuPDE0rZWZFZWiG0PQgVI/CcY2iaZ7lj2C6
-	9Ok9ahKPAJL8VYOlxPd9gFLlw/+34ISbqdYtptwmoB18JIW2sQINQYuU2sx8vjbk
-	r4lm16DPq+bQKnuHUdE2UT1yhf0/GoPGBbYEscOPVw==
-X-ME-Sender: <xms:4aPrY_zIE4m6fyiPmdBpU5VWU_1DGrNLSodizUxHlHPrDH5YRM8VaA>
-    <xme:4aPrY3QXRTySyuTn71tf-7sFM7bluB1PSEhHoc5Kf6ySyuvmVu1KBVwrs68vYCxm3
-    hpGfNOjt_cunp0>
-X-ME-Received: <xmr:4aPrY5WMzeomYNeKCP0zdTWUdbmk7HdoZq-xDr2DF3PgEmg-00j3FAsq5aI>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudeifedgieehucetufdoteggodetrfdotf
-    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-    cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtjeenucfhrhhomhepffgvmhhi
-    ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
-    hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepvdejteegkefhteduhffgteffgeff
-    gfduvdfghfffieefieekkedtheegteehffelnecuvehluhhsthgvrhfuihiivgeptdenuc
-    frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
-    lhgrsgdrtghomh
-X-ME-Proxy: <xmx:4aPrY5glErqjNlL9ZTrCi1xOU70F9nHcxTY__PgPHH3fty_Owb4ihA>
-    <xmx:4aPrYxBW5Dv-WsVOVdDn7rWCaEfaBELi8d4P0f7E-WLDWT_M2DL1Jw>
-    <xmx:4aPrYyKhMV3_QN2MXR3zZWQxh735QYr_iTcuyaH3_RqcawMxF7crAw>
-    <xmx:4qPrY89nKyQPWTtyfKiEIzzOoZSiVleZBRPpNHReY1C-J4Ppneh8hg>
-Feedback-ID: iac594737:Fastmail
-Date: Tue, 14 Feb 2023 10:08:14 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] xen: speed up grant-table reclaim
-Message-ID: <Y+uj3ynQ6JN+NOn1@itl-email>
-References: <20230207021033.1797-1-demi@invisiblethingslab.com>
- <5fdc17c1-4222-aea2-c1d1-be8b15b7f523@suse.com>
- <Y+qlPYi20cP0yXnE@itl-email>
- <763838a9-acd5-b330-6165-6c288973d51c@suse.com>
+X-Inumbo-ID: ae3d67da-ac7d-11ed-933c-83870f6b2ba8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TjgjpTEHlCqZJps126iT/LYemc31bd+qk+mIqjEQ663gUot1seDNVG8VZcN90EgRgwzhN9p1XsWZspqAiTyxIIv3CZypgOXKpEMaOjVCM52bt7Ro/kRWbRayThPhekgWuxGPdo07SRssJqf2ak7w9sN50tgctJrF8Xysn01FhBIyBhL69h4K5HCAwz8ka5LDpZ/76KmSGcvJkACba/qLvoEcF1mvzlGNJyzHpZTuIW9EaK9w7jdIOMMaBCiomM0sfkr9QHIlRimOie5O/r2b2yJuyL63DJgMAFrmhsgOsqwk/0+25GPJp2bqai5MAKxLhVC30dnbE2IbIbCtEFZywg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+XI/+Q/H0hC3+0B3P5aQlm8k2GZbJADIABnvkZNJtFk=;
+ b=WenY5yBxXoCz5G4VeWYHtQmGGisLCY9hXjUsJXXkvFKWg+sNID/oGulopaIzgglIdZ57HMX5pICo/kI7duYn35TooYHLaodITCsEUKsTxIIGyeZSLxs1qKU/Y95oWMAyG+Ce/2Hl7DlM4RBDIQQzHUtoujwspiU6lToaN4/YnveH2jbqi6Bjz+84cZUpMUao604ajGNWVO9y6z9USiPi7V+2oE2Dt3RTwFWagQecu5Zoh8wLHAwyB12kdZuUORA0Z5U6FzbsKo3aTig/ICUYN7Ns7QfDUNx9qBpkZRWVA4bExxmEaGWv+E890tgRQTrnUilg4Msm5v86RwsnIHCkqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.xenproject.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+XI/+Q/H0hC3+0B3P5aQlm8k2GZbJADIABnvkZNJtFk=;
+ b=w+hjcxgKuR8g5tT2iBSA6khlxyFbJHKLqfWpXlouE9jQwzQd5qwRJnGj490vrVokQxQdttSz3xqL1BXziIPDk9fG+ZoodShWimaePqgDTB0I1qcpE0NFKlguL6YRxxZ9tmDp/2Ugez26M4W9HgkilQKY6yBsh0m4Ec+eHkrsljE=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB03.amd.com; pr=C
+From: Michal Orzel <michal.orzel@amd.com>
+To: <xen-devel@lists.xenproject.org>
+CC: Michal Orzel <michal.orzel@amd.com>, Doug Goldstein <cardoe@cardoe.com>,
+	Stefano Stabellini <sstabellini@kernel.org>
+Subject: [PATCH v2 0/5] automation: dom0less arm32 testing
+Date: Tue, 14 Feb 2023 16:38:37 +0100
+Message-ID: <20230214153842.15637-1-michal.orzel@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DbwWERBYmiTeYpZW"
-Content-Disposition: inline
-In-Reply-To: <763838a9-acd5-b330-6165-6c288973d51c@suse.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT088:EE_|PH8PR12MB6914:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc6e551b-5cba-48bb-ea0c-08db0ea18fef
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	HKD7kY2zJjkmb76SCnZnjF8fE433fVYoAgMaNznaWNUZyXoO0TmRB6E/jvdcknjnTM0XrS3BXO1OnjmzFp2nSOuyNZ9pBYVFX6nShxqijgVDsgDzRJBsUW4BczeKAwj5/aV0pUcOemPlo4Y14Y4KgSpNCvGua9sE4FInIHXYC764q1eGuxUXEDjvITCHRxtVEAtt67YTmxxz4hkKJyPbeaU2j4INd6b6QggUBIpNta7xt9LKUHTPtSXNSHxqhibcpXi9d3TIeRalIi0iD3c9rok4rXiEZ9Un0gF9rOsRP7GcKd3dd6fOAT5NKIQrjcQAOfrJtefIfumSI+UOZ6snh31bZQWpHwKhnGxR+EL6RkK1wkX+OSn2woiOGzwueJ2E3YA9+4kz1yDqIEYvFn2iKa8bXlb2I0gcOTNd0a91CTKDfMN+jJKDKH89RTCyepIIkJH5Ags7wttnUknXv8v64Q/plIX9d3W9ENoVCs28rv9qvhDtBGM32IeEnhGdSEo5DvC6zTsp2WwgyWuFwcR/Xar3yLlcmuukWbzqvv1oNgPgzVGr1YzHsuWmE0PE03SRp1bjhYeWJF1iKwLJiHV1YYxJlcJ/00r46EZT2K5D0+C43SRr1eHOGUPuzul28LzV/0/pGlHE7ocmAW8/5XHGTUTJVe8mT1mM08MhO6LqugZ5UbEfcsK1gQdBsH1stWS56PQLFJDTd/QvUtNyWvUgLIEybGJIAX4br77937/RD7+RJDXkZmN+vLNn3SFe8oSF
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB03.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(346002)(39860400002)(376002)(396003)(451199018)(36840700001)(46966006)(40470700004)(316002)(54906003)(356005)(426003)(47076005)(5660300002)(8936002)(40480700001)(40460700003)(81166007)(82740400003)(41300700001)(2906002)(36756003)(8676002)(36860700001)(6666004)(70206006)(44832011)(82310400005)(83380400001)(86362001)(966005)(478600001)(26005)(6916009)(186003)(1076003)(70586007)(4326008)(2616005)(336012)(32563001)(36900700001);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 15:38:46.9039
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc6e551b-5cba-48bb-ea0c-08db0ea18fef
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB03.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT088.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6914
 
+This patch series aims at improving the arm32 CI testing by introducing
+the dom0less-based tests. It creates a foundation for further test expansion.
+This is particularly important now, when OSSTEST arm32 stuff is down and we
+need to have at least some coverage in gitlab CI.
 
---DbwWERBYmiTeYpZW
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 14 Feb 2023 10:08:14 -0500
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Juergen Gross <jgross@suse.com>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
-	xen-devel@lists.xenproject.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] xen: speed up grant-table reclaim
+Note:
+First patch is added to the series for convenience. It switches the arm32
+cross builds to be executed on arm64 instead of x86, as the latter has a lot
+less resources resulting in slowing down the whole pipeline.
 
-On Tue, Feb 14, 2023 at 08:51:09AM +0100, Juergen Gross wrote:
-> On 13.02.23 22:01, Demi Marie Obenour wrote:
-> > On Mon, Feb 13, 2023 at 10:26:11AM +0100, Juergen Gross wrote:
-> > > On 07.02.23 03:10, Demi Marie Obenour wrote:
-> > > > When a grant entry is still in use by the remote domain, Linux must=
- put
-> > > > it on a deferred list.  Normally, this list is very short, because
-> > > > the PV network and block protocols expect the backend to unmap the =
-grant
-> > > > first.  However, Qubes OS's GUI protocol is subject to the constrai=
-nts
-> > > > of the X Window System, and as such winds up with the frontend unma=
-pping
-> > > > the window first.  As a result, the list can grow very large, resul=
-ting
-> > > > in a massive memory leak and eventual VM freeze.
-> > > >=20
-> > > > Fix this problem by bumping the number of entries that the VM will
-> > > > attempt to free at each iteration to 10000.  This is an ugly hack t=
-hat
-> > > > may well make a denial of service easier, but for Qubes OS that is =
-less
-> > > > bad than the problem Qubes OS users are facing today.
-> > >=20
-> > > > There really
-> > > > needs to be a way for a frontend to be notified when the backend has
-> > > > unmapped the grants.
-> > >=20
-> > > Please remove this sentence from the commit message, or move it below=
- the
-> > > "---" marker.
-> >=20
-> > Will fix in v2.
-> >=20
-> > > There are still some flag bits unallocated in struct grant_entry_v1 or
-> > > struct grant_entry_header. You could suggest some patches for Xen to =
-use
-> > > one of the bits as a marker to get an event from the hypervisor if a
-> > > grant with such a bit set has been unmapped.
-> >=20
-> > That is indeed a good idea.  There are other problems with the grant
-> > interface as well, but those can be dealt with later.
-> >=20
-> > > I have no idea, whether such an interface would be accepted by the
-> > > maintainers, though.
-> > >=20
-> > > > Additionally, a module parameter is provided to
-> > > > allow tuning the reclaim speed.
-> > > >=20
-> > > > The code previously used printk(KERN_DEBUG) whenever it had to defer
-> > > > reclaiming a page because the grant was still mapped.  This resulte=
-d in
-> > > > a large volume of log messages that bothered users.  Use pr_debug
-> > > > instead, which suppresses the messages by default.  Developers can
-> > > > enable them using the dynamic debug mechanism.
-> > > >=20
-> > > > Fixes: QubesOS/qubes-issues#7410 (memory leak)
-> > > > Fixes: QubesOS/qubes-issues#7359 (excessive logging)
-> > > > Fixes: 569ca5b3f94c ("xen/gnttab: add deferred freeing logic")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
-> > > > ---
-> > > > Anyone have suggestions for improving the grant mechanism?  Argo is=
-n't
-> > > > a good option, as in the GUI protocol there are substantial perform=
-ance
-> > > > wins to be had by using true shared memory.  Resending as I forgot =
-the
-> > > > Signed-off-by on the first submission.  Sorry about that.
-> > > >=20
-> > > >    drivers/xen/grant-table.c | 2 +-
-> > > >    1 file changed, 1 insertion(+), 1 deletion(-)
-> > > >=20
-> > > > diff --git a/drivers/xen/grant-table.c b/drivers/xen/grant-table.c
-> > > > index 5c83d41..2c2faa7 100644
-> > > > --- a/drivers/xen/grant-table.c
-> > > > +++ b/drivers/xen/grant-table.c
-> > > > @@ -355,14 +355,20 @@
-> > > >    static void gnttab_handle_deferred(struct timer_list *);
-> > > >    static DEFINE_TIMER(deferred_timer, gnttab_handle_deferred);
-> > > > +static atomic64_t deferred_count;
-> > > > +static atomic64_t leaked_count;
-> > > > +static unsigned int free_per_iteration =3D 10000;
-> > >=20
-> > > As you are adding a kernel parameter to change this value, please set=
- the
-> > > default to a value not potentially causing any DoS problems. Qubes OS=
- can
-> > > still use a higher value then.
-> >=20
-> > Do you have any suggestions?  I don=E2=80=99t know if this is actually =
-a DoS
-> > concern anymore.  Shrinking the interval between iterations would be.
->=20
-> Why don't you use today's value of 10 for the default?
+CI pipeline performed on top of this series + cppcheck patch:
+https://gitlab.com/xen-project/people/morzel/xen-orzelmichal/-/pipelines/777181033
 
-Will do.  I now remember that the DoS concern is that the kernel could
-be made to use excess CPU trying and failing to reclaim memory.
+Michal Orzel (5):
+  automation: Switch arm32 cross builds to run on arm64
+  automation: Add arm32 dom0less testing
+  automation: Add a static memory allocation test on arm32
+  automation: Add a gzip compressed kernel image test on arm32
+  automation: Add a true dom0less test on arm32
 
-> > > > +
-> > > >    static void gnttab_handle_deferred(struct timer_list *unused)
-> > > >    {
-> > > > -	unsigned int nr =3D 10;
-> > > > +	unsigned int nr =3D READ_ONCE(free_per_iteration);
-> > >=20
-> > > I don't see why you are needing READ_ONCE() here.
-> >=20
-> > free_per_iteration can be concurrently modified via sysfs.
->=20
-> My remark was based on the wrong assumption that ignore_limit could be
-> dropped.
+ ... => unstable-arm64v8-arm32-gcc.dockerfile} |   3 +-
+ automation/gitlab-ci/build.yaml               |  30 +++-
+ automation/gitlab-ci/test.yaml                |  64 ++++++++
+ .../scripts/qemu-smoke-dom0less-arm32.sh      | 142 ++++++++++++++++++
+ 4 files changed, 232 insertions(+), 7 deletions(-)
+ rename automation/build/debian/{unstable-arm32-gcc.dockerfile => unstable-arm64v8-arm32-gcc.dockerfile} (94%)
+ create mode 100755 automation/scripts/qemu-smoke-dom0less-arm32.sh
 
-Even if ignore_limit could not be dropped, READ_ONCE is still necessary
-to avoid a data race.
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+-- 
+2.25.1
 
---DbwWERBYmiTeYpZW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPro98ACgkQsoi1X/+c
-IsEScg//XbsDTP2xk1rqtM2Zbnp1eJEceVGpdrVFez4q3RFLWctIb9YSYiagJbQ5
-R4zqEJ/PbwpciLBko88l/elC4UrdlJbKN/d4Fo6/nBVNQMVHbpYOgz5DSEQ0Njzs
-Y0k15KZ3yxBvJ18PdF6y+IE+fgCBfx64VqNZKdllFcM7YOOed3d5F/wn/AiaHhag
-lGbFfCphhR6jrRhry2GUauK+akrbJB7LPH/j1vA0Q1kjZTHA982Py2GWfFb/SaoC
-9k6Diyrbeis9Wsu+qya39wHF4+UOExV2eaD6YYUBr2/6prikGe9f7lp/W9SrZi3V
-h9agm9hIvM8HTaIVi6pZuUNoSDik5/ws+g9DY0DurGeRkhjb4Vq5ctofXsBR/WmB
-BJWJYVs2whBRefrZDsNfsApvfvfj37PWwjMC8JE6uYtijglY6l2DsDfKYNjzTPPq
-UcMeCQczTxQFrBUCct1cMT00FeBQRms8gcYk4eBjpj9be7omcMcJORYFQ/ty0NXO
-Tm9imaZAqEJ0NmTkTYbe3zHYaiLUVi34e2QUyZBonM4An9DKPslOsFq2NhuBkltm
-fn48SvAm5T6239eFjfZKGZ4BZs2KbQb/6uqQbUkddGOZR46knHonUWoLo8QpjExj
-R3BGygcamJdqvlzDBD7swX7y5oDSAApKMPtM4DgaeNH92megoHA=
-=Yk/p
------END PGP SIGNATURE-----
-
---DbwWERBYmiTeYpZW--
 
