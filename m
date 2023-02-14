@@ -2,36 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B5CE696BC8
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 18:34:28 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495469.765836 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CA08696C45
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 19:04:32 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495487.765879 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRzBi-00078M-Op; Tue, 14 Feb 2023 17:33:54 +0000
+	id 1pRzeS-0003Kl-Tq; Tue, 14 Feb 2023 18:03:36 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495469.765836; Tue, 14 Feb 2023 17:33:54 +0000
+Received: by outflank-mailman (output) from mailman id 495487.765879; Tue, 14 Feb 2023 18:03:36 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRzBi-00075n-Lk; Tue, 14 Feb 2023 17:33:54 +0000
-Received: by outflank-mailman (input) for mailman id 495469;
- Tue, 14 Feb 2023 17:33:52 +0000
+	id 1pRzeS-0003DP-OI; Tue, 14 Feb 2023 18:03:36 +0000
+Received: by outflank-mailman (input) for mailman id 495487;
+ Tue, 14 Feb 2023 18:03:35 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=nHuR=6K=kernel.org=sstabellini@srs-se1.protection.inumbo.net>)
- id 1pRzBg-00075h-TM
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 17:33:52 +0000
-Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ <SRS0=cAY7=6K=xenbits.xen.org=andrewcoop@srs-se1.protection.inumbo.net>)
+ id 1pRzeR-0002pa-Bj
+ for xen-devel@lists.xen.org; Tue, 14 Feb 2023 18:03:35 +0000
+Received: from mail.xenproject.org (mail.xenproject.org [104.130.215.37])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id be44dc8b-ac8d-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 18:33:51 +0100 (CET)
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by sin.source.kernel.org (Postfix) with ESMTPS id A2F95CE2169;
- Tue, 14 Feb 2023 17:33:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96EB8C433EF;
- Tue, 14 Feb 2023 17:33:41 +0000 (UTC)
+ id e29bad6b-ac91-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 19:03:32 +0100 (CET)
+Received: from xenbits.xenproject.org ([104.239.192.120])
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1pRze8-00074n-P6; Tue, 14 Feb 2023 18:03:16 +0000
+Received: from andrewcoop by xenbits.xenproject.org with local (Exim 4.92)
+ (envelope-from <andrewcoop@xenbits.xen.org>)
+ id 1pRze8-0007sq-Ni; Tue, 14 Feb 2023 18:03:16 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,99 +43,244 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: be44dc8b-ac8d-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1676396022;
-	bh=4FxFdAzCF2rvXNmbuIkOoQ5OZXy8XSYFQtGAVovy1Eg=;
-	h=Date:From:To:cc:Subject:In-Reply-To:References:From;
-	b=JP0V0DhQaMXMX5diqWB9FYcFPfgFx307Zlpee8DeH6KjUACB4belW1CkqYm7yqgTf
-	 bFncVUNSim8iIoYRjZFRGaot7sWGue7KY5LJhHy2sXbAHmd7N4KArl2ABL6NHALhSE
-	 W3UEGyhXP3QZ8zFam6htC10zB8Kk0+ivF3TWd5RvZc1w+aWOXJab0GnmRq6UwQEFI2
-	 3OU3S6VX3ZJMnfr7NbuwSdDZxq2FlC92wIa3RilQ/p2tU7tXVDavs0M/dFrGmfyWMI
-	 u19tYzavnWiRWt2kQNBaO68/G/+TrDJLCw+MT1mmUyaQp5Gbv3uRXzlftwjgpkUf+x
-	 WngKf0Yd1ayqg==
-Date: Tue, 14 Feb 2023 09:33:20 -0800 (PST)
-From: Stefano Stabellini <sstabellini@kernel.org>
-X-X-Sender: sstabellini@ubuntu-linux-20-04-desktop
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-cc: Michal Orzel <michal.orzel@amd.com>, xen-devel@lists.xenproject.org, 
-    Doug Goldstein <cardoe@cardoe.com>, 
-    Stefano Stabellini <sstabellini@kernel.org>
-Subject: Re: [PATCH v2] automation: Add container and build jobs to run
- cppcheck analysis
-In-Reply-To: <59da3abf-7c56-7a46-03a3-b11537d0527b@citrix.com>
-Message-ID: <alpine.DEB.2.22.394.2302140933150.2025117@ubuntu-linux-20-04-desktop>
-References: <20230214153945.15719-1-michal.orzel@amd.com> <59da3abf-7c56-7a46-03a3-b11537d0527b@citrix.com>
-User-Agent: Alpine 2.22 (DEB 394 2020-01-19)
+X-Inumbo-ID: e29bad6b-ac91-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
+	s=20200302mail; h=Date:Message-Id:Subject:CC:From:To:MIME-Version:
+	Content-Transfer-Encoding:Content-Type;
+	bh=wOtcK6/0BSW7PzaouV1UXsUM6DO4roV3+RcOb5t2Yi8=; b=PXePhEeRJ19SZpuPldjuDayADI
+	R9x62QaQAKgWTXEdyXoTyREMdEJk0ZRqjfbj+qiZT0+01Gb+b7MeWQpBCsveATfAjHH5II/ciZ5/W
+	XBXbg+Fn7oX3clQYQyYvu9qTJ0omR5MLhkx5wj/+VGymvXv20GpAbsoTNVTkbOskY+zg=;
+Content-Type: multipart/mixed; boundary="=separator"; charset="utf-8"
+Content-Transfer-Encoding: binary
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323329-14625239-1676396022=:2025117"
+X-Mailer: MIME-tools 5.509 (Entity 5.509)
+To: xen-announce@lists.xen.org, xen-devel@lists.xen.org,
+ xen-users@lists.xen.org, oss-security@lists.openwall.com
+From: Xen.org security team <security@xen.org>
+CC: Xen.org security team <security-team-members@xen.org>
+Subject: Xen Security Advisory 426 v1 (CVE-2022-27672) - x86: Cross-Thread
+ Return Address Predictions
+Message-Id: <E1pRze8-0007sq-Ni@xenbits.xenproject.org>
+Date: Tue, 14 Feb 2023 18:03:16 +0000
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+--=separator
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 7bit
 
---8323329-14625239-1676396022=:2025117
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8BIT
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA256
 
-On Tue, 14 Feb 2023, Andrew Cooper wrote:
-> On 14/02/2023 3:39 pm, Michal Orzel wrote:
-> > diff --git a/automation/build/debian/unstable-cppcheck.dockerfile b/automation/build/debian/unstable-cppcheck.dockerfile
-> > new file mode 100644
-> > index 000000000000..54b99f87dfec
-> > --- /dev/null
-> > +++ b/automation/build/debian/unstable-cppcheck.dockerfile
-> > @@ -0,0 +1,37 @@
-> > +FROM arm64v8/debian:unstable
-> > +LABEL maintainer.name="The Xen Project" \
-> > +      maintainer.email="xen-devel@lists.xenproject.org"
-> > +
-> > +ENV DEBIAN_FRONTEND=noninteractive
-> > +ENV CPPCHECK_VERSION=2.7
-> > +ENV USER root
-> > +
-> > +RUN mkdir /build
-> > +WORKDIR /build
-> > +
-> > +# dependencies for cppcheck and Xen-only build/cross-build
-> > +RUN apt-get update && \
-> > +    apt-get --quiet --yes install \
-> > +        build-essential \
-> > +        curl \
-> > +        python-is-python3 \
-> > +        libpcre3-dev \
-> > +        flex \
-> > +        bison \
-> > +        gcc-arm-linux-gnueabihf \
-> > +        gcc-x86-64-linux-gnu
-> > +
-> > +# cppcheck release build (see cppcheck readme.md)
-> > +RUN curl -fsSLO https://github.com/danmar/cppcheck/archive/"$CPPCHECK_VERSION".tar.gz && \
-> > +    tar xvzf "$CPPCHECK_VERSION".tar.gz && \
-> > +    cd cppcheck-"$CPPCHECK_VERSION" && \
-> > +    make install -j$(nproc) \
-> > +        MATCHCOMPILER=yes \
-> > +        FILESDIR=/usr/share/cppcheck \
-> > +        HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
-> 
-> I think you want to be using a mutli-FROM dockerfile here, otherwise
-> you're including all the intermediate build artefacts in the final image.
-> 
-> See debian/buster-gcc-ibt.dockerfile for an example.
-> 
-> That said, I'm not sure we want to be making custom containers for every
-> minor tweak we have on a build environment.  What's wrong with just
-> putting CPPCHECK in the normal container?
+            Xen Security Advisory CVE-2022-27672 / XSA-426
 
-cppcheck is not large but needs to be built from source (as part of the
-Dockerfile). So we thought it would be best to keep it separate from the
-regular containers.
+             x86: Cross-Thread Return Address Predictions
 
-I don't foresee another case like cppcheck at the moment.
+ISSUE DESCRIPTION
+=================
 
-Also by having it separate it is clearer that this container is
-"special".
+It has been discovered that on some AMD CPUs, the RAS (Return Address
+Stack, also called RAP - Return Address Predictor - in some AMD
+documentation, and RSB - Return Stack Buffer - in Intel terminology) is
+dynamically partitioned between non-idle threads.  This allows an
+attacker to control speculative execution on the adjacent thread.
 
-I think it would be preferable to keep it in its own separate container
-but it would be OK either way.
---8323329-14625239-1676396022=:2025117--
+For more details, see:
+  https://www.amd.com/en/corporate/product-security/bulletin/amd-sb-1045
+
+IMPACT
+======
+
+An attacker might be able to infer the contents of arbitrary host
+memory, including memory assigned to other guests.
+
+VULNERABLE SYSTEMS
+==================
+
+Only AMD CPUs are known to be potentially vulnerable.  CPUs from other
+hardware vendors are not believed to be impacted.
+
+Only the Zen1 and Zen2 microarchitectures are believed to be potentially
+vulnerable.  Other microarchitectures are not believed to be vulnerable.
+
+Only configurations with SMT activate are potentially vulnerable.  If
+SMT is disabled by the firmware, or at runtime with `smt=0` on Xen's
+command line, then the platform is not vulnerable.
+
+Xen 4.17 and later contains an optimisation, specifically:
+
+  c/s afab477fba3b ("x86/spec-ctrl: Skip RSB overwriting when safe to do so")
+
+which in combination with disabling 32bit PV guests (either at compile
+time with CONFIG_PV32=n, or at runtime with `pv=no-32` on the command
+line) renders Xen vulnerable to attack from PV guests.
+
+Note: multiple downstreams are known to have backported this
+optimisation to older versions of Xen.  Consult your software vendor
+documentation.
+
+MITIGATION
+==========
+
+On otherwise-vulnerable configurations, the issue can be mitigated by
+booting Xen with `spec-ctrl=rsb`, which will override the aforementioned
+optimisation.
+
+Alternatively, SMT can be disabled either in the firmware, or by booting
+Xen with `smt=0`.
+
+Alternatively, if 32bit PV guests are only runtime disabled in Xen, this
+issue can also be mitigated by booting Xen with `pv=32` to enable
+support 32bit PV guests.  It is not necessary for a 32bit PV guest to
+actually be running in order to mitigate the issue.
+
+RESOLUTION
+==========
+
+Applying the attached patch resolves this issue.
+
+Note that patches for released versions are generally prepared to
+apply to the stable branches, and may not apply cleanly to the most
+recent release tarball.  Downstreams are encouraged to update to the
+tip of the stable branch before applying these patches.
+
+xsa426.patch          xen-unstable - Xen 4.17
+
+$ sha256sum xsa426*
+425b1d8931e02852afec9fe3d9f1d009f6d8a33c6387b2e8b3896f374732d470  xsa426.patch
+$
+-----BEGIN PGP SIGNATURE-----
+
+iQFABAEBCAAqFiEEI+MiLBRfRHX6gGCng/4UyVfoK9kFAmPrzJoMHHBncEB4ZW4u
+b3JnAAoJEIP+FMlX6CvZiqsIALrisP3l7ImoKe49Bmb1blNYmUv6UjYGdVF9acc9
+++QYPLq4Mu+kJuIlgKnT21hj7BFczL4KSi8sVw/nLqU3x8R/ZJ6nxXLlCod6RqGw
+4MYd6QmArx8a+hm3LC0288VEFVXFh0WTDA6PK15RkspiwcjsAZ4w7DA7cRk0FLP0
+9KJMhSPOAj9wCDhvOckr7DnA+D6gOKjMH83NCL0rg6Xe8+Bv0qTVYe49FqAnbWwc
+9RsYOKfRuZUci+Z+mALVRB97R7xvns5D9HnDvs55ADri506JWkxmdp1GvLtjezXV
+3Zds6TOrr1i0RQGV9M6aouinrI+DQNrOFR8V6p98KYxAo+Y=
+=T8Uh
+-----END PGP SIGNATURE-----
+
+--=separator
+Content-Type: application/octet-stream; name="xsa426.patch"
+Content-Disposition: attachment; filename="xsa426.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbTogQW5kcmV3IENvb3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNv
+bT4KU3ViamVjdDogeDg2L3NwZWMtY3RybDogTWl0aWdhdGUgQ3Jvc3MtVGhy
+ZWFkIFJldHVybiBBZGRyZXNzIFByZWRpY3Rpb25zCgpUaGlzIGlzIFhTQS00
+MjYgLyBDVkUtMjAyMi0yNzY3MgoKU2lnbmVkLW9mZi1ieTogQW5kcmV3IENv
+b3BlciA8YW5kcmV3LmNvb3BlcjNAY2l0cml4LmNvbT4KUmV2aWV3ZWQtYnk6
+IEphbiBCZXVsaWNoIDxqYmV1bGljaEBzdXNlLmNvbT4KCmRpZmYgLS1naXQg
+YS9kb2NzL21pc2MveGVuLWNvbW1hbmQtbGluZS5wYW5kb2MgYi9kb2NzL21p
+c2MveGVuLWNvbW1hbmQtbGluZS5wYW5kb2MKaW5kZXggOTIzOTEwZjU1M2M1
+Li5hMmZmMzhjZGViZjIgMTAwNjQ0Ci0tLSBhL2RvY3MvbWlzYy94ZW4tY29t
+bWFuZC1saW5lLnBhbmRvYworKysgYi9kb2NzL21pc2MveGVuLWNvbW1hbmQt
+bGluZS5wYW5kb2MKQEAgLTIzNTUsNyArMjM1NSw3IEBAIGd1ZXN0cyB0byB1
+c2UuCiAgIG9uIGVudHJ5IGFuZCBleGl0LiAgVGhlc2UgYmxvY2tzIGFyZSBu
+ZWNlc3NhcnkgdG8gdmlydHVhbGlzZSBzdXBwb3J0IGZvcgogICBndWVzdHMg
+YW5kIGlmIGRpc2FibGVkLCBndWVzdHMgd2lsbCBiZSB1bmFibGUgdG8gdXNl
+IElCUlMvU1RJQlAvU1NCRC9ldGMuCiAqIGByc2I9YCBvZmZlcnMgY29udHJv
+bCBvdmVyIHdoZXRoZXIgdG8gb3ZlcndyaXRlIHRoZSBSZXR1cm4gU3RhY2sg
+QnVmZmVyIC8KLSAgUmV0dXJuIEFkZHJlc3MgU3RhY2sgb24gZW50cnkgdG8g
+WGVuLgorICBSZXR1cm4gQWRkcmVzcyBTdGFjayBvbiBlbnRyeSB0byBYZW4g
+YW5kIG9uIGlkbGUuCiAqIGBtZC1jbGVhcj1gIG9mZmVycyBjb250cm9sIG92
+ZXIgd2hldGhlciB0byB1c2UgVkVSVyB0byBmbHVzaAogICBtaWNyb2FyY2hp
+dGVjdHVyYWwgYnVmZmVycyBvbiBpZGxlIGFuZCBleGl0IGZyb20gWGVuLiAg
+Kk5vdGU6IEZvcgogICBjb21wYXRpYmlsaXR5IHdpdGggZGV2ZWxvcG1lbnQg
+dmVyc2lvbnMgb2YgdGhpcyBmaXgsIGBtZHM9YCBpcyBhbHNvIGFjY2VwdGVk
+CmRpZmYgLS1naXQgYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vY3B1ZmVh
+dHVyZXMuaCBiL3hlbi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9jcHVmZWF0dXJl
+cy5oCmluZGV4IDg2NWYxMTA5ODY2ZC4uZGEwNTkzZGU4NTQyIDEwMDY0NAot
+LS0gYS94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vY3B1ZmVhdHVyZXMuaAor
+KysgYi94ZW4vYXJjaC94ODYvaW5jbHVkZS9hc20vY3B1ZmVhdHVyZXMuaApA
+QCAtMzUsNyArMzUsOCBAQCBYRU5fQ1BVRkVBVFVSRShTQ19SU0JfSFZNLCAg
+ICAgICAgWDg2X1NZTlRIKDE5KSkgLyogUlNCIG92ZXJ3cml0ZSBuZWVkZWQg
+Zm9yIEhWTQogWEVOX0NQVUZFQVRVUkUoWEVOX1NFTEZTTk9PUCwgICAgIFg4
+Nl9TWU5USCgyMCkpIC8qIFNFTEZTTk9PUCBnZXRzIHVzZWQgYnkgWGVuIGl0
+c2VsZiAqLwogWEVOX0NQVUZFQVRVUkUoU0NfTVNSX0lETEUsICAgICAgIFg4
+Nl9TWU5USCgyMSkpIC8qIENsZWFyIE1TUl9TUEVDX0NUUkwgb24gaWRsZSAq
+LwogWEVOX0NQVUZFQVRVUkUoWEVOX0xCUiwgICAgICAgICAgIFg4Nl9TWU5U
+SCgyMikpIC8qIFhlbiB1c2VzIE1TUl9ERUJVR0NUTC5MQlIgKi8KLS8qIEJp
+dHMgMjMsMjQgdW51c2VkLiAqLworLyogQml0cyAyMyB1bnVzZWQuICovCitY
+RU5fQ1BVRkVBVFVSRShTQ19SU0JfSURMRSwgICAgICAgWDg2X1NZTlRIKDI0
+KSkgLyogUlNCIG92ZXJ3cml0ZSBuZWVkZWQgZm9yIGlkbGUuICovCiBYRU5f
+Q1BVRkVBVFVSRShTQ19WRVJXX0lETEUsICAgICAgWDg2X1NZTlRIKDI1KSkg
+LyogVkVSVyB1c2VkIGJ5IFhlbiBmb3IgaWRsZSAqLwogWEVOX0NQVUZFQVRV
+UkUoWEVOX1NIU1RLLCAgICAgICAgIFg4Nl9TWU5USCgyNikpIC8qIFhlbiB1
+c2VzIENFVCBTaGFkb3cgU3RhY2tzICovCiBYRU5fQ1BVRkVBVFVSRShYRU5f
+SUJULCAgICAgICAgICAgWDg2X1NZTlRIKDI3KSkgLyogWGVuIHVzZXMgQ0VU
+IEluZGlyZWN0IEJyYW5jaCBUcmFja2luZyAqLwpkaWZmIC0tZ2l0IGEveGVu
+L2FyY2gveDg2L2luY2x1ZGUvYXNtL3NwZWNfY3RybC5oIGIveGVuL2FyY2gv
+eDg2L2luY2x1ZGUvYXNtL3NwZWNfY3RybC5oCmluZGV4IDZhNzdjMzkzNzg0
+NC4uMzkxOTczZWY2YTI4IDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYvaW5j
+bHVkZS9hc20vc3BlY19jdHJsLmgKKysrIGIveGVuL2FyY2gveDg2L2luY2x1
+ZGUvYXNtL3NwZWNfY3RybC5oCkBAIC0xNTksNiArMTU5LDIxIEBAIHN0YXRp
+YyBhbHdheXNfaW5saW5lIHZvaWQgc3BlY19jdHJsX2VudGVyX2lkbGUoc3Ry
+dWN0IGNwdV9pbmZvICppbmZvKQogICAgICAqLwogICAgIGFsdGVybmF0aXZl
+X2lucHV0KCIiLCAidmVydyAlW3NlbF0iLCBYODZfRkVBVFVSRV9TQ19WRVJX
+X0lETEUsCiAgICAgICAgICAgICAgICAgICAgICAgW3NlbF0gIm0iIChpbmZv
+LT52ZXJ3X3NlbCkpOworCisgICAgLyoKKyAgICAgKiBDcm9zcy1UaHJlYWQg
+UmV0dXJuIEFkZHJlc3MgUHJlZGljdGlvbnM6CisgICAgICoKKyAgICAgKiBP
+biB2dWxuZXJhYmxlIHN5c3RlbXMsIHRoZSByZXR1cm4gcHJlZGljdGlvbnMg
+KFJTQi9SQVMpIGFyZSBzdGF0aWNhbGx5CisgICAgICogcGFydGl0aW9uZWQg
+YmV0d2VlbiBhY3RpdmUgdGhyZWFkcy4gIFdoZW4gZW50ZXJpbmcgaWRsZSwg
+b3VyIGVudHJpZXMKKyAgICAgKiBhcmUgcmUtcGFydGl0aW9uZWQgdG8gYWxs
+b3cgdGhlIG90aGVyIHRocmVhZHMgdG8gdXNlIHRoZW0uCisgICAgICoKKyAg
+ICAgKiBJbiBzb21lIGNhc2VzLCB3ZSBtaWdodCBzdGlsbCBoYXZlIGd1ZXN0
+IGVudHJpZXMgaW4gdGhlIFJBUywgc28gZmx1c2gKKyAgICAgKiB0aGVtIGJl
+Zm9yZSBpbmplY3RpbmcgdGhlbSBzaWRld2F5cyB0byBvdXIgc2libGluZyB0
+aHJlYWQuCisgICAgICoKKyAgICAgKiAoYWIpdXNlIGFsdGVybmF0aXZlX2lu
+cHV0KCkgdG8gc3BlY2lmeSBjbG9iYmVycy4KKyAgICAgKi8KKyAgICBhbHRl
+cm5hdGl2ZV9pbnB1dCgiIiwgIkRPX09WRVJXUklURV9SU0IiLCBYODZfRkVB
+VFVSRV9TQ19SU0JfSURMRSwKKyAgICAgICAgICAgICAgICAgICAgICA6ICJy
+YXgiLCAicmN4Iik7CiB9CiAKIC8qIFdBUk5JTkchIGByZXRgLCBgY2FsbCAq
+YCwgYGptcCAqYCBub3Qgc2FmZSBiZWZvcmUgdGhpcyBjYWxsLiAqLwpkaWZm
+IC0tZ2l0IGEveGVuL2FyY2gveDg2L3NwZWNfY3RybC5jIGIveGVuL2FyY2gv
+eDg2L3NwZWNfY3RybC5jCmluZGV4IGEzMjBiODE5NDdjOC4uZTgwZTJhNWVk
+MWE5IDEwMDY0NAotLS0gYS94ZW4vYXJjaC94ODYvc3BlY19jdHJsLmMKKysr
+IGIveGVuL2FyY2gveDg2L3NwZWNfY3RybC5jCkBAIC0xMzI3LDEzICsxMzI3
+LDM4IEBAIHZvaWQgX19pbml0IGluaXRfc3BlY3VsYXRpb25fbWl0aWdhdGlv
+bnModm9pZCkKICAgICAgKiAzKSBTb21lIENQVXMgaGF2ZSBSU0JzIHdoaWNo
+IGFyZSBub3QgZnVsbCB3aWR0aCwgd2hpY2ggYWxsb3cgdGhlCiAgICAgICog
+ICAgYXR0YWNrZXIncyBlbnRyaWVzIHRvIGFsaWFzIFhlbiBhZGRyZXNzZXMu
+CiAgICAgICoKKyAgICAgKiA0KSBTb21lIENQVXMgaGF2ZSBSU0JzIHdoaWNo
+IGFyZSByZS1wYXJ0aXRpb25lZCBiYXNlZCBvbiB0aHJlYWQKKyAgICAgKiAg
+ICBpZGxlbmVzcywgd2hpY2ggYWxsb3dzIGFuIGF0dGFja2VyIHRvIGluamVj
+dCBlbnRyaWVzIGludG8gdGhlIG90aGVyCisgICAgICogICAgdGhyZWFkLiAg
+V2Ugc3RpbGwgYWN0aXZlIHRoZSBvcHRpbWlzYXRpb24gaW4gdGhpcyBjYXNl
+LCBhbmQgbWl0aWdhdGUKKyAgICAgKiAgICBpbiB0aGUgaWRsZSBwYXRoIHdo
+aWNoIGhhcyBsb3dlciBvdmVyaGVhZC4KKyAgICAgKgogICAgICAqIEl0IGlz
+IHNhZmUgdG8gdHVybiBvZmYgUlNCIHN0dWZmaW5nIHdoZW4gWGVuIGlzIHVz
+aW5nIFNNRVAgaXRzZWxmLCBhbmQKICAgICAgKiAzMmJpdCBQViBndWVzdHMg
+YXJlIGRpc2FibGVkLCBhbmQgd2hlbiB0aGUgUlNCIGlzIGZ1bGwgd2lkdGgu
+CiAgICAgICovCiAgICAgQlVJTERfQlVHX09OKFJPX01QVF9WSVJUX1NUQVJU
+ICE9IFBNTDRfQUREUigyNTYpKTsKLSAgICBpZiAoIG9wdF9yc2JfcHYgPT0g
+LTEgJiYgYm9vdF9jcHVfaGFzKFg4Nl9GRUFUVVJFX1hFTl9TTUVQKSAmJgot
+ICAgICAgICAgIW9wdF9wdjMyICYmIHJzYl9pc19mdWxsX3dpZHRoKCkgKQot
+ICAgICAgICBvcHRfcnNiX3B2ID0gMDsKKyAgICBpZiAoIG9wdF9yc2JfcHYg
+PT0gLTEgKQorICAgIHsKKyAgICAgICAgb3B0X3JzYl9wdiA9IChvcHRfcHYz
+MiB8fCAhYm9vdF9jcHVfaGFzKFg4Nl9GRUFUVVJFX1hFTl9TTUVQKSB8fAor
+ICAgICAgICAgICAgICAgICAgICAgICFyc2JfaXNfZnVsbF93aWR0aCgpKTsK
+KworICAgICAgICAvKgorICAgICAgICAgKiBDcm9zcy1UaHJlYWQgUmV0dXJu
+IEFkZHJlc3MgUHJlZGljdGlvbnMuCisgICAgICAgICAqCisgICAgICAgICAq
+IFZ1bG5lcmFibGUgc3lzdGVtcyBhcmUgWmVuMS9aZW4yIHVhcmNoLCB3aGlj
+aCBpcyBBTUQgRmFtMTcgLyBIeWdvbgorICAgICAgICAgKiBGYW0xOCwgd2hl
+biBTTVQgaXMgYWN0aXZlLgorICAgICAgICAgKgorICAgICAgICAgKiBUbyBt
+aXRpZ2F0ZSwgd2UgbXVzdCBmbHVzaCB0aGUgUlNCL1JBUy9SQVAgb25jZSBi
+ZXR3ZWVuIGVudGVyaW5nCisgICAgICAgICAqIFhlbiBhbmQgZ29pbmcgaWRs
+ZS4KKyAgICAgICAgICoKKyAgICAgICAgICogTW9zdCBjYXNlcyBmbHVzaCBv
+biBlbnRyeSB0byBYZW4gYW55d2F5LiAgVGhlIG9uZSBjYXNlIHdoZXJlIHdl
+CisgICAgICAgICAqIGRvbid0IGlzIHdoZW4gdXNpbmcgdGhlIFNNRVAgb3B0
+aW1pc2F0aW9uIGZvciBQViBndWVzdHMuICBGbHVzaGluZworICAgICAgICAg
+KiBiZWZvcmUgZ29pbmcgaWRsZSBpcyBsZXNzIG92ZXJoZWFkIHRoYW4gZmx1
+c2hpbmcgb24gUFYgZW50cnkuCisgICAgICAgICAqLworICAgICAgICBpZiAo
+ICFvcHRfcnNiX3B2ICYmIGh3X3NtdF9lbmFibGVkICYmCisgICAgICAgICAg
+ICAgKGJvb3RfY3B1X2RhdGEueDg2X3ZlbmRvciAmIChYODZfVkVORE9SX0FN
+RHxYODZfVkVORE9SX0hZR09OKSkgJiYKKyAgICAgICAgICAgICAoYm9vdF9j
+cHVfZGF0YS54ODYgPT0gMHgxNyB8fCBib290X2NwdV9kYXRhLng4NiA9PSAw
+eDE4KSApCisgICAgICAgICAgICBzZXR1cF9mb3JjZV9jcHVfY2FwKFg4Nl9G
+RUFUVVJFX1NDX1JTQl9JRExFKTsKKyAgICB9CiAKICAgICBpZiAoIG9wdF9y
+c2JfcHYgKQogICAgIHsK
+
+--=separator--
 
