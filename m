@@ -2,44 +2,56 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31CB8695B13
-	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 08:51:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.494999.765236 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C695695B24
+	for <lists+xen-devel@lfdr.de>; Tue, 14 Feb 2023 08:52:39 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495006.765246 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRq5p-0003vP-Co; Tue, 14 Feb 2023 07:51:13 +0000
+	id 1pRq70-0004Y9-Pk; Tue, 14 Feb 2023 07:52:26 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 494999.765236; Tue, 14 Feb 2023 07:51:13 +0000
+Received: by outflank-mailman (output) from mailman id 495006.765246; Tue, 14 Feb 2023 07:52:26 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pRq5p-0003tK-92; Tue, 14 Feb 2023 07:51:13 +0000
-Received: by outflank-mailman (input) for mailman id 494999;
- Tue, 14 Feb 2023 07:51:11 +0000
+	id 1pRq70-0004W0-N2; Tue, 14 Feb 2023 07:52:26 +0000
+Received: by outflank-mailman (input) for mailman id 495006;
+ Tue, 14 Feb 2023 07:52:25 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=jOjB=6K=suse.com=jgross@srs-se1.protection.inumbo.net>)
- id 1pRq5n-0003tE-EQ
- for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 07:51:11 +0000
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=Xrib=6K=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
+ id 1pRq6z-0004VG-D5
+ for xen-devel@lists.xenproject.org; Tue, 14 Feb 2023 07:52:25 +0000
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2062b.outbound.protection.outlook.com
+ [2a01:111:f400:fe59::62b])
  by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 58869e28-ac3c-11ed-933c-83870f6b2ba8;
- Tue, 14 Feb 2023 08:51:10 +0100 (CET)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id D62FC20E88;
- Tue, 14 Feb 2023 07:51:09 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9969A13A21;
- Tue, 14 Feb 2023 07:51:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id K3YiJG0962OdGwAAMHmgww
- (envelope-from <jgross@suse.com>); Tue, 14 Feb 2023 07:51:09 +0000
+ id 839546e8-ac3c-11ed-933c-83870f6b2ba8;
+ Tue, 14 Feb 2023 08:52:23 +0100 (CET)
+Received: from MW4PR04CA0089.namprd04.prod.outlook.com (2603:10b6:303:6b::34)
+ by MN2PR12MB4454.namprd12.prod.outlook.com (2603:10b6:208:26c::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
+ 2023 07:52:20 +0000
+Received: from CO1NAM11FT086.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:303:6b:cafe::26) by MW4PR04CA0089.outlook.office365.com
+ (2603:10b6:303:6b::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.24 via Frontend
+ Transport; Tue, 14 Feb 2023 07:52:20 +0000
+Received: from SATLEXMB04.amd.com (165.204.84.17) by
+ CO1NAM11FT086.mail.protection.outlook.com (10.13.175.73) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.6086.24 via Frontend Transport; Tue, 14 Feb 2023 07:52:19 +0000
+Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
+ 2023 01:52:19 -0600
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB06.amd.com
+ (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Tue, 14 Feb
+ 2023 01:52:18 -0600
+Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
+ Transport; Tue, 14 Feb 2023 01:52:18 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -51,224 +63,258 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 58869e28-ac3c-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1676361069; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=59WLmwk/w22JF9sHJHSS4aoub+CRzVO8W2memNhS3Io=;
-	b=ZM1ou+sZmB3tdCvuOCZ7vBoj/LGK7yKg5Z1FAIUR/BtMT50XZUuVtpclEwu14GFTqY0y1C
-	GZ8+iM1iut34Cociirzm9i8zLRCR1g1tycKCECTZjVjIKKEvIrnsqJXAJjVE3dPhTQhUHH
-	516ikATzwHXHgsUhDbrvL8o9wUd06Gg=
-Message-ID: <763838a9-acd5-b330-6165-6c288973d51c@suse.com>
-Date: Tue, 14 Feb 2023 08:51:09 +0100
+X-Inumbo-ID: 839546e8-ac3c-11ed-933c-83870f6b2ba8
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V/4+4cB6x6bQeClFZHgbX3ZF+ki7IhSv1VZ5hpJ6Eafmw5fgG1OM/TmJzEGpJ4NkPEOjktAYBBuEFYeMAharc0qwBe21hWEU8PSykTl9eqHVJ9NVXVZ3DstNzR28USie+VeayOjYSy7dtjeEotwpZlL8e3DzuL4SJir/vIiH/YraWNVeky6pJE446HN885LMwtXCLUwsMY6Lg1dgI34UQU1XeKcqMutc4hXK+raHxKRN6w1C6KUOH5t0DU32m4s++4Qt3O/VMoKORm2Hapjpygh8YEMyLUE8oZetb51+vlDoR2EhB67/hNAxjLnK5i3SHyB8n+0TFmYhAPO2M3gHKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Rp3QHIazdVXBLCezcWIPqOQhG3XUpEGbOhHqnhMpfg=;
+ b=mkVJQ+QiVF32dsMRap1BVv5V8yykbSpGdF9eWPoq+UVE2ZuVxLboNPTzuXvSNcaxPjr1hKuIBxRooOY1H2UJctXq8xPz5vn5GFx90t7NJTvcCQOG939GmIwy8gdP2YeOx4p6gzRtolzOHtId/oLRZZtFKJaRteMhNITsd1aENZ0NGws2geNLSMXkNdgRvUecaaFrvpLkBMlcIZfbi2sM7BnKjqAtrJARnWAeQTXz/Z0LDXpNtRCSLojaI3fszZMB7Jnwz6Hxg8wLXToAdIn2eH0CYo+N4qfshLssKUBhnLkga9aV3QZxjuyPQAba1YBc6rAOh7Y34EE5+4FLVj1/cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Rp3QHIazdVXBLCezcWIPqOQhG3XUpEGbOhHqnhMpfg=;
+ b=t/yczx4m2vn8I0k676gB9F9UaYwoQhs8v3VnHD9v667CIvUR6vDuxCfpy635vlLIumQyAy5C/YQAY9eNgwJqCzXWz/qb6ioG9js/U+OjiJrtWUYH3MknbB3t5GC/wzwhMcLabMKiDPZqPh6VhNQtHPoHgLlGXhnprHLwDdfIUzs=
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
+Message-ID: <74d3f3db-9cb6-f944-50c2-5e94e2e342db@amd.com>
+Date: Tue, 14 Feb 2023 08:52:17 +0100
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.2
+Subject: Re: [PATCH] automation: Add container and build jobs to run cppcheck
+ analysis
+To: Stefano Stabellini <sstabellini@kernel.org>
+CC: <xen-devel@lists.xenproject.org>, Doug Goldstein <cardoe@cardoe.com>
+References: <20230213142312.11806-1-michal.orzel@amd.com>
+ <alpine.DEB.2.22.394.2302131551430.4661@ubuntu-linux-20-04-desktop>
 Content-Language: en-US
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20230207021033.1797-1-demi@invisiblethingslab.com>
- <5fdc17c1-4222-aea2-c1d1-be8b15b7f523@suse.com> <Y+qlPYi20cP0yXnE@itl-email>
-From: Juergen Gross <jgross@suse.com>
-Subject: Re: [PATCH] xen: speed up grant-table reclaim
-In-Reply-To: <Y+qlPYi20cP0yXnE@itl-email>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------lY03vSGRGRiVjwOo0Dl8sT1u"
+From: Michal Orzel <michal.orzel@amd.com>
+In-Reply-To: <alpine.DEB.2.22.394.2302131551430.4661@ubuntu-linux-20-04-desktop>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1NAM11FT086:EE_|MN2PR12MB4454:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7a227417-97fe-48eb-4eb0-08db0e60665f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info:
+	uKy9AbCX6XHZrhVJxpRNsGiPo+xj+7Elk8ke+bKau9KWPgE1/3bnrCNy+zYTlKjz8oA3UHxDHOMCxHpaPOgpclRwelvbiVGgbsN4eKmVv/EwIBYg8HseBgVMnZg/DMTybFKRcrWibZXcumngmI2YrAoPn03qoUipLsJDONhKIMzMc1Bvzu6K0sp51TjHuwFgbBPw5C6qtbNKQg8ni54QTviytTv9jx7XKrJNatc4dtzNw2MHcvU2c/prLYiiVe7PNzq/idEbqrK+Rh0OGw8/RC08C8n+zlANdGoe1gT2JXFPbNBvkf+rbipMzw3w9aaYCw2JPPmRGUqSGdiclZ0mVc01wE3GrFK2iFtKS8SMIdE+NJ/RyRAYUZouW3IMWPULDSyae7v/VsKisfkB3rOmkK+j4nq8S34/x3038R+VbUp1GhTbL2AD55y/tzVHbNn8wGrexzmQFCLOVnXcmlx23CDfr++VvyGfHGR11IsMBWqGnrvBETBp9aE6vtIBkGGFS1BRKLzdIUrUUxa114PBRf+APqDD9fvjtuw0dfdx6YDiOGdzPmrbGUP3qnIW3m20Z6giadN+SYndn+WULyhTK8V5/CxsGuIpfVAs2vNW77unRjHzayoavVgTSoyUq2W1tD/e7+oepFm3z26aM8x57MilYTh0RahaPpkqm92xJrnwmOB9DBkEASh1C1EytMhTzUBvm0bgMRYBdZe9/MMmTzir+9od7aTlW9GA6oGHt7LXWDZmIumzegdIWvCy1zmQUD/ZY5KDOoT1cNP42PnXLUdjo6SfFf528VyzuIkKc+8=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(396003)(376002)(346002)(39860400002)(136003)(451199018)(46966006)(40470700004)(36840700001)(53546011)(47076005)(82310400005)(82740400003)(31686004)(966005)(186003)(478600001)(26005)(2906002)(81166007)(356005)(40460700003)(83380400001)(426003)(86362001)(44832011)(36860700001)(54906003)(316002)(16576012)(41300700001)(31696002)(70206006)(36756003)(40480700001)(336012)(6916009)(5660300002)(8936002)(2616005)(4326008)(8676002)(70586007)(36900700001)(43740500002);DIR:OUT;SFP:1101;
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2023 07:52:19.8666
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a227417-97fe-48eb-4eb0-08db0e60665f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1NAM11FT086.eop-nam11.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4454
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------lY03vSGRGRiVjwOo0Dl8sT1u
-Content-Type: multipart/mixed; boundary="------------0awnHpg016kUQAzmDWn7XD0W";
- protected-headers="v1"
-From: Juergen Gross <jgross@suse.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: =?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
- <marmarek@invisiblethingslab.com>, xen-devel@lists.xenproject.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Message-ID: <763838a9-acd5-b330-6165-6c288973d51c@suse.com>
-Subject: Re: [PATCH] xen: speed up grant-table reclaim
-References: <20230207021033.1797-1-demi@invisiblethingslab.com>
- <5fdc17c1-4222-aea2-c1d1-be8b15b7f523@suse.com> <Y+qlPYi20cP0yXnE@itl-email>
-In-Reply-To: <Y+qlPYi20cP0yXnE@itl-email>
+Hi Stefano,
 
---------------0awnHpg016kUQAzmDWn7XD0W
-Content-Type: multipart/mixed; boundary="------------wNudRiZ2q9tWgKA01XjPCkif"
+On 14/02/2023 00:56, Stefano Stabellini wrote:
+> 
+> 
+> On Mon, 13 Feb 2023, Michal Orzel wrote:
+>> Add a debian container with cppcheck installation routine inside,
+>> capable of performing cppcheck analysis on Xen-only build including
+>> cross-builds for arm32 and arm64.
+>>
+>> Populate build jobs making use of that container to run cppcheck
+>> analysis to produce a text report (xen-cppcheck.txt) containing the list
+>> of all the findings.
+>>
+>> This patch does not aim at performing any sort of bisection. Cppcheck is
+>> imperfect and for now, our goal is to at least be aware of its reports,
+>> so that we can compare them with the ones produced by better tools and
+>> to be able to see how these reports change as a result of further
+>> infrastructure improvements (e.g. exception list, rules exclusion).
+>>
+>> Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+> 
+> Thanks for the patch, very nice!
+> 
+> 
+>> ---
+>> For those interested in, here is a sample pipeline:
+>> https://gitlab.com/xen-project/people/morzel/xen-orzelmichal/-/pipelines/775769167
+>> ---
+>>  .../build/debian/unstable-cppcheck.dockerfile | 37 +++++++++++++++++
+>>  automation/gitlab-ci/build.yaml               | 40 +++++++++++++++++++
+>>  automation/scripts/build                      | 11 ++++-
+>>  3 files changed, 87 insertions(+), 1 deletion(-)
+>>  create mode 100644 automation/build/debian/unstable-cppcheck.dockerfile
+>>
+>> diff --git a/automation/build/debian/unstable-cppcheck.dockerfile b/automation/build/debian/unstable-cppcheck.dockerfile
+>> new file mode 100644
+>> index 000000000000..39bcc50673c8
+>> --- /dev/null
+>> +++ b/automation/build/debian/unstable-cppcheck.dockerfile
+>> @@ -0,0 +1,37 @@
+>> +FROM debian:unstable
+>> +LABEL maintainer.name="The Xen Project" \
+>> +      maintainer.email="xen-devel@lists.xenproject.org"
+>> +
+>> +ENV DEBIAN_FRONTEND=noninteractive
+>> +ENV CPPCHECK_VERSION=2.7
+>> +ENV USER root
+>> +
+>> +RUN mkdir /build
+>> +WORKDIR /build
+>> +
+>> +# dependencies for cppcheck and Xen-only build/cross-build
+>> +RUN apt-get update && \
+>> +    apt-get --quiet --yes install \
+>> +        build-essential \
+>> +        curl \
+>> +        python-is-python3 \
+>> +        libpcre3-dev \
+>> +        flex \
+>> +        bison \
+>> +        gcc-arm-linux-gnueabihf \
+>> +        gcc-aarch64-linux-gnu
+>> +
+>> +# cppcheck release build (see cppcheck readme.md)
+>> +RUN curl -fsSLO https://github.com/danmar/cppcheck/archive/"$CPPCHECK_VERSION".tar.gz && \
+>> +    tar xvzf "$CPPCHECK_VERSION".tar.gz && \
+>> +    cd cppcheck-"$CPPCHECK_VERSION" && \
+>> +    make install -j$(nproc) \
+>> +        MATCHCOMPILER=yes \
+>> +        FILESDIR=/usr/share/cppcheck \
+>> +        HAVE_RULES=yes CXXFLAGS="-O2 -DNDEBUG -Wall -Wno-sign-compare -Wno-unused-function"
+>> +
+>> +# clean
+>> +RUN apt-get autoremove -y && \
+>> +    apt-get clean && \
+>> +    rm -rf /var/lib/apt/lists* /tmp/* /var/tmp/* && \
+>> +    rm -rf cppcheck-"$CPPCHECK_VERSION"* "$CPPCHECK_VERSION".tar.gz
+>> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
+>> index a053c5c7325d..c8831ccbec7a 100644
+>> --- a/automation/gitlab-ci/build.yaml
+>> +++ b/automation/gitlab-ci/build.yaml
+>> @@ -7,6 +7,7 @@
+>>      paths:
+>>        - binaries/
+>>        - xen-config
+>> +      - xen-cppcheck.txt
+>>        - '*.log'
+>>        - '*/*.log'
+>>      when: always
+>> @@ -145,6 +146,23 @@
+>>    variables:
+>>      <<: *gcc
+>>
+>> +.arm64-cross-build-tmpl:
+>> +  <<: *build
+>> +  variables:
+>> +    XEN_TARGET_ARCH: arm64
+>> +  tags:
+>> +    - x86_64
+>> +
+>> +.arm64-cross-build:
+>> +  extends: .arm64-cross-build-tmpl
+>> +  variables:
+>> +    debug: n
+>> +
+>> +.gcc-arm64-cross-build:
+>> +  extends: .arm64-cross-build
+>> +  variables:
+>> +    <<: *gcc
+>> +
+>>  .arm64-build-tmpl:
+>>    <<: *build
+>>    variables:
+>> @@ -679,6 +697,28 @@ archlinux-current-gcc-riscv64-debug-randconfig:
+>>      EXTRA_FIXED_RANDCONFIG:
+>>        CONFIG_COVERAGE=n
+>>
+>> +# Cppcheck analysis jobs
+>> +
+>> +debian-unstable-gcc-cppcheck:
+>> +  extends: .gcc-x86-64-build
+>> +  variables:
+>> +    CONTAINER: debian:unstable-cppcheck
+>> +    CPPCHECK: y
+>> +
+>> +debian-unstable-gcc-arm32-cppcheck:
+>> +  extends: .gcc-arm32-cross-build
+>> +  variables:
+>> +    CONTAINER: debian:unstable-cppcheck
+>> +    CROSS_COMPILE: /usr/bin/arm-linux-gnueabihf-
+>> +    CPPCHECK: y
+>> +
+>> +debian-unstable-gcc-arm64-cppcheck:
+>> +  extends: .gcc-arm64-cross-build
+>> +  variables:
+>> +    CONTAINER: debian:unstable-cppcheck
+>> +    CROSS_COMPILE: /usr/bin/aarch64-linux-gnu-
+>> +    CPPCHECK: y
+>> +
+>>  ## Test artifacts common
+>>
+>>  .test-jobs-artifact-common:
+>> diff --git a/automation/scripts/build b/automation/scripts/build
+>> index f2f5e55bc04f..c219752d553e 100755
+>> --- a/automation/scripts/build
+>> +++ b/automation/scripts/build
+>> @@ -38,7 +38,16 @@ cp xen/.config xen-config
+>>  # Directory for the artefacts to be dumped into
+>>  mkdir binaries
+>>
+>> -if [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+>> +if [[ "${CPPCHECK}" == "y" ]]; then
+>> +    # Cppcheck analysis invokes Xen-only build.
+> 
+> Given that when $CPPCHECK == y we are doing a hypervisor-only build,
+> what do you think of also specifying $HYPERVISOR_ONLY == y in these
+> cases?
+> 
+> We could set both CPPCHECK=y and HYPERVISOR_ONLY=y in build.yaml and
+> then here also check for both.
+Well, these are just cosmetic changes not impacting anything important, so
+if you want, I am ok to explicitly set HYPERVISOR_ONLY=y for cppcheck jobs.
 
---------------wNudRiZ2q9tWgKA01XjPCkif
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+> 
+> 
+>> +    # Known limitation: cppcheck generates inconsistent reports when running
+>> +    # in parallel mode, therefore do not specify -j<n>.
+> 
+> I take you tried -j$(nproc) on gitlab-ci and didn't work well? I tested
+> -j$(nproc) in my native arm64 environment and seemed to work well.
+Both me and Luca agreed on the fact that the reports are inconsistent when
+running cppcheck analysis with -j$(nproc). It is not that it would fail to create
+a report. Instead, there will be some internal cppcheck errors present in a report.
+Therefore, to minimize the risk of producing incorrect list of findings it is best
+not to specify -j<n>.
 
-T24gMTMuMDIuMjMgMjI6MDEsIERlbWkgTWFyaWUgT2Jlbm91ciB3cm90ZToNCj4gT24gTW9u
-LCBGZWIgMTMsIDIwMjMgYXQgMTA6MjY6MTFBTSArMDEwMCwgSnVlcmdlbiBHcm9zcyB3cm90
-ZToNCj4+IE9uIDA3LjAyLjIzIDAzOjEwLCBEZW1pIE1hcmllIE9iZW5vdXIgd3JvdGU6DQo+
-Pj4gV2hlbiBhIGdyYW50IGVudHJ5IGlzIHN0aWxsIGluIHVzZSBieSB0aGUgcmVtb3RlIGRv
-bWFpbiwgTGludXggbXVzdCBwdXQNCj4+PiBpdCBvbiBhIGRlZmVycmVkIGxpc3QuICBOb3Jt
-YWxseSwgdGhpcyBsaXN0IGlzIHZlcnkgc2hvcnQsIGJlY2F1c2UNCj4+PiB0aGUgUFYgbmV0
-d29yayBhbmQgYmxvY2sgcHJvdG9jb2xzIGV4cGVjdCB0aGUgYmFja2VuZCB0byB1bm1hcCB0
-aGUgZ3JhbnQNCj4+PiBmaXJzdC4gIEhvd2V2ZXIsIFF1YmVzIE9TJ3MgR1VJIHByb3RvY29s
-IGlzIHN1YmplY3QgdG8gdGhlIGNvbnN0cmFpbnRzDQo+Pj4gb2YgdGhlIFggV2luZG93IFN5
-c3RlbSwgYW5kIGFzIHN1Y2ggd2luZHMgdXAgd2l0aCB0aGUgZnJvbnRlbmQgdW5tYXBwaW5n
-DQo+Pj4gdGhlIHdpbmRvdyBmaXJzdC4gIEFzIGEgcmVzdWx0LCB0aGUgbGlzdCBjYW4gZ3Jv
-dyB2ZXJ5IGxhcmdlLCByZXN1bHRpbmcNCj4+PiBpbiBhIG1hc3NpdmUgbWVtb3J5IGxlYWsg
-YW5kIGV2ZW50dWFsIFZNIGZyZWV6ZS4NCj4+Pg0KPj4+IEZpeCB0aGlzIHByb2JsZW0gYnkg
-YnVtcGluZyB0aGUgbnVtYmVyIG9mIGVudHJpZXMgdGhhdCB0aGUgVk0gd2lsbA0KPj4+IGF0
-dGVtcHQgdG8gZnJlZSBhdCBlYWNoIGl0ZXJhdGlvbiB0byAxMDAwMC4gIFRoaXMgaXMgYW4g
-dWdseSBoYWNrIHRoYXQNCj4+PiBtYXkgd2VsbCBtYWtlIGEgZGVuaWFsIG9mIHNlcnZpY2Ug
-ZWFzaWVyLCBidXQgZm9yIFF1YmVzIE9TIHRoYXQgaXMgbGVzcw0KPj4+IGJhZCB0aGFuIHRo
-ZSBwcm9ibGVtIFF1YmVzIE9TIHVzZXJzIGFyZSBmYWNpbmcgdG9kYXkuDQo+Pg0KPj4+IFRo
-ZXJlIHJlYWxseQ0KPj4+IG5lZWRzIHRvIGJlIGEgd2F5IGZvciBhIGZyb250ZW5kIHRvIGJl
-IG5vdGlmaWVkIHdoZW4gdGhlIGJhY2tlbmQgaGFzDQo+Pj4gdW5tYXBwZWQgdGhlIGdyYW50
-cy4NCj4+DQo+PiBQbGVhc2UgcmVtb3ZlIHRoaXMgc2VudGVuY2UgZnJvbSB0aGUgY29tbWl0
-IG1lc3NhZ2UsIG9yIG1vdmUgaXQgYmVsb3cgdGhlDQo+PiAiLS0tIiBtYXJrZXIuDQo+IA0K
-PiBXaWxsIGZpeCBpbiB2Mi4NCj4gDQo+PiBUaGVyZSBhcmUgc3RpbGwgc29tZSBmbGFnIGJp
-dHMgdW5hbGxvY2F0ZWQgaW4gc3RydWN0IGdyYW50X2VudHJ5X3YxIG9yDQo+PiBzdHJ1Y3Qg
-Z3JhbnRfZW50cnlfaGVhZGVyLiBZb3UgY291bGQgc3VnZ2VzdCBzb21lIHBhdGNoZXMgZm9y
-IFhlbiB0byB1c2UNCj4+IG9uZSBvZiB0aGUgYml0cyBhcyBhIG1hcmtlciB0byBnZXQgYW4g
-ZXZlbnQgZnJvbSB0aGUgaHlwZXJ2aXNvciBpZiBhDQo+PiBncmFudCB3aXRoIHN1Y2ggYSBi
-aXQgc2V0IGhhcyBiZWVuIHVubWFwcGVkLg0KPiANCj4gVGhhdCBpcyBpbmRlZWQgYSBnb29k
-IGlkZWEuICBUaGVyZSBhcmUgb3RoZXIgcHJvYmxlbXMgd2l0aCB0aGUgZ3JhbnQNCj4gaW50
-ZXJmYWNlIGFzIHdlbGwsIGJ1dCB0aG9zZSBjYW4gYmUgZGVhbHQgd2l0aCBsYXRlci4NCj4g
-DQo+PiBJIGhhdmUgbm8gaWRlYSwgd2hldGhlciBzdWNoIGFuIGludGVyZmFjZSB3b3VsZCBi
-ZSBhY2NlcHRlZCBieSB0aGUNCj4+IG1haW50YWluZXJzLCB0aG91Z2guDQo+Pg0KPj4+IEFk
-ZGl0aW9uYWxseSwgYSBtb2R1bGUgcGFyYW1ldGVyIGlzIHByb3ZpZGVkIHRvDQo+Pj4gYWxs
-b3cgdHVuaW5nIHRoZSByZWNsYWltIHNwZWVkLg0KPj4+DQo+Pj4gVGhlIGNvZGUgcHJldmlv
-dXNseSB1c2VkIHByaW50ayhLRVJOX0RFQlVHKSB3aGVuZXZlciBpdCBoYWQgdG8gZGVmZXIN
-Cj4+PiByZWNsYWltaW5nIGEgcGFnZSBiZWNhdXNlIHRoZSBncmFudCB3YXMgc3RpbGwgbWFw
-cGVkLiAgVGhpcyByZXN1bHRlZCBpbg0KPj4+IGEgbGFyZ2Ugdm9sdW1lIG9mIGxvZyBtZXNz
-YWdlcyB0aGF0IGJvdGhlcmVkIHVzZXJzLiAgVXNlIHByX2RlYnVnDQo+Pj4gaW5zdGVhZCwg
-d2hpY2ggc3VwcHJlc3NlcyB0aGUgbWVzc2FnZXMgYnkgZGVmYXVsdC4gIERldmVsb3BlcnMg
-Y2FuDQo+Pj4gZW5hYmxlIHRoZW0gdXNpbmcgdGhlIGR5bmFtaWMgZGVidWcgbWVjaGFuaXNt
-Lg0KPj4+DQo+Pj4gRml4ZXM6IFF1YmVzT1MvcXViZXMtaXNzdWVzIzc0MTAgKG1lbW9yeSBs
-ZWFrKQ0KPj4+IEZpeGVzOiBRdWJlc09TL3F1YmVzLWlzc3VlcyM3MzU5IChleGNlc3NpdmUg
-bG9nZ2luZykNCj4+PiBGaXhlczogNTY5Y2E1YjNmOTRjICgieGVuL2dudHRhYjogYWRkIGRl
-ZmVycmVkIGZyZWVpbmcgbG9naWMiKQ0KPj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3Jn
-DQo+Pj4gU2lnbmVkLW9mZi1ieTogRGVtaSBNYXJpZSBPYmVub3VyIDxkZW1pQGludmlzaWJs
-ZXRoaW5nc2xhYi5jb20+DQo+Pj4gLS0tDQo+Pj4gQW55b25lIGhhdmUgc3VnZ2VzdGlvbnMg
-Zm9yIGltcHJvdmluZyB0aGUgZ3JhbnQgbWVjaGFuaXNtPyAgQXJnbyBpc24ndA0KPj4+IGEg
-Z29vZCBvcHRpb24sIGFzIGluIHRoZSBHVUkgcHJvdG9jb2wgdGhlcmUgYXJlIHN1YnN0YW50
-aWFsIHBlcmZvcm1hbmNlDQo+Pj4gd2lucyB0byBiZSBoYWQgYnkgdXNpbmcgdHJ1ZSBzaGFy
-ZWQgbWVtb3J5LiAgUmVzZW5kaW5nIGFzIEkgZm9yZ290IHRoZQ0KPj4+IFNpZ25lZC1vZmYt
-Ynkgb24gdGhlIGZpcnN0IHN1Ym1pc3Npb24uICBTb3JyeSBhYm91dCB0aGF0Lg0KPj4+DQo+
-Pj4gICAgZHJpdmVycy94ZW4vZ3JhbnQtdGFibGUuYyB8IDIgKy0NCj4+PiAgICAxIGZpbGUg
-Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4+Pg0KPj4+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL3hlbi9ncmFudC10YWJsZS5jIGIvZHJpdmVycy94ZW4vZ3JhbnQt
-dGFibGUuYw0KPj4+IGluZGV4IDVjODNkNDEuLjJjMmZhYTcgMTAwNjQ0DQo+Pj4gLS0tIGEv
-ZHJpdmVycy94ZW4vZ3JhbnQtdGFibGUuYw0KPj4+ICsrKyBiL2RyaXZlcnMveGVuL2dyYW50
-LXRhYmxlLmMNCj4+PiBAQCAtMzU1LDE0ICszNTUsMjAgQEANCj4+PiAgICBzdGF0aWMgdm9p
-ZCBnbnR0YWJfaGFuZGxlX2RlZmVycmVkKHN0cnVjdCB0aW1lcl9saXN0ICopOw0KPj4+ICAg
-IHN0YXRpYyBERUZJTkVfVElNRVIoZGVmZXJyZWRfdGltZXIsIGdudHRhYl9oYW5kbGVfZGVm
-ZXJyZWQpOw0KPj4+ICtzdGF0aWMgYXRvbWljNjRfdCBkZWZlcnJlZF9jb3VudDsNCj4+PiAr
-c3RhdGljIGF0b21pYzY0X3QgbGVha2VkX2NvdW50Ow0KPj4+ICtzdGF0aWMgdW5zaWduZWQg
-aW50IGZyZWVfcGVyX2l0ZXJhdGlvbiA9IDEwMDAwOw0KPj4NCj4+IEFzIHlvdSBhcmUgYWRk
-aW5nIGEga2VybmVsIHBhcmFtZXRlciB0byBjaGFuZ2UgdGhpcyB2YWx1ZSwgcGxlYXNlIHNl
-dCB0aGUNCj4+IGRlZmF1bHQgdG8gYSB2YWx1ZSBub3QgcG90ZW50aWFsbHkgY2F1c2luZyBh
-bnkgRG9TIHByb2JsZW1zLiBRdWJlcyBPUyBjYW4NCj4+IHN0aWxsIHVzZSBhIGhpZ2hlciB2
-YWx1ZSB0aGVuLg0KPiANCj4gRG8geW91IGhhdmUgYW55IHN1Z2dlc3Rpb25zPyAgSSBkb27i
-gJl0IGtub3cgaWYgdGhpcyBpcyBhY3R1YWxseSBhIERvUw0KPiBjb25jZXJuIGFueW1vcmUu
-ICBTaHJpbmtpbmcgdGhlIGludGVydmFsIGJldHdlZW4gaXRlcmF0aW9ucyB3b3VsZCBiZS4N
-Cg0KV2h5IGRvbid0IHlvdSB1c2UgdG9kYXkncyB2YWx1ZSBvZiAxMCBmb3IgdGhlIGRlZmF1
-bHQ/DQoNCj4gDQo+Pj4gKw0KPj4+ICAgIHN0YXRpYyB2b2lkIGdudHRhYl9oYW5kbGVfZGVm
-ZXJyZWQoc3RydWN0IHRpbWVyX2xpc3QgKnVudXNlZCkNCj4+PiAgICB7DQo+Pj4gLQl1bnNp
-Z25lZCBpbnQgbnIgPSAxMDsNCj4+PiArCXVuc2lnbmVkIGludCBuciA9IFJFQURfT05DRShm
-cmVlX3Blcl9pdGVyYXRpb24pOw0KPj4NCj4+IEkgZG9uJ3Qgc2VlIHdoeSB5b3UgYXJlIG5l
-ZWRpbmcgUkVBRF9PTkNFKCkgaGVyZS4NCj4gDQo+IGZyZWVfcGVyX2l0ZXJhdGlvbiBjYW4g
-YmUgY29uY3VycmVudGx5IG1vZGlmaWVkIHZpYSBzeXNmcy4NCg0KTXkgcmVtYXJrIHdhcyBi
-YXNlZCBvbiB0aGUgd3JvbmcgYXNzdW1wdGlvbiB0aGF0IGlnbm9yZV9saW1pdCBjb3VsZCBi
-ZQ0KZHJvcHBlZC4NCg0KPiANCj4+PiArCWNvbnN0IGJvb2wgaWdub3JlX2xpbWl0ID0gbnIg
-PT0gMDsNCj4+DQo+PiBJIGRvbid0IHRoaW5rIHlvdSBuZWVkIHRoaXMgZXh0cmEgdmFyaWFi
-bGUsIGlmIHlvdSB3b3VsZCAuLi4NCj4+DQo+Pj4gICAgCXN0cnVjdCBkZWZlcnJlZF9lbnRy
-eSAqZmlyc3QgPSBOVUxMOw0KPj4+ICAgIAl1bnNpZ25lZCBsb25nIGZsYWdzOw0KPj4+ICsJ
-c2l6ZV90IGZyZWVkID0gMDsNCj4+PiAgICAJc3Bpbl9sb2NrX2lycXNhdmUoJmdudHRhYl9s
-aXN0X2xvY2ssIGZsYWdzKTsNCj4+PiAtCXdoaWxlIChuci0tKSB7DQo+Pj4gKwl3aGlsZSAo
-KGlnbm9yZV9saW1pdCB8fCBuci0tKSAmJiAhbGlzdF9lbXB0eSgmZGVmZXJyZWRfbGlzdCkp
-IHsNCj4+DQo+PiAuLi4gY2hhbmdlIHRoaXMgdG8gIndoaWxlICgoIW5yIHx8IG5yLS0pIC4u
-LiIuDQo+IA0KPiBuci0tIGV2YWx1YXRlcyB0byB0aGUgb2xkIHZhbHVlIG9mIG5yLCBzbyAi
-d2hpbGUgKCghbnIgfCBuci0tKSkgLi4uIiBpcw0KPiBhbiBpbmZpbml0ZSBsb29wLg0KDQpB
-aCwgcmlnaHQuDQoNCg0KSnVlcmdlbg0K
---------------wNudRiZ2q9tWgKA01XjPCkif
-Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
+> 
+> 
+>> +    xen/scripts/xen-analysis.py --run-cppcheck --cppcheck-misra
+>> +
+>> +    # Preserve artefacts
+>> +    cp xen/xen binaries/xen
+>> +    cp xen/cppcheck-report/xen-cppcheck.txt xen-cppcheck.txt
+>> +elif [[ "${HYPERVISOR_ONLY}" == "y" ]]; then
+>>      # Xen-only build
+>>      make -j$(nproc) xen
+>>
+>> --
+>> 2.25.1
+>>
 
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-jR/i1DG86lem3iBDXzXsZDn8R38=3D
-=3D2wuH
------END PGP PUBLIC KEY BLOCK-----
-
---------------wNudRiZ2q9tWgKA01XjPCkif--
-
---------------0awnHpg016kUQAzmDWn7XD0W--
-
---------------lY03vSGRGRiVjwOo0Dl8sT1u
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPrPW0FAwAAAAAACgkQsN6d1ii/Ey/C
-TAgAhxZVaExyeIg13ffZ9exlJPa/BeESqo4dgpaot8Oc7w8/cYA2s1CV1qDT48wPqiJpWr7zVOC0
-uODWlsHtgYT9xMcG6YbeiSMmJcu8rqqDB5Tzh4CRvkdmXxkrDaTjeQtbvGVIgPvxfNWkXV8zldHG
-zq5wxk7o7C8BfGxaDEl0yANphvKTH9AVANxBJZ5HD0PzKxdCWUHPQ6+GYJ1i47Wbyh3cijDD7Ksv
-p0j4ZZiAzDgAhe6WxMyVIq1xCVVl3J+mY+DujNwMnK2VuEo/MREP+NTI/OGJJzw4ggNLQvP6KKsm
-8WKlU2SYWoXcwH+z50Ic5udp1VztCd4NS6L/t60jWg==
-=q9pF
------END PGP SIGNATURE-----
-
---------------lY03vSGRGRiVjwOo0Dl8sT1u--
+~Michal
 
