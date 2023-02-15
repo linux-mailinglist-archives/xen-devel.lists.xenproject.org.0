@@ -2,40 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7D9698235
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 18:34:52 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496163.766757 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3342D698237
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 18:34:54 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496165.766767 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSLfJ-00079W-Gv; Wed, 15 Feb 2023 17:33:57 +0000
+	id 1pSLfb-0007Qy-PI; Wed, 15 Feb 2023 17:34:15 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496163.766757; Wed, 15 Feb 2023 17:33:57 +0000
+Received: by outflank-mailman (output) from mailman id 496165.766767; Wed, 15 Feb 2023 17:34:15 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSLfJ-00077N-DG; Wed, 15 Feb 2023 17:33:57 +0000
-Received: by outflank-mailman (input) for mailman id 496163;
- Wed, 15 Feb 2023 17:33:55 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=yo9K=6L=linaro.org=alex.bennee@srs-se1.protection.inumbo.net>)
- id 1pSLfH-00077H-Hu
- for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 17:33:55 +0000
-Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
- [2a00:1450:4864:20::42b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id ea99a9b2-ad56-11ed-933c-83870f6b2ba8;
- Wed, 15 Feb 2023 18:33:53 +0100 (CET)
-Received: by mail-wr1-x42b.google.com with SMTP id a2so19957749wrd.6
- for <xen-devel@lists.xenproject.org>; Wed, 15 Feb 2023 09:33:53 -0800 (PST)
-Received: from zen.linaroharston ([85.9.250.243])
- by smtp.gmail.com with ESMTPSA id
- c5-20020a5d4cc5000000b002c558869934sm8186388wrt.81.2023.02.15.09.33.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Feb 2023 09:33:52 -0800 (PST)
-Received: from zen (localhost [127.0.0.1])
- by zen.linaroharston (Postfix) with ESMTP id 5E55E1FFB7;
- Wed, 15 Feb 2023 17:33:52 +0000 (GMT)
+	id 1pSLfb-0007Pa-Lz; Wed, 15 Feb 2023 17:34:15 +0000
+Received: by outflank-mailman (input) for mailman id 496165;
+ Wed, 15 Feb 2023 17:34:15 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSLfa-0007PJ-WE; Wed, 15 Feb 2023 17:34:15 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSLfa-0000VK-To; Wed, 15 Feb 2023 17:34:14 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSLfa-0007Pr-Ng; Wed, 15 Feb 2023 17:34:14 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSLfa-0003vA-N9; Wed, 15 Feb 2023 17:34:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,63 +42,85 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: ea99a9b2-ad56-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DcVGeHtYBRBwgzlnj8UOcf+La3RPbj1Pw6zmXVeuBcc=;
-        b=TY7dQXLP+3LKCNRuwKAhQmsMNW6yqGfShnlxc5kciH5j7CHP+SAxHky6xXlncBZX8n
-         BSRTzK10dxcoqsQWFT6WpcC4ts45JbA73YMYClqbr8qB8vQM4QPLTySoSrxejp0q3EhB
-         OzQYrzzV8cm6EH9EIpXR4FgnxdfxrSN+XZs5wybmiFW4XepspjZZU46ghYGMF5Sc7jQ0
-         mFA/6gX52831D1p1t/G9uRZPGG8OyXYpv2TKYP6skVcjNd523BUCP9XAZgLNOqMnmvKq
-         +va/iwCGtw5knvxrKiOY7JqgDep8sgKDqLp2xpItOUb7WFnF3Ad/zBZ7m2uDFP30urqx
-         4txQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=content-transfer-encoding:mime-version:message-id:in-reply-to:date
-         :subject:cc:to:from:user-agent:references:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=DcVGeHtYBRBwgzlnj8UOcf+La3RPbj1Pw6zmXVeuBcc=;
-        b=Hc+3GiHUGtuBFuSsKWYP73F+zkWtVQIPBlw/BWC/tdXNu7dOd5ed02zrCZVEp9FBwx
-         9xlAjHmtd4tvXFfX8TSNBe0/xJNvpDPfLnyyBn6qWBu9A3WcJc5AQIf+pAdBZ5ivnB2A
-         rk9mITGg4xEgxnYdNUSm/ZCOX0XUPTKn+w/pO/P9AdSAoq7u+qJZm+iRhZvSxSbYCYZY
-         ouVwP08RUtJdbiKtYD6GwpBDMRGckk1R0T3K0RGkyOP7yCbDAjuh/f1dNIc3Sr5metrk
-         aw4X8nqmKgbZ3lZxJhvmn29ZKEZAf5f7iOPi+cfNFkZXBxi8K1LO7nRG7DuAuo8Z6cYA
-         REOA==
-X-Gm-Message-State: AO0yUKWhVIyRwjBk0INEUccfj5pZoLEs++aXtJtT2CxS8LyvcMeYX2id
-	jzJGVVqXM1zE3198hLJYBbx2cQ==
-X-Google-Smtp-Source: AK7set+YVSC2ETEfLUAdM7ZmVXyP2J/zSok3OF7fsnYAGSVBSonf4LmvlhvvVw86fx22TDcCI9+cNA==
-X-Received: by 2002:adf:ee92:0:b0:2c3:ed68:5600 with SMTP id b18-20020adfee92000000b002c3ed685600mr2446540wro.38.1676482433071;
-        Wed, 15 Feb 2023 09:33:53 -0800 (PST)
-References: <20230215153451.30626-1-philmd@linaro.org>
-User-agent: mu4e 1.9.20; emacs 29.0.60
-From: Alex =?utf-8?Q?Benn=C3=A9e?= <alex.bennee@linaro.org>
-To: Philippe =?utf-8?Q?Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Cc: Anthony Perard <anthony.perard@citrix.com>, Paul Durrant <paul@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>,
- xen-devel@lists.xenproject.org, qemu-trivial@nongnu.org,
- qemu-devel@nongnu.org
-Subject: Re: [PATCH] accel/xen: Remove dead code
-Date: Wed, 15 Feb 2023 17:33:48 +0000
-In-reply-to: <20230215153451.30626-1-philmd@linaro.org>
-Message-ID: <87sff696kf.fsf@linaro.org>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=AkQ+HwXrikur2pSgxTbo8lFITWOiNczEskMsYROGyLI=; b=NLxkGdDspM0Iy0LWeo6hXKYO8e
+	k7eOP7hwydgdUPcWVkaRgpe0+8IY6mzM+z3bHZRS1oqr78PRd2FDD+WW3RKfAgiEXDR8LPSMvYxgi
+	Bzut/zBuM/FSKr4+//hIEtvjzFueEiDRS/CeCOgVGyYsmwRj3d+gt2UBDBR8cdWBsqtM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-177402-mainreport@xen.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Subject: [xen-unstable-smoke test] 177402: tolerable trouble: pass/starved - PUSHED
+X-Osstest-Failures:
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable-smoke:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable-smoke:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable-smoke:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=5b9bb91abba7c983def3b4bef71ab08ad360a242
+X-Osstest-Versions-That:
+    xen=63305e5392ec2d17b85e7996a97462744425db80
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Wed, 15 Feb 2023 17:34:14 +0000
+
+flight 177402 xen-unstable-smoke real [real]
+http://logs.test-lab.xenproject.org/osstest/logs/177402/
+
+Failures :-/ but no regressions.
+
+Tests which did not succeed, but are not blocking:
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  5b9bb91abba7c983def3b4bef71ab08ad360a242
+baseline version:
+ xen                  63305e5392ec2d17b85e7996a97462744425db80
+
+Last test of basis   177305  2023-02-14 19:03:50 Z    0 days
+Testing same since   177402  2023-02-15 16:00:28 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Marek Marczykowski-Górecki <marmarek@invisiblethingslab.com>
+  Ross Lagerwall <ross.lagerwall@citrix.com>
+
+jobs:
+ build-arm64-xsm                                              pass    
+ build-amd64                                                  pass    
+ build-armhf                                                  starved 
+ build-amd64-libvirt                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-amd64-libvirt                                     pass    
 
 
-Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org> writes:
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
 
-> Unused since introduction in commit 04b0de0ee8
-> ("xen: factor out common functions").
->
-> Signed-off-by: Philippe Mathieu-Daud=C3=A9 <philmd@linaro.org>
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
 
-Reviewed-by: Alex Benn=C3=A9e <alex.bennee@linaro.org>
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
 
---=20
-Alex Benn=C3=A9e
-Virtualisation Tech Lead @ Linaro
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Pushing revision :
+
+To xenbits.xen.org:/home/xen/git/xen.git
+   63305e5392..5b9bb91abb  5b9bb91abba7c983def3b4bef71ab08ad360a242 -> smoke
 
