@@ -2,29 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13949698274
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 18:42:31 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496176.766778 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A6076982C8
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 19:00:21 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496182.766789 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSLnI-00013E-Ig; Wed, 15 Feb 2023 17:42:12 +0000
+	id 1pSM4H-0002xX-1d; Wed, 15 Feb 2023 17:59:45 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496176.766778; Wed, 15 Feb 2023 17:42:12 +0000
+Received: by outflank-mailman (output) from mailman id 496182.766789; Wed, 15 Feb 2023 17:59:45 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSLnI-00010Y-Fj; Wed, 15 Feb 2023 17:42:12 +0000
-Received: by outflank-mailman (input) for mailman id 496176;
- Wed, 15 Feb 2023 17:42:11 +0000
+	id 1pSM4G-0002ut-VJ; Wed, 15 Feb 2023 17:59:44 +0000
+Received: by outflank-mailman (input) for mailman id 496182;
+ Wed, 15 Feb 2023 17:59:43 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=LhbV=6L=citrix.com=prvs=4037f5ffb=anthony.perard@srs-se1.protection.inumbo.net>)
- id 1pSLnH-00010S-Cq
- for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 17:42:11 +0000
-Received: from esa3.hc3370-68.iphmx.com (esa3.hc3370-68.iphmx.com
- [216.71.145.155]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 117fbb23-ad58-11ed-933c-83870f6b2ba8;
- Wed, 15 Feb 2023 18:42:10 +0100 (CET)
+ <SRS0=l6+G=6L=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
+ id 1pSM4F-0002un-Mm
+ for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 17:59:43 +0000
+Received: from mail-wm1-x32e.google.com (mail-wm1-x32e.google.com
+ [2a00:1450:4864:20::32e])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 86188aa2-ad5a-11ed-933c-83870f6b2ba8;
+ Wed, 15 Feb 2023 18:59:42 +0100 (CET)
+Received: by mail-wm1-x32e.google.com with SMTP id
+ g6-20020a05600c310600b003e1f6dff952so2226305wmo.1
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Feb 2023 09:59:42 -0800 (PST)
+Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
+ [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
+ c2-20020a05600c0a4200b003e1fb31fc2bsm3092426wmq.37.2023.02.15.09.59.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Feb 2023 09:59:41 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,124 +45,87 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 117fbb23-ad58-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676482929;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=tddX/P7bh4gBa81Pab3djQYtgs+vkML5E48bQMNIgo4=;
-  b=KPRhHgPwJKxvZEUXF12ZYcZuQ6jJXjWu3fSVGt9A1MdNdwDlrYdrttT2
-   I2DOkb9hc+S9i91jvLoLWmpGyL5+B5ZepRe5mZ4zpA4C6wfpexKOaOf5b
-   vFxbcZrn+SC7ToMCN1o32I7JGdHwhzeqDg+1dvh1iuP32Lre1o1rzEDUD
-   w=;
-Authentication-Results: esa3.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 97189269
-X-Ironport-Server: esa3.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:d2v3LaomwkzNuZiy9vW2D4zfMTteBmLfZRIvgKrLsJaIsI4StFCzt
- garIBmPOv3eN2Shf9wlYI+08E0OvJTVmNFhT1A++yBjHn8U95uZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEziRNVvrzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXADBTLQyJqvuu/LC+Q/Npj/o/MdLSEIxK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVRrk6VoqwmpXDe1gVr3JDmMcbPe8zMTsJQ9qqdj
- jOZpjSoWE9LXDCZ4QGn8y2Mu8TUpnviU70JV6ed9b1b3VLGkwT/DzVJDADm8JFVkHWWWd1FL
- FcP0jEztqV0/0uuJvHtUhv9rHOasxo0X9tLD/Z8+AyL0rDT4QuSGi4DVDEpQNU+udU/XzACy
- l6DlNSvDjtq2JWXQ3+A8rafrRupJDMYa2QFYEcsUg8t89Tl5oYpgXryos1LSfDvyIevQHepn
- m7M9XJl71kOsSIV/6XlvkzNriu0mprMRxQw7zvLQ3mcwgwsMeZJeLeUwVTc6P9BKqOQQV+Ao
- GUIlqCi0QweMX2evHfTGbtQRdlF897AaWSB2gA3Q/HN4hz3oxaekZZsDCaSzauDGuINYnfXb
- UDaomu9D7cDbSLxPcebj29cYvnGLJQM9/y/DZg4jfIUOPCdkTNrGgk0PSZ8OEiz+HXAaYllZ
- f+mnT+EVB7285hPwjusXPs62rQ23C04zm67bcmlkEr8gOvAPi/PGe1t3L6yggYRtvvsTOL9q
- Ys3Cid3408HDL2Wjtf/r+b/0mzm3VBkXMur+qS7h8aIIxZ8GXFJNhMi6epJRmCRpIwMzr2g1
- ijkCidlJK/X2SWvxfOiNioyN9sCnP9X8RoGAMDbFQzwgClzPNb/vft3mlleVeBPydGPBMVcF
- 5EtE/hsyNwWItgb01zxtaXAkbE=
-IronPort-HdrOrdr: A9a23:HuCMBaE4JoEA+vtGpLqE0seALOsnbusQ8zAXPhZKOHtom6uj5q
- OTdZUgtSMc5wx7ZJhNo7q90cq7IE80l6Qb3WBLB8bHYOCOggLBEGgF1+bfKlbbdREWmNQw6U
- /OGZIObuEZoTJB/KTHCKjTKadE/OW6
-X-IronPort-AV: E=Sophos;i="5.97,300,1669093200"; 
-   d="scan'208";a="97189269"
-Date: Wed, 15 Feb 2023 17:41:57 +0000
-From: Anthony PERARD <anthony.perard@citrix.com>
+X-Inumbo-ID: 86188aa2-ad5a-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=kmhmw5XlwFTAKn7AkFVbDPLUolEeedjqlaORqi0uobg=;
+        b=JErikuozksjKxYv9SmnZVbaJEJfO6UdsKS9PvA2Qu/sHHBiyaJByMnx3sAS5vNgWOL
+         jisQdUwpD424QfbXmHzIHmqJNW5WX1YW1IJwk15iPj8yf7SnIYa2PJu2b5qeEqd7Ia4C
+         qo2cGkkv0DDHUYEfvrshYjbY/QUA6SDRHhvg2GHOZwyh52g0hKSHs69wIwb4OZa6gglv
+         ieOIOL48he7tE4iCledbQgOHMZ5K9/8wHH0aGPKJgwJqpuIfEF57uyRjX188rCB/4DCo
+         CwWdQKXJ9qVxOcnS1f0y7qvAnPRehoEM0MPJGDjq9sOkSVrSARQdPgqxHgsX20PwcJfo
+         4fyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=kmhmw5XlwFTAKn7AkFVbDPLUolEeedjqlaORqi0uobg=;
+        b=3j9JR0I01DN3uGSpcXundGlhl8Obv3mvUJDkTJyhJ8WE44wFgqNIwGuzriBkNtQTf2
+         96d2zZMSEDtaLYBY34gaTf/YHtgM3TazpTqz2WejHY0II3rAVUG9W5cnhhWf7MFO7kf7
+         +/W2DtsdtiyY76ac22yPOlvUv0oGlaBNT8ffR2dqs0a4tbRXCv3JHPnp1LDwV4xdLf0w
+         wmo71/sXSfwIwT0MzdyXXm3Ytj/HB7jn6Bk4zkNxlO2VvyV2bruO/wbWpATWiXr1eSid
+         t92+SveivqWV9zBTegHRglIYl0xDPROldDUfK8XF9u3+G6VP1okcNt8mUwfcVT08tfZx
+         XPUA==
+X-Gm-Message-State: AO0yUKUke+yIumoTRs8bR4HMSuMJwn+r0ou36kcQNB9oE64jsOhkX69J
+	M1SpNUkAeqMg2dzh82hm+Uk=
+X-Google-Smtp-Source: AK7set/eWDqxEb62UHhSlvzJhCCkGiiJjFR+lBHb7nOKFGr30DovgFcPgtaRZgQyIXYoWMVJ9kSMTw==
+X-Received: by 2002:a05:600c:708:b0:3df:eecc:de2b with SMTP id i8-20020a05600c070800b003dfeeccde2bmr3311889wmn.11.1676483982217;
+        Wed, 15 Feb 2023 09:59:42 -0800 (PST)
+Message-ID: <00abbda808239ab74cb6c954b33e34380ac4e41e.camel@gmail.com>
+Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
+From: Oleksii <oleksii.kurochko@gmail.com>
 To: Jan Beulich <jbeulich@suse.com>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Wei Liu <wl@xen.org>, "Juergen
- Gross" <jgross@suse.com>, <xen-devel@lists.xenproject.org>
-Subject: Re: [XEN PATCH] libs: Fix unstable libs build on FreeBSD,
- auto-generate version-script
-Message-ID: <Y+0ZZb9VYOsyeaUj@l14>
-References: <20230215152111.51218-1-anthony.perard@citrix.com>
- <b105cc38-315a-f3f5-0f8e-f3501d31a76c@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, George Dunlap
+ <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>, Stefano
+ Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
+ xen-devel@lists.xenproject.org
+Date: Wed, 15 Feb 2023 19:59:40 +0200
+In-Reply-To: <9cf03b23-586b-92e1-c0b1-578f3eadd2ad@suse.com>
+References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
+	 <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
+	 <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
+	 <81fd6cf5ff59acf6ca8b66e093630e5accc45198.camel@gmail.com>
+	 <9cf03b23-586b-92e1-c0b1-578f3eadd2ad@suse.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <b105cc38-315a-f3f5-0f8e-f3501d31a76c@suse.com>
 
-On Wed, Feb 15, 2023 at 04:30:43PM +0100, Jan Beulich wrote:
-> On 15.02.2023 16:21, Anthony PERARD wrote:
-> > @@ -13,6 +14,10 @@ MAJOR := $(shell $(XEN_ROOT)/version.sh $(XEN_ROOT)/xen/Makefile)
-> >  endif
-> >  MINOR ?= 0
-> >  
-> > +ifeq ($(origin version-script), undefined)
-> > +version-script := libxen$(LIBNAME).map.tmp
-> > +endif
-> 
-> Such a use of $(origin ...) is pretty fragile. Maybe better use ?= ?
+Hello Jan and community,
 
-I'm not sure why I used $(origin), I've written that more than 6 month
-ago, but this way of using it is actually described in the manual, when
-documenting ?= but with a = instead of := .
-So, maybe I wanted to have ?= but with immediate evaluation rather than
-deferred. Maybe I had issue with $(version-script) evaluating to
-different values.
+I experimented and switched RISC-V to x86 implementation. All that I
+changed in x86 implementation for RISC-V was _ASM_BUGFRAME_TEXT. Other
+things are the same as for x86.
 
-If that ok, I'd like to keep using these runes, since ?:= doesn't exist.
+For RISC-V it is fine to skip '%c' modifier so _ASM_BUGFRAME_TEXT will
+look like:
 
-> > @@ -72,6 +77,10 @@ headers.lst: FORCE
-> >  	@{ set -e; $(foreach h,$(LIBHEADERS),echo $(h);) } > $@.tmp
-> >  	@$(call move-if-changed,$@.tmp,$@)
-> >  
-> > +libxen$(LIBNAME).map.tmp: FORCE
-> > +	echo 'VERS_$(MAJOR).$(MINOR) { global: *; };' >.$@.tmp
-> > +	$(call move-if-changed,.$@.tmp,$@)
-> 
-> Isn't this going to get in the way of your "build everything from root"
-> effort, where $@ will include a path? Also do we really need .tmp.tmp
-> files?
+#define _ASM_BUGFRAME_TEXT(second_frame) \
+    ".Lbug%=3D: ebreak\n"  =20
+    ".pushsection .bug_frames.%[bf_type], \"a\", @progbits\n"
+    ".p2align 2\n"
+    ".Lfrm%=3D:\n"
+    ".long (.Lbug%=3D - .Lfrm%=3D) + %[bf_line_hi]\n"
+    ".long (%[bf_ptr] - .Lfrm%=3D) + %[bf_line_lo]\n"
+    ".if " #second_frame "\n"
+    ".long 0, %[bf_msg] - .Lfrm%=3D\n"
+    ".endif\n"
+    ".popsection\n"
 
-Good call, I'll replace that with $(@D)/.$(@F), that will be one
-less thing to deal with, Also, I guess just adding a dot to the filename
-would be enough, and we would have `mv .libxen.map.tmp libxen.map.tmp`,
-and no more .tmp.tmp files.
+The only thing I am worried about is:
 
-> >  lib$(LIB_FILE_NAME).a: $(OBJS-y)
-> 
-> Seeing this right adjacent in context - any reason you use libxen$(LIBNAME)
-> and not the same lib$(LIB_FILE_NAME) for the base file name?
+#define _ASM_BUGFRAME_INFO(type, line, ptr, msg) \
+  [bf_type] "i" (type), ...
+because as I understand it can be an issue with 'i' modifier in case of
+PIE. I am not sure that Xen enables PIE somewhere but still...
+If it is not an issue then we can use x86 implementation as a generic
+one.
 
-That was the name used before, I guess it would be fine to rename. I
-just need to set $(version-script) later as $(LIB_FILE_NAME) would not
-be defined yet.
+Could you please share your thoughts about that?
 
-> > @@ -120,7 +129,7 @@ TAGS:
-> >  clean::
-> >  	rm -rf $(TARGETS) *~ $(DEPS_RM) $(OBJS-y) $(PIC_OBJS)
-> >  	rm -f lib$(LIB_FILE_NAME).so.$(MAJOR).$(MINOR) lib$(LIB_FILE_NAME).so.$(MAJOR)
-> > -	rm -f headers.chk headers.lst
-> > +	rm -f headers.chk headers.lst libxen*.map.tmp
-> 
-> If I hadn't checked, I'd have assumed that *.tmp are removed without
-> being named explicitly. So yes, I see the need for the addition, but then
-> I wonder why you don't also remove the .*.tmp.tmp file, which may be left
-> around if the build is interrupted at exactly the "right" time.
-
-I forgot because $(move-if-changed) remove the temporary file. I'll
-clean the .*.tmp file.
-
-Thanks,
-
--- 
-Anthony PERARD
+~ Oleksii
 
