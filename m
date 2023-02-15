@@ -2,35 +2,44 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C6D56977C0
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 09:04:07 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.495746.766156 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id B621269781B
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 09:26:19 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.495757.766167 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSCkg-0007GV-2G; Wed, 15 Feb 2023 08:02:54 +0000
+	id 1pSD6N-0001og-VR; Wed, 15 Feb 2023 08:25:19 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 495746.766156; Wed, 15 Feb 2023 08:02:54 +0000
+Received: by outflank-mailman (output) from mailman id 495757.766167; Wed, 15 Feb 2023 08:25:19 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSCkf-0007De-Ut; Wed, 15 Feb 2023 08:02:53 +0000
-Received: by outflank-mailman (input) for mailman id 495746;
- Wed, 15 Feb 2023 08:02:52 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
+	id 1pSD6N-0001lQ-Sc; Wed, 15 Feb 2023 08:25:19 +0000
+Received: by outflank-mailman (input) for mailman id 495757;
+ Wed, 15 Feb 2023 08:25:18 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pSCke-0007DU-JN; Wed, 15 Feb 2023 08:02:52 +0000
-Received: from host146.205.237.98.conversent.net ([205.237.98.146]
- helo=infra.test-lab.xenproject.org)
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pSCke-0003HD-Gb; Wed, 15 Feb 2023 08:02:52 +0000
-Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
- by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <osstest-admin@xenproject.org>)
- id 1pSCke-0001yh-4i; Wed, 15 Feb 2023 08:02:52 +0000
-Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
- 4.92) (envelope-from <osstest-admin@xenproject.org>)
- id 1pSCke-00021o-4E; Wed, 15 Feb 2023 08:02:52 +0000
+ (envelope-from <SRS0=5iRA=6L=suse.com=jgross@srs-se1.protection.inumbo.net>)
+ id 1pSD6M-0001lE-6M
+ for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 08:25:18 +0000
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28])
+ by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 45ccda19-ad0a-11ed-93b5-47a8fe42b414;
+ Wed, 15 Feb 2023 09:25:16 +0100 (CET)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id AA8B122445;
+ Wed, 15 Feb 2023 08:25:14 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2027B134BA;
+ Wed, 15 Feb 2023 08:25:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id u0zoBeqW7GMwWgAAMHmgww
+ (envelope-from <jgross@suse.com>); Wed, 15 Feb 2023 08:25:14 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -42,73 +51,181 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
-	Content-Transfer-Encoding:Content-Type:Message-ID:To;
-	bh=CDtwL6ec7zRpyIo8m42dTuTgKlRN3he0o4CjB9sCd3k=; b=FnNKMJrhCRyIdWKzSQY4CyGH5L
-	6tpJNtv5b6+9zNmCdBGkUmvVZVVFCXTxZ8VcGerIQpT4jn/WkAUjGrXflUbeyxbhXj7vlZdzIMuX7
-	nV5p7m4QTjneKxR6p7GYkYjWHprm6r/aqapOIu2FelxpkwfWN+Dl925D/hkp1tH5+wlc=;
-To: xen-devel@lists.xenproject.org
-Message-ID: <osstest-177356-mainreport@xen.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-Inumbo-ID: 45ccda19-ad0a-11ed-93b5-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
+	t=1676449514; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MbmE1Wtf4VhJiNMsgNW161fRTJXwfvCu/qIcBv8rhJ8=;
+	b=N8bAgZlT5CzJ4qtwDHxrh80O/TpQicMlmbvAmR5MFYug4BXTiRtAhWIQ4Up5xFv6aMohth
+	KeKLVA9snMRhFie7NVOcNuQo+spizSEfoheLFsGLNVIw2tHo8yEQPKX0W3sW4y+mc/blxP
+	k6GwMTgHbAKnQIuC8N90m5JKHYiohZc=
+Message-ID: <51a67208-3374-bbd9-69be-650d515c519f@suse.com>
+Date: Wed, 15 Feb 2023 09:25:13 +0100
 MIME-Version: 1.0
-Subject: [ovmf test] 177356: all pass - PUSHED
-X-Osstest-Versions-This:
-    ovmf=68c1bedbf297b57a336a2edc046f1f9874ba69fa
-X-Osstest-Versions-That:
-    ovmf=090642db7ac124c336da72e1954e1fb09e816fb0
-From: osstest service owner <osstest-admin@xenproject.org>
-Date: Wed, 15 Feb 2023 08:02:52 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.7.1
+Content-Language: en-US
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+Cc: "Ostrovsky, Boris" <boris.ostrovsky@oracle.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "Torvalds, Linus" <torvalds@linux-foundation.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "kys@microsoft.com" <kys@microsoft.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "lists@nerdbynature.de" <lists@nerdbynature.de>,
+ "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, "Lutomirski, Andy"
+ <luto@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
+ "Cui, Dexuan" <decui@microsoft.com>,
+ "mikelley@microsoft.com" <mikelley@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+References: <20230209072220.6836-1-jgross@suse.com>
+ <efeaec9b303e8a3ec7a7af826c61669d18fd22dc.camel@intel.com>
+ <e983da4b-71d5-1c9d-5efa-be7935dab8fc@suse.com>
+ <cb98f918fbc8b58e0a8d6823b4f92ad1d4265cfe.camel@intel.com>
+From: Juergen Gross <jgross@suse.com>
+Subject: Re: [PATCH v2 0/8] x86/mtrr: fix handling with PAT but without MTRR
+In-Reply-To: <cb98f918fbc8b58e0a8d6823b4f92ad1d4265cfe.camel@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------Cy0WWPGNbvl0tW06hginDkL7"
 
-flight 177356 ovmf real [real]
-http://logs.test-lab.xenproject.org/osstest/logs/177356/
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------Cy0WWPGNbvl0tW06hginDkL7
+Content-Type: multipart/mixed; boundary="------------csYOMHbl1Sx3jSwy8ZxhWIsg";
+ protected-headers="v1"
+From: Juergen Gross <jgross@suse.com>
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "x86@kernel.org" <x86@kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+Cc: "Ostrovsky, Boris" <boris.ostrovsky@oracle.com>,
+ "peterz@infradead.org" <peterz@infradead.org>,
+ "Torvalds, Linus" <torvalds@linux-foundation.org>,
+ "tglx@linutronix.de" <tglx@linutronix.de>,
+ "kys@microsoft.com" <kys@microsoft.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "lists@nerdbynature.de" <lists@nerdbynature.de>,
+ "hpa@zytor.com" <hpa@zytor.com>, "mingo@redhat.com" <mingo@redhat.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>, "Lutomirski, Andy"
+ <luto@kernel.org>, "bp@alien8.de" <bp@alien8.de>,
+ "Cui, Dexuan" <decui@microsoft.com>,
+ "mikelley@microsoft.com" <mikelley@microsoft.com>,
+ "haiyangz@microsoft.com" <haiyangz@microsoft.com>,
+ "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
+Message-ID: <51a67208-3374-bbd9-69be-650d515c519f@suse.com>
+Subject: Re: [PATCH v2 0/8] x86/mtrr: fix handling with PAT but without MTRR
+References: <20230209072220.6836-1-jgross@suse.com>
+ <efeaec9b303e8a3ec7a7af826c61669d18fd22dc.camel@intel.com>
+ <e983da4b-71d5-1c9d-5efa-be7935dab8fc@suse.com>
+ <cb98f918fbc8b58e0a8d6823b4f92ad1d4265cfe.camel@intel.com>
+In-Reply-To: <cb98f918fbc8b58e0a8d6823b4f92ad1d4265cfe.camel@intel.com>
 
-Perfect :-)
-All tests in this flight passed as required
-version targeted for testing:
- ovmf                 68c1bedbf297b57a336a2edc046f1f9874ba69fa
-baseline version:
- ovmf                 090642db7ac124c336da72e1954e1fb09e816fb0
+--------------csYOMHbl1Sx3jSwy8ZxhWIsg
+Content-Type: multipart/mixed; boundary="------------fgjKDAC69fRYEMdiwCrziqqt"
 
-Last test of basis   177343  2023-02-15 03:35:26 Z    0 days
-Testing same since   177356  2023-02-15 06:13:53 Z    0 days    1 attempts
+--------------fgjKDAC69fRYEMdiwCrziqqt
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
-------------------------------------------------------------
-People who touched revisions under test:
-  Stuart Yoder <stuart.yoder@arm.com>
+T24gMTMuMDIuMjMgMTk6MjEsIEVkZ2Vjb21iZSwgUmljayBQIHdyb3RlOg0KPiBPbiBNb24s
+IDIwMjMtMDItMTMgYXQgMDc6MTIgKzAxMDAsIEp1ZXJnZW4gR3Jvc3Mgd3JvdGU6DQo+Pg0K
+Pj4gVGhhbmtzIGZvciB0aGUgcmVwb3J0Lg0KPj4NCj4+IEknbGwgaGF2ZSBhIGxvb2suIFBy
+b2JhYmx5IEknbGwgbmVlZCB0byByZS1hZGQgdGhlIGNoZWNrIGZvciBXQiBpbg0KPj4gcGF0
+Y2ggNy4NCj4gDQo+IFN1cmUsIGxldCBtZSBrbm93IGlmIHlvdSBuZWVkIGFueSBtb3JlIGRl
+dGFpbHMgYWJvdXQgYnkgc2V0dXAuDQoNCkkgaGF2ZSByZXByb2R1Y2VkIHRoZSBpc3N1ZS4N
+Cg0KQWRkaW5nIGJhY2sgdGhlIHRlc3QgZm9yIFdCIHdpbGwgZml4IGl0LCBidXQgSSdtIG5v
+dCBzdXJlIHRoaXMgaXMgcmVhbGx5DQp3aGF0IEkgc2hvdWxkIGRvLg0KDQpUaGUgcHJvYmxl
+bSBhcmlzZXMgaW4gY2FzZSBhIGxhcmdlIG1hcHBpbmcgaXMgc3Bhbm5pbmcgbXVsdGlwbGUg
+TVRSUnMsDQpldmVuIGlmIHRoZXkgZGVmaW5lIHRoZSBzYW1lIGNhY2hpbmcgdHlwZSAodW5p
+Zm9ybSBpcyBzZXQgdG8gMCBpbiB0aGlzDQpjYXNlKS4NCg0KU28gdGhlIGJhc2ljIHF1ZXN0
+aW9uIGZvciBtZSBpczogc2hvdWxkbid0IHRoZSBzZW1hbnRpY3Mgb2YgdW5pZm9ybSBiZQ0K
+YWRwYXRlZD8gVG9kYXkgaXQgbWVhbnMgInRoZSByYW5nZSBpcyBjb3ZlcmVkIGJ5IG9ubHkg
+b25lIE1UUlIgb3IgYnkNCm5vbmUiLiBMb29raW5nIGF0IHRoZSB1c2UgY2FzZXMgSSdtIHdv
+bmRlcmluZyB3aGV0aGVyIGl0IHNob3VsZG4ndCBiZQ0KInRoZSB3aG9sZSByYW5nZSBoYXMg
+dGhlIHNhbWUgY2FjaGluZyB0eXBlIi4NCg0KVGhvdWdodHM/DQoNCg0KSnVlcmdlbg0K
+--------------fgjKDAC69fRYEMdiwCrziqqt
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
-jobs:
- build-amd64-xsm                                              pass    
- build-i386-xsm                                               pass    
- build-amd64                                                  pass    
- build-i386                                                   pass    
- build-amd64-libvirt                                          pass    
- build-i386-libvirt                                           pass    
- build-amd64-pvops                                            pass    
- build-i386-pvops                                             pass    
- test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
- test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
+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
+jR/i1DG86lem3iBDXzXsZDn8R38=3D
+=3D2wuH
+-----END PGP PUBLIC KEY BLOCK-----
 
-------------------------------------------------------------
-sg-report-flight on osstest.test-lab.xenproject.org
-logs: /home/logs/logs
-images: /home/logs/images
+--------------fgjKDAC69fRYEMdiwCrziqqt--
 
-Logs, config files, etc. are available at
-    http://logs.test-lab.xenproject.org/osstest/logs
+--------------csYOMHbl1Sx3jSwy8ZxhWIsg--
 
-Explanation of these reports, and of osstest in general, is at
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
-    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+--------------Cy0WWPGNbvl0tW06hginDkL7
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
 
-Test harness code can be found at
-    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+-----BEGIN PGP SIGNATURE-----
 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmPslukFAwAAAAAACgkQsN6d1ii/Ey/R
+hgf8CPaUEeIsGvhWfpmpcguxPSsjWCyiWLtx7t0ih4cAeHPW5vU/XF2PRT+03qGfHYkbo881k6ar
+cqov9iEr2bj5NpReSfCjr7ia6/V+24pUfr0MgT+oOWmG+G7FAYM4bp03YgFpqm7JdVe1j+DkL500
+FNX5FbhXmnz3oARUOWhhNcx/8od4JygkktvDvroLtRLwkRbnNvclplLWOXu8bGOxquk2EBC7zzTf
+H/qjRx/38Um8Oe8S1ytJaS8+m6ioNzxCRv7YwuyDFHnsJMWScyjg0bLwcex6vbBRvG1SpObFpPBY
+tm/yIiJpZIcj/x1iYyzpgGvMvbHLaYkRplgePePxvg==
+=ufOE
+-----END PGP SIGNATURE-----
 
-Pushing revision :
-
-To xenbits.xen.org:/home/xen/git/osstest/ovmf.git
-   090642db7a..68c1bedbf2  68c1bedbf297b57a336a2edc046f1f9874ba69fa -> xen-tested-master
+--------------Cy0WWPGNbvl0tW06hginDkL7--
 
