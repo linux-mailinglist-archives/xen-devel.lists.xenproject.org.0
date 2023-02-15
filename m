@@ -2,37 +2,38 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E382697F8F
-	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 16:35:19 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496072.766614 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE51697FA2
+	for <lists+xen-devel@lfdr.de>; Wed, 15 Feb 2023 16:39:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496081.766635 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSJoA-0001B9-HX; Wed, 15 Feb 2023 15:34:58 +0000
+	id 1pSJsE-0002O5-Ea; Wed, 15 Feb 2023 15:39:10 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496072.766614; Wed, 15 Feb 2023 15:34:58 +0000
+Received: by outflank-mailman (output) from mailman id 496081.766635; Wed, 15 Feb 2023 15:39:10 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSJoA-000196-EN; Wed, 15 Feb 2023 15:34:58 +0000
-Received: by outflank-mailman (input) for mailman id 496072;
- Wed, 15 Feb 2023 15:34:57 +0000
+	id 1pSJsE-0002M7-Az; Wed, 15 Feb 2023 15:39:10 +0000
+Received: by outflank-mailman (input) for mailman id 496081;
+ Wed, 15 Feb 2023 15:39:08 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=d1cb=6L=linaro.org=philmd@srs-se1.protection.inumbo.net>)
- id 1pSJo9-000190-7I
- for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 15:34:57 +0000
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [2a00:1450:4864:20::332])
+ (envelope-from <SRS0=v50p=6L=tibco.com=sdyasli@srs-se1.protection.inumbo.net>)
+ id 1pSJsC-00026r-9u
+ for xen-devel@lists.xenproject.org; Wed, 15 Feb 2023 15:39:08 +0000
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [2a00:1450:4864:20::331])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 4bdc1b3d-ad46-11ed-93b5-47a8fe42b414;
- Wed, 15 Feb 2023 16:34:55 +0100 (CET)
-Received: by mail-wm1-x332.google.com with SMTP id n33so7609893wms.0
- for <xen-devel@lists.xenproject.org>; Wed, 15 Feb 2023 07:34:55 -0800 (PST)
-Received: from localhost.localdomain ([81.0.6.76])
+ id e17a86fe-ad46-11ed-93b5-47a8fe42b414;
+ Wed, 15 Feb 2023 16:39:06 +0100 (CET)
+Received: by mail-wm1-x331.google.com with SMTP id
+ k8-20020a05600c1c8800b003dc57ea0dfeso1930653wms.0
+ for <xen-devel@lists.xenproject.org>; Wed, 15 Feb 2023 07:39:06 -0800 (PST)
+Received: from localhost.localdomain ([185.25.65.68])
  by smtp.gmail.com with ESMTPSA id
- t14-20020a1c770e000000b003dfdeb57027sm2282207wmi.38.2023.02.15.07.34.53
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 15 Feb 2023 07:34:54 -0800 (PST)
+ t39-20020a05600c32a700b003e1e8d794e1sm2320560wmp.13.2023.02.15.07.39.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Feb 2023 07:39:05 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,82 +44,73 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 4bdc1b3d-ad46-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: e17a86fe-ad46-11ed-93b5-47a8fe42b414
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google;
+        d=tibco.com; s=googleworkspace; t=1676475545;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=NKH73T8CoRDn773NUygCpVvIPtF8CVn6vI6nMM27j1I=;
-        b=oWMZO8SDTBKsKLKV5arFKZkrAJOGtNpPBm7I7aWKb95hPiiIgSofZ2fkKU9tV1yKEk
-         ezjXzyaIJvJZ7pt/cesNBdhWjhfCD6KYhuK3pUsvBFLzjuXN7TM3pj0Aj+NMo1rWX/D+
-         HjCANU6Wo6wCGW/Kv//t8t8RmH8XJ2EJBasw66r5j5wcdU9lsvUIE3mQU9Vp7JQA2sI5
-         +CUrsISj4deC6Zc/TrdvDLfz1UMTfaaVHV/WHx/zcqM5nvoBYV7XqNW0nYgniuMJfDdo
-         OQ1fyZ5xzZ5uQqcPz6yGnEHfZanaWvSUEkKl05yMthFmyQCAbLDxwE1G6pJTej7KTPSv
-         eo3w==
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=UbkQ0Tsofds3NIZpEYPN9Zfob+Z/kFBDvI+50cJgOTM=;
+        b=cK7G53pbRRvYWG0NrH6g46H5ccChizmhf+OMIn3sDSOyZCdfYJN8UCPJ13I0/lXBje
+         AiQL5SSJF6arfota0cupDCiFPtapupyZ8fDF6/ggY9oDZ5ObcEEC/AqmuGcv94zdYGpb
+         JjrKTQz4XP1KDkCk0WVJWKH8kkoqkw8mtSJw9IpGTMqsdsUoNjrS8sVdSUZFDGV2zi/o
+         HCS9SOw5Qk/KguErYSALh3J1tVi3FCdCD+Ca86P+fLR38NcboymTHnuzRSwg+ZA56TFn
+         Qngu9KMqehCtaV9PHr/R2IScGLO1pdFNzjh/h8EB3I7Sp6IR5ySrR8hEeg4LwsxUqlN/
+         quiQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.com; s=cloud; t=1676475545;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=UbkQ0Tsofds3NIZpEYPN9Zfob+Z/kFBDvI+50cJgOTM=;
+        b=LX9X0vR0PmfM/bT1+in8SkC60wnaEG2Y7WgXGD7J1E2oXB6A5GVIEYsUoAcX5KTGDZ
+         nKZpyxF7hHX4hjhWZUOCUHLnTHaKySKEqdDRHWfHvGaG7CHoiV/eqwc0q3q6oPzBLuNw
+         H9YwqrFbcfAGBxzwEEDslmLIQU9WVUbfCAnLs=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
+        d=1e100.net; s=20210112; t=1676475545;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=NKH73T8CoRDn773NUygCpVvIPtF8CVn6vI6nMM27j1I=;
-        b=bDuFw9laJemdXTKvSpAWVmwE8FmFjJeHuY1+Ew2h2urz14ljGtGOos8cIL0uUyJXD1
-         F7oQhgihG+HfLzVO20ty6sdaYym5OttSNuZMAPODp2jPqyWCpB2f0yN+GEz0fXpUGonq
-         ZbGML5IgqBOfBqSTFfjcPbhV6a6xG2bGgh/jHXAY10qJL+bjdQ++L3s+iN1MLAri+CI7
-         h1Ga4ZRw/yGtif5nk1QD8DQ2A5eys4lRF0j2uWMpQ7sBWlMedqhjbhdR/nm7hXstuLxP
-         59Rq0gu9gkXKe+Ly0lKvFx6IL2k+rVSiPdyjLVCJFWrRoXE3TEpAXkdB7k0VdKF75WCa
-         d1cA==
-X-Gm-Message-State: AO0yUKXr8bZbrcNXGzRM1WI5h3XATVX2DfAW6+hgeyiFl3T6pjTKNE0D
-	BRFaS34fY6XszKmscPQq/7J0Kg==
-X-Google-Smtp-Source: AK7set8VKr93YhBGymtNxoDV9uf+fr5u7KtD7OV4RU+JGE5FxHGGg56i8sDAFXLY5R0goR0ryEeC4g==
-X-Received: by 2002:a05:600c:5024:b0:3df:fcbd:3159 with SMTP id n36-20020a05600c502400b003dffcbd3159mr2107593wmr.3.1676475294684;
-        Wed, 15 Feb 2023 07:34:54 -0800 (PST)
-From: =?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-To: qemu-devel@nongnu.org
-Cc: Anthony Perard <anthony.perard@citrix.com>,
-	Paul Durrant <paul@xen.org>,
-	Stefano Stabellini <sstabellini@kernel.org>,
-	xen-devel@lists.xenproject.org,
-	qemu-trivial@nongnu.org,
-	=?UTF-8?q?Philippe=20Mathieu-Daud=C3=A9?= <philmd@linaro.org>
-Subject: [PATCH] accel/xen: Remove dead code
-Date: Wed, 15 Feb 2023 16:34:51 +0100
-Message-Id: <20230215153451.30626-1-philmd@linaro.org>
-X-Mailer: git-send-email 2.38.1
+         :to:from:sender:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=UbkQ0Tsofds3NIZpEYPN9Zfob+Z/kFBDvI+50cJgOTM=;
+        b=a5PHaiPT1h6iahv75oTj7w3I5JnU7W/8qz+O4uBkWfELlpbNucvd3cRM78uWwyaE53
+         ySA9TpVVnf2jDKa/XFi917wi7OsdkOsD1jIy/f/7hzh2sQShx3qAsc/sE8dZEKC7ehhp
+         aMS8/Gj+vtrFeBgafiHLJhhi97QY8lt/YAQkQRpGc1NdIJMFPyeGXiddtepQ5sSTV6Sl
+         f73t5IWDMygRg9SoseMeurO37NZ14TgCmy27jzcB0U0yi9uTXTzwFsuusEhrP0+ub8Dq
+         TJIsYaPytZV7oh3Mj/HePfpbAo9P2PXlQV+NcCxYidvfOfPGRhVL8SU9MTfCJC2/51aj
+         GugQ==
+X-Gm-Message-State: AO0yUKXP80yMiKQphUdxiUv+HZ3GFJPy/xm11nSgqotZB7mrmPWRgXuy
+	gc030PSNnQ9g2x11hOCGcu1O/Oxc4DHJdnaqk/g=
+X-Google-Smtp-Source: AK7set9n63sxpMrWJk0NbgvChXfNCvF8njnRiXbW8unE/b+ryxNYGg2yDTNOIdijgUByiHCz3WGybg==
+X-Received: by 2002:a05:600c:3c9e:b0:3dc:3b1a:5d2d with SMTP id bg30-20020a05600c3c9e00b003dc3b1a5d2dmr2671723wmb.0.1676475545615;
+        Wed, 15 Feb 2023 07:39:05 -0800 (PST)
+Sender: Sergey Dyasli <sdyasli@tibco.com>
+From: Sergey Dyasli <sergey.dyasli@cloud.com>
+X-Google-Original-From: Sergey Dyasli <sergey.dyasli@citrix.com>
+To: xen-devel@lists.xenproject.org
+Cc: Jan Beulich <jbeulich@suse.com>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>,
+	Sergey Dyasli <sergey.dyasli@citrix.com>
+Subject: [PATCH v4 0/2] x86/ucode/AMD: load ucode on every logical thread
+Date: Wed, 15 Feb 2023 15:38:44 +0000
+Message-Id: <20230215153846.18582-1-sergey.dyasli@citrix.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Unused since introduction in commit 04b0de0ee8
-("xen: factor out common functions").
+I've added a second patch to cover late loading as that should also
+happen on every cpu, according to AMD.
 
-Signed-off-by: Philippe Mathieu-Daudé <philmd@linaro.org>
----
- accel/xen/xen-all.c | 10 ----------
- 1 file changed, 10 deletions(-)
+Sergey Dyasli (2):
+  x86/ucode/AMD: apply the patch early on every logical thread
+  x86/ucode/AMD: late load the patch on every logical thread
 
-diff --git a/accel/xen/xen-all.c b/accel/xen/xen-all.c
-index 69aa7d018b..c1b697a8bd 100644
---- a/accel/xen/xen-all.c
-+++ b/accel/xen/xen-all.c
-@@ -23,16 +23,6 @@
- #include "migration/global_state.h"
- #include "hw/boards.h"
- 
--//#define DEBUG_XEN
--
--#ifdef DEBUG_XEN
--#define DPRINTF(fmt, ...) \
--    do { fprintf(stderr, "xen: " fmt, ## __VA_ARGS__); } while (0)
--#else
--#define DPRINTF(fmt, ...) \
--    do { } while (0)
--#endif
--
- bool xen_allowed;
- 
- xc_interface *xen_xc;
+ xen/arch/x86/cpu/microcode/amd.c     | 11 +++--
+ xen/arch/x86/cpu/microcode/core.c    | 61 +++++++++++++++++++---------
+ xen/arch/x86/cpu/microcode/intel.c   | 10 +++--
+ xen/arch/x86/cpu/microcode/private.h |  3 +-
+ 4 files changed, 59 insertions(+), 26 deletions(-)
+
 -- 
-2.38.1
+2.31.1
 
 
