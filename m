@@ -2,40 +2,37 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5480699807
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 15:56:18 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496601.767433 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 052F3699861
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 16:08:14 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496610.767444 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSfg4-0001Cg-9G; Thu, 16 Feb 2023 14:56:04 +0000
+	id 1pSfrJ-00038x-DM; Thu, 16 Feb 2023 15:07:41 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496601.767433; Thu, 16 Feb 2023 14:56:04 +0000
+Received: by outflank-mailman (output) from mailman id 496610.767444; Thu, 16 Feb 2023 15:07:41 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSfg4-00019Z-5f; Thu, 16 Feb 2023 14:56:04 +0000
-Received: by outflank-mailman (input) for mailman id 496601;
- Thu, 16 Feb 2023 14:56:02 +0000
+	id 1pSfrJ-00037F-9z; Thu, 16 Feb 2023 15:07:41 +0000
+Received: by outflank-mailman (input) for mailman id 496610;
+ Thu, 16 Feb 2023 15:07:40 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <SRS0=/MZc=6M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pSfg2-00019T-Jr
- for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 14:56:02 +0000
-Received: from EUR03-AM7-obe.outbound.protection.outlook.com
- (mail-am7eur03on2062e.outbound.protection.outlook.com
- [2a01:111:f400:7eaf::62e])
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ybaS=6M=gmail.com=matiasevara@srs-se1.protection.inumbo.net>)
+ id 1pSfrI-00036q-1X
+ for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 15:07:40 +0000
+Received: from mail-wr1-x432.google.com (mail-wr1-x432.google.com
+ [2a00:1450:4864:20::432])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 06c76fb5-ae0a-11ed-93b5-47a8fe42b414;
- Thu, 16 Feb 2023 15:56:00 +0100 (CET)
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AS8PR04MB8609.eurprd04.prod.outlook.com (2603:10a6:20b:424::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Thu, 16 Feb
- 2023 14:55:59 +0000
-Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
- ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 14:55:59 +0000
+ id a65e4f04-ae0b-11ed-93b5-47a8fe42b414;
+ Thu, 16 Feb 2023 16:07:38 +0100 (CET)
+Received: by mail-wr1-x432.google.com with SMTP id r2so2146711wrv.7
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Feb 2023 07:07:38 -0800 (PST)
+Received: from horizon (lfbn-gre-1-210-185.w90-112.abo.wanadoo.fr.
+ [90.112.171.185]) by smtp.gmail.com with ESMTPSA id
+ f3-20020adffcc3000000b002c559626a50sm1639991wrs.13.2023.02.16.07.07.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 16 Feb 2023 07:07:36 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,148 +44,171 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 06c76fb5-ae0a-11ed-93b5-47a8fe42b414
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MwDq2hjqYDyk1MiFppVbfNi29k1dan5AHlpT7Xrk/cyJ4s0I2VIMAs0Y1JUJoxmPHi7/ygcalgGKYw2BAXurbi/kRD+s8Z3mRoFTdq1qA6tMHWQwVUr7EeJUIBxlozvEXX6U4WtLP0VldpWaQlR/EVa0Bhz4sQWu0Y7xmWodm2Tyvdq84wz252EgK6Htjyhx4xG6Ku4n+cWsvBtu9NJOYX8q0V0BmeICfuISUD+FF6hwSX84NgTVRWNOjPsyqxWJtHvaVcQOFin/83m2KCF4CtnnVF/KT8ESXTxItwVx8xYMz1xoSIKMilX10FBWkVpmVmsgCYxVRpIaW/MvMJNYlg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=k+idfS9v1qLA8l3q1lWtl+G91cvYeHNlTIRrzXeMpvs=;
- b=X9S+eKdSFJhdnO434SrHGaIgvXJYH6LVAlkwMFGOaThgzdvMBAnaHX8SV8VaKfED2+ymDtQU3fJFfXHL95vczQRKMN+19qXQ5LiEXeaayf7QGlCFD8TvDQTO1gB/dGbty8NWO6T2jKL7mRRniBAng58eZgwa/SMGbYvXPTIpbHdu7nxhiiRcz1wp7KIz3lpy9f9CCgfXDF0e05LkNkcTqCgaKPHip11C0f4Bo4ggXfGFlx/SQOgxLMbX68XXRBv7NZFMTQuhv0de64IgvcLVx1uEQtlS0joBoEVcP2kdIti6YTNe+zlv1bmP7DpHvw87VNBb7zI4GjPrKO4YYDHOqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
- dkim=pass header.d=suse.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k+idfS9v1qLA8l3q1lWtl+G91cvYeHNlTIRrzXeMpvs=;
- b=UI12e1JoRwbYexwfwlTT5aAgyBNtWEDkmt7DLmKQQCxb1SduyfJ+VDiTMonz8P1h6tzWdnidBbO6WepJD8LemOqJM4kLTPH+GTbHm8TFMgbby6aWdsT89ABiGG5g/SoghIL+mv4tPMA/RG6ANzvfbQZcCSgwXOSNCwQUntRZVCVBNY8SzVKoMjSccLRqn/DCTAqs6UKY3PVUweKANPJ5aco2QV8DWajFOIHGEY2ud3pohT4ITVQNlvuaBA9SNTxEHeKp8JDTgYRrPXt7QaUufbZ4h1QTBLPWAsBPuCZQJCGarJzslB5pRmELWrDNCubm5zklY1AKfWDoSbeHR4KFnA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <ae76d2d6-486a-8717-d02b-5431709a0922@suse.com>
-Date: Thu, 16 Feb 2023 15:55:57 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.7.2
-Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-Content-Language: en-US
-To: Oleksii <oleksii.kurochko@gmail.com>
-Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
- George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
- Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
- <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
- <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
- <81fd6cf5ff59acf6ca8b66e093630e5accc45198.camel@gmail.com>
- <9cf03b23-586b-92e1-c0b1-578f3eadd2ad@suse.com>
- <00abbda808239ab74cb6c954b33e34380ac4e41e.camel@gmail.com>
- <5f6d7b8e-907b-d3eb-335c-8d4a77edf526@suse.com>
- <413b6d1439a31e24719321494971cc165bd6942c.camel@gmail.com>
-From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <413b6d1439a31e24719321494971cc165bd6942c.camel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FRYP281CA0015.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::25)
- To VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
+X-Inumbo-ID: a65e4f04-ae0b-11ed-93b5-47a8fe42b414
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ANFFwi9DGJyiK5BAiCUNxp6zn6Ko4Szul0X7on6YAZo=;
+        b=DM5w8qrm3c8AfxTjYH+3XETsQzdV+AkYtVOztBbLeQRxib1OX+ZBHIcqRIveSJ7eW0
+         LBUKm+qoN3XeAlyZxfLZ7D7cOaeJR78FMbxVranWbJbhsMQaL+I2EMpvsvwdurqOXPYa
+         s7uihutXrtx/8lfldAnv7U+y02oWlhW+bx2p4KDSh3pa4MhbRDxuHrp0F8qhLn+z4XAm
+         ZZfKKT2l40j2EJvlIOVGdlN/Mesayv1DSTYaDe0O/bWV/7bpJOLToyTz64tM1jpv/guU
+         8TknH9bHIOwEwrwgqhFedOEmJhmYFzEW9XOKW2q+KuznbvAGpJzdatqQJqwffimSdHFc
+         kcQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ANFFwi9DGJyiK5BAiCUNxp6zn6Ko4Szul0X7on6YAZo=;
+        b=O6uchdk+sA7Qhqoj6PmZzVb6lAmb5HVScrIV7glniMENXBuiW0pgq0pASPSDfIJR7i
+         Nrm5DkRicLTUtIVPUnp1QlGrRTSrbR8Ib0D5bT07iHyMATxPQ7gLmlrbpSFFlfWYLLyb
+         V04/4TGTMge2njGaDx58GlcLYGurGYg16FOdx8KxzAhw7pVw1vyrqC+CBw1zBpoNE3nT
+         UY0/OoT6foXmt2ebGRfAu1mybByp5xWKC4sO4pQYIfPoQ4b7821wr1FRvDruLIhCHJPl
+         JYqtETD0r6gRAXlNTjpANJSMos7XNHe+amlizaMnGFu1rR4xX4oHtwj0CKXCXCOvWSU0
+         10ew==
+X-Gm-Message-State: AO0yUKUyYyn74xBE3p3N9rGzCrcpmjKFJiXx+aeukfIb+n20Uq6cwC36
+	lnlnxQyf7Uij4eqH5ceI4+8=
+X-Google-Smtp-Source: AK7set9biJ33haA8caNkAWuGrSF7RrR3SwpGtODKlwQ6P/7YoxZyMjIX2lImPCCB1uL9xEIsmfLV7g==
+X-Received: by 2002:a05:6000:43:b0:2c5:561e:808e with SMTP id k3-20020a056000004300b002c5561e808emr4834240wrx.12.1676560057177;
+        Thu, 16 Feb 2023 07:07:37 -0800 (PST)
+Date: Thu, 16 Feb 2023 16:07:34 +0100
+From: Matias Ezequiel Vara Larsen <matiasevara@gmail.com>
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Matias Ezequiel Vara Larsen <matias.vara@vates.fr>,
+	Andrew Cooper <andrew.cooper3@citrix.com>,
+	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>,
+	Wei Liu <wl@xen.org>, George Dunlap <george.dunlap@citrix.com>,
+	Julien Grall <julien@xen.org>,
+	Stefano Stabellini <sstabellini@kernel.org>,
+	Dario Faggioli <dfaggioli@suse.com>, xen-devel@lists.xenproject.org
+Subject: Re: [RFC PATCH v2 1/2] xen/memory : Add a stats_table resource type
+Message-ID: <20230216150734.GB2137216@horizon>
+References: <cover.1665138677.git.matias.vara@vates.fr>
+ <af6032c9f5863b7e6fb183a0a197407ec92bb067.1665138677.git.matias.vara@vates.fr>
+ <b59b6466-8d06-f7af-beb9-3c38c638a455@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AS8PR04MB8609:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ce41bb2-6f8a-482d-c686-08db102dea03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info:
-	j2AP67Sk/2RYZiMopBU0eGEv+3hDPS8qlFbPbHOGj/3IDw/FJSlGrw6UAtg8JsGFdiGhyFBpusILO+9I1jQ8oYfB0ItR9kk4d+BkrXhbILjQGKGC4Fg/BbEOkUYFLEVXapxMODsgoFHt5efO+qVl02gP1j0jg3hDsZXDrafu/rX1uQyOMCcdp4K/LlG1UwUwLPWkf2T9c2xYwzvwMzCv+EHIKWx/Q6tcqlRt1ay1hhVJWVehPwxWgOZm4bCXe0BsgRudjV8BiFpT25omHNanaZbYlu7tIVU++dZl1PIopkIqT/pMeOFk9pdHHLLOJZUuWdmJExKH/5YqhnawOGrkvkldrFXtancn2MfH9ET0AmXTsJsnu3ZL1TDJPe7mNhXCyZPzHo214WAPB0dCGW8F1VZdEoZrb3wTS5GSueWotj9Jj3kJsXuwKf8hHxGocgPFfzDsijVmGi6RHVNeJ5p7pT7ecdnLO7wLvuO04EnvESfVkOScD8aAgZRZyZBv0DypFnNDQUdGCyM9zjy6Ak9LvuSBTc+7mSu7LWvnOrt5LkiWU05pZqCwmxFIPUyrsQ/4BeIA57Sc8b38tSzr7DvVyonfbOojr808xj5g8xN/kPuWy3HiGYiQ/5oc0A/NHcnG+PRyVScMTPq8TTaDnUVcziuN+ydZbGwtjg+EFBTj81h9RWZZBZn38COlvuiGM6VOcv/iUH3WIOXAy+/M/3DaVTzznQ9I9tTQ9xsqG9y6s7z3knsbeFMPsuGb3o/2cx9i
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(346002)(396003)(39860400002)(366004)(136003)(451199018)(66946007)(316002)(53546011)(66556008)(41300700001)(26005)(186003)(6506007)(6512007)(66476007)(54906003)(8936002)(5660300002)(6916009)(4326008)(8676002)(31686004)(6486002)(478600001)(36756003)(2616005)(31696002)(2906002)(86362001)(38100700002)(41533002)(45980500001)(43740500002);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R0QxV1hFSVZkRkRWdGdqa3JqbjNJWHRLOE9sZ0hQZzNvenVUNjhLT0tGdW9J?=
- =?utf-8?B?a2RWcnFvT3VSTC9WV0RLR1JqbjJYeVVqd2RLbnZwTmJTYkt3MjlBZzY5MEpG?=
- =?utf-8?B?N0kxL1NVaTQ1M0g4L25hSUllK3BBeHFCRnhCRmFnVVJkZHFDdW9talJWS1Nn?=
- =?utf-8?B?ZFk3QnZHZWpqV2s3Zk5WZ3lJUlRKLzY5dmZFaklaRGM1QVgrZ29aUTQrV2dn?=
- =?utf-8?B?ckMzUmEzTjVBRG5FYkhhbHJkQ1NYV0xhbDF2SU01cUMrSmIrd1VMVTFLWVlZ?=
- =?utf-8?B?L0VlTHVBKzhQRU5pY3dYZ2NSUnpCV3lDNUVKaTRTN1YyOER6cDZIRlNQN0tx?=
- =?utf-8?B?bUNDVTd0bDdFaWxOVnUvNm9OMVljbzJicGNEQXAyNS82Mjc2eUgrZ2tobFhn?=
- =?utf-8?B?REY2ZjJFbkFPOUNHdXlOL0Y2c3lqUHBkdlJodzFISmVpS1A4bTUvbldtRGR4?=
- =?utf-8?B?R2RVT3I3czQ3VjRiLzVRVVBrTk8zVndOZTdueXQ1alBaR3E4aUtJdVMwdGNL?=
- =?utf-8?B?MmRBUWY1M1NseStGaTBmVktFamVuMnNtYmtEd1Uzd1NVQVN0dk9LQjRSL2JI?=
- =?utf-8?B?U3pubmZmV2VKZjJseElWSUxaSzRNN0xDN2pkN3RmeVhpeHNLNFZtcG4vVDZD?=
- =?utf-8?B?MXYzZmJINkpzaEd3OG9sYjF1VWp3dnJoTXBhVUs1RFJEcWhWZkZPd3RzcTc2?=
- =?utf-8?B?bEpkb1AwdFVHODN6ZExqMkJwbTBNWTFPT0U0a00zM0NPTE8rWnQrL1VFWGQ3?=
- =?utf-8?B?SkVxaVB1Q2FlNXViaE4rK01uY29FbE42UnlkaStIdWs1dE1hMFhUWjJsSWNk?=
- =?utf-8?B?Ym9za25sMXJreExTUTE5VWZnbUVZcDNIR2k2UGxwUWU3a01SNjE2MjBGektq?=
- =?utf-8?B?UktTWGdPSlBBbW90Yms5NVVjREZacGJ3UCt0RHpKeDBLSnlzejVqVmpnVVZk?=
- =?utf-8?B?emJzMnRnZTFUN3pmTVdmRXBLQkRzVzZBbU5WSlB0MjQ5UVZRdXZSSjR3bzg0?=
- =?utf-8?B?QTJFZGpYV0ZHY2hqNUtFR3Iva2xpa0RZeVNPdFpRYlhQUjhFeEIva0g2ZnVS?=
- =?utf-8?B?aGltVTlSdCtnVWZnc3RYcTIremlGK1BvQWhZUVVVSk13VTB5SjlQLzlXc3c5?=
- =?utf-8?B?bm1rSHB6bkhuQnJySEZYTUtOQVF0bDF5UlJBbXVELy9YK2xleURWT0duaWtp?=
- =?utf-8?B?U1FZZGYrVmNmSmZ0T1o2OFd4aXl6Vm9IY2FTdUFmT1cycGtaR0ppVlA4RWNZ?=
- =?utf-8?B?UStoMXJLVjBJa1Q0YkFORTh0cnlmTytKWEdLZ21CWWZDQ1VGUFBobWM5NFQ1?=
- =?utf-8?B?N25tV0ZRR0VwbHFSWTJuRlQvWVNEUU1pYVZodWtYQ1I3WW5BejhJV2E4SHFu?=
- =?utf-8?B?NGlpaTltQlA2bU94YkxkR3FNVHczOGlnTWxjWnZxdExQczNRRlpTcVNKQmlN?=
- =?utf-8?B?c0ZSNy9waTdURUZ0bnZGR0FlLy93a1ZFaTJVNkhCNkcwc0RpM3hqTit4NVZ5?=
- =?utf-8?B?ejBBQXhNUjl4RUkxUWpWM1luenJwL005V1IvTzVtUXBOQmk1TlM2M3plT3gx?=
- =?utf-8?B?clhPVWNSSVhzY3BmUkhHOHFLZnpSTmFvTE1UWjRHdFptSXBoK0VPaFJ4c3kv?=
- =?utf-8?B?ZHdha0Q1dXZObDdZbFI1OU9NQng1SncyNzFiT2FkK0RZQVIrNnM2Y0J6c2ht?=
- =?utf-8?B?VXM1Z1liT0daNlFvU1MzOXNiZ2tPZWFxQ1doczU3aFo3WXVuY2hvMDZhTFl0?=
- =?utf-8?B?ekliVHZ4V0V4dlJzRkZWNnpXR1Q0NlRLY3hxSmhiRXBveTRRTVVCVUlJV2RU?=
- =?utf-8?B?UHpMUDBwb0ZoV2JxS0hoQXBDaEhkWUFhcElIUGg0UThSSlo0VFRWZ0czR0J0?=
- =?utf-8?B?cDZnakcxcG1DYURXMmZPVmxBVFVSV1F6SmhGM1oxNnNlejVKSkJyZ25ZckF3?=
- =?utf-8?B?WG51MWI5Szc1YXNaMmpMTmJLS3dJcUVWcXc1eEZGa3FFRVg5ZGxWbE9SM2Zq?=
- =?utf-8?B?Um9ML1BkeWJ0eDd4dnk2VVdSVUphREtPL0NHcExYaG1nZlZ0bjR1UDB1VlNn?=
- =?utf-8?B?RDVmSTBxNUhJa0VnZXJoRHdmNUQyeU1pSUNBVVV4azJmTWNRTTNkL2V4VWt2?=
- =?utf-8?Q?2aYK4q1vHRC2k2lUB7TIJEABO?=
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ce41bb2-6f8a-482d-c686-08db102dea03
-X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 14:55:59.0933
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YyvSCubF3q0ukTWx/YrU4Fb3Vkf/8IQWcUfRVhmf8P03Sr5j09GmysOgF3t03pvtPNAu2KDjcMn76Q+Q3A0cKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8609
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <b59b6466-8d06-f7af-beb9-3c38c638a455@suse.com>
 
-On 16.02.2023 11:44, Oleksii wrote:
-> On Thu, 2023-02-16 at 08:31 +0100, Jan Beulich wrote:
->> On 15.02.2023 18:59, Oleksii wrote:
->>> The only thing I am worried about is:
->>>
->>> #define _ASM_BUGFRAME_INFO(type, line, ptr, msg) \
->>>   [bf_type] "i" (type), ...
->>> because as I understand it can be an issue with 'i' modifier in
->>> case of
->>> PIE. I am not sure that Xen enables PIE somewhere but still...
->>> If it is not an issue then we can use x86 implementation as a
->>> generic
->>> one.
->>
->> "i" is not generally an issue with PIE, it only is when the value is
->> the
->> address of a symbol. Here "type" is a constant in all cases. (Or else
->> how would you express an immediate operand of an instruction in an
->> asm()?)
-> Hmm. I don't know other ways to express an immediate operand except
-> 'i'.
+On Wed, Dec 14, 2022 at 08:29:53AM +0100, Jan Beulich wrote:
+> On 07.10.2022 14:39, Matias Ezequiel Vara Larsen wrote:
+> > --- a/xen/common/memory.c
+> > +++ b/xen/common/memory.c
+> > @@ -1078,6 +1078,12 @@ unsigned int ioreq_server_max_frames(const struct domain *d)
+> >       return nr;
+> >  }
+> >  
+> > +unsigned int stats_table_max_frames(const struct domain *d)
+> > +{
+> > +    /* One frame per 512 vcpus. */
+> > +    return 1;
+> > +}
 > 
-> It looks like type, line, msg are always 'constants' 
-> (
-> they possibly can be passed without 'i' and used directly inside asm():
->    ...
->    ".pushsection .bug_frames." __stringify(type) ", \"a\",
-> %progbits\n"\
->    ...
-> ) but the issue will be with 'ptr' for which we have to use 'i'.
+> Beyond my earlier comment (and irrespective of this needing changing
+> anyway): I guess this "512" was not updated to match the now larger
+> size of struct vcpu_stats?
+
+In the next series, I am calculating the number of frames by:
+
+nr = DIV_ROUND_UP(d->max_vcpus * sizeof(struct vcpu_stats), PAGE_SIZE);
+
 > 
-> And I am not sure about all 'constants'. For example, I think that it
-> can be an issue with 'line' = '((line & ((1 << BUG_LINE_LO_WIDTH) - 1))
-> << BUG_DISP_WIDTH)' if we will use that directly inside asm(...).
+> > +static int stats_vcpu_alloc_mfn(struct domain *d)
+> > +{
+> > +    struct page_info *pg;
+> > +
+> > +    pg = alloc_domheap_page(d, MEMF_no_refcount);
+> 
+> The ioreq and vmtrace resources are also allocated this way, but they're
+> HVM-specific. The one here being supposed to be VM-type independent, I'm
+> afraid such pages will be accessible by an "owning" PV domain (it'll
+> need to guess the MFN, but that's no excuse).
+> 
+> > +    if ( !pg )
+> > +        return -ENOMEM;
+> > +
+> > +    if ( !get_page_and_type(pg, d, PGT_writable_page) ) {
+> > +        put_page_alloc_ref(pg);
+> > +        return -ENODATA;
+> > +    }
+> > +
+> > +    d->vcpustats_page.va = __map_domain_page_global(pg);
+> > +    if ( !d->vcpustats_page.va )
+> > +        goto fail;
+> > +
+> > +    d->vcpustats_page.pg = pg;
+> > +    clear_page(d->vcpustats_page.va);
+> 
+> Beyond my earlier comment: I think that by the time the surrounding
+> hypercall returns the page ought to contain valid data. Otherwise I
+> see no way for the consumer to know from which point on the data is
+> going to be valid.
+> 
+> > @@ -287,6 +289,20 @@ static inline void vcpu_runstate_change(
+> >      }
+> >  
+> >      v->runstate.state = new_state;
+> > +
+> > +    vcpustats_va = (shared_vcpustatspage_t*)d->vcpustats_page.va;
+> > +    if ( vcpustats_va )
+> > +    {
+> > +	vcpustats_va->vcpu_info[v->vcpu_id].version =
+> > +	    version_update_begin(vcpustats_va->vcpu_info[v->vcpu_id].version);
+> > +        smp_wmb();
+> > +        memcpy(&vcpustats_va->vcpu_info[v->vcpu_id].runstate_running_time,
+> > +               &v->runstate.time[RUNSTATE_running],
+> > +               sizeof(v->runstate.time[RUNSTATE_running]));
+> > +        smp_wmb();
+> > +        vcpustats_va->vcpu_info[v->vcpu_id].version =
+> > +            version_update_end(vcpustats_va->vcpu_info[v->vcpu_id].version);
+> > +    }
+> 
+> A further aspect to consider here is cache line ping-pong. I think the
+> per-vCPU elements of the array want to be big enough to not share a
+> cache line. The interface being generic this presents some challenge
+> in determining what the supposed size is to be. However, taking into
+> account the extensibility question, maybe the route to take is to
+> simply settle on a power-of-2 value somewhere between x86'es and Arm's
+> cache line sizes and the pretty common page size of 4k, e.g. 512 bytes
+> or 1k?
+> 
 
-Not matter how complex an expression, the compiler will evaluate it to
-a plain number if it's a constant expression. The only think to worry
-about with "i" is, as said, is the value supplied is the address of
-some symbol (or an expression involving such).
+I do not now how to address this. I was thinking to align each vcpu_stats
+instance to a multiple of the cache-line. I would pick up the first multiple
+that is bigger to the size of the vcpu_stats structure. For example, currently
+the structure is 16 bytes so I would align each instance in a frame to 64
+bytes. Would it make sense? 
 
-Jan
+> > --- a/xen/include/public/vcpu.h
+> > +++ b/xen/include/public/vcpu.h
+> > @@ -235,6 +235,22 @@ struct vcpu_register_time_memory_area {
+> >  typedef struct vcpu_register_time_memory_area vcpu_register_time_memory_area_t;
+> >  DEFINE_XEN_GUEST_HANDLE(vcpu_register_time_memory_area_t);
+> >  
+> > +struct vcpu_stats{
+> > +    /* If the least-significant bit of the version number is set then an update
+> > +     * is in progress and the guest must wait to read a consistent set of values
+> > +     * This mechanism is similar to Linux's seqlock.
+> > +     */
+> > +    uint32_t version;
+> > +    uint32_t pad0;
+> > +    uint64_t runstate_running_time;
+> > +};
+> > +
+> > +struct shared_vcpustatspage {
+> > +    struct vcpu_stats vcpu_info[1];
+> > +};
+> > +
+> > +typedef struct shared_vcpustatspage shared_vcpustatspage_t;
+> 
+> For new additions please avoid further name space issues: All types
+> and alike want to be prefixed by "xen_".
+>
+
+Should I name it "xen_shared_vcpustatspage_t" instead?
+
+Matias 
 
