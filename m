@@ -2,32 +2,29 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181FD699FCD
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 23:34:14 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496791.767674 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id BBB02699FD5
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 23:45:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496796.767686 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSmol-0007jG-5l; Thu, 16 Feb 2023 22:33:31 +0000
+	id 1pSmzp-0001Ft-7V; Thu, 16 Feb 2023 22:44:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496791.767674; Thu, 16 Feb 2023 22:33:31 +0000
+Received: by outflank-mailman (output) from mailman id 496796.767686; Thu, 16 Feb 2023 22:44:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSmol-0007h2-30; Thu, 16 Feb 2023 22:33:31 +0000
-Received: by outflank-mailman (input) for mailman id 496791;
- Thu, 16 Feb 2023 22:33:30 +0000
-Received: from mail.xenproject.org ([104.130.215.37])
- by lists.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>) id 1pSmok-0007gu-4G
- for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 22:33:30 +0000
-Received: from xenbits.xenproject.org ([104.239.192.120])
- by mail.xenproject.org with esmtp (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pSmoj-0000hW-Nz; Thu, 16 Feb 2023 22:33:29 +0000
-Received: from gw1.octic.net ([88.97.20.152] helo=[10.0.1.102])
- by xenbits.xenproject.org with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.92)
- (envelope-from <julien@xen.org>)
- id 1pSmoj-0007a8-IU; Thu, 16 Feb 2023 22:33:29 +0000
+	id 1pSmzp-0001Dq-44; Thu, 16 Feb 2023 22:44:57 +0000
+Received: by outflank-mailman (input) for mailman id 496796;
+ Thu, 16 Feb 2023 22:44:55 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
+ by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
+ <SRS0=ntZu=6M=citrix.com=prvs=404d376a6=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
+ id 1pSmzn-0001Dk-K2
+ for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 22:44:55 +0000
+Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
+ [216.71.155.175]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id 8665bb97-ae4b-11ed-933c-83870f6b2ba8;
+ Thu, 16 Feb 2023 23:44:54 +0100 (CET)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -39,169 +36,121 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=xen.org;
-	s=20200302mail; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:Subject:
-	From:References:Cc:To:MIME-Version:Date:Message-ID;
-	bh=8KOqu+hsOPhy8ulYKnML01YNS9evV4nnF+ZF1pw+LSY=; b=1kLmKDZWgE88ZDNGbp0z2zRMB9
-	V2Cgp100waCev2F0/y0aesjPiS5uaRi43dTmjhsXsw52OVn8j31et2zF36ggWHVgAcBa9RuwtxXIW
-	RnWtz91qVXKxvoMNattxiE8pQcvcEn+htvoDxzboHiyKeZ8/0wuOZUFkESeOtl7zaxJM=;
-Message-ID: <085d7520-8b13-ef9e-1c39-55c0062777df@xen.org>
-Date: Thu, 16 Feb 2023 22:33:27 +0000
+X-Inumbo-ID: 8665bb97-ae4b-11ed-933c-83870f6b2ba8
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=citrix.com; s=securemail; t=1676587494;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=5wFYiOBU0GpxB4acq8/DH18FL7nCMj0GPbvlxjoYnYs=;
+  b=L1eWrIR5LlqOhbHZNsmrE32d/K2UrnjGv+8F2ctEg4oV5NuL0TylnFq6
+   boe+dxEf8DtVhBui+cYSzMd6F9+gwIKfXpT90PoT+615WzFeItCatpp+1
+   CgnRuXXqwPbHaFA3+jSAq9K0JkgjAmzMxrEOoiWMzlQ+LnFwx8xVQ1pFs
+   Q=;
+Authentication-Results: esa6.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
+X-SBRS: 4.0
+X-MesageID: 96773486
+X-Ironport-Server: esa6.hc3370-68.iphmx.com
+X-Remote-IP: 162.221.156.123
+X-Policy: $RELAYED
+IronPort-Data: A9a23:q1ugcqsxWb8Wb/ptzXLu+ZaVQufnVEBeMUV32f8akzHdYApBsoF/q
+ tZmKWnUPq6PYGSmc40jao7noRwFvZ+HztdjTlBkpHhmFiJE+JbJXdiXEBz9bniYRiHhoOCLz
+ O1FM4Wdc5pkJpP4jk3wWlQ0hSAkjclkfpKlVKiffHg3HVQ+IMsYoUoLs/YjhYJ1isSODQqIu
+ Nfjy+XSI1bg0DNvWo4uw/vrRChH4bKj51v0gnRkPaoQ5AWHySFOZH4iDfrZw0XQE9E88tGSH
+ 44v/JnhlkvF8hEkDM+Sk7qTWiXmlZaLYGBiIlIPM0STqkAqSh4ai87XB9JFAatjsB2bnsgZ9
+ Tl4ncfYpTHFnEH7sL91vxFwS0mSNEDdkVPNCSDXXce7lyUqf5ZwqhnH4Y5f0YAwo45K7W9yG
+ fMwOj8xN06yof6M/a/kdapCpZh5IeTSM9ZK0p1g5Wmx4fcORJnCR+PB5MNC3Sd2jcdLdRrcT
+ 5NHM3w1Nk2GOkARfA5NU/rSn8/x7pX7WxRepEiYuuwc5G/LwRYq+LPsLMDUapqBQsA9ckOw9
+ zyZoD+lUk9y2Nq3ywierTWDmfLzoxi4WcVMFZmS+d1RnwjGroAUIEJPDgbqyRWjsWauVtQaJ
+ 0EK9y4Gqakp6FftXtT7Rwe/onOPolgbQdU4O88Q5RyJy6HUyx2EHWVCRTlEAPQ5sOcmSDps0
+ UWG9+4FHhQ27ufTEyjEsO7J83XrY3N9wXI+iTEsXwQ5uofShp0Jsw+QcZVNM/Lvg/DMFmSlq
+ 9yVlxQWi7IWhM8N8qy0+1Hbnj6hzqT0oh4JChb/BTz8sF4gDGKxT8nxsAWAs64cRGqMZgPZ1
+ EXojfRy+wzn4XulsCWWCNsAE7iyjxpuGG2N2AU/d3XNGtnExpJCQWyyyGsiTKuKGpxeEdMMX
+ KM0kVoIjKK/xFPwMcdKj3uZUqzGN5TIG9X/TezzZdFTeJV3fwLv1HgwOhDNgDqxyBh3yvFX1
+ XKnnSGEVytyNEia5GDuG7d1PUEDmEjSOl8/tbiklk/6gNJylVaeSKsfMUvmUwzKxPrsnekhy
+ P4Gb5Hi40wGAIXDjtz/rdZ7waYicSJqWvgbaqV/Koa+H+aRMDh7UqWBmOp8K90NcmY8vr6gw
+ 0xRk3RwkDLX7UAr4y3QApy/QNsDhapCkE8=
+IronPort-HdrOrdr: A9a23:V/qj+6O5Ki9hNcBcTgOjsMiBIKoaSvp037BK7S1MoNJuEvBw9v
+ re+sjzsCWftN9/Yh4dcLy7VpVoBEmsl6KdgrNhWotKPjOW21dARbsKheffKn/bakjDH4Zmvp
+ uIGJIObOEYY2IasS77ijPIb+rJwrO8gd+VbTG19QYSceloAZsQnjuQEmygYzRLrJEtP+tFKH
+ KbjPA33wZJKRwsH7+G7mBuZZm4m+H2
+X-IronPort-AV: E=Sophos;i="5.97,304,1669093200"; 
+   d="scan'208";a="96773486"
+From: Andrew Cooper <andrew.cooper3@citrix.com>
+To: Xen-devel <xen-devel@lists.xenproject.org>
+CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
+	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
+	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
+Subject: [PATCH] xen: Remove the use of K&R functions
+Date: Thu, 16 Feb 2023 22:44:38 +0000
+Message-ID: <20230216224438.705395-1-andrew.cooper3@citrix.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.7.2
-To: Ayan Kumar Halder <ayan.kumar.halder@amd.com>,
- xen-devel@lists.xenproject.org
-Cc: sstabellini@kernel.org, bertrand.marquis@arm.com,
- Volodymyr_Babchuk@epam.com, jgrall@amazon.com, stefano.stabellini@amd.com
-References: <20230213124438.14836-1-ayan.kumar.halder@amd.com>
- <20230213124438.14836-3-ayan.kumar.halder@amd.com>
-From: Julien Grall <julien@xen.org>
-Subject: Re: [XEN v6 2/2] xen/arm: domain_build: Use pfn start and end address
- for rangeset_{xxx}_range()
-In-Reply-To: <20230213124438.14836-3-ayan.kumar.halder@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Ayan,
+Clang-15 (as seen in the FreeBSD 14 tests) complains:
 
-The title is a bit strange to read as a 'pfn' is not an address. So how 
-about:
+  arch/x86/time.c:1364:20: error: a function declaration without a
+  prototype is deprecated in all versions of C [-Werror,-Wstrict-prototypes]
+  s_time_t get_s_time()
+                     ^
+                      void
 
-xen/arm: domain_build: Track unallocated pages using the frame number
+The error message is a bit confusing but appears to new as part of
+-Wdeprecated-non-prototype which is part of supporting C2x which formally
+removes K&R syntax.
 
-On 13/02/2023 12:44, Ayan Kumar Halder wrote:
-> rangeset_{xxx}_range() functions are invoked with 'start' and 'size' as
-> arguments which are either 'uint64_t' or 'paddr_t'. However, the function
-> accepts 'unsigned long' for 'start' and 'size'. 'unsigned long' is 32 bits for
-> ARM_32. Thus, there is an implicit downcasting from 'uint64_t'/'paddr_t' to
-> 'unsigned long' when invoking rangeset_{xxx}_range().
-> 
-> However, it may seem there is a possibility of lose of data due to truncation.
-> 
-> In reality, 'start' and 'size' are always page aligned. And ARM_32 currently
-> supports 40 bits as the width of physical address.
-> So if the addresses are page aligned, the last 12 bits contain zeroes.
-> Thus, we could instead pass page frame number which will contain 28 bits (40-12
-> on Arm_32) and this can be represented using 'unsigned long'.
-> 
-> On Arm_64, this change will not induce any adverse side effect as the width of
-> physical address is 48 bits. Thus, the width of 'pfn' (ie 48 - 12 = 36) can be
+Either way, fix the offending functions.
 
-Technically, this will an MFN rather than PFN (Yes, I now the macro is 
-called PFN_DOWN() but this is a generic name).
+Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
+---
+CC: Jan Beulich <JBeulich@suse.com>
+CC: Roger Pau Monné <roger.pau@citrix.com>
+CC: Wei Liu <wl@xen.org>
 
-> represented using 'unsigned long' (which is 64 bits wide).
-> 
-> Signed-off-by: Ayan Kumar Halder <ayan.kumar.halder@amd.com>
-> ---
-> 
-> Changes from -
-> 
-> v1 - v5 - NA (New patch introduced in v6).
-> 
->   xen/arch/arm/domain_build.c | 22 +++++++++++++---------
->   1 file changed, 13 insertions(+), 9 deletions(-)
-> 
-> diff --git a/xen/arch/arm/domain_build.c b/xen/arch/arm/domain_build.c
-> index a798e0b256..6a8c7206ae 100644
-> --- a/xen/arch/arm/domain_build.c
-> +++ b/xen/arch/arm/domain_build.c
-> @@ -1566,7 +1566,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->       {
->           start = bootinfo.mem.bank[i].start;
->           end = bootinfo.mem.bank[i].start + bootinfo.mem.bank[i].size;
-> -        res = rangeset_add_range(unalloc_mem, start, end - 1);
-> +        res = rangeset_add_range(unalloc_mem, PFN_DOWN(start),
-> +                                 PFN_DOWN(end - 1));
->           if ( res )
->           {
->               printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1580,7 +1581,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->       {
->           start = assign_mem->bank[i].start;
->           end = assign_mem->bank[i].start + assign_mem->bank[i].size;
-> -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-> +                                    PFN_DOWN(end - 1));
->           if ( res )
->           {
->               printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1595,7 +1597,8 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->           start = bootinfo.reserved_mem.bank[i].start;
->           end = bootinfo.reserved_mem.bank[i].start +
->               bootinfo.reserved_mem.bank[i].size;
-> -        res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +        res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start),
-> +                                    PFN_DOWN(end - 1));
->           if ( res )
->           {
->               printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1607,7 +1610,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->       /* Remove grant table region */
->       start = kinfo->gnttab_start;
->       end = kinfo->gnttab_start + kinfo->gnttab_size;
-> -    res = rangeset_remove_range(unalloc_mem, start, end - 1);
-> +    res = rangeset_remove_range(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end - 1));
->       if ( res )
->       {
->           printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1617,7 +1620,7 @@ static int __init find_unallocated_memory(const struct kernel_info *kinfo,
->   
->       start = 0;
->       end = (1ULL << p2m_ipa_bits) - 1;
-> -    res = rangeset_report_ranges(unalloc_mem, start, end,
-> +    res = rangeset_report_ranges(unalloc_mem, PFN_DOWN(start), PFN_DOWN(end),
->                                    add_ext_regions, ext_regions);
+These are all the examples found in a default build of Xen.  I'm still finding
+toolstack violations.
+---
+ xen/arch/x86/time.c             | 2 +-
+ xen/drivers/passthrough/iommu.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-
-I believe you also need to modify add_ext_regions() because the existing 
-code expect an address and we will now provide a frame number.
-
->       if ( res )
->           ext_regions->nr_banks = 0;
-> @@ -1639,7 +1642,7 @@ static int __init handle_pci_range(const struct dt_device_node *dev,
->   
->       start = addr & PAGE_MASK;
->       end = PAGE_ALIGN(addr + len);
-> -    res = rangeset_remove_range(mem_holes, start, end - 1);
-> +    res = rangeset_remove_range(mem_holes, PFN_DOWN(start),PFN_DOWN(end - 1));
-
-Coding style: missing space after ","
-
->       if ( res )
->       {
->           printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1677,7 +1680,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
->       /* Start with maximum possible addressable physical memory range */
->       start = 0;
->       end = (1ULL << p2m_ipa_bits) - 1;
-> -    res = rangeset_add_range(mem_holes, start, end);
-> +    res = rangeset_add_range(mem_holes, PFN_DOWN(start), PFN_DOWN(end));
->       if ( res )
->       {
->           printk(XENLOG_ERR "Failed to add: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1708,7 +1711,8 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
->   
->               start = addr & PAGE_MASK;
->               end = PAGE_ALIGN(addr + size);
-> -            res = rangeset_remove_range(mem_holes, start, end - 1);
-> +            res = rangeset_remove_range(mem_holes, PFN_DOWN(start),
-> +                                        PFN_DOWN(end - 1));
->               if ( res )
->               {
->                   printk(XENLOG_ERR "Failed to remove: %#"PRIpaddr"->%#"PRIpaddr"\n",
-> @@ -1735,7 +1739,7 @@ static int __init find_memory_holes(const struct kernel_info *kinfo,
->   
->       start = 0;
->       end = (1ULL << p2m_ipa_bits) - 1;
-> -    res = rangeset_report_ranges(mem_holes, start, end,
-> +    res = rangeset_report_ranges(mem_holes, PFN_DOWN(start), PFN_DOWN(end),
->                                    add_ext_regions,  ext_regions); >       if ( res )
->           ext_regions->nr_banks = 0;
-
-Cheers,
-
+diff --git a/xen/arch/x86/time.c b/xen/arch/x86/time.c
+index 782b11c8a97b..4e44a43cc5e8 100644
+--- a/xen/arch/x86/time.c
++++ b/xen/arch/x86/time.c
+@@ -1361,7 +1361,7 @@ s_time_t get_s_time_fixed(u64 at_tsc)
+     return t->stamp.local_stime + scale_delta(delta, &t->tsc_scale);
+ }
+ 
+-s_time_t get_s_time()
++s_time_t get_s_time(void)
+ {
+     return get_s_time_fixed(0);
+ }
+diff --git a/xen/drivers/passthrough/iommu.c b/xen/drivers/passthrough/iommu.c
+index 921b71e81904..0e187f6ae33c 100644
+--- a/xen/drivers/passthrough/iommu.c
++++ b/xen/drivers/passthrough/iommu.c
+@@ -606,7 +606,7 @@ int __init iommu_setup(void)
+     return rc;
+ }
+ 
+-int iommu_suspend()
++int iommu_suspend(void)
+ {
+     if ( iommu_enabled )
+         return iommu_call(iommu_get_ops(), suspend);
+@@ -614,7 +614,7 @@ int iommu_suspend()
+     return 0;
+ }
+ 
+-void iommu_resume()
++void iommu_resume(void)
+ {
+     if ( iommu_enabled )
+         iommu_vcall(iommu_get_ops(), resume);
 -- 
-Julien Grall
+2.30.2
+
 
