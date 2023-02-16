@@ -2,40 +2,40 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D6276996EF
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 15:16:39 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496572.767390 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA8A699760
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 15:27:35 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496578.767400 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSf3Y-0002DD-CO; Thu, 16 Feb 2023 14:16:16 +0000
+	id 1pSfE1-00042u-BX; Thu, 16 Feb 2023 14:27:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496572.767390; Thu, 16 Feb 2023 14:16:16 +0000
+Received: by outflank-mailman (output) from mailman id 496578.767400; Thu, 16 Feb 2023 14:27:05 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSf3Y-0002A3-90; Thu, 16 Feb 2023 14:16:16 +0000
-Received: by outflank-mailman (input) for mailman id 496572;
- Thu, 16 Feb 2023 14:16:14 +0000
-Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
- helo=se1-gles-flk1.inumbo.com)
+	id 1pSfE1-00040Z-7G; Thu, 16 Feb 2023 14:27:05 +0000
+Received: by outflank-mailman (input) for mailman id 496578;
+ Thu, 16 Feb 2023 14:27:03 +0000
+Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
+ helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92)
  (envelope-from <SRS0=/MZc=6M=suse.com=JBeulich@srs-se1.protection.inumbo.net>)
- id 1pSf3W-00029x-OF
- for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 14:16:14 +0000
-Received: from EUR03-DBA-obe.outbound.protection.outlook.com
- (mail-dbaeur03on20602.outbound.protection.outlook.com
- [2a01:111:f400:fe1a::602])
- by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id 76614f7c-ae04-11ed-93b5-47a8fe42b414;
- Thu, 16 Feb 2023 15:16:11 +0100 (CET)
+ id 1pSfDz-00040R-Hb
+ for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 14:27:03 +0000
+Received: from EUR01-VE1-obe.outbound.protection.outlook.com
+ (mail-ve1eur01on061b.outbound.protection.outlook.com
+ [2a01:111:f400:fe1f::61b])
+ by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
+ id fa7c8197-ae05-11ed-933c-83870f6b2ba8;
+ Thu, 16 Feb 2023 15:27:02 +0100 (CET)
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com (2603:10a6:803:122::25)
- by AM9PR04MB8921.eurprd04.prod.outlook.com (2603:10a6:20b:408::13)
+ by PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.12; Thu, 16 Feb
- 2023 14:16:06 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.18; Thu, 16 Feb
+ 2023 14:26:59 +0000
 Received: from VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178]) by VE1PR04MB6560.eurprd04.prod.outlook.com
  ([fe80::e138:4fc3:705c:d178%7]) with mapi id 15.20.6111.013; Thu, 16 Feb 2023
- 14:16:06 +0000
+ 14:26:59 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -47,225 +47,149 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 76614f7c-ae04-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: fa7c8197-ae05-11ed-933c-83870f6b2ba8
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JfqcKCU6GRdXoSB3/xHVfYHzuBbENkMgjvromwG7VjHNwo3AWPHBM0e/nRZoFlHF6h+mmNmc0086PLUZycpUaxTDQPWrg99JMVgp3yIOKfH3bN1bm4bTUwwlBd4AG1QqT7gKE3xlk5RkVtUaIiqyDVv5mqJo8oenNEGnYpaRFw1ILDcCCiIgLVU9Lp3bWvfkXMTgyNsLeyKXAvgOSM2HwK8cY6cN8uWhibQ0omekRAagEkH13R/HErr68oYJIIqdOaQbs0oo6m18iC+6b/LVbliurUSdXxBCH010XxAszPt59j4/+ywAWB6hF1p1eNfSVAJo08vIzs1aGCTrO5+HXQ==
+ b=N/v6FfiI/7FrdVXBAVsCHaajCCQOeT+O6o8FmZAU+DfhxcKzHkbiwCuShwnlhxrNb8p+OxtYeZfCbTJFmoVx2C/VJqbzRaZzj6riqZ25cCClW95oOb6z07dhxybX1LDpXcdXxDYBeToMyjymfvmKs3DRY2KH+6h4lEDk+WFNP2wOd12COWNSScM9C2d5yKQhRBTZiQG8XkuD+aXoag3TMUCnkU/JsHEboWqw3e/CWXhPJxFGqTBfjf6BOoTA725ixUe2mbXSb6KjWIrMFQzyo79FizHragqQowS090UatZ40jaYlUUzvSrlKAIE5M8nlB133QAPNADilRbQ3prTXtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UbxQXv0w8dlb73VGKlLjMTS/1U966hOR+jk6TwplR4I=;
- b=MLABkSw3WAn0Vpkq+IzlFJ658qLyT3AAMxytMgrv9K6dK5qY5EgMMx1R6bjoNmctipd4VwF3qiOxhh9XKWdMLyGN6zT28AgQKFKv6VKiPOXhnnrCfg00skMaL0QV6/UtDyQebHZq88vqO0gklPpma2Bq83DMnu2JepEzc81e9L+Ir9JbEoAk7S7DFBX5XzxsMEBvQKojflQuLJGQAw1ewuKrMCFRCgdVCPTwVLZs0RhfcXObtsTxgGjzxI6VG3t5cKnZ7xXdwDMPJyXmcakgg3dP1cdWGzWOaEiPf013B95CZvSMpnAa1TP4n8/9DUW+nRgAX/sbXJGdz/VAScutTg==
+ bh=hjaZms3aw/Ub8Y3/Qm89xtSAbiAlHv+A21nsdu3cXV8=;
+ b=FyP2QevatNxyGUSMMBc8q3E3ZkLUyMKouzLgj7N0qKvknSMsaFgqmLakKaXFhPqewSOeWdUm4RzfT/nFEhDBEqp3hHORf2Cty7y7K9XwEcl8HaNSmeC0BJpw4Q6jIHhKgNxKD4NAlgPuPiaG+NkfUrJLCl8N8nbK6zJwONr8occJBQdZDvfFF4VKLWxFN1kbQspaZZ5JmbszYgGKZicaxlccyJTAbMCfWxLyUbCPYtZXlDFdz/W3anW+waBvK7rxw/Bo7ahYtQ1Jp/ArVancqzsuDbpPfp4czhH6IPLzSor22LGDJPDSa1+6Dp915jSRWxUXvmJd2xe/LgyaKA9Guw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=suse.com; dmarc=pass action=none header.from=suse.com;
  dkim=pass header.d=suse.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UbxQXv0w8dlb73VGKlLjMTS/1U966hOR+jk6TwplR4I=;
- b=r0/VTYPphDoW3no97L8fD250Whik7WGDcrGOP/rEy4yyAtSBL9q9Ocx4dLsd94vplI0l0c2v9/pAAeH6f2tfcp5rJ7vd07TT0MU1WiaX5L/jUdJHnGEZ1agIi1n/nqnm/wJvzgyWDM36OU+/LILh54P37eKf3CquLroIhe5A3IKX5i+E1YTIZJ69BSA5Q2NOC/lSkkrQYMeJzBezMvpcnouRoZ7Dz1sKunSt1daEnSVKIH6wCHOq4PFXremmOwjK9Kp9jIxFc3/ylx3TRKMqydqI7AgqiPLu0b0iZaT5FmNL1HGHJVurJlQbuftXEm2N91cNzrudeSloILLfmZ9iXw==
+ bh=hjaZms3aw/Ub8Y3/Qm89xtSAbiAlHv+A21nsdu3cXV8=;
+ b=DTDl57fTEVDMCxKBGLXpVtvxdzaLPy5Hx39lwe680a3nvrenC7X4MQSlr0vrfs9ncPRmd6ZkgyOnV9+OcHxkxOmWmRucm0PryrkapzWPmTkStM7Uj3IVCBuhuNxVTyodefj7X90twzKDoYgS2jwriWSYPQs4WMfgEdzI6rxsspSZepm4xgSP0l/9Ejp0J+Qy8cEKBhS5SXtP7IqXj+qVzjRbyxeupHqR3yegfDMNf53BGEy+qR9vynU+N4gDeP48G+Ee94ujrKW+q/fXjYRKwXGg1PopI40aKnOPoiALswZnwPjUAofne1boJX+VV1wSqZTwvu9TleWkIhBsGIoZ6w==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=suse.com;
-Message-ID: <7e160b28-ba80-c2bb-fa2a-5d5411c7d22d@suse.com>
-Date: Thu, 16 Feb 2023 15:16:03 +0100
+Message-ID: <000badbf-cd94-76b6-1f60-faa720a5407f@suse.com>
+Date: Thu, 16 Feb 2023 15:26:57 +0100
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Subject: Re: [PATCH 4/6] x86/MSI: use standard C types in structures/unions
+Subject: Re: [PATCH 1/2] x86: Perform mem_sharing teardown before paging
+ teardown
 Content-Language: en-US
-To: Andrew Cooper <andrew.cooper3@citrix.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Wei Liu <wl@xen.org>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>
-References: <98c3141c-9d49-695e-a936-4e755a4fc527@suse.com>
- <9f375055-eff2-010b-c904-e4122b834777@suse.com>
- <bdd6e011-78e3-4f5d-9005-d9b385b859ae@citrix.com>
+To: Tamas K Lengyel <tamas@tklengyel.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>,
+ =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>, Wei Liu
+ <wl@xen.org>, xen-devel@lists.xenproject.org
+References: <3af8dbf3134b48f6bbc8f917e5fecaf8daee1c3d.1676351034.git.tamas@tklengyel.com>
+ <e9e26bfe-3b17-bc35-9d93-ac291ab6b710@suse.com>
+ <CABfawhmYjCmOjiLkvMB7DQz0eWVSm7vdy5HRCGxzNmg0nr13SQ@mail.gmail.com>
+ <25bc4c74-f36e-2969-2b7c-c5acd115ebaf@suse.com>
+ <CABfawh=y+K1GXOfKLJ6HbSxrVXPSd9GJWxpy4dusEWxh2PxeoQ@mail.gmail.com>
 From: Jan Beulich <jbeulich@suse.com>
-In-Reply-To: <bdd6e011-78e3-4f5d-9005-d9b385b859ae@citrix.com>
+In-Reply-To: <CABfawh=y+K1GXOfKLJ6HbSxrVXPSd9GJWxpy4dusEWxh2PxeoQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR3P281CA0199.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a5::16) To VE1PR04MB6560.eurprd04.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0040.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:92::7) To VE1PR04MB6560.eurprd04.prod.outlook.com
  (2603:10a6:803:122::25)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|AM9PR04MB8921:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a7e8ecd-bff4-44a1-5669-08db102857ac
+X-MS-TrafficTypeDiagnostic: VE1PR04MB6560:EE_|PAXPR04MB9351:EE_
+X-MS-Office365-Filtering-Correlation-Id: acbaf292-915a-467b-bb20-08db1029dd59
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	/DEE0uZ4+qqpqvhf85LMK7qX04mgwhmry5m7k+GFz56agoGm7wiV5plL73DUSDDJaP4jo5GRzEKUdRi7jy31DUY+1O0FKjWZ6rqsxf+mQqZ9bMG7yL8EfaFNFlXJtD3q9rsRhYPY6fEyIqOQy/os/ThzBup1l3ZiIFAMQsYuRiKnqW4DC3ENK0TCZnt3c1sCC9wJzUEhOIeuT4ofjOylmlE/+cEKRwly1NwLIZyaUMf34CbyxuzyApaKWUr8p6YmNnG8mXmbloCTnbwO4So4GZHs80lTxKczQZ6mRePwafdMiUk+EzuSdiq76KdiHYaPJeKUspOh+5t7bznOsmwgktWuHJPlTV9qxJSnSELkioBJwzp/rlMtsa+DrjD40J+Q7GbunqYFxDaS5iM49KDbv00C0vMeKdYAdEtfMaUHIhtTsP63WsWYjVsGfOIi8lebT1Fdfffb1nO4Z/zflxriwXALdRnDxQSE3cBEmbNbk+H1cV+ULTc3Ok0qJncub98UElItt9oZvOc7yKUTb5d4E3R2fITUIbzY/RK5Y45bfhC0h2gk9Eps9ypO6f8fO5SCuNuQQFSjGx6vAuc1xfQOA0DDnhFkIRZXTjH4C3AHqouo/S3cJMUuje32Vrunfv0UQEco4+2xPqKknHKk7+HTaQCUI6BHhvkYKcnLAPi1MTYiq0GblAF3yfPdBAJw1z4CYBnuoL7p01nTaJMSyh7GiHiVQ89ipdonY8evBXhmChw=
+	+2aEXn9lQw7dTb7vn8UXJz4rbVPHeJEuz1qzDmcfg2qHuipi7bb+s/2iGzBwb41ouvtlqOzVBgVzK+X0mx9lnpvTKIgYlSS/HDawn3L8kzh6/y35mOHKNfI8ank36gPHUOvkMR36J2eyUueTfuQRcPKhbyjcFTxOVw4VPsiWhuXqJPs1pG29RGd6HRhPKXHtxBug6HuKD2t70u3tNU39gtKZFY44VWnP6D6fgSfsKFzJaQzb4WcLkCSZVqMOXK9MD5Kdbb0FKbIZES5q/h3D8dDn3WfL7+vIsqJWpcpeGfzIgsjDqJ6HUWfThEU9NWjZFFzMmYzbf4gE4cF+FiR455b4u7usACV5pZssA6ZcrTy9P9xPnqp9N8TTS7G33n/NoaIOoA2W7v481Iahe/G/34Gh+fwE3Qq706X7j36DhJe0EQQB+IS5mA51wdP57ocyBdWE7PvyOMGJc7d3oOorpfp7dvlZefbZVcgIAaeWu6vby4F+4hGczb9hHLMY0JYRsutv8htqeiM3L/lYX5soCaqXtsNvRpo7K8T1MLdV/tvCHyyWWsB3RAlKGvSheJw5BWki8Oo3iPSHUjNKPGtcenreySQDbaLqCi4YvppccDYLjw98+iJxc8ZWjwY5Y4aJrwb84q1WFq1cmfpNB5QPf5lTMDViSwWD5AJZzTDgyIOAEjJkhgrvNhUbCFCMKuOW2AZ0iq2dWh3BEdzWkXyCeNCxHpl++yVdCDZmILxTEQc=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(346002)(366004)(39860400002)(136003)(396003)(376002)(451199018)(2906002)(31686004)(83380400001)(5660300002)(36756003)(31696002)(8936002)(41300700001)(4326008)(66476007)(6916009)(8676002)(66946007)(86362001)(66556008)(54906003)(316002)(38100700002)(53546011)(6506007)(26005)(2616005)(186003)(6512007)(6486002)(6666004)(478600001)(45980500001)(43740500002);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VE1PR04MB6560.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(376002)(39860400002)(396003)(136003)(366004)(346002)(451199018)(478600001)(186003)(8676002)(31696002)(86362001)(38100700002)(2906002)(83380400001)(66476007)(4326008)(6916009)(2616005)(66556008)(41300700001)(6512007)(66946007)(36756003)(26005)(6506007)(53546011)(5660300002)(8936002)(31686004)(54906003)(316002)(6486002)(43740500002)(45980500001);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?c0djLzJCeUlIUEpWSkZJL3k1ZVR3aWJPN2lTdW45d3Nob2FTajFGa1RvTDhS?=
- =?utf-8?B?OTF2Yi9nUHc4Q21qaDVoU2xOcFF4ZTdoV2VzdGZqcjhCMXZEVEV0RVpIdWYy?=
- =?utf-8?B?OE1BRHBqRWNXdGowdjlEUEtIZmhRUVlFOEVYSjZTL3BmWi9xa2tGT0VIazZY?=
- =?utf-8?B?NHVWNXJjVzBIQTRGZ2VsVnExb3ZqaHlIT2RlZHh5bkhQUlgrOTliemV0MmxG?=
- =?utf-8?B?MGI1dmdINU44VVd4L0UycFNEeHNQUEF2V0ZUNTRNRElhc0lCdnZVdTJnejJa?=
- =?utf-8?B?UmJSdE9vVGZkYm8wUjQvSlMrY3VhTGoybXhISVRVZWhPbFlEMHl2dkZ0QjJS?=
- =?utf-8?B?Ty94R2JNSThjbXFla1N0VENubUVUU3V3VDFndFBjTzlaa3NpcjlBajRGbVNH?=
- =?utf-8?B?QmtqdkNrVzR6bks3dzViMTdRM0k1NDNuNzdmTmM1WU1oWWpnaW1tRDFsMkZB?=
- =?utf-8?B?WUNwK0JwQUYxMVgrVXJ0QnR6eVJXdjh1YXZvbUY3Ukh0QlZxNWZvY3FOM1ZI?=
- =?utf-8?B?c1c5Y2RQWG4zZ1o5RnhPc2M1aFFTWS8rK3VGZm45T1ZqdlkzUFhHV1JObS9h?=
- =?utf-8?B?aXVHbnJGV2ptZHVobHJoLzJwZHVRbSs2RVBIa2dweTVSTVpwT0MwcHV6c2dT?=
- =?utf-8?B?dlk0M245Sk14bGRRR0NpRjZCNjF4cUh0RlFQTXVKcGJETEVVRXFxSUo5RzhU?=
- =?utf-8?B?Nm1JQUFpc2F6dEFuU0c0Rzd6VUJKQm1BbGZxekdaUHR3M3ROUVIrc1gveHpX?=
- =?utf-8?B?WDJ1dGZROE1PTVJLWE0wQmd4VVNjNUNnMjEwaHB6UzhKSVQ4QmorTVRIQlh2?=
- =?utf-8?B?bmtRQm10RmM1aVBGdHJTRzJhd1RwSkhxdGhqNkxOUjl3V0JLWFhHZ2ZSelov?=
- =?utf-8?B?VDdmc0FOQXJJcHFoVDdOd0FOdTFlSkRGK0dZWHl4NnJPYjNNWE5XUFllWUN3?=
- =?utf-8?B?L2tIUFBKM3hQK1JNV1AzSXQ2ZTN3YzdTUFhQMXd5b3U4ZFlMU0RTS2Q3MGlP?=
- =?utf-8?B?c3dxWDZZanFVQUJZNHozUDk2S3U2QTJsek1CaTRySVFWd01oSUVtSHdPMjI0?=
- =?utf-8?B?ejJYdFZDb1hYb2Q4Ri94NmJZdUtmN25xQzVzTHpzVGtXekVNRU8wV0FRWEVi?=
- =?utf-8?B?UXNrMjdwTGNsWlgycGFVdkNEU3JNanNwems1Mmh2bU1sTmNaUTNRbnk1bWM4?=
- =?utf-8?B?T0NYdklpWHFrcjkvUjBPOTE3RDFUZDU0aUhOTEJDK3g2RU5tWGQ2K1RrNTU2?=
- =?utf-8?B?Nnd0TU9Xeld4Uk9NM1pESWNRc3ZPY096RWFVVHVWMGpPczY1WkdiSUtBYm5I?=
- =?utf-8?B?YzVUaklPa2FxejdwQk0yL3NQV284NHJWS2gvcWZIU0xtbklad0R0aGp2bW04?=
- =?utf-8?B?dk9jSGJUYlNmQ2VLU1ZPL1BCTU5nTElnQWtpRVk5aHBmbGpoU0k1K1hoMXIx?=
- =?utf-8?B?VjErdHRzN3hQVzViUEErYS9icXJDQTBVSmY4WHIxLzNtKzVJSkxNRmVlK3NG?=
- =?utf-8?B?dmx6Y1hBdEVGQVlkYkVXSWVOQVhiT1hvN2NROVhrMm51Z3RNU01ZdE1FNExK?=
- =?utf-8?B?SmVRMVNSZUdxazRyOWl1Yjc5dWlPM01FLzFPMEo5dGJIaDBzOElZSmM2QnQ4?=
- =?utf-8?B?Wi83eHhoMGRtaGZ2THVqNDFrL3hUTFhVMGVMaEYyQWhTVURnNlhuQ2FRaWZa?=
- =?utf-8?B?YmVQeXdCZWJaUmZ0V2xtZFpFZmxYNVB0QUZyTUZDODBVajB0ZzdiVnN2djIv?=
- =?utf-8?B?N0ZOUGtQL0lEL1ExcElubFNQNjRSWGwvQ04yd3ZWRUZHSkx1UHBRQUxHUGEx?=
- =?utf-8?B?bXF0RGZJd29Jb2RBQXpmSEdQTzNJYkhCL084OEVnQkZEemNwZHhhNWJSODEr?=
- =?utf-8?B?SmczZkZWRG9CZUpMcERkRi9KbXltVGtDNjBLQnpISmk1VjNoZzdUeGQ3ZHRN?=
- =?utf-8?B?Qm9qVzd3OEtpV1RJL04xN2JZTVEvdzVvbFlXbXFYL1N5c3BLWEdxQXROendU?=
- =?utf-8?B?OXR2U2ptaU92NkpzOXd2QXIzYXdiWXR6enBYOVI4VFRIMzNndDRJbUVnQTdH?=
- =?utf-8?B?cHcxODBYUzhDTVdoc3hOZysrc1dnOXRudVVrajVuR0FvUFZCdEwyTXRqR21u?=
- =?utf-8?Q?vUbge1OYIpF8xNEPT3+YXYmkh?=
+	=?utf-8?B?NnRLZVl5enl6alExaDA0REJZQlNiVFNFZzBpQkpmZDRQMDBRNGhCenhMcUoz?=
+ =?utf-8?B?TWc0UzVOWW5DTzE0VG9ER2EvSXYrRzBZS1k0Z0d3SUxhRVFnNWpadXhCR0dH?=
+ =?utf-8?B?YWVKOFpNU05PWHlEY0JJMUFPYnBsOXJRWmp0MUYxTFAzU25MZWxkK3hZNXFu?=
+ =?utf-8?B?a0hQbkxLMFpuUGFGR09QVm5NZTlIUmhTcW1ZSlkvN0lWQzRmODVjRFFjLzZj?=
+ =?utf-8?B?dE44Qzc3ZkM2c1NCdnRoZ0d0Nm51ZFo5VE5SRm8zRmZ5N2owSUtNMmtPSDQr?=
+ =?utf-8?B?V3I1OXVtVS9qSXQxTjFqS0xFd1RnVW5ndE9QOG5qL05CMzBXditGT2dvMlRu?=
+ =?utf-8?B?Z2NraUVsa0M1cy9RM2xDZGtOTUg3aUI5UE40d3FzSWUvRFU5ZFZPMmJaMFhG?=
+ =?utf-8?B?VHFpUG9aK3ZLWGd6VkMzUjllSFZqcmJGWU92WWJheVhCR3NCU0lBME5NSWZW?=
+ =?utf-8?B?RSsvS29HUHFlb3YyMGl3REM3Wmd5N3JDbERHZEVkTkFranpSR25wYUQrY0hN?=
+ =?utf-8?B?UEpndVBTb1dEYmdkVVNDckxGYU44OGJkSXU2WnJXSGhyVHdsNlpTd3JjRUVy?=
+ =?utf-8?B?eHA0UGxOZEMrLzJNWnoydnlQYjU3T2ZqaE9xcEs5cFZtREZNc3VBTTFvMm16?=
+ =?utf-8?B?WUovdU44T2NYUjhYVWtXQnBDNmZiQmZaTVl0eDhTbXNhVDFqdnZGRHpITUl5?=
+ =?utf-8?B?V1lxMEFuRzFOaFYvd1c5Qlp0Y2M2bDFVVENCRTR5Q2NWczJUWGxicXNzNFk3?=
+ =?utf-8?B?R3VHTXBnY0pRVlN5M1RoRWs1MzFrYkpEMTkvRFdUYVhNMWRZZGhVekw1SVNW?=
+ =?utf-8?B?ajluMzY5U3A0MHY3VzlTdkh0dTY3N3ZjUVhlZUxmc2ZiR1hLY2lRbHJ2QUU0?=
+ =?utf-8?B?S3hKZk5wSWljYU1ISXhpVVgxRkE2NmpjRnYvME56bHU5YzVYLzFMTHZMRXZs?=
+ =?utf-8?B?Y2ZEQ0VsbnNFY1FSQWhEL0FhTTRHRlVvc2NLanVySGVNUDRSZCtZZVI0RGhJ?=
+ =?utf-8?B?Y0VIZ2hsLzVCOUIyam8wTGVFdmFIcWliTmlMY25ZUmdtczJCanlHSmwrK3Ji?=
+ =?utf-8?B?RFNKSFBKc29lNmErcEV3bkJudmg5SCsydFlnOVZrekpxSHFHaTc0TXc5d0tX?=
+ =?utf-8?B?dVJKd0FlYUxkdDdMMVcvQVlWQkhySlNDcFdCSjhCRTFtdjdoRFhwT0ZYRGpF?=
+ =?utf-8?B?bHlIQmc1VUpMVG91ODRiSm8vTFB4NFcxSFZka2pxSTUwSmdoZGg0T1JHSFA5?=
+ =?utf-8?B?cEZhUFJQOFdzWk1kN3lRSVNkRU5uU09nK1Jyb2UrVkR6S2Q0VlRKS25tUm5t?=
+ =?utf-8?B?R0c3T1NhVGtCNEI2TWlJZzlYTTRPSUtzV0dDOE1TTlBsdWFRMlRqOUR3RTVp?=
+ =?utf-8?B?dUR4YlNWZk11YTgzeTFhVVE1N25ESm9xZzBndUtDcWZ2Wk12SngvUTdXS2Zt?=
+ =?utf-8?B?RUdvUDR4enpXMkd1Z2pxNjVMNWttQ1lKWm9KZ3NGa3hBcGJ4YUQzNzJ1MzJJ?=
+ =?utf-8?B?S1BoRHYxdk9VRENCZHpvUndjOXVYbmszR01GYUlRbUlaY2t6R05UelNrYVpk?=
+ =?utf-8?B?eDVzYmFJRjFuOTNMUVdtOW5EY2E1Vm1oTndBWjkvQSt6L0U3T00yTGZtYlpp?=
+ =?utf-8?B?cUdqc2ZpZmJlKzk2dkg1U1dxM0lrYUlOLzBEbE9uUS9CTVNGTFN1NVZuSzli?=
+ =?utf-8?B?R1U0bWlSV2dnRW11SWs0elZWZmhPWHVlVmVQSC9hWVlFY01uWnVrazJlakdW?=
+ =?utf-8?B?OFE5MEVsQnl6Qm5SZzV0NmF5dFpydjJsZTI5U2dKckhsdUsrekltMzhVY2xm?=
+ =?utf-8?B?d0ZUWmRzNlNVb0JHcCtUWXB5b1FQN3JJcHZoTE43YlRmYnl5VmwyNEJIdW85?=
+ =?utf-8?B?SnBkbnIvREVNcXg3TzB4NlFNdk1DbU9WM3QxVUFoKzVSYXJ0RzJzeDdxQzkw?=
+ =?utf-8?B?ZUN4VDVnZ1R2bGVWT21MMUtaRHJkU0dTdTBRYUR3bnVxQnNRQ09xM3ZCek45?=
+ =?utf-8?B?RXZtekh5MEMxbElHQXdJOElVYXZkd1ZGZkI0ZmFqZTFNVkFyVVhKYUI1RUZ4?=
+ =?utf-8?B?ellzTENHUWh4bFZBajZ5ZkVOOEdtbERFa3g4dTkwQTR2UEQwenYxTTNjcEg4?=
+ =?utf-8?Q?XVsZ/bvDYz1tSUuuxw9VoJC49?=
 X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a7e8ecd-bff4-44a1-5669-08db102857ac
+X-MS-Exchange-CrossTenant-Network-Message-Id: acbaf292-915a-467b-bb20-08db1029dd59
 X-MS-Exchange-CrossTenant-AuthSource: VE1PR04MB6560.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 14:16:06.1205
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Feb 2023 14:26:59.8593
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: b+iE3hmCkjVPc/pqhQWvmpn4mrb2SC3fY3ZPzwd8UQVF310KZPWmwx/WVydUFElAfZgPFNF5ZaiRkNwiermabw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8921
+X-MS-Exchange-CrossTenant-UserPrincipalName: zTs120t1Y0Lx1LUA8glIby4ZQiLfPspqFcjNemyfi5+xvWINq3pBHnjBh80FsjBqr6UWrMnoqAm0iJc0rvJKhQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9351
 
-On 16.02.2023 11:55, Andrew Cooper wrote:
-> On 09/02/2023 10:39 am, Jan Beulich wrote:
->> Consolidate this to use exclusively standard types, and change
->> indentation style to Xen's there at the same time (the file already had
->> a mix of styles).
+On 16.02.2023 13:22, Tamas K Lengyel wrote:
+> On Thu, Feb 16, 2023 at 3:31 AM Jan Beulich <jbeulich@suse.com> wrote:
 >>
->> No functional change intended.
+>> On 15.02.2023 17:29, Tamas K Lengyel wrote:
+>>> On Wed, Feb 15, 2023 at 5:27 AM Jan Beulich <jbeulich@suse.com> wrote:
+>>>> Did you consider the alternative of adjusting the ASSERT() in question
+>>>> instead? It could reasonably become
+>>>>
+>>>> #ifdef CONFIG_MEM_SHARING
+>>>>     ASSERT(!p2m_is_hostp2m(p2m) || !remove_root ||
+>>> !atomic_read(&d->shr_pages));
+>>>> #endif
+>>>>
+>>>> now, I think. That would be less intrusive a change (helpful for
+>>>> backporting), but there may be other (so far unnamed) benefits of
+> pulling
+>>>> ahead the shared memory teardown.
+>>>
+>>> I have a hard time understanding this proposed ASSERT.
 >>
->> Signed-off-by: Jan Beulich <jbeulich@suse.com>
+>> It accounts for the various ways p2m_teardown() can (now) be called,
+>> limiting the actual check for no remaining shared pages to the last
+>> of all these invocations (on the host p2m with remove_root=true).
+>>
+>> Maybe
+>>
+>>     /* Limit the check to the final invocation. */
+>>     if ( p2m_is_hostp2m(p2m) && remove_root )
+>>         ASSERT(!atomic_read(&d->shr_pages));
+>>
+>> would make this easier to follow? Another option might be to move
+>> the assertion to paging_final_teardown(), ahead of that specific call
+>> to p2m_teardown().
 > 
-> So I suppose Acked-by: Andrew Cooper <andrew.cooper3@citrix.com> because
-> this is an improvement on the status quo, but I have quite a few requests.
+> AFAICT d->shr_pages would still be more then 0 when this is called before
+> sharing is torn down so the rearrangement is necessary even if we do this
+> assert only on the final invocation. I did a printk in place of this assert
+> without the rearrangement and afaict it was always != 0.
 
-Thanks. I'll be happy to carry out some of them (but the sheer amount makes
-it so I'd rather not apply the A-b to the result). It's always difficult to
-judge how much "while doing this" is going to be acceptable ...
-
->> --- a/xen/arch/x86/include/asm/msi.h
->> +++ b/xen/arch/x86/include/asm/msi.h
->> @@ -66,15 +66,15 @@ struct msi_info {
->>  };
->>  
->>  struct msi_msg {
->> -	union {
->> -		u64	address; /* message address */
->> -		struct {
->> -			u32	address_lo; /* message address low 32 bits */
->> -			u32	address_hi; /* message address high 32 bits */
->> -		};
->> -	};
->> -	u32	data;		/* 16 bits of msi message data */
->> -	u32	dest32;		/* used when Interrupt Remapping with EIM is enabled */
->> +    union {
->> +        uint64_t address; /* message address */
->> +        struct {
->> +            uint32_t address_lo; /* message address low 32 bits */
->> +            uint32_t address_hi; /* message address high 32 bits */
->> +        };
->> +    };
->> +    uint32_t data;        /* 16 bits of msi message data */
->> +    uint32_t dest32;      /* used when Interrupt Remapping with EIM is enabled */
-> 
-> The 16 is actively wrong for data,
-
-It it? The upper 16 bits aren't used, are they?
-
-> but honestly it's only this dest32
-> comment which has any value whatsoever (when it has been de-Intel'd).
-> 
-> I'd correct dest32 to reference the AMD too, and delete the rest.
-
-I guess I'll simply drop "with EIM".
-
->> @@ -94,35 +94,35 @@ extern int pci_restore_msi_state(struct
->>  extern int pci_reset_msix_state(struct pci_dev *pdev);
->>  
->>  struct msi_desc {
->> -	struct msi_attrib {
->> -		__u8	type;		/* {0: unused, 5h:MSI, 11h:MSI-X} */
->> -		__u8	pos;		/* Location of the MSI capability */
->> -		__u8	maskbit	: 1;	/* mask/pending bit supported ?   */
->> -		__u8	is_64	: 1;	/* Address size: 0=32bit 1=64bit  */
->> -		__u8	host_masked : 1;
->> -		__u8	guest_masked : 1;
->> -		__u16	entry_nr;	/* specific enabled entry 	  */
->> -	} msi_attrib;
->> -
->> -	bool irte_initialized;
->> -	uint8_t gvec;			/* guest vector. valid when pi_desc isn't NULL */
->> -	const struct pi_desc *pi_desc;	/* pointer to posted descriptor */
->> -
->> -	struct list_head list;
->> -
->> -	union {
->> -		void __iomem *mask_base;/* va for the entry in mask table */
->> -		struct {
->> -			unsigned int nvec;/* number of vectors            */
->> -			unsigned int mpos;/* location of mask register    */
->> -		} msi;
->> -		unsigned int hpet_id;   /* HPET (dev is NULL)             */
->> -	};
->> -	struct pci_dev *dev;
->> -	int irq;
->> -	int remap_index;		/* index in interrupt remapping table */
->> +    struct msi_attrib {
->> +        uint8_t type;        /* {0: unused, 5h:MSI, 11h:MSI-X} */
->> +        uint8_t pos;         /* Location of the MSI capability */
->> +        uint8_t maskbit      : 1; /* mask/pending bit supported ?   */
->> +        uint8_t is_64        : 1; /* Address size: 0=32bit 1=64bit  */
->> +        uint8_t host_masked  : 1;
->> +        uint8_t guest_masked : 1;
->> +        uint16_t entry_nr;   /* specific enabled entry */
-> 
-> entry_nr wants to move up to between pos and maskbit, and then we shrink
-> the total structure by 8 bytes (I think).
-
-The struct is 6 bytes now and will be 6 bytes with the adjustment you
-suggest. Plus I'd prefer to not do any re-ordering in this patch.
-
->> @@ -180,48 +180,48 @@ int msi_free_irq(struct msi_desc *entry)
->>  
->>  struct __packed msg_data {
->>  #if defined(__LITTLE_ENDIAN_BITFIELD)
-> 
-> There's no such thing as a big endian x86 bitfield.  Just delete this
-> ifdefary to simplify the result.
-
-Will do.
-
-> Additionally, the structure doesn't need to be packed - its a single
-> uint32_t's worth of bitfield.
-
-Like with re-ordering I would prefer to not touch entirely unrelated
-aspects. I'll see if I can motivate myself to make a separate follow-on
-change.
-
-> Finally, can we drop the reserved fields and leave them as anonymous
-> bitfields?
-
-Perhaps - I can give that a try, hoping that we don't access them
-anywhere by their name (even if just to e.g. zero them).
+Was your printk() in an if() as above? paging_final_teardown() runs really
+late during cleanup (when we're about to free struct domain), so I would
+be somewhat concerned if by that time the count was still non-zero.
 
 Jan
 
