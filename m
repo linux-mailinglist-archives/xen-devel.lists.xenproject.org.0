@@ -2,37 +2,36 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24948699431
-	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 13:21:27 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496533.767323 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02749699439
+	for <lists+xen-devel@lfdr.de>; Thu, 16 Feb 2023 13:23:33 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496540.767334 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSdGJ-0001Hx-JY; Thu, 16 Feb 2023 12:21:19 +0000
+	id 1pSdIA-0001wx-01; Thu, 16 Feb 2023 12:23:14 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496533.767323; Thu, 16 Feb 2023 12:21:19 +0000
+Received: by outflank-mailman (output) from mailman id 496540.767334; Thu, 16 Feb 2023 12:23:13 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSdGJ-0001En-Ga; Thu, 16 Feb 2023 12:21:19 +0000
-Received: by outflank-mailman (input) for mailman id 496533;
- Thu, 16 Feb 2023 12:21:17 +0000
+	id 1pSdI9-0001uB-SP; Thu, 16 Feb 2023 12:23:13 +0000
+Received: by outflank-mailman (input) for mailman id 496540;
+ Thu, 16 Feb 2023 12:23:12 +0000
 Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
  helo=se1-gles-sth1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=dhTJ=6M=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pSdGH-0000gg-8H
- for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 12:21:17 +0000
-Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
- [2a00:1450:4864:20::62b])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 6927fd43-adf4-11ed-933c-83870f6b2ba8;
- Thu, 16 Feb 2023 13:21:16 +0100 (CET)
-Received: by mail-ej1-x62b.google.com with SMTP id dr8so4613299ejc.12
- for <xen-devel@lists.xenproject.org>; Thu, 16 Feb 2023 04:21:16 -0800 (PST)
-Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
- [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
- v26-20020a1709060b5a00b008b1787ce722sm108280ejg.152.2023.02.16.04.21.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Feb 2023 04:21:16 -0800 (PST)
+ <SRS0=sAGp=6M=tklengyel.com=bounce+e181d6.cd840-xen-devel=lists.xenproject.org@srs-se1.protection.inumbo.net>)
+ id 1pSdI8-0001u3-PJ
+ for xen-devel@lists.xenproject.org; Thu, 16 Feb 2023 12:23:12 +0000
+Received: from rs227.mailgun.us (rs227.mailgun.us [209.61.151.227])
+ by se1-gles-sth1.inumbo.com (Halon) with UTF8SMTPS
+ id acf0f5fd-adf4-11ed-933c-83870f6b2ba8;
+ Thu, 16 Feb 2023 13:23:11 +0100 (CET)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169]) by
+ acd012ecd2cd with SMTP id 63ee202cb561427b110a86d6 (version=TLS1.3,
+ cipher=TLS_AES_128_GCM_SHA256); Thu, 16 Feb 2023 12:23:08 GMT
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-52ee632329dso22164227b3.6
+ for <xen-devel@lists.xenproject.org>; Thu, 16 Feb 2023 04:23:08 -0800 (PST)
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -43,116 +42,112 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
  <mailto:xen-devel-request@lists.xenproject.org?subject=subscribe>
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
-Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 6927fd43-adf4-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=qQ+N3XSh7XdbndtvKyxOAdYibvxb9PAQGUDOIH38+Fg=;
-        b=PKfpwFFgQ9lmq+q0cdO94lgia+EVD+hGSdVWZIbCUlZ8uHMQkWANjEE/mQgQkit0Of
-         Bw8G1Vwjlu9ZkXZ1dGLqhqJBh5zRKGZmD+wsUy2xuhzSXG8g6UEvOh5ioPb3Vs+L8DzH
-         PLS31Ckkxw5ztHqeI6z0HrxUZ+rNSRSQ6XGpRV7mX+KMPx46Yhqh//lqNT9PkwzSdELk
-         rEznts53Hkohkk9WMHL1a9+kibbMhP5UHo0xuPYKdHF8DVTLmODXk86dSIMjVi3XdDrw
-         rHxoysFF/ai++1pUCBMXpXu9rYhotoOUYrRGead995uZ7ILV3qma1cqY+r3zgYwM77id
-         FsRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=qQ+N3XSh7XdbndtvKyxOAdYibvxb9PAQGUDOIH38+Fg=;
-        b=Fm13QXWOykKxMxle7vV3XWnzLvgrOoC9WZwNdMkmmMhJBzoWxgTgUdFW5bF7cXaVZA
-         jKuAGy3p3AUXNLqdQ4AMw0V7Aib3D5WZmYb99NpaSDsnSckfk78ghP1JAeDSxYJExoNS
-         epbsOX/3DIMKpjiWpA6x5zP9QpQLvNrVOa4jSpKvD3ZdrCuejCOu1w39mNjbwYZzsrvK
-         Ltok5v7rimAXCmpkwHIc7la/gx/nmge9vyRmKQ8IkFR8kymQ59Adj+UGar+9Yg+1WJVZ
-         v53+CzFLq0PtAQ2/nb+rYzz+IKcf07m8gIved2zV3LcQr0C60MaXUFnFA944jUMnw+1B
-         9q6w==
-X-Gm-Message-State: AO0yUKUV8TmYHYiefKsf7Z2z1M2svMNA5bW6vld3z4x3aBZz5u7WmQPu
-	aXpEJjBxJOebKacpcmhXOCU=
-X-Google-Smtp-Source: AK7set/reMxc2x6GBmXO1ZFaJyEMO7ZkMvvaH2/xgOX99VKEqph87auk4/8sq1yGreDsZXQS9x9JYA==
-X-Received: by 2002:a17:906:c2cf:b0:8b1:fc:b1b0 with SMTP id ch15-20020a170906c2cf00b008b100fcb1b0mr5361970ejb.44.1676550076328;
-        Thu, 16 Feb 2023 04:21:16 -0800 (PST)
-Message-ID: <bbdd42399f21ae3e74c6564265127bc292e4e29a.camel@gmail.com>
-Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
- <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
-  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org
-Date: Thu, 16 Feb 2023 14:21:14 +0200
-In-Reply-To: <068340c3-2a2f-4bd0-20e9-f1dd6fe4bc2b@citrix.com>
-References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
-	 <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
-	 <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
-	 <81fd6cf5ff59acf6ca8b66e093630e5accc45198.camel@gmail.com>
-	 <9cf03b23-586b-92e1-c0b1-578f3eadd2ad@suse.com>
-	 <00abbda808239ab74cb6c954b33e34380ac4e41e.camel@gmail.com>
-	 <5f6d7b8e-907b-d3eb-335c-8d4a77edf526@suse.com>
-	 <068340c3-2a2f-4bd0-20e9-f1dd6fe4bc2b@citrix.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+X-Inumbo-ID: acf0f5fd-adf4-11ed-933c-83870f6b2ba8
+DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=tklengyel.com;
+ q=dns/txt; s=mailo; t=1676550189; x=1676557389; h=Content-Type: Cc: To: To:
+ Subject: Subject: Message-ID: Date: From: From: In-Reply-To: References:
+ MIME-Version: Sender: Sender;
+ bh=JkPN7yyeI8i3SiX0ZEYMPz/TaBdo9LUgHo8oQhyfgz0=;
+ b=aqAxCfDWYozfbD2e9Y+HI0yP8FRFzPqxA1WDHzeTa6fAZlVgDOn89nKcUkXPPTW3SDAGRFWVAHwt0bYQ7EGbeezPB8bdUobSdB8uG/pKHJCS+H8pgKwtt4UeomHptfwC3HGSNPPKquVi61oHj8BL901z8RSLdDYfdBeIwlTa30znJhucMgRLxoS98XlD+zgLhLHhF2LzItXF5KbhnxsKfkzST5229p8t1hAZe5V06m+c3LidiYARjbILyqWADZlcIbFSBFvBqboDIq0xLJdcJrZgyuxVMm/NPRRkrU0pI1EnrseaqketqL8aNH+XF4TZXLK3QtS5TIIusbL7Bi4FRA==
+X-Mailgun-Sending-Ip: 209.61.151.227
+X-Mailgun-Sid: WyIyYTNmOCIsInhlbi1kZXZlbEBsaXN0cy54ZW5wcm9qZWN0Lm9yZyIsImNkODQwIl0=
+Sender: tamas@tklengyel.com
+X-Gm-Message-State: AO0yUKWfsD14qk+gtWlsuMecKDTobjd3EEAMb6g3pwZQzHYWvW/Sy6LO
+	jN7fyL9Q9ukT1JLlWoPy+aDEA+oQwz5u6UoZ+hU=
+X-Google-Smtp-Source: AK7set/w0U1+3FzacuxJcSoZlJAgm3ntM/UR6VDvV1lWGeFbnXsWv5zMqTn3tNnrrOgbVJjZqbK3sXRzzujSK2IezpE=
+X-Received: by 2002:a81:4f0b:0:b0:509:bd6:4d4b with SMTP id
+ d11-20020a814f0b000000b005090bd64d4bmr547388ywb.282.1676550188368; Thu, 16
+ Feb 2023 04:23:08 -0800 (PST)
 MIME-Version: 1.0
+References: <3af8dbf3134b48f6bbc8f917e5fecaf8daee1c3d.1676351034.git.tamas@tklengyel.com>
+ <e9e26bfe-3b17-bc35-9d93-ac291ab6b710@suse.com> <CABfawhmYjCmOjiLkvMB7DQz0eWVSm7vdy5HRCGxzNmg0nr13SQ@mail.gmail.com>
+ <25bc4c74-f36e-2969-2b7c-c5acd115ebaf@suse.com>
+In-Reply-To: <25bc4c74-f36e-2969-2b7c-c5acd115ebaf@suse.com>
+From: Tamas K Lengyel <tamas@tklengyel.com>
+Date: Thu, 16 Feb 2023 07:22:31 -0500
+X-Gmail-Original-Message-ID: <CABfawh=y+K1GXOfKLJ6HbSxrVXPSd9GJWxpy4dusEWxh2PxeoQ@mail.gmail.com>
+Message-ID: <CABfawh=y+K1GXOfKLJ6HbSxrVXPSd9GJWxpy4dusEWxh2PxeoQ@mail.gmail.com>
+Subject: Re: [PATCH 1/2] x86: Perform mem_sharing teardown before paging teardown
+To: Jan Beulich <jbeulich@suse.com>
+Cc: Andrew Cooper <andrew.cooper3@citrix.com>, =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>, 
+	Wei Liu <wl@xen.org>, xen-devel@lists.xenproject.org
+Content-Type: multipart/alternative; boundary="0000000000006d0a0905f4d04210"
 
-On Thu, 2023-02-16 at 10:48 +0000, Andrew Cooper wrote:
-> On 16/02/2023 7:31 am, Jan Beulich wrote:
-> > On 15.02.2023 18:59, Oleksii wrote:
-> > > Hello Jan and community,
-> > >=20
-> > > I experimented and switched RISC-V to x86 implementation. All
-> > > that I
-> > > changed in x86 implementation for RISC-V was _ASM_BUGFRAME_TEXT.
-> > > Other
-> > > things are the same as for x86.
-> > >=20
-> > > For RISC-V it is fine to skip '%c' modifier so _ASM_BUGFRAME_TEXT
-> > > will
-> > > look like:
-> > >=20
-> > > #define _ASM_BUGFRAME_TEXT(second_frame) \
-> > > =C2=A0=C2=A0=C2=A0 ".Lbug%=3D: ebreak\n"=C2=A0=C2=A0=20
-> > > =C2=A0=C2=A0=C2=A0 ".pushsection .bug_frames.%[bf_type], \"a\", @prog=
-bits\n"
-> > > =C2=A0=C2=A0=C2=A0 ".p2align 2\n"
-> > > =C2=A0=C2=A0=C2=A0 ".Lfrm%=3D:\n"
-> > > =C2=A0=C2=A0=C2=A0 ".long (.Lbug%=3D - .Lfrm%=3D) + %[bf_line_hi]\n"
-> > > =C2=A0=C2=A0=C2=A0 ".long (%[bf_ptr] - .Lfrm%=3D) + %[bf_line_lo]\n"
-> > > =C2=A0=C2=A0=C2=A0 ".if " #second_frame "\n"
-> > > =C2=A0=C2=A0=C2=A0 ".long 0, %[bf_msg] - .Lfrm%=3D\n"
-> > > =C2=A0=C2=A0=C2=A0 ".endif\n"
-> > > =C2=A0=C2=A0=C2=A0 ".popsection\n"
-> > I expect this could be further abstracted such that only the actual
-> > instruction is arch-specific.
-> >=20
-> > > The only thing I am worried about is:
-> > >=20
-> > > #define _ASM_BUGFRAME_INFO(type, line, ptr, msg) \
-> > > =C2=A0 [bf_type] "i" (type), ...
-> > > because as I understand it can be an issue with 'i' modifier in
-> > > case of
-> > > PIE. I am not sure that Xen enables PIE somewhere but still...
-> > > If it is not an issue then we can use x86 implementation as a
-> > > generic
-> > > one.
-> > "i" is not generally an issue with PIE, it only is when the value
-> > is the
-> > address of a symbol. Here "type" is a constant in all cases. (Or
-> > else
-> > how would you express an immediate operand of an instruction in an
-> > asm()?)
->=20
-> At a guess, the problem isn't type.=C2=A0 It's the line number, which end=
-s
-> up
-> in a relocation.
-Sure. I missed that.
->=20
-> That said, I'm not sure an architecture could reasonably function
-> without a generic 4-byte PC-relative relocation...
->=20
-> ~Andrew
+--0000000000006d0a0905f4d04210
+Content-Type: text/plain; charset="UTF-8"
 
+On Thu, Feb 16, 2023 at 3:31 AM Jan Beulich <jbeulich@suse.com> wrote:
+>
+> On 15.02.2023 17:29, Tamas K Lengyel wrote:
+> > On Wed, Feb 15, 2023 at 5:27 AM Jan Beulich <jbeulich@suse.com> wrote:
+> >> Did you consider the alternative of adjusting the ASSERT() in question
+> >> instead? It could reasonably become
+> >>
+> >> #ifdef CONFIG_MEM_SHARING
+> >>     ASSERT(!p2m_is_hostp2m(p2m) || !remove_root ||
+> > !atomic_read(&d->shr_pages));
+> >> #endif
+> >>
+> >> now, I think. That would be less intrusive a change (helpful for
+> >> backporting), but there may be other (so far unnamed) benefits of
+pulling
+> >> ahead the shared memory teardown.
+> >
+> > I have a hard time understanding this proposed ASSERT.
+>
+> It accounts for the various ways p2m_teardown() can (now) be called,
+> limiting the actual check for no remaining shared pages to the last
+> of all these invocations (on the host p2m with remove_root=true).
+>
+> Maybe
+>
+>     /* Limit the check to the final invocation. */
+>     if ( p2m_is_hostp2m(p2m) && remove_root )
+>         ASSERT(!atomic_read(&d->shr_pages));
+>
+> would make this easier to follow? Another option might be to move
+> the assertion to paging_final_teardown(), ahead of that specific call
+> to p2m_teardown().
+
+AFAICT d->shr_pages would still be more then 0 when this is called before
+sharing is torn down so the rearrangement is necessary even if we do this
+assert only on the final invocation. I did a printk in place of this assert
+without the rearrangement and afaict it was always != 0.
+
+Tamas
+
+--0000000000006d0a0905f4d04210
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><br><br>On Thu, Feb 16, 2023 at 3:31 AM Jan Beulich &lt;<a=
+ href=3D"mailto:jbeulich@suse.com">jbeulich@suse.com</a>&gt; wrote:<br>&gt;=
+<br>&gt; On 15.02.2023 17:29, Tamas K Lengyel wrote:<br>&gt; &gt; On Wed, F=
+eb 15, 2023 at 5:27 AM Jan Beulich &lt;<a href=3D"mailto:jbeulich@suse.com"=
+>jbeulich@suse.com</a>&gt; wrote:<br>&gt; &gt;&gt; Did you consider the alt=
+ernative of adjusting the ASSERT() in question<br>&gt; &gt;&gt; instead? It=
+ could reasonably become<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; #ifdef CONFIG_ME=
+M_SHARING<br>&gt; &gt;&gt; =C2=A0 =C2=A0 ASSERT(!p2m_is_hostp2m(p2m) || !re=
+move_root ||<br>&gt; &gt; !atomic_read(&amp;d-&gt;shr_pages));<br>&gt; &gt;=
+&gt; #endif<br>&gt; &gt;&gt;<br>&gt; &gt;&gt; now, I think. That would be l=
+ess intrusive a change (helpful for<br>&gt; &gt;&gt; backporting), but ther=
+e may be other (so far unnamed) benefits of pulling<br>&gt; &gt;&gt; ahead =
+the shared memory teardown.<br>&gt; &gt;<br>&gt; &gt; I have a hard time un=
+derstanding this proposed ASSERT.<br>&gt;<br>&gt; It accounts for the vario=
+us ways p2m_teardown() can (now) be called,<br>&gt; limiting the actual che=
+ck for no remaining shared pages to the last<br>&gt; of all these invocatio=
+ns (on the host p2m with remove_root=3Dtrue).<br>&gt;<br>&gt; Maybe<br>&gt;=
+<br>&gt; =C2=A0 =C2=A0 /* Limit the check to the final invocation. */<br>&g=
+t; =C2=A0 =C2=A0 if ( p2m_is_hostp2m(p2m) &amp;&amp; remove_root )<br>&gt; =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 ASSERT(!atomic_read(&amp;d-&gt;shr_pages));<br>=
+&gt;<br>&gt; would make this easier to follow? Another option might be to m=
+ove<br>&gt; the assertion to paging_final_teardown(), ahead of that specifi=
+c call<br>&gt; to p2m_teardown().<br><div><br></div><div>AFAICT d-&gt;shr_p=
+ages would still be more then 0 when this is called before sharing is torn =
+down so the rearrangement is necessary even if we do this assert only on th=
+e final invocation. I did a printk in place of this assert without the rear=
+rangement and afaict it was always !=3D 0. <br></div><div><br></div><div>Ta=
+mas<br></div></div>
+
+--0000000000006d0a0905f4d04210--
 
