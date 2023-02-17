@@ -2,29 +2,46 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D16F69A2E7
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 01:20:54 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496828.767741 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 959D069A35B
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 02:22:05 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496833.767752 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSoTR-0008Fd-9y; Fri, 17 Feb 2023 00:19:37 +0000
+	id 1pSpQn-0007IE-Sw; Fri, 17 Feb 2023 01:20:57 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496828.767741; Fri, 17 Feb 2023 00:19:37 +0000
+Received: by outflank-mailman (output) from mailman id 496833.767752; Fri, 17 Feb 2023 01:20:57 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSoTR-0008D6-6y; Fri, 17 Feb 2023 00:19:37 +0000
-Received: by outflank-mailman (input) for mailman id 496828;
- Fri, 17 Feb 2023 00:19:35 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
+	id 1pSpQn-0007G7-Pp; Fri, 17 Feb 2023 01:20:57 +0000
+Received: by outflank-mailman (input) for mailman id 496833;
+ Fri, 17 Feb 2023 01:20:56 +0000
+Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
+ helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=VZJw=6N=citrix.com=prvs=405a65846=Andrew.Cooper3@srs-se1.protection.inumbo.net>)
- id 1pSoTP-0008Af-Dx
- for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 00:19:35 +0000
-Received: from esa2.hc3370-68.iphmx.com (esa2.hc3370-68.iphmx.com
- [216.71.145.153]) by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id bf611a63-ae58-11ed-933c-83870f6b2ba8;
- Fri, 17 Feb 2023 01:19:33 +0100 (CET)
+ <SRS0=YTmJ=6N=epam.com=prvs=6412cfc5d5=volodymyr_babchuk@srs-se1.protection.inumbo.net>)
+ id 1pSpQl-0007G1-TS
+ for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 01:20:56 +0000
+Received: from mx0b-0039f301.pphosted.com (mx0b-0039f301.pphosted.com
+ [148.163.137.242]) by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
+ id 50605a11-ae61-11ed-93b5-47a8fe42b414;
+ Fri, 17 Feb 2023 02:20:51 +0100 (CET)
+Received: from pps.filterd (m0174681.ppops.net [127.0.0.1])
+ by mx0b-0039f301.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 31GHnX1g007014; Fri, 17 Feb 2023 01:20:35 GMT
+Received: from eur02-vi1-obe.outbound.protection.outlook.com
+ (mail-vi1eur02lp2042.outbound.protection.outlook.com [104.47.11.42])
+ by mx0b-0039f301.pphosted.com (PPS) with ESMTPS id 3nss7rhwq5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Feb 2023 01:20:34 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com (2603:10a6:803:31::18)
+ by DB4PR03MB9385.eurprd03.prod.outlook.com (2603:10a6:10:3fb::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Fri, 17 Feb
+ 2023 01:20:31 +0000
+Received: from VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::967e:573a:15a9:176e]) by VI1PR03MB3710.eurprd03.prod.outlook.com
+ ([fe80::967e:573a:15a9:176e%4]) with mapi id 15.20.6086.026; Fri, 17 Feb 2023
+ 01:20:31 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -36,151 +53,151 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: bf611a63-ae58-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=citrix.com; s=securemail; t=1676593173;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=c1MpPmImsROOv47GTA2v+z6JFWIRXg8PJdk+O+CI6mo=;
-  b=hO/gH5Fp+hkeOLWmj93slUE4GwHlVEzsH0SE0CcPTcrwB72kx7PScMeC
-   cqwUTtwKbDT4NPS6fHVnyS6XwysZFYXHCIZrW4Pv46SZtCc2+si7JSd1h
-   C3fTD+ReWr8yF3y0o30xSvNFa3Fk/DM8GGzBGD169VHa48cwWTy9OJ2EL
-   c=;
-Authentication-Results: esa2.hc3370-68.iphmx.com; dkim=none (message not signed) header.i=none
-X-SBRS: 4.0
-X-MesageID: 97307914
-X-Ironport-Server: esa2.hc3370-68.iphmx.com
-X-Remote-IP: 162.221.156.123
-X-Policy: $RELAYED
-IronPort-Data: A9a23:Xc43UKqzZS3SLF/eYWbwpdE6a25eBmIOZRIvgKrLsJaIsI4StFCzt
- garIBmDOv3fZTP8LtkjO9+19x8B6JSEzNJiGldlqXxhRiwX9ZuZCYyVIHmrMnLJJKUvbq7FA
- +Y2MYCccZ9uHhcwgj/3b9ANeFEljfngqoLUUbKCYWYpA1c/Ek/NsDo788YhmIlknNOlNA2Ev
- NL2sqX3NUSsnjV5KQr40YrawP9UlKm06WxwUmAWP6gR5weEzidNV/rzGInqR5fGatgMdgKFb
- 76rIIGRpgvx4xorA9W5pbf3GmVirmn6ZFXmZtJ+AsBOszAazsAA+v9T2Mk0MC+7vw6hjdFpo
- OihgLTrIesf0g8gr8xGO/VQO3kW0aSrY9YrK1Dn2SCY5xWun3cBX5yCpaz5VGEV0r8fPI1Ay
- RAXAA9TQRWku7Pu+oCYQ/VmgOlgJ+r7AbpK7xmMzRmBZRonaZXKQqGM7t5ExjYgwMtJGJ4yZ
- eJAN2ApNk6ZJUQSZBFOUslWcOSA3xETdxVxrl6PqLVxyG/U1AFri5DmMcbPe8zMTsJQ9qqdj
- jOZpDymU0hGXDCZ4TC9yyLvh87Tpw7YRNoTJuOJp6VRumTGkwT/DzVJDADm8JFVkHWWRNZ3O
- 0ESvC00osAa5EGtC9XwQRC8iHqFpQIHHcpdFfUg7wOAwbaS5ByWbkAmZDNcbN0ttOctWCcnk
- FSOmrvU6SdH6ePPDyjHr/HN8G30YHJORYMfWcMaZTRbzNzEnNBrtCDsR8ppFoP2hf7lJAill
- lhmsxMCr7kUiMcK0YCy8lbGny+gq/D1c+Il2unEdjn7t10kPeZJc6TtsAGGtqgYcO51W3Hb5
- BA5d96iAPfi5H1nvAiEW60zEb6g/J5p2xWM0Ac0T/HNG9lAkkNPnLy8AhkkeC+F0e5eI1cFh
- XM/XisIvfdu0IOCN/MfXm5II51CIVLcPdrkTOvISdFFf4J8cgSKlAk3OxHOgj+3zBB8yvpvU
- Xt+TSpLJSxHYZmLMRLsH7tNuVPV7n5WKZzvqWDTkE38jOv2iI+9QrYZKlqeBt3VH4vdyDg5B
- +13bpPQoz0GCb2WX8Ui2dJLRbz8BSRhVM+eRg0+XrLrHzeK70l6W6SBnOl4K9ENcmY8vr6gw
- 0xRk3RwkDLX7UAr4y3TMBiPtJuHsU5DkE8G
-IronPort-HdrOrdr: A9a23:pHxEva413kcCFQcwvwPXwMbXdLJyesId70hD6qhwISY1TiX+rb
- HJoB17726StN9/YgBCpTntAsa9qBDnhPpICOsqTNWftWDd0QPCRuwP0WKL+UyYJ8SUzI5gPM
- lbHZSWcOeAaGRHsQ==
-X-IronPort-AV: E=Sophos;i="5.97,304,1669093200"; 
-   d="scan'208";a="97307914"
-From: Andrew Cooper <andrew.cooper3@citrix.com>
-To: Xen-devel <xen-devel@lists.xenproject.org>
-CC: Andrew Cooper <andrew.cooper3@citrix.com>, Jan Beulich
-	<JBeulich@suse.com>, =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?=
-	<roger.pau@citrix.com>, Wei Liu <wl@xen.org>
-Subject: [PATCH RFC] xen: Work around Clang-IAS macro expansion bug.
-Date: Fri, 17 Feb 2023 00:19:14 +0000
-Message-ID: <20230217001914.762929-1-andrew.cooper3@citrix.com>
-X-Mailer: git-send-email 2.30.2
+X-Inumbo-ID: 50605a11-ae61-11ed-93b5-47a8fe42b414
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ROjgkqMMmuin4U/ptMVaxKP2RzZ/RAjPrFYHnc2pacIgf2CgDmyg7AkYKbxS3YBjBLxuDxO6O0COSS8km4xkmKPpGBCSFobcGBQK9e8lesU53ORfLJ+/zHZTH+jWU20DeR+gEXPAyndl9CVEiaGr513DRroOCF2q34LqVotTTsqenZl95pKlLu8wHPhhUJ6xvA4GStqKHWFauvGPOJxwI9c6uda4SwAVkR8nxaLknPS2k6kQaarR7X92Lw7JwEH4Ii/Zb4CjFXNUxyOFUjEat0CowubZLo4ETEfAzD7p7QlRnWEONJlo/z6PeGImBhMgnYWge2wnEn4xb2dNuz+fbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=3fNDbS5wRCEYx1LoxfhMr/zCSSmLAzvIcCA6XdVAClM=;
+ b=Bmo9T5NuvtQ5x1xcuYWHugkoxaFNhl1BSq+hM2ziJdZ8nP/kgzPouEkW9DuPQl3aV0DnljjFdNc0NF1reSf9/TWSsin4mlxF1qy9W/TkCsFPt0ZVBhSwFhGjnAyyHLBlDfgiWR1QpEyST1oweZqFWPTtpEXx4Y0ho9KextV3XowRVx2heq68Yo9kDM7jHvX6P1ktf27hQm9zkvSPgnuRYgttjYFcyuYcKkupCZHOmJ86v+5m8FHu2zn7s2CcGpK1z8bbfw+wnAaBa+hRQpdBkJeqAOyWi7vi41ZC6omSJfSMz7yo5tkne7oiI2oeGL+YxhG25xoa4CIRv126Jnzj8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=epam.com; dmarc=pass action=none header.from=epam.com;
+ dkim=pass header.d=epam.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=epam.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=3fNDbS5wRCEYx1LoxfhMr/zCSSmLAzvIcCA6XdVAClM=;
+ b=L7aOeKm1VewhVjGp38OQovltpUqvxDlYPBT+SzQ/JJxZJXGe+xsEaf9a/LIKJuXq8CEJlYlm9OWYnqYyX3PO1UxtpBc/Pwu1+K5Qgp//FbDforMFE2S4gdgyo2REL6uIa1Nfhju/YeuE4YDvL6yBzTNko8j72P8x3FUGHKDxZdtMGKnvQ+TqkmlPPZhFZZqABJuoPHdZHasDRve9U6rDFghVfqIyavYUqk2lm+KpowyD6a9rQzx8yswKSOCqZ/vYE/yRtAdroHH3Ahv1/F+671w9DKcScXKePP1przUhBZeLN1k7x4OEZScX3R64nn7uI4Dmhj5DtXTP+kJ36l1JzA==
+From: Volodymyr Babchuk <Volodymyr_Babchuk@epam.com>
+To: Jan Beulich <jbeulich@suse.com>
+CC: Stefano Stabellini <sstabellini@kernel.org>,
+        "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
+        Oleksandr
+ Andrushchenko <Oleksandr_Andrushchenko@epam.com>,
+        Andrew Cooper
+	<andrew.cooper3@citrix.com>,
+        Paul Durrant <paul@xen.org>,
+        =?iso-8859-1?Q?Roger_Pau_Monn=E9?= <roger.pau@citrix.com>,
+        Kevin Tian
+	<kevin.tian@intel.com>
+Subject: Re: [RFC PATCH 03/10] xen: pci: introduce ats_list_lock
+Thread-Topic: [RFC PATCH 03/10] xen: pci: introduce ats_list_lock
+Thread-Index: AQHYvUN+A/bxwqt+90CvUR3e9vnmcK6ySQOAgACK4gCAIIy7AA==
+Date: Fri, 17 Feb 2023 01:20:30 +0000
+Message-ID: <875yc12ile.fsf@epam.com>
+References: <20220831141040.13231-1-volodymyr_babchuk@epam.com>
+ <20220831141040.13231-4-volodymyr_babchuk@epam.com>
+ <alpine.DEB.2.22.394.2301261541420.1978264@ubuntu-linux-20-04-desktop>
+ <97112cd2-d16e-6c9d-7c3d-a3fe5ab76125@suse.com>
+In-Reply-To: <97112cd2-d16e-6c9d-7c3d-a3fe5ab76125@suse.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: mu4e 1.8.9; emacs 28.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: VI1PR03MB3710:EE_|DB4PR03MB9385:EE_
+x-ms-office365-filtering-correlation-id: 94b137c0-9ab7-43a9-ec90-08db1085290f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 
+ 79nyELwLJ2uKX5NHHzI4X6R28cYLoGAOtdEM4lDDgscdpz0UtGq6in/Q6UHYpB8mWRK253lU++dopbn/BvYljRon6S2MhmxcEXJS4RyfGgQccOIb+NmwcOnNgZWpXRXB55ANU0uP/UYcT69gJsYa/SoMpmLPlALK4GxjTQDZoPN2vXeSZ99R215ciAc3nGnXGCjAK4XPoOwBGT5lm4CxkbSiJrDpmn8nm/1tBHQ5CD3Y5+kD1XQsYPfKwxKY4uj0ISKrS2BLWvp3ljG8fGpScQgQ76XXqFSqI2sTu9S+aDfSZlCFQaxPXX/ACMVZ7teYt2sgx77rRMo+QcYmKAl8VDCOPGOrgsdxZck85URpSzFD1er0jJzGwlfevAmQ/I3NTLXUN0Ox1jCfM9I3ItqKoPJg3SOhSXGEojJHl/5vuQ6eymDCcyQc6oHruavRlZ8jH+ykB69+uF4PAGdQUVNxeS8E+zOH7WGmg6wN/szRQlGDNEDKIuIZ73Qz3OFnscHE3XXCnJ76EYC/SI+BiLBD9j4baidwJPj3IswZrkK/oAVjARgA5P3C0He83myfN8mq2K56/bO+Tbf0jGAc0LO3vMVwbDc+AMrrG/1Y7ZB78YMHMdFwRYnJNv9iVxiaiBBVKozXVjRPAAuRvdab8tglnFc7fcTzzo4PuM4uLaFrjo1BTnlCztL+yzFG78ProksFHoH5iz3BSZIUP7lfcm1Aqg==
+x-forefront-antispam-report: 
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:VI1PR03MB3710.eurprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230025)(4636009)(346002)(396003)(136003)(39860400002)(366004)(376002)(451199018)(71200400001)(36756003)(41300700001)(6512007)(6486002)(64756008)(66446008)(6916009)(8676002)(4326008)(66476007)(38100700002)(66556008)(76116006)(5660300002)(2906002)(66946007)(122000001)(186003)(2616005)(6506007)(55236004)(26005)(53546011)(478600001)(8936002)(91956017)(83380400001)(38070700005)(316002)(86362001)(54906003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: 
+ =?iso-8859-1?Q?dUw2Cv04+uaRdaVP7NLn6ymi4j07Kjgj3Vd00RFtk0x9s2Sf0lCWmIcq4t?=
+ =?iso-8859-1?Q?y8bDIhK17bSnBTA/9FxC47YwlPt3SJGgm6ZkBZMy0yQoCoKIDVjj1TNvw8?=
+ =?iso-8859-1?Q?MM+SihPx/6jruYbX7+R+8Z6od3z8dIlVgXmXI9EzE0/dHUwtyvu/jvRR9g?=
+ =?iso-8859-1?Q?//rn0+yuE0QjSzsjE5MW2GGx9ESBWonkjFZfEtwqM4r1HgoUErd76JYnyw?=
+ =?iso-8859-1?Q?IL/A1Fuw6qiLZx545HxGIUjhPyaeUbcmvRJaFs/EEGvqD2y8tEZ+twi9fb?=
+ =?iso-8859-1?Q?ojvUdNUfL6lvMcn5MrQecKCEiMnfGUeGhtwK/7YCjpWOaXvsvLC8kXrlqe?=
+ =?iso-8859-1?Q?Ob4nn9R+M8DJJ5zfNzABZCeb6iJcrO6wejV/Ks+MVlA/Ms6u/2q2Zvrhmc?=
+ =?iso-8859-1?Q?tm5IpXjeYGR6zM9YzllXJh6zh87yt68dZkMLGPMA3S8CHGFa2gmsNpSY6Z?=
+ =?iso-8859-1?Q?/VGihS8SWoDj6WQ3UyIwRtjC4sQU/szB6MBjyDckeRlYkJ8sgjdzIzL/O0?=
+ =?iso-8859-1?Q?cC6e++foDOpy5XmrVRq4ArP8jDs2GYi9cYGpyum/8tdqtbFAypXKgEV5aQ?=
+ =?iso-8859-1?Q?FSvH2lFfVS//Ht6ewsbCdhYvs2+qZrneLbI5d6y1xKf9XdOnwFZuFGIQfA?=
+ =?iso-8859-1?Q?u3r9zvZXkXyEIx/N2xCfq7MutqqZsvp0sAYKZfeneUxst1Ooqk3FM7ttTK?=
+ =?iso-8859-1?Q?hF8BporQo9QdfWePuf1fDt6V9XgqbcdbXP0xYPYIOK3v4Prce4ef6P5+8q?=
+ =?iso-8859-1?Q?c7+6iLpx/4yBZrFMm4Wuq+NvywhPzhX/kHjwnJIIID8iefp9+6qmJQiWx+?=
+ =?iso-8859-1?Q?nryW9O3oH4L3ullr0lYlArd0AfD881D5aG7+bfgsdHG3lDAb+/k3Q6qS/O?=
+ =?iso-8859-1?Q?9FbcktxfPR/x52g66E7rQ1YGd4D5Y9U+qmriPSZ+3wNNNpbcGbhCH7BEZV?=
+ =?iso-8859-1?Q?4NsGJ2UgwIhACvi9igd3gkCBhmNdRufxNwjh0RDFeZ+Z5+pAt/dWo7dTIO?=
+ =?iso-8859-1?Q?bQNX6NWhYSbiAXkTkHF3sJNUprsaNAkokqdnVLp8DiYBngi7u+/620tTug?=
+ =?iso-8859-1?Q?s+khAH+Hed7AJ9XQDxxzdF5Bht+R9JZPqZEbEPt5O0gcTmrwyrELlAgoqi?=
+ =?iso-8859-1?Q?Txqsb/RA9T/DaBzwrt8zuBsIJGvT1iXcod9n6paoBlQRgcz3tPlfqgncOs?=
+ =?iso-8859-1?Q?klxTtTP+LZsP4+JNGSIuCWflZ1Ujfzd+yvLOCnC5G9QOc8wAFVanVBUkCB?=
+ =?iso-8859-1?Q?jaoqakyUELAY3oUKIFqNxyoDEJYp6QqgsOAcS6Lq0qA1pisAAdQG5q8Aeb?=
+ =?iso-8859-1?Q?1asyzp/HyjMebh45lfHsxeZLuCFQ+ZvMk9RxCSlqBouiFovkiJ4JazjzoT?=
+ =?iso-8859-1?Q?lH1qT5JOH3rnLHqPWeMOIthIu7tW3PQpdlO7eojfQ6ME/3kYjdMdVrxGqP?=
+ =?iso-8859-1?Q?M/WZosLKOfpFQCxBje2UGwLv8CapmCJW+0pR9o+Wa1gJRB0nrOuLuLqpFE?=
+ =?iso-8859-1?Q?arYXKMOSBqMmsBQ9kdQpd2Yd/jlvjpS2Mre7WudvNh5hJA4mUJNvbwIBII?=
+ =?iso-8859-1?Q?nPPTkavNh+WnjD7Eed6KrLryHfIgAxBoH/eQelL02NFBYHSleN7ihkfr0r?=
+ =?iso-8859-1?Q?PVl3GE+w1X52/M3XMVxl6DMH0G3LxcwcWOa8eaAGnmc9zpS9cUbE2QjA?=
+ =?iso-8859-1?Q?=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: epam.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: VI1PR03MB3710.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94b137c0-9ab7-43a9-ec90-08db1085290f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Feb 2023 01:20:30.8505
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: b41b72d0-4e9f-4c26-8a69-f949f367c91d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: g7yPZ2S9nhn5klxY7oEpGwe178OlKdAv9ONLtZndMByR7K83igqqn8a+2UubbFiD2bHglgpNid49Xv5Vk1rMPmcLeUswVnC1ZSOx5dAEm/M=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR03MB9385
+X-Proofpoint-GUID: 92E7aAKq8DAW04lZ_IjYa5hWLerFnOnY
+X-Proofpoint-ORIG-GUID: 92E7aAKq8DAW04lZ_IjYa5hWLerFnOnY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
+ definitions=2023-02-16_18,2023-02-16_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0 mlxlogscore=740
+ malwarescore=0 suspectscore=0 phishscore=0 impostorscore=0 clxscore=1015
+ spamscore=0 adultscore=0 priorityscore=1501 mlxscore=0 bulkscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2212070000 definitions=main-2302170009
 
-https://github.com/llvm/llvm-project/issues/60792
 
-RFC.  I very much dislike this patch, but it does work for me.
+Hello Jan,
 
-Why the parameter name of foo?  Turns out I found a different Clang-IAS
-bug/misfeature when trying to name the parameter uniq.
+Jan Beulich <jbeulich@suse.com> writes:
 
-  In file included from arch/x86/asm-macros.c:3:
-  ./arch/x86/include/asm/spec_ctrl_asm.h:139:5: error: \u used with no following hex digits; treating as '\' followed by identifier [-Werror,-Wunicode]
-  .L\@\uniq\()fill_rsb_loop:
-      ^
+> On 27.01.2023 00:56, Stefano Stabellini wrote:
+>> On Wed, 31 Aug 2022, Volodymyr Babchuk wrote:
+>>> --- a/xen/drivers/passthrough/pci.c
+>>> +++ b/xen/drivers/passthrough/pci.c
+>>> @@ -1641,6 +1641,7 @@ void iommu_dev_iotlb_flush_timeout(struct domain =
+*d, struct pci_dev *pdev)
+>>>  {
+>>>      pcidevs_lock();
+>>> =20
+>>> +    /* iommu->ats_list_lock is taken by the caller of this function */
+>>=20
+>> This is a locking inversion. In all other places we take pcidevs_lock
+>> first, then ats_list_lock lock. For instance look at
+>> xen/drivers/passthrough/pci.c:deassign_device that is called with
+>> pcidevs_locked and then calls iommu_call(... reassign_device ...) which
+>> ends up taking ats_list_lock.
+>>=20
+>> This is the only exception. I think we need to move the
+>> spin_lock(ats_list_lock) from qinval.c to here.
+>
+> First question here is what the lock is meant to protect: Just the list,
+> or also the ATS state change (i.e. serializing enable and disable against
+> one another). In the latter case the lock also wants naming differently.
 
-It appears you can't have any macro parameters beginning with a u.
+My intention was to protect list only. But I believe you are right and
+we should protect the whole state. I'll rename the lock to ats_lock.
 
-Signed-off-by: Andrew Cooper <andrew.cooper3@citrix.com>
----
-CC: Jan Beulich <JBeulich@suse.com>
-CC: Roger Pau Monné <roger.pau@citrix.com>
-CC: Wei Liu <wl@xen.org>
----
- xen/arch/x86/include/asm/spec_ctrl.h     |  4 ++--
- xen/arch/x86/include/asm/spec_ctrl_asm.h | 14 +++++++-------
- 2 files changed, 9 insertions(+), 9 deletions(-)
+> Second question is who is to acquire the lock. Why isn't this done _in_
+> {en,dis}able_ats_device() themselves? That would then allow to further
+> reduce the locked range, because at least the pci_find_ext_capability()
+> call and the final logging can occur without the lock held.
 
-diff --git a/xen/arch/x86/include/asm/spec_ctrl.h b/xen/arch/x86/include/asm/spec_ctrl.h
-index 3cf8a7d304d4..cd727be7c689 100644
---- a/xen/arch/x86/include/asm/spec_ctrl.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl.h
-@@ -83,7 +83,7 @@ static always_inline void spec_ctrl_new_guest_context(void)
-     wrmsrl(MSR_PRED_CMD, PRED_CMD_IBPB);
- 
-     /* (ab)use alternative_input() to specify clobbers. */
--    alternative_input("", "DO_OVERWRITE_RSB", X86_BUG_IBPB_NO_RET,
-+    alternative_input("", "DO_OVERWRITE_RSB foo=%=", X86_BUG_IBPB_NO_RET,
-                       : "rax", "rcx");
- }
- 
-@@ -172,7 +172,7 @@ static always_inline void spec_ctrl_enter_idle(struct cpu_info *info)
-      *
-      * (ab)use alternative_input() to specify clobbers.
-      */
--    alternative_input("", "DO_OVERWRITE_RSB", X86_FEATURE_SC_RSB_IDLE,
-+    alternative_input("", "DO_OVERWRITE_RSB foo=%=", X86_FEATURE_SC_RSB_IDLE,
-                       : "rax", "rcx");
- }
- 
-diff --git a/xen/arch/x86/include/asm/spec_ctrl_asm.h b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-index fab27ff5532b..06455c5663bb 100644
---- a/xen/arch/x86/include/asm/spec_ctrl_asm.h
-+++ b/xen/arch/x86/include/asm/spec_ctrl_asm.h
-@@ -117,7 +117,7 @@
- .L\@_done:
- .endm
- 
--.macro DO_OVERWRITE_RSB tmp=rax
-+.macro DO_OVERWRITE_RSB tmp=rax foo=
- /*
-  * Requires nothing
-  * Clobbers \tmp (%rax by default), %rcx
-@@ -136,27 +136,27 @@
-     mov $16, %ecx                   /* 16 iterations, two calls per loop */
-     mov %rsp, %\tmp                 /* Store the current %rsp */
- 
--.L\@_fill_rsb_loop:
-+.L\@\foo\()fill_rsb_loop:
- 
-     .irp n, 1, 2                    /* Unrolled twice. */
--    call .L\@_insert_rsb_entry_\n   /* Create an RSB entry. */
-+    call .L\@\foo\()insert_rsb_entry_\n   /* Create an RSB entry. */
-     int3                            /* Halt rogue speculation. */
- 
--.L\@_insert_rsb_entry_\n:
-+.L\@\foo\()insert_rsb_entry_\n:
-     .endr
- 
-     sub $1, %ecx
--    jnz .L\@_fill_rsb_loop
-+    jnz .L\@\foo\()fill_rsb_loop
-     mov %\tmp, %rsp                 /* Restore old %rsp */
- 
- #ifdef CONFIG_XEN_SHSTK
-     mov $1, %ecx
-     rdsspd %ecx
-     cmp $1, %ecx
--    je .L\@_shstk_done
-+    je .L\@\foo\()shstk_done
-     mov $64, %ecx                   /* 64 * 4 bytes, given incsspd */
-     incsspd %ecx                    /* Restore old SSP */
--.L\@_shstk_done:
-+.L\@\foo\()shstk_done:
- #endif
- .endm
- 
--- 
-2.30.2
-
+You are right, I'll extended {en,dis}able_ats_device() API to pass
+pointer to the lock.
 
