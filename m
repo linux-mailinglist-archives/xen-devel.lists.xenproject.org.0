@@ -2,56 +2,52 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB3E669AE34
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 15:40:32 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.497156.768052 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 960FB69AE48
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 15:47:29 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.497162.768063 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pT1tF-0001AW-83; Fri, 17 Feb 2023 14:39:09 +0000
+	id 1pT20s-0002eq-21; Fri, 17 Feb 2023 14:47:02 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 497156.768052; Fri, 17 Feb 2023 14:39:09 +0000
+Received: by outflank-mailman (output) from mailman id 497162.768063; Fri, 17 Feb 2023 14:47:02 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pT1tF-00018n-4y; Fri, 17 Feb 2023 14:39:09 +0000
-Received: by outflank-mailman (input) for mailman id 497156;
- Fri, 17 Feb 2023 14:39:07 +0000
+	id 1pT20r-0002cK-VA; Fri, 17 Feb 2023 14:47:01 +0000
+Received: by outflank-mailman (input) for mailman id 497162;
+ Fri, 17 Feb 2023 14:47:00 +0000
 Received: from se1-gles-flk1-in.inumbo.com ([94.247.172.50]
  helo=se1-gles-flk1.inumbo.com)
  by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
  <SRS0=cWIA=6N=amd.com=Michal.Orzel@srs-se1.protection.inumbo.net>)
- id 1pT1tC-00017k-Oo
- for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 14:39:07 +0000
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on20627.outbound.protection.outlook.com
- [2a01:111:f400:fe5b::627])
+ id 1pT20q-0002cE-Cv
+ for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 14:47:00 +0000
+Received: from NAM02-BN1-obe.outbound.protection.outlook.com
+ (mail-bn1nam02on20603.outbound.protection.outlook.com
+ [2a01:111:f400:7eb2::603])
  by se1-gles-flk1.inumbo.com (Halon) with ESMTPS
- id d09551dc-aed0-11ed-93b5-47a8fe42b414;
- Fri, 17 Feb 2023 15:39:01 +0100 (CET)
-Received: from MW4PR03CA0219.namprd03.prod.outlook.com (2603:10b6:303:b9::14)
- by SA0PR12MB4526.namprd12.prod.outlook.com (2603:10b6:806:98::23)
+ id ed34f6fd-aed1-11ed-93b5-47a8fe42b414;
+ Fri, 17 Feb 2023 15:46:58 +0100 (CET)
+Received: from CY5PR04CA0021.namprd04.prod.outlook.com (2603:10b6:930:1e::12)
+ by MW3PR12MB4361.namprd12.prod.outlook.com (2603:10b6:303:5a::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.13; Fri, 17 Feb
- 2023 14:38:55 +0000
-Received: from CO1PEPF00001A60.namprd05.prod.outlook.com
- (2603:10b6:303:b9:cafe::6b) by MW4PR03CA0219.outlook.office365.com
- (2603:10b6:303:b9::14) with Microsoft SMTP Server (version=TLS1_2,
+ 2023 14:46:54 +0000
+Received: from CY4PEPF0000C968.namprd02.prod.outlook.com
+ (2603:10b6:930:1e:cafe::9c) by CY5PR04CA0021.outlook.office365.com
+ (2603:10b6:930:1e::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6111.15 via Frontend
- Transport; Fri, 17 Feb 2023 14:38:55 +0000
+ Transport; Fri, 17 Feb 2023 14:46:54 +0000
 Received: from SATLEXMB04.amd.com (165.204.84.17) by
- CO1PEPF00001A60.mail.protection.outlook.com (10.167.241.7) with Microsoft
+ CY4PEPF0000C968.mail.protection.outlook.com (10.167.241.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.6134.14 via Frontend Transport; Fri, 17 Feb 2023 14:38:54 +0000
-Received: from SATLEXMB08.amd.com (10.181.40.132) by SATLEXMB04.amd.com
+ 15.20.6134.14 via Frontend Transport; Fri, 17 Feb 2023 14:46:54 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 17 Feb
- 2023 08:38:54 -0600
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB08.amd.com
- (10.181.40.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2375.34; Fri, 17 Feb
- 2023 06:38:53 -0800
+ 2023 08:46:53 -0600
 Received: from [10.71.193.39] (10.180.168.240) by SATLEXMB04.amd.com
  (10.181.40.145) with Microsoft SMTP Server id 15.1.2375.34 via Frontend
- Transport; Fri, 17 Feb 2023 08:38:52 -0600
+ Transport; Fri, 17 Feb 2023 08:46:52 -0600
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -63,66 +59,67 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: d09551dc-aed0-11ed-93b5-47a8fe42b414
+X-Inumbo-ID: ed34f6fd-aed1-11ed-93b5-47a8fe42b414
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L6Tfko+r6zuPsi+eyp9eoGe3BLjmPx62ahqy7JJ9ep4t1Q7Afef6t2FSRNS3XeWUqW/OwO7YRoAKApUjGUi+RPf4ck/RI6hyBRcBzCCkZuZ6Dn1RE7ADuRpLEb2dLY1UObq7vt3tzYPbnsWTC7sMvgxotMiJI7kxRDfAihhdzrTnfTmslFqIuqL1VHARmDgjVOdr7qKRG3UcHLEApgcy62pyXrpR/vUu5JXNu7rpVDMC4iWilKBGzYSrnM+qj0X3o3LvBbQDnkFiyhcC6P2rNWcFKOG1xgZ0/NSifO10m8Wu+ysKZ3u9h13fapYQo7g3Og3dB/jAZBuH2n2uSFnsKQ==
+ b=gfhsoWpKvEboWqECjruTy8m85zmOXKRHc2IRsWMUujvFwPXm+csuZfYxKDhwdESzQ8Xe+FiBP+QcQjepqZvfnAvdk9nj9n62SwVVs2i8ykZQI0c2L8xfcbZNVcPG9fAvE5UD7en1puploTLMEiJLuu6SZr7qZ4ITTcQlMygFCAddjAHh7PjwaNzXHhnFRLt6hmaugnQyeTBWgn9TH5Zf3ogUkEb9Hveh5jqJCc/fB4ICGOL8wY/GijGplBcTF8gnN3k/m6WUqbGGEYlwwMDKcXKwPAiez/b342uSZjuz63JdZ+yy4679wx8IJPSvAqDmOxVDh2aac4pVfAxnCmhk8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WkcymSTxu+rjyKU0dIeVGw2xSwLbSLtaBIpnYYT5Mu4=;
- b=IH4ksxQzpdTKylPTxU1DBjdOZq49Db6FXU2hXhlAR+wR5ZWEd6+twayyNo7v7l7GL07JL7LqOHFDEiAfMaI8F1lkbovwmaLZoQJbxYLi3A8u0iBOwkKx7UqyPfNs+1tsJoGI9GxoyEPUxh69JQGZFoMtqFUz44EH4ARih21mOZ9DK9ZxweWzIEJ4U2Idx5OVXtyU8MeDk2sSaHt3ZaRdiDZenarPQxzFH8JZof995d6L72NobHFFZS1VaRAbGz1EcFxh6jatj4tqZkymkhST37k9+C8k9mNJVhIYY4BQV8bTfBjt4lFKjgNFdFYOd1NdWY2IT95IHHrGJbjmfWOLPw==
+ bh=H8hmDbJmugK6z8TMm0u57Ez5RlvuXnspBHOmFJYuiCM=;
+ b=UzuGX795v/PKO5CFDT6LSi8dlIuzfk9EZBgLA7s58rqSj2BaW6kN+QcE5s5dEH7XEJyDhGGFAKJZeexCS4JocS/h0weuHDKYka1X34S3q4+hpSvweW6FQ50ii6TV7Y87z3Aa7Wi309cFiV9LKiONGj821a1NVMvTCUkNkGPiAecGclsTgnjaOvRfMmtd//DV0cVbi1DoR/bQfkmL40134qbXJleO3l3RynmWEIwom73zyvOvgDY/QD+hiW0K14lM1rtdoQ0xmMnPLUsyvn8Djtn0Tup2agsbLDEZAbyF+BGge+rR9ONv6uj/rEB/yaqSsHIQv/yMg3vwHOuiJHr3jg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WkcymSTxu+rjyKU0dIeVGw2xSwLbSLtaBIpnYYT5Mu4=;
- b=ykUMegJ3SmalGLTGunC0afZiCZ1SxLPwKrjjslQe2i6VhjVMqul4HFXeXcMxHYQWvi9SpPZx+RmPbCQ2rJ/GNz+z+xg0X/JhY0U3ivJ+H1NwsbcMpVKCWCy/Y+QsDn6WtfGGi3BTJYyF/uWZ4v+g5glHd3x876fy2i+rReEyEoA=
+ bh=H8hmDbJmugK6z8TMm0u57Ez5RlvuXnspBHOmFJYuiCM=;
+ b=mKMwZ3LhVOCRwTSyTMFjMsqSo3Lufi4ggxdsnm5mwovT89biy78Da4d/vVf+Ru8/Ud+z2vxGPIeSUFpm3xy9Va18/nb7u9Yz9ufOFM/vH4zdq8lojJ5okT9TvqBUxFihra6+FNr8De1zh5jIbP5kPQvW+Kl5X81/QG6n8P8zARM=
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=SATLEXMB04.amd.com; pr=C
-Message-ID: <38326d5e-18fa-767e-5581-6bd8408e332d@amd.com>
-Date: Fri, 17 Feb 2023 15:38:52 +0100
+Message-ID: <1efb8c6c-e3d6-8815-4feb-fadc6a18842a@amd.com>
+Date: Fri, 17 Feb 2023 15:46:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
  Thunderbird/102.7.2
-Subject: Re: [PATCH v2 1/3] automation: move yocto jobs to build stage
+Subject: Re: [PATCH v2 2/3] automation: add binaries/ to artifacts for Yocto
+ arm32 job
+Content-Language: en-US
 To: Stefano Stabellini <sstabellini@kernel.org>,
 	<xen-devel@lists.xenproject.org>
 CC: <cardoe@cardoe.com>, Stefano Stabellini <stefano.stabellini@amd.com>
 References: <alpine.DEB.2.22.394.2302151407130.2127160@ubuntu-linux-20-04-desktop>
- <20230215220925.2313528-1-sstabellini@kernel.org>
-Content-Language: en-US
+ <20230215220925.2313528-2-sstabellini@kernel.org>
 From: Michal Orzel <michal.orzel@amd.com>
-In-Reply-To: <20230215220925.2313528-1-sstabellini@kernel.org>
+In-Reply-To: <20230215220925.2313528-2-sstabellini@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00001A60:EE_|SA0PR12MB4526:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1efed36-b1a6-4a7c-8053-08db10f4b23e
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000C968:EE_|MW3PR12MB4361:EE_
+X-MS-Office365-Filtering-Correlation-Id: ce9e480f-88b0-4b44-c4cd-08db10f5cfef
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
 X-Microsoft-Antispam-Message-Info:
-	pH4iwp58j7Hg5ld5n3UNGCLVIxQyQCrDSPkHqQ6Goz0iZbcBl7riJAdZ9eYPxNuTAHaJWl5xbnuGifgA8kb6M49uzeSWnfJ/yL7CXa0ZL5AgKlI1d7Rk2fSZ00fxGhWoY9DvnKg9Fgdmr8U4R9wcQ1f1a+B5rFXymsFXMtsGAkPGA5hsGGmKGABnRVPW/gSsbGEZihvMbiTZL31Ao4Dpn0nfqawYt9Lrx+5zyak529a3uCC9Xe86VCqhHSO+naCEjKJ+nGCOdvlAFsTCyMrIHiIjlguVFUvJGF0pRvuGViYuX1CcfKsAR/8H7Trt1Ad/ylFD8bTi9iGibyyLjFSomzi+DYlq9GeOgSk4JygiJBt8ayqUCV6QWopaKDBZn1Azbuz7vEY2VSbiRCnJuYzP0PJe2lJxRcJeCZZ7NnI+r5gwPjNRBiWRtW8tyxqy3oV6PoT4DMpuHBnHxAJSe8+jpDUuulgFZnhRAxsA3lbClrlhkV8Ex9L0/vykr8nCp3H5wr9tbRQ5vZuMehHZRPsBL7lmEKWg74ZCW7XX0n7eXkrALdjY7f635prwviEo+gk6JWUxFLdUiIjBfG2AvzN4f7BPN31bzQrgBhq60vG+oQTtW3+g/2xqzFWTYugglV/hKZqbAjpaATU6qzr1Kc+f+Sf0jNJI7P5DDKVtx8iMDu0fxBXagbGetDsqUw7Irv6tv787kKP1/uT9bOI0yY2hPV195tG+DNBg72UMPppwQq8E2Q4i1mfr8A98Yk4/tXWoXup2OQ03TG+6EtbS6DPixg==
+	eIepxSs0F3hann0EN5yvcUU83Vl3svW4da1kuOx0WLM7e5g/6UH3ORL/bM2Wpo7pahRIP0EfOrC+zKEcaB6vVGHHZ6+NqhtVhMZlPoOAiNFMSCdLg3Oh/SrtvqQwoP/qfDsb1JPLZ7dqGpKfLPHPQdVErdIGcQctRNytYjoUyIAuKAskUHGN5C4FPDzf+w2tAmumg7sP/kpHuJ8giPDdwylAEXLRoUvuQhB+QMNUCT0FKopAnb4tW2mQk1Dd9m9PIoDVqPMPfCsE5riDc1bSiT+SoNdtAfpriHZOoq8jQfZLgZTdeif0MgUxdovAfRTxjJe4LcDNr8Ava4Nm2aK7DPzpE56EjmNiOfXMo9jQ1W/UBjsVwZt3Oqi+YUtYF4b/ptr58uRprqjs1rXyuYyDnv7eGYUMsJzIdqpOnEJyD4QLRfPxmTl8QZTX5NmSy5XN+dy+EDRmlziiJMQ4WRsvkcUKOvY2UcmG2dCvyTlHVLdm1pxfaK+HUi/9dqa91oO3YztTkOKjcVLZ5cD62PsIOQOGeBhBtQV4q1AzeWYpbQCdAwZ62ZpEP2kYK6p/SMp20IOC/JIVTosrqvK1sEKmS3WOS4k+tLZc+CRQvYr9HLxiH6mNjCYYETio8AngAJUNQwvTZ+3U5opREgpNTEaJzCPPTD34wrc35UxOE7nAnUc0ji9Lt1xG+6Y1xD5dGNtwdwwKYtAahK/WvwL77noRY9ylvHbQ2tp6qOHI8i5BASxZE+IJf3q0ubWAfVrmdDnVpIfCIcUstxXf7ymsJ/L8WQ==
 X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(136003)(39860400002)(376002)(346002)(396003)(451199018)(36840700001)(40470700004)(46966006)(31686004)(36756003)(4326008)(70206006)(2906002)(8676002)(70586007)(8936002)(44832011)(5660300002)(356005)(82740400003)(86362001)(36860700001)(31696002)(81166007)(41300700001)(110136005)(54906003)(316002)(16576012)(40480700001)(478600001)(82310400005)(47076005)(426003)(83380400001)(336012)(2616005)(53546011)(26005)(40460700003)(186003)(43740500002)(36900700001);DIR:OUT;SFP:1101;
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:SATLEXMB04.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230025)(4636009)(376002)(39860400002)(136003)(346002)(396003)(451199018)(40470700004)(36840700001)(46966006)(31686004)(36756003)(86362001)(31696002)(356005)(2906002)(5660300002)(44832011)(8936002)(82740400003)(81166007)(36860700001)(4326008)(70206006)(8676002)(54906003)(110136005)(41300700001)(478600001)(40480700001)(26005)(186003)(53546011)(70586007)(40460700003)(82310400005)(2616005)(16576012)(316002)(6666004)(426003)(47076005)(336012)(36900700001)(43740500002);DIR:OUT;SFP:1101;
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2023 14:38:54.9843
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2023 14:46:54.3436
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1efed36-b1a6-4a7c-8053-08db10f4b23e
+X-MS-Exchange-CrossTenant-Network-Message-Id: ce9e480f-88b0-4b44-c4cd-08db10f5cfef
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[SATLEXMB04.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00001A60.namprd05.prod.outlook.com
+	CY4PEPF0000C968.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4526
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4361
 
 Hi Stefano,
 
@@ -131,36 +128,48 @@ On 15/02/2023 23:09, Stefano Stabellini wrote:
 > 
 > From: Stefano Stabellini <stefano.stabellini@amd.com>
 > 
-> We are going to use artifacts produced by the Yocto builds in test jobs.
+> Copy the build output of Yocto builds to binaries/ for the arm32 target,
+> and export binaries/ among the jobs artifacts so that they can be reused
+> by other jobs.
 > 
 > Signed-off-by: Stefano Stabellini <stefano.stabellini@amd.com>
 > ---
->  automation/gitlab-ci/build.yaml | 51 +++++++++++++++++++++++++++++++++
->  automation/gitlab-ci/test.yaml  | 45 -----------------------------
->  2 files changed, 51 insertions(+), 45 deletions(-)
+> Changes in v2:
+> - only copy binaries for the arm32 target
+> ---
+>  automation/build/yocto/build-yocto.sh | 9 +++++++++
+>  automation/gitlab-ci/build.yaml       | 1 +
+>  2 files changed, 10 insertions(+)
 > 
-> diff --git a/automation/gitlab-ci/build.yaml b/automation/gitlab-ci/build.yaml
-> index a053c5c732..f62cf21f45 100644
-> --- a/automation/gitlab-ci/build.yaml
-> +++ b/automation/gitlab-ci/build.yaml
-> @@ -199,6 +199,41 @@
->    variables:
->      <<: *gcc
+> diff --git a/automation/build/yocto/build-yocto.sh b/automation/build/yocto/build-yocto.sh
+> index 3601cebc3c..dd7065e5b2 100755
+> --- a/automation/build/yocto/build-yocto.sh
+> +++ b/automation/build/yocto/build-yocto.sh
+> @@ -166,6 +166,13 @@ function project_build() {
+>          source "${YOCTODIR}/poky/oe-init-build-env" "${destdir}"
 > 
-> +.yocto-test:
-> +  stage: build
-> +  image: registry.gitlab.com/xen-project/xen/${CONTAINER}
-> +  except:
-> +    - master
-> +    - smoke
-> +    - /^coverity-tested\/.*/
-> +    - /^stable-.*/
-stage, image and except are the same as in &build template.
-You could just use <<: *build to reuse them. Specifying script here would overwrite the build script
-and we do not care about artifacts paths (i.e. if it is not produced by a job, there will be just a warning
-which is already the case for some jobs). Anyway, this is just a suggestion to save some lines, so with or without:
+>          bitbake "${build_image}" || exit 1
+> +        if [ $target = "qemuarm" ]
+> +        then
+> +            mkdir -p $OUTPUT
+> +            cp $BUILDDIR/tmp/deploy/images/qemuarm/zImage $OUTPUT
+> +            cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-qemuarm $OUTPUT
+> +            cp $BUILDDIR/tmp/deploy/images/qemuarm/xen-image-minimal-qemuarm.tar.bz2 $OUTPUT
+> +        fi
+I think it would be cleaner and more helpful especially for those using the yocto jobs locally to add
+a new parameter to build-yocto.sh (set by default to n) to copy the build output to a directory (e.g. binaries)
+instead of hardcoding it only for qemuarm.
 
-Reviewed-by: Michal Orzel <michal.orzel@amd.com>
+>      ) || return 1
+>  }
+> 
+> @@ -238,6 +245,8 @@ Options:
+>  EOF
+>  }
+> 
+> +OUTPUT=`pwd`/binaries
+NIT: seems like all the variables in this script storing a directory path have a "DIR" suffix,
+so it should be OUTPUTDIR. Also, why not to define it at the top of the file?
 
 ~Michal
 
