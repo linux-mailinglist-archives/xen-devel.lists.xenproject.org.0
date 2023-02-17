@@ -2,37 +2,35 @@ Return-Path: <xen-devel-bounces@lists.xenproject.org>
 X-Original-To: lists+xen-devel@lfdr.de
 Delivered-To: lists+xen-devel@lfdr.de
 Received: from lists.xenproject.org (lists.xenproject.org [192.237.175.120])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FE069A829
-	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 10:33:29 +0100 (CET)
-Received: from list by lists.xenproject.org with outflank-mailman.496967.767895 (Exim 4.92)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4429569A896
+	for <lists+xen-devel@lfdr.de>; Fri, 17 Feb 2023 10:50:30 +0100 (CET)
+Received: from list by lists.xenproject.org with outflank-mailman.496975.767906 (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSx7G-0004cf-ES; Fri, 17 Feb 2023 09:33:18 +0000
+	id 1pSxNV-0007Uz-1C; Fri, 17 Feb 2023 09:50:05 +0000
 X-Outflank-Mailman: Message body and most headers restored to incoming version
-Received: by outflank-mailman (output) from mailman id 496967.767895; Fri, 17 Feb 2023 09:33:18 +0000
+Received: by outflank-mailman (output) from mailman id 496975.767906; Fri, 17 Feb 2023 09:50:04 +0000
 Received: from localhost ([127.0.0.1] helo=lists.xenproject.org)
 	by lists.xenproject.org with esmtp (Exim 4.92)
 	(envelope-from <xen-devel-bounces@lists.xenproject.org>)
-	id 1pSx7G-0004a0-Au; Fri, 17 Feb 2023 09:33:18 +0000
-Received: by outflank-mailman (input) for mailman id 496967;
- Fri, 17 Feb 2023 09:33:17 +0000
-Received: from se1-gles-sth1-in.inumbo.com ([159.253.27.254]
- helo=se1-gles-sth1.inumbo.com)
- by lists.xenproject.org with esmtp (Exim 4.92) (envelope-from
- <SRS0=hH/w=6N=gmail.com=oleksii.kurochko@srs-se1.protection.inumbo.net>)
- id 1pSx7F-0004Zs-Lp
- for xen-devel@lists.xenproject.org; Fri, 17 Feb 2023 09:33:17 +0000
-Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
- [2a00:1450:4864:20::532])
- by se1-gles-sth1.inumbo.com (Halon) with ESMTPS
- id 1afc4c8d-aea6-11ed-933c-83870f6b2ba8;
- Fri, 17 Feb 2023 10:33:16 +0100 (CET)
-Received: by mail-ed1-x532.google.com with SMTP id dn12so9716630edb.5
- for <xen-devel@lists.xenproject.org>; Fri, 17 Feb 2023 01:33:16 -0800 (PST)
-Received: from [192.168.8.199] (46.204.109.85.nat.umts.dynamic.t-mobile.pl.
- [46.204.109.85]) by smtp.gmail.com with ESMTPSA id
- kd18-20020a17090798d200b008b2aba5fb22sm575691ejc.206.2023.02.17.01.33.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Feb 2023 01:33:15 -0800 (PST)
+	id 1pSxNU-0007QN-SU; Fri, 17 Feb 2023 09:50:04 +0000
+Received: by outflank-mailman (input) for mailman id 496975;
+ Fri, 17 Feb 2023 09:50:03 +0000
+Received: from mail.xenproject.org ([104.130.215.37])
+ by lists.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSxNT-0007Gt-ST; Fri, 17 Feb 2023 09:50:03 +0000
+Received: from host146.205.237.98.conversent.net ([205.237.98.146]
+ helo=infra.test-lab.xenproject.org)
+ by mail.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSxNT-0007x8-Oq; Fri, 17 Feb 2023 09:50:03 +0000
+Received: from [172.16.148.1] (helo=osstest.test-lab.xenproject.org)
+ by infra.test-lab.xenproject.org with esmtp (Exim 4.92)
+ (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSxNT-0002wk-Fy; Fri, 17 Feb 2023 09:50:03 +0000
+Received: from osstest by osstest.test-lab.xenproject.org with local (Exim
+ 4.92) (envelope-from <osstest-admin@xenproject.org>)
+ id 1pSxNT-000191-FX; Fri, 17 Feb 2023 09:50:03 +0000
 X-BeenThere: xen-devel@lists.xenproject.org
 List-Id: Xen developer discussion <xen-devel.lists.xenproject.org>
 List-Unsubscribe: <https://lists.xenproject.org/mailman/options/xen-devel>,
@@ -44,251 +42,449 @@ List-Subscribe: <https://lists.xenproject.org/mailman/listinfo/xen-devel>,
 Errors-To: xen-devel-bounces@lists.xenproject.org
 Precedence: list
 Sender: "Xen-devel" <xen-devel-bounces@lists.xenproject.org>
-X-Inumbo-ID: 1afc4c8d-aea6-11ed-933c-83870f6b2ba8
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=J+ZWzgE4k+iIxWqerA+804Hq5BAplfKspQnnTnzNng8=;
-        b=P10Q1yAY9ADcyRIL53LGVQmXW6inZpWsin8El+AuEclUvukEHBpsXBH9OJxKl3Oqt5
-         j41CLgCo++tXU1lXriyM2SypAbtwHEakv/kOEhL99AaZia/1Vt0XPYIaGW9COmsp0Mpn
-         BSSzuMx01jFWBiUfHWRvhh20EOq0GoZKm7tMilmCxD5ATGtdTaSrvUfSvAH6Hm+SbeEv
-         +c0Xr+6Q8ozyEoOR6QhyY/AMJdhIhuEQBNA+X0nkTKsQKk33CZIirH5DOM5FR91Mt7qo
-         d7ezAD1mJUjZzSto5HTJAanyl2GwEXFt26dNoCFCzz71t7Lu8u5ezpeLJVOFpiIZQTOo
-         L2Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20210112;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=J+ZWzgE4k+iIxWqerA+804Hq5BAplfKspQnnTnzNng8=;
-        b=Hi6Svtnduk3EDRsOsu42qOHtBmue2bsiqGOUOlg1nfkPFKn6xdbXboeOo4KXqiGl6Z
-         cN6gvQRBRrW9yukTu/wChQMq4RUi7XlPMW8i3E3cpHeZWJhc5eBAjrb7IrUDxKKaWEpe
-         2tOXc67Li+usbpe+5551prd1FQpSeVXMJuTdEpbqvja7let/bWI5HVWK8ZGJfrbsWsSB
-         Vii3RqFz60Sb8N/XkeV6Y4Uu8EhsE1mNT5sCyzbhJXdjkJ9pw/wHf++0bIcky7SXu2vF
-         jPlMk3KfjIL8zg9huaASMIq3a+q/b0naSlXdGKc8RER2l4mtQkx2ANGoj3+egEN2oOVA
-         1rsg==
-X-Gm-Message-State: AO0yUKXM+MX+qxVPuYU3argPuSboxPeJaQ+Jc3nOIq2gilWM+vJSCxcE
-	gw8mHXChLnE0S9oebBs7RVI=
-X-Google-Smtp-Source: AK7set8eI/o4k/DxLMX++XIGYMUZrTS0pJe9MF2r3DtFuvcdzbtKJnBgdIYn8zOoNN/6zUkX0qXr0w==
-X-Received: by 2002:a17:906:4910:b0:8b1:7de0:c854 with SMTP id b16-20020a170906491000b008b17de0c854mr2531324ejq.41.1676626395616;
-        Fri, 17 Feb 2023 01:33:15 -0800 (PST)
-Message-ID: <75a018704e212c043370269d10e4b4a45146e9b3.camel@gmail.com>
-Subject: Re: [PATCH v1 1/4] xen: introduce CONFIG_GENERIC_BUG_FRAME
-From: Oleksii <oleksii.kurochko@gmail.com>
-To: Jan Beulich <jbeulich@suse.com>
-Cc: George Dunlap <george.dunlap@citrix.com>, Julien Grall <julien@xen.org>,
-  Stefano Stabellini <sstabellini@kernel.org>, Wei Liu <wl@xen.org>,
- xen-devel@lists.xenproject.org, Andrew Cooper <andrew.cooper3@citrix.com>
-Date: Fri, 17 Feb 2023 11:33:13 +0200
-In-Reply-To: <20191ac6-3c1c-8c9f-39ed-308bc22d5b3f@suse.com>
-References: <cover.1675441720.git.oleksii.kurochko@gmail.com>
-	 <8adf4aeff96750982e3d670cb3aed11553d546d5.1675441720.git.oleksii.kurochko@gmail.com>
-	 <199fa5a6-ca31-091e-88e0-cae9efde307b@suse.com>
-	 <81fd6cf5ff59acf6ca8b66e093630e5accc45198.camel@gmail.com>
-	 <9cf03b23-586b-92e1-c0b1-578f3eadd2ad@suse.com>
-	 <00abbda808239ab74cb6c954b33e34380ac4e41e.camel@gmail.com>
-	 <5f6d7b8e-907b-d3eb-335c-8d4a77edf526@suse.com>
-	 <413b6d1439a31e24719321494971cc165bd6942c.camel@gmail.com>
-	 <29623e829602d0a7861785b8f0a47d6905ac89c4.camel@gmail.com>
-	 <4c52d703-dd7c-b316-5e37-38c9aa705725@citrix.com>
-	 <e00086a6b0494d30f61e295e690ecaf0aa19c4e7.camel@gmail.com>
-	 <20191ac6-3c1c-8c9f-39ed-308bc22d5b3f@suse.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=xenproject.org; s=20200302mail; h=Date:From:Subject:MIME-Version:
+	Content-Transfer-Encoding:Content-Type:Message-ID:To;
+	bh=x0NJCwoL1LC4J1fTDTopDzwIfBSqe+f8D6Hb3IXW9ws=; b=lBl5JDXPSqr9AFl884jystRMVO
+	da5Xs1eS88knA5/3co2ABCMzJbYDmcb7XQ9S27ZZaSEVl3YIh0o5rQju9GJBCm9XiVjfRlyGzak15
+	QZw4aV38ky3FE3mHPv38gbPpJ5Wc5LtxHpGJXHCewuQ8LgcRUIvFIEkZDZXSYbiZV4MM=;
+To: xen-devel@lists.xenproject.org
+Message-ID: <osstest-177538-mainreport@xen.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.46.3 (3.46.3-1.fc37) 
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
+Subject: [xen-unstable test] 177538: regressions - trouble: fail/pass/starved
+X-Osstest-Failures:
+    xen-unstable:test-amd64-amd64-xl-qcow2:guest-start.2:fail:regression
+    xen-unstable:test-amd64-amd64-xl-qcow2:guest-start/debian.repeat:fail:heisenbug
+    xen-unstable:test-amd64-i386-xl-qemut-debianhvm-i386-xsm:debian-hvm-install:fail:heisenbug
+    xen-unstable:test-amd64-amd64-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-qemuu-nested-amd:debian-hvm-install/l1/l2:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemut-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemut-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-qemuu-ws16-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-xl-qemuu-win7-amd64:guest-stop:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-xl-pvshim:guest-start:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit2:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-thunderx:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-xsm:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-credit1:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-i386-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-amd64-amd64-libvirt-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-libvirt-raw:saverestore-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:migrate-support-check:fail:nonblocking
+    xen-unstable:test-arm64-arm64-xl-vhd:saverestore-support-check:fail:nonblocking
+    xen-unstable:build-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-examine:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-qcow2:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-libvirt-raw:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit1:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-credit2:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-cubietruck:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-multivcpu:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-rtds:build-check(1):starved:nonblocking
+    xen-unstable:test-armhf-armhf-xl-vhd:build-check(1):starved:nonblocking
+    xen-unstable:build-armhf:hosts-allocate:starved:nonblocking
+X-Osstest-Versions-This:
+    xen=2e52dcc853a7183784cd9bdfb1e78ff366035209
+X-Osstest-Versions-That:
+    xen=5b9bb91abba7c983def3b4bef71ab08ad360a242
+From: osstest service owner <osstest-admin@xenproject.org>
+Date: Fri, 17 Feb 2023 09:50:03 +0000
 
-T24gRnJpLCAyMDIzLTAyLTE3IGF0IDA4OjEyICswMTAwLCBKYW4gQmV1bGljaCB3cm90ZToKPiBP
-biAxNi4wMi4yMDIzIDIxOjQ0LCBPbGVrc2lpIHdyb3RlOgo+ID4gT24gVGh1LCAyMDIzLTAyLTE2
-IGF0IDEyOjE5ICswMDAwLCBBbmRyZXcgQ29vcGVyIHdyb3RlOgo+ID4gPiBPbiAxNi8wMi8yMDIz
-IDEyOjA5IHBtLCBPbGVrc2lpIHdyb3RlOgo+ID4gPiA+IE9uIFRodSwgMjAyMy0wMi0xNiBhdCAx
-Mjo0NCArMDIwMCwgT2xla3NpaSB3cm90ZToKPiA+ID4gPiA+IE9uIFRodSwgMjAyMy0wMi0xNiBh
-dCAwODozMSArMDEwMCwgSmFuIEJldWxpY2ggd3JvdGU6Cj4gPiA+ID4gPiA+IE9uIDE1LjAyLjIw
-MjMgMTg6NTksIE9sZWtzaWkgd3JvdGU6Cj4gPiA+ID4gPiA+ID4gSGVsbG8gSmFuIGFuZCBjb21t
-dW5pdHksCj4gPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+ID4gSSBleHBlcmltZW50ZWQgYW5kIHN3
-aXRjaGVkIFJJU0MtViB0byB4ODYgaW1wbGVtZW50YXRpb24uCj4gPiA+ID4gPiA+ID4gQWxsCj4g
-PiA+ID4gPiA+ID4gdGhhdAo+ID4gPiA+ID4gPiA+IEkKPiA+ID4gPiA+ID4gPiBjaGFuZ2VkIGlu
-IHg4NiBpbXBsZW1lbnRhdGlvbiBmb3IgUklTQy1WIHdhcwo+ID4gPiA+ID4gPiA+IF9BU01fQlVH
-RlJBTUVfVEVYVC4KPiA+ID4gPiA+ID4gPiBPdGhlcgo+ID4gPiA+ID4gPiA+IHRoaW5ncyBhcmUg
-dGhlIHNhbWUgYXMgZm9yIHg4Ni4KPiA+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gPiBGb3IgUklT
-Qy1WIGl0IGlzIGZpbmUgdG8gc2tpcCAnJWMnIG1vZGlmaWVyIHNvCj4gPiA+ID4gPiA+ID4gX0FT
-TV9CVUdGUkFNRV9URVhUCj4gPiA+ID4gPiA+ID4gd2lsbAo+ID4gPiA+ID4gPiA+IGxvb2sgbGlr
-ZToKPiA+ID4gPiA+ID4gPiAKPiA+ID4gPiA+ID4gPiAjZGVmaW5lIF9BU01fQlVHRlJBTUVfVEVY
-VChzZWNvbmRfZnJhbWUpIFwKPiA+ID4gPiA+ID4gPiDCoMKgwqAgIi5MYnVnJT06IGVicmVha1xu
-IsKgwqAgCj4gPiA+ID4gPiA+ID4gwqDCoMKgICIucHVzaHNlY3Rpb24gLmJ1Z19mcmFtZXMuJVti
-Zl90eXBlXSwgXCJhXCIsCj4gPiA+ID4gPiA+ID4gQHByb2diaXRzXG4iCj4gPiA+ID4gPiA+ID4g
-wqDCoMKgICIucDJhbGlnbiAyXG4iCj4gPiA+ID4gPiA+ID4gwqDCoMKgICIuTGZybSU9OlxuIgo+
-ID4gPiA+ID4gPiA+IMKgwqDCoCAiLmxvbmcgKC5MYnVnJT0gLSAuTGZybSU9KSArICVbYmZfbGlu
-ZV9oaV1cbiIKPiA+ID4gPiA+ID4gPiDCoMKgwqAgIi5sb25nICglW2JmX3B0cl0gLSAuTGZybSU9
-KSArICVbYmZfbGluZV9sb11cbiIKPiA+ID4gPiA+ID4gPiDCoMKgwqAgIi5pZiAiICNzZWNvbmRf
-ZnJhbWUgIlxuIgo+ID4gPiA+ID4gPiA+IMKgwqDCoCAiLmxvbmcgMCwgJVtiZl9tc2ddIC0gLkxm
-cm0lPVxuIgo+ID4gPiA+ID4gPiA+IMKgwqDCoCAiLmVuZGlmXG4iCj4gPiA+ID4gPiA+ID4gwqDC
-oMKgICIucG9wc2VjdGlvblxuIgo+ID4gPiA+ID4gPiBJIGV4cGVjdCB0aGlzIGNvdWxkIGJlIGZ1
-cnRoZXIgYWJzdHJhY3RlZCBzdWNoIHRoYXQgb25seQo+ID4gPiA+ID4gPiB0aGUKPiA+ID4gPiA+
-ID4gYWN0dWFsCj4gPiA+ID4gPiA+IGluc3RydWN0aW9uIGlzIGFyY2gtc3BlY2lmaWMuCj4gPiA+
-ID4gPiBHZW5lcmFsbHksIHRoZSBvbmx5IHRoaW5nIHRoYXQgY2FuJ3QgYmUgYWJzdHJhY3RlZCAo
-IGFzIHlvdQo+ID4gPiA+ID4gbWVudGlvbmVkCj4gPiA+ID4gPiBpcyBhbiBpbnN0cnVjdGlvbiAp
-Lgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBTbyB3ZSBjYW4gbWFrZSBhZGRpdGlvbmFsIGRlZmluZXM6
-Cj4gPiA+ID4gPiDCoCAxLiAjZGVmaW5lIE1PRElGSUVSICIiIG9yICJjIiAoZGVwZW5kcyBvbiBh
-cmNoaXRlY3R1cmUpIGFuZAo+ID4gPiA+ID4gdXNlCj4gPiA+ID4gPiBpdAo+ID4gPiA+ID4gwqAK
-PiA+ID4gPiA+IHRoZSBmb2xsb3dpbmcgd2F5Ogo+ID4gPiA+ID4gwqAgwqAiLnB1c2hzZWN0aW9u
-IC5idWdfZnJhbWVzLiUiTU9ESUZJRVIiW2JmX3R5cGVdLCBcImFcIiwKPiA+ID4gPiA+IEBwcm9n
-Yml0c1xuIgo+ID4gPiA+ID4gwqAgwqAuLi4KPiA+ID4gPiA+IMKgIDIuICNkZWZpbmUgQlVHX0lO
-U1RSICJlYnJlYWsiIHwgInVkMiIgfCAiLi4uIiBhbmQgdXNlIGl0IGluCj4gPiA+ID4gPiB0aGUK
-PiA+ID4gPiA+IGZvbGxvd2luZyB3YXk6Cj4gPiA+ID4gPiDCoCDCoCIuTGJ1ZyU9OiAiQlVHX0lT
-TlRSIlxuIgo+ID4gPiA+ID4gwqAgwqAuLi4KPiA+ID4gPiA+IEV4Y2VwdCBmb3IgdGhlc2UgZGVm
-aW5lcyB3aGljaCBzaG91bGQgYmUgc3BlY2lmaWVkIGZvciBlYWNoCj4gPiA+ID4gPiBhcmNoaXRl
-Y3R1cmUKPiA+ID4gPiA+IGFsbCBvdGhlciBjb2RlIHdpbGwgYmUgdGhlIHNhbWUgZm9yIGFsbCBh
-cmNoaXRlY3R1cmVzLgo+ID4gPiA+ID4gCj4gPiA+ID4gPiBCdXQgYXMgSSB1bmRlcnN0YW5kIHdp
-dGggbW9kaWZpZXIgJ2MnIGNhbiBiZSBpc3N1ZXMgdGhhdCBub3QKPiA+ID4gPiA+IGFsbAo+ID4g
-PiA+ID4gY29tcGlsZXJzIHN1cHBvcnQgYnV0IGZvciBBUk0gYW5kIMKgeDg2IGJlZm9yZSBpbW1l
-ZGlhdGUgaXMKPiA+ID4gPiA+IHByZXNlbnQKPiA+ID4gPiA+IHB1bmN0dWF0aW9uICMgb3IgJCB3
-aGljaCBhcmUgcmVtb3ZlZCBieSBtb2RpZmllciAnYycuIEFuZCBJCj4gPiA+ID4gPiBhbQo+ID4g
-PiA+ID4gd29uZGVyaW5nIHdoYXQgb3RoZXIgd2F5cyB0byByZW1vdmUgcHVuY3R1YXRpb24gYmVm
-b3JlCj4gPiA+ID4gPiBpbW1lZGlhdGUKPiA+ID4gPiA+IGV4aXN0Lgo+ID4gPiA+ID4gCj4gPiA+
-ID4gPiBEbyB5b3UgdGhpbmsgd2Ugc2hvdWxkIGNvbnNpZGVyIHRoYXQgYXMgYW4gaXNzdWU/Cj4g
-PiA+ID4gPiAKPiA+ID4gPiA+ID4gPiBUaGUgb25seSB0aGluZyBJIGFtIHdvcnJpZWQgYWJvdXQg
-aXM6Cj4gPiA+ID4gPiA+ID4gCj4gPiA+ID4gPiA+ID4gI2RlZmluZSBfQVNNX0JVR0ZSQU1FX0lO
-Rk8odHlwZSwgbGluZSwgcHRyLCBtc2cpIFwKPiA+ID4gPiA+ID4gPiDCoCBbYmZfdHlwZV0gImki
-ICh0eXBlKSwgLi4uCj4gPiA+ID4gPiA+ID4gYmVjYXVzZSBhcyBJIHVuZGVyc3RhbmQgaXQgY2Fu
-IGJlIGFuIGlzc3VlIHdpdGggJ2knCj4gPiA+ID4gPiA+ID4gbW9kaWZpZXIKPiA+ID4gPiA+ID4g
-PiBpbgo+ID4gPiA+ID4gPiA+IGNhc2Ugb2YKPiA+ID4gPiA+ID4gPiBQSUUuIEkgYW0gbm90IHN1
-cmUgdGhhdCBYZW4gZW5hYmxlcyBQSUUgc29tZXdoZXJlIGJ1dAo+ID4gPiA+ID4gPiA+IHN0aWxs
-Li4uCj4gPiA+ID4gPiA+ID4gSWYgaXQgaXMgbm90IGFuIGlzc3VlIHRoZW4gd2UgY2FuIHVzZSB4
-ODYgaW1wbGVtZW50YXRpb24KPiA+ID4gPiA+ID4gPiBhcyBhCj4gPiA+ID4gPiA+ID4gZ2VuZXJp
-Ywo+ID4gPiA+ID4gPiA+IG9uZS4KPiA+ID4gPiA+ID4gImkiIGlzIG5vdCBnZW5lcmFsbHkgYW4g
-aXNzdWUgd2l0aCBQSUUsIGl0IG9ubHkgaXMgd2hlbiB0aGUKPiA+ID4gPiA+ID4gdmFsdWUKPiA+
-ID4gPiA+ID4gaXMKPiA+ID4gPiA+ID4gdGhlCj4gPiA+ID4gPiA+IGFkZHJlc3Mgb2YgYSBzeW1i
-b2wuIEhlcmUgInR5cGUiIGlzIGEgY29uc3RhbnQgaW4gYWxsCj4gPiA+ID4gPiA+IGNhc2VzLgo+
-ID4gPiA+ID4gPiAoT3IKPiA+ID4gPiA+ID4gZWxzZQo+ID4gPiA+ID4gPiBob3cgd291bGQgeW91
-IGV4cHJlc3MgYW4gaW1tZWRpYXRlIG9wZXJhbmQgb2YgYW4KPiA+ID4gPiA+ID4gaW5zdHJ1Y3Rp
-b24gaW4KPiA+ID4gPiA+ID4gYW4KPiA+ID4gPiA+ID4gYXNtKCk/KQo+ID4gPiA+ID4gSG1tLiBJ
-IGRvbid0IGtub3cgb3RoZXIgd2F5cyB0byBleHByZXNzIGFuIGltbWVkaWF0ZSBvcGVyYW5kCj4g
-PiA+ID4gPiBleGNlcHQKPiA+ID4gPiA+ICdpJy4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gSXQgbG9v
-a3MgbGlrZSB0eXBlLCBsaW5lLCBtc2cgYXJlIGFsd2F5cyAnY29uc3RhbnRzJ8KgCj4gPiA+ID4g
-PiAoCj4gPiA+ID4gPiB0aGV5IHBvc3NpYmx5IGNhbiBiZSBwYXNzZWQgd2l0aG91dCAnaScgYW5k
-IHVzZWQgZGlyZWN0bHkKPiA+ID4gPiA+IGluc2lkZQo+ID4gPiA+ID4gYXNtKCk6Cj4gPiA+ID4g
-PiDCoMKgIC4uLgo+ID4gPiA+ID4gwqDCoCAiLnB1c2hzZWN0aW9uIC5idWdfZnJhbWVzLiIgX19z
-dHJpbmdpZnkodHlwZSkgIiwgXCJhXCIsCj4gPiA+ID4gPiAlcHJvZ2JpdHNcbiJcCj4gPiA+ID4g
-PiDCoMKgIC4uLgo+ID4gPiA+ID4gKSBidXQgdGhlIGlzc3VlIHdpbGwgYmUgd2l0aCAncHRyJyBm
-b3Igd2hpY2ggd2UgaGF2ZSB0byB1c2UKPiA+ID4gPiA+ICdpJy4KPiA+ID4gPiA+IAo+ID4gPiA+
-ID4gQW5kIEkgYW0gbm90IHN1cmUgYWJvdXQgYWxsICdjb25zdGFudHMnLiBGb3IgZXhhbXBsZSwg
-SSB0aGluawo+ID4gPiA+ID4gdGhhdCBpdAo+ID4gPiA+ID4gY2FuIGJlIGFuIGlzc3VlIHdpdGgg
-J2xpbmUnID0gJygobGluZSAmICgoMSA8PAo+ID4gPiA+ID4gQlVHX0xJTkVfTE9fV0lEVEgpCj4g
-PiA+ID4gPiAtCj4gPiA+ID4gPiAxKSkKPiA+ID4gPiA+IDw8IEJVR19ESVNQX1dJRFRIKScgaWYg
-d2Ugd2lsbCB1c2UgdGhhdCBkaXJlY3RseSBpbnNpZGUKPiA+ID4gPiA+IGFzbSguLi4pLgo+ID4g
-PiA+ID4gCj4gPiA+ID4gSSB0aGluayB3ZSBjYW4gYXZvaWQgJ2knIGJ5IHVzaW5nICdyJyArIHNv
-bWUga2luZCBvZiBtb3YKPiA+ID4gPiBpbnN0cnVjdGlvbiB0bwo+ID4gPiA+IHdyaXRlIGEgcmVn
-aXN0ZXIgdmFsdWUgdG8gbWVtb3J5LiBUaGUgY29kZSBiZWxvdyBpcyBwc2V1ZG8tCj4gPiA+ID4g
-Y29kZToKPiA+ID4gPiAjZGVmaW5lIF9BU01fQlVHRlJBTUVfVEVYVChzZWNvbmRfZnJhbWUpCj4g
-PiA+ID4gwqDCoCDCoC4uLgo+ID4gPiA+IMKgwqDCoCAibG9jX2Rpc3A6XG4iCj4gPiA+ID4gwqDC
-oMKgICLCoMKgwqAgLmxvbmcgMHgwIgo+ID4gPiA+IMKgwqDCoCAibW92IFtsb2NfZGlzcF0sIHNv
-bWVfcmVnaXN0ZXIiCj4gPiA+ID4gwqDCoMKgIC4uLgo+ID4gPiA+IEFuZCB0aGUgd2UgaGF2ZSB0
-byBkZWZpbmUgbW92IGZvciBlYWNoIGFyY2hpdGVjdHVyZS4KPiA+ID4gCj4gPiA+IE5vLCB5b3Ug
-cmVhbGx5IGNhbm5vdC7CoCBUaGlzIGlzIHRoZSBhc20gZXF1aXZhbGVudCBvZiB3cml0aW5nCj4g
-PiA+IHNvbWV0aGluZwo+ID4gPiBsaWtlIHRoaXM6Cj4gPiA+IAo+ID4gPiBzdGF0aWMgc3RydWN0
-IGJ1Z2ZyYW1lIF9fc2VjdGlvbiguYnVnX2ZyYW1lcy4xKSBmb28gPSB7Cj4gPiA+IMKgwqDCoCAu
-bG9jID0gaW5zbiAtICZmb28gKyBMSU5FX0xPLAo+ID4gPiDCoMKgwqAgLm1zZyA9ICJidWcgc3Ry
-aW5nIiAtICZmb28gKyBMSU5FX0hJLAo+ID4gPiB9Owo+ID4gPiAKPiA+ID4gSXQgaXMgYSBkYXRh
-IHN0cnVjdHVyZSwgbm90IGV4ZWN1dGFibGUgY29kZS4KPiA+IFRoYW5rcyBmb3IgdGhlIGNsYXJp
-ZmljYXRpb24uCj4gPiAKPiA+IFdoYXQgYWJvdXQgbWFpbmx5IHVzaW5nIEMgZm9yIEJVR19GUkFN
-RSBhbmQgb25seSBhbGxvY2F0aW5nCj4gPiBidWdfZnJhbWUKPiA+IHNlY3Rpb25zIGluIGFzc2Vt
-Ymx5Pwo+ID4gCj4gPiBQbGVhc2UgbG9vayBhdCBQT0MgYmVsb3c6Cj4gCj4gVGhhdCdzIHN0aWxs
-IHVzaW5nIHN0YXRlbWVudHMgKGFzc2lnbm1lbnRzKSwgbm90IGluaXRpYWxpemVycy4gV2UKPiBl
-eHBlY3QKPiB0aGUgdGFibGUgdG8gYmUgcG9wdWxhdGVkIGF0IGJ1aWxkIHRpbWUsIGFuZCB3ZSBl
-eHBlY3QgaXQgdG8gYmUgcmVhZC0KPiBvbmx5Cj4gYXQgcnVudGltZS4gUGx1cyB5b3VyIGFwcHJv
-YWNoIG9uY2UgYWdhaW4gaW5jcmVhc2VzIG92ZXJhbGwgc2l6ZQo+IChqdXN0Cj4gdGhhdCB0aGlz
-IHRpbWUgeW91IGFkZCBjb2RlLCBub3QgZGF0YSkuCklmIHdlIGhhdmUgc3VjaCByZXF1aXJlbWVu
-dHMgdGhlbiB0aGUgYmVzdCBvcHRpb24gaXMgdG8gdXNlIGFzIGEKZ2VuZXJpYyBpbXBsZW1lbnRh
-dGlvbiB0aGUgaW1wbGVtZW50YXRpb24gcHJvdmlkZWQgYnkgeDg2ICggYXMgSQptZW50aW9uZWQg
-YmVmb3JlLCBpdCBtYWlubHkgY2FuIGJlIHJlLXVzZWQgZm9yIFJJU0MtViApIGFuZCBsZWF2ZSBB
-Uk0KaW1wbGVtZW50YXRpb24gbW9zdGx5IGFzIGlzICggZXhjZXB0IGZvciBzb21lIG1pbm9yIGNo
-YW5nZXMgKS4KPiAKPiBKYW4KPiAKPiA+ICNpbmNsdWRlIDxzdGRpby5oPgo+ID4gI2luY2x1ZGUg
-PHN0ZGludC5oPgo+ID4gCj4gPiAjZGVmaW5lIEJVR19ESVNQX1dJRFRIwqDCoMKgIDI0Cj4gPiAj
-ZGVmaW5lIEJVR19MSU5FX0xPX1dJRFRIICgzMSAtIEJVR19ESVNQX1dJRFRIKQo+ID4gI2RlZmlu
-ZSBCVUdfTElORV9ISV9XSURUSCAoMzEgLSBCVUdfRElTUF9XSURUSCkKPiA+IAo+ID4gc3RydWN0
-IGJ1Z19mcmFtZSB7Cj4gPiDCoMKgwqAgc2lnbmVkIGludCBsb2NfZGlzcDpCVUdfRElTUF9XSURU
-SDsKPiA+IMKgwqDCoCB1bnNpZ25lZCBpbnQgbGluZV9oaTpCVUdfTElORV9ISV9XSURUSDsKPiA+
-IMKgwqDCoCBzaWduZWQgaW50IHB0cl9kaXNwOkJVR19ESVNQX1dJRFRIOwo+ID4gwqDCoMKgIHVu
-c2lnbmVkIGludCBsaW5lX2xvOkJVR19MSU5FX0xPX1dJRFRIOwo+ID4gwqDCoMKgIHNpZ25lZCBp
-bnQgbXNnX2Rpc3BbXTsKPiA+IH07Cj4gPiAKPiA+ICNkZWZpbmUgYnVnX2xvYyhiKSAoKGNvbnN0
-IHZvaWQgKikoYikgKyAoYiktPmxvY19kaXNwKQo+ID4gI2RlZmluZSBidWdfcHRyKGIpICgoY29u
-c3Qgdm9pZCAqKShiKSArIChiKS0+cHRyX2Rpc3ApCj4gPiAjZGVmaW5lIGJ1Z19saW5lKGIpICgo
-KCgoYiktPmxpbmVfaGkgKyAoKGIpLT5sb2NfZGlzcCA8IDApKSAmIFwKPiA+IMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICgoMSA8PCBCVUdfTElORV9ISV9XSURU
-SCkgLSAxKSkgPDwgXAo+ID4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIEJVR19MSU5FX0xPX1dJRFRIKSArIFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqAgKCgoYiktPmxpbmVfbG8gKyAoKGIpLT5wdHJfZGlzcCA8IDApKQo+ID4g
-JsKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+IFwKPiA+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCAoKDEgPDwgQlVHX0xJTkVfTE9fV0lEVEgpIC0gMSkpKQo+ID4gI2Rl
-ZmluZSBidWdfbXNnKGIpICgoY29uc3QgY2hhciAqKShiKSArIChiKS0+bXNnX2Rpc3BbMV0pCj4g
-PiAKPiA+ICNkZWZpbmUgQUxMT0NBVEVfQkZfU0VDVElPTihoYXNfbXNnKSBkbwo+ID4ge8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBcCj4gPiDC
-oMKgwqAgYXNtICgiLnB1c2hzZWN0aW9uIGJ1Z19mcmFtZXPCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgCj4gPiBcbiLCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiBc
-Cj4gPiDCoMKgwqDCoMKgwqDCoMKgICIubG9uZyAwLCAwCj4gPiBcbiLCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgCj4gPiBcCj4gPiDCoMKgwqDCoMKgwqDCoCAiLmlmICIgI2hhc19t
-c2cKPiA+ICJcbiLCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+ID4gXAo+ID4gwqDCoMKgwqDC
-oMKgwqDCoCAiXHQubG9uZyAwCj4gPiBcbiLCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAKPiA+IFwKPiA+IMKgwqDCoMKgwqDCoMKgwqAgIlx0LmxvbmcgMAo+ID4gXG4iwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgCj4gPiBcCj4gPiDCoMKgwqDCoMKgwqDCoMKg
-Cj4gPiAiLmVuZGlmXG4iwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCAKPiA+IFwKPiA+IMKgwqDCoMKgwqDCoMKgwqAgIi5wb3BzZWN0aW9uIgo+ID4gKTvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+ID4gXAo+ID4gfSB3aGlsZSAoMCkKPiA+IAo+ID4g
-I2RlZmluZSBNRVJHRV8oYSxiKcKgIGEjI2IKPiA+ICNkZWZpbmUgVU5JUVVFX0JVR19JTlNUUl9M
-QUJFTChhKSBNRVJHRV8odW5pcXVlX25hbWVfLCBhKQo+ID4gCj4gPiAjZGVmaW5lIEJVR19GUkFN
-RSh0eXBlLCBsaW5lLCBmaWxlLCBoYXNfbXNnLCBtc2cpIGRvCj4gPiB7wqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIAo+ID4gXAo+ID4gwqDCoMKgIHVuc2lnbmVkIGludCBsaW5lX2xvID0g
-KCgobGluZSkgPj4gQlVHX0xJTkVfTE9fV0lEVEgpIDw8Cj4gPiBCVUdfRElTUF9XSURUSCk7wqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgCj4gPiDCoMKgIAo+ID4g
-XAo+ID4gwqDCoMKgIHVuc2lnbmVkIGludCBsaW5lX2hpID0gKChsaW5lICYgKCgxIDw8IEJVR19M
-SU5FX0xPX1dJRFRIKSAtIDEpKQo+ID4gPDwKPiA+IEJVR19ESVNQX1dJRFRIKTvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAKPiA+IMKgwqAgCj4gPiBcCj4gPiDC
-oMKgwqAKPiA+IEFMTE9DQVRFX0JGX1NFQ1RJT04oMSk7wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIAo+ID4gXAo+ID4gwqDCoMKgICooc2lnbmVkIGludCAqKSgmYnVnX2ZyYW1lcykgPSAodW5z
-aWduZWQgbG9uZykKPiA+ICYmVU5JUVVFX0JVR19JTlNUUl9MQUJFTChsaW5lKSAtICh1bnNpZ25l
-ZCBsb25nKSZidWdfZnJhbWVzICsKPiA+IGxpbmVfbG87Cj4gPiBcCj4gPiDCoMKgwqAgKigoc2ln
-bmVkIGludCAqKSgmYnVnX2ZyYW1lcykgKyAxKSA9ICh1bnNpZ25lZCBsb25nKWZpbGUgLQo+ID4g
-KHVuc2lnbmVkIGxvbmcpJmJ1Z19mcmFtZXMgK8KgCj4gPiBsaW5lX2hpO8KgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIAo+ID4gXAo+
-ID4gwqDCoMKgIGJ1Z192YXIubXNnX2Rpc3BbMV0gPSAoc2lnbmVkIGludCkoKHVuc2lnbmVkIGxv
-bmcpI21zZyAtCj4gPiAodW5zaWduZWQKPiA+IGxvbmcpJmJ1Z19mcmFtZXMpO8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgCj4gPiDCoMKgIAo+ID4gXAo+ID4gwqDCoMKg
-Cj4gPiBVTklRVUVfQlVHX0lOU1RSX0xBQkVMKGxpbmUpOsKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAKPiA+IFwK
-PiA+IMKgwqDCoMKgwqDCoMKgIGFzbSB2b2xhdGlsZQo+ID4gKCJub3AiKTvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCAKPiA+IH0gd2hpbGUgKDApCj4gPiAKPiA+IGV4dGVybiBjaGFyIGJ1Z19mcmFt
-ZXNbXTsKPiA+IAo+ID4gc3RhdGljIHN0cnVjdCBidWdfZnJhbWUgYnVnX3Zhcgo+ID4gX19hdHRy
-aWJ1dGVfXygoc2VjdGlvbigiYnVnX2ZyYW1lcyIpKSk7Cj4gPiAKPiA+IGludCBtYWluKCkgewo+
-ID4gwqDCoMKgIEJVR19GUkFNRSgxLCBfX0xJTkVfXywgX19GSUxFX18sIDEsICJURVNUIik7Cj4g
-PiAKPiA+IMKgwqDCoCBwcmludGYoImJ1Z19sb2M6ICVwXG4iLCBidWdfbG9jKCZidWdfdmFyKSk7
-Cj4gPiDCoMKgwqAgcHJpbnRmKCJidWdfcHRyOiAweCV4XG4iLCBidWdfcHRyKCZidWdfdmFyKSk7
-Cj4gPiDCoMKgwqAgcHJpbnRmKCJfX0ZJTEVfXzogJXNcbiIsIChjaGFyICopYnVnX3B0cigmYnVn
-X3ZhcikpOwo+ID4gwqDCoMKgIHByaW50ZigiYnVnX2xpbmU6ICVkXG4iLCBidWdfbGluZSgmYnVn
-X3ZhcikpOwo+ID4gwqDCoMKgIHByaW50ZigibXNnOiAlc1xuIiwgYnVnX21zZygmYnVnX3Zhcikp
-Owo+ID4gCj4gPiDCoMKgwqAgQlVHX0ZSQU1FKDEsIF9fTElORV9fLCBfX0ZJTEVfXywgMSwgIk5F
-VyBURVNUIik7Cj4gPiAKPiA+IMKgwqDCoCBwcmludGYoImJ1Z19sb2M6ICVwXG4iLCBidWdfbG9j
-KCZidWdfdmFyKSk7Cj4gPiDCoMKgwqAgcHJpbnRmKCJidWdfcHRyOiAweCV4XG4iLCBidWdfcHRy
-KCZidWdfdmFyKSk7Cj4gPiDCoMKgwqAgcHJpbnRmKCJfX0ZJTEVfXzogJXNcbiIsIChjaGFyICop
-YnVnX3B0cigmYnVnX3ZhcikpOwo+ID4gwqDCoMKgIHByaW50ZigiYnVnX2xpbmU6ICVkXG4iLCBi
-dWdfbGluZSgmYnVnX3ZhcikpOwo+ID4gwqDCoMKgIHByaW50ZigibXNnOiAlc1xuIiwgYnVnX21z
-ZygmYnVnX3ZhcikpOwo+ID4gCj4gPiDCoMKgwqAgcmV0dXJuIDA7Cj4gPiB9Cj4gPiAKPiA+IERv
-IHlvdSB0aGluayBpdCBtYWtlcyBhbnkgc2Vuc2U/IEluIHRoaXMgY2FzZSwgYWxsIEJVR19GUkFN
-RSBjYW4gYmUKPiA+IHJlLQo+ID4gdXNlZCBhbW9uZyBhbGwgYXJjaGl0ZWN0dXJlcywgYW5kIG9u
-bHkgYnVnIGluc3RydWN0aW9ucyBzaG91bGQgYmUKPiA+IGNoYW5nZWQuCj4gPiAKPiA+ID4gCj4g
-PiA+IH5BbmRyZXcKPiA+IH4gT2xla3NpaQo+IAoK
+flight 177538 xen-unstable real [real]
+flight 177584 xen-unstable real-retest [real]
+http://logs.test-lab.xenproject.org/osstest/logs/177538/
+http://logs.test-lab.xenproject.org/osstest/logs/177584/
 
+Regressions :-(
+
+Tests which did not succeed and are blocking,
+including tests which could not be run:
+ test-amd64-amd64-xl-qcow2    22 guest-start.2            fail REGR. vs. 177428
+
+Tests which are failing intermittently (not blocking):
+ test-amd64-amd64-xl-qcow2 21 guest-start/debian.repeat fail in 177584 pass in 177538
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm 12 debian-hvm-install fail pass in 177584-retest
+
+Tests which did not succeed, but are not blocking:
+ test-amd64-amd64-xl-qemut-win7-amd64 19 guest-stop            fail like 177428
+ test-amd64-i386-xl-qemuu-win7-amd64 19 guest-stop             fail like 177428
+ test-amd64-amd64-qemuu-nested-amd 20 debian-hvm-install/l1/l2 fail like 177428
+ test-amd64-amd64-xl-qemuu-ws16-amd64 19 guest-stop            fail like 177428
+ test-amd64-i386-xl-qemut-ws16-amd64 19 guest-stop             fail like 177428
+ test-amd64-i386-xl-qemut-win7-amd64 19 guest-stop             fail like 177428
+ test-amd64-amd64-xl-qemut-ws16-amd64 19 guest-stop            fail like 177428
+ test-amd64-i386-xl-qemuu-ws16-amd64 19 guest-stop             fail like 177428
+ test-amd64-amd64-xl-qemuu-win7-amd64 19 guest-stop            fail like 177428
+ test-amd64-amd64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-amd64-i386-xl-pvshim    14 guest-start                  fail   never pass
+ test-amd64-i386-libvirt-xsm  15 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt     15 migrate-support-check        fail   never pass
+ test-amd64-i386-libvirt      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl          16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-credit2  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit2  16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-thunderx 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-thunderx 16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-xsm      15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-xsm      16 saverestore-support-check    fail   never pass
+ test-arm64-arm64-libvirt-xsm 15 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-xsm 16 saverestore-support-check    fail   never pass
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-arm64-arm64-xl-credit1  15 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-credit1  16 saverestore-support-check    fail   never pass
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm 13 migrate-support-check fail never pass
+ test-amd64-i386-libvirt-raw  14 migrate-support-check        fail   never pass
+ test-amd64-amd64-libvirt-vhd 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 14 migrate-support-check        fail   never pass
+ test-arm64-arm64-libvirt-raw 15 saverestore-support-check    fail   never pass
+ test-arm64-arm64-xl-vhd      14 migrate-support-check        fail   never pass
+ test-arm64-arm64-xl-vhd      15 saverestore-support-check    fail   never pass
+ build-armhf-libvirt           1 build-check(1)               starved  n/a
+ test-armhf-armhf-examine      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt      1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-qcow2  1 build-check(1)               starved  n/a
+ test-armhf-armhf-libvirt-raw  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl           1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit1   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-credit2   1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-cubietruck  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-multivcpu  1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-rtds      1 build-check(1)               starved  n/a
+ test-armhf-armhf-xl-vhd       1 build-check(1)               starved  n/a
+ build-armhf                   2 hosts-allocate               starved  n/a
+
+version targeted for testing:
+ xen                  2e52dcc853a7183784cd9bdfb1e78ff366035209
+baseline version:
+ xen                  5b9bb91abba7c983def3b4bef71ab08ad360a242
+
+Last test of basis   177428  2023-02-15 22:10:26 Z    1 days
+Failing since        177485  2023-02-16 10:25:30 Z    0 days    2 attempts
+Testing same since   177538  2023-02-16 22:08:05 Z    0 days    1 attempts
+
+------------------------------------------------------------
+People who touched revisions under test:
+  Andrew Cooper <andrew.cooper3@citrix.com>
+  Jan Beulich <jbeulich@suse.com>
+  Michal Orzel <michal.orzel@amd.com>
+  Xenia Ragiadakou <burzalodowa@gmail.com>
+
+jobs:
+ build-amd64-xsm                                              pass    
+ build-arm64-xsm                                              pass    
+ build-i386-xsm                                               pass    
+ build-amd64-xtf                                              pass    
+ build-amd64                                                  pass    
+ build-arm64                                                  pass    
+ build-armhf                                                  starved 
+ build-i386                                                   pass    
+ build-amd64-libvirt                                          pass    
+ build-arm64-libvirt                                          pass    
+ build-armhf-libvirt                                          starved 
+ build-i386-libvirt                                           pass    
+ build-amd64-prev                                             pass    
+ build-i386-prev                                              pass    
+ build-amd64-pvops                                            pass    
+ build-arm64-pvops                                            pass    
+ build-armhf-pvops                                            pass    
+ build-i386-pvops                                             pass    
+ test-xtf-amd64-amd64-1                                       pass    
+ test-xtf-amd64-amd64-2                                       pass    
+ test-xtf-amd64-amd64-3                                       pass    
+ test-xtf-amd64-amd64-4                                       pass    
+ test-xtf-amd64-amd64-5                                       pass    
+ test-amd64-amd64-xl                                          pass    
+ test-amd64-coresched-amd64-xl                                pass    
+ test-arm64-arm64-xl                                          pass    
+ test-armhf-armhf-xl                                          starved 
+ test-amd64-i386-xl                                           pass    
+ test-amd64-coresched-i386-xl                                 pass    
+ test-amd64-amd64-libvirt-qemuu-debianhvm-amd64-xsm           pass    
+ test-amd64-i386-libvirt-qemuu-debianhvm-amd64-xsm            pass    
+ test-amd64-amd64-xl-qemut-stubdom-debianhvm-amd64-xsm        pass    
+ test-amd64-i386-xl-qemut-stubdom-debianhvm-amd64-xsm         pass    
+ test-amd64-amd64-xl-qemut-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemut-debianhvm-i386-xsm                  fail    
+ test-amd64-amd64-xl-qemuu-debianhvm-i386-xsm                 pass    
+ test-amd64-i386-xl-qemuu-debianhvm-i386-xsm                  pass    
+ test-amd64-amd64-libvirt-xsm                                 pass    
+ test-arm64-arm64-libvirt-xsm                                 pass    
+ test-amd64-i386-libvirt-xsm                                  pass    
+ test-amd64-amd64-xl-xsm                                      pass    
+ test-arm64-arm64-xl-xsm                                      pass    
+ test-amd64-i386-xl-xsm                                       pass    
+ test-amd64-amd64-qemuu-nested-amd                            fail    
+ test-amd64-amd64-xl-pvhv2-amd                                pass    
+ test-amd64-i386-qemut-rhel6hvm-amd                           pass    
+ test-amd64-i386-qemuu-rhel6hvm-amd                           pass    
+ test-amd64-amd64-dom0pvh-xl-amd                              pass    
+ test-amd64-amd64-xl-qemut-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemut-debianhvm-amd64                     pass    
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64                    pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64                     pass    
+ test-amd64-i386-freebsd10-amd64                              pass    
+ test-amd64-amd64-qemuu-freebsd11-amd64                       pass    
+ test-amd64-amd64-qemuu-freebsd12-amd64                       pass    
+ test-amd64-amd64-xl-qemuu-ovmf-amd64                         pass    
+ test-amd64-i386-xl-qemuu-ovmf-amd64                          pass    
+ test-amd64-amd64-xl-qemut-win7-amd64                         fail    
+ test-amd64-i386-xl-qemut-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-win7-amd64                         fail    
+ test-amd64-i386-xl-qemuu-win7-amd64                          fail    
+ test-amd64-amd64-xl-qemut-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemut-ws16-amd64                          fail    
+ test-amd64-amd64-xl-qemuu-ws16-amd64                         fail    
+ test-amd64-i386-xl-qemuu-ws16-amd64                          fail    
+ test-amd64-amd64-examine-bios                                pass    
+ test-amd64-i386-examine-bios                                 pass    
+ test-amd64-amd64-xl-credit1                                  pass    
+ test-arm64-arm64-xl-credit1                                  pass    
+ test-armhf-armhf-xl-credit1                                  starved 
+ test-amd64-amd64-xl-credit2                                  pass    
+ test-arm64-arm64-xl-credit2                                  pass    
+ test-armhf-armhf-xl-credit2                                  starved 
+ test-armhf-armhf-xl-cubietruck                               starved 
+ test-amd64-amd64-xl-qemuu-dmrestrict-amd64-dmrestrict        pass    
+ test-amd64-i386-xl-qemuu-dmrestrict-amd64-dmrestrict         pass    
+ test-amd64-amd64-examine                                     pass    
+ test-arm64-arm64-examine                                     pass    
+ test-armhf-armhf-examine                                     starved 
+ test-amd64-i386-examine                                      pass    
+ test-amd64-i386-freebsd10-i386                               pass    
+ test-amd64-amd64-qemuu-nested-intel                          pass    
+ test-amd64-amd64-xl-pvhv2-intel                              pass    
+ test-amd64-i386-qemut-rhel6hvm-intel                         pass    
+ test-amd64-i386-qemuu-rhel6hvm-intel                         pass    
+ test-amd64-amd64-dom0pvh-xl-intel                            pass    
+ test-amd64-amd64-libvirt                                     pass    
+ test-armhf-armhf-libvirt                                     starved 
+ test-amd64-i386-libvirt                                      pass    
+ test-amd64-amd64-livepatch                                   pass    
+ test-amd64-i386-livepatch                                    pass    
+ test-amd64-amd64-migrupgrade                                 pass    
+ test-amd64-i386-migrupgrade                                  pass    
+ test-amd64-amd64-xl-multivcpu                                pass    
+ test-armhf-armhf-xl-multivcpu                                starved 
+ test-amd64-amd64-pair                                        pass    
+ test-amd64-i386-pair                                         pass    
+ test-amd64-amd64-libvirt-pair                                pass    
+ test-amd64-i386-libvirt-pair                                 pass    
+ test-amd64-amd64-xl-pvshim                                   pass    
+ test-amd64-i386-xl-pvshim                                    fail    
+ test-amd64-amd64-pygrub                                      pass    
+ test-armhf-armhf-libvirt-qcow2                               starved 
+ test-amd64-amd64-xl-qcow2                                    fail    
+ test-arm64-arm64-libvirt-raw                                 pass    
+ test-armhf-armhf-libvirt-raw                                 starved 
+ test-amd64-i386-libvirt-raw                                  pass    
+ test-amd64-amd64-xl-rtds                                     pass    
+ test-armhf-armhf-xl-rtds                                     starved 
+ test-amd64-amd64-xl-qemuu-debianhvm-amd64-shadow             pass    
+ test-amd64-i386-xl-qemuu-debianhvm-amd64-shadow              pass    
+ test-amd64-amd64-xl-shadow                                   pass    
+ test-amd64-i386-xl-shadow                                    pass    
+ test-arm64-arm64-xl-thunderx                                 pass    
+ test-amd64-amd64-examine-uefi                                pass    
+ test-amd64-i386-examine-uefi                                 pass    
+ test-amd64-amd64-libvirt-vhd                                 pass    
+ test-arm64-arm64-xl-vhd                                      pass    
+ test-armhf-armhf-xl-vhd                                      starved 
+ test-amd64-i386-xl-vhd                                       pass    
+
+
+------------------------------------------------------------
+sg-report-flight on osstest.test-lab.xenproject.org
+logs: /home/logs/logs
+images: /home/logs/images
+
+Logs, config files, etc. are available at
+    http://logs.test-lab.xenproject.org/osstest/logs
+
+Explanation of these reports, and of osstest in general, is at
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README.email;hb=master
+    http://xenbits.xen.org/gitweb/?p=osstest.git;a=blob;f=README;hb=master
+
+Test harness code can be found at
+    http://xenbits.xen.org/gitweb?p=osstest.git;a=summary
+
+
+Not pushing.
+
+------------------------------------------------------------
+commit 2e52dcc853a7183784cd9bdfb1e78ff366035209
+Author: Xenia Ragiadakou <burzalodowa@gmail.com>
+Date:   Thu Feb 16 10:15:35 2023 +0100
+
+    x86/vlapic: call vmx_vlapic_msr_changed through an hvm_function callback
+    
+    APIC virtualization support is currently implemented only for Intel VT-x.
+    To aid future work on separating AMD-V from Intel VT-x code, instead of
+    calling directly vmx_vlapic_msr_changed() from common hvm code, add a stub
+    to the hvm_function_table, named update_vlapic_mode, and create a wrapper
+    function, called hvm_vlapic_mode(), to be used by common hvm code.
+    
+    After the change above, do not include header asm/hvm/vmx/vmx.h as it is
+    not required anymore and resolve subsequent build errors for implicit
+    declaration of functions ‘TRACE_2_LONG_3D’ and ‘TRC_PAR_LONG’ by including
+    missing asm/hvm/trace.h header.
+    
+    No functional change intended.
+    
+    Signed-off-by: Xenia Ragiadakou <burzalodowa@gmail.com>
+    Reviewed-by: Jan Beulich <jbeulich@suse.com>
+    Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+
+commit 727bf4cd0751782d100603a076f0e66f218cc3b8
+Author: Jan Beulich <jbeulich@suse.com>
+Date:   Thu Feb 16 10:14:49 2023 +0100
+
+    ACPI/CPER: use standard C types
+    
+    Consolidate cper.h to use exclusively standard types.
+    
+    No functional change intended.
+    
+    Signed-off-by: Jan Beulich <jbeulich@suse.com>
+    Acked-by: Andrew Cooper <andrew.cooper3@citrix.com>
+
+commit 91c45cfbab5d9878c0a7021f762988a688d5e91d
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Mon Feb 6 14:05:28 2023 +0100
+
+    xen/arm: Print return code from domain_create and construct_dom{0,U} on panic
+    
+    This might be helpful in providing additional debugging information (in
+    most cases, at least to distinguish -EINVAL from -ENOMEM), so modify the
+    code to include printing return code in panic message. In create_dom0,
+    move the call to alloc_dom0_vcpu0() to a separate condition and call a
+    meaningful panic message.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Luca Fancellu <luca.fancellu@arm.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 768e405feabe58effbba75e5b1f782d678119c60
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Feb 14 16:38:42 2023 +0100
+
+    automation: Add a true dom0less test on arm32
+    
+    Add a new test job qemu-smoke-dom0less-arm32-gcc-without-dom0 in debug
+    and non-debug variant that will execute qemu-smoke-dom0less-arm32.sh
+    script to test dom0less domU boot without dom0 (i.e. true dom0less
+    configuration).
+    
+    By passing "without-dom0" as a test variant, the test will clear the
+    dom0 prompt that we grep for as a last step and remove all the DOM0
+    related options in ImageBuilder configuration.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit d28b226244abcb4b32e07de52df96b6b1686a240
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Feb 14 16:38:41 2023 +0100
+
+    automation: Add a gzip compressed kernel image test on arm32
+    
+    Xen supports booting gzip compressed kernels, therefore add a new test
+    job qemu-smoke-dom0less-arm32-gcc-gzip in debug and non-debug variant
+    that will execute qemu-smoke-dom0less-arm32.sh script to test booting
+    a domU with a gzip compressed kernel image (in our case zImage).
+    
+    By passing "gzip" as a test variant, the test will call gzip command
+    to compress kernel image and use it in ImageBuilder configuration for
+    domU1. No need for a specific check to be executed from domU. Being able
+    to see a test message from a boot log is sufficient to mark a test as
+    passed.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit a6ce51ac3de8267ed4e2e7f2e1cf93d51c6d797a
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Feb 14 16:38:40 2023 +0100
+
+    automation: Add a static memory allocation test on arm32
+    
+    Add a new test job qemu-smoke-dom0less-arm32-gcc-staticmem in debug
+    and non-debug variant that will execute qemu-smoke-dom0less-arm32.sh
+    script to test static memory allocation feature. The test case itself
+    is directly taken from dom0less arm64 testing.
+    
+    Populate build jobs to compile Xen with config options necessary to
+    enable static memory feature. Populate test jobs passing "static-mem"
+    as a test variant. The test configures domU with a static memory region
+    (direct-mapped) and adds a check using /proc/iomem to determine the
+    memory region marked as "System RAM".
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit 42ea8ddab8e003d272e897abec0b89270a90a9b0
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Feb 14 16:38:39 2023 +0100
+
+    automation: Add arm32 dom0less testing
+    
+    At the moment, we only perform a single arm32 test in our CI, checking
+    whether dom0 boots successfully or not. This is mostly because we do not
+    have any arm32 runners and we only execute a hypervisor only build.
+    
+    In order not to leave the arm32 testing in such a poor state, add a
+    script qemu-smoke-dom0less-arm32.sh to start testing dom0less
+    configuration, while keeping dom0 to make the test more interesting.
+    
+    The script is mostly based on the one used for dom0 arm32 testing as well
+    as the one used for dom0less arm64 testing. We obtain Debian Bullseye
+    kernel and Alpine Linux busybox-based rootfs. Depending on the test
+    variant, we prepare a test case contained within domU_check variable,
+    that will be executed as part of /init script from domU rootfs.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+
+commit a35fccc8df93de7154dba87db6e7bcf391e9d51c
+Author: Michal Orzel <michal.orzel@amd.com>
+Date:   Tue Feb 14 16:38:38 2023 +0100
+
+    automation: Switch arm32 cross builds to run on arm64
+    
+    Due to the limited x86 CI resources slowing down the whole pipeline,
+    switch the arm32 cross builds to be executed on arm64 which is much more
+    capable. For that, rename the existing debian container dockerfile
+    from unstable-arm32-gcc to unstable-arm64v8-arm32-gcc and use
+    arm64v8/debian:unstable as an image. Note, that we cannot use the same
+    container name as we have to keep the backwards compatibility.
+    Take the opportunity to remove extra empty line at the end of a file.
+    
+    Modify the tag of .arm32-cross-build-tmpl to arm64 and update the build
+    jobs accordingly.
+    
+    Signed-off-by: Michal Orzel <michal.orzel@amd.com>
+    Reviewed-by: Stefano Stabellini <sstabellini@kernel.org>
+(qemu changes not included)
 
